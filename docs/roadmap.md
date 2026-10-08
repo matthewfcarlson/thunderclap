@@ -1,6 +1,6 @@
 # Roadmap
 
-From "every function matches" to a rebuildable, moddable, portable game. Stages are roughly in dependency order. The quality-of-life and asset tracks (stage 6) can start much earlier; see the notes there.
+From "every function matches" to a rebuildable, moddable, portable game. Concrete, self-contained task briefs for the non-matching work are in [`docs/tasks/`](tasks/README.md). Stages are roughly in dependency order. The quality-of-life and asset tracks (stage 6) can start much earlier; see the notes there.
 
 ## Stage 1: Match every game function *(in progress)*
 - Farm plus propagation produce one standalone `.cpp` per function in `matches/`, with invented names and stub classes.
