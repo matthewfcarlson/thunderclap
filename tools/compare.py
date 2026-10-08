@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """Compile a source file with MSVC 7.1 (via wibo) and compare a function against the XBE.
 
-Usage: tools/compare.py src/foo.cpp '?Release@RefCounted@pure3d@@UAEXXZ' 0x18b40 [-- extra cl flags]
-       tools/compare.py src/foo.cpp Release 0x18b40      (substring match on symbol name)
+Usage: tools/compare.py src/foo.cpp 0x18b40 [symbol] [--json] [--full] [-- extra cl flags]
+
+symbol is an exact mangled name or a substring; without it, every function defined
+in the object is tried and the best match is reported.
 
 Bytes covered by a relocation in the compiled object are masked on both sides
 (absolute addresses / call targets can't be compared until we link).
 """
+import json
 import os
 import struct
 import subprocess
@@ -29,11 +32,20 @@ DEFAULT_FLAGS = ["/nologo", "/c", "/O2", "/GR", "/GX", "/Gy"]
 def compile_obj(src, flags, out_dir):
     obj = os.path.join(out_dir, os.path.splitext(os.path.basename(src))[0] + ".obj")
     env = dict(os.environ, INCLUDE=os.path.join(MSVC, "Include") + ";" + os.path.join(ROOT, "include"))
-    cmd = [WIBO, os.path.join(MSVC, "Bin/cl.exe")] + flags + ["/Fo" + obj, src]
-    r = subprocess.run(cmd, env=env, capture_output=True, text=True)
+    # cl parses a leading "/" as a switch, so pass the source relative to its own directory.
+    src_dir, src_name = os.path.split(os.path.abspath(src))
+    cmd = [WIBO, os.path.join(MSVC, "Bin/cl.exe")] + flags + ["/Fo" + obj, src_name]
+    r = subprocess.run(cmd, env=env, capture_output=True, text=True, cwd=src_dir)
     if r.returncode != 0 or not os.path.exists(obj):
-        sys.exit("compile failed:\n" + r.stdout + r.stderr)
+        # Drop the echoed file name; keep paths short for the model.
+        lines = [l.replace(os.path.dirname(os.path.abspath(src)) + os.sep, "")
+                 for l in (r.stdout + r.stderr).splitlines() if l.strip() and l.strip() != os.path.basename(src)]
+        raise CompileError("\n".join(lines[:20]))
     return obj
+
+
+class CompileError(Exception):
+    pass
 
 
 class Coff:
@@ -62,12 +74,12 @@ class Coff:
             self.symbols.append((name, value, secnum, typ, cls))
             i += 1 + naux
 
-    def function(self, query):
-        funcs = [s for s in self.symbols if s[2] > 0 and s[3] == 0x20]  # DTYPE_FUNCTION
-        hits = [s for s in funcs if s[0] == query] or [s for s in funcs if query in s[0]]
-        if len(hits) != 1:
-            sys.exit("symbol %r matched %d functions: %s" % (query, len(hits), [s[0] for s in funcs]))
-        name, value, secnum, _, _ = hits[0]
+    def function_symbols(self):
+        return [s for s in self.symbols if s[2] > 0 and s[3] == 0x20]  # DTYPE_FUNCTION
+
+    def function(self, sym):
+        name, value, secnum, _, _ = sym
+        funcs = self.function_symbols()
         _, raw, relocs = self.sections[secnum - 1]
         # With /Gy each function is its own COMDAT section; otherwise bound by next symbol.
         ends = sorted(s[1] for s in funcs if s[2] == secnum and s[1] > value)
@@ -84,50 +96,111 @@ def strip_padding(b):
     return b.rstrip(b"\xcc").rstrip(b"\x90") if b else b
 
 
-def main(argv):
-    extra = []
-    if "--" in argv:
-        i = argv.index("--")
-        argv, extra = argv[:i], argv[i + 1:]
-    src, query, addr = argv[0], argv[1], int(argv[2], 16)
-    flags = DEFAULT_FLAGS + extra
-
-    with tempfile.TemporaryDirectory() as tmp:
-        name, ours, mask = Coff(compile_obj(src, flags, tmp)).function(query)
-
-    xbe = Xbe(XBE_PATH)
+def target_bytes(addr):
     size, tname = load_functions()[addr]
+    xbe = Xbe(XBE_PATH)
     o = xbe.offset(addr)
-    target = xbe.data[o:o + size]
-    ours = strip_padding(ours)
+    return tname, xbe.data[o:o + size]
 
-    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
-    md.syntax = capstone.CS_OPT_SYNTAX_INTEL
-    t_insns = list(md.disasm(target, 0))
-    o_insns = list(md.disasm(ours, 0))
+
+_md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+_md.syntax = capstone.CS_OPT_SYNTAX_INTEL
+
+
+def diff(target, ours, mask):
+    t_insns = list(_md.disasm(target, 0))
+    o_insns = list(_md.disasm(ours, 0))
 
     def masked_eq(ti, oi):
         if ti.size != oi.size:
             return False
         return all(ti.bytes[k] == oi.bytes[k] or (oi.address + k) in mask for k in range(ti.size))
 
+    fmt = lambda i: ("%s %s" % (i.mnemonic, i.op_str)) if i else ""
     rows, matched = [], 0
     for k in range(max(len(t_insns), len(o_insns))):
         ti = t_insns[k] if k < len(t_insns) else None
         oi = o_insns[k] if k < len(o_insns) else None
         ok = ti is not None and oi is not None and masked_eq(ti, oi)
         matched += ok
-        fmt = lambda i: "%-30s" % ("%s %s" % (i.mnemonic, i.op_str) if i else "")
-        rows.append("%s %04x  %s | %s" % ("  " if ok else "!!", ti.address if ti else oi.address, fmt(ti), fmt(oi)))
-
-    total = max(len(t_insns), len(o_insns))
+        rows.append((ok, (ti or oi).address, fmt(ti), fmt(oi)))
+    total = max(len(t_insns), len(o_insns), 1)
     exact = len(target) == len(ours) and matched == total
-    print("%s  %s  vs  %s @ %#x" % ("MATCH" if exact else "DIFF ", name, tname, addr))
-    print("bytes: target %d, ours %d; instructions matched %d/%d (reloc bytes masked: %d)"
-          % (len(target), len(ours), matched, total, len(mask)))
-    print("       %-30s | %-30s" % ("target", "ours"))
-    print("\n".join(rows))
-    return 0 if exact else 1
+    return {"exact": exact, "matched": matched, "total": total,
+            "target_bytes": len(target), "our_bytes": len(ours), "rows": rows}
+
+
+def compare(src, addr, symbol=None, flags=()):
+    """Compile src and compare against the function at addr. Returns a result dict."""
+    tname, target = target_bytes(addr)
+    with tempfile.TemporaryDirectory() as tmp:
+        try:
+            coff = Coff(compile_obj(src, DEFAULT_FLAGS + list(flags), tmp))
+        except CompileError as e:
+            return {"status": "compile_error", "target": tname, "error": str(e)}
+    syms = coff.function_symbols()
+    if symbol:
+        syms = [s for s in syms if s[0] == symbol] or [s for s in syms if symbol in s[0]]
+    if not syms:
+        return {"status": "no_function", "target": tname,
+                "error": "no function body found in the object" + (" matching %r" % symbol if symbol else "")}
+    best = None
+    for sym in syms:
+        name, ours, mask = coff.function(sym)
+        d = diff(target, strip_padding(ours), mask)
+        key = (d["exact"], d["matched"] / d["total"], -abs(d["target_bytes"] - d["our_bytes"]))
+        if best is None or key > best[0]:
+            best = (key, name, d)
+    _, name, d = best
+    return dict(d, status="match" if d["exact"] else "diff", symbol=name, target=tname,
+                score=round(d["matched"] / d["total"], 3))
+
+
+def render(r, full=False, context=1):
+    """Human/LLM-readable report. Compact mode shows only mismatches with a little context."""
+    if r["status"] in ("compile_error", "no_function"):
+        return "%s\n%s" % (r["status"].upper(), r["error"])
+    out = ["%s %s  vs  %s" % ("MATCH" if r["exact"] else "DIFF", r["symbol"], r["target"]),
+           "bytes target=%d ours=%d, instructions matched %d/%d" % (
+               r["target_bytes"], r["our_bytes"], r["matched"], r["total"])]
+    if r["exact"]:
+        return "\n".join(out)
+    rows = r["rows"]
+    show = set(range(len(rows))) if full else {
+        j for i, row in enumerate(rows) if not row[0] for j in range(i - context, i + context + 1) if 0 <= j < len(rows)}
+    out.append("    off  %-34s | ours" % "target")
+    skipped = 0
+    for i, (ok, off, t, o) in enumerate(rows):
+        if i not in show:
+            skipped += 1
+            continue
+        if skipped:
+            out.append("    ... %d matching" % skipped)
+            skipped = 0
+        out.append("%s %04x  %-34s | %s" % ("  " if ok else "!!", off, t, o))
+    if skipped:
+        out.append("    ... %d matching" % skipped)
+    return "\n".join(out)
+
+
+def main(argv):
+    extra = []
+    if "--" in argv:
+        i = argv.index("--")
+        argv, extra = argv[:i], argv[i + 1:]
+    as_json = "--json" in argv
+    full = "--full" in argv
+    pos = [a for a in argv if a not in ("--json", "--full")]
+    src = pos[0]
+    addr = next(int(a, 16) for a in pos[1:] if a.startswith("0x"))
+    symbol = next((a for a in pos[1:] if not a.startswith("0x")), None)
+    r = compare(src, addr, symbol, extra)
+    if as_json:
+        r = {k: v for k, v in r.items() if k != "rows"} | {"report": render(r, full)}
+        print(json.dumps(r))
+    else:
+        print(render(r, full=True if not as_json else full))
+    return 0 if r["status"] == "match" else 1
 
 
 if __name__ == "__main__":

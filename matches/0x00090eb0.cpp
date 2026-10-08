@@ -1,0 +1,34 @@
+extern void* VT_Method2[2];
+extern void* VT_Closure2[2];
+extern void* TAB_48e100;
+extern void* TAB_48e0f0;
+extern void* TAB_48e134;
+
+void __stdcall RegisterMethod(void* a1, int b);
+char __cdecl LookupFlag(const void* tbl);
+
+class Closure2 {
+public:
+    void* vfptr;      // 0x00
+    char pad04[12];   // 0x04
+    char mFlag10;     // 0x10
+    char mFlag11;     // 0x11
+    char pad12[6];    // 0x12
+    char mFlag18;     // 0x18
+    char pad19[3];    // 0x19
+    int mA3;          // 0x1c
+    int mA2;          // 0x20
+
+    Closure2(void* a1, int a2, int a3);
+};
+
+Closure2::Closure2(void* a1, int a2, int a3) {
+    RegisterMethod(a1, 2);
+    vfptr = (void*)VT_Method2;
+    mA3 = a3;
+    mFlag18 = LookupFlag(&TAB_48e100);
+    mFlag10 = LookupFlag(&TAB_48e0f0);
+    mFlag11 = LookupFlag(&TAB_48e134);
+    vfptr = (void*)VT_Closure2;
+    mA2 = a2;
+}

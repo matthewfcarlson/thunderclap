@@ -1,0 +1,13 @@
+{
+  "name": "hulk-decomp-farm",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "farm": "node --experimental-strip-types src/farm.ts"
+  },
+  "dependencies": {
+    "@earendil-works/chord": "1.1.0",
+    "@earendil-works/pi-ai": "1.1.0",
+    "@earendil-works/pi-durable": "1.1.0"
+  }
+}
