@@ -298,7 +298,7 @@ async function main() {
 		registry,
 		settings: {
 			extensions: [Decomp],
-			stream: { timeoutMs: 240_000 },
+			stream: { timeoutMs: 90_000 },
 			retry: { maxRetries: 3 },
 			compaction: { enabled: false },
 			toolExecution: "sequential",
