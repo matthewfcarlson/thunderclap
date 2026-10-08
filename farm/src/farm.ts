@@ -54,7 +54,7 @@ type Tier = {
 // Free OpenAI-compatible servers (LM Studio / llama.cpp / MLX / Ollama). farm/endpoints.json (gitignored):
 //   { "big": { "baseUrl": "http://mac1:1234/v1", "apiKey": "...", "concurrency": 4 }, "small": { ... } }
 // Tiers name their models "<endpoint>/<model id>". LOCAL_LLM_BASE_URL/LOCAL_LLM_API_KEY define "local".
-type Endpoint = { baseUrl: string; apiKey?: string; concurrency?: number };
+type Endpoint = { baseUrl: string; apiKey?: string; concurrency?: number; thinking?: boolean; maxTokens?: number };
 
 // Per-conversation job state, committed with the transcript.
 type JobState = {
@@ -194,7 +194,8 @@ function endpointProvider(name: string, ep: Endpoint, modelIds: string[]) {
 			id, name: id, api: "openai-completions" as const, provider: name, baseUrl: ep.baseUrl,
 			reasoning: true, input: ["text" as const],
 			cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
-			contextWindow: 131072, maxTokens: 32768,
+			// Small local models can loop forever inside a tool argument; one C++ TU fits easily in 4k tokens.
+			contextWindow: 131072, maxTokens: ep.maxTokens ?? 4096,
 		})),
 		api: openAICompletionsApi(),
 	} as any);
@@ -220,6 +221,24 @@ class Semaphore {
 }
 
 const ENDPOINTS = loadEndpoints();
+
+// Local reasoning models ignore "low" effort and think for 20k+ tokens before acting. For endpoints
+// with "thinking": false (the default), rewrite chat requests to disable thinking in the chat template.
+{
+	const noThink = Object.values(ENDPOINTS).filter((e) => e.thinking !== true).map((e) => e.baseUrl.replace(/\/$/, ""));
+	const realFetch = globalThis.fetch;
+	globalThis.fetch = async (input: any, init?: any) => {
+		const url = typeof input === "string" ? input : input instanceof URL ? input.href : input.url;
+		if (noThink.some((b) => url.startsWith(b)) && url.endsWith("/chat/completions") && typeof init?.body === "string") {
+			const body = JSON.parse(init.body);
+			body.chat_template_kwargs = { ...(body.chat_template_kwargs ?? {}), enable_thinking: false };
+			delete body.reasoning_effort;
+			delete body.reasoning;
+			init = { ...init, body: JSON.stringify(body) };
+		}
+		return realFetch(input, init);
+	};
+}
 const isFree = (model: string) => model.slice(0, model.indexOf("/")) in ENDPOINTS;
 
 function parseModel(m: string) {
