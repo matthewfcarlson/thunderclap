@@ -188,7 +188,8 @@ function endpointProvider(name: string, ep: Endpoint, modelIds: string[]) {
 		id: name,
 		name,
 		baseUrl: ep.baseUrl,
-		auth: { apiKey: { name: `${name} LLM`, resolve: async () => ({ auth: ep.apiKey ? { apiKey: ep.apiKey } : {} }) } },
+		// pi-ai treats an empty credential as "no API key"; keyless local servers ignore the placeholder.
+		auth: { apiKey: { name: `${name} LLM`, resolve: async () => ({ auth: { apiKey: ep.apiKey ?? "local" } }) } },
 		models: modelIds.map((id) => ({
 			id, name: id, api: "openai-completions" as const, provider: name, baseUrl: ep.baseUrl,
 			reasoning: true, input: ["text" as const],
