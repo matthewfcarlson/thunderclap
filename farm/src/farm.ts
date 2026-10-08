@@ -249,6 +249,7 @@ async function main() {
 
 	// Finished (addr, tier) pairs from the ledger; matched addresses are skipped entirely.
 	const finished = new Map<string, Set<number>>();
+	const failures = new Map<string, number>(); // addr:tier -> earlier provider-error runs (new requestId each retry)
 	const budget = Number(values.budget);
 	let spent = 0;
 	const benchDir = join(BUILD, "bench");
@@ -260,6 +261,12 @@ async function main() {
 		for (const line of readFileSync(ledgerPath, "utf8").split("\n")) {
 			if (!line) continue;
 			const r = JSON.parse(line);
+			// Provider/model errors (timeouts, 429s) didn't really try the tier; retry it next run.
+			if (r.status === "failed") {
+				const k = `${r.addr}:${r.tier}`;
+				failures.set(k, (failures.get(k) ?? 0) + 1);
+				continue;
+			}
 			if (!finished.has(r.addr)) finished.set(r.addr, new Set());
 			finished.get(r.addr)!.add(r.status === "match" ? -1 : r.tier);
 		}
@@ -336,7 +343,8 @@ async function main() {
 		const workDir = join(BUILD, "work", WORK_TAG, addr);
 		mkdirSync(workDir, { recursive: true });
 		writeFileSync(join(workDir, `t${t}_prompt.txt`), content);
-		const sub = await conv.submit({ type: "input", content, requestId: key }, ctx);
+		const retry = failures.get(key) ?? 0;
+		const sub = await conv.submit({ type: "input", content, requestId: retry ? `${key}:retry${retry}` : key }, ctx);
 		const settled = await sub.wait(ctx);
 		const job = (await harness.snapshot(Job, conv.id, ctx))!;
 		const usage = await harness.snapshot(UsageDoc, conv.id, ctx);
@@ -356,6 +364,7 @@ async function main() {
 				: {}),
 		};
 		appendFileSync(ledgerPath, JSON.stringify(rec) + "\n");
+		if (status === "failed") failures.set(key, retry + 1);
 		spent += rec.cost;
 		console.log(`${addr} t${t} ${tier.model.padEnd(32)} ${status.padEnd(9)} att=${job.attempts} best=${job.bestScore.toFixed(2)} $${rec.cost} ${rec.secs}s`);
 		return job;
@@ -396,6 +405,7 @@ async function main() {
 				const limit = limits.get(parseModel(tiers[t].model).provider);
 				const job = limit ? await limit.run(() => runTier(addr, t, previous)) : await runTier(addr, t, previous);
 				if (job.status === "match") return;
+				if (job.status === "running") return; // provider error: retry this tier on a later run
 				previous = await handoff(addr, t + 1);
 			} catch (e: any) {
 				console.error(`${addr} t${t} error: ${e?.message ?? e}`);

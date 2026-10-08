@@ -138,11 +138,34 @@ def diff(target, ours, mask):
     tk, ok_ = [_key(i) for i in t_insns], [_key(i) for i in o_insns]
     rows, matched = [], 0
     sm = difflib.SequenceMatcher(None, tk, ok_, autojunk=False)
-    for op, i1, i2, j1, j2 in sm.get_opcodes():
+    opcodes = sm.get_opcodes()
+    # Map our instruction offsets to the aligned target offsets, to check branch destinations.
+    o2t = {}
+    for op, i1, i2, j1, j2 in opcodes:
         if op == "equal":
             for a, b in zip(t_insns[i1:i2], o_insns[j1:j2]):
-                matched += 1
-                rows.append(("  ", a.address, fmt(a), fmt(b)))
+                o2t[b.address] = a.address
+
+    def pair_eq(a, b):
+        if a.size != b.size:
+            return False
+        is_branch = a.mnemonic == "call" or a.mnemonic.startswith("j")
+        if is_branch and a.bytes[0] in (0xE8, 0xE9, 0xEB) or (is_branch and 0x70 <= a.bytes[0] <= 0x7F) or (
+                is_branch and a.bytes[0] == 0x0F and a.size == 6):
+            if any(b.address + k in mask for k in range(b.size)):
+                return a.bytes[0] == b.bytes[0]  # relocated call/jmp to another function
+            ta = int(a.op_str, 16) if a.op_str.startswith("0x") else None
+            tb = int(b.op_str, 16) if b.op_str.startswith("0x") else None
+            return a.bytes[:a.size - (4 if a.size >= 5 else 1)] == b.bytes[:b.size - (4 if b.size >= 5 else 1)] \
+                and ta is not None and o2t.get(tb) == ta
+        return all(a.bytes[k] == b.bytes[k] or (b.address + k) in mask for k in range(a.size))
+
+    for op, i1, i2, j1, j2 in opcodes:
+        if op == "equal":
+            for a, b in zip(t_insns[i1:i2], o_insns[j1:j2]):
+                same = pair_eq(a, b)
+                matched += same
+                rows.append(("  " if same else "!!", a.address, fmt(a), fmt(b)))
             continue
         n = max(i2 - i1, j2 - j1)
         for k in range(n):

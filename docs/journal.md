@@ -101,3 +101,9 @@ Newest entries go at the bottom of each day.
 - The compare tool paired the target's k-th instruction with our k-th, so one extra or missing instruction early on marked everything after it as wrong. Large functions looked hopeless (scores of 0.0–0.4) partly because the *feedback* was misleading.
 - Switched to LCS alignment on normalized instructions (branch/call targets and image addresses ignored), with tags `!!` differs, `--` missing in ours, `++` extra in ours. Score = aligned-equal / target instructions. Exact-match checking is unchanged (byte-identical at identical offsets).
 - Re-scoring Luna's large-function attempts: 0.43 → 0.74, 0.58 → 0.79, 0.51 → 0.68, 0.03 → 0.33. The models were much closer than they were told.
+
+### Parallelism and three more correctness fixes
+- Concurrency 12 → 32: a compile and compare takes 0.17 s and the box sat at load ~2.5/8, so the model API is the only bottleneck. Seen so far: 10 timeouts and 2 upstream 429s.
+- Provider errors used to mark a tier "done" and escalate. Now they're retried on the next run with a fresh `requestId`, in the same conversation, so earlier attempts are kept.
+- The aligned score let branches/calls "match" by mnemonic alone, so Haiku reported best=1.00 while not matching. Aligned pairs now need equal bytes (relocs masked), and jumps must land on the aligned instruction. Honest score for that case: 4/9.
+- **Truncated function bodies**: `ExportFunctions` recorded only the first address range of each Ghidra function. 1,081 game functions are multi-chunk (mostly switch jump tables MSVC places inline after the code), and 1,089 had jumps leaving their recorded body. Those could *never* match. Sizes now span the whole body (11 that would swallow a neighbour keep the old size). No existing match was affected. The ≤96-byte queue is now 17,829 functions / 6,189 shapes.
