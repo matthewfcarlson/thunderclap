@@ -257,6 +257,7 @@ async function main() {
 			db: { type: "string", default: join(BUILD, "farm.sqlite") },
 			budget: { type: "string", default: "50" }, // USD, all-time across every ledger; free tiers ignore it
 			bench: { type: "string" }, // isolated run: own ledger/db/matches dir, ignores existing matches
+			lane: { type: "string" }, // parallel worker lane: own ledger/db, but writes to and skips main matches/
 		},
 	});
 	const tiers: Tier[] = JSON.parse(readFileSync(values.tiers!, "utf8"));
@@ -266,12 +267,15 @@ async function main() {
 		if (a) sizes.set("0x" + parseInt(a, 16).toString(16).padStart(8, "0"), Number(size));
 	}
 	const bench = values.bench;
-	const ledgerPath = bench ? join(BUILD, "bench", `${bench}.jsonl`) : join(BUILD, "results.jsonl");
+	const lane = values.lane;
+	if (bench && lane) throw new Error("--bench and --lane are exclusive");
+	const ledgerPath = bench ? join(BUILD, "bench", `${bench}.jsonl`) : lane ? join(BUILD, "lanes", `${lane}.jsonl`) : join(BUILD, "results.jsonl");
 	const matchesDir = bench ? join(BUILD, "bench", bench, "matches") : join(ROOT, "matches");
-	const dbPath = bench ? join(BUILD, "bench", `${bench}.sqlite`) : values.db!;
+	const dbPath = bench ? join(BUILD, "bench", `${bench}.sqlite`) : lane ? join(BUILD, "lanes", `${lane}.sqlite`) : values.db!;
+	mkdirSync(join(BUILD, "lanes"), { recursive: true });
 	mkdirSync(join(BUILD, "bench"), { recursive: true });
 	MATCHES_DIR = matchesDir;
-	WORK_TAG = bench ?? "main";
+	WORK_TAG = bench ?? (lane ? `lane-${lane}` : "main");
 
 	// Finished (addr, tier) pairs from the ledger; matched addresses are skipped entirely.
 	const finished = new Map<string, Set<number>>();
@@ -279,7 +283,10 @@ async function main() {
 	const budget = Number(values.budget);
 	let spent = 0;
 	const benchDir = join(BUILD, "bench");
-	for (const f of [join(BUILD, "results.jsonl"), ...readdirSync(benchDir).filter((n) => n.endsWith(".jsonl")).map((n) => join(benchDir, n))]) {
+	const laneDir = join(BUILD, "lanes");
+	for (const f of [join(BUILD, "results.jsonl"),
+		...readdirSync(benchDir).filter((n) => n.endsWith(".jsonl")).map((n) => join(benchDir, n)),
+		...readdirSync(laneDir).filter((n) => n.endsWith(".jsonl")).map((n) => join(laneDir, n))]) {
 		if (!existsSync(f)) continue;
 		for (const line of readFileSync(f, "utf8").split("\n")) if (line) spent += JSON.parse(line).cost ?? 0;
 	}
