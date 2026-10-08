@@ -9,6 +9,8 @@ import { join } from "node:path";
 import { promisify } from "node:util";
 import { parseArgs } from "node:util";
 
+import { Agent, setGlobalDispatcher } from "undici";
+
 import { BACKGROUND_CONTEXT } from "@earendil-works/chord/context";
 import { Type } from "@earendil-works/pi-ai";
 import { createProvider } from "@earendil-works/pi-ai";
@@ -31,6 +33,10 @@ import { openNodeSqliteStorage } from "@earendil-works/pi-durable/storage/sqlite
 import { SYSTEM_PROMPT, taskPrompt } from "./prompt.ts";
 
 const run = promisify(execFile);
+
+// Node's fetch multiplexes every request to a host over one HTTP/2 connection. With dozens of long
+// streaming responses, streams stalled with no bytes until the 90 s timeout. Use a real pool instead.
+setGlobalDispatcher(new Agent({ allowH2: false, connections: 128, keepAliveTimeout: 30_000 }));
 const ROOT = new URL("../..", import.meta.url).pathname;
 const BUILD = join(ROOT, "build/farm");
 const PY = join(ROOT, "build/venv/bin/python");
