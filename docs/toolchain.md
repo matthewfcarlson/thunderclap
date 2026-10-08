@@ -52,4 +52,16 @@ Heuristic byte counts (not a disassembly):
 | `ret n` vs `ret` | 33.8k vs 25.5k | heavy `__thiscall`/`__stdcall` C++ |
 | `CC CC` runs | 137k | int3 padding between functions |
 
-Starting guess for flags: `/O2 /GR /GX /MT` (RTTI is on, which is confirmed by ~4.2k type descriptors). Check against first matched functions.
+Starting guess for flags: `/O2 /GR /GX /MT` (RTTI is on, which is confirmed by ~4.2k type descriptors).
+
+## Matching loop (verified 2026-10-08)
+
+```sh
+build/venv/bin/python tools/disasm.py 'CAction::vfunc_5'          # target asm (bounds from build/functions.csv)
+build/venv/bin/python tools/compare.py file.cpp <symbol> 0xADDR  # compile with cl 13.10 via wibo, diff vs XBE
+```
+
+- `build/functions.csv` comes from `ExportFunctions.java`. `build/venv` needs `pip install capstone`.
+- `compare.py` builds with `/nologo /c /O2 /GR /GX /Gy` (extra flags after `--`). It pulls the function out of the COFF object, masks bytes covered by relocations, and diffs instruction by instruction against the XBE.
+- **First 5 functions matched byte-for-byte** (`experiments/first-matches/`): a refcount `Release`, a switch dispatcher, an x87 float getter with a relocated constant, and two script-binding member-function-pointer templates. This confirms **cl 13.10.3077 + `/O2`** with frame-pointer omission. `/GX` hasn't been exercised yet: no function so far has EH state.
+- Matching quirks seen so far: `bool r = false; switch … break; return r;` rather than early returns, and copying a member-fn pointer to a local before calling it.
