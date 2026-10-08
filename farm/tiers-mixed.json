@@ -1,0 +1,7 @@
+[
+  { "model": "small/qwen3.8-9b", "thinking": "low", "maxAttempts": 6, "maxSize": 32 },
+  { "model": "openrouter/openai/gpt-6-luna", "thinking": "low", "maxAttempts": 5 },
+  { "model": "big/qwen3.8-27b", "thinking": "low", "maxAttempts": 6 },
+  { "model": "openrouter/anthropic/claude-haiku-5.5", "thinking": "low", "maxAttempts": 5 },
+  { "model": "openrouter/deepseek/deepseek-v4.1-flash", "thinking": "low", "maxAttempts": 4 }
+]

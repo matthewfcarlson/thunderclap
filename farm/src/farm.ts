@@ -38,7 +38,17 @@ const ctx = BACKGROUND_CONTEXT;
 let MATCHES_DIR = join(ROOT, "matches");
 let WORK_TAG = "main";
 
-type Tier = { model: string; thinking?: "off" | "minimal" | "low" | "medium" | "high"; maxAttempts: number };
+type Tier = {
+	model: string;
+	thinking?: "off" | "minimal" | "low" | "medium" | "high";
+	maxAttempts: number;
+	minSize?: number; // only functions whose size (bytes) is within [minSize, maxSize] use this tier
+	maxSize?: number;
+};
+// Free OpenAI-compatible servers (LM Studio / llama.cpp / MLX / Ollama). farm/endpoints.json (gitignored):
+//   { "big": { "baseUrl": "http://mac1:1234/v1", "apiKey": "...", "concurrency": 4 }, "small": { ... } }
+// Tiers name their models "<endpoint>/<model id>". LOCAL_LLM_BASE_URL/LOCAL_LLM_API_KEY define "local".
+type Endpoint = { baseUrl: string; apiKey?: string; concurrency?: number };
 
 // Per-conversation job state, committed with the transcript.
 type JobState = {
@@ -143,19 +153,23 @@ const Decomp = defineExtension({
 	],
 });
 
-// Free local OpenAI-compatible server (llama.cpp / LM Studio / MLX / Ollama), configured by env:
-// LOCAL_LLM_BASE_URL (e.g. http://host:8080/v1), LOCAL_LLM_API_KEY (optional).
-// Tiers name its models as "local/<model id>".
-function localProvider(modelIds: string[]) {
-	const baseUrl = process.env.LOCAL_LLM_BASE_URL;
-	if (!baseUrl) throw new Error("tiers use local/... models but LOCAL_LLM_BASE_URL is not set");
+function loadEndpoints(): Record<string, Endpoint> {
+	const file = join(ROOT, "farm/endpoints.json");
+	const eps: Record<string, Endpoint> = existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : {};
+	if (process.env.LOCAL_LLM_BASE_URL && !eps.local) {
+		eps.local = { baseUrl: process.env.LOCAL_LLM_BASE_URL, apiKey: process.env.LOCAL_LLM_API_KEY };
+	}
+	return eps;
+}
+
+function endpointProvider(name: string, ep: Endpoint, modelIds: string[]) {
 	return createProvider({
-		id: "local",
-		name: "Local",
-		baseUrl,
-		auth: { apiKey: { name: "Local LLM", resolve: async () => ({ auth: process.env.LOCAL_LLM_API_KEY ? { apiKey: process.env.LOCAL_LLM_API_KEY } : {} }) } },
+		id: name,
+		name,
+		baseUrl: ep.baseUrl,
+		auth: { apiKey: { name: `${name} LLM`, resolve: async () => ({ auth: ep.apiKey ? { apiKey: ep.apiKey } : {} }) } },
 		models: modelIds.map((id) => ({
-			id, name: id, api: "openai-completions" as const, provider: "local", baseUrl,
+			id, name: id, api: "openai-completions" as const, provider: name, baseUrl: ep.baseUrl,
 			reasoning: true, input: ["text" as const],
 			cost: { input: 0, output: 0, cacheRead: 0, cacheWrite: 0 },
 			contextWindow: 131072, maxTokens: 32768,
@@ -164,7 +178,24 @@ function localProvider(modelIds: string[]) {
 	} as any);
 }
 
-const isFree = (model: string) => model.startsWith("local/");
+class Semaphore {
+	private waiters: (() => void)[] = [];
+	constructor(private free: number) {}
+	async run<T>(fn: () => Promise<T>): Promise<T> {
+		if (this.free > 0) this.free--;
+		else await new Promise<void>((r) => this.waiters.push(r));
+		try {
+			return await fn();
+		} finally {
+			const next = this.waiters.shift();
+			if (next) next();
+			else this.free++;
+		}
+	}
+}
+
+const ENDPOINTS = loadEndpoints();
+const isFree = (model: string) => model.slice(0, model.indexOf("/")) in ENDPOINTS;
 
 function parseModel(m: string) {
 	const i = m.indexOf("/");
@@ -185,6 +216,11 @@ async function main() {
 		},
 	});
 	const tiers: Tier[] = JSON.parse(readFileSync(values.tiers!, "utf8"));
+	const sizes = new Map<string, number>();
+	for (const line of readFileSync(join(ROOT, "build/functions.csv"), "utf8").split("\n").slice(1)) {
+		const [a, size] = line.split(",");
+		if (a) sizes.set("0x" + parseInt(a, 16).toString(16).padStart(8, "0"), Number(size));
+	}
 	const bench = values.bench;
 	const ledgerPath = bench ? join(BUILD, "bench", `${bench}.jsonl`) : join(BUILD, "results.jsonl");
 	const matchesDir = bench ? join(BUILD, "bench", bench, "matches") : join(ROOT, "matches");
@@ -210,9 +246,14 @@ async function main() {
 			finished.get(r.addr)!.add(r.status === "match" ? -1 : r.tier);
 		}
 	}
+	const spentAtStart = spent;
 	const isDone = (a: string) => existsSync(join(matchesDir, `${a}.cpp`)) || finished.get(a)?.has(-1)
-		|| tiers.every((_, t) => finished.get(a)?.has(t));
+		|| tiers.every((tier, t) => finished.get(a)?.has(t) || !fits(a, tier));
 
+	const fits = (a: string, tier: Tier) => {
+		const size = sizes.get(a) ?? 0;
+		return size >= (tier.minSize ?? 0) && size <= (tier.maxSize ?? Infinity);
+	};
 	let queue = values.only
 		? values.only.split(",")
 		: readFileSync(values.queue!, "utf8").split("\n").filter(Boolean);
@@ -221,8 +262,17 @@ async function main() {
 
 	const models = createModels();
 	models.setProvider(openrouterProvider());
-	const localIds = tiers.filter((t) => isFree(t.model)).map((t) => parseModel(t.model).modelId);
-	if (localIds.length) models.setProvider(localProvider(localIds));
+	const limits = new Map<string, Semaphore>();
+	for (const [name, ep] of Object.entries(ENDPOINTS)) {
+		const ids = tiers.filter((t) => parseModel(t.model).provider === name).map((t) => parseModel(t.model).modelId);
+		if (!ids.length) continue;
+		models.setProvider(endpointProvider(name, ep, [...new Set(ids)]));
+		limits.set(name, new Semaphore(ep.concurrency ?? 2));
+	}
+	for (const t of tiers) {
+		const p = parseModel(t.model).provider;
+		if (p !== "openrouter" && !ENDPOINTS[p]) throw new Error(`tier ${t.model}: unknown endpoint "${p}" (add it to farm/endpoints.json)`);
+	}
 	const registry = createRegistry();
 	registry.install(Decomp);
 	const harness = await Harness.open(await openNodeSqliteStorage(dbPath), {
@@ -291,15 +341,18 @@ async function main() {
 
 	async function work(addr: string) {
 		let previous: { code: string; report: string } | undefined;
+		const size = sizes.get(addr) ?? 0;
 		for (let t = 0; t < tiers.length; t++) {
 			if (finished.get(addr)?.has(t)) continue;
-			if (!isFree(tiers[t].model) && spent >= budget) {
+			if (size < (tiers[t].minSize ?? 0) || size > (tiers[t].maxSize ?? Infinity)) continue;
+			if (!isFree(tiers[t].model) && (spent >= budget || keyRemaining - (spent - spentAtStart) < keyFloor)) {
 				if (!budgetWarned) console.log(`budget $${budget} reached ($${spent.toFixed(2)} spent): skipping paid tiers`);
 				budgetWarned = true;
 				continue;
 			}
 			try {
-				const job = await runTier(addr, t, previous);
+				const limit = limits.get(parseModel(tiers[t].model).provider);
+				const job = limit ? await limit.run(() => runTier(addr, t, previous)) : await runTier(addr, t, previous);
 				if (job.status === "match") return;
 				if (job.bestCode) previous = { code: job.bestCode, report: job.bestReport };
 			} catch (e: any) {
@@ -309,6 +362,17 @@ async function main() {
 		}
 	}
 
+	// OpenRouter's own accounting: the key's spend and remaining limit. Paid tiers stop near the limit.
+	let keyRemaining = Infinity;
+	try {
+		const res = await fetch("https://openrouter.ai/api/v1/key", { headers: { Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}` } });
+		const d = (await res.json()).data;
+		if (d?.limit_remaining != null) keyRemaining = d.limit_remaining;
+		console.log(`openrouter key: usage today $${d?.usage_daily?.toFixed?.(3)}, all-time $${d?.usage?.toFixed?.(3)}, remaining ${d?.limit_remaining ?? "unlimited"}`);
+	} catch (e: any) {
+		console.log(`openrouter key check failed: ${e?.message ?? e}`);
+	}
+	const keyFloor = 0.5;
 	let budgetWarned = false;
 	const concurrency = Number(values.concurrency);
 	let next = 0;
