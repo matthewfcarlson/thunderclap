@@ -180,7 +180,10 @@ function endpointProvider(name: string, ep: Endpoint, modelIds: string[]) {
 
 class Semaphore {
 	private waiters: (() => void)[] = [];
-	constructor(private free: number) {}
+	private free: number;
+	constructor(free: number) {
+		this.free = free;
+	}
 	async run<T>(fn: () => Promise<T>): Promise<T> {
 		if (this.free > 0) this.free--;
 		else await new Promise<void>((r) => this.waiters.push(r));
