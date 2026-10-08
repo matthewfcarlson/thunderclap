@@ -34,6 +34,13 @@ sed -i '' "s|^JAVA_HOME_OVERRIDE=.*|JAVA_HOME_OVERRIDE=${JDK}|" "$G/support/laun
 if [ ! -f build/ghidra/hulk.gpr ]; then
     mkdir -p build/ghidra
     "$G/support/analyzeHeadless" build/ghidra hulk -import isos/extracted/default.xbe > build/ghidra-import.log 2>&1
+    # RTTI: class namespaces, vftables, Class::vfunc_N names; then re-analyze to follow the new functions.
+    python3 tools/rtti.py isos/extracted/default.xbe build/rtti.json
+    "$G/support/analyzeHeadless" build/ghidra hulk -process default.xbe -noanalysis \
+        -scriptPath tools/ghidra_scripts -postScript ApplyRtti.java build/rtti.json > build/ghidra-rtti.log 2>&1
+    "$G/support/analyzeHeadless" build/ghidra hulk -process default.xbe \
+        -scriptPath tools/ghidra_scripts -postScript ProjectStats.java > build/ghidra-reanalyze.log 2>&1
+    grep -h -E 'ApplyRtti:|functions=' build/ghidra-rtti.log build/ghidra-reanalyze.log
 fi
 
 echo "Open the GUI with: $G/ghidraRun  (project: build/ghidra/hulk.gpr)"

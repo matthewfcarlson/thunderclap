@@ -32,7 +32,12 @@ Output is `coff-i386`, readable with `objdump -d --x86-asm-syntax=intel` and dif
 
 - ghidra-xbe bundles only an x86_64 `XbSymbolDatabaseCLI` for macOS. The script copies it to `os/mac_arm_64` so Apple Silicon Ghidra finds it (it runs under Rosetta).
 - Standalone run: `XbSymbolDatabaseCLI isos/extracted/default.xbe` finds **650** XDK symbols (D3D8, DSOUND, XAPILIB, …).
-- First auto-analysis takes ~5 min. It found **17,481 functions**, 635 of them named (XDK). Ghidra's RTTI analyzer is PE-only, so it found **no** RTTI or vtables on the XBE (`ProjectStats`: vftables=3, rtti_symbols=0). We need our own RTTI recovery script.
+- First auto-analysis takes ~5 min. It found **17,481 functions**, 635 of them named (XDK). Ghidra's RTTI analyzer is PE-only, so it found **no** RTTI or vtables on the XBE (`ProjectStats`: vftables=3, rtti_symbols=0). We use our own RTTI recovery instead (below).
+- **RTTI recovery**: `tools/rtti.py` parses TypeDescriptors, CompleteObjectLocators, ClassHierarchyDescriptors and vftables straight from the XBE into `build/rtti.json`. It uses its own demangler (`tools/msvc_demangle.py`) because `undname.exe` prints nothing under wibo. `ApplyRtti.java` applies it: class namespaces, `RTTI_*`/`vftable` labels, vtable pointer arrays, and `Class::vfunc_N` (`__thiscall`) for each virtual function. A function is owned by the class with the fewest bases that uses it, so inherited slots keep the base-class name. Results:
+  - 4,244 type descriptors, 4,267 vtables, 27,440 slots → 13,006 distinct virtual functions. Demangle failures: 0.
+  - ApplyRtti created 8,467 functions that auto-analysis had missed (reachable only through vtables). After re-analysis there are **25,426 functions, 13,225 named (52%)**.
+  - Known limitation: vtable length is "until the next COL slot or a non-code pointer". A vtable directly followed by a function-pointer table would be over-counted.
+- `DecompileFunction.java <addr|Ns::name>...`: dump decompiled C headlessly (handy for agents).
 - GUI: `build/tools/ghidra_12.0.3_PUBLIC/ghidraRun`, then open `build/ghidra/hulk.gpr`.
 - Scripts live in `tools/ghidra_scripts/` (e.g. `ProjectStats.java`).
 
