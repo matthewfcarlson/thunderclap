@@ -9,8 +9,10 @@ in the object is tried and the best match is reported.
 Bytes covered by a relocation in the compiled object are masked on both sides
 (absolute addresses / call targets can't be compared until we link).
 """
+import difflib
 import json
 import os
+import re
 import struct
 import subprocess
 import sys
@@ -107,25 +109,48 @@ _md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 _md.syntax = capstone.CS_OPT_SYNTAX_INTEL
 
 
+def _key(i):
+    """Alignment key: ignore operands that move when code shifts (branch/call targets, image addresses)."""
+    if i.mnemonic == "call" or i.mnemonic.startswith("j"):
+        return i.mnemonic
+    return re.sub(r"0x[0-9a-f]{5,}", "ADDR", "%s %s" % (i.mnemonic, i.op_str))
+
+
 def diff(target, ours, mask):
+    """Align instructions (LCS on normalized text) so one extra/missing instruction stays local.
+
+    Row tags: "  " equal, "!!" differs, "--" only in target, "++" only in ours.
+    Score = aligned-equal instructions / target instructions. exact still means byte-identical
+    (with relocations masked) at the same offsets.
+    """
     t_insns = list(_md.disasm(target, 0))
     o_insns = list(_md.disasm(ours, 0))
 
     def masked_eq(ti, oi):
-        if ti.size != oi.size:
+        if ti.size != oi.size or ti.address != oi.address:
             return False
         return all(ti.bytes[k] == oi.bytes[k] or (oi.address + k) in mask for k in range(ti.size))
 
+    exact = len(target) == len(ours) and len(t_insns) == len(o_insns) and all(
+        masked_eq(a, b) for a, b in zip(t_insns, o_insns))
+
     fmt = lambda i: ("%s %s" % (i.mnemonic, i.op_str)) if i else ""
+    tk, ok_ = [_key(i) for i in t_insns], [_key(i) for i in o_insns]
     rows, matched = [], 0
-    for k in range(max(len(t_insns), len(o_insns))):
-        ti = t_insns[k] if k < len(t_insns) else None
-        oi = o_insns[k] if k < len(o_insns) else None
-        ok = ti is not None and oi is not None and masked_eq(ti, oi)
-        matched += ok
-        rows.append((ok, (ti or oi).address, fmt(ti), fmt(oi)))
-    total = max(len(t_insns), len(o_insns), 1)
-    exact = len(target) == len(ours) and matched == total
+    sm = difflib.SequenceMatcher(None, tk, ok_, autojunk=False)
+    for op, i1, i2, j1, j2 in sm.get_opcodes():
+        if op == "equal":
+            for a, b in zip(t_insns[i1:i2], o_insns[j1:j2]):
+                matched += 1
+                rows.append(("  ", a.address, fmt(a), fmt(b)))
+            continue
+        n = max(i2 - i1, j2 - j1)
+        for k in range(n):
+            a = t_insns[i1 + k] if i1 + k < i2 else None
+            b = o_insns[j1 + k] if j1 + k < j2 else None
+            tag = "!!" if a and b else ("--" if a else "++")
+            rows.append((tag, (a or b).address, fmt(a), fmt(b)))
+    total = max(len(t_insns), 1)
     return {"exact": exact, "matched": matched, "total": total,
             "target_bytes": len(target), "our_bytes": len(ours), "rows": rows}
 
@@ -161,23 +186,23 @@ def render(r, full=False, context=1):
     if r["status"] in ("compile_error", "no_function"):
         return "%s\n%s" % (r["status"].upper(), r["error"])
     out = ["%s %s  vs  %s" % ("MATCH" if r["exact"] else "DIFF", r["symbol"], r["target"]),
-           "bytes target=%d ours=%d, instructions matched %d/%d" % (
+           "bytes target=%d ours=%d, target instructions matched %d/%d" % (
                r["target_bytes"], r["our_bytes"], r["matched"], r["total"])]
     if r["exact"]:
         return "\n".join(out)
     rows = r["rows"]
     show = set(range(len(rows))) if full else {
-        j for i, row in enumerate(rows) if not row[0] for j in range(i - context, i + context + 1) if 0 <= j < len(rows)}
-    out.append("    off  %-34s | ours" % "target")
+        j for i, row in enumerate(rows) if row[0] != "  " for j in range(i - context, i + context + 1) if 0 <= j < len(rows)}
+    out.append("    off  %-34s | ours   (!! differs, -- missing in ours, ++ extra in ours)" % "target")
     skipped = 0
-    for i, (ok, off, t, o) in enumerate(rows):
+    for i, (tag, off, t, o) in enumerate(rows):
         if i not in show:
             skipped += 1
             continue
         if skipped:
             out.append("    ... %d matching" % skipped)
             skipped = 0
-        out.append("%s %04x  %-34s | %s" % ("  " if ok else "!!", off, t, o))
+        out.append("%s %04x  %-34s | %s" % (tag, off, t, o))
     if skipped:
         out.append("    ... %d matching" % skipped)
     return "\n".join(out)

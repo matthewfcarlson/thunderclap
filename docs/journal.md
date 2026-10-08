@@ -96,3 +96,8 @@ Newest entries go at the bottom of each day.
 - Bug found while testing: pi-durable conversation IDs are **numbers**. We stored them as strings in our index, so `harness.conversation("2")` quietly returned nothing. Restart/resume would have created fresh conversations instead of reattaching. Fixed (stored as numbers; old string entries are converted on read).
 - Throughput bug: Luna normally answers in seconds, but runs were taking 8–17 minutes with no local load. The cause was stalled streams waiting out the 240 s timeout before retrying. With the timeout at 90 s, functions finish in 13–75 s.
 - First real crash-resume test: killed both farms mid-run and restarted them. In-flight conversations reattached and continued from their committed attempts (e.g. one reported att=3 13 s after restart).
+
+### Aligned diffs
+- The compare tool paired the target's k-th instruction with our k-th, so one extra or missing instruction early on marked everything after it as wrong. Large functions looked hopeless (scores of 0.0–0.4) partly because the *feedback* was misleading.
+- Switched to LCS alignment on normalized instructions (branch/call targets and image addresses ignored), with tags `!!` differs, `--` missing in ours, `++` extra in ours. Score = aligned-equal / target instructions. Exact-match checking is unchanged (byte-identical at identical offsets).
+- Re-scoring Luna's large-function attempts: 0.43 → 0.74, 0.58 → 0.79, 0.51 → 0.68, 0.03 → 0.33. The models were much closer than they were told.

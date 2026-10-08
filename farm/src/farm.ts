@@ -100,7 +100,7 @@ function firstMismatch(r: { status: string; report: string }): string {
 	const lines = r.report.split("\n");
 	if (r.status !== "diff") return `${r.status}: ${(lines[1] ?? "").trim()}`.slice(0, 140);
 	const bytes = lines.find((l) => l.startsWith("bytes")) ?? "";
-	const first = lines.find((l) => l.startsWith("!!"));
+	const first = lines.find((l) => /^(!!|--|\+\+) /.test(l));
 	const where = first ? first.slice(2).replace(/\s{2,}/g, " ").trim() : "no mismatched instruction (length differs)";
 	return `${bytes.replace("bytes ", "")}; first mismatch ${where}`.slice(0, 160);
 }
