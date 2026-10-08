@@ -26,10 +26,16 @@ Example (matched):
 
 Respond only with submit_cpp tool calls. No explanations.`;
 
-export function taskPrompt(packet: string, attemptsLeft: number, previous?: { code: string; report: string }): string {
+export function taskPrompt(
+	packet: string,
+	attemptsLeft: number,
+	previous?: { code: string; report: string; history: { tier: number; n: number; score: number; note: string }[] },
+): string {
 	let text = packet;
 	if (previous) {
-		text += `\nA previous attempt got this close. Improve on it.\n--- previous code ---\n${previous.code}\n--- its diff ---\n${previous.report}\n`;
+		text += `\nOther models already tried this function and failed. Their attempts (score = fraction of instructions matched):\n`;
+		for (const h of previous.history) text += `- tier ${h.tier} attempt ${h.n}: score ${h.score.toFixed(2)}; ${h.note}\n`;
+		text += `Try a different approach where those got stuck. Their best attempt:\n--- best code ---\n${previous.code}\n--- its diff ---\n${previous.report}\n`;
 	}
 	text += `\nYou have ${attemptsLeft} submissions. Call submit_cpp now.`;
 	return text;

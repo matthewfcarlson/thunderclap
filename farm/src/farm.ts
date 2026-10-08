@@ -60,6 +60,8 @@ type JobState = {
 	bestScore: number;
 	bestCode: string;
 	bestReport: string;
+	// One line per submission: score and the first mismatch, handed to later tiers.
+	history?: { tier: number; n: number; score: number; note: string }[];
 };
 const Job = defineDoc<JobState>({
 	kind: "hulk.job",
@@ -67,10 +69,11 @@ const Job = defineDoc<JobState>({
 	scope: "conversation",
 	history: "latest",
 	fork: "initial",
-	initial: () => ({ addr: "", tier: 0, attempts: 0, maxAttempts: 0, status: "running", bestScore: -1, bestCode: "", bestReport: "" }),
+	initial: () => ({ addr: "", tier: 0, attempts: 0, maxAttempts: 0, status: "running", bestScore: -1, bestCode: "", bestReport: "", history: [] }),
 });
 // Session index: "addr:tier" -> conversation id, so a restart reattaches instead of starting over.
-const Index = defineDoc<{ jobs: Record<string, string> }>({
+// Conversation IDs are numbers; early runs stored strings, so readers go through Number().
+const Index = defineDoc<{ jobs: Record<string, number | string> }>({
 	kind: "hulk.index",
 	version: 1,
 	scope: "session",
@@ -90,6 +93,17 @@ async function compare(src: string, addr: string): Promise<{ status: string; sco
 
 // Matches must come from real C++; inline asm or emitted bytes would "match" trivially.
 const FORBIDDEN = /\b(__asm|_asm|asm|_emit|__emit)\b|naked|#\s*pragma/;
+
+// Compact one-line description of how a submission failed.
+function firstMismatch(r: { status: string; report: string }): string {
+	if (r.status === "match") return "match";
+	const lines = r.report.split("\n");
+	if (r.status !== "diff") return `${r.status}: ${(lines[1] ?? "").trim()}`.slice(0, 140);
+	const bytes = lines.find((l) => l.startsWith("bytes")) ?? "";
+	const first = lines.find((l) => l.startsWith("!!"));
+	const where = first ? first.slice(2).replace(/\s{2,}/g, " ").trim() : "no mismatched instruction (length differs)";
+	return `${bytes.replace("bytes ", "")}; first mismatch ${where}`.slice(0, 160);
+}
 
 const submitCpp = defineTool({
 	name: "submit_cpp",
@@ -114,6 +128,7 @@ const submitCpp = defineTool({
 		await api.commit(async (tx) => {
 			const j = await tx.doc(Job, api.conversationId);
 			j.attempts = n;
+			j.history = [...(j.history ?? []), { tier: job.tier, n, score, note: firstMismatch(r) }];
 			if (score > j.bestScore) {
 				j.bestScore = score;
 				j.bestCode = args.code;
@@ -298,11 +313,12 @@ async function main() {
 		return stdout;
 	}
 
-	async function runTier(addr: string, t: number, previous?: { code: string; report: string }) {
+	type Handoff = { code: string; report: string; history: NonNullable<JobState["history"]>; models: string[] };
+	async function runTier(addr: string, t: number, previous?: Handoff) {
 		const tier = tiers[t];
 		const key = `${addr}:${t}`;
 		const index = await harness.snapshot(Index, ctx);
-		let conv = index?.jobs[key] ? await harness.conversation(index.jobs[key] as any, ctx) : undefined;
+		let conv = index?.jobs[key] != null ? await harness.conversation(Number(index.jobs[key]) as any, ctx) : undefined;
 		if (!conv) {
 			conv = await harness.createConversation({
 				ownership: { kind: "ownerless" },
@@ -312,11 +328,14 @@ async function main() {
 				},
 			}, ctx);
 			await harness.commit(async (tx) => {
-				(await tx.doc(Index)).jobs[key] = String(conv!.id);
+				(await tx.doc(Index)).jobs[key] = conv!.id as unknown as number;
 			}, ctx);
 		}
 		const started = Date.now();
 		const content = taskPrompt(await packet(addr), tier.maxAttempts, previous);
+		const workDir = join(BUILD, "work", WORK_TAG, addr);
+		mkdirSync(workDir, { recursive: true });
+		writeFileSync(join(workDir, `t${t}_prompt.txt`), content);
 		const sub = await conv.submit({ type: "input", content, requestId: key }, ctx);
 		const settled = await sub.wait(ctx);
 		const job = (await harness.snapshot(Job, conv.id, ctx))!;
@@ -342,11 +361,31 @@ async function main() {
 		return job;
 	}
 
+	// Everything earlier tiers tried for addr: best code/diff overall plus a line per attempt.
+	async function handoff(addr: string, upTo: number): Promise<Handoff | undefined> {
+		const index = await harness.snapshot(Index, ctx);
+		const jobs: JobState[] = [];
+		for (let t = 0; t < upTo; t++) {
+			const id = index?.jobs[`${addr}:${t}`];
+			const j = id != null ? await harness.snapshot(Job, Number(id) as any, ctx) : undefined;
+			if (j) jobs.push(j as JobState);
+		}
+		const best = jobs.filter((j) => j.bestCode).sort((a, b) => b.bestScore - a.bestScore)[0];
+		if (!best) return undefined;
+		return {
+			code: best.bestCode,
+			report: best.bestReport,
+			history: jobs.flatMap((j) => j.history ?? []),
+			models: jobs.map((j) => tiers[j.tier]?.model ?? "?"),
+		};
+	}
+
 	async function work(addr: string) {
-		let previous: { code: string; report: string } | undefined;
+		let previous: Handoff | undefined;
 		const size = sizes.get(addr) ?? 0;
 		for (let t = 0; t < tiers.length; t++) {
 			if (finished.get(addr)?.has(t)) continue;
+			if (t > 0 && !previous) previous = await handoff(addr, t);
 			if (size < (tiers[t].minSize ?? 0) || size > (tiers[t].maxSize ?? Infinity)) continue;
 			if (!isFree(tiers[t].model) && (spent >= budget || keyRemaining - (spent - spentAtStart) < keyFloor)) {
 				if (!budgetWarned) console.log(`budget $${budget} reached ($${spent.toFixed(2)} spent): skipping paid tiers`);
@@ -357,7 +396,7 @@ async function main() {
 				const limit = limits.get(parseModel(tiers[t].model).provider);
 				const job = limit ? await limit.run(() => runTier(addr, t, previous)) : await runTier(addr, t, previous);
 				if (job.status === "match") return;
-				if (job.bestCode) previous = { code: job.bestCode, report: job.bestReport };
+				previous = await handoff(addr, t + 1);
 			} catch (e: any) {
 				console.error(`${addr} t${t} error: ${e?.message ?? e}`);
 				return;
