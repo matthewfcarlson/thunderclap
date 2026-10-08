@@ -1,0 +1,2 @@
+class pddiBaseContext { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void vfunc_6(unsigned int); char pad[0x44]; unsigned int* m; };
+void pddiBaseContext::vfunc_6(unsigned int value) { m[1] = value; }

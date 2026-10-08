@@ -1,0 +1,1 @@
+class Obj { char pad[0x22e0]; public: unsigned char field; void Set(unsigned char); }; void Obj::Set(unsigned char v) { field = v; }

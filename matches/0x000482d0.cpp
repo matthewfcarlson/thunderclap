@@ -1,0 +1,2 @@
+class CCondition { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(int); virtual void h(int); void vfunc_6(int, int, int); };
+void CCondition::vfunc_6(int x, int y, int z) { h(y); }

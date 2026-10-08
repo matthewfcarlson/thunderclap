@@ -1,0 +1,3 @@
+class CAction { public: virtual void a0(); virtual void a1(); virtual void a2(); virtual void a3(); virtual void a4(); virtual void a5(); virtual void a6(); virtual void a7(); virtual void a8(); };
+class CCameraDramaticAction : public CAction { public: char pad[0x24 - 4]; unsigned int value; virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual unsigned char vfunc_7(unsigned int); virtual void v8(); };
+unsigned char CCameraDramaticAction::vfunc_7(unsigned int x) { value = x; return 1; }

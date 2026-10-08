@@ -1,0 +1,1 @@
+class Target { public: char pad[0x22e9]; unsigned char value; void Set(unsigned char x); }; void Target::Set(unsigned char x) { value = x; }

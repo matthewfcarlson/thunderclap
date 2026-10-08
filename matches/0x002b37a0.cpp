@@ -1,0 +1,2 @@
+// Same code shape as 0x000b3de0 (propagated; names are from that function)
+class FEControllerSystem { public: FEControllerSystem(); virtual ~FEControllerSystem(); }; FEControllerSystem::FEControllerSystem() {}

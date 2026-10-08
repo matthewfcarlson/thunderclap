@@ -1,0 +1,1 @@
+class C { char pad[0x2e]; short items[1]; public: int get(int index); }; int C::get(int index) { return items[index]; }

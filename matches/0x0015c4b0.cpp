@@ -1,0 +1,2 @@
+class LocomotionStrafe4Action { public: char pad[0x44]; void* mPtr; unsigned long long vfunc_6(); };
+unsigned long long LocomotionStrafe4Action::vfunc_6() { unsigned long long result = *(unsigned long long*)((char*)mPtr + 0x40); return result; }

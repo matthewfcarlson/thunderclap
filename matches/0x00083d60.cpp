@@ -1,0 +1,1 @@
+class Target { char pad[0x24]; int value; public: void Set(int v); }; void Target::Set(int v) { value = v; }

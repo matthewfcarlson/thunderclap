@@ -1,0 +1,2 @@
+class CollisionAnalyser { public: virtual void vfunc_0(); virtual void vfunc_1(void*, void*); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); unsigned char pad[8]; unsigned value; unsigned char flag; };
+void CollisionAnalyser::vfunc_1(void*, void* p) { value = (unsigned)p; flag = 1; }
