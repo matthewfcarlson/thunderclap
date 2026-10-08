@@ -26,12 +26,16 @@ Details: [`docs/toolchain.md`](docs/toolchain.md), [`docs/farm.md`](docs/farm.md
 
 ## Roadmap
 
+Full plan: [`docs/roadmap.md`](docs/roadmap.md).
+
 - [x] Toolchain: matching compiler on macOS, Ghidra + RTTI, compare loop
 - [x] Matching farm with cost controls; model benchmark (GPT-6 Luna: 65% on 32–96-byte functions at ~$0.002/match)
-- [ ] Sweep all ≤96-byte function shapes (~$10–15)
-- [ ] Large functions (>96 bytes): stronger models, free local models, better feedback
-- [ ] Split into real source files and objects (csplit + objdiff, Halo-style) and report progress on decomp.dev
-- [ ] Merge matches into real headers and classes, real names, data, full relink
+- [ ] **1. Match every function**: sweep ≤96-byte shapes, then large functions
+- [ ] **2. Verify references**: relocations must hit the right symbols
+- [ ] **3. Shared headers and real types/names**
+- [ ] **4. Original source files**: splits, data, csplit + objdiff, decomp.dev
+- [ ] **5. Relink** to a SHA-1-identical `default.xbe`
+- [ ] **6. Make it better**: widescreen/FOV/60 fps, higher resolution, RCF/P3D asset tools, HD textures and models, native PC port. Much of this can start early via xemu, a hybrid patch build, and standalone asset tools.
 
 ## Setup
 
