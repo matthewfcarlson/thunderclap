@@ -1,0 +1,4 @@
+struct Inner { virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h(); virtual void i(); virtual void j(); virtual void k(); virtual void l(); virtual void m(); virtual void n(); virtual void vfunc_14(); };
+struct DrawableHierarchy { virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h(); virtual void i(); virtual void j(); virtual void vfunc_10(); virtual void vfunc_11(); virtual void l(); virtual void m(); virtual void vfunc_14(); };
+struct StateProp : DrawableHierarchy { char pad[0x98]; Inner *mInner; virtual void s15(); virtual void s16(); virtual void vfunc_14(); };
+void StateProp::vfunc_14() { mInner->vfunc_14(); DrawableHierarchy::vfunc_14(); }

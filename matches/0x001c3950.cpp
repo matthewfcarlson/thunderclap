@@ -1,0 +1,2 @@
+class Thing { char pad[0x64]; public: int a; int b; void Get(int* x, int* y); };
+void Thing::Get(int* x, int* y) { *x = a; *y = b; }

@@ -1,0 +1,4 @@
+class Inner { public: virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(unsigned int); };
+class Drawable { public: virtual void d0(); char pad[4]; Inner *p; };
+class DrawableText : public Drawable { public: virtual void f0(); virtual void f1(); virtual unsigned int f2(unsigned int); virtual void f3(); };
+unsigned int DrawableText::f2(unsigned int x) { p->v14(x); return x; }

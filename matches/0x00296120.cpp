@@ -1,0 +1,3 @@
+typedef unsigned int u32;
+class Scenegraph { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(u32,u32); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); char pad[0x40 - 4]; Scenegraph* mChild; };
+void Scenegraph::f6(u32 a,u32 b) { if (mChild) mChild->f6(a,b); }

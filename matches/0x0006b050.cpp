@@ -1,0 +1,3 @@
+class Obj { public: virtual void a(); virtual void b(); virtual void c(); virtual Obj* get(); };
+class CClearCollisionStun { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h(); virtual void i(); virtual void j(); virtual void k(); virtual void l(); virtual int vfunc_12(Obj*); virtual void n(); };
+int CClearCollisionStun::vfunc_12(Obj* p) { Obj* q = p->get(); *(int*)((char*)q + 0x68) = 0; return 0; }

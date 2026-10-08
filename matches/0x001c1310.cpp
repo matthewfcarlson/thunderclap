@@ -1,0 +1,3 @@
+class Inner { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15(); virtual void f16(); virtual void f17(); virtual void f18(void *, unsigned); };
+class Outer { char pad[8]; public: Inner *p; void target(void *arg); };
+void Outer::target(void *arg) { Inner *q = p; q->f18(arg, *(unsigned *)((char *)arg + 12)); }

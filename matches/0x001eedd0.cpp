@@ -1,0 +1,1 @@
+struct Sub { int x; }; struct X { void* vptr; char pad[0x14]; Sub sub; }; extern "C" void __fastcall Init(Sub*); extern void* VTable; void __fastcall Target(X* self) { Init(&self->sub); self->vptr = &VTable; }

@@ -1,0 +1,2 @@
+class ControllerSystemXBox { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void vfunc_11(int); virtual void f12(); char pad[0x1c - 4]; int value; };
+void ControllerSystemXBox::vfunc_11(int param) { if (value == param) value = 0; }
