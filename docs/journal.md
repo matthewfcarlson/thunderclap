@@ -62,7 +62,15 @@ Newest entries go at the bottom of each day.
 - Early GLM pilots had many "failed" runs: 15–30-minute stalls from long thinking and stream timeouts. Lowering thinking and logging failure reasons helped.
 
 ### Large functions (>96 bytes): first signal
-- GPT-6 Luna on 97–192-byte functions: **0/8 so far**, all exhausted after 5 attempts. Best scores range from 0.00 to 0.82, at ~$0.002 each. The step from 96 to ~100+ bytes looks like a cliff for one-shot-ish cheap models. Bigger functions are still running.
+- GPT-6 Luna, 30 large functions, 5 attempts each:
+
+  | Size | Matched | Avg best score | Cost |
+  |---|---|---|---|
+  | 97–192 B | 1/12 | 0.37 | $0.022 |
+  | 193–512 B | 0/10 | 0.32 | $0.027 |
+  | 513–1500 B | 0/8 | 0.07 | $0.206 (~$0.026 each) |
+
+- There's a cliff just above ~96 bytes. On the biggest functions Luna barely gets the first instructions right.
 - Implication: the cheap farm alone won't cover large functions. They need stronger models (e.g. GPT-6 Astra at $10/$50 per M, ~100× Luna), more attempts with better feedback, similar-function examples, or the free local Macs.
 
 ### Difficulty routing (dropped)
