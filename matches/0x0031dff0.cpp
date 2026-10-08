@@ -1,0 +1,2 @@
+class pddiBaseContext { public: char pad[0x58]; struct Thing { char pad0[4]; unsigned char value; }; Thing *member; unsigned char vfunc_65(); };
+unsigned char pddiBaseContext::vfunc_65() { return member->value; }

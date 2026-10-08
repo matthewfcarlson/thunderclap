@@ -1,0 +1,2 @@
+class CDisplayEffect { public: class Inner { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); }; class DrawableText { public: virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); char pad[4]; Inner *p; }; };
+void CDisplayEffect::DrawableText::v3() { p->f7(); }

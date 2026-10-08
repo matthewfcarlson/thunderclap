@@ -1,0 +1,1 @@
+class C { public: char pad[0x4ac]; unsigned int value; unsigned int get(); }; unsigned int C::get() { return value; }

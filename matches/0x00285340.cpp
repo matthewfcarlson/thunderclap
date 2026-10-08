@@ -1,0 +1,1 @@
+unsigned char __fastcall FUN_00285340(char* param_1) { return param_1[0x108]; }

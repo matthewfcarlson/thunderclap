@@ -1,26 +1,31 @@
-// Same code shape as 0x0006b7e0 (propagated; names are from that function)
-// Target: CSweepTrack::vfunc_5 (slot 5)
+void* g_vftable[7];
 
-extern void* CTrack_vftable[];
+namespace fight {
+	class Condition {
+	public:
+		void munge();
+	};
+	class Param {
+	};
+}
 
-class CTrack {
-public:
-    void Destroy(); // FUN_00236d60, __thiscall, this in ecx
-};
+void __cdecl opDelete(void* p);
 
-class CSweepTrack : public CTrack {
-public:
-    CSweepTrack* vfunc_5(signed char flags);
-};
+namespace hulkfight {
+	namespace ai {
+		class HasGroundPointExtendedCondition : public fight::Condition, public fight::Param {
+		public:
+			void* vfunc_5(char flag);
+		};
 
-void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
-
-CSweepTrack* CSweepTrack::vfunc_5(signed char flags)
-{
-    *(void***)this = CTrack_vftable;
-    Destroy();
-    if (flags & 1) {
-        SweepTrack_DeleteThis(this);
-    }
-    return this;
+		void* HasGroundPointExtendedCondition::vfunc_5(char flag) {
+			HasGroundPointExtendedCondition* self = this;
+			*(void**)self = &g_vftable;
+			this->fight::Condition::munge();
+			if (flag & 1) {
+				opDelete(self);
+			}
+			return self;
+		}
+	}
 }

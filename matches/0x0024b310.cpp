@@ -1,0 +1,2 @@
+class X { public: char pad[0x78]; unsigned char a,b,c; int f(void* p); };
+int X::f(void* p) { int i=((char*)p-(char*)this)/12; if(i == ((int)b + (int)a - 1) % (int)c) return 0; return (int)this + ((i+1)%(unsigned int)c)*12; }

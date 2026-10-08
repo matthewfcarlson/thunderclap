@@ -1,0 +1,14 @@
+class Thing { public: int a[9]; Thing(); };
+void InitPart();
+Thing::Thing() {
+    a[4] = 0;
+    a[5] = 0;
+    a[6] = 0;
+    a[7] = 0;
+    a[8] = 0;
+    InitPart();
+    a[0] = 0;
+    a[2] = 0;
+    a[1] = 0;
+    a[3] = 0;
+}

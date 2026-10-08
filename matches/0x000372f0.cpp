@@ -1,0 +1,1 @@
+unsigned char __fastcall FUN_000372f0(void* param_1) { return *((unsigned char*)param_1 + 0x1c8c); }

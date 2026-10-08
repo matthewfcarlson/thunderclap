@@ -1,0 +1,1 @@
+class Param { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); }; class Track : public Param { public: virtual void f5(); virtual void f6(); virtual void f7(); virtual int vfunc_8(int, int); }; int Track::vfunc_8(int value, int) { return value; }

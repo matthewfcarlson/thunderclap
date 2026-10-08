@@ -1,0 +1,1 @@
+namespace pure3d { struct Inner { char pad[0x14]; int value; }; class pddiBaseContext { public: virtual void f(); char pad[0x48]; Inner* m; int vfunc_77(); }; int pddiBaseContext::vfunc_77() { return m->value; } }

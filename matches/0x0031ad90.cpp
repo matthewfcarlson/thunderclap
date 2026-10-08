@@ -1,0 +1,8 @@
+class PddiObject { public: virtual void f0(); virtual void f1(); virtual void f2(); };
+class D3dDisplay : public PddiObject {
+public:
+ virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual unsigned char f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15(); virtual void f16(); virtual void f17();
+ char pad[0x438];
+ unsigned char vfunc_10();
+};
+unsigned char D3dDisplay::vfunc_10() { return pad[0x433]; }
