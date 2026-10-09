@@ -20,6 +20,9 @@ Translation unit rules:
 - Inlined strlen: const char* e = s + 1; do c = *s++; while (c); len = s - e; then +1 gives "sub eax,edx / inc eax". strcpy: do { c = *src; src++; *dst = c; dst++; } while (c); — write them as small inline helpers.
 - Float parameters that are only copied/pushed must be declared float, not int. Float compares: write new-value > old-value (operand order flips the fcom test).
 - "lea ecx,[reg+off]; push float; call" with no add esp is a thiscall member of a sub-object/array element: declare it Elem::Fn(float).
+- An inline "sbb eax,eax / sbb eax,-1" compare is the strcmp intrinsic: declare extern "C" int strcmp(const char*, const char*); and call it. A bare "sete al" result wants a char return type, not bool/int.
+- A zero store to a member that is later overwritten gets optimized away; write it through a local pointer (int* q = &m; *q = 0;) to keep it. Reloading a member in its own block ({ Obj* q = mObj; q->f(); }) reproduces alternating eax/edx loads.
+- If the target has an ebp frame (push ebp / mov ebp,esp ... leave), that object was built with /Oy-: make the first line of the file "// cl-flags: /Oy-".
 - Don't copy Ghidra's casts. MSVC 7.1 rejects the __thiscall keyword in function-pointer types: call through virtual methods of a declared class instead, and use member fields, not (void**)/(code**) casts.
 
 MSVC 7.1 idioms seen in this binary:

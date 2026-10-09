@@ -31,12 +31,27 @@ XBE_PATH = os.path.join(ROOT, "isos/extracted/default.xbe")
 DEFAULT_FLAGS = ["/nologo", "/c", "/O2", "/GR", "/GX", "/Gy"]
 
 
+def file_flags(src):
+    """Per-TU compiler flags from a '// cl-flags: /Oy- ...' comment (some objects used different options)."""
+    try:
+        with open(src) as f:
+            for _ in range(5):
+                line = f.readline()
+                m = re.match(r"\s*//\s*cl-flags:\s*(.+)", line)
+                if m:
+                    allowed = {"/Oy-", "/Oy", "/O1", "/O2", "/Ox", "/Os", "/Ot", "/Og", "/Oi", "/Ob0", "/Ob1", "/Ob2", "/GX", "/GX-", "/GR", "/GR-", "/Gy"}
+                    return [t for t in m.group(1).split() if t in allowed]
+    except OSError:
+        pass
+    return []
+
+
 def compile_obj(src, flags, out_dir):
     obj = os.path.join(out_dir, os.path.splitext(os.path.basename(src))[0] + ".obj")
     env = dict(os.environ, INCLUDE=os.path.join(MSVC, "Include") + ";" + os.path.join(ROOT, "include"))
     # cl parses a leading "/" as a switch, so pass the source relative to its own directory.
     src_dir, src_name = os.path.split(os.path.abspath(src))
-    cmd = [WIBO, os.path.join(MSVC, "Bin/cl.exe")] + flags + ["/Fo" + obj, src_name]
+    cmd = [WIBO, os.path.join(MSVC, "Bin/cl.exe")] + list(flags) + file_flags(src) + ["/Fo" + obj, src_name]
     r = subprocess.run(cmd, env=env, capture_output=True, text=True, cwd=src_dir)
     if r.returncode != 0 or not os.path.exists(obj):
         # Drop the echoed file name; keep paths short for the model.
