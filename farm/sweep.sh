@@ -29,6 +29,7 @@ Claude-Session: https://claude.ai/code/session_01DM8Bn5TvuystUL5qBzT4rA" && { gi
     fi
     # Stop when the farm has nothing left to do or the budget stopped paid tiers.
     tail -40 "$LOG" | grep -q 'farm: 0 functions' && break
-    tail -40 "$LOG" | grep -q 'budget .* reached' && break
+    # Every stop reason (ledger budget, key limit, 402 out of credits) ends with this phrase.
+    tail -40 "$LOG" | grep -q 'skipping paid tiers' && break
 done
 echo "== sweep done $(date)" >> "$LOG"

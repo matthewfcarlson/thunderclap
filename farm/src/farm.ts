@@ -478,7 +478,9 @@ async function main() {
 			if (!isFree(tiers[t].model) && (creditsOut || spent >= budget || keyRemaining - (spent - spentAtStart) < keyFloor)) {
 				if (!budgetWarned) console.log(creditsOut
 					? `budget reached: provider account out of credits (402): skipping paid tiers`
-					: `budget $${budget} reached ($${spent.toFixed(2)} spent): skipping paid tiers`);
+					: spent >= budget
+						? `budget $${budget} reached ($${spent.toFixed(2)} spent): skipping paid tiers`
+						: `budget reached: OpenRouter key limit nearly used ($${(keyRemaining - (spent - spentAtStart)).toFixed(2)} left on the key): skipping paid tiers`);
 				budgetWarned = true;
 				continue;
 			}
