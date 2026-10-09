@@ -25,7 +25,7 @@ while :; do
         git commit -q -m "Farm sweep: +$n matched functions
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_01DM8Bn5TvuystUL5qBzT4rA" && git push -q >> "$LOG" 2>&1
+Claude-Session: https://claude.ai/code/session_01DM8Bn5TvuystUL5qBzT4rA" && { git pull -q --rebase origin main && git push -q; } >> "$LOG" 2>&1
     fi
     # Stop when the farm has nothing left to do or the budget stopped paid tiers.
     tail -40 "$LOG" | grep -q 'farm: 0 functions' && break
