@@ -44,11 +44,21 @@ for l in open("build/farm/results.jsonl"):
     if r["status"] in ("exhausted", "gave_up"):
         best[r["addr"]] = max(best.get(r["addr"], 0), r["bestScore"])
 have = lambda a: os.path.exists(f"matches/{a}.cpp")
+# Skip broken targets: bodies that don't end in ret/jmp (Ghidra gave part of the code to a neighbour).
+import capstone
+sys.path.insert(0, "tools")
+from xbe import Xbe
+_x = Xbe("isos/extracted/default.xbe")
+_md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+def whole(a):
+    va = int(a, 16); o = _x.offset(va); ins = list(_md.disasm(_x.data[o:o + size.get(a, 0)], va))
+    return bool(ins) and (ins[-1].mnemonic.startswith("ret") or ins[-1].mnemonic in ("jmp", "int3"))
 reps = [l.strip() for l in open("build/farm/queue-unique.txt") if l.strip()]
 untried = [a for a in reps if a not in touched and not have(a) and a not in done_lane]
 misses = sorted((a for a in best if not have(a) and a not in done_lane), key=lambda a: -best[a])
 for a in untried + misses:
-    print(a)
+    if whole(a):
+        print(a)
 PY
     if [ ! -s build/farm/night-queue.txt ]; then echo "queue empty $(date)" >> "$LOG"; sleep 600; continue; fi
     farm/run.sh --lane "$LANE" --queue build/farm/night-queue.txt --tiers "$TIERS" --limit "$BATCH" --concurrency "$CONC" >> "$LOG" 2>&1
