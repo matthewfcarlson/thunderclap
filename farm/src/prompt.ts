@@ -23,6 +23,8 @@ Translation unit rules:
 - An inline "sbb eax,eax / sbb eax,-1" compare is the strcmp intrinsic: declare extern "C" int strcmp(const char*, const char*); and call it. A bare "sete al" result wants a char return type, not bool/int.
 - A zero store to a member that is later overwritten gets optimized away; write it through a local pointer (int* q = &m; *q = 0;) to keep it. Reloading a member in its own block ({ Obj* q = mObj; q->f(); }) reproduces alternating eax/edx loads.
 - If the target has an ebp frame (push ebp / mov ebp,esp ... leave), that object was built with /Oy-: make the first line of the file "// cl-flags: /Oy-".
+- CRT intrinsics: "rep stosd/rep stosb" = memset(p, 0, n); a call with args in st0/st1 = fmod(); "fpatan" = atan2(). Declare them extern "C" and call them.
+- Prefer early returns (if (!p) return false;) over wrapping the body in if (p) { ... } when the target tests before saving registers.
 - Don't copy Ghidra's casts. MSVC 7.1 rejects the __thiscall keyword in function-pointer types: call through virtual methods of a declared class instead, and use member fields, not (void**)/(code**) casts.
 
 MSVC 7.1 idioms seen in this binary:
