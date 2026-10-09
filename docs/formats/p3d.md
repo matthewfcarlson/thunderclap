@@ -84,13 +84,39 @@ Textures are found **by name across everything loaded**, not just the same file.
 - **SkeletonJoint 0x23001**: name, `u32 parent index` (root points at itself), `float[16]` rest matrix relative to the parent, row-major with row vectors (translation in the last row, D3D style). Hulk has 38 joints (`Motion_Root`, `Balance_Root`, `Character_Root`, `Pelvis`, …).
 - 0x23003: limb records (`left_leg`, `right_leg`, … + joint indices), probably for IK.
 
+## Animations
+Verified on all 14,856 animations: every channel of the decoded types below fills its chunk exactly (283,400 channels), and key frames are strictly increasing.
+
+- **Animation 0x121000**: `u32 version`, name, `char[4] kind`, `f32 frame count`, `f32 frame rate`, `u32 cyclic`. Kinds: `PTRN` (skeletal pose, 5,406), `SPAR`/`SPEM` (particles), `PPTG`/`PPLG`, `BQG`, `CAM`, `VRTX`, `STRN`, `PVIS`, `TEX`, `SHAD`, `PSPG`, `LITE`.
+  - 0x121006: per-channel-type key statistics (children 0x121007: `u32 0, u32 channel id, u32 count, u16[]…`). Not needed for playback.
+  - **GroupList 0x121002**: `u32 version`, `u32 group count`.
+  - **Group 0x121001**: `u32 version`, name, `u32 id`, `u32 channel count`; children are channels. Groups bind to skeleton joints **by name**. The ids are not joint indices (`Wealded_Weap_*` differ between animations). Cutscene (`nis/`) animations name the root group after the character (`hulk`) with id 0; it drives joint 0 (`Motion_Root`).
+- **Channels**: `u32 version`, `char[4] param`, [1/2-DOF only: `u16 axis`, `f32[3] constant`], `u32 key count n`, `u16 frame[n]`, then n values. Time = frame / frame rate. Each channel has one child 0x121110 (`u32 version`, `u32` interpolation mode?, often 0xFFFFFFFF).
+
+| ID | Values | Params seen |
+|---|---|---|
+| 0x121100 | `f32` | many material/particle params (`FOV`, `DIST`, `SPD`, …) |
+| 0x121102 Vector1DOF | `f32`: replaces component `axis` of `constant` | `TRAN` |
+| 0x121103 Vector2DOF | `f32[2]`: the two components other than `axis`, which keeps `constant` | `TRAN`, `LOOK`, `UP` |
+| 0x121104 Vector3DOF | `f32[3]` | `TRAN` (local translation; matches the rest pose exactly), `LOOK`, `UP`, `TRA` |
+| 0x121105 Quaternion | `f32[4]` x, y, z, w | `ROT` |
+| 0x121111 | `s16[4]` x, y, z, w / 32767 | `ROT` |
+| 0x121112 | `s16[3]` x, y, z / 32767; w = √(1−x²−y²−z²) | `ROT` (cutscenes) |
+| 0x121114 | `s8[3]` x, y, z / 127; w derived | `ROT` (gameplay; the most common channel) |
+| 0x121107 / 0x121108 / 0x121109 / 0x12110E | not decoded (guessing from params: texture name / bool / colour / int) | `TEX`, `VIS`, `CLR`, `ALP`, … |
+
+Quaternions use the column-vector convention, so their matrix is the *transpose* of the joint's row-vector rest matrix. Checked by scoring layouts against Hulk's rest pose: x, y, z, w with the transposed matrix wins for every rotation type. Hulk's gameplay animations (`hlk_*`, 178 in `global_nonchar.p3d`; more in mission files) and cutscenes (`nis/*.p3d`, `PTRN_hulk*`) render correctly when skinned.
+
+## Locations
+A location (e.g. `downtown_day`) is split into rooms, one file per room in `rooms.rcf` `art/locations/<loc>/<prefix>_rNNN.p3d`, in world space. Each room carries its own lightmap textures and shaders. Base textures come from `districts.rcf` `art/locations/<loc>/<prefix>_district_N.p3d`. `p3d.py city <loc|prefix>` merges all rooms with the districts as libraries: 4,121 of 4,126 materials across all 15 locations resolve a texture.
+
 ## glTF export conventions (`p3d.py gltf`)
-Pure3D is left-handed, glTF right-handed: Z is negated on positions and normals, `S·M·S` (S = diag(1,1,-1)) on matrices, and triangle winding is reversed. Row-major row-vector matrices already have glTF's column-major layout.
+Pure3D is left-handed, glTF right-handed: Z is negated on positions and normals, `S·M·S` (S = diag(1,1,-1)) on matrices, and triangle winding is reversed. Row-major row-vector matrices already have glTF's column-major layout. Joints are written as translation + rotation (animation targets can't use `matrix`); a quaternion (x, y, z, w) becomes (−x, −y, z, w).
 
 ## Unknown chunks (by frequency, from `p3d.py stats build/rcf`)
-Most are animation channels inside 0x121000: 0x121110 (304k), 0x121001 (161k), 0x121114, 0x121104, 0x121100, 0x121007, 0x121112. Then 0x10011 (30k, in every PrimGroup), 0x60000724 / 0x60000725 (Hulk world data), 0x8020002 / 0x802000B / 0x8020008 / 0x8020003 (state props), 0x7010007 / 0x7010001 / 0x7010004 (collision volumes), 0x122000 and 0x123001.
+Animation channels are now named in the table above. Of the rest: 0x10011 (30k, in every PrimGroup), 0x60000724 / 0x60000725 (Hulk world data), 0x8020002 / 0x802000B / 0x8020008 / 0x8020003 (state props), 0x7010007 / 0x7010001 / 0x7010004 (collision volumes), 0x122000 and 0x123001.
 
 ## Open questions
-1. Animation channel layouts (0x1211xx) for exporting animations.
+1. Non-skeletal animation channels (bool/colour/texture/int) and the 0x121110 interpolation field.
 2. Meanings of the PrimGroup vertex-format bits and of 0x10010 / 0x10011.
 3. Collision (0x701xxxx) and state-prop (0x802xxxx) layouts.

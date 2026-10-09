@@ -4,15 +4,17 @@
   p3d.py dump <file.p3d> [--max-depth N]
   p3d.py stats <file-or-dir>...            # chunk-id histogram, unknown ids ranked
   p3d.py textures <file-or-dir>... -o DIR  # every Image -> PNG
-  p3d.py gltf <file.p3d> <out.glb> [--lib other.p3d]...
-                                           # meshes (+ skeleton, skin, textures) -> binary glTF
+  p3d.py gltf <file.p3d> <out.glb> [--lib other.p3d]... [--anims other.p3d]... [--anim-match GLOB]
+                                           # meshes (+ skeleton, skin, textures, animations) -> binary glTF
+  p3d.py city <location> <out.glb> [--rcf build/rcf]
+                                           # every room of a location, textured from its districts
 
 Layout (docs/formats/p3d.md): 12-byte file header (magic, header size, file
 length) followed by chunks of {u32 id, u32 data_size, u32 total_size}, where
 both sizes include the 12-byte chunk header and children follow the chunk's
 own data. Parsing is tolerant: bad sizes are reported, never fatal.
 """
-import argparse, collections, json, os, struct, sys
+import argparse, collections, fnmatch, json, math, os, struct, sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import dds
@@ -304,6 +306,117 @@ def mat_inv_affine(m):
     return tuple(inv[0] + [0] + inv[1] + [0] + inv[2] + [0] + it + [1])
 
 
+# ---- animations -------------------------------------------------------------
+
+# Rotation channels: per-key quaternion (x, y, z[, w]) as struct format and scale; a missing w is
+# derived as sqrt(1 - x^2 - y^2 - z^2). Column-vector convention, i.e. the transpose of the joint matrix.
+QUAT = {0x121105: ("<4f", 1.0), 0x121111: ("<4h", 32767.0), 0x121112: ("<3h", 32767.0), 0x121114: ("<3b", 127.0)}
+
+
+def read_channel(buf, c):
+    """Animation channel -> (param, frames, values), or None for channel types not decoded.
+    u32 version, char[4] param ("TRAN", "ROT"), [Vector1DOF/2DOF: u16 axis, f32[3] constant],
+    u32 key count, u16 frame[n], then n values. Vector1DOF (0x121102) varies only `axis`;
+    Vector2DOF (0x121103) keeps `axis` constant and stores the other two."""
+    if c.id not in (0x121102, 0x121103, 0x121104) and c.id not in QUAT:
+        return None
+    r = Reader(buf, c)
+    r.u32()
+    param = r.raw(4).rstrip(b"\0").decode("latin1")
+    if c.id in (0x121102, 0x121103):
+        axis, = struct.unpack_from("<H", buf, r.pos)
+        r.pos += 2
+        const = r.f32(3)
+    n = r.u32()
+    frames = struct.unpack_from("<%dH" % n, buf, r.pos)
+    r.pos += 2 * n
+    if c.id == 0x121104:
+        vals = [r.f32(3) for _ in range(n)]
+    elif c.id == 0x121102:
+        vals = [tuple(v if i == axis else const[i] for i in range(3)) for v in r.f32(n)]
+    elif c.id == 0x121103:
+        vals = []
+        for _ in range(n):
+            it = iter(r.f32(2))
+            vals.append(tuple(const[i] if i == axis else next(it) for i in range(3)))
+    else:
+        fmt, scale = QUAT[c.id]
+        vals = []
+        for v in struct.iter_unpack(fmt, r.raw(n * struct.calcsize(fmt))):
+            q = [x / scale for x in v]
+            if len(q) == 3:
+                q.append(math.sqrt(max(0.0, 1.0 - sum(x * x for x in q))))
+            s = math.sqrt(sum(x * x for x in q)) or 1.0
+            vals.append(tuple(x / s for x in q))
+    return param, frames, vals
+
+
+def read_animation(buf, c):
+    """Animation (0x121000): u32 version, name, char[4] kind ("PTRN" = skeletal pose), f32 frame
+    count, f32 frame rate, u32 cyclic. Its GroupList (0x121002) holds Groups (0x121001: u32 version,
+    name, u32 id, u32 channel count) whose children are channels. Joints match groups by name."""
+    r = Reader(buf, c)
+    r.u32()
+    a = {"name": r.pstr(), "kind": r.raw(4).rstrip(b"\0").decode("latin1")}
+    a["frames"], a["rate"] = r.f32(2)
+    a["cyclic"] = r.u32()
+    a["groups"] = []
+    gl = c.child(0x121002)
+    for g in gl.children if gl is not None else ():
+        if g.id != 0x121001:
+            continue
+        r = Reader(buf, g)
+        r.u32()
+        name, gid = r.pstr(), r.u32()
+        chans = {}
+        for k in g.children:
+            ch = read_channel(buf, k)
+            if ch:
+                chans[ch[0]] = ch[1:]
+        a["groups"].append((name, gid, chans))
+    return a
+
+
+def animations(buf, chunks=None):
+    for _, c in walk(chunks if chunks is not None else parse(buf)):
+        if c.id == 0x121000:
+            yield read_animation(buf, c)
+
+
+def bind_animation(anim, joint_names):
+    """Joint index -> channels for a skeleton, or None if under half the groups name its joints.
+    Cutscene animations name the root group after the character, so an unmatched group 0 -> joint 0."""
+    idx = {n: i for i, n in enumerate(joint_names)}
+    out = {}
+    for name, gid, chans in anim["groups"]:
+        if name in idx:
+            out[idx[name]] = chans
+    for name, gid, chans in anim["groups"]:
+        if name not in idx and gid == 0 and 0 not in out:
+            out[0] = chans
+    return out if out and len(out) * 2 >= len(anim["groups"]) else None
+
+
+def mat_quat(m):
+    """Unit quaternion (x, y, z, w) of the rotation in a column-major glTF 4x4."""
+    a = [[m[c * 4 + r] for c in range(3)] for r in range(3)]
+    t = a[0][0] + a[1][1] + a[2][2]
+    if t > 0:
+        s = math.sqrt(t + 1.0) * 2
+        q = ((a[2][1] - a[1][2]) / s, (a[0][2] - a[2][0]) / s, (a[1][0] - a[0][1]) / s, s / 4)
+    elif a[0][0] > a[1][1] and a[0][0] > a[2][2]:
+        s = math.sqrt(1.0 + a[0][0] - a[1][1] - a[2][2]) * 2
+        q = (s / 4, (a[0][1] + a[1][0]) / s, (a[0][2] + a[2][0]) / s, (a[2][1] - a[1][2]) / s)
+    elif a[1][1] > a[2][2]:
+        s = math.sqrt(1.0 + a[1][1] - a[0][0] - a[2][2]) * 2
+        q = ((a[0][1] + a[1][0]) / s, s / 4, (a[1][2] + a[2][1]) / s, (a[0][2] - a[2][0]) / s)
+    else:
+        s = math.sqrt(1.0 + a[2][2] - a[0][0] - a[1][1]) * 2
+        q = ((a[0][2] + a[2][0]) / s, (a[1][2] + a[2][1]) / s, s / 4, (a[1][0] - a[0][1]) / s)
+    n = math.sqrt(sum(x * x for x in q))
+    return [x / n for x in q]
+
+
 FLIP = (1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)
 
 
@@ -351,125 +464,221 @@ class Glb:
             f.write(struct.pack("<I4s", len(self.bin), b"BIN\0") + bytes(self.bin))
 
 
-def export_gltf(buf, path, libs=()):
-    """`libs`: other .p3d buffers whose shaders and textures may be referenced
-    (rooms use the ones in their location's art/locations/<area>/*.p3d)."""
-    chunks = parse(buf)
+def shader_maps(buf, chunks):
+    """(shader name -> TEX texture name, lowercase texture name -> (buf, first Image)) for one file."""
+    shader_tex = {}
+    for _, c in walk(chunks):
+        if c.id == 0x11000:
+            name = Reader(buf, c).pstr()
+            for k in c.children:
+                if k.id == 0x11002:
+                    r = Reader(buf, k)
+                    if r.raw(4) == b"TEX\0":
+                        shader_tex[name] = r.pstr().lower()
+    return shader_tex, {name.lower(): (buf, img) for name, i, img in textures(buf, chunks) if i == 0}
+
+
+def export_gltf(models, path, libs=(), anims=(), match="*"):
+    """Write .p3d meshes, skeletons and animations to a binary glTF.
+
+    `models`: one .p3d buffer, or a list of (name, buffer) each grouped under a node of that name.
+    `libs`: other .p3d buffers whose shaders and textures may be referenced; a model's own win
+    (rooms use their location's districts). `anims`: further .p3d buffers to take PTRN animations
+    from; the models' own count too. Animations whose name matches the `match` glob are bound to
+    every skeleton whose joints they name. Returns (meshes, primitives, animations)."""
+    if isinstance(models, (bytes, bytearray)):
+        models = [(None, models)]
     g = Glb()
     j = g.j
-    # Shader -> texture name (TEX param); texture name -> (buffer, first Image). Names match case-insensitively.
-    shader_tex, tex_img = {}, {}
-    for b in list(libs) + [buf]:
-        cs = chunks if b is buf else parse(b)
-        for _, c in walk(cs):
-            if c.id == 0x11000:
-                name = Reader(b, c).pstr()
-                for k in c.children:
-                    if k.id == 0x11002:
-                        r = Reader(b, k)
-                        if r.raw(4) == b"TEX\0":
-                            shader_tex[name] = r.pstr().lower()
-        tex_img.update({name.lower(): (b, img) for name, i, img in textures(b, cs) if i == 0})
-    materials = {}
+    lib_st, lib_ti = {}, {}
+    for b in libs:
+        st, ti = shader_maps(b, parse(b))
+        lib_st.update(st)
+        lib_ti.update(ti)
+    images, materials = {}, {}
 
-    def material(shader):
-        if shader not in materials:
+    def texture(name, src):
+        k = (id(src[0]), src[1].start)
+        if k not in images:
+            images[k] = None
+            try:
+                png = image_png(*src)
+            except (dds.DdsError, struct.error, AttributeError):
+                png = None
+            if png:
+                j.setdefault("images", []).append({"name": name, "mimeType": "image/png", "bufferView": g.view(png)})
+                j.setdefault("textures", []).append({"source": len(j["images"]) - 1})
+                images[k] = len(j["textures"]) - 1
+        return images[k]
+
+    def material(shader, st, ti):
+        tex = st[shader] if shader in st else lib_st.get(shader)
+        src = ti.get(tex) or lib_ti.get(tex)
+        key = (shader, id(src[0]), src[1].start) if src else (shader,)
+        if key not in materials:
             m = {"name": shader, "pbrMetallicRoughness": {"metallicFactor": 0.0, "roughnessFactor": 1.0}}
-            tex = shader_tex.get(shader)
-            if tex in tex_img:
-                try:
-                    png = image_png(*tex_img[tex])
-                except (dds.DdsError, struct.error, AttributeError):
-                    png = None
-                if png:
-                    j.setdefault("images", []).append({"name": tex, "mimeType": "image/png", "bufferView": g.view(png)})
-                    j.setdefault("textures", []).append({"source": len(j["images"]) - 1})
-                    m["pbrMetallicRoughness"]["baseColorTexture"] = {"index": len(j["textures"]) - 1}
+            t = texture(tex, src) if src else None
+            if t is not None:
+                m["pbrMetallicRoughness"]["baseColorTexture"] = {"index": t}
             j.setdefault("materials", []).append(m)
-            materials[shader] = len(j["materials"]) - 1
-        return materials[shader]
+            materials[key] = len(j["materials"]) - 1
+        return materials[key]
 
-    # Skeletons -> joint node hierarchies + skins.
-    skins = {}
-    for _, c in walk(chunks):
-        if c.id != 0x23000:
-            continue
-        sname, joints = read_skeleton(buf, c)
-        base = len(j["nodes"])
-        world = []
-        for i, (jn, parent, m) in enumerate(joints):
-            world.append(m if parent >= i else mat_mul(m, world[parent]))
-            j["nodes"].append({"name": jn, "matrix": to_gltf_matrix(m)})
-            if parent < i:
-                j["nodes"][base + parent].setdefault("children", []).append(base + i)
-            else:
-                j["scenes"][0]["nodes"].append(base + i)
-        ibm = g.accessor([to_gltf_matrix(mat_inv_affine(w)) for w in world], "<16f", 5126, "MAT4")
-        j.setdefault("skins", []).append({"name": sname, "joints": list(range(base, base + len(joints))),
-                                          "inverseBindMatrices": ibm, "skeleton": base})
-        skins[sname] = len(j["skins"]) - 1
+    skeletons = []  # (first joint node, joint names)
+    for mname, buf in models:
+        chunks = parse(buf)
+        st, ti = shader_maps(buf, chunks)
+        roots = j["scenes"][0]["nodes"]
+        if mname is not None:
+            j["nodes"].append({"name": mname, "children": []})
+            roots.append(len(j["nodes"]) - 1)
+            roots = j["nodes"][-1]["children"]
 
-    # PolySkin (name, u32 version, skeleton name, u32 prim count) and Geometry (name, u32 prim count) -> meshes.
-    for _, c in walk(chunks):
-        if c.id not in (0x10000, 0x10001):
-            continue
-        r = Reader(buf, c)
-        name = r.pstr()
-        skel = (r.u32(), r.pstr())[1] if c.id == 0x10001 else None
-        prims = []
-        for k in c.children:
-            if k.id != 0x10020:
+        # Skeletons -> joint node hierarchies (TRS, so animations can target them) + skins.
+        skins = {}
+        for _, c in walk(chunks):
+            if c.id != 0x23000:
                 continue
-            pg = read_prim_group(buf, k)
-            if "pos" not in pg:
+            sname, joints = read_skeleton(buf, c)
+            base = len(j["nodes"])
+            world = []
+            for i, (jn, parent, m) in enumerate(joints):
+                world.append(m if parent >= i else mat_mul(m, world[parent]))
+                gm = to_gltf_matrix(m)
+                j["nodes"].append({"name": jn, "translation": gm[12:15], "rotation": mat_quat(gm)})
+                if parent < i:
+                    j["nodes"][base + parent].setdefault("children", []).append(base + i)
+                else:
+                    roots.append(base + i)
+            ibm = g.accessor([to_gltf_matrix(mat_inv_affine(w)) for w in world], "<16f", 5126, "MAT4")
+            j.setdefault("skins", []).append({"name": sname, "joints": list(range(base, base + len(joints))),
+                                              "inverseBindMatrices": ibm, "skeleton": base})
+            skins[sname] = len(j["skins"]) - 1
+            skeletons.append((base, [jn for jn, _, _ in joints]))
+
+        # PolySkin (name, u32 version, skeleton name, u32 prim count) and Geometry (name, u32 prim count) -> meshes.
+        for _, c in walk(chunks):
+            if c.id not in (0x10000, 0x10001):
                 continue
-            tris = triangles(pg)
-            if not tris:
+            r = Reader(buf, c)
+            name = r.pstr()
+            skel = (r.u32(), r.pstr())[1] if c.id == 0x10001 else None
+            prims = []
+            for k in c.children:
+                if k.id != 0x10020:
+                    continue
+                pg = read_prim_group(buf, k)
+                if "pos" not in pg:
+                    continue
+                tris = triangles(pg)
+                if not tris:
+                    continue
+                attrs = {"POSITION": g.accessor([(x, y, -z) for x, y, z in pg["pos"]], "<3f", 5126, "VEC3", 34962, True)}
+                if "nrm" in pg:
+                    attrs["NORMAL"] = g.accessor([(x, y, -z) for x, y, z in pg["nrm"]], "<3f", 5126, "VEC3", 34962)
+                if "uv" in pg:
+                    # UVs index the DDS rows as stored; our PNGs are flipped for viewing, so flip v.
+                    attrs["TEXCOORD_0"] = g.accessor([(u, 1.0 - v) for u, v in pg["uv"]], "<2f", 5126, "VEC2", 34962)
+                if "uv1" in pg:
+                    attrs["TEXCOORD_1"] = g.accessor([(u, 1.0 - v) for u, v in pg["uv1"]], "<2f", 5126, "VEC2", 34962)
+                if "col" in pg:
+                    # D3DCOLOR (B, G, R, A bytes): baked vertex lighting on world geometry.
+                    attrs["COLOR_0"] = g.accessor([(r_, g_, b_, a_) for b_, g_, r_, a_ in pg["col"]],
+                                                  "<4B", 5121, "VEC4", 34962)
+                    j["accessors"][attrs["COLOR_0"]]["normalized"] = True
+                if skel in skins and "mat" in pg and "wt" in pg and pg["palette"]:
+                    pal = pg["palette"]
+                    # Four palette slots per vertex; the first weight's slot is the top byte.
+                    attrs["JOINTS_0"] = g.accessor([tuple(pal[i] for i in m[::-1]) for m in pg["mat"]],
+                                                   "<4H", 5123, "VEC4", 34962)
+                    wts = []
+                    for w in pg["wt"]:
+                        w = [max(0.0, x) for x in w] + [max(0.0, 1.0 - sum(w))]
+                        s = sum(w) or 1.0
+                        wts.append(tuple(x / s for x in w))
+                    attrs["WEIGHTS_0"] = g.accessor(wts, "<4f", 5126, "VEC4", 34962)
+                # The Z flip mirrors the mesh, so reverse the winding to keep faces outward.
+                ind = g.accessor([(a, cc, b) for a, b, cc in tris], "<3I", 5125, "SCALAR", 34963, count=3 * len(tris))
+                prims.append({"attributes": attrs, "indices": ind, "material": material(pg["shader"], st, ti)})
+            if not prims:
                 continue
-            attrs = {"POSITION": g.accessor([(x, y, -z) for x, y, z in pg["pos"]], "<3f", 5126, "VEC3", 34962, True)}
-            if "nrm" in pg:
-                attrs["NORMAL"] = g.accessor([(x, y, -z) for x, y, z in pg["nrm"]], "<3f", 5126, "VEC3", 34962)
-            if "uv" in pg:
-                # UVs index the DDS rows as stored; our PNGs are flipped for viewing, so flip v.
-                attrs["TEXCOORD_0"] = g.accessor([(u, 1.0 - v) for u, v in pg["uv"]], "<2f", 5126, "VEC2", 34962)
-            if "uv1" in pg:
-                attrs["TEXCOORD_1"] = g.accessor([(u, 1.0 - v) for u, v in pg["uv1"]], "<2f", 5126, "VEC2", 34962)
-            if "col" in pg:
-                # D3DCOLOR (B, G, R, A bytes): baked vertex lighting on world geometry.
-                attrs["COLOR_0"] = g.accessor([(r_, g_, b_, a_) for b_, g_, r_, a_ in pg["col"]], "<4B", 5121, "VEC4", 34962)
-                j["accessors"][attrs["COLOR_0"]]["normalized"] = True
-            if skel in skins and "mat" in pg and "wt" in pg and pg["palette"]:
-                pal = pg["palette"]
-                # Four palette slots per vertex; the first weight's slot is the top byte.
-                attrs["JOINTS_0"] = g.accessor([tuple(pal[i] for i in m[::-1]) for m in pg["mat"]],
-                                               "<4H", 5123, "VEC4", 34962)
-                wts = []
-                for w in pg["wt"]:
-                    w = [max(0.0, x) for x in w] + [max(0.0, 1.0 - sum(w))]
-                    s = sum(w) or 1.0
-                    wts.append(tuple(x / s for x in w))
-                attrs["WEIGHTS_0"] = g.accessor(wts, "<4f", 5126, "VEC4", 34962)
-            # The Z flip mirrors the mesh, so reverse the winding to keep faces outward.
-            ind = g.accessor([(a, cc, b) for a, b, cc in tris], "<3I", 5125, "SCALAR", 34963, count=3 * len(tris))
-            prims.append({"attributes": attrs, "indices": ind, "material": material(pg["shader"])})
-        if not prims:
-            continue
-        j["meshes"].append({"name": name, "primitives": prims})
-        node = {"name": name, "mesh": len(j["meshes"]) - 1}
-        if skel in skins:
-            node["skin"] = skins[skel]
-        j["nodes"].append(node)
-        j["scenes"][0]["nodes"].append(len(j["nodes"]) - 1)
+            j["meshes"].append({"name": name, "primitives": prims})
+            node = {"name": name, "mesh": len(j["meshes"]) - 1}
+            if skel in skins:
+                node["skin"] = skins[skel]
+            j["nodes"].append(node)
+            roots.append(len(j["nodes"]) - 1)
     if not j["meshes"]:
         raise ValueError("no meshes found")
+
+    # Skeletal (PTRN) animations, first of each name wins (mission files repeat them).
+    anim_list, seen = [], set()
+    if skeletons:
+        for b in [buf for _, buf in models] + list(anims):
+            for an in animations(b):
+                if (an["kind"] == "PTRN" and an["name"] not in seen
+                        and fnmatch.fnmatchcase(an["name"].lower(), match.lower())):
+                    seen.add(an["name"])
+                    anim_list.append(an)
+    times = {}
+    for base, names in skeletons:
+        for an in anim_list:
+            bound = bind_animation(an, names)
+            if not bound:
+                continue
+            rate = an["rate"] or 30.0
+            samplers, channels = [], []
+            for ji, chans in sorted(bound.items()):
+                for param, target in (("TRAN", "translation"), ("ROT", "rotation")):
+                    frames, vals = chans.get(param, ((), ()))
+                    if not frames:
+                        continue
+                    if target == "translation":
+                        out = g.accessor([(x, y, -z) for x, y, z in vals], "<3f", 5126, "VEC3")
+                    else:
+                        # Z flip: (x, y, z, w) -> (-x, -y, z, w); keep consecutive keys in one hemisphere.
+                        qs = []
+                        for x, y, z, w in vals:
+                            q = (-x, -y, z, w)
+                            if qs and sum(p * v for p, v in zip(qs[-1], q)) < 0:
+                                q = tuple(-v for v in q)
+                            qs.append(q)
+                        out = g.accessor(qs, "<4f", 5126, "VEC4")
+                    if (frames, rate) not in times:
+                        times[frames, rate] = g.accessor([(f / rate,) for f in frames], "<f", 5126, "SCALAR",
+                                                         minmax=True)
+                    samplers.append({"input": times[frames, rate], "output": out, "interpolation": "LINEAR"})
+                    channels.append({"sampler": len(samplers) - 1, "target": {"node": base + ji, "path": target}})
+            if channels:
+                j.setdefault("animations", []).append({"name": an["name"], "samplers": samplers, "channels": channels})
     g.write(path)
-    return len(j["meshes"]), sum(len(m["primitives"]) for m in j["meshes"])
+    return len(j["meshes"]), sum(len(m["primitives"]) for m in j["meshes"]), len(j.get("animations", ()))
 
 
 def cmd_gltf(a):
     libs = [open(f, "rb").read() for f in a.lib]
-    meshes, prims = export_gltf(open(a.file, "rb").read(), a.out, libs)
-    print(f"wrote {a.out}: {meshes} meshes, {prims} primitives")
+    anims = [open(f, "rb").read() for f in a.anims]
+    meshes, prims, nanim = export_gltf(open(a.file, "rb").read(), a.out, libs, anims, a.anim_match)
+    print(f"wrote {a.out}: {meshes} meshes, {prims} primitives, {nanim} animations")
+
+
+def location_files(rcf, location):
+    """Room files and district libraries for a location: its directory name (downtown_day) or
+    file prefix (dt_day). Rooms: rooms.rcf art/locations/<loc>/; libraries: districts.rcf, same path."""
+    rooms_dir = os.path.join(rcf, "rooms", "art", "locations")
+    locs = sorted(os.listdir(rooms_dir)) if os.path.isdir(rooms_dir) else []
+    for loc in locs:
+        rooms = find_p3d([os.path.join(rooms_dir, loc)])
+        if location in (loc, os.path.basename(rooms[0]).rsplit("_r", 1)[0] if rooms else None):
+            return rooms, find_p3d([os.path.join(rcf, "districts", "art", "locations", loc)])
+    raise ValueError(f"unknown location {location!r} under {rooms_dir}; one of: {', '.join(locs)}")
+
+
+def cmd_city(a):
+    rooms, libs = location_files(a.rcf, a.location)
+    meshes, prims, _ = export_gltf([(os.path.splitext(os.path.basename(f))[0], open(f, "rb").read()) for f in rooms],
+                                   a.out, [open(f, "rb").read() for f in libs])
+    print(f"wrote {a.out}: {len(rooms)} rooms, {meshes} meshes, {prims} primitives")
 
 
 def main():
@@ -483,7 +692,12 @@ def main():
     t.set_defaults(fn=cmd_textures)
     m = sub.add_parser("gltf"); m.add_argument("file"); m.add_argument("out")
     m.add_argument("--lib", action="append", default=[], help="extra .p3d to resolve shaders/textures from")
+    m.add_argument("--anims", action="append", default=[], help="extra .p3d to take skeletal animations from")
+    m.add_argument("--anim-match", default="*", help="glob on animation names, e.g. 'hlk_*'")
     m.set_defaults(fn=cmd_gltf)
+    c = sub.add_parser("city"); c.add_argument("location"); c.add_argument("out")
+    c.add_argument("--rcf", default="build/rcf", help="directory of extracted RCFs (default build/rcf)")
+    c.set_defaults(fn=cmd_city)
     a = ap.parse_args()
     try:
         a.fn(a)
