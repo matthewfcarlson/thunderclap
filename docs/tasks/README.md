@@ -2,16 +2,16 @@
 
 Self-contained briefs for work alongside the matching farm. Each brief has a goal, context, inputs, deliverables and "done when". Pick one, work it end to end, and log notable findings in `docs/journal.md`.
 
-| # | Task | Depends on | Size |
-|---|---|---|---|
-| 01 | [Reference verification (relocation targets)](01-reference-verification.md) | Ghidra project | M |
-| 02 | [RTTI → class headers](02-rtti-headers.md) | `build/rtti.json` | M |
-| 03 | [RCF archive tool](03-rcf-tool.md) | ISO only | S–M |
-| 04 | [Pure3D `.p3d` reader](04-p3d-reader.md) | 03 | M–L |
-| 05 | [Translation-unit / split recovery](05-split-recovery.md) | Ghidra, 01 | L |
-| 06 | [Hybrid patch build in xemu](06-hybrid-patch-build.md) | matches/ | L |
-| 07 | [Subsystem map for QoL (render/camera/HUD/game loop)](07-subsystem-map.md) | Ghidra, RTTI | M |
-| 08 | [Farm: large-function strategies](08-large-functions.md) | farm | M |
+| # | Task | Depends on | Size | Status |
+|---|---|---|---|---|
+| 01 | [Reference verification (relocation targets)](01-reference-verification.md) | Ghidra project | M | |
+| 02 | [RTTI → class headers](02-rtti-headers.md) | `build/rtti.json` | M | |
+| 03 | [RCF archive tool](03-rcf-tool.md) | ISO only | S–M | *in progress: branch `task/rcf-tool`* |
+| 04 | [Pure3D `.p3d` reader](04-p3d-reader.md) | 03 | M–L | *done (PR #2)* |
+| 05 | [Translation-unit / split recovery](05-split-recovery.md) | Ghidra, 01 | L | |
+| 06 | [Hybrid patch build in xemu](06-hybrid-patch-build.md) | matches/ | L | |
+| 07 | [Subsystem map for QoL (render/camera/HUD/game loop)](07-subsystem-map.md) | Ghidra, RTTI | M | |
+| 08 | [Farm: large-function strategies](08-large-functions.md) | farm | M | *claimed by the farm session* |
 
 ## Ground rules (read first)
 
