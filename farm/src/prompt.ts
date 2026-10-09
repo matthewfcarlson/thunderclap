@@ -11,6 +11,8 @@ Translation unit rules:
 - A virtual call "call dword ptr [eax+N]" calls slot N/4: declare that many virtual methods before it, in order.
 - Member functions are __thiscall (this in ecx). "ret N" pops N bytes of stack arguments; plain "ret" with stack arguments means __cdecl.
 - Real names are unknown. Use the given class names and invent short descriptive names for the rest.
+- MSVC 7.1 is pre-C++11: no auto, nullptr, override, enum class, range-for or brace-init. Members are private in a class unless under public:.
+- Constructors and destructors have no return type; declare them in the class before defining them. Zero-length or negative padding arrays don't compile.
 - Don't copy Ghidra's casts. MSVC 7.1 rejects the __thiscall keyword in function-pointer types: call through virtual methods of a declared class instead, and use member fields, not (void**)/(code**) casts.
 
 MSVC 7.1 idioms seen in this binary:

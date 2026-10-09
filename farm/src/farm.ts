@@ -30,6 +30,7 @@ import {
 } from "@earendil-works/pi-durable";
 import { openNodeSqliteStorage } from "@earendil-works/pi-durable/storage/sqlite/node";
 
+import { compileHints } from "./hints.ts";
 import { SYSTEM_PROMPT, taskPrompt } from "./prompt.ts";
 
 const run = promisify(execFile);
@@ -140,6 +141,7 @@ const submitCpp = defineTool({
 		const src = join(dir, `t${job.tier}_a${n}.cpp`);
 		writeFileSync(src, args.code);
 		const r = await compare(src, job.addr);
+		if (r.status === "compile_error") r.report += compileHints(r.report);
 		let refNote = "";
 		if (r.status === "match") {
 			// Same bytes with relocations masked; now check that strings, constants and targets are right too.

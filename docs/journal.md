@@ -151,3 +151,10 @@ Newest entries go at the bottom of each day.
 | `sound_misc.rcf` | 381 | 27 MB | .lua 101, .obj 93, .p3d 93, .txt 93, .ods 1 | 2005-05-15 – 06-07 | sound |
 
 - Surprises: `art.rcf`'s 315 `.png` files are plain PNGs for the unlockable bonus gallery (`art\bonus\concept_*`, `comic_images`), and the `.lua` files are compiled bytecode (`\x1bLua`). `sound_en.rcf` isn't in `rcfs.txt`; the game builds its name from `sound_%s.rcf`, and there's also a `sound_uk.rcf` string.
+
+### Compile-error coaching
+- `tools/compile_errors.py` mines every `submit_cpp` reply in the farm databases. Baseline over 25,000 submissions: **15.5% failed to compile**.
+  - The top code by far was C4234 (`__thiscall` in Ghidra-style casts, 2,449 hits).
+  - Next: undeclared members/identifiers (C2039/C2065/C3861), mismatched member declarations (C2761/C2509/C2535/C2556/C2511), ctor/dtor misuse (C2600/C2533/C2577), and bad padding arrays (C2229/C2118).
+  - Syntax/brace errors (C2059/C2143/C2447/C1075) had the worst recovery: 34–52% compiled on the next try.
+- `farm/src/hints.ts` appends a one-line MSVC 7.1-specific fix for each recognized error code (max 3) to compile-error replies. The system prompt gained the three most common rules: no `__thiscall` casts, pre-C++11 syntax, ctor/dtor declarations and padding. Re-measure with `tools/compile_errors.py` on runs after this change.
