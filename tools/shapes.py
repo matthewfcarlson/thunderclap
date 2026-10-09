@@ -77,6 +77,14 @@ def _try(job):
 def cmd_propagate(args):
     shapes = json.load(open(B("farm", "shapes.json")))
     have = lambda a: os.path.exists(os.path.join(MATCHES, a + ".cpp"))
+    # Skip (source, target) pairs that already failed: same shape, but the source doesn't match bytes.
+    failed = set()
+    log_path = B("farm", "propagated.jsonl")
+    if os.path.exists(log_path):
+        for l in open(log_path):
+            r = json.loads(l)
+            if r["status"] != "match":
+                failed.add((r["from"], r["addr"]))
     jobs = []
     for rep, sibs in shapes.items():
         members = [rep] + sibs
@@ -84,7 +92,7 @@ def cmd_propagate(args):
         if source is None:
             continue
         src = os.path.join(MATCHES, source + ".cpp")
-        jobs += [(src, a) for a in members if not have(a)]
+        jobs += [(src, a) for a in members if not have(a) and (source, a) not in failed]
     print("propagating to %d functions with %d workers" % (len(jobs), args.jobs))
     ok = 0
     log = open(B("farm", "propagated.jsonl"), "a")
