@@ -4,7 +4,8 @@ int FUN_00212f00(int L, int a);
 void FUN_00212d80(int L, int a);
 int FUN_00339650(int L, int a);
 struct C {
-    char pad[8]; int L;
+    char pad[8];
+    int L;
     bool F(int a, int* out);
 };
 bool C::F(int a, int* out) {
