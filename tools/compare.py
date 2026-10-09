@@ -132,7 +132,7 @@ def diff(target, ours, mask):
     """Align instructions (LCS on normalized text) so one extra/missing instruction stays local.
 
     Row tags: "  " equal, "!!" differs, "--" only in target, "++" only in ours.
-    Score = aligned-equal instructions / target instructions. exact still means byte-identical
+    Score = aligned-equal instructions / max(target, ours) instructions. exact still means byte-identical
     (with relocations masked) at the same offsets.
     """
     t_insns = list(_md.disasm(target, 0))
@@ -185,7 +185,8 @@ def diff(target, ours, mask):
             b = o_insns[j1 + k] if j1 + k < j2 else None
             tag = "!!" if a and b else ("--" if a else "++")
             rows.append((tag, (a or b).address, fmt(a), fmt(b)))
-    total = max(len(t_insns), 1)
+    # Divide by the longer sequence: extra instructions in ours must lower the score too.
+    total = max(len(t_insns), len(o_insns), 1)
     return {"exact": exact, "matched": matched, "total": total,
             "target_bytes": len(target), "our_bytes": len(ours), "rows": rows}
 
