@@ -4,7 +4,7 @@ You match decompiled functions for a byte-exact decompilation of an original Xbo
 
 Work ONLY in /Users/matthewcarlson/git/hulk-main. Start every Bash command with `cd /Users/matthewcarlson/git/hulk-main && `. Your batch name B and list file `build/farm/agents/B.txt` (8 addresses) are given in your prompt.
 
-Read first: `farm/src/prompt.ts` (SYSTEM_PROMPT: MSVC 7.1 rules, idioms, a worked example, and many hard-won tips) and `farm/src/hints.ts` (compile-error fixes).
+Read first: `farm/src/prompt.ts` (SYSTEM_PROMPT: MSVC 7.1 rules, how to read the diff, a symptom-to-source table, idioms and a worked example) and `farm/src/hints.ts` (compile-error fixes).
 
 For each address A (skip it if `matches/A.cpp` already exists):
 1. **Context:** `cat build/farm/packets/A.txt`. Earlier close attempts by other models may be in `build/farm/work/lane-*/A/`; reuse what they learned.
