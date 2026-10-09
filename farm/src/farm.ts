@@ -37,7 +37,9 @@ const run = promisify(execFile);
 
 // Node's fetch multiplexes every request to a host over one HTTP/2 connection. With dozens of long
 // streaming responses, streams stalled with no bytes until the 90 s timeout. Use a real pool instead.
-setGlobalDispatcher(new Agent({ allowH2: false, connections: 128, keepAliveTimeout: 30_000 }));
+// Batch-priced models (":batch", half price) may queue a request before the first byte arrives, so
+// undici's 5-minute header/body timeouts are lifted; the harness stream timeout below bounds waits instead.
+setGlobalDispatcher(new Agent({ allowH2: false, connections: 128, keepAliveTimeout: 30_000, headersTimeout: 0, bodyTimeout: 0 }));
 const ROOT = new URL("../..", import.meta.url).pathname;
 const BUILD = join(ROOT, "build/farm");
 const PY = join(ROOT, "build/venv/bin/python");
@@ -384,7 +386,7 @@ async function main() {
 		registry,
 		settings: {
 			extensions: [Decomp],
-			stream: { timeoutMs: 90_000 },
+			stream: { timeoutMs: tiers.some((t) => t.model.endsWith(":batch")) ? 3_600_000 : 90_000 },
 			retry: { maxRetries: 3 },
 			compaction: { enabled: false },
 			toolExecution: "sequential",
