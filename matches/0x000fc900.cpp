@@ -1,0 +1,1 @@
+class X { char pad[0x70]; unsigned char a; unsigned char b; public: int f(); }; int X::f() { return a && b; }

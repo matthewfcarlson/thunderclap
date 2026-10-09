@@ -1,0 +1,2 @@
+class TextSelector { public: char pad[0x148]; int a; int b; char pad2[0x1d88-0x150]; void* ptr; void vfunc_13(int); };
+void TextSelector::vfunc_13(int x) { a = b; int v = b; if (ptr) *(int*)((char*)ptr + 0x44) = v; }

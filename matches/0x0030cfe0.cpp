@@ -1,0 +1,1 @@
+namespace physics { class PhysicsJoint1D { public: char pad[0x114]; float value; float vfunc_6(); }; float PhysicsJoint1D::vfunc_6() { union U { float f; unsigned int i; } u; u.f = value; u.i &= 0x7fffffff; return u.f; } }

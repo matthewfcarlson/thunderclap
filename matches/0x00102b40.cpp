@@ -1,0 +1,2 @@
+class CMoveAgent { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void vfunc_9(); virtual void f10(); char pad[0x80]; };
+void CMoveAgent::vfunc_9() { *(int*)((char*)this+8)=0; *(unsigned int*)((char*)this+0x70)=0x3f800000; *((unsigned char*)this+0x74)=1; *((unsigned char*)this+0x6c)=0; *((unsigned char*)this+0x75)=0; *((unsigned char*)this+0x76)=0; }

@@ -1,0 +1,3 @@
+class DrawableContainer { public: virtual void a0(); virtual void a1(); virtual void a2(); virtual void a3(); virtual void a4(); virtual void a5(); virtual void a6(); virtual void a7(); virtual void a8(); virtual void a9(); virtual void a10(); virtual void a11(); virtual void a12(); virtual void a13(); virtual void a14(); virtual void a15(); virtual int vfunc_16(); };
+class PolySkin : public DrawableContainer { char pad[0x6c - 4]; public: int x; int y; int vfunc_16(); };
+int PolySkin::vfunc_16() { int n = DrawableContainer::vfunc_16(); if (x) ++n; if (y) ++n; return n; }
