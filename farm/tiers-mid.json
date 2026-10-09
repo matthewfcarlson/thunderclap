@@ -1,1 +1,1 @@
-[{ "model": "openrouter/openai/gpt-6-luna:batch", "thinking": "low", "maxAttempts": 4 },{ "model": "openrouter/anthropic/claude-sonnet-5.5:batch", "thinking": "low", "maxAttempts": 5 }]
+[{ "model": "openrouter/openai/gpt-6-luna", "thinking": "low", "maxAttempts": 4 },{ "model": "openrouter/anthropic/claude-sonnet-5.5", "thinking": "low", "maxAttempts": 5 }]
