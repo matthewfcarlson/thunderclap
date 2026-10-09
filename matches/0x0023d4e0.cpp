@@ -1,0 +1,3 @@
+class Condition { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual bool vfunc_6(int,int,int); };
+class DebugCondition : public Condition { public: int pad[2]; int mType; int mValue; bool vfunc_6(int,int,int); };
+bool DebugCondition::vfunc_6(int,int,int) { switch(mType) { case 0: return mValue==2; case 1: return mValue!=2; default: return false; } }
