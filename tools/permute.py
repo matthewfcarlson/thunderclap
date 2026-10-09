@@ -390,9 +390,21 @@ def main():
     p.add_argument("--minutes", type=float, default=10)
     p.add_argument("--jobs", type=int, default=max(1, (os.cpu_count() or 4) - 2))
     p.add_argument("--install", action="store_true", help="copy verified matches into matches/")
+    p.add_argument("--skip-done", action="store_true", help="skip queue entries already in the permute log")
     a = p.parse_args()
     if a.queue:
+        done = set()
+        logp = os.path.join(OUT, "log.jsonl")
+        if a.skip_done and os.path.exists(logp):
+            for l in open(logp):
+                try:
+                    r = json.loads(l)
+                except ValueError:
+                    continue
+                done.add((r.get("addr"), os.path.basename(r.get("src", ""))))
         for line in open(a.queue):
+            if (line.split() + ["", ""])[0] and ("0x%08x" % int(line.split()[0], 16), os.path.basename(line.split()[1])) in done:
+                continue
             parts = line.split()
             if len(parts) < 2 or os.path.exists(os.path.join(ROOT, "matches", "0x%08x.cpp" % int(parts[0], 16))):
                 continue
