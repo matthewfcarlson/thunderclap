@@ -1,0 +1,10 @@
+struct G { void X(); };
+struct H { void A(); void B(); };
+void thunk_FUN_00267090(H*);
+struct T { int value; void run(H*); };
+void T::run(H* arg) {
+    ((G*)this)->X();
+    arg->A();
+    if (arg) { arg->B(); thunk_FUN_00267090(arg); }
+    *(int*)this = 0;
+}

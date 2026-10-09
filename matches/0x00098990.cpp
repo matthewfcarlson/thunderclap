@@ -1,0 +1,5 @@
+typedef unsigned char byte;
+struct CBlendCamera { virtual void a(); virtual void b(); virtual CBlendCamera* vfunc_2(byte); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37(); void call29(); void call9620(); };
+void __stdcall FUN_00098480(int);
+void __cdecl thunk_FUN_00267090(CBlendCamera*);
+CBlendCamera* CBlendCamera::vfunc_2(byte param) { CBlendCamera* self=this; *(int*)self=0x404b3c; FUN_00098480(0); self->call29(); self->call9620(); if(param&1) thunk_FUN_00267090(self); return self; }
