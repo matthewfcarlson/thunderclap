@@ -1,10 +1,10 @@
 class Ref {
-public:
+  public:
     virtual void A();
     virtual void B();
 };
 class Obj {
-public:
+  public:
     char pad[0x10];
     Ref* mRef;
     int a;
@@ -14,8 +14,10 @@ public:
 };
 Obj* Obj::Copy(Obj* src) {
     Ref* p = src->mRef;
-    if (p) p->A();
-    if (mRef) mRef->B();
+    if (p)
+        p->A();
+    if (mRef)
+        mRef->B();
     mRef = p;
     a = src->a;
     b = src->b;

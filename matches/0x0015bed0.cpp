@@ -1,6 +1,10 @@
-struct Sub { int a; int b; void Clear(); };
+struct Sub {
+    int a;
+    int b;
+    void Clear();
+};
 class LocomotionSteerTrack {
-public:
+  public:
     virtual ~LocomotionSteerTrack();
     void BaseDtor();
     char pad0[0x24];

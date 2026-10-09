@@ -1,6 +1,6 @@
 namespace pure3d {
 class d3dTexture {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -25,5 +25,7 @@ public:
     char pad[0xe4 - 4];
     unsigned int value;
 };
-unsigned int d3dTexture::vfunc_9() { return value; }
+unsigned int d3dTexture::vfunc_9() {
+    return value;
 }
+} // namespace pure3d

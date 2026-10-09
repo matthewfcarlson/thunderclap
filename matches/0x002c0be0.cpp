@@ -1,6 +1,13 @@
 typedef unsigned int u32;
-struct Obj { void ReleaseThing(); };
-struct ImageLoader { u32 vptr; u32 pad[4]; Obj* mPtr; void Destroy(); };
+struct Obj {
+    void ReleaseThing();
+};
+struct ImageLoader {
+    u32 vptr;
+    u32 pad[4];
+    Obj* mPtr;
+    void Destroy();
+};
 void __cdecl DropThing(Obj*);
 void ImageLoader::Destroy() {
     Obj* p = mPtr;

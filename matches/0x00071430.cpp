@@ -1,13 +1,26 @@
 extern "C" int gCount;
 extern "C" void* __cdecl Alloc(unsigned int);
-struct P { void InitFloat(const char*); void InitBool(const char*); void InitInt(const char*); };
+struct P {
+    void InitFloat(const char*);
+    void InitBool(const char*);
+    void InitInt(const char*);
+};
 extern "C" void __cdecl Register(void**, void**, int);
 
 void Target() {
     if (gCount == 0) {
         void* a[13];
         P* p;
-#define M(i,n,f,v,d) p = (P*)Alloc(24); if (p) { p->f(n); *(void**)p = (void*)v; *(void**)((char*)p + 16) = (void*)d; a[i] = p; } else { a[i] = 0; }
+#define M(i, n, f, v, d)                                                                                     \
+    p = (P*)Alloc(24);                                                                                       \
+    if (p) {                                                                                                 \
+        p->f(n);                                                                                             \
+        *(void**)p = (void*)v;                                                                               \
+        *(void**)((char*)p + 16) = (void*)d;                                                                 \
+        a[i] = p;                                                                                            \
+    } else {                                                                                                 \
+        a[i] = 0;                                                                                            \
+    }
         M(0, "timeBegin", InitFloat, 0x3fc624, 0x683b0)
         M(1, "timeEnd", InitFloat, 0x3fc624, 0x683c0)
         M(2, "turningVelocity", InitFloat, 0x3fc624, 0x69cf0)

@@ -1,9 +1,14 @@
 extern void* Alloc(unsigned int);
 extern void Init(void*, unsigned int, void*);
-class Buffer { public: int* begin; int* end; bool Make(unsigned int count, void* arg); };
-bool Buffer::Make(unsigned int count, void* arg)
-{
-    if (begin != 0) return false;
+class Buffer {
+  public:
+    int* begin;
+    int* end;
+    bool Make(unsigned int count, void* arg);
+};
+bool Buffer::Make(unsigned int count, void* arg) {
+    if (begin != 0)
+        return false;
     if (count > 0) {
         begin = (int*)Alloc(count * 8);
         if (begin != 0) {
@@ -12,5 +17,7 @@ bool Buffer::Make(unsigned int count, void* arg)
             return true;
         }
     }
-    begin = 0; end = 0; return false;
+    begin = 0;
+    end = 0;
+    return false;
 }

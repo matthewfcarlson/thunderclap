@@ -1,6 +1,8 @@
 // Same code shape as 0x00122f30 (propagated; names are from that function)
 void* __cdecl operator new(unsigned int size);
-inline void* __cdecl operator new(unsigned int, void* where) { return where; }
+inline void* __cdecl operator new(unsigned int, void* where) {
+    return where;
+}
 
 struct InitHelper {
     void init();
@@ -13,7 +15,7 @@ struct TrackImpl {
 };
 
 class TrackFactoryTemplate {
-public:
+  public:
     TrackFactoryTemplate() {}
     virtual void vf0();
     virtual void vf1();
@@ -24,7 +26,7 @@ public:
 void postInit();
 
 class TrackFactoryCasterTemplate {
-public:
+  public:
     virtual void cast0();
     virtual void* vfunc_1(void* arg);
 };

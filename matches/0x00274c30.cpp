@@ -1,6 +1,14 @@
 void init();
-class Request { public: int v; int a; int b; };
-class CompletionCallbackRequest : public Request { public: CompletionCallbackRequest(int arg); };
+class Request {
+  public:
+    int v;
+    int a;
+    int b;
+};
+class CompletionCallbackRequest : public Request {
+  public:
+    CompletionCallbackRequest(int arg);
+};
 CompletionCallbackRequest::CompletionCallbackRequest(int arg) {
     v = 0x42b914;
     a = 0;

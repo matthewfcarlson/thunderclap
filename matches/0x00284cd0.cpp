@@ -1,4 +1,7 @@
-class SimpleFrameController { public: char pad[0x40]; };
+class SimpleFrameController {
+  public:
+    char pad[0x40];
+};
 void Init();
 SimpleFrameController* __fastcall FUN_00284cd0(SimpleFrameController* p) {
     Init();

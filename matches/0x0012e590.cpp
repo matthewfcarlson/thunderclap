@@ -1,7 +1,9 @@
 typedef unsigned int u32;
 void thunk_FUN_00267090(u32);
 extern int DebugPrintCondition_vftable;
-struct Base { void finish(); };
+struct Base {
+    void finish();
+};
 struct DebugPrintCondition : Base {
     void* vt;
     char pad4[8];

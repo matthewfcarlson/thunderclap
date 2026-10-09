@@ -1,8 +1,13 @@
 namespace pure3d {
-class pddiDisplay { public: virtual void a(); virtual void b(); virtual void c(); };
-class pddiObject { };
+class pddiDisplay {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+};
+class pddiObject {};
 class d3dDisplay : public pddiDisplay, public pddiObject {
-public:
+  public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
@@ -20,5 +25,7 @@ public:
     virtual void vfunc_17();
     char pad[0x478 - 4];
 };
-unsigned int d3dDisplay::vfunc_6() { return *(unsigned int*)((char*)this + 0x478); }
+unsigned int d3dDisplay::vfunc_6() {
+    return *(unsigned int*)((char*)this + 0x478);
 }
+} // namespace pure3d

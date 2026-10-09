@@ -1,8 +1,17 @@
 typedef unsigned int u32;
 extern void* gNisCam;
-class Base { public: void BaseInit(); };
-class Sub { public: void Init(void* p); };
-class CNISCamera { public: char pad[0x174]; };
+class Base {
+  public:
+    void BaseInit();
+};
+class Sub {
+  public:
+    void Init(void* p);
+};
+class CNISCamera {
+  public:
+    char pad[0x174];
+};
 CNISCamera* __fastcall target(CNISCamera* self) {
     ((Base*)self)->BaseInit();
     void* p = gNisCam;

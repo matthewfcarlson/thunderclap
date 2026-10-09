@@ -1,6 +1,8 @@
 extern int gCount;
 extern int gHigh;
-struct Base { void Init(int); };
+struct Base {
+    void Init(int);
+};
 struct LocomotionDriver : Base {
     int vptr;
     char pad[0x1b];
@@ -14,6 +16,7 @@ LocomotionDriver* LocomotionDriver::Init(int x) {
     b = 0;
     vptr = 0x427534;
     int n = ++gCount;
-    if (n > gHigh) gHigh = n;
+    if (n > gHigh)
+        gHigh = n;
     return this;
 }

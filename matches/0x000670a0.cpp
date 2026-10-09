@@ -1,6 +1,10 @@
 typedef unsigned int u32;
-struct Inner { int Find(const void*, void*); };
-struct S { char pad[0x2f4]; };
+struct Inner {
+    int Find(const void*, void*);
+};
+struct S {
+    char pad[0x2f4];
+};
 void __fastcall Target(S* self, void*, u32* param, int value) {
     Inner* p = (Inner*)((char*)self + 0x2f4);
     int* result = (int*)p->Find((void*)0x66980, param);

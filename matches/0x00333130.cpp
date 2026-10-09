@@ -1,4 +1,6 @@
-struct Base { void Init(int); };
+struct Base {
+    void Init(int);
+};
 struct Shader {
     unsigned int* vptr;
     char pad[0x7c];

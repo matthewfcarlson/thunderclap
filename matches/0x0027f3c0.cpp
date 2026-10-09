@@ -1,6 +1,18 @@
-struct Entry { int key; char pad[0x44]; int occupied; char tail[0x14]; };
-struct Block { int x[16]; };
-class Manager { public: char pad[0x18]; Entry entries[100]; int Update(int key, Block* source); };
+struct Entry {
+    int key;
+    char pad[0x44];
+    int occupied;
+    char tail[0x14];
+};
+struct Block {
+    int x[16];
+};
+class Manager {
+  public:
+    char pad[0x18];
+    Entry entries[100];
+    int Update(int key, Block* source);
+};
 int Manager::Update(int key, Block* source) {
     int i = 0;
     while (i < 100) {

@@ -1,7 +1,25 @@
-struct Vec3 { int x,y,z; };
-class Provider { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual Vec3* Get(); };
-struct Holder { char pad[0x20]; Provider* p; };
-class Obj { public: char pad0[0x40]; int x,y,z; char pad1[0x28]; Holder* h; };
+struct Vec3 {
+    int x, y, z;
+};
+class Provider {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual Vec3* Get();
+};
+struct Holder {
+    char pad[0x20];
+    Provider* p;
+};
+class Obj {
+  public:
+    char pad0[0x40];
+    int x, y, z;
+    char pad1[0x28];
+    Holder* h;
+};
 bool FUN_00096ce0(Obj* self, Vec3* out, int* scalar) {
     bool r = false;
     Holder* h = self->h;

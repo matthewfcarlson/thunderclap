@@ -1,5 +1,5 @@
 class SceneGraphTransformAnimationController {
-public:
+  public:
     unsigned int vf;
     char pad[0x10c];
     int field;

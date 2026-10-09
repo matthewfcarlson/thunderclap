@@ -1,12 +1,12 @@
 extern void helper(unsigned int*, int, int, unsigned int);
-void target(unsigned int* data, int index, int count, unsigned int value)
-{
+void target(unsigned int* data, int index, int count, unsigned int value) {
     int orig = index;
     int child = index * 2 + 2;
     if (child < count) {
         do {
             unsigned int v = data[child];
-            if (v < data[child - 1]) --child;
+            if (v < data[child - 1])
+                --child;
             v = data[child];
             data[index] = v;
             index = child;

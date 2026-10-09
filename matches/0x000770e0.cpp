@@ -1,6 +1,17 @@
-class CMoveTrack { public: void Init(); };
+class CMoveTrack {
+  public:
+    void Init();
+};
 extern void* __cdecl Allocate(unsigned int);
-class TrackFactoryTemplate { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual CMoveTrack* Create(); };
+class TrackFactoryTemplate {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual CMoveTrack* Create();
+};
 CMoveTrack* TrackFactoryTemplate::Create() {
     CMoveTrack* p = (CMoveTrack*)Allocate(0x28);
     if (p) {

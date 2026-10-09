@@ -1,4 +1,10 @@
-class C { public: char pad[0x20c]; int count; void* buffer; int foo(); };
+class C {
+  public:
+    char pad[0x20c];
+    int count;
+    void* buffer;
+    int foo();
+};
 extern void __fastcall FUN_001fb970(void*);
 int C::foo() {
     int result = 0;

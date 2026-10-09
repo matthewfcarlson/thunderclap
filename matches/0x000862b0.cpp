@@ -1,1 +1,9 @@
-class C { char pad[0x2c]; public: unsigned int f(); }; unsigned int C::f(){ return *(unsigned int*)((char*)this+0x2c); }
+class C {
+    char pad[0x2c];
+
+  public:
+    unsigned int f();
+};
+unsigned int C::f() {
+    return *(unsigned int*)((char*)this + 0x2c);
+}

@@ -1,8 +1,17 @@
-class Base { public: void Done(); };
-class TypeA { public: void Done(); };
-class TypeB { public: void Done(); };
+class Base {
+  public:
+    void Done();
+};
+class TypeA {
+  public:
+    void Done();
+};
+class TypeB {
+  public:
+    void Done();
+};
 class CCollisionTrack {
-public:
+  public:
     virtual void Dummy();
     char pad[0x14];
     char a18[0x34];

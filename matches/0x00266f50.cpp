@@ -1,5 +1,5 @@
 class Item {
-public:
+  public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -8,16 +8,17 @@ public:
     virtual bool Match(int);
 };
 class Node {
-public:
-    Item *item;
-    Node *child;
-    Node *next;
+  public:
+    Item* item;
+    Node* child;
+    Node* next;
 };
-Node *Find(Node *node, int arg) {
+Node* Find(Node* node, int arg) {
     while (node != 0) {
         if (node->item->Match(arg)) {
-            Node *r = Find(node->child, arg);
-            if (r != 0) return r;
+            Node* r = Find(node->child, arg);
+            if (r != 0)
+                return r;
             return node;
         }
         node = node->next;

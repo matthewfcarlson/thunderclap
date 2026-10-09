@@ -1,4 +1,10 @@
-class Loader { public: void Config(const char*, int, int); void Type(const char*, int, int); void Pair(int, int); void Finish(int); };
+class Loader {
+  public:
+    void Config(const char*, int, int);
+    void Type(const char*, int, int);
+    void Pair(int, int);
+    void Finish(int);
+};
 extern Loader* __cdecl FUN_001d4c90();
 extern const int vals[];
 void __cdecl FUN_001dbd50() {

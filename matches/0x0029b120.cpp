@@ -1,6 +1,9 @@
-class Base { public: virtual void Call(); };
+class Base {
+  public:
+    virtual void Call();
+};
 class TextString {
-public:
+  public:
     virtual void V();
     char pad[0x3c];
     Base* obj;

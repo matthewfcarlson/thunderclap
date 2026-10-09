@@ -1,5 +1,14 @@
-class Node { public: virtual void Release(int); Node* next; };
-struct Entry { int a; int b; Node* head; int pad; };
+class Node {
+  public:
+    virtual void Release(int);
+    Node* next;
+};
+struct Entry {
+    int a;
+    int b;
+    Node* head;
+    int pad;
+};
 void __fastcall ClearEntries(Entry* p) {
     int i = 128;
     do {

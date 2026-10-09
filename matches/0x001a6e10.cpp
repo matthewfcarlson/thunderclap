@@ -1,4 +1,8 @@
-class Owner { public: void* Get(); void* Find(); };
+class Owner {
+  public:
+    void* Get();
+    void* Find();
+};
 extern int Check(void*, int, void*, void*, int);
 void* Owner::Find() {
     void* p = Get();

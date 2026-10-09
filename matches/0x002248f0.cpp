@@ -1,4 +1,9 @@
-class JointDriver { public: char pad[0x18]; void Init(); JointDriver(int arg); };
+class JointDriver {
+  public:
+    char pad[0x18];
+    void Init();
+    JointDriver(int arg);
+};
 extern void BaseInit();
 extern int gCount;
 extern int gMax;
@@ -12,5 +17,6 @@ JointDriver::JointDriver(int arg) {
     int b = gMax;
     a++;
     gCount = a;
-    if (a > b) gMax = a;
+    if (a > b)
+        gMax = a;
 }

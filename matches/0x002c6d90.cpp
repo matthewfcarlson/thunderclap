@@ -1,4 +1,7 @@
-struct V4 { short x,y,z,w; V4* Add(V4* out, V4* rhs); };
+struct V4 {
+    short x, y, z, w;
+    V4* Add(V4* out, V4* rhs);
+};
 V4* V4::Add(V4* out, V4* rhs) {
     V4 t;
     t.x = x + rhs->x;

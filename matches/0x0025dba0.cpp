@@ -1,14 +1,13 @@
 class Queue {
-public:
+  public:
     char pad[0x4c];
-    int *head;
-    int *tail;
-    void Add(int *item);
+    int* head;
+    int* tail;
+    void Add(int* item);
 };
 
-void Queue::Add(int *item)
-{
-    int *node = item + 1;
+void Queue::Add(int* item) {
+    int* node = item + 1;
     *node = 0;
     if (tail == 0) {
         head = node;

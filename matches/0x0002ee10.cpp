@@ -1,6 +1,9 @@
-class CActorManager { public: int act(); };
+class CActorManager {
+  public:
+    int act();
+};
 class Closure0 {
-public:
+  public:
     virtual void f0() {}
     virtual void f1() {}
     virtual void f2(int, int, int*);
@@ -12,5 +15,6 @@ void Closure0::f2(int, int, int* out) {
     CActorManager* obj = mThis;
     int (CActorManager::*fn)() = mFn;
     int result = (obj->*fn)();
-    if (out) *out = result;
+    if (out)
+        *out = result;
 }

@@ -1,2 +1,20 @@
-class PolySkin { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual unsigned int vfunc_11(); char pad[0x60 - 4]; unsigned int value; };
-unsigned int PolySkin::vfunc_11() { return value; }
+class PolySkin {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8();
+    virtual void f9();
+    virtual void f10();
+    virtual unsigned int vfunc_11();
+    char pad[0x60 - 4];
+    unsigned int value;
+};
+unsigned int PolySkin::vfunc_11() {
+    return value;
+}

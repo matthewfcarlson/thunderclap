@@ -1,5 +1,8 @@
 typedef unsigned int uint;
-struct Obj { char pad[8]; void* m; };
+struct Obj {
+    char pad[8];
+    void* m;
+};
 extern int __cdecl F12d70(void*);
 extern void __cdecl F13380(void*, const char*, int);
 extern void __cdecl F13600(void*, int);

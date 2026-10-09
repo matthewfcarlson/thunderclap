@@ -10,10 +10,12 @@ bool Target(unsigned int size, int arg) {
     if (limit >= size) {
     } else {
     }
-    if (!(limit < size)) limit = size;
+    if (!(limit < size))
+        limit = size;
     int buf = gBuffer;
     int sig = XCalculateSignatureBegin(0);
-    if (sig == -1) return false;
+    if (sig == -1)
+        return false;
     FUN_002120f5(sig, buf, limit - base - 0x14);
     FUN_00212143(sig, arg);
     return true;

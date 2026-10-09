@@ -1,7 +1,18 @@
 typedef unsigned int u32;
-struct Base { void Init(u32); };
-struct Part { void Init(); char pad[0x40]; };
-struct TransformNode { char pad[0x28]; Part a; Part b; u32 field; TransformNode* Init(u32); };
+struct Base {
+    void Init(u32);
+};
+struct Part {
+    void Init();
+    char pad[0x40];
+};
+struct TransformNode {
+    char pad[0x28];
+    Part a;
+    Part b;
+    u32 field;
+    TransformNode* Init(u32);
+};
 TransformNode* TransformNode::Init(u32 arg) {
     ((Base*)this)->Init(arg);
     *(u32*)this = 0x42d3bc;

@@ -1,7 +1,23 @@
-class Sub { public: void initSub(); };
-class PropSetStateByNameTrack { public: void baseInit(); char pad[0x18]; Sub sub; };
+class Sub {
+  public:
+    void initSub();
+};
+class PropSetStateByNameTrack {
+  public:
+    void baseInit();
+    char pad[0x18];
+    Sub sub;
+};
 extern void* __cdecl operator_new(unsigned int);
-class Factory { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual PropSetStateByNameTrack* vfunc_5(); };
+class Factory {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual PropSetStateByNameTrack* vfunc_5();
+};
 PropSetStateByNameTrack* Factory::vfunc_5() {
     PropSetStateByNameTrack* p = (PropSetStateByNameTrack*)operator_new(0x20);
     if (p) {

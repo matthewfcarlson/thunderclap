@@ -1,5 +1,7 @@
 // Same code shape as 0x00293ac0 (propagated; names are from that function)
-struct Triple { int a, b, c; };
+struct Triple {
+    int a, b, c;
+};
 struct Object {
     char pad[0xcc];
     unsigned char flag;

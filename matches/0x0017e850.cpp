@@ -1,15 +1,17 @@
 extern void* alloc(unsigned int);
-inline void* operator new(unsigned int, void* where) { return where; }
+inline void* operator new(unsigned int, void* where) {
+    return where;
+}
 
 class Base {
-public:
+  public:
     Base();
     virtual void g();
     int x;
 };
 
 class Derived : public Base {
-public:
+  public:
     Derived() : Base() {
         b = 0;
         c = -1.0f;
@@ -28,7 +30,7 @@ public:
 };
 
 class Factory {
-public:
+  public:
     virtual void f0();
     virtual void f1();
     virtual void f2();

@@ -1,6 +1,10 @@
-class Base { public: virtual void Dummy(); Base(); };
+class Base {
+  public:
+    virtual void Dummy();
+    Base();
+};
 class CMotionTrail : public Base {
-public:
+  public:
     virtual void V();
     char p0[0x0c];
     int x;

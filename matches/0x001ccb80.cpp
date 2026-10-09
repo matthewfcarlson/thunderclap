@@ -1,4 +1,8 @@
-class C { public: char pad[0x1190]; void Init(); };
+class C {
+  public:
+    char pad[0x1190];
+    void Init();
+};
 void C::Init() {
     char* p = (char*)this + 0x214;
     int i = 0x10;

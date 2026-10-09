@@ -1,6 +1,6 @@
 extern int vtable;
 class SeqEventVarPitchRand {
-public:
+  public:
     void init();
     SeqEventVarPitchRand();
     int vptr;

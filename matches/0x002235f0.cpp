@@ -1,4 +1,7 @@
-struct Sub { char pad[0x54]; void init(); };
+struct Sub {
+    char pad[0x54];
+    void init();
+};
 struct Puppet {
     void* vt;
     char pad[0xc];

@@ -12,7 +12,8 @@ int __fastcall Target(Owner* self) {
         void** p = self->items;
         do {
             int r = IsType(*p, 0, &AgentType, &OccupationAgentType, 0);
-            if (r != 0) return r;
+            if (r != 0)
+                return r;
             ++i;
             ++p;
         } while (i < self->count);

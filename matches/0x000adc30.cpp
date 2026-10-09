@@ -1,11 +1,18 @@
-struct Item { int go(); };
-struct Obj { char pad[0x10]; int count; Item **items; int run(); };
+struct Item {
+    int go();
+};
+struct Obj {
+    char pad[0x10];
+    int count;
+    Item** items;
+    int run();
+};
 int Obj::run() {
     int n = count;
     int i = 0;
     if (n > 0) {
-        Item **base = items;
-        Item **p = base;
+        Item** base = items;
+        Item** p = base;
         do {
             if (*p != 0)
                 return base[i]->go();

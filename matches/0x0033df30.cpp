@@ -6,7 +6,8 @@ extern void __cdecl FinishThing(void*, int);
 int __cdecl Target(void* p) {
     int a = MakeThing(p, 1, 0, 0);
     int b = CheckThing(p, a);
-    if (b == 0) return 1;
+    if (b == 0)
+        return 1;
     DoThing(p);
     FinishThing(p, -2);
     return 2;

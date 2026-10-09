@@ -1,6 +1,9 @@
-class Helper { public: void Init(void*); };
+class Helper {
+  public:
+    void Init(void*);
+};
 class Obj {
-public:
+  public:
     virtual void f();
     Obj* Make(void* arg);
     unsigned char pad[0x5c];

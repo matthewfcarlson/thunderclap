@@ -1,6 +1,12 @@
-struct Node { virtual void F(int); Node* next; };
+struct Node {
+    virtual void F(int);
+    Node* next;
+};
 void thunk_FUN_00267090(int);
-struct Obj { Node* head; int value; };
+struct Obj {
+    Node* head;
+    int value;
+};
 void __fastcall FUN_000f9a80(Obj* self) {
     Node* p = self->head;
     while (p) {

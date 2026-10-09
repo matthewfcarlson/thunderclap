@@ -1,3 +1,17 @@
-class D { public: void Cleanup(int); };
-class C { public: virtual void V(); char pad[0x2a4]; int a; D* b; void Run(); };
-void C::Run() { if (b) b->Cleanup(a); V(); }
+class D {
+  public:
+    void Cleanup(int);
+};
+class C {
+  public:
+    virtual void V();
+    char pad[0x2a4];
+    int a;
+    D* b;
+    void Run();
+};
+void C::Run() {
+    if (b)
+        b->Cleanup(a);
+    V();
+}

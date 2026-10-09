@@ -1,2 +1,17 @@
-class C { public: char pad[0x24]; int count; void A(int); void B(int); void D(int); void E(int); void Target(int); };
-void C::Target(int x) { A(x); B(x); D(x); E(x); ++count; }
+class C {
+  public:
+    char pad[0x24];
+    int count;
+    void A(int);
+    void B(int);
+    void D(int);
+    void E(int);
+    void Target(int);
+};
+void C::Target(int x) {
+    A(x);
+    B(x);
+    D(x);
+    E(x);
+    ++count;
+}

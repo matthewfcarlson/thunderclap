@@ -1,4 +1,6 @@
-struct Helper { void run(); };
+struct Helper {
+    void run();
+};
 struct ThreatBallTrack {
     void* vptr;
     char pad04[0x14];
@@ -15,6 +17,7 @@ ThreatBallTrack* ThreatBallTrack::vfunc_5(unsigned int flags) {
     h30.run();
     h18.run();
     other();
-    if (flags & 1) destroy(this);
+    if (flags & 1)
+        destroy(this);
     return this;
 }

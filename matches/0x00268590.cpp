@@ -1,6 +1,6 @@
 namespace core {
 class ControllerXBox {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -25,5 +25,7 @@ public:
     virtual void vfunc_21();
     int refCount;
 };
-void ControllerXBox::vfunc_1() { --refCount; }
+void ControllerXBox::vfunc_1() {
+    --refCount;
 }
+} // namespace core

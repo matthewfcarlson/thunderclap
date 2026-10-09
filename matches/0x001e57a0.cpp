@@ -1,5 +1,5 @@
 class Thing {
-public:
+  public:
     char pad[0x1ec40];
     int values[4];
     int count;

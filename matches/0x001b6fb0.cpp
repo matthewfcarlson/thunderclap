@@ -1,5 +1,5 @@
 class CRadMovieRenderLoop {
-public:
+  public:
     virtual void AddRef();
     virtual void vfunc_1();
     virtual void vfunc_2();

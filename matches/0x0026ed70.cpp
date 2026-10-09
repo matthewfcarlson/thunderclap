@@ -1,3 +1,8 @@
-struct C { void f(); };
+struct C {
+    void f();
+};
 extern C* g;
-void FUN_0026ed70() { if (g) g->f(); }
+void FUN_0026ed70() {
+    if (g)
+        g->f();
+}

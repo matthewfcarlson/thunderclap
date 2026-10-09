@@ -1,2 +1,21 @@
-class QuaternionChannel { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void vfunc_3(int, float*, unsigned int*); virtual void f4(); virtual void f5(); virtual void f6(); char pad[0x14-4]; short* times; unsigned int* values; };
-void QuaternionChannel::vfunc_3(int index, float* time, unsigned int* out) { *time = (float)times[index]; unsigned int* p = (unsigned int*)((char*)values + index * 16); out[0]=p[0]; out[1]=p[1]; out[2]=p[2]; out[3]=p[3]; }
+class QuaternionChannel {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void vfunc_3(int, float*, unsigned int*);
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    char pad[0x14 - 4];
+    short* times;
+    unsigned int* values;
+};
+void QuaternionChannel::vfunc_3(int index, float* time, unsigned int* out) {
+    *time = (float)times[index];
+    unsigned int* p = (unsigned int*)((char*)values + index * 16);
+    out[0] = p[0];
+    out[1] = p[1];
+    out[2] = p[2];
+    out[3] = p[3];
+}

@@ -1,5 +1,11 @@
-class Base { public: void init(); };
-class Sub { public: void init2(); };
+class Base {
+  public:
+    void init();
+};
+class Sub {
+  public:
+    void init2();
+};
 struct Obj {
     int vf;
     int a;
@@ -10,7 +16,7 @@ extern int breakpoint_vftable;
 extern "C" void* __cdecl alloc(unsigned int);
 
 class Factory {
-public:
+  public:
     virtual void v0();
     virtual void v1();
     virtual void v2();

@@ -1,4 +1,9 @@
-struct Obj { char pad0[0xc]; int *p; char pad10[0x10]; int value; };
+struct Obj {
+    char pad0[0xc];
+    int* p;
+    char pad10[0x10];
+    int value;
+};
 int __cdecl FUN_00220b20(Obj*, int, int);
 void __cdecl FUN_002207c0(Obj*, int*, int);
 int __cdecl FUN_00220cd0(Obj* self) {

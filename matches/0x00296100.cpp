@@ -1,6 +1,6 @@
 // Same code shape as 0x0004e0b0 (propagated; names are from that function)
 class ParamValueFloat {
-public:
+  public:
     virtual void vfunc_0();
     virtual int vfunc_1();
     virtual void vfunc_2();
@@ -8,4 +8,6 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
 };
-int ParamValueFloat::vfunc_1() { return 2; }
+int ParamValueFloat::vfunc_1() {
+    return 2;
+}

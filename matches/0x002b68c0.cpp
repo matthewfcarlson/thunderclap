@@ -1,5 +1,5 @@
 class ShadowMeshBufferLoader {
-public:
+  public:
     int a;
     int b;
     int c;

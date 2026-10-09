@@ -1,6 +1,8 @@
-struct T { int x, y, z; };
+struct T {
+    int x, y, z;
+};
 class C {
-public:
+  public:
     void Prep(int* a, T* out);
     void Finish(T t, int d, int e);
     void Target(int a, int b, int c, int d, int e);

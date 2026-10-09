@@ -1,6 +1,9 @@
-class Clock { public: float Get(); };
+class Clock {
+  public:
+    float Get();
+};
 class Obj {
-public:
+  public:
     char pad0[4];
     Clock* mClock;
     char pad8[0x35c];

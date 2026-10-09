@@ -1,5 +1,10 @@
 extern "C" void __stdcall FUN_00013420(void*, int, int, const float*);
-class Obj { char pad[0x3d04]; public: void f(); };
+class Obj {
+    char pad[0x3d04];
+
+  public:
+    void f();
+};
 void Obj::f() {
     char* p = ((char*)this) + 0x3d04;
     for (int i = 0x14; i != 0; --i) {

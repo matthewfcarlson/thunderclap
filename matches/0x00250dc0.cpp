@@ -1,12 +1,18 @@
-class Name { public: void Init(const char*, int); int a; int b; int c; };
+class Name {
+  public:
+    void Init(const char*, int);
+    int a;
+    int b;
+    int c;
+};
 class Base {
-public:
+  public:
     Base();
     virtual void Foo();
     char pad[4];
 };
 class SeqEventStopTrack : public Base {
-public:
+  public:
     SeqEventStopTrack();
     virtual void Foo();
     int b;

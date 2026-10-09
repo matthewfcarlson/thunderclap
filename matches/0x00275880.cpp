@@ -3,7 +3,7 @@ extern void __stdcall FUN_00275600(int);
 extern void FUN_002705f0();
 extern char* _strncpy(char*, const char*, unsigned int);
 class DriveCreateDirectoryRequest {
-public:
+  public:
     void* vptr;
     char pad4[8];
     char path[16];

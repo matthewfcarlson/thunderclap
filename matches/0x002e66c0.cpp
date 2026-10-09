@@ -1,5 +1,5 @@
 class Language {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual Language* vfunc_2(int flag);
@@ -19,6 +19,7 @@ Language* Language::vfunc_2(int flag) {
     release(y);
     release(z);
     finish();
-    if (flag & 1) destroy(this);
+    if (flag & 1)
+        destroy(this);
     return this;
 }

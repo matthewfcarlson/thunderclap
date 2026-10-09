@@ -1,7 +1,7 @@
 // Same code shape as 0x0005e4f0 (propagated; names are from that function)
 class CCollisionTrack;
 class ParamFloatPtrConstRange {
-public:
+  public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -12,4 +12,7 @@ public:
     char pad[0x10 - 4];
     int offset;
 };
-bool ParamFloatPtrConstRange::v6(void* p, float value) { *(float*)((char*)p + offset) = value; return true; }
+bool ParamFloatPtrConstRange::v6(void* p, float value) {
+    *(float*)((char*)p + offset) = value;
+    return true;
+}

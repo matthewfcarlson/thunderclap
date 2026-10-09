@@ -1,5 +1,5 @@
 class C {
-public:
+  public:
     bool Check(int, int);
     void Pair(int, int);
     void Finish(int, int);

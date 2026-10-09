@@ -1,2 +1,21 @@
-class CollisionSolverAgent { public: virtual void a(); virtual void b(); virtual void c(int,int); virtual void d(); virtual void vfunc_4(int,int); virtual void e(); virtual void f(); virtual void g(); virtual void h(); virtual void i(); virtual void j(); virtual void k(); void* pad; void* mObject; };
-void CollisionSolverAgent::vfunc_4(int x, int y) { if (mObject) ((CollisionSolverAgent*)mObject)->c(x,y); }
+class CollisionSolverAgent {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c(int, int);
+    virtual void d();
+    virtual void vfunc_4(int, int);
+    virtual void e();
+    virtual void f();
+    virtual void g();
+    virtual void h();
+    virtual void i();
+    virtual void j();
+    virtual void k();
+    void* pad;
+    void* mObject;
+};
+void CollisionSolverAgent::vfunc_4(int x, int y) {
+    if (mObject)
+        ((CollisionSolverAgent*)mObject)->c(x, y);
+}

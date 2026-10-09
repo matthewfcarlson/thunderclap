@@ -1,9 +1,12 @@
-class SeqEvent { public: bool vfunc_0(void*); };
+class SeqEvent {
+  public:
+    bool vfunc_0(void*);
+};
 extern bool ReadA(void*, void*);
 extern bool ReadB(void*, void*);
 extern bool ReadC(void*, void*);
 class SeqEventChannelSendVolumes {
-public:
+  public:
     virtual int vfunc_0(void* p);
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -18,6 +21,7 @@ public:
 };
 int SeqEventChannelSendVolumes::vfunc_0(void* p) {
     SeqEvent* base = reinterpret_cast<SeqEvent*>(this);
-    if (base->vfunc_0(p) && ReadA(p, &field48) && ReadB(p, &field4c) && ReadC(p, &field8)) return 1;
+    if (base->vfunc_0(p) && ReadA(p, &field48) && ReadB(p, &field4c) && ReadC(p, &field8))
+        return 1;
     return 0;
 }

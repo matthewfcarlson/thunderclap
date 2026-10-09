@@ -1,8 +1,13 @@
-struct Vector { int x,y,z; };
-class CGameFlowManager { public: virtual Vector* Get(Vector*); };
+struct Vector {
+    int x, y, z;
+};
+class CGameFlowManager {
+  public:
+    virtual Vector* Get(Vector*);
+};
 typedef Vector* (CGameFlowManager::*Fn)(Vector*);
 class Method0 {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(CGameFlowManager* mgr, void* unused, Vector* out);

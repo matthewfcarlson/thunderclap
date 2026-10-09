@@ -1,5 +1,11 @@
-struct Renderer { void Setup(int* out, const char* name); unsigned char GetBool(const char* name, int a, int b); void Finish(); };
-struct Ctl { void Apply(unsigned char v); };
+struct Renderer {
+    void Setup(int* out, const char* name);
+    unsigned char GetBool(const char* name, int a, int b);
+    void Finish();
+};
+struct Ctl {
+    void Apply(unsigned char v);
+};
 extern Renderer* gRenderer;
 extern int gFlag;
 extern unsigned char gCurrentVsync;

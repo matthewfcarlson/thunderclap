@@ -1,8 +1,14 @@
 // Same code shape as 0x0002ec60 (propagated; names are from that function)
-struct Arg { const char* s; unsigned char b; };
-class Actor { public: void invoke(const char*, unsigned char); };
+struct Arg {
+    const char* s;
+    unsigned char b;
+};
+class Actor {
+  public:
+    void invoke(const char*, unsigned char);
+};
 class Closure2 {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(void*, Arg* p, void* q);

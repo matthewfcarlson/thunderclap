@@ -1,3 +1,32 @@
-class pddiTexture { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15(); virtual void f16(); virtual void f17(); virtual void f18(); virtual void f19(); virtual void f20(); };
-class d3dTexture : public pddiTexture { public: char pad[0xe0 - 4]; int vfunc_8(); };
-int d3dTexture::vfunc_8() { return *(int*)((char*)this + 0xe0); }
+class pddiTexture {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8();
+    virtual void f9();
+    virtual void f10();
+    virtual void f11();
+    virtual void f12();
+    virtual void f13();
+    virtual void f14();
+    virtual void f15();
+    virtual void f16();
+    virtual void f17();
+    virtual void f18();
+    virtual void f19();
+    virtual void f20();
+};
+class d3dTexture : public pddiTexture {
+  public:
+    char pad[0xe0 - 4];
+    int vfunc_8();
+};
+int d3dTexture::vfunc_8() {
+    return *(int*)((char*)this + 0xe0);
+}

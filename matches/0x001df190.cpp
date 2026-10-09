@@ -1,5 +1,12 @@
-struct Vec3 { unsigned int x,y,z; };
-class Thing { public: int Find(int arg); Vec3* Get(int index); Vec3* Target(Vec3* out, int arg); };
+struct Vec3 {
+    unsigned int x, y, z;
+};
+class Thing {
+  public:
+    int Find(int arg);
+    Vec3* Get(int index);
+    Vec3* Target(Vec3* out, int arg);
+};
 Vec3* Thing::Target(Vec3* out, int arg) {
     int i = Find(arg);
     if (i < 0) {

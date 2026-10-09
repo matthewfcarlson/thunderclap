@@ -1,5 +1,8 @@
 extern "C" unsigned char* FUN_000b09c0(int a, int b);
-struct Entry { int count; unsigned int ptr; };
+struct Entry {
+    int count;
+    unsigned int ptr;
+};
 extern Entry g_entries[13];
 extern unsigned char g_zero;
 unsigned char* FUN_000b09c0(int a, int b) {

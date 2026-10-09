@@ -1,7 +1,10 @@
-class Inner { public: void Reset(); };
+class Inner {
+  public:
+    void Reset();
+};
 void FreeMem(void*);
 class CUnlockable {
-public:
+  public:
     virtual ~CUnlockable();
     char pad[0x14];
     void* mPtr18;

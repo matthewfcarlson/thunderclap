@@ -1,6 +1,14 @@
-namespace audio { struct OmHalStream { void** vf; char pad[0x1b8]; void vfunc_12(); }; }
+namespace audio {
+struct OmHalStream {
+    void** vf;
+    char pad[0x1b8];
+    void vfunc_12();
+};
+} // namespace audio
 extern int om_vftable;
-struct Sub { void call(); };
+struct Sub {
+    void call();
+};
 extern void __cdecl FUN_00247550(void*, audio::OmHalStream*);
 void audio::OmHalStream::vfunc_12() {
     if (this) {

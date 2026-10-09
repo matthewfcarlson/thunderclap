@@ -1,8 +1,23 @@
 extern void* __cdecl Alloc(unsigned int);
-struct Loader { unsigned int vptr; int a; int b; int c; int d; void* owner; };
-class Manager { public: void Register(Loader*, unsigned int); };
+struct Loader {
+    unsigned int vptr;
+    int a;
+    int b;
+    int c;
+    int d;
+    void* owner;
+};
+class Manager {
+  public:
+    void Register(Loader*, unsigned int);
+};
 extern Manager* gManager;
-class Owner { public: char pad[0x588]; int param; void Target(int); };
+class Owner {
+  public:
+    char pad[0x588];
+    int param;
+    void Target(int);
+};
 void Owner::Target(int value) {
     param = value;
     Loader* r;

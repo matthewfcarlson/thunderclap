@@ -1,5 +1,4 @@
-void Scale(float* out, float scalar, const float* in)
-{
+void Scale(float* out, float scalar, const float* in) {
     float a = scalar * in[2];
     float b = scalar * in[1];
     float c = scalar * in[0];

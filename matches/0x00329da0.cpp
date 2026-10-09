@@ -1,7 +1,14 @@
 extern int gFlags;
 extern int gA[32];
 extern int gB[32];
-class C { char pad[0x74]; public: int a[16]; int b[16]; void F(int, int, int); };
+class C {
+    char pad[0x74];
+
+  public:
+    int a[16];
+    int b[16];
+    void F(int, int, int);
+};
 int gFlags;
 int gA[32];
 int gB[32];

@@ -2,7 +2,7 @@
 extern "C" void* __cdecl alloc(unsigned int);
 extern int tdcVtable;
 class TDC {
-public:
+  public:
     int vf;
     char pad[8];
     int x;

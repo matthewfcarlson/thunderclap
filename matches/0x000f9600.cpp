@@ -1,4 +1,6 @@
-struct Sub { void Write(char* out, int a, int b, int c); };
+struct Sub {
+    void Write(char* out, int a, int b, int c);
+};
 struct Owner {
     char pad[0x284];
     Sub* sub;

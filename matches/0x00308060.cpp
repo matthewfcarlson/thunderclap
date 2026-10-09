@@ -1,6 +1,6 @@
 extern int WorldCollisionObjectLoader_vftable;
 class WorldCollisionObjectLoader {
-public:
+  public:
     virtual void Dummy();
     int a;
     int b;

@@ -1,8 +1,23 @@
-class Base { public: Base(); virtual void g(); char b[12]; };
-class Sub { public: Sub(); void Init(void* p); char pad[8]; };
-struct Arg { char x[16]; int a; int b; char c[4]; };
+class Base {
+  public:
+    Base();
+    virtual void g();
+    char b[12];
+};
+class Sub {
+  public:
+    Sub();
+    void Init(void* p);
+    char pad[8];
+};
+struct Arg {
+    char x[16];
+    int a;
+    int b;
+    char c[4];
+};
 class JointDriver : public Base {
-public:
+  public:
     JointDriver(Arg* p);
     virtual void f();
     int m10;
@@ -17,6 +32,7 @@ JointDriver::JointDriver(Arg* p) {
     m18.Init((char*)p + 0x18);
     int n = gCount + 1;
     gCount = n;
-    if (n > gMax) gMax = n;
+    if (n > gMax)
+        gMax = n;
 }
 void JointDriver::f() {}

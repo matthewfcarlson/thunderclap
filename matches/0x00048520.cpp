@@ -1,5 +1,15 @@
 extern int g_vft;
-class CButtonValueCondition { public: int vf; int x1; int x2; int x3; int x4; int x5; int x6; int x7; };
+class CButtonValueCondition {
+  public:
+    int vf;
+    int x1;
+    int x2;
+    int x3;
+    int x4;
+    int x5;
+    int x6;
+    int x7;
+};
 extern void __stdcall FUN_00234590(int);
 CButtonValueCondition* __fastcall FUN_00048520(CButtonValueCondition* self) {
     FUN_00234590(0);

@@ -1,4 +1,3 @@
-void FUN_00277c30(void)
-{
+void FUN_00277c30(void) {
     return;
 }

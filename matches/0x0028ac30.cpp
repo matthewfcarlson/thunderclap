@@ -1,15 +1,14 @@
 class pure3d__Channel {
-public:
+  public:
     virtual ~pure3d__Channel();
     virtual void vfunc_1();
     virtual unsigned int GetTypeID();
 };
 
-class pure3d__SimpleChannel : public pure3d__Channel {
-};
+class pure3d__SimpleChannel : public pure3d__Channel {};
 
 class pure3d__BoolChannel : public pure3d__SimpleChannel {
-public:
+  public:
     virtual ~pure3d__BoolChannel();
     virtual void vfunc_1();
     virtual unsigned int vfunc_2();

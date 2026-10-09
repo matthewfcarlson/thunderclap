@@ -1,4 +1,7 @@
-struct Helper { void init(void*, void*, int, int); void fini(); };
+struct Helper {
+    void init(void*, void*, int, int);
+    void fini();
+};
 extern int __cdecl F247530(void*);
 int __cdecl target() {
     char local[0x48];

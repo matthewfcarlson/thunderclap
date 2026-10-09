@@ -1,6 +1,15 @@
-struct A { int x; void init(); };
-struct B { int x; void init(); };
-struct C { int x; void init(); };
+struct A {
+    int x;
+    void init();
+};
+struct B {
+    int x;
+    void init();
+};
+struct C {
+    int x;
+    void init();
+};
 void __cdecl FreeTrack(void* p);
 
 struct COpportunityBallTrack {

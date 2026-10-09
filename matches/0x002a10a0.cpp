@@ -3,14 +3,13 @@ extern void* Alloc(unsigned int);
 extern void Init(void*, unsigned int, void*);
 
 class Buffer {
-public:
+  public:
     int* begin;
     int* end;
     bool Create(unsigned int count, void* arg);
 };
 
-bool Buffer::Create(unsigned int count, void* arg)
-{
+bool Buffer::Create(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {

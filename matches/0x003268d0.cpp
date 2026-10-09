@@ -1,1 +1,30 @@
-typedef unsigned int u32; extern "C" void* __cdecl memcpy(void*,const void*,unsigned int); namespace D3D8 { void* __stdcall D3DPalette_Lock2(u32,int); } class Texture { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h(); virtual void i(); virtual void j(); virtual void k(); virtual void l(); virtual u32 f12(u32*); char pad[0x64]; u32 palette; }; u32 Texture::f12(u32* out) { if(palette) { void* p=D3D8::D3DPalette_Lock2(palette,0); memcpy(out,p,0x400); } return 256; }
+typedef unsigned int u32;
+extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
+namespace D3D8 {
+void* __stdcall D3DPalette_Lock2(u32, int);
+}
+class Texture {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual void f();
+    virtual void g();
+    virtual void h();
+    virtual void i();
+    virtual void j();
+    virtual void k();
+    virtual void l();
+    virtual u32 f12(u32*);
+    char pad[0x64];
+    u32 palette;
+};
+u32 Texture::f12(u32* out) {
+    if (palette) {
+        void* p = D3D8::D3DPalette_Lock2(palette, 0);
+        memcpy(out, p, 0x400);
+    }
+    return 256;
+}

@@ -1,19 +1,19 @@
 struct Param {
-public:
+  public:
     virtual void vfunc1();
     virtual void vfunc2();
     virtual void vfunc4();
 };
 
 struct Track {
-public:
+  public:
     virtual void tfunc3();
     virtual void tfunc8();
     virtual void tfunc9();
 };
 
 struct ThreatBallTrack : Track, Param {
-public:
+  public:
     virtual void vfunc0();
     virtual void vfunc5();
     virtual void vfunc6();

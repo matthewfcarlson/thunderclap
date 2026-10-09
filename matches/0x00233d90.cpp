@@ -1,8 +1,11 @@
 typedef unsigned char u8;
 namespace fight {
-class Other { public: void f1(); };
+class Other {
+  public:
+    void f1();
+};
 class Branch {
-public:
+  public:
     virtual void v0();
     virtual void v1();
     virtual Branch* vfunc_2(u8);
@@ -23,7 +26,8 @@ Branch* Branch::vfunc_2(u8 param) {
     vfunc_7();
     sub.f1();
     base_fn();
-    if (param & 1) thunk_FUN_00267090(this);
+    if (param & 1)
+        thunk_FUN_00267090(this);
     return this;
 }
-}
+} // namespace fight

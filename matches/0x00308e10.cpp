@@ -1,7 +1,7 @@
 class C {
-public:
+  public:
     char pad[0x1f8];
-    char *items;
+    char* items;
     int count;
     bool Set(int index, unsigned char value);
 };

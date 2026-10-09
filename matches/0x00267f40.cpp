@@ -1,6 +1,8 @@
 // Same code shape as 0x00267f00 (propagated; names are from that function)
 typedef unsigned long DWORD;
-namespace XAPILIB { void __stdcall QueryPerformanceCounter(DWORD*); }
+namespace XAPILIB {
+void __stdcall QueryPerformanceCounter(DWORD*);
+}
 extern DWORD DAT_00528380;
 extern DWORD DAT_00528384;
 void __cdecl FUN_00267e20(DWORD, DWORD, DWORD, DWORD, DWORD, DWORD);

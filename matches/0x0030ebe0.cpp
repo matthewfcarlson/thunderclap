@@ -1,1 +1,15 @@
-struct Block { unsigned int x[0x15]; }; struct Obj { char pad[0x14]; Block a; Block b; unsigned int c; void Copy(Obj*); }; void Obj::Copy(Obj* src) { a=src->a; b=src->b; c=src->c; }
+struct Block {
+    unsigned int x[0x15];
+};
+struct Obj {
+    char pad[0x14];
+    Block a;
+    Block b;
+    unsigned int c;
+    void Copy(Obj*);
+};
+void Obj::Copy(Obj* src) {
+    a = src->a;
+    b = src->b;
+    c = src->c;
+}

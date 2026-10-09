@@ -1,2 +1,11 @@
-class ParticleController { public: char pad0[0x18]; float field18; char pad1[0x30]; float field4c; void vfunc_6(float, int); };
-void ParticleController::vfunc_6(float param, int unused) { field4c = param * field18 + field4c; }
+class ParticleController {
+  public:
+    char pad0[0x18];
+    float field18;
+    char pad1[0x30];
+    float field4c;
+    void vfunc_6(float, int);
+};
+void ParticleController::vfunc_6(float param, int unused) {
+    field4c = param * field18 + field4c;
+}

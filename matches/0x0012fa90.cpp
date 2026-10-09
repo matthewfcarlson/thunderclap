@@ -1,5 +1,5 @@
 class Action {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -9,7 +9,7 @@ public:
 };
 
 class StatEndTrialAction : public Action {
-public:
+  public:
     void vfunc_4();
 };
 

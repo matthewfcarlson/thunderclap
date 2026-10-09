@@ -1,3 +1,7 @@
-struct Obj { void f(); };
+struct Obj {
+    void f();
+};
 extern Obj g;
-void wrapper() { g.f(); }
+void wrapper() {
+    g.f();
+}

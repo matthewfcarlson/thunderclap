@@ -1,7 +1,15 @@
-class Base { public: virtual void BV(); Base(); };
-class Sub { public: char d[8]; void Init(const void*); };
+class Base {
+  public:
+    virtual void BV();
+    Base();
+};
+class Sub {
+  public:
+    char d[8];
+    void Init(const void*);
+};
 class ParticleGenerator : public Base {
-public:
+  public:
     virtual void V();
     char pad[4];
     Sub sub;

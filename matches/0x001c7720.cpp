@@ -1,10 +1,23 @@
-class Thing { public: virtual void A(); virtual void B(void*); virtual void Clear(void*); char pad[8]; int mC; int mCount; void** mItems; void Reset(); };
+class Thing {
+  public:
+    virtual void A();
+    virtual void B(void*);
+    virtual void Clear(void*);
+    char pad[8];
+    int mC;
+    int mCount;
+    void** mItems;
+    void Reset();
+};
 void Thing::Reset() {
     int i = 0;
     if (mCount >= 0) {
         do {
             void* p = mItems[i];
-            if (p) { Clear(p); mItems[i] = 0; }
+            if (p) {
+                Clear(p);
+                mItems[i] = 0;
+            }
             ++i;
         } while (i <= mCount);
     }

@@ -1,6 +1,12 @@
-class Helper { public: void Run(); };
+class Helper {
+  public:
+    void Run();
+};
 extern void __cdecl thunk_FUN_00267090(int);
-class CUnlockableBlonskyFile { public: void Destroy(); };
+class CUnlockableBlonskyFile {
+  public:
+    void Destroy();
+};
 void CUnlockableBlonskyFile::Destroy() {
     *(int*)this = 0x4044a4;
     ((Helper*)((char*)this + 0x20))->Run();

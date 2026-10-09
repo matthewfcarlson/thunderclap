@@ -1,7 +1,19 @@
 typedef unsigned int u32;
 extern "C" void* __cdecl alloc(unsigned int);
-class Track { public: Track(); virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); };
-class Factory { public: Track* vfunc_5(); };
+class Track {
+  public:
+    Track();
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual void f();
+};
+class Factory {
+  public:
+    Track* vfunc_5();
+};
 Track* Factory::vfunc_5() {
     Track* p = (Track*)alloc(0x14);
     if (p) {

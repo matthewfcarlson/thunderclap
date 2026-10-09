@@ -1,6 +1,17 @@
 void* __cdecl FUN_0008d690(unsigned int);
-class TrackFactoryTemplate { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void* vfunc_5(); };
-struct Obj { int pad0[5]; void Init(); };
+class TrackFactoryTemplate {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual void* vfunc_5();
+};
+struct Obj {
+    int pad0[5];
+    void Init();
+};
 void* TrackFactoryTemplate::vfunc_5() {
     Obj* p = (Obj*)FUN_0008d690(0x14);
     if (p) {

@@ -1,8 +1,11 @@
 // Same code shape as 0x000933a0 (propagated; names are from that function)
-class Inner { public: void Reset(); };
+class Inner {
+  public:
+    void Reset();
+};
 void FreeMem(void*);
 class CUnlockable {
-public:
+  public:
     virtual ~CUnlockable();
     char pad[0x14];
     void* mPtr18;

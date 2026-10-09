@@ -1,13 +1,23 @@
 typedef unsigned int uint;
 struct Owner;
 void* Alloc(Owner*, int, int, int);
-struct Owner { char pad[0x10]; void* source; char pad2[0x34]; void* list; };
-struct Node { Node* next; char data[4]; uint key; };
+struct Owner {
+    char pad[0x10];
+    void* source;
+    char pad2[0x34];
+    void* list;
+};
+struct Node {
+    Node* next;
+    char data[4];
+    uint key;
+};
 void FUN_00219610(Owner* self, uint key) {
     Node* current = (Node*)self->list;
     Node** link = (Node**)&self->list;
     while (current != 0 && current->key >= key) {
-        if (current->key == key) return;
+        if (current->key == key)
+            return;
         link = &current->next;
         current = current->next;
     }

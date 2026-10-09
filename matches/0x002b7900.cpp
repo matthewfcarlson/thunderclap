@@ -1,4 +1,54 @@
-class Ref { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(int,int); };
-class H { public: void one(int); void two(void*,void*); };
-class PolySkin { public: virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void vfunc_8(int,int); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); char pad[0x54]; H *m58; void *m5c; void *m60; char pad64[8]; Ref *m6c; Ref *m70; void last(int,int); };
-void PolySkin::vfunc_8(int a,int b) { if(m6c)m6c->f6(0,1); if(m70)m70->f6(0,1); ((H*)m60)->one(0); ((H*)m58)->two(m5c,m60); last(a,b); }
+class Ref {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6(int, int);
+};
+class H {
+  public:
+    void one(int);
+    void two(void*, void*);
+};
+class PolySkin {
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void vfunc_8(int, int);
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    virtual void v14();
+    virtual void v15();
+    virtual void v16();
+    virtual void v17();
+    virtual void v18();
+    char pad[0x54];
+    H* m58;
+    void* m5c;
+    void* m60;
+    char pad64[8];
+    Ref* m6c;
+    Ref* m70;
+    void last(int, int);
+};
+void PolySkin::vfunc_8(int a, int b) {
+    if (m6c)
+        m6c->f6(0, 1);
+    if (m70)
+        m70->f6(0, 1);
+    ((H*)m60)->one(0);
+    ((H*)m58)->two(m5c, m60);
+    last(a, b);
+}

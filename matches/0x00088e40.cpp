@@ -1,1 +1,11 @@
-class A { public: char pad[0x9c]; char flag; void * f(); }; void * A::f() { if (flag) return (char*)this + 0x5c; return 0; }
+class A {
+  public:
+    char pad[0x9c];
+    char flag;
+    void* f();
+};
+void* A::f() {
+    if (flag)
+        return (char*)this + 0x5c;
+    return 0;
+}

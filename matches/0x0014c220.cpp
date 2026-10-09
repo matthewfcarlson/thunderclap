@@ -1,9 +1,15 @@
 void* operator_new(unsigned int);
 typedef unsigned int u32;
 
-struct Base1 { void Init1(); };
-struct Sub1 { void Init2(); };
-struct Sub2 { void Init3(); };
+struct Base1 {
+    void Init1();
+};
+struct Sub1 {
+    void Init2();
+};
+struct Sub2 {
+    void Init3();
+};
 
 struct Factory {
     virtual void v0();

@@ -1,6 +1,10 @@
 typedef unsigned int uint;
 void __cdecl ReleaseThing(uint);
-struct Obj { uint a; uint b; void Clear(); };
+struct Obj {
+    uint a;
+    uint b;
+    void Clear();
+};
 void Obj::Clear() {
     if (b) {
         ReleaseThing(b);

@@ -1,9 +1,20 @@
-struct Worker { int* Find(void*); };
-struct Z { char pad[8]; Worker* w; };
-struct Y { char pad[4]; Z* z; };
-struct X { char pad[8]; Y* y; };
+struct Worker {
+    int* Find(void*);
+};
+struct Z {
+    char pad[8];
+    Worker* w;
+};
+struct Y {
+    char pad[4];
+    Z* z;
+};
+struct X {
+    char pad[8];
+    Y* y;
+};
 class Owner {
-public:
+  public:
     char pad[0x14];
     X* mA;
     char pad2[0x294];
@@ -17,10 +28,12 @@ void Owner::Update(void* arg) {
         int i = 0;
         int* q = p + 1;
         do {
-            if (*q == 0) break;
+            if (*q == 0)
+                break;
             ++i;
             ++q;
         } while (i < 4);
-        if (i != 4) p[i + 1] = (int)this;
+        if (i != 4)
+            p[i + 1] = (int)this;
     }
 }

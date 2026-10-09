@@ -1,1 +1,15 @@
-struct A { virtual void a(); }; struct Inner { virtual void f(); }; struct Obj: A, Inner {}; struct CementLibrary { char pad[0xc]; Obj* p; void vfunc_0_adj10(); }; void CementLibrary::vfunc_0_adj10() { p->f(); }
+struct A {
+    virtual void a();
+};
+struct Inner {
+    virtual void f();
+};
+struct Obj : A, Inner {};
+struct CementLibrary {
+    char pad[0xc];
+    Obj* p;
+    void vfunc_0_adj10();
+};
+void CementLibrary::vfunc_0_adj10() {
+    p->f();
+}

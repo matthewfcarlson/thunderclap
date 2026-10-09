@@ -1,1 +1,3 @@
-int* FUN_00278150(int param_1) { return (int*)(param_1 + 4 + ((param_1 + 0x1fefU) / 0x1fec) * 0x14); }
+int* FUN_00278150(int param_1) {
+    return (int*)(param_1 + 4 + ((param_1 + 0x1fefU) / 0x1fec) * 0x14);
+}

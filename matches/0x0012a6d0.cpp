@@ -1,7 +1,17 @@
 extern void* __cdecl alloc(unsigned int);
-struct Target { unsigned int vt; unsigned int a; unsigned int b; unsigned int zero; float angle; };
-struct Init { void initialize(int); };
-struct Factory { Target* vfunc_5(); };
+struct Target {
+    unsigned int vt;
+    unsigned int a;
+    unsigned int b;
+    unsigned int zero;
+    float angle;
+};
+struct Init {
+    void initialize(int);
+};
+struct Factory {
+    Target* vfunc_5();
+};
 Target* Factory::vfunc_5() {
     Target* p = (Target*)alloc(0x14);
     if (p) {

@@ -3,12 +3,13 @@ short* f(short* a, short* b) {
         short* p = a + 1;
         if (p != b) {
             do {
-                if (*a == *p) goto found;
+                if (*a == *p)
+                    goto found;
                 a = p;
                 ++p;
             } while (p != b);
             return b;
-found:
+        found:
             p = p + 1;
             while (p != b) {
                 if (*a != *p) {

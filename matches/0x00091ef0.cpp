@@ -1,7 +1,10 @@
-class Obj { public: void dtor(); };
+class Obj {
+  public:
+    void dtor();
+};
 void rel(void*);
 class CUnlockableMove {
-public:
+  public:
     int vf;
     char pad[0x14];
     void* ptr;

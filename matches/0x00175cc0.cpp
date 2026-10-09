@@ -1,7 +1,15 @@
-class Ref { public: virtual void Add(); virtual void Release(); };
-class Helper { public: void Init(); void InitSub(); };
+class Ref {
+  public:
+    virtual void Add();
+    virtual void Release();
+};
+class Helper {
+  public:
+    void Init();
+    void InitSub();
+};
 class Teleport {
-public:
+  public:
     int vptr;
     char pad[0x18];
     int value;
@@ -17,7 +25,9 @@ Teleport::Teleport(int x, Ref* r) {
     ref = 0;
     sub.InitSub();
     value = x;
-    if (r) r->Add();
-    if (ref) ref->Release();
+    if (r)
+        r->Add();
+    if (ref)
+        ref->Release();
     ref = r;
 }

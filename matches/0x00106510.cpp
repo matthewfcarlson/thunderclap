@@ -2,7 +2,7 @@ extern void init();
 extern void* alloc(unsigned int);
 extern int CPatrolPath_vtable;
 class CPatrolPath {
-public:
+  public:
     int vt;
     char pad4[12];
     void* mData;

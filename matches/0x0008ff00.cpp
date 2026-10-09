@@ -1,5 +1,5 @@
 class Thing {
-public:
+  public:
     char pad0[4];
     unsigned int divisor;
     char pad8[8];
@@ -12,5 +12,6 @@ public:
 void Thing::Clear(int value, int unused) {
     unsigned int index = (value - base) / divisor;
     bits[index >> 5] &= ~(1u << (index & 31));
-    if (index < limit) limit = index;
+    if (index < limit)
+        limit = index;
 }

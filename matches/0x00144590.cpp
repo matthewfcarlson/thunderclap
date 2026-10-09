@@ -1,6 +1,20 @@
-struct X { X* a(); X* b(); int d(int); void e(int); };
+struct X {
+    X* a();
+    X* b();
+    int d(int);
+    void e(int);
+};
 extern X* __cdecl FUN_0027f250();
-class MotionTrailStopAction { public: char pad00[0x1c]; struct A { char pad[0x10]; int value; } *mA; int mCheck; void vfunc_4(); };
+class MotionTrailStopAction {
+  public:
+    char pad00[0x1c];
+    struct A {
+        char pad[0x10];
+        int value;
+    }* mA;
+    int mCheck;
+    void vfunc_4();
+};
 void MotionTrailStopAction::vfunc_4() {
     if (mCheck) {
         X* a = ((X*)mCheck)->a();

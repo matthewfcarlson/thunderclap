@@ -1,4 +1,7 @@
-struct Manager { int Make(); int Finish(int, int); };
+struct Manager {
+    int Make();
+    int Finish(int, int);
+};
 struct Obj {
     char pad0[0x10];
     int field10;
@@ -8,7 +11,9 @@ struct Obj {
     void Other(int, int);
     void target(int, int);
 };
-struct Item { void Last(); };
+struct Item {
+    void Last();
+};
 void Obj::target(int a, int b) {
     if (!b) {
         int v = field44->Make();

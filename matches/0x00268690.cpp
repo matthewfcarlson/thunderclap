@@ -1,4 +1,61 @@
-class Dispatch { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h(); virtual void i(); };
-class Item { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h(); virtual void i(); virtual void j(); virtual void k(); virtual void l(); virtual void m(); virtual void call(int); };
-class ControllerXBox { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15(); virtual void f16(); virtual void f17(); virtual void vfunc_18(int); char pad14[0x14-sizeof(void*)]; unsigned int count; char pad18[4]; char pad1c[0x454-0x1c]; Dispatch *dispatch; };
-void ControllerXBox::vfunc_18(int arg) { dispatch->i(); for(unsigned int i=0;i<count;++i) ((Item*)((char*)this+0x18+i*0x34))->call(arg); }
+class Dispatch {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual void f();
+    virtual void g();
+    virtual void h();
+    virtual void i();
+};
+class Item {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual void f();
+    virtual void g();
+    virtual void h();
+    virtual void i();
+    virtual void j();
+    virtual void k();
+    virtual void l();
+    virtual void m();
+    virtual void call(int);
+};
+class ControllerXBox {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8();
+    virtual void f9();
+    virtual void f10();
+    virtual void f11();
+    virtual void f12();
+    virtual void f13();
+    virtual void f14();
+    virtual void f15();
+    virtual void f16();
+    virtual void f17();
+    virtual void vfunc_18(int);
+    char pad14[0x14 - sizeof(void*)];
+    unsigned int count;
+    char pad18[4];
+    char pad1c[0x454 - 0x1c];
+    Dispatch* dispatch;
+};
+void ControllerXBox::vfunc_18(int arg) {
+    dispatch->i();
+    for (unsigned int i = 0; i < count; ++i)
+        ((Item*)((char*)this + 0x18 + i * 0x34))->call(arg);
+}

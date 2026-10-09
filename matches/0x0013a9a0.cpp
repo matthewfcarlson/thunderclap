@@ -1,3 +1,37 @@
-typedef unsigned char byte; struct Helper { int x; void run(); }; struct Main { void run(); }; extern int vf; extern void cleanup(void*);
-class AnimationVelocityScaledTrack { public: virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual AnimationVelocityScaledTrack* v5(byte); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); char pad[0x14]; Helper h18; char gap[0x24]; Helper h40; };
-AnimationVelocityScaledTrack* AnimationVelocityScaledTrack::v5(byte x) { *(int*)this=(int)&vf; h40.run(); h18.run(); ((Main*)this)->run(); if(x&1) cleanup(this); return this; }
+typedef unsigned char byte;
+struct Helper {
+    int x;
+    void run();
+};
+struct Main {
+    void run();
+};
+extern int vf;
+extern void cleanup(void*);
+class AnimationVelocityScaledTrack {
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual AnimationVelocityScaledTrack* v5(byte);
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    char pad[0x14];
+    Helper h18;
+    char gap[0x24];
+    Helper h40;
+};
+AnimationVelocityScaledTrack* AnimationVelocityScaledTrack::v5(byte x) {
+    *(int*)this = (int)&vf;
+    h40.run();
+    h18.run();
+    ((Main*)this)->run();
+    if (x & 1)
+        cleanup(this);
+    return this;
+}

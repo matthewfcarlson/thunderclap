@@ -1,3 +1,32 @@
-class Inner { public: virtual void a0(); virtual void a1(); virtual void a2(); virtual void a3(); virtual void a4(); virtual void a5(); virtual void a6(); virtual void a7(); virtual void a8(); virtual void Get(void*,void*,void*,void*); virtual void a10(); virtual int Count(); };
-class Obj { public: char pad[4]; Inner* p; int run(); };
-int Obj::run() { int result=0; int value=0; if (p) { int a,b,c,d; p->Get(&d,&a,&b,&c); value=d; result=p->Count(); } return result-value; }
+class Inner {
+  public:
+    virtual void a0();
+    virtual void a1();
+    virtual void a2();
+    virtual void a3();
+    virtual void a4();
+    virtual void a5();
+    virtual void a6();
+    virtual void a7();
+    virtual void a8();
+    virtual void Get(void*, void*, void*, void*);
+    virtual void a10();
+    virtual int Count();
+};
+class Obj {
+  public:
+    char pad[4];
+    Inner* p;
+    int run();
+};
+int Obj::run() {
+    int result = 0;
+    int value = 0;
+    if (p) {
+        int a, b, c, d;
+        p->Get(&d, &a, &b, &c);
+        value = d;
+        result = p->Count();
+    }
+    return result - value;
+}

@@ -1,3 +1,38 @@
-class SimStateArticulated { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void* vfunc_5(int); virtual void g(); virtual void h(); virtual void i(); virtual void j(); virtual void k(); virtual void l(); virtual void m(); virtual void n(); virtual void o(); char pad[0x84]; void* ptr; };
-struct Obj1 { void* f490(int); }; struct Obj2 { void* edf(); }; struct Obj3 { void* f100(); };
-void* SimStateArticulated::vfunc_5(int x) { if (x >= 0 && ptr) { Obj1* a=(Obj1*)ptr; Obj2* b=(Obj2*)a->f490(x); Obj3* c=(Obj3*)b->edf(); return (char*)c->f100()+0x30; } return (char*)this+0x40; }
+class SimStateArticulated {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual void* vfunc_5(int);
+    virtual void g();
+    virtual void h();
+    virtual void i();
+    virtual void j();
+    virtual void k();
+    virtual void l();
+    virtual void m();
+    virtual void n();
+    virtual void o();
+    char pad[0x84];
+    void* ptr;
+};
+struct Obj1 {
+    void* f490(int);
+};
+struct Obj2 {
+    void* edf();
+};
+struct Obj3 {
+    void* f100();
+};
+void* SimStateArticulated::vfunc_5(int x) {
+    if (x >= 0 && ptr) {
+        Obj1* a = (Obj1*)ptr;
+        Obj2* b = (Obj2*)a->f490(x);
+        Obj3* c = (Obj3*)b->edf();
+        return (char*)c->f100() + 0x30;
+    }
+    return (char*)this + 0x40;
+}

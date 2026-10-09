@@ -1,6 +1,6 @@
 extern int vt;
 class PrimBuf {
-public:
+  public:
     PrimBuf(int arg);
     void InitBase();
     int p0, p4, p8;
@@ -13,8 +13,16 @@ public:
 
 PrimBuf::PrimBuf(int arg) {
     InitBase();
-    m18 = 0; m1c = 0; m20 = 0; m24 = 0; m28 = 0; m2c = 0; m30 = 0;
-    b34 = 0; b35 = 0; b36 = 0;
+    m18 = 0;
+    m1c = 0;
+    m20 = 0;
+    m24 = 0;
+    m28 = 0;
+    m2c = 0;
+    m30 = 0;
+    b34 = 0;
+    b35 = 0;
+    b36 = 0;
     m38 = arg;
     *(int*)this = (int)&vt;
     m0c = *(int*)(*(int*)((char*)arg + 0x154) + 0x10);

@@ -1,1 +1,3 @@
-unsigned long long FUN_00262800() { return 0; }
+unsigned long long FUN_00262800() {
+    return 0;
+}

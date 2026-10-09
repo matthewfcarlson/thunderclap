@@ -1,5 +1,5 @@
 class d3dToonVertexShader {
-public:
+  public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -28,4 +28,6 @@ public:
     char pad[0xdc];
     int value;
 };
-char d3dToonVertexShader::vfunc_11() { return (value != 1) + 1; }
+char d3dToonVertexShader::vfunc_11() {
+    return (value != 1) + 1;
+}

@@ -1,5 +1,5 @@
 class CGrabTrack {
-public:
+  public:
     virtual void v();
     ~CGrabTrack();
     char pad[0x14];

@@ -1,11 +1,11 @@
 class Ref {
-public:
+  public:
     virtual void x();
     virtual void y(int, int);
 };
 
 class CollisionSolverAgent {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -15,5 +15,6 @@ public:
 };
 
 void CollisionSolverAgent::vfunc_3(int a, int b) {
-    if (ref) ref->y(a, b);
+    if (ref)
+        ref->y(a, b);
 }

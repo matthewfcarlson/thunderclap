@@ -1,8 +1,8 @@
 void __stdcall AllocRef(int);
-void __fastcall InitSub(void *p);
+void __fastcall InitSub(void* p);
 
 class Ref {
-public:
+  public:
     virtual void f();
     char pad[0x24];
     Ref* init();

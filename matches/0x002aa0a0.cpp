@@ -1,16 +1,23 @@
 extern void* __cdecl alloc(unsigned int);
-inline void* operator new(unsigned int, void* where) { return where; }
+inline void* operator new(unsigned int, void* where) {
+    return where;
+}
 
 class Base {
-public:
+  public:
     Base(void* parent);
     virtual void b0();
     char pad[0x3c];
 };
 
 class EAC : public Base {
-public:
-    EAC(void* parent) : Base(parent) { m[0] = 0; m[1] = 0; m[2] = 0; m[3] = 0; }
+  public:
+    EAC(void* parent) : Base(parent) {
+        m[0] = 0;
+        m[1] = 0;
+        m[2] = 0;
+        m[3] = 0;
+    }
     virtual void f0();
     virtual void f1();
     virtual void f2();

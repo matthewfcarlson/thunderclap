@@ -1,4 +1,8 @@
-class Obj { public: char pad[0x214]; void Remove(int id); };
+class Obj {
+  public:
+    char pad[0x214];
+    void Remove(int id);
+};
 void Obj::Remove(int id) {
     int i;
     for (i = 0; i < 16; ++i) {

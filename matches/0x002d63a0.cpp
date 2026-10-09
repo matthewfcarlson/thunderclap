@@ -1,4 +1,7 @@
-struct Sub { void Init(); char pad[0x114]; };
+struct Sub {
+    void Init();
+    char pad[0x114];
+};
 struct Base {
     Base();
     virtual void V1();
@@ -12,5 +15,11 @@ struct Emitter : Base {
 };
 Emitter::Emitter() {
     sub.Init();
-    f1bc = 0; f1c0 = 0; f1c4 = 0; f1c8 = 0; f1cc = 0; f1d4 = 0; f1d8 = 0;
+    f1bc = 0;
+    f1c0 = 0;
+    f1c4 = 0;
+    f1c8 = 0;
+    f1cc = 0;
+    f1d4 = 0;
+    f1d8 = 0;
 }

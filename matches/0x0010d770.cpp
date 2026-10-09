@@ -1,7 +1,16 @@
-struct A { A* f0(); int f1(); };
-struct B { char pad[0x14]; int a14; int a18; int a1c; int a20; };
+struct A {
+    A* f0();
+    int f1();
+};
+struct B {
+    char pad[0x14];
+    int a14;
+    int a18;
+    int a1c;
+    int a20;
+};
 class ButtonAction {
-public:
+  public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -14,7 +23,8 @@ public:
 };
 char ButtonAction::vfunc_5(int p, int q) {
     if (p == 0) {
-        if (!mA) return 0;
+        if (!mA)
+            return 0;
         A* r = mA->f0();
         int base = r->f1();
         int* d = (int*)(base + 0x1f58);

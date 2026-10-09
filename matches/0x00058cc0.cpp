@@ -1,8 +1,16 @@
 extern "C" void* __cdecl Alloc(unsigned int);
-struct Obj { void Init(int); };
-struct Sub { void Init(); };
-struct CCharacterTemplateCondition { char pad[24]; };
-struct Factory { void* vfunc_5(); };
+struct Obj {
+    void Init(int);
+};
+struct Sub {
+    void Init();
+};
+struct CCharacterTemplateCondition {
+    char pad[24];
+};
+struct Factory {
+    void* vfunc_5();
+};
 void* Factory::vfunc_5() {
     CCharacterTemplateCondition* p = (CCharacterTemplateCondition*)Alloc(0x18);
     if (p) {

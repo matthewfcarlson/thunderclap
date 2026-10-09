@@ -1,6 +1,16 @@
-struct Entry { unsigned char a; unsigned char flag; unsigned char rest[14]; };
-struct Obj { unsigned char pad[0x2260]; Entry entries[4]; };
-class Helper { public: void Do(int, int); };
+struct Entry {
+    unsigned char a;
+    unsigned char flag;
+    unsigned char rest[14];
+};
+struct Obj {
+    unsigned char pad[0x2260];
+    Entry entries[4];
+};
+class Helper {
+  public:
+    void Do(int, int);
+};
 void __fastcall target(Obj* self) {
     Entry* p = self->entries;
     int n = 4;

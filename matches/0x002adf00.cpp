@@ -1,2 +1,18 @@
-class ImageHandler { public: class Builder { public: virtual void a(); virtual void b(); virtual void c(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual int vfunc_8(); }; };
-int ImageHandler::Builder::vfunc_8() { return -1; }
+class ImageHandler {
+  public:
+    class Builder {
+      public:
+        virtual void a();
+        virtual void b();
+        virtual void c();
+        virtual void vfunc_3();
+        virtual void vfunc_4();
+        virtual void vfunc_5();
+        virtual void vfunc_6();
+        virtual void vfunc_7();
+        virtual int vfunc_8();
+    };
+};
+int ImageHandler::Builder::vfunc_8() {
+    return -1;
+}

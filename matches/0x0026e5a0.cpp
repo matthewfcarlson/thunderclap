@@ -1,10 +1,10 @@
-extern "C" char *_strncpy(char *, const char *, unsigned int);
+extern "C" char* _strncpy(char*, const char*, unsigned int);
 class Obj {
-public:
-    void Target(unsigned int a, char *src, unsigned int b, unsigned int d);
-    void Send(void *p, int n);
+  public:
+    void Target(unsigned int a, char* src, unsigned int b, unsigned int d);
+    void Send(void* p, int n);
 };
-void Obj::Target(unsigned int a, char *src, unsigned int b, unsigned int d) {
+void Obj::Target(unsigned int a, char* src, unsigned int b, unsigned int d) {
     struct Buf {
         unsigned int h;
         unsigned int a;

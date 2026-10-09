@@ -1,1 +1,23 @@
-class A { public: void F(float, bool); }; class B { public: void G(float, bool); }; class C { public: B* b; A* a; void H(float); void Run(float, bool); }; extern float g; void C::Run(float x, bool flag) { a->F(x,flag); b->G(x,flag); if(flag) H(x); g += x; }
+class A {
+  public:
+    void F(float, bool);
+};
+class B {
+  public:
+    void G(float, bool);
+};
+class C {
+  public:
+    B* b;
+    A* a;
+    void H(float);
+    void Run(float, bool);
+};
+extern float g;
+void C::Run(float x, bool flag) {
+    a->F(x, flag);
+    b->G(x, flag);
+    if (flag)
+        H(x);
+    g += x;
+}

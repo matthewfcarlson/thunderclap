@@ -1,10 +1,19 @@
-class Big { public: void Init(); };
-class Small { public: void Init(); };
-class Base { public: void Init(); };
+class Big {
+  public:
+    void Init();
+};
+class Small {
+  public:
+    void Init();
+};
+class Base {
+  public:
+    void Init();
+};
 class PhysicsObject {
-public:
+  public:
     void* vt;
-    char pad[0x168-4];
+    char pad[0x168 - 4];
     void Finish();
     void Setup();
 };

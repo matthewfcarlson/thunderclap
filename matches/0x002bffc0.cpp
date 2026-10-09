@@ -8,8 +8,7 @@ struct Image32 : Base {
     unsigned char field28, field29;
     Image32* Init();
 };
-Image32* Image32::Init()
-{
+Image32* Image32::Init() {
     Base::Init();
     field24 = 0;
     field10 = 0;

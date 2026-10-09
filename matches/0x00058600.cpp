@@ -1,7 +1,18 @@
 typedef unsigned int U;
 extern void* __cdecl alloc(unsigned int);
-struct CPropActorStateCondition { virtual void v0(); U x[4]; void setup(int); };
-struct Factory { void* v0(); void* v1(); void* v2(); void* v3(); void* v4(); void* v5(); };
+struct CPropActorStateCondition {
+    virtual void v0();
+    U x[4];
+    void setup(int);
+};
+struct Factory {
+    void* v0();
+    void* v1();
+    void* v2();
+    void* v3();
+    void* v4();
+    void* v5();
+};
 void* Factory::v5() {
     CPropActorStateCondition* p = (CPropActorStateCondition*)alloc(0x14);
     if (p) {

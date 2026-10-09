@@ -1,2 +1,17 @@
-class DXTNHandler { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual unsigned char vfunc_8(int); };
-unsigned char DXTNHandler::vfunc_8(int x) { if (x < 5 || x > 10) return 0; return 1; }
+class DXTNHandler {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual unsigned char vfunc_8(int);
+};
+unsigned char DXTNHandler::vfunc_8(int x) {
+    if (x < 5 || x > 10)
+        return 0;
+    return 1;
+}

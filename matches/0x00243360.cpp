@@ -1,2 +1,18 @@
-class Entity { char pad[0x1c]; short value; public: virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); };
-void Entity::vfunc_0() { ++value; }
+class Entity {
+    char pad[0x1c];
+    short value;
+
+  public:
+    virtual void vfunc_0();
+    virtual void vfunc_1();
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    virtual void vfunc_4();
+    virtual void vfunc_5();
+    virtual void vfunc_6();
+    virtual void vfunc_7();
+    virtual void vfunc_8();
+};
+void Entity::vfunc_0() {
+    ++value;
+}

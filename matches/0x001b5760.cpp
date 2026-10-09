@@ -1,5 +1,10 @@
-struct Inner { char pad[0x18]; };
-struct Item { char pad[0x44]; Inner* p; };
+struct Inner {
+    char pad[0x18];
+};
+struct Item {
+    char pad[0x44];
+    Inner* p;
+};
 extern char gFallback;
 struct Table {
     void** slots;

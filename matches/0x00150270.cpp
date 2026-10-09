@@ -4,19 +4,18 @@
 extern void* CTrack_vftable[];
 
 class CTrack {
-public:
+  public:
     void Destroy(); // FUN_00236d60, __thiscall, this in ecx
 };
 
 class CSweepTrack : public CTrack {
-public:
+  public:
     CSweepTrack* vfunc_5(signed char flags);
 };
 
 void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
 
-CSweepTrack* CSweepTrack::vfunc_5(signed char flags)
-{
+CSweepTrack* CSweepTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
     Destroy();
     if (flags & 1) {

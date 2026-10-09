@@ -1,5 +1,7 @@
 typedef unsigned int u32;
-struct Obj { char pad[0x48]; };
+struct Obj {
+    char pad[0x48];
+};
 extern Obj* __cdecl alloc_obj(u32, u32, u32, u32);
 extern void __cdecl init_obj(u32, Obj*, int);
 Obj* __cdecl target(u32 p) {

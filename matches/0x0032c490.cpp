@@ -1,12 +1,12 @@
 typedef unsigned int u32;
 class Shader {
-public:
+  public:
     Shader(u32 x);
     virtual void Base0();
     char pad[0x7c];
 };
 class D3dReflShader : public Shader {
-public:
+  public:
     D3dReflShader(u32 x);
     virtual void Run();
     u32 a;

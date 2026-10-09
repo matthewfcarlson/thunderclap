@@ -1,6 +1,23 @@
-class PropStateByIndexCondition { public: int a; int b; int c; int d; int e; int f; void Init(int); };
+class PropStateByIndexCondition {
+  public:
+    int a;
+    int b;
+    int c;
+    int d;
+    int e;
+    int f;
+    void Init(int);
+};
 extern void* Alloc(unsigned int);
-class Factory { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual PropStateByIndexCondition* f5(); };
+class Factory {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual PropStateByIndexCondition* f5();
+};
 PropStateByIndexCondition* Factory::f5() {
     PropStateByIndexCondition* p = (PropStateByIndexCondition*)Alloc(0x18);
     if (p) {

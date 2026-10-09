@@ -2,7 +2,7 @@ extern int FindThing(int, int);
 extern void DoThing(int, int, void*);
 
 class Owner {
-public:
+  public:
     char pad[4];
     int value;
     void Run(int a, int b);

@@ -1,3 +1,35 @@
-class PoolOther { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(void*); };
-class MemoryPool { public: char pad0[0x10]; unsigned int* head; char pad14[4]; unsigned int start; unsigned int stride; unsigned int count; char pad24[4]; int live; char pad2c[4]; PoolOther* other; void vfunc_4(unsigned int* p); };
-void MemoryPool::vfunc_4(unsigned int* p) { unsigned int a=(unsigned int)p; unsigned int b=start; if (a >= b && a < count * stride + b) { *p = (unsigned int)head; head = p; --live; return; } if (other) other->f4(p); --live; }
+class PoolOther {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4(void*);
+};
+class MemoryPool {
+  public:
+    char pad0[0x10];
+    unsigned int* head;
+    char pad14[4];
+    unsigned int start;
+    unsigned int stride;
+    unsigned int count;
+    char pad24[4];
+    int live;
+    char pad2c[4];
+    PoolOther* other;
+    void vfunc_4(unsigned int* p);
+};
+void MemoryPool::vfunc_4(unsigned int* p) {
+    unsigned int a = (unsigned int)p;
+    unsigned int b = start;
+    if (a >= b && a < count * stride + b) {
+        *p = (unsigned int)head;
+        head = p;
+        --live;
+        return;
+    }
+    if (other)
+        other->f4(p);
+    --live;
+}

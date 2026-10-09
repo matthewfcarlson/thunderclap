@@ -1,3 +1,31 @@
-class Part { char pad[16]; public: void Init(); };
-class CUnlockableBlonskyFile { public: char *vf; char pad4[4]; unsigned char enabled; char pad9[7]; Part a; Part b; char pad30[0x68-0x30]; unsigned char f68; char gap69[0xA8-0x69]; unsigned char fa8; CUnlockableBlonskyFile(); };
-CUnlockableBlonskyFile::CUnlockableBlonskyFile() { vf=(char*)0x40449c; enabled=1; a.Init(); *(int*)((char*)this+0x18)=0; vf=(char*)0x4044a4; b.Init(); fa8=0; f68=0; *(unsigned char*)((char*)this+0x28)=0; }
+class Part {
+    char pad[16];
+
+  public:
+    void Init();
+};
+class CUnlockableBlonskyFile {
+  public:
+    char* vf;
+    char pad4[4];
+    unsigned char enabled;
+    char pad9[7];
+    Part a;
+    Part b;
+    char pad30[0x68 - 0x30];
+    unsigned char f68;
+    char gap69[0xA8 - 0x69];
+    unsigned char fa8;
+    CUnlockableBlonskyFile();
+};
+CUnlockableBlonskyFile::CUnlockableBlonskyFile() {
+    vf = (char*)0x40449c;
+    enabled = 1;
+    a.Init();
+    *(int*)((char*)this + 0x18) = 0;
+    vf = (char*)0x4044a4;
+    b.Init();
+    fa8 = 0;
+    f68 = 0;
+    *(unsigned char*)((char*)this + 0x28) = 0;
+}

@@ -1,7 +1,13 @@
 extern "C" void* __cdecl Alloc(unsigned int);
-struct InitObj { void Init(int); };
-struct CAlertStatusCondition { int a,b,c,d,e; };
-struct Factory { void* MakeAlert(); };
+struct InitObj {
+    void Init(int);
+};
+struct CAlertStatusCondition {
+    int a, b, c, d, e;
+};
+struct Factory {
+    void* MakeAlert();
+};
 void* Factory::MakeAlert() {
     CAlertStatusCondition* p = (CAlertStatusCondition*)Alloc(0x14);
     if (p != 0) {

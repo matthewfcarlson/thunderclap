@@ -1,1 +1,3 @@
-bool FUN_00044500(void* param_1) { return param_1 != 0; }
+bool FUN_00044500(void* param_1) {
+    return param_1 != 0;
+}

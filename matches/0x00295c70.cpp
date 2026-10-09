@@ -1,7 +1,21 @@
 typedef unsigned int u32;
-class Base { public: u32 vf; char pad[4]; void Init(); };
-class Child { public: void Copy(void*); };
-class Thing : public Base { public: char pad8[8]; u32 a; u32 b; Thing* Run(void* src); };
+class Base {
+  public:
+    u32 vf;
+    char pad[4];
+    void Init();
+};
+class Child {
+  public:
+    void Copy(void*);
+};
+class Thing : public Base {
+  public:
+    char pad8[8];
+    u32 a;
+    u32 b;
+    Thing* Run(void* src);
+};
 Thing* Thing::Run(void* src) {
     Init();
     vf = 0x42d1ec;

@@ -1,11 +1,11 @@
 class Sub {
-public:
+  public:
     virtual void Begin();
     virtual void End();
 };
 int FUN_0026dbb0();
 class Owner {
-public:
+  public:
     char pad0[12];
     Sub sub;
     char pad10[0x30];

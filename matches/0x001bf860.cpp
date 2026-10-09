@@ -38,7 +38,8 @@ void Obj::Reset(char b) {
     fD = 0;
     f24 = 0;
     f55 = 0;
-    if (f20 == 2) f2C->fC = 0;
+    if (f20 == 2)
+        f2C->fC = 0;
     if (b) {
         f50 = 0;
         Sub* s = f2C;

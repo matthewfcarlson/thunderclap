@@ -1,2 +1,14 @@
-class DriveCompletionRequest { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual unsigned int vfunc_6(); virtual void f7(); };
-unsigned int DriveCompletionRequest::vfunc_6() { return 0x15; }
+class DriveCompletionRequest {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual unsigned int vfunc_6();
+    virtual void f7();
+};
+unsigned int DriveCompletionRequest::vfunc_6() {
+    return 0x15;
+}

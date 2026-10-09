@@ -1,10 +1,13 @@
 extern char vtImage[];
 extern char vtIRef[];
-class Helper { public: void cleanup(); };
+class Helper {
+  public:
+    void cleanup();
+};
 void destroy(void*);
 void destroyThis(void*);
 class ImageLoader {
-public:
+  public:
     void* vptr;
     char pad[0x10];
     Helper* mPtr;
@@ -18,6 +21,7 @@ ImageLoader* ImageLoader::f2(unsigned char p) {
         destroy(h);
     }
     vptr = vtIRef;
-    if (p & 1) destroyThis(this);
+    if (p & 1)
+        destroyThis(this);
     return this;
 }

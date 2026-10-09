@@ -1,2 +1,22 @@
-class Thing { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); char pad[0xbc - 4]; int value; void Set(int); };
-void Thing::Set(int x) { if (value != x) { f9(); value = x; } }
+class Thing {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8();
+    virtual void f9();
+    char pad[0xbc - 4];
+    int value;
+    void Set(int);
+};
+void Thing::Set(int x) {
+    if (value != x) {
+        f9();
+        value = x;
+    }
+}

@@ -2,9 +2,9 @@ extern "C" void* memcpy(void*, const void*, unsigned int);
 
 namespace pure3d {
 class ImageHandler {
-public:
+  public:
     class Builder {
-    public:
+      public:
         virtual void vfunc_0();
         virtual void vfunc_1();
         virtual void vfunc_2();
@@ -19,7 +19,7 @@ public:
 };
 
 class ImageBuilder : public ImageHandler::Builder {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1(const void* src);
     virtual void vfunc_2();
@@ -37,4 +37,4 @@ void ImageBuilder::vfunc_1(const void* src) {
     mData += mStride;
     ++mCount;
 }
-}
+} // namespace pure3d

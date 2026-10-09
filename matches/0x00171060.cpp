@@ -1,9 +1,18 @@
-struct Thing { int pad[4]; int value; };
-struct ObjC { void run(int); };
-struct ObjB { ObjC* run(); };
-struct ObjA { ObjB* run(); };
+struct Thing {
+    int pad[4];
+    int value;
+};
+struct ObjC {
+    void run(int);
+};
+struct ObjB {
+    ObjC* run();
+};
+struct ObjA {
+    ObjB* run();
+};
 class LocomotionStateAction {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -15,7 +24,8 @@ public:
     ObjA* field20;
 };
 bool LocomotionStateAction::vfunc_5(int param, int unused) {
-    if (param) return true;
+    if (param)
+        return true;
     ObjB* b = field20->run();
     ObjC* c = b->run();
     c->run(field1c->value);

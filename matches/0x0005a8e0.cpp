@@ -1,2 +1,20 @@
-class CGrappleLocoStrafe4Track { public: virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(unsigned int*); };
-void CGrappleLocoStrafe4Track::vfunc_13(unsigned int* p) { *p = 0xff7f0000; }
+class CGrappleLocoStrafe4Track {
+  public:
+    virtual void vfunc_0();
+    virtual void vfunc_1();
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    virtual void vfunc_4();
+    virtual void vfunc_5();
+    virtual void vfunc_6();
+    virtual void vfunc_7();
+    virtual void vfunc_8();
+    virtual void vfunc_9();
+    virtual void vfunc_10();
+    virtual void vfunc_11();
+    virtual void vfunc_12();
+    virtual void vfunc_13(unsigned int*);
+};
+void CGrappleLocoStrafe4Track::vfunc_13(unsigned int* p) {
+    *p = 0xff7f0000;
+}

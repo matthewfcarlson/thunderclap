@@ -7,8 +7,7 @@ void __cdecl StepB();
 void __cdecl StepC();
 void __cdecl StepD();
 void __cdecl Finish(void*);
-void __cdecl FUN_00271070()
-{
+void __cdecl FUN_00271070() {
     if (gFlag) {
         char* p = gData;
         int n = 0x1a;

@@ -1,4 +1,9 @@
-class Thing { public: int a[6]; void fallback(int); void target(int); };
+class Thing {
+  public:
+    int a[6];
+    void fallback(int);
+    void target(int);
+};
 void Thing::target(int param) {
     int i = 0;
     do {

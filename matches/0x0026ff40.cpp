@@ -1,3 +1,28 @@
-class IMemoryPool { public: virtual int f0(); virtual int f1(); virtual int f2(); virtual int f3(); virtual int f4(); virtual int f5(); virtual int f6(); virtual int f7(); virtual int f8(); virtual int f9(); virtual int f10(); virtual int vfunc_11(); virtual int f12(); virtual int f13(); virtual int f14(); };
-class MemoryPool : public IMemoryPool { public: char pad[0x1c - 4]; int mA; int mB; int vfunc_11(); };
-int MemoryPool::vfunc_11() { return mB * mA; }
+class IMemoryPool {
+  public:
+    virtual int f0();
+    virtual int f1();
+    virtual int f2();
+    virtual int f3();
+    virtual int f4();
+    virtual int f5();
+    virtual int f6();
+    virtual int f7();
+    virtual int f8();
+    virtual int f9();
+    virtual int f10();
+    virtual int vfunc_11();
+    virtual int f12();
+    virtual int f13();
+    virtual int f14();
+};
+class MemoryPool : public IMemoryPool {
+  public:
+    char pad[0x1c - 4];
+    int mA;
+    int mB;
+    int vfunc_11();
+};
+int MemoryPool::vfunc_11() {
+    return mB * mA;
+}

@@ -1,6 +1,9 @@
-class Slot { public: void Invoke(void*); };
+class Slot {
+  public:
+    void Invoke(void*);
+};
 class Owner {
-public:
+  public:
     char pad0[0x12c];
     int count;
     int Run(void* arg);

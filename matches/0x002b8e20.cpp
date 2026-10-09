@@ -1,6 +1,5 @@
 extern const float oneThird;
-void FUN(float *out, int mode, float *range, float value)
-{
+void FUN(float* out, int mode, float* range, float value) {
     *out = 1.0f;
     if (mode == 1) {
         if (value < range[0]) {

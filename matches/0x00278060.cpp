@@ -1,8 +1,7 @@
 typedef unsigned int uint;
 typedef unsigned char byte;
-extern int __stdcall XGetDeviceChanges(int deviceType, uint *inserted, uint *removed);
-void __fastcall FUN_00278060(byte *param_1)
-{
+extern int __stdcall XGetDeviceChanges(int deviceType, uint* inserted, uint* removed);
+void __fastcall FUN_00278060(byte* param_1) {
     uint local_8;
     uint local_4;
     int result = XGetDeviceChanges(0x3ea820, &local_8, &local_4);

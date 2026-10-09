@@ -1,7 +1,10 @@
 extern "C" void* __cdecl alloc(unsigned int);
 extern "C" int CollisionThrownObjectCondition_vftable;
 
-struct Helper { char pad[8]; void Go(); };
+struct Helper {
+    char pad[8];
+    void Go();
+};
 struct Cond {
     void* vp;
     char pad1[8];

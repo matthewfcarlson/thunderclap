@@ -1,4 +1,7 @@
-struct Matrix { unsigned int m[11]; void Set(float); };
+struct Matrix {
+    unsigned int m[11];
+    void Set(float);
+};
 extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
 void Matrix::Set(float angle) {

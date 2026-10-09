@@ -1,5 +1,13 @@
-struct Obj { char pad[0x28]; int value; };
-struct State { char pad[0x28]; Obj* obj; int pad2; int count; };
+struct Obj {
+    char pad[0x28];
+    int value;
+};
+struct State {
+    char pad[0x28];
+    Obj* obj;
+    int pad2;
+    int count;
+};
 extern State* gState;
 extern int __stdcall FUN_0020d7ff(Obj*, int, int);
 extern void __stdcall FUN_0020c79c(Obj*, int, int);

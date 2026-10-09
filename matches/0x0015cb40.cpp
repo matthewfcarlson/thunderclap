@@ -1,12 +1,21 @@
 struct Sub1;
 struct Sub2;
-struct Mid { Sub1* A(); Sub2* B(); };
-struct Mgr { Mid* Get(); };
-struct Sub1 { void Init(int a, int b); };
-struct Sub2 { void Fin(int a); };
+struct Mid {
+    Sub1* A();
+    Sub2* B();
+};
+struct Mgr {
+    Mid* Get();
+};
+struct Sub1 {
+    void Init(int a, int b);
+};
+struct Sub2 {
+    void Fin(int a);
+};
 
 class HeliLocomotionAction {
-public:
+  public:
     char pad[0x20];
     Mgr* mMgr;
     int mVal;
@@ -19,6 +28,7 @@ void HeliLocomotionAction::vfunc_4() {
     if (s) {
         s->Init(mVal, 0);
         Sub2* t = m->B();
-        if (t) t->Fin(0);
+        if (t)
+            t->Fin(0);
     }
 }

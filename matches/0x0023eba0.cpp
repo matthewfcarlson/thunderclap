@@ -1,13 +1,14 @@
 class Child {
     char pad[0x28];
-public:
+
+  public:
     void Begin(int, int);
     void Update(int);
     void Finish(int);
     void End();
 };
 class SpawnAction {
-public:
+  public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -20,9 +21,11 @@ public:
     unsigned char flag;
 };
 void SpawnAction::vfunc_5(int index, int value) {
-    if (index == 0 && !flag) child.Begin(count, value);
+    if (index == 0 && !flag)
+        child.Begin(count, value);
     flag = 0;
     child.Update(index);
-    if (index == count - 1) child.Finish(1);
+    if (index == count - 1)
+        child.Finish(1);
     child.End();
 }

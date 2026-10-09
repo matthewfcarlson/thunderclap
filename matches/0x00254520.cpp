@@ -8,7 +8,7 @@ struct Sub {
     unsigned int zero;
 };
 class Stream {
-public:
+  public:
     int vf;
     void BaseInit();
     char pad[4];
@@ -17,7 +17,7 @@ public:
 extern void* Alloc(void*);
 extern int gPool;
 class Type {
-public:
+  public:
     virtual void f0();
     virtual void f1();
     virtual void f2();

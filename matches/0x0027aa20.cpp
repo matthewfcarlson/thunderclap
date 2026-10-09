@@ -3,7 +3,7 @@ int __cdecl FUN_00345804(char* dst, const char* fmt, int value);
 bool __stdcall FUN_0027a970(int a);
 extern const char formatString[];
 class Obj {
-public:
+  public:
     bool Target(int a, int b);
     char pad[0x10];
     int index;

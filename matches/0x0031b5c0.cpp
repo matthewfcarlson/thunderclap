@@ -1,7 +1,7 @@
 extern int vtD;
 extern int vtP;
 class D {
-public:
+  public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -27,14 +27,20 @@ public:
 };
 void __stdcall D3DDevice_Release();
 void __stdcall D3DResource_Release(int);
-class Helper { public: void Run(); };
+class Helper {
+  public:
+    void Run();
+};
 void thunk_FUN_00267090(D*);
 D* D::f3(unsigned char flag) {
     *(int*)this = (int)&vtD;
-    if (x10) D3DDevice_Release();
-    if (x498) D3DResource_Release(x498);
+    if (x10)
+        D3DDevice_Release();
+    if (x498)
+        D3DResource_Release(x498);
     *(int*)this = (int)&vtP;
     ((Helper*)this)->Run();
-    if (flag & 1) thunk_FUN_00267090(this);
+    if (flag & 1)
+        thunk_FUN_00267090(this);
     return this;
 }

@@ -1,3 +1,40 @@
-class Camera { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15(); virtual void f16(); virtual void f17(); virtual void f18(); virtual void f19(); virtual void f20(); virtual void f21(); virtual void f22(); virtual void f23(int,int); virtual void f24(); virtual void f25(); virtual void f26(); char pad[0xcc-4]; unsigned char flag; };
-struct Helper { void run(int,int); };
-void Camera::f23(int a,int b) { if (!flag) f26(); ((Helper*)((char*)this+0x8c))->run(a,b); }
+class Camera {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8();
+    virtual void f9();
+    virtual void f10();
+    virtual void f11();
+    virtual void f12();
+    virtual void f13();
+    virtual void f14();
+    virtual void f15();
+    virtual void f16();
+    virtual void f17();
+    virtual void f18();
+    virtual void f19();
+    virtual void f20();
+    virtual void f21();
+    virtual void f22();
+    virtual void f23(int, int);
+    virtual void f24();
+    virtual void f25();
+    virtual void f26();
+    char pad[0xcc - 4];
+    unsigned char flag;
+};
+struct Helper {
+    void run(int, int);
+};
+void Camera::f23(int a, int b) {
+    if (!flag)
+        f26();
+    ((Helper*)((char*)this + 0x8c))->run(a, b);
+}

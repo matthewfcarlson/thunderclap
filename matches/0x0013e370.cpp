@@ -1,11 +1,18 @@
 typedef unsigned int u32;
 extern void* __cdecl alloc(unsigned int);
-struct Init { void f(int); };
-struct Sub { void f(); };
-struct FrameReachedCondition { u32 vptr; char pad[0x1c]; };
+struct Init {
+    void f(int);
+};
+struct Sub {
+    void f();
+};
+struct FrameReachedCondition {
+    u32 vptr;
+    char pad[0x1c];
+};
 extern u32 frame_vtable;
 class Factory {
-public:
+  public:
     virtual void v0();
     virtual void v1();
     virtual void v2();

@@ -1,6 +1,9 @@
-class Impl { public: void Helper(); };
+class Impl {
+  public:
+    void Helper();
+};
 class Adj {
-public:
+  public:
     virtual void a();
     virtual void b();
     virtual void c();

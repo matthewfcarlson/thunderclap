@@ -1,4 +1,36 @@
 extern void* __cdecl Alloc(unsigned int);
-class CAxisArcCondition { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); char pad[0x1c]; void Init(int); };
-class Factory { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual CAxisArcCondition* f5(); };
-CAxisArcCondition* Factory::f5() { CAxisArcCondition* p=(CAxisArcCondition*)Alloc(0x20); if(p) { p->Init(0); *(int*)((char*)p+0xc)=0; *(int*)p=0x3f6ed8; *(int*)((char*)p+0x18)=5; *(unsigned int*)((char*)p+0x1c)=0x3fc90fdb; *(int*)((char*)p+0x10)=0; *(unsigned int*)((char*)p+0x14)=0x3f000000; return p; } else { return (CAxisArcCondition*)0; } }
+class CAxisArcCondition {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    char pad[0x1c];
+    void Init(int);
+};
+class Factory {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual CAxisArcCondition* f5();
+};
+CAxisArcCondition* Factory::f5() {
+    CAxisArcCondition* p = (CAxisArcCondition*)Alloc(0x20);
+    if (p) {
+        p->Init(0);
+        *(int*)((char*)p + 0xc) = 0;
+        *(int*)p = 0x3f6ed8;
+        *(int*)((char*)p + 0x18) = 5;
+        *(unsigned int*)((char*)p + 0x1c) = 0x3fc90fdb;
+        *(int*)((char*)p + 0x10) = 0;
+        *(unsigned int*)((char*)p + 0x14) = 0x3f000000;
+        return p;
+    } else {
+        return (CAxisArcCondition*)0;
+    }
+}

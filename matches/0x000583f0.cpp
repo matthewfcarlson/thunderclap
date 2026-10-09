@@ -1,12 +1,16 @@
 void* operator new(unsigned int);
 class CMotionClimbAngleCondition {
-public:
+  public:
     void Init(int);
     int w[6];
 };
 class Factory {
-public:
-    virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
     CMotionClimbAngleCondition* vfunc_5();
 };
 CMotionClimbAngleCondition* Factory::vfunc_5() {

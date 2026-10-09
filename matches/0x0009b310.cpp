@@ -1,9 +1,17 @@
 // Same code shape as 0x0002e290 (propagated; names are from that function)
-class CActorManager { public: int dummy; void Act(unsigned char b); };
+class CActorManager {
+  public:
+    int dummy;
+    void Act(unsigned char b);
+};
 typedef void (CActorManager::*MFn)(unsigned char);
-class Function { public: virtual void vfunc_0(); virtual void vfunc_1(); };
+class Function {
+  public:
+    virtual void vfunc_0();
+    virtual void vfunc_1();
+};
 class Method1 : public Function {
-public:
+  public:
     char pad[0x18];
     MFn fn;
     void vfunc_2(CActorManager* obj, unsigned char* b, void* unused);

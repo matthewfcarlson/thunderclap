@@ -1,6 +1,6 @@
 extern void* gVtable;
 class DisplayTraversal {
-public:
+  public:
     void* vptr;
     int a;
     unsigned char flag;

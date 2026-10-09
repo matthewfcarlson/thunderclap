@@ -1,7 +1,11 @@
 class Owner;
-struct Node { int a; Owner* owner; Node* next; };
+struct Node {
+    int a;
+    Owner* owner;
+    Node* next;
+};
 class Owner {
-public:
+  public:
     char pad[0x10];
     Node* head;
     int count;

@@ -1,7 +1,6 @@
 extern "C" char* __cdecl strchr(const char*, int);
 
-void __stdcall RemoveNewlines(char* text)
-{
+void __stdcall RemoveNewlines(char* text) {
     char* p;
     char c;
     p = strchr(text, 10);

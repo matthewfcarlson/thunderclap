@@ -1,4 +1,8 @@
-struct Obj { char pad[8]; int member; bool run(int a,int b,int c,int d); };
+struct Obj {
+    char pad[8];
+    int member;
+    bool run(int a, int b, int c, int d);
+};
 void f1(int, int);
 void f2(int, int*);
 void f3(int, int);

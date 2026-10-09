@@ -1,1 +1,3 @@
-int __cdecl FUN_0025d060(int param_1) { return param_1 + 0x14; }
+int __cdecl FUN_0025d060(int param_1) {
+    return param_1 + 0x14;
+}

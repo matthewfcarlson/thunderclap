@@ -1,13 +1,20 @@
 // Same code shape as 0x002418d0 (propagated; names are from that function)
-struct Node { Node *left; Node *parent; Node *right; };
-struct Tree { Node *root; Node head; };
-void swap_node(Tree *tree, Node *node) {
-    Node *child = node->left;
+struct Node {
+    Node* left;
+    Node* parent;
+    Node* right;
+};
+struct Tree {
+    Node* root;
+    Node head;
+};
+void swap_node(Tree* tree, Node* node) {
+    Node* child = node->left;
     node->left = child->parent;
     if (child->parent != &tree->head)
         child->parent->right = node;
     child->right = node->right;
-    Node *p = node->right;
+    Node* p = node->right;
     if (p == &tree->head) {
         tree->root = child;
         child->parent = node;

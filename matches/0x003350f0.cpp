@@ -1,4 +1,9 @@
-struct Callback { volatile int a; volatile int b; volatile int c; volatile int d; };
+struct Callback {
+    volatile int a;
+    volatile int b;
+    volatile int c;
+    volatile int d;
+};
 extern void __fastcall helper(Callback*);
 Callback* __fastcall FUN_003350f0(Callback* p) {
     p->a = 0x42afa8;

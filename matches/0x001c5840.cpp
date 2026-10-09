@@ -1,5 +1,8 @@
 typedef unsigned int u32;
-struct StoreBase { char pad[0x120]; void Init(unsigned int, int); };
+struct StoreBase {
+    char pad[0x120];
+    void Init(unsigned int, int);
+};
 struct ObjectManager {
     u32 vft;
     char pad4[4];

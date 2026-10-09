@@ -1,8 +1,20 @@
 extern "C" void* __cdecl Alloc(unsigned int);
-class Obj { public: void Init(); };
-class Obj70 { public: void Init(); };
-class ObjB0 { public: void Init(); };
-class Obj1B0 { public: void Init(); };
+class Obj {
+  public:
+    void Init();
+};
+class Obj70 {
+  public:
+    void Init();
+};
+class ObjB0 {
+  public:
+    void Init();
+};
+class Obj1B0 {
+  public:
+    void Init();
+};
 extern void* gObject;
 void FUN_002ef0b0() {
     if (gObject == 0) {
@@ -14,6 +26,7 @@ void FUN_002ef0b0() {
             ((Obj1B0*)((char*)p + 0x1b0))->Init();
             *((char*)p + 0x6c) = 0;
             gObject = p;
-        } else gObject = 0;
+        } else
+            gObject = 0;
     }
 }

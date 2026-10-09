@@ -1,8 +1,11 @@
-typedef void (__fastcall *Callback)(void*);
+typedef void(__fastcall* Callback)(void*);
 void __stdcall FUN_00011520(void* base, int stride, int count, Callback fn) {
     int n = count - 1;
     if (n >= 0) {
         int m = n + 1;
-        do { fn(base); base = (char*)base + stride; } while (--m != 0);
+        do {
+            fn(base);
+            base = (char*)base + stride;
+        } while (--m != 0);
     }
 }

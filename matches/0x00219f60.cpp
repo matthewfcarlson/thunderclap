@@ -1,7 +1,6 @@
 extern int* FindThing(int, int);
 extern void UseThing(int, int, void*);
-void Target(int param1, int param2, int param3)
-{
+void Target(int param1, int param2, int param3) {
     int locals[2];
     int* p = FindThing(param2, param3);
     if (p == (int*)0x426824) {

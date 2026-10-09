@@ -1,6 +1,6 @@
 namespace pure3d {
 class d3dExtVertexProgram {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -11,12 +11,12 @@ public:
     virtual void vfunc_7();
     virtual void vfunc_8();
 };
-}
+} // namespace pure3d
 namespace D3D8 {
 void __fastcall D3DDevice_SetVertexShaderConstant1(void* dev, int reg);
 void __fastcall D3DDevice_SetVertexShaderConstant4(void* dev, int reg);
 void __fastcall D3DDevice_SetVertexShaderConstantNotInline(void* dev, int reg, int bytes);
-}
+} // namespace D3D8
 void __stdcall vfunc_7_impl(pure3d::d3dExtVertexProgram* self, int reg, int count) {
     char* dev = (char*)self + 0x60;
     if (count == 1) {

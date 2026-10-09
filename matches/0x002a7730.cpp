@@ -1,5 +1,5 @@
 class SceneGraphTransformAnimationController {
-public:
+  public:
     char pad[0x110];
     int value;
     void First();

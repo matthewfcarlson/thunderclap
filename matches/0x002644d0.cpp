@@ -1,5 +1,5 @@
 class LoadStream {
-public:
+  public:
     void* vp;
     int m;
     char pad[5];

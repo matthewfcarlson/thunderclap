@@ -2,8 +2,7 @@ struct ParamValue {
     char pad[0x10];
 };
 
-struct ParamValueEnum : ParamValue {
-};
+struct ParamValueEnum : ParamValue {};
 
 struct ParamEnumConstList : ParamValueEnum {
     virtual void vfunc_0();

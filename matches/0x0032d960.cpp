@@ -1,15 +1,14 @@
 class pddiObject {
-public:
+  public:
     virtual void vfunc0();
     virtual void vfunc1();
     virtual void vfunc2();
 };
 
-class pddiShader : public pddiObject {
-};
+class pddiShader : public pddiObject {};
 
 class pddiBaseShader : public pddiShader {
-public:
+  public:
     virtual void vfunc5();
     virtual void vfunc6();
     virtual void vfunc7();
@@ -24,14 +23,14 @@ public:
 };
 
 class d3dShader : public pddiBaseShader {
-public:
+  public:
     virtual void vfunc12();
     virtual void vfunc13();
     virtual void vfunc21();
 };
 
 class d3dLayeredShader : public d3dShader {
-public:
+  public:
     virtual void vfunc3();
     virtual void vfunc4();
     // slots 5-10 inherited

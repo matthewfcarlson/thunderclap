@@ -1,5 +1,10 @@
-struct V { float x,y,z,w; };
-struct C { int dummy; void Target(int a, V* p); };
+struct V {
+    float x, y, z, w;
+};
+struct C {
+    int dummy;
+    void Target(int a, V* p);
+};
 extern void __cdecl Helper(C* self, int a, V* q);
 void C::Target(int a, V* p) {
     V q;

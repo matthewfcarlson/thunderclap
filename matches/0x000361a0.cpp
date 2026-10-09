@@ -1,1 +1,10 @@
-class A { char pad[0x1b18]; public: float x; void f(float); }; void A::f(float v) { x += v; }
+class A {
+    char pad[0x1b18];
+
+  public:
+    float x;
+    void f(float);
+};
+void A::f(float v) {
+    x += v;
+}

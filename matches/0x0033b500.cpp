@@ -11,7 +11,8 @@ int __cdecl target(void* p) {
     int v = f3392c0(p, 1);
     f338fe0(p, 0x28, &gZero);
     int n = f212f00(p, 2);
-    if (n > 0) f339d70(p, 2, 6);
+    if (n > 0)
+        f339d70(p, 2, 6);
     f212d80(p, 2);
     f33b110(p, 1, v);
     return 0;

@@ -1,5 +1,5 @@
 class CExtraRenderingCallback {
-public:
+  public:
     virtual void f0();
     int a[6];
     CExtraRenderingCallback();

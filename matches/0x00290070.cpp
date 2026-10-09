@@ -1,7 +1,7 @@
 extern void __cdecl ReleaseThing(int);
 extern void __cdecl ReleaseSelf(void*);
 class Obj {
-public:
+  public:
     char pad[8];
     int ptr;
     void Reset();

@@ -1,5 +1,5 @@
 class ItemList {
-public:
+  public:
     int pad0[3];
     int count;
     int values[17];
@@ -8,7 +8,8 @@ public:
     bool Remove(int index);
 };
 bool ItemList::Remove(int index) {
-    if (index < 0 || index >= count) return false;
+    if (index < 0 || index >= count)
+        return false;
     --count;
     values[index] = 0;
     if (count > 0) {

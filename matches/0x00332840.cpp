@@ -1,4 +1,50 @@
-class Ref { public: virtual void f0(); virtual void f1(); };
-class Shader { public: virtual void f0(); virtual void f1(); virtual void f2(); Shader(unsigned char); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15(); virtual void f16(); virtual void f17(); virtual void f18(); virtual void f19(); virtual void f20(); virtual void f21(); virtual void f22(); virtual void f23(); virtual void f24(); char pad[0x7c]; Ref *a; Ref *b; Ref *c; void cleanup(); };
+class Ref {
+  public:
+    virtual void f0();
+    virtual void f1();
+};
+class Shader {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    Shader(unsigned char);
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8();
+    virtual void f9();
+    virtual void f10();
+    virtual void f11();
+    virtual void f12();
+    virtual void f13();
+    virtual void f14();
+    virtual void f15();
+    virtual void f16();
+    virtual void f17();
+    virtual void f18();
+    virtual void f19();
+    virtual void f20();
+    virtual void f21();
+    virtual void f22();
+    virtual void f23();
+    virtual void f24();
+    char pad[0x7c];
+    Ref* a;
+    Ref* b;
+    Ref* c;
+    void cleanup();
+};
 void destroy(Shader*);
-Shader::Shader(unsigned char flag) { if(a) a->f1(); if(b) b->f1(); if(c) c->f1(); cleanup(); if(flag&1) destroy(this); }
+Shader::Shader(unsigned char flag) {
+    if (a)
+        a->f1();
+    if (b)
+        b->f1();
+    if (c)
+        c->f1();
+    cleanup();
+    if (flag & 1)
+        destroy(this);
+}

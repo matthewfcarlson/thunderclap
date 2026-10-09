@@ -1,5 +1,5 @@
 struct MotionBlurTrack {
-public:
+  public:
     void Init();
     int vf;
     int mHdr;

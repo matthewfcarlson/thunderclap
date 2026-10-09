@@ -1,4 +1,6 @@
-struct Item { virtual void Run(); };
+struct Item {
+    virtual void Run();
+};
 extern Item* gItems[9];
 extern int gCount;
 void __cdecl Target(Item* p) {

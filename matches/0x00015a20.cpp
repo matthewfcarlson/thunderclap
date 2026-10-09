@@ -1,4 +1,14 @@
 // Same code shape as 0x00014580 (propagated; names are from that function)
-class A { public: char pad[0x20]; struct B *p; float f(); };
-struct B { char pad[0x2c]; float value; };
-float A::f() { return p->value; }
+class A {
+  public:
+    char pad[0x20];
+    struct B* p;
+    float f();
+};
+struct B {
+    char pad[0x2c];
+    float value;
+};
+float A::f() {
+    return p->value;
+}

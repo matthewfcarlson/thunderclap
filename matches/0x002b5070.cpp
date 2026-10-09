@@ -1,6 +1,6 @@
 extern "C" void* alloc(unsigned int);
 class ShadowMeshVertices {
-public:
+  public:
     virtual ~ShadowMeshVertices();
     int m1;
     int count;

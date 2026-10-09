@@ -1,6 +1,11 @@
-class Node { public: virtual void Release(int); char pad[4]; Node* next; };
+class Node {
+  public:
+    virtual void Release(int);
+    char pad[4];
+    Node* next;
+};
 class Obj {
-public:
+  public:
     char pad[0x10];
     Node* head;
     void Flush();
@@ -16,6 +21,7 @@ Obj* Obj::Dispose(unsigned char flag) {
         cur->Release(1);
     }
     Flush();
-    if (flag & 1) destroy(this);
+    if (flag & 1)
+        destroy(this);
     return this;
 }

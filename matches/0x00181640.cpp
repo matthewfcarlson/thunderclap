@@ -1,6 +1,9 @@
-class Sub { public: void init(); };
+class Sub {
+  public:
+    void init();
+};
 class PropSpawnTrack {
-public:
+  public:
     void* vftable;
     char pad4[0x0c];
     int mValue;

@@ -1,2 +1,17 @@
-class PrimGroupSkinnedPC { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual unsigned int vfunc_5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); };
-unsigned int PrimGroupSkinnedPC::vfunc_5() { return 0x101; }
+class PrimGroupSkinnedPC {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual unsigned int vfunc_5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8();
+    virtual void f9();
+    virtual void f10();
+};
+unsigned int PrimGroupSkinnedPC::vfunc_5() {
+    return 0x101;
+}

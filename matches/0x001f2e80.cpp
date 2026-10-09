@@ -1,2 +1,21 @@
-struct Item { char pad[0x6c]; float f; char p[4]; int n; };
-int Compare(Item **a, Item **b) { Item *x=*a; Item *y=*b; if (!x) return y!=0; if (!y) return -1; if (x->n < y->n) return -1; if (x->f < y->f) return -1; if (x->f > y->f) return 1; return 0; }
+struct Item {
+    char pad[0x6c];
+    float f;
+    char p[4];
+    int n;
+};
+int Compare(Item** a, Item** b) {
+    Item* x = *a;
+    Item* y = *b;
+    if (!x)
+        return y != 0;
+    if (!y)
+        return -1;
+    if (x->n < y->n)
+        return -1;
+    if (x->f < y->f)
+        return -1;
+    if (x->f > y->f)
+        return 1;
+    return 0;
+}

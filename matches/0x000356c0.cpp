@@ -1,5 +1,5 @@
 class Thing {
-public:
+  public:
     char pad[0x80];
     unsigned int a;
     unsigned int b;

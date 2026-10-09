@@ -1,6 +1,6 @@
 void thunk(int);
 class StoreBase {
-public:
+  public:
     int vp;
     int a[4];
     int b;

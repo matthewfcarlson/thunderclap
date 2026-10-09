@@ -1,8 +1,14 @@
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
 extern "C" void __cdecl FUN_002a7f60(void*, unsigned int, unsigned int);
-class Buffer { public: void* mData; char* mEnd; bool Init(unsigned int size, unsigned int arg); };
+class Buffer {
+  public:
+    void* mData;
+    char* mEnd;
+    bool Init(unsigned int size, unsigned int arg);
+};
 bool Buffer::Init(unsigned int size, unsigned int arg) {
-    if (mData != 0) return false;
+    if (mData != 0)
+        return false;
     if (size > 0) {
         void* p = FUN_0008d6d0(size);
         mData = p;
@@ -12,5 +18,7 @@ bool Buffer::Init(unsigned int size, unsigned int arg) {
             return true;
         }
     }
-    mData = 0; mEnd = 0; return false;
+    mData = 0;
+    mEnd = 0;
+    return false;
 }

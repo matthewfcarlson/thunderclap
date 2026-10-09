@@ -1,1 +1,11 @@
-class C { char pad[0x5c]; int a[13]; public: void f(int); }; void C::f(int i) { if (i >= 0 && i < 13) a[i] = 0; }
+class C {
+    char pad[0x5c];
+    int a[13];
+
+  public:
+    void f(int);
+};
+void C::f(int i) {
+    if (i >= 0 && i < 13)
+        a[i] = 0;
+}

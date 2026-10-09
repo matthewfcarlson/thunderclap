@@ -1,9 +1,22 @@
 typedef unsigned short ushort;
-struct Node { char pad[8]; char* items; char pad2[0x0c]; ushort* records; };
-struct Entry { char pad[0x44]; Node* node; };
-struct Result { char pad[0x0c]; };
+struct Node {
+    char pad[8];
+    char* items;
+    char pad2[0x0c];
+    ushort* records;
+};
+struct Entry {
+    char pad[0x44];
+    Node* node;
+};
+struct Result {
+    char pad[0x0c];
+};
 extern char gFallback;
-struct Owner { Entry** entries; Result* Lookup(int key, int index); };
+struct Owner {
+    Entry** entries;
+    Result* Lookup(int key, int index);
+};
 Result* Owner::Lookup(int key, int index) {
     Entry* e = entries[(key >> 16) & 0xffff];
     if (e) {

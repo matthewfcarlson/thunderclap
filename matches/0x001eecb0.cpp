@@ -1,5 +1,5 @@
 class Obj {
-public:
+  public:
     char pad[8];
     int a;
     int b;

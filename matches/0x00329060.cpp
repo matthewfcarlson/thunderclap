@@ -1,5 +1,5 @@
 typedef unsigned int uint;
-unsigned int FUN_00329060(char *s) {
+unsigned int FUN_00329060(char* s) {
     unsigned int h = 0;
     char c = *s;
     while (c != 0) {

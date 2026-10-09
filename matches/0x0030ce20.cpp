@@ -1,6 +1,6 @@
 namespace physics {
 class PhysicsJoint {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -33,11 +33,11 @@ public:
     char pad[0x10c - 4];
 };
 class PhysicsJoint1D : public PhysicsJoint {
-public:
+  public:
     void vfunc_1();
 };
 void PhysicsJoint1D::vfunc_1() {
     *(int*)((char*)this + 0x110) = 0;
     *(int*)((char*)this + 0x10c) = 0;
 }
-}
+} // namespace physics

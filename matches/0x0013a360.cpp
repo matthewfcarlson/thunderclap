@@ -1,9 +1,15 @@
 // Same code shape as 0x0012b640 (propagated; names are from that function)
 extern int vtable;
-class Helper { public: void Init(); };
-class Ender { public: void Finish(); };
+class Helper {
+  public:
+    void Init();
+};
+class Ender {
+  public:
+    void Finish();
+};
 class ThreatBallTrack {
-public:
+  public:
     virtual void v0();
     char pad[0x30 - 4];
     void Run();

@@ -1,6 +1,6 @@
 typedef unsigned char u8;
 class ControllerPollerBase {
-public:
+  public:
     virtual void f();
     int a;
     void* p;

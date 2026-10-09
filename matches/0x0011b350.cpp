@@ -1,7 +1,7 @@
 typedef unsigned int u32;
 extern void* __cdecl alloc(unsigned int);
 class MotionStopTrack {
-public:
+  public:
     MotionStopTrack();
     u32 a;
     u32 b;
@@ -10,7 +10,7 @@ public:
     float y;
 };
 class Factory {
-public:
+  public:
     virtual void f0();
     virtual void f1();
     virtual void f2();

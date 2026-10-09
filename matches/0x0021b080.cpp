@@ -1,4 +1,8 @@
-struct Obj { char pad[0x1c]; int *mValue; int mContext; };
+struct Obj {
+    char pad[0x1c];
+    int* mValue;
+    int mContext;
+};
 extern int __cdecl FUN_00219430(int, int, int);
 extern int* __cdecl FUN_0021a500(int, int, int);
 int __cdecl FUN_0021b080(Obj* self, int a, int b) {

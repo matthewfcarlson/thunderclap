@@ -1,4 +1,7 @@
-struct Node { Node* next; char pad[12]; };
+struct Node {
+    Node* next;
+    char pad[12];
+};
 int __fastcall FUN_002327c0(Node** p) {
     int n = 0;
     Node* cur = *p;

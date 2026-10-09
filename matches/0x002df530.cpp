@@ -1,2 +1,21 @@
-class PrimGroup { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h(); virtual void i(); virtual unsigned char vfunc_9(); virtual void k(); char pad[0x40-4]; void* member; };
-unsigned char PrimGroup::vfunc_9() { if (member) return *((unsigned char*)member + 0x14); return 0; }
+class PrimGroup {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual void f();
+    virtual void g();
+    virtual void h();
+    virtual void i();
+    virtual unsigned char vfunc_9();
+    virtual void k();
+    char pad[0x40 - 4];
+    void* member;
+};
+unsigned char PrimGroup::vfunc_9() {
+    if (member)
+        return *((unsigned char*)member + 0x14);
+    return 0;
+}

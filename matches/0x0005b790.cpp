@@ -1,17 +1,35 @@
 class CGrappleAttachTrack;
-class Helper { public: void f(); void init(); };
+class Helper {
+  public:
+    void f();
+    void init();
+};
 class CGrappleAttachTrack {
-public:
- virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual CGrappleAttachTrack* vfunc_5(unsigned char); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13();
- char pad[0x3c];
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual CGrappleAttachTrack* vfunc_5(unsigned char);
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    char pad[0x3c];
 };
 extern void FUN_00267090(CGrappleAttachTrack*);
 CGrappleAttachTrack* CGrappleAttachTrack::vfunc_5(unsigned char param) {
- *(unsigned long*)this = 0x3f9944;
- ((Helper*)((char*)this+0x40))->f();
- ((Helper*)((char*)this+0x18))->f();
- ((Helper*)((char*)this+0x10))->f();
- ((Helper*)this)->init();
- if (param & 1) FUN_00267090(this);
- return this;
+    *(unsigned long*)this = 0x3f9944;
+    ((Helper*)((char*)this + 0x40))->f();
+    ((Helper*)((char*)this + 0x18))->f();
+    ((Helper*)((char*)this + 0x10))->f();
+    ((Helper*)this)->init();
+    if (param & 1)
+        FUN_00267090(this);
+    return this;
 }

@@ -1,4 +1,6 @@
-struct Block { unsigned int v[16]; };
+struct Block {
+    unsigned int v[16];
+};
 void* __fastcall FnA(unsigned int x);
 void* __fastcall FnB(void* p);
 struct Target {

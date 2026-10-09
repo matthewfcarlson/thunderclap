@@ -1,6 +1,8 @@
-struct Data { unsigned int words[0x15]; };
+struct Data {
+    unsigned int words[0x15];
+};
 class Thing {
-public:
+  public:
     char pad0[0x14];
     Data block;
     char pad1[0xbc - 0x14 - sizeof(Data)];

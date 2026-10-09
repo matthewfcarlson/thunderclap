@@ -1,7 +1,10 @@
 void ReleaseThing(void*);
-class Sub { public: void Fin(); };
+class Sub {
+  public:
+    void Fin();
+};
 class CUnlockableGallery {
-public:
+  public:
     void destroy();
     char pad[0x10];
     Sub sub10;

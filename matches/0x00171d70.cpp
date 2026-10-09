@@ -1,7 +1,14 @@
-class Locator { public: char pad[0x10]; int value; };
-class Helper { public: int invoke(int); };
+class Locator {
+  public:
+    char pad[0x10];
+    int value;
+};
+class Helper {
+  public:
+    int invoke(int);
+};
 class TeleportToLocatorAction {
-public:
+  public:
     char pad[0x18];
     Locator* locator;
     int active;
@@ -13,7 +20,8 @@ public:
     virtual bool vfunc_3(int, int);
 };
 bool TeleportToLocatorAction::vfunc_3(int a, int b) {
-    if (!active) return false;
+    if (!active)
+        return false;
     helper.invoke(locator->value);
     return true;
 }

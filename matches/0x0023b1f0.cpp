@@ -1,2 +1,46 @@
-struct Inner { void call(int); }; class ScriptReader { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15(); virtual void f16(); virtual void vfunc_17(); virtual void f18(); virtual void f19(); char pad[12]; int count; char pad2[0x118-0x14]; Inner inner; char pad3[4]; volatile int field120; volatile int field124; void helper(); void finish(); };
-void ScriptReader::vfunc_17() { --count; ((Inner*)((char*)this+0x118))->call(0); helper(); if (count >= 0) { int x=field120; x |= field124; if (x == 0) finish(); } }
+struct Inner {
+    void call(int);
+};
+class ScriptReader {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8();
+    virtual void f9();
+    virtual void f10();
+    virtual void f11();
+    virtual void f12();
+    virtual void f13();
+    virtual void f14();
+    virtual void f15();
+    virtual void f16();
+    virtual void vfunc_17();
+    virtual void f18();
+    virtual void f19();
+    char pad[12];
+    int count;
+    char pad2[0x118 - 0x14];
+    Inner inner;
+    char pad3[4];
+    volatile int field120;
+    volatile int field124;
+    void helper();
+    void finish();
+};
+void ScriptReader::vfunc_17() {
+    --count;
+    ((Inner*)((char*)this + 0x118))->call(0);
+    helper();
+    if (count >= 0) {
+        int x = field120;
+        x |= field124;
+        if (x == 0)
+            finish();
+    }
+}

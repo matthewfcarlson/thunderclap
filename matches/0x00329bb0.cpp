@@ -1,7 +1,13 @@
 extern int gFlags;
 extern int gValues[128];
 extern int gMore[128];
-class State { public: char pad[0x64]; int first[4]; int second[4]; void update(unsigned int); };
+class State {
+  public:
+    char pad[0x64];
+    int first[4];
+    int second[4];
+    void update(unsigned int);
+};
 void State::update(unsigned int index) {
     if (index < 4) {
         if (first[index] != 1) {

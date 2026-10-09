@@ -1,10 +1,10 @@
 class FileOps {
-public:
+  public:
     virtual void First();
     virtual void Second();
 };
 class File {
-public:
+  public:
     char pad0[4];
     FileOps ops;
     char pad14[0x14 - 8];
@@ -13,10 +13,10 @@ public:
     int size;
 };
 class FileGetSizeRequest {
-public:
+  public:
     char pad0[8];
-    File *file;
-    int *out;
+    File* file;
+    int* out;
     int vfunc_1();
 };
 int FileGetSizeRequest::vfunc_1() {

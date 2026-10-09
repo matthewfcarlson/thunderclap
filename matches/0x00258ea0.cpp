@@ -1,5 +1,8 @@
 extern "C" void __stdcall SetCurrentPosition(unsigned int, unsigned int);
-struct SoundThing { char pad[0x14]; unsigned int mInfo; };
+struct SoundThing {
+    char pad[0x14];
+    unsigned int mInfo;
+};
 struct Player {
     char pad0[0x18];
     unsigned int mPos;

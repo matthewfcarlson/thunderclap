@@ -1,7 +1,7 @@
 struct CAxisArcCondition;
 
 class ParamEnumConstList {
-public:
+  public:
     virtual void vfunc_0() {}
     virtual void vfunc_1() {}
     virtual void vfunc_2() {}
@@ -16,7 +16,6 @@ public:
     int mValue; // offset 0x14
 };
 
-int ParamEnumConstList::vfunc_7(int arg)
-{
+int ParamEnumConstList::vfunc_7(int arg) {
     return mValue;
 }

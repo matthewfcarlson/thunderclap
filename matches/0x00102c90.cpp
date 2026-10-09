@@ -1,7 +1,10 @@
 extern int vftable;
 extern void __cdecl thunk(struct CMoveAgent*);
 
-struct Ref { virtual void a(); virtual void b(); };
+struct Ref {
+    virtual void a();
+    virtual void b();
+};
 
 struct CMoveAgent {
     virtual void x0();
@@ -17,6 +20,7 @@ CMoveAgent* CMoveAgent::vfunc_2(unsigned char param) {
     this->member->b();
     this->member = 0;
     this->cleanupM();
-    if (param & 1) thunk(this);
+    if (param & 1)
+        thunk(this);
     return this;
 }

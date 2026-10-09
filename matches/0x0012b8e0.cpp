@@ -1,10 +1,18 @@
-struct Obj { int Fn(int); };
-struct Inner { char pad[8]; Obj* obj8; };
-struct Outer { char pad[0x20]; Inner* inner; };
+struct Obj {
+    int Fn(int);
+};
+struct Inner {
+    char pad[8];
+    Obj* obj8;
+};
+struct Outer {
+    char pad[0x20];
+    Inner* inner;
+};
 extern Outer* gGlobal;
 
 class ThreatBallAction {
-public:
+  public:
     char pad[0x1c];
     int mValue;
     int mGuard;
@@ -13,7 +21,8 @@ public:
 };
 
 bool ThreatBallAction::vfunc_3(void*, void*) {
-    if (!mGuard) return false;
+    if (!mGuard)
+        return false;
     Obj* o = gGlobal->inner->obj8;
     mResult = o->Fn(mValue + 0x30);
     return true;

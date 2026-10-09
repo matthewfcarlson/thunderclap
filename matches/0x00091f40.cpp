@@ -1,1 +1,3 @@
-unsigned char __fastcall FUN_00091f40(void* p) { return *((unsigned char*)p + 0x20); }
+unsigned char __fastcall FUN_00091f40(void* p) {
+    return *((unsigned char*)p + 0x20);
+}

@@ -1,4 +1,7 @@
-class PhysicsObject { public: PhysicsObject* Init(); };
+class PhysicsObject {
+  public:
+    PhysicsObject* Init();
+};
 void InitBase();
 PhysicsObject* PhysicsObject::Init() {
     InitBase();

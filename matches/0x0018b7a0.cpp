@@ -1,7 +1,7 @@
 void* __cdecl operator new(unsigned int);
 
 class SmartPropGrabbableCondition {
-public:
+  public:
     void Init(int);
     void* vf;
     char pad0[0xc - 4];

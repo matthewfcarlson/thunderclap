@@ -1,6 +1,6 @@
 namespace pure3d {
 class MultiController {
-public:
+  public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -31,16 +31,17 @@ public:
     int flag;
     char gap2[4];
     unsigned count;
-    MultiController **items;
+    MultiController** items;
 };
-}
+} // namespace pure3d
 extern const float zero;
 bool pure3d::MultiController::f22() {
     if (flag == 0) {
         unsigned i = 0;
         if (count > 0) {
             do {
-                if (!items[i]->f22()) return false;
+                if (!items[i]->f22())
+                    return false;
                 ++i;
             } while (i < count);
         }

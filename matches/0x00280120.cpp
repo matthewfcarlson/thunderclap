@@ -1,6 +1,10 @@
-class Base { public: Base(); virtual void v(); };
+class Base {
+  public:
+    Base();
+    virtual void v();
+};
 class EffectQueue : public Base {
-public:
+  public:
     char pad[12];
     int one;
     char rest[0x60 - 0x14];

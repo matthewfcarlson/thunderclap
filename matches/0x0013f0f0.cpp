@@ -1,11 +1,11 @@
 class WallExitTrack {
-public:
-  float GetValue();
+  public:
+    float GetValue();
 
-  char pad[0xc];
-  float mValue;
+    char pad[0xc];
+    float mValue;
 };
 
 float WallExitTrack::GetValue() {
-  return mValue;
+    return mValue;
 }

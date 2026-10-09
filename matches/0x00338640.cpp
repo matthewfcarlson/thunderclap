@@ -3,7 +3,8 @@ void __stdcall Copy(char* dst, const char* src) {
     char c;
     do {
         c = *src;
-        if (!(c != 0 || keep)) break;
+        if (!(c != 0 || keep))
+            break;
         keep = c != 0;
         *dst = c;
         ++dst;

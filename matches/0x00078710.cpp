@@ -1,5 +1,9 @@
-struct V3 { float x,y,z; };
-struct F { void Interpolate(V3* a, V3* b, float t); };
+struct V3 {
+    float x, y, z;
+};
+struct F {
+    void Interpolate(V3* a, V3* b, float t);
+};
 void F::Interpolate(V3* a, V3* b, float t) {
     V3* out = (V3*)this;
     out->x = (b->x - a->x) * t + a->x;

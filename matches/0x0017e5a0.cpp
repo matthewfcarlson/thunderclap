@@ -1,6 +1,26 @@
-class MomentumXZAddTrack { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); int pad; int c; int d; float x; float y; void Init(); };
+class MomentumXZAddTrack {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    int pad;
+    int c;
+    int d;
+    float x;
+    float y;
+    void Init();
+};
 extern "C" void* __cdecl Alloc(unsigned int);
-class Factory { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual MomentumXZAddTrack* f5(); };
+class Factory {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual MomentumXZAddTrack* f5();
+};
 MomentumXZAddTrack* Factory::f5() {
     MomentumXZAddTrack* p = (MomentumXZAddTrack*)Alloc(0x18);
     if (p) {

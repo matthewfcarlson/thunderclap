@@ -1,5 +1,7 @@
 typedef unsigned int u32;
-struct D3D8 { void SetRenderState_TextureFactor(u32); };
+struct D3D8 {
+    void SetRenderState_TextureFactor(u32);
+};
 struct Device {
     char pad[0x108];
     u32 textureFactor;

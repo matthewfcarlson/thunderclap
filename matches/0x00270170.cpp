@@ -2,7 +2,7 @@ typedef unsigned int u32;
 extern u32 g_unknown;
 void FUN_002705f0();
 class MemoryPool {
-public:
+  public:
     MemoryPool();
     u32 v0;
     u32 v1;

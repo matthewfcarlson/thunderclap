@@ -1,2 +1,8 @@
-class C { public: int pad; int value; };
-void __fastcall Target(C* self) { self->value = 0; }
+class C {
+  public:
+    int pad;
+    int value;
+};
+void __fastcall Target(C* self) {
+    self->value = 0;
+}

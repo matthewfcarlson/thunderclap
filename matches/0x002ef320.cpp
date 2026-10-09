@@ -1,4 +1,9 @@
-class SimState { public: virtual void vfunc_7(); char pre[0x4c]; char pad[0x40]; };
+class SimState {
+  public:
+    virtual void vfunc_7();
+    char pre[0x4c];
+    char pad[0x40];
+};
 void SimState::vfunc_7() {
     *(int*)(pad + 0x08) = 0;
     *(int*)(pad + 0x04) = 0;

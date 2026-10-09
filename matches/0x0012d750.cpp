@@ -1,7 +1,23 @@
 void* __cdecl alloc28(unsigned int);
-struct Sub { int a; int b; void Init(); };
-struct Base { void Init(int); };
-class ThreatAngleCondition { public: int vtable; char pad4[8]; int c; int f; char pad14[4]; Sub sub; char enabled; char pad21[7]; };
+struct Sub {
+    int a;
+    int b;
+    void Init();
+};
+struct Base {
+    void Init(int);
+};
+class ThreatAngleCondition {
+  public:
+    int vtable;
+    char pad4[8];
+    int c;
+    int f;
+    char pad14[4];
+    Sub sub;
+    char enabled;
+    char pad21[7];
+};
 ThreatAngleCondition* factory_vfunc5() {
     ThreatAngleCondition* p = (ThreatAngleCondition*)alloc28(0x28);
     if (p) {

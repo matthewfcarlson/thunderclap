@@ -1,5 +1,10 @@
 extern "C" void* Alloc(unsigned int);
-struct Buffer { void* p; void* begin; void* end; void Init(int n); };
+struct Buffer {
+    void* p;
+    void* begin;
+    void* end;
+    void Init(int n);
+};
 void Buffer::Init(int n) {
     if (n != 0) {
         void* q = Alloc(n * 4);

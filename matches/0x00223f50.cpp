@@ -1,4 +1,10 @@
-class Obj { public: char pad0[0x68]; int count; char pad1[0x280]; unsigned char dirty; };
+class Obj {
+  public:
+    char pad0[0x68];
+    int count;
+    char pad1[0x280];
+    unsigned char dirty;
+};
 extern "C" void __cdecl Move(void*, void*, int);
 void __fastcall Target(Obj* p) {
     if (p->dirty) {

@@ -7,6 +7,7 @@ struct Obj {
 };
 u32 Obj::target(u32 arg) {
     int i = FUN_00036d90(arg);
-    if (i < 0) return 0;
+    if (i < 0)
+        return 0;
     return *(u32*)((char*)this + 0x2158 + i * 16);
 }

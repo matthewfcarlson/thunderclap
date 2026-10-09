@@ -22,6 +22,7 @@ LuaTrack* LuaTrack::vfunc_5(u8 param) {
     *(int*)this = (int)&LuaTrack_vftable;
     ReleaseA((void*)m14);
     helper();
-    if (param & 1) ReleaseB(this);
+    if (param & 1)
+        ReleaseB(this);
     return this;
 }

@@ -1,2 +1,19 @@
-class MapThing { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h(); virtual void i(); virtual void j(); virtual void vfunc_10(unsigned int); char pad[0x118 - 4]; unsigned int field; };
-void MapThing::vfunc_10(unsigned int value) { field = value; }
+class MapThing {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual void f();
+    virtual void g();
+    virtual void h();
+    virtual void i();
+    virtual void j();
+    virtual void vfunc_10(unsigned int);
+    char pad[0x118 - 4];
+    unsigned int field;
+};
+void MapThing::vfunc_10(unsigned int value) {
+    field = value;
+}

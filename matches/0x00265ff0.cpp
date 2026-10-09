@@ -1,2 +1,14 @@
-class SimpleChunkHandler { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(int,int,int,int,int); virtual void f4(); virtual void f5(int,int,int,int); char pad[12]; int member10; };
-void SimpleChunkHandler::f3(int a, int b, int c, int d, int e) { f5(a,b,member10,e); }
+class SimpleChunkHandler {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3(int, int, int, int, int);
+    virtual void f4();
+    virtual void f5(int, int, int, int);
+    char pad[12];
+    int member10;
+};
+void SimpleChunkHandler::f3(int a, int b, int c, int d, int e) {
+    f5(a, b, member10, e);
+}

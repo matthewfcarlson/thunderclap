@@ -1,6 +1,10 @@
 typedef unsigned char byte;
-struct VisitorBase { virtual void v0(); virtual void v1(); };
-namespace pure3d { namespace scenegraph {
+struct VisitorBase {
+    virtual void v0();
+    virtual void v1();
+};
+namespace pure3d {
+namespace scenegraph {
 struct ShaderCallbackVisitor : VisitorBase {
     void* mThing;
     virtual void vfunc_0();
@@ -10,8 +14,11 @@ extern void* shaderVtable;
 void thunk_FUN_00267090(ShaderCallbackVisitor*);
 ShaderCallbackVisitor* ShaderCallbackVisitor::vfunc_1(byte param) {
     *(void**)this = &shaderVtable;
-    if (mThing) ((VisitorBase*)mThing)->v1();
-    if (param & 1) thunk_FUN_00267090(this);
+    if (mThing)
+        ((VisitorBase*)mThing)->v1();
+    if (param & 1)
+        thunk_FUN_00267090(this);
     return this;
 }
-}}
+} // namespace scenegraph
+} // namespace pure3d

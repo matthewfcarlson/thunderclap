@@ -2,7 +2,7 @@ extern int gCount;
 extern int gMax;
 
 class Action {
-public:
+  public:
     virtual ~Action();
     int a;
     int b;

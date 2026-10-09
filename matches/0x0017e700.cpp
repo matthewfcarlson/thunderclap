@@ -1,8 +1,19 @@
-class TeleportTrackBase { public: void Ctor(); };
-struct TeleportTrack { void* vt; int pad; int one; int z1; int z2; int z3; float last; };
+class TeleportTrackBase {
+  public:
+    void Ctor();
+};
+struct TeleportTrack {
+    void* vt;
+    int pad;
+    int one;
+    int z1;
+    int z2;
+    int z3;
+    float last;
+};
 extern void* Alloc(unsigned int);
 class Factory {
-public:
+  public:
     virtual void f0();
     virtual void f1();
     virtual void f2();

@@ -1,4 +1,13 @@
-class C { public: char pad[0x1cc]; int a; int b; int c; int d; int e; int f; };
+class C {
+  public:
+    char pad[0x1cc];
+    int a;
+    int b;
+    int c;
+    int d;
+    int e;
+    int f;
+};
 void __fastcall FUN_000357e0(C* p) {
     p->c = 0;
     p->b = 0;

@@ -1,7 +1,12 @@
-struct A { void* first(); };
-struct B { B* second(); void act(int); };
+struct A {
+    void* first();
+};
+struct B {
+    B* second();
+    void act(int);
+};
 class CSnapToWallAction {
-public:
+  public:
     char pad[0x1c];
     A* mFirst;
     B* mSecond;

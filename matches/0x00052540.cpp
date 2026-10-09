@@ -1,9 +1,15 @@
 typedef unsigned int u32;
 extern "C" void* __cdecl thunk_FUN_0008d690(unsigned int);
-class Helper { public: void Init(); };
-class Init2 { public: void Init(unsigned int); };
+class Helper {
+  public:
+    void Init();
+};
+class Init2 {
+  public:
+    void Init(unsigned int);
+};
 class ConditionFactoryCasterTemplate {
-public:
+  public:
     void* vfunc_1(unsigned int);
 };
 void* ConditionFactoryCasterTemplate::vfunc_1(unsigned int arg) {

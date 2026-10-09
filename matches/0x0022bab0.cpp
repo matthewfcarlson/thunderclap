@@ -1,8 +1,10 @@
 extern "C" float __cdecl sin(float);
 extern "C" float __cdecl cos(float);
-struct Mat { float v[11]; void Set(float); };
-void Mat::Set(float angle)
-{
+struct Mat {
+    float v[11];
+    void Set(float);
+};
+void Mat::Set(float angle) {
     float s = sin(angle);
     v[2] = 0.0f;
     v[6] = 0.0f;

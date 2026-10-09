@@ -1,1 +1,23 @@
-class Drawable { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(int, int); }; class DrawableCompositeDrawable { public: virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); Drawable* mDrawable; }; void DrawableCompositeDrawable::vfunc_0() { mDrawable->f8(0, 0); }
+class Drawable {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8(int, int);
+};
+class DrawableCompositeDrawable {
+  public:
+    virtual void vfunc_0();
+    virtual void vfunc_1();
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    Drawable* mDrawable;
+};
+void DrawableCompositeDrawable::vfunc_0() {
+    mDrawable->f8(0, 0);
+}

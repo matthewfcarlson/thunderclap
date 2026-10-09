@@ -1,3 +1,14 @@
-class Obj { public: void A(); void B(); void C(); void D(); };
+class Obj {
+  public:
+    void A();
+    void B();
+    void C();
+    void D();
+};
 extern Obj* g;
-void Obj::C() { g = this; A(); B(); D(); }
+void Obj::C() {
+    g = this;
+    A();
+    B();
+    D();
+}

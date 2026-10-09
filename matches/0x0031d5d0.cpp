@@ -1,8 +1,15 @@
 namespace pure3d {
-struct Vec { unsigned int x[16]; void fill(int, unsigned int); };
-struct Item { char a[8]; unsigned int count; unsigned int ptr; };
+struct Vec {
+    unsigned int x[16];
+    void fill(int, unsigned int);
+};
+struct Item {
+    char a[8];
+    unsigned int count;
+    unsigned int ptr;
+};
 class pddiBaseContext {
-public:
+  public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -115,7 +122,7 @@ public:
     char pad[28];
     Item* items[1];
 };
-}
+} // namespace pure3d
 void pure3d::pddiBaseContext::vfunc_17(int i, int p) {
     Vec t;
     Item* q = items[i];

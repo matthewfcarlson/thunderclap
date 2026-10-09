@@ -1,1 +1,50 @@
-class IRefCount { public: virtual void a(); virtual void b(); virtual void c(); }; class Object { public: virtual void d(); }; class BaseObject { public: virtual void e(); }; class SafeRefCount { public: virtual void f(); }; class IMutable { public: virtual void g(); }; class Drive : public IRefCount, public Object, public BaseObject, public SafeRefCount, public IMutable { public: virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual int vfunc_13(int,int,int,int,int,int,int,int,int); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); }; int Drive::vfunc_13(int,int,int,int,int,int,int,int,int) { return 0; }
+class IRefCount {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+};
+class Object {
+  public:
+    virtual void d();
+};
+class BaseObject {
+  public:
+    virtual void e();
+};
+class SafeRefCount {
+  public:
+    virtual void f();
+};
+class IMutable {
+  public:
+    virtual void g();
+};
+class Drive : public IRefCount, public Object, public BaseObject, public SafeRefCount, public IMutable {
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual int vfunc_13(int, int, int, int, int, int, int, int, int);
+    virtual void v14();
+    virtual void v15();
+    virtual void v16();
+    virtual void v17();
+    virtual void v18();
+    virtual void v19();
+    virtual void v20();
+    virtual void v21();
+};
+int Drive::vfunc_13(int, int, int, int, int, int, int, int, int) {
+    return 0;
+}

@@ -1,4 +1,8 @@
-class Thing { public: void Load(const char*, int); void Init(); };
+class Thing {
+  public:
+    void Load(const char*, int);
+    void Init();
+};
 void Thing::Init() {
     Load("init.lua", 0);
     Load("scripts/physics.lua", 0);

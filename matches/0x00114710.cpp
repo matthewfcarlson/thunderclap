@@ -1,1 +1,26 @@
-typedef unsigned char u8; typedef unsigned int u32; void* __cdecl Allocate(unsigned int); struct InitObj { void Init(int); }; class ConditionFactoryTemplate { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void* vfunc_5(); }; void* ConditionFactoryTemplate::vfunc_5() { void* p=Allocate(0x10); if(p) { ((InitObj*)p)->Init(0); ((u8*)p)[0xc]=1; ((u8*)p)[0xd]=1; *(u32*)p=0x40db44; return p; } return (void*)0; }
+typedef unsigned char u8;
+typedef unsigned int u32;
+void* __cdecl Allocate(unsigned int);
+struct InitObj {
+    void Init(int);
+};
+class ConditionFactoryTemplate {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual void* vfunc_5();
+};
+void* ConditionFactoryTemplate::vfunc_5() {
+    void* p = Allocate(0x10);
+    if (p) {
+        ((InitObj*)p)->Init(0);
+        ((u8*)p)[0xc] = 1;
+        ((u8*)p)[0xd] = 1;
+        *(u32*)p = 0x40db44;
+        return p;
+    }
+    return (void*)0;
+}

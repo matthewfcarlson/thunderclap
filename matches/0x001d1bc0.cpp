@@ -1,8 +1,12 @@
 extern int __cdecl FUN_00212d70(int);
 extern void __cdecl FUN_00213320(int);
 class Obj {
-public:
-    char pad0[8]; int value; char padc[0x5470 - 12]; int items[8]; int index;
+  public:
+    char pad0[8];
+    int value;
+    char padc[0x5470 - 12];
+    int items[8];
+    int index;
     bool f();
 };
 bool Obj::f() {

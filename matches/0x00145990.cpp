@@ -15,17 +15,53 @@ void FUN_00145990() {
         Obj* a[6];
         Obj* p;
         p = (Obj*)Alloc(24);
-        if (p) { p->Init("timeBegin"); p->vf = (void*)0x41324c; p->v = 0x143610; a[0] = p; } else a[0] = 0;
+        if (p) {
+            p->Init("timeBegin");
+            p->vf = (void*)0x41324c;
+            p->v = 0x143610;
+            a[0] = p;
+        } else
+            a[0] = 0;
         p = (Obj*)Alloc(24);
-        if (p) { p->Init("timeOn"); p->vf = (void*)0x41324c; p->v = 0x143630; a[1] = p; } else a[1] = 0;
+        if (p) {
+            p->Init("timeOn");
+            p->vf = (void*)0x41324c;
+            p->v = 0x143630;
+            a[1] = p;
+        } else
+            a[1] = 0;
         p = (Obj*)Alloc(24);
-        if (p) { p->Init("timeOff"); p->vf = (void*)0x41324c; p->v = 0x143650; a[2] = p; } else a[2] = 0;
+        if (p) {
+            p->Init("timeOff");
+            p->vf = (void*)0x41324c;
+            p->v = 0x143650;
+            a[2] = p;
+        } else
+            a[2] = 0;
         p = (Obj*)Alloc(24);
-        if (p) { p->Init("timeEnd"); p->vf = (void*)0x41324c; p->v = 0x143670; a[3] = p; } else a[3] = 0;
+        if (p) {
+            p->Init("timeEnd");
+            p->vf = (void*)0x41324c;
+            p->v = 0x143670;
+            a[3] = p;
+        } else
+            a[3] = 0;
         p = (Obj*)Alloc(24);
-        if (p) { p->Init("motionBlur"); p->vf = (void*)0x41324c; p->v = 0x143690; a[4] = p; } else a[4] = 0;
+        if (p) {
+            p->Init("motionBlur");
+            p->vf = (void*)0x41324c;
+            p->v = 0x143690;
+            a[4] = p;
+        } else
+            a[4] = 0;
         p = (Obj*)Alloc(24);
-        if (p) { p->Init("motionBlurParallax"); p->vf = (void*)0x41324c; p->v = 0x1436b0; a[5] = p; } else a[5] = 0;
+        if (p) {
+            p->Init("motionBlurParallax");
+            p->vf = (void*)0x41324c;
+            p->v = 0x1436b0;
+            a[5] = p;
+        } else
+            a[5] = 0;
         Register((void*)0x4e0fa0, a, 6);
     }
     ++gCounter;

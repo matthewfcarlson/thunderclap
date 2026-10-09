@@ -1,2 +1,39 @@
-class Obj { public: char pad[0x3a8]; int a; char p1[0x4c]; int b; char p2[0x4c]; int c; char p3[0x4c]; int d; char p4[0x4c]; int e; char p5[0x4c]; int f; char p6[0x4c]; int g; char p7[0x4c]; int h; };
-int __fastcall FUN_00035f40(Obj* x) { int n=0; if(x->a) n=1; if(x->b) ++n; if(x->c) ++n; if(x->d) ++n; if(x->e) ++n; if(x->f) ++n; if(x->g) ++n; if(x->h) ++n; return n; }
+class Obj {
+  public:
+    char pad[0x3a8];
+    int a;
+    char p1[0x4c];
+    int b;
+    char p2[0x4c];
+    int c;
+    char p3[0x4c];
+    int d;
+    char p4[0x4c];
+    int e;
+    char p5[0x4c];
+    int f;
+    char p6[0x4c];
+    int g;
+    char p7[0x4c];
+    int h;
+};
+int __fastcall FUN_00035f40(Obj* x) {
+    int n = 0;
+    if (x->a)
+        n = 1;
+    if (x->b)
+        ++n;
+    if (x->c)
+        ++n;
+    if (x->d)
+        ++n;
+    if (x->e)
+        ++n;
+    if (x->f)
+        ++n;
+    if (x->g)
+        ++n;
+    if (x->h)
+        ++n;
+    return n;
+}

@@ -1,6 +1,12 @@
 // Same code shape as 0x00241880 (propagated; names are from that function)
-struct Node { Node* a; Node* b; Node* c; };
-struct Tree { Node* root; };
+struct Node {
+    Node* a;
+    Node* b;
+    Node* c;
+};
+struct Tree {
+    Node* root;
+};
 void insert(Tree* param_1, Node* param_2) {
     Node* piVar1 = param_2->b;
     param_2->b = piVar1->a;

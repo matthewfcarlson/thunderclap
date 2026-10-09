@@ -1,11 +1,13 @@
-struct Inner { void Init(const char*, int); };
+struct Inner {
+    void Init(const char*, int);
+};
 class Base {
-public:
+  public:
     Base();
     virtual void g();
 };
 class Track : public Base {
-public:
+  public:
     Track();
     virtual void g();
     char pad[4];

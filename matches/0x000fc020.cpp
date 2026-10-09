@@ -1,6 +1,6 @@
 // Same code shape as 0x000fc000 (propagated; names are from that function)
 typedef unsigned int U;
-extern void FUN_000fbc00(U,U,U,U*);
+extern void FUN_000fbc00(U, U, U, U*);
 void FUN_000fc000(U a, U b, U c) {
-    FUN_000fbc00(a,b,c,(&c)+1);
+    FUN_000fbc00(a, b, c, (&c) + 1);
 }

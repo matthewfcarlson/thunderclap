@@ -1,11 +1,19 @@
 typedef unsigned int u32;
 struct ButtonTrack {
-    u32 vft; u32 q0; u32 q1; u32 a; u32 b; u32 c; u32 d; u32 e; u32 f;
+    u32 vft;
+    u32 q0;
+    u32 q1;
+    u32 a;
+    u32 b;
+    u32 c;
+    u32 d;
+    u32 e;
+    u32 f;
     void Init();
 };
 extern void* operator_new(unsigned int);
 class TrackFactory {
-public:
+  public:
     virtual void f0();
     virtual void f1();
     virtual void f2();

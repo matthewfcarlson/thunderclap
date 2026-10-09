@@ -2,7 +2,12 @@ extern "C" void* Allocate(void*, unsigned int);
 extern "C" void Init();
 extern "C" volatile unsigned int gStored;
 extern "C" volatile void* gResult;
-struct Callback { unsigned int vtable; unsigned int arg; unsigned int subVtable; unsigned int field; };
+struct Callback {
+    unsigned int vtable;
+    unsigned int arg;
+    unsigned int subVtable;
+    unsigned int field;
+};
 void CreateCallback(unsigned int arg) {
     gStored = arg;
     Callback* p = (Callback*)Allocate((void*)arg, 0x10);
@@ -15,5 +20,6 @@ void CreateCallback(unsigned int arg) {
         p->subVtable = 0x4342e8;
         p->field = 0;
         gResult = p;
-    } else gResult = 0;
+    } else
+        gResult = 0;
 }

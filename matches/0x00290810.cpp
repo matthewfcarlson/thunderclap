@@ -1,4 +1,11 @@
-class Item { public: char pad[8]; int field; void Init(); void Configure(Item*); void Finish(int); };
+class Item {
+  public:
+    char pad[8];
+    int field;
+    void Init();
+    void Configure(Item*);
+    void Finish(int);
+};
 Item* __cdecl FUN_00290810(Item* p, int count, Item* arg) {
     if (count != 0) {
         Item* q = p;

@@ -1,8 +1,12 @@
-class Manager { public: bool Ready(); void Finish(); };
+class Manager {
+  public:
+    bool Ready();
+    void Finish();
+};
 extern Manager* gObject;
 
 class State {
-public:
+  public:
     int value;
     void update();
 };

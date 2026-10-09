@@ -3,7 +3,7 @@ extern void __stdcall ReleaseResource(void*);
 extern void __cdecl FreeArray(void*);
 
 class d3dPrimStream {
-public:
+  public:
     int vtable;
     char pad[0x128];
     void** resources;

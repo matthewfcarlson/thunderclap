@@ -1,1 +1,7 @@
-int f(const unsigned short *p) { int n=0; if (p) while (p[n] != 0) ++n; return n; }
+int f(const unsigned short* p) {
+    int n = 0;
+    if (p)
+        while (p[n] != 0)
+            ++n;
+    return n;
+}

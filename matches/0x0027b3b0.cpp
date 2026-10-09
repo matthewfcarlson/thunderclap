@@ -1,5 +1,9 @@
 extern "C" void* __cdecl Allocate(unsigned int);
-class Buffer { public: int *mStart,*mCurrent,*mEnd; bool Create(int count); };
+class Buffer {
+  public:
+    int *mStart, *mCurrent, *mEnd;
+    bool Create(int count);
+};
 bool Buffer::Create(int count) {
     int* p;
     if (count != 0) {
@@ -10,7 +14,8 @@ bool Buffer::Create(int count) {
             mEnd = (int*)((char*)p + count * 24);
             return true;
         }
-    } else mStart = 0;
+    } else
+        mStart = 0;
     mCurrent = 0;
     mEnd = 0;
     return false;

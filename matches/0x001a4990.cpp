@@ -1,3 +1,29 @@
-class Obj { public: virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void Call(int,int,int,int); };
-class Holder { public: virtual ~Holder(); char pad[0x10]; Obj* second; char rest[0x10]; int* Run(); };
-int* Holder::Run() { Obj* first=(Obj*)this; first->Call(1,6,2,1); if(second) second->Call(1,2,1,1); return (int*)((char*)this+0x28); }
+class Obj {
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void Call(int, int, int, int);
+};
+class Holder {
+  public:
+    virtual ~Holder();
+    char pad[0x10];
+    Obj* second;
+    char rest[0x10];
+    int* Run();
+};
+int* Holder::Run() {
+    Obj* first = (Obj*)this;
+    first->Call(1, 6, 2, 1);
+    if (second)
+        second->Call(1, 2, 1, 1);
+    return (int*)((char*)this + 0x28);
+}

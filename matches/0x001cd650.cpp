@@ -1,7 +1,7 @@
 extern float Zero;
 void Stop();
 class Thing {
-public:
+  public:
     char pad[0x11a8];
     float timer;
     int a;

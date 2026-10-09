@@ -1,6 +1,12 @@
-struct Init { void init(int); };
+struct Init {
+    void init(int);
+};
 extern char g_hgpc_vftable;
-struct HasGroundPointCondition { char pad[12]; unsigned char x; unsigned char y; };
+struct HasGroundPointCondition {
+    char pad[12];
+    unsigned char x;
+    unsigned char y;
+};
 void* __cdecl alloc(unsigned int);
 struct Factory {
     virtual void a();

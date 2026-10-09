@@ -1,5 +1,5 @@
 class Obj {
-public:
+  public:
     void Do(int, int);
     void Target();
 };

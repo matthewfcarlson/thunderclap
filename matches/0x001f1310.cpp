@@ -1,7 +1,19 @@
-class B { public: virtual void f0(); virtual void f1(); virtual void f2(int); };
-class Aux { public: void f(); };
+class B {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2(int);
+};
+class Aux {
+  public:
+    void f();
+};
 extern void done(void*);
-class C { public: void* a; B* b; };
+class C {
+  public:
+    void* a;
+    B* b;
+};
 void __fastcall target(C* self) {
     void* p = self->a;
     if (p) {

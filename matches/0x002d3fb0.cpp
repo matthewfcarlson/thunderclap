@@ -1,3 +1,21 @@
 // Same code shape as 0x002b95c0 (propagated; names are from that function)
-class BillboardQuadGroup { public: char pad[0x80]; unsigned int value; virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual unsigned int vfunc_7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); };
-unsigned int BillboardQuadGroup::vfunc_7() { return value; }
+class BillboardQuadGroup {
+  public:
+    char pad[0x80];
+    unsigned int value;
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual unsigned int vfunc_7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+};
+unsigned int BillboardQuadGroup::vfunc_7() {
+    return value;
+}

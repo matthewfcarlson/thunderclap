@@ -1,1 +1,23 @@
-class A { public: virtual void f(); }; class B { public: virtual void f(); virtual void g(); }; class C { char pad[0x1d8c]; B* m; public: void set(A*); }; void C::set(A* p) { if (p) p->f(); if (m) m->g(); m = (B*)p; }
+class A {
+  public:
+    virtual void f();
+};
+class B {
+  public:
+    virtual void f();
+    virtual void g();
+};
+class C {
+    char pad[0x1d8c];
+    B* m;
+
+  public:
+    void set(A*);
+};
+void C::set(A* p) {
+    if (p)
+        p->f();
+    if (m)
+        m->g();
+    m = (B*)p;
+}

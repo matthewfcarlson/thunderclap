@@ -1,4 +1,6 @@
-struct C { char pad[0x4c]; };
+struct C {
+    char pad[0x4c];
+};
 void __cdecl f1(void*);
 void __cdecl f2(void*);
 void __cdecl f3(void*);

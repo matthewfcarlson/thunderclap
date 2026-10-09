@@ -1,1 +1,24 @@
-class CTriggerVolume { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual unsigned char vfunc_11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15(); char pad[0xcc]; int field; }; unsigned char CTriggerVolume::vfunc_11() { return field == 0; }
+class CTriggerVolume {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8();
+    virtual void f9();
+    virtual void f10();
+    virtual unsigned char vfunc_11();
+    virtual void f12();
+    virtual void f13();
+    virtual void f14();
+    virtual void f15();
+    char pad[0xcc];
+    int field;
+};
+unsigned char CTriggerVolume::vfunc_11() {
+    return field == 0;
+}

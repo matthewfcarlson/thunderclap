@@ -1,8 +1,22 @@
 typedef unsigned int u32;
-struct CCollisionInterruptCondition { u32 vf; char pad[8]; unsigned char flag; };
+struct CCollisionInterruptCondition {
+    u32 vf;
+    char pad[8];
+    unsigned char flag;
+};
 extern void* __cdecl allocate(unsigned int);
-struct Initializer { void init(int); };
-class ConditionFactoryTemplate { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual CCollisionInterruptCondition* vfunc_5(); };
+struct Initializer {
+    void init(int);
+};
+class ConditionFactoryTemplate {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual CCollisionInterruptCondition* vfunc_5();
+};
 CCollisionInterruptCondition* ConditionFactoryTemplate::vfunc_5() {
     CCollisionInterruptCondition* p = (CCollisionInterruptCondition*)allocate(0x10);
     if (p) {

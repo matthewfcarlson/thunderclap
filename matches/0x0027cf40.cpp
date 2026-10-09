@@ -1,5 +1,5 @@
 class Owner {
-public:
+  public:
     char pad[8];
     int a;
     int b;
@@ -9,5 +9,6 @@ public:
 };
 void Owner::Run(int x) {
     Owner* p = GetThing();
-    if (p) p->DoThing(a, b, x);
+    if (p)
+        p->DoThing(a, b, x);
 }

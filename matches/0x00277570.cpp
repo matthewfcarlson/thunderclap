@@ -1,6 +1,10 @@
-struct Node { char pad[0x64]; Node* next; int index; };
+struct Node {
+    char pad[0x64];
+    Node* next;
+    int index;
+};
 class Queue {
-public:
+  public:
     void Push(Node* n);
     Node* heads[4];
 };

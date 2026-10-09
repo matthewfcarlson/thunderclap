@@ -1,6 +1,6 @@
 typedef unsigned char bool8;
 class Obj {
-public:
+  public:
     char pad[0x10];
     int index;
     bool8 Check(int);

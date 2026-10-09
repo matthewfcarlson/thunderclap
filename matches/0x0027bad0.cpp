@@ -1,6 +1,8 @@
-inline void* operator new(unsigned int, void* p) { return p; }
+inline void* operator new(unsigned int, void* p) {
+    return p;
+}
 class Partition {
-public:
+  public:
     Partition() {}
     virtual void Destroy(int);
     char pad4[4];
@@ -10,14 +12,14 @@ public:
     int d;
 };
 class Owner {
-public:
+  public:
     char pad0[4];
-    Partition *mEnd;
-    void Resize(Partition *stop, int count);
+    Partition* mEnd;
+    void Resize(Partition* stop, int count);
 };
-void Owner::Resize(Partition *stop, int count) {
-    Partition *src = mEnd;
-    Partition *dst = src + count;
+void Owner::Resize(Partition* stop, int count) {
+    Partition* src = mEnd;
+    Partition* dst = src + count;
     mEnd = dst;
     if (src != stop) {
         do {
