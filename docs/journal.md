@@ -204,3 +204,8 @@ Newest entries go at the bottom of each day.
   1. Three agents independently hit functions taking arguments in registers (`eax`/`ebx`/`edi`, plain `ret`). That points at **link-time code generation (`/GL` + `/LTCG`)**, which invents calling conventions for internal functions. Plain per-file C++ can't reproduce those, so they need a different approach (and it matters for the relink stage).
   2. One function has an `ebp` frame with `leave`, i.e. at least some objects were built *without* frame-pointer omission (`/Oy-`). Per-object compiler flags will be part of the split config.
 - Common near-miss causes: register allocation (`this` in ebp vs edi), block layout of early returns, spills, `add ecx,-3` vs `sub ecx,3`. That's the long tail.
+
+## 2026-10-09: Daytime rounds
+
+- **Subagent round 4: 46/64 matched (72%)**, the best round yet. One batch went 8/8, and several functions matched on the first attempt. The difference from round 1's 38% is the accumulated prompt tips plus one-function-per-family batches.
+- OpenRouter Luna→Sonnet lane on mid-size functions: 51 matches for $2.74 (~$0.054/match). Then the key hit a **weekly** budget cap, which OpenRouter reports as `403 Budget limit exceeded (weekly limit)`, not `402`. The lane looped on instant failures (no cost) until stopped. The guard now treats a budget-flavored 403 like a 402.

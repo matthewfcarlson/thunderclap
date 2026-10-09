@@ -451,7 +451,9 @@ async function main() {
 		appendFileSync(ledgerPath, JSON.stringify(rec) + "\n");
 		if (status === "failed") failures.set(key, retry + 1);
 		// 402 = the provider account is out of credits: stop paid tiers instead of failing every request.
-		if (status === "failed" && /\b402\b/.test(String(rec.detail ?? "")) && !isFree(tier.model)) creditsOut = true;
+		// 402 = out of credits; 403 "Budget limit exceeded" = the key's daily/weekly cap. Either way, stop paid tiers.
+		const d = String(rec.detail ?? "");
+		if (status === "failed" && !isFree(tier.model) && (/\b402\b/.test(d) || (/\b403\b/.test(d) && /limit|budget|permission/i.test(d)))) creditsOut = true;
 		spent += rec.cost;
 		console.log(`${addr} t${t} ${tier.model.padEnd(32)} ${status.padEnd(9)} att=${job.attempts} best=${job.bestScore.toFixed(2)} $${rec.cost} ${rec.secs}s`);
 		return job;
@@ -486,7 +488,7 @@ async function main() {
 			if (size < (tiers[t].minSize ?? 0) || size > (tiers[t].maxSize ?? Infinity)) continue;
 			if (!isFree(tiers[t].model) && (creditsOut || spent >= budget || keyRemaining - (spent - spentAtStart) < keyFloor)) {
 				if (!budgetWarned) console.log(creditsOut
-					? `budget reached: provider account out of credits (402): skipping paid tiers`
+					? `budget reached: provider credits or key budget exhausted (402/403): skipping paid tiers`
 					: spent >= budget
 						? `budget $${budget} reached ($${spent.toFixed(2)} spent): skipping paid tiers`
 						: `budget reached: OpenRouter key limit nearly used ($${(keyRemaining - (spent - spentAtStart)).toFixed(2)} left on the key): skipping paid tiers`);
