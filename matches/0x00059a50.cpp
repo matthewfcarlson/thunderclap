@@ -1,0 +1,1 @@
+struct Data { char pad[0x40]; unsigned a,b,c; }; struct Out { unsigned a,b,c; }; class Obj { public: char pad[4]; unsigned a; unsigned b; unsigned c; char pad2[8]; Data *p; bool Get(Out* out); }; bool Obj::Get(Out* out) { Data* d=p; if (d) { out->a=d->a; out->b=d->b; out->c=d->c; return true; } out->a=a; out->b=b; out->c=c; return true; }

@@ -1,0 +1,3 @@
+class HSlider { public: char pad[0x168]; int state; void v0(); void v1(); void v2(); void v3(); void v4(); void v5(); void v6(); void v7(); void v8(); void v9(); void v10(); void v11(); bool v12(int,int); void v13(); void v14(); void v15(); void v16(); void v17(); void v18(); };
+void action1570(); void action17b0();
+bool HSlider::v12(int x,int y) { switch(x) { case 6: if (!state) { action17b0(); return true; } return true; case 2: if (!state) action1570(); return true; default: return false; } }
