@@ -4,7 +4,7 @@ Self-contained briefs for work alongside the matching farm. Each brief has a goa
 
 | # | Task | Depends on | Size | Status |
 |---|---|---|---|---|
-| 01 | [Reference verification (relocation targets)](01-reference-verification.md) | Ghidra project | M | |
+| 01 | [Reference verification (relocation targets)](01-reference-verification.md) | Ghidra project | M | *claimed by the farm session* |
 | 02 | [RTTI → class headers](02-rtti-headers.md) | `build/rtti.json` | M | |
 | 03 | [RCF archive tool](03-rcf-tool.md) | ISO only | S–M | *in progress: branch `task/rcf-tool`* |
 | 04 | [Pure3D `.p3d` reader](04-p3d-reader.md) | 03 | M–L | *done (PR #2)* |
