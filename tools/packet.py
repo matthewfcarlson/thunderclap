@@ -132,7 +132,7 @@ class Db:
                 out.append("    ... %d more" % (len(v["slots"]) - max_slots))
         return out
 
-    def packet(self, va):
+    def packet(self, va, similar=0):
         r = self.funcs[va]
         size = int(r["size"])
         lines, refs = self.asm(va, size)
@@ -154,6 +154,15 @@ class Db:
             out.append("Data referenced:")
             for a, d in sorted(refs.items()):
                 out.append("  0x%x = %s" % (a, d))
+        if similar:
+            from similar import Index
+            if not hasattr(self, "_sim"):
+                self._sim = Index.load()
+            ex = self._sim.similar("0x%08x" % va, k=similar, min_score=0.4)
+            if ex:
+                out += ["", "Verified matches of other functions with similar code (they compile byte-exact; reuse their idioms):"]
+                for a, j, size, body in ex:
+                    out += ["--- %s (%d bytes, similarity %.2f) ---" % (a, size, j), body.strip()[:2500]]
         c_path = B("farm", "ghidra_c", "0x%08x.c" % va)
         if os.path.exists(c_path):
             c = open(c_path).read().strip()
@@ -179,13 +188,13 @@ def cmd_build(args):
     for line in open(args.queue):
         va = int(line.strip(), 16)
         with open(os.path.join(args.out, "0x%08x.txt" % va), "w") as f:
-            f.write(db.packet(va))
+            f.write(db.packet(va, similar=args.similar))
         n += 1
     print("wrote %d packets -> %s" % (n, args.out))
 
 
 def cmd_show(args):
-    print(Db().packet(int(args.addr, 16)), end="")
+    print(Db().packet(int(args.addr, 16), similar=args.similar), end="")
 
 
 if __name__ == "__main__":
@@ -198,9 +207,11 @@ if __name__ == "__main__":
     b = sub.add_parser("build")
     b.add_argument("--queue", default=B("farm", "queue.txt"))
     b.add_argument("--out", default=B("farm", "packets"))
+    b.add_argument("--similar", type=int, default=0, help="append up to K similar verified matches")
     b.set_defaults(fn=cmd_build)
     s = sub.add_parser("show")
     s.add_argument("addr")
+    s.add_argument("--similar", type=int, default=0)
     s.set_defaults(fn=cmd_show)
     a = p.parse_args()
     a.fn(a)

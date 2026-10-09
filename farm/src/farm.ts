@@ -271,6 +271,7 @@ async function main() {
 			budget: { type: "string", default: "50" }, // USD, all-time across every ledger; free tiers ignore it
 			bench: { type: "string" }, // isolated run: own ledger/db/matches dir, ignores existing matches
 			lane: { type: "string" }, // parallel worker lane: own ledger/db, but writes to and skips main matches/
+			packets: { type: "string", default: join(BUILD, "packets") }, // prebuilt packet dir (A/B tests)
 		},
 	});
 	const tiers: Tier[] = JSON.parse(readFileSync(values.tiers!, "utf8"));
@@ -360,7 +361,7 @@ async function main() {
 	harness.resume();
 
 	async function packet(addr: string): Promise<string> {
-		const p = join(BUILD, "packets", `${addr}.txt`);
+		const p = join(values.packets!, `${addr}.txt`);
 		if (existsSync(p)) return readFileSync(p, "utf8");
 		const { stdout } = await run(PY, [join(ROOT, "tools/packet.py"), "show", addr]);
 		return stdout;
