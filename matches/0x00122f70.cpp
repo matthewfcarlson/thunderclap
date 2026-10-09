@@ -1,0 +1,4 @@
+class StrafeLateralHBTrack { public: int vf; char pad4[8]; int zc; int x10; int z14,z18,z1c,z20,x24; void init(); };
+extern void* __cdecl operator_new(unsigned int);
+class TrackFactoryTemplate { public: virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual StrafeLateralHBTrack* vfunc_5(); };
+StrafeLateralHBTrack* TrackFactoryTemplate::vfunc_5() { StrafeLateralHBTrack* p=(StrafeLateralHBTrack*)operator_new(0x28); if(p) { p->init(); p->zc=0; p->z14=0; p->z18=0; p->z1c=0; p->z20=0; p->vf=0x40f500; p->x10=(int)0xbf800000; p->x24=0x3f800000; return p; } return 0; }

@@ -1,0 +1,5 @@
+class FEObject { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15(); virtual void f16(); };
+class FELayout { public: virtual void a0(); virtual void a1(); virtual void a2(); virtual void vfunc_3(); virtual void vfunc_4(); };
+class VScroll : public FELayout { public: char pad[0x23c]; int count; int items[1]; virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); };
+extern FEObject* castFE(void*, int, int, int, int);
+void VScroll::vfunc_12() { for (int i=0; i<count; ++i) { FEObject* p=castFE(*(void**)((char*)this+0x40+i*16),0,0x49dba4,0x49f4f0,0); if(p) p->f16(); } }
