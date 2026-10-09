@@ -1,0 +1,29 @@
+class Inner {
+  public:
+    void Init();
+};
+class ParamValue {
+  public:
+    virtual ParamValue* f0(int);
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    char pad[4];
+    Inner inner;
+};
+class ParamValueInt : public ParamValue {
+  public:
+    virtual ParamValueInt* f0(int);
+};
+extern void Cleanup(ParamValueInt*);
+ParamValueInt* ParamValueInt::f0(int flags) {
+    int* q = (int*)this;
+    *q = 0x4279fc;
+    inner.Init();
+    if (flags & 1)
+        Cleanup(this);
+    return this;
+}
