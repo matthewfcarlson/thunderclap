@@ -50,4 +50,6 @@ tools/setup_ghidra.sh                             # Ghidra + XBE loader + RTTI i
 build/venv/bin/python tools/compare.py experiments/first-matches/refcount.cpp 0x18b40
 ```
 
+**Match by hand:** `build/venv/bin/python tools/workbench/server.py`, then open http://127.0.0.1:8765. Pick a function (near-misses first). It shows the best earlier model attempt in an editor next to the aligned target/ours assembly diff, plus a C++ diff, Ghidra's decompilation and data context, and a CPU permuter button. A byte-identical, reference-checked result is installed into `matches/`, committed and pushed automatically.
+
 Clean-room: no leaked source (e.g. the Simpsons: Hit & Run leak, which shares this engine) is used or accepted.
