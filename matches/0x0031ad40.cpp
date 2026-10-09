@@ -1,6 +1,6 @@
 namespace pure3d {
 class d3dDisplay {
-public:
+  public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -22,5 +22,7 @@ public:
     char pad[0x47c - 4];
     unsigned int field;
 };
-unsigned int d3dDisplay::vfunc_7() { return field; }
+unsigned int d3dDisplay::vfunc_7() {
+    return field;
 }
+} // namespace pure3d

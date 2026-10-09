@@ -1,20 +1,20 @@
 namespace fight {
 
 class Param {
-public:
+  public:
     virtual void pfunc_1();
     virtual void pfunc_2();
     virtual void pfunc_4();
 };
 
 class Condition {
-public:
+  public:
     virtual void cfunc_0();
     virtual void cfunc_3();
 };
 
 class PlatformCondition : public Condition, public Param {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_5();
     virtual unsigned char vfunc_6(int, int, int);
@@ -22,7 +22,7 @@ public:
     char mFlag;
 };
 
-}
+} // namespace fight
 
 unsigned char fight::PlatformCondition::vfunc_6(int, int, int) {
     return mFlag;

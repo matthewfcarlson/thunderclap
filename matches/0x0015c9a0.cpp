@@ -1,2 +1,17 @@
-class ClimbLocomotion4Action { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual unsigned long long vfunc_6(); virtual void f7(); virtual void f8(); char pad[0x48-4]; void* member; };
-unsigned long long ClimbLocomotion4Action::vfunc_6() { return *(unsigned long long*)((char*)member + 0x38); }
+class ClimbLocomotion4Action {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual unsigned long long vfunc_6();
+    virtual void f7();
+    virtual void f8();
+    char pad[0x48 - 4];
+    void* member;
+};
+unsigned long long ClimbLocomotion4Action::vfunc_6() {
+    return *(unsigned long long*)((char*)member + 0x38);
+}

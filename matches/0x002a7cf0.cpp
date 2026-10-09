@@ -1,5 +1,5 @@
 class Thing {
-public:
+  public:
     char pad[0x44];
     int value;
     void Set(int x);

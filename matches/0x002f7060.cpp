@@ -1,6 +1,6 @@
 extern int vftable;
 class PhysicsObjectLoader {
-public:
+  public:
     int vptr;
     int a;
     int b;

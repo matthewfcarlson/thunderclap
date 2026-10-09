@@ -152,6 +152,16 @@ Newest entries go at the bottom of each day.
 
 - Surprises: `art.rcf`'s 315 `.png` files are plain PNGs for the unlockable bonus gallery (`art\bonus\concept_*`, `comic_images`), and the `.lua` files are compiled bytecode (`\x1bLua`). `sound_en.rcf` isn't in `rcfs.txt`; the game builds its name from `sound_%s.rcf`, and there's also a `sound_uk.rcf` string.
 
+### Compile-error coaching
+- `tools/compile_errors.py` mines every `submit_cpp` reply in the farm databases. Baseline over 25,000 submissions: **15.5% failed to compile**.
+  - The top code by far was C4234 (`__thiscall` in Ghidra-style casts, 2,449 hits).
+  - Next: undeclared members/identifiers (C2039/C2065/C3861), mismatched member declarations (C2761/C2509/C2535/C2556/C2511), ctor/dtor misuse (C2600/C2533/C2577), and bad padding arrays (C2229/C2118).
+  - Syntax/brace errors (C2059/C2143/C2447/C1075) had the worst recovery: 34–52% compiled on the next try.
+- `farm/src/hints.ts` appends a one-line MSVC 7.1-specific fix for each recognized error code (max 3) to compile-error replies. The system prompt gained the three most common rules: no `__thiscall` casts, pre-C++11 syntax, ctor/dtor declarations and padding. Re-measure with `tools/compile_errors.py` on runs after this change.
+- Self-inflicted bug: I reworded the budget-stop log message, and the sweep's stop check (`grep 'budget .* reached'`) no longer matched it. The sweep looped through instant no-op chunks until I killed it (nothing spent; paid tiers were skipped each time). It now keys off the stable suffix `skipping paid tiers`. Lesson: log lines that scripts parse are an interface.
+- Cloud sweep paused at the OpenRouter key's $10 limit (account still has ~$4 of credit). Status: **13,802 functions (59.9%), 15.6% of game bytes**; ledger spend ~$13.7 including benchmarks.
+- **Ledger double-counting**: once failed runs were retried *in the same conversation*, each ledger row recorded that conversation's cumulative `pi.usage`, so retries re-counted earlier spend. The ledger claimed $30 vs ~$15.6 real (OpenRouter key usage; it includes earlier non-farm use). One row claimed 264k output tokens in 43 s. The sweep stopped on the inflated internal budget. Rows now record per-run deltas (usage after − before). The real guards are OpenRouter's key allowance and the 402 out-of-credits check.
+
 ### Pure3D (task 04): verified against real files; textures and Hulk export
 - The spec-first `p3d.py` chunk walker was right: all 1,436 `.p3d` files parse with 0 bad chunks. Most chunk *names* were wrong or missing, though. Ground truth came from the XBE: each `*Loader` class's constructor stores its chunk ID next to its vtable pointer, so scanning the functions that reference each vtable gave 29 confirmed IDs (Skeleton is 0x23000, not the 0x4500 I'd guessed; PolySkin 0x10001; Room 0x60000701, …).
 - **Textures are plain files**: ImageData is `u32 size` + a complete DDS (DXT1/3/5 only, no Xbox swizzle) or PNG. A ~60-line pure-Python DXT decoder exports all **8,798 textures in ~40 s**. The DDS rows are bottom-up: the controller diagram's "L"/"R" read upside down until flipped.
@@ -169,3 +179,48 @@ Newest entries go at the bottom of each day.
 - Many characters share joint names, so a glob picks whose animations to bind: `p3d.py gltf global_hulk.p3d hulk.glb --anims global_nonchar.p3d --anim-match 'hlk_*'` gives Hulk with **178 animations** (4.8 MB, < 1 s). Checked with a skinned software render: the run cycle loops, `hlk_pnch_devastator_slam` crouches and slams, the `5E_5_hulk_roar` cutscene flings his arms out with the jaw open.
 - **Cities**: `p3d.py city downtown_day out.glb` merges every room (in world space) with district textures. All 15 locations export in ~30 s, with 4,121/4,126 materials textured. A top-down render of downtown shows the full street grid, park and rooftops.
 - Shared checkout hazard: another session committed onto this branch and then aborted a rebase, which discarded my uncommitted edits. Commit early when sharing a working tree.
+- Night lane found 24 functions whose Ghidra body stops one instruction short of the final `ret`, e.g. `0x17000` recorded as 3 bytes (`mov eax,[ecx+0x20]`) with the `ret` left out. They could never match, and the model's attempts scored 1.00 aligned but "exhausted". Sizes are patched in `build/functions.csv` (extended by the following `C3`/`C2 nn nn`). A future `ExportFunctions` re-export needs the same post-pass.
+
+### Large-function A/B: similar-function examples (task 08)
+- GPT-6 Luna on the 30 large benchmark functions, fresh runs under the current prompt and scoring. **Without** examples: 2/30 matched, avg best 0.53. **With** up to 2 verified similar matches in the packet: 1/30, avg best 0.50. On the 10 functions that actually got examples: 0/10 either way (avg best 0.52 vs 0.47). ~$0.10 per arm.
+- Conclusion: the nearest matched functions are small generic idioms (~30-byte dtors/ctors), and they don't carry what large functions need. `packet.py --similar` stays opt-in and off by default.
+
+### Sonnet 5.5 cracks mid-size functions
+- On the 12 benchmark functions of 97–192 bytes: **Claude Sonnet 5.5 matched 8/12** (avg best 0.95) at $0.53 total, ~$0.066 per match. GPT-6 Luna matched 2/12 (avg best 0.69) on the same set. Sonnet matches typically took 3–5 attempts and 12–40 s.
+- So the cheap-model cliff above ~96 bytes is a capability cliff, not a feedback problem. For functions over 96 bytes the tier should be Sonnet, ~2 KB of game code matched per dollar at these sizes.
+- Spent the last OpenRouter credit on Sonnet over the 97–192 B queue (2,100 unique shapes). Result: 5/28 (18%) for $0.95, well below the benchmark's 67%. Smallest-first ordering front-loaded a family of near-identical functions (`0x001a3a00…0x001a4410`) that Sonnet couldn't crack, so the next run should interleave shapes or skip a family after repeated failures. With 8 concurrent Sonnet requests OpenRouter returned 402 while ~$1.60 was still left: it checks each request's maximum possible cost (8k output tokens) against the balance. At low balances, run with fewer concurrent requests.
+
+## 2026-10-09: Overnight
+
+- **mac2 night lane** (Qwen3.8-Flash-Next GGUF, thinking low, 4 parallel, 8 attempts, 23:52–07:02): 78 functions tried, **29 matched (37%)**, median ~19 min per function. Its queue was what the cloud tiers had given up on, closest misses first, so a free local model can finish near-misses that cheap cloud models gave up on. Propagation turned 29 direct matches into +83 committed functions.
+- Lessons from the night:
+  - Front-of-queue junk wastes local time. Ghidra bodies that don't end in `ret`/`jmp` are unmatchable and are now filtered.
+  - The score must penalize *extra* instructions (fixed).
+  - Flash-Next started at 1/18, then improved as it reached the closer cloud misses.
+- Formatting pass: 13,427 matches reformatted with clang-format, 565 already clean, 0 that failed re-verification. New matches are formatted on save.
+- Morning status: **14,089 functions (61.1%), 432 KB of 2.60 MB (16.6%)**. OpenRouter credit is exhausted. Real spend for the whole project so far is ~$18.9 of the $50 budget.
+
+### Claude subagents as matchers (subscription, not OpenRouter)
+- 4 Sonnet subagents with 8 mid-size (97–192 B) functions each, spread across the queue, plus the shared tools (packet, compare, verify_relocs, format). **10/32 matched (31%)**, all re-verified. Per batch: 4, 4, 1, 1. These are harder than the benchmark set: the ones the OpenRouter Sonnet lane hadn't reached, with no cherry-picking.
+- Same morning, the last $0.22 of OpenRouter credit: GPT-6 Luna on 122 interleaved mid-size functions, **25 matches (20%)**, ~$0.009 per match.
+- What the agents found (folded into the prompt):
+  - Callees without `add esp` are `__stdcall`; `FUN_0034483c` is `_ftol`.
+  - Any destructor, even on a temporary, adds an SEH frame. Use a plain virtual method as a placeholder, or `throw()` dtors.
+  - Float sum order matters (try permutations); `inline` helpers change instruction selection; copying a member to a local changes load order.
+- **Two structural findings that matter later:**
+  1. Three agents independently hit functions taking arguments in registers (`eax`/`ebx`/`edi`, plain `ret`). That points at **link-time code generation (`/GL` + `/LTCG`)**, which invents calling conventions for internal functions. Plain per-file C++ can't reproduce those, so they need a different approach (and it matters for the relink stage).
+  2. One function has an `ebp` frame with `leave`, i.e. at least some objects were built *without* frame-pointer omission (`/Oy-`). Per-object compiler flags will be part of the split config.
+- Common near-miss causes: register allocation (`this` in ebp vs edi), block layout of early returns, spills, `add ecx,-3` vs `sub ecx,3`. That's the long tail.
+
+## 2026-10-09: Daytime rounds
+
+- **Subagent round 4: 46/64 matched (72%)**, the best round yet. One batch went 8/8, and several functions matched on the first attempt. The difference from round 1's 38% is the accumulated prompt tips plus one-function-per-family batches.
+- OpenRouter Luna→Sonnet lane on mid-size functions: 51 matches for $2.74 (~$0.054/match). Then the key hit a **weekly** budget cap, which OpenRouter reports as `403 Budget limit exceeded (weekly limit)`, not `402`. The lane looped on instant failures (no cost) until stopped. The guard now treats a budget-flavored 403 like a 402.
+- **Subagent round 5: 38/64 (59%).** Confirmed that part of the binary, mostly the CRT/XAPI region around 0x34xxxx–0x35xxxx, was built with **/O1 /Oy-** (size-optimized with frame pointers). Exact matches came with `// cl-flags: /Oy- /O1`. So at least three code-generation regimes exist: game code /O2 with frame-pointer omission, some objects /Oy-, and library code /O1 /Oy-. All of them will need to be recorded per object in the split config.
+
+### 2026-10-09: Batch API and the permuter
+- **OpenRouter Batch API** (`tools/batch_run.py`): `:batch` models are half price but only go through `POST /api/v1/batches`; the chat endpoint rejects them. With no live tool loop, attempts run in rounds, and each miss gets its best code plus diff in the next round. Sonnet 5.5 on 200 random untried mid-size functions (97–192 B), 4 rounds: matches per round 18/200, 23/182, 19/159, 7/140, so **67/200 (34%) for $5.14 = $0.077/match**. That's *worse* than the live Luna→Sonnet lane (~$0.054). Each request is half price, but one attempt per round with only the best attempt and last diff converges more slowly than the live multi-turn loop, and round 4 returned little ($0.17/match). Batch per-request results carry no cost; it's in the batch-level `usage.cost`.
+- Haiku 5.5's batch sat queued (0/100) for over an hour while Sonnet's rounds took ~10 min each.
+- **Permuter** (`tools/permute.py`): random source rewrites (statement swaps, commuted operands, flipped compares, int/unsigned, if/else flip, split init, flag sets), compiled at ~34 variants/s on 5 cores, hill-climbing with plateau walks. Only byte-identical plus reference-verified results count, so mutations needn't preserve meaning. First test: 0.44 → 0.59 on a register-allocation near-miss in 3 minutes. Wired into batch_run between rounds for misses ≥0.75.
+- **Workbench** (`tools/workbench/`): a godbolt-style local page for matching by hand. A function list is sorted by best score. The editor is preloaded with the best earlier attempt (scored on open), next to a side-by-side aligned asm diff, a C++ diff against the starting attempt, the packet context (Ghidra decompilation, data refs) and a list of earlier attempts. Auto-compile while typing, plus a Permute button. Verified matches are installed, formatted, committed (that file only) and pushed.
+- Restarted the paid lane as **Luna only** (no Sonnet escalation) over 3,945 functions of up to 192 B that Luna had never tried. OpenRouter blocked twice more on caps, a weekly key budget and then a **workspace monthly budget** (`403 Workspace monthly budget of $20.00 exceeded`); both were raised.

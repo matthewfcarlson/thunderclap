@@ -1,5 +1,5 @@
 class CRadMovieRenderLoop {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(bool);
@@ -8,5 +8,6 @@ public:
     int mRefCount;
 };
 void CRadMovieRenderLoop::vfunc_1() {
-    if (--mRefCount == 0) vfunc_2(true);
+    if (--mRefCount == 0)
+        vfunc_2(true);
 }

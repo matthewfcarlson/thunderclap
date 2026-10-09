@@ -1,3 +1,20 @@
-class B { public: char p[0x10]; int x; B(); };
-class ShadowSkinImpl : public B { public: char q[0x70-0x14]; int a,b,c,d; ShadowSkinImpl(); };
-ShadowSkinImpl::ShadowSkinImpl() { a=0; b=0; c=0; d=0; *(int*)this=0x42e5e4; *(int*)((char*)this+0x10)=2; }
+class B {
+  public:
+    char p[0x10];
+    int x;
+    B();
+};
+class ShadowSkinImpl : public B {
+  public:
+    char q[0x70 - 0x14];
+    int a, b, c, d;
+    ShadowSkinImpl();
+};
+ShadowSkinImpl::ShadowSkinImpl() {
+    a = 0;
+    b = 0;
+    c = 0;
+    d = 0;
+    *(int*)this = 0x42e5e4;
+    *(int*)((char*)this + 0x10) = 2;
+}

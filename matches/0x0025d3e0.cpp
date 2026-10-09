@@ -1,5 +1,5 @@
 class Object {
-public:
+  public:
     int GetValue();
 
     char pad[0x58];

@@ -1,3 +1,32 @@
-class pddiPrimBufferStream { public: virtual void f0(); virtual void f1(); virtual void f2(unsigned long,unsigned long,unsigned long); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15(); virtual void f16(); virtual void f17(); };
-class d3dPrimBufferStream : public pddiPrimBufferStream { public: char pad[0x40]; unsigned long* ptr; virtual void f2(unsigned long a, unsigned long b, unsigned long c); };
-void d3dPrimBufferStream::f2(unsigned long a, unsigned long b, unsigned long c) { ptr[0]=a; ptr[1]=b; ptr[2]=c; }
+class pddiPrimBufferStream {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2(unsigned long, unsigned long, unsigned long);
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8();
+    virtual void f9();
+    virtual void f10();
+    virtual void f11();
+    virtual void f12();
+    virtual void f13();
+    virtual void f14();
+    virtual void f15();
+    virtual void f16();
+    virtual void f17();
+};
+class d3dPrimBufferStream : public pddiPrimBufferStream {
+  public:
+    char pad[0x40];
+    unsigned long* ptr;
+    virtual void f2(unsigned long a, unsigned long b, unsigned long c);
+};
+void d3dPrimBufferStream::f2(unsigned long a, unsigned long b, unsigned long c) {
+    ptr[0] = a;
+    ptr[1] = b;
+    ptr[2] = c;
+}

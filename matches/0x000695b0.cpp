@@ -1,7 +1,12 @@
-struct Helper { void Fin(); };
-class CTrack { public: void Base(); };
+struct Helper {
+    void Fin();
+};
+class CTrack {
+  public:
+    void Base();
+};
 class CKeyPoseTrack {
-public:
+  public:
     void Dtor();
     char pad[0x60];
 };

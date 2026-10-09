@@ -1,7 +1,13 @@
-class Sub { public: void Init(); };
-class FinishCall { public: void Finish(); };
+class Sub {
+  public:
+    void Init();
+};
+class FinishCall {
+  public:
+    void Finish();
+};
 class ThreatCondition {
-public:
+  public:
     void Run();
 };
 void ThreatCondition::Run() {

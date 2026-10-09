@@ -1,6 +1,9 @@
-class Sub { public: void Init(); };
+class Sub {
+  public:
+    void Init();
+};
 class CNameFlagConditionBase {
-public:
+  public:
     int m0;
     char pad[8];
     int mC;

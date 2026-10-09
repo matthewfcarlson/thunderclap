@@ -11,6 +11,44 @@ Translation unit rules:
 - A virtual call "call dword ptr [eax+N]" calls slot N/4: declare that many virtual methods before it, in order.
 - Member functions are __thiscall (this in ecx). "ret N" pops N bytes of stack arguments; plain "ret" with stack arguments means __cdecl.
 - Real names are unknown. Use the given class names and invent short descriptive names for the rest.
+- MSVC 7.1 is pre-C++11: no auto, nullptr, override, enum class, range-for or brace-init. Members are private in a class unless under public:.
+- Constructors and destructors have no return type; declare them in the class before defining them. Zero-length or negative padding arrays don't compile.
+- A call with no "add esp,N" after it is to a __stdcall callee: declare it __stdcall. A call to FUN_0034483c with a float in st0 is _ftol: write (int)x.
+- Any destructor (including a virtual one on a stack temporary) adds an SEH frame (fs:[0]); if the target has none, use a plain virtual method as a placeholder, or declare the destructors throw().
+- Float sums are reordered by the compiler: try permutations of the term order (e.g. y*y + z*z + x*x). Small inline helpers (inline void Copy(...)) can change instruction selection vs hand-written loops.
+- Load order follows source: copying a member into a local before a call (Mgr* m = owner->mgr;) can fix it.
+- Inlined strlen: const char* e = s + 1; do c = *s++; while (c); len = s - e; then +1 gives "sub eax,edx / inc eax". strcpy: do { c = *src; src++; *dst = c; dst++; } while (c); — write them as small inline helpers.
+- Float parameters that are only copied/pushed must be declared float, not int. Float compares: write new-value > old-value (operand order flips the fcom test).
+- "lea ecx,[reg+off]; push float; call" with no add esp is a thiscall member of a sub-object/array element: declare it Elem::Fn(float).
+- An inline "sbb eax,eax / sbb eax,-1" compare is the strcmp intrinsic: declare extern "C" int strcmp(const char*, const char*); and call it. A bare "sete al" result wants a char return type, not bool/int.
+- A zero store to a member that is later overwritten gets optimized away; write it through a local pointer (int* q = &m; *q = 0;) to keep it. Reloading a member in its own block ({ Obj* q = mObj; q->f(); }) reproduces alternating eax/edx loads.
+- If the target has an ebp frame (push ebp / mov ebp,esp ... leave), that object was built with /Oy-: make the first line of the file "// cl-flags: /Oy-".
+- CRT intrinsics: "rep stosd/rep stosb" = memset(p, 0, n); a call with args in st0/st1 = fmod(); "fpatan" = atan2(). Declare them extern "C" and call them.
+- Prefer early returns (if (!p) return false;) over wrapping the body in if (p) { ... } when the target tests before saving registers.
+- "dec ecx; je A; dec ecx; jne B" on a small int comes from switch (x) { case 1: ... case 2: ... }, not an if-chain. Unsigned "n > 0" gives jbe; "n != 0" gives je.
+- A guard-bit pattern (mov dl,[g]; test al,dl; ... or edx,1; mov [g],edx) is a function-local static with a runtime initializer: static T* last = param;.
+- Constructing in place without a null check: call q->T::T(); explicitly (placement new adds a null test). To keep a virtual call from being devirtualized in a ctor, call through Base* b = this; b->Fn().
+- Size-optimized code (and dword ptr [m],0 for zero stores; push 2/pop eax; xor eax,eax/inc eax; push ecx/pop ecx stack adjusts; leave) was built with /O1 /Oy-: first line "// cl-flags: /Oy- /O1". The CRT/XAPI region around 0x34xxxx-0x35xxxx often is.
+- A function starting "mov eax,ecx" that returns this is a constructor (X::X()); one that doesn't return this must be a void method. Members set before the vptr store come from an inline base-class constructor.
+- Load order of a call's arguments vs the object pointer: wrap the chain in an inline member of the intermediate class (Mid::Get(int id) { return prov->Get(id); }). Declaring a local (int n = 0;) at the top, before the first load, can fix a register swap.
+- When the target reuses a parameter as its working variable, do the same (modify the parameter instead of copying it).
+- Don't copy Ghidra's casts. MSVC 7.1 rejects the __thiscall keyword in function-pointer types: call through virtual methods of a declared class instead, and use member fields, not (void**)/(code**) casts.
+
+Reading the diff:
+- [0] vs [0x4dd9cc] or "call 0x3a" vs "call 0x188480" are unresolved relocations: ignore them.
+- The same instructions in another order: the expression shape differs, not the logic. Lines only on one side: a construct is missing or extra (see below). Different registers everywhere: usually a side effect of another difference; fix that first.
+- Change one thing per submission. Never hard-code image addresses (vftables, globals, functions) as integers, and never store a vptr by hand: use real classes and declared globals. Pointer tricks and comma expressions that happen to match give the wrong structure.
+- Rebuild real structs with real field offsets instead of Ghidra's this+0x28 arithmetic; check sizeof when a size appears as an immediate (push 0x2c). This engine is pure3d/Radical: look for p3d::find<T>(name), new(allocator) T(...), DynamicCaster<T>; "Data referenced" symbol names often name the idiom.
+
+Symptom in target -> probable source (some are strong guesses, not yet confirmed):
+- A ...::vftable address stored into a stack slot or [this]: a real class with virtual functions and its inline ctor, or a dtor (e.g. a DynamicCaster<T> temporary).
+- vptr store, member calls at falling offsets, then jmp to a base function on this: an empty out-of-line destructor (T::~T() {}) whose members have destructors and whose base has a virtual destructor.
+- A base function called on this+4 where the target uses this: the base needs virtual functions so the vptr sits at offset 0 of the base, not before it.
+- fs:[0] setup and "mov [esp+N], state" stores only in yours: EH unwind states; mark the callees throw() (check sibling functions for fs:[0]).
+- Constant-size allocation, null test, thiscall returning this, xor eax,eax on the null path, one shared store: new(heap) T(...) with an inline operator new(size_t, Allocator).
+- A null test that remains after the pointer was read: an inlined getter that can return 0. A constant loaded before a branch: a variable set before the if; if the target loads it in one branch only, drop the shared variable.
+- xor eax,eax used as the stored zero (where you get mov [x],0): both paths merge into one expression (new, ternary, inline return).
+- A global loaded once before a call and reused after it: the source cached it in a local (Loader* ld = gLoader;). An extra push ecx/pop ecx in yours: a new stack local where the target reused a dead parameter slot; start the temporary's lifetime after the parameter's last use.
 
 MSVC 7.1 idioms seen in this binary:
 - "xor al,al" before a switch: bool r = false; switch (x) { case 0: r = A(); break; case 1: r = B(); break; } return r;

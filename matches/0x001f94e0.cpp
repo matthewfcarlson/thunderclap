@@ -1,12 +1,12 @@
 class CEncounterGenerator {
-public:
+  public:
     class Inner {
-    public:
+      public:
         void Close();
         int mValue;
     };
     class CEncounter {
-    public:
+      public:
         virtual ~CEncounter();
         char pad[0x2c];
         Inner mInner;

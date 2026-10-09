@@ -1,3 +1,42 @@
-class Child { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(int); virtual void f9(); virtual void f10(int); };
-class FEContainer { public: virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void vfunc_14(); char pad[0x44]; Child* child; void helper(); };
-void FEContainer::vfunc_14() { helper(); if (child) { child->f8(0); child->f10(2); } }
+class Child {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8(int);
+    virtual void f9();
+    virtual void f10(int);
+};
+class FEContainer {
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    virtual void vfunc_14();
+    char pad[0x44];
+    Child* child;
+    void helper();
+};
+void FEContainer::vfunc_14() {
+    helper();
+    if (child) {
+        child->f8(0);
+        child->f10(2);
+    }
+}

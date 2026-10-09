@@ -1,2 +1,4 @@
-extern void *IRefCount_vftable;
-void __fastcall FUN_001b6820(void *self) { *(void**)self = &IRefCount_vftable; }
+extern void* IRefCount_vftable;
+void __fastcall FUN_001b6820(void* self) {
+    *(void**)self = &IRefCount_vftable;
+}

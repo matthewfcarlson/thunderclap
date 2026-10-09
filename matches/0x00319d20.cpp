@@ -3,4 +3,8 @@ struct Obj {
     int value;
     bool IsTwo();
 };
-bool Obj::IsTwo() { if (value == 2) return true; return false; }
+bool Obj::IsTwo() {
+    if (value == 2)
+        return true;
+    return false;
+}

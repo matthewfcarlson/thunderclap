@@ -1,5 +1,5 @@
 class SeqEvent {
-public:
+  public:
     virtual void vfunc_0(int);
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -9,7 +9,7 @@ public:
 };
 void Transform(int, void*);
 class SeqEventVarVolume : public SeqEvent {
-public:
+  public:
     virtual void vfunc_0(int);
 };
 void SeqEventVarVolume::vfunc_0(int value) {

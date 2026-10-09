@@ -1,2 +1,4 @@
 int g;
-void FUN_00267a90() { --g; }
+void FUN_00267a90() {
+    --g;
+}

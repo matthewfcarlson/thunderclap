@@ -1,4 +1,12 @@
-class Obj { public: char pad[0x1c]; int value; int a; int b; void init(); void set(const float*); };
+class Obj {
+  public:
+    char pad[0x1c];
+    int value;
+    int a;
+    int b;
+    void init();
+    void set(const float*);
+};
 extern const float zero;
 Obj* __fastcall target(Obj* self) {
     self->init();

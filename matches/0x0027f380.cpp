@@ -1,0 +1,20 @@
+class Obj {
+  public:
+    char pad[0x18];
+    struct E {
+        int key;
+        char p[0x44];
+        int active;
+        char q[0x14];
+    } entries[100];
+    int tail;
+    void f(int);
+};
+void Obj::f(int x) {
+    for (int i = 0; i < 100; i++) {
+        if (entries[i].active != 0 && entries[i].key == x) {
+            *(int*)((char*)this + i * 0x60 + 0x74) = 0;
+            return;
+        }
+    }
+}

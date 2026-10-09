@@ -1,4 +1,8 @@
-class Obj { public: char pad[0xc80]; int count; };
+class Obj {
+  public:
+    char pad[0xc80];
+    int count;
+};
 void __fastcall target(Obj* self) {
     int i = 2;
     if (i < self->count) {

@@ -1,2 +1,11 @@
-class CollisionWall { char pad[0x54]; public: void vfunc_15(unsigned int* p); };
-void CollisionWall::vfunc_15(unsigned int* p) { *(unsigned int*)(pad + 0x54) = p[0]; *(unsigned int*)(pad + 0x58) = p[1]; *(unsigned int*)(pad + 0x5c) = p[2]; }
+class CollisionWall {
+    char pad[0x54];
+
+  public:
+    void vfunc_15(unsigned int* p);
+};
+void CollisionWall::vfunc_15(unsigned int* p) {
+    *(unsigned int*)(pad + 0x54) = p[0];
+    *(unsigned int*)(pad + 0x58) = p[1];
+    *(unsigned int*)(pad + 0x5c) = p[2];
+}

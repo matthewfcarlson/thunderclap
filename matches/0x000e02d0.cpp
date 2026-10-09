@@ -1,8 +1,11 @@
 class Obj;
 typedef void (Obj::*MFn)(int, int, int, int);
-class Obj { public: void Dummy(); };
+class Obj {
+  public:
+    void Dummy();
+};
 class ParseFunctor {
-public:
+  public:
     virtual void vfunc_0(int, int);
     Obj* mObj;
     MFn mFn;

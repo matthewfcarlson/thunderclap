@@ -1,10 +1,10 @@
 class physics_PhysicsJoint {
-public:
+  public:
     virtual void vfunc_0();
 };
 
 class physics_PhysicsJoint3D : public physics_PhysicsJoint {
-public:
+  public:
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();

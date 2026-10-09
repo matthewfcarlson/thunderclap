@@ -1,2 +1,12 @@
-class PrimGroupSkinnedStreamed { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual unsigned int vfunc_5(); };
-unsigned int PrimGroupSkinnedStreamed::vfunc_5() { return 0x181; }
+class PrimGroupSkinnedStreamed {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual unsigned int vfunc_5();
+};
+unsigned int PrimGroupSkinnedStreamed::vfunc_5() {
+    return 0x181;
+}

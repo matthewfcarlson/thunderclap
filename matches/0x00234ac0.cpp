@@ -1,4 +1,26 @@
-class ParamValueString { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void* get(void*); };
-class ParamValueName : public ParamValueString { public: bool vfunc_6(void*, void*); };
-class Receiver { public: void run(void*); };
-bool ParamValueName::vfunc_6(void* a, void* b) { void* x = get(a); if (!x) return false; ((Receiver*)x)->run(b); return true; }
+class ParamValueString {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void* get(void*);
+};
+class ParamValueName : public ParamValueString {
+  public:
+    bool vfunc_6(void*, void*);
+};
+class Receiver {
+  public:
+    void run(void*);
+};
+bool ParamValueName::vfunc_6(void* a, void* b) {
+    void* x = get(a);
+    if (!x)
+        return false;
+    ((Receiver*)x)->run(b);
+    return true;
+}

@@ -1,4 +1,4 @@
-int FUN_002673a0(char *s, int h) {
+int FUN_002673a0(char* s, int h) {
     if (s != 0) {
         char c = *s;
         while (c != 0) {

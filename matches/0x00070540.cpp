@@ -1,9 +1,11 @@
 // Same code shape as 0x00070420 (propagated; names are from that function)
 typedef unsigned int uint;
 extern void* __cdecl Allocate(unsigned int);
-struct Track { void* Init(); };
+struct Track {
+    void* Init();
+};
 class TrackFactoryTemplate {
-public:
+  public:
     virtual void a();
     virtual void b();
     virtual void c();

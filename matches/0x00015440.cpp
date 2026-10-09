@@ -1,8 +1,14 @@
-struct C { void run(void*, int, float); };
-struct B { C* getC(); };
-struct A { B* get(); };
+struct C {
+    void run(void*, int, float);
+};
+struct B {
+    C* getC();
+};
+struct A {
+    B* get();
+};
 class CGrappleLocoStrafe4Action {
-public:
+  public:
     virtual void a();
     virtual void b();
     virtual void c();
@@ -21,6 +27,7 @@ void CGrappleLocoStrafe4Action::vfunc_4() {
     if (m24) {
         B* b = m1c->get();
         C* c = b->getC();
-        if (c) c->run(m24, 0, -1.0f);
+        if (c)
+            c->run(m24, 0, -1.0f);
     }
 }

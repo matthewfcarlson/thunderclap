@@ -1,10 +1,21 @@
-namespace fight { class TrackFactory {}; }
-namespace pure3d { class Entity {}; }
-namespace content { class LoadObject {}; }
-namespace core { class IRefCount {}; }
+namespace fight {
+class TrackFactory {};
+} // namespace fight
+namespace pure3d {
+class Entity {};
+} // namespace pure3d
+namespace content {
+class LoadObject {};
+} // namespace content
+namespace core {
+class IRefCount {};
+} // namespace core
 
-class TrackFactoryTemplate_CCameraHintTrack : public fight::TrackFactory, public pure3d::Entity, public content::LoadObject, public core::IRefCount {
-public:
+class TrackFactoryTemplate_CCameraHintTrack : public fight::TrackFactory,
+                                              public pure3d::Entity,
+                                              public content::LoadObject,
+                                              public core::IRefCount {
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();

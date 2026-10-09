@@ -1,10 +1,10 @@
 class Inner {
-public:
+  public:
     void Step();
     char pad[0x10];
 };
 class Obj {
-public:
+  public:
     void Run();
     void Other();
     char pad0[0x40];

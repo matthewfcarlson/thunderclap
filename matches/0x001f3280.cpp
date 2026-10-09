@@ -1,4 +1,8 @@
-class CSoundSequenceVoice { public: void* vftable; void* member; };
+class CSoundSequenceVoice {
+  public:
+    void* vftable;
+    void* member;
+};
 extern void __cdecl FUN_0024af00(void*);
 void __fastcall FUN_001f3280(CSoundSequenceVoice* self) {
     self->vftable = (void*)0x424ae4;

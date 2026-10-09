@@ -1,6 +1,9 @@
-struct Core { void Init(void*, int, int, int, int); void Finish(); };
+struct Core {
+    void Init(void*, int, int, int, int);
+    void Finish();
+};
 class Obj {
-public:
+  public:
     Core* core;
     char pad[0x18];
     int field1;

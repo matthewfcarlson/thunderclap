@@ -1,0 +1,57 @@
+// Same code shape as 0x00276700 (propagated; names are from that function)
+class Sub {
+  public:
+    virtual void F0();
+    virtual void F1();
+};
+class InstanceDrive {
+  public:
+    virtual void F0();
+    virtual void F1();
+    virtual void F2();
+    virtual void F3();
+    virtual void F4();
+    virtual void F5();
+    virtual void F6();
+    virtual void F7();
+    virtual void F8();
+    virtual void F9();
+    virtual void F10();
+    virtual void F11();
+    virtual void F12();
+    virtual void F13();
+    virtual void F14();
+    virtual void F15();
+    virtual void F16();
+    virtual void F17();
+    virtual void F18();
+    virtual void F19();
+    virtual void F20();
+    virtual void F21();
+    virtual void F22();
+    virtual void F23();
+    virtual void F24();
+    virtual void F25();
+    virtual void F26();
+    virtual void F27();
+    virtual void F28();
+    virtual void F29();
+    virtual void F30();
+    virtual void F31();
+    virtual void F32();
+    virtual void F33();
+    virtual void F34();
+    virtual void F35();
+    virtual void F36();
+    virtual void F37();
+    virtual void F38();
+    virtual void F39();
+    virtual void F40();
+    Sub sub;
+    int count;
+};
+void InstanceDrive::F0() {
+    sub.F0();
+    ++count;
+    sub.F1();
+}

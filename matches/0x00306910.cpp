@@ -1,2 +1,28 @@
-class CollisionVolume { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h(); virtual void i(); virtual void j(); virtual void k(); virtual void l(); virtual void m(); virtual void n(); virtual void o(); void helper1(); void helper2(); char pad[0x15]; unsigned char flag; };
-void CollisionVolume::k() { helper1(); helper2(); i(); flag=1; }
+class CollisionVolume {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual void f();
+    virtual void g();
+    virtual void h();
+    virtual void i();
+    virtual void j();
+    virtual void k();
+    virtual void l();
+    virtual void m();
+    virtual void n();
+    virtual void o();
+    void helper1();
+    void helper2();
+    char pad[0x15];
+    unsigned char flag;
+};
+void CollisionVolume::k() {
+    helper1();
+    helper2();
+    i();
+    flag = 1;
+}

@@ -1,2 +1,16 @@
-class HulkShaderCallback { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual int f5(int); float pad; float value; };
-int HulkShaderCallback::f5(int param) { if (value > 0.0f && param == 0) param = 1; return param; }
+class HulkShaderCallback {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual int f5(int);
+    float pad;
+    float value;
+};
+int HulkShaderCallback::f5(int param) {
+    if (value > 0.0f && param == 0)
+        param = 1;
+    return param;
+}

@@ -1,1 +1,16 @@
-struct E { void f(); }; struct X { char pad[0xa0]; void run(); }; void X::run() { E* p = (E*)((char*)this + 0xa0); int i = 0x14; do { p = (E*)((char*)p - 8); p->f(); --i; } while (i != 0); }
+struct E {
+    void f();
+};
+struct X {
+    char pad[0xa0];
+    void run();
+};
+void X::run() {
+    E* p = (E*)((char*)this + 0xa0);
+    int i = 0x14;
+    do {
+        p = (E*)((char*)p - 8);
+        p->f();
+        --i;
+    } while (i != 0);
+}

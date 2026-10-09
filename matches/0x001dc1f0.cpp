@@ -1,0 +1,17 @@
+extern int __stdcall FUN_001dc070(void*);
+class Obj {
+  public:
+    char pad[0x62a];
+    short values[1];
+    bool target(void* param);
+};
+bool Obj::target(void* param) {
+    if (param) {
+        int i = FUN_001dc070((char*)param + 8);
+        if (i >= 0) {
+            int x = values[i * 20];
+            return ((unsigned char*)this)[(x + 0x104e) * 20] >> 1 & 1;
+        }
+    }
+    return false;
+}

@@ -1,9 +1,21 @@
-struct Manager { void f(void* g, void* b, int v); };
-struct Global { char pad[8]; Manager* manager; };
+struct Manager {
+    void f(void* g, void* b, int v);
+};
+struct Global {
+    char pad[8];
+    Manager* manager;
+};
 extern Global* g_4dd700;
-struct H1 { void* f(); };
-struct H2 { void* f(); };
-struct X { char pad[0x14]; int value; };
+struct H1 {
+    void* f();
+};
+struct H2 {
+    void* f();
+};
+struct X {
+    char pad[0x14];
+    int value;
+};
 struct CCameraHintAction {
     char pad[0x1c];
     H1* m1c;

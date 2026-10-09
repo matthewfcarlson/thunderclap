@@ -1,3 +1,14 @@
-class B { public: void F(); };
-class A { public: void* v; char pad[4]; char flag; };
-void __fastcall target(A* p) { if (p->flag) ((B*)**(void***)p)->F(); }
+class B {
+  public:
+    void F();
+};
+class A {
+  public:
+    void* v;
+    char pad[4];
+    char flag;
+};
+void __fastcall target(A* p) {
+    if (p->flag)
+        ((B*)**(void***)p)->F();
+}

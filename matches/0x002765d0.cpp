@@ -1,0 +1,42 @@
+struct Mgr {
+    virtual void m0();
+    virtual void m1();
+    virtual void m2();
+    virtual void m3();
+    virtual void Free(void* p);
+};
+struct Obj {
+    virtual void o0();
+    virtual void Rel();
+};
+struct Lock;
+extern Lock gLock;
+extern Mgr* gMgr;
+extern int vt0, vt4, vtR;
+void __cdecl Enter(Lock*);
+void __cdecl Leave(Lock*);
+struct Sub {
+    void Dtor();
+};
+struct File {
+    int v0, v4, v8;
+    Obj* o;
+    char pad[0x12c - 0x10];
+    Sub sub;
+    File* Fn(unsigned char f);
+    void Close();
+};
+File* File::Fn(unsigned char f) {
+    *(int*)this = (int)&vt0;
+    v4 = (int)&vt4;
+    Close();
+    o->Rel();
+    sub.Dtor();
+    *(int*)this = (int)&vtR;
+    if (f & 1) {
+        Enter(&gLock);
+        gMgr->Free(this);
+        Leave(&gLock);
+    }
+    return this;
+}

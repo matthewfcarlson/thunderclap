@@ -1,8 +1,12 @@
 struct ThingB {};
-struct ThingA { ThingB* next(); };
-struct Start { ThingA* get(); };
+struct ThingA {
+    ThingB* next();
+};
+struct Start {
+    ThingA* get();
+};
 class CMotionHitGroundHeightAction {
-public:
+  public:
     char pad[0x1c];
     Start* member1c;
     void* member20;

@@ -3,7 +3,7 @@ extern char TrackFactoryTemplate_vftable_obj;
 class TokenTrack;
 
 class TrackFactoryTemplate {
-public:
+  public:
     void* mVptr;
     void Dtor_Base1();
     void Dtor_Base2();

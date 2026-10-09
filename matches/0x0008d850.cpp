@@ -1,5 +1,5 @@
 class CPlatformManager {
-public:
+  public:
     virtual void v0();
     int a;
     int b;

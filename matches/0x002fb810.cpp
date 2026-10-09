@@ -1,0 +1,34 @@
+namespace physics {
+class CollisionOBB {
+  public:
+    virtual void a0();
+    virtual void a1();
+    virtual int a2();
+    virtual void a3();
+    virtual int a4();
+    virtual void a5();
+    virtual void a6();
+    virtual void a7();
+    virtual void a8();
+    virtual void a9();
+    virtual void a10();
+    virtual void vfunc_11(void*);
+    virtual void a12();
+    virtual void a13();
+    virtual void a14();
+    virtual void a15();
+    char pad[0x50];
+};
+} // namespace physics
+struct Obj {
+    char pad[256];
+    void cp(void*, void*);
+    void end(int, int);
+};
+void physics::CollisionOBB::vfunc_11(void* arg) {
+    Obj* o = (Obj*)arg;
+    o->cp((char*)this + 0x54, (char*)this + 0x54);
+    o->cp((char*)this + 0x60, (char*)this + 0x60);
+    o->cp((char*)this + 0x6c, (char*)this + 0x6c);
+    o->end(this->a4(), this->a4());
+}

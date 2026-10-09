@@ -1,6 +1,8 @@
-struct Triple { int a,b,c; };
+struct Triple {
+    int a, b, c;
+};
 class Target {
-public:
+  public:
     char pad[0x5c];
     int x, y, z;
     char pad2[8];

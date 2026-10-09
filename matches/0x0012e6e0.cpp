@@ -2,7 +2,7 @@ typedef unsigned int u32;
 extern void* LocationVtable;
 extern void __cdecl ReleaseThing(u32);
 class Obj {
-public:
+  public:
     u32 x[7];
     void Finish();
 };

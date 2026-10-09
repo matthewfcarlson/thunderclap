@@ -1,3 +1,14 @@
 // Same code shape as 0x0012fb00 (propagated; names are from that function)
-class DebugPrintCondition { public: virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual bool vfunc_6(int, int, int); };
-bool DebugPrintCondition::vfunc_6(int, int, int) { return true; }
+class DebugPrintCondition {
+  public:
+    virtual void vfunc_0();
+    virtual void vfunc_1();
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    virtual void vfunc_4();
+    virtual void vfunc_5();
+    virtual bool vfunc_6(int, int, int);
+};
+bool DebugPrintCondition::vfunc_6(int, int, int) {
+    return true;
+}

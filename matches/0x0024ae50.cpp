@@ -6,6 +6,7 @@ struct Obj {
 void __cdecl FUN_00247550(void*, Obj*);
 Obj* Obj::Bar(unsigned char flag) {
     Helper();
-    if (flag & 1) FUN_00247550((void*)0x4e5fa8, this);
+    if (flag & 1)
+        FUN_00247550((void*)0x4e5fa8, this);
     return this;
 }

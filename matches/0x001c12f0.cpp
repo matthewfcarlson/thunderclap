@@ -1,3 +1,26 @@
-class Thing { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h(); virtual void i(); virtual void j(); virtual void k(); virtual void l(); virtual void m(); virtual void n(); virtual int get(); };
-class Wrapper { public: char pad[8]; Thing* value; };
-int __fastcall FUN_001c12f0(Wrapper* self) { return self->value->get() + 0x20; }
+class Thing {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual void f();
+    virtual void g();
+    virtual void h();
+    virtual void i();
+    virtual void j();
+    virtual void k();
+    virtual void l();
+    virtual void m();
+    virtual void n();
+    virtual int get();
+};
+class Wrapper {
+  public:
+    char pad[8];
+    Thing* value;
+};
+int __fastcall FUN_001c12f0(Wrapper* self) {
+    return self->value->get() + 0x20;
+}

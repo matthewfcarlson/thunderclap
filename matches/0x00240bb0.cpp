@@ -1,6 +1,6 @@
 extern int __fastcall FUN_00267f80(void*);
 extern void __cdecl FUN_0024c060();
-extern void __cdecl FUN_00243090(int,float);
+extern void __cdecl FUN_00243090(int, float);
 extern void __cdecl FUN_00240f50();
 extern int DAT_004e5ca8;
 extern int DAT_004e5cac;

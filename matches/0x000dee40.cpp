@@ -1,11 +1,14 @@
 class CBase {
-public:
-    CBase() { a = 0; b = 0; }
+  public:
+    CBase() {
+        a = 0;
+        b = 0;
+    }
     int a;
     int b;
 };
 class CDropShadowDisplayEffect : public CBase {
-public:
+  public:
     CDropShadowDisplayEffect();
     virtual void f();
     float c;

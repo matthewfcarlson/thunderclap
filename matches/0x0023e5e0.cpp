@@ -1,6 +1,9 @@
-class Helper { public: void first(); };
+class Helper {
+  public:
+    void first();
+};
 class StopTrack {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -17,6 +20,7 @@ StopTrack* StopTrack::vfunc_5(unsigned char flag) {
     *(void**)this = (void*)0x428db0;
     h.first();
     second();
-    if (flag & 1) destroy(this);
+    if (flag & 1)
+        destroy(this);
     return this;
 }

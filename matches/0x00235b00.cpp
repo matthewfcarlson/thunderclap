@@ -1,6 +1,13 @@
-struct Base { void Init(int); };
-struct Part { void Init(); };
-struct FightNodeParentCondition { FightNodeParentCondition* Construct(); char pad[0x20]; };
+struct Base {
+    void Init(int);
+};
+struct Part {
+    void Init();
+};
+struct FightNodeParentCondition {
+    FightNodeParentCondition* Construct();
+    char pad[0x20];
+};
 FightNodeParentCondition* FightNodeParentCondition::Construct() {
     ((Base*)this)->Init(0);
     *(int*)this = 0x427d14;

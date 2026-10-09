@@ -3,7 +3,7 @@ extern "C" int __cdecl CallB();
 extern "C" int __cdecl CallC();
 
 class Target {
-public:
+  public:
     char pad[0x10];
     int state;
     void Run(int value);

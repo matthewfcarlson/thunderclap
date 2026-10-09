@@ -1,1 +1,29 @@
-typedef unsigned int u32; struct Arg{char pad[0x3c];u32 value;}; struct Result{char pad[0x44];u32 link;}; extern Result* __cdecl FUN_0024a940(u32,void*); class SeqActionChannelSends{public: virtual void vfunc_0(); virtual void vfunc_1(Arg*); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); char pad[4]; void* data; u32 state;}; void SeqActionChannelSends::vfunc_1(Arg* arg){ u32 val=arg->value; Result* r=FUN_0024a940(val,(char*)data+0x108); r->link=(u32)((char*)data+8); state=0;}
+typedef unsigned int u32;
+struct Arg {
+    char pad[0x3c];
+    u32 value;
+};
+struct Result {
+    char pad[0x44];
+    u32 link;
+};
+extern Result* __cdecl FUN_0024a940(u32, void*);
+class SeqActionChannelSends {
+  public:
+    virtual void vfunc_0();
+    virtual void vfunc_1(Arg*);
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    virtual void vfunc_4();
+    virtual void vfunc_5();
+    virtual void vfunc_6();
+    char pad[4];
+    void* data;
+    u32 state;
+};
+void SeqActionChannelSends::vfunc_1(Arg* arg) {
+    u32 val = arg->value;
+    Result* r = FUN_0024a940(val, (char*)data + 0x108);
+    r->link = (u32)((char*)data + 8);
+    state = 0;
+}

@@ -1,7 +1,7 @@
 // Same code shape as 0x0026f190 (propagated; names are from that function)
 namespace core {
 class Drive {
-public:
+  public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -29,8 +29,10 @@ public:
 };
 void __cdecl helper(int);
 class XboxDrive : public Drive {
-public:
+  public:
     void vfunc_0_adjc();
 };
-void XboxDrive::vfunc_0_adjc() { helper(member); }
+void XboxDrive::vfunc_0_adjc() {
+    helper(member);
 }
+} // namespace core

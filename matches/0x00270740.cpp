@@ -1,7 +1,7 @@
 extern "C" void* memcpy(void*, const void*, unsigned int);
 
 class ControllerBuffer {
-public:
+  public:
     virtual void v0();
     virtual void v1();
     virtual void v2();

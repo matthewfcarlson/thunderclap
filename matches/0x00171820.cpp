@@ -1,6 +1,12 @@
-struct A { void* f(); };
-struct B { void* g(); };
-struct C { void h(int); };
+struct A {
+    void* f();
+};
+struct B {
+    void* g();
+};
+struct C {
+    void h(int);
+};
 struct IntentionClearAction {
     char pad[0x20];
     A* member;

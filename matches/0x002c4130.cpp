@@ -1,2 +1,24 @@
-class Target { public: virtual void A(); virtual void B(); virtual void C(); virtual void D(); virtual void E(); virtual void F(); virtual void G(); virtual void H(); virtual void I(); virtual void J(int); char pad[0x58 - 4]; int a; int b; int c; void Run(int x, int y, int z); };
-void Target::Run(int x, int y, int z) { a=x; b=y; c=z; J(1); }
+class Target {
+  public:
+    virtual void A();
+    virtual void B();
+    virtual void C();
+    virtual void D();
+    virtual void E();
+    virtual void F();
+    virtual void G();
+    virtual void H();
+    virtual void I();
+    virtual void J(int);
+    char pad[0x58 - 4];
+    int a;
+    int b;
+    int c;
+    void Run(int x, int y, int z);
+};
+void Target::Run(int x, int y, int z) {
+    a = x;
+    b = y;
+    c = z;
+    J(1);
+}

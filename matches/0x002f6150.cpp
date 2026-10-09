@@ -1,3 +1,32 @@
-class SimulatedObject { public: virtual float v0(); virtual float v1(); virtual float v2(); virtual float v3(); virtual float v4(); virtual float v5(); virtual float v6(); virtual float v7(); virtual float v8(); virtual float v9(); virtual float v10(); virtual float v11(); virtual float v12(); virtual float v13(); virtual float v14(); virtual float v15(); };
-class PhysicsObject : public SimulatedObject { public: char pad[0x1a8]; float value; char pad2[0x14]; unsigned char flag; float vfunc_15(); };
-float PhysicsObject::vfunc_15() { if (flag) return SimulatedObject::v15(); return value; }
+class SimulatedObject {
+  public:
+    virtual float v0();
+    virtual float v1();
+    virtual float v2();
+    virtual float v3();
+    virtual float v4();
+    virtual float v5();
+    virtual float v6();
+    virtual float v7();
+    virtual float v8();
+    virtual float v9();
+    virtual float v10();
+    virtual float v11();
+    virtual float v12();
+    virtual float v13();
+    virtual float v14();
+    virtual float v15();
+};
+class PhysicsObject : public SimulatedObject {
+  public:
+    char pad[0x1a8];
+    float value;
+    char pad2[0x14];
+    unsigned char flag;
+    float vfunc_15();
+};
+float PhysicsObject::vfunc_15() {
+    if (flag)
+        return SimulatedObject::v15();
+    return value;
+}

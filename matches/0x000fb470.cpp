@@ -1,7 +1,7 @@
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 
 class Thing {
-public:
+  public:
     int a[5];
     float value;
     char text[32];

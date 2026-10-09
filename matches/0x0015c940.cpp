@@ -1,11 +1,22 @@
-struct Sub { void setA(int a, int b, float c); void setB(int a, int b); };
-struct Child { void doIt(int a); };
-struct Obj { Sub* make(); Child* child(); };
-struct Mgr { Obj* get(); };
+struct Sub {
+    void setA(int a, int b, float c);
+    void setB(int a, int b);
+};
+struct Child {
+    void doIt(int a);
+};
+struct Obj {
+    Sub* make();
+    Child* child();
+};
+struct Mgr {
+    Obj* get();
+};
 
-namespace hulkfight { namespace motion {
+namespace hulkfight {
+namespace motion {
 class ClimbLocomotionAction {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -25,8 +36,10 @@ void ClimbLocomotionAction::vfunc_4() {
             s->setA(m20, 0, -1.0f);
             s->setB(m24, 0);
             Child* c = o->child();
-            if (c) c->doIt(0);
+            if (c)
+                c->doIt(0);
         }
     }
 }
-}}
+} // namespace motion
+} // namespace hulkfight

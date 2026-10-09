@@ -1,7 +1,12 @@
 typedef unsigned int size_t;
 extern "C" void* __cdecl Alloc(size_t);
-struct Track { unsigned char pad[0x14]; void Init(); };
-struct Factory { void* vfunc_5(); };
+struct Track {
+    unsigned char pad[0x14];
+    void Init();
+};
+struct Factory {
+    void* vfunc_5();
+};
 void* Factory::vfunc_5() {
     Track* p = (Track*)Alloc(0x14);
     if (p) {

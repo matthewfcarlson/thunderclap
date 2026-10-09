@@ -1,0 +1,135 @@
+class FEObj {
+  public:
+    void Fn(int);
+};
+class FEChild {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8();
+    virtual void f9();
+    virtual void f10();
+    virtual void f11();
+    virtual void f12();
+    virtual void f13();
+    virtual void f14();
+    virtual void f15();
+    virtual void f16();
+    virtual void f17();
+    virtual void f18();
+    virtual void f19();
+    virtual void f20();
+    virtual void f21();
+    virtual void f22();
+    virtual void f23();
+    virtual void f24();
+    virtual void f25();
+    virtual void f26();
+    virtual void f27();
+    virtual void f28();
+    virtual void f29();
+    virtual void f30();
+    virtual void f31();
+    virtual void f32();
+    virtual void f33();
+    virtual void f34();
+    virtual void f35();
+    virtual void f36();
+    virtual void f37();
+    virtual void f38();
+    virtual void f39();
+    virtual void f40();
+    virtual void f41();
+    virtual void f42();
+    virtual void f43();
+    virtual void f44();
+    virtual void f45();
+    virtual void f46();
+    virtual void f47();
+    virtual void f48();
+    virtual void f49();
+    virtual void f50();
+    virtual void f51();
+    virtual void f52();
+    virtual void f53();
+    virtual void f54();
+    virtual void f55();
+    virtual void f56();
+    virtual FEObj* f57(int);
+    int g(int);
+};
+class FEContainer {
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    virtual void v14();
+    virtual void v15();
+    virtual void v16();
+    virtual void v17();
+    virtual void v18();
+    virtual void v19();
+    virtual void v20();
+    virtual void v21();
+    virtual void v22();
+    virtual void v23();
+    virtual void v24(int, int);
+    virtual void v25();
+    virtual void v26();
+    virtual void v27();
+    virtual void v28();
+    virtual void v29();
+    virtual void v30();
+    virtual void v31();
+    virtual void v32();
+    virtual int v33(int, int);
+    virtual void v34();
+    virtual void v35();
+    virtual void v36();
+    virtual void v37();
+    virtual void v38();
+    virtual void v39();
+    virtual int v40(int);
+    virtual void v41();
+    virtual void v42();
+    virtual void v43();
+    virtual void v44();
+    virtual void v45();
+    virtual void v46();
+    virtual void v47();
+    virtual void v48();
+    virtual void v49();
+    virtual void v50();
+    virtual void v51();
+    virtual void v52();
+    FEChild* child;
+};
+int FEContainer::v33(int a, int b) {
+    FEObj* r = child->f57(a);
+    v24((int)r, a);
+    if (b) {
+        int x = v40(b);
+        if (!x)
+            x = child->g(b);
+        if (x)
+            r->Fn(x);
+    }
+    return (int)r;
+}

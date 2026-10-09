@@ -1,7 +1,7 @@
 extern int g_unknown;
 void Init();
 class RefCount {
-public:
+  public:
     void* vftable;
     int mRef;
     void* mParam;

@@ -2,7 +2,7 @@ typedef unsigned int u32;
 void thunk_FUN_00267090(void*);
 void* FUN_0008d6d0(u32);
 class Image32 {
-public:
+  public:
     char pad0[0x10];
     int width;
     int height;

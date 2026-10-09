@@ -1,5 +1,5 @@
 class CGrappleTimerCondition {
-public:
+  public:
     void* vfptr;        // +0x00
     int base0;          // +0x04
     int base1;          // +0x08
@@ -14,8 +14,7 @@ public:
 extern char CGrappleTimerCondition_vftable[];
 extern void* __cdecl AllocMem(unsigned int size);
 
-void* vfunc_5()
-{
+void* vfunc_5() {
     CGrappleTimerCondition* p = (CGrappleTimerCondition*)AllocMem(0x1c);
     if (p != 0) {
         p->Ctor(0);

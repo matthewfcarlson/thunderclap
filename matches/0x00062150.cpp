@@ -1,7 +1,18 @@
-struct Small { ~Small(); char p[12]; };
-struct Big { ~Big(); char p[16]; };
-struct Other { ~Other(); char p[4]; };
-struct Base { virtual ~Base(); };
+struct Small {
+    ~Small();
+    char p[12];
+};
+struct Big {
+    ~Big();
+    char p[16];
+};
+struct Other {
+    ~Other();
+    char p[4];
+};
+struct Base {
+    virtual ~Base();
+};
 struct CWeaponCollisionTrack : Base {
     char pad[0x28];
     Small c;

@@ -1,5 +1,4 @@
-unsigned int FUN_00215f50(unsigned int param_1)
-{
+unsigned int FUN_00215f50(unsigned int param_1) {
     unsigned int iVar1 = 0;
     if (param_1 >= 8) {
         do {

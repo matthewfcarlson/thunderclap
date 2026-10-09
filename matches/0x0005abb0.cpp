@@ -1,7 +1,12 @@
-class Helper { public: void Init(); void Finish(); };
+class Helper {
+  public:
+    void Init();
+    void Finish();
+};
 class CGrappleSwapTrack {
-public:
-    char pad[0x10]; int member10, member14, member18;
+  public:
+    char pad[0x10];
+    int member10, member14, member18;
     void Run();
 };
 void CGrappleSwapTrack::Run() {

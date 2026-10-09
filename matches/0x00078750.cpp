@@ -1,4 +1,7 @@
-struct Vec3 { float x,y,z; void Add(Vec3* out, Vec3* other); };
+struct Vec3 {
+    float x, y, z;
+    void Add(Vec3* out, Vec3* other);
+};
 void Vec3::Add(Vec3* out, Vec3* other) {
     float z = other->z + this->z;
     float y = other->y + this->y;

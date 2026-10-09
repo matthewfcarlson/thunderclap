@@ -1,6 +1,6 @@
 namespace core {
 class File {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -35,7 +35,9 @@ public:
     virtual void vfunc_31();
     void vfunc_0_adj4();
 };
-}
+} // namespace core
 extern "C" void init(void*);
 extern "C" char g_data;
-void core::File::vfunc_0_adj4() { init(&g_data); }
+void core::File::vfunc_0_adj4() {
+    init(&g_data);
+}

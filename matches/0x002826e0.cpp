@@ -1,0 +1,46 @@
+class Item {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual void f();
+    virtual void g();
+    virtual void h();
+    virtual void i();
+    virtual void j();
+    virtual void k();
+    virtual void call(int, int);
+    virtual bool test();
+};
+struct Entry {
+    Item* p;
+    char pad[12];
+};
+class Queue {
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6(int, int);
+    char pad[0x44];
+    Entry* items;
+    char pad2[0x10];
+    char* flags;
+    void run(int, int);
+};
+void Queue::run(int arg, int unused) {
+    int i;
+    for (i = 0; i < 6; i++) {
+        Item* p = items[i].p;
+        if (flags[i * 8 + 4] && p) {
+            p->call(arg, 0);
+            if (p->test())
+                flags[i * 8 + 4] = 0;
+        }
+    }
+}

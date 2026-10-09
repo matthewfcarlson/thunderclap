@@ -1,5 +1,5 @@
 struct CStaticAllocator {
-    void *vf;
+    void* vf;
     char pad[0xC];
     int m10;
     int m14;

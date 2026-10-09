@@ -1,5 +1,10 @@
 typedef unsigned int u32;
-struct Obj { char pad0[8]; int a; char pad1[0x10]; int b; };
+struct Obj {
+    char pad0[8];
+    int a;
+    char pad1[0x10];
+    int b;
+};
 void helper(Obj*, void*, void*, int, int);
 void callback();
 void FUN_00213ae0(Obj* self, u32 p2, u32 p3) {

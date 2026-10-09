@@ -1,2 +1,19 @@
-class StringReader { public: char pad0[8]; unsigned char* mBuffer; char padc[4]; unsigned int mLength; unsigned int mPosition; };
-namespace fight { class BufferStringReader : public StringReader { public: unsigned char vfunc_4(); }; unsigned char BufferStringReader::vfunc_4() { if (mPosition >= mLength) return 0; return mBuffer[mPosition]; } }
+class StringReader {
+  public:
+    char pad0[8];
+    unsigned char* mBuffer;
+    char padc[4];
+    unsigned int mLength;
+    unsigned int mPosition;
+};
+namespace fight {
+class BufferStringReader : public StringReader {
+  public:
+    unsigned char vfunc_4();
+};
+unsigned char BufferStringReader::vfunc_4() {
+    if (mPosition >= mLength)
+        return 0;
+    return mBuffer[mPosition];
+}
+} // namespace fight

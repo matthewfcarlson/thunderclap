@@ -1,5 +1,5 @@
 class d3dExtFramebufferEffects {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1(unsigned char, int, int, unsigned char);
     virtual void vfunc_2();
@@ -17,4 +17,9 @@ public:
     int c;
     unsigned char d;
 };
-void d3dExtFramebufferEffects::vfunc_1(unsigned char x, int y, int z, unsigned char w) { a=x; b=y; c=z; d=w; }
+void d3dExtFramebufferEffects::vfunc_1(unsigned char x, int y, int z, unsigned char w) {
+    a = x;
+    b = y;
+    c = z;
+    d = w;
+}

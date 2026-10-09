@@ -1,6 +1,11 @@
 extern "C" void __cdecl FUN_002684c0();
 extern int gCount;
-struct Helper { void a(); void d(); void b(int); void c(int); };
+struct Helper {
+    void a();
+    void d();
+    void b(int);
+    void c(int);
+};
 struct Obj {
     char pad[4];
     Helper* p;
@@ -15,7 +20,11 @@ void Obj::run() {
     FUN_002684c0();
     ++gCount;
     p->d();
-    for (int i = 0; i < 13; ++i) if (flags[i]) p->b(i);
-    for (int i = 0; i < 2; ++i) if (flags2[i]) p->c(i);
+    for (int i = 0; i < 13; ++i)
+        if (flags[i])
+            p->b(i);
+    for (int i = 0; i < 2; ++i)
+        if (flags2[i])
+            p->c(i);
     finish();
 }

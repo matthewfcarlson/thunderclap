@@ -1,6 +1,6 @@
 // Same code shape as 0x0025d3e0 (propagated; names are from that function)
 class Object {
-public:
+  public:
     int GetValue();
 
     char pad[0x58];

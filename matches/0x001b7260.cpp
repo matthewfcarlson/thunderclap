@@ -1,5 +1,5 @@
 class C {
-public:
+  public:
     char pad[0x118];
     int a;
     int b;

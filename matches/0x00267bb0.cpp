@@ -1,5 +1,5 @@
 class TimerList {
-public:
+  public:
     virtual void f0();
     virtual void f1();
     virtual void f2(int);
@@ -10,5 +10,6 @@ public:
     int mRefCount;
 };
 void TimerList::f1() {
-    if (--mRefCount == 0) f2(1);
+    if (--mRefCount == 0)
+        f2(1);
 }

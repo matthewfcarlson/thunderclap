@@ -1,5 +1,14 @@
 // Same code shape as 0x001ef6d0 (propagated; names are from that function)
-class Singleton { public: void Run(); };
-extern Singleton **gSingleton;
-class CSoundCommand_PlayCuedNISEvent { public: virtual void vfunc_0(); virtual void vfunc_1(int,int); };
-void CSoundCommand_PlayCuedNISEvent::vfunc_1(int,int) { (*gSingleton)->Run(); }
+class Singleton {
+  public:
+    void Run();
+};
+extern Singleton** gSingleton;
+class CSoundCommand_PlayCuedNISEvent {
+  public:
+    virtual void vfunc_0();
+    virtual void vfunc_1(int, int);
+};
+void CSoundCommand_PlayCuedNISEvent::vfunc_1(int, int) {
+    (*gSingleton)->Run();
+}

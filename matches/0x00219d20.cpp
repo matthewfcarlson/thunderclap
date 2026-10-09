@@ -1,0 +1,18 @@
+typedef unsigned int u32;
+typedef unsigned char u8;
+extern void* Copy(void*, void*, u32, u32);
+struct Data {
+    char pad0[7];
+    u8 count;
+    char pad8[4];
+    u32 ptrC;
+    u32 ptr10;
+    char pad14[8];
+    u32 count1C;
+};
+void Target(void* a, Data* b) {
+    if (b->count)
+        Copy(a, (void*)b->ptr10, (1 << b->count) * 20, 0);
+    Copy(a, (void*)b->ptrC, b->count1C << 3, 0);
+    Copy(a, b, 32, 0);
+}

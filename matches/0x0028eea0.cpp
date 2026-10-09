@@ -1,3 +1,30 @@
-class Receiver { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void invoke(int,int); };
-class ShaderFloatBroadcast { public: virtual void a(); virtual void b(); virtual void c(); virtual int vfunc_3(void*); virtual void d(); virtual void e(); char pad[4]; int x; int y; };
-int ShaderFloatBroadcast::vfunc_3(void* p) { if (p) { Receiver* r=*(Receiver**)((char*)p+16); r->invoke(x,y); } return (int)p; }
+class Receiver {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void invoke(int, int);
+};
+class ShaderFloatBroadcast {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual int vfunc_3(void*);
+    virtual void d();
+    virtual void e();
+    char pad[4];
+    int x;
+    int y;
+};
+int ShaderFloatBroadcast::vfunc_3(void* p) {
+    if (p) {
+        Receiver* r = *(Receiver**)((char*)p + 16);
+        r->invoke(x, y);
+    }
+    return (int)p;
+}

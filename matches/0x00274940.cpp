@@ -1,0 +1,52 @@
+class Service {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual void f();
+    virtual void g();
+    virtual void h();
+    virtual void i();
+    virtual void j();
+    virtual void k();
+    virtual void l();
+    virtual void m();
+    virtual void n();
+    virtual void o();
+    virtual void p();
+    virtual void q();
+    virtual void r();
+    virtual void s();
+    virtual void t();
+    virtual void u(void*);
+};
+class Inner {
+  public:
+    virtual void close();
+    virtual void done();
+};
+struct Drive {
+    virtual void v0();
+    char pad[8];
+    Service* service;
+    char pad2[0x10];
+    unsigned char flag;
+};
+class DriveFindCloseRequest {
+  public:
+    char pad[8];
+    Drive* volatile drive;
+    int vfunc_1();
+};
+int DriveFindCloseRequest::vfunc_1() {
+    Drive* d = drive;
+    Service* s = d->service;
+    d->flag = 0;
+    s->u((char*)drive + 0x1c);
+    ((Inner*)((char*)drive + 4))->close();
+    *(int*)((char*)drive + 0x18) = 0;
+    ((Inner*)((char*)drive + 4))->done();
+    return 1;
+}

@@ -1,5 +1,5 @@
 class ParamEnumConstList {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -7,7 +7,7 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     virtual void vfunc_6();
-    virtual int  vfunc_7(int arg);
+    virtual int vfunc_7(int arg);
     virtual void vfunc_8();
 
     char pad[0x10];

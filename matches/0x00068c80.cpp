@@ -1,2 +1,22 @@
-class CTrack { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual int f8(int a, int b); virtual void f9(); virtual void f10(); virtual int f11(int); virtual void f12(); };
-int CTrack::f8(int a, int b) { int r = f11(b); if (r == 0) r = a; return r; }
+class CTrack {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual int f8(int a, int b);
+    virtual void f9();
+    virtual void f10();
+    virtual int f11(int);
+    virtual void f12();
+};
+int CTrack::f8(int a, int b) {
+    int r = f11(b);
+    if (r == 0)
+        r = a;
+    return r;
+}

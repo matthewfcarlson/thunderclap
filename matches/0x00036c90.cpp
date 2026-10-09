@@ -1,2 +1,10 @@
-class C { char pad[0x1e04]; public: void Set(unsigned int index, unsigned int value); };
-void C::Set(unsigned int index, unsigned int value) { if (index < 0x10) *(unsigned int*)(pad + 0x1e04 + index * 4) = value; }
+class C {
+    char pad[0x1e04];
+
+  public:
+    void Set(unsigned int index, unsigned int value);
+};
+void C::Set(unsigned int index, unsigned int value) {
+    if (index < 0x10)
+        *(unsigned int*)(pad + 0x1e04 + index * 4) = value;
+}

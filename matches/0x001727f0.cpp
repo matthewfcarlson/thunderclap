@@ -1,10 +1,19 @@
-struct Helper1 { int f(); };
-struct Helper2 { int f(); };
-struct Helper3 { void f(void*); };
+struct Helper1 {
+    int f();
+};
+struct Helper2 {
+    int f();
+};
+struct Helper3 {
+    void f(void*);
+};
 struct MomentumXZAddAction {
-    virtual void a(); virtual void b(); virtual void c();
+    virtual void a();
+    virtual void b();
+    virtual void c();
     virtual bool vfunc_3(unsigned int x, unsigned int y);
-    virtual void d(); virtual void e();
+    virtual void d();
+    virtual void e();
     char pad[0x1c];
     Helper1* member;
     int field24;
@@ -12,12 +21,15 @@ struct MomentumXZAddAction {
 };
 bool MomentumXZAddAction::vfunc_3(unsigned int x, unsigned int y) {
     Helper1* p = member;
-    if (!p) return false;
+    if (!p)
+        return false;
     int q = p->f();
-    if (!q) return false;
+    if (!q)
+        return false;
     Helper2* z = (Helper2*)q;
     int r = z->f();
-    if (!r) return false;
+    if (!r)
+        return false;
     ((Helper3*)r)->f(&field24);
     field28 = 0;
     return true;

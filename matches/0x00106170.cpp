@@ -1,5 +1,5 @@
 class C {
-public:
+  public:
     char pad0[0x10];
     void* items;
     int count;

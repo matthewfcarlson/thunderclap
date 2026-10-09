@@ -1,4 +1,12 @@
-class HulkAction { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual bool vfunc_5(int, int); };
+class HulkAction {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual bool vfunc_5(int, int);
+};
 extern void* __fastcall FUN_000592a0(void*);
 extern void __fastcall FUN_00059a30(void*);
 extern void* FUN_000678d0();

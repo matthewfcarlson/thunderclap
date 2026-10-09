@@ -1,2 +1,24 @@
-class Image8 { public: virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h(); virtual void i(); virtual void j(); virtual void k(); virtual void l(); virtual void m(); virtual void n(); virtual void o(); virtual void vfunc_15(int,int); char pre[0x2c]; int values[1]; };
-void Image8::vfunc_15(int index, int value) { values[index] = value; }
+class Image8 {
+  public:
+    virtual void a();
+    virtual void b();
+    virtual void c();
+    virtual void d();
+    virtual void e();
+    virtual void f();
+    virtual void g();
+    virtual void h();
+    virtual void i();
+    virtual void j();
+    virtual void k();
+    virtual void l();
+    virtual void m();
+    virtual void n();
+    virtual void o();
+    virtual void vfunc_15(int, int);
+    char pre[0x2c];
+    int values[1];
+};
+void Image8::vfunc_15(int index, int value) {
+    values[index] = value;
+}

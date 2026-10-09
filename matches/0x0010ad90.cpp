@@ -1,15 +1,20 @@
-struct Vec3 { float x, y, z; };
+struct Vec3 {
+    float x, y, z;
+};
 struct List {
     char pad[0xc];
     int count;
     int GetItem(int i);
     bool IsSkipped(int id);
 };
-struct Agent { char pad[0x20]; List* list; };
+struct Agent {
+    char pad[0x20];
+    List* list;
+};
 float FUN_0010ac60(int ex, int item, float w, Vec3* out);
 
 class CSeparationBehaviour {
-public:
+  public:
     virtual void v0();
     virtual void v1();
     virtual void v2();

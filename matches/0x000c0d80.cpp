@@ -1,3 +1,16 @@
-struct Obj { virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(void*, unsigned long long); };
+struct Obj {
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3(void*, unsigned long long);
+};
 extern unsigned long long Get(void*);
-void Target(Obj* p, int b) { unsigned long long x = Get((void*)b); struct Local { void* v; }; Local local; local.v = (void*)0x3fef7c; p->f3(&local, x); }
+void Target(Obj* p, int b) {
+    unsigned long long x = Get((void*)b);
+    struct Local {
+        void* v;
+    };
+    Local local;
+    local.v = (void*)0x3fef7c;
+    p->f3(&local, x);
+}

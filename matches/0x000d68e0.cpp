@@ -1,3 +1,16 @@
-class Overlay { char pad[0x7b8]; };
-class MessageOverlay : public Overlay { public: char mFlag; virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); };
-void MessageOverlay::vfunc_1() { mFlag = 1; }
+class Overlay {
+    char pad[0x7b8];
+};
+class MessageOverlay : public Overlay {
+  public:
+    char mFlag;
+    virtual void vfunc_0();
+    virtual void vfunc_1();
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    virtual void vfunc_4();
+    virtual void vfunc_5();
+};
+void MessageOverlay::vfunc_1() {
+    mFlag = 1;
+}

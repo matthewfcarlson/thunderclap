@@ -1,5 +1,5 @@
 class ParticleSphereGenerator {
-public:
+  public:
     char pad[0x40];
     float a;
     float b;

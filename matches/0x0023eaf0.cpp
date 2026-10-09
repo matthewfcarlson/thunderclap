@@ -1,5 +1,9 @@
-struct SubA { void A(); };
-struct SubB { void B(); };
+struct SubA {
+    void A();
+};
+struct SubB {
+    void B();
+};
 struct SpawnTrack {
     void Fin();
     void Run();

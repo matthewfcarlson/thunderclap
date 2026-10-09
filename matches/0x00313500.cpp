@@ -1,9 +1,13 @@
 class SubCollisionDetector {
-public:
-    virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4();
-    int a,b,c,d;
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    int a, b, c, d;
     char pad[0x20];
-    char x,y;
+    char x, y;
     int z;
     SubCollisionDetector();
 };

@@ -1,4 +1,47 @@
-class Texture { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15(); virtual void f16(int); };
-class d3dShader { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void vfunc_13(); };
-class d3dProjectedTextureShader : public d3dShader { public: char pad[0x10-sizeof(d3dShader)]; Texture* texture; void vfunc_13(); };
-void d3dProjectedTextureShader::vfunc_13() { texture->f16(2); d3dShader::vfunc_13(); }
+class Texture {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8();
+    virtual void f9();
+    virtual void f10();
+    virtual void f11();
+    virtual void f12();
+    virtual void f13();
+    virtual void f14();
+    virtual void f15();
+    virtual void f16(int);
+};
+class d3dShader {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8();
+    virtual void f9();
+    virtual void f10();
+    virtual void f11();
+    virtual void f12();
+    virtual void vfunc_13();
+};
+class d3dProjectedTextureShader : public d3dShader {
+  public:
+    char pad[0x10 - sizeof(d3dShader)];
+    Texture* texture;
+    void vfunc_13();
+};
+void d3dProjectedTextureShader::vfunc_13() {
+    texture->f16(2);
+    d3dShader::vfunc_13();
+}

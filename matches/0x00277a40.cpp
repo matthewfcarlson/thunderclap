@@ -1,4 +1,8 @@
-class Thing { public: int a[9]; Thing(); };
+class Thing {
+  public:
+    int a[9];
+    Thing();
+};
 void InitPart();
 Thing::Thing() {
     a[4] = 0;

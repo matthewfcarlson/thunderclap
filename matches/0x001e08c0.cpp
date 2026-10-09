@@ -1,0 +1,24 @@
+class CSPManager {
+  public:
+    int vtable;
+    char pad4[0xc];
+    unsigned char a10, a11, a12, a13;
+    char pad14[4];
+    unsigned char a18;
+    char pad19[3];
+    int field1c;
+    CSPManager* Init(void*, int);
+};
+extern "C" void __stdcall FUN_001d0480(void*, int);
+extern unsigned char FUN_001d04d0(const char*);
+CSPManager* CSPManager::Init(void* p, int b) {
+    FUN_001d0480(p, 4);
+    vtable = 0x423438;
+    field1c = b;
+    a18 = FUN_001d04d0((const char*)0x48e0e4);
+    a10 = FUN_001d04d0((const char*)0x48e128);
+    a11 = FUN_001d04d0((const char*)0x48e128);
+    a12 = FUN_001d04d0((const char*)0x48e128);
+    a13 = FUN_001d04d0((const char*)0x48e128);
+    return this;
+}

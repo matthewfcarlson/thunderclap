@@ -1,1 +1,15 @@
-class X { public: virtual void a(); virtual void b(); }; struct C { X* p; void f(); }; void C::f() { if (p) { p->b(); p = 0; } }
+class X {
+  public:
+    virtual void a();
+    virtual void b();
+};
+struct C {
+    X* p;
+    void f();
+};
+void C::f() {
+    if (p) {
+        p->b();
+        p = 0;
+    }
+}

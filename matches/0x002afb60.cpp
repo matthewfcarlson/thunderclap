@@ -2,7 +2,7 @@
 namespace pure3d {
 
 class Entity {
-public:
+  public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -13,11 +13,13 @@ public:
 };
 
 class LightGroup : public Entity {
-public:
+  public:
     LightGroup* Self();
     char pad2[0x40];
 };
 
-LightGroup* LightGroup::Self() { return this; }
+LightGroup* LightGroup::Self() {
+    return this;
+}
 
 } // namespace pure3d

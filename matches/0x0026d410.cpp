@@ -1,3 +1,23 @@
-class MemoryTwoWayAllocator { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(unsigned int); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15(); };
+class MemoryTwoWayAllocator {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3(unsigned int);
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8();
+    virtual void f9();
+    virtual void f10();
+    virtual void f11();
+    virtual void f12();
+    virtual void f13();
+    virtual void f14();
+    virtual void f15();
+};
 extern void __stdcall FUN_0026d320(unsigned int, unsigned int);
-void MemoryTwoWayAllocator::f3(unsigned int p) { FUN_0026d320(p, 4); }
+void MemoryTwoWayAllocator::f3(unsigned int p) {
+    FUN_0026d320(p, 4);
+}

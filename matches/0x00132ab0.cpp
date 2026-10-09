@@ -1,0 +1,24 @@
+extern void* __cdecl Alloc(unsigned int);
+struct CondObj {
+    int v0;
+    int x04;
+    int x08;
+    int x0c;
+    int x10;
+    int x14;
+    int x18;
+    void InitBase(int);
+};
+CondObj* Factory_vfunc5(void) {
+    CondObj* p = (CondObj*)Alloc(0x1c);
+    if (p) {
+        p->InitBase(0);
+        p->x10 = -1;
+        p->x18 = -1;
+        p->v0 = 0x4112c4;
+        p->x0c = 0;
+        p->x14 = 0;
+        return p;
+    }
+    return 0;
+}

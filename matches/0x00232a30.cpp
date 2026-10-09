@@ -1,2 +1,16 @@
 // Same code shape as 0x00045820 (propagated; names are from that function)
-class X { public: virtual void a(); virtual void b(); }; struct C { X* p; void f(); }; void C::f() { if (p) { p->b(); p = 0; } }
+class X {
+  public:
+    virtual void a();
+    virtual void b();
+};
+struct C {
+    X* p;
+    void f();
+};
+void C::f() {
+    if (p) {
+        p->b();
+        p = 0;
+    }
+}

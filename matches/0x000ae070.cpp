@@ -1,4 +1,9 @@
-class CController { public: void a(); void b(); void run(); };
+class CController {
+  public:
+    void a();
+    void b();
+    void run();
+};
 void CController::run() {
     *(int*)this = 0x405d38;
     a();

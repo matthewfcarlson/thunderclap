@@ -1,2 +1,14 @@
-class C { char pad[0xaa4]; unsigned a,b,c; unsigned char flag; public: void f(unsigned x, unsigned y, unsigned z, unsigned q, unsigned r); };
-void C::f(unsigned x, unsigned y, unsigned z, unsigned q, unsigned r) { a=x; b=y; flag=1; c=((z|0xffffff00)<<8|q)<<8|r; }
+class C {
+    char pad[0xaa4];
+    unsigned a, b, c;
+    unsigned char flag;
+
+  public:
+    void f(unsigned x, unsigned y, unsigned z, unsigned q, unsigned r);
+};
+void C::f(unsigned x, unsigned y, unsigned z, unsigned q, unsigned r) {
+    a = x;
+    b = y;
+    flag = 1;
+    c = ((z | 0xffffff00) << 8 | q) << 8 | r;
+}

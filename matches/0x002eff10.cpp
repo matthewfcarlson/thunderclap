@@ -1,0 +1,38 @@
+class CollisionVolume {
+  public:
+    virtual void a0();
+    virtual void a1();
+    virtual void a2();
+    virtual void a3();
+    virtual void* vfunc_4();
+    virtual void a5();
+    virtual void a6();
+    virtual void a7();
+    virtual void a8();
+    virtual void a9();
+    virtual void a10();
+    virtual void a11();
+    virtual void a12();
+    virtual void a13();
+    virtual void vfunc_14(void*);
+};
+class CollisionSphere : public CollisionVolume {
+  public:
+    virtual void b2();
+    virtual void b3();
+    virtual void* vfunc_4();
+    virtual void b5();
+    virtual void b6();
+    virtual void b7();
+    virtual void b11();
+    void vfunc_14(void*);
+};
+void CollisionSphere::vfunc_14(void* out) {
+    CollisionVolume::vfunc_14(out);
+    void* a = vfunc_4();
+    void* b = ((CollisionVolume*)out)->vfunc_4();
+    *(int*)b = *(int*)a;
+    ((int*)b)[1] = ((int*)a)[1];
+    ((int*)b)[2] = ((int*)a)[2];
+    *(int*)((char*)out + 0x38) = *(int*)((char*)this + 0x38);
+}

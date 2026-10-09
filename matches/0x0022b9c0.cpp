@@ -1,4 +1,6 @@
-struct S { unsigned a[11]; };
+struct S {
+    unsigned a[11];
+};
 void __fastcall FUN_0022b9c0(S* p) {
     p->a[0] = 0x3f800000;
     p->a[1] = 0;

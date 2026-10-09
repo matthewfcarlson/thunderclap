@@ -1,9 +1,15 @@
 class PathTrack;
 void __cdecl thunk(int);
-class Init { public: void init(); };
-class Base { public: void base(); };
+class Init {
+  public:
+    void init();
+};
+class Base {
+  public:
+    void base();
+};
 class PathTrack {
-public:
+  public:
     virtual ~PathTrack();
     char pad[0x34];
     int m38;

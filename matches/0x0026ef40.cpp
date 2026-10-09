@@ -1,1 +1,3 @@
-unsigned int GetZero() { return 0; }
+unsigned int GetZero() {
+    return 0;
+}

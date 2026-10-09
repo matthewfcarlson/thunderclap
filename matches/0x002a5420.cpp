@@ -1,4 +1,13 @@
-class Controller { public: char pad[0x40]; int a; int pad44; int b; int c; int d; int e; };
+class Controller {
+  public:
+    char pad[0x40];
+    int a;
+    int pad44;
+    int b;
+    int c;
+    int d;
+    int e;
+};
 void Init();
 Controller* __fastcall Target(Controller* self) {
     Init();

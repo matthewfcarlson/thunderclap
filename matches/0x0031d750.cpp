@@ -1,2 +1,17 @@
-class pddiBaseContext { char pad[0x48]; public: struct Data { char pad2[0x14]; int a,b,c,d; }; Data* data; void vfunc_27(int*,int*,int*,int*); };
-void pddiBaseContext::vfunc_27(int* p1,int* p2,int* p3,int* p4) { *p1=data->a; *p2=data->b; *p3=data->c; *p4=data->d; }
+class pddiBaseContext {
+    char pad[0x48];
+
+  public:
+    struct Data {
+        char pad2[0x14];
+        int a, b, c, d;
+    };
+    Data* data;
+    void vfunc_27(int*, int*, int*, int*);
+};
+void pddiBaseContext::vfunc_27(int* p1, int* p2, int* p3, int* p4) {
+    *p1 = data->a;
+    *p2 = data->b;
+    *p3 = data->c;
+    *p4 = data->d;
+}

@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hulk Match Workbench</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsdiff/5.2.0/diff.min.js"></script>
+<style>
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --line: #dde1e6; --text: #1d232b; --muted: #66707c;
+  --accent: #2f6fdb; --ok: #1e8a4c; --okbg: #e3f5ea; --warn: #9a6400; --warnbg: #fff3d6;
+  --bad: #b3261e; --badbg: #fde7e5; --addbg: #e3f5ea; --delbg: #fde7e5; --code: #f1f3f6;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15181c; --panel: #1c2026; --line: #2e343c; --text: #e3e7ec; --muted: #8b95a1;
+    --accent: #6ea0ff; --ok: #5fd08f; --okbg: #183526; --warn: #f0c060; --warnbg: #3a2f12;
+    --bad: #ff8a80; --badbg: #3d1d1b; --addbg: #183526; --delbg: #3d1d1b; --code: #232830;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15181c; --panel: #1c2026; --line: #2e343c; --text: #e3e7ec; --muted: #8b95a1;
+  --accent: #6ea0ff; --ok: #5fd08f; --okbg: #183526; --warn: #f0c060; --warnbg: #3a2f12;
+  --bad: #ff8a80; --badbg: #3d1d1b; --addbg: #183526; --delbg: #3d1d1b; --code: #232830;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { background: var(--bg); color: var(--text); font: 14px/1.4 -apple-system, system-ui, sans-serif; display: grid;
+  grid-template-columns: 300px 1fr; grid-template-rows: 100%; overflow: hidden; }
+aside { border-right: 1px solid var(--line); background: var(--panel); display: flex; flex-direction: column; min-height: 0; }
+aside header { padding: 12px; border-bottom: 1px solid var(--line); display: grid; gap: 8px; }
+aside h1 { font-size: 15px; margin: 0; }
+aside .stats { color: var(--muted); font-size: 12px; }
+input, select, button { font: inherit; color: var(--text); background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 5px 8px; }
+button { cursor: pointer; }
+button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+button:disabled { opacity: .5; cursor: default; }
+#list { overflow: auto; flex: 1; }
+.fn { padding: 6px 12px; border-bottom: 1px solid var(--line); cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: 2px 8px; }
+.fn:hover { background: var(--code); }
+.fn.sel { background: var(--code); box-shadow: inset 3px 0 var(--accent); }
+.fn .a { font-family: var(--mono); font-size: 12px; }
+.fn .n { grid-column: 1 / 3; color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fn .s { font-size: 12px; color: var(--muted); }
+.bar { height: 3px; grid-column: 1 / 3; background: var(--line); border-radius: 2px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); }
+.fn.done .a::after { content: " ✓"; color: var(--ok); }
+main { display: grid; grid-template-rows: auto auto 1fr; min-width: 0; min-height: 0; }
+#top { padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--panel); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+#title { font-weight: 600; font-family: var(--mono); }
+#sub { color: var(--muted); font-size: 12px; }
+.spacer { flex: 1; }
+#score { font-family: var(--mono); padding: 3px 8px; border-radius: 6px; background: var(--code); }
+#banner { display: none; padding: 8px 14px; font-weight: 500; }
+#banner.ok { display: block; background: var(--okbg); color: var(--ok); }
+#banner.bad { display: block; background: var(--badbg); color: var(--bad); white-space: pre-wrap; font-family: var(--mono); font-size: 12px; max-height: 30vh; overflow: auto; }
+#banner.warn { display: block; background: var(--warnbg); color: var(--warn); }
+#panes { display: grid; grid-template-columns: 1fr 1fr; min-height: 0; }
+#left, #right { display: flex; flex-direction: column; min-height: 0; min-width: 0; }
+#left { border-right: 1px solid var(--line); }
+.paneh { display: flex; gap: 4px; padding: 6px 10px; border-bottom: 1px solid var(--line); background: var(--panel); align-items: center; font-size: 12px; color: var(--muted); }
+.tab { border: none; background: none; padding: 4px 8px; border-radius: 6px; color: var(--muted); }
+.tab.on { background: var(--code); color: var(--text); }
+.CodeMirror { flex: 1; height: auto; font-family: var(--mono); font-size: 13px; background: var(--panel); color: var(--text); }
+.CodeMirror-gutters { background: var(--panel); border-right: 1px solid var(--line); }
+.CodeMirror-cursor { border-left-color: var(--text); }
+.CodeMirror-selected, .CodeMirror-focused .CodeMirror-selected { background: rgba(47,111,219,.25); }
+.cm-keyword { color: #8a3ffc; } .cm-type, .cm-variable-3 { color: #0f7f8a; } .cm-number { color: #b45b00; }
+.cm-string { color: #1e8a4c; } .cm-comment { color: var(--muted); font-style: italic; } .cm-meta { color: #b45b00; }
+#view { flex: 1; overflow: auto; font-family: var(--mono); font-size: 12.5px; background: var(--panel); }
+table.asm { border-collapse: collapse; width: 100%; }
+table.asm td { padding: 1px 8px; white-space: pre; vertical-align: top; }
+table.asm td.off { color: var(--muted); width: 1%; }
+table.asm td.tag { width: 1%; color: var(--muted); }
+tr.d td.t, tr.d td.o { background: var(--warnbg); }
+tr.m td.t { background: var(--delbg); } tr.p td.o { background: var(--addbg); }
+tr.sep td { color: var(--muted); text-align: center; background: var(--code); }
+pre { margin: 0; padding: 10px 12px; white-space: pre-wrap; }
+.dl { white-space: pre; padding: 0 12px; } .dl.add { background: var(--addbg); } .dl.del { background: var(--delbg); }
+.att { padding: 6px 12px; border-bottom: 1px solid var(--line); cursor: pointer; } .att:hover { background: var(--code); }
+.hint { color: var(--muted); padding: 12px; font-family: -apple-system, system-ui, sans-serif; }
+kbd { font-family: var(--mono); font-size: 11px; border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; }
+@media (max-width: 900px) {
+  body { grid-template-columns: 1fr; grid-template-rows: 40vh 1fr; overflow: auto; }
+  #panes { grid-template-columns: 1fr; grid-template-rows: 50vh 50vh; }
+}
+</style>
+</head>
+<body>
+<aside>
+  <header>
+    <h1>Match workbench</h1>
+    <div class="stats" id="stats">loading…</div>
+    <input id="q" placeholder="Filter by address or name">
+    <div style="display:flex; gap:6px">
+      <select id="filter" style="flex:1">
+        <option value="near">Near misses (≥ 0.8)</option>
+        <option value="tried">Attempted, unmatched</option>
+        <option value="untried">Never attempted</option>
+        <option value="all">All unmatched</option>
+      </select>
+      <select id="sort"><option value="best">Best ↓</option><option value="size">Size ↑</option><option value="addr">Addr</option></select>
+    </div>
+  </header>
+  <div id="list"></div>
+</aside>
+<main>
+  <div id="top">
+    <span id="title">Pick a function</span><span id="sub"></span>
+    <span class="spacer"></span>
+    <span id="score">–</span>
+    <label style="font-size:12px;color:var(--muted)"><input type="checkbox" id="auto" checked> auto</label>
+    <button class="primary" id="compile" disabled>Compile <kbd>⌘↵</kbd></button>
+    <select id="psecs"><option value="30">30 s</option><option value="60" selected>1 min</option><option value="180">3 min</option></select>
+    <button id="permute" disabled title="Search random source rewrites on the CPU">Permute</button>
+    <button id="reset" disabled title="Back to the starting attempt">Reset</button>
+    <button id="theme" title="Toggle theme">◐</button>
+  </div>
+  <div id="banner"></div>
+  <div id="panes">
+    <div id="left">
+      <div class="paneh"><span id="origin">source</span></div>
+      <textarea id="ed"></textarea>
+    </div>
+    <div id="right">
+      <div class="paneh">
+        <button class="tab on" data-tab="asm">Assembly diff</button>
+        <button class="tab" data-tab="cpp">C++ diff</button>
+        <button class="tab" data-tab="ctx">Context</button>
+        <button class="tab" data-tab="att">Attempts</button>
+        <span class="spacer"></span>
+        <label id="onlyl"><input type="checkbox" id="only"> mismatches only</label>
+      </div>
+      <div id="view"><div class="hint">Choose a function on the left. Earlier model attempts load automatically; compile with <kbd>⌘↵</kbd>. A byte-identical, reference-checked result is installed into <code>matches/</code>, committed and pushed for you.</div></div>
+    </div>
+  </div>
+</main>
+<script>
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+let FUNCS = [], cur = null, last = null, tab = "asm", busy = false, timer = null;
+
+try { const t = localStorage.getItem("wb-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+$("#theme").onclick = () => {
+  const dark = matchMedia("(prefers-color-scheme: dark)").matches;
+  const now = document.documentElement.dataset.theme || (dark ? "dark" : "light");
+  const next = now === "dark" ? "light" : "dark";
+  document.documentElement.dataset.theme = next;
+  try { localStorage.setItem("wb-theme", next); } catch (e) {}
+};
+
+const ed = CodeMirror.fromTextArea($("#ed"), { mode: "text/x-c++src", lineNumbers: true, matchBrackets: true, indentUnit: 4,
+  extraKeys: { "Cmd-Enter": () => compile(), "Ctrl-Enter": () => compile() } });
+ed.on("change", () => {
+  if (!cur || !$("#auto").checked) return;
+  clearTimeout(timer); timer = setTimeout(compile, 900);
+  if (tab === "cpp") render();
+});
+
+async function api(path, body) {
+  const r = await fetch(path, body ? { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) } : {});
+  return r.json();
+}
+
+async function loadList() {
+  FUNCS = await api("/api/functions");
+  drawList();
+}
+function drawList() {
+  const q = $("#q").value.trim().toLowerCase(), f = $("#filter").value, s = $("#sort").value;
+  let xs = FUNCS.filter((x) => (f === "near" ? x.best >= 0.8 : f === "tried" ? x.tries > 0 : f === "untried" ? x.tries === 0 : true));
+  if (q) xs = xs.filter((x) => x.addr.includes(q) || (x.name || "").toLowerCase().includes(q));
+  xs.sort(s === "best" ? (a, b) => b.best - a.best || a.size - b.size : s === "size" ? (a, b) => a.size - b.size : (a, b) => a.addr.localeCompare(b.addr));
+  $("#stats").textContent = `${FUNCS.length.toLocaleString()} unmatched · ${xs.length.toLocaleString()} shown`;
+  $("#list").innerHTML = xs.slice(0, 600).map((x) => `<div class="fn${cur && cur.addr === x.addr ? " sel" : ""}${x.done ? " done" : ""}" data-a="${x.addr}">
+    <span class="a">${x.addr}</span><span class="s">${x.size} B${x.best >= 0 ? " · " + x.best.toFixed(2) : ""}</span>
+    <span class="n">${esc(x.name)}</span><span class="bar"><i style="width:${Math.max(0, x.best) * 100}%"></i></span></div>`).join("");
+}
+$("#list").onclick = (e) => { const d = e.target.closest(".fn"); if (d) open(d.dataset.a); };
+["#q", "#filter", "#sort"].forEach((s) => $(s).addEventListener("input", drawList));
+
+async function open(addr) {
+  banner(); $("#view").innerHTML = '<div class="hint">Loading and scoring earlier attempts…</div>';
+  cur = { addr }; drawList();
+  const d = await api("/api/function?addr=" + addr);
+  if (d.error) return banner("bad", d.error);
+  cur = d; last = null;
+  $("#title").textContent = d.addr; $("#sub").textContent = `${d.name} · ${d.size} bytes`;
+  ed.setValue(d.start.source || ""); ed.clearHistory();
+  $("#origin").textContent = d.start.origin || "new";
+  ["#compile", "#permute", "#reset"].forEach((s) => ($(s).disabled = false));
+  if (d.matched) banner("ok", "Already matched (matches/" + d.addr + ".cpp).");
+  history.replaceState(null, "", "#" + addr);
+  await compile();
+}
+
+function banner(kind, text) { const b = $("#banner"); b.className = kind || ""; b.textContent = text || ""; }
+
+async function compile() {
+  if (!cur || busy) return;
+  busy = true; $("#compile").disabled = true; $("#score").textContent = "…";
+  try {
+    const r = await api("/api/compile", { addr: cur.addr, source: ed.getValue() });
+    last = r; showResult(r);
+  } finally { busy = false; $("#compile").disabled = false; }
+}
+
+function showResult(r) {
+  if (r.status === "match") {
+    $("#score").textContent = "MATCH";
+    if (r.installed === true) {
+      banner("ok", `Match! Verified and installed as matches/${cur.addr}.cpp; committing and pushing.`);
+      const f = FUNCS.find((x) => x.addr === cur.addr); if (f) { f.best = 1; f.done = true; drawList(); }
+    } else banner("ok", "Byte-identical match" + (r.installed === "already" ? " (already in matches/)." : "."));
+  } else if (r.status === "diff") {
+    $("#score").textContent = `${r.matched}/${r.total} · ${r.score.toFixed(3)}`;
+    banner(r.target_bytes !== r.our_bytes ? "warn" : "", r.target_bytes !== r.our_bytes ? `Size: target ${r.target_bytes} B, ours ${r.our_bytes} B` : "");
+    const f = FUNCS.find((x) => x.addr === cur.addr);
+    if (f && r.score > f.best) { f.best = r.score; drawList(); }
+  } else {
+    $("#score").textContent = r.status || "error";
+    banner("bad", r.error || JSON.stringify(r));
+  }
+  render();
+}
+
+function render() {
+  $("#onlyl").style.visibility = tab === "asm" ? "visible" : "hidden";
+  const v = $("#view");
+  if (!cur || !cur.asm) return;
+  if (tab === "asm") {
+    if (!last || !last.rows || !last.rows.length) {
+      v.innerHTML = `<table class="asm">${cur.asm.map((l) => `<tr><td class="off">${l.slice(0, 4)}</td><td class="t">${esc(l.slice(6))}</td><td class="o"></td></tr>`).join("")}</table>`;
+      return;
+    }
+    const only = $("#only").checked, rows = last.rows;
+    const show = rows.map((r, i) => !only || rows.slice(Math.max(0, i - 2), i + 3).some((x) => x[0] !== "  "));
+    let html = '<table class="asm"><tr><td></td><td class="off">off</td><td class="t"><b>target</b></td><td class="o"><b>ours</b></td></tr>', gap = 0;
+    rows.forEach((r, i) => {
+      if (!show[i]) { gap++; return; }
+      if (gap) { html += `<tr class="sep"><td colspan="4">… ${gap} matching</td></tr>`; gap = 0; }
+      const cls = { "!!": "d", "--": "m", "++": "p" }[r[0]] || "";
+      html += `<tr class="${cls}"><td class="tag">${r[0].trim()}</td><td class="off">${r[1].toString(16).padStart(4, "0")}</td><td class="t">${esc(r[2])}</td><td class="o">${esc(r[3])}</td></tr>`;
+    });
+    if (gap) html += `<tr class="sep"><td colspan="4">… ${gap} matching</td></tr>`;
+    v.innerHTML = html + "</table>";
+  } else if (tab === "cpp") {
+    const base = (cur.start.base && cur.start.base.source) || "";
+    const parts = Diff.diffLines(base, ed.getValue());
+    v.innerHTML = `<div class="hint">Changes from ${esc(cur.start.base && cur.start.base.origin || "start")}</div>` + parts.map((p) =>
+      p.value.replace(/\n$/, "").split("\n").map((l) => `<div class="dl ${p.added ? "add" : p.removed ? "del" : ""}">${p.added ? "+ " : p.removed ? "- " : "  "}${esc(l)}</div>`).join("")).join("");
+  } else if (tab === "ctx") {
+    v.innerHTML = `<pre>${esc(cur.packet)}</pre>`;
+  } else if (tab === "att") {
+    v.innerHTML = (cur.attempts.length ? cur.attempts : []).map((p) => `<div class="att" data-p="${esc(p)}">${esc(p)}</div>`).join("") || '<div class="hint">No earlier attempts.</div>';
+  }
+}
+document.querySelectorAll(".tab").forEach((b) => (b.onclick = () => {
+  document.querySelectorAll(".tab").forEach((x) => x.classList.toggle("on", x === b)); tab = b.dataset.tab; render();
+}));
+$("#only").onchange = render;
+$("#view").onclick = async (e) => {
+  const a = e.target.closest(".att"); if (!a) return;
+  const r = await api("/api/attempt?path=" + encodeURIComponent(a.dataset.p));
+  if (r.source != null) { ed.setValue(r.source); $("#origin").textContent = a.dataset.p; compile(); }
+};
+$("#compile").onclick = compile;
+$("#reset").onclick = () => { if (cur) { ed.setValue((cur.start.base && cur.start.base.source) || cur.start.source); $("#origin").textContent = cur.start.base && cur.start.base.origin || ""; } };
+$("#permute").onclick = async () => {
+  if (!cur) return;
+  const secs = +$("#psecs").value, btn = $("#permute");
+  btn.disabled = true; btn.textContent = "Permuting…"; banner("warn", `Searching source rewrites for ${secs} s on the CPU…`);
+  try {
+    const r = await api("/api/permute", { addr: cur.addr, source: ed.getValue(), seconds: secs });
+    if (r.error) return banner("bad", r.error);
+    if (r.source && r.source !== ed.getValue()) { ed.setValue(r.source); $("#origin").textContent = "permuter result"; }
+    if (r.status === "match") { last = r; showResult(r); } else { banner("", ""); await compile(); }
+  } finally { btn.disabled = false; btn.textContent = "Permute"; }
+};
+
+loadList().then(() => { if (location.hash.length > 3) open(location.hash.slice(1)); });
+</script>
+</body>
+</html>

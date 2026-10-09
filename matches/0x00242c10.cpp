@@ -1,8 +1,7 @@
-extern "C" void __cdecl ReleaseThing(void *, int);
-void __cdecl FUN_00242c10(int *p)
-{
+extern "C" void __cdecl ReleaseThing(void*, int);
+void __cdecl FUN_00242c10(int* p) {
     int x = *p;
     *p = 0;
     if (x != 0)
-        ReleaseThing((void *)0x4e5db0, x);
+        ReleaseThing((void*)0x4e5db0, x);
 }

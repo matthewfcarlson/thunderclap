@@ -1,9 +1,25 @@
 struct Ent;
-struct Sub { void Tick(); };
-struct Ent { void Prep(); char pad[0xec]; Sub* sub; };
-struct Mgr { Ent* Find(char*); };
-struct Mid { char pad[0xc]; Mgr* m; char pad2[0x10]; void* b; };
-struct Self { char pad[0xc]; Mid* p; };
+struct Sub {
+    void Tick();
+};
+struct Ent {
+    void Prep();
+    char pad[0xec];
+    Sub* sub;
+};
+struct Mgr {
+    Ent* Find(char*);
+};
+struct Mid {
+    char pad[0xc];
+    Mgr* m;
+    char pad2[0x10];
+    void* b;
+};
+struct Self {
+    char pad[0xc];
+    Mid* p;
+};
 extern "C++" long long __cdecl FUN_002672f0(char*, int, int);
 extern int __fastcall FUN_00024280(void*, long long);
 

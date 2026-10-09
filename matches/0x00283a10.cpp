@@ -1,1 +1,29 @@
-struct B { void F(int); }; struct C { void G(int); }; struct V { virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(int, int); }; class A { public: char p[12]; B* a; char q[4]; C* b; V* c; void Run(int); }; void A::Run(int x) { a->F(x); b->G(x); c->f6(x,0); }
+struct B {
+    void F(int);
+};
+struct C {
+    void G(int);
+};
+struct V {
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6(int, int);
+};
+class A {
+  public:
+    char p[12];
+    B* a;
+    char q[4];
+    C* b;
+    V* c;
+    void Run(int);
+};
+void A::Run(int x) {
+    a->F(x);
+    b->G(x);
+    c->f6(x, 0);
+}

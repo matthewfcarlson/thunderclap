@@ -30,13 +30,16 @@ import {
 } from "@earendil-works/pi-durable";
 import { openNodeSqliteStorage } from "@earendil-works/pi-durable/storage/sqlite/node";
 
+import { compileHints } from "./hints.ts";
 import { SYSTEM_PROMPT, taskPrompt } from "./prompt.ts";
 
 const run = promisify(execFile);
 
 // Node's fetch multiplexes every request to a host over one HTTP/2 connection. With dozens of long
 // streaming responses, streams stalled with no bytes until the 90 s timeout. Use a real pool instead.
-setGlobalDispatcher(new Agent({ allowH2: false, connections: 128, keepAliveTimeout: 30_000 }));
+// Batch-priced models (":batch", half price) may queue a request before the first byte arrives, so
+// undici's 5-minute header/body timeouts are lifted; the harness stream timeout below bounds waits instead.
+setGlobalDispatcher(new Agent({ allowH2: false, connections: 128, keepAliveTimeout: 30_000, headersTimeout: 0, bodyTimeout: 0 }));
 const ROOT = new URL("../..", import.meta.url).pathname;
 const BUILD = join(ROOT, "build/farm");
 const PY = join(ROOT, "build/venv/bin/python");
@@ -140,6 +143,7 @@ const submitCpp = defineTool({
 		const src = join(dir, `t${job.tier}_a${n}.cpp`);
 		writeFileSync(src, args.code);
 		const r = await compare(src, job.addr);
+		if (r.status === "compile_error") r.report += compileHints(r.report);
 		let refNote = "";
 		if (r.status === "match") {
 			// Same bytes with relocations masked; now check that strings, constants and targets are right too.
@@ -168,7 +172,10 @@ const submitCpp = defineTool({
 		}, context);
 		if (matched) {
 			mkdirSync(MATCHES_DIR, { recursive: true });
-			copyFileSync(src, join(MATCHES_DIR, `${job.addr}.cpp`));
+			const dest = join(MATCHES_DIR, `${job.addr}.cpp`);
+			copyFileSync(src, dest);
+			// clang-format the saved match; the formatter re-verifies and keeps the original on any failure.
+			await run(PY, [join(ROOT, "tools/format_matches.py"), dest, "--jobs", "1"], { timeout: 120_000 }).catch(() => {});
 			return { content: [{ type: "text", text: "MATCH. Done." }], control: { terminate: true } };
 		}
 		if (left <= 0) {
@@ -379,7 +386,7 @@ async function main() {
 		registry,
 		settings: {
 			extensions: [Decomp],
-			stream: { timeoutMs: 90_000 },
+			stream: { timeoutMs: tiers.some((t) => t.model.endsWith(":batch")) ? 3_600_000 : 90_000 },
 			retry: { maxRetries: 3 },
 			compaction: { enabled: false },
 			toolExecution: "sequential",
@@ -413,6 +420,16 @@ async function main() {
 			}, ctx);
 		}
 		const started = Date.now();
+		// Conversations can be resumed/retried, and pi.usage is cumulative per conversation:
+		// record this run's own spend as (after - before), or retries get counted again.
+		const sumUsage = (u: any) => {
+			let c = 0, i = 0, o = 0, cr = 0;
+			for (const m of Object.values(u?.models ?? {}) as any[]) {
+				c += m.cost?.total ?? 0; i += m.input ?? 0; o += m.output ?? 0; cr += m.cacheRead ?? 0;
+			}
+			return { cost: c, input: i, output: o, cacheRead: cr };
+		};
+		const before = sumUsage(await harness.snapshot(UsageDoc, conv.id, ctx));
 		const content = taskPrompt(await packet(addr), tier.maxAttempts, previous);
 		const workDir = join(BUILD, "work", WORK_TAG, addr);
 		mkdirSync(workDir, { recursive: true });
@@ -422,13 +439,9 @@ async function main() {
 		const settled = await sub.wait(ctx);
 		const job = (await harness.snapshot(Job, conv.id, ctx))!;
 		const usage = await harness.snapshot(UsageDoc, conv.id, ctx);
-		let cost = 0, input = 0, output = 0, cacheRead = 0;
-		for (const u of Object.values(usage?.models ?? {}) as any[]) {
-			cost += u.cost?.total ?? 0;
-			input += u.input ?? 0;
-			output += u.output ?? 0;
-			cacheRead += u.cacheRead ?? 0;
-		}
+		const after = sumUsage(usage);
+		const cost = after.cost - before.cost, input = after.input - before.input;
+		const output = after.output - before.output, cacheRead = after.cacheRead - before.cacheRead;
 		const status = job.status === "running" ? (settled.status === "done" ? "gave_up" : "failed") : job.status;
 		const rec = {
 			addr, tier: t, model: tier.model, status, attempts: job.attempts, bestScore: job.bestScore,
@@ -440,7 +453,9 @@ async function main() {
 		appendFileSync(ledgerPath, JSON.stringify(rec) + "\n");
 		if (status === "failed") failures.set(key, retry + 1);
 		// 402 = the provider account is out of credits: stop paid tiers instead of failing every request.
-		if (status === "failed" && /\b402\b/.test(String(rec.detail ?? "")) && !isFree(tier.model)) creditsOut = true;
+		// 402 = out of credits; 403 "Budget limit exceeded" = the key's daily/weekly cap. Either way, stop paid tiers.
+		const d = String(rec.detail ?? "");
+		if (status === "failed" && !isFree(tier.model) && (/\b402\b/.test(d) || (/\b403\b/.test(d) && /limit|budget|permission/i.test(d)))) creditsOut = true;
 		spent += rec.cost;
 		console.log(`${addr} t${t} ${tier.model.padEnd(32)} ${status.padEnd(9)} att=${job.attempts} best=${job.bestScore.toFixed(2)} $${rec.cost} ${rec.secs}s`);
 		return job;
@@ -475,8 +490,10 @@ async function main() {
 			if (size < (tiers[t].minSize ?? 0) || size > (tiers[t].maxSize ?? Infinity)) continue;
 			if (!isFree(tiers[t].model) && (creditsOut || spent >= budget || keyRemaining - (spent - spentAtStart) < keyFloor)) {
 				if (!budgetWarned) console.log(creditsOut
-					? `budget reached: provider account out of credits (402): skipping paid tiers`
-					: `budget $${budget} reached ($${spent.toFixed(2)} spent): skipping paid tiers`);
+					? `budget reached: provider credits or key budget exhausted (402/403): skipping paid tiers`
+					: spent >= budget
+						? `budget $${budget} reached ($${spent.toFixed(2)} spent): skipping paid tiers`
+						: `budget reached: OpenRouter key limit nearly used ($${(keyRemaining - (spent - spentAtStart)).toFixed(2)} left on the key): skipping paid tiers`);
 				budgetWarned = true;
 				continue;
 			}

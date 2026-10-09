@@ -1,2 +1,9 @@
-class CFightParamsCollision { char pad[0x18]; public: CFightParamsCollision* vfunc_3(); };
-CFightParamsCollision* CFightParamsCollision::vfunc_3() { return (CFightParamsCollision*)((char*)this + 0x18); }
+class CFightParamsCollision {
+    char pad[0x18];
+
+  public:
+    CFightParamsCollision* vfunc_3();
+};
+CFightParamsCollision* CFightParamsCollision::vfunc_3() {
+    return (CFightParamsCollision*)((char*)this + 0x18);
+}

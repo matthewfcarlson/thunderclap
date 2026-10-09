@@ -1,1 +1,17 @@
-struct V { virtual void A(); virtual void B(); }; struct Obj { void **v; void **v4; int pad; V *p; void f(); }; void Obj::f() { v=(void**)0x42bddc; v4=(void**)0x42bdd0; p->B(); v=(void**)0x3f6098; }
+struct V {
+    virtual void A();
+    virtual void B();
+};
+struct Obj {
+    void** v;
+    void** v4;
+    int pad;
+    V* p;
+    void f();
+};
+void Obj::f() {
+    v = (void**)0x42bddc;
+    v4 = (void**)0x42bdd0;
+    p->B();
+    v = (void**)0x3f6098;
+}

@@ -1,1 +1,15 @@
-class Inner { public: bool Run(); }; class Thing { public: char pad[0x11c]; Inner* member; bool Run(); }; bool Thing::Run() { if (!member) return false; return member->Run(); }
+class Inner {
+  public:
+    bool Run();
+};
+class Thing {
+  public:
+    char pad[0x11c];
+    Inner* member;
+    bool Run();
+};
+bool Thing::Run() {
+    if (!member)
+        return false;
+    return member->Run();
+}

@@ -1,3 +1,8 @@
-struct V { void* a; void (__cdecl *b)(void*, int); };
+struct V {
+    void* a;
+    void(__cdecl* b)(void*, int);
+};
 extern V* g;
-void target(int x) { g->b(g, x); }
+void target(int x) {
+    g->b(g, x);
+}

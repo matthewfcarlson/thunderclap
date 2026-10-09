@@ -1,14 +1,20 @@
-class CActorManager { public: void Method(const char *, float); };
-struct Pair { const char *s; float f; };
+class CActorManager {
+  public:
+    void Method(const char*, float);
+};
+struct Pair {
+    const char* s;
+    float f;
+};
 class Closure2 {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
-    virtual void vfunc_2(void *, Pair *, void *);
+    virtual void vfunc_2(void*, Pair*, void*);
     char pad[0x1c - 4];
-    void (CActorManager::*mFn)(const char *, float);
-    CActorManager *mObj;
+    void (CActorManager::*mFn)(const char*, float);
+    CActorManager* mObj;
 };
-void Closure2::vfunc_2(void *a, Pair *p, void *c) {
+void Closure2::vfunc_2(void* a, Pair* p, void* c) {
     (mObj->*mFn)(p->s, p->f);
 }

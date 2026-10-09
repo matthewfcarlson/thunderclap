@@ -1,1 +1,3 @@
-unsigned int FUN_00036c80(void) { return 0x20; }
+unsigned int FUN_00036c80(void) {
+    return 0x20;
+}

@@ -1,6 +1,8 @@
 typedef unsigned int u32;
 struct CHitAnimationTrack {};
-struct TrackFactoryCasterTemplate { void* vftable; };
+struct TrackFactoryCasterTemplate {
+    void* vftable;
+};
 extern void FUN_00236ac0(u32, void**);
 void FUN_00073000(u32 param_1) {
     void* local_4;

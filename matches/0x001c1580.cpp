@@ -1,0 +1,78 @@
+const float gZero = 0.0f;
+const float gOne = 1.0f;
+class Shader {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6(int, int);
+    virtual void f7(int, int);
+};
+class Arg {
+  public:
+    char pad[16];
+    Shader* shader;
+};
+class Manager {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8();
+    virtual void f9();
+    virtual void f10();
+    virtual void f11();
+    virtual void f12();
+    virtual void f13();
+    virtual void f14();
+    virtual void f15();
+    virtual void f16();
+    virtual void f17();
+    virtual void f18();
+    virtual void f19();
+    virtual void f20();
+    virtual void f21();
+    virtual void f22();
+    virtual void f23();
+    virtual void f24();
+    virtual void f25();
+    virtual void f26();
+    virtual void f27();
+    virtual void f28();
+    virtual void f29();
+    virtual void f30();
+    virtual void f31();
+    virtual void f32();
+    virtual void f33();
+    virtual void f34();
+    virtual void f35(int);
+};
+extern Manager* gManager;
+class HulkShaderCallback {
+  public:
+    char pad[8];
+    float a;
+    float c;
+    float b;
+    char pad2[4];
+    int value;
+    int vfunc_4(Arg*);
+};
+int HulkShaderCallback::vfunc_4(Arg* p) {
+    int result = (int)p;
+    if (a > 0.0f && p)
+        p->shader->f7(0x45444146, 0);
+    if (b > 0.0f)
+        gManager->f35(value);
+    if (c < 1.0f && p)
+        p->shader->f6(0x4153524c, 0);
+    return result;
+}

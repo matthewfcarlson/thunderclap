@@ -1,2 +1,13 @@
-class Thing { public: char pad[0x20]; unsigned int count; char pad2[8]; unsigned int* values; unsigned int Get(unsigned int i); };
-unsigned int Thing::Get(unsigned int i) { if (i < count) return values[i]; return 0; }
+class Thing {
+  public:
+    char pad[0x20];
+    unsigned int count;
+    char pad2[8];
+    unsigned int* values;
+    unsigned int Get(unsigned int i);
+};
+unsigned int Thing::Get(unsigned int i) {
+    if (i < count)
+        return values[i];
+    return 0;
+}

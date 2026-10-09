@@ -1,6 +1,6 @@
 extern void* VisibilityNode_vftable;
 class VisibilityNode {
-public:
+  public:
     char pad[0x28];
     unsigned char enabled;
     int value;

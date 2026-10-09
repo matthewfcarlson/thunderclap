@@ -1,5 +1,5 @@
 class Clip {
-public:
+  public:
     virtual void f();
     char pad[0x24];
     void* m28;
@@ -9,6 +9,7 @@ public:
 void Release(void*);
 void Clip::Done() {
     *(void**)this = (void*)0x42918c;
-    if (m28) Release(m28);
+    if (m28)
+        Release(m28);
     Finish();
 }

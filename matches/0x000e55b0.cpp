@@ -1,2 +1,10 @@
-class X { char pad[0xab4]; unsigned int value; public: void f(unsigned int a, unsigned int b, unsigned int c); };
-void X::f(unsigned int a, unsigned int b, unsigned int c) { value = ((a | 0xffffff00) << 8 | b) << 8 | c; }
+class X {
+    char pad[0xab4];
+    unsigned int value;
+
+  public:
+    void f(unsigned int a, unsigned int b, unsigned int c);
+};
+void X::f(unsigned int a, unsigned int b, unsigned int c) {
+    value = ((a | 0xffffff00) << 8 | b) << 8 | c;
+}

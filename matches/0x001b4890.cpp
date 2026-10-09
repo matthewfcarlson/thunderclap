@@ -1,1 +1,3 @@
-int __stdcall FUN_001b4890(int a, int b, int c, int d) { return 0; }
+int __stdcall FUN_001b4890(int a, int b, int c, int d) {
+    return 0;
+}

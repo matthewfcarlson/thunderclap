@@ -1,5 +1,5 @@
 class VertexOffsetList {
-public:
+  public:
     VertexOffsetList(int value);
     void* vptr;
     int a1;
@@ -13,6 +13,12 @@ VertexOffsetList::VertexOffsetList(int value) {
     vptr = (void*)0x42efb0;
     a2 = 0;
     a3 = value;
-    a4 = 0; a5 = 0; a6 = 0; a7 = 0;
-    a8 = 0; a9 = 0; a10 = 0; a11 = 0;
+    a4 = 0;
+    a5 = 0;
+    a6 = 0;
+    a7 = 0;
+    a8 = 0;
+    a9 = 0;
+    a10 = 0;
+    a11 = 0;
 }

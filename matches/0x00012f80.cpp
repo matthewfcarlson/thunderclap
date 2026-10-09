@@ -1,6 +1,8 @@
-struct S { int a, b, c; };
+struct S {
+    int a, b, c;
+};
 class C {
-public:
+  public:
     char pad[0xcc];
     S s;
     S* Get(S* p);

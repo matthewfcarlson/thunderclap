@@ -1,2 +1,15 @@
-class d3dSimpleShader { public: char pad[0x48]; unsigned char a; char pad2[0x84-0x49]; unsigned char b; char pad3[0x8c-0x85]; unsigned char c; int vfunc_22(); };
-int d3dSimpleShader::vfunc_22() { if (!a && (b || c)) return 1; return 0; }
+class d3dSimpleShader {
+  public:
+    char pad[0x48];
+    unsigned char a;
+    char pad2[0x84 - 0x49];
+    unsigned char b;
+    char pad3[0x8c - 0x85];
+    unsigned char c;
+    int vfunc_22();
+};
+int d3dSimpleShader::vfunc_22() {
+    if (!a && (b || c))
+        return 1;
+    return 0;
+}

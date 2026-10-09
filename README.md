@@ -12,7 +12,7 @@ The goal is C++ source that compiles with the original compiler (MSVC 7.1, `cl` 
 | | Functions | Bytes |
 |---|---|---|
 | Game code (`.text`, excluding XDK/CRT/Bink) | 23,049 | 2.60 MB |
-| Byte-matched (`matches/`) | 12,190 (52.9%) | 312 KB (**12.0%**) |
+| Byte-matched (`matches/`) | 15,304 (66.4%) | 532 KB (**20.4%**) |
 <!-- /status -->
 
 Most matches so far are small functions. Byte coverage is the honest metric.
@@ -49,5 +49,7 @@ tools/pull_compiler.py win32/msvc7.1 build/compilers/msvc7.1
 tools/setup_ghidra.sh                             # Ghidra + XBE loader + RTTI import
 build/venv/bin/python tools/compare.py experiments/first-matches/refcount.cpp 0x18b40
 ```
+
+**Match by hand:** `build/venv/bin/python tools/workbench/server.py`, then open http://127.0.0.1:8765. Pick a function (near-misses first). It shows the best earlier model attempt in an editor next to the aligned target/ours assembly diff, plus a C++ diff, Ghidra's decompilation and data context, and a CPU permuter button. A byte-identical, reference-checked result is installed into `matches/`, committed and pushed automatically.
 
 Clean-room: no leaked source (e.g. the Simpsons: Hit & Run leak, which shares this engine) is used or accepted.

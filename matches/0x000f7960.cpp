@@ -1,7 +1,7 @@
 typedef unsigned int U32;
 void ReleaseThing(U32);
 class Thing {
-public:
+  public:
     char pad[0x0c];
     U32 mSecond;
     U32 mFirst;

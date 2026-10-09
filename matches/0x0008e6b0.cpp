@@ -9,16 +9,16 @@ void __stdcall RegisterMethod(void* a1, int b);
 char __cdecl LookupFlag(const void* tbl);
 
 class Closure2 {
-public:
-    void* vfptr;      // 0x00
-    char pad04[12];   // 0x04
-    char mFlag10;     // 0x10
-    char mFlag11;     // 0x11
-    char pad12[6];    // 0x12
-    char mFlag18;     // 0x18
-    char pad19[3];    // 0x19
-    int mA3;          // 0x1c
-    int mA2;          // 0x20
+  public:
+    void* vfptr;    // 0x00
+    char pad04[12]; // 0x04
+    char mFlag10;   // 0x10
+    char mFlag11;   // 0x11
+    char pad12[6];  // 0x12
+    char mFlag18;   // 0x18
+    char pad19[3];  // 0x19
+    int mA3;        // 0x1c
+    int mA2;        // 0x20
 
     Closure2(void* a1, int a2, int a3);
 };

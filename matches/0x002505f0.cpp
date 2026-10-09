@@ -1,7 +1,7 @@
 // Same code shape as 0x00250230 (propagated; names are from that function)
 namespace audio {
 class SeqActionWait {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1(int);
     virtual void vfunc_2();
@@ -12,5 +12,7 @@ public:
     char pad[8];
     int state;
 };
-void SeqActionWait::vfunc_1(int) { state = 3; }
+void SeqActionWait::vfunc_1(int) {
+    state = 3;
 }
+} // namespace audio

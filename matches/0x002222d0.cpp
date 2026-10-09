@@ -1,6 +1,10 @@
-class Member { public: virtual void f0(); virtual void f1(); };
+class Member {
+  public:
+    virtual void f0();
+    virtual void f1();
+};
 class PartitionDriver {
-public:
+  public:
     virtual ~PartitionDriver();
     char pad[12];
     Member* mChild;

@@ -1,1 +1,10 @@
-class Thing { char pad[0x48]; public: unsigned char field; void Set(unsigned char value); }; void Thing::Set(unsigned char value) { field = value; }
+class Thing {
+    char pad[0x48];
+
+  public:
+    unsigned char field;
+    void Set(unsigned char value);
+};
+void Thing::Set(unsigned char value) {
+    field = value;
+}

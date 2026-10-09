@@ -1,7 +1,7 @@
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 
 class Target {
-public:
+  public:
     char pad0[0x10];
     int field10;
     int field14;
@@ -10,8 +10,7 @@ public:
     void Init(const char* source);
 };
 
-void Target::Init(const char* source)
-{
+void Target::Init(const char* source) {
     field10 = 0;
     field14 = 0;
     flag = 0;

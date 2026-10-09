@@ -1,0 +1,135 @@
+struct Blk {
+    int x[10];
+};
+struct Item {
+    char pad[0x118];
+    Blk blk;
+    void Prep(Item*);
+};
+struct Mgr {
+    virtual void m0();
+    virtual void m1();
+    virtual void m2();
+    virtual void m3();
+    virtual void m4();
+    virtual void m5();
+    virtual void m6();
+    virtual void m7();
+    virtual void m8();
+    virtual void m9();
+    virtual void m10();
+    virtual void m11();
+    virtual void m12();
+    virtual void m13();
+    virtual void m14();
+    virtual void m15();
+    virtual void m16();
+    virtual void m17();
+    virtual void m18();
+    virtual void m19();
+    virtual void m20();
+    virtual void m21();
+    virtual void m22();
+    virtual void m23();
+    virtual void m24();
+    virtual void m25();
+    virtual void m26();
+    virtual void m27();
+    virtual void m28();
+    virtual void m29();
+    virtual void m30();
+    virtual void m31();
+    virtual void m32();
+    virtual void m33();
+    virtual void m34();
+    virtual void m35();
+    virtual void m36();
+    virtual void m37();
+    virtual void m38();
+    virtual void m39();
+    virtual void m40();
+    virtual void m41();
+    virtual void m42();
+    virtual void m43();
+    virtual void m44();
+    virtual void m45();
+    virtual void m46();
+    virtual void m47();
+    virtual void m48();
+    virtual void m49();
+    virtual void m50();
+    virtual void m51();
+    virtual Item* Get(Item*);
+    Item* Find(Item*);
+};
+class FEContainer {
+  public:
+    virtual void a0();
+    virtual void a1();
+    virtual void a2();
+    virtual void a3();
+    virtual void a4();
+    virtual void a5();
+    virtual void a6();
+    virtual void a7();
+    virtual void a8();
+    virtual void a9();
+    virtual void a10();
+    virtual void a11();
+    virtual void a12();
+    virtual void a13();
+    virtual void a14();
+    virtual void a15();
+    virtual void a16();
+    virtual void a17();
+    virtual void a18();
+    virtual void a19();
+    virtual void a20();
+    virtual void a21();
+    virtual void a22();
+    virtual void a23();
+    virtual void s24(Item*, int);
+    virtual Item* Target(Item*, Item*);
+    virtual void b26();
+    virtual void b27();
+    virtual void b28();
+    virtual void b29();
+    virtual void b30();
+    virtual void b31();
+    virtual void b32();
+    virtual void b33();
+    virtual void b34();
+    virtual void b35();
+    virtual void b36();
+    virtual void b37();
+    virtual void b38();
+    virtual void b39();
+    virtual void b40();
+    virtual void b41();
+    virtual Item* Lookup(Item*);
+    virtual void c43();
+    virtual void c44();
+    virtual void c45();
+    virtual void c46();
+    virtual void c47();
+    virtual void c48();
+    virtual void c49();
+    virtual void c50();
+    virtual void c51();
+    virtual void c52();
+    virtual Item* Make(int, int);
+    Mgr* mgr;
+};
+
+Item* FEContainer::Target(Item* a, Item* id) {
+    Item* res = mgr->Get(a);
+    if (id) {
+        Item* it = Lookup(id);
+        if (it || (it = mgr->Find(id))) {
+            res->Prep(it);
+            res->blk = it->blk;
+        }
+    }
+    s24(res, (int)a);
+    return res;
+}

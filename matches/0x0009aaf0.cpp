@@ -1,0 +1,25 @@
+class Base {
+  public:
+    void Init(int, int);
+};
+extern unsigned char __cdecl GetValue(const char*);
+class Obj : public Base {
+  public:
+    int vt;
+    char pad4[0x0c];
+    unsigned char b10, b11, b12;
+    char pad13[5];
+    unsigned char b18;
+    char pad19[3];
+    int field1c;
+    Obj(int a, int b);
+};
+Obj::Obj(int a, int b) {
+    Init(a, 3);
+    vt = 0x404c50;
+    field1c = b;
+    b18 = GetValue((const char*)0x48e100);
+    b10 = GetValue((const char*)0x48e0e4);
+    b11 = GetValue((const char*)0x48e0e4);
+    b12 = GetValue((const char*)0x48e0e4);
+}

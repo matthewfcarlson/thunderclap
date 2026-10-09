@@ -1,3 +1,21 @@
-class Function { public: virtual void f0(); virtual void f1(); virtual void f2(void*, void**, void**); };
-class Function2 : public Function { char pad[0x18]; public: void* mFn; virtual void f2(void*, void**, void**); };
-void Function2::f2(void* ignored, void** args, void** out) { void* a = args[0]; void* b = args[1]; void* fn = mFn; void* value = ((void* (__cdecl *)(void*, void*))fn)(a, b); if (out) *out = value; }
+class Function {
+  public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2(void*, void**, void**);
+};
+class Function2 : public Function {
+    char pad[0x18];
+
+  public:
+    void* mFn;
+    virtual void f2(void*, void**, void**);
+};
+void Function2::f2(void* ignored, void** args, void** out) {
+    void* a = args[0];
+    void* b = args[1];
+    void* fn = mFn;
+    void* value = ((void*(__cdecl*)(void*, void*))fn)(a, b);
+    if (out)
+        *out = value;
+}

@@ -1,2 +1,11 @@
-class Image32 { public: char pad0[0x10]; int mStride; char pad14[0x10]; int* mPixels; void vfunc_10(int, int, int); };
-void Image32::vfunc_10(int x, int y, int value) { mPixels[mStride * y + x] = value; }
+class Image32 {
+  public:
+    char pad0[0x10];
+    int mStride;
+    char pad14[0x10];
+    int* mPixels;
+    void vfunc_10(int, int, int);
+};
+void Image32::vfunc_10(int x, int y, int value) {
+    mPixels[mStride * y + x] = value;
+}

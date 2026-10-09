@@ -1,7 +1,10 @@
 // Same code shape as 0x0002d950 (propagated; names are from that function)
-class CActorManager { public: void f(); };
+class CActorManager {
+  public:
+    void f();
+};
 class Method0 {
-public:
+  public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -9,4 +12,6 @@ public:
     void (CActorManager::*mFn)();
     void vfunc_2(CActorManager*, void*, void*);
 };
-void Method0::vfunc_2(CActorManager* a, void*, void*) { (a->*mFn)(); }
+void Method0::vfunc_2(CActorManager* a, void*, void*) {
+    (a->*mFn)();
+}
