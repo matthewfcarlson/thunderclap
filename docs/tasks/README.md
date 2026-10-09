@@ -7,7 +7,7 @@ Self-contained briefs for work alongside the matching farm. Each brief has a goa
 | 01 | [Reference verification (relocation targets)](01-reference-verification.md) | Ghidra project | M | *done: `tools/verify_relocs.py` (see journal)* |
 | 02 | [RTTI → class headers](02-rtti-headers.md) | `build/rtti.json` | M | |
 | 03 | [RCF archive tool](03-rcf-tool.md) | ISO only | S–M | *done: exact names via game hash, byte-identical repack (branch `task/rcf-hash`)* |
-| 04 | [Pure3D `.p3d` reader](04-p3d-reader.md) | 03 | M–L | *done: verified on all 1,436 files; textures → PNG, meshes/skins → glTF (branch `task/p3d-verify`). Open: animations, collision* |
+| 04 | [Pure3D `.p3d` reader](04-p3d-reader.md) | 03 | M–L | *done: verified on all 1,436 files; textures → PNG, meshes/skins/animations → glTF, whole cities (branches `task/p3d-verify`, `task/p3d-anim`). Open: collision, state props* |
 | 05 | [Translation-unit / split recovery](05-split-recovery.md) | Ghidra, 01 | L | |
 | 06 | [Hybrid patch build in xemu](06-hybrid-patch-build.md) | matches/ | L | |
 | 07 | [Subsystem map for QoL (render/camera/HUD/game loop)](07-subsystem-map.md) | Ghidra, RTTI | M | |
