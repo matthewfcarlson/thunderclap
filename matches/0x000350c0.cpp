@@ -1,0 +1,36 @@
+struct Y {
+    char p0[0x14];
+    int kind;
+    char p1[0x18];
+    float f30;
+    float f34;
+    char p2[4];
+    float f3c;
+};
+struct X {
+    void Fn(float* p);
+};
+struct C {
+    char p0[0x10];
+    X* x;
+    char p1[0x108];
+    Y* y;
+    char p2[0x20];
+    int mode;
+    bool F(float* p);
+};
+bool C::F(float* p) {
+    x->Fn(p);
+    Y* q;
+    if (mode == 1 && (q = y) != 0) {
+        float v = q->f30;
+        if (v <= 0.0f)
+            v = q->f34 + q->f34;
+        float r = v * 0.5f + p[1];
+        p[1] = r;
+        int k = y->kind;
+        if (k == 2 || k == 3)
+            p[1] = y->f3c * 0.5f + r;
+    }
+    return true;
+}

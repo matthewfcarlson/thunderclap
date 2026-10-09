@@ -28,6 +28,8 @@ Translation unit rules:
 - "dec ecx; je A; dec ecx; jne B" on a small int comes from switch (x) { case 1: ... case 2: ... }, not an if-chain. Unsigned "n > 0" gives jbe; "n != 0" gives je.
 - A guard-bit pattern (mov dl,[g]; test al,dl; ... or edx,1; mov [g],edx) is a function-local static with a runtime initializer: static T* last = param;.
 - Constructing in place without a null check: call q->T::T(); explicitly (placement new adds a null test). To keep a virtual call from being devirtualized in a ctor, call through Base* b = this; b->Fn().
+- Size-optimized code (and dword ptr [m],0 for zero stores; push 2/pop eax; xor eax,eax/inc eax; push ecx/pop ecx stack adjusts; leave) was built with /O1 /Oy-: first line "// cl-flags: /Oy- /O1". The CRT/XAPI region around 0x34xxxx-0x35xxxx often is.
+- A function starting "mov eax,ecx" that returns this is a constructor (X::X()); one that doesn't return this must be a void method. Members set before the vptr store come from an inline base-class constructor.
 - Don't copy Ghidra's casts. MSVC 7.1 rejects the __thiscall keyword in function-pointer types: call through virtual methods of a declared class instead, and use member fields, not (void**)/(code**) casts.
 
 MSVC 7.1 idioms seen in this binary:
