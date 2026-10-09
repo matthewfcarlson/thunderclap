@@ -177,3 +177,7 @@ Newest entries go at the bottom of each day.
 ### Large-function A/B: similar-function examples (task 08)
 - GPT-6 Luna on the 30 large benchmark functions, fresh runs under the current prompt and scoring. **Without** examples: 2/30 matched, avg best 0.53. **With** up to 2 verified similar matches in the packet: 1/30, avg best 0.50. On the 10 functions that actually got examples: 0/10 either way (avg best 0.52 vs 0.47). ~$0.10 per arm.
 - Conclusion: the nearest matched functions are small generic idioms (~30-byte dtors/ctors), and they don't carry what large functions need. `packet.py --similar` stays opt-in and off by default.
+
+### Sonnet 5.5 cracks mid-size functions
+- On the 12 benchmark functions of 97–192 bytes: **Claude Sonnet 5.5 matched 8/12** (avg best 0.95) at $0.53 total, ~$0.066 per match. GPT-6 Luna matched 2/12 (avg best 0.69) on the same set. Sonnet matches typically took 3–5 attempts and 12–40 s.
+- So the cheap-model cliff above ~96 bytes is a capability cliff, not a feedback problem. For functions over 96 bytes the tier should be Sonnet, ~2 KB of game code matched per dollar at these sizes.
