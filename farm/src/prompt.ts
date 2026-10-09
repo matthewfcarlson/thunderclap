@@ -32,6 +32,22 @@ Translation unit rules:
 - A function starting "mov eax,ecx" that returns this is a constructor (X::X()); one that doesn't return this must be a void method. Members set before the vptr store come from an inline base-class constructor.
 - Don't copy Ghidra's casts. MSVC 7.1 rejects the __thiscall keyword in function-pointer types: call through virtual methods of a declared class instead, and use member fields, not (void**)/(code**) casts.
 
+Reading the diff:
+- [0] vs [0x4dd9cc] or "call 0x3a" vs "call 0x188480" are unresolved relocations: ignore them.
+- The same instructions in another order: the expression shape differs, not the logic. Lines only on one side: a construct is missing or extra (see below). Different registers everywhere: usually a side effect of another difference; fix that first.
+- Change one thing per submission. Never hard-code image addresses (vftables, globals, functions) as integers, and never store a vptr by hand: use real classes and declared globals. Pointer tricks and comma expressions that happen to match give the wrong structure.
+- Rebuild real structs with real field offsets instead of Ghidra's this+0x28 arithmetic; check sizeof when a size appears as an immediate (push 0x2c). This engine is pure3d/Radical: look for p3d::find<T>(name), new(allocator) T(...), DynamicCaster<T>; "Data referenced" symbol names often name the idiom.
+
+Symptom in target -> probable source (some are strong guesses, not yet confirmed):
+- A ...::vftable address stored into a stack slot or [this]: a real class with virtual functions and its inline ctor, or a dtor (e.g. a DynamicCaster<T> temporary).
+- vptr store, member calls at falling offsets, then jmp to a base function on this: an empty out-of-line destructor (T::~T() {}) whose members have destructors and whose base has a virtual destructor.
+- A base function called on this+4 where the target uses this: the base needs virtual functions so the vptr sits at offset 0 of the base, not before it.
+- fs:[0] setup and "mov [esp+N], state" stores only in yours: EH unwind states; mark the callees throw() (check sibling functions for fs:[0]).
+- Constant-size allocation, null test, thiscall returning this, xor eax,eax on the null path, one shared store: new(heap) T(...) with an inline operator new(size_t, Allocator).
+- A null test that remains after the pointer was read: an inlined getter that can return 0. A constant loaded before a branch: a variable set before the if; if the target loads it in one branch only, drop the shared variable.
+- xor eax,eax used as the stored zero (where you get mov [x],0): both paths merge into one expression (new, ternary, inline return).
+- A global loaded once before a call and reused after it: the source cached it in a local (Loader* ld = gLoader;). An extra push ecx/pop ecx in yours: a new stack local where the target reused a dead parameter slot; start the temporary's lifetime after the parameter's last use.
+
 MSVC 7.1 idioms seen in this binary:
 - "xor al,al" before a switch: bool r = false; switch (x) { case 0: r = A(); break; case 1: r = B(); break; } return r;
 - "sub reg,0 / je / dec reg / jne": a switch over 0..n.

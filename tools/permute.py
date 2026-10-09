@@ -29,7 +29,7 @@ from compare import compare  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 OUT = os.path.join(ROOT, "build/farm/permute")
-FLAG_SETS = ["", "/Oy-", "/Oy- /O1", "/O1", "/Os", "/Oy- /Os"]
+FLAG_SETS = ["", "/Oy-", "/Oy- /O1", "/O1", "/Os", "/Oy- /Os", "/GX-"]
 STMT = re.compile(r"^(\s+)([^\s{}#/][^{}]*;)\s*$")  # one simple statement / declaration on a line
 OPERAND = r"[\w.\[\]]+(?:->[\w\[\]]+)*"
 
@@ -49,7 +49,7 @@ def m_swap_lines(text):
     i = random.choice(idx)
     ind = STMT.match(lines[i]).group(1)
     cands = []
-    for d in (1, 2, 3, -1, -2, -3):
+    for d in (1, 2, 3, 4, 6, 8, -1, -2, -3, -4, -6, -8):
         j = i + d
         if 0 <= j < len(lines) and j in idx and STMT.match(lines[j]).group(1) == ind:
             between = lines[min(i, j) + 1:max(i, j)]
@@ -65,7 +65,14 @@ def m_swap_lines(text):
 def m_commute(text):
     """a OP b -> b OP a for commutative operators (incl. && / ||, which changes evaluation order)."""
     pat = re.compile(r"(?<![\w.>\]])(%s)\s*(\+|\*|(?<![&|])&(?![&=])|(?<!\|)\|(?![|=])|\^|==|!=|&&|\|\|)\s*(%s)(?![\w(\[])" % (OPERAND, OPERAND))
-    ms = [m for m in pat.finditer(text) if not text[:m.start()].rstrip().endswith(("struct", "class"))]
+    def ok(m):
+        before = text[:m.start()].rstrip()
+        if before.endswith(("struct", "class")):
+            return False
+        if m.group(2) in ("*", "&"):  # could be a declaration (T* p) or address-of: only in expression context
+            return before.endswith(("=", "(", ",", "return", "+", "-", "?", ":"))
+        return True
+    ms = [m for m in pat.finditer(text) if ok(m)]
     if not ms:
         return None
     m = random.choice(ms)
@@ -180,8 +187,52 @@ def m_split_init(text):
     return text[:m.start()] + "%s%s%s = %s;" % (m.group(1), m.group(2), m.group(3), m.group(4)) + text[m.end():]
 
 
+def m_inline_local(text):
+    """T v = simple-expr; ... v ...  ->  use the expression directly (the target may reload instead of caching)."""
+    ms = list(re.finditer(r"^(\s+)(?:const )?[\w:]+\s*\**\s*(\w+) = (%s);\n" % OPERAND, text, re.M))
+    if not ms:
+        return None
+    m = random.choice(ms)
+    rest = text[m.end():]
+    if not re.search(r"\b%s\b" % m.group(2), rest) or re.search(r"\b%s\s*(=[^=]|\+\+|--|\+=|-=)" % m.group(2), rest):
+        return None
+    return text[:m.start()] + re.sub(r"\b%s\b" % m.group(2), m.group(3), rest, count=0)
+
+
+def m_ternary(text):
+    """if (c) x = a; else x = b;  <->  x = c ? a : b;"""
+    if random.random() < 0.5:
+        pat = re.compile(r"if \(([^;{}]+)\)\s*(%s) = ([^;{}]+);\s*else\s*\2 = ([^;{}]+);" % OPERAND)
+        ms = list(pat.finditer(text))
+        if not ms:
+            return None
+        m = random.choice(ms)
+        return text[:m.start()] + "%s = %s ? %s : %s;" % (m.group(2), m.group(1), m.group(3), m.group(4)) + text[m.end():]
+    pat = re.compile(r"(%s) = ([^;?{}]+) \? ([^;:{}]+) : ([^;{}]+);" % OPERAND)
+    ms = list(pat.finditer(text))
+    if not ms:
+        return None
+    m = random.choice(ms)
+    return text[:m.start()] + "if (%s) %s = %s; else %s = %s;" % (m.group(2), m.group(1), m.group(3), m.group(1), m.group(4)) + text[m.end():]
+
+
+def m_throw(text):
+    """Toggle throw() on a declaration (EH state stores and fs:[0] frames depend on it)."""
+    if random.random() < 0.5:
+        ms = list(re.finditer(r"\) throw\(\);", text))
+        if not ms:
+            return None
+        m = random.choice(ms)
+        return text[:m.start()] + ");" + text[m.end():]
+    ms = list(re.finditer(r"^\s+[^\n{}=]*\w\s*\([^;{}]*\)\s*;", text, re.M))
+    if not ms:
+        return None
+    m = random.choice(ms)
+    return text[:m.end() - 1].rstrip() + " throw();" + text[m.end():]
+
+
 MUTATIONS = [(m_swap_lines, 5), (m_commute, 3), (m_flip_compare, 2), (m_retype, 3), (m_truthiness, 2),
-             (m_incdec, 1), (m_flip_if, 2), (m_split_init, 2)]
+             (m_incdec, 1), (m_flip_if, 2), (m_split_init, 2), (m_inline_local, 2), (m_ternary, 1), (m_throw, 1)]
 _W = [w for _, w in MUTATIONS]
 
 
@@ -199,6 +250,14 @@ def mutate(text):
 def set_flags(text, flags):
     body = re.sub(r"\A\s*//\s*cl-flags:[^\n]*\n", "", text)
     return ("// cl-flags: %s\n" % flags if flags else "") + body
+
+
+IMAGE_LITERAL = re.compile(r"^(?!\s*//).*\b0x0*[1-4][0-9a-fA-F]{5}\b", re.M)
+
+
+def hardcodes_addresses(text):
+    """Integer literals in the image range (vftables, globals, code) can't be real matches: skip such sources."""
+    return bool(IMAGE_LITERAL.search(text))
 
 
 # ---- evaluation ----
@@ -248,6 +307,9 @@ def permute(src, addr, minutes=10.0, jobs=6, install=False, log=print):
     """Returns (result, best source text, best score)."""
     a = "0x%08x" % addr
     base = open(src).read()
+    if hardcodes_addresses(base):
+        log("%s: source hard-codes image addresses; skipped" % a)
+        return "skip", base, 0.0
     s0, r0 = score(base, addr)
     if r0 is None:
         log("%s: base does not compile/compare" % a)
