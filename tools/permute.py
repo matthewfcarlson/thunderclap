@@ -284,8 +284,22 @@ def score(text, addr=None, symbol=None):
         return (-1, 0), None
     if r["status"] == "match":
         return (10 ** 6, 0), r
-    # Matched instructions first, then closeness of size.
-    return (r["matched"] / max(r["total"], 1), -abs(r["target_bytes"] - r["our_bytes"])), r
+    # Graded credit, so partial progress (e.g. half of a register reassignment) is visible to the search:
+    # equal row 1, same instruction with only registers differing 0.6, same mnemonic 0.3, missing/extra 0.
+    return (graded(r), -abs(r["target_bytes"] - r["our_bytes"])), r
+
+
+REG = re.compile(r"\b(e?[abcd]x|[abcd][lh]|e?[sd]i|e?[sb]p)\b")
+
+
+def graded(r):
+    total = 0.0
+    for tag, _, t, o in r.get("rows", []):
+        if tag == "  ":
+            total += 1
+        elif tag == "!!" and t.split(" ")[0] == o.split(" ")[0]:
+            total += 0.6 if REG.sub("R", t) == REG.sub("R", o) else 0.3
+    return total / max(len(r.get("rows", [])), 1)
 
 
 def _job(text):
