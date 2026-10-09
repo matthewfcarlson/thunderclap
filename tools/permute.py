@@ -245,12 +245,13 @@ def verify(text, addr):
 
 
 def permute(src, addr, minutes=10.0, jobs=6, install=False, log=print):
+    """Returns (result, best source text, best score)."""
     a = "0x%08x" % addr
     base = open(src).read()
     s0, r0 = score(base, addr)
     if r0 is None:
         log("%s: base does not compile/compare" % a)
-        return "error"
+        return "error", base, 0.0
     symbol = r0["symbol"]
     best, best_s = base, s0
     # Compiler option variants first: cheap and sometimes the whole story.
@@ -299,7 +300,7 @@ def permute(src, addr, minutes=10.0, jobs=6, install=False, log=print):
     with open(os.path.join(OUT, "log.jsonl"), "a") as f:
         f.write(json.dumps({"addr": a, "src": src, "result": result, "start": s0[0],
                             "best": min(best_s[0], 1.0), "tries": tried, "t": time.time()}) + "\n")
-    return result
+    return result, best, min(best_s[0], 1.0)
 
 
 def main():

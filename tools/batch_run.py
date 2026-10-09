@@ -112,6 +112,35 @@ def evaluate(addr, code, path, install):
     return {"status": r.get("status", "error"), "score": r.get("score") or 0.0, "report": r.get("report", "")[:6000]}
 
 
+def permute_round(state, d, rd, a):
+    """Between rounds the CPU is idle: brute-force the closest misses, so the model sees the improved version."""
+    sys.path.insert(0, os.path.dirname(__file__))
+    from permute import permute
+    near = sorted(((s["best"]["score"], x) for x, s in state["fns"].items()
+                   if s["status"] == "pending" and s.get("best") and 0.75 <= s["best"]["score"] < 0.99),
+                  reverse=True)
+    deadline = time.time() + a.permute_minutes * 60
+    for score, x in near:
+        left = (deadline - time.time()) / 60
+        if left < 0.25:
+            break
+        fs = state["fns"][x]
+        src = os.path.join(d, x.replace("0x", "") + "_r%d_best.cpp" % rd)
+        with open(src, "w") as f:
+            f.write(fs["best"]["code"])
+        result, text, s = permute(src, int(x, 16), min(1.5, left), a.jobs, False, log=lambda m: None)
+        if s <= score and result != "match":
+            continue
+        out = os.path.join(d, x.replace("0x", "") + "_r%d_perm.cpp" % rd)
+        r = evaluate(x, text, out, a.install)
+        log("  permuted %s: %.2f -> %.2f%s" % (x, score, r["score"], " MATCH" if r["status"] == "match" else ""))
+        if r["score"] > fs["best"]["score"]:
+            fs["best"] = {"code": text, "report": r["report"], "score": r["score"]}
+            fs["scores"].append(round(r["score"], 3))
+        if r["status"] == "match":
+            fs["status"] = "match"
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("name")
@@ -124,6 +153,8 @@ def main():
     p.add_argument("--reasoning", default="low")
     p.add_argument("--poll", type=int, default=60)
     p.add_argument("--install", action="store_true")
+    p.add_argument("--permute-minutes", type=float, default=15, help="CPU search on near-misses between rounds (0 = off)")
+    p.add_argument("--jobs", type=int, default=6)
     a = p.parse_args()
 
     key = os.environ.get("OPENROUTER_API_KEY") or subprocess.run(
@@ -218,6 +249,8 @@ def main():
             if r["status"] == "match":
                 fs["status"] = "match"
                 n_match += 1
+        if rd < a.rounds and a.permute_minutes > 0:
+            permute_round(state, d, rd, a)
         state["round"] = rd
         state["batch"] = None
         save()
