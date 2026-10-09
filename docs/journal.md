@@ -129,3 +129,25 @@ Newest entries go at the bottom of each day.
   - 6 where the original has a constant `0` but ours has a vftable pointer (the masking hid it);
   - 2 float mismatches.
 - The 225 moved to `build/farm/invalid/` and are retried under fresh conversations. From now on the farm's `submit_cpp` and shape propagation both run the reference check before accepting a match, and wrong references go back to the model as feedback.
+
+### RCF archives (task 03): exact names and byte-identical repack
+- The first `rcf.py` joined names to directory entries by position, so sizes were wrong (`fe_real.txt` came out as 94 bytes instead of 87,217). The name table has no offsets, and the directory is sorted by hash, so a correct join needs the game's filename hash.
+- Found it by scanning `.text` for `imul r, r, 0x1f`: there are only two hits in radcore, `FUN_002673a0` and `FUN_002673d0`. The second is `h = h*31 + c` with `c += 0x20` for every char below `'a'`. That's a cheap case fold that also shifts `\`, `.` and digits. With seed 0 it matches **8,359 / 8,359** names across all 13 archives.
+- Name records: `{mtime, 0x800, 0, len, name\0, 3 zero bytes}`. The mtimes are real Unix timestamps from 2005-03-10 to 2005-06-08, a build-date fingerprint (the movies were packed 2005-05-30 and 2005-06-03; sound on 2005-06-07).
+- Every layout rule is deterministic (sections and files 0x800-aligned, last file unpadded, zero fill), so `rcf.py repack` rebuilds all 13 archives **byte-for-byte** from extracted files plus a small `_rcf.json` manifest. That unblocks mods. `rcf.py verify` checks all 2.3 GB in ~5 s using mmap.
+- Contents (8,359 files):
+
+| Archive | Files | Size | Types | Built | Top dirs |
+|---|---|---|---|---|---|
+| `art.rcf` | 1188 | 348 MB | .p3d 361, .png 315, .lua 187, .fig 138, .rdl 94, .dh 93 | 2005-03-24 – 06-08 | art |
+| `districts.rcf` | 35 | 45 MB | .p3d 35 | 2005-05-15 – 06-07 | art |
+| `misc.rcf` | 676 | 13 MB | .txt 508, .lua 107, .fig 38, .p3d 22, .dhd 1 | 2005-03-10 – 06-08 | frontend, scripts |
+| `mog_mov1-3.rcf` | 3+2+3 | 629 MB | .rmv | 2005-06-03 | movies |
+| `movies1-2.rcf` | 8+12 | 541 MB | .rmv | 2005-05-30 | movies |
+| `nis.rcf` | 141 | 15 MB | .p3d 141 | 2005-06-07 | nis, nischars |
+| `rooms.rcf` | 784 | 127 MB | .p3d 784 | 2005-05-15 – 06-08 | art |
+| `sound.rcf` | 394 | 354 MB | .rsd 394 | 2005-06-07 | sound |
+| `sound_en.rcf` | 4732 | 220 MB | .rsd 4732 | 2005-06-07 | sound |
+| `sound_misc.rcf` | 381 | 27 MB | .lua 101, .obj 93, .p3d 93, .txt 93, .ods 1 | 2005-05-15 – 06-07 | sound |
+
+- Surprises: `art.rcf`'s 315 `.png` files are plain PNGs for the unlockable bonus gallery (`art\bonus\concept_*`, `comic_images`), and the `.lua` files are compiled bytecode (`\x1bLua`). `sound_en.rcf` isn't in `rcfs.txt`; the game builds its name from `sound_%s.rcf`, and there's also a `sound_uk.rcf` string.

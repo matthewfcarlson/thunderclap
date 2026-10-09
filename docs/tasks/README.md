@@ -6,7 +6,7 @@ Self-contained briefs for work alongside the matching farm. Each brief has a goa
 |---|---|---|---|---|
 | 01 | [Reference verification (relocation targets)](01-reference-verification.md) | Ghidra project | M | *done: `tools/verify_relocs.py` (see journal)* |
 | 02 | [RTTI → class headers](02-rtti-headers.md) | `build/rtti.json` | M | |
-| 03 | [RCF archive tool](03-rcf-tool.md) | ISO only | S–M | *in progress: branch `task/rcf-tool`* |
+| 03 | [RCF archive tool](03-rcf-tool.md) | ISO only | S–M | *done: exact names via game hash, byte-identical repack (branch `task/rcf-hash`)* |
 | 04 | [Pure3D `.p3d` reader](04-p3d-reader.md) | 03 | M–L | *done (PR #2)* |
 | 05 | [Translation-unit / split recovery](05-split-recovery.md) | Ghidra, 01 | L | |
 | 06 | [Hybrid patch build in xemu](06-hybrid-patch-build.md) | matches/ | L | |
