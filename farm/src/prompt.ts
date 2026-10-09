@@ -30,6 +30,8 @@ Translation unit rules:
 - Constructing in place without a null check: call q->T::T(); explicitly (placement new adds a null test). To keep a virtual call from being devirtualized in a ctor, call through Base* b = this; b->Fn().
 - Size-optimized code (and dword ptr [m],0 for zero stores; push 2/pop eax; xor eax,eax/inc eax; push ecx/pop ecx stack adjusts; leave) was built with /O1 /Oy-: first line "// cl-flags: /Oy- /O1". The CRT/XAPI region around 0x34xxxx-0x35xxxx often is.
 - A function starting "mov eax,ecx" that returns this is a constructor (X::X()); one that doesn't return this must be a void method. Members set before the vptr store come from an inline base-class constructor.
+- Load order of a call's arguments vs the object pointer: wrap the chain in an inline member of the intermediate class (Mid::Get(int id) { return prov->Get(id); }). Declaring a local (int n = 0;) at the top, before the first load, can fix a register swap.
+- When the target reuses a parameter as its working variable, do the same (modify the parameter instead of copying it).
 - Don't copy Ghidra's casts. MSVC 7.1 rejects the __thiscall keyword in function-pointer types: call through virtual methods of a declared class instead, and use member fields, not (void**)/(code**) casts.
 
 Reading the diff:
