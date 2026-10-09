@@ -182,3 +182,13 @@ Newest entries go at the bottom of each day.
 - On the 12 benchmark functions of 97–192 bytes: **Claude Sonnet 5.5 matched 8/12** (avg best 0.95) at $0.53 total, ~$0.066 per match. GPT-6 Luna matched 2/12 (avg best 0.69) on the same set. Sonnet matches typically took 3–5 attempts and 12–40 s.
 - So the cheap-model cliff above ~96 bytes is a capability cliff, not a feedback problem. For functions over 96 bytes the tier should be Sonnet, ~2 KB of game code matched per dollar at these sizes.
 - Spent the last OpenRouter credit on Sonnet over the 97–192 B queue (2,100 unique shapes). Result: 5/28 (18%) for $0.95, well below the benchmark's 67%. Smallest-first ordering front-loaded a family of near-identical functions (`0x001a3a00…0x001a4410`) that Sonnet couldn't crack, so the next run should interleave shapes or skip a family after repeated failures. With 8 concurrent Sonnet requests OpenRouter returned 402 while ~$1.60 was still left: it checks each request's maximum possible cost (8k output tokens) against the balance. At low balances, run with fewer concurrent requests.
+
+## 2026-10-09: Overnight
+
+- **mac2 night lane** (Qwen3.8-Flash-Next GGUF, thinking low, 4 parallel, 8 attempts, 23:52–07:02): 78 functions tried, **29 matched (37%)**, median ~19 min per function. Its queue was what the cloud tiers had given up on, closest misses first, so a free local model can finish near-misses that cheap cloud models gave up on. Propagation turned 29 direct matches into +83 committed functions.
+- Lessons from the night:
+  - Front-of-queue junk wastes local time. Ghidra bodies that don't end in `ret`/`jmp` are unmatchable and are now filtered.
+  - The score must penalize *extra* instructions (fixed).
+  - Flash-Next started at 1/18, then improved as it reached the closer cloud misses.
+- Formatting pass: 13,427 matches reformatted with clang-format, 565 already clean, 0 that failed re-verification. New matches are formatted on save.
+- Morning status: **14,089 functions (61.1%), 432 KB of 2.60 MB (16.6%)**. OpenRouter credit is exhausted. Real spend for the whole project so far is ~$18.9 of the $50 budget.
