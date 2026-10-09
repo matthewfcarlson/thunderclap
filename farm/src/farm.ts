@@ -415,6 +415,16 @@ async function main() {
 			}, ctx);
 		}
 		const started = Date.now();
+		// Conversations can be resumed/retried, and pi.usage is cumulative per conversation:
+		// record this run's own spend as (after - before), or retries get counted again.
+		const sumUsage = (u: any) => {
+			let c = 0, i = 0, o = 0, cr = 0;
+			for (const m of Object.values(u?.models ?? {}) as any[]) {
+				c += m.cost?.total ?? 0; i += m.input ?? 0; o += m.output ?? 0; cr += m.cacheRead ?? 0;
+			}
+			return { cost: c, input: i, output: o, cacheRead: cr };
+		};
+		const before = sumUsage(await harness.snapshot(UsageDoc, conv.id, ctx));
 		const content = taskPrompt(await packet(addr), tier.maxAttempts, previous);
 		const workDir = join(BUILD, "work", WORK_TAG, addr);
 		mkdirSync(workDir, { recursive: true });
@@ -424,13 +434,9 @@ async function main() {
 		const settled = await sub.wait(ctx);
 		const job = (await harness.snapshot(Job, conv.id, ctx))!;
 		const usage = await harness.snapshot(UsageDoc, conv.id, ctx);
-		let cost = 0, input = 0, output = 0, cacheRead = 0;
-		for (const u of Object.values(usage?.models ?? {}) as any[]) {
-			cost += u.cost?.total ?? 0;
-			input += u.input ?? 0;
-			output += u.output ?? 0;
-			cacheRead += u.cacheRead ?? 0;
-		}
+		const after = sumUsage(usage);
+		const cost = after.cost - before.cost, input = after.input - before.input;
+		const output = after.output - before.output, cacheRead = after.cacheRead - before.cacheRead;
 		const status = job.status === "running" ? (settled.status === "done" ? "gave_up" : "failed") : job.status;
 		const rec = {
 			addr, tier: t, model: tier.model, status, attempts: job.attempts, bestScore: job.bestScore,
