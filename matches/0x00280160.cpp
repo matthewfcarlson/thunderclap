@@ -1,5 +1,21 @@
-class Item { public: virtual void A(); virtual void Release(); };
-class Owner { public: char pad0[0x10]; int state; char pad14[4]; int clear; char pad1c[0x44]; int first; int second; int x; int y; void Init(); };
+class Item {
+  public:
+    virtual void A();
+    virtual void Release();
+};
+class Owner {
+  public:
+    char pad0[0x10];
+    int state;
+    char pad14[4];
+    int clear;
+    char pad1c[0x44];
+    int first;
+    int second;
+    int x;
+    int y;
+    void Init();
+};
 void Owner::Init() {
     Owner* p = this;
     int n = 100;
