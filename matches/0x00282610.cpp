@@ -1,0 +1,4 @@
+typedef unsigned int u32;
+struct CMotionTrailQueue { virtual void a(); virtual void b(); virtual CMotionTrailQueue* vfunc_2(u32); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h(); virtual void i(); virtual void j(); virtual void k(); virtual void l(); virtual void m(); virtual void n(); virtual void o(); virtual void p(); virtual void q(); virtual void r(); void other(); char pad[0x58]; void* member; };
+extern void __cdecl releaseThing(void*);
+CMotionTrailQueue* CMotionTrailQueue::vfunc_2(u32 flag) { *(void**)this=(void*)0x42c48c; releaseThing(member); other(); if(flag&1) releaseThing(this); return this; }
