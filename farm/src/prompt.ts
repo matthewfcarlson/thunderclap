@@ -11,6 +11,7 @@ Translation unit rules:
 - A virtual call "call dword ptr [eax+N]" calls slot N/4: declare that many virtual methods before it, in order.
 - Member functions are __thiscall (this in ecx). "ret N" pops N bytes of stack arguments; plain "ret" with stack arguments means __cdecl.
 - Real names are unknown. Use the given class names and invent short descriptive names for the rest.
+- Don't copy Ghidra's casts. MSVC 7.1 rejects the __thiscall keyword in function-pointer types: call through virtual methods of a declared class instead, and use member fields, not (void**)/(code**) casts.
 
 MSVC 7.1 idioms seen in this binary:
 - "xor al,al" before a switch: bool r = false; switch (x) { case 0: r = A(); break; case 1: r = B(); break; } return r;
