@@ -1,0 +1,11 @@
+# Style for decompiled sources (matches/, experiments/). Whitespace-only changes can't alter
+# codegen except via __LINE__, so tools/format_matches.py re-verifies every file it touches.
+BasedOnStyle: LLVM
+IndentWidth: 4
+ColumnLimit: 110
+PointerAlignment: Left
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+BreakBeforeBraces: Attach
+SortIncludes: false
+Standard: c++03
