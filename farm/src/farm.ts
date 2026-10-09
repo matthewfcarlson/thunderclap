@@ -221,6 +221,7 @@ class Semaphore {
 }
 
 const ENDPOINTS = loadEndpoints();
+const CLOUD_MAX_OUTPUT = 8192;
 
 // Local reasoning models ignore "low" effort and think for 20k+ tokens before acting. For endpoints
 // with "thinking": false (the default), rewrite chat requests to disable thinking in the chat template.
@@ -234,6 +235,18 @@ const ENDPOINTS = loadEndpoints();
 			body.chat_template_kwargs = { ...(body.chat_template_kwargs ?? {}), enable_thinking: false };
 			delete body.reasoning_effort;
 			delete body.reasoning;
+			init = { ...init, body: JSON.stringify(body) };
+		}
+		// Cloud models occasionally degenerate into a repetition loop (one Luna turn emitted a 483 KB
+		// "submission", 137k output tokens). Clamp output; keep room above any thinking budget.
+		if (url.startsWith("https://openrouter.ai/") && typeof init?.body === "string") {
+			const body = JSON.parse(init.body);
+			const budget = body.thinking?.budget_tokens ?? 0;
+			const cap = Math.max(CLOUD_MAX_OUTPUT, budget + 4096);
+			for (const k of ["max_tokens", "max_completion_tokens"]) {
+				if (typeof body[k] === "number" && body[k] > cap) body[k] = cap;
+			}
+			if (body.max_tokens === undefined && body.max_completion_tokens === undefined) body.max_tokens = cap;
 			init = { ...init, body: JSON.stringify(body) };
 		}
 		return realFetch(input, init);
@@ -414,9 +427,10 @@ async function main() {
 		}
 		const best = jobs.filter((j) => j.bestCode).sort((a, b) => b.bestScore - a.bestScore)[0];
 		if (!best) return undefined;
+		const clip = (t: string, n: number) => (t.length > n ? t.slice(0, n) + `\n/* ... ${t.length - n} more chars cut ... */` : t);
 		return {
-			code: best.bestCode,
-			report: best.bestReport,
+			code: clip(best.bestCode, 8000),
+			report: clip(best.bestReport, 4000),
 			history: jobs.flatMap((j) => j.history ?? []),
 			models: jobs.map((j) => tiers[j.tier]?.model ?? "?"),
 		};
