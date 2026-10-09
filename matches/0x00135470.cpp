@@ -1,0 +1,6 @@
+struct Ref { virtual void AddRef(); virtual void Release(); };
+void BaseCtor();
+class FlyingAttackAction { public: void * volatile vft; char pad04[0x18]; void * volatile arg; Ref *ref; int x24; int x28; int x2c; int x30; int x34; int x38; FlyingAttackAction *Run(void *, Ref *); };
+FlyingAttackAction * FlyingAttackAction::Run(void *a, Ref *r) {
+ BaseCtor(); vft=(void*)0x411dc4; arg=0; ref=0; x24=0; x28=0; x2c=0; x30=0; x34=0; x38=0; arg=a; if(r) r->AddRef(); if(ref) ref->Release(); ref=r; return this;
+}
