@@ -1,5 +1,5 @@
 struct Helper {
-    ~Helper() throw();       // FUN_0027af50
+    ~Helper() throw(); // FUN_0027af50
     int x;
 };
 
@@ -7,8 +7,8 @@ struct Base {
     virtual ~Base() throw(); // FUN_00236d60
 };
 
-
-namespace hulkfight { namespace scenario {
+namespace hulkfight {
+namespace scenario {
 
 struct EffectTrack : Base {
     virtual ~EffectTrack();
@@ -25,4 +25,5 @@ struct EffectTrack : Base {
 
 EffectTrack::~EffectTrack() {}
 
-}}
+} // namespace scenario
+} // namespace hulkfight
