@@ -411,6 +411,8 @@ async function main() {
 		};
 		appendFileSync(ledgerPath, JSON.stringify(rec) + "\n");
 		if (status === "failed") failures.set(key, retry + 1);
+		// 402 = the provider account is out of credits: stop paid tiers instead of failing every request.
+		if (status === "failed" && /\b402\b/.test(String(rec.detail ?? "")) && !isFree(tier.model)) creditsOut = true;
 		spent += rec.cost;
 		console.log(`${addr} t${t} ${tier.model.padEnd(32)} ${status.padEnd(9)} att=${job.attempts} best=${job.bestScore.toFixed(2)} $${rec.cost} ${rec.secs}s`);
 		return job;
@@ -443,8 +445,10 @@ async function main() {
 			if (finished.get(addr)?.has(t)) continue;
 			if (t > 0 && !previous) previous = await handoff(addr, t);
 			if (size < (tiers[t].minSize ?? 0) || size > (tiers[t].maxSize ?? Infinity)) continue;
-			if (!isFree(tiers[t].model) && (spent >= budget || keyRemaining - (spent - spentAtStart) < keyFloor)) {
-				if (!budgetWarned) console.log(`budget $${budget} reached ($${spent.toFixed(2)} spent): skipping paid tiers`);
+			if (!isFree(tiers[t].model) && (creditsOut || spent >= budget || keyRemaining - (spent - spentAtStart) < keyFloor)) {
+				if (!budgetWarned) console.log(creditsOut
+					? `budget reached: provider account out of credits (402): skipping paid tiers`
+					: `budget $${budget} reached ($${spent.toFixed(2)} spent): skipping paid tiers`);
 				budgetWarned = true;
 				continue;
 			}
@@ -473,6 +477,7 @@ async function main() {
 	}
 	const keyFloor = 0.5;
 	let budgetWarned = false;
+	let creditsOut = false;
 	const concurrency = Number(values.concurrency);
 	let next = 0;
 	console.log(`farm: ${queue.length} functions, concurrency ${concurrency}, tiers ${tiers.map((t) => t.model).join(" -> ")}, budget $${budget} ($${spent.toFixed(3)} spent)`);
