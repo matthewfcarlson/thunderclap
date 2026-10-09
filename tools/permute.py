@@ -315,6 +315,9 @@ def permute(src, addr, minutes=10.0, jobs=6, install=False, log=print):
         log("%s: base does not compile/compare" % a)
         return "error", base, 0.0
     symbol = r0["symbol"]
+    if s0[0] >= 10 ** 6:  # bytes already match; only references are wrong, which rewrites can't fix
+        log("%s: already byte-identical (reference problem); skipped" % a)
+        return "refs", base, 1.0
     best, best_s = base, s0
     # Compiler option variants first: cheap and sometimes the whole story.
     for fl in FLAG_SETS:
