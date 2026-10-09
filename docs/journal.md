@@ -151,3 +151,14 @@ Newest entries go at the bottom of each day.
 | `sound_misc.rcf` | 381 | 27 MB | .lua 101, .obj 93, .p3d 93, .txt 93, .ods 1 | 2005-05-15 – 06-07 | sound |
 
 - Surprises: `art.rcf`'s 315 `.png` files are plain PNGs for the unlockable bonus gallery (`art\bonus\concept_*`, `comic_images`), and the `.lua` files are compiled bytecode (`\x1bLua`). `sound_en.rcf` isn't in `rcfs.txt`; the game builds its name from `sound_%s.rcf`, and there's also a `sound_uk.rcf` string.
+
+### Pure3D (task 04): verified against real files; textures and Hulk export
+- The spec-first `p3d.py` chunk walker was right: all 1,436 `.p3d` files parse with 0 bad chunks. Most chunk *names* were wrong or missing, though. Ground truth came from the XBE: each `*Loader` class's constructor stores its chunk ID next to its vtable pointer, so scanning the functions that reference each vtable gave 29 confirmed IDs (Skeleton is 0x23000, not the 0x4500 I'd guessed; PolySkin 0x10001; Room 0x60000701, …).
+- **Textures are plain files**: ImageData is `u32 size` + a complete DDS (DXT1/3/5 only, no Xbox swizzle) or PNG. A ~60-line pure-Python DXT decoder exports all **8,798 textures in ~40 s**. The DDS rows are bottom-up: the controller diagram's "L"/"R" read upside down until flipped.
+- **Hulk** (`global_hulk.p3d`): a 38-joint skeleton, a 4-primitive PolySkin (3,426 triangles from strips) and one 256² DXT texture. Two traps on the way to a correct glTF:
+  1. The first render had denim on Hulk's head. The UV list has an extra `u32 channel` after the count (8,140 = 16 + 4 + 1015×8), so every pair was off by one float. Scoring all 8 flip/swap variants by "Shorts samples blue, Skin samples green" showed no orientation worked. That pointed to a parsing bug rather than an orientation one.
+  2. Bone indices pack the first weight's slot in the top byte. Checked geometrically: the top-byte joint is the nearest joint for 847/1015 vertices, against 10 for the low byte.
+- No Blender here, so the `.glb` is checked by reading it back: accessor bounds, joint indices < 38, weights sum to 1, plus a small software rasterizer to render it. Front and back renders look right: face, torso, torn shorts.
+- **World geometry** shares shaders across files: a downtown room references shaders and textures that live in `districts.rcf` (`dt_day_district_N.p3d`), mirroring how the game resolves by name across loaded inventory. `p3d.py gltf --lib` handles this; with the district libs, the room's skyscrapers export textured. Rooms also carry baked vertex lighting (D3DCOLOR) and a second UV channel (grime/lightmap); both are exported.
+- Gotcha for anyone grepping assets on macOS: `grep -r` silently misses strings in binary files under a UTF-8 locale. Use `LC_ALL=C grep -a`.
+- Remaining unknown chunks are dominated by animation channels (0x1211xx, ~800k instances), then collision volumes (0x701xxxx) and state props (0x802xxxx). Those are the next targets (animations → glTF).
