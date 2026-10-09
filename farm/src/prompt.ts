@@ -17,6 +17,9 @@ Translation unit rules:
 - Any destructor (including a virtual one on a stack temporary) adds an SEH frame (fs:[0]); if the target has none, use a plain virtual method as a placeholder, or declare the destructors throw().
 - Float sums are reordered by the compiler: try permutations of the term order (e.g. y*y + z*z + x*x). Small inline helpers (inline void Copy(...)) can change instruction selection vs hand-written loops.
 - Load order follows source: copying a member into a local before a call (Mgr* m = owner->mgr;) can fix it.
+- Inlined strlen: const char* e = s + 1; do c = *s++; while (c); len = s - e; then +1 gives "sub eax,edx / inc eax". strcpy: do { c = *src; src++; *dst = c; dst++; } while (c); — write them as small inline helpers.
+- Float parameters that are only copied/pushed must be declared float, not int. Float compares: write new-value > old-value (operand order flips the fcom test).
+- "lea ecx,[reg+off]; push float; call" with no add esp is a thiscall member of a sub-object/array element: declare it Elem::Fn(float).
 - Don't copy Ghidra's casts. MSVC 7.1 rejects the __thiscall keyword in function-pointer types: call through virtual methods of a declared class instead, and use member fields, not (void**)/(code**) casts.
 
 MSVC 7.1 idioms seen in this binary:
