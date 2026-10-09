@@ -190,14 +190,13 @@ def main():
         if st != "completed":
             log("batch %s ended %s: %s" % (state["batch"], st, str(b.get("error"))[:300]))
         results = b.get("results") or []
+        state["cost"] += float((b.get("usage") or {}).get("cost") or 0)  # per-request bodies carry no cost
         rd = state["round"] + 1
         jobs = []
         for res in results:
             addr = res["custom_id"]
             fs = state["fns"][addr]
             body = (res.get("response") or {}).get("body") or {}
-            cost = (body.get("usage") or {}).get("cost") or 0.0
-            state["cost"] += cost
             text = ((body.get("choices") or [{}])[0].get("message") or {}).get("content") or ""
             m = re.findall(r"```(?:cpp|c\+\+|c)?\s*\n(.*?)```", text, re.S)
             code = max(m, key=len) if m else ""
