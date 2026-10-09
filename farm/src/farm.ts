@@ -170,7 +170,10 @@ const submitCpp = defineTool({
 		}, context);
 		if (matched) {
 			mkdirSync(MATCHES_DIR, { recursive: true });
-			copyFileSync(src, join(MATCHES_DIR, `${job.addr}.cpp`));
+			const dest = join(MATCHES_DIR, `${job.addr}.cpp`);
+			copyFileSync(src, dest);
+			// clang-format the saved match; the formatter re-verifies and keeps the original on any failure.
+			await run(PY, [join(ROOT, "tools/format_matches.py"), dest, "--jobs", "1"], { timeout: 120_000 }).catch(() => {});
 			return { content: [{ type: "text", text: "MATCH. Done." }], control: { terminate: true } };
 		}
 		if (left <= 0) {
