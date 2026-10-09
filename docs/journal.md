@@ -173,3 +173,7 @@ Newest entries go at the bottom of each day.
 - Gotcha for anyone grepping assets on macOS: `grep -r` silently misses strings in binary files under a UTF-8 locale. Use `LC_ALL=C grep -a`.
 - Remaining unknown chunks are dominated by animation channels (0x1211xx, ~800k instances), then collision volumes (0x701xxxx) and state props (0x802xxxx). Those are the next targets (animations → glTF).
 - Night lane found 24 functions whose Ghidra body stops one instruction short of the final `ret`, e.g. `0x17000` recorded as 3 bytes (`mov eax,[ecx+0x20]`) with the `ret` left out. They could never match, and the model's attempts scored 1.00 aligned but "exhausted". Sizes are patched in `build/functions.csv` (extended by the following `C3`/`C2 nn nn`). A future `ExportFunctions` re-export needs the same post-pass.
+
+### Large-function A/B: similar-function examples (task 08)
+- GPT-6 Luna on the 30 large benchmark functions, fresh runs under the current prompt and scoring. **Without** examples: 2/30 matched, avg best 0.53. **With** up to 2 verified similar matches in the packet: 1/30, avg best 0.50. On the 10 functions that actually got examples: 0/10 either way (avg best 0.52 vs 0.47). ~$0.10 per arm.
+- Conclusion: the nearest matched functions are small generic idioms (~30-byte dtors/ctors), and they don't carry what large functions need. `packet.py --similar` stays opt-in and off by default.
