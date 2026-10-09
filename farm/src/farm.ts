@@ -111,6 +111,18 @@ function firstMismatch(r: { status: string; report: string }): string {
 	return `${bytes.replace("bytes ", "")}; first mismatch ${where}`.slice(0, 160);
 }
 
+async function verifyRefs(src: string, addr: string): Promise<{ status: string; issues: string }> {
+	try {
+		const { stdout } = await run(PY, [join(ROOT, "tools/verify_relocs.py"), src, "--addr", addr, "--json"], { timeout: 120_000 });
+		const v = JSON.parse(stdout);
+		const SOFT = new Set(["vftable_of_other_class", "aliased_target", "call_target_not_known_function", "function_address_as_data"]);
+		const hard = (v.issues ?? []).filter((i: [string, string]) => !SOFT.has(i[0]));
+		return { status: v.status, issues: hard.map((i: [string, string]) => `${i[0]} ${i[1]}`).join("; ").slice(0, 400) };
+	} catch (e: any) {
+		return { status: "ok", issues: "" }; // never block a match on a checker failure
+	}
+}
+
 const submitCpp = defineTool({
 	name: "submit_cpp",
 	description: "Compile a complete C++ translation unit with MSVC 7.1 and diff the best-matching function against the target.",
@@ -128,6 +140,17 @@ const submitCpp = defineTool({
 		const src = join(dir, `t${job.tier}_a${n}.cpp`);
 		writeFileSync(src, args.code);
 		const r = await compare(src, job.addr);
+		let refNote = "";
+		if (r.status === "match") {
+			// Same bytes with relocations masked; now check that strings, constants and targets are right too.
+			const v = await verifyRefs(src, job.addr);
+			if (v.status !== "ok") {
+				r.status = "diff";
+				r.score = 0.99;
+				refNote = `Instruction bytes match, but references are wrong (${v.issues}). Fix the string literals / constants / which function or global each reference names.`;
+				r.report = refNote;
+			}
+		}
 		const score = r.status === "match" ? 1 : (r.score ?? 0);
 		const matched = r.status === "match";
 		const left = job.maxAttempts - n;
@@ -319,6 +342,10 @@ async function main() {
 		}
 	}
 	const spentAtStart = spent;
+	// Matches demoted by reference verification: retried under fresh conversations.
+	const invalidPath = join(BUILD, "invalid.txt");
+	const invalid = new Set(existsSync(invalidPath) ? readFileSync(invalidPath, "utf8").split("\n").filter(Boolean) : []);
+	for (const a of invalid) finished.delete(a);
 	const isDone = (a: string) => existsSync(join(matchesDir, `${a}.cpp`)) || finished.get(a)?.has(-1)
 		|| tiers.every((tier, t) => finished.get(a)?.has(t) || !fits(a, tier));
 
@@ -370,7 +397,7 @@ async function main() {
 	type Handoff = { code: string; report: string; history: NonNullable<JobState["history"]>; models: string[] };
 	async function runTier(addr: string, t: number, previous?: Handoff) {
 		const tier = tiers[t];
-		const key = `${addr}:${t}`;
+		const key = invalid.has(addr) ? `${addr}:${t}:refs` : `${addr}:${t}`;
 		const index = await harness.snapshot(Index, ctx);
 		let conv = index?.jobs[key] != null ? await harness.conversation(Number(index.jobs[key]) as any, ctx) : undefined;
 		if (!conv) {

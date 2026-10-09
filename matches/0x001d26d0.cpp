@@ -1,1 +1,0 @@
-struct B { void f(unsigned int); }; struct A { char pad[12]; B sub; void g(unsigned int, unsigned int); }; void A::g(unsigned int a, unsigned int b) { ((B*)b)->f(a); sub.f(b); }

@@ -119,3 +119,13 @@ Newest entries go at the bottom of each day.
 - **Runaway outputs**: one GPT-6 Luna turn produced a 483 KB "submission" (a repetition loop, 137k output tokens, $0.09, 18 minutes). That's ~50× a normal function's cost. Haiku then matched it in one try for $0.0016. The farm now clamps OpenRouter requests to 8k output tokens (above any thinking budget) and trims the best-attempt code passed to the next tier.
 - **Out of credits**: around $6.9 of ledger spend, OpenRouter started answering `402 … exceed your available credits` (the *account balance*, separate from the key's spending limit). The sweep kept cycling through instant failures. The farm now treats a 402 from a paid tier as a budget stop, skipping paid tiers for the rest of the run, and the sweep exits. Failed runs stay retryable once credits are topped up.
 - Status when the sweep stopped: **12,398 functions (53.8%), 317 KB of 2.60 MB (12.2%)**, ~$6.9 total cloud spend.
+
+### Reference verification (task 01): codegen match → full match
+- `tools/verify_relocs.py` pairs every relocation in our object with the original 4 bytes at the same offset (valid because offsets line up in an exact match), then checks the original target: string literals byte-equal, `__real@` floats bit-equal, vftables are real vftables, calls land on function starts, data refs land in data, and one symbol maps to one target.
+- Full run over 12,415 matches (57 min, 8 workers): **12,181 verified (98.1%), 234 flagged**. After softening false positives (XDK sections like `D3D` hold real globals; an `int` global holding a function address; calls to functions Ghidra didn't split out), **225 are genuinely wrong**, 6.1 KB in total:
+  - 170 string mismatches, mostly *propagated* matches: same code shape, but the copied source carries the other function's strings;
+  - 49 cases of one declared function standing in for two different call targets;
+  - 17 references into the middle of code;
+  - 6 where the original has a constant `0` but ours has a vftable pointer (the masking hid it);
+  - 2 float mismatches.
+- The 225 moved to `build/farm/invalid/` and are retried under fresh conversations. From now on the farm's `submit_cpp` and shape propagation both run the reference check before accepting a match, and wrong references go back to the model as feedback.

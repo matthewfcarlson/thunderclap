@@ -63,6 +63,7 @@ class Coff:
             relocs = [struct.unpack_from("<IIH", d, relptr + j * 10) for j in range(nrel)]
             self.sections.append((name, d[raw:raw + size] if raw else b"", relocs))
         self.symbols = []
+        self.by_index = {}  # raw symbol-table index (relocations use it) -> symbol tuple
         i = 0
         while i < nsym:
             o = symoff + i * 18
@@ -74,6 +75,7 @@ class Coff:
                 name = d[o:o + 8].rstrip(b"\0").decode()
             value, secnum, typ, cls, naux = struct.unpack_from("<IhHBB", d, o + 8)
             self.symbols.append((name, value, secnum, typ, cls))
+            self.by_index[i] = (name, value, secnum, typ, cls)
             i += 1 + naux
 
     def function_symbols(self):
@@ -91,6 +93,16 @@ class Coff:
             if value <= vaddr < end:
                 mask.update(range(vaddr - value, vaddr - value + 4))
         return name, raw[value:end], mask
+
+    def function_relocs(self, sym):
+        """[(offset in function, symbol tuple, reloc type, inline addend bytes)] for one function."""
+        name, value, secnum, _, _ = sym
+        funcs = self.function_symbols()
+        _, raw, relocs = self.sections[secnum - 1]
+        ends = sorted(s[1] for s in funcs if s[2] == secnum and s[1] > value)
+        end = ends[0] if ends else len(raw)
+        return [(va - value, self.by_index.get(si), typ, raw[va:va + 4])
+                for va, si, typ in relocs if value <= va < end]
 
 
 def strip_padding(b):

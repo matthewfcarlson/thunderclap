@@ -69,9 +69,13 @@ def cmd_build(args):
 
 def _try(job):
     from compare import compare
+    from verify_relocs import check
     src, addr = job
     r = compare(src, int(addr, 16))
-    return addr, src, r["status"]
+    status = r["status"]
+    if status == "match" and check(src, int(addr, 16))["status"] != "ok":
+        status = "bad_refs"  # same bytes, but strings/constants/targets differ for this address
+    return addr, src, status
 
 
 def cmd_propagate(args):

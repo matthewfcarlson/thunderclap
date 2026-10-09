@@ -14,7 +14,7 @@ while :; do
 import json, os, sys
 lane = sys.argv[1]
 tried = set()
-lp = f"build/lanes/{lane}.jsonl"
+lp = f"build/farm/lanes/{lane}.jsonl"
 if os.path.exists(lp):
     tried = {json.loads(l)["addr"] for l in open(lp) if l.strip() and json.loads(l)["status"] != "failed"}
 best = {}
