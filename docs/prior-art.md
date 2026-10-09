@@ -56,3 +56,7 @@ decomp.dev tracks only **2** original Xbox projects (as of 2026-10):
 ## Sources to avoid
 
 - A TCRF "Developer Tools" page fetched during research returned prompt-injection content instead of real info. Treat it as unreliable.
+
+## Matching decompilers (checked 2026-10-09)
+- **m2c** (matt-kempster/m2c): assembly to C for MIPS, PowerPC, ARM and SuperH, with partial C++. No x86, so not directly usable here. Its per-arch backends (`arch_*.py`) show what an x86/x87 backend would need, but Ghidra already covers decompilation for us.
+- **asmlift** (Macabeus/asmlift): an AI-built "assembly in, C/C++ out" matching pipeline for GBA/GameCube toolchains (agbcc, IDO, mwcc). It scores candidates against the target object (`--score-against`). No x86/MSVC support. Its idea, a compile-and-score loop that improves the generator itself, is the same as our farm + permuter.
