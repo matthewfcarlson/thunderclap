@@ -1,0 +1,3 @@
+struct Reader { virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h(); virtual void i(); virtual void j(); virtual void k(); virtual void l(); virtual void vfunc_12(int,int,int); };
+struct ScriptReader : Reader { int helper(int,int,int); int finish(int,int); void vfunc_12(int,int,int); };
+void ScriptReader::vfunc_12(int a, int b, int c) { int x = helper(a,b,4); finish(x,c); }

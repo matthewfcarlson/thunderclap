@@ -1,0 +1,1 @@
+class X { public: char pad[0x24]; struct Y *p24; Y *p28; void f(); }; class Y { public: virtual void a(); virtual void b(); }; void X::f() { if (p28) { p28->b(); p28=0; } if (p24) { p24->b(); p24=0; } }

@@ -1,0 +1,2 @@
+class CTokenFloat { public: virtual ~CTokenFloat(); int m1; int m2; int m3; int m4; CTokenFloat(int a, int b, int c); };
+CTokenFloat::CTokenFloat(int a, int b, int c) { m4=a; m1=0; *(void**)this=(void*)0x40ce5c; m2=b; m3=c; }

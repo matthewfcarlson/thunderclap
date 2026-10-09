@@ -1,0 +1,2 @@
+extern "C" { struct Obj { char pad0[0x54]; int field54; char pad58[0x9d-0x58]; char flag9d; }; extern Obj* gObj; void __cdecl fn86(); void __cdecl thunk(); void __cdecl fnTail(); }
+void target() { Obj* p = gObj; if (p && p->flag9d && p->field54) { fn86(); return; } thunk(); fnTail(); }
