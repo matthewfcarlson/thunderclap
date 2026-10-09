@@ -1,58 +1,65 @@
-"""Synthetic-archive tests for tools/rcf.py (no game data needed)."""
-import os, struct, sys, tempfile, unittest
+"""Tests for tools/rcf.py. Synthetic archives need no game data; real-archive tests skip without it."""
+import os, sys, tempfile, unittest
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "tools"))
 import rcf
 
+GAME = "isos/extracted"
 
-def build(files):
-    names = b"".join(struct.pack("<3I", 0, off, sz) + n.encode() + b"\0"
-                     for n, (off, sz) in files.items())
-    hdr = 0x3C
-    dir_size = 12 * len(files)
-    names_off = 0x2000
-    body_off = names_off + len(names)
-    body_off = (body_off + 0x7FF) & ~0x7FF
-    out = bytearray(body_off)
-    out[:23] = rcf.MAGIC
-    # offsets are placeholders; patched below
-    blobs, ents, cur = [], [], body_off
-    for i, (n, (_, sz)) in enumerate(files.items()):
-        ents.append((0x1000 + i, cur, sz)); blobs.append(bytes([i + 1]) * sz)
-        cur = (cur + sz + 0x7FF) & ~0x7FF
-    names = b"".join(struct.pack("<3I", 0, o, s) + n.encode() + b"\0"
-                     for n, (_, o, s) in zip(files, ents))
-    struct.pack_into("<7I", out, 0x20, 0x01000102, hdr, dir_size, names_off, len(names), 0, len(files))
-    for i, e in enumerate(ents):
-        struct.pack_into("<3I", out, hdr + 12 * i, *e)
-    out[names_off:names_off + len(names)] = names
-    for e, b in zip(ents, blobs):
-        out.extend(b"\0" * (e[1] - len(out))); out.extend(b)
-    return bytes(out)
+
+def make(files):
+    """files: {name: bytes}, in data order."""
+    ents = [(n, 1117480426, len(b)) for n, b in files.items()]
+    blobs = list(files.values())
+    return b"".join(rcf.build(ents, lambda i: blobs[i]))
 
 
 class T(unittest.TestCase):
-    def test_extract(self):
-        files = {"art\\a.p3d": (0, 10), "sound/b.rsd": (0, 3000)}
+    def test_hash(self):
+        # Known pairs from misc.rcf's directory.
+        self.assertEqual(rcf.rhash("frontend\\feconfig.txt"), 0xB909394D)
+        self.assertEqual(rcf.rhash("frontend\\fe_loading.txt"), 0x5B8ACE28)
+        self.assertEqual(rcf.rhash("FRONTEND\\FECONFIG.TXT"), rcf.rhash("frontend\\feconfig.txt"))
+        self.assertNotEqual(rcf.rhash("a/b"), rcf.rhash("a\\b"))
+
+    def test_extract_repack(self):
+        files = {"art\\b.p3d": b"\x01" * 10, "sound\\a.rsd": b"\x02" * 3000, "z.txt": b"end"}
         with tempfile.TemporaryDirectory() as d:
-            p = os.path.join(d, "t.rcf"); open(p, "wb").write(build(files))
-            _, h, es = rcf.parse(p)
-            self.assertEqual(h["count"], 2)
-            self.assertEqual([e.name for e in es], list(files))
-            class A: file = p; outdir = os.path.join(d, "o")
+            p = os.path.join(d, "t.rcf")
+            data = make(files)
+            open(p, "wb").write(data)
+            ar = rcf.Archive(p)
+            self.assertEqual([e.name for e in ar.entries], list(files))
+            self.assertEqual([ar.read(e) for e in ar.entries], list(files.values()))
+            self.assertIsNone(rcf.verify(p))
+
+            class A: file = p; outdir = os.path.join(d, "o"); dir = outdir; out = os.path.join(d, "r.rcf")
             rcf.cmd_extract(A)
-            self.assertEqual(os.path.getsize(os.path.join(d, "o", "art", "a.p3d")), 10)
-            self.assertEqual(rcf.cmd_roundtrip(A), 0)
+            self.assertEqual(open(os.path.join(d, "o", "sound", "a.rsd"), "rb").read(), files["sound\\a.rsd"])
+            rcf.cmd_repack(A)
+            self.assertEqual(open(A.out, "rb").read(), data)
+
+    def test_repack_without_manifest(self):
+        with tempfile.TemporaryDirectory() as d:
+            os.makedirs(os.path.join(d, "in", "art"))
+            open(os.path.join(d, "in", "art", "x.p3d"), "wb").write(b"P3D\xff")
+
+            class A: dir = os.path.join(d, "in"); out = os.path.join(d, "n.rcf")
+            rcf.cmd_repack(A)
+            ar = rcf.Archive(A.out)
+            self.assertEqual([e.name for e in ar.entries], ["art\\x.p3d"])
+
+    def test_collision(self):
+        with self.assertRaises(rcf.RcfError):
+            make({"A.txt": b"1", "a.txt": b"2"})
 
     def test_traversal(self):
-        e = rcf.Entry(1, 0, 0, "..\\..\\x.bin")
-        self.assertNotIn("..", rcf.entry_path(e))
+        self.assertNotIn("..", rcf.entry_path("..\\..\\x.bin"))
 
-    @unittest.skipUnless(os.path.isdir("isos/extracted"), "no game data")
-    def test_real(self):
-        for f in os.listdir("isos/extracted"):
+    @unittest.skipUnless(os.path.isdir(GAME), "no game data")
+    def test_real_roundtrip(self):
+        for f in sorted(os.listdir(GAME)):
             if f.endswith(".rcf"):
-                _, h, es = rcf.parse(os.path.join("isos/extracted", f))
-                self.assertEqual(len(es), h["count"])
+                self.assertIsNone(rcf.verify(os.path.join(GAME, f)), f)
 
 
 if __name__ == "__main__":
