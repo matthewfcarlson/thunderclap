@@ -1,0 +1,43 @@
+
+struct Track {
+  public:
+    virtual void vfunc_3();
+    virtual void vfunc_8();
+    virtual void vfunc_9();
+    virtual ~Track();
+    char pad[0x2c];
+};
+
+struct Elem {
+    ~Elem();
+    char data[8];
+};
+
+class LocomotionSprintTrack : public Track {
+  public:
+    virtual void vfunc_0();
+    virtual void slot1();
+    virtual void slot2();
+    virtual void slot4();
+    virtual void slot6();
+    virtual void slot7();
+    virtual void slot10();
+    LocomotionSprintTrack* vfunc_5(unsigned char flag);
+    Elem m_elems[5];
+};
+
+void operator delete(void* p);
+
+LocomotionSprintTrack* LocomotionSprintTrack::vfunc_5(unsigned char flag) {
+    *(int*)this = 0x415aa0;
+    this->m_elems[4].~Elem();
+    this->m_elems[3].~Elem();
+    this->m_elems[2].~Elem();
+    this->m_elems[1].~Elem();
+    this->m_elems[0].~Elem();
+    this->Track::~Track();
+    if (flag & 1) {
+        operator delete(this);
+    }
+    return this;
+}
