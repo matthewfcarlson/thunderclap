@@ -1,0 +1,1 @@
+typedef unsigned int uint; extern uint __cdecl FUN_0026fd50(uint,uint); extern uint __cdecl FUN_0026fd80(uint,uint); class Obj{public: char p[24]; uint a,b,c,d,flag; uint f(uint x,uint y);}; uint Obj::f(uint x,uint y){uint r; if(flag==0){r=FUN_0026fd50(a,y); if(r+x<b){a=r+x;++c;return r;}}else{r=FUN_0026fd80(b-x,y);if(r>a){b=r;++d;return r;}}return 0;}
