@@ -1,0 +1,1 @@
+class X { char pad[0x1b20]; public: int value; void f(char b); }; void X::f(char b) { if (b) ++value; else --value; }

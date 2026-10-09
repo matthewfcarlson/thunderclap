@@ -1,0 +1,3 @@
+class pddiPrimBufferStream { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15(); virtual void f16(); virtual void f17(); };
+class d3dPrimBufferStream : public pddiPrimBufferStream { public: char pad[0x44]; unsigned *slot; void vfunc_3(unsigned, unsigned, unsigned); };
+void d3dPrimBufferStream::vfunc_3(unsigned a, unsigned b, unsigned c) { slot[0] = a; slot[1] = b; slot[2] = c; }

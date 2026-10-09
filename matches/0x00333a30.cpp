@@ -1,0 +1,2 @@
+class PlayerBink { char pad[0x1c]; void* member; public: bool vfunc_13(unsigned int* out); };
+bool PlayerBink::vfunc_13(unsigned int* out) { if (member) { out[1] = *(unsigned int*)member; out[0] = *((unsigned int*)member + 1); return true; } return false; }

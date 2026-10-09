@@ -1,0 +1,2 @@
+class OmHalStream { public: virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual bool vfunc_8(unsigned int *out); char pad[0x1b0]; unsigned int value; };
+bool OmHalStream::vfunc_8(unsigned int *out) { *out=value; int v=value; *(int*)((char*)this+8)-=v; value=0; return true; }

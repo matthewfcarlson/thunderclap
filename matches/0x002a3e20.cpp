@@ -1,0 +1,5 @@
+// Same code shape as 0x002974d0 (propagated; names are from that function)
+class TransformNode { public: virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual int vfunc_4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); };
+class Helper { public: int call(TransformNode*); };
+extern void* __cdecl alloc(int);
+int TransformNode::vfunc_4() { void* p=alloc(0xb0); if(p) return ((Helper*)p)->call(this); return 0; }

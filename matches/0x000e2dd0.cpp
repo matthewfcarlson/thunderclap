@@ -1,0 +1,2 @@
+class HSlider { char pad[0x150]; int field; public: virtual void a0(); virtual void a1(); virtual void a2(); virtual void a3(); virtual void a4(); virtual void a5(); virtual void a6(); virtual void a7(); virtual void a8(); virtual void a9(); virtual void a10(); virtual bool vfunc_11(int, int); };
+bool HSlider::vfunc_11(int param, int unused) { switch (param) { case 2: case 6: field = 0; return true; default: return false; } }

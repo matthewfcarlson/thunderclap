@@ -1,0 +1,1 @@
+class B { public: void a(int); }; class C { public: char pad[4]; B* p; B* q; void target(int); }; void C::target(int x) { p->a(x); q->a(x); }
