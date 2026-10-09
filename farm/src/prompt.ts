@@ -13,6 +13,10 @@ Translation unit rules:
 - Real names are unknown. Use the given class names and invent short descriptive names for the rest.
 - MSVC 7.1 is pre-C++11: no auto, nullptr, override, enum class, range-for or brace-init. Members are private in a class unless under public:.
 - Constructors and destructors have no return type; declare them in the class before defining them. Zero-length or negative padding arrays don't compile.
+- A call with no "add esp,N" after it is to a __stdcall callee: declare it __stdcall. A call to FUN_0034483c with a float in st0 is _ftol: write (int)x.
+- Any destructor (including a virtual one on a stack temporary) adds an SEH frame (fs:[0]); if the target has none, use a plain virtual method as a placeholder, or declare the destructors throw().
+- Float sums are reordered by the compiler: try permutations of the term order (e.g. y*y + z*z + x*x). Small inline helpers (inline void Copy(...)) can change instruction selection vs hand-written loops.
+- Load order follows source: copying a member into a local before a call (Mgr* m = owner->mgr;) can fix it.
 - Don't copy Ghidra's casts. MSVC 7.1 rejects the __thiscall keyword in function-pointer types: call through virtual methods of a declared class instead, and use member fields, not (void**)/(code**) casts.
 
 MSVC 7.1 idioms seen in this binary:

@@ -192,3 +192,15 @@ Newest entries go at the bottom of each day.
   - Flash-Next started at 1/18, then improved as it reached the closer cloud misses.
 - Formatting pass: 13,427 matches reformatted with clang-format, 565 already clean, 0 that failed re-verification. New matches are formatted on save.
 - Morning status: **14,089 functions (61.1%), 432 KB of 2.60 MB (16.6%)**. OpenRouter credit is exhausted. Real spend for the whole project so far is ~$18.9 of the $50 budget.
+
+### Claude subagents as matchers (subscription, not OpenRouter)
+- 4 Sonnet subagents with 8 mid-size (97–192 B) functions each, spread across the queue, plus the shared tools (packet, compare, verify_relocs, format). **10/32 matched (31%)**, all re-verified. Per batch: 4, 4, 1, 1. These are harder than the benchmark set: the ones the OpenRouter Sonnet lane hadn't reached, with no cherry-picking.
+- Same morning, the last $0.22 of OpenRouter credit: GPT-6 Luna on 122 interleaved mid-size functions, **25 matches (20%)**, ~$0.009 per match.
+- What the agents found (folded into the prompt):
+  - Callees without `add esp` are `__stdcall`; `FUN_0034483c` is `_ftol`.
+  - Any destructor, even on a temporary, adds an SEH frame. Use a plain virtual method as a placeholder, or `throw()` dtors.
+  - Float sum order matters (try permutations); `inline` helpers change instruction selection; copying a member to a local changes load order.
+- **Two structural findings that matter later:**
+  1. Three agents independently hit functions taking arguments in registers (`eax`/`ebx`/`edi`, plain `ret`). That points at **link-time code generation (`/GL` + `/LTCG`)**, which invents calling conventions for internal functions. Plain per-file C++ can't reproduce those, so they need a different approach (and it matters for the relink stage).
+  2. One function has an `ebp` frame with `leave`, i.e. at least some objects were built *without* frame-pointer omission (`/Oy-`). Per-object compiler flags will be part of the split config.
+- Common near-miss causes: register allocation (`this` in ebp vs edi), block layout of early returns, spills, `add ecx,-3` vs `sub ecx,3`. That's the long tail.
