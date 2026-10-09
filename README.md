@@ -12,7 +12,7 @@ The goal is C++ source that compiles with the original compiler (MSVC 7.1, `cl` 
 | | Functions | Bytes |
 |---|---|---|
 | Game code (`.text`, excluding XDK/CRT/Bink) | 23,049 | 2.60 MB |
-| Byte-matched (`matches/`) | 14,383 (62.4%) | 463 KB (**17.8%**) |
+| Byte-matched (`matches/`) | 14,408 (62.5%) | 465 KB (**17.9%**) |
 <!-- /status -->
 
 Most matches so far are small functions. Byte coverage is the honest metric.
