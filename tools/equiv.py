@@ -62,6 +62,7 @@ GDT = 0x7FFD0000
 RESERVED = [(OURS, OURS + OURS_SIZE), (POISON, POISON + 0x10000), (STACK_LO, STACK_HI),
             (GDT, GDT + PAGE), (TIB, TIB + PAGE), (TRAMP, TRAMP + PAGE)]
 STACK_FILL = 0x5A5A5A5A
+RARE_HITS = 4               # directed inputs also re-drive branch sides taken by fewer inputs than this
 POINTEE_WINDOW = 32         # bytes of a stack local passed by pointer that are compared at a call
 
 REL32, DIR32 = 0x14, 0x06
@@ -2139,7 +2140,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     res = {"ok": False, "inputs_run": 0, "inputs_inconclusive": 0, "inputs_faulted": 0, "inputs_failed": 0,
            "inputs_directed": 0, "mismatches": [], "statuses": Counter()}
     edges = set()
-    observations = {}          # jcc addr -> (seed, cmp observation) from the original's runs
+    hits = Counter()           # edge -> number of inputs that took it
+    observations = {}          # jcc addr -> [(seed, cmp observation, ...)] from the original's runs
     t_start = time.time()
 
     def build(seed, overlay=None, stack_patch=None):
@@ -2170,6 +2172,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         o = orun.run(oview.entry)
         new = orun.edges - edges
         edges.update(orun.edges)
+        for e in orun.edges:
+            hits[e] += 1
         if o["status"] == "ret":
             for j, ob in orun.cmp_obs.items():
                 lst = observations.setdefault(j, [])
@@ -2223,6 +2227,12 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         progress = False
         missing = {j for j in oview.jcc for t in (oview.insns[j].target, j + oview.insns[j].size)
                    if (j, t) not in edges} | {j for j in oview.setcc for v in ("set0", "set1") if (j, v) not in edges}
+        if not missing:
+            # everything reached: spend what is left on sides that few inputs took (path diversity)
+            rare = [j for j in oview.jcc for t in (oview.insns[j].target, j + oview.insns[j].size)
+                    if hits[(j, t)] < RARE_HITS] + \
+                   [j for j in oview.setcc for v in ("set0", "set1") if hits[(j, v)] < RARE_HITS]
+            missing = set(rare)
         for j in sorted(missing):
             if j not in observations or budget <= 0 or out_of_time():
                 continue
@@ -2238,8 +2248,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     new = run_input(seed0, overlay, patch, label="%d+patch" % seed0)
                     if new:
                         progress = True
-                    if ((j, oview.insns[j].target) in edges and (j, j + oview.insns[j].size) in edges) or \
-                            ((j, "set0") in edges and (j, "set1") in edges):
+                    sides = [(j, oview.insns[j].target), (j, j + oview.insns[j].size)] \
+                        if oview.insns[j].kind == "jcc" else [(j, "set0"), (j, "set1")]
+                    if all(hits[e] >= RARE_HITS for e in sides):
                         done = True
                     if done or budget <= 0 or res["inputs_failed"] >= 3:
                         break

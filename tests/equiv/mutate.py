@@ -32,6 +32,28 @@ sys.path.insert(0, os.path.join(ROOT, "tools"))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 OUT_DIR = os.path.join(ROOT, "build/equiv/mutants")
 
+# Mutants that compile to different bytes but are semantically equivalent (checked by hand); a pass on
+# them is correct. Key: (address, operator, removed line, added line).
+EQUIVALENT_MUTANTS = {
+    # the inlined bit-set clear runs twice over the same words: either loop alone gives the same memory
+    ("0x000f86f0", "swap", "if (n > 0) {", "if (0 > n) {"),
+    ("0x000f86f0", "const", "for (; k != 0; k--)", "for (; k != 1; k--)"),
+    ("0x000f86f0", "flipcmp", "for (unsigned i = n; i != 0; i--)", "for (unsigned i = n; i == 0; i--)"),
+    # dead store: mTarget is overwritten before anything can observe it
+    ("0x001909b0", "const", "*p = 0;", "*p = 1;"),
+    ("0x00199630", "const", "*p = 0;", "*p = 1;"),
+}
+
+
+def _change(src, mut):
+    import difflib
+    d = [x for x in difflib.unified_diff(src.splitlines(), mut.splitlines(), lineterm="", n=0)
+         if x[:1] in "+-" and x[:3] not in ("+++", "---")]
+    rem = [x[1:].strip() for x in d if x.startswith("-")]
+    add = [x[1:].strip() for x in d if x.startswith("+")]
+    return (rem[0] if rem else "", add[0] if add else "")
+
+
 TOKEN = re.compile(r"""
     (?P<ws>\s+|//[^\n]*|/\*.*?\*/)
   | (?P<str>"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')
@@ -307,6 +329,10 @@ def job(args):
                 results.append(rec)
                 continue
             expect_pass = op == "commute"
+            if ("0x%08x" % addr, op) + _change(src, mut) in EQUIVALENT_MUTANTS:
+                rec["outcome"] = "equivalent_mutant" if r["status"] == "equivalent" else "FALSE_FAIL"
+                results.append(rec)
+                break
             if r["status"] == "equivalent":
                 rec["outcome"] = "ok_pass" if expect_pass else "FALSE_PASS"
             elif r["status"] == "fail":

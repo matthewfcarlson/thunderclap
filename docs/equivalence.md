@@ -58,22 +58,32 @@ Both the original bytes and our linked object run in a fresh 32-bit Unicorn inst
   hidden struct-return pointer); 16 extra stack words; callee-saved registers get unique values.
   Seeds rotate between wide/near pointers, "tame" (small-number) memory and dictionary memory.
 - **Callees** are never executed (except `_ftol`/`_chkstk`, which are pure). At every `call`, and at a `jmp`
-  that leaves the function (tail call), a stub records the target, the argument words (and `ecx`), returns a
-  deterministic `eax`/`edx` (and a float on the x87 stack if the code after the call consumes `st0`), and
-  pops the callee's argument bytes. The pop count comes from the callee's own `ret N` when the target is a
-  known function, from the caller's `add esp, N` for cdecl, and otherwise from tracked argument pushes.
+  that leaves the function (tail call), a stub records the target, the argument words, the registers, and
+  the first 32 bytes of every stack local passed by pointer. It returns a deterministic `eax`/`edx` (and a
+  float on the x87 stack if the code after the call consumes `st0`), writes the first word of each local
+  passed by pointer (an out-parameter), and pops the callee's argument bytes. The pop count comes from the
+  callee's own `ret N` (following tail jumps) when the target is a known function, from the caller's
+  `add esp, N` for cdecl, and otherwise from tracked argument pushes.
 - **Callee side effects:** after each stub the memory epoch advances: every non-code page is rewritten
   with fresh deterministic contents. That models "the callee may change anything" and catches code that
   caches a value across a call that the original re-reads.
-- **Compared per input:** call trace (targets in order, argument words, `this` for thiscall callees),
+- **Compared per input:** call trace (targets in order, argument words, the callee's register inputs, i.e.
+  `ecx`/`edx`/`eax` when the callee reads them before writing (so `this`), contents of locals passed by pointer),
   memory writes per call segment (final byte values that differ from the segment's initial state;
   stack excluded), return value by type (`al`/`ax`/`eax`/`edx:eax`/`st0`), x87 stack depth,
   `ebx/esi/edi/ebp` and `esp` after return. Values that point into the stack compare as "a stack
   address". Floats stored by `fst`/`fstp` and float arguments compare with relative tolerance 1e-5.
-- **Inputs run:** 64 by default; then more (up to 256) while branch coverage of the original keeps growing.
-  An input on which the original doesn't return (step limit 50k, page limit, or the original faults) is
-  inconclusive and not counted as a pass.
-- **Coverage:** taken/not-taken for every conditional branch and every jump-table case of the original.
+- **Inputs run:** 64 by default; then more (up to 256) while branch coverage of the original keeps growing;
+  then up to 96 **directed** inputs: every `cmp`/`test` the original executes is recorded with the
+  address each operand was loaded from, and for a branch side never taken the input that reached it is
+  re-run with that memory (or stack argument) patched to the value on the other side (input-to-state).
+  Some seeds make every stub return 0 or 1, so loops over callee results terminate. An input on which the
+  original doesn't return (step limit 50k, page limit) is inconclusive; one where the original faults is
+  compared up to the fault but not counted as a pass.
+- **Return type** comes from our mangled name. If ours returns `void` but the original's direct callers read
+  `eax` (or `st0`) after the call, the return value is compared anyway and `return_note` says so.
+- **Coverage:** taken/not-taken for every conditional branch, 0/1 for every `setcc`, and every jump-table
+  case of the original.
   `level3.coverage.complete` is false when some edge never ran; the uncovered edges are listed.
 
 ## Report (JSON)
@@ -116,9 +126,12 @@ See the journal entry of 2026-10-10 for the numbers. Harnesses:
 - **Coverage, not proof.** A pass means no difference on the inputs run; check `coverage.complete`. Code
   behind conditions the fuzzer can't satisfy (magic values, deep pointer chains, specific globals) stays
   unverified; the uncovered edges are listed so a caller can add inputs.
-- **Callees are opaque.** Stubs don't write through out-parameters, so code that reads a local after
-  `GetPos(&v)` reads the same uninitialised fill in both runs. Two different stack locals passed to a callee
-  compare equal ("a stack address").
+- **Branch coverage is not path coverage.** A difference that needs a particular combination of
+  conditions (e.g. a magic value and a sign) can survive full branch coverage.
+- **Callees are opaque.** A stub writes only the first word of a local passed by pointer, and compares only
+  the first 32 bytes (up to the next pointer argument) of each such local. Equivalent code with a
+  different local layout can fail there when a small local has different neighbours; declaring locals in
+  the original's order avoids it.
 - **Argument counts** for calls through unknown pointers (virtual calls on fuzzed objects, kernel imports)
   come from tracked pushes. Nested calls whose arguments interleave with an outer call's pushes can be
   misattributed; both sides use the same rule, so this can cause false failures, not passes.
