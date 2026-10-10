@@ -17,6 +17,10 @@ def main():
     total = sum(int(r["size"]) for r in game)
     matched = [r for r in game if os.path.exists(os.path.join(ROOT, "matches", "0x%08x.cpp" % int(r["address"], 16)))]
     mb = sum(int(r["size"]) for r in matched)
+    # Behaviour-verified (tools/equiv.py level 3) but not byte-matched; a later match supersedes it.
+    has = lambda d, r: os.path.exists(os.path.join(ROOT, d, "0x%08x.cpp" % int(r["address"], 16)))
+    equiv = [r for r in game if has("equivalent", r) and not has("matches", r)]
+    eb = sum(int(r["size"]) for r in equiv)
     spent = 0.0
     for p in [os.path.join(ROOT, "build/farm/results.jsonl")]:
         if os.path.exists(p):
@@ -24,8 +28,12 @@ def main():
     table = (
         "| | Functions | Bytes |\n|---|---|---|\n"
         "| Game code (`.text`, excluding XDK/CRT/Bink) | {:,} | {:.2f} MB |\n"
-        "| Byte-matched (`matches/`) | {:,} ({:.1f}%) | {:.0f} KB (**{:.1f}%**) |\n"
-    ).format(len(game), total / 1e6, len(matched), 100 * len(matched) / len(game), mb / 1e3, 100 * mb / total)
+        "| Byte-matched (`matches/`) | {:,} ({:.1f}%) | {:.0f} KB ({:.1f}%) |\n"
+        "| Proven equivalent (`equivalent/`) | {:,} ({:.1f}%) | {:.0f} KB ({:.1f}%) |\n"
+        "| **Verified source, total** | {:,} ({:.1f}%) | {:.0f} KB (**{:.1f}%**) |\n"
+    ).format(len(game), total / 1e6, len(matched), 100 * len(matched) / len(game), mb / 1e3, 100 * mb / total,
+             len(equiv), 100 * len(equiv) / len(game), eb / 1e3, 100 * eb / total,
+             len(matched) + len(equiv), 100 * (len(matched) + len(equiv)) / len(game), (mb + eb) / 1e3, 100 * (mb + eb) / total)
     print(table + "farm spend (ledger): $%.2f" % spent)
     if "--readme" in sys.argv:
         p = os.path.join(ROOT, "README.md")
