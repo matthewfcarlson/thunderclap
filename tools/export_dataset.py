@@ -74,7 +74,8 @@ def system_text(entry):
     c = rec[0].get("content")
     if isinstance(c, str) and c:
         return c
-    sections = (c or {}).get("sections") if isinstance(c, dict) else None
+    # pi keeps the preamble in the record's own sections (content is "")
+    sections = rec[0].get("sections") or ((c or {}).get("sections") if isinstance(c, dict) else None)
     if sections:
         return sections.get("preamble", "") or ""
     return ""
