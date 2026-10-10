@@ -88,6 +88,7 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~LoadObject(); // overrides core::IRefCount slot 2
+    int f_04;
 };
 
 // .?AVFileLoader@content@@  vftable 0x4245e0 (4)
@@ -104,14 +105,17 @@ public:
     template <class T0> class DynamicCaster;
     virtual ~LoadInventory(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(int, int, int); // slot 3
-    virtual void vfunc_4(int, int, int); // slot 4
-    virtual void vfunc_5(int); // slot 5
+    virtual void vfunc_4(void*, void*, void*); // slot 4
+    virtual void vfunc_5(void*); // slot 5
+    char _pad_08[0x4];
+    void* f_0c;
+    void* f_10;
 };
 
 // .?AVDynamicCasterBase@LoadInventory@content@@  vftable 0x3f3384 (1)
 class LoadInventory::DynamicCasterBase {
 public:
-    virtual void vfunc_0(int) = 0; // slot 0
+    virtual void vfunc_0(void*) = 0; // slot 0
 };
 
 // template family content::LoadInventory::DynamicCaster: 49 instantiation(s), 0 with their own specialization
@@ -167,19 +171,28 @@ public:
 template <class T0>
 class LoadInventory::DynamicCaster : public ::content::LoadInventory::DynamicCasterBase {
 public:
-    virtual void vfunc_0(int); // overrides content::LoadInventory::DynamicCasterBase slot 0
+    virtual void vfunc_0(void*); // overrides content::LoadInventory::DynamicCasterBase slot 0
 };
 
 // .?AVLoadRequest@content@@  vftable 0x42aee4 (3)
 class LoadRequest : public ::content::LoadObject {
 public:
     virtual ~LoadRequest(); // overrides core::IRefCount slot 2
+    char _pad_08[0x10];
+    void* f_18;
+    void* f_1c;
+    char _pad_20[0x104];
+    void* f_124;
 };
 
 // .?AVLoadStream@content@@  vftable 0x42ae9c (3)
 class LoadStream : public ::content::LoadObject {
 public:
     virtual ~LoadStream(); // overrides core::IRefCount slot 2
+    void* f_08;
+    char _pad_0c[0x14];
+    void* f_20;
+    void* f_24;
 };
 
 // .?AVObjectLoader@content@@  vftable 0x4219c4 (4)
@@ -202,7 +215,9 @@ public:
     virtual ~SimpleChunkHandler(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(int, int, int, int, int); // overrides content::ObjectLoader slot 3
     virtual void vfunc_4(); // slot 4
-    virtual void vfunc_5(int, int, int, int) = 0; // slot 5
+    virtual void vfunc_5(void*, void*, void*, int) = 0; // slot 5
+    char _pad_08[0x8];
+    int f_10;
 };
 
 } // namespace content

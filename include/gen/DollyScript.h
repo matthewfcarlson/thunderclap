@@ -27,6 +27,7 @@ namespace DollyScript {
 class CRawScript : public ::pure3d::Entity {
 public:
     virtual ~CRawScript(); // overrides core::IRefCount slot 2
+    int f_10;
 };
 
 // .?AVCScriptParser@DollyScript@@  vftable 0x40bf84 (1)
@@ -40,7 +41,7 @@ class CScriptToken {
 public:
     virtual ~CScriptToken(); // slot 0
     virtual void vfunc_1() = 0; // slot 1
-    virtual void vfunc_2() = 0; // slot 2
+    virtual void* vfunc_2() = 0; // slot 2
 };
 
 // .?AVCScriptTokenizer@DollyScript@@  vftable 0x40cea4 (1)
@@ -54,7 +55,7 @@ class CTokenFloat : public ::DollyScript::CScriptToken {
 public:
     virtual ~CTokenFloat(); // overrides DollyScript::CScriptToken slot 0
     virtual void vfunc_1(); // overrides DollyScript::CScriptToken slot 1
-    virtual void vfunc_2(); // overrides DollyScript::CScriptToken slot 2
+    virtual void* vfunc_2(); // overrides DollyScript::CScriptToken slot 2
 };
 
 // .?AVCTokenHashed@DollyScript@@  vftable 0x40cebc (3)
@@ -62,7 +63,7 @@ class CTokenHashed : public ::DollyScript::CScriptToken {
 public:
     virtual ~CTokenHashed(); // overrides DollyScript::CScriptToken slot 0
     virtual void vfunc_1(); // overrides DollyScript::CScriptToken slot 1
-    virtual void vfunc_2(); // overrides DollyScript::CScriptToken slot 2
+    virtual void* vfunc_2(); // overrides DollyScript::CScriptToken slot 2
 };
 
 // .?AVCTokenSectionEnd@DollyScript@@  vftable 0x40ce7c (3)
@@ -70,7 +71,7 @@ class CTokenSectionEnd : public ::DollyScript::CScriptToken {
 public:
     virtual ~CTokenSectionEnd(); // overrides DollyScript::CScriptToken slot 0
     virtual void vfunc_1(); // overrides DollyScript::CScriptToken slot 1
-    virtual void vfunc_2(); // overrides DollyScript::CScriptToken slot 2
+    virtual void* vfunc_2(); // overrides DollyScript::CScriptToken slot 2
 };
 
 // .?AVCTokenSectionStart@DollyScript@@  vftable 0x40ce6c (3)
@@ -78,7 +79,7 @@ class CTokenSectionStart : public ::DollyScript::CScriptToken {
 public:
     virtual ~CTokenSectionStart(); // overrides DollyScript::CScriptToken slot 0
     virtual void vfunc_1(); // overrides DollyScript::CScriptToken slot 1
-    virtual void vfunc_2(); // overrides DollyScript::CScriptToken slot 2
+    virtual void* vfunc_2(); // overrides DollyScript::CScriptToken slot 2
 };
 
 // .?AVCTokenString@DollyScript@@  vftable 0x40ce4c (3)
@@ -86,7 +87,9 @@ class CTokenString : public ::DollyScript::CScriptToken {
 public:
     virtual ~CTokenString(); // overrides DollyScript::CScriptToken slot 0
     virtual void vfunc_1(); // overrides DollyScript::CScriptToken slot 1
-    virtual void vfunc_2(); // overrides DollyScript::CScriptToken slot 2
+    virtual void* vfunc_2(); // overrides DollyScript::CScriptToken slot 2
+    char _pad_04[0xc];
+    void* f_10;
 };
 
 // .?AVCTokenStatement@DollyScript@@  vftable 0x40ceac (3)

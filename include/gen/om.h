@@ -62,12 +62,16 @@ public:
 class ContentStream : public ::om::Stream {
 public:
     virtual ~ContentStream(); // overrides om::Stream slot 0
+    char _pad_04[0x18];
+    void* f_1c;
 };
 
 // .?AVCoreFileStream@om@@  vftable 0x429214 (1)
 class CoreFileStream : public ::om::Stream {
 public:
     virtual ~CoreFileStream(); // overrides om::Stream slot 0
+    char _pad_04[0x18];
+    void* f_1c;
 };
 
 // .?AVDynAttr@om@@  vftable 0x42aac8 (1)
@@ -97,12 +101,14 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~Entity(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int) = 0; // slot 3
-    virtual void vfunc_4(int); // slot 4
-    virtual void vfunc_5(int) = 0; // slot 5
+    virtual bool vfunc_3(void*) = 0; // slot 3
+    virtual bool vfunc_4(int); // slot 4
+    virtual bool vfunc_5(int) = 0; // slot 5
     virtual void vfunc_6(); // slot 6
-    virtual void vfunc_7(int); // slot 7
+    virtual bool vfunc_7(void*); // slot 7
     virtual void vfunc_8() = 0; // slot 8
+    char _pad_04[0x1c];
+    short f_20;
 };
 
 // .?AVEntityLoader@om@@  vftable 0x429394 (4)
@@ -124,7 +130,7 @@ class EntityType : public ::om::Type {
 public:
     virtual void vfunc_0(); // overrides om::Type slot 0
     virtual void vfunc_1(); // overrides om::Type slot 1
-    virtual void vfunc_2() = 0; // slot 2
+    virtual void* vfunc_2() = 0; // slot 2
 };
 
 // .?AVLogStream@om@@  vftable 0x429234 (1)
@@ -143,9 +149,9 @@ public:
 class MetaEntity : public ::om::Entity {
 public:
     virtual ~MetaEntity(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int); // overrides om::Entity slot 3
-    virtual void vfunc_4(int); // overrides om::Entity slot 4
-    virtual void vfunc_5(int); // overrides om::Entity slot 5
+    virtual bool vfunc_3(void*); // overrides om::Entity slot 3
+    virtual bool vfunc_4(int); // overrides om::Entity slot 4
+    virtual bool vfunc_5(int); // overrides om::Entity slot 5
 };
 
 // .?AVMetaEntityType@om@@  vftable 0x42aa04 (4)
@@ -192,8 +198,13 @@ class MetaTypeAttribScalar : public ::om::MetaTypeAttrib< T0 > {
 public:
     virtual ~MetaTypeAttribScalar(); // overrides om::MetaTypeAttribBase slot 0
     virtual void vfunc_3(int); // overrides om::MetaTypeAttribBase slot 3
-    virtual void vfunc_4(); // slot 4
-    virtual void vfunc_5(); // slot 5
+    virtual unsigned int vfunc_4(); // slot 4
+    virtual unsigned int vfunc_5(); // slot 5
+    char _pad_04[0x10];
+    int f_14;
+    char _pad_18[0xc];
+    int f_24;
+    unsigned int f_28;
 };
 
 // .?AVNullStream@om@@  vftable 0x42923c (1)
@@ -212,6 +223,9 @@ public:
 class StdStream : public ::om::Stream {
 public:
     virtual ~StdStream(); // overrides om::Stream slot 0
+    char _pad_04[0x18];
+    void* f_1c;
+    unsigned char f_20;
 };
 
 // .?AVTextOutStream@om@@  vftable 0x42924c (1)

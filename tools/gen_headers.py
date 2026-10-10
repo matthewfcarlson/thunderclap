@@ -70,6 +70,13 @@ CURATED_FIELDS = {
     # "%s" marks where the member name goes, the second item is the size).
     "Method0": {0x1C: ("T1 (T0::*%s)()", 4)},
     "Method1": {0x1C: ("T1 (T0::*%s)(T2)", 4)},
+    # Method2..7 Invoke matches in matches/ read the same pointer at +0x1c (41/2/6/8/15/6 files).
+    "Method2": {0x1C: ("T1 (T0::*%s)(T2, T3)", 4)},
+    "Method3": {0x1C: ("T1 (T0::*%s)(T2, T3, T4)", 4)},
+    "Method4": {0x1C: ("T1 (T0::*%s)(T2, T3, T4, T5)", 4)},
+    "Method5": {0x1C: ("T1 (T0::*%s)(T2, T3, T4, T5, T6)", 4)},
+    "Method6": {0x1C: ("T1 (T0::*%s)(T2, T3, T4, T5, T6, T7)", 4)},
+    "Method7": {0x1C: ("T1 (T0::*%s)(T2, T3, T4, T5, T6, T7, T8)", 4)},
 }
 
 PRELUDE = """#ifndef HULK_GEN_PRELUDE_H
@@ -582,35 +589,76 @@ class Gen:
 
     # -- signatures and fields ---------------------------------------------------------------
     def load_sigs_fields(self):
+        """Signatures vote per slot (every override shares one); fields vote per unit and offset.
+        CURATED_* entries win over mined evidence."""
         self.sigs = {}
-        self.sig_src = {}
+        votes = collections.defaultdict(collections.Counter)
         ev = self.evidence
-        for fname, sig in list(ev.get("sigs", {}).items()) + list(CURATED_SIGS.items()):
-            m = re.match(r"(.*)::vfunc_(\d+)$", fname)
-            c = self.by_csv.get(m.group(1)) if m else None
-            if c is None or 0 not in c.vtables or int(m.group(2)) >= len(c.vtables[0]):
-                self.report["evidence_dropped"].append("signature for %s: no such slot" % fname)
+        curated_keys = set()
+        for src, items in (("mined", ev.get("sigs", {}).items()), ("curated", CURATED_SIGS.items())):
+            for fname, sig in items:
+                m = re.match(r"(.*)::vfunc_(\d+)$", fname)
+                c = self.by_csv.get(m.group(1)) if m else None
+                if c is None or 0 not in c.vtables or int(m.group(2)) >= len(c.vtables[0]):
+                    self.report["evidence_dropped"].append("signature for %s: no such slot" % fname)
+                    continue
+                key = self.resolve(c, 0, int(m.group(2)))
+                if key in self.dtor:
+                    continue
+                ret, params = sig[0], tuple(sig[1])
+                want = self.arity.get(key)
+                if src == "mined" and want is not None and len(params) != want:
+                    self.report["evidence_dropped"].append(
+                        "signature for %s: %d params but the slot's bodies clean %d" % (fname, len(params), want))
+                    continue
+                if src == "curated":
+                    curated_keys.add(key)
+                    self.sigs[key] = (ret, list(params))
+                else:
+                    votes[key][(ret, params)] += 1
+        for key, cnt in votes.items():
+            if key in curated_keys:
                 continue
-            key = self.resolve(c, 0, int(m.group(2)))
-            if key in self.dtor:
-                continue
-            ret, params = sig[0], list(sig[1])
-            want = self.arity.get(key)
-            if want is not None and len(params) != want and fname not in CURATED_SIGS:
-                self.report["evidence_dropped"].append(
-                    "signature for %s: %d params but slot cleans %d" % (fname, len(params), want))
-                continue
-            self.sigs[key] = (ret, params)
-            self.sig_src[key] = fname
-        for uname, fl in list(ev.get("fields", {}).items()) + list(CURATED_FIELDS.items()):
+            (ret, params), n = cnt.most_common(1)[0]
+            if len(cnt) > 1:
+                self.report["signature_votes_split"].append("%s slot %d: %s" % (key[0], key[1], ", ".join(
+                    "%s(%s) x%d" % (r, ",".join(p), k) for (r, p), k in cnt.most_common())))
+            self.sigs[key] = (ret, list(params))
+        fvotes = collections.defaultdict(lambda: collections.defaultdict(collections.Counter))
+        for uname, fl in ev.get("fields", {}).items():
             c = self.by_csv.get(uname) or self.by_name.get(uname)
-            u = c.unit if c else self.unit_by_uid.get(uname)
-            if u is None:
+            if c is None:
                 self.report["evidence_dropped"].append("fields for unknown class %s" % uname)
                 continue
-            for off, t in fl.items():
-                off = int(off, 0) if isinstance(off, str) else off
+            for off, tv in fl.items():
+                for t, n in tv.items():
+                    m = re.match(r"(.*)\[\d+\]$", t)
+                    fvotes[c.unit.uid][int(off, 0)][m.group(1) if m else t] += n
+        for uid, offs in fvotes.items():
+            u = self.unit_by_uid[uid]
+            for off, cnt in offs.items():
+                t, n = cnt.most_common(1)[0]
+                if len(cnt) > 1:
+                    self.report["field_votes_split"].append("%s +0x%x: %s" % (uid, off, dict(cnt)))
                 u.fields[off] = t
+        for uname, fl in CURATED_FIELDS.items():
+            c = self.by_csv.get(uname) or self.by_name.get(uname)
+            u = c.unit if c else self.unit_by_uid.get(uname)
+            for off, t in fl.items():
+                u.fields[off] = t
+        # overlapping fields: keep the earlier one
+        for u in self.units.values():
+            end = -1
+            for off in sorted(u.fields):
+                if off < end:
+                    self.report["field_overlaps"].append("%s +0x%x %s overlaps the previous field" % (u.uid, off, u.fields[off]))
+                    del u.fields[off]
+                    continue
+                if off % min(4, type_size(u.fields[off]) or 1):
+                    self.report["field_misaligned"].append("%s +0x%x %s (dropped)" % (u.uid, off, u.fields[off]))
+                    del u.fields[off]
+                    continue
+                end = off + type_size(u.fields[off])
 
     def signature(self, key):
         if key in self.sigs:
@@ -715,6 +763,7 @@ class Gen:
         # fields
         flines = []
         cur = self.own_start(c)
+        c.emitted = {}
         for off in sorted(unit.fields):
             t = unit.fields[off]
             if off < cur:
@@ -729,6 +778,7 @@ class Gen:
             if concrete is not None:
                 fl = re.sub(r"\b[TN](\d+)\b", lambda m: render_type(concrete[int(m.group(1))]), fl)
             flines.append("    %s;" % fl)
+            c.emitted[off] = t
             cur = off + type_size(t)
         tail = self.min_size.get(unit.uid)
         if tail and tail > cur:
@@ -1212,12 +1262,601 @@ def check_layout(coff, classes, index):
     return cnt, probs
 
 
+# ---------------------------------------------------------------------------------------------
+# Mining matches/ for field offsets and slot signatures (clang parses the standalone TUs)
+
+CLANG = ["clang", "-target", "i686-pc-windows-msvc", "-fms-extensions", "-fms-compatibility", "-w"]
+MINE_CACHE = os.path.join(ROOT, "build/gen_mine_cache.json")
+MINE_VERSION = 2  # bump to invalidate the cache when mine_file changes
+
+
+def clang_ast(path):
+    r = subprocess.run(CLANG + ["-fsyntax-only", "-Xclang", "-ast-dump=json", path], capture_output=True, text=True)
+    if r.returncode != 0:
+        return None
+    return json.loads(r.stdout)
+
+
+def clang_layouts(path):
+    """{record name: {(record, field): absolute offset}} from -fdump-record-layouts."""
+    r = subprocess.run(CLANG + ["-c", "-o", os.devnull, "-Xclang", "-fdump-record-layouts", path],
+                       capture_output=True, text=True)
+    if r.returncode != 0:
+        return None
+    out, cur, stack = {}, None, []
+    for line in r.stdout.splitlines():
+        if line.startswith("*** Dumping"):
+            cur, stack = None, []
+            continue
+        m = re.match(r"\s*(\d+) \| (\s*)(.*)$", line)
+        if not m:
+            continue
+        off, depth, text = int(m.group(1)), len(m.group(2)) // 2, m.group(3)
+        if cur is None:
+            nm = split_top(re.sub(r"^(class|struct|union) ", "", text), "::")[-1]
+            cur = out.setdefault(nm, {})
+            stack = [(0, nm)]
+            continue
+        while stack and stack[-1][0] >= depth:
+            stack.pop()
+        enclosing = stack[-1][1] if stack else None
+        bm = re.match(r"(?:class|struct|union) (.+?) \((?:primary |virtual )?base\)$", text)
+        if bm:
+            stack.append((depth, split_top(bm.group(1), "::")[-1]))
+            continue
+        if text.startswith("("):
+            continue  # vftable pointer etc.
+        fm = re.match(r"(.*?)\s*(\w+)$", text)
+        if fm and enclosing is not None:
+            cur.setdefault((enclosing, fm.group(2)), (off, fm.group(1)))
+            # an embedded record's own fields follow at depth+1: give them a scope of their own
+            stack.append((depth, "<member %s>" % fm.group(2)))
+    return out
+
+
+def map_type(qt):
+    """Stub type -> header type, only where the type is meaningful without the stub's classes."""
+    t = re.sub(r"\s+", " ", qt.replace("volatile ", "")).strip()
+    t = re.sub(r"^const ", "", t)
+    if t in PRIMS:
+        return t
+    if t.endswith("*") or t.endswith("&"):
+        return "void*"
+    m = re.match(r"(.+?) ?\[(\d+)\]$", t)
+    if m and m.group(1) in PRIMS and m.group(1) != "void":
+        return "%s[%s]" % (m.group(1), m.group(2))
+    return None
+
+
+def split_fn_type(qt):
+    """'int *(float, int) __attribute__((thiscall))' -> return type text."""
+    t = qt.replace(" __attribute__((thiscall))", "").strip()
+    t = re.sub(r"\s*(const|throw\(\))$", "", t)
+    if not t.endswith(")"):
+        return None
+    depth = 0
+    for i in range(len(t) - 1, -1, -1):
+        if t[i] == ")":
+            depth += 1
+        elif t[i] == "(":
+            depth -= 1
+            if depth == 0:
+                return t[:i].strip()
+    return None
+
+
+def mine_file(path, slot):
+    """Evidence from one match file: the defined member function's signature and this-relative fields."""
+    ast = clang_ast(path)
+    if ast is None:
+        return {"error": "clang-ast"}
+    records, fields = {}, {}
+
+    def collect(n, scope):
+        if n.get("kind") in ("CXXRecordDecl", "ClassTemplateSpecializationDecl") and n.get("name"):
+            records[n["id"]] = n["name"]
+            for c in n.get("inner", []):
+                if c.get("kind") == "FieldDecl":
+                    fields[c["id"]] = (n["name"], c.get("name"), c["type"]["qualType"])
+        for c in n.get("inner", []):
+            collect(c, scope)
+    collect(ast, None)
+    defs = []
+
+    def find_defs(n, parent_rec):
+        k = n.get("kind")
+        if k == "CXXRecordDecl" and n.get("name"):
+            parent_rec = n["id"]
+        if k == "CXXMethodDecl" and not n.get("isImplicit") and any(c.get("kind") == "CompoundStmt" for c in n.get("inner", [])):
+            body = [c for c in n["inner"] if c.get("kind") == "CompoundStmt"][0]
+            rec = n.get("parentDeclContextId") or parent_rec
+            if body.get("inner") or n.get("parentDeclContextId"):
+                defs.append((n, rec, body))
+        for c in n.get("inner", []):
+            find_defs(c, parent_rec)
+    find_defs(ast, None)
+    # the matched function: the only out-of-line definition, or the one named vfunc_<slot>
+    ool = [d for d in defs if d[0].get("parentDeclContextId")]
+    cand = ool if len(ool) == 1 else [d for d in defs if d[0].get("name") == "vfunc_%d" % slot]
+    if len(cand) != 1:
+        cand = [d for d in defs if d[2].get("inner")] if len(defs) > 1 else defs
+    if len(cand) != 1:
+        return {"error": "ambiguous" if cand else "no-definition"}
+    fn, rec, body = cand[0]
+    rname = records.get(rec)
+    res = {"stub": rname, "method": fn.get("name")}
+    # signature
+    params = [c["type"]["qualType"] for c in fn.get("inner", []) if c.get("kind") == "ParmVarDecl"]
+    ret = split_fn_type(fn["type"]["qualType"])
+    mp = [map_type(p) for p in params]
+    mr = "void" if ret == "void" else (map_type(ret) if ret else None)
+    if mr is not None and all(x is not None for x in mp):
+        res["sig"] = [mr, mp]
+    # this-relative member accesses
+    used = set()
+
+    def walk(n):
+        if n.get("kind") == "MemberExpr" and n.get("referencedMemberDecl") in fields:
+            base = n.get("inner", [{}])[0]
+            while base.get("kind") in ("ImplicitCastExpr", "ParenExpr") and base.get("inner"):
+                base = base["inner"][0]
+            if base.get("kind") == "CXXThisExpr":
+                used.add(n["referencedMemberDecl"])
+        for c in n.get("inner", []):
+            walk(c)
+    walk(body)
+    if used and rname:
+        lay = clang_layouts(path)
+        if lay is None:
+            res["fields_error"] = "clang-layout"
+        else:
+            rl = lay.get(rname, {})
+            fl = {}
+            for fid in used:
+                frec, fname, ftype = fields[fid]
+                hit = rl.get((frec, fname))
+                if hit is None:
+                    continue
+                t = map_type(ftype)
+                if t is None:
+                    res.setdefault("skipped_types", []).append(ftype)
+                    continue
+                fl["0x%x" % hit[0]] = t
+            if fl:
+                res["fields"] = fl
+    return res
+
+
+def mine(jobs=2, limit=None):
+    """Mine matches/ (vfunc targets only) -> include/gen/evidence.json."""
+    from concurrent.futures import ThreadPoolExecutor
+    funcs = {}
+    with open(FUNCS_PATH) as f:
+        for r in csv.DictReader(f):
+            funcs[int(r["address"], 16)] = r["name"]
+    cache = json.load(open(MINE_CACHE)) if os.path.exists(MINE_CACHE) else {}
+    cache = {k: v for k, v in cache.items() if k.endswith(":v%d" % MINE_VERSION)}
+    todo = []
+    mdir = os.path.join(ROOT, "matches")
+    for fn in sorted(os.listdir(mdir)):
+        if not fn.endswith(".cpp"):
+            continue
+        name = funcs.get(int(fn[:-4], 16), "")
+        m = re.match(r"(.*)::vfunc_(\d+)$", name)
+        if not m:
+            continue
+        p = os.path.join(mdir, fn)
+        key = "%s:%d:v%d" % (fn, int(os.path.getmtime(p)), MINE_VERSION)
+        if key not in cache:
+            todo.append((key, p, int(m.group(2)), name))
+    if limit:
+        todo = todo[:limit]
+    print("mining %d files (%d cached)" % (len(todo), len(cache)), file=sys.stderr)
+
+    def one(t):
+        key, p, slot, name = t
+        r = mine_file(p, slot)
+        r["function"] = name
+        return key, r
+    with ThreadPoolExecutor(jobs) as ex:
+        for i, (key, r) in enumerate(ex.map(one, todo)):
+            cache[key] = r
+            if i % 500 == 499:
+                print("  %d/%d" % (i + 1, len(todo)), file=sys.stderr)
+                json.dump(cache, open(MINE_CACHE, "w"))
+    json.dump(cache, open(MINE_CACHE, "w"))
+    # aggregate: per function signature, per owner class field votes
+    sigs, fields = {}, collections.defaultdict(lambda: collections.defaultdict(collections.Counter))
+    stats = collections.Counter()
+    for key, r in cache.items():
+        stats["files"] += 1
+        if "error" in r:
+            stats["error_" + r["error"]] += 1
+            continue
+        if "sig" in r:
+            stats["with_signature"] += 1
+            sigs[r["function"]] = r["sig"]
+        if "fields" in r:
+            stats["with_fields"] += 1
+            owner = r["function"].rsplit("::vfunc_", 1)[0]
+            for off, t in r["fields"].items():
+                fields[owner][off][t] += 1
+    ev = {"_comment": "Mined by tools/gen_headers.py --mine from matches/: signatures of matched vfunc_N "
+                      "definitions and this-relative field accesses (offset -> {type: votes}).",
+          "stats": dict(stats), "sigs": dict(sorted(sigs.items())),
+          "fields": {o: {off: dict(c) for off, c in sorted(v.items(), key=lambda x: int(x[0], 16))}
+                     for o, v in sorted(fields.items())}}
+    with open(EVIDENCE_PATH, "w") as f:
+        f.write("{\n")
+        f.write(' "_comment": %s,\n "stats": %s,\n' % (json.dumps(ev["_comment"]), json.dumps(ev["stats"], sort_keys=True)))
+        for sect in ("sigs", "fields"):
+            items = list(ev[sect].items())
+            f.write(' "%s": {\n' % sect)
+            f.write(",\n".join("  %s: %s" % (json.dumps(k), json.dumps(v)) for k, v in items))
+            f.write("\n }%s\n" % ("," if sect == "sigs" else ""))
+        f.write("}\n")
+    return stats
+
+
+# ---------------------------------------------------------------------------------------------
+# Swap-in measurement: recompile matches/ with the stub class replaced by the generated header
+
+class SwapFail(Exception):
+    pass
+
+
+def _rng(n):
+    r = n.get("range", {})
+    b, e = r.get("begin", {}), r.get("end", {})
+    if "offset" not in b or "offset" not in e:
+        raise SwapFail("macro in source range")
+    return b["offset"], e["offset"] + e.get("tokLen", 0)
+
+
+def _unwrap(n):
+    while n.get("kind") in ("ImplicitCastExpr", "ParenExpr") and n.get("inner"):
+        n = n["inner"][0]
+    return n
+
+
+def _clean_qt(qt):
+    return re.sub(r"\s*__attribute__\(\(\w+\)\)", "", qt).strip()
+
+
+def _ptr_to(qt):
+    """Spelling of 'pointer to qt' (arrays, function and member-function pointers included)."""
+    qt = _clean_qt(qt)
+    m = re.match(r"(.+?) ?\[(\d+)\]$", qt)
+    if m:
+        return "%s (*)[%s]" % (m.group(1), m.group(2))
+    m = re.match(r"(.*\()([\w:]*\*)(\).*)$", qt)
+    if m:
+        return m.group(1) + m.group(2) + "*" + m.group(3)
+    return qt + " *"
+
+
+def swap_transform(g, path, fname):
+    """Rewrite match file `path` (target `fname` = Owner::vfunc_N) to use include/gen instead of its
+    stub for the owner class. Returns (new source, mangled-name substring of the target)."""
+    m = re.match(r"(.*)::vfunc_(\d+)$", fname)
+    C = g.by_csv[m.group(1)]
+    slot = int(m.group(2))
+    key = g.resolve(C, 0, slot)
+    hname = g.name_of(key)
+    if hname == "~":
+        raise SwapFail("target is a destructor slot")
+    raw = open(path, "rb").read().decode("latin1")
+    ast = clang_ast(path)
+    if ast is None:
+        raise SwapFail("clang can't parse the original")
+    records, fields, methods, outdefs, fwds, nsof = {}, {}, {}, [], [], {}
+
+    def walk(n, ns, rec):
+        k = n.get("kind")
+        if k == "NamespaceDecl":
+            ns = ns + [n.get("name", "")]
+        if k in ("CXXRecordDecl",) and n.get("name") and not n.get("isImplicit"):
+            if n.get("completeDefinition"):
+                records[n["id"]] = n
+                nsof[n["id"]] = ns
+                for c in n.get("inner", []):
+                    if c.get("kind") == "FieldDecl":
+                        fields[c["id"]] = (n["name"], c.get("name"), c["type"]["qualType"])
+                    if c.get("kind") in ("CXXMethodDecl", "CXXDestructorDecl", "CXXConstructorDecl") and not c.get("isImplicit"):
+                        methods[c["id"]] = (n["id"], c)
+                rec = n["id"]
+            else:
+                fwds.append((n, ns))
+        if k == "CXXMethodDecl" and n.get("parentDeclContextId") and not n.get("isImplicit"):
+            outdefs.append(n)
+        for c in n.get("inner", []):
+            if k == "CXXRecordDecl" and c.get("kind") == "CXXRecordDecl" and c.get("isImplicit"):
+                continue
+            walk(c, ns, rec)
+    walk(ast, [], None)
+    # target definition (same rule as mining)
+    defs = [(d, d["parentDeclContextId"]) for d in outdefs if any(c.get("kind") == "CompoundStmt" for c in d.get("inner", []))]
+    inl = [(c, rid) for mid, (rid, c) in methods.items() if c.get("kind") == "CXXMethodDecl"
+           and any(x.get("kind") == "CompoundStmt" and x.get("inner") for x in c.get("inner", []))]
+    cand = defs if len(defs) == 1 else [d for d in defs + inl if d[0].get("name") == "vfunc_%d" % slot]
+    if len(cand) != 1:
+        cand = inl if (not defs and len(inl) == 1) else []
+    if len(cand) != 1:
+        raise SwapFail("can't tell which definition is the target")
+    fn, sid = cand[0]
+    if sid not in records:
+        raise SwapFail("target's class is not a plain stub class")
+    S = records[sid]
+    sname = S["name"]
+    # single-inheritance chain of stub records, root first
+    by_rname = {}
+    for rid, rn in records.items():
+        by_rname.setdefault(rn["name"], rid)
+    chain = [sid]
+    while records[chain[0]].get("bases"):
+        bl = records[chain[0]]["bases"]
+        if len(bl) > 1 or bl[0].get("isVirtual"):
+            raise SwapFail("stub class has multiple/virtual bases")
+        bn = _clean_qt(bl[0]["type"]["qualType"]).replace("class ", "").replace("struct ", "")
+        if bn not in by_rname:
+            raise SwapFail("stub base %s not a plain class" % bn)
+        chain.insert(0, by_rname[bn])
+    if C.unit.template is False and "<" in sname:
+        raise SwapFail("template stub")
+    body = [c for c in fn["inner"] if c.get("kind") == "CompoundStmt"][0]
+    # stub virtual order (overrides reuse the base's slot) -> header slot names
+    vnames, vindex = [], {}
+    for rid in chain:
+        for c in records[rid].get("inner", []):
+            if c.get("kind") in ("CXXMethodDecl", "CXXDestructorDecl") and c.get("virtual") and not c.get("isImplicit"):
+                nm = "~" if c["kind"] == "CXXDestructorDecl" else c.get("name")
+                if nm not in vnames:
+                    vnames.append(nm)
+                vindex[c["id"]] = vnames.index(nm)
+    chain_names = {records[r]["name"] for r in chain}
+    # header fields reachable through this
+    hf = dict(getattr(C, "emitted", {}))
+    for b, md, _, _, _ in C.all_bases:
+        for off, t in getattr(b, "emitted", {}).items():
+            hf.setdefault(md + off, t)
+    layout = None
+    edits = []  # (pos, order, end, text)
+    nv_used = set()
+    hret, hparams = g.signature(key)
+
+    def need_layout():
+        nonlocal layout
+        if layout is None:
+            lay = clang_layouts(path)
+            if lay is None:
+                raise SwapFail("clang can't lay out the original")
+            layout = lay.get(sname, {})
+        return layout
+
+    def visit(n, depth):
+        k = n.get("kind")
+        if k == "MemberExpr":
+            rid = n.get("referencedMemberDecl")
+            base = n.get("inner", [{}])[0]
+            ub = _unwrap(base)
+            implicit = ub.get("kind") == "CXXThisExpr" and ub.get("implicit")
+            b0, e0 = _rng(n)
+            name_pos = n["range"]["end"]["offset"]
+            name_end = e0
+            if rid in fields and fields[rid][0] in chain_names:
+                frec, fnm, fqt = fields[rid]
+                hit = need_layout().get((frec, fnm))
+                if hit is None:
+                    raise SwapFail("no layout for field %s" % fnm)
+                off = hit[0]
+                if off not in hf:
+                    raise SwapFail("field +0x%x not in header" % off)
+                same = fqt.strip() in PRIMS and map_type(fqt) == hf[off]
+                hfn = "f_%02x" % off
+                if same:
+                    if implicit:
+                        edits.append((name_pos, (2, 0), name_end, "this->" + hfn))
+                    else:
+                        edits.append((name_pos, (2, 0), name_end, hfn))
+                else:
+                    cast = "(*(%s)&" % _ptr_to(fqt)
+                    if implicit:
+                        edits.append((name_pos, (1, depth), name_pos, cast + "this->"))
+                    else:
+                        edits.append((b0, (1, depth), b0, cast))
+                    edits.append((name_pos, (2, 0), name_end, hfn))
+                    edits.append((e0, (0, -depth), e0, ")"))
+            elif rid in methods and methods[rid][0] in chain:
+                mnode = methods[rid][1]
+                if rid in vindex:
+                    i = vindex[rid]
+                    if i >= len(C.vtables.get(0, [])):
+                        raise SwapFail("stub virtual %d beyond the real vftable" % i)
+                    nm = g.name_of(g.resolve(C, 0, i))
+                    if nm == "~":
+                        raise SwapFail("calls the destructor slot by name")
+                    edits.append((name_pos, (2, 0), name_end, nm))
+                else:
+                    if any(x.get("kind") == "CompoundStmt" for x in mnode.get("inner", [])):
+                        raise SwapFail("calls an inline non-virtual stub helper")
+                    nv_used.add(rid)
+                    if implicit:
+                        edits.append((name_pos, (1, depth), name_pos, "((__Self_nv*)this)->"))
+                    else:
+                        bb, be = _rng(base)
+                        if n.get("isArrow"):
+                            edits.append((bb, (1, depth), bb, "((__Self_nv*)("))
+                            edits.append((be, (0, -depth), be, "))"))
+                        else:  # obj.f -> ((__Self_nv*)&(obj))->f
+                            dot = raw.index(".", be)
+                            edits.append((bb, (1, depth), bb, "((__Self_nv*)&("))
+                            edits.append((be, (0, -depth), be, "))"))
+                            edits.append((dot, (2, 0), dot + 1, "->"))
+        if k == "ReturnStmt" and n.get("inner") and hret != split_fn_type(fn["type"]["qualType"]):
+            if hret == "void":
+                raise SwapFail("header slot returns void, stub returns a value")
+            eb, ee = _rng(n["inner"][0])
+            edits.append((eb, (1, depth), eb, "(%s)(" % hret))
+            edits.append((ee, (0, -depth), ee, ")"))
+        for c in n.get("inner", []):
+            visit(c, depth + 1)
+    visit(body, 0)
+    # parameters
+    params = [c for c in fn.get("inner", []) if c.get("kind") == "ParmVarDecl"]
+    if len(params) != len(hparams):
+        raise SwapFail("arity differs from header (%d vs %d)" % (len(params), len(hparams)))
+    plist, prologue = [], []
+    for i, (pn, ht) in enumerate(zip(params, hparams)):
+        qt, nm = _clean_qt(pn["type"]["qualType"]), pn.get("name")
+        if qt.strip() == ht:
+            plist.append("%s %s" % (ht, nm or ""))
+            continue
+        if (qt in ("float", "double")) != (ht in ("float", "double")):
+            raise SwapFail("parameter %d: stub %s vs header %s" % (i, qt, ht))
+        plist.append("%s __p%d" % (ht, i))
+        if nm:
+            if qt.endswith("&"):
+                prologue.append("%s %s = *(%s *)__p%d;" % (qt, nm, qt[:-1].strip(), i))
+            else:
+                prologue.append("%s %s = (%s)__p%d;" % (qt, nm, qt, i))
+    # body text with edits
+    bb, be = _rng(body)
+    order = sorted(edits, key=lambda e: (e[0], e[1]))
+    out, cur = [], bb
+    for pos, _, end, text in order:
+        if pos < cur:
+            raise SwapFail("overlapping rewrites")
+        out.append(raw[cur:pos])
+        out.append(text)
+        cur = end
+    out.append(raw[cur:be])
+    btxt = "".join(out)
+    if prologue:
+        btxt = "{ " + " ".join(prologue) + "\n" + btxt[1:]
+    head = "%s%s __Self::%s(%s)" % ("template <> " if C.targs is not None else "", hret, hname, ", ".join(plist))
+    # file-level edits: drop S's definition (-> __Self_nv), forward decls, its out-of-line members
+    cuts = []
+    sb, se = _rng(S)
+    semi = raw.index(";", se) + 1 if raw.find(";", se) >= 0 else se
+    nv_decls = []
+    for rid in sorted(nv_used):
+        mn = methods[rid][1]
+        mb, me = _rng(mn)
+        nv_decls.append("    " + raw[mb:me].strip().rstrip(";") + ";")
+    cuts.append((sb, semi, "struct __Self_nv {\n%s\n};" % "\n".join(nv_decls)))
+    for n, ns in fwds:
+        if n.get("name") == sname:
+            b, e = _rng(n)
+            cuts.append((b, raw.index(";", e) + 1, ""))
+    for d in outdefs:
+        if d.get("parentDeclContextId") == sid:
+            b, e = _rng(d)
+            cuts.append((b, e, ""))
+    cuts.sort()
+    pieces, cur = [], 0
+    for b, e, t in cuts:
+        if b < cur:
+            continue
+        pieces.append(raw[cur:b])
+        pieces.append(t)
+        cur = e
+    pieces.append(raw[cur:])
+    rest = "".join(pieces)
+    rest = re.sub(r"\b%s\b" % re.escape(sname), "__Self", rest)
+    btxt = re.sub(r"\b%s\b" % re.escape(sname), "__Self", btxt)
+    # other stubs whose names collide with a generated name (lookup from inside the real class
+    # reaches its namespaces, so compare short names)
+    taken = {u.short for u in g.units.values()} | {split_top(q, "::")[-1] for q in g.extra_fwd}
+    taken |= {n for u in g.units.values() for n in u.ns}
+    for rid, rn in list(records.items()) + [(n["id"], n) for n, _ in fwds]:
+        nm = rn["name"]
+        if rid != sid and nm != sname and nm in taken:
+            rest = re.sub(r"\b%s\b" % re.escape(nm), nm + "_stub", rest)
+            btxt = re.sub(r"\b%s\b" % re.escape(nm), nm + "_stub", btxt)
+    sns = nsof.get(sid, [])
+    text = ("#include <gen/all.h>\ntypedef %s __Self;\n" % g.cpp_name(C) + rest + "\n"
+            + "".join("using namespace %s;\n" % "::".join(sns[:i + 1]) for i in range(len(sns)))
+            + head + " " + btxt + "\n")
+    return text, "?%s@" % hname
+
+
+def swap_test(n=200, seed=1, jobs=2, keep=None):
+    """Recompile a random sample of vfunc matches with the generated headers; report what still MATCHes."""
+    import random
+    from concurrent.futures import ThreadPoolExecutor
+    sys.path.insert(0, os.path.dirname(__file__))
+    import compare as cmp
+    ev = json.load(open(EVIDENCE_PATH)) if os.path.exists(EVIDENCE_PATH) else {}
+    g = Gen(ev)
+    with tempfile.TemporaryDirectory() as d:
+        g.generate(d, None)  # in-memory model (written to a scratch dir)
+    funcs = {}
+    with open(FUNCS_PATH) as f:
+        for r in csv.DictReader(f):
+            funcs[int(r["address"], 16)] = r["name"]
+    mdir = os.path.join(ROOT, "matches")
+    pool = []
+    for fn in sorted(os.listdir(mdir)):
+        if fn.endswith(".cpp"):
+            nm = funcs.get(int(fn[:-4], 16), "")
+            if re.match(r".*::vfunc_\d+$", nm) and nm.rsplit("::vfunc_", 1)[0] in g.by_csv:
+                pool.append((fn, nm))
+    random.Random(seed).shuffle(pool)
+    sample = pool[:n]
+    work = keep or tempfile.mkdtemp(prefix="genswap")
+    os.makedirs(work, exist_ok=True)
+
+    def one(item):
+        fn, nm = item
+        addr = int(fn[:-4], 16)
+        try:
+            text, sym = swap_transform(g, os.path.join(mdir, fn), nm)
+        except SwapFail as e:
+            return fn, nm, "rewrite: " + str(e), None
+        except Exception as e:  # noqa: BLE001 - measurement: record and continue
+            return fn, nm, "rewrite crash: %s" % type(e).__name__, None
+        out = os.path.join(work, fn)
+        with open(out, "w") as f:
+            f.write(text)
+        r = cmp.compare(out, addr, sym)
+        if r["status"] == "compile_error":
+            m = re.search(r"error (C\d+): (.*)", r["error"])
+            return fn, nm, "compile_error", (m.group(1) + ": " + m.group(2)[:90]) if m else r["error"][:120]
+        if r["status"] == "no_function":
+            return fn, nm, "no_function", None
+        return fn, nm, r["status"], r.get("score")
+    with ThreadPoolExecutor(jobs) as ex:
+        results = list(ex.map(one, sample))
+    with open(os.path.join(work, "results.json"), "w") as f:
+        json.dump(results, f, indent=1)
+    cnt = collections.Counter(re.sub(r"\+0x[0-9a-f]+|\b\d+\b", "N", r[2]) for r in results)
+    errs = collections.Counter(re.sub(r"'[^']*'", "'X'", r[3]) for r in results if r[2] == "compile_error" and r[3])
+    return results, cnt, errs, work
+
+
 def main(argv):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--probe", nargs="*", metavar="HEADER", help="compile and layout-check headers (default: all)")
     ap.add_argument("--keep", help="probe work directory to keep")
     ap.add_argument("--report", action="store_true", help="print the generator report")
+    ap.add_argument("--mine", action="store_true", help="mine matches/ into include/gen/evidence.json")
+    ap.add_argument("--jobs", type=int, default=2)
+    ap.add_argument("--limit", type=int)
+    ap.add_argument("--swap-test", type=int, metavar="N", help="recompile N random vfunc matches on the headers")
+    ap.add_argument("--seed", type=int, default=1)
     a = ap.parse_args(argv)
+    if a.swap_test:
+        results, cnt, errs, work = swap_test(a.swap_test, a.seed, a.jobs, a.keep)
+        for k, v in cnt.most_common():
+            print("%5d  %s" % (v, k))
+        print("compile errors:")
+        for k, v in errs.most_common(25):
+            print("%5d  %s" % (v, k))
+        print("work dir:", work)
+        return 0
+    if a.mine:
+        print(dict(mine(a.jobs, a.limit)))
+        return 0
     if a.probe is not None:
         total, problems, work = probe(a.probe or None, a.keep)
         for p in problems:

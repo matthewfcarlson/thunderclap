@@ -16,10 +16,10 @@ namespace Tokenizer {
 class Stream {
 public:
     virtual ~Stream(); // slot 0
-    virtual void vfunc_1(int) = 0; // slot 1
+    virtual bool vfunc_1(void*) = 0; // slot 1
     virtual void vfunc_2() = 0; // slot 2
-    virtual void vfunc_3(int, int) = 0; // slot 3
-    virtual void vfunc_4() = 0; // slot 4
+    virtual int vfunc_3(void*, int) = 0; // slot 3
+    virtual bool vfunc_4() = 0; // slot 4
 };
 
 } // namespace Tokenizer

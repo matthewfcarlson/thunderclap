@@ -23,7 +23,7 @@ namespace movie {
 class BinkCallback : public ::core::Object, public ::core::IFileCompletionCallback {
 public:
     virtual ~BinkCallback(); // overrides core::BaseObject slot 0
-    virtual void vfunc_1_BinkCallback(int); // slot 1
+    virtual void* vfunc_1_BinkCallback(unsigned char); // slot 1
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual void vfunc_3(int); // overrides core::IFileCompletionCallback slot 3
@@ -33,19 +33,19 @@ public:
 struct Player2 : public ::core::IRefCount {
 public:
     virtual ~Player2(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int) = 0; // slot 3
+    virtual void vfunc_3(void*, void*) = 0; // slot 3
     virtual void vfunc_4() = 0; // slot 4
     virtual void vfunc_5(int, int, int, int) = 0; // slot 5
     virtual void vfunc_6(int, int, int, int) = 0; // slot 6
     virtual void vfunc_7() = 0; // slot 7
     virtual void vfunc_8() = 0; // slot 8
     virtual void vfunc_9() = 0; // slot 9
-    virtual void vfunc_10(int) = 0; // slot 10
-    virtual void vfunc_11() = 0; // slot 11
+    virtual void vfunc_10(float) = 0; // slot 10
+    virtual float vfunc_11() = 0; // slot 11
     virtual void vfunc_12() = 0; // slot 12
-    virtual void vfunc_13(int) = 0; // slot 13
+    virtual bool vfunc_13(void*) = 0; // slot 13
     virtual void vfunc_14() = 0; // slot 14
-    virtual void vfunc_15() = 0; // slot 15
+    virtual unsigned int vfunc_15() = 0; // slot 15
 };
 
 // .?AVPlayerBink@movie@@  vftable 0x4340bc (16) vftable@+0x4 0x4340b0 (1)
@@ -54,19 +54,28 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~PlayerBink(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int); // overrides movie::Player2 slot 3
+    virtual void vfunc_3(void*, void*); // overrides movie::Player2 slot 3
     virtual void vfunc_4(); // overrides movie::Player2 slot 4
     virtual void vfunc_5(int, int, int, int); // overrides movie::Player2 slot 5
     virtual void vfunc_6(int, int, int, int); // overrides movie::Player2 slot 6
     virtual void vfunc_7(); // overrides movie::Player2 slot 7
     virtual void vfunc_8(); // overrides movie::Player2 slot 8
     virtual void vfunc_9(); // overrides movie::Player2 slot 9
-    virtual void vfunc_10(int); // overrides movie::Player2 slot 10
-    virtual void vfunc_11(); // overrides movie::Player2 slot 11
+    virtual void vfunc_10(float); // overrides movie::Player2 slot 10
+    virtual float vfunc_11(); // overrides movie::Player2 slot 11
     virtual void vfunc_12(); // overrides movie::Player2 slot 12
-    virtual void vfunc_13(int); // overrides movie::Player2 slot 13
+    virtual bool vfunc_13(void*); // overrides movie::Player2 slot 13
     virtual void vfunc_14(); // overrides movie::Player2 slot 14
-    virtual void vfunc_15(); // overrides movie::Player2 slot 15
+    virtual unsigned int vfunc_15(); // overrides movie::Player2 slot 15
+    int f_0c;
+    void* f_10;
+    void* f_14;
+    int f_18;
+    void* f_1c;
+    float f_20;
+    unsigned char f_24;
+    char _pad_25[0x3];
+    unsigned int f_28;
 };
 
 // .?AURenderLoop@movie@@  vftable 0x41dc1c (4)
@@ -98,6 +107,11 @@ public:
     virtual void vfunc_5(); // overrides movie::RenderStrategy slot 5
     virtual void vfunc_6(); // overrides movie::RenderStrategy slot 6
     virtual void vfunc_7(); // overrides movie::RenderStrategy slot 7
+    int f_0c;
+    char _pad_10[0x20];
+    int f_30;
+    char _pad_34[0x14];
+    char f_48;
 };
 
 } // namespace movie

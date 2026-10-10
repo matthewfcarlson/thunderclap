@@ -499,21 +499,21 @@ enum eMissionObjectiveState { };
 class AICollisionSolverAgent : public ::physics::CollisionSolverAgent {
 public:
     virtual ~AICollisionSolverAgent(); // overrides core::IRefCount slot 2
-    virtual void vfunc_5(int, int); // overrides physics::CollisionSolverAgent slot 5
-    virtual void vfunc_6(int, int, int, int, int, int, int, int, int); // overrides physics::CollisionSolverAgent slot 6
-    virtual void vfunc_7(int, int); // overrides physics::CollisionSolverAgent slot 7
+    virtual int vfunc_5(void*, void*); // overrides physics::CollisionSolverAgent slot 5
+    virtual unsigned int vfunc_6(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int); // overrides physics::CollisionSolverAgent slot 6
+    virtual int vfunc_7(void*, int); // overrides physics::CollisionSolverAgent slot 7
     virtual void vfunc_9(int, int); // overrides physics::CollisionSolverAgent slot 9
-    virtual void vfunc_10(int, int); // overrides physics::CollisionSolverAgent slot 10
-    virtual void vfunc_11(int); // overrides physics::CollisionSolverAgent slot 11
+    virtual bool vfunc_10(void*, void*); // overrides physics::CollisionSolverAgent slot 10
+    virtual bool vfunc_11(void*); // overrides physics::CollisionSolverAgent slot 11
 };
 
 // .?AVCAction@@  vftable 0x3f3390 (9)
 class CAction : public ::fight::Action {
 public:
     virtual ~CAction(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int); // overrides fight::Action slot 3
+    virtual bool vfunc_3(int, int); // overrides fight::Action slot 3
     virtual bool vfunc_5(int, int); // overrides fight::Action slot 5
-    virtual void vfunc_6(int); // slot 6
+    virtual bool vfunc_6(int); // slot 6
     virtual bool vfunc_7(int); // slot 7
     virtual bool vfunc_8(int); // slot 8
 };
@@ -523,48 +523,57 @@ class CAIHintAction : public ::CAction {
 public:
     virtual ~CAIHintAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x14];
+    void* f_1c;
+    void* f_20;
 };
 
 // .?AVCTrack@@  vftable 0x3f98d0 (13)
 class CTrack : public ::fight::Track {
 public:
     virtual ~CTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_8(int, int); // overrides fight::Track slot 8
-    virtual void vfunc_10(int, int, int); // overrides fight::Track slot 10
-    virtual void vfunc_11(int); // slot 11
-    virtual void vfunc_12(int) = 0; // slot 12
+    virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
+    virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
+    virtual void* vfunc_11(int); // slot 11
+    virtual int vfunc_12(int) = 0; // slot 12
 };
 
 // .?AVCAIHintTrack@@  vftable 0x3fc184 (14)
 class CAIHintTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CAIHintTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCAgent@@  vftable 0x40cf84 (11)
 class CAgent : public ::pure3d::NonCopyable {
 public:
     virtual ~CAgent(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int) = 0; // slot 3
+    virtual float vfunc_3(int, int) = 0; // slot 3
     virtual void vfunc_4(int, int, int) = 0; // slot 4
     virtual void vfunc_5(int, int); // slot 5
     virtual void vfunc_6(int); // slot 6
     virtual void vfunc_7(int); // slot 7
     virtual void vfunc_8(int, int, int); // slot 8
     virtual void vfunc_9() = 0; // slot 9
-    virtual void vfunc_10(); // slot 10
+    virtual int vfunc_10(); // slot 10
+    int f_08;
 };
 
 // .?AVCActorAgent@@  vftable 0x40cfb4 (11)
 class CActorAgent : public ::CAgent {
 public:
     virtual ~CActorAgent(); // overrides core::IRefCount slot 2
+    char _pad_0c[0x4c];
+    void* f_58;
 };
 
 // .?AVCGolem@@  vftable 0x40d134 (10)
@@ -574,10 +583,12 @@ public:
     virtual void vfunc_3(int, int); // slot 3
     virtual void vfunc_4(int, int); // slot 4
     virtual void vfunc_5(int, int); // slot 5
-    virtual void vfunc_6() = 0; // slot 6
+    virtual int vfunc_6() = 0; // slot 6
     virtual void vfunc_7(); // slot 7
     virtual void vfunc_8(int); // slot 8
-    virtual void vfunc_9(); // slot 9
+    virtual unsigned int vfunc_9(); // slot 9
+    char _pad_08[0xe8];
+    int f_f0;
 };
 
 // .?AVCActorGolem@@  vftable 0x40d164 (10)
@@ -585,73 +596,88 @@ class CActorGolem : public ::CGolem {
 public:
     virtual ~CActorGolem(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(int, int); // overrides CGolem slot 3
-    virtual void vfunc_6(); // overrides CGolem slot 6
+    virtual int vfunc_6(); // overrides CGolem slot 6
 };
 
 // .?AVCAlertStatusAction@@  vftable 0x3f3cb8 (9)
 class CAlertStatusAction : public ::CAction {
 public:
     virtual ~CAlertStatusAction(); // overrides core::IRefCount slot 2
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x14];
+    void* f_1c;
+    int f_20;
 };
 
 // .?AVCCondition@@  vftable 0x3f6d50 (8)
 class CCondition : public ::fight::Condition {
 public:
     virtual ~CCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_6(int, int, int); // overrides fight::Condition slot 6
-    virtual void vfunc_7(int) = 0; // slot 7
+    virtual bool vfunc_6(void*, void*, void*); // overrides fight::Condition slot 6
+    virtual bool vfunc_7(void*) = 0; // slot 7
 };
 
 // .?AVCAlertStatusCondition@@  vftable 0x3f7404 (9)
 class CAlertStatusCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CAlertStatusCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
-    virtual void vfunc_8(int); // slot 8
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
+    virtual void vfunc_8(void*); // slot 8
+    char _pad_08[0x4];
+    int f_0c;
+    int f_10;
 };
 
 // .?AVCAlertStatusTrack@@  vftable 0x3fc10c (14)
 class CAlertStatusTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CAlertStatusTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    int f_10;
 };
 
 // .?AVCDHGameObjectCreator@@  vftable 0x3fef5c (4)
 class CDHGameObjectCreator : public ::DataHandler::ObjectCreator {
 public:
     virtual ~CDHGameObjectCreator(); // overrides DataHandler::ObjectCreator slot 0
-    virtual void vfunc_2() = 0; // slot 2
-    virtual void vfunc_3(int) = 0; // slot 3
+    virtual int vfunc_2() = 0; // slot 2
+    virtual void* vfunc_3(void*) = 0; // slot 3
 };
 
 // .?AVCAmbientsManager@@  vftable 0x3fef08 (4)
 class CAmbientsManager : public ::CDHGameObjectCreator {
 public:
     virtual ~CAmbientsManager(); // overrides DataHandler::ObjectCreator slot 0
-    virtual void vfunc_1(int); // overrides DataHandler::ObjectCreator slot 1
-    virtual void vfunc_2(); // overrides CDHGameObjectCreator slot 2
-    virtual void vfunc_3(int); // overrides CDHGameObjectCreator slot 3
+    virtual bool vfunc_1(void*); // overrides DataHandler::ObjectCreator slot 1
+    virtual int vfunc_2(); // overrides CDHGameObjectCreator slot 2
+    virtual void* vfunc_3(void*); // overrides CDHGameObjectCreator slot 3
 };
 
 // .?AVCSteeringBehaviour@@  vftable 0x40d720 (4)
 class CSteeringBehaviour : public ::pure3d::NonCopyable {
 public:
     virtual ~CSteeringBehaviour(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int, int, int, int) = 0; // slot 3
+    virtual bool vfunc_3(int, int, void*, int, int) = 0; // slot 3
 };
 
 // .?AVCArriveBehaviour@@  vftable 0x40d734 (4)
 class CArriveBehaviour : public ::CSteeringBehaviour {
 public:
     virtual ~CArriveBehaviour(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int, int, int, int); // overrides CSteeringBehaviour slot 3
+    virtual bool vfunc_3(int, int, void*, int, int); // overrides CSteeringBehaviour slot 3
+    float f_08;
+    char f_0c;
+    char _pad_0d[0x3];
+    char f_10;
+    char _pad_11[0xb];
+    int f_1c;
 };
 
 // .?AVCAutoTargetAction@@  vftable 0x3f36b4 (9)
@@ -659,26 +685,33 @@ class CAutoTargetAction : public ::CAction {
 public:
     virtual ~CAutoTargetAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x4];
+    void* f_24;
 };
 
 // .?AVCAutoTargetTrack@@  vftable 0x3fbcd8 (14)
 class CAutoTargetTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CAutoTargetTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCAvoidBehaviour@@  vftable 0x40d770 (5)
 class CAvoidBehaviour : public ::CSteeringBehaviour {
 public:
     virtual ~CAvoidBehaviour(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int, int, int, int); // overrides CSteeringBehaviour slot 3
+    virtual bool vfunc_3(int, int, void*, int, int); // overrides CSteeringBehaviour slot 3
     virtual void vfunc_4(int, int, int, int, int, int, int); // slot 4
 };
 
@@ -686,7 +719,7 @@ public:
 class CControllerCondition : public ::CCondition {
 public:
     virtual ~CControllerCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
     virtual void vfunc_8(int) = 0; // slot 8
 };
 
@@ -696,29 +729,31 @@ public:
     virtual ~CAxisCondition(); // overrides fight::Param slot 5
     virtual void vfunc_8(int); // overrides CControllerCondition slot 8
     virtual void vfunc_9(int, int) = 0; // slot 9
+    char _pad_08[0x4];
+    int f_0c;
 };
 
 // .?AVCAxisTimeCondition@@  vftable 0x3f6e4c (11)
 class CAxisTimeCondition : public ::CAxisCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CAxisTimeCondition(); // overrides fight::Param slot 5
     virtual void vfunc_9(int, int); // overrides CAxisCondition slot 9
-    virtual void vfunc_10(int, int) = 0; // slot 10
+    virtual bool vfunc_10(void*, int) = 0; // slot 10
 };
 
 // .?AVCAxisArcCondition@@  vftable 0x3f6ed8 (11)
 class CAxisArcCondition : public ::CAxisTimeCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CAxisArcCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_10(int, int); // overrides CAxisTimeCondition slot 10
+    virtual bool vfunc_10(void*, int); // overrides CAxisTimeCondition slot 10
 };
 
 // .?AVCAxisDirectionCondition@@  vftable 0x3f6f34 (9)
 class CAxisDirectionCondition : public ::CControllerCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CAxisDirectionCondition(); // overrides fight::Param slot 5
     virtual void vfunc_8(int); // overrides CControllerCondition slot 8
 };
@@ -726,7 +761,7 @@ public:
 // .?AVCAxisDoubleTapCondition@@  vftable 0x3f6f08 (10)
 class CAxisDoubleTapCondition : public ::CAxisCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CAxisDoubleTapCondition(); // overrides fight::Param slot 5
     virtual void vfunc_9(int, int); // overrides CAxisCondition slot 9
 };
@@ -734,7 +769,7 @@ public:
 // .?AVCAxisValueCondition@@  vftable 0x3f6ea8 (11)
 class CAxisValueCondition : public ::CAxisTimeCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CAxisValueCondition(); // overrides fight::Param slot 5
     virtual void vfunc_9(int, int); // overrides CAxisCondition slot 9
 };
@@ -743,27 +778,27 @@ public:
 class CAxisDownCondition : public ::CAxisValueCondition {
 public:
     virtual ~CAxisDownCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_10(int, int); // overrides CAxisTimeCondition slot 10
+    virtual bool vfunc_10(void*, int); // overrides CAxisTimeCondition slot 10
 };
 
 // .?AVCAxisPressCondition@@  vftable 0x3f90e4 (11)
 class CAxisPressCondition : public ::CAxisValueCondition {
 public:
     virtual ~CAxisPressCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_10(int, int); // overrides CAxisTimeCondition slot 10
+    virtual bool vfunc_10(void*, int); // overrides CAxisTimeCondition slot 10
 };
 
 // .?AVCAxisReleaseCondition@@  vftable 0x3f9130 (11)
 class CAxisReleaseCondition : public ::CAxisTimeCondition {
 public:
     virtual ~CAxisReleaseCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_10(int, int); // overrides CAxisTimeCondition slot 10
+    virtual bool vfunc_10(void*, int); // overrides CAxisTimeCondition slot 10
 };
 
 // .?AVCAxisSpeedCondition@@  vftable 0x3f6e7c (10)
 class CAxisSpeedCondition : public ::CAxisCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CAxisSpeedCondition(); // overrides fight::Param slot 5
     virtual void vfunc_9(int, int); // overrides CAxisCondition slot 9
 };
@@ -772,14 +807,14 @@ public:
 class CAxisUpCondition : public ::CAxisTimeCondition {
 public:
     virtual ~CAxisUpCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_10(int, int); // overrides CAxisTimeCondition slot 10
+    virtual bool vfunc_10(void*, int); // overrides CAxisTimeCondition slot 10
 };
 
 // .?AVCGameCamera@@  vftable 0x405894 (38)
 class CGameCamera : public ::pure3d::Camera {
 public:
     virtual ~CGameCamera(); // overrides core::IRefCount slot 2
-    virtual void vfunc_27(int); // slot 27
+    virtual void vfunc_27(void*); // slot 27
     virtual void vfunc_28(); // slot 28
     virtual void vfunc_29(); // slot 29
     virtual void vfunc_30(int); // slot 30
@@ -789,7 +824,7 @@ public:
     virtual void vfunc_34(int, int, int, int, int); // slot 34
     virtual void vfunc_35(int, int, int, int); // slot 35
     virtual void vfunc_36(); // slot 36
-    virtual void vfunc_37(int, int, int, int); // slot 37
+    virtual void vfunc_37(int, int, int, float); // slot 37
 };
 
 // .?AVCBlendCamera@@  vftable 0x404b3c (38)
@@ -802,17 +837,19 @@ public:
 // .?AVCButtonCondition@@  vftable 0x3f6dc0 (11)
 class CButtonCondition : public ::CControllerCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CButtonCondition(); // overrides fight::Param slot 5
     virtual void vfunc_8(int); // overrides CControllerCondition slot 8
     virtual void vfunc_9(int); // slot 9
-    virtual void vfunc_10(int, int) = 0; // slot 10
+    virtual bool vfunc_10(void*, int) = 0; // slot 10
+    char _pad_08[0x4];
+    int f_0c;
 };
 
 // .?AVCButtonValueCondition@@  vftable 0x3f6df0 (11)
 class CButtonValueCondition : public ::CButtonCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CButtonValueCondition(); // overrides fight::Param slot 5
     virtual void vfunc_9(int); // overrides CButtonCondition slot 9
 };
@@ -821,28 +858,28 @@ public:
 class CButtonDownCondition : public ::CButtonValueCondition {
 public:
     virtual ~CButtonDownCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_10(int, int); // overrides CButtonCondition slot 10
+    virtual bool vfunc_10(void*, int); // overrides CButtonCondition slot 10
 };
 
 // .?AVCButtonPressCondition@@  vftable 0x3f9230 (11)
 class CButtonPressCondition : public ::CButtonValueCondition {
 public:
     virtual ~CButtonPressCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_10(int, int); // overrides CButtonCondition slot 10
+    virtual bool vfunc_10(void*, int); // overrides CButtonCondition slot 10
 };
 
 // .?AVCButtonReleaseCondition@@  vftable 0x3f927c (11)
 class CButtonReleaseCondition : public ::CButtonCondition {
 public:
     virtual ~CButtonReleaseCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_10(int, int); // overrides CButtonCondition slot 10
+    virtual bool vfunc_10(void*, int); // overrides CButtonCondition slot 10
 };
 
 // .?AVCButtonUpCondition@@  vftable 0x3f92c8 (11)
 class CButtonUpCondition : public ::CButtonCondition {
 public:
     virtual ~CButtonUpCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_10(int, int); // overrides CButtonCondition slot 10
+    virtual bool vfunc_10(void*, int); // overrides CButtonCondition slot 10
 };
 
 // .?AVCCameraDramaticAction@@  vftable 0x3f3ad4 (9)
@@ -850,19 +887,24 @@ class CCameraDramaticAction : public ::CAction {
 public:
     virtual ~CCameraDramaticAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x1c];
+    unsigned int f_24;
 };
 
 // .?AVCCameraDramaticTrack@@  vftable 0x3fbeb8 (14)
 class CCameraDramaticTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCameraDramaticTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCCameraHintAction@@  vftable 0x3f3afc (9)
@@ -870,17 +912,23 @@ class CCameraHintAction : public ::CAction {
 public:
     virtual ~CCameraHintAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_8(int); // overrides CAction slot 8
+    char _pad_08[0x14];
+    void* f_1c;
+    void* f_20;
 };
 
 // .?AVCCameraHintTrack@@  vftable 0x3fbef4 (14)
 class CCameraHintTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCameraHintTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCCameraManager@@  vftable 0x404bf4 (1)
@@ -893,18 +941,20 @@ public:
 class CCameraShakeAction : public ::CAction {
 public:
     virtual ~CCameraShakeAction(); // overrides core::IRefCount slot 2
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
 };
 
 // .?AVCCameraShakeTrack@@  vftable 0x3fbe7c (14)
 class CCameraShakeTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCameraShakeTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCCharacter@@  vftable 0x3f5c9c (5)
@@ -922,17 +972,17 @@ public:
 // .?AVCCharacterBoolCondition@@  vftable 0x3f74bc (8)
 class CCharacterBoolCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCharacterBoolCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCCharacterFloatCondition@@  vftable 0x3f7498 (8)
 class CCharacterFloatCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCharacterFloatCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCCharacterGolem@@  vftable 0x40d190 (10)
@@ -943,14 +993,23 @@ public:
     virtual void vfunc_4(int, int); // overrides CGolem slot 4
     virtual void vfunc_5(int, int); // overrides CGolem slot 5
     virtual void vfunc_7(); // overrides CGolem slot 7
+    char _pad_f4[0xc];
+    void* f_100;
+    void* f_104;
+    void* f_108;
+    void* f_10c;
+    void* f_110;
+    void* f_114;
+    char _pad_118[0x10];
+    unsigned char f_128;
 };
 
 // .?AVCCharacterSizeCondition@@  vftable 0x3f6f80 (8)
 class CCharacterSizeCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCharacterSizeCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCCharacterTemplate@@  vftable 0x3f6320 (3)
@@ -962,9 +1021,9 @@ public:
 // .?AVCCharacterTemplateCondition@@  vftable 0x3f7328 (8)
 class CCharacterTemplateCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCharacterTemplateCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVRDLHandler@@  vftable 0x3f60ac (2)
@@ -984,26 +1043,30 @@ public:
 // .?AVCCharacterTemplateVariationCondition@@  vftable 0x3f734c (8)
 class CCharacterTemplateVariationCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCharacterTemplateVariationCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCChaseAgent@@  vftable 0x40d034 (11)
 class CChaseAgent : public ::CCharacterAgent {
 public:
     virtual ~CChaseAgent(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int); // overrides CAgent slot 3
+    virtual float vfunc_3(int, int); // overrides CAgent slot 3
     virtual void vfunc_4(int, int, int); // overrides CAgent slot 4
     virtual void vfunc_7(int); // overrides CAgent slot 7
     virtual void vfunc_9(); // overrides CAgent slot 9
+    char _pad_0c[0x5c];
+    int f_68;
+    char _pad_6c[0x4];
+    int f_70;
 };
 
 // .?AVCChaseCamera@@  vftable 0x405604 (39)
 class CChaseCamera : public ::CGameCamera {
 public:
     virtual ~CChaseCamera(); // overrides core::IRefCount slot 2
-    virtual void vfunc_27(int); // overrides CGameCamera slot 27
+    virtual void vfunc_27(void*); // overrides CGameCamera slot 27
     virtual void vfunc_28(); // overrides CGameCamera slot 28
     virtual void vfunc_29(); // overrides CGameCamera slot 29
     virtual void vfunc_30(int); // overrides CGameCamera slot 30
@@ -1011,7 +1074,11 @@ public:
     virtual void vfunc_33(int, int, int); // overrides CGameCamera slot 33
     virtual void vfunc_34(int, int, int, int, int); // overrides CGameCamera slot 34
     virtual void vfunc_35(int, int, int, int); // overrides CGameCamera slot 35
-    virtual void vfunc_38(int, int, int); // slot 38
+    virtual void vfunc_38(void*, int, void*); // slot 38
+    char _pad_d0[0x280];
+    int f_350;
+    char _pad_354[0x78];
+    int f_3cc;
 };
 
 // .?AVCCivilian@@  vftable 0x3ff58c (5)
@@ -1023,46 +1090,53 @@ public:
 // .?AVCClearCollisionStun@@  vftable 0x3fc1c0 (14)
 class CClearCollisionStun : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CClearCollisionStun(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCClearHitRecordsAction@@  vftable 0x3f3e58 (9)
 class CClearHitRecordsAction : public ::CAction {
 public:
     virtual ~CClearHitRecordsAction(); // overrides core::IRefCount slot 2
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x14];
+    void* f_1c;
 };
 
 // .?AVCClearHitRecordsTrack@@  vftable 0x3fa338 (14)
 class CClearHitRecordsTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CClearHitRecordsTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCClimbEdgeCondition@@  vftable 0x3f7528 (8)
 class CClimbEdgeCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CClimbEdgeCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCClimbableCondition@@  vftable 0x3f73e0 (8)
 class CClimbableCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CClimbableCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCClimbingAction@@  vftable 0x3f33e0 (9)
@@ -1070,16 +1144,21 @@ class CClimbingAction : public ::CAction {
 public:
     virtual ~CClimbingAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
 };
 
 // .?AVCClimbingTrack@@  vftable 0x3fba38 (13)
 class CClimbingTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CClimbingTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCCollisionAction@@  vftable 0x3f3464 (9)
@@ -1087,23 +1166,30 @@ class CCollisionAction : public ::CAction {
 public:
     virtual ~CCollisionAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
     virtual bool vfunc_8(int); // overrides CAction slot 8
+    char _pad_08[0x14];
+    void* f_1c;
+    void* f_20;
+    char _pad_24[0x18];
+    void* f_3c;
+    char _pad_40[0x8];
+    void* f_48;
 };
 
 // .?AVCCollisionDirectionCondition@@  vftable 0x3f6fc8 (8)
 class CCollisionDirectionCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCollisionDirectionCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCNameFlagConditionBase@@  vftable 0x3f7010 (8)
 class CNameFlagConditionBase : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CNameFlagConditionBase(); // overrides fight::Param slot 5
 };
 
@@ -1111,31 +1197,33 @@ public:
 class CCollisionFlagCondition : public ::CNameFlagConditionBase {
 public:
     virtual ~CCollisionFlagCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCCollisionHeightCondition@@  vftable 0x3f7058 (8)
 class CCollisionHeightCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCollisionHeightCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCCollisionHitLocationCondition@@  vftable 0x3f6fa4 (8)
 class CCollisionHitLocationCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCollisionHitLocationCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCCollisionInterruptCondition@@  vftable 0x3f7034 (8)
 class CCollisionInterruptCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCollisionInterruptCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
+    char _pad_08[0x4];
+    unsigned char f_0c;
 };
 
 // .?AVCCollisionManager@@  vftable 0x41da90 (3)
@@ -1147,52 +1235,55 @@ public:
 // .?AVCCollisionPushbackDirectionCondition@@  vftable 0x3f6fec (8)
 class CCollisionPushbackDirectionCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCollisionPushbackDirectionCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCCollisionPushbackVelocityCondition@@  vftable 0x3f707c (8)
 class CCollisionPushbackVelocityCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCollisionPushbackVelocityCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCCollisionPushbackYAngleCondition@@  vftable 0x3f70c4 (8)
 class CCollisionPushbackYAngleCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCollisionPushbackYAngleCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCCollisionPushbackYCondition@@  vftable 0x3f70a0 (8)
 class CCollisionPushbackYCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCollisionPushbackYCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCCollisionStunTimeCondition@@  vftable 0x3f70e8 (8)
 class CCollisionStunTimeCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCollisionStunTimeCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCCollisionTrack@@  vftable 0x3fa214 (12)
 class CCollisionTrack : public ::fight::Track {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CCollisionTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_10(int, int, int); // overrides fight::Track slot 10
-    virtual void vfunc_11(int); // slot 11
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
+    virtual void vfunc_11(void*); // slot 11
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCComboMessageAction@@  vftable 0x3f35ec (9)
@@ -1205,12 +1296,14 @@ public:
 // .?AVCComboMessageTrack@@  vftable 0x3fbbac (14)
 class CComboMessageTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CComboMessageTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCComboTimerAction@@  vftable 0x3f372c (9)
@@ -1223,12 +1316,16 @@ public:
 // .?AVCComboTimerTrack@@  vftable 0x3fbd8c (14)
 class CComboTimerTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CComboTimerTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
+    unsigned int f_14;
 };
 
 // .?AVCController@@  vftable 0x405d38 (3)
@@ -1241,10 +1338,12 @@ public:
 class CControllerAgent : public ::CCharacterAgent {
 public:
     virtual ~CControllerAgent(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int); // overrides CAgent slot 3
+    virtual float vfunc_3(int, int); // overrides CAgent slot 3
     virtual void vfunc_4(int, int, int); // overrides CAgent slot 4
     virtual void vfunc_9(); // overrides CAgent slot 9
-    virtual void vfunc_10(); // overrides CAgent slot 10
+    virtual int vfunc_10(); // overrides CAgent slot 10
+    char _pad_0c[0x4c];
+    void* f_58;
 };
 
 // .?AVCControllerManager@@  vftable 0x405d64 (1)
@@ -1269,12 +1368,16 @@ public:
 // .?AVCDamageTrack@@  vftable 0x3fbd14 (14)
 class CDamageTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CDamageTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    int f_10;
+    int f_14;
 };
 
 // .?AVCDataHandlerObject@@  vftable 0x42501c (3)
@@ -1287,18 +1390,22 @@ public:
 class CDeathAction : public ::CAction {
 public:
     virtual ~CDeathAction(); // overrides core::IRefCount slot 2
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x14];
+    void* f_1c;
 };
 
 // .?AVCDeathTrack@@  vftable 0x3fc148 (14)
 class CDeathTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CDeathTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCDisplayEffect@@  vftable 0x40bee4 (1)
@@ -1315,8 +1422,8 @@ class CDisplayEffect::Drawable {
 public:
     virtual void vfunc_0() = 0; // slot 0
     virtual void vfunc_1(int) = 0; // slot 1
-    virtual void vfunc_2(int) = 0; // slot 2
-    virtual void vfunc_3() = 0; // slot 3
+    virtual void vfunc_2(void*) = 0; // slot 2
+    virtual float vfunc_3() = 0; // slot 3
 };
 
 // .?AVDrawableCompositeDrawable@CDisplayEffect@@  vftable 0x40c37c (4)
@@ -1324,8 +1431,9 @@ class CDisplayEffect::DrawableCompositeDrawable : public ::CDisplayEffect::Drawa
 public:
     virtual void vfunc_0(); // overrides CDisplayEffect::Drawable slot 0
     virtual void vfunc_1(int); // overrides CDisplayEffect::Drawable slot 1
-    virtual void vfunc_2(int); // overrides CDisplayEffect::Drawable slot 2
-    virtual void vfunc_3(); // overrides CDisplayEffect::Drawable slot 3
+    virtual void vfunc_2(void*); // overrides CDisplayEffect::Drawable slot 2
+    virtual float vfunc_3(); // overrides CDisplayEffect::Drawable slot 3
+    void* f_04;
 };
 
 // .?AVDrawableText@CDisplayEffect@@  vftable 0x40beec (4)
@@ -1333,8 +1441,10 @@ class CDisplayEffect::DrawableText : public ::CDisplayEffect::Drawable {
 public:
     virtual void vfunc_0(); // overrides CDisplayEffect::Drawable slot 0
     virtual void vfunc_1(int); // overrides CDisplayEffect::Drawable slot 1
-    virtual void vfunc_2(int); // overrides CDisplayEffect::Drawable slot 2
-    virtual void vfunc_3(); // overrides CDisplayEffect::Drawable slot 3
+    virtual void vfunc_2(void*); // overrides CDisplayEffect::Drawable slot 2
+    virtual float vfunc_3(); // overrides CDisplayEffect::Drawable slot 3
+    int f_04;
+    void* f_08;
 };
 
 // .?AVCDrainHealthAction@@  vftable 0x3f3704 (9)
@@ -1347,19 +1457,23 @@ public:
 // .?AVCDrainHealthTrack@@  vftable 0x3fbd50 (14)
 class CDrainHealthTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CDrainHealthTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
+    float f_14;
 };
 
 // .?AVCDramaticCamera@@  vftable 0x405754 (38)
 class CDramaticCamera : public ::CGameCamera {
 public:
     virtual ~CDramaticCamera(); // overrides core::IRefCount slot 2
-    virtual void vfunc_27(int); // overrides CGameCamera slot 27
+    virtual void vfunc_27(void*); // overrides CGameCamera slot 27
     virtual void vfunc_28(); // overrides CGameCamera slot 28
     virtual void vfunc_29(); // overrides CGameCamera slot 29
     virtual void vfunc_35(int, int, int, int); // overrides CGameCamera slot 35
@@ -1375,12 +1489,15 @@ public:
 // .?AVCDriftTrack@@  vftable 0x3fbfa4 (14)
 class CDriftTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CDriftTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCDropAction@@  vftable 0x3f3438 (9)
@@ -1388,8 +1505,12 @@ class CDropAction : public ::CAction {
 public:
     virtual ~CDropAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x4];
+    void* f_24;
 };
 
 // .?AVCDropShadowDisplayEffect@@  vftable 0x40bf08 (1)
@@ -1401,12 +1522,15 @@ public:
 // .?AVCDropTrack@@  vftable 0x3fbaf8 (14)
 class CDropTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CDropTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCEffectAction@@  vftable 0x3f3a5c (9)
@@ -1414,7 +1538,11 @@ class CEffectAction : public ::CAction {
 public:
     virtual ~CEffectAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x18];
+    void* f_20;
+    char _pad_24[0x4];
+    int f_28;
 };
 
 // .?AVCEffectStopAction@@  vftable 0x3f3a84 (9)
@@ -1422,29 +1550,39 @@ class CEffectStopAction : public ::CAction {
 public:
     virtual ~CEffectStopAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x14];
+    void* f_1c;
+    void* f_20;
 };
 
 // .?AVCEffectStopTrack@@  vftable 0x3faab4 (14)
 class CEffectStopTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CEffectStopTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCEffectTrack@@  vftable 0x3faa80 (12)
 class CEffectTrack : public ::fight::Track {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CEffectTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_10(int, int, int); // overrides fight::Track slot 10
-    virtual void vfunc_11(int); // slot 11
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
+    virtual void vfunc_11(void*); // slot 11
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
+    char _pad_14[0x3c];
+    unsigned char f_50;
 };
 
 // .?AVCEncounterGenerator@@  vftable 0x424fa4 (5)
@@ -1464,6 +1602,9 @@ public:
 class CEventManager {
 public:
     virtual ~CEventManager(); // slot 0
+    char _pad_04[0x8];
+    void* f_0c;
+    void* f_10;
 };
 
 // .?AVCExplosionAction@@  vftable 0x3f3e08 (9)
@@ -1471,17 +1612,22 @@ class CExplosionAction : public ::CAction {
 public:
     virtual ~CExplosionAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    void* f_20;
 };
 
 // .?AVCExplosionTrack@@  vftable 0x3fed6c (14)
 class CExplosionTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CExplosionTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCExtraRenderingCallback@@  vftable 0x42125c (1)
@@ -1500,16 +1646,17 @@ public:
 class ISoundManager {
 public:
     virtual ~ISoundManager(); // slot 0
-    virtual void vfunc_1(int, int) = 0; // slot 1
-    virtual void vfunc_2() = 0; // slot 2
+    virtual void vfunc_1(void*, void*) = 0; // slot 1
+    virtual void vfunc_2(int, int) = 0; // slot 2
 };
 
 // .?AVCFESoundManager@@  vftable 0x4076fc (3)
 class CFESoundManager : public ::ISoundManager {
 public:
     virtual ~CFESoundManager(); // overrides ISoundManager slot 0
-    virtual void vfunc_1(int, int); // overrides ISoundManager slot 1
-    virtual void vfunc_2(); // overrides ISoundManager slot 2
+    virtual void vfunc_1(void*, void*); // overrides ISoundManager slot 1
+    virtual void vfunc_2(int, int); // overrides ISoundManager slot 2
+    void* f_04;
 };
 
 // .?AVCFMVManager@@  vftable 0x41dc6c (1)
@@ -1522,45 +1669,51 @@ public:
 class CFightNodeCondition : public ::fight::FightNodeCondition {
 public:
     virtual ~CFightNodeCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides fight::FightNodeBaseCondition slot 7
+    virtual int vfunc_7(void*); // overrides fight::FightNodeBaseCondition slot 7
 };
 
 // .?AVCFightNodeParentCondition@@  vftable 0x3f8504 (8)
 class CFightNodeParentCondition : public ::fight::FightNodeParentCondition {
 public:
     virtual ~CFightNodeParentCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides fight::FightNodeBaseCondition slot 7
+    virtual int vfunc_7(void*); // overrides fight::FightNodeBaseCondition slot 7
 };
 
 // .?AVCFightNodePrevCondition@@  vftable 0x3f74e0 (8)
 class CFightNodePrevCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CFightNodePrevCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
+    char _pad_08[0x4];
+    int f_0c;
+    int f_10;
+    char _pad_14[0x8];
+    unsigned char f_1c;
 };
 
 // .?AVCFightNodeTimeCondition@@  vftable 0x3f8544 (8)
 class CFightNodeTimeCondition : public ::fight::FightNodeTimeCondition {
 public:
     virtual ~CFightNodeTimeCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides fight::FightNodeBaseCondition slot 7
+    virtual int vfunc_7(void*); // overrides fight::FightNodeBaseCondition slot 7
 };
 
 // .?AVCFightParams@@  vftable 0x3f9844 (5)
 class CFightParams : public ::fight::Params {
 public:
     virtual ~CFightParams(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(); // slot 3
-    virtual void vfunc_4(); // slot 4
+    virtual void* vfunc_3(); // slot 3
+    virtual void* vfunc_4(); // slot 4
+    int f_08;
 };
 
 // .?AVCFightParamsCollision@@  vftable 0x3f985c (5)
 class CFightParamsCollision : public ::CFightParams {
 public:
     virtual ~CFightParamsCollision(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(); // overrides CFightParams slot 3
-    virtual void vfunc_4(); // overrides CFightParams slot 4
+    virtual void* vfunc_3(); // overrides CFightParams slot 3
+    virtual void* vfunc_4(); // overrides CFightParams slot 4
 };
 
 // .?AUIScriptLoadCallback@@  vftable 0x40770c (1)
@@ -1586,6 +1739,7 @@ public:
 class CGameController : public ::pure3d::NonCopyable {
 public:
     virtual ~CGameController(); // overrides core::IRefCount slot 2
+    void* f_08;
 };
 
 // .?AVCGameControllerManager@@  vftable 0x405e3c (1)
@@ -1598,7 +1752,9 @@ public:
 class CGameDataHandler : public ::DataHandler::ObjectCreator {
 public:
     virtual ~CGameDataHandler(); // overrides DataHandler::ObjectCreator slot 0
-    virtual void vfunc_1(int); // overrides DataHandler::ObjectCreator slot 1
+    virtual bool vfunc_1(void*); // overrides DataHandler::ObjectCreator slot 1
+    void* f_04;
+    int f_08;
 };
 
 // .?AVCGlowDisplayEffect@@  vftable 0x40bf00 (1)
@@ -1612,68 +1768,77 @@ class CGrabAction : public ::CAction {
 public:
     virtual ~CGrabAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_8(int); // overrides CAction slot 8
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x8];
+    void* f_28;
 };
 
 // .?AVCGrabTrack@@  vftable 0x3f9a5c (12)
 class CGrabTrack : public ::fight::Track {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CGrabTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_10(int, int, int); // overrides fight::Track slot 10
-    virtual void vfunc_11(int); // slot 11
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
+    virtual void vfunc_11(void*); // slot 11
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCGrappleAlertStatusCondition@@  vftable 0x3f9480 (9)
 class CGrappleAlertStatusCondition : public ::CAlertStatusCondition {
 public:
     virtual ~CGrappleAlertStatusCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_8(int); // overrides CAlertStatusCondition slot 8
+    virtual void vfunc_8(void*); // overrides CAlertStatusCondition slot 8
 };
 
 // .?AVCGrappleAttachAction@@  vftable 0x3f377c (9)
 class CGrappleAttachAction : public ::CAction {
 public:
     virtual ~CGrappleAttachAction(); // overrides core::IRefCount slot 2
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
 };
 
 // .?AVCGrappleAttachTrack@@  vftable 0x3f9944 (14)
 class CGrappleAttachTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CGrappleAttachTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCGrappleAutoTargetTrack@@  vftable 0x3fe6c8 (14)
 class CGrappleAutoTargetTrack : public ::CAutoTargetTrack {
 public:
     virtual ~CGrappleAutoTargetTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_11(int); // overrides CTrack slot 11
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual void* vfunc_11(int); // overrides CTrack slot 11
+    virtual int vfunc_12(int); // overrides CTrack slot 12
 };
 
 // .?AVCGrappleCharacterTemplateCondition@@  vftable 0x3f7370 (8)
 class CGrappleCharacterTemplateCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CGrappleCharacterTemplateCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCGrappleDamageTrack@@  vftable 0x3fe720 (14)
 class CGrappleDamageTrack : public ::CDamageTrack {
 public:
     virtual ~CGrappleDamageTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_11(int); // overrides CTrack slot 11
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual void* vfunc_11(int); // overrides CTrack slot 11
+    virtual int vfunc_12(int); // overrides CTrack slot 12
 };
 
 // .?AVCGrappleDetachAction@@  vftable 0x3f37cc (9)
@@ -1681,138 +1846,154 @@ class CGrappleDetachAction : public ::CAction {
 public:
     virtual ~CGrappleDetachAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
+    char _pad_08[0x14];
+    void* f_1c;
+    void* f_20;
 };
 
 // .?AVCGrappleDetachTrack@@  vftable 0x3f99bc (14)
 class CGrappleDetachTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CGrappleDetachTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCGrappleDrainHealthTrack@@  vftable 0x3fe778 (14)
 class CGrappleDrainHealthTrack : public ::CDrainHealthTrack {
 public:
     virtual ~CGrappleDrainHealthTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_11(int); // overrides CTrack slot 11
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual void* vfunc_11(int); // overrides CTrack slot 11
+    virtual int vfunc_12(int); // overrides CTrack slot 12
 };
 
 // .?AVCGrappleEffectStopTrack@@  vftable 0x3fd094 (14)
 class CGrappleEffectStopTrack : public ::CEffectStopTrack {
 public:
     virtual ~CGrappleEffectStopTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_11(int); // overrides CTrack slot 11
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual void* vfunc_11(int); // overrides CTrack slot 11
+    virtual int vfunc_12(int); // overrides CTrack slot 12
 };
 
 // .?AVCGrappleEffectTrack@@  vftable 0x3fd044 (12)
 class CGrappleEffectTrack : public ::CEffectTrack {
 public:
     virtual ~CGrappleEffectTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_8(int, int); // overrides fight::Track slot 8
-    virtual void vfunc_10(int, int, int); // overrides fight::Track slot 10
+    virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
+    virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
 };
 
 // .?AVCGrappleFightNodeCondition@@  vftable 0x3f8584 (8)
 class CGrappleFightNodeCondition : public ::fight::FightNodeCondition {
 public:
     virtual ~CGrappleFightNodeCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides fight::FightNodeBaseCondition slot 7
+    virtual int vfunc_7(void*); // overrides fight::FightNodeBaseCondition slot 7
 };
 
 // .?AVCGrappleFightNodeParentCondition@@  vftable 0x3f85c4 (8)
 class CGrappleFightNodeParentCondition : public ::fight::FightNodeParentCondition {
 public:
     virtual ~CGrappleFightNodeParentCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides fight::FightNodeBaseCondition slot 7
+    virtual int vfunc_7(void*); // overrides fight::FightNodeBaseCondition slot 7
 };
 
 // .?AVCGrappleFightNodeTimeCondition@@  vftable 0x3f8604 (8)
 class CGrappleFightNodeTimeCondition : public ::fight::FightNodeTimeCondition {
 public:
     virtual ~CGrappleFightNodeTimeCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides fight::FightNodeBaseCondition slot 7
+    virtual int vfunc_7(void*); // overrides fight::FightNodeBaseCondition slot 7
 };
 
 // .?AVCIntangibleTrack@@  vftable 0x3fbe04 (14)
 class CIntangibleTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CIntangibleTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCGrappleIntangibleTrack@@  vftable 0x3fe7d0 (14)
 class CGrappleIntangibleTrack : public ::CIntangibleTrack {
 public:
     virtual ~CGrappleIntangibleTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_11(int); // overrides CTrack slot 11
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual void* vfunc_11(int); // overrides CTrack slot 11
+    virtual int vfunc_12(int); // overrides CTrack slot 12
 };
 
 // .?AVCInvincibleTrack@@  vftable 0x3fbdc8 (14)
 class CInvincibleTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CInvincibleTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCGrappleInvincibleTrack@@  vftable 0x3fe828 (14)
 class CGrappleInvincibleTrack : public ::CInvincibleTrack {
 public:
     virtual ~CGrappleInvincibleTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_11(int); // overrides CTrack slot 11
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual void* vfunc_11(int); // overrides CTrack slot 11
+    virtual int vfunc_12(int); // overrides CTrack slot 12
 };
 
 // .?AVCInvulnerableTrack@@  vftable 0x3fc01c (14)
 class CInvulnerableTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CInvulnerableTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCGrappleInvulnerableTrack@@  vftable 0x3fe880 (14)
 class CGrappleInvulnerableTrack : public ::CInvulnerableTrack {
 public:
     virtual ~CGrappleInvulnerableTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_11(int); // overrides CTrack slot 11
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual void* vfunc_11(int); // overrides CTrack slot 11
+    virtual int vfunc_12(int); // overrides CTrack slot 12
 };
 
 // .?AVCKeyPoseTrack@@  vftable 0x3fbb34 (14)
 class CKeyPoseTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CKeyPoseTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x30];
+    float f_38;
 };
 
 // .?AVCGrappleKeyPoseTrack@@  vftable 0x3fec10 (14)
 class CGrappleKeyPoseTrack : public ::CKeyPoseTrack {
 public:
     virtual ~CGrappleKeyPoseTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_11(int); // overrides CTrack slot 11
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual void* vfunc_11(int); // overrides CTrack slot 11
+    virtual int vfunc_12(int); // overrides CTrack slot 12
 };
 
 // .?AVCGrappleLocoStrafe4Action@@  vftable 0x3f3754 (9)
@@ -1820,185 +2001,211 @@ class CGrappleLocoStrafe4Action : public ::CAction {
 public:
     virtual ~CGrappleLocoStrafe4Action(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x4];
+    void* f_24;
 };
 
 // .?AVCGrappleLocoStrafe4Track@@  vftable 0x3f9908 (14)
 class CGrappleLocoStrafe4Track : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CGrappleLocoStrafe4Track(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_11(int); // overrides CTrack slot 11
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual void* vfunc_11(int); // overrides CTrack slot 11
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCMotionStateCondition@@  vftable 0x3f7394 (9)
 class CMotionStateCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CMotionStateCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
-    virtual void vfunc_8(int); // slot 8
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
+    virtual int vfunc_8(int); // slot 8
+    char _pad_08[0x4];
+    int f_0c;
+    int f_10;
 };
 
 // .?AVCGrappleMotionStateCondition@@  vftable 0x3f94c4 (9)
 class CGrappleMotionStateCondition : public ::CMotionStateCondition {
 public:
     virtual ~CGrappleMotionStateCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_8(int); // overrides CMotionStateCondition slot 8
+    virtual int vfunc_8(int); // overrides CMotionStateCondition slot 8
 };
 
 // .?AVCMotionTrailTrack@@  vftable 0x3faa44 (14)
 class CMotionTrailTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CMotionTrailTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
+    char _pad_14[0xb4];
+    unsigned char f_c8;
 };
 
 // .?AVCGrappleMotionTrailTrack@@  vftable 0x3fd108 (14)
 class CGrappleMotionTrailTrack : public ::CMotionTrailTrack {
 public:
     virtual ~CGrappleMotionTrailTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_11(int); // overrides CTrack slot 11
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual void* vfunc_11(int); // overrides CTrack slot 11
+    virtual int vfunc_12(int); // overrides CTrack slot 12
 };
 
 // .?AVCGrappleOpportunityTrack@@  vftable 0x3f99f8 (12)
 class CGrappleOpportunityTrack : public ::fight::Track {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CGrappleOpportunityTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_8(int, int); // overrides fight::Track slot 8
-    virtual void vfunc_10(int, int, int); // overrides fight::Track slot 10
-    virtual void vfunc_11(int); // slot 11
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
+    virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
+    virtual void vfunc_11(void*); // slot 11
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCGrappleSequenceTrack@@  vftable 0x3f9a2c (11)
 class CGrappleSequenceTrack : public ::fight::Track {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CGrappleSequenceTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_8(int, int); // overrides fight::Track slot 8
-    virtual void vfunc_10(int, int, int); // overrides fight::Track slot 10
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual void* vfunc_8(void*, void*); // overrides fight::Track slot 8
+    virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
 };
 
 // .?AVCGrappleSizeCondition@@  vftable 0x3f72e0 (8)
 class CGrappleSizeCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CGrappleSizeCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCSmartPropDropTrack@@  vftable 0x3fb104 (15)
 class CSmartPropDropTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropDropTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
     virtual void vfunc_14(); // slot 14
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCGrappleSmartPropDropTrack@@  vftable 0x3fd19c (15)
 class CGrappleSmartPropDropTrack : public ::CSmartPropDropTrack {
 public:
     virtual ~CGrappleSmartPropDropTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_11(int); // overrides CTrack slot 11
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual void* vfunc_11(int); // overrides CTrack slot 11
+    virtual int vfunc_12(int); // overrides CTrack slot 12
 };
 
 // .?AVCSoundTrack@@  vftable 0x3fbb70 (14)
 class CSoundTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSoundTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCGrappleSoundTrack@@  vftable 0x3fe8d8 (14)
 class CGrappleSoundTrack : public ::CSoundTrack {
 public:
     virtual ~CGrappleSoundTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_11(int); // overrides CTrack slot 11
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual void* vfunc_11(int); // overrides CTrack slot 11
+    virtual int vfunc_12(int); // overrides CTrack slot 12
 };
 
 // .?AVCGrappleSwapAction@@  vftable 0x3f37a4 (9)
 class CGrappleSwapAction : public ::CAction {
 public:
     virtual ~CGrappleSwapAction(); // overrides core::IRefCount slot 2
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
 };
 
 // .?AVCGrappleSwapTrack@@  vftable 0x3f9980 (14)
 class CGrappleSwapTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CGrappleSwapTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCGrappleTimerCondition@@  vftable 0x3f7450 (8)
 class CGrappleTimerCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CGrappleTimerCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCUninterruptibleTrack@@  vftable 0x3fbfe0 (14)
 class CUninterruptibleTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CUninterruptibleTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCGrappleUninterruptibleTrack@@  vftable 0x3fe930 (14)
 class CGrappleUninterruptibleTrack : public ::CUninterruptibleTrack {
 public:
     virtual ~CGrappleUninterruptibleTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_11(int); // overrides CTrack slot 11
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual void* vfunc_11(int); // overrides CTrack slot 11
+    virtual int vfunc_12(int); // overrides CTrack slot 12
 };
 
 // .?AVCGroundDistanceCondition@@  vftable 0x3f6f5c (8)
 class CGroundDistanceCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CGroundDistanceCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCHand2HandAgent@@  vftable 0x40d1f4 (24)
 class CHand2HandAgent : public ::CCharacterAgent {
 public:
     virtual ~CHand2HandAgent(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int); // overrides CAgent slot 3
+    virtual float vfunc_3(int, int); // overrides CAgent slot 3
     virtual void vfunc_4(int, int, int); // overrides CAgent slot 4
     virtual void vfunc_6(int); // overrides CAgent slot 6
     virtual void vfunc_7(int); // overrides CAgent slot 7
@@ -2010,12 +2217,18 @@ public:
     virtual void vfunc_15(); // slot 15
     virtual void vfunc_16(); // slot 16
     virtual void vfunc_17(int, int); // slot 17
-    virtual void vfunc_18(int); // slot 18
+    virtual bool vfunc_18(float); // slot 18
     virtual void vfunc_19(); // slot 19
     virtual void vfunc_20(int, int, int); // slot 20
     virtual void vfunc_21(int, int, int); // slot 21
     virtual void vfunc_22(); // slot 22
     virtual void vfunc_23(); // slot 23
+    char _pad_0c[0x50];
+    void* f_5c;
+    char _pad_60[0x2c];
+    float f_8c;
+    char _pad_90[0x18];
+    float f_a8;
 };
 
 // .?AVCHapticController@@  vftable 0x405e74 (3)
@@ -2034,20 +2247,27 @@ public:
 class CHapticEventAction : public ::CAction {
 public:
     virtual ~CHapticEventAction(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int); // overrides fight::Action slot 3
+    virtual bool vfunc_3(int, int); // overrides fight::Action slot 3
     virtual void vfunc_4(); // overrides fight::Action slot 4
+    char _pad_08[0x18];
+    void* f_20;
 };
 
 // .?AVCHapticTrack@@  vftable 0x3fa034 (15)
 class CHapticTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CHapticTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
-    virtual void vfunc_14(); // slot 14
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    virtual float vfunc_14(); // slot 14
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
+    char _pad_14[0x8];
+    unsigned char f_1c;
 };
 
 // .?AVCHeadTrackerAction@@  vftable 0x3f3c64 (9)
@@ -2055,19 +2275,28 @@ class CHeadTrackerAction : public ::CAction {
 public:
     virtual ~CHeadTrackerAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x4];
+    void* f_24;
+    char _pad_28[0x60];
+    void* f_88;
 };
 
 // .?AVCHeadTrackerTrack@@  vftable 0x3fc0d0 (14)
 class CHeadTrackerTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CHeadTrackerTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCHeliDeathSpiralAction@@  vftable 0x3f3de0 (9)
@@ -2075,19 +2304,26 @@ class CHeliDeathSpiralAction : public ::CAction {
 public:
     virtual ~CHeliDeathSpiralAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x4];
+    void* f_24;
 };
 
 // .?AVCHeliDeathSpiralTrack@@  vftable 0x3fed30 (14)
 class CHeliDeathSpiralTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CHeliDeathSpiralTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCProceduralDurationAnimationAction@@  vftable 0x3f34f0 (10)
@@ -2095,9 +2331,13 @@ class CProceduralDurationAnimationAction : public ::CAction {
 public:
     virtual ~CProceduralDurationAnimationAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_8(int); // overrides CAction slot 8
     virtual float vfunc_9() = 0; // slot 9
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x4];
+    void* f_24;
 };
 
 // .?AVCHitAnimationAction@@  vftable 0x3f351c (10)
@@ -2105,25 +2345,25 @@ class CHitAnimationAction : public ::CProceduralDurationAnimationAction {
 public:
     virtual ~CHitAnimationAction(); // overrides core::IRefCount slot 2
     virtual float vfunc_9(); // overrides CProceduralDurationAnimationAction slot 9
-    char _pad_08[0x14];
-    void* f_1c;
 };
 
 // .?AVCProceduralDurationAnimationTrack@@  vftable 0x3fa284 (14)
 class CProceduralDurationAnimationTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CProceduralDurationAnimationTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCHitAnimationTrack@@  vftable 0x3fd230 (14)
 class CHitAnimationTrack : public ::CProceduralDurationAnimationTrack {
 public:
     virtual ~CHitAnimationTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual int vfunc_12(int); // overrides CTrack slot 12
 };
 
 // .?AVCHudIcons@@  vftable 0x40a0ac (5)
@@ -2151,9 +2391,9 @@ public:
 // .?AVCInactivityTimerCondition@@  vftable 0x3f7474 (8)
 class CInactivityTimerCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CInactivityTimerCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCIntangibleAction@@  vftable 0x3f39e4 (9)
@@ -2161,7 +2401,9 @@ class CIntangibleAction : public ::CAction {
 public:
     virtual ~CIntangibleAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x14];
+    void* f_1c;
 };
 
 // .?AVCIntangibleToActorsAction@@  vftable 0x3f3a0c (9)
@@ -2169,26 +2411,31 @@ class CIntangibleToActorsAction : public ::CAction {
 public:
     virtual ~CIntangibleToActorsAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x14];
+    void* f_1c;
 };
 
 // .?AVCIntangibleToActorsTrack@@  vftable 0x3fbe40 (14)
 class CIntangibleToActorsTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CIntangibleToActorsTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCIntentionSpeedCondition@@  vftable 0x3f7504 (8)
 class CIntentionSpeedCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CIntentionSpeedCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCInvincibleAction@@  vftable 0x3f39bc (9)
@@ -2196,7 +2443,9 @@ class CInvincibleAction : public ::CAction {
 public:
     virtual ~CInvincibleAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x14];
+    void* f_1c;
 };
 
 // .?AVCInvulnerableAction@@  vftable 0x3f3bec (9)
@@ -2204,31 +2453,34 @@ class CInvulnerableAction : public ::CAction {
 public:
     virtual ~CInvulnerableAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x14];
+    void* f_1c;
+    void* f_20;
 };
 
 // .?AVCIsGrappledCondition@@  vftable 0x3f72bc (8)
 class CIsGrappledCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CIsGrappledCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCIsHelicopterCondition@@  vftable 0x3f7574 (8)
 class CIsHelicopterCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CIsHelicopterCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCIsInvincibleCondition@@  vftable 0x3f7298 (8)
 class CIsInvincibleCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CIsInvincibleCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCJointAction@@  vftable 0x3f33b8 (9)
@@ -2236,18 +2488,25 @@ class CJointAction : public ::CAction {
 public:
     virtual ~CJointAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x4];
+    void* f_24;
 };
 
 // .?AVCJointTrack@@  vftable 0x3fb9c4 (14)
 class CJointTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CJointTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCJumpAction@@  vftable 0x3f3408 (9)
@@ -2255,8 +2514,12 @@ class CJumpAction : public ::CAction {
 public:
     virtual ~CJumpAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x4];
+    void* f_24;
 };
 
 // .?AVCJumpAttackAction@@  vftable 0x3f3b24 (9)
@@ -2264,47 +2527,72 @@ class CJumpAttackAction : public ::CAction {
 public:
     virtual ~CJumpAttackAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x4];
+    void* f_24;
 };
 
 // .?AVCJumpAttackTrack@@  vftable 0x3fbf30 (13)
 class CJumpAttackTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CJumpAttackTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCJumpTrack@@  vftable 0x3fba74 (32)
 class CJumpTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CJumpTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
-    virtual void vfunc_14(); // slot 14
-    virtual void vfunc_15(); // slot 15
-    virtual void vfunc_16(); // slot 16
-    virtual void vfunc_17(); // slot 17
-    virtual void vfunc_18(); // slot 18
-    virtual void vfunc_19(); // slot 19
-    virtual void vfunc_20(); // slot 20
-    virtual void vfunc_21(); // slot 21
-    virtual void vfunc_22(); // slot 22
-    virtual void vfunc_23(); // slot 23
-    virtual void vfunc_24(); // slot 24
-    virtual void vfunc_25(); // slot 25
-    virtual void vfunc_26(); // slot 26
-    virtual void vfunc_27(); // slot 27
-    virtual void vfunc_28(); // slot 28
-    virtual void vfunc_29(); // slot 29
-    virtual void vfunc_30(); // slot 30
-    virtual void vfunc_31(); // slot 31
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    virtual float vfunc_14(); // slot 14
+    virtual float vfunc_15(); // slot 15
+    virtual float vfunc_16(); // slot 16
+    virtual float vfunc_17(); // slot 17
+    virtual float vfunc_18(); // slot 18
+    virtual float vfunc_19(); // slot 19
+    virtual float vfunc_20(); // slot 20
+    virtual float vfunc_21(); // slot 21
+    virtual float vfunc_22(); // slot 22
+    virtual float vfunc_23(); // slot 23
+    virtual float vfunc_24(); // slot 24
+    virtual float vfunc_25(); // slot 25
+    virtual unsigned int vfunc_26(); // slot 26
+    virtual float vfunc_27(); // slot 27
+    virtual float vfunc_28(); // slot 28
+    virtual float vfunc_29(); // slot 29
+    virtual unsigned char vfunc_30(); // slot 30
+    virtual unsigned char vfunc_31(); // slot 31
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
+    float f_14;
+    float f_18;
+    float f_1c;
+    float f_20;
+    float f_24;
+    float f_28;
+    char _pad_2c[0x4];
+    float f_30;
+    float f_34;
+    float f_38;
+    float f_3c;
+    unsigned int f_40;
+    char _pad_44[0x4];
+    float f_48;
+    float f_4c;
 };
 
 // .?AVCKeyPoseAction@@  vftable 0x3f359c (9)
@@ -2312,8 +2600,14 @@ class CKeyPoseAction : public ::CAction {
 public:
     virtual ~CKeyPoseAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_8(int); // overrides CAction slot 8
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x4];
+    int f_24;
+    int f_28;
+    float f_2c;
 };
 
 // .?AVCLocator@@  vftable 0x425120 (11)
@@ -2324,22 +2618,24 @@ public:
     virtual void vfunc_6(); // slot 6
     virtual void vfunc_7(int); // slot 7
     virtual void vfunc_8(int); // slot 8
-    virtual void vfunc_9(); // slot 9
+    virtual float vfunc_9(); // slot 9
     virtual void vfunc_10(int); // slot 10
+    char _pad_10[0xc];
+    float f_1c;
 };
 
 // .?AVCLuaNumberCondition@@  vftable 0x3f7304 (8)
 class CLuaNumberCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CLuaNumberCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCMemoryCardManager@@  vftable 0x4004f4 (1)
 class CMemoryCardManager : public ::core::IDriveErrorCallback {
 public:
-    virtual void vfunc_0(int, int, int, int, int); // overrides core::IDriveErrorCallback slot 0
+    virtual bool vfunc_0(void*, void*, void*, void*, void*); // overrides core::IDriveErrorCallback slot 0
 };
 
 // .?AVCMemorySystem@@  vftable 0x40d12c (1)
@@ -2351,17 +2647,17 @@ public:
 // .?AVCMotionClimbAngleCondition@@  vftable 0x3f7550 (8)
 class CMotionClimbAngleCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CMotionClimbAngleCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCMotionHitCondition@@  vftable 0x3f73bc (8)
 class CMotionHitCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CMotionHitCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCMotionHitGroundHeightAction@@  vftable 0x3f3d58 (9)
@@ -2369,17 +2665,24 @@ class CMotionHitGroundHeightAction : public ::CAction {
 public:
     virtual ~CMotionHitGroundHeightAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    void* f_20;
 };
 
 // .?AVCMotionHitGroundHeightTrack@@  vftable 0x3fc1fc (14)
 class CMotionHitGroundHeightTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CMotionHitGroundHeightTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
+    unsigned int f_14;
 };
 
 // .?AVCMotionTrailAction@@  vftable 0x3f3a34 (9)
@@ -2387,7 +2690,10 @@ class CMotionTrailAction : public ::CAction {
 public:
     virtual ~CMotionTrailAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x18];
+    void* f_20;
+    int f_24;
 };
 
 // .?AVCMoveAction@@  vftable 0x3f3614 (9)
@@ -2395,8 +2701,12 @@ class CMoveAction : public ::CAction {
 public:
     virtual ~CMoveAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x4];
+    void* f_24;
 };
 
 // .?AVCMoveAddAction@@  vftable 0x3f363c (9)
@@ -2409,12 +2719,15 @@ public:
 // .?AVCMoveAddTrack@@  vftable 0x3fbc24 (14)
 class CMoveAddTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CMoveAddTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCMoveAddYAction@@  vftable 0x3f3664 (9)
@@ -2427,80 +2740,107 @@ public:
 // .?AVCMoveAddYTrack@@  vftable 0x3fbc60 (14)
 class CMoveAddYTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CMoveAddYTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCMoveAgent@@  vftable 0x40d418 (11)
 class CMoveAgent : public ::CCharacterAgent {
 public:
     virtual ~CMoveAgent(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int); // overrides CAgent slot 3
+    virtual float vfunc_3(int, int); // overrides CAgent slot 3
     virtual void vfunc_4(int, int, int); // overrides CAgent slot 4
     virtual void vfunc_7(int); // overrides CAgent slot 7
     virtual void vfunc_9(); // overrides CAgent slot 9
+    char _pad_0c[0x5c];
+    void* f_68;
 };
 
 // .?AVCMoveTrack@@  vftable 0x3fbbe8 (14)
 class CMoveTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CMoveTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCNISCamera@@  vftable 0x405b2c (38)
 class CNISCamera : public ::CGameCamera {
 public:
     virtual ~CNISCamera(); // overrides core::IRefCount slot 2
-    virtual void vfunc_27(int); // overrides CGameCamera slot 27
+    virtual void vfunc_27(void*); // overrides CGameCamera slot 27
     virtual void vfunc_28(); // overrides CGameCamera slot 28
     virtual void vfunc_29(); // overrides CGameCamera slot 29
     virtual void vfunc_35(int, int, int, int); // overrides CGameCamera slot 35
+    char _pad_d0[0xa0];
+    void* f_170;
 };
 
 // .?AVCNameFlagCondition@@  vftable 0x3f97b0 (8)
 class CNameFlagCondition : public ::CNameFlagConditionBase {
 public:
     virtual ~CNameFlagCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
+    char _pad_08[0x4];
+    int f_0c;
+    int f_10;
+    int f_14;
 };
 
 // .?AVCOccupationAgent@@  vftable 0x40d468 (11)
 class COccupationAgent : public ::CCharacterAgent {
 public:
     virtual ~COccupationAgent(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int); // overrides CAgent slot 3
+    virtual float vfunc_3(int, int); // overrides CAgent slot 3
     virtual void vfunc_4(int, int, int); // overrides CAgent slot 4
     virtual void vfunc_7(int); // overrides CAgent slot 7
     virtual void vfunc_9(); // overrides CAgent slot 9
-    virtual void vfunc_10(); // overrides CAgent slot 10
+    virtual int vfunc_10(); // overrides CAgent slot 10
+    char _pad_0c[0x50];
+    void* f_5c;
 };
 
 // .?AVCOpportunityBallAction@@  vftable 0x3f34a0 (9)
 class COpportunityBallAction : public ::CAction {
 public:
     virtual ~COpportunityBallAction(); // overrides core::IRefCount slot 2
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_8(int); // overrides CAction slot 8
+    char _pad_08[0x14];
+    void* f_1c;
+    void* f_20;
+    int f_24;
+    int f_28;
 };
 
 // .?AVCOpportunityBallTrack@@  vftable 0x3fa248 (14)
 class COpportunityBallTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~COpportunityBallTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
+    char _pad_14[0x4];
+    void* f_18;
+    void* f_1c;
 };
 
 // .?AVCOrientAction@@  vftable 0x3f3b4c (9)
@@ -2508,8 +2848,12 @@ class COrientAction : public ::CAction {
 public:
     virtual ~COrientAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x4];
+    void* f_24;
 };
 
 // .?AVCOrientTargetAction@@  vftable 0x3f3b74 (9)
@@ -2517,26 +2861,33 @@ class COrientTargetAction : public ::CAction {
 public:
     virtual ~COrientTargetAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x8];
+    void* f_28;
 };
 
 // .?AVCOrientTrack@@  vftable 0x3fbf68 (14)
 class COrientTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~COrientTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCOrientTargetTrack@@  vftable 0x3feabc (14)
 class COrientTargetTrack : public ::COrientTrack {
 public:
     virtual ~COrientTargetTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual int vfunc_12(int); // overrides CTrack slot 12
 };
 
 // .?AVCOutlineDisplayEffect@@  vftable 0x40bf10 (1)
@@ -2555,18 +2906,22 @@ public:
 class CPathAgent : public ::CCharacterAgent {
 public:
     virtual ~CPathAgent(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int); // overrides CAgent slot 3
+    virtual float vfunc_3(int, int); // overrides CAgent slot 3
     virtual void vfunc_4(int, int, int); // overrides CAgent slot 4
     virtual void vfunc_7(int); // overrides CAgent slot 7
     virtual void vfunc_9(); // overrides CAgent slot 9
     virtual void vfunc_11(int, int, int); // slot 11
+    char _pad_0c[0x70];
+    int f_7c;
+    int f_80;
+    int f_84;
 };
 
 // .?AVCPathGraphAgent@@  vftable 0x40d518 (11)
 class CPathGraphAgent : public ::CCharacterAgent {
 public:
     virtual ~CPathGraphAgent(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int); // overrides CAgent slot 3
+    virtual float vfunc_3(int, int); // overrides CAgent slot 3
     virtual void vfunc_4(int, int, int); // overrides CAgent slot 4
     virtual void vfunc_9(); // overrides CAgent slot 9
 };
@@ -2581,15 +2936,17 @@ public:
 class CPatrolPath : public ::pure3d::Entity {
 public:
     virtual ~CPatrolPath(); // overrides core::IRefCount slot 2
+    void* f_10;
+    int f_14;
 };
 
 // .?AVCPatrolPathManager@@  vftable 0x40d630 (4)
 class CPatrolPathManager : public ::CDHGameObjectCreator {
 public:
     virtual ~CPatrolPathManager(); // overrides DataHandler::ObjectCreator slot 0
-    virtual void vfunc_1(int); // overrides DataHandler::ObjectCreator slot 1
-    virtual void vfunc_2(); // overrides CDHGameObjectCreator slot 2
-    virtual void vfunc_3(int); // overrides CDHGameObjectCreator slot 3
+    virtual bool vfunc_1(void*); // overrides DataHandler::ObjectCreator slot 1
+    virtual int vfunc_2(); // overrides CDHGameObjectCreator slot 2
+    virtual void* vfunc_3(void*); // overrides CDHGameObjectCreator slot 3
 };
 
 // .?AVCPhysicalController@@  vftable 0x406088 (3)
@@ -2608,10 +2965,10 @@ public:
 class CProjectile : public ::pure3d::NonCopyable {
 public:
     virtual ~CProjectile(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3() = 0; // slot 3
+    virtual void* vfunc_3() = 0; // slot 3
     virtual void vfunc_4() = 0; // slot 4
     virtual void vfunc_5(); // slot 5
-    virtual void vfunc_6(int, int, int, int, int); // slot 6
+    virtual int vfunc_6(int, int, int, int, int); // slot 6
 };
 
 // .?AVCPropActorSetStateAction@@  vftable 0x3f3e30 (9)
@@ -2619,25 +2976,30 @@ class CPropActorSetStateAction : public ::CAction {
 public:
     virtual ~CPropActorSetStateAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    void* f_20;
 };
 
 // .?AVCPropActorSetStateTrack@@  vftable 0x3fb1bc (14)
 class CPropActorSetStateTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CPropActorSetStateTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCPropActorStateCondition@@  vftable 0x3f7274 (8)
 class CPropActorStateCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CPropActorStateCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCPushBackAnimationAction@@  vftable 0x3f3548 (10)
@@ -2651,7 +3013,7 @@ public:
 class CPushBackAnimationTrack : public ::CProceduralDurationAnimationTrack {
 public:
     virtual ~CPushBackAnimationTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual int vfunc_12(int); // overrides CTrack slot 12
 };
 
 // .?AVCRadMovieRenderLoop@@  vftable 0x41dc30 (4)
@@ -2661,52 +3023,65 @@ public:
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~CRadMovieRenderLoop(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(); // overrides movie::RenderLoop slot 3
+    char _pad_04[0x4];
+    int f_08;
+    void* f_0c;
 };
 
 // .?AVCRageModeAction@@  vftable 0x3f3c14 (9)
 class CRageModeAction : public ::CAction {
 public:
     virtual ~CRageModeAction(); // overrides core::IRefCount slot 2
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x14];
+    void* f_1c;
+    int f_20;
 };
 
 // .?AVCRageModeCondition@@  vftable 0x3f742c (8)
 class CRageModeCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CRageModeCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
+    char _pad_08[0x4];
+    bool f_0c;
 };
 
 // .?AVCRageModeTrack@@  vftable 0x3fc058 (14)
 class CRageModeTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CRageModeTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    int f_10;
 };
 
 // .?AVCRangedAgent@@  vftable 0x40d678 (11)
 class CRangedAgent : public ::CCharacterAgent {
 public:
     virtual ~CRangedAgent(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int); // overrides CAgent slot 3
+    virtual float vfunc_3(int, int); // overrides CAgent slot 3
     virtual void vfunc_4(int, int, int); // overrides CAgent slot 4
     virtual void vfunc_6(int); // overrides CAgent slot 6
     virtual void vfunc_7(int); // overrides CAgent slot 7
     virtual void vfunc_9(); // overrides CAgent slot 9
+    char _pad_0c[0x50];
+    void* f_5c;
 };
 
 // .?AVCRenderManager@@  vftable 0x4211fc (4)
 class CRenderManager : public ::CDHGameObjectCreator {
 public:
     virtual ~CRenderManager(); // overrides DataHandler::ObjectCreator slot 0
-    virtual void vfunc_1(int); // overrides DataHandler::ObjectCreator slot 1
-    virtual void vfunc_2(); // overrides CDHGameObjectCreator slot 2
-    virtual void vfunc_3(int); // overrides CDHGameObjectCreator slot 3
+    virtual bool vfunc_1(void*); // overrides DataHandler::ObjectCreator slot 1
+    virtual int vfunc_2(); // overrides CDHGameObjectCreator slot 2
+    virtual void* vfunc_3(void*); // overrides CDHGameObjectCreator slot 3
 };
 
 // .?AVCSPHulkProp@@  vftable 0x422a0c (5)
@@ -2722,13 +3097,16 @@ public:
     virtual void vfunc_8(int, int); // overrides pure3d::DrawableHierarchy slot 8
     virtual void vfunc_15(); // overrides pure3d::prop::StateProp slot 15
     virtual void vfunc_16(int, int); // overrides pure3d::prop::StateProp slot 16
+    void* f_a0;
+    char _pad_a4[0x48];
+    void* f_ec;
 };
 
 // .?AVCSPHulkPropLoader@@  vftable 0x400854 (6)
 class CSPHulkPropLoader : public ::pure3d::prop::StatePropDataLoader {
 public:
     virtual ~CSPHulkPropLoader(); // overrides core::IRefCount slot 2
-    virtual void vfunc_5(int, int, int, int); // overrides content::SimpleChunkHandler slot 5
+    virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
 };
 
 // .?AVCSPListener@@  vftable 0x423124 (1) vftable@+0x4 0x423114 (3)
@@ -2742,9 +3120,9 @@ public:
 class CSPManager : public ::CDHGameObjectCreator {
 public:
     virtual ~CSPManager(); // overrides DataHandler::ObjectCreator slot 0
-    virtual void vfunc_1(int); // overrides DataHandler::ObjectCreator slot 1
-    virtual void vfunc_2(); // overrides CDHGameObjectCreator slot 2
-    virtual void vfunc_3(int); // overrides CDHGameObjectCreator slot 3
+    virtual bool vfunc_1(void*); // overrides DataHandler::ObjectCreator slot 1
+    virtual int vfunc_2(); // overrides CDHGameObjectCreator slot 2
+    virtual void* vfunc_3(void*); // overrides CDHGameObjectCreator slot 3
 };
 
 // .?AVCScenarioManager@@  vftable 0x421e74 (1)
@@ -2764,7 +3142,7 @@ public:
 class CScriptCamera : public ::CGameCamera {
 public:
     virtual ~CScriptCamera(); // overrides core::IRefCount slot 2
-    virtual void vfunc_27(int); // overrides CGameCamera slot 27
+    virtual void vfunc_27(void*); // overrides CGameCamera slot 27
     virtual void vfunc_28(); // overrides CGameCamera slot 28
     virtual void vfunc_29(); // overrides CGameCamera slot 29
     virtual void vfunc_31(int); // overrides CGameCamera slot 31
@@ -2774,31 +3152,36 @@ public:
 // .?AVCScrubberTrack@@  vftable 0x3fba00 (13)
 class CScrubberTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CScrubberTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
 };
 
 // .?AVCSeekBehaviour@@  vftable 0x40d7a8 (4)
 class CSeekBehaviour : public ::CSteeringBehaviour {
 public:
     virtual ~CSeekBehaviour(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int, int, int, int); // overrides CSteeringBehaviour slot 3
+    virtual bool vfunc_3(int, int, void*, int, int); // overrides CSteeringBehaviour slot 3
+    float f_08;
+    unsigned char f_0c;
 };
 
 // .?AVCSeparationBehaviour@@  vftable 0x40d7d8 (4)
 class CSeparationBehaviour : public ::CSteeringBehaviour {
 public:
     virtual ~CSeparationBehaviour(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int, int, int, int, int); // overrides CSteeringBehaviour slot 3
+    virtual bool vfunc_3(int, int, void*, int, int); // overrides CSteeringBehaviour slot 3
+    float f_08;
+    unsigned char f_0c;
 };
 
 // .?AVCSimController@@  vftable 0x4060c4 (3)
 class CSimController : public ::pure3d::NonCopyable {
 public:
     virtual ~CSimController(); // overrides core::IRefCount slot 2
+    void* f_08;
 };
 
 // .?AVCSimControllerManager@@  vftable 0x4060d8 (1)
@@ -2822,9 +3205,9 @@ public:
 // .?AVCSmartPropAngleCondition@@  vftable 0x3f71c0 (8)
 class CSmartPropAngleCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropAngleCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCSmartPropAttachAction@@  vftable 0x3f381c (9)
@@ -2832,119 +3215,136 @@ class CSmartPropAttachAction : public ::CAction {
 public:
     virtual ~CSmartPropAttachAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
 };
 
 // .?AVCSmartPropAttachTrack@@  vftable 0x3faf60 (14)
 class CSmartPropAttachTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropAttachTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCSmartPropAttachedCondition@@  vftable 0x3f710c (8)
 class CSmartPropAttachedCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropAttachedCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCSmartPropCSMableCondition@@  vftable 0x3f722c (8)
 class CSmartPropCSMableCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropCSMableCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCSmartPropDetachAction@@  vftable 0x3f38cc (9)
 class CSmartPropDetachAction : public ::CAction {
 public:
     virtual ~CSmartPropDetachAction(); // overrides core::IRefCount slot 2
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
 };
 
 // .?AVCSmartPropDetachTrack@@  vftable 0x3fb050 (14)
 class CSmartPropDetachTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropDetachTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCSmartPropDistanceCondition@@  vftable 0x3f71e4 (8)
 class CSmartPropDistanceCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropDistanceCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCSmartPropDropAction@@  vftable 0x3f3944 (9)
 class CSmartPropDropAction : public ::CAction {
 public:
     virtual ~CSmartPropDropAction(); // overrides core::IRefCount slot 2
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
 };
 
 // .?AVCSmartPropEventAction@@  vftable 0x3f396c (9)
 class CSmartPropEventAction : public ::CAction {
 public:
     virtual ~CSmartPropEventAction(); // overrides core::IRefCount slot 2
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x14];
+    void* f_1c;
+    int f_20;
+    void* f_24;
 };
 
 // .?AVCSmartPropEventTrack@@  vftable 0x3fb144 (14)
 class CSmartPropEventTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropEventTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x8];
+    float f_10;
 };
 
 // .?AVCSmartPropGrabbableNameCondition@@  vftable 0x3f7208 (8)
 class CSmartPropGrabbableNameCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropGrabbableNameCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCSmartPropNameCondition@@  vftable 0x3f719c (8)
 class CSmartPropNameCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropNameCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCSmartPropRemoveInstanceAction@@  vftable 0x3f3994 (9)
 class CSmartPropRemoveInstanceAction : public ::CAction {
 public:
     virtual ~CSmartPropRemoveInstanceAction(); // overrides core::IRefCount slot 2
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x14];
+    void* f_1c;
+    void* f_20;
 };
 
 // .?AVCSmartPropRemoveInstanceTrack@@  vftable 0x3fb180 (14)
 class CSmartPropRemoveInstanceTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropRemoveInstanceTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    int f_0c;
+    float f_10;
 };
 
 // .?AVCSmartPropSetStateAction@@  vftable 0x3f38a4 (9)
@@ -2952,62 +3352,71 @@ class CSmartPropSetStateAction : public ::CAction {
 public:
     virtual ~CSmartPropSetStateAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    void* f_20;
 };
 
 // .?AVCSmartPropSetStateTrack@@  vftable 0x3fb014 (14)
 class CSmartPropSetStateTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropSetStateTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCSmartPropSpawnAction@@  vftable 0x3f386c (9)
 class CSmartPropSpawnAction : public ::CAction {
 public:
     virtual ~CSmartPropSpawnAction(); // overrides core::IRefCount slot 2
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
 };
 
 // .?AVCSmartPropSpawnTrack@@  vftable 0x3fafd8 (14)
 class CSmartPropSpawnTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropSpawnTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCSmartPropStateCondition@@  vftable 0x3f7250 (8)
 class CSmartPropStateCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropStateCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCSmartPropThrowAction@@  vftable 0x3f38f4 (9)
 class CSmartPropThrowAction : public ::CAction {
 public:
     virtual ~CSmartPropThrowAction(); // overrides core::IRefCount slot 2
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
 };
 
 // .?AVCSmartPropThrowTrack@@  vftable 0x3fb08c (14)
 class CSmartPropThrowTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropThrowTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVCSmartPropThrowingAction@@  vftable 0x3f391c (9)
@@ -3015,26 +3424,31 @@ class CSmartPropThrowingAction : public ::CAction {
 public:
     virtual ~CSmartPropThrowingAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x14];
+    void* f_1c;
 };
 
 // .?AVCSmartPropThrowingTrack@@  vftable 0x3fb0c8 (14)
 class CSmartPropThrowingTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropThrowingTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCSmartPropTypeCondition@@  vftable 0x3f7178 (8)
 class CSmartPropTypeCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropTypeCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCSmartPropUpdateAttachmentAction@@  vftable 0x3f3844 (9)
@@ -3042,34 +3456,37 @@ class CSmartPropUpdateAttachmentAction : public ::CAction {
 public:
     virtual ~CSmartPropUpdateAttachmentAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
 };
 
 // .?AVCSmartPropUpdateAttachmentTrack@@  vftable 0x3faf9c (14)
 class CSmartPropUpdateAttachmentTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropUpdateAttachmentTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCSmartPropWeaponTypeCondition@@  vftable 0x3f7154 (8)
 class CSmartPropWeaponTypeCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropWeaponTypeCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCSmartPropWeaponizableTypeCondition@@  vftable 0x3f7130 (8)
 class CSmartPropWeaponizableTypeCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSmartPropWeaponizableTypeCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCSnapToWallAction@@  vftable 0x3f3d30 (9)
@@ -3077,19 +3494,26 @@ class CSnapToWallAction : public ::CAction {
 public:
     virtual ~CSnapToWallAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    void* f_20;
+    void* f_24;
 };
 
 // .?AVCSnapToWallTrack@@  vftable 0x3fa2fc (14)
 class CSnapToWallTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSnapToWallTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCSoundAction@@  vftable 0x3f35c4 (9)
@@ -3097,6 +3521,9 @@ class CSoundAction : public ::CAction {
 public:
     virtual ~CSoundAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    void* f_20;
 };
 
 // .?AVCSoundCommand@@  vftable 0x4245a4 (2)
@@ -3231,6 +3658,7 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~CSoundMix(); // overrides core::IRefCount slot 2
+    int f_04;
 };
 
 // .?AVCSoundResourceManager@@  vftable 0x42476c (4)
@@ -3246,6 +3674,9 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~CSoundSequence(); // overrides core::IRefCount slot 2
+    int f_04;
+    char _pad_08[0x14];
+    void* f_1c;
 };
 
 // .?AVCSoundSequenceVoice@@  vftable 0x424ae4 (2)
@@ -3256,7 +3687,7 @@ public:
 // .?AVCSoundStreamAllocator@@  vftable 0x424af0 (2)
 class CSoundStreamAllocator : public ::audio::StreamPlayerAllocator {
 public:
-    virtual void vfunc_0(int, int, int, int); // overrides audio::StreamPlayerAllocator slot 0
+    virtual int vfunc_0(int, int, int, int); // overrides audio::StreamPlayerAllocator slot 0
     virtual void vfunc_1(int, int); // overrides audio::StreamPlayerAllocator slot 1
 };
 
@@ -3266,6 +3697,7 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~CSoundTriggerExecutionState(); // overrides core::IRefCount slot 2
+    int f_04;
 };
 
 // .?AVCStageAction@@  vftable 0x3f3c3c (9)
@@ -3273,31 +3705,40 @@ class CStageAction : public ::CAction {
 public:
     virtual ~CStageAction(); // overrides core::IRefCount slot 2
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    void* f_20;
 };
 
 // .?AVCStageCondition@@  vftable 0x3f6d74 (8)
 class CStageCondition : public ::CCondition {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CStageCondition(); // overrides fight::Param slot 5
-    virtual void vfunc_7(int); // overrides CCondition slot 7
+    virtual bool vfunc_7(void*); // overrides CCondition slot 7
 };
 
 // .?AVCStageTrack@@  vftable 0x3fc094 (14)
 class CStageTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CStageTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    int f_10;
 };
 
 // .?AVCStaticAllocator@@  vftable 0x400c1c (1)
 class CStaticAllocator {
 public:
     virtual ~CStaticAllocator(); // slot 0
+    char _pad_04[0xc];
+    void* f_10;
+    void* f_14;
 };
 
 // .?AVCStunAnimationAction@@  vftable 0x3f3574 (9)
@@ -3305,19 +3746,25 @@ class CStunAnimationAction : public ::CAction {
 public:
     virtual ~CStunAnimationAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_8(int); // overrides CAction slot 8
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x4];
+    void* f_24;
 };
 
 // .?AVCStunAnimationTrack@@  vftable 0x3fa2c0 (14)
 class CStunAnimationTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CStunAnimationTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AVOverlay@@  vftable 0x40a47c (6)
@@ -3339,6 +3786,8 @@ public:
     virtual void vfunc_2(); // overrides Overlay slot 2
     virtual void vfunc_3(int); // overrides Overlay slot 3
     virtual void vfunc_4(); // overrides Overlay slot 4
+    char _pad_04[0x119];
+    unsigned char f_11d;
 };
 
 // .?AVCSweepAction@@  vftable 0x3f368c (9)
@@ -3346,19 +3795,26 @@ class CSweepAction : public ::CAction {
 public:
     virtual ~CSweepAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x4];
+    void* f_24;
 };
 
 // .?AVCSweepTrack@@  vftable 0x3fbc9c (14)
 class CSweepTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CSweepTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCTargetAction@@  vftable 0x3f3db8 (9)
@@ -3371,12 +3827,15 @@ public:
 // .?AVCTargetTrack@@  vftable 0x3fc274 (14)
 class CTargetTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CTargetTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCTestManager@@  vftable 0x400ec8 (3)
@@ -3397,20 +3856,22 @@ public:
     virtual void vfunc_8(int, int, int); // slot 8
     virtual void vfunc_9(int, int, int); // slot 9
     virtual void vfunc_10(int, int); // slot 10
-    virtual void vfunc_11(); // slot 11
+    virtual unsigned char vfunc_11(); // slot 11
     virtual void vfunc_12(int); // slot 12
     virtual void vfunc_13(int); // slot 13
     virtual void vfunc_14(int); // slot 14
     virtual void vfunc_15(int); // slot 15
+    char _pad_10[0xc0];
+    int f_d0;
 };
 
 // .?AVCTriggerVolumeManager@@  vftable 0x4253b4 (4)
 class CTriggerVolumeManager : public ::CDHGameObjectCreator {
 public:
     virtual ~CTriggerVolumeManager(); // overrides DataHandler::ObjectCreator slot 0
-    virtual void vfunc_1(int); // overrides DataHandler::ObjectCreator slot 1
-    virtual void vfunc_2(); // overrides CDHGameObjectCreator slot 2
-    virtual void vfunc_3(int); // overrides CDHGameObjectCreator slot 3
+    virtual bool vfunc_1(void*); // overrides DataHandler::ObjectCreator slot 1
+    virtual int vfunc_2(); // overrides CDHGameObjectCreator slot 2
+    virtual void* vfunc_3(void*); // overrides CDHGameObjectCreator slot 3
 };
 
 // .?AVCUninterruptibleAction@@  vftable 0x3f3bc4 (9)
@@ -3418,7 +3879,9 @@ class CUninterruptibleAction : public ::CAction {
 public:
     virtual ~CUninterruptibleAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
+    char _pad_08[0x14];
+    void* f_1c;
 };
 
 // .?AVCUnlockable@@  vftable 0x40449c (1)
@@ -3455,6 +3918,8 @@ public:
 class CUnlockableMove : public ::CUnlockable {
 public:
     virtual ~CUnlockableMove(); // overrides CUnlockable slot 0
+    char _pad_04[0x14];
+    void* f_18;
 };
 
 // .?AVCUnlockableMovie@@  vftable 0x4044c4 (1)
@@ -3474,19 +3939,26 @@ class CWallSlideAction : public ::CAction {
 public:
     virtual ~CWallSlideAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_7(int); // overrides CAction slot 7
+    char _pad_08[0x14];
+    void* f_1c;
+    char _pad_20[0x4];
+    void* f_24;
 };
 
 // .?AVCWallSlideTrack@@  vftable 0x3fc238 (14)
 class CWallSlideTrack : public ::CTrack {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CWallSlideTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_12(int); // overrides CTrack slot 12
-    virtual void vfunc_13(int); // slot 13
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_12(int); // overrides CTrack slot 12
+    virtual void vfunc_13(void*); // slot 13
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCWeaponCollisionAction@@  vftable 0x3f34c8 (9)
@@ -3494,25 +3966,30 @@ class CWeaponCollisionAction : public ::CAction {
 public:
     virtual ~CWeaponCollisionAction(); // overrides core::IRefCount slot 2
     virtual void vfunc_4(); // overrides fight::Action slot 4
-    virtual void vfunc_6(int); // overrides CAction slot 6
+    virtual bool vfunc_6(int); // overrides CAction slot 6
     virtual bool vfunc_8(int); // overrides CAction slot 8
 };
 
 // .?AVCWeaponCollisionTrack@@  vftable 0x3faf2c (12)
 class CWeaponCollisionTrack : public ::fight::Track {
 public:
-    virtual void vfunc_0(int); // overrides fight::Param slot 0
+    virtual int vfunc_0(int); // overrides fight::Param slot 0
     virtual ~CWeaponCollisionTrack(); // overrides fight::Param slot 5
-    virtual void vfunc_6(); // overrides fight::Track slot 6
-    virtual void vfunc_7(); // overrides fight::Track slot 7
-    virtual void vfunc_10(int, int, int); // overrides fight::Track slot 10
-    virtual void vfunc_11(int); // slot 11
+    virtual float vfunc_6(); // overrides fight::Track slot 6
+    virtual float vfunc_7(); // overrides fight::Track slot 7
+    virtual int vfunc_10(int, int, int); // overrides fight::Track slot 10
+    virtual void vfunc_11(void*); // slot 11
+    char _pad_08[0x4];
+    float f_0c;
+    float f_10;
 };
 
 // .?AVCWorldCollisionManager@@  vftable 0x4259f8 (1)
 class CWorldCollisionManager {
 public:
     virtual ~CWorldCollisionManager(); // slot 0
+    char _pad_04[0xc];
+    int f_10;
 };
 
 // .?AVCWorldStreamManager@@  vftable 0x425cf4 (1)
@@ -3540,6 +4017,7 @@ template <class T0>
 class CallbackHolder : public ::ICallbackHolder {
 public:
     virtual void vfunc_0(); // overrides ICallbackHolder slot 0
+    void* f_04;
 };
 
 // .?AVICallbackHolderFloat@@  vftable 0x408de4 (1)
@@ -3554,6 +4032,7 @@ template <class T0>
 class CallbackHolderFloat : public ::ICallbackHolderFloat {
 public:
     virtual void vfunc_0(); // overrides ICallbackHolderFloat slot 0
+    void* f_04;
 };
 
 // .?AVICallbackHolderInt@@  vftable 0x408dec (1)
@@ -3568,13 +4047,14 @@ template <class T0>
 class CallbackHolderInt : public ::ICallbackHolderInt {
 public:
     virtual void vfunc_0(); // overrides ICallbackHolderInt slot 0
+    void* f_04;
 };
 
 // .?AVFunction@@  vftable 0x4223a0 (3)
 class Function {
 public:
     virtual ~Function(); // slot 0
-    virtual void vfunc_1(int, int); // slot 1
+    virtual bool vfunc_1(int, int); // slot 1
     virtual void vfunc_2(void*, void*, void*) = 0; // slot 2
 };
 
@@ -3692,6 +4172,7 @@ class Closure0 : public ::Method0< T0, T1 > {
 public:
     virtual ~Closure0(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    void* f_20;
 };
 
 // .?AVScriptHandler@@  vftable 0x422684 (1)
@@ -3917,6 +4398,7 @@ class Closure1 : public ::Method1< T0, T1, T2 > {
 public:
     virtual ~Closure1(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    void* f_20;
 };
 
 // template family Method2: 76 instantiation(s), 0 with their own specialization
@@ -4001,6 +4483,8 @@ class Method2 : public ::Function {
 public:
     virtual ~Method2(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    char _pad_04[0x18];
+    T1 (T0::*f_1c)(T2, T3);
 };
 
 // template family Closure2: 76 instantiation(s), 0 with their own specialization
@@ -4085,6 +4569,7 @@ class Closure2 : public ::Method2< T0, T1, T2, T3 > {
 public:
     virtual ~Closure2(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    void* f_20;
 };
 
 // template family Method3: 39 instantiation(s), 0 with their own specialization
@@ -4132,6 +4617,8 @@ class Method3 : public ::Function {
 public:
     virtual ~Method3(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    char _pad_04[0x18];
+    T1 (T0::*f_1c)(T2, T3, T4);
 };
 
 // template family Closure3: 39 instantiation(s), 0 with their own specialization
@@ -4179,6 +4666,7 @@ class Closure3 : public ::Method3< T0, T1, T2, T3, T4 > {
 public:
     virtual ~Closure3(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    int f_20;
 };
 
 // template family Method4: 28 instantiation(s), 0 with their own specialization
@@ -4215,6 +4703,8 @@ class Method4 : public ::Function {
 public:
     virtual ~Method4(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    char _pad_04[0x18];
+    T1 (T0::*f_1c)(T2, T3, T4, T5);
 };
 
 // template family Closure4: 28 instantiation(s), 0 with their own specialization
@@ -4251,6 +4741,7 @@ class Closure4 : public ::Method4< T0, T1, T2, T3, T4, T5 > {
 public:
     virtual ~Closure4(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    int f_20;
 };
 
 // template family Method5: 11 instantiation(s), 0 with their own specialization
@@ -4270,6 +4761,8 @@ class Method5 : public ::Function {
 public:
     virtual ~Method5(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    char _pad_04[0x18];
+    T1 (T0::*f_1c)(T2, T3, T4, T5, T6);
 };
 
 // template family Closure5: 11 instantiation(s), 0 with their own specialization
@@ -4289,6 +4782,7 @@ class Closure5 : public ::Method5< T0, T1, T2, T3, T4, T5, T6 > {
 public:
     virtual ~Closure5(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    int f_20;
 };
 
 // template family Method6: 15 instantiation(s), 0 with their own specialization
@@ -4312,6 +4806,8 @@ class Method6 : public ::Function {
 public:
     virtual ~Method6(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    char _pad_04[0x18];
+    T1 (T0::*f_1c)(T2, T3, T4, T5, T6, T7);
 };
 
 // template family Closure6: 15 instantiation(s), 0 with their own specialization
@@ -4335,6 +4831,7 @@ class Closure6 : public ::Method6< T0, T1, T2, T3, T4, T5, T6, T7 > {
 public:
     virtual ~Closure6(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    int f_20;
 };
 
 // template family Method7: 6 instantiation(s), 0 with their own specialization
@@ -4349,6 +4846,8 @@ class Method7 : public ::Function {
 public:
     virtual ~Method7(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    char _pad_04[0x18];
+    T1 (T0::*f_1c)(T2, T3, T4, T5, T6, T7, T8);
 };
 
 // template family Closure7: 6 instantiation(s), 0 with their own specialization
@@ -4363,6 +4862,7 @@ class Closure7 : public ::Method7< T0, T1, T2, T3, T4, T5, T6, T7, T8 > {
 public:
     virtual ~Closure7(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    int f_20;
 };
 
 // .?AVControllerPollerBase@@  vftable 0x40be54 (6)
@@ -4371,18 +4871,20 @@ public:
     virtual void vfunc_0(); // slot 0
     virtual void vfunc_1(int, int); // slot 1
     virtual void vfunc_2() = 0; // slot 2
-    virtual void vfunc_3(int) = 0; // slot 3
+    virtual bool vfunc_3(int) = 0; // slot 3
     virtual void vfunc_4(int, int) = 0; // slot 4
-    virtual void vfunc_5(int) = 0; // slot 5
+    virtual int vfunc_5(int) = 0; // slot 5
 };
 
 // .?AVControllerPoller@@  vftable 0x40bce8 (6)
 class ControllerPoller : public ::ControllerPollerBase {
 public:
     virtual void vfunc_2(); // overrides ControllerPollerBase slot 2
-    virtual void vfunc_3(int); // overrides ControllerPollerBase slot 3
+    virtual bool vfunc_3(int); // overrides ControllerPollerBase slot 3
     virtual void vfunc_4(int, int); // overrides ControllerPollerBase slot 4
-    virtual void vfunc_5(int); // overrides ControllerPollerBase slot 5
+    virtual int vfunc_5(int); // overrides ControllerPollerBase slot 5
+    char _pad_04[0x34];
+    int f_38;
 };
 
 // .?AVIDollyControllerState@@  vftable 0x40bc80 (12)
@@ -4391,15 +4893,15 @@ public:
     virtual ~IDollyControllerState(); // slot 0
     virtual void vfunc_1() = 0; // slot 1
     virtual void vfunc_2() = 0; // slot 2
-    virtual void vfunc_3() = 0; // slot 3
-    virtual void vfunc_4(int) = 0; // slot 4
-    virtual void vfunc_5(int) = 0; // slot 5
-    virtual void vfunc_6() = 0; // slot 6
-    virtual void vfunc_7(int) = 0; // slot 7
-    virtual void vfunc_8(int) = 0; // slot 8
-    virtual void vfunc_9() = 0; // slot 9
+    virtual int vfunc_3() = 0; // slot 3
+    virtual float vfunc_4(int) = 0; // slot 4
+    virtual float vfunc_5(int) = 0; // slot 5
+    virtual int vfunc_6() = 0; // slot 6
+    virtual float vfunc_7(int) = 0; // slot 7
+    virtual float vfunc_8(int) = 0; // slot 8
+    virtual int vfunc_9() = 0; // slot 9
     virtual void vfunc_10(int) = 0; // slot 10
-    virtual void vfunc_11(int) = 0; // slot 11
+    virtual float vfunc_11(int) = 0; // slot 11
 };
 
 // .?AVControllerState@@  vftable 0x40bcb4 (12)
@@ -4408,22 +4910,26 @@ public:
     virtual ~ControllerState(); // overrides IDollyControllerState slot 0
     virtual void vfunc_1(); // overrides IDollyControllerState slot 1
     virtual void vfunc_2(); // overrides IDollyControllerState slot 2
-    virtual void vfunc_3(); // overrides IDollyControllerState slot 3
-    virtual void vfunc_4(int); // overrides IDollyControllerState slot 4
-    virtual void vfunc_5(int); // overrides IDollyControllerState slot 5
-    virtual void vfunc_6(); // overrides IDollyControllerState slot 6
-    virtual void vfunc_7(int); // overrides IDollyControllerState slot 7
-    virtual void vfunc_8(int); // overrides IDollyControllerState slot 8
-    virtual void vfunc_9(); // overrides IDollyControllerState slot 9
+    virtual int vfunc_3(); // overrides IDollyControllerState slot 3
+    virtual float vfunc_4(int); // overrides IDollyControllerState slot 4
+    virtual float vfunc_5(int); // overrides IDollyControllerState slot 5
+    virtual int vfunc_6(); // overrides IDollyControllerState slot 6
+    virtual float vfunc_7(int); // overrides IDollyControllerState slot 7
+    virtual float vfunc_8(int); // overrides IDollyControllerState slot 8
+    virtual int vfunc_9(); // overrides IDollyControllerState slot 9
     virtual void vfunc_10(int); // overrides IDollyControllerState slot 10
-    virtual void vfunc_11(int); // overrides IDollyControllerState slot 11
+    virtual float vfunc_11(int); // overrides IDollyControllerState slot 11
+    void* f_04;
+    void* f_08;
+    void* f_0c;
+    void* f_10;
 };
 
 // .?AVDataHandlerRawLoader@@  vftable 0x425064 (6)
 class DataHandlerRawLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~DataHandlerRawLoader(); // overrides core::IRefCount slot 2
-    virtual void vfunc_5(int, int, int, int); // overrides content::SimpleChunkHandler slot 5
+    virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
 };
 
 // .?AVFEAnimation@@  vftable 0x40bfc0 (7)
@@ -4434,8 +4940,11 @@ public:
     virtual void vfunc_2(); // slot 2
     virtual void vfunc_3() = 0; // slot 3
     virtual void vfunc_4(int); // slot 4
-    virtual void vfunc_5(); // slot 5
+    virtual float vfunc_5(); // slot 5
     virtual void vfunc_6(); // slot 6
+    void* f_04;
+    char _pad_08[0x4];
+    void* f_0c;
 };
 
 // .?AVFEAnimationHolder@@  vftable 0x40c0ec (1)
@@ -4465,8 +4974,10 @@ public:
     virtual void vfunc_5(); // slot 5
     virtual void vfunc_6(int); // slot 6
     virtual void vfunc_7(int); // slot 7
-    virtual void vfunc_8(); // slot 8
-    virtual void vfunc_9(); // slot 9
+    virtual float vfunc_8(); // slot 8
+    virtual float vfunc_9(); // slot 9
+    char _pad_04[0x9c];
+    float f_a0;
 };
 
 // .?AVFEControl@@  vftable 0x40c42c (19)
@@ -4474,9 +4985,9 @@ class FEControl : public ::FEObject {
 public:
     virtual ~FEControl(); // overrides FEObject slot 2
     virtual void vfunc_4(); // overrides FEObject slot 4
-    virtual void vfunc_10(int, int); // slot 10
-    virtual void vfunc_11(int, int); // slot 11
-    virtual void vfunc_12(int, int); // slot 12
+    virtual char vfunc_10(int, int); // slot 10
+    virtual bool vfunc_11(int, int); // slot 11
+    virtual bool vfunc_12(int, int); // slot 12
     virtual void vfunc_13(int); // slot 13
     virtual void vfunc_14(int); // slot 14
     virtual void vfunc_15(); // slot 15
@@ -4506,13 +5017,13 @@ class FEContainer {
 public:
     virtual ~FEContainer(); // slot 0
     virtual void vfunc_1(int, int); // slot 1
-    virtual void vfunc_2(int, int); // slot 2
-    virtual void vfunc_3(int, int); // slot 3
+    virtual bool vfunc_2(int, int); // slot 2
+    virtual bool vfunc_3(int, int); // slot 3
     virtual void vfunc_4(); // slot 4
     virtual void vfunc_5(); // slot 5
     virtual void vfunc_6(); // slot 6
     virtual void vfunc_7(); // slot 7
-    virtual void vfunc_8(); // slot 8
+    virtual void* vfunc_8(); // slot 8
     virtual void vfunc_9(); // slot 9
     virtual void vfunc_10(); // slot 10
     virtual void vfunc_11(); // slot 11
@@ -4520,26 +5031,26 @@ public:
     virtual void vfunc_13(int); // slot 13
     virtual void vfunc_14(); // slot 14
     virtual void vfunc_15(); // slot 15
-    virtual void vfunc_16(int); // slot 16
-    virtual void vfunc_17(); // slot 17
+    virtual void vfunc_16(void*); // slot 16
+    virtual unsigned int vfunc_17(); // slot 17
     virtual void vfunc_18(int, int); // slot 18
     virtual void vfunc_19(int); // slot 19
     virtual void vfunc_20(int); // slot 20
     virtual void vfunc_21(int); // slot 21
-    virtual void vfunc_22(int); // slot 22
+    virtual int vfunc_22(int); // slot 22
     virtual void vfunc_23(int, int); // slot 23
-    virtual void vfunc_24(int, int); // slot 24
-    virtual void vfunc_25(int, int); // slot 25
-    virtual void vfunc_26(int, int); // slot 26
-    virtual void vfunc_27(int, int); // slot 27
-    virtual void vfunc_28(int, int); // slot 28
+    virtual unsigned int vfunc_24(unsigned int, unsigned int); // slot 24
+    virtual void* vfunc_25(void*, void*); // slot 25
+    virtual int vfunc_26(int, int); // slot 26
+    virtual int vfunc_27(int, int); // slot 27
+    virtual int vfunc_28(int, int); // slot 28
     virtual void vfunc_29(int, int); // slot 29
-    virtual void vfunc_30(int, int); // slot 30
+    virtual int vfunc_30(int, int); // slot 30
     virtual void vfunc_31(int, int); // slot 31
-    virtual void vfunc_32(int, int); // slot 32
-    virtual void vfunc_33(int, int); // slot 33
-    virtual void vfunc_34(); // slot 34
-    virtual void vfunc_35() = 0; // slot 35
+    virtual void* vfunc_32(int, int); // slot 32
+    virtual int vfunc_33(int, int); // slot 33
+    virtual int vfunc_34(); // slot 34
+    virtual int vfunc_35() = 0; // slot 35
     virtual void vfunc_36(int); // slot 36
     virtual void vfunc_37(int); // slot 37
     virtual void vfunc_38(int); // slot 38
@@ -4556,7 +5067,16 @@ public:
     virtual void vfunc_49(int, int); // slot 49
     virtual void vfunc_50(int, int); // slot 50
     virtual void vfunc_51(); // slot 51
-    virtual void vfunc_52(int, int); // slot 52
+    virtual void vfunc_52(void*, int); // slot 52
+    void* f_04;
+    char _pad_08[0x40];
+    void* f_48;
+    int f_4c;
+    char _pad_50[0x5fc];
+    int f_64c;
+    char _pad_650[0x200];
+    int f_850;
+    int f_854;
 };
 
 // .?AVIControllerManager@@  vftable 0x4060fc (2)
@@ -4578,11 +5098,13 @@ class FEDialog : public ::FEContainer {
 public:
     virtual ~FEDialog(); // overrides FEContainer slot 0
     virtual void vfunc_1(int, int); // overrides FEContainer slot 1
-    virtual void vfunc_2(int, int); // overrides FEContainer slot 2
-    virtual void vfunc_3(int, int); // overrides FEContainer slot 3
+    virtual bool vfunc_2(int, int); // overrides FEContainer slot 2
+    virtual bool vfunc_3(int, int); // overrides FEContainer slot 3
     virtual void vfunc_10(); // overrides FEContainer slot 10
     virtual void vfunc_11(); // overrides FEContainer slot 11
-    virtual void vfunc_35(); // overrides FEContainer slot 35
+    virtual int vfunc_35(); // overrides FEContainer slot 35
+    char _pad_858[0x150];
+    unsigned char f_9a8;
 };
 
 // .?AVFEDoAction@@  vftable 0x40bfa0 (5)
@@ -4592,7 +5114,12 @@ public:
     virtual void vfunc_1() = 0; // slot 1
     virtual void vfunc_2(); // slot 2
     virtual void vfunc_3(); // slot 3
-    virtual void vfunc_4(int, int, int, int); // slot 4
+    virtual bool vfunc_4(int, int, int, int); // slot 4
+    int f_04;
+    int f_08;
+    int f_0c;
+    char _pad_10[0x4];
+    char f_14;
 };
 
 // .?AVFEDoAnimation@@  vftable 0x40c410 (6)
@@ -4603,6 +5130,13 @@ public:
     virtual void vfunc_2(); // overrides FEDoAction slot 2
     virtual void vfunc_3(); // overrides FEDoAction slot 3
     virtual void vfunc_5(); // slot 5
+    char _pad_18[0x1c];
+    void* f_34;
+    int f_38;
+    float f_3c;
+    float f_40;
+    char _pad_44[0xc];
+    char f_50;
 };
 
 // .?AVFEDoBackMenu@@  vftable 0x40c0a4 (5)
@@ -4617,6 +5151,9 @@ class FEDoBackScreen : public ::FEDoAction {
 public:
     virtual ~FEDoBackScreen(); // overrides FEDoAction slot 0
     virtual void vfunc_1(); // overrides FEDoAction slot 1
+    char _pad_18[0x1c];
+    unsigned char f_34;
+    unsigned char f_35;
 };
 
 // .?AVFEDoFunction@@  vftable 0x40c044 (5)
@@ -4624,6 +5161,10 @@ class FEDoFunction : public ::FEDoAction {
 public:
     virtual ~FEDoFunction(); // overrides FEDoAction slot 0
     virtual void vfunc_1(); // overrides FEDoAction slot 1
+    char _pad_18[0x1c];
+    void* f_34;
+    int f_38;
+    int f_3c;
 };
 
 // .?AVFEDoMenu@@  vftable 0x40c05c (5)
@@ -4640,6 +5181,9 @@ public:
     virtual void vfunc_1(); // overrides FEDoAction slot 1
     virtual void vfunc_2(); // overrides FEDoAction slot 2
     virtual void vfunc_5(); // slot 5
+    char _pad_18[0x1c];
+    void* f_34;
+    int f_38;
 };
 
 // .?AVFEDoPopDialog@@  vftable 0x40c08c (5)
@@ -4676,6 +5220,11 @@ public:
     virtual ~FEDoWait(); // overrides FEDoAction slot 0
     virtual void vfunc_1(); // overrides FEDoAction slot 1
     virtual void vfunc_2(); // overrides FEDoAction slot 2
+    char _pad_18[0x1c];
+    float f_34;
+    int f_38;
+    void* f_3c;
+    unsigned char f_40;
 };
 
 // .?AVFELayout@@  vftable 0x40c0f4 (21)
@@ -4686,21 +5235,21 @@ public:
     virtual void vfunc_2() = 0; // slot 2
     virtual void vfunc_3(int); // slot 3
     virtual void vfunc_4(int); // slot 4
-    virtual void vfunc_5(int, int) = 0; // slot 5
-    virtual void vfunc_6(int, int) = 0; // slot 6
-    virtual void vfunc_7(int, int) = 0; // slot 7
+    virtual bool vfunc_5(int, int) = 0; // slot 5
+    virtual bool vfunc_6(int, int) = 0; // slot 6
+    virtual bool vfunc_7(int, int) = 0; // slot 7
     virtual void vfunc_8(int) = 0; // slot 8
     virtual void vfunc_9(int) = 0; // slot 9
     virtual void vfunc_10(int) = 0; // slot 10
     virtual void vfunc_11() = 0; // slot 11
     virtual void vfunc_12() = 0; // slot 12
-    virtual void vfunc_13(int) = 0; // slot 13
-    virtual void vfunc_14(int, int) = 0; // slot 14
+    virtual bool vfunc_13(int) = 0; // slot 13
+    virtual int vfunc_14(int, int) = 0; // slot 14
     virtual void vfunc_15(int, int) = 0; // slot 15
-    virtual void vfunc_16(int) = 0; // slot 16
-    virtual void vfunc_17(int) = 0; // slot 17
-    virtual void vfunc_18(int) = 0; // slot 18
-    virtual void vfunc_19() = 0; // slot 19
+    virtual float vfunc_16(int) = 0; // slot 16
+    virtual float vfunc_17(int) = 0; // slot 17
+    virtual void vfunc_18(void*) = 0; // slot 18
+    virtual int vfunc_19() = 0; // slot 19
     virtual void vfunc_20(); // slot 20
 };
 
@@ -4711,7 +5260,7 @@ public:
     virtual void vfunc_3(); // overrides FEObject slot 3
     virtual void vfunc_4(); // overrides FEObject slot 4
     virtual void vfunc_5(); // overrides FEObject slot 5
-    virtual void vfunc_12(int, int); // overrides FEControl slot 12
+    virtual bool vfunc_12(int, int); // overrides FEControl slot 12
     virtual void vfunc_13(int); // overrides FEControl slot 13
     virtual void vfunc_14(int); // overrides FEControl slot 14
 };
@@ -4721,30 +5270,30 @@ class FEScreenBase : public ::FEContainer {
 public:
     virtual ~FEScreenBase(); // overrides FEContainer slot 0
     virtual void vfunc_1(int, int); // overrides FEContainer slot 1
-    virtual void vfunc_2(int, int); // overrides FEContainer slot 2
-    virtual void vfunc_3(int, int); // overrides FEContainer slot 3
-    virtual void vfunc_8(); // overrides FEContainer slot 8
+    virtual bool vfunc_2(int, int); // overrides FEContainer slot 2
+    virtual bool vfunc_3(int, int); // overrides FEContainer slot 3
+    virtual void* vfunc_8(); // overrides FEContainer slot 8
     virtual void vfunc_10(); // overrides FEContainer slot 10
     virtual void vfunc_11(); // overrides FEContainer slot 11
     virtual void vfunc_14(); // overrides FEContainer slot 14
     virtual void vfunc_15(); // overrides FEContainer slot 15
     virtual void vfunc_21(int); // overrides FEContainer slot 21
-    virtual void vfunc_22(int); // overrides FEContainer slot 22
+    virtual int vfunc_22(int); // overrides FEContainer slot 22
     virtual void vfunc_23(int, int); // overrides FEContainer slot 23
-    virtual void vfunc_34(); // overrides FEContainer slot 34
-    virtual void vfunc_35(); // overrides FEContainer slot 35
+    virtual int vfunc_34(); // overrides FEContainer slot 34
+    virtual int vfunc_35(); // overrides FEContainer slot 35
 };
 
 // .?AVFEMenuBase@@  vftable 0x40c924 (55)
 class FEMenuBase : public ::FEScreenBase {
 public:
     virtual ~FEMenuBase(); // overrides FEContainer slot 0
-    virtual void vfunc_3(int, int); // overrides FEContainer slot 3
-    virtual void vfunc_8(); // overrides FEContainer slot 8
-    virtual void vfunc_34(); // overrides FEContainer slot 34
-    virtual void vfunc_35(); // overrides FEContainer slot 35
-    virtual void vfunc_53(int); // slot 53
-    virtual void vfunc_54(int); // slot 54
+    virtual bool vfunc_3(int, int); // overrides FEContainer slot 3
+    virtual void* vfunc_8(); // overrides FEContainer slot 8
+    virtual int vfunc_34(); // overrides FEContainer slot 34
+    virtual int vfunc_35(); // overrides FEContainer slot 35
+    virtual void vfunc_53(void*); // slot 53
+    virtual void vfunc_54(void*); // slot 54
 };
 
 // .?AVFEPoseAnimation@@  vftable 0x40c390 (7)
@@ -4754,7 +5303,7 @@ public:
     virtual void vfunc_2(); // overrides FEAnimation slot 2
     virtual void vfunc_3(); // overrides FEAnimation slot 3
     virtual void vfunc_4(int); // overrides FEAnimation slot 4
-    virtual void vfunc_5(); // overrides FEAnimation slot 5
+    virtual float vfunc_5(); // overrides FEAnimation slot 5
 };
 
 // .?AVFEParticleAnimation@@  vftable 0x40c3d0 (7)
@@ -4769,10 +5318,14 @@ public:
 class FEParticleSystem {
 public:
     virtual ~FEParticleSystem(); // slot 0
-    virtual void vfunc_1(int); // slot 1
+    virtual void vfunc_1(void*); // slot 1
     virtual void vfunc_2(); // slot 2
     virtual void vfunc_3(); // slot 3
-    virtual void vfunc_4(); // slot 4
+    virtual int vfunc_4(); // slot 4
+    char _pad_04[0x20];
+    int f_24;
+    void* f_28;
+    void* f_2c;
 };
 
 // .?AVFEPoseAnimationInvisible@@  vftable 0x40cba0 (7)
@@ -4796,10 +5349,12 @@ public:
     virtual void vfunc_3(); // overrides FEObject slot 3
     virtual void vfunc_4(); // overrides FEObject slot 4
     virtual void vfunc_5(); // overrides FEObject slot 5
-    virtual void vfunc_10(int, int); // overrides FEControl slot 10
-    virtual void vfunc_12(int, int); // overrides FEControl slot 12
+    virtual char vfunc_10(int, int); // overrides FEControl slot 10
+    virtual bool vfunc_12(int, int); // overrides FEControl slot 12
     virtual void vfunc_13(int); // overrides FEControl slot 13
     virtual void vfunc_14(int); // overrides FEControl slot 14
+    char _pad_a4[0xd4];
+    int f_178;
 };
 
 // .?AVFETextureAnimation@@  vftable 0x40c3f0 (7)
@@ -4813,9 +5368,9 @@ public:
 class FEThingsBase {
 public:
     class ParseFunctor;
-    virtual void vfunc_0(int, int); // slot 0
-    virtual void vfunc_1(int, int); // slot 1
-    virtual void vfunc_2(int, int); // slot 2
+    virtual bool vfunc_0(int, int); // slot 0
+    virtual bool vfunc_1(int, int); // slot 1
+    virtual bool vfunc_2(int, int); // slot 2
     virtual void vfunc_3(int); // slot 3
     virtual void vfunc_4(); // slot 4
     virtual void vfunc_5(); // slot 5
@@ -4824,7 +5379,7 @@ public:
     virtual void vfunc_8(); // slot 8
     virtual void vfunc_9(); // slot 9
     virtual void vfunc_10(); // slot 10
-    virtual void vfunc_11(int); // slot 11
+    virtual void vfunc_11(void*); // slot 11
     virtual void vfunc_12(int); // slot 12
     virtual void vfunc_13(); // slot 13
     virtual void vfunc_14(int); // slot 14
@@ -4851,35 +5406,60 @@ public:
     virtual void vfunc_35(int, int, int, int); // slot 35
     virtual void vfunc_36(int, int, int, int); // slot 36
     virtual void vfunc_37(int, int, int); // slot 37
-    virtual void vfunc_38(int, int); // slot 38
+    virtual void vfunc_38(void*, void*); // slot 38
     virtual void vfunc_39(int, int, int); // slot 39
     virtual void vfunc_40() = 0; // slot 40
     virtual void vfunc_41() = 0; // slot 41
     virtual void vfunc_42(int) = 0; // slot 42
-    virtual void vfunc_43() = 0; // slot 43
-    virtual void vfunc_44() = 0; // slot 44
-    virtual void vfunc_45() = 0; // slot 45
-    virtual void vfunc_46(int) = 0; // slot 46
+    virtual unsigned int vfunc_43() = 0; // slot 43
+    virtual int vfunc_44() = 0; // slot 44
+    virtual unsigned int vfunc_45() = 0; // slot 45
+    virtual void vfunc_46(unsigned long) = 0; // slot 46
     virtual void vfunc_47(); // slot 47
     virtual void vfunc_48(int); // slot 48
     virtual void vfunc_49(int); // slot 49
-    virtual void vfunc_50(int, int); // slot 50
-    virtual void vfunc_51(int, int); // slot 51
+    virtual int vfunc_50(int, int); // slot 50
+    virtual int vfunc_51(int, int); // slot 51
     virtual void vfunc_52(int); // slot 52
-    virtual void vfunc_53(int); // slot 53
+    virtual int vfunc_53(int); // slot 53
     virtual void vfunc_54(int); // slot 54
-    virtual void vfunc_55(int); // slot 55
-    virtual void vfunc_56(int); // slot 56
-    virtual void vfunc_57(int); // slot 57
-    virtual void vfunc_58(int); // slot 58
-    virtual void vfunc_59(int); // slot 59
+    virtual int vfunc_55(int); // slot 55
+    virtual void* vfunc_56(int); // slot 56
+    virtual int vfunc_57(int); // slot 57
+    virtual int vfunc_58(void*); // slot 58
+    virtual int vfunc_59(int); // slot 59
     virtual void vfunc_60(int); // slot 60
     virtual void vfunc_61(int); // slot 61
-    virtual void vfunc_62(int); // slot 62
-    virtual void vfunc_63(int, int); // slot 63
+    virtual int vfunc_62(int); // slot 62
+    virtual void vfunc_63(unsigned int, unsigned int); // slot 63
     virtual void vfunc_64(int, int, int) = 0; // slot 64
     virtual void vfunc_65(); // slot 65
     virtual void vfunc_66(); // slot 66
+    char _pad_04[0x1708];
+    unsigned char f_170c;
+    char _pad_170d[0x4f];
+    void* f_175c;
+    void* f_1760;
+    char _pad_1764[0x4];
+    int f_1768;
+    int f_176c;
+    int f_1770;
+    char _pad_1774[0x3c];
+    int f_17b0;
+    int f_17b4;
+    char _pad_17b8[0x3c];
+    int f_17f4;
+    int f_17f8;
+    void* f_17fc;
+    char _pad_1800[0x30];
+    int f_1830;
+    int f_1834;
+    int f_1838;
+    int f_183c;
+    char _pad_1840[0x9d0];
+    unsigned int f_2210;
+    unsigned int f_2214;
+    void* f_2218;
 };
 
 // .?AVFEThings@@  vftable 0x40bd24 (68)
@@ -4888,20 +5468,26 @@ public:
     virtual void vfunc_40(); // overrides FEThingsBase slot 40
     virtual void vfunc_41(); // overrides FEThingsBase slot 41
     virtual void vfunc_42(int); // overrides FEThingsBase slot 42
-    virtual void vfunc_43(); // overrides FEThingsBase slot 43
-    virtual void vfunc_44(); // overrides FEThingsBase slot 44
-    virtual void vfunc_45(); // overrides FEThingsBase slot 45
-    virtual void vfunc_46(int); // overrides FEThingsBase slot 46
+    virtual unsigned int vfunc_43(); // overrides FEThingsBase slot 43
+    virtual int vfunc_44(); // overrides FEThingsBase slot 44
+    virtual unsigned int vfunc_45(); // overrides FEThingsBase slot 45
+    virtual void vfunc_46(unsigned long); // overrides FEThingsBase slot 46
     virtual void vfunc_48(int); // overrides FEThingsBase slot 48
     virtual void vfunc_49(int); // overrides FEThingsBase slot 49
     virtual void vfunc_64(int, int, int); // overrides FEThingsBase slot 64
     virtual ~FEThings(); // slot 67
+    char _pad_221c[0x8];
+    void* f_2224;
 };
 
 // .?AVParseFunctor@FEThingsBase@@  vftable 0x40bfb8 (1)
 class FEThingsBase::ParseFunctor {
 public:
     virtual void vfunc_0(int, int); // slot 0
+    void* f_04;
+    char _pad_08[0x4];
+    int f_0c;
+    int f_10;
 };
 
 // template family Function0: 2 instantiation(s), 0 with their own specialization
@@ -4936,6 +5522,8 @@ class Function2 : public ::Function {
 public:
     virtual ~Function2(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    char _pad_04[0x18];
+    void* f_1c;
 };
 
 // template family Function3: 1 instantiation(s), 0 with their own specialization
@@ -4965,6 +5553,8 @@ class Function5 : public ::Function {
 public:
     virtual ~Function5(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    char _pad_04[0x18];
+    int f_1c;
 };
 
 // template family Function7: 1 instantiation(s), 0 with their own specialization
@@ -4974,6 +5564,8 @@ class Function7 : public ::Function {
 public:
     virtual ~Function7(); // overrides Function slot 0
     virtual void vfunc_2(void*, void*, void*); // overrides Function slot 2
+    char _pad_04[0x18];
+    int f_1c;
 };
 
 // .?AVHSlider@@  vftable 0x40c48c (19)
@@ -4986,12 +5578,26 @@ public:
     virtual void vfunc_5(); // overrides FEObject slot 5
     virtual void vfunc_6(int); // overrides FEObject slot 6
     virtual void vfunc_7(int); // overrides FEObject slot 7
-    virtual void vfunc_9(); // overrides FEObject slot 9
-    virtual void vfunc_10(int, int); // overrides FEControl slot 10
-    virtual void vfunc_11(int, int); // overrides FEControl slot 11
-    virtual void vfunc_12(int, int); // overrides FEControl slot 12
+    virtual float vfunc_9(); // overrides FEObject slot 9
+    virtual char vfunc_10(int, int); // overrides FEControl slot 10
+    virtual bool vfunc_11(int, int); // overrides FEControl slot 11
+    virtual bool vfunc_12(int, int); // overrides FEControl slot 12
     virtual void vfunc_13(int); // overrides FEControl slot 13
     virtual void vfunc_14(int); // overrides FEControl slot 14
+    char _pad_a4[0xac];
+    int f_150;
+    int f_154;
+    char _pad_158[0x4];
+    float f_15c;
+    float f_160;
+    char _pad_164[0x4];
+    int f_168;
+    char _pad_16c[0x4];
+    int f_170;
+    int f_174;
+    float f_178;
+    char _pad_17c[0x4];
+    int f_180;
 };
 
 // .?AVHUDOverlay@@  vftable 0x40a498 (6)
@@ -5012,18 +5618,24 @@ public:
     virtual ~ImageSelector(); // overrides FEObject slot 2
     virtual void vfunc_3(); // overrides FEObject slot 3
     virtual void vfunc_5(); // overrides FEObject slot 5
-    virtual void vfunc_8(); // overrides FEObject slot 8
-    virtual void vfunc_9(); // overrides FEObject slot 9
-    virtual void vfunc_10(int, int); // overrides FEControl slot 10
-    virtual void vfunc_11(int, int); // overrides FEControl slot 11
-    virtual void vfunc_12(int, int); // overrides FEControl slot 12
+    virtual float vfunc_8(); // overrides FEObject slot 8
+    virtual float vfunc_9(); // overrides FEObject slot 9
+    virtual char vfunc_10(int, int); // overrides FEControl slot 10
+    virtual bool vfunc_11(int, int); // overrides FEControl slot 11
+    virtual bool vfunc_12(int, int); // overrides FEControl slot 12
     virtual void vfunc_13(int); // overrides FEControl slot 13
     virtual void vfunc_14(int); // overrides FEControl slot 14
     virtual void vfunc_19(int, int, int, int, int); // slot 19
     virtual void vfunc_20(int, int); // slot 20
     virtual void vfunc_21(); // slot 21
     virtual void vfunc_22(int); // slot 22
-    virtual void vfunc_23(); // slot 23
+    virtual int vfunc_23(); // slot 23
+    char _pad_a4[0xa4];
+    int f_148;
+    int f_14c;
+    char _pad_150[0x158];
+    int f_2a8;
+    int f_2ac;
 };
 
 // .?AVMapThing@@  vftable 0x40c5c4 (15)
@@ -5032,11 +5644,13 @@ public:
     virtual ~MapThing(); // overrides FEObject slot 2
     virtual void vfunc_3(); // overrides FEObject slot 3
     virtual void vfunc_5(); // overrides FEObject slot 5
-    virtual void vfunc_10(int); // slot 10
+    virtual void vfunc_10(unsigned int); // slot 10
     virtual void vfunc_11(int); // slot 11
-    virtual void vfunc_12(); // slot 12
+    virtual int vfunc_12(); // slot 12
     virtual void vfunc_13(); // slot 13
-    virtual void vfunc_14(); // slot 14
+    virtual int vfunc_14(); // slot 14
+    char _pad_a4[0x74];
+    unsigned int f_118;
 };
 
 // .?AVTextSelector@@  vftable 0x40c4e4 (27)
@@ -5048,25 +5662,42 @@ public:
     virtual void vfunc_5(); // overrides FEObject slot 5
     virtual void vfunc_6(int); // overrides FEObject slot 6
     virtual void vfunc_7(int); // overrides FEObject slot 7
-    virtual void vfunc_9(); // overrides FEObject slot 9
-    virtual void vfunc_12(int, int); // overrides FEControl slot 12
+    virtual float vfunc_9(); // overrides FEObject slot 9
+    virtual bool vfunc_12(int, int); // overrides FEControl slot 12
     virtual void vfunc_13(int); // overrides FEControl slot 13
     virtual void vfunc_14(int); // overrides FEControl slot 14
     virtual void vfunc_19(int, int, int); // slot 19
     virtual void vfunc_20(int, int); // slot 20
-    virtual void vfunc_21(int, int); // slot 21
-    virtual void vfunc_22(int); // slot 22
+    virtual void vfunc_21(int, unsigned char); // slot 21
+    virtual void vfunc_22(unsigned int); // slot 22
     virtual void vfunc_23(int); // slot 23
     virtual void vfunc_24(int); // slot 24
     virtual void vfunc_25(int); // slot 25
     virtual void vfunc_26(int, int); // slot 26
+    char _pad_a4[0xa4];
+    int f_148;
+    int f_14c;
+    char _pad_150[0x4];
+    int f_154;
+    char _pad_158[0x1c00];
+    int f_1d58;
+    char _pad_1d5c[0x4];
+    float f_1d60;
+    char _pad_1d64[0x4];
+    unsigned int f_1d68;
+    int f_1d6c;
+    int f_1d70;
+    char _pad_1d74[0x14];
+    void* f_1d88;
+    char _pad_1d8c[0x8];
+    int f_1d94;
 };
 
 // .?AVMenuSelector@@  vftable 0x40c554 (27)
 class MenuSelector : public ::TextSelector {
 public:
     virtual ~MenuSelector(); // overrides FEObject slot 2
-    virtual void vfunc_12(int, int); // overrides FEControl slot 12
+    virtual bool vfunc_12(int, int); // overrides FEControl slot 12
     virtual void vfunc_25(int); // overrides TextSelector slot 25
 };
 
@@ -5079,16 +5710,21 @@ public:
     virtual void vfunc_3(int); // overrides Overlay slot 3
     virtual void vfunc_4(); // overrides Overlay slot 4
     virtual void vfunc_5(int); // overrides Overlay slot 5
+    char _pad_04[0x7b8];
+    char f_7bc;
 };
 
 // .?AVMyBufferStream@@  vftable 0x424ff0 (5)
 class MyBufferStream : public ::Tokenizer::Stream {
 public:
     virtual ~MyBufferStream(); // overrides Tokenizer::Stream slot 0
-    virtual void vfunc_1(int); // overrides Tokenizer::Stream slot 1
+    virtual bool vfunc_1(void*); // overrides Tokenizer::Stream slot 1
     virtual void vfunc_2(); // overrides Tokenizer::Stream slot 2
-    virtual void vfunc_3(int, int); // overrides Tokenizer::Stream slot 3
-    virtual void vfunc_4(); // overrides Tokenizer::Stream slot 4
+    virtual int vfunc_3(void*, int); // overrides Tokenizer::Stream slot 3
+    virtual bool vfunc_4(); // overrides Tokenizer::Stream slot 4
+    char _pad_04[0x4];
+    int f_08;
+    int f_0c;
 };
 
 // .?AUMyControllerCallback@@  vftable 0x400870 (1)
@@ -5100,17 +5736,20 @@ public:
 // .?AUMyDriveErrorCallback@@  vftable 0x40088c (1)
 struct MyDriveErrorCallback : public ::core::IDriveErrorCallback {
 public:
-    virtual void vfunc_0(int, int, int, int, int); // overrides core::IDriveErrorCallback slot 0
+    virtual bool vfunc_0(void*, void*, void*, void*, void*); // overrides core::IDriveErrorCallback slot 0
 };
 
 // .?AVMyFileStream@@  vftable 0x42502c (5)
 class MyFileStream : public ::Tokenizer::Stream {
 public:
     virtual ~MyFileStream(); // overrides Tokenizer::Stream slot 0
-    virtual void vfunc_1(int); // overrides Tokenizer::Stream slot 1
+    virtual bool vfunc_1(void*); // overrides Tokenizer::Stream slot 1
     virtual void vfunc_2(); // overrides Tokenizer::Stream slot 2
-    virtual void vfunc_3(int, int); // overrides Tokenizer::Stream slot 3
-    virtual void vfunc_4(); // overrides Tokenizer::Stream slot 4
+    virtual int vfunc_3(void*, int); // overrides Tokenizer::Stream slot 3
+    virtual bool vfunc_4(); // overrides Tokenizer::Stream slot 4
+    void* f_04;
+    int f_08;
+    int f_0c;
 };
 
 // .?AVNamedValue@@  vftable 0x40cdc4 (2)
@@ -5123,12 +5762,20 @@ public:
 class NamedValueFloat : public ::NamedValue {
 public:
     virtual void vfunc_1(); // overrides NamedValue slot 1
+    char _pad_04[0x3c];
+    float f_40;
+    float f_44;
+    void* f_48;
 };
 
 // .?AVNamedValueInt@@  vftable 0x40cddc (2)
 class NamedValueInt : public ::NamedValue {
 public:
     virtual void vfunc_1(); // overrides NamedValue slot 1
+    char _pad_04[0x3c];
+    int f_40;
+    int f_44;
+    void* f_48;
 };
 
 // .?AVRDLFile@@  vftable 0x42c134 (2)
@@ -5149,6 +5796,8 @@ class RDLReader : public ::RDLFile {
 public:
     virtual void vfunc_0(int); // overrides RDLFile slot 0
     virtual void vfunc_1(); // overrides RDLFile slot 1
+    void* f_04;
+    void* f_08;
 };
 
 // .?AVSaveGameManagerBase@@  vftable 0x40ce04 (2)
@@ -5164,23 +5813,31 @@ public:
     virtual void vfunc_0(); // overrides FELayout slot 0
     virtual void vfunc_1(); // overrides FELayout slot 1
     virtual void vfunc_2(); // overrides FELayout slot 2
-    virtual void vfunc_5(int, int); // overrides FELayout slot 5
-    virtual void vfunc_6(int, int); // overrides FELayout slot 6
-    virtual void vfunc_7(int, int); // overrides FELayout slot 7
+    virtual bool vfunc_5(int, int); // overrides FELayout slot 5
+    virtual bool vfunc_6(int, int); // overrides FELayout slot 6
+    virtual bool vfunc_7(int, int); // overrides FELayout slot 7
     virtual void vfunc_8(int); // overrides FELayout slot 8
     virtual void vfunc_9(int); // overrides FELayout slot 9
     virtual void vfunc_10(int); // overrides FELayout slot 10
     virtual void vfunc_11(); // overrides FELayout slot 11
     virtual void vfunc_12(); // overrides FELayout slot 12
-    virtual void vfunc_13(int); // overrides FELayout slot 13
-    virtual void vfunc_14(int, int); // overrides FELayout slot 14
+    virtual bool vfunc_13(int); // overrides FELayout slot 13
+    virtual int vfunc_14(int, int); // overrides FELayout slot 14
     virtual void vfunc_15(int, int); // overrides FELayout slot 15
-    virtual void vfunc_16(int); // overrides FELayout slot 16
-    virtual void vfunc_17(int); // overrides FELayout slot 17
-    virtual void vfunc_18(int); // overrides FELayout slot 18
-    virtual void vfunc_19(); // overrides FELayout slot 19
+    virtual float vfunc_16(int); // overrides FELayout slot 16
+    virtual float vfunc_17(int); // overrides FELayout slot 17
+    virtual void vfunc_18(void*); // overrides FELayout slot 18
+    virtual int vfunc_19(); // overrides FELayout slot 19
     virtual ~SingleLayout(); // slot 21
-    virtual void vfunc_22(); // slot 22
+    virtual int vfunc_22(); // slot 22
+    char _pad_04[0x4];
+    void* f_08;
+    char _pad_0c[0x28];
+    float f_34;
+    float f_38;
+    char _pad_3c[0x4];
+    void* f_40;
+    void* f_44;
 };
 
 // .?AVTextButton@@  vftable 0x40cb4c (19)
@@ -5188,7 +5845,7 @@ class TextButton : public ::FEControl {
 public:
     virtual ~TextButton(); // overrides FEObject slot 2
     virtual void vfunc_5(); // overrides FEObject slot 5
-    virtual void vfunc_12(int, int); // overrides FEControl slot 12
+    virtual bool vfunc_12(int, int); // overrides FEControl slot 12
     virtual void vfunc_13(int); // overrides FEControl slot 13
     virtual void vfunc_14(int); // overrides FEControl slot 14
 };
@@ -5207,13 +5864,19 @@ public:
     virtual ~TextTable(); // overrides FEObject slot 2
     virtual void vfunc_3(); // overrides FEObject slot 3
     virtual void vfunc_5(); // overrides FEObject slot 5
-    virtual void vfunc_8(); // overrides FEObject slot 8
-    virtual void vfunc_9(); // overrides FEObject slot 9
-    virtual void vfunc_10(int, int); // overrides FEControl slot 10
-    virtual void vfunc_11(int, int); // overrides FEControl slot 11
-    virtual void vfunc_12(int, int); // overrides FEControl slot 12
+    virtual float vfunc_8(); // overrides FEObject slot 8
+    virtual float vfunc_9(); // overrides FEObject slot 9
+    virtual char vfunc_10(int, int); // overrides FEControl slot 10
+    virtual bool vfunc_11(int, int); // overrides FEControl slot 11
+    virtual bool vfunc_12(int, int); // overrides FEControl slot 12
     virtual void vfunc_13(int); // overrides FEControl slot 13
     virtual void vfunc_14(int); // overrides FEControl slot 14
+    char _pad_a4[0xa4];
+    int f_148;
+    char _pad_14c[0x4];
+    void* f_150;
+    void* f_154;
+    void* f_158;
 };
 
 // .?AVTextWindow@@  vftable 0x40c64c (19)
@@ -5222,20 +5885,24 @@ public:
     virtual ~TextWindow(); // overrides FEObject slot 2
     virtual void vfunc_3(); // overrides FEObject slot 3
     virtual void vfunc_5(); // overrides FEObject slot 5
-    virtual void vfunc_8(); // overrides FEObject slot 8
-    virtual void vfunc_9(); // overrides FEObject slot 9
-    virtual void vfunc_10(int, int); // overrides FEControl slot 10
-    virtual void vfunc_11(int, int); // overrides FEControl slot 11
-    virtual void vfunc_12(int, int); // overrides FEControl slot 12
+    virtual float vfunc_8(); // overrides FEObject slot 8
+    virtual float vfunc_9(); // overrides FEObject slot 9
+    virtual char vfunc_10(int, int); // overrides FEControl slot 10
+    virtual bool vfunc_11(int, int); // overrides FEControl slot 11
+    virtual bool vfunc_12(int, int); // overrides FEControl slot 12
     virtual void vfunc_13(int); // overrides FEControl slot 13
     virtual void vfunc_14(int); // overrides FEControl slot 14
+    char _pad_a4[0xa4];
+    int f_148;
+    char _pad_14c[0x4];
+    void* f_150;
 };
 
 // .?AVTransitionsLoader@@  vftable 0x425c28 (6)
 class TransitionsLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~TransitionsLoader(); // overrides core::IRefCount slot 2
-    virtual void vfunc_5(int, int, int, int); // overrides content::SimpleChunkHandler slot 5
+    virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
 };
 
 // .?AVVScroll@@  vftable 0x40c1ac (22)
@@ -5244,22 +5911,31 @@ public:
     virtual void vfunc_0(); // overrides FELayout slot 0
     virtual void vfunc_1(); // overrides FELayout slot 1
     virtual void vfunc_2(); // overrides FELayout slot 2
-    virtual void vfunc_5(int, int); // overrides FELayout slot 5
-    virtual void vfunc_6(int, int); // overrides FELayout slot 6
-    virtual void vfunc_7(int, int); // overrides FELayout slot 7
+    virtual bool vfunc_5(int, int); // overrides FELayout slot 5
+    virtual bool vfunc_6(int, int); // overrides FELayout slot 6
+    virtual bool vfunc_7(int, int); // overrides FELayout slot 7
     virtual void vfunc_8(int); // overrides FELayout slot 8
     virtual void vfunc_9(int); // overrides FELayout slot 9
     virtual void vfunc_10(int); // overrides FELayout slot 10
     virtual void vfunc_11(); // overrides FELayout slot 11
     virtual void vfunc_12(); // overrides FELayout slot 12
-    virtual void vfunc_13(int); // overrides FELayout slot 13
-    virtual void vfunc_14(int, int); // overrides FELayout slot 14
+    virtual bool vfunc_13(int); // overrides FELayout slot 13
+    virtual int vfunc_14(int, int); // overrides FELayout slot 14
     virtual void vfunc_15(int, int); // overrides FELayout slot 15
-    virtual void vfunc_16(int); // overrides FELayout slot 16
-    virtual void vfunc_17(int); // overrides FELayout slot 17
-    virtual void vfunc_18(int); // overrides FELayout slot 18
-    virtual void vfunc_19(); // overrides FELayout slot 19
+    virtual float vfunc_16(int); // overrides FELayout slot 16
+    virtual float vfunc_17(int); // overrides FELayout slot 17
+    virtual void vfunc_18(void*); // overrides FELayout slot 18
+    virtual int vfunc_19(); // overrides FELayout slot 19
     virtual ~VScroll(); // slot 21
+    char _pad_04[0x30];
+    float f_34;
+    float f_38;
+    char _pad_3c[0x204];
+    int f_240;
+    void* f_244;
+    int f_248;
+    char _pad_24c[0x1c];
+    int f_268;
 };
 
 // .?AUsControllerInputPointCallback@@  vftable 0x405fac (1)
@@ -5280,6 +5956,7 @@ struct sSubtitleManagerCallback : public ::sSubtitleCallback {
 public:
     virtual void vfunc_0(int, int); // overrides sSubtitleCallback slot 0
     virtual void vfunc_1(int, int); // overrides sSubtitleCallback slot 1
+    void* f_04;
 };
 
 

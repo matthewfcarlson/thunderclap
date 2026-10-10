@@ -111,10 +111,10 @@ struct ICementLibrary : public ::core::IRefCount {
 public:
     virtual void vfunc_3_ICementLibrary() = 0; // slot 3
     virtual void vfunc_4() = 0; // slot 4
-    virtual void vfunc_5(int, int) = 0; // slot 5
-    virtual void vfunc_6() = 0; // slot 6
+    virtual void vfunc_5(void*, int) = 0; // slot 5
+    virtual bool vfunc_6() = 0; // slot 6
     virtual void vfunc_7(int, int, int, int, int, int) = 0; // slot 7
-    virtual void vfunc_8(int, int, int, int, int, int) = 0; // slot 8
+    virtual void vfunc_8(void*, int, int, int, int, int) = 0; // slot 8
     virtual ~ICementLibrary() = 0; // overrides core::IRefCount slot 2
 };
 
@@ -129,7 +129,7 @@ public:
 class Object : public ::core::BaseObject {
 public:
     virtual ~Object(); // overrides core::BaseObject slot 0
-    char _pad_04[0x4]; // size 0x8 proven by a derived class's base offset
+    int f_04;
 };
 
 // .?AUIMutable@core@@  vftable 0x42b850 (2)
@@ -153,34 +153,39 @@ public:
     virtual ~CementLibrary(); // overrides core::IRefCount slot 2
     virtual void vfunc_3_ICementLibrary(); // overrides core::ICementLibrary slot 3
     virtual void vfunc_4(); // overrides core::ICementLibrary slot 4
-    virtual void vfunc_5(int, int); // overrides core::ICementLibrary slot 5
-    virtual void vfunc_6(); // overrides core::ICementLibrary slot 6
+    virtual void vfunc_5(void*, int); // overrides core::ICementLibrary slot 5
+    virtual bool vfunc_6(); // overrides core::ICementLibrary slot 6
     virtual void vfunc_7(int, int, int, int, int, int); // overrides core::ICementLibrary slot 7
-    virtual void vfunc_8(int, int, int, int, int, int); // overrides core::ICementLibrary slot 8
+    virtual void vfunc_8(void*, int, int, int, int, int); // overrides core::ICementLibrary slot 8
     virtual void vfunc_3(int); // overrides core::IFileCompletionCallback slot 3
     virtual void vfunc_0_IMutable(); // overrides core::IMutable slot 0
     virtual void vfunc_1_IMutable(); // overrides core::IMutable slot 1
+    char _pad_14[0xc];
+    int f_20;
+    char _pad_24[0x48];
+    void* f_6c;
+    int f_70;
 };
 
 // .?AVRequest@core@@  vftable 0x42b914 (7)
 class Request {
 public:
     virtual ~Request(); // slot 0
-    virtual void vfunc_1() = 0; // slot 1
-    virtual void vfunc_2(int) = 0; // slot 2
-    virtual void vfunc_3() = 0; // slot 3
-    virtual void vfunc_4() = 0; // slot 4
-    virtual void vfunc_5() = 0; // slot 5
-    virtual void vfunc_6() = 0; // slot 6
+    virtual int vfunc_1() = 0; // slot 1
+    virtual bool vfunc_2(int) = 0; // slot 2
+    virtual int vfunc_3() = 0; // slot 3
+    virtual int vfunc_4() = 0; // slot 4
+    virtual void* vfunc_5() = 0; // slot 5
+    virtual int vfunc_6() = 0; // slot 6
 };
 
 // .?AVCompletionCallbackRequest@core@@  vftable 0x42b9dc (8)
 class CompletionCallbackRequest : public ::core::Request {
 public:
     virtual ~CompletionCallbackRequest(); // overrides core::Request slot 0
-    virtual void vfunc_2(int); // overrides core::Request slot 2
-    virtual void vfunc_4(); // overrides core::Request slot 4
-    virtual void vfunc_5(); // overrides core::Request slot 5
+    virtual bool vfunc_2(int); // overrides core::Request slot 2
+    virtual int vfunc_4(); // overrides core::Request slot 4
+    virtual void* vfunc_5(); // overrides core::Request slot 5
     virtual void vfunc_7() = 0; // slot 7
 };
 
@@ -188,12 +193,15 @@ public:
 class CompletionEventRequest : public ::core::Request {
 public:
     virtual ~CompletionEventRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_2(int); // overrides core::Request slot 2
-    virtual void vfunc_3(); // overrides core::Request slot 3
-    virtual void vfunc_4(); // overrides core::Request slot 4
-    virtual void vfunc_5(); // overrides core::Request slot 5
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual bool vfunc_2(int); // overrides core::Request slot 2
+    virtual int vfunc_3(); // overrides core::Request slot 3
+    virtual int vfunc_4(); // overrides core::Request slot 4
+    virtual void* vfunc_5(); // overrides core::Request slot 5
+    virtual int vfunc_6(); // overrides core::Request slot 6
+    char _pad_04[0x4];
+    int f_08;
+    unsigned int f_0c;
 };
 
 // .?AVRefCount@core@@  vftable 0x42b3a4 (1)
@@ -208,6 +216,7 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~ConsoleClient(); // overrides core::IRefCount slot 2
+    int f_0c;
 };
 
 // .?AUIControllerBuffer@core@@  vftable 0x42b6b0 (9)
@@ -216,9 +225,9 @@ public:
     virtual ~IControllerBuffer(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(int, int) = 0; // slot 3
     virtual void vfunc_4(int) = 0; // slot 4
-    virtual void vfunc_5(int) = 0; // slot 5
+    virtual unsigned int vfunc_5(void*) = 0; // slot 5
     virtual void vfunc_6(int, int) = 0; // slot 6
-    virtual void vfunc_7(int) = 0; // slot 7
+    virtual bool vfunc_7(void*) = 0; // slot 7
     virtual void vfunc_8() = 0; // slot 8
 };
 
@@ -230,24 +239,32 @@ public:
     virtual ~ControllerBuffer(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(int, int); // overrides core::IControllerBuffer slot 3
     virtual void vfunc_4(int); // overrides core::IControllerBuffer slot 4
-    virtual void vfunc_5(int); // overrides core::IControllerBuffer slot 5
+    virtual unsigned int vfunc_5(void*); // overrides core::IControllerBuffer slot 5
     virtual void vfunc_6(int, int); // overrides core::IControllerBuffer slot 6
-    virtual void vfunc_7(int); // overrides core::IControllerBuffer slot 7
+    virtual bool vfunc_7(void*); // overrides core::IControllerBuffer slot 7
     virtual void vfunc_8(); // overrides core::IControllerBuffer slot 8
+    int f_0c;
+    void* f_10;
+    unsigned int f_14;
+    unsigned int f_18;
+    unsigned int f_1c;
+    unsigned int f_20;
+    void* f_24;
+    void* f_28;
 };
 
 // .?AUIControllerInputPoint@core@@  vftable 0x42b038 (12)
 struct IControllerInputPoint : public ::core::IRefCount {
 public:
-    virtual void vfunc_3() = 0; // slot 3
+    virtual int vfunc_3() = 0; // slot 3
     virtual void vfunc_4() = 0; // slot 4
     virtual void vfunc_5(int) = 0; // slot 5
-    virtual void vfunc_6() = 0; // slot 6
+    virtual float vfunc_6() = 0; // slot 6
     virtual void vfunc_7(int, int) = 0; // slot 7
     virtual void vfunc_8(int) = 0; // slot 8
-    virtual void vfunc_9(int) = 0; // slot 9
-    virtual void vfunc_10(int, int) = 0; // slot 10
-    virtual void vfunc_11(int, int) = 0; // slot 11
+    virtual float vfunc_9(void*) = 0; // slot 9
+    virtual void vfunc_10(void*, void*) = 0; // slot 10
+    virtual void vfunc_11(void*, void*) = 0; // slot 11
     virtual ~IControllerInputPoint() = 0; // overrides core::IRefCount slot 2
 };
 
@@ -266,27 +283,39 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~ControllerInputPointXBox(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(); // overrides core::IControllerInputPoint slot 3
+    virtual int vfunc_3(); // overrides core::IControllerInputPoint slot 3
     virtual void vfunc_4(); // overrides core::IControllerInputPoint slot 4
     virtual void vfunc_5(int); // overrides core::IControllerInputPoint slot 5
-    virtual void vfunc_6(); // overrides core::IControllerInputPoint slot 6
+    virtual float vfunc_6(); // overrides core::IControllerInputPoint slot 6
     virtual void vfunc_7(int, int); // overrides core::IControllerInputPoint slot 7
     virtual void vfunc_8(int); // overrides core::IControllerInputPoint slot 8
-    virtual void vfunc_9(int); // overrides core::IControllerInputPoint slot 9
-    virtual void vfunc_10(int, int); // overrides core::IControllerInputPoint slot 10
-    virtual void vfunc_11(int, int); // overrides core::IControllerInputPoint slot 11
+    virtual float vfunc_9(void*); // overrides core::IControllerInputPoint slot 9
+    virtual void vfunc_10(void*, void*); // overrides core::IControllerInputPoint slot 10
+    virtual void vfunc_11(void*, void*); // overrides core::IControllerInputPoint slot 11
     virtual void vfunc_12(int); // overrides core::IControllerInputPointXBox slot 12
     virtual void vfunc_13(int); // overrides core::IControllerInputPointXBox slot 13
     virtual void vfunc_14(int, int); // overrides core::IControllerInputPointXBox slot 14
+    int f_04;
+    float f_08;
+    float f_0c;
+    float f_10;
+    float f_14;
+    int f_18;
+    int f_1c;
+    char _pad_20[0x4];
+    int f_24;
+    char _pad_28[0x4];
+    int f_2c;
+    int f_30;
 };
 
 // .?AUIControllerOutputPoint@core@@  vftable 0x42b0e8 (7)
 struct IControllerOutputPoint : public ::core::IRefCount {
 public:
     virtual void vfunc_3() = 0; // slot 3
-    virtual void vfunc_4() = 0; // slot 4
-    virtual void vfunc_5() = 0; // slot 5
-    virtual void vfunc_6(int) = 0; // slot 6
+    virtual void* vfunc_4() = 0; // slot 4
+    virtual float vfunc_5() = 0; // slot 5
+    virtual void vfunc_6(float) = 0; // slot 6
     virtual ~IControllerOutputPoint() = 0; // overrides core::IRefCount slot 2
 };
 
@@ -297,21 +326,24 @@ public:
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~ControllerOutputPointXBox(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(); // overrides core::IControllerOutputPoint slot 3
-    virtual void vfunc_4(); // overrides core::IControllerOutputPoint slot 4
-    virtual void vfunc_5(); // overrides core::IControllerOutputPoint slot 5
-    virtual void vfunc_6(int); // overrides core::IControllerOutputPoint slot 6
+    virtual void* vfunc_4(); // overrides core::IControllerOutputPoint slot 4
+    virtual float vfunc_5(); // overrides core::IControllerOutputPoint slot 5
+    virtual void vfunc_6(float); // overrides core::IControllerOutputPoint slot 6
+    int f_04;
+    char _pad_08[0x4];
+    float f_0c;
 };
 
 // .?AUIControllerSystem@core@@  vftable 0x42b0b4 (12)
 struct IControllerSystem : public ::core::IRefCount {
 public:
-    virtual void vfunc_3() = 0; // slot 3
-    virtual void vfunc_4(int) = 0; // slot 4
+    virtual int vfunc_3() = 0; // slot 3
+    virtual void* vfunc_4(int) = 0; // slot 4
     virtual void vfunc_5(int) = 0; // slot 5
     virtual void vfunc_6(int) = 0; // slot 6
     virtual void vfunc_7(int, int) = 0; // slot 7
-    virtual void vfunc_8(int) = 0; // slot 8
-    virtual void vfunc_9() = 0; // slot 9
+    virtual void vfunc_8(unsigned int) = 0; // slot 8
+    virtual void vfunc_9(int) = 0; // slot 9
     virtual void vfunc_10(int) = 0; // slot 10
     virtual void vfunc_11(int) = 0; // slot 11
     virtual ~IControllerSystem() = 0; // overrides core::IRefCount slot 2
@@ -323,35 +355,45 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~ControllerSystemXBox(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(); // overrides core::IControllerSystem slot 3
-    virtual void vfunc_4(int); // overrides core::IControllerSystem slot 4
+    virtual int vfunc_3(); // overrides core::IControllerSystem slot 3
+    virtual void* vfunc_4(int); // overrides core::IControllerSystem slot 4
     virtual void vfunc_5(int); // overrides core::IControllerSystem slot 5
     virtual void vfunc_6(int); // overrides core::IControllerSystem slot 6
     virtual void vfunc_7(int, int); // overrides core::IControllerSystem slot 7
-    virtual void vfunc_8(int); // overrides core::IControllerSystem slot 8
-    virtual void vfunc_9(); // overrides core::IControllerSystem slot 9
+    virtual void vfunc_8(unsigned int); // overrides core::IControllerSystem slot 8
+    virtual void vfunc_9(int); // overrides core::IControllerSystem slot 9
     virtual void vfunc_10(int); // overrides core::IControllerSystem slot 10
     virtual void vfunc_11(int); // overrides core::IControllerSystem slot 11
     virtual void vfunc_12(); // slot 12
+    int f_0c;
+    unsigned char f_10;
+    char _pad_11[0x3];
+    int f_14;
+    int f_18;
+    int f_1c;
+    char f_20;
+    char _pad_21[0x127f];
+    int f_12a0;
+    unsigned int f_12a4;
 };
 
 // .?AUIController@core@@  vftable 0x42b06c (17)
 struct IController : public ::core::IRefCount {
 public:
-    virtual void vfunc_3() = 0; // slot 3
+    virtual bool vfunc_3() = 0; // slot 3
     virtual void vfunc_4() = 0; // slot 4
     virtual void vfunc_5() = 0; // slot 5
-    virtual void vfunc_6() = 0; // slot 6
+    virtual void* vfunc_6() = 0; // slot 6
     virtual void vfunc_7() = 0; // slot 7
-    virtual void vfunc_8(int) = 0; // slot 8
-    virtual void vfunc_9(int, int) = 0; // slot 9
-    virtual void vfunc_10(int) = 0; // slot 10
-    virtual void vfunc_11(int) = 0; // slot 11
-    virtual void vfunc_12() = 0; // slot 12
-    virtual void vfunc_13(int) = 0; // slot 13
+    virtual int vfunc_8(void*) = 0; // slot 8
+    virtual void* vfunc_9(void*, int) = 0; // slot 9
+    virtual void* vfunc_10(void*) = 0; // slot 10
+    virtual void* vfunc_11(unsigned int) = 0; // slot 11
+    virtual int vfunc_12() = 0; // slot 12
+    virtual int vfunc_13(void*) = 0; // slot 13
     virtual void vfunc_14(int, int) = 0; // slot 14
-    virtual void vfunc_15(int) = 0; // slot 15
-    virtual void vfunc_16(int) = 0; // slot 16
+    virtual void* vfunc_15(void*) = 0; // slot 15
+    virtual void* vfunc_16(unsigned int) = 0; // slot 16
     virtual ~IController() = 0; // overrides core::IRefCount slot 2
 };
 
@@ -362,7 +404,7 @@ public:
     virtual void vfunc_17(int) = 0; // slot 17
     virtual void vfunc_18(int) = 0; // slot 18
     virtual void vfunc_19(int) = 0; // slot 19
-    virtual void vfunc_20(int, int) = 0; // slot 20
+    virtual void vfunc_20(unsigned int, unsigned int) = 0; // slot 20
     virtual void vfunc_21(int) = 0; // slot 21
 };
 
@@ -372,36 +414,42 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~ControllerXBox(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(); // overrides core::IController slot 3
+    virtual bool vfunc_3(); // overrides core::IController slot 3
     virtual void vfunc_4(); // overrides core::IController slot 4
     virtual void vfunc_5(); // overrides core::IController slot 5
-    virtual void vfunc_6(); // overrides core::IController slot 6
+    virtual void* vfunc_6(); // overrides core::IController slot 6
     virtual void vfunc_7(); // overrides core::IController slot 7
-    virtual void vfunc_8(int); // overrides core::IController slot 8
-    virtual void vfunc_9(int, int); // overrides core::IController slot 9
-    virtual void vfunc_10(int); // overrides core::IController slot 10
-    virtual void vfunc_11(int); // overrides core::IController slot 11
-    virtual void vfunc_12(); // overrides core::IController slot 12
-    virtual void vfunc_13(int); // overrides core::IController slot 13
+    virtual int vfunc_8(void*); // overrides core::IController slot 8
+    virtual void* vfunc_9(void*, int); // overrides core::IController slot 9
+    virtual void* vfunc_10(void*); // overrides core::IController slot 10
+    virtual void* vfunc_11(unsigned int); // overrides core::IController slot 11
+    virtual int vfunc_12(); // overrides core::IController slot 12
+    virtual int vfunc_13(void*); // overrides core::IController slot 13
     virtual void vfunc_14(int, int); // overrides core::IController slot 14
-    virtual void vfunc_15(int); // overrides core::IController slot 15
-    virtual void vfunc_16(int); // overrides core::IController slot 16
+    virtual void* vfunc_15(void*); // overrides core::IController slot 15
+    virtual void* vfunc_16(unsigned int); // overrides core::IController slot 16
     virtual void vfunc_17(int); // overrides core::IControllerXBox slot 17
     virtual void vfunc_18(int); // overrides core::IControllerXBox slot 18
     virtual void vfunc_19(int); // overrides core::IControllerXBox slot 19
-    virtual void vfunc_20(int, int); // overrides core::IControllerXBox slot 20
+    virtual void vfunc_20(unsigned int, unsigned int); // overrides core::IControllerXBox slot 20
     virtual void vfunc_21(int); // overrides core::IControllerXBox slot 21
+    int f_04;
+    int f_08;
+    char _pad_0c[0x8];
+    unsigned int f_14;
+    char _pad_18[0x43c];
+    void* f_454;
 };
 
 // .?AUIDebugConsole@core@@  vftable 0x42b440 (12)
 struct IDebugConsole : public ::core::IRefCount {
 public:
-    virtual void vfunc_3(int) = 0; // slot 3
-    virtual void vfunc_4(int) = 0; // slot 4
+    virtual void vfunc_3(void*) = 0; // slot 3
+    virtual void vfunc_4(unsigned int) = 0; // slot 4
     virtual void vfunc_5() = 0; // slot 5
     virtual void vfunc_6(int, int) = 0; // slot 6
     virtual void vfunc_7(int) = 0; // slot 7
-    virtual void vfunc_8(int, int, int) = 0; // slot 8
+    virtual void vfunc_8(void*, unsigned int, unsigned int) = 0; // slot 8
     virtual void vfunc_9(int) = 0; // slot 9
     virtual void vfunc_10(int) = 0; // slot 10
     virtual void vfunc_11(int) = 0; // slot 11
@@ -414,15 +462,24 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~DebugConsole(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int); // overrides core::IDebugConsole slot 3
-    virtual void vfunc_4(int); // overrides core::IDebugConsole slot 4
+    virtual void vfunc_3(void*); // overrides core::IDebugConsole slot 3
+    virtual void vfunc_4(unsigned int); // overrides core::IDebugConsole slot 4
     virtual void vfunc_5(); // overrides core::IDebugConsole slot 5
     virtual void vfunc_6(int, int); // overrides core::IDebugConsole slot 6
     virtual void vfunc_7(int); // overrides core::IDebugConsole slot 7
-    virtual void vfunc_8(int, int, int); // overrides core::IDebugConsole slot 8
+    virtual void vfunc_8(void*, unsigned int, unsigned int); // overrides core::IDebugConsole slot 8
     virtual void vfunc_9(int); // overrides core::IDebugConsole slot 9
     virtual void vfunc_10(int); // overrides core::IDebugConsole slot 10
     virtual void vfunc_11(int); // overrides core::IDebugConsole slot 11
+    int f_0c;
+    char _pad_10[0x4];
+    char f_14;
+    char _pad_15[0x7f];
+    unsigned int f_94;
+    int f_98;
+    int f_9c;
+    int f_a0;
+    void* f_a4;
 };
 
 // .?AVDrive@core@@  vftable 0x42b884 (22) vftable@+0x4 0x42b87c (1) vftable@+0xc 0x42b86c (3)
@@ -432,23 +489,23 @@ public:
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~Drive(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(); // slot 3
-    virtual void vfunc_4() = 0; // slot 4
-    virtual void vfunc_5(int, int); // slot 5
-    virtual void vfunc_6() = 0; // slot 6
-    virtual void vfunc_7() = 0; // slot 7
-    virtual void vfunc_8(int, int, int, int, int); // slot 8
-    virtual void vfunc_9(int, int, int, int, int, int, int); // slot 9
-    virtual void vfunc_10(int, int) = 0; // slot 10
-    virtual void vfunc_11(int, int); // slot 11
+    virtual void* vfunc_4() = 0; // slot 4
+    virtual int vfunc_5(int, int); // slot 5
+    virtual unsigned int vfunc_6() = 0; // slot 6
+    virtual int vfunc_7() = 0; // slot 7
+    virtual int vfunc_8(int, int, int, int, int); // slot 8
+    virtual int vfunc_9(int, int, int, int, int, int, int); // slot 9
+    virtual int vfunc_10(void*, int) = 0; // slot 10
+    virtual int vfunc_11(void*, void*); // slot 11
     virtual void vfunc_12(int, int, int, int, int, int, int, int) = 0; // slot 12
-    virtual void vfunc_13(int, int, int, int, int, int, int, int, int); // slot 13
-    virtual void vfunc_14(); // slot 14
-    virtual void vfunc_15(int); // slot 15
-    virtual void vfunc_16(int); // slot 16
-    virtual void vfunc_17(int); // slot 17
+    virtual int vfunc_13(int, int, int, int, int, int, int, int, int); // slot 13
+    virtual int vfunc_14(); // slot 14
+    virtual int vfunc_15(int); // slot 15
+    virtual int vfunc_16(int); // slot 16
+    virtual int vfunc_17(int); // slot 17
     virtual void vfunc_18(int, int, int, int); // slot 18
-    virtual void vfunc_19(int, int); // slot 19
-    virtual void vfunc_20(int); // slot 20
+    virtual int vfunc_19(void*, int); // slot 19
+    virtual int vfunc_20(int); // slot 20
     virtual void vfunc_21(int); // slot 21
     char _pad_10[0xac]; // size 0xbc proven by a derived class's base offset
 };
@@ -457,109 +514,117 @@ public:
 class DriveRequest : public ::core::Request {
 public:
     virtual ~DriveRequest(); // overrides core::Request slot 0
-    virtual void vfunc_2(int); // overrides core::Request slot 2
-    virtual void vfunc_3(); // overrides core::Request slot 3
-    virtual void vfunc_4(); // overrides core::Request slot 4
-    virtual void vfunc_5(); // overrides core::Request slot 5
+    virtual bool vfunc_2(int); // overrides core::Request slot 2
+    virtual int vfunc_3(); // overrides core::Request slot 3
+    virtual int vfunc_4(); // overrides core::Request slot 4
+    virtual void* vfunc_5(); // overrides core::Request slot 5
+    char _pad_04[0x4];
+    void* f_08;
 };
 
 // .?AVDriveCancelRequest@core@@  vftable 0x42bc80 (7)
 class DriveCancelRequest : public ::core::DriveRequest {
 public:
     virtual ~DriveCancelRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_4(); // overrides core::Request slot 4
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_4(); // overrides core::Request slot 4
+    virtual int vfunc_6(); // overrides core::Request slot 6
 };
 
 // .?AVDriveCompletionRequest@core@@  vftable 0x42b978 (8)
 class DriveCompletionRequest : public ::core::CompletionCallbackRequest {
 public:
     virtual ~DriveCompletionRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_3(); // overrides core::Request slot 3
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_3(); // overrides core::Request slot 3
+    virtual int vfunc_6(); // overrides core::Request slot 6
     virtual void vfunc_7(); // overrides core::CompletionCallbackRequest slot 7
+    char _pad_04[0x8];
+    void* f_0c;
+    void* f_10;
+    int f_14;
 };
 
 // .?AVDriveCreateDirectoryRequest@core@@  vftable 0x42bbc0 (7)
 class DriveCreateDirectoryRequest : public ::core::DriveRequest {
 public:
     virtual ~DriveCreateDirectoryRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_5(); // overrides core::Request slot 5
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual void* vfunc_5(); // overrides core::Request slot 5
+    virtual int vfunc_6(); // overrides core::Request slot 6
 };
 
 // .?AVDriveDestroyDirectoryRequest@core@@  vftable 0x42bbe0 (7)
 class DriveDestroyDirectoryRequest : public ::core::DriveRequest {
 public:
     virtual ~DriveDestroyDirectoryRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_5(); // overrides core::Request slot 5
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual void* vfunc_5(); // overrides core::Request slot 5
+    virtual int vfunc_6(); // overrides core::Request slot 6
 };
 
 // .?AVDriveFileDestroyRequest@core@@  vftable 0x42bc60 (7)
 class DriveFileDestroyRequest : public ::core::DriveRequest {
 public:
     virtual ~DriveFileDestroyRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_5(); // overrides core::Request slot 5
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual void* vfunc_5(); // overrides core::Request slot 5
+    virtual int vfunc_6(); // overrides core::Request slot 6
 };
 
 // .?AVDriveFindCloseRequest@core@@  vftable 0x42bc40 (7)
 class DriveFindCloseRequest : public ::core::DriveRequest {
 public:
     virtual ~DriveFindCloseRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_4(); // overrides core::Request slot 4
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_4(); // overrides core::Request slot 4
+    virtual int vfunc_6(); // overrides core::Request slot 6
 };
 
 // .?AVDriveFindFirstRequest@core@@  vftable 0x42bc00 (7)
 class DriveFindFirstRequest : public ::core::DriveRequest {
 public:
     virtual ~DriveFindFirstRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_5(); // overrides core::Request slot 5
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual void* vfunc_5(); // overrides core::Request slot 5
+    virtual int vfunc_6(); // overrides core::Request slot 6
 };
 
 // .?AVDriveFindNextRequest@core@@  vftable 0x42bc20 (7)
 class DriveFindNextRequest : public ::core::DriveRequest {
 public:
     virtual ~DriveFindNextRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_6(); // overrides core::Request slot 6
+    int f_0c;
 };
 
 // .?AVDriveFormatRequest@core@@  vftable 0x42bba0 (7)
 class DriveFormatRequest : public ::core::DriveRequest {
 public:
     virtual ~DriveFormatRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_4(); // overrides core::Request slot 4
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_4(); // overrides core::Request slot 4
+    virtual int vfunc_6(); // overrides core::Request slot 6
 };
 
 // .?AVDriveMediaRequest@core@@  vftable 0x42bb80 (7)
 class DriveMediaRequest : public ::core::DriveRequest {
 public:
     virtual ~DriveMediaRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_4(); // overrides core::Request slot 4
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_4(); // overrides core::Request slot 4
+    virtual int vfunc_6(); // overrides core::Request slot 6
+    void* f_0c;
 };
 
 // .?AVDriveOpenRequest@core@@  vftable 0x42bb60 (7)
 class DriveOpenRequest : public ::core::DriveRequest {
 public:
     virtual ~DriveOpenRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_4(); // overrides core::Request slot 4
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_4(); // overrides core::Request slot 4
+    virtual int vfunc_6(); // overrides core::Request slot 6
 };
 
 // .?AVDriveThread@core@@  vftable 0x42b8f8 (3) vftable@+0x4 0x42b8f0 (1) vftable@+0xc 0x42b8e0 (3)
@@ -584,26 +649,26 @@ public:
     virtual void vfunc_9(int, int, int) = 0; // slot 9
     virtual void vfunc_10(int, int, int) = 0; // slot 10
     virtual void vfunc_11(int) = 0; // slot 11
-    virtual void vfunc_12(int) = 0; // slot 12
+    virtual void vfunc_12(unsigned int) = 0; // slot 12
     virtual void vfunc_13(int) = 0; // slot 13
     virtual void vfunc_14() = 0; // slot 14
-    virtual void vfunc_15() = 0; // slot 15
-    virtual void vfunc_16() = 0; // slot 16
+    virtual int vfunc_15() = 0; // slot 15
+    virtual unsigned int vfunc_16() = 0; // slot 16
     virtual void vfunc_17() = 0; // slot 17
     virtual void vfunc_18(int, int) = 0; // slot 18
     virtual void vfunc_19(int) = 0; // slot 19
-    virtual void vfunc_20() = 0; // slot 20
+    virtual bool vfunc_20() = 0; // slot 20
     virtual void vfunc_21() = 0; // slot 21
-    virtual void vfunc_22() = 0; // slot 22
-    virtual void vfunc_23() = 0; // slot 23
+    virtual int vfunc_22() = 0; // slot 22
+    virtual bool vfunc_23() = 0; // slot 23
     virtual void vfunc_24() = 0; // slot 24
-    virtual void vfunc_25() = 0; // slot 25
+    virtual void* vfunc_25() = 0; // slot 25
     virtual void vfunc_26() = 0; // slot 26
     virtual void vfunc_27(int) = 0; // slot 27
     virtual void vfunc_28() = 0; // slot 28
-    virtual void vfunc_29() = 0; // slot 29
-    virtual void vfunc_30(int) = 0; // slot 30
-    virtual void vfunc_31() = 0; // slot 31
+    virtual unsigned char vfunc_29() = 0; // slot 29
+    virtual void vfunc_30(unsigned int) = 0; // slot 30
+    virtual unsigned int vfunc_31() = 0; // slot 31
     virtual ~IFile() = 0; // overrides core::IRefCount slot 2
 };
 
@@ -622,130 +687,154 @@ public:
     virtual void vfunc_9(int, int, int); // overrides core::IFile slot 9
     virtual void vfunc_10(int, int, int); // overrides core::IFile slot 10
     virtual void vfunc_11(int); // overrides core::IFile slot 11
-    virtual void vfunc_12(int); // overrides core::IFile slot 12
+    virtual void vfunc_12(unsigned int); // overrides core::IFile slot 12
     virtual void vfunc_13(int); // overrides core::IFile slot 13
     virtual void vfunc_14(); // overrides core::IFile slot 14
-    virtual void vfunc_15(); // overrides core::IFile slot 15
-    virtual void vfunc_16(); // overrides core::IFile slot 16
+    virtual int vfunc_15(); // overrides core::IFile slot 15
+    virtual unsigned int vfunc_16(); // overrides core::IFile slot 16
     virtual void vfunc_17(); // overrides core::IFile slot 17
     virtual void vfunc_18(int, int); // overrides core::IFile slot 18
     virtual void vfunc_19(int); // overrides core::IFile slot 19
-    virtual void vfunc_20(); // overrides core::IFile slot 20
+    virtual bool vfunc_20(); // overrides core::IFile slot 20
     virtual void vfunc_21(); // overrides core::IFile slot 21
-    virtual void vfunc_22(); // overrides core::IFile slot 22
-    virtual void vfunc_23(); // overrides core::IFile slot 23
+    virtual int vfunc_22(); // overrides core::IFile slot 22
+    virtual bool vfunc_23(); // overrides core::IFile slot 23
     virtual void vfunc_24(); // overrides core::IFile slot 24
-    virtual void vfunc_25(); // overrides core::IFile slot 25
+    virtual void* vfunc_25(); // overrides core::IFile slot 25
     virtual void vfunc_26(); // overrides core::IFile slot 26
     virtual void vfunc_27(int); // overrides core::IFile slot 27
     virtual void vfunc_28(); // overrides core::IFile slot 28
-    virtual void vfunc_29(); // overrides core::IFile slot 29
-    virtual void vfunc_30(int); // overrides core::IFile slot 30
-    virtual void vfunc_31(); // overrides core::IFile slot 31
+    virtual unsigned char vfunc_29(); // overrides core::IFile slot 29
+    virtual void vfunc_30(unsigned int); // overrides core::IFile slot 30
+    virtual unsigned int vfunc_31(); // overrides core::IFile slot 31
     virtual void vfunc_0_IMutable(); // overrides core::IMutable slot 0
     virtual void vfunc_1_IMutable(); // overrides core::IMutable slot 1
+    int f_08;
+    void* f_0c;
+    char _pad_10[0x4];
+    int f_14;
+    char _pad_18[0x4];
+    bool f_1c;
+    char _pad_1d[0x103];
+    unsigned int f_120;
+    char _pad_124[0x4];
+    int f_128;
+    char _pad_12c[0x30];
+    unsigned int f_15c;
+    unsigned char f_160;
+    char _pad_161[0x3];
+    unsigned int f_164;
 };
 
 // .?AVFileRequest@core@@  vftable 0x42b99c (7)
 class FileRequest : public ::core::Request {
 public:
     virtual ~FileRequest(); // overrides core::Request slot 0
-    virtual void vfunc_2(int); // overrides core::Request slot 2
-    virtual void vfunc_3(); // overrides core::Request slot 3
-    virtual void vfunc_4(); // overrides core::Request slot 4
-    virtual void vfunc_5(); // overrides core::Request slot 5
+    virtual bool vfunc_2(int); // overrides core::Request slot 2
+    virtual int vfunc_3(); // overrides core::Request slot 3
+    virtual int vfunc_4(); // overrides core::Request slot 4
+    virtual void* vfunc_5(); // overrides core::Request slot 5
+    char _pad_04[0x4];
+    void* f_08;
 };
 
 // .?AVFileCancelRequest@core@@  vftable 0x42bb40 (7)
 class FileCancelRequest : public ::core::FileRequest {
 public:
     virtual ~FileCancelRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_4(); // overrides core::Request slot 4
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_4(); // overrides core::Request slot 4
+    virtual int vfunc_6(); // overrides core::Request slot 6
 };
 
 // .?AVFileCloseRequest@core@@  vftable 0x42ba60 (7)
 class FileCloseRequest : public ::core::FileRequest {
 public:
     virtual ~FileCloseRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_4(); // overrides core::Request slot 4
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_4(); // overrides core::Request slot 4
+    virtual int vfunc_6(); // overrides core::Request slot 6
 };
 
 // .?AVFileCommitRequest@core@@  vftable 0x42ba80 (7)
 class FileCommitRequest : public ::core::FileRequest {
 public:
     virtual ~FileCommitRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_6(); // overrides core::Request slot 6
 };
 
 // .?AVFileCompletionRequest@core@@  vftable 0x42b954 (8)
 class FileCompletionRequest : public ::core::CompletionCallbackRequest {
 public:
     virtual ~FileCompletionRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_3(); // overrides core::Request slot 3
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_3(); // overrides core::Request slot 3
+    virtual int vfunc_6(); // overrides core::Request slot 6
     virtual void vfunc_7(); // overrides core::CompletionCallbackRequest slot 7
+    char _pad_04[0x8];
+    void* f_0c;
+    void* f_10;
+    int f_14;
 };
 
 // .?AVFileGetPositionRequest@core@@  vftable 0x42bb00 (7)
 class FileGetPositionRequest : public ::core::FileRequest {
 public:
     virtual ~FileGetPositionRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_6(); // overrides core::Request slot 6
+    void* f_0c;
 };
 
 // .?AVFileGetSizeRequest@core@@  vftable 0x42bb20 (7)
 class FileGetSizeRequest : public ::core::FileRequest {
 public:
     virtual ~FileGetSizeRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_6(); // overrides core::Request slot 6
+    void* f_0c;
 };
 
 // .?AVFileOpenByKeyRequest@core@@  vftable 0x42ba20 (7)
 class FileOpenByKeyRequest : public ::core::FileRequest {
 public:
     virtual ~FileOpenByKeyRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_6(); // overrides core::Request slot 6
 };
 
 // .?AVFileOpenRequest@core@@  vftable 0x42ba00 (7)
 class FileOpenRequest : public ::core::FileRequest {
 public:
     virtual ~FileOpenRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_6(); // overrides core::Request slot 6
 };
 
 // .?AVFileReadRequest@core@@  vftable 0x42baa0 (7)
 class FileReadRequest : public ::core::FileRequest {
 public:
     virtual ~FileReadRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_6(); // overrides core::Request slot 6
 };
 
 // .?AVFileSetPositionRequest@core@@  vftable 0x42bae0 (7)
 class FileSetPositionRequest : public ::core::FileRequest {
 public:
     virtual ~FileSetPositionRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_6(); // overrides core::Request slot 6
+    int f_0c;
 };
 
 // .?AVFileWriteRequest@core@@  vftable 0x42bac0 (7)
 class FileWriteRequest : public ::core::FileRequest {
 public:
     virtual ~FileWriteRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_6(); // overrides core::Request slot 6
 };
 
 // .?AUIControllerConnectionChangeCallback@core@@  vftable 0x4007ec (1)
@@ -781,7 +870,7 @@ public:
     virtual void vfunc_18() = 0; // slot 18
     virtual void vfunc_19(int, int) = 0; // slot 19
     virtual void vfunc_20(int) = 0; // slot 20
-    virtual void vfunc_21() = 0; // slot 21
+    virtual bool vfunc_21() = 0; // slot 21
     virtual void vfunc_22() = 0; // slot 22
     virtual void vfunc_23() = 0; // slot 23
     virtual void vfunc_24() = 0; // slot 24
@@ -794,7 +883,7 @@ public:
     virtual void vfunc_31() = 0; // slot 31
     virtual void vfunc_32() = 0; // slot 32
     virtual void vfunc_33(int, int, int, int, int, int, int, int) = 0; // slot 33
-    virtual void vfunc_34(int, int, int, int, int, int, int, int) = 0; // slot 34
+    virtual void vfunc_34(void*, int, int, int, int, int, int, int) = 0; // slot 34
     virtual void vfunc_35(int, int, int, int, int, int, int) = 0; // slot 35
     virtual void vfunc_36(int, int, int, int, int, int, int) = 0; // slot 36
     virtual void vfunc_37(int) = 0; // slot 37
@@ -807,7 +896,7 @@ public:
 // .?AUIDriveErrorCallback@core@@  vftable 0x4004ec (1)
 struct IDriveErrorCallback {
 public:
-    virtual void vfunc_0(int, int, int, int, int) = 0; // slot 0
+    virtual bool vfunc_0(void*, void*, void*, void*, void*) = 0; // slot 0
 };
 
 // .?AUILanguageChangeCallback@core@@  vftable 0x42ede8 (5)
@@ -816,7 +905,7 @@ public:
     virtual void vfunc_0() = 0; // slot 0
     virtual void vfunc_1() = 0; // slot 1
     virtual void vfunc_2(int) = 0; // slot 2
-    virtual void vfunc_3_ILanguageChangeCallback(); // slot 3
+    virtual int vfunc_3_ILanguageChangeCallback(); // slot 3
     virtual ~ILanguageChangeCallback() = 0; // slot 4
 };
 
@@ -824,30 +913,30 @@ public:
 struct IMemoryAllocator : public ::core::IRefCount {
 public:
     virtual void vfunc_3(int) = 0; // slot 3
-    virtual void vfunc_4(int) = 0; // slot 4
-    virtual void vfunc_5(int) = 0; // slot 5
-    virtual void vfunc_6(int, int) = 0; // slot 6
-    virtual void vfunc_7(int) = 0; // slot 7
-    virtual void vfunc_8(int) = 0; // slot 8
-    virtual void vfunc_9(int, int, int, int) = 0; // slot 9
+    virtual void vfunc_4(void*) = 0; // slot 4
+    virtual bool vfunc_5(void*) = 0; // slot 5
+    virtual int vfunc_6(void*, int) = 0; // slot 6
+    virtual void vfunc_7(void*) = 0; // slot 7
+    virtual bool vfunc_8(void*) = 0; // slot 8
+    virtual bool vfunc_9(void*, void*, void*, void*) = 0; // slot 9
     virtual void vfunc_10(); // slot 10
-    virtual void vfunc_11() = 0; // slot 11
-    virtual void vfunc_12(); // slot 12
+    virtual int vfunc_11() = 0; // slot 11
+    virtual bool vfunc_12(); // slot 12
     virtual ~IMemoryAllocator() = 0; // overrides core::IRefCount slot 2
 };
 
 // .?AUIMemoryPool@core@@  vftable 0x42b5f4 (15)
 struct IMemoryPool : public ::core::IMemoryAllocator {
 public:
-    virtual void vfunc_13() = 0; // slot 13
-    virtual void vfunc_14(int, int, int) = 0; // slot 14
+    virtual void* vfunc_13() = 0; // slot 13
+    virtual void vfunc_14(void*, void*, void*) = 0; // slot 14
     virtual ~IMemoryPool() = 0; // overrides core::IRefCount slot 2
 };
 
 // .?AUIMemorySpaceCopyRequest@core@@  vftable 0x42b650 (4)
 struct IMemorySpaceCopyRequest : public ::core::IRefCount {
 public:
-    virtual void vfunc_3() = 0; // slot 3
+    virtual bool vfunc_3() = 0; // slot 3
     virtual ~IMemorySpaceCopyRequest() = 0; // overrides core::IRefCount slot 2
 };
 
@@ -855,7 +944,7 @@ public:
 struct IMemoryTwoWayAllocator : public ::core::IMemoryAllocator {
 public:
     virtual void vfunc_13(int) = 0; // slot 13
-    virtual void vfunc_14() = 0; // slot 14
+    virtual unsigned int vfunc_14() = 0; // slot 14
     virtual void vfunc_15(int) = 0; // slot 15
     virtual ~IMemoryTwoWayAllocator() = 0; // overrides core::IRefCount slot 2
 };
@@ -871,13 +960,13 @@ struct ITimer : public ::core::IRefCount {
 public:
     virtual void vfunc_3(int, int) = 0; // slot 3
     virtual void vfunc_4(int) = 0; // slot 4
-    virtual void vfunc_5() = 0; // slot 5
+    virtual unsigned int vfunc_5() = 0; // slot 5
     virtual void vfunc_6(int) = 0; // slot 6
     virtual void vfunc_7() = 0; // slot 7
     virtual void vfunc_8(int) = 0; // slot 8
     virtual void vfunc_9() = 0; // slot 9
     virtual void vfunc_10() = 0; // slot 10
-    virtual void vfunc_11() = 0; // slot 11
+    virtual bool vfunc_11() = 0; // slot 11
     virtual void vfunc_12() = 0; // slot 12
     virtual void vfunc_13() = 0; // slot 13
     virtual ~ITimer() = 0; // overrides core::IRefCount slot 2
@@ -916,7 +1005,7 @@ public:
     virtual void vfunc_18(); // overrides core::IDrive slot 18
     virtual void vfunc_19(int, int); // overrides core::IDrive slot 19
     virtual void vfunc_20(int); // overrides core::IDrive slot 20
-    virtual void vfunc_21(); // overrides core::IDrive slot 21
+    virtual bool vfunc_21(); // overrides core::IDrive slot 21
     virtual void vfunc_22(); // overrides core::IDrive slot 22
     virtual void vfunc_23(); // overrides core::IDrive slot 23
     virtual void vfunc_24(); // overrides core::IDrive slot 24
@@ -929,7 +1018,7 @@ public:
     virtual void vfunc_31(); // overrides core::IDrive slot 31
     virtual void vfunc_32(); // overrides core::IDrive slot 32
     virtual void vfunc_33(int, int, int, int, int, int, int, int); // overrides core::IDrive slot 33
-    virtual void vfunc_34(int, int, int, int, int, int, int, int); // overrides core::IDrive slot 34
+    virtual void vfunc_34(void*, int, int, int, int, int, int, int); // overrides core::IDrive slot 34
     virtual void vfunc_35(int, int, int, int, int, int, int); // overrides core::IDrive slot 35
     virtual void vfunc_36(int, int, int, int, int, int, int); // overrides core::IDrive slot 36
     virtual void vfunc_37(int); // overrides core::IDrive slot 37
@@ -938,6 +1027,10 @@ public:
     virtual void vfunc_40(); // overrides core::IDrive slot 40
     virtual void vfunc_0_IMutable(); // overrides core::IMutable slot 0
     virtual void vfunc_1_IMutable(); // overrides core::IMutable slot 1
+    int f_08;
+    void* f_0c;
+    char _pad_10[0x4];
+    int f_14;
 };
 
 // .?AUMemoryAllocatorMalloc@core@@  vftable 0x42af2c (13)
@@ -947,13 +1040,13 @@ public:
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~MemoryAllocatorMalloc(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(int); // overrides core::IMemoryAllocator slot 3
-    virtual void vfunc_4(int); // overrides core::IMemoryAllocator slot 4
-    virtual void vfunc_5(int); // overrides core::IMemoryAllocator slot 5
-    virtual void vfunc_6(int, int); // overrides core::IMemoryAllocator slot 6
-    virtual void vfunc_7(int); // overrides core::IMemoryAllocator slot 7
-    virtual void vfunc_8(int); // overrides core::IMemoryAllocator slot 8
-    virtual void vfunc_9(int, int, int, int); // overrides core::IMemoryAllocator slot 9
-    virtual void vfunc_11(); // overrides core::IMemoryAllocator slot 11
+    virtual void vfunc_4(void*); // overrides core::IMemoryAllocator slot 4
+    virtual bool vfunc_5(void*); // overrides core::IMemoryAllocator slot 5
+    virtual int vfunc_6(void*, int); // overrides core::IMemoryAllocator slot 6
+    virtual void vfunc_7(void*); // overrides core::IMemoryAllocator slot 7
+    virtual bool vfunc_8(void*); // overrides core::IMemoryAllocator slot 8
+    virtual bool vfunc_9(void*, void*, void*, void*); // overrides core::IMemoryAllocator slot 9
+    virtual int vfunc_11(); // overrides core::IMemoryAllocator slot 11
 };
 
 // .?AUMemoryDlAllocator@core@@  vftable 0x42b36c (13) vftable@+0x4 0x42b364 (1)
@@ -963,14 +1056,24 @@ public:
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~MemoryDlAllocator(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(int); // overrides core::IMemoryAllocator slot 3
-    virtual void vfunc_4(int); // overrides core::IMemoryAllocator slot 4
-    virtual void vfunc_5(int); // overrides core::IMemoryAllocator slot 5
-    virtual void vfunc_6(int, int); // overrides core::IMemoryAllocator slot 6
-    virtual void vfunc_7(int); // overrides core::IMemoryAllocator slot 7
-    virtual void vfunc_8(int); // overrides core::IMemoryAllocator slot 8
-    virtual void vfunc_9(int, int, int, int); // overrides core::IMemoryAllocator slot 9
+    virtual void vfunc_4(void*); // overrides core::IMemoryAllocator slot 4
+    virtual bool vfunc_5(void*); // overrides core::IMemoryAllocator slot 5
+    virtual int vfunc_6(void*, int); // overrides core::IMemoryAllocator slot 6
+    virtual void vfunc_7(void*); // overrides core::IMemoryAllocator slot 7
+    virtual bool vfunc_8(void*); // overrides core::IMemoryAllocator slot 8
+    virtual bool vfunc_9(void*, void*, void*, void*); // overrides core::IMemoryAllocator slot 9
     virtual void vfunc_10(); // overrides core::IMemoryAllocator slot 10
-    virtual void vfunc_11(); // overrides core::IMemoryAllocator slot 11
+    virtual int vfunc_11(); // overrides core::IMemoryAllocator slot 11
+    char _pad_0c[0x8];
+    int f_14;
+    char _pad_18[0x478];
+    int f_490;
+    int f_494;
+    int f_498;
+    unsigned char f_49c;
+    unsigned char f_49d;
+    char _pad_49e[0x2];
+    int f_4a0;
 };
 
 // .?AVMemoryPool@core@@  vftable 0x42b5b4 (15) vftable@+0x4 0x42b5ac (1)
@@ -980,15 +1083,25 @@ public:
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~MemoryPool(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(int); // overrides core::IMemoryAllocator slot 3
-    virtual void vfunc_4(int); // overrides core::IMemoryAllocator slot 4
-    virtual void vfunc_5(int); // overrides core::IMemoryAllocator slot 5
-    virtual void vfunc_6(int, int); // overrides core::IMemoryAllocator slot 6
-    virtual void vfunc_7(int); // overrides core::IMemoryAllocator slot 7
-    virtual void vfunc_8(int); // overrides core::IMemoryAllocator slot 8
-    virtual void vfunc_9(int, int, int, int); // overrides core::IMemoryAllocator slot 9
-    virtual void vfunc_11(); // overrides core::IMemoryAllocator slot 11
-    virtual void vfunc_13(); // overrides core::IMemoryPool slot 13
-    virtual void vfunc_14(int, int, int); // overrides core::IMemoryPool slot 14
+    virtual void vfunc_4(void*); // overrides core::IMemoryAllocator slot 4
+    virtual bool vfunc_5(void*); // overrides core::IMemoryAllocator slot 5
+    virtual int vfunc_6(void*, int); // overrides core::IMemoryAllocator slot 6
+    virtual void vfunc_7(void*); // overrides core::IMemoryAllocator slot 7
+    virtual bool vfunc_8(void*); // overrides core::IMemoryAllocator slot 8
+    virtual bool vfunc_9(void*, void*, void*, void*); // overrides core::IMemoryAllocator slot 9
+    virtual int vfunc_11(); // overrides core::IMemoryAllocator slot 11
+    virtual void* vfunc_13(); // overrides core::IMemoryPool slot 13
+    virtual void vfunc_14(void*, void*, void*); // overrides core::IMemoryPool slot 14
+    int f_0c;
+    void* f_10;
+    unsigned int f_14;
+    unsigned int f_18;
+    int f_1c;
+    int f_20;
+    unsigned int f_24;
+    int f_28;
+    int f_2c;
+    void* f_30;
 };
 
 // .?AUMemorySpaceAsyncRequest_Copy@core@@  vftable 0x42b664 (4)
@@ -997,7 +1110,8 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~MemorySpaceAsyncRequest_Copy(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(); // overrides core::IMemorySpaceCopyRequest slot 3
+    virtual bool vfunc_3(); // overrides core::IMemorySpaceCopyRequest slot 3
+    int f_04;
 };
 
 // .?AVMemoryTwoWayAllocator@core@@  vftable 0x42b3b4 (16) vftable@+0x4 0x42b3ac (1)
@@ -1007,16 +1121,24 @@ public:
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~MemoryTwoWayAllocator(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(int); // overrides core::IMemoryAllocator slot 3
-    virtual void vfunc_4(int); // overrides core::IMemoryAllocator slot 4
-    virtual void vfunc_5(int); // overrides core::IMemoryAllocator slot 5
-    virtual void vfunc_6(int, int); // overrides core::IMemoryAllocator slot 6
-    virtual void vfunc_7(int); // overrides core::IMemoryAllocator slot 7
-    virtual void vfunc_8(int); // overrides core::IMemoryAllocator slot 8
-    virtual void vfunc_9(int, int, int, int); // overrides core::IMemoryAllocator slot 9
-    virtual void vfunc_11(); // overrides core::IMemoryAllocator slot 11
+    virtual void vfunc_4(void*); // overrides core::IMemoryAllocator slot 4
+    virtual bool vfunc_5(void*); // overrides core::IMemoryAllocator slot 5
+    virtual int vfunc_6(void*, int); // overrides core::IMemoryAllocator slot 6
+    virtual void vfunc_7(void*); // overrides core::IMemoryAllocator slot 7
+    virtual bool vfunc_8(void*); // overrides core::IMemoryAllocator slot 8
+    virtual bool vfunc_9(void*, void*, void*, void*); // overrides core::IMemoryAllocator slot 9
+    virtual int vfunc_11(); // overrides core::IMemoryAllocator slot 11
     virtual void vfunc_13(int); // overrides core::IMemoryTwoWayAllocator slot 13
-    virtual void vfunc_14(); // overrides core::IMemoryTwoWayAllocator slot 14
+    virtual unsigned int vfunc_14(); // overrides core::IMemoryTwoWayAllocator slot 14
     virtual void vfunc_15(int); // overrides core::IMemoryTwoWayAllocator slot 15
+    int f_0c;
+    int f_10;
+    int f_14;
+    int f_18;
+    int f_1c;
+    int f_20;
+    int f_24;
+    int f_28;
 };
 
 // .?AVPlatform@core@@  vftable 0x42b500 (3)
@@ -1025,14 +1147,15 @@ public:
     virtual void vfunc_0(); // overrides core::IRefCount slot 0
     virtual void vfunc_1(); // overrides core::IRefCount slot 1
     virtual ~Platform(); // overrides core::IRefCount slot 2
+    int f_04;
 };
 
 // .?AVSaveGameOpenRequest@core@@  vftable 0x42ba40 (7)
 class SaveGameOpenRequest : public ::core::FileRequest {
 public:
     virtual ~SaveGameOpenRequest(); // overrides core::Request slot 0
-    virtual void vfunc_1(); // overrides core::Request slot 1
-    virtual void vfunc_6(); // overrides core::Request slot 6
+    virtual int vfunc_1(); // overrides core::Request slot 1
+    virtual int vfunc_6(); // overrides core::Request slot 6
 };
 
 // .?AVSignedReader@core@@  vftable 0x42c008 (3)
@@ -1059,15 +1182,24 @@ public:
     virtual ~Timer(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(int, int); // overrides core::ITimer slot 3
     virtual void vfunc_4(int); // overrides core::ITimer slot 4
-    virtual void vfunc_5(); // overrides core::ITimer slot 5
+    virtual unsigned int vfunc_5(); // overrides core::ITimer slot 5
     virtual void vfunc_6(int); // overrides core::ITimer slot 6
     virtual void vfunc_7(); // overrides core::ITimer slot 7
     virtual void vfunc_8(int); // overrides core::ITimer slot 8
     virtual void vfunc_9(); // overrides core::ITimer slot 9
     virtual void vfunc_10(); // overrides core::ITimer slot 10
-    virtual void vfunc_11(); // overrides core::ITimer slot 11
+    virtual bool vfunc_11(); // overrides core::ITimer slot 11
     virtual void vfunc_12(); // overrides core::ITimer slot 12
     virtual void vfunc_13(); // overrides core::ITimer slot 13
+    int f_04;
+    int f_08;
+    unsigned int f_0c;
+    unsigned char f_10;
+    char _pad_11[0x3];
+    int f_14;
+    int f_18;
+    int f_1c;
+    void* f_20;
 };
 
 // .?AVTimerList@core@@  vftable 0x42afd4 (6) vftable@+0x4 0x42afcc (1)
@@ -1079,48 +1211,52 @@ public:
     virtual void vfunc_3(int, int, int, int, int, int); // overrides core::ITimerList slot 3
     virtual void vfunc_4(int); // overrides core::ITimerList slot 4
     virtual void vfunc_5(); // overrides core::ITimerList slot 5
+    int f_0c;
+    char _pad_10[0x8];
+    void* f_18;
 };
 
 // .?AVXboxDrive@core@@  vftable 0x42b52c (22) vftable@+0x4 0x42b524 (1) vftable@+0xc 0x42b514 (3)
 class XboxDrive : public ::core::Drive {
 public:
     virtual ~XboxDrive(); // overrides core::IRefCount slot 2
-    virtual void vfunc_4(); // overrides core::Drive slot 4
-    virtual void vfunc_6(); // overrides core::Drive slot 6
-    virtual void vfunc_7(); // overrides core::Drive slot 7
-    virtual void vfunc_8(int, int, int, int, int); // overrides core::Drive slot 8
-    virtual void vfunc_10(int, int); // overrides core::Drive slot 10
+    virtual void* vfunc_4(); // overrides core::Drive slot 4
+    virtual unsigned int vfunc_6(); // overrides core::Drive slot 6
+    virtual int vfunc_7(); // overrides core::Drive slot 7
+    virtual int vfunc_8(int, int, int, int, int); // overrides core::Drive slot 8
+    virtual int vfunc_10(void*, int); // overrides core::Drive slot 10
     virtual void vfunc_12(int, int, int, int, int, int, int, int); // overrides core::Drive slot 12
-    virtual void vfunc_13(int, int, int, int, int, int, int, int, int); // overrides core::Drive slot 13
-    virtual void vfunc_14(); // overrides core::Drive slot 14
-    virtual void vfunc_15(int); // overrides core::Drive slot 15
-    virtual void vfunc_16(int); // overrides core::Drive slot 16
-    virtual void vfunc_17(int); // overrides core::Drive slot 17
+    virtual int vfunc_13(int, int, int, int, int, int, int, int, int); // overrides core::Drive slot 13
+    virtual int vfunc_14(); // overrides core::Drive slot 14
+    virtual int vfunc_15(int); // overrides core::Drive slot 15
+    virtual int vfunc_16(int); // overrides core::Drive slot 16
+    virtual int vfunc_17(int); // overrides core::Drive slot 17
     virtual void vfunc_18(int, int, int, int); // overrides core::Drive slot 18
-    virtual void vfunc_19(int, int); // overrides core::Drive slot 19
-    virtual void vfunc_20(int); // overrides core::Drive slot 20
+    virtual int vfunc_19(void*, int); // overrides core::Drive slot 19
+    virtual int vfunc_20(int); // overrides core::Drive slot 20
     virtual void vfunc_21(int); // overrides core::Drive slot 21
     virtual void vfunc_0_IMutable(); // overrides core::IMutable slot 0
     virtual void vfunc_1_IMutable(); // overrides core::IMutable slot 1
+    unsigned int f_bc;
 };
 
 // .?AVXboxSaveDrive@core@@  vftable 0x42c064 (22) vftable@+0x4 0x42c058 (1) vftable@+0xc 0x42c048 (3) vftable@+0xbc 0x42c038 (3) vftable@+0xc0 0x42c028 (3)
 class XboxSaveDrive : public ::core::Drive, public ::core::SignedReader, public ::core::SignedWriter {
 public:
     virtual ~XboxSaveDrive(); // overrides core::IRefCount slot 2
-    virtual void vfunc_4(); // overrides core::Drive slot 4
-    virtual void vfunc_5(int, int); // overrides core::Drive slot 5
-    virtual void vfunc_6(); // overrides core::Drive slot 6
-    virtual void vfunc_7(); // overrides core::Drive slot 7
-    virtual void vfunc_9(int, int, int, int, int, int, int); // overrides core::Drive slot 9
-    virtual void vfunc_10(int, int); // overrides core::Drive slot 10
-    virtual void vfunc_11(int, int); // overrides core::Drive slot 11
+    virtual void* vfunc_4(); // overrides core::Drive slot 4
+    virtual int vfunc_5(int, int); // overrides core::Drive slot 5
+    virtual unsigned int vfunc_6(); // overrides core::Drive slot 6
+    virtual int vfunc_7(); // overrides core::Drive slot 7
+    virtual int vfunc_9(int, int, int, int, int, int, int); // overrides core::Drive slot 9
+    virtual int vfunc_10(void*, int); // overrides core::Drive slot 10
+    virtual int vfunc_11(void*, void*); // overrides core::Drive slot 11
     virtual void vfunc_12(int, int, int, int, int, int, int, int); // overrides core::Drive slot 12
-    virtual void vfunc_13(int, int, int, int, int, int, int, int, int); // overrides core::Drive slot 13
-    virtual void vfunc_17(int); // overrides core::Drive slot 17
+    virtual int vfunc_13(int, int, int, int, int, int, int, int, int); // overrides core::Drive slot 13
+    virtual int vfunc_17(int); // overrides core::Drive slot 17
     virtual void vfunc_18(int, int, int, int); // overrides core::Drive slot 18
-    virtual void vfunc_19(int, int); // overrides core::Drive slot 19
-    virtual void vfunc_20(int); // overrides core::Drive slot 20
+    virtual int vfunc_19(void*, int); // overrides core::Drive slot 19
+    virtual int vfunc_20(int); // overrides core::Drive slot 20
     virtual void vfunc_0_IMutable(); // overrides core::IMutable slot 0
     virtual void vfunc_1_IMutable(); // overrides core::IMutable slot 1
     virtual void vfunc_0_SignedReader(int, int, int, int, int, int, int); // overrides core::SignedReader slot 0
@@ -1129,6 +1265,8 @@ public:
     virtual void vfunc_0_SignedWriter(int, int, int, int, int, int, int, int); // overrides core::SignedWriter slot 0
     virtual void vfunc_1_SignedWriter(); // overrides core::SignedWriter slot 1
     virtual void vfunc_2(int); // overrides core::SignedWriter slot 2
+    unsigned int f_c4;
+    int f_c8;
 };
 
 } // namespace core

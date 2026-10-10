@@ -16,7 +16,7 @@ namespace DataHandler {
 class ObjectCreator {
 public:
     virtual ~ObjectCreator(); // slot 0
-    virtual void vfunc_1(int) = 0; // slot 1
+    virtual bool vfunc_1(void*) = 0; // slot 1
 };
 
 } // namespace DataHandler

@@ -42,9 +42,14 @@ namespace Render { namespace Canvas {
 class HulkShaderCallback : public ::pure3d::ShaderCallback {
 public:
     virtual ~HulkShaderCallback(); // overrides core::IRefCount slot 2
-    virtual void vfunc_3(int); // overrides pure3d::ShaderCallback slot 3
-    virtual void vfunc_4(int); // overrides pure3d::ShaderCallback slot 4
-    virtual void vfunc_5(int); // overrides pure3d::ShaderCallback slot 5
+    virtual int vfunc_3(void*); // overrides pure3d::ShaderCallback slot 3
+    virtual int vfunc_4(void*); // overrides pure3d::ShaderCallback slot 4
+    virtual int vfunc_5(int); // overrides pure3d::ShaderCallback slot 5
+    float f_08;
+    float f_0c;
+    float f_10;
+    char _pad_14[0x4];
+    int f_18;
 };
 
 }} // namespace Render::Canvas
@@ -59,7 +64,7 @@ public:
 class LevelLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~LevelLoader(); // overrides core::IRefCount slot 2
-    virtual void vfunc_5(int, int, int, int); // overrides content::SimpleChunkHandler slot 5
+    virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
 };
 
 // .?AVObject@Render@@  vftable 0x4218c8 (9)
@@ -67,11 +72,13 @@ class Object : public ::pure3d::GameDrawableInfo {
 public:
     virtual ~Object(); // overrides core::IRefCount slot 2
     virtual void vfunc_3(int, int); // slot 3
-    virtual void vfunc_4(); // slot 4
-    virtual void vfunc_5(int, int, int); // slot 5
+    virtual void* vfunc_4(); // slot 4
+    virtual void vfunc_5(unsigned int, unsigned int, unsigned int); // slot 5
     virtual void vfunc_6(int, int, int, int, int, int, int, int, int, int, int, int, int, int, int, int); // slot 6
-    virtual void vfunc_7(); // slot 7
-    virtual void vfunc_8(); // slot 8
+    virtual void* vfunc_7(); // slot 7
+    virtual void* vfunc_8(); // slot 8
+    char _pad_08[0x8];
+    void* f_10;
 };
 
 // .?AVObjectManager@Render@@  vftable 0x421934 (1)
@@ -84,15 +91,17 @@ public:
 class RoomLoader : public ::content::SimpleChunkHandler {
 public:
     virtual ~RoomLoader(); // overrides core::IRefCount slot 2
-    virtual void vfunc_5(int, int, int, int); // overrides content::SimpleChunkHandler slot 5
+    virtual void vfunc_5(void*, void*, void*, int); // overrides content::SimpleChunkHandler slot 5
 };
 
 // .?AVStoreBase@Render@@  vftable 0x421a3c (3)
 class StoreBase {
 public:
     virtual ~StoreBase(); // slot 0
-    virtual void vfunc_1(int) = 0; // slot 1
-    virtual void vfunc_2(int) = 0; // slot 2
+    virtual int vfunc_1(int) = 0; // slot 1
+    virtual void vfunc_2(void*) = 0; // slot 2
+    char _pad_04[0x10];
+    void* f_14;
 };
 
 // template family Render::Store: 3 instantiation(s), 0 with their own specialization
@@ -103,8 +112,10 @@ template <class T0>
 class Store : public ::Render::StoreBase {
 public:
     virtual ~Store(); // overrides Render::StoreBase slot 0
-    virtual void vfunc_1(int); // overrides Render::StoreBase slot 1
-    virtual void vfunc_2(int); // overrides Render::StoreBase slot 2
+    virtual int vfunc_1(int); // overrides Render::StoreBase slot 1
+    virtual void vfunc_2(void*); // overrides Render::StoreBase slot 2
+    char _pad_18[0x104];
+    unsigned char f_11c;
 };
 
 // .?AVWorld@Render@@  vftable 0x421ad8 (1)
