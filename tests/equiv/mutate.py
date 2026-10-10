@@ -42,6 +42,16 @@ EQUIVALENT_MUTANTS = {
     # dead store: mTarget is overwritten before anything can observe it
     ("0x001909b0", "const", "*p = 0;", "*p = 1;"),
     ("0x00199630", "const", "*p = 0;", "*p = 1;"),
+    # dead store: the second c.vt assignment, after the only call that sees c
+    ("0x00296c50", "const", "c.vt = (void*)0x42d330;", "c.vt = (void*)0x42d331;"),
+    # the callee (FUN_0027af50) is an empty function: which `this` it gets is unobservable
+    ("0x00172da0", "field", "Part part;", "int mut_pad_111; Part part;"),
+    ("0x00305320", "const", "((H10*)((char*)this + 0x10))->run10();", "((H10*)((char*)this + 0x11))->run10();"),
+    # F2 (FUN_001ebd80) pops four arguments but never reads the fourth
+    ("0x001ee090", "const", 'F2(c, "impact_big", 100.0f, 0);', 'F2(c, "impact_big", 100.0f, 1);'),
+    # only the size of a stack-local object/buffer changes; callees see the same start address
+    ("0x00262700", "field", "char pad[12];", "int mut_pad_59; char pad[12];"),
+    ("0x001ebc80", "const", "char local[72];", "char local[73];"),
 }
 
 

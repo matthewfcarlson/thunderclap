@@ -297,10 +297,16 @@ class Program:
                             ok = False
                             break
                         off = disp - d - 4
-                    elif base == "ebp" and fb is not None:
+                    elif base == "ebp":
+                        if fb is None:          # a frame set up elsewhere (e.g. an SEH prolog helper)
+                            ok = False
+                            break
                         off = disp - fb - 4
                     else:
                         off = -1
+                    if off >= 0 and i.mnemonic == "lea":
+                        ok = False              # an argument's address escapes (va_list style): unknown
+                        break
                     if off >= 0:
                         best = max(best, off // 4 + max(1, (i.mem[5] or 4) // 4))
                 m, ops = i.mnemonic, i.op_str
@@ -348,7 +354,7 @@ class Program:
                             work.append((t, d, fb))
                     break
                 a += i.size
-        cache[target] = best if ok and steps < 3000 else None
+        cache[target] = best if ok and steps < 3000 and not work else None
         return cache[target]
 
     def call_sites(self, target):
@@ -1265,6 +1271,7 @@ class Run:
         self.tracked = set()
         self.save_slots = set()     # stack slots holding saved callee-saved registers
         self.stack_written = set()  # stack bytes written since entry (uninitialised bytes are not compared)
+        self.func_stack_written = set()  # ... by the function itself (not by a stub's out-param write)
         self.helper_ret = None
         self.prev_jcc = None
         self.fault = None
@@ -1359,6 +1366,7 @@ class Run:
             ci = self.cur_insn
             if not (ci is not None and ci.mnemonic == "push" and ci.addr in self.prologue):
                 self.stack_written.update(range(addr, addr + size))    # (prologue pushes allocate/save)
+                self.func_stack_written.update(range(addr, addr + size))
             if self.cur_insn is not None and self.cur_insn.is_fpu_store:
                 self.stack_fpu[addr] = size
             else:
@@ -1582,11 +1590,18 @@ class Run:
         pointees = {}
         for n, v in enumerate(sp):
             size = declared.get(argidx.get(v), DEFAULT_POINTEE)
-            w = min([size, POINTEE_WINDOW, (ENTRY_ESP if v < ENTRY_ESP else arg_hi) - v] +
-                    [x - v for x in self.save_slots if x > v])
-            pointees[v] = (bytes(self.uc.mem_read(v, w)),
-                           {a - v: sz for a, sz in self.stack_fpu.items() if v <= a < v + w},
-                           {a - v for a in range(v, v + w) if a in self.stack_written})
+            limit = min([POINTEE_WINDOW, (ENTRY_ESP if v < ENTRY_ESP else arg_hi) - v] +
+                        [x - v for x in self.save_slots if x > v])
+            # extent: the declared size, grown over words the function itself wrote (an array or struct it
+            # filled in, even when the parameter type is a scalar pointer); a callee's out-param writes
+            # don't count, so neighbouring out-parameters stay out
+            ext = 0
+            while ext + 4 <= limit and any(x in self.func_stack_written for x in range(v + ext, v + ext + 4)):
+                ext += 4
+            pointees[v] = (bytes(self.uc.mem_read(v, limit)),
+                           {a - v: sz for a, sz in self.stack_fpu.items() if v <= a < v + limit},
+                           {a - v for a in range(v, v + limit) if a in self.stack_written},
+                           min(limit, max(size, ext)))
         fret = self.view.float_ret_after(insn.addr, self.own_float_ret)
         h = mix(self.inp["seed"], 0xCA11, k)
         d = self.inp.get("dictionary")
@@ -1718,9 +1733,10 @@ class Run:
                     return
                 if self.view.in_body(target) and target != self.view.entry:
                     return
-                if self.local_code and self.local_code[0] <= target < self.local_code[1]:
+                direct = insn.target is not None      # a relocated call, not a pointer from fuzzed memory
+                if direct and self.local_code and self.local_code[0] <= target < self.local_code[1]:
                     return            # a function of our own object: executes in place, like inlined code
-                if target in self.intrinsics:
+                if direct and target in self.intrinsics:
                     self._intrinsic(insn, self.intrinsics[target], tail=False)
                     return
                 self._stub(insn, target, tail=False)
@@ -1739,9 +1755,10 @@ class Run:
                     target = self.reg(insn.regs[0])
                     if self.view.internal_target(target):
                         return
-                if self.local_code and self.local_code[0] <= target < self.local_code[1]:
+                direct = insn.target is not None
+                if direct and self.local_code and self.local_code[0] <= target < self.local_code[1]:
                     return
-                if target in self.intrinsics:
+                if direct and target in self.intrinsics:
                     self._intrinsic(insn, self.intrinsics[target], tail=True)
                     return
                 self._stub(insn, target, tail=True)
@@ -2357,8 +2374,9 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4):
         # contents of locals passed by pointer, matched by argument position
         for j, ((ov, _), (rv, _)) in enumerate(zip(oa, ra)):
             if ov in a.get("pointees", {}) and rv in b.get("pointees", {}):
-                (ob, ofp, ow), (rb, rfp, rw) = a["pointees"][ov], b["pointees"][rv]
-                off = _first_diff(ob, rb, ofp, rfp, ow | rw)
+                (ob, ofp, ow, oe), (rb, rfp, rw, re_) = a["pointees"][ov], b["pointees"][rv]
+                n = max(oe, re_)
+                off = _first_diff(ob[:n], rb[:n], ofp, rfp, ow | rw)
                 if off is not None:
                     out.append("call #%d to %s: the local passed as argument %d differs at +0x%x (%s, expected %s)" % (
                         k + 1, _fmt(a["target"]), j + 1, off, _desc(struct.unpack_from("<I", rb.ljust(off + 4, b"\0"), off & ~3)[0]),
