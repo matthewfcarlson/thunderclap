@@ -7,6 +7,7 @@
 
 import { execFile } from "node:child_process";
 import { appendFileSync, copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { homedir } from "node:os";
 import { join } from "node:path";
 import { promisify } from "node:util";
 import { parseArgs } from "node:util";
@@ -18,6 +19,7 @@ import { Type } from "@earendil-works/pi-ai";
 import { createProvider } from "@earendil-works/pi-ai";
 import { openAICompletionsApi } from "@earendil-works/pi-ai/api/openai-completions.lazy";
 import { createModels } from "@earendil-works/pi-ai/models";
+import { openaiProvider } from "@earendil-works/pi-ai/providers/openai";
 import { openrouterProvider } from "@earendil-works/pi-ai/providers/openrouter";
 import {
 	createRegistry,
@@ -369,8 +371,42 @@ const MAX_OUTPUT_BY_MODEL = new Map<string, number>(); // OpenRouter model id ->
 		return realFetch(input, init);
 	};
 }
-// Local endpoints, and OpenRouter ":free" variants (rate-limited, ~1000 requests/day, no credit used).
-const isFree = (model: string) => model.slice(0, model.indexOf("/")) in ENDPOINTS || model.endsWith(":free");
+// Subscription providers: flat-rate logins made with `pi` (e.g. "Sign in with ChatGPT"), billed by usage
+// windows rather than tokens. Their tiers cost $0 in the ledger and ignore the dollar budget.
+const SUBSCRIPTION = new Set(["openai"]);
+// Local endpoints, OpenRouter ":free" variants (rate-limited, ~1000 requests/day, no credit used), subscriptions.
+const isFree = (model: string) => {
+	const p = model.slice(0, model.indexOf("/"));
+	return p in ENDPOINTS || SUBSCRIPTION.has(p) || model.endsWith(":free");
+};
+
+// Subscription credentials live in pi's ~/.pi/agent/auth.json. Read them only. When a token needs a
+// refresh, let the pi CLI do it, so a rotated refresh token is saved where pi expects it and
+// pi's own login keeps working.
+const PI_AUTH = join(homedir(), ".pi/agent/auth.json");
+const piCredentials = {
+	async read(id: string) {
+		if (!SUBSCRIPTION.has(id)) return undefined;
+		try {
+			return JSON.parse(readFileSync(PI_AUTH, "utf8"))[id];
+		} catch {
+			return undefined;
+		}
+	},
+	async list() {
+		const out = [];
+		for (const id of SUBSCRIPTION) {
+			const c = await piCredentials.read(id);
+			if (c) out.push({ providerId: id, type: c.type });
+		}
+		return out;
+	},
+	async modify(id: string, _fn: unknown) {
+		if (SUBSCRIPTION.has(id)) await run("pi", ["auth", "print-bearer-token", "--provider", id, "--min-expiry", "30m"], { timeout: 60_000 }).catch(() => {});
+		return piCredentials.read(id);
+	},
+	async delete() {},
+};
 
 function parseModel(m: string) {
 	const i = m.indexOf("/");
@@ -460,8 +496,9 @@ async function main() {
 	queue = queue.map((a) => "0x" + parseInt(a, 16).toString(16).padStart(8, "0")).filter((a) => !isDone(a));
 	queue = queue.slice(0, Number(values.limit));
 
-	const models = createModels();
+	const models = createModels({ credentials: piCredentials as any });
 	models.setProvider(openrouterProvider());
+	models.setProvider(openaiProvider());
 	const limits = new Map<string, Semaphore>();
 	for (const [name, ep] of Object.entries(ENDPOINTS)) {
 		const ids = tiers.filter((t) => parseModel(t.model).provider === name).map((t) => parseModel(t.model).modelId);
@@ -469,9 +506,11 @@ async function main() {
 		models.setProvider(endpointProvider(name, ep, [...new Set(ids)]));
 		limits.set(name, new Semaphore(ep.concurrency ?? 2));
 	}
+	// Subscriptions have usage windows, not rate cards: keep few conversations in flight (SUB_CONCURRENCY).
+	for (const p of SUBSCRIPTION) limits.set(p, new Semaphore(Number(process.env.SUB_CONCURRENCY ?? 2)));
 	for (const t of tiers) {
 		const p = parseModel(t.model).provider;
-		if (p !== "openrouter" && !ENDPOINTS[p]) throw new Error(`tier ${t.model}: unknown endpoint "${p}" (add it to farm/endpoints.json)`);
+		if (p !== "openrouter" && !SUBSCRIPTION.has(p) && !ENDPOINTS[p]) throw new Error(`tier ${t.model}: unknown endpoint "${p}" (add it to farm/endpoints.json)`);
 	}
 	const registry = createRegistry();
 	registry.install(Decomp);
@@ -534,7 +573,8 @@ async function main() {
 		const job = (await harness.snapshot(Job, conv.id, ctx))!;
 		const usage = await harness.snapshot(UsageDoc, conv.id, ctx);
 		const after = sumUsage(usage);
-		const cost = after.cost - before.cost, input = after.input - before.input;
+		// Subscription usage is flat-rate; pi still prices the tokens, so zero it in the ledger.
+		const cost = SUBSCRIPTION.has(parseModel(tier.model).provider) ? 0 : after.cost - before.cost, input = after.input - before.input;
 		const output = after.output - before.output, cacheRead = after.cacheRead - before.cacheRead;
 		const status = job.status === "running" ? (settled.status === "done" ? "gave_up" : "failed") : job.status;
 		const rec = {
