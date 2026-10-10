@@ -1,3 +1,5 @@
 /isos
 /build
 __pycache__/
+.DS_Store
+.ulk-permute/
