@@ -14,6 +14,7 @@ Usage:
 """
 import argparse
 import hashlib
+import re
 import json
 import os
 import sqlite3
@@ -159,7 +160,7 @@ def build_example(job, entries, addr, tier, max_turns):
         "tier": tier,
         "model": (entries and [(e.get("model") or [{}])[0] for e in entries if e["kind"] == "pi.assistant"] or [{}])[0].get("model"),
         "attempts": len(turns),
-        "size_bytes": job.get("attempts") and None or None,  # filled by caller from packet
+        "size_bytes": None,  # filled by caller from packet
         "messages": msgs,
         "winner_code": code,
         "has_thinking": any("reasoning" in m for m in msgs),
@@ -176,6 +177,14 @@ def packet_size(packet):
             except ValueError:
                 return None
     return None
+
+
+def squash(s):
+    return re.sub(r"\s+", "", s)
+
+
+def strip_comments(s):
+    return re.sub(r"//[^\n]*|/\*.*?\*/", "", s, flags=re.S)
 
 
 def split_of(addr):
@@ -215,25 +224,36 @@ def main():
                 stats["skipped_no_transcript"] += 1
                 continue
             ex["size_bytes"] = packet_size(ex["messages"][1]["content"])
-            cands.append((ex, entries))
+            cands.append((ex, entries, j))
         if not cands:
             continue
         # prefer one with thinking, then fewest turns
         cands.sort(key=lambda x: (not x[0]["has_thinking"], x[0]["attempts"]))
-        ex, entries = cands[0]
+        ex, entries, job = cands[0]
         stats["skipped_duplicate_addr"] += len(cands) - 1
 
-        # verify winner against matches/<addr>.cpp
+        # Cross-check winner against matches/<addr>.cpp. The authoritative match
+        # proof is the farm's own compare.py verdict (status==match, score 1.0);
+        # matches/ is often clang-formatted or hand-curated afterwards.
+        #   exact | formatting_only (whitespace-insensitive) | comments_only |
+        #   curated_diff (a later, differently-written variant) | no_file
         path = os.path.join(MATCHES, f"{addr}.cpp")
         if os.path.exists(path):
-            verified = open(path).read() == ex["winner_code"]
-            ex["verified"] = verified
-            winner_ok += verified
-            winner_bad += not verified
+            target = open(path).read()
+            if target == ex["winner_code"]:
+                ex["matches_variant"] = "exact"
+            elif squash(target) == squash(ex["winner_code"]):
+                ex["matches_variant"] = "formatting_only"
+            elif squash(strip_comments(target)) == squash(strip_comments(ex["winner_code"])):
+                ex["matches_variant"] = "comments_only"
+            else:
+                ex["matches_variant"] = "curated_diff"
         else:
-            ex["verified"] = None
+            ex["matches_variant"] = "no_file"
+        winner_ok += ex["matches_variant"] in ("exact", "formatting_only", "comments_only")
+        winner_bad += ex["matches_variant"] == "curated_diff"
         ex["score"] = j_best = max(
-            (h.get("score", -1) for h in (group[0].get("history") or [])), default=1
+            (h.get("score", -1) for h in (job.get("history") or [])), default=1
         )
         ex["split"] = split_of(addr)
         sft.append(ex)
@@ -280,8 +300,7 @@ def main():
         "sft_examples": len(sft),
         "with_thinking": think,
         "thinking_pct": round(100 * think / max(len(sft), 1), 1),
-        "verified": winner_ok,
-        "winner_mismatch": winner_bad,
+        "matches_check": dict(Counter(ex["matches_variant"] for ex in sft)),
         "split_counts": dict(split_counts),
         "attempts_hist": dict(sorted(attempts_hist.items())),
         "size_bytes_p50": sizes[len(sizes) // 2] if sizes else None,
