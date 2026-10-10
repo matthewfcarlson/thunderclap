@@ -1172,6 +1172,10 @@ class Machine:
 
     def __init__(self, prog, seed, globals_, pristine=False, dictionary=(), pointers=(), overlay=None):
         self.overlay = overlay or {}       # {(epoch, addr): bytes} forced by directed inputs
+        # memory modes: "narrow" folds every heap pointer into 512 bytes (begin/end ranges stay short);
+        # "noise" fills memory with random bytes (copies and byte loads see distinct values)
+        self.narrow = seed % 5 == 3
+        self.noise = seed % 4 == 3
         self.prog = prog
         self.seed = seed
         self.globals = sorted(globals_)
@@ -1199,8 +1203,14 @@ class Machine:
                             if page <= a and a + 4 <= page + PAGE:
                                 buf[a - page:a - page + 4] = struct.pack("<I", fuzz_value(mix(self.seed, epoch, a)))
                     b = bytes(buf)
+        elif self.noise and mix(self.seed, page, 0x401) & 1:     # half the pages: structured fields elsewhere
+            import random
+            b = random.Random(mix(self.seed, epoch, page, 0x9015E)).randbytes(PAGE)
         else:
             b = templates()[mix(self.seed, epoch, page) % 32 + (32 if self.seed % 2 else 0)]
+            if self.narrow:
+                w = list(struct.unpack("<1024I", b))
+                b = struct.pack("<1024I", *[(HEAP + (v & 0x1FC)) if HEAP <= v < HEAP + HEAP_SIZE else v for v in w])
             if self.dictionary:
                 # plant interesting values (the input's pointers, constants the code compares against)
                 import random
@@ -2255,6 +2265,9 @@ def make_input(seed, sig, prog_globals, ptr_pool=(), int_pool=()):
         elif k == "ptr" and ptr_pool and seed % 3 == 2 and h & 0x100:
             words.append(ptr_pool[(h >> 9) % len(ptr_pool)])         # e.g. a string the code compares with
             words_kind.append(k)
+        elif k == "ptr" and seed % 5 == 3:
+            words.append(HEAP + (h & 0x1FC))                            # narrow mode: within 512 bytes
+            words_kind.append(k)
         elif k == "ptr" and seed % 4 == 1:
             words.append(HEAP + 0x20000 + 0x40 * i + 4 * (h % 8))     # nearby, ascending pointers
             words_kind.append(k)
@@ -2264,6 +2277,8 @@ def make_input(seed, sig, prog_globals, ptr_pool=(), int_pool=()):
     regs = {}
     for j, r in enumerate(("eax", "ecx", "edx", "ebx", "esi", "edi", "ebp")):
         regs[r] = HEAP + ((mix(seed, 0x4E6, j) % HEAP_SIZE) & ~0xF) if seed else HEAP + 0x10000 * (j + 1)
+        if seed % 5 == 3 and r in ("ecx", "edx"):
+            regs[r] = HEAP + (mix(seed, 0x4E6, j) & 0x1F0)
     own_args = list(words)
     if cc == "fastcall" and params is not None:
         if words:
@@ -2717,10 +2732,12 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         orun.pointee_sizes = psizes or {}
         orun.slot_arity = slot_arity
         o = orun.run(oview.entry)
-        new = orun.edges - edges
-        edges.update(orun.edges)
-        for e in orun.edges:
-            hits[e] += 1
+        conclusive = not (o["status"] in ("timeout", "fault:too_many_pages") or o["status"].startswith("fault:hook_error"))
+        new = (orun.edges - edges) if conclusive else set()
+        if conclusive:                 # a run that never finished proves nothing about the edges it took
+            edges.update(orun.edges)
+            for e in orun.edges:
+                hits[e] += 1
         if o["status"] == "ret":
             for j, ob in orun.cmp_obs.items():
                 lst = observations.setdefault(j, [])
