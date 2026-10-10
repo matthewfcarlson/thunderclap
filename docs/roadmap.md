@@ -1,61 +1,67 @@
 # Roadmap
 
-From "every function matches" to a rebuildable, moddable, portable game. Concrete, self-contained task briefs for the non-matching work are in [`docs/tasks/`](tasks/README.md). Stages are roughly in dependency order. The quality-of-life and asset tracks (stage 6) can start much earlier; see the notes there.
+**Goal: a native port.** Source we can build for SteamOS (x86-64 Linux), arm64 macOS and Windows, with quality-of-life improvements. Byte-matching is a tool for proving correctness cheaply, not the destination. A SHA-1-identical `default.xbe` is optional and off the critical path.
 
-## Stage 1: Match every game function *(in progress)*
-- Farm plus propagation produce one standalone `.cpp` per function in `matches/`, with invented names and stub classes.
-- Small and mid functions (≤96 B): GPT-6 Luna, ~$0.002/match. Large functions: aligned diffs, staged matching, similar-function examples, local models, then stronger models (Sonnet before Astra).
-- **Local model flywheel** (fine-tune Qwen on farm transcripts + other decomps, then GRPO): [`docs/dataset-plan.md`](dataset-plan.md).
-- **Caveat:** compare masks relocated bytes, so a match proves code *shape*, not that calls and globals point at the right symbols. Stage 2 closes that gap.
+Concrete task briefs are in [`docs/tasks/`](tasks/README.md).
 
-## Stage 2: Verify references (codegen match → full match)
-- Export every reference from Ghidra (calls, globals, vtables, string and float pools). The XBE has no relocation table.
-- `compare.py` checks that each relocation in our object resolves to the same target symbol as the original. Expect some current matches to fail and need fixing.
+## Why a source port, not a static recompiler
 
-## Stage 3: Shared headers and real types
-- One definition per class, replacing per-function stubs. RTTI gives names, inheritance and vtables. Field layouts come from usage across functions.
-- Recompile every function against shared headers; it must still match. This catches matches that disagree on a field offset.
-- Consistent naming (`vfunc_7` → `Update`) from strings, asserts and behaviour.
+A recompiler (XBE x86 → C, e.g. `xboxrecomp`) boots sooner. But it leaves machine-translated code running in an emulated 32-bit address space with x87 quirks, and every QoL change is a hook into translated code. This engine makes a source port unusually cheap: Pure3D/radcore was a multi-platform engine, and the Xbox-specific code sits behind a few seams the RTTI already shows:
 
-## Stage 4: Original translation units
-- Recover `.obj` boundaries from link order in `.text`, string-pool and vtable/RTTI placement, and assert file names.
-- `config/splits.json` (Halo-style). Functions move into source files in original order.
-- Decompile data: globals, constant tables, float pools, vtables, strings (`.rdata`/`.data`/`.bss`).
-- **csplit** cuts the original into per-file objects; **objdiff** tracks per-object progress; progress goes on **decomp.dev**.
+| Seam | Classes (RTTI) | Port replacement |
+|---|---|---|
+| Rendering | `pure3d::pddiDevice`, `pddiDisplay`, `pddiRenderContext`, `pddiBaseContext` (111 virtuals), `pddiExt*` | a `pddi` backend on Vulkan/Metal (SDL_gpu or similar) |
+| Input | `core::ControllerXBox`, `ControllerInputPointXBox`, `ControllerOutputPointXBox` | SDL3 gamepad |
+| Audio | `audio::Hal*`, `audio::ListenerEffectXBox` | SDL3 audio / miniaudio |
+| Movies | `movie::PlayerBink`, `RenderStrategyBink` | Bink transcoded at asset-prep time, or a modern decoder |
+| OS | XAPI/kernel calls (files, threads, timers, memory) | a thin shim over SDL3 / the C++ standard library |
 
-## Stage 5: Relink to the original
-- Link our objects with the XDK/CRT/Bink code: either XDK 5849 libraries, or those regions carved out of the original XBE as binary objects.
-- Rebuild the XBE (header, sections, kernel thunks, certificate). Target: **SHA-1-identical `default.xbe`**, which then boots in xemu.
+XDK, CRT and Bink library code is **replaced, never decompiled**. Everything else needs source.
 
-## Stage 6: Make it better
-Most of this does **not** need stage 5. Three things unlock it early:
-- **xemu**, available today: internal render-resolution scaling (higher "rendering size") with no game changes.
-- **Hybrid build** (Halo-re style): patch our decompiled functions into the original XBE. Once the relevant subsystem is decompiled, this allows QoL changes playable in xemu, long before a full relink. So decompile the subsystems below *first*, not in size order.
-- **Asset tooling** is independent of code decomp and can start any time.
+## The plan
 
-### Quality of life
-- Widescreen 16:9 (projection and HUD layout), FOV slider, camera tweaks.
-- Higher or unlocked frame rate (60 fps). Needs the game loop and timestep code, since physics and animation are usually tied to frame time.
-- Skip intro movies and splash screens; faster loading; save/checkpoint conveniences.
-- Controller remapping, inverted-axis options, rumble settings.
+### 1. Map the platform boundary *(next)*
+- Every call from game code into XDK/kernel/D3D8/DirectSound (XbSymbolDatabase already identifies these): that list is the port's shim surface.
+- Subsystem map for render setup, camera, HUD, game loop and timestep ([task 07](tasks/07-subsystem-map.md)). It sets the farm's priority order.
 
-### Rendering
-- Native higher resolution and correct widescreen in the engine (beyond xemu's upscaling); MSAA, anisotropic filtering.
-- Draw distance and LOD bias for districts and crowds; shadow resolution.
-- Pure3D/pddi renderer (`pure3d::pddiBaseContext`, 111 virtual methods): the natural seam for a modern backend.
+### 2. Shared headers and real types *(highest leverage)*
+- One definition per class, replacing per-function stubs ([task 02](tasks/02-rtti-headers.md)). RTTI gives names, inheritance and vtables; field layouts come from usage across functions.
+- Recompile every match against the shared headers; it must still match. This catches field-offset disagreements.
+- This is a prerequisite for both the port (64-bit layouts depend on real types) and for large functions (they fail on layout far more than on logic).
 
-### Assets and models
-- `.rcf` ("ATG CORE CEMENT LIBRARY") unpack/repack tool; asset browser.
-- `.p3d` (Pure3D chunk format) reader/writer, building on public Donut Team format docs and the clean-room SHAR reimplementations (no leaked code).
-- Texture dump and replacement packs (HD textures), model import/export (Blender), audio and Bink movie replacement.
-- Modding hooks for new moves, characters and districts once the relevant systems are decompiled.
+### 3. Complete source coverage
+Every game function gets compilable C++ at one of three levels:
 
-### Native port ("recomp")
-- With matched source, replace Direct3D 8, DirectSound, XInput and the Xbox kernel with modern backends (e.g. a pddi implementation on Vulkan/Metal/WebGPU, SDL for input and audio). dc3-decomp did this for an Xbox 360 game.
-- Then high-res rendering, widescreen, high frame rate and modding become ordinary code changes.
+| Level | Meaning | How it's proven | Where it goes |
+|---|---|---|---|
+| **matched** | byte-identical codegen, references verified | `compare.py` + `verify_relocs.py` | `matches/` |
+| **equivalent** | different bytes, same behaviour | differential execution against the original (see [task 09](tasks/09-equivalent-decomp.md)) | `equivalent/` |
+| **draft** | compiles against shared headers, not yet proven | — | `equivalent/` with `// STATUS: draft` |
 
-## Suggested ordering for the QoL track
-1. Asset tools (RCF, then P3D): no code decomp needed; lets texture and model work start.
-2. Prioritize decomp of the render-setup, camera, HUD and game-loop/timestep subsystems. RTTI already names many of them (`VCRenderManager`, `VCCameraManager`, `VHUDOverlay`, `VCGameFlowManager`).
-3. Hybrid patch build in xemu: ship widescreen, FOV and 60 fps as patches.
-4. Full decomp plus relink, then the native port.
+- Small functions: keep matching. It's cheap (under a cent each) and the proof is free.
+- Large functions: stop paying for byte-matches. The farm writes equivalent code and checks behaviour instead ([task 09](tasks/09-equivalent-decomp.md)). A later pass can still upgrade them to matched.
+- Order by subsystem, not size: the seams in the table above, then the step-1 priority list, then everything else.
+
+### 4. Data
+- Globals, constant tables, float pools, vtables and strings (`.rdata`/`.data`/`.bss`) as source.
+- Translation-unit recovery ([task 05](tasks/05-split-recovery.md)) is useful for organizing source but not required for the port.
+
+### 5. Hybrid build in xemu: the integration test
+- Patch our compiled functions into the original XBE and run it in xemu ([task 06](tasks/06-hybrid-patch-build.md)).
+- It's the end-to-end check for equivalent code (play, or replay recorded input, and compare against the original) and the first place QoL patches ship: widescreen, FOV, 60 fps.
+
+### 6. Native build
+1. **x86-32 host build first** (Linux or Windows, clang): same pointer size and calling conventions as the Xbox, so the only new variable is the platform layer. Shim XAPI/kernel, implement the `pddi`, input, audio and movie backends.
+2. **64-bit clean-up**: pointer-size assumptions in structs, especially anything loaded from disk (`.p3d` chunk loaders, save data) and any code that stores pointers in `int`s.
+3. **x86-64 (SteamOS) and arm64 (macOS)** builds. Watch x87 → SSE/NEON float differences in physics and animation; replays from step 5 catch drift.
+
+### 7. Make it better
+Mostly ordinary code changes once step 6 lands; many can ship earlier as hybrid-build patches.
+- Widescreen (projection and HUD layout), FOV slider, camera options.
+- Unlocked frame rate: needs the game loop and timestep code (physics and animation are usually tied to frame time).
+- Native high resolution, MSAA, anisotropic filtering, draw distance and LOD bias.
+- Skip intros, faster loading, controller remapping, rumble options.
+- Assets: `.rcf` and `.p3d` tools are done ([task 03](tasks/03-rcf-tool.md), [task 04](tasks/04-p3d-reader.md)); HD texture and model packs build on them.
+
+## Status of the old plan
+The previous roadmap ended in a SHA-1-identical relink before any port work. That's now optional: matching continues where it's cheap, reference verification ([task 01](tasks/01-reference-verification.md)) is done, and the relink can happen later if anyone wants it.

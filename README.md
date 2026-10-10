@@ -1,8 +1,8 @@
 # hulk-ultimate-recomp
 
-A matching decompilation of **The Incredible Hulk: Ultimate Destruction** (Xbox, 2005, Radical Entertainment), built with LLM help.
+A decompilation of **The Incredible Hulk: Ultimate Destruction** (Xbox, 2005, Radical Entertainment), built with LLM help.
 
-The goal is C++ source that compiles with the original compiler (MSVC 7.1, `cl` 13.10.3077) to byte-identical machine code, function by function, and eventually relinks into the original `default.xbe`.
+The goal is a **native port**: C++ source we can build for SteamOS, arm64 macOS and Windows, with quality-of-life improvements. Functions are byte-matched against the original compiler (MSVC 7.1, `cl` 13.10.3077) where that's cheap, since a match proves correctness for free. Large functions only need to be proven *equivalent*, by differential execution against the original.
 
 **This repo contains no game code or assets. You need your own copy of the game.**
 
@@ -32,12 +32,15 @@ Full plan: [`docs/roadmap.md`](docs/roadmap.md).
 
 - [x] Toolchain: matching compiler on macOS, Ghidra + RTTI, compare loop
 - [x] Matching farm with cost controls; model benchmark (GPT-6 Luna: 65% on 32–96-byte functions at ~$0.002/match)
-- [ ] **1. Match every function**: sweep ≤96-byte shapes, then large functions
-- [ ] **2. Verify references**: relocations must hit the right symbols
-- [ ] **3. Shared headers and real types/names**
-- [ ] **4. Original source files**: splits, data, csplit + objdiff, decomp.dev
-- [ ] **5. Relink** to a SHA-1-identical `default.xbe`
-- [ ] **6. Make it better**: widescreen/FOV/60 fps, higher resolution, RCF/P3D asset tools, HD textures and models, native PC port. Much of this can start early via xemu, a hybrid patch build, and standalone asset tools.
+- [x] Reference verification: relocations must hit the right symbols
+- [x] Asset tools: RCF unpack/repack, P3D → PNG/glTF
+- [ ] **1. Map the platform boundary**: XDK/kernel/D3D calls from game code; render/camera/HUD/game-loop subsystems
+- [ ] **2. Shared headers and real types/names**
+- [ ] **3. Source for every game function**: byte-matched where cheap, behaviour-verified *equivalent* for large functions
+- [ ] **4. Data**: globals, tables, vtables, strings
+- [ ] **5. Hybrid build in xemu**: integration test, first QoL patches
+- [ ] **6. Native build**: x86-32 host first, then x86-64 (SteamOS) and arm64 (macOS)
+- [ ] **7. Make it better**: widescreen/FOV/60 fps, higher resolution, HD textures and models
 
 ## Setup
 

@@ -12,6 +12,7 @@ Self-contained briefs for work alongside the matching farm. Each brief has a goa
 | 06 | [Hybrid patch build in xemu](06-hybrid-patch-build.md) | matches/ | L | |
 | 07 | [Subsystem map for QoL (render/camera/HUD/game loop)](07-subsystem-map.md) | Ghidra, RTTI | M | |
 | 08 | [Farm: large-function strategies](08-large-functions.md) | farm | M | *farm session: aligned diffs, attempt history, similar-function examples built; A/B pending credits* |
+| 09 | [Equivalent decomp for large functions (behaviour verifier + farm mode)](09-equivalent-decomp.md) | 01, 02 | L | |
 
 ## Ground rules (read first)
 
