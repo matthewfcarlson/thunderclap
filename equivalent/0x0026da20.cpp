@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
+// FUN_0026da20 @ 0x0026da20
+struct Node { char pad0[12]; Node* next; Node* prev; }; struct Head { char pad[48]; Node* first; Node* last; }; extern Head* DAT_0052a140; extern Node* DAT_0052a144; extern Node* DAT_0052a148; extern char DAT_0052a130; void __cdecl FUN_0026d940(void*); void FUN_0026da20() { Head* head = DAT_0052a140; if (DAT_0052a148 == 0) head->first = DAT_0052a144; else DAT_0052a148->next = DAT_0052a144; if (DAT_0052a144 == 0) head->last = DAT_0052a148; else DAT_0052a144->prev = DAT_0052a148; FUN_0026d940(&DAT_0052a130); }
