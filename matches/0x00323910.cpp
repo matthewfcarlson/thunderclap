@@ -1,5 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 8/10, incomplete)
-// FUN_00323910 @ 0x00323910
 struct SurfaceDesc {
     unsigned int Format, Type, Usage, Size, MultiSampleType, Width, Height;
 };
@@ -8,7 +6,7 @@ int __stdcall D3DDevice_GetRenderTarget2();
 void __stdcall D3DSurface_GetDesc(int, SurfaceDesc*);
 void __stdcall D3DResource_Release(int);
 int __stdcall D3DDevice_CreateTexture2(int, int, int, int, int, unsigned int, int);
-}
+} // namespace D3D8
 class Viewport {
   public:
     virtual void s0();

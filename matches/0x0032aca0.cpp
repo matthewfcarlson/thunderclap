@@ -1,5 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
-// pure3d::d3dSimpleShader::vfunc_24 @ 0x0032aca0
 namespace pure3d {
 struct Matrix4 {
     float m[16];
@@ -41,12 +39,12 @@ class d3dSimpleShader : public d3dShader {
     void FUN_0032a600();
     void vfunc_24();
 };
-}
+} // namespace pure3d
 namespace D3D8 {
 void __stdcall D3DDevice_GetTransform(int state, pure3d::Matrix4* out);
 void __fastcall D3DDevice_SetVertexShaderConstant1(int reg, const void* data);
 void __fastcall D3DDevice_SetVertexShaderConstant4(int reg, const void* data);
-}
+} // namespace D3D8
 void pure3d::d3dSimpleShader::vfunc_24() {
     Matrix4 m6, m0, m1, t, u, f, g;
     float consts[4];

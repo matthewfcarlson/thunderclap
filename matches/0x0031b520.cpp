@@ -1,5 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
-// FUN_0031b520 @ 0x0031b520
 namespace D3D8 {
 void __stdcall D3D_GetDeviceCaps(int, int, void*);
 }
@@ -51,4 +49,4 @@ d3dDisplay::d3dDisplay(int arg) throw() {
     field498 = 0;
     b437 = 0;
 }
-}
+} // namespace pure3d

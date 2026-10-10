@@ -1,10 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 123 inputs, branch coverage 16/16)
-// FUN_0032a920 @ 0x0032a920
 typedef unsigned long DWORD;
 namespace D3D8 {
 void __stdcall D3DDevice_SetPalette(DWORD, DWORD);
 void __stdcall D3DDevice_SetTexture(DWORD, DWORD);
-}
+} // namespace D3D8
 struct Texture {
     void FUN_00326b00(int stage);
 };

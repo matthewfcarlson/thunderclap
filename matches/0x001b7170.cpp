@@ -1,5 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
-// CRadMovieRenderLoop::vfunc_3 @ 0x001b7170
 struct Fader {
     virtual void vf0();
     virtual void vf1();
@@ -110,7 +108,7 @@ extern Overlay* DAT_0052c2a8;
 extern Global2b4* DAT_0052c2b4;
 extern Global700* DAT_004dd700;
 class CRadMovieRenderLoop {
-public:
+  public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();

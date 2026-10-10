@@ -1,5 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
-// FUN_00320aa0 @ 0x00320aa0
 typedef unsigned long DWORD;
 struct SurfaceDesc {
     DWORD Format, Type, Usage, Size, MultiSampleType, Width, Height;
@@ -16,7 +14,7 @@ Surface* __stdcall D3DTexture_GetSurfaceLevel2(Texture*, DWORD);
 void __stdcall D3DSurface_GetDesc(Surface*, SurfaceDesc*);
 Surface* __stdcall D3DDevice_GetRenderTarget2();
 void __stdcall D3DDevice_CopyRects(Surface*, Rect*, DWORD, Surface*, void*);
-}
+} // namespace D3D8
 void FUN_0031c230(long hr);
 void __stdcall FUN_00320aa0(Texture* tex) {
     if (!tex)

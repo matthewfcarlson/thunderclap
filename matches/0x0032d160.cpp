@@ -1,5 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
-// pure3d::d3dPointSpriteShader::vfunc_12 @ 0x0032d160
 namespace pure3d {
 struct Matrix4 {
     float m[16];
@@ -35,12 +33,12 @@ class d3dPointSpriteShader : public d3dShader {
     virtual void vfunc_13();
     void vfunc_12();
 };
-}
+} // namespace pure3d
 namespace D3D8 {
 void __stdcall D3DDevice_GetTransform(int state, pure3d::Matrix4* out);
 void __fastcall D3DDevice_SetVertexShaderConstant1(int reg, const void* data);
 void __fastcall D3DDevice_SetVertexShaderConstant4(int reg, const void* data);
-}
+} // namespace D3D8
 void pure3d::d3dPointSpriteShader::vfunc_12() {
     Matrix4 m6, m1, m0, t0, t1, out;
     float consts[4];

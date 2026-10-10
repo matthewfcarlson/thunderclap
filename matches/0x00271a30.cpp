@@ -1,5 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 112 inputs, branch coverage 42/42)
-// FUN_00271a30 @ 0x00271a30
 extern const unsigned char DAT_004bdce7[];
 extern const unsigned short DAT_004adcc8[];
 extern const unsigned short DAT_004adcd8[];

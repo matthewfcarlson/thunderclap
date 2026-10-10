@@ -1,5 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
-// FUN_00320c60 @ 0x00320c60
 struct Matrix {
     float m[16];
 };
@@ -7,7 +5,7 @@ namespace D3D8 {
 void __stdcall D3DDevice_SetTransform(int, const Matrix*);
 void __fastcall D3DDevice_SetRenderState_Simple(unsigned long, unsigned long);
 void __stdcall D3DDevice_SetRenderState_TextureFactor(unsigned long);
-}
+} // namespace D3D8
 extern void __fastcall FUN_0022b980(Matrix*);
 extern unsigned int DAT_0039db08;
 extern int DAT_0039de14;

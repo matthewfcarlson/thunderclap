@@ -1,10 +1,8 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
-// FUN_00322610 @ 0x00322610
 typedef unsigned long DWORD;
 namespace D3D8 {
 void __stdcall D3DResource_Release(void*);
 void __stdcall D3DDevice_DeletePixelShader(DWORD);
-}
+} // namespace D3D8
 struct RefObj {
     virtual void vfunc_0();
     virtual void vfunc_1();

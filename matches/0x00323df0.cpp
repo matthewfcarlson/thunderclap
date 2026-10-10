@@ -1,5 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
-// pure3d::d3dContext::vfunc_4 @ 0x00323df0
 typedef unsigned long DWORD;
 struct Viewport {
     DWORD X, Y, Width, Height;
@@ -8,7 +6,7 @@ struct Viewport {
 namespace D3D8 {
 void __stdcall D3DDevice_GetViewport(Viewport*);
 void __stdcall D3DDevice_SetViewport(Viewport*);
-}
+} // namespace D3D8
 struct RenderTarget {
     virtual void s0();
     virtual void s1();
@@ -145,7 +143,7 @@ class d3dContext : public pddiBaseContext {
     Viewport vp;
     void FUN_00320c60();
 };
-}
+} // namespace pure3d
 void pure3d::d3dContext::vfunc_4() {
     if (target->FUN_0031b180()) {
         counter++;

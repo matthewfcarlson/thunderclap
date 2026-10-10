@@ -1,5 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
-// FUN_000b9ad0 @ 0x000b9ad0
 extern char DAT_0049dba4[];
 extern char DAT_0049dbbc[];
 extern char DAT_0049f4d8[];
@@ -59,10 +57,13 @@ void OptionsMenu::FUN_000b9ad0() {
         ready = 1;
         return;
     }
-    Slider* dialogue = (Slider*)FUN_00344e74(FUN_000fc260("DialogueVolumeSlider"), 0, DAT_0049dba4, DAT_0049f4d8, 0);
-    Slider* music = (Slider*)FUN_00344e74(FUN_000fc260("MusicVolumeSlider"), 0, DAT_0049dba4, DAT_0049f4d8, 0);
+    Slider* dialogue =
+        (Slider*)FUN_00344e74(FUN_000fc260("DialogueVolumeSlider"), 0, DAT_0049dba4, DAT_0049f4d8, 0);
+    Slider* music =
+        (Slider*)FUN_00344e74(FUN_000fc260("MusicVolumeSlider"), 0, DAT_0049dba4, DAT_0049f4d8, 0);
     Slider* fx = (Slider*)FUN_00344e74(FUN_000fc260("SoundFXVolumeSlider"), 0, DAT_0049dba4, DAT_0049f4d8, 0);
-    Selector* surround = (Selector*)FUN_00344e74(FUN_000fc260("SurroundSelector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
+    Selector* surround =
+        (Selector*)FUN_00344e74(FUN_000fc260("SurroundSelector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
     if (dialogue)
         dialogue->FUN_000f1a70(settings->FUN_001eba70());
     if (music)

@@ -1,6 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
-// pure3d::d3dLightMapShader::vfunc_24 @ 0x0032be30
-struct Vec4 { float x, y, z, w; };
+struct Vec4 {
+    float x, y, z, w;
+};
 struct Matrix {
     float m[16];
     void FUN_0022ca90(Matrix*, Matrix*);
@@ -11,7 +11,7 @@ namespace D3D8 {
 void __stdcall D3DDevice_GetTransform(unsigned long type, Matrix* out);
 void __fastcall D3DDevice_SetVertexShaderConstant1(int reg, const void* data);
 void __fastcall D3DDevice_SetVertexShaderConstant4(int reg, const void* data);
-}
+} // namespace D3D8
 namespace pure3d {
 class d3dLightMapShader {
   public:
@@ -43,7 +43,7 @@ class d3dLightMapShader {
     void FUN_0032b990();
     void FUN_0032bb10();
 };
-}
+} // namespace pure3d
 void pure3d::d3dLightMapShader::vfunc_24() {
     Vec4 consts;
     Matrix m6, m0, m1, prod, full, a, b;

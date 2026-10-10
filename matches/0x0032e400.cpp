@@ -1,5 +1,3 @@
-// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
-// pure3d::d3dLayeredShader::vfunc_24 @ 0x0032e400
 struct Vec4 {
     float x, y, z, w;
 };
@@ -13,7 +11,7 @@ namespace D3D8 {
 void __stdcall D3DDevice_GetTransform(int type, Matrix* out);
 void __fastcall D3DDevice_SetVertexShaderConstant1(int reg, const void* data);
 void __fastcall D3DDevice_SetVertexShaderConstant4(int reg, const void* data);
-}
+} // namespace D3D8
 struct Frame {
     Vec4 consts;
     Matrix worldViewT;
@@ -76,4 +74,4 @@ void d3dLayeredShader::vfunc_24() {
     FUN_0032db00();
     FUN_0032e0e0();
 }
-}
+} // namespace pure3d

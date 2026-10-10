@@ -52,6 +52,7 @@ let MATCHES_DIR = join(ROOT, "matches");
 let EQUIV_DIR = join(ROOT, "equivalent");
 let WORK_TAG = "main";
 let MODE: "match" | "equiv" = "match";
+const MIN_EQUIV_COVERAGE = 0.75; // share of the original's branch edges the passing inputs must reach
 
 type Tier = {
 	model: string;
@@ -230,11 +231,16 @@ const submitCpp = defineTool({
 			r.report = `${equivReport(eq)}\n(byte similarity ${(r.score ?? 0).toFixed(2)}; a byte-match is not required)`;
 		}
 		// A name that claims the wrong address would link to the wrong function in the port.
-		const equivalent = eq?.status === "equivalent" && !(eq.level2?.conflicts ?? []).length;
-		if (eq?.status === "equivalent" && !equivalent) {
+		const named = eq?.status === "equivalent" && !(eq.level2?.conflicts ?? []).length;
+		if (eq?.status === "equivalent" && !named) {
 			score = 0.95;
 			r.report = `Behaviour matches, but some names claim the wrong address; rename them:\n${r.report}`;
 		}
+		// A pass on inputs that reached few branches proves little (one reached 3/33). Below the floor the
+		// fuzzer, not the model, is the limit: park the source for a re-check and end the job.
+		const cov = eq?.level3?.coverage ?? {};
+		const lowCoverage = named && (cov.edges_total ?? 0) > 0 && cov.edges_covered / cov.edges_total < MIN_EQUIV_COVERAGE;
+		const equivalent = named && !lowCoverage;
 		const left = job.maxAttempts - n;
 		await api.commit(async (tx) => {
 			const j = await tx.doc(Job, api.conversationId);
@@ -247,6 +253,7 @@ const submitCpp = defineTool({
 			}
 			if (matched) j.status = "match";
 			else if (equivalent) j.status = "equivalent";
+			else if (lowCoverage) j.status = "low_coverage";
 			else if (left <= 0) j.status = "exhausted";
 		}, context);
 		if (matched) {
@@ -256,6 +263,12 @@ const submitCpp = defineTool({
 			// clang-format the saved match; the formatter re-verifies and keeps the original on any failure.
 			await run(PY, [join(ROOT, "tools/format_matches.py"), dest, "--jobs", "1"], { timeout: 120_000 }).catch(() => {});
 			return { content: [{ type: "text", text: "MATCH. Done." }], control: { terminate: true } };
+		}
+		if (lowCoverage) {
+			const park = join(BUILD, "equiv-lowcov");
+			mkdirSync(park, { recursive: true });
+			copyFileSync(src, join(park, `${job.addr}.cpp`));
+			return { content: [{ type: "text", text: "Behaviour matches on every input, but coverage is too low to accept; parked for a re-check. Done." }], control: { terminate: true } };
 		}
 		if (equivalent) {
 			mkdirSync(EQUIV_DIR, { recursive: true });
@@ -634,7 +647,7 @@ async function main() {
 			try {
 				const limit = limits.get(parseModel(tiers[t].model).provider);
 				const job = limit ? await limit.run(() => runTier(addr, t, previous)) : await runTier(addr, t, previous);
-				if (job.status === "match" || job.status === "equivalent") return;
+				if (job.status === "match" || job.status === "equivalent" || job.status === "low_coverage") return;
 				if (job.status === "running") return; // provider error: retry this tier on a later run
 				previous = await handoff(addr, t + 1);
 			} catch (e: any) {
