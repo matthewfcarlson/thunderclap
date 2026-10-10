@@ -20,9 +20,10 @@ XDK, CRT and Bink library code is **replaced, never decompiled**. Everything els
 
 ## The plan
 
-### 1. Map the platform boundary *(next)*
+### 1. Map the platform boundary *(done)*
 - Every call from game code into XDK/kernel/D3D8/DirectSound (XbSymbolDatabase already identifies these): that list is the port's shim surface.
 - Subsystem map for render setup, camera, HUD, game loop and timestep ([task 07](tasks/07-subsystem-map.md)). It sets the farm's priority order.
+- *Done:* [`platform-boundary.md`](platform-boundary.md) (182 platform functions; four seams plus 8 leak functions contain every platform call), [`subsystems.md`](subsystems.md) (QoL locations), and [`port-priority.txt`](port-priority.txt) (2,011 functions, seams first; `build/farm/priority.txt` for the farm).
 
 ### 2. Shared headers and real types *(highest leverage)*
 - One definition per class, replacing per-function stubs ([task 02](tasks/02-rtti-headers.md)). RTTI gives names, inheritance and vtables; field layouts come from usage across functions.

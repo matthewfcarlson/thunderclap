@@ -25,6 +25,8 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 B = lambda *p: os.path.join(ROOT, "build", *p)
 XBE_PATH = os.path.join(ROOT, "isos/extracted/default.xbe")
 GAME_TEXT_END = 0x364840  # .text end; BINK/XDK sections follow
+# Library code linked inside .text (see docs/platform-boundary.md): replaced by the port, not decompiled.
+LIB_SPANS = [(0x208B9C, 0x212BB0), (0x3440E0, 0x356BF0), (0x35A7B0, 0x35BE88)]  # XAPILIB; LIBCMT+XAPI; LIBCMT EH
 
 
 class Db:
@@ -56,7 +58,7 @@ class Db:
 
     def is_game(self, r):
         va = int(r["address"], 16)
-        if va >= GAME_TEXT_END or r["is_thunk"] == "1":
+        if va >= GAME_TEXT_END or r["is_thunk"] == "1" or any(a <= va < b for a, b in LIB_SPANS):
             return False
         n = r["name"]
         # XDK/CRT symbols identified by XbSymbolDatabase keep their library names.
