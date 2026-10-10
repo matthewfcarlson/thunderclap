@@ -29,6 +29,8 @@ first. The essentials:
 - MSVC 7.1 is pre-C++11.
 - No asm or `#pragma`. Never hard-code image addresses as integers.
 - Use real structs with named fields, and loops instead of gotos.
+- **Register-argument callees** (eax, or other registers C++ can't express): declare them normally and add `// equiv-conv: FUN_x eax ecx stack`. See "Register conventions" in `docs/equivalence.md`.
+- **Hand-written stack cookie:** for a /GS cookie, see matches/0x001fc460.cpp, or just omit the cookie; the checker skips the cookie call.
 - `matches/*.cpp` has ~15k matched functions. Grep it for the same class or callee names to reuse layouts.
 
 ## Hard rules

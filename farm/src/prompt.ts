@@ -98,6 +98,7 @@ Translation unit rules:
 - Calling conventions of callees matter (they decide which values are arguments): no "add esp,N" after a call to a function with stack arguments means __stdcall or a __thiscall member; "lea ecx,[...]" or "mov ecx,..." right before a call passes this.
 - Float constants: write the literal (0x3f800000 is 1.0f). Strings: write the literal text.
 - MSVC 7.1 is pre-C++11: no auto, nullptr, override, enum class, range-for or brace-init. Members are private in a class unless under public:. MSVC 7.1 rejects __thiscall in function-pointer types: call through declared virtual methods instead.
+- Some callees (mostly in the D3D backend) take arguments in registers no C++ convention uses, e.g. eax. Declare them as ordinary functions with those values as parameters and add an annotation listing where the original passes each parameter, in your parameter order: "// equiv-conv: FUN_00326dc0 eax ecx" or "// equiv-conv: FUN_00325fd0 ecx edx eax stack". The same annotation on the target describes its own register inputs. A callee taking this in ecx plus a stack argument the caller pops is just a normal member function; no annotation is needed.
 - No inline assembly, _emit, naked functions or #pragma. Never hard-code image addresses as integers, and never store a vptr by hand: declare the real class, global or function.
 
 Write it the way a programmer would: real structs with named fields instead of pointer arithmetic, loops instead of gotos, no Ghidra casts. Behaviour is what's checked; register allocation and instruction order are not.
