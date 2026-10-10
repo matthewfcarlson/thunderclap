@@ -24,3 +24,9 @@ Generate a first set of shared C++ headers from recovered RTTI, so matched funct
 ## Notes
 - Field layouts are out of scope beyond the vftable pointer. Add `char _pad[N]` only where a matched function proves an offset. A follow-up task can mine `matches/` for field offsets per class.
 - Template classes: emit the template once with its instantiations noted. Don't emit every instantiation as a separate class.
+
+## Status (2026-10-10): done
+- `tools/gen_headers.py` generates `include/gen/` (17 namespace headers + `all.h`). Details, the probe results and known gaps are in [`docs/headers.md`](../headers.md).
+- Layout probe (`--probe`): all 17 headers compile with `cl` 13.10 `/O2 /GR /GX`. For all 4,238 classes with a vftable, the vftable slot counts, all 27,439 slot implementers, the RTTI base descriptors and `sizeof` agree with the RTTI.
+- `experiments/first-matches/{refcount,action,method}_gen.cpp`: 5 functions rewritten on the generated headers, all MATCH.
+- Stretch: `--mine` mines field offsets and slot signatures from `matches/`, and `--swap-test` measures how many matches survive the swap to the headers (see `docs/headers.md`).
