@@ -53,6 +53,7 @@ type Tier = {
 	maxAttempts: number;
 	minSize?: number; // only functions whose size (bytes) is within [minSize, maxSize] use this tier
 	maxSize?: number;
+	maxOutput?: number; // OpenRouter output-token cap (thinking included); default CLOUD_MAX_OUTPUT
 };
 // Free OpenAI-compatible servers (LM Studio / llama.cpp / MLX / Ollama). farm/endpoints.json (gitignored):
 //   { "big": { "baseUrl": "http://mac1:1234/v1", "apiKey": "...", "concurrency": 4 }, "small": { ... } }
@@ -252,6 +253,7 @@ class Semaphore {
 
 const ENDPOINTS = loadEndpoints();
 const CLOUD_MAX_OUTPUT = 8192;
+const MAX_OUTPUT_BY_MODEL = new Map<string, number>(); // OpenRouter model id -> tier maxOutput
 
 // Local reasoning models ignore "low" effort and think for 20k+ tokens before acting. For endpoints
 // with "thinking": false (the default), rewrite chat requests to disable thinking in the chat template.
@@ -272,7 +274,7 @@ const CLOUD_MAX_OUTPUT = 8192;
 		if (url.startsWith("https://openrouter.ai/") && typeof init?.body === "string") {
 			const body = JSON.parse(init.body);
 			const budget = body.thinking?.budget_tokens ?? 0;
-			const cap = Math.max(CLOUD_MAX_OUTPUT, budget + 4096);
+			const cap = Math.max(MAX_OUTPUT_BY_MODEL.get(body.model) ?? CLOUD_MAX_OUTPUT, budget + 4096);
 			for (const k of ["max_tokens", "max_completion_tokens"]) {
 				if (typeof body[k] === "number" && body[k] > cap) body[k] = cap;
 			}
@@ -282,7 +284,8 @@ const CLOUD_MAX_OUTPUT = 8192;
 		return realFetch(input, init);
 	};
 }
-const isFree = (model: string) => model.slice(0, model.indexOf("/")) in ENDPOINTS;
+// Local endpoints, and OpenRouter ":free" variants (rate-limited, ~1000 requests/day, no credit used).
+const isFree = (model: string) => model.slice(0, model.indexOf("/")) in ENDPOINTS || model.endsWith(":free");
 
 function parseModel(m: string) {
 	const i = m.indexOf("/");
@@ -305,6 +308,7 @@ async function main() {
 		},
 	});
 	const tiers: Tier[] = JSON.parse(readFileSync(values.tiers!, "utf8"));
+	for (const t of tiers) if (t.maxOutput) MAX_OUTPUT_BY_MODEL.set(parseModel(t.model).modelId, t.maxOutput);
 	const sizes = new Map<string, number>();
 	for (const line of readFileSync(join(ROOT, "build/functions.csv"), "utf8").split("\n").slice(1)) {
 		const [a, size] = line.split(",");
