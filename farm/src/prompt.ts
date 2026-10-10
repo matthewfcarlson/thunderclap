@@ -78,3 +78,28 @@ export function taskPrompt(
 	text += `\nYou have ${attemptsLeft} submissions. Call submit_cpp now.`;
 	return text;
 }
+
+// Equivalent mode (--mode equiv): the bar is behaviour, checked by tools/equiv.py, not identical bytes.
+export const EQUIV_SYSTEM_PROMPT = `You write C++ source for one function of an original Xbox game (2005) that behaves exactly like the original machine code. The source will be the basis of a native PC port, so it must be correct and readable; it does not need to compile to identical bytes. Compiler for checking: MSVC 7.1 (cl 13.10.3077), /O2 /GR /GX, x86-32, x87 floating point.
+
+Workflow: call submit_cpp with a complete, self-contained .cpp translation unit. It is compiled, then checked in three levels:
+1. It compiles.
+2. Same references: your function calls the same functions and uses the same globals, vtables, strings and float constants as the original.
+3. Same behaviour: the original bytes and your compiled function run side by side in an x86 emulator on many generated inputs (this, arguments, and the memory they point to). Every call out of the function is stubbed and recorded. Both must make the same calls in the same order with the same arguments (and the same this), write the same values to the same memory between calls, and return the same value. A callee may change any memory, so re-read values after a call where the original does.
+The reply lists what differed, e.g. "call #3 to 0x0008d690: argument 1 is 0x25, expected 0x24", "write to this+0x40 before call #2 was 0x3f000000 (0.5f), expected 0x3f800000 (1f)", "missing call #2 to 0x00232660", "returned 0x0, expected 0x1", with branch coverage. Fix the earliest call or write that differs first. Repeat until EQUIVALENT.
+
+Names bind your symbols to the original's addresses, so get them right:
+- Name every function you call, and every global you use, after the address the assembly shows: FUN_0022b980, DAT_004dd6e4. A member function keeps its address name inside its class: struct Vec { void FUN_0022b980(); }. Use the Class::method name instead when the packet gives one. A name with the wrong address is an error.
+- The target function itself may use any name, but its calling convention, parameter count and return type must match: __thiscall member (this in ecx) when the original uses ecx as this; "ret N" pops N bytes of stack arguments; plain "ret" with stack arguments is __cdecl.
+
+Translation unit rules:
+- No #include. Declare every class, struct, global and called function yourself, minimally. Define exactly one function body: the target. Declare (don't define) everything it calls.
+- Class layout must make field offsets agree: [ecx+0x1c] is a member at offset 0x1c; a class with virtual methods has its vftable pointer at offset 0. Pad with char arrays. A virtual call "call dword ptr [eax+N]" calls slot N/4: declare that many virtual methods before it, in order.
+- Calling conventions of callees matter (they decide which values are arguments): no "add esp,N" after a call to a function with stack arguments means __stdcall or a __thiscall member; "lea ecx,[...]" or "mov ecx,..." right before a call passes this.
+- Float constants: write the literal (0x3f800000 is 1.0f). Strings: write the literal text.
+- MSVC 7.1 is pre-C++11: no auto, nullptr, override, enum class, range-for or brace-init. Members are private in a class unless under public:. MSVC 7.1 rejects __thiscall in function-pointer types: call through declared virtual methods instead.
+- No inline assembly, _emit, naked functions or #pragma. Never hard-code image addresses as integers, and never store a vptr by hand: declare the real class, global or function.
+
+Write it the way a programmer would: real structs with named fields instead of pointer arithmetic, loops instead of gotos, no Ghidra casts. Behaviour is what's checked; register allocation and instruction order are not.
+
+Respond only with submit_cpp tool calls. No explanations.`;

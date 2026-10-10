@@ -2,6 +2,8 @@
 // on pi-durable over SQLite. Each worker only has submit_cpp, which compiles and diffs a candidate.
 //
 // Usage (from repo root): farm/run.sh [--limit N] [--concurrency C] [--queue FILE] [--tiers FILE] [--only 0xADDR,...]
+//   --mode equiv: accept behaviourally equivalent code (tools/equiv.py level 3) instead of requiring a byte-match;
+//   results go to equivalent/<addr>.cpp, and byte-matches found along the way still go to matches/.
 
 import { execFile } from "node:child_process";
 import { appendFileSync, copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
@@ -31,7 +33,7 @@ import {
 import { openNodeSqliteStorage } from "@earendil-works/pi-durable/storage/sqlite/node";
 
 import { compileHints } from "./hints.ts";
-import { SYSTEM_PROMPT, taskPrompt } from "./prompt.ts";
+import { EQUIV_SYSTEM_PROMPT, SYSTEM_PROMPT, taskPrompt } from "./prompt.ts";
 
 const run = promisify(execFile);
 
@@ -45,7 +47,9 @@ const BUILD = join(ROOT, "build/farm");
 const PY = join(ROOT, "build/venv/bin/python");
 const ctx = BACKGROUND_CONTEXT;
 let MATCHES_DIR = join(ROOT, "matches");
+let EQUIV_DIR = join(ROOT, "equivalent");
 let WORK_TAG = "main";
+let MODE: "match" | "equiv" = "match";
 
 type Tier = {
 	model: string;
@@ -66,7 +70,7 @@ type JobState = {
 	tier: number;
 	attempts: number;
 	maxAttempts: number;
-	status: string; // running | match | exhausted
+	status: string; // running | match | equivalent | exhausted
 	bestScore: number;
 	bestCode: string;
 	bestReport: string;
@@ -127,6 +131,64 @@ async function verifyRefs(src: string, addr: string): Promise<{ status: string; 
 	}
 }
 
+// Behaviour check (docs/equivalence.md). equiv.py exits 1 on anything but "equivalent" and still prints JSON.
+async function equiv(src: string, addr: string): Promise<any> {
+	try {
+		const { stdout } = await run(PY, [join(ROOT, "tools/equiv.py"), src, addr, "--json"], { timeout: 400_000, maxBuffer: 16 << 20 });
+		return JSON.parse(stdout);
+	} catch (e: any) {
+		try {
+			return JSON.parse(e.stdout);
+		} catch {
+			return { status: "tool_error", error: String(e.message).slice(0, 300) };
+		}
+	}
+}
+
+// Progress for ranking attempts: compiled 0.2, references right 0.5, then the share of inputs that agreed.
+function equivScore(r: any): number {
+	if (r.status === "equivalent") return 1;
+	if (r.status === "unsupported") return 0.6;
+	if ((r.level ?? 0) < 1) return 0;
+	if (!r.level2?.ok) return 0.2;
+	const l3 = r.level3 ?? {};
+	return 0.5 + 0.45 * (1 - (l3.inputs_failed ?? 0) / Math.max(1, l3.inputs_run ?? 1));
+}
+
+// {kind: "missing_call", target: "0x..", name: "FUN_.."} -> "missing_call target=0x.. name=FUN_..".
+const fields = (o: any) => typeof o !== "object" || !o ? String(o)
+	: [o.kind, ...Object.entries(o).filter(([k, v]) => k !== "kind" && v != null).map(([k, v]) => `${k}=${typeof v === "object" ? JSON.stringify(v) : v}`)].filter(Boolean).join(" ");
+
+// The compact behaviour diff a model iterates on, in the order it should fix things.
+function equivReport(r: any): string {
+	if (r.status === "compile_error") return `compile_error\n${r.error ?? ""}`;
+	if (r.status === "no_function") return `no_function: ${r.error ?? "the target function was not found in the object; define it with the given signature"}`;
+	if (r.status === "tool_error") return `checker error: ${r.error}`;
+	const out: string[] = [];
+	const l2 = r.level2 ?? {};
+	const sig = r.signature ? ` (${r.signature.cc}, returns ${r.signature.ret}, params ${JSON.stringify(r.signature.params)})` : "";
+	if (!l2.ok) {
+		out.push(`Level 2 (references) failed: the original's callees/globals/strings differ from yours${sig}.`);
+		for (const i of (l2.issues ?? []).slice(0, 8)) out.push(`- ${fields(i)}`);
+	}
+	for (const c of (l2.conflicts ?? []).slice(0, 4)) out.push(`- name conflict: ${fields(c)}`);
+	const l3 = r.level3;
+	if (l3) {
+		out.push(`Level 3 (behaviour): ${l3.inputs_failed ?? 0} of ${l3.inputs_run ?? 0} inputs differ; branch coverage ${l3.coverage?.edges_covered ?? "?"}/${l3.coverage?.edges_total ?? "?"}.`);
+		const seen = new Set<string>();
+		for (const m of l3.mismatches ?? []) {
+			for (const d of m.diffs ?? []) {
+				if (seen.size >= 6 || seen.has(d)) continue;
+				seen.add(d);
+				out.push(`- input ${m.input}: ${d}`);
+			}
+		}
+		if (r.status === "unsupported") out.push("No input ran to completion within the step limit (long loop?), so behaviour could not be compared.");
+	}
+	for (const w of (l2.warnings ?? []).slice(0, 3)) out.push(`(warning) ${fields(w)}`);
+	return out.join("\n");
+}
+
 const submitCpp = defineTool({
 	name: "submit_cpp",
 	description: "Compile a complete C++ translation unit with MSVC 7.1 and diff the best-matching function against the target.",
@@ -156,8 +218,21 @@ const submitCpp = defineTool({
 				r.report = refNote;
 			}
 		}
-		const score = r.status === "match" ? 1 : (r.score ?? 0);
+		let score = r.status === "match" ? 1 : (r.score ?? 0);
 		const matched = r.status === "match";
+		// Equivalent mode: the byte diff is only a bonus; the reply is the behaviour diff.
+		let eq: any;
+		if (MODE === "equiv" && !matched && r.status !== "compile_error") {
+			eq = await equiv(src, job.addr);
+			score = equivScore(eq);
+			r.report = `${equivReport(eq)}\n(byte similarity ${(r.score ?? 0).toFixed(2)}; a byte-match is not required)`;
+		}
+		// A name that claims the wrong address would link to the wrong function in the port.
+		const equivalent = eq?.status === "equivalent" && !(eq.level2?.conflicts ?? []).length;
+		if (eq?.status === "equivalent" && !equivalent) {
+			score = 0.95;
+			r.report = `Behaviour matches, but some names claim the wrong address; rename them:\n${r.report}`;
+		}
 		const left = job.maxAttempts - n;
 		await api.commit(async (tx) => {
 			const j = await tx.doc(Job, api.conversationId);
@@ -169,6 +244,7 @@ const submitCpp = defineTool({
 				j.bestReport = r.report;
 			}
 			if (matched) j.status = "match";
+			else if (equivalent) j.status = "equivalent";
 			else if (left <= 0) j.status = "exhausted";
 		}, context);
 		if (matched) {
@@ -178,6 +254,15 @@ const submitCpp = defineTool({
 			// clang-format the saved match; the formatter re-verifies and keeps the original on any failure.
 			await run(PY, [join(ROOT, "tools/format_matches.py"), dest, "--jobs", "1"], { timeout: 120_000 }).catch(() => {});
 			return { content: [{ type: "text", text: "MATCH. Done." }], control: { terminate: true } };
+		}
+		if (equivalent) {
+			mkdirSync(EQUIV_DIR, { recursive: true });
+			const l3 = eq.level3 ?? {};
+			const cov = l3.coverage ?? {};
+			const head = `// STATUS: equivalent (tools/equiv.py level 3: ${l3.inputs_run} inputs, branch coverage ${cov.edges_covered}/${cov.edges_total}${cov.complete ? "" : ", incomplete"})\n`
+				+ `// ${eq.target ?? job.addr} @ ${job.addr}\n`;
+			writeFileSync(join(EQUIV_DIR, `${job.addr}.cpp`), head + args.code);
+			return { content: [{ type: "text", text: "EQUIVALENT. Done." }], control: { terminate: true } };
 		}
 		if (left <= 0) {
 			return { content: [{ type: "text", text: r.report + "\nNo submissions left." }], control: { terminate: true } };
@@ -191,7 +276,7 @@ const nudges = new Map<string, number>();
 const Decomp = defineExtension({
 	name: "decomp",
 	tools: [submitCpp],
-	sections: [section("preamble", () => SYSTEM_PROMPT, { tag: false })],
+	sections: [section("preamble", () => (MODE === "equiv" ? EQUIV_SYSTEM_PROMPT : SYSTEM_PROMPT), { tag: false })],
 	hooks: [
 		hook(GenerationTask, {
 			onYield: async (_answer, api, context) => {
@@ -305,6 +390,7 @@ async function main() {
 			bench: { type: "string" }, // isolated run: own ledger/db/matches dir, ignores existing matches
 			lane: { type: "string" }, // parallel worker lane: own ledger/db, but writes to and skips main matches/
 			packets: { type: "string", default: join(BUILD, "packets") }, // prebuilt packet dir (A/B tests)
+			mode: { type: "string", default: "match" }, // match | equiv
 		},
 	});
 	const tiers: Tier[] = JSON.parse(readFileSync(values.tiers!, "utf8"));
@@ -323,6 +409,9 @@ async function main() {
 	mkdirSync(join(BUILD, "lanes"), { recursive: true });
 	mkdirSync(join(BUILD, "bench"), { recursive: true });
 	MATCHES_DIR = matchesDir;
+	if (values.mode !== "match" && values.mode !== "equiv") throw new Error(`--mode must be match or equiv`);
+	MODE = values.mode;
+	EQUIV_DIR = bench ? join(BUILD, "bench", bench, "equivalent") : join(ROOT, "equivalent");
 	WORK_TAG = bench ?? (lane ? `lane-${lane}` : "main");
 
 	// Finished (addr, tier) pairs from the ledger; matched addresses are skipped entirely.
@@ -349,7 +438,7 @@ async function main() {
 				continue;
 			}
 			if (!finished.has(r.addr)) finished.set(r.addr, new Set());
-			finished.get(r.addr)!.add(r.status === "match" ? -1 : r.tier);
+			finished.get(r.addr)!.add(r.status === "match" || r.status === "equivalent" ? -1 : r.tier);
 		}
 	}
 	const spentAtStart = spent;
@@ -358,6 +447,7 @@ async function main() {
 	const invalid = new Set(existsSync(invalidPath) ? readFileSync(invalidPath, "utf8").split("\n").filter(Boolean) : []);
 	for (const a of invalid) finished.delete(a);
 	const isDone = (a: string) => existsSync(join(matchesDir, `${a}.cpp`)) || finished.get(a)?.has(-1)
+		|| (MODE === "equiv" && existsSync(join(EQUIV_DIR, `${a}.cpp`)))
 		|| tiers.every((tier, t) => finished.get(a)?.has(t) || !fits(a, tier));
 
 	const fits = (a: string, tier: Tier) => {
@@ -504,7 +594,7 @@ async function main() {
 			try {
 				const limit = limits.get(parseModel(tiers[t].model).provider);
 				const job = limit ? await limit.run(() => runTier(addr, t, previous)) : await runTier(addr, t, previous);
-				if (job.status === "match") return;
+				if (job.status === "match" || job.status === "equivalent") return;
 				if (job.status === "running") return; // provider error: retry this tier on a later run
 				previous = await handoff(addr, t + 1);
 			} catch (e: any) {
@@ -532,7 +622,7 @@ async function main() {
 	let creditsOut = false;
 	const concurrency = Number(values.concurrency);
 	let next = 0;
-	console.log(`farm: ${queue.length} functions, concurrency ${concurrency}, tiers ${tiers.map((t) => t.model).join(" -> ")}, budget $${budget} ($${spent.toFixed(3)} spent)`);
+	console.log(`farm${MODE === "equiv" ? " (equivalent mode)" : ""}: ${queue.length} functions, concurrency ${concurrency}, tiers ${tiers.map((t) => t.model).join(" -> ")}, budget $${budget} ($${spent.toFixed(3)} spent)`);
 	await Promise.all(Array.from({ length: concurrency }, async () => {
 		while (next < queue.length) await work(queue[next++]);
 	}));
