@@ -650,16 +650,21 @@ class CodeView:
         return res
 
     def cleanup_after(self, call_addr):
-        """Bytes the caller pops after a call (cdecl cleanup), or None."""
+        """Bytes the caller pops after a call (cdecl cleanup), or None.
+
+        MSVC may defer the cleanup of several cdecl calls into one `add esp, N`; pushes for later
+        calls in between are subtracted (and known callee pops added back)."""
         i = self.decode(call_addr)
         a = call_addr + i.size
-        for k in range(8):
+        later = 0          # bytes pushed after our call that the same cleanup also removes
+        for k in range(24):
             j = self.decode(a)
             if j is None:
                 return None
             if j.mnemonic == "add" and j.op_str.startswith("esp,") and j.imms:
-                return j.imms[0]
-            if j.mnemonic == "pop" and j.regs == ["ecx"]:
+                n = j.imms[0] - later
+                return n if n > 0 else None
+            if j.mnemonic == "pop" and j.regs == ["ecx"] and later == 0:
                 n = 0
                 while j is not None and j.mnemonic == "pop" and j.regs == ["ecx"] and n < 8:
                     n += 4
@@ -670,8 +675,15 @@ class CodeView:
                         (j.mnemonic == "mov" and j.op_str == "esp, ebp"):
                     return None
                 return n
-            if j.kind != "other" or j.mnemonic in ("push", "pop", "sub", "leave", "pushal", "popal", "pushfd",
-                                                  "popfd") or "esp" in j.op_str.split(",")[0]:
+            if j.mnemonic == "push":
+                later += 4
+            elif j.kind == "call":
+                # a later call of unknown arity is taken to be cdecl too: the shared cleanup then has to
+                # cover its pushes as well, which the subtraction below checks
+                pop = self.prog.callee_pop(j.target) if j.target is not None else 0
+                later -= pop or 0
+            elif j.kind != "other" or j.mnemonic in ("pop", "sub", "leave", "pushal", "popal", "pushfd",
+                                                    "popfd") or "esp" in j.op_str.split(",")[0]:
                 return None
             a += j.size
         return None
@@ -1570,15 +1582,15 @@ class Run:
             else:
                 nargs = len(tracked)
                 p = 4 * nargs
-                # a virtual call: reuse what the original's call through the same vtable slot did, so
-                # that argument pushes interleaved with an outer call in our code don't change the count
-                slot = insn.mem[4] if insn.mem is not None and insn.mem[1] not in (None, "esp", "ebp") \
-                    and not insn.mem[2] else None
-                if slot is not None and self.slot_arity is not None:
-                    if self.coverage:               # the original's run
-                        self.slot_arity.setdefault(slot, (p, nargs))
-                    elif slot in self.slot_arity:
-                        p, nargs = self.slot_arity[slot]
+                # an indirect call of unknown arity: our k-th call reuses what the original's k-th call
+                # did on the same input, so argument pushes interleaved with an outer call in our code
+                # don't change the count (if the traces differ, they fail on the target anyway)
+                k_call = len(self.calls)
+                learned = self.inp.setdefault("arity_by_call", {})
+                if self.coverage:                   # the original's run
+                    learned[k_call] = (p, nargs)
+                elif k_call in learned:
+                    p, nargs = learned[k_call]
             self.tracked -= set(tracked[:nargs])
             if semantic is not None and p is not None:
                 nargs = semantic          # compare what the callee actually reads
@@ -2220,7 +2232,7 @@ def level2(prog, orefs, oview, ours, resolved, how, rview):
     for t in sorted(r_calls - o_calls):
         n = [x for k, tt, x in refs if tt == t]
         issues.append({"kind": "extra_call", "target": "0x%08x" % t, "symbol": n[0] if n else None})
-    for t in sorted(o_data - r_data):
+    for t in sorted(o_data - r_data - imms):     # (a literal address in our source is fine too)
         kind = "missing_data_ref_interior" if near_ours(t) else "missing_data_ref"
         issues.append({"kind": kind, "target": "0x%08x" % t, "section": prog.section_name(t)})
     for t in sorted(o_float - r_data):
