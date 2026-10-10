@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 2/2)
+// FUN_00329c90 @ 0x00329c90
+struct Entry { int a,b,c; }; extern Entry DAT_004d4e10[]; struct Slot { int b,a,c; char rest[116]; }; extern Slot DAT_0039db1c[]; extern int DAT_0039db08; struct Obj { char pad[0x38]; int choices[1]; void FUN_00329c90(int index, int value); }; void Obj::FUN_00329c90(int index, int value) { if (choices[index] != value) { choices[index] = value; DAT_0039db1c[index].a = DAT_004d4e10[value].a; DAT_0039db1c[index].b = DAT_004d4e10[value].b; DAT_0039db1c[index].c = DAT_004d4e10[value].c; DAT_0039db08 |= 1 << index; } }

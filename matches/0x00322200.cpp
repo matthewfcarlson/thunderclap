@@ -1,0 +1,44 @@
+namespace D3D8 {
+void __fastcall D3DDevice_SetVertexShaderConstantNotInline(int, const void*, int);
+}
+namespace pure3d {
+struct Device {
+    virtual void slot0();
+    virtual void slot1();
+    virtual void slot2();
+    virtual void slot3();
+    virtual void slot4();
+    virtual void slot5();
+    virtual void slot6();
+    virtual void slot7();
+    virtual void slot8();
+    virtual void slot9();
+    virtual void slot10();
+    virtual void slot11();
+    virtual void slot12();
+    virtual void slot13();
+    virtual void slot14();
+    virtual void slot15();
+    virtual void slot16();
+    virtual void slot17();
+    virtual unsigned int slot18(int);
+};
+struct Matrix {
+    float m[16];
+    void FUN_0022ca90(unsigned int, unsigned int);
+    void FUN_0022c0b0();
+};
+struct d3dExtHardwareSkinning {
+    void* vptr;
+    Device* device;
+    void vfunc_5(int index, unsigned int value);
+};
+void d3dExtHardwareSkinning::vfunc_5(int index, unsigned int value) {
+    unsigned int result = device->slot18(0);
+    Matrix matrix;
+    matrix.FUN_0022ca90(value, result);
+    Matrix transformed = matrix;
+    transformed.FUN_0022c0b0();
+    D3D8::D3DDevice_SetVertexShaderConstantNotInline(index * 3 + 0x71, &transformed, 12);
+}
+} // namespace pure3d
