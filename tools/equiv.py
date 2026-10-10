@@ -178,6 +178,132 @@ class Program:
         return res
 
 
+    _REGS = ("eax", "ecx", "edx", "ebx", "esi", "edi", "ebp")
+    _ALIAS = {"al": "eax", "ah": "eax", "ax": "eax", "cl": "ecx", "ch": "ecx", "cx": "ecx", "dl": "edx",
+              "dh": "edx", "dx": "edx", "bl": "ebx", "bh": "ebx", "bx": "ebx", "si": "esi", "di": "edi",
+              "bp": "ebp", "sil": "esi", "dil": "edi"}
+
+    def _regs_rw(self, ci):
+        try:
+            r, w = ci.regs_access()
+        except Exception:
+            return set(), set()
+        rn = {self._ALIAS.get(ci.reg_name(x), ci.reg_name(x)) for x in r}
+        wn = {self._ALIAS.get(ci.reg_name(x), ci.reg_name(x)) for x in w}
+        ops = ci.op_str.split(", ")
+        if ci.mnemonic in ("xor", "sub", "sbb") and len(ops) == 2 and ops[0] == ops[1]:
+            rn.discard(self._ALIAS.get(ops[0], ops[0]))     # xor eax, eax: a write, not a read
+        if ci.mnemonic in ("mov", "xchg") and len(ops) == 2 and ops[0] == ops[1]:
+            rn.discard(self._ALIAS.get(ops[0], ops[0]))     # mov edi, edi: hot-patch nop
+        if ci.mnemonic == "push" and ops[0] in self._REGS:
+            rn.discard(ops[0])                              # a save or `push ecx` local allocation
+        return rn, wn
+
+    def reg_inputs(self, target, depth=0):
+        """Registers a function reads before writing them (ecx = this, LTCG register args); None if unknown."""
+        cache = self.__dict__.setdefault("_reg_in", {})
+        if target in cache:
+            return cache[target]
+        if not (self.text[0] <= target < self.text[1]) or depth > 3:
+            return None
+        cache[target] = set()           # recursion guard
+        body = (target, target + self.funcs[target][0]) if target in self.funcs else None
+        view = CodeView(self.read, target, body, self)
+        reads = set()
+        work = [(target, frozenset())]
+        seen = set()
+        steps = 0
+        while work and steps < 400:
+            a, written = work.pop()
+            while steps < 400:
+                if (a, written) in seen:
+                    break
+                seen.add((a, written))
+                steps += 1
+                ci = next(self.md.disasm(self.read(a, 16), a, 1), None)
+                if ci is None:
+                    break
+                i = view.decode(a)
+                rn, wn = self._regs_rw(ci)
+                reads |= {x for x in rn if x in self._REGS and x not in written}
+                written = written | frozenset(x for x in wn if x in self._REGS)
+                if i.kind in ("ret", "stop"):
+                    break
+                if i.kind == "call" or (i.kind == "jmp" and i.target is not None and not view.internal_target(i.target)):
+                    if i.target is not None:
+                        sub = self.reg_inputs(i.target, depth + 1)
+                        if sub:
+                            reads |= {x for x in sub if x not in written}
+                    if i.kind == "jmp":
+                        break
+                    written = written | {"eax", "ecx", "edx"}
+                    a += i.size
+                    continue
+                if i.kind == "jcc":
+                    if i.target is not None and view.internal_target(i.target):
+                        work.append((i.target, written))
+                elif i.kind == "jmp":
+                    if i.target is not None and view.internal_target(i.target):
+                        a = i.target
+                        continue
+                    break
+                a += i.size
+        # Only the caller-saved argument registers: callee-saved ones read early are usually saves or
+        # LTCG oddities, and comparing them would flag equivalent code with other register allocation.
+        reads &= {"eax", "ecx", "edx"}
+        cache[target] = reads
+        return reads
+
+    def call_sites(self, target):
+        """Addresses of direct `call target` instructions in .text."""
+        idx = self.__dict__.get("_sites")
+        if idx is None:
+            idx = defaultdict(list)
+            lo, hi = self.text
+            data = self.read(lo, hi - lo)
+            k = data.find(b"\xe8")
+            while k >= 0:
+                if k + 5 <= len(data):
+                    rel = struct.unpack_from("<i", data, k + 1)[0]
+                    t = (lo + k + 5 + rel) & M32
+                    if t in self.funcs:
+                        idx[t].append(lo + k)
+                k = data.find(b"\xe8", k + 1)
+            self._sites = idx
+        return idx.get(target, [])
+
+    def callers_use_return(self, target):
+        """('eax'|'st0'|None, sites checked): does any direct caller consume the original's return value?"""
+        uses_eax = uses_st0 = False
+        n = 0
+        for site in self.call_sites(target)[:40]:
+            view = CodeView(self.read, site, None, self)
+            first = view.decode(site)
+            if first is None or first.kind != "call" or first.target != target:
+                continue
+            n += 1
+            a = site + 5
+            depth = 0
+            for _ in range(10):
+                ci = next(self.md.disasm(self.read(a, 16), a, 1), None)
+                if ci is None:
+                    break
+                i = view.decode(a)
+                req, delta = i.x87
+                if req > depth:
+                    uses_st0 = True
+                    break
+                depth += delta
+                rn, wn = self._regs_rw(ci)
+                if "eax" in rn:
+                    uses_eax = True
+                    break
+                if "eax" in wn or i.kind != "other":
+                    break
+                a += ci.size
+        return ("st0" if uses_st0 else "eax" if uses_eax else None), n
+
+
 # ---------------------------------------------------------------------------------------------
 # Instruction decoding and static analysis (shared by the original and our object).
 UC_REGS = None
@@ -984,10 +1110,16 @@ class Run:
         eax = fuzz_value(mix(self.inp["seed"], 0xCA11, k))
         edx = fuzz_value(mix(self.inp["seed"], 0xCA12, k))
         fv = FLOATS[mix(self.inp["seed"], 0xCA13, k) % len(FLOATS)]
-        self.calls.append({"target": target, "args": args, "ecx": self.reg("ecx"), "edx": self.reg("edx"),
-                           "float_ret": fret, "at": insn.addr, "tail": tail})
+        self.calls.append({"target": target, "args": args, "regs": {r: self.reg(r) for r in Program._REGS},
+                           "float_ret": fret, "at": insn.addr, "tail": tail,
+                           "via_object": insn.mem is not None and insn.mem[1] is not None and insn.mem[2] is None})
         self._close_segment()
         self._perturb()
+        if not tail:
+            # out-parameters: the callee writes the first word of any local it got a pointer to
+            for j, (v, _) in enumerate(args):
+                if esp <= v <= ENTRY_ESP - 4 and v % 4 == 0:
+                    uc.mem_write(v, struct.pack("<I", fuzz_value(mix(self.inp["seed"], 0x0B7, k, j))))
         uc.reg_write(u.UC_X86_REG_EAX, eax)
         uc.reg_write(u.UC_X86_REG_EDX, edx)
         uc.reg_write(u.UC_X86_REG_ECX, fuzz_value(mix(self.inp["seed"], 0xCA14, k)))
@@ -1184,6 +1316,35 @@ class Ours:
         self.poison = {v: k for k, v in poison.items()}
         return self
 
+    def bytes_at(self, addr, resolved):
+        """Our function's bytes as if linked at the original address (for a byte-identity check)."""
+        sec = self.obj.sections[self.func_secnum - 1]
+        raw = bytearray(sec["raw"][self.func_off:self.func_off + self.func_len])
+        for va, si, typ in sec["relocs"]:
+            off = va - self.func_off
+            if not 0 <= off <= len(raw) - 4:
+                continue
+            sym = self.obj.syms.get(si)
+            if sym is None:
+                continue
+            if sym == self.func_sym:
+                S = addr
+            elif sym[0] in resolved:
+                S = resolved[sym[0]]
+            elif sym[2] == self.func_secnum:
+                S = addr + sym[1] - self.func_off
+            else:
+                S = self.sym_local_addr(sym) or POISON
+            A, = struct.unpack_from("<I", raw, off)
+            if typ == DIR32:
+                v = A + S
+            elif typ == REL32:
+                v = A + S - (addr + off + 4)
+            else:
+                continue
+            struct.pack_into("<I", raw, off, v & M32)
+        return bytes(raw)
+
     def read(self, va, n):
         if OURS <= va < self.end:
             o = va - OURS
@@ -1331,13 +1492,15 @@ def resolve_symbols(prog, ours, oview, orefs, explicit=None, use_names=True):
             cand = (explicit[name], "explicit")
         elif name.startswith("??_C@"):
             lit = literal_bytes(ours.obj, sym)
-            hits = [t for t in oaddrs if lit and prog.read(t, len(lit)) == lit]
+            hits = sorted((t for t in oaddrs if lit and prog.read(t, len(lit)) == lit),
+                          key=lambda t: (t not in pair_votes.get(name, {}), prog.section_name(t) != ".rdata", t))
             cand = (hits[0], "string") if hits else None
             if cand is None:
                 cand = (None, "string_not_in_original")
         elif name.startswith("__real@"):
             want = bytes.fromhex(name[len("__real@"):])[::-1]
-            hits = [t for t in oaddrs if prog.read(t, len(want)) == want]
+            hits = sorted((t for t in oaddrs if prog.read(t, len(want)) == want),
+                          key=lambda t: (t not in pair_votes.get(name, {}), prog.section_name(t) != ".rdata", t))
             cand = (hits[0], "float") if hits else (None, "float_local")
         elif name.startswith("??_7"):
             cls = name[len("??_7"):].split("@6B")[0]
@@ -1442,7 +1605,7 @@ def level2(prog, orefs, oview, ours, resolved, how, rview):
 
 # ---------------------------------------------------------------------------------------------
 # Level 3 driver.
-def make_input(seed, sig, prog_globals):
+def make_input(seed, sig, prog_globals, ptr_pool=()):
     kinds = []
     cc = sig.get("cc") if sig else None
     params = (sig or {}).get("params")
@@ -1464,6 +1627,9 @@ def make_input(seed, sig, prog_globals):
         elif k == "struct":
             words += [fuzz_value(mix(h, j)) for j in range(4)]
             words_kind += ["any"] * 4
+        elif k == "ptr" and ptr_pool and seed % 3 == 2 and h & 0x100:
+            words.append(ptr_pool[(h >> 9) % len(ptr_pool)])         # e.g. a string the code compares with
+            words_kind.append(k)
         elif k == "ptr" and seed % 4 == 1:
             words.append(HEAP + 0x20000 + 0x40 * i + 4 * (h % 8))     # nearby, ascending pointers
             words_kind.append(k)
@@ -1580,13 +1746,20 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4):
             break
         if bad:
             break
-        # thiscall receivers: compare ecx when the original call site set it up
-        if _norm(a["ecx"]) != _norm(b["ecx"]) and a["target"] in prog.funcs:
-            cc = _callee_is_thiscall(prog, a["target"])
-            if cc:
-                out.append("call #%d to %s: this (ecx) is %s, expected %s" % (
-                    k + 1, _fmt(a["target"]), _fmt(_norm(b["ecx"])), _fmt(_norm(a["ecx"]))))
+        # register inputs of the callee: this (ecx), fastcall/LTCG register arguments
+        want = prog.reg_inputs(a["target"]) if a["target"] in prog.funcs else None
+        if want is None:
+            want = {"ecx"} if a.get("via_object") or b.get("via_object") else set()
+        bad_reg = None
+        for reg in sorted(want):
+            if _norm(a["regs"][reg]) != _norm(b["regs"][reg]):
+                bad_reg = reg
                 break
+        if bad_reg:
+            label = "this (ecx)" if bad_reg == "ecx" else bad_reg
+            out.append("call #%d to %s: %s is %s, expected %s" % (
+                k + 1, _fmt(a["target"]), label, _fmt(_norm(b["regs"][bad_reg])), _fmt(_norm(a["regs"][bad_reg]))))
+            break
     nseg = min(len(o["segments"]), len(r["segments"]))
     if o["status"] != "ret" or r["status"] != "ret":
         nseg -= 1
@@ -1784,8 +1957,8 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     ours.link(resolved)
     rview = CodeView(ours.read, ours.func_addr, (ours.func_addr, ours.func_addr + ours.func_len), prog,
                      is_ours=True).build()
-    ours_bytes = ours.image[ours.func_addr - OURS:ours.func_addr - OURS + ours.func_len]
-    rep["byte_identical"] = ours_bytes == target.rstrip(b"\xcc") or ours_bytes == strip_padding(target)
+    ours_bytes = ours.bytes_at(addr, resolved)
+    rep["byte_identical"] = ours_bytes == target or ours_bytes == strip_padding(target)
     # ---- level 2
     issues = level2(prog, orefs, oview, ours, resolved, how, rview)
     rep["level2"] = {"ok": not issues, "issues": issues[:20],
@@ -1803,6 +1976,10 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     ret_kind = sig.get("ret") if sig else None
     if ret_kind is None:
         ret_kind = ghidra_ret_kind(addr)
+    used, nsites = prog.callers_use_return(addr)
+    if ret_kind == "void" and used:
+        rep["return_note"] = "our function returns void, but callers of the original use %s" % used
+        ret_kind = "f64" if used == "st0" else "i32"
     rep["signature"] = sig
     l3 = level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs,
                 time_budget)
@@ -1826,6 +2003,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     helpers = dict(HELPERS)
     consts = sorted({v for i in oview.insns.values() if i.mnemonic in ("cmp", "test", "sub", "and")
                      for v in i.imms for v in (v, (v + 1) & M32, (v - 1) & M32)} | {0, 1})[:64]
+    # pointers to read-only data the original uses (strings it compares against, tables)
+    rdata_ptrs = sorted({t for _, k, t in orefs if k in ("data", "imm") and prog.section_name(t) == ".rdata"
+                         and t not in prog.vftables})[:32]
+    consts = consts + rdata_ptrs
     res = {"ok": False, "inputs_run": 0, "inputs_inconclusive": 0, "inputs_faulted": 0, "inputs_failed": 0, "mismatches": [],
            "statuses": Counter()}
     edges = set()
@@ -1847,7 +2028,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             c = coverage_of(oview, edges)
             if c["complete"] or stale >= 16:
                 break
-        inp = make_input(seed, sig, globals_)
+        inp = make_input(seed, sig, globals_, rdata_ptrs)
         dictionary = ()
         if seed % 3 == 2:
             dictionary = [v for v in [inp["regs"]["ecx"], inp["regs"]["edx"]] + inp["own_args"]] + consts
