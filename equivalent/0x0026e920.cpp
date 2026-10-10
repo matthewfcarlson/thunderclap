@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
+// FUN_0026e920 @ 0x0026e920
+struct Event { int kind; int value; unsigned char a,b,c; }; struct Obj { char pad[0xa0]; int active; void FUN_0026e240(Event*); void FUN_0026e920(int value, unsigned char a, unsigned char b, unsigned char c); }; void Obj::FUN_0026e920(int value, unsigned char a, unsigned char b, unsigned char c) { if (active) { Event event; event.kind=1; event.value=value; event.a=a; event.b=b; event.c=c; FUN_0026e240(&event); } }
