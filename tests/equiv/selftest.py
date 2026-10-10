@@ -50,7 +50,14 @@ def job(args):
     src = os.path.join(ROOT, "matches", "0x%08x.cpp" % addr)
     t = time.time()
     try:
-        r = equiv.verify(src, addr, flags=flags)
+        if flags:
+            # different flags = different bytes; bind symbols with the ground truth of the exact match so
+            # that wrong names in propagated matches don't count against the verifier
+            truth = equiv.verify(src, addr, max_level=2)
+            mapping = {n: int(v["addr"], 16) for n, v in truth["level2"]["mapping"].items() if v["addr"]}
+            r = equiv.verify(src, addr, flags=flags, mapping=mapping, use_names=False, symbol=truth["symbol"])
+        else:
+            r = equiv.verify(src, addr)
     except Exception as e:
         import traceback
         r = {"addr": "0x%08x" % addr, "status": "crash", "error": traceback.format_exc()[-1500:]}

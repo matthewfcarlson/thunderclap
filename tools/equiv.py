@@ -63,9 +63,11 @@ RESERVED = [(OURS, OURS + OURS_SIZE), (POISON, POISON + 0x10000), (STACK_LO, STA
             (GDT, GDT + PAGE), (TIB, TIB + PAGE), (TRAMP, TRAMP + PAGE)]
 STACK_FILL = 0x5A5A5A5A
 RARE_HITS = 4               # directed inputs also re-drive branch sides taken by fewer inputs than this
-POINTEE_WINDOW = 32         # bytes of a stack local passed by pointer that are compared at a call
+POINTEE_WINDOW = 256        # most bytes of a stack local passed by pointer that are compared at a call
+DEFAULT_POINTEE = 4         # ... when the callee's parameter type is unknown (e.g. virtual calls)
 
 REL32, DIR32 = 0x14, 0x06
+SOFT_L2 = ("missing_address_constant",)
 CALLEE_SAVED = ("ebx", "esi", "edi", "ebp")
 
 # CRT helpers that are executed for real instead of stubbed (pure: registers/stack only).
@@ -195,6 +197,8 @@ class Program:
         ops = ci.op_str.split(", ")
         if ci.mnemonic in ("xor", "sub", "sbb") and len(ops) == 2 and ops[0] == ops[1]:
             rn.discard(self._ALIAS.get(ops[0], ops[0]))     # xor eax, eax: a write, not a read
+        if ci.mnemonic == "lea" and len(ops) == 2 and ops[1] in ("[%s]" % ops[0], "dword ptr [%s]" % ops[0]):
+            rn.discard(ops[0])                              # lea ecx, [ecx]: alignment nop
         if ci.mnemonic in ("mov", "xchg") and len(ops) == 2 and ops[0] == ops[1]:
             rn.discard(self._ALIAS.get(ops[0], ops[0]))     # mov edi, edi: hot-patch nop
         if ci.mnemonic == "push" and ops[0] in self._REGS:
@@ -255,6 +259,93 @@ class Program:
         reads &= {"eax", "ecx", "edx"}
         cache[target] = reads
         return reads
+
+    def callee_stack_args(self, target, depth=0):
+        """Number of stack argument words a function reads (its semantic arity), or None if unknown."""
+        cache = self.__dict__.setdefault("_nargs", {})
+        if target in cache:
+            return cache[target]
+        if not (self.text[0] <= target < self.text[1]) or target not in self.funcs or depth > 3:
+            return None
+        cache[target] = None
+        view = CodeView(self.read, target, (target, target + self.funcs[target][0]), self)
+        best = 0
+        ok = True
+        work = [(target, 0, None)]
+        seen = set()
+        steps = 0
+        while work and steps < 3000 and ok:
+            a, d, fb = work.pop()
+            while steps < 3000:
+                if (a, d, fb) in seen:
+                    break
+                seen.add((a, d, fb))
+                steps += 1
+                i = view.decode(a)
+                if i is None:
+                    ok = False
+                    break
+                if i.mem is not None:
+                    base, disp = i.mem[1], i.mem[4]
+                    disp = disp - (1 << 32) if disp & 0x80000000 else disp
+                    if base == "esp":
+                        if d is None:
+                            ok = False
+                            break
+                        off = disp - d - 4
+                    elif base == "ebp" and fb is not None:
+                        off = disp - fb - 4
+                    else:
+                        off = -1
+                    if off >= 0:
+                        best = max(best, off // 4 + max(1, (i.mem[5] or 4) // 4))
+                m, ops = i.mnemonic, i.op_str
+                if d is not None:
+                    if m == "push":
+                        d += 4
+                    elif m == "pop":
+                        d -= 4
+                    elif m in ("sub", "add") and ops.startswith("esp,") and i.imms:
+                        d += i.imms[0] if m == "sub" else -i.imms[0]
+                    elif m == "and" and ops.startswith("esp,"):
+                        d = None
+                if m == "mov" and ops == "ebp, esp":
+                    fb = d
+                elif m == "leave" or (m == "mov" and ops == "esp, ebp"):
+                    d = fb
+                    fb = None if m == "leave" else fb
+                    if m == "leave" and d is not None:
+                        d -= 4
+                if i.kind in ("ret", "stop"):
+                    break
+                if i.kind == "call":
+                    pop = self.callee_pop(i.target) if i.target is not None else None
+                    if pop is None:
+                        d = None
+                    elif d is not None:
+                        d -= pop
+                    a += i.size
+                    continue
+                if i.kind == "jcc":
+                    if i.target is not None and view.internal_target(i.target):
+                        work.append((i.target, d, fb))
+                elif i.kind == "jmp":
+                    if i.target is not None and view.internal_target(i.target):
+                        a = i.target
+                        continue
+                    if i.target is not None and d == 0:
+                        sub = self.callee_stack_args(i.target, depth + 1)
+                        if sub is None:
+                            ok = False
+                        else:
+                            best = max(best, sub)
+                    elif i.target is None and i.mem is not None and i.mem[2]:
+                        for t in view._table(i):
+                            work.append((t, d, fb))
+                    break
+                a += i.size
+        cache[target] = best if ok and steps < 3000 else None
+        return cache[target]
 
     def call_sites(self, target):
         """Addresses of direct `call target` instructions in .text."""
@@ -718,13 +809,15 @@ def parse_signature(mangled):
                 if p.peek(2) == "?A":
                     p.take(2)
                 ret = _kind_of(p.type())
-            params = []
+            params, types = [], []
             if p.peek() == "X":
                 p.take()
             else:
                 while p.peek() not in ("@", "Z", ""):
-                    params.append(_kind_of(p.type()))
-            return {"cc": cc, "this": has_this, "ret": ret, "params": params}
+                    t = p.type()
+                    types.append(t)
+                    params.append(_kind_of(t))
+            return {"cc": cc, "this": has_this, "ret": ret, "params": params, "param_types": types}
         except (DemangleError, IndexError, StopIteration):
             return None
     m = re.match(r"^([_@])(.+?)(?:@(\d+))?$", mangled)
@@ -753,6 +846,87 @@ def ghidra_ret_kind(addr):
                 "char": "i8", "byte": "i8", "undefined1": "i8", "uchar": "i8", "short": "i16", "ushort": "i16",
                 "undefined2": "i16", "longlong": "i64", "ulonglong": "i64", "undefined8": "i64"}.get(t, "i32")
     return None
+
+
+PRIM_SIZE = {"char": 1, "signed char": 1, "unsigned char": 1, "bool": 1, "short": 2, "unsigned short": 2,
+             "wchar_t": 2, "int": 4, "unsigned int": 4, "long": 4, "unsigned long": 4, "float": 4, "double": 8,
+             "long double": 8, "__int64": 8, "unsigned __int64": 8}
+
+
+def _pointee(t):
+    """'const class Foo *' -> 'class Foo'; None if t is not a pointer/reference."""
+    t = t.strip()
+    if not (t.endswith("*") or t.endswith("&")) or "(__" in t:
+        return None
+    t = t[:-1].strip()
+    for cv in ("const volatile ", "const ", "volatile "):
+        if t.startswith(cv):
+            t = t[len(cv):]
+    return t
+
+
+def pointee_sizes(src, flags, names):
+    """{mangled callee name: {stack arg index: sizeof(*arg)}} for our callees' pointer parameters.
+
+    Primitive pointees are sized directly; class types by compiling a sizeof probe appended to SRC.
+    """
+    want = {}
+    classes = set()
+    for n in names:
+        sig = parse_signature(n)
+        if not sig or not sig.get("param_types"):
+            continue
+        idx = 1 if sig.get("ret") == "struct" else 0
+        for k, t in enumerate(sig["param_types"]):
+            pt = _pointee(t)
+            if pt is None:
+                continue
+            if pt in PRIM_SIZE:
+                want.setdefault(n, {})[idx + k] = PRIM_SIZE[pt]
+            elif pt.startswith(("class ", "struct ", "union ")):
+                want.setdefault(n, {})[idx + k] = pt.split(" ", 1)[1]
+                classes.add(pt.split(" ", 1)[1])
+            elif pt.endswith("*"):
+                want.setdefault(n, {})[idx + k] = 4
+    sizes = {}
+    if classes and src and os.path.exists(src):
+        sizes = _probe_sizes(src, flags, sorted(classes))
+    out = {}
+    for n, d in want.items():
+        for k, v in d.items():
+            v = sizes.get(v) if isinstance(v, str) else v
+            if v:
+                out.setdefault(n, {})[k] = v
+    return out
+
+
+def _probe_sizes(src, flags, classes):
+    text = open(src, errors="replace").read()
+    res = {}
+
+    def attempt(cls):
+        body = text + "\nextern \"C\" const unsigned equiv_sizeof_probe[] = {%s};\n" % ", ".join(
+            "sizeof(%s)" % c for c in cls)
+        with tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build")) as d:
+            p = os.path.join(d, "probe.cpp")
+            open(p, "w").write(body)
+            try:
+                obj = Obj(compile_obj(p, DEFAULT_FLAGS + list(flags), d))
+            except CompileError:
+                return None
+            for name, value, secnum, _, _ in obj.syms.values():
+                if name == "_equiv_sizeof_probe" and secnum > 0:
+                    raw = obj.sections[secnum - 1]["raw"] or b""
+                    return list(struct.unpack_from("<%dI" % len(cls), raw, value))
+        return None
+    vals = attempt(classes)
+    if vals is not None:
+        return dict(zip(classes, vals))
+    for c in classes[:8]:            # some type is incomplete: probe one by one
+        v = attempt([c])
+        if v:
+            res[c] = v[0]
+    return res
 
 
 # ---------------------------------------------------------------------------------------------
@@ -934,6 +1108,7 @@ class Run:
         self.mapped = set()
         self.stack_fpu = {}
         self.tracked = set()
+        self.save_slots = set()     # stack slots holding saved callee-saved registers
         self.helper_ret = None
         self.prev_jcc = None
         self.fault = None
@@ -945,6 +1120,7 @@ class Run:
         self.prev_set = None
         self.cmp_obs = {}           # jcc -> observation of the comparison that fed it
         self.prologue = view.prologue()
+        self.pointee_sizes = {}     # callee address -> {arg index: bytes}
 
     # -- setup ---------------------------------------------------------------------------------
     def _setup(self):
@@ -1112,6 +1288,7 @@ class Run:
             argbase = esp
             cleanup = self.view.cleanup_after(insn.addr)
             tracked = sorted(s for s in self.tracked if s >= esp)
+            semantic = self.prog.callee_stack_args(target)
             if p is not None and p > 0:
                 nargs = p // 4
             elif p == 0 or cleanup:
@@ -1124,6 +1301,8 @@ class Run:
                 nargs = len(tracked)
                 p = 4 * nargs
             self.tracked -= set(tracked[:nargs])
+            if semantic is not None and p is not None:
+                nargs = semantic          # compare what the callee actually reads
         args = []
         for k in range(min(nargs, 32)):
             a = argbase + 4 * k
@@ -1132,9 +1311,14 @@ class Run:
         k = len(self.calls)
         # locals passed by pointer: the callee may read them, so their contents are part of the call
         sp = sorted({v for v, _ in args if esp <= v < ENTRY_ESP})
+        declared = self.pointee_sizes.get(target, {})
+        argidx = {}
+        for j, (v, _) in enumerate(args):
+            argidx.setdefault(v, j)
         pointees = {}
         for n, v in enumerate(sp):
-            w = min(POINTEE_WINDOW, ENTRY_ESP - v, (sp[n + 1] - v) if n + 1 < len(sp) else POINTEE_WINDOW)
+            size = declared.get(argidx.get(v), DEFAULT_POINTEE)
+            w = min([size, POINTEE_WINDOW, ENTRY_ESP - v] + [x - v for x in self.save_slots if x > v])
             pointees[v] = (bytes(self.uc.mem_read(v, w)),
                            {a - v: sz for a, sz in self.stack_fpu.items() if v <= a < v + w})
         fret = self.view.float_ret_after(insn.addr, self.own_float_ret)
@@ -1246,10 +1430,10 @@ class Run:
             if self.tracked:
                 self.tracked = {t for t in self.tracked if t >= esp}
             m = insn.mnemonic
-            if m == "push" and addr not in self.prologue:
+            if m == "push":
                 if insn.regs and insn.regs[0] in CALLEE_SAVED and self.reg(insn.regs[0]) == self.inp["regs"][insn.regs[0]]:
-                    pass
-                else:
+                    self.save_slots.add(esp - 4)
+                elif addr not in self.prologue:
                     self.tracked.add(esp - 4)
             elif m == "sub" and insn.op_str.startswith("esp,") and insn.imms and addr not in self.prologue \
                     and insn.imms[0] <= 64:
@@ -2091,7 +2275,10 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     rep["byte_identical"] = ours_bytes == target or ours_bytes == strip_padding(target)
     # ---- level 2
     issues = level2(prog, orefs, oview, ours, resolved, how, rview)
-    rep["level2"] = {"ok": not issues, "issues": issues[:20],
+    # an immediate that merely looks like an address may legitimately be computed differently: warn only
+    warnings = [i for i in issues if i["kind"] in SOFT_L2]
+    issues = [i for i in issues if i["kind"] not in SOFT_L2]
+    rep["level2"] = {"ok": not issues, "issues": issues[:20], "warnings": warnings[:10],
                      "mapping": {n: {"addr": "0x%08x" % resolved[n] if n in resolved else None, "how": how[n]}
                                  for n in how},
                      "conflicts": conflicts[:10]}
@@ -2111,8 +2298,12 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
         rep["return_note"] = "our function returns void, but callers of the original use %s" % used
         ret_kind = "f64" if used == "st0" else "i32"
     rep["signature"] = sig
+    callees = {sym[0] for off, sym, typ, _ in ours.relocs if sym is not None and typ == REL32 and sym[0] in resolved}
+    psizes = {}
+    for n, d in pointee_sizes(src, flags, sorted(callees)).items():
+        psizes[resolved[n]] = d
     l3 = level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs,
-                time_budget)
+                time_budget, psizes=psizes)
     rep["level3"] = l3
     if l3["ok"] and rep["level"] == 2:
         rep["level"] = 3
@@ -2127,7 +2318,7 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
 
 
 def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs=False,
-           time_budget=120, directed=96):
+           time_budget=120, directed=96, psizes=None):
     globals_ = sorted({t for _, k, t in orefs if k in ("data", "imm") and prog.section_name(t) in (".data", "BINKDATA", "DOLBY")})
     own_float = ret_kind in ("f32", "f64")
     helpers = dict(HELPERS)
@@ -2169,6 +2360,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         # our image is mapped in both runs, so a wild pointer reads the same bytes either way
         orun = Run(prog, oview, mach, inp, ours_image=(OURS, ours.image), sig=sig, max_steps=max_steps,
                    own_float_ret=own_float, coverage=True, helpers=helpers)
+        orun.pointee_sizes = psizes or {}
         o = orun.run(oview.entry)
         new = orun.edges - edges
         edges.update(orun.edges)
@@ -2185,6 +2377,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             return None
         rrun = Run(prog, rview, mach, inp, ours_image=(OURS, ours.image), sig=sig, max_steps=max_steps * 2,
                    own_float_ret=own_float, helpers=helpers)
+        rrun.pointee_sizes = psizes or {}
         r = rrun.run(rview.entry)
         diffs = compare_runs(o, r, ret_kind, mach, Namer(inp, sig, prog), prog)
         if o["status"] == "ret":
