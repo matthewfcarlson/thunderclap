@@ -1,0 +1,1 @@
+[{ "model": "openrouter/nvidia/nemotron-3-ultra-550b-a55b:free", "thinking": "medium", "maxAttempts": 4, "maxOutput": 32768 }]
