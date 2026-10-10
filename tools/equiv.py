@@ -1308,7 +1308,8 @@ class Run:
         self.pointee_sizes = {}     # callee address -> {arg index: bytes}
         self.intrinsics = {}        # unresolved CRT symbol address -> name, executed semantically
         self.local_code = None      # (lo, hi) of our object's own code, executed rather than stubbed
-        self.slot_arity = None      # vtable slot offset -> (pop, nargs), learned from the original's runs
+        self.slot_arity = None      # (unused)
+        self.ecx_dirty = False      # ecx written since entry or the last call
 
     # -- setup ---------------------------------------------------------------------------------
     def _setup(self):
@@ -1554,6 +1555,18 @@ class Run:
         else:
             uc.reg_write(u.UC_X86_REG_EIP, TRAMP)
 
+    def _is_virtual_on_ecx(self, insn):
+        """call [reg+disp] where reg holds ecx's vptr: a virtual call, so ecx is its `this`."""
+        if insn.mem is None or insn.mem[1] in (None, "esp", "ebp") or insn.mem[2] is not None:
+            return False
+        ecx = self.reg("ecx")
+        if not (self.ecx_dirty or ecx == self.inp["regs"]["ecx"]):
+            return False        # ecx is a leftover (e.g. from the previous stub), not a receiver
+        try:
+            return self.reg(insn.mem[1]) == self._read_u32(ecx)
+        except Exception:
+            return False
+
     def _stub(self, insn, target, tail):
         u = self.u
         uc = self.uc
@@ -1628,7 +1641,9 @@ class Run:
         h = mix(self.inp["seed"], 0xCA11, k)
         d = self.inp.get("dictionary")
         mode = self.inp.get("stub_mode")
-        if mode == "zero":
+        if k in self.inp.get("ret_override", {}):
+            eax = self.inp["ret_override"][k]
+        elif mode == "zero":
             eax = 0
         elif mode == "one":
             eax = 1
@@ -1638,8 +1653,7 @@ class Run:
         fv = FLOATS[mix(self.inp["seed"], 0xCA13, k) % len(FLOATS)]
         self.calls.append({"target": target, "args": args, "regs": {r: self.reg(r) for r in Program._REGS},
                            "float_ret": fret, "at": insn.addr, "tail": tail, "pointees": pointees, "known": known,
-                           "via_object": insn.mem is not None and insn.mem[1] not in (None, "esp", "ebp")
-                           and insn.mem[2] is None})
+                           "via_object": self._is_virtual_on_ecx(insn)})
         self._close_segment()
         self._perturb()
         if not tail:
@@ -1650,7 +1664,10 @@ class Run:
                     self.stack_written.update(range(v, v + 4))
         uc.reg_write(u.UC_X86_REG_EAX, eax)
         uc.reg_write(u.UC_X86_REG_EDX, edx)
+        if self.coverage:
+            self.loads["eax"] = (("ret", k), 4, self.epoch, "eax")     # for directed inputs
         uc.reg_write(u.UC_X86_REG_ECX, fuzz_value(mix(self.inp["seed"], 0xCA14, k)))
+        self.ecx_dirty = False
         if not tail:
             esp -= 4
             uc.mem_write(esp, struct.pack("<I", insn.addr + insn.size))
@@ -1680,7 +1697,8 @@ class Run:
                     except Exception:
                         val = 0
                     src = self.loads.get(r32)
-                    info.append({"val": val, "src": src[:3] if src and src[3] == v else None, "reg": v})
+                    ok = src and (src[3] == v or isinstance(src[0], tuple))   # (a returned bool tested in al)
+                    info.append({"val": val, "src": src[:3] if ok else None, "reg": v})
                 elif kind == "mem":
                     ea = self._ea(v)
                     try:
@@ -1698,6 +1716,12 @@ class Run:
             r = ops[0][1]
             size = ops[1][1][5]
             self.loads[Program._ALIAS.get(r, r)] = (self._ea(ops[1][1]), size, self.epoch, r)
+        elif m == "mov" and len(ops) == 2 and ops[0][0] == "reg" and ops[1][0] == "reg":
+            src = self.loads.get(Program._ALIAS.get(ops[1][1], ops[1][1]))
+            if src and src[3] == ops[1][1] and ops[0][1] in Program._REGS:
+                self.loads[ops[0][1]] = src[:3] + (ops[0][1],)
+            else:
+                self.loads.pop(Program._ALIAS.get(ops[0][1], ops[0][1]), None)
         elif ops and ops[0][0] == "reg" and m not in ("push",):
             self.loads.pop(Program._ALIAS.get(ops[0][1], ops[0][1]), None)
         if insn.kind == "call":
@@ -1731,6 +1755,9 @@ class Run:
                 if insn.mnemonic.startswith("set") and insn.regs:
                     self.prev_set = (addr, insn.regs[0])
                 self._observe(insn)
+            if insn.ops and insn.ops[0][0] == "reg" and insn.ops[0][1] in ("ecx", "cx", "cl", "ch") and \
+                    insn.mnemonic not in ("cmp", "test", "push"):
+                self.ecx_dirty = True
             esp = self.reg("esp")
             if self.tracked:
                 self.tracked = {t for t in self.tracked if t >= esp}
@@ -2277,9 +2304,6 @@ def make_input(seed, sig, prog_globals, ptr_pool=(), int_pool=()):
         elif k == "ptr" and ptr_pool and seed % 3 == 2 and h & 0x100:
             words.append(ptr_pool[(h >> 9) % len(ptr_pool)])         # e.g. a string the code compares with
             words_kind.append(k)
-        elif k == "ptr" and seed % 5 == 3:
-            words.append(HEAP + (h & 0x1FC))                            # narrow mode: within 512 bytes
-            words_kind.append(k)
         elif k == "ptr" and seed % 4 == 1:
             words.append(HEAP + 0x20000 + 0x40 * i + 4 * (h % 8))     # nearby, ascending pointers
             words_kind.append(k)
@@ -2289,8 +2313,7 @@ def make_input(seed, sig, prog_globals, ptr_pool=(), int_pool=()):
     regs = {}
     for j, r in enumerate(("eax", "ecx", "edx", "ebx", "esi", "edi", "ebp")):
         regs[r] = HEAP + ((mix(seed, 0x4E6, j) % HEAP_SIZE) & ~0xF) if seed else HEAP + 0x10000 * (j + 1)
-        if seed % 5 == 3 and r in ("ecx", "edx"):
-            regs[r] = HEAP + (mix(seed, 0x4E6, j) & 0x1F0)
+
     own_args = list(words)
     if cc == "fastcall" and params is not None:
         if words:
@@ -2415,7 +2438,7 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4):
         # register inputs of the callee: this (ecx), fastcall/LTCG register arguments
         want = prog.reg_inputs(a["target"]) if a["target"] in prog.funcs and a.get("known") else None
         if want is None:
-            want = {"ecx"} if a.get("via_object") or b.get("via_object") else set()
+            want = {"ecx"} if a.get("via_object") and b.get("via_object") else set()
         bad_reg = None
         for reg in sorted(want):
             if _norm(a["regs"][reg]) != _norm(b["regs"][reg]):
@@ -2720,6 +2743,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         inp = make_input(seed, sig, globals_, rdata_ptrs, consts if seed % 3 == 2 else ())
         if stack_patch:
             for k, v in stack_patch.items():
+                if isinstance(k, tuple):        # ("ret", call index): a stub's return value
+                    inp.setdefault("ret_override", {})[k[1]] = v
+                    continue
                 inp["stack"][k] = v
                 if k < len(inp["own_args"]):
                     inp["own_args"][k] = v
@@ -2819,7 +2845,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             done = False
             for seed0, ob, ov0, sp0 in observations[j]:
                 for overlay, patch in _patches(ob, ov0, sp0, len(make_input(seed0, sig, globals_)["stack"]))[:3]:
-                    key = (j, seed0, tuple(sorted(overlay.items())), tuple(sorted(patch.items())))
+                    key = (j, seed0, tuple(sorted(map(repr, overlay.items()))), tuple(sorted(map(repr, patch.items()))))
                     if key in tried:
                         continue
                     tried.add(key)
@@ -2871,7 +2897,11 @@ def _patches(ob, overlay0, patch0, nstack):
                 targets.append((b["src"], wants(a["val"], b["src"][1])))
     for (ea, size, epoch), vals in targets:
         for v in vals:
-            if ENTRY_ESP + 4 <= ea < ENTRY_ESP + 4 + 4 * nstack and size == 4 and (ea - ENTRY_ESP - 4) % 4 == 0:
+            if isinstance(ea, tuple):            # the value a stubbed callee returned: return another
+                patch = dict(patch0 or {})
+                patch[ea] = v & M32
+                out.append((dict(overlay0 or {}), patch))
+            elif ENTRY_ESP + 4 <= ea < ENTRY_ESP + 4 + 4 * nstack and size == 4 and (ea - ENTRY_ESP - 4) % 4 == 0:
                 patch = dict(patch0 or {})
                 patch[(ea - ENTRY_ESP - 4) // 4] = v & M32
                 out.append((dict(overlay0 or {}), patch))

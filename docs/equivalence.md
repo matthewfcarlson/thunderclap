@@ -86,6 +86,8 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   - "tame" small-number memory;
   - dictionary memory: planted copies of the input's pointers, `this+4/8/12` (object graphs) and the
     constants the original compares against;
+  - narrow memory: every heap pointer folded into 512 bytes, so `end - begin` ranges stay short;
+  - noise memory: random bytes on half the pages, so copies and byte loads see distinct values;
   - boundary constants as int arguments;
   - stubs that always return 0 or 1.
 - 64 random inputs, then more (up to 256) while branch coverage of the original keeps growing.
@@ -103,9 +105,9 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   - writes the first word of each local passed by pointer (an out-parameter);
   - pops the callee's argument bytes.
 - The pop count comes from the callee's own `ret N` (following tail jumps) when the call site names a real
-  function. For cdecl, it comes from the caller's `add esp, N` or `pop ecx` cleanup. Otherwise it comes
-  from tracked argument pushes. For virtual calls, the count the original used for the same vtable slot is
-  shared with our run.
+  function. For cdecl, it comes from the caller's `add esp, N` or `pop ecx` cleanup, including one
+  deferred over several calls. Otherwise it comes from tracked argument pushes. For indirect calls, our
+  k-th call reuses the count the original's k-th call used on the same input.
 - The number of argument words compared is what the callee actually reads (a stack-depth scan of the
   callee). Unused or dead arguments don't count.
 - Callee side effects: after each stub the memory epoch advances, and every non-code page is remapped with
@@ -134,7 +136,7 @@ If ours returns `void` but the original's direct callers read `eax` (or `st0`) a
 value is compared anyway, and `return_note` says so.
 
 **Coverage** counts taken/not-taken for every conditional branch, 0/1 for every `setcc`, and every
-jump-table case of the original. `level3.coverage.complete` is false when some edge never ran, and the
+jump-table case of the original. It comes only from inputs that ran to completion. `level3.coverage.complete` is false when some edge never ran, and the
 uncovered edges are listed.
 
 ## Report (JSON)
@@ -186,9 +188,12 @@ Numbers are in the journal (2026-10-10). The harnesses:
   that needs a combination of conditions can survive full branch coverage.
 - **Callees are opaque.** A stub writes only the first word of an out-parameter. A local passed to a
   virtual call (unknown declaration) is compared over 4 bytes only.
-- **Argument counts** for calls through fuzzed pointers come from tracked pushes and the original's count
-  for the same vtable slot. A function-pointer call whose arguments interleave with an outer call's can
-  still be misattributed. Both sides use the same rule, so this causes false failures, not passes.
+- **Argument counts** for calls through fuzzed pointers come from tracked pushes in the original, and are
+  reused by our run call by call. A rare mix of cdecl and thiscall indirect calls sharing one deferred
+  cleanup can still be miscounted. That shows up as a false failure, not a pass.
+- **Data-dependent loops:** a difference that only shows with particular data, such as a byte copy whose
+  source and destination happen to hold equal bytes, can pass even with full branch coverage. Two of the
+  final mutants are like this.
 - **Inline-vs-call differences** of game functions fail. If the original calls `FUN_x`, our code must
   call it too: declare it `extern` rather than defining a body. Only CRT routines are exempt.
 - **Unspecified evaluation order:** MSVC may evaluate call arguments in a different order under other
