@@ -39,8 +39,8 @@ JAR = B("tools/ghidra_12.0.3_PUBLIC/Ghidra/Extensions/ghidra-xbe/lib/ghidra-xbe.
 GAME_TEXT_END = 0x364840
 LIB_SPANS = [  # (start, end, label) library code linked inside .text
     (0x208b9c, 0x212bb0, "XAPI"),   # XAPILIB (+ xboxkrnl jmp stubs at the end)
-    (0x3440e0, 0x356bf0, "CRT"),    # LIBCMT + more XAPILIB (/O1 /Oy-, unaligned)
-    (0x35a7b0, 0x35be88, "CRT"),    # LIBCMT EH runtime, itoa, 64-bit helpers
+    (0x3440e0, 0x356bf0, "LIBC+XAPI"),  # LIBCMT + more XAPILIB (/O1 /Oy-, unaligned)
+    (0x35a7b0, 0x35be88, "LIBC"),   # LIBCMT EH runtime, itoa, 64-bit helpers
 ]
 # 0x356bf0-0x35a7b0 is aligned /O2 game math/collision code linked after the CRT, and
 # 0x35be88-0x364840 is .text$yc/.text$yd (game dynamic initializers / atexit thunks): game.
@@ -86,8 +86,8 @@ IDENTIFIED = {
     0x21007a: "WriteFile",                 # NtWriteFile + wait
     0x20ff8d: "ReadFile",                  # NtReadFile + wait
     0x2109f1: "CreateFileA",               # NtCreateFile
-    0x209a8e: "GetDiskFreeSpaceExA",       # NtQueryVolumeInformationFile
-    0x208b9c: "GetDiskFreeSpaceExA (MU)",  # same pattern, second copy
+    0x209a8e: "XGetDiskSectorSizeA",       # NtQueryVolumeInformationFile(FileFsSizeInformation).BytesPerSector
+    0x208b9c: "GetDiskFreeSpaceExA",       # same query, sectors*bytes multiplied out (__allmul)
     0x2120f5: "XCalculateSignatureUpdate", # XcSHAUpdate
     0x212143: "XCalculateSignatureEnd",    # XcSHAFinal/XcHMAC
     0x20c14b: "GetCurrentThreadId",        # fs:[0x28] -> thread
@@ -298,13 +298,13 @@ SUBSYS_RULES = [
     ("input", r"^XInput|^XGetDevice|^XInitDevices|^XID_|^XPP|^XapiInitDevices|^IUsb|Usb"),
     ("saves/storage", r"SaveGame|^XMU|^XMount|^XUnmountMU|^XReadMUMetaData|Signature|^XcSHA|^XcHMAC|SoundtrackS|^XFindFirstSave|^XGetDisplayBlocks|XboxHDKey|XboxSignatureKey|^XCreateSaveGame|^XDeleteSaveGame|^XFindNextSave|^XFindClose|Utility|AlternateTitle|Formatut|CachePartition"),
     ("networking/live", r"^XNet|^XOnline|^Xon|^socket|^recv|^send|^WSA|^XNetStartup"),
-    ("file I/O", r"File|^Nt(Close|Open|Read|Write|Query.*File|SetInformationFile|Fs|DeviceIoControl|Flush|QueryVolume|QueryDirectory|QueryFullAttr)|^Io|Directory|^CloseHandle|^XapiMapLetter|^GetDiskFree|SymbolicLink|^Fsc|DriveLetter|^__sopen|^_?_?fopen|^_?f(read|write|close|seek|tell|flush|open|getc|putc|gets|puts|printf|scanf)|^__lock_fhandle|osfhnd|osfhandle|^__flsbuf|^__flswbuf|^__setmode|^_?_?read|^_?_?write|^_?_?lseek|^_?_?close|^__isatty|IoCompletion|GetOverlappedResult"),
+    ("file I/O", r"File|^Nt(Close|Open|Read|Write|Query.*File|SetInformationFile|Fs|DeviceIoControl|Flush|QueryVolume|QueryDirectory|QueryFullAttr)|^Io|Directory|^CloseHandle|^XapiMapLetter|^GetDiskFree|Disk|SymbolicLink|^Fsc|DriveLetter|^__sopen|^_?_?fopen|^_?f(read|write|close|seek|tell|flush|open|getc|putc|gets|puts|printf|scanf)|^__lock_fhandle|osfhnd|osfhandle|^__flsbuf|^__flswbuf|^__setmode|^_?_?read|^_?_?write|^_?_?lseek|^_?_?close|^__isatty|IoCompletion|GetOverlappedResult"),
     ("threads/sync", r"Thread|Fiber|Event|Mutex|Mutant|Semaphore|Wait|CriticalSection|^Sleep|APC|Apc|Object|^SwitchTo|Irql|Dpc|Interrupt|Priority|^SignalObjectAndWait|^NtYieldExecution|^XSetProcessQuantum|^KeStall|^_?_?lock|^_?_?unlock|^_?_?mtinit|^XRegisterThreadNotify|^Ps|^Ke(Set|Insert|Remove|Synchronize)|^Ob|Tls|^XapiThread|Interlocked"),
     ("timing", r"PerformanceCounter|PerformanceFrequency|QuerySystemTime|TickCount|InterruptTime|^KeQuery|Time|Timer|^XAutoPowerDown|^rdtsc|^_?_?time|^_?_?clock|^_?_?ftime"),
     ("memory", r"MemoryStatus|Alloc|Free|^Mm|Heap|Virtual|^_?_?malloc|^_?_?calloc|^_?_?realloc|^_?_?free|^_?_?msize|Pool|^XMem|^XPhysical|^_?_?sbh|AddressProtect|KernelStack|^_?_?nh_malloc|^_?_?heap"),
     ("process/system", r"^XLaunch|^XGetLaunchInfo|^Xapi(BootToDash|InitProcess|SelectCache|SetLastNT|Format)|^HalReturnToFirmware|^HalInitiateShutdown|^HalRegisterShutdown|^HalIsReset|Shutdown|^XGet(Language|VideoFlags|AVPack|GameRegion|ParentalControl|AudioFlags|TimeZone|LocalTime)|^GetTimeZone|^ExQueryNonVolatileSetting|^XGetSection|^XLoadSection|^XFreeSection|^Xe(Load|Unload)Section|^XeImageFileName|^XboxHardwareInfo|^XboxKrnlVersion|^LaunchDataPage|^entry|^mainCRT|^mainXapi|^_?_?cinit|^_?_?rtinit|^_?_?exit|^_?_?amsg_exit|^_?_?initterm|^XGetSectionSize|^GetLastError|^SetLastError|^RtlNtStatusToDosError|^XapiSetLastNTError|^XGetDisplay|^XQueryValue|^XSetValue|^XGetFileCacheSize|^XSetFileCacheSize|^XapiFormatObjectAttributes"),
     ("debug/exceptions", r"^Dbg|OutputDebugString|^KeBugCheck|Exception|Unwind|^__?CxxFrameHandler|^_?_?CxxThrow|^__?purecall|^_?_?assert|^_?RTC|^_?_?security|EH|Catch|Frame|^_CallMember|^_JumpTo|^__?SEH|^_?_?except|^_?_?local_unwind|^_?_?global_unwind|^_?_?abnormal|^_?_?inconsistency|^terminate|^unexpected|^_?_?CallSettingFrame|^\?|^_?_?FrameUnwind|^_?_?DestructExceptionObject|^__?ArrayUnwind|^FID_conflict"),
-    ("CRT: string/memory", r"^_?_?(qsort|bsearch|ungetc|is[a-z]+$|mem|str|wcs|_?mbs|tolower|toupper|isalpha|isdigit|isspace|isalnum|iswctype|_?towlower|_?towupper|_?isctype|wcslen|strtok|stricmp|strnicmp|_?strlwr|_?strupr|_?wcsicmp|_?wcsnicmp|_?strdup|_?wcsdup)|^RtlInitAnsiString|^RtlCompare|^RtlEqualString|^RtlFill"),
+    ("CRT: string/memory", r"^_?_?(qsort|bsearch|ungetc|is(?!nan)[a-z]+$|mem|str|wcs|_?mbs|tolower|toupper|isalpha|isdigit|isspace|isalnum|iswctype|_?towlower|_?towupper|_?isctype|wcslen|strtok|stricmp|strnicmp|_?strlwr|_?strupr|_?wcsicmp|_?wcsnicmp|_?strdup|_?wcsdup)|^RtlInitAnsiString|^RtlCompare|^RtlEqualString|^RtlFill"),
     ("CRT: formatting", r"^puts|printf|scanf|^_?_?(itoa|ltoa|ultoa|i64toa|ui64toa|xtoa|atoi|atol|atof|strtol|strtoul|strtod|_?ecvt|_?fcvt|_?gcvt|cfltcvt|cftoe|cftof|cftog|fassign|_?output|_?input|wtoi|wtol|_?wcstol)|^Rtl.*printf|^_?x64toa|^@x64toa"),
     ("CRT: math", r"_CI|^_?_?(aulldvrm|ftol|ftol2|CI|ci|allmul|alldiv|allrem|aulldiv|aullrem|allshl|allshr|aullshr|sqrt|sin|cos|tan|atan|atan2|asin|acos|pow|exp|log|log10|fmod|floor|ceil|fabs|frexp|ldexp|modf|hypot|control87|controlfp|clear87|status87|fpreset|fpmath|FPinit|_?trandisp|_?startOneArgErrorHandling|_?math_exit|_?87except|_?ctrlfp|_?fload|_?frnd|addl|add_12|shl_12|shr_12|ld12|mtold12|fltin|strgtold|_?rand|srand|_?isnan|_?finite|_?copysign|_?chgsign|_?fpclass|_?nextafter|_?logb|_?scalb|abs|labs|div|ldiv)|^Ke(Save|Restore)FloatingPointState"),
 ]
@@ -369,7 +369,7 @@ def scan(img):
                     continue  # code-pointer reads of the thunk table are covered by indirect calls
                 if reg in ("DOLBY", "BINKDATA") and rtype == "DATA":
                     continue  # immediates that happen to land there (FourCCs like 'TEX' = 0x584554)
-                if reg in ("D3D", "XGRPH", "DSOUND", "XPP", "BINK", "XAPI", "CRT", "DOLBY", "BINKDATA"):
+                if reg in ("D3D", "XGRPH", "DSOUND", "XPP", "BINK", "XAPI", "LIBC+XAPI", "LIBC", "DOLBY", "BINKDATA"):
                     kind, real = img.resolve(tgt) if tgt in img.funcs else ("data", tgt)
                     if kind == "func" and real in img.funcs and img.region(real) not in (None, ".rdata", ".data"):
                         # address-of a library function (callback / function pointer)
