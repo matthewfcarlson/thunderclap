@@ -9,6 +9,7 @@ CONC=${3:-48}
 BUDGET=${4:-15}
 CHUNK=${5:-400}
 PY=build/venv/bin/python
+IDLE=0
 LOG=build/farm/sweep.log
 
 # One process per farm database: wait for any other default-db farm run to finish.
@@ -20,7 +21,10 @@ while :; do
     $PY tools/shapes.py propagate --jobs 8 >> "$LOG" 2>&1
     $PY tools/progress.py --readme >> "$LOG" 2>&1
     git add matches README.md
-    if ! git diff --cached --quiet; then
+    if git diff --cached --quiet; then
+        IDLE=$((IDLE + 1))
+    else
+        IDLE=0
         n=$(git diff --cached --name-only -- matches | wc -l | tr -d ' ')
         git commit -q -m "Farm sweep: +$n matched functions
 
@@ -28,6 +32,8 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01DM8Bn5TvuystUL5qBzT4rA" && { git pull -q --rebase origin main && git push -q; } >> "$LOG" 2>&1
     fi
     # Stop when the farm has nothing left to do or the budget stopped paid tiers.
+    # Already-finished jobs replay instantly at $0, so a queue of only those never hits "0 functions".
+    [ "$IDLE" -ge 3 ] && { echo "== stalled: 3 chunks with no new matches" >> "$LOG"; break; }
     tail -40 "$LOG" | grep -q 'farm: 0 functions' && break
     # Every stop reason (ledger budget, key limit, 402 out of credits) ends with this phrase.
     tail -40 "$LOG" | grep -q 'skipping paid tiers' && break
