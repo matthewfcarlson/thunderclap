@@ -1,5 +1,15 @@
 # 09: Equivalent decomp for large functions
 
+## Status (2026-10-10)
+- **Deliverables 1 and 2 are done.** `tools/equiv.py SRC 0xADDR` covers levels 1–3; see
+  [docs/equivalence.md](../equivalence.md) for usage, design and limits. It's usable as a library
+  (`equiv.verify(...)` returns the JSON report) and as a CLI.
+- Validated on ground truth: `tests/equiv/selftest.py` (300 matches against themselves, plus the same
+  sources recompiled with `/O1` and `/Oy-`) and `tests/equiv/mutate.py` (mutation suite). Numbers are
+  in the journal entry of 2026-10-10.
+- **Open:** deliverables 3–4 (`submit_equiv` in the farm, a tier file, the A/B, `equivalent/` and the
+  README row). Captured xemu snapshots as level-3 inputs aren't done yet either.
+
 ## Goal
 Give every large game function compilable C++ that behaves like the original, without requiring byte-identical codegen. Build a verifier that proves "same behaviour" automatically, then a farm mode that uses it as its feedback loop.
 

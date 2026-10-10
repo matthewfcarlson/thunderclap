@@ -167,7 +167,12 @@ Mismatch strings are written for a model to act on. Examples:
 
 ## Validation
 
-Numbers are in the journal (2026-10-10). The harnesses:
+Latest run (journal, 2026-10-10):
+
+- 300/300 matches pass against themselves; so do the same sources compiled with `/O1` (268 byte-different) and with `/Oy-` (236 byte-different).
+- Mutation suite: 334 mutants caught, 4 false passes, all data/path-dependent with full branch coverage.
+
+The harnesses:
 
 - `tests/equiv/selftest.py`: a size-stratified sample of 300 matches must be `equivalent` against itself.
   `--flags /O1` or `--flags /Oy-` recompiles the same sources with other options: different bytes (other

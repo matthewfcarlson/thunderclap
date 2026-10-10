@@ -249,3 +249,39 @@ Newest entries go at the bottom of each day.
 - **QoL map** (`docs/subsystems.md`): the game already supports **16:9 and 480p/720p/1080i** (mode table at `0x4d3508`, request 1280×720, filtered by the dashboard's video flags), cameras are **Hor+** (nominal FOV = horizontal FOV at 4:3), and the HUD overlay width scales with aspect. Timing is variable-step with dt clamped at 66.7 ms, but `d3dDisplay::SwapBuffers` waits for **two vblanks per frame in gameplay (30 fps)** and one in menus and movies; the switch is one flag (`0x5554a0`). Modes wider than 720 px drop to a 16-bit back buffer. Intro sequence: copyright 3 s + 5 s, then dolby/marvel/radical/sierra/attract, stepped by one counter at `0x49fb40`.
 - Self-inflicted bug, caught before it spread: the first label script created Ghidra labels at function entries, and a label on a `FUN_` function *becomes its name*. That would have renamed 140 game functions on the next `ExportFunctions` and silently dropped them from the farm (`packet.py` decides "game code" by the `FUN_`/`vfunc_` prefix). `ApplyPortLabels.java` now writes `[port]` plate comments on functions, labels only data, and repaired the project; a fresh export matches `functions.csv` exactly.
 - Priority list: `docs/port-priority.txt` (= `build/farm/priority.txt`), 2,011 functions / 228 KB: seams first, then the QoL functions, then their direct callees. 1,339 are already matched, but only 20% of the bytes.
+
+## 2026-10-10: Equivalence verifier (task 09, levels 1–3)
+
+- **`tools/equiv.py SRC 0xADDR`** checks behaviour instead of bytes ([docs/equivalence.md](equivalence.md)). It compiles with MSVC 7.1, binds every symbol to an original address and checks the references (level 2). Then it runs the original bytes and our linked object side by side in **Unicorn** (level 3). Every call is stubbed and recorded. Memory is a pure function of (seed, epoch, address), mapped lazily, so both runs read identical bytes anywhere and nothing faults. After each stub call, all data pages are remapped with a new epoch's contents, to model "the callee may change anything". It compares call targets and arguments, `this`, locals passed by pointer, memory writes per call segment, the return value, callee-saved registers and stack balance. It also reports branch coverage of the original.
+- **Ground truth, 300 matches (size-stratified; 110 over 128 B):**
+  - all 300 pass against themselves;
+  - the same sources recompiled with `/O1` (268 of them byte-different) pass 300/300;
+  - recompiled with `/Oy-` (236 byte-different), they pass 300/300.
+  - Median 2.3 s per function including the compile, p90 3.8 s; one long loop hit the 120 s budget. Branch coverage is complete on 285/300, with 97.6% of edges covered overall.
+- **Mutation suite, 120 functions:**
+  - 334 mutants caught: 58 at level 2, 276 at level 3.
+  - The 4 false passes all had full branch coverage, and each needs a particular combination of data:
+    - a magic return value combined with a flag;
+    - a byte copy whose bytes happen to be equal;
+    - a boundary on a pointer difference (`n > 40` → `41`);
+    - a first loop iteration behind a three-pointer chain.
+  - 6 mutants are semantically equivalent with different bytes (hand-checked): dead stores, a callee that is an empty function, an argument the callee never reads, a local array resized. They are listed in `EQUIVALENT_MUTANTS`.
+  - All 9 commutative rewrites pass (no false failures). 81 mutants were excluded (67 identical bytes, 14 don't compile).
+- The `/O1` recompiles were the real test, because they make the code differ the way a decompiled candidate would. They drove most of the design (78/300 failed at first):
+  - **Argument counts can't come from the caller alone.** `/O1` cleans with `pop ecx; pop ecx`, defers one `add esp` over several calls, and interleaves an outer call's pushes with an inner call. Arity now comes from the callee: its `ret N`, and a stack-depth scan of which argument slots it reads, so dead arguments don't count. Indirect calls reuse the original's count call by call.
+  - **CRT calls vs inline code.** `/O1` calls `memcpy`/`strcmp`/`sin` where `/O2` inlines them. The XBE's own CRT routines are found by **behaviour**: every function in the CRT region is run against memcpy/strcmp/floor test vectors. memcpy is at `0x345130`, strcmp at `0x346e5a`, strlen at `0x344fcd`, stricmp at `0x346fc5`, strncmp at `0x345840`, floor at `0x34557c` and ceil at `0x3481ba`. They run for real on both sides. Ones the XBE never has out of line (memset) run as Python semantics.
+  - **Inline helpers.** `/O1` didn't inline an inline base constructor. Functions defined in our own object now execute in place instead of being "paired" to an unrelated original function.
+  - **Locals passed by pointer** are part of a call: their contents are compared, over `sizeof(*param)`. The size comes from our callee declaration, via a `sizeof` probe compile for classes, and grows over words the function itself wrote (an array passed as `T*`). Only written bytes count. MSVC reuses dead parameter slots as locals, so uninitialised out-parameters differ between compiles.
+  - Smaller items:
+    - MSVC function-argument back-references count top-level argument types only. `msvc_demangle._Parser` also counts nested ones, which turned `RefObj*` arguments into `RefObj` by value.
+    - `lea ecx, [ecx]` and `mov edi, edi` are padding, not register reads.
+    - A function-pointer field call is not a virtual call: `ecx` is only a receiver when the target came from `[ecx]`'s vtable.
+- **Unicorn gotchas:**
+  - Loading a GDT for `fs:` (SEH frames) breaks plain `ret` unless SS/DS/ES also get flat descriptors.
+  - After a lazy page map, an instruction re-executes, and the memory-write hook can miss the retried write. Writes are therefore found by diffing pages against their known initial contents, which also gives final-state rather than write-log semantics.
+  - Writing EIP from a code hook works for redirecting calls to stub trampolines (`[fld qword [slot]]; ret N`).
+- **Coverage needs help beyond random inputs.**
+  - The fuzzer rotates memory modes: structured, small-number, pointer-graph (fields point back at the input objects), narrow (all pointers within 512 bytes), and random bytes.
+  - It adds **input-to-state** directed inputs. Every `cmp`/`test` records where its operand was loaded from: memory, a stack argument, or a stub's return value. An uncovered branch side is then re-run with that source patched to the other operand's value. Coverage counts only inputs that ran to completion.
+- Side finding: **23 of the 300 sampled matches carry address-encoded names that contradict the code** (`FUN_00019420` where the call goes to `0x1d04a0`; `thunk_FUN_002709b0` is the thunk at `0x269680`, not `0x2709b0`). These are propagated shapes, and `verify_relocs` accepts them because names are treated as invented. For a port they would link to the wrong function. `equiv.py` reports them as `level2.conflicts`.
+- Not done yet: `submit_equiv` in the farm, captured xemu snapshots as inputs, and the A/B.
