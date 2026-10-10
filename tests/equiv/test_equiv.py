@@ -10,7 +10,7 @@ import unittest
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import equiv  # noqa: E402
+equiv = __import__(os.environ.get("EQUIV_MODULE", "equiv"))  # noqa: E402
 import mutate  # noqa: E402
 
 HAVE_GAME = os.path.exists(os.path.join(ROOT, "isos/extracted/default.xbe")) and \
@@ -40,6 +40,20 @@ class Logic(unittest.TestCase):
         self.assertEqual(eff(b"\xdd\xd8"), (1, -1))         # fstp st(0)
         self.assertEqual(eff(b"\xde\xc1"), (2, -1))         # faddp st(1)
         self.assertEqual(eff(b"\xd8\x05\0\0\0\0"), (1, 0))  # fadd dword [0]
+
+    def test_decl_layout(self):
+        self.assertEqual(equiv.decl_layout(equiv.parse_signature("?Add@V3@@QAEXPAV1@@Z")), (["ecx", "stack"], 4))
+        self.assertEqual(equiv.decl_layout(equiv.parse_signature("?f@@YAHHHHPAX@Z")), (["stack"] * 4, 0))
+        self.assertEqual(equiv.decl_layout(equiv.parse_signature("?f@@YIHHHH@Z")), (["ecx", "edx", "stack"], 4))
+
+    def test_write_only_idioms(self):
+        import capstone
+        md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+        md.detail = True
+        prog = equiv.Program.__new__(equiv.Program)
+        for code in (b"\x83\xca\xff", b"\x33\xd2", b"\x2b\xd2"):      # or edx,-1; xor edx,edx; sub edx,edx
+            ci = next(md.disasm(code, 0))
+            self.assertNotIn("edx", equiv.Program._regs_rw(prog, ci)[0])
 
     def test_mutants(self):
         src = "struct S { int a; int b; };\nint f(S* s, int x) {\n    g(x);\n    if (s->a < x)\n        return s->b - x;\n    return 3;\n}\n"

@@ -298,7 +298,7 @@ def mutants(src, rng):
 
 def job(args):
     addr, ops_seed = args
-    import equiv
+    equiv = __import__(os.environ.get("EQUIV_MODULE", "equiv"))
     src_path = os.path.join(ROOT, "matches", "0x%08x.cpp" % addr)
     src = open(src_path).read()
     results = []
@@ -372,7 +372,7 @@ def main():
     else:
         base = set(selftest.sample(300))
         addrs = [x for x in selftest.sample(a.n * 3, seed=23) if x not in base]
-        import equiv
+        equiv = __import__(os.environ.get("EQUIV_MODULE", "equiv"))
         prog = equiv.Program.get()
         addrs = [x for x in addrs if prog.funcs[x][0] >= 24]
         random.Random(5).shuffle(addrs)

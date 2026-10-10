@@ -25,7 +25,7 @@ BUCKETS = [(0, 32, 0.2), (32, 64, 0.2), (64, 128, 0.233), (128, 1 << 20, 0.367)]
 
 
 def sample(n, seed=9):
-    import equiv
+    equiv = __import__(os.environ.get("EQUIV_MODULE", "equiv"))
     prog = equiv.Program.get()
     files = sorted(f for f in os.listdir(os.path.join(ROOT, "matches")) if f.endswith(".cpp"))
     by = {b: [] for b in BUCKETS}
@@ -46,7 +46,7 @@ def sample(n, seed=9):
 
 def job(args):
     addr, flags = args
-    import equiv
+    equiv = __import__(os.environ.get("EQUIV_MODULE", "equiv"))
     src = os.path.join(ROOT, "matches", "0x%08x.cpp" % addr)
     t = time.time()
     try:

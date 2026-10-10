@@ -46,7 +46,9 @@ order. The report's `level2.mapping` says which rule fired.
    - a CRT routine found in the XBE by behaviour (below).
 4. **paired**: instruction alignment with the original; the operand at the same spot of the matching
    instruction. When the code is byte-identical, this is exact and overrides wrong name claims, which are
-   reported in `level2.conflicts`.
+   reported in `level2.conflicts`. In other code the alignment can pair different statements of the same
+   shape, so it only binds symbols that have no name, and never contradicts one. Float constants and
+   strings bind by content only, never by position.
 5. **ordered**: leftover symbols matched to leftover original targets of the same kind, in first-use order.
 
 Rules 4 and 5 trust the original. With invented names, level 2 checks shape and consistency, and level 3
@@ -62,6 +64,34 @@ Two kinds of symbol are never paired:
   cached in `build/equiv/crt.json`. The routines found run for real on both sides. A routine the XBE
   doesn't have out of line (e.g. `memset`, inlined everywhere) runs semantically in Python. Either way,
   inlining one side and calling on the other makes no difference.
+
+## Calling conventions MSVC can't express
+
+Some pure3d/d3d functions use link-time-generated conventions: arguments in `eax`, `edx` or `esi`, `this`
+in `ecx` with the caller popping, and so on. Write ordinary C++ with the values as normal arguments, and
+declare where the original passes them:
+
+```cpp
+// equiv-conv: FUN_00326dc0 eax ecx
+int FUN_00326dc0(int primType, int count);               // a plain cdecl declaration
+
+// equiv-conv: FUN_0026b380 stack stack stack ebx edx esi edi
+extern int FUN_0026b380(void* a, int mode, void* c, int toMode, int g, int f, int e);
+```
+
+- The locations are listed in our parameter order: `eax ecx edx ebx esi edi ebp`, or `stack` for the next
+  stack word.
+- The name can be the original's name or address, or our symbol's name.
+- At each call to that function, the original's values (taken from those registers and stack words) and
+  ours (taken from wherever our declaration put them) are compared as one argument list, position by
+  position. Swapped or wrong arguments still fail; only the location may differ.
+- The same annotation on the function under test (`// equiv-conv: FUN_00325fd0 ecx edx eax stack`) feeds
+  the original its inputs in those registers and ours through our declaration.
+
+Stack effects are per side: each side pops what its own code expects. The original uses the callee's real
+`ret N`; ours uses our declaration. So `this` in `ecx` with one stack argument and a plain `ret` can be
+declared as an ordinary thiscall member, with no annotation needed. When a callee reads a register that
+our code doesn't set, the mismatch message suggests the annotation.
 
 ## Level 3 design
 
@@ -97,12 +127,16 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   or stack argument patched to the value on the other side.
 
 **Callees**
-- Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. At every `call`, and at
+- Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check
+  `__security_check_cookie` is skipped on both sides, because its caller's `add esp` releases the frame
+  and isn't argument cleanup. At every `call`, and at
   a `jmp` that leaves the function (a tail call), a stub:
   - records the target, the argument words, the registers, and every stack local passed by pointer;
   - returns a deterministic `eax`/`edx`, plus a float on the x87 stack if the code after the call consumes
     `st0`;
-  - writes the first word of each local passed by pointer (an out-parameter);
+  - fills each local passed by pointer (an out-parameter), with the same values on both sides. A class
+    parameter is filled over its whole `sizeof`. Any other parameter gets at least 16 bytes, skipping
+    words the function has already written itself;
   - pops the callee's argument bytes.
 - The pop count comes from the callee's own `ret N` (following tail jumps) when the call site names a real
   function. For cdecl, it comes from the caller's `add esp, N` or `pop ecx` cleanup, including one
@@ -118,9 +152,10 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
 - The call trace: targets in order; the argument words; and the callee's register inputs, i.e.
   `ecx`/`edx`/`eax` when the callee reads them before writing (so `this`, and `ecx` for every virtual
   call).
-- Locals passed by pointer: `sizeof(*param)` bytes, taken from our callee declaration (a `sizeof` probe
-  compile for class types), 4 bytes when unknown. Only bytes the function wrote count, so an
-  uninitialised out-parameter is not compared.
+- Locals passed by pointer, on the stack or in a register: exactly `sizeof(*param)` bytes for a class
+  type, taken from our callee declaration (a `sizeof` probe compile). A scalar or unknown pointer may
+  point at an array, so it is compared over up to 16 bytes the function filled in. Only bytes the function
+  wrote count, so an uninitialised out-parameter is not compared.
 - Memory writes per call segment: the final byte values that differ from the segment's initial state.
   The stack is excluded.
 - The return value by type: `al`, `ax`, `eax`, `edx:eax` or `st0`.
@@ -191,8 +226,8 @@ The harnesses:
   Code behind conditions the fuzzer can't satisfy (deep pointer chains, specific global state, values
   computed from several loads) stays unverified. Branch coverage is also not path coverage: a difference
   that needs a combination of conditions can survive full branch coverage.
-- **Callees are opaque.** A stub writes only the first word of an out-parameter. A local passed to a
-  virtual call (unknown declaration) is compared over 4 bytes only.
+- **Callees are opaque.** A stub's out-parameter values are arbitrary, not what the real callee would
+  write. An array behind a scalar pointer is compared over at most 16 bytes.
 - **Argument counts** for calls through fuzzed pointers come from tracked pushes in the original, and are
   reused by our run call by call. A rare mix of cdecl and thiscall indirect calls sharing one deferred
   cleanup can still be miscounted. That shows up as a false failure, not a pass.
@@ -209,3 +244,6 @@ The harnesses:
   arguments, because all registers start as valid pointers. Callee-saved registers are never compared as
   callee inputs.
 - **x87:** float results compare with tolerance, and integer results of `fistp` compare exactly.
+- **Function bounds** come from `build/functions.csv`. Code past the listed size is still followed, as a
+  chunk, but some sizes are wrong: 0x001bb0b0 is listed at 320 bytes but returns at +0x47d, so its
+  packet showed only part of the function.
