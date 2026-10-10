@@ -5,14 +5,15 @@ Self-contained briefs for work alongside the matching farm. Each brief has a goa
 | # | Task | Depends on | Size | Status |
 |---|---|---|---|---|
 | 01 | [Reference verification (relocation targets)](01-reference-verification.md) | Ghidra project | M | *done: `tools/verify_relocs.py` (see journal)* |
-| 02 | [RTTI → class headers](02-rtti-headers.md) | `build/rtti.json` | M | |
+| 02 | [RTTI → class headers](02-rtti-headers.md) | `build/rtti.json` | M | *done: `include/gen/` (see [headers.md](../headers.md)); moving matches onto them is open* |
 | 03 | [RCF archive tool](03-rcf-tool.md) | ISO only | S–M | *done: exact names via game hash, byte-identical repack (branch `task/rcf-hash`)* |
 | 04 | [Pure3D `.p3d` reader](04-p3d-reader.md) | 03 | M–L | *done: verified on all 1,436 files; textures → PNG, meshes/skins/animations → glTF, whole cities (branches `task/p3d-verify`, `task/p3d-anim`). Open: collision, state props* |
 | 05 | [Translation-unit / split recovery](05-split-recovery.md) | Ghidra, 01 | L | |
 | 06 | [Hybrid patch build in xemu](06-hybrid-patch-build.md) | matches/ | L | |
-| 07 | [Subsystem map for QoL (render/camera/HUD/game loop)](07-subsystem-map.md) | Ghidra, RTTI | M | |
+| 07 | [Subsystem map for QoL (render/camera/HUD/game loop)](07-subsystem-map.md) | Ghidra, RTTI | M | *done: [platform-boundary.md](../platform-boundary.md), [subsystems.md](../subsystems.md), [port-priority.txt](../port-priority.txt)* |
 | 08 | [Farm: large-function strategies](08-large-functions.md) | farm | M | *farm session: aligned diffs, attempt history, similar-function examples built; A/B pending credits* |
-| 09 | [Equivalent decomp for large functions (behaviour verifier + farm mode)](09-equivalent-decomp.md) | 01, 02 | L | |
+| 09 | [Equivalent decomp for large functions (behaviour verifier + farm mode)](09-equivalent-decomp.md) | 01, 02 | L | *verifier and farm mode done ([equivalence.md](../equivalence.md)); scaling up* |
+| 10 | [Test plan for the hybrid and native builds](10-hybrid-test-plan.md) | 06, 07, 09 | L | |
 
 ## Ground rules (read first)
 

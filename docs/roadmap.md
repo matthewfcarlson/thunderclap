@@ -50,6 +50,7 @@ Every game function gets compilable C++ at one of three levels:
 ### 5. Hybrid build in xemu: the integration test
 - Patch our compiled functions into the original XBE and run it in xemu ([task 06](tasks/06-hybrid-patch-build.md)).
 - It's the end-to-end check for equivalent code (play, or replay recorded input, and compare against the original) and the first place QoL patches ship: widescreen, FOV, 60 fps.
+- Test plan ([task 10](tasks/10-hybrid-test-plan.md)): deterministic input replays compared checkpoint by checkpoint against the original, automatic bisection to the guilty function, and real captured inputs fed back to `tools/equiv.py`. The same suite later checks the native builds.
 
 ### 6. Native build
 1. **x86-32 host build first** (Linux or Windows, clang): same pointer size and calling conventions as the Xbox, so the only new variable is the platform layer. Shim XAPI/kernel, implement the `pddi`, input, audio and movie backends.
