@@ -5,6 +5,7 @@ From "every function matches" to a rebuildable, moddable, portable game. Concret
 ## Stage 1: Match every game function *(in progress)*
 - Farm plus propagation produce one standalone `.cpp` per function in `matches/`, with invented names and stub classes.
 - Small and mid functions (≤96 B): GPT-6 Luna, ~$0.002/match. Large functions: aligned diffs, staged matching, similar-function examples, local models, then stronger models (Sonnet before Astra).
+- **Local model flywheel** (fine-tune Qwen on farm transcripts + other decomps, then GRPO): [`docs/dataset-plan.md`](dataset-plan.md).
 - **Caveat:** compare masks relocated bytes, so a match proves code *shape*, not that calls and globals point at the right symbols. Stage 2 closes that gap.
 
 ## Stage 2: Verify references (codegen match → full match)
