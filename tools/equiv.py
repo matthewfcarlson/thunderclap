@@ -67,7 +67,11 @@ POINTEE_WINDOW = 256        # most bytes of a stack local passed by pointer that
 DEFAULT_POINTEE = 4         # ... when the callee's parameter type is unknown (e.g. virtual calls)
 
 REL32, DIR32 = 0x14, 0x06
-SOFT_L2 = ("missing_address_constant",)
+# Differences that equivalent code can legitimately have (level 3 still checks the behaviour):
+# an immediate that merely looks like an address, a float constant loaded another way (fld1/fldz, double vs
+# float), a string read in pieces vs whole, and CRT routines the original inlined.
+SOFT_L2 = ("missing_address_constant", "missing_float_constant", "float_constant_not_in_original",
+           "missing_data_ref_interior", "extra_data_ref_interior", "intrinsic_call")
 CALLEE_SAVED = ("ebx", "esi", "edi", "ebp")
 
 # CRT helpers that are executed for real instead of stubbed (pure: registers/stack only).
@@ -649,8 +653,17 @@ class CodeView:
                 return None
             if j.mnemonic == "add" and j.op_str.startswith("esp,") and j.imms:
                 return j.imms[0]
-            if j.mnemonic == "pop" and j.regs == ["ecx"] and k == 0:
-                return 4
+            if j.mnemonic == "pop" and j.regs == ["ecx"]:
+                n = 0
+                while j is not None and j.mnemonic == "pop" and j.regs == ["ecx"] and n < 8:
+                    n += 4
+                    a += j.size
+                    j = self.decode(a)
+                # /O1 cleans 4 or 8 bytes with pop ecx; an epilogue pops more registers and returns
+                if j is None or j.kind == "ret" or j.mnemonic in ("pop", "leave") or \
+                        (j.mnemonic == "mov" and j.op_str == "esp, ebp"):
+                    return None
+                return n
             if j.kind != "other" or j.mnemonic in ("push", "pop", "sub", "leave", "pushal", "popal", "pushfd",
                                                   "popfd") or "esp" in j.op_str.split(",")[0]:
                 return None
@@ -813,8 +826,13 @@ def parse_signature(mangled):
             if p.peek() == "X":
                 p.take()
             else:
+                p.types = []           # argument back-references count top-level argument types only
                 while p.peek() not in ("@", "Z", ""):
+                    start, saved = p.i, list(p.types)
                     t = p.type()
+                    p.types = saved
+                    if p.i - start > 1 and len(p.types) < 10:
+                        p.types.append(t)
                     types.append(t)
                     params.append(_kind_of(t))
             return {"cc": cc, "this": has_this, "ret": ret, "params": params, "param_types": types}
@@ -927,6 +945,143 @@ def _probe_sizes(src, flags, classes):
         if v:
             res[c] = v[0]
     return res
+
+
+MATH1 = {"sin": math.sin, "cos": math.cos, "tan": math.tan, "sqrt": math.sqrt, "exp": math.exp, "log": math.log,
+         "log10": math.log10, "fabs": abs, "floor": math.floor, "ceil": math.ceil, "atan": math.atan,
+         "asin": math.asin, "acos": math.acos, "sinh": math.sinh, "cosh": math.cosh, "tanh": math.tanh}
+MATH2 = {"atan2": math.atan2, "pow": math.pow, "fmod": math.fmod}
+X87_NAN = struct.unpack("<d", bytes.fromhex("000000000000f8ff"))[0]     # the x87 "indefinite" NaN
+INTRINSIC_NAMES = {"_memcpy", "_memmove", "_memset", "_strlen", "_strcmp", "_stricmp", "__stricmp", "_strncmp",
+                   "__strnicmp", "_strcpy", "_strcat", "__ReadWriteBarrier"} | {"_" + k for k in MATH1} | \
+    {"_" + k for k in MATH2}
+
+
+# ---------------------------------------------------------------------------------------------
+# The XBE's own CRT routines, found by behaviour (memcpy & co. are inlined in some code and called in
+# other code; executing the real routine on both sides makes that difference disappear).
+CRT_REGION = (0x340000, 0x364840)
+CRT_CACHE = os.path.join(ROOT, "build/equiv/crt.json")
+
+
+def _crt_probe(prog, addr, args, buffers, float_args=None, steps=200000):
+    """Call a cdecl function on a scratch machine; returns (eax, st0 or None, memory reader) or None."""
+    from unicorn import Uc, UC_ARCH_X86, UC_MODE_32, UC_HOOK_MEM_UNMAPPED, UcError
+    from unicorn import x86_const as u
+    uc = Uc(UC_ARCH_X86, UC_MODE_32)
+    mapped = set()
+
+    def unm(uc_, access, a, size, value, _):
+        pg = a & ~0xFFF
+        if pg in mapped:
+            return True
+        mapped.add(pg)
+        if IMAGE_LO <= pg < IMAGE_HI:
+            uc_.mem_map(pg, PAGE)
+            uc_.mem_write(pg, prog.image_page(pg))
+            return True
+        if 0x50000000 <= pg < 0x50100000 or pg < 0x10000:
+            uc_.mem_map(pg, PAGE)
+            return True
+        return False
+    uc.hook_add(UC_HOOK_MEM_UNMAPPED, unm)
+    uc.mem_map(STACK_LO, STACK_HI - STACK_LO)
+    uc.mem_map(TRAMP, PAGE)
+    uc.mem_write(TRAMP, b"\xf4" * PAGE)
+    uc.reg_write(u.UC_X86_REG_FPCW, 0x027F)
+    for a, data in buffers.items():
+        unm(uc, 0, a, 1, 0, None)
+        uc.mem_write(a, data)
+    words = list(args)
+    stack = struct.pack("<I", SENTINEL) + b"".join(struct.pack("<I", w & M32) for w in words) + bytes(64)
+    uc.mem_write(ENTRY_ESP, stack)
+    uc.reg_write(u.UC_X86_REG_ESP, ENTRY_ESP)
+    try:
+        uc.emu_start(addr, SENTINEL, count=steps)
+    except UcError:
+        return None
+    if uc.reg_read(u.UC_X86_REG_EIP) != SENTINEL or uc.reg_read(u.UC_X86_REG_ESP) != ENTRY_ESP + 4:
+        return None
+    top = (uc.reg_read(u.UC_X86_REG_FPSW) >> 11) & 7
+    st0 = _x87_value(uc.reg_read(u.UC_X86_REG_FP0 + top)) if (8 - top) % 8 else None
+    return uc.reg_read(u.UC_X86_REG_EAX), st0, (lambda a, n: bytes(uc.mem_read(a, n)))
+
+
+def _dwords(d):
+    return list(struct.unpack("<II", struct.pack("<d", d)))
+
+
+def _is_crt(prog, addr, name):
+    A, B = 0x50000100, 0x50000800
+    try:
+        if name in ("_memcpy", "_memmove"):
+            src = bytes(range(1, 40))
+            r = _crt_probe(prog, addr, [A, B, 37], {B: src, A: b"\xee" * 64})
+            return bool(r) and r[0] == A and r[2](A, 38) == src[:37] + b"\xee"
+        if name == "_memset":
+            r = _crt_probe(prog, addr, [A, 0x1AB, 37], {A: b"\x11" * 64})
+            return bool(r) and r[0] == A and r[2](A, 38) == b"\xab" * 37 + b"\x11"
+        if name == "_strlen":
+            r = _crt_probe(prog, addr, [A], {A: b"hello world\0"})
+            r2 = _crt_probe(prog, addr, [A], {A: b"\0"})
+            return bool(r and r2) and r[0] == 11 and r2[0] == 0
+        if name in ("_strcmp", "__stricmp", "_strncmp"):
+            n3 = [3] if name == "_strncmp" else []
+            a1 = _crt_probe(prog, addr, [A, B] + n3, {A: b"abcx\0", B: b"abcy\0"})
+            a2 = _crt_probe(prog, addr, [A, B] + n3, {A: b"abd\0", B: b"abc\0"})
+            a3 = _crt_probe(prog, addr, [A, B] + n3, {A: b"ABC\0", B: b"abc\0"})
+            if not (a1 and a2 and a3):
+                return False
+            sgn = lambda v: 0 if v == 0 else (-1 if v & 0x80000000 else 1)
+            want = {"_strcmp": (-1, 1, -1), "__stricmp": (-1, 1, 0), "_strncmp": (0, 1, -1)}[name]
+            return (sgn(a1[0]), sgn(a2[0]), sgn(a3[0])) == want
+        if name in ("_strcpy", "_strcat"):
+            r = _crt_probe(prog, addr, [A, B], {A: b"xy\0zzzzzz", B: b"abc\0"})
+            want = b"abc\0" if name == "_strcpy" else b"xyabc\0"
+            return bool(r) and r[0] == A and r[2](A, len(want)) == want
+        if name[1:] in MATH1:
+            for x in (0.375, 2.75, -1.625):
+                try:
+                    want = MATH1[name[1:]](x)
+                except ValueError:
+                    continue
+                r = _crt_probe(prog, addr, _dwords(x), {})
+                if not (r and r[1] is not None and _feq(r[1], want, 1e-9, 1e-12)):
+                    return False
+            return True
+        if name[1:] in MATH2:
+            for x, y in ((0.375, 1.5), (2.75, -0.5), (7.0, 2.5)):
+                try:
+                    want = MATH2[name[1:]](x, y)
+                except ValueError:
+                    continue
+                r = _crt_probe(prog, addr, _dwords(x) + _dwords(y), {})
+                if not (r and r[1] is not None and _feq(r[1], want, 1e-9, 1e-12)):
+                    return False
+            return True
+    except Exception:
+        return False
+    return False
+
+
+def crt_table(prog):
+    """{CRT name: address} for the XBE's CRT routines, cached in build/equiv/crt.json."""
+    if os.path.exists(CRT_CACHE):
+        return json.load(open(CRT_CACHE))
+    found = {}
+    names = ["_memcpy", "_memset", "_strlen", "_strcmp", "__stricmp", "_strncmp", "_strcpy", "_strcat",
+             "_memmove"] + ["_" + k for k in MATH1 if k != "fabs"] + ["_" + k for k in MATH2]
+    cands = sorted(a for a in prog.funcs if CRT_REGION[0] <= a < CRT_REGION[1] and prog.callee_pop(a) == 0)
+    for name in names:
+        for a in cands:
+            if a in found.values() and name != "_memmove":
+                continue
+            if _is_crt(prog, a, name):
+                found[name] = a
+                break
+    os.makedirs(os.path.dirname(CRT_CACHE), exist_ok=True)
+    json.dump({k: v for k, v in found.items()}, open(CRT_CACHE, "w"), indent=1)
+    return found
 
 
 # ---------------------------------------------------------------------------------------------
@@ -1109,6 +1264,7 @@ class Run:
         self.stack_fpu = {}
         self.tracked = set()
         self.save_slots = set()     # stack slots holding saved callee-saved registers
+        self.stack_written = set()  # stack bytes written since entry (uninitialised bytes are not compared)
         self.helper_ret = None
         self.prev_jcc = None
         self.fault = None
@@ -1121,6 +1277,9 @@ class Run:
         self.cmp_obs = {}           # jcc -> observation of the comparison that fed it
         self.prologue = view.prologue()
         self.pointee_sizes = {}     # callee address -> {arg index: bytes}
+        self.intrinsics = {}        # unresolved CRT symbol address -> name, executed semantically
+        self.local_code = None      # (lo, hi) of our object's own code, executed rather than stubbed
+        self.slot_arity = None      # vtable slot offset -> (pop, nargs), learned from the original's runs
 
     # -- setup ---------------------------------------------------------------------------------
     def _setup(self):
@@ -1147,6 +1306,8 @@ class Run:
         tr = bytearray(b"\xf4" * PAGE)
         for k in range(64):
             tr[k * 16:k * 16 + 3] = b"\xc2" + struct.pack("<H", 4 * k)
+            tr[0x400 + k * 16:0x400 + k * 16 + 9] = b"\xdd\x05" + struct.pack("<I", FSLOT) + b"\xc2" + \
+                struct.pack("<H", 4 * k)
             tr[0x800 + k * 16:0x800 + k * 16 + 9] = b"\xd9\x05" + struct.pack("<I", FSLOT) + b"\xc2" + \
                 struct.pack("<H", 4 * k)
         uc.mem_map(TRAMP, PAGE)
@@ -1195,6 +1356,9 @@ class Run:
 
     def _on_write(self, uc, access, addr, size, value, _):
         if STACK_LO <= addr < STACK_HI:
+            ci = self.cur_insn
+            if not (ci is not None and ci.mnemonic == "push" and ci.addr in self.prologue):
+                self.stack_written.update(range(addr, addr + size))    # (prologue pushes allocate/save)
             if self.cur_insn is not None and self.cur_insn.is_fpu_store:
                 self.stack_fpu[addr] = size
             else:
@@ -1274,11 +1438,99 @@ class Run:
                 self.uc.mem_unmap(p, PAGE)    # remapped with the new epoch's contents on next touch
         self.mapped = keep
 
+    def _mem(self, a, n, data=None):
+        """Read (or write) n bytes, mapping lazily like an emulated access would."""
+        if a + n > (1 << 32):                      # wraps around like the CPU's own string ops
+            k = (1 << 32) - a
+            if data is None:
+                return self._mem(a, k) + self._mem(0, n - k)
+            self._mem(a, k, data[:k])
+            self._mem(0, n - k, data[k:])
+            return None
+        if POISON < a + n and a < POISON + 0x10000:     # the only unmapped reserved range
+            raise Fault("intrinsic_access")
+        if n > PAGE * (1000 - len(self.mapped)):
+            raise Fault("too_many_pages")          # the original's inline loop would run out of pages too
+        for pg in range(a & ~0xFFF, ((a + max(n, 1) - 1) & ~0xFFF) + PAGE, PAGE):
+            if pg not in self.mapped and not any(lo <= pg < hi for lo, hi in RESERVED):
+                self.uc.mem_map(pg, PAGE)
+                self.uc.mem_write(pg, self.m.page(pg, self.epoch))
+                self.mapped.add(pg)
+        if data is None:
+            return bytes(self.uc.mem_read(a, n))
+        self.uc.mem_write(a, data)
+
+    def _cstr(self, a, limit=1 << 16):
+        out = bytearray()
+        while len(out) < limit:
+            chunk = self._mem(a + len(out), min(64, PAGE - ((a + len(out)) & 0xFFF)))
+            k = chunk.find(b"\0")
+            if k >= 0:
+                return bytes(out + chunk[:k])
+            out += chunk
+        raise Fault("intrinsic_access")
+
+    def _intrinsic(self, insn, name, tail):
+        """A CRT routine the original inlined: do what it does, without a call-trace entry."""
+        u = self.u
+        esp = self.reg("esp")
+        base = esp + 4 if tail else esp
+        w = [self._read_u32(base + 4 * i) for i in range(4)]
+        n = name.lstrip("_")
+        eax, fres = 0, None
+        dbl = lambda i: struct.unpack("<d", struct.pack("<II", w[i], w[i + 1]))[0]
+        if n in ("memcpy", "memmove"):
+            self._mem(w[0], w[2], self._mem(w[1], w[2])) if w[2] else None
+            eax = w[0]
+        elif n == "memset":
+            if w[2]:
+                self._mem(w[0], w[2], bytes([w[1] & 0xFF]) * w[2])
+            eax = w[0]
+        elif n == "strlen":
+            eax = len(self._cstr(w[0]))
+        elif n in ("strcmp", "stricmp", "_stricmp", "strcmpi", "strncmp", "strnicmp", "_strnicmp"):
+            a_, b_ = self._cstr(w[0]), self._cstr(w[1])
+            if n in ("strncmp", "strnicmp", "_strnicmp"):
+                a_, b_ = a_[:w[2]], b_[:w[2]]
+            if n in ("stricmp", "_stricmp", "strcmpi", "strnicmp", "_strnicmp"):
+                a_, b_ = a_.lower(), b_.lower()
+            eax = 0 if a_ == b_ else (M32 if a_ < b_ else 1)
+        elif n in ("strcpy", "strcat"):
+            s_ = self._cstr(w[1]) + b"\0"
+            dst = w[0] + (len(self._cstr(w[0])) if n == "strcat" else 0)
+            self._mem(dst, len(s_), s_)
+            eax = w[0]
+        elif n in MATH1 or n in MATH2:
+            x = dbl(0)
+            try:
+                fres = MATH1[n](x) if n in MATH1 else MATH2[n](x, dbl(2))
+            except OverflowError:
+                fres = float("inf")
+            except (ValueError, ZeroDivisionError):
+                fres = float("-inf") if n in ("log", "log10") and x == 0 else X87_NAN
+        elif n in ("ReadWriteBarrier", "_ReadWriteBarrier"):
+            pass
+        else:
+            raise Fault("intrinsic_unknown")
+        uc = self.uc
+        uc.reg_write(u.UC_X86_REG_EAX, eax & M32)
+        if not tail:
+            esp -= 4
+            uc.mem_write(esp, struct.pack("<I", insn.addr + insn.size))
+            uc.reg_write(u.UC_X86_REG_ESP, esp)
+        if fres is not None:
+            uc.mem_write(FSLOT, struct.pack("<d", fres))
+            uc.reg_write(u.UC_X86_REG_EIP, TRAMP + 0x400)
+        else:
+            uc.reg_write(u.UC_X86_REG_EIP, TRAMP)
+
     def _stub(self, insn, target, tail):
         u = self.u
         uc = self.uc
         esp = self.reg("esp")
-        p = self.prog.callee_pop(target)
+        # Callee facts only for real call sites: a target read from fuzzed memory is just a number.
+        known = insn.target is not None or (insn.mem is not None and insn.mem[1] is None and insn.mem[2] is None)
+        p = self.prog.callee_pop(target) if known else None
         if tail:
             argbase = esp + 4
             if p is None:
@@ -1288,7 +1540,7 @@ class Run:
             argbase = esp
             cleanup = self.view.cleanup_after(insn.addr)
             tracked = sorted(s for s in self.tracked if s >= esp)
-            semantic = self.prog.callee_stack_args(target)
+            semantic = self.prog.callee_stack_args(target) if known else None
             if p is not None and p > 0:
                 nargs = p // 4
             elif p == 0 or cleanup:
@@ -1300,6 +1552,15 @@ class Run:
             else:
                 nargs = len(tracked)
                 p = 4 * nargs
+                # a virtual call: reuse what the original's call through the same vtable slot did, so
+                # that argument pushes interleaved with an outer call in our code don't change the count
+                slot = insn.mem[4] if insn.mem is not None and insn.mem[1] not in (None, "esp", "ebp") \
+                    and not insn.mem[2] else None
+                if slot is not None and self.slot_arity is not None:
+                    if self.coverage:               # the original's run
+                        self.slot_arity.setdefault(slot, (p, nargs))
+                    elif slot in self.slot_arity:
+                        p, nargs = self.slot_arity[slot]
             self.tracked -= set(tracked[:nargs])
             if semantic is not None and p is not None:
                 nargs = semantic          # compare what the callee actually reads
@@ -1310,7 +1571,10 @@ class Run:
             args.append((v, self.stack_fpu.get(a)))
         k = len(self.calls)
         # locals passed by pointer: the callee may read them, so their contents are part of the call
-        sp = sorted({v for v, _ in args if esp <= v < ENTRY_ESP})
+        # our frame, including the incoming argument slots (MSVC reuses dead parameters as locals)
+        arg_hi = ENTRY_ESP + 4 + 4 * len(self.inp["stack"])
+        in_frame = lambda v: esp <= v < ENTRY_ESP or ENTRY_ESP + 4 <= v < arg_hi
+        sp = sorted({v for v, _ in args if in_frame(v)})
         declared = self.pointee_sizes.get(target, {})
         argidx = {}
         for j, (v, _) in enumerate(args):
@@ -1318,9 +1582,11 @@ class Run:
         pointees = {}
         for n, v in enumerate(sp):
             size = declared.get(argidx.get(v), DEFAULT_POINTEE)
-            w = min([size, POINTEE_WINDOW, ENTRY_ESP - v] + [x - v for x in self.save_slots if x > v])
+            w = min([size, POINTEE_WINDOW, (ENTRY_ESP if v < ENTRY_ESP else arg_hi) - v] +
+                    [x - v for x in self.save_slots if x > v])
             pointees[v] = (bytes(self.uc.mem_read(v, w)),
-                           {a - v: sz for a, sz in self.stack_fpu.items() if v <= a < v + w})
+                           {a - v: sz for a, sz in self.stack_fpu.items() if v <= a < v + w},
+                           {a - v for a in range(v, v + w) if a in self.stack_written})
         fret = self.view.float_ret_after(insn.addr, self.own_float_ret)
         h = mix(self.inp["seed"], 0xCA11, k)
         d = self.inp.get("dictionary")
@@ -1334,15 +1600,17 @@ class Run:
         edx = fuzz_value(mix(self.inp["seed"], 0xCA12, k))
         fv = FLOATS[mix(self.inp["seed"], 0xCA13, k) % len(FLOATS)]
         self.calls.append({"target": target, "args": args, "regs": {r: self.reg(r) for r in Program._REGS},
-                           "float_ret": fret, "at": insn.addr, "tail": tail, "pointees": pointees,
-                           "via_object": insn.mem is not None and insn.mem[1] is not None and insn.mem[2] is None})
+                           "float_ret": fret, "at": insn.addr, "tail": tail, "pointees": pointees, "known": known,
+                           "via_object": insn.mem is not None and insn.mem[1] not in (None, "esp", "ebp")
+                           and insn.mem[2] is None})
         self._close_segment()
         self._perturb()
         if not tail:
             # out-parameters: the callee writes the first word of any local it got a pointer to
             for j, (v, _) in enumerate(args):
-                if esp <= v <= ENTRY_ESP - 4 and v % 4 == 0:
+                if in_frame(v) and v % 4 == 0:
                     uc.mem_write(v, struct.pack("<I", fuzz_value(mix(self.inp["seed"], 0x0B7, k, j))))
+                    self.stack_written.update(range(v, v + 4))
         uc.reg_write(u.UC_X86_REG_EAX, eax)
         uc.reg_write(u.UC_X86_REG_EDX, edx)
         uc.reg_write(u.UC_X86_REG_ECX, fuzz_value(mix(self.inp["seed"], 0xCA14, k)))
@@ -1450,6 +1718,11 @@ class Run:
                     return
                 if self.view.in_body(target) and target != self.view.entry:
                     return
+                if self.local_code and self.local_code[0] <= target < self.local_code[1]:
+                    return            # a function of our own object: executes in place, like inlined code
+                if target in self.intrinsics:
+                    self._intrinsic(insn, self.intrinsics[target], tail=False)
+                    return
                 self._stub(insn, target, tail=False)
             elif insn.kind == "jmp":
                 if insn.target is not None:
@@ -1466,6 +1739,11 @@ class Run:
                     target = self.reg(insn.regs[0])
                     if self.view.internal_target(target):
                         return
+                if self.local_code and self.local_code[0] <= target < self.local_code[1]:
+                    return
+                if target in self.intrinsics:
+                    self._intrinsic(insn, self.intrinsics[target], tail=True)
+                    return
                 self._stub(insn, target, tail=True)
         except Fault as e:
             self.fault = self.fault or (str(e), addr)
@@ -1549,6 +1827,28 @@ class Ours:
                 self.relocs.append((va - value, sym, typ, addend))
         self.image = None
         self.unresolved_used = []
+
+    def local_relocs(self):
+        """[(offset, sym, type, addend)] of functions defined in our object that our function reaches."""
+        out, seen = [], {self.func_sym[0]}
+        work = [s for _, s, _, _ in self.relocs if s is not None and s[2] > 0 and s[3] == 0x20]
+        while work:
+            fs = work.pop()
+            if fs[0] in seen:
+                continue
+            seen.add(fs[0])
+            secnum, value, end = self.obj.func_extent(fs)
+            sec = self.obj.sections[secnum - 1]
+            raw = sec["raw"] or b""
+            for va, si, typ in sec["relocs"]:
+                if value <= va < end:
+                    sym = self.obj.syms.get(si)
+                    if sym is None or (sym[2] == secnum and not sym[0].startswith(("?", "_"))):
+                        continue
+                    out.append((va - value, sym, typ, struct.unpack_from("<i", raw, va)[0]))
+                    if sym[2] > 0 and sym[3] == 0x20:
+                        work.append(sym)
+        return out
 
     def sym_local_addr(self, sym):
         name, value, secnum, _, _ = sym
@@ -1679,6 +1979,9 @@ def name_address(prog, name):
     """An original address encoded in, or looked up by, a symbol name; None if the name says nothing."""
     if name in BUILTIN_NAMES:
         return BUILTIN_NAMES[name], "builtin"
+    crt = crt_table(prog)
+    if name in crt:
+        return crt[name], "crt"
     q = _qualified(name)
     base = q or re.sub(r"^[_@]|@\d+$", "", name)
     if len(prog.names.get(base, [])) == 1:          # exact Ghidra/RTTI name (thunk_FUN_x is not FUN_x)
@@ -1761,6 +2064,10 @@ def resolve_symbols(prog, ours, oview, orefs, explicit=None, use_names=True):
             continue      # local labels / own section (switch tables)
         if sym[0] not in [s[0] for s in syms]:
             syms.append(sym)
+    # symbols used only by our own helper functions (code the original inlined): no pairing for those
+    for off, sym, typ, addend in ours.local_relocs():
+        if sym[0] not in [s[0] for s in syms] and sym != ours.func_sym:
+            syms.append(sym)
     for sym in syms:
         name = sym[0]
         cand = None
@@ -1789,6 +2096,10 @@ def resolve_symbols(prog, ours, oview, orefs, explicit=None, use_names=True):
             if na:
                 cand = na
         votes = pair_votes.get(name)
+        if cand is None and sym[2] > 0 and sym[3] == 0x20:
+            votes = None      # a function defined in our object (e.g. not inlined here): it runs in place
+        if name in INTRINSIC_NAMES and cand is None:
+            votes = None      # a CRT routine the XBE doesn't have out of line: runs semantically
         if votes:
             t, n = votes.most_common(1)[0]
             if cand is not None and cand[0] is not None and cand[0] != t and cand[1] not in ("string", "float"):
@@ -1812,7 +2123,8 @@ def resolve_symbols(prog, ours, oview, orefs, explicit=None, use_names=True):
             if sym is not None:
                 rel_kind.setdefault(sym[0], "call" if typ == REL32 else "data")
         for kind in ("call", "data"):
-            ls = [s[0] for s in left if rel_kind.get(s[0]) == kind]
+            ls = [s[0] for s in left if rel_kind.get(s[0]) == kind and s[0] not in INTRINSIC_NAMES
+                  and not (s[2] > 0 and s[3] == 0x20)]
             os_ = []
             for a, k, t in orefs:
                 kk = "call" if k == "call" else "data"
@@ -1829,10 +2141,13 @@ def our_refs(ours, resolved, rview):
     """Our references after resolution: [(kind, addr or None, symbol)] plus plain immediates."""
     out = []
     rel_sites = set()
-    for off, sym, typ, addend in ours.relocs:
+    for k, (off, sym, typ, addend) in enumerate(ours.relocs + ours.local_relocs()):
         if sym is None or sym == ours.func_sym:
             continue
-        rel_sites.update(range(ours.func_addr + off, ours.func_addr + off + 4))
+        if k < len(ours.relocs):
+            rel_sites.update(range(ours.func_addr + off, ours.func_addr + off + 4))
+        if sym[2] > 0 and sym[3] == 0x20 and sym[0] not in resolved:
+            continue          # our own helper function: it runs in place, its references count instead
         name = sym[0]
         if name in resolved:
             t = resolved[name]
@@ -1857,23 +2172,37 @@ def level2(prog, orefs, oview, ours, resolved, how, rview):
     refs, imms = our_refs(ours, resolved, rview)
     issues = []
     o_calls = {t for _, k, t in orefs if k == "call"}
-    o_data = {t for _, k, t in orefs if k in ("data", "float")}
+    o_data = {t for _, k, t in orefs if k == "data"}
+    o_float = {t for _, k, t in orefs if k == "float"}
     o_imm = {t for _, k, t in orefs if k == "imm"}
     r_calls = {t for k, t, _ in refs if k == "call" and t is not None}
     r_data = {t for k, t, _ in refs if k == "data" and t is not None}
+
+    def near_ours(t):        # the middle of something we reference (a string read in pieces, a struct field)
+        return any(0 < abs(t - x) < 16 for x in r_data)
     for k, t, n in refs:
         if t is None:
-            issues.append({"kind": "unresolved_symbol", "symbol": n, "how": how.get(n)})
+            if n in INTRINSIC_NAMES:
+                issues.append({"kind": "intrinsic_call", "symbol": n})       # executed semantically in level 3
+            elif n.startswith("__real@"):
+                issues.append({"kind": "float_constant_not_in_original", "symbol": n})
+            else:
+                issues.append({"kind": "unresolved_symbol", "symbol": n, "how": how.get(n)})
     for t in sorted(o_calls - r_calls):
         issues.append({"kind": "missing_call", "target": "0x%08x" % t, "name": prog.funcs.get(t, (0, None))[1]})
     for t in sorted(r_calls - o_calls):
         n = [x for k, tt, x in refs if tt == t]
         issues.append({"kind": "extra_call", "target": "0x%08x" % t, "symbol": n[0] if n else None})
     for t in sorted(o_data - r_data):
-        issues.append({"kind": "missing_data_ref", "target": "0x%08x" % t, "section": prog.section_name(t)})
-    for t in sorted(r_data - o_data - o_imm):
+        kind = "missing_data_ref_interior" if near_ours(t) else "missing_data_ref"
+        issues.append({"kind": kind, "target": "0x%08x" % t, "section": prog.section_name(t)})
+    for t in sorted(o_float - r_data):
+        issues.append({"kind": "missing_float_constant", "target": "0x%08x" % t})
+    for t in sorted(r_data - o_data - o_float - o_imm):
         n = [x for k, tt, x in refs if tt == t]
-        issues.append({"kind": "extra_data_ref", "target": "0x%08x" % t, "symbol": n[0] if n else None})
+        interior = any(0 < abs(t - x) < 16 for x in o_data | o_imm)     # e.g. one byte of a global
+        issues.append({"kind": "extra_data_ref_interior" if interior else "extra_data_ref",
+                       "target": "0x%08x" % t, "symbol": n[0] if n else None})
     for t in sorted(o_imm - r_data - imms - o_data):
         issues.append({"kind": "missing_address_constant", "target": "0x%08x" % t, "section": prog.section_name(t)})
     return issues
@@ -2028,8 +2357,8 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4):
         # contents of locals passed by pointer, matched by argument position
         for j, ((ov, _), (rv, _)) in enumerate(zip(oa, ra)):
             if ov in a.get("pointees", {}) and rv in b.get("pointees", {}):
-                (ob, ofp), (rb, rfp) = a["pointees"][ov], b["pointees"][rv]
-                off = _first_diff(ob, rb, ofp, rfp)
+                (ob, ofp, ow), (rb, rfp, rw) = a["pointees"][ov], b["pointees"][rv]
+                off = _first_diff(ob, rb, ofp, rfp, ow | rw)
                 if off is not None:
                     out.append("call #%d to %s: the local passed as argument %d differs at +0x%x (%s, expected %s)" % (
                         k + 1, _fmt(a["target"]), j + 1, off, _desc(struct.unpack_from("<I", rb.ljust(off + 4, b"\0"), off & ~3)[0]),
@@ -2039,7 +2368,7 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4):
         if bad:
             break
         # register inputs of the callee: this (ecx), fastcall/LTCG register arguments
-        want = prog.reg_inputs(a["target"]) if a["target"] in prog.funcs else None
+        want = prog.reg_inputs(a["target"]) if a["target"] in prog.funcs and a.get("known") else None
         if want is None:
             want = {"ecx"} if a.get("via_object") or b.get("via_object") else set()
         bad_reg = None
@@ -2131,8 +2460,10 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4):
     return out[:max_report]
 
 
-def _first_diff(ob, rb, ofp, rfp):
-    """First differing byte offset of two pointee snapshots (x87 stores compare with tolerance), or None."""
+def _first_diff(ob, rb, ofp, rfp, written=None):
+    """First differing byte offset of two pointee snapshots (x87 stores compare with tolerance), or None.
+
+    Only bytes the function wrote (in either run) count: an uninitialised out-parameter is garbage."""
     n = min(len(ob), len(rb))
     skip = set()
     for off, sz in ofp.items():
@@ -2141,7 +2472,7 @@ def _first_diff(ob, rb, ofp, rfp):
             if _feq(struct.unpack_from(fmt, ob, off)[0], struct.unpack_from(fmt, rb, off)[0]):
                 skip.update(range(off, off + sz))
     for i in range(n):
-        if ob[i] != rb[i] and i not in skip:
+        if ob[i] != rb[i] and i not in skip and (written is None or i in written):
             return i
     return None
 
@@ -2294,6 +2625,9 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     if ret_kind is None:
         ret_kind = ghidra_ret_kind(addr)
     used, nsites = prog.callers_use_return(addr)
+    if ret_kind is None and nsites:
+        ret_kind = {"st0": "f64", "eax": "i32"}.get(used, "void")     # C name: infer from the callers
+        rep["return_note"] = "return type inferred from %d call sites of the original" % nsites
     if ret_kind == "void" and used:
         rep["return_note"] = "our function returns void, but callers of the original use %s" % used
         ret_kind = "f64" if used == "st0" else "i32"
@@ -2322,6 +2656,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     globals_ = sorted({t for _, k, t in orefs if k in ("data", "imm") and prog.section_name(t) in (".data", "BINKDATA", "DOLBY")})
     own_float = ret_kind in ("f32", "f64")
     helpers = dict(HELPERS)
+    helpers.update({a: n for n, a in crt_table(prog).items()})     # executed for real on both sides
     consts = sorted({v for i in oview.insns.values() if i.mnemonic in ("cmp", "test", "sub", "and")
                      for v in i.imms for v in (v, (v + 1) & M32, (v - 1) & M32)} | {0, 1})[:64]
     # pointers to read-only data the original uses (strings it compares against, tables)
@@ -2332,6 +2667,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
            "inputs_directed": 0, "mismatches": [], "statuses": Counter()}
     edges = set()
     hits = Counter()           # edge -> number of inputs that took it
+    slot_arity = {}
     observations = {}          # jcc addr -> [(seed, cmp observation, ...)] from the original's runs
     t_start = time.time()
 
@@ -2361,6 +2697,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         orun = Run(prog, oview, mach, inp, ours_image=(OURS, ours.image), sig=sig, max_steps=max_steps,
                    own_float_ret=own_float, coverage=True, helpers=helpers)
         orun.pointee_sizes = psizes or {}
+        orun.slot_arity = slot_arity
         o = orun.run(oview.entry)
         new = orun.edges - edges
         edges.update(orun.edges)
@@ -2378,6 +2715,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         rrun = Run(prog, rview, mach, inp, ours_image=(OURS, ours.image), sig=sig, max_steps=max_steps * 2,
                    own_float_ret=own_float, helpers=helpers)
         rrun.pointee_sizes = psizes or {}
+        rrun.intrinsics = {a: n for a, n in ours.poison.items() if n in INTRINSIC_NAMES}
+        rrun.local_code = (OURS, ours.end)
+        rrun.slot_arity = slot_arity
         r = rrun.run(rview.entry)
         diffs = compare_runs(o, r, ret_kind, mach, Namer(inp, sig, prog), prog)
         if o["status"] == "ret":
