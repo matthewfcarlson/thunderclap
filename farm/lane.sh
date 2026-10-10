@@ -1,7 +1,8 @@
 #!/bin/sh
 # Run a farm lane over a queue in batches, committing + pushing after each batch.
 # Stops when the queue is done or a budget/credit stop is hit.
-# Usage: farm/lane.sh LANE QUEUE TIERS [batch] [concurrency]
+# Usage: [MODE=equiv] farm/lane.sh LANE QUEUE TIERS [batch] [concurrency]
+# Subscription tiers that hit their usage window (429) wait it out instead of stopping the lane.
 set -u
 cd "$(dirname "$0")/.."
 LANE=$1; QUEUE=$2; TIERS=$3; BATCH=${4:-48}; CONC=${5:-12}
@@ -9,22 +10,27 @@ PY=build/venv/bin/python
 IDLE=0
 LOG=build/farm/lane-$LANE.log
 while :; do
-    farm/run.sh --lane "$LANE" --queue "$QUEUE" --tiers "$TIERS" --limit "$BATCH" --concurrency "$CONC" >> "$LOG" 2>&1
+    farm/run.sh --lane "$LANE" --mode "${MODE:-match}" --queue "$QUEUE" --tiers "$TIERS" --limit "$BATCH" --concurrency "$CONC" >> "$LOG" 2>&1
     $PY tools/progress.py --readme >> "$LOG" 2>&1
-    git add matches README.md
+    git add matches equivalent README.md
     if git diff --cached --quiet; then
         IDLE=$((IDLE + 1))
     else
         IDLE=0
         n=$(git diff --cached --name-only -- matches | wc -l | tr -d ' ')
-        git commit -q -m "Lane $LANE: +$n matched functions
+        e=$(git diff --cached --name-only -- equivalent | wc -l | tr -d ' ')
+        git commit -q -m "Lane $LANE: +$n matched, +$e equivalent functions
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_01DM8Bn5TvuystUL5qBzT4rA" && { git pull -q --rebase origin main && git push -q; } >> "$LOG" 2>&1
+Claude-Session: https://claude.ai/code/session_011A8Mi5d28UHDdVom8hvHuu" && { git push -q || { git pull -q --rebase --autostash origin main && git push -q; }; } >> "$LOG" 2>&1
+    fi
+    # Usage window exhausted: most of the last batch failed with 429. Wait, and don't count it as a stall.
+    if [ "$(tail -n "$BATCH" "build/farm/lanes/$LANE.jsonl" 2>/dev/null | grep '"failed"' | grep -c '429')" -ge $((BATCH / 2)) ]; then
+        echo "== usage limit $(date); waiting 30 min" >> "$LOG"; IDLE=0; sleep 1800; continue
     fi
     # Already-finished jobs replay instantly at $0, so a queue of only those never hits "0 functions".
     [ "$IDLE" -ge 3 ] && { echo "== stalled: 3 chunks with no new matches" >> "$LOG"; break; }
-    tail -60 "$LOG" | grep -q 'farm: 0 functions' && break
+    tail -60 "$LOG" | grep -Eq 'farm( \(equivalent mode\))?: 0 functions' && break
     tail -60 "$LOG" | grep -q 'skipping paid tiers' && break
 done
 echo "== lane $LANE done $(date)" >> "$LOG"
