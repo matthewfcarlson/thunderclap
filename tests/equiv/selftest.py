@@ -20,7 +20,8 @@ from multiprocessing import Pool
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
 
-BUCKETS = [(0, 32), (32, 64), (64, 128), (128, 256), (256, 512), (512, 1 << 20)]
+# matches/ has ~9.5k functions under 32 B but only ~150 over 128 B, so larger sizes get a bigger share.
+BUCKETS = [(0, 32, 0.2), (32, 64, 0.2), (64, 128, 0.233), (128, 1 << 20, 0.367)]
 
 
 def sample(n, seed=9):
@@ -37,10 +38,9 @@ def sample(n, seed=9):
             if b[0] <= sz < b[1]:
                 by[b].append(a)
     rng = random.Random(seed)
-    per = n // len(BUCKETS)
     out = []
     for b in BUCKETS:
-        out += rng.sample(by[b], min(per, len(by[b])))
+        out += rng.sample(by[b], min(int(round(n * b[2])), len(by[b])))
     return sorted(out)
 
 

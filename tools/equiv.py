@@ -152,7 +152,7 @@ class Program:
     def is_func_start(self, va):
         return va in self.funcs
 
-    def callee_pop(self, target):
+    def callee_pop(self, target, depth=0):
         """Bytes a callee pops (ret N), 0 for cdecl, None if unknown (no ret found / not code)."""
         if target in self._pop_cache:
             return self._pop_cache[target]
@@ -165,11 +165,13 @@ class Program:
                 rets = [i for i in view.insns.values() if i.kind == "ret"]
                 if rets:
                     res = max(i.ret_imm for i in rets)
-                elif len(view.insns) <= 2:
-                    # thunk: jmp elsewhere
-                    first = view.insns.get(target)
-                    if first is not None and first.kind == "jmp" and first.target is not None:
-                        res = self.callee_pop(first.target) if first.target != target else None
+                elif depth < 4:
+                    # every exit is a tail call: the function pops what its tail callee pops
+                    for i in view.insns.values():
+                        if i.kind == "jmp" and i.target is not None and not view.internal_target(i.target):
+                            res = self.callee_pop(i.target, depth + 1)
+                            if res is not None:
+                                break
             except Exception:
                 res = None
         self._pop_cache[target] = res
@@ -702,11 +704,12 @@ class Fault(Exception):
 class Machine:
     """Initial memory state for one input: a deterministic function of (seed, epoch, address)."""
 
-    def __init__(self, prog, seed, globals_, pristine=False):
+    def __init__(self, prog, seed, globals_, pristine=False, dictionary=()):
         self.prog = prog
         self.seed = seed
         self.globals = sorted(globals_)
         self.pristine = pristine
+        self.dictionary = list(dictionary)
         self._cache = {}
 
     def page(self, page, epoch):
@@ -730,6 +733,14 @@ class Machine:
                     b = bytes(buf)
         else:
             b = templates()[mix(self.seed, epoch, page) % 32 + (32 if self.seed % 2 else 0)]
+            if self.dictionary:
+                # plant interesting values (the input's pointers, constants the code compares against)
+                import random
+                buf = bytearray(b)
+                rnd = random.Random(mix(self.seed, epoch, page, 0xD1C7))
+                for i, v in zip(rnd.choices(range(1024), k=128), rnd.choices(self.dictionary, k=128)):
+                    struct.pack_into("<I", buf, 4 * i, v)
+                b = bytes(buf)
         if len(self._cache) > 4096:
             self._cache.clear()
         self._cache[key] = b
@@ -838,7 +849,7 @@ class Run:
         if _reserved(addr):
             self.fault = self.fault or ("bad_access", addr)
             return False
-        if len(self.mapped) > 3000:
+        if len(self.mapped) > 1000:
             self.fault = self.fault or ("too_many_pages", addr)
             return False
         try:
@@ -929,10 +940,13 @@ class Run:
     def _perturb(self):
         """After a stubbed call: the callee may have changed any non-stack memory."""
         self.epoch += 1
+        keep = set()
         for p in self.mapped:
             if self.prog.text[0] <= p < self.prog.text[1]:
-                continue    # never rewrite code pages
-            self.uc.mem_write(p, self.m.page(p, self.epoch))
+                keep.add(p)     # never touch code pages
+            else:
+                self.uc.mem_unmap(p, PAGE)    # remapped with the new epoch's contents on next touch
+        self.mapped = keep
 
     def _stub(self, insn, target, tail):
         u = self.u
@@ -1199,7 +1213,10 @@ def original_refs(prog, view, size):
         if i.mem is not None:
             seg, base, index, scale, disp, msize = i.mem
             if _in_image(disp) and not (body[0] <= disp < body[1]) and a not in view.tables:
-                kind = "float" if i.mnemonic.startswith("f") and not index else "data"
+                if base and base != "esp":
+                    kind = "imm"          # [reg + 0x1e820] may be a struct offset, not an address
+                else:
+                    kind = "float" if i.mnemonic.startswith("f") and not index else "data"
                 out.append((a, kind, disp))
         for v in i.imms:
             if _in_image(v) and not (body[0] <= v < body[1]) and i.kind not in ("call", "jmp"):
@@ -1227,11 +1244,11 @@ def name_address(prog, name):
         return BUILTIN_NAMES[name], "builtin"
     q = _qualified(name)
     base = q or re.sub(r"^[_@]|@\d+$", "", name)
+    if len(prog.names.get(base, [])) == 1:          # exact Ghidra/RTTI name (thunk_FUN_x is not FUN_x)
+        return prog.names[base][0], "name"
     m = HEX_NAME.search(base.split("::")[-1])
     if m:
         return int(m.group(1), 16), "name"
-    if q and len(prog.names.get(q, [])) == 1:
-        return prog.names[q][0], "name"
     if not q and base in prog.xbsyms:
         return prog.xbsyms[base], "xdk"
     return None
@@ -1807,6 +1824,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     globals_ = sorted({t for _, k, t in orefs if k in ("data", "imm") and prog.section_name(t) in (".data", "BINKDATA", "DOLBY")})
     own_float = ret_kind in ("f32", "f64")
     helpers = dict(HELPERS)
+    consts = sorted({v for i in oview.insns.values() if i.mnemonic in ("cmp", "test", "sub", "and")
+                     for v in i.imms for v in (v, (v + 1) & M32, (v - 1) & M32)} | {0, 1})[:64]
     res = {"ok": False, "inputs_run": 0, "inputs_inconclusive": 0, "inputs_faulted": 0, "inputs_failed": 0, "mismatches": [],
            "statuses": Counter()}
     edges = set()
@@ -1829,15 +1848,22 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             if c["complete"] or stale >= 16:
                 break
         inp = make_input(seed, sig, globals_)
-        mach = Machine(prog, seed, globals_, pristine=(seed == 0))
-        orun = Run(prog, oview, mach, inp, sig=sig, max_steps=max_steps, own_float_ret=own_float,
-                   coverage=True, helpers=helpers)
+        dictionary = ()
+        if seed % 3 == 2:
+            dictionary = [v for v in [inp["regs"]["ecx"], inp["regs"]["edx"]] + inp["own_args"]] + consts
+        mach = Machine(prog, seed, globals_, pristine=(seed == 0), dictionary=dictionary)
+        # our image is mapped in both runs, so a wild pointer reads the same bytes either way
+        orun = Run(prog, oview, mach, inp, ours_image=(OURS, ours.image), sig=sig, max_steps=max_steps,
+                   own_float_ret=own_float, coverage=True, helpers=helpers)
         o = orun.run(oview.entry)
         edges |= orun.edges
         res["statuses"][o["status"]] += 1
         seed += 1
         if o["status"] in ("timeout", "fault:too_many_pages") or o["status"].startswith("fault:hook_error"):
             res["inputs_inconclusive"] += 1
+            if res["inputs_inconclusive"] >= 32 and res["inputs_run"] >= 8:
+                res["inconclusive_cap_hit"] = True
+                break
             if time.time() - t_start > time_budget:
                 res["time_budget_hit"] = True
                 break
@@ -1881,8 +1907,9 @@ def render(rep):
     l3 = rep.get("level3")
     if l3:
         cov = l3["coverage"]
-        lines.append("  L3 inputs: %d compared, %d inconclusive, %d failed; branch coverage %d/%d" % (
-            l3["inputs_run"], l3["inputs_inconclusive"], l3["inputs_failed"], cov["edges_covered"], cov["edges_total"]))
+        lines.append("  L3 inputs: %d compared, %d faulted in the original, %d inconclusive, %d failed; "
+                     "branch coverage %d/%d" % (l3["inputs_run"], l3["inputs_faulted"], l3["inputs_inconclusive"],
+                                                l3["inputs_failed"], cov["edges_covered"], cov["edges_total"]))
         if l3.get("unsupported"):
             lines.append("  L3 unsupported: " + l3["unsupported"])
         for m in l3["mismatches"][:3]:
