@@ -516,7 +516,10 @@ async function main() {
 		const res = await fetch("https://openrouter.ai/api/v1/key", { headers: { Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}` } });
 		const d = (await res.json()).data;
 		if (d?.limit_remaining != null) keyRemaining = d.limit_remaining;
-		console.log(`openrouter key: usage today $${d?.usage_daily?.toFixed?.(3)}, all-time $${d?.usage?.toFixed?.(3)}, remaining ${d?.limit_remaining ?? "unlimited"}`);
+		// The account balance can run out before the key's own limit does (402 "would exceed your available credits").
+		const cr = (await (await fetch("https://openrouter.ai/api/v1/credits", { headers: { Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}` } })).json()).data;
+		if (cr?.total_credits != null) keyRemaining = Math.min(keyRemaining, cr.total_credits - cr.total_usage);
+		console.log(`openrouter key: usage today $${d?.usage_daily?.toFixed?.(3)}, all-time $${d?.usage?.toFixed?.(3)}, remaining ${d?.limit_remaining ?? "unlimited"}, spendable $${keyRemaining.toFixed(2)}`);
 	} catch (e: any) {
 		console.log(`openrouter key check failed: ${e?.message ?? e}`);
 	}
