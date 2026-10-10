@@ -25,7 +25,7 @@ Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_011A8Mi5d28UHDdVom8hvHuu" && { git push -q || { git pull -q --rebase --autostash origin main && git push -q; }; } >> "$LOG" 2>&1
     fi
     # Usage window exhausted: most of the last batch failed with 429. Wait, and don't count it as a stall.
-    if [ "$(tail -n "$BATCH" "build/farm/lanes/$LANE.jsonl" 2>/dev/null | grep '"failed"' | grep -c '429')" -ge $((BATCH / 2)) ]; then
+    if [ "$(tail -n "$BATCH" "build/farm/lanes/$LANE.jsonl" 2>/dev/null | grep '"failed"' | grep -Eci '429|usage limit')" -ge $((BATCH / 2)) ]; then
         echo "== usage limit $(date); waiting 30 min" >> "$LOG"; IDLE=0; sleep 1800; continue
     fi
     # Already-finished jobs replay instantly at $0, so a queue of only those never hits "0 functions".
