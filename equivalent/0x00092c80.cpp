@@ -1,0 +1,47 @@
+// STATUS: equivalent (tools/equiv.py level 3: 114 inputs, branch coverage 40/42, incomplete)
+// FUN_00092c80 @ 0x00092c80
+extern "C" int __cdecl FUN_00345804(const char *str, const char *fmt, ...);
+unsigned __int64 __cdecl FUN_0027b020(const char *name);
+
+struct Slot {
+    unsigned __int64 key;
+    int chapter;
+    int mission;
+    int values[16];
+};
+
+class SlotTable {
+public:
+    char pad0[0xd90];
+    Slot slots[32];
+    void FUN_00092c80(const char *name, int value);
+};
+
+void SlotTable::FUN_00092c80(const char *name, int value)
+{
+    if (*name == 0)
+        return;
+    if (value < 0 || value >= 0x2fe)
+        return;
+
+    unsigned __int64 key = FUN_0027b020(name);
+    int i = 0;
+    while (slots[i].key != 0 && slots[i].key != key) {
+        i++;
+        if (i >= 32)
+            return;
+    }
+
+    Slot *s = &slots[i];
+    s->key = key;
+    if (FUN_00345804(name, "c%dm%d", &s->chapter, &s->mission) != 2)
+        return;
+    for (int j = 0; j < 16; j++) {
+        if (s->values[j] == value)
+            return;
+        if (s->values[j] == -1) {
+            s->values[j] = value;
+            return;
+        }
+    }
+}
