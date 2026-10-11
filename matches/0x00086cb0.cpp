@@ -1,0 +1,74 @@
+struct Reset {
+    void FUN_00024800();
+};
+struct GlobalOwner {
+    char pad[0x20];
+    Reset* reset;
+};
+extern GlobalOwner* DAT_004dd700;
+extern unsigned char DAT_0049c0d8, DAT_0049caa0, DAT_004dd83e, DAT_004dd8e4;
+extern int DAT_0049c108;
+struct UI {
+    void FUN_0023f720(int*, int);
+    bool FUN_0023f760(const char*, int, int);
+    void FUN_0023f740();
+};
+extern UI* DAT_004dd6e8;
+struct Check {
+    bool FUN_0008db70();
+};
+struct Mode {
+    int kind;
+};
+struct Special {
+    void FUN_001b7d10(int, int);
+};
+struct Draw {
+    void FUN_001b93a0(Mode*, int, int, int, int, int);
+};
+struct Memory {
+    void FUN_0008d0a0();
+};
+extern Memory* __stdcall FUN_0008ceb0(int);
+extern void __cdecl FUN_000969c0(int);
+extern void __cdecl FUN_00096740();
+struct Target {
+    int field0;
+    Mode* mode;
+    int field8;
+    int fieldc;
+    int field10;
+    int field14;
+    int field18;
+    Check* check;
+    int field20;
+    Draw* draw;
+    int field28;
+    int field2c;
+    int field30;
+    Special* special;
+    int field38;
+    void FUN_00086cb0();
+};
+void Target::FUN_00086cb0() {
+    if (DAT_004dd700)
+        DAT_004dd700->reset->FUN_00024800();
+    if (!DAT_0049c0d8)
+        return;
+    if (!check->FUN_0008db70())
+        return;
+    if (mode->kind == 4)
+        FUN_000969c0(0);
+    if (DAT_0049caa0 && mode->kind == 7) {
+        special->FUN_001b7d10(field14, field18);
+    } else {
+        DAT_004dd6e8->FUN_0023f720(&DAT_0049c108, 0);
+        if (DAT_004dd83e || DAT_004dd6e8->FUN_0023f760("Display Memory Usage", 0x4d, 0)) {
+            FUN_0008ceb0(0)->FUN_0008d0a0();
+        }
+        DAT_004dd6e8->FUN_0023f740();
+        draw->FUN_001b93a0(mode, fieldc, field20, field2c, field38, field28);
+    }
+    if (DAT_004dd8e4)
+        FUN_00096740();
+}
