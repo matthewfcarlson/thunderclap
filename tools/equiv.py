@@ -3697,6 +3697,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         inp["stub_mode"] = ("normal", "normal", "normal", "zero", "one", "normal")[seed % 6]
         mach = Machine(prog, seed, globals_, pristine=(seed == 0), dictionary=dictionary, pointers=pointers,
                        overlay=overlay)
+        # Callee write extents the original's run learns must reach our run too: create the dict
+        # before _conv_input's shallow copy so both inputs share it.
+        inp.setdefault("wext_by_call", {})
         inp_o = _conv_input(inp, own_layout, target_conv) if target_conv else inp
         return inp, inp_o, mach
 
