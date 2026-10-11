@@ -1,0 +1,37 @@
+extern "C" void _ReadWriteBarrier();
+extern void* g_vftable[];
+class Ref {
+  public:
+    virtual void F0();
+    virtual void Release();
+};
+class Base {
+  public:
+    void* vptr;
+    void Fin();
+};
+struct Vec {
+    int a;
+    void Destroy();
+};
+class Obj : public Base {
+  public:
+    char pad[0x1c - 4];
+    void* m1c;
+    Ref* m20;
+    char pad2[4];
+    Vec m28;
+    ~Obj();
+};
+Obj::~Obj() {
+    vptr = g_vftable;
+    _ReadWriteBarrier();
+    if (m20) {
+        m20->Release();
+        m20 = 0;
+    }
+    if (m1c)
+        m1c = 0;
+    m28.Destroy();
+    Fin();
+}

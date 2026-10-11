@@ -1,0 +1,25 @@
+// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
+// pure3d::pddiBaseContext::vfunc_99 @ 0x0031cb60
+struct Display { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual float v16(); };
+struct Vec4 { float x,y,z,w; };
+struct View { int reserved; unsigned colour; float depth; int a,b; Vec4 viewport; float nearPlane,farPlane,fov,aspect; };
+struct Raster { int reserved,mode; unsigned char enabled; char pad0[3]; int compare; unsigned char write; char pad1[3]; int other; unsigned char channels[4]; };
+struct Light { Vec4 colour,position,direction,extra; char untouched[20]; float range,falloff,a,b,c,d,e; int type,mask; unsigned char enabled; char pad[3]; };
+struct Lights { int reserved; Light light[8]; unsigned ambient; };
+struct Fog { int reserved; unsigned char enabled; char pad[3]; int colour; float start,end; };
+struct Stencil { int reserved; unsigned char enabled; char pad[3]; int compare,reference,readMask,writeMask,fail,zfail,pass; };
+namespace pure3d { struct pddiBaseContext {
+virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(); virtual void vfunc_13(); virtual void vfunc_14(); virtual void vfunc_15(); virtual void vfunc_16(); virtual void vfunc_17(); virtual void vfunc_18(); virtual void vfunc_19(); virtual void vfunc_20(); virtual void vfunc_21(); virtual void vfunc_22(); virtual void vfunc_23(); virtual void vfunc_24(); virtual void vfunc_25(); virtual void vfunc_26(); virtual void vfunc_27(); virtual void vfunc_28(); virtual void vfunc_29(); virtual void vfunc_30(); virtual void vfunc_31(); virtual void vfunc_32(); virtual void vfunc_33(); virtual void vfunc_34(); virtual void vfunc_35(); virtual void vfunc_36(); virtual void vfunc_37(); virtual void vfunc_38(); virtual void vfunc_39(); virtual void vfunc_40(); virtual void vfunc_41(); virtual void vfunc_42(); virtual void vfunc_43(); virtual void vfunc_44(); virtual void vfunc_45(); virtual void vfunc_46(); virtual void vfunc_47(); virtual void vfunc_48(); virtual void vfunc_49(); virtual void vfunc_50(); virtual void vfunc_51(); virtual void vfunc_52(); virtual void vfunc_53(); virtual void vfunc_54(); virtual void vfunc_55(); virtual void vfunc_56(); virtual void vfunc_57(); virtual void vfunc_58(); virtual void vfunc_59(); virtual void vfunc_60(); virtual void vfunc_61(); virtual void vfunc_62(); virtual void vfunc_63(); virtual void vfunc_64(); virtual void vfunc_65(); virtual void vfunc_66(); virtual void vfunc_67(); virtual void vfunc_68(); virtual void vfunc_69(); virtual void vfunc_70(); virtual void vfunc_71(); virtual void vfunc_72(); virtual void vfunc_73(); virtual void vfunc_74(); virtual void vfunc_75(); virtual void vfunc_76(); virtual void vfunc_77(); virtual void vfunc_78(); virtual void vfunc_79(); virtual void vfunc_80(); virtual void vfunc_81(); virtual void vfunc_82(); virtual void vfunc_83(); virtual void vfunc_84(); virtual void vfunc_85(); virtual void vfunc_86(); virtual void vfunc_87(); virtual void vfunc_88(); virtual void vfunc_89(); virtual void vfunc_90(); virtual void vfunc_91(); virtual void vfunc_92(); virtual void vfunc_93(); virtual void vfunc_94(); virtual void vfunc_95(); virtual void vfunc_96(); virtual void vfunc_97(); virtual void vfunc_98(); virtual void vfunc_99(); virtual void vfunc_100(); virtual void vfunc_101(); virtual void vfunc_102(int);
+char padA[8]; Display* display; char padB[56]; View* view; Raster* raster; Lights* lights; Fog* fog; Stencil* stencil;
+}; }
+void pure3d::pddiBaseContext::vfunc_99() {
+view->colour=0xff000000; view->depth=1.0f; view->a=0; view->b=0;
+view->viewport.x=0; view->viewport.y=0; view->viewport.z=1; view->viewport.w=1;
+float aspect=display->v16(); view->aspect=aspect; view->nearPlane=1; view->farPlane=1000; view->fov=1.5707963705062866f;
+raster->enabled=1; raster->channels[0]=1; raster->channels[1]=1; raster->channels[2]=1; raster->channels[3]=1; raster->mode=1; raster->compare=3; raster->write=1; raster->other=0;
+lights->ambient=0xff101010;
+for(int i=0;i<8;++i) { Light& l=lights->light[i]; l.enabled=0; l.type=0; l.mask=-1; l.colour.x=0; l.colour.y=0; l.colour.z=1; l.colour.w=1; l.position.x=0; l.position.y=0; l.position.z=0; l.position.w=1; l.direction.x=0; l.direction.y=0; l.direction.z=1; l.direction.w=0; l.extra.x=0; l.extra.y=0; l.extra.z=0; l.extra.w=0; l.range=10000000.0f; l.falloff=1; l.a=0; l.b=0; l.c=0; l.d=0; l.e=0; }
+fog->enabled=0; fog->colour=-1; fog->start=0; fog->end=1000;
+stencil->enabled=0; stencil->compare=1; stencil->reference=0; stencil->readMask=-1; stencil->writeMask=-1; stencil->fail=0; stencil->zfail=0; stencil->pass=0;
+vfunc_102(-1);
+}
