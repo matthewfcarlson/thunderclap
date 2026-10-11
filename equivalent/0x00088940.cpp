@@ -1,0 +1,77 @@
+// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
+// FUN_00088940 @ 0x00088940
+struct Dispatcher {
+  char pad[0xf4];
+  Dispatcher* FUN_0027a630(); void FUN_0027a6e0(const char*, void*); void FUN_0027a570();
+};
+struct Owner;
+struct Ctx { char* FUN_000897e0(); char* FUN_000897f0(); char* FUN_0008a2d0(); };
+struct Svc { int FUN_000b4ff0(int); };
+struct Env { int FUN_00086290(); int FUN_000862b0(); Svc* FUN_00086280(); };
+struct A08 { void FUN_0009a090(); };
+struct A0c { void FUN_001dbd40(); };
+struct A10 { void FUN_001b3f90(Owner*); };
+struct A14 { void FUN_001b68d0(Owner*); };
+struct A18 { void FUN_001063f0(); };
+struct A20 { void FUN_000244a0(Dispatcher*); void FUN_00025eb0(); };
+struct A24 { void FUN_00201bb0(); };
+struct A28 { void FUN_001fc690(); };
+struct A2c { void FUN_001cd3d0(Ctx*); };
+struct A30 { void FUN_001cbf40(Ctx*); };
+struct A38 { void FUN_001f6c50(Ctx*); };
+struct A3c { void FUN_000d71f0(Owner*, int); };
+struct A40 { void FUN_001bdb90(); };
+struct A48 { void FUN_001fac40(void*); void FUN_001faf70(char*); };
+struct A4c { void FUN_00078c60(); };
+struct A50 { void FUN_001c0ab0(char*); };
+struct Owner {
+  char pad0[8]; A08* f08; A0c* f0c; A10* f10; A14* f14; A18* f18; char pad1[4]; A20* f20; A24* f24;
+  A28* f28; A2c* f2c; A30* f30; char pad2[4]; A38* f38; A3c* f3c; A40* f40; char pad3[4]; A48* f48; A4c* f4c; A50* f50;
+  char pad4[0x5c-0x54]; unsigned char b5c; char pad5[0x9c-0x5d]; unsigned char b9c;
+  void FUN_00088940(Env*, Ctx*);
+};
+extern "C" unsigned int DAT_004d9968;
+extern "C" void __cdecl __security_check_cookie(unsigned int);
+extern "C" int __cdecl _sprintf(char*, const char*, ...);
+extern "C" void __cdecl FUN_00267760(char*, int, const char*, ...);
+void Owner::FUN_00088940(Env* env, Ctx* ctx){
+  unsigned int cookie = DAT_004d9968;
+  char buf[0x100];
+  Dispatcher disp;
+  b5c = 0;
+  b9c = 0;
+  f40->FUN_001bdb90();
+  f08->FUN_0009a090();
+  f24->FUN_00201bb0();
+  f10->FUN_001b3f90(this);
+  f0c->FUN_001dbd40();
+  f14->FUN_001b68d0(this);
+  f18->FUN_001063f0();
+  disp.FUN_0027a630();
+  f20->FUN_000244a0(&disp);
+  disp.FUN_0027a6e0("art/global.rdl", this);
+  _sprintf(buf, "art/locations/%s/%s.rdl", ctx->FUN_000897e0(), ctx->FUN_000897f0());
+  disp.FUN_0027a6e0(buf, this);
+  _sprintf(buf, "art/missions/%s/%s.rdl", ctx->FUN_0008a2d0(), ctx->FUN_0008a2d0());
+  disp.FUN_0027a6e0(buf, this);
+  f38->FUN_001f6c50(ctx);
+  f48->FUN_001fac40(f18);
+  f48->FUN_001fac40(f28);
+  f48->FUN_001fac40(f0c);
+  f48->FUN_001fac40(f4c);
+  f48->FUN_001fac40((void*)env->FUN_00086290());
+  FUN_00267760(buf, 0xff, "art/locations/%s/%s.dh", ctx->FUN_000897e0(), ctx->FUN_000897f0());
+  f48->FUN_001faf70(buf);
+  FUN_00267760(buf, 0xff, "art/missions/%s/%s.dh", ctx->FUN_0008a2d0(), ctx->FUN_0008a2d0());
+  f48->FUN_001faf70(buf);
+  f20->FUN_00025eb0();
+  f28->FUN_001fc690();
+  f30->FUN_001cbf40(ctx);
+  f2c->FUN_001cd3d0(ctx);
+  int r = env->FUN_00086280()->FUN_000b4ff0(env->FUN_000862b0());
+  f3c->FUN_000d71f0(this, r);
+  f4c->FUN_00078c60();
+  f50->FUN_001c0ab0(ctx->FUN_0008a2d0());
+  disp.FUN_0027a570();
+  __security_check_cookie(cookie);
+}
