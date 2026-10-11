@@ -80,6 +80,13 @@ def coverage(counts, q):
     return (c < q).sum(axis=1) + 1
 
 
+def save(args, stats, n_tok, n_prompt, n_conv):
+    out = {k: np.array(getattr(stats, k)) for k in ("count_prompt", "count_asst", "gate", "reap")}
+    os.makedirs(os.path.dirname(args.out), exist_ok=True)
+    np.savez(args.out, model=args.model, tokens=n_tok, prompt_tokens=n_prompt, conversations=n_conv, **out)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="lmstudio-community/Qwen3-Coder-Next-MLX-4bit")
@@ -132,10 +139,10 @@ def main():
         if (i + 1) % 50 == 0:
             dt = time.time() - t0
             print(f"{i + 1}/{len(exs)} convs, {n_tok / 1e6:.2f}M tokens, {n_tok / dt:.0f} tok/s", flush=True)
+        if (i + 1) % 250 == 0:
+            save(args, stats, n_tok, n_prompt, i + 1)  # partial results survive an interrupted run
 
-    out = {k: np.array(getattr(stats, k)) for k in ("count_prompt", "count_asst", "gate", "reap")}
-    os.makedirs(os.path.dirname(args.out), exist_ok=True)
-    np.savez(args.out, model=args.model, tokens=n_tok, prompt_tokens=n_prompt, **out)
+    out = save(args, stats, n_tok, n_prompt, len(exs))
     print(f"saved {args.out}: {n_tok} tokens ({n_prompt} packet), {n_skip} conversations over --max-seq skipped")
 
     total = out["count_prompt"] + out["count_asst"]

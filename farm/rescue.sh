@@ -1,12 +1,13 @@
 #!/bin/sh
 # Free rescue lane: keep retrying functions the cloud tiers exhausted, on a local endpoint.
 # Matches land in matches/ (the sweep's next commit picks them up).
-# Usage: farm/rescue.sh [lane] [tiers] [batch]
+# Usage: farm/rescue.sh [lane] [tiers] [batch] [concurrency]
 set -u
 cd "$(dirname "$0")/.."
 LANE=${1:-mac2}
 TIERS=${2:-farm/tiers-rescue-mac2.json}
 BATCH=${3:-20}
+CONC=${4:-4}
 PY=build/venv/bin/python
 LOG=build/farm/rescue-$LANE.log
 while :; do
@@ -27,5 +28,5 @@ for a in sorted(todo, key=lambda a: -best[a]):  # closest misses first
     print(a)
 PY
     if [ ! -s build/farm/rescue-$LANE.txt ]; then sleep 120; continue; fi
-    farm/run.sh --lane "$LANE" --queue build/farm/rescue-$LANE.txt --tiers "$TIERS" --limit "$BATCH" --concurrency 1 >> "$LOG" 2>&1
+    farm/run.sh --lane "$LANE" --queue build/farm/rescue-$LANE.txt --tiers "$TIERS" --limit "$BATCH" --concurrency "$CONC" >> "$LOG" 2>&1
 done
