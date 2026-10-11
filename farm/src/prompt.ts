@@ -43,6 +43,7 @@ Reading the diff:
 Symptom in target -> probable source (some are strong guesses, not yet confirmed):
 - A ...::vftable address stored into a stack slot or [this]: a real class with virtual functions and its inline ctor, or a dtor (e.g. a DynamicCaster<T> temporary).
 - vptr store, member calls at falling offsets, then jmp to a base function on this: an empty out-of-line destructor (T::~T() {}) whose members have destructors and whose base has a virtual destructor.
+- Target stores the vptr right after "mov esi,ecx", but ours sinks that store below the first member load/test: (1) if the body is empty or starts with a loop, write a real "virtual ~T() throw()" and move the trailing frees/releases into inline dtors of small member types (reverse offset order; all callees throw()); (2) otherwise declare extern "C" void _ReadWriteBarrier(); and call it right after the vptr store (an intrinsic, no code); (3) or make both the store and the first member load volatile. Compiler flags don't change it.
 - A base function called on this+4 where the target uses this: the base needs virtual functions so the vptr sits at offset 0 of the base, not before it.
 - fs:[0] setup and "mov [esp+N], state" stores only in yours: EH unwind states; mark the callees throw() (check sibling functions for fs:[0]).
 - Constant-size allocation, null test, thiscall returning this, xor eax,eax on the null path, one shared store: new(heap) T(...) with an inline operator new(size_t, Allocator).
