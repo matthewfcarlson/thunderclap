@@ -1,5 +1,5 @@
+extern void* g_vftable[];
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable_0040f5c0[];
 class Ref {
   public:
     virtual void F0();
@@ -19,7 +19,7 @@ class Action : public Base {
     ~Action();
 };
 Action::~Action() {
-    vptr = g_vftable_0040f5c0;
+    vptr = g_vftable;
     _ReadWriteBarrier();
     if (m24) {
         m24->Release();

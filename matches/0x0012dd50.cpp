@@ -1,5 +1,5 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable_00411110[];
+extern void* g_vt[];
 void operator delete(void*);
 class Ref {
   public:
@@ -13,12 +13,12 @@ class Base {
 };
 class Obj : public Base {
   public:
-    char pad[28];
+    char pad[32 - 4];
     Ref* m;
     Obj* f2(unsigned char flags);
 };
 Obj* Obj::f2(unsigned char flags) {
-    vptr = g_vftable_00411110;
+    vptr = g_vt;
     _ReadWriteBarrier();
     if (m) {
         m->Release();
