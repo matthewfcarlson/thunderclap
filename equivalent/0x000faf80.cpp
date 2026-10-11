@@ -1,0 +1,113 @@
+// STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 27/30, incomplete)
+// FUN_000faf80 @ 0x000faf80
+extern "C" void __fastcall __security_check_cookie(unsigned int);
+extern "C" unsigned int DAT_004d9968;
+
+struct Item {
+    char pad0[4];
+    Item *next;
+    void FUN_000f9b40(Item *other);
+};
+
+class Script;
+struct TokState {
+    char *tok;
+    Script *owner;
+};
+
+struct Head {
+    Item *first;
+    Item *last;
+};
+
+class Lines {
+public:
+    bool FUN_000f99d0(char *out);
+    char pad0[0x10];
+    int mark10;
+    char pad14[4];
+    int mark18;
+};
+
+class Script {
+public:
+    Head *head;
+    Item *FUN_000fa5a0(TokState *state, char *line, int index, int lineNo, char *copy);
+    bool FUN_000faa40(Item *it);
+    Head *FUN_000faf80(Lines *lines);
+};
+
+void *__cdecl FUN_0008d690(unsigned int size);
+char *__cdecl FUN_003465c6(char *s, const char *delims);
+
+struct Frame {
+    int lineNo;
+    TokState ts;
+    char line[0x100];
+    char copy[0x100];
+    unsigned int cookie;
+};
+
+Head *Script::FUN_000faf80(Lines *lines)
+{
+    Frame f;
+    f.cookie = DAT_004d9968;
+    f.ts.owner = this;
+    lines->mark18 = lines->mark10;
+    Head *h = (Head *)FUN_0008d690(8);
+    if (h) {
+        h->first = 0;
+        h->last = 0;
+    }
+    head = h;
+    f.lineNo = 1;
+    bool ok = lines->FUN_000f99d0(f.line);
+    {
+        int i = 0;
+        char c;
+        do {
+            c = f.line[i];
+            f.copy[i] = c;
+            i++;
+        } while (c);
+    }
+    if (ok) {
+        do {
+            int index = 1;
+            f.ts.tok = FUN_003465c6(f.line, " \t\n\r");
+            while (f.ts.tok) {
+                Item *it = FUN_000fa5a0(&f.ts, f.line, index, f.lineNo, f.copy);
+                if (!it)
+                    break;
+                if (!FUN_000faa40(it)) {
+                    static Item *last = it;
+                    Head *hd = head;
+                    if (hd->first == 0) {
+                        hd->first = it;
+                    } else if (last != it) {
+                        if (last->next)
+                            last->next->FUN_000f9b40(it);
+                        else
+                            last->next = it;
+                    }
+                    last = it;
+                }
+                index++;
+            }
+            ok = lines->FUN_000f99d0(f.line);
+            {
+                int i = 0;
+                char c;
+                do {
+                    c = f.line[i];
+                    f.copy[i] = c;
+                    i++;
+                } while (c);
+            }
+            f.lineNo++;
+        } while (ok);
+    }
+    Head *result = head;
+    __security_check_cookie(f.cookie);
+    return result;
+}
