@@ -1,0 +1,87 @@
+// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
+// FUN_000f1890 @ 0x000f1890
+class Curve {
+public:
+    virtual void v0();
+    virtual float v1(int a, int b);
+};
+
+class Sink { public: void FUN_000f8b00(float v); };
+
+class Mode {
+public:
+    virtual void v0();
+};
+
+class C {
+public:
+    virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
+    virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
+    virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
+    virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+    virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
+    virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
+    virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
+    virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
+    virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
+    virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
+    virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43();
+    virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47();
+    virtual void v48(int mode);
+    char pad[0x182c - 4];
+    Curve *curve;
+};
+
+
+class B { public: char pad[4]; C *c; };
+class A { public: char pad[8]; B *b; };
+
+class Slider {
+public:
+    char pad0[0x14];
+    A *a;
+    char pad18[0x150 - 0x18];
+    float value;
+    int state;
+    char pad158[4];
+    float lo;
+    float hi;
+    char pad164[0x170 - 0x164];
+    int curveArg0;
+    int curveArg1;
+    float rate;
+    char pad17c[4];
+    Sink *sink;
+    void FUN_000e9e60();
+    void FUN_000f1890(float dt);
+};
+
+void Slider::FUN_000f1890(float dt)
+{
+    state = 2;
+    float x = a->b->c->curve->v1(curveArg0, curveArg1);
+    float curve = x * x * x * x * x * x * x;
+    float k = rate * 0.5f + 0.01f;
+    if (k >= 0.0f) {
+        if (k > 1.0f)
+            k = 1.0f;
+    } else {
+        k = 0.0f;
+    }
+    float v = value - (hi - lo) * (k * curve) * dt * 0.5f;
+    if (v < lo)
+        v = lo;
+    value = v;
+    float w;
+    if (value >= lo && value <= hi)
+        w = value;
+    else if (value > hi)
+        w = hi;
+    else
+        w = lo;
+    value = w;
+    if (sink)
+        sink->FUN_000f8b00(w);
+    a->b->c->v48(3);
+    FUN_000e9e60();
+}
