@@ -61,7 +61,9 @@ build/venv/bin/python tools/disasm.py 'CAction::vfunc_5'          # target asm (
 build/venv/bin/python tools/compare.py file.cpp <symbol> 0xADDR  # compile with cl 13.10 via wibo, diff vs XBE
 ```
 
-- `build/functions.csv` comes from `ExportFunctions.java`. `build/venv` needs `pip install capstone`.
+- `build/functions.csv` comes from `ExportFunctions.java`, plus two post-passes. Don't re-export it from scratch without re-applying them. `build/venv` needs `pip install capstone`.
+  - Size fixes: bodies Ghidra ended one instruction before the final `ret` are extended (see the journal, 2026-10-09).
+  - Missing functions (2026-10-11): Ghidra never created functions that are reached only through pointers it didn't resolve (vtable slots, callback tables, element constructors passed to vector helpers). `CreateMissingFunctions.java` created them at the starts of uncovered code runs (two passes, about 17k). The 4,879 that are referenced (by a pointer in data, an immediate in code, or a direct call/jmp) were appended to `functions.csv`, with each size clamped to the next function start. The other 12,447 have no reference anywhere. They're listed in `build/farm/dead-code.txt` and left out of the function list and the progress denominator. The Ghidra project does contain them now, so a fresh `ExportFunctions` would include them.
 - `compare.py` builds with `/nologo /c /O2 /GR /GX /Gy` (extra flags after `--`). It pulls the function out of the COFF object, masks bytes covered by relocations, and diffs instruction by instruction against the XBE.
 - **First 5 functions matched byte-for-byte** (`experiments/first-matches/`): a refcount `Release`, a switch dispatcher, an x87 float getter with a relocated constant, and two script-binding member-function-pointer templates. This confirms **cl 13.10.3077 + `/O2`** with frame-pointer omission. `/GX` hasn't been exercised yet: no function so far has EH state.
 - Matching quirks seen so far: `bool r = false; switch … break; return r;` rather than early returns, and copying a member-fn pointer to a local before calling it.
