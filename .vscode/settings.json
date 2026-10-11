@@ -1,0 +1,24 @@
+{
+  // matches/ and equivalent/ hold ~17k standalone MSVC 7.1 translation units, and build/ holds
+  // generated work files: keep the C++ extension from parsing them all and the file watcher
+  // from tracking every write the farm makes.
+  "C_Cpp.files.exclude": {
+    "**/matches": true,
+    "**/equivalent": true,
+    "**/build": true,
+    "**/isos": true,
+    "**/.git": true
+  },
+  "C_Cpp.workspaceParsingPriority": "low",
+  "C_Cpp.intelliSenseCacheSize": 0,
+  "files.watcherExclude": {
+    "**/matches/**": true,
+    "**/equivalent/**": true,
+    "**/build/**": true,
+    "**/isos/**": true
+  },
+  "search.exclude": {
+    "**/build": true,
+    "**/isos": true
+  }
+}
