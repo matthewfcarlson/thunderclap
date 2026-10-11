@@ -1,3 +1,4 @@
+extern "C" char DAT_0040c02c[];
 typedef unsigned int u32;
 class FEDoSound {
   public:
@@ -18,7 +19,7 @@ FEDoSound* FEDoSound::Init(u32 param_2, const char* param_3) {
     b = -1;
     c = param_2;
     flag = 0;
-    vtable = 0x40c02c;
+    vtable = ((int)DAT_0040c02c);
     FUN_000dfcc0(name, 0x20, &DAT_003f3f38, param_3);
     return this;
 }

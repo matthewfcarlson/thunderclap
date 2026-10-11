@@ -1,3 +1,4 @@
+extern "C" char DAT_004192cc[];
 typedef unsigned int u32;
 typedef unsigned char u8;
 void* __cdecl alloc(unsigned int);
@@ -29,7 +30,7 @@ PropTrack* Factory::f5() {
     PropTrack* p = (PropTrack*)alloc(0x18);
     if (p) {
         p->PropTrack::PropTrack();
-        p->v = 0x4192cc;
+        p->v = ((int)DAT_004192cc);
         p->a = 0;
         p->b = 0xffffffff;
         p->c = 0;

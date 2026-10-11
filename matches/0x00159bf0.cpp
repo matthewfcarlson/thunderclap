@@ -1,3 +1,4 @@
+extern "C" char DAT_00414240[];
 void* __cdecl Alloc(unsigned int);
 struct HitThrowTrack {
     int vt;
@@ -30,7 +31,7 @@ void* Factory::vfunc_5() {
         p->f18 = 0;
         p->f24 = 0;
         p->f28 = 0;
-        p->vt = 0x414240;
+        p->vt = ((int)DAT_00414240);
         p->f10 = -1.0f;
         p->f14 = 1;
         p->f1c = 30.0f;

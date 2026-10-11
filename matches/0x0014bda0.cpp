@@ -1,3 +1,4 @@
+extern "C" char DAT_004135d8[];
 extern void* __cdecl Allocate(unsigned int);
 class CivilianTargetCondition {
   public:
@@ -24,7 +25,7 @@ void* ConditionFactoryTemplate::F() {
     void* r;
     if (p) {
         p->CivilianTargetCondition::CivilianTargetCondition(0);
-        *(unsigned long*)p = 0x4135d8;
+        *(unsigned long*)p = ((int)DAT_004135d8);
         p->data[8] = 1;
         r = p;
     } else

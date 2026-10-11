@@ -1,3 +1,4 @@
+extern "C" char DAT_003f70a0[];
 void* __cdecl Allocate(unsigned int);
 struct CCollisionPushbackYCondition {
     virtual void f0();
@@ -25,7 +26,7 @@ CCollisionPushbackYCondition* Factory::vfunc_5() {
     CCollisionPushbackYCondition* p = (CCollisionPushbackYCondition*)Allocate(0x14);
     if (p) {
         ((Initializer*)p)->init(0);
-        *(unsigned int*)p = 0x3f70a0;
+        *(unsigned int*)p = ((int)DAT_003f70a0);
         p->a = 3;
         p->b = 0;
     } else

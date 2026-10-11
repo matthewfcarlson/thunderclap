@@ -1,3 +1,4 @@
+extern "C" char DAT_004143f0[];
 struct HitPushbackAddTrack {
     unsigned int vt;
     char pad[4];
@@ -20,7 +21,7 @@ HitPushbackAddTrack* TrackFactoryTemplate::Create() {
     HitPushbackAddTrack* p = (HitPushbackAddTrack*)Alloc(0x14);
     if (p) {
         p->Init();
-        p->vt = 0x4143f0;
+        p->vt = ((int)DAT_004143f0);
         p->mZero = 0;
         p->mOne = 1.0f;
         p->mTwo = 1;

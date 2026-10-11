@@ -1,3 +1,4 @@
+extern "C" char DAT_00410bf4[];
 typedef unsigned int u32;
 extern void* Alloc(unsigned int);
 struct Sub {
@@ -26,7 +27,7 @@ void* Factory::vfunc_5() {
     ThreatDistanceCondition* p = (ThreatDistanceCondition*)Alloc(0x28);
     if (p) {
         p->Init(0);
-        p->vf = 0x410bf4;
+        p->vf = ((int)DAT_00410bf4);
         p->mC = 0;
         p->mD = 0;
         p->sub.Setup();

@@ -1,3 +1,7 @@
+extern "C" char DAT_00421520[];
+extern "C" char DAT_0048e0f0[];
+extern "C" char DAT_0048e100[];
+extern "C" char DAT_0048e128[];
 class CSubtitleManager {
   public:
     int vptr;
@@ -15,11 +19,11 @@ class CSubtitleManager {
 extern unsigned char __cdecl FUN_001d04d0(const char*);
 CSubtitleManager* CSubtitleManager::Setup(const char* a, const char* b) {
     Init(a, 3);
-    vptr = 0x421520;
+    vptr = ((int)DAT_00421520);
     m1c = (int)b;
-    b18 = FUN_001d04d0((const char*)0x48e100);
-    b10 = FUN_001d04d0((const char*)0x48e0f0);
-    b11 = FUN_001d04d0((const char*)0x48e0f0);
-    b12 = FUN_001d04d0((const char*)0x48e128);
+    b18 = FUN_001d04d0((const char*)((int)DAT_0048e100));
+    b10 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
+    b11 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
+    b12 = FUN_001d04d0((const char*)((int)DAT_0048e128));
     return this;
 }

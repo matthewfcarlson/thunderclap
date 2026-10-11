@@ -1,3 +1,4 @@
+extern "C" char DAT_004d4143[];
 class CameraAnimationController {
   public:
     virtual void v0();
@@ -31,7 +32,7 @@ class CameraAnimationController {
 bool CameraAnimationController::vfunc_26(void* p) {
     if (p != 0) {
         if (*(int*)((char*)p + 0x28) > 0) {
-            return *(int*)((char*)p + 0x1c) == 0x4d4143;
+            return *(int*)((char*)p + 0x1c) == ((int)DAT_004d4143);
         }
     }
     return false;

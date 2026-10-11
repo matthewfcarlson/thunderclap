@@ -1,3 +1,4 @@
+extern "C" char DAT_00414070[];
 class Condition {
   public:
     virtual void f0();
@@ -24,7 +25,7 @@ Condition* Factory::vfunc_5() {
     Condition* p = (Condition*)FUN_0008d690(0x10);
     if (p) {
         p->Init(0);
-        *((int*)p) = 0x414070;
+        *((int*)p) = ((int)DAT_00414070);
         p->flag = 1;
         return p;
     }

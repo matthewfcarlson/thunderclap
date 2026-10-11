@@ -1,3 +1,4 @@
+extern "C" char DAT_003f7528[];
 typedef unsigned int u32;
 extern "C" void* __cdecl Alloc(unsigned int);
 struct CClimbEdgeCondition {
@@ -20,7 +21,7 @@ CClimbEdgeCondition* Factory::vfunc_5() {
     CClimbEdgeCondition* p = (CClimbEdgeCondition*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        p->vptr = 0x3f7528;
+        p->vptr = ((int)DAT_003f7528);
         p->f0c = 0;
         p->f10 = 0;
         return p;

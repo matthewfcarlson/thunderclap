@@ -1,3 +1,4 @@
+extern "C" char DAT_0049f3e4[];
 extern "C" int strcmp(const char*, const char*);
 const char* words[3];
 
@@ -10,6 +11,6 @@ extern "C" bool __stdcall Check(const char* s) {
         if (strcmp(s, q) == 0)
             return true;
         ++p;
-    } while ((int)p < 0x49f3e4);
+    } while ((int)p < ((int)DAT_0049f3e4));
     return false;
 }

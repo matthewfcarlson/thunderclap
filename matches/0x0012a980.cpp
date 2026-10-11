@@ -1,3 +1,4 @@
+extern "C" char DAT_0040fe74[];
 class Factory {
   public:
     virtual void A();
@@ -23,7 +24,7 @@ void* Factory::Make() {
     Obj* p = (Obj*)FUN_0008d690(0x14);
     if (p) {
         ((Init*)p)->Start(0);
-        p->vt = 0x40fe74;
+        p->vt = ((int)DAT_0040fe74);
         p->c = 0;
         p->d = 0;
         return p;

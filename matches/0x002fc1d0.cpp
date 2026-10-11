@@ -1,3 +1,4 @@
+extern "C" char DAT_0043186c[];
 class RootMatrixDriver {
   public:
     int vf;
@@ -12,5 +13,5 @@ class Base {
 RootMatrixDriver::RootMatrixDriver(int x) {
     ((Base*)this)->Init();
     value = x;
-    vf = 0x43186c;
+    vf = ((int)DAT_0043186c);
 }

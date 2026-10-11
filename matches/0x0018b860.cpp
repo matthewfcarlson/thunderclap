@@ -1,3 +1,4 @@
+extern "C" char DAT_0041918c[];
 class Condition {
   public:
     Condition(int);
@@ -22,7 +23,7 @@ PropGrabbableIsThrownCondition* Factory::Create() {
     PropGrabbableIsThrownCondition* p = (PropGrabbableIsThrownCondition*)Alloc(16);
     if (p) {
         p->PropGrabbableIsThrownCondition::PropGrabbableIsThrownCondition(0);
-        *(unsigned int*)p = 0x41918c;
+        *(unsigned int*)p = ((int)DAT_0041918c);
         p->flag = 1;
         return p;
     }

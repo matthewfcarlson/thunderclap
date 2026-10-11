@@ -1,3 +1,4 @@
+extern "C" char DAT_00431968[];
 class PhysicsThing {
   public:
     int a[4];
@@ -7,7 +8,7 @@ class PhysicsThing {
 extern void BaseCtor();
 PhysicsThing* __fastcall Target(PhysicsThing* self) {
     BaseCtor();
-    *(int*)self = 0x431968;
+    *(int*)self = ((int)DAT_00431968);
     self->b = 0;
     self->c = 1;
     return self;

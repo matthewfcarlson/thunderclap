@@ -1,3 +1,4 @@
+extern "C" char DAT_0041d40c[];
 class Event {
   public:
     void Init(int);
@@ -16,7 +17,7 @@ Event* Factory::Make() {
     Event* p = (Event*)Alloc(0x10);
     if (p) {
         p->Init(0);
-        *(void**)p = (void*)0x41d40c;
+        *(void**)p = (void*)((int)DAT_0041d40c);
         *((unsigned char*)p + 0xc) = 1;
         return p;
     }

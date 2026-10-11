@@ -1,3 +1,6 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042bdd0[];
+extern "C" char DAT_0042bddc[];
 struct V {
     virtual void A();
     virtual void B();
@@ -10,8 +13,8 @@ struct Obj {
     void f();
 };
 void Obj::f() {
-    v = (void**)0x42bddc;
-    v4 = (void**)0x42bdd0;
+    v = (void**)((int)DAT_0042bddc);
+    v4 = (void**)((int)DAT_0042bdd0);
     p->B();
-    v = (void**)0x3f6098;
+    v = (void**)((int)DAT_003f6098);
 }

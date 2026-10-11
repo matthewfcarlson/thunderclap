@@ -1,3 +1,8 @@
+extern "C" char DAT_00423318[];
+extern "C" char DAT_0048e0f0[];
+extern "C" char DAT_0048e100[];
+extern "C" char DAT_0048e10c[];
+extern "C" char DAT_0048e134[];
 class Base {
   public:
     Base(const char*, int);
@@ -19,13 +24,13 @@ class Target : public Base {
     Target(const char*, int);
 };
 Target::Target(const char* p, int n) : Base(p, 6) {
-    *(int*)this = 0x423318;
+    *(int*)this = ((int)DAT_00423318);
     m1c = n;
-    m18 = FUN_001d04d0((const char*)0x48e100);
-    m10 = FUN_001d04d0((const char*)0x48e0f0);
-    m11 = FUN_001d04d0((const char*)0x48e0f0);
-    m12 = FUN_001d04d0((const char*)0x48e134);
-    m13 = FUN_001d04d0((const char*)0x48e0f0);
-    m14 = FUN_001d04d0((const char*)0x48e10c);
-    m15 = FUN_001d04d0((const char*)0x48e10c);
+    m18 = FUN_001d04d0((const char*)((int)DAT_0048e100));
+    m10 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
+    m11 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
+    m12 = FUN_001d04d0((const char*)((int)DAT_0048e134));
+    m13 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
+    m14 = FUN_001d04d0((const char*)((int)DAT_0048e10c));
+    m15 = FUN_001d04d0((const char*)((int)DAT_0048e10c));
 }

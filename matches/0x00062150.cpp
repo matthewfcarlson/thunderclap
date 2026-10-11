@@ -1,3 +1,4 @@
+extern "C" char DAT_003faf2c[];
 struct Small {
     ~Small();
     char p[12];
@@ -21,7 +22,7 @@ struct CWeaponCollisionTrack : Base {
     virtual void Kill();
 };
 void CWeaponCollisionTrack::Kill() {
-    *(int*)this = 0x3faf2c;
+    *(int*)this = ((int)DAT_003faf2c);
     a.~Other();
     b.~Big();
     c.~Small();

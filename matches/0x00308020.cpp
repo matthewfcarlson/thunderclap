@@ -1,3 +1,4 @@
+extern "C" char DAT_00431c90[];
 class CollisionObjectLoader {
   public:
     unsigned v;
@@ -12,5 +13,5 @@ CollisionObjectLoader::CollisionObjectLoader() {
     b = 0x7010000;
     c = 0;
     d = 0;
-    v = 0x431c90;
+    v = ((int)DAT_00431c90);
 }

@@ -1,3 +1,4 @@
+extern "C" char DAT_0040c554[];
 class MenuSelector {
   public:
     void* vptr;
@@ -9,7 +10,7 @@ class MenuSelector {
 };
 MenuSelector* MenuSelector::Target(unsigned int a, unsigned int b) {
     Init(a, b);
-    vptr = (void*)0x40c554;
+    vptr = (void*)((int)DAT_0040c554);
     flag = 1;
     for (int i = 0; i < 0x80; ++i)
         data[i * 0x40] = 0;

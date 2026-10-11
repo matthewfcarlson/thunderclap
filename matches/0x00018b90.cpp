@@ -1,3 +1,5 @@
+extern "C" char DAT_003f3390[];
+extern "C" char DAT_003f33b8[];
 class Ref {
   public:
     virtual void AddRef();
@@ -15,7 +17,7 @@ class CJointAction {
 };
 CJointAction* CJointAction::Init(int v, Ref* r) {
     BaseInit();
-    *(int*)this = 0x3f3390;
+    *(int*)this = ((int)DAT_003f3390);
     ref = 0;
     if (r)
         r->AddRef();
@@ -23,7 +25,7 @@ CJointAction* CJointAction::Init(int v, Ref* r) {
         ref->Release();
     ref = r;
     value = v;
-    *(int*)this = 0x3f33b8;
+    *(int*)this = ((int)DAT_003f33b8);
     extra = 0;
     return this;
 }

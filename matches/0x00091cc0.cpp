@@ -1,3 +1,5 @@
+extern "C" char DAT_0040449c[];
+extern "C" char DAT_004044a4[];
 class Helper {
   public:
     void Run();
@@ -8,9 +10,9 @@ class CUnlockableBlonskyFile {
     void Destroy();
 };
 void CUnlockableBlonskyFile::Destroy() {
-    *(int*)this = 0x4044a4;
+    *(int*)this = ((int)DAT_004044a4);
     ((Helper*)((char*)this + 0x20))->Run();
-    *(int*)this = 0x40449c;
+    *(int*)this = ((int)DAT_0040449c);
     int p = *(int*)((char*)this + 0x18);
     if (p) {
         thunk_FUN_00267090(p);

@@ -1,3 +1,4 @@
+extern "C" char DAT_003f9a2c[];
 class CGrappleSequenceTrack {
   public:
     virtual void vfunc_0();
@@ -18,7 +19,7 @@ void __fastcall FUN_00234150(void*);
 void __fastcall FUN_00236d60(CGrappleSequenceTrack*);
 void __cdecl thunk_FUN_00267090(CGrappleSequenceTrack*);
 CGrappleSequenceTrack* CGrappleSequenceTrack::vfunc_5(unsigned char p) {
-    *(unsigned long*)this = 0x3f9a2c;
+    *(unsigned long*)this = ((int)DAT_003f9a2c);
     FUN_00236fd0((char*)this + 0x1c);
     FUN_00234150((char*)this + 0xc);
     FUN_00236d60(this);

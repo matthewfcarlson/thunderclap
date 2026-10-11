@@ -1,3 +1,4 @@
+extern "C" char DAT_00427534[];
 extern int gCount;
 extern int gHigh;
 struct Base {
@@ -14,7 +15,7 @@ LocomotionDriver* LocomotionDriver::Init(int x) {
     Base::Init(x);
     a = 0;
     b = 0;
-    vptr = 0x427534;
+    vptr = ((int)DAT_00427534);
     int n = ++gCount;
     if (n > gHigh)
         gHigh = n;

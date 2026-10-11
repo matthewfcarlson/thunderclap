@@ -1,3 +1,4 @@
+extern "C" char DAT_00429224[];
 class MemoryStream {
   public:
     int vp;
@@ -22,7 +23,7 @@ MemoryStream::MemoryStream(int a, int b, unsigned char c) {
     p4 = (void (*)())0x246b70;
     p5 = (void (*)())0x246b90;
     b18 = 0;
-    vp = 0x429224;
+    vp = ((int)DAT_00429224);
     x2 = a;
     x3 = a;
     flag = c;

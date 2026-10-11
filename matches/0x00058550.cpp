@@ -1,3 +1,4 @@
+extern "C" char DAT_003f7394[];
 typedef unsigned int u32;
 void* __cdecl Allocate(unsigned int);
 struct CMotionStateCondition {
@@ -20,7 +21,7 @@ void* ConditionFactoryTemplate::vfunc_5() {
     CMotionStateCondition* p = (CMotionStateCondition*)Allocate(0x14);
     if (p) {
         p->Initialize(0);
-        p->vtable = 0x3f7394;
+        p->vtable = ((int)DAT_003f7394);
         p->fieldC = 0;
         p->field10 = 1;
         return p;

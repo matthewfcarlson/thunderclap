@@ -1,3 +1,6 @@
+extern "C" char DAT_00424b0c[];
+extern "C" char DAT_0048e0e4[];
+extern "C" char DAT_0048e100[];
 class CSoundVoiceManager {
   public:
     void Init(void*, int);
@@ -15,11 +18,11 @@ class CSoundVoiceManager {
 extern "C" char __cdecl FUN_001d04d0(void*);
 CSoundVoiceManager* CSoundVoiceManager::Fn(void* p, int v) {
     Init(p, 3);
-    vf = 0x424b0c;
+    vf = ((int)DAT_00424b0c);
     a = v;
-    b18 = FUN_001d04d0((void*)0x48e100);
-    b10 = FUN_001d04d0((void*)0x48e0e4);
-    b11 = FUN_001d04d0((void*)0x48e0e4);
-    b12 = FUN_001d04d0((void*)0x48e0e4);
+    b18 = FUN_001d04d0((void*)((int)DAT_0048e100));
+    b10 = FUN_001d04d0((void*)((int)DAT_0048e0e4));
+    b11 = FUN_001d04d0((void*)((int)DAT_0048e0e4));
+    b12 = FUN_001d04d0((void*)((int)DAT_0048e0e4));
     return this;
 }

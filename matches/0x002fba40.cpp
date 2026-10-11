@@ -1,3 +1,4 @@
+extern "C" char DAT_004317dc[];
 typedef unsigned char byte;
 class H1 {
   public:
@@ -55,7 +56,7 @@ class CollisionOBB : public CollisionVolume {
 void cleanup(physics::CollisionOBB*);
 physics::CollisionOBB* physics::CollisionOBB::vfunc_2(byte flag) {
     CollisionOBB* self = this;
-    *(unsigned long*)self = 0x4317dc;
+    *(unsigned long*)self = ((int)DAT_004317dc);
     ((H1*)((char*)self + 0x7c))->f();
     ((H2*)((char*)self + 0x3c))->f();
     ((H3*)self)->f();

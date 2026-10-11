@@ -1,3 +1,4 @@
+extern "C" char DAT_0042da6c[];
 void* __cdecl alloc(unsigned int);
 class VertexAnimController;
 class Base {
@@ -45,7 +46,7 @@ VertexAnimController* VertexAnimController::vfunc_4() {
     VertexAnimController* p = (VertexAnimController*)alloc(0x48);
     if (p) {
         ((Base*)p)->init(this);
-        *(unsigned int*)p = 0x42da6c;
+        *(unsigned int*)p = ((int)DAT_0042da6c);
         p->member = 0;
         Helper* old = member;
         if (old)

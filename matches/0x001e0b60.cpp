@@ -1,3 +1,4 @@
+extern "C" char DAT_00423478[];
 class CSPManager {
   public:
     void Init(int, int);
@@ -15,7 +16,7 @@ extern char g2[];
 extern "C" char __cdecl FUN_001d04d0(const char*);
 CSPManager::CSPManager(int x, int y) {
     Init(x, 3);
-    m0 = 0x423478;
+    m0 = ((int)DAT_00423478);
     m1c = y;
     m18 = FUN_001d04d0(g1);
     m10 = FUN_001d04d0(g2);

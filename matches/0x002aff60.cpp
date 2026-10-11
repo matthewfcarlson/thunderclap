@@ -1,3 +1,4 @@
+extern "C" char DAT_0042e340[];
 class ExpressionGroupLoader {
   public:
     int vf;
@@ -12,5 +13,5 @@ ExpressionGroupLoader::ExpressionGroupLoader() {
     b = 0x21001;
     c = 0;
     d = 0;
-    vf = 0x42e340;
+    vf = ((int)DAT_0042e340);
 }

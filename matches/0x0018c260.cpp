@@ -1,3 +1,4 @@
+extern "C" char DAT_0041950c[];
 struct PropTrack {
     void Init();
     unsigned char pad[0x18];
@@ -18,7 +19,7 @@ PropTrack* Factory::vfunc_5() {
         p->Init();
         p->pad[0x14] = 1;
         *(int*)(p->pad + 8) = 1;
-        *(int*)p->pad = 0x41950c;
+        *(int*)p->pad = ((int)DAT_0041950c);
         *(int*)(p->pad + 0xc) = 0;
         *(int*)(p->pad + 0x10) = 0;
     }

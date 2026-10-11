@@ -1,3 +1,4 @@
+extern "C" char DAT_00417ad8[];
 class MomentumXZAddTrack {
   public:
     virtual void f0();
@@ -27,7 +28,7 @@ MomentumXZAddTrack* Factory::f5() {
         p->Init();
         p->x = -1.0f;
         p->y = -1.0f;
-        *(volatile int*)p = 0x417ad8;
+        *(volatile int*)p = ((int)DAT_00417ad8);
         p->d = 0;
         p->c = 1;
         return p;

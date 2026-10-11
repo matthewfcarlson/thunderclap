@@ -1,3 +1,5 @@
+extern "C" char DAT_0040449c[];
+extern "C" char DAT_004044cc[];
 void ReleaseThing(void*);
 class Sub {
   public:
@@ -12,9 +14,9 @@ class CUnlockableGallery {
     void* m18;
 };
 void CUnlockableGallery::destroy() {
-    *(void**)this = (void*)0x4044cc;
+    *(void**)this = (void*)((int)DAT_004044cc);
     ((Sub*)((char*)this + 0xa8))->Fin();
-    *(void**)this = (void*)0x40449c;
+    *(void**)this = (void*)((int)DAT_0040449c);
     if (m18) {
         ReleaseThing(m18);
         m18 = 0;

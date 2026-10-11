@@ -1,3 +1,4 @@
+extern "C" char DAT_00428210[];
 extern "C" void* __cdecl alloc(unsigned int);
 struct RandomCondition {
     int vf;
@@ -17,7 +18,7 @@ RandomCondition* Factory::vfunc_5() {
     RandomCondition* p = (RandomCondition*)alloc(0x10);
     if (p) {
         p->Init(0);
-        p->vf = 0x428210;
+        p->vf = ((int)DAT_00428210);
         p->value = 0;
     } else {
         p = 0;

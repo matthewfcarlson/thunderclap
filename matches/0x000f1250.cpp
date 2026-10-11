@@ -1,3 +1,4 @@
+extern "C" char DAT_0040bfe0[];
 extern "C" void _ReadWriteBarrier();
 class FEParticleSystem {
   public:
@@ -16,7 +17,7 @@ class Ref {
 };
 extern void cleanup(FEParticleSystem*);
 FEParticleSystem* FEParticleSystem::vfunc_0(unsigned char flags) {
-    *(void**)this = (void*)0x40bfe0;
+    *(void**)this = (void*)((int)DAT_0040bfe0);
     _ReadWriteBarrier();
     if (ptr) {
         ptr->Release();

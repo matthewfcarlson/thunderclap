@@ -1,3 +1,5 @@
+extern "C" char DAT_0042b914[];
+extern "C" char DAT_0042b99c[];
 // Same code shape as 0x002737f0 (propagated; names are from that function)
 struct Sub {
     virtual void f();
@@ -20,10 +22,10 @@ struct Request {
     void run();
 };
 void Request::run() {
-    v = (void*)0x42b99c;
+    v = (void*)((int)DAT_0042b99c);
     p->sub.f();
     --p->ref;
     p->sub.g();
     ((V*)p)->g();
-    v = (void*)0x42b914;
+    v = (void*)((int)DAT_0042b914);
 }

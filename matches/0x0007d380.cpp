@@ -1,3 +1,4 @@
+extern "C" char DAT_003ff014[];
 extern "C" char FUN_001d04d0(const char*);
 extern const char s0[], s1[], s2[], s3[];
 class Base {
@@ -20,7 +21,7 @@ class Target : public Base {
 };
 Target::Target(const char* p, int x) {
     Init(p, 4);
-    vptr = 0x3ff014;
+    vptr = ((int)DAT_003ff014);
     member1c = x;
     b18 = FUN_001d04d0(s0);
     b10 = FUN_001d04d0(s1);

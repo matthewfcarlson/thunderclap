@@ -1,3 +1,4 @@
+extern "C" char DAT_00431b08[];
 class Ref {
   public:
     virtual void f0();
@@ -29,7 +30,7 @@ class Htail {
 extern void thunk(void*);
 void CollisionObject::destroy() {
     Ref* r = mRef;
-    vptr = 0x431b08;
+    vptr = ((int)DAT_00431b08);
     if (r)
         r->f1();
     ((H38*)sub)->run();

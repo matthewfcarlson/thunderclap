@@ -1,3 +1,4 @@
+extern "C" char DAT_0042e8d8[];
 struct Thing {
     virtual void A();
     virtual void B();
@@ -14,7 +15,7 @@ struct Sprite {
 };
 extern void Free(void*);
 void Sprite::Destroy() {
-    vf = (void*)0x42e8d8;
+    vf = (void*)((int)DAT_0042e8d8);
     p4c->B();
     for (int i = 0; i < count; ++i)
         items[i]->B();

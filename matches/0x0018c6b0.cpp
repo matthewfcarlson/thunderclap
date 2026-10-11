@@ -1,3 +1,4 @@
+extern "C" char DAT_0041920c[];
 extern void* __cdecl FUN_0008d690(unsigned int);
 class Sub {
   public:
@@ -26,7 +27,7 @@ PropStateByNameCondition* FactoryTemplate::F() {
     PropStateByNameCondition* p = (PropStateByNameCondition*)FUN_0008d690(0x20);
     if (p) {
         p->Init(0);
-        *(unsigned int*)p = 0x41920c;
+        *(unsigned int*)p = ((int)DAT_0041920c);
         p->x = -1;
         p->y = 0;
         p->sub.Init();

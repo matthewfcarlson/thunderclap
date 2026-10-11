@@ -1,3 +1,4 @@
+extern "C" char DAT_003fc184[];
 struct Sub {
     void subinit();
 };
@@ -19,7 +20,7 @@ void* TrackFactoryTemplate::vfunc_5() {
     CAIHintTrack* p = (CAIHintTrack*)FUN_0008d690(0x20);
     if (p) {
         p->init();
-        *(unsigned int*)p = 0x3fc184;
+        *(unsigned int*)p = ((int)DAT_003fc184);
         *(unsigned int*)((char*)p + 0xc) = 0;
         *(unsigned int*)((char*)p + 0x10) = 0xbf800000;
         ((Sub*)((char*)p + 0x18))->subinit();

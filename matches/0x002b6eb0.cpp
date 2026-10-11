@@ -1,3 +1,4 @@
+extern "C" char DAT_0042e5b4[];
 struct RelObj {
     virtual void vfunc_0();
     virtual void Release();
@@ -19,7 +20,7 @@ class ShadowMeshImpl {
 };
 
 ShadowMeshImpl* ShadowMeshImpl::vfunc_2(unsigned char flags) {
-    m_vptr = (void*)0x42e5b4;
+    m_vptr = (void*)((int)DAT_0042e5b4);
     RelObj* a = m_a;
     if (a != 0) {
         a->Release();

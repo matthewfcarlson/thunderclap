@@ -1,3 +1,4 @@
+extern "C" char DAT_00427260[];
 class Base {
   public:
     virtual void Init();
@@ -13,7 +14,7 @@ class PartitionDriver {
 };
 PartitionDriver* PartitionDriver::Run(Base* source) {
     InitPartition();
-    *(int*)this = 0x427260;
+    *(int*)this = ((int)DAT_00427260);
     mSource = source;
     mSource->Init();
     a = 0;

@@ -1,3 +1,4 @@
+extern "C" char DAT_00400c1c[];
 struct CStaticAllocator {
     void* vf;
     char pad[0xC];
@@ -7,7 +8,7 @@ struct CStaticAllocator {
 };
 void thunk_FUN_00267090(int);
 void CStaticAllocator::Reset() {
-    vf = (void*)0x400c1c;
+    vf = (void*)((int)DAT_00400c1c);
     thunk_FUN_00267090(m14);
     thunk_FUN_00267090(m10);
 }

@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042b14c[];
 extern "C" void __stdcall XInputClose(void*);
 struct ControllerXBox {
     char p0[8];
@@ -6,7 +8,7 @@ struct ControllerXBox {
     void Shutdown();
 };
 void ControllerXBox::Shutdown() {
-    *(unsigned long*)this = 0x42b14c;
+    *(unsigned long*)this = ((int)DAT_0042b14c);
     if (handle)
         XInputClose(handle);
     unsigned long* q = (unsigned long*)((char*)this + 0x448);
@@ -14,14 +16,14 @@ void ControllerXBox::Shutdown() {
     do {
         q -= 4;
         n--;
-        *q = 0x3f6098;
+        *q = ((int)DAT_003f6098);
     } while (n);
     q = (unsigned long*)((char*)this + 0x428);
     n = 0x14;
     do {
         q -= 0xd;
         n--;
-        *q = 0x3f6098;
+        *q = ((int)DAT_003f6098);
     } while (n);
-    *(unsigned long*)this = 0x3f6098;
+    *(unsigned long*)this = ((int)DAT_003f6098);
 }

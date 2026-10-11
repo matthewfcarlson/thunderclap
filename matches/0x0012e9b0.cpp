@@ -1,3 +1,4 @@
+extern "C" char DAT_00411314[];
 typedef unsigned int u32;
 struct NISSoundTrack {
     u32 vptr;
@@ -8,7 +9,7 @@ struct NISSoundTrack {
 };
 extern void __cdecl ReleaseThing(u32);
 void NISSoundTrack::Destroy() {
-    vptr = 0x411314;
+    vptr = ((int)DAT_00411314);
     ReleaseThing(a);
     ReleaseThing(b);
     ReleaseThing(c);

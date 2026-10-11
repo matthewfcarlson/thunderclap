@@ -1,3 +1,4 @@
+extern "C" char DAT_0042de4c[];
 class TextureAnimationController {
   public:
     virtual void V0();
@@ -36,7 +37,7 @@ TextureAnimationController* TextureAnimationController::V4() {
     TextureAnimationController* p = (TextureAnimationController*)Alloc(0x48);
     if (p) {
         p->Init(this);
-        *(unsigned int*)p = 0x42de4c;
+        *(unsigned int*)p = ((int)DAT_0042de4c);
         p->mRef = 0;
         TextureAnimationController* r = mRef;
         if (r)

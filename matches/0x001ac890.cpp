@@ -1,3 +1,4 @@
+extern "C" char DAT_0041d3cc[];
 class Condition {
   public:
     virtual void a();
@@ -27,7 +28,7 @@ void* Factory::vfunc_5() {
     Event_TriggerVolumeNameCondition* p = (Event_TriggerVolumeNameCondition*)Allocate(0x18);
     if (p) {
         p->Init(0);
-        *(unsigned int*)p = 0x41d3cc;
+        *(unsigned int*)p = ((int)DAT_0041d3cc);
         p->sub.Init();
         return p;
     }

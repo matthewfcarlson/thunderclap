@@ -1,3 +1,4 @@
+extern "C" char DAT_003f7034[];
 typedef unsigned int u32;
 struct CCollisionInterruptCondition {
     u32 vf;
@@ -21,7 +22,7 @@ CCollisionInterruptCondition* ConditionFactoryTemplate::vfunc_5() {
     CCollisionInterruptCondition* p = (CCollisionInterruptCondition*)allocate(0x10);
     if (p) {
         ((Initializer*)p)->init(0);
-        p->vf = 0x3f7034;
+        p->vf = ((int)DAT_003f7034);
         p->flag = 1;
         return p;
     }

@@ -1,3 +1,4 @@
+extern "C" char DAT_0042f074[];
 class ParticleGenerator {
   public:
     void* vftable;
@@ -14,6 +15,6 @@ ParticleGenerator* __fastcall FUN_002d2070(ParticleGenerator* p) {
     p->c = 0;
     p->d = 0;
     p->e = 0;
-    p->vftable = (void*)0x42f074;
+    p->vftable = (void*)((int)DAT_0042f074);
     return p;
 }

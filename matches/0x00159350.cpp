@@ -1,3 +1,4 @@
+extern "C" char DAT_00414030[];
 extern void* __cdecl Allocate(unsigned int);
 class CollisionDevastatorCondition {
   public:
@@ -19,7 +20,7 @@ CollisionDevastatorCondition* Factory::F() {
     CollisionDevastatorCondition* p = (CollisionDevastatorCondition*)Allocate(0x10);
     if (p) {
         p->CollisionDevastatorCondition::CollisionDevastatorCondition(0);
-        p->vptr = 0x414030;
+        p->vptr = ((int)DAT_00414030);
         p->flag = 1;
         return p;
     }

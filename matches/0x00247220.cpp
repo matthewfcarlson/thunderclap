@@ -1,3 +1,4 @@
+extern "C" char DAT_0042921c[];
 struct Base {
     virtual void F();
 };
@@ -16,7 +17,7 @@ ContentStream* ContentStream::Make(Base* arg) {
     d = 0x246a40;
     e = 0x246a60;
     flag = 0;
-    vptr = 0x42921c;
+    vptr = ((int)DAT_0042921c);
     source = arg;
     arg->F();
     return this;

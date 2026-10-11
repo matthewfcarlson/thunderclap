@@ -1,3 +1,11 @@
+extern "C" char DAT_0042aa40[];
+extern "C" char DAT_004cd360[];
+extern "C" char DAT_004e79b8[];
+extern "C" char DAT_004e79bc[];
+extern "C" char DAT_004e79c0[];
+extern "C" char DAT_004e79c4[];
+extern "C" char DAT_004e79c8[];
+extern "C" char DAT_004e79cc[];
 struct Pair {
     int a;
     int b;
@@ -17,7 +25,7 @@ struct MetaType {
 extern void Register(int*, MetaType*, Pair*);
 MetaType* MetaType::Init(int a, int b) {
     int* p = (int*)((char*)this + 0x18);
-    vptr = 0x42aa40;
+    vptr = ((int)DAT_0042aa40);
     *p = (int)p;
     m1c = p;
     m20 = p;
@@ -26,14 +34,14 @@ MetaType* MetaType::Init(int a, int b) {
     Pair* k = &key;
     k->a = a;
     key.b = b;
-    if (*(int*)0x4e79cc == 0) {
-        *(int*)0x4e79bc = 0x4e79bc;
-        *(int*)0x4e79c0 = 0x4e79bc;
-        *(int*)0x4e79c4 = 0x4e79bc;
-        *(int*)0x4e79c8 = 0;
-        *(int*)0x4e79b8 = 0x4e79bc;
+    if (*(int*)((int)DAT_004e79cc) == 0) {
+        *(int*)((int)DAT_004e79bc) = ((int)DAT_004e79bc);
+        *(int*)((int)DAT_004e79c0) = ((int)DAT_004e79bc);
+        *(int*)((int)DAT_004e79c4) = ((int)DAT_004e79bc);
+        *(int*)((int)DAT_004e79c8) = 0;
+        *(int*)((int)DAT_004e79b8) = ((int)DAT_004e79bc);
     }
-    Register(*(int**)0x4cd360, this, k);
-    ++*(int*)0x4e79cc;
+    Register(*(int**)((int)DAT_004cd360), this, k);
+    ++*(int*)((int)DAT_004e79cc);
     return this;
 }

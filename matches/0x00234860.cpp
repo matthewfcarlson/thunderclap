@@ -1,3 +1,5 @@
+extern "C" char DAT_004279fc[];
+extern "C" char DAT_00427a18[];
 struct Member {
     void Init(int);
 };
@@ -6,8 +8,8 @@ struct ParamValueBool {
     ParamValueBool* Build(int);
 };
 ParamValueBool* ParamValueBool::Build(int value) {
-    *(int*)this = 0x4279fc;
+    *(int*)this = ((int)DAT_004279fc);
     ((Member*)((char*)this + 8))->Init(value);
-    *(int*)this = 0x427a18;
+    *(int*)this = ((int)DAT_00427a18);
     return this;
 }

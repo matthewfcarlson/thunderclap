@@ -1,3 +1,7 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042af64[];
+extern "C" char DAT_0042afcc[];
+extern "C" char DAT_0042afd4[];
 struct Callback {
     virtual void A();
     virtual void B();
@@ -15,11 +19,11 @@ struct X {
     void F();
 };
 void X::F() {
-    v0 = (void*)0x42afd4;
-    v1 = (void*)0x42afcc;
+    v0 = (void*)((int)DAT_0042afd4);
+    v1 = (void*)((int)DAT_0042afcc);
     Init(arg);
     cb->B();
     g = value;
-    v1 = (void*)0x42af64;
-    v0 = (void*)0x3f6098;
+    v1 = (void*)((int)DAT_0042af64);
+    v0 = (void*)((int)DAT_003f6098);
 }

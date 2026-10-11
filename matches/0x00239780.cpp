@@ -1,3 +1,4 @@
+extern "C" char DAT_00428418[];
 class ExecuteTrack {
   public:
     virtual void v0();
@@ -28,7 +29,7 @@ class C {
 extern void __cdecl thunk_FUN_00267090(ExecuteTrack*);
 ExecuteTrack* ExecuteTrack::vfunc_5(int flags) {
     ExecuteTrack* p = this;
-    *(unsigned long*)p = 0x428418;
+    *(unsigned long*)p = ((int)DAT_00428418);
     ((A*)((char*)p + 0x24))->First();
     ((B*)((char*)p + 0x14))->Second();
     ((C*)p)->Third();

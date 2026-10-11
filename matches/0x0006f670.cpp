@@ -1,3 +1,4 @@
+extern "C" char DAT_003fd094[];
 class StopTrack {
   public:
     void Init();
@@ -16,7 +17,7 @@ StopTrack* Factory::Make() {
     StopTrack* p = (StopTrack*)FUN_0008d690(0x18);
     if (p) {
         p->Init();
-        *(int*)p = 0x3fd094;
+        *(int*)p = ((int)DAT_003fd094);
         return p;
     }
     return 0;

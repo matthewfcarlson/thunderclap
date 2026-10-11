@@ -1,3 +1,4 @@
+extern "C" char DAT_0042a3e4[];
 struct Base {
     Base();
 };
@@ -12,5 +13,5 @@ SeqEventLogicRepeat::SeqEventLogicRepeat() {
     a[2] = 0;
     a[3] = 1;
     a[4] = 1;
-    *(void**)this = (void*)0x42a3e4;
+    *(void**)this = (void*)((int)DAT_0042a3e4);
 }

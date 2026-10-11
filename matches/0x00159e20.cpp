@@ -1,3 +1,4 @@
+extern "C" char DAT_00414330[];
 extern "C" void* __cdecl Alloc(unsigned int);
 class TrackBase {
   public:
@@ -16,7 +17,7 @@ char* TrackFactoryTemplate::F() {
     char* p = (char*)Alloc(0x18);
     if (p) {
         ((TrackBase*)p)->Init();
-        *(int*)p = 0x414330;
+        *(int*)p = ((int)DAT_00414330);
         *(int*)(p + 0xc) = 0;
         *(int*)(p + 0x10) = (int)0xbf800000;
         *(int*)(p + 0x14) = 0;

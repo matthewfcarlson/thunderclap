@@ -1,3 +1,4 @@
+extern "C" char DAT_003f432c[];
 class Base {
   public:
     void Init(int, int);
@@ -19,7 +20,7 @@ extern const char DAT_0048e0f0[];
 extern const char DAT_0048e10c[];
 Method3::Method3(int a, int x) {
     Init(a, 3);
-    v = 0x3f432c;
+    v = ((int)DAT_003f432c);
     m1c = x;
     b18 = FUN_001d04d0(s1);
     b10 = FUN_001d04d0(DAT_0048e0f0);

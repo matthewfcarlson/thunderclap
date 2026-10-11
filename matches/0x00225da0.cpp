@@ -1,3 +1,4 @@
+extern "C" char DAT_00427368[];
 extern "C" void* __cdecl alloc(unsigned int);
 int gCount;
 int gMax;
@@ -13,7 +14,7 @@ Obj* Factory::Make() {
     Obj* p = (Obj*)alloc(0x240);
     if (p != 0) {
         p->InitA(this);
-        p->v = 0x427368;
+        p->v = ((int)DAT_00427368);
         p->InitB(this);
         ++gCount;
         if (gCount > gMax)

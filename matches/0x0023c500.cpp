@@ -1,3 +1,4 @@
+extern "C" char DAT_0042886c[];
 void __stdcall BaseInit(int);
 class Store {
   public:
@@ -5,6 +6,6 @@ class Store {
 };
 Store* __fastcall target(Store* self) {
     BaseInit(2);
-    self->vptr = (void*)0x42886c;
+    self->vptr = (void*)((int)DAT_0042886c);
     return self;
 }

@@ -1,3 +1,4 @@
+extern "C" char DAT_0042db8c[];
 typedef unsigned char u8;
 struct SceneGraphTransformAnimationController {
     virtual void v0();
@@ -36,7 +37,7 @@ struct SceneGraphTransformAnimationController {
 };
 void destroy(SceneGraphTransformAnimationController*);
 SceneGraphTransformAnimationController* SceneGraphTransformAnimationController::vfunc_2(u8 flag) {
-    *(unsigned long*)this = 0x42db8c;
+    *(unsigned long*)this = ((int)DAT_0042db8c);
     member = 0;
     init();
     if (flag & 1)

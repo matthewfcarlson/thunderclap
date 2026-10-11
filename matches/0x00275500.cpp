@@ -1,3 +1,6 @@
+extern "C" char DAT_0042b914[];
+extern "C" char DAT_0042b99c[];
+extern "C" char DAT_0052a1c8[];
 struct Owner {
     virtual void A();
     virtual void B();
@@ -31,16 +34,16 @@ struct FileGetSizeRequest {
     Owner* owner;
 };
 FileGetSizeRequest* FileGetSizeRequest::vfunc_0(int flag) {
-    ((int*)this)[0] = 0x42b99c;
+    ((int*)this)[0] = ((int)DAT_0042b99c);
     ((Inner*)((char*)owner + 4))->A();
     --(*(int*)((char*)owner + 0x18));
     ((Inner*)((char*)owner + 4))->B();
     owner->B();
-    ((int*)this)[0] = 0x42b914;
+    ((int*)this)[0] = ((int)DAT_0042b914);
     if (flag & 1) {
-        FUN_0026d850((void*)0x52a1c8);
+        FUN_0026d850((void*)((int)DAT_0052a1c8));
         gObject->E(this);
-        FUN_0026d840((void*)0x52a1c8);
+        FUN_0026d840((void*)((int)DAT_0052a1c8));
     }
     return this;
 }

@@ -1,3 +1,4 @@
+extern "C" char DAT_004178f8[];
 class Sub {
   public:
     void Init();
@@ -36,7 +37,7 @@ void* Factory::Make() {
     RestPoseTrack* p = (RestPoseTrack*)Alloc(0x30);
     if (p) {
         p->Init();
-        *(int*)p = 0x4178f8;
+        *(int*)p = ((int)DAT_004178f8);
         p->c = 0;
         p->d = -1.0f;
         p->sub.Init();

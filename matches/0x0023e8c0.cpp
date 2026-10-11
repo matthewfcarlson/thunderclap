@@ -1,3 +1,4 @@
+extern "C" char DAT_00428de0[];
 class Ref {
   public:
     virtual void f0();
@@ -19,7 +20,7 @@ class fight_StopAction {
 };
 void destroy(fight_StopAction*);
 fight_StopAction* fight_StopAction::vfunc_2(unsigned char param) {
-    *(volatile int*)this = 0x428de0;
+    *(volatile int*)this = ((int)DAT_00428de0);
     Ref* r = m28;
     if (r) {
         r->f1();

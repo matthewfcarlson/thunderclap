@@ -1,3 +1,5 @@
+extern "C" char DAT_0049dba4[];
+extern "C" char DAT_0049dbbc[];
 class FEObject {
   public:
     virtual void a();
@@ -42,8 +44,8 @@ struct Global {
 };
 extern Global* gGlobal;
 void FUN_000b5b90() {
-    FEObject* p = (FEObject*)LookupThing(FindName("cheat_invulnerability_selector"), 0, (int*)0x49dba4,
-                                         (int*)0x49dbbc, 0);
+    FEObject* p = (FEObject*)LookupThing(FindName("cheat_invulnerability_selector"), 0, (int*)((int)DAT_0049dba4),
+                                         (int*)((int)DAT_0049dbbc), 0);
     if (p) {
         Result* r = gGlobal->ctx->Get(0x2e4);
         int flag = r->Check() == 0;

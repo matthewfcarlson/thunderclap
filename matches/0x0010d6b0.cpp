@@ -1,3 +1,5 @@
+extern "C" char DAT_00494b44[];
+extern "C" char DAT_00494b60[];
 class P {
   public:
     void* get();
@@ -20,7 +22,7 @@ class LeashedCondition {
 };
 extern int __cdecl FUN_00344e74(void*, int, int, int, int);
 bool LeashedCondition::vfunc_6(int unused, void* params, int unused2) {
-    int ok = FUN_00344e74(params, 0, 0x494b44, 0x494b60, 0);
+    int ok = FUN_00344e74(params, 0, ((int)DAT_00494b44), ((int)DAT_00494b60), 0);
     if (!ok)
         return false;
     void* a = ((P*)params)->get();

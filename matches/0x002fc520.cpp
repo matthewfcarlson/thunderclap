@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_00431898[];
 class Ref {
   public:
     virtual void Dummy();
@@ -22,7 +24,7 @@ class Global {
 };
 extern Global* global;
 void Physics::Destroy() {
-    vptr = (void*)0x431898;
+    vptr = (void*)((int)DAT_00431898);
     global->call(*(int*)((char*)obj + 0x74));
     if (ref)
         ref->Release();
@@ -37,5 +39,5 @@ void Physics::Destroy() {
         obj = 0;
         o->Release();
     }
-    vptr = (void*)0x3f6098;
+    vptr = (void*)((int)DAT_003f6098);
 }

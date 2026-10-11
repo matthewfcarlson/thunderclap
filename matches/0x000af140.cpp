@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_00405e2c[];
 class NonCopyable {
   public:
     virtual void vfunc_0();
@@ -11,9 +13,9 @@ class CGameController : public NonCopyable {
 };
 void Destroy(CGameController*);
 CGameController* CGameController::vfunc_2(unsigned char flag) {
-    *(void**)this = (void*)0x405e2c;
+    *(void**)this = (void*)((int)DAT_00405e2c);
     ((NonCopyable*)member)->vfunc_1();
-    *(void**)this = (void*)0x3f6098;
+    *(void**)this = (void*)((int)DAT_003f6098);
     if (flag & 1)
         Destroy(this);
     return this;

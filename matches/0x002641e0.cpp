@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042ae9c[];
 class Obj {
   public:
     virtual void X();
@@ -16,7 +18,7 @@ class LoadStream {
 };
 void Cleanup(void*);
 void LoadStream::Destroy() {
-    vt = 0x42ae9c;
+    vt = ((int)DAT_0042ae9c);
     Init();
     if (mObj)
         mObj->Release();
@@ -24,5 +26,5 @@ void LoadStream::Destroy() {
         Cleanup(m20);
     if (m24)
         Cleanup(m24);
-    vt = 0x3f6098;
+    vt = ((int)DAT_003f6098);
 }

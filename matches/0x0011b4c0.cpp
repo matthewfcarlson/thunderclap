@@ -1,3 +1,4 @@
+extern "C" char DAT_0040ebb0[];
 typedef unsigned int u32;
 void* __cdecl alloc(unsigned int);
 struct Obj {
@@ -19,7 +20,7 @@ void* Obj::f() {
         *(u32*)((char*)p + 0x1c) = 0;
         *(u32*)((char*)p + 0x20) = 0;
         *(u32*)((char*)p + 0x28) = 0;
-        *(u32*)p = 0x40ebb0;
+        *(u32*)p = ((int)DAT_0040ebb0);
         *(u32*)((char*)p + 0x10) = 0xbf800000;
         *(u32*)((char*)p + 0x24) = 0x3f800000;
         return p;

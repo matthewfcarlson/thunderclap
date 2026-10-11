@@ -1,3 +1,4 @@
+extern "C" char DAT_004272b8[];
 class Puppet;
 class Aux {
   public:
@@ -22,7 +23,7 @@ Puppet* Puppet::f5() {
     Puppet* p = (Puppet*)allocThunk(0x2f0);
     if (p) {
         p->InitA();
-        *((int*)p) = 0x4272b8;
+        *((int*)p) = ((int)DAT_004272b8);
         ((Aux*)((char*)p + 0x10))->Init();
         p->x = 0;
         p->y = 0;

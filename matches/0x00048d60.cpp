@@ -1,3 +1,4 @@
+extern "C" char DAT_003f7010[];
 class Sub {
   public:
     void Init();
@@ -13,7 +14,7 @@ class CNameFlagConditionBase {
 extern void __stdcall FUN_00234590(int);
 CNameFlagConditionBase::CNameFlagConditionBase() {
     FUN_00234590(0);
-    m0 = 0x3f7010;
+    m0 = ((int)DAT_003f7010);
     mC = 0;
     sub.Init();
 }

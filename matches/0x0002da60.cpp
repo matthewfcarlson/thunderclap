@@ -1,3 +1,7 @@
+extern "C" char DAT_003f424c[];
+extern "C" char DAT_0048e0e4[];
+extern "C" char DAT_0048e0f0[];
+extern "C" char DAT_0048e128[];
 class CActorManager {
   public:
     int vf;
@@ -15,10 +19,10 @@ class CActorManager {
 extern "C" char __cdecl FUN_001d04d0(const char*);
 CActorManager::CActorManager(void* p, int x) {
     Init(p, 3);
-    vf = 0x3f424c;
+    vf = ((int)DAT_003f424c);
     m1c = x;
-    b18 = FUN_001d04d0((const char*)0x48e0e4);
-    b10 = FUN_001d04d0((const char*)0x48e0f0);
-    b11 = FUN_001d04d0((const char*)0x48e128);
-    b12 = FUN_001d04d0((const char*)0x48e128);
+    b18 = FUN_001d04d0((const char*)((int)DAT_0048e0e4));
+    b10 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
+    b11 = FUN_001d04d0((const char*)((int)DAT_0048e128));
+    b12 = FUN_001d04d0((const char*)((int)DAT_0048e128));
 }

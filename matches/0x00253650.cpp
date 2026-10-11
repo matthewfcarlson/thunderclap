@@ -1,3 +1,5 @@
+extern "C" char DAT_004298fc[];
+extern "C" char DAT_004e70a0[];
 class SeqAction {
   public:
     int mVptr;
@@ -9,8 +11,8 @@ class SeqActionVarPitchRand : public SeqAction {
 };
 SeqActionVarPitchRand* SeqActionVarPitchRand::vfunc_0(int flag) {
     SeqActionVarPitchRand* self = this;
-    self->mVptr = 0x4298fc;
+    self->mVptr = ((int)DAT_004298fc);
     if (flag & 1)
-        Register((void*)0x4e70a0, self);
+        Register((void*)((int)DAT_004e70a0), self);
     return self;
 }

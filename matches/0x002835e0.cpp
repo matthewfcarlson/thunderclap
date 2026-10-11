@@ -1,3 +1,4 @@
+extern "C" char DAT_0042c514[];
 extern "C" void _ReadWriteBarrier();
 class Ref {
   public:
@@ -18,7 +19,7 @@ class CLightQueue {
 };
 void __fastcall FUN_0027afd0(CLightQueue*);
 void __fastcall FUN_002835e0(CLightQueue* self) {
-    self->vptr = (void*)0x42c514;
+    self->vptr = (void*)((int)DAT_0042c514);
     _ReadWriteBarrier();
     if (self->m2c) {
         self->m2c->Release();

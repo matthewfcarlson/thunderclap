@@ -1,3 +1,4 @@
+extern "C" char DAT_0040c244[];
 class FEItem {
   public:
     virtual void A();
@@ -24,7 +25,7 @@ class FEContainer {
     void Clear();
 };
 void FEContainer::Clear() {
-    *(int*)this = 0x40c244;
+    *(int*)this = ((int)DAT_0040c244);
     for (int i = 0; i < 8; i++) {
         if (a[i]) {
             a[i]->B();

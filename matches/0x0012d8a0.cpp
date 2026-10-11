@@ -1,3 +1,4 @@
+extern "C" char DAT_00410c84[];
 class ThreatDodgeTrack {
   public:
     int a[2];
@@ -28,7 +29,7 @@ ThreatDodgeTrack* Factory::Create() {
     if (p) {
         Base* b = (Base*)p;
         b->Base::Base();
-        *(int*)p = 0x410c84;
+        *(int*)p = ((int)DAT_00410c84);
         *(int*)((char*)p + 0xc) = 0;
         *(int*)((char*)p + 0x10) = 0xbf800000;
         *(int*)((char*)p + 0x14) = 0x3f800000;

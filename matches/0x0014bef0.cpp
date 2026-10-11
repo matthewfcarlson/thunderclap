@@ -1,3 +1,4 @@
+extern "C" char DAT_00413618[];
 extern "C" void* __cdecl FUN_0008d690(int size);
 
 struct CDTrack {
@@ -20,7 +21,7 @@ void* TrackFactoryTemplate::vfunc_5() {
     if (p != 0) {
         p->Init();
         *(volatile int*)&p->fc = 0;
-        *(volatile int*)&p->f0 = 0x413618;
+        *(volatile int*)&p->f0 = ((int)DAT_00413618);
         *(volatile int*)&p->f10 = 0;
         *(volatile int*)&p->f14 = 0;
         *(volatile int*)&p->f18 = 0;

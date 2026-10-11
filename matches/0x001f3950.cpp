@@ -1,3 +1,4 @@
+extern "C" char DAT_004c7df0[];
 extern float gScale;
 void __cdecl Apply(int, float);
 class Obj {
@@ -9,7 +10,7 @@ class Obj {
     void Set(float value);
 };
 void Obj::Set(float value) {
-    *(volatile float*)0x4c7df0 = value;
+    *(volatile float*)((int)DAT_004c7df0) = value;
     if (mPtr != 0 && mBusy == 0) {
         int x = *(int*)(mPtr + 4);
         if (x != 0)

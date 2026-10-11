@@ -1,3 +1,4 @@
+extern "C" char DAT_00431394[];
 class PhysicsPropertiesLoader {
   public:
     int vptr;
@@ -12,5 +13,5 @@ PhysicsPropertiesLoader::PhysicsPropertiesLoader() {
     b = 0x07011010;
     c = 0;
     d = 0;
-    vptr = 0x00431394;
+    vptr = ((int)DAT_00431394);
 }

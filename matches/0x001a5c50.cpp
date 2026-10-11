@@ -1,3 +1,4 @@
+extern "C" char DAT_0041c5f0[];
 struct Helper {
     void Init();
 };
@@ -21,7 +22,7 @@ class EffectTrack {
 };
 void __cdecl Destroy(EffectTrack*);
 EffectTrack* EffectTrack::vfunc_5(unsigned char flag) {
-    *(unsigned long*)this = 0x41c5f0;
+    *(unsigned long*)this = ((int)DAT_0041c5f0);
     ((Helper*)((char*)this + 0x58))->Init();
     ((Helper*)((char*)this + 0x30))->Init();
     ((Helper*)((char*)this + 0x20))->Init();

@@ -1,3 +1,4 @@
+extern "C" char DAT_003f927c[];
 class CButtonReleaseCondition {
   public:
     virtual void A();
@@ -22,7 +23,7 @@ CButtonReleaseCondition* ConditionFactoryTemplate::Create() {
     CButtonReleaseCondition* p = (CButtonReleaseCondition*)Allocate(0x18);
     if (p) {
         p->Init();
-        *(unsigned int*)p = 0x3f927c;
+        *(unsigned int*)p = ((int)DAT_003f927c);
         return p;
     }
     return 0;

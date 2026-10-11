@@ -1,3 +1,4 @@
+extern "C" char DAT_004193ec[];
 struct Sub {
     void A();
     void B();
@@ -9,7 +10,7 @@ struct X {
     void C();
 };
 void X::f() {
-    v = (int*)0x4193ec;
+    v = (int*)((int)DAT_004193ec);
     ((Sub*)((char*)this + 0x78))->A();
     ((Sub*)((char*)this + 0x68))->B();
     C();

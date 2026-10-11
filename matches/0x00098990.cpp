@@ -1,3 +1,4 @@
+extern "C" char DAT_00404b3c[];
 typedef unsigned char byte;
 struct CBlendCamera {
     virtual void a();
@@ -45,7 +46,7 @@ void __stdcall FUN_00098480(int);
 void __cdecl thunk_FUN_00267090(CBlendCamera*);
 CBlendCamera* CBlendCamera::vfunc_2(byte param) {
     CBlendCamera* self = this;
-    *(int*)self = 0x404b3c;
+    *(int*)self = ((int)DAT_00404b3c);
     FUN_00098480(0);
     self->call29();
     self->call9620();

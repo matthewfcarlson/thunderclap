@@ -1,3 +1,4 @@
+extern "C" char DAT_0041956c[];
 extern "C" void* Alloc(unsigned int);
 class Track {
   public:
@@ -27,7 +28,7 @@ PropDamageTrack* Factory::f5() {
     PropDamageTrack* p = (PropDamageTrack*)Alloc(0x18);
     if (p) {
         p->Track::Track();
-        *(volatile unsigned int*)p = 0x41956c;
+        *(volatile unsigned int*)p = ((int)DAT_0041956c);
         p->xc = 0;
         p->x10 = 0;
         p->x14 = 0;

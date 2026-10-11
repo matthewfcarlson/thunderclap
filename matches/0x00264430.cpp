@@ -1,3 +1,4 @@
+extern "C" char DAT_0042ae9c[];
 class LoadStream {
   public:
     int vtable;
@@ -11,7 +12,7 @@ class LoadStream {
 };
 LoadStream* LoadStream::Target(int a, int b, int c) {
     field4 = 0;
-    vtable = 0x42ae9c;
+    vtable = ((int)DAT_0042ae9c);
     Init();
     flagD = 1;
     flagE = (c == 1);

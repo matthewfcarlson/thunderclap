@@ -1,3 +1,4 @@
+extern "C" char DAT_00416938[];
 extern "C" void* __cdecl operator_new(unsigned int);
 class Obj {
   public:
@@ -21,7 +22,7 @@ void* ConditionFactoryTemplate::F() {
     Obj* p = (Obj*)operator_new(0x14);
     if (p) {
         p->Obj::Obj(0);
-        p->vf = 0x416938;
+        p->vf = ((int)DAT_00416938);
         p->c = 0;
         p->d = 0x3fc90fdb;
         return p;

@@ -1,3 +1,4 @@
+extern "C" char DAT_00415bb4[];
 class Base {
   public:
     Base();
@@ -22,7 +23,7 @@ class GrappleLocomotionSteerAction : public Base {
     GrappleLocomotionSteerAction(int, Ref*);
 };
 GrappleLocomotionSteerAction::GrappleLocomotionSteerAction(int x, Ref* p) {
-    *(int*)this = 0x415bb4;
+    *(int*)this = ((int)DAT_00415bb4);
     volatile int* q = &m1;
     *q = 0;
     m2 = 0;

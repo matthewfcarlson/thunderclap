@@ -1,3 +1,4 @@
+extern "C" char DAT_0041c318[];
 struct LuaTrack {
     void* vf;
     char pad[8];
@@ -21,7 +22,7 @@ LuaTrack* Factory::vfunc_5() {
     LuaTrack* p = (LuaTrack*)alloc(0x1c);
     if (p) {
         p->initialize();
-        p->vf = (void*)0x41c318;
+        p->vf = (void*)((int)DAT_0041c318);
         p->x = 0;
         p->y = (int)0xbf800000;
         p->z = 0;

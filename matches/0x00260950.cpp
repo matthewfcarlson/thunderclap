@@ -1,3 +1,4 @@
+extern "C" char DAT_0042aa7c[];
 extern void* gSource;
 extern int gCount;
 void InitSeq(void*, void*);
@@ -22,7 +23,7 @@ class SeqEventType : public Type {
 };
 SeqEventType* SeqEventType::vfunc2(unsigned int flags) {
     void* p = gSource;
-    *(void**)this = (void*)0x42aa7c;
+    *(void**)this = (void*)((int)DAT_0042aa7c);
     InitSeq(p, this);
     --gCount;
     sub.Clean();

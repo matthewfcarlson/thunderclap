@@ -1,3 +1,4 @@
+extern "C" char DAT_00400870[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern unsigned int DAT_004dd7e0;
 void FUN_0008e090() {
@@ -10,7 +11,7 @@ void FUN_0008e090() {
             p[4] = 0;
             p[8] = 0;
             p[9] = 0;
-            *(unsigned int*)p = 0x400870;
+            *(unsigned int*)p = ((int)DAT_00400870);
         } else {
             p = 0;
         }

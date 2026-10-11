@@ -1,3 +1,4 @@
+extern "C" char DAT_00416a88[];
 extern "C" int gCount = 0;
 extern "C" void* gSlot = 0;
 extern const char gName[];
@@ -20,7 +21,7 @@ void FUN_0016afa0() {
     Param* p = (Param*)FUN_0008d690(0x18);
     if (p) {
         ((Init*)p)->InitName(gName);
-        p->vptr = (void*)0x416a88;
+        p->vptr = (void*)((int)DAT_00416a88);
         p->field10 = (void*)0x1653d0;
         local = p;
     } else

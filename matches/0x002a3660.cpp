@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d88c[];
 void* __stdcall FUN_002a4e10(void*);
 void FUN_0022b980();
 struct Sub {
@@ -19,7 +20,7 @@ class ParticleSystem {
 };
 ParticleSystem* ParticleSystem::Build(void* arg) {
     FUN_002a4e10(arg);
-    vt = 0x42d88c;
+    vt = ((int)DAT_0042d88c);
     flag = 1;
     x = 100.0f;
     y = 30.0f;

@@ -1,3 +1,4 @@
+extern "C" char DAT_0040db64[];
 class Condition {
   public:
     int vt;
@@ -19,7 +20,7 @@ Condition* Factory::Make() {
     Condition* p = (Condition*)Alloc(0x10);
     if (p) {
         p->Init(0);
-        p->vt = 0x40db64;
+        p->vt = ((int)DAT_0040db64);
         p->m = 0;
         return p;
     }

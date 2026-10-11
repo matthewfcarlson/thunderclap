@@ -1,3 +1,4 @@
+extern "C" char DAT_00411344[];
 class DialogueTrack {
   public:
     virtual void f0();
@@ -28,7 +29,7 @@ void* Factory::Create() {
         p->e = z;
         p->f = z;
         p->g = (char)z;
-        *(void**)p = (void*)0x411344;
+        *(void**)p = (void*)((int)DAT_00411344);
         *((int*)p + 2) = 1;
         return p;
     }

@@ -1,3 +1,5 @@
+extern "C" char DAT_0040449c[];
+extern "C" char DAT_004044a4[];
 extern "C" void Free1(void* p);
 extern "C" void Free2(void* p);
 
@@ -13,10 +15,10 @@ class CUnlockableBlonskyFile {
 
 void* CUnlockableBlonskyFile::vfunc_0(unsigned char f) {
     char* s = (char*)this;
-    *(int*)s = 0x4044a4;
+    *(int*)s = ((int)DAT_004044a4);
     ((Helper*)(s + 0x20))->F();
     void* p = *(void**)(s + 0x18);
-    *(int*)s = 0x40449c;
+    *(int*)s = ((int)DAT_0040449c);
     if (p) {
         Free1(p);
         *(void**)(s + 0x18) = 0;

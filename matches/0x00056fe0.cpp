@@ -1,3 +1,4 @@
+extern "C" char DAT_003f9130[];
 extern "C" void* __cdecl Allocate(unsigned int);
 class CAxisReleaseCondition {
   public:
@@ -22,7 +23,7 @@ CAxisReleaseCondition* Factory::vfunc_5() {
     CAxisReleaseCondition* p = (CAxisReleaseCondition*)Allocate(0x18);
     if (p) {
         p->Init();
-        *(void**)p = (void*)0x3f9130;
+        *(void**)p = (void*)((int)DAT_003f9130);
         return p;
     }
     return 0;

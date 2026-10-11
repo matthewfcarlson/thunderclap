@@ -1,4 +1,5 @@
 // cl-flags: /O2 /GR /GX
+extern "C" char DAT_0042e184[];
 
 class ImageBuilder {
   public:
@@ -60,7 +61,7 @@ int SomeClass::Method(void* param2, void* param3) {
     pb.field_8C = this->field_8C;
 
     // Direct immediate assignment to match target's mov [esp+8], 0x42e184
-    pb.vptr = (void*)0x42e184;
+    pb.vptr = (void*)((int)DAT_0042e184);
 
     iface->Process(param2, (ImageBuilder*)&pb.vptr);
 

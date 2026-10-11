@@ -1,3 +1,4 @@
+extern "C" char DAT_0042e064[];
 class Ref {
   public:
     virtual void A();
@@ -15,7 +16,7 @@ class Loader {
 };
 void Loader::F() {
     unsigned i = 0;
-    vt = (int*)0x42e064;
+    vt = (int*)((int)DAT_0042e064);
     if (count > 0) {
         do {
             if (items[i]) {

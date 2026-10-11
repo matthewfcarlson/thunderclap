@@ -1,3 +1,5 @@
+extern "C" char DAT_004298fc[];
+extern "C" char DAT_004e6a18[];
 namespace audio {
 class SeqActionWaitBeat;
 }
@@ -19,9 +21,9 @@ class SeqActionWaitBeat : public SeqAction {
 };
 SeqActionWaitBeat* SeqActionWaitBeat::vfunc_0(int flag) {
     SeqActionWaitBeat* s = this;
-    *(int*)s = 0x4298fc;
+    *(int*)s = ((int)DAT_004298fc);
     if (flag & 1)
-        FUN_00247550((void*)0x4e6a18, s);
+        FUN_00247550((void*)((int)DAT_004e6a18), s);
     return s;
 }
 } // namespace audio

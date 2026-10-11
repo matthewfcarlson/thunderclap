@@ -1,3 +1,4 @@
+extern "C" char DAT_0042e634[];
 class ShadowSkinLoader {
   public:
     int v;
@@ -12,5 +13,5 @@ ShadowSkinLoader::ShadowSkinLoader() {
     b = 0x10019;
     c = 0;
     d = 0;
-    v = 0x42e634;
+    v = ((int)DAT_0042e634);
 }

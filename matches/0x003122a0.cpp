@@ -1,3 +1,4 @@
+extern "C" char DAT_0043217c[];
 class Helper {
   public:
     void Init();
@@ -41,7 +42,7 @@ ArticulatedPhysicsObject* ArticulatedPhysicsObject::f28(unsigned int a) {
     void* p = alloc(0x238);
     if (p) {
         ((Helper*)p)->Init();
-        *(unsigned int*)p = 0x43217c;
+        *(unsigned int*)p = ((int)DAT_0043217c);
         *(unsigned int*)((char*)p + 0x1fc) = 0;
         *(unsigned int*)((char*)p + 0x24) = 1;
     } else {

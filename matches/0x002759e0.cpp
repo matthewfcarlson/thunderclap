@@ -1,3 +1,4 @@
+extern "C" char DAT_0042bc00[];
 extern "C" void InitMore();
 extern "C" char* strncpy(char*, const char*, unsigned int);
 class DriveFindFirstRequest {
@@ -12,7 +13,7 @@ class DriveFindFirstRequest {
 };
 DriveFindFirstRequest* DriveFindFirstRequest::Init(void* a, char* src, int v) {
     InitBase(a);
-    *(unsigned long*)this = 0x42bc00;
+    *(unsigned long*)this = ((int)DAT_0042bc00);
     value = v;
     InitMore();
     strncpy(name, src, 0x100);

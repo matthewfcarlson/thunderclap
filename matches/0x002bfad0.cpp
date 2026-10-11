@@ -1,3 +1,4 @@
+extern "C" char DAT_0042ea40[];
 class Image {
   public:
     char pad0[0x10];
@@ -15,7 +16,7 @@ Image* Image::FUN() {
     f1c = 0;
     b29 = 0;
     b28 = 0;
-    *(int*)this = 0x42ea40;
+    *(int*)this = ((int)DAT_0042ea40);
     f20 = 8;
     return this;
 }

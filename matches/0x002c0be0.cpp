@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042eb0c[];
 typedef unsigned int u32;
 struct Obj {
     void ReleaseThing();
@@ -11,10 +13,10 @@ struct ImageLoader {
 void __cdecl DropThing(Obj*);
 void ImageLoader::Destroy() {
     Obj* p = mPtr;
-    vptr = 0x42eb0c;
+    vptr = ((int)DAT_0042eb0c);
     if (p) {
         p->ReleaseThing();
         DropThing(p);
     }
-    vptr = 0x3f6098;
+    vptr = ((int)DAT_003f6098);
 }

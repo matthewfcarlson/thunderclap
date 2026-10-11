@@ -1,3 +1,5 @@
+extern "C" char DAT_0042a850[];
+extern "C" char DAT_004e7808[];
 struct Inner {
     void Setup();
 };
@@ -10,9 +12,9 @@ class OmHalStream {
     OmHalStream* Init(unsigned char flag);
 };
 OmHalStream* OmHalStream::Init(unsigned char flag) {
-    vf = 0x42a850;
+    vf = ((int)DAT_0042a850);
     inner.Setup();
     if (flag & 1)
-        Register((void*)0x4e7808, this);
+        Register((void*)((int)DAT_004e7808), this);
     return this;
 }

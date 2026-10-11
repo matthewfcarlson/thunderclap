@@ -1,3 +1,4 @@
+extern "C" char DAT_00434300[];
 class X {
   public:
     virtual void f0();
@@ -8,7 +9,7 @@ class X {
 };
 
 X* X::Init() {
-    *(int*)this = 0x434300;
+    *(int*)this = ((int)DAT_00434300);
     field = 0;
     return this;
 }

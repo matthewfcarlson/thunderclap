@@ -1,3 +1,4 @@
+extern "C" char DAT_0042918c[];
 class Clip {
   public:
     virtual void f();
@@ -8,7 +9,7 @@ class Clip {
 };
 void Release(void*);
 void Clip::Done() {
-    *(void**)this = (void*)0x42918c;
+    *(void**)this = (void*)((int)DAT_0042918c);
     if (m28)
         Release(m28);
     Finish();

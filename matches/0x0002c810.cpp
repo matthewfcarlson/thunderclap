@@ -1,3 +1,4 @@
+extern "C" char DAT_003f408c[];
 typedef unsigned char u8;
 typedef unsigned int u32;
 void __stdcall setup(void*, int);
@@ -19,7 +20,7 @@ class Method3 {
 };
 Method3* Method3::target(void* a, u32 c) {
     setup(a, 3);
-    vf = 0x3f408c;
+    vf = ((int)DAT_003f408c);
     value = c;
     b18 = getval(g1);
     b10 = getval(g2);

@@ -1,3 +1,4 @@
+extern "C" char DAT_0042c180[];
 class Entity {
   public:
     int vptr;
@@ -8,7 +9,7 @@ class Entity {
 };
 Entity::Entity() {
     a = 0;
-    vptr = 0x42c180;
+    vptr = ((int)DAT_0042c180);
     b = 0;
     c = 0;
 }

@@ -1,3 +1,4 @@
+extern "C" char DAT_00413678[];
 typedef unsigned int u32;
 struct GrappleStruggleTrack {
     u32 a0, a4, a8, ac, a10, a14, a18, a1c, a20;
@@ -21,7 +22,7 @@ void* Factory::make() {
         p->a18 = 0;
         p->a1c = 0;
         p->a20 = 0;
-        p->a0 = 0x413678;
+        p->a0 = ((int)DAT_00413678);
         p->a10 = 0xbf800000;
         p->a8 = 1;
         return p;

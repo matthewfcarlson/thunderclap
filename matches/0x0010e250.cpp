@@ -1,3 +1,5 @@
+extern "C" char DAT_00494b44[];
+extern "C" char DAT_00494b60[];
 typedef unsigned int u32;
 struct AIHistoryCountTrack {
     virtual void f0();
@@ -14,6 +16,6 @@ struct AIHistoryCountTrack {
 };
 extern void FUN_00344e74(void*, int, void*, void*, int);
 u32 AIHistoryCountTrack::vfunc_10(int a, int b, void* p) {
-    FUN_00344e74(p, 0, (void*)0x494b44, (void*)0x494b60, 0);
+    FUN_00344e74(p, 0, (void*)((int)DAT_00494b44), (void*)((int)DAT_00494b60), 0);
     return 0;
 }

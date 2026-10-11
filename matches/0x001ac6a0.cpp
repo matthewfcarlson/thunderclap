@@ -1,3 +1,4 @@
+extern "C" char DAT_0041d3ec[];
 struct Obj {
     unsigned int vt;
     char pad[8];
@@ -17,7 +18,7 @@ Obj* Factory::F5() {
     Obj* p = (Obj*)Alloc(0x10);
     if (p) {
         p->Init(0);
-        p->vt = 0x41d3ec;
+        p->vt = ((int)DAT_0041d3ec);
         p->value = 0;
         return p;
     }

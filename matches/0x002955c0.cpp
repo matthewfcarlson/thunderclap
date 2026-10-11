@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d1b0[];
 class TextureFontLoader {
   public:
     int a;
@@ -12,5 +13,5 @@ TextureFontLoader::TextureFontLoader() {
     m8 = 0x22000;
     mc = 0;
     m10 = 0;
-    *(int*)this = 0x42d1b0;
+    *(int*)this = ((int)DAT_0042d1b0);
 }

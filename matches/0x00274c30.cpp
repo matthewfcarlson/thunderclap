@@ -1,3 +1,5 @@
+extern "C" char DAT_0042b914[];
+extern "C" char DAT_0042b9dc[];
 void init();
 class Request {
   public:
@@ -10,10 +12,10 @@ class CompletionCallbackRequest : public Request {
     CompletionCallbackRequest(int arg);
 };
 CompletionCallbackRequest::CompletionCallbackRequest(int arg) {
-    v = 0x42b914;
+    v = ((int)DAT_0042b914);
     a = 0;
     init();
-    v = 0x42b9dc;
+    v = ((int)DAT_0042b9dc);
     b = arg;
     init();
 }

@@ -1,3 +1,4 @@
+extern "C" char DAT_0040fdd4[];
 typedef unsigned int u32;
 typedef unsigned char u8;
 extern void* Alloc(unsigned int);
@@ -31,7 +32,7 @@ TargetDistanceYCondition* ConditionFactoryTemplate::vfunc_5() {
         p->c = 0;
         p->d = 0;
         p->e = 0;
-        p->vptr = 0x40fdd4;
+        p->vptr = ((int)DAT_0040fdd4);
         return p;
     }
     return 0;

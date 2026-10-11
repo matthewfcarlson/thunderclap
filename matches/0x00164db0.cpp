@@ -1,3 +1,4 @@
+extern "C" char DAT_00415950[];
 class Entity {
   public:
     virtual void A();
@@ -23,7 +24,7 @@ void* ConditionFactoryTemplate::vfunc_5() {
     Init* p = (Init*)FUN_0008d690(0x10);
     if (p) {
         p->InitIt(0);
-        *(void**)p = (void*)0x415950;
+        *(void**)p = (void*)((int)DAT_00415950);
         *((char*)p + 0xc) = 1;
         return p;
     }

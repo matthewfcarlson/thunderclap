@@ -1,3 +1,4 @@
+extern "C" char DAT_00410c84[];
 class ThreatDodgeTrack {
   public:
     virtual void vfunc_0();
@@ -20,7 +21,7 @@ class Helper {
 };
 void FUN_00267090(ThreatDodgeTrack*);
 ThreatDodgeTrack* ThreatDodgeTrack::vfunc_5(unsigned char param_2) {
-    *(void**)this = (void*)0x410c84;
+    *(void**)this = (void*)((int)DAT_00410c84);
     ((Helper*)((char*)this + 0x20))->call1();
     ((Helper*)this)->call2();
     if (param_2 & 1)

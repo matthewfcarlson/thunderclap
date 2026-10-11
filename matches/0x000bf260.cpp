@@ -1,3 +1,8 @@
+extern "C" char DAT_003f335c[];
+extern "C" char DAT_00408ee8[];
+extern "C" char DAT_00408fa0[];
+extern "C" char DAT_0040914c[];
+extern "C" char DAT_0040915c[];
 class D {
   public:
     void Init();
@@ -13,7 +18,7 @@ class C {
 extern D* __stdcall Make(int, int, int, int, int, int, int, int);
 void __fastcall Target(C* self) {
     if (self->m34 && self->m30) {
-        D* x = Make(0x40914c, 0x40915c, 0x3f335c, 0x408ee8, 0x408fa0, 2, 0, 0);
+        D* x = Make(((int)DAT_0040914c), ((int)DAT_0040915c), ((int)DAT_003f335c), ((int)DAT_00408ee8), ((int)DAT_00408fa0), 2, 0, 0);
         x->Init();
         self->state = 0x13;
         self->Next();

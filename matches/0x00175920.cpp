@@ -1,3 +1,4 @@
+extern "C" char DAT_00417da4[];
 class Obj {
   public:
     virtual void V0();
@@ -33,5 +34,5 @@ Action::Action(int arg, Obj* obj) {
     if (field20)
         field20->V1();
     field20 = obj;
-    inner.SetName((const char*)0x417da4);
+    inner.SetName((const char*)((int)DAT_00417da4));
 }

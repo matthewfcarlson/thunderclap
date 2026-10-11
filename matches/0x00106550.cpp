@@ -1,3 +1,4 @@
+extern "C" char DAT_0040d564[];
 void ReleaseThing(void*);
 void DeleteThing(void*);
 class CPatrolPath {
@@ -13,7 +14,7 @@ class CPatrolPath {
     void InitMember();
 };
 CPatrolPath* CPatrolPath::vfunc_2(unsigned char flag) {
-    *(int*)this = 0x40d564;
+    *(int*)this = ((int)DAT_0040d564);
     ReleaseThing(field10);
     this->field14 = 0;
     this->InitMember();

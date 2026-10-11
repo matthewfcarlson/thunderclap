@@ -1,3 +1,4 @@
+extern "C" char DAT_004d3a6c[];
 extern "C" void __fastcall D3DDevice_SetRenderState_Simple(int*, int);
 namespace pure3d {
 class pddiBaseContext {
@@ -76,7 +77,7 @@ class d3dContext : public pddiBaseContext {
 };
 void d3dContext::v66(int x) {
     pddiBaseContext::v66(x);
-    int v = ((int*)0x4d3a6c)[x];
+    int v = ((int*)((int)DAT_004d3a6c))[x];
     D3DDevice_SetRenderState_Simple((int*)0x40364, v);
     *(int*)0x39de28 = v;
 }

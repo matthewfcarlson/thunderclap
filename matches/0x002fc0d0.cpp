@@ -1,3 +1,4 @@
+extern "C" char DAT_00431840[];
 class Base {
   public:
     char pad[0x18];
@@ -10,5 +11,5 @@ class PhysicsJointMatrixModifier : public Base {
 };
 PhysicsJointMatrixModifier::PhysicsJointMatrixModifier(void* arg) {
     member = arg;
-    *(void**)this = (void*)0x431840;
+    *(void**)this = (void*)((int)DAT_00431840);
 }

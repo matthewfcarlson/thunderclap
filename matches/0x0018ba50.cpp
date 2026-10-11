@@ -1,3 +1,4 @@
+extern "C" char DAT_0041922c[];
 class PropStateByIndexCondition {
   public:
     int a;
@@ -22,7 +23,7 @@ PropStateByIndexCondition* Factory::f5() {
     PropStateByIndexCondition* p = (PropStateByIndexCondition*)Alloc(0x18);
     if (p) {
         p->Init(0);
-        p->a = 0x41922c;
+        p->a = ((int)DAT_0041922c);
         p->d = -1;
         p->e = 0;
         p->f = 0;

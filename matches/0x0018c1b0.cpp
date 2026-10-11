@@ -1,3 +1,4 @@
+extern "C" char DAT_004194dc[];
 typedef unsigned int u32;
 extern void* __cdecl operator_new(unsigned int);
 class ShieldArcTrack {
@@ -23,7 +24,7 @@ ShieldArcTrack* Factory::Create() {
     ShieldArcTrack* p = (ShieldArcTrack*)operator_new(0x14);
     if (p) {
         p->Init();
-        *(u32*)p = 0x4194dc;
+        *(u32*)p = ((int)DAT_004194dc);
         *(u32*)((char*)p + 0xc) = 0;
         *(u32*)((char*)p + 0x10) = 0x3fc90fdb;
         *(u32*)((char*)p + 8) = 1;

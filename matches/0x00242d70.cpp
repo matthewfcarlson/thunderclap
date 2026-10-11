@@ -1,3 +1,4 @@
+extern "C" char DAT_004e5e88[];
 struct Obj {
     char pad[0x1c];
     unsigned int count;
@@ -10,5 +11,5 @@ void __cdecl Target(void* a, Obj* b) {
         return;
     }
     F1(a, b);
-    F2((void*)0x4e5e88, b);
+    F2((void*)((int)DAT_004e5e88), b);
 }

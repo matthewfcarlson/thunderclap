@@ -1,3 +1,4 @@
+extern "C" char DAT_00417b38[];
 class Sub {
   public:
     void Init();
@@ -20,7 +21,7 @@ class PushOutTrack {
 };
 extern void __cdecl thunk_FUN_00267090(PushOutTrack*);
 PushOutTrack* PushOutTrack::vfunc_5(int flag) {
-    *(int*)this = 0x417b38;
+    *(int*)this = ((int)DAT_00417b38);
     Sub* p = (Sub*)((char*)this + 0x18);
     p->Init();
     Middle();

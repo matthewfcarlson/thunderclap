@@ -1,3 +1,4 @@
+extern "C" char DAT_00428330[];
 class Obj {
   public:
     virtual void F0();
@@ -41,7 +42,7 @@ Obj* PrintTrack::vfunc_10(Obj* a, Obj* b, Obj* p) {
     if (q) {
         q->Init();
         *(PrintTrack**)((char*)q + 0x1c) = this;
-        *(unsigned int*)q = 0x428330;
+        *(unsigned int*)q = ((int)DAT_00428330);
         *(Obj**)((char*)q + 0x20) = 0;
         if (p)
             p->F0();

@@ -1,3 +1,4 @@
+extern "C" char DAT_00414130[];
 class Sub {
   public:
     void InitSub();
@@ -21,7 +22,7 @@ CollisionSourceNodeCondition* FactoryVfunc5() {
     CollisionSourceNodeCondition* p = (CollisionSourceNodeCondition*)Alloc(0x20);
     if (p) {
         p->Init(0);
-        *(unsigned long*)p = 0x414130;
+        *(unsigned long*)p = ((int)DAT_00414130);
         p->fieldC = 0;
         ((Sub*)((char*)p + 0x10))->InitSub();
         *((char*)p + 0x1c) = 0;

@@ -1,3 +1,4 @@
+extern "C" char DAT_003fcd5c[];
 typedef unsigned int u32;
 struct CHitAnimationTrack {};
 struct TrackFactoryCasterTemplate {
@@ -6,6 +7,6 @@ struct TrackFactoryCasterTemplate {
 extern void FUN_00236ac0(u32, void**);
 void FUN_00073000(u32 param_1) {
     void* local_4;
-    local_4 = (void*)0x3fcd5c;
+    local_4 = (void*)((int)DAT_003fcd5c);
     FUN_00236ac0(param_1, &local_4);
 }

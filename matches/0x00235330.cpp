@@ -1,3 +1,4 @@
+extern "C" char DAT_004279fc[];
 class Inner {
   public:
     void Init();
@@ -21,7 +22,7 @@ class ParamValueInt : public ParamValue {
 extern void Cleanup(ParamValueInt*);
 ParamValueInt* ParamValueInt::f0(int flags) {
     int* q = (int*)this;
-    *q = 0x4279fc;
+    *q = ((int)DAT_004279fc);
     inner.Init();
     if (flags & 1)
         Cleanup(this);

@@ -1,3 +1,4 @@
+extern "C" char DAT_00431700[];
 class CollisionSolverAgent {
   public:
     void* vptr;
@@ -7,6 +8,6 @@ class CollisionSolverAgent {
 };
 CollisionSolverAgent::CollisionSolverAgent() {
     a = 0;
-    vptr = (void*)0x431700;
+    vptr = (void*)((int)DAT_00431700);
     b = 0;
 }

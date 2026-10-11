@@ -1,3 +1,4 @@
+extern "C" char DAT_0042e654[];
 class ShadowMeshBufferLoader {
   public:
     int a;
@@ -14,7 +15,7 @@ ShadowMeshBufferLoader* __fastcall target(ShadowMeshBufferLoader* self) {
     self->c = 0x10023;
     self->d = 0;
     self->e = 0;
-    self->a = 0x42e654;
+    self->a = ((int)DAT_0042e654);
     int p = alloc_mem(0x2c);
     self->f = p ? init_obj(p) : 0;
     return self;

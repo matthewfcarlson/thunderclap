@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d1ec[];
 typedef unsigned int u32;
 class Base {
   public:
@@ -18,7 +19,7 @@ class Thing : public Base {
 };
 Thing* Thing::Run(void* src) {
     Init();
-    vf = 0x42d1ec;
+    vf = ((int)DAT_0042d1ec);
     a = ((u32*)src)[4];
     b = ((u32*)src)[5];
     ((Child*)((char*)this + 8))->Copy((char*)src + 8);

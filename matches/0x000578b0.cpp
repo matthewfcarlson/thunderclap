@@ -1,3 +1,4 @@
+extern "C" char DAT_003f6fa4[];
 typedef unsigned int u32;
 extern void* __cdecl FUN_0008d690(unsigned int);
 struct CCollisionHitLocationCondition {
@@ -20,7 +21,7 @@ CCollisionHitLocationCondition* Factory::vfunc_5() {
     CCollisionHitLocationCondition* p = (CCollisionHitLocationCondition*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
-        *(u32*)p = 0x3f6fa4;
+        *(u32*)p = ((int)DAT_003f6fa4);
         ((u32*)p)[3] = 2;
         ((u32*)p)[4] = 1;
         return p;

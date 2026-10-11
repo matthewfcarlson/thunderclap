@@ -1,3 +1,7 @@
+extern "C" char DAT_003f5d4c[];
+extern "C" char DAT_0048e0f0[];
+extern "C" char DAT_0048e100[];
+extern "C" char DAT_0048e128[];
 extern "C" void __stdcall FUN_001d0480(const char*, int);
 extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
 class Target {
@@ -13,10 +17,10 @@ class Target {
 };
 Target::Target(const char* a, int b) {
     FUN_001d0480(a, 3);
-    vptr = 0x3f5d4c;
+    vptr = ((int)DAT_003f5d4c);
     m1c = b;
-    b18 = FUN_001d04d0((const char*)0x48e100);
-    b10 = FUN_001d04d0((const char*)0x48e0f0);
-    b11 = FUN_001d04d0((const char*)0x48e0f0);
-    b12 = FUN_001d04d0((const char*)0x48e128);
+    b18 = FUN_001d04d0((const char*)((int)DAT_0048e100));
+    b10 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
+    b11 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
+    b12 = FUN_001d04d0((const char*)((int)DAT_0048e128));
 }

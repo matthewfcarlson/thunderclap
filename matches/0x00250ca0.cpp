@@ -1,3 +1,4 @@
+extern "C" char DAT_004e6ad0[];
 class SeqAction {
   public:
     virtual void vfunc_0();
@@ -25,6 +26,6 @@ extern void* seq_vftable[];
 audio::SeqActionExpression* audio::SeqActionExpression::vfunc_0(int x) {
     *(void**)this = seq_vftable;
     if (x & 1)
-        FUN_00247550((void*)0x4e6ad0, this);
+        FUN_00247550((void*)((int)DAT_004e6ad0), this);
     return this;
 }

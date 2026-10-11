@@ -1,3 +1,4 @@
+extern "C" char DAT_0041460c[];
 class Obj {
   public:
     virtual void F();
@@ -15,7 +16,7 @@ class Hit {
 };
 Hit::Hit(int p, Obj* q) {
     BaseCtor();
-    v = 0x41460c;
+    v = ((int)DAT_0041460c);
     a = 0;
     b = 0;
     *(int*)((char*)this + 0x24) = 0;

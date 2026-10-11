@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d90c[];
 class Calls {
   public:
     void Base();
@@ -13,7 +14,7 @@ class DrawableContainer {
 };
 void* DrawableContainer::Init(unsigned int arg) {
     ((Calls*)this)->Base();
-    vftable = (void*)0x42d90c;
+    vftable = (void*)((int)DAT_0042d90c);
     half = 0x3f000000;
     ((Calls*)((char*)this + 0x48))->Second(arg, &arg);
     owner = this;

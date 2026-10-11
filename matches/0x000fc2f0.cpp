@@ -1,3 +1,4 @@
+extern "C" char DAT_004e0a60[];
 class X {
   public:
     virtual void f0();
@@ -24,5 +25,5 @@ class X {
     virtual void f21();
 };
 void __cdecl FUN_000fc2f0() {
-    ((X*)*(unsigned int*)0x4e0a60)->f21();
+    ((X*)*(unsigned int*)((int)DAT_004e0a60))->f21();
 }

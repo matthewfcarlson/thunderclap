@@ -1,3 +1,4 @@
+extern "C" char DAT_00417ea0[];
 extern "C" void _ReadWriteBarrier();
 class Action {
   public:
@@ -17,7 +18,7 @@ class PushOutAction : public Base {
     void Clear();
 };
 void PushOutAction::Clear() {
-    vptr = 0x417ea0;
+    vptr = ((int)DAT_00417ea0);
     _ReadWriteBarrier();
     if (m2) {
         m2->B();

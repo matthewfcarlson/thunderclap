@@ -1,3 +1,4 @@
+extern "C" char DAT_0041da1c[];
 extern int __stdcall FUN_001d0480(const char*, int);
 extern char FUN_001d04d0(const char*);
 extern char str1, str2;
@@ -14,7 +15,7 @@ class CCollisionManager {
 };
 CCollisionManager::CCollisionManager(int a, int b) {
     FUN_001d0480((const char*)a, 3);
-    vtable = 0x41da1c;
+    vtable = ((int)DAT_0041da1c);
     value1c = b;
     value18 = FUN_001d04d0(&str1);
     value10 = FUN_001d04d0(&str2);

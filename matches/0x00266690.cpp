@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042aee4[];
 class Ref {
   public:
     virtual void A();
@@ -14,12 +16,12 @@ class LoadRequest {
     void Destroy();
 };
 void LoadRequest::Destroy() {
-    *(int*)this = 0x42aee4;
+    *(int*)this = ((int)DAT_0042aee4);
     if (a)
         a->Release();
     if (c)
         c->Release();
     if (b)
         b->Release();
-    *(int*)this = 0x3f6098;
+    *(int*)this = ((int)DAT_003f6098);
 }

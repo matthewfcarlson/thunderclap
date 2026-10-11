@@ -1,3 +1,5 @@
+extern "C" char DAT_00494b44[];
+extern "C" char DAT_00494b60[];
 extern int __cdecl castcheck(void*, int, void*, void*, int);
 
 struct Lvl3 {
@@ -24,7 +26,7 @@ class ThinkingCondition {
 };
 
 bool ThinkingCondition::vfunc_6(void* a, void* p, void* c) {
-    if (!castcheck(p, 0, (void*)0x494b44, (void*)0x494b60, 0))
+    if (!castcheck(p, 0, (void*)((int)DAT_00494b44), (void*)((int)DAT_00494b60), 0))
         return false;
     Lvl1* q = (Lvl1*)p;
     Lvl2* r = q->first();

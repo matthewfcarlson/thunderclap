@@ -1,3 +1,4 @@
+extern "C" char DAT_00411244[];
 extern "C" void* __cdecl Alloc(unsigned int);
 class Obj {
   public:
@@ -19,7 +20,7 @@ Obj* Factory::Make() {
     Obj* p = (Obj*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        *(unsigned int*)p = 0x411244;
+        *(unsigned int*)p = ((int)DAT_00411244);
         p->z = 0;
         p->c = 0;
         return p;

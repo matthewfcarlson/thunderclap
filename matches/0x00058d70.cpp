@@ -1,3 +1,4 @@
+extern "C" char DAT_003f734c[];
 extern "C" void* __cdecl Alloc(int);
 struct Entity {
     void Init();
@@ -21,7 +22,7 @@ Condition* Factory::Create() {
     Condition* p = (Condition*)Alloc(0x18);
     if (p) {
         p->Ctor(0);
-        *(void**)p = (void*)0x3f734c;
+        *(void**)p = (void*)((int)DAT_003f734c);
         *(int*)((char*)p + 0xc) = 0;
         p->ent.Init();
         return p;

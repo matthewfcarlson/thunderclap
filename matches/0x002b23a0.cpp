@@ -1,3 +1,4 @@
+extern "C" char DAT_0042e49c[];
 class MultiControllerLoader {
   public:
     int a;
@@ -12,5 +13,5 @@ MultiControllerLoader::MultiControllerLoader() {
     c = 0x121202;
     d = 0;
     e = 0;
-    a = 0x42e49c;
+    a = ((int)DAT_0042e49c);
 }

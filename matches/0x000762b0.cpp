@@ -1,3 +1,4 @@
+extern "C" char DAT_003fc148[];
 class CDeathTrack {
   public:
     int pad[4];
@@ -17,7 +18,7 @@ CDeathTrack* TrackFactoryTemplate::f5() {
     CDeathTrack* p = (CDeathTrack*)operator_new(0x10);
     if (p) {
         p->init();
-        *(unsigned long*)p = 0x3fc148;
+        *(unsigned long*)p = ((int)DAT_003fc148);
         *(unsigned long*)((char*)p + 0xc) = 0;
         return p;
     }

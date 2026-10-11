@@ -1,3 +1,4 @@
+extern "C" char DAT_0041aaa8[];
 struct TimerSetTrack {
     int vptr;
     int pad4;
@@ -21,7 +22,7 @@ void* Factory::F5() {
     TimerSetTrack* p = (TimerSetTrack*)Allocate(0x18);
     if (p) {
         p->Init();
-        p->vptr = 0x41aaa8;
+        p->vptr = ((int)DAT_0041aaa8);
         p->mc = 0;
         p->m10 = 0;
         p->m14 = 0;

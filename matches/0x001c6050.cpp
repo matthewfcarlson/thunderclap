@@ -1,3 +1,4 @@
+extern "C" char DAT_00421990[];
 struct Item {
     char pad[0x23];
     char flag;
@@ -25,7 +26,7 @@ struct Owner {
     Owner* Target(int arg1, int arg2);
 };
 Owner* Owner::Target(int arg1, int arg2) {
-    vf = (void*)0x421990;
+    vf = (void*)((int)DAT_00421990);
     s.Init();
     s.Set(arg1);
     Obj* o = Make2(arg1, arg2);

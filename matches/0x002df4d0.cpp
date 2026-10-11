@@ -1,3 +1,4 @@
+extern "C" char DAT_0042fb54[];
 typedef unsigned int U;
 class Base {
   public:
@@ -13,7 +14,7 @@ PrimGroup::PrimGroup(U x, U y) {
     a = 0;
     b = 0;
     c = x;
-    *(U*)this = 0x42fb54;
+    *(U*)this = ((int)DAT_0042fb54);
     d = y;
     e = 0xffffffff;
 }

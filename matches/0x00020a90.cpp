@@ -1,3 +1,5 @@
+extern "C" char DAT_003f3390[];
+extern "C" char DAT_003f3c90[];
 extern "C" void _ReadWriteBarrier();
 struct Ref {
     virtual void f0();
@@ -16,11 +18,11 @@ struct Obj {
 void Obj::a0() {}
 void Obj::a1() {}
 void Obj::Dtor() {
-    *(void**)this = (void*)0x3f3c90;
+    *(void**)this = (void*)((int)DAT_003f3c90);
     _ReadWriteBarrier();
     if (mUnknown)
         mUnknown = 0;
-    *(void**)this = (void*)0x3f3390;
+    *(void**)this = (void*)((int)DAT_003f3390);
     _ReadWriteBarrier();
     if (mRef) {
         mRef->Release();

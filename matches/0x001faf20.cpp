@@ -1,3 +1,4 @@
+extern "C" char DAT_0042502c[];
 struct MyFileStream {
     int v;
     int a;
@@ -21,7 +22,7 @@ bool Owner::Open(int x) {
     local.a = 0;
     local.b = 0;
     local.c = 0;
-    local.v = 0x42502c;
+    local.v = ((int)DAT_0042502c);
     if (stream->Try(&local, x))
         return true;
     stream->Close();

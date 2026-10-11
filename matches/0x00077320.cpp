@@ -1,3 +1,4 @@
+extern "C" char DAT_003fbf68[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class Helper {
   public:
@@ -36,7 +37,7 @@ void* Factory::vfunc_5() {
         p->x20 = 0;
         p->x24 = 0;
         p->x28 = 0;
-        p->vptr = (void*)0x3fbf68;
+        p->vptr = (void*)((int)DAT_003fbf68);
         p->x10 = 0xbf800000;
         p->x14 = 0xbc8efa35;
         p->x8 = 1;

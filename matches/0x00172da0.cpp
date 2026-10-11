@@ -1,3 +1,4 @@
+extern "C" char DAT_00417898[];
 class Part {
   public:
     void Init();
@@ -21,7 +22,7 @@ class JointTrackerTrack {
     void Init();
 };
 JointTrackerTrack* JointTrackerTrack::vfunc_5(int f) {
-    *(int*)this = 0x417898;
+    *(int*)this = ((int)DAT_00417898);
     part.Init();
     Init();
     if (f & 1)

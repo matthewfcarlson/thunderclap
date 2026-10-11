@@ -1,3 +1,4 @@
+extern "C" char DAT_00411110[];
 extern "C" void _ReadWriteBarrier();
 class Ref {
   public:
@@ -16,7 +17,7 @@ class PostEvent_StringAction : public Base {
     Ref* mRef;
 };
 void PostEvent_StringAction::Clean() {
-    *(void**)this = (void*)0x411110;
+    *(void**)this = (void*)((int)DAT_00411110);
     _ReadWriteBarrier();
     if (mRef) {
         mRef->Release();

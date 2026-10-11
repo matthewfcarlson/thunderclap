@@ -1,3 +1,4 @@
+extern "C" char DAT_0041d48c[];
 extern void* __cdecl Allocate(unsigned int);
 class Thing {
   public:
@@ -20,7 +21,7 @@ void* Factory::v5() {
     Thing* p = (Thing*)Allocate(24);
     if (p) {
         p->Init(0);
-        *(unsigned int*)p = 0x41d48c;
+        *(unsigned int*)p = ((int)DAT_0041d48c);
         *(unsigned int*)((char*)p + 12) = 0;
         ((Sub*)((char*)p + 16))->Finish();
         return p;

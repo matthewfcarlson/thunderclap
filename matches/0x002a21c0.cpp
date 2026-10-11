@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d750[];
 extern "C" void _ReadWriteBarrier();
 typedef unsigned int u32;
 extern void __cdecl thunk_FUN_00267090(u32);
@@ -10,7 +11,7 @@ struct TranslucentTraversal {
     u32 mTen;
 };
 void __fastcall FUN_002a21c0(TranslucentTraversal* self) {
-    *(volatile u32*)&self->vptr = 0x42d750;
+    *(volatile u32*)&self->vptr = ((int)DAT_0042d750);
     _ReadWriteBarrier();
     if (self->mTen)
         thunk_FUN_00267090(self->mTen);

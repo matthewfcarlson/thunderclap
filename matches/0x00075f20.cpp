@@ -1,3 +1,4 @@
+extern "C" char DAT_003fc1c0[];
 typedef unsigned int size_t;
 void* operator new(size_t);
 class CClearCollisionStun {
@@ -26,7 +27,7 @@ int TrackFactoryTemplate::v5() {
     CClearCollisionStun* p = (CClearCollisionStun*)operator new(0x14);
     if (p) {
         p->Init();
-        *(volatile int*)p = 0x3fc1c0;
+        *(volatile int*)p = ((int)DAT_003fc1c0);
         p->a2 = 0;
         p->a3 = 0xbf800000;
         p->a1 = 1;

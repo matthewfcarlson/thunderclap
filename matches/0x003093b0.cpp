@@ -1,3 +1,4 @@
+extern "C" char DAT_00431d1c[];
 struct Item {
     char pad[0x34];
     void Destroy();
@@ -12,7 +13,7 @@ struct HairclubPhysicsObject {
 };
 void HairclubPhysicsObject::Destroy() {
     Item* p = items;
-    vptr = (void*)0x431d1c;
+    vptr = (void*)((int)DAT_00431d1c);
     if (p) {
         int n = *((int*)p - 1);
         Item* q = p + n;

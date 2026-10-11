@@ -1,3 +1,4 @@
+extern "C" char DAT_003fef7c[];
 struct Obj {
     virtual void f0();
     virtual void f1();
@@ -11,6 +12,6 @@ void Target(Obj* p, int b) {
         void* v;
     };
     Local local;
-    local.v = (void*)0x3fef7c;
+    local.v = (void*)((int)DAT_003fef7c);
     p->f3(&local, x);
 }

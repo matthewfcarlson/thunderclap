@@ -1,3 +1,4 @@
+extern "C" char DAT_00413738[];
 void* operator_new(unsigned int);
 typedef unsigned int u32;
 
@@ -24,7 +25,7 @@ void* Factory::vfunc_5() {
     char* p = (char*)operator_new(0x28);
     if (p) {
         ((Base1*)p)->Init1();
-        *(u32*)(p) = 0x413738;
+        *(u32*)(p) = ((int)DAT_00413738);
         *(u32*)(p + 0xc) = 0;
         *(u32*)(p + 0x10) = 0xbf800000;
         ((Sub1*)(p + 0x14))->Init2();

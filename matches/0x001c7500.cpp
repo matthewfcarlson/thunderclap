@@ -1,3 +1,4 @@
+extern "C" char DAT_00421a3c[];
 void thunk(int);
 class StoreBase {
   public:
@@ -8,6 +9,6 @@ class StoreBase {
 };
 void StoreBase::Fn() {
     int t = b;
-    vp = 0x421a3c;
+    vp = ((int)DAT_00421a3c);
     thunk(t);
 }

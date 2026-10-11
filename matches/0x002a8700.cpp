@@ -1,3 +1,4 @@
+extern "C" char DAT_0042dd24[];
 class Ref {
   public:
     virtual void v0();
@@ -41,7 +42,7 @@ Ref* Shader::own4() {
     Shader* p = (Shader*)alloc(0x48);
     if (p) {
         p->setup(self);
-        *(int*)p = 0x42dd24;
+        *(int*)p = ((int)DAT_0042dd24);
         p->mRef = 0;
         Ref* q = self->mRef;
         if (q)

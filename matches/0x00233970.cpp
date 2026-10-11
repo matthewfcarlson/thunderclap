@@ -1,3 +1,4 @@
+extern "C" char DAT_00427898[];
 class Branch {
   public:
     virtual void f0();
@@ -17,7 +18,7 @@ class Helper {
     void finish();
 };
 void Branch::run() {
-    *(void**)this = (void*)0x427898;
+    *(void**)this = (void*)((int)DAT_00427898);
     Branch::f7();
     ((Helper*)((char*)this + 0x18))->init();
     ((Helper*)this)->finish();

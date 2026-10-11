@@ -1,3 +1,4 @@
+extern "C" char DAT_00475142[];
 class BillboardQuadGroupAnimationController {
   public:
     virtual void f0();
@@ -31,7 +32,7 @@ class BillboardQuadGroupAnimationController {
 bool BillboardQuadGroupAnimationController::vfunc_26(void* p) {
     if (p) {
         unsigned int x = *(unsigned int*)((char*)p + 0x1c);
-        int r = (x == 0x475142);
+        int r = (x == ((int)DAT_00475142));
         return r != 0;
     }
     return false;

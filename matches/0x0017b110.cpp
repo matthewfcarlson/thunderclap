@@ -1,3 +1,4 @@
+extern "C" char DAT_00417df0[];
 class Ref {
   public:
     virtual void f0();
@@ -25,7 +26,7 @@ class JointTrackerAction {
     Ref* m74;
 };
 JointTrackerAction* JointTrackerAction::vfunc_2(int flag) {
-    *(volatile int*)this = 0x417df0;
+    *(volatile int*)this = ((int)DAT_00417df0);
     Ref* volatile* p = &m74;
     Ref* a = *p;
     if (a) {

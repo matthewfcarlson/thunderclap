@@ -1,3 +1,4 @@
+extern "C" char DAT_00433eec[];
 class BuildingShader {
   public:
     char pad[0x80];
@@ -12,6 +13,6 @@ BuildingShader* BuildingShader::Target(int arg) {
     b = 0;
     c = 0;
     d = 0;
-    *(int*)this = 0x433eec;
+    *(int*)this = ((int)DAT_00433eec);
     return this;
 }

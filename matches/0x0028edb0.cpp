@@ -1,3 +1,4 @@
+extern "C" char DAT_0042cb44[];
 typedef unsigned int u32;
 struct Service {
     virtual void f0();
@@ -30,7 +31,7 @@ struct Shader : Base {
     Shader();
 };
 Shader::Shader() {
-    vtable = (void*)0x42cb44;
+    vtable = (void*)((int)DAT_0042cb44);
     flag = 0;
     value = 0;
     mService = gManager->Get("simple", 0);

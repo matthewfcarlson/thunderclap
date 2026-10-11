@@ -1,3 +1,6 @@
+extern "C" char DAT_0042b914[];
+extern "C" char DAT_0042b9bc[];
+extern "C" char DAT_0052a1c8[];
 typedef unsigned char byte;
 struct O {
     virtual void a();
@@ -26,16 +29,16 @@ extern void FUN_0026d850(void*);
 extern void FUN_0026d840(void*);
 extern O* glob;
 Drive* Drive::vfunc_0(byte flag) {
-    *(void**)this = (void*)0x42b9bc;
+    *(void**)this = (void*)((int)DAT_0042b9bc);
     ((O*)((char*)field8 + 4))->a();
     field8->count--;
     ((O*)((char*)field8 + 4))->b();
     ((O*)field8)->b();
-    *(void**)this = (void*)0x42b914;
+    *(void**)this = (void*)((int)DAT_0042b914);
     if (flag & 1) {
-        FUN_0026d850((void*)0x52a1c8);
+        FUN_0026d850((void*)((int)DAT_0052a1c8));
         glob->e(this);
-        FUN_0026d840((void*)0x52a1c8);
+        FUN_0026d840((void*)((int)DAT_0052a1c8));
     }
     return this;
 }

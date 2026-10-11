@@ -1,3 +1,4 @@
+extern "C" char DAT_0042ae9c[];
 class LoadStream {
   public:
     void* vp;
@@ -11,7 +12,7 @@ class LoadStream {
 };
 LoadStream::LoadStream(void* a, int b, int c) {
     m = 0;
-    vp = (void*)0x42ae9c;
+    vp = (void*)((int)DAT_0042ae9c);
     Base0();
     flag = (c == 1);
     value = ((unsigned char*)a)[0x10c];

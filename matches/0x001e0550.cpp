@@ -1,3 +1,4 @@
+extern "C" char DAT_004233f8[];
 class Obj {
   public:
     int v;
@@ -15,7 +16,7 @@ extern char gC[];
 extern char __cdecl FUN_001d04d0(const char*);
 Obj* Obj::Make(const char* p, int x) {
     Init(p, 5);
-    v = 0x4233f8;
+    v = ((int)DAT_004233f8);
     m1c = x;
     b18 = FUN_001d04d0(gA);
     pad[12] = FUN_001d04d0(gB);

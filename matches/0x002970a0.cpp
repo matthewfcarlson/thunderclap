@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d2dc[];
 class Obj {
   public:
     virtual void a();
@@ -26,7 +27,7 @@ class Scenegraph {
 };
 void __cdecl thunk(Scenegraph*);
 Scenegraph* Scenegraph::vfunc_2(unsigned char flag) {
-    *(volatile unsigned long*)this = 0x42d2dc;
+    *(volatile unsigned long*)this = ((int)DAT_0042d2dc);
     Obj* p = mObj;
     if (p) {
         p->b();

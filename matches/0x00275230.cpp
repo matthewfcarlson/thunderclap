@@ -1,3 +1,4 @@
+extern "C" char DAT_0042baa0[];
 typedef unsigned int u32;
 class Base {
   public:
@@ -11,7 +12,7 @@ class FileReadRequest : public Base {
     FileReadRequest(u32, u32, u32, u32);
 };
 FileReadRequest::FileReadRequest(u32 x, u32 y, u32 z, u32 w) : Base(x) {
-    *(u32*)this = 0x42baa0;
+    *(u32*)this = ((int)DAT_0042baa0);
     a = y;
     b = z;
     c = w;

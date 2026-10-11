@@ -1,3 +1,4 @@
+extern "C" char DAT_003f3f38[];
 extern int __cdecl Query(int, int);
 extern int __cdecl Format(int, int, const char*, int);
 extern void __cdecl Finish(int, int);
@@ -14,7 +15,7 @@ bool Obj::Run(int a, int b, char flag) {
     if (x == 0) {
         r = false;
     } else {
-        Format(a, b, (const char*)0x3f3f38, x);
+        Format(a, b, (const char*)((int)DAT_003f3f38), x);
     }
     if (flag)
         Finish(field, -2);

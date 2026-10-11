@@ -1,3 +1,4 @@
+extern "C" char DAT_0042bc60[];
 extern "C" void __stdcall BaseInit(void*);
 extern "C" void InitMore();
 extern "C" char* strncpy(char*, const char*, unsigned int);
@@ -8,7 +9,7 @@ class DriveFileDestroyRequest {
 };
 DriveFileDestroyRequest* DriveFileDestroyRequest::Run(int a, char* p) {
     BaseInit((void*)a);
-    *(unsigned int*)this = 0x42bc60;
+    *(unsigned int*)this = ((int)DAT_0042bc60);
     InitMore();
     strncpy((char*)this + 0xc, p, 0x100);
     ((char*)this)[0x10c] = 0;

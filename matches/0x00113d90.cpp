@@ -1,3 +1,4 @@
+extern "C" char DAT_0040d984[];
 typedef unsigned int uint;
 extern void* __cdecl operator_new(unsigned int);
 class Condition {
@@ -27,7 +28,7 @@ Condition* Factory::Create() {
     Condition* p = (Condition*)operator_new(0x18);
     if (p) {
         ((Base*)p)->Init(0);
-        *(uint*)p = 0x40d984;
+        *(uint*)p = ((int)DAT_0040d984);
         *(uint*)((char*)p + 0xc) = 0;
         *((char*)p + 0x10) = 0;
         *(uint*)((char*)p + 0x14) = 0;

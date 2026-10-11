@@ -1,3 +1,4 @@
+extern "C" char DAT_00411344[];
 typedef unsigned int U;
 class DialogueTrack;
 extern void __fastcall final_fn(DialogueTrack*);
@@ -14,7 +15,7 @@ class DialogueTrack {
     void destroy();
 };
 void DialogueTrack::destroy() {
-    vf = (void*)0x411344;
+    vf = (void*)((int)DAT_00411344);
     release(a);
     release(b);
     release(c);

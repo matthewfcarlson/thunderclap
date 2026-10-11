@@ -1,3 +1,4 @@
+extern "C" char DAT_0042efb0[];
 class VertexOffsetList {
   public:
     VertexOffsetList(int value);
@@ -10,7 +11,7 @@ class VertexOffsetList {
 
 VertexOffsetList::VertexOffsetList(int value) {
     a1 = 0;
-    vptr = (void*)0x42efb0;
+    vptr = (void*)((int)DAT_0042efb0);
     a2 = 0;
     a3 = value;
     a4 = 0;

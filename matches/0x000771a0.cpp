@@ -1,3 +1,4 @@
+extern "C" char DAT_003fbc24[];
 struct CMoveAddTrack {
     unsigned int vf;
     unsigned int x4;
@@ -24,7 +25,7 @@ CMoveAddTrack* TrackFactoryTemplate::v5() {
         p->Init();
         p->x10 = 1.0f;
         p->x14 = 1.0f;
-        *(unsigned int*)p = 0x3fbc24;
+        *(unsigned int*)p = ((int)DAT_003fbc24);
         p->xc = 0;
         p->x18 = 0;
         p->x8 = 1;

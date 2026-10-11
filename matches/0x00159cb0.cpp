@@ -1,3 +1,4 @@
+extern "C" char DAT_004142a0[];
 class HitPauseTrack {
   public:
     virtual void A();
@@ -19,7 +20,7 @@ HitPauseTrack* Factory::V5() {
     if (p) {
         p->HitPauseTrack::HitPauseTrack();
         int* q = (int*)p;
-        q[0] = 0x4142a0;
+        q[0] = ((int)DAT_004142a0);
         q[3] = 0;
         q[4] = 0;
         q[5] = 0;

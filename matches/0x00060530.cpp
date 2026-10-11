@@ -1,3 +1,4 @@
+extern "C" char DAT_003faa44[];
 class Part {
   public:
     char pad[8];
@@ -18,7 +19,7 @@ class CMotionTrailTrack {
     void Run();
 };
 void CMotionTrailTrack::Run() {
-    *(int*)this = 0x3faa44;
+    *(int*)this = ((int)DAT_003faa44);
     pa8.Init();
     Part* p = &p60;
     int i = 6;

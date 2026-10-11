@@ -1,3 +1,4 @@
+extern "C" char DAT_0042fbd4[];
 class Base {
   public:
     void Init();
@@ -22,6 +23,6 @@ PrimGroupSkinnedOptimized* PrimGroupSkinnedOptimized::setup(int x, int y) {
     a60 = 0;
     a64 = 0;
     a50 = -1;
-    *(int*)this = 0x42fbd4;
+    *(int*)this = ((int)DAT_0042fbd4);
     return this;
 }

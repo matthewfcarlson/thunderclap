@@ -1,3 +1,4 @@
+extern "C" char DAT_003f9098[];
 class CAxisDownCondition {
   public:
     CAxisDownCondition();
@@ -16,7 +17,7 @@ void* ConditionFactoryTemplate::vfunc_5() {
     CAxisDownCondition* p = (CAxisDownCondition*)FUN_0008d690(0x20);
     if (p) {
         p->CAxisDownCondition::CAxisDownCondition();
-        *(void**)p = (void*)0x3f9098;
+        *(void**)p = (void*)((int)DAT_003f9098);
         return p;
     }
     return 0;

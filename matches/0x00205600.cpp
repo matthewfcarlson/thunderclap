@@ -1,3 +1,4 @@
+extern "C" char DAT_00425be4[];
 class InitBase {
   public:
     void Init(const char*, int);
@@ -17,7 +18,7 @@ extern char* __cdecl FUN_001d04d0(const char*);
 extern char str1[], str2[], str3[], str4[];
 CWorldStreamManager::CWorldStreamManager(const char* a, int b) {
     ((InitBase*)this)->Init(a, 3);
-    vptr = 0x425be4;
+    vptr = ((int)DAT_00425be4);
     f1c = b;
     f18 = (char)FUN_001d04d0(str1);
     f10 = (char)FUN_001d04d0(str2);

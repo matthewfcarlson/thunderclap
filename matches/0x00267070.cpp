@@ -1,3 +1,4 @@
+extern "C" char DAT_00527f40[];
 struct Obj {
     virtual void a();
     virtual void b();
@@ -13,6 +14,6 @@ struct Handle {
 };
 extern Handle* __cdecl Get(void*, int);
 void __cdecl Target(int x) {
-    Handle* h = Get((void*)0x527f40, x);
+    Handle* h = Get((void*)((int)DAT_00527f40), x);
     h->p->h(x);
 }

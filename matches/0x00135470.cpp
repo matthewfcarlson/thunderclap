@@ -1,3 +1,4 @@
+extern "C" char DAT_00411dc4[];
 struct Ref {
     virtual void AddRef();
     virtual void Release();
@@ -19,7 +20,7 @@ class FlyingAttackAction {
 };
 FlyingAttackAction* FlyingAttackAction::Run(void* a, Ref* r) {
     BaseCtor();
-    vft = (void*)0x411dc4;
+    vft = (void*)((int)DAT_00411dc4);
     arg = 0;
     ref = 0;
     x24 = 0;

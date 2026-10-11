@@ -1,3 +1,4 @@
+extern "C" char DAT_00421a04[];
 struct RoomLoader {
     int vft;
     int a;
@@ -12,6 +13,6 @@ RoomLoader::RoomLoader(int arg) {
     c = 0;
     d = 0;
     b = 0x60000701;
-    vft = 0x421a04;
+    vft = ((int)DAT_00421a04);
     e = arg;
 }

@@ -1,3 +1,4 @@
+extern "C" char DAT_003f7250[];
 class Factory {
   public:
     virtual void f0();
@@ -20,7 +21,7 @@ void* ConditionFactoryTemplate::f5() {
     void* p = FUN_0008d690(0x14);
     if (p) {
         ((Init*)p)->InitFn(0);
-        *(unsigned long*)p = 0x3f7250;
+        *(unsigned long*)p = ((int)DAT_003f7250);
         *(unsigned long*)((char*)p + 0xc) = 2;
         *(unsigned long*)((char*)p + 0x10) = 0;
         return p;

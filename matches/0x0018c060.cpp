@@ -1,3 +1,4 @@
+extern "C" char DAT_0041944c[];
 class PropSetStateByIndexTrack {
   public:
     int a;
@@ -22,7 +23,7 @@ PropSetStateByIndexTrack* Factory::vfunc_5() {
     PropSetStateByIndexTrack* p = (PropSetStateByIndexTrack*)Allocate(0x18);
     if (p) {
         p->Init();
-        p->a = 0x41944c;
+        p->a = ((int)DAT_0041944c);
         p->d = 0;
         p->e = -1;
         p->f = 0;

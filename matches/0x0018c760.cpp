@@ -1,3 +1,4 @@
+extern "C" char DAT_004192fc[];
 class Sub {
   public:
     void initSub();
@@ -22,7 +23,7 @@ PropSetStateByNameTrack* Factory::vfunc_5() {
     PropSetStateByNameTrack* p = (PropSetStateByNameTrack*)operator_new(0x20);
     if (p) {
         p->baseInit();
-        *(unsigned long*)p = 0x4192fc;
+        *(unsigned long*)p = ((int)DAT_004192fc);
         *(unsigned long*)((char*)p + 0xc) = 0;
         *(unsigned long*)((char*)p + 0x10) = 0xffffffff;
         p->sub.initSub();

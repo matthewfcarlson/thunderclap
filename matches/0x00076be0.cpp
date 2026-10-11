@@ -1,3 +1,4 @@
+extern "C" char DAT_003fbe04[];
 class CIntangibleTrack {
   public:
     virtual void A();
@@ -21,7 +22,7 @@ CIntangibleTrack* Factory::vfunc_5() {
     CIntangibleTrack* p = (CIntangibleTrack*)FUN_0008d690(0x14);
     if (p) {
         p->Init();
-        *(int*)p = 0x3fbe04;
+        *(int*)p = ((int)DAT_003fbe04);
         p->d = 0;
         p->e = (int)0xbf800000;
         p->c = 1;

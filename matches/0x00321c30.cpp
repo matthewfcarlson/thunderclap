@@ -1,3 +1,4 @@
+extern "C" char DAT_004d3a54[];
 typedef unsigned int u32;
 namespace pure3d {
 class pddiBaseContext {
@@ -87,11 +88,11 @@ void __stdcall SetStencil(u32);
 void __fastcall SetSimple(u32, u32);
 void pure3d::d3dContext::vfunc_74(int a, int b, int c) {
     pddiBaseContext::vfunc_74(a, b, c);
-    SetStencil(*(u32*)(0x4d3a54 + a * 4));
-    u32 x = *(u32*)(0x4d3a54 + b * 4);
+    SetStencil(*(u32*)(((int)DAT_004d3a54) + a * 4));
+    u32 x = *(u32*)(((int)DAT_004d3a54) + b * 4);
     SetSimple(0x40374, x);
     *(u32*)0x39de20 = x;
-    u32 y = *(u32*)(0x4d3a54 + c * 4);
+    u32 y = *(u32*)(((int)DAT_004d3a54) + c * 4);
     SetSimple(0x40378, y);
     *(u32*)0x39de24 = y;
 }

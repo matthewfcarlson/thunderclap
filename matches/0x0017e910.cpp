@@ -1,3 +1,4 @@
+extern "C" char DAT_00417c28[];
 struct Base {
     virtual void a();
     virtual void b();
@@ -26,7 +27,7 @@ CriticalMassDrainTrack* Factory::Create() {
     CriticalMassDrainTrack* p = (CriticalMassDrainTrack*)operator_new(0x14);
     if (p) {
         p->Init();
-        *(int*)p = 0x417c28;
+        *(int*)p = ((int)DAT_00417c28);
         p->mC = 0;
         p->m10 = 0;
         p->m8 = 1;

@@ -1,3 +1,5 @@
+extern "C" char DAT_0049dba4[];
+extern "C" char DAT_0049f4f0[];
 class VScroll {
   public:
     virtual void f0();
@@ -34,10 +36,10 @@ void VScroll::vfunc_18(void* item) {
         ((int*)((char*)this + (count + 4) * 16))[0] = (int)item;
         ((int*)((char*)this + 0x48 + count * 16))[0] = 0;
         if (!selected) {
-            if (FUN_00344e74(((int*)((char*)this + (count + 4) * 16))[0], 0, (const char*)0x49dba4,
-                             (const char*)0x49f4f0, 0))
-                selected = FUN_00344e74(((int*)((char*)this + (count + 4) * 16))[0], 0, (const char*)0x49dba4,
-                                        (const char*)0x49f4f0, 0);
+            if (FUN_00344e74(((int*)((char*)this + (count + 4) * 16))[0], 0, (const char*)((int)DAT_0049dba4),
+                             (const char*)((int)DAT_0049f4f0), 0))
+                selected = FUN_00344e74(((int*)((char*)this + (count + 4) * 16))[0], 0, (const char*)((int)DAT_0049dba4),
+                                        (const char*)((int)DAT_0049f4f0), 0);
         }
         ++count;
         if (count > 1)

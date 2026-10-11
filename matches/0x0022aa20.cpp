@@ -1,3 +1,4 @@
+extern "C" char DAT_00427534[];
 class Base {
   public:
     void Fn();
@@ -23,7 +24,7 @@ class LocomotionDriver {
 extern int g_count;
 extern void __cdecl thunk_FUN_00267090(LocomotionDriver*);
 LocomotionDriver* LocomotionDriver::vfunc_2(int flags) {
-    *(void**)this = (void*)0x427534;
+    *(void**)this = (void*)((int)DAT_00427534);
     g_count--;
     ((Base*)this)->Fn();
     if (flags & 1)

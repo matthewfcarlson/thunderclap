@@ -1,3 +1,4 @@
+extern "C" char DAT_00427a38[];
 class ParamValue {
   public:
     ParamValue(int);
@@ -12,5 +13,5 @@ class ParamValueInt {
 };
 ParamValueInt::ParamValueInt(int x) : value(x) {
     volatile int* p = (volatile int*)this;
-    *p = 0x427a38;
+    *p = ((int)DAT_00427a38);
 }

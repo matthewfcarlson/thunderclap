@@ -1,3 +1,4 @@
+extern "C" char DAT_0040d518[];
 struct Root {
     char pad[0x1c];
     void* sub;
@@ -20,7 +21,7 @@ class CPathGraphAgent {
 };
 extern void __fastcall Finish(CPathGraphAgent*);
 void __fastcall FUN(CPathGraphAgent* self) {
-    self->vptr = (void*)0x40d518;
+    self->vptr = (void*)((int)DAT_0040d518);
     ((Sub*)gRoot->sub)->Init((char*)self + 0x5c);
     self->mAcopy = self->mA;
     if (self->mA)

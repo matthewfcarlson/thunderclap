@@ -1,3 +1,4 @@
+extern "C" char DAT_0041941c[];
 typedef unsigned char u8;
 extern void __cdecl cleanup(void*);
 class Sub {
@@ -22,7 +23,7 @@ class BallAndChainReturnTrack {
 };
 BallAndChainReturnTrack* BallAndChainReturnTrack::vfunc_5(u8 flag) {
     Sub* a = (Sub*)((char*)this + 0x60);
-    *(int*)this = 0x41941c;
+    *(int*)this = ((int)DAT_0041941c);
     a->Init();
     ((Sub*)((char*)this + 0x48))->Init();
     this->BaseInit();

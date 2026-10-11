@@ -1,3 +1,4 @@
+extern "C" char DAT_00423f38[];
 extern void* __cdecl FUN_0008d710(unsigned int, unsigned int);
 struct CSoundSequence {
     unsigned int vt;
@@ -28,7 +29,7 @@ CSoundSequence* Owner::Add() {
     CSoundSequence* r0 = (CSoundSequence*)FUN_0008d710(0x130, 6);
     CSoundSequence* p;
     if (r0) {
-        r0->vt = 0x423f38;
+        r0->vt = ((int)DAT_00423f38);
         r0->a = 0;
         r0->d = 0;
         r0->e = 0;

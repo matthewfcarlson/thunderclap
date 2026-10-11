@@ -1,3 +1,5 @@
+extern "C" char DAT_0042d1ec[];
+extern "C" char DAT_0042d28c[];
 class Child {
   public:
     virtual void Destroy();
@@ -23,11 +25,11 @@ class Name {
 };
 Obj* Obj::Build(Obj* src) {
     ((Base*)this)->Init();
-    vptr = 0x42d1ec;
+    vptr = ((int)DAT_0042d1ec);
     x[3] = src->x[3];
     x[4] = src->x[4];
     ((Name*)((char*)this + 8))->Copy((Name*)((char*)src + 8));
-    vptr = 0x42d28c;
+    vptr = ((int)DAT_0042d28c);
     c = 0;
     if (src->c) {
         Child* p = src->c->Get();

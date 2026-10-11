@@ -1,3 +1,4 @@
+extern "C" char DAT_00427898[];
 typedef unsigned int u32;
 struct Base {
     void Init();
@@ -18,7 +19,7 @@ class Branch {
 };
 Branch* Branch::Build(u32 param) {
     ((Base*)this)->Init();
-    *((u32*)this) = 0x427898;
+    *((u32*)this) = ((int)DAT_00427898);
     arg = param;
     field14 = 0;
     inner.Init();

@@ -1,3 +1,4 @@
+extern "C" char DAT_0042ba80[];
 class FileCommitRequest {
   public:
     int vt;
@@ -7,6 +8,6 @@ class FileCommitRequest {
 extern void __stdcall Finish();
 FileCommitRequest::FileCommitRequest(int a) {
     Init(a);
-    vt = 0x42ba80;
+    vt = ((int)DAT_0042ba80);
     Finish();
 }

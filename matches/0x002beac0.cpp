@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042e974[];
 class A {
   public:
     virtual void f();
@@ -22,7 +24,7 @@ class Sprite {
     void target();
 };
 void Sprite::target() {
-    vt = (void*)0x42e974;
+    vt = (void*)((int)DAT_0042e974);
     a->g();
     if (b)
         b->f(1);
@@ -31,5 +33,5 @@ void Sprite::target() {
         q->run();
         thunk(q);
     }
-    vt = (void*)0x3f6098;
+    vt = (void*)((int)DAT_003f6098);
 }

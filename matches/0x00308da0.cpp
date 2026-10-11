@@ -1,3 +1,4 @@
+extern "C" char DAT_00431d1c[];
 class HairclubPhysicsObject {
   public:
     int vftable;
@@ -9,7 +10,7 @@ class HairclubPhysicsObject {
 extern void BaseCtor();
 HairclubPhysicsObject* __fastcall FUN_00308da0(HairclubPhysicsObject* self) {
     BaseCtor();
-    self->vftable = 0x431d1c;
+    self->vftable = ((int)DAT_00431d1c);
     self->field1f8 = 0;
     self->field24 = 2;
     return self;

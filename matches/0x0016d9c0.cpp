@@ -1,3 +1,4 @@
+extern "C" char DAT_004167d8[];
 class TargetingCondition {
   public:
     TargetingCondition(int);
@@ -25,7 +26,7 @@ TargetingCondition* ConditionFactoryTemplate::vfunc_5() {
     TargetingCondition* p = (TargetingCondition*)operator_new(0x10);
     if (p) {
         p->Init(0);
-        *(void**)p = (void*)0x4167d8;
+        *(void**)p = (void*)((int)DAT_004167d8);
         *((char*)p + 0xc) = 1;
     } else {
         p = 0;

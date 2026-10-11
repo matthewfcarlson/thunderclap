@@ -1,3 +1,4 @@
+extern "C" char DAT_0040bf00[];
 class CGlowDisplayEffect {
   public:
     unsigned int vptr;
@@ -12,7 +13,7 @@ class CGlowDisplayEffect {
 CGlowDisplayEffect::CGlowDisplayEffect() {
     a = 0;
     b = 0;
-    vptr = 0x40bf00;
+    vptr = ((int)DAT_0040bf00);
     c = 0x3dcccccd;
     d = 0x7f00de19;
     e = 0x3f800000;

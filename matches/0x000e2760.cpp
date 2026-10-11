@@ -1,3 +1,5 @@
+extern "C" char DAT_0049dba4[];
+extern "C" char DAT_0049f4f0[];
 class FEObject {
   public:
     virtual void f0();
@@ -43,7 +45,7 @@ class VScroll : public FELayout {
 extern FEObject* castFE(void*, int, int, int, int);
 void VScroll::vfunc_12() {
     for (int i = 0; i < count; ++i) {
-        FEObject* p = castFE(*(void**)((char*)this + 0x40 + i * 16), 0, 0x49dba4, 0x49f4f0, 0);
+        FEObject* p = castFE(*(void**)((char*)this + 0x40 + i * 16), 0, ((int)DAT_0049dba4), ((int)DAT_0049f4f0), 0);
         if (p)
             p->f16();
     }

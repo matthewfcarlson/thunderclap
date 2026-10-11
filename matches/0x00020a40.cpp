@@ -1,3 +1,5 @@
+extern "C" char DAT_003f3390[];
+extern "C" char DAT_003f3c90[];
 class Param {
   public:
     virtual void Add();
@@ -14,14 +16,14 @@ class Obj {
 };
 Obj* Obj::ctor(int value, Param* p) {
     BaseInit();
-    v = (void*)0x3f3390;
+    v = (void*)((int)DAT_003f3390);
     this->p = 0;
     if (p)
         p->Add();
     if (this->p)
         this->p->Drop();
     *(Param* volatile*)&this->p = p;
-    *(void* volatile*)&v = (void*)0x3f3c90;
+    *(void* volatile*)&v = (void*)((int)DAT_003f3c90);
     this->value = 0;
     this->value = value;
     return this;

@@ -1,3 +1,4 @@
+extern "C" char DAT_004338f4[];
 class Helper {
   public:
     void Init(void*);
@@ -14,7 +15,7 @@ Obj* Obj::Make(void* arg) {
     *(unsigned int*)((char*)this + 0x58) = 0xff000000;
     *(unsigned int*)((char*)this + 0x50) = 0xff000000;
     *(unsigned int*)((char*)this + 0x54) = 0xff000000;
-    *(unsigned int*)this = 0x4338f4;
+    *(unsigned int*)this = ((int)DAT_004338f4);
     *(unsigned char*)((char*)this + 0x48) = 1;
     *(unsigned int*)((char*)this + 0x5c) = 0xffff80ff;
     return this;

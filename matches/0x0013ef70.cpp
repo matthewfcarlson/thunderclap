@@ -1,3 +1,4 @@
+extern "C" char DAT_00412ad0[];
 struct Base {
     virtual void f();
     ~Base();
@@ -14,7 +15,7 @@ struct WallRunTrack : Base {
     void Kill();
 };
 void WallRunTrack::Kill() {
-    *(void**)this = (void*)0x412ad0;
+    *(void**)this = (void*)((int)DAT_00412ad0);
     c.Dtor();
     b.Dtor();
     a.Dtor();

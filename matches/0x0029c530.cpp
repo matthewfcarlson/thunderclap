@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d604[];
 struct LightsChooserCache {
     void* vftable;
     char pad[0x20];
@@ -8,7 +9,7 @@ struct LightsChooserCache {
 extern void __cdecl thunk_FUN_00267090(int);
 void LightsChooserCache::target() {
     int x = value;
-    vftable = (void*)0x42d604;
+    vftable = (void*)((int)DAT_0042d604);
     thunk_FUN_00267090(x);
     finish();
 }

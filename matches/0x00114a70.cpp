@@ -1,3 +1,4 @@
+extern "C" char DAT_0040dc14[];
 typedef unsigned int u32;
 void* __cdecl Alloc(unsigned int);
 class Base {
@@ -22,7 +23,7 @@ HulkActionTrack* target() {
     HulkActionTrack* p = (HulkActionTrack*)Alloc(0x28);
     if (p) {
         ((Base*)p)->Init();
-        *(u32*)p = 0x40dc14;
+        *(u32*)p = ((int)DAT_0040dc14);
         *(u32*)((char*)p + 0xc) = 0;
         *(u32*)((char*)p + 0x10) = 0xbf800000;
         ((Member*)((char*)p + 0x18))->Init();

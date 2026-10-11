@@ -1,3 +1,4 @@
+extern "C" char DAT_00433f74[];
 typedef unsigned char byte;
 struct Ref {
     virtual void f0();
@@ -13,7 +14,7 @@ struct pure3d_d3dBumpMapVertexShader {
 };
 void thunk_FUN_00267090(pure3d_d3dBumpMapVertexShader*);
 pure3d_d3dBumpMapVertexShader* pure3d_d3dBumpMapVertexShader::vfunc_3(byte param) {
-    vf = (void*)0x433f74;
+    vf = (void*)((int)DAT_00433f74);
     if (m84)
         m84->f1();
     if (m80)

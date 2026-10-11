@@ -1,3 +1,8 @@
+extern "C" char DAT_0042afa8[];
+extern "C" char DAT_0042bf6c[];
+extern "C" char DAT_004342e8[];
+extern "C" char DAT_004342fc[];
+extern "C" char DAT_004cdbb0[];
 struct Callback {
     volatile int a;
     volatile int b;
@@ -6,12 +11,12 @@ struct Callback {
 };
 extern void __fastcall helper(Callback*);
 Callback* __fastcall FUN_003350f0(Callback* p) {
-    p->a = 0x42afa8;
-    p->b = *(volatile int*)0x4cdbb0;
+    p->a = ((int)DAT_0042afa8);
+    p->b = *(volatile int*)((int)DAT_004cdbb0);
     helper(p);
-    p->c = 0x42bf6c;
-    p->a = 0x4342fc;
-    p->c = 0x4342e8;
+    p->c = ((int)DAT_0042bf6c);
+    p->a = ((int)DAT_004342fc);
+    p->c = ((int)DAT_004342e8);
     p->d = 0;
     return p;
 }

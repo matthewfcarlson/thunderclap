@@ -1,3 +1,4 @@
+extern "C" char DAT_004144b0[];
 class HitPushbackTrack {
   public:
     int vptr;
@@ -38,7 +39,7 @@ HitPushbackTrack* Factory::vfunc_5() {
         p->x24 = 0;
         p->x2c = 0;
         p->x30 = 0;
-        p->vptr = 0x4144b0;
+        p->vptr = ((int)DAT_004144b0);
         p->x14 = 1.0f;
         p->x28 = -5;
         return p;

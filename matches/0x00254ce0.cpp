@@ -1,3 +1,4 @@
+extern "C" char DAT_004e7360[];
 class SeqCommand {
   public:
     virtual void vfunc_0();
@@ -13,6 +14,6 @@ extern void __cdecl FUN_00247550(void*, void*);
 SeqCommandLogicRepeat* SeqCommandLogicRepeat::vfunc_1(int x) {
     *(int*)this = (int)&SeqCommand_vftable;
     if (x & 1)
-        FUN_00247550((void*)0x4e7360, this);
+        FUN_00247550((void*)((int)DAT_004e7360), this);
     return this;
 }

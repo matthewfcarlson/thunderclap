@@ -1,3 +1,4 @@
+extern "C" char DAT_0042eb44[];
 class LightLoader {
   public:
     int v;
@@ -12,5 +13,5 @@ LightLoader::LightLoader() {
     b = 0x13000;
     c = 0;
     d = 0;
-    v = 0x42eb44;
+    v = ((int)DAT_0042eb44);
 }

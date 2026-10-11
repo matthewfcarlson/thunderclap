@@ -1,3 +1,4 @@
+extern "C" char DAT_00414450[];
 class HitDamageTrack {
   public:
     virtual void f0();
@@ -20,7 +21,7 @@ HitDamageTrack* Factory::f5() {
     HitDamageTrack* p = (HitDamageTrack*)operator new(0x14);
     if (p) {
         p->init();
-        *(int*)p = 0x414450;
+        *(int*)p = ((int)DAT_00414450);
         p->x = 0;
         p->y = 1.0f;
         return p;

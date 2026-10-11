@@ -1,3 +1,4 @@
+extern "C" char DAT_00413fd0[];
 extern "C" void* __cdecl Alloc(int);
 struct Obj {
     int vf;
@@ -17,7 +18,7 @@ Obj* Factory::F() {
     Obj* p = (Obj*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        p->vf = 0x413fd0;
+        p->vf = ((int)DAT_00413fd0);
         p->pad[2] = 0;
         p->pad[3] = 0;
         return p;

@@ -1,3 +1,4 @@
+extern "C" char DAT_00415970[];
 struct InitBase {
     void init(int);
 };
@@ -25,7 +26,7 @@ Obj* Factory::vfunc_5() {
     Obj* p = (Obj*)Alloc(0x20);
     if (p) {
         ((InitBase*)p)->init(0);
-        p->vptr = 0x415970;
+        p->vptr = ((int)DAT_00415970);
         p->sub.setup();
         p->x = 0;
         p->flag = 1;

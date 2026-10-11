@@ -1,3 +1,4 @@
+extern "C" char DAT_0042986c[];
 typedef unsigned int u32;
 extern char g1, g2;
 struct A {
@@ -10,7 +11,7 @@ struct C {
 void Target(u32 param_1) {
     char local[0x48];
     ((A*)local)->Init(&g2, &g1, 0x1c, 4);
-    *(void**)local = (void*)0x42986c;
+    *(void**)local = (void*)((int)DAT_0042986c);
     Work(local, param_1);
     ((C*)local)->End();
 }

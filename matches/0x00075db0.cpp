@@ -1,3 +1,4 @@
+extern "C" char DAT_003fbef4[];
 namespace fight {
 class TrackFactory {};
 } // namespace fight
@@ -34,7 +35,7 @@ void* TrackFactoryTemplate_CCameraHintTrack::vfunc_5() {
     void* ptr = AllocFunc(0x18);
     if (ptr != 0) {
         static_cast<InternalHelper*>(ptr)->CallFunc();
-        *(unsigned int*)ptr = 0x3fbef4;
+        *(unsigned int*)ptr = ((int)DAT_003fbef4);
         ((unsigned int*)ptr)[3] = 0;
         ((float*)ptr)[4] = -1.0f;
         ((unsigned int*)ptr)[5] = 0;

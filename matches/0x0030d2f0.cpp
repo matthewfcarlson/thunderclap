@@ -1,3 +1,4 @@
+extern "C" char DAT_00431de4[];
 // Same code shape as 0x0030cbb0 (propagated; names are from that function)
 class Helper {
   public:
@@ -11,7 +12,7 @@ class PhysicsJoint {
 };
 extern void __cdecl AddRef(void*);
 void __fastcall Target(PhysicsJoint* self) {
-    *(int*)self = 0x431de4;
+    *(int*)self = ((int)DAT_00431de4);
     ((Helper*)((char*)self + 0x64))->Init();
     ((Helper*)((char*)self + 0x48))->Init();
     int value = self->m20;

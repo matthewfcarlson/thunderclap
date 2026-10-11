@@ -1,3 +1,4 @@
+extern "C" char DAT_0041c5b0[];
 extern void* __cdecl FUN_0008d690(unsigned int);
 struct Event {
     void Init(int);
@@ -18,7 +19,7 @@ void* Factory::vfunc_5() {
     Event* p = (Event*)FUN_0008d690(0x18);
     if (p) {
         p->Init(0);
-        *(unsigned int*)p = 0x41c5b0;
+        *(unsigned int*)p = ((int)DAT_0041c5b0);
         ((Tail*)((char*)p + 0x10))->Run();
         return p;
     }

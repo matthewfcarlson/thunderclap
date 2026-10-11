@@ -1,3 +1,5 @@
+extern "C" char DAT_004a19e0[];
+extern "C" char DAT_004a19f8[];
 class Target {
   public:
     virtual void v0();
@@ -52,7 +54,7 @@ void Owner::Fn(int a, int b, char c) {
     if (c) {
         Elem* e = items[cur];
         if (e->f <= gZero) {
-            Other* o = (Other*)FUN_00344e74(e, 0, (void*)0x4a19e0, (void*)0x4a19f8, 0);
+            Other* o = (Other*)FUN_00344e74(e, 0, (void*)((int)DAT_004a19e0), (void*)((int)DAT_004a19f8), 0);
             if (o) {
                 Target* t = o->t;
                 if (t)

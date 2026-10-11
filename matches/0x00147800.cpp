@@ -1,3 +1,4 @@
+extern "C" char DAT_00413738[];
 struct PartA {
     void Init();
 };
@@ -17,7 +18,7 @@ class GrappleExecuteTrack {
     void Run();
 };
 void GrappleExecuteTrack::Run() {
-    *(unsigned long*)this = 0x413738;
+    *(unsigned long*)this = ((int)DAT_00413738);
     ((PartA*)((char*)this + 0x24))->Init();
     ((PartB*)((char*)this + 0x14))->Init();
     ((End*)this)->Finish();

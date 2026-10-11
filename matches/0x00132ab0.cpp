@@ -1,3 +1,4 @@
+extern "C" char DAT_004112c4[];
 extern void* __cdecl Alloc(unsigned int);
 struct CondObj {
     int v0;
@@ -15,7 +16,7 @@ CondObj* Factory_vfunc5(void) {
         p->InitBase(0);
         p->x10 = -1;
         p->x18 = -1;
-        p->v0 = 0x4112c4;
+        p->v0 = ((int)DAT_004112c4);
         p->x0c = 0;
         p->x14 = 0;
         return p;

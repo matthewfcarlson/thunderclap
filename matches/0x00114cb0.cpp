@@ -1,3 +1,4 @@
+extern "C" char DAT_0040dca4[];
 extern void* Alloc(unsigned int);
 class Sub {
   public:
@@ -20,7 +21,7 @@ AIHistorySetTrack* Factory() {
     AIHistorySetTrack* p = (AIHistorySetTrack*)Alloc(0x20);
     if (p) {
         p->BaseInit();
-        *(int*)p = 0x40dca4;
+        *(int*)p = ((int)DAT_0040dca4);
         p->x3 = 0;
         p->val = -1.0f;
         p->flag = 0;

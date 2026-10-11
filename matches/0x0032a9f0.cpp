@@ -1,3 +1,4 @@
+extern "C" char DAT_0043386c[];
 class ShaderBase {
   public:
     int v;
@@ -20,6 +21,6 @@ SimpleShader* SimpleShader::Init(int x) {
     c = 0;
     d = 0;
     e = 0;
-    v = 0x43386c;
+    v = ((int)DAT_0043386c);
     return this;
 }

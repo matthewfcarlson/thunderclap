@@ -1,3 +1,4 @@
+extern "C" char DAT_004e6698[];
 class SeqEvent {
   public:
     virtual void f0();
@@ -23,6 +24,6 @@ SeqEventNestTrack* SeqEventNestTrack::f4(unsigned int param) {
     ((H*)((char*)this + 8))->a();
     ((H*)this)->b();
     if (param & 1)
-        FUN_00247550((void*)0x4e6698, this);
+        FUN_00247550((void*)((int)DAT_004e6698), this);
     return this;
 }

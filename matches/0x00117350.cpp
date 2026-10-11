@@ -1,3 +1,4 @@
+extern "C" char DAT_0040ed2c[];
 struct Ref {
     virtual void Add();
     virtual void Release();
@@ -17,7 +18,7 @@ MotionLocatorAction* MotionLocatorAction::Build(unsigned int a, Ref* r) {
     Init();
     mMin1 = 0x7f7fffff;
     mMin2 = 0x7f7fffff;
-    *(volatile unsigned int*)this = 0x40ed2c;
+    *(volatile unsigned int*)this = ((int)DAT_0040ed2c);
     mArg = 0;
     mOld = 0;
     mZero = 0;

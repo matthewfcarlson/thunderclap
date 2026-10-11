@@ -1,3 +1,4 @@
+extern "C" char DAT_00421dfc[];
 struct Item {
     char data[0x28];
     void Init();
@@ -13,7 +14,7 @@ struct CEventManager {
     Item items[24];
 };
 void __fastcall FUN_001cc530(CEventManager* self) {
-    self->vt = (void*)0x421dfc;
+    self->vt = (void*)((int)DAT_00421dfc);
     Item* p = self->items + 24;
     int n = 24;
     do {

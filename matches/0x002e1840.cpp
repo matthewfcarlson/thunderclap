@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042fcd4[];
 extern "C" void _ReadWriteBarrier();
 extern void __cdecl ReleaseThing(void*);
 struct BoneMatrixList {
@@ -7,10 +9,10 @@ struct BoneMatrixList {
     void Destroy();
 };
 void BoneMatrixList::Destroy() {
-    *(volatile void**)&vptr = (void*)0x42fcd4;
+    *(volatile void**)&vptr = (void*)((int)DAT_0042fcd4);
     _ReadWriteBarrier();
     void* p = *(void* volatile*)&item;
     if (p)
         ReleaseThing(p);
-    vptr = (void*)0x3f6098;
+    vptr = (void*)((int)DAT_003f6098);
 }

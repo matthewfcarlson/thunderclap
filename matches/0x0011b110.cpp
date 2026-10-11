@@ -1,3 +1,4 @@
+extern "C" char DAT_0040eae0[];
 extern void* Alloc(unsigned int);
 class Obj {
   public:
@@ -16,7 +17,7 @@ Obj* Factory::f() {
     Obj* p = (Obj*)Alloc(0x24);
     if (p) {
         p->Init(0);
-        *(unsigned int*)p = 0x40eae0;
+        *(unsigned int*)p = ((int)DAT_0040eae0);
         *(float*)((char*)p + 12) = 15.0f;
         *(float*)((char*)p + 16) = 100.0f;
         *(float*)((char*)p + 20) = 20.0f;

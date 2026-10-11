@@ -1,3 +1,4 @@
+extern "C" char DAT_00423468[];
 class CSPManager {
   public:
     int x;
@@ -19,7 +20,7 @@ extern const char s2[];
 extern const char s3[];
 CSPManager* CSPManager::Run(int a, int b) {
     Init(a, 3);
-    x = 0x423468;
+    x = ((int)DAT_00423468);
     m1c = b;
     b18 = FUN_001d04d0(s0);
     b10 = FUN_001d04d0(s1);

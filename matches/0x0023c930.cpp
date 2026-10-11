@@ -1,3 +1,4 @@
+extern "C" char DAT_004288fc[];
 class SubConditionGroupCondition;
 struct Part {
     char pad[12];
@@ -17,7 +18,7 @@ class SubConditionGroupCondition {
 extern void __cdecl DestroySub(SubConditionGroupCondition*);
 SubConditionGroupCondition* SubConditionGroupCondition::vfunc_5(int flags) {
     Part* p = (Part*)((char*)this + 12);
-    *(unsigned int*)this = 0x4288fc;
+    *(unsigned int*)this = ((int)DAT_004288fc);
     p->Init();
     Finalize();
     if (flags & 1)

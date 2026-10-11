@@ -1,3 +1,4 @@
+extern "C" char DAT_0042fd84[];
 class Language {
   public:
     virtual void vfunc_0();
@@ -14,7 +15,7 @@ class Language {
 void release(void*);
 void destroy(void*);
 Language* Language::vfunc_2(int flag) {
-    *(void**)this = (void*)0x42fd84;
+    *(void**)this = (void*)((int)DAT_0042fd84);
     release(x);
     release(y);
     release(z);

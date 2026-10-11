@@ -1,3 +1,4 @@
+extern "C" char DAT_004288fc[];
 typedef unsigned int u32;
 void* operator_new(unsigned int);
 class Condition {
@@ -24,7 +25,7 @@ Condition* Factory::v5() {
     Condition* p = (Condition*)operator_new(0x10);
     if (p) {
         p->Init(0);
-        *(u32*)p = 0x4288fc;
+        *(u32*)p = ((int)DAT_004288fc);
         ((Tail*)((char*)p + 12))->InitTail();
         return p;
     }

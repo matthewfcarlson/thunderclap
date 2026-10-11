@@ -1,3 +1,4 @@
+extern "C" char DAT_00422810[];
 struct Closure4 {
     void* vftable;
     char pad[0x1c];
@@ -22,7 +23,7 @@ void Handler::target(int a, int b, int c) {
     Closure4* p = (Closure4*)alloc(0x24);
     if (p) {
         p->init(a, c);
-        p->vftable = (void*)0x422810;
+        p->vftable = (void*)((int)DAT_00422810);
         p->field20 = b;
     } else
         p = 0;

@@ -1,3 +1,4 @@
+extern "C" char DAT_00444152[];
 struct Owner {
     int pad;
     int Find(int, int);
@@ -14,7 +15,7 @@ BlendState::BlendState(Owner* arg) {
     b = 0;
     c = 0;
     if (arg) {
-        b = arg->Find(0x444152, 0x31544c46);
+        b = arg->Find(((int)DAT_00444152), 0x31544c46);
         c = arg->Find(0x41564452, 0x31544c46);
     }
 }

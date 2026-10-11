@@ -1,3 +1,4 @@
+extern "C" char DAT_0040fd94[];
 extern void* __cdecl Alloc(unsigned int);
 class InitObj {
   public:
@@ -17,7 +18,7 @@ void* ConditionFactoryTemplate::Make() {
     void* p = Alloc(0x14);
     if (p) {
         ((InitObj*)p)->Init(0);
-        *(unsigned int*)p = 0x40fd94;
+        *(unsigned int*)p = ((int)DAT_0040fd94);
         *(unsigned int*)((char*)p + 0x0c) = 0;
         *(unsigned int*)((char*)p + 0x10) = 0;
         return p;

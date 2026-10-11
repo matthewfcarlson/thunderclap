@@ -1,3 +1,4 @@
+extern "C" char DAT_004179e8[];
 extern "C" void* FUN_0008d690(unsigned int);
 class Base {
   public:
@@ -23,7 +24,7 @@ void* TrackFactoryTemplate::vfunc_5() {
     LocomotionStateTrack* p = (LocomotionStateTrack*)FUN_0008d690(0x14);
     if (p) {
         ((Base*)p)->init();
-        p->vf = 0x4179e8;
+        p->vf = ((int)DAT_004179e8);
         p->mc = 0;
         p->m10 = 0;
         p->m8 = 1;

@@ -1,3 +1,4 @@
+extern "C" char DAT_003f7404[];
 class CAlertStatusCondition {
   public:
     int vptr;
@@ -9,7 +10,7 @@ class CAlertStatusCondition {
 void __stdcall Init(int);
 CAlertStatusCondition* __fastcall FUN_0004a4a0(CAlertStatusCondition* self, void*) {
     Init(0);
-    self->vptr = 0x3f7404;
+    self->vptr = ((int)DAT_003f7404);
     self->mC = 0;
     self->m10 = 0;
     return self;

@@ -1,3 +1,6 @@
+extern "C" char DAT_0042b914[];
+extern "C" char DAT_0042b954[];
+extern "C" char DAT_0042b9dc[];
 void init();
 class Intf {
   public:
@@ -26,13 +29,13 @@ class FileCompletionRequest {
     FileCompletionRequest(int x, Obj* y, Target* z, int w);
 };
 FileCompletionRequest::FileCompletionRequest(int x, Obj* y, Target* z, int w) {
-    v = 0x42b914;
+    v = ((int)DAT_0042b914);
     a = 0;
     init();
-    v = 0x42b9dc;
+    v = ((int)DAT_0042b9dc);
     b = x;
     init();
-    v = 0x42b954;
+    v = ((int)DAT_0042b954);
     c = y;
     d = z;
     e = w;

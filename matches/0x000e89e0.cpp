@@ -1,3 +1,4 @@
+extern "C" char DAT_0040c3d0[];
 class Ref {
   public:
     virtual void f();
@@ -15,7 +16,7 @@ class FEParticleAnimation {
     void Cleanup();
 };
 void FEParticleAnimation::Cleanup() {
-    *(int* volatile*)this = (int*)0x40c3d0;
+    *(int* volatile*)this = (int*)((int)DAT_0040c3d0);
     Ref* r = mRef;
     if (r) {
         r->g();

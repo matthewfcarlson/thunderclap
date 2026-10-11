@@ -1,3 +1,4 @@
+extern "C" char DAT_0040ff54[];
 typedef unsigned char u8;
 class CanSeeTargetCondition {
   public:
@@ -23,7 +24,7 @@ CanSeeTargetCondition* Factory::v5() {
         p->Init(0);
         p->a = 1;
         p->b = 1;
-        p->vt = 0x40ff54;
+        p->vt = ((int)DAT_0040ff54);
         return p;
     }
     return 0;

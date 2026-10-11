@@ -1,3 +1,4 @@
+extern "C" char DAT_0040ff34[];
 extern void* __cdecl Allocate(unsigned int);
 class TargetInvincibleCondition {
   public:
@@ -24,7 +25,7 @@ TargetInvincibleCondition* ConditionFactoryTemplate::vfunc_5() {
     TargetInvincibleCondition* p = (TargetInvincibleCondition*)Allocate(0x10);
     if (p) {
         p->TargetInvincibleCondition::TargetInvincibleCondition(0);
-        *(unsigned int*)p = 0x40ff34;
+        *(unsigned int*)p = ((int)DAT_0040ff34);
         p->flag = 1;
         return p;
     }

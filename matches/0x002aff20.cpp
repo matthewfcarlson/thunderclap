@@ -1,3 +1,4 @@
+extern "C" char DAT_0042e324[];
 class ExpressionLoader {
   public:
     int a;
@@ -13,5 +14,5 @@ ExpressionLoader::ExpressionLoader() {
     p[2] = 0x21000;
     p[3] = 0;
     p[4] = 0;
-    p[0] = 0x42e324;
+    p[0] = ((int)DAT_0042e324);
 }

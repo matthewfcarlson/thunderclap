@@ -1,3 +1,4 @@
+extern "C" char DAT_00417958[];
 class JointRelativeTrack {
   public:
     virtual void v0();
@@ -20,7 +21,7 @@ struct Sub {
 };
 void __cdecl destroy(JointRelativeTrack*);
 JointRelativeTrack::JointRelativeTrack(int flag) {
-    *(int*)this = 0x417958;
+    *(int*)this = ((int)DAT_00417958);
     ((Sub*)((char*)this + 0x18))->Init();
     Init2();
     if (flag & 1)

@@ -1,3 +1,4 @@
+extern "C" char DAT_0042c1b4[];
 typedef unsigned char byte;
 void thunk(void*);
 class Partition {
@@ -7,7 +8,7 @@ class Partition {
     void* field10;
 };
 Partition* Partition::vfunc_0(byte param) {
-    *(void**)this = (void*)0x42c1b4;
+    *(void**)this = (void*)((int)DAT_0042c1b4);
     if (field10)
         thunk(field10);
     if (param & 1)

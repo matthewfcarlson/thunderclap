@@ -1,3 +1,4 @@
+extern "C" char DAT_00429fac[];
 class Base {
   public:
     void Init();
@@ -11,7 +12,7 @@ class SeqEventVarVolume : public Base {
 };
 SeqEventVarVolume* SeqEventVarVolume::Build() {
     Init();
-    vtable = 0x429fac;
+    vtable = ((int)DAT_00429fac);
     volume = 1.0f;
     return this;
 }

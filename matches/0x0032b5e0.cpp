@@ -1,3 +1,4 @@
+extern "C" char DAT_0043397c[];
 struct Ref {
     virtual void f0();
     virtual void f1();
@@ -12,7 +13,7 @@ struct Obj : Parent {
     void run();
 };
 void Obj::run() {
-    *(void**)this = (void*)0x43397c;
+    *(void**)this = (void*)((int)DAT_0043397c);
     if (a)
         a->f1();
     if (b)

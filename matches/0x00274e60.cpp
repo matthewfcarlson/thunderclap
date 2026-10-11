@@ -1,3 +1,5 @@
+extern "C" char DAT_0042b914[];
+extern "C" char DAT_0042b99c[];
 typedef unsigned int u32;
 struct Inner {
     virtual void a();
@@ -18,10 +20,10 @@ struct Target : Request {
     Request* run(u32 arg);
 };
 Request* Target::run(u32 arg) {
-    vf = 0x42b914;
+    vf = ((int)DAT_0042b914);
     field = 0;
     init();
-    vf = 0x42b99c;
+    vf = ((int)DAT_0042b99c);
     file = (File*)arg;
     init();
     ((Inner*)((char*)file + 4))->a();

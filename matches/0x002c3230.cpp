@@ -1,3 +1,4 @@
+extern "C" char DAT_0042ed30[];
 struct Caller {
     virtual void a();
     virtual void b();
@@ -20,7 +21,7 @@ void target(Caller* p) {
     unsigned int one = 1;
     if ((((unsigned char)g_flag) & one) == 0) {
         g_flag |= one;
-        g_slot = 0x42ed30;
+        g_slot = ((int)DAT_0042ed30);
     }
     p->n((void*)&g_slot);
 }

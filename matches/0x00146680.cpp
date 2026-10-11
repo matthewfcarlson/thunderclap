@@ -1,3 +1,4 @@
+extern "C" char DAT_00412fd4[];
 struct MotionBlurTrack {
   public:
     void Init();
@@ -17,7 +18,7 @@ MotionBlurTrack* CreateTrack() {
     MotionBlurTrack* p = (MotionBlurTrack*)operator new(0x24);
     if (p != 0) {
         p->Init();
-        p->vf = 0x412fd4;
+        p->vf = ((int)DAT_00412fd4);
         p->mZero = 0;
         p->mA = 0.1f;
         p->mB = 0.9f;

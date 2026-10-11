@@ -1,3 +1,4 @@
+extern "C" char DAT_00428b64[];
 class Factory {
   public:
     virtual void A();
@@ -19,7 +20,7 @@ void* Factory::V5() {
     Factory* p = (Factory*)Alloc(0x14);
     if (p) {
         ((Init*)p)->InitFn(0);
-        *(unsigned long*)p = 0x428b64;
+        *(unsigned long*)p = ((int)DAT_00428b64);
         p->m0c = 0;
         p->m10 = 0;
         return p;

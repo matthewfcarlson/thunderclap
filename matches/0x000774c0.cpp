@@ -1,3 +1,4 @@
+extern "C" char DAT_003fc058[];
 extern "C" void* __cdecl FUN_0008d690(int);
 struct Obj {
     int vptr;
@@ -20,7 +21,7 @@ Obj* Factory::vfunc_5() {
     Obj* p = (Obj*)FUN_0008d690(0x14);
     if (p) {
         p->Init();
-        p->vptr = 0x3fc058;
+        p->vptr = ((int)DAT_003fc058);
         p->mc = 0;
         p->m10 = 0;
         p->m8 = 1;

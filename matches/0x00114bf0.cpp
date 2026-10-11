@@ -1,3 +1,4 @@
+extern "C" char DAT_0040dc74[];
 typedef unsigned int u32;
 struct ButtonTrack {
     u32 vft;
@@ -30,7 +31,7 @@ ButtonTrack* TrackFactory::f5() {
         p->d = 0;
         p->e = 0;
         p->f = 0;
-        p->vft = 0x40dc74;
+        p->vft = ((int)DAT_0040dc74);
         p->b = 0xbf800000;
         return p;
     }

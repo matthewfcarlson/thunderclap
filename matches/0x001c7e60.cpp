@@ -1,3 +1,4 @@
+extern "C" char DAT_003f6098[];
 struct NonCopyable {
     virtual void f0();
     virtual void f1();
@@ -20,7 +21,7 @@ struct ShadowGenerator : NonCopyable {
 } // namespace pure3d
 pure3d::ShadowGenerator* pure3d::ShadowGenerator::vfunc_2(unsigned char flags) {
     sub.cleanup();
-    *(unsigned long*)this = 0x3f6098;
+    *(unsigned long*)this = ((int)DAT_003f6098);
     if (flags & 1)
         destroy(this);
     return this;

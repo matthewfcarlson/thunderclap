@@ -1,3 +1,4 @@
+extern "C" char DAT_0041872c[];
 struct Param {
     char pad[0x18];
     Param* Init(const char* name);
@@ -22,7 +23,7 @@ void FUN_0017a9a0() {
         Param* a = (Param*)operator new(0x18);
         if (a) {
             a->Init("timeBegin");
-            *(int*)a = 0x41872c;
+            *(int*)a = ((int)DAT_0041872c);
             *(int*)((char*)a + 0x10) = 0x16f880;
             arr[0] = a;
         } else {
@@ -31,7 +32,7 @@ void FUN_0017a9a0() {
         Param* b = (Param*)operator new(0x18);
         if (b) {
             b->Init("power");
-            *(int*)b = 0x41872c;
+            *(int*)b = ((int)DAT_0041872c);
             *(int*)((char*)b + 0x10) = 0x16f8a0;
             arr[1] = b;
         } else {

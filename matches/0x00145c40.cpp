@@ -1,3 +1,4 @@
+extern "C" char DAT_0041306c[];
 extern "C" void _ReadWriteBarrier();
 typedef unsigned int u32;
 struct SlowMotionAction {
@@ -13,7 +14,7 @@ struct SlowMotionAction {
 };
 void destroy(SlowMotionAction* p);
 SlowMotionAction* SlowMotionAction::vfunc_2(unsigned char flags) {
-    *(void**)this = (void*)0x41306c;
+    *(void**)this = (void*)((int)DAT_0041306c);
     _ReadWriteBarrier();
     if (member)
         member = 0;

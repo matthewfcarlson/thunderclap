@@ -1,3 +1,6 @@
+extern "C" char DAT_0040a590[];
+extern "C" char DAT_0048e10c[];
+extern "C" char DAT_0048e134[];
 class Base {
   public:
     void Init(int, int);
@@ -14,11 +17,11 @@ class Obj : public Base {
 };
 Obj::Obj(int a, int b) {
     Init(a, 4);
-    v = 0x40a590;
+    v = ((int)DAT_0040a590);
     n = b;
-    m18 = GetFlag((const char*)0x48e134);
-    *((char*)this + 0x10) = GetFlag((const char*)0x48e134);
-    *((char*)this + 0x11) = GetFlag((const char*)0x48e134);
-    *((char*)this + 0x12) = GetFlag((const char*)0x48e10c);
-    *((char*)this + 0x13) = GetFlag((const char*)0x48e10c);
+    m18 = GetFlag((const char*)((int)DAT_0048e134));
+    *((char*)this + 0x10) = GetFlag((const char*)((int)DAT_0048e134));
+    *((char*)this + 0x11) = GetFlag((const char*)((int)DAT_0048e134));
+    *((char*)this + 0x12) = GetFlag((const char*)((int)DAT_0048e10c));
+    *((char*)this + 0x13) = GetFlag((const char*)((int)DAT_0048e10c));
 }

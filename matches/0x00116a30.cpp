@@ -1,3 +1,4 @@
+extern "C" char DAT_0040ecd8[];
 class Ref {
   public:
     virtual void AddRef();
@@ -17,7 +18,7 @@ class MotionTargetAction : public Base {
     MotionTargetAction(int x, Ref* r);
 };
 MotionTargetAction::MotionTargetAction(int x, Ref* r) : Base() {
-    v = 0x40ecd8;
+    v = ((int)DAT_0040ecd8);
     a = 0;
     b = 0;
     c = 0;

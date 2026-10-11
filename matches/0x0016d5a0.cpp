@@ -1,3 +1,4 @@
+extern "C" char DAT_004166d8[];
 extern void* __cdecl FUN_0008d690(unsigned int);
 class VelocityYCondition {
   public:
@@ -21,7 +22,7 @@ VelocityYCondition* ConditionFactory::vfunc_5() {
     VelocityYCondition* p = (VelocityYCondition*)FUN_0008d690(0x14);
     if (p) {
         p->VelocityYCondition::VelocityYCondition(0);
-        *(int*)p = 0x4166d8;
+        *(int*)p = ((int)DAT_004166d8);
         p->b = 0;
         p->c = 0;
         return p;

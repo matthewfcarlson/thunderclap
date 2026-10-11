@@ -1,3 +1,6 @@
+extern "C" char DAT_003f7d48[];
+extern "C" char DAT_003f7d70[];
+extern "C" char DAT_0042773c[];
 extern "C" void* __cdecl Alloc(unsigned int);
 extern int gGuard;
 extern int gTable;
@@ -25,8 +28,8 @@ void FUN_00053d80() {
         int k = gSix;
         a->Init("compare");
         a->field14 = k;
-        a->pad[0] = 0x3f7d48;
-        a->pad[4] = 0x42773c;
+        a->pad[0] = ((int)DAT_003f7d48);
+        a->pad[4] = ((int)DAT_0042773c);
         a->field18 = 0x47f80;
         slots[0] = a;
     } else
@@ -34,7 +37,7 @@ void FUN_00053d80() {
     ParamIntConstRange* b = (ParamIntConstRange*)Alloc(0x18);
     if (b) {
         b->Init("state");
-        b->pad[0] = 0x3f7d70;
+        b->pad[0] = ((int)DAT_003f7d70);
         b->field10 = 0x47f90;
         slots[1] = b;
     } else

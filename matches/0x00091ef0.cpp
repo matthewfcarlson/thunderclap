@@ -1,3 +1,5 @@
+extern "C" char DAT_0040449c[];
+extern "C" char DAT_004044b4[];
 class Obj {
   public:
     void dtor();
@@ -12,10 +14,10 @@ class CUnlockableMove {
     void dtor();
 };
 void CUnlockableMove::dtor() {
-    vf = 0x4044b4;
+    vf = ((int)DAT_004044b4);
     ((Obj*)((char*)this + 0x40))->dtor();
     ((Obj*)((char*)this + 0x38))->dtor();
-    vf = 0x40449c;
+    vf = ((int)DAT_0040449c);
     if (ptr) {
         rel(ptr);
         ptr = 0;

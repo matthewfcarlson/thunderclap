@@ -1,3 +1,4 @@
+extern "C" char DAT_00417cb8[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 class IntentionClearTrack {
   public:
@@ -17,7 +18,7 @@ void* __cdecl TrackFactoryTemplate_vfunc_5() {
     IntentionClearTrack* p = (IntentionClearTrack*)FUN_0008d690(0x14);
     if (p) {
         p->Init();
-        *(int*)p = 0x417cb8;
+        *(int*)p = ((int)DAT_00417cb8);
         p->b = 0;
         p->c = 0xbf800000;
         p->a = 1;

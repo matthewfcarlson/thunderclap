@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042e574[];
 struct ShadowSkinTopology {
     void* vptr;
     int pad4;
@@ -8,9 +10,9 @@ struct ShadowSkinTopology {
 };
 void ReleaseThing(void*);
 void ShadowSkinTopology::Reset() {
-    vptr = (void*)0x42e574;
+    vptr = (void*)((int)DAT_0042e574);
     ReleaseThing(a);
     ReleaseThing(b);
     ReleaseThing(c);
-    vptr = (void*)0x3f6098;
+    vptr = (void*)((int)DAT_003f6098);
 }

@@ -1,3 +1,5 @@
+extern "C" char DAT_0040449c[];
+extern "C" char DAT_004044cc[];
 class Sub {
   public:
     void Init();
@@ -22,11 +24,11 @@ class CUnlockableGallery {
     unsigned char m104;
 };
 CUnlockableGallery* __fastcall FUN_00092230(CUnlockableGallery* p) {
-    p->v = 0x40449c;
+    p->v = ((int)DAT_0040449c);
     p->flag = 1;
     ((Sub*)((char*)p + 0x10))->Init();
     p->m18 = 0;
-    p->v = 0x4044cc;
+    p->v = ((int)DAT_004044cc);
     p->m20 = 0;
     ((Sub*)((char*)p + 0xa8))->Init();
     p->mB0 = 0;

@@ -1,3 +1,4 @@
+extern "C" char DAT_0043386c[];
 class Ref {
   public:
     virtual void F0();
@@ -10,7 +11,7 @@ struct Shader {
     void Next();
 };
 void Shader::Target() {
-    *(unsigned long*)this = 0x43386c;
+    *(unsigned long*)this = ((int)DAT_0043386c);
     if (member)
         member->F1();
     Next();

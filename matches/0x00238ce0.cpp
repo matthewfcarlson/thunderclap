@@ -1,3 +1,4 @@
+extern "C" char DAT_004282fc[];
 void __cdecl thunk_FUN_00267090(void* p);
 void __cdecl thunk_FUN_00267090_b(void* p);
 class Track {
@@ -24,7 +25,7 @@ class PrintTrack : public Track {
     virtual PrintTrack* vfunc_5(unsigned char);
 };
 PrintTrack* PrintTrack::vfunc_5(unsigned char p) {
-    *(int*)this = 0x4282fc;
+    *(int*)this = ((int)DAT_004282fc);
     thunk_FUN_00267090((void*)(*(int*)((char*)this + 0x10)));
     thunk_FUN_00267090((void*)(*(int*)((char*)this + 0x14)));
     FUN_00236d60();

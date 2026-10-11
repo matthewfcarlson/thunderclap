@@ -1,3 +1,4 @@
+extern "C" char DAT_00410c14[];
 void* __cdecl alloc28(unsigned int);
 struct Sub {
     int a;
@@ -22,7 +23,7 @@ ThreatAngleCondition* factory_vfunc5() {
     ThreatAngleCondition* p = (ThreatAngleCondition*)alloc28(0x28);
     if (p) {
         ((Base*)p)->Init(0);
-        p->vtable = 0x410c14;
+        p->vtable = ((int)DAT_00410c14);
         p->c = 0;
         p->f = 0x3fc90fdb;
         p->sub.Init();

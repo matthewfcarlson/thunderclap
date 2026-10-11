@@ -1,3 +1,4 @@
+extern "C" char DAT_0042cb5c[];
 class ShaderFloatBroadcast {
   public:
     int mVft;
@@ -8,7 +9,7 @@ class ShaderFloatBroadcast {
 };
 ShaderFloatBroadcast::ShaderFloatBroadcast(int a, int b) {
     mZero = 0;
-    mVft = 0x42cb5c;
+    mVft = ((int)DAT_0042cb5c);
     mA = a;
     mB = b;
 }

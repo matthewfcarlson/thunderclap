@@ -1,3 +1,4 @@
+extern "C" char DAT_0042ebb0[];
 class LocatorLoader {
   public:
     int vptr;
@@ -12,5 +13,5 @@ LocatorLoader::LocatorLoader() {
     b = 0x14000;
     c = 0;
     d = 0;
-    vptr = 0x42ebb0;
+    vptr = ((int)DAT_0042ebb0);
 }

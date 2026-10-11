@@ -1,3 +1,4 @@
+extern "C" char DAT_0040f530[];
 extern "C" void* __cdecl Alloc(unsigned int);
 class StrafeCircleHBTrack {
   public:
@@ -29,7 +30,7 @@ StrafeCircleHBTrack* Factory::v5() {
         q[6] = 0;
         q[7] = 0;
         q[8] = 0;
-        q[0] = 0x40f530;
+        q[0] = ((int)DAT_0040f530);
         q[4] = (int)0xbf800000;
         q[9] = (int)0x3f800000;
         return p;

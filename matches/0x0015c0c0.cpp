@@ -1,3 +1,4 @@
+extern "C" char DAT_00415ad0[];
 class Base {
   public:
     void Fin();
@@ -19,7 +20,7 @@ class GrappleLocomotionSteerTrack {
     Member e;
 };
 void GrappleLocomotionSteerTrack::Kill() {
-    vf = 0x415ad0;
+    vf = ((int)DAT_00415ad0);
     e.Rel();
     d.Rel();
     c.Rel();

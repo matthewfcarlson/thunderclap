@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042c95c[];
 class IRefCount {
   public:
     virtual void f0();
@@ -12,12 +14,12 @@ class ChannelLoader {
     void cleanup() throw();
 };
 void ChannelLoader::cleanup() throw() {
-    vf = 0x42c95c;
+    vf = ((int)DAT_0042c95c);
     for (int i = 0; i < count; ++i) {
         if (items[i]) {
             items[i]->Release();
             items[i] = 0;
         }
     }
-    vf = 0x3f6098;
+    vf = ((int)DAT_003f6098);
 }

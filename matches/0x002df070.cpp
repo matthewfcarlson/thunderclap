@@ -1,3 +1,4 @@
+extern "C" char DAT_0042fa64[];
 class ShadowSkin {
   public:
     virtual void f0();
@@ -34,7 +35,7 @@ ShadowSkin* ShadowSkin::vfunc_4() {
     ShadowSkin* q = (ShadowSkin*)alloc(0x58);
     if (q) {
         q->Init(this);
-        *(int*)q = 0x42fa64;
+        *(int*)q = ((int)DAT_0042fa64);
         return q;
     }
     return 0;

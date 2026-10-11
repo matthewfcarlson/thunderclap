@@ -1,3 +1,4 @@
+extern "C" char DAT_004167f8[];
 class ConditionFactory {
   public:
     virtual void a();
@@ -30,7 +31,7 @@ void* Factory::vfunc_5() {
         (hulkfight::motion::VelocityAnimatedYCondition*)alloc(0x14);
     if (p) {
         p->Init(0);
-        p->vptr = 0x4167f8;
+        p->vptr = ((int)DAT_004167f8);
         p->mC = 0;
         p->m10 = 0;
         return p;

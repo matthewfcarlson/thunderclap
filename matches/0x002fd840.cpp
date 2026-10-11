@@ -1,3 +1,4 @@
+extern "C" char DAT_004318f4[];
 struct Base {
     virtual void a();
     virtual void b();
@@ -19,7 +20,7 @@ class Sim {
     void run();
 };
 void Sim::run() {
-    vptr = (void*)0x4318f4;
+    vptr = (void*)((int)DAT_004318f4);
     if (m8c)
         release((char*)m8c - 4);
     if (m70)

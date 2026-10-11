@@ -1,3 +1,4 @@
+extern "C" char DAT_0040f4a0[];
 struct Track {
     virtual void v0();
     virtual void v1();
@@ -20,7 +21,7 @@ struct PathFormationTrack : Track {
 void thunk_FUN_00267090(void*);
 void other_free(void*);
 PathFormationTrack* PathFormationTrack::vfunc_5(unsigned char flag) {
-    *(void**)this = (void*)0x40f4a0;
+    *(void**)this = (void*)((int)DAT_0040f4a0);
     thunk_FUN_00267090(member);
     helper();
     if (flag & 1)

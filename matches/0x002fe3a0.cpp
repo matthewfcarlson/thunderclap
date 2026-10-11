@@ -1,3 +1,4 @@
+extern "C" char DAT_004319a4[];
 class Ref {
   public:
     virtual void First();
@@ -16,7 +17,7 @@ class SimStateHairclub : public Base {
     SimStateHairclub(Ref* r, void* p);
 };
 SimStateHairclub::SimStateHairclub(Ref* r, void* p) : Base(p) {
-    *(void**)this = (void*)0x4319a4;
+    *(void**)this = (void*)((int)DAT_004319a4);
     mRef = 0;
     if (r)
         r->First();

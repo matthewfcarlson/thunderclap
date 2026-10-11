@@ -1,3 +1,4 @@
+extern "C" char DAT_003f9980[];
 class Helper {
   public:
     void Init();
@@ -10,7 +11,7 @@ class CGrappleSwapTrack {
     void Run();
 };
 void CGrappleSwapTrack::Run() {
-    *(void**)this = (void*)0x3f9980;
+    *(void**)this = (void*)((int)DAT_003f9980);
     ((Helper*)((char*)this + 0x18))->Init();
     ((Helper*)((char*)this + 0x10))->Init();
     ((Helper*)this)->Finish();

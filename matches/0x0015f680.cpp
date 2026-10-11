@@ -1,3 +1,4 @@
+extern "C" char DAT_00415b00[];
 extern "C" void _ReadWriteBarrier();
 class Base {
   public:
@@ -13,7 +14,7 @@ class Obj {
     Base* p24;
 };
 void Obj::slot0() {
-    *(void**)this = (void*)0x415b00;
+    *(void**)this = (void*)((int)DAT_00415b00);
     _ReadWriteBarrier();
     if (p24) {
         p24->f1();

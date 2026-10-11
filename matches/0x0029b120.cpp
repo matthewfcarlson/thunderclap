@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d548[];
 class Base {
   public:
     virtual void Call();
@@ -16,7 +17,7 @@ class TextString {
 };
 TextString* TextString::Foo(Base* p, int a, int b, unsigned char f) {
     Init();
-    *(unsigned*)this = 0x42d548;
+    *(unsigned*)this = ((int)DAT_0042d548);
     this->x44 = -1;
     this->obj = p;
     p->Call();

@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d3bc[];
 typedef unsigned int u32;
 struct Base {
     void Init(u32);
@@ -15,7 +16,7 @@ struct TransformNode {
 };
 TransformNode* TransformNode::Init(u32 arg) {
     ((Base*)this)->Init(arg);
-    *(u32*)this = 0x42d3bc;
+    *(u32*)this = ((int)DAT_0042d3bc);
     field = 0;
     a.Init();
     b.Init();

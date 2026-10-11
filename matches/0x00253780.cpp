@@ -1,3 +1,4 @@
+extern "C" char DAT_0042a1f0[];
 class Base {
   public:
     int a;
@@ -10,6 +11,6 @@ class SeqEventVarPitch : public Base {
     SeqEventVarPitch();
 };
 SeqEventVarPitch::SeqEventVarPitch() {
-    *(int*)this = 0x42a1f0;
+    *(int*)this = ((int)DAT_0042a1f0);
     value = 1.0f;
 }

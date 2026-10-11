@@ -1,3 +1,4 @@
+extern "C" char DAT_0042fc74[];
 class Ref {
   public:
     virtual void f0();
@@ -25,7 +26,7 @@ void* PrimGroupSkinnedPC::vfunc_4() {
     PrimGroupSkinnedPC* p = (PrimGroupSkinnedPC*)alloc(0x70);
     if (p) {
         p->init(this);
-        *(unsigned int*)p = 0x42fc74;
+        *(unsigned int*)p = ((int)DAT_0042fc74);
         *(unsigned int*)((char*)p + 0x68) = 0;
         Ref* r = child;
         if (r)

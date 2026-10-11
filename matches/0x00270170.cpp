@@ -1,3 +1,8 @@
+extern "C" char DAT_0042afa8[];
+extern "C" char DAT_0042b3a4[];
+extern "C" char DAT_0042b5ac[];
+extern "C" char DAT_0042b5b4[];
+extern "C" char DAT_0042b5f4[];
 typedef unsigned int u32;
 extern u32 g_unknown;
 void FUN_002705f0();
@@ -19,15 +24,15 @@ class MemoryPool {
     u32 v12;
 };
 MemoryPool::MemoryPool() {
-    v0 = 0x42b5f4;
-    v1 = 0x42afa8;
+    v0 = ((int)DAT_0042b5f4);
+    v1 = ((int)DAT_0042afa8);
     v2 = g_unknown;
     FUN_002705f0();
-    v1 = 0x42b3a4;
+    v1 = ((int)DAT_0042b3a4);
     v3 = 0;
     FUN_002705f0();
-    v0 = 0x42b5b4;
-    v1 = 0x42b5ac;
+    v0 = ((int)DAT_0042b5b4);
+    v1 = ((int)DAT_0042b5ac);
     v6 = 0;
     v12 = 0;
     FUN_002705f0();

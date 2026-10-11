@@ -1,3 +1,4 @@
+extern "C" char DAT_00410c34[];
 extern "C" void* __cdecl alloc(unsigned int);
 struct Obj {
     void* vt;
@@ -11,7 +12,7 @@ Obj* target() {
     Obj* p = (Obj*)alloc(0x14);
     if (p) {
         p->Init(0);
-        p->vt = (void*)0x410c34;
+        p->vt = (void*)((int)DAT_00410c34);
         p->c = 0;
         p->d = 1.0f;
         return p;

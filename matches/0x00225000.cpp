@@ -1,3 +1,4 @@
+extern "C" char DAT_00427368[];
 struct Inner {
     virtual void A();
     virtual void B();
@@ -11,7 +12,7 @@ struct AnimationDriver {
     void Tail();
 };
 void AnimationDriver::F() {
-    *(int*)this = 0x427368;
+    *(int*)this = ((int)DAT_00427368);
     mInner->B();
     --gCount;
     Tail();

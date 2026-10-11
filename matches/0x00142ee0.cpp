@@ -1,3 +1,4 @@
+extern "C" char DAT_00412ab0[];
 class Obj {
   public:
     virtual void v0();
@@ -17,7 +18,7 @@ Obj* Obj::v5() {
     Obj* p = (Obj*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        *(int*)p = 0x412ab0;
+        *(int*)p = ((int)DAT_00412ab0);
         p->b = 0;
         p->c = 0;
         return p;

@@ -1,3 +1,4 @@
+extern "C" char DAT_00422654[];
 extern const char text100[];
 extern const char text0f0[];
 extern char FUN_001d04d0(const char*);
@@ -15,7 +16,7 @@ class ScriptHandler {
 };
 ScriptHandler* ScriptHandler::Create(const char* a, const char* b) {
     Init(a, 4);
-    vft = 0x422654;
+    vft = ((int)DAT_00422654);
     p1c = (void*)b;
     b18 = FUN_001d04d0(text100);
     b10 = FUN_001d04d0(text0f0);

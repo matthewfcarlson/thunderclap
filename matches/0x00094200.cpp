@@ -1,3 +1,4 @@
+extern "C" char DAT_004046dc[];
 extern void __stdcall Init(int, int);
 extern char __cdecl Query(const char*);
 extern char s0;
@@ -19,7 +20,7 @@ class CUnlockablesManager {
 };
 CUnlockablesManager::CUnlockablesManager(int a, int b) {
     Init(a, 3);
-    v = 0x4046dc;
+    v = ((int)DAT_004046dc);
     value = b;
     b18 = Query(&s0);
     b10 = Query(&s1);

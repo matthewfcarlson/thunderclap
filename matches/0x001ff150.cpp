@@ -1,3 +1,4 @@
+extern "C" char DAT_00425354[];
 extern "C" void __stdcall Init(void*, int);
 extern "C" char __cdecl ReadBool(const char*);
 extern const char A[];
@@ -19,7 +20,7 @@ class CTriggerVolumeManager {
 };
 CTriggerVolumeManager::CTriggerVolumeManager(int x, int y) {
     Init((void*)x, 4);
-    vptr = 0x425354;
+    vptr = ((int)DAT_00425354);
     value = y;
     b18 = ReadBool(A);
     b10 = ReadBool(B);

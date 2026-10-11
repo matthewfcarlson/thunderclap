@@ -1,3 +1,4 @@
+extern "C" char DAT_004112e4[];
 typedef unsigned int u32;
 extern "C" void* __cdecl alloc(unsigned int);
 class Track {
@@ -18,7 +19,7 @@ Track* Factory::vfunc_5() {
     Track* p = (Track*)alloc(0x14);
     if (p) {
         p->Track::Track();
-        *(u32*)p = 0x4112e4;
+        *(u32*)p = ((int)DAT_004112e4);
         *(u32*)((char*)p + 0xc) = 0;
         *(u32*)((char*)p + 0x10) = 0;
         return p;

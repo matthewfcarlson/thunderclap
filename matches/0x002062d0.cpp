@@ -1,3 +1,4 @@
+extern "C" char DAT_00425c28[];
 extern void* __cdecl Alloc(unsigned int);
 struct Loader {
     unsigned int vptr;
@@ -27,7 +28,7 @@ void Owner::Target(int value) {
         p->b = 0x60000722;
         p->c = 0;
         p->d = 0;
-        p->vptr = 0x425c28;
+        p->vptr = ((int)DAT_00425c28);
         p->owner = this;
         r = p;
     } else {

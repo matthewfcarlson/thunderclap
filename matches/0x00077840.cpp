@@ -1,3 +1,4 @@
+extern "C" char DAT_003fbfe0[];
 class Track {
   public:
     virtual void v();
@@ -21,7 +22,7 @@ void* Factory::f5() {
     Track* p = (Track*)operator_new(0x18);
     if (p) {
         p->Track::Track();
-        *(unsigned int*)p = 0x3fbfe0;
+        *(unsigned int*)p = ((int)DAT_003fbfe0);
         p->a = 0;
         p->b = (int)0xbf800000;
         p->c = 0;

@@ -1,3 +1,4 @@
+extern "C" char DAT_0042bbc0[];
 typedef unsigned int u32;
 extern void __stdcall FUN_00275600(int);
 extern void FUN_002705f0();
@@ -11,7 +12,7 @@ class DriveCreateDirectoryRequest {
 };
 DriveCreateDirectoryRequest* DriveCreateDirectoryRequest::Create(int a, char* p) {
     FUN_00275600(a);
-    vptr = (void*)0x42bbc0;
+    vptr = (void*)((int)DAT_0042bbc0);
     FUN_002705f0();
     _strncpy(path, p, 0x10);
     path[16] = 0;

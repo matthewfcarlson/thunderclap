@@ -1,3 +1,4 @@
+extern "C" char DAT_00433a8c[];
 class Shader {
   public:
     void InitBase(void*);
@@ -8,7 +9,7 @@ class Shader {
 };
 Shader* Shader::Target(void* arg) {
     InitBase(arg);
-    *(void**)this = (void*)0x433a8c;
+    *(void**)this = (void*)((int)DAT_00433a8c);
     a = 0;
     b = 0;
     ((Shader*)((char*)this + 0x88))->InitMember();

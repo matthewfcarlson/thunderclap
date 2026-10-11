@@ -1,3 +1,4 @@
+extern "C" char DAT_004272f0[];
 typedef unsigned char byte;
 extern int g_refCount;
 namespace choreo2 {
@@ -25,7 +26,7 @@ class Helper {
 };
 extern void thunk_FUN_00267090(choreo2::JointDriver*);
 choreo2::JointDriver* choreo2::JointDriver::vfunc_2(byte param) {
-    *(unsigned long*)this = 0x4272f0;
+    *(unsigned long*)this = ((int)DAT_004272f0);
     --g_refCount;
     ((Helper*)this)->call();
     if (param & 1)

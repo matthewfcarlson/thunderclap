@@ -1,3 +1,4 @@
+extern "C" char DAT_003f7550[];
 void* operator new(unsigned int);
 class CMotionClimbAngleCondition {
   public:
@@ -17,7 +18,7 @@ CMotionClimbAngleCondition* Factory::vfunc_5() {
     CMotionClimbAngleCondition* p = (CMotionClimbAngleCondition*)operator new(0x18);
     if (p) {
         p->Init(0);
-        p->w[0] = 0x3f7550;
+        p->w[0] = ((int)DAT_003f7550);
         p->w[3] = 0;
         p->w[4] = 0x3fc90fdb;
         p->w[5] = 0;

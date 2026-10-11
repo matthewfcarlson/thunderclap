@@ -1,3 +1,4 @@
+extern "C" char DAT_003fd108[];
 void* __cdecl FUN_0008d690(unsigned int);
 struct Track {
     virtual void f0();
@@ -18,7 +19,7 @@ void* Factory::vfunc_5() {
     Track* p = (Track*)FUN_0008d690(0xd0);
     if (p) {
         ((Init*)p)->init();
-        *(void**)p = (void*)0x3fd108;
+        *(void**)p = (void*)((int)DAT_003fd108);
         return p;
     }
     return 0;

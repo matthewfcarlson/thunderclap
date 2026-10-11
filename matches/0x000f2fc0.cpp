@@ -1,3 +1,4 @@
+extern "C" char DAT_0040cb2c[];
 typedef unsigned int u32;
 struct FEMenuBase {
     virtual void f0();
@@ -72,6 +73,6 @@ extern unsigned long long FUN(u32*);
 void FEMenuBase::f53(u32* p) {
     Caster* c = caster;
     unsigned long long x = FUN(p);
-    u32 r = c->d(0x40cb2c, x);
+    u32 r = c->d(((int)DAT_0040cb2c), x);
     f54(r);
 }

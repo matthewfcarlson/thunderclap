@@ -1,3 +1,6 @@
+extern "C" char DAT_00404c50[];
+extern "C" char DAT_0048e0e4[];
+extern "C" char DAT_0048e100[];
 class Base {
   public:
     void Init(int, int);
@@ -16,10 +19,10 @@ class Obj : public Base {
 };
 Obj::Obj(int a, int b) {
     Init(a, 3);
-    vt = 0x404c50;
+    vt = ((int)DAT_00404c50);
     field1c = b;
-    b18 = GetValue((const char*)0x48e100);
-    b10 = GetValue((const char*)0x48e0e4);
-    b11 = GetValue((const char*)0x48e0e4);
-    b12 = GetValue((const char*)0x48e0e4);
+    b18 = GetValue((const char*)((int)DAT_0048e100));
+    b10 = GetValue((const char*)((int)DAT_0048e0e4));
+    b11 = GetValue((const char*)((int)DAT_0048e0e4));
+    b12 = GetValue((const char*)((int)DAT_0048e0e4));
 }

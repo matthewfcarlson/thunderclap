@@ -1,3 +1,4 @@
+extern "C" char DAT_0042cca0[];
 class StatePropDataLoader {
   public:
     StatePropDataLoader();
@@ -12,5 +13,5 @@ StatePropDataLoader::StatePropDataLoader() {
     b = 0x802000a;
     c = 0;
     d = 0;
-    vptr = 0x42cca0;
+    vptr = ((int)DAT_0042cca0);
 }

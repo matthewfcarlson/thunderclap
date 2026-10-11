@@ -1,3 +1,4 @@
+extern "C" char DAT_003fa248[];
 struct A {
     int x;
     void init();
@@ -25,7 +26,7 @@ struct COpportunityBallTrack {
 };
 
 COpportunityBallTrack* COpportunityBallTrack::vfunc_5(unsigned char param) {
-    vptr = 0x3fa248;
+    vptr = ((int)DAT_003fa248);
     c.init();
     b.init();
     a.init();

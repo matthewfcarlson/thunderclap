@@ -1,3 +1,4 @@
+extern "C" char DAT_0042dc94[];
 typedef unsigned int u32;
 extern void* __cdecl alloc(unsigned int);
 class C;
@@ -25,7 +26,7 @@ Obj* C::vfunc_4() {
     if (p) {
         p->init(this);
         p->value = 0;
-        p->vf = 0x42dc94;
+        p->vf = ((int)DAT_0042dc94);
         p->a44 = 0;
         p->a48 = 0;
         p->a50 = 0;

@@ -1,3 +1,4 @@
+extern "C" char DAT_0041c5d0[];
 class Base {
   public:
     virtual void a();
@@ -36,7 +37,7 @@ void* Factory::vfunc_5() {
     Obj* p = (Obj*)alloc(0x18);
     if (p) {
         p->init(0);
-        *((int*)p) = 0x41c5d0;
+        *((int*)p) = ((int)DAT_0041c5d0);
         ((Sub*)((char*)p + 0x10))->init();
         return p;
     }

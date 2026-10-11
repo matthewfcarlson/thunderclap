@@ -1,3 +1,4 @@
+extern "C" char DAT_00423f28[];
 typedef unsigned int u32;
 extern void* __cdecl alloc(unsigned int, unsigned int);
 struct SoundMix {
@@ -17,7 +18,7 @@ SoundMix* Manager::Add() {
         return 0;
     SoundMix* p = (SoundMix*)alloc(0x10, 6);
     if (p != 0) {
-        p->vptr = (u32*)0x423f28;
+        p->vptr = (u32*)((int)DAT_00423f28);
         p->a = 0;
         p->b = 0;
     } else {

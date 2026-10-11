@@ -1,3 +1,4 @@
+extern "C" char DAT_00416678[];
 extern void* __cdecl FUN_0008d690(unsigned int);
 class Temp {
   public:
@@ -20,7 +21,7 @@ void* Factory::vfunc_5() {
     Temp* p = (Temp*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
-        *(unsigned int*)p = 0x416678;
+        *(unsigned int*)p = ((int)DAT_00416678);
         p->x = 0;
         p->y = 0;
         return p;

@@ -1,3 +1,5 @@
+extern "C" char DAT_0041b3f4[];
+extern "C" char DAT_004e2210[];
 class H {
   public:
     void Fn(int);
@@ -30,7 +32,7 @@ class Global {
 extern H* __cdecl FUN_0027f250();
 extern Global* g;
 ProjectileEffect* ProjectileEffect::vfunc_2(unsigned char flags) {
-    *(int*)this = 0x41b3f4;
+    *(int*)this = ((int)DAT_0041b3f4);
     if (m1c) {
         H* h = FUN_0027f250();
         h->Fn(m1c);
@@ -43,6 +45,6 @@ ProjectileEffect* ProjectileEffect::vfunc_2(unsigned char flags) {
         m18 = 0;
     Cleanup();
     if (flags & 1)
-        ((Global*)0x4e2210)->Free(this, 0x50);
+        ((Global*)((int)DAT_004e2210))->Free(this, 0x50);
     return this;
 }

@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d330[];
 class Ref {
   public:
     virtual void f0();
@@ -23,10 +24,10 @@ void Scenegraph::vfunc_14() {
     }
     if (b) {
         Callback c;
-        c.vt = (void*)0x42d330;
+        c.vt = (void*)((int)DAT_0042d330);
         c.result = 0;
         FUN_00296220(b, &c);
-        c.vt = (void*)0x42d330;
+        c.vt = (void*)((int)DAT_0042d330);
         if (c.result)
             ((class Ref*)c.result)->Release();
     }

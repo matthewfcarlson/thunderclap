@@ -1,3 +1,5 @@
+extern "C" char DAT_003f3390[];
+extern "C" char DAT_003f37f4[];
 class Ref {
   public:
     virtual void A();
@@ -20,14 +22,14 @@ class CGrabAction {
 };
 CGrabAction::CGrabAction(Ref* a, int b, Ref* c, int d) {
     Init();
-    vptr = (int*)0x3f3390;
+    vptr = (int*)((int)DAT_003f3390);
     first = 0;
     if (c)
         c->A();
     if (first)
         first->B();
     first = c;
-    vptr = (int*)0x3f37f4;
+    vptr = (int*)((int)DAT_003f37f4);
     m24 = d;
     m28 = 0;
     m38 = 0;

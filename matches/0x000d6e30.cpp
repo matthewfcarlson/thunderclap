@@ -1,3 +1,4 @@
+extern "C" char DAT_0040b370[];
 struct Ref {
     virtual void f0();
     virtual void Release();
@@ -11,7 +12,7 @@ class COverlayManager {
     void clear();
 };
 void COverlayManager::clear() {
-    *(volatile int*)this = 0x40b370;
+    *(volatile int*)this = ((int)DAT_0040b370);
     Ref* x = *(Ref* volatile*)&a;
     if (x) {
         x->Release();

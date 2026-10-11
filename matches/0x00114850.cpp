@@ -1,3 +1,4 @@
+extern "C" char DAT_0040db84[];
 extern void* __cdecl FUN_0008d690(unsigned int);
 class TrackBase {
   public:
@@ -17,7 +18,7 @@ void* Factory::vfunc_5() {
     char* p = (char*)FUN_0008d690(0x28);
     if (p) {
         ((TrackBase*)p)->Init();
-        *(unsigned int*)p = 0x40db84;
+        *(unsigned int*)p = ((int)DAT_0040db84);
         *(unsigned int*)(p + 0xc) = 0;
         *(unsigned int*)(p + 0x10) = 0xbf800000;
         ((TrackTail*)(p + 0x18))->Init();

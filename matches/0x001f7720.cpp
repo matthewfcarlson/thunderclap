@@ -1,3 +1,4 @@
+extern "C" char DAT_00424d4c[];
 class Base {
   public:
     Base(int, int);
@@ -17,7 +18,7 @@ class Obj : public Base {
 };
 extern char FUN_001d04d0(const char*);
 Obj::Obj(int a, int b) : Base(a, 3) {
-    *(int*)this = 0x424d4c;
+    *(int*)this = ((int)DAT_00424d4c);
     m1c = b;
     m18 = FUN_001d04d0(sA);
     m10 = FUN_001d04d0(sB);

@@ -1,3 +1,4 @@
+extern "C" char DAT_0040c05c[];
 class FEDoMenu {
   public:
     int a;
@@ -16,6 +17,6 @@ FEDoMenu::FEDoMenu(int x, const char* s) {
     c = -1;
     d = x;
     e = 0;
-    a = 0x40c05c;
+    a = ((int)DAT_0040c05c);
     FUN_000dfcc0((char*)this + 0x34, 0x20, "%s", s);
 }

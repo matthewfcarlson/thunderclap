@@ -1,3 +1,4 @@
+extern "C" char DAT_003f335c[];
 class C {
   public:
     struct E {
@@ -10,13 +11,13 @@ class C {
 };
 void* C::f(int x, int y, int z) {
     if (x < 0 || x >= 2)
-        return (void*)0x3f335c;
+        return (void*)((int)DAT_003f335c);
     if (y < 0 || y >= 2)
-        return (void*)0x3f335c;
+        return (void*)((int)DAT_003f335c);
     if (z < 0 || z >= 3)
-        return (void*)0x3f335c;
+        return (void*)((int)DAT_003f335c);
     E* p = &entries[z + (y + x * 2) * 3];
     if (p->count <= 0)
-        return (void*)0x3f335c;
+        return (void*)((int)DAT_003f335c);
     return p->ptr;
 }

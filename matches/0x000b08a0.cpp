@@ -1,9 +1,10 @@
+extern "C" char DAT_003f335c[];
 extern "C" {
 extern int gCounts[22];
 extern int gBases[22];
 void* FUN_000b08a0(int index, int item) {
     if (index >= 0 && index < 11 && item >= 0 && item < gCounts[index * 2])
         return (char*)gBases[index * 2] + item * 32;
-    return (void*)0x3f335c;
+    return (void*)((int)DAT_003f335c);
 }
 }

@@ -1,3 +1,4 @@
+extern "C" char DAT_00413fb0[];
 extern "C" void* FUN_0008d690(unsigned int);
 class CollisionThrowCondition {
   public:
@@ -20,7 +21,7 @@ CollisionThrowCondition* Factory::vfunc_5() {
     CollisionThrowCondition* p = (CollisionThrowCondition*)FUN_0008d690(0x10);
     if (p) {
         p->Init(0);
-        p->vt = 0x413fb0;
+        p->vt = ((int)DAT_00413fb0);
         p->flag = 1;
         return p;
     }

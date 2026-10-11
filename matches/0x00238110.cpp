@@ -1,3 +1,4 @@
+extern "C" char DAT_00428100[];
 typedef unsigned int u32;
 void* __cdecl operator_new(unsigned int);
 struct Obj {
@@ -23,7 +24,7 @@ Obj* Factory::Create() {
     if (p) {
         p->Ctor();
         Sub1* s1 = (Sub1*)((char*)p + 0xc);
-        *(u32*)p = 0x428100;
+        *(u32*)p = ((int)DAT_00428100);
         s1->Init1();
         Sub2* s2 = (Sub2*)((char*)p + 0x1c);
         *(u32*)((char*)p + 0x18) = 1;

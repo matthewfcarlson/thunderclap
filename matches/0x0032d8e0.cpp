@@ -1,3 +1,4 @@
+extern "C" char DAT_00433b9c[];
 class Shader {
   public:
     virtual void A();
@@ -17,7 +18,7 @@ class Thing {
 };
 void Thing::Fn() {
     Shader* a = this->a;
-    *(unsigned long*)this = 0x433b9c;
+    *(unsigned long*)this = ((int)DAT_00433b9c);
     if (a)
         a->B();
     Shader* b = this->b;

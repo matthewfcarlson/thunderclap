@@ -1,3 +1,4 @@
+extern "C" char DAT_003f6f5c[];
 class ConditionFactoryTemplate {
   public:
     virtual void V0();
@@ -16,7 +17,7 @@ void* ConditionFactoryTemplate::V5() {
     GroundCondition* p = (GroundCondition*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        *(unsigned int*)p = 0x3f6f5c;
+        *(unsigned int*)p = ((int)DAT_003f6f5c);
         *(unsigned int*)((char*)p + 0xc) = 0;
         *(unsigned int*)((char*)p + 0x10) = 0;
         return p;

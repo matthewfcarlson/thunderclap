@@ -1,3 +1,4 @@
+extern "C" char DAT_00431ed4[];
 class PhysicsJointBase {
   public:
     void Init(int, int, int);
@@ -19,7 +20,7 @@ PhysicsJoint1D* PhysicsJoint1D::Init1(int a, int b, int c) {
     m114 = 0;
     m110 = 0;
     m10c = 0;
-    *(volatile int*)((char*)this) = 0x431ed4;
+    *(volatile int*)((char*)this) = ((int)DAT_00431ed4);
     *(volatile unsigned short*)((char*)this + 6) = 1;
     m104 = 0;
     m100 = 0;

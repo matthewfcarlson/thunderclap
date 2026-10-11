@@ -1,3 +1,6 @@
+extern "C" char DAT_00424398[];
+extern "C" char DAT_0048e100[];
+extern "C" char DAT_0049cad8[];
 extern "C" char Read(int*);
 class Obj {
   public:
@@ -16,11 +19,11 @@ struct Layout {
 Obj* Obj::Fn(char* p, int x) {
     Layout* s = (Layout*)this;
     Init(p, 3);
-    s->v = (void*)0x424398;
+    s->v = (void*)((int)DAT_00424398);
     s->m1c = x;
-    s->b18 = Read((int*)0x48e100);
-    s->b10 = Read((int*)0x49cad8);
-    s->b11 = Read((int*)0x49cad8);
-    s->b12 = Read((int*)0x49cad8);
+    s->b18 = Read((int*)((int)DAT_0048e100));
+    s->b10 = Read((int*)((int)DAT_0049cad8));
+    s->b11 = Read((int*)((int)DAT_0049cad8));
+    s->b12 = Read((int*)((int)DAT_0049cad8));
     return this;
 }

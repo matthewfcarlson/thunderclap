@@ -1,3 +1,5 @@
+extern "C" char DAT_0040c42c[];
+extern "C" char DAT_0040c6a4[];
 class Sub {
   public:
     void init();
@@ -35,13 +37,13 @@ class TextTable : public FEControl {
     char pad[0x495c - 4];
 };
 TextTable* TextTable::vfunc_2(unsigned char p) {
-    *(unsigned long*)this = 0x40c6a4;
+    *(unsigned long*)this = ((int)DAT_0040c6a4);
     char* q = (char*)this + 0x495c;
     for (int i = 0x200; i != 0; --i) {
         q -= 0x24;
         ((Sub*)q)->init();
     }
-    *(unsigned long*)this = 0x40c42c;
+    *(unsigned long*)this = ((int)DAT_0040c42c);
     ((Sub2*)this)->init();
     if (p & 1)
         thunk_FUN_00267090(this);

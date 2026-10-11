@@ -1,3 +1,5 @@
+extern "C" char DAT_00433354[];
+extern "C" char DAT_004333ac[];
 typedef unsigned int U;
 extern void __stdcall Release(U);
 extern void __cdecl Dispose(U);
@@ -12,7 +14,7 @@ struct Texture {
     void BaseDestroy();
 };
 void __fastcall FUN_00326290(Texture* self) {
-    self->vt = 0x4333ac;
+    self->vt = ((int)DAT_004333ac);
     if (self->a)
         Release(self->a);
     if (self->b) {
@@ -25,6 +27,6 @@ void __fastcall FUN_00326290(Texture* self) {
     }
     if (self->d)
         Release(self->d);
-    self->vt = 0x433354;
+    self->vt = ((int)DAT_00433354);
     self->BaseDestroy();
 }

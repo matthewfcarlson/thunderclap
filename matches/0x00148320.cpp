@@ -1,3 +1,4 @@
+extern "C" char DAT_00413738[];
 typedef unsigned char u8;
 class GrappleExecuteTrack {
   public:
@@ -23,7 +24,7 @@ void __fastcall initC(GrappleExecuteTrack*);
 void __cdecl destroyThing(GrappleExecuteTrack*);
 GrappleExecuteTrack* GrappleExecuteTrack::vfunc_5(u8 param) {
     Sub* p = (Sub*)((char*)this + 0x24);
-    *(int*)this = 0x413738;
+    *(int*)this = ((int)DAT_00413738);
     initA(p);
     initB((char*)this + 0x14);
     initC(this);

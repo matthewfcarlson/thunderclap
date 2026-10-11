@@ -1,3 +1,4 @@
+extern "C" char DAT_003fba00[];
 struct CScrubberTrack {
     virtual void v0();
     virtual void v1();
@@ -18,7 +19,7 @@ CScrubberTrack* TrackFactoryTemplate::vfunc_5() {
     CScrubberTrack* p = (CScrubberTrack*)operator_new(0x0c);
     if (p) {
         p->Ctor();
-        *(unsigned int*)p = 0x3fba00;
+        *(unsigned int*)p = ((int)DAT_003fba00);
         return p;
     }
     return 0;

@@ -1,3 +1,4 @@
+extern "C" char DAT_004315dc[];
 class Big {
   public:
     void Init();
@@ -18,7 +19,7 @@ class PhysicsObject {
     void Setup();
 };
 void PhysicsObject::Setup() {
-    vt = (void*)0x4315dc;
+    vt = (void*)((int)DAT_004315dc);
     ((Big*)((char*)this + 0x168))->Init();
     ((Small*)((char*)this + 0x114))->Init();
     ((Small*)((char*)this + 0xf8))->Init();

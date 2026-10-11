@@ -1,3 +1,4 @@
+extern "C" char DAT_003f710c[];
 extern "C" void* __cdecl Allocate(unsigned int);
 struct Condition {
     void* vptr;
@@ -20,7 +21,7 @@ Condition* ConditionFactoryTemplate::vfunc_5() {
     Condition* p = (Condition*)Allocate(0x18);
     if (p) {
         p->Initialize(0);
-        p->vptr = (void*)0x3f710c;
+        p->vptr = (void*)((int)DAT_003f710c);
         p->enabled = 1;
         p->value = 0;
         p->last = -1;

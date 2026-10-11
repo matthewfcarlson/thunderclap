@@ -1,3 +1,4 @@
+extern "C" char DAT_00419774[];
 class Ref {
   public:
     virtual void A();
@@ -13,7 +14,7 @@ class ShieldArcAction {
     void Finish();
 };
 void ShieldArcAction::Cleanup() {
-    vft = 0x419774;
+    vft = ((int)DAT_00419774);
     Ref* p = m20;
     if (p) {
         p->Release();

@@ -1,3 +1,4 @@
+extern "C" char DAT_00411bb8[];
 class FlyingDashTrack {
   public:
     unsigned int vt;
@@ -24,7 +25,7 @@ FlyingDashTrack* Factory::vfunc_5() {
     FlyingDashTrack* p = (FlyingDashTrack*)Alloc(0x24);
     if (p) {
         p->Init();
-        p->vt = 0x411bb8;
+        p->vt = ((int)DAT_00411bb8);
         p->a = 0;
         p->b = 0xbf800000;
         p->c = 0x42480000;

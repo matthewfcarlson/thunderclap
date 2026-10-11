@@ -1,3 +1,4 @@
+extern "C" char DAT_0040fdb4[];
 extern void* __cdecl Alloc(int);
 class Target {
   public:
@@ -16,7 +17,7 @@ Target* Factory::Make() {
     Target* p = (Target*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        *(int*)p = 0x40fdb4;
+        *(int*)p = ((int)DAT_0040fdb4);
         *(int*)((char*)p + 0xc) = 0;
         *(int*)((char*)p + 0x10) = 0;
         return p;

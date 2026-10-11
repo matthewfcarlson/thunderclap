@@ -1,3 +1,4 @@
+extern "C" char DAT_0040dbe4[];
 extern "C" void* __cdecl Alloc(unsigned int);
 class AIHistoryCountTrack {
   public:
@@ -19,7 +20,7 @@ AIHistoryCountTrack* Factory::Create() {
     AIHistoryCountTrack* p = (AIHistoryCountTrack*)Alloc(16);
     if (p) {
         p->AIHistoryCountTrack::AIHistoryCountTrack();
-        p->vptr = 0x40dbe4;
+        p->vptr = ((int)DAT_0040dbe4);
         p->member = 0;
         return p;
     }

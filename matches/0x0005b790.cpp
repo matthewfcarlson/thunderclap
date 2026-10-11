@@ -1,3 +1,4 @@
+extern "C" char DAT_003f9944[];
 class CGrappleAttachTrack;
 class Helper {
   public:
@@ -24,7 +25,7 @@ class CGrappleAttachTrack {
 };
 extern void FUN_00267090(CGrappleAttachTrack*);
 CGrappleAttachTrack* CGrappleAttachTrack::vfunc_5(unsigned char param) {
-    *(unsigned long*)this = 0x3f9944;
+    *(unsigned long*)this = ((int)DAT_003f9944);
     ((Helper*)((char*)this + 0x40))->f();
     ((Helper*)((char*)this + 0x18))->f();
     ((Helper*)((char*)this + 0x10))->f();

@@ -1,3 +1,4 @@
+extern "C" char DAT_004136d8[];
 extern void* __cdecl FUN_0008d690(unsigned int);
 class Track {
   public:
@@ -16,7 +17,7 @@ Track* Factory::vfunc_5() {
     Track* p = (Track*)FUN_0008d690(0x10);
     if (p) {
         p->Track::Track();
-        *(int*)p = 0x4136d8;
+        *(int*)p = ((int)DAT_004136d8);
         *((int*)p + 3) = 0;
         return p;
     }

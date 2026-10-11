@@ -1,3 +1,4 @@
+extern "C" char DAT_0041d3cc[];
 class Sub {
   public:
     void Init();
@@ -14,7 +15,7 @@ class Event_TriggerVolumeNameCondition : public Base {
     void Fn();
 };
 void Event_TriggerVolumeNameCondition::Fn() {
-    vptr = (void*)0x41d3cc;
+    vptr = (void*)((int)DAT_0041d3cc);
     sub.Init();
     Tail();
 }

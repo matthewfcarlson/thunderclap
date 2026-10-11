@@ -1,3 +1,4 @@
+extern "C" char DAT_003fbd50[];
 class CDrainHealthTrack {
   public:
     int a, b, c, d, e, f;
@@ -32,7 +33,7 @@ CDrainHealthTrack* TrackFactoryTemplate::vfunc_5() {
     CDrainHealthTrack* p = (CDrainHealthTrack*)FUN_0008d690(0x18);
     if (p) {
         p->init();
-        *(int*)p = 0x3fbd50;
+        *(int*)p = ((int)DAT_003fbd50);
         p->d = 0;
         p->e = 0x3f800000;
         p->f = 0;

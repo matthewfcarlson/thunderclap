@@ -1,3 +1,5 @@
+extern "C" char DAT_00429ac8[];
+extern "C" char DAT_004e68b0[];
 namespace audio {
 class SeqCommand {
   public:
@@ -12,8 +14,8 @@ class SeqCommandCondition : public SeqCommand {
 } // namespace audio
 extern void __cdecl FUN_00247550(void*, void*);
 audio::SeqCommandCondition* audio::SeqCommandCondition::vfunc_1(int arg) {
-    *(int*)this = 0x429ac8;
+    *(int*)this = ((int)DAT_00429ac8);
     if (arg & 1)
-        FUN_00247550((void*)0x4e68b0, this);
+        FUN_00247550((void*)((int)DAT_004e68b0), this);
     return this;
 }

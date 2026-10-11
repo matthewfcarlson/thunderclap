@@ -1,3 +1,4 @@
+extern "C" char DAT_004298fc[];
 extern int SeqActionVftable;
 extern int gBss;
 extern void __cdecl FUN_00247550(void*, void*);
@@ -11,7 +12,7 @@ class SeqActionVarPitch : public SeqAction {
 };
 SeqAction* SeqActionVarPitch::vfunc_0(int flag) {
     SeqAction* self = this;
-    vptr = (int*)0x4298fc;
+    vptr = (int*)((int)DAT_004298fc);
     if (flag & 1)
         FUN_00247550(&gBss, self);
     return self;

@@ -1,3 +1,5 @@
+extern "C" char DAT_003feefc[];
+extern "C" char DAT_004231ac[];
 struct Element {
     void Init();
 };
@@ -9,7 +11,7 @@ class CSPManager {
 void CSPManager::Construct() {
     char* p;
     int i;
-    vftable = (void*)0x4231ac;
+    vftable = (void*)((int)DAT_004231ac);
     p = (char*)this + 0x1eee0;
     for (i = 0x10; i != 0; --i) {
         p -= 0x18;
@@ -26,5 +28,5 @@ void CSPManager::Construct() {
         ((Element*)(p + 8))->Init();
         ((Element*)p)->Init();
     }
-    vftable = (void*)0x3feefc;
+    vftable = (void*)((int)DAT_003feefc);
 }

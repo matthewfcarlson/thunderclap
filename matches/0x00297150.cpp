@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d348[];
 class Obj {
   public:
     int v;
@@ -12,5 +13,5 @@ Obj::Obj() {
     b = 0x120100;
     c = 0;
     d = 0;
-    v = 0x42d348;
+    v = ((int)DAT_0042d348);
 }

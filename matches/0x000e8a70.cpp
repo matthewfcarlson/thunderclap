@@ -1,3 +1,4 @@
+extern "C" char DAT_0040bfe0[];
 class Ref {
   public:
     virtual void F0();
@@ -10,7 +11,7 @@ class FEParticleSystem {
     void Cleanup();
 };
 void FEParticleSystem::Cleanup() {
-    *(volatile unsigned*)this = 0x40bfe0;
+    *(volatile unsigned*)this = ((int)DAT_0040bfe0);
     Ref* r = mRef;
     if (r) {
         r->Release();

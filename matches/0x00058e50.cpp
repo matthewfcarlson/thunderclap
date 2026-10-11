@@ -1,3 +1,4 @@
+extern "C" char DAT_003f9754[];
 class CCollisionFlagCondition {
   public:
     int vf;
@@ -17,7 +18,7 @@ CCollisionFlagCondition* ConditionFactoryTemplate::vfunc_5() {
     CCollisionFlagCondition* p = (CCollisionFlagCondition*)FUN_0008d690(0x18);
     if (p) {
         p->Init();
-        p->vf = 0x3f9754;
+        p->vf = ((int)DAT_003f9754);
         return p;
     }
     return 0;

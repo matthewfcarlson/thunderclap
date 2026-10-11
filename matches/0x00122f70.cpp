@@ -1,3 +1,4 @@
+extern "C" char DAT_0040f500[];
 class StrafeLateralHBTrack {
   public:
     int vf;
@@ -26,7 +27,7 @@ StrafeLateralHBTrack* TrackFactoryTemplate::vfunc_5() {
         p->z18 = 0;
         p->z1c = 0;
         p->z20 = 0;
-        p->vf = 0x40f500;
+        p->vf = ((int)DAT_0040f500);
         p->x10 = (int)0xbf800000;
         p->x24 = 0x3f800000;
         return p;

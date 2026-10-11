@@ -1,3 +1,4 @@
+extern "C" char DAT_00414838[];
 extern "C" void* FUN_0008d690(unsigned int);
 extern "C" void FUN_002347b0(void*, void**, int);
 extern int g_count;
@@ -17,7 +18,7 @@ void FUN_00155500() {
         Hit* p = (Hit*)FUN_0008d690(0x18);
         if (p) {
             p->Init("hasHitPushback");
-            *(int*)p = 0x414838;
+            *(int*)p = ((int)DAT_00414838);
             *(int*)((char*)p + 0x10) = 0x14c550;
             temp = p;
         } else

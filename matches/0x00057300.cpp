@@ -1,3 +1,4 @@
+extern "C" char DAT_003f9230[];
 void* __cdecl Alloc(unsigned int);
 class CButtonPressCondition {
   public:
@@ -16,7 +17,7 @@ CButtonPressCondition* ConditionFactoryTemplate::V5() {
     CButtonPressCondition* p = (CButtonPressCondition*)Alloc(0x20);
     if (p) {
         p->CButtonPressCondition::CButtonPressCondition();
-        *(int*)p = 0x3f9230;
+        *(int*)p = ((int)DAT_003f9230);
         return p;
     }
     return 0;

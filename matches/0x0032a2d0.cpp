@@ -1,3 +1,4 @@
+extern "C" char DAT_004d4f24[];
 class Dev {
     char pad[0x48];
 
@@ -23,7 +24,7 @@ void __fastcall FUN_0032a2d0(Obj* self) {
     int x = self->value;
     if (x != self->dev->state) {
         self->dev->state = x;
-        int v = (*(int*)(0x4d4f24 + x * 4));
+        int v = (*(int*)(((int)DAT_004d4f24) + x * 4));
         D3DDevice_SetRenderState_Simple((const char*)0x4037c, v);
         global = v;
     }

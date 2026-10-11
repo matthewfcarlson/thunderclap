@@ -1,3 +1,4 @@
+extern "C" char DAT_003faa80[];
 typedef unsigned int u32;
 struct Helper {
     void Init();
@@ -8,7 +9,7 @@ struct CEffectTrack {
     void Finish();
 };
 void __fastcall FUN_00060720(CEffectTrack* self) {
-    self->vft = 0x3faa80;
+    self->vft = ((int)DAT_003faa80);
     ((Helper*)((char*)self + 0x30))->Init();
     ((Helper*)((char*)self + 0x28))->Init();
     ((Helper*)((char*)self + 0x18))->Init();

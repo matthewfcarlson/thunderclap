@@ -1,3 +1,4 @@
+extern "C" char DAT_00410ec0[];
 typedef unsigned int u32;
 extern u32 __cdecl FUN_002343e0(u32, void*);
 struct Obj {
@@ -8,7 +9,7 @@ struct Factory {
 };
 void __cdecl target(Obj* a, u32 b) {
     Factory local;
-    local.vft = 0x410ec0;
+    local.vft = ((int)DAT_00410ec0);
     u32 x = FUN_002343e0(b, &local);
     a->Fn(x);
 }

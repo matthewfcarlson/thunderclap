@@ -1,3 +1,4 @@
+extern "C" char DAT_0040db44[];
 typedef unsigned char u8;
 typedef unsigned int u32;
 void* __cdecl Allocate(unsigned int);
@@ -19,7 +20,7 @@ void* ConditionFactoryTemplate::vfunc_5() {
         ((InitObj*)p)->Init(0);
         ((u8*)p)[0xc] = 1;
         ((u8*)p)[0xd] = 1;
-        *(u32*)p = 0x40db44;
+        *(u32*)p = ((int)DAT_0040db44);
         return p;
     }
     return (void*)0;

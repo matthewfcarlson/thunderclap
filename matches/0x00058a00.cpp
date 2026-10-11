@@ -1,3 +1,4 @@
+extern "C" char DAT_003f7178[];
 class CSmartPropTypeCondition {
   public:
     virtual void V0();
@@ -25,7 +26,7 @@ CSmartPropTypeCondition* Factory::Create() {
     CSmartPropTypeCondition* p = Alloc(0x14);
     if (p) {
         p->Init(0);
-        *(int*)p = 0x3f7178;
+        *(int*)p = ((int)DAT_003f7178);
         p->a = 0;
         p->b = 0;
         return p;

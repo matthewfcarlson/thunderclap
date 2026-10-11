@@ -1,3 +1,4 @@
+extern "C" char DAT_004cc0c8[];
 struct Obj {
     char pad[0x1c];
     void* reader;
@@ -11,7 +12,7 @@ bool __fastcall FUN_00246c80(Obj* self) {
     if (self->count > 0) {
         do {
             void* r = self->reader;
-            if (!((ReadFn*)r)[1](r, (const void*)0x4cc0c8, 4))
+            if (!((ReadFn*)r)[1](r, (const void*)((int)DAT_004cc0c8), 4))
                 return false;
             ++i;
         } while (i < self->count);

@@ -1,3 +1,4 @@
+extern "C" char DAT_0042c1b4[];
 typedef unsigned int u32;
 struct Partition {
     u32 vptr;
@@ -16,7 +17,7 @@ struct Source {
 Partition* f(Partition* out, int count, Source* src) {
     while (count != 0) {
         if (out) {
-            out->vptr = 0x42c1b4;
+            out->vptr = ((int)DAT_0042c1b4);
             out->a = src->a;
             out->b = src->b;
             out->c = src->c;

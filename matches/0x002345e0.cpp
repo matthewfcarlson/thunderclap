@@ -1,3 +1,4 @@
+extern "C" char DAT_004279ac[];
 class Obj {
   public:
     virtual void s0();
@@ -17,7 +18,7 @@ struct Condition {
 void Destroy(Condition*);
 Condition* Condition::vfunc_5(unsigned char flags) {
     Obj* p = mRef;
-    vptr = 0x4279ac;
+    vptr = ((int)DAT_004279ac);
     if (p)
         p->s5(1);
     mRef = 0;

@@ -1,3 +1,4 @@
+extern "C" char DAT_00414190[];
 typedef unsigned int uint;
 extern void* __cdecl Allocate(uint);
 struct Obj {
@@ -23,7 +24,7 @@ Obj* Factory::vfunc5() {
     Obj* p = (Obj*)Allocate(0x1c);
     if (p) {
         p->Init(0);
-        p->vt = 0x414190;
+        p->vt = ((int)DAT_00414190);
         p->c = 0;
         p->d = 0;
         p->e = 0;

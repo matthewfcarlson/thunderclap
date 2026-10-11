@@ -1,3 +1,4 @@
+extern "C" char DAT_00404b3c[];
 extern const char* gName;
 class CamInit {
   public:
@@ -20,7 +21,7 @@ extern "C" Blend* __fastcall FUN_000983d0(Blend* self) {
     char* p;
     CamCfg* c;
     ((CamInit*)self)->InitBase();
-    self->vft = 0x404b3c;
+    self->vft = ((int)DAT_00404b3c);
     p = (char*)self + 0x1a8;
     ((CamSetup*)p)->SetupPart();
     c = (CamCfg*)((char*)self + 8);

@@ -1,3 +1,4 @@
+extern "C" char DAT_003fe6c8[];
 typedef unsigned int u32;
 void* __cdecl Allocate(unsigned int);
 class Track {
@@ -17,7 +18,7 @@ void* Template::f() {
     void* p = Allocate(0x3c);
     if (p) {
         ((Track*)p)->Init();
-        *(u32*)p = 0x3fe6c8;
+        *(u32*)p = ((int)DAT_003fe6c8);
         return p;
     }
     return 0;

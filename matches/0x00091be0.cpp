@@ -1,3 +1,4 @@
+extern "C" char DAT_0040449c[];
 class CUnlockable {
   public:
     int pad[6];
@@ -9,7 +10,7 @@ struct Tail {
     void f();
 };
 void CUnlockable::Destroy() {
-    *(void**)this = (void*)0x40449c;
+    *(void**)this = (void*)((int)DAT_0040449c);
     if (m18) {
         thunk_FUN_00267090(m18);
         m18 = 0;

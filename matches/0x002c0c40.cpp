@@ -1,3 +1,4 @@
+extern "C" char DAT_0042eb0c[];
 class Sub {
   public:
     void* Init();
@@ -18,7 +19,7 @@ void* __fastcall FUN_002c0c40(ImageLoader* p) {
     p->b = 0x19001;
     p->c = 0;
     p->d = 0;
-    p->v = (void*)0x42eb0c;
+    p->v = (void*)((int)DAT_0042eb0c);
     p->f = 0x20;
     Sub* s = (Sub*)alloc(0xa4);
     int r;

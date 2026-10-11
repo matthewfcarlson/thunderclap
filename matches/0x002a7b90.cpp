@@ -1,3 +1,4 @@
+extern "C" char DAT_0042dc24[];
 class SceneGraphVisibilityAnimationController {
   public:
     void* vtable;
@@ -10,7 +11,7 @@ class SceneGraphVisibilityAnimationController {
 };
 void* SceneGraphVisibilityAnimationController::init() {
     base_ctor();
-    vtable = (void*)0x42dc24;
+    vtable = (void*)((int)DAT_0042dc24);
     a = 0;
     b = 0;
     base_init(1);

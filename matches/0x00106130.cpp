@@ -1,3 +1,4 @@
+extern "C" char DAT_0040d564[];
 typedef unsigned int u32;
 void __cdecl thunk_FUN_00267090(u32);
 struct CPatrolPath {
@@ -9,7 +10,7 @@ struct CPatrolPath {
     void target();
 };
 void CPatrolPath::target() {
-    vptr = (void*)0x40d564;
+    vptr = (void*)((int)DAT_0040d564);
     u32 x = m10;
     thunk_FUN_00267090(x);
     m14 = 0;

@@ -1,3 +1,4 @@
+extern "C" char DAT_0042efc0[];
 class VertexList {
   public:
     int vptr;
@@ -16,7 +17,7 @@ class VertexList {
 VertexList::VertexList(int p2, int p3, int p4) {
     b = p2;
     a = 0;
-    vptr = 0x42efc0;
+    vptr = ((int)DAT_0042efc0);
     c = p3;
     d = p4;
     e[0] = 0;

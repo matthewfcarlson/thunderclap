@@ -1,3 +1,4 @@
+extern "C" char DAT_0040f848[];
 void* __cdecl alloc(unsigned int);
 struct Param {
     int vft;
@@ -15,7 +16,7 @@ void target() {
         p = (Param*)alloc(0x18);
         if (p) {
             p->Init("timeBegin");
-            p->vft = 0x40f848;
+            p->vft = ((int)DAT_0040f848);
             p->value = 0x11bd30;
             list[0] = p;
         } else
@@ -23,7 +24,7 @@ void target() {
         p = (Param*)alloc(0x18);
         if (p) {
             p->Init("timeEnd");
-            p->vft = 0x40f848;
+            p->vft = ((int)DAT_0040f848);
             p->value = 0x11bd40;
             list[1] = p;
         } else
@@ -31,7 +32,7 @@ void target() {
         p = (Param*)alloc(0x18);
         if (p) {
             p->Init("distance");
-            p->vft = 0x40f848;
+            p->vft = ((int)DAT_0040f848);
             p->value = 0x11bd50;
             list[2] = p;
         } else
@@ -39,7 +40,7 @@ void target() {
         p = (Param*)alloc(0x18);
         if (p) {
             p->Init("turnRate");
-            p->vft = 0x40f848;
+            p->vft = ((int)DAT_0040f848);
             p->value = 0x11bd60;
             list[3] = p;
         } else
@@ -47,7 +48,7 @@ void target() {
         p = (Param*)alloc(0x18);
         if (p) {
             p->Init("heightMin");
-            p->vft = 0x40f848;
+            p->vft = ((int)DAT_0040f848);
             p->value = 0x11bd90;
             list[4] = p;
         } else
@@ -55,7 +56,7 @@ void target() {
         p = (Param*)alloc(0x18);
         if (p) {
             p->Init("heightMax");
-            p->vft = 0x40f848;
+            p->vft = ((int)DAT_0040f848);
             p->value = 0x11bdb0;
             list[5] = p;
         } else
@@ -63,7 +64,7 @@ void target() {
         p = (Param*)alloc(0x18);
         if (p) {
             p->Init("speed");
-            p->vft = 0x40f848;
+            p->vft = ((int)DAT_0040f848);
             p->value = 0x11bdd0;
             list[6] = p;
         } else

@@ -1,3 +1,4 @@
+extern "C" char DAT_0041935c[];
 class PropDropTrack {
   public:
     void Init();
@@ -21,7 +22,7 @@ PropDropTrack* Factory::vfunc_5() {
     PropDropTrack* p = (PropDropTrack*)operator_new(0x14);
     if (p) {
         p->Init();
-        p->vt = 0x41935c;
+        p->vt = ((int)DAT_0041935c);
         p->c = 0;
         p->d = -1;
         p->e = 1;

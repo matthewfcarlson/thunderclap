@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042c8e8[];
 extern "C" void _ReadWriteBarrier();
 typedef unsigned char byte;
 struct Ref {
@@ -16,13 +18,13 @@ struct AnimationLoader {
 };
 extern void destroy(AnimationLoader*);
 AnimationLoader* AnimationLoader::vfunc_2(byte flags) {
-    *(void**)this = (void*)0x42c8e8;
+    *(void**)this = (void*)((int)DAT_0042c8e8);
     _ReadWriteBarrier();
     if (mRef) {
         mRef->release();
         mRef = 0;
     }
-    *(void**)this = (void*)0x3f6098;
+    *(void**)this = (void*)((int)DAT_003f6098);
     if (flags & 1)
         destroy(this);
     return this;

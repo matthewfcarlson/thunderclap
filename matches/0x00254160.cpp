@@ -1,3 +1,4 @@
+extern "C" char DAT_004e7200[];
 class SeqEvent {
   public:
     virtual void f0();
@@ -23,6 +24,6 @@ extern void __cdecl FUN_00247550(void*, SeqEventStream*);
 SeqEventStream* SeqEventStream::f4(int flag) {
     ((Helper*)this)->Run();
     if (flag & 1)
-        FUN_00247550((void*)0x4e7200, this);
+        FUN_00247550((void*)((int)DAT_004e7200), this);
     return this;
 }

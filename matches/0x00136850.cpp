@@ -1,3 +1,4 @@
+extern "C" char DAT_00411e34[];
 class Ref {
   public:
     virtual void Fn();
@@ -18,7 +19,7 @@ AirToGroundTargetAction::AirToGroundTargetAction(int x, Ref* r) {
     ((Base*)this)->Init();
     Ref* q = r;
     volatile int* p = &vf;
-    *p = 0x411e34;
+    *p = ((int)DAT_00411e34);
     volatile int* z = &a;
     *z = 0;
     b = 0;

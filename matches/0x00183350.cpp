@@ -1,3 +1,4 @@
+extern "C" char DAT_0041947c[];
 typedef unsigned char u8;
 struct Sub {
     void Init();
@@ -20,7 +21,7 @@ class BallAndChainShootTrack {
     char pad[0x78 - 4];
 };
 BallAndChainShootTrack* BallAndChainShootTrack::vfunc_5(u8 x) {
-    *(unsigned int*)this = 0x41947c;
+    *(unsigned int*)this = ((int)DAT_0041947c);
     ((Sub*)((char*)this + 0x78))->Init();
     ((Sub*)((char*)this + 0x60))->Init();
     BaseInit();

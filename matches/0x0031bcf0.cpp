@@ -1,3 +1,4 @@
+extern "C" char DAT_00432578[];
 extern int gCount;
 extern void __stdcall ReleaseResource(void*);
 extern void __cdecl FreeArray(void*);
@@ -10,7 +11,7 @@ class d3dPrimStream {
 };
 
 void __fastcall FUN_0031bcf0(d3dPrimStream* self) {
-    self->vtable = 0x432578;
+    self->vtable = ((int)DAT_00432578);
     int i = 0;
     if (gCount > 0) {
         do {

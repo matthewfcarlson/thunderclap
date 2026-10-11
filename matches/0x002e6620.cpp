@@ -1,3 +1,4 @@
+extern "C" char DAT_0042fd84[];
 void __cdecl Release(void*) throw();
 class Base {
   public:
@@ -12,7 +13,7 @@ class Language : public Base {
     void* c;
 };
 Language::~Language() {
-    *(unsigned long*)this = 0x42fd84;
+    *(unsigned long*)this = ((int)DAT_0042fd84);
     Release(a);
     Release(b);
     Release(c);

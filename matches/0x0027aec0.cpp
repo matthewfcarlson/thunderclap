@@ -1,3 +1,4 @@
+extern "C" char DAT_0042c140[];
 class Ref {
   public:
     virtual void f0();
@@ -12,7 +13,7 @@ class RDLReader {
     void Close();
 };
 void RDLReader::Close() {
-    vptr = (void*)0x42c140;
+    vptr = (void*)((int)DAT_0042c140);
     if (member) {
         member->f1();
         member = 0;

@@ -1,3 +1,4 @@
+extern "C" char DAT_00425374[];
 struct Base {
     void Init(const char*, int);
 };
@@ -18,7 +19,7 @@ class CTriggerVolumeManager : public Base {
 };
 CTriggerVolumeManager::CTriggerVolumeManager(const char* a, int c) {
     Init(a, 3);
-    m0 = 0x425374;
+    m0 = ((int)DAT_00425374);
     m1c = c;
     b18 = FUN_001d04d0(&g0);
     b10 = FUN_001d04d0(&g1);

@@ -1,3 +1,4 @@
+extern "C" char DAT_003f8628[];
 typedef unsigned int u32;
 extern "C" void* __cdecl thunk_FUN_0008d690(unsigned int);
 class Helper {
@@ -16,7 +17,7 @@ void* ConditionFactoryCasterTemplate::vfunc_1(unsigned int arg) {
     void* p = thunk_FUN_0008d690(0x10);
     if (p) {
         ((Helper*)p)->Init();
-        *(u32*)p = 0x3f8628;
+        *(u32*)p = ((int)DAT_003f8628);
         ((Init2*)((char*)p + 8))->Init(arg);
         return p;
     }

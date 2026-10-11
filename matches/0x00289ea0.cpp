@@ -1,3 +1,4 @@
+extern "C" char DAT_0042c8c4[];
 struct Sub {
     void f();
 };
@@ -9,7 +10,7 @@ class AnimationGroup {
 };
 extern void __cdecl thunk_FUN_00267090(AnimationGroup*);
 AnimationGroup* AnimationGroup::vfunc_0(unsigned char param_2) {
-    *(void**)this = (void*)0x42c8c4;
+    *(void**)this = (void*)((int)DAT_0042c8c4);
     AnimationGroup::vfunc_1();
     ((Sub*)((char*)this + 8))->f();
     if (param_2 & 1)

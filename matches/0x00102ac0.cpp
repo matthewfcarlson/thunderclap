@@ -1,3 +1,4 @@
+extern "C" char DAT_0040d418[];
 class Obj {
   public:
     virtual void Init();
@@ -22,7 +23,7 @@ class CMoveAgent {
 };
 CMoveAgent::CMoveAgent(void* arg) {
     Base(arg);
-    *(unsigned int*)this = 0x40d418;
+    *(unsigned int*)this = ((int)DAT_0040d418);
     Helper* h = (Helper*)Alloc(0x38);
     Obj* q;
     if (h)

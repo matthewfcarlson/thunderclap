@@ -1,3 +1,4 @@
+extern "C" char DAT_0040dd04[];
 class SemaphoreWaitTrack {
   public:
     virtual void a();
@@ -27,7 +28,7 @@ SemaphoreWaitTrack* Factory::f() {
     SemaphoreWaitTrack* p = (SemaphoreWaitTrack*)alloc(0x28);
     if (p != 0) {
         ((BaseInit*)p)->go();
-        *(unsigned int*)p = 0x40dd04;
+        *(unsigned int*)p = ((int)DAT_0040dd04);
         *(unsigned int*)((char*)p + 0xc) = 0;
         *(unsigned int*)((char*)p + 0x10) = 0xbf800000;
         ((MemberInit*)((char*)p + 0x18))->go();

@@ -1,3 +1,5 @@
+extern "C" char DAT_003f98d0[];
+extern "C" char DAT_003fbb34[];
 class Helper {
   public:
     void f();
@@ -11,10 +13,10 @@ class CKeyPoseTrack {
 };
 void Final(CKeyPoseTrack*);
 CKeyPoseTrack* CKeyPoseTrack::vfunc_5(unsigned char flag) {
-    vptr = (int*)0x3fbb34;
+    vptr = (int*)((int)DAT_003fbb34);
     ((Helper*)((char*)this + 0x60))->f();
     ((Helper*)((char*)this + 0x10))->f();
-    vptr = (int*)0x3f98d0;
+    vptr = (int*)((int)DAT_003f98d0);
     BaseDtor();
     if (flag & 1)
         Final(this);

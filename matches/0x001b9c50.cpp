@@ -1,3 +1,6 @@
+extern "C" char DAT_00420e24[];
+extern "C" char DAT_0048e100[];
+extern "C" char DAT_0048e134[];
 class Base {
   public:
     void Init(void*, int);
@@ -22,10 +25,10 @@ class Target : public Base {
 };
 Target::Target(void* p, int x) {
     Init(p, 3);
-    *(int*)this = 0x420e24;
+    *(int*)this = ((int)DAT_00420e24);
     member1c = x;
-    b18 = FUN_001d04d0((const char*)0x48e100);
-    b10 = FUN_001d04d0((const char*)0x48e134);
-    b11 = FUN_001d04d0((const char*)0x48e134);
-    b12 = FUN_001d04d0((const char*)0x48e134);
+    b18 = FUN_001d04d0((const char*)((int)DAT_0048e100));
+    b10 = FUN_001d04d0((const char*)((int)DAT_0048e134));
+    b11 = FUN_001d04d0((const char*)((int)DAT_0048e134));
+    b12 = FUN_001d04d0((const char*)((int)DAT_0048e134));
 }

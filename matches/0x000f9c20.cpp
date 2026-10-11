@@ -1,3 +1,4 @@
+extern "C" char DAT_0040cebc[];
 extern "C" unsigned __int64 __cdecl MakeToken(int);
 class CTokenHashed {
   public:
@@ -9,7 +10,7 @@ CTokenHashed* CTokenHashed::Target(int p1, int p2, int p3, int p4) {
     a = 0;
     b = 0;
     c = 0;
-    vftable = (void*)0x40cebc;
+    vftable = (void*)((int)DAT_0040cebc);
     unsigned __int64 v = MakeToken(p1);
     d = (int)v;
     e = (int)(v >> 32);

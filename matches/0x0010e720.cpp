@@ -1,3 +1,4 @@
+extern "C" char DAT_0040d9a4[];
 struct Sub {
     void init();
 };
@@ -15,7 +16,7 @@ class AIFightNodeCondition {
 };
 extern void thunk_FUN_00267090(AIFightNodeCondition*);
 AIFightNodeCondition* AIFightNodeCondition::vfunc_5(unsigned char param) {
-    *(void**)this = (void*)0x40d9a4;
+    *(void**)this = (void*)((int)DAT_0040d9a4);
     ((Sub*)((char*)this + 0xc))->init();
     baseInit();
     if (param & 1)

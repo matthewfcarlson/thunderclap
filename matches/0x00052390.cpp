@@ -1,3 +1,4 @@
+extern "C" char DAT_003f85c4[];
 class CGrappleFightNodeParentCondition {
   public:
     virtual void A();
@@ -22,7 +23,7 @@ CGrappleFightNodeParentCondition* Factory::vfunc_5() {
     CGrappleFightNodeParentCondition* p = (CGrappleFightNodeParentCondition*)FUN_0008d690(0x20);
     if (p) {
         p->Init();
-        *(int*)p = 0x3f85c4;
+        *(int*)p = ((int)DAT_003f85c4);
         return p;
     }
     return 0;

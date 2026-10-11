@@ -1,3 +1,4 @@
+extern "C" char DAT_0042cb44[];
 class Obj {
   public:
     virtual void f0();
@@ -31,7 +32,7 @@ extern Factory* gFactory;
 void BaseInit();
 Shader* Shader::Ctor(int a, int b) {
     BaseInit();
-    vft = 0x42cb44;
+    vft = ((int)DAT_0042cb44);
     flag = 0;
     field18 = 0;
     Obj* p = gFactory->Get(a, b);

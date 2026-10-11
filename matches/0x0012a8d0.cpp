@@ -1,3 +1,4 @@
+extern "C" char DAT_0040fe54[];
 class TargetVelocityYCondition {
   public:
     virtual void v0();
@@ -25,7 +26,7 @@ TargetVelocityYCondition* ConditionFactoryTemplate::v5() {
     TargetVelocityYCondition* p = (TargetVelocityYCondition*)FUN_0008d690(0x14);
     if (p) {
         p->TargetVelocityYCondition::TargetVelocityYCondition(0);
-        *(int*)p = 0x40fe54;
+        *(int*)p = ((int)DAT_0040fe54);
         p->a = 0;
         p->b = 0;
         return p;

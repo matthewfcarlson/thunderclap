@@ -1,3 +1,4 @@
+extern "C" char DAT_0040bff8[];
 extern int type1;
 extern int type2;
 extern void __cdecl Init(void*, int, int*, int*, int);
@@ -22,7 +23,7 @@ FEParticleSystem::FEParticleSystem(void* arg, int unused) {
     b = -1;
     c = arg;
     flag = 0;
-    vptr = (void*)0x40bff8;
+    vptr = (void*)((int)DAT_0040bff8);
     d = 0;
     e = 0;
     f = (int)0xbf800000;

@@ -1,3 +1,4 @@
+extern "C" char DAT_0042ea08[];
 class ImageFontLoader {
   public:
     int vf;
@@ -12,5 +13,5 @@ ImageFontLoader::ImageFontLoader() {
     b = 0x22002;
     c = 0;
     d = 0;
-    vf = 0x42ea08;
+    vf = ((int)DAT_0042ea08);
 }

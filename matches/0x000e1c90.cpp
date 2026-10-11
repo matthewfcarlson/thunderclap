@@ -1,3 +1,4 @@
+extern "C" char DAT_0040c0bc[];
 class FEDoScreen {
   public:
     int pad0[2];
@@ -12,6 +13,6 @@ FEDoScreen::FEDoScreen(int x, const char* s) {
     b = -1;
     c = x;
     e = 0;
-    *(int*)this = 0x40c0bc;
+    *(int*)this = ((int)DAT_0040c0bc);
     Format((char*)this + 0x34, 0x20, "%s", s);
 }

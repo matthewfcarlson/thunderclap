@@ -1,3 +1,5 @@
+extern "C" char DAT_0042b914[];
+extern "C" char DAT_0042b9bc[];
 class V {
   public:
     virtual void A();
@@ -23,10 +25,10 @@ class DriveRequest : public Request {
     void Cleanup();
 };
 void DriveRequest::Cleanup() {
-    *(int*)this = 0x42b9bc;
+    *(int*)this = ((int)DAT_0042b9bc);
     sub->obj.A();
     --sub->refs;
     sub->obj.B();
     sub->Y();
-    *(int*)this = 0x42b914;
+    *(int*)this = ((int)DAT_0042b914);
 }

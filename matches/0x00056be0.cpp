@@ -1,3 +1,4 @@
+extern "C" char DAT_003f6ed8[];
 extern void* __cdecl Alloc(unsigned int);
 class CAxisArcCondition {
   public:
@@ -24,7 +25,7 @@ CAxisArcCondition* Factory::f5() {
     if (p) {
         p->Init(0);
         *(int*)((char*)p + 0xc) = 0;
-        *(int*)p = 0x3f6ed8;
+        *(int*)p = ((int)DAT_003f6ed8);
         *(int*)((char*)p + 0x18) = 5;
         *(unsigned int*)((char*)p + 0x1c) = 0x3fc90fdb;
         *(int*)((char*)p + 0x10) = 0;

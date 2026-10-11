@@ -1,3 +1,4 @@
+extern "C" char DAT_00422370[];
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 struct DataInit {
     void Init();
@@ -14,7 +15,7 @@ struct CScenarioParams {
 extern unsigned int g_counter;
 CScenarioParams* CScenarioParams::target(const unsigned int* src) {
     InitBase();
-    vf = 0x422370;
+    vf = ((int)DAT_00422370);
     data.Init();
     unsigned int n = *src;
     memcpy(&data, src, n);

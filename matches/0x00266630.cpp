@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042aec8[];
 class Ref {
   public:
     virtual void f0();
@@ -24,7 +26,7 @@ void thunk_FUN_00267090(void*);
 void thunk_FUN_00267090(LoadInventory*);
 LoadInventory* LoadInventory::vfunc_2(unsigned char b) {
     Ops* p = mA;
-    *(int*)this = 0x42aec8;
+    *(int*)this = ((int)DAT_0042aec8);
     if (p) {
         p->a();
         p->b();
@@ -32,7 +34,7 @@ LoadInventory* LoadInventory::vfunc_2(unsigned char b) {
     }
     if (mB)
         mB->f1();
-    *(int*)this = 0x3f6098;
+    *(int*)this = ((int)DAT_003f6098);
     if (b & 1)
         thunk_FUN_00267090(this);
     return this;

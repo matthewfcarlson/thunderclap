@@ -1,3 +1,4 @@
+extern "C" char DAT_0042e9bc[];
 typedef unsigned int u32;
 extern void BaseInit();
 struct ImageFont {
@@ -15,7 +16,7 @@ ImageFont::ImageFont() {
     c = 0;
     d = 0;
     e = 0;
-    vt = 0x42e9bc;
+    vt = ((int)DAT_0042e9bc);
     f = -1;
     g = 0;
     h = 0;

@@ -1,3 +1,4 @@
+extern "C" char DAT_0042adc0[];
 struct Stream {
     void* vptr;
     int arg;
@@ -25,7 +26,7 @@ Stream* __cdecl FUN_00262e60(int param) {
     Stream* result = 0;
     if (p) {
         p->field = 0;
-        p->vptr = (void*)0x42adc0;
+        p->vptr = (void*)((int)DAT_0042adc0);
         p->arg = param;
         result = p;
     }

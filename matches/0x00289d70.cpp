@@ -1,3 +1,4 @@
+extern "C" char DAT_0042c8c4[];
 class AnimationGroup {
   public:
     int x;
@@ -13,7 +14,7 @@ class Thing : public AnimationGroup {
     void Target();
 };
 void Thing::Target() {
-    *(void**)this = (void*)0x42c8c4;
+    *(void**)this = (void*)((int)DAT_0042c8c4);
     AnimationGroup::vfunc_1();
     sub.Helper();
 }

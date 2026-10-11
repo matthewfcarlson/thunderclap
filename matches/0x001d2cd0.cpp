@@ -1,3 +1,4 @@
+extern "C" char DAT_003f3f38[];
 class C {
   public:
     char pad[8];
@@ -18,7 +19,7 @@ bool C::Fn(int a, int b, int c) {
         ok = false;
         goto done;
     }
-    F4(b, c, 0x3f3f38, r);
+    F4(b, c, ((int)DAT_003f3f38), r);
 done:
     F5(field, -2);
     return ok;

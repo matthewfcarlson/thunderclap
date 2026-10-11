@@ -1,3 +1,4 @@
+extern "C" char DAT_003f72e0[];
 class AllocObj {
   public:
     void Init(int);
@@ -16,7 +17,7 @@ void* ConditionFactoryTemplate::V5() {
     AllocObj* p = (AllocObj*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
-        *(void**)p = (void*)0x3f72e0;
+        *(void**)p = (void*)((int)DAT_003f72e0);
         *(int*)((char*)p + 0xc) = 0;
         *(int*)((char*)p + 0x10) = 0;
         return p;

@@ -1,3 +1,4 @@
+extern "C" char DAT_003f7154[];
 class CSmartPropWeaponTypeCondition {
   public:
     virtual void F0();
@@ -27,7 +28,7 @@ void* ConditionFactoryTemplate::Vfunc5() {
     CSmartPropWeaponTypeCondition* p = (CSmartPropWeaponTypeCondition*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
-        *(int*)p = 0x3f7154;
+        *(int*)p = ((int)DAT_003f7154);
         p->value = 0;
         p->type = -1;
         return p;

@@ -1,3 +1,5 @@
+extern "C" char DAT_003f3390[];
+extern "C" char DAT_003f3ce0[];
 class Arg {
   public:
     virtual void AddRef();
@@ -15,12 +17,12 @@ class CDeathAction : public CAction {
     CDeathAction(Arg*);
 };
 CDeathAction::CDeathAction(Arg* a) {
-    vf = 0x3f3390;
+    vf = ((int)DAT_003f3390);
     mArg = 0;
     if (a)
         a->AddRef();
     if (mArg)
         mArg->Release();
     mArg = a;
-    vf = 0x3f3ce0;
+    vf = ((int)DAT_003f3ce0);
 }

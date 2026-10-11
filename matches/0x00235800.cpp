@@ -1,3 +1,4 @@
+extern "C" char DAT_004279fc[];
 class Inner {
   public:
     void Init();
@@ -18,7 +19,7 @@ class ParamValueBranch : public ParamValue {
     virtual void* v0(unsigned int);
 };
 void* ParamValueBranch::v0(unsigned int flags) {
-    *(int*)this = 0x4279fc;
+    *(int*)this = ((int)DAT_004279fc);
     ((Inner*)((char*)this + 8))->Init();
     if (flags & 1)
         thunk_FUN_00267090(this);

@@ -1,3 +1,5 @@
+extern "C" char DAT_003f3390[];
+extern "C" char DAT_003f34a0[];
 class Obj {
   public:
     virtual void f();
@@ -20,7 +22,7 @@ class Opportunity : public Action {
     Opportunity(int, Obj*, int);
 };
 Opportunity::Opportunity(int p2, Obj* p3, int p4) : Action() {
-    *(unsigned long*)this = 0x3f3390;
+    *(unsigned long*)this = ((int)DAT_003f3390);
     mObj = 0;
     if (p3)
         p3->f();
@@ -28,7 +30,7 @@ Opportunity::Opportunity(int p2, Obj* p3, int p4) : Action() {
         mObj->g();
     mObj = p3;
     m24 = p4;
-    *(unsigned long*)this = 0x3f34a0;
+    *(unsigned long*)this = ((int)DAT_003f34a0);
     m54 = 0;
     m58 = 0;
     m20 = p2;

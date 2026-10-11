@@ -1,3 +1,4 @@
+extern "C" char DAT_0042a2b0[];
 typedef unsigned char u8;
 struct Sub {
     void Setup(const char* s);
@@ -28,7 +29,7 @@ Stream* Type::vfunc_3() {
     if (p) {
         p->BaseInit();
         Sub* s = &p->sub;
-        p->vf = 0x42a2b0;
+        p->vf = ((int)DAT_0042a2b0);
         s->Setup("MyRsdFile");
         s->flags &= 0xfe;
         s->bits &= 0x80000000;

@@ -1,3 +1,4 @@
+extern "C" char DAT_0040feb4[];
 typedef unsigned int u32;
 typedef unsigned char u8;
 struct AcquireTargetCondition {
@@ -26,7 +27,7 @@ AcquireTargetCondition* Factory::make() {
     AcquireTargetCondition* p = (AcquireTargetCondition*)alloc(0x18);
     if (p) {
         p->Initialize(0);
-        *(u32*)p = 0x40feb4;
+        *(u32*)p = ((int)DAT_0040feb4);
         p->a = 1.57079637f;
         p->b = 100.0f;
         p->c = 1;

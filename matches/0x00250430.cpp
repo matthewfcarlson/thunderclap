@@ -1,3 +1,4 @@
+extern "C" char DAT_004298fc[];
 namespace audio {
 class SeqAction {
   public:
@@ -18,7 +19,7 @@ extern void __cdecl FUN_00247550(void*, void*);
 extern int global_bss;
 audio::SeqActionWait* audio::SeqActionWait::vfunc_0(int x) {
     SeqActionWait* p = this;
-    *(void**)p = (void*)0x4298fc;
+    *(void**)p = (void*)((int)DAT_004298fc);
     if (x & 1)
         FUN_00247550(&global_bss, this);
     return this;

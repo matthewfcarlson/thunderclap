@@ -1,3 +1,4 @@
+extern "C" char DAT_00414150[];
 extern "C" void* __cdecl Alloc(unsigned int);
 class CollisionChargeCondition {
   public:
@@ -26,7 +27,7 @@ CollisionChargeCondition* Factory::V5() {
     CollisionChargeCondition* p = (CollisionChargeCondition*)Alloc(0x18);
     if (p) {
         p->Init(0);
-        *(unsigned long*)p = 0x414150;
+        *(unsigned long*)p = ((int)DAT_00414150);
         p->a = 0;
         p->b = 0;
         p->c = 0;

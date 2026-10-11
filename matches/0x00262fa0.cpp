@@ -1,3 +1,4 @@
+extern "C" char DAT_0042ae14[];
 class HalRsdFileStream {
   public:
     char pad[0x24];
@@ -6,6 +7,6 @@ class HalRsdFileStream {
 };
 char* HalRsdFileStream::vfunc_9(int index) {
     if (!mHeader)
-        return (char*)0x42ae14;
+        return (char*)((int)DAT_0042ae14);
     return mHeader + index * 16 + 0xa4;
 }

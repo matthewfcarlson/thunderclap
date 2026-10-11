@@ -1,3 +1,4 @@
+extern "C" char DAT_00414420[];
 extern void* __cdecl Alloc(unsigned int);
 class Track {
   public:
@@ -23,7 +24,7 @@ void* Track::Make() {
         p->c = 0;
         p->d = 0;
         p->e = 0;
-        *(int*)p = 0x414420;
+        *(int*)p = ((int)DAT_00414420);
         return p;
     }
     return 0;

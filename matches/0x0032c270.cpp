@@ -1,3 +1,4 @@
+extern "C" char DAT_00433a04[];
 class Base {
   public:
     virtual void f();
@@ -14,7 +15,7 @@ class Obj {
 };
 void Obj::Run() {
     Base* p = a;
-    *(int*)this = 0x433a04;
+    *(int*)this = ((int)DAT_00433a04);
     if (p)
         p->Release();
     p = b;

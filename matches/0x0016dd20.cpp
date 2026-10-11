@@ -1,3 +1,4 @@
+extern "C" char DAT_00416878[];
 class ConditionFactoryTemplate {
   public:
     virtual void f0();
@@ -19,7 +20,7 @@ void* ConditionFactoryTemplate::vfunc_5() {
     TargetCharacterTemplateCondition* p = (TargetCharacterTemplateCondition*)FUN_0008d690(0x10);
     if (p) {
         p->Init(0);
-        *(void**)p = (void*)0x416878;
+        *(void**)p = (void*)((int)DAT_00416878);
         *(int*)((char*)p + 0xc) = 0;
         return p;
     }

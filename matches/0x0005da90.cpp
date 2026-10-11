@@ -1,3 +1,4 @@
+extern "C" char DAT_003fa214[];
 class Base {
   public:
     void Done();
@@ -22,7 +23,7 @@ class CCollisionTrack {
     void Fini();
 };
 void CCollisionTrack::Fini() {
-    *(int*)this = 0x3fa214;
+    *(int*)this = ((int)DAT_003fa214);
     ((TypeA*)a70)->Done();
     ((TypeA*)a68)->Done();
     ((TypeB*)a58)->Done();

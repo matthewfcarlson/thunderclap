@@ -1,3 +1,4 @@
+extern "C" char DAT_00417f64[];
 class Ref {
   public:
     virtual void F();
@@ -31,7 +32,7 @@ class Obj : public Base {
 };
 Obj* Obj::Func(int a, Ref* r) {
     Init();
-    *(int*)this = 0x417f64;
+    *(int*)this = ((int)DAT_00417f64);
     mA = 0;
     mLink = 0;
     part.Init();

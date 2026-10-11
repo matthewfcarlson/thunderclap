@@ -1,3 +1,4 @@
+extern "C" char DAT_004317dc[];
 class Part {
   public:
     void Init();
@@ -15,7 +16,7 @@ class Obj {
 };
 Obj* Obj::Target(int a, int b, int c, int d, int e) {
     Base();
-    *(int*)this = 0x4317dc;
+    *(int*)this = ((int)DAT_004317dc);
     p1.Init();
     p2.Init();
     Build(a, b, c, d, e);

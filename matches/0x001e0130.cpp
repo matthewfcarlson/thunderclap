@@ -1,3 +1,4 @@
+extern "C" char DAT_00423398[];
 class CSPManager {};
 extern "C" void __stdcall FUN_001d0480(const char*, int);
 extern "C" unsigned char FUN_001d04d0(const char*);
@@ -15,7 +16,7 @@ class Target {
 };
 Target::Target(const char* a, CSPManager* c) {
     FUN_001d0480(a, 3);
-    vf = (void*)0x423398;
+    vf = (void*)((int)DAT_00423398);
     mgr = c;
     b18 = FUN_001d04d0(s0);
     b10 = FUN_001d04d0(s1);

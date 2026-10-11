@@ -1,3 +1,4 @@
+extern "C" char DAT_003fc238[];
 extern void* __cdecl Alloc(unsigned int);
 class Track {
   public:
@@ -40,7 +41,7 @@ Track* Factory::Make() {
         p->x2c = 0;
         p->x14 = 20.0f;
         p->x1c = 20.0f;
-        *(unsigned int*)p = 0x3fc238;
+        *(unsigned int*)p = ((int)DAT_003fc238);
         p->x10 = -1.0f;
         p->x20 = 1.0f;
         return p;

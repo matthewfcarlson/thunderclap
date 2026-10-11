@@ -1,3 +1,4 @@
+extern "C" char DAT_00415aa0[];
 struct Sub {
     char pad[8];
     void init();
@@ -9,7 +10,7 @@ class LocomotionSprintTrack {
     void finish();
 };
 void __fastcall FUN_0015bfd0(LocomotionSprintTrack* self, void*) {
-    *(int*)self = 0x415aa0;
+    *(int*)self = ((int)DAT_00415aa0);
     self->s4.init();
     self->s3.init();
     self->s2.init();

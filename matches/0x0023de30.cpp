@@ -1,3 +1,4 @@
+extern "C" char DAT_00428bf8[];
 extern void* __cdecl alloc(unsigned int);
 class CommentCondition {
   public:
@@ -14,7 +15,7 @@ CommentCondition* Factory::vfunc_5() {
     CommentCondition* p = (CommentCondition*)alloc(0x10);
     if (p) {
         p->Init(3);
-        p->vtable = 0x428bf8;
+        p->vtable = ((int)DAT_00428bf8);
         p->value = 0;
         return p;
     }

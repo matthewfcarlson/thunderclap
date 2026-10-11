@@ -1,3 +1,4 @@
+extern "C" char DAT_0043235c[];
 class SimpleFilter3D {
   public:
     void* vptr;
@@ -5,7 +6,7 @@ class SimpleFilter3D {
     SimpleFilter3D();
 };
 SimpleFilter3D::SimpleFilter3D() {
-    vptr = (void*)0x43235c;
+    vptr = (void*)((int)DAT_0043235c);
     a[0] = 0;
     a[1] = 0;
     a[2] = 0;

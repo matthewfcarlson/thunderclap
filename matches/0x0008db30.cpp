@@ -1,3 +1,4 @@
+extern "C" char DAT_00400854[];
 class CSPHulkPropLoader {
   public:
     virtual ~CSPHulkPropLoader();
@@ -6,6 +7,6 @@ class CSPHulkPropLoader {
 extern void Initialize();
 CSPHulkPropLoader* CSPHulkPropLoader::Init() {
     Initialize();
-    *(void**)this = (void*)0x400854;
+    *(void**)this = (void*)((int)DAT_00400854);
     return this;
 }

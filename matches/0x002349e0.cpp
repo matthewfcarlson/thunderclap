@@ -1,3 +1,5 @@
+extern "C" char DAT_004279fc[];
+extern "C" char DAT_00427a78[];
 class Sub {
   public:
     void Init(const char*);
@@ -10,7 +12,7 @@ class ParamValueString {
     ParamValueString(const char*);
 };
 ParamValueString::ParamValueString(const char* s) {
-    vf = 0x4279fc;
+    vf = ((int)DAT_004279fc);
     sub.Init(s);
-    vf = 0x427a78;
+    vf = ((int)DAT_00427a78);
 }

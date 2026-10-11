@@ -1,3 +1,5 @@
+extern "C" char DAT_004298fc[];
+extern "C" char DAT_004e74c0[];
 class SeqAction {
   public:
     virtual void a();
@@ -14,8 +16,8 @@ class SeqActionCrossFade : public SeqAction {
     virtual SeqActionCrossFade* vfunc_0(int);
 };
 SeqActionCrossFade* SeqActionCrossFade::vfunc_0(int flag) {
-    *(void**)this = (void*)0x4298fc;
+    *(void**)this = (void*)((int)DAT_004298fc);
     if (flag & 1)
-        FUN_00247550((void*)0x4e74c0, this);
+        FUN_00247550((void*)((int)DAT_004e74c0), this);
     return this;
 }

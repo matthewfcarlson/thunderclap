@@ -1,3 +1,4 @@
+extern "C" char DAT_004197c8[];
 extern "C" void _ReadWriteBarrier();
 class Ref {
   public:
@@ -17,7 +18,7 @@ class BallAndChainReturnAction {
     void Reset();
 };
 void BallAndChainReturnAction::Reset() {
-    vptr = 0x4197c8;
+    vptr = ((int)DAT_004197c8);
     _ReadWriteBarrier();
     if (mTwo) {
         mTwo->B();

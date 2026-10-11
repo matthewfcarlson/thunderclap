@@ -1,3 +1,4 @@
+extern "C" char DAT_00433cac[];
 class Obj {
   public:
     virtual void A();
@@ -17,7 +18,7 @@ class Target {
 };
 void Target::F() {
     Obj* x = a;
-    *(int*)this = 0x433cac;
+    *(int*)this = ((int)DAT_00433cac);
     if (x)
         x->B();
     Obj* y = b;

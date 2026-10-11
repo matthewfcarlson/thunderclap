@@ -1,3 +1,4 @@
+extern "C" char DAT_00428afc[];
 class Sub {
   public:
     void Setup(void*);
@@ -26,7 +27,7 @@ void* ConditionFactoryCasterTemplate::V1(void* a) {
     Obj* p = (Obj*)alloc(16);
     if (p) {
         p->Init();
-        *((void**)p) = (void*)0x428afc;
+        *((void**)p) = (void*)((int)DAT_00428afc);
         p->sub.Setup(a);
         return p;
     }

@@ -1,3 +1,4 @@
+extern "C" char DAT_0041928c[];
 class SmartPropIsCargoCondition {
   public:
     virtual void V0();
@@ -23,7 +24,7 @@ SmartPropIsCargoCondition* Factory::V5() {
     SmartPropIsCargoCondition* p = (SmartPropIsCargoCondition*)FUN_0008d690(0x10);
     if (p) {
         p->Init(0);
-        *(int*)p = 0x41928c;
+        *(int*)p = ((int)DAT_0041928c);
         p->c = 0;
         return p;
     }

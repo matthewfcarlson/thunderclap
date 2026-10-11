@@ -1,3 +1,4 @@
+extern "C" char DAT_00417fb8[];
 class Ref {
   public:
     virtual void f0();
@@ -20,7 +21,7 @@ class MoveJointAction {
 };
 void destroy(MoveJointAction*);
 MoveJointAction* MoveJointAction::v2(unsigned char flag) {
-    *(volatile int*)this = 0x417fb8;
+    *(volatile int*)this = ((int)DAT_00417fb8);
     Ref* a = m24;
     if (a) {
         a->f1();

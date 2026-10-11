@@ -1,3 +1,4 @@
+extern "C" char DAT_003f3390[];
 extern "C" void _ReadWriteBarrier();
 class Ref {
   public:
@@ -14,7 +15,7 @@ class CUninterruptibleAction {
 };
 extern void __cdecl thunk_FUN_00267090(CUninterruptibleAction*);
 CUninterruptibleAction* CUninterruptibleAction::f2(unsigned char flags) {
-    vptr = 0x3f3390;
+    vptr = ((int)DAT_003f3390);
     _ReadWriteBarrier();
     if (mRef) {
         ((Ref*)mRef)->Release();

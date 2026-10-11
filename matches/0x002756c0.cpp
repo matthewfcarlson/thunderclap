@@ -1,3 +1,4 @@
+extern "C" char DAT_0042bb60[];
 class DriveOpenRequest {
   public:
     int vptr;
@@ -7,6 +8,6 @@ class DriveOpenRequest {
 extern void __stdcall Finish();
 DriveOpenRequest::DriveOpenRequest(int a) {
     Init(a);
-    vptr = 0x42bb60;
+    vptr = ((int)DAT_0042bb60);
     Finish();
 }

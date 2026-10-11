@@ -1,3 +1,4 @@
+extern "C" char DAT_003f9a5c[];
 class CGrabTrack {
   public:
     unsigned int* vptr;
@@ -15,7 +16,7 @@ class H2 {
 };
 void thunk_FUN_00267090(CGrabTrack*);
 CGrabTrack* CGrabTrack::vfunc_5(unsigned int flag) {
-    vptr = (unsigned int*)0x3f9a5c;
+    vptr = (unsigned int*)((int)DAT_003f9a5c);
     ((H1*)((char*)this + 0x44))->FUN_00234150();
     ((H1*)((char*)this + 0x38))->FUN_00234150();
     ((H2*)((char*)this + 0x18))->FUN_0027af50();

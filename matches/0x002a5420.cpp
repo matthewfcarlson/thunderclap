@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d9dc[];
 class Controller {
   public:
     char pad[0x40];
@@ -14,7 +15,7 @@ Controller* __fastcall Target(Controller* self) {
     *(int*)((char*)self + 0x40) = 0;
     *(int*)((char*)self + 0x48) = 0;
     *(int*)((char*)self + 0x4c) = 0;
-    *(int*)self = 0x42d9dc;
+    *(int*)self = ((int)DAT_0042d9dc);
     *(int*)((char*)self + 0x50) = 0x2a5260;
     return self;
 }

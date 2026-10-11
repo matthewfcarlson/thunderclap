@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0043147c[];
 typedef unsigned int u32;
 extern void ReleaseThing(u32);
 class Other {
@@ -15,7 +17,7 @@ class SharedData {
     Other* e;
 };
 void __fastcall FUN_002f3c00(SharedData* p) {
-    p->vft = 0x43147c;
+    p->vft = ((int)DAT_0043147c);
     if (p->a)
         ReleaseThing(p->a);
     if (p->b)
@@ -26,5 +28,5 @@ void __fastcall FUN_002f3c00(SharedData* p) {
         ReleaseThing(p->d);
     if (p->e)
         p->e->Do(3);
-    p->vft = 0x3f6098;
+    p->vft = ((int)DAT_003f6098);
 }

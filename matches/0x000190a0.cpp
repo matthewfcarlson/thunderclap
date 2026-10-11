@@ -1,3 +1,5 @@
+extern "C" char DAT_003f3390[];
+extern "C" char DAT_003f3438[];
 class Ref {
   public:
     virtual void Add();
@@ -28,7 +30,7 @@ class CDropAction : public CAction {
     CDropAction(int, Ref*);
 };
 CDropAction::CDropAction(int v, Ref* r) : CAction() {
-    *(int*)this = 0x3f3390;
+    *(int*)this = ((int)DAT_003f3390);
     mRef = 0;
     if (r)
         r->Add();
@@ -36,7 +38,7 @@ CDropAction::CDropAction(int v, Ref* r) : CAction() {
         mRef->Release();
     mRef = r;
     x = v;
-    *(int*)this = 0x3f3438;
+    *(int*)this = ((int)DAT_003f3438);
     mOther = 0;
     b = 0;
 }

@@ -1,3 +1,4 @@
+extern "C" char DAT_0042e584[];
 class ShadowMeshBufferImpl {
   public:
     int x[17];
@@ -6,7 +7,7 @@ class ShadowMeshBufferImpl {
 void Init();
 ShadowMeshBufferImpl* ShadowMeshBufferImpl::InitSelf() {
     Init();
-    *(int*)this = 0x42e584;
+    *(int*)this = ((int)DAT_0042e584);
     *(int*)((char*)this + 0x40) = 0;
     *(int*)((char*)this + 0x10) = 2;
     return this;

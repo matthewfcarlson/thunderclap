@@ -1,3 +1,4 @@
+extern "C" char DAT_00434578[];
 class Ref {
   public:
     virtual void F(int);
@@ -10,7 +11,7 @@ class Obj {
     void Go();
 };
 void Obj::Go() {
-    a = 0x434578;
+    a = ((int)DAT_00434578);
     if (member)
         member->F(1);
 }

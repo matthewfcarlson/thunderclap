@@ -1,3 +1,4 @@
+extern "C" char DAT_00431968[];
 class Ref {
   public:
     virtual void f0();
@@ -14,7 +15,7 @@ class Obj : public Base {
     void run();
 };
 void Obj::run() {
-    *(void**)this = (void*)0x431968;
+    *(void**)this = (void*)((int)DAT_00431968);
     if (member)
         member->f1();
     finish();

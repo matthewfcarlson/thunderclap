@@ -1,3 +1,4 @@
+extern "C" char DAT_003fbd14[];
 class TrackFactoryTemplate {
   public:
     virtual void a();
@@ -21,7 +22,7 @@ void* __cdecl target() {
     CDamageTrack* p = (CDamageTrack*)alloc(0x18);
     if (p) {
         p->ctor();
-        p->vptr = 0x3fbd14;
+        p->vptr = ((int)DAT_003fbd14);
         p->x = 0;
         p->y = 0;
         p->z = 0;

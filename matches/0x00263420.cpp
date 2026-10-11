@@ -1,3 +1,5 @@
+extern "C" char DAT_004e7b50[];
+extern "C" char DAT_004e7b98[];
 namespace audio {
 class Obj {
   public:
@@ -32,8 +34,8 @@ void audio::HalRsdFileStream::vfunc_12() {
     if (mObj)
         mObj->f1();
     if (mValue)
-        FUN_00247550((void*)0x4e7b50, mValue);
+        FUN_00247550((void*)((int)DAT_004e7b50), mValue);
     ((audio::Aux*)((char*)this + 0x10))->f();
     ((audio::Aux*)((char*)this + 4))->f();
-    FUN_00247550((void*)0x4e7b98, this);
+    FUN_00247550((void*)((int)DAT_004e7b98), this);
 }

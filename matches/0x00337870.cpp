@@ -1,3 +1,4 @@
+extern "C" char DAT_00434578[];
 class Obj {
   public:
     int vft;
@@ -7,7 +8,7 @@ class Obj {
 };
 
 Obj::Obj() {
-    vft = 0x434578;
+    vft = ((int)DAT_00434578);
     a = 0;
     b = 0;
 }

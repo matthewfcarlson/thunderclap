@@ -1,3 +1,4 @@
+extern "C" char DAT_0041b3f4[];
 class Base {
   public:
     virtual void V0();
@@ -20,7 +21,7 @@ class ProjectileEffect {
     void Cleanup();
 };
 void ProjectileEffect::Cleanup() {
-    *(void**)this = (void*)0x41b3f4;
+    *(void**)this = (void*)((int)DAT_0041b3f4);
     if (m1c) {
         Helper* x = FUN_0027f250();
         x->Use(m1c);

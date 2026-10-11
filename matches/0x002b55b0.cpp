@@ -1,3 +1,4 @@
+extern "C" char DAT_0042e5e4[];
 class B {
   public:
     char p[0x10];
@@ -15,6 +16,6 @@ ShadowSkinImpl::ShadowSkinImpl() {
     b = 0;
     c = 0;
     d = 0;
-    *(int*)this = 0x42e5e4;
+    *(int*)this = ((int)DAT_0042e5e4);
     *(int*)((char*)this + 0x10) = 2;
 }

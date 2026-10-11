@@ -1,3 +1,5 @@
+extern "C" char DAT_0042b914[];
+extern "C" char DAT_0042b9bc[];
 class V {
   public:
     virtual void A();
@@ -18,12 +20,12 @@ class Owner {
 };
 void Owner::Fn() {
     Obj* p = mObj;
-    *(unsigned long*)this = 0x42b9bc;
+    *(unsigned long*)this = ((int)DAT_0042b9bc);
     p->sub.A();
     --(*(int*)((char*)mObj + 0x14));
     p = mObj;
     p->sub.B();
     p = mObj;
     ((V*)p)->B();
-    *(unsigned long*)this = 0x42b914;
+    *(unsigned long*)this = ((int)DAT_0042b914);
 }

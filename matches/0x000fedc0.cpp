@@ -1,3 +1,4 @@
+extern "C" char DAT_0040d164[];
 class CGolem {
     char pad[0xf8];
 };
@@ -17,7 +18,7 @@ class CActorGolem : public CGolem {
 void FUN_000fe1e0();
 void thunk_FUN_00267090(CActorGolem*);
 CActorGolem* CActorGolem::vfunc_2(unsigned char param_2) {
-    *(void**)this = (void*)0x40d164;
+    *(void**)this = (void*)((int)DAT_0040d164);
     *(int*)((char*)this + 0xf8) = 0;
     FUN_000fe1e0();
     if (param_2 & 1)

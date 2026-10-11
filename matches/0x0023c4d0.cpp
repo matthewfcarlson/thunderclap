@@ -1,3 +1,4 @@
+extern "C" char DAT_00428824[];
 class Elem {
   public:
     void Fn();
@@ -19,7 +20,7 @@ class Reference {
 };
 extern void __cdecl FUN_00267090(Reference*);
 Reference* Reference::vfunc_2(int flag) {
-    *(int*)this = 0x428824;
+    *(int*)this = ((int)DAT_00428824);
     ((Elem*)((char*)this + 0x28))->Fn();
     Init();
     if (flag & 1)

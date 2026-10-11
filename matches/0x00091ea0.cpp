@@ -1,3 +1,5 @@
+extern "C" char DAT_0040449c[];
+extern "C" char DAT_004044b4[];
 struct Sub {
     void Init();
 };
@@ -7,11 +9,11 @@ class CUnlockableMove {
     char pad[0x49];
 };
 CUnlockableMove* CUnlockableMove::Ctor() {
-    *(int*)this = 0x40449c;
+    *(int*)this = ((int)DAT_0040449c);
     *((char*)this + 8) = 1;
     ((Sub*)((char*)this + 0x10))->Init();
     *(int*)((char*)this + 0x18) = 0;
-    *(int*)this = 0x4044b4;
+    *(int*)this = ((int)DAT_004044b4);
     *((char*)this + 0x20) = 0;
     *(int*)((char*)this + 0x24) = 0;
     *(int*)((char*)this + 0x28) = -1;

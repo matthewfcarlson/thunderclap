@@ -1,3 +1,4 @@
+extern "C" char DAT_00416918[];
 struct Obj {
     unsigned int vt;
     int a;
@@ -20,7 +21,7 @@ void* Factory::f5() {
     Obj* p = FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
-        p->vt = 0x416918;
+        p->vt = ((int)DAT_00416918);
         p->c = 0;
         p->d = 0;
         return p;

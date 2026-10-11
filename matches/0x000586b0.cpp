@@ -1,3 +1,4 @@
+extern "C" char DAT_003f742c[];
 extern "C" void* __cdecl Alloc(unsigned int);
 class CRageModeCondition {
   public:
@@ -16,7 +17,7 @@ void* ConditionFactoryTemplate::vfunc_5() {
     CRageModeCondition* p = (CRageModeCondition*)Alloc(0x10);
     if (p) {
         p->Init(0);
-        *(int*)p = 0x3f742c;
+        *(int*)p = ((int)DAT_003f742c);
         *((char*)p + 0xc) = 1;
         return p;
     }

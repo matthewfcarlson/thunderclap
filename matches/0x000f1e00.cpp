@@ -1,3 +1,4 @@
+extern "C" char DAT_0040c61c[];
 extern void* __cdecl alloc(unsigned int);
 class TextLabel {
   public:
@@ -71,7 +72,7 @@ TextLabel* FEThingsBase::f56(int arg) {
     if (p) {
         p->initialize(arg);
         p->a = 0;
-        *(volatile int*)p = 0x40c61c;
+        *(volatile int*)p = ((int)DAT_0040c61c);
         p->b = 0;
         p->c = 0;
         p->d = 0;

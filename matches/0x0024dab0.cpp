@@ -1,3 +1,4 @@
+extern "C" char DAT_004e6548[];
 class ListenerEffectPs2 {
   public:
     virtual void F0();
@@ -15,6 +16,6 @@ extern void DestroyFn(void*, ListenerEffectPs2*);
 ListenerEffectPs2* ListenerEffectPs2::F2(unsigned char flag) {
     Base();
     if (flag & 1)
-        DestroyFn((void*)0x4e6548, this);
+        DestroyFn((void*)((int)DAT_004e6548), this);
     return this;
 }

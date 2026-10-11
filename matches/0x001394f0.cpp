@@ -1,3 +1,4 @@
+extern "C" char DAT_00411be8[];
 extern "C" void* __cdecl Alloc(unsigned int);
 class Track {
   public:
@@ -23,7 +24,7 @@ GrappleHoverTrack* Factory::v5() {
     GrappleHoverTrack* p = (GrappleHoverTrack*)Alloc(0x18);
     if (p) {
         p->Init();
-        p->vptr = 0x411be8;
+        p->vptr = ((int)DAT_00411be8);
         p->m3 = 0;
         p->m4 = -1.0f;
         p->m5 = 0;

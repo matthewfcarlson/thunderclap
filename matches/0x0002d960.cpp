@@ -1,3 +1,4 @@
+extern "C" char DAT_003f423c[];
 extern "C" void __stdcall Init(void*, int);
 extern "C" unsigned char __cdecl Get(void*);
 extern char gA;
@@ -20,7 +21,7 @@ class Method5 {
 };
 Method5* Method5::Build(void* p2, int p3) {
     Init(p2, 5);
-    *(void**)this = (void*)0x3f423c;
+    *(void**)this = (void*)((int)DAT_003f423c);
     arg = p3;
     x18 = Get(&gA);
     x10 = Get(&gB);

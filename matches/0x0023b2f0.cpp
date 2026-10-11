@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_00428590[];
 class Obj {
   public:
     virtual void f0();
@@ -13,9 +15,9 @@ class IFileStringReader {
 };
 IFileStringReader* IFileStringReader::vfunc_2(int flag) {
     Obj* p = sub;
-    vt = 0x428590;
+    vt = ((int)DAT_00428590);
     p->f1();
-    vt = 0x3f6098;
+    vt = ((int)DAT_003f6098);
     if (flag & 1)
         thunk(this);
     return this;

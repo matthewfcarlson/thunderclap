@@ -1,3 +1,7 @@
+extern "C" char DAT_004246ec[];
+extern "C" char DAT_0048e100[];
+extern "C" char DAT_0048e128[];
+extern "C" char DAT_0049cad8[];
 class Base {
   public:
     Base(char*, int);
@@ -14,13 +18,13 @@ class CSoundSystem : public Base {
     CSoundSystem(char*, void*);
 };
 CSoundSystem::CSoundSystem(char* a, void* c) : Base(a, 6) {
-    *(unsigned int*)this = 0x4246ec;
+    *(unsigned int*)this = ((int)DAT_004246ec);
     p1c = c;
-    b18 = FUN_001d04d0((void*)0x48e100);
-    b10 = FUN_001d04d0((void*)0x49cad8);
-    b11 = FUN_001d04d0((void*)0x49cad8);
-    b12 = FUN_001d04d0((void*)0x48e128);
-    b13 = FUN_001d04d0((void*)0x48e128);
-    b14 = FUN_001d04d0((void*)0x48e128);
-    b15 = FUN_001d04d0((void*)0x48e128);
+    b18 = FUN_001d04d0((void*)((int)DAT_0048e100));
+    b10 = FUN_001d04d0((void*)((int)DAT_0049cad8));
+    b11 = FUN_001d04d0((void*)((int)DAT_0049cad8));
+    b12 = FUN_001d04d0((void*)((int)DAT_0048e128));
+    b13 = FUN_001d04d0((void*)((int)DAT_0048e128));
+    b14 = FUN_001d04d0((void*)((int)DAT_0048e128));
+    b15 = FUN_001d04d0((void*)((int)DAT_0048e128));
 }

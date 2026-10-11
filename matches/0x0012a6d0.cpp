@@ -1,3 +1,4 @@
+extern "C" char DAT_0040fdf4[];
 extern void* __cdecl alloc(unsigned int);
 struct Target {
     unsigned int vt;
@@ -16,7 +17,7 @@ Target* Factory::vfunc_5() {
     Target* p = (Target*)alloc(0x14);
     if (p) {
         ((Init*)p)->initialize(0);
-        p->vt = 0x40fdf4;
+        p->vt = ((int)DAT_0040fdf4);
         p->zero = 0;
         p->angle = 3.1415927f;
         return p;

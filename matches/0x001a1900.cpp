@@ -1,3 +1,4 @@
+extern "C" char DAT_0041c390[];
 extern "C" void _ReadWriteBarrier();
 class Thing {
   public:
@@ -15,7 +16,7 @@ class LuaAction : public Base {
     virtual ~LuaAction() throw();
 };
 LuaAction::~LuaAction() throw() {
-    *(void**)this = (void*)0x41c390;
+    *(void**)this = (void*)((int)DAT_0041c390);
     _ReadWriteBarrier();
     if (mThing) {
         mThing->Release();

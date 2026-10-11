@@ -1,3 +1,6 @@
+extern "C" char DAT_0048e100[];
+extern "C" char DAT_0048e128[];
+extern "C" char DAT_0048e134[];
 class Base {
   public:
     Base(int a, int b);
@@ -22,9 +25,9 @@ void Derived::f0() {}
 
 Derived::Derived(int a, int b) : Base(a, 4) {
     m1c = b;
-    m18 = GetFlag((const char*)0x48e100);
-    m10 = GetFlag((const char*)0x48e134);
-    m11 = GetFlag((const char*)0x48e128);
-    m12 = GetFlag((const char*)0x48e128);
-    m13 = GetFlag((const char*)0x48e128);
+    m18 = GetFlag((const char*)((int)DAT_0048e100));
+    m10 = GetFlag((const char*)((int)DAT_0048e134));
+    m11 = GetFlag((const char*)((int)DAT_0048e128));
+    m12 = GetFlag((const char*)((int)DAT_0048e128));
+    m13 = GetFlag((const char*)((int)DAT_0048e128));
 }

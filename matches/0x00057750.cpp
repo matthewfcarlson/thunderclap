@@ -1,3 +1,4 @@
+extern "C" char DAT_003f6fc8[];
 typedef unsigned int u32;
 extern void* __cdecl Alloc(unsigned int);
 struct CCollisionDirectionCondition {
@@ -18,7 +19,7 @@ CCollisionDirectionCondition* Factory::vfunc_5() {
     CCollisionDirectionCondition* p = (CCollisionDirectionCondition*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        p->vptr = 0x3f6fc8;
+        p->vptr = ((int)DAT_003f6fc8);
         p->fieldC = 0;
         p->field10 = 0x3fc90fdb;
         return p;

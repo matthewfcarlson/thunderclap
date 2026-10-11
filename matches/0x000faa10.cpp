@@ -1,3 +1,4 @@
+extern "C" char DAT_0040bf84[];
 struct CScriptParser {
     void* vt;
     int arg;
@@ -10,7 +11,7 @@ struct CScriptParser {
 };
 CScriptParser::CScriptParser(int x) {
     arg = x;
-    vt = (void*)0x40bf84;
+    vt = (void*)((int)DAT_0040bf84);
     a = 0;
     b = 0;
     c = 0;

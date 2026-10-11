@@ -1,3 +1,4 @@
+extern "C" char DAT_00421abc[];
 struct Thing {
     virtual void Run();
     Thing* Init(unsigned p);
@@ -16,7 +17,7 @@ LevelLoader::LevelLoader(unsigned a, unsigned b) {
     m8 = 0x60000700;
     mc = 0;
     m10 = 0;
-    vptr = 0x421abc;
+    vptr = ((int)DAT_00421abc);
     m14 = a;
     m18 = b;
     Thing* t = Alloc(0x18);

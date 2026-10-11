@@ -1,3 +1,4 @@
+extern "C" char DAT_00411e18[];
 class Ref {
   public:
     virtual void Fn();
@@ -18,7 +19,7 @@ class BounceAction {
 };
 BounceAction::BounceAction(int a, Ref* r) {
     BaseInit();
-    vptr = 0x411e18;
+    vptr = ((int)DAT_00411e18);
     int* q = &m1c;
     *q = 0;
     m20 = 0;

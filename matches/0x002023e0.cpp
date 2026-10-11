@@ -1,3 +1,4 @@
+extern "C" char DAT_004259f8[];
 struct Head {
     int x, y, z;
     char d, e;
@@ -22,7 +23,7 @@ class CWorldCollisionManager {
 extern int global64;
 CWorldCollisionManager* __fastcall FUN_002023e0(CWorldCollisionManager* s, void*) {
     Head* h = &s->head;
-    s->vf = (void*)0x4259f8;
+    s->vf = (void*)((int)DAT_004259f8);
     h->x = 0;
     h->y = 0;
     h->z = 0;

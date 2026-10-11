@@ -1,3 +1,4 @@
+extern "C" char DAT_0042adc0[];
 typedef unsigned char u8;
 namespace audio {
 class HalStream {
@@ -37,7 +38,7 @@ class HalRadicalAdpcmDecodeStream : public HalStream {
 extern char DAT_004e7b08[];
 extern void __cdecl FUN_00247550(void*, audio::HalRadicalAdpcmDecodeStream*);
 audio::HalRadicalAdpcmDecodeStream* audio::HalRadicalAdpcmDecodeStream::vfunc_13(u8 p) {
-    *(void**)this = (void*)0x42adc0;
+    *(void**)this = (void*)((int)DAT_0042adc0);
     ((audio::HalStream*)*(void**)((char*)this + 4))->f12();
     if (p & 1)
         FUN_00247550(DAT_004e7b08, this);

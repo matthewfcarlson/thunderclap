@@ -1,3 +1,4 @@
+extern "C" char DAT_0042a600[];
 struct Sub {
     void Init();
 };
@@ -9,7 +10,7 @@ class SeqTrack {
 int __cdecl GetTrack(SeqTrack*);
 void __cdecl Cleanup(int);
 SeqTrack* SeqTrack::Build(unsigned char flags) {
-    *(int*)this = 0x42a600;
+    *(int*)this = ((int)DAT_0042a600);
     ((Sub*)((char*)this + 0x1c))->Init();
     if (flags & 1)
         Cleanup(GetTrack(this));

@@ -1,3 +1,4 @@
+extern "C" char DAT_0040c0f4[];
 class Manager {
   public:
     virtual void s0();
@@ -69,7 +70,7 @@ class FELayout {
 };
 FELayout* FELayout::init(Manager* p, int arg) {
     int* q = &d[0];
-    vt = 0x40c0f4;
+    vt = ((int)DAT_0040c0f4);
     q[0] = 0;
     q[2] = 0;
     q[3] = 0;

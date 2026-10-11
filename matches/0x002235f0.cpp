@@ -1,3 +1,4 @@
+extern "C" char DAT_004272b8[];
 struct Sub {
     char pad[0x54];
     void init();
@@ -13,7 +14,7 @@ struct Puppet {
 };
 Puppet* Puppet::ctor(int arg) {
     baseInit();
-    vt = (void*)0x4272b8;
+    vt = (void*)((int)DAT_004272b8);
     sub.init();
     a = 0;
     b = 0;

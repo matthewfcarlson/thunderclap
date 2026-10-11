@@ -1,3 +1,4 @@
+extern "C" char DAT_00411374[];
 typedef unsigned int u32;
 extern void __cdecl ReleaseThing(u32);
 struct DebugPrintTrack {
@@ -9,7 +10,7 @@ struct DebugPrintTrack {
 };
 extern void __fastcall Finish(DebugPrintTrack*);
 void DebugPrintTrack::Cleanup() {
-    vftable = 0x411374;
+    vftable = ((int)DAT_00411374);
     ReleaseThing(a);
     ReleaseThing(b);
     Finish(this);

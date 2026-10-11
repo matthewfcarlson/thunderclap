@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042c8b4[];
 typedef unsigned int u32;
 void thunk(u32);
 struct X {
@@ -8,8 +10,8 @@ struct X {
     void target();
 };
 void X::target() {
-    vf = 0x42c8b4;
+    vf = ((int)DAT_0042c8b4);
     thunk(a);
     thunk(b);
-    vf = 0x3f6098;
+    vf = ((int)DAT_003f6098);
 }

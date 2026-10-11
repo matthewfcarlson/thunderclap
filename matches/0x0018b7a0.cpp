@@ -1,3 +1,4 @@
+extern "C" char DAT_0041914c[];
 void* __cdecl operator new(unsigned int);
 
 class SmartPropGrabbableCondition {
@@ -34,7 +35,7 @@ SmartPropGrabbableCondition* vfunc_5() {
         p->i20 = 0;
         p->b24 = 0;
         p->i28 = 0;
-        p->vf = (void*)0x41914c;
+        p->vf = (void*)((int)DAT_0041914c);
         p->b15 = 1;
         return p;
     }

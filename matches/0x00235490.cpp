@@ -1,3 +1,4 @@
+extern "C" char DAT_004279fc[];
 class Sub {
   public:
     void init();
@@ -18,7 +19,7 @@ class ParamValueNameList {
 extern void __cdecl thunk_FUN_00267090(ParamValueNameList*);
 ParamValueNameList* ParamValueNameList::f0(int flag) {
     ParamValueNameList* p = this;
-    *(void**)p = (void*)0x4279fc;
+    *(void**)p = (void*)((int)DAT_004279fc);
     p->sub.init();
     if (flag & 1)
         thunk_FUN_00267090(p);

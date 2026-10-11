@@ -1,3 +1,4 @@
+extern "C" char DAT_00427688[];
 class Base {
   public:
     void Init(int);
@@ -15,7 +16,7 @@ class Node {
 };
 Node* Node::InitNode() {
     b.Init(1);
-    *(int*)this = 0x427688;
+    *(int*)this = ((int)DAT_00427688);
     sub.Init();
     return this;
 }

@@ -1,3 +1,8 @@
+extern "C" char DAT_0042afa8[];
+extern "C" char DAT_0042b680[];
+extern "C" char DAT_0042b688[];
+extern "C" char DAT_0042b6b0[];
+extern "C" char DAT_004cdbb0[];
 extern int gValue;
 class ControllerBuffer {
   public:
@@ -16,12 +21,12 @@ class ControllerBuffer {
 };
 void InitBase();
 ControllerBuffer::ControllerBuffer(int value) {
-    vptr = 0x42b6b0;
-    vptr4 = 0x42afa8;
-    ref = *(int*)0x4cdbb0;
+    vptr = ((int)DAT_0042b6b0);
+    vptr4 = ((int)DAT_0042afa8);
+    ref = *(int*)((int)DAT_004cdbb0);
     InitBase();
-    vptr = 0x42b688;
-    vptr4 = 0x42b680;
+    vptr = ((int)DAT_0042b688);
+    vptr4 = ((int)DAT_0042b680);
     enabled = 1;
     a = 0;
     b = 0;

@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d548[];
 typedef unsigned int u32;
 struct Base {
     virtual void a();
@@ -14,7 +15,7 @@ struct Obj {
 void cleanup(u32);
 void __fastcall finish(Obj*);
 void __fastcall target(Obj* self) {
-    *(u32*)self = 0x42d548;
+    *(u32*)self = ((int)DAT_0042d548);
     if (self->flag)
         cleanup(self->value);
     self->base->release();

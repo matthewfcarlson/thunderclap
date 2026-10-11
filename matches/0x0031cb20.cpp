@@ -1,3 +1,4 @@
+extern "C" char DAT_004325f4[];
 class Obj {
   public:
     int vptr;
@@ -6,5 +7,5 @@ class Obj {
 };
 Obj::Obj() {
     Init();
-    vptr = 0x4325f4;
+    vptr = ((int)DAT_004325f4);
 }

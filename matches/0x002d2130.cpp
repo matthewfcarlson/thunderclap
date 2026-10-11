@@ -1,3 +1,4 @@
+extern "C" char DAT_0042f0a8[];
 class Entry {
   public:
     int Find(int, int);
@@ -13,7 +14,7 @@ class GeneratorBlendState {
 };
 GeneratorBlendState::GeneratorBlendState(int x) {
     a = 0;
-    vf = 0x42f0a8;
+    vf = ((int)DAT_0042f0a8);
     b = 0;
     c = 0;
     d = 0;

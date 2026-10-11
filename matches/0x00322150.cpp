@@ -1,3 +1,5 @@
+extern "C" char DAT_0043276c[];
+extern "C" char DAT_00433094[];
 class RefCounted {
   public:
     virtual void f0();
@@ -10,9 +12,9 @@ class ProjectedTexture {
     void f();
 };
 void ProjectedTexture::f() {
-    vftable = (void*)0x433094;
+    vftable = (void*)((int)DAT_00433094);
     for (int i = 0; i < 16; ++i)
         if (items[i])
             items[i]->Release();
-    vftable = (void*)0x43276c;
+    vftable = (void*)((int)DAT_0043276c);
 }

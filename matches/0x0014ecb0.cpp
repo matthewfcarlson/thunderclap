@@ -1,3 +1,5 @@
+extern "C" char DAT_00494b44[];
+extern "C" char DAT_00494b60[];
 class CollisionExplosionCondition {
   public:
     char pad[8];
@@ -18,7 +20,7 @@ struct V {
     virtual unsigned char* d();
 };
 char CollisionExplosionCondition::vfunc_6(void* unused, void* param, void* extra) {
-    int r = FUN_00344e74(param, 0, (const void*)0x494b44, (const void*)0x494b60, 0);
+    int r = FUN_00344e74(param, 0, (const void*)((int)DAT_00494b44), (const void*)((int)DAT_00494b60), 0);
     if (r == 0)
         return 0;
     unsigned char* x = ((V*)param)->d();

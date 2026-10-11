@@ -1,3 +1,4 @@
+extern "C" char DAT_003f73bc[];
 extern "C" void* __cdecl Allocate(unsigned int);
 struct CMotionHitCondition {
     unsigned int vtable;
@@ -19,7 +20,7 @@ void* Factory::vfunc_5() {
     CMotionHitCondition* p = (CMotionHitCondition*)Allocate(0x14);
     if (p) {
         p->Init(0);
-        p->vtable = 0x3f73bc;
+        p->vtable = ((int)DAT_003f73bc);
         p->value = 0;
         p->value2 = 2;
         return p;

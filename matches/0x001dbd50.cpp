@@ -1,3 +1,4 @@
+extern "C" char DAT_004c6044[];
 class Loader {
   public:
     void Config(const char*, int, int);
@@ -16,7 +17,7 @@ void __cdecl FUN_001dbd50() {
         do {
             p->Pair(*q, *q);
             ++q;
-        } while ((int)q < 0x4c6044);
+        } while ((int)q < ((int)DAT_004c6044));
         p->Finish(2);
     }
 }

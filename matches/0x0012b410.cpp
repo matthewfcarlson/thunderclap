@@ -1,3 +1,4 @@
+extern "C" char DAT_00410bd4[];
 class Sub {
   public:
     void Init();
@@ -11,7 +12,7 @@ class ThreatCondition {
     void Run();
 };
 void ThreatCondition::Run() {
-    *(void**)this = (void*)0x410bd4;
+    *(void**)this = (void*)((int)DAT_00410bd4);
     ((Sub*)((char*)this + 0x10))->Init();
     ((FinishCall*)this)->Finish();
 }

@@ -1,3 +1,4 @@
+extern "C" char DAT_004d3a6c[];
 class pddiBaseContext {
   public:
     virtual void v0();
@@ -70,7 +71,7 @@ extern unsigned int globalState;
 void __fastcall D3DDevice_SetRenderState_Simple(unsigned int, unsigned int);
 void d3dContext::vfunc_60(int x) {
     pddiBaseContext::v60(x);
-    unsigned int v = *(unsigned int*)(0x4d3a6c + x * 4);
+    unsigned int v = *(unsigned int*)(((int)DAT_004d3a6c) + x * 4);
     D3DDevice_SetRenderState_Simple(0x40354, v);
     globalState = v;
 }

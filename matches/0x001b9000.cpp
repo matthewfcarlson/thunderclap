@@ -1,3 +1,4 @@
+extern "C" char DAT_00420dd8[];
 class CDHGameObjectCreator {
   public:
     virtual void f0();
@@ -17,5 +18,5 @@ class CRenderManager : public CDHGameObjectCreator, public DataHandlerObjectCrea
     const char* f3(void*);
 };
 const char* CRenderManager::f3(void* p) {
-    return (const char*)((p != 0) - 1 & 0x420dd8);
+    return (const char*)((p != 0) - 1 & ((int)DAT_00420dd8));
 }

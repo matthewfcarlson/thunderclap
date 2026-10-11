@@ -1,3 +1,5 @@
+extern "C" char DAT_004298fc[];
+extern "C" char DAT_004e6e90[];
 extern void FUN_00247550(void*, void*);
 class SeqAction {
   public:
@@ -14,8 +16,8 @@ class SeqActionVarVolume : public SeqAction {
     SeqActionVarVolume* vfunc_0(int);
 };
 SeqActionVarVolume* SeqActionVarVolume::vfunc_0(int x) {
-    *(unsigned long*)this = 0x4298fc;
+    *(unsigned long*)this = ((int)DAT_004298fc);
     if (x & 1)
-        FUN_00247550((void*)0x4e6e90, this);
+        FUN_00247550((void*)((int)DAT_004e6e90), this);
     return this;
 }

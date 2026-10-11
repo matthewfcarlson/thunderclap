@@ -1,3 +1,5 @@
+extern "C" char DAT_0041d4ac[];
+extern "C" char DAT_004c2a28[];
 extern int gCount;
 extern int gSlot;
 extern void* Alloc(unsigned int);
@@ -17,8 +19,8 @@ void FUN_001abe80() {
         Obj* q = (Obj*)Alloc(0x20);
         if (q != 0) {
             q->Init(name);
-            q->v = 0x41d4ac;
-            q->a = 0x4c2a28;
+            q->v = ((int)DAT_0041d4ac);
+            q->a = ((int)DAT_004c2a28);
             q->b = 0x1f;
             q->c = 0x1aacf0;
             p = q;

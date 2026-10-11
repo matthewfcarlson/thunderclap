@@ -1,3 +1,4 @@
+extern "C" char DAT_004141b0[];
 extern "C" void* __cdecl Alloc(unsigned int);
 class Cond {
   public:
@@ -16,7 +17,7 @@ Cond* Factory::Make() {
     Cond* p = (Cond*)Alloc(20);
     if (p) {
         p->Cond::Cond(0);
-        *(unsigned int*)p = 0x4141b0;
+        *(unsigned int*)p = ((int)DAT_004141b0);
         *(unsigned int*)((char*)p + 12) = 0;
         *(unsigned int*)((char*)p + 16) = 0;
         return p;

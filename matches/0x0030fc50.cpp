@@ -1,3 +1,4 @@
+extern "C" char DAT_0043211c[];
 class Pose {
   public:
     void* vf;
@@ -9,7 +10,7 @@ Pose* Pose::Make(int arg) {
     a = 0;
     b = 0;
     c = 0;
-    vf = (void*)0x43211c;
+    vf = (void*)((int)DAT_0043211c);
     Init(arg);
     return this;
 }

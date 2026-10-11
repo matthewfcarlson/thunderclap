@@ -1,3 +1,5 @@
+extern "C" char DAT_00414ad0[];
+extern "C" char DAT_0042773c[];
 extern "C" void* __cdecl Alloc(unsigned int);
 class Param {
   public:
@@ -19,8 +21,8 @@ void FUN_00155bb0() {
         int v = gValue;
         p->Init("compare");
         *(int*)((char*)p + 0x14) = v;
-        *(int*)p = 0x414ad0;
-        *(int*)((char*)p + 0x10) = 0x42773c;
+        *(int*)p = ((int)DAT_00414ad0);
+        *(int*)((char*)p + 0x10) = ((int)DAT_0042773c);
         *(int*)((char*)p + 0x18) = 0x14c730;
         tmp = p;
     } else

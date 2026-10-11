@@ -1,3 +1,4 @@
+extern "C" char DAT_0042c1cc[];
 class SkeletonLoader {
   public:
     void* vf;
@@ -13,6 +14,6 @@ SkeletonLoader::SkeletonLoader() {
     b = 0x23000;
     c = 0;
     d = 0;
-    vf = (void*)0x42c1cc;
+    vf = (void*)((int)DAT_0042c1cc);
     e = 1;
 }

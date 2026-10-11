@@ -1,3 +1,4 @@
+extern "C" char DAT_00421a3c[];
 class Store {
   public:
     Store(unsigned int, unsigned char);
@@ -5,7 +6,7 @@ class Store {
 };
 Store::Store(unsigned int arg, unsigned char flag) {
     unsigned char* p = (unsigned char*)this;
-    *(unsigned int*)p = 0x421a3c;
+    *(unsigned int*)p = ((int)DAT_00421a3c);
     *(unsigned int*)(p + 8) = 0;
     *(unsigned int*)(p + 12) = 0;
     *(unsigned int*)(p + 16) = 0xffffffff;

@@ -1,3 +1,5 @@
+extern "C" char DAT_0042b914[];
+extern "C" char DAT_0042b9bc[];
 class Drive {
   public:
     virtual void A();
@@ -18,10 +20,10 @@ class Obj {
     void Run();
 };
 void Obj::Run() {
-    vf = 0x42b9bc;
+    vf = ((int)DAT_0042b9bc);
     ((DriveSub*)((char*)drive + 4))->A();
     --drive->count;
     ((DriveSub*)((char*)drive + 4))->B();
     drive->B();
-    vf = 0x42b914;
+    vf = ((int)DAT_0042b914);
 }

@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_00428760[];
 class LoadObject {
   public:
     virtual void A();
@@ -16,9 +18,9 @@ class StreamDataReader : public LoadObject {
 extern void Destroy(StreamDataReader*);
 StreamDataReader* StreamDataReader::vfunc_2(int flags) {
     LoadObject* p = mObj;
-    ((int*)this)[0] = 0x428760;
+    ((int*)this)[0] = ((int)DAT_00428760);
     p->B();
-    ((int*)this)[0] = 0x3f6098;
+    ((int*)this)[0] = ((int)DAT_003f6098);
     if (flags & 1)
         Destroy(this);
     return this;

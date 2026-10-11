@@ -1,3 +1,4 @@
+extern "C" char DAT_003fa214[];
 struct H1 {
     void f();
 };
@@ -24,7 +25,7 @@ struct CCollisionTrack {
 };
 void thunk_FUN_00267090(CCollisionTrack*);
 CCollisionTrack* CCollisionTrack::vfunc_5(int flag) {
-    *(unsigned long*)this = 0x3fa214;
+    *(unsigned long*)this = ((int)DAT_003fa214);
     ((H1*)((char*)this + 0x70))->f();
     ((H1*)((char*)this + 0x68))->f();
     ((H2*)((char*)this + 0x58))->f();

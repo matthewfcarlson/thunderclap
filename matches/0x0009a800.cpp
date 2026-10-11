@@ -1,3 +1,7 @@
+extern "C" char DAT_00404c10[];
+extern "C" char DAT_0048e100[];
+extern "C" char DAT_0048e10c[];
+extern "C" char DAT_0048e128[];
 extern "C" void __stdcall FUN_001d0480(int, int);
 extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
 class CCameraManager {
@@ -12,11 +16,11 @@ class CCameraManager {
 };
 CCameraManager::CCameraManager(int a, int b) {
     FUN_001d0480(a, 4);
-    *(int*)this = 0x404c10;
+    *(int*)this = ((int)DAT_00404c10);
     value1c = b;
-    b18 = FUN_001d04d0((const char*)0x48e100);
-    b10 = FUN_001d04d0((const char*)0x48e128);
-    b11 = FUN_001d04d0((const char*)0x48e128);
-    b12 = FUN_001d04d0((const char*)0x48e10c);
-    b13 = FUN_001d04d0((const char*)0x48e128);
+    b18 = FUN_001d04d0((const char*)((int)DAT_0048e100));
+    b10 = FUN_001d04d0((const char*)((int)DAT_0048e128));
+    b11 = FUN_001d04d0((const char*)((int)DAT_0048e128));
+    b12 = FUN_001d04d0((const char*)((int)DAT_0048e10c));
+    b13 = FUN_001d04d0((const char*)((int)DAT_0048e128));
 }

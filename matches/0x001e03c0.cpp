@@ -1,3 +1,7 @@
+extern "C" char DAT_0048e0f0[];
+extern "C" char DAT_0048e100[];
+extern "C" char DAT_0048e128[];
+extern "C" char DAT_0048e134[];
 struct Base {
     Base(int a, int b);
     virtual void F0();
@@ -18,11 +22,11 @@ struct Method6 : Base {
 
 Method6::Method6(int a, int b) : Base(a, 6) {
     m1c = b;
-    c18 = ParseArg((const char*)0x48e100);
-    c10 = ParseArg((const char*)0x48e0f0);
-    c11 = ParseArg((const char*)0x48e134);
-    c12 = ParseArg((const char*)0x48e128);
-    c13 = ParseArg((const char*)0x48e128);
-    c14 = ParseArg((const char*)0x48e128);
-    c15 = ParseArg((const char*)0x48e128);
+    c18 = ParseArg((const char*)((int)DAT_0048e100));
+    c10 = ParseArg((const char*)((int)DAT_0048e0f0));
+    c11 = ParseArg((const char*)((int)DAT_0048e134));
+    c12 = ParseArg((const char*)((int)DAT_0048e128));
+    c13 = ParseArg((const char*)((int)DAT_0048e128));
+    c14 = ParseArg((const char*)((int)DAT_0048e128));
+    c15 = ParseArg((const char*)((int)DAT_0048e128));
 }

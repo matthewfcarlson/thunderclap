@@ -1,3 +1,4 @@
+extern "C" char DAT_00429d1c[];
 typedef unsigned int u32;
 struct E {
     void init();
@@ -19,7 +20,7 @@ void* SeqEventStopTrackType::vfunc_3() {
     E* p = (E*)alloc(pool);
     if (p) {
         p->init();
-        *(u32*)p = 0x429d1c;
+        *(u32*)p = ((int)DAT_00429d1c);
         ((u32*)p)[2] = 0;
         ((u32*)p)[3] = 0;
         ((S*)((char*)p + 0x10))->setup(name, 2);

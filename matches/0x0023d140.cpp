@@ -1,3 +1,4 @@
+extern "C" char DAT_00428a98[];
 class ConditionFactoryCaster {
   public:
     virtual void A();
@@ -18,7 +19,7 @@ void* ConditionFactoryCasterTemplate::V1(void* p) {
     void* q = alloc(0x10);
     if (q) {
         ((Helper*)q)->Init();
-        *(unsigned int*)q = 0x428a98;
+        *(unsigned int*)q = ((int)DAT_00428a98);
         ((Helper*)((char*)q + 8))->Setup(p);
         return q;
     }

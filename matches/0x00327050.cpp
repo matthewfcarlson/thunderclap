@@ -1,3 +1,5 @@
+extern "C" char DAT_00433424[];
+extern "C" char DAT_004334b4[];
 void Cleanup(void*);
 void __stdcall Release(void*);
 class PrimBuffer {
@@ -10,7 +12,7 @@ class PrimBuffer {
     void Destroy();
 };
 void PrimBuffer::Destroy() {
-    *(int*)this = 0x4334b4;
+    *(int*)this = ((int)DAT_004334b4);
     if (a) {
         Cleanup(a);
         Release(a);
@@ -19,6 +21,6 @@ void PrimBuffer::Destroy() {
         Cleanup(b);
         Release(b);
     }
-    *(int*)this = 0x433424;
+    *(int*)this = ((int)DAT_00433424);
     BaseDestroy();
 }

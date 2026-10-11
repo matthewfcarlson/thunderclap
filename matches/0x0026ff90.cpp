@@ -1,3 +1,7 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042af64[];
+extern "C" char DAT_0042b5ac[];
+extern "C" char DAT_0042b5b4[];
 class Ref {
   public:
     virtual void X();
@@ -20,8 +24,8 @@ class Pool {
 };
 void Pool::Destroy() {
     Ref* p = field30;
-    *(int*)this = 0x42b5b4;
-    *((int*)this + 1) = 0x42b5ac;
+    *(int*)this = ((int)DAT_0042b5b4);
+    *((int*)this + 1) = ((int)DAT_0042b5ac);
     if (p) {
         p->A();
         field30 = 0;
@@ -30,6 +34,6 @@ void Pool::Destroy() {
         Cleanup(field14, field18);
     field18 = 0;
     g_value = field8;
-    *((int*)this + 1) = 0x42af64;
-    *(int*)this = 0x3f6098;
+    *((int*)this + 1) = ((int)DAT_0042af64);
+    *(int*)this = ((int)DAT_003f6098);
 }

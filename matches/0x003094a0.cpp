@@ -1,3 +1,4 @@
+extern "C" char DAT_00431d1c[];
 typedef unsigned int u32;
 extern void* alloc(unsigned int);
 struct Obj {
@@ -53,7 +54,7 @@ void* HairclubPhysicsObject::f28(unsigned int arg) {
     if (q) {
         p = q;
         ((Obj*)p)->init();
-        *(u32*)p = 0x431d1c;
+        *(u32*)p = ((int)DAT_00431d1c);
         *(u32*)((char*)p + 0x1f8) = 0;
         *(u32*)((char*)p + 0x24) = 2;
     } else

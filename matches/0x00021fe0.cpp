@@ -1,3 +1,4 @@
+extern "C" char DAT_003f3390[];
 extern "C" void _ReadWriteBarrier();
 class Ref {
   public:
@@ -17,7 +18,7 @@ class Helper {
 };
 extern void thunk_FUN_00267090(CSmartPropThrowingAction*);
 CSmartPropThrowingAction* CSmartPropThrowingAction::V2(int flag) {
-    vptr = 0x3f3390;
+    vptr = ((int)DAT_003f3390);
     _ReadWriteBarrier();
     if (member) {
         member->Release();

@@ -1,3 +1,8 @@
+extern "C" char DAT_00425384[];
+extern "C" char DAT_0048e0f0[];
+extern "C" char DAT_0048e10c[];
+extern "C" char DAT_0048e128[];
+extern "C" char DAT_0048e134[];
 extern "C" void __stdcall FUN_001d0480(const char*, int);
 extern "C" char __cdecl FUN_001d04d0(const char*);
 class Trigger {
@@ -13,12 +18,12 @@ class Trigger {
 };
 Trigger::Trigger(const char* s, int x) {
     FUN_001d0480(s, 5);
-    vft = (void*)0x425384;
+    vft = (void*)((int)DAT_00425384);
     m1c = x;
-    a18 = FUN_001d04d0((const char*)0x48e0f0);
-    a10 = FUN_001d04d0((const char*)0x48e10c);
-    a11 = FUN_001d04d0((const char*)0x48e134);
-    a12 = FUN_001d04d0((const char*)0x48e134);
-    a13 = FUN_001d04d0((const char*)0x48e128);
-    a14 = FUN_001d04d0((const char*)0x48e128);
+    a18 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
+    a10 = FUN_001d04d0((const char*)((int)DAT_0048e10c));
+    a11 = FUN_001d04d0((const char*)((int)DAT_0048e134));
+    a12 = FUN_001d04d0((const char*)((int)DAT_0048e134));
+    a13 = FUN_001d04d0((const char*)((int)DAT_0048e128));
+    a14 = FUN_001d04d0((const char*)((int)DAT_0048e128));
 }

@@ -1,3 +1,4 @@
+extern "C" char DAT_00429c8c[];
 extern const char expr[];
 class Base {
   public:
@@ -15,6 +16,6 @@ class SeqEventExpression : public Base {
     SeqEventExpression();
 };
 SeqEventExpression::SeqEventExpression() {
-    vptr = 0x429c8c;
+    vptr = ((int)DAT_00429c8c);
     text.Set(expr, 2);
 }

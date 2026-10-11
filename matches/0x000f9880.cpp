@@ -1,3 +1,4 @@
+extern "C" char DAT_0040ce5c[];
 class CTokenFloat {
   public:
     virtual ~CTokenFloat();
@@ -10,7 +11,7 @@ class CTokenFloat {
 CTokenFloat::CTokenFloat(int a, int b, int c) {
     m4 = a;
     m1 = 0;
-    *(void**)this = (void*)0x40ce5c;
+    *(void**)this = (void*)((int)DAT_0040ce5c);
     m2 = b;
     m3 = c;
 }

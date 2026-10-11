@@ -1,3 +1,4 @@
+extern "C" char DAT_00404c20[];
 extern char s1[];
 extern char s2[];
 extern char s3[];
@@ -18,7 +19,7 @@ class CCameraManager {
 };
 CCameraManager::CCameraManager(void* p, int value) {
     Init(p, 3);
-    *(int*)this = 0x404c20;
+    *(int*)this = ((int)DAT_00404c20);
     field1c = value;
     b18 = Convert(s1);
     b10 = Convert(s2);

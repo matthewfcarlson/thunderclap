@@ -1,3 +1,5 @@
+extern "C" char DAT_0042991c[];
+extern "C" char DAT_004e67b8[];
 namespace om {
 class DynBehaviour {
   public:
@@ -15,8 +17,8 @@ class ChannelSendVolumeFadeBehaviour : public om::DynBehaviour {
 extern "C" void __cdecl FUN_00247550(void*, void*);
 audio::ChannelSendVolumeFadeBehaviour* audio::ChannelSendVolumeFadeBehaviour::vfunc_0(int flag) {
     ChannelSendVolumeFadeBehaviour* p = this;
-    *(int*)p = 0x42991c;
+    *(int*)p = ((int)DAT_0042991c);
     if (flag & 1)
-        FUN_00247550((void*)0x4e67b8, p);
+        FUN_00247550((void*)((int)DAT_004e67b8), p);
     return p;
 }

@@ -1,3 +1,4 @@
+extern "C" char DAT_0041c550[];
 extern void* __cdecl FUN_0008d690(unsigned int);
 class Event {
   public:
@@ -26,7 +27,7 @@ Event* Factory::vfunc_5() {
     Event* p = (Event*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
-        *(unsigned int*)p = 0x41c550;
+        *(unsigned int*)p = ((int)DAT_0041c550);
         p->c = 0;
         p->d = 0;
         return p;

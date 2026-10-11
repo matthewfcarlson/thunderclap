@@ -1,3 +1,4 @@
+extern "C" char DAT_003fbc9c[];
 struct CSweepTrack {
     virtual ~CSweepTrack();
     char pad[0x20];
@@ -23,7 +24,7 @@ CSweepTrack* Factory::f5() {
         *(unsigned long*)((char*)p + 0x14) = 0;
         *(unsigned long*)((char*)p + 0x1c) = 0;
         *(unsigned long*)((char*)p + 0x20) = 0;
-        *(unsigned long*)p = 0x3fbc9c;
+        *(unsigned long*)p = ((int)DAT_003fbc9c);
         *(unsigned long*)((char*)p + 0x10) = 0x3f800000;
         *(unsigned long*)((char*)p + 0x18) = 0xffffffff;
         *(unsigned long*)((char*)p + 8) = 1;

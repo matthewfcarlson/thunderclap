@@ -1,3 +1,5 @@
+extern "C" char DAT_004323e4[];
+extern "C" char DAT_0043242c[];
 typedef unsigned int u32;
 extern void __cdecl D3DDevice_Release();
 extern void __stdcall D3DResource_Release(u32);
@@ -11,12 +13,12 @@ struct Display {
 };
 void __fastcall FUN_0031acf0(Display* self) {
     u32 d = self->device;
-    self->vptr = 0x43242c;
+    self->vptr = ((int)DAT_0043242c);
     if (d)
         D3DDevice_Release();
     u32 r = self->resource;
     if (r)
         D3DResource_Release(r);
-    self->vptr = 0x4323e4;
+    self->vptr = ((int)DAT_004323e4);
     self->Finish();
 }

@@ -1,3 +1,4 @@
+extern "C" char DAT_00417c58[];
 extern "C" void* __cdecl alloc(unsigned int);
 class S {
   public:
@@ -15,7 +16,7 @@ S* __cdecl target() {
     S* p = (S*)alloc(0x20);
     if (p) {
         p->Init();
-        p->vp = 0x417c58;
+        p->vp = ((int)DAT_00417c58);
         p->f0c = 0;
         p->f10 = -1.0f;
         p->f14 = 0.0f;

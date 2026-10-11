@@ -1,3 +1,4 @@
+extern "C" char DAT_0042db8c[];
 class SceneGraphTransformAnimationController {
   public:
     unsigned int vf;
@@ -13,7 +14,7 @@ SceneGraphTransformAnimationController* SceneGraphTransformAnimationController::
     SceneGraphTransformAnimationController* p = (SceneGraphTransformAnimationController*)alloc(0x118);
     if (p) {
         p->copy(this);
-        p->vf = 0x42db8c;
+        p->vf = ((int)DAT_0042db8c);
         p->field = 0;
         p->initialize(1);
         p->field = field;

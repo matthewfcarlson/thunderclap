@@ -1,3 +1,6 @@
+extern "C" char DAT_0042b914[];
+extern "C" char DAT_0042b978[];
+extern "C" char DAT_0042b9dc[];
 class Obj {
   public:
     virtual void A();
@@ -16,13 +19,13 @@ struct Target {
     Target(int, int, Obj*, int);
 };
 Target::Target(int a, int b, Obj* c, int d) {
-    vf = 0x42b914;
+    vf = ((int)DAT_0042b914);
     p4 = 0;
     FUN_002705f0();
-    vf = 0x42b9dc;
+    vf = ((int)DAT_0042b9dc);
     p8 = a;
     FUN_002705f0();
-    vf = 0x42b978;
+    vf = ((int)DAT_0042b978);
     pC = (Obj*)b;
     p10 = c;
     p14 = d;

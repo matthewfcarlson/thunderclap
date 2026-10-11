@@ -1,3 +1,4 @@
+extern "C" char DAT_00427368[];
 typedef unsigned char u8;
 struct Load {
     virtual void f0();
@@ -13,7 +14,7 @@ struct AnimationDriver {
 extern int g_count;
 void thunk(AnimationDriver*);
 AnimationDriver* AnimationDriver::vfunc_2(u8 flag) {
-    this->vptr = (void*)0x427368;
+    this->vptr = (void*)((int)DAT_00427368);
     this->member->f1();
     --g_count;
     this->Cleanup();

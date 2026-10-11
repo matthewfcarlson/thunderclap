@@ -1,3 +1,4 @@
+extern "C" char DAT_00411284[];
 class ConditionFactoryTemplate {
   public:
     virtual void V0();
@@ -20,7 +21,7 @@ void* ConditionFactoryTemplate::V5() {
     DebugPrintCondition* p = (DebugPrintCondition*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        p->vptr = 0x411284;
+        p->vptr = ((int)DAT_00411284);
         p->c = 0;
         p->d = 0;
         return p;

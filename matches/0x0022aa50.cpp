@@ -1,3 +1,4 @@
+extern "C" char DAT_00427534[];
 struct LocomotionDriver {
     void* vf;
     char pad[0x1c];
@@ -11,7 +12,7 @@ extern int gCount;
 extern int gMax;
 LocomotionDriver* LocomotionDriver::Copy(LocomotionDriver* src) {
     InitA(src);
-    vf = (void*)0x427534;
+    vf = (void*)((int)DAT_00427534);
     InitB(src);
     a = src->a;
     b = src->b;

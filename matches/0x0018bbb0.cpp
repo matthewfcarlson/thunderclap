@@ -1,3 +1,4 @@
+extern "C" char DAT_0041926c[];
 typedef unsigned int u32;
 typedef unsigned char u8;
 void* __cdecl alloc(unsigned int);
@@ -27,7 +28,7 @@ Condition* Factory::f() {
     Condition* p = (Condition*)alloc(0x14);
     if (p) {
         p->init(0);
-        *(u32*)p = 0x41926c;
+        *(u32*)p = ((int)DAT_0041926c);
         p->fieldC = 0;
         p->flag10 = 1;
         return p;

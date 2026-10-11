@@ -1,3 +1,4 @@
+extern "C" char DAT_00417fd4[];
 extern "C" void _ReadWriteBarrier();
 class Ref {
   public:
@@ -16,7 +17,7 @@ class TargetBreakAction : public Base {
     Ref* ref;
 };
 void TargetBreakAction::Finish() {
-    vptr = (char*)0x417fd4;
+    vptr = (char*)((int)DAT_00417fd4);
     _ReadWriteBarrier();
     if (ref) {
         ref->B();

@@ -1,3 +1,5 @@
+extern "C" char DAT_003f3390[];
+extern "C" char DAT_003f3c90[];
 extern "C" void _ReadWriteBarrier();
 class Obj {
   public:
@@ -22,11 +24,11 @@ class Haptic {
 };
 extern void thunk(Haptic*);
 Haptic* Haptic::f2(unsigned char flags) {
-    *(void**)this = (void*)0x3f3c90;
+    *(void**)this = (void*)((int)DAT_003f3c90);
     _ReadWriteBarrier();
     if (mHandle)
         mHandle = 0;
-    *(void**)this = (void*)0x3f3390;
+    *(void**)this = (void*)((int)DAT_003f3390);
     _ReadWriteBarrier();
     if (mObj) {
         mObj->b();

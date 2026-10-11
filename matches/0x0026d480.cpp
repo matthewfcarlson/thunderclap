@@ -1,3 +1,8 @@
+extern "C" char DAT_0042afa8[];
+extern "C" char DAT_0042b3a4[];
+extern "C" char DAT_0042b3ac[];
+extern "C" char DAT_0042b3b4[];
+extern "C" char DAT_0042b3fc[];
 extern int gValue;
 void Init();
 class Allocator {
@@ -5,15 +10,15 @@ class Allocator {
     int* Construct();
 };
 int* Allocator::Construct() {
-    *(int*)this = 0x42b3fc;
-    ((int*)this)[1] = 0x42afa8;
+    *(int*)this = ((int)DAT_0042b3fc);
+    ((int*)this)[1] = ((int)DAT_0042afa8);
     ((int*)this)[2] = gValue;
     Init();
-    ((int*)this)[1] = 0x42b3a4;
+    ((int*)this)[1] = ((int)DAT_0042b3a4);
     ((int*)this)[3] = 0;
     Init();
-    *(int*)this = 0x42b3b4;
-    ((int*)this)[1] = 0x42b3ac;
+    *(int*)this = ((int)DAT_0042b3b4);
+    ((int*)this)[1] = ((int)DAT_0042b3ac);
     ((int*)this)[4] = 0;
     ((int*)this)[5] = 0;
     ((int*)this)[6] = 0;

@@ -1,3 +1,4 @@
+extern "C" char DAT_0042e614[];
 class ShadowMeshLoader {
   public:
     int vptr;
@@ -9,5 +10,5 @@ ShadowMeshLoader::ShadowMeshLoader() {
     b = 0x1001a;
     c = 0;
     d = 0;
-    vptr = 0x42e614;
+    vptr = ((int)DAT_0042e614);
 }

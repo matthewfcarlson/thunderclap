@@ -1,3 +1,5 @@
+extern "C" char DAT_004298fc[];
+extern "C" char DAT_004e7570[];
 namespace audio {
 class SeqActionClip {
   public:
@@ -8,8 +10,8 @@ class SeqActionClip {
 extern "C" void __cdecl FUN_00247550(void*, void*);
 audio::SeqActionClip* audio::SeqActionClip::vfunc_0(int f) {
     SeqActionClip* p = this;
-    vt = 0x4298fc;
+    vt = ((int)DAT_004298fc);
     if (f & 1)
-        FUN_00247550((void*)0x4e7570, p);
+        FUN_00247550((void*)((int)DAT_004e7570), p);
     return p;
 }

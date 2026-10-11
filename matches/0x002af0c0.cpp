@@ -1,3 +1,4 @@
+extern "C" char DAT_0042e1b4[];
 typedef unsigned int u32;
 struct Manager {
     virtual void f0();
@@ -22,7 +23,7 @@ class ImageHandler {
 };
 ImageHandler::ImageHandler() {
     b = 0;
-    *(volatile u32*)this = 0x42e1b4;
+    *(volatile u32*)this = ((int)DAT_0042e1b4);
     c = 0;
     flag = 0;
     d = gManager->getB();

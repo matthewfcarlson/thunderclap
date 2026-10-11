@@ -1,3 +1,4 @@
+extern "C" char DAT_00428a24[];
 typedef unsigned int u32;
 struct NotCondition {
     virtual void a();
@@ -21,7 +22,7 @@ NotCondition* ConditionFactoryTemplate::vfunc_5() {
     NotCondition* p = (NotCondition*)FUN_0008d690(0xc);
     if (p) {
         ((Helper*)p)->f(2);
-        *(u32*)p = 0x428a24;
+        *(u32*)p = ((int)DAT_00428a24);
         return p;
     }
     return (NotCondition*)0;

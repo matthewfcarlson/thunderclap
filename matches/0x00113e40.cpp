@@ -1,3 +1,4 @@
+extern "C" char DAT_0040d9a4[];
 struct AIFightNodeCondition {
     int v;
 };
@@ -21,7 +22,7 @@ AIFightNodeCondition* ConditionFactoryTemplate::vfunc_5() {
     AIFightNodeCondition* p = (AIFightNodeCondition*)operator_new(0x18);
     if (p) {
         ((InitObj*)p)->InitCondition(0);
-        *(int*)p = 0x40d9a4;
+        *(int*)p = ((int)DAT_0040d9a4);
         ((EntityObj*)((char*)p + 0xc))->InitEntity();
         return p;
     }

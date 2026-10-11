@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d23c[];
 class Base {
   public:
     Base();
@@ -12,5 +13,5 @@ class LeafNode : public Base {
 LeafNode::LeafNode() : Base() {
     x = 6;
     y = 0;
-    *(int*)this = 0x42d23c;
+    *(int*)this = ((int)DAT_0042d23c);
 }

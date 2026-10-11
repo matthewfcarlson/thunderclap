@@ -1,3 +1,4 @@
+extern "C" char DAT_004313cc[];
 struct Part {
     void Init();
 };
@@ -10,7 +11,7 @@ struct Obj {
     void Target();
 };
 void Obj::Target() {
-    vptr = (void*)0x4313cc;
+    vptr = (void*)((int)DAT_004313cc);
     ((Part*)((char*)this + 0x64))->Init();
     ((Part*)((char*)this + 0x38))->Init();
     ((Base*)this)->Finish();

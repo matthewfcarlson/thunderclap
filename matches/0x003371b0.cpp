@@ -1,3 +1,4 @@
+extern "C" char DAT_00434318[];
 struct Item {
     void Init();
 };
@@ -8,7 +9,7 @@ struct Obj {
     void Finish();
 };
 Obj* __fastcall FUN_003371b0(Obj* self, void*) {
-    self->v = 0x434318;
+    self->v = ((int)DAT_00434318);
     Item* p = (Item*)((char*)self + 0x48);
     int n = 0x18;
     do {

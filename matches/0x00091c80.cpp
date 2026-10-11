@@ -1,3 +1,5 @@
+extern "C" char DAT_0040449c[];
+extern "C" char DAT_004044a4[];
 class Part {
     char pad[16];
 
@@ -19,11 +21,11 @@ class CUnlockableBlonskyFile {
     CUnlockableBlonskyFile();
 };
 CUnlockableBlonskyFile::CUnlockableBlonskyFile() {
-    vf = (char*)0x40449c;
+    vf = (char*)((int)DAT_0040449c);
     enabled = 1;
     a.Init();
     *(int*)((char*)this + 0x18) = 0;
-    vf = (char*)0x4044a4;
+    vf = (char*)((int)DAT_004044a4);
     b.Init();
     fa8 = 0;
     f68 = 0;

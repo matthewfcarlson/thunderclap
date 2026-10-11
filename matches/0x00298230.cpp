@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d484[];
 struct CompositeDrawable {
     void* vf;
     char pad[0x3c];
@@ -12,6 +13,6 @@ CompositeDrawable* CompositeDrawable::Run() {
     c = 0;
     d = 0;
     e = 0;
-    vf = (void*)0x42d484;
+    vf = (void*)((int)DAT_0042d484);
     return this;
 }

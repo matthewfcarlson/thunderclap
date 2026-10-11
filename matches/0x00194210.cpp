@@ -1,3 +1,4 @@
+extern "C" char DAT_0041b348[];
 struct S18 {
     char z[0x18];
     void Clear();
@@ -35,7 +36,7 @@ struct FireBeamTrack {
     void Reset();
 };
 void FireBeamTrack::Reset() {
-    vptr = 0x41b348;
+    vptr = ((int)DAT_0041b348);
     f.Clear();
     e.Clear();
     d.Clear();

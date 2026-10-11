@@ -1,3 +1,4 @@
+extern "C" char DAT_003f7304[];
 struct CLuaNumberCondition {
     virtual void v0();
     virtual void v1();
@@ -20,7 +21,7 @@ void* ConditionFactoryTemplate::vfunc_5() {
     CLuaNumberCondition* p = (CLuaNumberCondition*)Allocate(0x54);
     if (p) {
         p->init(0);
-        *(unsigned int*)p = 0x3f7304;
+        *(unsigned int*)p = ((int)DAT_003f7304);
         *(unsigned int*)((char*)p + 0xc) = 2;
         *(unsigned int*)((char*)p + 0x50) = 0;
         *((unsigned char*)p + 0x10) = 0;

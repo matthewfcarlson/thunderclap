@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d4d4[];
 class CompositeDrawableLoader {
   public:
     int a;
@@ -12,5 +13,5 @@ CompositeDrawableLoader::CompositeDrawableLoader() {
     c = 0x123000;
     d = 0;
     e = 0;
-    a = 0x42d4d4;
+    a = ((int)DAT_0042d4d4);
 }

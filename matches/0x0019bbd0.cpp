@@ -1,3 +1,4 @@
+extern "C" char DAT_004e2210[];
 class CProjectile {
     char pad[0x20];
 };
@@ -18,6 +19,6 @@ struct Alloc {
 ProjectileGroundShockwave* ProjectileGroundShockwave::vfunc_2(unsigned char flags) {
     FUN_00198ab0();
     if (flags & 1)
-        ((Alloc*)0x4e2210)->f(this, 0xc0);
+        ((Alloc*)((int)DAT_004e2210))->f(this, 0xc0);
     return this;
 }

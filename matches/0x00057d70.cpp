@@ -1,3 +1,4 @@
+extern "C" char DAT_003f74e0[];
 void* __cdecl Alloc(unsigned int);
 struct Obj {
     void Init(int);
@@ -25,7 +26,7 @@ void* Factory::vfunc_5() {
     Raw* p = (Raw*)Alloc(0x20);
     if (p != 0) {
         ((Obj*)p)->Init(0);
-        p->vptr = 0x3f74e0;
+        p->vptr = ((int)DAT_003f74e0);
         p->f = 0;
         ((Tail*)((char*)p + 0x10))->Init();
         p->b = 1;

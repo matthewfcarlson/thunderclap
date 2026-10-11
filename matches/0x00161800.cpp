@@ -1,3 +1,4 @@
+extern "C" char DAT_00415c50[];
 extern "C" void _ReadWriteBarrier();
 class LocomotingAction {
   public:
@@ -14,7 +15,7 @@ class Obj {
 };
 extern void thunk(LocomotingAction*);
 LocomotingAction* LocomotingAction::V2(int flags) {
-    vptr = 0x415c50;
+    vptr = ((int)DAT_00415c50);
     _ReadWriteBarrier();
     if (mObj) {
         mObj->V1();

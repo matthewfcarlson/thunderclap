@@ -1,3 +1,6 @@
+extern "C" char DAT_004243b8[];
+extern "C" char DAT_0048e0f0[];
+extern "C" char DAT_0048e100[];
 extern "C" void __stdcall FUN_001d0480(const char*, int);
 extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
 class Obj {
@@ -10,11 +13,11 @@ class Obj {
 };
 Obj::Obj(const char* a, int b) {
     FUN_001d0480(a, 4);
-    vptr = (int*)0x4243b8;
+    vptr = (int*)((int)DAT_004243b8);
     m1c = b;
-    m18 = FUN_001d04d0((const char*)0x48e100);
-    m10 = FUN_001d04d0((const char*)0x48e0f0);
-    m11 = FUN_001d04d0((const char*)0x48e0f0);
-    m12 = FUN_001d04d0((const char*)0x48e0f0);
-    m13 = FUN_001d04d0((const char*)0x48e0f0);
+    m18 = FUN_001d04d0((const char*)((int)DAT_0048e100));
+    m10 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
+    m11 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
+    m12 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
+    m13 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
 }

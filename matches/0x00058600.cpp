@@ -1,3 +1,4 @@
+extern "C" char DAT_003f7274[];
 typedef unsigned int U;
 extern void* __cdecl alloc(unsigned int);
 struct CPropActorStateCondition {
@@ -17,7 +18,7 @@ void* Factory::v5() {
     CPropActorStateCondition* p = (CPropActorStateCondition*)alloc(0x14);
     if (p) {
         p->setup(0);
-        *(U*)p = 0x3f7274;
+        *(U*)p = ((int)DAT_003f7274);
         *(U*)((char*)p + 0xc) = 2;
         *(U*)((char*)p + 0x10) = 0;
         return p;

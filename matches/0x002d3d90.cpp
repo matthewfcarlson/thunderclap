@@ -1,3 +1,4 @@
+extern "C" char DAT_0042f190[];
 class ParticleAllocator {
   public:
     int mVptr;
@@ -6,5 +7,5 @@ class ParticleAllocator {
 };
 ParticleAllocator::ParticleAllocator() {
     mValue = 0;
-    mVptr = 0x42f190;
+    mVptr = ((int)DAT_0042f190);
 }

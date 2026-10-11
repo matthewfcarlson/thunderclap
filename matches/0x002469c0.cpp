@@ -1,3 +1,5 @@
+extern "C" char DAT_00423f20[];
+extern "C" char DAT_00429214[];
 struct V {
     virtual void a();
     virtual void b();
@@ -9,7 +11,7 @@ struct X {
     void f();
 };
 void X::f() {
-    vptr = (void**)0x429214;
+    vptr = (void**)((int)DAT_00429214);
     m->b();
-    vptr = (void**)0x423f20;
+    vptr = (void**)((int)DAT_00423f20);
 }

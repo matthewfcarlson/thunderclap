@@ -1,3 +1,5 @@
+extern "C" char DAT_004e2560[];
+extern "C" char DAT_004e2564[];
 struct Table {
     char pad[0x1c];
     int* entries;
@@ -17,7 +19,7 @@ int Obj::Find(int index) {
     int b = p[3];
     int result = -1;
     for (int i = 0; i < 8; ++i) {
-        if (a == ((int*)0x4e2560)[i * 2] && b == ((int*)0x4e2564)[i * 2]) {
+        if (a == ((int*)((int)DAT_004e2560))[i * 2] && b == ((int*)((int)DAT_004e2564))[i * 2]) {
             result = i;
             break;
         }

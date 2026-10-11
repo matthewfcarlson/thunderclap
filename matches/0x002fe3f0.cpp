@@ -1,3 +1,4 @@
+extern "C" char DAT_004319a4[];
 struct Ref {
     virtual void a();
     virtual void release();
@@ -10,7 +11,7 @@ struct Obj {
 };
 extern void __fastcall FUN_002ef2c0(Obj*);
 void Obj::run() {
-    vptr = 0x4319a4;
+    vptr = ((int)DAT_004319a4);
     Ref* p = ptr;
     if (p) {
         p->release();

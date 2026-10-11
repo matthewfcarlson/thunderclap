@@ -1,3 +1,4 @@
+extern "C" char DAT_00428d24[];
 class Ref {
   public:
     virtual void AddRef();
@@ -28,7 +29,7 @@ void* Track::vfunc_10(void* p2, void* p3, Ref* p4) {
     if (r) {
         r->Init();
         *(void**)((char*)r + 0x1c) = this;
-        *(unsigned long*)r = 0x428d24;
+        *(unsigned long*)r = ((int)DAT_00428d24);
         *(unsigned long*)((char*)r + 0x20) = 0;
         if (p4)
             p4->AddRef();

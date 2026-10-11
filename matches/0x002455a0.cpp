@@ -1,3 +1,5 @@
+extern "C" char DAT_0042918c[];
+extern "C" char DAT_004e5f18[];
 class Entity {
   public:
     virtual void vfunc_0();
@@ -21,11 +23,11 @@ class Clip : public Entity {
 void ReleaseHandle(int);
 void RegisterClip(void*, Clip*);
 Clip* Clip::vfunc_2(int flag) {
-    *(int*)this = 0x42918c;
+    *(int*)this = ((int)DAT_0042918c);
     if (mHandle)
         ReleaseHandle(mHandle);
     cleanup();
     if (flag & 1)
-        RegisterClip((void*)0x4e5f18, this);
+        RegisterClip((void*)((int)DAT_004e5f18), this);
     return this;
 }

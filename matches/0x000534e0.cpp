@@ -1,3 +1,4 @@
+extern "C" char DAT_003f7938[];
 struct Param {
     void Initialize(const char*);
     char pad[24];
@@ -12,7 +13,7 @@ void FUN_000534e0() {
         void* out;
         if (p) {
             p->Initialize("interrupt");
-            *(unsigned int*)p = 0x3f7938;
+            *(unsigned int*)p = ((int)DAT_003f7938);
             *(unsigned int*)((char*)p + 0x10) = 0x47d40;
             out = p;
         } else

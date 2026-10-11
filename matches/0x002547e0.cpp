@@ -1,3 +1,4 @@
+extern "C" char DAT_0042a30c[];
 typedef unsigned int u32;
 extern void* __cdecl allocObj(void*);
 extern char gPool;
@@ -18,7 +19,7 @@ SeqEventSilence* SeqEventSilenceType::vfunc_3() {
     SeqEventSilence* p = (SeqEventSilence*)allocObj(&gPool);
     if (p) {
         p->initialize();
-        p->vptr = 0x42a30c;
+        p->vptr = ((int)DAT_0042a30c);
         p->duration = 500;
         p->end = 1000;
         return p;

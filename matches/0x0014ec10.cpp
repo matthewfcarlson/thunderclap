@@ -1,3 +1,5 @@
+extern "C" char DAT_00494b44[];
+extern "C" char DAT_00494b60[];
 class HitPushbackCondition {
   public:
     virtual void v0();
@@ -17,7 +19,7 @@ struct Obj {
     unsigned char C();
 };
 bool HitPushbackCondition::v6(void* a, void* params, void* c) {
-    if (!Cast(params, 0, (void*)0x494b44, (void*)0x494b60, 0))
+    if (!Cast(params, 0, (void*)((int)DAT_00494b44), (void*)((int)DAT_00494b60), 0))
         return false;
     Obj* x = ((Obj*)params)->A();
     Obj* y = x->B();

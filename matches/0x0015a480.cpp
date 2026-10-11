@@ -1,3 +1,4 @@
+extern "C" char DAT_004144e0[];
 extern "C" void* __cdecl Alloc(unsigned int);
 class Obj {
   public:
@@ -17,7 +18,7 @@ void* Obj::F() {
     Obj* p = (Obj*)Alloc(0x14);
     if (p) {
         p->Init();
-        *(int*)p = 0x4144e0;
+        *(int*)p = ((int)DAT_004144e0);
         p->y = 0;
         p->z = -1.0f;
         p->x = 1;

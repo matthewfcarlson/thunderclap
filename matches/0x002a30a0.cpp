@@ -1,3 +1,4 @@
+extern "C" char DAT_0054494c[];
 class Base {
   public:
     Base();
@@ -36,7 +37,7 @@ Target::Target() {
     mObj->Init();
     {
         Obj* q = mObj;
-        q->manager->Call(0x54494c, 0);
+        q->manager->Call(((int)DAT_0054494c), 0);
     }
     {
         Obj* q = mObj;

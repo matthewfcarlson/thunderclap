@@ -1,3 +1,4 @@
+extern "C" char DAT_00417b68[];
 class TeleportTrackBase {
   public:
     void Ctor();
@@ -25,7 +26,7 @@ TeleportTrack* Factory::vfunc_5() {
     TeleportTrack* p = (TeleportTrack*)Alloc(0x1c);
     if (p) {
         ((TeleportTrackBase*)p)->Ctor();
-        p->vt = (void*)0x417b68;
+        p->vt = (void*)((int)DAT_00417b68);
         p->z1 = 0;
         p->z2 = 0;
         p->z3 = 0;

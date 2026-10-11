@@ -1,3 +1,4 @@
+extern "C" char DAT_00417988[];
 class Sub {
   public:
     void run();
@@ -25,7 +26,7 @@ void cleanup(void* p);
 void destroyObj(SyncToLocatorTrack* p);
 
 SyncToLocatorTrack* SyncToLocatorTrack::vfunc_5(unsigned char flags) {
-    *(unsigned long*)this = 0x417988;
+    *(unsigned long*)this = ((int)DAT_00417988);
     cleanup(mThing);
     sub.run();
     step();

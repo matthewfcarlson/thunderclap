@@ -1,3 +1,4 @@
+extern "C" char DAT_003fd044[];
 typedef unsigned int u32;
 void* __cdecl Allocate(unsigned int);
 struct CGrappleEffectTrack {
@@ -16,7 +17,7 @@ void* TrackFactoryTemplate::vfunc_5() {
     CGrappleEffectTrack* p = (CGrappleEffectTrack*)Allocate(0x60);
     if (p != 0) {
         p->Init();
-        *(u32*)p = 0x3fd044;
+        *(u32*)p = ((int)DAT_003fd044);
         return p;
     }
     return 0;

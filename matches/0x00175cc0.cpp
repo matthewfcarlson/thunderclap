@@ -1,3 +1,4 @@
+extern "C" char DAT_00417f48[];
 class Ref {
   public:
     virtual void Add();
@@ -20,7 +21,7 @@ class Teleport {
 };
 Teleport::Teleport(int x, Ref* r) {
     ((Helper*)this)->Init();
-    vptr = 0x417f48;
+    vptr = ((int)DAT_00417f48);
     value = 0;
     ref = 0;
     sub.InitSub();

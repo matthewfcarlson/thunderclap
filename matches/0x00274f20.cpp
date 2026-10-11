@@ -1,3 +1,4 @@
+extern "C" char DAT_0042ba00[];
 class FileOpenRequest {
   public:
     int v;
@@ -10,7 +11,7 @@ class FileOpenRequest {
 extern void post();
 FileOpenRequest* FileOpenRequest::target(int a, int b, unsigned char c) {
     init(a);
-    v = 0x42ba00;
+    v = ((int)DAT_0042ba00);
     field = b;
     flag = c;
     post();

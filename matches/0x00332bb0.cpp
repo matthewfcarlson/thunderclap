@@ -1,3 +1,4 @@
+extern "C" char DAT_00433f74[];
 struct I {
     virtual void f();
     virtual void Release();
@@ -12,7 +13,7 @@ class Shader {
     void common();
 };
 void Shader::target() {
-    *(volatile unsigned long*)this = 0x433f74;
+    *(volatile unsigned long*)this = ((int)DAT_00433f74);
     if (m84)
         m84->Release();
     if (m80)

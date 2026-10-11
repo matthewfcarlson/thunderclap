@@ -1,3 +1,4 @@
+extern "C" char DAT_00416898[];
 class Character {
   public:
     virtual void a();
@@ -25,7 +26,7 @@ Character* Factory::v5() {
     Character* p = (Character*)Alloc(0x14);
     if (p) {
         p->Character::Character(0);
-        *(int*)p = 0x416898;
+        *(int*)p = ((int)DAT_00416898);
         p->x = 0;
         p->y = 0;
         return p;

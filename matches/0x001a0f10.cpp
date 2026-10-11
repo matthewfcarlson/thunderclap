@@ -1,3 +1,4 @@
+extern "C" char DAT_0041b2e8[];
 extern void* operator_new(unsigned int);
 struct Sub {
     void Init();
@@ -25,7 +26,7 @@ MPT* Factory::Create() {
     MPT* p = (MPT*)operator_new(0x24);
     if (p) {
         p->BaseInit();
-        p->vf = 0x41b2e8;
+        p->vf = ((int)DAT_0041b2e8);
         p->c = 0;
         p->z = -1.0f;
         p->w = 6.2831855f;

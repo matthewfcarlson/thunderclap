@@ -1,3 +1,4 @@
+extern "C" char DAT_00411110[];
 struct Ref {
     virtual void f0();
     virtual void f1();
@@ -34,7 +35,7 @@ void* PostEvent_StringTrack::vfunc_10(int a, int b, Ref* param) {
     if (p) {
         ((Memory*)p)->Init();
         *(void**)(p + 0x1c) = this;
-        *(unsigned int*)p = 0x411110;
+        *(unsigned int*)p = ((int)DAT_00411110);
         *(unsigned int*)(p + 0x20) = 0;
         if (param)
             param->f0();

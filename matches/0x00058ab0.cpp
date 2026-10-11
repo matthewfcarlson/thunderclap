@@ -1,3 +1,4 @@
+extern "C" char DAT_003f7130[];
 class Condition {
   public:
     void init(int);
@@ -19,7 +20,7 @@ CSmartPropWeaponizableTypeCondition* Factory::vfunc_5() {
     CSmartPropWeaponizableTypeCondition* p = (CSmartPropWeaponizableTypeCondition*)alloc(0x14);
     if (p) {
         ((Condition*)p)->init(0);
-        p->vptr = 0x3f7130;
+        p->vptr = ((int)DAT_003f7130);
         p->c = 0;
         p->d = 0xffffffff;
         return p;

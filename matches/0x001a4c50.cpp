@@ -1,3 +1,5 @@
+extern "C" char DAT_00494b44[];
+extern "C" char DAT_004c13d0[];
 struct R {
     char a[4];
     int type;
@@ -22,7 +24,7 @@ class C {
     int expected;
 };
 bool C::f6(void* x, void* y, void* z) {
-    void* p = Find(y, 0, (void*)0x494b44, (void*)0x4c13d0, 0);
+    void* p = Find(y, 0, (void*)((int)DAT_00494b44), (void*)((int)DAT_004c13d0), 0);
     if (!p)
         return false;
     R* q = ((Obj*)p)->Get();

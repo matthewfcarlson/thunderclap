@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_00431214[];
 void freeit(void*);
 class Obj {
   public:
@@ -56,17 +58,17 @@ class SimState {
 SimState* SimState::f2(unsigned char flag) {
     Obj* a = m74;
     if (a) {
-        *(void**)this = (void*)0x431214;
+        *(void**)this = (void*)((int)DAT_00431214);
         *(int*)((char*)a + 0x18) = 0;
         m74->b();
     } else {
-        *(void**)this = (void*)0x431214;
+        *(void**)this = (void*)((int)DAT_00431214);
     }
     if (m70) {
         m70->ad(0);
         m70->b();
     }
-    *(void**)this = (void*)0x3f6098;
+    *(void**)this = (void*)((int)DAT_003f6098);
     if (flag & 1)
         freeit(this);
     return this;

@@ -1,3 +1,4 @@
+extern "C" char DAT_00415aa0[];
 
 struct Track {
   public:
@@ -29,7 +30,7 @@ class LocomotionSprintTrack : public Track {
 void operator delete(void* p);
 
 LocomotionSprintTrack* LocomotionSprintTrack::vfunc_5(unsigned char flag) {
-    *(int*)this = 0x415aa0;
+    *(int*)this = ((int)DAT_00415aa0);
     this->m_elems[4].~Elem();
     this->m_elems[3].~Elem();
     this->m_elems[2].~Elem();

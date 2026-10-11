@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_0042fce4[];
 extern "C" void __cdecl Release(void*);
 class MatrixPaletteList {
   public:
@@ -6,9 +8,9 @@ class MatrixPaletteList {
     void Destroy();
 };
 void MatrixPaletteList::Destroy() {
-    *(volatile unsigned long*)this = 0x42fce4;
+    *(volatile unsigned long*)this = ((int)DAT_0042fce4);
     void* q = p;
     if (q)
         Release(q);
-    *(volatile unsigned long*)this = 0x3f6098;
+    *(volatile unsigned long*)this = ((int)DAT_003f6098);
 }

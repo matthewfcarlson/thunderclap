@@ -1,3 +1,4 @@
+extern "C" char DAT_003fbfa4[];
 struct CDriftTrack {
     unsigned int vptr;
     unsigned int pad4;
@@ -22,7 +23,7 @@ void* TrackFactoryTemplate::vfunc_5() {
     CDriftTrack* p = (CDriftTrack*)operator_new(0x1c);
     if (p) {
         p->init();
-        p->vptr = 0x3fbfa4;
+        p->vptr = ((int)DAT_003fbfa4);
         p->fieldc = 0;
         p->field10 = -1.0f;
         p->field14 = 0;

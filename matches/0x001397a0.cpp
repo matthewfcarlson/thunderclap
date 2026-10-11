@@ -1,3 +1,4 @@
+extern "C" char DAT_00411ca8[];
 class HoverTrack {
   public:
     virtual void A();
@@ -24,7 +25,7 @@ HoverTrack* Factory::Make() {
     HoverTrack* p = (HoverTrack*)Alloc(0x18);
     if (p) {
         Init(p);
-        *(int*)p = 0x411ca8;
+        *(int*)p = ((int)DAT_00411ca8);
         p->a = 0;
         p->b = (int)0xbf800000;
         p->c = 0;

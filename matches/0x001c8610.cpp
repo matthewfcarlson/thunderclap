@@ -1,3 +1,5 @@
+extern "C" char DAT_003f6098[];
+extern "C" char DAT_00421abc[];
 extern "C" void _ReadWriteBarrier();
 struct Ref {
     virtual void A();
@@ -11,12 +13,12 @@ struct Obj {
     void F();
 };
 void Obj::F() {
-    *(void**)this = (void*)0x421abc;
+    *(void**)this = (void*)((int)DAT_00421abc);
     _ReadWriteBarrier();
     Ref* r = mRef;
     if (r) {
         r->Release();
         mRef = 0;
     }
-    *(void**)this = (void*)0x3f6098;
+    *(void**)this = (void*)((int)DAT_003f6098);
 }

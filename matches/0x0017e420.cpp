@@ -1,3 +1,4 @@
+extern "C" char DAT_00417a78[];
 class DriftTrack {
   public:
     volatile int a[8];
@@ -21,7 +22,7 @@ DriftTrack* TrackFactory::f5() {
     if (p) {
         ((InitObj*)p)->Init();
         p->a[3] = 0;
-        p->a[0] = 0x417a78;
+        p->a[0] = ((int)DAT_00417a78);
         p->a[4] = (int)0xbf800000;
         p->a[5] = 0;
         p->a[6] = 0;

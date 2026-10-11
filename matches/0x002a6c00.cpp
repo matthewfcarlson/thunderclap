@@ -1,3 +1,4 @@
+extern "C" char DAT_0042d9dc[];
 typedef unsigned int u32;
 extern void* __cdecl alloc(unsigned int);
 class ProceduralVertexAnimController {
@@ -38,7 +39,7 @@ void* ProceduralVertexAnimController::vfunc_4() {
     ProceduralVertexAnimController* p = (ProceduralVertexAnimController*)alloc(0x58);
     if (p) {
         p->init(this);
-        *(u32*)p = 0x42d9dc;
+        *(u32*)p = ((int)DAT_0042d9dc);
         p->field40 = 0;
         p->field48 = 0;
         p->field4c = 0;

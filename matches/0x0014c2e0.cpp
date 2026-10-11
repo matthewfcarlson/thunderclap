@@ -1,3 +1,4 @@
+extern "C" char DAT_00413578[];
 extern "C" void* __cdecl alloc(unsigned int);
 class Base {
   public:
@@ -27,7 +28,7 @@ void* Factory::F() {
     Factory* p = (Factory*)alloc(0x18);
     if (p) {
         ((Cond*)p)->Init(0);
-        *(int*)p = 0x413578;
+        *(int*)p = ((int)DAT_00413578);
         p->field = 0;
         p->sub.Init();
         return p;
