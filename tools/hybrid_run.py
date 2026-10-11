@@ -337,8 +337,11 @@ def boot_once(seconds=90, interval=10, tag="run", gdb=False, extra=(), until_tit
                 s = {"t": t, "step": x.u32(BOOT_STEP), "eip": "%#x" % (x.eip() or 0), "fb": x.screenshot(path),
                      "png": os.path.relpath(path, ROOT)}
                 if manifest and manifest.get("g_hybrid"):
-                    hyb = read_hybrid(x, manifest, full=True)       # every sample: survives a later hang
-                    s["frame"], s["ckpts"], s["polls"] = hyb["frame"], hyb["ckpt_count"], hyb["polls"]
+                    try:
+                        hyb = read_hybrid(x, manifest, full=True)   # every sample: survives a later hang
+                        s["frame"], s["ckpts"], s["polls"] = hyb["frame"], hyb["ckpt_count"], hyb["polls"]
+                    except RuntimeError as e:                     # image not mapped yet (still booting)
+                        s["hybrid_error"] = str(e)
             except (OSError, ValueError, IndexError) as e:      # socket timeout: the monitor stopped answering
                 samples.append({"t": t, "monitor_error": repr(e)})
                 print("  %4ds monitor error: %r" % (t, e), file=sys.stderr)

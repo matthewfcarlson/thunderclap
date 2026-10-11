@@ -116,7 +116,7 @@ def select_records(args):
         drop = patch_xbe.read_addr_file(args.exclude)
         jobs = [j for j in jobs if j[0] not in drop]
     cache = patch_xbe.load_cache()
-    recs = patch_xbe.prepare_all(jobs, args.jobs, cache)
+    recs = patch_xbe.check_extent(patch_xbe.prepare_all(jobs, args.jobs, cache))
     patch_xbe.save_cache(cache)
     classes = set(args.classes.split(","))
     for r in recs:

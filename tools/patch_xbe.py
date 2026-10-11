@@ -164,6 +164,23 @@ def prepare(job):
         return dict(rec, status="reject", reason="error: %s: %s" % (type(e).__name__, e))
 
 
+def check_extent(recs):
+    """Reject functions whose functions.csv extent doesn't end in ret/jmp: a match compiled to that
+    truncated extent (e.g. 0x27afb0, declared noreturn to stop before `add esp, 0Ch; ret`) would run off
+    its end. Cheap, so it runs after the cache."""
+    import capstone
+    prog = equiv.Program.get()
+    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+    for r in recs:
+        if r.get("status") != "ok":
+            continue
+        size = prog.funcs[r["addr"]][0]
+        ins = list(md.disasm(prog.read(r["addr"], size), r["addr"]))
+        if not ins or ins[-1].mnemonic not in ("ret", "jmp", "int3") or sum(i.size for i in ins) != size:
+            r["status"], r["reason"] = "reject", "extent: original does not end in ret/jmp (functions.csv size)"
+    return recs
+
+
 def _init_worker():
     equiv.Program.get()
 
@@ -534,7 +551,7 @@ def main(argv):
         drop = read_addr_file(args.exclude)
         jobs = [j for j in jobs if j[0] not in drop]
     cache = load_cache()
-    recs = prepare_all(jobs, args.jobs, cache)
+    recs = check_extent(prepare_all(jobs, args.jobs, cache))
     save_cache(cache)
     classes = set(args.classes.split(","))
     chunks = {}
