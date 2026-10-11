@@ -1,0 +1,93 @@
+// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
+// FUN_000e0850 @ 0x000e0850
+struct Vec3 {
+    float x, y, z;
+};
+
+class Texture {
+public:
+    virtual void vfunc_0();
+    virtual void vfunc_1();
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    virtual void vfunc_4();
+    virtual void vfunc_5();
+    virtual void vfunc_6(int a, int b);
+};
+
+class Factory {
+public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual Texture *vfunc_11(const char *name, int flags);
+};
+
+class Device {
+public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    virtual void v14();
+    virtual void v15();
+    virtual void v16();
+    virtual void v17();
+    virtual void v18();
+    virtual void v19();
+    virtual void v20();
+    virtual void v21();
+    virtual void v22();
+    virtual void v23();
+    virtual void v24();
+    virtual void v25();
+    virtual void v26();
+    virtual void v27();
+    virtual void v28();
+    virtual void v29();
+    virtual int vfunc_30(Texture *tex, int a, int b, int c, int d);
+    virtual void vfunc_31(int handle);
+};
+
+extern Texture *DAT_004de954;
+extern Factory *DAT_0052c2a0;
+extern Device *DAT_0052c2a8;
+
+void __cdecl FUN_000e07c0(Vec3 a, Vec3 b, int color);
+
+/* Draws the outline of a quad in debug lines. */
+void __cdecl FUN_000e0850(Vec3 p0, Vec3 p1, Vec3 p2, Vec3 p3, int color, int arg)
+{
+    if (DAT_004de954 == 0) {
+        DAT_004de954 = DAT_0052c2a0->vfunc_11("simple", 0);
+        DAT_004de954->vfunc_0();
+        DAT_004de954->vfunc_6(0x444d4c42, 1);
+    }
+
+    int handle = DAT_0052c2a8->vfunc_30(DAT_004de954, arg, 0x2020, 8, 0);
+    if (handle) {
+        FUN_000e07c0(p0, p1, color);
+        FUN_000e07c0(p1, p3, color);
+        FUN_000e07c0(p3, p2, color);
+        FUN_000e07c0(p2, p0, color);
+    }
+    DAT_0052c2a8->vfunc_31(handle);
+}
