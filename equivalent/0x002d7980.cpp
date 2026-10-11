@@ -1,0 +1,109 @@
+// STATUS: equivalent (tools/equiv.py level 3: 100 inputs, branch coverage 40/40)
+// FUN_002d7980 @ 0x002d7980
+// libpng png_read_info
+struct PngStruct {
+    char pad0[0x60];
+    unsigned int mode;
+    char pad64[0x114 - 0x64];
+    unsigned int chunk_name;
+};
+
+struct PngInfo;
+
+extern const unsigned int DAT_004d1034; // "IHDR"
+extern const unsigned int DAT_004d103c; // "IDAT"
+extern const unsigned int DAT_004d1044; // "IEND"
+extern const unsigned int DAT_004d104c; // "PLTE"
+extern const unsigned int DAT_004d1054; // "bKGD"
+extern const unsigned int DAT_004d105c; // "cHRM"
+extern const unsigned int DAT_004d1064; // "gAMA"
+extern const unsigned int DAT_004d106c; // "hIST"
+extern const unsigned int DAT_004d1074; // "oFFs"
+extern const unsigned int DAT_004d107c; // "pCAL"
+extern const unsigned int DAT_004d1084; // "pHYs"
+extern const unsigned int DAT_004d108c; // "sBIT"
+extern const unsigned int DAT_004d1094; // "sRGB"
+extern const unsigned int DAT_004d109c; // "tEXt"
+extern const unsigned int DAT_004d10a4; // "tIME"
+extern const unsigned int DAT_004d10ac; // "tRNS"
+extern const unsigned int DAT_004d10b4; // "zTXt"
+
+void FUN_002e81e0(PngStruct* png, int a);
+void FUN_002dd690(PngStruct* png, void* buf, unsigned int n);
+unsigned int FUN_002e7500(const void* buf);
+void FUN_002d6c90(PngStruct* png);
+void FUN_002e7580(PngStruct* png, void* buf, unsigned int n);
+void FUN_002e82a0(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002e69a0(PngStruct* png, const char* msg);
+void FUN_002e84e0(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002e8640(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002e93b0(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002e8940(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002e86a0(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002e9570(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002e9790(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002e9880(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002e96a0(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002e87e0(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002e8f80(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002e9bb0(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002e9ac0(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002e91b0(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002e9c60(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002e9fc0(PngStruct* png, PngInfo* info, unsigned int len);
+
+void FUN_002d7980(PngStruct* png, PngInfo* info)
+{
+    unsigned char buf[4];
+    unsigned int length;
+
+    FUN_002e81e0(png, 0);
+    do {
+        FUN_002dd690(png, buf, 4);
+        length = FUN_002e7500(buf);
+        FUN_002d6c90(png);
+        FUN_002e7580(png, &png->chunk_name, 4);
+
+        if (png->chunk_name == DAT_004d1034) {
+            FUN_002e82a0(png, info, length);
+        } else if (png->chunk_name == DAT_004d103c) {
+            if (length > 0 || (png->mode & 8) != 0) {
+                FUN_002e69a0(png, "Too many IDAT's found");
+            } else {
+                FUN_002e81e0(png, 0);
+            }
+        } else if (png->chunk_name == DAT_004d104c) {
+            FUN_002e84e0(png, info, length);
+        } else if (png->chunk_name == DAT_004d1044) {
+            FUN_002e8640(png, info, length);
+        } else if (png->chunk_name == DAT_004d1054) {
+            FUN_002e93b0(png, info, length);
+        } else if (png->chunk_name == DAT_004d105c) {
+            FUN_002e8940(png, info, length);
+        } else if (png->chunk_name == DAT_004d1064) {
+            FUN_002e86a0(png, info, length);
+        } else if (png->chunk_name == DAT_004d106c) {
+            FUN_002e9570(png, info, length);
+        } else if (png->chunk_name == DAT_004d1074) {
+            FUN_002e9790(png, info, length);
+        } else if (png->chunk_name == DAT_004d107c) {
+            FUN_002e9880(png, info, length);
+        } else if (png->chunk_name == DAT_004d1084) {
+            FUN_002e96a0(png, info, length);
+        } else if (png->chunk_name == DAT_004d108c) {
+            FUN_002e87e0(png, info, length);
+        } else if (png->chunk_name == DAT_004d1094) {
+            FUN_002e8f80(png, info, length);
+        } else if (png->chunk_name == DAT_004d109c) {
+            FUN_002e9bb0(png, info, length);
+        } else if (png->chunk_name == DAT_004d10a4) {
+            FUN_002e9ac0(png, info, length);
+        } else if (png->chunk_name == DAT_004d10ac) {
+            FUN_002e91b0(png, info, length);
+        } else if (png->chunk_name == DAT_004d10b4) {
+            FUN_002e9c60(png, info, length);
+        } else {
+            FUN_002e9fc0(png, info, length);
+        }
+    } while ((png->mode & 0x10) == 0);
+}
