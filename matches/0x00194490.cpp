@@ -1,0 +1,52 @@
+extern void* g_vftable[];
+void operator delete(void*);
+void operator delete[](void*);
+struct T1 {
+    void Fini();
+};
+struct T2 {
+    void Fini();
+};
+class Base {
+  public:
+    void* vptr;
+    void Fin();
+};
+class Obj : public Base {
+  public:
+    char pad10[0xc];
+    T1 m10;
+    char pad18[0x7];
+    T1 m18;
+    char pad20[0x7];
+    T1 m20;
+    char pad38[0x17];
+    T1 m38;
+    char padbc[0x83];
+    T2 mbc;
+    char padc8[0xb];
+    T2 mc8;
+    char paddc[0x13];
+    void* mdc;
+    char pade8[0x8];
+    T1 me8;
+    char pad100[0x17];
+    T2 m100;
+    char pad128[0x27];
+    T1 m128;
+    ~Obj() throw();
+};
+Obj::~Obj() throw() {
+    vptr = g_vftable;
+    operator delete[](mdc);
+    m128.Fini();
+    m100.Fini();
+    me8.Fini();
+    mc8.Fini();
+    mbc.Fini();
+    m38.Fini();
+    m20.Fini();
+    m18.Fini();
+    m10.Fini();
+    Fin();
+}
