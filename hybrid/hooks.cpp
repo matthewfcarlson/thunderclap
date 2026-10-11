@@ -210,3 +210,13 @@ extern "C" unsigned long __stdcall hybrid_xinput_get_state(void* device, unsigne
     }
     return r;
 }
+
+// /GS: the original __security_check_cookie (0x34502e) is __fastcall (cookie in ecx). Sources that declare it
+// __cdecl pass the cookie on the stack; equiv.py skips the call on both sides, so they verify, but in the game
+// ecx holds garbage and the check fails (CGame::Init 0x88020 hung at boot). tools/patch_xbe.py binds every
+// non-fastcall reference to the cookie check here instead.
+typedef void (__fastcall *CookieFn)(unsigned int);
+extern "C" void __cdecl hybrid_check_cookie_cdecl(unsigned int cookie)
+{
+    ((CookieFn)0x0034502E)(cookie);
+}

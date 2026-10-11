@@ -71,6 +71,8 @@ def _why(v):
         return "no title"
     if v["exited"]:
         return "exited"
+    if not v.get("ran_far_enough", True):
+        return "stalled at frame %s" % v["frames"]
     if v["divergence"]:
         return "diverged at frame %d" % v["divergence"]["frame"]
     return "no common checkpoints"

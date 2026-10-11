@@ -1,0 +1,6 @@
+# Functions the hybrid build leaves original, found by tools/bisect_hybrid.py. One address per line, then why.
+# patch_xbe.py and hybrid_test.py skip these unless --no-default-exclude.
+0x00241390  equivalent: `Temporary temp` is 32 bytes, the original's object is 64 (its ctor 0x2584d0 writes up to +0x40), so the ctor smashes our stack frame; equiv.py stubs the ctor and can't see it
+0x0026ce10  equivalent: core::MemoryDlAllocator::vfunc_6 is declared void, but the original returns the allocation in eax (callers reach it through the vtable, so equiv.py saw no caller using eax); ours leaves the new total there
+0x00324e00  equivalent: d3dContext ctor passes `unsigned int freq` to QueryPerformanceFrequency (0x354ce2), which writes a LARGE_INTEGER (8 bytes); ours has no local slot for it and the write lands in the caller's frame; equiv.py stubs the callee
+0x00259610  equivalent (verified on 3 inputs, branch coverage 58/68): with it patched the game stalls at frame 3, inside DSOUND; root cause not analysed yet

@@ -316,6 +316,7 @@ HOOK_CALLS = [
     (0x002685D9, 0x003EB91F, "_hybrid_xinput_get_state@8"),  # ControllerXBox::vfunc_17 -> XInputGetState
 ]
 SEED_SITE = (0x0008668E, 0x00267F00)                         # 0x86630: Seed(GetMicroseconds()) on new game
+COOKIE_CHECK = 0x0034502E                                    # __security_check_cookie (__fastcall)
 # g_hybrid word indices (keep in sync with struct HybridCtl)
 CTL = {"flags": 1, "dt_us": 2, "ckpt_interval": 6, "replay_count": 8, "nregions": 12}
 CTL_REGIONS, CKPT_RING, INPUT_MAX, PAD_BYTES = 16, 4096, 8192, 24
@@ -370,19 +371,24 @@ def link_section(records, base, hooks=None):
     Returns (section bytes, {original addr: our entry VA}, {hook symbol: VA})."""
     image = bytearray()
     entries, hook_syms = {}, {}
-    if hooks is not None:
-        img, hook_syms = link_hooks(base)
+    if hooks is not None or records:
+        img, hook_syms = link_hooks(base)        # also holds shims our functions may need (see below)
         image.extend(img)
     saved = equiv.OURS
     try:
         for r in records:
+            resolved = dict(r["resolved"])
+            for n, a in resolved.items():
+                if a == COOKIE_CHECK and not n.startswith("@"):     # declared __cdecl: shim it
+                    resolved[n] = hook_syms["_hybrid_check_cookie_cdecl"]
+                    r["cookie_shim"] = True
             cur = base + len(image)
             cur = (cur + 15) & ~15
             image.extend(b"\xcc" * (cur - base - len(image)))
             obj = equiv.Obj(r["obj"])
             fsym = obj.syms[r["symidx"]]
             equiv.OURS = cur
-            ours = equiv.Ours(obj, fsym).link(r["resolved"])
+            ours = equiv.Ours(obj, fsym).link(resolved)
             entries[r["addr"]] = ours.func_addr
             image.extend(ours.image)
             r["ours"] = ours.func_addr
@@ -510,6 +516,13 @@ def select(args):
     return jobs
 
 
+DEFAULT_EXCLUDE = os.path.join(ROOT, "hybrid/exclude.txt")
+
+
+def default_exclude():
+    return read_addr_file(DEFAULT_EXCLUDE) if os.path.exists(DEFAULT_EXCLUDE) else set()
+
+
 def read_addr_file(path):
     out = set()
     for line in open(path):
@@ -526,6 +539,7 @@ def main(argv):
     ap.add_argument("--only", help="comma-separated addresses to keep")
     ap.add_argument("--set", help="file of addresses to patch (one per line); filters the selection")
     ap.add_argument("--exclude", help="file of addresses to leave alone")
+    ap.add_argument("--no-default-exclude", action="store_true", help="also patch the functions in hybrid/exclude.txt")
     ap.add_argument("--classes", default="identical", help="comma list of identical,local,equivalent")
     ap.add_argument("--allow-chunked", action="store_true", help="also patch functions with several chunks")
     ap.add_argument("--out", default=os.path.join(OUT_DIR, "default.xbe"))
@@ -547,9 +561,10 @@ def main(argv):
     if args.set:
         keep = read_addr_file(args.set)
         jobs = [j for j in jobs if j[0] in keep]
-    if args.exclude:
-        drop = read_addr_file(args.exclude)
-        jobs = [j for j in jobs if j[0] not in drop]
+    drop = read_addr_file(args.exclude) if args.exclude else set()
+    if not args.no_default_exclude:
+        drop |= default_exclude()
+    jobs = [j for j in jobs if j[0] not in drop]
     cache = load_cache()
     recs = check_extent(prepare_all(jobs, args.jobs, cache))
     save_cache(cache)

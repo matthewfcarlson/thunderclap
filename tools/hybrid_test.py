@@ -112,9 +112,10 @@ def select_records(args):
     if args.set:
         keep = patch_xbe.read_addr_file(args.set)
         jobs = [j for j in jobs if j[0] in keep]
-    if args.exclude:
-        drop = patch_xbe.read_addr_file(args.exclude)
-        jobs = [j for j in jobs if j[0] not in drop]
+    drop = patch_xbe.read_addr_file(args.exclude) if args.exclude else set()
+    if not args.no_default_exclude:
+        drop |= patch_xbe.default_exclude()
+    jobs = [j for j in jobs if j[0] not in drop]
     cache = patch_xbe.load_cache()
     recs = patch_xbe.check_extent(patch_xbe.prepare_all(jobs, args.jobs, cache))
     patch_xbe.save_cache(cache)
@@ -140,7 +141,11 @@ def compare(args, recs=None, name="patched", baseline=None):
          "common_checkpoints": common_frames(a, b, mf), "divergence": d}
     if "coverage" in pat:
         v["functions_run"] = pat["coverage"]["hit"]
-    v["pass"] = bool(pat["title"] and not pat["exited"] and d is None and v["common_checkpoints"] > 0)
+    # it must also keep running: reach the end of the compared window if the baseline did
+    need = min(mf or 1 << 30, v["baseline_frames"] or 0)
+    v["ran_far_enough"] = (v["frames"] or 0) >= need
+    v["pass"] = bool(pat["title"] and not pat["exited"] and d is None and v["common_checkpoints"] > 0
+                     and v["ran_far_enough"])
     return v
 
 
@@ -150,6 +155,7 @@ def add_selection_args(ap):
     ap.add_argument("--only")
     ap.add_argument("--set")
     ap.add_argument("--exclude")
+    ap.add_argument("--no-default-exclude", action="store_true")
     ap.add_argument("--classes", default="identical")
     ap.add_argument("--jobs", type=int, default=8)
 
