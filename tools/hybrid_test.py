@@ -27,18 +27,30 @@ TWEAKS = ("skip-intro", "no-fmv")
 SEED = 0x1234
 
 
-def hooks_cfg(replay):
+MASK_FILE = os.path.join(ROOT, "tests/replays/wide-mask.json")     # .data pages excluded from the hash
+
+
+def hooks_cfg(replay, wide=False, snap_frame=0):
     h = {"seed": SEED, "flags": ["fixed-dt", "ckpt", "autostart"], "dt_us": 33333, "ckpt_interval": 30}
     if replay:
         h["replay"] = json.load(open(replay))
+    if wide:
+        h["flags"].append("wide")
+        h["snap_frame"] = snap_frame
+        if os.path.exists(MASK_FILE):
+            pages = json.load(open(MASK_FILE))["pages"]
+            mask = [0] * (patch_xbe.WIDE_PAGES // 32)
+            for p in pages:
+                mask[p >> 5] |= 1 << (p & 31)
+            h["mask"] = mask
     return h
 
 
-def build_and_run(name, records, replay, seconds, interval=10, coverage=False):
+def build_and_run(name, records, replay, seconds, interval=10, coverage=False, wide=False, snap_frame=0):
     """Build XBE `name` from records (may be empty), install, boot, return the boot report."""
     os.makedirs(TEST_DIR, exist_ok=True)
     out = os.path.join(TEST_DIR, name + ".xbe")
-    man = patch_xbe.build(records, out, tweaks=TWEAKS, hooks=hooks_cfg(replay))
+    man = patch_xbe.build(records, out, tweaks=TWEAKS, hooks=hooks_cfg(replay, wide, snap_frame))
     hybrid_run.install(out)
     cov = [f["ours"] for f in man["functions"]] if coverage and man["functions"] else None
     rep = hybrid_run.boot(seconds, interval, tag="test-" + name, coverage=cov, manifest=man)
@@ -51,31 +63,47 @@ def checkpoints(rep):
     return [tuple(c) for c in (rep.get("hybrid") or {}).get("checkpoints", [])]
 
 
-def first_divergence(a, b):
-    """(index, a, b) of the first differing checkpoint over the common prefix, else None."""
+# Checkpoints after this frame are not compared: on newgame-normal.json the game is deterministic through
+# the front end (frames 0-450); after the new-game load the loop's frame count depends on load time.
+MAX_FRAME = 450
+
+
+def first_divergence(a, b, max_frame=MAX_FRAME):
+    """{frame, a, b} of the first differing checkpoint over the common frames (<= max_frame), else None."""
     ma, mb = dict(a), dict(b)
     for f in sorted(set(ma) & set(mb)):
+        if max_frame and f > max_frame:
+            break
         if ma[f] != mb[f]:
             return {"frame": f, "a": "%08x" % ma[f], "b": "%08x" % mb[f]}
     return None
 
 
-def common_frames(a, b):
-    return len(set(dict(a)) & set(dict(b)))
+def common_frames(a, b, max_frame=MAX_FRAME):
+    return len([f for f in set(dict(a)) & set(dict(b)) if not max_frame or f <= max_frame])
 
 
 def determinism(args):
-    reps = [build_and_run("determinism-%d" % i, [], args.replay, args.seconds) for i in range(args.runs)]
+    reps = [build_and_run("determinism-%d" % i, [], args.replay, args.seconds, wide=args.wide,
+                          snap_frame=args.snap_frame) for i in range(args.runs)]
     cks = [checkpoints(r) for r in reps]
-    res = {"runs": args.runs, "checkpoints": [len(c) for c in cks], "frames": [r["hybrid"]["frame"] for r in reps],
+    res = {"runs": args.runs, "checkpoints": [len(c) for c in cks], "frames": [(r.get("hybrid") or {}).get("frame") for r in reps],
+           "monitor_errors": sum(bool(r.get("monitor_error")) for r in reps),
            "divergence": None}
     for c in cks[1:]:
-        d = first_divergence(cks[0], c)
+        d = first_divergence(cks[0], c, args.max_frame)
         if d:
             res["divergence"] = d
             break
-    res["common"] = min(common_frames(cks[0], c) for c in cks[1:]) if len(cks) > 1 else len(cks[0])
+    res["common"] = min(common_frames(cks[0], c, args.max_frame) for c in cks[1:]) if len(cks) > 1 else len(cks[0])
     res["deterministic"] = res["divergence"] is None and res["common"] > 0
+    if args.wide:
+        snaps = [((r.get("hybrid") or {}).get("wide") or {}) for r in reps]
+        if all(sn.get("snap_taken") for sn in snaps):
+            lo = snaps[0]["lo"]
+            diff = sorted({i for sn in snaps[1:] for i, (p, q) in enumerate(zip(snaps[0]["snap"], sn["snap"])) if p != q})
+            res["snap_frames"] = [sn["snap_taken"] for sn in snaps]
+            res["varying_pages"] = [{"page": i, "va": "%#x" % (lo + 0x1000 * i)} for i in diff]
     return res
 
 
@@ -105,10 +133,11 @@ def compare(args, recs=None, name="patched", baseline=None):
         baseline = build_and_run("baseline", [], args.replay, args.seconds)
     pat = build_and_run(name, recs, args.replay, args.seconds, coverage=args.coverage)
     a, b = checkpoints(baseline), checkpoints(pat)
-    d = first_divergence(a, b)
+    mf = getattr(args, "max_frame", MAX_FRAME)
+    d = first_divergence(a, b, mf)
     v = {"patched": pat["patched"], "title": pat["title"], "exited": pat["exited"], "frozen": pat["frozen"],
          "frames": (pat.get("hybrid") or {}).get("frame"), "baseline_frames": (baseline.get("hybrid") or {}).get("frame"),
-         "common_checkpoints": common_frames(a, b), "divergence": d}
+         "common_checkpoints": common_frames(a, b, mf), "divergence": d}
     if "coverage" in pat:
         v["functions_run"] = pat["coverage"]["hit"]
     v["pass"] = bool(pat["title"] and not pat["exited"] and d is None and v["common_checkpoints"] > 0)
@@ -130,9 +159,13 @@ def main(argv):
     sub = ap.add_subparsers(dest="cmd", required=True)
     d = sub.add_parser("determinism")
     d.add_argument("--runs", type=int, default=2)
+    d.add_argument("--max-frame", type=int, default=0, help="compare checkpoints up to this frame (0: all)")
+    d.add_argument("--wide", action="store_true", help="also hash all of .data/.bss (minus wide-mask.json)")
+    d.add_argument("--snap-frame", type=int, default=0, help="with --wide: keep page hashes at this frame")
     c = sub.add_parser("compare")
     add_selection_args(c)
     c.add_argument("--coverage", action="store_true")
+    c.add_argument("--max-frame", type=int, default=MAX_FRAME)
     for p in (d, c):
         p.add_argument("--replay", default=DEFAULT_REPLAY if os.path.exists(DEFAULT_REPLAY) else None)
         p.add_argument("--seconds", type=float, default=60)

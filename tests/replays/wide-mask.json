@@ -1,0 +1,23 @@
+{
+ "comment": "Pages of .data/.bss (index = (va - 0x48ca80) / 0x1000) that differ between two runs of the unmodified game on tests/replays/newgame-normal.json at frame 420; excluded from the wide checkpoint hash (tools/hybrid_test.py determinism --wide).",
+ "pages": [
+  60,
+  76,
+  86,
+  89,
+  200,
+  219,
+  222,
+  226
+ ],
+ "va": [
+  "0x4c8a80",
+  "0x4d8a80",
+  "0x4e2a80",
+  "0x4e5a80",
+  "0x554a80",
+  "0x567a80",
+  "0x56aa80",
+  "0x56ea80"
+ ]
+}

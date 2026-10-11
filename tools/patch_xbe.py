@@ -305,7 +305,9 @@ CTL_REGIONS, CKPT_RING, INPUT_MAX, PAD_BYTES = 16, 4096, 8192, 24
 CTL_CKPT = 16 * 4 + 8 * 8
 CTL_REPLAY = CTL_CKPT + CKPT_RING * 8
 CTL_RECORD = CTL_REPLAY + INPUT_MAX * PAD_BYTES
-HF = {"fixed-dt": 1, "replay": 2, "record": 4, "ckpt": 8, "autostart": 16}
+CTL_WIDE = CTL_RECORD + INPUT_MAX * PAD_BYTES        # wide_lo, wide_hi, snap_frame, snap_taken, mask[8], pages, snap
+WIDE_PAGES = 256
+HF = {"fixed-dt": 1, "replay": 2, "record": 4, "ckpt": 8, "autostart": 16, "wide": 32}
 
 
 def link_hooks(base):
@@ -367,14 +369,37 @@ def link_section(records, base, hooks=None):
             entries[r["addr"]] = ours.func_addr
             image.extend(ours.image)
             r["ours"] = ours.func_addr
+            r["ours_len"] = ours.func_len
     finally:
         equiv.OURS = saved
     return image, entries, hook_syms
 
 
-def apply_hooks(x, image, base, syms, hooks):
-    """Redirect the hook call sites and configure g_hybrid inside the section image."""
+def _redirect_in_copies(image, base, records, site, callee, replacement):
+    """A hook site inside a function we replaced: apply the same change to our copy, at every
+    `call callee` in it (byte-identical copies have it at the same offset; equivalent ones anywhere).
+    replacement(call_va) -> 5 bytes. Returns the number of calls changed."""
+    prog = equiv.Program.get()
+    n = 0
+    for r in records:
+        size = prog.funcs.get(r["addr"], (0,))[0]
+        if not (r["addr"] <= site < r["addr"] + size) or "ours" not in r:
+            continue
+        o0 = r["ours"] - base
+        for o in range(o0, o0 + r["ours_len"] - 4):
+            if image[o] == 0xE8:
+                rel, = struct.unpack_from("<i", image, o + 1)
+                if base + o + 5 + rel == callee:
+                    image[o:o + 5] = replacement(base + o)
+                    n += 1
+    return n
+
+
+def apply_hooks(x, image, base, syms, hooks, records=()):
+    """Redirect the hook call sites (in the original and in our copies) and configure g_hybrid."""
     for site, callee, name in HOOK_CALLS:
+        _redirect_in_copies(image, base, records, site, callee,
+                            lambda va, t=syms[name]: b"\xe8" + struct.pack("<i", t - (va + 5)))
         o = x.va_to_file(site)
         rel, = struct.unpack_from("<i", x.d, o + 1)
         if x.d[o] != 0xE8 or site + 5 + rel != callee:
@@ -387,6 +412,8 @@ def apply_hooks(x, image, base, syms, hooks):
         if x.d[o] != 0xE8 or site + 5 + rel != SEED_SITE[1]:
             raise ValueError("seed site %#x is not call %#x" % SEED_SITE)
         x.write(site, b"\xb8" + struct.pack("<I", hooks["seed"] & 0xFFFFFFFF))
+        _redirect_in_copies(image, base, records, site, SEED_SITE[1],
+                            lambda va: b"\xb8" + struct.pack("<I", hooks["seed"] & 0xFFFFFFFF))
     ctl = syms["_g_hybrid"] - base
 
     def put(idx, v):
@@ -402,6 +429,10 @@ def apply_hooks(x, image, base, syms, hooks):
     put(CTL["flags"], flags)
     put(CTL["dt_us"], hooks.get("dt_us", 33333))
     put(CTL["ckpt_interval"], hooks.get("ckpt_interval", 30))
+    if hooks.get("snap_frame"):
+        struct.pack_into("<I", image, ctl + CTL_WIDE + 8, hooks["snap_frame"])
+    for i, w in enumerate(hooks.get("mask", [])[:WIDE_PAGES // 32]):
+        struct.pack_into("<I", image, ctl + CTL_WIDE + 16 + 4 * i, w)
     regions = hooks.get("regions")
     if regions is not None:
         for i, (a, n) in enumerate(regions[:8]):
@@ -424,7 +455,7 @@ def build(records, out, pad=PAD_SIZE, empty_section=False, tweaks=(), hooks=None
         va = x.next_va()
         sec, entries, hook_syms = link_section(ok, va, hooks)
         if hooks is not None:
-            apply_hooks(x, sec, va, hook_syms, hooks)
+            apply_hooks(x, sec, va, hook_syms, hooks, ok)
         got = x.add_section(SECTION_NAME, bytes(sec) or b"\xcc" * 16)
         assert got == va
         for a, e in entries.items():
@@ -440,7 +471,8 @@ def build(records, out, pad=PAD_SIZE, empty_section=False, tweaks=(), hooks=None
            "hooks": None if hooks is None else {k: v for k, v in hooks.items() if k != "replay"},
            "g_hybrid": hook_syms.get("_g_hybrid"),
            "g_hybrid_layout": {"ckpt": CTL_CKPT, "ckpt_ring": CKPT_RING, "record": CTL_RECORD,
-                               "input_max": INPUT_MAX, "pad_bytes": PAD_BYTES},
+                               "input_max": INPUT_MAX, "pad_bytes": PAD_BYTES, "wide": CTL_WIDE,
+                               "wide_pages": WIDE_PAGES},
            "functions": [{k: r.get(k) for k in ("addr", "name", "src", "class", "ours", "sym")} for r in ok]}
     json.dump(man, open(os.path.splitext(out)[0] + ".json", "w"), indent=1)
     return man

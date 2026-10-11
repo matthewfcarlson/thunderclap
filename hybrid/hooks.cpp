@@ -16,6 +16,7 @@
 #define CKPT_RING 4096
 #define INPUT_MAX 8192
 #define REGION_MAX 8
+#define WIDE_PAGES 256
 
 struct Pad {                          // XINPUT_GAMEPAD plus the frame it applies from
     unsigned int frame;
@@ -56,12 +57,19 @@ struct HybridCtl {
     Ckpt ckpt[CKPT_RING];
     Pad replay[INPUT_MAX];
     Pad record[INPUT_MAX];
+    // HF_WIDE: per-page hashes of [wide_lo, wide_hi) (.data + .bss by default), folded into each checkpoint
+    // unless masked; a copy is kept at snap_frame so two runs can be compared page by page.
+    unsigned int wide_lo, wide_hi, snap_frame, snap_taken;
+    unsigned int mask[WIDE_PAGES / 32];
+    unsigned int pages[WIDE_PAGES];
+    unsigned int snap[WIDE_PAGES];
 };
 
 #define HF_FIXED_DT 1
 #define HF_REPLAY   2
 #define HF_RECORD   4
 #define HF_CKPT     8
+#define HF_WIDE     32               // hash all of .data/.bss per page (see HybridCtl)
 #define HF_AUTOSTART 16               // pulse START while the game loop is stalled (loading-screen "Press START")
 
 static unsigned int s_last_frame;
@@ -73,6 +81,8 @@ extern "C" HybridCtl g_hybrid = {
         {0x004E5AD0, 8},              // global MWC random generator state (seeded at 0x8669b)
         {0x0049FB40, 4},              // g_BootSequenceStep
     },
+    {0}, {0}, {0},
+    0x0048CA80, 0x0056F8E0, 0, 0,     // .data (with its bss tail) of the original image
 };
 
 typedef unsigned __int64 (__cdecl *ClockFn)();
@@ -98,6 +108,21 @@ static void checkpoint()
             if (a == 0) continue;
         }
         h = fnv(h, (const unsigned char*)a, g_hybrid.regions[i].size);
+    }
+    if (g_hybrid.flags & HF_WIDE) {
+        unsigned int n = 0;
+        for (unsigned int a = g_hybrid.wide_lo; a < g_hybrid.wide_hi && n < WIDE_PAGES; a += 0x1000, n++) {
+            unsigned int len = g_hybrid.wide_hi - a < 0x1000 ? g_hybrid.wide_hi - a : 0x1000;
+            unsigned int ph = fnv(2166136261u, (const unsigned char*)a, len);
+            g_hybrid.pages[n] = ph;
+            if (!(g_hybrid.mask[n >> 5] & (1u << (n & 31))))
+                h = fnv(h, (const unsigned char*)&ph, 4);
+        }
+        if (g_hybrid.snap_frame && !g_hybrid.snap_taken && g_hybrid.frame >= g_hybrid.snap_frame) {
+            for (unsigned int i = 0; i < n; i++)
+                g_hybrid.snap[i] = g_hybrid.pages[i];
+            g_hybrid.snap_taken = g_hybrid.frame;
+        }
     }
     Ckpt& c = g_hybrid.ckpt[g_hybrid.ckpt_count % CKPT_RING];
     c.frame = g_hybrid.frame;
@@ -163,10 +188,11 @@ extern "C" unsigned long __stdcall hybrid_xinput_get_state(void* device, unsigne
             s_last_frame = g_hybrid.frame;
             g_hybrid.frozen_polls = 0;
         } else if (++g_hybrid.frozen_polls > 60 && (g_hybrid.flags & HF_AUTOSTART)) {
+            // the game loop is stalled (a loading screen): release everything, then tap START
+            for (int i = 0; i < 18; i++)
+                pad[i] = 0;
             if ((g_hybrid.frozen_polls >> 3) & 1)
-                pad[0] |= 0x10;               // XINPUT_GAMEPAD_START
-            else
-                pad[0] &= ~0x10;
+                pad[0] = 0x10;                // XINPUT_GAMEPAD_START
         }
         return 0;
     }

@@ -170,6 +170,7 @@ class Qmp:
                 if time.time() - t0 > timeout:
                     raise
                 time.sleep(0.5)
+        self.s.settimeout(timeout)          # a wedged monitor raises instead of hanging the harness
         self.f = self.s.makefile("rwb")
         json.loads(self.f.readline())
         self.cmd("qmp_capabilities")
@@ -238,7 +239,7 @@ class Xemu:
 
     def screenshot(self, path, w=640, h=480):
         """The scan-out buffer (NV_PCRTC_START) from guest RAM, X8R8G8B8, as PNG. Returns a content hash."""
-        start = int(self.hmp("xp /1wx 0xfd600800").split()[1], 16)
+        start = int(self.hmp("xp /1wx 0xfd600800").split()[1], 16) & 0x03FFFFFF     # 64 MB of RAM
         raw_path = os.path.join(self.outdir, ".fb")
         self.q.cmd("pmemsave", val=start, size=w * h * 4, filename=raw_path)
         raw = open(raw_path, "rb").read()
@@ -280,6 +281,14 @@ def read_hybrid(x, man, full=False):
         st["checkpoints"] = [ck[(start + i) % lay["ckpt_ring"]] for i in range(n)]
         nrec = min(st["record_count"], lay["input_max"])
         raw = x.read(base + lay["record"], lay["pad_bytes"] * max(nrec, 1))
+        if "wide" in lay:
+            raw = x.read(base + lay["wide"], 16 + 4 * (lay["wide_pages"] // 32) + 8 * lay["wide_pages"])
+            lo, hi, snap_frame, snap_taken = struct.unpack_from("<4I", raw, 0)
+            o = 16 + 4 * (lay["wide_pages"] // 32)
+            npages = min((hi - lo + 0xFFF) // 0x1000, lay["wide_pages"]) if hi > lo else 0
+            st["wide"] = {"lo": lo, "snap_taken": snap_taken,
+                          "pages": list(struct.unpack_from("<%dI" % npages, raw, o)),
+                          "snap": list(struct.unpack_from("<%dI" % npages, raw, o + 4 * lay["wide_pages"]))}
         st["record"] = []
         for i in range(nrec):
             f, b, *rest = struct.unpack_from("<IH8B4hH", raw, lay["pad_bytes"] * i)
@@ -287,7 +296,21 @@ def read_hybrid(x, man, full=False):
     return st
 
 
-def boot(seconds=90, interval=10, tag="run", gdb=False, extra=(), until_title=False, coverage=None, manifest=None):
+def boot(seconds=90, interval=10, tag="run", gdb=False, extra=(), until_title=False, coverage=None, manifest=None,
+         retries=2):
+    """boot_once, retried when xemu itself crashes (a host signal, seen in ~1 of 10 launches on macOS)."""
+    for attempt in range(retries + 1):
+        rep = boot_once(seconds, interval, tag, gdb, extra, until_title, coverage, manifest)
+        crashed = [smp for smp in rep["samples"] if (smp.get("exited") or 0) < 0]
+        if not crashed:
+            break
+        print("  xemu crashed (signal %d); retrying" % -crashed[0]["exited"], file=sys.stderr)
+        rep["xemu_crashes"] = attempt + 1
+    return rep
+
+
+def boot_once(seconds=90, interval=10, tag="run", gdb=False, extra=(), until_title=False, coverage=None,
+              manifest=None):
     """Boot the image and sample it every `interval` s: screenshot, boot step, EIP.
 
     Returns a report dict; "title" is true once g_BootSequenceStep is 0 (it starts at 1, counts
@@ -310,18 +333,21 @@ def boot(seconds=90, interval=10, tag="run", gdb=False, extra=(), until_title=Fa
                 break
             t = round(time.time() - x.t0)
             path = os.path.join(x.outdir, "%03ds.png" % t)
-            s = {"t": t, "step": x.u32(BOOT_STEP), "eip": "%#x" % (x.eip() or 0), "fb": x.screenshot(path),
-                 "png": os.path.relpath(path, ROOT)}
-            if manifest and manifest.get("g_hybrid"):
-                h = read_hybrid(x, manifest)
-                s["frame"], s["ckpts"], s["polls"] = h["frame"], h["ckpt_count"], h["polls"]
+            try:
+                s = {"t": t, "step": x.u32(BOOT_STEP), "eip": "%#x" % (x.eip() or 0), "fb": x.screenshot(path),
+                     "png": os.path.relpath(path, ROOT)}
+                if manifest and manifest.get("g_hybrid"):
+                    hyb = read_hybrid(x, manifest, full=True)       # every sample: survives a later hang
+                    s["frame"], s["ckpts"], s["polls"] = hyb["frame"], hyb["ckpt_count"], hyb["polls"]
+            except (OSError, ValueError, IndexError) as e:      # socket timeout: the monitor stopped answering
+                samples.append({"t": t, "monitor_error": repr(e)})
+                print("  %4ds monitor error: %r" % (t, e), file=sys.stderr)
+                break
             samples.append(s)
             print("  %(t)4ds step=%(step)s eip=%(eip)s fb=%(fb)s" % s
                   + (" frame=%(frame)d ckpts=%(ckpts)d polls=%(polls)d" % s if "frame" in s else ""), file=sys.stderr)
             if until_title and s["step"] == 6 and len(samples) >= 2 and samples[-2].get("step") == 6:
                 break
-        if manifest and manifest.get("g_hybrid") and x.alive():
-            hyb = read_hybrid(x, manifest, full=True)
     finally:
         if cov:
             cov.stop()
@@ -332,7 +358,8 @@ def boot(seconds=90, interval=10, tag="run", gdb=False, extra=(), until_title=Fa
     rep = {"tag": tag, "samples": samples,
            "title": any(s.get("step") == 0 for s in samples),
            "frozen": len(fbs) >= 3 and len(set(fbs[-3:])) == 1,
-           "exited": any("exited" in s for s in samples)}
+           "exited": any("exited" in s for s in samples),
+           "monitor_error": any("monitor_error" in s for s in samples)}
     if hyb is not None:
         rep["hybrid"] = hyb
     if cov:
