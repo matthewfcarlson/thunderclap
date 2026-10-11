@@ -1,0 +1,62 @@
+extern void* g_vt[];
+extern int g_cnt;
+extern void* g_shared;
+void Free(void*) throw();
+void Free2(void*) throw();
+struct E28 {
+    virtual ~E28();
+    char p[0x24];
+};
+struct E18 {
+    virtual ~E18();
+    char p[0x14];
+};
+struct M2c {
+    void Fin() throw();
+};
+class Base {
+  public:
+    void* vptr;
+    ~Base() throw();
+};
+class A : public Base {
+  public:
+    char pad[0x2c - 4];
+    M2c* m2c;
+    void* m30;
+    E18* m34;
+    E18* m38;
+    char pad2[0x44 - 0x3c];
+    E28* m44;
+    E28* m48;
+    ~A() throw();
+};
+A::~A() throw() {
+    vptr = g_vt;
+    if (--g_cnt == 0) {
+        if (g_shared)
+            Free(g_shared);
+        g_shared = 0;
+    }
+    Free2(m30);
+    M2c* p = m2c;
+    if (p) {
+        p->Fin();
+        Free(p);
+    }
+    E28* s = m44;
+    if (s) {
+        E28* e = m48;
+        for (; s != e; s++)
+            s->~E28();
+        Free2(m44);
+    }
+    E18* u = m38;
+    E18* t = m34;
+    for (; t != u; t++)
+        t->~E18();
+    E18* b = m34;
+    m38 = b;
+    if (b)
+        Free2(b);
+}
