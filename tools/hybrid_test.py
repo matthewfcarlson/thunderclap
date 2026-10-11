@@ -55,7 +55,7 @@ def build_and_run(name, records, replay, seconds, interval=10, coverage=False, w
     cov = [f["ours"] for f in man["functions"]] if coverage and man["functions"] else None
     rep = hybrid_run.boot(seconds, interval, tag="test-" + name, coverage=cov, manifest=man)
     rep["patched"] = man["patched"]
-    json.dump(rep, open(os.path.join(TEST_DIR, name + ".json"), "w"), indent=1)
+    json.dump(rep, open(os.path.join(TEST_DIR, name + "-report.json"), "w"), indent=1)   # name.json is the manifest
     return rep
 
 

@@ -4,3 +4,4 @@
 0x0026ce10  equivalent: core::MemoryDlAllocator::vfunc_6 is declared void, but the original returns the allocation in eax (callers reach it through the vtable, so equiv.py saw no caller using eax); ours leaves the new total there
 0x00324e00  equivalent: d3dContext ctor passes `unsigned int freq` to QueryPerformanceFrequency (0x354ce2), which writes a LARGE_INTEGER (8 bytes); ours has no local slot for it and the write lands in the caller's frame; equiv.py stubs the callee
 0x00259610  equivalent (verified on 3 inputs, branch coverage 58/68): with it patched the game stalls at frame 3, inside DSOUND; root cause not analysed yet
+0x00329f70  equivalent: with it patched the game stalls at frame 156, right after START on the title (entering the menu); root cause not analysed yet
