@@ -1,0 +1,70 @@
+extern "C" void _ReadWriteBarrier();
+class IUnk {
+  public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+};
+class COccupationAgent {
+  public:
+    virtual void vfunc_0();
+    virtual void vfunc_1();
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    virtual void vfunc_4();
+    virtual void vfunc_5();
+    virtual void vfunc_6();
+    virtual void vfunc_7();
+    virtual void vfunc_8();
+    virtual void vfunc_9();
+    virtual void vfunc_10();
+    char pad4[4];
+    float f8;
+    char padC[0x50];
+    IUnk* p5c;
+    int i60;
+    char b64;
+    char pad65[0x3f];
+    char bA4;
+    char padA5[0xf];
+    int iB4;
+    int iB8;
+    float fBC;
+    char bC0;
+    char padC1[3];
+    float fC4;
+    int iC8;
+    int iCC;
+    int iD0;
+    int iD4;
+    int iD8;
+    int iDC;
+    char padE0[0xc];
+    int iEC;
+};
+void COccupationAgent::vfunc_9() {
+    i60 = 0;
+    bA4 = 1;
+    b64 = 0;
+    iB4 = -1;
+    iB8 = 0;
+    fBC = 1.0f;
+    f8 = 10.0f;
+    p5c->v9();
+    bC0 = 0;
+    fC4 = 1.0f;
+    _ReadWriteBarrier();
+    iD4 = 0;
+    iD0 = 0;
+    iCC = 0;
+    iD8 = 0;
+    iDC = 0;
+    iEC = 0;
+}
