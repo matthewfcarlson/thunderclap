@@ -1,0 +1,45 @@
+// STATUS: equivalent (tools/equiv.py level 3: 131 inputs, branch coverage 18/18)
+// FUN_000be100 @ 0x000be100
+class Player {
+  public:
+    char pad[0x9a8];
+    char busy;
+};
+class Game {
+  public:
+    char pad[0x2218];
+    Player* player;
+    int mode;
+};
+class Singleton;
+Game* __cdecl FUN_000fc3d0();
+Singleton* __cdecl FUN_001d4c90();
+extern int DAT_0049cab4;
+
+class Menu {
+  public:
+    char pad0[0x10];
+    int state;
+    char pad1[0x1cec - 0x14];
+    int pending;
+    int index;
+    void FUN_000bc5c0(const char* kind, const char* level, int difficulty, int flag);
+    void FUN_000be100();
+};
+
+void Menu::FUN_000be100() {
+    if (state != 0x17)
+        return;
+    Player* p = FUN_000fc3d0()->player;
+    if (p != 0 && p->busy != 0)
+        return;
+    state = 0;
+    if (FUN_000fc3d0()->mode == 1 && pending >= 0x266 && pending <= 0x2c9 && FUN_001d4c90() != 0) {
+        index = pending - 0x265;
+        int difficulty = DAT_0049cab4;
+        if (difficulty < 0 || difficulty >= 3)
+            difficulty = 1;
+        FUN_000bc5c0("oneshot", "c00m10", difficulty, 1);
+    }
+    pending = -1;
+}
