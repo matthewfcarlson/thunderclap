@@ -1,0 +1,64 @@
+// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
+// FUN_000f6680 @ 0x000f6680
+extern "C" double sqrt(double);
+
+struct Mat;
+
+struct V3 {
+    float x, y, z;
+    void FUN_0022d180();
+    void FUN_0022d260(const Mat *m);
+};
+
+struct Mat {
+    float m[16];
+    void FUN_0022b980();
+    void FUN_0022baf0(const V3 *axis, float angle);
+};
+
+struct Obj {
+    char pad0[0xdc];
+    V3 b;
+    V3 a;
+    void FUN_00293a90(const V3 *v);
+};
+
+float FUN_00018a20(float x);
+
+void FUN_000f6680(Obj *p, float angle, float k)
+{
+    struct Frame {
+        V3 a;
+        V3 b;
+        V3 c;
+        Mat m;
+    } f;
+    f.a = p->a;
+    f.b = p->b;
+    f.c.x = p->b.x;
+    f.c.y = p->b.y;
+    f.c.z = p->b.z;
+
+    float cx = f.c.y * f.a.z - f.c.z * f.a.y;
+    float cy = f.c.z * f.a.x - f.a.z * f.c.x;
+    float cz = f.a.y * f.c.x - f.c.y * f.a.x;
+    f.c.x = cx;
+    f.c.y = cy;
+    f.c.z = cz;
+
+    double la = sqrt(f.a.y * f.a.y + f.a.z * f.a.z + f.a.x * f.a.x);
+    double dot = f.b.z * f.a.z + f.b.y * f.a.y + f.b.x * f.a.x;
+    float lb = (float)sqrt(f.b.z * f.b.z + f.b.y * f.b.y + f.b.x * f.b.x);
+    float r = FUN_00018a20((float)(dot / la * lb));
+    f.b.FUN_0022d180();
+
+    if ((k < 0.0f && r > 0.19635f) || (k > 0.0f && r < 2.94524f)) {
+        f.m.FUN_0022b980();
+        f.m.FUN_0022baf0(&f.c, k);
+        f.b.FUN_0022d260(&f.m);
+    }
+    f.m.FUN_0022b980();
+    f.m.FUN_0022baf0(&f.a, -angle);
+    f.b.FUN_0022d260(&f.m);
+    p->FUN_00293a90(&f.b);
+}

@@ -1,0 +1,49 @@
+// STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 17/18, incomplete)
+// FUN_000a00e0 @ 0x000a00e0
+float FUN_000186b0(float *p0, float *p1, float *p2);
+float FUN_0009f760(float x);
+
+struct Frame { float L0, t, q, vc; };
+
+float FUN_000a00e0(float a, float b, float c, float d, float e)
+{
+    Frame f;
+    f.L0 = b - a;
+    if (f.L0 == 0.0f || c == 0.0f || d == 0.0f)
+        return a;
+
+    f.vc = a;
+    unsigned bits = *(unsigned *)&f.L0 & 0x7fffffff;
+    f.t = *(float *)&bits - e;
+        if (f.t > 0.0f) {
+        f.q = f.t / c;
+        bool lim = !(f.q < d);
+        if (!lim) {
+            f.vc = -f.t;
+        } else {
+            f.t = c * d;
+            f.vc = -(c * d);
+        }
+        f.t = FUN_000186b0(&f.L0, &f.vc, &f.t);
+        if (lim)
+            f.q = d;
+        f.vc = f.t + a;
+        f.L0 = f.L0 - f.t;
+        d = d - f.q;
+    }
+    float x = f.vc;
+    if (e > 0.0f && d > 0.0f) {
+        unsigned bits2 = *(unsigned *)&f.L0 & 0x7fffffff;
+        if (!(e * 0.001f >= *(float *)&bits2)) {
+            float tmp = -(c / e * d);
+            x = (1.0f - FUN_0009f760(tmp)) * f.L0 + f.vc;
+        } else {
+            x = b;
+        }
+    }
+    volatile float xs = x;
+    unsigned bits3 = *(unsigned *)&xs & 0x7fffffff;
+    if (!(*(float *)&bits3 <= 1e-5f))
+        return x;
+    return 0.0f;
+}
