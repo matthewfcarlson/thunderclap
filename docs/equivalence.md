@@ -37,9 +37,11 @@ order. The report's `level2.mapping` says which rule fired.
 
 1. **explicit**: `--map` JSON, or a `// equiv-map: ?Foo@@YAXXZ = 0x00123456` comment in the source.
 2. **content**: string literals (same bytes as a string the original references), `__real@` float
-   constants (same bits), and vftables (`??_7Class@@6B@` by RTTI class name).
+   constants (same bits, in read-only data: a writable global that holds 0.0 is a variable), and vftables
+   (`??_7Class@@6B@` by RTTI class name).
 3. **name**:
-   - an exact `build/functions.csv` name (`Class::vfunc_3`, `thunk_FUN_…`);
+   - an exact `build/functions.csv` name (`Class::vfunc_3`, `thunk_FUN_…`, or a mangled name it keeps
+     as is, like the CRT's `?getBasicDataType@UnDecorator@@…`);
    - an address in the name (`FUN_00123456`, `DAT_004dd6e4`, `g_00491234`, …);
    - an XDK symbol;
    - a fixed CRT helper (`__ftol2`, `__chkstk`);
@@ -85,13 +87,23 @@ extern int FUN_0026b380(void* a, int mode, void* c, int toMode, int g, int f, in
 - At each call to that function, the original's values (taken from those registers and stack words) and
   ours (taken from wherever our declaration put them) are compared as one argument list, position by
   position. Swapped or wrong arguments still fail; only the location may differ.
+- At such a call in our run, the callee's caller-saved register arguments are put where the annotation
+  says before the stub returns, so a register the callee preserves holds that argument afterwards, as in
+  the original.
 - The same annotation on the function under test (`// equiv-conv: FUN_00325fd0 ecx edx eax stack`) feeds
   the original its inputs in those registers and ours through our declaration.
 
-Stack effects are per side: each side pops what its own code expects. The original uses the callee's real
-`ret N`; ours uses our declaration. So `this` in `ecx` with one stack argument and a plain `ret` can be
-declared as an ordinary thiscall member, with no annotation needed. When a callee reads a register that
-our code doesn't set, the mismatch message suggests the annotation.
+Stack effects: both sides pop what the callee's real `ret N` pops, as they would linked against the real
+function. A declaration that pops something else leaves our stack off from then on; when that changes
+behaviour (it usually crashes), the first mismatch explains it (`our declaration has the callee pop 4 bytes
+of arguments, but it really pops 0`). Two wrong declarations can cancel out (a push folded around a call),
+which byte-identical code sometimes does, so the declaration alone isn't a failure. `this` in `ecx` with
+caller-popped stack arguments (a plain `ret`) can't be declared in C++: annotate it with `equiv-conv`, and
+then our side pops per our declaration. When a callee reads a register that our code doesn't set, the mismatch message suggests the
+annotation.
+
+`__security_check_cookie` is `__fastcall`: the cookie must arrive in `ecx`
+(`extern "C" void __fastcall __security_check_cookie(unsigned int)`).
 
 ## Level 3 design
 
@@ -129,7 +141,8 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check
   `__security_check_cookie` is skipped on both sides, because its caller's `add esp` releases the frame
-  and isn't argument cleanup. At every `call`, and at
+  and isn't argument cleanup; `ecx` must hold a value read from the cookie global. A call to the function
+  under test itself (recursion) is stubbed on both sides. At every `call`, and at
   a `jmp` that leaves the function (a tail call), a stub:
   - records the target, the argument words, the registers, and every stack local passed by pointer;
   - returns a deterministic `eax`/`edx`, plus a float on the x87 stack if the code after the call consumes
@@ -137,11 +150,23 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   - fills each local passed by pointer (an out-parameter), with the same values on both sides. A class
     parameter is filled over its whole `sizeof`. Any other parameter gets at least 16 bytes, skipping
     words the function has already written itself;
-  - pops the callee's argument bytes.
+  - models how far the real callee writes through each pointer argument (`ecx` or a stack argument). A
+    static scan of the callee (`Program.callee_writes`) follows stores through the incoming pointer, copies
+    and constant offsets of it, and callees it is passed on to (a base or member constructor). In the
+    original's run that extent, capped at the room the original's frame has there, is filled; ours fills
+    the same offsets. If ours has less room before a saved register, the return address or the caller's
+    frame, the call fails (`writes 0x40 bytes through ecx ... but ours has only 0x20 bytes there`): our
+    local is smaller than the callee's object;
+  - leaves `ecx`/`edx`/`eax` alone when the callee never writes them (callers may rely on that);
+  - pops the callee's argument bytes. Pops over 252 bytes (a struct passed by value) are done directly.
+- A `push` of an untouched callee-saved register counts as a save (not an argument) only if the function
+  pops that register somewhere; otherwise it passes on a register argument (LTCG `esi`).
 - The pop count comes from the callee's own `ret N` (following tail jumps) when the call site names a real
   function. For cdecl, it comes from the caller's `add esp, N` or `pop ecx` cleanup, including one
   deferred over several calls. Otherwise it comes from tracked argument pushes. For indirect calls, our
-  k-th call reuses the count the original's k-th call used on the same input.
+  k-th call reuses the count the original's k-th call used on the same input. Pending pushes that the
+  next direct call pops (`push 1; call thunk; push eax; push name; call f` with `f` popping 12) belong to
+  that call, not to the one in between.
 - The number of argument words compared is what the callee actually reads (a stack-depth scan of the
   callee). Unused or dead arguments don't count.
 - Callee side effects: after each stub the memory epoch advances, and every non-code page is remapped with
@@ -154,24 +179,41 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   call).
 - Locals passed by pointer, on the stack or in a register: exactly `sizeof(*param)` bytes for a class
   type, taken from our callee declaration (a `sizeof` probe compile). A scalar or unknown pointer may
-  point at an array, so it is compared over up to 16 bytes the function filled in. Only bytes the function
-  wrote count, so an uninitialised out-parameter is not compared.
+  point at an array, so it is compared over the words the function filled in, up to the next local whose
+  address the function takes (4 KB at most). Only bytes the original wrote count, so an uninitialised
+  out-parameter is not compared, nor a copied uninitialised word. A word that points to another local on
+  both sides (`desc.format = &fmt`) isn't compared as a value; the local it points to is compared in turn
+  (two levels deep).
 - Memory writes per call segment: the final byte values that differ from the segment's initial state.
   The stack is excluded.
-- The return value by type: `al`, `ax`, `eax`, `edx:eax` or `st0`.
+- The return value by type: `al`, `ax`, `eax`, `edx:eax` or `st0`. A function we declare `void` that is
+  reached only through a vtable or a pointer (no direct call sites) still has `eax` compared when the
+  original leaves a meaningful value there: a callee's result nothing overwrote, or a write to `eax` the
+  function never reads back (`left 0x7 in eax, expected 0xa8: ours is void, but the original returns a
+  value there`).
 - The x87 stack depth, `ebx/esi/edi/ebp` and `esp` after return.
+- An argument pushed from a register whose last write set only its low byte(s) (`setcc al; push eax`, a
+  `bool`) compares on those bytes only.
 - Values that point into the stack compare as "a stack address". Floats stored by `fst`/`fstp` and float
   arguments compare with relative tolerance 1e-5.
 
-An input on which the original doesn't return (step limit 50k, or the 1000-page limit) is inconclusive.
-One where the original faults is compared up to the fault, but not counted as a pass.
+An input on which the original doesn't return (step limit 50k, or the 1000-page limit) is inconclusive. If
+the first 4 inputs all run out of steps, the rest get 1M steps (and 3x the time budget): long but
+deterministic code such as string building. One where the original faults is compared up to the fault, but
+not counted as a pass, and its branches don't count as covered. While fewer than 8 inputs have completed,
+faulting inputs don't stop the search (up to 192 of them). The step budget isn't raised when the early
+timeouts come from a `rep` string instruction with an absurd (fuzzed) count or from a loop that a stubbed
+callee keeps going (hundreds of calls); and an input where such a fill or copy got through in the original
+but our semantic copy hit the page limit is inconclusive.
 
 **Return type** comes from our mangled name. For a C name it is inferred from the original's call sites.
 If ours returns `void` but the original's direct callers read `eax` (or `st0`) after the call, the return
 value is compared anyway, and `return_note` says so.
 
 **Coverage** counts taken/not-taken for every conditional branch, 0/1 for every `setcc`, and every
-jump-table case of the original. It comes only from inputs that ran to completion. `level3.coverage.complete` is false when some edge never ran, and the
+jump-table case of the original. It comes only from inputs that ran to completion (not from faults).
+Directed inputs can also patch a word a stub filled through an out-parameter, when the original compares
+it. `level3.coverage.complete` is false when some edge never ran, and the
 uncovered edges are listed.
 
 ## Report (JSON)
@@ -202,10 +244,18 @@ Mismatch strings are written for a model to act on. Examples:
 
 ## Validation
 
-Latest run (journal, 2026-10-10):
+Latest run (2026-10-11, after the soundness round; the samples are drawn from the current `matches/`, so
+they differ from earlier runs):
 
-- 300/300 matches pass against themselves; so do the same sources compiled with `/O1` (268 byte-different) and with `/Oy-` (236 byte-different).
-- Mutation suite: 334 mutants caught, 4 false passes, all data/path-dependent with full branch coverage.
+- Selftest: 300/300 equivalent. With `/O1` 297/300 and with `/Oy-` 298/300; the failures (0x002a1e00,
+  0x002c1cf0, 0x003388d0) fail the same way with the previous checker.
+- Mutation suite (119 functions): 331 caught, 16 false passes. The previous checker on the same functions:
+  333 caught, 15 false passes; every difference is a different mutant text, and mutants that are the same
+  get the same verdict (each false pass also passes the previous checker).
+- `equivalent/` re-checked: 440 of 463 still equivalent; the 23 that fail are real (wrong cookie
+  convention, a local smaller than the callee's object, wrong callee pop declarations, a void function that
+  returns a value, nested-local differences, and so on).
+- `tests/equiv/regress.py`: 13/13.
 
 The harnesses:
 
@@ -219,6 +269,8 @@ The harnesses:
   Hand-checked semantically equivalent mutants are listed in `EQUIVALENT_MUTANTS`. Symbols are bound
   with the unmutated match's mapping.
 - `tests/equiv/test_equiv.py`: quick unit and end-to-end tests.
+- `tests/equiv/regress.py`: sources a checker bug once got wrong (`tests/equiv/cases/`), each with the
+  status it must get and the mismatch that shows why.
 
 ## Limits
 
@@ -227,7 +279,8 @@ The harnesses:
   computed from several loads) stays unverified. Branch coverage is also not path coverage: a difference
   that needs a combination of conditions can survive full branch coverage.
 - **Callees are opaque.** A stub's out-parameter values are arbitrary, not what the real callee would
-  write. An array behind a scalar pointer is compared over at most 16 bytes.
+  write. How far a callee writes is a static under-approximation: loops that advance the pointer, string
+  instructions and indirect calls inside the callee aren't followed.
 - **Argument counts** for calls through fuzzed pointers come from tracked pushes in the original, and are
   reused by our run call by call. A rare mix of cdecl and thiscall indirect calls sharing one deferred
   cleanup can still be miscounted. That shows up as a false failure, not a pass.
