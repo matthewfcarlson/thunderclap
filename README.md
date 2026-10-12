@@ -17,12 +17,14 @@ The goal is a **native port**: C++ source we can build for SteamOS, arm64 macOS 
 | **Verified source, total** | 17,701 (64.5%) | 1297 KB (**48.1%**) |
 <!-- /status -->
 
-Most matches so far are small functions, so byte coverage is the honest metric. Where things stand (2026-10-11):
+Most matches so far are small functions, so byte coverage is the honest metric. Where things stand (2026-10-12):
 
-- **Progress rate.** Verified source went from 21% to 33% of game-code bytes in the last 24 hours (about 300 KB/day), mostly from Claude Sonnet subagents proving large functions *equivalent* (about 17 of every 20 attempted pass). The port-priority list ([`docs/port-priority.txt`](docs/port-priority.txt), 2,011 functions) is **84% verified**.
+- **Progress rate.** Verified source went from 33% to 48% of game-code bytes in the last 22 hours (about 400 KB/day), mostly from Claude Sonnet subagents proving large functions *equivalent* (about 18 of every 20 attempted pass since checker round 3). Families of near-identical functions are now proved in bulk: `tools/clone_equivalent.py` reuses a proven source for same-shaped functions, and generators in [`tools/equiv_gen/`](tools/equiv_gen/) produce whole template families (48 script bindings in one pass). The port-priority list ([`docs/port-priority.txt`](docs/port-priority.txt), 2,011 functions) is **93% verified**.
 - **Hybrid build boots.** 14,614 of our functions patched into the original XBE run in xemu through boot, menus and the new-game load, with state checkpoints identical to the original's ([`docs/hybrid-build.md`](docs/hybrid-build.md)). A bisect tool finds the function behind any divergence.
-- **Equivalence checker, round 2** ([`docs/equivalence.md`](docs/equivalence.md)). It runs the original and our code side by side in an emulator and compares calls, memory writes and return values. It now also catches what the hybrid build found: callees writing past an undersized local, hidden return values, wrong calling conventions and dropped arguments. Every file in `equivalent/` passes it.
+- **Equivalence checker, round 3** ([`docs/equivalence.md`](docs/equivalence.md)). It runs the original and our code side by side in an emulator and compares calls, memory writes and return values. Round 3 added loop-bound repair, inputs steered through switch tables and float compares, caller-cleaned calls, noreturn callees and per-call-site varargs checks. A full re-check at 3,000 inputs found 36 of 1,451 equivalents wrong (sign flips, missing writes); they were removed, 25 have been fixed since, and every pass is now confirmed at 3,000 inputs. Every file in `equivalent/` passes it.
+- **Equivalence is provisional until replayed against real game state.** Fuzzed inputs never look like real game data and stubbed callees return made-up values, so a proof can miss paths. In progress: record function-entry state while playing the original in xemu, replay it through the original and our code on every build, and give each equivalent a confidence tier that decides whether the hybrid build uses it.
 - **Recipes beat retries.** Near-misses that cluster on one symptom get one deep investigation; the fix goes into the agent brief and farm prompt and is applied by cheaper models and scripts. The vtable-store-order recipe turned 13 stuck functions into about 700 matches overnight ([`docs/journal.md`](docs/journal.md)).
+- **A second Mac (mac1)** runs the 3,000-input promotion checks and full re-checks of `equivalent/` (`tools/equiv_batch.py`); the permuter that ran there found nothing in 70 near-misses, so it's paused.
 - **Platform boundary mapped.** Game code reaches the Xbox through 182 XDK/kernel/D3D/DirectSound functions, all in four seams (pure3d D3D backend, radcore platform layer, audio, Bink) plus 8 small functions ([`docs/platform-boundary.md`](docs/platform-boundary.md)). 16:9 and 720p are built in, the 30 fps cap is one flag, and intros can be skipped ([`docs/subsystems.md`](docs/subsystems.md)).
 - **Shared headers** generated from RTTI: 4,244 classes in 17 headers, with every vtable and base layout checked against the XBE ([`docs/headers.md`](docs/headers.md)).
 
@@ -47,14 +49,14 @@ Full plan: [`docs/roadmap.md`](docs/roadmap.md).
 - [x] Asset tools: RCF unpack/repack, P3D → PNG/glTF
 - [x] **1. Map the platform boundary**: XDK/kernel/D3D calls from game code; render/camera/HUD/game-loop subsystems
 - [ ] **2. Shared headers and real types/names**: headers generated and verified; migrating matches onto them is next. *ETA: ~1 week of agent time once started (estimate, no rate yet).*
-- [ ] **3. Source for every game function**: byte-matched where cheap, behaviour-verified *equivalent* for large ones. 33% of bytes verified; 5,718 functions (1.68 MB) to go. *ETA: about 1 week at the current ~300 KB/day if the agents keep running; 2–3 weeks more realistically, since the remaining functions are larger (321 over 1 KB) and ~10% hit checker limits or are library code.*
-  - Port-priority functions (platform seams first): 84% verified. *ETA: 1–2 days.*
+- [ ] **3. Source for every game function**: byte-matched where cheap, behaviour-verified *equivalent* for large ones. 48% of bytes verified; 9,749 functions (1.39 MB) to go. *ETA: about 3–4 days at the current ~400 KB/day if the agents keep running; 1–2 weeks more realistically, since the remaining functions are larger, ~10% hit checker limits, and Claude usage limits pause the batches.*
+  - Port-priority functions (platform seams first): 93% verified. *ETA: 1 day.*
 - [ ] **4. Data**: globals, tables, vtables, strings. *ETA: 3–5 days, mostly tooling (estimate).*
-- [ ] **5. Hybrid build in xemu**: boots with 14,614 functions patched in. Next: a recorded gameplay replay to make post-load scenarios deterministic, then the full scenario suite ([`docs/tasks/10-hybrid-test-plan.md`](docs/tasks/10-hybrid-test-plan.md)). *ETA: 2–4 days after a replay recording (estimate).*
+- [ ] **5. Hybrid build in xemu**: boots with 14,614 functions patched in. Next: trace replay of real game state for every equivalent (in progress) so the build only includes equivalents that agree on it, then the full scenario suite ([`docs/tasks/10-hybrid-test-plan.md`](docs/tasks/10-hybrid-test-plan.md)). *ETA: 2–4 days after a replay recording (estimate).*
 - [ ] **6. Native build**: x86-32 host first, then x86-64 (SteamOS) and arm64 (macOS). Needs milestones 3 and 4, plus the D3D/audio/input/movie backends. *ETA: 3–6 weeks after milestone 3 (estimate).*
 - [ ] **7. Make it better**: widescreen/FOV/60 fps, higher resolution, HD textures and models. *ETA: 1–2 weeks after a native build (estimate).*
 
-ETAs for milestone 3 come from the git history of `matches/` and `equivalent/` (verified bytes: 21% on 10-10 midday, 26% at midnight, 30% at 06:00, 33% at 11:30 on 10-11). The others are judgment calls and will be revised once each milestone has a measurable rate.
+ETAs for milestone 3 come from the git history of `matches/` and `equivalent/` (verified bytes: 21% on 10-10 midday, 33% at 11:30 on 10-11, 48% at 09:30 on 10-12). The others are judgment calls and will be revised once each milestone has a measurable rate.
 
 ## Setup
 
