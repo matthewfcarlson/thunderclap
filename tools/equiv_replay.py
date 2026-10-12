@@ -562,7 +562,7 @@ def main(argv):
     jobs = [(s, int(ad, 16)) for s, ad in a.src]
     kind = "src"
     if a.equivalent or a.only:
-        kind = "equivalent"
+        kind = "equivalent" if not a.only else "only"     # (only a full --equivalent run feeds equiv_confidence)
         eq = dict((ad, s) for s, ad in sources("equivalent"))
         if a.only:
             want = [int(x, 16) for x in a.only.split(",")]

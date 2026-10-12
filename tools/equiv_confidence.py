@@ -5,8 +5,8 @@
   tools/equiv_confidence.py --fuzz [--inputs 256] [--jobs 3]   # also (re)run equiv.py where the cache is stale
 
 Evidence per function:
-  fuzz    equiv.py level 3 on fuzzed inputs: status, inputs run, branch coverage. Cached in
-          build/equiv/fuzz-cache.jsonl by source hash (filled by --fuzz).
+  fuzz    equiv.py level 3 on fuzzed inputs: status, inputs run, branch coverage. From
+          build/equiv/fuzz-cache.jsonl by source hash (filled by --fuzz), else the source's `// STATUS:` line.
   replay  tools/equiv_replay.py results of every capture session (build/traces/*/replay-*.json): calls
           replayed and agreed, mismatches. A mismatch in any session wins.
 
@@ -21,6 +21,7 @@ import glob
 import hashlib
 import json
 import os
+import re
 import sys
 import time
 
@@ -35,6 +36,20 @@ TIER_NAMES = {0: "mismatch", 1: "fuzz-only", 2: "replay-thin", 3: "replay-verifi
 
 def _sha(path):
     return hashlib.sha1(open(path, "rb").read()).hexdigest()[:16]
+
+
+HEADER = re.compile(r"//\s*STATUS:\s*(\w+)\s*\(tools/equiv.py level 3:\s*(\d+) inputs, branch coverage (\d+)/(\d+)")
+
+
+def header_fuzz(path):
+    """The fuzz result the source's own `// STATUS:` line records (written when it was verified)."""
+    with open(path, errors="replace") as f:
+        for line in f.readlines()[:3]:
+            m = HEADER.search(line)
+            if m:
+                return {"status": m.group(1), "inputs_run": int(m.group(2)), "edges_covered": int(m.group(3)),
+                        "edges_total": int(m.group(4)), "n_inputs": None, "from": "header"}
+    return None
 
 
 def load_fuzz():
@@ -133,9 +148,9 @@ def build(fuzz=False, n_inputs=256, jobs=3):
         addr = "0x%08x" % a
         sha = _sha(os.path.join(ROOT, src))
         fz = cache.get((addr, sha))
-        rec = {"src": src, "sha": sha,
-               "fuzz": {k: fz.get(k) for k in ("status", "inputs_run", "edges_covered", "edges_total", "n_inputs")}
-               if fz else None,
+        fz = {k: fz.get(k) for k in ("status", "inputs_run", "edges_covered", "edges_total", "n_inputs")} if fz \
+            else header_fuzz(os.path.join(ROOT, src))
+        rec = {"src": src, "sha": sha, "fuzz": fz,
                "replay": replays.get(addr), "excluded": excl.get(addr)}
         rp = rec["replay"]
         rec["replay_status"] = ("mismatch" if rp and rp["mismatched"] else "agreed" if rp and rp["agreed"]

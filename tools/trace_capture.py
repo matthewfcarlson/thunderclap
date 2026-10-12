@@ -112,7 +112,7 @@ class CapGdb(Gdb):
         d["fs_base"], d["cr0"] = struct.unpack_from("<I", r, 64)[0], struct.unpack_from("<I", r, 76)[0]
         st = [struct.unpack_from("<QH", r, 100 + 10 * i) for i in range(8)]
         d["fctrl"], d["fstat"], d["ftag"] = struct.unpack_from("<III", r, 180)
-        d["st0"] = equiv._x87_value(st[(d["fstat"] >> 11) & 7])     # (QEMU sends physical registers)
+        d["st0"] = equiv._x87_value(st[0])      # (QEMU's stub sends ST(0)..ST(7), relative to TOP)
         return d
 
     def cont_timeout(self, timeout):
@@ -284,8 +284,15 @@ class CallCapture:
                     runs[-1][1] = i + 1
                 else:
                     runs.append([i, i + 1])
+        c = run.calls[k]
+        # (the callee owns its argument slots and may reuse them)
+        argb = max(4 * len(c["args"]), (self.cap.prog.callee_pop(c["target"]) or 0) if c.get("known", True) else 0, 16)
         for i0, i1 in runs:
             key, off = self.base_for(run, esp + i0, k)
+            if key[0] == "entry" and i1 > argb and any(esp + i in run.seg_stack_w for i in range(max(i0, argb), i1)):
+                # the function itself wrote these bytes since the last call, and no pointer this call got
+                # reaches them: the game computed something else (the co-simulation diverged)
+                self.abort("the game's frame differs from Unicorn's at entry%+#x after call #%d" % (off, k + 1))
             rec["delta"].append((key, off, bytes(g[i0:i1])))
         # a callee may write a value that was there already: also keep what its static write extent covers
         # through each pointer into the frame (equiv.py's stubs fill the same extents)
