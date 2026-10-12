@@ -172,6 +172,31 @@ Callbacks go the other way and must be honoured by the shims: the vertical-blank
 - **Xbox Live / network:** none. **Direct hardware access:** none found (scan of all game code for
   `in`/`out`/`rdtsc`/`cpuid`/`wbinvd` and immediates in the NV2A/APU/USB MMIO ranges).
 
+## Prior art for the backends: jsrf-recomp (reviewed 2026-10-12)
+
+[andeecollard/jsrf-recomp](https://github.com/andeecollard/jsrf-recomp) is a Jet Set Radio Future port
+built on [sp00nznet/xboxrecomp](https://github.com/sp00nznet/xboxrecomp). It statically recompiles the
+XBE to C, then runs it on a kernel/XAPI replacement layer and an xemu-derived NV2A/APU model. As of
+2026-09-26 it was playable into chapter 2 at 60 fps on Apple Silicon. It is the closest public project
+to our port, but it solves a different problem. The recompiled game still runs Microsoft's D3D8 library,
+which writes push buffers that the project observes and redraws. Our decomp replaces the pure3d D3D
+backend with source, so we never produce push buffers.
+
+| Our seam | Use | What |
+|---|---|---|
+| Input | Adapt | `src/input/xinput_device.c`: SDL2 GameController backend with rumble (MIT). Works on SteamOS and macOS. |
+| Audio | Adapt | SDL2 output pattern (`src/apu/apu_sdl2.c`) and the DirectSound-call semantics (`dsound_host*.c`). We only need the DSOUND surface the game calls, not the APU/DSP emulator. |
+| pure3d D3D backend | Reference | Register-combiner and vertex-shader-microcode translators (`src/nv2a/nv2a_vsh_hlsl.c`, `d3d8_combiners.c`), texture unswizzle and format decode, and their per-draw check of the D3D lift against the NV2A model (a way to verify our renderer later). The renderer itself is Metal-only (D3D11 on Windows) and tied to XDK 4134; we're on 5849 and need SteamOS too, so it stays ours to write. |
+| radcore platform layer | Reference | `src/kernel/` HLE is built around the recompiled register model. |
+| Bink | — | No Bink player; their movie playback is Media Foundation (Windows-only). |
+
+**License:** MIT (© sp00nz), except for the xemu-derived files listed in its `NOTICE`, which are
+LGPL-2.1 (`src/apu/apu_*`, `src/nv2a/nv2a_regs.h`, `nv2a_core.c`, `nv2a_state.h`). The swizzle and
+combiner headers are MIT but credited as derived from xemu algorithms. Reuse MIT parts with their
+notice, and treat the LGPL and xemu-derived files as reference only. **This repo has no license yet; pick one
+before importing any code.** No leaked XDK or Microsoft source was found; its headers are self-written
+from public documentation (xboxdevwiki, xemu, Cxbx-Reloaded).
+
 ## Full call inventory
 
 Generated from `build/port/platform_calls.json`. "Called from" counts calling functions per seam;
