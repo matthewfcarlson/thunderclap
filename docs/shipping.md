@@ -50,24 +50,24 @@ layouts checked against the XBE. Migrating matches onto it is roadmap step 2.
 - **Gatekeeper.** Opening without warnings needs a Developer ID signature and notarization (Apple
   Developer Program). Unsigned builds work with right-click → Open the first time.
 
-## 3. Steam Deck (roadmap steps 5 and 8)
+## 3. Steam Deck (roadmap step 8)
 
-- **Today, no port needed:** xemu on the Deck (e.g. via EmuDeck), with your own dump plus BIOS, MCPX and
-  HDD files. Copy them by SD card, USB or `scp` in Desktop Mode, then add xemu as a non-Steam game. The
-  hybrid ISO (our code patched into the original XBE) runs there the same way it does on the Mac.
+Only the native port ships to the Deck. Players can already run the original game in xemu without us,
+so an xemu-based release adds nothing. The hybrid ISO stays an internal test vehicle (step 5).
+
 - **Native port:** a Linux x86-64 build packaged as an AppImage or Flatpak. Copy the ISO over in Desktop
   Mode, run the app once and point it at the ISO (same first-run flow as macOS), then use "Add to Steam"
   for Game Mode. Input goes through SDL, so Steam Input works with no extra setup. If the repo goes
   public, a Decky/Flathub listing can make it one click, still with bring-your-own ISO.
 
-## 4. Modding: textures, models, levels (roadmap steps 5, 6 and 7)
+## 4. Modding: textures, models, levels (roadmap steps 6 and 7)
 
 Both data formats are mapped already: RCF archives are fully verified ([rcf.md](formats/rcf.md)), and
 all 1,436 `.p3d` files parse, with Hulk and a downtown room exported correctly ([p3d.md](formats/p3d.md)).
 
 | Mechanism | What it replaces | Needs | Step |
 |---|---|---|---|
-| **Repacked RCFs** | any file, in the game's own format | `tools/rcf.py` (done) | 5: works on the original game and in xemu today |
+| **Repacked RCFs** | any file, in the game's own format | `tools/rcf.py` (done) | tooling for testing mods against the original in xemu; not a shipped path |
 | **Loose-file overrides** | any file: drop a replacement at the same path under `mods/` and the file layer reads it before the RCF | a check in the port's radcore file shim | 6: part of the OS shim |
 | **Texture replacement by hash** | textures at any resolution, as PNGs, without touching `.p3d` | the renderer hashes each texture on upload and looks for `mods/textures/<hash>.png` (as in Dolphin and PCSX2 texture packs) | 7: in the new `pddi` backend |
 | **Model import** | meshes, skins, levels | a `.p3d` writer (the exporter in reverse) and a Blender export path | 7: tooling |

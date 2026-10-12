@@ -51,7 +51,7 @@ Every game function gets compilable C++ at one of three levels:
 - Patch our compiled functions into the original XBE and run it in xemu ([task 06](tasks/06-hybrid-patch-build.md)).
 - It's the end-to-end check for equivalent code (play, or replay recorded input, and compare against the original) and the first place QoL patches ship: widescreen, FOV, 60 fps.
 - Test plan ([task 10](tasks/10-hybrid-test-plan.md)): deterministic input replays compared checkpoint by checkpoint against the original, automatic bisection to the guilty function, and real captured inputs fed back to `tools/equiv.py`. The same suite later checks the native builds.
-- The hybrid ISO already runs anywhere xemu does, including the Steam Deck. Repacked RCFs (`tools/rcf.py`) make it the first place to try asset mods.
+- The hybrid ISO is an internal test vehicle, never a release: players can already run the original in xemu. Only the native port (step 8) ships.
 
 ### 6. Native build
 1. **x86-32 host build first** (Linux or Windows, clang): same pointer size and calling conventions as the Xbox, so the only new variable is the platform layer. Shim XAPI/kernel, implement the `pddi`, input, audio and movie backends. The radcore file shim reads loose files from `mods/` before the RCFs. Prior art for the input and audio backends: [jsrf-recomp](platform-boundary.md#prior-art-for-the-backends-jsrf-recomp-reviewed-2026-10-12).
@@ -64,7 +64,7 @@ Mostly ordinary code changes once step 6 lands; many can ship earlier as hybrid-
 - Unlocked frame rate: needs the game loop and timestep code (physics and animation are usually tied to frame time).
 - Native high resolution, MSAA, anisotropic filtering, draw distance and LOD bias.
 - Skip intros, faster loading, controller remapping, rumble options.
-- Assets: `.rcf` and `.p3d` tools are done ([task 03](tasks/03-rcf-tool.md), [task 04](tasks/04-p3d-reader.md)). HD texture packs go through texture replacement by hash in the renderer (`mods/textures/<hash>.png`, as in Dolphin); models need a `.p3d` writer and a Blender export path. See [shipping.md §4](shipping.md#4-modding-textures-models-levels-roadmap-steps-5-6-and-7).
+- Assets: `.rcf` and `.p3d` tools are done ([task 03](tasks/03-rcf-tool.md), [task 04](tasks/04-p3d-reader.md)). HD texture packs go through texture replacement by hash in the renderer (`mods/textures/<hash>.png`, as in Dolphin); models need a `.p3d` writer and a Blender export path. See [shipping.md §4](shipping.md#4-modding-textures-models-levels-roadmap-steps-6-and-7).
 
 ### 8. Ship
 - Code only, never game data. On first run the app asks for the player's ISO or folder, checks the XBE hash, and extracts the data locally.
