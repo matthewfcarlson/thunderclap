@@ -1,6 +1,7 @@
 #!/bin/sh
 # Pull permuter matches from remote Macs, re-verify locally, install, commit + push. Loops every 10 min.
 # Usage: farm/collect_remote.sh user@host [user@host ...]
+# The path is home-relative (~/): openrsync on macOS 15 mangles a bare relative remote path.
 set -u
 cd "$(dirname "$0")/.."
 PY=build/venv/bin/python
@@ -10,7 +11,7 @@ while :; do
     for h in "$@"; do
         d=build/farm/remote/$(echo "$h" | tr '@' '_')
         mkdir -p "$d"
-        rsync -az -e 'ssh -o BatchMode=yes -o ConnectTimeout=10' "$h:hulk-permute/matches/" "$d/" >> "$LOG" 2>&1 || continue
+        rsync -az -e 'ssh -o BatchMode=yes -o ConnectTimeout=10' "$h:~/hulk-permute/matches/" "$d/" >> "$LOG" 2>&1 || continue
         for f in "$d"/0x*.cpp; do
             [ -e "$f" ] || continue
             a=$(basename "$f" .cpp)
