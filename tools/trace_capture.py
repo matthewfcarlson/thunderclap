@@ -675,7 +675,9 @@ class Capture:
                     seen |= set(er.TraceStore(p).funcs())
                 except Exception:
                     pass
-        order = sorted(self.tgt, key=lambda f: (f not in self.pinned, f not in seen, random.Random(f).random()))
+        # --unseen: functions no earlier session reached go first (to extend coverage)
+        order = sorted(self.tgt, key=lambda f: (f not in self.pinned, (f in seen) if a.unseen else (f not in seen),
+                                                random.Random(f).random()))
         self.queue = deque(order)
         self.polls = self.frame = None
         self.last_hk = self.last_shot = self.last_arm = time.time()
@@ -784,6 +786,7 @@ def main(argv):
     ap.add_argument("--matches-sample", type=int, default=300, help="matched functions to capture as controls")
     ap.add_argument("--shot-every", type=float, default=30)
     ap.add_argument("--script", default=DEFAULT_SCRIPT)
+    ap.add_argument("--unseen", action="store_true", help="arm functions no earlier session reached first")
     ap.add_argument("--write-script", action="store_true", help="(re)write the default input script and exit")
     a = ap.parse_args(argv)
     if a.write_script or not os.path.exists(a.script):
