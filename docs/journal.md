@@ -346,3 +346,43 @@ Newest entries go at the bottom of each day.
 - **The ChatGPT lane ran dry.** It proved 276 equivalents and 40 matches in its first night on mid-size functions (median 147 bytes), at no cost on the subscription. It then produced nothing for a day: the ChatGPT usage window was exhausted (645 of 757 jobs never ran), and the ~110 that did run were the hard tail of the large-function queue. It now works the 100–300-byte slice from the top down while ulk-2 takes the small end. Its commits had been staging all of `matches/` and `equivalent/`, so they claimed other agents' files; lanes now stage only their own results. (One lane commit, feff2ce6, also swept every uncommitted file in the tree into history, including other sessions' work in progress; the cause is still unknown.)
 - **Claude usage is now the constraint, not CPU.** With five agents running, both the 5-hour window and the weekly budget became binding, and the remaining functions are bigger (1 KB+, x87-heavy): batches now prove about 12–13 of 20, not 18, at more tokens each. Equivalence batches now run one at a time. Checker work that unblocks families (the round-4 proposals) and replay pay more per token than more batches.
 - **Housekeeping lessons.** Don't delete untracked files without knowing where they came from. Kill only your own processes, by PID (an agent's broad `pkill -f equiv.py` may have killed another session's run). Agents that finished can wake up again when leftover background work completes, so stop them explicitly.
+
+## 2026-10-12: Trace-driven equivalence ("record once, replay every build")
+
+Fuzzed equivalence let 36 of 1,451 functions through, which a 3000-input recheck later caught. Five more
+broke the hybrid build outright. So equivalence now also runs against real game states.
+
+- `tools/trace_capture.py` boots the original game in xemu over the GDB stub and drives it with a
+  poll-keyed pad script into the junkyard tutorial. Each target function is co-simulated: its original
+  bytes run in Unicorn, every page they touch is read from the paused game, and the game itself runs
+  each callee. Its results, and its writes into the caller's frame, are recorded and fed back. Each
+  capture ends with a self-check against the game's real return.
+- `tools/equiv_replay.py` replays those calls on the original and on our object, using equiv.py's own
+  `Run` and `compare_runs` (a new `level3_fn` hook in `verify`).
+- `tools/equiv_confidence.py` turns the results into tiers. `patch_xbe.py`/`bisect_hybrid.py` filter
+  and order by tier.
+
+Lessons:
+- **QEMU slows down linearly with breakpoints.** 800 armed but never hit made it 6x slower; 1,600 made it
+  15x. Arming every function stalled the boot. A rotating window of 96 fixed it: a 30-minute session
+  now captures 7,675 calls from 429 functions.
+- **xemu's `g` packet** carries 9 extra control registers (fs_base … efer) before the x87 registers. It
+  sends ST(i) relative to TOP, not the physical registers. Getting this wrong gave plausible but wrong
+  float results that the end-of-call self-check could not see. A replay mismatch in 0x42680 exposed it,
+  and the s1 capture was thrown away.
+- **Frames differ.** The original side has to replay the game's exact frame, but ours has a different
+  layout. Callee writes are therefore placed relative to the pointer argument they lie behind, and the
+  original decides each placement for both sides. Our first replays produced several false failures
+  (STACK_FILL against real bytes, a game return address landing in our argument slot) until this was
+  symmetric.
+- **Stack alignment.** Functions with `and esp, -8` lay out their frames by the entry esp, so Unicorn's
+  entry esp takes the game's low 12 bits.
+
+Results:
+- The `exclude.txt` versions are caught for 4 of 5, each with the bisect's cause. That includes
+  0x259610, never explained before: a local passed to 0x3c9ea7 differs.
+- 0 false failures on 49 byte-identical controls.
+- 360 equivalents are now replay-verified (tier 3).
+- Three bugs the fuzzer passed: undersized locals in 0x2a9920 and 0x2b8b30, and a pop mismatch in
+  0x293ef0.
+- 1,233 equivalents were never reached by this script and stay fuzz-only.

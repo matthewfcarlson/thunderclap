@@ -320,6 +320,126 @@ The harnesses:
 - `tests/equiv/regress.py`: sources a checker bug once got wrong (`tests/equiv/cases/`), each with the
   status it must get and the mismatch that shows why.
 
+## Trace replay (`tools/trace_capture.py`, `tools/equiv_replay.py`)
+
+Fuzzing can't reach some paths, and its stubs return made-up values. Trace replay runs both sides on game
+states recorded once from the real game, and replays them on every build.
+
+```sh
+PY=build/venv/bin/python
+$PY tools/trace_capture.py --session s2 --minutes 30 --per-func 30    # record (one xemu, ~30 min)
+$PY tools/equiv_replay.py --session build/traces/s2 --equivalent      # replay every captured equivalent/
+$PY tools/equiv_replay.py --src OLD.cpp 0xADDR                        # any source against the recording
+$PY tools/equiv_replay.py --matches all                               # control: matches must all agree
+$PY tools/equiv_confidence.py                                         # -> build/equiv-confidence.json
+$PY tools/patch_xbe.py --matches all --equivalent --classes identical,local,equivalent --tier-min 3 ...
+$PY tools/bisect_hybrid.py ...      # orders candidates by tier, lowest first, when the file exists
+```
+
+Captures live in `build/traces/SESSION/trace.sqlite`. They hold game memory, so never commit them.
+
+**Capture.**
+- The game is the original XBE plus only the test hooks: fixed frame time, constant seed, `skip-intro`,
+  `no-fmv`.
+- Input comes from `tests/replays/capture-gameplay.json`, keyed by pad polls (hooks flag `pollkey`;
+  after the new-game load the frame counter races, while polls stay at about one per frame). The script
+  goes title → New Game → Normal, taps A through the opening, then loops run / turn / X combo / Y /
+  jump / grab in the junkyard tutorial.
+- xemu runs with `-S -gdb` and `-snapshot`, with the copied config.
+- A breakpoint on a target's entry starts a **co-simulation**. The original bytes run in Unicorn with
+  equiv.py's `Run`:
+  - registers, the stack window and the game's stack contents come from the game;
+  - every page touched in a memory epoch is read from the paused game and recorded. Code pages
+    (`.text`, BINK) come from the XBE; `.rdata` comes from the game, because the kernel thunks are
+    patched at load.
+- At each call Unicorn would stub, the game runs the callee: a breakpoint on the return address, checked
+  against esp and the callee-saved registers. Recorded per call:
+  - eax/edx/ecx;
+  - ST(0);
+  - the game's frame afterwards, plus the bytes the callee changed in it, located relative to the
+    pointer argument they lie behind;
+  - the bytes the callee's static write extent covers.
+
+  Pages touched later are re-read; that is the next epoch.
+- Unicorn's entry esp gets the game's low 12 bits, so `and esp, -8` lays frames out alike.
+- **Self-check:** at the end the game runs to the return address. Unicorn's esp, eax/edx, ST(0) and the
+  memory written since the last call must equal the game's. A callee that changes frame bytes the
+  function wrote itself, with no pointer reaching them, aborts the capture. Failed captures are kept but
+  never replayed.
+- QEMU slows down with every breakpoint set: 800 never-hit ones make it 6x slower. So at most 96
+  functions are armed at a time (`--window`):
+  - a queue rotates through the targets;
+  - a function idle for 20 s, or captured 5 times in a row, makes room;
+  - functions in `hybrid/exclude.txt` and `build/farm/equiv-demoted/` stay armed.
+- A target hit inside a callee is captured too, nested up to depth 3 with its own Unicorn thread.
+  Otherwise it is parked until the outer capture ends.
+
+**Replay.**
+- `equiv.verify(..., level3_fn=...)` does levels 1–2 and the binding as usual. The replay then runs the
+  original and ours on each recorded call with `equiv_replay.TraceRun`, a `Run` whose stub results are the
+  recorded ones, in order.
+- Both sides start with `STACK_FILL` stacks.
+- Callee frame writes are placed relative to the pointer the call passed. The original's run decides each
+  placement:
+  - a write into the incoming argument slots goes to the same slot in ours;
+  - a write the original can't place is skipped on both sides.
+- A real callee write that starts inside our local and runs past its end fails, as equiv.py's
+  undersized-local check does ("writes 0x40 bytes through ecx ... ours has only 0x20").
+- The comparison is `compare_runs`, the level-3 rules.
+- The original's replay must reproduce the recorded outcome: status, call targets, eax/edx and the final
+  memory writes. Otherwise that call is counted `incomplete`, not compared.
+- Statuses per function:
+  - `agreed`;
+  - `mismatch` (first diff given);
+  - `no_replay` (captured, but nothing replayable);
+  - `not_reached`;
+  - `unsupported` (the function itself has `equiv-conv`).
+
+**Confidence tiers** (`tools/equiv_confidence.py`):
+
+| Tier | Meaning |
+|---|---|
+| 0 | replay mismatch, or listed in `hybrid/exclude.txt` |
+| 1 | fuzz only (not reached, or nothing replayable) |
+| 2 | replay agreed on 1–2 calls |
+| 3 | replay agreed on 3 or more calls |
+
+Fuzz evidence comes from `build/equiv/fuzz-cache.jsonl` (`--fuzz` fills it), or else from the source's
+`// STATUS:` line. `patch_xbe.py`/`hybrid_test.py`/`bisect_hybrid.py` take `--confidence FILE` and
+`--tier-min N`. The bisect orders candidates by tier, lowest first, so the first half it tries holds the
+least-trusted functions.
+
+**Validation (2026-10-12, session `s2`).**
+- **Capture:** 31 min unattended, boot → title → New Game → opening → junkyard tutorial gameplay; 203 MB.
+  Of 1,648 targets in equivalent/, 439 were reached and 429 captured, for 7,675 calls; 88 calls (1.1%)
+  failed their self-check.
+- **Replay** of every captured equivalent, at most 30 calls each, took about 75 min on 3 jobs:
+  - 7,205 calls replayed, 137 incomplete;
+  - 396 functions agree, 14 mismatch, 5 had nothing replayable, 14 are unsupported (`equiv-conv`).
+- **`hybrid/exclude.txt`:** the five sources as they were when excluded (9429e0a5) replay as mismatches
+  for 4 of 5, each with the cause the bisect found:
+  - 0x241390: a ctor writes 0x40 bytes into a 0x20-byte local;
+  - 0x324e00: QueryPerformanceFrequency writes 8 bytes into 4;
+  - 0x26ce10: void, but the original returns the allocation in eax;
+  - 0x259610: a local passed to 0x3c9ea7 differs. This one was previously unexplained.
+  - 0x329f70 (the menu stall) agrees on 30 calls.
+
+  The current, fixed sources of all five agree.
+- **`build/farm/equiv-demoted/`:** the 7 captured ones agree. Their known faults are on paths the
+  session never ran: 0x277810's bad callee 0x272bc0 and 0x332310's 0x329f20 were never called.
+- **False failures:** 0 among 29 captured matches and 0 among the 20 byte-identical equivalents.
+- **Bugs fuzzing missed:** among the 14 mismatches, 0x2a9920 (the real callee 0x28aa20 writes a 16-byte
+  object into a 12-byte local), 0x2b8b30 (0x35 bytes into 0x30) and 0x293ef0 (a callee declared to pop
+  4 bytes that pops 8). The rest are not triaged yet.
+
+**Limits.**
+- Coverage is what one scripted session reaches: boot, front end, the opening and the junkyard tutorial.
+- Writes a callee makes into the caller's frame through a pointer stored earlier (not passed in that
+  call) can't be placed in our frame. Such calls go `incomplete` when the original depends on them.
+- Uninitialised stack is `STACK_FILL` on both sides in replay, but the game's own bytes at capture.
+- Threads and DMA writing memory during a capture show up as failed self-checks (about 1%).
+- `equiv-conv` functions aren't replayed.
+
 ## Limits
 
 - **Loops kept going by callees.** A loop that ends only through a callee's side effect (a teardown
