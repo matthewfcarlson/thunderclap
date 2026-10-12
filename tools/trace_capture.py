@@ -1,15 +1,18 @@
 #!/usr/bin/env python3
 """Record real game states for trace-driven equivalence (docs/equivalence.md, "Trace replay").
 
-  tools/trace_capture.py --session play1 [--minutes 20] [--per-func 50] [--burst 5] [--rearm 45]
+  tools/trace_capture.py --session play1 [--minutes 30] [--per-func 50] [--burst 5] [--window 96] [--rotate 20]
                          [--matches-sample 300] [--script tests/replays/capture-gameplay.json]
   tools/trace_capture.py --write-script        # regenerate the default input script
 
 Boots the ORIGINAL game (the hooks-only build: fixed frame time, constant RNG seed, scripted pad input keyed
 by pad polls; skip-intro and no-fmv) in xemu with the GDB stub, with a breakpoint on the entry of every
 function in equivalent/ (plus the known-wrong ones in build/farm/equiv-demoted/ and a sample of matches, as
-controls). For each hit, up to --per-func calls per function (--burst at a time, re-armed every --rearm
-seconds so samples spread over the session), it co-simulates the call:
+controls). QEMU slows down with every breakpoint set (about 6x with 800, even never hit), so at most --window
+functions are armed at a time: a queue rotates through the targets, a function armed for --rotate seconds
+without a hit goes to the back, and one captured --burst times in a row makes room too (it comes back later,
+up to --per-func calls). The functions in hybrid/exclude.txt and build/farm/equiv-demoted/ (the validation
+targets) stay armed. For each hit, it co-simulates the call:
 
   * the function's original bytes run in Unicorn (equiv.py's Run, as in level 3) from the real registers and
     stack; every page it touches is read from the paused guest when first touched in a memory epoch, and
@@ -104,8 +107,11 @@ class CapGdb(Gdb):
         r = bytes.fromhex(self.cmd("g"))
         names = ("eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi", "eip", "eflags")
         d = dict(zip(names, struct.unpack_from("<10I", r)))
-        st = [struct.unpack_from("<QH", r, 64 + 10 * i) for i in range(8)]
-        d["fctrl"], d["fstat"], d["ftag"] = struct.unpack_from("<III", r, 144)
+        # (xemu's stub sends fs_base, gs_base, k_gs_base, cr0, cr2, cr3, cr4, cr8, efer after the segment
+        # registers: 344 bytes = 64 + 36 + 8 x 10 (st) + 8 x 4 (fctrl ...) + 8 x 16 (xmm) + 4 (mxcsr))
+        d["fs_base"], d["cr0"] = struct.unpack_from("<I", r, 64)[0], struct.unpack_from("<I", r, 76)[0]
+        st = [struct.unpack_from("<QH", r, 100 + 10 * i) for i in range(8)]
+        d["fctrl"], d["fstat"], d["ftag"] = struct.unpack_from("<III", r, 180)
         d["st0"] = equiv._x87_value(st[(d["fstat"] >> 11) & 7])     # (QEMU sends physical registers)
         return d
 
@@ -316,7 +322,7 @@ class CallCapture:
             "func": f, "n": n, "results": [], "pages": {},
             "entry": {"regs": {r: regs[r] for r in ("eax", "ecx", "edx", "ebx", "esi", "edi", "ebp")},
                       "stack": stack, "own_args": min(nargs, er.STACK_WORDS), "own_pop": pop,
-                      "fpcw": regs["fctrl"] & 0xFFFF, "esp_g": esp, "ret_g": ret_g, "below": raw[:esp - lo]},
+                      "fpcw": regs["fctrl"] & 0xFFFF, "fpsw": regs["fstat"] & 0xFFFF, "esp_g": esp, "ret_g": ret_g, "below": raw[:esp - lo]},
             "context": {"t": round(time.time() - cap.t0, 1), "polls": cap.polls, "frame": cap.frame,
                         "depth": self.depth}}
         prev_esp = er.set_entry_esp(esp)
@@ -406,6 +412,7 @@ class Capture:
         self.stats = Counter()
         self.depth = 0
         self.temp = Counter()           # temporary breakpoints (return addresses) -> users
+        self.stepped = Counter()        # breakpoints stepped over while waiting (diagnostics)
 
     def say(self, msg):
         line = "%7.1fs %s" % (time.time() - self.t0, msg)
@@ -462,6 +469,7 @@ class Capture:
         if f not in self.armed:
             self.g.bp_on(f)
             self.armed.add(f)
+            self.armed_at[f] = time.time()
 
     def disarm(self, f):
         if f in self.armed:
@@ -512,7 +520,10 @@ class Capture:
                         self.parked.add(r["eip"])
                     nested_s += time.time() - t1
                 elif r["eip"] in self.g.bps:
+                    self.stepped[r["eip"]] += 1
                     self.g.step_over(r["eip"])
+                else:
+                    self.stepped["other"] += 1
         finally:
             self.stats["guest_s"] += time.time() - t0 - nested_s
 
@@ -523,6 +534,7 @@ class Capture:
             return
         self.disarm(f)
         t1 = time.time()
+        stops0 = self.stats["stops"]
         cc = CallCapture(self, f, regs, depth)
         if depth == 0:
             why = cc.run(regs)
@@ -547,20 +559,37 @@ class Capture:
             if self.failed[f] <= 2:
                 self.say("%#x (%s) capture failed: %s" % (f, self.tgt[f], why))
         self.since_arm[f] += 1
-        if self.budget_left(f) and self.since_arm[f] < self.a.burst:
+        if self.budget_left(f) and (self.since_arm[f] < self.a.burst or f in self.pinned):
             self.arm(f)
-        if dt > 20 and depth == 0:
-            self.say("%#x took %.0fs" % (f, dt))
+        elif self.budget_left(f):
+            self.queue.append(f)        # back of the queue: more calls later in the session
+        nst = self.stats["stops"] - stops0
+        if (dt > 20 or nst > 2000) and depth == 0:
+            self.say("%#x took %.0fs, %d stops" % (f, dt, nst))
 
     # -- session ---------------------------------------------------------------------------------
-    def rearm(self):
+    def fill(self):
+        """Arm queued functions until the window is full."""
         n = 0
-        for f in self.tgt:
-            if f not in self.armed and self.budget_left(f):
-                self.since_arm[f] = 0
-                self.arm(f)
-                n += 1
+        while len(self.armed) < self.a.window and self.queue:
+            f = self.queue.popleft()
+            if f in self.armed or not self.budget_left(f):
+                continue
+            self.since_arm[f] = 0
+            self.arm(f)
+            n += 1
         return n
+
+    def rotate(self):
+        """Functions armed for --rotate seconds without a hit make room for the next ones in the queue."""
+        now = time.time()
+        old = [f for f in self.armed if f not in self.pinned and now - self.armed_at.get(f, now) >= self.a.rotate]
+        if not self.queue:
+            return 0
+        for f in sorted(old, key=lambda f: self.armed_at[f])[:len(self.queue)]:
+            self.disarm(f)
+            self.queue.append(f)
+        return self.fill()
 
     def housekeeping(self, force=False):
         now = time.time()
@@ -579,6 +608,9 @@ class Capture:
                          sum(self.failed.values()), self.stats["stops"], self.g.ops, self.stats["pages"],
                          self.stats["guest_s"], self.stats["capture_s"],
                          sum(v for k, v in self.stats.items() if k.startswith("captures_depth") and k[-1] != "0")))
+            if self.stepped:
+                self.say("  stepped over: %s" % ", ".join("%s x%d" % (k if isinstance(k, str) else "%#x" % k, v)
+                                                         for k, v in self.stepped.most_common(5)))
             self.flush_stats()
         if self.x and (force or now - self.last_shot >= self.a.shot_every):
             self.last_shot = now
@@ -589,11 +621,10 @@ class Capture:
             except Exception as e:          # the QMP monitor sometimes dies; capture goes on over GDB
                 self.say("screenshot failed (%r); no more screenshots" % e)
                 self.last_shot = float("inf")
-        if now - self.last_arm >= self.a.rearm:
+        if now - self.last_arm >= 2:
             self.last_arm = now
-            n = self.rearm()
-            if n:
-                self.say("re-armed %d functions" % n)
+            self.rotate()
+            self.fill()
 
     def flush_stats(self):
         with self.store_lock:
@@ -616,7 +647,7 @@ class Capture:
         self.man = patch_xbe.build([], xbe, tweaks=hybrid_test.TWEAKS, hooks=hooks)
         hybrid_run.install(xbe)
         self.store.meta("config", {"script": os.path.relpath(a.script, ROOT), "per_func": a.per_func,
-                                   "burst": a.burst, "rearm": a.rearm, "minutes": a.minutes,
+                                   "burst": a.burst, "window": a.window, "rotate": a.rotate, "minutes": a.minutes,
                                    "targets": dict(Counter(self.tgt.values()))})
         self.store.meta("targets", {"0x%08x" % f: k for f, k in self.tgt.items()})
         self.t0 = time.time()
@@ -624,10 +655,25 @@ class Capture:
         self.g = CapGdb()
         self.armed = set()
         self.parked = set()
+        self.armed_at = {}
+        from collections import deque
+        self.pinned = {f for f, k in self.tgt.items() if k == "demoted"} | \
+            {f for f in patch_xbe.default_exclude() if f in self.tgt}
+        # pinned first; then functions seen in earlier sessions (most likely to be reached), then the rest
+        seen = set()
+        for d in os.listdir(er.TRACES):
+            p = os.path.join(er.TRACES, d, "trace.sqlite")
+            if d != a.session and os.path.exists(p):
+                try:
+                    seen |= set(er.TraceStore(p).funcs())
+                except Exception:
+                    pass
+        order = sorted(self.tgt, key=lambda f: (f not in self.pinned, f not in seen, random.Random(f).random()))
+        self.queue = deque(order)
         self.polls = self.frame = None
         self.last_hk = self.last_shot = self.last_arm = time.time()
         self.say("arming %d functions (%s)" % (len(self.tgt), dict(Counter(self.tgt.values()))))
-        self.rearm()
+        self.fill()
         stop_at = self.t0 + 60 * a.minutes
         try:
             while time.time() < stop_at:
@@ -646,6 +692,7 @@ class Capture:
                         if self.budget_left(p):
                             self.arm(p)
                     self.parked = set()
+                    self.fill()
                     self.housekeeping()
                 elif f in self.g.bps:
                     self.g.step_over(f)
@@ -720,10 +767,12 @@ def gameplay_script(path):
 def main(argv):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--session", default=time.strftime("s%Y%m%d-%H%M"))
-    ap.add_argument("--minutes", type=float, default=20)
+    ap.add_argument("--minutes", type=float, default=30)
     ap.add_argument("--per-func", type=int, default=50, help="recorded calls per function")
     ap.add_argument("--burst", type=int, default=5, help="calls captured per arming of a function")
-    ap.add_argument("--rearm", type=float, default=45, help="seconds between re-arming functions under budget")
+    ap.add_argument("--window", type=int, default=96, help="most functions armed at once (QEMU slows with each)")
+    ap.add_argument("--rotate", type=float, default=20, help="seconds an armed function waits for a hit before it "
+                    "makes room")
     ap.add_argument("--max-fail", type=int, default=10, help="give up on a function after this many failed captures")
     ap.add_argument("--matches-sample", type=int, default=300, help="matched functions to capture as controls")
     ap.add_argument("--shot-every", type=float, default=30)

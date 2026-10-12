@@ -234,6 +234,11 @@ class TraceRun(Run):
         fpcw = self.trace["entry"].get("fpcw")
         if fpcw is not None:
             self.uc.reg_write(self.u.UC_X86_REG_FPCW, fpcw)
+        fpsw = self.trace["entry"].get("fpsw")
+        if fpsw is not None:
+            # the sticky exception flags and condition codes the game had (code that returns after fnstsw ax
+            # leaves them in eax); not TOP: the x87 stack is empty at a call
+            self.uc.reg_write(self.u.UC_X86_REG_FPSW, fpsw & 0x477F)
         below = self.trace["entry"].get("below")
         if self.syncer is not None and below:
             # capture: Unicorn runs on the game's own stack contents (uninitialised locals included), so it
