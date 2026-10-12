@@ -11,8 +11,8 @@ Usage:
   tools/progress_map.py OUT.svg --functions FUNCS.csv    # CI: committed list of game functions (address,size)
   tools/progress_map.py --write-functions FUNCS.csv      # refresh that list from build/
 
-CI (.github/workflows/progress-map.yml) runs the second form on every push to main and publishes the SVG
-to the `status` branch, so the image never enters main's history.
+CI (.github/workflows/progress-map.yml) runs the second form on every push to main and commits
+docs/progress-map.svg when it changed. Boxes are drawn as one path per status to keep the file and its diffs small.
 """
 import os
 import sys
@@ -84,7 +84,8 @@ def main(argv=None):
     order = ["matched", "equivalent", "unverified"]
     # Equal-byte columns read top to bottom, left to right; within a column, an ordered strip layout.
     scale = W * H / total
-    rects, ticks, i, x0 = [], [], 0, 0.0
+    paths, ticks, i, x0 = {"m": [], "e": [], "u": []}, [], 0, 0.0
+    f = lambda v: ("%.1f" % v).rstrip("0").rstrip(".")
     for c in range(COLS):
         want = total * (c + 1) / COLS
         j, acc = i, sum(n for _, n, _ in funcs[:i])
@@ -97,7 +98,8 @@ def main(argv=None):
         vals = [n * scale for _, n, _ in col]
         colw = sum(vals) / H      # whole functions per column, so widths differ slightly; heights don't
         for (a, n, k), (x, y, w, h) in zip(col, strip(vals, x0, PAD_TOP, colw, H)):
-            rects.append('<rect class="%s" x="%.1f" y="%.1f" width="%.1f" height="%.1f"/>' % (k[0], x, y, w, h))
+            # One path per status keeps the file small (and its diffs small): a box is "M x y h w v h H x z".
+            paths[k[0]].append("M%s %sh%sv%sH%sz" % (f(x), f(y), f(w), f(h), f(x)))
         ticks.append('<text class="t3" x="%.1f" y="%d">0x%x</text>' % (x0 + 1, PAD_TOP - 4, col[0][0]))
         x0 += colw
         i = j
@@ -116,7 +118,7 @@ svg {{ --bg:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --m:#2a78d6; --e:#eb6834; --
 @media (prefers-color-scheme: dark) {{ svg {{ --bg:#1a1a19; --ink:#f0efec; --ink2:#c3c2b7; --m:#3987e5; --e:#d95926; --u:#3a3a37; --gap:#1a1a19; }} }}
 .bg {{ fill: var(--bg); }}
 .m {{ fill: var(--m); }} .e {{ fill: var(--e); }} .u {{ fill: var(--u); }}
-g.boxes rect {{ stroke: var(--gap); stroke-width: 0.5; }}
+g.boxes path {{ stroke: var(--gap); stroke-width: 0.5; }}
 .t1 {{ fill: var(--ink); font: 600 16px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }}
 .t2 {{ fill: var(--ink2); font: 13px -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }}
 .t3 {{ fill: var(--ink2); font: 10px ui-monospace, Menlo, Consolas, monospace; }}
@@ -126,7 +128,7 @@ g.boxes rect {{ stroke: var(--gap); stroke-width: 0.5; }}
 {chr(10).join(legend)}
 {chr(10).join(ticks)}
 <g class="boxes">
-{chr(10).join(rects)}
+{chr(10).join('<path class="%s" d="%s"/>' % (c, "".join(d)) for c, d in paths.items())}
 </g>
 </svg>
 '''

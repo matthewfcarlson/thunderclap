@@ -1,6 +1,7 @@
 # Redraw the README's treemap (one box per game function, coloured by verification status) on every
-# push to main that changes what's verified, and publish it to the `status` branch. The branch holds a
-# single force-pushed commit, so the 1.7 MB image never accumulates in history.
+# push to main that changes what's verified, and commit it to docs/progress-map.svg if it changed.
+# It has to live on main: a private repo's README can only show images by relative path in the same
+# branch (absolute URLs go through GitHub's image proxy, which can't read private repos).
 name: Progress map
 
 on:
@@ -28,22 +29,18 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
-          sparse-checkout: |
-            matches
-            equivalent
-            docs/game-functions.csv
-            tools/progress_map.py
-          sparse-checkout-cone-mode: false
       - name: Draw
+        run: python3 tools/progress_map.py docs/progress-map.svg --functions docs/game-functions.csv
+      - name: Commit if changed
         run: |
-          mkdir -p out
-          python3 tools/progress_map.py out/progress-map.svg --functions docs/game-functions.csv
-      - name: Publish to the status branch
-        run: |
-          cd out
-          git init -q -b status
+          git diff --quiet -- docs/progress-map.svg && { echo "unchanged"; exit 0; }
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add progress-map.svg
+          git add docs/progress-map.svg
           git commit -q -m "Progress map for ${GITHUB_SHA::8}"
-          git push -q --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" status
+          # Pushes made with GITHUB_TOKEN don't trigger workflows, so this can't loop.
+          for i in 1 2 3; do
+            git push -q origin HEAD:main && exit 0
+            git pull -q --rebase origin main
+          done
+          exit 1
