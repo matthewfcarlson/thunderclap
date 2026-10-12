@@ -3890,8 +3890,11 @@ def clang_check(src):
 
 def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mapping=None, max_level=3,
            max_steps=50000, use_names=True, clang=False, obj_path=None, keep_runs=False, time_budget=120,
-           conventions=None):
-    """Run levels 1-3 for SRC against the original function at ADDR. Returns the report dict."""
+           conventions=None, level3_fn=None):
+    """Run levels 1-3 for SRC against the original function at ADDR. Returns the report dict.
+
+    level3_fn: run this instead of the fuzzing level 3 (tools/equiv_replay.py replays recorded game states);
+    it gets the same setup as level3() as keyword arguments and its result is returned as rep["replay"]."""
     t0 = time.time()
     max_inputs = max(max_inputs, n_inputs)      # (--inputs 3000 asks for at least that many)
     prog = Program.get()
@@ -4004,6 +4007,12 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
         if rep["level"] == 2:
             rep["level"] = 1
         issues = issues + bad
+    if level3_fn is not None:
+        rep["replay"] = level3_fn(prog=prog, oview=oview, rview=rview, ours=ours, orefs=orefs, sig=sig,
+                                  ret_kind=ret_kind, psizes=psizes, convs=convs, decls=decls, void_eax=void_eax,
+                                  issues=issues)
+        rep["time"] = round(time.time() - t0, 2)
+        return rep
     l3 = level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs,
                 time_budget, psizes=psizes, convs=convs, decls=decls, void_eax=void_eax)
     rep["level3"] = l3
@@ -4076,6 +4085,19 @@ def _conv_input(inp, ours_layout, conv):
     return dict(inp, regs=regs, stack=stack + pad, own_args=list(stack), own_pop=None)
 
 
+def caller_cleaned(prog, oview):
+    """Callees with a plain ret whose call sites in the original clean up the arguments themselves."""
+    caller_cleans = set()
+    sites = defaultdict(list)
+    for a_, i_ in oview.insns.items():
+        if i_.kind == "call" and i_.target is not None:
+            sites[i_.target].append(a_)
+    for t_, ss in sites.items():
+        if prog.callee_pop(t_) == 0 and any(oview.cleanup_after(x) for x in ss):
+            caller_cleans.add(t_)
+    return caller_cleans
+
+
 def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs=False,
            time_budget=120, directed=96, psizes=None, convs=None, decls=None, void_eax=False):
     globals_ = sorted({t for _, k, t in orefs if k in ("data", "imm") and prog.section_name(t) in (".data", "BINKDATA", "DOLBY")})
@@ -4097,14 +4119,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     # with a plain ret whose original callers clean up (e.g. `this` in ecx plus caller-popped stack args,
     # declared by us as a thiscall member), and callees with an equiv-conv annotation. Elsewhere both sides
     # use the callee's real `ret N`.
-    caller_cleans = set()
-    sites = defaultdict(list)
-    for a_, i_ in oview.insns.items():
-        if i_.kind == "call" and i_.target is not None:
-            sites[i_.target].append(a_)
-    for t_, ss in sites.items():
-        if prog.callee_pop(t_) == 0 and any(oview.cleanup_after(x) for x in ss):
-            caller_cleans.add(t_)
+    caller_cleans = caller_cleaned(prog, oview)
     own_layout = decl_layout(sig)[0] or [] if target_conv else []
     esp_adjust = 0
     if target_conv:           # each side pops its own arguments: compare against each side's expectation

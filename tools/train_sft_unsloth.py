@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """LoRA SFT of a local Qwen on the farm dataset, via unsloth (MLX or CUDA).
 
-Takes build/farm/dataset/hulk-sft-v1.jsonl (see tools/export_dataset.py) and
+Takes build/farm/dataset/hulk-sft-v1.jsonl (see tools/export_dataset.py), plus
+--extra files in the same schema (hulk-matches-v1.jsonl, external-halo.jsonl), and
 trains one row per assistant turn: prompt = template(system, user, prior turns,
 generation prompt), completion = what the template renders for that assistant
 turn (<think>…</think> + submit_cpp tool call, in the model's own tool-call
-syntax). Prompt tokens are masked out of the loss.
+syntax). Prompt tokens are masked out of the loss. With --turns final (default)
+only the matching submission is a target; failed attempts and their diffs stay
+in its prompt, so the model learns to fix from feedback without imitating misses.
 
 Runs on the training box. On Apple Silicon use Unsloth Studio's env (MLX backend):
   ~/.unsloth/studio/unsloth_studio/bin/python tools/train_sft_unsloth.py \
@@ -19,6 +22,7 @@ import random
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 DEFAULT_DATA = os.path.join(ROOT, "build/farm/dataset/hulk-sft-v1.jsonl")
+DEFAULT_EXTRA = [os.path.join(ROOT, "build/farm/dataset", f) for f in ("hulk-matches-v1.jsonl", "hulk-equiv-v1.jsonl", "external-halo.jsonl")]
 DEFAULT_OUT = os.path.join(ROOT, "build/dataset/ulk-1-lora")
 
 # submit_cpp schema, byte-matched to farm/src/farm.ts toolParameters.
@@ -75,26 +79,32 @@ def pairs_for_conversation(ex, tok):
     return out
 
 
-def load_pairs(path, tok, split, thinking):
+def load_pairs(paths, tok, split, thinking, turns):
     pairs, n_conv = [], 0
-    with open(path) as f:
-        for line in f:
-            ex = json.loads(line)
-            if ex["split"] != split:
-                continue
-            if thinking == "with" and not ex["has_thinking"]:
-                continue
-            if thinking == "without":
-                for m in ex["messages"]:
-                    m.pop("reasoning", None)
-            n_conv += 1
-            pairs.extend(pairs_for_conversation(ex, tok))
+    for path in paths:
+        with open(path) as f:
+            for line in f:
+                ex = json.loads(line)
+                if ex["split"] != split:
+                    continue
+                if thinking == "with" and not ex["has_thinking"]:
+                    continue
+                if thinking == "without":
+                    for m in ex["messages"]:
+                        m.pop("reasoning", None)
+                n_conv += 1
+                got = pairs_for_conversation(ex, tok)
+                pairs.extend(got[-1:] if turns == "final" else got)
     return pairs, n_conv
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", default=DEFAULT_DATA)
+    ap.add_argument("--extra", nargs="*", default=[p for p in DEFAULT_EXTRA if os.path.exists(p)],
+                    help="more datasets in the same schema (train/val/test split field honoured)")
+    ap.add_argument("--turns", choices=["final", "all"], default="final",
+                    help="final: train only on the matching submission; all: every attempt (ulk-1)")
     ap.add_argument("--model", default="unsloth/Qwen3.6-35B-A3B")
     ap.add_argument("--precision", choices=["bf16", "8bit", "4bit"], default="bf16")
     ap.add_argument("--out", default=DEFAULT_OUT)
@@ -141,8 +151,11 @@ def main():
         max_seq_length=args.max_seq,
     )
 
-    train, n_conv = load_pairs(args.data, tok, "train", args.thinking)
-    val, _ = load_pairs(args.data, tok, "val", args.thinking)
+    files = [args.data] + list(args.extra)
+    print("data:", ", ".join(os.path.basename(f) for f in files))
+    train, n_conv = load_pairs(files, tok, "train", args.thinking, args.turns)
+    # val stays Hulk-transcript-only so loss is comparable with ulk-1
+    val, _ = load_pairs([args.data], tok, "val", args.thinking, args.turns)
     random.Random(3407).shuffle(train)
     # Drop rather than truncate: truncation would cut the tool call mid-way.
     fits = lambda rows: [r for r in rows if len(tok(r[0] + r[1], add_special_tokens=False)["input_ids"]) <= args.max_seq]

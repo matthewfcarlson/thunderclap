@@ -108,7 +108,7 @@ def determinism(args):
 
 
 def select_records(args):
-    jobs = patch_xbe.select(args)
+    jobs = patch_xbe.tier_filter(patch_xbe.select(args), args)
     if args.set:
         keep = patch_xbe.read_addr_file(args.set)
         jobs = [j for j in jobs if j[0] in keep]
@@ -158,6 +158,7 @@ def add_selection_args(ap):
     ap.add_argument("--no-default-exclude", action="store_true")
     ap.add_argument("--classes", default="identical")
     ap.add_argument("--jobs", type=int, default=8)
+    patch_xbe.add_tier_args(ap)
 
 
 def main(argv):

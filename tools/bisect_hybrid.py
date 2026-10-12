@@ -4,6 +4,9 @@
   tools/bisect_hybrid.py --matches all [--equivalent] [--classes identical,local,equivalent]
                          [--replay R] [--seconds 45] [--max-runs 30]
 
+With build/equiv-confidence.json (tools/equiv_confidence.py), candidates are ordered by confidence tier, lowest
+first, so the first half tried holds the least-trusted equivalents; --tier-min drops low tiers altogether.
+
 A build passes when it reaches the title, keeps running, and its checkpoints match the hooks-only
 baseline on the same replay (tools/hybrid_test.py compare). The patched set is split in halves (in
 address order, so subsystems stay together); a failing half is kept; if both halves pass alone, the
@@ -89,7 +92,14 @@ def main(argv):
     args = ap.parse_args(argv)
     recs = hybrid_test.select_records(args)
     b = Bisect(args, recs)
-    cand = sorted(b.recs)
+    # lowest confidence first (tools/equiv_confidence.py): the first half tried holds the least-trusted
+    # equivalents; matches (byte-identical or with local helpers) come last
+    tier = hybrid_test.patch_xbe.tiers(args.confidence)
+    rank = {a: (tier.get(a, 1) if r["class"] == "equivalent" else 9) for a, r in b.recs.items()}
+    cand = sorted(b.recs, key=lambda a: (rank[a], a))
+    if tier:
+        from collections import Counter
+        print("candidates by tier: %s" % dict(sorted(Counter(rank.values()).items())), file=sys.stderr)
     print("bisecting %d patched functions" % len(cand), file=sys.stderr)
     if b.passes(cand):
         print(json.dumps({"result": "pass", "patched": len(cand), "runs": b.runs}))

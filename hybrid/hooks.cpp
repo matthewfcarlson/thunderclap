@@ -71,6 +71,8 @@ struct HybridCtl {
 #define HF_CKPT     8
 #define HF_WIDE     32               // hash all of .data/.bss per page (see HybridCtl)
 #define HF_AUTOSTART 16               // pulse START while the game loop is stalled (loading-screen "Press START")
+#define HF_POLLKEY  64               // replay entries are keyed by pad polls instead of frames (tools/trace_capture.py:
+                                     // after the new-game load the frame counter races, polls stay ~1 per frame)
 
 static unsigned int s_last_frame;
 
@@ -176,11 +178,12 @@ extern "C" unsigned long __stdcall hybrid_xinput_get_state(void* device, unsigne
     unsigned char* pad = state + 4;          // XINPUT_STATE.Gamepad (22 bytes total, 18 of pad)
     if (g_hybrid.flags & HF_REPLAY) {
         unsigned int pos = g_hybrid.replay_pos;
-        while (pos + 1 < g_hybrid.replay_count && g_hybrid.replay[pos + 1].frame <= g_hybrid.frame)
+        unsigned int key = (g_hybrid.flags & HF_POLLKEY) ? g_hybrid.polls : g_hybrid.frame;
+        while (pos + 1 < g_hybrid.replay_count && g_hybrid.replay[pos + 1].frame <= key)
             pos++;
         g_hybrid.replay_pos = pos;
         const unsigned char* src = 0;
-        if (pos < g_hybrid.replay_count && g_hybrid.replay[pos].frame <= g_hybrid.frame)
+        if (pos < g_hybrid.replay_count && g_hybrid.replay[pos].frame <= key)
             src = (const unsigned char*)&g_hybrid.replay[pos].buttons;
         for (int i = 0; i < 18; i++)
             pad[i] = src ? src[i] : 0;

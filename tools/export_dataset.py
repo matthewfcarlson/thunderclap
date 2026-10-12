@@ -6,6 +6,8 @@ reconstructs matched conversations, verifies winners against matches/, and write
 
   dataset/raw/<addr>-t<tier>.json   verbatim per-conversation export (optional)
   dataset/hulk-sft-v1.jsonl         curated chat examples (multi-turn, thinking kept)
+  dataset/hulk-matches-v1.jsonl     one-turn examples for every other verified match in
+                                    matches/ (packet -> submit_cpp(match)), no transcript needed
   dataset/grpo-prompts-v1.jsonl     one prompt per unique function (for RL, reward = compare.py)
   dataset/stats-v1.json             counts, thinking coverage, sizes, splits
 
@@ -13,6 +15,7 @@ Usage:
   build/venv/bin/python tools/export_dataset.py [--db build/farm/dataset/farm-snapshot.sqlite]
 """
 import argparse
+import glob
 import hashlib
 import re
 import json
@@ -23,7 +26,11 @@ from collections import Counter, defaultdict
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SNAPSHOT = os.path.join(ROOT, "build/farm/dataset/farm-snapshot.sqlite")
 MATCHES = os.path.join(ROOT, "matches")
+EQUIVALENT = os.path.join(ROOT, "equivalent")
+LANE_DBS = os.path.join(ROOT, "build/farm/lanes/*.sqlite")
 PACKETS = os.path.join(ROOT, "build/farm/packets")
+MATCH_PACKETS = os.path.join(ROOT, "build/farm/dataset/packets-matches")  # tools/packet.py build output
+PROMPT_TS = os.path.join(ROOT, "farm/src/prompt.ts")
 
 # Deltas are arrays of ops: ["s",path,val] set, ["a",path,val] append,
 # ["t",path,n] truncate string/list to n.
@@ -193,32 +200,127 @@ def split_of(addr):
     return "test" if h >= 98 else "val" if h >= 96 else "train"
 
 
+def farm_system_prompt(name="SYSTEM_PROMPT"):
+    """SYSTEM_PROMPT / EQUIV_SYSTEM_PROMPT from farm/src/prompt.ts (plain template literals)."""
+    src = open(PROMPT_TS).read()
+    start = src.index(f"export const {name} = `") + len(f"export const {name} = `")
+    return src[start: src.index("`;", start)]
+
+
+MATCH_NOISE = re.compile(r"^// (Same code shape as .*|Target: .*|STATUS: .*)\n", re.M)
+
+
+def match_examples(transcript_codes, attempts, task="match"):
+    """One-turn examples from matches/ (or equivalent/) for functions without a transcript example.
+
+    The packet is rebuilt by tools/packet.py (build/farm/packets, else MATCH_PACKETS:
+      tools/packet.py build --queue <addrs> --out build/farm/dataset/packets-matches).
+    Propagated matches ("Same code shape as ...") repeat another function's code under
+    another address: identical code is kept once, so the set doesn't overweight them.
+    """
+    system = farm_system_prompt("EQUIV_SYSTEM_PROMPT" if task == "equiv" else "SYSTEM_PROMPT")
+    src_dir = EQUIVALENT if task == "equiv" else MATCHES
+    seen = set(transcript_codes)
+    out, stats = [], Counter()
+    for fn in sorted(os.listdir(src_dir)):
+        if not fn.endswith(".cpp"):
+            continue
+        addr = fn[:-4]
+        if addr in attempts:
+            stats["has_transcript"] += 1
+            continue
+        code = open(os.path.join(src_dir, fn)).read()
+        if task == "match" and "STATUS: equivalent" in code:
+            stats["equivalent_not_match"] += 1
+            continue
+        code = MATCH_NOISE.sub("", code).strip() + "\n"
+        key = squash(strip_comments(code))
+        if key in seen:
+            stats["duplicate_code"] += 1
+            continue
+        packet_path = next((p for p in (os.path.join(PACKETS, addr + ".txt"), os.path.join(MATCH_PACKETS, addr + ".txt"))
+                            if os.path.exists(p)), None)
+        if not packet_path:
+            stats["no_packet"] += 1
+            continue
+        seen.add(key)
+        packet = open(packet_path).read()
+        out.append({
+            "id": f"{addr}:{'e' if task == 'equiv' else 'm'}",
+            "addr": addr,
+            "source": "equivalent" if task == "equiv" else "matches",
+            "task": task,
+            "tier": None,
+            "model": None,
+            "attempts": 1,
+            "size_bytes": packet_size(packet),
+            "messages": [
+                {"role": "system", "content": system},
+                # farm/src/prompt.ts taskPrompt: packet + "\nYou have N submissions..."
+                {"role": "user", "content": packet + "\nYou have 8 submissions. Call submit_cpp now."},
+                {"role": "assistant", "content": "", "tool_calls": [{"name": "submit_cpp", "arguments": {"code": code}}]},
+            ],
+            "winner_code": code,
+            "has_thinking": False,
+            "matches_variant": "exact",
+            "score": 1,
+            "split": split_of(addr),
+        })
+    return out, dict(stats)
+
+
+def winner_variant(path, code):
+    """How the transcript's winning code relates to the committed file:
+    exact | formatting_only (whitespace-insensitive) | comments_only |
+    curated_diff (a later, differently-written variant) | no_file"""
+    if not os.path.exists(path):
+        return "no_file"
+    target = MATCH_NOISE.sub("", open(path).read())
+    code = MATCH_NOISE.sub("", code)
+    if target.strip() == code.strip():
+        return "exact"
+    if squash(target) == squash(code):
+        return "formatting_only"
+    if squash(strip_comments(target)) == squash(strip_comments(code)):
+        return "comments_only"
+    return "curated_diff"
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--db", default=SNAPSHOT)
+    ap.add_argument("--db", nargs="*", default=None,
+                    help="pi-durable transcript DBs (default: the snapshot + every build/farm/lanes/*.sqlite)")
     ap.add_argument("--out", default=os.path.join(ROOT, "build/farm/dataset"))
     ap.add_argument("--max-turns", type=int, default=6)
     ap.add_argument("--skip-raw", action="store_true")
+    ap.add_argument("--no-matches", action="store_true", help="skip hulk-matches-v1.jsonl")
     args = ap.parse_args()
+    dbs = args.db if args.db is not None else [SNAPSHOT] + sorted(glob.glob(LANE_DBS))
 
     os.makedirs(os.path.join(args.out, "raw"), exist_ok=True)
-    db = sqlite3.connect(f"file:{args.db}?mode=ro", uri=True)
-    jobs = load_jobs(db)
-    print(f"jobs: {len(jobs)}")
+    # Successful jobs from every DB. Lanes and the snapshot can hold the same function;
+    # one example per (addr, task) is kept below. task: match (byte-identical, --mode match)
+    # or equiv (behaviour-equivalent, --mode equiv; its transcript carries EQUIV_SYSTEM_PROMPT).
+    done = []
+    for path in dbs:
+        db = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+        try:
+            jobs = load_jobs(db)
+        except sqlite3.DatabaseError as e:
+            print(f"{os.path.basename(path)}: skipped ({e})")
+            continue
+        ok = [j for j in jobs.values() if j.get("status") in ("match", "equivalent") and j.get("_cid")]
+        print(f"{os.path.basename(path)}: {len(jobs)} jobs, {len(ok)} successful with conversation")
+        done += [(db, j) for j in ok]
 
-    matched = [j for j in jobs.values() if j.get("status") == "match" and j.get("_cid")]
-    print(f"matched with conversation: {len(matched)}")
-
-    # one example per (addr,tier); prefer conversations with thinking on packet duplicates
     per_addr = defaultdict(list)
-    for j in matched:
-        per_addr[j["addr"]].append(j)
+    for db, j in done:
+        per_addr[(j["addr"], "equiv" if j["status"] == "equivalent" else "match")].append((db, j))
 
     sft, stats = [], Counter()
-    winner_ok = winner_bad = 0
-    for addr, group in sorted(per_addr.items()):
+    for (addr, task), group in sorted(per_addr.items()):
         cands = []
-        for j in group:
+        for db, j in group:
             entries = load_conversation(db, j["_cid"])
             ex = build_example(j, entries, addr, j.get("tier", 0), args.max_turns)
             if not ex:
@@ -232,39 +334,25 @@ def main():
         cands.sort(key=lambda x: (not x[0]["has_thinking"], x[0]["attempts"]))
         ex, entries, job = cands[0]
         stats["skipped_duplicate_addr"] += len(cands) - 1
+        ex["task"] = task
+        if task == "equiv":
+            ex["id"] = f"{addr}:e{ex['tier']}"
 
-        # Cross-check winner against matches/<addr>.cpp. The authoritative match
-        # proof is the farm's own compare.py verdict (status==match, score 1.0);
-        # matches/ is often clang-formatted or hand-curated afterwards.
-        #   exact | formatting_only (whitespace-insensitive) | comments_only |
-        #   curated_diff (a later, differently-written variant) | no_file
-        path = os.path.join(MATCHES, f"{addr}.cpp")
-        if os.path.exists(path):
-            target = open(path).read()
-            if target == ex["winner_code"]:
-                ex["matches_variant"] = "exact"
-            elif squash(target) == squash(ex["winner_code"]):
-                ex["matches_variant"] = "formatting_only"
-            elif squash(strip_comments(target)) == squash(strip_comments(ex["winner_code"])):
-                ex["matches_variant"] = "comments_only"
-            else:
-                ex["matches_variant"] = "curated_diff"
-        else:
-            ex["matches_variant"] = "no_file"
-        winner_ok += ex["matches_variant"] in ("exact", "formatting_only", "comments_only")
-        winner_bad += ex["matches_variant"] == "curated_diff"
-        ex["score"] = j_best = max(
-            (h.get("score", -1) for h in (job.get("history") or [])), default=1
-        )
+        # Cross-check the winner against the committed file. The authoritative proof is the
+        # farm's own verdict (compare.py match / equiv.py level 3); committed files are often
+        # clang-formatted or hand-curated afterwards.
+        ex["matches_variant"] = winner_variant(os.path.join(EQUIVALENT if task == "equiv" else MATCHES, f"{addr}.cpp"),
+                                               ex["winner_code"])
+        ex["score"] = max((h.get("score", -1) for h in (job.get("history") or [])), default=1)
         ex["split"] = split_of(addr)
         sft.append(ex)
         if not args.skip_raw:
-            with open(os.path.join(args.out, "raw", f"{addr}-t{ex['tier']}.json"), "w") as f:
-                json.dump({"addr": addr, "tier": ex["tier"], "entries": entries}, f, indent=1)
+            with open(os.path.join(args.out, "raw", f"{ex['id'].replace(':', '-')}.json"), "w") as f:
+                json.dump({"addr": addr, "tier": ex["tier"], "task": task, "entries": entries}, f, indent=1)
 
     # RL prompt set: every function that has a packet (reward = tools/compare.py score)
     grpo = []
-    matched_addrs = {ex["addr"] for ex in sft}
+    matched_addrs = {ex["addr"] for ex in sft if ex["task"] == "match"}
     if os.path.isdir(PACKETS):
         for fn in sorted(os.listdir(PACKETS)):
             if not fn.endswith(".txt"):
@@ -299,6 +387,7 @@ def main():
     tok = [approx_tokens(json.dumps(ex["messages"])) for ex in sft]
     stats_out = {
         "sft_examples": len(sft),
+        "sft_by_task": dict(Counter(ex["task"] for ex in sft)),
         "with_thinking": think,
         "thinking_pct": round(100 * think / max(len(sft), 1), 1),
         "matches_check": dict(Counter(ex["matches_variant"] for ex in sft)),
@@ -313,6 +402,19 @@ def main():
         "grpo_unmatched": sum(1 for r in grpo if not r["matched"]),
         "skipped": dict(stats),
     }
+    if not args.no_matches:
+        # one-turn examples for committed functions without a transcript; equiv examples need
+        # packets for their (larger) functions: tools/packet.py build --out MATCH_PACKETS
+        for task, name in (("match", "hulk-matches-v1.jsonl"), ("equiv", "hulk-equiv-v1.jsonl")):
+            have = [ex for ex in sft if ex["task"] == task]
+            mex, mstats = match_examples({squash(strip_comments(MATCH_NOISE.sub("", ex["winner_code"]))) for ex in have},
+                                         {ex["addr"] for ex in have}, task)
+            with open(os.path.join(args.out, name), "w") as f:
+                for ex in mex:
+                    f.write(json.dumps(ex) + "\n")
+            stats_out[f"{task}_files_examples"] = len(mex)
+            stats_out[f"{task}_files_split_counts"] = dict(Counter(ex["split"] for ex in mex))
+            stats_out[f"{task}_files_skipped"] = mstats
     with open(os.path.join(args.out, "stats-v1.json"), "w") as f:
         json.dump(stats_out, f, indent=1)
     print(json.dumps(stats_out, indent=1))

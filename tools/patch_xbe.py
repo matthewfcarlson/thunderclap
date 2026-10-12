@@ -325,7 +325,7 @@ CTL_REPLAY = CTL_CKPT + CKPT_RING * 8
 CTL_RECORD = CTL_REPLAY + INPUT_MAX * PAD_BYTES
 CTL_WIDE = CTL_RECORD + INPUT_MAX * PAD_BYTES        # wide_lo, wide_hi, snap_frame, snap_taken, mask[8], pages, snap
 WIDE_PAGES = 256
-HF = {"fixed-dt": 1, "replay": 2, "record": 4, "ckpt": 8, "autostart": 16, "wide": 32}
+HF = {"fixed-dt": 1, "replay": 2, "record": 4, "ckpt": 8, "autostart": 16, "wide": 32, "pollkey": 64}
 
 
 def link_hooks(base):
@@ -523,6 +523,35 @@ def default_exclude():
     return read_addr_file(DEFAULT_EXCLUDE) if os.path.exists(DEFAULT_EXCLUDE) else set()
 
 
+CONFIDENCE = os.path.join(ROOT, "build/equiv-confidence.json")
+
+
+def tiers(path=None):
+    """{addr: tier} from tools/equiv_confidence.py's file (0 mismatch .. 3 replay-verified); {} if absent."""
+    path = path or CONFIDENCE
+    if not os.path.exists(path):
+        return {}
+    doc = json.load(open(path))
+    return {int(a, 16): r["tier"] for a, r in doc["functions"].items()}
+
+
+def tier_filter(jobs, args):
+    """Drop equivalent/ functions below --tier-min (missing from the confidence file: tier 1, fuzz only)."""
+    if getattr(args, "tier_min", None) is None:
+        return jobs
+    t = tiers(getattr(args, "confidence", None))
+    if not t:
+        raise SystemExit("--tier-min needs %s (tools/equiv_confidence.py)" % os.path.relpath(
+            getattr(args, "confidence", None) or CONFIDENCE, ROOT))
+    return [j for j in jobs if j[2] != "equivalent" or t.get(j[0], 1) >= args.tier_min]
+
+
+def add_tier_args(ap):
+    ap.add_argument("--confidence", help="equivalence confidence file (default build/equiv-confidence.json)")
+    ap.add_argument("--tier-min", type=int, help="only equivalent/ functions at this confidence tier or higher "
+                    "(0 mismatch, 1 fuzz only, 2 replay agreed on a few calls, 3 replay-verified)")
+
+
 def read_addr_file(path):
     out = set()
     for line in open(path):
@@ -556,8 +585,9 @@ def main(argv):
     ap.add_argument("--record", action="store_true", help="with --hooks: log pad changes into g_hybrid.record")
     ap.add_argument("--no-fixed-dt", action="store_true")
     ap.add_argument("--report", help="write every record (incl. rejects) to this JSON file")
+    add_tier_args(ap)
     args = ap.parse_args(argv)
-    jobs = select(args)
+    jobs = tier_filter(select(args), args)
     if args.set:
         keep = read_addr_file(args.set)
         jobs = [j for j in jobs if j[0] in keep]
