@@ -1,0 +1,49 @@
+# Redraw the README's treemap (one box per game function, coloured by verification status) on every
+# push to main that changes what's verified, and publish it to the `status` branch. The branch holds a
+# single force-pushed commit, so the 1.7 MB image never accumulates in history.
+name: Progress map
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "matches/**"
+      - "equivalent/**"
+      - "docs/game-functions.csv"
+      - "tools/progress_map.py"
+      - ".github/workflows/progress-map.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: progress-map
+  cancel-in-progress: true
+
+jobs:
+  map:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: |
+            matches
+            equivalent
+            docs/game-functions.csv
+            tools/progress_map.py
+          sparse-checkout-cone-mode: false
+      - name: Draw
+        run: |
+          mkdir -p out
+          python3 tools/progress_map.py out/progress-map.svg --functions docs/game-functions.csv
+      - name: Publish to the status branch
+        run: |
+          cd out
+          git init -q -b status
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add progress-map.svg
+          git commit -q -m "Progress map for ${GITHUB_SHA::8}"
+          git push -q --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" status

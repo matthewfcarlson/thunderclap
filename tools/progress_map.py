@@ -2,17 +2,22 @@
 """Map of game code by verification status: one box per function, area proportional to its bytes,
 laid out in address order (left to right, top to bottom), so neighbouring boxes are neighbouring code.
 
-Writes docs/progress-map.svg (light and dark via prefers-color-scheme), used by the README. The layout is
+Writes an SVG (light and dark via prefers-color-scheme) shown in the README. The layout is
 an ordered strip treemap (Bederson et al.): rows fill left to right, each row takes items in address order
 for as long as that improves the row's average aspect ratio, so boxes stay close to square.
 
-Usage: tools/progress_map.py [OUT.svg]
+Usage:
+  tools/progress_map.py OUT.svg                          # local: function list from build/ (needs the XBE)
+  tools/progress_map.py OUT.svg --functions FUNCS.csv    # CI: committed list of game functions (address,size)
+  tools/progress_map.py --write-functions FUNCS.csv      # refresh that list from build/
+
+CI (.github/workflows/progress-map.yml) runs the second form on every push to main and publishes the SVG
+to the `status` branch, so the image never enters main's history.
 """
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from packet import Db  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 W, H = 1200, 640          # plot area
@@ -42,17 +47,36 @@ def strip(values, x, y, w, h):
     return out
 
 
-def main():
-    out = sys.argv[1] if len(sys.argv) > 1 and sys.argv[1].endswith(".svg") else os.path.join(ROOT, "docs/progress-map.svg")
+def game_functions(path=None):
+    """[(address, size)] of game-code functions: from a committed CSV, or from build/ via packet.Db."""
+    if path:
+        rows = [l.split(",") for l in open(path) if l.strip() and not l.startswith("address")]
+        return [(int(a, 16), int(n)) for a, n in rows]
+    from packet import Db
     db = Db()
-    has = lambda d, a: os.path.exists(os.path.join(ROOT, d, "0x%08x.cpp" % a))
+    return [(int(r["address"], 16), int(r["size"])) for r in db.funcs.values() if db.is_game(r)]
+
+
+def main(argv=None):
+    argv = sys.argv[1:] if argv is None else argv
+    if "--write-functions" in argv:
+        path = argv[argv.index("--write-functions") + 1]
+        with open(path, "w") as f:
+            f.write("address,size\n")
+            for a, n in sorted(game_functions()):
+                f.write("0x%08x,%d\n" % (a, n))
+        print(path)
+        return
+    src = argv[argv.index("--functions") + 1] if "--functions" in argv else None
+    outs = [a for a in argv if a.endswith(".svg")]
+    out = outs[0] if outs else os.path.join(ROOT, "build/progress-map.svg")
+    matched = {f[:-4] for f in os.listdir(os.path.join(ROOT, "matches")) if f.endswith(".cpp")}
+    equiv = {f[:-4] for f in os.listdir(os.path.join(ROOT, "equivalent")) if f.endswith(".cpp")}
     groups = {"matched": [], "equivalent": [], "unverified": []}
     funcs = []
-    for r in db.funcs.values():
-        if not db.is_game(r):
-            continue
-        a, n = int(r["address"], 16), int(r["size"])
-        k = "matched" if has("matches", a) else "equivalent" if has("equivalent", a) else "unverified"
+    for a, n in game_functions(src):
+        name = "0x%08x" % a
+        k = "matched" if name in matched else "equivalent" if name in equiv else "unverified"
         groups[k].append(n)
         funcs.append((a, n, k))
     funcs.sort()

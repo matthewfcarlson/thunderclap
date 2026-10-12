@@ -40,8 +40,8 @@ def main():
         s = open(p).read()
         s = re.sub(r"<!-- status -->.*?<!-- /status -->", "<!-- status -->\n" + table + "<!-- /status -->", s, flags=re.S)
         open(p, "w").write(s)
-        import progress_map  # the README's treemap, docs/progress-map.svg
-        progress_map.main()
+        import progress_map  # CI draws the README's treemap from this list (no XBE there)
+        progress_map.main(["--write-functions", os.path.join(ROOT, "docs/game-functions.csv")])
 
 
 if __name__ == "__main__":
