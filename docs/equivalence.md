@@ -189,16 +189,22 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   - leaves `ecx`/`edx`/`eax` alone when the callee never writes them (callers may rely on that);
   - pops the callee's argument bytes. Pops over 252 bytes (a struct passed by value) are done directly.
 - A `push` of an untouched callee-saved register counts as a save (not an argument) only if the function
-  pops that register somewhere; otherwise it passes on a register argument (LTCG `esi`).
+  pops that register somewhere; otherwise it passes on a register argument (LTCG `esi`). A register the
+  function wrote itself is never a save, even when it holds its entry value again (`xor edi, edi; push edi`
+  with `edi` 0 on entry, as recorded game states often have it).
 - The pop count comes from the callee's own `ret N` (following tail jumps) when the call site names a real
   function. For cdecl, it comes from the caller's `add esp, N` or `pop ecx` cleanup, including one
-  deferred over several calls. A caller-cleaned callee takes only the words it reads; pushes above them
+  deferred over several calls. An `add esp, N` in an epilogue (followed by `ret` or a callee-saved `pop`)
+  counts only beyond the frame the prologue reserved with `sub esp`. A caller-cleaned callee takes only the words it reads; pushes above them
   are pending for a later call.
 - A call of unknown arity (virtual, a `jmp [vtable]` thunk) is decided by what the caller does with the
   pushed words afterwards: released by a later `add esp` (the callee leaves its arguments:
   caller-cleaned), popped by a later call with a known `ret N` (pushed early for that call: `push 1; call
   thunk; push eax; push esi; call f(ret 4); push eax; call g(ret 12)`), or read by a later caller-cleaned
-  call (`push &t; call [vt+0x40]; push eax; ...; call f; add esp, 0x10`). Otherwise the tracked pushes
+  call (`push &t; call [vt+0x40]; push eax; ...; call f; add esp, 0x10`). A deferred `add esp` after later
+  calls that releases fewer than the pending words, with nothing after it taking the rest before the
+  epilogue, means the callee popped the rest (`push 0; push 0x103; call [vt+0x164]` (ret 4)`; push eax;
+  call __RTDynamicCast; push 8; call new; add esp, 0x18`). Otherwise the tracked pushes
   count, and the callee pops them. Each side's stack follows its own code (a virtual we declare as a
   thiscall member pops its arguments where the original's caller cleaned them up; the target is unknown
   either way); the number of words compared is the original's.
@@ -206,6 +212,9 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   callee, which follows indirect calls, `ebp` used as a general register and late register saves).
   Unused or dead arguments don't count. A callee our source declares with `...` is compared over the
   words each call site passes, also past an `equiv-conv`'s listed slots.
+- At a call to an `equiv-conv` callee, the stack words our declaration passes are that call's, even when
+  the real callee reads none of them (a register argument we pass on the stack, cleaned up later): they
+  aren't counted as arguments of the next call.
 - Functions of our own object run in place: the words pushed for them are their arguments, and their
   prologue's register saves aren't arguments of the calls they make.
 - **Callees that never return** (`longjmp`, Lua's `luaD_throw`, error helpers: no `ret` reachable, every
@@ -243,7 +252,9 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   side) and float arguments compare with relative tolerance 1e-5; a word that is the same normal float
   but for its last bit (rounded once more on one side, then copied through a register) is equal too.
 
-An input on which the original doesn't return (step limit 50k, or the 1000-page limit) is inconclusive. If
+An input on which either side stores into code (our object at `0x60000000`, or the original's `.text`,
+through a fuzzed pointer) is inconclusive: the store rewrites one side's instructions only (`statuses`
+counts them as `code_write`). An input on which the original doesn't return (step limit 50k, or the 1000-page limit) is inconclusive. If
 the first 4 inputs all run out of steps, the rest get 1M steps (and 3x the time budget): long but
 deterministic code such as string building. One where the original faults is compared up to the fault, but
 not counted as a pass, and its branches don't count as covered. While fewer than 8 inputs have completed,
@@ -257,7 +268,8 @@ If ours returns `void` but the original's direct callers read `eax` (or `st0`) a
 value is compared anyway, and `return_note` says so.
 
 **Coverage** counts taken/not-taken for every conditional branch, 0/1 for every `setcc`, and every
-jump-table case of the original. It comes only from inputs that ran to completion (not from faults).
+jump-table case of the original (a table is read up to its first non-code word, and ends where the
+next table of the function starts, so two back-to-back switches keep their own cases). It comes only from inputs that ran to completion (not from faults).
 Directed inputs can also patch a word a stub filled through an out-parameter, when the original compares
 it. `level3.coverage.complete` is false when some edge never ran, and the
 uncovered edges are listed.
@@ -381,7 +393,11 @@ Captures live in `build/traces/SESSION/trace.sqlite`. They hold game memory, so 
 - Both sides start with `STACK_FILL` stacks.
 - Callee frame writes are placed relative to the pointer the call passed. The original's run decides each
   placement:
-  - a write into the incoming argument slots goes to the same slot in ours;
+  - a write into the incoming argument slots goes to the same slot in ours, unless the original passed a
+    pointer into its argument slots (a dead parameter reused as a local) and ours a local of its own:
+    then it goes behind ours;
+  - a write the capture keyed to a register (`ecx` left over from `mov ecx, edi`) that the call also
+    passes as a stack argument is placed through that argument (ours may not have it in the register);
   - a write the original can't place is skipped on both sides.
 - A real callee write that starts inside our local and runs past its end fails, as equiv.py's
   undersized-local check does ("writes 0x40 bytes through ecx ... ours has only 0x20").
@@ -430,7 +446,15 @@ least-trusted functions.
 - **False failures:** 0 among 29 captured matches and 0 among the 20 byte-identical equivalents.
 - **Bugs fuzzing missed:** among the 14 mismatches, 0x2a9920 (the real callee 0x28aa20 writes a 16-byte
   object into a 12-byte local), 0x2b8b30 (0x35 bytes into 0x30) and 0x293ef0 (a callee declared to pop
-  4 bytes that pops 8). The rest are not triaged yet.
+  4 bytes that pops 8).
+- **Triage of the other 11 (round 4).** Checker/replay artefacts, now fixed: 0x13ab50, 0x25d7f0, 0x2952e0
+  (`xor edi, edi; push edi` taken for a register save when `edi` was 0 on entry), 0x201f20 (a callee
+  write into a reused parameter slot in the original, a local in ours), 0x256420, 0x321310, 0x324270 (a
+  write keyed to a leftover `ecx` that ours doesn't hold). Source bugs: 0x2b9ce0 (two locals set before
+  a call that the original sets after it; fixed), 0x228da0 (ours divides by the unrounded 80-bit sum,
+  the original by the stored float: 1 ulp; not fixed). Not resolved: 0x308fe0 (compares uninitialised
+  bytes of a local that the call-0 delta fills on one side only), 0x201850 (`ebp` at return; most of
+  its calls are incomplete).
 
 **Limits.**
 - Coverage is what one scripted session reaches: boot, front end, the opening and the junkyard tutorial.

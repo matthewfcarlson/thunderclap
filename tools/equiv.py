@@ -979,6 +979,16 @@ class CodeView:
                         work.extend(tgts)
                     break
                 a = nxt
+        if len(self.tables) > 1:
+            # a table read up to the first non-code word runs on into the next table placed after it (two
+            # switches): it ends where the next one starts
+            bases = sorted(self.insns[j].mem[4] for j in self.tables)
+            for j, tg in self.tables.items():
+                b = self.insns[j].mem[4]
+                nxt_b = min((x for x in bases if x > b), default=None)
+                if nxt_b is not None and b + 4 * len(tg) > nxt_b:
+                    self.tables[j] = tg[:(nxt_b - b) // 4]
+            self.table_ranges = [(lo, min([hi] + [x for x in bases if lo < x < hi])) for lo, hi in self.table_ranges]
         return self
 
     def _table(self, i):
@@ -1074,6 +1084,7 @@ class CodeView:
         i = self.decode(call_addr)
         a = call_addr + i.size
         depth = 0                   # bytes pushed after the call that are still on the stack
+        calls = 0                   # calls between ours and the cleanup
         seen = set()
         for _ in range(64):
             if a in seen:
@@ -1095,10 +1106,18 @@ class CodeView:
                 if depth < 0:
                     if -depth > 4 * npending:
                         return None     # releases more than the pending words: the frame (an epilogue)
+                    released = -depth // 4
+                    if calls and released < npending and _depth == 0 and \
+                            self._pending_unclaimed(a, npending - released):
+                        # a deferred cleanup after later cdecl calls that leaves some pending words on the
+                        # stack, with nothing after it taking them: our call popped them (`push 0; push 0x103;
+                        # call [vt+0x164] (ret 4); push eax; call f; push 8; call g; add esp, 0x18`)
+                        return ("callee", npending - released)
                     return ("caller", npending)
             elif j.kind == "call":
                 if j.target in IGNORED_CALLS:
                     return None
+                calls += 1
                 pop = self.prog.callee_pop(j.target) if j.target is not None else None
                 if pop is None:
                     if j.target is not None or (j.mem is not None and not j.mem[1] and not j.mem[2]):
@@ -1129,6 +1148,54 @@ class CodeView:
             a += j.size
         return None
 
+    def _pending_unclaimed(self, addr, nleft):
+        """After the cleanup at addr, nleft argument words are still on the stack: True when the code
+        reaches an epilogue (pop, leave, ret, a frame release) before anything releases or pops them."""
+        r = self.pending_use(addr, nleft, 1)
+        if r is not None:
+            return False
+        a = addr
+        seen = set()
+        for _ in range(64):
+            if a in seen:
+                return False
+            seen.add(a)
+            j = self.decode(a)
+            if j is None:
+                return False
+            j_next = a + j.size
+            if a != addr:
+                m = j.mnemonic
+                if m == "pop" or m == "leave" or j.kind == "ret" or \
+                        (m == "add" and j.ops and j.ops[0] == ("reg", "esp")):
+                    return True
+                if m == "push" or (j.kind == "call" and j.target is not None and self.prog.callee_pop(j.target)):
+                    return False
+                if j.kind == "jmp":
+                    if j.target is not None and self.internal_target(j.target):
+                        a = j.target
+                        continue
+                    return False
+                if j.kind == "stop" or (j.ops and j.ops[0] == ("reg", "esp")):
+                    return False
+            a = j_next
+        return False
+
+    def frame_alloc(self):
+        """Bytes the prologue reserves with `sub esp, N` (before any call), or 0."""
+        if "_frame_alloc" not in self.__dict__:
+            n, a = 0, self.entry
+            for _ in range(12):
+                j = self.decode(a)
+                if j is None or j.kind != "other":
+                    break
+                if j.mnemonic == "sub" and j.ops and j.ops[0] == ("reg", "esp") and j.imms:
+                    n = j.imms[0]
+                    break
+                a += j.size
+            self._frame_alloc = n
+        return self._frame_alloc
+
     def cleanup_after(self, call_addr):
         """Bytes the caller pops after a call (cdecl cleanup), or None.
 
@@ -1147,6 +1214,10 @@ class CodeView:
                         nx.kind == "ret" or (nx.mnemonic == "pop" and nx.regs and nx.regs[0] in CALLEE_SAVED)):
                     return None         # the epilogue releasing a big frame, not argument cleanup
                 n = j.imms[0] - later
+                if nx is not None and (nx.kind == "ret" or (nx.mnemonic == "pop" and nx.regs and
+                                                              nx.regs[0] in CALLEE_SAVED)):
+                    # an epilogue: the frame the prologue allocated (`sub esp, 0x10`) is part of it
+                    n -= self.frame_alloc()
                 return n if n > 0 else None
             if j.mnemonic == "pop" and j.regs == ["ecx"] and later == 0:
                 n = 0
@@ -1820,6 +1891,7 @@ class Run:
         self.stack_written = set()  # stack bytes written since entry (uninitialised bytes are not compared)
         self.func_stack_written = set()
         self.reg_width = {}         # register -> bits its last write set (8 for setcc al, ...)
+        self.reg_dirty = set()      # registers some instruction other than a pop has written
         self.push_width = {}        # stack slot -> bits of the register pushed there
         self.array_written = set()  # stack bytes stored like array elements (indexed, via a pointer, rep)
         self.fill_src = {}          # stack word -> (call, argument, offset) of the stub fill that wrote it
@@ -1827,6 +1899,7 @@ class Run:
         self.helper_ret = None
         self.prev_jcc = None
         self.fault = None
+        self.code_write = None      # first store into code (ours or the original's .text): self-modifying
         self.cur_insn = None
         self.edges = set()
         self.executed = set()
@@ -1964,6 +2037,8 @@ class Run:
             return
         if TIB <= addr < TIB + PAGE:
             return
+        if self.code_write is None and (OURS <= addr < OURS + OURS_SIZE or self.prog.text[0] <= addr < self.prog.text[1]):
+            self.code_write = addr      # a fuzzed pointer into code: the store changes one side's instructions
         if self.cur_insn is not None and self.cur_insn.is_fpu_store and size in (4, 8):
             self.cur_fpu[addr] = size
 
@@ -2211,6 +2286,11 @@ class Run:
                 real = self.prog.callee_pop(target)
                 if dpop is not None and target in self.convs:
                     p = dpop          # a declared convention (equiv-conv): our stack follows our declaration
+                    if not tail and dl:
+                        # the stack words our declaration passes are this call's, even where the real
+                        # callee reads none of them (a register argument we pass on the stack): not pending
+                        # words for the next call when our cleanup is deferred
+                        self.tracked -= set(tracked[:dl.count("stack")])
                 elif dpop is not None and real is not None and dpop != real:
                     # Our declaration pops differently from the real callee: linked against the real
                     # function, our stack would drift (e.g. `this` in ecx plus caller-popped arguments,
@@ -2820,9 +2900,13 @@ class Run:
                 self.push_width[esp - 4] = self.reg_width.get(insn.regs[0], 32)
             for r_, b_ in self.view.write_widths(addr).items():
                 self.reg_width[r_] = b_
+                if m != "pop":
+                    self.reg_dirty.add(r_)
             if m == "push":
+                # (not a register the function set itself that happens to hold its entry value: `xor edi, edi;
+                # push edi` with edi 0 on entry, as a recorded game state has it)
                 if insn.regs and insn.regs[0] in CALLEE_SAVED and self.reg(insn.regs[0]) == self.inp["regs"][insn.regs[0]] \
-                        and insn.regs[0] in self.view.popped_regs():
+                        and insn.regs[0] not in self.reg_dirty and insn.regs[0] in self.view.popped_regs():
                     # a (possibly lazy) save of a callee-saved register; without a matching pop somewhere it is
                     # an argument (an LTCG register argument passed on, e.g. esi)
                     self.save_slots.add(esp - 4)
@@ -4296,6 +4380,12 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         rrun.caller_cleans = caller_cleans
         rrun.slot_arity = slot_arity
         r = rrun.run(rview.entry)
+        if orun.code_write is not None or rrun.code_write is not None:
+            # a store through a fuzzed pointer that lands on code (ours at OURS, or the original's .text)
+            # rewrites one side's instructions only: the game never does that, so the input proves nothing
+            res["inputs_inconclusive"] += 1
+            res["statuses"]["code_write"] += 1
+            return None
         if r["status"] == "fault:too_many_pages" and o["status"] == "ret" and o["huge_rep"]:
             # a fill or copy of a fuzzed, absurd size (over 4 MB): Unicorn's rep string op got through it
             # in the original, our inlined/semantic copy hit the page limit. An emulator artefact.

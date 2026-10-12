@@ -328,14 +328,26 @@ class TraceRun(Run):
                     if a is None or (a < entry + 4 and a + n > entry) or not (STACK_LO <= a and a + n <= STACK_HI):
                         place[(k, i)] = a = None
                     else:
-                        place[(k, i)] = ("args", a - entry) if a >= entry + 4 else ("frame",)
+                        # (a pointer the capture keyed by a register, `mov ecx, edi` left over, that the call
+                        # also passes as a stack argument: ours may not have it in that register)
+                        alt = None
+                        if key[0] == "reg":
+                            alt = next((("arg", j) for j, (v, _) in enumerate(self.calls[k]["args"]) if v == b), None)
+                        place[(k, i)] = ("args", a - entry, b - entry) if a >= entry + 4 else ("frame", alt)
                 else:
                     how = place.get((k, i))
                     if how is None:
                         a = None
                     elif how[0] == "args":
                         a = entry + how[1]
+                        b = self.base_value(key, k) if key[0] != "entry" else None
+                        if b is not None and b != entry + how[2] and not (b + off < entry + 4 and b + off + n > entry):
+                            # the original passed a pointer into its incoming argument slots (a dead parameter
+                            # reused as a local) and ours a local of its own: the write goes behind ours
+                            a = b + off
                     else:
+                        if len(how) > 1 and how[1] is not None:
+                            key = how[1]
                         b = self.base_value(key, k)
                         a = None if b is None or key[0] == "entry" else b + off
                         if a is not None:

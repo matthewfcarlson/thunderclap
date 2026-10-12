@@ -56,6 +56,18 @@ CASES = {
     # a caller-cleaned virtual call whose words are reused as arguments of the next call
     "0x0013d7b0_shared_pushes": ("equivalent", None),
     "0x0004c7c0_pending_vcall": ("equivalent", None),
+    # a thiscall vcall (ret 4) among words pushed early for a cdecl call of unknown arity; the deferred
+    # `add esp, 0x18` after two later calls releases all but the vcall's word
+    "0x001c1a40_deferred_vcall_pop": ("equivalent", None, 0.9),
+    # an equiv-conv register-argument callee declared cdecl: our pushed word, cleaned up later, isn't an
+    # extra argument of the next call
+    "0x0021b230_conv_deferred_pop": ("equivalent", None, 0.9),
+    # two switches whose jump tables sit back to back: the first table ends where the second starts
+    # (read up to the first non-code word, it took the second's cases: 40/45 edges instead of 40/41)
+    "0x001a5f00_two_tables": ("equivalent", None, 0.95),
+    # a vcall (ret 0xc) followed by `add esp, 0x10` that releases the prologue's `sub esp, 0x10` frame, not
+    # its arguments: the original faulted on every input when it was taken for cdecl cleanup
+    "0x0028d2a0_frame_epilogue": ("equivalent", None),
     "0x002fb440_hoisted_push": ("equivalent", None),
     # a stdcall import (NtClose) after a self-recursive call: the import's pop isn't guessed from later code
     "0x00212641_import_pop": ("equivalent", None),

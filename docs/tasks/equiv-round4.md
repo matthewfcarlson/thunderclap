@@ -47,7 +47,8 @@ pointer self-modifies one side only. 0x0032a320 and 0x0032b530 on seed 1023: `st
 same thing happens on reads: 0x001d2ee0, 0x00272df0, 0x001b7f40 (`this` aliases the "movies" string), 0x00285fc0,
 0x002c7690. Fix: exclude both code ranges from heap pointers (map our object outside every range `fuzz_value`
 can produce), or treat a write into either code range as ending the input inconclusively. Five of the seven
-(0x0032a320, 0x0032b530, 0x001d2ee0, 0x00272df0, 0x001b7f40) pass every other input with full coverage.
+(0x0032a320, 0x0032b530, 0x001d2ee0, 0x00272df0, 0x001b7f40) pass every other input with full coverage. **Done (stores only):** an input that stores into either code range is inconclusive (`code_write`);
+0x0032a320 and 0x0032b530 now pass at 3000 inputs (31 such inputs each). Reads through such pointers are unchanged.
 
 **P3. Both sides fault after wild control flow (pile about 10).** Count an input as inconclusive, not failed, when
 the original faults and ours faults too (or ours times out) with identical calls and writes up to that point, after an

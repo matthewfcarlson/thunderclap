@@ -89,10 +89,10 @@ void BillboardCutOffQuad::FUN_002b9ce0(float *outA, float *outB, Mat4 *from, Mat
 
     f.scaleB = 1.0f;
     f.scaleD = 1.0f;
+    FUN_002b8840(&f.scaleB, &f.scaleD, f_c8, f_d4, f_dc, from, &f.t);
     f.scaleG = 1.0f;
     f.scaleC = 1.0f;
     f.unused = 1.0f;
-    FUN_002b8840(&f.scaleB, &f.scaleD, f_c8, f_d4, f_dc, from, &f.t);
     FUN_002b8b30(&f.scaleG, &f.scaleC, f_cc, f_e4, f_ec, to, &f.t);
     FUN_002b8e20(&f.unused, f_d0, &f_104, f.len);
 
