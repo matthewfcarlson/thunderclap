@@ -160,6 +160,18 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   - a loop's bound (patched for one or two more rounds, in every memory epoch when it is re-read after a
     call).
 
+  - string compares against a literal in `.rdata`: `repe cmpsb/w/d` (one operand in `.rdata`, `ecx`
+    elements), calls to the CRT `strcmp`/`_stricmp`/`strncmp` (executed for real), and inline byte-pair
+    loops (`mov dl, [ecx]; cmp dl, [esi]`). Fuzzed bytes never spell `"Millimeters"`, so the original's
+    run records (buffer, literal, memory epoch) and a directed input re-runs it with the literal written
+    over the buffer: once with its terminator (an exact match) and once without (a longer string starting
+    with it). A heap or global buffer is planted in the epoch it was read in; a stack buffer only when a
+    stub filled it (the literal becomes that stub's fill). Each (site, literal) is queued from two inputs;
+    the next bytes of the same pair of strings aren't queued again. Planted runs queue the compares they
+    reach in turn (a chain of keywords, a tag then a name prefix). These run first in each round, while
+    some edge is missing, and count in `inputs_directed` (and `inputs_planted`). Only inputs change; both
+    sides see the same memory.
+
   Directed inputs never patch code (a switch's byte table: ours has its own), nor a float constant read
   at a fixed address in `.rdata` (ours may load it from its own constant, or as `fld1`), nor plant an
   address that wraps around (`lea ecx, [ebx + 0xb4]; test ecx, ecx` and `add eax, 0x58; je` are the null

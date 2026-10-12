@@ -71,6 +71,12 @@ CASES = {
     "0x002fb440_hoisted_push": ("equivalent", None),
     # a stdcall import (NtClose) after a self-recursive call: the import's pop isn't guessed from later code
     "0x00212641_import_pop": ("equivalent", None),
+    # string compares against .rdata literals: directed inputs plant the literal in the compared buffer
+    # (`repe cmpsb` against "jp"-style literals; CRT strncmp called with a literal; a chain of
+    # strcmp/strncmp where the second compare is only reached once the first matches)
+    "0x00206320_repe_cmpsb_literal": ("equivalent", None, 0.95),
+    "0x000c1790_strncmp_literal": ("equivalent", None, 0.9),
+    "0x001ff770_strcmp_chain": ("equivalent", None, 0.75),
     # a callee that never returns (luaD_throw -> longjmp): both runs stop there
     "0x00215790_noreturn": ("equivalent", None),
     # switch cases reached through the selector's source (a stub's result, `add eax, -2; cmp eax, 9`), never

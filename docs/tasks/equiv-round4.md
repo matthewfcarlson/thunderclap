@@ -39,7 +39,11 @@ branch after such a compare, re-run the input with the literal's bytes, terminat
 other operand's buffer. Use the pointer the original passed at that point, in the epoch where it is read. The fourcc
 `cmp eax, imm` cases are already steerable; DDS headers (0x002de030) need the same treatment for `cmp [mem], imm` read
 through a stub-filled buffer. Repros: 0x00206320 (31/42 edges, needs 32), 0x001ff770, 0x002f4eb0, 0x002de030, and the
-byte-table switch 0x001d22a0. 0x00206320 would pass with this change alone.
+byte-table switch 0x001d22a0. 0x00206320 would pass with this change alone. **Done (strings):** directed inputs plant the
+`.rdata` literal (with and without its NUL) over the other operand of `repe cmps`, CRT `strcmp`/`_stricmp`/`strncmp`
+calls and inline byte-pair loops; see docs/equivalence.md. 0x00206320 31→42/42, 0x002f4eb0 19→30/30, 0x001ff770
+10→31/38, 0x000c1790 34→43/46. Not covered: 0x002de030 (DDS `cmp [mem], imm` through a stub-filled buffer, 8/35)
+and 0x001d22a0 (byte-table switch, 27/51).
 
 **P2. Keep fuzzed pointers off code (pile 7; each fails on exactly 1 of about 3000 inputs).** The pointer pool and the
 dictionary can produce addresses inside our object (`0x60000000+`) or the original `.text`. A store through such a

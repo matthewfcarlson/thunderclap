@@ -79,6 +79,7 @@ SOFT_L2 = ("missing_address_constant", "missing_float_constant", "float_constant
            "missing_data_ref_interior", "extra_data_ref_interior", "intrinsic_call")
 CALLEE_SAVED = ("ebx", "esi", "edi", "ebp")
 
+STRCMP_HELPERS = ("_strcmp", "__stricmp", "_strncmp")     # their .rdata operand is planted (directed inputs)
 # CRT helpers that are executed for real instead of stubbed (pure: registers/stack only).
 HELPERS = {0x0034483C: "__ftol2", 0x00345880: "__chkstk"}
 # Calls that are skipped on both sides: no trace entry, registers and memory untouched. The /GS check
@@ -1909,6 +1910,9 @@ class Run:
         self.prev_set = None
         self.cmp_obs = {}           # jcc -> observation of the comparison that fed it
         self.cmp_obs2 = {}          # ... the second time (a loop's next iteration)
+        self.str_obs = []           # compares of a buffer with a literal in .rdata (directed inputs plant it)
+        self._str_seen = {}         # (site, literal address) -> recorded; site -> (esi, edi, ecx) of the last rep cmps
+        self._str_walks = []        # (literal lo, hi, buffer - literal) of each compare recorded
         self.jcc_count = Counter()  # jcc -> times executed (hot loops of a run that timed out)
         self.varargs = set()        # callees our source declares with `...`
         self.local_entries = set()  # functions of our own object entered so far (their prologues are known)
@@ -2563,6 +2567,53 @@ class Run:
             return {"val": val, "src": st[:3], "xf": st[4], "raw": st[5]}
         return {"val": val, "src": (ea, v[5], self.epoch), "xf": (), "raw": val, "abs": ea in self.abs_loads}
 
+    def _note_str(self, site, lit, buf, n=None):
+        """Record a compare of the buffer at `buf` with a literal in read-only data at `lit` (n bytes, or
+        up to its NUL). A directed input re-runs the input with the literal written over the buffer, in the
+        memory epoch it was read in (or, for a stack buffer a stub filled, as that stub's fill)."""
+        prog = self.prog
+        if (site, lit) in self._str_seen or len(self.str_obs) >= 64:
+            return
+        if not (IMAGE_LO <= lit < IMAGE_HI) or prog.section_name(lit) != ".rdata" or lit in prog.vftables:
+            return
+        if buf < NULL_HI or prog.is_code(buf) or (IMAGE_LO <= buf < IMAGE_HI and prog.section_name(buf) == ".rdata"):
+            return
+        fills = {}
+        if STACK_LO <= buf < STACK_HI:
+            fills = {w: self.fill_src[w] for w in range(buf & ~3, buf + 256, 4) if w in self.fill_src}
+            if (buf & ~3) not in fills:
+                return
+        elif _reserved(buf) or (OURS <= buf < OURS + OURS_SIZE):
+            return
+        if n is None:
+            data = prog.read(lit, 256)
+            k = data.find(b"\0")
+            if k <= 0:
+                return
+            data = data[:k + 1]
+        else:
+            data = prog.read(lit, min(n, 256))
+            if not data:
+                return
+        if any(lo <= lit < hi and d == buf - lit for lo, hi, d in self._str_walks):
+            return          # the same two strings, further along (an inline loop's next byte pair)
+        self._str_walks.append((lit, lit + len(data), buf - lit))
+        self._str_seen[(site, lit)] = True
+        self.str_obs.append({"site": site, "lit": data, "buf": buf, "epoch": self.epoch, "fills": fills})
+
+    def _note_rep_cmps(self, insn):
+        """`repe cmpsb` of a buffer against a literal (once per execution: Unicorn may re-enter the hook
+        for each round with esi/edi advanced)."""
+        size = {"b": 1, "w": 2, "d": 4}.get(insn.mnemonic[-1], 1)
+        esi, edi, ecx = self.reg("esi"), self.reg("edi"), self.reg("ecx")
+        last = self._str_seen.get(insn.addr)
+        self._str_seen[insn.addr] = (esi, edi, ecx)
+        if last and 0 < last[2] - ecx and esi - last[0] == edi - last[1] == (last[2] - ecx) * size:
+            return
+        if 0 < ecx <= 256:
+            self._note_str(insn.addr, edi, esi, ecx * size)
+            self._note_str(insn.addr, esi, edi, ecx * size)
+
     def _observe_x87(self, insn):
         """Where the x87 stack's values were loaded from, and float comparisons (for directed inputs)."""
         m = insn.mnemonic
@@ -2667,6 +2718,13 @@ class Run:
                     info.append({"val": v, "src": None, "imm": v})
             if len(info) == 2 and info[0].get("reg") and info[0].get("reg") == info[1].get("reg"):
                 info[1]["same"] = True
+            if m == "cmp" and len(info) == 2 and self.coverage is not None:
+                # an inline string compare (`mov al, [ecx]; cmp al, [edx]`) with one side in .rdata
+                sa, sb = info[0]["src"], info[1]["src"]
+                if sa and sb and isinstance(sa[0], int) and isinstance(sb[0], int) and sa[1] == sb[1] \
+                        and not info[0].get("xf") and not info[1].get("xf"):
+                    self._note_str(insn.addr, sa[0], sb[0])
+                    self._note_str(insn.addr, sb[0], sa[0])
             self.last_cmp = {"addr": insn.addr, "mnemonic": m, "ops": info}
             return
         dst = ops[0] if ops else None
@@ -2873,6 +2931,8 @@ class Run:
                     self.prev_set = None
                 if insn.mnemonic.startswith("set") and insn.regs:
                     self.prev_set = (addr, insn.regs[0])
+                if insn.mnemonic.startswith(("repe cmps", "repz cmps")):
+                    self._note_rep_cmps(insn)
                 self._observe(insn)
             if insn.ops and insn.ops[0][0] == "reg" and insn.ops[0][1] in ("ecx", "cx", "cl", "ch") and \
                     insn.mnemonic not in ("cmp", "test", "push"):
@@ -2924,6 +2984,11 @@ class Run:
                 else:
                     target = self.reg(insn.regs[0])
                 if target in self.helpers:
+                    if self.coverage is not None and self.helpers[target] in STRCMP_HELPERS:
+                        a0, a1, a2 = (self._read_u32(esp + 4 * i) for i in range(3))
+                        n = a2 if self.helpers[target] == "_strncmp" else None
+                        self._note_str(addr, a1, a0, n)
+                        self._note_str(addr, a0, a1, n)
                     self.helper_ret = addr + size
                     self.eax_def, self.eax_read = ("helper", 32), False      # CRT helper: not ours to return
                     return
@@ -4216,6 +4281,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     hits = Counter()           # edge -> number of inputs that took it
     slot_arity = {}
     observations = {}          # jcc addr -> [(seed, cmp observation, ...)] from the original's runs
+    str_queue = []             # [(seed, string-compare observation, overlay, patch)] to plant (directed)
+    str_seen = Counter()       # (site, literal) -> times queued
     t_start = time.process_time()      # CPU time: a loaded machine doesn't change the result
     steps = [max_steps]
     timeout_calls = [0]        # most stub calls a timed-out run of the original made
@@ -4344,6 +4411,11 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             edges.update(orun.edges)
             for e in orun.edges:
                 hits[e] += 1
+        for sob in orun.str_obs:
+            sk = (sob["site"], sob["lit"])
+            if str_seen[sk] < 2 and len(str_queue) < 512:
+                str_seen[sk] += 1
+                str_queue.append((seed, sob, overlay, stack_patch))
         obs_run = {j: (dict(ob, next=orun.cmp_obs2[j]) if j in orun.cmp_obs2 else ob)
                    for j, ob in orun.cmp_obs.items()}
         if o["status"] == "ret":
@@ -4466,6 +4538,24 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             if miss:
                 table_cases[j] = miss
                 missing.add(j)
+        # string compares against literals: plant the literal in the buffer compared (fuzzed bytes never
+        # spell "Millimeters"); planted runs queue the compares they reach next (chains of keywords)
+        while missing and str_queue and budget > 0 and res["inputs_failed"] < 3 and not out_of_time():
+            seed0, sob, ov0, sp0 = str_queue.pop(0)
+            for overlay, patch in _plants(sob, ov0, sp0):
+                key = (sob["site"], seed0, tuple(sorted(map(repr, overlay.items()))),
+                       tuple(sorted(map(repr, patch.items()))))
+                if key in tried:
+                    continue
+                tried.add(key)
+                budget -= 1
+                res["inputs_directed"] += 1
+                res["inputs_planted"] = res.get("inputs_planted", 0) + 1
+                if run_input(seed0, overlay, patch, label="%d+str" % seed0):
+                    progress = True
+                    if refund[0] < 3 * directed:
+                        budget += 4
+                        refund[0] += 4
         if not missing:
             # everything reached: spend what is left on sides that few inputs took (path diversity)
             rare = [j for j in oview.jcc for t in (oview.insns[j].target, j + oview.insns[j].size)
@@ -4583,6 +4673,36 @@ def _invert_xf(xf, raw, want):
             tab = Program.get().read(op[1], 256)
             w = tab.index(w & 0xFF) if (w & 0xFF) in tab and w < 256 else pre
     return w
+
+
+def _plants(sob, overlay0, patch0):
+    """Inputs that write a compared literal over the other operand's buffer: the literal with its
+    terminator (an exact match), and without it (a longer string that starts with it: prefix compares).
+    A heap or global buffer is planted in the memory epoch it was read in (split per page); a stack buffer
+    that a stub filled gets the literal as that stub's fill."""
+    lit, buf, fills = sob["lit"], sob["buf"], sob["fills"]
+    variants = [lit] + ([lit[:-1]] if lit.endswith(b"\0") and len(lit) > 2 else [])
+    out = []
+    for v in variants:
+        ov, pt = dict(overlay0 or {}), dict(patch0 or {})
+        if fills:
+            ok = True
+            for w in range(buf & ~3, buf + len(v), 4):
+                lo, hi = max(buf, w), min(w + 4, buf + len(v))
+                if w not in fills:
+                    ok = False
+                    break
+                pt[("fill",) + tuple(fills[w]) + (lo - w, hi - lo)] = int.from_bytes(v[lo - buf:hi - buf], "little")
+            if not ok:
+                continue
+        else:
+            a, rest = buf, v
+            while rest:
+                take = min(len(rest), PAGE - (a & (PAGE - 1)))
+                ov[(sob["epoch"], a)] = rest[:take]
+                a, rest = a + take, rest[take:]
+        out.append((ov, pt))
+    return out
 
 
 def _patchable(ea, absolute=True):
