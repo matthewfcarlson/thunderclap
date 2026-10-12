@@ -43,17 +43,18 @@ Every game function gets compilable C++ at one of three levels:
 - Large functions: stop paying for byte-matches. The farm writes equivalent code and checks behaviour instead ([task 09](tasks/09-equivalent-decomp.md)). A later pass can still upgrade them to matched.
 - Order by subsystem, not size: the seams in the table above, then the step-1 priority list, then everything else.
 
-### 4. Data
+### 4. Data and the source tree
 - Globals, constant tables, float pools, vtables and strings (`.rdata`/`.data`/`.bss`) as source.
-- Translation-unit recovery ([task 05](tasks/05-split-recovery.md)) is useful for organizing source but not required for the port.
+- Translation-unit recovery ([task 05](tasks/05-split-recovery.md)) turns per-function files into a real source tree. Link order survives: the classes RTTI names form only 1.74 contiguous runs each in address order. Files are named after their dominant class, with one directory per namespace. The tree gets two builds: MSVC under wibo re-verifying every function, and clang for the port. See [shipping.md §1](shipping.md#1-the-source-tree-roadmap-steps-2-and-4) for the scaffold.
 
 ### 5. Hybrid build in xemu: the integration test
 - Patch our compiled functions into the original XBE and run it in xemu ([task 06](tasks/06-hybrid-patch-build.md)).
 - It's the end-to-end check for equivalent code (play, or replay recorded input, and compare against the original) and the first place QoL patches ship: widescreen, FOV, 60 fps.
 - Test plan ([task 10](tasks/10-hybrid-test-plan.md)): deterministic input replays compared checkpoint by checkpoint against the original, automatic bisection to the guilty function, and real captured inputs fed back to `tools/equiv.py`. The same suite later checks the native builds.
+- The hybrid ISO already runs anywhere xemu does, including the Steam Deck. Repacked RCFs (`tools/rcf.py`) make it the first place to try asset mods.
 
 ### 6. Native build
-1. **x86-32 host build first** (Linux or Windows, clang): same pointer size and calling conventions as the Xbox, so the only new variable is the platform layer. Shim XAPI/kernel, implement the `pddi`, input, audio and movie backends.
+1. **x86-32 host build first** (Linux or Windows, clang): same pointer size and calling conventions as the Xbox, so the only new variable is the platform layer. Shim XAPI/kernel, implement the `pddi`, input, audio and movie backends. The radcore file shim reads loose files from `mods/` before the RCFs. Prior art for the input and audio backends: [jsrf-recomp](platform-boundary.md#prior-art-for-the-backends-jsrf-recomp-reviewed-2026-10-12).
 2. **64-bit clean-up**: pointer-size assumptions in structs, especially anything loaded from disk (`.p3d` chunk loaders, save data) and any code that stores pointers in `int`s.
 3. **x86-64 (SteamOS) and arm64 (macOS)** builds. Watch x87 → SSE/NEON float differences in physics and animation; replays from step 5 catch drift.
 
@@ -63,7 +64,13 @@ Mostly ordinary code changes once step 6 lands; many can ship earlier as hybrid-
 - Unlocked frame rate: needs the game loop and timestep code (physics and animation are usually tied to frame time).
 - Native high resolution, MSAA, anisotropic filtering, draw distance and LOD bias.
 - Skip intros, faster loading, controller remapping, rumble options.
-- Assets: `.rcf` and `.p3d` tools are done ([task 03](tasks/03-rcf-tool.md), [task 04](tasks/04-p3d-reader.md)); HD texture and model packs build on them.
+- Assets: `.rcf` and `.p3d` tools are done ([task 03](tasks/03-rcf-tool.md), [task 04](tasks/04-p3d-reader.md)). HD texture packs go through texture replacement by hash in the renderer (`mods/textures/<hash>.png`, as in Dolphin); models need a `.p3d` writer and a Blender export path. See [shipping.md §4](shipping.md#4-modding-textures-models-levels-roadmap-steps-5-6-and-7).
+
+### 8. Ship
+- Code only, never game data. On first run the app asks for the player's ISO or folder, checks the XBE hash, and extracts the data locally.
+- macOS: an arm64 `.app`, signed and notarized (Developer ID) to avoid Gatekeeper warnings.
+- Linux / Steam Deck: an AppImage or Flatpak; "Add to Steam" for Game Mode, with SDL input so Steam Input works. Windows: a zip or installer.
+- Details: [shipping.md](shipping.md).
 
 ## Status of the old plan
 The previous roadmap ended in a SHA-1-identical relink before any port work. That's now optional: matching continues where it's cheap, reference verification ([task 01](tasks/01-reference-verification.md)) is done, and the relink can happen later if anyone wants it.
