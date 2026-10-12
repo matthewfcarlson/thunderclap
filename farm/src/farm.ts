@@ -135,9 +135,15 @@ async function verifyRefs(src: string, addr: string): Promise<{ status: string; 
 }
 
 // Behaviour check (docs/equivalence.md). equiv.py exits 1 on anything but "equivalent" and still prints JSON.
+// A pass at the default input count is confirmed at 3000 inputs: the default let wrong sources through.
 async function equiv(src: string, addr: string): Promise<any> {
+	const r = await equivRun(src, addr, []);
+	return r.status === "equivalent" ? equivRun(src, addr, ["--inputs", "3000"]) : r;
+}
+
+async function equivRun(src: string, addr: string, extra: string[]): Promise<any> {
 	try {
-		const { stdout } = await run(PY, [join(ROOT, "tools/equiv.py"), src, addr, "--json"], { timeout: 400_000, maxBuffer: 16 << 20 });
+		const { stdout } = await run(PY, [join(ROOT, "tools/equiv.py"), src, addr, "--json", ...extra], { timeout: 900_000, maxBuffer: 16 << 20 });
 		return JSON.parse(stdout);
 	} catch (e: any) {
 		try {

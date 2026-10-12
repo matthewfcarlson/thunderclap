@@ -7,7 +7,7 @@ such pair this tool lines the two functions up instruction by instruction (same 
 instruction sequence), collects every referenced address that moved (callees, globals, vftables), renames
 the identifiers and `equiv-map`/`equiv-conv` lines in the proven source that embed the old address, and
 runs tools/equiv.py on the copy. A copy is installed when it is equivalent with no level-2 conflicts and
-at least 75% branch coverage (retried with 3000 inputs below that), the same bar as an agent's pass.
+at least 75% branch coverage, run at 3000 inputs, the same bar as an agent's pass.
 
 Usage:
   tools/clone_equivalent.py [--dry-run] [--limit N] [--jobs N] [--skip FILE...]
@@ -106,9 +106,8 @@ def clone(pair):
         path = os.path.join(tmp, dst + ".cpp")
         open(path, "w").write(text)
         try:
-            r = run_equiv(path, dst)
-            if r.get("status") in ("equivalent", "inconclusive") and not accepted(r):
-                r = run_equiv(path, dst, "--inputs", "3000")
+            # 3000 inputs: the default count let wrong sources through (2026-10-12 re-check)
+            r = run_equiv(path, dst, "--inputs", "3000")
         except Exception as e:  # noqa: BLE001
             return {"addr": dst, "from": src_addr, "status": "error", "detail": repr(e)[:120]}
     if not accepted(r):
