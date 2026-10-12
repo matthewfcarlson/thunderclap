@@ -107,7 +107,7 @@ def combat(n):
 
 
 def menus(n):
-    s = local(tutorial(S().intro().at(2000), 4, 3), 20)
+    s = S().intro().at(2000)
     for c in range(n):
         s.do(60, 0, an(RT), FWD)
         s.tap(X).tap(X)
@@ -127,7 +127,7 @@ def menus(n):
 
 
 def roam(n):
-    s = local(tutorial(S().intro().at(2000), 4, 3), 20)
+    s = local(tutorial(S().intro().at(2000), 3, 2), 8)
     for c in range(n):
         d = [[0, 32767, 0, 0], [20000, 26000, 0, 0], [-20000, 26000, 0, 0], [0, 32767, 0, 0]][c % 4]
         s.do(200, 0, an(RT), d)                                  # long sprint
