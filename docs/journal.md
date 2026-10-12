@@ -312,3 +312,24 @@ Newest entries go at the bottom of each day.
 - **Dead ends worth knowing:** register-choice-only diffs (MSVC keeping zero in a register, eax vs ecx for a temporary), the operand order inside an address (`[esi+eax]` vs `[eax+esi]`), caller-cleaned `this` calls, and noreturn tails ending in `int3`. About 113 such near-misses are queued for the permuter, and the next Opus investigation targets the register-choice cluster.
 - **ulk-1 (our fine-tuned Qwen3.6-35B-A3B on mac2):** 0 matches in 37 functions on the rescue pile (functions the cloud models had given up on), best scores 0.94 and 0.78. Moved to small untried functions instead; also 0 of its first few, at about 2.5–3 min per function on the loaded machine. Too early to judge.
 - **The function list was missing code (2026-10-11 afternoon).** About 20 byte-exact matches failed `verify_relocs` with `data_in_code`: they store a pointer to code (an element constructor passed to the vector-constructor helper, script callbacks) that `functions.csv` didn't list. Measuring coverage showed 14% of game `.text` (about 490 KB of non-padding bytes) sat outside every listed function. `CreateMissingFunctions.java` created about 17k functions at the starts of uncovered runs. Only **4,879 (164 KB) are referenced** (by a vtable or data pointer, an immediate, or a direct call). Those were added to the list, which unblocked all 8 parked matches with no change to the reference check. The other **12,447 have no reference anywhere**: dead code the linker kept (out-of-line inline functions). They're listed in `build/farm/dead-code.txt` and left out of the denominator, since the port doesn't need them. Game code is now 27,450 functions / 2.69 MB.
+
+## 2026-10-12: The equivalence hard pile, "research once, apply many" again
+
+- **The pile:** about 105 functions (127 log lines) that Sonnet equivalence batches had failed, skipped or seen demoted. One Opus pass re-ran every best attempt under checker round 3 at `--inputs 3000` and clustered the failures by root cause.
+- **Most "checker bug" notes were source bugs.** Round 3 fixed the limits they blamed, and the failures that remained were ordinary mistakes:
+  - calls evaluated inside another call's argument list (a 0-arg getter or virtual whose "extra" pushes belong to the next call; 6 functions);
+  - swapped parameters, switch cases mapped off by one, NaN polarity;
+  - a `__cdecl` cookie check, a byte loop where the original inlines `memcpy`, struct fields at the wrong offset.
+
+  Fourteen now pass, including three that had been demoted from `equivalent/` (0x00277810, 0x00332310, 0x002699f0: real bugs a port would have shipped). The recipes are in the batch brief.
+- **Payoff estimates** (unproven non-library functions with the same shape): about 65 with the args-around-a-call push pattern, 211 with a `/GS` cookie, 172 with `rep movs` copies, 184 with jump tables.
+- **What's left is checker work**, ranked in [docs/tasks/equiv-round4.md](tasks/equiv-round4.md):
+  - plant literal strings for `repe cmpsb`/`strcmp` compares (thin coverage; about 50 functions outside the pile);
+  - keep fuzzed pointers off code (7 functions that each fail on 1 input in 3000);
+  - treat both-sides-fault wild control flow as inconclusive (about 10);
+  - well-formed rb-trees and two-load loop bounds (7);
+  - float steering through math on stub results (7);
+  - two precise fill bugs for by-value temporaries built at `esp` by stubbed copy constructors (5; 47 outside);
+  - trace replay as a coverage source for teardown loops and thin coverage.
+
+  28 entries are CRT, XAPI or caller-frame fragments: out of scope. x87 80-bit intermediates (3) stay hand work.
