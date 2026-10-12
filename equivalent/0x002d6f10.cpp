@@ -1,0 +1,86 @@
+// STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 15/18, incomplete)
+// FUN_002d6f10 @ 0x002d6f10
+struct ZStream {
+    void *next_in;
+    unsigned int avail_in;
+    unsigned int total_in;
+    void *next_out;
+    unsigned int avail_out;
+    unsigned int total_out;
+    char *msg;
+    void *state;
+    void (*zalloc)();
+    void (*zfree)();
+    void *opaque;
+    char pad2c[0x38 - 0x2c];
+};
+
+struct PngStruct {
+    char jmpbuf[0x6c];
+    ZStream zstream;
+    void *zbuf;
+    unsigned int zbufSize;
+};
+
+extern char DAT_004d1020[];
+
+// the CRT setjmp helper (_setjmp3), named by address
+int FUN_00347250(void *jmpbuf, int count);
+PngStruct *FUN_002e6a50(int type, void *mallocFn);
+void FUN_002e6c40(PngStruct *png, void *ptr);
+void FUN_002e6bf0(PngStruct *png);
+void FUN_002e6ba0(PngStruct *png, void *memPtr, void *mallocFn, void *freeFn);
+void FUN_002e6970(PngStruct *png, void *errorPtr, void *errorFn, void *warnFn);
+void FUN_002e69a0(PngStruct *png, const char *message);
+void *FUN_002e6c00(PngStruct *png, unsigned int size);
+int FUN_002e6f50(ZStream *strm, const char *version, int streamSize);
+void FUN_002dd6f0(PngStruct *png, int a, int b);
+void FUN_002d6c20();
+void FUN_002d6c80();
+
+PngStruct *FUN_002d6f10(const char *userVersion, void *errorPtr, void *errorFn, void *warnFn,
+                        void *memPtr, void *mallocFn, void *freeFn)
+{
+    PngStruct *png = FUN_002e6a50(1, mallocFn);
+    if (!png)
+        return 0;
+
+    if (FUN_00347250(png->jmpbuf, 0)) {
+        FUN_002e6c40(png, png->zbuf);
+        FUN_002e6bf0(png);
+        return 0;
+    }
+
+    FUN_002e6ba0(png, memPtr, mallocFn, freeFn);
+    FUN_002e6970(png, errorPtr, errorFn, warnFn);
+
+    if (!userVersion || userVersion[0] != DAT_004d1020[0] ||
+        (userVersion[0] == '0' && userVersion[2] < '9'))
+        FUN_002e69a0(png, "Incompatible libpng version in application and library");
+
+    png->zbufSize = 0x2000;
+    png->zbuf = FUN_002e6c00(png, 0x2000);
+    png->zstream.zalloc = &FUN_002d6c20;
+    png->zstream.zfree = &FUN_002d6c80;
+    png->zstream.opaque = png;
+
+    switch (FUN_002e6f50(&png->zstream, "1.1.3", 0x38)) {
+    case 0:
+        break;
+    case -4:
+    case -2:
+        FUN_002e69a0(png, "zlib memory error");
+        break;
+    case -6:
+        FUN_002e69a0(png, "zlib version error");
+        break;
+    default:
+        FUN_002e69a0(png, "Unknown zlib error");
+        break;
+    }
+
+    png->zstream.next_out = png->zbuf;
+    png->zstream.avail_out = png->zbufSize;
+    FUN_002dd6f0(png, 0, 0);
+    return png;
+}
