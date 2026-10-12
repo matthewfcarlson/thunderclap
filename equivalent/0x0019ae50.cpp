@@ -1,0 +1,288 @@
+// STATUS: equivalent (tools/equiv.py level 3: 1269 inputs, branch coverage 32/32)
+// hulkfight::motion::FireProjectileAction::vfunc_5 @ 0x0019ae50
+inline void *operator new(unsigned int, void *p) throw() { return p; }
+extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
+
+struct V3 {
+    float x, y, z;
+    float FUN_0022d110();
+    bool FUN_0022d2b0(V3 *other, float limit);
+};
+
+struct Matrix {
+    float m[16];
+    void FUN_0022b980();
+    void FUN_0022baf0(const V3 *axis, float angle);
+    void FUN_0022ca90(const Matrix *src, void *arg);
+    void FUN_0022c2b0(const V3 *in, V3 *out);
+    void FUN_0022c3b0(const V3 *in, V3 *out);
+};
+
+class Refd {
+public:
+    virtual void AddRef();
+    virtual void Release();
+};
+
+struct Pool {
+    int FUN_001b6b00(int id, V3 *a);
+    void FUN_001b6d00(int id, class Projectile *p);
+};
+
+struct Manager {
+    char pad0[0x14];
+    Pool *pool;
+};
+extern Manager *DAT_004dd700;
+
+struct Allocator {
+    void *FUN_0008fe90(unsigned int size);
+};
+extern Allocator DAT_004e2210;
+
+struct Cfg {
+    char pad0[0x2c];
+    float f2c;
+    char pad30[0x40 - 0x30];
+    V3 v40;
+    V3 v4c;
+    float f58;
+    float f5c;
+    char pad60[0x68 - 0x60];
+    int f68;
+    int f6c;
+    char pad70[0x74 - 0x70];
+    char b74;
+    char pad75[7];
+    int f7c;
+};
+
+class Projectile : public Refd {
+public:
+    char pad04[0x14 - 4];
+    int f14;
+    char pad18[0x20 - 0x18];
+    void *f20;
+    Refd *f24;
+    V3 f28;
+    V3 f34;
+    V3 f40;
+    float f4c;
+    Projectile *FUN_00195a90(Cfg *cfg);
+};
+
+struct Target : Refd {
+};
+
+struct Ctx;
+
+struct Stats {
+    char pad0[0x328];
+    Target *target;
+    Target *FUN_00039c60(V3 *a, V3 *b, int lo, int hi, int z1, int z2, int z3);
+};
+
+struct Ctx {
+    Stats *FUN_00059a30();
+    char FUN_00059a50(V3 *out);
+};
+
+struct OwnerObj {
+    char pad0[8];
+    void *f8;
+    Ctx *FUN_000592a0();
+};
+
+struct Rng {
+    float FUN_000787e0(int lo, int hi);
+};
+Rng *FUN_000964d0();
+
+class Weapon {
+public:
+    virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
+    virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
+    virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
+    virtual void v12(); virtual void v13(); virtual void v14();
+    virtual void *v15();
+};
+
+struct Ctrl {
+    char pad0[0x1c];
+    char *mats;
+};
+
+char __cdecl FUN_00096b50(Target *t, V3 *c, void *out);
+
+union Slot {
+    int i;
+    float f;
+    unsigned int u;
+};
+
+class FireProjectileAction {
+public:
+    virtual void vf0();
+    virtual void vf1();
+    virtual void vf2();
+    virtual void vf3();
+    virtual void vf4();
+    virtual bool vfunc_5(int a1, Slot a2);
+    char pad04[0x18];
+    Cfg *cfg;
+    OwnerObj *owner;
+    float f24;
+    Weapon *f28;
+    Ctrl *f2c;
+    int f30;
+};
+
+bool FireProjectileAction::vfunc_5(int a1, Slot a2)
+{
+    struct Frame {
+        V3 b;
+        V3 a;
+        float period;
+        float r1;
+        V3 bm;
+        Pool *pool;
+        V3 P;
+        V3 c;
+        int s48;
+        int s4c;
+        Stats *fighter;
+        float r2;
+        Ctx *ctx;
+        V3 tmp;
+        V3 zv;
+        V3 tmp3;
+        V3 tmp2;
+        int out;
+        V3 v;
+        Matrix M;
+        Matrix M2;
+        Matrix M3;
+    } f;
+
+    if (a1 != 1)
+        return true;
+    f.pool = DAT_004dd700->pool;
+    f.ctx = owner->FUN_000592a0();
+    f.fighter = f.ctx->FUN_00059a30();
+    double sum = (double)a2.f + f24;
+    f24 = (float)sum;
+    Cfg *c0 = cfg;
+    if (c0->f2c > 0.0f)
+        f.period = (float)(1.0 / c0->f2c);
+    else
+        f.period = a2.f;
+    if (!(sum > f.period))
+        return true;
+
+    do {
+        Ctrl *ctrl = f2c;
+        f24 = (float)((double)f24 - f.period);
+        f.a.z = 0.0f;
+        f.a.y = 0.0f;
+        f.a.x = 0.0f;
+        f.b.x = 0.0f;
+        f.b.y = 0.0f;
+        f.b.z = -1.0f;
+        if (ctrl != 0) {
+            int idx6 = f30 << 6;
+            Weapon *w = f28;
+            if (w != 0) {
+                const Matrix *src = (const Matrix *)(ctrl->mats + idx6);
+                f.M.FUN_0022ca90(src, w->v15());
+            } else {
+                memcpy(&f.M, ctrl->mats + idx6, sizeof(Matrix));
+            }
+            f.tmp = cfg->v40;
+            f.M.FUN_0022c2b0(&f.tmp, &f.a);
+            f.tmp2 = cfg->v4c;
+            f.M.FUN_0022c3b0(&f.tmp2, &f.b);
+            f.b.FUN_0022d110();
+        }
+        int id = cfg->f7c;
+        int slot = f.pool->FUN_001b6b00(id, &f.a);
+        if (slot >= 0) {
+            void *mem = DAT_004e2210.FUN_0008fe90(0x50);
+            Projectile *proj;
+            if (mem)
+                proj = ((Projectile *)mem)->FUN_00195a90(cfg);
+            else
+                proj = 0;
+            proj->AddRef();
+            proj->f20 = owner->f8;
+            proj->f14 = id;
+            Target *tgt = f.fighter->target;
+            if (tgt == 0) {
+                Cfg *c1 = cfg;
+                tgt = f.fighter->FUN_00039c60(&f.a, &f.b, c1->f68, c1->f6c, 0, 0, 0);
+                if (tgt != 0)
+                    tgt->AddRef();
+            } else {
+                tgt->AddRef();
+            }
+            if (proj->f24 != 0)
+                proj->f24->Release();
+            proj->f24 = tgt;
+            if (tgt != 0) {
+                if (cfg->b74) {
+                    if (FUN_00096b50(tgt, &f.tmp3, &f.out)) {
+                        f.b.x = f.tmp3.x - f.a.x;
+                        f.b.y = f.tmp3.y - f.a.y;
+                        f.b.z = f.tmp3.z - f.a.z;
+                        f.b.FUN_0022d110();
+                    }
+                }
+            }
+            Cfg *c3 = cfg;
+            f.r1 = c3->f58;
+            if (f.r1 > 0.0f) {
+                Rng *rng = FUN_000964d0();
+                f.r1 = rng->FUN_000787e0(0, *(int *)&f.r1);
+                f.r2 = rng->FUN_000787e0(0, 0x40c90fdb);
+                f.zv.x = 0.0f;
+                f.zv.y = 1.0f;
+                f.zv.z = 0.0f;
+                if (f.b.FUN_0022d2b0(&f.zv, 1e-5f)) {
+                    f.c.x = (float)((double)(f.b.y * -1.0f) - (double)(f.b.z * 0.0f));
+                    f.c.y = (float)((double)(f.b.z * 0.0f) - (double)(f.b.x * -1.0f));
+                    f.c.z = (float)((double)(f.b.x * 0.0f) - (double)(f.b.y * 0.0f));
+                } else {
+                    f.c.x = (float)((double)(f.b.y * 0.0f) - (double)f.b.z);
+                    f.c.y = (float)((double)(f.b.z * 0.0f) - (double)(f.b.x * 0.0f));
+                    f.c.z = (float)((double)f.b.x - (double)(f.b.y * 0.0f));
+                }
+                f.M2.FUN_0022b980();
+                f.M2.FUN_0022baf0(&f.c, f.r1);
+                f.M3.FUN_0022b980();
+                f.M3.FUN_0022baf0(&f.b, f.r2);
+                f.M2.FUN_0022c3b0(&f.b, &f.v);
+                f.M3.FUN_0022c3b0(&f.v, &f.b);
+            }
+            proj->f40 = f.b;
+            Cfg *c4 = cfg;
+            float f5c = c4->f5c;
+            proj->f4c = f5c;
+            float m = f5c * f24;
+            double bxm = (double)f.b.x * m;
+            f.bm.y = f.b.y * m;
+            f.bm.z = f.b.z * m;
+            f.P.x = 0.0f;
+            f.P.y = 0.0f;
+            f.P.z = 0.0f;
+            f.a.x = (float)(bxm + f.a.x);
+            f.a.y = f.bm.y + f.a.y;
+            f.a.z = f.bm.z + f.a.z;
+            f.ctx->FUN_00059a50(&f.P);
+            f.P.y = f.a.y;
+            proj->f28 = f.P;
+            proj->f34 = f.a;
+            f.pool->FUN_001b6d00(slot, proj);
+            proj->Release();
+        }
+    } while (f24 > f.period);
+    return true;
+}
