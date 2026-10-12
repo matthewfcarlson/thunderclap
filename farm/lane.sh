@@ -12,7 +12,12 @@ LOG=build/farm/lane-$LANE.log
 while :; do
     farm/run.sh --lane "$LANE" --mode "${MODE:-match}" --queue "$QUEUE" --tiers "$TIERS" --limit "$BATCH" --concurrency "$CONC" >> "$LOG" 2>&1
     $PY tools/progress.py --readme >> "$LOG" 2>&1
-    git add matches equivalent README.md
+    # Stage only this lane's own results: other agents leave files in matches/ and equivalent/ that
+    # they commit themselves, and sweeping them in mislabels the commit.
+    for a in $(tail -n "$BATCH" "build/farm/lanes/$LANE.jsonl" 2>/dev/null | grep -E '"status":"(match|equivalent)"' | grep -oE '"addr":"0x[0-9a-f]+"' | cut -d'"' -f4); do
+        for f in "matches/$a.cpp" "equivalent/$a.cpp"; do [ -e "$f" ] && git add "$f"; done
+    done
+    git add README.md
     if git diff --cached --quiet; then
         IDLE=$((IDLE + 1))
     else
