@@ -1,0 +1,107 @@
+// STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 22/24, incomplete)
+// FUN_002a4e40 @ 0x002a4e40
+extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
+
+class Drawable {
+public:
+    virtual void AddRef();
+    virtual void Release();
+    virtual void v2();
+    virtual void v3();
+    virtual Drawable *Clone();
+    virtual void SetParent(Drawable *parent);
+};
+
+struct Elem {
+    Drawable *obj;
+    Drawable **begin;
+    Drawable **end;
+    int pad;
+    void FUN_002a4890();
+};
+
+struct ElemVec {
+    Elem *begin;
+    Elem *end;
+    bool FUN_002a4d10(unsigned int count, Elem *fill);
+};
+
+class __declspec(novtable) DrawableBase {
+public:
+    virtual void b0();
+    char pad04[0x3c];
+    void FUN_002a3530(const DrawableBase *src);
+    DrawableBase(const DrawableBase &src) { FUN_002a3530(&src); }
+};
+
+namespace pure3d {
+class DrawableContainer : public DrawableBase {
+public:
+    virtual void vfunc_1();
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    int f40;
+    DrawableContainer *self;   // 0x44
+    ElemVec elems;             // 0x48
+    DrawableContainer(const DrawableContainer &src);
+};
+}
+
+pure3d::DrawableContainer::DrawableContainer(const DrawableContainer &src)
+    : DrawableBase(src)
+{
+    f40 = src.f40;
+    elems.begin = 0;
+    elems.end = 0;
+
+    Elem fill;
+    fill.obj = 0;
+    fill.begin = 0;
+    fill.end = 0;
+    elems.FUN_002a4d10(src.elems.end - src.elems.begin, &fill);
+    fill.FUN_002a4890();
+    self = this;
+
+    unsigned int count = src.elems.end - src.elems.begin;
+    if (count != 0) {
+        unsigned int offset = 0;
+        do {
+            Drawable *clone = ((Elem *)((char *)src.elems.begin + offset))->obj->Clone();
+            Elem *dst = (Elem *)((char *)elems.begin + offset);
+            if (clone != 0)
+                clone->AddRef();
+            if (dst->obj != 0)
+                dst->obj->Release();
+            dst->obj = clone;
+
+            Elem *se = (Elem *)((char *)src.elems.begin + offset);
+            unsigned int m = se->end - se->begin;
+            if (m != 0) {
+                Elem *de = (Elem *)((char *)elems.begin + offset);
+                if (de->begin == 0) {
+                    Drawable **p = (Drawable **)FUN_0008d6d0(m * 4);
+                    de->begin = p;
+                    if (p == 0) {
+                        de->begin = 0;
+                        de->end = 0;
+                    } else {
+                        de->end = p + m;
+                        for (unsigned int k = 0; k < m; k++)
+                            p[k] = 0;
+                    }
+                }
+                for (unsigned int j = 0; j < m; j++) {
+                    Drawable *c2 = ((Elem *)((char *)src.elems.begin + offset))->begin[j]->Clone();
+                    c2->SetParent(clone);
+                    Drawable **slot = &((Elem *)((char *)elems.begin + offset))->begin[j];
+                    c2->AddRef();
+                    if (*slot != 0)
+                        (*slot)->Release();
+                    *slot = c2;
+                }
+            }
+            offset += 0x10;
+            count--;
+        } while (count != 0);
+    }
+}
