@@ -2,7 +2,7 @@
 // FUN_001efa40 @ 0x001efa40
 extern "C" int sprintf(char *buf, const char *fmt, ...);
 extern "C" unsigned int DAT_004d9968;
-extern "C" void __cdecl __security_check_cookie(unsigned int);
+extern "C" void __fastcall __security_check_cookie(unsigned int);
 void *__cdecl FUN_0008d710(unsigned int size, int tag);
 
 struct StrTable {
