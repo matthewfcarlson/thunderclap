@@ -12,7 +12,9 @@ build/venv/bin/python tools/equiv.py SRC 0xADDR -- /Oy-         # extra cl flags
 
 Library: `equiv.verify(src, addr, symbol=None, flags=(), n_inputs=64, mapping=None, use_names=True, ...)`
 returns the report dict. The exit status is 0 only for `equivalent`. A typical function takes 1–5 s
-(compile included); loops that run long on fuzzed inputs can take up to the 120 s level-3 budget.
+(compile included); loops that run long on fuzzed inputs can take up to the 120 s level-3 budget. The
+budget is CPU time, so a loaded machine takes longer but gets the same result. `--inputs N` raises the
+input cap to at least N.
 
 ## Levels
 
@@ -22,13 +24,16 @@ returns the report dict. The exit status is 0 only for `equivalent`. A typical f
 | 2 | same references: callees, globals, vftables, strings | a missing or extra callee or global, an unresolvable symbol |
 | 3 | differential execution in Unicorn on fuzzed inputs | any difference in calls, memory writes, return value, callee-saved registers or stack balance |
 
-`status` is `equivalent` (levels 1–3 pass), `fail`, `unsupported` (level 3 could not run any input to
-completion), `compile_error` or `no_function`. `level` is the highest level passed.
+`status` is `equivalent` (levels 1–3 pass), `fail`, `inconclusive` (no difference, but fewer than 8 inputs
+ran to completion or branch coverage is under 25%; byte-identical code is exempt), `unsupported` (level 3
+could not run any input to completion), `compile_error` or `no_function`. `level` is the highest level
+passed.
 
 Level 2 also lists **warnings**: differences that equivalent code can legitimately have. Examples are an
 immediate that only looks like an address, a float constant loaded another way (`fld1`, or a double
-instead of a float), a string or global read in pieces, and CRT calls the original inlined. Level 3
-still checks the behaviour behind them.
+instead of a float), a string or global read in pieces, another element of a global the original
+references too (a loop's induction base at a different field of the same object), and CRT calls the
+original inlined. Level 3 still checks the behaviour behind them.
 
 ## Binding our symbols to original addresses
 
@@ -133,20 +138,44 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   - boundary constants as int arguments;
   - stubs that always return 0 or 1.
 - 64 random inputs, then more (up to 256) while branch coverage of the original keeps growing.
-- Then up to 96 **directed** inputs (input-to-state). Every `cmp`/`test` the original executes is
-  recorded, with the address each operand was loaded from. When a branch side (or `setcc` outcome) was
-  never taken, or was taken by fewer than 4 inputs, the input that reached it is re-run with that memory
-  or stack argument patched to the value on the other side.
+- Seeds with `seed % 8 == 6` are "stable": callees change no memory, so a loop that calls something per
+  element re-reads the same bound every round.
+- **Loop repair.** An input on which the original runs out of steps in a loop (a count, a `begin`/`end`
+  pair or a list walk read from fuzzed memory) is re-run with the loop's bound patched so that the loop
+  ends after a round or two; the induction variable's step comes from the comparison's first two rounds.
+  A run that then hangs in the next loop is repaired again (4 loops deep, 64 runs). A loop that ran away
+  once is cut off after 256 rounds on later inputs (those count as timed out, and are repaired too).
+- Then up to 96 **directed** inputs (input-to-state; each one that finds a new edge earns 4 more, up to 4x).
+  Every comparison the original executes is recorded, with where each operand came from. When a branch side
+  (or `setcc` outcome, or jump-table case) was never taken, or was taken by fewer than 4 inputs, the input
+  that reached it is re-run with that memory, stack argument, stub result or out-parameter word patched to
+  a value on the other side (alternating between the two operands). Followed through:
+  - comparisons done by `sub`/`add`/`dec`/`inc`/`and`/`or r, r` (`dec ecx; sub ecx, 4; je`: a type switch);
+  - arithmetic on the loaded value: `add`/`sub` of constants or other registers (`end - begin`), shifts,
+    `and`, `neg`/`not`, magic-number divisions (`imul` by a constant, `idiv`), `movzx` of a low byte, a
+    byte-table switch index (`movzx ecx, byte [eax + table]`), all inverted to find the value to plant;
+  - a register stored to a stack local and compared there later (`movsx eax, byte [edx]; mov [esp+4], eax`);
+  - x87 compares (`fcom`/`fcomp` + `fnstsw`/`test ah`, `fcomi`), against memory or a stubbed callee's
+    float result;
+  - a loop's bound (patched for one or two more rounds, in every memory epoch when it is re-read after a
+    call).
+
+  Directed inputs never patch code (a switch's byte table: ours has its own), nor a float constant read
+  at a fixed address in `.rdata` (ours may load it from its own constant, or as `fld1`), nor plant an
+  address that wraps around (`lea ecx, [ebx + 0xb4]; test ecx, ecx` and `add eax, 0x58; je` are the null
+  checks of a base-class conversion, not value tests). Exact float ties are planted only against a plain
+  loaded value: against a computed one, the tie depends on the precision each side computes in.
 
 **Callees**
 - Callees are never executed, except `_ftol`/`_chkstk` and the CRT routines above. The `/GS` check
   `__security_check_cookie` is skipped on both sides, because its caller's `add esp` releases the frame
   and isn't argument cleanup; `ecx` must hold a value read from the cookie global. A call to the function
-  under test itself (recursion) is stubbed on both sides. At every `call`, and at
+  under test itself (recursion) is stubbed on both sides, and `&self` (a stored function pointer) is the
+  original's address in our run too. At every `call`, and at
   a `jmp` that leaves the function (a tail call), a stub:
   - records the target, the argument words, the registers, and every stack local passed by pointer;
   - returns a deterministic `eax`/`edx`, plus a float on the x87 stack if the code after the call consumes
-    `st0`;
+    `st0` (the same value on both sides; directed inputs can steer it);
   - fills each local passed by pointer (an out-parameter), with the same values on both sides. A class
     parameter is filled over its whole `sizeof`. Any other parameter gets at least 16 bytes, skipping
     words the function has already written itself;
@@ -163,12 +192,28 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   pops that register somewhere; otherwise it passes on a register argument (LTCG `esi`).
 - The pop count comes from the callee's own `ret N` (following tail jumps) when the call site names a real
   function. For cdecl, it comes from the caller's `add esp, N` or `pop ecx` cleanup, including one
-  deferred over several calls. Otherwise it comes from tracked argument pushes. For indirect calls, our
-  k-th call reuses the count the original's k-th call used on the same input. Pending pushes that the
-  next direct call pops (`push 1; call thunk; push eax; push name; call f` with `f` popping 12) belong to
-  that call, not to the one in between.
+  deferred over several calls. A caller-cleaned callee takes only the words it reads; pushes above them
+  are pending for a later call.
+- A call of unknown arity (virtual, a `jmp [vtable]` thunk) is decided by what the caller does with the
+  pushed words afterwards: released by a later `add esp` (the callee leaves its arguments:
+  caller-cleaned), popped by a later call with a known `ret N` (pushed early for that call: `push 1; call
+  thunk; push eax; push esi; call f(ret 4); push eax; call g(ret 12)`), or read by a later caller-cleaned
+  call (`push &t; call [vt+0x40]; push eax; ...; call f; add esp, 0x10`). Otherwise the tracked pushes
+  count, and the callee pops them. Each side's stack follows its own code (a virtual we declare as a
+  thiscall member pops its arguments where the original's caller cleaned them up; the target is unknown
+  either way); the number of words compared is the original's.
 - The number of argument words compared is what the callee actually reads (a stack-depth scan of the
-  callee). Unused or dead arguments don't count.
+  callee, which follows indirect calls, `ebp` used as a general register and late register saves).
+  Unused or dead arguments don't count. A callee our source declares with `...` is compared over the
+  words each call site passes, also past an `equiv-conv`'s listed slots.
+- Functions of our own object run in place: the words pushed for them are their arguments, and their
+  prologue's register saves aren't arguments of the calls they make.
+- **Callees that never return** (`longjmp`, Lua's `luaD_throw`, error helpers: no `ret` reachable, every
+  path ends in `int3`, a call followed by `int3`, another such callee, or an indirect jump after reloading
+  `esp`) end the run on both sides; it is compared up to and including that call, without return value or
+  registers.
+- A jump through a pointer read from memory is a tail call (unless it lands in the function's own body),
+  in both runs.
 - Callee side effects: after each stub the memory epoch advances, and every non-code page is remapped with
   fresh deterministic contents. That models "the callee may change anything", and it catches code that
   caches a value across a call when the original re-reads it.
@@ -194,8 +239,9 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
 - The x87 stack depth, `ebx/esi/edi/ebp` and `esp` after return.
 - An argument pushed from a register whose last write set only its low byte(s) (`setcc al; push eax`, a
   `bool`) compares on those bytes only.
-- Values that point into the stack compare as "a stack address". Floats stored by `fst`/`fstp` and float
-  arguments compare with relative tolerance 1e-5.
+- Values that point into the stack compare as "a stack address". Floats stored by `fst`/`fstp` (on either
+  side) and float arguments compare with relative tolerance 1e-5; a word that is the same normal float
+  but for its last bit (rounded once more on one side, then copied through a register) is equal too.
 
 An input on which the original doesn't return (step limit 50k, or the 1000-page limit) is inconclusive. If
 the first 4 inputs all run out of steps, the rest get 1M steps (and 3x the time budget): long but
@@ -244,18 +290,20 @@ Mismatch strings are written for a model to act on. Examples:
 
 ## Validation
 
-Latest run (2026-10-11, after the soundness round; the samples are drawn from the current `matches/`, so
-they differ from earlier runs):
+Latest run (2026-10-12, checker round 3; samples drawn from the current `matches/`):
 
-- Selftest: 300/300 equivalent. With `/O1` 297/300 and with `/Oy-` 298/300; the failures (0x002a1e00,
-  0x002c1cf0, 0x003388d0) fail the same way with the previous checker.
-- Mutation suite (119 functions): 331 caught, 16 false passes. The previous checker on the same functions:
-  333 caught, 15 false passes; every difference is a different mutant text, and mutants that are the same
-  get the same verdict (each false pass also passes the previous checker).
-- `equivalent/` re-checked: 440 of 463 still equivalent; the 23 that fail are real (wrong cookie
-  convention, a local smaller than the callee's object, wrong callee pop declarations, a void function that
-  returns a value, nested-local differences, and so on).
-- `tests/equiv/regress.py`: 13/13.
+- Selftest: 298/300 equivalent; with `/O1` 296/300 and with `/Oy-` 297/300. Every failure (0x003388d0,
+  0x00312db0, and under other flags 0x0029b3a0, 0x00327c70) fails the same way with the previous checker
+  (the match sources changed or don't bind a string).
+- Mutation suite (120 functions): 325 caught, 19 false passes, 1 false fail (a commute mutant). The
+  previous checker on the same mutants: 321 caught, 23 false passes, the same false fail; the 4 differences
+  are all newly caught mutants.
+- `equivalent/` re-checked: 980 of 983 still equivalent. The 3 that fail now reach paths the previous
+  checker never covered: a callee declared `ret 8` that really has a plain `ret` (0x00277810), and two
+  argument values on directed inputs (0x00332310, 0x00355e2d).
+- `build/farm/equiv-lowcov/` (functions that passed with thin coverage): 24 of the original 56 now pass
+  with at least 75% branch coverage (7 before), 32 of the current 75.
+- `tests/equiv/regress.py`: 36/36.
 
 The harnesses:
 
@@ -273,6 +321,10 @@ The harnesses:
   status it must get and the mismatch that shows why.
 
 ## Limits
+
+- **Loops kept going by callees.** A loop that ends only through a callee's side effect (a teardown
+  `while (head) remove(head)` over a global, a fixed 2048-slot loop with several calls per slot) still
+  runs out of steps: 0x0024ad20 and 0x001dec10 stay unsupported.
 
 - **Coverage, not proof.** A pass means no difference on the inputs run, so check `coverage.complete`.
   Code behind conditions the fuzzer can't satisfy (deep pointer chains, specific global state, values

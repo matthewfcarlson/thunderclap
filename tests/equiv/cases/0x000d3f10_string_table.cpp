@@ -1,0 +1,93 @@
+// STATUS: equivalent (tools/equiv.py level 3: 115 inputs, branch coverage 32/34, incomplete)
+// FUN_000d3f10 @ 0x000d3f10
+namespace pure3d { class DrawableHierarchy; }
+namespace content {
+class LoadInventory {
+  public:
+    template <class T> class DynamicCaster {
+      public:
+        virtual T* Cast(void* p);
+    };
+    virtual void l0();
+    virtual void l1();
+    virtual void l2();
+    virtual void* Find(const DynamicCaster<pure3d::DrawableHierarchy>& c, __int64 uid);
+};
+}
+struct Lookup {
+    int idx;
+    int kind;
+};
+struct Provider {
+    int FUN_000ad7b0(int a, int b, int c);
+    int FUN_000ad580(int a, int b, int c);
+};
+extern const char* DAT_0040b020[];
+extern Lookup DAT_004a0560[];
+extern const char* DAT_004a0658[];
+extern const char* DAT_004a06a0;
+extern const char* DAT_004a06a4;
+extern content::LoadInventory* DAT_004dd9cc;
+extern unsigned int DAT_004d9968;
+extern "C" void __fastcall __security_check_cookie(unsigned int);
+extern "C" int strcmp(const char*, const char*);
+extern "C" const char* strstr(const char*, const char*);
+extern "C" int sprintf(char*, const char*, ...);
+extern "C" unsigned int strlen(const char*);
+const char* __cdecl FUN_000b09c0(int a, int b);
+const char* __cdecl FUN_000b08a0(int a, int b);
+__int64 __cdecl FUN_0027b020(const char* s);
+
+struct Finder {
+    char pad[4];
+    Finder* sub;
+    Provider* FUN_000ae640(int i);
+    void* FUN_000d3f10(const char* name);
+};
+
+void* Finder::FUN_000d3f10(const char* name) {
+    unsigned int cookie = DAT_004d9968;
+    char buf[64];
+    int i = 0;
+    const char* s = DAT_0040b020[0];
+    for (;;) {
+        if (s == 0) {
+            __security_check_cookie(cookie);
+            return 0;
+        }
+        if (strcmp(s, name) == 0) break;
+        s = DAT_0040b020[i + 1];
+        i++;
+    }
+    int idx = DAT_004a0560[i].idx;
+    int kind = DAT_004a0560[i].kind;
+    const char* text = 0;
+    if (kind == 3) {
+        text = DAT_004a0658[idx];
+    } else {
+        Provider* p;
+        int n = 0;
+        do {
+            p = sub->FUN_000ae640(n);
+            if (p) break;
+            n++;
+        } while (n < 1);
+        kind = DAT_004a0560[i].kind;
+        if (kind == 1) {
+            if (p) text = (const char*)p->FUN_000ad7b0(0, idx, 0);
+            else text = FUN_000b09c0(idx, 0);
+        } else if (kind == 2) {
+            if (p) text = (const char*)p->FUN_000ad580(0, idx, 0);
+            else text = FUN_000b08a0(idx, 0);
+        }
+    }
+    if (strstr(text, DAT_004a06a4) == text)
+        text += strlen(DAT_004a06a4);
+    const char* prefix = (DAT_004a0560[i].kind == 3) ? "" : "xbox_ctrlr_btn_";
+    sprintf(buf, "%s%s%s", prefix, text, DAT_004a06a0);
+    content::LoadInventory* ld = DAT_004dd9cc;
+    __int64 uid = FUN_0027b020(buf);
+    void* r = ld->Find(content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>(), uid);
+    __security_check_cookie(cookie);
+    return r;
+}
