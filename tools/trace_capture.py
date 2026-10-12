@@ -236,12 +236,16 @@ class CallCapture:
         return rec
 
     def base_for(self, run, u, k):
+        """(pointer key, offset) placing Unicorn stack address u relative to a pointer this call got: an argument
+        or a register pointing at most BASE_REACH below u (the nearest one)."""
         best = None
         c = run.calls[k]
-        cands = [(("arg", j), v) for j, (v, _) in enumerate(c["args"])] + \
-                [(("reg", r), c["regs"][r]) for r in ("ecx", "edx", "eax", "esi", "edi", "ebx")]
-        for key, v in cands:
-            if STACK_LO <= v <= u and u - v < er.BASE_REACH and (best is None or v > best[1]):
+        ext = (self.cap.prog.callee_writes(c["target"]) or {}) if c.get("known", True) else {}
+        cands = [(("arg", j), v, ext.get(j, 0)) for j, (v, _) in enumerate(c["args"])] + \
+                [(("reg", r), c["regs"][r], ext.get(r, 0)) for r in ("ecx", "edx", "eax", "esi", "edi", "ebx")]
+        for key, v, w in cands:
+            reach = er.BASE_REACH       # (the nearest pointer below: the object the callee wrote into)
+            if STACK_LO <= v <= u and u - v < reach and (best is None or v > best[1]):
                 best = (key, v)
         if best is None:
             return ("entry",), u - equiv.ENTRY_ESP
@@ -267,8 +271,9 @@ class CallCapture:
         rec["frame"] = (esp - equiv.ENTRY_ESP, g)
         n = min(len(g), len(snap))
         runs = []
+        ra = equiv.ENTRY_ESP - esp          # the return-address slot: the game's caller vs Unicorn's sentinel
         for i in range(n):
-            if g[i] != snap[i]:
+            if g[i] != snap[i] and not ra <= i < ra + 4:
                 if runs and runs[-1][1] == i:
                     runs[-1][1] = i + 1
                 else:

@@ -235,9 +235,9 @@ class TraceRun(Run):
         if fpcw is not None:
             self.uc.reg_write(self.u.UC_X86_REG_FPCW, fpcw)
         below = self.trace["entry"].get("below")
-        if self.side == "orig" and below:
-            # the original runs on the game's own stack contents (uninitialised locals included), so it repeats
-            # the game exactly; ours gets STACK_FILL as in level 3
+        if self.syncer is not None and below:
+            # capture: Unicorn runs on the game's own stack contents (uninitialised locals included), so it
+            # repeats the game exactly. Replay gives both sides STACK_FILL, as in level 3
             self.uc.mem_write(equiv.ENTRY_ESP - len(below), below)
 
     def _on_write(self, uc, access, addr, size, value, _):
@@ -290,7 +290,7 @@ class TraceRun(Run):
         if enc[0] == "raw":
             return enc[1]
         b = self.base_value(enc[1], k)
-        if b is None or (self.side == "ours" and enc[1][0] == "entry" and enc[2] < 0):
+        if b is None or (self.syncer is None and enc[1][0] == "entry" and enc[2] < 0):
             self.base_misses += 1
             return None
         return (b + enc[2]) & M32
@@ -301,24 +301,49 @@ class TraceRun(Run):
             if snap and self.reg("esp") <= esp:     # (not after a >252-byte pop, which moved the return address)
                 uc.mem_write(esp, snap)         # undo the fuzzing stub's out-parameter fills
             frame = res.get("frame")
-            if self.side == "orig" and frame:
-                off, data = frame               # the game's frame after the call, byte for byte
+            if self.syncer is not None and frame:
+                off, data = frame               # capture: the game's frame after the call, byte for byte
                 uc.mem_write(equiv.ENTRY_ESP + off, data)
-            # what the callee wrote into the frame, placed relative to the pointer it got (our frame differs):
-            # bytes it changed, and the bytes its static write extent covers through each pointer
-            for key, off, data in list(res.get("delta", ())) + list(res.get("fills", ())):
-                if self.side == "ours" and key[0] == "entry" and off < 0:
-                    self.base_misses += 1       # a write into the original's frame that no argument points at
-                    continue
-                b = self.base_value(key, k)
-                if b is None:
+                uc.mem_write(equiv.ENTRY_ESP, struct.pack("<I", equiv.SENTINEL))    # (not the game's return address)
+                return self._apply_regs(insn, target, res, k)
+            # Replay, both sides alike: what the callee wrote into the frame, placed relative to the pointer it
+            # got (our frame is laid out differently): the bytes it changed, and the bytes its static write
+            # extent covers through each pointer. A write no argument of this call points at (through a pointer
+            # stored earlier) can't be placed in our frame, so neither side gets it.
+            # The original's run places each write first and decides for both: a write into the incoming
+            # arguments (identical layout on both sides) goes to the same slot in ours; one into the frame goes
+            # relative to its pointer, and must stay in our frame; one the original can't place is skipped.
+            place = self.trace.setdefault("_place", {})
+            entry = equiv.ENTRY_ESP
+            for i, (key, off, data) in enumerate(list(res.get("delta", ())) + list(res.get("fills", ()))):
+                n = len(data)
+                if self.side == "orig":
+                    b = None if key[0] == "entry" and off < 0 else self.base_value(key, k)
+                    a = None if b is None else b + off
+                    if a is None or (a < entry + 4 and a + n > entry) or not (STACK_LO <= a and a + n <= STACK_HI):
+                        place[(k, i)] = a = None
+                    else:
+                        place[(k, i)] = ("args", a - entry) if a >= entry + 4 else ("frame",)
+                else:
+                    how = place.get((k, i))
+                    if how is None:
+                        a = None
+                    elif how[0] == "args":
+                        a = entry + how[1]
+                    else:
+                        b = self.base_value(key, k)
+                        a = None if b is None or key[0] == "entry" else b + off
+                        if a is not None and a + n > entry:
+                            a = None
+                if a is None:
                     self.base_misses += 1
                     continue
-                a = b + off
-                if STACK_LO <= a and a + len(data) <= STACK_HI:
-                    if self.side == "ours":
-                        uc.mem_write(a, data)
-                    self.stack_written.update(range(a, a + len(data)))
+                uc.mem_write(a, data)
+                self.stack_written.update(range(a, a + n))
+        self._apply_regs(insn, target, res, k)
+
+    def _apply_regs(self, insn, target, res, k):
+        uc = self.uc
         clobbers = self.prog.reg_writes(target) if _known(insn) else None
         if clobbers is None:
             clobbers = {"eax", "ecx", "edx"}
@@ -359,6 +384,7 @@ class TraceNamer(equiv.Namer):
 def run_original(prog, oview, trace, store, helpers, ours_image=None, psizes=None, convs=None, varargs=(),
                  own_float=False, max_steps=2000000):
     set_entry_esp(trace["entry"].get("esp_g"))
+    trace.pop("_place", None)
     inp = make_input(trace["entry"])
     mach = TraceMemory(prog, trace["pages"], store)
     orun = TraceRun(prog, oview, mach, inp, ours_image=ours_image, sig=None, max_steps=max_steps,
@@ -390,13 +416,14 @@ def selfcheck(o, orun, mach, trace):
     return None
 
 
-def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=600):
+def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=120):
     """A level3_fn for equiv.verify: replay every recorded call of addr."""
     def fn(prog, oview, rview, ours, orefs, sig, ret_kind, psizes, convs, decls, void_eax, issues):
         res = {"captured": 0, "replayed": 0, "agreed": 0, "mismatched": 0, "incomplete": 0, "mismatches": [],
                "incomplete_reasons": [], "notes": [], "level2_ok": not issues}
         if (convs or {}).get(oview.entry):
             res["unsupported"] = "the function itself has an equiv-conv annotation (register arguments)"
+            res["status"] = "unsupported"
             return res
         traces = store.calls(addr, only_ok=True, limit=max_calls)
         res["captured"] = len(traces)
@@ -464,7 +491,7 @@ def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=60
     return fn
 
 
-def replay(src, addr, store, max_calls=None, flags=(), time_budget=600):
+def replay(src, addr, store, max_calls=None, flags=(), time_budget=120):
     """Replay every recorded call of addr against SRC. Returns {addr, src, status, ...}."""
     t0 = time.time()
     if not store.calls(addr, only_ok=False, limit=1):
@@ -550,7 +577,7 @@ def main(argv):
             _progress(r, a.json)
     results.sort(key=lambda r: r["addr"])
     from collections import Counter
-    summary = dict(Counter(r["status"] for r in results))
+    summary = dict(Counter(r.get("status", "?") for r in results))
     out = a.out or os.path.join(session, "replay-%s.json" % kind)
     json.dump({"session": os.path.relpath(session, ROOT), "summary": summary, "results": results},
               open(out, "w"), indent=1)
@@ -563,7 +590,7 @@ def _progress(r, as_json):
         print(json.dumps(r))
         return
     s = "%s %-11s calls=%s replayed=%s agreed=%s mismatched=%s incomplete=%s" % (
-        r["addr"], r["status"], r.get("captured"), r.get("replayed"), r.get("agreed"), r.get("mismatched"),
+        r["addr"], r.get("status", "?"), r.get("captured"), r.get("replayed"), r.get("agreed"), r.get("mismatched"),
         r.get("incomplete"))
     if r.get("mismatches"):
         s += "\n    first mismatch (call %s): %s" % (r["mismatches"][0]["call"], "; ".join(r["mismatches"][0]["diffs"][:2]))
