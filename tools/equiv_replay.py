@@ -338,8 +338,18 @@ class TraceRun(Run):
                     else:
                         b = self.base_value(key, k)
                         a = None if b is None or key[0] == "entry" else b + off
-                        if a is not None and a + n > entry:
-                            a = None
+                        if a is not None:
+                            room, what = self._frame_room(b)
+                            if 0 <= off < room < off + n:
+                                # the game's callee wrote one run of bytes starting inside the object it was
+                                # given and going past where ours has room (a smaller local; equiv.py's
+                                # undersized-local check, with the real write)
+                                loc = key[1]
+                                self.calls[k].setdefault("overflow", []).append((loc, off + n, room, what))
+                                n = room - off
+                                data = data[:n]
+                            if a + n > entry:
+                                a = None
                 if a is None:
                     self.base_misses += 1
                     continue
