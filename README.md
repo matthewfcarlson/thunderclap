@@ -17,6 +17,8 @@ The goal is a **native port**: C++ source we can build for SteamOS, arm64 macOS 
 | **Verified source, total** | 17,836 (65.0%) | 1430 KB (**53.1%**) |
 <!-- /status -->
 
+![Treemap of game code in address order, one box per function sized by its bytes: blue is byte-matched, orange is proven equivalent, grey is not yet verified](docs/progress-map.svg)
+
 Most matches so far are small functions, so byte coverage is the honest metric. Where things stand (2026-10-12):
 
 - **Progress rate.** Verified source went from 33% to 48% of game-code bytes in the last 22 hours (about 400 KB/day), mostly from Claude Sonnet subagents proving large functions *equivalent* (about 18 of every 20 attempted pass since checker round 3). Families of near-identical functions are now proved in bulk: `tools/clone_equivalent.py` reuses a proven source for same-shaped functions, and generators in [`tools/equiv_gen/`](tools/equiv_gen/) produce whole template families (48 script bindings in one pass). The port-priority list ([`docs/port-priority.txt`](docs/port-priority.txt), 2,011 functions) is **93% verified**.
