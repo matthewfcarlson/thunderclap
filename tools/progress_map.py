@@ -114,8 +114,8 @@ def main(argv=None):
         legend.append('<text class="t2" x="%d" y="45">%s</text>' % (lx + 18, text))
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {PAD_TOP + H + PAD_BOTTOM}" width="{W}" height="{PAD_TOP + H + PAD_BOTTOM}" role="img" aria-label="Treemap of game code: {pct['matched']:.1f}% of bytes byte-matched, {pct['equivalent']:.1f}% proven equivalent, {pct['unverified']:.1f}% not yet verified">
 <style>
-svg {{ --bg:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --m:#2a78d6; --e:#eb6834; --u:#e4e3df; --gap:#fcfcfb; }}
-@media (prefers-color-scheme: dark) {{ svg {{ --bg:#1a1a19; --ink:#f0efec; --ink2:#c3c2b7; --m:#3987e5; --e:#d95926; --u:#3a3a37; --gap:#1a1a19; }} }}
+svg {{ --bg:#fcfcfb; --ink:#0b0b0b; --ink2:#52514e; --m:#2a78d6; --e:#008300; --u:#e4e3df; --gap:#fcfcfb; }}
+@media (prefers-color-scheme: dark) {{ svg {{ --bg:#1a1a19; --ink:#f0efec; --ink2:#c3c2b7; --m:#3987e5; --e:#008300; --u:#3a3a37; --gap:#1a1a19; }} }}
 .bg {{ fill: var(--bg); }}
 .m {{ fill: var(--m); }} .e {{ fill: var(--e); }} .u {{ fill: var(--u); }}
 g.boxes path {{ stroke: var(--gap); stroke-width: 0.5; }}
