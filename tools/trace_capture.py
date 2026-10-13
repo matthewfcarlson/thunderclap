@@ -834,8 +834,9 @@ def main(argv):
         if a.write_script:
             print("wrote", os.path.relpath(DEFAULT_SCRIPT, ROOT))
             return 0
-    if any("xemu" in l and "-gdb" in l for l in os.popen("ps -axo command").read().splitlines()):
-        raise SystemExit("another xemu with a GDB stub is running (one xemu at a time)")
+    port = "tcp::%d" % hybrid_run.GDB_PORT       # one xemu per instance (HULK_XEMU_INSTANCE), not one overall
+    if any("xemu" in l and port in l.split() for l in os.popen("ps -axo command").read().splitlines()):
+        raise SystemExit("another xemu is using this instance's GDB port %s (set HULK_XEMU_INSTANCE)" % port)
     Capture(a).run()
     return 0
 
