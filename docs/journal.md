@@ -417,3 +417,69 @@ Results:
   script-driven recording replayed checkpoint-identical through all 15,182 frames.
 - **Result:** the runs went from identical through frame 450 to identical through 7,700–19,900 frames
   (4–11 minutes of gameplay). One leak remains: a fully pinned pair parted at frame 8,760.
+
+## 2026-10-09/13: Fine-tuning a local matcher (ulk-1, ulk-2)
+
+- **Setup.** `ulk-N` is Qwen3.6-35B-A3B (35B parameters, 3B active per token) with a LoRA trained on our
+  own verified farm output, using Unsloth's MLX backend on mac2 (M3 Max, 128 GB). `tools/export_dataset.py`
+  turns farm transcripts and `matches/`/`equivalent/` into chat examples, `tools/train_sft_unsloth.py`
+  trains, `tools/export_merged.py` merges and quantizes to 4-bit MLX (19 GB) for Unsloth Studio. The LoRA
+  is rank 32 on attention, the linear-attention projections and the shared expert: 38M trainable parameters,
+  0.11% of the model. Wrapping the 256 routed experts as well gives 2.5B parameters, 114 GB peak and 3×
+  slower steps, so they stay frozen.
+- **ulk-1** trained on every assistant turn of 4,238 farm transcripts (10,152 rows, one pass, 20 h). Training
+  loss 0.34, validation loss 0.39 → 0.33. Test set (93 held-out functions, 8 attempts): **48**, against 42 for
+  the base model. The gain was all in small functions: 64–127 bytes stayed at 1 of 14, the same as the base.
+  On the rescue pile (functions cloud models had given up on) it matched 0 of 37.
+- **ulk-2** changed the data, not the recipe:
+  - train on the **final turn only** (the winning submission, with the earlier failed turns as context)
+    instead of every turn, which had taught the early wrong guesses too;
+  - read **every lane's transcript database**, not just the Oct 8 snapshot (+770 match transcripts);
+  - add one-turn examples (packet in, code out) from `matches/` without a transcript. 16,253 files hold only
+    6,082 distinct bodies (cloned and propagated matches), so they are deduped by normalized source;
+  - add **equivalence** work (transcripts and `equivalent/` files) under the farm's equivalence system prompt,
+    so the model sees 128–1023-byte functions at all and learns the two tasks as separate modes;
+  - import an external MSVC 7.1 decomp (halo): 516 of ~2,000 functions survived. Each needed its
+    declarations (a closure over types, prototypes and macros) to compile standalone and match, and static
+    functions are unmatchable outside their file because MSVC gives them custom register conventions.
+
+  7,045 rows, 2.27M answer tokens, two passes, 40 h (longer rows: 2.7 min/step against 1.9). Test set:
+  **60/93** (ulk-1 48, base 42). It gained 13 functions and lost 1, 34 of the 60 matched on the first
+  attempt, and its median output fell from 1,390 tokens to 790. 128–255-byte functions did not move
+  (1 of 21, the same as ulk-1).
+- **What worked:**
+  - **Only verified data.** Every example is a byte-exact match or a proven equivalent, so the compiler is
+    the data filter and nothing wrong gets in.
+  - **More, different data beat more of the same.** ulk-2's +12 came from changing the data, not the recipe.
+  - **Restarts over long chains.** ulk-1's matches level off after about 5 attempts (cumulative 21, 31, 40, 42,
+    47, 47, 48, 48 over attempts 1–8). Two independent 4-attempt runs matched 50/93 together against 48 for
+    one 8-attempt run, with only 29 in common. The easy-pile lane now uses 4 attempts.
+  - **Fast and free.** Studio's MLX server batches: 105 tok/s for one stream, 221 total for 4, flat at 8.
+    ulk-2 clears about **50 matches an hour** on small functions, and it matched 422 in its first day on
+    the small-function lane. Those are in the training set for ulk-3.
+- **What didn't:**
+  - **Large functions are a capacity limit, not a data gap.** On 50 random unmatched 128–255-byte functions
+    ulk-1 matched 1, with a median best score of 0.24. 3B active parameters doesn't seem to be enough, and
+    ulk-2's extra data didn't change it.
+  - **"Thinking effort" does nothing.** Qwen3.6's chat template only has thinking on/off, so the farm's
+    low/high setting is ignored and the length of reasoning is learned from the data. 3,900 of 6,269
+    transcripts (mostly GPT-6 Luna, which hides its reasoning) have no reasoning at all.
+  - **The 8,192-token cap** (training rows and the endpoint's `maxTokens`) drops long conversations (145
+    in ulk-2, mostly equivalence work), and the base model probably thought past it on the 12 test functions where it never submitted.
+  - **ulk-2 never ran validation** (no eval lines in the log), so there is no validation curve and no way to
+    pick a better checkpoint without benchmarking each one.
+  - **Training loss isn't comparable between runs.** ulk-2's 0.24 against ulk-1's 0.34 mostly reflects
+    easier rows (code-only answers, final turn only), not a better model. Only the fixed test set counts.
+  - **Ops:** an expert-routing profile of Qwen3-Coder-Next ran for hours and saved nothing when interrupted
+    (it now saves every 250 conversations). Studio binds its LAN address at launch, so mac2 changing IP
+    (.33 → .209) silently broke the endpoint until Studio was restarted.
+- **DeepSeek V4 Flash as the teacher.** On OpenRouter (284B parameters, 13B active) it matched **77/86** on
+  the test set (ulk-2 53, ulk-1 41 on the same 86) and 4 of 12 128–255-byte functions (ulk-1 0), at about
+  $0.01 per small function and $0.06 per mid-size one. antirez's ds4 engine runs a 2-bit build (81 GB) on
+  mac2. It matched all 7 test functions it reached (cloud also 7/7), but at ~5–6 tok/s per session with 4
+  sessions it takes about 5 minutes an attempt: roughly 14 matches an hour against ulk-2's 50. A mixed
+  2-/4-bit build (98 GB, needs `iogpu.wired_limit_mb` raised) is downloaded but untested.
+- **Plan:** ulk-2 burns down the small-function pile, local DeepSeek works what it leaves, and DeepSeek's
+  verified matches (with its reasoning, which it doesn't hide) become ulk-3's main new data. ulk-3: rank 64,
+  extra weight on 64–255-byte and multi-attempt examples, a 12k token cap, working validation. The goal is
+  DeepSeek-level matching in a model that runs in 32–64 GB.
