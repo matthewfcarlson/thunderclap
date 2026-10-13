@@ -1,0 +1,39 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 4/4)
+// FUN_0021cd90 @ 0x0021cd90
+struct Context { char pad[0x24]; int saved; };
+struct Node { char pad[0xc]; int kind; char pad2[0xc]; Context* context; };
+struct Info { int unused; int value; };
+struct State { char pad[0x14]; Info* info; int count; };
+struct Value { int type; int value; int extra; int a; int b; };
+// equiv-conv: FUN_0021c240 ecx esi
+void FUN_0021c240(const char*, Context*);
+// equiv-conv: FUN_0021c3d0 esi
+int FUN_0021c3d0(Node*);
+int __cdecl FUN_002209b0(Context*, int);
+// equiv-conv: FUN_0021cd30 edi eax
+void FUN_0021cd30(Value*, Node*);
+// equiv-conv: FUN_0021c2e0 eax esi
+void FUN_0021c2e0(int, Node*);
+int __cdecl FUN_00221200(Context*, Value*);
+void __cdecl FUN_0021ded0(Node*, Value*, int);
+int __cdecl FUN_00220bd0(Context*, int, int, int, int);
+int __cdecl target(Node* node, State* state) {
+ Context* context = node->context;
+ int saved = context->saved;
+ Value left, right;
+ if(node->kind == 0x116) {
+  if(state->count > 0x7ffffffd) FUN_0021c240("items in a constructor", context);
+  ++state->count;
+  int v = FUN_0021c3d0(node);
+  int result = FUN_002209b0(node->context,v);
+  left.a = -1; left.b = -1; left.type = 4; left.value = result;
+ } else FUN_0021cd30(&left,node);
+ FUN_0021c2e0(0x3d,node);
+ FUN_00221200(context,&left);
+ FUN_0021ded0(node,&right,0);
+ int r = FUN_00221200(context,&right);
+ int l = FUN_00221200(context,&left);
+ int result = FUN_00220bd0(context,9,state->info->value,l,r);
+ context->saved=saved;
+ return result;
+}
