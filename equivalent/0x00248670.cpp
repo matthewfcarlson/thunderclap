@@ -1,0 +1,64 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 28/28)
+// FUN_00248670 @ 0x00248670
+extern "C" double __cdecl sqrt(double);
+struct Sound {
+ float volume;
+ unsigned FUN_0025d3e0();
+};
+// equiv-conv: FUN_0025d740 ecx stack
+void __cdecl FUN_0025d740(Sound* sound, unsigned ticks);
+// equiv-conv: FUN_0025d780 ecx stack
+void __cdecl FUN_0025d780(Sound* sound, unsigned ticks);
+struct Owner { char reserved[48]; unsigned active; };
+struct Fade {
+ char reserved[8];
+ Sound* sound;
+ unsigned result;
+ char reserved10[8];
+ unsigned delay;
+ unsigned duration;
+ unsigned elapsed;
+ float progress;
+ unsigned phase;
+};
+// equiv-conv: FUN_00248670 edi esi stack
+void __cdecl FUN_00248670(Owner* owner, Fade* fade, unsigned ticks) {
+ if (!owner->active) ticks = 0;
+ if (fade->phase == 0) {
+  fade->elapsed += ticks;
+  if (fade->elapsed >= fade->delay) {
+   fade->phase = 1;
+   ticks = fade->elapsed - fade->delay;
+  }
+ }
+ if (fade->phase == 1) {
+  if (fade->duration != 0) {
+   double step = (double)(int)ticks / (double)(int)fade->duration;
+   if (step >= 0.1f) step = 0.1f;
+   double progress = step + fade->progress;
+   fade->progress = (float)progress;
+   if (progress >= 1.0f) {
+    fade->progress = 1.0f;
+    fade->phase = 2;
+   }
+  } else {
+   fade->progress = 1.0f;
+   fade->phase = 2;
+  }
+ }
+ fade->sound->volume = (float)sqrt(fade->progress);
+ unsigned state = fade->sound->FUN_0025d3e0();
+ switch (state) {
+ case 2:
+ case 4:
+  if (fade->phase && owner->active) FUN_0025d740(fade->sound, ticks);
+  break;
+ case 3:
+  if (!owner->active) FUN_0025d780(fade->sound, ticks);
+  break;
+ case 0:
+ case 5:
+  fade->result = 5;
+  break;
+ }
+}
