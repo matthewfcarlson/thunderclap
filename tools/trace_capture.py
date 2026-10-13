@@ -442,7 +442,11 @@ class Capture:
         random.Random(1).shuffle(ms)
         for a in ms[:self.a.matches_sample]:
             out[a] = "match"
-        return {a: k for a, k in out.items() if a in self.prog.funcs and self.prog.is_code(a)}
+        out = {a: k for a, k in out.items() if a in self.prog.funcs and self.prog.is_code(a)}
+        if self.a.shard:                     # K/N: a disjoint slice per parallel capture; known-bad ones everywhere
+            k, n = (int(v) for v in self.a.shard.split("/"))
+            out = {a: v for a, v in out.items() if v == "demoted" or (a >> 4) % n == k}
+        return out
 
     def view(self, f):
         v = self.views.get(f)
@@ -821,6 +825,8 @@ def main(argv):
     ap.add_argument("--shot-every", type=float, default=30)
     ap.add_argument("--script", default=DEFAULT_SCRIPT)
     ap.add_argument("--unseen", action="store_true", help="arm functions no earlier session reached first")
+    ap.add_argument("--shard", default=None, help="K/N: only target functions with (addr >> 4) %% N == K, so N captures "
+                    "run side by side (HULK_XEMU_INSTANCE) arm disjoint sets; the pinned known-bad ones stay in every shard")
     ap.add_argument("--write-script", action="store_true", help="(re)write the default input script and exit")
     a = ap.parse_args(argv)
     if a.write_script or not os.path.exists(a.script):

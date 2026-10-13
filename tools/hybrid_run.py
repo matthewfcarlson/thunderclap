@@ -29,13 +29,31 @@ from patch_xbe import OUT_DIR, PAD_SIZE, ROOT, XBE_PATH  # noqa: E402
 
 EXTRACTED = os.path.join(ROOT, "isos/extracted")
 STAGE = os.path.join(OUT_DIR, "disc")
-ISO = os.path.join(OUT_DIR, "hulk-hybrid.iso")
 XEMU = "/Applications/xemu.app/Contents/MacOS/xemu"
 USER_CFG = os.path.expanduser("~/Library/Application Support/xemu/xemu/xemu.toml")
 FILES = os.path.join(ROOT, "build/xemu/Xbox-Emulator-Files")
-CFG = os.path.join(OUT_DIR, "xemu.toml")
-QMP = os.path.join(OUT_DIR, "qmp.sock")
+# Several xemu can run side by side (e.g. parallel trace captures): HULK_XEMU_INSTANCE=N gives instance N its own
+# disc image (an APFS clone of instance 0's, made on first use), config, EEPROM copy, QMP socket and GDB port
+# (1234 + N). Instance 0 keeps the plain names. Each instance installs its own XBE into its own image.
+INSTANCE = int(os.environ.get("HULK_XEMU_INSTANCE", "0"))
+_SFX = "-%d" % INSTANCE if INSTANCE else ""
+BASE_ISO = os.path.join(OUT_DIR, "hulk-hybrid.iso")
+ISO = os.path.join(OUT_DIR, "hulk-hybrid%s.iso" % _SFX)
+CFG = os.path.join(OUT_DIR, "xemu%s.toml" % _SFX)
+QMP = os.path.join(OUT_DIR, "qmp%s.sock" % _SFX)
 SHOTS = os.path.join(OUT_DIR, "shots")
+GDB_PORT = 1234 + INSTANCE
+# HULK_XEMU_DISPLAY: extra -display argument (e.g. "none"); see docs/hybrid-build.md for what works headless
+DISPLAY = os.environ.get("HULK_XEMU_DISPLAY")
+
+
+def ensure_instance_iso():
+    """Instance N > 0: clone instance 0's packed image (copy-on-write on APFS, so instant and space-free)."""
+    if INSTANCE and not os.path.exists(ISO):
+        r = subprocess.run(["cp", "-c", BASE_ISO, ISO])
+        if r.returncode:
+            shutil.copy(BASE_ISO, ISO)
+        shutil.copy(BASE_ISO + ".json", ISO + ".json")
 
 
 # ---------------------------------------------------------------------------------------------
@@ -95,6 +113,7 @@ def find_file(iso, name):
 
 
 def install(xbe):
+    ensure_instance_iso()
     meta = json.load(open(ISO + ".json"))
     data = open(xbe, "rb").read()
     if len(data) > meta["xbe_size"]:
@@ -142,7 +161,7 @@ def write_config(pad="keyboard"):
     files["bootrom_path"] = os.path.join(FILES, "mcpx/mcpx_1.0.bin")
     files["flashrom_path"] = os.path.join(FILES, "bios/Complex_4627.bin")
     files["hdd_path"] = os.path.join(FILES, "hdd/xbox_hdd.qcow2")
-    eeprom = os.path.join(OUT_DIR, "eeprom.bin")
+    eeprom = os.path.join(OUT_DIR, "eeprom%s.bin" % _SFX)
     user_eeprom = files.get("eeprom_path")
     if not os.path.exists(eeprom) and user_eeprom and os.path.exists(user_eeprom):
         shutil.copy(user_eeprom, eeprom)
@@ -203,13 +222,15 @@ class Xemu:
     """A running xemu with QMP. Reads guest memory through the HMP monitor (x / xp / pmemsave)."""
 
     def __init__(self, tag="run", gdb=False, extra=(), pad="keyboard"):
+        ensure_instance_iso()
         write_config(pad)
         if os.path.exists(QMP):
             os.unlink(QMP)
         self.outdir = os.path.join(SHOTS, tag)
         os.makedirs(self.outdir, exist_ok=True)
         cmd = [XEMU, "-config_path", CFG, "-dvd_path", ISO, "-snapshot",
-               "-qmp", "unix:%s,server,nowait" % QMP] + (["-gdb", "tcp::1234"] if gdb else []) + list(extra)
+               "-qmp", "unix:%s,server,nowait" % QMP] + (["-gdb", "tcp::%d" % GDB_PORT] if gdb else []) \
+            + (["-display", DISPLAY] if DISPLAY else []) + list(extra)
         self.log = open(os.path.join(self.outdir, "xemu.log"), "w")
         self.p = subprocess.Popen(cmd, stdout=self.log, stderr=subprocess.STDOUT)
         self.t0 = time.time()

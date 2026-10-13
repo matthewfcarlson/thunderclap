@@ -230,6 +230,22 @@ only the first 8,192 pad changes.
 
 ## Driving xemu (`tools/hybrid_run.py`, `tools/xemu_gdb.py`)
 
+**Several at once.** `HULK_XEMU_INSTANCE=N` (N > 0) gives a run its own disc image (an APFS clone of
+`hulk-hybrid.iso`, made on first use: instant, and only the patched blocks take space), config, EEPROM copy,
+QMP socket and GDB port (1234 + N); instance 0 keeps the plain names. Parallel trace captures split the targets
+with `--shard K/N` (disjoint by address; the known-bad pinned functions stay in every shard), e.g.
+
+```sh
+HULK_XEMU_INSTANCE=0 tools/trace_capture.py --session p0 --shard 0/2 --script R.json &
+HULK_XEMU_INSTANCE=1 tools/trace_capture.py --session p1 --shard 1/2 --script R.json &
+```
+
+Two 6-minute shards side by side on an M3 captured 160 + 215 functions with no interference.
+
+**No headless mode.** xemu always adds its own `-display xemu` UI, and its NV2A emulation needs a GL context:
+with `HULK_XEMU_DISPLAY=none` (passed as `-display none`) the game never gets past boot step 6, so captures
+keep a window. `egl-headless` isn't available on macOS.
+
 - xemu accepts `-config_path` and `-dvd_path`, and passes QEMU options through: `-qmp unix:…` for the
   monitor, `-gdb tcp::1234` for the GDB stub, `-S` to start paused, `-snapshot` so the HDD image is never
   written.

@@ -4,6 +4,7 @@ Used by tools/hybrid_run.py for coverage (one-shot breakpoints on every patched 
 determinism hooks to read state. Only what QEMU's i386 stub needs: Z0/z0 breakpoints, continue,
 register and memory reads, interrupt.
 """
+import os
 import socket
 import struct
 import threading
@@ -11,7 +12,9 @@ import time
 
 
 class Gdb:
-    def __init__(self, host="127.0.0.1", port=1234, timeout=30):
+    def __init__(self, host="127.0.0.1", port=None, timeout=30):
+        if port is None:                     # HULK_XEMU_INSTANCE=N -> 1234 + N (tools/hybrid_run.py)
+            port = 1234 + int(os.environ.get("HULK_XEMU_INSTANCE", "0"))
         t0 = time.time()
         while True:
             try:
