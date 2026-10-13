@@ -598,8 +598,34 @@ class Capture:
             self.queue.append(f)
         return self.fill()
 
+    def feed_ring(self):
+        """Write the next part of a long recording into g_hybrid.replay; the guest is stopped here."""
+        f = self.feed
+        if not f or f["avail"] >= len(f["entries"]):
+            return
+        hdr = self.g.read_safe(self.man["g_hybrid"], 4 * len(hybrid_run.CTL_FIELDS))
+        if not hdr:
+            return
+        st = dict(zip(hybrid_run.CTL_FIELDS, struct.unpack("<%dI" % len(hybrid_run.CTL_FIELDS), hdr)))
+        lay = self.man["g_hybrid_layout"]
+        ring, n, pad = self.man["g_hybrid"] + patch_xbe.CTL_REPLAY, lay["input_max"], lay["pad_bytes"]
+        end = min(len(f["entries"]), st["replay_pos"] + n - 64)
+        if end - f["avail"] < 256 and end < len(f["entries"]):
+            return
+        i = f["avail"]
+        while i < end:
+            j = min(end, (i // n + 1) * n)              # up to the end of the ring
+            data = patch_xbe.pack_replay(f["entries"][i:j])
+            for o in range(0, len(data), 2040):
+                self.g.write(ring + pad * (i % n) + o, data[o:o + 2040])
+            i = j
+        avail_va = self.man["g_hybrid"] + lay["ext"] + 4 * lay["ext_fields"].index("replay_avail")
+        self.g.write(avail_va, struct.pack("<I", end))
+        f["avail"] = end
+
     def housekeeping(self, force=False):
         now = time.time()
+        self.feed_ring()
         if force or now - self.last_hk >= 10:
             self.last_hk = now
             hdr = self.g.read_safe(self.man["g_hybrid"], 4 * len(hybrid_run.CTL_FIELDS))
@@ -651,6 +677,13 @@ class Capture:
         hooks = hybrid_test.hooks_cfg(a.script, vclock=True)
         if "pollkey" not in hooks["flags"]:
             hooks["flags"].append("pollkey")
+        # a recording longer than the replay ring (patch_xbe.INPUT_MAX): build with the whole count and top the
+        # ring up from the host while the guest is stopped (feed_ring, from housekeeping), like hybrid_test.py replay
+        self.feed = None
+        doc = json.load(open(a.script)) if a.script else None
+        if isinstance(doc, dict) and len(doc.get("inputs", [])) > patch_xbe.INPUT_MAX:
+            hooks["replay"] = doc["inputs"]
+            self.feed = {"entries": doc["inputs"], "avail": patch_xbe.INPUT_MAX}
         xbe = os.path.join(self.session, "capture.xbe")
         self.man = patch_xbe.build([], xbe, tweaks=hybrid_test.TWEAKS, hooks=hooks)
         hybrid_run.install(xbe)

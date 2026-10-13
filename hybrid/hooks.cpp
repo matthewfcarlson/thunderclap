@@ -15,7 +15,7 @@
 
 #define HYBRID_MAGIC 0x48594231      /* 'HYB1' */
 #define CKPT_RING 4096
-#define INPUT_MAX 8192
+#define INPUT_MAX 8192             // pad entries per ring (24 bytes each; keep in sync with tools/patch_xbe.py)
 #define REGION_MAX 8
 #define WIDE_PAGES 256
 #define SKIP_MAX 32
@@ -101,10 +101,47 @@ struct HybridCtl {
 #define HF_VCLOCK   128              // every core:: / Pure3D timer read returns the virtual clock (hybrid_qpc)
 #define HF_IOSYNC   256              // each frame first waits until every DriveThread has no requests pending
 #define HF_SOUND_RNG 512             // the sound code draws from its own random generators, not the game's
+#define HF_QUANT    1024             // record mode: quantize the analog inputs the game is given (fewer pad changes)
 #define HF_POLLKEY  64               // replay entries are keyed by pad polls instead of frames (tools/trace_capture.py:
                                      // after the new-game load the frame counter races, polls stay ~1 per frame)
 
 static unsigned int s_last_frame;
+
+// Recording a person: analog sticks and pressure buttons jitter by a few counts on every poll, which would
+// log a pad change per frame. HF_QUANT snaps them to coarse steps with hysteresis (a value only moves to a
+// new step once the raw reading is a full step away from the current one) and a centre dead zone, and the
+// game is given the snapped values, so a replay of the recording is still exact. Steps are well below what
+// the game can distinguish in play: 1/32 of stick travel, 1/8 of button pressure.
+#define QUANT_STICK 1024
+#define QUANT_DEAD  3072
+#define QUANT_PRESS 32
+static short s_q_thumb[4];
+static unsigned char s_q_press[8];
+static short quant_thumb(int i, short v)
+{
+    int cur = s_q_thumb[i];
+    int raw = (v > -QUANT_DEAD && v < QUANT_DEAD) ? 0 : v;
+    int d = raw - cur;
+    if (d < 0) d = -d;
+    if (d >= QUANT_STICK || raw == 0) {
+        int q = raw >= 0 ? (raw + QUANT_STICK / 2) / QUANT_STICK * QUANT_STICK
+                         : -((-raw + QUANT_STICK / 2) / QUANT_STICK * QUANT_STICK);
+        if (q > 32767) q = 32767;
+        if (q < -32768) q = -32768;
+        s_q_thumb[i] = (short)q;
+    }
+    return s_q_thumb[i];
+}
+static unsigned char quant_press(int i, unsigned char v)
+{
+    int cur = s_q_press[i];
+    int d = (int)v - cur;
+    if (d < 0) d = -d;
+    if (v < QUANT_PRESS / 2) s_q_press[i] = 0;
+    else if (v > 255 - QUANT_PRESS / 2) s_q_press[i] = 255;
+    else if (d >= QUANT_PRESS) s_q_press[i] = (unsigned char)((v + QUANT_PRESS / 2) / QUANT_PRESS * QUANT_PRESS);
+    return s_q_press[i];
+}
 
 extern "C" HybridCtl g_hybrid = {
     HYBRID_MAGIC, HF_FIXED_DT | HF_CKPT, 33333, 0, 0, 0, 30, 0, 0, 0, 0, 0,
@@ -381,6 +418,14 @@ extern "C" unsigned long __stdcall hybrid_xinput_get_state(void* device, unsigne
                 pad[0] = 0x10;                // XINPUT_GAMEPAD_START
         }
         r = 0;                                // with HF_RECORD too: record what the game was given
+    }
+    if ((g_hybrid.flags & HF_QUANT) && !(g_hybrid.flags & HF_REPLAY) && r == 0) {
+        // pad: buttons (2 bytes), analog[8], thumbs[4] (LX, LY, RX, RY)
+        for (int i = 0; i < 8; i++)
+            pad[2 + i] = quant_press(i, pad[2 + i]);
+        short* th = (short*)(pad + 10);
+        for (int i = 0; i < 4; i++)
+            th[i] = quant_thumb(i, th[i]);
     }
     if ((g_hybrid.flags & HF_RECORD) && r == 0) {
         // a ring: the host drains it while the game runs (tools/hybrid_test.py record); keyed like replays

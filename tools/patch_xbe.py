@@ -355,7 +355,7 @@ EXT_FIELDS = ("cgame", "main_thread", "game_state", "vt_lo", "vt_hi", "step_us",
               "snd_rng_calls", "nskip")      # then skip[SKIP_MAX]
 SKIP_MAX = 32
 HF = {"fixed-dt": 1, "replay": 2, "record": 4, "ckpt": 8, "autostart": 16, "wide": 32, "pollkey": 64,
-      "vclock": 128, "iosync": 256, "sound-rng": 512}
+      "vclock": 128, "iosync": 256, "sound-rng": 512, "quant": 1024}
 
 
 def link_hooks(base):

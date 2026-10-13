@@ -209,6 +209,14 @@ keyboard` or `--pad <GUID>` to choose), and saves every pad change, keyed by pad
 also works but loses the last 2 s). Game time is frames × 33 ms, so if xemu renders slower than 30 fps the
 game runs slower too, and movies are skipped.
 
+By default the recording build also quantizes the analog inputs the game is given (`quant`; `--no-quant`
+records raw values): sticks snap to 1/32 of their travel with a centre dead zone, pressure buttons and triggers
+to 1/8 steps, each with hysteresis (a value moves to a new step only once the raw reading is a full step away).
+Analog noise would otherwise log a pad change on nearly every poll. The game sees the snapped values, so the
+recording still replays exactly. A 32,768-entry ring was tried instead and slowed the game to a crawl (the
+extra 1.2 MB in the patched image starves the game of memory), so the ring stays at 8,192 and long recordings
+are streamed in.
+
 ```sh
 build/venv/bin/python tools/hybrid_test.py replay tests/replays/my-session.json
 build/venv/bin/python tools/trace_capture.py --session s2 --script tests/replays/my-session.json
@@ -216,8 +224,9 @@ build/venv/bin/python tools/trace_capture.py --session s2 --script tests/replays
 
 `replay` runs the same build with the recording as input and compares its checkpoints with the recorded
 ones. Recordings longer than the 8,192-entry ring are fed in over the GDB stub while the game runs
-(`ReplayFeeder`). `trace_capture.py` and `determinism --replay` take a recording too, but don't feed the ring yet: they
-replay its first 8,192 pad changes.
+(`ReplayFeeder`); `trace_capture.py` does the same while the guest is stopped at a breakpoint (`feed_ring`,
+tested with an 8,647-change recording that wraps the ring at poll ~275). `determinism --replay` still replays
+only the first 8,192 pad changes.
 
 ## Driving xemu (`tools/hybrid_run.py`, `tools/xemu_gdb.py`)
 
@@ -273,7 +282,7 @@ replay its first 8,192 pad changes.
 - **Pinning, still open:** the memory layout (heap base, thread stacks) differs between runs, so `--wide`
   can't be a pass/fail check; audio itself (which voices play, the sound manager's state) still follows the
   emulated hardware's real time, it just no longer feeds the gameplay RNG; `iosync` is in place but unproven
-  (no drive request was ever pending at the frame boundary in the tutorial); `trace_capture.py` doesn't feed
+  (no drive request was ever pending at the frame boundary in the tutorial); `determinism --replay` doesn't feed
   recordings past 8,192 pad changes.
 - Player health, entity counts and mission flags in the checkpoint (the camera position stands in for the
   player's).

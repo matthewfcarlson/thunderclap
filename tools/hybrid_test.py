@@ -155,7 +155,7 @@ def _drain(x, man, rec, seen):
 def record(args):
     import time
     hooks = hooks_cfg(None, vclock=True)
-    hooks["flags"] = RECORD_FLAGS + ["record"]
+    hooks["flags"] = RECORD_FLAGS + ["record"] + ([] if args.no_quant else ["quant"])
     if args.script:         # a stand-in player: drive the recording build with a pad script (keyed by polls)
         hooks["replay"] = json.load(open(args.script))
         hooks["flags"] += ["autostart"]
@@ -164,7 +164,7 @@ def record(args):
     man = patch_xbe.build([], out, tweaks=TWEAKS, hooks=hooks)
     hybrid_run.install(out)
     path = args.out or os.path.join(ROOT, "tests/replays", args.name + ".json")
-    rec = {"key": "polls", "flags": RECORD_FLAGS + ["record"], "seed": SEED, "tweaks": list(TWEAKS),
+    rec = {"key": "polls", "flags": hooks["flags"], "seed": SEED, "tweaks": list(TWEAKS),
            "mask": hooks.get("mask", []), "skip": hooks.get("skip", []), "inputs": [], "checkpoints": {},
            "frames": 0, "polls": 0}
     seen = {"inputs": 0}
@@ -356,6 +356,8 @@ def main(argv):
     r.add_argument("--pad", default=None, help="port-1 binding: 'keyboard' or a gamepad GUID (default: your xemu "
                    "config's, else the keyboard)")
     r.add_argument("--out", help="default tests/replays/NAME.json")
+    r.add_argument("--no-quant", action="store_true", help="record raw analog values (by default sticks and pressure "
+                   "buttons are snapped to coarse steps, which the game is given too, so pad changes stay rare)")
     r.add_argument("--script", help="test the pipeline without a player: feed this pad script (keyed by polls); "
                    "what the game was given is recorded")
     p = sub.add_parser("replay")
