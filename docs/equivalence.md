@@ -468,6 +468,50 @@ least-trusted functions.
   bytes of a local that the call-0 delta fills on one side only), 0x201850 (`ebp` at return; most of
   its calls are incomplete).
 
+### Routine replay after promotion (`tools/equiv_replay_fn.py`)
+
+Replaying a whole session costs 30-75 minutes, but replaying given functions only needs the captures already
+on disk. Measured (20 random captured functions, 8 local sessions, 3 jobs, Mac): 11 s total, about 0.5 s per
+function; 70% of that is setup (compiling our source and loading the original), the rest is the recorded calls
+(about 20 ms each; a few heavy functions take 5-15 s, bounded by `--budget`). So it replays every session in
+one pass per function: ours is compiled once, then each session's calls run through it, at most `--max-calls`
+(default 30, spread evenly over the recording, so rare late mismatches are still sampled) per session.
+
+Sessions: `build/traces/*/trace.sqlite` here (s1, s2, t1, t2, x-*) and on mac1 (m-combat, m-menus, m-roam;
+`--remote mac1` syncs `tools/*.py` and the function sources there, replays in parallel and pulls the result
+back as `build/traces/replay-fn-mac1.json`). `--index` lists what each session captured.
+
+Not every function can be replayed: only those a session reached. About 43% of `equivalent/` was captured
+in some session, but functions promoted since the last captures are 0% (the last two batches: 0 of 31). They print
+`not-captured` and are appended to `build/traces/capture-wanted.txt`: those need to go into the target list of the
+next capture; no replay can help.
+
+After each promotion batch (commit):
+
+```sh
+PY=build/venv/bin/python
+$PY tools/equiv_replay_fn.py --since HEAD~1 --changed --remote mac1   # ~10-30 s: the batch + anything stale
+$PY tools/equiv_confidence.py                                         # merges the results into the tiers (~5 s)
+```
+
+- `--since REV` adds the functions `equivalent/` gained or changed in REV..HEAD (use the batch's parent commit
+  if the batch was several commits); `--functions 0xA,0xB` or `@file` names them directly; `--sessions s2,x-menus`
+  limits sessions.
+- `--changed` adds every `equivalent/` source changed since its last replay: a per-function record with a
+  different source hash, or a session result written before the source's last commit. Run it on its own
+  (`--changed --remote mac1`) after fixes or re-promotions. `tools/equiv_confidence.py` drops the same stale results
+  (`replay_stale` in `build/equiv-confidence.json`), so a function is never trusted on a replay of an older source.
+- Exit status 1 and a `mismatch` line (with the session, call and first difference) mean the new equivalent
+  disagrees with the real game: demote it as for a fuzz failure.
+- `--src-dir DIR` replays sources from DIR first (demoted or experimental ones); `--out` redirects the result file.
+- A full re-check of everything captured (`--functions @list` of all `equivalent/`) takes about 10 minutes for the local sessions and over 30 on a loaded mac1 (its sessions are big);
+  a batch of 20 takes 10-30 s on either.
+  Whole-session replays (`equiv_replay.py --session ... --equivalent`) are only needed after a new capture.
+- mac1 is shared: the remote side runs niced with at most 3 jobs.
+
+Evidence per (function, session) is merged newest-first by `tools/equiv_confidence.py`, so tiers stay current
+without re-running whole sessions. Results live in `build/traces/` (never committed).
+
 **Limits.**
 - Coverage is what one scripted session reaches: boot, front end, the opening and the junkyard tutorial.
 - Writes a callee makes into the caller's frame through a pointer stored earlier (not passed in that

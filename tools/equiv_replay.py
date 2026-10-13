@@ -88,6 +88,14 @@ class TraceStore:
             self._page_cache[sha] = b
         return b
 
+    def calls_spread(self, func, limit):
+        """Like calls(only_ok=True) but at most `limit` of them, spread evenly over the recording."""
+        ns = [r[0] for r in self.db.execute("SELECT n FROM calls WHERE func = ? AND ok = 1 ORDER BY n", (func,))]
+        if limit and len(ns) > limit:
+            ns = [ns[(i * len(ns)) // limit] for i in range(limit)]
+        return [pickle.loads(zlib.decompress(r[0])) for n in ns for r in
+                self.db.execute("SELECT data FROM calls WHERE func = ? AND n = ?", (func, n))]
+
     def put_call(self, func, n, rec):
         self.db.execute("INSERT OR REPLACE INTO calls VALUES (?, ?, ?, ?)",
                         (func, n, 1 if rec.get("selfcheck") == "ok" else 0, zlib.compress(pickle.dumps(rec), 3)))
@@ -443,7 +451,7 @@ def selfcheck(o, orun, mach, trace):
     return None
 
 
-def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=120):
+def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=120, spread=False):
     """A level3_fn for equiv.verify: replay every recorded call of addr."""
     def fn(prog, oview, rview, ours, orefs, sig, ret_kind, psizes, convs, decls, void_eax, issues):
         res = {"captured": 0, "replayed": 0, "agreed": 0, "mismatched": 0, "incomplete": 0, "mismatches": [],
@@ -452,7 +460,7 @@ def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=12
             res["unsupported"] = "the function itself has an equiv-conv annotation (register arguments)"
             res["status"] = "unsupported"
             return res
-        traces = store.calls(addr, only_ok=True, limit=max_calls)
+        traces = store.calls_spread(addr, max_calls) if spread else store.calls(addr, only_ok=True, limit=max_calls)
         res["captured"] = len(traces)
         res["capture_failed"] = (store.db.execute("SELECT COUNT(*) FROM calls WHERE func = ? AND ok = 0",
                                                   (addr,)).fetchone()[0])
@@ -516,6 +524,52 @@ def replay_level3(store, addr, max_calls=None, max_steps=2000000, time_budget=12
             res["status"] = "mismatch" if res["mismatched"] else "agreed"
         return res
     return fn
+
+
+def replay_level3_multi(stores, addr, max_calls=None, time_budget=120):
+    """A level3_fn that replays addr over several sessions in one verify (ours is compiled once).
+    stores: [(session name, TraceStore)]. Result = replay_level3's dict summed, plus res["per_session"]."""
+    fns = [(n, replay_level3(st, addr, max_calls, time_budget=time_budget, spread=True)) for n, st in stores]
+
+    def fn(**kw):
+        t0 = time.time()
+        tot = {"captured": 0, "replayed": 0, "agreed": 0, "mismatched": 0, "incomplete": 0, "mismatches": [],
+               "incomplete_reasons": [], "notes": [], "per_session": {}, "level2_ok": not kw.get("issues")}
+        for name, f in fns:
+            r = f(**kw)
+            if r.get("status") == "unsupported":
+                r["per_session"] = {}
+                return r
+            for k in ("captured", "replayed", "agreed", "mismatched", "incomplete"):
+                tot[k] += r[k]
+            for m in r["mismatches"]:
+                if len(tot["mismatches"]) < 5:
+                    tot["mismatches"].append(dict(m, session=name))
+            tot["incomplete_reasons"] += r["incomplete_reasons"][:1]
+            tot["per_session"][name] = {k: r[k] for k in ("captured", "replayed", "agreed", "mismatched", "incomplete",
+                                                          "status")}
+            tot["coverage"] = r.get("coverage")
+        tot["t_replay"] = round(time.time() - t0, 2)
+        tot["status"] = ("no_replay" if not tot["replayed"] else "mismatch" if tot["mismatched"] else "agreed") \
+            if tot["captured"] or tot["incomplete"] else "not_reached"
+        return tot
+    return fn
+
+
+def replay_multi(src, addr, stores, max_calls=None, time_budget=120):
+    """Replay addr's recorded calls from every session in stores against SRC. Like replay()."""
+    t0 = time.time()
+    stores = [(n, st) for n, st in stores if st.db.execute("SELECT 1 FROM calls WHERE func = ? LIMIT 1", (addr,)).fetchone()]
+    out = {"addr": "0x%08x" % addr, "src": src}
+    if not stores:
+        return dict(out, status="not_reached", per_session={})
+    rep = equiv.verify(src, addr, max_level=3, level3_fn=replay_level3_multi(stores, addr, max_calls, time_budget))
+    if "replay" not in rep:
+        return dict(out, status=rep.get("status", "error"), error=rep.get("error"), per_session={})
+    out.update(rep["replay"])
+    out["time"] = round(time.time() - t0, 1)
+    out["t_setup"] = round(out["time"] - out.get("t_replay", 0), 1)
+    return out
 
 
 def replay(src, addr, store, max_calls=None, flags=(), time_budget=120):

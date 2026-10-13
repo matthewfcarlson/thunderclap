@@ -7,8 +7,10 @@
 Evidence per function:
   fuzz    equiv.py level 3 on fuzzed inputs: status, inputs run, branch coverage. From
           build/equiv/fuzz-cache.jsonl by source hash (filled by --fuzz), else the source's `// STATUS:` line.
-  replay  tools/equiv_replay.py results of every capture session (build/traces/*/replay-*.json): calls
-          replayed and agreed, mismatches. A mismatch in any session wins.
+  replay  tools/equiv_replay.py results of every capture session (build/traces/*/replay-equivalent.json) and
+          tools/equiv_replay_fn.py per-function results (build/traces/replay-fn*.json), newest per (function,
+          session): calls replayed and agreed, mismatches. A mismatch in any session wins. Results older than
+          the source (committed later / different hash) are dropped.
 
 Tiers (higher = more trusted; patch_xbe.py --confidence/--tier-min and bisect_hybrid.py use them):
   0  replay mismatch, or listed in hybrid/exclude.txt
@@ -92,24 +94,69 @@ def run_fuzz(todo, n, jobs):
             print("  fuzz %d/%d %s %s" % (i + 1, len(work), r["addr"], r["status"]), file=sys.stderr)
 
 
-def load_replays():
-    """{addr: merged replay result} over every session's replay-equivalent.json (and replay-src.json)."""
-    out = {}
+def load_replays(sha_of=None, commit_time=None):
+    """{addr: merged replay result}, one evidence entry per (function, session), newest wins:
+    - build/traces/*/replay-equivalent.json: whole-session replays; dropped when the source was committed after
+      the file was written (the source changed since: stale, counted in `stale_dropped`).
+    - build/traces/replay-fn*.json: tools/equiv_replay_fn.py per-function replays (this machine and mac1);
+      dropped when their source hash is not the current one.
+    sha_of/commit_time: {addr: current sha} / {addr: last commit unix time} of the equivalent/ sources."""
+    sha_of, commit_time = sha_of or {}, commit_time or {}
+    ent = {}        # (addr, session) -> (ts, record)
+
+    def put(addr, sess, ts, rec):
+        if (addr, sess) not in ent or ent[(addr, sess)][0] < ts:
+            ent[(addr, sess)] = (ts, rec)
+    stale = {}
     for path in sorted(glob.glob(os.path.join(ROOT, "build/traces/*/replay-equivalent.json"))):
         sess = os.path.basename(os.path.dirname(path))
+        mt = os.path.getmtime(path)
         for r in json.load(open(path))["results"]:
-            if r.get("src", "").startswith("equivalent/") is False and r.get("src"):
+            if r.get("src") and not r["src"].startswith("equivalent/"):
                 continue
-            m = out.setdefault(r["addr"], {"sessions": [], "captured": 0, "replayed": 0, "agreed": 0,
-                                           "mismatched": 0, "incomplete": 0, "first_mismatch": None})
-            m["sessions"].append(sess)
-            for k in ("captured", "replayed", "agreed", "mismatched", "incomplete"):
-                m[k] += r.get(k) or 0
-            if r.get("mismatches") and not m["first_mismatch"]:
-                mm = r["mismatches"][0]
-                m["first_mismatch"] = {"session": sess, "call": mm["call"], "diffs": mm["diffs"][:2]}
-            if r.get("status") == "error":
-                m["error"] = r.get("error")
+            if commit_time.get(r["addr"], 0) > mt:
+                stale.setdefault(r["addr"], []).append(sess)
+                continue
+            put(r["addr"], sess, mt, r)
+    for path in sorted(glob.glob(os.path.join(ROOT, "build/traces/replay-fn*.json"))):
+        for addr, f in json.load(open(path)).items():
+            if not f.get("src", "").startswith("equivalent/"):
+                continue
+            if sha_of.get(addr) and f.get("sha") != sha_of[addr]:
+                continue
+            for sess, v in (f.get("sessions") or {}).items():
+                rec = dict(v, addr=addr)
+                mm = [m for m in f.get("mismatches") or [] if m.get("session") == sess]
+                if mm:
+                    rec["mismatches"] = [{"call": m["call"], "diffs": m["diffs"]} for m in mm]
+                put(addr, sess, f.get("ts", 0), rec)
+    out = {}
+    for (addr, sess), (ts, r) in sorted(ent.items()):
+        m = out.setdefault(addr, {"sessions": [], "captured": 0, "replayed": 0, "agreed": 0,
+                                  "mismatched": 0, "incomplete": 0, "first_mismatch": None})
+        m["sessions"].append(sess)
+        for k in ("captured", "replayed", "agreed", "mismatched", "incomplete"):
+            m[k] += r.get(k) or 0
+        if r.get("mismatches") and not m["first_mismatch"]:
+            mm = r["mismatches"][0]
+            m["first_mismatch"] = {"session": sess, "call": mm["call"], "diffs": mm["diffs"][:2]}
+        if r.get("status") == "error":
+            m["error"] = r.get("error")
+    for addr, ss in stale.items():
+        out.setdefault(addr, {})["stale_dropped"] = ss
+    return out
+
+
+def _commit_times():
+    """{addr: unix time of the last commit touching equivalent/ADDR.cpp} (one git pass)."""
+    import subprocess
+    out, cur = {}, None
+    log = subprocess.check_output(["git", "log", "--format=@%ct", "--name-only", "--", "equivalent"], cwd=ROOT).decode()
+    for line in log.splitlines():
+        if line.startswith("@"):
+            cur = int(line[1:])
+        elif line.startswith("equivalent/0x"):
+            out.setdefault("0x%08x" % int(line[11:-4], 16), cur)
     return out
 
 
@@ -142,7 +189,8 @@ def build(fuzz=False, n_inputs=256, jobs=3):
             print("fuzzing %d functions (%d inputs)" % (len(todo), n_inputs), file=sys.stderr)
             run_fuzz(todo, n_inputs, jobs)
             cache = load_fuzz()
-    replays = load_replays()
+    sha_of = {"0x%08x" % a: _sha(os.path.join(ROOT, src)) for src, a in srcs}
+    replays = load_replays(sha_of, _commit_times())
     funcs = {}
     for src, a in srcs:
         addr = "0x%08x" % a
@@ -153,6 +201,10 @@ def build(fuzz=False, n_inputs=256, jobs=3):
         rec = {"src": src, "sha": sha, "fuzz": fz,
                "replay": replays.get(addr), "excluded": excl.get(addr)}
         rp = rec["replay"]
+        if rp and rp.get("stale_dropped"):
+            rec["replay_stale"] = rp.pop("stale_dropped")      # sessions whose result predates the source
+            if "sessions" not in rp:
+                rec["replay"] = rp = None
         rec["replay_status"] = ("mismatch" if rp and rp["mismatched"] else "agreed" if rp and rp["agreed"]
                                 else "no_replay" if rp and (rp["captured"] or rp["incomplete"]) else "not_reached")
         rec["tier"] = tier_of(rec)
@@ -160,7 +212,8 @@ def build(fuzz=False, n_inputs=256, jobs=3):
     from collections import Counter
     summary = {"tiers": {"%d %s" % (t, TIER_NAMES[t]): n for t, n in sorted(Counter(r["tier"] for r in funcs.values()).items())},
                "replay": dict(Counter(r["replay_status"] for r in funcs.values())),
-               "fuzz_known": sum(1 for r in funcs.values() if r["fuzz"])}
+               "fuzz_known": sum(1 for r in funcs.values() if r["fuzz"]),
+               "replay_stale": sum(1 for r in funcs.values() if r.get("replay_stale"))}
     doc = {"generated": time.strftime("%Y-%m-%d %H:%M"), "min_agreed": MIN_AGREED, "tier_names": TIER_NAMES,
            "summary": summary, "functions": funcs}
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
