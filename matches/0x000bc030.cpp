@@ -1,0 +1,1 @@
+void __stdcall FUN_000bc030(int a) {}
