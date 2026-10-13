@@ -1,0 +1,65 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_00362d80 @ 0x00362d80
+typedef void (*Handler)();
+void FUN_003333c0();
+void FUN_003333e0();
+void FUN_003333f0();
+void FUN_003337d0();
+void FUN_00333770();
+void FUN_003333a0();
+void FUN_003333b0();
+void FUN_00333400();
+void FUN_0032fd10();
+void FUN_00330470();
+struct Entry {
+    Handler fn;
+    int a, b, c;
+    int pad[2];
+};
+Entry DAT_004d8b78[11];
+void FUN_00362d80() {
+    DAT_004d8b78[0].fn = FUN_003333c0;
+    DAT_004d8b78[0].a = 0;
+    DAT_004d8b78[0].b = 0;
+    DAT_004d8b78[0].c = 0;
+    DAT_004d8b78[1].fn = FUN_003333e0;
+    DAT_004d8b78[1].a = 0;
+    DAT_004d8b78[1].b = 0;
+    DAT_004d8b78[1].c = 0;
+    DAT_004d8b78[2].fn = FUN_003333f0;
+    DAT_004d8b78[2].a = 0;
+    DAT_004d8b78[2].b = 0;
+    DAT_004d8b78[2].c = 0;
+    DAT_004d8b78[3].fn = FUN_003337d0;
+    DAT_004d8b78[3].a = 0;
+    DAT_004d8b78[3].b = 0;
+    DAT_004d8b78[3].c = 0;
+    DAT_004d8b78[4].fn = FUN_00333770;
+    DAT_004d8b78[4].a = 0;
+    DAT_004d8b78[4].b = 0;
+    DAT_004d8b78[4].c = 0;
+    DAT_004d8b78[5].fn = FUN_003333a0;
+    DAT_004d8b78[5].a = 0;
+    DAT_004d8b78[5].b = 0;
+    DAT_004d8b78[5].c = 0;
+    DAT_004d8b78[6].fn = FUN_003333b0;
+    DAT_004d8b78[6].a = 0;
+    DAT_004d8b78[6].b = 0;
+    DAT_004d8b78[6].c = 0;
+    DAT_004d8b78[7].fn = FUN_00333400;
+    DAT_004d8b78[7].a = 0;
+    DAT_004d8b78[7].b = 0;
+    DAT_004d8b78[7].c = 0;
+    DAT_004d8b78[8].fn = FUN_0032fd10;
+    DAT_004d8b78[8].a = 0;
+    DAT_004d8b78[8].b = 0;
+    DAT_004d8b78[8].c = 0;
+    DAT_004d8b78[9].fn = FUN_00330470;
+    DAT_004d8b78[9].a = 0;
+    DAT_004d8b78[9].b = 0;
+    DAT_004d8b78[9].c = 0;
+    DAT_004d8b78[10].fn = 0;
+    DAT_004d8b78[10].a = 0;
+    DAT_004d8b78[10].b = 0;
+    DAT_004d8b78[10].c = -1;
+}
