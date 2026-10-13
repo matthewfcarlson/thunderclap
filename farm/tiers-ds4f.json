@@ -1,0 +1,1 @@
+[{ "model": "openrouter/deepseek/deepseek-v4-flash", "thinking": "low", "maxAttempts": 8, "maxOutput": 32768 }]
