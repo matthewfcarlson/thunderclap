@@ -1,0 +1,10 @@
+class Obj {
+  public:
+    char pad[0x1c];
+    int mValue;
+    char Set(int x);
+};
+char Obj::Set(int x) {
+    mValue = x;
+    return 1;
+}
