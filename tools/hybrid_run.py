@@ -134,8 +134,9 @@ def _toml_dump(d, prefix=""):
     return text
 
 
-def write_config():
-    """Copy the user's xemu.toml (never modified) and point it at build/ files."""
+def write_config(pad="keyboard"):
+    """Copy the user's xemu.toml (never modified) and point it at build/ files. pad: what port 1 is bound to
+    ("keyboard", or a gamepad's SDL GUID as xemu writes it; None keeps the user's own binding)."""
     cfg = tomllib.load(open(USER_CFG, "rb")) if os.path.exists(USER_CFG) else {}
     files = cfg.setdefault("sys", {}).setdefault("files", {})
     files["bootrom_path"] = os.path.join(FILES, "mcpx/mcpx_1.0.bin")
@@ -153,7 +154,8 @@ def write_config():
     # a pad in port 1 (the keyboard), so the game opens a controller; hooks.cpp replays input into it
     bind = cfg.setdefault("input", {}).setdefault("bindings", {})
     bind["port1_driver"] = "usb-xbox-gamepad"
-    bind["port1"] = "keyboard"
+    if pad is not None or "port1" not in bind:
+        bind["port1"] = pad or "keyboard"
     open(CFG, "w").write(_toml_dump(cfg))
     return CFG
 
@@ -200,8 +202,8 @@ def png_write(path, w, h, rgb):
 class Xemu:
     """A running xemu with QMP. Reads guest memory through the HMP monitor (x / xp / pmemsave)."""
 
-    def __init__(self, tag="run", gdb=False, extra=()):
-        write_config()
+    def __init__(self, tag="run", gdb=False, extra=(), pad="keyboard"):
+        write_config(pad)
         if os.path.exists(QMP):
             os.unlink(QMP)
         self.outdir = os.path.join(SHOTS, tag)
@@ -273,6 +275,9 @@ def read_hybrid(x, man, full=False):
     lay = man["g_hybrid_layout"]
     hdr = struct.unpack("<%dI" % len(CTL_FIELDS), x.read(base, 4 * len(CTL_FIELDS)))
     st = dict(zip(CTL_FIELDS, hdr))
+    if "ext" in lay:
+        ef = lay["ext_fields"]
+        st.update(zip(ef, struct.unpack("<%dI" % len(ef), x.read(base + lay["ext"], 4 * len(ef)))))
     if full:
         n = min(st["ckpt_count"], lay["ckpt_ring"])
         raw = x.read(base + lay["ckpt"], 8 * lay["ckpt_ring"])
@@ -280,7 +285,7 @@ def read_hybrid(x, man, full=False):
         start = st["ckpt_count"] - n
         st["checkpoints"] = [ck[(start + i) % lay["ckpt_ring"]] for i in range(n)]
         nrec = min(st["record_count"], lay["input_max"])
-        raw = x.read(base + lay["record"], lay["pad_bytes"] * max(nrec, 1))
+        rec_raw = x.read(base + lay["record"], lay["pad_bytes"] * lay["input_max"]) if nrec else b""
         if "wide" in lay:
             raw = x.read(base + lay["wide"], 16 + 4 * (lay["wide_pages"] // 32) + 8 * lay["wide_pages"])
             lo, hi, snap_frame, snap_taken = struct.unpack_from("<4I", raw, 0)
@@ -289,18 +294,18 @@ def read_hybrid(x, man, full=False):
             st["wide"] = {"lo": lo, "snap_taken": snap_taken,
                           "pages": list(struct.unpack_from("<%dI" % npages, raw, o)),
                           "snap": list(struct.unpack_from("<%dI" % npages, raw, o + 4 * lay["wide_pages"]))}
-        st["record"] = []
-        for i in range(nrec):
-            f, b, *rest = struct.unpack_from("<IH8B4hH", raw, lay["pad_bytes"] * i)
+        st["record"] = []                   # the newest nrec entries of the ring, oldest first
+        for i in range(st["record_count"] - nrec, st["record_count"]):
+            f, b, *rest = struct.unpack_from("<IH8B4hH", rec_raw, lay["pad_bytes"] * (i % lay["input_max"]))
             st["record"].append([f, b, list(rest[:8]), list(rest[8:12])])
     return st
 
 
 def boot(seconds=90, interval=10, tag="run", gdb=False, extra=(), until_title=False, coverage=None, manifest=None,
-         retries=2):
+         retries=2, shots=True):
     """boot_once, retried when xemu itself crashes (a host signal, seen in ~1 of 10 launches on macOS)."""
     for attempt in range(retries + 1):
-        rep = boot_once(seconds, interval, tag, gdb, extra, until_title, coverage, manifest)
+        rep = boot_once(seconds, interval, tag, gdb, extra, until_title, coverage, manifest, shots)
         crashed = [smp for smp in rep["samples"] if (smp.get("exited") or 0) < 0]
         if not crashed:
             break
@@ -310,11 +315,12 @@ def boot(seconds=90, interval=10, tag="run", gdb=False, extra=(), until_title=Fa
 
 
 def boot_once(seconds=90, interval=10, tag="run", gdb=False, extra=(), until_title=False, coverage=None,
-              manifest=None):
+              manifest=None, shots=True):
     """Boot the image and sample it every `interval` s: screenshot, boot step, EIP.
 
     Returns a report dict; "title" is true once g_BootSequenceStep is 0 (it starts at 1, counts
-    up through the intro movies and drops to 0 on the press-start screen); "frozen" when the last three screenshots are identical."""
+    up through the intro movies and drops to 0 on the press-start screen); "frozen" when the last three screenshots are identical.
+    shots=False skips the screenshots: the framebuffer pmemsave during the new-game load is what wedges the monitor."""
     cov = None
     if coverage:
         from xemu_gdb import Coverage, Gdb
@@ -334,8 +340,9 @@ def boot_once(seconds=90, interval=10, tag="run", gdb=False, extra=(), until_tit
             t = round(time.time() - x.t0)
             path = os.path.join(x.outdir, "%03ds.png" % t)
             try:
-                s = {"t": t, "step": x.u32(BOOT_STEP), "eip": "%#x" % (x.eip() or 0), "fb": x.screenshot(path),
-                     "png": os.path.relpath(path, ROOT)}
+                s = {"t": t, "step": x.u32(BOOT_STEP), "eip": "%#x" % (x.eip() or 0)}
+                if shots:
+                    s.update(fb=x.screenshot(path), png=os.path.relpath(path, ROOT))
                 if manifest and manifest.get("g_hybrid"):
                     try:
                         hyb = read_hybrid(x, manifest, full=True)   # every sample: survives a later hang
@@ -347,7 +354,7 @@ def boot_once(seconds=90, interval=10, tag="run", gdb=False, extra=(), until_tit
                 print("  %4ds monitor error: %r" % (t, e), file=sys.stderr)
                 break
             samples.append(s)
-            print("  %(t)4ds step=%(step)s eip=%(eip)s fb=%(fb)s" % s
+            print("  %(t)4ds step=%(step)s eip=%(eip)s fb=%(fb)s" % dict(s, fb=s.get("fb"))
                   + (" frame=%(frame)d ckpts=%(ckpts)d polls=%(polls)d" % s if "frame" in s else ""), file=sys.stderr)
             if until_title and s["step"] == 6 and len(samples) >= 2 and samples[-2].get("step") == 6:
                 break

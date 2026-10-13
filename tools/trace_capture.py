@@ -2,7 +2,7 @@
 """Record real game states for trace-driven equivalence (docs/equivalence.md, "Trace replay").
 
   tools/trace_capture.py --session play1 [--minutes 30] [--per-func 50] [--burst 5] [--window 96] [--rotate 20]
-                         [--matches-sample 300] [--script tests/replays/capture-gameplay.json]
+                         [--matches-sample 300] [--script tests/replays/capture-gameplay.json | a recording]
   tools/trace_capture.py --write-script        # regenerate the default input script
 
 Boots the ORIGINAL game (the hooks-only build: fixed frame time, constant RNG seed, scripted pad input keyed
@@ -646,10 +646,11 @@ class Capture:
     def run(self):
         a = self.a
         self.tgt = self.targets()
-        script = json.load(open(a.script))
-        hooks = hybrid_test.hooks_cfg(None)
-        hooks["replay"] = script
-        hooks["flags"].append("pollkey")
+        # a pad script keyed by polls, or a recording (tools/hybrid_test.py record); with the virtual clock, the
+        # game's timers don't see how much the breakpoints slow it down, so a recording replays as it was played
+        hooks = hybrid_test.hooks_cfg(a.script, vclock=True)
+        if "pollkey" not in hooks["flags"]:
+            hooks["flags"].append("pollkey")
         xbe = os.path.join(self.session, "capture.xbe")
         self.man = patch_xbe.build([], xbe, tweaks=hybrid_test.TWEAKS, hooks=hooks)
         hybrid_run.install(xbe)

@@ -314,9 +314,32 @@ HOOK_CALLS = [
     (0x0008646E, 0x00267F40, "_hybrid_clock_tick"),          # GameClock::Update -> GetMicroseconds64
     (0x00087E40, 0x00267F40, "_hybrid_clock_now"),           # GameClock ctor    -> GetMicroseconds64
     (0x002685D9, 0x003EB91F, "_hybrid_xinput_get_state@8"),  # ControllerXBox::vfunc_17 -> XInputGetState
-]
+    (0x000876E5, 0x00086450, "_hybrid_game_tick"),           # CGame::Tick -> GameClock::Update (notes CGame)
+    (0x0008763A, 0x0008DB00, "_hybrid_pump_services@0"),     # CGame::Tick -> PumpPlatformServices (iosync)
+    (0x00273465, 0x0026DCE0, "_hybrid_drive_thread_start"),  # DriveThread ctor -> thread start (notes it)
+    (0x00260AE2, 0x0034774C, "_hybrid_sound_rand"),          # audio sequencing -> CRT rand (sound-rng)
+] + [(site, 0x000964D0, "_hybrid_sound_rng") for site in (   # sound code -> the game's MWC RNG (sound-rng)
+    0x001EF2CA,     # 0x1ef2a0: caches it in 0x4e3758 for the sound manager
+    0x001EFE8D,     # 0x1efe20
+    0x001F7362,     # 0x1f7320 (voices)
+    0x001F74B7,     # 0x1f7320
+)] + [(site, 0x00354CD1, "_hybrid_qpc@4") for site in (       # QueryPerformanceCounter -> virtual clock (vclock)
+    0x00267AA7,     # 0x267aa0 (seconds)
+    0x00267F07,     # core::GetMicroseconds
+    0x00267F47,     # core::GetMicroseconds64
+    0x00267F87,     # core::GetMilliseconds (controller poll rate, timers, loading screens, FMV, sound)
+    0x0026802C,     # core::TimerList::vfunc_5
+    0x00292507,     # Pure3D timer
+    0x003214D7,     # pure3d::d3dContext::vfunc_106
+    0x003214EB,     # pure3d::d3dContext::vfunc_107
+)]
 SEED_SITE = (0x0008668E, 0x00267F00)                         # 0x86630: Seed(GetMicroseconds()) on new game
 COOKIE_CHECK = 0x0034502E                                    # __security_check_cookie (__fastcall)
+# With vclock the clock stands still between game-loop updates (loops outside it, like the loading screens, run a
+# number of times that depends on the host's I/O). The pad poll's rate limit (ControllerSystemXBox::vfunc_12:
+# `if (GetMilliseconds() - last < interval) return`) would then never pass in the PRESSSTART loop, so it goes:
+# the pad is read on every call, which is once per frame in the game loop anyway.
+VCLOCK_PATCHES = [(0x0026918B, b"\x72\x58", b"\x90\x90")]
 # g_hybrid word indices (keep in sync with struct HybridCtl)
 CTL = {"flags": 1, "dt_us": 2, "ckpt_interval": 6, "replay_count": 8, "nregions": 12}
 CTL_REGIONS, CKPT_RING, INPUT_MAX, PAD_BYTES = 16, 4096, 8192, 24
@@ -325,7 +348,14 @@ CTL_REPLAY = CTL_CKPT + CKPT_RING * 8
 CTL_RECORD = CTL_REPLAY + INPUT_MAX * PAD_BYTES
 CTL_WIDE = CTL_RECORD + INPUT_MAX * PAD_BYTES        # wide_lo, wide_hi, snap_frame, snap_taken, mask[8], pages, snap
 WIDE_PAGES = 256
-HF = {"fixed-dt": 1, "replay": 2, "record": 4, "ckpt": 8, "autostart": 16, "wide": 32, "pollkey": 64}
+CTL_EXT = CTL_WIDE + 16 + 4 * (WIDE_PAGES // 32) + 8 * WIDE_PAGES   # struct HybridCtl's extension fields
+EXT_FIELDS = ("cgame", "main_thread", "game_state", "vt_lo", "vt_hi", "step_us", "extra_us", "max_extra_us",
+              "vreads", "pre_step_us", "pre_us", "halt_frame", "halted", "ndrives", "drive0", "drive1", "drive2",
+              "drive3", "io_waits", "io_timeouts", "io_timeout_ms", "replay_avail", "replay_starved", "snd_rng0", "snd_rng1", "snd_rng2", "snd_rng3", "snd_rand",
+              "snd_rng_calls", "nskip")      # then skip[SKIP_MAX]
+SKIP_MAX = 32
+HF = {"fixed-dt": 1, "replay": 2, "record": 4, "ckpt": 8, "autostart": 16, "wide": 32, "pollkey": 64,
+      "vclock": 128, "iosync": 256, "sound-rng": 512}
 
 
 def link_hooks(base):
@@ -348,6 +378,9 @@ def link_hooks(base):
 def pack_replay(entries):
     """[(frame, buttons, [8 analog], [4 thumbs])] -> bytes for g_hybrid.replay."""
     out = b""
+    if len(entries) > INPUT_MAX:
+        print("  replay: %d entries; the ring holds %d, the rest must be fed while the game runs"
+              % (len(entries), INPUT_MAX), file=sys.stderr)
     for frame, buttons, analog, thumbs in entries[:INPUT_MAX]:
         out += struct.pack("<IH8B4hH", frame, buttons, *(list(analog) + [0] * 8)[:8], *(list(thumbs) + [0] * 4)[:4], 0)
     return out
@@ -358,8 +391,11 @@ TWEAKS = {
     # g_BootSequenceStep starts at 6: no dolby/marvel/radical/sierra/attract movies before the title
     "skip-intro": [(0x49FB40, struct.pack("<I", 6))],
     # CFMVManager::QueueMovie 0x1b7310 returns at once: no Bink movies at all (the game loop does not tick
-    # while one plays, so frame-keyed input replays cannot get past them)
-    "no-fmv": [(0x1B7310, b"\xc2\x0c\x00")],
+    # while one plays, so frame-keyed input replays cannot get past them). Movies started another way (the
+    # opening movie, 0x1b83c0 -> 0x1b7f40, which also hides the background level load) end at their first
+    # render: FMV render 0x1b7d10 reads the movie's status (vfunc 0x30) as 0, "finished", and stops it. Without
+    # this the loop spins unpaced in GS_FMV for as long as the movie plays in real time (thousands of updates).
+    "no-fmv": [(0x1B7310, b"\xc2\x0c\x00"), (0x1B7D38, b"\x33\xc0\x90")],
 }
 
 
@@ -448,10 +484,35 @@ def apply_hooks(x, image, base, syms, hooks, records=()):
         flags |= HF["replay"]
         data = pack_replay(hooks["replay"])
         image[ctl + CTL_REPLAY:ctl + CTL_REPLAY + len(data)] = data
-        put(CTL["replay_count"], len(data) // PAD_BYTES)
+        # the rest of a long replay is fed into the ring while the game runs (hybrid_test.ReplayFeeder);
+        # without a feeder the game waits at entry INPUT_MAX
+        put(CTL["replay_count"], len(hooks["replay"]))
+        struct.pack_into("<I", image, ctl + CTL_EXT + 4 * EXT_FIELDS.index("replay_avail"), len(data) // PAD_BYTES)
     put(CTL["flags"], flags)
     put(CTL["dt_us"], hooks.get("dt_us", 33333))
     put(CTL["ckpt_interval"], hooks.get("ckpt_interval", 30))
+    struct.pack_into("<I", image, ctl + CTL_EXT + 4 * EXT_FIELDS.index("step_us"), hooks.get("step_us", 0))
+    struct.pack_into("<I", image, ctl + CTL_EXT + 4 * EXT_FIELDS.index("halt_frame"), hooks.get("halt_frame", 0))
+    struct.pack_into("<I", image, ctl + CTL_EXT + 4 * EXT_FIELDS.index("pre_step_us"), hooks.get("pre_step_us", 4000))
+    struct.pack_into("<I", image, ctl + CTL_EXT + 4 * EXT_FIELDS.index("io_timeout_ms"), hooks.get("io_timeout_ms", 200))
+    for i, w in enumerate((0x2F6B6F2A, 0x1F123BB5, 0, 0, 0x5EED)):           # sound-rng initial states
+        struct.pack_into("<I", image, ctl + CTL_EXT + 4 * (EXT_FIELDS.index("snd_rng0") + i), w)
+    skip = hooks.get("skip", [])[:SKIP_MAX]
+    struct.pack_into("<I", image, ctl + CTL_EXT + 4 * EXT_FIELDS.index("nskip"), len(skip))
+    for i, (a, n) in enumerate(skip):
+        struct.pack_into("<II", image, ctl + CTL_EXT + 4 * len(EXT_FIELDS) + 8 * i, a, n)
+    if "vclock" in hooks.get("flags", ()):
+        for site, old, new in VCLOCK_PATCHES:
+            if x.d[x.va_to_file(site):x.va_to_file(site) + len(old)] != old:
+                raise ValueError("vclock patch site %#x changed" % site)
+            x.write(site, new)
+            for r in records:          # our copy of the function, if it's replaced: same offset when identical
+                size = equiv.Program.get().funcs.get(r["addr"], (0,))[0]
+                if "ours" in r and r["addr"] <= site < r["addr"] + size:
+                    if r.get("class") != "identical":
+                        raise ValueError("vclock patch %#x is inside replaced non-identical %#x" % (site, r["addr"]))
+                    o = r["ours"] - base + (site - r["addr"])
+                    image[o:o + len(new)] = new
     if hooks.get("snap_frame"):
         struct.pack_into("<I", image, ctl + CTL_WIDE + 8, hooks["snap_frame"])
     for i, w in enumerate(hooks.get("mask", [])[:WIDE_PAGES // 32]):
@@ -495,7 +556,7 @@ def build(records, out, pad=PAD_SIZE, empty_section=False, tweaks=(), hooks=None
            "g_hybrid": hook_syms.get("_g_hybrid"),
            "g_hybrid_layout": {"ckpt": CTL_CKPT, "ckpt_ring": CKPT_RING, "record": CTL_RECORD,
                                "input_max": INPUT_MAX, "pad_bytes": PAD_BYTES, "wide": CTL_WIDE,
-                               "wide_pages": WIDE_PAGES},
+                               "wide_pages": WIDE_PAGES, "ext": CTL_EXT, "ext_fields": list(EXT_FIELDS)},
            "functions": [{k: r.get(k) for k in ("addr", "name", "src", "class", "ours", "sym")} for r in ok]}
     json.dump(man, open(os.path.splitext(out)[0] + ".json", "w"), indent=1)
     return man

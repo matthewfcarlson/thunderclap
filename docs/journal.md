@@ -386,3 +386,34 @@ Results:
 - Three bugs the fuzzer passed: undersized locals in 0x2a9920 and 0x2b8b30, and a pop mismatch in
   0x293ef0.
 - 1,233 equivalents were never reached by this script and stay fuzz-only.
+
+## 2026-10-12/13: Determinism after the new-game load
+
+- **The runaway was the opening movie.** After Normal is picked, the game enters `GS_FMV` and plays the
+  opening Bink movie while the level loads. `no-fmv` only stubbed `QueueMovie`, and this movie starts another
+  way. The FMV render presents nothing, so the vblank pacing in `SwapBuffers` never ran. The loop spun at
+  ~1,000 updates a second until the movie ended in real time: 5,000–12,000 updates of a fixed 33 ms each, so
+  every later frame number depended on the host. `no-fmv` now also reports a playing movie as finished, and
+  `GS_FMV` lasts one frame. GDB breakpoints on the state change (`0x86400`) found the path. Watchpoints were
+  unusable: xemu crawled.
+- **Every other timer is virtual too (`vclock`).** Eight call sites of `QueryPerformanceCounter` (`rdtsc`) in
+  core::/Pure3D timers now read the virtual clock. It stands still between game-loop updates: the loading
+  screen loop runs a host-dependent number of times, and a clock that advanced per read there differed by
+  ~30 reads between runs. Before the first update it advances 4 ms per main-thread read, so the copyright
+  screen's 3 s wait still ends. Then it snaps to a fixed 300 s. The pad poll's rate limit had to go, since
+  frozen time kept the press-START loop from ever reading the pad.
+- **Halted dumps find leaks fast.** `g_hybrid.halt_frame` stops the game loop at an exact frame, so two runs
+  can dump `.data`/`.bss` at the same frames and be diffed word by word. The first gameplay difference was
+  the sound voice manager's per-category counters. Voice availability follows the emulated audio hardware in
+  real time, and voice selection draws from the gameplay RNG (`0x964d0` from three sound functions), so the
+  RNG drifted next. `sound-rng` gives the sound code its own MWC state and its own `rand()`.
+- **Wide hashes can't be a pass/fail check.** `.data` holds heap and thread-stack pointers, and the layout
+  differs between runs of different builds (and of the same build sometimes). Recordings therefore check the
+  RNG, the camera position (the first useful player-position proxy: `*0x4e231c + 0x4c`), `GameClock` and the
+  boot step.
+- **Record mode:** `tools/hybrid_test.py record NAME` plays the unmodified game with only these hooks and saves
+  pad changes keyed by pad poll, plus checkpoints. `replay` reproduces them, feeding recordings longer than
+  the 8,192-entry ring over the GDB stub. The ring is safe to refill mid-run because game time is virtual. A
+  script-driven recording replayed checkpoint-identical through all 15,182 frames.
+- **Result:** the runs went from identical through frame 450 to identical through 7,700–19,900 frames
+  (4–11 minutes of gameplay). One leak remains: a fully pinned pair parted at frame 8,760.

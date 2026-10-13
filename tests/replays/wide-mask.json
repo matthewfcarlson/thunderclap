@@ -1,23 +1,15 @@
 {
- "comment": "Pages of .data/.bss (index = (va - 0x48ca80) / 0x1000) that differ between two runs of the unmodified game on tests/replays/newgame-normal.json at frame 420; excluded from the wide checkpoint hash (tools/hybrid_test.py determinism --wide).",
- "pages": [
-  60,
-  76,
-  86,
-  89,
-  200,
-  219,
-  222,
-  226
- ],
- "va": [
-  "0x4c8a80",
-  "0x4d8a80",
-  "0x4e2a80",
-  "0x4e5a80",
-  "0x554a80",
-  "0x567a80",
-  "0x56aa80",
-  "0x56ea80"
+ "comment": "Byte ranges of .data/.bss hashed as zeros in the wide checkpoint (tools/hybrid_test.py --wide): words that differed between runs of the unmodified game with the vclock/sound-rng hooks, word-by-word diffs of dumps halted at the same frames (docs/hybrid-build.md, 'Determinism after the new-game load'). [va, length, what]. 'pages' (whole 4 KB pages, index = (va - 0x48ca80) / 0x1000) is still honoured but empty.",
+ "pages": [],
+ "skip": [
+  ["0x4d9968", 4, "/GS security cookie (rdtsc at CRT start)"],
+  ["0x55549c", 4, "vblank counter (SwapBuffers pacing)"],
+  ["0x5660e0", 32, "Bink timer state (0x368660)"],
+  ["0x4e3714", 4, "sound manager float clock (0x1f22f0)"],
+  ["0x4e3718", 160, "sound voice manager counters (0x1f5c20) and neighbours"],
+  ["0x4e5f9c", 4, "sound stream allocator pointer (0x24be00)"],
+  ["0x4e61ec", 4, "sound stream allocator pointer (0x24be00)"],
+  ["0x56b500", 768, "XAPI / DirectSound state"],
+  ["0x56f4f0", 16, "XAPI / DirectSound state"]
  ]
 }

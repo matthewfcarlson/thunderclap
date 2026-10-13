@@ -88,41 +88,136 @@ address of `g_hybrid`.
 | Tweak | Patch | Effect |
 |---|---|---|
 | `skip-intro` | `g_BootSequenceStep` (`0x49fb40`) starts at 6 instead of 1 | no dolby/marvel/radical/sierra/attract movies: title in ~10 s instead of ~135 s |
-| `no-fmv` | `CFMVManager::QueueMovie` (`0x1b7310`) returns at once (`ret 0Ch`) | no Bink movies at all; needed by frame-keyed replays, because the game loop doesn't tick while a movie plays |
+| `no-fmv` | `CFMVManager::QueueMovie` (`0x1b7310`) returns at once (`ret 0Ch`); the FMV render (`0x1b7d10`) reads a playing movie's status as 0, "finished" (`call [eax+30h]` at `0x1b7d38` → `xor eax, eax`) | no Bink movies at all. The opening movie, started another way (`0x1b83c0` → `0x1b7f40`), ends at its first render. Movies run the loop unpaced in `GS_FMV`: nothing is presented, so `GameClock::Update` ran as fast as the host could for as long as the movie played in real time (5,000–12,000 updates of 33 ms each) |
 
 These are the first deliberate behaviour changes (task 06 deliverable 3).
 
 ## Test hooks (`hybrid/hooks.cpp`, `--hooks`)
 
-Our own C++ (MSVC 7.1), linked at the start of `.hybrid`. It redirects three original calls and one
-instruction, in the original and in our copy of any patched function that contains them:
+Our own C++ (MSVC 7.1), linked at the start of `.hybrid`. It redirects these original calls (in the original
+and in our copy of any patched function that contains them), and patches two instructions:
 
 | Site | Original | Hook |
 |---|---|---|
 | `0x8646e` in `GameClock::Update` | `call GetMicroseconds64` | `hybrid_clock_tick`: frame counter, checkpoint every N frames, virtual clock advancing exactly `dt_us` (33,333 µs) per frame |
 | `0x87e40` in the `GameClock` ctor | `call GetMicroseconds64` | `hybrid_clock_now`: the same virtual clock |
-| `0x2685d9` in `core::ControllerXBox::vfunc_17` | `call XInputGetState` | `hybrid_xinput_get_state`: replays pad state from `g_hybrid.replay` (keyed by frame), or records changes into `g_hybrid.record` |
+| `0x2685d9` in `core::ControllerXBox::vfunc_17` | `call XInputGetState` | `hybrid_xinput_get_state`: replays pad state from `g_hybrid.replay` (keyed by frame, or by pad poll with `pollkey`), and/or records changes into the ring `g_hybrid.record` |
+| `0x876e5` in `CGame::Tick` | `call GameClock::Update` | `hybrid_game_tick`: notes `CGame` (`esi`) so the hooks can read the game state (`*(*(CGame+4))`) |
+| `0x8763a` in `CGame::Tick` | `call PumpPlatformServices` | `hybrid_pump_services`: with `iosync`, first waits until no `core::DriveThread` has requests pending |
+| `0x273465` in the `DriveThread` ctor | `call` thread start | `hybrid_drive_thread_start`: notes each DriveThread (its `+0x8c` counts pending requests) |
+| 8 sites: `0x267f07`/`0x267f47`/`0x267f87` (`core::GetMicroseconds`/`GetMicroseconds64`/`GetMilliseconds`), `0x267aa7`, `0x26802c` (`core::TimerList`), `0x292507` (Pure3D timer), `0x3214d7`/`0x3214eb` (`d3dContext`) | `call QueryPerformanceCounter` (`rdtsc`) | `hybrid_qpc`: with `vclock`, the virtual clock |
+| `0x1ef2ca`, `0x1efe8d`, `0x1f7362`, `0x1f74b7` (sound) | `call 0x964d0` (the game's RNG) | `hybrid_sound_rng`: with `sound-rng`, the sound code's own generator |
+| `0x260ae2` (audio sequencing) | `call _rand` | `hybrid_sound_rand`: with `sound-rng`, its own `rand()` state |
 | `0x8668e` in `0x86630` (new game) | `call GetMicroseconds` (the RNG seed) | `mov eax, seed` |
+| `0x26918b` in `ControllerSystemXBox::vfunc_12` (with `vclock`) | `jb` (skip the pad poll if less than the poll interval has passed) | `nop nop`: the pad is read on every call, which is once per frame |
+
+Flags (`g_hybrid.flags`, `tools/patch_xbe.py` `HF`); with every flag off the hooks call the original:
+
+| Flag | Effect |
+|---|---|
+| `fixed-dt`, `ckpt`, `replay`, `record`, `autostart`, `wide`, `pollkey` | as before: fixed frame time, checkpoints, input replay/record, START tapped while the loop is stalled in `GS_PRESSSTART`, `.data`/`.bss` page hashes, replay keyed by pad polls |
+| `vclock` | every game timer read is virtual (below) |
+| `sound-rng` | the sound code draws from its own random generators |
+| `iosync` | each frame first waits for the drive threads (opt-in; no requests were ever pending at that point in the tutorial, so it is not in the default set) |
 
 - **RNG.** Gameplay randomness is a Marsaglia multiply-with-carry generator (multipliers 36969/18000,
   float in [0,1) via the mantissa trick). Its state is `0x4e5ad0`, pointed to by `0x4e5acc`, constructed
   with seed 0 (→ `0xfc7d2ba2`) by a static initializer. Utility `util_GetRandomFloat` is `0x964e0`. The
-  only time-based seed is `Seed(GetMicroseconds())` when a new game starts (`0x8669b`). CRT `rand` is used
-  only by Lua's `math.random` (`0x33bb40`) and audio sequencing. Function-static generators seed with 0.
+  only time-based seed is `Seed(GetMicroseconds())` when a new game starts (`0x8669b`). CRT `rand` is
+  per-thread and used only by Lua's `math.random` (`0x33bb40`) and audio sequencing (`0x260ae0`). The sound
+  code also draws from the game's generator (above). Function-static generators seed with 0.
 - **Input.** The pad is read once per main-loop frame by `ControllerXBox::vfunc_17`, so replays are keyed
   by the frame counter. xemu needs a pad in port 1: the config copy binds the keyboard as a
-  `usb-xbox-gamepad`. Loading screens run their own loop that polls the pad but doesn't tick the game
-  clock; when the frame counter stalls for 60 polls the hook releases all buttons and taps START (the
-  loading screen waits for START, and a button held from the menu blocks it).
-- **Checkpoints.** FNV-1a over the frame number, the RNG state, `g_BootSequenceStep`, `GameClock+0x10..0x40`
-  (accumulated real and scaled time, dt, time scale; the clock's address is captured from `ecx` on the first
-  tick), and up to 8 host-chosen regions. With `--wide` (in `hybrid_test.py determinism`), every 4 KB page of
-  `.data`/`.bss` is hashed too, except the pages in `tests/replays/wide-mask.json`. The ring of 4,096
-  checkpoints is read over QMP `memsave`.
+  `usb-xbox-gamepad`. The loading screen after a new game (`GS_PRESSSTART`, `0x86790`) runs its own loop
+  that polls the pad but doesn't tick the game clock; when the frame counter stalls for 60 polls in that
+  state, the hook releases all buttons and taps START (a button held from the menu blocks it).
+- **Checkpoints.** FNV-1a over the frame number, the RNG state, `g_BootSequenceStep`, the first 0x58 bytes of
+  the camera's position (3 floats at `*0x4e231c + 0x4c`, singleton `0x1c3d90`; what `rm_GetCameraPosition`
+  returns, and it follows the player; a region with a dereference takes an offset in its size's high 16 bits), `GameClock+0x10..0x40` (accumulated real and scaled time, dt, time
+  scale; the clock's address is captured from `ecx` on the first tick), and up to 8 host-chosen regions. With
+  `--wide`, every 4 KB page of `.data`/`.bss` is hashed too, except the pages and byte ranges in
+  `tests/replays/wide-mask.json`. The ring of 4,096 checkpoints is read over QMP `memsave`.
 - **Replays** are JSON: `[[frame, buttons, [8 analog buttons], [4 thumb axes]], ...]`, each entry applying
   from its frame on. `tests/replays/newgame-normal.json`: START at frame 150 (title), A at 300 (New Game),
   A at 450 (Normal). XInput buttons: up 1, down 2, left 4, right 8, START 0x10, BACK 0x20; analog index
-  0 = A, 1 = B, 2 = X, 3 = Y, 4 = black, 5 = white, 6/7 = triggers.
+  0 = A, 1 = B, 2 = X, 3 = Y, 4 = black, 5 = white, 6/7 = triggers. The `capture-*.json` scripts are keyed
+  by pad polls. Recordings (below) are `{"key": "polls", "flags", "inputs": [...], "checkpoints", ...}`.
+- **Memory dumps at an exact frame.** `g_hybrid.halt_frame` makes the game loop wait at the start of that
+  frame until the host clears it (over the GDB stub); `halted` says it is waiting. Two runs dumped at the
+  same frames and diffed word by word is how the leaks below were found.
+
+## Determinism after the new-game load
+
+`tools/hybrid_test.py determinism`, `compare`, `bisect_hybrid.py`, `record` and `replay` (and
+`trace_capture.py`) build with `vclock` and `sound-rng` on. What varied, and what pins it:
+
+1. **The opening movie (the "runaway").** After Normal is picked, the game enters `GS_FMV` with the opening
+   Bink movie, which `no-fmv`'s `QueueMovie` patch didn't catch, while the level loads. The FMV render
+   presents nothing, so `SwapBuffers`' vblank pacing never ran and the loop spun as fast as the host allowed
+   until the movie ended in real time: 5,000–12,000 `GameClock::Update`s of a fixed 33 ms, so every later
+   frame number, and the game time the opening ran for, depended on the host. `no-fmv` now also ends that
+   movie at its first render; `GS_FMV` lasts one frame.
+2. **Other timers.** `GameClock` was virtual, but everything else that reads the time
+   (`core::GetMilliseconds` for the pad poll's rate limit, `TimerList`, sound and script timers, loading
+   screens, per-frame time budgets, the Pure3D timer) read `rdtsc`. With `vclock` they all read the virtual
+   clock, which only moves at a game-loop update: loops outside the game loop (the loading screen) run a
+   host-dependent number of times, so any time that advanced per read there would not replay. Before the
+   first update (boot, the copyright screen's 3 s wait), every main-thread read advances it 4 ms, and the
+   game loop then starts at a fixed 300 s. The pad poll's rate limit is patched out, because frozen time
+   would otherwise keep the `GS_PRESSSTART` loop from ever reading START.
+3. **Sound draws from the gameplay RNG.** Dumps of `.data`/`.bss` from two runs halted at the same frames
+   first differed in the sound voice manager's per-category counters (`0x4e3768..0x4e37b0`, `0x1f5c20`),
+   then in the RNG. Whether a sound gets a voice depends on how many voices are still playing, which the
+   emulated audio hardware decides in real time, and voice selection draws from the game's MWC generator
+   (`0x964d0` from `0x1ef2a0`, `0x1efe20`, `0x1f7320`), so each run's gameplay RNG sequence shifted at a
+   different moment. `sound-rng` gives the sound code its own MWC state and its own `rand()`.
+
+Results (capture-gameplay.json, frame-keyed, through the junkyard tutorial; checkpoints = RNG, camera position,
+`GameClock`, boot step every 30 frames):
+
+| Pinned | Identical through (frames; the load ends at ~455) |
+|---|---|
+| `GameClock` only (before) | 450 |
+| + `no-fmv` ends the opening movie | 7,767 (one run pair) |
+| + `vclock` | 8,927; 19,890; < 9,000 (three pairs) |
+| + `sound-rng` | 8,760 (one pair of 15-minute runs, ~18,500 frames each) |
+| `record` (a script as stand-in player) → `replay` | 15,182 of 15,182 recorded (8.4 min) |
+
+So most runs now stay identical for 4–10 minutes of gameplay, but a leak remains: one run pair with every
+flag on still parted at frame 8,760. It is not found yet; the next step is the same halted-dump diff
+(`halt_frame`) around that point, with the sound manager's globals masked.
+
+`--wide` is a diagnostic, not part of the pass/fail checkpoints of recordings: `.data`/`.bss` holds heap and
+thread-stack pointers, and the memory layout differs between runs of different builds (and sometimes of the
+same build), so the page hashes differ even when the game doesn't. Words that differed between two runs of the
+same build, masked in `wide-mask.json` (none feeds gameplay as far as the checkpoints show): the
+`/GS` cookie (`0x4d9968`, from `rdtsc` at CRT start), the vblank counter (`0x55549c`), Bink's timer
+(`0x5660e0..`), the sound voice manager's counters and float clock (`0x4e3714..0x4e37b0`), the sound stream
+allocator's pointers (`0x4e5f9c`, `0x4e61ec`), and XAPI/DirectSound state at the end of `.bss`.
+
+## Recording a session (play once, replay forever)
+
+```sh
+build/venv/bin/python tools/hybrid_test.py record my-session
+```
+
+builds the unmodified game with only the hooks (`fixed-dt`, `vclock`, `sound-rng`, constant seed,
+`skip-intro`, `no-fmv`, checkpoints, `record`), starts xemu with your own controller binding (`--pad
+keyboard` or `--pad <GUID>` to choose), and saves every pad change, keyed by pad poll, plus the checkpoints to
+`tests/replays/my-session.json` (`--out build/...` to keep it out of git). Play normally from the title
+(press START at the loading screen yourself); press Ctrl-C in the terminal when done (closing the xemu window
+also works but loses the last 2 s). Game time is frames × 33 ms, so if xemu renders slower than 30 fps the
+game runs slower too, and movies are skipped.
+
+```sh
+build/venv/bin/python tools/hybrid_test.py replay tests/replays/my-session.json
+build/venv/bin/python tools/trace_capture.py --session s2 --script tests/replays/my-session.json
+```
+
+`replay` runs the same build with the recording as input and compares its checkpoints with the recorded
+ones. Recordings longer than the 8,192-entry ring are fed in over the GDB stub while the game runs
+(`ReplayFeeder`). `trace_capture.py` and `determinism --replay` take a recording too, but don't feed the ring yet: they
+replay its first 8,192 pad changes.
 
 ## Driving xemu (`tools/hybrid_run.py`, `tools/xemu_gdb.py`)
 
@@ -166,19 +261,21 @@ instruction, in the original and in our copy of any patched function that contai
   | `0x324e00` d3dContext ctor | equivalent | 4-byte local passed to QueryPerformanceFrequency (writes 8) | excluded |
   | `0x259610` | equivalent | stalls in DSOUND at frame 3 (verified on only 3 inputs) | excluded, not analysed |
   | `0x329f70` | equivalent | stalls at frame 156, entering the menu | excluded, not analysed |
-- Determinism: two runs of the unmodified game with the hooks give identical checkpoints over the front
-  end (frames 0–450, every run so far), and once over frames 0–3,300 into the opening cutscene. After the
-  new-game load the frame count depends on load time, so `compare` checks frames ≤ 450 by default.
+- Determinism (2026-10-10): two runs of the unmodified game with the hooks gave identical checkpoints over
+  the front end (frames 0–450). After the new-game load the frame count depended on how long the opening
+  movie played; fixed 2026-10-12/13, see "Determinism after the new-game load" and the results there.
+  `compare` still checks frames ≤ 450 by default (`--max-frame 0` for all).
 
 ## Open
 
 - **Adapter thunks for `equiv-conv`** functions (31 in `equivalent/`): an entry thunk moving register
   arguments to where our compile expects them, and call thunks for callees.
-- **The new-game load.** After it, the main loop sometimes runs thousands of `GameClock::Update`s per
-  second, so replays keyed on frames lose sync. The loading screen's START check (or the loop that
-  ticks the clock there) needs a deterministic hook before gameplay scenarios can be compared.
-- `--wide` page masks were taken at frame 420 only; a check of the masked hash over a longer run was cut
-  short by the monitor issue.
-- Player position/health/camera, entity counts and mission flags in the checkpoint (need their addresses).
+- **Pinning, still open:** the memory layout (heap base, thread stacks) differs between runs, so `--wide`
+  can't be a pass/fail check; audio itself (which voices play, the sound manager's state) still follows the
+  emulated hardware's real time, it just no longer feeds the gameplay RNG; `iosync` is in place but unproven
+  (no drive request was ever pending at the frame boundary in the tutorial); `trace_capture.py` doesn't feed
+  recordings past 8,192 pad changes.
+- Player health, entity counts and mission flags in the checkpoint (the camera position stands in for the
+  player's).
 - `tools/hybrid_test.py` scenario suite and JSON report beyond `determinism`/`compare`; snapshot capture and
   `equiv.py --inputs-from` (task 10 deliverables 2, 4).

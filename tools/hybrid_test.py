@@ -8,12 +8,19 @@
         the same replay on the hooks-only build and on a hybrid build; reports the first checkpoint that
         differs, whether the patched build reached the title, and which patched functions ran.
 
+  tools/hybrid_test.py record NAME [--minutes 30] [--pad GUID]
+        play the unmodified game in xemu (hooks: virtual clock, constant seed, input recording, checkpoints) and
+        save the pad input and checkpoints to tests/replays/NAME.json. Stop with Ctrl-C (or --minutes).
+  tools/hybrid_test.py replay tests/replays/NAME.json
+        replay a recording on the same build and compare its checkpoints with the recorded ones.
+
 Every run uses the tweaks skip-intro and no-fmv (movies stall the frame counter that replays are keyed on)
 and writes build/hybrid/test/<name>.json.
 """
 import argparse
 import json
 import os
+import struct
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -30,30 +37,46 @@ SEED = 0x1234
 MASK_FILE = os.path.join(ROOT, "tests/replays/wide-mask.json")     # .data pages excluded from the hash
 
 
-def hooks_cfg(replay, wide=False, snap_frame=0):
-    h = {"seed": SEED, "flags": ["fixed-dt", "ckpt", "autostart"], "dt_us": 33333, "ckpt_interval": 30}
+PIN_FLAGS = ["vclock", "sound-rng"]
+
+
+def hooks_cfg(replay, wide=False, snap_frame=0, vclock=False):
+    """vclock: pin everything after the new-game load too (PIN_FLAGS): every game timer read (core:: and Pure3D)
+    returns the virtual clock (hooks.cpp hybrid_qpc), and the sound code gets its own random generators."""
+    h = {"seed": SEED, "flags": ["fixed-dt", "ckpt", "autostart"] + (PIN_FLAGS if vclock else []), "dt_us": 33333,
+         "ckpt_interval": 30}
     if replay:
-        h["replay"] = json.load(open(replay))
+        data = json.load(open(replay))
+        if isinstance(data, dict):          # a recording (record below): keyed by pad polls, START is in it
+            h["replay"] = data["inputs"][:patch_xbe.INPUT_MAX]    # only `replay` feeds the ring past that
+            if len(data["inputs"]) > patch_xbe.INPUT_MAX:
+                print("  %s: replaying the first %d of %d pad changes (use `hybrid_test.py replay` for all)"
+                      % (replay, patch_xbe.INPUT_MAX, len(data["inputs"])), file=sys.stderr)
+            h["flags"] = [f for f in h["flags"] if f != "autostart"] + ["pollkey"]
+        else:
+            h["replay"] = data
     if wide:
         h["flags"].append("wide")
         h["snap_frame"] = snap_frame
         if os.path.exists(MASK_FILE):
-            pages = json.load(open(MASK_FILE))["pages"]
+            m = json.load(open(MASK_FILE))
             mask = [0] * (patch_xbe.WIDE_PAGES // 32)
-            for p in pages:
+            for p in m.get("pages", []):
                 mask[p >> 5] |= 1 << (p & 31)
             h["mask"] = mask
+            h["skip"] = [(int(a, 16), n) for a, n, *_ in m.get("skip", [])]
     return h
 
 
-def build_and_run(name, records, replay, seconds, interval=10, coverage=False, wide=False, snap_frame=0):
+def build_and_run(name, records, replay, seconds, interval=10, coverage=False, wide=False, snap_frame=0, shots=True,
+                  vclock=True):
     """Build XBE `name` from records (may be empty), install, boot, return the boot report."""
     os.makedirs(TEST_DIR, exist_ok=True)
     out = os.path.join(TEST_DIR, name + ".xbe")
-    man = patch_xbe.build(records, out, tweaks=TWEAKS, hooks=hooks_cfg(replay, wide, snap_frame))
+    man = patch_xbe.build(records, out, tweaks=TWEAKS, hooks=hooks_cfg(replay, wide, snap_frame, vclock))
     hybrid_run.install(out)
     cov = [f["ours"] for f in man["functions"]] if coverage and man["functions"] else None
-    rep = hybrid_run.boot(seconds, interval, tag="test-" + name, coverage=cov, manifest=man)
+    rep = hybrid_run.boot(seconds, interval, tag="test-" + name, coverage=cov, manifest=man, shots=shots)
     rep["patched"] = man["patched"]
     json.dump(rep, open(os.path.join(TEST_DIR, name + "-report.json"), "w"), indent=1)   # name.json is the manifest
     return rep
@@ -85,7 +108,8 @@ def common_frames(a, b, max_frame=MAX_FRAME):
 
 def determinism(args):
     reps = [build_and_run("determinism-%d" % i, [], args.replay, args.seconds, wide=args.wide,
-                          snap_frame=args.snap_frame) for i in range(args.runs)]
+                          snap_frame=args.snap_frame, shots=args.shots, vclock=not args.no_vclock)
+            for i in range(args.runs)]
     cks = [checkpoints(r) for r in reps]
     res = {"runs": args.runs, "checkpoints": [len(c) for c in cks], "frames": [(r.get("hybrid") or {}).get("frame") for r in reps],
            "monitor_errors": sum(bool(r.get("monitor_error")) for r in reps),
@@ -95,6 +119,8 @@ def determinism(args):
         if d:
             res["divergence"] = d
             break
+    res["state"] = [{k: (r.get("hybrid") or {}).get(k) for k in ("game_state", "polls", "max_extra_us", "vreads")}
+                    for r in reps]
     res["common"] = min(common_frames(cks[0], c, args.max_frame) for c in cks[1:]) if len(cks) > 1 else len(cks[0])
     res["deterministic"] = res["divergence"] is None and res["common"] > 0
     if args.wide:
@@ -105,6 +131,159 @@ def determinism(args):
             res["snap_frames"] = [sn["snap_taken"] for sn in snaps]
             res["varying_pages"] = [{"page": i, "va": "%#x" % (lo + 0x1000 * i)} for i in diff]
     return res
+
+
+# no autostart: START is in the recording. No wide: .data holds heap and stack pointers, and the memory layout
+# isn't the same from run to run (thread stacks, heap base), so its page hashes would never match.
+RECORD_FLAGS = ["fixed-dt", "ckpt", "pollkey"] + PIN_FLAGS
+
+
+def _drain(x, man, rec, seen):
+    """Read g_hybrid; append record-ring entries not seen yet and merge the checkpoint ring into rec."""
+    st = hybrid_run.read_hybrid(x, man, full=True)
+    new = st["record_count"] - seen["inputs"]
+    if new > len(st["record"]):
+        print("  WARNING: %d inputs lost (drain slower than the ring)" % (new - len(st["record"])), file=sys.stderr)
+    if new > 0:
+        rec["inputs"] += st["record"][-new:] if new <= len(st["record"]) else st["record"]
+    seen["inputs"] = st["record_count"]
+    rec["checkpoints"].update({f: h for f, h in st["checkpoints"]})
+    rec["frames"], rec["polls"] = st["frame"], st["polls"]
+    return st
+
+
+def record(args):
+    import time
+    hooks = hooks_cfg(None, vclock=True)
+    hooks["flags"] = RECORD_FLAGS + ["record"]
+    if args.script:         # a stand-in player: drive the recording build with a pad script (keyed by polls)
+        hooks["replay"] = json.load(open(args.script))
+        hooks["flags"] += ["autostart"]
+    os.makedirs(TEST_DIR, exist_ok=True)
+    out = os.path.join(TEST_DIR, "record.xbe")
+    man = patch_xbe.build([], out, tweaks=TWEAKS, hooks=hooks)
+    hybrid_run.install(out)
+    path = args.out or os.path.join(ROOT, "tests/replays", args.name + ".json")
+    rec = {"key": "polls", "flags": RECORD_FLAGS + ["record"], "seed": SEED, "tweaks": list(TWEAKS),
+           "mask": hooks.get("mask", []), "skip": hooks.get("skip", []), "inputs": [], "checkpoints": {},
+           "frames": 0, "polls": 0}
+    seen = {"inputs": 0}
+
+    def save():
+        doc = dict(rec, checkpoints=sorted([f, h] for f, h in rec["checkpoints"].items()))
+        json.dump(doc, open(path, "w"), separators=(",", ":"))
+
+    x = hybrid_run.Xemu("record-" + args.name, pad=args.pad)
+    print("recording to %s: play, then press Ctrl-C here (closing the xemu window loses the last 2 s)" % path,
+          file=sys.stderr)
+    try:
+        while x.alive() and time.time() - x.t0 < args.minutes * 60:
+            time.sleep(2)
+            try:
+                _drain(x, man, rec, seen)
+            except RuntimeError:             # g_hybrid not mapped yet (booting)
+                continue
+            except OSError as e:             # xemu closed, or its monitor stopped answering
+                print("  monitor: %r" % e, file=sys.stderr)
+                break
+            if int(time.time() - x.t0) % 30 < 2:
+                print("  %4ds frame %d, %d inputs" % (time.time() - x.t0, rec["frames"], len(rec["inputs"])),
+                      file=sys.stderr)
+                save()
+    except KeyboardInterrupt:
+        try:
+            _drain(x, man, rec, seen)
+        except Exception:
+            pass
+    finally:
+        x.close()
+    save()
+    return {"recording": os.path.relpath(path, ROOT), "frames": rec["frames"], "polls": rec["polls"],
+            "inputs": len(rec["inputs"]), "checkpoints": len(rec["checkpoints"])}
+
+
+class ReplayFeeder:
+    """Keeps g_hybrid.replay (a ring of INPUT_MAX entries) ahead of the game for replays longer than the ring,
+    over the GDB stub (QMP can't write guest memory). Stopping the VM for a write is harmless: game time is
+    virtual."""
+
+    def __init__(self, man, entries):
+        from xemu_gdb import Gdb
+        self.man, self.entries = man, entries
+        self.g = Gdb()
+        self.g._send("c")                    # the stub stops the VM when it attaches
+        lay = man["g_hybrid_layout"]
+        self.base, self.max, self.pad = man["g_hybrid"], lay["input_max"], lay["pad_bytes"]
+        self.avail_va = self.base + lay["ext"] + 4 * lay["ext_fields"].index("replay_avail")
+        self.ring_va = self.base + patch_xbe.CTL_REPLAY
+        self.avail = min(len(entries), self.max)
+
+    def feed(self, st):
+        if self.avail >= len(self.entries):
+            return
+        end = min(len(self.entries), st["replay_pos"] + self.max - 64)
+        if end - self.avail < 1024:
+            return
+        self.g.interrupt()
+        self.g._recv_packet()
+        i = self.avail
+        while i < end:
+            j = min(end, (i // self.max + 1) * self.max)          # up to the end of the ring
+            data = patch_xbe.pack_replay(self.entries[i:j])
+            for o in range(0, len(data), 2040):
+                self.g.write(self.ring_va + self.pad * (i % self.max) + o, data[o:o + 2040])
+            i = j
+        self.g.write(self.avail_va, struct.pack("<I", end))
+        self.g._send("c")
+        self.avail = end
+
+    def close(self):
+        self.g.close()
+
+
+def replay(args):
+    """Replay a recording on the record build (same hooks, minus recording) and compare checkpoints."""
+    import time
+    data = json.load(open(args.recording))
+    hooks = {"seed": data.get("seed", SEED), "flags": [f for f in data["flags"] if f != "record"] + ["replay"],
+             "dt_us": 33333, "ckpt_interval": 30, "replay": data["inputs"], "mask": data.get("mask", []),
+             "skip": data.get("skip", [])}
+    os.makedirs(TEST_DIR, exist_ok=True)
+    out = os.path.join(TEST_DIR, "replay.xbe")
+    man = patch_xbe.build([], out, tweaks=data.get("tweaks", TWEAKS), hooks=hooks)
+    hybrid_run.install(out)
+    rec = {"inputs": [], "checkpoints": {}, "frames": 0, "polls": 0}
+    seen = {"inputs": 0}
+    want = data["frames"]
+    limit = args.seconds or (want / 20 + 180)          # xemu runs gameplay at 25-30 fps
+    long = len(data["inputs"]) > patch_xbe.INPUT_MAX
+    x = hybrid_run.Xemu("replay", gdb=long)
+    feeder = ReplayFeeder(man, data["inputs"]) if long else None
+    try:
+        while x.alive() and time.time() - x.t0 < limit and rec["frames"] < want:
+            time.sleep(5)
+            try:
+                st = _drain(x, man, rec, seen)
+                if feeder:
+                    feeder.feed(st)
+            except RuntimeError:
+                continue
+            except OSError as e:
+                print("  monitor: %r" % e, file=sys.stderr)
+                break
+            print("  %4ds frame %d / %d" % (time.time() - x.t0, rec["frames"], want), file=sys.stderr)
+    finally:
+        if feeder:
+            feeder.close()
+        x.close()
+    a, b = [tuple(c) for c in data["checkpoints"]], sorted(rec["checkpoints"].items())
+    d = first_divergence(a, b, 0)
+    ma = dict(a)
+    return {"recording": args.recording, "recorded_frames": want, "replayed_frames": rec["frames"],
+            "common": common_frames(a, b, 0), "divergence": d,
+            "matching": sum(1 for f, h in b if ma.get(f) == h),
+            "checkpoints": [[f, h] for f, h in b],
+            "identical": d is None and common_frames(a, b, 0) > 0}
 
 
 def select_records(args):
@@ -169,6 +348,19 @@ def main(argv):
     d.add_argument("--max-frame", type=int, default=0, help="compare checkpoints up to this frame (0: all)")
     d.add_argument("--wide", action="store_true", help="also hash all of .data/.bss (minus wide-mask.json)")
     d.add_argument("--snap-frame", type=int, default=0, help="with --wide: keep page hashes at this frame")
+    d.add_argument("--no-vclock", action="store_true", help="only GameClock is virtual (the old hooks)")
+    d.add_argument("--shots", action="store_true", help="also take screenshots (can wedge xemu's monitor during loads)")
+    r = sub.add_parser("record")
+    r.add_argument("name")
+    r.add_argument("--minutes", type=float, default=60)
+    r.add_argument("--pad", default=None, help="port-1 binding: 'keyboard' or a gamepad GUID (default: your xemu "
+                   "config's, else the keyboard)")
+    r.add_argument("--out", help="default tests/replays/NAME.json")
+    r.add_argument("--script", help="test the pipeline without a player: feed this pad script (keyed by polls); "
+                   "what the game was given is recorded")
+    p = sub.add_parser("replay")
+    p.add_argument("recording")
+    p.add_argument("--seconds", type=float, default=0)
     c = sub.add_parser("compare")
     add_selection_args(c)
     c.add_argument("--coverage", action="store_true")
@@ -177,10 +369,10 @@ def main(argv):
         p.add_argument("--replay", default=DEFAULT_REPLAY if os.path.exists(DEFAULT_REPLAY) else None)
         p.add_argument("--seconds", type=float, default=60)
     a = ap.parse_args(argv)
-    res = determinism(a) if a.cmd == "determinism" else compare(a)
+    res = {"determinism": determinism, "compare": compare, "record": record, "replay": replay}[a.cmd](a)
     print(json.dumps(res, indent=1))
     json.dump(res, open(os.path.join(TEST_DIR, a.cmd + "-result.json"), "w"), indent=1)
-    return 0 if res.get("deterministic", res.get("pass")) else 1
+    return 0 if res.get("deterministic", res.get("pass", res.get("identical", True))) else 1
 
 
 if __name__ == "__main__":
