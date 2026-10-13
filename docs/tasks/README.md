@@ -14,6 +14,7 @@ Self-contained briefs for work alongside the matching farm. Each brief has a goa
 | 08 | [Farm: large-function strategies](08-large-functions.md) | farm | M | *farm session: aligned diffs, attempt history, similar-function examples built; A/B pending credits* |
 | 09 | [Equivalent decomp for large functions (behaviour verifier + farm mode)](09-equivalent-decomp.md) | 01, 02 | L | *verifier and farm mode done ([equivalence.md](../equivalence.md)); scaling up* |
 | 10 | [Test plan for the hybrid and native builds](10-hybrid-test-plan.md) | 06, 07, 09 | L | *started: hooks, determinism check (front end), compare, bisect; open: post-load determinism, scenarios* |
+| 11 | [The functions over 4 KB (generators, look-alike pairs, the rest)](11-big-functions.md) | 09 | M | *planned for Sunday 2026-10-18, after the weekly usage reset* |
 
 ## Ground rules (read first)
 
