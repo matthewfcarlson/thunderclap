@@ -13,8 +13,8 @@ The goal is a **native port**: C++ source we can build for SteamOS, arm64 macOS 
 |---|---|---|
 | Game code (`.text`, excluding XDK/CRT/Bink) | 27,450 | 2.69 MB |
 | Byte-matched (`matches/`) | 16,192 (59.0%) | 620 KB (23.0%) |
-| Proven equivalent (`equivalent/`) | 1,909 (7.0%) | 1016 KB (37.7%) |
-| **Verified source, total** | 18,101 (65.9%) | 1636 KB (**60.7%**) |
+| Proven equivalent (`equivalent/`) | 1,933 (7.0%) | 1022 KB (37.9%) |
+| **Verified source, total** | 18,125 (66.0%) | 1643 KB (**61.0%**) |
 <!-- /status -->
 
 ![Treemap of game code in address order, one box per function sized by its bytes: blue is byte-matched, green is proven equivalent, grey is not yet verified](docs/progress-map.svg)
