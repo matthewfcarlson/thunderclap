@@ -1,0 +1,12 @@
+class X {
+  public:
+    virtual void f();
+    char pad[0x0c];
+    int value;
+    char Set(int v);
+};
+
+char X::Set(int v) {
+    value = v;
+    return 1;
+}
