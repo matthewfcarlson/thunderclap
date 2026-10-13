@@ -1,0 +1,30 @@
+// STATUS: equivalent (generated; registrations by tools/equiv_gen/inlined_regs.py)
+@@DECLS@@
+
+struct SubA { SubA* FUN_000d6640(); };
+struct SubB { SubB* FUN_000d1720(); };
+
+class CSimOverlayManager {
+public:
+    CSimOverlayManager();
+    virtual void v0();
+    SubA* a;
+    SubB* b;
+    int c;
+};
+
+CSimOverlayManager::CSimOverlayManager() {
+    SubA* pa = (SubA*)FUN_0008d690(0x810);
+    if (pa)
+        pa = pa->FUN_000d6640();
+    a = pa;
+    SubB* pb = (SubB*)FUN_0008d690(0x510);
+    if (pb)
+        pb = pb->FUN_000d1720();
+    b = pb;
+    c = 0;
+    Registry* r = FUN_001d4c90();
+    if (r) {
+@@REGS@@
+    }
+}

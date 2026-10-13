@@ -1,0 +1,17 @@
+// STATUS: equivalent (generated; registrations by tools/equiv_gen/inlined_regs.py)
+@@DECLS@@
+
+class CTriggerVolumeManager {
+public:
+    void Register(int a);
+    int i0;
+    int i4;
+};
+
+void CTriggerVolumeManager::Register(int a) {
+    i4 = a;
+    Registry* r = FUN_001d4c90();
+    if (r) {
+@@REGS@@
+    }
+}

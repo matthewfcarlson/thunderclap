@@ -1,0 +1,26 @@
+// STATUS: equivalent (generated; registrations by tools/equiv_gen/inlined_regs.py)
+extern "C" void* __cdecl memset(void*, int, unsigned int);
+void* FUN_0008d6d0(unsigned int);
+@@DECLS@@
+
+class CCharacterTemplateManager {
+public:
+    CCharacterTemplateManager(int a, int b);
+    virtual void v0();
+    int f4;
+    int f8;
+    int fc;
+    int* f10;
+};
+
+CCharacterTemplateManager::CCharacterTemplateManager(int a, int b) {
+    f4 = a;
+    f8 = b;
+    fc = 0;
+    f10 = (int*)FUN_0008d6d0(b * 4);
+    memset(f10, 0, f8 * 4);
+    Registry* r = FUN_001d4c90();
+    if (r) {
+@@REGS@@
+    }
+}

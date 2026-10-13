@@ -1,0 +1,47 @@
+// STATUS: equivalent (generated; registrations by tools/equiv_gen/inlined_regs.py)
+@@DECLS@@
+
+class CCameraManager {
+public:
+    CCameraManager();
+    virtual void v0();
+    int i04;
+    int i08;
+    int i0c;
+    int i10;
+    int i14;
+    char b18;
+    char b19;
+    char b1a;
+    char pad1b;
+    int i1c;
+    int i20, i24, i28, i2c, i30, i34, i38, i3c;
+    char pad40[0x60];
+    int ia0, ia4, ia8, iac, ib0, ib4, ib8, ibc, ic0, ic4;
+    void FUN_0009a220();
+};
+
+CCameraManager::CCameraManager() {
+    i04 = 1;
+    i08 = 0;
+    i1c = 0;
+    i10 = 0;
+    ib8 = 0;
+    i14 = 0;
+    ib0 = 0;
+    ib4 = 0;
+    ibc = 0;
+    ic0 = 0;
+    ic4 = 0;
+    b19 = 1;
+    b1a = 0;
+    b18 = 0;
+    i20 = 0; i24 = 0; i28 = 0; i2c = 0; i30 = 0; i34 = 0; i38 = 0; i3c = 0;
+    ia0 = 0; ia4 = 0; ia8 = 0; iac = 0;
+    FUN_0009a220();
+    i0c = 0;
+    Registry* r = FUN_001d4c90();
+    if (r) {
+@@REGS@@
+    }
+}

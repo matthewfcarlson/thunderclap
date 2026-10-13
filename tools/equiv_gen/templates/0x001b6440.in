@@ -1,0 +1,44 @@
+// STATUS: equivalent (generated; registrations by tools/equiv_gen/inlined_regs.py)
+//@owner CCollisionManager
+@@DECLS@@
+
+struct Slot { char b[0x138]; void FUN_001b3020(); };
+struct Tail { char b[0x14]; void FUN_001b6380(); };
+struct Physics { void FUN_002ece90(int a, int b, int c); };
+extern Physics* DAT_00554c10;
+
+class CCollisionManager {
+public:
+    CCollisionManager();
+    virtual void v0();
+    int f4, f8, fc;
+    Slot slots[4];
+    int f4f0, f4f4, f4f8;
+    int z4fc[19];
+    int m548[19];
+    Tail tail;
+    int gravity;
+};
+
+CCollisionManager::CCollisionManager() {
+    int i;
+    f4 = 0;
+    f8 = 0;
+    fc = 0;
+    for (i = 0; i < 4; i++)
+        slots[i].FUN_001b3020();
+    f4f0 = 0;
+    f4f4 = 0;
+    f4f8 = 0;
+    tail.FUN_001b6380();
+    gravity = 0xc53b8000;
+    Registry* r = FUN_001d4c90();
+    if (r) {
+@@REGS@@
+        for (i = 0; i < 19; i++) {
+            z4fc[i] = 0;
+            m548[i] = -1;
+        }
+        DAT_00554c10->FUN_002ece90(0, gravity, 0);
+    }
+}

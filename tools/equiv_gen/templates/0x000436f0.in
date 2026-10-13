@@ -1,0 +1,9 @@
+// STATUS: equivalent (generated; registrations by tools/equiv_gen/inlined_regs.py)
+@@DECLS@@
+
+void FUN_000436f0() {
+    Registry* r = FUN_001d4c90();
+    if (r) {
+@@REGS@@
+    }
+}

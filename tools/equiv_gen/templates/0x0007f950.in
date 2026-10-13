@@ -1,0 +1,101 @@
+// STATUS: equivalent (generated; registrations by tools/equiv_gen/inlined_regs.py)
+@@DECLS@@
+
+class Link16 { public: char b[16]; void FUN_0027af00(); };
+class Link8 { public: char b[8]; void FUN_0027af00(); };
+struct Slot8 { char pad0[2]; char b2; char b3; char pad4[4]; };
+
+class CAmbientsManager {
+public:
+    CAmbientsManager();
+    virtual void v0();
+    char pad04[4];
+    Slot8 slots[0x320];
+    char pad1908[0x18];
+    char tab[0x1b88];
+    Link16 links1[10];
+    int i3548;
+    int z354c[20];
+    int i359c;
+    Link8 links2[0x14];
+    int i3640;
+    float f3644;
+    float f3648;
+    char c364c;
+    char pad364d[3];
+    Link16 links3[10];
+    char pad36f0[0x50];
+    int i3740;
+    int i3744;
+    int i3748;
+    int z374c[20];
+    int i379c;
+    int i37a0;
+    float f37a4;
+    float f37a8;
+    int z37ac[20];
+    int i37fc;
+    int z3800[10];
+    int i3828, i382c, i3830;
+};
+
+CAmbientsManager::CAmbientsManager() {
+    int i, k;
+    for (i = 0; i < 10; i++)
+        links1[i].FUN_0027af00();
+    i3548 = 0;
+    i359c = 0;
+    for (i = 0; i < 0x14; i++)
+        links2[i].FUN_0027af00();
+    i3640 = 0;
+    f3644 = 1.0f;
+    f3648 = 1.5f;
+    c364c = 0;
+    for (i = 0; i < 10; i++)
+        links3[i].FUN_0027af00();
+    i3740 = 0;
+    i3744 = 1;
+    i3748 = 0;
+    i379c = 0;
+    i37a0 = 0;
+    f37a4 = 5.0f;
+    f37a8 = 10.0f;
+    i37fc = 0;
+    i3828 = 0;
+    i382c = 0;
+    i3830 = 0;
+    for (i = 0; i < 0x320; i++) {
+        slots[i].b3 = 0;
+        slots[i].b2 = 0;
+    }
+    {
+        char* p = tab + 0x28;
+        for (k = 0; k < 7; k++) {
+            *(int*)(p - 0x28) = 0;
+            for (i = 0; i < 14; i++) {
+                *p = 0;
+                p += 0x48;
+            }
+        }
+    }
+    {
+        char* p = tab + 0x3495 - 0x1920;
+        for (i = 0; i < 7; i++) {
+            p[-1] = 0;
+            *p = 0;
+            p += 2;
+        }
+    }
+    for (i = 0; i < 20; i++) z354c[i] = 0;
+    for (i = 0; i < 10; i++) z3800[i] = 0;
+    for (i = 0; i < 20; i++) z374c[i] = 0;
+    for (i = 0; i < 20; i++) z37ac[i] = 0;
+    for (i = 0; i < 10; i++) {
+        int j;
+        for (j = 0; j < 4; j++) *(int*)(links1[i].b + j * 4) = 0;
+    }
+    Registry* r = FUN_001d4c90();
+    if (r) {
+@@REGS@@
+    }
+}

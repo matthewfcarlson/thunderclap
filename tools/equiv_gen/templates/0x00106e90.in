@@ -1,0 +1,22 @@
+// STATUS: equivalent (generated; registrations by tools/equiv_gen/inlined_regs.py)
+void* FUN_0008d6d0(unsigned int);
+@@DECLS@@
+
+class CPatrolPathManager {
+public:
+    CPatrolPathManager(int a);
+    virtual void v0();
+    int f4;
+    int f8;
+    void* fc;
+};
+
+CPatrolPathManager::CPatrolPathManager(int a) {
+    f4 = a;
+    f8 = 0;
+    fc = FUN_0008d6d0(a * 4);
+    Registry* r = FUN_001d4c90();
+    if (r) {
+@@REGS@@
+    }
+}

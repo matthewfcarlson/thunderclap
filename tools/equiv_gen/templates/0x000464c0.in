@@ -1,0 +1,420 @@
+// STATUS: equivalent (generated; parameter blocks by tools/equiv_gen/props_reader.py)
+// FUN_000464c0 @ 0x000464c0: read one character definition from its property reader
+inline void* operator new(unsigned int, void* p) { return p; }
+extern "C" int __cdecl strcmp(const char*, const char*);
+extern "C" long __cdecl atol(const char*);
+extern "C" int __cdecl _atexit(void (__cdecl*)());
+extern "C" void __fastcall __security_check_cookie(unsigned int);
+extern int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
+unsigned __int64 __cdecl FUN_0027b020(const char* s);
+unsigned __int64 __cdecl FUN_002672f0(const char* s, int a, int b);
+extern void __cdecl FUN_00363bc0();
+
+extern unsigned int DAT_004d9968;
+extern unsigned int DAT_004dc358;
+extern const char* DAT_0048f6a4[];
+extern const char* DAT_0048f6b4[];
+extern const char* DAT_0048f6d0[];
+extern float DAT_003f5eb8[];
+
+struct Vec3 { float x, y, z; };
+struct Key {
+    unsigned int first, second;
+    void FUN_0027af00();
+    void FUN_0027af10(Key src);
+    void FUN_0027af50();
+    void FUN_0027b040(const char* s);
+};
+extern Key DAT_004dc350;
+
+namespace content {
+namespace LoadInventory {
+class __declspec(novtable) DynamicCasterBase {
+public:
+    virtual void cast(void* p) = 0;
+};
+template <class T>
+class DynamicCaster : public DynamicCasterBase {
+public:
+    virtual void cast(void* p);
+};
+}
+}
+namespace pure3d { class DrawableHierarchy; class ShadowSkin; }
+class CSPHulkProp;
+
+class Obj {
+public:
+    virtual void v0();
+    virtual void v1();
+};
+class Factory {
+public:
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual Obj* f3(content::LoadInventory::DynamicCasterBase* caster, unsigned int lo, unsigned int hi);
+};
+struct Holder44 { Factory* FUN_00203d70(); };
+struct Holder28 { Holder44* FUN_000862a0(); };
+struct Manager { char pad0[0x54]; Holder28* holder; };
+extern Manager* DAT_004dd700;
+
+struct Finder { int FUN_0027b200(unsigned int lo, unsigned int hi); };
+struct Skel { char pad0[8]; Finder* finder; };
+class Node {
+public:
+    virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5();
+    virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10();
+    virtual Skel* v11();
+};
+
+class Reader {
+public:
+    char FUN_0027aa20(const char* name, float* out);
+    void FUN_0027a9d0(const char* name, int* out);
+    void FUN_0027aac0(const char* name, const char** out);
+    void FUN_0027ab00(const char* name, Vec3* out);
+};
+class Scope {
+public:
+    char FUN_001d2ba0(const char* name, int a, int b);
+    char FUN_001d2d40(const char* name, float* out);
+    void FUN_001d19d0(int n);
+};
+Scope* FUN_001d4c90();
+
+struct Sub12 { char b[12]; void FUN_00233f20(const char* s); };
+struct Attach {
+    Obj* r;
+    char pad4[4];
+    unsigned int jlo;
+    unsigned int jhi;
+    Vec3 off;
+    Vec3 ori;
+};
+
+// The original's locals, at their stack offsets (relative to its esp after the prologue, minus 0x14): the
+// checker fills the words behind every out-parameter, so what sits next to what matters.
+struct Frame {
+    int* jidp;                                              // 0x10
+    union { const char* s14; char* namep; } x14;            // 0x14  Size / CameraSize, joint name cursor
+    union { Vec3* offp; char pad[4]; } u18;                 // 0x18
+    union { const char* js; const char* ps; char caster[4]; } u1c;
+    union { Factory* inv; float m; } u20;
+    union { const char* js2; const char** nm; } u24;        // 0x24
+    float def;                                              // 0x28
+    const char* s1;                                         // 0x2c
+    const char* sal;                                        // 0x30
+    union { Key tmp; char caster[4]; Finder* finder; } u34; // 0x34
+    const char* t5;                                         // 0x3c
+    int u4, u5;                                             // 0x40 0x44
+    const char* s2;                                         // 0x48
+    int u7;                                                 // 0x4c
+    const char* t1;                                         // 0x50
+    int u8;                                                 // 0x54
+    const char* t3;                                         // 0x58
+    int u9;                                                 // 0x5c
+    const char* s3;                                         // 0x60
+    int u10, u1, u11, u3, u12;                              // 0x64 .. 0x74
+    const char* t0;                                         // 0x78
+    int u13;                                                // 0x7c
+    const char* t4;                                         // 0x80
+    int u14, u2;                                            // 0x84 0x88
+    const char* s5;                                         // 0x8c
+    const char* t2;                                         // 0x90
+    int boss;                                               // 0x94
+    const char* s4;                                         // 0x98
+    char pad9c[8];
+    char buf[0x80];                                         // 0xa4
+    char nbuf[0x20];                                        // 0x124
+    unsigned int cookie;                                    // 0x144
+};
+
+class CharDef {
+public:
+    bool FUN_000464c0(int unused, Reader* props);
+    void FUN_00045da0(Obj* o);
+    void FUN_00045f30(Obj* o);
+    void FUN_00044820(Key* k, float f);
+//@field 0x000 4 int f000;
+//@field 0x008 4 Node* p8;
+//@field 0x010 1 char b010;
+//@field 0x014 4 int f014;
+//@field 0x018 4 int f018;
+//@field 0x030 4 float f030;
+//@field 0x044 0x60 char jname[3][0x20];
+//@field 0x0a4 0xc int jid[3];
+//@field 0x0b0 0x24 Vec3 joff[3];
+//@field 0x0d4 0xc float jrad[3];
+//@field 0x0e0 0x48 Sub12 sub[6];
+//@field 0x128 4 float f128;
+//@field 0x1b0 4 int f1b0;
+//@field 0x1b8 0x140 Attach attach[8];
+//@field 0x37c 1 char b37c;
+//@field 0x37d 1 char b37d;
+//@field 0x37e 1 char b37e;
+//@field 0x37f 1 char b37f;
+//@field 0x384 1 char b384;
+//@field 0x388 4 float f388;
+//@field 0x444 4 float f444;
+//@field 0x38c 1 char b38c;
+//@field 0x38d 1 char b38d;
+//@field 0x38e 1 char b38e;
+//@field 0x38f 1 char b38f;
+//@field 0x390 1 char b390;
+//@field 0x3b0 0x40 char name3b0[0x40];
+//@field 0x3f0 0x40 char name3f0[0x40];
+//@field 0x430 5 char name430[5];
+//@field 0x454 1 char b454;
+//@field 0x474 1 char b474;
+//@field 0x475 1 char b475;
+@@FIELDS@@
+};
+
+bool CharDef::FUN_000464c0(int unused, Reader* props) {
+    Frame fr;
+    fr.cookie = DAT_004d9968;
+    fr.u20.inv = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+    fr.s1 = 0;
+    props->FUN_0027aac0("VariationName", &fr.s1);
+    name3b0[0] = 0;
+    if (fr.s1)
+        FUN_00267760(name3b0, 0x40, "%s", fr.s1);
+    fr.s2 = 0;
+    props->FUN_0027aac0("BaseName", &fr.s2);
+    name3f0[0] = 0;
+    if (fr.s2)
+        FUN_00267760(name3f0, 0x40, "%s", fr.s2);
+    if (strcmp(name3f0, "") == 0) {
+        name3f0[0] = 0;
+        if (fr.s1)
+            FUN_00267760(name3f0, 0x40, "%s", fr.s1);
+    }
+    fr.s3 = 0;
+    props->FUN_0027aac0("VariationName4CC", &fr.s3);
+    if (fr.s3)
+        FUN_00267760(name430, 5, "%s", fr.s3);
+    fr.s4 = 0;
+    props->FUN_0027aac0("Model", &fr.s4);
+    {
+        unsigned __int64 id = FUN_0027b020(fr.s4);
+        content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>* caster =
+            new (fr.u1c.caster) content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>;
+        FUN_00045da0(fr.u20.inv->f3(caster, (unsigned int)id, (unsigned int)(id >> 32)));
+    }
+    fr.s5 = 0;
+    props->FUN_0027aac0("ShadowModel", &fr.s5);
+    {
+        unsigned __int64 id = FUN_0027b020(fr.s5);
+        content::LoadInventory::DynamicCaster<pure3d::ShadowSkin>* caster =
+            new (fr.u1c.caster) content::LoadInventory::DynamicCaster<pure3d::ShadowSkin>;
+        FUN_00045f30(fr.u20.inv->f3(caster, (unsigned int)id, (unsigned int)(id >> 32)));
+    }
+    fr.x14.s14 = 0;
+    props->FUN_0027aac0("Size", &fr.x14.s14);
+    if (fr.x14.s14) {
+        for (int i = 0; i < 6; i++) {
+            if (strcmp(fr.x14.s14, DAT_0048f6b4[i]) == 0) {
+                f014 = i;
+                f018 = i;
+                f01c = DAT_003f5eb8[i];
+                break;
+            }
+        }
+    }
+@@GEN 0x022d 0x023d@@
+    fr.x14.s14 = 0;
+    props->FUN_0027aac0("CameraSize", &fr.x14.s14);
+    if (fr.x14.s14) {
+        for (int i = 0; i < 6; i++) {
+            if (strcmp(fr.x14.s14, DAT_0048f6b4[i]) == 0) {
+                f018 = i;
+                break;
+            }
+        }
+    }
+    fr.boss = 0;
+    props->FUN_0027a9d0("Boss", &fr.boss);
+    b010 = (fr.boss != 0);
+    f030 = 0.0f;
+    props->FUN_0027aa20("CollWorldHeight", &f030);
+@@GEN 0x02ea 0x0324@@
+    fr.jidp = jid;
+    fr.x14.namep = jname[0];
+    fr.u18.offp = joff;
+    fr.u24.nm = DAT_0048f6d0;
+    do {
+        const char* sub = *fr.u24.nm;
+        FUN_00267760(fr.buf, 0x80, "CollActor%sJoint", sub);
+        fr.u1c.js = 0;
+        props->FUN_0027aac0(fr.buf, &fr.u1c.js);
+        if (fr.u1c.js)
+            FUN_00267760(fr.x14.namep, 0x20, "%s", fr.u1c.js);
+        if (p8 && (fr.u34.finder = p8->v11()->finder) != 0) {
+            unsigned __int64 h = FUN_002672f0(fr.x14.namep, 0, 0);
+            *fr.jidp = fr.u34.finder->FUN_0027b200((unsigned int)h, (unsigned int)(h >> 32));
+            if (*fr.jidp < 0)
+                *fr.jidp = atol(fr.x14.namep);
+        } else {
+            *fr.jidp = -1;
+        }
+        FUN_00267760(fr.buf, 0x80, "CollActor%sOffset", sub);
+        props->FUN_0027ab00(fr.buf, fr.u18.offp);
+        FUN_00267760(fr.buf, 0x80, "CollActor%sRadius", sub);
+        props->FUN_0027aa20(fr.buf, (float*)(fr.jidp + 12));
+        fr.jidp++;
+        fr.x14.namep += 0x20;
+        fr.u18.offp++;
+        fr.u24.nm++;
+    } while (fr.u24.nm < DAT_0048f6d0 + 3);
+    fr.t0 = 0;
+    props->FUN_0027aac0("FightRoot", &fr.t0);
+    sub[0].FUN_00233f20(fr.t0);
+    fr.t1 = 0;
+    props->FUN_0027aac0("FightOpen", &fr.t1);
+    sub[1].FUN_00233f20(fr.t1);
+    fr.t2 = 0;
+    props->FUN_0027aac0("FightHit", &fr.t2);
+    sub[2].FUN_00233f20(fr.t2);
+    fr.t3 = 0;
+    props->FUN_0027aac0("FightWater", &fr.t3);
+    sub[3].FUN_00233f20(fr.t3);
+    fr.t4 = 0;
+    props->FUN_0027aac0("FightExplosion", &fr.t4);
+    sub[4].FUN_00233f20(fr.t4);
+    fr.t5 = 0;
+    props->FUN_0027aac0("AiScript", &fr.t5);
+    sub[5].FUN_00233f20(fr.t5);
+    f128 = 0.0f;
+    props->FUN_0027aa20("MaxHealth", &f128);
+@@GEN 0x0597 0x0859@@
+    fr.sal = 0;
+    props->FUN_0027aac0("Alignment", &fr.sal);
+    if (fr.sal) {
+        for (int i = 0; i < 4; i++) {
+            if (strcmp(fr.sal, DAT_0048f6a4[i]) == 0) {
+                f1b0 = i;
+                break;
+            }
+        }
+    }
+    if (!(DAT_004dc358 & 1)) {
+        DAT_004dc358 |= 1;
+        DAT_004dc350.FUN_0027af00();
+        _atexit(FUN_00363bc0);
+    }
+    for (int i = 1; i <= 14; i++) {
+        fr.def = -1.0f;
+        FUN_00267760(fr.nbuf, 0x20, "Attack%d", i);
+        DAT_004dc350.FUN_0027b040(fr.nbuf);
+        props->FUN_0027aa20(fr.nbuf, &fr.def);
+        fr.u34.tmp.FUN_0027af10(DAT_004dc350);
+        FUN_00044820(&fr.u34.tmp, fr.def);
+        fr.u34.tmp.FUN_0027af50();
+    }
+    for (int i = 0; i < 8; i++) {
+        Attach* ap = &attach[i];
+        FUN_00267760(fr.buf, 0x80, "AttachProp%d", i);
+        fr.u1c.ps = 0;
+        props->FUN_0027aac0(fr.buf, &fr.u1c.ps);
+        if (fr.u1c.ps) {
+            unsigned __int64 h = FUN_002672f0(fr.u1c.ps, 0, 0);
+            if (h != 0) {
+                content::LoadInventory::DynamicCaster<CSPHulkProp>* caster =
+                    new (fr.u34.caster) content::LoadInventory::DynamicCaster<CSPHulkProp>;
+                Obj* r = fr.u20.inv->f3(caster, (unsigned int)h, (unsigned int)(h >> 32));
+                if (r) {
+                    r->v0();
+                    if (ap->r)
+                        ap->r->v1();
+                    ap->r = r;
+                    FUN_00267760(fr.buf, 0x80, "AttachProp%dJoint", i);
+                    fr.u24.js2 = 0;
+                    props->FUN_0027aac0(fr.buf, &fr.u24.js2);
+                    if (fr.u24.js2) {
+                        unsigned __int64 jh = FUN_002672f0(fr.u24.js2, 0, 0);
+                        ap->jlo = (unsigned int)jh;
+                        ap->jhi = (unsigned int)(jh >> 32);
+                    }
+                    FUN_00267760(fr.buf, 0x80, "AttachProp%dOffset", i);
+                    props->FUN_0027ab00(fr.buf, &ap->off);
+                    FUN_00267760(fr.buf, 0x80, "AttachProp%dOrientation", i);
+                    props->FUN_0027ab00(fr.buf, &ap->ori);
+                    ap->ori.x = ap->ori.x * 0.017453292f;
+                    ap->ori.y = ap->ori.y * 0.017453292f;
+                    ap->ori.z = ap->ori.z * 0.017453292f;
+                }
+            }
+        }
+    }
+@@GEN 0x0b23 0x0dcf@@
+    fr.u1 = 0;
+    props->FUN_0027a9d0("NoGolem", &fr.u1);
+    b37c = (fr.u1 != 0);
+    fr.u2 = 0;
+    props->FUN_0027a9d0("FightingNPCMode", &fr.u2);
+    b37d = (fr.u2 != 0);
+    fr.u3 = 0;
+    props->FUN_0027a9d0("SuckInProp", &fr.u3);
+    b37e = (fr.u3 != 0);
+    fr.u4 = 0;
+    props->FUN_0027a9d0("GroupManaged", &fr.u4);
+    b37f = (fr.u4 != 0);
+    fr.u5 = 0;
+    props->FUN_0027a9d0("IgnoreFriendlyFire", &fr.u5);
+    b384 = (fr.u5 != 0);
+    f388 = 1.0f;
+    props->FUN_0027aa20("SpeedSleepwalking", &f388);
+    fr.u7 = 0;
+    props->FUN_0027a9d0("RangedAgent", &fr.u7);
+    b38c = (fr.u7 != 0);
+    fr.u8 = 0;
+    props->FUN_0027a9d0("Hand2HandAgent", &fr.u8);
+    b38d = (fr.u8 != 0);
+    fr.u9 = 0;
+    props->FUN_0027a9d0("ChaseAgent", &fr.u9);
+    b38e = (fr.u9 != 0);
+    fr.u10 = 0;
+    props->FUN_0027a9d0("PathGraphAgent", &fr.u10);
+    b38f = (fr.u10 != 0);
+    fr.u11 = 0;
+    props->FUN_0027a9d0("OccupationAgent", &fr.u11);
+    b390 = (fr.u11 != 0);
+@@GEN 0x0f4d 0x103c@@
+    fr.u12 = 0;
+    props->FUN_0027a9d0("AlwaysPriority", &fr.u12);
+    b454 = (fr.u12 != 0);
+    f444 = 0.0f;
+    props->FUN_0027aa20("ShotFailsMin", &f444);
+@@GEN 0x1075 0x1135@@
+    fr.u13 = 0;
+    props->FUN_0027a9d0("UsesRandomWaitSystem", &fr.u13);
+    b474 = (fr.u13 != 0);
+    fr.u14 = 0;
+    props->FUN_0027a9d0("SPCVsSPCCollision", &fr.u14);
+    b475 = (fr.u14 != 0);
+@@GEN 0x1185 0x11b7@@
+    Scope* sc = FUN_001d4c90();
+    if (sc->FUN_001d2ba0("constants", 1, 0)) {
+        if (sc->FUN_001d2ba0("actors", 0, 0)) {
+            float* pf = &f128;
+            if (sc->FUN_001d2ba0(name3f0, 0, 0)) {
+                fr.u20.m = 1.0f;
+                if (sc->FUN_001d2d40("MaxHealthMultiplier", &fr.u20.m))
+                    *pf = fr.u20.m * *pf;
+                sc->FUN_001d19d0(1);
+            }
+            if (sc->FUN_001d2ba0(DAT_0048f6a4[f1b0], 0, 1)) {
+                fr.u20.m = 1.0f;
+                if (sc->FUN_001d2d40("MaxHealthMultiplier", &fr.u20.m))
+                    *pf = fr.u20.m * *pf;
+                sc->FUN_001d19d0(1);
+            }
+            sc->FUN_001d19d0(1);
+        }
+        sc->FUN_001d19d0(1);
+    }
+    __security_check_cookie(fr.cookie);
+    return true;
+}

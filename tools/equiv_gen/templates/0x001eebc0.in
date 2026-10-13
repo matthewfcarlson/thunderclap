@@ -1,0 +1,13 @@
+// STATUS: equivalent (generated; registrations by tools/equiv_gen/inlined_regs.py)
+@@DECLS@@
+
+class CSoundSimManager {
+public:
+    void Register();
+    int i0;
+};
+
+void CSoundSimManager::Register() {
+    Registry* r = FUN_001d4c90();
+@@REGS@@
+}
