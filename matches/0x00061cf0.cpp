@@ -3,7 +3,7 @@ struct V {
     int b;
     int c;
 };
-class T {
+class T_61cf0 {
   public:
     char f(V* v);
     char pad[0x2c];
@@ -11,7 +11,7 @@ class T {
     int x30;
     int x34;
 };
-char T::f(V* v) {
+char T_61cf0::f(V* v) {
     x2c = v->a;
     x30 = v->b;
     x34 = v->c;

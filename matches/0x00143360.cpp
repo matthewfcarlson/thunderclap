@@ -1,17 +1,17 @@
-struct Src {
+struct Src_143360 {
     int a;
     int b;
     int c;
 };
-class C {
+class C_143360 {
   public:
     char pad[0x24];
     int m24;
     int m28;
     int m2c;
-    bool Set(Src* p);
+    bool Set(Src_143360* p);
 };
-bool C::Set(Src* p) {
+bool C_143360::Set(Src_143360* p) {
     m24 = p->a;
     m28 = p->b;
     m2c = p->c;

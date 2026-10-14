@@ -1,10 +1,10 @@
-extern unsigned int gA;
-extern unsigned int gB;
+extern unsigned int gA_35e520;
+extern unsigned int gB_35e520;
 
 unsigned long long __cdecl FUN_0027b020(const char*);
 
 void FUN_0035e520() {
     unsigned long long h = FUN_0027b020("golfBall_golfBall");
-    gA = (unsigned int)h;
-    gB = (unsigned int)(h >> 32);
+    gA_35e520 = (unsigned int)h;
+    gB_35e520 = (unsigned int)(h >> 32);
 }

@@ -1,13 +1,13 @@
-struct Src {
+struct Src_59a90 {
     int a, b, c;
 };
-class Obj {
+class Obj_59a90 {
   public:
-    virtual ~Obj() {}
+    virtual ~Obj_59a90() {}
     int a, b, c;
-    char Set(Src* src);
+    char Set(Src_59a90* src);
 };
-char Obj::Set(Src* src) {
+char Obj_59a90::Set(Src_59a90* src) {
     a = src->a;
     b = src->b;
     c = src->c;

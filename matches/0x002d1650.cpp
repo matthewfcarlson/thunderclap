@@ -1,11 +1,11 @@
-struct Inner {
+struct Inner_2d1650 {
     char pad[0x2c];
     int index;
 };
 
 struct Outer {
     char pad[0x1bc];
-    Inner* inner;
+    Inner_2d1650* inner;
 };
 
 void __cdecl FUN_002d1650(void* unused, void* in, Outer* src, void* out) {

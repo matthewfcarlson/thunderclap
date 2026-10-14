@@ -3,7 +3,7 @@ struct Triple {
     int b;
     int c;
 };
-class Owner {
+class Owner_192fe0 {
   public:
     char pad[0x28];
     int m28;
@@ -11,7 +11,7 @@ class Owner {
     int m30;
     bool Assign(Triple* p);
 };
-bool Owner::Assign(Triple* p) {
+bool Owner_192fe0::Assign(Triple* p) {
     m28 = p->a;
     m2c = p->b;
     m30 = p->c;

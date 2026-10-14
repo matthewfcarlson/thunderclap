@@ -1,16 +1,16 @@
-struct Src {
+struct Src_1657f0 {
     int a;
     int b;
     int c;
 };
-struct Obj {
+struct Obj_1657f0 {
     char pad[0x18];
     int x;
     int y;
     int z;
-    bool Set(Src* s);
+    bool Set(Src_1657f0* s);
 };
-bool Obj::Set(Src* s) {
+bool Obj_1657f0::Set(Src_1657f0* s) {
     x = s->a;
     y = s->b;
     z = s->c;

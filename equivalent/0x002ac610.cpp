@@ -8,7 +8,7 @@ void *thunk_FUN_0008d690(unsigned int size);
 void *FUN_0008d690(unsigned int size);
 unsigned __int64 __cdecl FUN_0027b020(const char *s);
 struct Stream;
-struct Ctx;
+struct Ctx_2ac610;
 namespace pure3d { class Shader; }
 
 namespace content {
@@ -50,7 +50,7 @@ public:
     virtual void l2();
     virtual void l3();
     virtual void l4();
-    virtual void load(LoadedRes **out, unsigned __int64 *id, Stream *s, Ctx *ctx);
+    virtual void load(LoadedRes **out, unsigned __int64 *id, Stream *s, Ctx_2ac610 *ctx);
     int FUN_00288e90();
     void FUN_00288e80(int v);
 };
@@ -74,7 +74,7 @@ struct LoaderRegistry {
 };
 extern LoaderRegistry *DAT_00527c58;
 
-class Ctx {
+class Ctx_2ac610 {
 public:
     virtual void c0();
     virtual void c1();
@@ -165,14 +165,14 @@ public:
 
 struct Extra {
     char FUN_002aa550(int v);
-    RefObj_2ac610 *FUN_002aa590(Stream *s, Ctx *ctx);
+    RefObj_2ac610 *FUN_002aa590(Stream *s, Ctx_2ac610 *ctx);
 };
 
 class Loader {
 public:
     void FUN_002a46d0(int a1, Obj_2ac610 *o);
-    void FUN_002a4b00(int a1, Stream *s, Ctx *ctx);
-    void FUN_002ac610(int a1, Stream *stream, Ctx *ctx, Extra *a4);
+    void FUN_002a4b00(int a1, Stream *s, Ctx_2ac610 *ctx);
+    void FUN_002ac610(int a1, Stream *stream, Ctx_2ac610 *ctx, Extra *a4);
 };
 
 struct Frame_2ac610 {
@@ -202,7 +202,7 @@ struct Frame_2ac610 {
     char name2[0x100];
 };
 
-void Loader::FUN_002ac610(int a1, Stream *stream, Ctx *ctx, Extra *a4)
+void Loader::FUN_002ac610(int a1, Stream *stream, Ctx_2ac610 *ctx, Extra *a4)
 {
     Frame_2ac610 f;
     f.self = this;

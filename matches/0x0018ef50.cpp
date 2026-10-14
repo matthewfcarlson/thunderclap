@@ -4,7 +4,7 @@ struct Val {
     int c;
 };
 
-class Obj {
+class Obj_18ef50 {
   public:
     char pad[0x34];
     int m34;
@@ -13,7 +13,7 @@ class Obj {
     bool Set(const Val* v);
 };
 
-bool Obj::Set(const Val* v) {
+bool Obj_18ef50::Set(const Val* v) {
     m34 = v->a;
     m38 = v->b;
     m3c = v->c;

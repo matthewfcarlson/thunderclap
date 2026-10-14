@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1922b0 {
   public:
     char pad[0x4c];
     int a;
@@ -7,7 +7,7 @@ class Obj {
     unsigned char Fn(int* src);
 };
 
-unsigned char Obj::Fn(int* src) {
+unsigned char Obj_1922b0::Fn(int* src) {
     a = src[0];
     b = src[1];
     c = src[2];

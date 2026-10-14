@@ -1,13 +1,13 @@
-struct Src {
+struct Src_5d6c0 {
     int a, b, c;
 };
-class Owner {
+class Owner_5d6c0 {
   public:
     char pad[0x20];
-    Src data;
-    bool Set(Src* p);
+    Src_5d6c0 data;
+    bool Set(Src_5d6c0* p);
 };
-bool Owner::Set(Src* p) {
+bool Owner_5d6c0::Set(Src_5d6c0* p) {
     data.a = p->a;
     data.b = p->b;
     data.c = p->c;

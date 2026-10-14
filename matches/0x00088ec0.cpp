@@ -1,4 +1,4 @@
-class Obj {
+class Obj_88ec0 {
   public:
     char pad[0xc];
     char mValue;
@@ -6,7 +6,7 @@ class Obj {
     void Callback();
 };
 
-void Obj::Set(char x) {
+void Obj_88ec0::Set(char x) {
     if (mValue != x) {
         Callback();
     }

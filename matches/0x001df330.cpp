@@ -1,12 +1,12 @@
-class Obj {
+class Obj_1df330 {
   public:
     char pad[0x194];
     char flag;
-    Obj* Find(int id);
+    Obj_1df330* Find(int id);
     void Set(int id, char c);
 };
-void Obj::Set(int id, char c) {
-    Obj* p = Find(id);
+void Obj_1df330::Set(int id, char c) {
+    Obj_1df330* p = Find(id);
     if (p)
         p->flag = c;
 }

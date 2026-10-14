@@ -1,15 +1,15 @@
-struct Vec {
+struct Vec_687c0 {
     int x;
     int y;
     int z;
 };
-class Obj {
+class Obj_687c0 {
   public:
     char pad[0x14];
-    Vec v;
-    char Set(Vec* p);
+    Vec_687c0 v;
+    char Set(Vec_687c0* p);
 };
-char Obj::Set(Vec* p) {
+char Obj_687c0::Set(Vec_687c0* p) {
     v.x = p->x;
     v.y = p->y;
     v.z = p->z;

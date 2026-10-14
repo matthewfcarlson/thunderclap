@@ -3,7 +3,7 @@ extern void* v1_333f10[];
 extern void* v2_333f10[];
 extern void* v3_333f10[];
 extern void* v4_333f10[];
-extern int g_id;
+extern int g_id_333f10;
 extern "C" void _ReadWriteBarrier();
 class O_333f10;
 extern O_333f10* g_o;
@@ -22,7 +22,7 @@ class O_333f10 {
 O_333f10::O_333f10() throw() {
     *(void* volatile*)&p0 = v0;
     *(void* volatile*)&p1 = v1_333f10;
-    id = g_id;
+    id = g_id_333f10;
     FUN_002705f0();
     *(void* volatile*)&p1 = v2_333f10;
     m0c = 0;

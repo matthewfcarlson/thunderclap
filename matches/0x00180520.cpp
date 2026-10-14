@@ -1,14 +1,14 @@
-struct S {
+struct S_180520 {
     int a, b, c;
 };
-class O {
+class O_180520 {
     char pad[0x38];
     int x, y, z;
 
   public:
-    bool Set(S* p);
+    bool Set(S_180520* p);
 };
-bool O::Set(S* p) {
+bool O_180520::Set(S_180520* p) {
     x = p->a;
     y = p->b;
     z = p->c;

@@ -1,4 +1,4 @@
-class Obj {
+class Obj_16f960 {
   public:
     char pad[0x10];
     int a;
@@ -6,7 +6,7 @@ class Obj {
     int c;
     char Set(void* p);
 };
-char Obj::Set(void* p) {
+char Obj_16f960::Set(void* p) {
     int* q = (int*)p;
     a = q[0];
     b = q[1];

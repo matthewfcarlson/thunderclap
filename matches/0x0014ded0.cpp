@@ -1,21 +1,21 @@
-struct Base {
-    Base();
+struct Base_14ded0 {
+    Base_14ded0();
     virtual void vfn();
 };
 
-class Derived : public Base {
+class Derived_14ded0 : public Base_14ded0 {
   public:
     char pad[8];
     int m0c;
     int m10;
-    Derived();
+    Derived_14ded0();
 };
 
 extern "C" void _ReadWriteBarrier();
 
 extern int vftable[];
 
-Derived::Derived() {
+Derived_14ded0::Derived_14ded0() {
     m0c = 0;
     m10 = 0;
     *(int*)this = (int)vftable;

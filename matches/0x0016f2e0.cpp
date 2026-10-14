@@ -1,19 +1,19 @@
-struct Data {
+struct Data_16f2e0 {
     int a;
     int b;
     int c;
 };
 
-class Ctx {
+class Ctx_16f2e0 {
   public:
     char pad[0x2c];
     int m2c;
     int m30;
     int m34;
-    char Set(Data* d);
+    char Set(Data_16f2e0* d);
 };
 
-char Ctx::Set(Data* d) {
+char Ctx_16f2e0::Set(Data_16f2e0* d) {
     m2c = d->a;
     m30 = d->b;
     m34 = d->c;
