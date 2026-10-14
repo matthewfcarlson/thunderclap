@@ -8,7 +8,7 @@ equivalent/).
 | Flag | Meaning | Files |
 |---|---|---|
 | lift | machine-generated from the asm (frame array, register variables) | 6 |
-| goto | control flow copied from the asm with goto | 40 |
+| goto | control flow copied from the asm with goto | 41 |
 | volatile | 20+ volatile declarations pinning x87 rounding | 9 |
 
 | Source | Size | Name | Flags | gotos | volatiles |
@@ -19,6 +19,7 @@ equivalent/).
 | `equivalent/0x00342180.cpp` | 1657 |  | lift, volatile | 0 | 124 |
 | `equivalent/0x000ee340.cpp` | 1644 | ImageSelector::vfunc_5 | lift, volatile | 0 | 153 |
 | `equivalent/0x00195bb0.cpp` | 1639 | hulkfight::motion::ProjectileEffect::vfunc_4 | lift, volatile | 0 | 112 |
+| `equivalent/0x000ea7c0.cpp` | 5060 | TextSelector::vfunc_5 | goto | 1 | 0 |
 | `equivalent/0x002b57d0.cpp` | 2418 |  | goto | 1 | 8 |
 | `equivalent/0x002e1960.cpp` | 2315 |  | goto | 1 | 0 |
 | `equivalent/0x00019470.cpp` | 2227 |  | goto | 1 | 0 |
