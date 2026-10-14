@@ -42,10 +42,10 @@ layouts checked against the XBE. Migrating matches onto it is roadmap step 2.
 
 ## 2. Shipping on macOS (roadmap step 8)
 
-- **Ship code only, never game data.** `Hulk.app` contains our arm64 executable and renderer.
+- **Ship code only, never game data.** `Thunderclap.app` contains our arm64 executable and renderer.
 - **Bring your own game.** On first launch the app asks for an ISO or extracted folder and checks the
   XBE hash against the supported release. It then extracts the data, with every RCF unpacked into
-  folders (see §4), to `~/Library/Application Support/<app>/`. The pieces exist: xISO extraction, and `tools/rcf.py`, which
+  folders (see §4), to `~/Library/Application Support/Thunderclap/`. The pieces exist: xISO extraction, and `tools/rcf.py`, which
   reads and rebuilds all 13 RCF archives byte-for-byte.
 - **Gatekeeper.** Opening without warnings needs a Developer ID signature and notarization (Apple
   Developer Program). Unsigned builds work with right-click → Open the first time.

@@ -1,4 +1,4 @@
-# hulk-ultimate-recomp
+# Thunderclap
 
 > **Disclaimer.** This is an unofficial, non-commercial fan project. It is not affiliated with, endorsed by or
 > sponsored by Marvel, The Walt Disney Company, Radical Entertainment, Vivendi Universal Games, Activision or
