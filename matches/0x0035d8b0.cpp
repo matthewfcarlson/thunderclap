@@ -1,0 +1,9 @@
+extern "C" unsigned long long __cdecl FUN_0027b020(const char*);
+extern unsigned int g1;
+extern unsigned int g2;
+
+void __cdecl FUN_0035d8b0() {
+    unsigned long long r = FUN_0027b020("$MACRO_DEFINE");
+    g1 = (unsigned int)r;
+    g2 = (unsigned int)(r >> 32);
+}
