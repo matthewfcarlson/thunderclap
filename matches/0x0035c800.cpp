@@ -1,0 +1,8 @@
+extern "C" unsigned long long FUN_0027b020(const char*);
+extern char gGlobal[];
+extern char gGlobal2[];
+void FUN_0035c800() {
+    unsigned long long v = FUN_0027b020("commanche");
+    *(unsigned int*)gGlobal = (unsigned int)v;
+    *(unsigned int*)gGlobal2 = (unsigned int)(v >> 32);
+}
