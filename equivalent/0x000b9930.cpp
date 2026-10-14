@@ -1,0 +1,45 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// FUN_000b9930 @ 0x000b9930
+// 0x000b9930: show the experience points value in its HUD label
+extern unsigned int DAT_004d9968;
+extern "C" void __fastcall __security_check_cookie(unsigned int);
+extern int __cdecl _sprintf(char*, const char*, ...);
+extern char DAT_0049dba4[];
+extern char DAT_0049f48c[];
+void* __cdecl FUN_000fc260(const char* name);
+void* __cdecl FUN_00344e74(void* a, int b, const char* c, const char* d, int e);
+int __stdcall FUN_000fc1b0();
+
+struct Stats {
+    int FUN_00090110();
+};
+
+struct Text {
+    void FUN_000f8500(const char* text, int style, int extra);
+};
+
+struct Label {
+    char pad[0x18];
+    Text text;
+};
+
+class Hud {
+public:
+    char pad[0x50];
+    Stats* stats;
+    void FUN_000b9930();
+};
+
+void Hud::FUN_000b9930()
+{
+    unsigned int cookie = DAT_004d9968;
+    char buf[60];
+    if (stats != 0) {
+        Label* label = (Label*)FUN_00344e74(FUN_000fc260("experience_points_label"), 0, DAT_0049dba4, DAT_0049f48c, 0);
+        if (label != 0) {
+            _sprintf(buf, "%d", stats->FUN_00090110());
+            label->text.FUN_000f8500(buf, FUN_000fc1b0(), 0);
+        }
+    }
+    __security_check_cookie(cookie);
+}
