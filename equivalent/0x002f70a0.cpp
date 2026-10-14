@@ -1,0 +1,217 @@
+// STATUS: equivalent (tools/equiv.py level 3: 236 inputs, branch coverage 44/44)
+// physics::PhysicsObjectLoader::vfunc_5 @ 0x002f70a0
+// equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+// equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
+struct Vec3 {
+    float x, y, z;
+};
+
+struct Key {
+    unsigned int lo;
+    unsigned int hi;
+    void FUN_0027b040(const char *name);
+};
+
+struct SymMatrix {
+    int vptr;
+    float m[6];
+    void FUN_002fca90();
+    void FUN_002fcaa0();
+    void FUN_002fd0a0();
+};
+
+struct Stream {
+    char pad[0xc];
+    char FUN_002647e0(void *dst, int count, int size, int flag);
+};
+
+struct Reader {
+    char pad000[0x284];
+    Stream *stream;                  // 0x284
+    char FUN_002669f0();
+    void FUN_00266a30();
+    int FUN_00266c30();
+    void FUN_00266be0();
+};
+
+class Part {
+public:
+    virtual ~Part();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9(unsigned int a, unsigned int b);
+    char pad04[2];
+    short f6;
+    char pad08[0xe4 - 8];
+    unsigned int fe4;
+    void FUN_00309940(SymMatrix *sm);
+};
+
+struct Props;
+
+struct SimObject {
+    char pad00[8];
+    Key key8;
+    char pad10[0x30 - 0x10];
+    Key key30;
+    void FUN_002fe6b0(void *world);
+};
+
+struct Composite : SimObject {
+    Composite *FUN_00309520(Props *props, Part **parts, int count);
+};
+
+struct Articulated : SimObject {
+    Articulated *FUN_002f6220(Props *props, Vec3 *center, SymMatrix *sm, unsigned int c);
+};
+
+extern void *DAT_00554c10;
+
+void __cdecl FUN_002f5fe0(Reader *r, SymMatrix *sm);
+Part *__cdecl FUN_0030d4f0(unsigned int a, Vec3 *v, unsigned int b, unsigned int c);
+unsigned __int64 __cdecl FUN_0027b020(const char *name);
+Props *__cdecl FUN_002f2750(unsigned __int64 key);
+int __cdecl FUN_00266da0(int sel);
+void *__cdecl FUN_0008d6d0(unsigned int size);
+void __cdecl thunk_FUN_00267090(void *p);
+void *thunk_FUN_0008d690(unsigned int size);
+int __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
+
+class PhysicsObjectLoader {
+public:
+    virtual void vfunc_0();
+    virtual void vfunc_1();
+    virtual void vfunc_2();
+    virtual void vfunc_3();
+    virtual void vfunc_4();
+    virtual void vfunc_5(void **outObj, Key *outKey, Reader *r, int unused);
+};
+
+void PhysicsObjectLoader::vfunc_5(void **outObj, Key *outKey, Reader *r, int unused)
+{
+    struct Frame {
+        char pad00[3];
+        unsigned char len;           // 0x03
+        int b;                       // 0x04   number of articulated parts
+        unsigned int d;              // 0x08
+        unsigned int c;              // 0x0c
+        unsigned int v1;             // 0x10
+        unsigned int v0;             // 0x14
+        unsigned int v2;             // 0x18
+        int a;                       // 0x1c   kind
+        unsigned int v3;             // 0x20
+        unsigned int v5;             // 0x24
+        Vec3 zero;                   // 0x28
+        SymMatrix sm;                // 0x34
+        Vec3 center;                 // 0x50
+        char name1[0x100];           // 0x5c
+        char name2[0x100];           // 0x15c
+        char msg[0x12c];             // 0x25c
+    } f;
+
+    r->stream->FUN_002647e0(&f.len, 1, 1, 1);
+    unsigned int n = f.len;
+    r->stream->FUN_002647e0(f.name1, n, 1, 1);
+    f.name1[n] = 0;
+    r->stream->FUN_002647e0(&f.a, 1, 4, 1);
+    r->stream->FUN_002647e0(&f.len, 1, 1, 1);
+    n = f.len;
+    r->stream->FUN_002647e0(f.name2, n, 1, 1);
+    f.name2[n] = 0;
+    r->stream->FUN_002647e0(&f.b, 1, 4, 1);
+    r->stream->FUN_002647e0(&f.c, 1, 4, 1);
+    r->stream->FUN_002647e0(&f.d, 1, 4, 1);
+
+    Part **parts = 0;
+    int count = 0;
+    if (f.b > 0) {
+        int prev = FUN_00266da0(1);
+        parts = (Part **)FUN_0008d6d0(f.b * 4);
+        FUN_00266da0(prev);
+    }
+    f.sm.FUN_002fca90();
+
+    while (r->FUN_002669f0()) {
+        r->FUN_00266a30();
+        int id = r->FUN_00266c30();
+        if (id == 0x7011001) {
+            FUN_002f5fe0(r, &f.sm);
+        } else if (id == 0x7011002) {
+            r->stream->FUN_002647e0(&f.center, 3, 4, 1);
+        } else if (id == 0x7011020) {
+            r->stream->FUN_002647e0(&f.v0, 1, 4, 1);
+            r->stream->FUN_002647e0(&f.v1, 1, 4, 1);
+            r->stream->FUN_002647e0(&f.v2, 1, 4, 1);
+            r->stream->FUN_002647e0(&f.v3, 1, 4, 1);
+            r->stream->FUN_002647e0(&f.d, 1, 4, 1);
+            r->stream->FUN_002647e0(&f.v5, 1, 4, 1);
+            f.zero.x = 0.0f;
+            f.zero.y = 0.0f;
+            f.zero.z = 0.0f;
+            f.sm.FUN_002fd0a0();
+            while (r->FUN_002669f0()) {
+                r->FUN_00266a30();
+                int sub = r->FUN_00266c30();
+                if (sub == 0x7011001)
+                    FUN_002f5fe0(r, &f.sm);
+                else if (sub == 0x7011002)
+                    r->stream->FUN_002647e0(&f.zero, 3, 4, 1);
+                r->FUN_00266be0();
+            }
+            int prev = FUN_00266da0(1);
+            Part *p = FUN_0030d4f0(f.v5, &f.zero, f.v1, f.v0);
+            parts[count] = p;
+            if (p->f6 > 0)
+                p->fe4 = f.v2;
+            parts[count]->v9(f.d, f.v3);
+            parts[count]->FUN_00309940(&f.sm);
+            FUN_00266da0(prev);
+            count++;
+        }
+        r->FUN_00266be0();
+    }
+
+    Props *props = FUN_002f2750(FUN_0027b020(f.name2));
+    if (props == 0)
+        props = FUN_002f2750(FUN_0027b020(count == 0 ? "defaultPhysicsProperties" : "defaultArtPhysicsProperties"));
+
+    SimObject *res = 0;
+    if (f.a == 2) {
+        void *mem = thunk_FUN_0008d690(0x200);
+        Composite *c = 0;
+        if (mem != 0)
+            c = ((Composite *)mem)->FUN_00309520(props, parts, count);
+        res = c;
+        for (int i = 0; i < f.b; i++) {
+            if (parts[i] != 0)
+                delete parts[i];
+        }
+        thunk_FUN_00267090(parts);
+    } else if (f.b == 0) {
+        void *mem = thunk_FUN_0008d690(0x1f8);
+        if (mem != 0)
+            res = ((Articulated *)mem)->FUN_002f6220(props, &f.center, &f.sm, f.c);
+    } else if (count > 0) {
+        FUN_00267760(f.msg, 0x12c, "Found an ArticulatedPhysicsObject named %s.", f.name1);
+    }
+
+    unsigned int lo = 0;
+    unsigned int hi = 0;
+    if (res != 0) {
+        res->key8.FUN_0027b040(f.name1);
+        res->key30.FUN_0027b040(f.name2);
+        res->FUN_002fe6b0(DAT_00554c10);
+        lo = res->key8.lo;
+        hi = res->key8.hi;
+    }
+    *outObj = res;
+    outKey->lo = lo;
+    outKey->hi = hi;
+    f.sm.FUN_002fcaa0();
+}
