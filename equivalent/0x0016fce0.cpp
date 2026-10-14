@@ -1,0 +1,73 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_0016fce0 @ 0x0016fce0
+struct Name {
+    unsigned int a, b;
+    void FUN_0027af00();
+};
+
+class __declspec(novtable) TrackBase {
+public:
+    virtual void b0();
+    int pad04;
+    int pad08;
+    void FUN_00236d40();
+    TrackBase() { FUN_00236d40(); }
+};
+
+namespace hulkfight {
+namespace motion {
+class JointTrackerTrack : public TrackBase {
+public:
+    virtual unsigned int vfunc_0(unsigned int);
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void vfunc_6();
+    virtual void vfunc_7();
+
+    int f0c;
+    float f10;
+    int pad14;
+    Name joint;
+    int f20, f24;
+    float f28, f2c;
+    int f30, f34;
+    float f38, f3c, f40, f44, f48;
+    char f4c;
+    char pad4d[3];
+    float f50, f54;
+    int f58;
+    int f5c;
+    float f60, f64;
+
+    JointTrackerTrack();
+};
+}
+}
+
+hulkfight::motion::JointTrackerTrack::JointTrackerTrack() {
+    f0c = 0;
+    f10 = -1.0f;
+    joint.FUN_0027af00();
+    f20 = 0;
+    f24 = 0;
+    f28 = -1.0f;
+    f30 = 0;
+    f34 = 0;
+    f2c = -1.0f;
+    f40 = 0.7853981852531433f;
+    f48 = 0.7853981852531433f;
+    f60 = 0.10000000149011612f;
+    f64 = 0.10000000149011612f;
+    f4c = 0;
+    f58 = 0;
+    f38 = 3.1415927410125732f;
+    f3c = -0.7853981852531433f;
+    f44 = -0.7853981852531433f;
+    f50 = 1.5707963705062866f;
+    f54 = 100.0f;
+    f5c = -5;
+    pad08 = 1;
+}
