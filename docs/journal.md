@@ -483,3 +483,35 @@ Results:
   verified matches (with its reasoning, which it doesn't hide) become ulk-3's main new data. ulk-3: rank 64,
   extra weight on 64–255-byte and multi-attempt examples, a 12k token cap, working validation. The goal is
   DeepSeek-level matching in a model that runs in 32–64 GB.
+
+## 2026-10-14: Fixing the function list (fragments and truncated sizes)
+
+`build/functions.csv` (Ghidra, plus `tools/fix_truncated_sizes.py`) still had two kinds of bad entry that could
+never be matched or proven: **truncated** functions (the recorded size stops at an early `ret`, after a `cmp` whose
+`jcc` Ghidra split off, or at a `call` it thought never returns) and the **fragments** that the lost tails turned
+into (no callers, running in the parent's frame; some "vtable slots" that were really the dword after a vtable, i.e.
+starts in the middle of an instruction).
+
+`tools/fix_function_list.py` is the deterministic, re-runnable fix. For every listed function it walks the real
+control-flow graph from the entry (fall-through, conditional jumps, in-function jumps, jump tables; calls are not
+followed) and takes the furthest reached instruction as the end. An edge that leaves the recorded range is followed
+unless it lands on a function start that something else calls or points at, or that two other functions jump to
+(a shared tail). Entries that start inside the corrected extent are folded into the parent; an entry that is
+independently referenced is folded only when it starts mid-instruction or the parent executes straight into it from
+a non-16-aligned start, otherwise the change is reported as a conflict and not applied. It repeats to a fixed point.
+The log (`build/function-list-fixes.json`, not committed) has each change with evidence; `--sources NEW.csv` re-runs
+`tools/compare.py` (matches) and a quick local `tools/equiv.py` (equivalent) at the new sizes for every affected
+address.
+
+Result: 34 functions extended, 17 fragments removed (30,305 -> 30,288 entries), 8 conflicts left alone (all libc/XAPI
+hand-written assembly with a real helper in the middle). Game-code functions 27,450 -> 27,435 (+760 bytes of body
+that were previously unaccounted for, 2,745,084 -> 2,745,844 B), unverified 3,604 -> 3,590. One matched source fell
+out: `matches/0x00288df0.cpp` matched the 101-byte tail of 0x00288de0 (a 117-byte function), not a function of its
+own. All of the listed known fragments and truncated functions were found except `_memmove` 0x00345130, whose CFG
+ends exactly at its recorded size (its linear decode only fails because of an inline jump table). The tool also
+found the same "call to a function that does return, then the rest of the body" truncation in
+`ShadowMeshLoader::vfunc_5` 0x002b6170, 0x002b6930, 0x002c2ab0 (28 bytes each, all with equivalents) and size-1
+entries at 0x00050c00, 0x00110100, 0x00327860, plus a few XGRPH/DSOUND functions outside game code. Eight
+`equivalent/` sources are for extended parents (0x00027fc0, 0x00028050, 0x000a6400, 0x002343e0, 0x00236ac0,
+0x002b6170, 0x002b6930, 0x002c2ab0): locally they still pass at the new size, but they were proven against the
+truncated size, so they need the 3000-input re-check on the checker box.
