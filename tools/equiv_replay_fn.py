@@ -30,7 +30,9 @@ ROOT = er.ROOT
 TRACES = er.TRACES
 FN_OUT = os.path.join(TRACES, "replay-fn.json")
 WANTED = os.path.join(TRACES, "capture-wanted.txt")
-REMOTES = {"mac1": ("matthewcarlson@192.168.155.24", "hulk-permute")}
+# Remote check hosts: "name": ["user@host", "remote dir"], from build/remotes.json (not committed).
+_RJ = os.path.join(ROOT, "build/remotes.json")
+REMOTES = {k: tuple(v) for k, v in json.load(open(_RJ)).items()} if os.path.exists(_RJ) else {}
 SRC_DIRS = ("equivalent", "matches", "build/farm/equiv-demoted")
 
 

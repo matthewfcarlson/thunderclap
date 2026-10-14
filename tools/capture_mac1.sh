@@ -1,6 +1,6 @@
 #!/bin/sh
 # Run trace captures on mac1 (the capture host), N shards side by side, from a pad script or a recording.
-#   tools/capture_mac1.sh NAME SCRIPT.json [SHARDS=3] [MINUTES=60]
+#   MAC1=user@host tools/capture_mac1.sh NAME SCRIPT.json [SHARDS=3] [MINUTES=60]
 # Syncs tools/, hybrid/, tests/replays/, equivalent/, build/farm/equiv-demoted/ and the script to
 # ~/hulk-permute on mac1, then starts `trace_capture.py --session NAME-K --shard K/N` for K = 0..N-1, each on its
 # own xemu instance (HULK_XEMU_INSTANCE=K). Captures stay on mac1 under build/traces/NAME-K; replay them with
@@ -8,7 +8,7 @@
 # Progress: ssh mac1 'tail -2 ~/hulk-permute/build/traces/NAME-*.out'
 set -eu
 cd "$(dirname "$0")/.."
-H=${MAC1:-matthewcarlson@192.168.155.24}
+H=${MAC1:?set MAC1=user@host for the capture host}
 NAME=$1; SCRIPT=$2; N=${3:-3}; MIN=${4:-60}
 [ -f "$SCRIPT" ] || { echo "no such script: $SCRIPT" >&2; exit 1; }
 mkdir -p build/capture-sync && cp "$SCRIPT" build/capture-sync/"$NAME".json

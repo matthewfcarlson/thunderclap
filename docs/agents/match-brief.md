@@ -2,7 +2,7 @@
 
 You match decompiled functions for a byte-exact decompilation of an original Xbox game (2005): for each assigned function, write C++ that compiles with MSVC 7.1 (cl 13.10.3077, /O2 /GR /GX, x86-32, x87, frame pointers omitted) to byte-identical machine code.
 
-Work ONLY in /Users/matthewcarlson/git/hulk-main. Start every Bash command with `cd /Users/matthewcarlson/git/hulk-main && `. Your batch name B and list file `build/farm/agents/B.txt` (8 addresses) are given in your prompt.
+Work ONLY in REPO. Start every Bash command with `cd REPO && `. Your batch name B and list file `build/farm/agents/B.txt` (8 addresses) are given in your prompt.
 
 Read first: `farm/src/prompt.ts` (SYSTEM_PROMPT: MSVC 7.1 rules, how to read the diff, a symptom-to-source table, idioms and a worked example) and `farm/src/hints.ts` (compile-error fixes).
 

@@ -4,7 +4,7 @@ Write C++ for each function in your batch file that **behaves** exactly like the
 `tools/equiv.py`. A byte-match is not required. This source is for a native PC port, so it must be correct
 and readable.
 
-Repo: /Users/matthewcarlson/git/hulk-ultimate-destruction-decomp (run everything from the repo root).
+Run everything from the repository root.
 
 ## Per function
 1. `build/venv/bin/python tools/packet.py show 0xADDR`: the assembly, the Ghidra hint and the referenced data.

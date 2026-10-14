@@ -1,7 +1,7 @@
 #!/bin/sh
 # Run the matching farm. The OpenRouter key comes from pi's credential store at runtime;
 # the local LLM endpoint comes from farm/.env.local (gitignored), e.g.:
-#   LOCAL_LLM_BASE_URL=http://macbook.local:8080/v1
+#   LOCAL_LLM_BASE_URL=http://my-llm-host:8080/v1
 #   LOCAL_LLM_API_KEY=...
 set -eu
 cd "$(dirname "$0")/.."
