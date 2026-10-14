@@ -1,0 +1,10 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
+// core::Drive::vfunc_3 @ 0x00272df0
+struct Node { virtual void destroy(int); virtual void n1(); virtual void n2(); virtual void n3(); virtual void n4(); virtual void n5(); virtual void n6(); virtual void process(); Node* next; bool FUN_00273680(unsigned); };
+struct Lock { virtual void acquire(); virtual void release(); virtual void x(); };
+struct Provider { virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual unsigned get(unsigned); virtual unsigned convert(unsigned); };
+struct Callback { virtual unsigned run(unsigned,unsigned); };
+typedef unsigned (Callback::*CallbackMethod)(unsigned,unsigned);
+struct CallbackTable { void* run; };
+namespace core { struct Drive { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual unsigned vfunc_4(unsigned); char pad4[8]; Lock lock; char pad10[40]; Node* head; Node* last; char pad40[12]; Callback* callback; unsigned argument; unsigned char active; char pad55[3]; Provider* provider; char pad5c[1]; unsigned char busy; char pad5e[86]; unsigned context; unsigned FUN_0026dbb0(); void FUN_00272a40(unsigned); }; }
+void core::Drive::vfunc_3() { unsigned token=FUN_0026dbb0(); lock.acquire(); Node** link=&head; Node* previous=0; Node* temporary; while (*link) { if ((*link)->FUN_00273680(token)) { Node* node=*link; *link=node->next; lock.release(); node->process(); lock.acquire(); node->destroy(1); } else { previous=*link; temporary=previous->next; link=&temporary; } } last=previous; if (active==1 && callback) { if (!busy) { busy=1; lock.release(); CallbackTable* table=*(CallbackTable**)callback; Provider* p=provider; unsigned value=p->get(argument); value=p->convert(value); unsigned kind=vfunc_4(value); union { void* address; CallbackMethod method; } entry; entry.address=table->run; unsigned result=(callback->*entry.method)(context,kind); FUN_00272a40(result); busy=0; } else lock.release(); } else lock.release(); }
