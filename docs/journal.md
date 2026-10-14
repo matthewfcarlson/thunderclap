@@ -515,3 +515,24 @@ entries at 0x00050c00, 0x00110100, 0x00327860, plus a few XGRPH/DSOUND functions
 `equivalent/` sources are for extended parents (0x00027fc0, 0x00028050, 0x000a6400, 0x002343e0, 0x00236ac0,
 0x002b6170, 0x002b6930, 0x002c2ab0): locally they still pass at the new size, but they were proven against the
 truncated size, so they need the 3000-input re-check on the checker box.
+
+### 2026-10-14 (later): second function-list pass, unlisted code between functions
+
+`tools/fix_function_list.py --pass2` classifies every gap between listed functions that holds more than 0xCC padding
+(6,949 gaps, 720 KB): it cuts each gap into units by walking the control flow from the first real byte, recognises jump
+tables, index tables and alignment NOPs (`mov edi,edi`, `lea ecx,[ecx]`, `nop` runs), and sorts the code units by who
+refers to them (call/jmp from listed code or from a referenced unit, data-section dword pointers such as vtables and
+unwind maps, pushed or loaded code addresses). Result: class a (a parent's own flow reaches the bytes) is empty, so no
+parent needed extending; class b (separate code with its own entry) is 550 new functions (30,288 -> 30,838 entries);
+class c is the rest, recorded in the log. Of the 550, 42 are game code (3,229 bytes: 16 audio `Seq*` vtable slots
+named from RTTI, 13 tail-jump targets, 7 callback addresses), 204 are EH frame-handler thunks and unwind funclets
+(named `__ehhandler_*` / `__unwindfunclet_*`, so progress counts leave them out, like the 650 existing ones in
+`.text$x`), and 304 are library code (BINK, D3D, XGRPH, DSOUND, XPP, LIBCMT/XAPILIB). The bulk of class c is 13,995
+well-formed code bodies (342 KB) that nothing in the XBE refers to: dead COMDAT copies of small inline methods such as
+vector dot and cross products. They are not listed because there is no evidence they are functions anyone calls; if
+they should be matched anyway the log has their addresses. The rest of class c is 340 jump tables, 82 index tables,
+556 NOP runs and 61 blobs (BINK data, SEH tails). 21 SEH `__finally` tails that fall into a listed function with its
+own entry are logged as conflicts and left alone. No `matches/` or `equivalent/` file is affected (no sizes changed, no
+source exists at a new address); the eight pass-1 equivalents still pass locally at 400 inputs. Game functions
+27,435 -> 27,477, unverified 3,526 -> 3,568 (279,038 -> 282,267 bytes); the new game functions are queued
+smallest-first in `build/farm/new-functions.txt`.
