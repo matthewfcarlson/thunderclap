@@ -1,62 +1,30 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 24/24)
 // hulkfight::ai::RandomKeyWordWaitCondition::vfunc_6 @ 0x0010dc30
-struct Mgr;
-
-namespace fight {
-class Params {
-public:
-    virtual void v0();
-    Mgr *FUN_000592a0();
+struct TypeDescriptor;
+extern TypeDescriptor DAT_00494b44;
+extern TypeDescriptor DAT_00494b60;
+extern "C" void* __cdecl FUN_00344e74(void*, int, TypeDescriptor*, TypeDescriptor*, int);
+struct State { char pad[0x39c]; int value; };
+struct Context { State* FUN_00059a30(); };
+struct Actor { Context* FUN_000592a0(); };
+namespace hulkfight { namespace ai {
+struct RandomKeyWordWaitCondition {
+ virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual bool vfunc_6(void*, Actor*, void*);
+ char pad[8]; unsigned comparison; int threshold;
 };
+bool RandomKeyWordWaitCondition::vfunc_6(void*, Actor* actor, void*) {
+ if (!FUN_00344e74(actor,0,&DAT_00494b44,&DAT_00494b60,0)) return false;
+ State* state = actor->FUN_000592a0()->FUN_00059a30();
+ if (!state) return false;
+ int value = state->value;
+ switch(comparison) {
+ case 0: return value < threshold;
+ case 1: return value <= threshold;
+ case 2: return value == threshold;
+ case 3: return value != threshold;
+ case 4: return value >= threshold;
+ case 5: return value > threshold;
+ default: return false;
+ }
 }
-
-class CFightParams : public fight::Params {
-public:
-    virtual void v1();
-};
-
-struct Player {
-    char pad0[0x39c];
-    int counter;            // 0x39c
-};
-
-struct Mgr {
-    Player *FUN_00059a30();
-};
-
-namespace hulkfight {
-namespace ai {
-class RandomKeyWordWaitCondition {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual bool vfunc_6(int a, fight::Params *params, int c);
-    char pad04[0x0c - 4];
-    int op;                 // 0x0c
-    int value;              // 0x10
-};
-}
-}
-
-bool hulkfight::ai::RandomKeyWordWaitCondition::vfunc_6(int a, fight::Params *params, int c)
-{
-    if (dynamic_cast<CFightParams *>(params) == 0)
-        return false;
-    Player *player = params->FUN_000592a0()->FUN_00059a30();
-    if (player == 0)
-        return false;
-    int count = player->counter;
-    switch (op) {
-    case 0: return count < value;
-    case 1: return count <= value;
-    case 2: return count == value;
-    case 3: return count != value;
-    case 4: return count >= value;
-    case 5: return count > value;
-    }
-    return false;
-}
+}}

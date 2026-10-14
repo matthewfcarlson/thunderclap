@@ -1,31 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // Function4<bool,math::Vector,math::Vector,math::Vector,math::Vector>::vfunc_2 @ 0x00087030
-struct Vector {
-    int x, y, z;
+namespace math { struct Vector { float x,y,z; }; }
+struct Function { virtual void vfunc_0(); virtual void vfunc_1(); };
+template<class R,class A,class B,class C,class D> struct Function4 : Function {
+ virtual void vfunc_2(unsigned unused, const math::Vector* args, bool* result);
+ char padding[24];
+ R (__cdecl *callback)(A,B,C,D);
 };
-
-struct Args {
-    Vector v[4];
-};
-
-typedef bool (__cdecl *Fn4)(Vector, Vector, Vector, Vector);
-
-class Function {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-};
-
-class Function4 : public Function {
-public:
-    virtual void vfunc_2(void *unused, Args *args, bool *out);
-    char pad[0x1c - 4];
-    Fn4 fn;                   // 0x1c
-};
-
-void Function4::vfunc_2(void *unused, Args *args, bool *out)
-{
-    bool r = fn(args->v[0], args->v[1], args->v[2], args->v[3]);
-    if (out)
-        *out = r;
+template<> void Function4<bool,math::Vector,math::Vector,math::Vector,math::Vector>::vfunc_2(unsigned unused, const math::Vector* args, bool* result) {
+ bool value = callback(args[0],args[1],args[2],args[3]);
+ if(result) *result = value;
 }

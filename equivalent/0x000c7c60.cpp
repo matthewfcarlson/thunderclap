@@ -1,62 +1,24 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_000c7c60 @ 0x000c7c60
-struct Str8;
-
-__declspec(align(8)) struct Key {
-    int lo, hi;
-    void FUN_0027af50();
-    bool FUN_0027af90(Str8 *s);
-};
-
-struct Str8 {
-    char pad[8];
-};
-
-struct Entry {
-    int key;
-    char pad04[0x28 - 4];
-    Str8 str;                  // 0x28
-    char pad30[0x40 - 0x30];
-};
-
-struct Registry {
-    int FUN_00024280(int id0, int id1);
-};
-
-struct Lookup {
-    bool FUN_001dd7b0(Key *k);
-};
-
-struct Manager {
-    char pad0[0xc];
-    Lookup *lookup;
-    char pad10[0x20 - 0x10];
-    Registry *registry;
-};
-
-extern Manager *DAT_004dd700;
-
-void __cdecl FUN_00096e50(Key *k, int name);
-
-class Table {
-public:
-    char pad0[0x258];
-    Entry entries[128];
-    int FUN_000c7c60(int a, int b);
-};
-
-int Table::FUN_000c7c60(int a, int b)
-{
-    Key key;
-    FUN_00096e50(&key, b);
-    if (DAT_004dd700->registry->FUN_00024280(key.lo, key.hi) || DAT_004dd700->lookup->FUN_001dd7b0(&key)) {
-        for (int i = 0; i < 128; i++) {
-            if (entries[i].key == a && key.FUN_0027af90(&entries[i].str)) {
-                key.FUN_0027af50();
-                return i;
-            }
-        }
-    }
-    key.FUN_0027af50();
-    return -1;
+struct Value { unsigned int low, high; bool FUN_0027af90(const void* other); void FUN_0027af50(); };
+void __cdecl FUN_00096e50(Value* result, const void* input);
+struct Lookup { int FUN_00024280(unsigned int low, unsigned int high); };
+struct Checker { bool FUN_001dd7b0(Value* value); };
+struct Globals { char pad[12]; Checker* checker; char pad2[16]; Lookup* lookup; };
+extern Globals* DAT_004dd700;
+struct Slot { unsigned int key; char padding[36]; char value[24]; };
+struct Owner { char padding[0x258]; Slot slots[128]; int FUN_000c7c60(unsigned int key, const void* input); };
+int Owner::FUN_000c7c60(unsigned int key, const void* input) {
+ Value value;
+ FUN_00096e50(&value, input);
+ if (DAT_004dd700->lookup->FUN_00024280(value.low, value.high) || DAT_004dd700->checker->FUN_001dd7b0(&value)) {
+  for (int i=0;i<128;++i) {
+   if (slots[i].key == key && value.FUN_0027af90(slots[i].value)) {
+    value.FUN_0027af50();
+    return i;
+   }
+  }
+ }
+ value.FUN_0027af50();
+ return -1;
 }
