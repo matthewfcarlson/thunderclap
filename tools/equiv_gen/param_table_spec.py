@@ -15,7 +15,7 @@ for i,l in enumerate(asm):
     if m and cur and cur[0]=='EnumConstList': enumsym=m.group(1)[2:]
     elif m and cur: cur[2]=m.group(1)[2:]; items.append(cur[:3]); cur=None
     m=re.match(r'mov edi, dword ptr \[(0x[0-9a-f]+)\]',l)
-    if m: enumcount=m.group(1)[2:].zfill(8)
+    if m: enumcount='DAT_'+m.group(1)[2:].zfill(8)  # a count read from a global, not a literal
     m=re.match(r'mov dword ptr \[esi \+ 0x14\], (\d+)',l)
     if m and cur and cur[0]=='EnumConstList': enumcount=m.group(1)
     m=re.match(r'mov dword ptr \[esi \+ 0x18\], (0x[0-9a-f]+)',l)
@@ -32,5 +32,5 @@ prefix = parts[0]=='hulkfight'
 ns=parts[1:-1] if prefix else parts[:-1]
 sp={'fn':a[2:],'cls':parts[-1],'ns':ns,'prefix':prefix,'reg':reg.zfill(8),'cnt':cnt.zfill(8),'items':items}
 # enum
-if any(i[0]=='EnumConstList' for i in items): sp.update(enumsym=enumsym.zfill(8),enumcount=enumcount,enumcount_n=int(enumcount) if str(enumcount).isdigit() else 1)
+if any(i[0]=='EnumConstList' for i in items): sp.update(enumsym=enumsym.zfill(8),enumcount=enumcount,enumcount_n=int(enumcount) if not str(enumcount).startswith('DAT_') else 1)
 json.dump(sp,sys.stdout)

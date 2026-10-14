@@ -44,14 +44,14 @@ o.append("}\n")
 o.append(f"struct ParamRegistry {{\n}};\nextern ParamRegistry DAT_{sp['reg']};\nextern int DAT_{sp['cnt']};\n")
 if sp.get('enumsym'):
     o.append(f"extern const char* DAT_{sp['enumsym']}[{sp.get('enumcount_n',1)}];\n")
-    if not str(sp['enumcount']).isdigit(): o.append(f"extern int DAT_{sp['enumcount']};\n")
+    if str(sp['enumcount']).startswith('DAT_'): o.append(f"extern int {sp['enumcount']};\n")
 o.append("void FUN_002347b0(ParamRegistry* reg, void** params, int count);\n")
 N=len(items)
 o.append(f"void FUN_{fn}()\n{{\n    if (DAT_{sp['cnt']} == 0) {{\n        void* params[{N}];\n        void* mem;")
 for i,(ty,n,s) in enumerate(items):
     sz="0x20" if ty=="EnumConstList" else "0x18"
     if ty=="EnumConstList":
-        ec=sp['enumcount'] if str(sp['enumcount']).isdigit() else "DAT_"+sp['enumcount']
+        ec=sp['enumcount']  # a decimal literal, or DAT_xxxxxxxx for a count read from a global
         ctor=f'fight::ParamEnumConstList<{full}::{cls}>("{n}", DAT_{sp["enumsym"]}, {ec}, &{full}::{cls}::FUN_{int(s,16):08x})'
     else:
         ctor=f'fight::Param{ty}<{full}::{cls}>("{n}", &{full}::{cls}::FUN_{int(s,16):08x})'
