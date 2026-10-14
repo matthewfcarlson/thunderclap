@@ -1,0 +1,39 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2487 inputs, branch coverage 4/4)
+// FUN_002613b0 @ 0x002613b0
+struct Symbols;
+
+struct Str {
+    char data[0xc];
+    Str *FUN_0023fc40(const char *text, int len);
+    const char *FUN_0023fb00();
+    int FUN_0023f990();
+    void FUN_00240060();
+    void FUN_00240190(Str *src);
+};
+
+struct Interp {
+    Symbols *symbols;        // 0x0000
+    char buf[0x2000];
+    char *out;               // 0x2004
+    char *cur;               // 0x2008
+    char *end;               // 0x200c
+};
+
+const char *__cdecl FUN_002611b0(Interp *in);
+
+void __cdecl FUN_002613b0(Symbols *symbols, Str *dest, Str *src)
+{
+    Interp in;
+    in.symbols = symbols;
+    in.out = in.buf;
+    in.cur = (char *)src->FUN_0023fb00();
+    in.end = in.cur + src->FUN_0023f990();
+
+    const char *last = "";
+    for (const char *r = FUN_002611b0(&in); *r != 0; r = FUN_002611b0(&in))
+        last = r;
+
+    Str tmp;
+    dest->FUN_00240190(tmp.FUN_0023fc40(last, 2));
+    tmp.FUN_00240060();
+}
