@@ -1,18 +1,18 @@
-class Obj {
+class Obj_b0080 {
   public:
     void af8(int);
     void afaf();
 };
-class Thing {
+class Thing_b0080 {
   public:
     char pad[5];
     unsigned char flag;
     char pad2[2];
-    Obj* ptr;
+    Obj_b0080* ptr;
     void target(int);
 };
 void other();
-void Thing::target(int arg) {
+void Thing_b0080::target(int arg) {
     if (flag) {
         if (ptr) {
             ptr->af8(arg);

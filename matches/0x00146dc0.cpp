@@ -1,11 +1,11 @@
-class X {
+extern const float k_146dc0 = 0.0174532925f;
+class Obj_146dc0 {
   public:
     char pad[0x34];
-    float mRadians;
-    bool Set(float deg);
+    float m;
+    bool Set(float value);
 };
-
-bool X::Set(float deg) {
-    mRadians = deg * 0.0174532925f;
+bool Obj_146dc0::Set(float value) {
+    m = value * k_146dc0;
     return true;
 }

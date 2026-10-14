@@ -1,9 +1,9 @@
 // Same code shape as 0x00221c20 (propagated; names are from that function)
-class Base {
+class Base_30f0e0 {
   public:
     void Init();
 };
-class Thing : public Base {
+class Thing_30f0e0 : public Base_30f0e0 {
     char pad[0x40];
     volatile int a;
     volatile int b;
@@ -14,7 +14,7 @@ class Thing : public Base {
   public:
     void Run();
 };
-void Thing::Run() {
+void Thing_30f0e0::Run() {
     Init();
     c = 0;
     b = 0;

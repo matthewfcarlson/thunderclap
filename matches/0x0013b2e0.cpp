@@ -1,20 +1,20 @@
-struct Ref {
+struct Ref_13b2e0 {
     virtual void AddRef();
     virtual void Release();
 };
-struct B {
-    B() throw();
+struct B_13b2e0 {
+    B_13b2e0() throw();
     virtual void V0();
     char pad04[0x18];
 };
-struct AL : B {
+struct AL : B_13b2e0 {
     int m1c;
-    Ref* m20;
+    Ref_13b2e0* m20;
     int m24;
-    AL(int a, Ref* r);
+    AL(int a, Ref_13b2e0* r);
     virtual void V0();
 };
-AL::AL(int a, Ref* r) {
+AL::AL(int a, Ref_13b2e0* r) {
     int* q = &m1c;
     *q = 0;
     m20 = 0;

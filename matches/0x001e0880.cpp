@@ -4,7 +4,7 @@ struct Vector {
 struct CSPManager {
     int dummy;
 };
-struct Arg {
+struct Arg_1e0880 {
     Vector v;
     float f;
 };
@@ -12,11 +12,11 @@ class Method2 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
-    virtual void vfunc_2(CSPManager* obj, Arg* a, bool* out);
+    virtual void vfunc_2(CSPManager* obj, Arg_1e0880* a, bool* out);
     char pad[0x1c - 4];
     bool (CSPManager::*mFn)(Vector, float);
 };
-void Method2::vfunc_2(CSPManager* obj, Arg* a, bool* out) {
+void Method2::vfunc_2(CSPManager* obj, Arg_1e0880* a, bool* out) {
     bool (CSPManager::*fn)(Vector, float) = mFn;
     Vector v = a->v;
     float f = a->f;

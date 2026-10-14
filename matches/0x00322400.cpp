@@ -1,4 +1,4 @@
-class Base {
+class Base_322400 {
   public:
     virtual void v0();
     virtual void v1();
@@ -23,6 +23,6 @@ class Base {
     virtual void v20();
     virtual void v21(void*);
 };
-void __stdcall vfunc_8(Base* self, void* arg) {
+void __stdcall vfunc_8(Base_322400* self, void* arg) {
     self->v21(arg);
 }

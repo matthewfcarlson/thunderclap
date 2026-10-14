@@ -4,9 +4,9 @@ class RefCounted {
     virtual void Release();
 };
 
-extern RefCounted* gObj;
+extern RefCounted* gObj_2eccb0;
 
 void __cdecl FUN_002eccb0() {
-    gObj->Release();
-    gObj = 0;
+    gObj_2eccb0->Release();
+    gObj_2eccb0 = 0;
 }

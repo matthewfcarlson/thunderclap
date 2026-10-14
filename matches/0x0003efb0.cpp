@@ -4,7 +4,7 @@ extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e128[];
 extern "C" void __stdcall FUN_001d0480(const char*, int);
 extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
-class Target {
+class Target_3efb0 {
   public:
     int vptr;
     char pad04[12];
@@ -13,9 +13,9 @@ class Target {
     unsigned char b18;
     char pad19[3];
     int m1c;
-    Target(const char*, int);
+    Target_3efb0(const char*, int);
 };
-Target::Target(const char* a, int b) {
+Target_3efb0::Target_3efb0(const char* a, int b) {
     FUN_001d0480(a, 3);
     vptr = ((int)DAT_003f5d4c);
     m1c = b;

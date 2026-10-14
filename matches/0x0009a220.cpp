@@ -1,18 +1,18 @@
-class Item {
+class Item_9a220 {
   public:
     virtual void A();
     virtual void Release();
 };
-class Obj {
+class Obj_9a220 {
   public:
     char pad[0x80];
     volatile int a, b, c, d;
     volatile float f;
     volatile int g, unused, count;
-    Item* items[1];
+    Item_9a220* items[1];
     void Clear();
 };
-void Obj::Clear() {
+void Obj_9a220::Clear() {
     c = 0;
     b = 0;
     a = 0;

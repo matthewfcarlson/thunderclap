@@ -5,19 +5,19 @@ class SurfAction {
     void* mSecond;
     void vfunc_4();
 };
-class A {
+class A_172650 {
   public:
-    A* step();
+    A_172650* step();
 };
-class B {
+class B_172650 {
   public:
-    B* next();
+    B_172650* next();
     void finish(void*, int);
 };
 void SurfAction::vfunc_4() {
-    A* a = (A*)mFirst;
+    A_172650* a = (A_172650*)mFirst;
     if (a) {
-        B* b = (B*)a->step();
+        B_172650* b = (B_172650*)a->step();
         b = b->next();
         if (b)
             b->finish(mSecond, 0);

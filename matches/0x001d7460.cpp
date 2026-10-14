@@ -1,16 +1,16 @@
-class Ref {
+class Ref_1d7460 {
   public:
     virtual void A();
     virtual void B();
 };
-class Owner {
+class Owner_1d7460 {
     char pad[0x1dc];
-    Ref* p;
+    Ref_1d7460* p;
 
   public:
-    void Set(Ref*);
+    void Set(Ref_1d7460*);
 };
-void Owner::Set(Ref* value) {
+void Owner_1d7460::Set(Ref_1d7460* value) {
     if ((void*)this != (void*)value) {
         if (value)
             value->A();

@@ -1,9 +1,9 @@
-extern int vtable;
-class X {
+extern int vtable_337c00;
+class X_337c00 {
   public:
-    X();
+    X_337c00();
     int* p;
 };
-X::X() {
-    p = &vtable;
+X_337c00::X_337c00() {
+    p = &vtable_337c00;
 }

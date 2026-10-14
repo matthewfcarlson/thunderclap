@@ -1,4 +1,4 @@
-struct Data {
+struct Data_333370 {
     int a, b, c, d, e;
 };
 class d3dShader {
@@ -24,13 +24,13 @@ class d3dShader {
     virtual void v18();
     virtual void v19();
     virtual void v20();
-    virtual void vfunc_21(Data*);
+    virtual void vfunc_21(Data_333370*);
     virtual void v22();
     virtual void v23();
     virtual void v24();
     char pad[0x4c];
-    Data m;
+    Data_333370 m;
 };
-void d3dShader::vfunc_21(Data* out) {
+void d3dShader::vfunc_21(Data_333370* out) {
     *out = m;
 }

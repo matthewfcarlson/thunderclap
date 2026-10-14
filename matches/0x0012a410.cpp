@@ -1,6 +1,6 @@
 extern "C" void* __cdecl alloc(unsigned int);
 extern int tdcVtable;
-class TDC {
+class TDC_12a410 {
   public:
     int vf;
     char pad[8];
@@ -10,8 +10,8 @@ class TDC {
     unsigned char b;
     void init(int);
 };
-TDC* __cdecl target() {
-    TDC* p = (TDC*)alloc(0x18);
+TDC_12a410* __cdecl target() {
+    TDC_12a410* p = (TDC_12a410*)alloc(0x18);
     int z = 0;
     if (p) {
         p->init(z);

@@ -31,14 +31,14 @@ class LightAnimationController {
     virtual void f28();
     virtual void f29();
 };
-struct Obj {
+struct Obj_2a8800 {
     char pad[0x1c];
     int tag;
     char pad2[8];
     int count;
 };
 bool LightAnimationController::vfunc_26(void* p) {
-    if (p && ((Obj*)p)->count > 0)
-        return ((Obj*)p)->tag == 0x4554494c;
+    if (p && ((Obj_2a8800*)p)->count > 0)
+        return ((Obj_2a8800*)p)->tag == 0x4554494c;
     return false;
 }

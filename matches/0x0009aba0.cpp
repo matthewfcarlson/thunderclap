@@ -2,11 +2,11 @@ extern "C" char DAT_00404c60[];
 extern "C" char DAT_0048e0e4[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e128[];
-struct InitBase {
+struct InitBase_9aba0 {
     void Init(void*, int);
 };
 extern "C" unsigned char FUN_001d04d0(const void*);
-class CCameraManager : public InitBase {
+class CCameraManager : public InitBase_9aba0 {
   public:
     CCameraManager* Init(void*, void*);
     int vf;
@@ -18,7 +18,7 @@ class CCameraManager : public InitBase {
     void* member1c;
 };
 CCameraManager* CCameraManager::Init(void* a, void* p) {
-    InitBase::Init(a, 4);
+    InitBase_9aba0::Init(a, 4);
     vf = ((int)DAT_00404c60);
     member1c = p;
     b18 = FUN_001d04d0((const void*)((int)DAT_0048e100));

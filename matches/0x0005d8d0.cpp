@@ -1,4 +1,4 @@
-class Obj {
+class Obj_5d8d0 {
   public:
     virtual void V0();
     virtual void V1();
@@ -6,7 +6,7 @@ class Obj {
     int mValue;
     bool Set(int v);
 };
-bool Obj::Set(int v) {
+bool Obj_5d8d0::Set(int v) {
     mValue = v;
     return true;
 }

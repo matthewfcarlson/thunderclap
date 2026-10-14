@@ -22,11 +22,11 @@ class VelocityAnimatedYCondition {
 } // namespace motion
 } // namespace hulkfight
 extern void* __cdecl alloc(unsigned int);
-class Factory : public ConditionFactory {
+class Factory_16da60 : public ConditionFactory {
   public:
     void* vfunc_5();
 };
-void* Factory::vfunc_5() {
+void* Factory_16da60::vfunc_5() {
     hulkfight::motion::VelocityAnimatedYCondition* p =
         (hulkfight::motion::VelocityAnimatedYCondition*)alloc(0x14);
     if (p) {

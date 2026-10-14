@@ -1,13 +1,13 @@
-struct SurfaceDesc {
+struct SurfaceDesc_323910 {
     unsigned int Format, Type, Usage, Size, MultiSampleType, Width, Height;
 };
 namespace D3D8 {
 int __stdcall D3DDevice_GetRenderTarget2();
-void __stdcall D3DSurface_GetDesc(int, SurfaceDesc*);
+void __stdcall D3DSurface_GetDesc(int, SurfaceDesc_323910*);
 void __stdcall D3DResource_Release(int);
 int __stdcall D3DDevice_CreateTexture2(int, int, int, int, int, unsigned int, int);
 } // namespace D3D8
-class Viewport {
+class Viewport_323910 {
   public:
     virtual void s0();
     virtual void s1();
@@ -18,16 +18,16 @@ class Viewport {
     virtual int GetHeight();
     virtual int GetWidth();
 };
-struct Parent {
+struct Parent_323910 {
     char pad[0x154];
-    Viewport* viewport;
+    Viewport_323910* viewport;
 };
 class RenderEffect {
   public:
     bool FUN_00320540();
     void Setup();
     char pad0[4];
-    Parent* parent;
+    Parent_323910* parent;
     char pad8[0x20 - 8];
     int tex;
     char pad24[0x7c - 0x24];
@@ -43,7 +43,7 @@ void RenderEffect::Setup() {
     if (!FUN_00320540())
         return;
     int rt = D3D8::D3DDevice_GetRenderTarget2();
-    SurfaceDesc desc;
+    SurfaceDesc_323910 desc;
     D3D8::D3DSurface_GetDesc(rt, &desc);
     D3D8::D3DResource_Release(rt);
     scaleX = (float)parent->viewport->GetWidth() / (float)desc.Width;

@@ -1,4 +1,4 @@
-struct Child {
+struct Child_2edb90 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -18,31 +18,31 @@ struct Child {
     virtual void v16();
     virtual bool Do(int a, int b);
 };
-struct Item {
+struct Item_2edb90 {
     char pad[0x10];
-    Child* c;
+    Child_2edb90* c;
 };
-struct Sub {
+struct Sub_2edb90 {
     void Prep();
 };
-struct Vec {
-    Item** b;
-    Item** e;
+struct Vec_2edb90 {
+    Item_2edb90** b;
+    Item_2edb90** e;
     unsigned size() const { return e - b; }
-    Item*& operator[](unsigned i) { return b[i]; }
+    Item_2edb90*& operator[](unsigned i) { return b[i]; }
 };
-struct T {
+struct T_2edb90 {
     char pad[0x3c];
-    Vec v;
+    Vec_2edb90 v;
     char pad2[0x1b0 - 0x44];
-    Sub sub;
+    Sub_2edb90 sub;
     bool Run(int a, int b);
 };
-bool T::Run(int a, int p) {
+bool T_2edb90::Run(int a, int p) {
     bool r = false;
     sub.Prep();
     for (unsigned i = 0; i < v.size(); i++) {
-        Child* c = v[i]->c;
+        Child_2edb90* c = v[i]->c;
         if (c->GetType() == 4)
             r |= c->Do(a, p);
     }

@@ -1,4 +1,4 @@
-struct Inner {
+struct Inner_2a3130 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -7,24 +7,24 @@ struct Inner {
     virtual void f5();
     virtual void f6(int, int);
 };
-struct Obj {
+struct Obj_2a3130 {
     virtual void init();
     char pad[12];
-    Inner* inner;
-    Obj* build();
+    Inner_2a3130* inner;
+    Obj_2a3130* build();
 };
-Obj* gObj;
+Obj_2a3130* gObj_2a3130;
 extern void* alloc(unsigned int);
 void FUN_002a3130() {
-    if (gObj == 0) {
-        Obj* p = (Obj*)alloc(0x20);
+    if (gObj_2a3130 == 0) {
+        Obj_2a3130* p = (Obj_2a3130*)alloc(0x20);
         if (p)
-            gObj = p->build();
+            gObj_2a3130 = p->build();
         else
-            gObj = 0;
-        gObj->init();
-        gObj->inner->f6(0x444d4853, 0);
-        gObj->inner->f6(0x54535441, 0);
-        gObj->inner->f6(0x444d4c42, 1);
+            gObj_2a3130 = 0;
+        gObj_2a3130->init();
+        gObj_2a3130->inner->f6(0x444d4853, 0);
+        gObj_2a3130->inner->f6(0x54535441, 0);
+        gObj_2a3130->inner->f6(0x444d4c42, 1);
     }
 }

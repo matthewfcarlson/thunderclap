@@ -4,7 +4,7 @@ struct Drive {
     virtual void v1();
     virtual void v2(unsigned char);
 };
-struct Obj {
+struct Obj_2770a0 {
     virtual void x0();
     virtual void x1();
     virtual void x2();
@@ -13,7 +13,7 @@ struct Obj {
 };
 extern void f850(void*);
 extern void f840(void*);
-extern Obj* g_obj;
+extern Obj_2770a0* g_obj_2770a0;
 extern void* vtmain;
 extern void* vtbase;
 extern void* vtref;
@@ -70,7 +70,7 @@ InstanceDrive* InstanceDrive::vfunc_2(unsigned char flag) {
     *(void**)this = &vtref;
     if (flag & 1) {
         f850((void*)((int)DAT_0052a208));
-        g_obj->x4(this);
+        g_obj_2770a0->x4(this);
         f840((void*)((int)DAT_0052a208));
     }
     return this;

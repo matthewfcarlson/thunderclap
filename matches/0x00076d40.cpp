@@ -23,13 +23,13 @@ class TrackFactory {
     virtual CInvincibleTrack* vfunc_5();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-extern int cvtable;
+extern int cvtable_76d40;
 CInvincibleTrack* TrackFactory::vfunc_5() {
     CInvincibleTrack* p = (CInvincibleTrack*)FUN_0008d690(0x18);
     CInvincibleTrack* r;
     if (p) {
         p->Init();
-        *(int*)p = (int)&cvtable;
+        *(int*)p = (int)&cvtable_76d40;
         p->zero = 0;
         p->neg = (int)0xbf800000;
         p->tail = 0;

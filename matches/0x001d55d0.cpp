@@ -1,29 +1,29 @@
 extern "C" void _ReadWriteBarrier();
 extern void* vProp[];
-class Ref {
+class Ref_1d55d0 {
   public:
     virtual void F0();
     virtual void Release();
 };
 extern void FUN_00267090(void*);
-class Part {
+class Part_1d55d0 {
   public:
     void Fini() throw();
 };
-struct Base {
+struct Base_1d55d0 {
     void* vf;
     void Dtor() throw();
 };
-struct Target : Base {
+struct Target_1d55d0 : Base_1d55d0 {
     char pad[0x8c];
-    Ref* p90;
+    Ref_1d55d0* p90;
     char pad2[0x24];
     void* pb8;
     int pbc;
-    Part pc0;
+    Part_1d55d0 pc0;
     void Dtor2() throw();
 };
-void Target::Dtor2() throw() {
+void Target_1d55d0::Dtor2() throw() {
     vf = vProp;
     _ReadWriteBarrier();
     if (p90) {
@@ -35,5 +35,5 @@ void Target::Dtor2() throw() {
         pb8 = 0;
     }
     pc0.Fini();
-    Base::Dtor();
+    Base_1d55d0::Dtor();
 }

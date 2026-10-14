@@ -1,20 +1,20 @@
 namespace hulkfight {
 namespace motion {
-struct Obj {
+struct Obj_13b120 {
     virtual void f0();
     virtual void f1();
     char pad[0x220];
     unsigned char flag;
 };
-struct Result {
-    void StopA(Obj*, int);
-    void StopB(Obj*, int, float);
+struct Result_13b120 {
+    void StopA(Obj_13b120*, int);
+    void StopB(Obj_13b120*, int, float);
 };
-struct Mid {
-    Result* Get();
+struct Mid_13b120 {
+    Result_13b120* Get();
 };
-struct Owner {
-    Mid* Get();
+struct Owner_13b120 {
+    Mid_13b120* Get();
 };
 class AnimationVelocityScaledAction {
   public:
@@ -25,13 +25,13 @@ class AnimationVelocityScaledAction {
     virtual void vfunc_4();
     virtual void v5();
     char pad[0x1c];
-    Owner* owner;
-    Obj* obj;
+    Owner_13b120* owner;
+    Obj_13b120* obj;
 };
 void AnimationVelocityScaledAction::vfunc_4() {
     if (!obj)
         return;
-    Result* p = owner->Get()->Get();
+    Result_13b120* p = owner->Get()->Get();
     if (!p)
         return;
     if (obj->flag)

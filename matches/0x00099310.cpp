@@ -1,4 +1,4 @@
-class Inner {
+class Inner_99310 {
   public:
     virtual void f0();
     virtual void f1();
@@ -38,11 +38,11 @@ class Inner {
     virtual void f35();
     virtual void f36();
 };
-class Outer {
+class Outer_99310 {
   public:
     char pad[0x10];
-    Inner* p;
+    Inner_99310* p;
 };
-void __fastcall FUN_00099310(Outer* p) {
+void __fastcall FUN_00099310(Outer_99310* p) {
     p->p->f36();
 }

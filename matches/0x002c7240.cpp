@@ -1,6 +1,6 @@
 extern "C" void* __cdecl Alloc(unsigned int);
 extern "C" void __stdcall Init(void*, int, int, const float*);
-class Obj {
+class Obj_2c7240 {
   public:
     char pad[8];
     unsigned int flags;
@@ -9,7 +9,7 @@ class Obj {
     void* entries[1];
     void Run(int);
 };
-void Obj::Run(int index) {
+void Obj_2c7240::Run(int index) {
     if (entries[index] == 0) {
         int n = count;
         void* p = Alloc(n * 8);

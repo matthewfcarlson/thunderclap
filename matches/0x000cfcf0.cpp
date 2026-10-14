@@ -1,11 +1,11 @@
 extern void __stdcall FUN_001d0480(int, int);
 extern unsigned char __cdecl FUN_001d04d0(const char*);
-extern char g1[], g2[], g3[];
-class B {
+extern char g1_cfcf0[], g2[], g3[];
+class B_cfcf0 {
   public:
-    B(int x) { FUN_001d0480(x, 2); }
+    B_cfcf0(int x) { FUN_001d0480(x, 2); }
 };
-class Method2 : public B {
+class Method2 : public B_cfcf0 {
   public:
     virtual void f();
     char pad[0xc];
@@ -14,9 +14,9 @@ class Method2 : public B {
     unsigned char c;
     char pad3[3];
     int d;
-    Method2(int x, int y) : B(x) {
+    Method2(int x, int y) : B_cfcf0(x) {
         d = y;
-        c = FUN_001d04d0(g1);
+        c = FUN_001d04d0(g1_cfcf0);
         a = FUN_001d04d0(g2);
         b = FUN_001d04d0(g3);
     }

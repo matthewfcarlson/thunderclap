@@ -1,14 +1,14 @@
-class Sub {
+class Sub_247b30 {
   public:
     int x;
     int Query();
     void Process(int*);
 };
-class Obj {
+class Obj_247b30 {
   public:
     int a0;
     int a4;
-    Sub* sub;
+    Sub_247b30* sub;
     int aC;
     char pad10[8];
     int a18;
@@ -17,7 +17,7 @@ class Obj {
     char pad24[4];
     int a28;
 };
-void __cdecl Target(int p1, Obj* p2, unsigned int* p3, int* p4) {
+void __cdecl Target(int p1, Obj_247b30* p2, unsigned int* p3, int* p4) {
     p2->aC = 5;
     if (p3) {
         p2->a18 = p3[0];

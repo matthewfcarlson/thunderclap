@@ -1,13 +1,13 @@
-struct S {
+struct S_12f80 {
     int a, b, c;
 };
-class C {
+class C_12f80 {
   public:
     char pad[0xcc];
-    S s;
-    S* Get(S* p);
+    S_12f80 s;
+    S_12f80* Get(S_12f80* p);
 };
-S* C::Get(S* p) {
+S_12f80* C_12f80::Get(S_12f80* p) {
     *p = s;
     return p;
 }

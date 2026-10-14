@@ -1,9 +1,9 @@
-struct Vec3 {
+struct Vec3_ecdf0 {
     int pad;
     float x;
     float y;
 };
-struct X {
+struct X_ecdf0 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -19,15 +19,15 @@ struct X {
     virtual void m();
     virtual void n();
     virtual void o();
-    virtual void p(Vec3*, void*);
+    virtual void p(Vec3_ecdf0*, void*);
 };
 struct TextWindow {
     char pad[20];
-    X* obj;
+    X_ecdf0* obj;
     float vfunc_8();
 };
 float TextWindow::vfunc_8() {
-    Vec3 v;
+    Vec3_ecdf0 v;
     obj->p(&v, this);
     return v.x * 1.05f;
 }

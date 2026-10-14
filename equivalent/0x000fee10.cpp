@@ -11,12 +11,12 @@ struct AgentBase_fee10 {
     void FUN_000fed00();
 };
 
-struct Rng {
+struct Rng_fee10 {
     unsigned int s0;
     unsigned int s1;
 };
 
-Rng *FUN_000964d0();
+Rng_fee10 *FUN_000964d0();
 extern float DAT_004e0a94;
 extern float DAT_0040d0f0;
 
@@ -55,7 +55,7 @@ CCharacterGolem *CCharacterGolem::FUN_000fee10(int arg)
     b121 = 0;
 
     // random float in [1, 2) from the shared multiply-with-carry generator
-    Rng *rng = FUN_000964d0();
+    Rng_fee10 *rng = FUN_000964d0();
     rng->s0 = (rng->s0 & 0xffff) * 0x9069 + (rng->s0 >> 16);
     rng->s1 = (rng->s1 & 0xffff) * 0x4650 + (rng->s1 >> 16);
     union {

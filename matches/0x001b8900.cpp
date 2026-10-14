@@ -1,9 +1,9 @@
-typedef unsigned int u32;
-struct Obj {
+typedef unsigned int u32_1b8900;
+struct Obj_1b8900 {
     void second();
 };
-Obj* __stdcall FUN_001c3d90(u32);
-void __stdcall target(u32 param_1) {
-    Obj* p = FUN_001c3d90(param_1);
+Obj_1b8900* __stdcall FUN_001c3d90(u32_1b8900);
+void __stdcall target(u32_1b8900 param_1) {
+    Obj_1b8900* p = FUN_001c3d90(param_1);
     p->second();
 }

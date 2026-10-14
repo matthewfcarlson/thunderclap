@@ -1,10 +1,10 @@
-class T {
+class T_5d770 {
   public:
     char F(int a);
     char pad[0x30];
     int m;
 };
-char T::F(int a) {
+char T_5d770::F(int a) {
     m = a;
     return 1;
 }

@@ -1,16 +1,16 @@
-extern void* gThing;
-struct Obj {
+extern void* gThing_23fc90;
+struct Obj_23fc90 {
     void* mPtr;
     short mB;
     short pad;
     short mC;
     void helper(int, int, int, int);
-    Obj* fn(int, int, int);
+    Obj_23fc90* fn(int, int, int);
 };
-Obj* Obj::fn(int a, int b, int c) {
+Obj_23fc90* Obj_23fc90::fn(int a, int b, int c) {
     if (a == 0) {
-        mPtr = gThing;
-        short* p = (short*)((char*)gThing - 4);
+        mPtr = gThing_23fc90;
+        short* p = (short*)((char*)gThing_23fc90 - 4);
         ++*p;
         mC = 0;
         mB = 2;

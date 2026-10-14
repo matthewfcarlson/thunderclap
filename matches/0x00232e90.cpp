@@ -1,25 +1,25 @@
 extern "C" char DAT_00427898[];
-typedef unsigned int u32;
-struct Base {
+typedef unsigned int u32_232e90;
+struct Base_232e90 {
     void Init();
 };
-struct Inner {
+struct Inner_232e90 {
     void Init();
 };
 class Branch {
   public:
     virtual void v0();
     char pad04[12];
-    u32 arg;
-    u32 field14;
-    Inner inner;
-    u32 field1c;
-    u32 field20;
-    Branch* Build(u32);
+    u32_232e90 arg;
+    u32_232e90 field14;
+    Inner_232e90 inner;
+    u32_232e90 field1c;
+    u32_232e90 field20;
+    Branch* Build(u32_232e90);
 };
-Branch* Branch::Build(u32 param) {
-    ((Base*)this)->Init();
-    *((u32*)this) = ((int)DAT_00427898);
+Branch* Branch::Build(u32_232e90 param) {
+    ((Base_232e90*)this)->Init();
+    *((u32_232e90*)this) = ((int)DAT_00427898);
     arg = param;
     field14 = 0;
     inner.Init();

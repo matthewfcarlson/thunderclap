@@ -1,6 +1,6 @@
-typedef unsigned int u32;
+typedef unsigned int u32_22b980;
 struct Matrix {
-    u32 v[16];
+    u32_22b980 v[16];
 };
 void __fastcall FUN_0022b980(Matrix* p) {
     p->v[0] = 0x3f800000;

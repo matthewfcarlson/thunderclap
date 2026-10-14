@@ -1,7 +1,7 @@
 typedef unsigned char u8;
-typedef unsigned int u32;
+typedef unsigned int u32_29b3a0;
 void ReleaseThing(void* p);
-class Base {
+class Base_29b3a0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -22,9 +22,9 @@ class TextString {
     virtual void f11();
     virtual void f12();
     char pad[0x3c];
-    Base* mBase;
+    Base_29b3a0* mBase;
     char p44[4];
-    u32 mThing;
+    u32_29b3a0 mThing;
     char p4c[4];
     u8 mFlag;
     void cleanup();

@@ -1,4 +1,4 @@
-extern int g_vft;
+extern int g_vft_48520;
 class CButtonValueCondition {
   public:
     int vf;
@@ -17,7 +17,7 @@ CButtonValueCondition* __fastcall FUN_00048520(CButtonValueCondition* self) {
     self->x6 = 4;
     self->x3 = 0;
     self->x5 = 0;
-    self->vf = (int)&g_vft;
+    self->vf = (int)&g_vft_48520;
     self->x7 = 0;
     return self;
 }

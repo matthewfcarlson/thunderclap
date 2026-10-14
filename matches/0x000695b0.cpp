@@ -1,6 +1,6 @@
 extern "C" char DAT_003f98d0[];
 extern "C" char DAT_003fbb34[];
-struct Helper {
+struct Helper_695b0 {
     void Fin();
 };
 class CTrack {
@@ -14,8 +14,8 @@ class CKeyPoseTrack {
 };
 void CKeyPoseTrack::Dtor() {
     *(void**)this = (void*)((int)DAT_003fbb34);
-    ((Helper*)((char*)this + 0x60))->Fin();
-    ((Helper*)((char*)this + 0x10))->Fin();
+    ((Helper_695b0*)((char*)this + 0x60))->Fin();
+    ((Helper_695b0*)((char*)this + 0x10))->Fin();
     *(void**)this = (void*)((int)DAT_003f98d0);
     ((CTrack*)this)->Base();
 }

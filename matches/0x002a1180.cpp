@@ -1,19 +1,19 @@
-struct Sub {
+struct Sub_2a1180 {
     void g(int, int*);
 };
-class A {
+class A_2a1180 {
   public:
     char pad[0x10];
     int a;
     int b;
     void f(int);
 };
-void A::f(int x) {
+void A_2a1180::f(int x) {
     if (a == 0) {
         b = x;
         a = x;
         int t = 0;
-        ((Sub*)((char*)this + 0x18))->g(x, &t);
+        ((Sub_2a1180*)((char*)this + 0x18))->g(x, &t);
     } else {
         b = x;
     }

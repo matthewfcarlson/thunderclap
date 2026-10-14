@@ -1,15 +1,15 @@
-extern int vftable;
-class Sub {
+extern int vftable_2a1310;
+class Sub_2a1310 {
   public:
     void Init();
 };
-class Obj {
+class Obj_2a1310 {
   public:
     char pad[8];
-    Sub sub;
+    Sub_2a1310 sub;
     void Init();
 };
-void Obj::Init() {
+void Obj_2a1310::Init() {
     sub.Init();
-    *(int*)this = (int)&vftable;
+    *(int*)this = (int)&vftable_2a1310;
 }

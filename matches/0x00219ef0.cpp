@@ -2,7 +2,7 @@ extern "C" char DAT_00426824[];
 extern int Find(void*, void*);
 extern void Error(void*, const char*);
 extern void Finish(void*, void*, void*);
-extern const float Zero;
+extern const float Zero_219ef0;
 
 void Target(void* a, void* b, int* c) {
     int r = Find(b, c);

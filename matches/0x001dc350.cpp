@@ -1,10 +1,10 @@
-class Obj {
+class Obj_1dc350 {
   public:
     char pad[0x608];
     int Find(char*);
     int target(char*);
 };
-int Obj::target(char* s) {
+int Obj_1dc350::target(char* s) {
     int result = -1;
     int idx = Find(s);
     if (idx >= 0 && s != 0 && *s != 0) {

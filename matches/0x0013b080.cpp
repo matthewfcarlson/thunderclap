@@ -1,23 +1,23 @@
-class Base {
+class Base_13b080 {
   public:
-    Base();
+    Base_13b080();
     virtual void A();
     virtual void B();
 };
-class Owner {
+class Owner_13b080 {
   public:
     virtual void A();
     virtual void B();
 };
-class AnimationVelocityScaledAction : public Base {
+class AnimationVelocityScaledAction : public Base_13b080 {
   public:
     int p[6];
     int mArg;
-    Owner* mOwner;
+    Owner_13b080* mOwner;
     int mValue;
-    AnimationVelocityScaledAction(int, Owner*);
+    AnimationVelocityScaledAction(int, Owner_13b080*);
 };
-AnimationVelocityScaledAction::AnimationVelocityScaledAction(int x, Owner* o) : Base() {
+AnimationVelocityScaledAction::AnimationVelocityScaledAction(int x, Owner_13b080* o) : Base_13b080() {
     int* q = &mArg;
     q[0] = 0;
     q[1] = 0;

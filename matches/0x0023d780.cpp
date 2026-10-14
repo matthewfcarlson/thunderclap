@@ -1,5 +1,5 @@
 extern "C" char DAT_00428b64[];
-class Factory {
+class Factory_23d780 {
   public:
     virtual void A();
     virtual void B();
@@ -11,15 +11,15 @@ class Factory {
     int m0c;
     int m10;
 };
-class Init {
+class Init_23d780 {
   public:
     void InitFn(int);
 };
 extern "C" void* __cdecl Alloc(unsigned int);
-void* Factory::V5() {
-    Factory* p = (Factory*)Alloc(0x14);
+void* Factory_23d780::V5() {
+    Factory_23d780* p = (Factory_23d780*)Alloc(0x14);
     if (p) {
-        ((Init*)p)->InitFn(0);
+        ((Init_23d780*)p)->InitFn(0);
         *(unsigned long*)p = ((int)DAT_00428b64);
         p->m0c = 0;
         p->m10 = 0;

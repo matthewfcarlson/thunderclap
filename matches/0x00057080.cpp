@@ -1,5 +1,5 @@
 extern "C" void* __cdecl Allocate(unsigned int);
-extern "C" int AxisVtable;
+extern "C" int AxisVtable_57080;
 class CAxisSpeedCondition {
   public:
     virtual void V0();
@@ -18,7 +18,7 @@ CAxisSpeedCondition* ConditionFactoryTemplate::vfunc_5() {
     if (p) {
         p->Initialize(0);
         p->c = 0;
-        *(int*)p = (int)&AxisVtable;
+        *(int*)p = (int)&AxisVtable_57080;
         p->d = 4;
         p->e = 0;
         return p;

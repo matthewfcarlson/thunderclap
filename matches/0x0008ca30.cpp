@@ -1,4 +1,4 @@
-class Item {
+class Item_8ca30 {
   public:
     virtual void A();
     virtual void B();
@@ -29,20 +29,20 @@ class BaseItem {
     virtual void v21();
     virtual void v22();
 };
-struct Record {
+struct Record_8ca30 {
     BaseItem* first;
-    Item* second;
+    Item_8ca30* second;
     char pad[192];
 };
-class Owner {
+class Owner_8ca30 {
   public:
     char pad[8];
-    Record* items;
+    Record_8ca30* items;
     void Run(int index);
 };
-void Owner::Run(int index) {
-    Item** p = &items[index].second;
-    Item* item = *p;
+void Owner_8ca30::Run(int index) {
+    Item_8ca30** p = &items[index].second;
+    Item_8ca30* item = *p;
     if (item) {
         item->B();
         *p = 0;

@@ -1,11 +1,11 @@
-struct Sub {
+struct Sub_192b90 {
     char x[176];
 };
-struct Target {
+struct Target_192b90 {
     char pad[0xb0];
-    Sub sub;
-    Sub* Get();
+    Sub_192b90 sub;
+    Sub_192b90* Get();
 };
-Sub* Target::Get() {
+Sub_192b90* Target_192b90::Get() {
     return &sub;
 }

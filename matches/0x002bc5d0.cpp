@@ -1,34 +1,34 @@
-extern void* g_vftable[];
+extern void* g_vftable_2bc5d0[];
 extern "C" void _ReadWriteBarrier();
 void operator delete(void*);
-class Ref {
+class Ref_2bc5d0 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Base {
+class Base_2bc5d0 {
   public:
     void* vptr;
     void Fin();
 };
-class Quad : public Base {
+class Quad_2bc5d0 : public Base_2bc5d0 {
   public:
     char pad[0x80];
-    Ref* m84;
+    Ref_2bc5d0* m84;
     char pad2[4];
-    Ref** b;
-    Ref** e;
-    ~Quad();
+    Ref_2bc5d0** b;
+    Ref_2bc5d0** e;
+    ~Quad_2bc5d0();
 };
-Quad::~Quad() {
-    vptr = g_vftable;
+Quad_2bc5d0::~Quad_2bc5d0() {
+    vptr = g_vftable_2bc5d0;
     _ReadWriteBarrier();
     if (m84) {
         m84->Release();
         m84 = 0;
     }
     for (unsigned i = 0; i < (unsigned)(e - b); i++) {
-        Ref** p = &b[i];
+        Ref_2bc5d0** p = &b[i];
         if (*p) {
             (*p)->Release();
             *p = 0;

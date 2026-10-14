@@ -1,10 +1,10 @@
-typedef unsigned int U32;
-struct Triple {
-    U32 a;
-    U32 b;
-    U32 c;
+typedef unsigned int U32_24cb50;
+struct Triple_24cb50 {
+    U32_24cb50 a;
+    U32_24cb50 b;
+    U32_24cb50 c;
 };
-void copyTriple(Triple* dst, const Triple* src) {
+void copyTriple(Triple_24cb50* dst, const Triple_24cb50* src) {
     dst->a = src->a;
     dst->b = src->b;
     dst->c = src->c;

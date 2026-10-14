@@ -1,30 +1,30 @@
-class Result {
+class Result_44410 {
   public:
     char pad[8];
     int value;
 };
-class Inner {
+class Inner_44410 {
   public:
-    virtual Result* f0();
-    virtual Result* f1();
-    virtual Result* f2();
-    virtual Result* f3();
-    virtual Result* f4();
-    virtual Result* f5();
-    virtual Result* f6();
-    virtual Result* f7();
-    virtual Result* f8();
-    virtual Result* f9();
-    virtual Result* f10();
-    virtual Result* f11();
+    virtual Result_44410* f0();
+    virtual Result_44410* f1();
+    virtual Result_44410* f2();
+    virtual Result_44410* f3();
+    virtual Result_44410* f4();
+    virtual Result_44410* f5();
+    virtual Result_44410* f6();
+    virtual Result_44410* f7();
+    virtual Result_44410* f8();
+    virtual Result_44410* f9();
+    virtual Result_44410* f10();
+    virtual Result_44410* f11();
 };
-class Source {
+class Source_44410 {
   public:
     char pad[8];
-    Inner* item;
+    Inner_44410* item;
     int FUN_00044410();
 };
-int Source::FUN_00044410() {
+int Source_44410::FUN_00044410() {
     if (!item)
         return 0;
     return item->f11()->value;

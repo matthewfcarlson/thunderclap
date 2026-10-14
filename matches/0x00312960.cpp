@@ -1,4 +1,4 @@
-struct Vec {
+struct Vec_312960 {
     unsigned x, y, z;
 };
 class CollisionVolume {
@@ -7,7 +7,7 @@ class CollisionVolume {
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual Vec* v4();
+    virtual Vec_312960* v4();
     virtual void v5();
     virtual void v6();
     virtual void v7();
@@ -39,8 +39,8 @@ class CollisionAABB : public CollisionVolume {
 };
 void CollisionAABB::vfunc_14(CollisionVolume* param) {
     CollisionVolume::vfunc_14(param);
-    Vec* a = v4();
-    Vec* b = param->v4();
+    Vec_312960* a = v4();
+    Vec_312960* b = param->v4();
     b->x = a->x;
     b->y = a->y;
     b->z = a->z;

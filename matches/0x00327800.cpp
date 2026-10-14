@@ -1,4 +1,4 @@
-typedef unsigned int U;
+typedef unsigned int U_327800;
 extern int vtd[], vtp[];
 class pddiPrimBuffer {
   public:
@@ -21,13 +21,13 @@ class d3dPrimBuffer : public pddiPrimBuffer {
     virtual void g13();
     virtual void g14();
     char pad[0x28];
-    U a;
-    U b;
+    U_327800 a;
+    U_327800 b;
     void cleanup();
     d3dPrimBuffer* f3(unsigned char);
 };
-extern void __cdecl helper(U);
-extern void __stdcall release(U);
+extern void __cdecl helper(U_327800);
+extern void __stdcall release(U_327800);
 extern void __cdecl destroy(d3dPrimBuffer*);
 d3dPrimBuffer* d3dPrimBuffer::f3(unsigned char flag) {
     *(int**)this = vtd;

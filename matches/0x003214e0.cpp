@@ -1,5 +1,5 @@
-typedef long long QWORD;
-extern "C" void __stdcall QueryPerformanceCounter(QWORD*);
+typedef long long QWORD_3214e0;
+extern "C" void __stdcall QueryPerformanceCounter(QWORD_3214e0*);
 class d3dContext {
   public:
     virtual void f0();
@@ -111,11 +111,11 @@ class d3dContext {
     virtual void f106();
     virtual float vfunc_107();
     char pad[0x410];
-    QWORD start;
+    QWORD_3214e0 start;
     float scale;
 };
 float d3dContext::vfunc_107() {
-    QWORD q;
+    QWORD_3214e0 q;
     QueryPerformanceCounter(&q);
     return (float)(q - start) * scale;
 }

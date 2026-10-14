@@ -1,15 +1,15 @@
-struct Item {
+struct Item_67a20 {
     void tick();
 };
-struct C {
+struct C_67a20 {
     char pad[0x920];
     void run();
 };
-void C::run() {
-    Item* p = (Item*)((char*)this + 0x920);
+void C_67a20::run() {
+    Item_67a20* p = (Item_67a20*)((char*)this + 0x920);
     int i = 0x40;
     do {
-        p = (Item*)((char*)p - 0x20);
+        p = (Item_67a20*)((char*)p - 0x20);
         p->tick();
         --i;
     } while (i != 0);

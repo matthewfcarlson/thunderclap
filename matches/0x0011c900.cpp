@@ -1,4 +1,4 @@
-extern int gValue;
+extern int gValue_11c900;
 class StrafeRunAction {
   public:
     char pad[0x2c];
@@ -6,10 +6,10 @@ class StrafeRunAction {
     bool vfunc_3(int, int);
 };
 bool StrafeRunAction::vfunc_3(int a, int b) {
-    int value = gValue;
+    int value = gValue_11c900;
     if (value > 8)
         value = 1;
     mValue = value;
-    gValue = value + 1;
+    gValue_11c900 = value + 1;
     return true;
 }

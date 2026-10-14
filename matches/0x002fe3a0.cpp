@@ -1,22 +1,22 @@
 extern "C" char DAT_004319a4[];
-class Ref {
+class Ref_2fe3a0 {
   public:
     virtual void First();
     virtual void Release();
 };
-class Base {
+class Base_2fe3a0 {
   public:
-    Base(void*);
+    Base_2fe3a0(void*);
 };
-class SimStateHairclub : public Base {
+class SimStateHairclub : public Base_2fe3a0 {
   public:
     char pad0[0x85];
     unsigned char flag;
     char pad1[2];
-    Ref* mRef;
-    SimStateHairclub(Ref* r, void* p);
+    Ref_2fe3a0* mRef;
+    SimStateHairclub(Ref_2fe3a0* r, void* p);
 };
-SimStateHairclub::SimStateHairclub(Ref* r, void* p) : Base(p) {
+SimStateHairclub::SimStateHairclub(Ref_2fe3a0* r, void* p) : Base_2fe3a0(p) {
     *(void**)this = (void*)((int)DAT_004319a4);
     mRef = 0;
     if (r)

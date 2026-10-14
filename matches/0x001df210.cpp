@@ -1,16 +1,16 @@
-class Item {
+class Item_1df210 {
   public:
     virtual void Destroy();
     virtual void Release();
 };
-class Owner {
+class Owner_1df210 {
   public:
     char pad[0x1ec40];
-    Item* items[4];
+    Item_1df210* items[4];
     int count;
-    bool Add(Item* item);
+    bool Add(Item_1df210* item);
 };
-bool Owner::Add(Item* item) {
+bool Owner_1df210::Add(Item_1df210* item) {
     int n = count;
     if (n >= 4)
         return false;

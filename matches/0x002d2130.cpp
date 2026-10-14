@@ -1,5 +1,5 @@
 extern "C" char DAT_0042f0a8[];
-class Entry {
+class Entry_2d2130 {
   public:
     int Find(int, int);
 };
@@ -19,7 +19,7 @@ GeneratorBlendState::GeneratorBlendState(int x) {
     c = 0;
     d = 0;
     if (x != 0) {
-        Entry* e = (Entry*)x;
+        Entry_2d2130* e = (Entry_2d2130*)x;
         b = e->Find(0x50534f48, 0x31544c46);
         c = e->Find(0x50534556, 0x31544c46);
         d = e->Find(0x41564452, 0x31544c46);

@@ -1,5 +1,5 @@
 extern "C" void _ReadWriteBarrier();
-class Ref {
+class Ref_1ded0 {
   public:
     virtual void A();
     virtual void Release();
@@ -10,15 +10,15 @@ class CAction {
   public:
     char* vptr;
     char pad[0x18];
-    Ref* m1;
+    Ref_1ded0* m1;
     void BaseTail();
 };
 class CGrabAction : public CAction {
   public:
     char pad2[8];
-    Ref* m2;
+    Ref_1ded0* m2;
     char pad3[16];
-    Ref* m3;
+    Ref_1ded0* m3;
     void Cleanup();
 };
 void CGrabAction::Cleanup() {

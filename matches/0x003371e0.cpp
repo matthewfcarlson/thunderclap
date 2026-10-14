@@ -1,15 +1,15 @@
 extern "C" char DAT_00434318[];
-struct Element {
+struct Element_3371e0 {
     char pad[0x18];
     void f();
 };
-struct Obj {
+struct Obj_3371e0 {
     char pad[0x288];
     void run();
 };
-void Obj::run() {
+void Obj_3371e0::run() {
     *(void**)this = (void*)((int)DAT_00434318);
-    Element* p = (Element*)((char*)this + 0x288);
+    Element_3371e0* p = (Element_3371e0*)((char*)this + 0x288);
     int i = 0x18;
     do {
         p--;

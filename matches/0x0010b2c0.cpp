@@ -1,28 +1,28 @@
 // cl-flags: /O2
 
-class List;
+class List_10b2c0;
 
 class ColorHolder {
   public:
     void Set(float* c);
 };
 
-struct Item {
+struct Item_10b2c0 {
     char pad0[8];
     ColorHolder ch;
     char pad1[0x60 - 8 - 1];
-    Item() throw();
+    Item_10b2c0() throw();
 };
 
-class List {
+class List_10b2c0 {
   public:
-    void Add(Item* it);
+    void Add(Item_10b2c0* it);
 };
 
-class This {
+class This_10b2c0 {
   public:
-    List* GetList();
-    This* Build();
+    List_10b2c0* GetList();
+    This_10b2c0* Build();
 };
 
 void* operator new(unsigned int) throw();
@@ -32,15 +32,15 @@ extern float* gColors[3];
 void __cdecl FUN_00238b60(int a, int b);
 void __cdecl FUN_00238330(int a, int b);
 
-This* This::Build() {
-    List* list = GetList();
-    Item* a = new Item();
+This_10b2c0* This_10b2c0::Build() {
+    List_10b2c0* list = GetList();
+    Item_10b2c0* a = new Item_10b2c0();
     a->ch.Set(gColors[0]);
     list->Add(a);
-    Item* b = new Item();
+    Item_10b2c0* b = new Item_10b2c0();
     b->ch.Set(gColors[1]);
     list->Add(b);
-    Item* c = new Item();
+    Item_10b2c0* c = new Item_10b2c0();
     c->ch.Set(gColors[2]);
     list->Add(c);
     FUN_00238b60(0x10b2a0, 0);

@@ -11,7 +11,7 @@ struct Context {
 };
 extern Context* DAT_004dd700;
 extern unsigned char DAT_004e222c, DAT_004e2518;
-struct Panel {
+struct Panel_e6da0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -83,7 +83,7 @@ struct FEThingsBase {
     virtual void vfunc_47();
     virtual void vfunc_48(int);
     char pad[0x1758];
-    Panel* panel;
+    Panel_e6da0* panel;
     char pad2[8];
     unsigned selected;
     int mode;

@@ -17,7 +17,7 @@ public:
 
 class CSPHulkProp;
 
-struct Vec3 {
+struct Vec3_1e7290 {
     float x, y, z;
 };
 
@@ -38,7 +38,7 @@ struct Holder28 { Holder44 *FUN_000862a0(); };
 struct Manager_1e7290 { char pad0[0x54]; Holder28 *holder; };
 extern Manager_1e7290 *DAT_004dd700;
 
-struct Prop {
+struct Prop_1e7290 {
     char pad00[0x114];
     int f114;
     char FUN_001d7300();
@@ -54,11 +54,11 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual bool v8(Vec3 pos);
+    virtual bool v8(Vec3_1e7290 pos);
 };
 
 struct Entry_1e7290 {
-    Vec3 pos;
+    Vec3_1e7290 pos;
     int unused0c;
     int flags;
 };
@@ -68,7 +68,7 @@ struct Slot_1e7290 {
     unsigned int keyHi;
     char pad08[6];
     short used;
-    Prop *prop;
+    Prop_1e7290 *prop;
     char pad14[6];
     short index;
     char pad1c[0xc];
@@ -92,7 +92,7 @@ void World::FUN_001e7290(Probe *probe, bool mustBeReady)
         if (slot->used == 0)
             continue;
         Entry_1e7290 *e = entryAt(slot->index);
-        Vec3 pos = e->pos;
+        Vec3_1e7290 pos = e->pos;
         char ready;
         if ((e->flags & 1) && slot->prop) {
             ready = slot->prop->FUN_001d7300();

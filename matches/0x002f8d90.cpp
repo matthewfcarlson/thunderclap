@@ -1,9 +1,9 @@
-class Thing {
+class Thing_2f8d90 {
   public:
     void Init(int* a, int* c, int* b, int* e, int d, int* f);
     int m[17];
 };
-void Thing::Init(int* a, int* c, int* b, int* e, int d, int* f) {
+void Thing_2f8d90::Init(int* a, int* c, int* b, int* e, int d, int* f) {
     m[0] = (int)a;
     m[1] = (int)b;
     m[2] = a[4];

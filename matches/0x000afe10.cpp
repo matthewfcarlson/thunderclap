@@ -1,15 +1,15 @@
-class Other {
+class Other_afe10 {
   public:
     void Run(int);
 };
-class Thing {
+class Thing_afe10 {
   public:
     char pad[5];
     unsigned char flag;
-    Other* p;
+    Other_afe10* p;
     void Set(int);
 };
-void Thing::Set(int value) {
+void Thing_afe10::Set(int value) {
     if (flag != (unsigned char)value) {
         if (p)
             p->Run(value);

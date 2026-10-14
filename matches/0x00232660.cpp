@@ -1,5 +1,5 @@
-extern int gCount;
-extern int gMax;
+extern int gCount_232660;
+extern int gMax_232660;
 
 class Action {
   public:
@@ -20,7 +20,7 @@ Action::Action() {
     d = 0;
     e = 0;
     f = 0;
-    ++gCount;
-    if (gCount > gMax)
-        gMax = gCount;
+    ++gCount_232660;
+    if (gCount_232660 > gMax_232660)
+        gMax_232660 = gCount_232660;
 }

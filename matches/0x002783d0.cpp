@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2783d0 {
     char pad[0xcc];
 
   public:
@@ -8,7 +8,7 @@ class Obj {
     char y;
     void f(int* a, int* b);
 };
-void Obj::f(int* a, int* b) {
+void Obj_2783d0::f(int* a, int* b) {
     if (flag == 0x55) {
         *a = -1;
         *b = -1;

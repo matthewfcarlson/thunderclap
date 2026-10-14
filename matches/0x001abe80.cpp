@@ -1,9 +1,9 @@
 extern "C" char DAT_0041d4ac[];
 extern "C" char DAT_004c2a28[];
-extern int gCount;
-extern int gSlot;
+extern int gCount_1abe80;
+extern int gSlot_1abe80;
 extern void* Alloc(unsigned int);
-struct Obj {
+struct Obj_1abe80 {
     int v;
     char pad4[12];
     int a;
@@ -11,14 +11,14 @@ struct Obj {
     int c;
     void Init(const char*);
 };
-extern void Register(int*, Obj**, int);
-extern const char name[];
+extern void Register(int*, Obj_1abe80**, int);
+extern const char name_1abe80[];
 void FUN_001abe80() {
-    if (gCount == 0) {
-        Obj* p;
-        Obj* q = (Obj*)Alloc(0x20);
+    if (gCount_1abe80 == 0) {
+        Obj_1abe80* p;
+        Obj_1abe80* q = (Obj_1abe80*)Alloc(0x20);
         if (q != 0) {
-            q->Init(name);
+            q->Init(name_1abe80);
             q->v = ((int)DAT_0041d4ac);
             q->a = ((int)DAT_004c2a28);
             q->b = 0x1f;
@@ -27,7 +27,7 @@ void FUN_001abe80() {
         } else {
             p = 0;
         }
-        Register(&gSlot, &p, 1);
+        Register(&gSlot_1abe80, &p, 1);
     }
-    ++gCount;
+    ++gCount_1abe80;
 }

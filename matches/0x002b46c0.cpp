@@ -1,4 +1,4 @@
-struct Data {
+struct Data_2b46c0 {
     int a;
     int flag;
     int pad;
@@ -10,11 +10,11 @@ struct Data {
     int g;
     int h;
 };
-class Source {
+class Source_2b46c0 {
   public:
-    Data* Get(int);
+    Data_2b46c0* Get(int);
 };
-class Obj {
+class Obj_2b46c0 {
     char pad[0x54];
 
   public:
@@ -23,10 +23,10 @@ class Obj {
     int x;
     int y;
     int z;
-    void Do(int p, Source* q);
+    void Do(int p, Source_2b46c0* q);
 };
-void Obj::Do(int p, Source* q) {
-    Data* d = q->Get(p);
+void Obj_2b46c0::Do(int p, Source_2b46c0* q) {
+    Data_2b46c0* d = q->Get(p);
     if (d->flag == 0) {
         active = 0;
         x = d->e;

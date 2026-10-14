@@ -1,4 +1,4 @@
-extern float zeroValue;
+extern float zeroValue_60750;
 class CEffectTrack {
   public:
     char pad0[0x0c];
@@ -11,5 +11,5 @@ class CEffectTrack {
 float CEffectTrack::vfunc_7() {
     if (flag)
         return f10 - f0c;
-    return zeroValue;
+    return zeroValue_60750;
 }

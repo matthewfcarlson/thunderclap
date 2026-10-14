@@ -6,7 +6,7 @@ struct V {
     virtual void f();
     virtual void g();
 };
-struct X {
+struct X_3340b0 {
     void** v;
     int a;
     int b;
@@ -15,8 +15,8 @@ struct X {
     char pad[0x20];
     V* q;
 };
-extern int global;
-void __fastcall FUN_003340b0(X* x) {
+extern int global_3340b0;
+void __fastcall FUN_003340b0(X_3340b0* x) {
     x->v = (void**)((int)DAT_004342c4);
     x->a = (int)((int)DAT_004342bc);
     if (x->p) {
@@ -27,7 +27,7 @@ void __fastcall FUN_003340b0(X* x) {
         x->q->g();
         x->q = 0;
     }
-    global = x->b;
+    global_3340b0 = x->b;
     x->a = (int)((int)DAT_0042af64);
     x->v = (void**)((int)DAT_003f6098);
 }

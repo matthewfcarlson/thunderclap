@@ -1,4 +1,4 @@
-extern int vftable;
+extern int vftable_182f70;
 class Condition {
   public:
     virtual void v0();
@@ -9,7 +9,7 @@ class Condition {
     virtual void v5();
     virtual void v6();
 };
-class Elem {
+class Elem_182f70 {
   public:
     void Fn();
 };
@@ -23,12 +23,12 @@ class GrapplePropStateByNameCondition : public Condition {
     virtual GrapplePropStateByNameCondition* vfunc_5(int);
     virtual void v6();
     char pad0[0x14];
-    Elem elem;
+    Elem_182f70 elem;
     void Init();
 };
 extern void __cdecl thunk(GrapplePropStateByNameCondition*);
 GrapplePropStateByNameCondition* GrapplePropStateByNameCondition::vfunc_5(int flag) {
-    *(int*)this = (int)&vftable;
+    *(int*)this = (int)&vftable_182f70;
     elem.Fn();
     Init();
     if (flag & 1)

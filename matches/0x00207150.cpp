@@ -1,4 +1,4 @@
-class C {
+class C_207150 {
   public:
     char pad[0x570];
     int a[2];
@@ -9,7 +9,7 @@ class C {
     bool Run();
 };
 
-bool C::Run() {
+bool C_207150::Run() {
     for (;;) {
         int n = 0;
         if (a[0] > 0)

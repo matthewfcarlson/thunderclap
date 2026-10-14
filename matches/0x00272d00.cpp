@@ -1,13 +1,13 @@
 extern "C" void _ReadWriteBarrier();
-extern void* vt0[];
+extern void* vt0_272d00[];
 extern void* vt4[];
 extern void* vtc[];
-extern void* vtD[];
+extern void* vtD_272d00[];
 extern void* vtD4[];
 extern void* vtDc[];
 extern int g_id;
 void Hook();
-class Sub {
+class Sub_272d00 {
   public:
     void Init();
 };
@@ -18,7 +18,7 @@ class Drive {
     int m8;
     void* vc;
     int m10;
-    Sub s14;
+    Sub_272d00 s14;
     char pad[0x23];
     int m38;
     int m3c;
@@ -37,7 +37,7 @@ class Drive {
     Drive();
 };
 Drive::Drive() {
-    vptr = vt0;
+    vptr = vt0_272d00;
     v4 = vt4;
     m8 = g_id;
     Hook();
@@ -45,7 +45,7 @@ Drive::Drive() {
     _ReadWriteBarrier();
     m10 = 1;
     _ReadWriteBarrier();
-    vptr = vtD;
+    vptr = vtD_272d00;
     v4 = vtD4;
     vc = vtDc;
     s14.Init();

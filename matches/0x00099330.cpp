@@ -1,4 +1,4 @@
-class Base {
+class Base_99330 {
   public:
     virtual void f0();
     virtual void f1();
@@ -39,12 +39,12 @@ class Base {
     virtual void f36();
     virtual void f37();
 };
-class Obj {
+class Obj_99330 {
   public:
     char pad[0x10];
-    Base* m;
+    Base_99330* m;
     void target();
 };
-void Obj::target() {
+void Obj_99330::target() {
     m->f37();
 }

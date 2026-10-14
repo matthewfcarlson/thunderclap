@@ -10,7 +10,7 @@ extern void __cdecl FUN_00212d80(int, int);
 extern int __cdecl FUN_00338e20(int, const char*);
 extern const char tostring[];
 extern const char error[];
-extern float zero;
+extern float zero_33d6e0;
 int __cdecl target(int value) {
     int esi = value;
     int ebp = FUN_00212d70(esi);
@@ -26,14 +26,14 @@ loop:
     if (!ebx)
         goto failure;
     if (edi > 1)
-        FUN_00347eed((void*)((int)DAT_00434f70), &zero);
-    FUN_00347eed((void*)ebx, &zero);
+        FUN_00347eed((void*)((int)DAT_00434f70), &zero_33d6e0);
+    FUN_00347eed((void*)ebx, &zero_33d6e0);
     FUN_00212d80(esi, -2);
     ++edi;
     if (edi <= ebp)
         goto loop;
 finish:
-    FUN_00347eed((void*)((int)DAT_00422518), &zero);
+    FUN_00347eed((void*)((int)DAT_00422518), &zero_33d6e0);
     return 0;
 failure:
     return FUN_00338e20(esi, error);

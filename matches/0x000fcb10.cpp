@@ -1,24 +1,24 @@
-typedef unsigned int u32;
-struct Base {
-    void InitBase(u32);
+typedef unsigned int u32_fcb10;
+struct Base_fcb10 {
+    void InitBase(u32_fcb10);
 };
-struct CChaseAgent : Base {
+struct CChaseAgent : Base_fcb10 {
     char pad0[8];
-    u32 a;
+    u32_fcb10 a;
     char padc[0x68 - 0x0c];
     float f;
     char b;
     char pad70[3];
-    u32 c;
-    CChaseAgent* Init(u32);
+    u32_fcb10 c;
+    CChaseAgent* Init(u32_fcb10);
 };
 extern char CChaseAgent_vftable;
-CChaseAgent* CChaseAgent::Init(u32 x) {
-    ((Base*)this)->InitBase(x);
+CChaseAgent* CChaseAgent::Init(u32_fcb10 x) {
+    ((Base_fcb10*)this)->InitBase(x);
     a = 0;
     c = 0;
     b = 0;
-    *(u32*)this = (u32)&CChaseAgent_vftable;
+    *(u32_fcb10*)this = (u32_fcb10)&CChaseAgent_vftable;
     f = -1.0f;
     return this;
 }

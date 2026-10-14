@@ -8,7 +8,7 @@ struct CMotionHitCondition {
     unsigned int value2;
     void Init(int);
 };
-struct Factory {
+struct Factory_584a0 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -16,7 +16,7 @@ struct Factory {
     virtual void f4();
     virtual void* vfunc_5();
 };
-void* Factory::vfunc_5() {
+void* Factory_584a0::vfunc_5() {
     CMotionHitCondition* p = (CMotionHitCondition*)Allocate(0x14);
     if (p) {
         p->Init(0);

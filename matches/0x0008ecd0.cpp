@@ -1,9 +1,9 @@
 extern "C" void __cdecl Init();
-extern "C" unsigned char gFlag;
+extern "C" unsigned char gFlag_8ecd0;
 extern "C" int gWidth;
 extern "C" int gHeight;
 
-struct Obj {
+struct Obj_8ecd0 {
     int a, b, c, pad, mode;
     char gap[0x0b];
     char f2;
@@ -11,9 +11,9 @@ struct Obj {
     char f3;
     int x, y;
 };
-void __cdecl FUN_0008ecd0(Obj* p) {
+void __cdecl FUN_0008ecd0(Obj_8ecd0* p) {
     Init();
-    if (gFlag) {
+    if (gFlag_8ecd0) {
         gWidth = 0x280;
         gHeight = 0x240;
     }

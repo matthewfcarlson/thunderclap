@@ -1,13 +1,13 @@
 extern "C" char DAT_003f98d0[];
 extern "C" char DAT_003fb9c4[];
-class Part {
+class Part_68cf0 {
   public:
     void Init();
 };
 class CJointTrack {
   public:
     char pad[0x18];
-    Part part;
+    Part_68cf0 part;
     void Finish();
     void Init();
 };

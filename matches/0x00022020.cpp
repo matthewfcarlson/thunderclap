@@ -1,6 +1,6 @@
 extern "C" void _ReadWriteBarrier();
 extern int CAction_vftable;
-class Ref {
+class Ref_22020 {
   public:
     virtual void a();
     virtual void b();
@@ -9,7 +9,7 @@ class CSmartPropDropAction {
   public:
     int* vptr;
     char pad[0x18];
-    Ref* member;
+    Ref_22020* member;
     void cleanup();
     CSmartPropDropAction* vfunc_2(int);
 };

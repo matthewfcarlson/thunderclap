@@ -1,13 +1,13 @@
-typedef unsigned long long u64;
-extern u64 g_value;
-struct DollyScript_CScriptToken {
+typedef unsigned long long u64_f9910;
+extern u64_f9910 g_value_f9910;
+struct DollyScript_CScriptToken_f9910 {
     virtual void vfunc_0();
-    virtual u64 vfunc_1();
+    virtual u64_f9910 vfunc_1();
     virtual void vfunc_2();
 };
-struct DollyScript_CTokenSectionStart : DollyScript_CScriptToken {
-    virtual u64 vfunc_1();
+struct DollyScript_CTokenSectionStart_f9910 : DollyScript_CScriptToken_f9910 {
+    virtual u64_f9910 vfunc_1();
 };
-u64 DollyScript_CTokenSectionStart::vfunc_1() {
-    return g_value;
+u64_f9910 DollyScript_CTokenSectionStart_f9910::vfunc_1() {
+    return g_value_f9910;
 }

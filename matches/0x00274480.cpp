@@ -11,15 +11,15 @@ class D {
     virtual int s7();
     int Helper();
 };
-class Q {
+class Q_274480 {
   public:
     virtual void s0();
     virtual void s1();
 };
-class P {
+class P_274480 {
   public:
     int pad0;
-    Q q;
+    Q_274480 q;
     int pad8;
     D* d;
     int pad10;
@@ -35,7 +35,7 @@ class DriveRequest {
     virtual int vfunc_4();
     virtual int v5();
     char pad[4];
-    P* mP;
+    P_274480* mP;
 };
 int DriveRequest::vfunc_4() {
     D* d = mP->d;

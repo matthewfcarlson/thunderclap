@@ -4,27 +4,27 @@ inline void* __cdecl operator new(size_t, void* p) {
     return p;
 }
 extern "C" void* __cdecl memcpy(void*, const void*, size_t);
-extern int gCount;
-class Base {
+extern int gCount_1d03d0;
+class Base_1d03d0 {
   public:
-    Base();
+    Base_1d03d0();
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Base* v3();
+    virtual Base_1d03d0* v3();
     int a;
     int count;
     int b;
 };
-class Payload {
+class Payload_1d03d0 {
   public:
-    Payload();
+    Payload_1d03d0();
     int length;
     char data[0xdc];
 };
-class CScenarioParams : public Base {
+class CScenarioParams : public Base_1d03d0 {
   public:
-    Payload payload;
+    Payload_1d03d0 payload;
     CScenarioParams() {}
     virtual void v2();
     virtual CScenarioParams* v3();
@@ -32,10 +32,10 @@ class CScenarioParams : public Base {
 CScenarioParams* CScenarioParams::v3() {
     CScenarioParams* q = (CScenarioParams*)operator new(0xf0);
     if (q) {
-        Payload* src = &payload;
+        Payload_1d03d0* src = &payload;
         q = new (q) CScenarioParams;
         memcpy(&q->payload, src, src->length);
-        int n = ++gCount;
+        int n = ++gCount_1d03d0;
         q->count = n;
         return q;
     }

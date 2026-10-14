@@ -1,8 +1,8 @@
-struct Arg {
+struct Arg_2ec60 {
     const char* s;
     unsigned char b;
 };
-class Actor {
+class Actor_2ec60 {
   public:
     void invoke(const char*, unsigned char);
 };
@@ -10,11 +10,11 @@ class Closure2 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
-    virtual void vfunc_2(void*, Arg* p, void* q);
+    virtual void vfunc_2(void*, Arg_2ec60* p, void* q);
     char pad[0x18];
-    void (Actor::*fn)(const char*, unsigned char);
-    Actor* obj;
+    void (Actor_2ec60::*fn)(const char*, unsigned char);
+    Actor_2ec60* obj;
 };
-void Closure2::vfunc_2(void*, Arg* p, void*) {
+void Closure2::vfunc_2(void*, Arg_2ec60* p, void*) {
     (obj->*fn)(p->s, p->b);
 }

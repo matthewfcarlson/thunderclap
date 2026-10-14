@@ -1,9 +1,9 @@
 void InitGlobal();
-struct X {
+struct X_243f0 {
     int value;
     void Set(int);
 };
-void X::Set(int x) {
+void X_243f0::Set(int x) {
     value = x;
     InitGlobal();
 }

@@ -1,10 +1,10 @@
-class Inner {
+class Inner_23ec00 {
   public:
     void f();
 };
 class SpawnAction {
     char pad[0x24];
-    Inner inner;
+    Inner_23ec00 inner;
 
   public:
     virtual void v0();

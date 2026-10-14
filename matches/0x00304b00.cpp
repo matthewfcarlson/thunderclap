@@ -1,10 +1,10 @@
-struct S {
+struct S_304b00 {
     int a, b, c;
     char x, y;
     void Clear();
 };
 
-void S::Clear() {
+void S_304b00::Clear() {
     a = 0;
     b = 0;
     c = 0;

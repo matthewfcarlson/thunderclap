@@ -11,15 +11,15 @@ class CSPManager {
     int m1c;
     CSPManager(int, int);
 };
-extern char g1[];
-extern char g2[];
+extern char g1_1e0b60[];
+extern char g2_1e0b60[];
 extern "C" char __cdecl FUN_001d04d0(const char*);
 CSPManager::CSPManager(int x, int y) {
     Init(x, 3);
     m0 = ((int)DAT_00423478);
     m1c = y;
-    m18 = FUN_001d04d0(g1);
-    m10 = FUN_001d04d0(g2);
-    m11 = FUN_001d04d0(g2);
-    m12 = FUN_001d04d0(g2);
+    m18 = FUN_001d04d0(g1_1e0b60);
+    m10 = FUN_001d04d0(g2_1e0b60);
+    m11 = FUN_001d04d0(g2_1e0b60);
+    m12 = FUN_001d04d0(g2_1e0b60);
 }

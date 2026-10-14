@@ -1,15 +1,15 @@
-class Thing {
+class Thing_1bde50 {
   public:
     char pad[0x34];
-    Thing* a;
-    Thing* b;
+    Thing_1bde50* a;
+    Thing_1bde50* b;
     char pad2[0x0c];
     int value;
     void Prepare(int);
     void Finish();
     bool Update(int);
 };
-bool Thing::Update(int x) {
+bool Thing_1bde50::Update(int x) {
     value = x;
     if (a) {
         a->Prepare(x);

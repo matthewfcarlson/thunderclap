@@ -1,6 +1,6 @@
 extern "C" char DAT_0042e764[];
 struct BillboardObject;
-struct Alloc {
+struct Alloc_2b9660 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -45,7 +45,7 @@ struct BillboardObject {
 };
 extern void* __cdecl thunk_FUN_0008d690(unsigned int);
 void* BillboardObject::vfunc_4() {
-    Alloc* p = (Alloc*)thunk_FUN_0008d690(0x60);
+    Alloc_2b9660* p = (Alloc_2b9660*)thunk_FUN_0008d690(0x60);
     if (p) {
         p->init(this);
         *(unsigned long*)p = ((int)DAT_0042e764);

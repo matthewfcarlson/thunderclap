@@ -1,5 +1,5 @@
 int g_current = -1;
-class Target {
+class Target_327d80 {
   public:
     virtual void v0();
     virtual void v1();
@@ -20,14 +20,14 @@ class Target {
     int key;
     void run(int, char);
 };
-Target* g_obj;
-void Target::run(int arg, char flag) {
+Target_327d80* g_obj_327d80;
+void Target_327d80::run(int arg, char flag) {
     if (key != g_current) {
-        if (g_obj)
-            g_obj->v13();
+        if (g_obj_327d80)
+            g_obj_327d80->v13();
         g_current = key;
         v12();
-        g_obj = this;
+        g_obj_327d80 = this;
     }
     if (flag)
         v14(arg);

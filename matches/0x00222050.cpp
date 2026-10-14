@@ -1,11 +1,11 @@
 void Init();
-class Obj {
+class Obj_222050 {
   public:
     char pad[0x40];
     volatile int a, b, c, d, e;
-    Obj();
+    Obj_222050();
 };
-Obj::Obj() {
+Obj_222050::Obj_222050() {
     Init();
     c = 0;
     b = 0;

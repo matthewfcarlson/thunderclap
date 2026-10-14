@@ -1,4 +1,4 @@
-struct Elem {
+struct Elem_30e250 {
     void process();
 };
 class CollisionAnalyser {
@@ -20,7 +20,7 @@ void CollisionAnalyser::vfunc_2(int, int) {
     flag = 0;
     if (p <= end) {
         do {
-            ((Elem*)*(void**)(p + 0x10))->process();
+            ((Elem_30e250*)*(void**)(p + 0x10))->process();
             unsigned char* old = p;
             p += 0x14;
             if (old == end)

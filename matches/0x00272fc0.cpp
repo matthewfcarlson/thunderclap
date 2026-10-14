@@ -1,4 +1,4 @@
-struct Lock {
+struct Lock_272fc0 {
     virtual void enter();
     virtual void leave();
 };
@@ -6,22 +6,22 @@ struct Node {
     unsigned int data;
     Node* next;
 };
-struct Event {
+struct Event_272fc0 {
     unsigned int value;
 };
-void __cdecl FUN_0026d8a0(Event*);
-struct Queue {
+void __cdecl FUN_0026d8a0(Event_272fc0*);
+struct Queue_272fc0 {
     char pad0[12];
-    Lock lock;
+    Lock_272fc0 lock;
     char pad1[0x68 - 0x10];
-    Event event;
+    Event_272fc0 event;
     Node* heads[3];
     Node* tails[3];
     char pad2[8];
     unsigned int count;
     void FUN_00272fc0(Node* node, int index, char front);
 };
-void Queue::FUN_00272fc0(Node* node, int index, char front) {
+void Queue_272fc0::FUN_00272fc0(Node* node, int index, char front) {
     lock.enter();
     if (front) {
         if (!tails[index])

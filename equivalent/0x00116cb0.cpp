@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20017 inputs, branch coverage 56/58, incomplete)
 // hulkfight::ai::MotionChaseAction::vfunc_5 @ 0x00116cb0
-struct Vec3 {
+struct Vec3_116cb0 {
     float x, y, z;
     float FUN_0022d110();
 };
@@ -13,12 +13,12 @@ public:
 
 struct Mount {
     char pad0[0x18];
-    bool FUN_00059a50(Vec3 *out);
+    bool FUN_00059a50(Vec3_116cb0 *out);
 };
 
-struct Target : RefCounted {
+struct Target_116cb0 : RefCounted {
     char pad04[0x3c];
-    Vec3 pos;
+    Vec3_116cb0 pos;
 };
 
 struct Slot1b0 {
@@ -49,9 +49,9 @@ struct Stats {
     char pad14[0x11c - 0x14];
     Slot1b0 *p11c;
     char pad120[0x328 - 0x120];
-    Target *target;
+    Target_116cb0 *target;
     char pad32c[0x2064 - 0x32c];
-    Vec3 aim;
+    Vec3_116cb0 aim;
     float f2070;
     char pad2074[0x20a8 - 0x2074];
     int f20a8;
@@ -96,9 +96,9 @@ bool MotionChaseAction::vfunc_5(int a1, int a2)
         return false;
 
     Stats *stats = FUN_00059a30(FUN_000592a0(owner));
-    Target *target = stats->target;
+    Target_116cb0 *target = stats->target;
     if (target == 0) {
-        target = (Target *)held;
+        target = (Target_116cb0 *)held;
         if (target == 0) {
             if (stats->f20a8 >= 0)
                 return true;
@@ -129,10 +129,10 @@ bool MotionChaseAction::vfunc_5(int a1, int a2)
         float f14;
         float f18;
         float height;
-        Vec3 a;
-        Vec3 d;
-        Vec3 q;
-        Vec3 p;
+        Vec3_116cb0 a;
+        Vec3_116cb0 d;
+        Vec3_116cb0 q;
+        Vec3_116cb0 p;
     } fr;
     fr.p = target->pos;
     fr.q.x = 0.0f;

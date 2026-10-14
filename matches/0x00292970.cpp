@@ -1,4 +1,4 @@
-struct Vec3 {
+struct Vec3_292970 {
     float x, y, z;
 };
 
@@ -20,7 +20,7 @@ class Camera {
     virtual void f13();
     virtual void f14();
     virtual void f15();
-    virtual char Test(const Vec3* p, float r);
+    virtual char Test(const Vec3_292970* p, float r);
     char pad[0x18];
     float a; // 0x1c
     float b; // 0x20
@@ -28,7 +28,7 @@ class Camera {
     float c0, c1, c2, c3, d0, d1, d2, d3;
 };
 
-char Camera::Test(const Vec3* p, float r) {
+char Camera::Test(const Vec3_292970* p, float r) {
     if (p->z + r < a)
         return 0;
     if (p->z - r > b)

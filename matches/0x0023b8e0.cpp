@@ -1,4 +1,4 @@
-class Inner {
+class Inner_23b8e0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -27,7 +27,7 @@ class Inner {
 class IFileDataReader {
   public:
     char pad[8];
-    Inner* p;
+    Inner_23b8e0* p;
     bool vfunc_5();
 };
 bool IFileDataReader::vfunc_5() {

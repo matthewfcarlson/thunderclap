@@ -1,10 +1,10 @@
 extern "C" void _ReadWriteBarrier();
-class IRef {
+class IRef_23a360 {
   public:
     virtual void f0();
     virtual void Release();
 };
-class Member {
+class Member_23a360 {
   public:
     void dtor();
     char x;
@@ -17,10 +17,10 @@ class QueuedNodeAction {
     QueuedNodeAction* vfunc_2(int flag);
     void baseCleanup();
     char pad1[0x18];
-    IRef* mA;
+    IRef_23a360* mA;
     char pad2[8];
-    IRef* mB;
-    Member mC;
+    IRef_23a360* mB;
+    Member_23a360 mC;
 };
 QueuedNodeAction* QueuedNodeAction::vfunc_2(int flag) {
     vptr = vft_428558;

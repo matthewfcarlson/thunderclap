@@ -3,7 +3,7 @@ extern "C" char DAT_0042b680[];
 extern "C" char DAT_0042b688[];
 extern "C" char DAT_0042b6b0[];
 extern "C" char DAT_004cdbb0[];
-extern int gValue;
+extern int gValue_2708e0;
 class ControllerBuffer {
   public:
     int vptr;

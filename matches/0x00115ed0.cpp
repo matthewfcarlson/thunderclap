@@ -1,8 +1,8 @@
-class A {
+class A_115ed0 {
   public:
     void* f();
 };
-class B {
+class B_115ed0 {
   public:
     void* g();
     void h(void*);
@@ -17,8 +17,8 @@ class MotionBoostAction {
 bool MotionBoostAction::vfunc_3(int, int) {
     if (!member)
         return false;
-    void* x = ((A*)member)->f();
-    x = ((B*)x)->g();
-    ((B*)x)->h((char*)this + 0x28);
+    void* x = ((A_115ed0*)member)->f();
+    x = ((B_115ed0*)x)->g();
+    ((B_115ed0*)x)->h((char*)this + 0x28);
     return true;
 }

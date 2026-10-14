@@ -3,7 +3,7 @@ extern "C" char DAT_0048e0f0[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e10c[];
 class CSPManager;
-class Target {
+class Target_1e0710 {
   public:
     char p00[0x10];
     unsigned char b10, b11, b12, b13;
@@ -11,11 +11,11 @@ class Target {
     unsigned char b18;
     char p19[3];
     CSPManager* mgr;
-    Target(const char*, CSPManager*);
+    Target_1e0710(const char*, CSPManager*);
 };
 extern void __stdcall FUN_001d0480(const char*, int);
 extern unsigned char FUN_001d04d0(const char*);
-Target::Target(const char* s, CSPManager* m) {
+Target_1e0710::Target_1e0710(const char* s, CSPManager* m) {
     FUN_001d0480(s, 4);
     *(int*)this = ((int)DAT_00423418);
     mgr = m;

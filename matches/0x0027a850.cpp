@@ -1,6 +1,6 @@
 typedef unsigned int size_t;
 extern "C" char* __cdecl strncpy(char*, const char*, size_t);
-extern int vftable;
+extern int vftable_27a850;
 class RDLObject {
   public:
     void init();
@@ -17,6 +17,6 @@ RDLObject::RDLObject(const char* p) {
     a = 0;
     b = 0;
     flag = 0;
-    vp = &vftable;
+    vp = &vftable_27a850;
     strncpy((char*)this + 0x18, p, 0x1f);
 }

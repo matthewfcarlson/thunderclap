@@ -1,4 +1,4 @@
-struct Part {
+struct Part_2319c0 {
     void run(void*);
 };
 class Branch {
@@ -13,7 +13,7 @@ class Branch {
 };
 class Node : public Branch {
     char pad[0x24];
-    Part part;
+    Part_2319c0 part;
 
   public:
     virtual void g();

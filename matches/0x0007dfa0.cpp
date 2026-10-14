@@ -1,5 +1,5 @@
 extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
-extern const char a[], b[], c[];
+extern const char a_7dfa0[], b[], c[];
 class Base_7dfa0 {
   public:
     Base_7dfa0(const char*, int);
@@ -24,7 +24,7 @@ class Closure_7dfa0 : public Method_7dfa0 {
 };
 inline Method_7dfa0::Method_7dfa0(const char* s, int v) : Base_7dfa0(s, 2) {
     arg = v;
-    z = FUN_001d04d0(a);
+    z = FUN_001d04d0(a_7dfa0);
     x = FUN_001d04d0(b);
     y = FUN_001d04d0(c);
 }

@@ -1,14 +1,14 @@
-class Local {
+class Local_232c40 {
   public:
     char data[8];
     void Init();
     void Finish();
 };
-class Helper {
+class Helper_232c40 {
   public:
-    void Do(Local*);
+    void Do(Local_232c40*);
 };
-class T {
+class T_232c40 {
   public:
     virtual void v0();
     virtual void v1();
@@ -17,15 +17,15 @@ class T {
     virtual void v4();
     virtual void v5();
     virtual void v6();
-    virtual bool Run(int, int, Local*);
-    char Target(int a, int b, Helper* h);
+    virtual bool Run(int, int, Local_232c40*);
+    char Target(int a, int b, Helper_232c40* h);
 };
-char T::Target(int a, int b, Helper* h) {
-    Local x;
+char T_232c40::Target(int a, int b, Helper_232c40* h) {
+    Local_232c40 x;
     x.Init();
     bool r = Run(a, b, &x);
     if (r)
-        ((Helper*)((char*)h + 8))->Do(&x);
+        ((Helper_232c40*)((char*)h + 8))->Do(&x);
     x.Finish();
     return r;
 }

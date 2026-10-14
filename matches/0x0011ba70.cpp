@@ -1,4 +1,4 @@
-class C {
+class C_11ba70 {
   public:
     char Set(int x);
 
@@ -7,7 +7,7 @@ class C {
     int m;
 };
 
-char C::Set(int x) {
+char C_11ba70::Set(int x) {
     m = x;
     return 1;
 }

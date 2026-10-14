@@ -1,4 +1,4 @@
-class Child {
+class Child_2960b0 {
   public:
     virtual void a0();
     virtual void a1();
@@ -34,7 +34,7 @@ class DrawableNode {
     char pad10[12];
     unsigned int field10;
     char pad18[4];
-    Child* child;
+    Child_2960b0* child;
 };
 void DrawableNode::vfunc_9() {
     field10 &= 1;

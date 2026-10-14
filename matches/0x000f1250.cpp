@@ -8,9 +8,9 @@ class FEParticleSystem {
     virtual void vfunc_3();
     virtual void vfunc_4();
     char pad[0x24];
-    struct Ref* ptr;
+    struct Ref_f1250* ptr;
 };
-class Ref {
+class Ref_f1250 {
   public:
     virtual void f0();
     virtual void Release();

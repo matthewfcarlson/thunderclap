@@ -4,11 +4,11 @@ class Condition {
   public:
     void init(int);
 };
-class Template {
+class Template_16d4f0 {
   public:
     char pad[0x14];
 };
-void* target(Template* self) {
+void* target(Template_16d4f0* self) {
     Condition* p = (Condition*)alloc(0x14);
     if (p) {
         p->init(0);

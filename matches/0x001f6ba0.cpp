@@ -1,16 +1,16 @@
-class Obj {
+class Obj_1f6ba0 {
   public:
     char pad[8];
     int field;
     void work();
 };
-class Owner {
+class Owner_1f6ba0 {
   public:
     char pad[0xc8];
-    Obj* member;
+    Obj_1f6ba0* member;
 };
-bool __fastcall run(Owner* self) {
-    Obj* p = self->member;
+bool __fastcall run(Owner_1f6ba0* self) {
+    Obj_1f6ba0* p = self->member;
     if (p && p->field) {
         p->work();
         return true;

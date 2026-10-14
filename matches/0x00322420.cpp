@@ -1,9 +1,9 @@
-struct Child {
+struct Child_322420 {
     void go();
 };
-struct Inner {
+struct Inner_322420 {
     char pad[0x208];
-    Child* child;
+    Child_322420* child;
 };
 class d3dExtVertexProgram {
   public:
@@ -16,7 +16,7 @@ class d3dExtVertexProgram {
     virtual void f6();
     virtual void f7();
     virtual void f8();
-    Inner* mInner;
+    Inner_322420* mInner;
 };
 void d3dExtVertexProgram::f1() {
     mInner->child->go();

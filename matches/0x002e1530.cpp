@@ -2,7 +2,7 @@ extern void* vD[];
 extern void* vB[];
 extern "C" void _ReadWriteBarrier();
 extern "C" void thunk_FUN_00267090(void*) throw();
-struct Ref {
+struct Ref_2e1530 {
     virtual void a() throw();
     virtual void release() throw();
 };
@@ -10,9 +10,9 @@ class D {
   public:
     void* vptr;
     char pad[0x3c];
-    Ref* r40;
+    Ref_2e1530* r40;
     char pad2[0x5c - 0x44];
-    Ref* r5c;
+    Ref_2e1530* r5c;
     D* vfunc_2(unsigned char f) throw();
     void Fini() throw();
 };

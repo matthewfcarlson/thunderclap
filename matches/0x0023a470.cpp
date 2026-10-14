@@ -1,9 +1,9 @@
-typedef unsigned char u8;
-struct Source {
+typedef unsigned char u8_23a470;
+struct Source_23a470 {
     virtual void a0();
     virtual void a1();
     virtual void a2();
-    virtual void read(u8*, int, int);
+    virtual void read(u8_23a470*, int, int);
     virtual void a4();
     virtual void a5();
     virtual void a6();
@@ -25,12 +25,12 @@ struct Source {
 };
 struct IFileStringReader {
     char pad[8];
-    Source* source;
-    u8 value;
-    u8 loaded;
-    u8 vfunc_4();
+    Source_23a470* source;
+    u8_23a470 value;
+    u8_23a470 loaded;
+    u8_23a470 vfunc_4();
 };
-u8 IFileStringReader::vfunc_4() {
+u8_23a470 IFileStringReader::vfunc_4() {
     if (loaded)
         return value;
     value = 0;

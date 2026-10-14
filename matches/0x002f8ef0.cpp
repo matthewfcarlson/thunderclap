@@ -1,9 +1,9 @@
-struct X {
+struct X_2f8ef0 {
     unsigned int a, b, c, d;
     unsigned char e;
-    X* Init(unsigned int, unsigned int);
+    X_2f8ef0* Init(unsigned int, unsigned int);
 };
-X* X::Init(unsigned int p, unsigned int q) {
+X_2f8ef0* X_2f8ef0::Init(unsigned int p, unsigned int q) {
     a = p;
     b = q;
     c = 0;

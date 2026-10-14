@@ -1,18 +1,18 @@
-class Ref {
+class Ref_305320 {
   public:
     virtual void f0();
     virtual void f1();
 };
 extern int collisionVtable;
-class H38 {
+class H38_305320 {
   public:
     void run38();
 };
-class H10 {
+class H10_305320 {
   public:
     void run10();
 };
-class H0 {
+class H0_305320 {
   public:
     void run0();
 };
@@ -37,14 +37,14 @@ void __cdecl freeB(void*);
 CollisionObject* CollisionObject::vfunc_2(unsigned char p) {
     *(int*)this = (int)&collisionVtable;
     if (field20) {
-        Ref* r = *(Ref**)&field20;
+        Ref_305320* r = *(Ref_305320**)&field20;
         r->f1();
     }
-    ((H38*)((char*)this + 0x38))->run38();
+    ((H38_305320*)((char*)this + 0x38))->run38();
     if (field30)
         freeA((char*)field30 - 4);
-    ((H10*)((char*)this + 0x10))->run10();
-    ((H0*)this)->run0();
+    ((H10_305320*)((char*)this + 0x10))->run10();
+    ((H0_305320*)this)->run0();
     if (p & 1)
         freeB(this);
     return this;

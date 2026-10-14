@@ -1,10 +1,10 @@
-extern void* vftable;
-class Base {
+extern void* vftable_2fe210;
+class Base_2fe210 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class WorldCollisionObject : public Base {
+class WorldCollisionObject : public Base_2fe210 {
   public:
     virtual WorldCollisionObject* f2(unsigned char);
     char pad[12];
@@ -13,9 +13,9 @@ class WorldCollisionObject : public Base {
 };
 void __cdecl thunk(WorldCollisionObject*);
 WorldCollisionObject* WorldCollisionObject::f2(unsigned char flag) {
-    *(void**)this = &vftable;
+    *(void**)this = &vftable_2fe210;
     if (member10)
-        ((Base*)member10)->f1();
+        ((Base_2fe210*)member10)->f1();
     helper();
     if (flag & 1)
         thunk(this);

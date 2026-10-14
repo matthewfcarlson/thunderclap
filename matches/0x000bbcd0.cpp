@@ -1,21 +1,21 @@
-class Sub {
+class Sub_bbcd0 {
   public:
     void Fn(int a);
 };
-class Mgr {
+class Mgr_bbcd0 {
   public:
     char pad[0x3c];
-    Sub* sub;
+    Sub_bbcd0* sub;
     void Fn(int a);
 };
-class Obj {
+class Obj_bbcd0 {
   public:
     char pad[4];
-    Mgr* mgr;
+    Mgr_bbcd0* mgr;
     void Fn(int a);
 };
-void Obj::Fn(int a) {
-    Mgr* m = mgr;
+void Obj_bbcd0::Fn(int a) {
+    Mgr_bbcd0* m = mgr;
     if (m->sub)
         m->sub->Fn(a);
 }

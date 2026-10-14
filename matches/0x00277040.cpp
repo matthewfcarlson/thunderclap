@@ -5,7 +5,7 @@ class InstanceDrive {
     void* member;
     void vfunc_40();
 };
-class Inner {
+class Inner_277040 {
   public:
     virtual void f0();
     virtual void f1();
@@ -15,5 +15,5 @@ class Inner {
     virtual void f5();
 };
 void InstanceDrive::vfunc_40() {
-    ((Inner*)member)->f5();
+    ((Inner_277040*)member)->f5();
 }

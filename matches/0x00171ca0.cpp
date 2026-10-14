@@ -1,11 +1,11 @@
-struct Vec {
+struct Vec_171ca0 {
     int x, y, z;
 };
 class Obj_171ca0 {
   public:
     Obj_171ca0* get();
     Obj_171ca0* next();
-    void set(Vec*);
+    void set(Vec_171ca0*);
 };
 class TeleportAction {
   public:
@@ -24,7 +24,7 @@ char TeleportAction::vfunc_5(int a, int b) {
         if (!obj)
             return 0;
         Obj_171ca0* p = obj->get()->next();
-        Vec v = *(Vec*)(src + 0x10);
+        Vec_171ca0 v = *(Vec_171ca0*)(src + 0x10);
         p->set(&v);
     }
     return 1;

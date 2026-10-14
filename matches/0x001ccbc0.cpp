@@ -1,25 +1,25 @@
-struct C {
+struct C_1ccbc0 {
     char pad[0x54];
     int check();
 };
-struct B {
+struct B_1ccbc0 {
     int x;
     void* p;
 };
-struct A {
+struct A_1ccbc0 {
     char pad[0x3c];
-    B* b;
+    B_1ccbc0* b;
     char pad2[0x14];
-    C* c;
+    C_1ccbc0* c;
 };
-struct Obj {
+struct Obj_1ccbc0 {
     char pad[4];
-    A* a;
+    A_1ccbc0* a;
     int get();
 };
-int Obj::get() {
+int Obj_1ccbc0::get() {
     if (this->a && this->a->c && this->a->c->check()) {
-        A* q = this->a;
+        A_1ccbc0* q = this->a;
         if (q->b) {
             void* p = q->b->p;
             if (p)

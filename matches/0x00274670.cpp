@@ -1,4 +1,4 @@
-class Service {
+class Service_274670 {
   public:
     virtual void a0();
     virtual void a1();
@@ -17,32 +17,32 @@ class Service {
     virtual void a14();
     virtual int a15(int*);
 };
-class Helper {
+class Helper_274670 {
   public:
     int Run();
 };
-struct Manager {
+struct Manager_274670 {
     virtual void Reset();
     virtual void Finish();
 };
-struct Data {
+struct Data_274670 {
     char pad[4];
-    Manager manager;
+    Manager_274670 manager;
     char pad2[4];
-    Service* service;
+    Service_274670* service;
     char pad3[8];
     int stored;
 };
 class core_DriveCreateDirectoryRequest {
   public:
     char pad[8];
-    Data* base;
+    Data_274670* base;
     int vfunc_1();
 };
 int core_DriveCreateDirectoryRequest::vfunc_1() {
-    Service* svc = base->service;
+    Service_274670* svc = base->service;
     int value = svc->a15((int*)((char*)this + 12));
-    int result = ((Helper*)svc)->Run();
+    int result = ((Helper_274670*)svc)->Run();
     base->manager.Reset();
     base->stored = result;
     base->manager.Finish();

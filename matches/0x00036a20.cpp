@@ -1,29 +1,29 @@
-struct Temp {
+struct Temp_36a20 {
     char data[16];
     bool Test();
 };
-struct Obj {
+struct Obj_36a20 {
     char pad[0x1d78];
     unsigned char flag;
     unsigned char result;
-    void Make(Temp* t);
+    void Make(Temp_36a20* t);
 };
-struct Global {
+struct Global_36a20 {
     char pad[0x20];
     int x;
 };
-extern Global* gGlobal;
-bool __stdcall CheckGlobal(Obj* o);
-Temp* __stdcall Convert(Temp* t);
+extern Global_36a20* gGlobal_36a20;
+bool __stdcall CheckGlobal(Obj_36a20* o);
+Temp_36a20* __stdcall Convert(Temp_36a20* t);
 
-void __fastcall Target(Obj* self) {
-    Temp temp;
+void __fastcall Target(Obj_36a20* self) {
+    Temp_36a20 temp;
     if (self->flag == 1)
         goto clear;
-    if (gGlobal->x != 0 && CheckGlobal(self))
+    if (gGlobal_36a20->x != 0 && CheckGlobal(self))
         goto clear;
     self->Make(&temp);
-    Temp* p = Convert(&temp);
+    Temp_36a20* p = Convert(&temp);
     self->result = p->Test() ? 0 : 1;
     return;
 clear:

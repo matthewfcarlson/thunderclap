@@ -1,11 +1,11 @@
-struct Obj {
+struct Obj_2211e0 {
     char pad[12];
     int a;
     int b;
 };
-void FUN_00221190(void*, Obj*);
-void FUN_00220d90(void*, Obj*);
-void FUN_002211e0(void* p, Obj* q) {
+void FUN_00221190(void*, Obj_2211e0*);
+void FUN_00220d90(void*, Obj_2211e0*);
+void FUN_002211e0(void* p, Obj_2211e0* q) {
     if (q->a != q->b)
         FUN_00221190(p, q);
     else

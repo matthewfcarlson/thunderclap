@@ -1,4 +1,4 @@
-struct R {
+struct R_e1cd0 {
     virtual void a0();
     virtual void a1();
     virtual void a2();
@@ -15,9 +15,9 @@ struct R {
     virtual void a13();
     virtual void go(void*);
 };
-struct Q {
+struct Q_e1cd0 {
     char pad[4];
-    R* r;
+    R_e1cd0* r;
 };
 class FEDoScreen {
   public:
@@ -27,7 +27,7 @@ class FEDoScreen {
     virtual void v3();
     virtual void v4();
     char pad[0x10 - 4];
-    Q* q;
+    Q_e1cd0* q;
     char pad2[0x34 - 0x14];
     char buf[1];
 };

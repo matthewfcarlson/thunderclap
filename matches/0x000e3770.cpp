@@ -1,4 +1,4 @@
-struct Obj {
+struct Obj_e3770 {
     char pad0[0x40];
     char pad40[4];
     unsigned int c;
@@ -6,16 +6,16 @@ struct Obj {
     char pad49[3];
     unsigned int d;
 };
-struct Owner {
+struct Owner_e3770 {
     char pad0[0x4c];
     unsigned int value4c;
     char pad50[0xf8];
     unsigned int value148;
     char pad14c[0x1d88 - 0x14c];
-    Obj* volatile item;
-    void Set(Obj*);
+    Obj_e3770* volatile item;
+    void Set(Obj_e3770*);
 };
-void Owner::Set(Obj* p) {
+void Owner_e3770::Set(Obj_e3770* p) {
     item = p;
     if (p) {
         ((unsigned char*)p)[0x40] = 1;

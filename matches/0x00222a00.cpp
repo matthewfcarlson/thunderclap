@@ -15,25 +15,25 @@ class EntryOwner {
     virtual void f12();
     virtual int f13();
 };
-struct Item {
+struct Item_222a00 {
     char pad[4];
     float value;
     unsigned char enabled;
 };
-extern const float zero;
-class Container {
+extern const float zero_222a00;
+class Container_222a00 {
   public:
     char pad[0x68];
     unsigned count;
-    Item entries[1];
+    Item_222a00 entries[1];
     unsigned char Check(EntryOwner* item);
 };
-unsigned char Container::Check(EntryOwner* item) {
+unsigned char Container_222a00::Check(EntryOwner* item) {
     unsigned i = 0;
     while (i < count) {
-        Item* e = (Item*)((char*)this + 0x6c + i * 0x28);
+        Item_222a00* e = (Item_222a00*)((char*)this + 0x6c + i * 0x28);
         if (*(EntryOwner**)e == item) {
-            if (!(e->value < zero) || e->enabled)
+            if (!(e->value < zero_222a00) || e->enabled)
                 return (unsigned char)item->f13();
             break;
         }

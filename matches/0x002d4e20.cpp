@@ -1,5 +1,5 @@
 namespace pure3d {
-class Ref {
+class Ref_2d4e20 {
   public:
     virtual void AddRef();
     virtual void Release();
@@ -7,10 +7,10 @@ class Ref {
 class ParticleEmitter {
   public:
     char pad[0x90];
-    Ref* mRef;
-    void vfunc_31(Ref*);
+    Ref_2d4e20* mRef;
+    void vfunc_31(Ref_2d4e20*);
 };
-void ParticleEmitter::vfunc_31(Ref* p) {
+void ParticleEmitter::vfunc_31(Ref_2d4e20* p) {
     if (p != mRef) {
         if (p)
             p->AddRef();

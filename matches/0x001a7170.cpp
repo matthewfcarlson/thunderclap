@@ -1,11 +1,11 @@
 void* operator new(unsigned int) throw();
-class Base {
+class Base_1a7170 {
   public:
-    Base(const char*) throw();
+    Base_1a7170(const char*) throw();
     virtual void v0();
     char pad[0xc];
 };
-class EnumList : public Base {
+class EnumList : public Base_1a7170 {
   public:
     EnumList(const char*) throw();
     virtual void v0();
@@ -14,20 +14,20 @@ class EnumList : public Base {
     void* fn;
     int pad2;
 };
-extern char gTable[];
+extern char gTable_1a7170[];
 extern char gFunc[];
 extern void __cdecl Register(void*, void**, int) throw();
-extern char gList[];
+extern char gList_1a7170[];
 extern int gRef;
-EnumList::EnumList(const char* n) throw() : Base(n) {
-    tbl = gTable;
+EnumList::EnumList(const char* n) throw() : Base_1a7170(n) {
+    tbl = gTable_1a7170;
     count = 8;
     fn = gFunc;
 }
 void target() {
     if (!gRef) {
         EnumList* p = new EnumList("stateDesc");
-        Register(gList, (void**)&p, 1);
+        Register(gList_1a7170, (void**)&p, 1);
     }
     ++gRef;
 }

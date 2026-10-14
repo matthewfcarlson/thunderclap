@@ -1,15 +1,15 @@
-class Item {
+class Item_1b7620 {
   public:
     virtual void Add();
     virtual void Release();
 };
-class Holder {
+class Holder_1b7620 {
   public:
-    Item* mItem;
-    Item* Set(Item* item);
+    Item_1b7620* mItem;
+    Item_1b7620* Set(Item_1b7620* item);
 };
-Item* Holder::Set(Item* item) {
-    Item* old = mItem;
+Item_1b7620* Holder_1b7620::Set(Item_1b7620* item) {
+    Item_1b7620* old = mItem;
     if (old != item) {
         mItem = item;
         if (item)

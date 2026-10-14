@@ -1,10 +1,10 @@
-typedef int(__cdecl* CompareFn)(void*, void*);
-class List {
+typedef int(__cdecl* CompareFn_230ba0)(void*, void*);
+class List_230ba0 {
   public:
     void* head;
-    void* Find(CompareFn fn, void* key);
+    void* Find(CompareFn_230ba0 fn, void* key);
 };
-void* List::Find(CompareFn fn, void* key) {
+void* List_230ba0::Find(CompareFn_230ba0 fn, void* key) {
     void* p = head;
     void* end = (char*)this + 4;
     while (p != end) {

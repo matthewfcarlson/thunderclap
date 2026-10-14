@@ -2,7 +2,7 @@ class type_info {
   public:
     virtual ~type_info();
 };
-extern int g_vftable;
+extern int g_vftable_9b770;
 extern void __stdcall FUN_001d0480(void*, int);
 extern unsigned char __cdecl FUN_001d04d0(const type_info&);
 class CCameraManager {
@@ -17,7 +17,7 @@ class CCameraManager {
 };
 CCameraManager::CCameraManager(void* x, int y) {
     FUN_001d0480(x, 5);
-    *(void**)this = &g_vftable;
+    *(void**)this = &g_vftable_9b770;
     n = y;
     f = FUN_001d04d0(typeid(bool));
     a = FUN_001d04d0(typeid(float));

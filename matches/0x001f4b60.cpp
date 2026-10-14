@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1f4b60 {
   public:
     char pad[8];
     int a;
@@ -10,7 +10,7 @@ class Obj {
     void second(int, int);
 };
 extern int f2(int, int);
-Obj* __fastcall target(Obj* self, void*) {
+Obj_1f4b60* __fastcall target(Obj_1f4b60* self, void*) {
     self->first();
     self->second(0, 0);
     self->a = 0;

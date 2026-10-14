@@ -1,9 +1,9 @@
-class FEThing {
+class FEThing_e8c20 {
   public:
     int x;
     void* m;
 };
-class Target {
+class Target_e8c20 {
   public:
     void go();
 };
@@ -18,10 +18,10 @@ class FEDoAction {
 class FEDoPopDialog : public FEDoAction {
   public:
     char pad[0x10 - sizeof(FEDoAction)];
-    FEThing* mThing;
+    FEThing_e8c20* mThing;
     virtual void vfunc_0();
     virtual void vfunc_1();
 };
 void FEDoPopDialog::vfunc_1() {
-    ((Target*)mThing->m)->go();
+    ((Target_e8c20*)mThing->m)->go();
 }

@@ -1,20 +1,20 @@
-extern void* g_vftable[];
+extern void* g_vftable_af110[];
 extern "C" void* memset(void*, int, unsigned int);
-class Arg {
+class Arg_af110 {
   public:
     virtual void V0();
 };
-class Ctl {
+class Ctl_af110 {
   public:
     void* vptr;
-    Ctl* m4;
-    Arg* m8;
+    Ctl_af110* m4;
+    Arg_af110* m8;
     int arr[0x29];
-    Ctl* ctor(Arg* a);
+    Ctl_af110* ctor(Arg_af110* a);
 };
-Ctl* Ctl::ctor(Arg* a) {
+Ctl_af110* Ctl_af110::ctor(Arg_af110* a) {
     m4 = 0;
-    vptr = g_vftable;
+    vptr = g_vftable_af110;
     m8 = a;
     a->V0();
     memset(arr, 0, 0xa4);

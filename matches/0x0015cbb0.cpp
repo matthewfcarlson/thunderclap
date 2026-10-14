@@ -1,25 +1,25 @@
-struct A {
+struct A_15cbb0 {
     void* x;
     void* GetThing();
 };
-struct B {
+struct B_15cbb0 {
     void* GetNext();
 };
-struct C {
+struct C_15cbb0 {
     void DoThing(int);
 };
 class LocomotingAction {
   public:
     char pad[0x1c];
-    A* member;
+    A_15cbb0* member;
     void vfunc_4();
 };
 void LocomotingAction::vfunc_4() {
-    A* p = member;
+    A_15cbb0* p = member;
     if (p) {
-        B* q = (B*)p->GetThing();
+        B_15cbb0* q = (B_15cbb0*)p->GetThing();
         if (q) {
-            C* r = (C*)q->GetNext();
+            C_15cbb0* r = (C_15cbb0*)q->GetNext();
             if (r)
                 r->DoThing(0);
         }

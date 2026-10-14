@@ -1,13 +1,13 @@
-struct Src {
+struct Src_3386a0 {
     virtual void a();
     virtual void b();
     virtual void c();
     virtual int Read(char*, int);
     virtual bool More();
 };
-struct Rd {
+struct Rd_3386a0 {
     int pad0;
-    Src* src;
+    Src_3386a0* src;
     int size;
     int pos;
     int len;
@@ -15,7 +15,7 @@ struct Rd {
     char* buf;
     bool Get(char* out);
 };
-bool Rd::Get(char* out) {
+bool Rd_3386a0::Get(char* out) {
     if (pos < len) {
         *out = buf[pos];
         pos++;

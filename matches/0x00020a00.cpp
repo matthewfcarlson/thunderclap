@@ -1,8 +1,8 @@
-class A {
+class A_20a00 {
   public:
     void* get();
 };
-class B {
+class B_20a00 {
   public:
     void* next();
 };
@@ -10,7 +10,7 @@ class D {
   public:
     void act(void*, int);
 };
-class Obj {
+class Obj_20a00 {
   public:
     virtual void f0();
     virtual void f1();
@@ -27,14 +27,14 @@ class CHeadTrackerAction {
     virtual void v7();
     virtual void v8();
     char pad[0x1c - 4];
-    A* m1c;
+    A_20a00* m1c;
     char pad20[4];
     void* m24;
     char pad28[0x88 - 0x28];
-    Obj* m88;
+    Obj_20a00* m88;
 };
 void CHeadTrackerAction::vfunc_4() {
-    B* b = (B*)m1c->get();
+    B_20a00* b = (B_20a00*)m1c->get();
     void* y = b->next();
     if (y) {
         ((D*)y)->act(m24, 0);

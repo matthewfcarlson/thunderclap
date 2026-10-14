@@ -1,4 +1,4 @@
-extern const float gZero;
+extern const float gZero_10d7d0;
 class Action {
   public:
     virtual void v0();
@@ -13,11 +13,11 @@ class Action {
     int m14;
     int m18;
 };
-class State {
+class State_10d7d0 {
   public:
     char pad[4];
 };
-class Manager {
+class Manager_10d7d0 {
   public:
     void* First();
     char* Second();
@@ -32,14 +32,14 @@ class ButtonAction {
     virtual void v5();
     char pad04[0x18];
     Action* action;
-    State* state;
+    State_10d7d0* state;
 };
 void ButtonAction::vfunc_4() {
     if (state && (action->m18 == 2 || action->m18 == 1)) {
         float f = action->Get();
-        if (f < gZero || f > gZero) {
-            Manager* m = (Manager*)state;
-            char* v = ((Manager*)m->First())->Second() + 0x1f58;
+        if (f < gZero_10d7d0 || f > gZero_10d7d0) {
+            Manager_10d7d0* m = (Manager_10d7d0*)state;
+            char* v = ((Manager_10d7d0*)m->First())->Second() + 0x1f58;
             *(int*)(v + action->m14 * 12) = 0;
         }
     }

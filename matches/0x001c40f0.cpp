@@ -1,15 +1,15 @@
 // Same code shape as 0x001c3d20 (propagated; names are from that function)
-class A {
+class A_1c40f0 {
   public:
     virtual void f();
     virtual void g();
 };
-class B {
+class B_1c40f0 {
   public:
-    A* p;
+    A_1c40f0* p;
     void run();
 };
-void B::run() {
+void B_1c40f0::run() {
     if (p)
         p->g();
     p = 0;

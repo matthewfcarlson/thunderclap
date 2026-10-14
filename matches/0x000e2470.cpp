@@ -6,7 +6,7 @@ class FELayout {
     virtual void f3();
     virtual void f4();
 };
-class Child {
+class Child_e2470 {
   public:
     virtual void f0();
     virtual void f1();
@@ -23,7 +23,7 @@ class Child {
 class VScroll : public FELayout {
   public:
     char pad[0x244 - sizeof(FELayout)];
-    Child* child;
+    Child_e2470* child;
     bool vfunc_5(int a, int b);
 };
 bool VScroll::vfunc_5(int a, int b) {

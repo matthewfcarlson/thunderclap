@@ -1,4 +1,4 @@
-struct Config {
+struct Config_2923b0 {
     int a;
     int b;
     int c;
@@ -9,7 +9,7 @@ struct Config {
     int g;
     void Init();
 };
-Config* __fastcall FUN_002923b0(Config* p) {
+Config_2923b0* __fastcall FUN_002923b0(Config_2923b0* p) {
     p->Init();
     p->a = 0x280;
     p->b = 0x1e0;

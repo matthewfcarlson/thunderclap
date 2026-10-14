@@ -1,4 +1,4 @@
-class C {
+class C_1048d0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -14,7 +14,7 @@ class C {
     int value;
     void set(int x);
 };
-void C::set(int x) {
+void C_1048d0::set(int x) {
     if (value != x) {
         f9();
         value = x;

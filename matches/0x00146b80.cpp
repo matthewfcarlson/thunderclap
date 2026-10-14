@@ -1,13 +1,13 @@
-class X {
+class X_146b80 {
   public:
     bool Set(float v);
     char pad[0x34];
     float angle;
 };
 
-const float kScale = 0.3f;
+const float kScale_146b80 = 0.3f;
 
-bool X::Set(float v) {
-    angle = v * kScale;
+bool X_146b80::Set(float v) {
+    angle = v * kScale_146b80;
     return true;
 }

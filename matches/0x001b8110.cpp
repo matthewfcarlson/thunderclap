@@ -1,6 +1,6 @@
 extern "C" int __cdecl GetValue();
-extern "C" unsigned char gFlag;
-class Sub {
+extern "C" unsigned char gFlag_1b8110;
+class Sub_1b8110 {
   public:
     virtual void v0();
     virtual void v1();
@@ -14,26 +14,26 @@ class Sub {
     virtual void v9();
     virtual void v10(int);
 };
-class Obj {
+class Obj_1b8110 {
   public:
     char pad0[4];
     int value;
     char pad8;
     unsigned char active;
     char padA[2];
-    Sub* sub;
+    Sub_1b8110* sub;
     char pad10[0x120];
     unsigned char pending;
     char pad131[3];
     int arg;
     void target(int);
 };
-void Obj::target(int x) {
+void Obj_1b8110::target(int x) {
     if (sub) {
         active = 0;
         sub->v8();
         value = GetValue() + x;
-        gFlag = 1;
+        gFlag_1b8110 = 1;
         if (pending && sub) {
             sub->v10(arg);
             pending = 0;

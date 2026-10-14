@@ -3,18 +3,18 @@ class V {
     virtual void f0();
     virtual void f1();
 };
-class Pad {
+class Pad_277390 {
   public:
     virtual void z();
 };
-class Q : public Pad, public V {};
-class P {
+class Q_277390 : public Pad_277390, public V {};
+class P_277390 {
   public:
     virtual void x0();
     virtual void x1();
     char pad[8];
-    Q* p;
+    Q_277390* p;
 };
-void P::x1() {
+void P_277390::x1() {
     p->f1();
 }

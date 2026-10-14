@@ -1,19 +1,19 @@
-class Item {
+class Item_f7ce0 {
   public:
     virtual void a();
     virtual void Release();
 };
-class Obj {
+class Obj_f7ce0 {
   public:
     char pad[0x24];
-    Item* items[25];
+    Item_f7ce0* items[25];
     int count;
     void Clear();
 };
-void Obj::Clear() {
+void Obj_f7ce0::Clear() {
     int i = 0;
     if (count > 0) {
-        Item** p = items;
+        Item_f7ce0** p = items;
         do {
             if (*p) {
                 (*p)->Release();

@@ -1,5 +1,5 @@
 extern "C" char DAT_003f335c[];
-class C {
+class C_b0970 {
   public:
     struct E {
         int count;
@@ -9,7 +9,7 @@ class C {
     E entries[6];
     void* f(int x, int y, int z);
 };
-void* C::f(int x, int y, int z) {
+void* C_b0970::f(int x, int y, int z) {
     if (x < 0 || x >= 2)
         return (void*)((int)DAT_003f335c);
     if (y < 0 || y >= 2)

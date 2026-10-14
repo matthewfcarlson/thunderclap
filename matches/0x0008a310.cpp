@@ -1,4 +1,4 @@
-class C {
+class C_8a310 {
     char pad[0xd0];
     int a;
     int b;
@@ -6,7 +6,7 @@ class C {
   public:
     int* F();
 };
-int* C::F() {
+int* C_8a310::F() {
     if (a == -1)
         return 0;
     if (b == -1)

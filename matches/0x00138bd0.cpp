@@ -1,9 +1,9 @@
-class Result {
+class Result_138bd0 {
   public:
     int build(int, int);
 };
 extern int __cdecl Lookup(int);
-extern Result* __cdecl Alloc(int);
+extern Result_138bd0* __cdecl Alloc(int);
 class GrappleHoverTrack {
   public:
     virtual void f0();
@@ -23,7 +23,7 @@ class GrappleHoverTrack {
 int GrappleHoverTrack::vfunc_10(int a, int b, int c) {
     int x = Lookup(c);
     if (x) {
-        Result* p = Alloc(0x24);
+        Result_138bd0* p = Alloc(0x24);
         if (p) {
             int f = field14;
             return p->build(f, x);

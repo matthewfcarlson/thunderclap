@@ -16,15 +16,15 @@ class V {
     virtual void f13();
     virtual void f14(void*);
 };
-class W : public V {
+class W_30e7d0 : public V {
   public:
     char pad[0x38 - sizeof(V)];
     int x38, x3c, x40, x44;
     int x48, x4c, x50;
     virtual void w13();
-    virtual void vfunc_14(W*);
+    virtual void vfunc_14(W_30e7d0*);
 };
-void W::vfunc_14(W* out) {
+void W_30e7d0::vfunc_14(W_30e7d0* out) {
     V::f14(out);
     int* a = this->q();
     int* b = out->q();

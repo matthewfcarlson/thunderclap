@@ -1,11 +1,11 @@
-class X {
+class X_14cf60 {
   public:
     char Set(char v);
     char Pad[0x16];
     char m16;
 };
 
-char X::Set(char v) {
+char X_14cf60::Set(char v) {
     m16 = v;
     return 1;
 }

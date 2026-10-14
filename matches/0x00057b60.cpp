@@ -11,10 +11,10 @@ struct CCollisionPushbackYCondition {
     int a;
     int b;
 };
-struct Initializer {
+struct Initializer_57b60 {
     void init(int);
 };
-struct Factory {
+struct Factory_57b60 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -22,10 +22,10 @@ struct Factory {
     virtual void f4();
     virtual CCollisionPushbackYCondition* vfunc_5();
 };
-CCollisionPushbackYCondition* Factory::vfunc_5() {
+CCollisionPushbackYCondition* Factory_57b60::vfunc_5() {
     CCollisionPushbackYCondition* p = (CCollisionPushbackYCondition*)Allocate(0x14);
     if (p) {
-        ((Initializer*)p)->init(0);
+        ((Initializer_57b60*)p)->init(0);
         *(unsigned int*)p = ((int)DAT_003f70a0);
         p->a = 3;
         p->b = 0;

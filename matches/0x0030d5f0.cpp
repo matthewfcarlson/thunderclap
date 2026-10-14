@@ -1,14 +1,14 @@
-struct Trio {
+struct Trio_30d5f0 {
     int a, b, c;
-    Trio() throw() {
+    Trio_30d5f0() throw() {
         a = 0;
         b = 0;
         c = 0;
     }
 };
-struct Sub {
+struct Sub_30d5f0 {
     char pad[0x1c];
-    Sub() throw();
+    Sub_30d5f0() throw();
 };
 void* operator new(unsigned) throw();
 
@@ -45,10 +45,10 @@ class PhysicsJoint {
     virtual void vf28(PhysicsJoint*);
     PhysicsJoint() throw() {}
     char pad1[0x1c];
-    Trio t;
+    Trio_30d5f0 t;
     char pad2[0x1c];
-    Sub s48;
-    Sub s64;
+    Sub_30d5f0 s48;
+    Sub_30d5f0 s64;
     char pad3[0x120 - 0x80];
 };
 

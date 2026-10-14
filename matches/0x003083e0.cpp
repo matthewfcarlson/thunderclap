@@ -1,16 +1,16 @@
-struct Item {
+struct Item_3083e0 {
     char data[8];
 };
-struct Container {
+struct Container_3083e0 {
     int count;
     int capacity;
-    Item* items;
+    Item_3083e0* items;
     void grow(int);
-    Item* add();
+    Item_3083e0* add();
 };
-Item* Container::add() {
+Item_3083e0* Container_3083e0::add() {
     if (count >= capacity)
         grow(capacity * 2);
     ++count;
-    return (Item*)((char*)items + count * 8 - 8);
+    return (Item_3083e0*)((char*)items + count * 8 - 8);
 }

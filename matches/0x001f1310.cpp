@@ -1,23 +1,23 @@
-class B {
+class B_1f1310 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2(int);
 };
-class Aux {
+class Aux_1f1310 {
   public:
     void f();
 };
 extern void done(void*);
-class C {
+class C_1f1310 {
   public:
     void* a;
-    B* b;
+    B_1f1310* b;
 };
-void __fastcall target(C* self) {
+void __fastcall target(C_1f1310* self) {
     void* p = self->a;
     if (p) {
-        ((Aux*)((char*)p + 0xa0))->f();
+        ((Aux_1f1310*)((char*)p + 0xa0))->f();
         done(p);
         self->a = 0;
     }

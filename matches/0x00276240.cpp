@@ -1,5 +1,5 @@
 namespace core {
-class X {
+class X_276240 {
   public:
     virtual void a();
     virtual void b();
@@ -41,7 +41,7 @@ class File {
     virtual void f30();
     virtual void f31();
     char pad[8];
-    X* mX;
+    X_276240* mX;
 };
 } // namespace core
 extern void FUN_0026d6d0(int);

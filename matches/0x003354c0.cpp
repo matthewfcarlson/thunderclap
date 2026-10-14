@@ -1,21 +1,21 @@
-typedef unsigned int u32;
-struct Item {
+typedef unsigned int u32_3354c0;
+struct Item_3354c0 {
     char pad[8];
     volatile int kind;
 };
-struct Info {
+struct Info_3354c0 {
     char pad[0x44];
     int count;
-    Item* Find(int);
+    Item_3354c0* Find(int);
 };
-class C {
+class C_3354c0 {
   public:
     char pad0[4];
-    Info* info;
-    u32* values;
-    bool Get(int index, u32* out);
+    Info_3354c0* info;
+    u32_3354c0* values;
+    bool Get(int index, u32_3354c0* out);
 };
-bool C::Get(int index, u32* out) {
+bool C_3354c0::Get(int index, u32_3354c0* out) {
     if (index < 0)
         return false;
     if (index >= info->count)

@@ -1,19 +1,19 @@
-class Item {
+class Item_1c5fb0 {
   public:
     char pad[8];
 };
-class Checker {
+class Checker_1c5fb0 {
   public:
     bool test(void*);
 };
-class Owner {
+class Owner_1c5fb0 {
   public:
     char pad0[4];
-    Item** items;
+    Item_1c5fb0** items;
     unsigned int count;
-    int Find(Checker*);
+    int Find(Checker_1c5fb0*);
 };
-int Owner::Find(Checker* arg) {
+int Owner_1c5fb0::Find(Checker_1c5fb0* arg) {
     unsigned int i = 0;
     if (count > 0) {
         do {

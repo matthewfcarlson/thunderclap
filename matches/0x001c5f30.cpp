@@ -1,4 +1,4 @@
-class Thing {
+class Thing_1c5f30 {
   public:
     int pad0;
     unsigned int* data;
@@ -8,7 +8,7 @@ class Thing {
 };
 extern "C" void* Alloc(unsigned int);
 extern "C" void Free(void*);
-void Thing::Add(unsigned int value) {
+void Thing_1c5f30::Add(unsigned int value) {
     unsigned int* p;
     unsigned int n;
     if (count >= capacity) {

@@ -1,20 +1,20 @@
 extern "C" char DAT_00431968[];
-class Ref {
+class Ref_2fe1f0 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class Base {
+class Base_2fe1f0 {
   public:
     void finish();
 };
-class Obj : public Base {
+class Obj_2fe1f0 : public Base_2fe1f0 {
   public:
     char pad[16];
-    Ref* member;
+    Ref_2fe1f0* member;
     void run();
 };
-void Obj::run() {
+void Obj_2fe1f0::run() {
     *(void**)this = (void*)((int)DAT_00431968);
     if (member)
         member->f1();

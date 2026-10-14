@@ -1,11 +1,11 @@
 extern "C" void* memcpy(void*, const void*, unsigned int);
-class Thing {
+class Thing_e3ac0 {
   public:
     char pad[0x118];
-    void Init(Thing*);
-    void Copy(Thing*);
+    void Init(Thing_e3ac0*);
+    void Copy(Thing_e3ac0*);
 };
-void Thing::Copy(Thing* other) {
+void Thing_e3ac0::Copy(Thing_e3ac0* other) {
     Init(other);
     memcpy((char*)this + 0x118, (char*)other + 0x118, 0x28);
     *(unsigned int*)((char*)this + 0x15c) = *(unsigned int*)((char*)other + 0x15c);

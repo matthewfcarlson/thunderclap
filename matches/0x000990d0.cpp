@@ -1,5 +1,5 @@
 extern void* __cdecl thunk_FUN_0008d690(unsigned int);
-struct Resource {
+struct Resource_990d0 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -29,21 +29,21 @@ struct Resource {
     virtual void slot26();
     virtual void slot27();
     virtual void slot28();
-    Resource* FUN_000ac3c0();
+    Resource_990d0* FUN_000ac3c0();
     void FUN_000a90f0(int index, unsigned int value);
     void FUN_000a9130(int index, unsigned int value);
     void FUN_000a9110(int index, unsigned int value);
 };
-struct Owner {
+struct Owner_990d0 {
     char padding[0xc0];
-    Resource* resource;
+    Resource_990d0* resource;
     void FUN_000990d0(unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e,
                       unsigned int f);
 };
-void Owner::FUN_000990d0(unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e,
+void Owner_990d0::FUN_000990d0(unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e,
                          unsigned int f) {
     if (!resource) {
-        Resource* allocated = static_cast<Resource*>(thunk_FUN_0008d690(0x178));
+        Resource_990d0* allocated = static_cast<Resource_990d0*>(thunk_FUN_0008d690(0x178));
         resource = allocated ? allocated->FUN_000ac3c0() : 0;
         resource->slot0();
         resource->slot28();

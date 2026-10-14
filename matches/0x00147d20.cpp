@@ -1,4 +1,4 @@
-class Base {
+class Base_147d20 {
   public:
     void run();
 };
@@ -13,5 +13,5 @@ class GrappleHitReactionAction {
     char pad[0x20];
 };
 void GrappleHitReactionAction::vfunc_4() {
-    ((Base*)((char*)this + 0x24))->run();
+    ((Base_147d20*)((char*)this + 0x24))->run();
 }

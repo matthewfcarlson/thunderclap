@@ -1,4 +1,4 @@
-class Obj {
+class Obj_283340 {
   public:
     virtual void f0();
     virtual void f1();
@@ -16,28 +16,28 @@ class Hlp {
     void FUN_00280160();
     void FUN_00280800();
 };
-class Holder {
+class Holder_283340 {
   public:
     char p0[0x20];
-    Obj* b;
+    Obj_283340* b;
     char p1[8];
-    Obj* a;
+    Obj_283340* a;
     char p2[0x24];
-    Obj* c;
+    Obj_283340* c;
 };
-class C {
+class C_283340 {
   public:
     char p0[0x0c];
     Hlp* x;
     Hlp* y;
-    Holder* h;
-    Obj* z;
+    Holder_283340* h;
+    Obj_283340* z;
     void run();
 };
-void C::run() {
+void C_283340::run() {
     x->FUN_00280160();
     y->FUN_00280800();
-    Holder* s = h;
+    Holder_283340* s = h;
     if (s->a) {
         s->a->f1();
         s->a = 0;

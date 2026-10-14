@@ -1,4 +1,4 @@
-struct Helper {
+struct Helper_cb840 {
     void f();
 };
 class HUDOverlay {
@@ -14,7 +14,7 @@ class HUDOverlay {
 extern int hudvt, ovt;
 void thunk_FUN_00267090(HUDOverlay*);
 HUDOverlay* HUDOverlay::vfunc_0(unsigned char param_2) {
-    Helper* h = (Helper*)((char*)this + 0x54);
+    Helper_cb840* h = (Helper_cb840*)((char*)this + 0x54);
     *(void**)this = &hudvt;
     h->f();
     *(void**)this = &ovt;

@@ -1,4 +1,4 @@
-class Child {
+class Child_e24a0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -17,7 +17,7 @@ class VScroll {
   public:
     virtual void q0();
     char pad[0x240];
-    Child* child;
+    Child_e24a0* child;
     virtual void q1();
     virtual void q2();
     virtual void q3();

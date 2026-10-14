@@ -13,7 +13,7 @@ struct Param3 {
     void* field_34;
 };
 
-struct Out {
+struct Out_b3510 {
     int a;
     int b;
 };
@@ -40,12 +40,12 @@ class ThisClass {
     void* field_48C;
 
     void Func(Param2* p2, Param3* p3);
-    void FUN_000b30c0(int, int, void*, void*, void*, void*, void*, void*, Out*);
+    void FUN_000b30c0(int, int, void*, void*, void*, void*, void*, void*, Out_b3510*);
 };
 
 void ThisClass::Func(Param2* p2, Param3* p3) {
     if (field_10) {
-        Out out = {0, 0};
+        Out_b3510 out = {0, 0};
         FUN_000b30c0(0xB, 2, (void*)&field_110, (void*)&field_358, (void*)&field_384, field_48C, p2,
                      (void*)&p2->field_2C, &out);
         p2->field_3C = out.a;

@@ -1,4 +1,4 @@
-class Obj {
+class Obj_231770 {
   public:
     unsigned int count;
     unsigned int remaining;
@@ -12,7 +12,7 @@ class Obj {
     void Resize();
     int Remove(unsigned int key);
 };
-int Obj::Remove(unsigned int key) {
+int Obj_231770::Remove(unsigned int key) {
     int n = 0;
     unsigned int i = 0;
     while (i < count) {

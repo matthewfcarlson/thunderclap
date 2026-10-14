@@ -12,10 +12,10 @@ class CSoundSequence : public IRefCount {
     char pad[0x18];
     void* member;
 };
-extern int seq_vftable, base_vftable;
+extern int seq_vftable_1e9180, base_vftable;
 extern void thunk(void*);
 CSoundSequence* CSoundSequence::f2(unsigned char flag) {
-    *(unsigned long*)this = (unsigned long)&seq_vftable;
+    *(unsigned long*)this = (unsigned long)&seq_vftable_1e9180;
     if (member) {
         struct X {
             virtual void a();

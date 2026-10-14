@@ -1,8 +1,8 @@
-struct Resource {
+struct Resource_9a0e0 {
     virtual void unused();
     virtual void release();
 };
-struct Owner {
+struct Owner_9a0e0 {
     char pad0[4];
     int state;
     int field8;
@@ -12,18 +12,18 @@ struct Owner {
     unsigned char flag18, flag19;
     char pad1a[2];
     int count1;
-    Resource* resources1[31];
+    Resource_9a0e0* resources1[31];
     int count2;
-    Resource* resources2[4];
-    Resource* rB0;
-    Resource* rB4;
-    Resource* rB8;
-    Resource* rBC;
-    Resource* rC0;
-    Resource* rC4;
+    Resource_9a0e0* resources2[4];
+    Resource_9a0e0* rB0;
+    Resource_9a0e0* rB4;
+    Resource_9a0e0* rB8;
+    Resource_9a0e0* rBC;
+    Resource_9a0e0* rC0;
+    Resource_9a0e0* rC4;
     int FUN_0009a0e0();
 };
-int Owner::FUN_0009a0e0() {
+int Owner_9a0e0::FUN_0009a0e0() {
     if (rB8) {
         rB8->release();
         rB8 = 0;

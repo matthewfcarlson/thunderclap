@@ -1,10 +1,10 @@
-class Thing {
+class Thing_1b6e60 {
   public:
     int a[6];
     void fallback(int);
     void target(int);
 };
-void Thing::target(int param) {
+void Thing_1b6e60::target(int param) {
     int i = 0;
     do {
         if (a[i * 2] == param) {

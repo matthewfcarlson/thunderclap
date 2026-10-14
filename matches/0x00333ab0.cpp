@@ -1,14 +1,14 @@
 typedef unsigned int uint;
-struct SourceEntry {
+struct SourceEntry_333ab0 {
     uint key;
     uint count;
     uint* values;
 };
-struct Source {
+struct Source_333ab0 {
     uint count;
-    SourceEntry* entries;
+    SourceEntry_333ab0* entries;
 };
-struct DestEntry {
+struct DestEntry_333ab0 {
     uint count;
     uint values[16];
 };
@@ -16,13 +16,13 @@ struct Object {
     char padding[0x28];
     uint count;
     uint keys[6];
-    DestEntry entries[1];
-    void FUN_00333ab0(Source* source);
+    DestEntry_333ab0 entries[1];
+    void FUN_00333ab0(Source_333ab0* source);
 };
-void Object::FUN_00333ab0(Source* source) {
+void Object::FUN_00333ab0(Source_333ab0* source) {
     count = source->count;
     for (uint i = 0; i < count; ++i) {
-        SourceEntry* entry = &source->entries[i];
+        SourceEntry_333ab0* entry = &source->entries[i];
         keys[i] = entry->key;
         uint n = entry->count;
         entries[i].count = n;

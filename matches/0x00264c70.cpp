@@ -1,4 +1,4 @@
-class X {
+class X_264c70 {
   public:
     int f0;
     int f4;
@@ -13,7 +13,7 @@ class X {
     int Fn();
 };
 
-int X::Fn() {
+int X_264c70::Fn() {
     unsigned int edx = f14;
     unsigned int eax = f18;
     int count;

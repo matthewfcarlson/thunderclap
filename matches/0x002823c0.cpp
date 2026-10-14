@@ -1,19 +1,19 @@
-class Thing {
+class Thing_2823c0 {
   public:
     virtual void f();
     virtual void Release();
 };
-class Obj {
+class Obj_2823c0 {
   public:
     char pad[0x20];
-    Thing* a;
+    Thing_2823c0* a;
     char pad2[8];
-    Thing* b;
+    Thing_2823c0* b;
     char pad3[0x24];
-    Thing* c;
+    Thing_2823c0* c;
     void Clear();
 };
-void Obj::Clear() {
+void Obj_2823c0::Clear() {
     if (b) {
         b->Release();
         b = 0;

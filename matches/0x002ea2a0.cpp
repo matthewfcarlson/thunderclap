@@ -1,12 +1,12 @@
-struct Ctx {
+struct Ctx_2ea2a0 {
     char pad[0x24];
     void(__cdecl* fn)(int, int);
     int x28;
     char p2c[4];
     int m30;
 };
-extern void __cdecl FUN_002ebed0(int, Ctx*);
-class Obj {
+extern void __cdecl FUN_002ebed0(int, Ctx_2ea2a0*);
+class Obj_2ea2a0 {
   public:
     int type;
     int a4;
@@ -23,7 +23,7 @@ class Obj {
     int(__cdecl* m38)(int, int, int);
     int m3c;
 };
-void __cdecl FUN_002ea2a0(Obj* self, Ctx* ctx, int* out) {
+void __cdecl FUN_002ea2a0(Obj_2ea2a0* self, Ctx_2ea2a0* ctx, int* out) {
     if (out)
         *out = self->m3c;
     if (self->type == 4 || self->type == 5) {

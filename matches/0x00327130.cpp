@@ -3,7 +3,7 @@ extern "C" void FreeOld(int);
 extern "C" int __stdcall CreateIndexBuffer(int);
 extern "C" void CheckError(unsigned int);
 extern "C" void InitIndex(int, int);
-class Buffer {
+class Buffer_327130 {
   public:
     char pad0[0x20];
     int count;
@@ -11,7 +11,7 @@ class Buffer {
     int resource;
     void Set(int n);
 };
-void Buffer::Set(int n) {
+void Buffer_327130::Set(int n) {
     int old = resource;
     count = n;
     if (old) {

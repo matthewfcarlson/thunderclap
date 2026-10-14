@@ -1,4 +1,4 @@
-class X {
+class X_ca850 {
   public:
     virtual void f0();
     virtual void f1();
@@ -9,6 +9,6 @@ class X {
     void target();
 };
 
-void X::target() {
+void X_ca850::target() {
     f5(0);
 }

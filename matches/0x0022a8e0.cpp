@@ -1,17 +1,17 @@
 extern "C" void __cdecl Init();
-extern int gCount;
-extern int gMax;
-extern int vtable;
+extern int gCount_22a8e0;
+extern int gMax_22a8e0;
+extern int vtable_22a8e0;
 class Driver {
   public:
     int* mVtable;
 };
 Driver* __fastcall Target(Driver* self) {
     Init();
-    self->mVtable = &vtable;
-    ++gCount;
-    if (gCount <= gMax)
+    self->mVtable = &vtable_22a8e0;
+    ++gCount_22a8e0;
+    if (gCount_22a8e0 <= gMax_22a8e0)
         return self;
-    gMax = gCount;
+    gMax_22a8e0 = gCount_22a8e0;
     return self;
 }

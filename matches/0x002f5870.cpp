@@ -1,7 +1,7 @@
 extern "C" void _ReadWriteBarrier();
-extern const float ZERO;
+extern const float ZERO_2f5870;
 extern const float ONE;
-class Elem {
+class Elem_2f5870 {
   public:
     void Fn(float);
 };
@@ -56,9 +56,9 @@ class PhysicsObject {
     char r[0x94];
 };
 void PhysicsObject::vfunc_7() {
-    if (f3c > ZERO) {
+    if (f3c > ZERO_2f5870) {
         float old = f40;
-        ((Elem*)((char*)this + 0xdc))
+        ((Elem_2f5870*)((char*)this + 0xdc))
             ->Fn(((f40 = *(float*)((char*)m18 + 0xc) * f3c), (f44 = ONE / f40), f40) / old);
         f39();
         *((char*)this + 0x1c4) = 1;

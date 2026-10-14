@@ -1,25 +1,25 @@
-extern void* g_a[];
-struct S1 {
+extern void* g_a_237c20[];
+struct S1_237c20 {
     void Fin();
 };
-struct S2 {
+struct S2_237c20 {
     void Fin();
 };
-class Base {
+class Base_237c20 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_237c20 : public Base_237c20 {
   public:
     char pad0[8];
-    S2 s2;
+    S2_237c20 s2;
     char pad[0x1c - 0xd];
-    S1 s1;
+    S1_237c20 s1;
     void f();
 };
-void Obj::f() {
-    vptr = g_a;
+void Obj_237c20::f() {
+    vptr = g_a_237c20;
     s1.Fin();
     s2.Fin();
     Fin();

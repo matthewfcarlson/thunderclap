@@ -1,8 +1,8 @@
-struct Obj {
+struct Obj_234cc0 {
     int x, y;
     void Init(int);
 };
-extern "C" int v1, v2;
+extern "C" int v1_234cc0, v2;
 class ParamValue {
   public:
     virtual void A();
@@ -271,7 +271,7 @@ class ParamValueEnum : public ParamValue {
     ParamValueEnum(int);
 };
 ParamValueEnum::ParamValueEnum(int x) {
-    *(int*)this = (int)&v1;
-    ((Obj*)((char*)this + 8))->Init(x);
+    *(int*)this = (int)&v1_234cc0;
+    ((Obj_234cc0*)((char*)this + 8))->Init(x);
     *(int*)this = (int)&v2;
 }

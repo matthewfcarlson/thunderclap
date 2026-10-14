@@ -1,4 +1,4 @@
-class C {
+class C_22b9f0 {
     char pad[0x30];
 
   public:
@@ -7,7 +7,7 @@ class C {
     int c;
     void f();
 };
-void C::f() {
+void C_22b9f0::f() {
     c = 0;
     b = 0;
     a = 0;

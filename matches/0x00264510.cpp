@@ -1,4 +1,4 @@
-struct S {
+struct S_264510 {
     char p0[0xc];
     char m0c;
     char pd;
@@ -11,7 +11,7 @@ struct S {
     void B();
     void f(unsigned n);
 };
-void S::f(unsigned n) {
+void S_264510::f(unsigned n) {
     if (m0c && n) {
         if (!m0e) {
             A(n);

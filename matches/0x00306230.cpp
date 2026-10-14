@@ -1,7 +1,7 @@
-struct Vec3 {
+struct Vec3_306230 {
     float x, y, z;
 };
-struct PtrVec {
+struct PtrVec_306230 {
     int* b;
     int* e;
 };
@@ -11,22 +11,22 @@ class Node {
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual Vec3* GetPos();
+    virtual Vec3_306230* GetPos();
     virtual void v5();
     virtual int GetKind();
     int pad4;
     int mIdx;
     int pad0c;
     int pad10;
-    PtrVec* mKids;
+    PtrVec_306230* mKids;
     int pad18;
-    Vec3 mPos;
+    Vec3_306230 mPos;
     void Reset();
 };
 void Node::Reset() {
     mIdx = -1;
     if (GetKind() != 1) {
-        Vec3* p = GetPos();
+        Vec3_306230* p = GetPos();
         mPos.x = p->x;
         mPos.y = p->y;
         mPos.z = p->z;

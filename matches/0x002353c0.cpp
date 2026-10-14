@@ -1,5 +1,5 @@
 // Same code shape as 0x00235300 (propagated; names are from that function)
-class Part {
+class Part_2353c0 {
   public:
     void Init();
 };
@@ -7,7 +7,7 @@ class ParamValueBool {
   public:
     int vt;
     int pad;
-    Part part;
+    Part_2353c0 part;
     ParamValueBool* vfunc_0(int);
 };
 extern int base_vtable;

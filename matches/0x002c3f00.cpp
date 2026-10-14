@@ -1,4 +1,4 @@
-class X {
+class X_2c3f00 {
   public:
     virtual void f0() {}
     virtual void f1() {}
@@ -17,7 +17,7 @@ class X {
     void Set(int x, int y, int z);
 };
 
-void X::Set(int x, int y, int z) {
+void X_2c3f00::Set(int x, int y, int z) {
     a = x;
     b = y;
     c = z;

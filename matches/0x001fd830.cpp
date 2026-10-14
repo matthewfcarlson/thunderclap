@@ -1,4 +1,4 @@
-class Result {
+class Result_1fd830 {
   public:
     virtual void f0();
     virtual void f1();
@@ -11,18 +11,18 @@ class Result {
     virtual void f8();
     virtual float Get();
 };
-class Owner {
+class Owner_1fd830 {
   public:
     float Probe(unsigned int arg);
-    Result* Find(unsigned long long key);
+    Result_1fd830* Find(unsigned long long key);
 };
 extern unsigned long long FUN_0027b020(unsigned int);
-extern const float zero;
-extern const float scale;
-float Owner::Probe(unsigned int arg) {
+extern const float zero_1fd830;
+extern const float scale_1fd830;
+float Owner_1fd830::Probe(unsigned int arg) {
     unsigned long long k = FUN_0027b020(arg);
-    Result* r = Find(k);
+    Result_1fd830* r = Find(k);
     if (!r)
-        return zero;
-    return r->Get() * scale;
+        return zero_1fd830;
+    return r->Get() * scale_1fd830;
 }

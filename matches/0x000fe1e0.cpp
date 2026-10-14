@@ -1,6 +1,6 @@
 extern int golemVtable;
 extern int memoryVtable;
-extern int refVtable;
+extern int refVtable_fe1e0;
 class IRefCount {
   public:
     virtual void f0();
@@ -25,5 +25,5 @@ void CGolem::destroy() {
         }
     }
     memory = (int)&memoryVtable;
-    vf = (int)&refVtable;
+    vf = (int)&refVtable_fe1e0;
 }

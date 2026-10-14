@@ -1,19 +1,19 @@
-class Ref {
+class Ref_222460 {
   public:
     virtual void A();
     virtual void B();
 };
-class Obj {
+class Obj_222460 {
   public:
     char pad[0x10];
-    Ref* mRef;
+    Ref_222460* mRef;
     int a;
     int b;
     int c;
-    Obj* Copy(Obj* src);
+    Obj_222460* Copy(Obj_222460* src);
 };
-Obj* Obj::Copy(Obj* src) {
-    Ref* p = src->mRef;
+Obj_222460* Obj_222460::Copy(Obj_222460* src) {
+    Ref_222460* p = src->mRef;
     if (p)
         p->A();
     if (mRef)

@@ -1,10 +1,10 @@
 struct State;
-typedef int(__cdecl* Callback)(State*);
+typedef int(__cdecl* Callback_1d3c90)(State*);
 extern int __cdecl FUN_001d0990(State*);
 extern int __cdecl FUN_001d2000(State*);
 extern int __cdecl FUN_001d2020(State*);
 extern void __cdecl FUN_002151e0(State*);
-extern State* __cdecl FUN_002150e0(Callback, int);
+extern State* __cdecl FUN_002150e0(Callback_1d3c90, int);
 extern void __cdecl FUN_0033eb30(State*);
 extern void __cdecl FUN_00212d80(State*, int);
 extern void __cdecl FUN_0033d6c0(State*);
@@ -14,7 +14,7 @@ extern void __cdecl FUN_0033ac90(State*);
 extern void __cdecl FUN_00212ed0(State*, int);
 extern void __cdecl FUN_003390d0(State*, int, const char*, int);
 extern void __cdecl FUN_001d07b0(State*);
-extern void __cdecl FUN_002134a0(State*, Callback, int);
+extern void __cdecl FUN_002134a0(State*, Callback_1d3c90, int);
 extern void __cdecl FUN_00213790(State*, int, const char*);
 struct Object {
     int FUN_001d1740(State*);

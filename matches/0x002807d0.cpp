@@ -1,17 +1,17 @@
-class Obj {
+class Obj_2807d0 {
   public:
     virtual void a();
     virtual void b();
 };
-class Target {
+class Target_2807d0 {
   public:
     char pad[0x14];
     int x14;
-    Obj* p18;
+    Obj_2807d0* p18;
     int x1c;
     void f();
 };
-void Target::f() {
+void Target_2807d0::f() {
     if (p18) {
         p18->b();
         p18 = 0;

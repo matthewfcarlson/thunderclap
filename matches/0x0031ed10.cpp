@@ -1,6 +1,6 @@
 // Same code shape as 0x0031e230 (propagated; names are from that function)
-typedef unsigned int u32;
-extern u32 g_value;
+typedef unsigned int u32_31ed10;
+extern u32_31ed10 g_value_31ed10;
 class pddiDevice {
   public:
     virtual void f0();
@@ -16,8 +16,8 @@ class pddiDevice {
     virtual void f10();
     virtual void f11();
     virtual void f12();
-    virtual void vfunc_13(u32);
+    virtual void vfunc_13(u32_31ed10);
 };
-void pddiDevice::vfunc_13(u32 value) {
-    g_value = value;
+void pddiDevice::vfunc_13(u32_31ed10 value) {
+    g_value_31ed10 = value;
 }

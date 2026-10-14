@@ -1,18 +1,18 @@
-struct Sub {
+struct Sub_2c3930 {
     void Set(int);
     char p[8];
 };
-struct Base {
-    Base();
+struct Base_2c3930 {
+    Base_2c3930();
     virtual void h();
     int x;
-    Sub s;
+    Sub_2c3930 s;
 };
 struct ILCC {
     virtual void f();
 };
 void* Alloc(unsigned);
-struct TextBible : Base, ILCC {
+struct TextBible : Base_2c3930, ILCC {
     virtual void g();
     int* mBegin;
     int* mEnd;

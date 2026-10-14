@@ -1,4 +1,4 @@
-class Sub {
+class Sub_276700 {
   public:
     virtual void F0();
     virtual void F1();
@@ -46,7 +46,7 @@ class InstanceDrive {
     virtual void F38();
     virtual void F39();
     virtual void F40();
-    Sub sub;
+    Sub_276700 sub;
     int count;
 };
 void InstanceDrive::F0() {

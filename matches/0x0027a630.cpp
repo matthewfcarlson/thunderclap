@@ -1,15 +1,15 @@
-class Slot {
+class Slot_27a630 {
   public:
     char pad[8];
     void Init();
 };
-class Target {
+class Target_27a630 {
   public:
-    Slot slots[20];
+    Slot_27a630 slots[20];
     int values[21];
-    Target* Fn();
+    Target_27a630* Fn();
 };
-Target* Target::Fn() {
+Target_27a630* Target_27a630::Fn() {
     for (int i = 0; i < 20; ++i)
         slots[i].Init();
     values[20] = 0;

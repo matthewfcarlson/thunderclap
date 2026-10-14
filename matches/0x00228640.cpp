@@ -3,13 +3,13 @@ extern int gZeroA, gZeroB, gMinusOne;
 struct V {
     int a, b, c;
 };
-class Obj {
+class Obj_228640 {
   public:
     char pad[0x8a8];
     int value;
     V* Get(V*);
 };
-V* Obj::Get(V* out) {
+V* Obj_228640::Get(V* out) {
     V local;
     local.a = gZeroA;
     local.b = gZeroB;

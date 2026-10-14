@@ -1,22 +1,22 @@
-typedef unsigned int u32;
-struct Sub {
+typedef unsigned int u32_253f10;
+struct Sub_253f10 {
     char x[16];
     float v;
 };
-struct Ctx {
+struct Ctx_253f10 {
     char x[20];
     float s;
     float* p;
 };
 struct Param {
     float f;
-    Ctx* c;
+    Ctx_253f10* c;
     char x[44];
-    u32 a;
+    u32_253f10 a;
     char y[4];
-    Sub* b;
+    Sub_253f10* b;
 };
-void __cdecl Sink(u32, float);
+void __cdecl Sink(u32_253f10, float);
 void __stdcall Target(Param* p) {
     float x = p->b->v;
     x = x * p->f;

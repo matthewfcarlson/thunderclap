@@ -1,10 +1,10 @@
 class CSPManager;
-class Base {
+class Base_1e0650 {
   public:
     virtual void basefn();
-    Base(const char*, int);
+    Base_1e0650(const char*, int);
 };
-class Method3 : public Base {
+class Method3 : public Base_1e0650 {
   public:
     virtual void dummy();
     Method3(const char*, void*);
@@ -17,7 +17,7 @@ class Method3 : public Base {
 };
 extern const char n1[], n2[], n3[];
 extern char fun(const char*);
-Method3::Method3(const char* s, void* p) : Base(s, 3) {
+Method3::Method3(const char* s, void* p) : Base_1e0650(s, 3) {
     x = p;
     d = fun(n1);
     a = fun(n2);

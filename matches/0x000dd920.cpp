@@ -14,10 +14,10 @@ class IDollyControllerState {
     virtual void f10();
     virtual void f11();
 };
-struct Pair {
+struct Pair_dd920 {
     int a, b;
 };
-extern Pair table[];
+extern Pair_dd920 table_dd920[];
 class ControllerState : public IDollyControllerState {
   public:
     char pad[12];
@@ -26,5 +26,5 @@ class ControllerState : public IDollyControllerState {
 };
 float ControllerState::vfunc_8(int i) {
     float* p = data;
-    return p[table[i].a] - p[table[i].b];
+    return p[table_dd920[i].a] - p[table_dd920[i].b];
 }

@@ -14,7 +14,7 @@ class CollisionVolume {
     virtual void f11();
     virtual void f12();
 };
-struct Vec3 {
+struct Vec3_30e830 {
     float x, y, z;
     void Normalize();
 };
@@ -22,13 +22,13 @@ namespace physics {
 class CollisionWall : public CollisionVolume {
   public:
     char pad[0x44];
-    Vec3 v;
+    Vec3_30e830 v;
     void vfunc_7(float);
 };
 } // namespace physics
 extern const float one;
 void physics::CollisionWall::vfunc_7(float x) {
-    Vec3* p = &v;
+    Vec3_30e830* p = &v;
     p->Normalize();
     float q = one / x;
     p->x *= q;

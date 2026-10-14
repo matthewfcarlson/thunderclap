@@ -1,4 +1,4 @@
-class Obj {
+class Obj_208b60 {
   public:
     char pad[5];
     signed char count;
@@ -6,7 +6,7 @@ class Obj {
     unsigned short values[1];
     void f(unsigned short);
 };
-void Obj::f(unsigned short value) {
+void Obj_208b60::f(unsigned short value) {
     values[(int)count] = value;
     ++count;
 }

@@ -1,14 +1,14 @@
-struct Receiver {
+struct Receiver_ea0c0 {
     virtual void vfunc_0();
 };
-struct Notify {
+struct Notify_ea0c0 {
     void FUN_000f8b90(int);
 };
-struct Item {
+struct Item_ea0c0 {
     int owner;
     char pad[0x20];
     int field24;
-    Receiver* receiver;
+    Receiver_ea0c0* receiver;
     int field2c;
     int field30;
     unsigned char enabled;
@@ -35,18 +35,18 @@ struct TextSelector {
     virtual void vfunc_16();
     virtual void vfunc_17();
     virtual void vfunc_18();
-    virtual void vfunc_19(const char*, unsigned char, Receiver*);
+    virtual void vfunc_19(const char*, unsigned char, Receiver_ea0c0*);
     char pad04[0xa0];
     int owner;
     char padA8[0xa8];
     int selected;
     int previous;
-    Item items[128];
+    Item_ea0c0 items[128];
     int count;
     char pad1d5c[0x38];
-    Notify* notify;
+    Notify_ea0c0* notify;
 };
-void TextSelector::vfunc_19(const char* text, unsigned char select, Receiver* receiver) {
+void TextSelector::vfunc_19(const char* text, unsigned char select, Receiver_ea0c0* receiver) {
     if (count >= 128)
         return;
     items[count].FUN_000f83c0(text);

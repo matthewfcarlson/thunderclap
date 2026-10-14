@@ -9,7 +9,7 @@ class CanSeeTargetCondition {
     void Init(int);
 };
 extern void* __cdecl alloc(unsigned int);
-class Factory {
+class Factory_12ae30 {
   public:
     virtual void v0();
     virtual void v1();
@@ -18,7 +18,7 @@ class Factory {
     virtual void v4();
     virtual CanSeeTargetCondition* v5();
 };
-CanSeeTargetCondition* Factory::v5() {
+CanSeeTargetCondition* Factory_12ae30::v5() {
     CanSeeTargetCondition* p = (CanSeeTargetCondition*)alloc(16);
     if (p) {
         p->Init(0);

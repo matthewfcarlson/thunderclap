@@ -4,16 +4,16 @@ class AnimationGroup {
     int x;
     void vfunc_1();
 };
-struct Sub {
+struct Sub_289d70 {
     void Helper();
 };
-class Thing : public AnimationGroup {
+class Thing_289d70 : public AnimationGroup {
   public:
     char pad[4];
-    Sub sub;
+    Sub_289d70 sub;
     void Target();
 };
-void Thing::Target() {
+void Thing_289d70::Target() {
     *(void**)this = (void*)((int)DAT_0042c8c4);
     AnimationGroup::vfunc_1();
     sub.Helper();

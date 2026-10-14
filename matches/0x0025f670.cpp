@@ -5,10 +5,10 @@ struct Node {
     int pad[3];
     const char* key;
 };
-struct Tree {
+struct Tree_25f670 {
     Node* root;
 };
-Node* Find(Tree* t, const char** key) {
+Node* Find(Tree_25f670* t, const char** key) {
     Node* n = t->root;
     Node* end = (Node*)((char*)t + 4);
     while (n != end) {

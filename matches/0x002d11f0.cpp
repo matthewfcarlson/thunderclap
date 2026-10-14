@@ -1,4 +1,4 @@
-extern int vt1;
+extern int vt1_2d11f0;
 class D {
   public:
     void* vptr;
@@ -7,7 +7,7 @@ class D {
 };
 D::D() throw() {
     a4 = 0;
-    vptr = &vt1;
+    vptr = &vt1_2d11f0;
     a8 = 0;
     ac = 0;
     a10 = 0;

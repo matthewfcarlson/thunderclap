@@ -1,15 +1,15 @@
-struct Tgt {
+struct Tgt_fe4d0 {
     char p[0x40];
     float x, y, z;
 };
-struct Sub {
+struct Sub_fe4d0 {
     char p[8];
-    Tgt* t;
+    Tgt_fe4d0* t;
     char q[0x39];
     char flag;
     void Go(float* v, int a, float s, int b, int c);
 };
-struct Base {
+struct Base_fe4d0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -21,11 +21,11 @@ struct Base {
     virtual void SetN(int n);
     virtual int GetN();
     char pad[0x58 - 4];
-    Sub sub;
-    void Fn(Tgt* t, char f);
+    Sub_fe4d0 sub;
+    void Fn(Tgt_fe4d0* t, char f);
 };
-void Base::Fn(Tgt* t, char f) {
-    Sub* s = &sub;
+void Base_fe4d0::Fn(Tgt_fe4d0* t, char f) {
+    Sub_fe4d0* s = &sub;
     if (t && s && s->t == t) {
         float v[3];
         v[0] = t->x;

@@ -1,8 +1,8 @@
-class Helper {
+class Helper_62c70 {
   public:
     int run(int, int);
 };
-extern Helper* __cdecl FUN_0008d690(int);
+extern Helper_62c70* __cdecl FUN_0008d690(int);
 class CSmartPropRemoveInstanceTrack {
   public:
     virtual void f0();
@@ -23,7 +23,7 @@ class CSmartPropRemoveInstanceTrack {
     int member;
 };
 int CSmartPropRemoveInstanceTrack::vfunc_12(int arg) {
-    Helper* p = FUN_0008d690(0x24);
+    Helper_62c70* p = FUN_0008d690(0x24);
     if (p)
         return p->run(arg, member);
     return 0;

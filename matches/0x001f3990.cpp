@@ -1,6 +1,6 @@
 extern float gHundred;
 void Apply(int, float);
-class Thing {
+class Thing_1f3990 {
   public:
     char pad0[0x8c];
     int mA;
@@ -8,7 +8,7 @@ class Thing {
     int mB;
     void Set(float);
 };
-void Thing::Set(float x) {
+void Thing_1f3990::Set(float x) {
     gHundred = x;
     if (mA && !mB) {
         int v = *(int*)(mA + 4);

@@ -1,19 +1,19 @@
 void* operator new(unsigned int);
-class Base {
+class Base_2972e0 {
   public:
-    Base();
+    Base_2972e0();
     virtual void f0();
     int pad[3];
 };
-class Mid : public Base {
+class Mid_2972e0 : public Base_2972e0 {
   public:
-    Mid() {
+    Mid_2972e0() {
         m10 = 6;
         m14 = 0;
     }
     int m10, m14;
 };
-class BranchNode : public Mid {
+class BranchNode : public Mid_2972e0 {
   public:
     BranchNode(unsigned int n);
     virtual void g0();

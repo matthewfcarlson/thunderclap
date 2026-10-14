@@ -1,6 +1,6 @@
-typedef unsigned int u32;
-typedef unsigned long long u64;
-u64 FUN_0027b020(u32);
+typedef unsigned int u32_e4750;
+typedef unsigned long long u64_e4750;
+u64_e4750 FUN_0027b020(u32_e4750);
 class FEContainer {
   public:
     virtual void f0();
@@ -40,17 +40,17 @@ class FEContainer {
     virtual void f34();
     virtual void f35();
     virtual void f36();
-    virtual void* f37(u32);
+    virtual void* f37(u32_e4750);
     char pad[0x44c - 4];
     void* items[128];
 };
-void* FEContainer::f37(u32 key) {
+void* FEContainer::f37(u32_e4750 key) {
     for (int i = 0; i < 128; i++) {
         void* p = items[i];
         if (!p)
             return 0;
-        u64 k = FUN_0027b020(key);
-        if ((u32)k == *(u32*)((char*)p + 0x88) && (u32)(k >> 32) == *(u32*)((char*)p + 0x8c))
+        u64_e4750 k = FUN_0027b020(key);
+        if ((u32_e4750)k == *(u32_e4750*)((char*)p + 0x88) && (u32_e4750)(k >> 32) == *(u32_e4750*)((char*)p + 0x8c))
             return items[i];
     }
     return 0;

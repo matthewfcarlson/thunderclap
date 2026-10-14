@@ -1,4 +1,4 @@
-typedef unsigned int u32;
+typedef unsigned int u32_296120;
 class Scenegraph {
   public:
     virtual void f0();
@@ -7,7 +7,7 @@ class Scenegraph {
     virtual void f3();
     virtual void f4();
     virtual void f5();
-    virtual void f6(u32, u32);
+    virtual void f6(u32_296120, u32_296120);
     virtual void f7();
     virtual void f8();
     virtual void f9();
@@ -19,7 +19,7 @@ class Scenegraph {
     char pad[0x40 - 4];
     Scenegraph* mChild;
 };
-void Scenegraph::f6(u32 a, u32 b) {
+void Scenegraph::f6(u32_296120 a, u32_296120 b) {
     if (mChild)
         mChild->f6(a, b);
 }

@@ -1,4 +1,4 @@
-class Part {
+class Part_2c2730 {
   public:
     virtual void f0();
     virtual void f1();
@@ -21,8 +21,8 @@ class Geometry {
     virtual void vfunc_8(int, int);
     void helper(int, int);
     char pad[0x60 - 4];
-    Part* p1;
-    Part* p2;
+    Part_2c2730* p1;
+    Part_2c2730* p2;
 };
 void Geometry::vfunc_8(int a, int b) {
     if (p1)

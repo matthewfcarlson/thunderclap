@@ -1,9 +1,9 @@
-class Arr {
+class Arr_18650 {
   public:
     int* Get(int index);
     int* m;
 };
 
-int* Arr::Get(int index) {
+int* Arr_18650::Get(int index) {
     return m + index;
 }

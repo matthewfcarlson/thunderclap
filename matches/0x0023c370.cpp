@@ -1,5 +1,5 @@
 // Same code shape as 0x002319c0 (propagated; names are from that function)
-struct Part {
+struct Part_23c370 {
     void run(void*);
 };
 class Branch {
@@ -14,7 +14,7 @@ class Branch {
 };
 class Node : public Branch {
     char pad[0x24];
-    Part part;
+    Part_23c370 part;
 
   public:
     virtual void g();

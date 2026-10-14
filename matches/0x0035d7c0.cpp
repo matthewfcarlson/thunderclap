@@ -1,4 +1,4 @@
-extern "C" float gConstant;
+extern "C" float gConstant_35d7c0;
 void FUN_0035d7c0() {
-    gConstant = 3.5f;
+    gConstant_35d7c0 = 3.5f;
 }

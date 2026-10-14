@@ -1,4 +1,4 @@
-class Base {
+class Base_2d3e60 {
   public:
     virtual void f0();
     virtual void f1();
@@ -11,9 +11,9 @@ class Base {
     virtual void f8();
     virtual void f9();
 };
-class pure3d_ParticleEmitter {
+class pure3d_ParticleEmitter_2d3e60 {
     char pad[0x84];
-    Base* member;
+    Base_2d3e60* member;
 
   public:
     virtual void a0();
@@ -33,7 +33,7 @@ class pure3d_ParticleEmitter {
     virtual void a14();
     virtual void vfunc_16();
 };
-void pure3d_ParticleEmitter::vfunc_16() {
+void pure3d_ParticleEmitter_2d3e60::vfunc_16() {
     if (member)
         member->f9();
 }

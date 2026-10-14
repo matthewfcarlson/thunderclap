@@ -58,15 +58,15 @@ class FEControl {
     virtual void a14();
     virtual void o();
 };
-extern char typeA;
-extern char typeB;
+extern char typeA_e27b0;
+extern char typeB_e27b0;
 void* cast(void*, int, void*, void*, int);
 void VScroll::f11() {
     int i = 0;
     if (count > 0) {
         char* p = (char*)this + 0x40;
         do {
-            int* q = (int*)cast((void*)*(int*)p, 0, &typeB, &typeA, 0);
+            int* q = (int*)cast((void*)*(int*)p, 0, &typeB_e27b0, &typeA_e27b0, 0);
             if (q)
                 ((FEControl*)q)->o();
             ++i;

@@ -1,18 +1,18 @@
 extern "C" char DAT_0040d418[];
-class Obj {
+class Obj_102ac0 {
   public:
     virtual void Init();
 };
-class Helper {
+class Helper_102ac0 {
   public:
-    Obj* Make();
+    Obj_102ac0* Make();
 };
 extern void __stdcall Base(void*);
 extern void* Alloc(unsigned int);
 class CMoveAgent {
   public:
     char pad[0x68];
-    Obj* p;
+    Obj_102ac0* p;
     unsigned char b6c;
     char padx[3];
     float scale;
@@ -24,8 +24,8 @@ class CMoveAgent {
 CMoveAgent::CMoveAgent(void* arg) {
     Base(arg);
     *(unsigned int*)this = ((int)DAT_0040d418);
-    Helper* h = (Helper*)Alloc(0x38);
-    Obj* q;
+    Helper_102ac0* h = (Helper_102ac0*)Alloc(0x38);
+    Obj_102ac0* q;
     if (h)
         q = h->Make();
     else

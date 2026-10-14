@@ -1,4 +1,4 @@
-class Entry {
+class Entry_1fc890 {
   public:
     virtual void f0();
     virtual void f1();
@@ -11,15 +11,15 @@ class Entry {
     virtual void f8();
     virtual void f9(void*, void*, int);
 };
-class Owner {
+class Owner_1fc890 {
   public:
     char pad[12];
-    Entry* entries[128];
+    Entry_1fc890* entries[128];
     void run(void*, void*);
 };
-void Owner::run(void* a, void* b) {
+void Owner_1fc890::run(void* a, void* b) {
     for (int i = 0; i != 128; ++i) {
-        Entry* p = entries[i];
+        Entry_1fc890* p = entries[i];
         if (p != 0)
             p->f9(a, b, 0);
     }

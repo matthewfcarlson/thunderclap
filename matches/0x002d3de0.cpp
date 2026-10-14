@@ -1,14 +1,14 @@
-struct Base {
-    Base();
+struct Base_2d3de0 {
+    Base_2d3de0();
     virtual void f();
     char p[0x3c];
 };
-struct Sub {
+struct Sub_2d3de0 {
     void Init();
     char q[0x40];
 };
-struct PE : Base {
-    Sub s;
+struct PE : Base_2d3de0 {
+    Sub_2d3de0 s;
     int a[9];
     char b0, b1, b2;
     PE();

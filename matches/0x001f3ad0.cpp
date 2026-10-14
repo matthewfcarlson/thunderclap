@@ -1,14 +1,14 @@
-struct Child {
+struct Child_1f3ad0 {
     char pad[8];
     int value;
     void FUN(int);
 };
-struct Obj {
+struct Obj_1f3ad0 {
     char pad[0xc8];
-    Child* child;
+    Child_1f3ad0* child;
     bool run();
 };
-bool Obj::run() {
+bool Obj_1f3ad0::run() {
     if (child && child->value) {
         child->FUN(0);
         return true;

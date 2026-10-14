@@ -1,4 +1,4 @@
-class Obj {
+class Obj_d9e40 {
   public:
     virtual void v0();
     virtual void v1();
@@ -46,8 +46,8 @@ class Obj {
     virtual void v43();
     virtual void v44();
 };
-extern Obj* __cdecl getObj();
-class Target {
+extern Obj_d9e40* __cdecl getObj();
+class Target_d9e40 {
   public:
     char pad0[0x1d0];
     int value;
@@ -58,8 +58,8 @@ class Target {
     void helper(int);
     void run(int);
 };
-void Target::run(int unused) {
-    Obj* p = getObj();
+void Target_d9e40::run(int unused) {
+    Obj_d9e40* p = getObj();
     p->v44();
     helper(value);
     flag = 1;

@@ -1,4 +1,4 @@
-class Base {
+class Base_235650 {
   public:
     virtual void f0();
     virtual void f1();
@@ -9,27 +9,27 @@ class Base {
     virtual char f6(int, int);
     virtual int f7(int, int);
 };
-struct Manager {
+struct Manager_235650 {
     char pad[12];
     int value;
 };
-extern Manager* gManager;
-class Iter {
+extern Manager_235650* gManager_235650;
+class Iter_235650 {
   public:
     int pad[3];
-    Iter(int);
+    Iter_235650(int);
     int First();
     int Next();
 };
-int Base::f7(int wanted, int limit) {
+int Base_235650::f7(int wanted, int limit) {
     if (limit <= 0)
         return 0;
-    Manager* m = gManager;
+    Manager_235650* m = gManager_235650;
     if (!m)
         return 0;
     int n = 1;
-    Iter it(m->value);
-    *(Manager**)((char*)&it + 8) = m;
+    Iter_235650 it(m->value);
+    *(Manager_235650**)((char*)&it + 8) = m;
     int item = it.First();
     while (item) {
         if (f6(wanted, item)) {

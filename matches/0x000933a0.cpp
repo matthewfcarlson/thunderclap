@@ -1,4 +1,4 @@
-class Inner {
+class Inner_933a0 {
   public:
     void Reset();
 };
@@ -14,5 +14,5 @@ CUnlockable::~CUnlockable() {
         FreeMem(mPtr18);
         mPtr18 = 0;
     }
-    ((Inner*)((char*)this + 0x10))->Reset();
+    ((Inner_933a0*)((char*)this + 0x10))->Reset();
 }

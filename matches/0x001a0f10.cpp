@@ -1,6 +1,6 @@
 extern "C" char DAT_0041b2e8[];
 extern void* operator_new(unsigned int);
-struct Sub {
+struct Sub_1a0f10 {
     void Init();
 };
 struct MPT {
@@ -10,10 +10,10 @@ struct MPT {
     int c;
     float z;
     float w;
-    Sub sub;
+    Sub_1a0f10 sub;
     void BaseInit();
 };
-class Factory {
+class Factory_1a0f10 {
   public:
     virtual void q0();
     virtual void q1();
@@ -22,7 +22,7 @@ class Factory {
     virtual void q4();
     virtual MPT* Create();
 };
-MPT* Factory::Create() {
+MPT* Factory_1a0f10::Create() {
     MPT* p = (MPT*)operator_new(0x24);
     if (p) {
         p->BaseInit();

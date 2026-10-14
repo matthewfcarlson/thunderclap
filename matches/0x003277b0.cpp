@@ -1,4 +1,4 @@
-extern int vt;
+extern int vt_3277b0;
 class PrimBuf {
   public:
     PrimBuf(int arg);
@@ -24,6 +24,6 @@ PrimBuf::PrimBuf(int arg) {
     b35 = 0;
     b36 = 0;
     m38 = arg;
-    *(int*)this = (int)&vt;
+    *(int*)this = (int)&vt_3277b0;
     m0c = *(int*)(*(int*)((char*)arg + 0x154) + 0x10);
 }

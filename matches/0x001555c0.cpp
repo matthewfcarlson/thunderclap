@@ -27,17 +27,17 @@ template <class T> struct ParamEnumConstList {
     void FUN_00234cc0(const char*);
 };
 } // namespace fight
-typedef fight::ParamEnumConstList<hulkfight::motion::CollisionTargetSizeCondition> List;
-void __cdecl FUN_002347b0(uint*, List**, int);
+typedef fight::ParamEnumConstList<hulkfight::motion::CollisionTargetSizeCondition> List_1555c0;
+void __cdecl FUN_002347b0(uint*, List_1555c0**, int);
 void __cdecl FUN_001555c0() {
     if (!DAT_004e1074) {
-        List* lists[2];
+        List_1555c0* lists[2];
         void* memory = FUN_0008d690(32);
         if (memory) {
-            List* p = (List*)memory;
+            List_1555c0* p = (List_1555c0*)memory;
             uint count = DAT_00427760;
             p->FUN_00234cc0("compare");
-            p = new (memory) List;
+            p = new (memory) List_1555c0;
             p->values = &DAT_00427758;
             p->count = count;
             p->callback = FUN_0014c580;
@@ -46,10 +46,10 @@ void __cdecl FUN_001555c0() {
             lists[0] = 0;
         memory = FUN_0008d690(32);
         if (memory) {
-            List* p = (List*)memory;
+            List_1555c0* p = (List_1555c0*)memory;
             uint count = DAT_003f5eb4;
             p->FUN_00234cc0("size");
-            p = new (memory) List;
+            p = new (memory) List_1555c0;
             p->values = &DAT_0048f6b4;
             p->count = count;
             p->callback = FUN_0014c590;

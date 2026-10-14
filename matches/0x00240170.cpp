@@ -1,8 +1,8 @@
-struct Thing {
+struct Thing_240170 {
     void Helper(int);
-    Thing* Run(int);
+    Thing_240170* Run(int);
 };
-Thing* Thing::Run(int x) {
+Thing_240170* Thing_240170::Run(int x) {
     Helper(x);
     return this;
 }

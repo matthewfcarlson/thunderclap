@@ -16,13 +16,13 @@ class MapThing {
     virtual int vfunc_13();
     virtual int vfunc_14();
 };
-class Helper {
+class Helper_e3a90 {
   public:
     int go();
 };
 int MapThing::vfunc_14() {
     int x = vfunc_13();
     if (x)
-        return ((Helper*)x)->go();
+        return ((Helper_e3a90*)x)->go();
     return 0;
 }

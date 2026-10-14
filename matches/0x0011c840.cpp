@@ -1,10 +1,10 @@
 class PathTrack;
 void __cdecl thunk(int);
-class Init {
+class Init_11c840 {
   public:
     void init();
 };
-class Base {
+class Base_11c840 {
   public:
     void base();
 };
@@ -17,6 +17,6 @@ class PathTrack {
 };
 PathTrack::~PathTrack() {
     thunk(m38);
-    ((Init*)((char*)this + 0x40))->init();
-    ((Base*)this)->base();
+    ((Init_11c840*)((char*)this + 0x40))->init();
+    ((Base_11c840*)this)->base();
 }

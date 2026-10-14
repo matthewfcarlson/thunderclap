@@ -1,5 +1,5 @@
 // Same code shape as 0x00237160 (propagated; names are from that function)
-class Obj {
+class Obj_23a020 {
   public:
     virtual void v0();
     virtual void v1();
@@ -20,12 +20,12 @@ class Obj {
     virtual void Act(int, int);
     virtual void Done();
 };
-class Owner {
+class Owner_23a020 {
   public:
-    bool Target(int a, int b, int c, Obj* obj);
-    void Work(int, Obj*, int);
+    bool Target(int a, int b, int c, Obj_23a020* obj);
+    void Work(int, Obj_23a020*, int);
 };
-bool Owner::Target(int a, int b, int c, Obj* obj) {
+bool Owner_23a020::Target(int a, int b, int c, Obj_23a020* obj) {
     if (!obj->Check())
         return false;
     unsigned long long v = (unsigned long long)obj->Pair();

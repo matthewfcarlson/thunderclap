@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2969f0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -50,9 +50,9 @@ class VisibilityNode {
     unsigned char flags;
     char pad11[7];
     unsigned count;
-    Obj** items;
+    Obj_2969f0** items;
     char pad20[12];
-    Obj* test;
+    Obj_2969f0* test;
 };
 bool VisibilityNode::f7() {
     if (!(flags & 1) && test && !test->f22())

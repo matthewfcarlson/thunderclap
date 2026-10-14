@@ -1,15 +1,15 @@
-class Inner {
+class Inner_216f60 {
   public:
     char pad[0x34];
     int value;
 };
-class Outer {
+class Outer_216f60 {
   public:
     char pad[0x10];
-    Inner* inner;
+    Inner_216f60* inner;
 };
 void step();
-void f(Outer* p) {
+void f(Outer_216f60* p) {
     while (p->inner->value != 0)
         step();
 }

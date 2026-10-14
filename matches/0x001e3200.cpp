@@ -1,15 +1,15 @@
-typedef unsigned int U;
-struct B {
-    U g(U);
+typedef unsigned int U_1e3200;
+struct B_1e3200 {
+    U_1e3200 g(U_1e3200);
 };
-struct C {
-    U h(U, U, U);
+struct C_1e3200 {
+    U_1e3200 h(U_1e3200, U_1e3200, U_1e3200);
 };
-struct A {
-    U pad[2];
-    U f(U, U, U);
+struct A_1e3200 {
+    U_1e3200 pad[2];
+    U_1e3200 f(U_1e3200, U_1e3200, U_1e3200);
 };
-U A::f(U a, U b, U c) {
-    U x = ((B*)this)->g(a);
-    return ((C*)this)->h(x, b, c);
+U_1e3200 A_1e3200::f(U_1e3200 a, U_1e3200 b, U_1e3200 c) {
+    U_1e3200 x = ((B_1e3200*)this)->g(a);
+    return ((C_1e3200*)this)->h(x, b, c);
 }

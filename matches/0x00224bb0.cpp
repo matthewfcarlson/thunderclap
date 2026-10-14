@@ -1,12 +1,12 @@
 extern "C" char DAT_004272f0[];
-typedef unsigned char byte;
+typedef unsigned char byte_224bb0;
 extern int g_refCount;
 namespace choreo2 {
 class JointDriver {
   public:
     virtual void a();
     virtual void b();
-    virtual JointDriver* vfunc_2(byte);
+    virtual JointDriver* vfunc_2(byte_224bb0);
     virtual void d();
     virtual void e();
     virtual void f();
@@ -20,15 +20,15 @@ class JointDriver {
     virtual void n();
 };
 } // namespace choreo2
-class Helper {
+class Helper_224bb0 {
   public:
     void call();
 };
 extern void thunk_FUN_00267090(choreo2::JointDriver*);
-choreo2::JointDriver* choreo2::JointDriver::vfunc_2(byte param) {
+choreo2::JointDriver* choreo2::JointDriver::vfunc_2(byte_224bb0 param) {
     *(unsigned long*)this = ((int)DAT_004272f0);
     --g_refCount;
-    ((Helper*)this)->call();
+    ((Helper_224bb0*)this)->call();
     if (param & 1)
         thunk_FUN_00267090(this);
     return this;

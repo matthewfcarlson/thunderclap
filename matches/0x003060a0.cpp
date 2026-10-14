@@ -1,6 +1,6 @@
 extern void* vA[];
 extern "C" void _ReadWriteBarrier();
-class O {
+class O_3060a0 {
   public:
     void* vptr;
     int m4;
@@ -8,9 +8,9 @@ class O {
     char c18, c19;
     int m1c, m20, m24, m28, m2c, m30;
     float f;
-    O() throw();
+    O_3060a0() throw();
 };
-O::O() throw() {
+O_3060a0::O_3060a0() throw() {
     m4 = 0;
     vptr = vA;
     _ReadWriteBarrier();

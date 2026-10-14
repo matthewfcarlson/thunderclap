@@ -1,5 +1,5 @@
-extern const float gScale;
-extern void* gVtable;
+extern const float gScale_2ecf20;
+extern void* gVtable_2ecf20;
 struct SimLength {
     void* vptr;
     float value;
@@ -7,7 +7,7 @@ struct SimLength {
     SimLength(float);
 };
 SimLength::SimLength(float x) {
-    vptr = &gVtable;
+    vptr = &gVtable_2ecf20;
     raw = x;
-    value = gScale * x;
+    value = gScale_2ecf20 * x;
 }

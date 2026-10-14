@@ -5,14 +5,14 @@ struct V {
     virtual void A();
     virtual void B();
 };
-struct Obj {
+struct Obj_2766e0 {
     void** v;
     void** v4;
     int pad;
     V* p;
     void f();
 };
-void Obj::f() {
+void Obj_2766e0::f() {
     v = (void**)((int)DAT_0042bddc);
     v4 = (void**)((int)DAT_0042bdd0);
     p->B();

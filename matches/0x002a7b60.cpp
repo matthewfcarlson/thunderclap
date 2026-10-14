@@ -1,4 +1,4 @@
-typedef unsigned int u32;
+typedef unsigned int u32_2a7b60;
 struct SceneGraphTransformAnimationController {
     virtual void f0();
     virtual void f1();

@@ -1,4 +1,4 @@
-const float zero = 0.0f;
+const float zero_294e50 = 0.0f;
 class TextureFont {
   public:
     virtual void f0();
@@ -24,7 +24,7 @@ class TextureFont {
 };
 float TextureFont::vfunc_10(short* s) {
     if (!s)
-        return zero;
+        return zero_294e50;
     float best = 0.0f;
     int i = 0;
     while (s[i] != 0) {

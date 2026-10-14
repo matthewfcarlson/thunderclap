@@ -1,4 +1,4 @@
-class Obj {
+class Obj_f7a10 {
   public:
     char pad[0x10];
     int m10;
@@ -8,7 +8,7 @@ class Obj {
     void Set(int value, int unused);
 };
 void release(int);
-void Obj::Set(int value, int unused) {
+void Obj_f7a10::Set(int value, int unused) {
     if (m10) {
         release(m10);
         m10 = 0;

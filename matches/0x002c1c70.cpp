@@ -1,4 +1,4 @@
-struct Args {
+struct Args_2c1c70 {
     int a;
     int b;
     int pad;
@@ -13,7 +13,7 @@ struct Args {
 struct Object {
     virtual void Run();
 };
-struct Manager {
+struct Manager_2c1c70 {
     virtual void A();
     virtual void B();
     virtual void C();
@@ -23,16 +23,16 @@ struct Manager {
     virtual void G();
     virtual void H();
     virtual void I();
-    virtual Object* Create(Args*);
+    virtual Object* Create(Args_2c1c70*);
 };
-extern Manager* gManager;
-struct Owner {
+extern Manager_2c1c70* gManager_2c1c70;
+struct Owner_2c1c70 {
     char pad[16];
     Object* value;
     bool Fn(int, int, int, int, int, int, int);
 };
-bool Owner::Fn(int a, int b, int c, int d, int e, int f, int g) {
-    Args x;
+bool Owner_2c1c70::Fn(int a, int b, int c, int d, int e, int f, int g) {
+    Args_2c1c70 x;
     x.a = a;
     x.b = b;
     x.c = c;
@@ -43,7 +43,7 @@ bool Owner::Fn(int a, int b, int c, int d, int e, int f, int g) {
     x.j = 0;
     x.f = f;
     x.g = g;
-    Object* r = gManager->Create(&x);
+    Object* r = gManager_2c1c70->Create(&x);
     value = r;
     if (!r)
         return false;

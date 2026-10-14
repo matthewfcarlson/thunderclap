@@ -1,5 +1,5 @@
 extern "C" char DAT_00404b3c[];
-extern const char* gName;
+extern const char* gName_983d0;
 class CamInit {
   public:
     void InitBase();
@@ -12,12 +12,12 @@ class CamCfg {
   public:
     void ConfigPart(const char*);
 };
-struct Blend {
+struct Blend_983d0 {
     int vft;
     char pad1[0x1a8 - 4];
     int field1a8;
 };
-extern "C" Blend* __fastcall FUN_000983d0(Blend* self) {
+extern "C" Blend_983d0* __fastcall FUN_000983d0(Blend_983d0* self) {
     char* p;
     CamCfg* c;
     ((CamInit*)self)->InitBase();
@@ -25,7 +25,7 @@ extern "C" Blend* __fastcall FUN_000983d0(Blend* self) {
     p = (char*)self + 0x1a8;
     ((CamSetup*)p)->SetupPart();
     c = (CamCfg*)((char*)self + 8);
-    const char* n = gName;
+    const char* n = gName_983d0;
     *(int*)((char*)self + 0xd0) = 5;
     c->ConfigPart(n);
     *(int*)p = 0;

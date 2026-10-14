@@ -1,13 +1,13 @@
-class B {
+class B_1c1280 {
   public:
     void F();
 };
-class A {
+class A_1c1280 {
   public:
     char pad[4];
-    B* m;
+    B_1c1280* m;
     void F();
 };
-void A::F() {
+void A_1c1280::F() {
     m->F();
 }

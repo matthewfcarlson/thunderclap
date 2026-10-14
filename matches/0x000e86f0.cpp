@@ -1,22 +1,22 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
+extern void* g_vftable_e86f0[];
 void operator delete(void*);
 void operator delete[](void*);
-class Ref {
+class Ref_e86f0 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Obj {
+class Obj_e86f0 {
   public:
     void* vptr;
     void* m4;
     int m8;
-    Ref* mc;
-    ~Obj();
+    Ref_e86f0* mc;
+    ~Obj_e86f0();
 };
-Obj::~Obj() {
-    vptr = g_vftable;
+Obj_e86f0::~Obj_e86f0() {
+    vptr = g_vftable_e86f0;
     _ReadWriteBarrier();
     if (mc) {
         mc->Release();

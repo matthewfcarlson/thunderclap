@@ -8,7 +8,7 @@ class ParamValue {
     virtual void vfunc_4();
     int pad;
 };
-class Part {
+class Part_235390 {
   public:
     void Init();
 };
@@ -17,7 +17,7 @@ class ParamValueString : public ParamValue {
     virtual ParamValueString* vfunc_0(int);
     virtual void vfunc_1();
     virtual void vfunc_5();
-    Part part;
+    Part_235390 part;
 };
 extern void thunk_FUN_00267090(ParamValueString*);
 ParamValueString* ParamValueString::vfunc_0(int x) {

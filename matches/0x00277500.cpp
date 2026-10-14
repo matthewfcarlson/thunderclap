@@ -1,4 +1,4 @@
-struct Dispatch {
+struct Dispatch_277500 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -26,9 +26,9 @@ struct CementLibrary {
     void vfunc_8(int**, int, int, int, int, int);
 };
 void CementLibrary::vfunc_8(int** p, int a, int b, int c, int d, int e) {
-    Dispatch* dsp = (Dispatch*)this;
+    Dispatch_277500* dsp = (Dispatch_277500*)this;
     dsp->h(p, a, b, c, d, e);
-    Dispatch* v = (Dispatch*)*p;
+    Dispatch_277500* v = (Dispatch_277500*)*p;
     if (v)
         v->v();
 }

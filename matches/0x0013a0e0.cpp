@@ -1,19 +1,19 @@
-extern void* g_vt[];
-struct Sub {
+extern void* g_vt_13a0e0[];
+struct Sub_13a0e0 {
     void Fin() throw();
 };
-class Base {
+class Base_13a0e0 {
   public:
     void* vptr;
-    ~Base() throw();
+    ~Base_13a0e0() throw();
 };
-class A : public Base {
+class A_13a0e0 : public Base_13a0e0 {
   public:
     char pad[0x10 - 4];
-    Sub sub;
-    ~A() throw();
+    Sub_13a0e0 sub;
+    ~A_13a0e0() throw();
 };
-A::~A() throw() {
-    vptr = g_vt;
+A_13a0e0::~A_13a0e0() throw() {
+    vptr = g_vt_13a0e0;
     sub.Fin();
 }

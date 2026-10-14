@@ -1,17 +1,17 @@
-typedef unsigned int u32;
-typedef unsigned char u8;
-extern u32 g_fn;
-extern u32 g_arg;
+typedef unsigned int u32_23f1d0;
+typedef unsigned char u8_23f1d0;
+extern u32_23f1d0 g_fn;
+extern u32_23f1d0 g_arg;
 class BreakPointAction {
     char pad[0x20];
 
   public:
-    u32 member;
-    u8 vfunc_3(u32 a, u32 b);
+    u32_23f1d0 member;
+    u8_23f1d0 vfunc_3(u32_23f1d0 a, u32_23f1d0 b);
 };
-u8 BreakPointAction::vfunc_3(u32 a, u32 b) {
+u8_23f1d0 BreakPointAction::vfunc_3(u32_23f1d0 a, u32_23f1d0 b) {
     if (g_fn) {
-        typedef void(__cdecl * Fn)(u32, u32);
+        typedef void(__cdecl * Fn)(u32_23f1d0, u32_23f1d0);
         ((Fn)g_fn)(member, g_arg);
     }
     return 0;

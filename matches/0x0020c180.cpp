@@ -1,16 +1,16 @@
 // cl-flags: /O1
-typedef unsigned int uint;
-typedef unsigned long long U64;
-typedef long long I64;
+typedef unsigned int uint_20c180;
+typedef unsigned long long U64_20c180;
+typedef long long I64_20c180;
 
-I64* __stdcall FUN_0020c180(I64* out, uint value) {
-    I64* result;
+I64_20c180* __stdcall FUN_0020c180(I64_20c180* out, uint_20c180 value) {
+    I64_20c180* result;
     if (value == 0xffffffffu) {
         result = 0;
     } else {
-        I64 n;
-        n = (I64)((U64)value * 10000ULL);
-        *(volatile I64*)out = n;
+        I64_20c180 n;
+        n = (I64_20c180)((U64_20c180)value * 10000ULL);
+        *(volatile I64_20c180*)out = n;
         *out = -n;
         result = out;
     }

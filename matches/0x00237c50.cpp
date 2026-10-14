@@ -1,9 +1,9 @@
 extern char SequenceTrack_vftable[];
-class SubA {
+class SubA_237c50 {
   public:
     void Init();
 };
-class SubB {
+class SubB_237c50 {
   public:
     void Init();
 };
@@ -21,9 +21,9 @@ class SequenceTrack {
     virtual void V9();
     virtual void V10();
     char p[8];
-    SubB b;
+    SubB_237c50 b;
     char q[0xf];
-    SubA a1;
+    SubA_237c50 a1;
     char r[8];
     void Finish();
 };

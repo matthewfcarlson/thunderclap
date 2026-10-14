@@ -1,4 +1,4 @@
-struct Item {
+struct Item_31e860 {
     int a;
     int b;
     int c;
@@ -55,9 +55,9 @@ class pddiBaseContext {
     virtual void f46();
     virtual void f47();
     char pad[0x1c];
-    Item* items[1];
+    Item_31e860* items[1];
 };
 int pddiBaseContext::vfunc_18(int index) {
-    Item* p = items[index];
+    Item_31e860* p = items[index];
     return p->c * 64 + p->d;
 }

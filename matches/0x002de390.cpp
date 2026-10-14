@@ -10,7 +10,7 @@ class ImageConverter {
     virtual void f7();
     virtual void f8();
 };
-class Other {
+class Other_2de390 {
   public:
     virtual void a();
     virtual void b();
@@ -29,7 +29,7 @@ class Other {
     virtual void o(void*);
 };
 int ImageConverter::f3(void** items, int count, void* a, void* b) {
-    Other* obj = *(Other**)((char*)a + 0x10);
+    Other_2de390* obj = *(Other_2de390**)((char*)a + 0x10);
     int n = obj->n(b, 0);
     for (int i = 0; i < count; ++i)
         f6(items[i], n, i);

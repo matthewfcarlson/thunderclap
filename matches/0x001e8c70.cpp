@@ -1,27 +1,27 @@
-typedef unsigned int U;
-extern U __cdecl F40750();
-extern U __cdecl F40750(U);
-extern void __cdecl F416c0(U, U, int);
-extern void __cdecl F43090(U);
-extern void __cdecl F42ca0(U);
-class Obj {
+typedef unsigned int U_1e8c70;
+extern U_1e8c70 __cdecl F40750();
+extern U_1e8c70 __cdecl F40750(U_1e8c70);
+extern void __cdecl F416c0(U_1e8c70, U_1e8c70, int);
+extern void __cdecl F43090(U_1e8c70);
+extern void __cdecl F42ca0(U_1e8c70);
+class Obj_1e8c70 {
   public:
     char pad[0x34];
     int field;
 };
-class Target {
+class Target_1e8c70 {
   public:
     char pad[0xc];
-    Obj* p;
+    Obj_1e8c70* p;
 };
-void __fastcall target(Target* self) {
-    U x = F40750();
-    Obj** q = &self->p;
-    F416c0(x, (U)*q, 0);
+void __fastcall target(Target_1e8c70* self) {
+    U_1e8c70 x = F40750();
+    Obj_1e8c70** q = &self->p;
+    F416c0(x, (U_1e8c70)*q, 0);
     while ((*q)->field != 0) {
         x = F40750(0x3a83126f);
         F43090(x);
     }
-    x = F40750((U)q);
+    x = F40750((U_1e8c70)q);
     F42ca0(x);
 }

@@ -1,4 +1,4 @@
-class Thing {
+class Thing_31a380 {
   public:
     int mVptr, mCopy;
     char p[0x30 - 8];
@@ -9,7 +9,7 @@ class Thing {
     int x[7];
     void Init(int, int, int, int, int);
 };
-void Thing::Init(int p1, int p2, int p3, int p4, int p5) {
+void Thing_31a380::Init(int p1, int p2, int p3, int p4, int p5) {
     mCopy = mVptr;
     a = p1;
     b = p3;

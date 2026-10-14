@@ -12,8 +12,8 @@ struct ClearFightParamsHitRecordTrack {
     virtual void vfunc_10();
 };
 
-extern const float gZero;
+extern const float gZero_14e140;
 
 float ClearFightParamsHitRecordTrack::vfunc_7() {
-    return gZero;
+    return gZero_14e140;
 }

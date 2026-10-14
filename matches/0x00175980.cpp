@@ -1,26 +1,26 @@
 extern "C" void _ReadWriteBarrier();
 extern int TeleportVtable;
-class Ref {
+class Ref_175980 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class Helper {
+class Helper_175980 {
   public:
     void Clean();
 };
-class Base {
+class Base_175980 {
   public:
     int* vptr;
     char pad[0x18];
     void BaseClean();
 };
-class TeleportRelativeAction : public Base {
+class TeleportRelativeAction : public Base_175980 {
   public:
     int m1c;
-    Ref* m20;
+    Ref_175980* m20;
     int pad24;
-    Helper helper;
+    Helper_175980 helper;
     void Destroy();
 };
 void TeleportRelativeAction::Destroy() {

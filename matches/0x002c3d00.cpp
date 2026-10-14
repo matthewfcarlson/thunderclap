@@ -1,4 +1,4 @@
-class X {
+class X_2c3d00 {
   public:
     virtual void f0();
     virtual void f1();
@@ -12,7 +12,7 @@ class X {
     virtual void f9(int);
     void set(int, int, int);
 };
-void X::set(int a, int b, int c) {
+void X_2c3d00::set(int a, int b, int c) {
     *(int*)((char*)this + 0x60) = c;
     f9(0);
 }

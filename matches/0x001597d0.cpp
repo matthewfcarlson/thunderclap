@@ -1,5 +1,5 @@
 extern "C" char DAT_00414130[];
-class Sub {
+class Sub_1597d0 {
   public:
     void InitSub();
 };
@@ -13,7 +13,7 @@ class CollisionSourceNodeCondition {
     virtual void v5();
     char p4[8];
     int fieldC;
-    Sub* unused;
+    Sub_1597d0* unused;
     char p14[8];
     void Init(int);
 };
@@ -24,7 +24,7 @@ CollisionSourceNodeCondition* FactoryVfunc5() {
         p->Init(0);
         *(unsigned long*)p = ((int)DAT_00414130);
         p->fieldC = 0;
-        ((Sub*)((char*)p + 0x10))->InitSub();
+        ((Sub_1597d0*)((char*)p + 0x10))->InitSub();
         *((char*)p + 0x1c) = 0;
         return p;
     }

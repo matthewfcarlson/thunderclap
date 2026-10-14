@@ -1,14 +1,14 @@
-class Y {
+class Y_1c37f0 {
   public:
     void g();
 };
-class X {
+class X_1c37f0 {
     char pad[0x18];
-    Y* p;
+    Y_1c37f0* p;
 
   public:
     void f();
 };
-void X::f() {
+void X_1c37f0::f() {
     p->g();
 }

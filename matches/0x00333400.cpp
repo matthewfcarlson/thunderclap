@@ -1,4 +1,4 @@
-class Thing {
+class Thing_333400 {
     char pad[0x7c];
     char mFlag;
 
@@ -6,6 +6,6 @@ class Thing {
     void Set(void* p);
 };
 
-void Thing::Set(void* p) {
+void Thing_333400::Set(void* p) {
     mFlag = (p != 0);
 }

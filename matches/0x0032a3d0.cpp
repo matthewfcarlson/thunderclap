@@ -1,12 +1,12 @@
 extern "C" char DAT_0043386c[];
-class Ref {
+class Ref_32a3d0 {
   public:
     virtual void F0();
     virtual void F1();
 };
 struct Shader {
     char pad[0x80];
-    Ref* member;
+    Ref_32a3d0* member;
     void Target();
     void Next();
 };

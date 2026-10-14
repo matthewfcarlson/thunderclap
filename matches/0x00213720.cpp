@@ -1,15 +1,15 @@
-struct Thing {
+struct Thing_213720 {
     char pad[8];
     unsigned int* out;
     char pad2[0x34];
 };
-struct Result {
+struct Result_213720 {
     int tag;
     char* data;
 };
-Result* __fastcall FUN_00212bb0(void* other, Thing* self);
-void __cdecl FUN_00213720(Thing* self, void* other) {
-    Result* r = FUN_00212bb0(other, self);
+Result_213720* __fastcall FUN_00212bb0(void* other, Thing_213720* self);
+void __cdecl FUN_00213720(Thing_213720* self, void* other) {
+    Result_213720* r = FUN_00212bb0(other, self);
     unsigned int* src;
     if (r->tag == 6 && r->data[6] == 0)
         src = (unsigned int*)(r->data + 0x10);

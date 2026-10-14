@@ -7,7 +7,7 @@ class DataHandler {
         virtual void vfunc_1();
     };
 };
-class Ref {
+class Ref_1faee0 {
   public:
     virtual void Release(int);
 };
@@ -17,7 +17,7 @@ class CGameDataHandler : public DataHandler::ObjectCreator {
   public:
     virtual CGameDataHandler* vfunc_0(unsigned char);
     virtual void vfunc_1();
-    Ref* mRef;
+    Ref_1faee0* mRef;
 };
 void thunk_FUN_00267090(CGameDataHandler*);
 CGameDataHandler* CGameDataHandler::vfunc_0(unsigned char flags) {

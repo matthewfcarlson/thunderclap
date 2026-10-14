@@ -1,4 +1,4 @@
-class Obj {
+class Obj_227970 {
   public:
     char p[0x2c];
     int count;
@@ -8,7 +8,7 @@ class Obj {
     void Target(float);
 };
 extern float __cdecl Calc(float, float);
-void Obj::Target(float param) {
+void Obj_227970::Target(float param) {
     float x = a;
     float y = b;
     int n = count - 1;

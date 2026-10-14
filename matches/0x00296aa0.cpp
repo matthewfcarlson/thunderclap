@@ -1,4 +1,4 @@
-struct Obj {
+struct Obj_296aa0 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -39,9 +39,9 @@ struct VisibilityNode {
     unsigned flags;
     char p14[4];
     unsigned count;
-    Obj** items;
+    Obj_296aa0** items;
     char p20[0xc];
-    Obj* ref;
+    Obj_296aa0* ref;
     void vfunc_9();
 };
 void VisibilityNode::vfunc_9() {

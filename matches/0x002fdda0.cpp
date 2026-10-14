@@ -12,13 +12,13 @@ class SimState {
     virtual void vfunc_8(int, int, int);
     char pad[0x88];
 };
-struct Part {
+struct Part_2fdda0 {
     char data[0x64];
     void call(int, int);
 };
 class SimStateArticulated : public SimState {
   public:
-    Part* parts;
+    Part_2fdda0* parts;
     void vfunc_8(int a, int b, int index);
 };
 void SimStateArticulated::vfunc_8(int a, int b, int index) {

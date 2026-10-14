@@ -1,19 +1,19 @@
-class Arg {
+class Arg_23bb00 {
   public:
     virtual void Init();
 };
-extern int table;
+extern int table_23bb00;
 class StreamDataReader {
   public:
     int vf;
     int a;
-    Arg* p;
+    Arg_23bb00* p;
     int q;
-    StreamDataReader(Arg* x, int y);
+    StreamDataReader(Arg_23bb00* x, int y);
 };
-StreamDataReader::StreamDataReader(Arg* x, int y) {
+StreamDataReader::StreamDataReader(Arg_23bb00* x, int y) {
     a = 0;
-    vf = (int)&table;
+    vf = (int)&table_23bb00;
     q = y;
     p = x;
     p->Init();

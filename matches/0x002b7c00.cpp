@@ -1,29 +1,29 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
-class Ref {
+extern void* g_vftable_2b7c00[];
+class Ref_2b7c00 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Base {
+class Base_2b7c00 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_2b7c00 : public Base_2b7c00 {
   public:
     char pad[0x54];
-    Ref* m58;
-    Ref* m5c;
-    Ref* m60;
-    Ref* m64;
-    Ref* m68;
-    Ref* m6c;
-    Ref* m70;
-    ~Obj();
+    Ref_2b7c00* m58;
+    Ref_2b7c00* m5c;
+    Ref_2b7c00* m60;
+    Ref_2b7c00* m64;
+    Ref_2b7c00* m68;
+    Ref_2b7c00* m6c;
+    Ref_2b7c00* m70;
+    ~Obj_2b7c00();
 };
-Obj::~Obj() {
-    vptr = g_vftable;
+Obj_2b7c00::~Obj_2b7c00() {
+    vptr = g_vftable_2b7c00;
     _ReadWriteBarrier();
     if (m58) {
         m58->Release();

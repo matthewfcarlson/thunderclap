@@ -1,9 +1,9 @@
-struct Inner {
+struct Inner_1924f0 {
     char m[0x9c];
 };
-struct Obj {
-    Inner* Get();
+struct Obj_1924f0 {
+    Inner_1924f0* Get();
 };
-Inner* Obj::Get() {
-    return (Inner*)((char*)this + 0x9c);
+Inner_1924f0* Obj_1924f0::Get() {
+    return (Inner_1924f0*)((char*)this + 0x9c);
 }

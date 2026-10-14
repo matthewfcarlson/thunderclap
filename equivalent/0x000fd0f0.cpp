@@ -14,7 +14,7 @@ union Wd {
     unsigned int u;
 };
 
-struct V3x { float FUN_0022d110(); };
+struct V3x_fd0f0 { float FUN_0022d110(); };
 struct Cls3660 { void FUN_000b3660(unsigned a); };
 struct Cls3d20 { unsigned FUN_000b3d20(unsigned a); };
 struct Cls1c38f0 { void FUN_001c38f0(unsigned a, unsigned b); };
@@ -80,7 +80,7 @@ void CControllerAgent::vfunc_4(unsigned a1, unsigned a2, unsigned a3)
         L[18].u = *(volatile unsigned *)((char *)fgt + 0x1afc);
         L[19].u = *(volatile unsigned *)((char *)fgt + 0x1b00);
         L[18].u = 0;
-        ((V3x *)&L[17].f)->FUN_0022d110();
+        ((V3x_fd0f0 *)&L[17].f)->FUN_0022d110();
     } else {
         L[17].u = 0;
         L[18].u = 0x3f800000;
@@ -224,7 +224,7 @@ void CControllerAgent::vfunc_4(unsigned a1, unsigned a2, unsigned a3)
     *(volatile unsigned *)((char *)ediv + 0x10c + 0x4) = tmpi;
     tmpi = L[15].u;
     *(volatile unsigned *)((char *)ediv + 0x10c + 0x8) = tmpi;
-    flen = ((V3x *)(ediv + 0x10c))->FUN_0022d110();
+    flen = ((V3x_fd0f0 *)(ediv + 0x10c))->FUN_0022d110();
     *(volatile float *)((char *)ediv + 0x118) = flen;
     *(volatile unsigned *)((char *)ediv + 0x124) = 0;
     *(volatile unsigned *)((char *)ediv + 0x120) = 0;

@@ -1,7 +1,7 @@
 struct Chunk {
     int Id();
 };
-extern int g_vt;
+extern int g_vt_2bceb0;
 struct BO {
     void InitBase(int);
     virtual void v0();
@@ -23,13 +23,13 @@ struct BO {
     char pad[0x48];
     float f;
 };
-struct Helper {
+struct Helper_2bceb0 {
     void Fill(BO*, Chunk*, int);
 };
 void* operator new(unsigned);
-struct Loader {
+struct Loader_2bceb0 {
     char pad0[0x10];
-    Helper* h;
+    Helper_2bceb0* h;
     virtual void s0();
     virtual void s1();
     virtual void s2();
@@ -37,12 +37,12 @@ struct Loader {
     virtual void s4();
     virtual void Load(BO**, int*, Chunk*, int);
 };
-void Loader::Load(BO** out, int* info, Chunk* c, int x) {
+void Loader_2bceb0::Load(BO** out, int* info, Chunk* c, int x) {
     if (c->Id() == 0x17006) {
         BO* o = (BO*)operator new(0x60);
         if (o) {
             o->InitBase(1);
-            *(int**)o = &g_vt;
+            *(int**)o = &g_vt_2bceb0;
             o->f = 1.0f;
         } else {
             o = 0;

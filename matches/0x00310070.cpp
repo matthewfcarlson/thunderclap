@@ -1,12 +1,12 @@
-typedef unsigned int u32;
-struct B {
-    void F(u32, u32);
+typedef unsigned int u32_310070;
+struct B_310070 {
+    void F(u32_310070, u32_310070);
 };
-struct A {
+struct A_310070 {
     char pad[8];
-    u32 a;
-    B* b;
+    u32_310070 a;
+    B_310070* b;
 };
-void __fastcall FUN_00310070(A* self) {
+void __fastcall FUN_00310070(A_310070* self) {
     self->b->F(self->a, 0);
 }

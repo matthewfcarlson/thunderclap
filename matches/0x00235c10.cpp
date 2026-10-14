@@ -1,16 +1,16 @@
 extern "C" char DAT_00427d38[];
-class Base {
+class Base_235c10 {
   public:
     int x[3];
-    Base(int);
+    Base_235c10(int);
 };
-class FightNodeTimeCondition : public Base {
+class FightNodeTimeCondition : public Base_235c10 {
   public:
     int y;
     int z;
     FightNodeTimeCondition();
 };
-FightNodeTimeCondition::FightNodeTimeCondition() : Base(0) {
+FightNodeTimeCondition::FightNodeTimeCondition() : Base_235c10(0) {
     *(int*)this = ((int)DAT_00427d38);
     y = 0;
     z = 0;

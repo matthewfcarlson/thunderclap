@@ -1,4 +1,4 @@
-class Other;
+class Other_2a36d0;
 class DrawableContainer {
   public:
     virtual void f0();
@@ -12,7 +12,7 @@ class DrawableContainer {
 class ParticleSystem : public DrawableContainer {
   public:
     char pad[0xa0];
-    Other* emitter;
+    Other_2a36d0* emitter;
     virtual void s7();
     virtual void s8();
     virtual void s9();
@@ -27,7 +27,7 @@ class ParticleSystem : public DrawableContainer {
     virtual void s18();
     void vfunc_6(void*, int);
 };
-class Other {
+class Other_2a36d0 {
   public:
     virtual void a();
     virtual void b();
@@ -38,7 +38,7 @@ class Other {
     virtual void g(void*, int);
     virtual void h();
 };
-class Manager {
+class Manager_2a36d0 {
   public:
     virtual void a();
     virtual void b();
@@ -65,7 +65,7 @@ class Manager {
     virtual void w();
     virtual void x(int, void*);
 };
-extern Manager** globalManager;
+extern Manager_2a36d0** globalManager;
 void ParticleSystem::vfunc_6(void* a, int b) {
     if (emitter)
         emitter->g(a, b);

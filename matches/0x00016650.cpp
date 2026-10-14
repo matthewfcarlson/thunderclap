@@ -1,4 +1,4 @@
-class Result {
+class Result_16650 {
   public:
     void finish(int);
 };
@@ -7,11 +7,11 @@ class CMotionTrailAction {
     char pad[0x20];
     void* mObject;
     int mValue;
-    Result* first();
+    Result_16650* first();
     void vfunc_4();
 };
 void CMotionTrailAction::vfunc_4() {
-    Result* r = first();
+    Result_16650* r = first();
     char* p = (char*)mObject;
     if (p[0xc8])
         r->finish(mValue);

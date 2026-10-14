@@ -14,13 +14,13 @@ class CTrack {
     virtual void f11();
     virtual int vfunc_12(int);
 };
-class Alloc {
+class Alloc_6b1f0 {
   public:
     int method(CTrack*, int);
 };
 extern void* __cdecl FUN_0008d690(unsigned int);
 int CTrack::vfunc_12(int param) {
-    Alloc* p = (Alloc*)FUN_0008d690(0x38);
+    Alloc_6b1f0* p = (Alloc_6b1f0*)FUN_0008d690(0x38);
     if (p)
         return p->method(this, param);
     return 0;

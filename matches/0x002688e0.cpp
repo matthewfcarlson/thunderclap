@@ -1,5 +1,5 @@
 extern "C" int strcmp(const char*, const char*);
-class NameHolder {
+class NameHolder_2688e0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -34,7 +34,7 @@ class ControllerXBox {
     virtual void v21();
     char pad[0x10];
     int count;
-    NameHolder entries[1];
+    NameHolder_2688e0 entries[1];
 };
 ControllerXBox* ControllerXBox::Find(const char* name, int which) {
     int found = 0;

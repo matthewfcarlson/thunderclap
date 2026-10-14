@@ -11,7 +11,7 @@ class TokenTrack;
 }
 } // namespace hulkfight
 namespace fight {
-struct ParamBase {
+struct ParamBase_112e30 {
     virtual void v0();
     char pad[12];
     void(__cdecl* callback)();
@@ -19,22 +19,22 @@ struct ParamBase {
     void FUN_00234960(const char*);
     void FUN_00234860(const char*);
 };
-template <class T> struct ParamFloatConstRange : ParamBase {
+template <class T> struct ParamFloatConstRange : ParamBase_112e30 {
     virtual void v0();
 };
-template <class T> struct ParamBool : ParamBase {
+template <class T> struct ParamBool : ParamBase_112e30 {
     virtual void v0();
 };
 } // namespace fight
 extern int DAT_004e0b9c;
 extern int DAT_004e0b98;
-void __cdecl FUN_002347b0(int*, fight::ParamBase**, int);
+void __cdecl FUN_002347b0(int*, fight::ParamBase_112e30**, int);
 void __cdecl FUN_00112e30() {
     if (!DAT_004e0b9c) {
-        fight::ParamBase* params[3];
+        fight::ParamBase_112e30* params[3];
         void* p = FUN_0008d690(24);
         if (p) {
-            fight::ParamBase* b = (fight::ParamBase*)p;
+            fight::ParamBase_112e30* b = (fight::ParamBase_112e30*)p;
             b->FUN_00234960("timeBegin");
             new (p) fight::ParamFloatConstRange<hulkfight::ai::TokenTrack>;
             b->callback = FUN_0010c640;
@@ -43,7 +43,7 @@ void __cdecl FUN_00112e30() {
             params[0] = 0;
         p = FUN_0008d690(24);
         if (p) {
-            fight::ParamBase* b = (fight::ParamBase*)p;
+            fight::ParamBase_112e30* b = (fight::ParamBase_112e30*)p;
             b->FUN_00234960("timeEnd");
             new (p) fight::ParamFloatConstRange<hulkfight::ai::TokenTrack>;
             b->callback = FUN_0010c650;
@@ -52,7 +52,7 @@ void __cdecl FUN_00112e30() {
             params[1] = 0;
         p = FUN_0008d690(24);
         if (p) {
-            fight::ParamBase* b = (fight::ParamBase*)p;
+            fight::ParamBase_112e30* b = (fight::ParamBase_112e30*)p;
             b->FUN_00234860("floatDelayOnEnd");
             new (p) fight::ParamBool<hulkfight::ai::TokenTrack>;
             b->callback = FUN_0010c670;

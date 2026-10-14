@@ -1,11 +1,11 @@
 extern const float Rad = 0.0174533f;
-class Obj {
+class Obj_180250 {
   public:
     char pad[0x20];
     float mAngle;
     char Set(float v);
 };
-char Obj::Set(float v) {
+char Obj_180250::Set(float v) {
     mAngle = v * Rad;
     return 1;
 }

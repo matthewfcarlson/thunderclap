@@ -1,4 +1,4 @@
-struct Manager {
+struct Manager_29ca50 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -39,19 +39,19 @@ struct Manager {
     virtual void f37();
     virtual void f38(int, int);
 };
-Manager* gManager;
-class Target {
+Manager_29ca50* gManager_29ca50;
+class Target_29ca50 {
     char pad[0x10];
 
   public:
     int count;
     void run();
 };
-void Target::run() {
+void Target_29ca50::run() {
     int i = 0;
     if (count > 0)
         do {
-            gManager->f38(i, 0);
+            gManager_29ca50->f38(i, 0);
             ++i;
         } while (i < count);
 }

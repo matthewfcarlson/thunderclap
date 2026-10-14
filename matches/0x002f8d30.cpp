@@ -1,6 +1,6 @@
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_00431700[];
-class Ref {
+class Ref_2f8d30 {
   public:
     virtual void a(int);
 };
@@ -8,7 +8,7 @@ class CollisionSolverAgent {
   public:
     int vptr;
     int pad4;
-    Ref* mPtr;
+    Ref_2f8d30* mPtr;
     CollisionSolverAgent* vfunc_2(unsigned char);
 };
 extern void thunk(CollisionSolverAgent*);

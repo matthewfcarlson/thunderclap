@@ -1,10 +1,10 @@
-class Obj {
+class Obj_18cb60 {
     char pad[0x18];
 
   public:
     char Set(int v);
 };
-char Obj::Set(int v) {
+char Obj_18cb60::Set(int v) {
     *(int*)((char*)this + 0x18) = v;
     return 1;
 }

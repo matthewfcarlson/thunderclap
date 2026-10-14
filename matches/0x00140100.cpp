@@ -1,25 +1,25 @@
-class Ref {
+class Ref_140100 {
   public:
     virtual void Add();
     virtual void Rel();
 };
-class Base {
+class Base_140100 {
   public:
-    Base();
+    Base_140100();
     virtual void f0();
     char pad[0x18];
 };
-class WallExitAction : public Base {
+class WallExitAction : public Base_140100 {
   public:
-    WallExitAction(int a, Ref* b);
+    WallExitAction(int a, Ref_140100* b);
     virtual void g0();
     int m1c;
-    Ref* m20;
+    Ref_140100* m20;
     int m24, m28, m2c, m30, m34, m38;
     float m3c;
     int m40, m44, m48;
 };
-WallExitAction::WallExitAction(int a, Ref* b) {
+WallExitAction::WallExitAction(int a, Ref_140100* b) {
     int* q = &m1c;
     *q = 0;
     m20 = 0;

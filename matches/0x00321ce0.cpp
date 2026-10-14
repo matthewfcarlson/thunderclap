@@ -1,4 +1,4 @@
-typedef unsigned int U;
+typedef unsigned int U_321ce0;
 namespace pure3d {
 class pddiBaseContext {
   public:
@@ -82,21 +82,21 @@ class pddiBaseContext {
     virtual void f77();
     virtual void f78();
     virtual void f79();
-    virtual void vfunc_80(U, U, U);
+    virtual void vfunc_80(U_321ce0, U_321ce0, U_321ce0);
 };
 class d3dContext : public pddiBaseContext {
   public:
-    void vfunc_80(U, U, U);
+    void vfunc_80(U_321ce0, U_321ce0, U_321ce0);
 };
 } // namespace pure3d
-extern U gFlags, gState, gFog, gA, gB;
-void __stdcall SetFog(U);
-void pure3d::d3dContext::vfunc_80(U a, U b, U c) {
+extern U_321ce0 gFlags_321ce0, gState, gFog, gA, gB;
+void __stdcall SetFog(U_321ce0);
+void pure3d::d3dContext::vfunc_80(U_321ce0 a, U_321ce0 b, U_321ce0 c) {
     pddiBaseContext::vfunc_80(a, b, c);
-    gFlags |= 0x2000;
+    gFlags_321ce0 |= 0x2000;
     gFog = 3;
     SetFog(a);
     gA = b;
     gB = c;
-    gFlags |= 0x2000;
+    gFlags_321ce0 |= 0x2000;
 }

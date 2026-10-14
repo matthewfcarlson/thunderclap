@@ -1,5 +1,5 @@
 extern "C" double __cdecl fabs(double);
-class Callback {
+class Callback_268f00 {
   public:
     virtual void Call(int, float);
 };
@@ -24,7 +24,7 @@ class ControllerInputPointXBox {
     float mValue, mMin, mMax, mTolerance;
     int mDelta, mLast;
     void* pad20[3];
-    Callback* callback;
+    Callback_268f00* callback;
     int context;
 };
 extern float __stdcall Convert(int);

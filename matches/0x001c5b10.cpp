@@ -1,22 +1,22 @@
-typedef unsigned int U;
-struct Part {
+typedef unsigned int U_1c5b10;
+struct Part_1c5b10 {
     void f5d30();
 };
-struct Sub {
-    U f75e0(U);
-    void f7550(U);
+struct Sub_1c5b10 {
+    U_1c5b10 f75e0(U_1c5b10);
+    void f7550(U_1c5b10);
 };
-struct Obj {
+struct Obj_1c5b10 {
     char pad[0x128];
-    void target(U arg);
+    void target(U_1c5b10 arg);
 };
-extern void __cdecl thunk(U);
-void Obj::target(U arg) {
-    Sub* sub = (Sub*)((char*)this + 0x128);
-    U r = sub->f75e0(arg);
+extern void __cdecl thunk(U_1c5b10);
+void Obj_1c5b10::target(U_1c5b10 arg) {
+    Sub_1c5b10* sub = (Sub_1c5b10*)((char*)this + 0x128);
+    U_1c5b10 r = sub->f75e0(arg);
     sub->f7550(arg);
     if (r) {
-        ((Part*)r)->f5d30();
+        ((Part_1c5b10*)r)->f5d30();
         thunk(r);
     }
 }

@@ -1,36 +1,36 @@
-struct V3 {
+struct V3_90490 {
     int x, y, z;
 };
-struct Sub {
-    void Get(V3* out);
+struct Sub_90490 {
+    void Get(V3_90490* out);
 };
 struct D {
     char p[0x10];
-    Sub* sub;
+    Sub_90490* sub;
     char q[0x1b0c - 0x14];
     float f;
 };
-struct C {
+struct C_90490 {
     char p[0x124];
     D* d;
 };
-struct G {
+struct G_90490 {
     char p[0x20];
-    C* c;
+    C_90490* c;
 };
-extern G* g_g;
-struct T {
+extern G_90490* g_g_90490;
+struct T_90490 {
     char pad[0x14];
     int mode;
     char flag;
     char pad2[3];
-    V3 a;
-    V3 b;
+    V3_90490 a;
+    V3_90490 b;
     int i34;
     int i38;
     void F();
 };
-void T::F() {
+void T_90490::F() {
     if (flag)
         return;
     int m = mode;
@@ -40,10 +40,10 @@ void T::F() {
     if (m > 0) {
         if (m > 2) {
             if (m == 3)
-                i34 = (int)g_g->c->d->f;
+                i34 = (int)g_g_90490->c->d->f;
         } else {
-            V3* p = &a;
-            g_g->c->d->sub->Get(p);
+            V3_90490* p = &a;
+            g_g_90490->c->d->sub->Get(p);
             b.x = p->x;
             b.y = p->y;
             b.z = p->z;

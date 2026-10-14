@@ -16,13 +16,13 @@ class CClimbingAction : public CAction {
     void* mThing;
     bool vfunc_7(int);
 };
-struct X {
-    X* f1();
-    X* f2();
+struct X_13b70 {
+    X_13b70* f1();
+    X_13b70* f2();
     int f3(int);
 };
 bool CClimbingAction::vfunc_7(int) {
-    X* x = (X*)mThing;
+    X_13b70* x = (X_13b70*)mThing;
     x = x->f1();
     x = x->f2();
     x->f3(4);

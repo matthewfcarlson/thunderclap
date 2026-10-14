@@ -1,4 +1,4 @@
-class Obj {
+class Obj_38de0 {
   public:
     void Lock(int);
     unsigned char Wrap(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int,
@@ -6,7 +6,7 @@ class Obj {
 };
 extern unsigned char Work(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int,
                           unsigned int, unsigned int);
-unsigned char Obj::Wrap(unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e,
+unsigned char Obj_38de0::Wrap(unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e,
                         unsigned int f, unsigned int g, unsigned int h) {
     Lock(0);
     unsigned char r = Work(a, b, c, d, e, f, g, h);

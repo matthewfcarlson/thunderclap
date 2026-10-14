@@ -1,26 +1,26 @@
-struct Obj {
+struct Obj_1f9670 {
     char pad[0x20];
     unsigned short value;
 };
-struct Sub {
+struct Sub_1f9670 {
     int Find(int (*cb)(), void*);
 };
-struct Temp {
+struct Temp_1f9670 {
     void Cleanup();
 };
-struct Receiver {
+struct Receiver_1f9670 {
     char pad[0xc6c];
-    Sub* sub;
+    Sub_1f9670* sub;
     bool Target(int a, int b, int c, int d, unsigned short v);
 };
 extern int Callback();
-bool Receiver::Target(int a, int b, int c, int d, unsigned short v) {
+bool Receiver_1f9670::Target(int a, int b, int c, int d, unsigned short v) {
     int r = sub->Find(Callback, &a);
     if (!r) {
-        ((Temp*)&a)->Cleanup();
+        ((Temp_1f9670*)&a)->Cleanup();
         return false;
     }
-    ((Obj*)r)->value = v;
-    ((Temp*)&a)->Cleanup();
+    ((Obj_1f9670*)r)->value = v;
+    ((Temp_1f9670*)&a)->Cleanup();
     return true;
 }

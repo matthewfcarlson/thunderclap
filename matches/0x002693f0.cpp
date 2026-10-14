@@ -1,4 +1,4 @@
-class Pad {
+class Pad_2693f0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -8,7 +8,7 @@ class Pad {
 };
 class ControllerSystemXBox {
     char pad[0x20];
-    Pad controllers[4];
+    Pad_2693f0 controllers[4];
 
   public:
     int vfunc_3();

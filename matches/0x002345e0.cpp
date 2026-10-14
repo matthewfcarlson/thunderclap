@@ -1,5 +1,5 @@
 extern "C" char DAT_004279ac[];
-class Obj {
+class Obj_2345e0 {
   public:
     virtual void s0();
     virtual void s1();
@@ -11,13 +11,13 @@ class Obj {
 };
 struct Condition {
     unsigned vptr;
-    Obj* mRef;
+    Obj_2345e0* mRef;
     Condition* vfunc_5(unsigned char flags);
     void reset();
 };
 void Destroy(Condition*);
 Condition* Condition::vfunc_5(unsigned char flags) {
-    Obj* p = mRef;
+    Obj_2345e0* p = mRef;
     vptr = ((int)DAT_004279ac);
     if (p)
         p->s5(1);

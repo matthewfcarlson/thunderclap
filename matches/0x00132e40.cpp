@@ -16,11 +16,11 @@ class StatEndTrialTrack {
     int b;
     StatEndTrialTrack();
 };
-class Factory : public TrackFactory {
+class Factory_132e40 : public TrackFactory {
   public:
     StatEndTrialTrack* vfunc5();
 };
-StatEndTrialTrack* Factory::vfunc5() {
+StatEndTrialTrack* Factory_132e40::vfunc5() {
     StatEndTrialTrack* p = (StatEndTrialTrack*)Alloc(0x14);
     if (p) {
         p->StatEndTrialTrack::StatEndTrialTrack();

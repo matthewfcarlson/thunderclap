@@ -1,12 +1,12 @@
-struct Data {
+struct Data_67c30 {
     unsigned int v[5];
 };
-class Obj {
+class Obj_67c30 {
   public:
     unsigned char bytes[0x108];
-    bool Put(unsigned int key, const Data* src);
+    bool Put(unsigned int key, const Data_67c30* src);
 };
-bool Obj::Put(unsigned int key, const Data* src) {
+bool Obj_67c30::Put(unsigned int key, const Data_67c30* src) {
     int i;
     if (key == 0)
         return false;
@@ -15,6 +15,6 @@ bool Obj::Put(unsigned int key, const Data* src) {
         return false;
     if (i < 0)
         return false;
-    *(Data*)(bytes + 0x108 + i * 32) = *src;
+    *(Data_67c30*)(bytes + 0x108 + i * 32) = *src;
     return true;
 }

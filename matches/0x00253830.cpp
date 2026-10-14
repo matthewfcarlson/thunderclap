@@ -12,13 +12,13 @@ class SeqActionVarPitch : public SeqAction {
   public:
     void f1(void*);
 };
-class Holder {
+class Holder_253830 {
   public:
     char pad[0x1c];
     int value;
 };
 void SeqActionVarPitch::f1(void* param) {
-    Holder* h = *(Holder**)((char*)param + 4);
+    Holder_253830* h = *(Holder_253830**)((char*)param + 4);
     h->value = *(int*)((char*)this + 8) + 8;
     *(int*)((char*)this + 0xc) = 0;
 }

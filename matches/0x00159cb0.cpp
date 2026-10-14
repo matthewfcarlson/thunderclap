@@ -6,7 +6,7 @@ class HitPauseTrack {
     HitPauseTrack();
 };
 extern "C" void* __cdecl operator_new(unsigned int);
-class Factory {
+class Factory_159cb0 {
   public:
     virtual void V0();
     virtual void V1();
@@ -15,7 +15,7 @@ class Factory {
     virtual void V4();
     virtual HitPauseTrack* V5();
 };
-HitPauseTrack* Factory::V5() {
+HitPauseTrack* Factory_159cb0::V5() {
     HitPauseTrack* p = (HitPauseTrack*)operator_new(0x18);
     if (p) {
         p->HitPauseTrack::HitPauseTrack();

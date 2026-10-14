@@ -13,7 +13,7 @@ class AmbientLight {
     char pad[0x10];
     int value;
 };
-class Dispatch {
+class Dispatch_2a1280 {
   public:
     virtual void f0();
     virtual void f1();
@@ -52,7 +52,7 @@ class Dispatch {
     virtual void f34();
     virtual void f35(int);
 };
-extern Dispatch* g_dispatch;
+extern Dispatch_2a1280* g_dispatch;
 void AmbientLight::vfunc_9(int x) {
     return g_dispatch->f35(value);
 }

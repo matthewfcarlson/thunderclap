@@ -10,7 +10,7 @@ class Action {
     unsigned int flags;
     char pad10[0x28];
 };
-class Sub {
+class Sub_2396f0 {
   public:
     void Init(unsigned int, int);
     void Run(unsigned int);
@@ -20,7 +20,7 @@ class Sub {
 namespace fight {
 class ExecuteAction : public Action {
   public:
-    Sub sub;
+    Sub_2396f0 sub;
     char pad39[0x27];
     unsigned int mCount;
     unsigned char mFlag;

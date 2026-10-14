@@ -1,10 +1,10 @@
 extern "C" char DAT_003fbf68[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-class Helper {
+class Helper_77320 {
   public:
     void Init();
 };
-class Factory {
+class Factory_77320 {
   public:
     virtual void a();
     virtual void b();
@@ -13,7 +13,7 @@ class Factory {
     virtual void e();
     virtual void* vfunc_5();
 };
-struct Orient {
+struct Orient_77320 {
     void* vptr;
     int x4;
     int x8;
@@ -27,10 +27,10 @@ struct Orient {
     int x24;
     int x28;
 };
-void* Factory::vfunc_5() {
-    Orient* p = (Orient*)FUN_0008d690(0x2c);
+void* Factory_77320::vfunc_5() {
+    Orient_77320* p = (Orient_77320*)FUN_0008d690(0x2c);
     if (p) {
-        ((Helper*)p)->Init();
+        ((Helper_77320*)p)->Init();
         p->xC = 0;
         p->x18 = 0;
         p->x1c = 0;

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 2/2)
 // FUN_000f1bd0 @ 0x000f1bd0
-struct Vec3 { float x, y, z; };
+struct Vec3_f1bd0 { float x, y, z; };
 
 // Two incoming argument words that the function reuses as an output vector.
 struct ArgPair {
@@ -16,9 +16,9 @@ struct Layout {
     virtual void GetExtent(ArgPair *out, void *owner);   // slot 15
 };
 
-void __cdecl FUN_000f69e0(int source, Vec3 *out);
+void __cdecl FUN_000f69e0(int source, Vec3_f1bd0 *out);
 
-class Widget {
+class Widget_f1bd0 {
 public:
     char pad00[0x14];
     Layout *layout;          // 0x14
@@ -33,7 +33,7 @@ public:
     void FUN_000f1bd0(ArgPair args, float c);
 };
 
-void Widget::FUN_000f1bd0(ArgPair args, float c) {
+void Widget_f1bd0::FUN_000f1bd0(ArgPair args, float c) {
     argA = args.x.i;
     argB = args.y.i;
     argC = c;
@@ -41,7 +41,7 @@ void Widget::FUN_000f1bd0(ArgPair args, float c) {
     bits.f = c;
     args.x.u = bits.u & 0x7fffffff;
     if (args.x.f == 1.5707963705062866f) {
-        Vec3 size;
+        Vec3_f1bd0 size;
         FUN_000f69e0(source, &size);
         layout->GetExtent(&args, this);
         scaleX = args.x.f / size.y * 0.9f;

@@ -3,14 +3,14 @@ class RDLFile {
     virtual void vfunc_0();
     virtual void vfunc_1();
 };
-class Ref {
+class Ref_27ae90 {
   public:
     virtual void f0();
     virtual void f1();
 };
 class RDLReader : public RDLFile {
   public:
-    Ref* mRef;
+    Ref_27ae90* mRef;
     void* mThing;
     virtual void vfunc_1();
 };

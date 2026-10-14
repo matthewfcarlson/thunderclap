@@ -1,4 +1,4 @@
-struct S {
+struct S_1c4db0 {
     unsigned int x[16];
 };
 class Object {
@@ -13,10 +13,10 @@ class Object {
     virtual void h();
     virtual void i();
     char pad[0x2c];
-    S data;
+    S_1c4db0 data;
 };
 void Object::f(unsigned int a, unsigned int b, unsigned int c) {
-    S t;
+    S_1c4db0 t;
     t = data;
     t.x[12] = a;
     t.x[13] = b;

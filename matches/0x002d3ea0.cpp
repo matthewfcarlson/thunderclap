@@ -1,4 +1,4 @@
-extern const float zero;
+extern const float zero_2d3ea0;
 class ParticleEmitter {
   public:
     virtual void f0();
@@ -50,5 +50,5 @@ class ParticleEmitter {
 float ParticleEmitter::f18(float x) {
     if (ptr)
         return ptr->f(x);
-    return zero;
+    return zero_2d3ea0;
 }

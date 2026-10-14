@@ -1,7 +1,7 @@
 extern "C" void freeMem(void*);
 extern "C" void* allocMem(unsigned int);
 extern "C" unsigned int strlen(const char*);
-class Obj {
+class Obj_1a3df0 {
     char pad[0xd0];
     char* text;
 
@@ -17,7 +17,7 @@ inline void copy(char* d, const char* s) {
         d++;
     } while (c);
 }
-char Obj::SetText(const char* s) {
+char Obj_1a3df0::SetText(const char* s) {
     freeMem(text);
     if (!s) {
         text = 0;

@@ -1,4 +1,4 @@
-class Target {
+class Target_ac780 {
     char pad[0x14];
 
   public:
@@ -7,7 +7,7 @@ class Target {
     unsigned char flag;
     void Set(int x);
 };
-void Target::Set(int x) {
+void Target_ac780::Set(int x) {
     value = x;
     flag = 1;
 }

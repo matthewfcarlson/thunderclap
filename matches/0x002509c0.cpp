@@ -1,18 +1,18 @@
 extern "C" char DAT_00429c8c[];
 extern const char expr[];
-class Base {
+class Base_2509c0 {
   public:
-    Base();
+    Base_2509c0();
 };
-class Text {
+class Text_2509c0 {
   public:
     void Set(const char*, int);
 };
-class SeqEventExpression : public Base {
+class SeqEventExpression : public Base_2509c0 {
   public:
     int vptr;
     char pad[4];
-    Text text;
+    Text_2509c0 text;
     SeqEventExpression();
 };
 SeqEventExpression::SeqEventExpression() {

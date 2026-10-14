@@ -2,7 +2,7 @@ extern "C" int sprintf(char*, const char*, ...);
 extern unsigned gTag;
 void* Alloc(unsigned, unsigned);
 namespace core {
-struct Child {
+struct Child_2701d0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -17,7 +17,7 @@ struct Child {
     virtual void v11();
     virtual void v12();
     virtual void* v13();
-    Child* Init();
+    Child_2701d0* Init();
     void Setup(int, unsigned, unsigned, unsigned, unsigned, char*, int);
 };
 struct MemoryPool {
@@ -44,7 +44,7 @@ struct MemoryPool {
     unsigned mD;
     unsigned mE;
     unsigned mF;
-    Child* mChild;
+    Child_2701d0* mChild;
 };
 } // namespace core
 void* core::MemoryPool::f13() {
@@ -54,7 +54,7 @@ void* core::MemoryPool::f13() {
             unsigned a = mA;
             gTag = a;
             void* p = Alloc(a, 0x34);
-            mChild = p ? ((Child*)p)->Init() : 0;
+            mChild = p ? ((Child_2701d0*)p)->Init() : 0;
             if (mChild) {
                 sprintf(buf, "child of %8.8X[MemoryPool]", this);
                 mChild->Setup(0, mC, mD, mD, mA, buf, 1);

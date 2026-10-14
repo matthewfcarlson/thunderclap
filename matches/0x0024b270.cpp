@@ -1,4 +1,4 @@
-class Obj {
+class Obj_24b270 {
   public:
     virtual void f0();
     virtual void f1();
@@ -14,7 +14,7 @@ class Obj {
     virtual void f11();
     virtual void f12();
 };
-class Target {
+class Target_24b270 {
   public:
     char pad[0x78];
     unsigned char index;
@@ -22,8 +22,8 @@ class Target {
     unsigned char divisor;
     int Run();
 };
-int Target::Run() {
-    Obj* o = ((Obj**)this)[index * 3];
+int Target_24b270::Run() {
+    Obj_24b270* o = ((Obj_24b270**)this)[index * 3];
     if (o)
         o->f12();
     int v = (int)index + 1;

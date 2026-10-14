@@ -23,9 +23,9 @@ void FUN_00266d70();
 void FUN_0026dab0();
 void FUN_00267a90();
 
-class T {
+class T_8ee30 {
   public:
-    T* Ctor();
+    T_8ee30* Ctor();
     void Init();
     virtual void Vfn(int);
 };
@@ -41,10 +41,10 @@ int FUN_0008ee30() {
     thunk_FUN_00270f10(0, 0);
     FUN_00265b70(0);
     FUN_0008fca0();
-    T* esi;
+    T_8ee30* esi;
     void* p = FUN_0008d690(0x54);
     if (p)
-        esi = ((T*)p)->Ctor();
+        esi = ((T_8ee30*)p)->Ctor();
     else
         esi = 0;
     esi->Init();

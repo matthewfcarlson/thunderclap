@@ -1,12 +1,12 @@
 extern "C" int HashName(const char*);
-class Registry {
+class Registry_329320 {
   public:
     char pad0[4];
     unsigned int count;
     char pad8[4];
     void Add(const char*, unsigned int);
 };
-void Registry::Add(const char* name, unsigned int value) {
+void Registry_329320::Add(const char* name, unsigned int value) {
     int hash = HashName(name);
     unsigned int i = 0;
     while (i < count) {

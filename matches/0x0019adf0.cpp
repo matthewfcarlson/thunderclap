@@ -1,7 +1,7 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
+extern void* g_vftable_19adf0[];
 extern void* g_vftable2[];
-class Ref {
+class Ref_19adf0 {
   public:
     virtual void F0();
     virtual void Release();
@@ -15,25 +15,25 @@ class Ref {
     virtual void V9();
     virtual void V10(int);
 };
-class Base {
+class Base_19adf0 {
   public:
     void* vptr;
     void Fin();
 };
 void Free(void*) throw();
 
-class Obj : public Base {
+class Obj_19adf0 : public Base_19adf0 {
   public:
     char pad[0x18];
     void* m1c;
-    Ref* m20;
+    Ref_19adf0* m20;
     char p[4];
-    Ref* m28;
-    Ref* m2c;
-    Obj* f2(unsigned char fl);
+    Ref_19adf0* m28;
+    Ref_19adf0* m2c;
+    Obj_19adf0* f2(unsigned char fl);
 };
-Obj* Obj::f2(unsigned char fl) {
-    vptr = g_vftable;
+Obj_19adf0* Obj_19adf0::f2(unsigned char fl) {
+    vptr = g_vftable_19adf0;
     _ReadWriteBarrier();
     if (m2c) {
         m2c->Release();

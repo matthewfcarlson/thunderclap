@@ -1,31 +1,31 @@
-extern void* g_vftable[];
+extern void* g_vftable_ddfc0[];
 void operator delete(void*);
-class Ref {
+class Ref_ddfc0 {
   public:
     virtual void F0();
     virtual void Release();
 };
-struct Sub {
+struct Sub_ddfc0 {
     void Fini();
 };
-class Base {
+class Base_ddfc0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_ddfc0 : public Base_ddfc0 {
   public:
     char pad4[0x1824];
-    Ref* m1828;
+    Ref_ddfc0* m1828;
     char pad182c[0x2224 - 0x182c];
-    Ref* m2224;
+    Ref_ddfc0* m2224;
     char pad2228[8];
-    Sub* m2230;
-    ~Obj() throw();
+    Sub_ddfc0* m2230;
+    ~Obj_ddfc0() throw();
 };
-Obj::~Obj() throw() {
-    Sub* p = m2230;
-    vptr = g_vftable;
+Obj_ddfc0::~Obj_ddfc0() throw() {
+    Sub_ddfc0* p = m2230;
+    vptr = g_vftable_ddfc0;
     if (p) {
         p->Fini();
         operator delete(p);

@@ -1,16 +1,16 @@
 extern "C" char DAT_0042d23c[];
-class Base {
+class Base_295f30 {
   public:
-    Base();
+    Base_295f30();
     char pad[16];
 };
-class LeafNode : public Base {
+class LeafNode : public Base_295f30 {
   public:
     int x;
     int y;
     LeafNode();
 };
-LeafNode::LeafNode() : Base() {
+LeafNode::LeafNode() : Base_295f30() {
     x = 6;
     y = 0;
     *(int*)this = ((int)DAT_0042d23c);

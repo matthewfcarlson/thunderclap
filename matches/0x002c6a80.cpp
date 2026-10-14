@@ -1,4 +1,4 @@
-extern void* gVtable;
+extern void* gVtable_2c6a80;
 class DisplayTraversal {
   public:
     void* vptr;
@@ -12,7 +12,7 @@ class DisplayTraversal {
 };
 DisplayTraversal::DisplayTraversal() {
     a = 0;
-    vptr = &gVtable;
+    vptr = &gVtable_2c6a80;
     flag = 1;
     c = -1;
     d = 0;

@@ -7,7 +7,7 @@ class CollisionDevastatorCondition {
     char flag;
     CollisionDevastatorCondition(int);
 };
-class Factory {
+class Factory_159350 {
   public:
     virtual void A();
     virtual void B();
@@ -16,7 +16,7 @@ class Factory {
     virtual void E();
     virtual CollisionDevastatorCondition* F();
 };
-CollisionDevastatorCondition* Factory::F() {
+CollisionDevastatorCondition* Factory_159350::F() {
     CollisionDevastatorCondition* p = (CollisionDevastatorCondition*)Allocate(0x10);
     if (p) {
         p->CollisionDevastatorCondition::CollisionDevastatorCondition(0);

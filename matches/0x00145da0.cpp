@@ -1,11 +1,11 @@
 extern "C" void _ReadWriteBarrier();
 extern char HitEffectAction_vftable[];
-class Ref {
+class Ref_145da0 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class Helper {
+class Helper_145da0 {
   public:
     void Fn();
 };
@@ -14,9 +14,9 @@ class HitEffectAction {
   public:
     void* vptr;
     char p[0x18];
-    Ref* m1c;
+    Ref_145da0* m1c;
     int m20;
-    Ref* m24;
+    Ref_145da0* m24;
     HitEffectAction* f2(unsigned char);
 };
 HitEffectAction* HitEffectAction::f2(unsigned char flags) {
@@ -32,7 +32,7 @@ HitEffectAction* HitEffectAction::f2(unsigned char flags) {
         m1c->f1();
         m1c = 0;
     }
-    ((Helper*)this)->Fn();
+    ((Helper_145da0*)this)->Fn();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;

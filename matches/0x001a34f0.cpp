@@ -1,11 +1,11 @@
-extern void* g_vftable[];
+extern void* g_vftable_1a34f0[];
 void Free(void*) throw();
-class Base {
+class Base_1a34f0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_1a34f0 : public Base_1a34f0 {
   public:
     char p24[32];
     void* m24;
@@ -71,10 +71,10 @@ class Obj : public Base {
     char p18c[8];
     void* m18c;
     void* m190;
-    ~Obj() throw();
+    ~Obj_1a34f0() throw();
 };
-Obj::~Obj() throw() {
-    vptr = g_vftable;
+Obj_1a34f0::~Obj_1a34f0() throw() {
+    vptr = g_vftable_1a34f0;
     Free(m24);
     Free(m4c);
     Free(m5c);

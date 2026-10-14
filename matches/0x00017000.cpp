@@ -13,21 +13,21 @@ class CCameraDramaticAction {
     char* mPtr;
 };
 
-class Sub {
+class Sub_17000 {
   public:
     void Fn(void* arg);
 };
 
-class Obj {
+class Obj_17000 {
   public:
     char pad[8];
-    Sub* sub;
+    Sub_17000* sub;
 };
 
-extern Obj* gObj;
+extern Obj_17000* gObj_17000;
 
 void CCameraDramaticAction::vfunc_4() {
     if (*(char*)(mPtr + 0x84) != 0) {
-        gObj->sub->Fn(gObj);
+        gObj_17000->sub->Fn(gObj_17000);
     }
 }

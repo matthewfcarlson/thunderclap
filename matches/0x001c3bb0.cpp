@@ -1,21 +1,21 @@
-class B {
+class B_1c3bb0 {
   public:
     void g(int);
 };
-class A {
+class A_1c3bb0 {
   public:
     char pad[12];
-    B* member;
+    B_1c3bb0* member;
     void* f(int);
 };
-class C {
+class C_1c3bb0 {
   public:
     char pad[12];
-    A* member;
+    A_1c3bb0* member;
     void run(int, int);
 };
-void C::run(int a, int b) {
-    B* p = (B*)member->f(a);
+void C_1c3bb0::run(int a, int b) {
+    B_1c3bb0* p = (B_1c3bb0*)member->f(a);
     if (p)
         p->g(b);
 }

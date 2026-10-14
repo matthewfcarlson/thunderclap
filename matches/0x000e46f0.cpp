@@ -1,6 +1,6 @@
-typedef unsigned int u32;
-typedef unsigned long long u64;
-extern u64 GetKey(int);
+typedef unsigned int u32_e46f0;
+typedef unsigned long long u64_e46f0;
+extern u64_e46f0 GetKey(int);
 class FEContainer {
   public:
     virtual void f0();
@@ -39,20 +39,20 @@ class FEContainer {
     virtual void f33();
     virtual void f34();
     virtual void f35();
-    virtual u32 vfunc_36(int);
+    virtual u32_e46f0 vfunc_36(int);
     char pad[0x48];
 };
-u32 FEContainer::vfunc_36(int x) {
+u32_e46f0 FEContainer::vfunc_36(int x) {
     FEContainer* self = this;
     int i = 0;
-    u32* p = (u32*)((char*)this + 0x4c);
+    u32_e46f0* p = (u32_e46f0*)((char*)this + 0x4c);
     while (i < 128) {
-        u32 v = *p;
+        u32_e46f0 v = *p;
         if (!v)
             return 0;
-        u64 k = GetKey(x);
-        if ((u32)k == *(u32*)(v + 0x10) && (u32)(k >> 32) == *(u32*)(v + 0x14))
-            return *(u32*)((char*)self + 0x4c + i * 4);
+        u64_e46f0 k = GetKey(x);
+        if ((u32_e46f0)k == *(u32_e46f0*)(v + 0x10) && (u32_e46f0)(k >> 32) == *(u32_e46f0*)(v + 0x14))
+            return *(u32_e46f0*)((char*)self + 0x4c + i * 4);
         ++i;
         ++p;
     }

@@ -1,5 +1,5 @@
 typedef unsigned char u8;
-struct Sub {
+struct Sub_91bc0 {
     void Init();
 };
 class CUnlockable {
@@ -15,6 +15,6 @@ class CUnlockable {
 };
 CUnlockable::CUnlockable() {
     member8 = 1;
-    ((Sub*)((char*)this + 0x10))->Init();
+    ((Sub_91bc0*)((char*)this + 0x10))->Init();
     member18 = 0;
 }

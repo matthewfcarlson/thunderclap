@@ -1,4 +1,4 @@
-class Inner {
+class Inner_292a10 {
   public:
     void work(int, void*);
 };
@@ -38,6 +38,6 @@ void Camera::f17(int arg) {
     char t[12];
     if (!flag)
         f26();
-    ((Inner*)((char*)this + 0x4c))->work(arg, t);
+    ((Inner_292a10*)((char*)this + 0x4c))->work(arg, t);
     f15(t);
 }

@@ -1,6 +1,6 @@
 // Same code shape as 0x00267230 (propagated; names are from that function)
-typedef unsigned int u32;
-void __cdecl AllocHelper(u32, u32);
+typedef unsigned int u32_2de210;
+void __cdecl AllocHelper(u32_2de210, u32_2de210);
 class MemoryAllocatorMalloc {
   public:
     virtual void f0();
@@ -9,7 +9,7 @@ class MemoryAllocatorMalloc {
     virtual void f3();
     virtual void f4();
     virtual void f5();
-    virtual void vfunc_6(u32 a, u32 b);
+    virtual void vfunc_6(u32_2de210 a, u32_2de210 b);
     virtual void f7();
     virtual void f8();
     virtual void f9();
@@ -17,6 +17,6 @@ class MemoryAllocatorMalloc {
     virtual void f11();
     virtual void f12();
 };
-void MemoryAllocatorMalloc::vfunc_6(u32 a, u32 b) {
+void MemoryAllocatorMalloc::vfunc_6(u32_2de210 a, u32_2de210 b) {
     AllocHelper(a, b);
 }

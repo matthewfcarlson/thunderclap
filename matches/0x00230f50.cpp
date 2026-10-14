@@ -3,8 +3,8 @@ struct Node {
     Node* right;
     Node* parent;
 };
-typedef void(__cdecl* Callback)(Node*, int);
-class Container {
+typedef void(__cdecl* Callback_230f50)(Node*, int);
+class Container_230f50 {
   public:
     Node* root;
     int pad;
@@ -12,9 +12,9 @@ class Container {
     Node* tail;
     char flag[4];
     int value;
-    void Clear(Callback cb, int arg);
+    void Clear(Callback_230f50 cb, int arg);
 };
-void Container::Clear(Callback cb, int arg) {
+void Container_230f50::Clear(Callback_230f50 cb, int arg) {
     Node* sent = (Node*)((char*)this + 4);
     Node* n = root;
     if (n != sent)

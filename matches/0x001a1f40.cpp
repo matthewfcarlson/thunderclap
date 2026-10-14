@@ -1,4 +1,4 @@
-struct O {
+struct O_1a1f40 {
   public:
     int m0;
     int m4;
@@ -7,7 +7,7 @@ struct O {
     char f(int x);
 };
 
-char O::f(int x) {
+char O_1a1f40::f(int x) {
     mC = x;
     return 1;
 }

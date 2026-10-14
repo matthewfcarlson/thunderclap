@@ -1,28 +1,28 @@
 extern "C" int strcmp(const char*, const char*);
 
-struct Obj2 {
+struct Obj2_b7590 {
     char pad[0x141];
     char flag;
 };
 
-struct Inner {
+struct Inner_b7590 {
     const char* GetState(const char* n);
     const char* GetName();
 };
 
-struct Menu {
+struct Menu_b7590 {
     char pad[0x34];
-    Inner* mInner;
+    Inner_b7590* mInner;
     void Func();
 };
 
-extern int gA;
-extern int gB;
+extern int gA_b7590;
+extern int gB_b7590;
 extern int FUN_000fc260(const char* s);
-extern Obj2* __cdecl FUN_00344e74(int a, int b, int* c, int* d, int e);
+extern Obj2_b7590* __cdecl FUN_00344e74(int a, int b, int* c, int* d, int e);
 
-void Menu::Func() {
-    Obj2* o = FUN_00344e74(FUN_000fc260("restart_mission_button"), 0, &gA, &gB, 0);
+void Menu_b7590::Func() {
+    Obj2_b7590* o = FUN_00344e74(FUN_000fc260("restart_mission_button"), 0, &gA_b7590, &gB_b7590, 0);
     if (!o)
         return;
     if (!mInner)

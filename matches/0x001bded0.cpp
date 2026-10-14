@@ -1,13 +1,13 @@
-struct Ref {
+struct Ref_1bded0 {
     void F(void*);
 };
-struct Obj {
+struct Obj_1bded0 {
     char pad[0x34];
-    Ref* a;
-    Ref* b;
+    Ref_1bded0* a;
+    Ref_1bded0* b;
     void Clear(void*);
 };
-void Obj::Clear(void* p) {
+void Obj_1bded0::Clear(void* p) {
     if (a)
         a->F(p);
     if (b)

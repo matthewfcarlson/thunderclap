@@ -1,4 +1,4 @@
-class Inner {
+class Inner_23e580 {
   public:
     void Init();
 };
@@ -12,6 +12,6 @@ class StopTrack {
 extern int StopTrack_vftable;
 void StopTrack::Ctor() {
     *(int*)this = (int)&StopTrack_vftable;
-    ((Inner*)((char*)this + 0x14))->Init();
+    ((Inner_23e580*)((char*)this + 0x14))->Init();
     Finish();
 }

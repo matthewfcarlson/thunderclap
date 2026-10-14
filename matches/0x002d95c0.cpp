@@ -1,5 +1,5 @@
-typedef unsigned char u8;
-struct X {
+typedef unsigned char u8_2d95c0;
+struct X_2d95c0 {
     int n;
     int count;
     char a;
@@ -7,11 +7,11 @@ struct X {
     unsigned char width;
     unsigned char bits;
 };
-void FUN_002d95c0(X* p, u8* src) {
+void FUN_002d95c0(X_2d95c0* p, u8_2d95c0* src) {
     if (p->mode == 0x10) {
         unsigned int i = (unsigned int)p->width * (unsigned int)p->n;
-        u8* in = src;
-        u8* out = src;
+        u8_2d95c0* in = src;
+        u8_2d95c0* out = src;
         while (i > 0) {
             *out = *in;
             in += 2;

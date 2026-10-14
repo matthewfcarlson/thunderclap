@@ -1,12 +1,12 @@
-struct Blk {
+struct Blk_eeba0 {
     int x[10];
 };
-struct Item {
+struct Item_eeba0 {
     char pad[0x118];
-    Blk blk;
-    void Prep(Item*);
+    Blk_eeba0 blk;
+    void Prep(Item_eeba0*);
 };
-struct Mgr {
+struct Mgr_eeba0 {
     virtual void m0();
     virtual void m1();
     virtual void m2();
@@ -59,8 +59,8 @@ struct Mgr {
     virtual void m49();
     virtual void m50();
     virtual void m51();
-    virtual Item* Get(Item*);
-    Item* Find(Item*);
+    virtual Item_eeba0* Get(Item_eeba0*);
+    Item_eeba0* Find(Item_eeba0*);
 };
 class FEContainer {
   public:
@@ -88,8 +88,8 @@ class FEContainer {
     virtual void a21();
     virtual void a22();
     virtual void a23();
-    virtual void s24(Item*, int);
-    virtual Item* Target(Item*, Item*);
+    virtual void s24(Item_eeba0*, int);
+    virtual Item_eeba0* Target(Item_eeba0*, Item_eeba0*);
     virtual void b26();
     virtual void b27();
     virtual void b28();
@@ -106,7 +106,7 @@ class FEContainer {
     virtual void b39();
     virtual void b40();
     virtual void b41();
-    virtual Item* Lookup(Item*);
+    virtual Item_eeba0* Lookup(Item_eeba0*);
     virtual void c43();
     virtual void c44();
     virtual void c45();
@@ -117,14 +117,14 @@ class FEContainer {
     virtual void c50();
     virtual void c51();
     virtual void c52();
-    virtual Item* Make(int, int);
-    Mgr* mgr;
+    virtual Item_eeba0* Make(int, int);
+    Mgr_eeba0* mgr;
 };
 
-Item* FEContainer::Target(Item* a, Item* id) {
-    Item* res = mgr->Get(a);
+Item_eeba0* FEContainer::Target(Item_eeba0* a, Item_eeba0* id) {
+    Item_eeba0* res = mgr->Get(a);
     if (id) {
-        Item* it = Lookup(id);
+        Item_eeba0* it = Lookup(id);
         if (it || (it = mgr->Find(id))) {
             res->Prep(it);
             res->blk = it->blk;

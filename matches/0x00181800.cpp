@@ -14,7 +14,7 @@ class PropAtRestCondition : public Condition {
     char value;
     char vfunc_6(void*, void*, void*);
 };
-struct Item {
+struct Item_181800 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -28,13 +28,13 @@ struct Item {
     virtual void f10();
     virtual char f11();
 };
-struct A {
+struct A_181800 {
     void* get();
 };
-struct B {
+struct B_181800 {
     void* get();
 };
-struct S {
+struct S_181800 {
     char ready();
     void* part();
 };
@@ -45,14 +45,14 @@ char PropAtRestCondition::vfunc_6(void* a, void* c, void* d) {
     if (!Check(c, 0, G1, G2, 0))
         return 0;
     char result = 0;
-    A* obj = (A*)c;
+    A_181800* obj = (A_181800*)c;
     void* p = obj->get();
-    B* mot = (B*)p;
+    B_181800* mot = (B_181800*)p;
     p = mot->get();
     void* state = *(void**)((char*)p + 0x128);
-    if (state && ((S*)state)->ready() && *(int*)((char*)((S*)state)->part() + 0x6c) == 1) {
-        void* part = ((S*)state)->part();
-        Item* item = *(Item**)((char*)part + 0x70);
+    if (state && ((S_181800*)state)->ready() && *(int*)((char*)((S_181800*)state)->part() + 0x6c) == 1) {
+        void* part = ((S_181800*)state)->part();
+        Item_181800* item = *(Item_181800**)((char*)part + 0x70);
         char v = value;
         result = item->f11() == v;
     }

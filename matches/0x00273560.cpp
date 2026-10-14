@@ -1,5 +1,5 @@
-typedef unsigned int u32;
-struct Obj {
+typedef unsigned int u32_273560;
+struct Obj_273560 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -13,15 +13,15 @@ struct Obj {
     virtual void f10();
     virtual void f11();
     virtual void f12();
-    virtual u32 f13();
+    virtual u32_273560 f13();
 };
 extern char gObjStorage[4];
-extern Obj* gObj;
+extern Obj_273560* gObj_273560;
 extern void FUN_0026d850(void*);
 extern void FUN_0026d840(void*);
-u32 target() {
+u32_273560 target() {
     FUN_0026d850(gObjStorage);
-    u32 r = gObj->f13();
+    u32_273560 r = gObj_273560->f13();
     FUN_0026d840(gObjStorage);
     return r;
 }

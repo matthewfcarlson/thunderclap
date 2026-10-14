@@ -1,7 +1,7 @@
-struct Vec {
+struct Vec_cacd0 {
     float x, y, z;
 };
-class Found {
+class Found_cacd0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -11,36 +11,36 @@ class Found {
     virtual void f5();
     virtual void f6();
     virtual void f7();
-    virtual Vec* get(Vec*);
+    virtual Vec_cacd0* get(Vec_cacd0*);
 };
-class Lookup {
+class Lookup_cacd0 {
   public:
-    Found* find(int);
+    Found_cacd0* find(int);
 };
-class Owner {
+class Owner_cacd0 {
   public:
     char pad[0x28];
-    Lookup* manager;
+    Lookup_cacd0* manager;
 };
-class Obj {
+class Obj_cacd0 {
   public:
     char pad[0xc];
-    Owner* owner;
+    Owner_cacd0* owner;
     char pad2[0x4a8];
-    Vec result;
+    Vec_cacd0 result;
     void work(int);
 };
-void Obj::work(int id) {
-    Lookup* m = owner->manager;
-    Found* p = m->find(id);
+void Obj_cacd0::work(int id) {
+    Lookup_cacd0* m = owner->manager;
+    Found_cacd0* p = m->find(id);
     if (!p) {
         result.z = 0;
         result.y = 0;
         result.x = 0;
         return;
     }
-    Vec tmp;
-    Vec* v = p->get(&tmp);
+    Vec_cacd0 tmp;
+    Vec_cacd0* v = p->get(&tmp);
     result.x = v->x;
     result.y = v->y;
     result.z = v->z;

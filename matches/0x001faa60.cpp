@@ -1,16 +1,16 @@
 extern int gameVftable;
 extern int creatorVftable;
-class Ref {
+class Ref_1faa60 {
   public:
     virtual void Release(int);
 };
-class Obj {
+class Obj_1faa60 {
   public:
     int* vptr;
-    Ref* mRef;
+    Ref_1faa60* mRef;
     void f();
 };
-void Obj::f() {
+void Obj_1faa60::f() {
     vptr = &gameVftable;
     if (mRef)
         mRef->Release(1);

@@ -1,4 +1,4 @@
-class Arg {
+class Arg_215d0 {
   public:
     virtual void F0();
     virtual void F1();
@@ -8,16 +8,16 @@ class CAction {
     CAction();
     virtual void F0();
     char pad[24];
-    Arg* mArg;
+    Arg_215d0* mArg;
 };
 class CClearHitRecordsAction : public CAction {
   public:
-    CClearHitRecordsAction(Arg*);
+    CClearHitRecordsAction(Arg_215d0*);
     virtual void F0();
 };
-extern int vt1, vt2;
-CClearHitRecordsAction::CClearHitRecordsAction(Arg* p) {
-    *(int*)this = (int)&vt1;
+extern int vt1_215d0, vt2;
+CClearHitRecordsAction::CClearHitRecordsAction(Arg_215d0* p) {
+    *(int*)this = (int)&vt1_215d0;
     int* q = (int*)&mArg;
     *q = 0;
     if (p)

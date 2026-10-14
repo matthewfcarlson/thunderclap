@@ -22,10 +22,10 @@ class SeqActionChannelSends : public SeqAction {
     virtual void vfunc_6();
 };
 } // namespace audio
-extern char gData[];
+extern char gData_24fa60[];
 audio::SeqActionChannelSends* audio::SeqActionChannelSends::vfunc_0(int x) {
     *(unsigned long*)this = (unsigned long)&baseVtable;
     if (x & 1)
-        Init(gData, this);
+        Init(gData_24fa60, this);
     return this;
 }

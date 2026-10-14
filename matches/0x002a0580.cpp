@@ -1,20 +1,20 @@
-class Obj {
+class Obj_2a0580 {
   public:
     int get();
     void last(int, void*);
 };
-class A {
+class A_2a0580 {
     char pad[0x10];
     int field;
     char padx[0x30];
-    Obj* p;
+    Obj_2a0580* p;
     char pad2[0x100];
 
   public:
     void f(int, int);
     void mid(int, int, int);
 };
-void A::f(int x, int y) {
+void A_2a0580::f(int x, int y) {
     int t = p->get();
     mid(t, x, y);
     p->last(t, &field);

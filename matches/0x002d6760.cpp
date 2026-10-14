@@ -1,4 +1,4 @@
-extern void* vftable;
+extern void* vftable_2d6760;
 class SpriteParticleRenderer {
   public:
     SpriteParticleRenderer();
@@ -7,5 +7,5 @@ class SpriteParticleRenderer {
 };
 SpriteParticleRenderer::SpriteParticleRenderer() {
     x = 0;
-    vf = &vftable;
+    vf = &vftable_2d6760;
 }

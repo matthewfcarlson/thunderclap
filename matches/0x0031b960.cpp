@@ -5,9 +5,9 @@ void* Alloc(unsigned n);
 inline void* operator new(unsigned, void* p) {
     return p;
 }
-class Impl {
+class Impl_31b960 {
   public:
-    Impl(int ctx);
+    Impl_31b960(int ctx);
     void Setup(int a, int b, int c, int d, int e, int f);
     virtual void v0();
     virtual void v1();
@@ -26,16 +26,16 @@ class d3dDevice {
     virtual void s7();
     virtual void s8();
     virtual void s9();
-    virtual Impl* vfunc_10(Params* p);
+    virtual Impl_31b960* vfunc_10(Params* p);
     int pad;
     int mRes;
     int mCtx;
 };
-Impl* d3dDevice::vfunc_10(Params* p) {
+Impl_31b960* d3dDevice::vfunc_10(Params* p) {
     void* m = Alloc(0x40);
-    Impl* o;
+    Impl_31b960* o;
     if (m)
-        o = new (m) Impl(mCtx);
+        o = new (m) Impl_31b960(mCtx);
     else
         o = 0;
     o->Setup(p->p0, p->p1, 0, p->p4, p->p5, p->p7);

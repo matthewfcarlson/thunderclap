@@ -8,15 +8,15 @@ struct TrackFactory {
     virtual void f();
 };
 extern "C" void* __cdecl Allocate(unsigned int);
-struct Built {
+struct Built_2b4cb0 {
     void* init();
 };
-struct Factory : TrackFactory {
+struct Factory_2b4cb0 : TrackFactory {
     void* vfunc_5();
 };
-void* Factory::vfunc_5() {
+void* Factory_2b4cb0::vfunc_5() {
     void* p = Allocate(0x58);
     if (p)
-        return ((Built*)p)->init();
+        return ((Built_2b4cb0*)p)->init();
     return 0;
 }

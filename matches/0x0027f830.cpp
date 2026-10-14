@@ -1,15 +1,15 @@
 extern "C" char DAT_0042c48c[];
-typedef unsigned int u32;
+typedef unsigned int u32_27f830;
 struct CMotionTrailQueue {
-    u32 vtable;
+    u32_27f830 vtable;
     char pad[0x58];
-    u32 field5c;
+    u32_27f830 field5c;
     void Run();
     void Finish();
 };
-extern void __cdecl thunk_FUN_00267090(u32);
+extern void __cdecl thunk_FUN_00267090(u32_27f830);
 void CMotionTrailQueue::Finish() {
-    u32 x = field5c;
+    u32_27f830 x = field5c;
     vtable = ((int)DAT_0042c48c);
     thunk_FUN_00267090(x);
     Run();

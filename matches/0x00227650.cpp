@@ -1,5 +1,5 @@
 extern "C" char DAT_004273c4[];
-typedef unsigned int u32;
+typedef unsigned int u32_227650;
 void* __cdecl alloc_obj(unsigned int);
 class LocomotionStrafeDriver {
   public:
@@ -10,7 +10,7 @@ class LocomotionStrafeDriver {
     virtual void f4();
     virtual void* vfunc_5();
 };
-class Helper {
+class Helper_227650 {
   public:
     void a(LocomotionStrafeDriver*);
     void b(LocomotionStrafeDriver*);
@@ -18,9 +18,9 @@ class Helper {
 void* LocomotionStrafeDriver::vfunc_5() {
     void* p = alloc_obj(0x1330);
     if (p) {
-        ((Helper*)p)->a(this);
-        *(u32*)p = ((int)DAT_004273c4);
-        ((Helper*)p)->b(this);
+        ((Helper_227650*)p)->a(this);
+        *(u32_227650*)p = ((int)DAT_004273c4);
+        ((Helper_227650*)p)->b(this);
         return p;
     }
     return 0;

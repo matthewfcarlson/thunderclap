@@ -1,7 +1,7 @@
 extern "C" char DAT_00425b64[];
 extern "C" char DAT_0048e128[];
 extern "C" char DAT_0048e134[];
-struct B {
+struct B_2051b0 {
     void Init(int, int);
 };
 extern char ReadValue(const char*);
@@ -17,7 +17,7 @@ class CWorldStreamManager {
     CWorldStreamManager(int a, int b);
 };
 CWorldStreamManager::CWorldStreamManager(int a, int b) {
-    ((B*)this)->Init(a, 3);
+    ((B_2051b0*)this)->Init(a, 3);
     vptr = ((int)DAT_00425b64);
     value1c = b;
     b18 = ReadValue((const char*)((int)DAT_0048e134));

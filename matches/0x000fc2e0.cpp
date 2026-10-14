@@ -1,4 +1,4 @@
-class C {
+class C_fc2e0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -22,7 +22,7 @@ class C {
     virtual void f19();
     virtual void f20();
 };
-extern C* g;
+extern C_fc2e0* g_fc2e0;
 void FUN_000fc2e0() {
-    g->f20();
+    g_fc2e0->f20();
 }

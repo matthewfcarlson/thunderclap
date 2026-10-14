@@ -1,4 +1,4 @@
-class C {
+class C_79950 {
     char pad[0x374c];
     void* arr[1];
     int lookup(int);
@@ -6,7 +6,7 @@ class C {
   public:
     bool f(int);
 };
-bool C::f(int x) {
+bool C_79950::f(int x) {
     int i = lookup(x);
     if (i == -1)
         return false;

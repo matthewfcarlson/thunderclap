@@ -1,11 +1,11 @@
-extern int gA, gB;
+extern int gA_cfda0, gB;
 extern "C" unsigned char __cdecl lookup(const void*);
-class Root {
+class Root_cfda0 {
   public:
     virtual void invoke();
-    Root(int, int);
+    Root_cfda0(int, int);
 };
-class Method : public Root {
+class Method_cfda0 : public Root_cfda0 {
   public:
     virtual void invoke();
     char pad[12];
@@ -15,19 +15,19 @@ class Method : public Root {
     unsigned char c;
     char pad3[3];
     int m;
-    Method(int x, int y) : Root(x, 2) {
+    Method_cfda0(int x, int y) : Root_cfda0(x, 2) {
         m = y;
-        c = lookup(&gA);
-        a = lookup(&gA);
+        c = lookup(&gA_cfda0);
+        a = lookup(&gA_cfda0);
         b = lookup(&gB);
     }
 };
-class Closure : public Method {
+class Closure : public Method_cfda0 {
   public:
     virtual void invoke();
     int n;
     Closure(int x, int y, int z);
 };
-Closure::Closure(int x, int y, int z) : Method(x, z) {
+Closure::Closure(int x, int y, int z) : Method_cfda0(x, z) {
     n = y;
 }

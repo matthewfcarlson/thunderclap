@@ -1,4 +1,4 @@
-class Helper {
+class Helper_26e7c0 {
   public:
     void run(void*, int);
 };
@@ -17,7 +17,7 @@ class DebugConsole {
     virtual void f10();
     virtual void f11();
     char pad[0xa0];
-    Helper* h;
+    Helper_26e7c0* h;
 };
 void DebugConsole::vfunc_6(int a, int b) {
     int local[4];

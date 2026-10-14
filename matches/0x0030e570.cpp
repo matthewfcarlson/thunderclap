@@ -1,19 +1,19 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
+extern void* g_vftable_30e570[];
 void operator delete(void*);
-class Sub {
+class Sub_30e570 {
   public:
     void Fini();
 };
 struct E1 {
     char pad[0x10];
-    Sub* s;
+    Sub_30e570* s;
 };
 struct E2 {
     char pad[0xa4];
     void Fini();
 };
-class Obj {
+class Obj_30e570 {
   public:
     void* vptr;
     E1* m4;
@@ -30,10 +30,10 @@ class Obj {
     char pad4[8];
     void* m44;
     void* m48;
-    ~Obj() throw();
+    ~Obj_30e570() throw();
 };
-Obj::~Obj() throw() {
-    vptr = g_vftable;
+Obj_30e570::~Obj_30e570() throw() {
+    vptr = g_vftable_30e570;
     E1* p = m4;
     if (p <= m8) {
         E1* c;

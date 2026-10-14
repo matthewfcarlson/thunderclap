@@ -1,6 +1,6 @@
 extern "C" char DAT_0040449c[];
 extern "C" char DAT_004044a4[];
-class Part {
+class Part_91c80 {
     char pad[16];
 
   public:
@@ -12,8 +12,8 @@ class CUnlockableBlonskyFile {
     char pad4[4];
     unsigned char enabled;
     char pad9[7];
-    Part a;
-    Part b;
+    Part_91c80 a;
+    Part_91c80 b;
     char pad30[0x68 - 0x30];
     unsigned char f68;
     char gap69[0xA8 - 0x69];

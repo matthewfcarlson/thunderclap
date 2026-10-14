@@ -53,7 +53,7 @@ class pddiRenderContext {
     virtual void f50();
     virtual void f51(int, unsigned*, unsigned*, unsigned*);
 };
-struct Rec {
+struct Rec_31ddf0 {
     char pad[0x5c];
     unsigned x, y, z;
     char tail[0x14];
@@ -61,7 +61,7 @@ struct Rec {
 class pddiBaseContext : public pddiRenderContext {
   public:
     char pad[0x4c];
-    Rec* records;
+    Rec_31ddf0* records;
     void vfunc_51(int, unsigned*, unsigned*, unsigned*);
 };
 void pddiBaseContext::vfunc_51(int i, unsigned* a, unsigned* b, unsigned* c) {

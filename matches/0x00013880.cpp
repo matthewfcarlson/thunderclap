@@ -1,15 +1,15 @@
-class Sub {
+class Sub_13880 {
   public:
     void Fn();
 };
 
-class Obj {
+class Obj_13880 {
   public:
     char pad[0x18];
-    Sub sub;
+    Sub_13880 sub;
     void Target();
 };
 
-void Obj::Target() {
+void Obj_13880::Target() {
     sub.Fn();
 }

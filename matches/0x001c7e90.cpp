@@ -1,13 +1,13 @@
-struct I {
+struct I_1c7e90 {
     void f(void*, void*);
 };
-class C {
+class C_1c7e90 {
     char pad[0x18];
-    I inner;
+    I_1c7e90 inner;
 
   public:
     void g(void*);
 };
-void C::g(void* x) {
+void C_1c7e90::g(void* x) {
     inner.f(x, x);
 }

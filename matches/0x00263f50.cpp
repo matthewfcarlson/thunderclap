@@ -1,9 +1,9 @@
-class Service {
+class Service_263f50 {
   public:
     int Get();
 };
-extern Service* g;
-class Thing {
+extern Service_263f50* g_263f50;
+class Thing_263f50 {
   public:
     char p[8];
     int a;
@@ -13,7 +13,7 @@ class Thing {
     int e;
     void Init();
 };
-void Thing::Init() {
+void Thing_263f50::Init() {
     a = 0;
     b[0] = 0;
     b[1] = 0;
@@ -31,7 +31,7 @@ void Thing::Init() {
     c[9] = 0;
     c[10] = 0;
     c[11] = 0;
-    unsigned int x = g->Get();
+    unsigned int x = g_263f50->Get();
     e = 0;
     d = x / 1000;
 }

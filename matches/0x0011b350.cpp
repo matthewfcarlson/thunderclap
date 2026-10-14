@@ -1,16 +1,16 @@
 extern "C" char DAT_0040eb50[];
-typedef unsigned int u32;
+typedef unsigned int u32_11b350;
 extern void* __cdecl alloc(unsigned int);
 class MotionStopTrack {
   public:
     MotionStopTrack();
-    u32 a;
-    u32 b;
-    u32 c;
+    u32_11b350 a;
+    u32_11b350 b;
+    u32_11b350 c;
     int x;
     float y;
 };
-class Factory {
+class Factory_11b350 {
   public:
     virtual void f0();
     virtual void f1();
@@ -19,7 +19,7 @@ class Factory {
     virtual void f4();
     virtual MotionStopTrack* vfunc_5();
 };
-MotionStopTrack* Factory::vfunc_5() {
+MotionStopTrack* Factory_11b350::vfunc_5() {
     MotionStopTrack* p = (MotionStopTrack*)alloc(0x14);
     if (p) {
         p->MotionStopTrack::MotionStopTrack();

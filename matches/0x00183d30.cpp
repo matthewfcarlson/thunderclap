@@ -1,12 +1,12 @@
-struct Vec {
+struct Vec_183d30 {
     int* b;
     int* e;
 };
-struct Holder {
+struct Holder_183d30 {
     char p[0x1c];
-    Vec vec;
+    Vec_183d30 vec;
 };
-struct Prop {
+struct Prop_183d30 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -25,23 +25,23 @@ struct Prop {
     virtual void v15();
     virtual void Do(int idx, int flag);
     char p[0x94];
-    Holder* v;
+    Holder_183d30* v;
 };
-struct Mgr {
+struct Mgr_183d30 {
     char p[0x128];
-    Prop* dflt;
-    Prop* Get(int i);
+    Prop_183d30* dflt;
+    Prop_183d30* Get(int i);
 };
-struct Info {
+struct Info_183d30 {
     char p[0x10];
     int a;
     int b;
 };
 extern void* __fastcall FUN_000592a0(void*);
-extern Mgr* __fastcall FUN_00059a30(void*);
-struct A {
+extern Mgr_183d30* __fastcall FUN_00059a30(void*);
+struct A_183d30 {
     char p[0x18];
-    Info* info;
+    Info_183d30* info;
     void* h;
     virtual void a0();
     virtual void a1();
@@ -51,12 +51,12 @@ struct A {
     virtual void a5();
     bool F(int* x, int y);
 };
-bool A::F(int* x, int y) {
+bool A_183d30::F(int* x, int y) {
     if (!x && h) {
-        Mgr* m = FUN_00059a30(FUN_000592a0(h));
+        Mgr_183d30* m = FUN_00059a30(FUN_000592a0(h));
         int a = info->a;
         if (m) {
-            Prop* r;
+            Prop_183d30* r;
             if (a < 0)
                 r = m->dflt;
             else if (a >= 8)
@@ -64,7 +64,7 @@ bool A::F(int* x, int y) {
             else
                 r = m->Get(a);
             if (r) {
-                Vec* v = &r->v->vec;
+                Vec_183d30* v = &r->v->vec;
                 int i = info->b;
                 if (i >= 0 && i < (v->e - v->b))
                     r->Do(i, 1);

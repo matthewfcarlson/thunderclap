@@ -1,14 +1,14 @@
-class Inner {
+class Inner_264270 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
     virtual void f3(int, int, int);
 };
-class Obj {
+class Obj_264270 {
   public:
     char p[8];
-    Inner* mInner;
+    Inner_264270* mInner;
     char q[8];
     int mCount;
     char r[4];
@@ -16,7 +16,7 @@ class Obj {
     void FUN_00264140(int, int, int);
     bool fnB(int, int, int, int);
 };
-bool Obj::fnB(int a, int b, int c, int d) {
+bool Obj_264270::fnB(int a, int b, int c, int d) {
     int n = b * c;
     mInner->f3(a, n, d);
     mCount += n;

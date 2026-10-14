@@ -1,9 +1,9 @@
-typedef unsigned int U;
-extern void __cdecl F1(U, int);
-extern void __cdecl F2(U, U, U*);
-extern void __cdecl F3(U, int);
-extern void __cdecl F4(U);
-void __cdecl target(U a, U b, U c) {
+typedef unsigned int U_338e20;
+extern void __cdecl F1(U_338e20, int);
+extern void __cdecl F2(U_338e20, U_338e20, U_338e20*);
+extern void __cdecl F3(U_338e20, int);
+extern void __cdecl F4(U_338e20);
+void __cdecl target(U_338e20 a, U_338e20 b, U_338e20 c) {
     F1(a, 1);
     F2(a, b, &c);
     F3(a, 2);

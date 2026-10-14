@@ -1,14 +1,14 @@
-struct Sub {
+struct Sub_d7d60 {
     void Clear();
 };
-struct Obj {
+struct Obj_d7d60 {
     char pad[0x10];
-    Sub sub;
+    Sub_d7d60 sub;
     char pad2[0x23];
     unsigned char flag;
-    Obj* Run();
+    Obj_d7d60* Run();
 };
-Obj* Obj::Run() {
+Obj_d7d60* Obj_d7d60::Run() {
     sub.Clear();
     flag = 0;
     return this;

@@ -1,24 +1,24 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
+extern void* g_vftable_e8730[];
 extern void* g_vftable2[];
-class Ref {
+class Ref_e8730 {
   public:
     virtual void F0();
     virtual void Release();
 };
 void operator delete[](void*) throw();
-class Obj {
+class Obj_e8730 {
   public:
     void* vptr;
     char* m4;
     char p[4];
-    Ref* mc;
+    Ref_e8730* mc;
     char p2[0x50];
-    Ref* m60;
-    ~Obj() throw();
+    Ref_e8730* m60;
+    ~Obj_e8730() throw();
 };
-Obj::~Obj() throw() {
-    vptr = g_vftable;
+Obj_e8730::~Obj_e8730() throw() {
+    vptr = g_vftable_e8730;
     _ReadWriteBarrier();
     if (mc) {
         mc->Release();

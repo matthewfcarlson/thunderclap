@@ -1,11 +1,11 @@
-struct Obj {
+struct Obj_5adb0 {
     char pad[0x330];
     int* p330;
     int* p334;
 };
 struct Context {
-    Obj* first();
-    Obj* second();
+    Obj_5adb0* first();
+    Obj_5adb0* second();
 };
 class CGrappleOpportunityTrack {
   public:
@@ -25,10 +25,10 @@ class CGrappleOpportunityTrack {
 int* CGrappleOpportunityTrack::vfunc_8(void*, void* p) {
     if (!p)
         return 0;
-    Obj* a = ((Context*)p)->first();
+    Obj_5adb0* a = ((Context*)p)->first();
     if (!a)
         return 0;
-    Obj* b = ((Context*)a)->second();
+    Obj_5adb0* b = ((Context*)a)->second();
     if (!b)
         return 0;
     if (b->p334)

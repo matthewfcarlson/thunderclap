@@ -4,13 +4,13 @@ class Factory {
   public:
     void* create(int, int);
 };
-class Owner {
+class Owner_1c39e0 {
   public:
     void attach(void*);
 };
 class Scene {
     char p[4];
-    Owner* owner;
+    Owner_1c39e0* owner;
     char q[4];
     Factory* factory;
 

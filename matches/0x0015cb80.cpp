@@ -1,8 +1,8 @@
-class A {
+class A_15cb80 {
   public:
     int first();
 };
-class B {
+class B_15cb80 {
   public:
     int second();
     void third(int);
@@ -10,7 +10,7 @@ class B {
 class LocomotingAction {
   public:
     char pad[0x18];
-    A* mObject;
+    A_15cb80* mObject;
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -25,9 +25,9 @@ bool LocomotingAction::vfunc_3(void*, void*) {
     x = mObject->first();
     if (x == 0)
         return false;
-    x = ((B*)x)->second();
+    x = ((B_15cb80*)x)->second();
     if (x == 0)
         return false;
-    ((B*)x)->third(1);
+    ((B_15cb80*)x)->third(1);
     return true;
 }

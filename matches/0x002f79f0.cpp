@@ -1,28 +1,28 @@
-struct Ref {
+struct Ref_2f79f0 {
     virtual void f0();
     virtual void f1();
 };
-struct Embedded {
+struct Embedded_2f79f0 {
     char x[1];
     void init();
 };
-extern int vt;
-class Obj {
+extern int vt_2f79f0;
+class Obj_2f79f0 {
   public:
     virtual void v();
-    Ref* a;
+    Ref_2f79f0* a;
     char gap[0x94 - 8];
-    Embedded e94;
+    Embedded_2f79f0 e94;
     char gap2[0xb0 - 0x95];
-    Embedded eb0;
+    Embedded_2f79f0 eb0;
     char gap3[0xcc - 0xb1];
-    Embedded ecc;
+    Embedded_2f79f0 ecc;
     char gap4[0xfc - 0xcd];
-    Ref* b;
+    Ref_2f79f0* b;
     void cleanup();
 };
-void Obj::cleanup() {
-    *(int*)this = (int)&vt;
+void Obj_2f79f0::cleanup() {
+    *(int*)this = (int)&vt_2f79f0;
     if (a)
         a->f1();
     if (b)

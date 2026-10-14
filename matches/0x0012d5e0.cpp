@@ -1,26 +1,26 @@
 extern "C" char DAT_00410bd4[];
-typedef unsigned int u32;
+typedef unsigned int u32_12d5e0;
 typedef unsigned char u8;
 extern void* __cdecl alloc(unsigned int);
-struct Sub {
+struct Sub_12d5e0 {
     char pad[8];
     void init();
 };
-struct Threat {
-    u32 vptr;
+struct Threat_12d5e0 {
+    u32_12d5e0 vptr;
     char pad4[8];
     u8 flagC;
     char padD[3];
-    Sub sub;
+    Sub_12d5e0 sub;
     u8 flag18;
     void init(int);
 };
-struct Factory {
+struct Factory_12d5e0 {
     void* vtable;
-    Threat* vfunc_5();
+    Threat_12d5e0* vfunc_5();
 };
-Threat* Factory::vfunc_5() {
-    Threat* p = (Threat*)alloc(0x20);
+Threat_12d5e0* Factory_12d5e0::vfunc_5() {
+    Threat_12d5e0* p = (Threat_12d5e0*)alloc(0x20);
     if (p) {
         p->init(0);
         p->vptr = ((int)DAT_00410bd4);

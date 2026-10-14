@@ -1,4 +1,4 @@
-class Thing {
+class Thing_302ef0 {
   public:
     char pad0[4];
     int a;
@@ -8,7 +8,7 @@ class Thing {
     void Init();
     void Set(int x, int y, int z);
 };
-void Thing::Set(int x, int y, int z) {
+void Thing_302ef0::Set(int x, int y, int z) {
     c = z;
     a = x;
     b = y;

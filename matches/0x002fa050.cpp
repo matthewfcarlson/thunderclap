@@ -1,11 +1,11 @@
 void Cleanup(void*, void*);
 void Release(void*);
-struct Obj {
+struct Obj_2fa050 {
     void* a;
     void* b;
     void Target();
 };
-void Obj::Target() {
+void Obj_2fa050::Target() {
     Cleanup(a, b);
     if (a)
         Release(a);

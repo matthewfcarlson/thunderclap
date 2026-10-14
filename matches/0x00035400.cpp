@@ -1,4 +1,4 @@
-class Obj {
+class Obj_35400 {
   public:
     char pad[0x9c];
     unsigned int a;
@@ -6,7 +6,7 @@ class Obj {
     unsigned int c;
     bool Get(unsigned int* out);
 };
-bool Obj::Get(unsigned int* out) {
+bool Obj_35400::Get(unsigned int* out) {
     out[0] = a;
     out[1] = b;
     out[2] = c;

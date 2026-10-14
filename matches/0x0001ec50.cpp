@@ -1,5 +1,5 @@
 // Same code shape as 0x0001d420 (propagated; names are from that function)
-class Arg {
+class Arg_1ec50 {
   public:
     virtual void F0();
     virtual void F1();
@@ -9,14 +9,14 @@ extern int vtableSweep;
 void __cdecl FUN_00232660();
 class CSweepAction {
   public:
-    CSweepAction(int value, Arg* arg);
+    CSweepAction(int value, Arg_1ec50* arg);
     char pad[0x1c];
-    Arg* mThing;
+    Arg_1ec50* mThing;
     int mValue;
     int mA;
     int mB;
 };
-CSweepAction::CSweepAction(int value, Arg* arg) {
+CSweepAction::CSweepAction(int value, Arg_1ec50* arg) {
     FUN_00232660();
     *(int*)this = (int)&vtableAction;
     mThing = 0;

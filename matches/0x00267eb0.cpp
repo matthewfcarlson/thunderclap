@@ -1,4 +1,4 @@
-extern int gValue;
+extern int gValue_267eb0;
 void __cdecl Init();
 class Object {
   public:
@@ -7,6 +7,6 @@ class Object {
     Object();
 };
 Object::Object() {
-    field = gValue;
+    field = gValue_267eb0;
     Init();
 }

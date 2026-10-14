@@ -3,7 +3,7 @@ struct Store {
     char pad[4];
     void* data;
 };
-struct Buffer {
+struct Buffer_3272b0 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -21,7 +21,7 @@ struct Buffer {
 };
 void FUN_0031c230(int);
 extern "C" void __cdecl memcpy(void*, const void*, unsigned int);
-void Buffer::j(const void* src, int count) {
+void Buffer_3272b0::j(const void* src, int count) {
     void* dst = store->data;
     FUN_0031c230(0);
     memcpy(dst, src, count * 2);

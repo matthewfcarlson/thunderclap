@@ -1,23 +1,23 @@
 // Same code shape as 0x0001fde0 (propagated; names are from that function)
-class IRef {
+class IRef_18c20 {
   public:
     virtual void AddRef();
     virtual void Release();
 };
 
-class CBase {
+class CBase_18c20 {
   public:
     virtual void VFunc();
-    CBase();
+    CBase_18c20();
 };
 
-class CAction : public CBase {
+class CAction : public CBase_18c20 {
   public:
     char m_pad[0x18];
-    IRef* m_pRef;
+    IRef_18c20* m_pRef;
     int m_param;
     virtual void Process();
-    CAction(int a, IRef* p) {
+    CAction(int a, IRef_18c20* p) {
         m_pRef = 0;
         if (p)
             p->AddRef();
@@ -31,7 +31,7 @@ class CAction : public CBase {
 class CDriftAction : public CAction {
   public:
     virtual void ProcessDrift();
-    CDriftAction(int a, IRef* p);
+    CDriftAction(int a, IRef_18c20* p);
 };
 
-CDriftAction::CDriftAction(int a, IRef* p) : CAction(a, p) {}
+CDriftAction::CDriftAction(int a, IRef_18c20* p) : CAction(a, p) {}

@@ -1,4 +1,4 @@
-class Source {
+class Source_23a550 {
   public:
     void helper(char*, int, int, int);
 };
@@ -23,7 +23,7 @@ bool StreamStringReader::vfunc_4() {
         done = false;
         return value;
     }
-    ((Source*)*(void**)((char*)this + 12))->helper((char*)this + 16, 1, 1, 1);
+    ((Source_23a550*)*(void**)((char*)this + 12))->helper((char*)this + 16, 1, 1, 1);
     done = true;
     return value;
 }

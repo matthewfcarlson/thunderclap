@@ -6,7 +6,7 @@ struct V3_1962b0 {
     float x, y, z;
 };
 
-struct Mat4 {
+struct Mat4_1962b0 {
     float m[16];
     void FUN_0022b980();
 };
@@ -70,7 +70,7 @@ struct Node {
 struct Mgr;
 
 struct Factory_1962b0 {
-    Node *FUN_001e4760(int name, char *buf, int a, Mat4 *m, int b, int c, int d);
+    Node *FUN_001e4760(int name, char *buf, int a, Mat4_1962b0 *m, int b, int c, int d);
     int FUN_001dbfe0(char *buf);
     void FUN_001e3200(char *buf, int lo, int hi);
     void FUN_001dc230(int h, int mode);
@@ -239,7 +239,7 @@ hulkfight::motion::ProjectileMissile::ProjectileMissile(MissileCfg *src, int nam
     Factory_1962b0 *factory = DAT_004dd700->factory;
     FUN_00267760(DAT_004e15d0, 0x100, "projectile_missile_%d", DAT_004e16d0);
     DAT_004e16d0 = DAT_004e16d0 + 1;
-    Mat4 m;
+    Mat4_1962b0 m;
     m.FUN_0022b980();
     Node *node = factory->FUN_001e4760(name, DAT_004e15d0, 0, &m, 0, 0, 0);
     if (node == 0) {

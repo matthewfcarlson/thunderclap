@@ -1,6 +1,6 @@
-typedef unsigned int u32;
+typedef unsigned int u32_2c0070;
 void thunk_FUN_00267090(void*);
-void* FUN_0008d6d0(u32);
+void* FUN_0008d6d0(u32_2c0070);
 class Image32 {
   public:
     char pad0[0x10];

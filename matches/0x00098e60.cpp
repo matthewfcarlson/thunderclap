@@ -1,22 +1,22 @@
-class Item {
+class Item_98e60 {
     char pad[0xf1];
 
   public:
     unsigned char value;
 };
-class Owner {
+class Owner_98e60 {
     char pad[0xb0];
 
   public:
-    Item* a;
-    Item* b;
-    Item* f;
-    Item* c;
-    Item* d;
-    Item* e;
+    Item_98e60* a;
+    Item_98e60* b;
+    Item_98e60* f;
+    Item_98e60* c;
+    Item_98e60* d;
+    Item_98e60* e;
     void Clear();
 };
-void Owner::Clear() {
+void Owner_98e60::Clear() {
     if (a)
         a->value = 0;
     if (b)

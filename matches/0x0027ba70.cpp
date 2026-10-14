@@ -1,18 +1,18 @@
-class Item {
+class Item_27ba70 {
   public:
     virtual void release(int);
     int x;
     int a, b, c;
     int tail;
 };
-class List {
+class List_27ba70 {
   public:
-    Item* begin;
-    Item* end;
-    void erase(Item*, Item*);
+    Item_27ba70* begin;
+    Item_27ba70* end;
+    void erase(Item_27ba70*, Item_27ba70*);
 };
-void List::erase(Item* first, Item* last) {
-    Item* e = end;
+void List_27ba70::erase(Item_27ba70* first, Item_27ba70* last) {
+    Item_27ba70* e = end;
     if (last != e) {
         int delta = (char*)last - (char*)first;
         do {
@@ -23,8 +23,8 @@ void List::erase(Item* first, Item* last) {
             ++last;
         } while (last != e);
     }
-    Item* old = end;
-    for (Item* p = first; p != old; ++p)
+    Item_27ba70* old = end;
+    for (Item_27ba70* p = first; p != old; ++p)
         p->release(0);
     end = first;
 }

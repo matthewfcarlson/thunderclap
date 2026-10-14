@@ -1,5 +1,5 @@
 extern "C" char DAT_004194dc[];
-typedef unsigned int u32;
+typedef unsigned int u32_18c1b0;
 extern void* __cdecl operator_new(unsigned int);
 class ShieldArcTrack {
   public:
@@ -8,10 +8,10 @@ class ShieldArcTrack {
     virtual void C();
     virtual void D();
     virtual void E();
-    u32 pad;
+    u32_18c1b0 pad;
     void Init();
 };
-class Factory {
+class Factory_18c1b0 {
   public:
     virtual void A();
     virtual void B();
@@ -20,14 +20,14 @@ class Factory {
     virtual void E();
     virtual ShieldArcTrack* Create();
 };
-ShieldArcTrack* Factory::Create() {
+ShieldArcTrack* Factory_18c1b0::Create() {
     ShieldArcTrack* p = (ShieldArcTrack*)operator_new(0x14);
     if (p) {
         p->Init();
-        *(u32*)p = ((int)DAT_004194dc);
-        *(u32*)((char*)p + 0xc) = 0;
-        *(u32*)((char*)p + 0x10) = 0x3fc90fdb;
-        *(u32*)((char*)p + 8) = 1;
+        *(u32_18c1b0*)p = ((int)DAT_004194dc);
+        *(u32_18c1b0*)((char*)p + 0xc) = 0;
+        *(u32_18c1b0*)((char*)p + 0x10) = 0x3fc90fdb;
+        *(u32_18c1b0*)((char*)p + 8) = 1;
         return p;
     }
     return 0;

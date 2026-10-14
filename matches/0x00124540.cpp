@@ -1,18 +1,18 @@
 struct Params {
     virtual void f();
 };
-struct Ent {
+struct Ent_124540 {
     char p[0x328];
     int target;
 };
-struct Holder {};
-struct Base1 {
+struct Holder_124540 {};
+struct Base1_124540 {
     virtual void a();
 };
 struct Base2 {
     virtual void b();
 };
-class HasTargetCondition : public Base1, public Base2 {
+class HasTargetCondition : public Base1_124540, public Base2 {
   public:
     char pad[4];
     bool mWant;
@@ -30,12 +30,12 @@ struct T1 {
 struct T2 {
     virtual void f();
 };
-extern T1 t1;
+extern T1 t1_124540;
 extern T2 t2;
-Holder* __fastcall G1(Params*);
-Ent* __fastcall G2(Holder*);
+Holder_124540* __fastcall G1(Params*);
+Ent_124540* __fastcall G2(Holder_124540*);
 bool HasTargetCondition::v6(int a, Params* p, int b) {
-    if (!DynCast(p, 0, &t1, &t2, 0))
+    if (!DynCast(p, 0, &t1_124540, &t2, 0))
         return false;
     int t = G2(G1(p))->target;
     if (mWant)

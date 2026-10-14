@@ -1,18 +1,18 @@
-struct Args {
+struct Args_caea0 {
     int a, b, c;
 };
-class Inner {
+class Inner_caea0 {
   public:
     void A();
-    void B(Args);
+    void B(Args_caea0);
 };
-class Obj {
+class Obj_caea0 {
   public:
     char pad[0x88];
-    Inner* m;
-    void Run(Args x);
+    Inner_caea0* m;
+    void Run(Args_caea0 x);
 };
-void Obj::Run(Args x) {
+void Obj_caea0::Run(Args_caea0 x) {
     if (m) {
         m->A();
         m->B(x);

@@ -1,17 +1,17 @@
-extern void* vt[];
-class G {
+extern void* vt_3b0a6f[];
+class G_3b0a6f {
   public:
     void* vptr;
     void Reg(void*) throw();
 };
-extern G g;
-class O {
+extern G_3b0a6f g_3b0a6f;
+class O_3b0a6f {
   public:
     void* vptr;
-    O* ctor() throw();
+    O_3b0a6f* ctor() throw();
 };
-O* O::ctor() throw() {
-    vptr = vt;
-    g.Reg(this);
+O_3b0a6f* O_3b0a6f::ctor() throw() {
+    vptr = vt_3b0a6f;
+    g_3b0a6f.Reg(this);
     return this;
 }

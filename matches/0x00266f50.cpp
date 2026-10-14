@@ -1,4 +1,4 @@
-class Item {
+class Item_266f50 {
   public:
     virtual void f0();
     virtual void f1();
@@ -9,7 +9,7 @@ class Item {
 };
 class Node {
   public:
-    Item* item;
+    Item_266f50* item;
     Node* child;
     Node* next;
 };

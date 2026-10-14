@@ -1,18 +1,18 @@
-class Inner {
+class Inner_222550 {
   public:
     char pad[16];
     int value;
     int make(int, int);
 };
-class Base {
+class Base_222550 {
   public:
     char pad[16];
-    Inner* inner;
+    Inner_222550* inner;
     int a, b, c;
     void f(int, int);
     void helper(int);
 };
-void Base::f(int x, int y) {
+void Base_222550::f(int x, int y) {
     if ((x | y) == 0) {
         a = 0;
         b = 0;

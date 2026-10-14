@@ -1,38 +1,38 @@
 extern "C" char DAT_0042d1ec[];
 extern "C" char DAT_0042d28c[];
-class Child {
+class Child_297010 {
   public:
     virtual void Destroy();
     virtual void Release();
     virtual void V2();
     virtual void V3();
-    virtual Child* Get();
+    virtual Child_297010* Get();
 };
-class Obj {
+class Obj_297010 {
   public:
     int vptr;
     int x[5];
-    Child* c;
-    Obj* Build(Obj*);
+    Child_297010* c;
+    Obj_297010* Build(Obj_297010*);
 };
-class Base {
+class Base_297010 {
   public:
     void Init();
 };
-class Name {
+class Name_297010 {
   public:
-    void Copy(Name*);
+    void Copy(Name_297010*);
 };
-Obj* Obj::Build(Obj* src) {
-    ((Base*)this)->Init();
+Obj_297010* Obj_297010::Build(Obj_297010* src) {
+    ((Base_297010*)this)->Init();
     vptr = ((int)DAT_0042d1ec);
     x[3] = src->x[3];
     x[4] = src->x[4];
-    ((Name*)((char*)this + 8))->Copy((Name*)((char*)src + 8));
+    ((Name_297010*)((char*)this + 8))->Copy((Name_297010*)((char*)src + 8));
     vptr = ((int)DAT_0042d28c);
     c = 0;
     if (src->c) {
-        Child* p = src->c->Get();
+        Child_297010* p = src->c->Get();
         if (p)
             p->Destroy();
         if (c)

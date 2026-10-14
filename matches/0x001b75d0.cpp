@@ -1,13 +1,13 @@
-class Ref {
+class Ref_1b75d0 {
   public:
     virtual void F();
 };
-class Owner {
+class Owner_1b75d0 {
   public:
-    Ref* mRef;
-    Owner* Set(Ref* r);
+    Ref_1b75d0* mRef;
+    Owner_1b75d0* Set(Ref_1b75d0* r);
 };
-Owner* Owner::Set(Ref* r) {
+Owner_1b75d0* Owner_1b75d0::Set(Ref_1b75d0* r) {
     mRef = r;
     if (r)
         r->F();

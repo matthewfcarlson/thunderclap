@@ -2,19 +2,19 @@ extern "C" void* ALLOC(int);
 extern int PhysicsJoint_vftable;
 extern int PhysicsJoint3D_vftable;
 
-class Sub {
+class Sub_30d650 {
   public:
     char data[0x1c];
     void Init();
 };
 
-struct Obj {
+struct Obj_30d650 {
     void* m_vtable;
     char pad1[0x1c];
     int a, b, c;
     char pad2[0x1c];
-    Sub s1;
-    Sub s2;
+    Sub_30d650 s1;
+    Sub_30d650 s2;
     char pad3[0xdc];
     void Copy(void*);
 };
@@ -48,17 +48,17 @@ class PhysicsJoint {
     virtual void vfunc_24();
     virtual void vfunc_25();
     virtual void vfunc_26();
-    virtual Obj* vfunc_27();
-    virtual void vfunc_28(Obj*);
+    virtual Obj_30d650* vfunc_27();
+    virtual void vfunc_28(Obj_30d650*);
 };
 
 class PhysicsJoint3D : public PhysicsJoint {
   public:
-    Obj* vfunc_27();
+    Obj_30d650* vfunc_27();
 };
 
-Obj* PhysicsJoint3D::vfunc_27() {
-    Obj* p = (Obj*)ALLOC(0x15c);
+Obj_30d650* PhysicsJoint3D::vfunc_27() {
+    Obj_30d650* p = (Obj_30d650*)ALLOC(0x15c);
     if (p != 0) {
         *(void* volatile*)&p->m_vtable = (void*)&PhysicsJoint_vftable;
         p->a = 0;

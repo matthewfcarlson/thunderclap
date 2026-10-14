@@ -1,11 +1,11 @@
-struct Vec3 {
+struct Vec3_a8f70 {
     float x, y, z;
 };
-struct Mat {
+struct Mat_a8f70 {
     char pad[0x20];
-    Vec3 a;
+    Vec3_a8f70 a;
     float padf;
-    Vec3 b;
+    Vec3_a8f70 b;
 };
 
 class CDramaticCamera {
@@ -24,7 +24,7 @@ class CDramaticCamera {
     virtual void v11();
     virtual void v12();
     virtual void v13();
-    virtual Mat* GetMat();
+    virtual Mat_a8f70* GetMat();
     virtual void v15();
     virtual void v16();
     virtual void v17();
@@ -37,16 +37,16 @@ class CDramaticCamera {
     virtual void v24();
     virtual void v25();
     virtual void v26();
-    virtual void vfunc_27(Vec3* out);
+    virtual void vfunc_27(Vec3_a8f70* out);
 };
 
-void CDramaticCamera::vfunc_27(Vec3* out) {
-    Vec3 d;
-    Vec3* f = &GetMat()->a;
+void CDramaticCamera::vfunc_27(Vec3_a8f70* out) {
+    Vec3_a8f70 d;
+    Vec3_a8f70* f = &GetMat()->a;
     d.x = f->x * 10.0f;
     d.y = f->y * 10.0f;
     d.z = f->z * 10.0f;
-    Vec3* p = &GetMat()->b;
+    Vec3_a8f70* p = &GetMat()->b;
     float z = d.z + p->z;
     float y = d.y + p->y;
     float x = d.x + p->x;

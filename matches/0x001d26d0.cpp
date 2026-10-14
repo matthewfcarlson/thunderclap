@@ -1,18 +1,18 @@
-class B {
+class B_1d26d0 {
   public:
     void f(unsigned int);
 };
 class D {
   public:
-    void h(B*);
+    void h(B_1d26d0*);
 };
-class C {
+class C_1d26d0 {
   public:
     char pad[12];
     D d;
-    void g(unsigned int, B*);
+    void g(unsigned int, B_1d26d0*);
 };
-void C::g(unsigned int a, B* b) {
+void C_1d26d0::g(unsigned int a, B_1d26d0* b) {
     b->f(a);
     d.h(b);
 }

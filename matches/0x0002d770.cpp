@@ -12,12 +12,12 @@ class CActorManager {
 };
 extern "C" void __stdcall FUN_001d0480(const char*, int);
 extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
-extern const char s0[], s1[], s2[], s3[];
+extern const char s0_2d770[], s1[], s2[], s3[];
 CActorManager::CActorManager(const char* p, int q) {
     FUN_001d0480(p, 4);
     vt = ((int)DAT_003f420c);
     m1c = q;
-    b18 = FUN_001d04d0(s0);
+    b18 = FUN_001d04d0(s0_2d770);
     b10 = FUN_001d04d0(s1);
     b11 = FUN_001d04d0(s2);
     b12 = FUN_001d04d0(s3);

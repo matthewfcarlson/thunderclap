@@ -9,7 +9,7 @@ class ConditionFactoryCasterTemplate : public ConditionFactoryCaster {
     virtual void V0();
     virtual void* V1(void*);
 };
-class Helper {
+class Helper_23d140 {
   public:
     void Init();
     void Setup(void*);
@@ -18,9 +18,9 @@ extern "C" void* __cdecl alloc(unsigned int);
 void* ConditionFactoryCasterTemplate::V1(void* p) {
     void* q = alloc(0x10);
     if (q) {
-        ((Helper*)q)->Init();
+        ((Helper_23d140*)q)->Init();
         *(unsigned int*)q = ((int)DAT_00428a98);
-        ((Helper*)((char*)q + 8))->Setup(p);
+        ((Helper_23d140*)((char*)q + 8))->Setup(p);
         return q;
     }
     return 0;

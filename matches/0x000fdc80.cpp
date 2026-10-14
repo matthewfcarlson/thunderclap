@@ -1,4 +1,4 @@
-class C {
+class C_fdc80 {
     char pad[8];
     int count;
     char pad2[0x40];
@@ -7,7 +7,7 @@ class C {
   public:
     int Get();
 };
-int C::Get() {
+int C_fdc80::Get() {
     int i = index;
     if (i >= 0 && i < count)
         return *(int*)((char*)this + 0xc + i * 4);

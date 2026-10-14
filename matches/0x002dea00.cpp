@@ -1,6 +1,6 @@
-typedef unsigned int u32;
-void* alloc(u32);
-class Init {
+typedef unsigned int u32_2dea00;
+void* alloc(u32_2dea00);
+class Init_2dea00 {
   public:
     void* run();
 };
@@ -21,7 +21,7 @@ void* ImageConverter::vfunc_4(void* p) {
     int t = (int)alloc(0x30);
     void* x;
     if (t) {
-        x = ((Init*)t)->run();
+        x = ((Init_2dea00*)t)->run();
     } else
         x = 0;
     struct Pair {

@@ -1,15 +1,15 @@
-struct Buf {
+struct Buf_294500 {
     char pad[12];
     void put(void* p, unsigned int v);
 };
-struct Sub {
+struct Sub_294500 {
     unsigned int getval();
 };
-struct Mgr {
-    Sub* sub;
+struct Mgr_294500 {
+    Sub_294500* sub;
 };
-extern Mgr* gmgr;
-struct Obj {
+extern Mgr_294500* gmgr;
+struct Obj_294500 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -25,14 +25,14 @@ struct Obj {
     virtual void v12();
     virtual unsigned int get();
 };
-class Target {
+class Target_294500 {
   public:
     char pad[0x18];
-    Obj* obj;
-    void run(int a, int b, int c, Buf* out);
+    Obj_294500* obj;
+    void run(int a, int b, int c, Buf_294500* out);
 };
-void Target::run(int a, int b, int c, Buf* out) {
-    Buf local;
+void Target_294500::run(int a, int b, int c, Buf_294500* out) {
+    Buf_294500 local;
     local.put(&a, gmgr->sub->getval());
     if (obj) {
         unsigned int v = obj->get();

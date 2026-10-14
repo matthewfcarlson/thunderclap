@@ -1,7 +1,7 @@
 extern "C" void _ReadWriteBarrier();
-extern int vt1, vt2;
+extern int vt1_2b8040, vt2;
 extern void Free(void*);
-class Ref {
+class Ref_2b8040 {
   public:
     virtual void f0();
     virtual void Release();
@@ -10,12 +10,12 @@ class D {
   public:
     void* vptr;
     char p[0x18];
-    Ref* a1c;
-    Ref* a20;
+    Ref_2b8040* a1c;
+    Ref_2b8040* a20;
     D* vfunc2(unsigned char f);
 };
 D* D::vfunc2(unsigned char f) {
-    vptr = &vt1;
+    vptr = &vt1_2b8040;
     _ReadWriteBarrier();
     if (a1c) {
         a1c->Release();

@@ -1,19 +1,19 @@
-struct Payload {
+struct Payload_2136d0 {
     char pad[8];
     int v;
 };
 struct Node {
     int type;
-    Payload* payload;
+    Payload_2136d0* payload;
 };
-struct Buf {
+struct Buf_2136d0 {
     char pad[8];
     int* cursor;
 };
 
 Node* __fastcall readNode(void* a, int* b);
 
-int __cdecl FUN_002136d0(Buf* p1, void* p2) {
+int __cdecl FUN_002136d0(Buf_2136d0* p1, void* p2) {
     Node* node = readNode(p2, (int*)p1);
     int val;
     switch (node->type) {

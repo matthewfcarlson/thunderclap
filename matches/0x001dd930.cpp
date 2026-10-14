@@ -1,22 +1,22 @@
-struct Helper {
+struct Helper_1dd930 {
     void Use(void*);
 };
-struct Entry {
+struct Entry_1dd930 {
     char pad[0x18];
     int ptr;
     char gap[6];
     short index;
     char tail[4];
 };
-struct Obj {
+struct Obj_1dd930 {
     char pad[0x608];
-    Entry entries[0x800];
-    bool Run(int index, Helper* arg);
+    Entry_1dd930 entries[0x800];
+    bool Run(int index, Helper_1dd930* arg);
 };
-bool Obj::Run(int index, Helper* arg) {
+bool Obj_1dd930::Run(int index, Helper_1dd930* arg) {
     if (index < 0 || index >= 0x800)
         return false;
-    Entry* e = &entries[index];
+    Entry_1dd930* e = &entries[index];
     if ((((char*)this)[(e->index + 0x104e) * 0x14] & 1) && e->ptr != 0) {
         arg->Use((void*)(e->ptr + 8));
         return true;

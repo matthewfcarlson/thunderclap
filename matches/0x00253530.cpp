@@ -1,5 +1,5 @@
 extern "C" void* __cdecl Alloc(void*);
-extern int g_pool;
+extern int g_pool_253530;
 extern int rand_vftable;
 struct SeqEventVarPitchRand {
     int* vf;
@@ -15,7 +15,7 @@ struct SeqEventVarPitchRandType {
     virtual void* vfunc_3();
 };
 void* SeqEventVarPitchRandType::vfunc_3() {
-    SeqEventVarPitchRand* p = (SeqEventVarPitchRand*)Alloc(&g_pool);
+    SeqEventVarPitchRand* p = (SeqEventVarPitchRand*)Alloc(&g_pool_253530);
     if (p) {
         p->init();
         p->vf = &rand_vftable;

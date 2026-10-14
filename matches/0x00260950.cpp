@@ -1,9 +1,9 @@
 extern "C" char DAT_0042aa7c[];
 extern void* gSource;
-extern int gCount;
+extern int gCount_260950;
 void InitSeq(void*, void*);
 void DestroySeq(void*);
-class Sub {
+class Sub_260950 {
   public:
     void Clean();
 };
@@ -17,7 +17,7 @@ class Type {
 class SeqEventType : public Type {
   public:
     char pad[0x54];
-    Sub sub;
+    Sub_260950 sub;
     void Finish();
     SeqEventType* vfunc2(unsigned int flags);
 };
@@ -25,7 +25,7 @@ SeqEventType* SeqEventType::vfunc2(unsigned int flags) {
     void* p = gSource;
     *(void**)this = (void*)((int)DAT_0042aa7c);
     InitSeq(p, this);
-    --gCount;
+    --gCount_260950;
     sub.Clean();
     Finish();
     if (flags & 1)

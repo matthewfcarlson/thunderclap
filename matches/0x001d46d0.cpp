@@ -10,16 +10,16 @@ void* __cdecl alloc(unsigned int);
 void __cdecl taskC(int, Closure4*);
 void __cdecl taskD(int, void*, int);
 void __cdecl taskE(int, int, int);
-struct List {
+struct List_1d46d0 {
     void attach(Closure4*);
 };
-struct Handler {
+struct Handler_1d46d0 {
     char pad[8];
     int x8;
-    List list;
+    List_1d46d0 list;
     void target(int, int, int);
 };
-void Handler::target(int a, int b, int c) {
+void Handler_1d46d0::target(int a, int b, int c) {
     Closure4* p = (Closure4*)alloc(0x24);
     if (p) {
         p->init(a, c);

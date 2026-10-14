@@ -1,11 +1,11 @@
-class B {
+class B_1eb6a0 {
   public:
     void G();
 };
-class A {
+class A_1eb6a0 {
   public:
     virtual void F();
 };
-void A::F() {
-    ((B*)*(void**)*(void**)this)->G();
+void A_1eb6a0::F() {
+    ((B_1eb6a0*)*(void**)*(void**)this)->G();
 }

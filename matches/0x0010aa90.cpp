@@ -1,48 +1,48 @@
-struct State {
+struct State_10aa90 {
     void FUN_00025260(int, int, int);
     void FUN_000253c0(int);
 };
-struct Input {
+struct Input_10aa90 {
     char pad[0x20];
-    State* state;
+    State_10aa90* state;
 };
-struct Flag {
+struct Flag_10aa90 {
     char pad[0x72];
     unsigned char enabled;
 };
 struct Node {
     char pad[0x74];
-    Flag* flag;
+    Flag_10aa90* flag;
 };
-struct Link {
+struct Link_10aa90 {
     Node* FUN_001d72e0();
 };
 struct Object {
     char pad[0x128];
-    Link* link;
+    Link_10aa90* link;
     void FUN_000368d0(int);
 };
-struct Manager {
+struct Manager_10aa90 {
     void FUN_001dcf60(int);
 };
-struct Global {
+struct Global_10aa90 {
     char pad[0xc];
-    Manager* manager;
+    Manager_10aa90* manager;
 };
-extern Global* DAT_004dd700;
-struct Target {
-    unsigned char FUN_00109df0(Input*, int, int, int, int, int, int, int);
-    unsigned char run(Input*, int, int, int, int, int, int, Object*, int, int, int);
+extern Global_10aa90* DAT_004dd700;
+struct Target_10aa90 {
+    unsigned char FUN_00109df0(Input_10aa90*, int, int, int, int, int, int, int);
+    unsigned char run(Input_10aa90*, int, int, int, int, int, int, Object*, int, int, int);
 };
-unsigned char Target::run(Input* input, int a2, int a3, int a4, int a5, int a6, int a7, Object* obj, int a9,
+unsigned char Target_10aa90::run(Input_10aa90* input, int a2, int a3, int a4, int a5, int a6, int a7, Object* obj, int a9,
                           int a10, int a11) {
     input->state->FUN_00025260(a10, 0, 0);
     input->state->FUN_000253c0(a11);
     DAT_004dd700->manager->FUN_001dcf60(a11);
-    Link* link = obj->link;
+    Link_10aa90* link = obj->link;
     if (link && link->FUN_001d72e0()) {
         Node* node = link->FUN_001d72e0();
-        Flag* flag = node->flag;
+        Flag_10aa90* flag = node->flag;
         if (flag)
             flag->enabled = 0;
     }

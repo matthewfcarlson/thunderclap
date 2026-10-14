@@ -1,27 +1,27 @@
-class Obj {
+class Obj_2a7ec0 {
   public:
     void Fn(void*, unsigned char*);
 };
-struct A {
+struct A_2a7ec0 {
     char pad[0x28];
     int count;
 };
-struct B {
+struct B_2a7ec0 {
     char pad[0x3c];
     unsigned char* bytes;
 };
-struct C {
+struct C_2a7ec0 {
     char pad[0x44];
-    B* b;
+    B_2a7ec0* b;
 };
-class Controller {
+class Controller_2a7ec0 {
   public:
     char pad0[0x34];
     void* p34;
     char pad38[4];
-    A* p3c;
-    C* p40;
-    Obj** p44;
+    A_2a7ec0* p3c;
+    C_2a7ec0* p40;
+    Obj_2a7ec0** p44;
     char pad48[8];
     unsigned char* p50;
     void vfunc_0();
@@ -33,7 +33,7 @@ class Controller {
     void vfunc_6();
     void vfunc_7();
 };
-void Controller::vfunc_7() {
+void Controller_2a7ec0::vfunc_7() {
     int n = p3c->count;
     for (int i = 0; i < n; i++) {
         if (p50[i] != 0xff && p44[i]) {

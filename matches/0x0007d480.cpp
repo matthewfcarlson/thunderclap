@@ -2,7 +2,7 @@ class type_info {
   public:
     virtual ~type_info();
 };
-extern int g_vftable;
+extern int g_vftable_7d480;
 extern "C" unsigned char __cdecl FUN_001d04d0(const type_info&);
 class Method3 {
   public:
@@ -18,7 +18,7 @@ class Method3 {
 };
 Method3* Method3::Build(const char* name, void* mgr) {
     Init(name, 3);
-    *(void**)this = &g_vftable;
+    *(void**)this = &g_vftable_7d480;
     owner = mgr;
     a18 = FUN_001d04d0(typeid(void));
     a10 = FUN_001d04d0(typeid(const char*));

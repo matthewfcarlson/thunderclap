@@ -7,7 +7,7 @@ class FEDoAction {
     virtual void v4();
     virtual void v5();
 };
-class Obj {
+class Obj_e1760 {
   public:
     virtual void a();
     virtual void b();
@@ -19,7 +19,7 @@ class Obj {
 class FEDoAnimation : public FEDoAction {
   public:
     char pad[0x30];
-    Obj* mObj;
+    Obj_e1760* mObj;
     char pad2[4];
     float mValue;
     void helper();

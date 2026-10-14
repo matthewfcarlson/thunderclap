@@ -1,6 +1,6 @@
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f3a34[];
-class Ref {
+class Ref_1f640 {
   public:
     virtual void F();
     virtual void Release();
@@ -16,12 +16,12 @@ class CMotionTrailAction : public CAction {
     virtual void F();
     virtual void R();
     char pad08[0x18];
-    Ref* m1c;
+    Ref_1f640* m1c;
     int m20;
     int m24;
-    CMotionTrailAction(int, Ref*);
+    CMotionTrailAction(int, Ref_1f640*);
 };
-CMotionTrailAction::CMotionTrailAction(int b, Ref* a) {
+CMotionTrailAction::CMotionTrailAction(int b, Ref_1f640* a) {
     *(int*)this = ((int)DAT_003f3390);
     int* q = (int*)&m1c;
     *q = 0;

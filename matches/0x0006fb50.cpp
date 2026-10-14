@@ -1,4 +1,4 @@
-extern int g_vftable;
+extern int g_vftable_6fb50;
 
 struct TrackFactoryTemplate {
     void* m_vptr;
@@ -10,7 +10,7 @@ struct TrackFactoryTemplate {
 void thunk_delete(void*);
 
 void* TrackFactoryTemplate::scalar_dtor(unsigned char param_2) {
-    m_vptr = (void*)&g_vftable;
+    m_vptr = (void*)&g_vftable_6fb50;
     base1_dtor();
     base2_dtor();
     if (param_2 & 1)

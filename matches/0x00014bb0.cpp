@@ -1,28 +1,28 @@
 struct Z;
-struct C {
+struct C_14bb0 {
     bool IsOk();
     Z* GetZ(int);
 };
-struct B {
-    C* GetC();
+struct B_14bb0 {
+    C_14bb0* GetC();
 };
-struct A {
-    B* GetB();
+struct A_14bb0 {
+    B_14bb0* GetB();
 };
-struct SoundObj {
+struct SoundObj_14bb0 {
     char pad[0x10];
     char data[0x40];
     char flag;
 };
-struct Out {
-    void Send(C*, void*);
+struct Out_14bb0 {
+    void Send(C_14bb0*, void*);
     void Play(Z*, void*, float, int);
 };
-struct Mgr {
+struct Mgr_14bb0 {
     char pad[0x34];
-    Out* out;
+    Out_14bb0* out;
 };
-extern Mgr* gMgr;
+extern Mgr_14bb0* gMgr_14bb0;
 class CSoundAction {
   public:
     virtual void f0();
@@ -35,19 +35,19 @@ class CSoundAction {
     virtual bool Fn(int);
     virtual void f8();
     char pad[0x18];
-    A* m1c;
-    SoundObj* m20;
+    A_14bb0* m1c;
+    SoundObj_14bb0* m20;
 };
 bool CSoundAction::Fn(int) {
-    C* c = m1c->GetB()->GetC();
+    C_14bb0* c = m1c->GetB()->GetC();
     if (!m20->flag) {
-        gMgr->out->Send(c, m20->data);
+        gMgr_14bb0->out->Send(c, m20->data);
         return false;
     }
     if (c->IsOk()) {
         Z* z = c->GetZ(0);
         if (z)
-            gMgr->out->Play(z, m20->data, 100.0f, 0);
+            gMgr_14bb0->out->Play(z, m20->data, 100.0f, 0);
     }
     return false;
 }

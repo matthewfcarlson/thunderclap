@@ -2,16 +2,16 @@
 
 class CFMVManager;
 
-class Base {
+class Base_1b7c00 {
   public:
-    virtual ~Base() throw() {}
+    virtual ~Base_1b7c00() throw() {}
     virtual void VFunc1() throw() {}
     virtual void VFunc2() throw() {}
     int m_data[3];
-    Base(int a, int b); // defined externally (FUN_001d0480)
+    Base_1b7c00(int a, int b); // defined externally (FUN_001d0480)
 };
 
-class Delegate : public Base {
+class Delegate_1b7c00 : public Base_1b7c00 {
   public:
     unsigned char m_b10; // 0x10
     unsigned char m_b11; // 0x11
@@ -22,9 +22,9 @@ class Delegate : public Base {
     char m_pad3[3];      // 0x19-0x1b
     void* m_ptr1c;       // 0x1c
 
-    Delegate(int a1, void* a2);
+    Delegate_1b7c00(int a1, void* a2);
     virtual void Invoke(float, float, float, float) throw() {}
-    virtual ~Delegate() throw() {}
+    virtual ~Delegate_1b7c00() throw() {}
 };
 
 extern "C" unsigned char __cdecl FUN_001d04d0(void*);
@@ -32,7 +32,7 @@ extern "C" unsigned char __cdecl FUN_001d04d0(void*);
 extern "C" char g_48e100;
 extern "C" char g_48e128;
 
-Delegate::Delegate(int a1, void* a2) : Base(a1, 4) {
+Delegate_1b7c00::Delegate_1b7c00(int a1, void* a2) : Base_1b7c00(a1, 4) {
     m_ptr1c = a2;
     m_b18 = FUN_001d04d0(&g_48e100);
     m_b10 = FUN_001d04d0(&g_48e128);

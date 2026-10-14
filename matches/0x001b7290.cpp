@@ -1,22 +1,22 @@
-struct Ent {
+struct Ent_1b7290 {
     float w, x, y, z;
 };
-struct Buf {
-    Ent e[1];
-    Buf* Init();
+struct Buf_1b7290 {
+    Ent_1b7290 e[1];
+    Buf_1b7290* Init();
 };
-struct Obj {
+struct Obj_1b7290 {
     char pad[0x124];
-    Buf* buf;
+    Buf_1b7290* buf;
     void Add(float, float, float, float);
 };
 extern void* __cdecl Alloc(unsigned);
-void Obj::Add(float a, float b, float c, float d) {
+void Obj_1b7290::Add(float a, float b, float c, float d) {
     if (!buf) {
         void* m = Alloc(0x504);
-        buf = m ? ((Buf*)m)->Init() : 0;
+        buf = m ? ((Buf_1b7290*)m)->Init() : 0;
     }
-    Buf* p = buf;
+    Buf_1b7290* p = buf;
     int* cnt = (int*)p;
     p->e[*cnt].x = a;
     p->e[*cnt].y = b;

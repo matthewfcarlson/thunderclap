@@ -1,4 +1,4 @@
-class Inner {
+class Inner_2fc700 {
   public:
     virtual void f0();
     virtual void f1();
@@ -8,11 +8,11 @@ class Inner {
     virtual void f5();
     virtual void f6();
 };
-class Outer {
+class Outer_2fc700 {
   public:
     char pad[0x10];
-    Inner* p;
+    Inner_2fc700* p;
 };
-void __fastcall target(Outer* self) {
+void __fastcall target(Outer_2fc700* self) {
     self->p->f6();
 }

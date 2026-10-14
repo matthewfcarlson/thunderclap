@@ -1,5 +1,5 @@
-extern const float gZero;
-class Obj {
+extern const float gZero_1c05d0;
+class Obj_1c05d0 {
   public:
     float value;
     void* ptr;
@@ -11,10 +11,10 @@ class Obj {
     void Tick();
     void Update(float a, float b);
 };
-void Obj::Update(float a, float b) {
+void Obj_1c05d0::Update(float a, float b) {
     if (!active || !ptr)
         return;
-    if (value < gZero)
+    if (value < gZero_1c05d0)
         value = 0.0f;
     else
         value = a / b;

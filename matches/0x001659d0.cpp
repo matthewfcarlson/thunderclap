@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1659d0 {
   public:
     char m0;
     char m1;
@@ -7,7 +7,7 @@ class Obj {
     char Set(int v);
 };
 
-char Obj::Set(int v) {
+char Obj_1659d0::Set(int v) {
     mField = v;
     return 1;
 }

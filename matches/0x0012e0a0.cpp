@@ -1,4 +1,4 @@
-class A {
+class A_12e0a0 {
   public:
     bool Set(int value);
 
@@ -7,7 +7,7 @@ class A {
     int mValue;
 };
 
-bool A::Set(int value) {
+bool A_12e0a0::Set(int value) {
     mValue = value;
     return true;
 }

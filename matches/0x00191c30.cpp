@@ -1,8 +1,8 @@
 void* __cdecl operator_new(unsigned int);
-struct Init {
+struct Init_191c30 {
     int initialize();
 };
-class Factory {
+class Factory_191c30 {
   public:
     virtual void a();
     virtual void b();
@@ -11,8 +11,8 @@ class Factory {
     virtual void e();
     virtual int create();
 };
-int Factory::create() {
-    Init* p = (Init*)operator_new(0x74);
+int Factory_191c30::create() {
+    Init_191c30* p = (Init_191c30*)operator_new(0x74);
     if (p)
         return p->initialize();
     return 0;

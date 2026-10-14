@@ -1,5 +1,5 @@
 typedef unsigned char u8;
-struct Obj {
+struct Obj_183a00 {
     char pad[0x15];
     u8 flag;
 };
@@ -12,7 +12,7 @@ struct PropActorToPropAction {
     virtual void v5();
     void FUN_00181d30();
     char pad[0x18];
-    Obj* mObj;
+    Obj_183a00* mObj;
 };
 void PropActorToPropAction::vfunc_4() {
     if (mObj->flag)

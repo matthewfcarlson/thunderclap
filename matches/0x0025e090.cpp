@@ -1,4 +1,4 @@
-struct X {
+struct X_25e090 {
     char pad0[4];
     unsigned int a;
     char pad8[8];
@@ -7,7 +7,7 @@ struct X {
     unsigned int c;
     unsigned int d;
 };
-int __cdecl target(X* p) {
+int __cdecl target(X_25e090* p) {
     if (p->flag)
         return 0;
     unsigned int v = p->d;

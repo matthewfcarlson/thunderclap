@@ -1,4 +1,4 @@
-class Target {
+class Target_1c4b20 {
   public:
     char pad0[0x80];
     int a80;
@@ -8,7 +8,7 @@ class Target {
     int aac;
     void f();
 };
-void Target::f() {
+void Target_1c4b20::f() {
     a80 = a84;
     a88 = 0;
     ++aac;

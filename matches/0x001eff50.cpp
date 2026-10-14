@@ -4,16 +4,16 @@ class Node {
     char pad[4];
     Node* next;
 };
-class Obj {
+class Obj_1eff50 {
   public:
     char pad[0x10];
     Node* head;
     void Flush();
-    Obj* Dispose(unsigned char flag);
+    Obj_1eff50* Dispose(unsigned char flag);
 };
-void destroy(Obj* o);
+void destroy(Obj_1eff50* o);
 
-Obj* Obj::Dispose(unsigned char flag) {
+Obj_1eff50* Obj_1eff50::Dispose(unsigned char flag) {
     Node* n = head;
     while (n) {
         Node* cur = n;

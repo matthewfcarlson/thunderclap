@@ -1,11 +1,11 @@
 int __cdecl GetVal(int elem);
 
-class Other {
+class Other_fdd30 {
   public:
     int Check(int v);
 };
 
-class Container {
+class Container_fdd30 {
   public:
     int FindSomething(int arg);
     char pad[8];
@@ -13,8 +13,8 @@ class Container {
     int mArray[1];
 };
 
-int Container::FindSomething(int arg) {
-    Other* o = (Other*)arg;
+int Container_fdd30::FindSomething(int arg) {
+    Other_fdd30* o = (Other_fdd30*)arg;
     int e;
     int i = 0;
     if (mCount > 0) {

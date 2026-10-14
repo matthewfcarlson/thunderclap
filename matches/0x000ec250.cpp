@@ -1,19 +1,19 @@
-struct Item {
+struct Item_ec250 {
     char pad[0xab8];
     unsigned char active;
 };
-struct Lookup {
-    Item* FUN_000e6410(const char*);
+struct Lookup_ec250 {
+    Item_ec250* FUN_000e6410(const char*);
 };
-struct ContextInner {
+struct ContextInner_ec250 {
     char pad[4];
-    Lookup* lookup;
+    Lookup_ec250* lookup;
 };
 struct Context {
     char pad[8];
-    ContextInner* inner;
+    ContextInner_ec250* inner;
 };
-struct Receiver {
+struct Receiver_ec250 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -30,7 +30,7 @@ struct MenuSelector {
     char pad18[0x90];
     int id;
     char padac[0x6c];
-    Receiver* receivers[10];
+    Receiver_ec250* receivers[10];
     char pad140[0x14];
     int selected;
     char pad158[0x1c00];

@@ -1,6 +1,6 @@
-struct A {
-    A* First();
-    A* Second();
+struct A_133f80 {
+    A_133f80* First();
+    A_133f80* Second();
     void Third(int);
 };
 class HoverAction {
@@ -12,7 +12,7 @@ class HoverAction {
 };
 bool HoverAction::vfunc_5(int param, int unused) {
     if (param == 0) {
-        A* p = ((A*)*(void**)((char*)this + 0x20))->First();
+        A_133f80* p = ((A_133f80*)*(void**)((char*)this + 0x20))->First();
         p = p->Second();
         if (mValue > 0)
             p->Third(1);

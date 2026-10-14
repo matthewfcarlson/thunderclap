@@ -1,4 +1,4 @@
-class Sub2 {
+class Sub2_2fc670 {
   public:
     virtual void v0();
     virtual void v1();
@@ -17,29 +17,29 @@ class Sub2 {
     void Fn(int);
 };
 
-class Sub3 {
+class Sub3_2fc670 {
   public:
     void Fn(int);
 };
 
-class Sub1 {
+class Sub1_2fc670 {
   public:
     void Set(int);
     char pad[0x70];
-    Sub2* a;
-    Sub3* b;
+    Sub2_2fc670* a;
+    Sub3_2fc670* b;
 };
 
-class Obj {
+class Obj_2fc670 {
   public:
     char Change(int s);
     char pad[8];
     int mState;
     int pad2;
-    Sub1* mSub;
+    Sub1_2fc670* mSub;
 };
 
-char Obj::Change(int s) {
+char Obj_2fc670::Change(int s) {
     int old = mState;
     if (s == old)
         return 1;

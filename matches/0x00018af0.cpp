@@ -1,21 +1,21 @@
-class Ref {
+class Ref_18af0 {
   public:
     virtual void AddRef();
     virtual void Release();
 };
-class Base {
+class Base_18af0 {
   public:
     virtual void V();
-    Base();
+    Base_18af0();
 };
-class CAction : public Base {
+class CAction : public Base_18af0 {
   public:
     virtual void V2();
     char pad[0x18];
-    Ref* mRef;
-    CAction(Ref*);
+    Ref_18af0* mRef;
+    CAction(Ref_18af0*);
 };
-CAction::CAction(Ref* arg) : Base() {
+CAction::CAction(Ref_18af0* arg) : Base_18af0() {
     mRef = 0;
     if (arg)
         arg->AddRef();

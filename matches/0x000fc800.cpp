@@ -1,5 +1,5 @@
 typedef unsigned char u8;
-struct Obj {
+struct Obj_fc800 {
     char pad[0x10];
     u8 flag10;
     char pad11;
@@ -8,11 +8,11 @@ struct Obj {
     float value;
     bool Target();
 };
-extern const float threshold;
-bool Obj::Target() {
+extern const float threshold_fc800;
+bool Obj_fc800::Target() {
     if (flag12)
         return true;
-    if (!(value < threshold) && !flag10)
+    if (!(value < threshold_fc800) && !flag10)
         return false;
     return true;
 }

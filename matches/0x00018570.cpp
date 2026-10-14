@@ -10,37 +10,37 @@ class CExplosionAction {
     virtual bool vfunc_7(int);
     virtual void f8();
     char pad[0x18];
-    struct A* mA;
-    struct B* mB;
+    struct A_18570* mA;
+    struct B_18570* mB;
 };
-struct Vec3 {
+struct Vec3_18570 {
     int a, b, c;
 };
-struct A {
+struct A_18570 {
     void* Get();
 };
-struct B {
+struct B_18570 {
     char pad[0x10];
     int val;
-    Vec3 pos;
+    Vec3_18570 pos;
 };
-struct X {
-    X* Next();
-    void Build(Vec3*, Vec3*);
+struct X_18570 {
+    X_18570* Next();
+    void Build(Vec3_18570*, Vec3_18570*);
 };
-struct Final {
-    void Go(Vec3, int, int, int);
+struct Final_18570 {
+    void Go(Vec3_18570, int, int, int);
 };
-struct G {
+struct G_18570 {
     char pad[0x10];
-    Final* f;
+    Final_18570* f;
 };
-extern G* gManager;
+extern G_18570* gManager_18570;
 bool CExplosionAction::vfunc_7(int) {
-    X* p = ((X*)mA->Get())->Next();
-    Vec3 v = mB->pos;
-    Vec3 out;
+    X_18570* p = ((X_18570*)mA->Get())->Next();
+    Vec3_18570 v = mB->pos;
+    Vec3_18570 out;
     p->Build(&v, &out);
-    gManager->f->Go(out, mB->val, 0, 0);
+    gManager_18570->f->Go(out, mB->val, 0, 0);
     return false;
 }

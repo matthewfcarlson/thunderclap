@@ -1,4 +1,4 @@
-struct Header {
+struct Header_221360 {
     char pad[0x47];
     unsigned char maximum;
 };
@@ -6,8 +6,8 @@ struct Context {
     char pad[8];
     unsigned int value;
 };
-struct State {
-    Header* header;
+struct State_221360 {
+    Header_221360* header;
     char pad4[8];
     Context* context;
     char pad10[0x14];
@@ -15,15 +15,15 @@ struct State {
     char pad28[0xc];
     unsigned char minimum;
 };
-struct Operand {
+struct Operand_221360 {
     int type;
     int value;
 };
-void __cdecl FUN_00221190(State*, Operand*);
+void __cdecl FUN_00221190(State_221360*, Operand_221360*);
 void __cdecl FUN_0021b060(Context*, const char*);
-unsigned int __cdecl FUN_00221200(State*, Operand*);
-void __cdecl FUN_00220b20(State*, unsigned int, unsigned int);
-void __cdecl FUN_00221360(State* state, Operand* destination, Operand* source) {
+unsigned int __cdecl FUN_00221200(State_221360*, Operand_221360*);
+void __cdecl FUN_00220b20(State_221360*, unsigned int, unsigned int);
+void __cdecl FUN_00221360(State_221360* state, Operand_221360* destination, Operand_221360* source) {
     FUN_00221190(state, destination);
     if (destination->type == 11 && destination->value >= state->minimum && destination->value < 250)
         --state->depth;

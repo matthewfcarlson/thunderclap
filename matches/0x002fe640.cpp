@@ -12,7 +12,7 @@ struct SimulatedObject {
     void Init();
     SimulatedObject();
 };
-extern int g_counter;
+extern int g_counter_2fe640;
 extern int physics_vftable;
 SimulatedObject::SimulatedObject() {
     Init();
@@ -22,6 +22,6 @@ SimulatedObject::SimulatedObject() {
     vptr = (int)&physics_vftable;
     field20 = 1;
     field24 = 3;
-    field28 = g_counter;
-    ++g_counter;
+    field28 = g_counter_2fe640;
+    ++g_counter_2fe640;
 }

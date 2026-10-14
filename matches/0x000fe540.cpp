@@ -1,36 +1,36 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
+extern void* g_vftable_fe540[];
 extern void* g_vftable2[];
-class Ref {
+class Ref_fe540 {
   public:
     virtual void F0();
     virtual void Release();
 };
-struct Vec {
+struct Vec_fe540 {
     int a;
     void Destroy();
 };
-class Base {
+class Base_fe540 {
   public:
     void* vptr;
     char padb[0xf8 - 4];
     int mf8;
-    ~Base() throw();
+    ~Base_fe540() throw();
 };
-class Obj : public Base {
+class Obj_fe540 : public Base_fe540 {
   public:
     char padc[4];
-    Ref* m100;
-    Ref* m104;
-    Ref* m108;
-    Ref* m10c;
-    Ref* m110;
-    Ref* m114;
-    Vec m118;
-    ~Obj() throw();
+    Ref_fe540* m100;
+    Ref_fe540* m104;
+    Ref_fe540* m108;
+    Ref_fe540* m10c;
+    Ref_fe540* m110;
+    Ref_fe540* m114;
+    Vec_fe540 m118;
+    ~Obj_fe540() throw();
 };
-Obj::~Obj() throw() {
-    vptr = g_vftable;
+Obj_fe540::~Obj_fe540() throw() {
+    vptr = g_vftable_fe540;
     _ReadWriteBarrier();
     if (m100) {
         m100->Release();

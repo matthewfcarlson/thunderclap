@@ -1,11 +1,11 @@
 extern int __cdecl Find(int, int);
 extern void __cdecl Act(int, int, int, int, int);
-struct Obj {
+struct Obj_1f3370 {
     int pad;
     volatile int member;
     int target(int arg);
 };
-int Obj::target(int arg) {
+int Obj_1f3370::target(int arg) {
     int p = member;
     if (p == 0)
         return 0;

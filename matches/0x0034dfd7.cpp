@@ -6,7 +6,7 @@ class DName {
     DName(int status);
     char pad[8];
 };
-extern const char* gName;
+extern const char* gName_34dfd7;
 DName __cdecl getDim(int n);
 class UnDecorator {
   public:
@@ -14,17 +14,17 @@ class UnDecorator {
 };
 DName __cdecl UnDecorator::getStringEncoding(char* s, int h) {
     DName result(s);
-    if (*gName++ == '@' && *gName++ == '_') {
-        gName++;
+    if (*gName_34dfd7++ == '@' && *gName_34dfd7++ == '_') {
+        gName_34dfd7++;
         getDim(0);
         getDim(0);
-        while (*gName && *gName != '@')
-            gName++;
-        if (*gName == 0) {
-            gName--;
+        while (*gName_34dfd7 && *gName_34dfd7 != '@')
+            gName_34dfd7++;
+        if (*gName_34dfd7 == 0) {
+            gName_34dfd7--;
             return DName(2);
         }
-        gName++;
+        gName_34dfd7++;
         return DName(result);
     }
     return DName(1);

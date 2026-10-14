@@ -1,13 +1,13 @@
 extern "C" unsigned char GetValue(const char*);
-extern char g_a[], g_b[], g_c[];
-extern void* g_vftable;
-class Base {
+extern char g_a_1f0ed0[], g_b[], g_c[];
+extern void* g_vftable_1f0ed0;
+class Base_1f0ed0 {
   public:
     void Init(void*, int);
 };
-class SoundObj {
+class SoundObj_1f0ed0 {
   public:
-    SoundObj(void* p, int x);
+    SoundObj_1f0ed0(void* p, int x);
     void* vptr;
     char pad4[12];
     unsigned char m10, m11, m12, m13, m14, m15;
@@ -16,11 +16,11 @@ class SoundObj {
     char pad19[3];
     int m1c;
 };
-SoundObj::SoundObj(void* p, int x) {
-    ((Base*)this)->Init(p, 6);
-    vptr = &g_vftable;
+SoundObj_1f0ed0::SoundObj_1f0ed0(void* p, int x) {
+    ((Base_1f0ed0*)this)->Init(p, 6);
+    vptr = &g_vftable_1f0ed0;
     m1c = x;
-    m18 = GetValue(g_a);
+    m18 = GetValue(g_a_1f0ed0);
     m10 = GetValue(g_b);
     m11 = GetValue(g_b);
     m12 = GetValue(g_b);

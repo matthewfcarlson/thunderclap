@@ -1,5 +1,5 @@
 extern "C" char DAT_00425be4[];
-class InitBase {
+class InitBase_205600 {
   public:
     void Init(const char*, int);
 };
@@ -15,12 +15,12 @@ class CWorldStreamManager {
     int f1c;
 };
 extern char* __cdecl FUN_001d04d0(const char*);
-extern char str1[], str2[], str3[], str4[];
+extern char str1_205600[], str2[], str3[], str4[];
 CWorldStreamManager::CWorldStreamManager(const char* a, int b) {
-    ((InitBase*)this)->Init(a, 3);
+    ((InitBase_205600*)this)->Init(a, 3);
     vptr = ((int)DAT_00425be4);
     f1c = b;
-    f18 = (char)FUN_001d04d0(str1);
+    f18 = (char)FUN_001d04d0(str1_205600);
     f10 = (char)FUN_001d04d0(str2);
     f11 = (char)FUN_001d04d0(str3);
     f12 = (char)FUN_001d04d0(str4);

@@ -1,16 +1,16 @@
-class A {
+class A_bbb90 {
   public:
     int Fn();
 };
 
-struct B {
+struct B_bbb90 {
     char pad[4];
-    A* m;
+    A_bbb90* m;
     int F(int a, int b);
 };
 
-int B::F(int a, int b) {
-    A* p = m;
+int B_bbb90::F(int a, int b) {
+    A_bbb90* p = m;
     if (!p)
         return -1;
     int r = p->Fn();

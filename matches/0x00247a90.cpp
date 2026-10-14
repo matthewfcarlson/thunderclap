@@ -1,4 +1,4 @@
-struct Obj {
+struct Obj_247a90 {
     int pad[3];
     int f0c;
     int pad2[2];
@@ -9,7 +9,7 @@ struct Obj {
     int f28;
 };
 
-void FUN_00247a90(int p1, Obj* dst, int* src) {
+void FUN_00247a90(int p1, Obj_247a90* dst, int* src) {
     dst->f0c = 4;
     if (src != 0) {
         dst->f18 = src[0];

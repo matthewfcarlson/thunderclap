@@ -8,7 +8,7 @@ void __cdecl FUN_002347b0(void*, void*, int);
 void FUN_00238850();
 void FUN_00238a80();
 void FUN_00238ae0();
-struct Base {
+struct Base_239010 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -25,7 +25,7 @@ struct Base {
 };
 namespace fight {
 class PrintTrack;
-template <class T> struct ParamFloatConstRange : Base {
+template <class T> struct ParamFloatConstRange : Base_239010 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -35,7 +35,7 @@ template <class T> struct ParamFloatConstRange : Base {
     virtual void slot6();
     virtual void slot7();
 };
-template <class T> struct ParamString : Base {
+template <class T> struct ParamString : Base_239010 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -48,10 +48,10 @@ template <class T> struct ParamString : Base {
 } // namespace fight
 void FUN_00239010() {
     if (!DAT_004e5c2c) {
-        Base* params[3];
+        Base_239010* params[3];
         void* mem = FUN_0008d690(24);
         if (mem) {
-            ((Base*)mem)->FUN_00234960("timeBegin");
+            ((Base_239010*)mem)->FUN_00234960("timeBegin");
             fight::ParamFloatConstRange<fight::PrintTrack>* p =
                 new (mem) fight::ParamFloatConstRange<fight::PrintTrack>;
             p->callback = FUN_00238850;
@@ -60,7 +60,7 @@ void FUN_00239010() {
             params[0] = 0;
         mem = FUN_0008d690(24);
         if (mem) {
-            ((Base*)mem)->FUN_002349e0("channel");
+            ((Base_239010*)mem)->FUN_002349e0("channel");
             fight::ParamString<fight::PrintTrack>* p = new (mem) fight::ParamString<fight::PrintTrack>;
             p->callback = FUN_00238a80;
             params[1] = p;
@@ -68,7 +68,7 @@ void FUN_00239010() {
             params[1] = 0;
         mem = FUN_0008d690(24);
         if (mem) {
-            ((Base*)mem)->FUN_002349e0("text");
+            ((Base_239010*)mem)->FUN_002349e0("text");
             fight::ParamString<fight::PrintTrack>* p = new (mem) fight::ParamString<fight::PrintTrack>;
             p->callback = FUN_00238ae0;
             params[2] = p;

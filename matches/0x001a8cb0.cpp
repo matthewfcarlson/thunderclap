@@ -1,20 +1,20 @@
-class Item {
+class Item_1a8cb0 {
   public:
     virtual void A();
     virtual void B();
 };
-class Obj {
+class Obj_1a8cb0 {
   public:
     char pad[4];
-    Item* a;
-    Item* b;
-    Item* c;
-    Item* d;
-    Item* e;
+    Item_1a8cb0* a;
+    Item_1a8cb0* b;
+    Item_1a8cb0* c;
+    Item_1a8cb0* d;
+    Item_1a8cb0* e;
     void Init();
     void Clear();
 };
-void Obj::Clear() {
+void Obj_1a8cb0::Clear() {
     Init();
     if (a) {
         a->B();

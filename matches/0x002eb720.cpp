@@ -1,16 +1,16 @@
-struct Val {
+struct Val_2eb720 {
     char bytes[10];
 };
-struct Obj {
+struct Obj_2eb720 {
     char p0[8];
     int flags;
     char p1[10];
     short count;
     char p2[0x34];
     int data;
-    Val val;
+    Val_2eb720 val;
 };
-void F(void* p, Obj* o, int data, int count, Val* v) {
+void F(void* p, Obj_2eb720* o, int data, int count, Val_2eb720* v) {
     if (!p || !o)
         return;
     if (data)

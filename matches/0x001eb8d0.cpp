@@ -1,28 +1,28 @@
-class Temp {
+class Temp_1eb8d0 {
   public:
     char pad[0x48];
     void Init();
     void Add(const char*);
     void Finish();
 };
-class Manager {
+class Manager_1eb8d0 {
   public:
     void* Lookup();
 };
-class Root {
+class Root_1eb8d0 {
   public:
-    void Run(Temp*, int, int, float);
+    void Run(Temp_1eb8d0*, int, int, float);
 };
-class Owner {
+class Owner_1eb8d0 {
   public:
-    Root* root;
-    Manager* manager;
+    Root_1eb8d0* root;
+    Manager_1eb8d0* manager;
     unsigned char flag;
     void Target(int);
 };
-extern void __cdecl FUN_001eb440(void*, Temp*);
-void Owner::Target(int arg) {
-    Temp t;
+extern void __cdecl FUN_001eb440(void*, Temp_1eb8d0*);
+void Owner_1eb8d0::Target(int arg) {
+    Temp_1eb8d0 t;
     if (flag) {
         t.Init();
         t.Add("Objects");

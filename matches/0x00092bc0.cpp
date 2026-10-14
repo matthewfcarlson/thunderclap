@@ -1,13 +1,13 @@
-class X {
+class X_92bc0 {
   public:
     char pad[0x18];
     int value;
 };
-class C {
+class C_92bc0 {
   public:
-    X* items[1];
+    X_92bc0* items[1];
     int f(int index);
 };
-int C::f(int index) {
+int C_92bc0::f(int index) {
     return items[index]->value;
 }

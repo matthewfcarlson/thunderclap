@@ -1,14 +1,14 @@
-struct Obj {
+struct Obj_4a2d0 {
     char pad[0x330];
     int a;
     int b;
     int c;
 };
-struct Helper {
-    Obj* First();
+struct Helper_4a2d0 {
+    Obj_4a2d0* First();
 };
-struct ObjHelper {
-    Obj* Second();
+struct ObjHelper_4a2d0 {
+    Obj_4a2d0* Second();
 };
 struct CGrappleMotionStateCondition {
     int vfunc_8(int);
@@ -16,9 +16,9 @@ struct CGrappleMotionStateCondition {
 int CGrappleMotionStateCondition::vfunc_8(int p) {
     if (!p)
         return 0;
-    Helper* h = (Helper*)p;
-    Obj* x = h->First();
-    x = ((ObjHelper*)x)->Second();
+    Helper_4a2d0* h = (Helper_4a2d0*)p;
+    Obj_4a2d0* x = h->First();
+    x = ((ObjHelper_4a2d0*)x)->Second();
     if (x->b)
         return x->b;
     if (x->a)

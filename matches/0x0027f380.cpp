@@ -1,4 +1,4 @@
-class Obj {
+class Obj_27f380 {
   public:
     char pad[0x18];
     struct E {
@@ -10,7 +10,7 @@ class Obj {
     int tail;
     void f(int);
 };
-void Obj::f(int x) {
+void Obj_27f380::f(int x) {
     for (int i = 0; i < 100; i++) {
         if (entries[i].active != 0 && entries[i].key == x) {
             *(int*)((char*)this + i * 0x60 + 0x74) = 0;

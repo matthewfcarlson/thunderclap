@@ -1,7 +1,7 @@
-struct G {
+struct G_364390 {
     void Run();
 };
-extern G gObj;
+extern G_364390 gObj_364390;
 void F1() {
-    gObj.Run();
+    gObj_364390.Run();
 }

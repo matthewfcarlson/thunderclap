@@ -1,25 +1,25 @@
-class Ref {
+class Ref_176540 {
   public:
     virtual void A();
     virtual void B();
 };
-class Base {
+class Base_176540 {
   public:
-    Base();
+    Base_176540();
     virtual void V0();
     char pad[0x18];
 };
-class Surf : public Base {
+class Surf_176540 : public Base_176540 {
   public:
     int a;
-    Ref* b;
+    Ref_176540* b;
     int c[6];
     float f;
     int d;
-    Surf(int, Ref*);
+    Surf_176540(int, Ref_176540*);
     virtual void V0();
 };
-Surf::Surf(int x, Ref* r) : Base() {
+Surf_176540::Surf_176540(int x, Ref_176540* r) : Base_176540() {
     int* q = &a;
     *q = 0;
     b = 0;

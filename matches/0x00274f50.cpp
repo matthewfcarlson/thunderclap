@@ -1,4 +1,4 @@
-class Alloc {
+class Alloc_274f50 {
   public:
     virtual void a();
     virtual void b();
@@ -6,22 +6,22 @@ class Alloc {
     virtual void d();
     virtual void Free(void* p);
 };
-extern Alloc* gAlloc;
+extern Alloc_274f50* gAlloc_274f50;
 extern char gCs[];
 extern void* ReqVtbl[];
 extern void* FileReqVtbl[];
 void Lock(void*);
 void Unlock(void*);
-class Sub {
+class Sub_274f50 {
   public:
     virtual void a();
     virtual void b();
 };
-class Holder {
+class Holder_274f50 {
   public:
     virtual void a();
     virtual void b();
-    Sub mSub;
+    Sub_274f50 mSub;
     char pad2[0x10];
     int mCount;
 };
@@ -29,7 +29,7 @@ class FileRequest {
   public:
     void** vt;
     int pad;
-    Holder* mH;
+    Holder_274f50* mH;
     FileRequest* Dtor(unsigned char flag);
 };
 FileRequest* FileRequest::Dtor(unsigned char flag) {
@@ -41,7 +41,7 @@ FileRequest* FileRequest::Dtor(unsigned char flag) {
     vt = ReqVtbl;
     if (flag & 1) {
         Lock(gCs);
-        gAlloc->Free(this);
+        gAlloc_274f50->Free(this);
         Unlock(gCs);
     }
     return this;

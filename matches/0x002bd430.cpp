@@ -1,5 +1,5 @@
 extern "C" char DAT_0042e8d8[];
-struct Thing {
+struct Thing_2bd430 {
     virtual void A();
     virtual void B();
 };
@@ -8,8 +8,8 @@ struct Sprite {
     char pad04[0x3c];
     int count;
     void* p44;
-    Thing** items;
-    Thing* p4c;
+    Thing_2bd430** items;
+    Thing_2bd430* p4c;
     void Tail();
     void Destroy();
 };

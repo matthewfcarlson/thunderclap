@@ -9,14 +9,14 @@ struct Light {
     char Check(const Light* l, int key) const;
 };
 
-struct Obj {
+struct Obj_24cc00 {
     float x, y, z;
     char Check(const Light* l, int key) const;
 };
 
 extern float Dot(const float* a, const float* b);
 
-float FUN_0024cc00(const Obj* p, const Light* l) {
+float FUN_0024cc00(const Obj_24cc00* p, const Light* l) {
     float d;
     if (p->Check(l, 0x3727c5ac) == 0) {
         float v[3];

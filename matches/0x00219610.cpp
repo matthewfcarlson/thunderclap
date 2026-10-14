@@ -1,7 +1,7 @@
-typedef unsigned int uint;
-struct Owner;
-void* Alloc(Owner*, int, int, int);
-struct Owner {
+typedef unsigned int uint_219610;
+struct Owner_219610;
+void* Alloc(Owner_219610*, int, int, int);
+struct Owner_219610 {
     char pad[0x10];
     void* source;
     char pad2[0x34];
@@ -10,9 +10,9 @@ struct Owner {
 struct Node {
     Node* next;
     char data[4];
-    uint key;
+    uint_219610 key;
 };
-void FUN_00219610(Owner* self, uint key) {
+void FUN_00219610(Owner_219610* self, uint_219610 key) {
     Node* current = (Node*)self->list;
     Node** link = (Node**)&self->list;
     while (current != 0 && current->key >= key) {

@@ -1,14 +1,14 @@
-class B {
+class B_1c3c10 {
   public:
     void Method();
 };
 
-class A {
+class A_1c3c10 {
   public:
-    B* m;
+    B_1c3c10* m;
     void Fn();
 };
 
-void A::Fn() {
+void A_1c3c10::Fn() {
     m->Method();
 }

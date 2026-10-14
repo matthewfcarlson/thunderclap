@@ -2,7 +2,7 @@ namespace D3D8 {
 void __fastcall D3DDevice_SetVertexShaderConstantNotInline(int, const void*, int);
 }
 namespace pure3d {
-struct Device {
+struct Device_322200 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -30,7 +30,7 @@ struct Matrix {
 };
 struct d3dExtHardwareSkinning {
     void* vptr;
-    Device* device;
+    Device_322200* device;
     void vfunc_5(int index, unsigned int value);
 };
 void d3dExtHardwareSkinning::vfunc_5(int index, unsigned int value) {

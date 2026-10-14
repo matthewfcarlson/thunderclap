@@ -1,6 +1,6 @@
 extern int DAT_004cdbb0;
 void* __cdecl FUN_00266e00(int, int);
-struct Widget {
+struct Widget_26fcf0 {
     virtual void slot00();
     virtual void slot01();
     virtual void slot02();
@@ -23,12 +23,12 @@ struct Widget {
     virtual void slot19();
     virtual void slot20();
     virtual void slot21(int);
-    Widget* FUN_0026f570(int, int);
+    Widget_26fcf0* FUN_0026f570(int, int);
 };
-void __cdecl FUN_0026fcf0(Widget** result, int second, int third, int fourth) {
+void __cdecl FUN_0026fcf0(Widget_26fcf0** result, int second, int third, int fourth) {
     DAT_004cdbb0 = third;
-    Widget* allocated = (Widget*)FUN_00266e00(third, 0x1e4);
-    Widget* object = allocated ? allocated->FUN_0026f570(second, third) : 0;
+    Widget_26fcf0* allocated = (Widget_26fcf0*)FUN_00266e00(third, 0x1e4);
+    Widget_26fcf0* object = allocated ? allocated->FUN_0026f570(second, third) : 0;
     *result = object;
     object->slot21(fourth);
 }

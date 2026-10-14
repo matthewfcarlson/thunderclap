@@ -1,21 +1,21 @@
 extern "C" void _ReadWriteBarrier();
-struct Ref {
+struct Ref_29bc80 {
     virtual void add();
     virtual void release();
 };
-struct Item {
+struct Item_29bc80 {
     char pad[20];
-    Ref* ref;
+    Ref_29bc80* ref;
 };
-struct Owner {
+struct Owner_29bc80 {
     char pad[16];
     unsigned count;
     char pad2[4];
-    Ref* ref;
-    Item** items;
-    void set(Ref* p);
+    Ref_29bc80* ref;
+    Item_29bc80** items;
+    void set(Ref_29bc80* p);
 };
-void Owner::set(Ref* p) {
+void Owner_29bc80::set(Ref_29bc80* p) {
     if (p)
         p->add();
     if (ref)
@@ -23,7 +23,7 @@ void Owner::set(Ref* p) {
     ref = p;
     _ReadWriteBarrier();
     for (unsigned i = 0; i < count; ++i) {
-        Ref** slot = &items[i]->ref;
+        Ref_29bc80** slot = &items[i]->ref;
         if (p)
             p->add();
         if (*slot)

@@ -1,10 +1,10 @@
-class Obj {
+class Obj_309830 {
   public:
     char pad[0x10];
     void foo();
-    Obj* target();
+    Obj_309830* target();
 };
-Obj* Obj::target() {
+Obj_309830* Obj_309830::target() {
     foo();
-    return (Obj*)((char*)this + 0x10);
+    return (Obj_309830*)((char*)this + 0x10);
 }

@@ -1,4 +1,4 @@
-class Obj {
+class Obj_e03c0 {
   public:
     char pad[0x1840];
     unsigned a;
@@ -7,7 +7,7 @@ class Obj {
     unsigned char flag;
     void Set(unsigned x, unsigned y, unsigned z, unsigned w, unsigned v);
 };
-void Obj::Set(unsigned x, unsigned y, unsigned z, unsigned w, unsigned v) {
+void Obj_e03c0::Set(unsigned x, unsigned y, unsigned z, unsigned w, unsigned v) {
     a = x;
     b = y;
     flag = 1;

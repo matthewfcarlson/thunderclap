@@ -1,4 +1,4 @@
-class Search {
+class Search_294ed0 {
   public:
     char pad0[0x38];
     int count;
@@ -6,7 +6,7 @@ class Search {
     unsigned short* values;
     int Find(unsigned short key);
 };
-int Search::Find(unsigned short key) {
+int Search_294ed0::Find(unsigned short key) {
     int low = 0;
     int high = count - 1;
     if (high >= 0) {

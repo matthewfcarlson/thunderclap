@@ -1,22 +1,22 @@
-class IRef {
+class IRef_1fde0 {
   public:
     virtual void AddRef();
     virtual void Release();
 };
 
-class CBase {
+class CBase_1fde0 {
   public:
     virtual void VFunc();
-    CBase();
+    CBase_1fde0();
 };
 
-class CAction : public CBase {
+class CAction : public CBase_1fde0 {
   public:
     char m_pad[0x18];
-    IRef* m_pRef;
+    IRef_1fde0* m_pRef;
     int m_param;
     virtual void Process();
-    CAction(int a, IRef* p) {
+    CAction(int a, IRef_1fde0* p) {
         m_pRef = 0;
         if (p)
             p->AddRef();
@@ -30,7 +30,7 @@ class CAction : public CBase {
 class CDriftAction : public CAction {
   public:
     virtual void ProcessDrift();
-    CDriftAction(int a, IRef* p);
+    CDriftAction(int a, IRef_1fde0* p);
 };
 
-CDriftAction::CDriftAction(int a, IRef* p) : CAction(a, p) {}
+CDriftAction::CDriftAction(int a, IRef_1fde0* p) : CAction(a, p) {}

@@ -1,12 +1,12 @@
-typedef unsigned int u32;
-struct Inner {
+typedef unsigned int u32_24b0d0;
+struct Inner_24b0d0 {
     char pad[0x24];
-    u32 value;
+    u32_24b0d0 value;
 };
-struct Outer {
+struct Outer_24b0d0 {
     char pad[0x10];
-    Inner* inner;
+    Inner_24b0d0* inner;
 };
-u32 __cdecl FUN_0024b0d0(Outer* p) {
+u32_24b0d0 __cdecl FUN_0024b0d0(Outer_24b0d0* p) {
     return p->inner->value;
 }

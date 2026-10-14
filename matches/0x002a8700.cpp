@@ -1,5 +1,5 @@
 extern "C" char DAT_0042dd24[];
-class Ref {
+class Ref_2a8700 {
   public:
     virtual void v0();
     virtual void v1();
@@ -29,28 +29,28 @@ class Ref {
     virtual void v25();
     virtual void v26();
 };
-class Shader : public Ref {
+class Shader : public Ref_2a8700 {
   public:
-    char pad[0x40 - sizeof(Ref)];
-    Ref* mRef;
-    virtual Ref* own4();
+    char pad[0x40 - sizeof(Ref_2a8700)];
+    Ref_2a8700* mRef;
+    virtual Ref_2a8700* own4();
     void setup(Shader*);
 };
 extern void* __cdecl alloc(unsigned int);
-Ref* Shader::own4() {
+Ref_2a8700* Shader::own4() {
     Shader* self = this;
     Shader* p = (Shader*)alloc(0x48);
     if (p) {
         p->setup(self);
         *(int*)p = ((int)DAT_0042dd24);
         p->mRef = 0;
-        Ref* q = self->mRef;
+        Ref_2a8700* q = self->mRef;
         if (q)
             q->v0();
         if (p->mRef)
             p->mRef->v1();
         p->mRef = q;
-        return (Ref*)p;
+        return (Ref_2a8700*)p;
     }
     return 0;
 }

@@ -1,14 +1,14 @@
-struct Item {
+struct Item_ad2b0 {
     char pad[0x4a0];
     float value;
 };
-struct Container {
+struct Container_ad2b0 {
     char pad[0x10];
     int count;
-    Item** items;
+    Item_ad2b0** items;
     float target();
 };
-float Container::target() {
+float Container_ad2b0::target() {
     float result = 3.402823466e+38f;
     for (int i = 0; i < count; ++i) {
         float value = items[i]->value;

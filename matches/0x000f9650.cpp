@@ -1,11 +1,11 @@
-struct Inner {
+struct Inner_f9650 {
     void Call(int, int, int, int);
 };
-struct Obj {
+struct Obj_f9650 {
     char pad[0x284];
-    Inner* p;
+    Inner_f9650* p;
     void Target(int a, int b, int c);
 };
-void Obj::Target(int a, int b, int c) {
+void Obj_f9650::Target(int a, int b, int c) {
     p->Call(a, b, c, 1);
 }

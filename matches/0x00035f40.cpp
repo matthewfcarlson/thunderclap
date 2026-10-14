@@ -1,4 +1,4 @@
-class Obj {
+class Obj_35f40 {
   public:
     char pad[0x3a8];
     int a;
@@ -17,7 +17,7 @@ class Obj {
     char p7[0x4c];
     int h;
 };
-int __fastcall FUN_00035f40(Obj* x) {
+int __fastcall FUN_00035f40(Obj_35f40* x) {
     int n = 0;
     if (x->a)
         n = 1;

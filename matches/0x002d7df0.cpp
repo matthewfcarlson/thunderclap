@@ -1,16 +1,16 @@
-struct Obj {
+struct Obj_2d7df0 {
     char pad[0x38];
     int field38;
     char rest[0x214 - 0x3c];
     int field214;
 };
-void F1(Obj*, Obj*, Obj*);
-void F2(Obj*, int);
-void F3(Obj*, int);
-void FUN_002d7df0(Obj** a, Obj** b, Obj** c) {
-    Obj* x = 0;
-    Obj* y = 0;
-    Obj* z = 0;
+void F1(Obj_2d7df0*, Obj_2d7df0*, Obj_2d7df0*);
+void F2(Obj_2d7df0*, int);
+void F3(Obj_2d7df0*, int);
+void FUN_002d7df0(Obj_2d7df0** a, Obj_2d7df0** b, Obj_2d7df0** c) {
+    Obj_2d7df0* x = 0;
+    Obj_2d7df0* y = 0;
+    Obj_2d7df0* z = 0;
     if (a)
         x = *a;
     if (b)

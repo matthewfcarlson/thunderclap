@@ -1,10 +1,10 @@
-class Thing {
+class Thing_277a40 {
   public:
     int a[9];
-    Thing();
+    Thing_277a40();
 };
 void InitPart();
-Thing::Thing() {
+Thing_277a40::Thing_277a40() {
     a[4] = 0;
     a[5] = 0;
     a[6] = 0;

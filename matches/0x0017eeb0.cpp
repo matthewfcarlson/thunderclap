@@ -1,5 +1,5 @@
 extern "C" char DAT_004178f8[];
-class Sub {
+class Sub_17eeb0 {
   public:
     void Init();
 };
@@ -16,14 +16,14 @@ class RestPoseTrack {
     int c;
     float d;
     char pad[4];
-    Sub sub;
+    Sub_17eeb0 sub;
     int x;
     int y;
     int z;
     int q;
     void Init();
 };
-class Factory {
+class Factory_17eeb0 {
   public:
     virtual void a();
     virtual void b();
@@ -33,7 +33,7 @@ class Factory {
     virtual void* Make();
 };
 extern void* __cdecl Alloc(unsigned int);
-void* Factory::Make() {
+void* Factory_17eeb0::Make() {
     RestPoseTrack* p = (RestPoseTrack*)Alloc(0x30);
     if (p) {
         p->Init();

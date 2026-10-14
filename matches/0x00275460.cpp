@@ -1,19 +1,19 @@
 extern void* g_vfFile[];
 extern void* g_vfReq[];
-class Sub {
+class Sub_275460 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class Obj {
+class Obj_275460 {
   public:
     virtual void f0();
     virtual void f1();
-    Sub sub;
+    Sub_275460 sub;
     char pad[0x18 - 8];
     int cnt;
 };
-class Holder {
+class Holder_275460 {
   public:
     virtual void a();
     virtual void b();
@@ -21,23 +21,23 @@ class Holder {
     virtual void d();
     virtual void e(void*);
 };
-extern Holder* g_holder;
+extern Holder_275460* g_holder;
 extern char g_buf;
 void Init(void*);
 void Fini(void*);
-class Req {
+class Req_275460 {
   public:
     void* vptr;
     int pad;
-    Obj* file;
-    Req* f0(unsigned char flags);
+    Obj_275460* file;
+    Req_275460* f0(unsigned char flags);
 };
-Req* Req::f0(unsigned char flags) {
+Req_275460* Req_275460::f0(unsigned char flags) {
     vptr = g_vfFile;
     file->sub.f0();
     --file->cnt;
     file->sub.f1();
-    ((Sub*)file)->f1();
+    ((Sub_275460*)file)->f1();
     vptr = g_vfReq;
     if (flags & 1) {
         Init(&g_buf);

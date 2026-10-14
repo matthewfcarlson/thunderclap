@@ -1,15 +1,15 @@
 extern "C" int __cdecl Fetch(void* p, float* out);
-struct Input {
+struct Input_217600 {
     int type;
     int data;
 };
-struct Output {
+struct Output_217600 {
     int type;
     float value;
 };
-Output* __cdecl Target(Input* p, Output* q) {
+Output_217600* __cdecl Target(Input_217600* p, Output_217600* q) {
     if (p->type == 3)
-        return (Output*)p;
+        return (Output_217600*)p;
     if (p->type == 4) {
         float value;
         if (Fetch((char*)p->data + 0x10, &value)) {

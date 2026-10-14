@@ -1,4 +1,4 @@
-extern float gOne;
+extern float gOne_295e00;
 class Node {
   public:
     virtual void f0();
@@ -25,5 +25,5 @@ class Node {
 float* Node::vfunc_16() {
     if (child)
         return child->vfunc_16();
-    return &gOne;
+    return &gOne_295e00;
 }

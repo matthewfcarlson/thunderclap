@@ -1,4 +1,4 @@
-struct Dev {
+struct Dev_3326d0 {
     char p0[0x20];
     int tc;
     char p1[0xc0];
@@ -7,10 +7,10 @@ struct Dev {
     int t;
 };
 extern unsigned int g_dirty;
-extern int g_a;
-extern int g_b;
+extern int g_a_3326d0;
+extern int g_b_3326d0;
 void __stdcall SetTC(int a, int b);
-class Sub {
+class Sub_3326d0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -30,7 +30,7 @@ class Sub {
     virtual void f15();
     virtual void Set(int x);
 };
-class S {
+class S_3326d0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -47,14 +47,14 @@ class S {
     virtual void v12();
     virtual void v13();
     char pad[0xc];
-    Sub* sub;
-    Dev* dev;
+    Sub_3326d0* sub;
+    Dev_3326d0* dev;
 };
-void S::v13() {
+void S_3326d0::v13() {
     if (dev->s != 1) {
         dev->s = 1;
         g_dirty |= 0x800;
-        g_a = 1;
+        g_a_3326d0 = 1;
     }
     if (dev->tc != 2) {
         dev->tc = 2;
@@ -63,7 +63,7 @@ void S::v13() {
     if (dev->t != 0) {
         dev->t = 0;
         g_dirty |= 0x400;
-        g_b = 0;
+        g_b_3326d0 = 0;
     }
     sub->Set(3);
 }

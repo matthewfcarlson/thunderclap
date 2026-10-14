@@ -10,13 +10,13 @@ class Condition {
 };
 extern void* __cdecl FUN_0008d690(unsigned int);
 extern int LocomotionVTable;
-struct Locomotion {
+struct Locomotion_16d860 {
     int* vptr;
     char pad[8];
     int a;
     int b;
 };
-class Factory {
+class Factory_16d860 {
   public:
     virtual void A();
     virtual void B();
@@ -25,11 +25,11 @@ class Factory {
     virtual void E();
     virtual Condition* Create();
 };
-Condition* Factory::Create() {
+Condition* Factory_16d860::Create() {
     Condition* p = (Condition*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
-        Locomotion* q = (Locomotion*)p;
+        Locomotion_16d860* q = (Locomotion_16d860*)p;
         q->vptr = &LocomotionVTable;
         q->a = 0;
         q->b = 0;

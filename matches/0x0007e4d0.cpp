@@ -1,5 +1,5 @@
 extern unsigned char __cdecl g(const char*);
-extern const char a[], b[], c[];
+extern const char a_7e4d0[], b[], c[];
 class Base_7e4d0 {
   public:
     virtual void fn();
@@ -17,7 +17,7 @@ class Method2 : public Base_7e4d0 {
     virtual void fn();
     Method2(int p, int r) : Base_7e4d0(p, 2) {
         u = r;
-        z = g(a);
+        z = g(a_7e4d0);
         x = g(b);
         y = g(c);
     }

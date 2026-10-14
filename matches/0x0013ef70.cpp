@@ -3,15 +3,15 @@ struct Base {
     virtual void f();
     ~Base();
 };
-struct Sub {
+struct Sub_13ef70 {
     unsigned char x[8];
     void Dtor();
 };
 struct WallRunTrack : Base {
     unsigned char pad[0x34];
-    Sub a;
-    Sub b;
-    Sub c;
+    Sub_13ef70 a;
+    Sub_13ef70 b;
+    Sub_13ef70 c;
     void Kill();
 };
 void WallRunTrack::Kill() {

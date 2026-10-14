@@ -1,9 +1,9 @@
-struct TypeInfo {
+struct TypeInfo_11a1b0 {
     int x;
 };
-extern TypeInfo CFightParamsType;
-extern TypeInfo FightParamsType;
-int __cdecl IsType(void*, int, TypeInfo*, TypeInfo*, int);
+extern TypeInfo_11a1b0 CFightParamsType_11a1b0;
+extern TypeInfo_11a1b0 FightParamsType_11a1b0;
+int __cdecl IsType(void*, int, TypeInfo_11a1b0*, TypeInfo_11a1b0*, int);
 void* __cdecl Allocate(int);
 class MotionClosestWaypointTrack {
   public:
@@ -19,14 +19,14 @@ class MotionClosestWaypointTrack {
     virtual void f9();
     virtual int vfunc_10(void*, void*, void*);
 };
-class Allocated {
+class Allocated_11a1b0 {
   public:
     int Init(MotionClosestWaypointTrack*, void*);
 };
 int MotionClosestWaypointTrack::vfunc_10(void* a, void* b, void* p) {
-    int ok = IsType(p, 0, &FightParamsType, &CFightParamsType, 0);
+    int ok = IsType(p, 0, &FightParamsType_11a1b0, &CFightParamsType_11a1b0, 0);
     if (ok) {
-        Allocated* x = (Allocated*)Allocate(0x68);
+        Allocated_11a1b0* x = (Allocated_11a1b0*)Allocate(0x68);
         if (x)
             return x->Init(this, p);
     }

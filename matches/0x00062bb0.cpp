@@ -1,6 +1,6 @@
-typedef unsigned int u32;
-struct Helper {
-    u32 call(u32, u32, u32);
+typedef unsigned int u32_62bb0;
+struct Helper_62bb0 {
+    u32_62bb0 call(u32_62bb0, u32_62bb0, u32_62bb0);
 };
 struct CSmartPropEventTrack {
     virtual void f0();
@@ -15,17 +15,17 @@ struct CSmartPropEventTrack {
     virtual void f9();
     virtual void f10();
     virtual void f11();
-    virtual u32 vfunc_12(u32);
+    virtual u32_62bb0 vfunc_12(u32_62bb0);
     virtual void f13();
     char pad[8];
-    u32 c;
-    u32 pad10;
-    u32 d;
+    u32_62bb0 c;
+    u32_62bb0 pad10;
+    u32_62bb0 d;
 };
 extern void* __cdecl FUN_0008d690(int);
-u32 CSmartPropEventTrack::vfunc_12(u32 arg) {
+u32_62bb0 CSmartPropEventTrack::vfunc_12(u32_62bb0 arg) {
     void* p = FUN_0008d690(0x28);
     if (p)
-        return ((Helper*)p)->call(arg, d, c);
+        return ((Helper_62bb0*)p)->call(arg, d, c);
     return 0;
 }

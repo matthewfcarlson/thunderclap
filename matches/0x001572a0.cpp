@@ -1,6 +1,6 @@
 // Same code shape as 0x00119ea0 (propagated; names are from that function)
-extern int g_vftable;
-class RefObj {
+extern int g_vftable_1572a0;
+class RefObj_1572a0 {
   public:
     virtual void vfunc_0();
     virtual void Release();
@@ -13,20 +13,20 @@ class MotionTargetAction {
     void* mVptr;
     char pad[0x18];
     int m1;
-    RefObj* m2;
-    RefObj* m3;
+    RefObj_1572a0* m2;
+    RefObj_1572a0* m3;
     void* vfunc_2(unsigned char flag);
 };
 
 void* MotionTargetAction::vfunc_2(unsigned char flag) {
     volatile MotionTargetAction* self = this;
-    self->mVptr = &g_vftable;
-    RefObj* t3 = self->m3;
+    self->mVptr = &g_vftable_1572a0;
+    RefObj_1572a0* t3 = self->m3;
     if (t3) {
         t3->Release();
         self->m3 = 0;
     }
-    RefObj* t2 = self->m2;
+    RefObj_1572a0* t2 = self->m2;
     if (t2) {
         t2->Release();
         self->m2 = 0;

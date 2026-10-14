@@ -1,6 +1,6 @@
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_00428590[];
-class Obj {
+class Obj_23b2f0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -10,11 +10,11 @@ class IFileStringReader {
   public:
     unsigned int vt;
     unsigned int pad;
-    Obj* sub;
+    Obj_23b2f0* sub;
     IFileStringReader* vfunc_2(int);
 };
 IFileStringReader* IFileStringReader::vfunc_2(int flag) {
-    Obj* p = sub;
+    Obj_23b2f0* p = sub;
     vt = ((int)DAT_00428590);
     p->f1();
     vt = ((int)DAT_003f6098);

@@ -1,10 +1,10 @@
 extern "C" char DAT_0041b248[];
 extern void* __cdecl Alloc(unsigned int);
-class Item {
+class Item_1a0d30 {
   public:
     void Init(int);
 };
-class Factory {
+class Factory_1a0d30 {
   public:
     virtual void A();
     virtual void B();
@@ -13,8 +13,8 @@ class Factory {
     virtual void E();
     virtual void* F();
 };
-void* Factory::F() {
-    Item* p = (Item*)Alloc(0x10);
+void* Factory_1a0d30::F() {
+    Item_1a0d30* p = (Item_1a0d30*)Alloc(0x10);
     if (p) {
         p->Init(0);
         *(unsigned int*)p = ((int)DAT_0041b248);

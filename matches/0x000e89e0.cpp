@@ -1,10 +1,10 @@
 extern "C" char DAT_0040c3d0[];
-class Ref {
+class Ref_e89e0 {
   public:
     virtual void f();
     virtual void g();
 };
-class Mid {
+class Mid_e89e0 {
   public:
     void Done();
 };
@@ -12,15 +12,15 @@ class FEParticleAnimation {
   public:
     virtual void a();
     char pad[0x64 - 4];
-    Ref* volatile mRef;
+    Ref_e89e0* volatile mRef;
     void Cleanup();
 };
 void FEParticleAnimation::Cleanup() {
     *(int* volatile*)this = (int*)((int)DAT_0040c3d0);
-    Ref* r = mRef;
+    Ref_e89e0* r = mRef;
     if (r) {
         r->g();
         mRef = 0;
     }
-    ((Mid*)this)->Done();
+    ((Mid_e89e0*)this)->Done();
 }

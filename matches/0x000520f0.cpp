@@ -10,12 +10,12 @@ class CFightNodeCondition {
     virtual void f6();
     virtual int vfunc_7(void*);
 };
-class Helper {
+class Helper_520f0 {
   public:
     int first();
     int second();
 };
 int CFightNodeCondition::vfunc_7(void* arg) {
-    int x = ((Helper*)arg)->first();
-    return ((Helper*)x)->second() + 0xdc;
+    int x = ((Helper_520f0*)arg)->first();
+    return ((Helper_520f0*)x)->second() + 0xdc;
 }

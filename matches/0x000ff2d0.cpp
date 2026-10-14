@@ -1,11 +1,11 @@
-struct Status {
+struct Status_ff2d0 {
     char pad[0x3a0];
     float value;
     int FUN_000446c0(int);
 };
-struct Actor {
+struct Actor_ff2d0 {
     char pad[0x11c];
-    Status* status;
+    Status_ff2d0* status;
     int FUN_00035ef0(int);
 };
 struct Context {
@@ -15,7 +15,7 @@ struct Context {
     virtual void slot3();
     virtual void slot4();
     virtual void slot5();
-    virtual Actor* slot6();
+    virtual Actor_ff2d0* slot6();
     virtual void slot7();
     virtual void slot8();
     virtual int slot9();
@@ -42,7 +42,7 @@ struct CHand2HandAgent {
 };
 float CHand2HandAgent::vfunc_3(int a, int b) {
     FUN_000fc4e0(a, b);
-    Actor* actor = context->slot6();
+    Actor_ff2d0* actor = context->slot6();
     Context* saved = context;
     score = 0.0f;
     if (!saved->flag9e) {

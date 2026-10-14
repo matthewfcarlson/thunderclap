@@ -1,9 +1,9 @@
-class Mid {
+class Mid_14fda0 {
   public:
-    Mid* Touch();
+    Mid_14fda0* Touch();
     void Draw(float, int, int, int, int, unsigned char);
 };
-class Thing {
+class Thing_14fda0 {
   public:
     virtual void a();
     virtual void b();
@@ -18,13 +18,13 @@ class Thing {
     char p2[0x91 - 0x80];
     unsigned char x91;
 };
-class Ref {
+class Ref_14fda0 {
   public:
     virtual void a();
     virtual void b();
     virtual void c();
-    virtual Thing* d();
-    Mid* GetSub();
+    virtual Thing_14fda0* d();
+    Mid_14fda0* GetSub();
 };
 class HitDamageAction {
   public:
@@ -36,13 +36,13 @@ class HitDamageAction {
     virtual void v5();
     char pad1[0x1c - 4];
     void* p1c;
-    Ref* p20;
+    Ref_14fda0* p20;
 };
 unsigned char HitDamageAction::v3(int, int) {
     if (p20) {
-        Thing* t = p20->d();
+        Thing_14fda0* t = p20->d();
         if (t) {
-            Mid* m = p20->GetSub()->Touch();
+            Mid_14fda0* m = p20->GetSub()->Touch();
             m->Draw(*(float*)((char*)p1c + 0x10) * t->x78, t->x4c, t->x48, t->x7c, 0, t->x91);
         }
     }

@@ -1,13 +1,13 @@
-class Res {
+class Res_1d7510 {
   public:
     void Release(int);
 };
-class Y {
+class Y_1d7510 {
   public:
     void Go();
 };
-Y* __stdcall GetY(float* v);
-class Fn {
+Y_1d7510* __stdcall GetY(float* v);
+class Fn_1d7510 {
   public:
     virtual void v0();
     virtual void v1();
@@ -32,43 +32,43 @@ class Fn {
     virtual void v20();
     virtual float Get();
 };
-struct B {
+struct B_1d7510 {
     char p[0x10];
 };
-struct Mid {
+struct Mid_1d7510 {
     char p[0x10];
-    Fn* c70;
+    Fn_1d7510* c70;
 };
 struct Mid2 {
     char p[0x70];
-    Fn* f;
+    Fn_1d7510* f;
 };
-struct Link {
+struct Link_1d7510 {
     char p[0x10];
     Mid2* m;
 };
-class W {
+class W_1d7510 {
   public:
     char p0[8];
     float x, y;
     char p1[0x90];
-    Link* l;
+    Link_1d7510* l;
     char p2[0x148];
     char flag;
     void F();
 };
-void W::F() {
-    Link* k = l;
+void W_1d7510::F() {
+    Link_1d7510* k = l;
     if (!k)
         return;
     Mid2* m = k->m;
     if (!m)
         return;
-    Fn* f = m->f;
+    Fn_1d7510* f = m->f;
     if (f) {
         float v = f->Get();
         if (v != 0.0f) {
-            ((Res*)l)->Release(1);
+            ((Res_1d7510*)l)->Release(1);
             return;
         }
         if (flag) {

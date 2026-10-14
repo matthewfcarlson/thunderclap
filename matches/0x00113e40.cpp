@@ -3,7 +3,7 @@ struct AIFightNodeCondition {
     int v;
 };
 extern void* __cdecl operator_new(unsigned int);
-struct InitObj {
+struct InitObj_113e40 {
     void InitCondition(int);
 };
 struct EntityObj {
@@ -21,7 +21,7 @@ class ConditionFactoryTemplate {
 AIFightNodeCondition* ConditionFactoryTemplate::vfunc_5() {
     AIFightNodeCondition* p = (AIFightNodeCondition*)operator_new(0x18);
     if (p) {
-        ((InitObj*)p)->InitCondition(0);
+        ((InitObj_113e40*)p)->InitCondition(0);
         *(int*)p = ((int)DAT_0040d9a4);
         ((EntityObj*)((char*)p + 0xc))->InitEntity();
         return p;

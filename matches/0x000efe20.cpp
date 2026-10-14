@@ -1,8 +1,8 @@
-typedef unsigned int uint;
-extern void* __cdecl FUN_0008d690(uint);
+typedef unsigned int uint_efe20;
+extern void* __cdecl FUN_0008d690(uint_efe20);
 class H {
   public:
-    uint run(uint);
+    uint_efe20 run(uint_efe20);
 };
 class FEThingsBase {
   public:
@@ -60,9 +60,9 @@ class FEThingsBase {
     virtual void v51();
     virtual void v52();
     virtual void v53();
-    virtual uint vfunc_54(uint);
+    virtual uint_efe20 vfunc_54(uint_efe20);
 };
-uint FEThingsBase::vfunc_54(uint a) {
+uint_efe20 FEThingsBase::vfunc_54(uint_efe20 a) {
     H* p = (H*)FUN_0008d690(0x4990);
     if (p)
         return p->run(a);

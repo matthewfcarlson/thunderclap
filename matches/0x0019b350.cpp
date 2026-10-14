@@ -25,12 +25,12 @@ class ProjectileEffect {
     Obj* m24;
     void Cleanup();
 };
-class Global {
+class Global_19b350 {
   public:
     void Free(void*, int);
 };
 extern H* __cdecl FUN_0027f250();
-extern Global* g;
+extern Global_19b350* g_19b350;
 ProjectileEffect* ProjectileEffect::vfunc_2(unsigned char flags) {
     *(int*)this = ((int)DAT_0041b3f4);
     if (m1c) {
@@ -45,6 +45,6 @@ ProjectileEffect* ProjectileEffect::vfunc_2(unsigned char flags) {
         m18 = 0;
     Cleanup();
     if (flags & 1)
-        ((Global*)((int)DAT_004e2210))->Free(this, 0x50);
+        ((Global_19b350*)((int)DAT_004e2210))->Free(this, 0x50);
     return this;
 }

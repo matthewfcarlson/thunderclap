@@ -10,7 +10,7 @@ struct BaseObject {
     ~BaseObject() throw() {}
 };
 } // namespace core
-struct Resource {
+struct Resource_333fa0 {
     virtual void unused();
     virtual void release() throw();
 };
@@ -21,8 +21,8 @@ namespace movie {
 struct PlayerBink : core::IRefCount, core::BaseObject {
     int id;
     char gap[4];
-    Resource* first;
-    Resource* second;
+    Resource_333fa0* first;
+    Resource_333fa0* second;
     int active;
     void* buffer;
     ~PlayerBink() throw();
@@ -36,12 +36,12 @@ movie::PlayerBink::~PlayerBink() throw() {
     }
     DAT_00555ba4 = 0;
     if (second) {
-        Resource* p = second;
+        Resource_333fa0* p = second;
         second = 0;
         p->release();
     }
     if (first) {
-        Resource* p = first;
+        Resource_333fa0* p = first;
         first = 0;
         p->release();
     }

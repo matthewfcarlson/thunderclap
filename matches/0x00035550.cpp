@@ -1,26 +1,26 @@
-struct Result {
+struct Result_35550 {
     float a;
     int b;
     int c;
 };
-struct Payload {
-    void Fill(Result*);
+struct Payload_35550 {
+    void Fill(Result_35550*);
 };
 struct Returned {
     char pad[0x10];
-    Payload payload;
+    Payload_35550 payload;
 };
 struct Fetcher {
     Returned* Get();
 };
-struct Obj {
+struct Obj_35550 {
     char pad[0x10];
     Fetcher* fetch;
-    bool Run(Result* out);
+    bool Run(Result_35550* out);
 };
-bool Obj::Run(Result* out) {
+bool Obj_35550::Run(Result_35550* out) {
     Fetcher* f = fetch;
-    Result local;
+    Result_35550 local;
     Returned* r = f->Get();
     if (!r)
         return false;

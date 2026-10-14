@@ -1,18 +1,18 @@
 extern "C" void _ReadWriteBarrier();
 extern void* g_vftable[];
-class Base {
+class Base_147650 {
   public:
     void* vptr;
     int m4;
     int m8;
-    Base();
+    Base_147650();
 };
-class Obj : public Base {
+class Obj_147650 : public Base_147650 {
   public:
     int mc;
-    Obj();
+    Obj_147650();
 };
-Obj::Obj() : Base() {
+Obj_147650::Obj_147650() : Base_147650() {
     vptr = g_vftable;
     mc = 0;
 }

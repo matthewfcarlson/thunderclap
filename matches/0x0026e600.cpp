@@ -1,10 +1,10 @@
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
-class Obj {
+class Obj_26e600 {
   public:
     void Helper(void*, unsigned int);
     void Target(unsigned int, char*);
 };
-void Obj::Target(unsigned int param_1, char* param_2) {
+void Obj_26e600::Target(unsigned int param_1, char* param_2) {
     struct Local {
         unsigned int a;
         unsigned int b;

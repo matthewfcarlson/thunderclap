@@ -5,10 +5,10 @@ struct Track {
     unsigned char pad[0x14];
     void Init();
 };
-struct Factory {
+struct Factory_18be50 {
     void* vfunc_5();
 };
-void* Factory::vfunc_5() {
+void* Factory_18be50::vfunc_5() {
     Track* p = (Track*)Alloc(0x14);
     if (p) {
         p->Init();

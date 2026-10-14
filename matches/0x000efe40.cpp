@@ -1,5 +1,5 @@
 extern void* __cdecl allocThing(unsigned int);
-class Thing {
+class Thing_efe40 {
   public:
     int init(int);
 };
@@ -63,7 +63,7 @@ class FEThingsBase {
     virtual int vfunc_55(int);
 };
 int FEThingsBase::vfunc_55(int x) {
-    Thing* p = (Thing*)allocThing(0x2b0);
+    Thing_efe40* p = (Thing_efe40*)allocThing(0x2b0);
     if (p)
         return p->init(x);
     return 0;

@@ -1,4 +1,4 @@
-struct Vec {
+struct Vec_309aa0 {
     char p[4];
     float a;
     char q[8];
@@ -7,12 +7,12 @@ struct Vec {
     float c;
     void apply(float);
 };
-class PJ;
-struct Manager {
+class PJ_309aa0;
+struct Manager_309aa0 {
     char p[0x218];
-    PJ* joint;
+    PJ_309aa0* joint;
 };
-class PJ {
+class PJ_309aa0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -27,17 +27,17 @@ class PJ {
     virtual void v10();
     virtual void v11();
     virtual void v12();
-    virtual void v13(void* x, Vec* y);
+    virtual void v13(void* x, Vec_309aa0* y);
     char flag;
     char pad5[0x18 - 5];
-    Manager* mgr;
-    PJ* other;
+    Manager_309aa0* mgr;
+    PJ_309aa0* other;
     char q[0xe8 - 0x20];
     float limit;
     char r[4];
     float force;
 };
-void PJ::v13(void* x, Vec* y) {
+void PJ_309aa0::v13(void* x, Vec_309aa0* y) {
     if (this == mgr->joint)
         return;
     if (other)

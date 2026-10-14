@@ -1,28 +1,28 @@
 extern "C" void _ReadWriteBarrier();
-extern int vt1;
+extern int vt1_2a11b0;
 extern void Free(void*);
-class Ref {
+class Ref_2a11b0 {
   public:
     virtual void f0();
     virtual void Release();
 };
-class Root {
+class Root_2a11b0 {
   public:
     void* vptr;
-    ~Root() throw();
+    ~Root_2a11b0() throw();
 };
-class D : public Root {
+class D : public Root_2a11b0 {
   public:
     char p[0xc];
     int n;
     int cap;
-    Ref** arr;
+    Ref_2a11b0** arr;
     ~D() throw();
 };
 D::~D() throw() {
-    vptr = &vt1;
+    vptr = &vt1_2a11b0;
     for (int i = 0; i < n; i++) {
-        Ref* r = arr[i];
+        Ref_2a11b0* r = arr[i];
         if (r)
             r->Release();
     }

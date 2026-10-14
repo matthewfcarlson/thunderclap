@@ -1,5 +1,5 @@
 // Same code shape as 0x000e1c40 (propagated; names are from that function)
-extern int vtable;
+extern int vtable_e1c60;
 class FEDoPopDialog {
   public:
     int vptr;
@@ -15,5 +15,5 @@ FEDoPopDialog::FEDoPopDialog(int x) {
     c = -1;
     d = x;
     e = 0;
-    vptr = (int)&vtable;
+    vptr = (int)&vtable_e1c60;
 }

@@ -1,11 +1,11 @@
-class Base {
+class Base_6a500 {
   public:
-    Base();
+    Base_6a500();
     virtual void f1();
     char m_base[4];
 };
 
-class CCameraHintTrack : public Base {
+class CCameraHintTrack : public Base_6a500 {
   public:
     CCameraHintTrack();
     virtual void f1();
@@ -16,7 +16,7 @@ class CCameraHintTrack : public Base {
     int m_d;
 };
 
-void Base::f1() {}
+void Base_6a500::f1() {}
 void CCameraHintTrack::f1() {}
 
 CCameraHintTrack::CCameraHintTrack() {

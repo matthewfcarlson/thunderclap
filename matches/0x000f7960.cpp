@@ -1,13 +1,13 @@
-typedef unsigned int U32;
-void ReleaseThing(U32);
-class Thing {
+typedef unsigned int U32_f7960;
+void ReleaseThing(U32_f7960);
+class Thing_f7960 {
   public:
     char pad[0x0c];
-    U32 mSecond;
-    U32 mFirst;
+    U32_f7960 mSecond;
+    U32_f7960 mFirst;
     void Clear();
 };
-void Thing::Clear() {
+void Thing_f7960::Clear() {
     if (mFirst) {
         ReleaseThing(mFirst);
         mFirst = 0;

@@ -1,6 +1,6 @@
-class A {
+class A_11550 {
   public:
-    A() throw();
+    A_11550() throw();
 };
 
-A::A() throw() {}
+A_11550::A_11550() throw() {}

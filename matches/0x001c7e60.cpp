@@ -9,13 +9,13 @@ struct IRefCount {
     virtual void f2();
 };
 extern void destroy(void*);
-struct Sub {
+struct Sub_1c7e60 {
     void cleanup();
 };
 namespace pure3d {
 struct ShadowGenerator : NonCopyable {
     char pad[4];
-    Sub sub;
+    Sub_1c7e60 sub;
     ShadowGenerator* vfunc_2(unsigned char);
 };
 } // namespace pure3d

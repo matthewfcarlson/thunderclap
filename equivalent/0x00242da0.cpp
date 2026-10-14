@@ -19,7 +19,7 @@ struct Link_242da0 {
 };
 
 struct Target_242da0;
-struct Group;
+struct Group_242da0;
 
 struct Entry_242da0;
 
@@ -28,7 +28,7 @@ struct Binding_242da0 {
     Link_242da0 groupLink;
     Link_242da0 targetLink;
     Entry_242da0 *entry;
-    Group *group;
+    Group_242da0 *group;
     Target_242da0 *target;
 
     Binding_242da0() throw()
@@ -61,7 +61,7 @@ struct Owner_242da0 {
     Tree_242da0 tree;
 };
 
-struct Group {
+struct Group_242da0 {
     char pad00[0x18];
     Link_242da0 *head;
     Link_242da0 *tail;
@@ -79,7 +79,7 @@ static Entry_242da0 *EntryOf(Node *n)
     return (Entry_242da0 *)((char *)n - 4);
 }
 
-void FUN_00242da0(Context *ctx, Group *group)
+void FUN_00242da0(Context *ctx, Group_242da0 *group)
 {
     Owner_242da0 *owner = group->owner;
     Node *nil = &owner->tree.nil;

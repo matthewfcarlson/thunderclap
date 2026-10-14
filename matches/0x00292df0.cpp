@@ -1,8 +1,8 @@
-struct Mat {
+struct Mat_292df0 {
     float m[16];
     void Init();
 };
-struct Src {
+struct Src_292df0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -17,28 +17,28 @@ struct Src {
     virtual void v11();
     virtual void v12();
     virtual void v13();
-    virtual Mat* GetMat();
+    virtual Mat_292df0* GetMat();
     int pad[3];
     int a, b;
 };
-struct Base {
-    Base(Src* s);
+struct Base_292df0 {
+    Base_292df0(Src_292df0* s);
     virtual void bv();
     int pad[6];
 };
-struct Camera : Base {
+struct Camera : Base_292df0 {
     virtual void v1();
     virtual void v2();
     virtual void v3();
     virtual void v4();
     virtual void Set(int a, int b);
-    Camera(Src* s);
+    Camera(Src_292df0* s);
     float f1c, f20;
     char p[0x28];
-    Mat m4c, m8c;
+    Mat_292df0 m4c, m8c;
     char flag;
 };
-Camera::Camera(Src* s) : Base(s) {
+Camera::Camera(Src_292df0* s) : Base_292df0(s) {
     Set(s->a, s->b);
     f1c = s->F8();
     f20 = s->F10();

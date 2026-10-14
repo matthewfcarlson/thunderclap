@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1dbe60 {
   public:
     char pad0[0x61e];
     short entries[0x800][20];
@@ -6,7 +6,7 @@ class Obj {
     int index;
     void run();
 };
-void Obj::run() {
+void Obj_1dbe60::run() {
     int i = index + 1;
     if (i < 0x800) {
         short* p = &entries[i][0];

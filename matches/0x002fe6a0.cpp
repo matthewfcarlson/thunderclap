@@ -1,4 +1,4 @@
-class C {
+class C_2fe6a0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -13,7 +13,7 @@ class C {
     int value;
     void set(int x);
 };
-void C::set(int x) {
+void C_2fe6a0::set(int x) {
     value = x;
     f7();
 }

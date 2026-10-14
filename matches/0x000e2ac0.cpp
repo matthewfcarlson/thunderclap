@@ -1,11 +1,11 @@
-class Obj {
+class Obj_e2ac0 {
   public:
     char pad[0xac];
     volatile int field;
     void Set(int);
 };
 void ReleaseThing(int);
-void Obj::Set(int value) {
+void Obj_e2ac0::Set(int value) {
     int old = field;
     if (old != 0) {
         ReleaseThing(old);

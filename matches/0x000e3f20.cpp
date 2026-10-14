@@ -1,11 +1,11 @@
-class Obj {
+class Obj_e3f20 {
   public:
     char pad[0x2aC];
-    void Base(Obj*);
-    void CopyFrom(Obj*);
+    void Base(Obj_e3f20*);
+    void CopyFrom(Obj_e3f20*);
 };
 extern "C" void* memcpy(void*, const void*, unsigned int);
-void Obj::CopyFrom(Obj* other) {
+void Obj_e3f20::CopyFrom(Obj_e3f20* other) {
     Base(other);
     memcpy((char*)this + 0x118, (char*)other + 0x118, 40);
     int* d = (int*)((char*)this + 0x290);

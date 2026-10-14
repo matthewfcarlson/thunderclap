@@ -2,7 +2,7 @@ class FEObj {
   public:
     void Fn(int);
 };
-class FEChild {
+class FEChild_eedb0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -119,7 +119,7 @@ class FEContainer {
     virtual void v50();
     virtual void v51();
     virtual void v52();
-    FEChild* child;
+    FEChild_eedb0* child;
 };
 int FEContainer::v33(int a, int b) {
     FEObj* r = child->f57(a);

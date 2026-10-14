@@ -1,28 +1,28 @@
-struct Child {
+struct Child_1f1350 {
     char pad[8];
     void Init(int);
 };
-struct Item {
+struct Item_1f1350 {
     char pad0[8];
     int a;
     int b;
     int c;
     unsigned char flag;
     char pad15[3];
-    Child child;
+    Child_1f1350 child;
     float value;
     int pad24;
     void Process(int);
 };
-struct Owner {
+struct Owner_1f1350 {
     char pad0[12];
-    Item* items;
+    Item_1f1350* items;
     void Run(int);
 };
-void Owner::Run(int arg) {
+void Owner_1f1350::Run(int arg) {
     int i = 0;
     do {
-        Item* p = (Item*)((char*)items + i);
+        Item_1f1350* p = (Item_1f1350*)((char*)items + i);
         p->Process(arg);
         if (p->flag == 0) {
             p->a = 0;

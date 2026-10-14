@@ -1,9 +1,9 @@
-struct Thing {
+struct Thing_ffeb0 {
     virtual void a();
     virtual void b();
 };
 extern int handVtable;
-struct Helper {
+struct Helper_ffeb0 {
     void run();
 };
 void __cdecl thunk_FUN_00267090(void*);
@@ -34,14 +34,14 @@ class CHand2HandAgent {
     virtual void v22();
     virtual void v23();
     char pad[0x58];
-    Thing* thing;
+    Thing_ffeb0* thing;
 };
 CHand2HandAgent* CHand2HandAgent::vfunc_2(unsigned char param) {
-    Thing* t = thing;
+    Thing_ffeb0* t = thing;
     *(int*)this = (int)&handVtable;
     t->b();
     thing = 0;
-    ((Helper*)this)->run();
+    ((Helper_ffeb0*)this)->run();
     if (param & 1)
         thunk_FUN_00267090(this);
     return this;

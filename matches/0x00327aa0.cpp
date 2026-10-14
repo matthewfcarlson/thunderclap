@@ -1,13 +1,13 @@
 typedef unsigned int uint;
-extern int gCounter;
-class Helper {
+extern int gCounter_327aa0;
+class Helper_327aa0 {
   public:
     void run(int);
 };
 struct Node {
     int key;
     int pad;
-    void (Helper::*fn)(int);
+    void (Helper_327aa0::*fn)(int);
     int context;
     char pad10[8];
 };
@@ -42,16 +42,16 @@ unsigned char BaseShader::f7(int key, int arg) {
     if (p) {
         while (p->key) {
             if (p->key == key) {
-                Helper* h = (Helper*)((char*)this + p->context);
+                Helper_327aa0* h = (Helper_327aa0*)((char*)this + p->context);
                 (h->*(p->fn))(arg);
-                int n = gCounter + 1;
-                gCounter = n;
+                int n = gCounter_327aa0 + 1;
+                gCounter_327aa0 = n;
                 if (n == -1) {
                     n = 0;
-                    gCounter = n;
+                    gCounter_327aa0 = n;
                 }
                 id = n;
-                ++gCounter;
+                ++gCounter_327aa0;
                 return 1;
             }
             p++;

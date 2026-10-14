@@ -1,23 +1,23 @@
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f3c90[];
 extern "C" void _ReadWriteBarrier();
-struct Ref {
+struct Ref_20a90 {
     virtual void f0();
     virtual void Release();
 };
-struct Obj;
-void __fastcall BaseDtor(Obj* p);
-struct Obj {
+struct Obj_20a90;
+void __fastcall BaseDtor(Obj_20a90* p);
+struct Obj_20a90 {
     virtual void a0();
     virtual void a1();
     char pad[0x18];
-    Ref* mRef;
+    Ref_20a90* mRef;
     int mUnknown;
     void Dtor();
 };
-void Obj::a0() {}
-void Obj::a1() {}
-void Obj::Dtor() {
+void Obj_20a90::a0() {}
+void Obj_20a90::a1() {}
+void Obj_20a90::Dtor() {
     *(void**)this = (void*)((int)DAT_003f3c90);
     _ReadWriteBarrier();
     if (mUnknown)

@@ -3,7 +3,7 @@ namespace D3D8 {
 void __stdcall D3DResource_Release(void*);
 void __stdcall D3DDevice_DeletePixelShader(DWORD);
 } // namespace D3D8
-struct RefObj {
+struct RefObj_322610 {
     virtual void vfunc_0();
     virtual void vfunc_1();
 };
@@ -14,8 +14,8 @@ class pddiExtension {
 class d3dExtFramebufferEffects : public pddiExtension {
   public:
     char pad4[4];
-    RefObj* objA;
-    RefObj* objB;
+    RefObj_322610* objA;
+    RefObj_322610* objB;
     char pad0[0x20 - 0x10];
     void* res20;
     DWORD shaders[8][2];

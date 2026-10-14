@@ -1,11 +1,11 @@
-struct Manager;
-struct Ctx {
-    Manager* f();
+struct Manager_179b0;
+struct Ctx_179b0 {
+    Manager_179b0* f();
 };
-struct Manager {
-    Manager* g();
+struct Manager_179b0 {
+    Manager_179b0* g();
 };
-class X {
+class X_179b0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -29,13 +29,13 @@ class CAlertStatusAction {
     virtual void a7();
     virtual void a8();
     char pad[0x18];
-    Ctx* member;
+    Ctx_179b0* member;
     int arg;
 };
 bool CAlertStatusAction::vfunc_6(int) {
-    Manager* p = member->f();
+    Manager_179b0* p = member->f();
     p = p->g();
-    X* x = *(X**)((char*)p + 0x1ca0);
+    X_179b0* x = *(X_179b0**)((char*)p + 0x1ca0);
     if (x)
         x->f8(arg);
     return false;

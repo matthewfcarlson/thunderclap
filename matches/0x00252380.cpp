@@ -1,4 +1,4 @@
-extern void* vtable;
+extern void* vtable_252380;
 class SeqEventVarVolumeRand {
   public:
     void* vf;
@@ -9,7 +9,7 @@ class SeqEventVarVolumeRand {
 void Init();
 SeqEventVarVolumeRand* __fastcall FUN_00252380(SeqEventVarVolumeRand* self) {
     Init();
-    self->vf = &vtable;
+    self->vf = &vtable_252380;
     self->a = 0.5f;
     self->b = 1.0f;
     return self;

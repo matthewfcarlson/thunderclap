@@ -1,11 +1,11 @@
 extern "C" int strcmp(const char*, const char*);
-class Table {
+class Table_f8cc0 {
   public:
     int pad;
     int items[129];
     int Find(const char* s);
 };
-int Table::Find(const char* s) {
+int Table_f8cc0::Find(const char* s) {
     int i = 0;
     const char* p = s;
     do {

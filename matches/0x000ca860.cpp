@@ -1,4 +1,4 @@
-class C {
+class C_ca860 {
   public:
     virtual void m0();
     virtual void m1();
@@ -9,6 +9,6 @@ class C {
     void Target();
 };
 
-void C::Target() {
+void C_ca860::Target() {
     Fn(2);
 }

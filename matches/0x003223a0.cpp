@@ -1,4 +1,4 @@
-class Base {
+class Base_3223a0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -10,17 +10,17 @@ class Base {
     virtual void f7();
     virtual void f8();
 };
-struct Data {
+struct Data_3223a0 {
     char pad[0x154];
     unsigned int field;
 };
-struct Inner {
+struct Inner_3223a0 {
     char pad[0x204];
-    Data* data;
+    Data_3223a0* data;
 };
-class pure3d_d3dExtVertexProgram : public Base {
+class pure3d_d3dExtVertexProgram : public Base_3223a0 {
   public:
-    Inner* ptr;
+    Inner_3223a0* ptr;
     virtual void f6(unsigned int);
 };
 void pure3d_d3dExtVertexProgram::f6(unsigned int x) {

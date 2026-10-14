@@ -1,17 +1,17 @@
-struct State {
+struct State_3111f0 {
     char pad[0x94];
     char busy;
 };
-struct H3 {
+struct H3_3111f0 {
     void* Get();
 };
-struct H2 {
-    H3* Get();
+struct H2_3111f0 {
+    H3_3111f0* Get();
 };
 struct H1 {
-    H2* Get(int);
+    H2_3111f0* Get(int);
 };
-struct Item {
+struct Item_3111f0 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -26,11 +26,11 @@ struct Item {
     int pad;
     int id;
 };
-struct Obj {
+struct Obj_3111f0 {
     char pad0[0x10];
-    State* state;
+    State_3111f0* state;
     char pad1[0x1e4];
-    Item** items;
+    Item_3111f0** items;
     char pad2[4];
     int count;
     char pad3[4];
@@ -38,11 +38,11 @@ struct Obj {
     void Run();
     void Tail();
 };
-void Obj::Run() {
+void Obj_3111f0::Run() {
     if (state->busy)
         return;
     for (int i = 0; i < count; i++) {
-        H2* h = helper->Get(items[i]->id);
+        H2_3111f0* h = helper->Get(items[i]->id);
         items[i]->Use(h->Get()->Get());
     }
     Tail();

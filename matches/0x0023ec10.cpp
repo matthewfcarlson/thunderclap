@@ -1,12 +1,12 @@
-typedef unsigned char u8;
+typedef unsigned char u8_23ec10;
 extern int spawn_vftable;
-struct A {
+struct A_23ec10 {
     void init();
 };
-struct B {
+struct B_23ec10 {
     void init();
 };
-struct C {
+struct C_23ec10 {
     void init();
 };
 namespace fight {
@@ -25,14 +25,14 @@ struct Track {
 };
 struct SpawnTrack : Track {
     char pad[0x20 - sizeof(Track)];
-    SpawnTrack* vfunc_5(u8);
+    SpawnTrack* vfunc_5(u8_23ec10);
 };
 } // namespace fight
-fight::SpawnTrack* fight::SpawnTrack::vfunc_5(u8 flag) {
+fight::SpawnTrack* fight::SpawnTrack::vfunc_5(u8_23ec10 flag) {
     *(int*)this = (int)&spawn_vftable;
-    ((A*)((char*)this + 0x20))->init();
-    ((B*)((char*)this + 0x14))->init();
-    ((C*)this)->init();
+    ((A_23ec10*)((char*)this + 0x20))->init();
+    ((B_23ec10*)((char*)this + 0x14))->init();
+    ((C_23ec10*)this)->init();
     if (flag & 1) {
         extern void del(fight::SpawnTrack*);
         del(this);

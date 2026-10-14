@@ -1,4 +1,4 @@
-class Base {
+class Base_2c3ce0 {
   public:
     virtual void V0();
     virtual void V1();
@@ -14,7 +14,7 @@ class Base {
     int m64;
     void F(int arg);
 };
-void Base::F(int arg) {
+void Base_2c3ce0::F(int arg) {
     m64 = arg;
     arg = 0;
     V9(arg);

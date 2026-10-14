@@ -1,9 +1,9 @@
-class C {
+class C_1cc840 {
   public:
     char pad[12];
     unsigned int value;
     unsigned int get();
 };
-unsigned int C::get() {
+unsigned int C_1cc840::get() {
     return value;
 }

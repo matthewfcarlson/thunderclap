@@ -1,4 +1,4 @@
-class Obj {
+class Obj_23bb60 {
   public:
     virtual void a();
     virtual void b();
@@ -26,7 +26,7 @@ class BinReader {
     virtual void f18();
     virtual void f19();
     char pad[4];
-    Obj* obj;
+    Obj_23bb60* obj;
     void helper();
 };
 BinReader::~BinReader() {

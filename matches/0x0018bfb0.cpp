@@ -17,7 +17,7 @@ class CCameraShakeTrack {
     int w;
     void Init();
 };
-class Factory {
+class Factory_18bfb0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -26,7 +26,7 @@ class Factory {
     virtual void v4();
     virtual CCameraShakeTrack* v5();
 };
-CCameraShakeTrack* Factory::v5() {
+CCameraShakeTrack* Factory_18bfb0::v5() {
     CCameraShakeTrack* p = (CCameraShakeTrack*)Alloc(0x1c);
     if (p) {
         p->Init();

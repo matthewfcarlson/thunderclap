@@ -1,4 +1,4 @@
-class Base {
+class Base_e1c80 {
   public:
     virtual void a();
     virtual void b();
@@ -6,7 +6,7 @@ class Base {
     virtual void d();
     virtual void e();
 };
-class Inner {
+class Inner_e1c80 {
   public:
     virtual void f();
     virtual void g();
@@ -41,15 +41,15 @@ class Inner {
     virtual void aj();
     virtual void ak();
 };
-class Container {
+class Container_e1c80 {
   public:
     int pad;
-    Inner* p;
+    Inner_e1c80* p;
 };
 class FEDoAction {
   public:
     char pad[0x10];
-    Container* m;
+    Container_e1c80* m;
 };
 class FEDoBackMenu : public FEDoAction {
   public:

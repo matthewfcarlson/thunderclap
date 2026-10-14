@@ -1,4 +1,4 @@
-class Ref {
+class Ref_222660 {
   public:
     virtual void f0();
     virtual void Release();
@@ -8,10 +8,10 @@ class Puppet {
     virtual void f0();
     virtual void f1();
     char pad[0x60];
-    Ref* m64;
+    Ref_222660* m64;
     int count;
     struct Entry {
-        Ref* ref;
+        Ref_222660* ref;
         char pad[36];
     } items[1];
     void Tail();

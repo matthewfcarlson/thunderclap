@@ -1,4 +1,4 @@
-class Item {
+class Item_266f20 {
   public:
     virtual void a();
     virtual void b();
@@ -9,11 +9,11 @@ class Item {
     virtual void h();
     virtual void g(int);
 };
-struct Entry {
-    Item* ptr;
+struct Entry_266f20 {
+    Item_266f20* ptr;
     char pad[12];
 };
-extern Entry gItems[];
+extern Entry_266f20 gItems_266f20[];
 void target(int index, int value) {
-    gItems[index].ptr->g(value);
+    gItems_266f20[index].ptr->g(value);
 }

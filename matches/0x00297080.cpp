@@ -19,7 +19,7 @@ class DrawableNode {
     virtual void a16();
     virtual void a17();
 };
-class Helper {
+class Helper_297080 {
   public:
     int run(DrawableNode*);
 };
@@ -27,6 +27,6 @@ extern void* __cdecl alloc(int);
 int DrawableNode::vfunc_4() {
     void* p = alloc(0x20);
     if (p)
-        return ((Helper*)p)->run(this);
+        return ((Helper_297080*)p)->run(this);
     return 0;
 }

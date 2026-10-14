@@ -4,31 +4,31 @@ class RC {
     virtual void Release();
 };
 
-class Obj3 : public RC {
+class Obj3_1b77e0 : public RC {
   public:
     virtual void Fn2();
     virtual void Fn3(RC* a, RC* b);
 };
 
-class Res : public RC {};
+class Res_1b77e0 : public RC {};
 
-class Sub {
+class Sub_1b77e0 {
   public:
-    Sub* Init();
+    Sub_1b77e0* Init();
 };
 
-class Mgr {
+class Mgr_1b77e0 {
   public:
     void Fn();
 };
 
-class Target {
+class Target_1b77e0 {
   public:
     void Run();
     char pad0[0xc];
-    Obj3* mObj;
+    Obj3_1b77e0* mObj;
     char pad1[0x120 - 0x10];
-    Mgr* mMgr;
+    Mgr_1b77e0* mMgr;
     char pad2[4];
     RC* mSub;
 };
@@ -36,15 +36,15 @@ class Target {
 void* __cdecl Alloc(int size, int tag);
 int __cdecl Push(int a);
 RC* __cdecl GetA(int a);
-Obj3* __cdecl GetB(int a);
+Obj3_1b77e0* __cdecl GetB(int a);
 
-void Target::Run() {
+void Target_1b77e0::Run() {
     mMgr->Fn();
     int saved = Push(7);
     void* mem = Alloc(0x10, 7);
     RC* s;
     if (mem)
-        s = (RC*)((Sub*)mem)->Init();
+        s = (RC*)((Sub_1b77e0*)mem)->Init();
     else
         s = 0;
     mSub = s;
@@ -53,8 +53,8 @@ void Target::Run() {
     RC* a = GetA(7);
     if (a)
         a->AddRef();
-    Obj3* nw = GetB(7);
-    Obj3* old = mObj;
+    Obj3_1b77e0* nw = GetB(7);
+    Obj3_1b77e0* old = mObj;
     if (old != nw) {
         mObj = nw;
         if (nw)

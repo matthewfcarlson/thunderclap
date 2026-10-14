@@ -1,4 +1,4 @@
-class A {
+class A_337d50 {
   public:
     char pad0[4];
     int x;
@@ -6,6 +6,6 @@ class A {
     int y;
     void f();
 };
-void A::f() {
+void A_337d50::f() {
     y = x;
 }

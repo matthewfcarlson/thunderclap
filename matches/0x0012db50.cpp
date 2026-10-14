@@ -1,4 +1,4 @@
-struct Obj {
+struct Obj_12db50 {
     virtual void F();
     virtual void R();
 };
@@ -7,11 +7,11 @@ struct PostEvent_StringAction {
     void* vf;
     int pad[6];
     int arg;
-    Obj* object;
+    Obj_12db50* object;
     void Init();
-    PostEvent_StringAction* Build(int, Obj*);
+    PostEvent_StringAction* Build(int, Obj_12db50*);
 };
-PostEvent_StringAction* PostEvent_StringAction::Build(int a, Obj* p) {
+PostEvent_StringAction* PostEvent_StringAction::Build(int a, Obj_12db50* p) {
     Init();
     vf = &PostEvent_StringAction_vftable;
     object = 0;

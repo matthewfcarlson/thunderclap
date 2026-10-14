@@ -1,20 +1,20 @@
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0043147c[];
-typedef unsigned int u32;
-extern void ReleaseThing(u32);
-class Other {
+typedef unsigned int u32_2f3c00;
+extern void ReleaseThing(u32_2f3c00);
+class Other_2f3c00 {
   public:
     void Do(int);
 };
 class SharedData {
   public:
-    u32 vft;
-    u32 pad;
-    u32 a;
-    u32 b;
-    u32 c;
-    u32 d;
-    Other* e;
+    u32_2f3c00 vft;
+    u32_2f3c00 pad;
+    u32_2f3c00 a;
+    u32_2f3c00 b;
+    u32_2f3c00 c;
+    u32_2f3c00 d;
+    Other_2f3c00* e;
 };
 void __fastcall FUN_002f3c00(SharedData* p) {
     p->vft = ((int)DAT_0043147c);

@@ -9,7 +9,7 @@ extern Widget* __cdecl FUN_000fc260(const char* name);
 extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 extern bool FUN_00035da0();
 
-class Selector {
+class Selector_c3ea0 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -38,33 +38,33 @@ class Selector {
     virtual void vfunc_24();
     virtual void vfunc_25(int value);
 };
-struct Flag {
+struct Flag_c3ea0 {
     char pad[5];
     unsigned char value;
 };
-struct Button {
+struct Button_c3ea0 {
     char pad[0x74];
     unsigned char f74;
     char pad75[0x141 - 0x75];
     unsigned char f141;
 };
-struct Panel {
+struct Panel_c3ea0 {
     unsigned char FUN_000893c0();
 };
-struct Inner {
+struct Inner_c3ea0 {
     void FUN_000adc30();
 };
-struct Holder {
-    Inner* FUN_000b3ec0(int index);
+struct Holder_c3ea0 {
+    Inner_c3ea0* FUN_000b3ec0(int index);
 };
-class Screen {
+class Screen_c3ea0 {
   public:
     char pad[0x34];
-    Panel* panel;
+    Panel_c3ea0* panel;
     char pad38[0x44 - 0x38];
-    Flag* flag;
+    Flag_c3ea0* flag;
     char pad48[0x60 - 0x48];
-    Holder* holder;
+    Holder_c3ea0* holder;
     void FUN_000b5ad0();
     void FUN_000b5b90();
     void FUN_000b63a0();
@@ -83,14 +83,14 @@ class Screen {
     void FUN_000c21b0(int id);
     void FUN_000c3ea0();
 };
-void Screen::FUN_000c3ea0() {
-    Selector* vibration = (Selector*)FUN_00344e74(FUN_000fc260("control_config_vibration_selector"), 0,
+void Screen_c3ea0::FUN_000c3ea0() {
+    Selector_c3ea0* vibration = (Selector_c3ea0*)FUN_00344e74(FUN_000fc260("control_config_vibration_selector"), 0,
                                                   DAT_0049dba4, DAT_0049dbbc, 0);
     if (vibration && flag)
         vibration->vfunc_25(flag->value == 0);
     FUN_000b5ad0();
-    Selector* targeting =
-        (Selector*)FUN_00344e74(FUN_000fc260("targeting_selector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
+    Selector_c3ea0* targeting =
+        (Selector_c3ea0*)FUN_00344e74(FUN_000fc260("targeting_selector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
     if (targeting) {
         int off = FUN_00035da0() == 0;
         targeting->vfunc_25(off);
@@ -110,8 +110,8 @@ void Screen::FUN_000c3ea0() {
     FUN_000b7cd0();
     FUN_000b8240();
     FUN_000b86b0();
-    Button* replay =
-        (Button*)FUN_00344e74(FUN_000fc260("replay_story_mode_button"), 0, DAT_0049dba4, DAT_0049f4a4, 0);
+    Button_c3ea0* replay =
+        (Button_c3ea0*)FUN_00344e74(FUN_000fc260("replay_story_mode_button"), 0, DAT_0049dba4, DAT_0049f4a4, 0);
     if (panel && replay) {
         unsigned char v = panel->FUN_000893c0();
         replay->f141 = v;

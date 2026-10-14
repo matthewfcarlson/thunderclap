@@ -1,6 +1,6 @@
 extern int simVtable;
-extern int refVtable;
-class Obj {
+extern int refVtable_2ef2c0;
+class Obj_2ef2c0 {
   public:
     virtual void f0();
     virtual void Release();
@@ -33,7 +33,7 @@ class Obj {
     virtual void f28();
     virtual void Do(int);
 };
-class Inner {
+class Inner_2ef2c0 {
   public:
     virtual void f0();
     virtual void Release();
@@ -43,12 +43,12 @@ class Inner {
 struct SimState {
     int* vptr;
     char pad[0x70 - 4];
-    Obj* m70;
-    Inner* m74;
+    Obj_2ef2c0* m70;
+    Inner_2ef2c0* m74;
     void Cleanup();
 };
 void SimState::Cleanup() {
-    Inner* a = m74;
+    Inner_2ef2c0* a = m74;
     vptr = &simVtable;
     if (a) {
         a->value = 0;
@@ -58,5 +58,5 @@ void SimState::Cleanup() {
         m70->Do(0);
         m70->Release();
     }
-    vptr = &refVtable;
+    vptr = &refVtable_2ef2c0;
 }

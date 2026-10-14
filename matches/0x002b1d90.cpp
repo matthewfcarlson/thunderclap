@@ -34,7 +34,7 @@ class MultiController {
     MultiController** items;
 };
 } // namespace pure3d
-extern const float zero;
+extern const float zero_2b1d90;
 bool pure3d::MultiController::f22() {
     if (flag == 0) {
         unsigned i = 0;
@@ -47,5 +47,5 @@ bool pure3d::MultiController::f22() {
         }
         return true;
     }
-    return value == zero;
+    return value == zero_2b1d90;
 }

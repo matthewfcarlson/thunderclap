@@ -29,20 +29,20 @@ struct V3_1966f0 {
     void FUN_00011220(V3_1966f0 *v);
 };
 
-struct Mat {
+struct Mat_1966f0 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022be40(V3_1966f0 *pos);
 };
 
-struct RefObj {
+struct RefObj_1966f0 {
     virtual void AddRef();
     virtual void Release();
 };
-struct Other;
-struct Ref4c : RefObj {
+struct Other_1966f0;
+struct Ref4c : RefObj_1966f0 {
     char pad4[4];
-    Other *f08;
+    Other_1966f0 *f08;
     int f0c;
 };
 
@@ -62,12 +62,12 @@ struct Sub74 {
     int f74;
 };
 
-struct Ent {
+struct Ent_1966f0 {
     Sub74 *FUN_001d72e0();
     int FUN_001d68d0();
 };
 
-struct Obj64 : RefObj {
+struct Obj64 : RefObj_1966f0 {
     Sub74 *FUN_001d72e0();
     void thunk_FUN_0027d410(Key *k);
     void FUN_001d7590();
@@ -75,7 +75,7 @@ struct Obj64 : RefObj {
 };
 
 struct Mgr_1966f0 {
-    void FUN_001e43b0(Key *k, void *src, Mat *m, int flag);
+    void FUN_001e43b0(Key *k, void *src, Mat_1966f0 *m, int flag);
     Obj64 *FUN_001def30(char *name);
 };
 
@@ -87,7 +87,7 @@ struct World {
 };
 extern World *DAT_004dd700;
 
-struct Other {
+struct Other_1966f0 {
     char pad0[0x8];
     unsigned int f08;
     unsigned int f0c;
@@ -101,7 +101,7 @@ struct Other {
 };
 struct Obj20 {
     char pad0[0x124];
-    Other *f124;
+    Other_1966f0 *f124;
 };
 
 
@@ -109,7 +109,7 @@ struct IdObj {
     char pad0[8];
     int FUN_0027b200(unsigned int lo, unsigned int hi);
 };
-struct Slot38 : RefObj {
+struct Slot38 : RefObj_1966f0 {
     char pad4[4];
     IdObj *f08;
 };
@@ -120,12 +120,12 @@ struct Pad_1966f0 {
     char pad14[0x120 - 0x14];
     Slot38 *f120;
     char pad124[0x328 - 0x124];
-    RefObj *f328;
+    RefObj_1966f0 *f328;
     char pad32c[0x1d54 - 0x32c];
     V3_1966f0 f1d54;
     unsigned int f1d60;
     unsigned int f1d64;
-    Ent *FUN_00035ef0(int i);
+    Ent_1966f0 *FUN_00035ef0(int i);
     void FUN_0003ffa0(Sub74 *s, int z);
     void FUN_00035550(V3_1966f0 *out);
     void FUN_00035660(V3_1966f0 *out);
@@ -167,9 +167,9 @@ struct Pad2 {
 
 extern Pad_1966f0 *__fastcall FUN_00059a30(void *o);
 extern void *__fastcall FUN_000592a0(void *owner);
-void __cdecl FUN_000188e0(void *slot, Ent *e);
+void __cdecl FUN_000188e0(void *slot, Ent_1966f0 *e);
 void __cdecl FUN_00037510(void *slot, int v);
-void __cdecl FUN_00018810(Ref4c **slot, RefObj *obj);
+void __cdecl FUN_00018810(Ref4c **slot, RefObj_1966f0 *obj);
 char __cdecl FUN_00065870(V3_1966f0 *a, V3_1966f0 *b);
 V3_1966f0 *__cdecl FUN_00083e00(V3_1966f0 *out, V3_1966f0 *in, float s);
 void __cdecl FUN_00224d70(float ang, V3_1966f0 *v);
@@ -190,7 +190,7 @@ struct Frame_1966f0 {
     V3_1966f0 va;
     V3_1966f0 vb;
     V3_1966f0 p3;
-    Mat M;
+    Mat_1966f0 M;
     char buf[0x80];
     unsigned int cookie;
 };
@@ -231,11 +231,11 @@ public:
     V3_1966f0 f24;
     char pad30[0x34 - 0x30];
     char f34[4];
-    RefObj *f38;
+    RefObj_1966f0 *f38;
     int f3c;
     char pad40[0x4c - 0x40];
     Ref4c *f4c;
-    Other *f50;
+    Other_1966f0 *f50;
     char pad54[4];
     unsigned int f58;
     unsigned int f5c;
@@ -275,7 +275,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
     if (f20 != 0) {
         a = FUN_00059a30(FUN_000592a0(f20));
         Slot38 *s = a->f120;
-        RefObj **pf38 = &f38;
+        RefObj_1966f0 **pf38 = &f38;
         if (s)
             s->AddRef();
         if (*pf38)
@@ -285,7 +285,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
         f84 = f1c->v7();
         if (!(f84 <= 0.0f)) {
             if (idx >= 0 && idx < 8) {
-                Ent *e = a->FUN_00035ef0(idx);
+                Ent_1966f0 *e = a->FUN_00035ef0(idx);
                 if (e) {
                     if (!e->FUN_001d72e0() || e->FUN_001d72e0()->f74 == 0)
                         FUN_000188e0(f34, e);
@@ -333,7 +333,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
                     if (r4->f0c == 1)
                         f50 = r4->f08;
                     if (f50 == 0) {
-                        Other *w = DAT_004dd700->f20->f124;
+                        Other_1966f0 *w = DAT_004dd700->f20->f124;
                         if (w && w->f12c)
                             f50 = w;
                     }
@@ -482,7 +482,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
                                 f6c = f.delta;
                             }
                         } else if (f1c->bfe) {
-                            Other *tg = f50;
+                            Other_1966f0 *tg = f50;
                             if (tg) {
                                 tg->f10->FUN_00059a50(&f.u);
                                 f.delta.x = 0.0f;

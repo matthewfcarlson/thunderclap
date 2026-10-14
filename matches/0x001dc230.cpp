@@ -1,14 +1,14 @@
-struct Item {
+struct Item_1dc230 {
     short value;
     char pad[0x26];
 };
-class Obj {
+class Obj_1dc230 {
   public:
     char pad[0x62a];
-    Item indices[0x800];
+    Item_1dc230 indices[0x800];
     bool target(int index, int mode);
 };
-bool Obj::target(int index, int mode) {
+bool Obj_1dc230::target(int index, int mode) {
     bool result = false;
     if (index >= 0 && index < 0x800) {
         short n = indices[index].value;

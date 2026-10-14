@@ -1,6 +1,6 @@
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f3d30[];
-class Ref {
+class Ref_20c40 {
   public:
     virtual void F();
     virtual void G();
@@ -11,17 +11,17 @@ class CAction {
     virtual void F();
     virtual void G();
     char pad[0x1c - 4];
-    Ref* mRef;
+    Ref_20c40* mRef;
     int mValue;
     int mOther;
 };
 class CSnapToWallAction : public CAction {
   public:
-    CSnapToWallAction(int, Ref*);
+    CSnapToWallAction(int, Ref_20c40*);
     virtual void F();
     virtual void G();
 };
-CSnapToWallAction::CSnapToWallAction(int v, Ref* r) {
+CSnapToWallAction::CSnapToWallAction(int v, Ref_20c40* r) {
     int* p = (int*)this;
     *p = ((int)DAT_003f3390);
     mRef = 0;

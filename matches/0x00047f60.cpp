@@ -1,4 +1,4 @@
-class C {
+class C_47f60 {
   public:
     char pad[0xc];
     int m;
@@ -8,7 +8,7 @@ class C {
     }
 };
 
-bool __fastcall Target(C* self, void* eax, int v) {
+bool __fastcall Target(C_47f60* self, void* eax, int v) {
     self->m = v;
     return true;
 }

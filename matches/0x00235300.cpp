@@ -1,4 +1,4 @@
-class Part {
+class Part_235300 {
   public:
     void Init();
 };
@@ -6,7 +6,7 @@ class ParamValueBool {
   public:
     int vt;
     int pad;
-    Part part;
+    Part_235300 part;
     ParamValueBool* vfunc_0(int);
 };
 extern int base_vtable;

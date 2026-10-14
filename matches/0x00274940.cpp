@@ -1,4 +1,4 @@
-class Service {
+class Service_274940 {
   public:
     virtual void a();
     virtual void b();
@@ -22,7 +22,7 @@ class Service {
     virtual void t();
     virtual void u(void*);
 };
-class Inner {
+class Inner_274940 {
   public:
     virtual void close();
     virtual void done();
@@ -30,7 +30,7 @@ class Inner {
 struct Drive {
     virtual void v0();
     char pad[8];
-    Service* service;
+    Service_274940* service;
     char pad2[0x10];
     unsigned char flag;
 };
@@ -42,11 +42,11 @@ class DriveFindCloseRequest {
 };
 int DriveFindCloseRequest::vfunc_1() {
     Drive* d = drive;
-    Service* s = d->service;
+    Service_274940* s = d->service;
     d->flag = 0;
     s->u((char*)drive + 0x1c);
-    ((Inner*)((char*)drive + 4))->close();
+    ((Inner_274940*)((char*)drive + 4))->close();
     *(int*)((char*)drive + 0x18) = 0;
-    ((Inner*)((char*)drive + 4))->done();
+    ((Inner_274940*)((char*)drive + 4))->done();
     return 1;
 }

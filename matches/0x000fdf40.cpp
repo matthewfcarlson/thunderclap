@@ -1,4 +1,4 @@
-class Obj {
+class Obj_fdf40 {
   public:
     virtual void v0();
     virtual void v1();
@@ -25,7 +25,7 @@ class Obj {
     } block;
     void Target(int);
 };
-void Obj::Target(int x) {
+void Obj_fdf40::Target(int x) {
     Block* b = &block;
     if (x != 0 && b != 0 && b->key == x) {
         b->flag12 = 0;

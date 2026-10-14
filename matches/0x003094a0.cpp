@@ -1,7 +1,7 @@
 extern "C" char DAT_00431d1c[];
-typedef unsigned int u32;
+typedef unsigned int u32_3094a0;
 extern void* alloc(unsigned int);
-struct Obj {
+struct Obj_3094a0 {
     void init();
 };
 struct HairclubPhysicsObject {
@@ -53,13 +53,13 @@ void* HairclubPhysicsObject::f28(unsigned int arg) {
     void* p;
     if (q) {
         p = q;
-        ((Obj*)p)->init();
-        *(u32*)p = ((int)DAT_00431d1c);
-        *(u32*)((char*)p + 0x1f8) = 0;
-        *(u32*)((char*)p + 0x24) = 2;
+        ((Obj_3094a0*)p)->init();
+        *(u32_3094a0*)p = ((int)DAT_00431d1c);
+        *(u32_3094a0*)((char*)p + 0x1f8) = 0;
+        *(u32_3094a0*)((char*)p + 0x24) = 2;
     } else
         p = 0;
     build(p, arg);
-    *(u32*)((char*)p + 0x24) = *(u32*)((char*)this + 0x24);
+    *(u32_3094a0*)((char*)p + 0x24) = *(u32_3094a0*)((char*)this + 0x24);
     return p;
 }

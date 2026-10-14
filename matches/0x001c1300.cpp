@@ -1,4 +1,4 @@
-class Base {
+class Base_1c1300 {
   public:
     virtual void f0();
     virtual void f1();
@@ -16,11 +16,11 @@ class Base {
     virtual void f13();
     virtual int Get();
 };
-class Owner {
+class Owner_1c1300 {
   public:
     char pad[8];
-    Base* mBase;
+    Base_1c1300* mBase;
 };
-int __fastcall FUN_001c1300(Owner* self) {
+int __fastcall FUN_001c1300(Owner_1c1300* self) {
     return self->mBase->Get() + 0x30;
 }

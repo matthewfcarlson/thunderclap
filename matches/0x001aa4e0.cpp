@@ -1,32 +1,32 @@
 void* operator new(unsigned int);
-struct Base {
-    Base(int) throw();
+struct Base_1aa4e0 {
+    Base_1aa4e0(int) throw();
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void d();
     virtual void e();
-    virtual Base* f();
+    virtual Base_1aa4e0* f();
     int m4, m8;
 };
-struct Cond : Base {
+struct Cond_1aa4e0 : Base_1aa4e0 {
     char mc;
-    Cond() throw() : Base(0) { mc = 1; }
+    Cond_1aa4e0() throw() : Base_1aa4e0(0) { mc = 1; }
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void d();
     virtual void e();
-    virtual Base* f();
+    virtual Base_1aa4e0* f();
 };
-struct Fac {
+struct Fac_1aa4e0 {
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void d();
     virtual void e();
-    virtual Base* vfunc_5();
+    virtual Base_1aa4e0* vfunc_5();
 };
-Base* Fac::vfunc_5() {
-    return new Cond;
+Base_1aa4e0* Fac_1aa4e0::vfunc_5() {
+    return new Cond_1aa4e0;
 }

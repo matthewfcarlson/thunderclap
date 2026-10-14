@@ -1,11 +1,11 @@
-class Helper {
+class Helper_23b970 {
   public:
     unsigned int f1();
     unsigned int f2();
 };
 class StreamDataReader {
     char pad[8];
-    Helper* h;
+    Helper_23b970* h;
 
   public:
     bool vfunc_5();

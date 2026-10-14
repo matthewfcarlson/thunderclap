@@ -1,5 +1,5 @@
 extern void* prop_vftable;
-class Elem {
+class Elem_182fd0 {
   public:
     void Fn();
 };
@@ -13,7 +13,7 @@ class PropMassCondition {
     virtual PropMassCondition* vfunc_5(char flag);
     virtual void v6();
     char pad[0x18 - sizeof(void*)];
-    Elem elem;
+    Elem_182fd0 elem;
     void BaseFn();
 };
 extern void Cleanup(PropMassCondition*);

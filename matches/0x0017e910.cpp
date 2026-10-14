@@ -1,5 +1,5 @@
 extern "C" char DAT_00417c28[];
-struct Base {
+struct Base_17e910 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -7,7 +7,7 @@ struct Base {
     virtual void e();
     virtual void f();
 };
-struct CriticalMassDrainTrack : Base {
+struct CriticalMassDrainTrack : Base_17e910 {
     int pad4;
     int m8;
     int mC;
@@ -15,7 +15,7 @@ struct CriticalMassDrainTrack : Base {
     void Init();
 };
 extern "C" void* __cdecl operator_new(unsigned int);
-struct Factory {
+struct Factory_17e910 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -23,7 +23,7 @@ struct Factory {
     virtual void e();
     virtual CriticalMassDrainTrack* Create();
 };
-CriticalMassDrainTrack* Factory::Create() {
+CriticalMassDrainTrack* Factory_17e910::Create() {
     CriticalMassDrainTrack* p = (CriticalMassDrainTrack*)operator_new(0x14);
     if (p) {
         p->Init();

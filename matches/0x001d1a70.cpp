@@ -1,4 +1,4 @@
-struct Owner {
+struct Owner_1d1a70 {
     char pad[8];
     int value;
     bool Target(float*);
@@ -6,7 +6,7 @@ struct Owner {
 int __cdecl ReadState(int, int);
 float __cdecl ReadAmount(int, int);
 void __cdecl FinishState(int, int);
-bool Owner::Target(float* out) {
+bool Owner_1d1a70::Target(float* out) {
     bool result = true;
     int state = ReadState(value, -1);
     if (state != 3)

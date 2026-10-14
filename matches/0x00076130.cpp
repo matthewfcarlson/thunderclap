@@ -5,7 +5,7 @@ class CComboTimerTrack {
     int a[6];
 };
 extern int CComboTimerTrack_vftable;
-class Factory {
+class Factory_76130 {
   public:
     virtual void f0();
     virtual void f1();
@@ -14,7 +14,7 @@ class Factory {
     virtual void f4();
     virtual void* vfunc_5();
 };
-void* Factory::vfunc_5() {
+void* Factory_76130::vfunc_5() {
     CComboTimerTrack* p = (CComboTimerTrack*)FUN_0008d690(0x18);
     if (p) {
         p->CComboTimerTrack::CComboTimerTrack();

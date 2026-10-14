@@ -1,4 +1,4 @@
-extern void* g_vftable[];
+extern void* g_vftable_6d640[];
 class TrackFactoryCasterTemplate {
   public:
     virtual void A();

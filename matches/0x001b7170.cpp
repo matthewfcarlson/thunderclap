@@ -1,4 +1,4 @@
-struct Fader {
+struct Fader_1b7170 {
     virtual void vf0();
     virtual void vf1();
     virtual void vf2();
@@ -73,7 +73,7 @@ struct Overlay {
     virtual void vf57();
     virtual void vf58(int);
 };
-struct Screen {
+struct Screen_1b7170 {
     virtual void vf0();
     virtual void vf1();
     virtual void vf2();
@@ -98,12 +98,12 @@ struct Global2b4 {
 };
 struct Global700 {
     char pad[0x50];
-    struct Sub* sub;
+    struct Sub_1b7170* sub;
 };
-struct Sub {
+struct Sub_1b7170 {
     void FUN_001bf8b0();
 };
-extern Screen* DAT_0052c2a4;
+extern Screen_1b7170* DAT_0052c2a4;
 extern Overlay* DAT_0052c2a8;
 extern Global2b4* DAT_0052c2b4;
 extern Global700* DAT_004dd700;
@@ -112,11 +112,11 @@ class CRadMovieRenderLoop {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual void vfunc_3(Fader* fader);
+    virtual void vfunc_3(Fader_1b7170* fader);
     int fade;
     void FUN_001b6fd0(int);
 };
-void CRadMovieRenderLoop::vfunc_3(Fader* fader) {
+void CRadMovieRenderLoop::vfunc_3(Fader_1b7170* fader) {
     DAT_0052c2a4->vf14();
     DAT_0052c2b4->field_d8 = -1;
     DAT_0052c2a8->vf58(0);

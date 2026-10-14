@@ -1,4 +1,4 @@
-class C {
+class C_284820 {
   public:
     char pad[0x24];
     int count;
@@ -8,7 +8,7 @@ class C {
     void E(int);
     void Target(int);
 };
-void C::Target(int x) {
+void C_284820::Target(int x) {
     A(x);
     B(x);
     D(x);

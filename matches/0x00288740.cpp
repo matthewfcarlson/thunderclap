@@ -7,14 +7,14 @@ class PoseAnimationController {
     virtual void a3();
     virtual int vfunc_4();
 };
-class Helper {
+class Helper_288740 {
   public:
     int run(PoseAnimationController*);
 };
 } // namespace pure3d
 extern void* __cdecl thunk_FUN_0008d690(unsigned int);
 int pure3d::PoseAnimationController::vfunc_4() {
-    pure3d::Helper* p = (pure3d::Helper*)thunk_FUN_0008d690(0x150);
+    pure3d::Helper_288740* p = (pure3d::Helper_288740*)thunk_FUN_0008d690(0x150);
     if (p)
         return p->run(this);
     return 0;

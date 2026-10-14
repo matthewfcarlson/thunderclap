@@ -1,4 +1,4 @@
-class C {
+class C_fc160 {
   public:
     virtual void a();
     virtual void b();
@@ -6,7 +6,7 @@ class C {
     virtual void d();
     virtual void e();
 };
-C* g;
+C_fc160* g_fc160;
 void f() {
-    g->e();
+    g_fc160->e();
 }

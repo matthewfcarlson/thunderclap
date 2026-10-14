@@ -1,17 +1,17 @@
-struct Obj;
-struct Entry {
+struct Obj_b8c50;
+struct Entry_b8c50 {
     char pad[0x14];
     int field14;
 };
 
-Obj* __cdecl GetManager();
-Entry* __cdecl FindEntry(int key);
+Obj_b8c50* __cdecl GetManager();
+Entry_b8c50* __cdecl FindEntry(int key);
 
-struct Obj {
+struct Obj_b8c50 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Obj* v3(int arg);
+    virtual Obj_b8c50* v3(int arg);
     virtual void v4();
     virtual void v5();
     virtual void v6();
@@ -31,9 +31,9 @@ struct Obj {
 };
 
 void __stdcall TargetFn(int param1, int param2) {
-    Obj* obj = GetManager()->v3(param1);
+    Obj_b8c50* obj = GetManager()->v3(param1);
     if (obj) {
-        Entry* entry = FindEntry(param2);
+        Entry_b8c50* entry = FindEntry(param2);
         if (entry) {
             obj->v19(entry->field14);
         }

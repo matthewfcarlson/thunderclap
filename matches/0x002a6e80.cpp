@@ -1,11 +1,11 @@
 extern "C" char DAT_0042da6c[];
 void* __cdecl alloc(unsigned int);
 class VertexAnimController;
-class Base {
+class Base_2a6e80 {
   public:
     void init(VertexAnimController*);
 };
-class Helper {
+class Helper_2a6e80 {
   public:
     virtual void release();
     virtual void destroy();
@@ -40,18 +40,18 @@ class VertexAnimController {
     virtual void f25();
     virtual void f26();
     char pad[0x3c];
-    Helper* member;
+    Helper_2a6e80* member;
 };
 VertexAnimController* VertexAnimController::vfunc_4() {
     VertexAnimController* p = (VertexAnimController*)alloc(0x48);
     if (p) {
-        ((Base*)p)->init(this);
+        ((Base_2a6e80*)p)->init(this);
         *(unsigned int*)p = ((int)DAT_0042da6c);
         p->member = 0;
-        Helper* old = member;
+        Helper_2a6e80* old = member;
         if (old)
             old->release();
-        Helper* cur = p->member;
+        Helper_2a6e80* cur = p->member;
         if (cur)
             cur->destroy();
         p->member = old;

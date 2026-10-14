@@ -8,11 +8,11 @@ struct HitFloatTrack {
     virtual void f();
     int x;
 };
-struct Initializer {
+struct Initializer_159fa0 {
     void Init();
 };
 extern void* __cdecl Allocate(unsigned int);
-class Factory {
+class Factory_159fa0 {
   public:
     virtual void a();
     virtual void b();
@@ -21,10 +21,10 @@ class Factory {
     virtual void e();
     virtual HitFloatTrack* Make();
 };
-HitFloatTrack* Factory::Make() {
+HitFloatTrack* Factory_159fa0::Make() {
     HitFloatTrack* p = (HitFloatTrack*)Allocate(0x28);
     if (p) {
-        ((Initializer*)p)->Init();
+        ((Initializer_159fa0*)p)->Init();
         *(int*)((char*)p + 12) = 0;
         *((char*)p + 20) = 0;
         *(int*)((char*)p + 24) = 0;

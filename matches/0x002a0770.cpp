@@ -1,4 +1,4 @@
-struct Manager {
+struct Manager_2a0770 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -39,7 +39,7 @@ struct Manager {
     virtual void f37();
     virtual void f38(int, int);
 };
-extern Manager* gManager;
+extern Manager_2a0770* gManager_2a0770;
 struct Light {
     char pad[0x10];
     unsigned char flag;
@@ -49,7 +49,7 @@ struct Light {
 };
 void Light::vfunc_6() {
     if (id != -1) {
-        gManager->f38(id, 0);
+        gManager_2a0770->f38(id, 0);
         flag = 0;
         id = -1;
     }

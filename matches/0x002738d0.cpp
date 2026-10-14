@@ -1,4 +1,4 @@
-class Inner {
+class Inner_2738d0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -39,7 +39,7 @@ class Request {
 class FileRequest : public Request {
   public:
     char pad[4];
-    Inner* m;
+    Inner_2738d0* m;
     void vfunc_5();
 };
 void FileRequest::vfunc_5() {

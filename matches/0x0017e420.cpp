@@ -4,7 +4,7 @@ class DriftTrack {
     volatile int a[8];
 };
 void* __cdecl Alloc(unsigned int);
-class InitObj {
+class InitObj_17e420 {
   public:
     void Init();
 };
@@ -20,7 +20,7 @@ class TrackFactory {
 DriftTrack* TrackFactory::f5() {
     DriftTrack* p = (DriftTrack*)Alloc(0x20);
     if (p) {
-        ((InitObj*)p)->Init();
+        ((InitObj_17e420*)p)->Init();
         p->a[3] = 0;
         p->a[0] = ((int)DAT_00417a78);
         p->a[4] = (int)0xbf800000;

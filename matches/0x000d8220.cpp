@@ -1,24 +1,24 @@
-class B {
+class B_d8220 {
   public:
     void F1();
     int F2();
     void F3();
 };
-class A {
+class A_d8220 {
   public:
-    B* Inner();
+    B_d8220* Inner();
 };
-class M {
+class M_d8220 {
   public:
-    A* Get(int);
+    A_d8220* Get(int);
 };
-class C {
+class C_d8220 {
   public:
     int Run(int x);
     char pad[0x150];
-    M* m;
+    M_d8220* m;
 };
-int C::Run(int x) {
+int C_d8220::Run(int x) {
     m->Get(x)->Inner()->F1();
     int r = m->Get(x)->Inner()->F2();
     m->Get(x)->Inner()->F3();

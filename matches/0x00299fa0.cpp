@@ -1,17 +1,17 @@
 extern void __cdecl Release(void*) throw();
 extern void __cdecl FUN_00299ac0(void*, void*) throw();
-template <int N> struct Buf {
+template <int N> struct Buf_299fa0 {
     void* p;
     char pad[N - 4];
-    ~Buf() {
+    ~Buf_299fa0() {
         if (p)
             Release(p);
     }
 };
-struct Range {
+struct Range_299fa0 {
     void* b;
     void* e;
-    ~Range() {
+    ~Range_299fa0() {
         if (b) {
             FUN_00299ac0(b, e);
             Release(b);
@@ -25,11 +25,11 @@ class IRefCount {
 };
 class CompositeDrawable : public IRefCount {
   public:
-    Buf<0xc> m8;
-    Buf<0x10> m14;
-    Buf<0xc> m24;
-    Buf<0xc> m30;
-    Range m3c;
+    Buf_299fa0<0xc> m8;
+    Buf_299fa0<0x10> m14;
+    Buf_299fa0<0xc> m24;
+    Buf_299fa0<0xc> m30;
+    Range_299fa0 m3c;
     virtual ~CompositeDrawable();
 };
 CompositeDrawable::~CompositeDrawable() {}

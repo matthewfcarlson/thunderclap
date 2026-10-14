@@ -1,24 +1,24 @@
 extern "C" void _ReadWriteBarrier();
-extern int vt1;
-class Ref {
+extern int vt1_2a3950;
+class Ref_2a3950 {
   public:
     virtual void f0();
     virtual void Release();
 };
-class Root {
+class Root_2a3950 {
   public:
     void* vptr;
-    ~Root() throw();
+    ~Root_2a3950() throw();
 };
-class D : public Root {
+class D : public Root_2a3950 {
   public:
     char pa4[160];
-    Ref* aa4;
-    Ref* aa8;
+    Ref_2a3950* aa4;
+    Ref_2a3950* aa8;
     ~D() throw();
 };
 D::~D() throw() {
-    vptr = &vt1;
+    vptr = &vt1_2a3950;
     _ReadWriteBarrier();
     if (aa4) {
         aa4->Release();

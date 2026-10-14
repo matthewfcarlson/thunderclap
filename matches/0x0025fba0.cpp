@@ -1,14 +1,14 @@
 extern "C" char DAT_00429420[];
-typedef unsigned int U;
+typedef unsigned int U_25fba0;
 struct MetaTypeAttribBase {
     void* vptr;
     char pad[0x10];
-    U a;
-    U b;
-    MetaTypeAttribBase* init(void*, U, U);
+    U_25fba0 a;
+    U_25fba0 b;
+    MetaTypeAttribBase* init(void*, U_25fba0, U_25fba0);
 };
-void __cdecl FUN_0025f450(void*, MetaTypeAttribBase*, U*);
-MetaTypeAttribBase* MetaTypeAttribBase::init(void* p, U c, U d) {
+void __cdecl FUN_0025f450(void*, MetaTypeAttribBase*, U_25fba0*);
+MetaTypeAttribBase* MetaTypeAttribBase::init(void* p, U_25fba0 c, U_25fba0 d) {
     a = d;
     vptr = (void*)((int)DAT_00429420);
     b = c;

@@ -1,25 +1,25 @@
-struct Data {
+struct Data_1c5e80 {
     unsigned int a, b, c;
 };
-struct Buffer {
+struct Buffer_1c5e80 {
     char data[48];
     unsigned int a, b, c;
     char extra[4];
     void Init();
 };
-class Child {
+class Child_1c5e80 {
   public:
-    void Run(Buffer*);
+    void Run(Buffer_1c5e80*);
 };
-class Obj {
+class Obj_1c5e80 {
   public:
     char pad[0x10];
-    Child* m;
-    void f(Data* p);
+    Child_1c5e80* m;
+    void f(Data_1c5e80* p);
 };
-void Obj::f(Data* p) {
+void Obj_1c5e80::f(Data_1c5e80* p) {
     if (m) {
-        Buffer b;
+        Buffer_1c5e80 b;
         b.Init();
         b.a = p->a;
         b.b = p->b;

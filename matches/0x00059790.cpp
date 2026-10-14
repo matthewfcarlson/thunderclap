@@ -1,15 +1,15 @@
-class Item {
+class Item_59790 {
   public:
     virtual void First();
     virtual void Second();
 };
-class Owner {
+class Owner_59790 {
   public:
     char pad[0x10];
-    Item* item;
-    void Set(Item* p);
+    Item_59790* item;
+    void Set(Item_59790* p);
 };
-void Owner::Set(Item* p) {
+void Owner_59790::Set(Item_59790* p) {
     if (p)
         p->First();
     if (item)

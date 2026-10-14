@@ -1,24 +1,24 @@
-class Part {
+class Part_1ecc80 {
   public:
     int Check();
 };
-class Obj {
+class Obj_1ecc80 {
   public:
     char pad[0xec];
-    Part* component;
+    Part_1ecc80* component;
 };
-class Owner {
+class Owner_1ecc80 {
   public:
     char pad[0x11c];
-    Part* component;
+    Part_1ecc80* component;
 };
-class Thing {
+class Thing_1ecc80 {
   public:
     char pad[0x1c];
-    void Play(Obj*, const char*, float, int);
-    void Fn(Owner*, Obj*, Obj*, int);
+    void Play(Obj_1ecc80*, const char*, float, int);
+    void Fn(Owner_1ecc80*, Obj_1ecc80*, Obj_1ecc80*, int);
 };
-void Thing::Fn(Owner* a, Obj* b, Obj* c, int d) {
+void Thing_1ecc80::Fn(Owner_1ecc80* a, Obj_1ecc80* b, Obj_1ecc80* c, int d) {
     if (!a)
         return;
     if (!a->component)

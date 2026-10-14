@@ -1,4 +1,4 @@
-extern int* g_table;
+extern int* g_table_6b090;
 
 class CMotionHitGroundHeightTrack {
   public:
@@ -6,5 +6,5 @@ class CMotionHitGroundHeightTrack {
 };
 
 int CMotionHitGroundHeightTrack::vfunc_0(int index) {
-    return g_table[index];
+    return g_table_6b090[index];
 }

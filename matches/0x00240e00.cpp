@@ -1,10 +1,10 @@
 extern "C" {
-struct S {
+struct S_240e00 {
     char pad[0x98];
     float value;
 };
-extern S* g;
+extern S_240e00* g_240e00;
 void __cdecl target(float x) {
-    g->value = x;
+    g_240e00->value = x;
 }
 }

@@ -1,5 +1,5 @@
 extern "C" char DAT_00428de0[];
-class Ref {
+class Ref_23e8c0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -13,15 +13,15 @@ class fight_StopAction {
     virtual void f4();
     virtual void f5();
     char pad[0x18];
-    Ref* m1c;
+    Ref_23e8c0* m1c;
     char pad20[8];
-    Ref* volatile m28;
+    Ref_23e8c0* volatile m28;
     void cleanup();
 };
 void destroy(fight_StopAction*);
 fight_StopAction* fight_StopAction::vfunc_2(unsigned char param) {
     *(volatile int*)this = ((int)DAT_00428de0);
-    Ref* r = m28;
+    Ref_23e8c0* r = m28;
     if (r) {
         r->f1();
         m28 = 0;

@@ -1,9 +1,9 @@
 extern "C" char DAT_00429fac[];
-class Base {
+class Base_2527b0 {
   public:
     void Init();
 };
-class SeqEventVarVolume : public Base {
+class SeqEventVarVolume : public Base_2527b0 {
   public:
     int vtable;
     int pad;

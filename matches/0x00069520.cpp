@@ -1,31 +1,31 @@
-class Base {
+class Base_69520 {
   public:
     virtual void Fn();
-    Base();
+    Base_69520();
     char pad[0x0c];
 };
 
-class Member {
+class Member_69520 {
   public:
-    Member();
+    Member_69520();
     char pad[8];
 };
 
-class CKeyPoseTrack : public Base {
+class CKeyPoseTrack : public Base_69520 {
   public:
     virtual ~CKeyPoseTrack() throw();
-    Member m10;
+    Member_69520 m10;
     float arr[16];
     char m58;
     char pad1[7];
-    Member m60;
+    Member_69520 m60;
     int m68;
     float m6c;
     float m70;
     CKeyPoseTrack();
 };
 
-CKeyPoseTrack::CKeyPoseTrack() : Base(), m10(), m58(1), m60() {
+CKeyPoseTrack::CKeyPoseTrack() : Base_69520(), m10(), m58(1), m60() {
     {
         int* q = &m68;
         *q = 0;

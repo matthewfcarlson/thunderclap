@@ -9,8 +9,8 @@ struct Type {
 extern Type tokType;
 extern Type floatType;
 Node* __cdecl GetToken(Node*, int, Type*, Type*, int);
-extern float zeroVal;
-class Obj {
+extern float zeroVal_fad30;
+class Obj_fad30 {
   public:
     char pad0[8];
     Node* root;
@@ -19,10 +19,10 @@ class Obj {
     unsigned char done;
     float run();
 };
-float Obj::run() {
+float Obj_fad30::run() {
     Node* ed = root;
     if (!ed)
-        return zeroVal;
+        return zeroVal_fad30;
     Node* eax;
     if (done == 1) {
         eax = 0;

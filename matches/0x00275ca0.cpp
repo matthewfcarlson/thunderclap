@@ -1,15 +1,15 @@
-struct Lock {
+struct Lock_275ca0 {
     virtual void lock();
     virtual void unlock();
 };
 struct Drive {
     virtual void slot0();
     virtual void release();
-    Lock guard;
+    Lock_275ca0 guard;
     char pad[12];
     int count;
 };
-struct Alloc {
+struct Alloc_275ca0 {
     virtual void s0();
     virtual void s1();
     virtual void s2();
@@ -17,7 +17,7 @@ struct Alloc {
     virtual void free(void*);
 };
 extern char DAT_0052a1c8;
-extern Alloc* DAT_0052a1e4;
+extern Alloc_275ca0* DAT_0052a1e4;
 void __cdecl FUN_0026d850(void*);
 void __cdecl FUN_0026d840(void*);
 namespace core {

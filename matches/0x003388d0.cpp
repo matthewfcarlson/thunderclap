@@ -3,7 +3,7 @@ struct T3 {
     char c[3];
 };
 void* __cdecl FUN_0008d690(unsigned n) throw();
-class O {
+class O_3388d0 {
   public:
     void* vptr;
     int m4, m8, mc, m10, m14, m18;
@@ -29,11 +29,11 @@ class O {
     T3 s86a;
     char pad8[5];
     char c872;
-    O(int a, int b) throw();
+    O_3388d0(int a, int b) throw();
     void F1(char* p, const unsigned short* w) throw();
     void F2() throw();
 };
-O::O(int a, int b) throw() {
+O_3388d0::O_3388d0(int a, int b) throw() {
     m8 = b;
     vptr = vA;
     m14 = (int)FUN_0008d690(b + 0x40);

@@ -1,48 +1,48 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_a[];
-extern void* g_b[];
+extern void* g_a_ee000[];
+extern void* g_b_ee000[];
 void operator delete(void*);
-class Ref {
+class Ref_ee000 {
   public:
     virtual void F0();
     virtual void Release();
 };
-struct Pool {
+struct Pool_ee000 {
     void Free(void*) throw();
 };
-struct Mgr {
+struct Mgr_ee000 {
     char pad[8];
-    Pool* pool;
+    Pool_ee000* pool;
 };
-struct Item {
+struct Item_ee000 {
     char pad[0x18];
     int f;
 };
-struct Sub {
+struct Sub_ee000 {
     void Fin() throw();
 };
-class Obj {
+class Obj_ee000 {
   public:
     void* vptr;
     char pad0[0x14];
-    Sub sub;
+    Sub_ee000 sub;
     char pad1[0x50 - 0x19];
-    Ref* m50;
+    Ref_ee000* m50;
     char pad2[0xc];
-    Ref* m60;
-    Ref* m64;
+    Ref_ee000* m60;
+    Ref_ee000* m64;
     char pad3[0xa8 - 0x68];
-    Mgr* ma8;
+    Mgr_ee000* ma8;
     void* mac;
     char pad4[0x150 - 0xb0];
-    Ref* arr[8][8];
+    Ref_ee000* arr[8][8];
     char pad5[0x2ac - 0x250];
-    Item* m2ac;
+    Item_ee000* m2ac;
     void f();
 };
-void Obj::f() {
-    Item* it = m2ac;
-    vptr = g_a;
+void Obj_ee000::f() {
+    Item_ee000* it = m2ac;
+    vptr = g_a_ee000;
     if (it) {
         ma8->pool->Free(&it->f);
         m2ac = 0;
@@ -53,7 +53,7 @@ void Obj::f() {
                 arr[i][j]->Release();
                 arr[i][j] = 0;
             }
-    vptr = g_b;
+    vptr = g_b_ee000;
     _ReadWriteBarrier();
     if (m50) {
         m50->Release();

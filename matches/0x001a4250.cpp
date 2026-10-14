@@ -2,14 +2,14 @@ extern "C" void release(void*);
 extern "C" void* alloc(unsigned int);
 extern "C" unsigned int strlen(const char*);
 extern "C" char* strcpy(char*, const char*);
-class Obj {
+class Obj_1a4250 {
     char pad[0x120];
     char* str;
 
   public:
     unsigned char Set(const char* s);
 };
-unsigned char Obj::Set(const char* s) {
+unsigned char Obj_1a4250::Set(const char* s) {
     release(str);
     if (!s) {
         str = 0;

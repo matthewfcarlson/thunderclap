@@ -1,8 +1,8 @@
 extern int ImageVtable;
 extern void BaseInit();
-class Sub {
+class Sub_2bfb20 {
   public:
-    void Copy(const Sub*);
+    void Copy(const Sub_2bfb20*);
 };
 struct Image {
     int* vt;
@@ -21,7 +21,7 @@ Image::Image(const Image* src) {
     BaseInit();
     vt = &ImageVtable;
     if (src)
-        ((Sub*)((char*)this + 8))->Copy((const Sub*)((const char*)src + 8));
+        ((Sub_2bfb20*)((char*)this + 8))->Copy((const Sub_2bfb20*)((const char*)src + 8));
     m24 = 0;
     m20 = src->m20;
     m1c = src->m1c;

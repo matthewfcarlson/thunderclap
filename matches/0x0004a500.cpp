@@ -1,4 +1,4 @@
-struct Status {
+struct Status_4a500 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -12,7 +12,7 @@ struct Status {
 };
 struct Entity {
     char pad[0x1ca0];
-    Status* status;
+    Status_4a500* status;
 };
 class CAlertStatusCondition {
   public:

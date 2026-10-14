@@ -11,14 +11,14 @@ extern char check4(void*, void*);
 extern char check2(void*, void*);
 extern char check3(void*, void*);
 extern char check5(void*, void*);
-class Tail {
+class Tail_255870 {
   public:
     char f(void*);
 };
 class SeqEventCrossFade : public SeqEvent {
   public:
     char pad[0x28];
-    Tail tail;
+    Tail_255870 tail;
     virtual int vfunc_0(void*);
     virtual void vfunc_1();
     virtual void vfunc_2();

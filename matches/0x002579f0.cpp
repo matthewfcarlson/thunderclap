@@ -5,7 +5,7 @@ class Entity {
     char pad[0x24];
 };
 } // namespace om
-extern char g_pool[];
+extern char g_pool_2579f0[];
 void Release2(void*, void*) throw();
 void F1(void*) throw();
 void F2(void*) throw();
@@ -20,7 +20,7 @@ class Sequence : public om::Entity {
     char m3c[8];
     char m44[8];
     virtual ~Sequence() throw();
-    static void operator delete(void* p) { Release2(g_pool, p); }
+    static void operator delete(void* p) { Release2(g_pool_2579f0, p); }
 };
 Sequence::~Sequence() throw() {
     sb.Reset();

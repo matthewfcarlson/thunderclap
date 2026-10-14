@@ -1,31 +1,31 @@
 extern "C" char DAT_00415970[];
-struct InitBase {
+struct InitBase_164fb0 {
     void init(int);
 };
-struct Sub {
+struct Sub_164fb0 {
     void setup();
 };
-struct Obj {
+struct Obj_164fb0 {
     unsigned vptr;
     char pad[12];
-    Sub sub;
+    Sub_164fb0 sub;
     char pad2[4];
     int x;
     unsigned char flag;
 };
 void* __cdecl Alloc(unsigned int);
-struct Factory {
+struct Factory_164fb0 {
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void d();
     virtual void e();
-    virtual Obj* vfunc_5();
+    virtual Obj_164fb0* vfunc_5();
 };
-Obj* Factory::vfunc_5() {
-    Obj* p = (Obj*)Alloc(0x20);
+Obj_164fb0* Factory_164fb0::vfunc_5() {
+    Obj_164fb0* p = (Obj_164fb0*)Alloc(0x20);
     if (p) {
-        ((InitBase*)p)->init(0);
+        ((InitBase_164fb0*)p)->init(0);
         p->vptr = ((int)DAT_00415970);
         p->sub.setup();
         p->x = 0;

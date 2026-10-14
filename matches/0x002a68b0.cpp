@@ -1,24 +1,24 @@
-class Item {
+class Item_2a68b0 {
   public:
     virtual void A();
     virtual void Release();
 };
 void Free(void*);
-class Owner {
+class Owner_2a68b0 {
   public:
     char pad[0x40];
     int x40;
     int x44;
     unsigned int count;
-    Item** items;
+    Item_2a68b0** items;
     void Run();
 };
-void Owner::Run() {
+void Owner_2a68b0::Run() {
     unsigned int i = 0;
     if (0 < count) {
         do {
-            Item** slot = &items[i];
-            Item* p = *slot;
+            Item_2a68b0** slot = &items[i];
+            Item_2a68b0* p = *slot;
             if (p) {
                 p->Release();
                 *slot = 0;

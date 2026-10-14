@@ -1,10 +1,10 @@
-class X {
+class X_24b310 {
   public:
     char pad[0x78];
     unsigned char a, b, c;
     int f(void* p);
 };
-int X::f(void* p) {
+int X_24b310::f(void* p) {
     int i = ((char*)p - (char*)this) / 12;
     if (i == ((int)b + (int)a - 1) % (int)c)
         return 0;

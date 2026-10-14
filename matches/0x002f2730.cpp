@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2f2730 {
   public:
     char pad[8];
     int m8;
@@ -9,7 +9,7 @@ class Obj {
     void Fn(int v);
 };
 
-void Obj::Fn(int v) {
+void Obj_2f2730::Fn(int v) {
     int t = m18;
     m1c = v;
     m8 = t;

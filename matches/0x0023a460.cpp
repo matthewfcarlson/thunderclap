@@ -1,4 +1,4 @@
-class Delegate {
+class Delegate_23a460 {
   public:
     virtual void f0();
     virtual void f1();
@@ -29,7 +29,7 @@ class Delegate {
 class StringReader {
   public:
     char pad[8];
-    Delegate* sub;
+    Delegate_23a460* sub;
 };
 class IFileStringReader : public StringReader {
   public:

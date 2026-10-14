@@ -1,12 +1,12 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_a[];
+extern void* g_a_1c86e0[];
 extern void* g_s[];
-class Ref {
+class Ref_1c86e0 {
   public:
     virtual void F0();
     virtual void Release();
 };
-struct Q {
+struct Q_1c86e0 {
     void Fin() throw();
 };
 struct Store {
@@ -23,24 +23,24 @@ struct H {
     int b[4];
     void Fin() throw();
 };
-class Obj {
+class Obj_1c86e0 {
   public:
     void* vptr;
     char pad0[4];
-    Ref* m8;
-    Ref* mc;
+    Ref_1c86e0* m8;
+    Ref_1c86e0* mc;
     H h;
     char pad2[0x750 - 0x10 - sizeof(H)];
-    Ref* m750;
+    Ref_1c86e0* m750;
     char pad3[4];
-    Q q758;
+    Q_1c86e0 q758;
     char pad4[7];
-    Ref* m760;
+    Ref_1c86e0* m760;
     void f();
 };
-void Obj::f() {
-    *(void* volatile*)&vptr = g_a;
-    Ref* r8 = *(Ref* volatile*)&m8;
+void Obj_1c86e0::f() {
+    *(void* volatile*)&vptr = g_a_1c86e0;
+    Ref_1c86e0* r8 = *(Ref_1c86e0* volatile*)&m8;
     if (r8) {
         r8->Release();
         m8 = 0;

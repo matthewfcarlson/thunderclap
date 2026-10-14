@@ -1,28 +1,28 @@
-class B {
+class B_1d2110 {
     char pad[8];
 
   public:
     int m;
 };
-extern void FUN_00213550(B*, int);
-extern void FUN_002134a0(B*, void*, int);
-extern void FUN_00213790(B*, int, int*);
+extern void FUN_00213550(B_1d2110*, int);
+extern void FUN_002134a0(B_1d2110*, void*, int);
+extern void FUN_00213790(B_1d2110*, int, int*);
 extern char FUN_001d0cf0;
 extern char FUN_001d0d30;
-struct Arg {
+struct Arg_1d2110 {
     int x;
     char pad[0x80];
     int value;
     unsigned char flag;
 };
-class A {
+class A_1d2110 {
     char pad[8];
 
   public:
-    B* b;
-    void f(Arg*);
+    B_1d2110* b;
+    void f(Arg_1d2110*);
 };
-void A::f(Arg* arg) {
+void A_1d2110::f(Arg_1d2110* arg) {
     FUN_00213550(b, arg->x);
     if (arg->flag) {
         FUN_00213550(b, arg->value);

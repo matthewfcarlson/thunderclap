@@ -1,5 +1,5 @@
-typedef unsigned int u32;
-extern u32 PrintTrack_vftable;
+typedef unsigned int u32_238a50;
+extern u32_238a50 PrintTrack_vftable;
 void __cdecl ReleaseThing(int);
 struct PrintTrack {
     virtual void a();
@@ -13,7 +13,7 @@ struct PrintTrack {
     void Cleanup();
 };
 void PrintTrack::Finish() {
-    *(u32*)this = (u32)&PrintTrack_vftable;
+    *(u32_238a50*)this = (u32_238a50)&PrintTrack_vftable;
     ReleaseThing(m10);
     ReleaseThing(m14);
     Cleanup();

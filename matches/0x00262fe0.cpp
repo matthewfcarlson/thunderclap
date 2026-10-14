@@ -1,4 +1,4 @@
-struct Dev {
+struct Dev_262fe0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -34,7 +34,7 @@ class HalRsdFileStream {
     virtual void v6();
     virtual unsigned vfunc_7(int a, int b, unsigned n);
     char pad[0x20 - 4];
-    Dev* mDev;
+    Dev_262fe0* mDev;
     char pad2[0x2c - 0x24];
     unsigned mAvail;
     char pad3[0x3c - 0x30];

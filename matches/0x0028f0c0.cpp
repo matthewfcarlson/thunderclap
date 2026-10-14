@@ -17,7 +17,7 @@ class ShaderMatrixBroadcast : public ShaderCallback {
     Matrix matrix;
     int vfunc_3(int param);
 };
-class Receiver {
+class Receiver_28f0c0 {
   public:
     virtual void a();
     virtual void b();
@@ -36,7 +36,7 @@ int ShaderMatrixBroadcast::vfunc_3(int param) {
     if (param) {
         int v = value;
         copy = matrix;
-        Receiver* r = *(Receiver**)((char*)param + 0x10);
+        Receiver_28f0c0* r = *(Receiver_28f0c0**)((char*)param + 0x10);
         r->send(v, &copy);
     }
     return param;

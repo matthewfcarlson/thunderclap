@@ -3,7 +3,7 @@ class StopTrack {
   public:
     void Init();
 };
-class Factory {
+class Factory_6f670 {
   public:
     virtual void a();
     virtual void b();
@@ -13,7 +13,7 @@ class Factory {
     virtual StopTrack* Make();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-StopTrack* Factory::Make() {
+StopTrack* Factory_6f670::Make() {
     StopTrack* p = (StopTrack*)FUN_0008d690(0x18);
     if (p) {
         p->Init();

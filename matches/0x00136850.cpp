@@ -1,10 +1,10 @@
 extern "C" char DAT_00411e34[];
-class Ref {
+class Ref_136850 {
   public:
     virtual void Fn();
     virtual void Release();
 };
-class Base {
+class Base_136850 {
   public:
     void Init();
 };
@@ -13,11 +13,11 @@ class AirToGroundTargetAction {
     int vf;
     char pad[0x18];
     int a, b, c, d, e, f;
-    AirToGroundTargetAction(int x, Ref* r);
+    AirToGroundTargetAction(int x, Ref_136850* r);
 };
-AirToGroundTargetAction::AirToGroundTargetAction(int x, Ref* r) {
-    ((Base*)this)->Init();
-    Ref* q = r;
+AirToGroundTargetAction::AirToGroundTargetAction(int x, Ref_136850* r) {
+    ((Base_136850*)this)->Init();
+    Ref_136850* q = r;
     volatile int* p = &vf;
     *p = ((int)DAT_00411e34);
     volatile int* z = &a;
@@ -31,6 +31,6 @@ AirToGroundTargetAction::AirToGroundTargetAction(int x, Ref* r) {
     if (q)
         q->Fn();
     if (b)
-        ((Ref*)b)->Release();
+        ((Ref_136850*)b)->Release();
     b = (int)q;
 }

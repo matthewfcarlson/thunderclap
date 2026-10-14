@@ -1,4 +1,4 @@
-class Thing {
+class Thing_266760 {
     char pad[0x14];
 
   public:
@@ -7,7 +7,7 @@ class Thing {
 };
 void thunk();
 void step();
-void Thing::Wait() {
+void Thing_266760::Wait() {
     while (state != 3) {
         thunk();
         step();

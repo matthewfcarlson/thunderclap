@@ -1,6 +1,6 @@
 // cl-flags: /O2 /GR /GX
 
-class Buffer {
+class Buffer_3048a0 {
   public:
     int mSize;
     int mCapacity;
@@ -16,7 +16,7 @@ extern "C" void* __cdecl AllocFunc(int size);
 extern "C" void __cdecl FreeFunc(void* ptr);
 extern "C" void* __cdecl memcpy(void* dst, const void* src, size_t size);
 
-void Buffer::Grow(int newCapacity) {
+void Buffer_3048a0::Grow(int newCapacity) {
     if (newCapacity == 0)
         newCapacity = 2;
     if (mCapacity >= newCapacity)

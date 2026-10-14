@@ -1,5 +1,5 @@
 typedef unsigned int uint;
-struct Obj {
+struct Obj_25e310 {
     char pad0[4];
     uint m4;
     char pad8[8];
@@ -10,7 +10,7 @@ struct Obj {
     char pad1c[12];
     uint m28;
 };
-int __cdecl FUN_0025e310(Obj* p) {
+int __cdecl FUN_0025e310(Obj_25e310* p) {
     uint end, result;
     uint* q;
     if (p->m28 != 0) {

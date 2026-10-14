@@ -1,4 +1,4 @@
-class Thing {
+class Thing_225a20 {
   public:
     char pad0[0x20];
     int value20;
@@ -14,11 +14,11 @@ class Thing {
     char pad236[2];
     int d238;
     int d23c;
-    void First(Thing*);
+    void First(Thing_225a20*);
     void Second(int);
-    Thing* Copy(Thing*);
+    Thing_225a20* Copy(Thing_225a20*);
 };
-Thing* Thing::Copy(Thing* src) {
+Thing_225a20* Thing_225a20::Copy(Thing_225a20* src) {
     First(src);
     Second(src->value20);
     b224 = src->b224;

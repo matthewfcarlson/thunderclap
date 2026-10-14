@@ -1,23 +1,23 @@
 extern void* vA[];
 extern "C" void _ReadWriteBarrier();
-struct Sub {
+struct Sub_2ef7f0 {
     char pad[0x40];
     void Init() throw();
 };
-class O {
+class O_2ef7f0 {
   public:
     void* vptr;
     int m4, m8, mc;
-    Sub sub;
+    Sub_2ef7f0 sub;
     int m50, m54, m58, m5c, m60, m64;
     float f68;
     int m6c, m70, m74;
     char c78;
     int m7c, m80;
     char c84, c85;
-    O(int a) throw();
+    O_2ef7f0(int a) throw();
 };
-O::O(int a) throw() {
+O_2ef7f0::O_2ef7f0(int a) throw() {
     int t = *(volatile int*)&a;
     m4 = 0;
     vptr = vA;

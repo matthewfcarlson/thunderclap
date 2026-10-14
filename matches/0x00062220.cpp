@@ -1,5 +1,5 @@
 extern "C" char DAT_003faf60[];
-struct Helper {
+struct Helper_62220 {
     void Run();
 };
 struct CSmartPropAttachTrack {
@@ -12,8 +12,8 @@ struct Finalizer {
 };
 void CSmartPropAttachTrack::Construct() {
     vf = (void*)((int)DAT_003faf60);
-    ((Helper*)((char*)this + 0x58))->Run();
-    ((Helper*)((char*)this + 0x20))->Run();
-    ((Helper*)((char*)this + 0x18))->Run();
+    ((Helper_62220*)((char*)this + 0x58))->Run();
+    ((Helper_62220*)((char*)this + 0x20))->Run();
+    ((Helper_62220*)((char*)this + 0x18))->Run();
     ((Finalizer*)this)->Run();
 }

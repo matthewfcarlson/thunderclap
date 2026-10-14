@@ -1,30 +1,30 @@
-extern void* g_vftable[];
+extern void* g_vftable_2893b0[];
 void operator delete[](void*);
-class Item {
+class Item_2893b0 {
   public:
     virtual void Del(int);
     virtual void Release();
 };
-class Base {
+class Base_2893b0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_2893b0 : public Base_2893b0 {
   public:
     char pad[0x24];
     int count;
-    Item** items;
-    Item* owner;
+    Item_2893b0** items;
+    Item_2893b0* owner;
     char pad2[4];
     void* m38;
-    ~Obj();
+    ~Obj_2893b0();
 };
-Obj::~Obj() {
-    vptr = g_vftable;
+Obj_2893b0::~Obj_2893b0() {
+    vptr = g_vftable_2893b0;
     if (owner == 0) {
         for (int i = 0; i < count; ++i) {
-            Item* p = items[i];
+            Item_2893b0* p = items[i];
             if (p)
                 p->Del(1);
         }

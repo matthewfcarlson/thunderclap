@@ -1,24 +1,24 @@
-class Mgr {
+class Mgr_b7760 {
   public:
     char Check(int);
 };
-class Obj {
+class Obj_b7760 {
     char pad[0x4c];
 
   public:
-    Mgr* mgr;
+    Mgr_b7760* mgr;
     void Run();
 };
-struct Button {
+struct Button_b7760 {
     char pad[0x141];
     char flag;
 };
 extern "C" void* __cdecl Find(const char*);
-extern "C" Button* __cdecl Convert(void*, int, void*, void*, int);
+extern "C" Button_b7760* __cdecl Convert(void*, int, void*, void*, int);
 extern const char key[];
-extern int type1, type2;
-void Obj::Run() {
-    Button* b = Convert(Find(key), 0, &type1, &type2, 0);
+extern int type1_b7760, type2;
+void Obj_b7760::Run() {
+    Button_b7760* b = Convert(Find(key), 0, &type1_b7760, &type2, 0);
     if (b) {
         int count = 0;
         for (int i = 0x266; i <= 0x2c9; ++i)

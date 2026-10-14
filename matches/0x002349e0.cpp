@@ -1,6 +1,6 @@
 extern "C" char DAT_004279fc[];
 extern "C" char DAT_00427a78[];
-class Sub {
+class Sub_2349e0 {
   public:
     void Init(const char*);
 };
@@ -8,7 +8,7 @@ class ParamValueString {
   public:
     int vf;
     int pad;
-    Sub sub;
+    Sub_2349e0 sub;
     ParamValueString(const char*);
 };
 ParamValueString::ParamValueString(const char* s) {

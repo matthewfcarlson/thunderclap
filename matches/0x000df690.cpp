@@ -1,13 +1,13 @@
-struct E {
+struct E_df690 {
     int a, b;
-    E() : a(0), b(0) {}
+    E_df690() : a(0), b(0) {}
 };
-class Data {
+class Data_df690 {
   public:
-    E a[64];
-    E b[64];
-    E c[64];
-    E d[64];
-    Data();
+    E_df690 a[64];
+    E_df690 b[64];
+    E_df690 c[64];
+    E_df690 d[64];
+    Data_df690();
 };
-Data::Data() {}
+Data_df690::Data_df690() {}

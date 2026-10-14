@@ -1,24 +1,24 @@
-struct Mat {
+struct Mat_2e1750 {
     char d[64];
     void Init();
 };
 void* Alloc(unsigned n);
-class Base {
+class Base_2e1750 {
   public:
-    Base() { a = 0; }
+    Base_2e1750() { a = 0; }
     virtual void f0();
     int a;
 };
-class BoneMatrixList : public Base {
+class BoneMatrixList : public Base_2e1750 {
   public:
     BoneMatrixList(unsigned n);
     virtual void f0();
-    Mat* b;
-    Mat* c;
+    Mat_2e1750* b;
+    Mat_2e1750* c;
 };
 BoneMatrixList::BoneMatrixList(unsigned n) {
     if (n > 0) {
-        b = (Mat*)Alloc(n * 64);
+        b = (Mat_2e1750*)Alloc(n * 64);
         if (b) {
             c = b + n;
             goto L;

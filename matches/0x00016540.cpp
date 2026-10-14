@@ -1,19 +1,19 @@
-struct A {
-    A* get();
+struct A_16540 {
+    A_16540* get();
     int find(void*);
     int remove(void*, int);
 };
-struct B {
-    A* get();
+struct B_16540 {
+    A_16540* get();
 };
-struct Manager {
+struct Manager_16540 {
     char pad[0xc];
-    A* obj;
+    A_16540* obj;
 };
-extern Manager* volatile gManager;
+extern Manager_16540* volatile gManager_16540;
 struct CSmartPropRemoveInstanceAction {
     char pad[0x18];
-    B* owner;
+    B_16540* owner;
     void* instance;
     virtual void f0();
     virtual void f1();
@@ -24,10 +24,10 @@ struct CSmartPropRemoveInstanceAction {
     virtual bool vfunc_6(int);
 };
 bool CSmartPropRemoveInstanceAction::vfunc_6(int) {
-    A* a = owner->get();
+    A_16540* a = owner->get();
     a = a->get();
     int x = a->find(instance);
     if (x)
-        gManager->obj->remove((void*)x, 1);
+        gManager_16540->obj->remove((void*)x, 1);
     return false;
 }

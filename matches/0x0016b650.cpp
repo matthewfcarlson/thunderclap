@@ -28,15 +28,15 @@ template <class T> struct ParamEnumConstList {
     void FUN_00234cc0(const char*);
 };
 } // namespace fight
-typedef fight::ParamEnumConstList<hulkfight::motion::TargetLocomotionMotionStateCondition> List;
+typedef fight::ParamEnumConstList<hulkfight::motion::TargetLocomotionMotionStateCondition> List_16b650;
 void __cdecl FUN_0016b650() {
     if (!DAT_004e124c) {
-        List* lists[2];
+        List_16b650* lists[2];
         void* p = FUN_0008d690(32);
         if (p) {
             uint n = DAT_00427760;
-            ((List*)p)->FUN_00234cc0("compare");
-            List* x = new (p) List;
+            ((List_16b650*)p)->FUN_00234cc0("compare");
+            List_16b650* x = new (p) List_16b650;
             x->values = &DAT_00427758;
             x->count = n;
             x->callback = FUN_001656c0;
@@ -46,8 +46,8 @@ void __cdecl FUN_0016b650() {
         p = FUN_0008d690(32);
         if (p) {
             uint n = DAT_003f5bbc;
-            ((List*)p)->FUN_00234cc0("locomotionMotionState");
-            List* x = new (p) List;
+            ((List_16b650*)p)->FUN_00234cc0("locomotionMotionState");
+            List_16b650* x = new (p) List_16b650;
             x->values = &DAT_0048f590;
             x->count = n;
             x->callback = FUN_001656d0;

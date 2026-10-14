@@ -1,10 +1,10 @@
-class CBase {
+class CBase_69fa0 {
   public:
-    CBase();
-    virtual ~CBase();
+    CBase_69fa0();
+    virtual ~CBase_69fa0();
 };
 
-class CComboTimerTrack : public CBase {
+class CComboTimerTrack : public CBase_69fa0 {
   public:
     virtual ~CComboTimerTrack();
     CComboTimerTrack();

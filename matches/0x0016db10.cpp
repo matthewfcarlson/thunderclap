@@ -1,4 +1,4 @@
-extern char VT[];
+extern char VT_16db10[];
 extern void* __cdecl alloc(unsigned int);
 class TargetCondition {
   public:
@@ -18,7 +18,7 @@ void* TargetCondition::Create() {
     TargetCondition* p = (TargetCondition*)alloc(0x14);
     if (p) {
         p->TargetCondition::TargetCondition(0);
-        *(void**)p = VT;
+        *(void**)p = VT_16db10;
         p->z = 0;
         p->w = 0;
         return p;

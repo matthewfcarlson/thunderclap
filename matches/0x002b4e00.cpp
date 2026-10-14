@@ -1,4 +1,4 @@
-class Manager {
+class Manager_2b4e00 {
   public:
     virtual void m0();
     virtual void m1();
@@ -76,8 +76,8 @@ class Manager {
     virtual void m73();
     virtual void m74(int, int, int);
 };
-extern Manager* gManager;
-class Child {
+extern Manager_2b4e00* gManager_2b4e00;
+class Child_2b4e00 {
   public:
     virtual void a();
     virtual void b();
@@ -90,14 +90,14 @@ class Child {
 class Shadow {
   public:
     char pad[0x40];
-    Child* child;
+    Child_2b4e00* child;
     void vfunc_6();
 };
 void Shadow::vfunc_6() {
-    gManager->m54(2);
-    gManager->m74(0, 0, 3);
+    gManager_2b4e00->m54(2);
+    gManager_2b4e00->m74(0, 0, 3);
     child->g();
-    gManager->m54(1);
-    gManager->m74(0, 0, 4);
+    gManager_2b4e00->m54(1);
+    gManager_2b4e00->m74(0, 0, 4);
     child->g();
 }

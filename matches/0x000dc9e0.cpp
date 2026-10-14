@@ -1,4 +1,4 @@
-class Obj {
+class Obj_dc9e0 {
   public:
     char pad[0x150];
     int limit;
@@ -6,7 +6,7 @@ class Obj {
     char pad2[0x14];
     int* items;
 };
-bool __fastcall target(Obj* p) {
+bool __fastcall target(Obj_dc9e0* p) {
     int i = p->count;
     if (i > 0) {
         if (i < p->limit) {

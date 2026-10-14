@@ -1,24 +1,24 @@
-class Ref {
+class Ref_282190 {
   public:
     virtual void A();
     virtual void Release();
 };
-struct Entry {
+struct Entry_282190 {
     int key;
-    Ref* value;
+    Ref_282190* value;
     char pad[0x14];
 };
-class Owner {
+class Owner_282190 {
   public:
     char pad[0x24];
-    Entry entries[100];
+    Entry_282190 entries[100];
     void Remove(int);
 };
-void Owner::Remove(int key) {
+void Owner_282190::Remove(int key) {
     for (int i = 0; i < 100; ++i) {
         if (entries[i].value != 0 && entries[i].key == key) {
-            Ref* volatile* q = (Ref* volatile*)&entries[i].value;
-            Ref* p = *q;
+            Ref_282190* volatile* q = (Ref_282190* volatile*)&entries[i].value;
+            Ref_282190* p = *q;
             if (p) {
                 p->Release();
                 entries[i].value = 0;

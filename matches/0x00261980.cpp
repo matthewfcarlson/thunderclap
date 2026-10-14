@@ -1,13 +1,13 @@
-typedef unsigned int U;
-extern char* GetText(U);
-extern U Operate(U);
-U __cdecl Target(U param) {
+typedef unsigned int U_261980;
+extern char* GetText(U_261980);
+extern U_261980 Operate(U_261980);
+U_261980 __cdecl Target(U_261980 param) {
     char* p = GetText(param);
     if (*p == 't') {
-        U result = (U)GetText(param);
+        U_261980 result = (U_261980)GetText(param);
         Operate(param);
         return result;
     }
     Operate(param);
-    return (U)GetText(param);
+    return (U_261980)GetText(param);
 }

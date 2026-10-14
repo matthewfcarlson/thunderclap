@@ -1,4 +1,4 @@
-class Receiver {
+class Receiver_ddef0 {
   public:
     void go();
 };
@@ -45,7 +45,7 @@ class FEThingsBase {
     virtual void v38();
     virtual void v39();
     char pad[0x2220];
-    Receiver* ptr;
+    Receiver_ddef0* ptr;
 };
 class FEThings : public FEThingsBase {
   public:

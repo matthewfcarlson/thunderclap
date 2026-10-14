@@ -1,14 +1,14 @@
-class Finder {
+class Finder_65c50 {
   public:
     int Find(int, int);
 };
-class Manager {
+class Manager_65c50 {
   public:
     char pad[0x20];
-    Finder* finder;
+    Finder_65c50* finder;
 };
-extern Manager* gManager;
-class Owner {
+extern Manager_65c50* gManager_65c50;
+class Owner_65c50 {
   public:
     char pad0[0x170];
     struct Entry {
@@ -17,13 +17,13 @@ class Owner {
     } entries[40];
     int count;
 };
-int __fastcall Target(Owner* self) {
+int __fastcall Target(Owner_65c50* self) {
     int i = 0;
     int result = 0;
     if (self->count > 0) {
-        Owner::Entry* e = self->entries;
+        Owner_65c50::Entry* e = self->entries;
         do {
-            Finder* f = gManager->finder;
+            Finder_65c50* f = gManager_65c50->finder;
             result = f->Find(e->a, e->b);
             if (*(char*)((char*)result + 0x1b84) != 0)
                 return result;

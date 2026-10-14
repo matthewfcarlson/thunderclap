@@ -1,17 +1,17 @@
-struct Child {
+struct Child_d72b0 {
     char pad[4];
     char flag;
     unsigned int GetFlags();
     void SetFlags(unsigned int);
 };
-struct Obj {
+struct Obj_d72b0 {
     char pad[4];
-    Child* a;
-    Child* b;
-    Child* c;
+    Child_d72b0* a;
+    Child_d72b0* b;
+    Child_d72b0* c;
     void Update(unsigned int mask);
 };
-void Obj::Update(unsigned int mask) {
+void Obj_d72b0::Update(unsigned int mask) {
     unsigned int flags = b->GetFlags();
     unsigned int keep = mask;
     flags &= 0xffffff7f;

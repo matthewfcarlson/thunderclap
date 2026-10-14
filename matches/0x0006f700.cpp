@@ -1,5 +1,5 @@
 void* __cdecl Allocate(unsigned int);
-struct Grapple {
+struct Grapple_6f700 {
     int Build();
 };
 class TrackFactoryTemplate {
@@ -12,7 +12,7 @@ class TrackFactoryTemplate {
     virtual int vfunc_5();
 };
 int TrackFactoryTemplate::vfunc_5() {
-    Grapple* p = (Grapple*)Allocate(0x80);
+    Grapple_6f700* p = (Grapple_6f700*)Allocate(0x80);
     if (p)
         return p->Build();
     return 0;

@@ -1,12 +1,12 @@
 extern "C" void _ReadWriteBarrier();
 extern int anim_vt;
-class Base {
+class Base_2889b0 {
   public:
     virtual void B();
     int b[3];
-    Base();
+    Base_2889b0();
 };
-class Animation : public Base {
+class Animation : public Base_2889b0 {
   public:
     virtual void B();
     Animation();
@@ -16,7 +16,7 @@ class Animation : public Base {
     char pad2[3];
     int x1c[8];
 };
-Animation::Animation() : Base() {
+Animation::Animation() : Base_2889b0() {
     x10 = 0;
     x18 = 0;
     x1c[0] = 0;

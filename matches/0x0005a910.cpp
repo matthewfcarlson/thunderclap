@@ -1,11 +1,11 @@
 // Same code shape as 0x0005a4c0 (propagated; names are from that function)
-struct A {
+struct A_5a910 {
     void* first();
 };
-struct B {
+struct B_5a910 {
     void* second();
 };
-struct Data {
+struct Data_5a910 {
     char pad330[0x330];
     void* p330;
     void* p334;
@@ -27,11 +27,11 @@ class CGrappleDamageTrack {
 };
 int* CGrappleDamageTrack::vfunc_11(int param) {
     if (param) {
-        void* a = ((A*)param)->first();
+        void* a = ((A_5a910*)param)->first();
         if (a) {
-            void* b = ((B*)a)->second();
+            void* b = ((B_5a910*)a)->second();
             if (b) {
-                Data* d = (Data*)b;
+                Data_5a910* d = (Data_5a910*)b;
                 if (d->p334)
                     return (int*)((char*)d->p334 + 0xdc);
                 if (d->p330)

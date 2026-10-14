@@ -1,5 +1,5 @@
 extern const float limit = -1.0f;
-class Obj {
+class Obj_e86a0 {
   public:
     char pad0[0x3c];
     float value;
@@ -9,7 +9,7 @@ class Obj {
     unsigned char flag;
     void Set(float);
 };
-void Obj::Set(float x) {
+void Obj_e86a0::Set(float x) {
     input = x;
     if (value > limit && x > limit) {
         int r;

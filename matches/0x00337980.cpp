@@ -1,15 +1,15 @@
-struct Obj {
+struct Obj_337980 {
     char pad[0x81c];
     int result;
     int Query();
 };
-struct S {
+struct S_337980 {
     char pad[4];
     int value;
-    Obj* obj;
+    Obj_337980* obj;
     void run();
 };
-void S::run() {
+void S_337980::run() {
     int r;
     int x;
     do {

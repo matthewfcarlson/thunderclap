@@ -1,4 +1,4 @@
-class C {
+class C_2a0820 {
   public:
     virtual void f0();
     virtual void f1();
@@ -14,7 +14,7 @@ class C {
     unsigned char field;
     void target(unsigned char);
 };
-void C::target(unsigned char x) {
+void C_2a0820::target(unsigned char x) {
     field = x;
     f9(0);
 }

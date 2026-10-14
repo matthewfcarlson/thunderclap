@@ -1,15 +1,15 @@
-struct Obj {
+struct Obj_330990 {
     virtual void f();
     virtual void release();
 };
-struct Base {
+struct Base_330990 {
     void destroy();
 };
 struct Toon {
     void* vptr;
     char pad[0x90];
-    Obj* b;
-    Obj* a;
+    Obj_330990* b;
+    Obj_330990* a;
 };
 extern int toonVtable;
 void __fastcall target(Toon* self) {
@@ -18,5 +18,5 @@ void __fastcall target(Toon* self) {
         self->a->release();
     if (self->b)
         self->b->release();
-    ((Base*)self)->destroy();
+    ((Base_330990*)self)->destroy();
 }

@@ -9,7 +9,7 @@ struct LuaTrack {
     void initialize();
 };
 extern void* alloc(unsigned int);
-class Factory {
+class Factory_1a1e40 {
   public:
     virtual void a();
     virtual void b();
@@ -18,7 +18,7 @@ class Factory {
     virtual void e();
     virtual LuaTrack* vfunc_5();
 };
-LuaTrack* Factory::vfunc_5() {
+LuaTrack* Factory_1a1e40::vfunc_5() {
     LuaTrack* p = (LuaTrack*)alloc(0x1c);
     if (p) {
         p->initialize();

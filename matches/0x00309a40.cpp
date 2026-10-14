@@ -1,7 +1,7 @@
-struct Block {
+struct Block_309a40 {
     unsigned int x[16];
 };
-class Buf {
+class Buf_309a40 {
   public:
     void run(void*, void*);
 };
@@ -46,16 +46,16 @@ struct Node {
     char pad[0x10];
     char* base;
 };
-struct Manager {
+struct Manager_309a40 {
     char pad[0x220];
     Node* node;
 };
 
 void PhysicsJoint::vfunc_10(void* arg) {
     char* p = (char*)this;
-    *(Block*)(p + 0xa4) = *(Block*)arg;
-    ((Buf*)(p + 0xa4))->run(p + 0x8c, p + 0x80);
-    Manager* m = (Manager*)link;
+    *(Block_309a40*)(p + 0xa4) = *(Block_309a40*)arg;
+    ((Buf_309a40*)(p + 0xa4))->run(p + 0x8c, p + 0x80);
+    Manager_309a40* m = (Manager_309a40*)link;
     char* base = m->node->base;
-    ((Buf*)(p + 0xa4))->run(base + index * 0x1c, p + 0x98);
+    ((Buf_309a40*)(p + 0xa4))->run(base + index * 0x1c, p + 0x98);
 }

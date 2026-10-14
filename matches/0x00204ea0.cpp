@@ -1,13 +1,13 @@
-class Obj {
+class Obj_204ea0 {
   public:
     virtual void a();
     virtual void release();
 };
-class Inner {
+class Inner_204ea0 {
   public:
     void dispose();
 };
-class A {
+class A_204ea0 {
   public:
     char p0[4];
     unsigned char a, b;
@@ -15,14 +15,14 @@ class A {
     short value;
     char p2[4];
     void* ptr2c;
-    Obj* obj30;
+    Obj_204ea0* obj30;
     char p3[4];
-    Inner* ptr38;
+    Inner_204ea0* ptr38;
     void close();
 };
 extern void fvalue(int);
 extern void fptr(void*);
-void A::close() {
+void A_204ea0::close() {
     if (ptr38) {
         ptr38->dispose();
         ptr38 = 0;

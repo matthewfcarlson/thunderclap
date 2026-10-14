@@ -11,14 +11,14 @@ struct Queried {
     virtual void c();
     virtual void* get();
 };
-struct Result {
+struct Result_14900 {
     char pad[0x58];
     float value;
 };
-extern const float zeroValue;
+extern const float zeroValue_14900;
 float CHitAnimationAction::vfunc_9() {
-    Result* p = (Result*)((Queried*)member)->get();
+    Result_14900* p = (Result_14900*)((Queried*)member)->get();
     if (!p)
-        return zeroValue;
+        return zeroValue_14900;
     return p->value;
 }

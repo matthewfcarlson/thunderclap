@@ -1,16 +1,16 @@
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e128[];
 extern "C" char DAT_0048e134[];
-class Base {
+class Base_1dff70 {
   public:
-    Base(int a, int b);
+    Base_1dff70(int a, int b);
     virtual void f0();
     char pad[0x0c];
 };
 
-class Derived : public Base {
+class Derived_1dff70 : public Base_1dff70 {
   public:
-    Derived(int a, int b);
+    Derived_1dff70(int a, int b);
     virtual void f0();
     char m10, m11, m12, m13;
     int m14;
@@ -21,9 +21,9 @@ class Derived : public Base {
 
 extern char GetFlag(const char* s);
 
-void Derived::f0() {}
+void Derived_1dff70::f0() {}
 
-Derived::Derived(int a, int b) : Base(a, 4) {
+Derived_1dff70::Derived_1dff70(int a, int b) : Base_1dff70(a, 4) {
     m1c = b;
     m18 = GetFlag((const char*)((int)DAT_0048e100));
     m10 = GetFlag((const char*)((int)DAT_0048e134));

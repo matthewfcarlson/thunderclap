@@ -1,4 +1,4 @@
-struct Allocated {
+struct Allocated_6f100 {
     int Finish();
 };
 struct TrackFactoryTemplate {
@@ -11,7 +11,7 @@ struct TrackFactoryTemplate {
 };
 extern void* Allocate(unsigned int);
 int TrackFactoryTemplate::vfunc_5() {
-    Allocated* p = (Allocated*)Allocate(0x10);
+    Allocated_6f100* p = (Allocated_6f100*)Allocate(0x10);
     if (p)
         return p->Finish();
     return 0;

@@ -1,19 +1,19 @@
 extern void* vFCL[];
 extern void* vIRef[];
-class Ref {
+class Ref_2863d0 {
   public:
     virtual void F0();
     virtual void Release();
 };
-struct Target {
+struct Target_2863d0 {
     void* vf;
     char pad[0x14];
-    Ref* arr[4];
+    Ref_2863d0* arr[4];
     void Dtor() throw();
 };
-void Target::Dtor() throw() {
+void Target_2863d0::Dtor() throw() {
     vf = vFCL;
-    Ref** p = arr;
+    Ref_2863d0** p = arr;
     for (int i = 4; i; --i) {
         if (*p) {
             (*p)->Release();

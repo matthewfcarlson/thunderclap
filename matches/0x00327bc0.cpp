@@ -1,9 +1,9 @@
-class Callback {
+class Callback_327bc0 {
   public:
     void Dummy();
 };
-typedef void (Callback::*InvokeFn)(int);
-struct Item {
+typedef void (Callback_327bc0::*InvokeFn)(int);
+struct Item_327bc0 {
     int key;
     int x;
     InvokeFn fn;
@@ -32,18 +32,18 @@ struct pddiBaseShader {
     virtual void f17();
     virtual void f18();
     virtual void f19();
-    virtual Item* GetResult();
+    virtual Item_327bc0* GetResult();
     char pad[8];
     int id;
     bool v10(int key, int arg);
 };
 bool pddiBaseShader::v10(int key, int arg) {
-    Item* p = GetResult();
+    Item_327bc0* p = GetResult();
     if (p) {
         int k = p->key;
         while (k) {
             if (k == key) {
-                Callback* cb = (Callback*)((char*)this + p->adj);
+                Callback_327bc0* cb = (Callback_327bc0*)((char*)this + p->adj);
                 (cb->*(p->fn))(arg);
                 counter++;
                 if (counter == -1)

@@ -1,4 +1,4 @@
-typedef int(__cdecl* F)(int, int, int);
+typedef int(__cdecl* F_33d8b0)(int, int, int);
 int __cdecl A(int, int, int);
 int __cdecl B(int, int);
 int __cdecl C(int, int);

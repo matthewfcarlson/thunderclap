@@ -1,14 +1,14 @@
-struct Part {
+struct Part_24130 {
     char x[8];
     void F();
 };
-struct Obj {
+struct Obj_24130 {
     char pad[0x40];
-    Part a;
-    Part b;
-    Obj* Target();
+    Part_24130 a;
+    Part_24130 b;
+    Obj_24130* Target();
 };
-Obj* Obj::Target() {
+Obj_24130* Obj_24130::Target() {
     a.F();
     b.F();
     return this;

@@ -16,7 +16,7 @@ class Param {
     virtual void p3();
     virtual void p4();
 };
-class Helper {
+class Helper_23c920 {
   public:
     void f();
 };
@@ -26,5 +26,5 @@ class SubConditionGroupCondition : public Condition, public Param {
     virtual void vfunc_6();
 };
 void SubConditionGroupCondition::vfunc_6() {
-    ((Helper*)((char*)this + 0xc))->f();
+    ((Helper_23c920*)((char*)this + 0xc))->f();
 }

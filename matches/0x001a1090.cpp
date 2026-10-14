@@ -1,4 +1,4 @@
-typedef unsigned int u32;
+typedef unsigned int u32_1a1090;
 class TrackFactory {
   public:
     virtual void a();
@@ -20,16 +20,16 @@ class IRefCount {
     virtual void h();
 };
 extern void* __cdecl operator_new(unsigned int);
-class Thing {
+class Thing_1a1090 {
   public:
-    u32 init();
+    u32_1a1090 init();
 };
-class Factory : public TrackFactory, public Entity, public LoadObject, public IRefCount {
+class Factory_1a1090 : public TrackFactory, public Entity, public LoadObject, public IRefCount {
   public:
-    virtual u32 vfunc_5();
+    virtual u32_1a1090 vfunc_5();
 };
-u32 Factory::vfunc_5() {
-    Thing* p = (Thing*)operator_new(0xc0);
+u32_1a1090 Factory_1a1090::vfunc_5() {
+    Thing_1a1090* p = (Thing_1a1090*)operator_new(0xc0);
     if (p)
         return p->init();
     return 0;

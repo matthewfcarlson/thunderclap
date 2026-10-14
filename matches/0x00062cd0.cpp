@@ -1,10 +1,10 @@
-class Base {
+class Base_62cd0 {
   public:
-    Base();
+    Base_62cd0();
     virtual void A();
 };
 
-class CPropActorSetStateTrack : public Base {
+class CPropActorSetStateTrack : public Base_62cd0 {
   public:
     CPropActorSetStateTrack();
     virtual void A();
@@ -14,7 +14,7 @@ class CPropActorSetStateTrack : public Base {
     int m10;
 };
 
-CPropActorSetStateTrack::CPropActorSetStateTrack() : Base() {
+CPropActorSetStateTrack::CPropActorSetStateTrack() : Base_62cd0() {
     mC = 0;
     m10 = 0;
     m8 = 1;

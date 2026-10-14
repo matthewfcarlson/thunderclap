@@ -1,8 +1,8 @@
 namespace pure3d {
-struct Matrix4 {
+struct Matrix4_32aca0 {
     float m[16];
-    void FUN_0022ca90(const Matrix4* a, const Matrix4* b);
-    void FUN_0022cc10(const Matrix4* a, const Matrix4* b);
+    void FUN_0022ca90(const Matrix4_32aca0* a, const Matrix4_32aca0* b);
+    void FUN_0022cc10(const Matrix4_32aca0* a, const Matrix4_32aca0* b);
     void FUN_0022c0b0();
 };
 class d3dShader {
@@ -41,12 +41,12 @@ class d3dSimpleShader : public d3dShader {
 };
 } // namespace pure3d
 namespace D3D8 {
-void __stdcall D3DDevice_GetTransform(int state, pure3d::Matrix4* out);
+void __stdcall D3DDevice_GetTransform(int state, pure3d::Matrix4_32aca0* out);
 void __fastcall D3DDevice_SetVertexShaderConstant1(int reg, const void* data);
 void __fastcall D3DDevice_SetVertexShaderConstant4(int reg, const void* data);
 } // namespace D3D8
 void pure3d::d3dSimpleShader::vfunc_24() {
-    Matrix4 m6, m0, m1, t, u, f, g;
+    Matrix4_32aca0 m6, m0, m1, t, u, f, g;
     float consts[4];
     consts[0] = 0.0f;
     consts[1] = 0.5f;

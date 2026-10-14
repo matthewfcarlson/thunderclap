@@ -1,5 +1,5 @@
 void* __cdecl FUN_0008d690(unsigned int);
-struct Thing {
+struct Thing_70300 {
     unsigned int go();
 };
 class TrackFactoryTemplate {
@@ -14,6 +14,6 @@ class TrackFactoryTemplate {
 unsigned int TrackFactoryTemplate::vfunc_5() {
     void* p = FUN_0008d690(0x44);
     if (p)
-        return ((Thing*)p)->go();
+        return ((Thing_70300*)p)->go();
     return 0;
 }

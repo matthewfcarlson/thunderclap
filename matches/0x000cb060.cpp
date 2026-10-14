@@ -1,4 +1,4 @@
-class Sub {
+class Sub_cb060 {
   public:
     void Helper(int arg);
 };
@@ -6,12 +6,12 @@ class Sub {
 class Class {
   public:
     char pad[0x88];
-    Sub* mPtr;
+    Sub_cb060* mPtr;
     void Wrapper(int arg);
 };
 
 void Class::Wrapper(int arg) {
-    Sub* p = mPtr;
+    Sub_cb060* p = mPtr;
     if (p)
         p->Helper(arg);
 }

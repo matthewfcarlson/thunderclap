@@ -1,18 +1,18 @@
 typedef unsigned int uint;
 extern "C" void* __cdecl FUN_0008d690(uint);
-struct X {
+struct X_f2740 {
     int make(void*, void*);
 };
-struct Y {
+struct Y_f2740 {
     int pad;
     void* field;
     void* slots[32];
     int f(void*);
 };
-int Y::f(void* p) {
+int Y_f2740::f(void* p) {
     if (!field)
         return 0;
-    X* x = (X*)FUN_0008d690(0x60);
+    X_f2740* x = (X_f2740*)FUN_0008d690(0x60);
     int r = x ? x->make(field, p) : 0;
     int i = 0;
     do {

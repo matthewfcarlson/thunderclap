@@ -1,12 +1,12 @@
 // Same code shape as 0x00222050 (propagated; names are from that function)
 void Init();
-class Obj {
+class Obj_30f3a0 {
   public:
     char pad[0x40];
     volatile int a, b, c, d, e;
-    Obj();
+    Obj_30f3a0();
 };
-Obj::Obj() {
+Obj_30f3a0::Obj_30f3a0() {
     Init();
     c = 0;
     b = 0;

@@ -1,20 +1,20 @@
-class Item {
+class Item_29b690 {
   public:
     virtual void f();
     virtual void g();
 };
-class Owner {
+class Owner_29b690 {
     char pad0[0x10];
 
   public:
     int index;
     char pad14[8];
-    Item** slots;
-    void Add(Item*);
+    Item_29b690** slots;
+    void Add(Item_29b690*);
 };
-void Owner::Add(Item* item) {
+void Owner_29b690::Add(Item_29b690* item) {
     if (item) {
-        Item** slot = slots + index;
+        Item_29b690** slot = slots + index;
         item->f();
         if (*slot)
             (*slot)->g();

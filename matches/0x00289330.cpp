@@ -1,9 +1,9 @@
-class Item {
+class Item_289330 {
   public:
     virtual void v0(int);
     virtual void v1();
 };
-class Sub {
+class Sub_289330 {
   public:
     void run();
 };
@@ -12,17 +12,17 @@ class AnimationGroup {
     virtual void vfunc_0();
     virtual void vfunc_1();
     char pad[4];
-    Sub sub;
+    Sub_289330 sub;
     char pad2[8];
     unsigned int count;
-    Item** items;
-    Item* active;
+    Item_289330** items;
+    Item_289330* active;
 };
 void cleanup(void*);
 void AnimationGroup::vfunc_1() {
     if (!active) {
         for (unsigned int i = 0; i < count; ++i) {
-            Item* it = items[i];
+            Item_289330* it = items[i];
             if (it)
                 it->v0(1);
         }

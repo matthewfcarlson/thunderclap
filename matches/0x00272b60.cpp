@@ -1,13 +1,13 @@
-class B {
+class B_272b60 {
   public:
     void f();
 };
-class A {
+class A_272b60 {
   public:
     char pad[0xb8];
-    B* p;
+    B_272b60* p;
     void run();
 };
-void A::run() {
+void A_272b60::run() {
     p->f();
 }

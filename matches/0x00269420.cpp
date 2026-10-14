@@ -1,4 +1,4 @@
-class Pad {
+class Pad_269420 {
   public:
     virtual void f0();
     virtual void f1();
@@ -9,10 +9,10 @@ class Pad {
 class ControllerSystemXBox {
   public:
     char pad[0x20];
-    Pad pads[4];
-    Pad* vfunc_4(int);
+    Pad_269420 pads[4];
+    Pad_269420* vfunc_4(int);
 };
-Pad* ControllerSystemXBox::vfunc_4(int param) {
+Pad_269420* ControllerSystemXBox::vfunc_4(int param) {
     int count = 0;
     for (unsigned int i = 0; i < 4; i++) {
         if (pads[i].IsConnected()) {

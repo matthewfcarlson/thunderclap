@@ -1,4 +1,4 @@
-class Obj {
+class Obj_326f90 {
   public:
     char pad0[0x10];
     int count;
@@ -19,7 +19,7 @@ class Obj {
     int a50;
     void Fn();
 };
-void Obj::Fn() {
+void Obj_326f90::Fn() {
     ++count;
     a24 += delta;
     if (a2c)

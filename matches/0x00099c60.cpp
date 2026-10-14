@@ -1,12 +1,12 @@
-struct Sub {
+struct Sub_99c60 {
     char pad[0x228];
     int value;
 };
-struct Obj {
+struct Obj_99c60 {
     char pad[0xc4];
-    Sub* sub;
+    Sub_99c60* sub;
     void Set(int v);
 };
-void Obj::Set(int v) {
+void Obj_99c60::Set(int v) {
     sub->value = v;
 }

@@ -4,16 +4,16 @@ extern "C" bool Check(const char*, const char*, int);
 extern "C" bool CheckByte(void*, unsigned char);
 extern "C" bool EndCheck(const char*, const char*);
 
-struct Obj {
+struct Obj_250ef0 {
     const char* mName;
 };
 
-extern "C" bool FUN_00250ef0(Obj* p, int arg, unsigned char* ch) {
+extern "C" bool FUN_00250ef0(Obj_250ef0* p, int arg, unsigned char* ch) {
     int a = arg;
     const char* s = p->mName;
     if (Check(s, (const char*)((int)DAT_004298a8), a)) {
         if (CheckByte(p, *ch)) {
-            p = (Obj*)p->mName;
+            p = (Obj_250ef0*)p->mName;
             return EndCheck((const char*)p, (const char*)((int)DAT_00422518));
         }
     }

@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1eecb0 {
   public:
     char pad[8];
     int a;
@@ -10,7 +10,7 @@ class Obj {
 
 void BaseInit();
 
-Obj* __fastcall FUN_001eecb0(Obj* self) {
+Obj_1eecb0* __fastcall FUN_001eecb0(Obj_1eecb0* self) {
     BaseInit();
     self->a = 0;
     self->b = 0;

@@ -1,4 +1,4 @@
-class Sub {
+class Sub_2862c0 {
   public:
     void invoke();
 };
@@ -40,7 +40,7 @@ class BlendFrameController {
     int m20;
     int m24;
     unsigned int m28;
-    Sub sub;
+    Sub_2862c0 sub;
 };
 void BlendFrameController::f23() {
     while (m28 > 1)

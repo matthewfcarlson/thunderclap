@@ -1,5 +1,5 @@
 extern "C" char DAT_0042adc0[];
-typedef unsigned char u8;
+typedef unsigned char u8_262e30;
 namespace audio {
 class HalStream {
   public:
@@ -32,12 +32,12 @@ class HalRadicalAdpcmDecodeStream : public HalStream {
     virtual void g10();
     virtual void g11();
     virtual void g12();
-    virtual HalRadicalAdpcmDecodeStream* vfunc_13(u8);
+    virtual HalRadicalAdpcmDecodeStream* vfunc_13(u8_262e30);
 };
 } // namespace audio
 extern char DAT_004e7b08[];
 extern void __cdecl FUN_00247550(void*, audio::HalRadicalAdpcmDecodeStream*);
-audio::HalRadicalAdpcmDecodeStream* audio::HalRadicalAdpcmDecodeStream::vfunc_13(u8 p) {
+audio::HalRadicalAdpcmDecodeStream* audio::HalRadicalAdpcmDecodeStream::vfunc_13(u8_262e30 p) {
     *(void**)this = (void*)((int)DAT_0042adc0);
     ((audio::HalStream*)*(void**)((char*)this + 4))->f12();
     if (p & 1)

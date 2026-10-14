@@ -1,4 +1,4 @@
-class Inner {
+class Inner_dedd0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -20,7 +20,7 @@ class Inner {
 class DrawableText {
   public:
     char pad[8];
-    Inner* p;
+    Inner_dedd0* p;
     void vfunc_1();
 };
 void DrawableText::vfunc_1() {

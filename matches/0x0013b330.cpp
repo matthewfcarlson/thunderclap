@@ -10,14 +10,14 @@ class MemObj {
     virtual void Release();
 };
 
-class Base {
+class Base_13b330 {
   public:
     virtual void vf();
     void Cleanup();
     char pad[0x18];
 };
 
-class AnimationAction : public Base {
+class AnimationAction : public Base_13b330 {
   public:
     void Destroy();
     MemObj* m1c;
@@ -42,7 +42,7 @@ void AnimationAction::Destroy() {
         c->Release();
         v[9] = 0;
     }
-    Base::Cleanup();
+    Base_13b330::Cleanup();
 }
 
 } // namespace motion

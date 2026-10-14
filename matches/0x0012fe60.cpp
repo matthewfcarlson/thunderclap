@@ -1,6 +1,6 @@
 extern "C" void __cdecl thunk_FUN_00267090(void* p);
 void __cdecl operator delete(void* p);
-extern int g_vftable;
+extern int g_vftable_12fe60;
 class StatEndTrialTrack {
   public:
     virtual void vfunc_0();
@@ -22,7 +22,7 @@ class StatEndTrialTrack {
 };
 StatEndTrialTrack* StatEndTrialTrack::vfunc_5(int flag) {
     void* x = m10;
-    *(void**)this = &g_vftable;
+    *(void**)this = &g_vftable_12fe60;
     thunk_FUN_00267090(x);
     Cleanup();
     if (flag & 1)

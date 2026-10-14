@@ -1,19 +1,19 @@
 extern void* Alloc(unsigned int);
-class Factory {
+class Factory_f27a0 {
   public:
     int Create(int, int);
 };
-class Holder {
+class Holder_f27a0 {
   public:
     int field;
     int data;
     int slots[32];
     int Run(int arg);
 };
-int Holder::Run(int arg) {
+int Holder_f27a0::Run(int arg) {
     if (data == 0)
         return 0;
-    Factory* obj = (Factory*)Alloc(100);
+    Factory_f27a0* obj = (Factory_f27a0*)Alloc(100);
     int result;
     if (obj != 0)
         result = obj->Create(data, arg);

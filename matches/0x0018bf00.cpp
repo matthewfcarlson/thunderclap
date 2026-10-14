@@ -9,7 +9,7 @@ class PropDropTrack {
     int d;
 };
 extern void* operator_new(unsigned int);
-class Factory {
+class Factory_18bf00 {
   public:
     virtual void f0();
     virtual void f1();
@@ -18,7 +18,7 @@ class Factory {
     virtual void f4();
     PropDropTrack* vfunc_5();
 };
-PropDropTrack* Factory::vfunc_5() {
+PropDropTrack* Factory_18bf00::vfunc_5() {
     PropDropTrack* p = (PropDropTrack*)operator_new(0x14);
     if (p) {
         p->Init();

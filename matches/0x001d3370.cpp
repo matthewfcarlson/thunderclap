@@ -4,7 +4,7 @@ class ScriptHandler {
     enum script_state { s0, s1 };
     script_state Get(const char* s);
 };
-typedef ScriptHandler::script_state (ScriptHandler::*Fn)(const char*);
+typedef ScriptHandler::script_state (ScriptHandler::*Fn_1d3370)(const char*);
 struct Function {
     virtual void f0();
     virtual void f1();
@@ -12,12 +12,12 @@ struct Function {
 class Method1 : public Function {
   public:
     char pad[0x18];
-    Fn fn;
+    Fn_1d3370 fn;
     virtual void f0();
     virtual void f2(ScriptHandler* a, const char** p, ScriptHandler::script_state* out);
 };
 void Method1::f2(ScriptHandler* a, const char** p, ScriptHandler::script_state* out) {
-    Fn f = fn;
+    Fn_1d3370 f = fn;
     const char* s = *p;
     ScriptHandler::script_state x = (a->*f)(s);
     if (out)

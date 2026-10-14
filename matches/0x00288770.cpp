@@ -1,5 +1,5 @@
 extern int EntityType, CompositeType, PoseType;
-class Result {
+class Result_288770 {
   public:
     virtual void a();
     virtual void b();
@@ -14,7 +14,7 @@ class Result {
     virtual void k();
     virtual unsigned int run();
 };
-extern Result* __cdecl resolve(void*, int, const void*, const void*, int);
+extern Result_288770* __cdecl resolve(void*, int, const void*, const void*, int);
 class Pose {
   public:
     virtual void v0();
@@ -26,7 +26,7 @@ class Pose {
     void set(unsigned int);
 };
 void Pose::vfunc_5(void* arg) {
-    Result* p = resolve(arg, 0, &EntityType, &CompositeType, 0);
+    Result_288770* p = resolve(arg, 0, &EntityType, &CompositeType, 0);
     if (p) {
         set(p->run());
     } else {

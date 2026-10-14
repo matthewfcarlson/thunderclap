@@ -1,11 +1,11 @@
-class X {
+class X_90450 {
   public:
     char pad[8];
     void f();
-    X* target();
+    X_90450* target();
 };
-X* X::target() {
+X_90450* X_90450::target() {
     f();
-    ((X*)((char*)this + 8))->f();
+    ((X_90450*)((char*)this + 8))->f();
     return this;
 }

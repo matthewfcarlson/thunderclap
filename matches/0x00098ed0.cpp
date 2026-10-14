@@ -3,7 +3,7 @@ class H {
     void A(void*);
     void B(void*);
 };
-class Obj {
+class Obj_98ed0 {
   public:
     char pad[0xb0];
     H* a;
@@ -14,7 +14,7 @@ class Obj {
     H* e;
     void Run(void*);
 };
-void Obj::Run(void* arg) {
+void Obj_98ed0::Run(void* arg) {
     if (a)
         a->A(arg);
     if (b)

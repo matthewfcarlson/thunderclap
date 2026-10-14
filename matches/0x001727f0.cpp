@@ -1,7 +1,7 @@
-struct Helper1 {
+struct Helper1_1727f0 {
     int f();
 };
-struct Helper2 {
+struct Helper2_1727f0 {
     int f();
 };
 struct Helper3 {
@@ -15,18 +15,18 @@ struct MomentumXZAddAction {
     virtual void d();
     virtual void e();
     char pad[0x1c];
-    Helper1* member;
+    Helper1_1727f0* member;
     int field24;
     int field28;
 };
 bool MomentumXZAddAction::vfunc_3(unsigned int x, unsigned int y) {
-    Helper1* p = member;
+    Helper1_1727f0* p = member;
     if (!p)
         return false;
     int q = p->f();
     if (!q)
         return false;
-    Helper2* z = (Helper2*)q;
+    Helper2_1727f0* z = (Helper2_1727f0*)q;
     int r = z->f();
     if (!r)
         return false;

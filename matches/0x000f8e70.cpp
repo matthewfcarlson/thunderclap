@@ -1,35 +1,35 @@
-class Mgr {
+class Mgr_f8e70 {
   public:
     int Check(int x);
 };
 
-class Inner {
+class Inner_f8e70 {
   public:
     int pad;
-    Mgr* mMgr;
+    Mgr_f8e70* mMgr;
 };
 
-class Item {
+class Item_f8e70 {
   public:
-    Item* Init(Inner* a, int b, int c, int d);
+    Item_f8e70* Init(Inner_f8e70* a, int b, int c, int d);
 };
 
 void* operator new(unsigned int n);
 
-class Owner {
+class Owner_f8e70 {
   public:
-    Inner* mInner;
+    Inner_f8e70* mInner;
     int Find(int a);
-    void Add(Item* it);
-    Item* Create(int a, int b, int c);
+    void Add(Item_f8e70* it);
+    Item_f8e70* Create(int a, int b, int c);
 };
 
-Item* Owner::Create(int a, int b, int c) {
+Item_f8e70* Owner_f8e70::Create(int a, int b, int c) {
     if (Find(a))
         return 0;
-    Item* r = 0;
+    Item_f8e70* r = 0;
     if (c && mInner->mMgr->Check(c)) {
-        Item* p = (Item*)operator new(0x4c);
+        Item_f8e70* p = (Item_f8e70*)operator new(0x4c);
         if (p) {
             r = p->Init(mInner, a, b, c);
         } else {

@@ -1,8 +1,8 @@
-struct Entry {
+struct Entry_298870 {
     char pad[8];
     void* p;
 };
-class Obj {
+class Obj_298870 {
   public:
     char pad00[0x20];
     unsigned char count;
@@ -11,11 +11,11 @@ class Obj {
     char pad28[8];
     unsigned char* other;
     char pad34[8];
-    Entry* entries;
-    Entry* end;
+    Entry_298870* entries;
+    Entry_298870* end;
     void Run();
 };
-void Obj::Run() {
+void Obj_298870::Run() {
     unsigned char* c = &count;
     *c = 0;
     unsigned int n = end - entries;

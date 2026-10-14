@@ -1,7 +1,7 @@
-struct Thing {
+struct Thing_2f8d70 {
     unsigned int a[11];
 };
-Thing* __fastcall FUN_002f8d70(Thing* p) {
+Thing_2f8d70* __fastcall FUN_002f8d70(Thing_2f8d70* p) {
     p->a[0] = 0;
     p->a[1] = 0;
     p->a[2] = 0;

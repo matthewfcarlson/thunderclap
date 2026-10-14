@@ -2,7 +2,7 @@ class D {
   public:
     void Cleanup(int);
 };
-class C {
+class C_e4020 {
   public:
     virtual void V();
     char pad[0x2a4];
@@ -10,7 +10,7 @@ class C {
     D* b;
     void Run();
 };
-void C::Run() {
+void C_e4020::Run() {
     if (b)
         b->Cleanup(a);
     V();

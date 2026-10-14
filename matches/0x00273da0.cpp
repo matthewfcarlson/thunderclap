@@ -1,4 +1,4 @@
-struct Sink {
+struct Sink_273da0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -11,18 +11,18 @@ struct Sink {
     virtual void v9();
     virtual void Do(int a, char* b);
 };
-struct Sub {
+struct Sub_273da0 {
     virtual void Fin();
     virtual void Rel();
 };
-struct Ev {
+struct Ev_273da0 {
     char pad[0x12c];
 };
-struct Inner {
+struct Inner_273da0 {
     char pad0[4];
-    Sub sub;
+    Sub_273da0 sub;
     char pad1[4];
-    Sink* sink;
+    Sink_273da0* sink;
     char pad2[4];
     int f14;
     char pad3[4];
@@ -40,10 +40,10 @@ struct FileCloseRequest {
     virtual int vfunc_0();
     virtual int vfunc_1();
     int pad;
-    Inner* in;
+    Inner_273da0* in;
 };
 int FileCloseRequest::vfunc_1() {
-    Sink* s = in->sink;
+    Sink_273da0* s = in->sink;
     if (!((Ev2*)((char*)in + 0x12c))->Test())
         s->Do(*(int*)((char*)in + 0x15c), (char*)in + 0x1e);
     else

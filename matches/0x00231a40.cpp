@@ -15,13 +15,13 @@ class Node {
 };
 extern int __cdecl FUN_00238190(int);
 extern int __cdecl FUN_00266da0(int);
-class Owner {
+class Owner_231a40 {
   public:
     char pad[0x28];
     Node* nodes;
     unsigned char Run(int, int);
 };
-unsigned char Owner::Run(int a, int b) {
+unsigned char Owner_231a40::Run(int a, int b) {
     int t = FUN_00238190(3);
     t = FUN_00266da0(t);
     Node* n = nodes;

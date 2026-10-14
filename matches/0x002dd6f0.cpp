@@ -1,18 +1,18 @@
-typedef unsigned int u32;
-struct Obj {
+typedef unsigned int u32_2dd6f0;
+struct Obj_2dd6f0 {
     char pad0[0x4c];
-    u32 field4c;
-    u32 field50;
+    u32_2dd6f0 field4c;
+    u32_2dd6f0 field50;
     char pad54[8];
-    u32 field5c;
+    u32_2dd6f0 field5c;
     char pad60[0xe4];
-    u32 field144;
+    u32_2dd6f0 field144;
 };
-extern void Report(Obj*, const char*);
-void Target(Obj* p, u32 value, void* fn) {
+extern void Report(Obj_2dd6f0*, const char*);
+void Target(Obj_2dd6f0* p, u32_2dd6f0 value, void* fn) {
     p->field5c = value;
     if (fn)
-        p->field50 = (u32)fn;
+        p->field50 = (u32_2dd6f0)fn;
     else
         p->field50 = 0x02dd6b0;
     if (p->field4c) {

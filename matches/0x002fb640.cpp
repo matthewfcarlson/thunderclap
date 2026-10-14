@@ -1,4 +1,4 @@
-struct Vec3 {
+struct Vec3_2fb640 {
     unsigned int x, y, z;
 };
 namespace physics {
@@ -7,7 +7,7 @@ struct CollisionVolume {
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
-    virtual Vec3* vfunc_4();
+    virtual Vec3_2fb640* vfunc_4();
     virtual void vfunc_5();
     virtual void vfunc_6();
     virtual void vfunc_7();
@@ -22,18 +22,18 @@ struct CollisionVolume {
     unsigned int flags;
     char pad3c[12];
     unsigned int scaleX, scaleY, scaleZ;
-    Vec3 axisX, axisY, axisZ;
+    Vec3_2fb640 axisX, axisY, axisZ;
     char pad78[16];
     unsigned int worldScaleX, worldScaleY, worldScaleZ;
-    Vec3 worldAxisX, worldAxisY, worldAxisZ;
+    Vec3_2fb640 worldAxisX, worldAxisY, worldAxisZ;
 };
 struct CollisionOBB : CollisionVolume {
     void vfunc_14(CollisionVolume* destination);
 };
 void CollisionOBB::vfunc_14(CollisionVolume* destination) {
     CollisionVolume::vfunc_14(destination);
-    Vec3* sourceVector = vfunc_4();
-    Vec3* targetVector = destination->vfunc_4();
+    Vec3_2fb640* sourceVector = vfunc_4();
+    Vec3_2fb640* targetVector = destination->vfunc_4();
     targetVector->x = sourceVector->x;
     targetVector->y = sourceVector->y;
     targetVector->z = sourceVector->z;

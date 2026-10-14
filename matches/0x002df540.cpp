@@ -1,4 +1,4 @@
-class Manager {
+class Manager_2df540 {
   public:
     virtual void f0();
     virtual void f1();
@@ -34,7 +34,7 @@ class Manager {
     virtual void f31();
     virtual void f32(int, int);
 };
-extern Manager* gManager;
+extern Manager_2df540* gManager_2df540;
 struct PrimGroupOptimized {
     char pad[0x40];
     void* p;
@@ -44,5 +44,5 @@ struct PrimGroupOptimized {
 };
 void PrimGroupOptimized::vfunc_6() {
     int a = p ? *(int*)((char*)p + 0x10) : 0;
-    gManager->f32(a, (int)q);
+    gManager_2df540->f32(a, (int)q);
 }

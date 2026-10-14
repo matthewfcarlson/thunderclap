@@ -1,4 +1,4 @@
-class Thing {
+class Thing_1e5720 {
   public:
     char pad0[0x14c];
     char f14c;
@@ -7,23 +7,23 @@ class Thing {
     void Init();
     void Set(int);
 };
-class Manager {
+class Manager_1e5720 {
   public:
     char pad[0x4c];
     void A(void*);
     void B(void*);
 };
-class Owner {
+class Owner_1e5720 {
   public:
     char pad[0x1e830];
     struct Sub {
         char pad[0x4c];
-        Manager* m;
+        Manager_1e5720* m;
     }* mgr;
-    void Notify(Thing*);
-    void Run(Thing*);
+    void Notify(Thing_1e5720*);
+    void Run(Thing_1e5720*);
 };
-void Owner::Run(Thing* p) {
+void Owner_1e5720::Run(Thing_1e5720* p) {
     if (!p)
         return;
     p->Init();

@@ -1,10 +1,10 @@
-struct S {
+struct S_306e70 {
     unsigned int a[8];
     unsigned char b;
     unsigned char pad[3];
     unsigned int c;
 };
-S* __fastcall target(S* p) {
+S_306e70* __fastcall target(S_306e70* p) {
     p->a[0] = 0;
     p->a[1] = 0;
     p->a[2] = 0;

@@ -1,31 +1,31 @@
 // Same code shape as 0x00148840 (propagated; names are from that function)
-class Ref {
+class Ref_1518f0 {
   public:
     virtual void F();
     virtual void G();
 };
-class Root {
+class Root_1518f0 {
   public:
     virtual void V();
-    Root();
+    Root_1518f0();
 };
-class Sub {
+class Sub_1518f0 {
   public:
-    Sub();
+    Sub_1518f0();
     char pad[0x28];
 };
-class Action : public Root {
+class Action : public Root_1518f0 {
   public:
     char pad[0x18];
     int* mA;
-    Ref* mB;
-    Sub sub;
+    Ref_1518f0* mB;
+    Sub_1518f0 sub;
     int x;
     int y;
     unsigned char z;
-    Action(int* a, Ref* b);
+    Action(int* a, Ref_1518f0* b);
 };
-Action::Action(int* a, Ref* b) : mA(0), mB(0), sub() {
+Action::Action(int* a, Ref_1518f0* b) : mA(0), mB(0), sub() {
     x = 0;
     y = 0;
     z = 0;

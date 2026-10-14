@@ -10,7 +10,7 @@ class CClimbableCondition {
 };
 extern int climbVftable;
 extern void* __cdecl FUN_0008d690(unsigned int);
-class Factory {
+class Factory_575f0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -19,7 +19,7 @@ class Factory {
     virtual void v4();
     virtual CClimbableCondition* vfunc_5();
 };
-CClimbableCondition* Factory::vfunc_5() {
+CClimbableCondition* Factory_575f0::vfunc_5() {
     CClimbableCondition* p = (CClimbableCondition*)FUN_0008d690(0x18);
     if (p) {
         p->Init(0);

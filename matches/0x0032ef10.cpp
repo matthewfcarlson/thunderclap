@@ -1,28 +1,28 @@
 extern "C" char DAT_00433cac[];
-class Obj {
+class Obj_32ef10 {
   public:
     virtual void A();
     virtual void B();
 };
-class Tail {
+class Tail_32ef10 {
   public:
     void Go();
 };
-class Target {
+class Target_32ef10 {
   public:
     virtual void A();
     char pad[0x7c];
-    Obj* a;
-    Obj* b;
+    Obj_32ef10* a;
+    Obj_32ef10* b;
     void F();
 };
-void Target::F() {
-    Obj* x = a;
+void Target_32ef10::F() {
+    Obj_32ef10* x = a;
     *(int*)this = ((int)DAT_00433cac);
     if (x)
         x->B();
-    Obj* y = b;
+    Obj_32ef10* y = b;
     if (y)
         y->B();
-    ((Tail*)this)->Go();
+    ((Tail_32ef10*)this)->Go();
 }

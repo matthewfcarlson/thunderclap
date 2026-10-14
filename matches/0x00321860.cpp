@@ -39,7 +39,7 @@ class d3dContext {
     unsigned char flag;
     void fix();
 };
-class Worker {
+class Worker_321860 {
   public:
     int run(int, int, int, int, int);
 };
@@ -48,6 +48,6 @@ int d3dContext::vfunc_30(int a, int b, int c, int d, int e) {
         a = fallback;
     if (flag)
         fix();
-    ((Worker*)result)->run(b, c, a, d, e);
+    ((Worker_321860*)result)->run(b, c, a, d, e);
     return result;
 }

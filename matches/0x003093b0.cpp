@@ -1,5 +1,5 @@
 extern "C" char DAT_00431d1c[];
-struct Item {
+struct Item_3093b0 {
     char pad[0x34];
     void Destroy();
 };
@@ -7,16 +7,16 @@ extern void __cdecl FreeArray(void*);
 struct HairclubPhysicsObject {
     void* vptr;
     char pad[0x1f4];
-    Item* items;
+    Item_3093b0* items;
     void BaseDestroy();
     void Destroy();
 };
 void HairclubPhysicsObject::Destroy() {
-    Item* p = items;
+    Item_3093b0* p = items;
     vptr = (void*)((int)DAT_00431d1c);
     if (p) {
         int n = *((int*)p - 1);
-        Item* q = p + n;
+        Item_3093b0* q = p + n;
         while (--n >= 0) {
             q--;
             q->Destroy();

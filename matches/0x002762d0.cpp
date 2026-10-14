@@ -1,4 +1,4 @@
-class Inner {
+class Inner_2762d0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -9,7 +9,7 @@ class Inner {
 class File {
   public:
     char pad[12];
-    Inner* p;
+    Inner_2762d0* p;
     void vfunc_26();
 };
 void File::vfunc_26() {

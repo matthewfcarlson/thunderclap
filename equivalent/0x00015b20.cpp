@@ -20,7 +20,7 @@ struct Key {
     unsigned int hi;
 };
 
-struct Fighter {
+struct Fighter_15b20 {
     char pad00[0x328];
     void* f328;
     char pad32c[0x20a8 - 0x32c];
@@ -47,7 +47,7 @@ struct Rig {
 };
 
 struct Anchor_15b20 {
-    Fighter* FUN_00059a30();
+    Fighter_15b20* FUN_00059a30();
     Rig* FUN_00059a40();
 };
 
@@ -55,7 +55,7 @@ struct Owner_15b20 {
     Anchor_15b20* FUN_000592a0();
 };
 
-struct Link {
+struct Link_15b20 {
     void* link;
     char pad04[8];
     int kind;
@@ -113,7 +113,7 @@ struct Frame_15b20 {
     float dist;
     Target* target;
     V3_15b20 q;
-    Fighter* fighter;
+    Fighter_15b20* fighter;
     int p20;
     int p24;
     Matrix m;
@@ -209,7 +209,7 @@ void CSmartPropAttachAction::vfunc_4()
             }
         }
     }
-    Fighter* fighter = f.fighter;
+    Fighter_15b20* fighter = f.fighter;
     fighter->FUN_0003acf0(attach->f14, f.target, joint, f.p20, f.p24, &f.m);
     if (fighter->f20a8 >= 0 && fighter->f328 == (void*)holder)
         fighter->FUN_000393c0();

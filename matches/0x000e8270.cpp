@@ -1,4 +1,4 @@
-class Inv {
+class Inv_e8270 {
   public:
     virtual void f0();
     virtual void f1();
@@ -65,9 +65,9 @@ class FEThingsBase {
     virtual void f46();
     virtual void f47();
     char pad0[8];
-    Inv* b[0x40];
+    Inv_e8270* b[0x40];
     char pad1[0x20c - 0x10c];
-    Inv* a[0x100];
+    Inv_e8270* a[0x100];
 };
 void FEThingsBase::vfunc_11(void* x) {
     for (int i = 0; i < 0x100; i++)

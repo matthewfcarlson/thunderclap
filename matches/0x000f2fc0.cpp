@@ -1,5 +1,5 @@
 extern "C" char DAT_0040cb2c[];
-typedef unsigned int u32;
+typedef unsigned int u32_f2fc0;
 struct FEMenuBase {
     virtual void f0();
     virtual void f1();
@@ -54,25 +54,25 @@ struct FEMenuBase {
     virtual void f50();
     virtual void f51();
     virtual void f52();
-    virtual void f53(u32*);
-    virtual void f54(u32);
+    virtual void f53(u32_f2fc0*);
+    virtual void f54(u32_f2fc0);
     virtual void f55();
     virtual void f56();
     virtual void f57();
     virtual void f58();
     virtual void f59();
 };
-struct Caster {
+struct Caster_f2fc0 {
     virtual void a();
     virtual void b();
     virtual void c();
-    virtual u32 d(const u32&, unsigned long long);
+    virtual u32_f2fc0 d(const u32_f2fc0&, unsigned long long);
 };
-extern Caster* caster;
-extern unsigned long long FUN(u32*);
-void FEMenuBase::f53(u32* p) {
-    Caster* c = caster;
+extern Caster_f2fc0* caster;
+extern unsigned long long FUN(u32_f2fc0*);
+void FEMenuBase::f53(u32_f2fc0* p) {
+    Caster_f2fc0* c = caster;
     unsigned long long x = FUN(p);
-    u32 r = c->d(((int)DAT_0040cb2c), x);
+    u32_f2fc0 r = c->d(((int)DAT_0040cb2c), x);
     f54(r);
 }

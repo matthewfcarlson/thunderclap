@@ -1,4 +1,4 @@
-class Target {
+class Target_2c4130 {
   public:
     virtual void A();
     virtual void B();
@@ -16,7 +16,7 @@ class Target {
     int c;
     void Run(int x, int y, int z);
 };
-void Target::Run(int x, int y, int z) {
+void Target_2c4130::Run(int x, int y, int z) {
     a = x;
     b = y;
     c = z;

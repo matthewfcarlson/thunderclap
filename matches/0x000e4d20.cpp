@@ -1,4 +1,4 @@
-class Child {
+class Child_e4d20 {
   public:
     virtual void f0();
     virtual void f1();
@@ -30,7 +30,7 @@ class FEContainer {
     virtual void v13();
     virtual void vfunc_14();
     char pad[0x44];
-    Child* child;
+    Child_e4d20* child;
     void helper();
 };
 void FEContainer::vfunc_14() {

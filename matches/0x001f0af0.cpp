@@ -2,12 +2,12 @@ extern "C" char DAT_004246cc[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e128[];
 extern "C" char DAT_0049cad8[];
-struct Base {
+struct Base_1f0af0 {
     unsigned int vt;
     void Init(void*, int);
 };
 extern char FUN_001d04d0(const void*);
-struct Target : Base {
+struct Target_1f0af0 : Base_1f0af0 {
     char pad04[0x0c];
     char m10;
     char m11;
@@ -16,9 +16,9 @@ struct Target : Base {
     char m18;
     char pad19[3];
     void* m1c;
-    Target* Run(void*, void*);
+    Target_1f0af0* Run(void*, void*);
 };
-Target* Target::Run(void* a, void* b) {
+Target_1f0af0* Target_1f0af0::Run(void* a, void* b) {
     Init(a, 3);
     vt = ((int)DAT_004246cc);
     m1c = b;

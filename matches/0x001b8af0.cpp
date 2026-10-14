@@ -1,4 +1,4 @@
-class Service {
+class Service_1b8af0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -8,8 +8,8 @@ class Service {
     virtual void v5();
     virtual int Get();
 };
-extern Service* g_service;
-class Target {
+extern Service_1b8af0* g_service;
+class Target_1b8af0 {
   public:
     char pad0[0x18];
     unsigned char initialized;
@@ -21,7 +21,7 @@ class Target {
     char pad3[4];
     unsigned char flag;
 };
-void __fastcall FUN_001b8af0(Target* self) {
+void __fastcall FUN_001b8af0(Target_1b8af0* self) {
     if (!self->initialized) {
         self->flag = 0;
         self->initialized = 1;

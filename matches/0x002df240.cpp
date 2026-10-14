@@ -1,4 +1,4 @@
-class Inner {
+class Inner_2df240 {
   public:
     void f();
 };
@@ -33,11 +33,11 @@ class ShadowSkin {
     virtual void f25();
     virtual void f26();
     char pad[0x44];
-    Inner* member;
+    Inner_2df240* member;
 };
 
 void ShadowSkin::vfunc_24() {
-    Inner* p = member;
-    Inner* q = (Inner*)*(volatile void* const volatile*)p;
+    Inner_2df240* p = member;
+    Inner_2df240* q = (Inner_2df240*)*(volatile void* const volatile*)p;
     q->f();
 }

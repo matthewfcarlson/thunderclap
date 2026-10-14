@@ -1,4 +1,4 @@
-class Obj {
+class Obj_115520 {
     char pad[0x20];
     int mValue;
 
@@ -6,7 +6,7 @@ class Obj {
     bool Set(int value);
 };
 
-bool Obj::Set(int value) {
+bool Obj_115520::Set(int value) {
     mValue = value;
     return true;
 }

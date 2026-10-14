@@ -7,7 +7,7 @@ class ObjV {
     virtual void a();
     virtual void b();
 };
-class Inner {
+class Inner_273890 {
   public:
     virtual void a();
     virtual void b();
@@ -19,22 +19,22 @@ class Inner {
     virtual int h();
     int helper();
 };
-struct Data {
+struct Data_273890 {
     char pad[4];
     ObjV obj;
     char pad2[4];
-    Inner* inner;
+    Inner_273890* inner;
     char pad3[4];
     int value;
 };
 class FileRequest : public Request {
   public:
     char pad[4];
-    Data* data;
+    Data_273890* data;
     int vfunc_4();
 };
 int FileRequest::vfunc_4() {
-    Inner* p = data->inner;
+    Inner_273890* p = data->inner;
     int first = p->h();
     int second = p->helper();
     data->obj.a();

@@ -1,11 +1,11 @@
-struct Receiver {
+struct Receiver_327b00 {
     void set(unsigned);
 };
-typedef void (Receiver::*Setter)(unsigned);
-struct ParameterEntry {
+typedef void (Receiver_327b00::*Setter_327b00)(unsigned);
+struct ParameterEntry_327b00 {
     unsigned key;
     unsigned reserved;
-    Setter setter;
+    Setter_327b00 setter;
     int receiverOffset;
     unsigned unused[2];
 };
@@ -30,18 +30,18 @@ struct pddiBaseShader {
     virtual void vfunc_15();
     virtual void vfunc_16();
     virtual void vfunc_17();
-    virtual ParameterEntry* vfunc_18();
+    virtual ParameterEntry_327b00* vfunc_18();
     unsigned unused[2];
     unsigned changeId;
 };
 bool pddiBaseShader::vfunc_8(unsigned key, unsigned value) {
-    ParameterEntry* entry = vfunc_18();
+    ParameterEntry_327b00* entry = vfunc_18();
     if (!entry)
         return false;
     for (; entry->key; ++entry) {
         if (entry->key == key) {
-            Receiver* receiver =
-                reinterpret_cast<Receiver*>(reinterpret_cast<char*>(this) + entry->receiverOffset);
+            Receiver_327b00* receiver =
+                reinterpret_cast<Receiver_327b00*>(reinterpret_cast<char*>(this) + entry->receiverOffset);
             (receiver->*entry->setter)(value);
             unsigned id = DAT_005555b8 + 1;
             DAT_005555b8 = id;

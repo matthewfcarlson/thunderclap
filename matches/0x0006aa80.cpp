@@ -1,10 +1,10 @@
-class Base {
+class Base_6aa80 {
   public:
     virtual void f0();
     virtual void f1();
-    Base();
+    Base_6aa80();
 };
-class CRageModeTrack : public Base {
+class CRageModeTrack : public Base_6aa80 {
   public:
     virtual void g0();
     virtual void g1();

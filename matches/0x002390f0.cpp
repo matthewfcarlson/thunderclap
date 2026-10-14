@@ -1,5 +1,5 @@
 extern "C" char DAT_00428330[];
-class Obj {
+class Obj_2390f0 {
   public:
     virtual void F0();
     virtual void F1();
@@ -30,26 +30,26 @@ class Track {
     virtual void T10();
     virtual void T11();
 };
-extern Obj* __cdecl Alloc(int);
+extern Obj_2390f0* __cdecl Alloc(int);
 class PrintTrack : public Track {
   public:
     char pad[0x1c];
-    Obj* member;
-    Obj* vfunc_10(Obj*, Obj*, Obj*);
+    Obj_2390f0* member;
+    Obj_2390f0* vfunc_10(Obj_2390f0*, Obj_2390f0*, Obj_2390f0*);
 };
-Obj* PrintTrack::vfunc_10(Obj* a, Obj* b, Obj* p) {
-    Obj* q = Alloc(0x24);
+Obj_2390f0* PrintTrack::vfunc_10(Obj_2390f0* a, Obj_2390f0* b, Obj_2390f0* p) {
+    Obj_2390f0* q = Alloc(0x24);
     if (q) {
         q->Init();
         *(PrintTrack**)((char*)q + 0x1c) = this;
         *(unsigned int*)q = ((int)DAT_00428330);
-        *(Obj**)((char*)q + 0x20) = 0;
+        *(Obj_2390f0**)((char*)q + 0x20) = 0;
         if (p)
             p->F0();
-        Obj* old = *(Obj**)((char*)q + 0x20);
+        Obj_2390f0* old = *(Obj_2390f0**)((char*)q + 0x20);
         if (old)
             old->F1();
-        *(Obj**)((char*)q + 0x20) = p;
+        *(Obj_2390f0**)((char*)q + 0x20) = p;
         return q;
     }
     return 0;

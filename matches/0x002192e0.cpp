@@ -3,23 +3,23 @@ struct Node {
     unsigned unknown;
     unsigned hash;
 };
-struct Table {
+struct Table_2192e0 {
     Node** buckets;
     int unknown;
     int count;
     char pad[0x18];
     int locked;
 };
-struct Owner {
+struct Owner_2192e0 {
     char pad[0x10];
-    Table* table;
+    Table_2192e0* table;
 };
-extern void* __cdecl FUN_0021add0(Owner*, void*, unsigned, unsigned);
-void __cdecl FUN_002192e0(Owner* owner, int count) {
+extern void* __cdecl FUN_0021add0(Owner_2192e0*, void*, unsigned, unsigned);
+void __cdecl FUN_002192e0(Owner_2192e0* owner, int count) {
     if (owner->table->locked > 0)
         return;
     Node** buckets = (Node**)FUN_0021add0(owner, 0, 0, (unsigned)count * 4);
-    Table* table = owner->table;
+    Table_2192e0* table = owner->table;
     for (int i = 0; i < count; ++i)
         buckets[i] = 0;
     for (int i = 0; i < table->count; ++i) {

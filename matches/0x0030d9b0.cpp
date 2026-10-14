@@ -1,24 +1,24 @@
 // Same code shape as 0x0030d980 (propagated; names are from that function)
-struct Sub {
+struct Sub_30d9b0 {
     void Process();
 };
-struct Item {
+struct Item_30d9b0 {
     char pad[0x10];
-    Sub* sub;
+    Sub_30d9b0* sub;
 };
-struct Owner {
+struct Owner_30d9b0 {
     char pad[4];
-    Item* begin;
-    Item* end;
+    Item_30d9b0* begin;
+    Item_30d9b0* end;
     void Target();
 };
-void Owner::Target() {
-    Item* p = begin;
+void Owner_30d9b0::Target() {
+    Item_30d9b0* p = begin;
     if (p <= end) {
         do {
             p->sub->Process();
-            Item* old = p;
-            p = (Item*)((char*)p + 0x14);
+            Item_30d9b0* old = p;
+            p = (Item_30d9b0*)((char*)p + 0x14);
             if (old == end)
                 break;
         } while (1);

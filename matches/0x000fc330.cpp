@@ -1,4 +1,4 @@
-struct Obj {
+struct Obj_fc330 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -25,7 +25,7 @@ struct Obj {
     virtual void f23();
     virtual void f24();
 };
-extern Obj* g;
+extern Obj_fc330* g_fc330;
 void target() {
-    g->f24();
+    g_fc330->f24();
 }

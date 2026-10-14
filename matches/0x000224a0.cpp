@@ -1,6 +1,6 @@
 extern "C" char DAT_003f3390[];
 extern "C" void _ReadWriteBarrier();
-class Ref {
+class Ref_224a0 {
   public:
     virtual void f0();
     virtual void Release();
@@ -9,7 +9,7 @@ class CUninterruptibleAction {
   public:
     volatile int vptr;
     char pad[0x18];
-    volatile Ref* mRef;
+    volatile Ref_224a0* mRef;
     CUninterruptibleAction* f2(unsigned char flags);
     void Cleanup();
 };
@@ -18,7 +18,7 @@ CUninterruptibleAction* CUninterruptibleAction::f2(unsigned char flags) {
     vptr = ((int)DAT_003f3390);
     _ReadWriteBarrier();
     if (mRef) {
-        ((Ref*)mRef)->Release();
+        ((Ref_224a0*)mRef)->Release();
         mRef = 0;
     }
     Cleanup();

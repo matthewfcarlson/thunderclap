@@ -1,25 +1,25 @@
-class First {
+class First_1d74c0 {
   public:
     virtual void A();
 };
-class Second {
+class Second_1d74c0 {
   public:
     virtual void A();
     virtual void B();
 };
-class Obj {
+class Obj_1d74c0 {
   public:
     char pad[0x120];
-    First* ptr;
+    First_1d74c0* ptr;
     int a;
     int b;
     unsigned char c;
-    void whatever(First*, int, int, unsigned char);
+    void whatever(First_1d74c0*, int, int, unsigned char);
 };
-void Obj::whatever(First* p, int x, int y, unsigned char z) {
+void Obj_1d74c0::whatever(First_1d74c0* p, int x, int y, unsigned char z) {
     if (p)
         p->A();
-    Second* old = (Second*)ptr;
+    Second_1d74c0* old = (Second_1d74c0*)ptr;
     if (old)
         old->B();
     ptr = p;

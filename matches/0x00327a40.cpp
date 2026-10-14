@@ -4,12 +4,12 @@ class PddiObject {
     virtual void f1();
     virtual void f2();
 };
-class Handler {
+class Handler_327a40 {
   public:
     void h(int);
 };
-typedef void (Handler::*HFn)(int);
-struct Entry {
+typedef void (Handler_327a40::*HFn)(int);
+struct Entry_327a40 {
     int key;
     int a;
     HFn fn;
@@ -32,7 +32,7 @@ class PddiBaseShader : public PddiObject {
     virtual void f13();
     virtual void f14();
     virtual void f15();
-    virtual Entry* f16();
+    virtual Entry_327a40* f16();
     virtual void f17();
     virtual void f18();
     virtual void f19();
@@ -42,11 +42,11 @@ class PddiBaseShader : public PddiObject {
 };
 extern int counter;
 bool PddiBaseShader::f6(int key, int arg) {
-    Entry* e = f16();
+    Entry_327a40* e = f16();
     if (e && e->key) {
         do {
             if (e->key == key) {
-                Handler* h = (Handler*)((char*)this + e->off);
+                Handler_327a40* h = (Handler_327a40*)((char*)this + e->off);
                 (h->*(e->fn))(arg);
                 ++counter;
                 if (counter == -1)
@@ -55,7 +55,7 @@ bool PddiBaseShader::f6(int key, int arg) {
                 ++counter;
                 return true;
             }
-            e = (Entry*)((char*)e + 24);
+            e = (Entry_327a40*)((char*)e + 24);
         } while (e->key);
     }
     return false;

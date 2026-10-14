@@ -1,4 +1,4 @@
-class Obj {
+class Obj_9a090 {
   public:
     virtual void F0();
     virtual void V1();
@@ -31,17 +31,17 @@ class Obj {
     virtual void F28();
 };
 void* __cdecl Alloc(int);
-Obj* __fastcall Construct(void* mem);
-class Owner {
+Obj_9a090* __fastcall Construct(void* mem);
+class Owner_9a090 {
   public:
     char p0[0x10];
     void* other;
     char p1[0xa4];
-    Obj* item;
+    Obj_9a090* item;
     void Prep();
     void Run();
 };
-void Owner::Run() {
+void Owner_9a090::Run() {
     Prep();
     void* m = Alloc(0x4c0);
     item = m ? Construct(m) : 0;

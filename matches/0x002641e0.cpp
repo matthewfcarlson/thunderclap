@@ -1,6 +1,6 @@
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042ae9c[];
-class Obj {
+class Obj_2641e0 {
   public:
     virtual void X();
     virtual void Release();
@@ -9,7 +9,7 @@ class LoadStream {
   public:
     unsigned int vt;
     unsigned int p4;
-    Obj* mObj;
+    Obj_2641e0* mObj;
     unsigned int pC[5];
     void* m20;
     void* m24;

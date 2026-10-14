@@ -1,28 +1,28 @@
-class Arg {
+class Arg_2aa720 {
   public:
     int Convert();
 };
-class Item {
+class Item_2aa720 {
   public:
     virtual void a();
     virtual void b();
     virtual void c();
     virtual char Test(int);
-    virtual void Run(int, Arg*, int, int);
+    virtual void Run(int, Arg_2aa720*, int, int);
 };
-class Group {
+class Group_2aa720 {
     char pad[8];
 
   public:
     unsigned count;
-    Item* items[8];
+    Item_2aa720* items[8];
     int extra;
-    void Fn(int a, Arg* b, int c);
+    void Fn(int a, Arg_2aa720* b, int c);
 };
-void Group::Fn(int a, Arg* b, int c) {
+void Group_2aa720::Fn(int a, Arg_2aa720* b, int c) {
     unsigned i = 0;
     if (count > 0) {
-        Item** p = items;
+        Item_2aa720** p = items;
         do {
             if ((*p)->Test(b->Convert()) == 1) {
                 items[i]->Run(a, b, c, extra);

@@ -12,7 +12,7 @@ struct SafeRefCount {
     unsigned count;
 };
 } // namespace core
-struct Resource {
+struct Resource_2776c0 {
     virtual void v0();
     virtual void release();
     virtual void v2();
@@ -32,7 +32,7 @@ struct Resource {
     virtual void v16();
     virtual void reset();
 };
-struct Entry {
+struct Entry_2776c0 {
     char pad[20];
     unsigned data;
     unsigned size;
@@ -42,16 +42,16 @@ struct Entry {
 namespace core {
 struct CementLibrary;
 }
-struct Manager : Resource {
-    Entry* FUN_00272bc0();
+struct Manager_2776c0 : Resource_2776c0 {
+    Entry_2776c0* FUN_00272bc0();
     void FUN_00272bb0(core::CementLibrary*);
 };
 void __cdecl FUN_00266f20(unsigned, unsigned);
 extern unsigned DAT_004cdbb0;
 namespace core {
 struct CementLibrary : IRefCount, OtherRef, BaseObject, SafeRefCount {
-    Manager* manager;
-    Resource* resource;
+    Manager_2776c0* manager;
+    Resource_2776c0* resource;
     unsigned mode;
     char pad24[52];
     unsigned total;
@@ -65,7 +65,7 @@ CementLibrary::~CementLibrary() {
         resource->reset();
     else if (mode == 1) {
         if (total > 0) {
-            Entry* e = manager->FUN_00272bc0();
+            Entry_2776c0* e = manager->FUN_00272bc0();
             if (e->refs == 1) {
                 FUN_00266f20(e->allocator, e->data);
                 e->data = 0;

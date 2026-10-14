@@ -1,13 +1,13 @@
 extern unsigned int gDirty;
-struct E {
+struct E_329e50 {
     int x;
     int p[3];
     int y;
     char pad[0x80 - 0x14];
 };
-extern E gTab[];
+extern E_329e50 gTab[];
 
-class Obj {
+class Obj_329e50 {
   public:
     char pad[0x94];
     int a[12];
@@ -17,7 +17,7 @@ class Obj {
     void Set(int i, int x, int y, int v);
 };
 
-void Obj::Set(int i, int x, int y, int v) {
+void Obj_329e50::Set(int i, int x, int y, int v) {
     F1(i, x, y);
     if (a[i] != v) {
         a[i] = v;

@@ -3,12 +3,12 @@ class Node {
     char pad[16];
     Node* next;
 };
-class List {
+class List_232810 {
   public:
     Node* head;
     Node* Get(int index);
 };
-Node* List::Get(int index) {
+Node* List_232810::Get(int index) {
     int i = 0;
     Node* p = head;
     while (p != 0 && index >= i) {

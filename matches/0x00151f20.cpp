@@ -1,22 +1,22 @@
 // Same code shape as 0x001353c0 (propagated; names are from that function)
-class Thing {
+class Thing_151f20 {
   public:
     virtual void A();
     virtual void B();
 };
-class Base {
+class Base_151f20 {
   public:
-    Base();
+    Base_151f20();
     virtual void X();
     virtual void Y();
 };
-class FlyingBrakeAction : public Base {
+class FlyingBrakeAction : public Base_151f20 {
   public:
-    FlyingBrakeAction(void* p, Thing* t);
+    FlyingBrakeAction(void* p, Thing_151f20* t);
     char pad[0x1c - 4];
     int mF[9];
 };
-FlyingBrakeAction::FlyingBrakeAction(void* p, Thing* t) : Base() {
+FlyingBrakeAction::FlyingBrakeAction(void* p, Thing_151f20* t) : Base_151f20() {
     int i;
     for (i = 0; i < 9; i++)
         mF[i] = 0;
@@ -24,6 +24,6 @@ FlyingBrakeAction::FlyingBrakeAction(void* p, Thing* t) : Base() {
     if (t)
         t->A();
     if (mF[1])
-        ((Thing*)mF[1])->B();
+        ((Thing_151f20*)mF[1])->B();
     mF[1] = (int)t;
 }

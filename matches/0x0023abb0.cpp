@@ -1,4 +1,4 @@
-class Obj {
+class Obj_23abb0 {
   public:
     char pad[0x12c];
     int count;
@@ -10,7 +10,7 @@ class Obj {
     } items[1];
     bool Get(int idx, bool* out);
 };
-bool Obj::Get(int idx, bool* out) {
+bool Obj_23abb0::Get(int idx, bool* out) {
     if (idx < 0 || idx >= count)
         return false;
     switch (items[idx].type) {

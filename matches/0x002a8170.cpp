@@ -1,13 +1,13 @@
 extern "C" void _ReadWriteBarrier();
-extern int vt1;
+extern int vt1_2a8170;
 extern void Free(void*);
 extern void Free2(void*);
-class Root {
+class Root_2a8170 {
   public:
     void* vptr;
     void Fini();
 };
-class D : public Root {
+class D : public Root_2a8170 {
   public:
     char p[0x3c];
     int a40;
@@ -17,7 +17,7 @@ class D : public Root {
     D* vfunc2(unsigned char f);
 };
 D* D::vfunc2(unsigned char f) {
-    vptr = &vt1;
+    vptr = &vt1_2a8170;
     a40 = 0;
     _ReadWriteBarrier();
     if (a50)

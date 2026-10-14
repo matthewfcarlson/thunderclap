@@ -1,16 +1,16 @@
 extern "C" char DAT_00494b44[];
 extern "C" char DAT_004c13d0[];
-struct R {
+struct R_1a4c50 {
     char a[4];
     int type;
     char b[12];
     int name;
 };
 extern void* Find(void*, int, void*, void*, int);
-struct Obj {
-    R* Get();
+struct Obj_1a4c50 {
+    R_1a4c50* Get();
 };
-class C {
+class C_1a4c50 {
   public:
     virtual void f0();
     virtual void f1();
@@ -23,11 +23,11 @@ class C {
     int mode;
     int expected;
 };
-bool C::f6(void* x, void* y, void* z) {
+bool C_1a4c50::f6(void* x, void* y, void* z) {
     void* p = Find(y, 0, (void*)((int)DAT_00494b44), (void*)((int)DAT_004c13d0), 0);
     if (!p)
         return false;
-    R* q = ((Obj*)p)->Get();
+    R_1a4c50* q = ((Obj_1a4c50*)p)->Get();
     if (q->type != 15)
         return false;
     int n = q->name;

@@ -1,12 +1,12 @@
-struct S {
+struct S_1e1150 {
     int a, b, c, d;
     short e, f;
 };
-struct T {
+struct T_1e1150 {
     int a, b, c, d, e;
 };
-extern "C" void __cdecl FUN_001e1040(S*, int, int, T);
-extern "C" void __cdecl FUN_001e1150(S* src, S* end, S* dst, T t) {
+extern "C" void __cdecl FUN_001e1040(S_1e1150*, int, int, T_1e1150);
+extern "C" void __cdecl FUN_001e1150(S_1e1150* src, S_1e1150* end, S_1e1150* dst, T_1e1150 t) {
     dst->a = src->a;
     dst->b = src->b;
     dst->c = src->c;

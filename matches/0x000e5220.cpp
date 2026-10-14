@@ -12,7 +12,7 @@ struct Node {
     virtual void v10();
     virtual void v11();
 };
-struct Renderer {
+struct Renderer_e5220 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -32,7 +32,7 @@ struct Renderer {
     virtual void v16(int);
 };
 struct Context {
-    Renderer* renderer;
+    Renderer_e5220* renderer;
     void FUN_00293d00(void*);
 };
 extern Context* DAT_0052c2ac;

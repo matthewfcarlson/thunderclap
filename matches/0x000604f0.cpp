@@ -1,10 +1,10 @@
-class Obj {
+class Obj_604f0 {
   public:
     char pad[0x14];
     int mVal;
     char Set(int v);
 };
-char Obj::Set(int v) {
+char Obj_604f0::Set(int v) {
     mVal = v;
     return 1;
 }

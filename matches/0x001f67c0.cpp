@@ -4,7 +4,7 @@ void thunk_FUN_00270a50();
 void FUN_002656a0();
 void FUN_00240bb0();
 
-class Obj {
+class Obj_1f67c0 {
   public:
     void Run();
     void Step(float f);
@@ -15,7 +15,7 @@ class Obj {
     char mFlag;
 };
 
-void Obj::Run() {
+void Obj_1f67c0::Run() {
     if (!mB)
         return;
     if (FUN_00247930(mA, mB) == 1) {

@@ -1,12 +1,12 @@
 extern "C" char DAT_00412ab0[];
-class Obj {
+class Obj_142ee0 {
   public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual Obj* v5();
+    virtual Obj_142ee0* v5();
     void Init(int);
     int a;
     char pad[4];
@@ -14,8 +14,8 @@ class Obj {
     int c;
 };
 extern "C" void* __cdecl Alloc(unsigned int);
-Obj* Obj::v5() {
-    Obj* p = (Obj*)Alloc(0x14);
+Obj_142ee0* Obj_142ee0::v5() {
+    Obj_142ee0* p = (Obj_142ee0*)Alloc(0x14);
     if (p) {
         p->Init(0);
         *(int*)p = ((int)DAT_00412ab0);

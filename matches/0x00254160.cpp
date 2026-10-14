@@ -16,13 +16,13 @@ class SeqEventStream : public SeqEvent {
     virtual void f3();
     virtual SeqEventStream* f4(int);
 };
-class Helper {
+class Helper_254160 {
   public:
     void Run();
 };
 extern void __cdecl FUN_00247550(void*, SeqEventStream*);
 SeqEventStream* SeqEventStream::f4(int flag) {
-    ((Helper*)this)->Run();
+    ((Helper_254160*)this)->Run();
     if (flag & 1)
         FUN_00247550((void*)((int)DAT_004e7200), this);
     return this;

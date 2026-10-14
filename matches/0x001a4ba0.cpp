@@ -2,15 +2,15 @@ extern "C" void* FUN_00344e74(void*, int, void*, void*, int);
 extern int g_params;
 extern int g_scen;
 
-struct Rec {
+struct Rec_1a4ba0 {
     char pad0[4];
     int type;
     char pad1[0x10];
     int a;
     int b;
 };
-struct Getter {
-    Rec* get();
+struct Getter_1a4ba0 {
+    Rec_1a4ba0* get();
 };
 
 class Event_StringCondition {
@@ -28,9 +28,9 @@ class Event_StringCondition {
 };
 
 bool Event_StringCondition::vfunc_6(void* p1, void* p2, void* p3) {
-    Getter* g = (Getter*)FUN_00344e74(p2, 0, &g_params, &g_scen, 0);
+    Getter_1a4ba0* g = (Getter_1a4ba0*)FUN_00344e74(p2, 0, &g_params, &g_scen, 0);
     if (g) {
-        Rec* r = g->get();
+        Rec_1a4ba0* r = g->get();
         if (r->type == 0x1b && r->a == a && r->b == b)
             return true;
     }

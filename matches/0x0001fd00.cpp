@@ -1,21 +1,21 @@
-struct Angle {
+struct Angle_1fd00 {
     float FUN_000354c0();
     void FUN_00221d20(float);
 };
-struct Link2 {
-    Angle* FUN_00059a30();
+struct Link2_1fd00 {
+    Angle_1fd00* FUN_00059a30();
 };
-struct Link1 {
-    Link2* FUN_000592a0();
+struct Link1_1fd00 {
+    Link2_1fd00* FUN_000592a0();
 };
-struct Settings {
+struct Settings_1fd00 {
     char pad[20];
     float speed;
     float offset;
 };
-struct Destination {
+struct Destination_1fd00 {
     char pad[24];
-    Angle angle;
+    Angle_1fd00 angle;
 };
 float __cdecl FUN_00224fc0(float, float);
 struct COrientTargetAction {
@@ -29,10 +29,10 @@ struct COrientTargetAction {
     virtual bool vfunc_7(float);
     virtual void vfunc_8();
     char pad[24];
-    Link1* source;
-    Settings* settings;
-    Angle* target;
-    Destination* destination;
+    Link1_1fd00* source;
+    Settings_1fd00* settings;
+    Angle_1fd00* target;
+    Destination_1fd00* destination;
 };
 bool COrientTargetAction::vfunc_7(float dt) {
     if (!destination)

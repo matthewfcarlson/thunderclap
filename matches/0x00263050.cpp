@@ -14,7 +14,7 @@ class HalStream {
     virtual void v11();
     virtual void v12();
 };
-class Device {
+class Device_263050 {
   public:
     virtual void v0();
     virtual void v1();
@@ -24,7 +24,7 @@ class Device {
 class HalRsdFileStream : public HalStream {
   public:
     char pad04[0x20 - 4];
-    Device* device;
+    Device_263050* device;
     char pad24[8];
     unsigned length;
     char pad30[0x3c - 0x30];

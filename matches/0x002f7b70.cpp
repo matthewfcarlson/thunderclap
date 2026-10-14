@@ -1,4 +1,4 @@
-class O {
+class O_2f7b70 {
   public:
     virtual void v0();
     virtual void v1();
@@ -22,18 +22,18 @@ class O {
     virtual void v19();
     virtual void v20(int, int, int, int, int);
 };
-struct Q {
+struct Q_2f7b70 {
     void Fb();
 };
 class H {
   public:
-    void F(O* p, int a3, int a4, int a5, int a6, int a7);
+    void F(O_2f7b70* p, int a3, int a4, int a5, int a6, int a7);
 };
-void H::F(O* p, int a3, int a4, int a5, int a6, int a7) {
+void H::F(O_2f7b70* p, int a3, int a4, int a5, int a6, int a7) {
     if (p) {
         p->v17(a4, (int)this + 0x24, a3, a6, a7);
         p->v20(a4, a5, a3, a6, a7);
     } else {
-        ((Q*)a5)->Fb();
+        ((Q_2f7b70*)a5)->Fb();
     }
 }

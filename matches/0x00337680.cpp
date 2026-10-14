@@ -1,4 +1,4 @@
-class Thing {
+class Thing_337680 {
   public:
     char pad0[4];
     int count;
@@ -8,7 +8,7 @@ class Thing {
     void Init(int);
     int Target(int);
 };
-int Thing::Target(int arg) {
+int Thing_337680::Target(int arg) {
     if (Check(arg)) {
         state = 7;
         return 0;
@@ -18,7 +18,7 @@ int Thing::Target(int arg) {
         state = 5;
         return 0;
     }
-    ((Thing*)((char*)this + i * 0x288 + 8))->Init(arg);
+    ((Thing_337680*)((char*)this + i * 0x288 + 8))->Init(arg);
     count++;
     return (int)((char*)this + i * 0x288 + 8);
 }

@@ -1,25 +1,25 @@
-struct C3 {
+struct C3_30c0a0 {
     void Fn(void* a, void* b);
 };
-struct C2 {
-    C3* G();
+struct C2_30c0a0 {
+    C3_30c0a0* G();
 };
-struct C1 {
-    C2* F();
+struct C1_30c0a0 {
+    C2_30c0a0* F();
 };
-struct Mgr {
-    C1* Find(int id);
+struct Mgr_30c0a0 {
+    C1_30c0a0* Find(int id);
 };
-struct Tbl {
+struct Tbl_30c0a0 {
     char pad[0x10];
     char* data;
 };
-struct Own {
+struct Own_30c0a0 {
     char pad[0x208];
-    Mgr* mgr;
+    Mgr_30c0a0* mgr;
     char pad2[0x220 - 0x20c];
-    Tbl* tbl;
-    C1* Find(int id) { return mgr->Find(id); }
+    Tbl_30c0a0* tbl;
+    C1_30c0a0* Find(int id) { return mgr->Find(id); }
 };
 class PhysicsJoint {
   public:
@@ -56,7 +56,7 @@ class PhysicsJoint {
     int m8;
     int mC;
     char pad2[0x18 - 0x10];
-    Own* mOwn;
+    Own_30c0a0* mOwn;
 };
 class PhysicsJoint1D : public PhysicsJoint {
   public:
@@ -67,7 +67,7 @@ class PhysicsJoint1D : public PhysicsJoint {
 };
 void PhysicsJoint1D::vfunc_10(int a) {
     PhysicsJoint::vfunc_10(a);
-    C3* c = mOwn->Find(mC)->F()->G();
+    C3_30c0a0* c = mOwn->Find(mC)->F()->G();
     c->Fn(mOwn->tbl->data + m8 * 0x1c + 0xc, blob);
     Fin();
     f25();

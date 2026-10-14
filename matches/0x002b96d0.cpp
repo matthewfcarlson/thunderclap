@@ -1,15 +1,15 @@
-class Base {
+class Base_2b96d0 {
   public:
-    Base();
+    Base_2b96d0();
     int x;
 };
-Base::Base() {
+Base_2b96d0::Base_2b96d0() {
     extern void BaseInit();
     BaseInit();
 }
-class OldBillboardQuadGroupLoader : public Base {
+class OldBillboardQuadGroupLoader : public Base_2b96d0 {
   public:
     OldBillboardQuadGroupLoader();
     virtual void F();
 };
-OldBillboardQuadGroupLoader::OldBillboardQuadGroupLoader() : Base() {}
+OldBillboardQuadGroupLoader::OldBillboardQuadGroupLoader() : Base_2b96d0() {}

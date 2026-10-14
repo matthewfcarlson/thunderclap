@@ -1,20 +1,20 @@
 extern const float gzero;
 extern const float gone;
-struct Entry {
+struct Entry_2262d0 {
     unsigned int id;
     float w;
     float v;
 };
-class Obj {
+class Obj_2262d0 {
   public:
     char pad[0x30];
     unsigned int limit;
     char pad34[0x12ec - 0x34];
     unsigned int count;
-    Entry e[1];
+    Entry_2262d0 e[1];
     void Add(unsigned int, float, float);
 };
-void Obj::Add(unsigned int id, float w, float v) {
+void Obj_2262d0::Add(unsigned int id, float w, float v) {
     if (w <= gzero)
         return;
     if (id >= limit)

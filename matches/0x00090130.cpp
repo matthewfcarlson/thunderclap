@@ -1,9 +1,9 @@
-struct Stats {
+struct Stats_90130 {
     int Find(const char* n);
     void SetXp(int v);
     char p[0x38];
 };
-void Stats::SetXp(int v) {
+void Stats_90130::SetXp(int v) {
     int i = Find("xp");
     if (i != -1) {
         int* q = (int*)((char*)this + i * 0x40 + 0x38);

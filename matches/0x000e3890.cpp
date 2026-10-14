@@ -8,7 +8,7 @@ inline void Copy(char* d, const char* s) {
         ++d;
     } while (c);
 }
-class Obj {
+class Obj_e3890 {
   public:
     virtual void Fn();
     char pad4[0x14c];
@@ -22,7 +22,7 @@ class Obj {
     char entries[0x2000];
     void Target(const char*, char);
 };
-void Obj::Target(const char* s, char flag) {
+void Obj_e3890::Target(const char* s, char flag) {
     if (count < 0x80) {
         Copy(entries + count * 0x40, s);
         if (flag) {

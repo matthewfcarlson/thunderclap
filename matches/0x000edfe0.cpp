@@ -1,4 +1,4 @@
-class Inner {
+class Inner_edfe0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -17,7 +17,7 @@ class Inner {
     virtual void f14();
     virtual void f15(void*, class ImageSelector*);
 };
-struct Vec3 {
+struct Vec3_edfe0 {
     float x, y, z;
 };
 class ImageSelector {
@@ -47,10 +47,10 @@ class ImageSelector {
     virtual void v22();
     virtual void v23();
     char pad[0x10];
-    Inner* mInner;
+    Inner_edfe0* mInner;
 };
 float ImageSelector::v9() {
-    Vec3 t;
+    Vec3_edfe0 t;
     mInner->f15(&t, this);
     return t.x;
 }

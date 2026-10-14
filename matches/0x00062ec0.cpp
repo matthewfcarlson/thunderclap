@@ -17,16 +17,16 @@ class CSmartPropSpawnTrack {
     char pad[0x94];
     void finish();
 };
-struct Helper {
+struct Helper_62ec0 {
     void call();
 };
-extern void* vt[];
+extern void* vt_62ec0[];
 extern void FUN_00267090(CSmartPropSpawnTrack*);
 CSmartPropSpawnTrack* CSmartPropSpawnTrack::vfunc_5(unsigned char p) {
-    ((void**)this)[0] = vt;
-    ((Helper*)((char*)this + 0xc8))->call();
-    ((Helper*)((char*)this + 0xa0))->call();
-    ((Helper*)((char*)this + 0x98))->call();
+    ((void**)this)[0] = vt_62ec0;
+    ((Helper_62ec0*)((char*)this + 0xc8))->call();
+    ((Helper_62ec0*)((char*)this + 0xa0))->call();
+    ((Helper_62ec0*)((char*)this + 0x98))->call();
     finish();
     if (p & 1)
         FUN_00267090(this);

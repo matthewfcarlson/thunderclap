@@ -12,7 +12,7 @@ class HoverTrack {
 };
 extern "C" void* __cdecl Alloc(unsigned int);
 void __fastcall Init(HoverTrack*);
-class Factory {
+class Factory_1397a0 {
   public:
     virtual void A();
     virtual void B();
@@ -21,7 +21,7 @@ class Factory {
     virtual void E();
     virtual HoverTrack* Make();
 };
-HoverTrack* Factory::Make() {
+HoverTrack* Factory_1397a0::Make() {
     HoverTrack* p = (HoverTrack*)Alloc(0x18);
     if (p) {
         Init(p);

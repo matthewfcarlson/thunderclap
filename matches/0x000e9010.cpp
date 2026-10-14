@@ -6,7 +6,7 @@ class FELayout {
     virtual void f3();
     virtual void f4();
 };
-class Obj {
+class Obj_e9010 {
   public:
     void run(int, int, int);
 };
@@ -30,10 +30,10 @@ class VScroll : public FELayout {
     virtual void g20();
     virtual void g21();
     char pad[0x240];
-    Obj* member;
+    Obj_e9010* member;
 };
 void VScroll::vfunc_10(int param_2) {
-    Obj* p = member;
+    Obj_e9010* p = member;
     if (p && param_2 == 0)
         p->run(0, -1, -1);
 }

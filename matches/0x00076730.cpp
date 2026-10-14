@@ -10,7 +10,7 @@ class CGrappleDrainHealthTrack {
     virtual void v4();
     virtual void v5();
 };
-class Factory {
+class Factory_76730 {
   public:
     virtual void a();
     virtual void b();
@@ -19,7 +19,7 @@ class Factory {
     virtual void e();
     virtual CGrappleDrainHealthTrack* vfunc_5();
 };
-CGrappleDrainHealthTrack* Factory::vfunc_5() {
+CGrappleDrainHealthTrack* Factory_76730::vfunc_5() {
     CGrappleDrainHealthTrack* p = (CGrappleDrainHealthTrack*)FUN_0008d690(0x18);
     if (p) {
         p->Init();

@@ -22,7 +22,7 @@ class FELayout {
     virtual void f19();
     virtual void f20();
 };
-class Child {
+class Child_e24e0 {
   public:
     virtual void a();
     virtual void b();
@@ -44,7 +44,7 @@ class VScroll : public FELayout {
     char pad[0x244 - sizeof(FELayout)];
 
   public:
-    Child* child;
+    Child_e24e0* child;
     virtual void v0();
     virtual void v1();
     virtual void v2();

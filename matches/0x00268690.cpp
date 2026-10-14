@@ -1,4 +1,4 @@
-class Dispatch {
+class Dispatch_268690 {
   public:
     virtual void a();
     virtual void b();
@@ -10,7 +10,7 @@ class Dispatch {
     virtual void h();
     virtual void i();
 };
-class Item {
+class Item_268690 {
   public:
     virtual void a();
     virtual void b();
@@ -52,10 +52,10 @@ class ControllerXBox {
     unsigned int count;
     char pad18[4];
     char pad1c[0x454 - 0x1c];
-    Dispatch* dispatch;
+    Dispatch_268690* dispatch;
 };
 void ControllerXBox::vfunc_18(int arg) {
     dispatch->i();
     for (unsigned int i = 0; i < count; ++i)
-        ((Item*)((char*)this + 0x18 + i * 0x34))->call(arg);
+        ((Item_268690*)((char*)this + 0x18 + i * 0x34))->call(arg);
 }

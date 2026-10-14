@@ -1,27 +1,27 @@
-struct Blk {
+struct Blk_35250 {
     unsigned int d[16];
 };
-class Source {
+class Source_35250 {
   public:
     void* Get();
 };
 class Image {
   public:
-    Blk* Data();
+    Blk_35250* Data();
 };
-class C {
+class C_35250 {
   public:
     char pad[0x10];
-    Source* member;
+    Source_35250* member;
     void Run(unsigned int* p);
-    void Finish(Blk* b);
+    void Finish(Blk_35250* b);
 };
-void C::Run(unsigned int* p) {
-    Blk local;
+void C_35250::Run(unsigned int* p) {
+    Blk_35250 local;
     void* x = member->Get();
     if (x) {
         Image* q = (Image*)((char*)x + 0x10);
-        Blk* src = q->Data();
+        Blk_35250* src = q->Data();
         local = *src;
     }
     local.d[12] = p[0];

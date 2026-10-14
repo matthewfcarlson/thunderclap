@@ -18,7 +18,7 @@ class Creator {
     virtual ResultObj* create(int a, int b);
 };
 
-class Sub {
+class Sub_237d90 {
   public:
     char fn(int a, int b, int c);
 };
@@ -37,7 +37,7 @@ class SequenceAction {
     char pad2[4];
     Creator* mCreator;
     volatile int m28;
-    Sub* m2c;
+    Sub_237d90* m2c;
     volatile int m30;
     volatile int m34;
     ResultObj* volatile m38;

@@ -1,32 +1,32 @@
-struct Result {
+struct Result_e2d60 {
     int header;
     int slots[4];
 };
-struct Final {
-    Result* Get(int);
+struct Final_e2d60 {
+    Result_e2d60* Get(int);
 };
-struct Mid {
+struct Mid_e2d60 {
     char pad[8];
-    Final* f;
+    Final_e2d60* f;
 };
-struct First {
+struct First_e2d60 {
     char pad[4];
-    Mid* m;
+    Mid_e2d60* m;
 };
-struct Root {
+struct Root_e2d60 {
     char pad[8];
-    First* first;
+    First_e2d60* first;
 };
-class Owner {
+class Owner_e2d60 {
   public:
     char pad[0x14];
-    Root* root;
+    Root_e2d60* root;
     char pad2[0x168];
-    Result* result;
+    Result_e2d60* result;
     void Run(int);
 };
-void Owner::Run(int arg) {
-    Result* p = root->first->m->f->Get(arg);
+void Owner_e2d60::Run(int arg) {
+    Result_e2d60* p = root->first->m->f->Get(arg);
     result = p;
     if (p) {
         int i = 0;

@@ -1,10 +1,10 @@
-class Obj {
+class Obj_7d5b0 {
   public:
     virtual void F0();
     virtual void Release();
 };
 
-class Mgr {
+class Mgr_7d5b0 {
   public:
     void Reset();
     void A(int);
@@ -23,13 +23,13 @@ class Mgr {
     char pad5[0x379c - 0x3744];
     int v379c;
     char pad6[0x37ac - 0x37a0];
-    Obj* objs[20];
+    Obj_7d5b0* objs[20];
     int v37fc;
     char pad8[0x3828 - 0x3800];
     int v3828;
 };
 
-void Mgr::Reset() {
+void Mgr_7d5b0::Reset() {
     for (int i = 0; i < 20; i++) {
         if (objs[i]) {
             objs[i]->Release();

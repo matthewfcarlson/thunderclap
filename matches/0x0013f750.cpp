@@ -1,10 +1,10 @@
-typedef unsigned char byte;
-extern int vf;
-class Helper {
+typedef unsigned char byte_13f750;
+extern int vf_13f750;
+class Helper_13f750 {
   public:
     void clean();
 };
-class Base {
+class Base_13f750 {
   public:
     void init();
 };
@@ -18,7 +18,7 @@ class WallRunTrack {
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual WallRunTrack* vfunc_5(byte);
+    virtual WallRunTrack* vfunc_5(byte_13f750);
     virtual void v6();
     virtual void v7();
     virtual void v8();
@@ -26,12 +26,12 @@ class WallRunTrack {
     virtual void v10();
     char pad[0x38];
 };
-WallRunTrack* WallRunTrack::vfunc_5(byte param) {
-    *(int*)this = (int)&vf;
-    ((Helper*)((char*)this + 0x48))->clean();
-    ((Helper*)((char*)this + 0x40))->clean();
-    ((Helper*)((char*)this + 0x38))->clean();
-    ((Base*)this)->init();
+WallRunTrack* WallRunTrack::vfunc_5(byte_13f750 param) {
+    *(int*)this = (int)&vf_13f750;
+    ((Helper_13f750*)((char*)this + 0x48))->clean();
+    ((Helper_13f750*)((char*)this + 0x40))->clean();
+    ((Helper_13f750*)((char*)this + 0x38))->clean();
+    ((Base_13f750*)this)->init();
     if (param & 1)
         thunk(this);
     return this;

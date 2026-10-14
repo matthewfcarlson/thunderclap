@@ -1,10 +1,11 @@
-class C {
+class T_146e90 {
   public:
     char pad[0x18];
-    float m18;
-    bool Set(float f);
+    float v;
+    unsigned char f(float x);
 };
-bool C::Set(float f) {
-    m18 = f * 0.0174532925f;
-    return true;
+
+unsigned char T_146e90::f(float x) {
+    v = x * 0.017453293f;
+    return 1;
 }

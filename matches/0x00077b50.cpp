@@ -1,11 +1,11 @@
-typedef unsigned int u32;
+typedef unsigned int u32_77b50;
 extern "C" void* __cdecl alloc(unsigned int);
-extern u32 track_vftable;
+extern u32_77b50 track_vftable;
 struct CGrappleKeyPoseTrack {
-    u32 vf;
+    u32_77b50 vf;
     void init();
 };
-struct Factory {
+struct Factory_77b50 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -13,11 +13,11 @@ struct Factory {
     virtual void e();
     virtual CGrappleKeyPoseTrack* create();
 };
-CGrappleKeyPoseTrack* Factory::create() {
+CGrappleKeyPoseTrack* Factory_77b50::create() {
     CGrappleKeyPoseTrack* p = (CGrappleKeyPoseTrack*)alloc(0x78);
     if (p) {
         p->init();
-        p->vf = (u32)&track_vftable;
+        p->vf = (u32_77b50)&track_vftable;
         return p;
     }
     return 0;

@@ -1,40 +1,40 @@
-struct Sub {
+struct Sub_1c22f0 {
     void A(int);
     void B();
     void C();
 };
-struct Obj2 {
+struct Obj2_1c22f0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
 };
-struct Parent {
+struct Parent_1c22f0 {
     void Done();
 };
-extern Obj2* g_obj;
-extern const float kZero;
+extern Obj2_1c22f0* g_obj_1c22f0;
+extern const float kZero_1c22f0;
 
-class Thing {
+class Thing_1c22f0 {
   public:
     void Fn();
     void Set(float a, float b);
     char pad0[4];
-    Parent* mParent;
+    Parent_1c22f0* mParent;
     char pad1[0xb4];
-    Sub* mSub;
+    Sub_1c22f0* mSub;
     int mVal;
     char pad2[12];
     float mF;
     float mG;
 };
 
-void Thing::Fn() {
+void Thing_1c22f0::Fn() {
     mSub->A(mVal);
     mSub->B();
     mSub->C();
-    if (g_obj && mF != kZero) {
+    if (g_obj_1c22f0 && mF != kZero_1c22f0) {
         Set(mF, mG);
-        g_obj->v2();
+        g_obj_1c22f0->v2();
     }
     mParent->Done();
 }

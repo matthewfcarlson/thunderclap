@@ -1,5 +1,5 @@
-typedef unsigned int u32;
-void __cdecl AllocHelper(u32, u32);
+typedef unsigned int u32_267230;
+void __cdecl AllocHelper(u32_267230, u32_267230);
 class MemoryAllocatorMalloc {
   public:
     virtual void f0();
@@ -8,7 +8,7 @@ class MemoryAllocatorMalloc {
     virtual void f3();
     virtual void f4();
     virtual void f5();
-    virtual void vfunc_6(u32 a, u32 b);
+    virtual void vfunc_6(u32_267230 a, u32_267230 b);
     virtual void f7();
     virtual void f8();
     virtual void f9();
@@ -16,6 +16,6 @@ class MemoryAllocatorMalloc {
     virtual void f11();
     virtual void f12();
 };
-void MemoryAllocatorMalloc::vfunc_6(u32 a, u32 b) {
+void MemoryAllocatorMalloc::vfunc_6(u32_267230 a, u32_267230 b) {
     AllocHelper(a, b);
 }

@@ -15,12 +15,12 @@ class CSmartPropAttachTrack {
     virtual void f11();
     virtual int vfunc_12(int);
 };
-struct Helper {
+struct Helper_69bf0 {
     int f(CSmartPropAttachTrack*, int);
 };
-extern "C" Helper* __cdecl FUN_0008d690(int);
+extern "C" Helper_69bf0* __cdecl FUN_0008d690(int);
 int CSmartPropAttachTrack::vfunc_12(int a) {
-    Helper* p = FUN_0008d690(0x2c);
+    Helper_69bf0* p = FUN_0008d690(0x2c);
     if (p)
         return p->f(this, a);
     return 0;

@@ -1,10 +1,10 @@
 // Same code shape as 0x00293bf0 (propagated; names are from that function)
-struct Global {
+struct Global_293c20 {
     void a();
     void b(unsigned);
 };
-extern Global g;
-struct Obj {
+extern Global_293c20 g_293c20;
+struct Obj_293c20 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -24,13 +24,13 @@ struct Obj {
     virtual void f16();
     virtual void f17(unsigned, void*);
 };
-struct Target {
-    Obj* obj;
+struct Target_293c20 {
+    Obj_293c20* obj;
     void run(unsigned);
 };
 char g52c2d8[4];
-void Target::run(unsigned arg) {
-    g.a();
-    g.b(arg);
+void Target_293c20::run(unsigned arg) {
+    g_293c20.a();
+    g_293c20.b(arg);
     obj->f17(0, g52c2d8);
 }

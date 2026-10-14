@@ -1,5 +1,5 @@
 // cl-flags: /O2 /GR /GX
-extern "C" int* g_table;
+extern "C" int* g_table_6afe0;
 
 class CClearCollisionStun {
   public:
@@ -20,5 +20,5 @@ class CClearCollisionStun {
 };
 
 int CClearCollisionStun::vfunc_0(int x) {
-    return g_table[x];
+    return g_table_6afe0[x];
 }

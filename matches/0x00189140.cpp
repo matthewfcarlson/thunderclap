@@ -1,4 +1,4 @@
-struct Obj {
+struct Obj_189140 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -11,15 +11,15 @@ struct Obj {
     virtual void v9();
     virtual int v10(int, int, int);
 };
-struct Allocated {
-    int run(Obj*, int);
+struct Allocated_189140 {
+    int run(Obj_189140*, int);
 };
 extern int check(void*, int, int*, int*, int);
-extern Allocated* alloc(int);
-extern int typeA, typeB;
-int Obj::v10(int a, int b, int c) {
-    if (check((void*)c, 0, &typeA, &typeB, 0)) {
-        Allocated* q = alloc(0x54);
+extern Allocated_189140* alloc(int);
+extern int typeA_189140, typeB;
+int Obj_189140::v10(int a, int b, int c) {
+    if (check((void*)c, 0, &typeA_189140, &typeB, 0)) {
+        Allocated_189140* q = alloc(0x54);
         if (q)
             return q->run(this, c);
     }

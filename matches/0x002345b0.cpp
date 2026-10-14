@@ -1,4 +1,4 @@
-class Ref {
+class Ref_2345b0 {
   public:
     virtual void a();
     virtual void b();
@@ -7,15 +7,15 @@ class Ref {
     virtual void e();
     virtual void Release(int);
 };
-class Parent {
+class Parent_2345b0 {
   public:
     virtual void p();
 };
 void __fastcall FUN_00234210(void* self);
-class Condition : public Parent {
+class Condition : public Parent_2345b0 {
   public:
     virtual ~Condition();
-    Ref* mRef;
+    Ref_2345b0* mRef;
 };
 Condition::~Condition() {
     if (mRef)

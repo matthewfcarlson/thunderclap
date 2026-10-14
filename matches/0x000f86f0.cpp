@@ -1,6 +1,6 @@
 extern void* Alloc(unsigned n);
 
-class Obj {
+class Obj_f86f0 {
   public:
     void Init(int a, int b);
     char* m0;
@@ -17,7 +17,7 @@ class Obj {
     unsigned* m11c;
 };
 
-void Obj::Init(int a, int b) {
+void Obj_f86f0::Init(int a, int b) {
     m4 = b * 2;
     m0 = (char*)Alloc((unsigned)(m4 >> 1) * 2);
     m10 = a;

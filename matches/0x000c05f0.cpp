@@ -1,14 +1,14 @@
 extern "C" long __cdecl atol(const char*);
-class Holder {
+class Holder_c05f0 {
   public:
     void set(long);
 };
-class C {
+class C_c05f0 {
   public:
     int pad;
-    Holder* value;
+    Holder_c05f0* value;
 };
-int __fastcall target(C* self, int, int arg, const char** text) {
+int __fastcall target(C_c05f0* self, int, int arg, const char** text) {
     if (self->value == 0)
         return -1;
     if (arg != 1)

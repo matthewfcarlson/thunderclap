@@ -1,14 +1,14 @@
-struct Sub {
+struct Sub_1eedd0 {
     int x;
 };
-struct X {
+struct X_1eedd0 {
     void* vptr;
     char pad[0x14];
-    Sub sub;
+    Sub_1eedd0 sub;
 };
-extern "C" void __fastcall Init(Sub*);
-extern void* VTable;
-void __fastcall Target(X* self) {
+extern "C" void __fastcall Init(Sub_1eedd0*);
+extern void* VTable_1eedd0;
+void __fastcall Target(X_1eedd0* self) {
     Init(&self->sub);
-    self->vptr = &VTable;
+    self->vptr = &VTable_1eedd0;
 }

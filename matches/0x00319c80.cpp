@@ -1,12 +1,12 @@
-struct DataBlock {
+struct DataBlock_319c80 {
     int m00, m04, m08, m0c, m10, m14, m18, m1c;
     int m20, m24, m28, m2c, m30, m34, m38, m3c;
     int m40, m44, m48, m4c, m50, m54, m58, m5c;
 
-    DataBlock* CopyFrom(const DataBlock* src);
+    DataBlock_319c80* CopyFrom(const DataBlock_319c80* src);
 };
 
-DataBlock* DataBlock::CopyFrom(const DataBlock* src) {
+DataBlock_319c80* DataBlock_319c80::CopyFrom(const DataBlock_319c80* src) {
     m00 = src->m00;
     m04 = src->m04;
     m08 = src->m08;

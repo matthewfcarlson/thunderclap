@@ -1,15 +1,15 @@
-class Ref {
+class Ref_32ba70 {
   public:
     virtual void f0();
     virtual void f1();
 };
-extern int vtable;
-class pure3d_d3dLightMapShader {
+extern int vtable_32ba70;
+class pure3d_d3dLightMapShader_32ba70 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual pure3d_d3dLightMapShader* vfunc_3(unsigned int);
+    virtual pure3d_d3dLightMapShader_32ba70* vfunc_3(unsigned int);
     virtual void f4();
     virtual void f5();
     virtual void f6();
@@ -33,12 +33,12 @@ class pure3d_d3dLightMapShader {
     virtual void f24();
     void cleanup();
     char pad[0x80 - 4];
-    Ref* a;
-    Ref* b;
+    Ref_32ba70* a;
+    Ref_32ba70* b;
 };
-void __cdecl destroy(pure3d_d3dLightMapShader*);
-pure3d_d3dLightMapShader* pure3d_d3dLightMapShader::vfunc_3(unsigned int x) {
-    *(int*)this = (int)&vtable;
+void __cdecl destroy(pure3d_d3dLightMapShader_32ba70*);
+pure3d_d3dLightMapShader_32ba70* pure3d_d3dLightMapShader_32ba70::vfunc_3(unsigned int x) {
+    *(int*)this = (int)&vtable_32ba70;
     if (a)
         a->f1();
     if (b)

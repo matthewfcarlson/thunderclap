@@ -1,4 +1,4 @@
-class Ref {
+class Ref_276ec0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -71,5 +71,5 @@ void Drive::f34(int* p, int a, int b, int c, int d, int e, int f, int g) {
     Drive* self = this;
     self->f33(p, a, b, c, d, e, f, g);
     if (*p)
-        ((Ref*)*p)->f21();
+        ((Ref_276ec0*)*p)->f21();
 }

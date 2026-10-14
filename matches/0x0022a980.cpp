@@ -1,10 +1,10 @@
 extern "C" char DAT_00427534[];
-extern int gCount;
+extern int gCount_22a980;
 extern int gHigh;
-struct Base {
+struct Base_22a980 {
     void Init(int);
 };
-struct LocomotionDriver : Base {
+struct LocomotionDriver : Base_22a980 {
     int vptr;
     char pad[0x1b];
     int a;
@@ -12,11 +12,11 @@ struct LocomotionDriver : Base {
     LocomotionDriver* Init(int);
 };
 LocomotionDriver* LocomotionDriver::Init(int x) {
-    Base::Init(x);
+    Base_22a980::Init(x);
     a = 0;
     b = 0;
     vptr = ((int)DAT_00427534);
-    int n = ++gCount;
+    int n = ++gCount_22a980;
     if (n > gHigh)
         gHigh = n;
     return this;

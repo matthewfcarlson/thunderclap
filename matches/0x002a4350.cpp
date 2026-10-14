@@ -1,4 +1,4 @@
-struct Child {
+struct Child_2a4350 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -24,13 +24,13 @@ struct Child {
     virtual void v22();
     virtual void Fn23();
 };
-struct Group {
+struct Group_2a4350 {
     int pad;
-    Child** begin;
-    Child** end;
+    Child_2a4350** begin;
+    Child_2a4350** end;
     int pad2;
 };
-struct DC {
+struct DC_2a4350 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -42,16 +42,16 @@ struct DC {
     virtual void v8();
     virtual void v9();
     char p[0x44];
-    Group* gb;
-    Group* ge;
+    Group_2a4350* gb;
+    Group_2a4350* ge;
 };
-void DC::v9() {
+void DC_2a4350::v9() {
     unsigned n = ge - gb;
     for (unsigned i = 0; i < n; i++) {
-        Group* g = &gb[i];
+        Group_2a4350* g = &gb[i];
         unsigned m = g->end - g->begin;
         for (unsigned j = 0; j < m; j++) {
-            Child* c = g->begin[j];
+            Child_2a4350* c = g->begin[j];
             if (c)
                 c->Fn23();
         }

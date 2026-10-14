@@ -1,9 +1,9 @@
-class C {
+class C_37040 {
   public:
     int Find(int);
     bool Set(int key, int a, int b);
 };
-bool C::Set(int key, int a, int b) {
+bool C_37040::Set(int key, int a, int b) {
     int n = Find(key);
     if (n < 0)
         return false;

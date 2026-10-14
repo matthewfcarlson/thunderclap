@@ -1,21 +1,21 @@
-class Item {
+class Item_282140 {
   public:
     virtual void F0();
     virtual void F1();
 };
-struct Entry {
+struct Entry_282140 {
     int id;
     char p[4];
-    Item* item;
+    Item_282140* item;
     char tail[0x10];
 };
-class Owner {
+class Owner_282140 {
   public:
     char pad[0x20];
-    Entry entries[100];
+    Entry_282140 entries[100];
     void Remove(int id);
 };
-void Owner::Remove(int id) {
+void Owner_282140::Remove(int id) {
     int i = 0;
     while (entries[i].item == 0 || entries[i].id != id) {
         ++i;

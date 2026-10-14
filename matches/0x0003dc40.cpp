@@ -1,13 +1,13 @@
 struct Matrix {
     unsigned int words[16];
 };
-struct Receiver {
+struct Receiver_3dc40 {
     void FUN_002226e0(unsigned int);
 };
-struct Source {
-    Receiver* FUN_00059a40();
+struct Source_3dc40 {
+    Receiver_3dc40* FUN_00059a40();
 };
-struct Child {
+struct Child_3dc40 {
     void FUN_001c4d60(Matrix*);
 };
 struct Node {
@@ -28,18 +28,18 @@ struct Node {
     virtual void slot14();
     virtual unsigned int slot15();
     char pad[0x118];
-    Child* child;
+    Child_3dc40* child;
     void FUN_001d6b60(Matrix, unsigned int);
 };
-struct State {
+struct State_3dc40 {
     char pad[0x2c];
     unsigned int value;
 };
 struct Object {
     char pad0[0x10];
-    Source* source;
+    Source_3dc40* source;
     char pad1[0x108];
-    State* state;
+    State_3dc40* state;
     char pad2[8];
     Node* node;
     char pad3[0x1c];
@@ -52,7 +52,7 @@ struct Object {
     void FUN_0003dc40(unsigned int, unsigned int);
 };
 void Object::FUN_0003dc40(unsigned int a, unsigned int b) {
-    Receiver* receiver = source->FUN_00059a40();
+    Receiver_3dc40* receiver = source->FUN_00059a40();
     FUN_0003ba60(a, b);
     FUN_000365f0(a, b);
     if (node && node->child) {

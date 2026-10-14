@@ -1,6 +1,6 @@
 // Same code shape as 0x000ece20 (propagated; names are from that function)
 struct TextWindow;
-struct Sub {
+struct Sub_ed8f0 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -20,7 +20,7 @@ struct Sub {
 };
 struct TextWindow {
     char pad[0x14];
-    Sub* sub;
+    Sub_ed8f0* sub;
     float vfunc_9();
 };
 float TextWindow::vfunc_9() {

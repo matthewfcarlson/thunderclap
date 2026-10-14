@@ -1,23 +1,23 @@
 extern void* __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
-extern const int RTTI_Params;
-extern const int RTTI_CFightParams;
-struct Holder {
+extern const int RTTI_Params_10dbb0;
+extern const int RTTI_CFightParams_10dbb0;
+struct Holder_10dbb0 {
     char pad[0x14];
-    Holder* next;
+    Holder_10dbb0* next;
 };
-struct Sub {
-    Holder* h;
+struct Sub_10dbb0 {
+    Holder_10dbb0* h;
     bool Valid();
 };
-struct Owner {
+struct Owner_10dbb0 {
     char pad[0xb4];
-    Sub sub;
+    Sub_10dbb0 sub;
 };
-struct Mid {
-    Owner* GetOwner();
+struct Mid_10dbb0 {
+    Owner_10dbb0* GetOwner();
 };
-struct P {
-    Mid* GetMid();
+struct P_10dbb0 {
+    Mid_10dbb0* GetMid();
 };
 class AIFightNodeCondition {
   public:
@@ -27,22 +27,22 @@ class AIFightNodeCondition {
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual bool vfunc_6(void*, P* p, void*);
+    virtual bool vfunc_6(void*, P_10dbb0* p, void*);
     char pad[8];
-    Holder* node;
+    Holder_10dbb0* node;
 };
-bool AIFightNodeCondition::vfunc_6(void*, P* p, void*) {
-    if (FUN_00344e74(p, 0, &RTTI_Params, &RTTI_CFightParams, 0)) {
-        Owner* o = p->GetMid()->GetOwner();
+bool AIFightNodeCondition::vfunc_6(void*, P_10dbb0* p, void*) {
+    if (FUN_00344e74(p, 0, &RTTI_Params_10dbb0, &RTTI_CFightParams_10dbb0, 0)) {
+        Owner_10dbb0* o = p->GetMid()->GetOwner();
         if (o) {
-            Holder* n = node;
+            Holder_10dbb0* n = node;
             if (n) {
-                Sub* s = &o->sub;
+                Sub_10dbb0* s = &o->sub;
                 if (s) {
-                    Holder* h = s->h;
+                    Holder_10dbb0* h = s->h;
                     if (h) {
                         if (s->Valid()) {
-                            Holder* c = h->next;
+                            Holder_10dbb0* c = h->next;
                             while (c) {
                                 if (c == n)
                                     return true;

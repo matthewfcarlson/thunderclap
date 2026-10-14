@@ -1,9 +1,9 @@
 extern "C" char DAT_003f432c[];
-class Base {
+class Base_2e350 {
   public:
     void Init(int, int);
 };
-class Method3 : public Base {
+class Method3 : public Base_2e350 {
   public:
     int v;
     char p[0x0c];
@@ -14,15 +14,15 @@ class Method3 : public Base {
     Method3(int, int);
 };
 extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
-extern const char s1[];
-extern const char s2[];
+extern const char s1_2e350[];
+extern const char s2_2e350[];
 extern const char DAT_0048e0f0[];
 extern const char DAT_0048e10c[];
 Method3::Method3(int a, int x) {
     Init(a, 3);
     v = ((int)DAT_003f432c);
     m1c = x;
-    b18 = FUN_001d04d0(s1);
+    b18 = FUN_001d04d0(s1_2e350);
     b10 = FUN_001d04d0(DAT_0048e0f0);
     b11 = FUN_001d04d0(DAT_0048e10c);
     b12 = FUN_001d04d0(DAT_0048e10c);

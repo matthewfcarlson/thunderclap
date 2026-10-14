@@ -2,9 +2,9 @@
 struct H {
     void Run(int a, int originalThis);
 };
-struct C {
+struct C_22d290 {
     void Target(int a, int b);
 };
-void C::Target(int a, int b) {
+void C_22d290::Target(int a, int b) {
     ((H*)b)->Run(a, (int)this);
 }

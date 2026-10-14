@@ -29,7 +29,7 @@ class CollisionMesh {
     char pad[0x40];
     void* mMember;
 };
-class Ref {
+class Ref_2f41a0 {
   public:
     virtual void f0();
     virtual void Release();
@@ -40,7 +40,7 @@ CollisionMesh* CollisionMesh::vfunc_2(unsigned char flag) {
     *(void**)this = (void*)meshVT;
     _ReadWriteBarrier();
     if (mMember) {
-        ((Ref*)mMember)->Release();
+        ((Ref_2f41a0*)mMember)->Release();
         mMember = 0;
     }
     *(void**)this = (void*)worldVT;

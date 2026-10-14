@@ -1,17 +1,17 @@
-class Sub {
+class Sub_272880 {
   public:
     virtual void A();
     virtual void B();
 };
-class Obj {
+class Obj_272880 {
   public:
     char pad[0x0c];
-    Sub sub;
+    Sub_272880 sub;
     char pad2[0xa4];
     int value;
     int Run();
 };
-int Obj::Run() {
+int Obj_272880::Run() {
     sub.A();
     int v = value;
     sub.B();

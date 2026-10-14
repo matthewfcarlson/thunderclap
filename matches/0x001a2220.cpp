@@ -1,4 +1,4 @@
-class O {
+class O_1a2220 {
   public:
     char Fn(int a);
 
@@ -7,7 +7,7 @@ class O {
     int m34;
 };
 
-char O::Fn(int a) {
+char O_1a2220::Fn(int a) {
     m34 = a;
     return 1;
 }

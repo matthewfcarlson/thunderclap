@@ -1,12 +1,12 @@
 extern "C" void _ReadWriteBarrier();
-extern int vt1;
+extern int vt1_2a80f0;
 extern void Free(void*);
-class Root {
+class Root_2a80f0 {
   public:
     void* vptr;
-    ~Root() throw();
+    ~Root_2a80f0() throw();
 };
-class D : public Root {
+class D : public Root_2a80f0 {
   public:
     char p[0x3c];
     int a40;
@@ -16,7 +16,7 @@ class D : public Root {
     ~D() throw();
 };
 D::~D() throw() {
-    vptr = &vt1;
+    vptr = &vt1_2a80f0;
     a40 = 0;
     _ReadWriteBarrier();
     if (a50)

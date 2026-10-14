@@ -1,24 +1,24 @@
 // Same code shape as 0x00059c80 (propagated; names are from that function)
-class Item {
+class Item_59ee0 {
   public:
     virtual void F0();
     virtual void F1();
     void second(int);
 };
-class A {
+class A_59ee0 {
   public:
     void first(int);
     void second();
 };
-class C {
+class C_59ee0 {
   public:
     char pad[0x10];
-    A* a;
+    A_59ee0* a;
     char pad2[4];
-    Item* b;
+    Item_59ee0* b;
     void run();
 };
-void C::run() {
+void C_59ee0::run() {
     if (a) {
         a->first(0);
         a->second();

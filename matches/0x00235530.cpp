@@ -1,6 +1,6 @@
-class Sub {
+class Sub_235530 {
   public:
-    Sub();
+    Sub_235530();
 };
 class ParamValue {
   public:
@@ -13,7 +13,7 @@ class ParamValue {
 class ParamValueScript : public ParamValue {
   public:
     char pad[4];
-    Sub sub;
+    Sub_235530 sub;
     ParamValueScript(int);
     virtual void vfunc_0();
     virtual void vfunc_1();

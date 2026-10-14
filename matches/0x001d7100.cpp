@@ -1,17 +1,17 @@
 extern "C" char DAT_004e2560[];
 extern "C" char DAT_004e2564[];
-struct Table {
+struct Table_1d7100 {
     char pad[0x1c];
     int* entries;
 };
-struct Obj {
+struct Obj_1d7100 {
     char pad0[0x40];
     int index;
     char pad1[0x54];
-    Table* table;
+    Table_1d7100* table;
     int Find(int);
 };
-int Obj::Find(int index) {
+int Obj_1d7100::Find(int index) {
     if (index == -1)
         index = this->index;
     int* p = (int*)this->table->entries[index];

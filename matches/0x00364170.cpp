@@ -1,8 +1,8 @@
-class G {
+class G_364170 {
   public:
     void Run();
 };
-extern G gObj;
+extern G_364170 gObj_364170;
 void __cdecl FUN_00364170() {
-    gObj.Run();
+    gObj_364170.Run();
 }

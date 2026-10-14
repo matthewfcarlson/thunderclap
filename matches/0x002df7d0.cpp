@@ -1,11 +1,11 @@
-struct X {
+struct X_2df7d0 {
     void f();
 };
-struct C {
+struct C_2df7d0 {
     char pad[0x5c];
-    X* member;
+    X_2df7d0* member;
     void target();
 };
-void C::target() {
+void C_2df7d0::target() {
     member->f();
 }

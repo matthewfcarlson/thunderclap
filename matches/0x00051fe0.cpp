@@ -9,7 +9,7 @@ struct CFightNodeCondition {
     virtual void f();
     void Init();
 };
-struct Factory {
+struct Factory_51fe0 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -17,7 +17,7 @@ struct Factory {
     virtual void e();
     virtual CFightNodeCondition* vfunc_5();
 };
-CFightNodeCondition* Factory::vfunc_5() {
+CFightNodeCondition* Factory_51fe0::vfunc_5() {
     CFightNodeCondition* p = (CFightNodeCondition*)Allocate(0x1c);
     if (p) {
         p->Init();

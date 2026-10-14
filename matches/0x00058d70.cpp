@@ -9,7 +9,7 @@ struct Condition {
     Entity ent;
     void Ctor(int);
 };
-class Factory {
+class Factory_58d70 {
   public:
     virtual void a();
     virtual void b();
@@ -18,7 +18,7 @@ class Factory {
     virtual void e();
     virtual Condition* Create();
 };
-Condition* Factory::Create() {
+Condition* Factory_58d70::Create() {
     Condition* p = (Condition*)Alloc(0x18);
     if (p) {
         p->Ctor(0);

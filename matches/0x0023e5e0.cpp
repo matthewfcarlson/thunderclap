@@ -1,5 +1,5 @@
 extern "C" char DAT_00428db0[];
-class Helper {
+class Helper_23e5e0 {
   public:
     void first();
 };
@@ -12,7 +12,7 @@ class StopTrack {
     virtual void vfunc_4();
     virtual StopTrack* vfunc_5(unsigned char flag);
     char pad[0x14 - 4];
-    Helper h;
+    Helper_23e5e0 h;
     void second();
 };
 void __cdecl destroy(StopTrack*);

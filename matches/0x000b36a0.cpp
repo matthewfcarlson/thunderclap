@@ -1,6 +1,6 @@
 extern int vtbl_controller;
 extern int vtbl_refcount;
-class Sub {
+class Sub_b36a0 {
   public:
     virtual void a();
     virtual void b();
@@ -11,7 +11,7 @@ class CSimController {
     virtual void f1();
     virtual CSimController* vfunc_2(int);
     char pad[4];
-    Sub* sub;
+    Sub_b36a0* sub;
 };
 extern void thunk(CSimController*);
 CSimController* CSimController::vfunc_2(int flags) {

@@ -1,9 +1,9 @@
-struct RefObj {
+struct RefObj_161420 {
     virtual void fn0();
     virtual void Release();
 };
 
-extern int g_vt;
+extern int g_vt_161420;
 void operator delete(void*);
 
 class LocomotionStrafeAction {
@@ -13,13 +13,13 @@ class LocomotionStrafeAction {
     virtual void* vfunc_2(unsigned char flag);
     void BaseDtor();
     char pad[0x1c - 4];
-    RefObj* volatile m1c;
-    RefObj* volatile m20;
+    RefObj_161420* volatile m1c;
+    RefObj_161420* volatile m20;
 };
 
 void* LocomotionStrafeAction::vfunc_2(unsigned char flag) {
-    *(volatile int*)this = (int)&g_vt;
-    RefObj* p = m20;
+    *(volatile int*)this = (int)&g_vt_161420;
+    RefObj_161420* p = m20;
     if (p) {
         p->Release();
         m20 = 0;

@@ -1,4 +1,4 @@
-struct Iface {
+struct Iface_1fad00 {
     virtual void s0();
     virtual void Release();
     virtual void s2();
@@ -24,21 +24,21 @@ struct Iface {
     virtual int Get22();
     virtual bool Ok23();
 };
-struct W {
+struct W_1fad00 {
     int v;
-    W(const W& o) { v = o.v; }
+    W_1fad00(const W_1fad00& o) { v = o.v; }
 };
-void __cdecl Init(Iface** pp, W w, int a, int b, int c, int d, int e, int f);
+void __cdecl Init(Iface_1fad00** pp, W_1fad00 w, int a, int b, int c, int d, int e, int f);
 class MyFileStream {
   public:
     virtual void vfunc_0();
-    virtual bool vfunc_1(W x);
-    Iface* mIface;
+    virtual bool vfunc_1(W_1fad00 x);
+    Iface_1fad00* mIface;
     int mA;
     int mB;
 };
-bool MyFileStream::vfunc_1(W x) {
-    Iface** pp = &mIface;
+bool MyFileStream::vfunc_1(W_1fad00 x) {
+    Iface_1fad00** pp = &mIface;
     Init(pp, x, 0, 0, 1, 0, 1, 1);
     (*pp)->Call21();
     if ((*pp)->Ok23() && (*pp)->Get15() && (*pp)->Get22() == 0) {

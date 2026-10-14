@@ -1,9 +1,9 @@
-struct Obj {
+struct Obj_28b7d0 {
     virtual void v0();
     virtual void Release();
 };
 void __cdecl Free(void*);
-inline void Del(Obj*& p) {
+inline void Del(Obj_28b7d0*& p) {
     if (p) {
         p->Release();
         p = 0;
@@ -14,15 +14,15 @@ class EntityChannel {
     virtual void v0();
     virtual void Clear();
     char pad[8];
-    Obj* mOwner;
+    Obj_28b7d0* mOwner;
     unsigned mCount;
     void* mData;
-    Obj** mItems;
+    Obj_28b7d0** mItems;
 };
 void EntityChannel::Clear() {
     for (unsigned i = 0; i < mCount; i++) {
-        Obj** slot = mItems + i;
-        Obj* o = *slot;
+        Obj_28b7d0** slot = mItems + i;
+        Obj_28b7d0* o = *slot;
         if (o) {
             o->Release();
             *slot = 0;

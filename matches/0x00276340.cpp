@@ -1,5 +1,5 @@
 // Same code shape as 0x00274af0 (propagated; names are from that function)
-struct Obj {
+struct Obj_276340 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -16,13 +16,13 @@ struct Obj {
     virtual void f13();
     virtual void f14(void*, void*, void*);
 };
-extern Obj* gObj;
-extern char gData[];
+extern Obj_276340* gObj_276340;
+extern char gData_276340[];
 void init(void*);
 void target() {
     char a[4], b[4], c[4];
-    init(gData);
-    gObj->f14(a, b, c);
-    gObj->f1();
-    gObj = 0;
+    init(gData_276340);
+    gObj_276340->f14(a, b, c);
+    gObj_276340->f1();
+    gObj_276340 = 0;
 }

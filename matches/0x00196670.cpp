@@ -1,36 +1,36 @@
-class Ref {
+class Ref_196670 {
   public:
     virtual void Free();
     virtual void Rel();
 };
-class Del {
+class Del_196670 {
   public:
     virtual void Dtor(int f);
 };
-class Base {
+class Base_196670 {
   public:
-    virtual ~Base() throw();
+    virtual ~Base_196670() throw();
     int b[6];
 };
 namespace hulkfight {
 namespace motion {
-class FireBeamAction : public Base {
+class FireBeamAction : public Base_196670 {
   public:
     virtual ~FireBeamAction() throw();
     int i1c;
-    Ref* r20;
+    Ref_196670* r20;
     char pad[0x10];
-    Ref* r34;
-    Ref* r38;
+    Ref_196670* r34;
+    Ref_196670* r38;
     char pad2[0x10];
-    Ref* r4c;
+    Ref_196670* r4c;
     char pad3[0x14];
-    Ref* r64;
-    Del* r68;
+    Ref_196670* r64;
+    Del_196670* r68;
 };
 } // namespace motion
 } // namespace hulkfight
-inline void Rl(Ref*& r) {
+inline void Rl(Ref_196670*& r) {
     if (r) {
         r->Rel();
         r = 0;

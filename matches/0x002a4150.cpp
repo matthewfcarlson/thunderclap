@@ -1,4 +1,4 @@
-struct Item {
+struct Item_2a4150 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -23,10 +23,10 @@ struct Item {
     virtual void slot21();
     virtual bool slot22();
 };
-struct Group {
+struct Group_2a4150 {
     unsigned unknown;
-    Item** begin;
-    Item** end;
+    Item_2a4150** begin;
+    Item_2a4150** end;
     unsigned capacity;
 };
 namespace pure3d {
@@ -40,16 +40,16 @@ struct DrawableContainer {
     virtual void vfunc_6();
     virtual bool vfunc_7();
     char padding[0x44];
-    Group* groupsBegin;
-    Group* groupsEnd;
+    Group_2a4150* groupsBegin;
+    Group_2a4150* groupsEnd;
 };
 bool DrawableContainer::vfunc_7() {
     unsigned count = (unsigned)(((int)groupsEnd - (int)groupsBegin) >> 4);
     for (unsigned i = 0; i < count; ++i) {
-        Group* group = groupsBegin + i;
+        Group_2a4150* group = groupsBegin + i;
         unsigned items = (unsigned)(((int)group->end - (int)group->begin) >> 2);
         for (unsigned j = 0; j < items; ++j) {
-            Item* item = group->begin[j];
+            Item_2a4150* item = group->begin[j];
             if (item && !item->slot22())
                 return false;
         }

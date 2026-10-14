@@ -1,15 +1,15 @@
-struct E {
+struct E_27a570 {
     void f();
 };
-struct X {
+struct X_27a570 {
     char pad[0xa0];
     void run();
 };
-void X::run() {
-    E* p = (E*)((char*)this + 0xa0);
+void X_27a570::run() {
+    E_27a570* p = (E_27a570*)((char*)this + 0xa0);
     int i = 0x14;
     do {
-        p = (E*)((char*)p - 8);
+        p = (E_27a570*)((char*)p - 8);
         p->f();
         --i;
     } while (i != 0);

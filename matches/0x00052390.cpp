@@ -10,7 +10,7 @@ class CGrappleFightNodeParentCondition {
     void Init();
 };
 extern "C" void* FUN_0008d690(unsigned int);
-class Factory {
+class Factory_52390 {
   public:
     virtual void A();
     virtual void B();
@@ -19,7 +19,7 @@ class Factory {
     virtual void E();
     virtual CGrappleFightNodeParentCondition* vfunc_5();
 };
-CGrappleFightNodeParentCondition* Factory::vfunc_5() {
+CGrappleFightNodeParentCondition* Factory_52390::vfunc_5() {
     CGrappleFightNodeParentCondition* p = (CGrappleFightNodeParentCondition*)FUN_0008d690(0x20);
     if (p) {
         p->Init();

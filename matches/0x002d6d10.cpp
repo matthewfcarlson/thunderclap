@@ -1,13 +1,13 @@
-struct Item {
+struct Item_2d6d10 {
     int a;
     void* p;
     int c, d;
 };
-struct Obj {
+struct Obj_2d6d10 {
     char pad[0x30];
     int count;
     char pad34[4];
-    Item* items;
+    Item_2d6d10* items;
     char pad3c[0x64];
     void* a0;
     char pada4[8];
@@ -17,8 +17,8 @@ struct Obj {
     unsigned char b5;
 };
 extern void __cdecl Process(void* ctx, void* p);
-extern void __cdecl Finish(Obj*);
-void __cdecl Target(void* ctx, Obj* s) {
+extern void __cdecl Finish(Obj_2d6d10*);
+void __cdecl Target(void* ctx, Obj_2d6d10* s) {
     if (s->items) {
         int i = 0;
         if (s->count > 0) {

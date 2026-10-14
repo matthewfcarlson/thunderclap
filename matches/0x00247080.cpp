@@ -2,7 +2,7 @@ typedef int FILE;
 extern "C" int __cdecl fclose(FILE*);
 extern "C" void __cdecl destroy(void*);
 extern int stdvt[];
-extern int streamvt[];
+extern int streamvt_247080[];
 class om_StdStream {
   public:
     void* vt;
@@ -15,7 +15,7 @@ om_StdStream* om_StdStream::vfunc_0(unsigned char flags) {
     vt = stdvt;
     if (opened)
         fclose(file);
-    vt = streamvt;
+    vt = streamvt_247080;
     if (flags & 1)
         destroy(this);
     return this;

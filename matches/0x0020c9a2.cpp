@@ -4,11 +4,11 @@ extern LoadFn gLoad;
 namespace XAPILIB {
 void __stdcall XapiSetLastNTError(int);
 }
-struct Obj {
+struct Obj_20c9a2 {
     int x;
     int value;
 };
-int __stdcall target(Obj* p) {
+int __stdcall target(Obj_20c9a2* p) {
     int r = gLoad((int)p);
     int result;
     if ((r < 0)) {

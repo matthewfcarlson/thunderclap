@@ -1,5 +1,5 @@
-extern float zero;
-struct Receiver {
+extern float zero_2373e0;
+struct Receiver_2373e0 {
     void run(int, int, int);
 };
 class OpportunityAction {
@@ -20,9 +20,9 @@ class OpportunityAction {
     int argx;
     int argy;
     char padtarget[4];
-    Receiver* target;
+    Receiver_2373e0* target;
 };
 void OpportunityAction::f4() {
-    if (value < zero && target)
+    if (value < zero_2373e0 && target)
         target->run(selfarg, arg2, arg3);
 }

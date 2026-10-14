@@ -1,9 +1,9 @@
-class C {
+class C_22be60 {
   public:
     int a[11];
     void f(int p, int q, int r);
 };
-void C::f(int p, int q, int r) {
+void C_22be60::f(int p, int q, int r) {
     a[0] = p;
     a[1] = 0;
     a[2] = 0;

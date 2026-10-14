@@ -1,12 +1,12 @@
 typedef unsigned char u8;
 extern "C" void __stdcall FUN_001d0480(void*, int);
 extern "C" u8 __cdecl FUN_001d04d0(const void*);
-extern int gA, gB;
-class Parent {
+extern int gA_9c440, gB;
+class Parent_9c440 {
   public:
-    Parent(void* a) { FUN_001d0480(a, 2); }
+    Parent_9c440(void* a) { FUN_001d0480(a, 2); }
 };
-class Method2 : public Parent {
+class Method2 : public Parent_9c440 {
   public:
     virtual void Fn();
     char pad[0xc];
@@ -16,9 +16,9 @@ class Method2 : public Parent {
     char pad3[3];
     void* p1;
     void* p2;
-    Method2(void* a, void* b) : Parent(a) {
+    Method2(void* a, void* b) : Parent_9c440(a) {
         p1 = b;
-        b18 = FUN_001d04d0(&gA);
+        b18 = FUN_001d04d0(&gA_9c440);
         b10 = FUN_001d04d0(&gB);
         b11 = FUN_001d04d0(&gB);
     }

@@ -1,6 +1,6 @@
 extern int FUN_000f6610(int);
 
-class C {
+class C_df820 {
   public:
     void Add(int a, int b);
     char pad[0x200];
@@ -10,7 +10,7 @@ class C {
     } e[64];
 };
 
-void C::Add(int a, int b) {
+void C_df820::Add(int a, int b) {
     int i = 0;
     while (i < 64) {
         if (e[i].a == 0)

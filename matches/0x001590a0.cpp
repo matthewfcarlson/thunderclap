@@ -8,7 +8,7 @@ class CollisionThrowCondition {
     unsigned char flag;
     void Init(int);
 };
-class Factory {
+class Factory_1590a0 {
   public:
     virtual void A();
     virtual void B();
@@ -17,7 +17,7 @@ class Factory {
     virtual void E();
     virtual CollisionThrowCondition* vfunc_5();
 };
-CollisionThrowCondition* Factory::vfunc_5() {
+CollisionThrowCondition* Factory_1590a0::vfunc_5() {
     CollisionThrowCondition* p = (CollisionThrowCondition*)FUN_0008d690(0x10);
     if (p) {
         p->Init(0);

@@ -1,12 +1,12 @@
-class Obj {
+class Obj_30c830 {
   public:
     char pad[0xf8];
     unsigned char b;
     unsigned int w0, w1, w2, w3, w4, w5, w6, w7, w8;
-    void CopyBase(const Obj&);
-    Obj& Copy(const Obj&);
+    void CopyBase(const Obj_30c830&);
+    Obj_30c830& Copy(const Obj_30c830&);
 };
-Obj& Obj::Copy(const Obj& src) {
+Obj_30c830& Obj_30c830::Copy(const Obj_30c830& src) {
     CopyBase(src);
     b = src.b;
     w0 = src.w0;

@@ -1,4 +1,4 @@
-class Callback {
+class Callback_f8dd0 {
   public:
     virtual void call(int);
 };
@@ -9,7 +9,7 @@ class NamedValueInt {
     char pad[0x3c];
     int value40;
     int value44;
-    Callback* notifier48;
+    Callback_f8dd0* notifier48;
 };
 void NamedValueInt::f1() {
     value40 = value44;

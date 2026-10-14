@@ -1,29 +1,29 @@
-class Small {
+class Small_300fa0 {
   public:
     void A(int);
     void B();
     void C();
     void D();
 };
-class Obj {
+class Obj_300fa0 {
   public:
     int* p0;
     int p4;
     int* p8;
     int* pc;
     char pad10[8];
-    Small s18;
+    Small_300fa0 s18;
     char pad19[15];
-    Small s28;
+    Small_300fa0 s28;
     char pad29[63];
-    Small s68;
-    Obj* Run(unsigned char flags);
+    Small_300fa0 s68;
+    Obj_300fa0* Run(unsigned char flags);
 };
 void relA(void*);
 void relB(void*);
-Obj* Obj::Run(unsigned char flags) {
+Obj_300fa0* Obj_300fa0::Run(unsigned char flags) {
     if (p0)
-        ((Small*)p0)->A(3);
+        ((Small_300fa0*)p0)->A(3);
     s68.B();
     s28.C();
     s18.D();

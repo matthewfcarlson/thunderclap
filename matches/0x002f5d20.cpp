@@ -1,4 +1,4 @@
-class Sub {
+class Sub_2f5d20 {
   public:
     void helper(void*, unsigned long);
     char pad[0x34];
@@ -7,7 +7,7 @@ class PhysicsObject {
   public:
     virtual void dummy();
     char pad[0x114 - 4];
-    Sub sub;
+    Sub_2f5d20 sub;
     unsigned char flag;
     unsigned long a, b, c;
     bool vfunc_25(unsigned long* out, unsigned long arg, unsigned long unused);

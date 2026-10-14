@@ -1,13 +1,13 @@
-struct Triple {
+struct Triple_479e0 {
     int a, b, c;
 };
-class Obj {
+class Obj_479e0 {
   public:
     char pad[0x1ad4];
     int x[6];
-    void Set(Triple* a, Triple* b);
+    void Set(Triple_479e0* a, Triple_479e0* b);
 };
-void Obj::Set(Triple* a, Triple* b) {
+void Obj_479e0::Set(Triple_479e0* a, Triple_479e0* b) {
     x[0] = a->a;
     x[1] = a->b;
     x[2] = a->c;

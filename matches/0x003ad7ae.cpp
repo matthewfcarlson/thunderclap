@@ -1,6 +1,6 @@
 // cl-flags: /O1
 extern void* va[];
-class O {
+class O_3ad7ae {
   public:
     void* vptr;
     int a;
@@ -8,9 +8,9 @@ class O {
     int c;
     int d;
     int e;
-    O(int x, int y) throw();
+    O_3ad7ae(int x, int y) throw();
 };
-O::O(int x, int y) throw() {
+O_3ad7ae::O_3ad7ae(int x, int y) throw() {
     c = 0;
     d = 0;
     a = x;

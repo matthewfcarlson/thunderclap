@@ -1,4 +1,4 @@
-struct Elem {
+struct Elem_78bc0 {
     void D();
 };
 struct E16 {
@@ -29,21 +29,21 @@ CAmbientsManager::~CAmbientsManager() throw() {
     int i = 10;
     do {
         p--;
-        ((Elem*)p)->D();
+        ((Elem_78bc0*)p)->D();
         i--;
     } while (i != 0);
     E8* q = (E8*)((char*)this + 0x3640);
     i = 20;
     do {
         q--;
-        ((Elem*)q)->D();
+        ((Elem_78bc0*)q)->D();
         i--;
     } while (i != 0);
     p = (E16*)((char*)this + 0x3548);
     i = 10;
     do {
         p--;
-        ((Elem*)p)->D();
+        ((Elem_78bc0*)p)->D();
         i--;
     } while (i != 0);
 }

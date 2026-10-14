@@ -1,27 +1,27 @@
-class Manager {
+class Manager_bc750 {
   public:
     void A(int);
     void* B();
     void C(int);
     void D(void*);
 };
-class Other {
+class Other_bc750 {
   public:
     void F(void*);
     void H(int);
 };
-class Obj {
+class Obj_bc750 {
   public:
     char pad0[0x34];
-    Manager* m34;
-    Other* m38;
+    Manager_bc750* m34;
+    Other_bc750* m38;
     char pad40[0x10];
-    Other* m4c;
+    Other_bc750* m4c;
     int Get(void*);
     void End();
 };
 void Tail();
-void Obj::End() {
+void Obj_bc750::End() {
     if (m34 && m38) {
         m38->H(9);
         m34->A(0);

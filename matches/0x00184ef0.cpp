@@ -1,25 +1,25 @@
-class Ref {
+class Ref_184ef0 {
   public:
     virtual void A();
     virtual void B();
 };
-class Base {
+class Base_184ef0 {
   public:
-    Base();
+    Base_184ef0();
     virtual void V0();
     char pad[0x18];
 };
-class Action : public Base {
+class Action : public Base_184ef0 {
   public:
     int mArg;
-    Ref* mRef;
+    Ref_184ef0* mRef;
     int x24, x28, x2c, x30, x34;
     float x38;
     int x3c, x40, x44;
-    Action(int, Ref*);
+    Action(int, Ref_184ef0*);
     virtual void V0();
 };
-Action::Action(int a, Ref* b) : Base() {
+Action::Action(int a, Ref_184ef0* b) : Base_184ef0() {
     int* q = &mArg;
     *q = 0;
     mRef = 0;

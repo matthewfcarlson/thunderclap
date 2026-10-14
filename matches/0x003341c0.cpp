@@ -1,4 +1,4 @@
-class Inner {
+class Inner_3341c0 {
   public:
     virtual void a();
     virtual void b();
@@ -16,12 +16,12 @@ class Inner {
     virtual void n();
     virtual void o(int);
 };
-struct Mid {
+struct Mid_3341c0 {
     char pad[0x10];
-    Inner* q;
+    Inner_3341c0* q;
 };
-struct Entry {
-    Mid* p;
+struct Entry_3341c0 {
+    Mid_3341c0* p;
     char pad[16];
 };
 class movie_RenderStrategyBink {
@@ -36,11 +36,11 @@ class movie_RenderStrategyBink {
     virtual void v7();
     char pad[0x30 - 4];
     int index;
-    Entry entries[1];
+    Entry_3341c0 entries[1];
     char flag;
 };
 void movie_RenderStrategyBink::v5() {
-    Mid* m = entries[index].p;
+    Mid_3341c0* m = entries[index].p;
     m->q->o(0);
     ++index;
     flag = 0;

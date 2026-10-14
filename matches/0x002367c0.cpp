@@ -1,21 +1,21 @@
-class Source {
+class Source_2367c0 {
   public:
     virtual void V();
     int pad;
     int b;
     int a;
 };
-class Sub {
+class Sub_2367c0 {
   public:
-    void H(int, int, Source*);
+    void H(int, int, Source_2367c0*);
 };
-class Owner {
+class Owner_2367c0 {
   public:
     char pad[0x38];
-    Sub sub;
-    bool F(Source*);
+    Sub_2367c0 sub;
+    bool F(Source_2367c0*);
 };
-bool Owner::F(Source* src) {
+bool Owner_2367c0::F(Source_2367c0* src) {
     int b = src->b;
     int a = src->a;
     src->V();

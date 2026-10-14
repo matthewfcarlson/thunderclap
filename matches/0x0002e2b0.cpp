@@ -1,11 +1,11 @@
 extern "C" char DAT_003f431c[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e134[];
-class Base {
+class Base_2e2b0 {
   public:
-    Base(int, int);
+    Base_2e2b0(int, int);
 };
-class CActorManager : public Base {
+class CActorManager : public Base_2e2b0 {
   public:
     int v;
     char pad[0x18];
@@ -13,7 +13,7 @@ class CActorManager : public Base {
     CActorManager(int, int);
 };
 extern char __cdecl ReadValue(const char*);
-CActorManager::CActorManager(int a, int b) : Base(a, 3) {
+CActorManager::CActorManager(int a, int b) : Base_2e2b0(a, 3) {
     v = ((int)DAT_003f431c);
     m1c = b;
     *((char*)this + 0x18) = ReadValue((const char*)((int)DAT_0048e100));

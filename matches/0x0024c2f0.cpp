@@ -1,6 +1,6 @@
-extern int gTable[1];
+extern int gTable_24c2f0[1];
 int FUN_0024c2f0(unsigned int* p) {
     unsigned int v = *p;
     int index = (int)(v << 28) >> 28;
-    return (int)((v >> 4) & 31) * *(int*)((char*)gTable + index * 24);
+    return (int)((v >> 4) & 31) * *(int*)((char*)gTable_24c2f0 + index * 24);
 }

@@ -2,14 +2,14 @@ extern "C" void __cdecl Free(void*);
 extern "C" void* __cdecl Alloc(unsigned int);
 extern "C" unsigned int __cdecl strlen(const char*);
 extern "C" char* __cdecl strcpy(char*, const char*);
-class Obj {
+class Obj_1a3bc0 {
     char pad[0xac];
     char* s;
 
   public:
     char Set(const char* p);
 };
-char Obj::Set(const char* p) {
+char Obj_1a3bc0::Set(const char* p) {
     Free(s);
     if (!p) {
         s = 0;

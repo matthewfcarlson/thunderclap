@@ -1,4 +1,4 @@
-class Thing {
+class Thing_319ef0 {
   public:
     char pad0[0x10];
     int state;
@@ -7,7 +7,7 @@ class Thing {
     void Change(int, int*);
     void Target();
 };
-void Thing::Target() {
+void Thing_319ef0::Target() {
     if (flag == 0) {
         if (state == 2) {
             state = 0;

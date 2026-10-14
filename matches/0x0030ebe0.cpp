@@ -1,14 +1,14 @@
-struct Block {
+struct Block_30ebe0 {
     unsigned int x[0x15];
 };
-struct Obj {
+struct Obj_30ebe0 {
     char pad[0x14];
-    Block a;
-    Block b;
+    Block_30ebe0 a;
+    Block_30ebe0 b;
     unsigned int c;
-    void Copy(Obj*);
+    void Copy(Obj_30ebe0*);
 };
-void Obj::Copy(Obj* src) {
+void Obj_30ebe0::Copy(Obj_30ebe0* src) {
     a = src->a;
     b = src->b;
     c = src->c;

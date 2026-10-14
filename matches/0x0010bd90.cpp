@@ -1,10 +1,10 @@
-struct RefCounted {
+struct RefCounted_10bd90 {
   public:
     virtual void f0();
     virtual void Release();
 };
 
-extern char g_vt[];
+extern char g_vt_10bd90[];
 extern "C" void opdel(void*);
 
 class FaceTargetAction {
@@ -15,13 +15,13 @@ class FaceTargetAction {
   private:
     char pad[0x1c];
     int m_1c;
-    RefCounted* m_20;
+    RefCounted_10bd90* m_20;
 };
 
 FaceTargetAction* FaceTargetAction::vfunc_2(int flag) {
     volatile int* p = (volatile int*)this;
-    *p = (int)&g_vt;
-    RefCounted* q = (RefCounted*)p[8];
+    *p = (int)&g_vt_10bd90;
+    RefCounted_10bd90* q = (RefCounted_10bd90*)p[8];
     if (q != 0) {
         q->Release();
         m_20 = 0;

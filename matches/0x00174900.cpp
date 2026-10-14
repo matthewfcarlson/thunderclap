@@ -5,11 +5,11 @@ class Action {
     virtual void A();
     virtual void B();
 };
-class Base {
+class Base_174900 {
   public:
     void Finish();
 };
-class PushOutAction : public Base {
+class PushOutAction : public Base_174900 {
   public:
     volatile int vptr;
     char pad[0x18];

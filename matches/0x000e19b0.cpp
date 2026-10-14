@@ -1,4 +1,4 @@
-class Obj {
+class Obj_e19b0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -51,9 +51,9 @@ class Obj {
     virtual void f48();
     virtual void f49(void*);
 };
-struct Inner {
+struct Inner_e19b0 {
     int pad;
-    Obj* ptr;
+    Obj_e19b0* ptr;
 };
 struct FEDoAction {
     virtual void v0();
@@ -62,7 +62,7 @@ struct FEDoAction {
     virtual void v3();
     virtual void v4();
     char pad[0xc];
-    Inner* field;
+    Inner_e19b0* field;
 };
 struct FEDoSound : FEDoAction {
     char rest[0x34 - 0x14];

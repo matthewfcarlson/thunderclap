@@ -1,25 +1,25 @@
 extern "C" void* __cdecl alloc(unsigned int);
 extern "C" int CollisionThrownObjectCondition_vftable;
 
-struct Helper {
+struct Helper_15a530 {
     char pad[8];
     void Go();
 };
-struct Cond {
+struct Cond_15a530 {
     void* vp;
     char pad1[8];
     char flag;
     char pad2[3];
-    Helper h;
+    Helper_15a530 h;
     void Init(int);
 };
 
-struct Factory {
-    Cond* vfunc_5();
+struct Factory_15a530 {
+    Cond_15a530* vfunc_5();
 };
 
-Cond* Factory::vfunc_5() {
-    Cond* p = (Cond*)alloc(0x18);
+Cond_15a530* Factory_15a530::vfunc_5() {
+    Cond_15a530* p = (Cond_15a530*)alloc(0x18);
     if (p) {
         p->Init(0);
         p->vp = (void*)&CollisionThrownObjectCondition_vftable;

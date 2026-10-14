@@ -1,7 +1,7 @@
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b99c[];
 extern "C" char DAT_0052a1c8[];
-struct Owner {
+struct Owner_275500 {
     virtual void A();
     virtual void B();
     virtual void C();
@@ -10,7 +10,7 @@ struct Owner {
     virtual void F();
     virtual void G();
 };
-struct Inner {
+struct Inner_275500 {
     virtual void A();
     virtual void B();
     virtual void C();
@@ -21,7 +21,7 @@ struct Inner {
 };
 extern void __cdecl FUN_0026d850(void*);
 extern void __cdecl FUN_0026d840(void*);
-extern Owner* gObject;
+extern Owner_275500* gObject_275500;
 struct FileGetSizeRequest {
     virtual FileGetSizeRequest* vfunc_0(int);
     virtual void vfunc_1();
@@ -31,18 +31,18 @@ struct FileGetSizeRequest {
     virtual void vfunc_5();
     virtual void vfunc_6();
     char pad[4];
-    Owner* owner;
+    Owner_275500* owner;
 };
 FileGetSizeRequest* FileGetSizeRequest::vfunc_0(int flag) {
     ((int*)this)[0] = ((int)DAT_0042b99c);
-    ((Inner*)((char*)owner + 4))->A();
+    ((Inner_275500*)((char*)owner + 4))->A();
     --(*(int*)((char*)owner + 0x18));
-    ((Inner*)((char*)owner + 4))->B();
+    ((Inner_275500*)((char*)owner + 4))->B();
     owner->B();
     ((int*)this)[0] = ((int)DAT_0042b914);
     if (flag & 1) {
         FUN_0026d850((void*)((int)DAT_0052a1c8));
-        gObject->E(this);
+        gObject_275500->E(this);
         FUN_0026d840((void*)((int)DAT_0052a1c8));
     }
     return this;

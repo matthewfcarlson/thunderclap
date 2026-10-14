@@ -1,16 +1,16 @@
-struct Entry {
+struct Entry_1cbcb0 {
     void Set(int, int);
     void Reset(int);
     void Finish(int);
 };
-struct Owner {
+struct Owner_1cbcb0 {
     char pad[0x3e4];
     unsigned char active[0x18];
     bool Run(int);
 };
-bool Owner::Run(int arg) {
+bool Owner_1cbcb0::Run(int arg) {
     int i = 0;
-    Entry* entry = (Entry*)((char*)this + 0x24);
+    Entry_1cbcb0* entry = (Entry_1cbcb0*)((char*)this + 0x24);
     do {
         if (active[i] && i >= 0 && i < 0x18) {
             entry->Set(1, arg);
@@ -19,7 +19,7 @@ bool Owner::Run(int arg) {
             active[i] = 0;
         }
         ++i;
-        entry = (Entry*)((char*)entry + 0x28);
+        entry = (Entry_1cbcb0*)((char*)entry + 0x28);
     } while ((unsigned int)i < 0x18);
     return true;
 }

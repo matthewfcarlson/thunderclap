@@ -1,20 +1,20 @@
 // Same code shape as 0x00265560 (propagated; names are from that function)
-class Obj {
+class Obj_266540 {
   public:
     virtual void f();
     virtual void g();
 };
-class Holder {
+class Holder_266540 {
   public:
-    int Count(Obj*);
+    int Count(Obj_266540*);
 };
-class C {
+class C_266540 {
   public:
     char pad[0x0c];
-    Holder* m;
-    void target(Obj* p);
+    Holder_266540* m;
+    void target(Obj_266540* p);
 };
-void C::target(Obj* p) {
+void C_266540::target(Obj_266540* p) {
     int n = m->Count(p);
     while (n > 0) {
         p->g();

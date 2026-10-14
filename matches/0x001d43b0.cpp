@@ -5,11 +5,11 @@ extern "C" void __stdcall FUN_001d0480(void*, int);
 extern "C" int FUN_001d04d0(const char*);
 extern int gName1;
 extern int gName2;
-class Closure {
+class Closure_1d43b0 {
   public:
-    Closure(void*, void*, void*);
+    Closure_1d43b0(void*, void*, void*);
 };
-Closure::Closure(void* a, void* b, void* c) {
+Closure_1d43b0::Closure_1d43b0(void* a, void* b, void* c) {
     FUN_001d0480(a, 1);
     *(int*)this = ((int)DAT_00422674);
     *(int*)((char*)this + 0x1c) = (int)c;

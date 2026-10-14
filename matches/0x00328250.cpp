@@ -1,9 +1,9 @@
-class C {
+class C_328250 {
   public:
     int value;
-    C* Set(int x);
+    C_328250* Set(int x);
 };
-C* C::Set(int x) {
+C_328250* C_328250::Set(int x) {
     value = x;
     return this;
 }

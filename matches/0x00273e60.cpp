@@ -1,4 +1,4 @@
-class Inner {
+class Inner_273e60 {
   public:
     virtual void a0();
     virtual void a1();
@@ -14,16 +14,16 @@ class Inner {
     virtual int k(int, int);
     int m();
 };
-class Sub {
+class Sub_273e60 {
   public:
     virtual void a();
     virtual void b();
 };
-struct Data {
+struct Data_273e60 {
     char pad0[4];
-    Sub sub;
+    Sub_273e60 sub;
     char pad8[4];
-    Inner* inner;
+    Inner_273e60* inner;
     char pad10[4];
     int y;
     char pad18[0x15c - 0x18];
@@ -39,11 +39,11 @@ class FileCommitRequest {
     virtual void v5();
     virtual void v6();
     char pad[4];
-    Data* volatile data;
+    Data_273e60* volatile data;
 };
 int FileCommitRequest::v1() {
-    Data* d = data;
-    Inner* i = d->inner;
+    Data_273e60* d = data;
+    Inner_273e60* i = d->inner;
     int x = i->k(d->field, (int)((char*)d + 0x1e));
     int z = i->m();
     data->sub.a();

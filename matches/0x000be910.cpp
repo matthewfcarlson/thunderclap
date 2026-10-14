@@ -1,10 +1,10 @@
 // Same code shape as 0x00094490 (propagated; names are from that function)
-struct Obj;
-typedef void (Obj::*Fn)(int, int, int, int, int, int, int);
-struct Obj {
+struct Obj_be910;
+typedef void (Obj_be910::*Fn_be910)(int, int, int, int, int, int, int);
+struct Obj_be910 {
     int x;
 };
-void __cdecl FUN_00094490(Obj* a, int* p, int b, Fn fn) {
+void __cdecl FUN_00094490(Obj_be910* a, int* p, int b, Fn_be910 fn) {
     int* q = p;
     int v0 = *q;
     q++;

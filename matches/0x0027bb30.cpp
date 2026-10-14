@@ -1,20 +1,20 @@
 extern "C" char DAT_0042c1b4[];
-typedef unsigned int u32;
+typedef unsigned int u32_27bb30;
 struct Partition {
-    u32 vptr;
-    u32 pad;
-    u32 a;
-    u32 b;
-    u32 c;
-    u32 pad2;
+    u32_27bb30 vptr;
+    u32_27bb30 pad;
+    u32_27bb30 a;
+    u32_27bb30 b;
+    u32_27bb30 c;
+    u32_27bb30 pad2;
 };
-struct Source {
+struct Source_27bb30 {
     char pad[8];
-    u32 a;
-    u32 b;
-    u32 c;
+    u32_27bb30 a;
+    u32_27bb30 b;
+    u32_27bb30 c;
 };
-Partition* f(Partition* out, int count, Source* src) {
+Partition* f(Partition* out, int count, Source_27bb30* src) {
     while (count != 0) {
         if (out) {
             out->vptr = ((int)DAT_0042c1b4);

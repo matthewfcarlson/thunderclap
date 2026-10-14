@@ -1,10 +1,10 @@
 namespace pure3d {
-class Base {
+class Base_294db0 {
   public:
-    Base();
+    Base_294db0();
     virtual void V();
 };
-class Font : public Base {
+class Font : public Base_294db0 {
   public:
     Font();
     virtual void V();

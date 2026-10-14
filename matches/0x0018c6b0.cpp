@@ -1,6 +1,6 @@
 extern "C" char DAT_0041920c[];
 extern void* __cdecl FUN_0008d690(unsigned int);
-class Sub {
+class Sub_18c6b0 {
   public:
     void Init();
 };
@@ -12,7 +12,7 @@ class PropStateByNameCondition {
     int x;
     int y;
     char pad14[4];
-    Sub sub;
+    Sub_18c6b0 sub;
 };
 class FactoryTemplate {
   public:

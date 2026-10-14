@@ -1,5 +1,5 @@
 extern float __cdecl FUN_002899e0(float*, float*, float, float, int, int, bool, int);
-class Item {
+class Item_2a7150 {
   public:
     virtual void a();
     virtual void b();
@@ -15,13 +15,13 @@ class Item {
     virtual void l();
     virtual void Update(float, float);
 };
-struct Vec {
-    Item** begin;
-    Item** end;
+struct Vec_2a7150 {
+    Item_2a7150** begin;
+    Item_2a7150** end;
     unsigned size() const { return end - begin; }
-    Item* at(unsigned i) const { return begin[i]; }
+    Item_2a7150* at(unsigned i) const { return begin[i]; }
 };
-class PC {
+class PC_2a7150 {
   public:
     virtual void v0();
     virtual void v1();
@@ -42,9 +42,9 @@ class PC {
     char pad3c[0x0c];
     float m48;
     float m4c;
-    Vec v;
+    Vec_2a7150 v;
 };
-void PC::vfunc_7() {
+void PC_2a7150::vfunc_7() {
     float delta = m48 * m4c * 0.001f;
     m34 = FUN_002899e0(&m28, &m38, m34, delta, m2c, m30, m24 == 0, m20);
     unsigned i = 0;

@@ -1,10 +1,10 @@
-class Thing {
+class Thing_212de0 {
   public:
     char pad[8];
     int end;
 };
-int* __fastcall Find(int, Thing*);
-void __cdecl Remove(Thing* a, int b) {
+int* __fastcall Find(int, Thing_212de0*);
+void __cdecl Remove(Thing_212de0* a, int b) {
     int* p = Find(b, a);
     p += 2;
     while (p < (int*)a->end) {

@@ -2,13 +2,13 @@ class Context {
   public:
     int* Lookup(int);
 };
-class Obj {
+class Obj_1c3bd0 {
   public:
     char pad[0x0c];
     Context* mContext;
     int Target(int);
 };
-int Obj::Target(int arg) {
+int Obj_1c3bd0::Target(int arg) {
     int* p = mContext->Lookup(arg);
     if (p)
         return (int)p + 0x30;

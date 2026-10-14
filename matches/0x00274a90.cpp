@@ -1,19 +1,19 @@
-class I {
+class I_274a90 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class M {
+class M_274a90 {
   public:
     int dummy;
     void Call(void* a, int b);
 };
-class P {
+class P_274a90 {
   public:
     char pad0[4];
-    I sub;
+    I_274a90 sub;
     char pad8[4];
-    M* obj;
+    M_274a90* obj;
     int x10;
     char pad14[4];
     int zero;
@@ -21,7 +21,7 @@ class P {
 class DriveCancelRequest {
   public:
     char pad[8];
-    P* m;
+    P_274a90* m;
     int vfunc_1();
 };
 int DriveCancelRequest::vfunc_1() {

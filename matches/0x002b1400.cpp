@@ -5,26 +5,26 @@ class V {
 };
 extern void __cdecl FUN_002b1390(void*, void*) throw();
 extern void __cdecl thunk_FUN_00267090(void*) throw();
-template <class T> struct Ref {
+template <class T> struct Ref_2b1400 {
     T* p;
-    ~Ref() throw() {
+    ~Ref_2b1400() throw() {
         if (p)
             p->b();
         p = 0;
     }
 };
-template <int N> struct Buf {
+template <int N> struct Buf_2b1400 {
     void* p;
     char pad[N - 4];
-    ~Buf() throw() {
+    ~Buf_2b1400() throw() {
         if (p)
             thunk_FUN_00267090(p);
     }
 };
-struct Range {
+struct Range_2b1400 {
     void* b;
     void* e;
-    ~Range() throw() {
+    ~Range_2b1400() throw() {
         if (b) {
             FUN_002b1390(b, e);
             thunk_FUN_00267090(b);
@@ -36,12 +36,12 @@ class Base0 {
     virtual ~Base0() throw();
     char pad[0xc];
 };
-class Obj : public Base0 {
+class Obj_2b1400 : public Base0 {
   public:
-    Ref<V> m10;
-    Buf<0xc> m14;
-    Buf<0xc> m20;
-    Range m2c;
-    virtual ~Obj() throw();
+    Ref_2b1400<V> m10;
+    Buf_2b1400<0xc> m14;
+    Buf_2b1400<0xc> m20;
+    Range_2b1400 m2c;
+    virtual ~Obj_2b1400() throw();
 };
-Obj::~Obj() throw() {}
+Obj_2b1400::~Obj_2b1400() throw() {}

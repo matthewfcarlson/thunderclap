@@ -1,14 +1,14 @@
-struct Inner {
+struct Inner_193b90 {
     char c;
 };
 
-class Obj {
+class Obj_193b90 {
   public:
     char pad[0xa8];
-    Inner m;
-    Inner* GetBody();
+    Inner_193b90 m;
+    Inner_193b90* GetBody();
 };
 
-Inner* Obj::GetBody() {
+Inner_193b90* Obj_193b90::GetBody() {
     return &m;
 }

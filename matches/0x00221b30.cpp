@@ -1,17 +1,17 @@
-struct P {
+struct P_221b30 {
     int a[16];
 };
-struct Q {
+struct Q_221b30 {
     int a[4];
 };
-class X {
+class X_221b30 {
   public:
-    P p;
-    Q q;
+    P_221b30 p;
+    Q_221b30 q;
     int c;
-    void Copy(const X&);
+    void Copy(const X_221b30&);
 };
-void X::Copy(const X& other) {
+void X_221b30::Copy(const X_221b30& other) {
     p = other.p;
     q = other.q;
     c = other.c;

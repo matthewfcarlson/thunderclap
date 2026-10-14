@@ -12,7 +12,7 @@ struct ChargeTrack {
 };
 extern int chargeVtable;
 void* operator new(unsigned int);
-class Factory {
+class Factory_17e070 {
   public:
     virtual void a();
     virtual void b();
@@ -21,7 +21,7 @@ class Factory {
     virtual void e();
     virtual ChargeTrack* vfunc_5();
 };
-ChargeTrack* Factory::vfunc_5() {
+ChargeTrack* Factory_17e070::vfunc_5() {
     ChargeTrack* p = (ChargeTrack*)operator new(0x20);
     if (p) {
         p->Init();

@@ -3,7 +3,7 @@ extern "C" char DAT_003f7d70[];
 extern "C" char DAT_0042773c[];
 extern "C" void* __cdecl Alloc(unsigned int);
 extern int gGuard;
-extern int gTable;
+extern int gTable_53d80;
 extern int gSix;
 struct ParamEnumConstList {
     int pad[5];
@@ -42,6 +42,6 @@ void FUN_00053d80() {
         slots[1] = b;
     } else
         slots[1] = 0;
-    Register(&gTable, slots, 2);
+    Register(&gTable_53d80, slots, 2);
     ++gGuard;
 }

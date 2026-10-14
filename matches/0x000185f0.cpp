@@ -10,7 +10,7 @@ class CAction {
     virtual void a7();
     virtual void a8();
 };
-struct Inner {
+struct Inner_185f0 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -29,30 +29,30 @@ struct Inner {
     virtual void f15();
     virtual void set(int, int);
 };
-struct Obj {
+struct Obj_185f0 {
     char pad[0x128];
-    Inner* p;
+    Inner_185f0* p;
 };
-struct Actor {
-    Obj* get();
+struct Actor_185f0 {
+    Obj_185f0* get();
 };
-struct Obj2 {
-    Obj* get();
+struct Obj2_185f0 {
+    Obj_185f0* get();
 };
 class CPropActorSetStateAction : public CAction {
   public:
     char pad[0x1c - 4];
-    Actor* actor;
-    struct State* state;
+    Actor_185f0* actor;
+    struct State_185f0* state;
     bool vfunc_7(int);
 };
-struct State {
+struct State_185f0 {
     char pad[0x10];
     int value;
 };
 bool CPropActorSetStateAction::vfunc_7(int) {
-    Obj* o = actor->get();
-    o = ((Obj2*)o)->get();
+    Obj_185f0* o = actor->get();
+    o = ((Obj2_185f0*)o)->get();
     if (o->p)
         o->p->set(state->value, 1);
     return false;

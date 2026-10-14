@@ -1,17 +1,17 @@
 namespace pure3d {
 extern void Free(void*) throw();
-class Ref {
+class Ref_2a74e0 {
   public:
     virtual void f0() throw();
     virtual void Release() throw();
 };
-template <class T> struct Vec {
+template <class T> struct Vec_2a74e0 {
     T* b;
     T* e;
     T* c;
     unsigned size() const { return (unsigned)(e - b); }
     T& operator[](unsigned i) { return b[i]; }
-    ~Vec() throw() {
+    ~Vec_2a74e0() throw() {
         if (b)
             Free(b);
     }
@@ -23,12 +23,12 @@ class SimpleFrameController {
 };
 class ParticleController : public SimpleFrameController {
   public:
-    Vec<Ref*> v;
+    Vec_2a74e0<Ref_2a74e0*> v;
     virtual ~ParticleController() throw();
 };
 ParticleController::~ParticleController() throw() {
     for (unsigned i = 0; i < v.size(); i++) {
-        Ref*& r = v[i];
+        Ref_2a74e0*& r = v[i];
         if (r) {
             r->Release();
             r = 0;

@@ -1,10 +1,10 @@
 extern "C" double sqrt(double);
 extern const float gSmall, gOne, gZero;
-struct Vec {
+struct Vec_22d110 {
     float x, y, z;
     float Normalize();
 };
-float Vec::Normalize() {
+float Vec_22d110::Normalize() {
     float n = z * z + y * y + x * x;
     if (n >= gSmall) {
         float s = sqrt(n);

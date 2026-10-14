@@ -1,21 +1,21 @@
 extern "C" char DAT_0040a590[];
 extern "C" char DAT_0048e10c[];
 extern "C" char DAT_0048e134[];
-class Base {
+class Base_cf050 {
   public:
     void Init(int, int);
 };
 extern "C" char __cdecl GetFlag(const char*);
-class Obj : public Base {
+class Obj_cf050 : public Base_cf050 {
   public:
     int v;
     char pad[0x14];
     char m18;
     char pad2[3];
     int n;
-    Obj(int, int);
+    Obj_cf050(int, int);
 };
-Obj::Obj(int a, int b) {
+Obj_cf050::Obj_cf050(int a, int b) {
     Init(a, 4);
     v = ((int)DAT_0040a590);
     n = b;

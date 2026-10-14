@@ -1,15 +1,15 @@
-class Obj {
+class Obj_37750 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class Holder {
+class Holder_37750 {
   public:
-    Obj* a;
-    Obj* b;
+    Obj_37750* a;
+    Obj_37750* b;
     void Clear();
 };
-void Holder::Clear() {
+void Holder_37750::Clear() {
     if (b) {
         b->f1();
         b = 0;

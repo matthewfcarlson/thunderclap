@@ -1,21 +1,21 @@
 extern "C" void _ReadWriteBarrier();
 extern char ImageFont_vftable[];
-class Ref {
+class Ref_2bfa70 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class Base {
+class Base_2bfa70 {
   public:
     void BaseDtor();
 };
 extern void __cdecl FUN_00263f30(void*);
 extern void __cdecl thunk_FUN_00267090(void*);
-class ImageFont : public Base {
+class ImageFont : public Base_2bfa70 {
   public:
     void* vptr;
     char p[0x24];
-    Ref* m28;
+    Ref_2bfa70* m28;
     char p2c[8];
     char* m34;
     ImageFont* f2(unsigned char);

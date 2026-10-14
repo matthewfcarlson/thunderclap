@@ -1,14 +1,14 @@
-class Ref {
+class Ref_234090 {
   public:
     virtual void A();
     virtual void Release();
 };
-class Owner {
+class Owner_234090 {
   public:
-    Ref* mRef;
-    bool Clear(Ref*);
+    Ref_234090* mRef;
+    bool Clear(Ref_234090*);
 };
-bool Owner::Clear(Ref* unused) {
+bool Owner_234090::Clear(Ref_234090* unused) {
     if (mRef) {
         mRef->Release();
         mRef = 0;

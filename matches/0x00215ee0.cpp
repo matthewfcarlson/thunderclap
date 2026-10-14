@@ -1,4 +1,4 @@
-struct S {
+struct S_215ee0 {
     char p0[8];
     int a;
     char p1[0x10];
@@ -6,18 +6,18 @@ struct S {
     char p2[0x34];
     int c;
 };
-struct L {
+struct L_215ee0 {
     int a;
     int b;
     int c;
     int d;
     int e;
 };
-int FUN_00215de0(S*, void (*)(), L*, int, int);
-void FUN_0021add0(S*, int, int, int);
+int FUN_00215de0(S_215ee0*, void (*)(), L_215ee0*, int, int);
+void FUN_0021add0(S_215ee0*, int, int, int);
 void FUN_00215c00();
-int G(S* s, int a, int b) {
-    L l;
+int G(S_215ee0* s, int a, int b) {
+    L_215ee0 l;
     l.a = a;
     l.e = b;
     l.b = 0;

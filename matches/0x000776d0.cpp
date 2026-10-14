@@ -7,7 +7,7 @@ extern void* __cdecl Allocate(unsigned int);
 struct InitClass {
     void Init();
 };
-class Factory {
+class Factory_776d0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -16,7 +16,7 @@ class Factory {
     virtual void f4();
     virtual CSweepTrack* f5();
 };
-CSweepTrack* Factory::f5() {
+CSweepTrack* Factory_776d0::f5() {
     CSweepTrack* p = (CSweepTrack*)Allocate(0x24);
     if (p) {
         ((InitClass*)p)->Init();

@@ -1,5 +1,5 @@
 typedef unsigned int uint;
-struct Item {
+struct Item_2a2a30 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -9,9 +9,9 @@ struct Item {
     virtual void v6();
     virtual uint v7();
 };
-struct Entry {
+struct Entry_2a2a30 {
     uint unused;
-    Item** item;
+    Item_2a2a30** item;
     uint a, b;
 };
 void __cdecl FUN_002a27c0(uint pass, uint count, uint* input, uint* output);
@@ -28,9 +28,9 @@ struct OpaqueTraversal {
     uint count;
     unsigned char enabled;
     char pad2[3];
-    Entry* entries;
+    Entry_2a2a30* entries;
     char pad3[8];
-    Entry** ordered;
+    Entry_2a2a30** ordered;
 };
 void OpaqueTraversal::vfunc_3() {
     uint keys[1024];

@@ -1,4 +1,4 @@
-class Helper {
+class Helper_23a5c0 {
   public:
     unsigned getA();
     unsigned getB();
@@ -13,7 +13,7 @@ class StreamStringReader {
     virtual void v5();
     virtual bool vfunc_6();
     char pad[8];
-    Helper* field_c;
+    Helper_23a5c0* field_c;
     char pad10;
     bool field11;
 };

@@ -1,26 +1,26 @@
-class Obj {
+class Obj_222590 {
   public:
     virtual void A();
     virtual void B();
 };
-class Base {
+class Base_222590 {
   public:
     virtual void Init();
     char pad[12];
-    Base();
+    Base_222590();
 };
-class PartitionDriver : public Base {
+class PartitionDriver : public Base_222590 {
   public:
     PartitionDriver(const PartitionDriver* src);
     virtual void Init();
-    Obj* mObj;
+    Obj_222590* mObj;
     int a;
     int b;
     int c;
 };
-PartitionDriver::PartitionDriver(const PartitionDriver* src) : Base() {
+PartitionDriver::PartitionDriver(const PartitionDriver* src) : Base_222590() {
     mObj = 0;
-    Obj* p = src->mObj;
+    Obj_222590* p = src->mObj;
     if (p)
         p->A();
     if (mObj)

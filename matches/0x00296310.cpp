@@ -9,7 +9,7 @@ class Node {
     char pad[0x18 - 4];
     Node* child;
 };
-class Callback {
+class Callback_296310 {
   public:
     virtual void f0();
     virtual void f1();
@@ -39,7 +39,7 @@ class pure3d_scenegraph_ShaderCallbackVisitor : public pure3d_scenegraph_Travers
 bool pure3d_scenegraph_ShaderCallbackVisitor::vfunc_0(Node* p) {
     if (p) {
         if (p->Type() == 0x10 && p->child) {
-            Callback* c = (Callback*)p->child;
+            Callback_296310* c = (Callback_296310*)p->child;
             if (callback)
                 c->f13(callback);
             else

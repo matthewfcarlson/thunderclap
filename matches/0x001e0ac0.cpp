@@ -14,17 +14,17 @@ class CSPManager {
     CSPManager* Run(int, int);
 };
 extern char __cdecl FUN_001d04d0(const char*);
-extern const char s0[];
-extern const char s1[];
-extern const char s2[];
-extern const char s3[];
+extern const char s0_1e0ac0[];
+extern const char s1_1e0ac0[];
+extern const char s2_1e0ac0[];
+extern const char s3_1e0ac0[];
 CSPManager* CSPManager::Run(int a, int b) {
     Init(a, 3);
     x = ((int)DAT_00423468);
     m1c = b;
-    b18 = FUN_001d04d0(s0);
-    b10 = FUN_001d04d0(s1);
-    b11 = FUN_001d04d0(s2);
-    b12 = FUN_001d04d0(s3);
+    b18 = FUN_001d04d0(s0_1e0ac0);
+    b10 = FUN_001d04d0(s1_1e0ac0);
+    b11 = FUN_001d04d0(s2_1e0ac0);
+    b12 = FUN_001d04d0(s3_1e0ac0);
     return this;
 }

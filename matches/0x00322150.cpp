@@ -1,6 +1,6 @@
 extern "C" char DAT_0043276c[];
 extern "C" char DAT_00433094[];
-class RefCounted {
+class RefCounted_322150 {
   public:
     virtual void f0();
     virtual void Release();
@@ -8,7 +8,7 @@ class RefCounted {
 class ProjectedTexture {
   public:
     void* vftable;
-    RefCounted* items[16];
+    RefCounted_322150* items[16];
     void f();
 };
 void ProjectedTexture::f() {

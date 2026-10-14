@@ -6,7 +6,7 @@ extern "C" char DAT_004e79c0[];
 extern "C" char DAT_004e79c4[];
 extern "C" char DAT_004e79c8[];
 extern "C" char DAT_004e79cc[];
-struct Pair {
+struct Pair_25fa00 {
     int a;
     int b;
 };
@@ -19,10 +19,10 @@ struct MetaType {
     int* m20;
     int m24;
     int pad28;
-    Pair key;
+    Pair_25fa00 key;
     MetaType* Init(int, int);
 };
-extern void Register(int*, MetaType*, Pair*);
+extern void Register(int*, MetaType*, Pair_25fa00*);
 MetaType* MetaType::Init(int a, int b) {
     int* p = (int*)((char*)this + 0x18);
     vptr = ((int)DAT_0042aa40);
@@ -31,7 +31,7 @@ MetaType* MetaType::Init(int a, int b) {
     m20 = p;
     m14 = p;
     m24 = 0;
-    Pair* k = &key;
+    Pair_25fa00* k = &key;
     k->a = a;
     key.b = b;
     if (*(int*)((int)DAT_004e79cc) == 0) {

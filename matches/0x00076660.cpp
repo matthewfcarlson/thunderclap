@@ -10,7 +10,7 @@ class CGrappleDamageTrack {
     virtual void f();
     CGrappleDamageTrack();
 };
-class Factory {
+class Factory_76660 {
   public:
     virtual void a();
     virtual void b();
@@ -19,7 +19,7 @@ class Factory {
     virtual void e();
     virtual CGrappleDamageTrack* f();
 };
-CGrappleDamageTrack* Factory::f() {
+CGrappleDamageTrack* Factory_76660::f() {
     CGrappleDamageTrack* p = (CGrappleDamageTrack*)Alloc(0x18);
     if (p) {
         p->CGrappleDamageTrack::CGrappleDamageTrack();

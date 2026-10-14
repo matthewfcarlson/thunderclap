@@ -1,4 +1,4 @@
-class X {
+class X_165540 {
   public:
     char c;
     char pad[11];
@@ -6,7 +6,7 @@ class X {
     char Fn(char c);
 };
 
-char X::Fn(char c) {
+char X_165540::Fn(char c) {
     mValue = c;
     return 1;
 }

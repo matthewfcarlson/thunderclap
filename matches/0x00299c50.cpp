@@ -1,13 +1,13 @@
 void* operator new(unsigned int n);
 
-class Base {
+class Base_299c50 {
   public:
-    Base() { mA = 0; }
+    Base_299c50() { mA = 0; }
     virtual void f0();
     int mA;
 };
 
-class ActiveList : public Base {
+class ActiveList : public Base_299c50 {
   public:
     ActiveList();
     virtual void f0();
@@ -29,7 +29,7 @@ class ActiveList : public Base {
     int m40;
 };
 
-void Base::f0() {}
+void Base_299c50::f0() {}
 
 ActiveList::ActiveList() {
     char* p = (char*)operator new(0x20);

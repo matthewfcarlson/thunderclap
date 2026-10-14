@@ -6,13 +6,13 @@ class CompositeDrawable {
     virtual void a3();
     virtual int vfunc_4();
 };
-class Allocated {
+class Allocated_29a170 {
   public:
     int method(CompositeDrawable*);
 };
-extern Allocated* alloc(int);
+extern Allocated_29a170* alloc(int);
 int CompositeDrawable::vfunc_4() {
-    Allocated* p = alloc(0x58);
+    Allocated_29a170* p = alloc(0x58);
     if (p)
         return p->method(this);
     return 0;

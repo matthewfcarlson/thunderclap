@@ -1,23 +1,23 @@
-class Obj {
+class Obj_59300 {
   public:
     virtual void a();
     virtual void Release();
 };
-class X {
+class X_59300 {
   public:
     char p0[0x4c];
-    Obj* m4c;
-    Obj* m50;
+    Obj_59300* m4c;
+    Obj_59300* m50;
     char p1[0xc];
-    Obj* m60;
+    Obj_59300* m60;
     char p1b[8];
-    Obj* m6c;
-    Obj* m70;
+    Obj_59300* m6c;
+    Obj_59300* m70;
     char p2[0x10];
-    Obj* m84;
+    Obj_59300* m84;
     void F();
 };
-void X::F() {
+void X_59300::F() {
     if (m4c) {
         m4c->Release();
         m4c = 0;

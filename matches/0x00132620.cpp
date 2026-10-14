@@ -13,10 +13,10 @@ template <class T> class ConditionFactoryCasterTemplate {
 };
 } // namespace fight
 void* __cdecl FUN_002343e0(const char*, const void*);
-struct Registry {
+struct Registry_132620 {
     void FUN_00236760(void*);
 };
-void __cdecl FUN_00132620(Registry* registry) {
+void __cdecl FUN_00132620(Registry_132620* registry) {
     {
         fight::ConditionFactoryCasterTemplate<hulkfight::UnlockableCondition> caster;
         registry->FUN_00236760(FUN_002343e0("unlockable", &caster));

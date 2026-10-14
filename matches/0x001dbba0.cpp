@@ -1,7 +1,7 @@
 struct Init {
     void Set(int);
 };
-struct State {
+struct State_1dbba0 {
     char x[0x10];
     int at10;
     char x14[4];
@@ -13,10 +13,10 @@ struct State {
     unsigned char at26;
     unsigned char at27;
 };
-struct Setup {
+struct Setup_1dbba0 {
     void Init(float*);
 };
-void __fastcall FUN_001dbba0(State* s) {
+void __fastcall FUN_001dbba0(State_1dbba0* s) {
     ((Init*)s)->Set(0);
     ((Init*)((char*)s + 8))->Set(0);
     float local[4];
@@ -25,7 +25,7 @@ void __fastcall FUN_001dbba0(State* s) {
     local[1] = 0;
     local[2] = 0;
     local[3] = 1.0f;
-    ((Setup*)((char*)s + 0x10))->Init(local);
+    ((Setup_1dbba0*)((char*)s + 0x10))->Init(local);
     s->at18 = 0;
     s->at20 = 0;
     *((unsigned short*)((char*)s + 0x16)) = 0;

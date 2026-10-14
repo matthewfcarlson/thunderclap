@@ -1,4 +1,4 @@
-struct State {
+struct State_265c40 {
     unsigned char p0[1];
     unsigned char flag;
     unsigned char p2[0x12];
@@ -14,12 +14,12 @@ struct State {
 void __cdecl Init(void*);
 void __cdecl Release(void*);
 void __cdecl Free(void*);
-State* g_state;
-char g_obj;
+State_265c40* g_state_265c40;
+char g_obj_265c40;
 void __cdecl FUN_00265c40(void) {
-    State* s = g_state;
+    State_265c40* s = g_state_265c40;
     s->flag = 1;
-    Init((void*)&g_obj);
+    Init((void*)&g_obj_265c40);
     int x = s->at30;
     s->at28 = x;
     s->at2c = x;
@@ -31,5 +31,5 @@ void __cdecl FUN_00265c40(void) {
     if (x)
         Release((void*)x);
     Free(s);
-    g_state = 0;
+    g_state_265c40 = 0;
 }

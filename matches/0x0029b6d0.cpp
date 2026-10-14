@@ -1,4 +1,4 @@
-class X {
+class X_29b6d0 {
   public:
     char pad0[0x10];
     unsigned count;
@@ -6,7 +6,7 @@ class X {
     unsigned* items;
     unsigned get(unsigned i);
 };
-unsigned X::get(unsigned i) {
+unsigned X_29b6d0::get(unsigned i) {
     if (i < count)
         return items[i];
     return 0;

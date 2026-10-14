@@ -4,13 +4,13 @@ class LocatorDistanceCondition {
   public:
     LocatorDistanceCondition(int);
 };
-class Factory {
+class Factory_11b060 {
   public:
     void* vtable;
     char pad[0x10];
     LocatorDistanceCondition* vfunc_5();
 };
-LocatorDistanceCondition* Factory::vfunc_5() {
+LocatorDistanceCondition* Factory_11b060::vfunc_5() {
     LocatorDistanceCondition* p = (LocatorDistanceCondition*)Alloc(0x14);
     if (p) {
         p->LocatorDistanceCondition::LocatorDistanceCondition(0);

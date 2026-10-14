@@ -5,14 +5,14 @@ struct Fallback {
     virtual int f3();
     virtual int f4();
 };
-struct Obj {
+struct Obj_1d6b40 {
     char pad0[0xa0];
     void* pA0;
     char padA4[0x78];
     Fallback* fb;
 };
 extern int __fastcall FUN_002fc6f0(void* p);
-int __fastcall target(Obj* self) {
+int __fastcall target(Obj_1d6b40* self) {
     void* p = self->pA0;
     if (p) {
         int r = FUN_002fc6f0(p);

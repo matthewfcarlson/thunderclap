@@ -1,5 +1,5 @@
-extern "C" unsigned char gValue;
+extern "C" unsigned char gValue_244b0;
 unsigned char __stdcall FUN_000244b0(unsigned char value) {
-    gValue = value;
+    gValue_244b0 = value;
     return value;
 }

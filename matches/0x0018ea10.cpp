@@ -9,7 +9,7 @@ struct TimerSetTrack {
     void Init();
 };
 extern "C" void* __cdecl Allocate(unsigned int);
-class Factory {
+class Factory_18ea10 {
   public:
     virtual void F0();
     virtual void F1();
@@ -18,7 +18,7 @@ class Factory {
     virtual void F4();
     virtual void* F5();
 };
-void* Factory::F5() {
+void* Factory_18ea10::F5() {
     TimerSetTrack* p = (TimerSetTrack*)Allocate(0x18);
     if (p) {
         p->Init();

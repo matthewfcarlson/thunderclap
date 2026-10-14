@@ -1,21 +1,21 @@
-class Manager {
+class Manager_266b30 {
   public:
     int Get();
     void Fn(int*, int, int, int);
 };
-struct E {
+struct E_266b30 {
     int a, b, c, d;
 };
-class Obj {
+class Obj_266b30 {
   public:
     char pad0[0x80];
-    E e[1];
+    E_266b30 e[1];
     char pad1[0x280 - 0x90];
     int count;
-    Manager* mgr;
+    Manager_266b30* mgr;
     int Target(int);
 };
-int Obj::Target(int arg) {
+int Obj_266b30::Target(int arg) {
     count++;
     e[count].d = mgr->Get() - 4;
     e[count].a = arg;

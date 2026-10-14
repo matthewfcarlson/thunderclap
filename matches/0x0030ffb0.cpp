@@ -1,4 +1,4 @@
-class Item {
+class Item_30ffb0 {
   public:
     virtual void a();
     virtual void b();
@@ -10,16 +10,16 @@ class Item {
     virtual void h();
     virtual void invoke(void*);
 };
-class Container {
+class Container_30ffb0 {
   public:
     char pad[16];
     int limit;
     char p[4];
     int* counts;
-    Item*** items;
+    Item_30ffb0*** items;
     void run(int, void*);
 };
-void Container::run(int index, void* arg) {
+void Container_30ffb0::run(int index, void* arg) {
     if (index < 0 || index >= limit)
         return;
     int i = 0;

@@ -1,5 +1,5 @@
-class Obj {
+class Obj_27f5a0 {
   public:
-    Obj();
+    Obj_27f5a0();
 };
-Obj::Obj() {}
+Obj_27f5a0::Obj_27f5a0() {}

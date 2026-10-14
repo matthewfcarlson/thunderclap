@@ -24,15 +24,15 @@ class SingleLayout {
     virtual void v21();
     virtual void v22();
     char pad[0x40];
-    struct Obj* mObj;
+    struct Obj_e2080* mObj;
 };
-struct Obj {
+struct Obj_e2080 {
     char pad[0x141];
     char a;
     char b;
 };
 int SingleLayout::vfunc_19() {
-    Obj* p = mObj;
+    Obj_e2080* p = mObj;
     if (p && p->a && p->b)
         return 1;
     return 0;

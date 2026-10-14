@@ -1,17 +1,17 @@
-class Obj {
+class Obj_14f660 {
   public:
-    Obj* A();
-    Obj* B();
+    Obj_14f660* A();
+    Obj_14f660* B();
     void C(int);
 };
 class NoHitPushbackAction {
   public:
     char pad[0x20];
-    Obj* member;
+    Obj_14f660* member;
     void vfunc_4();
 };
 void NoHitPushbackAction::vfunc_4() {
-    Obj* p = member;
+    Obj_14f660* p = member;
     if (p) {
         p = p->A();
         p = p->B();

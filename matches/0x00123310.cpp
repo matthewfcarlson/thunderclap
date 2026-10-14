@@ -1,38 +1,38 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
+extern void* g_vftable_123310[];
 void operator delete[](void*);
 struct T1 {
     char c;
     void Fini();
 };
-class Ref {
+class Ref_123310 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Base {
+class Base_123310 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_123310 : public Base_123310 {
   public:
     char pad4[0x4c];
     void* m50;
     void* m54;
     char pad58[0x34];
     void* m8c;
-    Ref* m90;
-    Ref* m94;
+    Ref_123310* m90;
+    Ref_123310* m94;
     char pad98[4];
     void* m9c;
     void* ma0;
     char pada4[0x2c];
     T1 md0;
-    ~Obj() throw();
+    ~Obj_123310() throw();
 };
-Obj::~Obj() throw() {
-    vptr = g_vftable;
+Obj_123310::~Obj_123310() throw() {
+    vptr = g_vftable_123310;
     _ReadWriteBarrier();
     if (m94) {
         m94->Release();

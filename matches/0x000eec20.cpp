@@ -1,8 +1,8 @@
-class Obj {
+class Obj_eec20 {
   public:
     void Use(int);
 };
-class Child {
+class Child_eec20 {
   public:
     virtual void x0();
     virtual void x1();
@@ -57,7 +57,7 @@ class Child {
     virtual void x50();
     virtual void x51();
     virtual void x52();
-    virtual Obj* get(int);
+    virtual Obj_eec20* get(int);
     int Find(int);
 };
 class FEContainer {
@@ -86,7 +86,7 @@ class FEContainer {
     virtual void f21();
     virtual void f22();
     virtual void f23();
-    virtual void f24(Obj*, int);
+    virtual void f24(Obj_eec20*, int);
     virtual void f25();
     virtual int vfunc_26(int, int);
     virtual void f27();
@@ -106,10 +106,10 @@ class FEContainer {
     virtual void f41();
     virtual void f42();
     virtual int f43(int);
-    Child* c;
+    Child_eec20* c;
 };
 int FEContainer::vfunc_26(int a, int b) {
-    Obj* r = c->get(a);
+    Obj_eec20* r = c->get(a);
     f24(r, a);
     if (b) {
         int t = f43(b);

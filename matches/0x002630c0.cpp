@@ -1,4 +1,4 @@
-class Device {
+class Device_2630c0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -17,10 +17,10 @@ class Device {
     virtual void f14();
     virtual int Get();
 };
-class Obj {
+class Obj_2630c0 {
   public:
     char pad[0x20];
-    Device* dev;
+    Device_2630c0* dev;
     char p24[8];
     int result;
     int base;
@@ -29,7 +29,7 @@ class Obj {
     char p3c[8];
     int state;
 };
-void __fastcall FUN(Obj* self) {
+void __fastcall FUN(Obj_2630c0* self) {
     int n = self->value;
     if (n == 0)
         n = self->dev->Get();

@@ -1,46 +1,46 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
+extern void* g_vftable_e9ff0[];
 extern void* g_vftable2[];
-class Ref {
+class Ref_e9ff0 {
   public:
     virtual void F0();
     virtual void Release();
 };
 void operator delete[](void*) throw();
-struct Mgr {
+struct Mgr_e9ff0 {
     void Rem(void* p) throw();
 };
-struct Own {
+struct Own_e9ff0 {
     char p[8];
-    Mgr* m8;
+    Mgr_e9ff0* m8;
 };
-struct Sub {
+struct Sub_e9ff0 {
     char c;
     void Fin() throw();
 };
-class Obj {
+class Obj_e9ff0 {
   public:
     void* vptr;
     char p[0x14];
-    Sub s18;
+    Sub_e9ff0 s18;
     char p2[0x37];
-    Ref* m50;
+    Ref_e9ff0* m50;
     char p3[0xc];
-    Ref* m60;
-    Ref* m64;
+    Ref_e9ff0* m60;
+    Ref_e9ff0* m64;
     char p4[0x40];
-    Own* ma8;
+    Own_e9ff0* ma8;
     char* mac;
     char p5[0xd0];
     char* m180;
     char p6[0xc];
-    Ref* m190;
-    Ref* a[10];
-    Ref* b[10];
-    ~Obj() throw();
+    Ref_e9ff0* m190;
+    Ref_e9ff0* a[10];
+    Ref_e9ff0* b[10];
+    ~Obj_e9ff0() throw();
 };
-Obj::~Obj() throw() {
-    vptr = g_vftable;
+Obj_e9ff0::~Obj_e9ff0() throw() {
+    vptr = g_vftable_e9ff0;
     if (m180)
         ma8->m8->Rem(m180 + 0x18);
     if (m190)

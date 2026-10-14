@@ -1,11 +1,11 @@
-struct C {
+struct C_15440 {
     void run(void*, int, float);
 };
-struct B {
-    C* getC();
+struct B_15440 {
+    C_15440* getC();
 };
-struct A {
-    B* get();
+struct A_15440 {
+    B_15440* get();
 };
 class CGrappleLocoStrafe4Action {
   public:
@@ -19,14 +19,14 @@ class CGrappleLocoStrafe4Action {
     virtual void g();
     virtual void h();
     char pad[0x18];
-    A* m1c;
+    A_15440* m1c;
     char pad20[4];
     void* m24;
 };
 void CGrappleLocoStrafe4Action::vfunc_4() {
     if (m24) {
-        B* b = m1c->get();
-        C* c = b->getC();
+        B_15440* b = m1c->get();
+        C_15440* c = b->getC();
         if (c)
             c->run(m24, 0, -1.0f);
     }

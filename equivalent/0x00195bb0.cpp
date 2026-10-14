@@ -17,7 +17,7 @@ struct Releasable_195bb0 {
     virtual void Release();
 };
 
-struct V3x {
+struct V3x_195bb0 {
     float FUN_0022d110();
     void FUN_0022b980();
     bool FUN_0022d2b0(unsigned v, float eps);
@@ -245,7 +245,7 @@ void ProjectileEffect::vfunc_4(float dt)
     L[3].f = (f28 + (T + 16)[1]);
     f29 = L[4].f;
     L[4].f = (f29 + (T + 16)[2]);
-        ((V3x *)&L[2].f)->FUN_0022d110();
+        ((V3x_195bb0 *)&L[2].f)->FUN_0022d110();
     r30_eax = L[2].u;
     r31_ecx = L[3].u;
     r32_edx = L[4].u;
@@ -259,7 +259,7 @@ void ProjectileEffect::vfunc_4(float dt)
     *(volatile unsigned*)&(T + 13)[0] = r34_eax;
     *(volatile unsigned*)&(T + 13)[2] = r35_edx;
     ARGa4 = (dt * T[19]);
-        ((V3x *)(T + 13))->FUN_00011160(ARGa4, (unsigned)(T + 16));
+        ((V3x_195bb0 *)(T + 13))->FUN_00011160(ARGa4, (unsigned)(T + 16));
         ediv = *(volatile unsigned *)((char *)ediv + 0x114);
         ((volatile unsigned char *)&L[0])[3] = 0;
         if (ediv == 0)
@@ -275,13 +275,13 @@ void ProjectileEffect::vfunc_4(float dt)
     } while (0);
     ediv = FUN_0027f250();
     if (((volatile unsigned char *)&L[0])[3] == 0) {
-        ((V3x *)&L[19].f)->FUN_0022b980();
+        ((V3x_195bb0 *)&L[19].f)->FUN_0022b980();
         eaxv = *(volatile unsigned *)&T[6] + 0x20;
         L[2].u = *(volatile unsigned *)((char *)eaxv + 0x0);
         L[3].u = *(volatile unsigned *)((char *)eaxv + 0x4);
         L[4].u = *(volatile unsigned *)((char *)eaxv + 0x8);
-        ((V3x *)&L[2].f)->FUN_0022d110();
-        if (!((V3x *)(T + 16))->FUN_0022d2b0((unsigned)&L[2].f, 1e-5f))
+        ((V3x_195bb0 *)&L[2].f)->FUN_0022d110();
+        if (!((V3x_195bb0 *)(T + 16))->FUN_0022d2b0((unsigned)&L[2].f, 1e-5f))
             FUN_00224db0((unsigned)&L[19].f, (unsigned)&L[2].f, (unsigned)(T + 16));
         ecxv = *(volatile unsigned *)&T[13];
         edxv = *(volatile unsigned *)&T[14];
@@ -294,21 +294,21 @@ void ProjectileEffect::vfunc_4(float dt)
     }
     ((Spawn_195bb0 *)ediv)->FUN_0027ffb0(*(volatile unsigned *)((char *)T + 0x1c));
     *(volatile unsigned *)((char *)T + 0x1c) = 0;
-    ((V3x *)&L[19].f)->FUN_0022b980();
+    ((V3x_195bb0 *)&L[19].f)->FUN_0022b980();
     eaxv = *(volatile unsigned *)&T[6] + 0x90;
     L[2].u = *(volatile unsigned *)((char *)eaxv + 0x0);
     L[3].u = *(volatile unsigned *)((char *)eaxv + 0x4);
     L[4].u = *(volatile unsigned *)((char *)eaxv + 0x8);
-    L8c1 = ((V3x *)&L[2].f)->FUN_0022d110();
+    L8c1 = ((V3x_195bb0 *)&L[2].f)->FUN_0022d110();
     L[1].f = L8c1;
     L[1].u = L[1].u & 0x7fffffff;
     if (L[1].f <= 1e-5f) {
         L[2].f = FUN_000964e0() + 0.001f;
         L[3].f = FUN_000964e0() + 0.001f;
         L[4].f = FUN_000964e0() + 0.001f;
-        ((V3x *)&L[2].f)->FUN_0022d110();
+        ((V3x_195bb0 *)&L[2].f)->FUN_0022d110();
     }
-    if (!((V3x *)&L[2].f)->FUN_0022d2b0((unsigned)&L[5].f, 1e-5f))
+    if (!((V3x_195bb0 *)&L[2].f)->FUN_0022d2b0((unsigned)&L[5].f, 1e-5f))
         FUN_00224db0((unsigned)&L[19].f, (unsigned)&L[2].f, (unsigned)&L[5].f);
     edxv = L[11].u;
     eaxv = L[12].u;

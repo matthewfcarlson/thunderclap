@@ -12,7 +12,7 @@ class Condition {
     char flag;
 };
 extern void* __cdecl FUN_0008d690(unsigned int);
-class Factory {
+class Factory_159490 {
   public:
     virtual void a();
     virtual void b();
@@ -21,7 +21,7 @@ class Factory {
     virtual void e();
     virtual Condition* vfunc_5();
 };
-Condition* Factory::vfunc_5() {
+Condition* Factory_159490::vfunc_5() {
     Condition* p = (Condition*)FUN_0008d690(0x10);
     if (p) {
         p->Init(0);

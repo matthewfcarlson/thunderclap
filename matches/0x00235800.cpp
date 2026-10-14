@@ -1,5 +1,5 @@
 extern "C" char DAT_004279fc[];
-class Inner {
+class Inner_235800 {
   public:
     void Init();
 };
@@ -20,7 +20,7 @@ class ParamValueBranch : public ParamValue {
 };
 void* ParamValueBranch::v0(unsigned int flags) {
     *(int*)this = ((int)DAT_004279fc);
-    ((Inner*)((char*)this + 8))->Init();
+    ((Inner_235800*)((char*)this + 8))->Init();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;

@@ -1,12 +1,12 @@
-typedef void* X;
-X __cdecl WrapThing(X, int);
-X __fastcall MakeThing(void*);
-struct Obj {
-    X value;
-    X Run(void*);
+typedef void* X_24e5e0;
+X_24e5e0 __cdecl WrapThing(X_24e5e0, int);
+X_24e5e0 __fastcall MakeThing(void*);
+struct Obj_24e5e0 {
+    X_24e5e0 value;
+    X_24e5e0 Run(void*);
 };
-X Obj::Run(void* arg) {
-    X temp = MakeThing(arg);
+X_24e5e0 Obj_24e5e0::Run(void* arg) {
+    X_24e5e0 temp = MakeThing(arg);
     value = WrapThing(temp, 0);
     return this;
 }

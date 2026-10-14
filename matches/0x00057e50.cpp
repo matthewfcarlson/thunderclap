@@ -6,7 +6,7 @@ struct CFightNodeTimeCondition {
 };
 extern void* __cdecl operator_new(unsigned int);
 extern void* conditionVtable;
-struct Factory {
+struct Factory_57e50 {
     virtual void* a();
     virtual void* b();
     virtual void* c();
@@ -14,7 +14,7 @@ struct Factory {
     virtual void* e();
     virtual CFightNodeTimeCondition* vfunc_5();
 };
-CFightNodeTimeCondition* Factory::vfunc_5() {
+CFightNodeTimeCondition* Factory_57e50::vfunc_5() {
     CFightNodeTimeCondition* p = (CFightNodeTimeCondition*)operator_new(0x14);
     if (p) {
         p->Initialize();

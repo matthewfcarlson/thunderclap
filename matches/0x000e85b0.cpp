@@ -1,4 +1,4 @@
-struct V4 {
+struct V4_e85b0 {
     float x, y, z, w;
 };
 class CDisplayEffect {
@@ -19,6 +19,6 @@ class CDisplayEffect {
     };
 };
 float CDisplayEffect::DrawableCompositeDrawable::vfunc_3() {
-    V4 v = *reinterpret_cast<V4*>(*reinterpret_cast<char**>(reinterpret_cast<char*>(this) + 4) + 0x2c);
+    V4_e85b0 v = *reinterpret_cast<V4_e85b0*>(*reinterpret_cast<char**>(reinterpret_cast<char*>(this) + 4) + 0x2c);
     return v.w + v.w;
 }

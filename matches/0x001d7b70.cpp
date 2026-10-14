@@ -1,4 +1,4 @@
-class Inner {
+class Inner_1d7b70 {
   public:
     virtual void f0();
     virtual void f1();
@@ -29,7 +29,7 @@ class StateProp {
     virtual void f15();
     virtual void f16();
     char pad[0x98];
-    Inner* mInner;
+    Inner_1d7b70* mInner;
     void vfunc_7();
 };
 void StateProp::vfunc_7() {

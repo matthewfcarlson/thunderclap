@@ -2,7 +2,7 @@ class Bc {
   public:
     void run(int);
 };
-class B0 {
+class B0_1c3850 {
   public:
     void run(int);
 };
@@ -14,9 +14,9 @@ class Bd {
   public:
     void run(int);
 };
-class A {
+class A_1c3850 {
   public:
-    B0* p0;
+    B0_1c3850* p0;
     B4* p4;
     char p8[4];
     Bc* pc;
@@ -27,7 +27,7 @@ class A {
     unsigned char enabled;
     void go(int x);
 };
-void A::go(int x) {
+void A_1c3850::go(int x) {
     if (enabled) {
         pc->run(x);
         p0->run(x);

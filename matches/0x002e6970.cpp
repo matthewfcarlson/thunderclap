@@ -1,11 +1,11 @@
-typedef unsigned int U32;
-struct S {
+typedef unsigned int U32_2e6970;
+struct S_2e6970 {
     char pad[0x40];
-    U32 a;
-    U32 b;
-    U32 c;
+    U32_2e6970 a;
+    U32_2e6970 b;
+    U32_2e6970 c;
 };
-void FUN_002e6970(S* p, U32 x, U32 y, U32 z) {
+void FUN_002e6970(S_2e6970* p, U32_2e6970 x, U32_2e6970 y, U32_2e6970 z) {
     p->c = x;
     p->a = y;
     p->b = z;

@@ -1,19 +1,19 @@
-class Arg {
+class Arg_c6a20 {
   public:
     virtual void F();
     int G();
 };
-class Obj {
+class Obj_c6a20 {
   public:
-    Arg* mArg;
+    Arg_c6a20* mArg;
     volatile int mOne;
     char pad[0x3fc];
     volatile int mIndex;
     int m408;
     int m40c;
-    Obj* Run(Arg*);
+    Obj_c6a20* Run(Arg_c6a20*);
 };
-Obj* Obj::Run(Arg* arg) {
+Obj_c6a20* Obj_c6a20::Run(Arg_c6a20* arg) {
     mArg = arg;
     if (arg) {
         arg->F();

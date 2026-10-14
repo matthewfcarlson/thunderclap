@@ -1,15 +1,15 @@
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042e974[];
-class A {
+class A_2beac0 {
   public:
     virtual void f();
     virtual void g();
 };
-class B {
+class B_2beac0 {
   public:
     virtual void f(int);
 };
-class C {
+class C_2beac0 {
   public:
     void run();
 };
@@ -18,9 +18,9 @@ class Sprite {
   public:
     void* vt;
     char pad4[16];
-    B* b;
-    A* a;
-    C* p;
+    B_2beac0* b;
+    A_2beac0* a;
+    C_2beac0* p;
     void target();
 };
 void Sprite::target() {
@@ -28,7 +28,7 @@ void Sprite::target() {
     a->g();
     if (b)
         b->f(1);
-    C* q = p;
+    C_2beac0* q = p;
     if (q) {
         q->run();
         thunk(q);

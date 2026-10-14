@@ -8,7 +8,7 @@ struct StateHook {
 namespace pure3d {
 struct SpriteParticleEmitter;
 }
-struct Renderer {
+struct Renderer_2d43d0 {
     virtual void s0();
     virtual void s1();
     virtual void s2();
@@ -74,7 +74,7 @@ struct Renderer {
     virtual void setFlag(unsigned char);
     virtual unsigned char getFlag();
 };
-extern Renderer* DAT_0052c2a8;
+extern Renderer_2d43d0* DAT_0052c2a8;
 struct ParticleDrawer {
     virtual void s0();
     virtual void s1();

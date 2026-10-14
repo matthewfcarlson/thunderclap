@@ -1,4 +1,4 @@
-struct Helper {
+struct Helper_2ef440 {
     void Call(int);
 };
 class SimulatedObject {
@@ -10,13 +10,13 @@ class PhysicsObject : public SimulatedObject {
     virtual void v1();
     void Finish(int);
 };
-struct Obj {
+struct Obj_2ef440 {
     char pad70[0x70];
     SimulatedObject* m70;
-    Helper* m74;
+    Helper_2ef440* m74;
     void Target(int);
 };
-void Obj::Target(int arg) {
+void Obj_2ef440::Target(int arg) {
     if (m74)
         m74->Call(arg);
     if (m70) {

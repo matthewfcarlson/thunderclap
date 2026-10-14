@@ -16,13 +16,13 @@ class CGrappleAttachTrack {
     virtual int vfunc_12(int);
     virtual void v13();
 };
-class R {
+class R_627a0 {
   public:
     int invoke(CGrappleAttachTrack*, int);
 };
-extern R* FUN_0008d690(int);
+extern R_627a0* FUN_0008d690(int);
 int CGrappleAttachTrack::vfunc_12(int param) {
-    R* p = FUN_0008d690(0x24);
+    R_627a0* p = FUN_0008d690(0x24);
     if (p)
         return p->invoke(this, param);
     return 0;

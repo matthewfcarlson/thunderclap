@@ -1,18 +1,18 @@
-class Ref {
+class Ref_3b580 {
   public:
     virtual void A();
     virtual void B();
 };
-class Obj {
+class Obj_3b580 {
     char pad[0x1b58];
     int count;
     float value;
-    Ref* ref;
+    Ref_3b580* ref;
 
   public:
-    void Fn(char, float, Ref*);
+    void Fn(char, float, Ref_3b580*);
 };
-void Obj::Fn(char enable, float x, Ref* r) {
+void Obj_3b580::Fn(char enable, float x, Ref_3b580* r) {
     if (enable) {
         ++count;
         if (count <= 0)

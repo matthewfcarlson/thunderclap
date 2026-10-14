@@ -1,8 +1,8 @@
 extern "C" char DAT_00404c20[];
-extern char s1[];
-extern char s2[];
-extern char s3[];
-extern char s4[];
+extern char s1_9a8e0[];
+extern char s2_9a8e0[];
+extern char s3_9a8e0[];
+extern char s4_9a8e0[];
 extern char __cdecl Convert(const char*);
 class CCameraManager {
   public:
@@ -21,8 +21,8 @@ CCameraManager::CCameraManager(void* p, int value) {
     Init(p, 3);
     *(int*)this = ((int)DAT_00404c20);
     field1c = value;
-    b18 = Convert(s1);
-    b10 = Convert(s2);
-    b11 = Convert(s3);
-    b12 = Convert(s4);
+    b18 = Convert(s1_9a8e0);
+    b10 = Convert(s2_9a8e0);
+    b11 = Convert(s3_9a8e0);
+    b12 = Convert(s4_9a8e0);
 }

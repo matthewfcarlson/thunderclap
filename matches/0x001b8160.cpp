@@ -1,4 +1,4 @@
-class Device {
+class Device_1b8160 {
   public:
     virtual void f0();
     virtual void f1();
@@ -13,16 +13,16 @@ class Device {
     virtual void Stop(int);
     virtual float Get();
 };
-class Thing {
+class Thing_1b8160 {
   public:
     char pad[0xc];
-    Device* device;
+    Device_1b8160* device;
     char pad2[0x120];
     unsigned char done;
     float value;
     void Update();
 };
-void Thing::Update() {
+void Thing_1b8160::Update() {
     if (device) {
         if (!done) {
             value = device->Get();

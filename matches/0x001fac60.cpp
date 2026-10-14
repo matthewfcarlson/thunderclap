@@ -1,4 +1,4 @@
-class X {
+class X_1fac60 {
   public:
     int pad[2];
     int a;
@@ -12,7 +12,7 @@ class X {
     int i;
     void Init();
 };
-void X::Init() {
+void X_1fac60::Init() {
     a = 0;
     b = 0;
     c = 0;

@@ -1,4 +1,4 @@
-class Obj {
+class Obj_204f00 {
   public:
     virtual void f0();
     virtual void f1();
@@ -13,11 +13,11 @@ class Obj {
     virtual void f10();
     virtual int f11();
 };
-class S {
+class S_204f00 {
   public:
     void run();
 };
-class A {
+class A_204f00 {
   public:
     char pad0[4];
     char flag;
@@ -25,15 +25,15 @@ class A {
     short x26;
     short x28;
     char pad2a[6];
-    Obj* p30;
+    Obj_204f00* p30;
     char gap34[4];
-    Obj* p38;
+    Obj_204f00* p38;
     void finish(char*, int, int, int);
 };
 void FUN_00267110(int);
-void __fastcall target(A* a) {
+void __fastcall target(A_204f00* a) {
     a->flag = 0;
-    ((S*)a->p38)->run();
+    ((S_204f00*)a->p38)->run();
     a->p38 = 0;
     if (a->p30) {
         int r = a->p30->f11();

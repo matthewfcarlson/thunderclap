@@ -1,4 +1,4 @@
-struct G {
+struct G_292670 {
     void X();
 };
 struct H {
@@ -6,12 +6,12 @@ struct H {
     void B();
 };
 void thunk_FUN_00267090(H*);
-struct T {
+struct T_292670 {
     int value;
     void run(H*);
 };
-void T::run(H* arg) {
-    ((G*)this)->X();
+void T_292670::run(H* arg) {
+    ((G_292670*)this)->X();
     arg->A();
     if (arg) {
         arg->B();

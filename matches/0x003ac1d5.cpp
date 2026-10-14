@@ -1,16 +1,16 @@
 // cl-flags: /O1
-extern void* vt[];
-class O {
+extern void* vt_3ac1d5[];
+class O_3ac1d5 {
   public:
     void* vptr;
     int a;
-    O* b;
-    O* c;
-    O(int x, O* y, O* z) throw();
+    O_3ac1d5* b;
+    O_3ac1d5* c;
+    O_3ac1d5(int x, O_3ac1d5* y, O_3ac1d5* z) throw();
 };
-O::O(int x, O* y, O* z) throw() {
+O_3ac1d5::O_3ac1d5(int x, O_3ac1d5* y, O_3ac1d5* z) throw() {
     a = x;
-    vptr = vt;
+    vptr = vt_3ac1d5;
     b = y;
     c = z;
     if (y)

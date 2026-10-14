@@ -1,19 +1,19 @@
-typedef unsigned int u32;
-struct Inner {
-    void run(u32);
+typedef unsigned int u32_1a4a10;
+struct Inner_1a4a10 {
+    void run(u32_1a4a10);
 };
-struct GlobalObj {
+struct GlobalObj_1a4a10 {
     char pad[0x30];
-    Inner* inner;
+    Inner_1a4a10* inner;
 };
-extern GlobalObj* gObj;
+extern GlobalObj_1a4a10* gObj_1a4a10;
 namespace hulkfight {
 namespace scenario {
 struct NodeShouldRunImmediatelyCondition {
-    bool vfunc_6(u32 a, u32 b, u32 c);
+    bool vfunc_6(u32_1a4a10 a, u32_1a4a10 b, u32_1a4a10 c);
 };
-bool NodeShouldRunImmediatelyCondition::vfunc_6(u32 a, u32 b, u32 c) {
-    gObj->inner->run(a);
+bool NodeShouldRunImmediatelyCondition::vfunc_6(u32_1a4a10 a, u32_1a4a10 b, u32_1a4a10 c) {
+    gObj_1a4a10->inner->run(a);
     return true;
 }
 } // namespace scenario

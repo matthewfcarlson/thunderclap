@@ -48,12 +48,12 @@ class PhysicsObject {
     char p2[0x170];
     float value;
 };
-struct Data {
+struct Data_2f6940 {
     char p[0x68];
     float x;
 };
 void PhysicsObject::f30() {
-    float f = ((Data*)data)->x;
+    float f = ((Data_2f6940*)data)->x;
     result = f * scale * f * f;
     value = f * value;
 }

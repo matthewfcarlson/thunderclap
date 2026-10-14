@@ -1,5 +1,5 @@
 extern "C" char DAT_004279fc[];
-class Inner {
+class Inner_235330 {
   public:
     void Init();
 };
@@ -13,7 +13,7 @@ class ParamValue {
     virtual void f5();
     virtual void f6();
     char pad[4];
-    Inner inner;
+    Inner_235330 inner;
 };
 class ParamValueInt : public ParamValue {
   public:

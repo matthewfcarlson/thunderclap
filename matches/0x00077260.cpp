@@ -15,14 +15,14 @@ class CMoveAddYTrack {
     void Init();
 };
 extern "C" void* __cdecl FUN_0008d690(int);
-extern int vtable;
+extern int vtable_77260;
 CMoveAddYTrack* __fastcall target(void* self) {
     CMoveAddYTrack* p = (CMoveAddYTrack*)FUN_0008d690(0x1c);
     if (p) {
         p->Init();
         p->m10 = 1.0f;
         p->m14 = 1.0f;
-        *(int*)p = (int)&vtable;
+        *(int*)p = (int)&vtable_77260;
         p->mc = 0;
         p->m18 = 0;
         p->m8 = 1;

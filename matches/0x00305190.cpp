@@ -1,4 +1,4 @@
-struct Ent {
+struct Ent_305190 {
     int a;
     int b;
     char c;
@@ -6,32 +6,32 @@ struct Ent {
     int x;
     int y;
 };
-struct Vec {
+struct Vec_305190 {
     int count;
     int cap;
-    Ent* data;
+    Ent_305190* data;
     void Grow(int n);
 };
-struct Sub {
+struct Sub_305190 {
     int F(int a, unsigned char b);
 };
-class T {
+class T_305190 {
   public:
     char pad[0x20];
-    Sub* mSub;
+    Sub_305190* mSub;
     int pad2;
-    Vec mVec;
+    Vec_305190 mVec;
     char pad3[0x71 - 0x34];
     char mFlag;
     void Add(int a, int b, int c, unsigned char d);
 };
-void T::Add(int a, int b, int c, unsigned char d) {
-    Vec* v = &mVec;
+void T_305190::Add(int a, int b, int c, unsigned char d) {
+    Vec_305190* v = &mVec;
     mFlag = 1;
     if (v->count >= v->cap)
         v->Grow(v->cap * 2);
     v->count++;
-    Ent* e = &v->data[v->count - 1];
+    Ent_305190* e = &v->data[v->count - 1];
     e->a = a;
     e->b = b;
     e->c = (char)c;

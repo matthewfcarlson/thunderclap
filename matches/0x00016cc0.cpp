@@ -1,20 +1,20 @@
-class A {
+class A_16cc0 {
   public:
     int Get(int);
 };
-class B {
+class B_16cc0 {
   public:
     void Put(int);
 };
 class A2 {
   public:
-    A* Second();
+    A_16cc0* Second();
 };
-class M {
+class M_16cc0 {
   public:
     A2* First();
 };
-extern B* __cdecl Make();
+extern B_16cc0* __cdecl Make();
 class CEffectStopAction {
   public:
     virtual void a();
@@ -27,13 +27,13 @@ class CEffectStopAction {
     virtual void h();
     virtual void i();
     char pad[0x18];
-    M* m;
+    M_16cc0* m;
     int* data;
 };
 void CEffectStopAction::vfunc_4() {
     A2* q = m->First();
-    A* a = q->Second();
-    B* c = Make();
+    A_16cc0* a = q->Second();
+    B_16cc0* c = Make();
     int lo = data[4];
     int hi = data[5];
     if (lo < 0 || hi <= lo || hi >= 32) {

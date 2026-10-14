@@ -1,13 +1,13 @@
-struct Sub {
+struct Sub_24150 {
     void Helper();
 };
-struct Owner {
+struct Owner_24150 {
     char pad[0x40];
     void Func();
 };
-void Owner::Func() {
-    Sub* p = (Sub*)((char*)this + 0x48);
+void Owner_24150::Func() {
+    Sub_24150* p = (Sub_24150*)((char*)this + 0x48);
     p->Helper();
-    p = (Sub*)((char*)this + 0x40);
+    p = (Sub_24150*)((char*)this + 0x40);
     p->Helper();
 }

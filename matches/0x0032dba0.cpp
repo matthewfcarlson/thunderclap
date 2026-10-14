@@ -1,9 +1,9 @@
-class Base {
+class Base_32dba0 {
   public:
     virtual void V();
-    Base(int);
+    Base_32dba0(int);
 };
-class Shader : public Base {
+class Shader : public Base_32dba0 {
   public:
     char pad[0x7c];
     int a;
@@ -17,7 +17,7 @@ class Shader : public Base {
     int g;
     Shader(int);
 };
-Shader::Shader(int x) : Base(x), special(4) {
+Shader::Shader(int x) : Base_32dba0(x), special(4) {
     a = 0;
     b = 0;
     c = 0;

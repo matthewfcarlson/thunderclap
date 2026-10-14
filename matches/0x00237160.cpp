@@ -1,4 +1,4 @@
-class Obj {
+class Obj_237160 {
   public:
     virtual void v0();
     virtual void v1();
@@ -19,12 +19,12 @@ class Obj {
     virtual void Act(int, int);
     virtual void Done();
 };
-class Owner {
+class Owner_237160 {
   public:
-    bool Target(int a, int b, int c, Obj* obj);
-    void Work(int, Obj*, int);
+    bool Target(int a, int b, int c, Obj_237160* obj);
+    void Work(int, Obj_237160*, int);
 };
-bool Owner::Target(int a, int b, int c, Obj* obj) {
+bool Owner_237160::Target(int a, int b, int c, Obj_237160* obj) {
     if (!obj->Check())
         return false;
     unsigned long long v = (unsigned long long)obj->Pair();

@@ -1,14 +1,14 @@
-class Obj {
+class Obj_233ef0 {
   public:
     virtual void A();
     virtual void B();
 };
-class Holder {
+class Holder_233ef0 {
   public:
-    Obj* p;
-    void Set(int unused, Obj* x);
+    Obj_233ef0* p;
+    void Set(int unused, Obj_233ef0* x);
 };
-void Holder::Set(int unused, Obj* x) {
+void Holder_233ef0::Set(int unused, Obj_233ef0* x) {
     if (x)
         x->A();
     if (p)

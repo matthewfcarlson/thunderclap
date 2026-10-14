@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 30022 inputs, branch coverage 28/32, incomplete)
 // hulkfight::MissionProgressCondition::vfunc_6 @ 0x0012f670
-struct Names {
+struct Names_12f670 {
     const char *FUN_0008a060(int id);
 };
 
 struct NameTable {
-    Names *FUN_00086310();
+    Names_12f670 *FUN_00086310();
 };
 
-struct Game {
+struct Game_12f670 {
     char pad00[0x54];
     NameTable *table;
 };
 
-extern Game *DAT_004dd700;
+extern Game_12f670 *DAT_004dd700;
 
 static int StrCmp(const char *a, const char *b)
 {

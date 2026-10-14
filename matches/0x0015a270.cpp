@@ -8,7 +8,7 @@ class HitDamageTrack {
     void init();
 };
 extern void* __cdecl operator new(unsigned int);
-class Factory {
+class Factory_15a270 {
   public:
     virtual void f0();
     virtual void f1();
@@ -17,7 +17,7 @@ class Factory {
     virtual void f4();
     virtual HitDamageTrack* f5();
 };
-HitDamageTrack* Factory::f5() {
+HitDamageTrack* Factory_15a270::f5() {
     HitDamageTrack* p = (HitDamageTrack*)operator new(0x14);
     if (p) {
         p->init();

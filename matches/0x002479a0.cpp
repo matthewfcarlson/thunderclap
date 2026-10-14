@@ -1,10 +1,10 @@
-struct X {
+struct X_2479a0 {
     void A();
-    X* Target(unsigned char flag);
+    X_2479a0* Target(unsigned char flag);
 };
-extern int __cdecl B(X*);
+extern int __cdecl B(X_2479a0*);
 extern void __cdecl Finish(int);
-X* X::Target(unsigned char flag) {
+X_2479a0* X_2479a0::Target(unsigned char flag) {
     A();
     if (flag & 1)
         Finish(B(this));

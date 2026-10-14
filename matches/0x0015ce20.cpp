@@ -2,9 +2,9 @@ class Track {
   public:
     ~Track();
 };
-class Part {
+class Part_15ce20 {
   public:
-    ~Part();
+    ~Part_15ce20();
 };
 class LocomotionSteerTrack {
   public:
@@ -22,10 +22,10 @@ class LocomotionSteerTrack {
     char pad[0x50];
 };
 LocomotionSteerTrack::~LocomotionSteerTrack() {
-    ((Part*)((char*)this + 0x50))->~Part();
-    ((Part*)((char*)this + 0x40))->~Part();
-    ((Part*)((char*)this + 0x38))->~Part();
-    ((Part*)((char*)this + 0x30))->~Part();
-    ((Part*)((char*)this + 0x28))->~Part();
+    ((Part_15ce20*)((char*)this + 0x50))->~Part_15ce20();
+    ((Part_15ce20*)((char*)this + 0x40))->~Part_15ce20();
+    ((Part_15ce20*)((char*)this + 0x38))->~Part_15ce20();
+    ((Part_15ce20*)((char*)this + 0x30))->~Part_15ce20();
+    ((Part_15ce20*)((char*)this + 0x28))->~Part_15ce20();
     ((Track*)this)->~Track();
 }

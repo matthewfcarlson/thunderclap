@@ -1,4 +1,4 @@
-class Obj {
+class Obj_e21c0 {
   public:
     virtual void a0();
     virtual void a1();
@@ -45,7 +45,7 @@ class FELayout {
 class SingleLayout : public FELayout {
   public:
     char pad[0x40];
-    Obj* m;
+    Obj_e21c0* m;
     virtual void vfunc_12();
 };
 void SingleLayout::vfunc_12() {

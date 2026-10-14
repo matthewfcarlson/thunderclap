@@ -1,6 +1,6 @@
-typedef unsigned char u8;
-extern int vtable;
-struct Part {
+typedef unsigned char u8_2f3030;
+extern int vtable_2f3030;
+struct Part_2f3030 {
     void init();
 };
 namespace physics {
@@ -21,15 +21,15 @@ struct CollisionCylinder {
     virtual void n();
     virtual void o();
     char pad[0x64 - 4];
-    CollisionCylinder* vfunc_2(u8);
+    CollisionCylinder* vfunc_2(u8_2f3030);
     void base();
 };
 } // namespace physics
 void cleanup(physics::CollisionCylinder*);
-physics::CollisionCylinder* physics::CollisionCylinder::vfunc_2(u8 flag) {
-    *(int*)this = (int)&vtable;
-    ((Part*)((char*)this + 0x64))->init();
-    ((Part*)((char*)this + 0x38))->init();
+physics::CollisionCylinder* physics::CollisionCylinder::vfunc_2(u8_2f3030 flag) {
+    *(int*)this = (int)&vtable_2f3030;
+    ((Part_2f3030*)((char*)this + 0x64))->init();
+    ((Part_2f3030*)((char*)this + 0x38))->init();
     base();
     if (flag & 1)
         cleanup(this);

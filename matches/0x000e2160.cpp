@@ -7,7 +7,7 @@ class FELayout {
     virtual void f4();
     char pad[0x18];
 };
-class Helper {
+class Helper_e2160 {
   public:
     void call(int);
 };
@@ -30,6 +30,6 @@ class SingleLayout : public FELayout {
     virtual int vfunc_14(int, int);
 };
 int SingleLayout::vfunc_14(int a, int b) {
-    ((Helper*)((char*)this + 0x18))->call(a);
+    ((Helper_e2160*)((char*)this + 0x18))->call(a);
     return a;
 }

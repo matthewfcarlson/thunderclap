@@ -1,4 +1,4 @@
-class Helper {
+class Helper_26e750 {
   public:
     void run(void*, unsigned int);
 };
@@ -19,7 +19,7 @@ class DebugConsole {
     char pad[0x94 - 4];
     unsigned int m94;
     char pad2[0xa4 - 0x98];
-    Helper* mA4;
+    Helper_26e750* mA4;
 };
 void DebugConsole::vfunc_4(unsigned int p) {
     struct Data {

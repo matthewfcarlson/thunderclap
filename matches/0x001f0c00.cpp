@@ -2,12 +2,12 @@ extern "C" char DAT_004246ec[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e128[];
 extern "C" char DAT_0049cad8[];
-class Base {
+class Base_1f0c00 {
   public:
-    Base(char*, int);
+    Base_1f0c00(char*, int);
 };
 unsigned char FUN_001d04d0(void*);
-class CSoundSystem : public Base {
+class CSoundSystem : public Base_1f0c00 {
   public:
     char pad0[0x10];
     unsigned char b10, b11, b12, b13, b14, b15;
@@ -17,7 +17,7 @@ class CSoundSystem : public Base {
     void* p1c;
     CSoundSystem(char*, void*);
 };
-CSoundSystem::CSoundSystem(char* a, void* c) : Base(a, 6) {
+CSoundSystem::CSoundSystem(char* a, void* c) : Base_1f0c00(a, 6) {
     *(unsigned int*)this = ((int)DAT_004246ec);
     p1c = c;
     b18 = FUN_001d04d0((void*)((int)DAT_0048e100));

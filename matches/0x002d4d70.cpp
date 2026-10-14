@@ -1,9 +1,9 @@
-class Obj {
+class Obj_2d4d70 {
   public:
     virtual void Release();
     virtual void AddRef();
 };
-class pure3d_ParticleEmitter {
+class pure3d_ParticleEmitter_2d4d70 {
   public:
     virtual void a0();
     virtual void a1();
@@ -30,11 +30,11 @@ class pure3d_ParticleEmitter {
     virtual void a22();
     virtual void a23();
     virtual void a24();
-    virtual void vfunc_25(Obj*);
+    virtual void vfunc_25(Obj_2d4d70*);
     char pad[0x84 - 4];
-    Obj* member;
+    Obj_2d4d70* member;
 };
-void pure3d_ParticleEmitter::vfunc_25(Obj* param) {
+void pure3d_ParticleEmitter_2d4d70::vfunc_25(Obj_2d4d70* param) {
     if (param != member) {
         if (param)
             param->Release();

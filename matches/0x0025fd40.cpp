@@ -1,24 +1,24 @@
-typedef unsigned char u8;
-struct Buf {
-    u8 d[32];
+typedef unsigned char u8_25fd40;
+struct Buf_25fd40 {
+    u8_25fd40 d[32];
     void init();
     void fini();
 };
-u8 __cdecl seq_helper(int, Buf*);
+u8_25fd40 __cdecl seq_helper(int, Buf_25fd40*);
 namespace audio {
 struct SeqEvent {
     virtual void vfunc_0();
-    virtual u8 vfunc_1(int);
+    virtual u8_25fd40 vfunc_1(int);
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
 };
 } // namespace audio
-u8 audio::SeqEvent::vfunc_1(int p) {
-    Buf b;
+u8_25fd40 audio::SeqEvent::vfunc_1(int p) {
+    Buf_25fd40 b;
     b.init();
-    u8 r = seq_helper(p, &b);
+    u8_25fd40 r = seq_helper(p, &b);
     b.fini();
     return r;
 }

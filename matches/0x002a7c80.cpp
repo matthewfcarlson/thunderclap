@@ -33,13 +33,13 @@ class D {
   public:
     void* get(void*, int);
 };
-class C {
+class C_2a7c80 {
   public:
     D* go(int);
 };
 class SceneGraphVisibilityAnimationController : public SimpleFrameController {
   public:
-    C* field3c;
+    C_2a7c80* field3c;
     void* field40;
     virtual void vfunc_24(int, int, int);
 };

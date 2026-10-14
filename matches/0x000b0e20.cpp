@@ -1,4 +1,4 @@
-struct Button {
+struct Button_b0e20 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -9,7 +9,7 @@ struct Button {
     virtual void v7();
     virtual void apply(void* data);
 };
-struct Container {
+struct Container_b0e20 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -19,12 +19,12 @@ struct Container {
     virtual void v6();
     virtual void v7();
     virtual int count(const char* name);
-    virtual Button* get(const char* name, int index);
+    virtual Button_b0e20* get(const char* name, int index);
 };
 void __cdecl thunk_FUN_00267090(void*);
 struct Object {
     char pad0[0x10];
-    Container* container;
+    Container_b0e20* container;
     char pad14[0x40];
     int state;
     char pad58[0x450];
@@ -36,7 +36,7 @@ void Object::FUN_000b0e20() {
         return;
     int n = container->count("Button");
     for (int i = 0; i < n; ++i) {
-        Button* button = container->get("Button", i);
+        Button_b0e20* button = container->get("Button", i);
         if (button && data[i])
             button->apply(data[i]);
     }

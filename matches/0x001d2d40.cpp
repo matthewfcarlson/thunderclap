@@ -3,13 +3,13 @@ void f13600(int, int);
 int f12f00(int, int);
 float f130e0(int, int);
 void f12d80(int, int);
-class Obj {
+class Obj_1d2d40 {
   public:
     char pad[8];
     int field;
     bool target(int arg, float* out);
 };
-bool Obj::target(int arg, float* out) {
+bool Obj_1d2d40::target(int arg, float* out) {
     f133d0(field, arg);
     f13600(field, -2);
     bool result = true;

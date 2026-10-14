@@ -1,5 +1,5 @@
 // Same code shape as 0x00236ec0 (propagated; names are from that function)
-class Ref {
+class Ref_239e90 {
   public:
     virtual void f0();
     virtual void f1();
@@ -8,12 +8,12 @@ class Ref {
     virtual void f4();
     virtual void Release(int);
 };
-class Holder {
+class Holder_239e90 {
   public:
-    Ref* p;
+    Ref_239e90* p;
     void Clear();
 };
-void Holder::Clear() {
+void Holder_239e90::Clear() {
     if (p)
         p->Release(1);
     p = 0;

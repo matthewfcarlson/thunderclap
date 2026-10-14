@@ -1,7 +1,7 @@
 extern "C" char DAT_00414190[];
 typedef unsigned int uint;
 extern void* __cdecl Allocate(uint);
-struct Obj {
+struct Obj_159930 {
     unsigned int vt;
     int a;
     int b;
@@ -11,17 +11,17 @@ struct Obj {
     char flag;
     void Init(int);
 };
-class Factory {
+class Factory_159930 {
   public:
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void d();
     virtual void e();
-    virtual Obj* vfunc5();
+    virtual Obj_159930* vfunc5();
 };
-Obj* Factory::vfunc5() {
-    Obj* p = (Obj*)Allocate(0x1c);
+Obj_159930* Factory_159930::vfunc5() {
+    Obj_159930* p = (Obj_159930*)Allocate(0x1c);
     if (p) {
         p->Init(0);
         p->vt = ((int)DAT_00414190);

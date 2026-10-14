@@ -1,4 +1,4 @@
-class Helper {
+class Helper_1ef930 {
   public:
     void A();
     void B(int);
@@ -12,7 +12,7 @@ class CSoundTriggerExecutionState {
     int a, b, c, d;
     char e;
     char pad[3];
-    Helper m;
+    Helper_1ef930 m;
     CSoundTriggerExecutionState();
 };
 CSoundTriggerExecutionState::CSoundTriggerExecutionState() {

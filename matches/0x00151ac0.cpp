@@ -1,11 +1,11 @@
-class Obj {
+class Obj_151ac0 {
   public:
     virtual void a();
     virtual void b();
     virtual void c();
-    virtual Obj* get();
+    virtual Obj_151ac0* get();
     void* helper1();
-    Obj* helper2();
+    Obj_151ac0* helper2();
     void send(void*, float*);
 };
 class HitPushbackAddAction {
@@ -13,17 +13,17 @@ class HitPushbackAddAction {
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual bool vfunc_3(Obj*, int);
+    virtual bool vfunc_3(Obj_151ac0*, int);
     char pad[0x18];
-    Obj* member1c;
-    Obj* member20;
+    Obj_151ac0* member1c;
+    Obj_151ac0* member20;
 };
-bool HitPushbackAddAction::vfunc_3(Obj* arg, int x) {
+bool HitPushbackAddAction::vfunc_3(Obj_151ac0* arg, int x) {
     if (member20) {
-        Obj* p = member20->get();
+        Obj_151ac0* p = member20->get();
         if (p) {
-            Obj* a = (Obj*)member20->helper1();
-            Obj* b = a->helper2();
+            Obj_151ac0* a = (Obj_151ac0*)member20->helper1();
+            Obj_151ac0* b = a->helper2();
             float t = *(float*)((char*)member1c + 0x10);
             float* v = (float*)((char*)p + 0x28);
             float out[3];

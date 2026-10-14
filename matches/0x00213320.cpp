@@ -1,9 +1,9 @@
-typedef unsigned int u32;
-struct Thing {
+typedef unsigned int u32_213320;
+struct Thing_213320 {
     char pad[8];
-    u32* ptr;
+    u32_213320* ptr;
 };
-void FUN_00213320(Thing* p) {
+void FUN_00213320(Thing_213320* p) {
     *p->ptr = 0;
-    p->ptr = (u32*)((char*)p->ptr + 8);
+    p->ptr = (u32_213320*)((char*)p->ptr + 8);
 }

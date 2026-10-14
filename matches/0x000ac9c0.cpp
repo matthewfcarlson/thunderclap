@@ -1,4 +1,4 @@
-class Obj {
+class Obj_ac9c0 {
   public:
     char pad[0x170];
     unsigned char v170;
@@ -17,7 +17,7 @@ class Obj {
     void F(unsigned char p1, unsigned char p2, unsigned char p3, unsigned char p4, unsigned char p5,
            unsigned char p6);
 };
-void Obj::F(unsigned char p1, unsigned char p2, unsigned char p3, unsigned char p4, unsigned char p5,
+void Obj_ac9c0::F(unsigned char p1, unsigned char p2, unsigned char p3, unsigned char p4, unsigned char p5,
             unsigned char p6) {
     v2ac = p2;
     v170 = p1;

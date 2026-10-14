@@ -1,5 +1,5 @@
 extern "C" char DAT_003f8504[];
-typedef unsigned int u32;
+typedef unsigned int u32_520c0;
 struct CFightNodeParentCondition {
     virtual void f0();
     virtual void f1();
@@ -10,14 +10,14 @@ struct CFightNodeParentCondition {
     void InitMe();
 };
 void* __cdecl Allocate(unsigned int);
-struct Factory {
+struct Factory_520c0 {
     CFightNodeParentCondition* vfunc_5();
 };
-CFightNodeParentCondition* Factory::vfunc_5() {
+CFightNodeParentCondition* Factory_520c0::vfunc_5() {
     CFightNodeParentCondition* p = (CFightNodeParentCondition*)Allocate(0x20);
     if (p) {
         p->InitMe();
-        *(u32*)p = ((int)DAT_003f8504);
+        *(u32_520c0*)p = ((int)DAT_003f8504);
         return p;
     }
     return 0;

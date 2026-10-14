@@ -1,8 +1,8 @@
-struct S {
+struct S_f6e90 {
     unsigned int a[6];
-    S& operator=(const S& src);
+    S_f6e90& operator=(const S_f6e90& src);
 };
-S& S::operator=(const S& src) {
+S_f6e90& S_f6e90::operator=(const S_f6e90& src) {
     a[0] = src.a[0];
     a[1] = src.a[1];
     a[2] = src.a[2];

@@ -1,4 +1,4 @@
-class X {
+class X_e65b0 {
   public:
     virtual void a0();
     virtual void a1();
@@ -47,7 +47,7 @@ class X {
     int vals[2];
     void clear();
 };
-void X::clear() {
+void X_e65b0::clear() {
     int* p = vals;
     int n = 2;
     do {

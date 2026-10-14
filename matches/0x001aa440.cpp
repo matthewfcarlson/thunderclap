@@ -1,6 +1,6 @@
 extern "C" void* __cdecl Alloc(unsigned int);
 extern "C" int NodeVtable;
-class Factory {
+class Factory_1aa440 {
   public:
     virtual void V0();
     virtual void V1();
@@ -13,11 +13,11 @@ class Node {
   public:
     void Init(int);
 };
-class Template : public Factory {
+class Template_1aa440 : public Factory_1aa440 {
   public:
     void* V5();
 };
-void* Template::V5() {
+void* Template_1aa440::V5() {
     Node* p = (Node*)Alloc(0x10);
     if (p) {
         p->Init(0);

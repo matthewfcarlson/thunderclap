@@ -13,11 +13,11 @@ class DialogueTrack {
     void Init();
 };
 void* __cdecl FUN_0008d690(unsigned int);
-class Factory {
+class Factory_132cc0 {
   public:
     void* Create();
 };
-void* Factory::Create() {
+void* Factory_132cc0::Create() {
     DialogueTrack* p = (DialogueTrack*)FUN_0008d690(0x28);
     int z = 0;
     if (p != 0) {

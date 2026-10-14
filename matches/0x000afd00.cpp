@@ -1,14 +1,14 @@
-extern void* g_a[];
-extern void* g_b[];
+extern void* g_a_afd00[];
+extern void* g_b_afd00[];
 void operator delete[](void*);
-class Ref {
+class Ref_afd00 {
   public:
     virtual void F0();
     virtual void Release();
 };
-struct P {
+struct P_afd00 {
     char pad[0x2c];
-    Ref* r;
+    Ref_afd00* r;
     void Fini() {
         if (r) {
             r->Release();
@@ -16,17 +16,17 @@ struct P {
         }
     }
 };
-class Obj {
+class Obj_afd00 {
   public:
     void* vptr;
     char pad[8];
-    Ref* mc;
+    Ref_afd00* mc;
     int count;
-    P* arr;
+    P_afd00* arr;
     void f();
 };
-void Obj::f() {
-    vptr = g_a;
+void Obj_afd00::f() {
+    vptr = g_a_afd00;
     if (arr) {
         for (int i = 0; i < count; i++)
             if (arr[i].r) {
@@ -36,7 +36,7 @@ void Obj::f() {
         if (arr) {
             int n = ((int*)arr)[-1];
             void* blk = (int*)arr - 1;
-            P* p = arr + n;
+            P_afd00* p = arr + n;
             while (--n >= 0) {
                 --p;
                 p->Fini();
@@ -49,5 +49,5 @@ void Obj::f() {
         mc->Release();
         mc = 0;
     }
-    vptr = g_b;
+    vptr = g_b_afd00;
 }

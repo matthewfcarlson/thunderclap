@@ -1,7 +1,7 @@
 extern void __cdecl thunk_FUN_00267090(int);
 extern void* __cdecl FUN_0008d6d0(int);
 extern void __cdecl FUN_000fb690(void*, const short*, int);
-class Obj {
+class Obj_f79a0 {
   public:
     char pad0[0x10];
     void* mData;
@@ -10,7 +10,7 @@ class Obj {
     int mState;
     void Set(const short* text, int unused);
 };
-void Obj::Set(const short* text, int unused) {
+void Obj_f79a0::Set(const short* text, int unused) {
     mState = -1;
     if (mData != 0) {
         thunk_FUN_00267090((int)mData);

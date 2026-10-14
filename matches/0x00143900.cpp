@@ -1,5 +1,5 @@
 extern int WorldDamageTrack_vftable;
-class Inner {
+class Inner_143900 {
   public:
     void Init();
 };
@@ -7,7 +7,7 @@ class WorldDamageTrack {
   public:
     int* vptr;
     char pad[12];
-    Inner inner;
+    Inner_143900 inner;
     void BaseFn();
     void Fn();
 };

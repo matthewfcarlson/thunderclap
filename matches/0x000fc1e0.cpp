@@ -1,13 +1,13 @@
-struct Inner {
+struct Inner_fc1e0 {
     void run(unsigned int, unsigned int);
 };
-struct Obj {
+struct Obj_fc1e0 {
     int pad;
-    Inner* field;
+    Inner_fc1e0* field;
 };
-extern Obj* g_obj;
-extern unsigned char g_flag;
+extern Obj_fc1e0* g_obj_fc1e0;
+extern unsigned char g_flag_fc1e0;
 void FUN_000fc1e0(unsigned int a, unsigned int b) {
-    g_obj->field->run(a, b);
-    g_flag = 1;
+    g_obj_fc1e0->field->run(a, b);
+    g_flag_fc1e0 = 1;
 }

@@ -1,14 +1,14 @@
-struct Obj2;
-struct Obj1 {
-    Obj2* first();
+struct Obj2_16440;
+struct Obj1_16440 {
+    Obj2_16440* first();
 };
-struct Obj2 {
-    Obj2* second();
+struct Obj2_16440 {
+    Obj2_16440* second();
 };
 class CSmartPropThrowingAction {
   public:
     char pad[0x18];
-    Obj1* member;
+    Obj1_16440* member;
     virtual void a();
     virtual void b();
     virtual void c();
@@ -18,8 +18,8 @@ class CSmartPropThrowingAction {
     virtual bool vfunc_6(int);
 };
 bool CSmartPropThrowingAction::vfunc_6(int x) {
-    Obj2* p = member->first();
-    Obj2* q = p->second();
+    Obj2_16440* p = member->first();
+    Obj2_16440* q = p->second();
     *((char*)q + 0x1f51) = 1;
     return true;
 }

@@ -51,7 +51,7 @@ struct Item_2067d0 {
 
 struct SlotA_2067d0 { void FUN_001dd320(int idx); };
 struct SlotB_2067d0 { void FUN_001fd180(int idx); };
-struct SlotC { void FUN_001fb300(Factory_2067d0 *f); };
+struct SlotC_2067d0 { void FUN_001fb300(Factory_2067d0 *f); };
 struct SlotD { void FUN_0007da70(int idx); };
 struct SlotE { void FUN_001b5ec0(void *obj, int idx); };
 
@@ -62,7 +62,7 @@ struct Bank {
     char pad14[0x28 - 0x14];
     SlotB_2067d0 *b;               // 0x28
     char pad2c[0x48 - 0x2c];
-    SlotC *c;               // 0x48
+    SlotC_2067d0 *c;               // 0x48
     SlotD *d;               // 0x4c
 };
 

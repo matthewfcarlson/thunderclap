@@ -21,7 +21,7 @@ class ParticlePointGenerator : public ParticleGenerator {
     float z;
     float vfunc_8(int);
 };
-extern const float zero;
+extern const float zero_2d2510;
 float ParticlePointGenerator::vfunc_8(int n) {
     --n;
     if (n != 0) {
@@ -29,7 +29,7 @@ float ParticlePointGenerator::vfunc_8(int n) {
         if (n != 0) {
             --n;
             if (n != 0)
-                return zero;
+                return zero_2d2510;
             return z;
         }
         return y;

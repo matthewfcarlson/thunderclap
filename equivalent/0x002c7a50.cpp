@@ -2,19 +2,19 @@
 // FUN_002c7a50 @ 0x002c7a50
 // equiv-conv: FUN_002c7a50 ecx eax esi
 
-struct Vec3 {
+struct Vec3_2c7a50 {
     float x, y, z;
 };
 
-struct Source {
+struct Source_2c7a50 {
     char pad00[8];
     unsigned int format;
     unsigned int count;
     char pad10[8];
-    Vec3* pos;
-    Vec3* normal;
-    Vec3* altPos;
-    Vec3* altNormal;
+    Vec3_2c7a50* pos;
+    Vec3_2c7a50* normal;
+    Vec3_2c7a50* altPos;
+    Vec3_2c7a50* altNormal;
     char pad28[0x38 - 0x28];
     float* uv0;
     float* uv1;
@@ -24,25 +24,25 @@ struct Source {
     int* color1;
 };
 
-struct Vertex {
+struct Vertex_2c7a50 {
     float x, y, z;
 };
 
-struct Emitter {
+struct Emitter_2c7a50 {
     char pad00[8];
-    Vertex* pos;
-    Vertex* normal;
+    Vertex_2c7a50* pos;
+    Vertex_2c7a50* normal;
     int* color;
     float* uv;
     void FUN_0008ef00();
-    void FUN_000c7940(Vec3* pos, int color, float* uv);
+    void FUN_000c7940(Vec3_2c7a50* pos, int color, float* uv);
 };
 
-void FUN_002c7a50(unsigned char alt, Source* src, Emitter* out)
+void FUN_002c7a50(unsigned char alt, Source_2c7a50* src, Emitter_2c7a50* out)
 {
     unsigned int n = src->count;
-    Vec3* pos;
-    Vec3* nrm;
+    Vec3_2c7a50* pos;
+    Vec3_2c7a50* nrm;
     if (alt == 1) {
         pos = src->altPos;
         nrm = src->altNormal;

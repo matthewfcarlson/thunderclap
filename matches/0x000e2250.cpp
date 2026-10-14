@@ -1,4 +1,4 @@
-class Item {
+class Item_e2250 {
   public:
     virtual void f0();
     virtual void f1();
@@ -36,5 +36,5 @@ class VScroll {
 };
 void VScroll::vfunc_1() {
     for (int i = 0; i < count; ++i)
-        ((Item**)((char*)this + 0x40))[i * 4]->f4();
+        ((Item_e2250**)((char*)this + 0x40))[i * 4]->f4();
 }

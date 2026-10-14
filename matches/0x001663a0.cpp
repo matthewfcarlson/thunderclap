@@ -1,5 +1,5 @@
 extern "C" char DAT_004168d8[];
-struct Sub {
+struct Sub_1663a0 {
     void Init();
 };
 struct RayCastCondition {
@@ -14,7 +14,7 @@ struct RayCastCondition {
 RayCastCondition::RayCastCondition() {
     BaseInit(0);
     vptr = (void*)((int)DAT_004168d8);
-    ((Sub*)((char*)this + 0x10))->Init();
+    ((Sub_1663a0*)((char*)this + 0x10))->Init();
     a[0] = 0;
     a[1] = 0;
     a[2] = 0;

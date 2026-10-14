@@ -1,11 +1,11 @@
-extern int vt1, vt2;
+extern int vt1_2bed30, vt2;
 extern void Free(void*);
 extern void Free2(void*);
-class Obj {
+class Obj_2bed30 {
   public:
     void Fini();
 };
-class Ref {
+class Ref_2bed30 {
   public:
     virtual void f0();
     virtual void Rel();
@@ -19,17 +19,17 @@ class D {
     void* vptr;
     char p[0x10];
     Ref2* a14;
-    Ref* a18;
-    Obj* a1c;
+    Ref_2bed30* a18;
+    Obj_2bed30* a1c;
     D* vfunc2(unsigned char f);
 };
 D* D::vfunc2(unsigned char f) {
-    Ref* r = a18;
-    vptr = &vt1;
+    Ref_2bed30* r = a18;
+    vptr = &vt1_2bed30;
     r->Rel();
     if (a14)
         a14->Del(1);
-    Obj* o = a1c;
+    Obj_2bed30* o = a1c;
     if (o) {
         o->Fini();
         Free2(o);

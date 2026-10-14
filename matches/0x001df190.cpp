@@ -1,13 +1,13 @@
-struct Vec3 {
+struct Vec3_1df190 {
     unsigned int x, y, z;
 };
-class Thing {
+class Thing_1df190 {
   public:
     int Find(int arg);
-    Vec3* Get(int index);
-    Vec3* Target(Vec3* out, int arg);
+    Vec3_1df190* Get(int index);
+    Vec3_1df190* Target(Vec3_1df190* out, int arg);
 };
-Vec3* Thing::Target(Vec3* out, int arg) {
+Vec3_1df190* Thing_1df190::Target(Vec3_1df190* out, int arg) {
     int i = Find(arg);
     if (i < 0) {
         out->x = 0x7f7fffff;
@@ -15,7 +15,7 @@ Vec3* Thing::Target(Vec3* out, int arg) {
         out->z = 0x7f7fffff;
         return out;
     }
-    Vec3* p = Get(i);
+    Vec3_1df190* p = Get(i);
     *out = *p;
     return out;
 }

@@ -1,4 +1,4 @@
-class C {
+class C_2a8310 {
     char pad[0x40];
 
   public:
@@ -6,7 +6,7 @@ class C {
     void Update();
     void Set(int);
 };
-void C::Set(int x) {
+void C_2a8310::Set(int x) {
     value = x;
     Update();
 }

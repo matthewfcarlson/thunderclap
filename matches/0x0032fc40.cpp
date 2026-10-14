@@ -1,4 +1,4 @@
-class Ref {
+class Ref_32fc40 {
   public:
     virtual void A();
     virtual void Release();
@@ -10,12 +10,12 @@ class Shader {
     virtual void B();
     virtual void C();
     char pad[0x7c];
-    Ref* m80;
-    Ref* m84;
-    Ref* m88;
+    Ref_32fc40* m80;
+    Ref_32fc40* m84;
+    Ref_32fc40* m88;
     void Reset();
 };
-class Next {
+class Next_32fc40 {
   public:
     void Go();
 };
@@ -27,5 +27,5 @@ void Shader::Reset() {
         m80->Release();
     if (m84)
         m84->Release();
-    ((Next*)this)->Go();
+    ((Next_32fc40*)this)->Go();
 }

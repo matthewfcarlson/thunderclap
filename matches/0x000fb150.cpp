@@ -3,7 +3,7 @@ struct Node {
     int b;
     int state;
 };
-struct Obj {
+struct Obj_fb150 {
     char pad0[8];
     Node* root;
     Node* cur;
@@ -11,7 +11,7 @@ struct Obj {
     char done;
     int next();
 };
-int Obj::next() {
+int Obj_fb150::next() {
     Node* n = root;
     if (!n)
         return 0;

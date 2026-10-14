@@ -1,12 +1,12 @@
-class Sub {
+class Sub_13840 {
   public:
     void Run();
 };
-class O {
+class O_13840 {
   public:
     char pad[0x18];
     void Forward();
 };
-void O::Forward() {
-    ((Sub*)((char*)this + 0x18))->Run();
+void O_13840::Forward() {
+    ((Sub_13840*)((char*)this + 0x18))->Run();
 }

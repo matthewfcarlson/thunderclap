@@ -1,21 +1,21 @@
-class Base {
+class Base_13a4a0 {
   public:
     virtual void f();
-    Base();
+    Base_13a4a0();
     char pad[8];
 };
-class Part {
+class Part_13a4a0 {
   public:
-    Part();
+    Part_13a4a0();
     char pad[8];
 };
-class AnimationVelocityScaledTrack : public Base {
+class AnimationVelocityScaledTrack : public Base_13a4a0 {
   public:
     AnimationVelocityScaledTrack();
     int a;
     float b;
     char gap[4];
-    Part p;
+    Part_13a4a0 p;
     int c;
     float d;
     int e;
@@ -24,7 +24,7 @@ class AnimationVelocityScaledTrack : public Base {
     int h;
     float i;
     int j;
-    Part q;
+    Part_13a4a0 q;
     int k;
     float l;
     float m;

@@ -1,6 +1,6 @@
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f3438[];
-class Ref {
+class Ref_190a0 {
   public:
     virtual void Add();
     virtual void Release();
@@ -17,19 +17,19 @@ class CAction {
     virtual void F6();
     virtual void F7();
     char pad[24];
-    Ref* mRef;
+    Ref_190a0* mRef;
     int x;
 };
 class CDropAction : public CAction {
   public:
     virtual void D0();
     virtual void D1();
-    Ref* mOther;
+    Ref_190a0* mOther;
     int a;
     int b;
-    CDropAction(int, Ref*);
+    CDropAction(int, Ref_190a0*);
 };
-CDropAction::CDropAction(int v, Ref* r) : CAction() {
+CDropAction::CDropAction(int v, Ref_190a0* r) : CAction() {
     *(int*)this = ((int)DAT_003f3390);
     mRef = 0;
     if (r)

@@ -1,33 +1,33 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
-class Ref {
+extern void* g_vftable_117d60[];
+class Ref_117d60 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Base {
+class Base_117d60 {
   public:
     void* vptr;
     void Fin();
 };
 void Free(void*) throw();
-struct Sub {
+struct Sub_117d60 {
     char c;
 };
-void __fastcall SubFini(Sub*) throw();
-void __fastcall SubFini2(Sub*) throw();
-void __fastcall SubFini3(Sub*) throw();
-class Obj : public Base {
+void __fastcall SubFini(Sub_117d60*) throw();
+void __fastcall SubFini2(Sub_117d60*) throw();
+void __fastcall SubFini3(Sub_117d60*) throw();
+class Obj_117d60 : public Base_117d60 {
   public:
     char p1c[24];
     void* m1c;
-    Ref* m20;
+    Ref_117d60* m20;
     char p60[60];
-    Sub s60;
-    ~Obj() throw();
+    Sub_117d60 s60;
+    ~Obj_117d60() throw();
 };
-Obj::~Obj() throw() {
-    vptr = g_vftable;
+Obj_117d60::~Obj_117d60() throw() {
+    vptr = g_vftable_117d60;
     _ReadWriteBarrier();
     if (m20) {
         m20->Release();

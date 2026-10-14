@@ -1,10 +1,10 @@
 // Same code shape as 0x002feb70 (propagated; names are from that function)
-typedef unsigned int uint;
-void __cdecl FUN_002feb70(uint* p, int n, int limit, uint value) {
+typedef unsigned int uint_310d80;
+void __cdecl FUN_002feb70(uint_310d80* p, int n, int limit, uint_310d80 value) {
     int parent = (n - 1) / 2;
     if (limit < n) {
         do {
-            uint x = p[parent];
+            uint_310d80 x = p[parent];
             if (x >= value)
                 break;
             p[n] = x;

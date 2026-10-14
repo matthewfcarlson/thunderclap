@@ -1,28 +1,28 @@
-class Ref {
+class Ref_1c7fa0 {
   public:
     virtual void AddRef();
     virtual void Release();
 };
-class Slot {
+class Slot_1c7fa0 {
   public:
-    Ref* p;
+    Ref_1c7fa0* p;
     void Clear() {
-        Ref* q = p;
+        Ref_1c7fa0* q = p;
         if (q) {
             q->Release();
             p = 0;
         }
     }
 };
-class Obj {
+class Obj_1c7fa0 {
     char pad[8];
-    Slot a;
-    Slot b;
+    Slot_1c7fa0 a;
+    Slot_1c7fa0 b;
 
   public:
-    void Set(Ref* x, Ref* y);
+    void Set(Ref_1c7fa0* x, Ref_1c7fa0* y);
 };
-void Obj::Set(Ref* x, Ref* y) {
+void Obj_1c7fa0::Set(Ref_1c7fa0* x, Ref_1c7fa0* y) {
     if (x) {
         if (a.p)
             a.Clear();

@@ -1,5 +1,5 @@
 extern "C" char DAT_0042cb44[];
-class Obj {
+class Obj_28edf0 {
   public:
     virtual void f0();
 };
@@ -7,13 +7,13 @@ class Shader {
   public:
     int vft;
     char pad4[12];
-    Obj* field10;
+    Obj_28edf0* field10;
     char flag;
     char pad15[3];
     int field18;
     Shader* Ctor(int a, int b);
 };
-class Factory {
+class Factory_28edf0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -26,16 +26,16 @@ class Factory {
     virtual void f8();
     virtual void f9();
     virtual void f10();
-    virtual Obj* Get(int a, int b);
+    virtual Obj_28edf0* Get(int a, int b);
 };
-extern Factory* gFactory;
+extern Factory_28edf0* gFactory_28edf0;
 void BaseInit();
 Shader* Shader::Ctor(int a, int b) {
     BaseInit();
     vft = ((int)DAT_0042cb44);
     flag = 0;
     field18 = 0;
-    Obj* p = gFactory->Get(a, b);
+    Obj_28edf0* p = gFactory_28edf0->Get(a, b);
     field10 = p;
     p->f0();
     return this;

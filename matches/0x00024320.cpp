@@ -1,4 +1,4 @@
-class ItemList {
+class ItemList_24320 {
   public:
     int pad0[3];
     int count;
@@ -7,7 +7,7 @@ class ItemList {
     int field94[16];
     bool Remove(int index);
 };
-bool ItemList::Remove(int index) {
+bool ItemList_24320::Remove(int index) {
     if (index < 0 || index >= count)
         return false;
     --count;

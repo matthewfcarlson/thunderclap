@@ -1,16 +1,16 @@
 extern "C" char DAT_00433354[];
 extern "C" char DAT_004333ac[];
-typedef unsigned int U;
-extern void __stdcall Release(U);
-extern void __cdecl Dispose(U);
+typedef unsigned int U_326290;
+extern void __stdcall Release(U_326290);
+extern void __cdecl Dispose(U_326290);
 struct Texture {
-    U vt;
+    U_326290 vt;
     char pad[12];
-    U a;
-    U b;
-    U c;
+    U_326290 a;
+    U_326290 b;
+    U_326290 c;
     char gap[0x68 - 0x1c];
-    U d;
+    U_326290 d;
     void BaseDestroy();
 };
 void __fastcall FUN_00326290(Texture* self) {

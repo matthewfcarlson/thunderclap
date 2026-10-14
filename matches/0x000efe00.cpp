@@ -1,5 +1,5 @@
 extern void* __cdecl FUN_0008d690(unsigned int);
-class Helper {
+class Helper_efe00 {
   public:
     int call(int);
 };
@@ -61,7 +61,7 @@ class FEThingsBase {
     virtual int vfunc_53(int);
 };
 int FEThingsBase::vfunc_53(int x) {
-    Helper* p = (Helper*)FUN_0008d690(0x980);
+    Helper_efe00* p = (Helper_efe00*)FUN_0008d690(0x980);
     if (p)
         return p->call(x);
     return 0;

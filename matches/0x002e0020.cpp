@@ -1,11 +1,11 @@
-struct Ref {
+struct Ref_2e0020 {
     virtual void AddRef();
     virtual void Release();
 };
 struct SP {
-    Ref* p;
+    Ref_2e0020* p;
     SP() : p(0) {}
-    void operator=(Ref* r) {
+    void operator=(Ref_2e0020* r) {
         if (r)
             r->AddRef();
         if (p)
@@ -14,13 +14,13 @@ struct SP {
     }
 };
 namespace pure3d {
-struct Base {
+struct Base_2e0020 {
     virtual void v0();
-    Base(const Base&);
+    Base_2e0020(const Base_2e0020&);
     char pad[0x54];
 };
-struct PrimGroupOptimized : Base {
-    PrimGroupOptimized(const PrimGroupOptimized& o) : Base(o) { m58 = o.m58.p; }
+struct PrimGroupOptimized : Base_2e0020 {
+    PrimGroupOptimized(const PrimGroupOptimized& o) : Base_2e0020(o) { m58 = o.m58.p; }
     virtual void v1();
     SP m58;
     int m5c;

@@ -1,24 +1,24 @@
-class Ref {
+class Ref_299250 {
   public:
     virtual void AddRef();
     virtual void Release();
 };
-class Base {
+class Base_299250 {
   public:
-    virtual ~Base() throw();
+    virtual ~Base_299250() throw();
     char pad[0x3c];
 };
-class Comp : public Base {
+class Comp_299250 : public Base_299250 {
   public:
-    virtual ~Comp() throw();
+    virtual ~Comp_299250() throw();
     void Clear();
-    Ref* a;
-    Ref* b;
-    Ref* c;
-    Ref* d;
-    Ref* e;
+    Ref_299250* a;
+    Ref_299250* b;
+    Ref_299250* c;
+    Ref_299250* d;
+    Ref_299250* e;
 };
-Comp::~Comp() throw() {
+Comp_299250::~Comp_299250() throw() {
     Clear();
     if (a) {
         a->Release();

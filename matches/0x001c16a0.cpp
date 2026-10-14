@@ -1,11 +1,11 @@
-class Target {
+class Target_1c16a0 {
     char pad[0xbc];
     int value;
 
   public:
     void f(void*);
 };
-class Other {
+class Other_1c16a0 {
   public:
     virtual void a();
     virtual void b();
@@ -17,7 +17,7 @@ class Other {
     virtual void i();
     virtual void j(void*, int);
 };
-void Target::f(void* p) {
+void Target_1c16a0::f(void* p) {
     if (p)
-        ((Other*)p)->j((void*)value, 0);
+        ((Other_1c16a0*)p)->j((void*)value, 0);
 }

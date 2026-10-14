@@ -1,4 +1,4 @@
-typedef unsigned char u8;
+typedef unsigned char u8_1a1840;
 extern int LuaTrack_vftable;
 struct LuaTrack {
     char pad[0x10];
@@ -8,7 +8,7 @@ struct LuaTrack {
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual LuaTrack* vfunc_5(u8 param);
+    virtual LuaTrack* vfunc_5(u8_1a1840 param);
     virtual void v6();
     virtual void v7();
     virtual void v8();
@@ -18,7 +18,7 @@ struct LuaTrack {
 };
 void ReleaseA(void* p);
 void ReleaseB(void* p);
-LuaTrack* LuaTrack::vfunc_5(u8 param) {
+LuaTrack* LuaTrack::vfunc_5(u8_1a1840 param) {
     *(int*)this = (int)&LuaTrack_vftable;
     ReleaseA((void*)m14);
     helper();

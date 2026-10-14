@@ -1,22 +1,22 @@
-extern void* g_vt[];
-extern void* g_b[];
+extern void* g_vt_2e5a70[];
+extern void* g_b_2e5a70[];
 void operator delete(void*);
-struct S {
+struct S_2e5a70 {
     void Fini() throw();
 };
-struct E {
+struct E_2e5a70 {
     char pad[4];
-    S s;
+    S_2e5a70 s;
     char pad2[7];
 };
 struct VE {
-    E* b;
-    E* e;
-    E* c;
+    E_2e5a70* b;
+    E_2e5a70* e;
+    E_2e5a70* c;
     void Fini() throw() {
         if (b) {
-            E* p = b;
-            E* end = e;
+            E_2e5a70* p = b;
+            E_2e5a70* end = e;
             while (p != end) {
                 p->s.Fini();
                 p++;
@@ -33,7 +33,7 @@ struct VP {
             operator delete(b);
     }
 };
-class Obj {
+class Obj_2e5a70 {
   public:
     void* vptr;
     char pad[0x10];
@@ -45,8 +45,8 @@ class Obj {
     VE v[2];
     void f();
 };
-void Obj::f() {
-    vptr = g_vt;
+void Obj_2e5a70::f() {
+    vptr = g_vt_2e5a70;
     {
         VE* p = v + 2;
         int n = 2;
@@ -67,5 +67,5 @@ void Obj::f() {
         operator delete(m20);
     if (m14)
         operator delete(m14);
-    vptr = g_b;
+    vptr = g_b_2e5a70;
 }

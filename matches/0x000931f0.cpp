@@ -10,19 +10,19 @@ inline void Copy(char* d, const char* s) {
         d++;
     } while (c);
 }
-class C {
+class C_931f0 {
   public:
     void* arr[1];
     void F(char* a, int idx, char* name, int v);
     void G(char*, int);
 };
-struct M {
+struct M_931f0 {
     char pad[0x28];
     char a[8];
     char name[1];
 };
-void C::F(char* a, int idx, char* name, int v) {
-    M* o = (M*)Cast(arr[idx], 0, TdA, TdB, 0);
+void C_931f0::F(char* a, int idx, char* name, int v) {
+    M_931f0* o = (M_931f0*)Cast(arr[idx], 0, TdA, TdB, 0);
     if (o) {
         if (name)
             Copy(o->name, name);

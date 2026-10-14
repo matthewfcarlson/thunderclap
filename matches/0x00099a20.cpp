@@ -1,4 +1,4 @@
-class Sub {
+class Sub_99a20 {
   public:
     virtual void A0();
     virtual void A1();
@@ -12,13 +12,13 @@ class Sub {
     virtual void Vfunc9();
 };
 
-class Owner {
+class Owner_99a20 {
   public:
     char pad[0xc4];
-    Sub* mSub;
+    Sub_99a20* mSub;
     void Target();
 };
 
-void Owner::Target() {
+void Owner_99a20::Target() {
     mSub->Vfunc9();
 }

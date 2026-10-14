@@ -1,7 +1,7 @@
-class Service {
+class Service_13b380 {
   public:
-    Service* get();
-    Service* check();
+    Service_13b380* get();
+    Service_13b380* check();
     void run(void*, int, float);
 };
 class AnimationLinkedAction {
@@ -13,21 +13,21 @@ class AnimationLinkedAction {
     virtual void vfunc_4();
     virtual void e();
     char pad[0x1c];
-    Service* m20;
+    Service_13b380* m20;
     void* m24;
 };
-struct Obj {
+struct Obj_13b380 {
     virtual void a();
     virtual void b();
 };
 void AnimationLinkedAction::vfunc_4() {
     if (m24) {
-        Service* x = m20->get();
-        Service* y = x->check();
+        Service_13b380* x = m20->get();
+        Service_13b380* y = x->check();
         if (y) {
             y->run(m24, 0, -1.0f);
             if (m24) {
-                ((Obj*)m24)->b();
+                ((Obj_13b380*)m24)->b();
                 m24 = 0;
             }
         }

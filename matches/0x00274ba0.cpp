@@ -1,18 +1,18 @@
 extern void* vReq[];
 extern void* vCE[];
-class Obj {
+class Obj_274ba0 {
   public:
     virtual void A();
 };
 extern void FUN_002705f0();
-struct Target {
+struct Target_274ba0 {
     void* vf;
     int p4;
     int p8;
-    Obj* pC;
-    Target(int, Obj*);
+    Obj_274ba0* pC;
+    Target_274ba0(int, Obj_274ba0*);
 };
-Target::Target(int a, Obj* b) {
+Target_274ba0::Target_274ba0(int a, Obj_274ba0* b) {
     vf = vReq;
     p4 = 0;
     FUN_002705f0();

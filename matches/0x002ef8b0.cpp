@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2ef8b0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -23,14 +23,14 @@ class Obj {
     virtual void f20();
     virtual float f21();
 };
-class State {
+class State_2ef8b0 {
   public:
     char pad[0x6c];
     int state;
-    Obj* obj;
+    Obj_2ef8b0* obj;
     void set(int x);
 };
-void State::set(int x) {
+void State_2ef8b0::set(int x) {
     if (state != x) {
         state = x;
         if (x == 1) {

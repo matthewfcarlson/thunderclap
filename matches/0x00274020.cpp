@@ -1,7 +1,7 @@
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b99c[];
 // Same code shape as 0x002737f0 (propagated; names are from that function)
-struct Sub {
+struct Sub_274020 {
     virtual void f();
     virtual void g();
 };
@@ -9,16 +9,16 @@ struct V {
     virtual void f();
     virtual void g();
 };
-struct Inner {
+struct Inner_274020 {
     void* v;
-    Sub sub;
+    Sub_274020 sub;
     char pad[16];
     int ref;
 };
 struct Request {
     void* v;
     char pad[4];
-    Inner* p;
+    Inner_274020* p;
     void run();
 };
 void Request::run() {

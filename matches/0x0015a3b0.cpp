@@ -17,7 +17,7 @@ class HitPushbackTrack {
     int x30;
     void init();
 };
-class Factory {
+class Factory_15a3b0 {
   public:
     virtual void q0();
     virtual void q1();
@@ -27,7 +27,7 @@ class Factory {
     virtual HitPushbackTrack* vfunc_5();
 };
 extern HitPushbackTrack* __cdecl alloc(unsigned int);
-HitPushbackTrack* Factory::vfunc_5() {
+HitPushbackTrack* Factory_15a3b0::vfunc_5() {
     HitPushbackTrack* p = alloc(0x34);
     if (p) {
         p->init();

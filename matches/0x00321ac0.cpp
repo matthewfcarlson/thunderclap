@@ -67,11 +67,11 @@ class d3dContext : public pddiBaseContext {
   public:
     void vfunc_60(int);
 };
-extern unsigned int globalState;
+extern unsigned int globalState_321ac0;
 void __fastcall D3DDevice_SetRenderState_Simple(unsigned int, unsigned int);
 void d3dContext::vfunc_60(int x) {
     pddiBaseContext::v60(x);
     unsigned int v = *(unsigned int*)(((int)DAT_004d3a6c) + x * 4);
     D3DDevice_SetRenderState_Simple(0x40354, v);
-    globalState = v;
+    globalState_321ac0 = v;
 }

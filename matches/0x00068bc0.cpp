@@ -1,4 +1,4 @@
-class X {
+class X_68bc0 {
   public:
     bool Set(int a);
     char mPad[12];
@@ -6,7 +6,7 @@ class X {
     bool mFlag;
 };
 
-bool X::Set(int a) {
+bool X_68bc0::Set(int a) {
     mValue = a;
     return true;
 }

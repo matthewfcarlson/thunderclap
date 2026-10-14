@@ -1,4 +1,4 @@
-class SubObj {
+class SubObj_203150 {
   public:
     void Clear();
 };
@@ -11,7 +11,7 @@ class CWorldCollisionManager {
     char pad4[0x0C];
     int mCount;
     char pad14[0x0C];
-    SubObj mSub;
+    SubObj_203150 mSub;
     CWorldCollisionManager* vfunc_0(unsigned char param);
 };
 

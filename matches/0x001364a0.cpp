@@ -1,5 +1,5 @@
 extern "C" char DAT_00411e18[];
-class Ref {
+class Ref_1364a0 {
   public:
     virtual void Fn();
     virtual void Release();
@@ -10,14 +10,14 @@ class BounceAction {
     int vptr;
     int pad04[6];
     int m1c;
-    Ref* m20;
+    Ref_1364a0* m20;
     int m24;
     int m28;
     int m2c;
     int m30;
-    BounceAction(int, Ref*);
+    BounceAction(int, Ref_1364a0*);
 };
-BounceAction::BounceAction(int a, Ref* r) {
+BounceAction::BounceAction(int a, Ref_1364a0* r) {
     BaseInit();
     vptr = ((int)DAT_00411e18);
     int* q = &m1c;

@@ -1,6 +1,6 @@
-struct Obj {
+struct Obj_15ac70 {
     char pad[0x48];
 };
-Obj* __fastcall FUN_0015ac70(Obj* self) {
-    return (Obj*)((char*)self + 0x48);
+Obj_15ac70* __fastcall FUN_0015ac70(Obj_15ac70* self) {
+    return (Obj_15ac70*)((char*)self + 0x48);
 }

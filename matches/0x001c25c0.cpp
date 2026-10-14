@@ -1,4 +1,4 @@
-struct Obj {
+struct Obj_1c25c0 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -9,13 +9,13 @@ struct Obj {
     virtual void f7();
     virtual void f8(int, int);
 };
-struct Host {
+struct Host_1c25c0 {
     char pad[0xbc];
     int value;
-    void target(Obj*, int, int);
+    void target(Obj_1c25c0*, int, int);
 };
-void __stdcall helper(Obj*, int);
-void Host::target(Obj* p, int a, int b) {
+void __stdcall helper(Obj_1c25c0*, int);
+void Host_1c25c0::target(Obj_1c25c0* p, int a, int b) {
     if (p) {
         helper(p, b);
         p->f8(value, a);

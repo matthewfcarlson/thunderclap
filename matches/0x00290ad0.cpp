@@ -1,4 +1,4 @@
-struct Temp {
+struct Temp_290ad0 {
     char pad[8];
     int value;
     int extra;
@@ -6,13 +6,13 @@ struct Temp {
     void Fin();
 };
 extern void Free(void*);
-class Obj {
+class Obj_290ad0 {
   public:
-    bool Do(int, Temp*);
+    bool Do(int, Temp_290ad0*);
     bool Run(int);
 };
-bool Obj::Run(int arg) {
-    Temp t;
+bool Obj_290ad0::Run(int arg) {
+    Temp_290ad0 t;
     t.Init();
     t.value = 0;
     bool r = Do(arg, &t);

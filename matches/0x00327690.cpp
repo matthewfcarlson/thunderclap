@@ -1,8 +1,8 @@
-typedef unsigned int U;
+typedef unsigned int U_327690;
 class d3dPrimBufferStream {
   public:
     virtual void f0();
-    virtual void f1(U, U, U);
+    virtual void f1(U_327690, U_327690, U_327690);
     virtual void f2();
     virtual void f3();
     virtual void f4();
@@ -20,12 +20,12 @@ class d3dPrimBufferStream {
     virtual void f16();
     virtual void f17();
     char pad[0x20];
-    U* mDst;
+    U_327690* mDst;
     void finish();
-    void vfunc_15(U*, U*);
+    void vfunc_15(U_327690*, U_327690*);
 };
-void d3dPrimBufferStream::vfunc_15(U* a, U* b) {
-    U* p = mDst;
+void d3dPrimBufferStream::vfunc_15(U_327690* a, U_327690* b) {
+    U_327690* p = mDst;
     p[0] = a[0];
     p[1] = a[1];
     p[2] = a[2];

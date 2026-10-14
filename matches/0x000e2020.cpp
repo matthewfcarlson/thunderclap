@@ -1,4 +1,4 @@
-class Child {
+class Child_e2020 {
   public:
     virtual void f0();
     virtual void f1();
@@ -39,7 +39,7 @@ class FELayout {
 class SingleLayout : public FELayout {
   public:
     char pad[0x40];
-    Child* child;
+    Child_e2020* child;
     virtual void a0();
     virtual void a1();
     virtual void a2();

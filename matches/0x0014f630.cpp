@@ -1,4 +1,4 @@
-struct X {
+struct X_14f630 {
     void* a();
     void* b();
     void c(int);
@@ -12,13 +12,13 @@ class NoHitPushbackAction {
     virtual void f4();
     virtual void f5();
     char pad[0x1c];
-    X* member;
+    X_14f630* member;
 };
 bool NoHitPushbackAction::vfunc_3(void*, void*) {
-    X* p = member;
+    X_14f630* p = member;
     if (p) {
-        X* a = (X*)p->a();
-        X* b = (X*)a->b();
+        X_14f630* a = (X_14f630*)p->a();
+        X_14f630* b = (X_14f630*)a->b();
         b->c(1);
     }
     return true;

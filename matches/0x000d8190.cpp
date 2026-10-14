@@ -1,16 +1,16 @@
-extern int g;
-struct R {
+extern int g_d8190;
+struct R_d8190 {
     void finish();
 };
-struct A {
-    R* call(int, int, int);
+struct A_d8190 {
+    R_d8190* call(int, int, int);
 };
-struct Obj {
+struct Obj_d8190 {
     char pad[0x150];
-    A* ptr;
+    A_d8190* ptr;
     void target(int, int);
 };
-void Obj::target(int a, int b) {
-    R* r = ptr->call(a, b, g);
+void Obj_d8190::target(int a, int b) {
+    R_d8190* r = ptr->call(a, b, g_d8190);
     r->finish();
 }

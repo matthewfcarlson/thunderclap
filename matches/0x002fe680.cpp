@@ -1,4 +1,4 @@
-class Child {
+class Child_2fe680 {
   public:
     virtual void f0();
     virtual void f1();
@@ -6,16 +6,16 @@ class Child {
 struct TailTarget {
     void Tail();
 };
-extern int gVtable;
+extern int gVtable_2fe680;
 class SimulatedObject {
   public:
     void* vftable;
     char pad[0x18];
-    Child* member;
+    Child_2fe680* member;
     void Finish();
 };
 void SimulatedObject::Finish() {
-    vftable = &gVtable;
+    vftable = &gVtable_2fe680;
     if (member)
         member->f1();
     ((TailTarget*)this)->Tail();

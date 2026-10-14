@@ -1,8 +1,8 @@
 extern "C" char DAT_00428e80[];
-struct SubA {
+struct SubA_23eaf0 {
     void A();
 };
-struct SubB {
+struct SubB_23eaf0 {
     void B();
 };
 struct SpawnTrack {
@@ -11,7 +11,7 @@ struct SpawnTrack {
 };
 void SpawnTrack::Run() {
     *(int*)this = ((int)DAT_00428e80);
-    ((SubA*)((char*)this + 0x20))->A();
-    ((SubB*)((char*)this + 0x14))->B();
+    ((SubA_23eaf0*)((char*)this + 0x20))->A();
+    ((SubB_23eaf0*)((char*)this + 0x14))->B();
     Fin();
 }

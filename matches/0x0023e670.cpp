@@ -1,22 +1,22 @@
 extern "C" void _ReadWriteBarrier();
 extern void* vStop[];
-class Ref {
+class Ref_23e670 {
   public:
     virtual void F0();
     virtual void Release();
 };
-struct Base {
+struct Base_23e670 {
     void* vf;
     void Dtor() throw();
 };
-struct Target : Base {
+struct Target_23e670 : Base_23e670 {
     char pad[0x18];
-    Ref* p1c;
+    Ref_23e670* p1c;
     char pad2[8];
-    Ref* p28;
+    Ref_23e670* p28;
     void Dtor2() throw();
 };
-void Target::Dtor2() throw() {
+void Target_23e670::Dtor2() throw() {
     vf = vStop;
     _ReadWriteBarrier();
     if (p28) {
@@ -24,5 +24,5 @@ void Target::Dtor2() throw() {
         p28 = 0;
     }
     p1c->Release();
-    Base::Dtor();
+    Base_23e670::Dtor();
 }

@@ -1,19 +1,19 @@
-class Path {
+class Path_262700 {
   public:
     unsigned int Length();
     char* Buffer();
     void SetLength(unsigned int);
     char* Data();
-    void Append(Path*);
+    void Append(Path_262700*);
     void AppendText(char*);
     void Finish();
 };
-struct Temp {
+struct Temp_262700 {
     char pad[12];
     char* Make(const char*, int);
     void Destroy();
 };
-Path* FUN_00262700(Path* self, Path* other) {
+Path_262700* FUN_00262700(Path_262700* self, Path_262700* other) {
     unsigned int n = self->Length();
     if (n > 0) {
         char* s = self->Buffer();
@@ -30,7 +30,7 @@ Path* FUN_00262700(Path* self, Path* other) {
         char c = *p;
         if (c != '\\' && c != '/') {
             if (self->Length() > 0) {
-                Temp t;
+                Temp_262700 t;
                 char* x = t.Make("\\", 0);
                 self->AppendText(x);
                 t.Destroy();

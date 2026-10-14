@@ -1,4 +1,4 @@
-struct Path;
+struct Path_274720;
 struct Drive {
     virtual void slot0();
     virtual void slot1();
@@ -16,22 +16,22 @@ struct Drive {
     virtual void slot13();
     virtual void slot14();
     virtual void slot15();
-    virtual unsigned slot16(Path*);
+    virtual unsigned slot16(Path_274720*);
     unsigned FUN_00272880();
 };
-struct Lock {
+struct Lock_274720 {
     virtual void acquire();
     virtual void release();
 };
-struct State {
+struct State_274720 {
     unsigned unknown0;
-    Lock lock;
+    Lock_274720 lock;
     unsigned unknown8;
     Drive* drive;
     char pad10[8];
     unsigned result;
 };
-struct Path {
+struct Path_274720 {
     char data[4];
 };
 namespace core {
@@ -44,8 +44,8 @@ struct DriveDestroyDirectoryRequest {
     virtual void vfunc_5();
     virtual void vfunc_6();
     unsigned unknown4;
-    State* state;
-    Path path;
+    State_274720* state;
+    Path_274720 path;
 };
 unsigned DriveDestroyDirectoryRequest::vfunc_1() {
     Drive* drive = state->drive;

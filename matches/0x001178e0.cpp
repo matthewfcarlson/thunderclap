@@ -1,31 +1,31 @@
-class Other {
+class Other_1178e0 {
   public:
     virtual void AddRef();
     virtual void Release();
 };
-class Base {
+class Base_1178e0 {
   public:
-    Base();
+    Base_1178e0();
     virtual void X();
     char pad[0x18];
 };
-struct S {
+struct S_1178e0 {
     int a;
-    Other* b;
+    Other_1178e0* b;
     int c;
-    S() throw() {
+    S_1178e0() throw() {
         a = 0;
         b = 0;
         c = 0;
     }
 };
-class MotionFleeAction : public Base {
+class MotionFleeAction : public Base_1178e0 {
   public:
     virtual void A();
-    S s;
-    MotionFleeAction(int, Other*);
+    S_1178e0 s;
+    MotionFleeAction(int, Other_1178e0*);
 };
-MotionFleeAction::MotionFleeAction(int value, Other* other) {
+MotionFleeAction::MotionFleeAction(int value, Other_1178e0* other) {
     s.a = value;
     if (other)
         other->AddRef();

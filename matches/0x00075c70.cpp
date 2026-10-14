@@ -9,12 +9,12 @@ class TrackFactoryTemplate {
     virtual void e();
     virtual void* vfunc_5();
 };
-struct Obj {
+struct Obj_75c70 {
     int pad0[5];
     void Init();
 };
 void* TrackFactoryTemplate::vfunc_5() {
-    Obj* p = (Obj*)FUN_0008d690(0x14);
+    Obj_75c70* p = (Obj_75c70*)FUN_0008d690(0x14);
     if (p) {
         p->Init();
         *(int*)p = ((int)DAT_003fc10c);

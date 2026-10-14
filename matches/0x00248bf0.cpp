@@ -1,11 +1,11 @@
-struct N {
-    N* next;
-    N* l;
-    N* r;
+struct N_248bf0 {
+    N_248bf0* next;
+    N_248bf0* l;
+    N_248bf0* r;
 };
-extern "C" N* __cdecl FUN_00256e80(N* s, N* n) {
-    N* x = n->l;
-    N* end = (N*)((char*)s + 4);
+extern "C" N_248bf0* __cdecl FUN_00256e80(N_248bf0* s, N_248bf0* n) {
+    N_248bf0* x = n->l;
+    N_248bf0* end = (N_248bf0*)((char*)s + 4);
     if (x != end) {
         while (x->next != end)
             x = x->next;

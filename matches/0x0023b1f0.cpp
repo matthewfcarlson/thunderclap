@@ -1,4 +1,4 @@
-struct Inner {
+struct Inner_23b1f0 {
     void call(int);
 };
 class ScriptReader {
@@ -26,7 +26,7 @@ class ScriptReader {
     char pad[12];
     int count;
     char pad2[0x118 - 0x14];
-    Inner inner;
+    Inner_23b1f0 inner;
     char pad3[4];
     volatile int field120;
     volatile int field124;
@@ -35,7 +35,7 @@ class ScriptReader {
 };
 void ScriptReader::vfunc_17() {
     --count;
-    ((Inner*)((char*)this + 0x118))->call(0);
+    ((Inner_23b1f0*)((char*)this + 0x118))->call(0);
     helper();
     if (count >= 0) {
         int x = field120;

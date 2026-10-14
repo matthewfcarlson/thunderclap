@@ -1,5 +1,5 @@
-extern "C" unsigned char gFlag;
-extern "C" char gData[];
+extern "C" unsigned char gFlag_271070;
+extern "C" char gData_271070[];
 extern "C" char gFinal[];
 void __cdecl CleanupOne(void*);
 void __cdecl StepA();
@@ -8,8 +8,8 @@ void __cdecl StepC();
 void __cdecl StepD();
 void __cdecl Finish(void*);
 void __cdecl FUN_00271070() {
-    if (gFlag) {
-        char* p = gData;
+    if (gFlag_271070) {
+        char* p = gData_271070;
         int n = 0x1a;
         do {
             if (*(int*)(p + 0x14) != 0)

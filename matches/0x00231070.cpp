@@ -1,4 +1,4 @@
-class X {
+class X_231070 {
   public:
     unsigned count;
     unsigned a;
@@ -7,7 +7,7 @@ class X {
     unsigned* data;
     void Clear();
 };
-void X::Clear() {
+void X_231070::Clear() {
     unsigned i = 0;
     while (i < count) {
         data[i] = 0;

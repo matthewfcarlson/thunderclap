@@ -1,9 +1,9 @@
-typedef unsigned int u32;
-typedef int (*Fn)(void);
+typedef unsigned int u32_33bca0;
+typedef int (*Fn_33bca0)(void);
 extern void f3390(void*, const char*, const char*, int);
-extern void f213340(void*, u32);
+extern void f213340(void*, u32_33bca0);
 extern void f213790(void*, int, const char*);
-extern void f2134a0(void*, Fn, int);
+extern void f2134a0(void*, Fn_33bca0, int);
 extern int f33b880();
 extern const char s_math[];
 extern const char s_mptr[];

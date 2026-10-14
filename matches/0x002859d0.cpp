@@ -1,5 +1,5 @@
-extern const float gOne;
-extern const float gZero;
+extern const float gOne_2859d0;
+extern const float gZero_2859d0;
 struct SimpleFrameController {
     virtual void a0();
     virtual void a1();
@@ -43,11 +43,11 @@ void SimpleFrameController::vfunc_23() {
     m2c = 0;
     float f;
     if (m3c == 0)
-        f = gZero;
+        f = gZero_2859d0;
     else {
-        f = *(float*)((char*)m3c + 0x10) - gOne;
-        if (f < gZero)
-            f = gZero;
+        f = *(float*)((char*)m3c + 0x10) - gOne_2859d0;
+        if (f < gZero_2859d0)
+            f = gZero_2859d0;
     }
     m30 = f;
     m34 = 0;

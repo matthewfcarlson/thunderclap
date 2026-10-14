@@ -11,12 +11,12 @@ class CSmartPropWeaponizableTypeCondition {
     unsigned int c;
     unsigned int d;
 };
-class Factory {
+class Factory_58ab0 {
   public:
     CSmartPropWeaponizableTypeCondition* vfunc_5();
 };
 extern void* __cdecl alloc(unsigned int);
-CSmartPropWeaponizableTypeCondition* Factory::vfunc_5() {
+CSmartPropWeaponizableTypeCondition* Factory_58ab0::vfunc_5() {
     CSmartPropWeaponizableTypeCondition* p = (CSmartPropWeaponizableTypeCondition*)alloc(0x14);
     if (p) {
         ((Condition*)p)->init(0);

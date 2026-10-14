@@ -1,34 +1,34 @@
 // Same code shape as 0x0015cb40 (propagated; names are from that function)
-struct Sub1;
-struct Sub2;
-struct Mid {
-    Sub1* A();
-    Sub2* B();
+struct Sub1_18f490;
+struct Sub2_18f490;
+struct Mid_18f490 {
+    Sub1_18f490* A();
+    Sub2_18f490* B();
 };
-struct Mgr {
-    Mid* Get();
+struct Mgr_18f490 {
+    Mid_18f490* Get();
 };
-struct Sub1 {
+struct Sub1_18f490 {
     void Init(int a, int b);
 };
-struct Sub2 {
+struct Sub2_18f490 {
     void Fin(int a);
 };
 
 class HeliLocomotionAction {
   public:
     char pad[0x20];
-    Mgr* mMgr;
+    Mgr_18f490* mMgr;
     int mVal;
     void vfunc_4();
 };
 
 void HeliLocomotionAction::vfunc_4() {
-    Mid* m = mMgr->Get();
-    Sub1* s = m->A();
+    Mid_18f490* m = mMgr->Get();
+    Sub1_18f490* s = m->A();
     if (s) {
         s->Init(mVal, 0);
-        Sub2* t = m->B();
+        Sub2_18f490* t = m->B();
         if (t)
             t->Fin(0);
     }

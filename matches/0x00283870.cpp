@@ -1,21 +1,21 @@
 extern "C" void _ReadWriteBarrier();
 extern char CMotionTrail_vftable[];
-class Ref {
+class Ref_283870 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class Base {
+class Base_283870 {
   public:
     void BaseDtor();
 };
 extern void __cdecl thunk_FUN_00267090(void*);
-class CMotionTrail : public Base {
+class CMotionTrail : public Base_283870 {
   public:
     void* vptr;
     char p[0x3c];
-    Ref* m40;
-    Ref* m44;
+    Ref_283870* m40;
+    Ref_283870* m44;
     char p48[0x1c];
     void* m64;
     char p68[0xc];

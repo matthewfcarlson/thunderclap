@@ -1,18 +1,18 @@
-class A {
+class A_269550 {
   public:
     virtual void f();
 };
 
-class B {
+class B_269550 {
   public:
     virtual void f();
 };
 
-class C : public A, public B {
+class C_269550 : public A_269550, public B_269550 {
   public:
     virtual void f();
 };
 
-void C::f() {}
+void C_269550::f() {}
 
-C gC;
+C_269550 gC_269550;

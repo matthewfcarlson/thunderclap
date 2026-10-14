@@ -1,16 +1,16 @@
-typedef unsigned int U;
-extern U vt1;
-extern U vt2;
-void drop(U);
-class Obj {
+typedef unsigned int U_2d4350;
+extern U_2d4350 vt1_2d4350;
+extern U_2d4350 vt2_2d4350;
+void drop(U_2d4350);
+class Obj_2d4350 {
   public:
-    U vptr;
-    U x[3];
-    U a[8];
+    U_2d4350 vptr;
+    U_2d4350 x[3];
+    U_2d4350 a[8];
     void f();
 };
-void Obj::f() {
-    vptr = (U)&vt1;
+void Obj_2d4350::f() {
+    vptr = (U_2d4350)&vt1_2d4350;
     drop(a[0]);
     drop(a[1]);
     drop(a[2]);
@@ -19,5 +19,5 @@ void Obj::f() {
     drop(a[5]);
     drop(a[6]);
     drop(a[7]);
-    vptr = (U)&vt2;
+    vptr = (U_2d4350)&vt2_2d4350;
 }

@@ -1,4 +1,4 @@
-struct Obj {
+struct Obj_b8c90 {
     virtual void a0();
     virtual void a1();
     virtual void a2();
@@ -9,14 +9,14 @@ struct Obj {
     virtual void a7();
     virtual const char* Name();
 };
-Obj* GetObj();
+Obj_b8c90* GetObj();
 extern "C" int strcmp(const char*, const char*);
-struct Foo {
+struct Foo_b8c90 {
     char pad[0x1cfc];
     float v;
     bool Check();
 };
-bool Foo::Check() {
+bool Foo_b8c90::Check() {
     if (GetObj()) {
         const char* s = GetObj()->Name();
         if (s) {

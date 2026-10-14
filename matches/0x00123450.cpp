@@ -11,7 +11,7 @@ struct PathTrack {
     virtual void f9();
     virtual int vfunc_10(int a, int b, void* p);
 };
-struct TypeDesc {
+struct TypeDesc_123450 {
     int a;
     int b;
 };
@@ -20,10 +20,10 @@ extern void* Alloc(unsigned int);
 struct NewTrack {
     int run(PathTrack* t, void* p);
 };
-extern TypeDesc typeA;
-extern TypeDesc typeB;
+extern TypeDesc_123450 typeA_123450;
+extern TypeDesc_123450 typeB_123450;
 int PathTrack::vfunc_10(int a, int b, void* p) {
-    if (TypeCheck(p, 0, &typeA, &typeB, 0)) {
+    if (TypeCheck(p, 0, &typeA_123450, &typeB_123450, 0)) {
         NewTrack* q = (NewTrack*)Alloc(0xf0);
         if (q)
             return q->run(this, p);

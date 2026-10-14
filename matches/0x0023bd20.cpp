@@ -1,4 +1,4 @@
-class Source {
+class Source_23bd20 {
   public:
     virtual void a();
     virtual void b();
@@ -29,7 +29,7 @@ class BinReader {
     virtual void f18();
     virtual void f19();
     char p4[4];
-    Source* src;
+    Source_23bd20* src;
     char p0c[1];
     char flag;
     char p0e[2];

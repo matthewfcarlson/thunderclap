@@ -1,4 +1,4 @@
-typedef unsigned int u32;
+typedef unsigned int u32_33ce80;
 extern void __cdecl F1(void*, int, int);
 extern void __cdecl F2(void*, int);
 extern void __cdecl F3(void*, int);

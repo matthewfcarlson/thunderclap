@@ -1,31 +1,31 @@
-class Other {
+class Other_116c10 {
   public:
     virtual void AddRef();
     virtual void Release();
 };
-class Base {
+class Base_116c10 {
   public:
-    Base();
+    Base_116c10();
     virtual void X();
     char pad[0x18];
 };
-struct S {
+struct S_116c10 {
     int a;
-    Other* b;
+    Other_116c10* b;
     int c;
-    S() throw() {
+    S_116c10() throw() {
         a = 0;
         b = 0;
         c = 0;
     }
 };
-class MotionChaseAction : public Base {
+class MotionChaseAction : public Base_116c10 {
   public:
     virtual void A();
-    S s;
-    MotionChaseAction(int, Other*);
+    S_116c10 s;
+    MotionChaseAction(int, Other_116c10*);
 };
-MotionChaseAction::MotionChaseAction(int value, Other* other) {
+MotionChaseAction::MotionChaseAction(int value, Other_116c10* other) {
     s.a = value;
     if (other)
         other->AddRef();

@@ -1,18 +1,18 @@
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042eb0c[];
-typedef unsigned int u32;
-struct Obj {
+typedef unsigned int u32_2c0be0;
+struct Obj_2c0be0 {
     void ReleaseThing();
 };
 struct ImageLoader {
-    u32 vptr;
-    u32 pad[4];
-    Obj* mPtr;
+    u32_2c0be0 vptr;
+    u32_2c0be0 pad[4];
+    Obj_2c0be0* mPtr;
     void Destroy();
 };
-void __cdecl DropThing(Obj*);
+void __cdecl DropThing(Obj_2c0be0*);
 void ImageLoader::Destroy() {
-    Obj* p = mPtr;
+    Obj_2c0be0* p = mPtr;
     vptr = ((int)DAT_0042eb0c);
     if (p) {
         p->ReleaseThing();

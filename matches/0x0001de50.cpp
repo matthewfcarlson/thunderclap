@@ -1,6 +1,6 @@
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f37f4[];
-class Ref {
+class Ref_1de50 {
   public:
     virtual void A();
     virtual void B();
@@ -10,17 +10,17 @@ class CGrabAction {
   public:
     int* vptr;
     char pad04[0x18];
-    Ref* first;
+    Ref_1de50* first;
     int m20;
     int m24;
     int m28;
     char pad2c[12];
     char m38;
     char pad39[3];
-    Ref* second;
-    CGrabAction(Ref*, int, Ref*, int);
+    Ref_1de50* second;
+    CGrabAction(Ref_1de50*, int, Ref_1de50*, int);
 };
-CGrabAction::CGrabAction(Ref* a, int b, Ref* c, int d) {
+CGrabAction::CGrabAction(Ref_1de50* a, int b, Ref_1de50* c, int d) {
     Init();
     vptr = (int*)((int)DAT_003f3390);
     first = 0;

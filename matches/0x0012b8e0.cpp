@@ -1,15 +1,15 @@
-struct Obj {
+struct Obj_12b8e0 {
     int Fn(int);
 };
-struct Inner {
+struct Inner_12b8e0 {
     char pad[8];
-    Obj* obj8;
+    Obj_12b8e0* obj8;
 };
-struct Outer {
+struct Outer_12b8e0 {
     char pad[0x20];
-    Inner* inner;
+    Inner_12b8e0* inner;
 };
-extern Outer* gGlobal;
+extern Outer_12b8e0* gGlobal_12b8e0;
 
 class ThreatBallAction {
   public:
@@ -23,7 +23,7 @@ class ThreatBallAction {
 bool ThreatBallAction::vfunc_3(void*, void*) {
     if (!mGuard)
         return false;
-    Obj* o = gGlobal->inner->obj8;
+    Obj_12b8e0* o = gGlobal_12b8e0->inner->obj8;
     mResult = o->Fn(mValue + 0x30);
     return true;
 }

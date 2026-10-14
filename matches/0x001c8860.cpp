@@ -1,11 +1,11 @@
-class C {
+class C_1c8860 {
   public:
     char pad[0x138];
     int items[256];
     volatile unsigned int count;
     void Remove(int value);
 };
-void C::Remove(int value) {
+void C_1c8860::Remove(int value) {
     unsigned int n = count;
     unsigned int i = 0;
     if (n > 0) {

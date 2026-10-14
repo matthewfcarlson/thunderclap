@@ -1,15 +1,15 @@
-struct Item {
+struct Item_304da0 {
     int a, b, c, d, e;
 };
-class Buffer {
+class Buffer_304da0 {
   public:
     int count;
     int capacity;
-    Item* data;
-    Buffer& Assign(const Buffer& other);
+    Item_304da0* data;
+    Buffer_304da0& Assign(const Buffer_304da0& other);
     void Reserve(int n);
 };
-Buffer& Buffer::Assign(const Buffer& other) {
+Buffer_304da0& Buffer_304da0::Assign(const Buffer_304da0& other) {
     if (capacity < other.capacity)
         Reserve(other.capacity);
     count = other.count;

@@ -1,10 +1,10 @@
 namespace pure3d {
-struct Base {
-    Base(const Base& o);
+struct Base_2886c0 {
+    Base_2886c0(const Base_2886c0& o);
     virtual void v0();
     char p[0x10c];
 };
-struct PoseAnimationController : Base {
+struct PoseAnimationController : Base_2886c0 {
     int i110;
     int i114;
     int i118;
@@ -20,7 +20,7 @@ struct PoseAnimationController : Base {
     void Set(int);
     virtual void v1();
 };
-PoseAnimationController::PoseAnimationController(const PoseAnimationController& o) : Base(o) {
+PoseAnimationController::PoseAnimationController(const PoseAnimationController& o) : Base_2886c0(o) {
     i110 = 0;
     i114 = 0x3f800000;
     i118 = 0;

@@ -4,7 +4,7 @@ void A(void*);
 void B(void*);
 void C(void*);
 void D(void*);
-struct T {
+struct T_272f00 {
     int* v0;
     int* v4;
     int f8;
@@ -17,7 +17,7 @@ struct T {
     int b[1];
     void Fn();
 };
-void T::Fn() {
+void T_272f00::Fn() {
     v0 = (int*)vtA;
     v4 = (int*)vtB;
     vc = (int*)vtC;

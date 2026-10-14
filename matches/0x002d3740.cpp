@@ -1,12 +1,12 @@
 extern "C" void _ReadWriteBarrier();
-class Base {
+class Base_2d3740 {
   public:
-    Base() throw();
+    Base_2d3740() throw();
     virtual void a();
     char pad[0xc];
 };
-struct Init1 {
-    Init1() throw() {
+struct Init1_2d3740 {
+    Init1_2d3740() throw() {
         m10 = 0;
         m14 = 0;
         m18 = 0;
@@ -17,7 +17,7 @@ struct Init1 {
     char m10;
     int m14, m18, m1c, m20, m24, m28;
 };
-class PPG : public Base, public Init1 {
+class PPG : public Base_2d3740, public Init1_2d3740 {
   public:
     PPG() throw();
     virtual void a();

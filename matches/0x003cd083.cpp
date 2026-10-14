@@ -1,49 +1,49 @@
 // cl-flags: /O1
 extern void* bv[];
-extern void* v2[];
+extern void* v2_3cd083[];
 extern void* sv[];
-extern int g1;
-extern int g2;
-struct Sub {
+extern int g1_3cd083;
+extern int g2_3cd083;
+struct Sub_3cd083 {
     void* vptr;
-    Sub(int) throw();
+    Sub_3cd083(int) throw();
 };
-struct N {
-    N* next;
-    N* prev;
+struct N_3cd083 {
+    N_3cd083* next;
+    N_3cd083* prev;
 };
-struct Sub2 {
+struct Sub2_3cd083 {
     void* vptr;
     char p[0x1c];
     void Init() throw();
 };
-struct Base {
+struct Base_3cd083 {
     void* vptr;
     int a4;
-    Base() throw() {
+    Base_3cd083() throw() {
         vptr = bv;
         a4 = 1;
     }
 };
-class O : public Base {
+class O_3cd083 : public Base_3cd083 {
   public:
-    Sub s8;
+    Sub_3cd083 s8;
     char pad[0x58 - 0xc];
     int* m58;
     int* m5c;
-    Sub2 s60;
+    Sub2_3cd083 s60;
     char pad2[0x488 - 0x80];
-    N arr[3];
-    N n4a0;
-    N n4a8;
-    N n4b0;
-    O(int x) throw();
+    N_3cd083 arr[3];
+    N_3cd083 n4a0;
+    N_3cd083 n4a8;
+    N_3cd083 n4b0;
+    O_3cd083(int x) throw();
 };
-O::O(int x) throw() : s8(x) {
-    vptr = v2;
+O_3cd083::O_3cd083(int x) throw() : s8(x) {
+    vptr = v2_3cd083;
     s8.vptr = sv;
-    m58 = &g1;
-    m5c = &g2;
+    m58 = &g1_3cd083;
+    m5c = &g2_3cd083;
     s60.Init();
     for (int i = 0; i < 3; i++) {
         arr[i].prev = &arr[i];

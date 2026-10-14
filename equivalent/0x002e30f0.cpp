@@ -10,7 +10,7 @@ void *__cdecl FUN_0008d690(unsigned int size);
 void *__cdecl FUN_00266e00(int a, int b);
 void __cdecl FUN_00267090(void *p);
 
-class Ref {
+class Ref_2e30f0 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -91,7 +91,7 @@ public:
     virtual Builder *f10(void *desc);
 };
 
-class Maker {
+class Maker_2e30f0 {
 public:
     virtual void m0();
     virtual void m1();
@@ -192,7 +192,7 @@ public:
     virtual void g86();
     virtual void g87();
     virtual void g88();
-    virtual Maker *g89(int id);
+    virtual Maker_2e30f0 *g89(int id);
 };
 
 
@@ -209,7 +209,7 @@ struct Desc2 {
     int f20;
 };
 
-class PalList_2e30f0 : public Ref {
+class PalList_2e30f0 : public Ref_2e30f0 {
 public:
     char pad04[4];
     char *begin;
@@ -257,7 +257,7 @@ public:
     int f4c;
     int f50;
     char pad54[4];
-    Ref *f58;
+    Ref_2e30f0 *f58;
 };
 
 namespace pure3d {
@@ -278,8 +278,8 @@ public:
 class PrimGroupPalette_2e30f0 : public PrimGroup {
 public:
     char pad5c[4];
-    Ref *f60;
-    Ref *f64;
+    Ref_2e30f0 *f60;
+    Ref_2e30f0 *f64;
     PrimGroupPalette_2e30f0 *FUN_002dffe0(int a, int b);
 };
 
@@ -290,7 +290,7 @@ struct IntVec {
 };
 
 namespace pure3d {
-class MatrixPaletteList : public Ref {
+class MatrixPaletteList : public Ref_2e30f0 {
 public:
     int f4;
     IntVec vec;
@@ -413,12 +413,12 @@ void Hdr::Load(int a1, Reader *R, int a3, PalList_2e30f0 *a4)
         f.d.b18 = flag;
         B = DAT_0052c2a0->f10(&f.d);
         if (B)
-            ((Ref *)B)->AddRef();
+            ((Ref_2e30f0 *)B)->AddRef();
         if (obj->f58)
             obj->f58->Release();
-        obj->f58 = (Ref *)B;
+        obj->f58 = (Ref_2e30f0 *)B;
 
-        Maker *mk = DAT_0052c2a8->g89(0x106);
+        Maker_2e30f0 *mk = DAT_0052c2a8->g89(0x106);
         if (mk) {
             f.u12.hasPal = (a4 != 0);
             if (mk->m4(f8->f10, f.u12.hasPal)) {

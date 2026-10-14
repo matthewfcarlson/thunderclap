@@ -35,13 +35,13 @@ class V {
     virtual void a32();
     virtual void target(int, int, int);
 };
-class C {
+class C_99d00 {
   public:
     char pad[0xb8];
     V* p;
     void f(int, int, int);
 };
-void C::f(int a, int b, int c) {
+void C_99d00::f(int a, int b, int c) {
     if (p)
         p->target(a, b, c);
 }

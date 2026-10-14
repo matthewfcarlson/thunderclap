@@ -1,11 +1,11 @@
-typedef unsigned int U;
-extern U zero;
-U* __fastcall helper(U, U);
-U __cdecl combine(U*, U*);
-U __cdecl target(U a, U b, U c) {
-    U* x = helper(b, a);
-    U* y = helper(c, a);
-    if (x != &zero && y != &zero)
+typedef unsigned int U_213010;
+extern U_213010 zero_213010;
+U_213010* __fastcall helper(U_213010, U_213010);
+U_213010 __cdecl combine(U_213010*, U_213010*);
+U_213010 __cdecl target(U_213010 a, U_213010 b, U_213010 c) {
+    U_213010* x = helper(b, a);
+    U_213010* y = helper(c, a);
+    if (x != &zero_213010 && y != &zero_213010)
         return combine(x, y);
     return 0;
 }

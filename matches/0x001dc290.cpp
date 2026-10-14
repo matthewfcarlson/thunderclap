@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1dc290 {
   public:
     char pad0[0x608];
     struct Entry {
@@ -6,7 +6,7 @@ class Obj {
     } entries[1];
     int get(int index);
 };
-int Obj::get(int index) {
+int Obj_1dc290::get(int index) {
     int result = -1;
     if (index >= 0) {
         Entry* e = (Entry*)((char*)this + 0x608 + index * 0x28);

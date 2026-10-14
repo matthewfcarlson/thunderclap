@@ -1,13 +1,13 @@
-struct Entry {
+struct Entry_906f0 {
     void Act();
 };
-class C {
+class C_906f0 {
   public:
     int Find(int);
     void Target(int);
 };
-void C::Target(int x) {
+void C_906f0::Target(int x) {
     int i = Find(x);
     if (i != -1)
-        ((Entry*)((char*)this + i * 64))->Act();
+        ((Entry_906f0*)((char*)this + i * 64))->Act();
 }

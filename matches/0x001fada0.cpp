@@ -22,7 +22,7 @@ struct File {
     virtual void v20();
     virtual void Sync();
 };
-struct S {
+struct S_1fada0 {
     virtual void a0();
     virtual void a1();
     virtual void a2();
@@ -31,7 +31,7 @@ struct S {
     int pos;
     int end;
 };
-int S::Read(void* buf, int len) {
+int S_1fada0::Read(void* buf, int len) {
     int n = end - pos;
     if (n < len)
         len = n;

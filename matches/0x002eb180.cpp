@@ -1,10 +1,10 @@
-struct Obj {
+struct Obj_2eb180 {
     char pad0[8];
     unsigned int flags;
     char pad1[0x74];
     float a[8];
 };
-void target(int p1, Obj* p2, double a, double b, double c, double d, double e, double f, double g, double h) {
+void target(int p1, Obj_2eb180* p2, double a, double b, double c, double d, double e, double f, double g, double h) {
     if (!p1)
         return;
     if (!p2)

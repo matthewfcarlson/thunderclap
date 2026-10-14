@@ -1,32 +1,32 @@
-class Obj {
+class Obj_15970 {
   public:
     void Fn(int a, int b, int c, int d, int e, int e2, float f, int g);
     char pad[0x334];
-    Obj* mA;
-    Obj* mB;
+    Obj_15970* mA;
+    Obj_15970* mB;
 };
 
-class Mid {
+class Mid_15970 {
   public:
     char pad[0x10];
     int mVal;
 };
 
-class Owner {
+class Owner_15970 {
   public:
-    Obj* Get();
+    Obj_15970* Get();
 };
 
-class Mgr {
+class Mgr_15970 {
   public:
-    Obj* Get();
+    Obj_15970* Get();
 };
 
-Mgr* GetMgr(Owner* o);
+Mgr_15970* GetMgr(Owner_15970* o);
 
-class Ctx {
+class Ctx_15970 {
   public:
-    Mgr* Get();
+    Mgr_15970* Get();
 };
 
 class CGrappleDetachAction {
@@ -37,13 +37,13 @@ class CGrappleDetachAction {
     virtual void v3();
     virtual void v4();
     char pad[0x1c - 4];
-    Ctx* mCtx;
-    Mid* mMid;
+    Ctx_15970* mCtx;
+    Mid_15970* mMid;
 };
 
 void CGrappleDetachAction::v4() {
-    Obj* o = mCtx->Get()->Get();
-    Obj* p = o->mA;
+    Obj_15970* o = mCtx->Get()->Get();
+    Obj_15970* p = o->mA;
     if (p) {
         p->Fn(0, -1, 0, 0, 0, 0, 1.0f, mMid->mVal);
         p->mA = 0;

@@ -1,20 +1,20 @@
-typedef unsigned int u32;
-void thunk_FUN_00267090(u32);
+typedef unsigned int u32_12e590;
+void thunk_FUN_00267090(u32_12e590);
 extern int DebugPrintCondition_vftable;
-struct Base {
+struct Base_12e590 {
     void finish();
 };
-struct DebugPrintCondition : Base {
+struct DebugPrintCondition : Base_12e590 {
     void* vt;
     char pad4[8];
-    u32 a;
-    u32 b;
+    u32_12e590 a;
+    u32_12e590 b;
     void dtorish();
 };
 void DebugPrintCondition::dtorish() {
-    u32 x = a;
+    u32_12e590 x = a;
     vt = &DebugPrintCondition_vftable;
     thunk_FUN_00267090(x);
     thunk_FUN_00267090(b);
-    Base::finish();
+    Base_12e590::finish();
 }

@@ -3,21 +3,21 @@ struct Node {
     Node* Init(int a, int b, int c);
     void Set(int a);
 };
-struct Q {
+struct Q_1d4580 {
     void Add(Node* n);
 };
-struct Mgr {};
-void Reg(Mgr*, Node*);
-void Cb(Mgr*, void (*)(), int);
-void Post(Mgr*, int, int);
+struct Mgr_1d4580 {};
+void Reg(Mgr_1d4580*, Node*);
+void Cb(Mgr_1d4580*, void (*)(), int);
+void Post(Mgr_1d4580*, int, int);
 void Handler();
-struct Owner {
+struct Owner_1d4580 {
     char pad[8];
-    Mgr* mgr;
-    Q q;
+    Mgr_1d4580* mgr;
+    Q_1d4580 q;
     void Fn(int a, int b, int c);
 };
-void Owner::Fn(int a, int b, int c) {
+void Owner_1d4580::Fn(int a, int b, int c) {
     Node* p = (Node*)Alloc(0x24);
     Node* n;
     if (p)
@@ -26,7 +26,7 @@ void Owner::Fn(int a, int b, int c) {
         n = 0;
     n->Set(a);
     q.Add(n);
-    Mgr* m = mgr;
+    Mgr_1d4580* m = mgr;
     Reg(m, n);
     Cb(m, (void (*)())Handler, 1);
     Post(m, -10001, a);

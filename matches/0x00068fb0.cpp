@@ -1,5 +1,5 @@
 // cl-flags: /O2 /GR /GX
-extern int* g_table;
+extern int* g_table_68fb0;
 
 class CJumpTrack {
   public:
@@ -7,5 +7,5 @@ class CJumpTrack {
 };
 
 int CJumpTrack::vfunc_0(int index) {
-    return g_table[index];
+    return g_table_68fb0[index];
 }

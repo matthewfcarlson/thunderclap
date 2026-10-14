@@ -1,5 +1,5 @@
-typedef unsigned int u32;
-extern u32 g_value;
+typedef unsigned int u32_31e230;
+extern u32_31e230 g_value_31e230;
 class pddiDevice {
   public:
     virtual void f0();
@@ -15,8 +15,8 @@ class pddiDevice {
     virtual void f10();
     virtual void f11();
     virtual void f12();
-    virtual void vfunc_13(u32);
+    virtual void vfunc_13(u32_31e230);
 };
-void pddiDevice::vfunc_13(u32 value) {
-    g_value = value;
+void pddiDevice::vfunc_13(u32_31e230 value) {
+    g_value_31e230 = value;
 }

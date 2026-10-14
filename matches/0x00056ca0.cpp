@@ -8,11 +8,11 @@ struct CAxisDirectionCondition {
     int b;
     int c;
 };
-class Factory {
+class Factory_56ca0 {
   public:
     CAxisDirectionCondition* vfunc_5();
 };
-CAxisDirectionCondition* Factory::vfunc_5() {
+CAxisDirectionCondition* Factory_56ca0::vfunc_5() {
     CAxisDirectionCondition* p = (CAxisDirectionCondition*)Alloc(0x18);
     if (p) {
         p->Init(0);

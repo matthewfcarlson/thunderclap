@@ -5,7 +5,7 @@ extern "C" void Reset(void*, int);
 extern "C" int Finish(void*, int);
 extern "C" void Cleanup(void*, int);
 
-class Obj {
+class Obj_1d3030 {
   public:
     char pad[8];
     void* ptr;
@@ -13,7 +13,7 @@ class Obj {
     int Run(const char*, int);
 };
 
-int Obj::Run(const char* a, int b) {
+int Obj_1d3030::Run(const char* a, int b) {
     int result = 0;
     if (Check(actors, 1, 1)) {
         if (Check(a, 0, 1)) {

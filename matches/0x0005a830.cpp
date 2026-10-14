@@ -1,13 +1,13 @@
-class Base {
+class Base_5a830 {
   public:
     virtual void A();
     virtual void B();
-    Base();
+    Base_5a830();
 };
-class X : public Base {
+class X_5a830 : public Base_5a830 {
   public:
     virtual void A();
     virtual void B();
-    X();
+    X_5a830();
 };
-X::X() {}
+X_5a830::X_5a830() {}

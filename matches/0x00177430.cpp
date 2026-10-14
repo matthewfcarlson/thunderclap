@@ -1,26 +1,26 @@
 // Same code shape as 0x0010b980 (propagated; names are from that function)
-class RefObj {
+class RefObj_177430 {
   public:
     virtual void AddRef();
     virtual void Release();
 };
 
-class ActionBase {
+class ActionBase_177430 {
   public:
-    ActionBase();
+    ActionBase_177430();
     virtual void Update();
     char pad[0x18];
 };
 
-class FaceTargetAction : public ActionBase {
+class FaceTargetAction : public ActionBase_177430 {
   public:
     int mTarget;
-    RefObj* mObj;
-    FaceTargetAction(int target, RefObj* obj);
+    RefObj_177430* mObj;
+    FaceTargetAction(int target, RefObj_177430* obj);
     virtual void Execute();
 };
 
-FaceTargetAction::FaceTargetAction(int target, RefObj* obj) {
+FaceTargetAction::FaceTargetAction(int target, RefObj_177430* obj) {
     int* p = &mTarget;
     *p = 0;
     mObj = 0;

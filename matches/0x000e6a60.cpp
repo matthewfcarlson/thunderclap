@@ -1,4 +1,4 @@
-class Obj {
+class Obj_e6a60 {
   public:
     void run(int);
 };
@@ -72,7 +72,7 @@ class FEThingsBase {
     virtual void f65();
     virtual void f66();
     char pad[0x175c - 4];
-    Obj* field175c;
+    Obj_e6a60* field175c;
     char p2[8];
     int field1768;
     int field176c;

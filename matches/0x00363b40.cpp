@@ -1,9 +1,9 @@
 extern "C" void __stdcall FUN_0027af50();
-class A {
+class A_363b40 {
   public:
     void Fn();
 };
-extern A g;
+extern A_363b40 g_363b40;
 void FUN_00363b40() {
-    g.Fn();
+    g_363b40.Fn();
 }

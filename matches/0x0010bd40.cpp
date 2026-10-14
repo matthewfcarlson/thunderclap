@@ -16,8 +16,8 @@ class Params {
   public:
     int x;
 };
-extern Params TypeA;
-extern Params TypeB;
+extern Params TypeA_10bd40;
+extern Params TypeB_10bd40;
 int __cdecl Check(void*, int, Params*, Params*, int);
 class Object {
   public:
@@ -25,7 +25,7 @@ class Object {
 };
 Object* __cdecl Alloc(int);
 int FaceTargetTrack::vfunc_10(int a, int b, int c) {
-    int result = Check((void*)c, 0, &TypeA, &TypeB, 0);
+    int result = Check((void*)c, 0, &TypeA_10bd40, &TypeB_10bd40, 0);
     if (result) {
         Object* p = Alloc(0x24);
         if (p)

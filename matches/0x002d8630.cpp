@@ -1,4 +1,4 @@
-struct S {
+struct S_2d8630 {
     char p0[8];
     unsigned char f8;
     char p1[0xd];
@@ -9,7 +9,7 @@ struct S {
     int f4c;
     int f50;
 };
-int F(int a, S* s, int* o1, unsigned* o2, int* o3) {
+int F(int a, S_2d8630* s, int* o1, unsigned* o2, int* o3) {
     int r = 0;
     if (a != 0 && s != 0 && (s->f8 & 0x10) != 0) {
         if (s->f19 == 3) {

@@ -1,4 +1,4 @@
-class Entry {
+class Entry_8c810 {
   public:
     virtual void f0();
     virtual void f1();
@@ -24,22 +24,22 @@ class Entry {
     virtual void f21();
     virtual void f22();
 };
-struct Slot {
-    Entry* first;
-    Entry* second;
+struct Slot_8c810 {
+    Entry_8c810* first;
+    Entry_8c810* second;
     char pad[192];
 };
-class Owner {
+class Owner_8c810 {
   public:
     char pad[8];
-    Slot* h;
+    Slot_8c810* h;
     int target(int);
 };
-int Owner::target(int i) {
+int Owner_8c810::target(int i) {
     h[i].first->f22();
     if (h[i].second) {
         h[i].second->f21();
-        Entry** pp = &h[i].second;
+        Entry_8c810** pp = &h[i].second;
         if (*pp) {
             (*pp)->f1();
             *pp = 0;

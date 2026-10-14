@@ -1,10 +1,10 @@
-extern int vftable;
+extern int vftable_62e40;
 struct CSmartPropAttachTrack;
 void FUN_00267090(CSmartPropAttachTrack*);
-struct A {
+struct A_62e40 {
     void f();
 };
-struct B {
+struct B_62e40 {
     void f();
 };
 struct CSmartPropAttachTrack {
@@ -25,11 +25,11 @@ struct CSmartPropAttachTrack {
     char pad[0x58 - 4];
 };
 CSmartPropAttachTrack* CSmartPropAttachTrack::vfunc_5(unsigned char p) {
-    *(void**)this = &vftable;
-    ((A*)((char*)this + 0x58))->f();
-    ((A*)((char*)this + 0x20))->f();
-    ((A*)((char*)this + 0x18))->f();
-    ((B*)this)->f();
+    *(void**)this = &vftable_62e40;
+    ((A_62e40*)((char*)this + 0x58))->f();
+    ((A_62e40*)((char*)this + 0x20))->f();
+    ((A_62e40*)((char*)this + 0x18))->f();
+    ((B_62e40*)this)->f();
     if (p & 1)
         FUN_00267090(this);
     return this;

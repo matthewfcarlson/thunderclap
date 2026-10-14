@@ -1,4 +1,4 @@
-struct Ref {
+struct Ref_2dfd70 {
     virtual void AddRef();
     virtual void Release();
     int pad[5];
@@ -10,7 +10,7 @@ struct PG {
     int v3;
     int flag;
     char pad[0x40 - 0x14];
-    Ref* mat;
+    Ref_2dfd70* mat;
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -19,9 +19,9 @@ struct PG {
     virtual void f5();
     virtual void f6();
     virtual void f7();
-    virtual void f8(Ref* r);
+    virtual void f8(Ref_2dfd70* r);
 };
-void PG::f8(Ref* r) {
+void PG::f8(Ref_2dfd70* r) {
     if (r)
         r->AddRef();
     if (mat)

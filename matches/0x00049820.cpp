@@ -1,5 +1,5 @@
-extern int vt1;
-extern int vt2;
+extern int vt1_49820;
+extern int vt2_49820;
 class CSmartPropDistanceCondition {
   public:
     virtual void V0();
@@ -12,8 +12,8 @@ class CSmartPropDistanceCondition {
     void Build();
 };
 void CSmartPropDistanceCondition::Build() {
-    *(int*)this = (int)&vt1;
+    *(int*)this = (int)&vt1_49820;
     part.Init();
-    *(int*)this = (int)&vt2;
+    *(int*)this = (int)&vt2_49820;
     Final();
 }

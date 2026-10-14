@@ -1,10 +1,10 @@
-class Holder {
+class Holder_320d00 {
     char pad[0x184];
 
   public:
     bool Find(int value);
 };
-bool Holder::Find(int value) {
+bool Holder_320d00::Find(int value) {
     int i = 0;
     int* p = (int*)((char*)this + 0x184);
     do {

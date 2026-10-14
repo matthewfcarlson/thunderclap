@@ -1,13 +1,13 @@
 extern "C" char DAT_0048f610[];
 extern "C" char DAT_004ce8a4[];
-typedef unsigned int u32;
+typedef unsigned int u32_2a7e90;
 struct SceneGraphVisibilityAnimationController {
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void v5(u32);
+    virtual void v5(u32_2a7e90);
     virtual void v6();
     virtual void v7();
     virtual void v8();
@@ -31,9 +31,9 @@ struct SceneGraphVisibilityAnimationController {
     virtual void v26();
     char pad[0x44 - 4];
 };
-extern void* const EntityRTTI;
+extern void* const EntityRTTI_2a7e90;
 extern void* const VisibilityNodeRTTI;
-extern u32 __cdecl FindType(u32, int, void*, void*, int);
-void SceneGraphVisibilityAnimationController::v5(u32 arg) {
-    *(u32*)((char*)this + 0x44) = FindType(arg, 0, (void*)((int)DAT_0048f610), (void*)((int)DAT_004ce8a4), 0);
+extern u32_2a7e90 __cdecl FindType(u32_2a7e90, int, void*, void*, int);
+void SceneGraphVisibilityAnimationController::v5(u32_2a7e90 arg) {
+    *(u32_2a7e90*)((char*)this + 0x44) = FindType(arg, 0, (void*)((int)DAT_0048f610), (void*)((int)DAT_004ce8a4), 0);
 }

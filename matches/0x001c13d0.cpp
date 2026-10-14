@@ -1,16 +1,16 @@
 // Same code shape as 0x001c1340 (propagated; names are from that function)
-struct Child {
+struct Child_1c13d0 {
     void First(int);
     void Second();
     void Third();
 };
-struct Thing {
+struct Thing_1c13d0 {
     char pad[0xbc];
-    Child* volatile child;
+    Child_1c13d0* volatile child;
     int value;
     void Run();
 };
-void Thing::Run() {
+void Thing_1c13d0::Run() {
     child->First(value);
     child->Second();
     child->Third();

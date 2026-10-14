@@ -1,14 +1,14 @@
-struct Sub {
-    void Copy(const Sub* o);
+struct Sub_2a3530 {
+    void Copy(const Sub_2a3530* o);
     char p[8];
 };
-struct Base {
-    Base();
+struct Base_2a3530 {
+    Base_2a3530();
     virtual void f0();
     int b4;
-    Sub s;
+    Sub_2a3530 s;
 };
-struct DH : Base {
+struct DH : Base_2a3530 {
     DH(const DH& o);
     virtual void f1();
     int m10, m14, m18, m1c, m20, m24, m28, m2c, m30, m34, m38;

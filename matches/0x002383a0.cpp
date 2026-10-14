@@ -10,10 +10,10 @@ class MaybeCondition {
     char pad[8];
     float value;
 };
-typedef float(__cdecl* Fn)(int, int);
-extern Fn globalFn;
+typedef float(__cdecl* Fn_2383a0)(int, int);
+extern Fn_2383a0 globalFn;
 extern int globalArg;
-extern float zeroValue;
+extern float zeroValue_2383a0;
 bool MaybeCondition::v6(int a, int b, int c) {
     float x;
     if (globalFn == 0)

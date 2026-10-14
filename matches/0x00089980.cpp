@@ -1,11 +1,11 @@
-class Obj {
+class Obj_89980 {
   public:
     char pad[0x10c];
     int field10c;
     int fields[10];
     void Init();
 };
-void Obj::Init() {
+void Obj_89980::Init() {
     fields[0] = -1;
     fields[1] = -1;
     fields[2] = -1;

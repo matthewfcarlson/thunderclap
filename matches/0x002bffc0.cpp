@@ -1,15 +1,15 @@
-struct Base {
+struct Base_2bffc0 {
     char pad[0x10];
     void Init();
 };
 extern int Image32Vtable;
-struct Image32 : Base {
+struct Image32 : Base_2bffc0 {
     int field10, field14, field18, field1c, field20, field24;
     unsigned char field28, field29;
     Image32* Init();
 };
 Image32* Image32::Init() {
-    Base::Init();
+    Base_2bffc0::Init();
     field24 = 0;
     field10 = 0;
     field14 = 0;

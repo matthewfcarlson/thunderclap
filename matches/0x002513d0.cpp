@@ -1,5 +1,5 @@
 extern "C" char DAT_00429dcc[];
-class Base {
+class Base_2513d0 {
   public:
     void Init();
 };
@@ -18,7 +18,7 @@ class SeqEventPlayTrack {
     Track track;
 };
 SeqEventPlayTrack* __fastcall Target(SeqEventPlayTrack* self) {
-    ((Base*)self)->Init();
+    ((Base_2513d0*)self)->Init();
     self->vptr = ((int)DAT_00429dcc);
     self->a = 0;
     self->b = 0;

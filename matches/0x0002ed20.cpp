@@ -4,7 +4,7 @@ extern "C" char DAT_0048e0f0[];
 extern "C" char DAT_0048e100[];
 struct CActorManager {};
 extern char GetName(const char*);
-class Obj {
+class Obj_2ed20 {
   public:
     int vt;
     char pad4[0x0c];
@@ -15,9 +15,9 @@ class Obj {
     CActorManager* p1c;
     void* p20;
     void Init(const char*, int);
-    Obj(const char*, void*, CActorManager*);
+    Obj_2ed20(const char*, void*, CActorManager*);
 };
-Obj::Obj(const char* arg, void* p, CActorManager* cm) {
+Obj_2ed20::Obj_2ed20(const char* arg, void* p, CActorManager* cm) {
     Init(arg, 1);
     vt = ((int)DAT_003f410c);
     p1c = cm;

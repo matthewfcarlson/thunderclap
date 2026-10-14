@@ -1,4 +1,4 @@
-class Sub {
+class Sub_194fd0 {
   public:
     void Init();
 };
@@ -16,7 +16,7 @@ class MissilePunchTrack {
     virtual void v9();
     virtual void v10();
     char pad[0x14];
-    Sub sub;
+    Sub_194fd0 sub;
     void Setup();
 };
 extern int missileVftable;

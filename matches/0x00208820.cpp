@@ -1,19 +1,19 @@
-class Subject {
+class Subject_208820 {
   public:
     int GetState();
     void OnGlobal();
 };
-class Obj {
+class Obj_208820 {
   public:
     char pad[4];
     char b4;
     char pad2[0x24 - 5];
     char b24;
     char pad3[0xaec - 0x25];
-    Subject* field;
+    Subject_208820* field;
     char flag;
     void OnState();
-    void OnOther(Subject*);
+    void OnOther(Subject_208820*);
     void Step1();
     void Step2();
     void Step3();
@@ -22,14 +22,14 @@ class Obj {
     void Step6();
     void Run();
 };
-extern "C" unsigned char gFlag;
-void Obj::Run() {
+extern "C" unsigned char gFlag_208820;
+void Obj_208820::Run() {
     if (field) {
         int r = field->GetState();
         flag = 1;
         if (r == 3)
             OnState();
-        else if (gFlag)
+        else if (gFlag_208820)
             field->OnGlobal();
         else
             OnOther(field);

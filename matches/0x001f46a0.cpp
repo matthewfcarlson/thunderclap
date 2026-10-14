@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1f46a0 {
   public:
     char pad0[8];
     struct Entry {
@@ -11,7 +11,7 @@ class Obj {
     void Fn();
 };
 extern void __cdecl FUN_00247970(int, int);
-void Obj::Fn() {
+void Obj_1f46a0::Fn() {
     int x = state;
     if (x == 1) {
         state = 0;

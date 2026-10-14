@@ -1,5 +1,5 @@
-extern const float gZero;
-class C {
+extern const float gZero_fc830;
+class C_fc830 {
   public:
     char pad[0x12];
     unsigned char flag;
@@ -7,8 +7,8 @@ class C {
     float value;
     float Get();
 };
-float C::Get() {
+float C_fc830::Get() {
     if (flag)
-        return gZero;
+        return gZero_fc830;
     return value;
 }

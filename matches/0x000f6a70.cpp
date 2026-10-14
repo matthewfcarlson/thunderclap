@@ -1,4 +1,4 @@
-struct Input {
+struct Input_f6a70 {
     char p0[0x10];
     float angle;
     char p14[0xc4];
@@ -8,7 +8,7 @@ struct Camera {
     char p[8];
     float value;
 };
-class Service {
+class Service_f6a70 {
   public:
     virtual void v0();
     virtual void v1();
@@ -28,9 +28,9 @@ class Service {
     virtual void v15();
     virtual float Get();
 };
-extern Service* gService;
+extern Service_f6a70* gService;
 extern "C" double tan(double);
-float __cdecl Calc(Input* a, Camera* b, void* c) {
+float __cdecl Calc(Input_f6a70* a, Camera* b, void* c) {
     if (!a || !c)
         return 1.0f;
     float pad[4];

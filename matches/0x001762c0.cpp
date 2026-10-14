@@ -1,26 +1,26 @@
 extern "C" void _ReadWriteBarrier();
-class Obj {
+class Obj_1762c0 {
   public:
     virtual void F0();
     virtual void F1();
 };
-class Base {
+class Base_1762c0 {
   public:
     void Finish();
 };
-class TargetIconDistanceAction : public Base {
+class TargetIconDistanceAction : public Base_1762c0 {
   public:
     int vptr;
     char pad04[0x18];
-    Obj* m1c;
-    Obj* m20;
+    Obj_1762c0* m1c;
+    Obj_1762c0* m20;
     void Clean();
 };
-extern int vt;
+extern int vt_1762c0;
 void TargetIconDistanceAction::Clean() {
-    vptr = (int)&vt;
+    vptr = (int)&vt_1762c0;
     _ReadWriteBarrier();
-    Obj* p = m20;
+    Obj_1762c0* p = m20;
     if (p) {
         p->F1();
         m20 = 0;

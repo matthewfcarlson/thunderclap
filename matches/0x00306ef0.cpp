@@ -1,4 +1,4 @@
-struct Vec3 {
+struct Vec3_306ef0 {
     float x, y, z;
 };
 
@@ -12,13 +12,13 @@ class BaseObj {
 class CollisionRay : public BaseObj {
   public:
     virtual void RayFn();
-    Vec3 m_a; // 0x68
-    Vec3 m_b; // 0x74
+    Vec3_306ef0 m_a; // 0x68
+    Vec3_306ef0 m_b; // 0x74
     int m_c;  // 0x80
-    CollisionRay(const Vec3* a, const Vec3* b, int c);
+    CollisionRay(const Vec3_306ef0* a, const Vec3_306ef0* b, int c);
 };
 
-CollisionRay::CollisionRay(const Vec3* a, const Vec3* b, int c) {
+CollisionRay::CollisionRay(const Vec3_306ef0* a, const Vec3_306ef0* b, int c) {
     m_a.x = a->x;
     m_a.y = a->y;
     m_a.z = a->z;

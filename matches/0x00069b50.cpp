@@ -1,6 +1,6 @@
-typedef unsigned int u32;
-extern u32* g_table;
+typedef unsigned int u32_69b50;
+extern u32_69b50* g_table_69b50;
 
 int __stdcall CSweepTrack_vfunc_0(int index) {
-    return g_table[index];
+    return g_table_69b50[index];
 }

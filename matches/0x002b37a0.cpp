@@ -1,8 +1,8 @@
-class X {
+class X_2b37a0 {
   public:
     int m;
-    X();
+    X_2b37a0();
 };
-X::X() {
+X_2b37a0::X_2b37a0() {
     m = 0;
 }

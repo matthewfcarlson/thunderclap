@@ -1,4 +1,4 @@
-typedef unsigned int u32;
+typedef unsigned int u32_e2130;
 struct FELayout {
     virtual void v0();
     virtual void v1();
@@ -26,14 +26,14 @@ struct FELayout {
 };
 struct SingleLayout : FELayout {
     char pad[0x40 - 4];
-    u32 field40;
-    u32 field44;
-    virtual void vfunc18(u32);
+    u32_e2130 field40;
+    u32_e2130 field44;
+    virtual void vfunc18(u32_e2130);
 };
-extern "C" u32 __cdecl helper(u32, int, const void*, const void*, int);
-extern const char typeA[];
-extern const char typeB[];
-void SingleLayout::vfunc18(u32 x) {
+extern "C" u32_e2130 __cdecl helper(u32_e2130, int, const void*, const void*, int);
+extern const char typeA_e2130[];
+extern const char typeB_e2130[];
+void SingleLayout::vfunc18(u32_e2130 x) {
     field40 = x;
-    field44 = helper(x, 0, typeA, typeB, 0);
+    field44 = helper(x, 0, typeA_e2130, typeB_e2130, 0);
 }

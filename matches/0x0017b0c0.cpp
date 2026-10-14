@@ -16,7 +16,7 @@ extern int ParamsRTTI;
 extern int CFightParamsRTTI;
 extern int TypeCheck(void*, int, int*, int*, int);
 extern void* Allocate(int);
-class Obj {
+class Obj_17b0c0 {
   public:
     int Init(JointTrackerTrack*, void*);
 };
@@ -24,7 +24,7 @@ int JointTrackerTrack::vfunc_10(int a, int b, void* p) {
     if (TypeCheck(p, 0, &ParamsRTTI, &CFightParamsRTTI, 0)) {
         void* q = Allocate(0x78);
         if (q)
-            return ((Obj*)q)->Init(this, p);
+            return ((Obj_17b0c0*)q)->Init(this, p);
     }
     return 0;
 }

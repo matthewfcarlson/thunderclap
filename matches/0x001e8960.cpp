@@ -1,24 +1,24 @@
 extern "C" char DAT_00423f28[];
-typedef unsigned int u32;
+typedef unsigned int u32_1e8960;
 extern void* __cdecl alloc(unsigned int, unsigned int);
 struct SoundMix {
-    u32* vptr;
-    u32 a;
-    u32 b;
+    u32_1e8960* vptr;
+    u32_1e8960 a;
+    u32_1e8960 b;
 };
-class Manager {
+class Manager_1e8960 {
   public:
     char pad[0x4c0];
     SoundMix* slots[20];
     int count;
     SoundMix* Add();
 };
-SoundMix* Manager::Add() {
+SoundMix* Manager_1e8960::Add() {
     if (count >= 20)
         return 0;
     SoundMix* p = (SoundMix*)alloc(0x10, 6);
     if (p != 0) {
-        p->vptr = (u32*)((int)DAT_00423f28);
+        p->vptr = (u32_1e8960*)((int)DAT_00423f28);
         p->a = 0;
         p->b = 0;
     } else {

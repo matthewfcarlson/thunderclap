@@ -1,10 +1,10 @@
-class Slots {
+class Slots_d6d90 {
   public:
     char pad[12];
     int values[8];
     float Add(int value);
 };
-float Slots::Add(int value) {
+float Slots_d6d90::Add(int value) {
     int i = 0;
     do {
         if (values[i] == 0) {

@@ -1,5 +1,5 @@
 namespace pure3d {
-struct S {
+struct S_31d530 {
     char pad[0xc];
     void* value;
 };
@@ -17,7 +17,7 @@ class pddiBaseContext {
     virtual void f9();
     virtual void vfunc_10(void* value);
     char pad[0x44];
-    S* p;
+    S_31d530* p;
 };
 void pddiBaseContext::vfunc_10(void* value) {
     p->value = value;

@@ -19,21 +19,21 @@ class CGrappleEffectStopTrack : public CEffectStopTrack {
   public:
     virtual int vfunc_12(int);
 };
-struct Obj {
+struct Obj_60980 {
     char pad[0x104];
     int field;
 };
-struct Tgt {
+struct Tgt_60980 {
     char pad[0x104];
     int field;
     int method(int, int);
 };
 extern void* FUN_0008d690(int);
-extern Obj* FUN_0005a430(int);
+extern Obj_60980* FUN_0005a430(int);
 int CGrappleEffectStopTrack::vfunc_12(int arg) {
-    Tgt* p = (Tgt*)FUN_0008d690(0x24);
+    Tgt_60980* p = (Tgt_60980*)FUN_0008d690(0x24);
     if (p) {
-        Obj* o = FUN_0005a430(arg);
+        Obj_60980* o = FUN_0005a430(arg);
         int v = o->field;
         return p->method((int)this, v);
     }

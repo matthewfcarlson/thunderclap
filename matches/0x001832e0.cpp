@@ -1,7 +1,7 @@
 extern "C" char DAT_0041941c[];
-typedef unsigned char u8;
+typedef unsigned char u8_1832e0;
 extern void __cdecl cleanup(void*);
-class Sub {
+class Sub_1832e0 {
   public:
     void Init();
 };
@@ -12,7 +12,7 @@ class BallAndChainReturnTrack {
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual BallAndChainReturnTrack* vfunc_5(u8);
+    virtual BallAndChainReturnTrack* vfunc_5(u8_1832e0);
     virtual void v6();
     virtual void v7();
     virtual void v8();
@@ -21,11 +21,11 @@ class BallAndChainReturnTrack {
     void BaseInit();
     char pad[0x60 - 4];
 };
-BallAndChainReturnTrack* BallAndChainReturnTrack::vfunc_5(u8 flag) {
-    Sub* a = (Sub*)((char*)this + 0x60);
+BallAndChainReturnTrack* BallAndChainReturnTrack::vfunc_5(u8_1832e0 flag) {
+    Sub_1832e0* a = (Sub_1832e0*)((char*)this + 0x60);
     *(int*)this = ((int)DAT_0041941c);
     a->Init();
-    ((Sub*)((char*)this + 0x48))->Init();
+    ((Sub_1832e0*)((char*)this + 0x48))->Init();
     this->BaseInit();
     if (flag & 1)
         cleanup(this);

@@ -1,14 +1,14 @@
-class Obj {
+class Obj_175f0 {
   public:
-    Obj* second();
+    Obj_175f0* second();
     void m40(int);
     void mC0(int);
     void m20(void*);
     void mA0(void*);
 };
-class Factory {
+class Factory_175f0 {
   public:
-    Obj* first();
+    Obj_175f0* first();
 };
 class CInvulnerableAction {
   public:
@@ -22,12 +22,12 @@ class CInvulnerableAction {
     virtual void g();
     virtual void h();
     char pad[0x18];
-    Factory* member1c;
+    Factory_175f0* member1c;
     void* member20;
 };
 void CInvulnerableAction::vfunc_4() {
-    Obj* x = member1c->first();
-    Obj* s = x->second();
+    Obj_175f0* x = member1c->first();
+    Obj_175f0* s = x->second();
     s->m40(0);
     s->mC0(0);
     s->m20(member20);

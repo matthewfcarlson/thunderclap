@@ -1,13 +1,13 @@
-struct Mgr {
+struct Mgr_1ef800 {
     void Set(int n);
 };
 
-struct Owner {
+struct Owner_1ef800 {
     char pad[4];
-    Mgr* mgr;
+    Mgr_1ef800* mgr;
 };
 
-extern Owner* gOwner;
+extern Owner_1ef800* gOwner;
 
 class CSoundCommand {
   public:

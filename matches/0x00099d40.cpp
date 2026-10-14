@@ -1,4 +1,4 @@
-class B {
+class B_99d40 {
   public:
     virtual void f0();
     virtual void f1();
@@ -40,13 +40,13 @@ class B {
     virtual void f37();
     virtual void f38(int, int, int);
 };
-class A {
+class A_99d40 {
   public:
     char pad[0xb8];
-    B* m;
+    B_99d40* m;
     void target(int, int, int);
 };
-void A::target(int a, int b, int c) {
+void A_99d40::target(int a, int b, int c) {
     if (m)
         m->f38(a, b, c);
 }

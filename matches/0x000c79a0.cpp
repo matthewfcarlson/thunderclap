@@ -1,4 +1,4 @@
-class Obj {
+class Obj_c79a0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -10,14 +10,14 @@ class Obj {
     virtual void f7();
 };
 
-class Container {
+class Container_c79a0 {
   public:
     char pad[0x10];
-    Obj* member;
+    Obj_c79a0* member;
 
     void Fn();
 };
 
-void Container::Fn() {
+void Container_c79a0::Fn() {
     member->f7();
 }

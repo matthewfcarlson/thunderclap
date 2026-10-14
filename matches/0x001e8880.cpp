@@ -1,26 +1,26 @@
-class Item {
+class Item_1e8880 {
   public:
     virtual void F0();
     virtual void F1();
     virtual void Destroy(int flag);
 };
 
-class Holder {
+class Holder_1e8880 {
   public:
     char pad[8];
-    Item* mItems[100];
+    Item_1e8880* mItems[100];
     int mCount;
-    void Remove(Item* item);
+    void Remove(Item_1e8880* item);
 };
 
-void Holder::Remove(Item* item) {
+void Holder_1e8880::Remove(Item_1e8880* item) {
     if (!item)
         return;
     int i;
     for (i = 0; i < mCount; i++) {
         if (mItems[i] == item) {
-            Item* p = mItems[i];
-            Item** slot = &mItems[i];
+            Item_1e8880* p = mItems[i];
+            Item_1e8880** slot = &mItems[i];
             if (p)
                 p->Destroy(1);
             *slot = 0;

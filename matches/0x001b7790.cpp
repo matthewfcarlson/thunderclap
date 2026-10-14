@@ -1,4 +1,4 @@
-class RenderThing {
+class RenderThing_1b7790 {
   public:
     virtual void f0();
     virtual void f1();
@@ -12,7 +12,7 @@ class CRadMovieRenderLoop {
     virtual CRadMovieRenderLoop* vfunc_2(unsigned char);
     virtual void vfunc_3();
     char pad[8];
-    RenderThing* member;
+    RenderThing_1b7790* member;
 };
 extern void destroy(CRadMovieRenderLoop*);
 CRadMovieRenderLoop* CRadMovieRenderLoop::vfunc_2(unsigned char flags) {

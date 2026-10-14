@@ -1,5 +1,5 @@
-class Outer;
-class Inner {
+class Outer_e2850;
+class Inner_e2850 {
   public:
     virtual void f0();
     virtual void f1();
@@ -18,14 +18,14 @@ class Inner {
     virtual void f14();
     virtual void f15();
     virtual void f16();
-    virtual void f17(Outer*);
+    virtual void f17(Outer_e2850*);
 };
-class Outer {
+class Outer_e2850 {
   public:
     char pad[0x14];
-    Inner* p;
+    Inner_e2850* p;
     void call();
 };
-void Outer::call() {
+void Outer_e2850::call() {
     p->f17(this);
 }

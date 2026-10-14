@@ -11,20 +11,20 @@ struct NodeIsNotRunningCondition {
     u8 mValue;
 };
 extern int FUN_00344e74(void*, int, const void*, const void*, int);
-struct Runner {
+struct Runner_1a49c0 {
     bool run(int);
 };
-struct Manager {
+struct Manager_1a49c0 {
     char pad[0x30];
-    Runner* runner;
+    Runner_1a49c0* runner;
 };
-extern Manager* gManager;
+extern Manager_1a49c0* gManager_1a49c0;
 extern char typeNode;
 extern char typeBranch;
 bool NodeIsNotRunningCondition::vfunc_6(void* arg, void*, void*) {
     bool result = false;
     int value = FUN_00344e74(arg, 0, &typeBranch, &typeNode, 0);
     if (value)
-        result = gManager->runner->run(value);
+        result = gManager_1a49c0->runner->run(value);
     return result != mValue;
 }

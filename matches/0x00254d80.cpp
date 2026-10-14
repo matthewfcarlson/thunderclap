@@ -2,16 +2,16 @@ extern "C" void _ReadWriteBarrier();
 inline void* operator new(unsigned int, void* p) {
     return p;
 }
-extern char gPool[];
+extern char gPool_254d80[];
 void* __cdecl PoolAlloc(void*);
-struct Base {
+struct Base_254d80 {
     virtual void f0();
-    Base() throw();
+    Base_254d80() throw();
     int b4;
 };
-struct Init {
+struct Init_254d80 {
     int m8, mc, m10, m14, m18;
-    Init() throw() {
+    Init_254d80() throw() {
         m8 = 0;
         mc = 0;
         m10 = 0;
@@ -20,7 +20,7 @@ struct Init {
         m18 = 1;
     }
 };
-struct Repeat : Base, Init {
+struct Repeat : Base_254d80, Init_254d80 {
     Repeat() throw() {}
     virtual void f0();
 };
@@ -28,10 +28,10 @@ struct Type {
     virtual void a();
     virtual void b();
     virtual void c();
-    virtual Base* vfunc_3();
+    virtual Base_254d80* vfunc_3();
 };
-Base* Type::vfunc_3() {
-    Repeat* r = (Repeat*)PoolAlloc(gPool);
+Base_254d80* Type::vfunc_3() {
+    Repeat* r = (Repeat*)PoolAlloc(gPool_254d80);
     if (r)
         return new (r) Repeat;
     return 0;

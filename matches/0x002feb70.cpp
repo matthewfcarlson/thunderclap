@@ -1,9 +1,9 @@
-typedef unsigned int uint;
-void __cdecl FUN_002feb70(uint* p, int n, int limit, uint value) {
+typedef unsigned int uint_2feb70;
+void __cdecl FUN_002feb70(uint_2feb70* p, int n, int limit, uint_2feb70 value) {
     int parent = (n - 1) / 2;
     if (limit < n) {
         do {
-            uint x = p[parent];
+            uint_2feb70 x = p[parent];
             if (x >= value)
                 break;
             p[n] = x;

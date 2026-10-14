@@ -1,20 +1,20 @@
-extern void* g_vftable[];
-struct Sub {
+extern void* g_vftable_13a060[];
+struct Sub_13a060 {
     void Fin();
 };
-class Base {
+class Base_13a060 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_13a060 : public Base_13a060 {
   public:
     char pad[0xc];
-    Sub sub;
+    Sub_13a060 sub;
     void f();
 };
-void Obj::f() {
-    vptr = g_vftable;
+void Obj_13a060::f() {
+    vptr = g_vftable_13a060;
     sub.Fin();
     Fin();
 }

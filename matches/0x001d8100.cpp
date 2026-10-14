@@ -1,30 +1,30 @@
-class Item {
+class Item_1d8100 {
   public:
     virtual void A();
     virtual void B();
     int Get();
     void Act(int);
 };
-struct Box {
+struct Box_1d8100 {
     char pad[0x10];
     int value;
 };
-struct State : Item {
+struct State_1d8100 : Item_1d8100 {
     char pad[4];
-    Item* ptr;
+    Item_1d8100* ptr;
     int state;
 };
-struct Manager {
+struct Manager_1d8100 {
     char pad[0xa0];
-    Box* box;
+    Box_1d8100* box;
     char pad2[0x140];
-    State* item;
+    State_1d8100* item;
     void Run();
 };
-void Manager::Run() {
-    State* s = item;
+void Manager_1d8100::Run() {
+    State_1d8100* s = item;
     if (s && s->state == 1) {
-        Item* p = s->ptr;
+        Item_1d8100* p = s->ptr;
         if (p) {
             int v = box ? box->value : 0;
             if (p->Get() == v)

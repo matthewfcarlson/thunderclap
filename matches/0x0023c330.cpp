@@ -14,10 +14,10 @@ class Reference : public Branch {
     char pad[0x24];
     void vfunc_7();
 };
-struct Helper {
+struct Helper_23c330 {
     void f(int, int);
 };
 void Reference::vfunc_7() {
-    ((Helper*)((char*)this + 0x28))->f(0, 0);
+    ((Helper_23c330*)((char*)this + 0x28))->f(0, 0);
     Branch::vfunc_7();
 }

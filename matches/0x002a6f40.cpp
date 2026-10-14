@@ -1,10 +1,10 @@
-typedef unsigned int u32;
+typedef unsigned int u32_2a6f40;
 typedef unsigned int Type;
-struct R {
+struct R_2a6f40 {
     virtual void f0();
     virtual void f1();
 };
-extern R* Cast(u32, int, Type*, Type*, int);
+extern R_2a6f40* Cast(u32_2a6f40, int, Type*, Type*, int);
 extern Type entityType;
 extern Type geometryType;
 struct VertexAnimController {
@@ -13,13 +13,13 @@ struct VertexAnimController {
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void vfunc_5(u32);
+    virtual void vfunc_5(u32_2a6f40);
     char pad[0x40 - 4];
-    R* mEntity;
+    R_2a6f40* mEntity;
 };
-void VertexAnimController::vfunc_5(u32 p) {
-    R* r = Cast(p, 0, &entityType, &geometryType, 0);
-    R* n = *(R**)((char*)r + 0x5c);
+void VertexAnimController::vfunc_5(u32_2a6f40 p) {
+    R_2a6f40* r = Cast(p, 0, &entityType, &geometryType, 0);
+    R_2a6f40* n = *(R_2a6f40**)((char*)r + 0x5c);
     if (n)
         n->f0();
     if (mEntity)

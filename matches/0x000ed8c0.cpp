@@ -1,10 +1,10 @@
 // Same code shape as 0x000ecdf0 (propagated; names are from that function)
-struct Vec3 {
+struct Vec3_ed8c0 {
     int pad;
     float x;
     float y;
 };
-struct X {
+struct X_ed8c0 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -20,15 +20,15 @@ struct X {
     virtual void m();
     virtual void n();
     virtual void o();
-    virtual void p(Vec3*, void*);
+    virtual void p(Vec3_ed8c0*, void*);
 };
 struct TextWindow {
     char pad[20];
-    X* obj;
+    X_ed8c0* obj;
     float vfunc_8();
 };
 float TextWindow::vfunc_8() {
-    Vec3 v;
+    Vec3_ed8c0 v;
     obj->p(&v, this);
     return v.x * 1.05f;
 }

@@ -1,6 +1,6 @@
 extern char vtImage[];
 extern char vtIRef[];
-class Helper {
+class Helper_2c0ca0 {
   public:
     void cleanup();
 };
@@ -10,11 +10,11 @@ class ImageLoader {
   public:
     void* vptr;
     char pad[0x10];
-    Helper* mPtr;
+    Helper_2c0ca0* mPtr;
     ImageLoader* f2(unsigned char p);
 };
 ImageLoader* ImageLoader::f2(unsigned char p) {
-    Helper* h = mPtr;
+    Helper_2c0ca0* h = mPtr;
     vptr = vtImage;
     if (h) {
         h->cleanup();

@@ -1,14 +1,14 @@
 extern "C" int strcmp(const char*, const char*);
-struct Entry {
+struct Entry_df970 {
     char* name;
     int value;
 };
-class Table {
+class Table_df970 {
   public:
-    Entry entries[64];
+    Entry_df970 entries[64];
     int Find(char*);
 };
-int Table::Find(char* s) {
+int Table_df970::Find(char* s) {
     int i;
     for (i = 0; i < 64; ++i) {
         if (!entries[i].name)

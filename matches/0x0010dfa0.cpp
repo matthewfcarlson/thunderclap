@@ -1,5 +1,5 @@
 struct Context;
-struct Inner {
+struct Inner_10dfa0 {
     Context* Get();
     void* FUN_00059a30();
 };

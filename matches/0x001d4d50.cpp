@@ -1,22 +1,22 @@
-class Base {
+class Base_1d4d50 {
   public:
-    Base();
+    Base_1d4d50();
     virtual void G();
     char pad[0x90 - 4];
 };
-class M {
+class M_1d4d50 {
   public:
     void Init();
     char q[8];
 };
-class CSPHulkProp : public Base {
+class CSPHulkProp : public Base_1d4d50 {
   public:
     virtual void G();
     int a, b, c, d, e, f, g, h;
     unsigned char i, j, k, l, m, n, o;
     int p;
     char pad2[4];
-    M mm;
+    M_1d4d50 mm;
     CSPHulkProp();
 };
 CSPHulkProp::CSPHulkProp() {

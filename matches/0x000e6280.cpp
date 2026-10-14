@@ -1,4 +1,4 @@
-class Child {
+class Child_e6280 {
   public:
     virtual int f0();
     virtual bool f1(int, int);
@@ -46,10 +46,10 @@ class FEThingsBase {
     virtual int vfunc_38();
     virtual int vfunc_39();
     char pad[0x1758];
-    Child* a;
-    Child* b;
+    Child_e6280* a;
+    Child_e6280* b;
     char pad2[0x2218 - 0x1764];
-    Child* c;
+    Child_e6280* c;
 };
 bool FEThingsBase::vfunc_0(int x, int index) {
     char* p = (char*)this;

@@ -1,12 +1,12 @@
-struct E {
+struct E_2a4ff0 {
     char d[0x10];
-    ~E() throw();
+    ~E_2a4ff0() throw();
 };
 extern "C" void __cdecl myfree(void*) throw();
-template <class T> struct Vec {
+template <class T> struct Vec_2a4ff0 {
     T* mBegin;
     T* mEnd;
-    ~Vec() throw() {
+    ~Vec_2a4ff0() throw() {
         T* p = mBegin;
         if (p) {
             T* e = mEnd;
@@ -18,14 +18,14 @@ template <class T> struct Vec {
         }
     }
 };
-struct Base {
-    virtual ~Base() throw();
+struct Base_2a4ff0 {
+    virtual ~Base_2a4ff0() throw();
 };
-class DrawableContainer : public Base {
+class DrawableContainer : public Base_2a4ff0 {
   public:
     virtual ~DrawableContainer() throw();
     virtual void Update();
     char pad[0x44];
-    Vec<E> items;
+    Vec_2a4ff0<E_2a4ff0> items;
 };
 DrawableContainer::~DrawableContainer() throw() {}

@@ -1,23 +1,23 @@
 extern "C" char DAT_0040ecd8[];
-class Ref {
+class Ref_116a30 {
   public:
     virtual void AddRef();
     virtual void Release();
 };
-class Base {
+class Base_116a30 {
   public:
     volatile int v;
-    Base();
+    Base_116a30();
 };
-class MotionTargetAction : public Base {
+class MotionTargetAction : public Base_116a30 {
   public:
     char pad[24];
     volatile int a;
-    Ref* b;
+    Ref_116a30* b;
     int c;
-    MotionTargetAction(int x, Ref* r);
+    MotionTargetAction(int x, Ref_116a30* r);
 };
-MotionTargetAction::MotionTargetAction(int x, Ref* r) : Base() {
+MotionTargetAction::MotionTargetAction(int x, Ref_116a30* r) : Base_116a30() {
     v = ((int)DAT_0040ecd8);
     a = 0;
     b = 0;

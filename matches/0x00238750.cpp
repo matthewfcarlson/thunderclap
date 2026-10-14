@@ -8,7 +8,7 @@ class Obj {
     int c;
     Obj(int);
 };
-class Factory {
+class Factory_238750 {
   public:
     virtual void v0();
     virtual void v1();
@@ -17,7 +17,7 @@ class Factory {
     virtual void v4();
     virtual Obj* vfunc_5();
 };
-Obj* Factory::vfunc_5() {
+Obj* Factory_238750::vfunc_5() {
     Obj* p = (Obj*)Alloc(0x10);
     if (p) {
         p->Obj::Obj(0);

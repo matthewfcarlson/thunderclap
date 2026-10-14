@@ -1,5 +1,5 @@
-extern int type1, type2;
-class Built {
+extern int type1_138b80, type2;
+class Built_138b80 {
   public:
     int make(int, int);
 };
@@ -20,10 +20,10 @@ class HoverTrack {
     int member14;
 };
 extern int __cdecl Check(void*, int, int, int, int);
-extern Built* __cdecl Allocate(int);
+extern Built_138b80* __cdecl Allocate(int);
 int HoverTrack::vfunc_10(int a, int b, int c) {
-    if (Check((void*)c, 0, (int)&type1, (int)&type2, 0)) {
-        Built* p = Allocate(0x24);
+    if (Check((void*)c, 0, (int)&type1_138b80, (int)&type2, 0)) {
+        Built_138b80* p = Allocate(0x24);
         if (p) {
             int m = member14;
             return p->make(m, c);

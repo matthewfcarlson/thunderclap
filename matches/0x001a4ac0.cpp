@@ -1,13 +1,13 @@
-extern int RTTI1, RTTI2;
+extern int RTTI1_1a4ac0, RTTI2;
 extern int FUN_00344e74(int, int, int, int, int);
-struct Result {
+struct Result_1a4ac0 {
     int pad;
     int type;
     char gap[0x20];
     int state;
 };
-struct Obj {
-    Result* get();
+struct Obj_1a4ac0 {
+    Result_1a4ac0* get();
 };
 struct Event_PropStateDescCondition {
     virtual void v0();
@@ -21,10 +21,10 @@ struct Event_PropStateDescCondition {
     int value;
 };
 bool Event_PropStateDescCondition::vfunc_6(int a, int b, int c) {
-    Obj* x = (Obj*)FUN_00344e74(b, 0, (int)&RTTI1, (int)&RTTI2, 0);
+    Obj_1a4ac0* x = (Obj_1a4ac0*)FUN_00344e74(b, 0, (int)&RTTI1_1a4ac0, (int)&RTTI2, 0);
     if (!x)
         return false;
-    Result* r = x->get();
+    Result_1a4ac0* r = x->get();
     if (r->type != 0x17)
         return false;
     if (r->state == value)

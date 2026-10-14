@@ -1,21 +1,21 @@
 extern "C" void _ReadWriteBarrier();
-class Obj;
-class Elem {
+class Obj_221d60;
+class Elem_221d60 {
   public:
-    void Reset(Obj*);
-    void Blend(Elem*, Elem*, float);
+    void Reset(Obj_221d60*);
+    void Blend(Elem_221d60*, Elem_221d60*, float);
 };
-class Obj {
+class Obj_221d60 {
   public:
-    void Fn(Obj*, float);
+    void Fn(Obj_221d60*, float);
     char pad0[0x30];
     float x, y, z;
     char pad3c[4];
-    Elem elem;
+    Elem_221d60 elem;
     char pad44[0xc];
     int state;
 };
-void Obj::Fn(Obj* other, float t) {
+void Obj_221d60::Fn(Obj_221d60* other, float t) {
     x = (other->x - x) * t + x;
     y = (other->y - y) * t + y;
     z = (other->z - z) * t + z;

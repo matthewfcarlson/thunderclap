@@ -11,11 +11,11 @@ class CFESoundManager : public ISoundManager {
     virtual void vfunc_1(void*, void*);
     virtual void vfunc_2();
 };
-class Helper {
+class Helper_c5840 {
   public:
     void run(void*, void*);
 };
 void CFESoundManager::vfunc_1(void* a, void* b) {
     if (p)
-        ((Helper*)p)->run(a, b);
+        ((Helper_c5840*)p)->run(a, b);
 }

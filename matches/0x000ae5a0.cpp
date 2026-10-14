@@ -1,13 +1,13 @@
-class Entry;
-class Item {
+class Entry_ae5a0;
+class Item_ae5a0 {
   public:
     virtual void a();
     virtual void b();
     virtual void c();
     virtual int Count();
-    virtual Entry* At(int);
+    virtual Entry_ae5a0* At(int);
 };
-class Entry {
+class Entry_ae5a0 {
   public:
     virtual void a();
     virtual void b();
@@ -17,21 +17,21 @@ class Entry {
     virtual void e();
     virtual int Value();
 };
-class Owner {
+class Owner_ae5a0 {
   public:
     char pad[0x134];
     char flag;
     void Add(int);
     void Process();
 };
-Item* GetItems();
-void Owner::Process() {
+Item_ae5a0* GetItems();
+void Owner_ae5a0::Process() {
     flag = 0;
     int i = 0;
     int n = GetItems()->Count();
     if (n > 0) {
         do {
-            Entry* e = GetItems()->At(i);
+            Entry_ae5a0* e = GetItems()->At(i);
             if (e && e->IsValid())
                 Add(e->Value());
             ++i;

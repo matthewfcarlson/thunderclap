@@ -10,7 +10,7 @@ class TrackFactoryTemplate {
     virtual void f4();
     virtual void* vfunc_5();
 };
-class Inner {
+class Inner_23e9a0 {
   public:
     void init();
 };
@@ -21,7 +21,7 @@ class StopTrack {
     int flag;
     int zero;
     float value;
-    Inner inner;
+    Inner_23e9a0 inner;
     void init();
 };
 void* TrackFactoryTemplate::vfunc_5() {

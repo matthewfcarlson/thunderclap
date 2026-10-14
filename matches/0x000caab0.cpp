@@ -1,29 +1,29 @@
-struct Ent;
-struct Sub {
+struct Ent_caab0;
+struct Sub_caab0 {
     void Tick();
 };
-struct Ent {
+struct Ent_caab0 {
     void Prep();
     char pad[0xec];
-    Sub* sub;
+    Sub_caab0* sub;
 };
-struct Mgr {
-    Ent* Find(char*);
+struct Mgr_caab0 {
+    Ent_caab0* Find(char*);
 };
-struct Mid {
+struct Mid_caab0 {
     char pad[0xc];
-    Mgr* m;
+    Mgr_caab0* m;
     char pad2[0x10];
     void* b;
 };
-struct Self {
+struct Self_caab0 {
     char pad[0xc];
-    Mid* p;
+    Mid_caab0* p;
 };
 extern "C++" long long __cdecl FUN_002672f0(char*, int, int);
 extern int __fastcall FUN_00024280(void*, long long);
 
-void __fastcall FUN_000caab0(Self* self) {
+void __fastcall FUN_000caab0(Self_caab0* self) {
     char* s = (char*)self + 0x264;
     int n = 8;
     do {
@@ -31,7 +31,7 @@ void __fastcall FUN_000caab0(Self* self) {
             void* b = self->p->b;
             long long v = FUN_002672f0(s, 0, 0);
             if (!FUN_00024280(b, v)) {
-                Ent* e = self->p->m->Find(s);
+                Ent_caab0* e = self->p->m->Find(s);
                 if (e) {
                     e->Prep();
                     e->sub->Tick();

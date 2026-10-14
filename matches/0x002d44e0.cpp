@@ -1,4 +1,4 @@
-class Ref {
+class Ref_2d44e0 {
   public:
     virtual void a();
     virtual void b();
@@ -15,7 +15,7 @@ class Ref {
 class SpriteParticleEmitter {
   public:
     char pad0[0x88];
-    Ref* ptr;
+    Ref_2d44e0* ptr;
     char pad1[0xcc];
     void vfunc_16();
 };

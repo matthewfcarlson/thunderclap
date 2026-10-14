@@ -1,33 +1,33 @@
-class Item {
+class Item_273050 {
   public:
     virtual void Release(int);
     virtual void Skip();
     virtual bool Match(int);
-    Item* next;
+    Item_273050* next;
 };
-class List {
+class List_273050 {
   public:
     virtual void Begin();
     virtual void End();
 };
-class Owner {
+class Owner_273050 {
   public:
     char pad0[0x0c];
-    List list;
+    List_273050 list;
     char pad10[0x5c];
-    Item* slots[3];
-    Item* tails[4];
+    Item_273050* slots[3];
+    Item_273050* tails[4];
     void Run(int, int);
 };
 void Clean(void*);
-void Owner::Run(int arg, int index) {
+void Owner_273050::Run(int arg, int index) {
     list.Begin();
-    Item** p = &slots[index];
-    Item* cur = *p;
-    Item* prev = 0;
+    Item_273050** p = &slots[index];
+    Item_273050* cur = *p;
+    Item_273050* prev = 0;
     while (cur != 0) {
         if ((*p)->Match(arg)) {
-            Item* x = *p;
+            Item_273050* x = *p;
             *p = x->next;
             x->Release(1);
             Clean((char*)this + 0x68);

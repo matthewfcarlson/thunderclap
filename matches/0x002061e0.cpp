@@ -1,6 +1,6 @@
 extern void* vWSM[];
 extern void* vPool[];
-class Ref {
+class Ref_2061e0 {
   public:
     virtual void F0();
     virtual void Release();
@@ -8,7 +8,7 @@ class Ref {
 extern void FUN_00263e90();
 extern void FUN_00267110(int);
 extern void FUN_00267090(void*);
-struct Pool {
+struct Pool_2061e0 {
     void* vf;
     char b4;
     char b5;
@@ -16,15 +16,15 @@ struct Pool {
     short w26;
     char pad28[4];
     void* p2c;
-    Ref* p30;
+    Ref_2061e0* p30;
     char pad34[4];
-    Ref* p38;
+    Ref_2061e0* p38;
     void Fini() throw();
 };
-void Pool::Fini() throw() {
+void Pool_2061e0::Fini() throw() {
     vf = vPool;
     if (p38) {
-        ((void(__fastcall*)(Ref*))FUN_00263e90)(p38);
+        ((void(__fastcall*)(Ref_2061e0*))FUN_00263e90)(p38);
         p38 = 0;
     }
     if (p30)
@@ -41,16 +41,16 @@ void Pool::Fini() throw() {
     b5 = 0;
     w26 = 0;
 }
-struct Target {
+struct Target_2061e0 {
     void* vf;
     char pad[0x44];
-    Pool a[0x14];
-    Pool b[2];
+    Pool_2061e0 a[0x14];
+    Pool_2061e0 b[2];
     void Dtor() throw();
 };
-void Target::Dtor() throw() {
+void Target_2061e0::Dtor() throw() {
     vf = vWSM;
-    Pool* p = b + 2;
+    Pool_2061e0* p = b + 2;
     for (int i = 2; i; --i) {
         --p;
         p->Fini();

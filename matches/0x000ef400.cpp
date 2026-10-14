@@ -1,36 +1,36 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
+extern void* g_vftable_ef400[];
 extern void* g_vftable2[];
-class Ref {
+class Ref_ef400 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Del {
+class Del_ef400 {
   public:
     virtual void D(int);
 };
-class Base {
+class Base_ef400 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_ef400 : public Base_ef400 {
   public:
     char p[0x98c];
-    Ref* m990;
-    Ref* a[4];
-    Ref* b[4];
-    Ref* c[4];
-    Ref* d[6];
+    Ref_ef400* m990;
+    Ref_ef400* a[4];
+    Ref_ef400* b[4];
+    Ref_ef400* c[4];
+    Ref_ef400* d[6];
     void* hvptr;
     char pad[4];
-    Del* e[32];
-    ~Obj() throw();
+    Del_ef400* e[32];
+    ~Obj_ef400() throw();
 };
-Obj::~Obj() throw() {
-    *(void* volatile*)&vptr = g_vftable;
-    Ref* t = *(Ref* volatile*)&m990;
+Obj_ef400::~Obj_ef400() throw() {
+    *(void* volatile*)&vptr = g_vftable_ef400;
+    Ref_ef400* t = *(Ref_ef400* volatile*)&m990;
     if (t) {
         t->Release();
         m990 = 0;

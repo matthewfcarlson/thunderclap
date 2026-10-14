@@ -6,14 +6,14 @@ class ParticleController {
     virtual int vfunc_3();
     virtual int vfunc_4();
 };
-class Other {
+class Other_2a7540 {
   public:
     int helper(ParticleController*);
 };
 extern "C" void* __cdecl allocate(int);
 int ParticleController::vfunc_4() {
     ParticleController* self = this;
-    Other* p = (Other*)allocate(0x60);
+    Other_2a7540* p = (Other_2a7540*)allocate(0x60);
     if (p)
         return p->helper(self);
     return 0;

@@ -1,6 +1,6 @@
-typedef unsigned int u32;
-struct Receiver {
-    void f(u32);
+typedef unsigned int u32_2928e0;
+struct Receiver_2928e0 {
+    void f(u32_2928e0);
 };
 struct Camera {
     virtual void a0();
@@ -15,12 +15,12 @@ struct Camera {
     virtual void a9();
     virtual void a10();
     virtual void a11(void*, void*);
-    virtual void vfunc_12(void*, Receiver*);
+    virtual void vfunc_12(void*, Receiver_2928e0*);
     virtual void a13();
-    virtual u32 a14();
+    virtual u32_2928e0 a14();
 };
-void Camera::vfunc_12(void* p2, Receiver* p3) {
+void Camera::vfunc_12(void* p2, Receiver_2928e0* p3) {
     a11(p2, p3);
-    u32 x = a14();
+    u32_2928e0 x = a14();
     p3->f(x);
 }

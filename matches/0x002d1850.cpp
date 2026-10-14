@@ -1,5 +1,5 @@
 extern const float factor;
-struct Obj {
+struct Obj_2d1850 {
     float pos[3];
     char a[0x14];
     float vel[3];
@@ -7,13 +7,13 @@ struct Obj {
     float x;
     short s;
 };
-struct Ctx {
+struct Ctx_2d1850 {
     char a[0x1a4];
     float scale;
     char b[4];
     float gravity;
 };
-void step(float dt, Ctx* c, Obj* o) {
+void step(float dt, Ctx_2d1850* c, Obj_2d1850* o) {
     float g = c->gravity;
     o->x += (float)o->s * c->scale * factor * dt;
     o->pos[0] += g * o->vel[0] * dt;

@@ -1,4 +1,4 @@
-struct Y {
+struct Y_d7ec0 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -45,16 +45,16 @@ struct Y {
     virtual void f43();
     virtual void f44();
 };
-struct X {
+struct X_d7ec0 {
     char p[0x21c];
     int field;
     char q[0x190];
     unsigned char flag;
-    Y* getY();
+    Y_d7ec0* getY();
     void target(int);
 };
-void X::target(int arg) {
-    Y* y = getY();
+void X_d7ec0::target(int arg) {
+    Y_d7ec0* y = getY();
     y->f44();
     flag = 1;
     field = 0;

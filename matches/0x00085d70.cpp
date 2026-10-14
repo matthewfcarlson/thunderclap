@@ -1,12 +1,12 @@
-class Obj {
+class Obj_85d70 {
   public:
     virtual void f();
     virtual void g();
 };
-extern Obj* globalObj;
+extern Obj_85d70* globalObj_85d70;
 void target() {
-    if (globalObj) {
-        globalObj->g();
-        globalObj = 0;
+    if (globalObj_85d70) {
+        globalObj_85d70->g();
+        globalObj_85d70 = 0;
     }
 }

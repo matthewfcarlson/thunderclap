@@ -1,5 +1,5 @@
 extern "C" char DAT_0042a600[];
-struct Sub {
+struct Sub_256c80 {
     void Init();
 };
 class SeqTrack {
@@ -11,7 +11,7 @@ int __cdecl GetTrack(SeqTrack*);
 void __cdecl Cleanup(int);
 SeqTrack* SeqTrack::Build(unsigned char flags) {
     *(int*)this = ((int)DAT_0042a600);
-    ((Sub*)((char*)this + 0x1c))->Init();
+    ((Sub_256c80*)((char*)this + 0x1c))->Init();
     if (flags & 1)
         Cleanup(GetTrack(this));
     return this;

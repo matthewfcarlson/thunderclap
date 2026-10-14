@@ -1,6 +1,6 @@
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b99c[];
-struct Sub {
+struct Sub_2737f0 {
     virtual void f();
     virtual void g();
 };
@@ -8,16 +8,16 @@ struct V {
     virtual void f();
     virtual void g();
 };
-struct Inner {
+struct Inner_2737f0 {
     void* v;
-    Sub sub;
+    Sub_2737f0 sub;
     char pad[16];
     int ref;
 };
 struct Request {
     void* v;
     char pad[4];
-    Inner* p;
+    Inner_2737f0* p;
     void run();
 };
 void Request::run() {

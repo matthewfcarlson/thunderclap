@@ -1,4 +1,4 @@
-class Thing {
+class Thing_265ad0 {
   public:
     char pad0[8];
     int field8;
@@ -6,7 +6,7 @@ class Thing {
     unsigned int a, b, c, d;
     void step();
 };
-void __fastcall target(Thing* self) {
+void __fastcall target(Thing_265ad0* self) {
     for (;;) {
         unsigned int x = self->a, y = self->b;
         int n;

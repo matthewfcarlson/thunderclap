@@ -1,4 +1,4 @@
-class Obj {
+class Obj_14c490 {
   public:
     virtual void V0();
     virtual void V1();
@@ -6,7 +6,7 @@ class Obj {
     int mField;
     char Set(int x);
 };
-char Obj::Set(int x) {
+char Obj_14c490::Set(int x) {
     mField = x;
     return 1;
 }

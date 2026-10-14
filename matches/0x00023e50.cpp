@@ -1,11 +1,11 @@
-struct Sub {
+struct Sub_23e50 {
     void* Run();
 };
-struct Obj {
+struct Obj_23e50 {
     char pad[0x80];
-    Sub sub;
+    Sub_23e50 sub;
     void* Target();
 };
-void* Obj::Target() {
+void* Obj_23e50::Target() {
     return sub.Run();
 }

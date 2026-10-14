@@ -1,14 +1,14 @@
-struct A {
-    A* get();
+struct A_135ba0 {
+    A_135ba0* get();
     void init();
     int check();
 };
-struct Result {
+struct Result_135ba0 {
     void apply(int, int);
 };
 struct FlyingAttackAction {
     char pad[0x1c];
-    A* mAt20;
+    A_135ba0* mAt20;
     int mAt24;
     virtual void v0();
     virtual void v1();
@@ -19,10 +19,10 @@ struct FlyingAttackAction {
     void mid();
 };
 void FlyingAttackAction::vfunc4() {
-    A* edi = mAt20->get();
+    A_135ba0* edi = mAt20->get();
     edi->init();
     mid();
     int result = edi->check();
     if (result)
-        ((Result*)result)->apply(mAt24, 0);
+        ((Result_135ba0*)result)->apply(mAt24, 0);
 }

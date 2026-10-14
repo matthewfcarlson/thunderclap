@@ -14,10 +14,10 @@ class Node : public Branch {
   public:
     void vfunc_5();
 };
-struct Helper {
+struct Helper_23c350 {
     void run(Node*);
 };
 void Node::vfunc_5() {
     Branch::vfunc_5();
-    ((Helper*)((char*)this + 0x28))->run(this);
+    ((Helper_23c350*)((char*)this + 0x28))->run(this);
 }

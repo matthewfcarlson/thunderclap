@@ -1,5 +1,5 @@
 extern "C" char DAT_0043217c[];
-class Helper {
+class Helper_3122a0 {
   public:
     void Init();
 };
@@ -41,7 +41,7 @@ extern "C" void* __cdecl alloc(unsigned int);
 ArticulatedPhysicsObject* ArticulatedPhysicsObject::f28(unsigned int a) {
     void* p = alloc(0x238);
     if (p) {
-        ((Helper*)p)->Init();
+        ((Helper_3122a0*)p)->Init();
         *(unsigned int*)p = ((int)DAT_0043217c);
         *(unsigned int*)((char*)p + 0x1fc) = 0;
         *(unsigned int*)((char*)p + 0x24) = 1;

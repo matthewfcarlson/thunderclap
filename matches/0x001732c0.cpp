@@ -1,25 +1,25 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
+extern void* g_vftable_1732c0[];
 void operator delete(void*);
-class Mem {
+class Mem_1732c0 {
   public:
-    ~Mem();
+    ~Mem_1732c0();
 };
-class Base {
+class Base_1732c0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_1732c0 : public Base_1732c0 {
   public:
     char pad[20];
-    Mem m;
-    Obj* f2(unsigned char flags);
+    Mem_1732c0 m;
+    Obj_1732c0* f2(unsigned char flags);
 };
-Obj* Obj::f2(unsigned char flags) {
-    vptr = g_vftable;
+Obj_1732c0* Obj_1732c0::f2(unsigned char flags) {
+    vptr = g_vftable_1732c0;
 
-    m.~Mem();
+    m.~Mem_1732c0();
     Fin();
     if (flags & 1)
         operator delete(this);

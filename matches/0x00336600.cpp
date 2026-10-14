@@ -1,14 +1,14 @@
-typedef unsigned int U;
-struct Inner {
-    U call(U, U, U, U);
+typedef unsigned int U_336600;
+struct Inner_336600 {
+    U_336600 call(U_336600, U_336600, U_336600, U_336600);
 };
-struct Obj {
+struct Obj_336600 {
     int pad;
-    Inner* p;
-    U second(U);
-    void target(U, U, U, U);
+    Inner_336600* p;
+    U_336600 second(U_336600);
+    void target(U_336600, U_336600, U_336600, U_336600);
 };
-void Obj::target(U a, U b, U c, U d) {
-    U x = p->call(a, b, c, d);
+void Obj_336600::target(U_336600 a, U_336600 b, U_336600 c, U_336600 d) {
+    U_336600 x = p->call(a, b, c, d);
     second(x);
 }

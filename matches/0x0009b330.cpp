@@ -2,7 +2,7 @@ extern "C" char DAT_00404d00[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e128[];
 extern "C" char DAT_0048e134[];
-class Helper {
+class Helper_9b330 {
   public:
     void Init(int, int);
 };
@@ -17,7 +17,7 @@ class CCameraManager {
     CCameraManager* Fn(int, int);
 };
 CCameraManager* CCameraManager::Fn(int a, int b) {
-    ((Helper*)this)->Init(a, 4);
+    ((Helper_9b330*)this)->Init(a, 4);
     vtable = ((int)DAT_00404d00);
     m1c = b;
     b18 = FUN_001d04d0(((int)DAT_0048e100));

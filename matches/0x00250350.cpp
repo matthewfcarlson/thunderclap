@@ -1,4 +1,4 @@
-class Elem {
+class Elem_250350 {
   public:
     void Init();
 };
@@ -11,7 +11,7 @@ class SeqEvent {
     virtual void f4();
     virtual void f5();
     char pad[4];
-    Elem sub;
+    Elem_250350 sub;
 };
 class SeqEventWait : public SeqEvent {
   public:

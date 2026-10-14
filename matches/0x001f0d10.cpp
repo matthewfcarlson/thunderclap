@@ -1,16 +1,16 @@
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e128[];
 extern "C" char DAT_0049cad8[];
-class Base {
+class Base_1f0d10 {
   public:
-    Base(void* a, int n);
+    Base_1f0d10(void* a, int n);
     virtual void f0();
     char pad[12];
 };
 
-class Derived : public Base {
+class Derived_1f0d10 : public Base_1f0d10 {
   public:
-    Derived(void* a, int b);
+    Derived_1f0d10(void* a, int b);
     char m10, m11, m12, m13;
     int pad14;
     char m18;
@@ -20,7 +20,7 @@ class Derived : public Base {
 
 extern "C" char __cdecl Lookup(const char* s);
 
-Derived::Derived(void* a, int b) : Base(a, 4) {
+Derived_1f0d10::Derived_1f0d10(void* a, int b) : Base_1f0d10(a, 4) {
     m1c = b;
     m18 = Lookup((const char*)((int)DAT_0048e100));
     m10 = Lookup((const char*)((int)DAT_0049cad8));

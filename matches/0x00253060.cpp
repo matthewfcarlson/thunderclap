@@ -16,7 +16,7 @@ class SeqActionVarPosDist : public SeqAction {
     int c;
     void vfunc_1(void*);
 };
-struct Obj {
+struct Obj_253060 {
     char pad[0x38];
     int value;
 };

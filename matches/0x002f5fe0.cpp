@@ -1,11 +1,11 @@
-struct Manager {
+struct Manager_2f5fe0 {
     void Read(float*, int, int, int);
 };
-struct Owner {
+struct Owner_2f5fe0 {
     char pad[0x284];
-    Manager* mgr;
+    Manager_2f5fe0* mgr;
 };
-void __cdecl Target(Owner* owner, float* dst) {
+void __cdecl Target(Owner_2f5fe0* owner, float* dst) {
     float value;
     owner->mgr->Read(&value, 1, 4, 1);
     dst[1] = value;

@@ -1,12 +1,12 @@
-class A {
+class A_1710a0 {
   public:
     void* f();
 };
-class B {
+class B_1710a0 {
   public:
     void* g();
 };
-class C {
+class C_1710a0 {
   public:
     void h(int);
 };
@@ -20,13 +20,13 @@ class MotionStateAction {
     virtual bool vfunc_5(int, int);
     char pad[0x18];
     void* mOne;
-    A* mTwo;
+    A_1710a0* mTwo;
 };
 bool MotionStateAction::vfunc_5(int param_2, int unused) {
     if (param_2 == 0) {
         void* a = mTwo->f();
-        void* b = ((B*)a)->g();
-        ((C*)b)->h(*(int*)((char*)mOne + 0x14));
+        void* b = ((B_1710a0*)a)->g();
+        ((C_1710a0*)b)->h(*(int*)((char*)mOne + 0x14));
     }
     return true;
 }

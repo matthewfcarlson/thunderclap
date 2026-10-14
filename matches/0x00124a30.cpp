@@ -19,22 +19,22 @@ class TargetFirstShotCondition : public Condition, public Param {
     virtual void vfunc_5();
     virtual unsigned char vfunc_6(void*, void*, void*);
 };
-extern int RTTI_Params;
-extern int RTTI_CFightParams;
+extern int RTTI_Params_124a30;
+extern int RTTI_CFightParams_124a30;
 extern int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-struct Actor {
+struct Actor_124a30 {
     char pad[0x1b74];
     unsigned char flag;
 };
-struct Obj {
-    Actor* FUN_000592a0();
+struct Obj_124a30 {
+    Actor_124a30* FUN_000592a0();
 };
 struct ActorRef {
     int FUN_00059a30();
 };
 unsigned char TargetFirstShotCondition::vfunc_6(void* a, void* b, void* c) {
-    if (FUN_00344e74(b, 0, &RTTI_Params, &RTTI_CFightParams, 0)) {
-        Actor* p = ((Obj*)b)->FUN_000592a0();
+    if (FUN_00344e74(b, 0, &RTTI_Params_124a30, &RTTI_CFightParams_124a30, 0)) {
+        Actor_124a30* p = ((Obj_124a30*)b)->FUN_000592a0();
         int x = ((ActorRef*)p)->FUN_00059a30();
         if (x) {
             unsigned char old = *(unsigned char*)(x + 0x1b74);

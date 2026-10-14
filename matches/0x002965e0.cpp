@@ -1,5 +1,5 @@
 typedef unsigned int uint;
-class Child {
+class Child_2965e0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -36,7 +36,7 @@ class BranchNode {
     unsigned char flags;
     char pad14[7];
     uint count;
-    Child** children;
+    Child_2965e0** children;
 };
 bool BranchNode::vfunc_7() {
     if ((flags & 1) == 0) {

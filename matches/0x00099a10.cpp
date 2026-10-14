@@ -1,4 +1,4 @@
-class Obj {
+class Obj_99a10 {
   public:
     char pad[0xc4];
     class Sub {
@@ -15,6 +15,6 @@ class Obj {
     void Fn();
 };
 
-void Obj::Fn() {
+void Obj_99a10::Fn() {
     m->a7();
 }

@@ -1,11 +1,11 @@
-extern void* g_vftable[];
+extern void* g_vftable_dc600[];
 void Free(void*) throw();
-class Base {
+class Base_dc600 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_dc600 : public Base_dc600 {
   public:
     char p[0x14c];
     int n;
@@ -16,10 +16,10 @@ class Obj : public Base {
     void** a;
     void** b;
     void* m16c;
-    ~Obj() throw();
+    ~Obj_dc600() throw();
 };
-Obj::~Obj() throw() {
-    vptr = g_vftable;
+Obj_dc600::~Obj_dc600() throw() {
+    vptr = g_vftable_dc600;
     if (m158) {
         Free(m158);
         m158 = 0;

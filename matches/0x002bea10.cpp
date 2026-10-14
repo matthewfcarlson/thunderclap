@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2bea10 {
   public:
     virtual void f0();
     virtual void f1();
@@ -13,7 +13,7 @@ class Sprite {
     virtual void a5();
     virtual void a6();
     virtual void a7();
-    virtual void vfunc_8(Obj*);
+    virtual void vfunc_8(Obj_2bea10*);
     virtual void a9();
     virtual void a10();
     virtual void a11();
@@ -21,9 +21,9 @@ class Sprite {
     char pad[0x0c];
     int flag;
     char pad2[0x38];
-    Obj* member;
+    Obj_2bea10* member;
 };
-void Sprite::vfunc_8(Obj* p) {
+void Sprite::vfunc_8(Obj_2bea10* p) {
     if (p)
         p->f0();
     if (member)

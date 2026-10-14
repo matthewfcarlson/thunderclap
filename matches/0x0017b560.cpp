@@ -1,6 +1,6 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
-class Ref {
+extern void* g_vftable_17b560[];
+class Ref_17b560 {
   public:
     void* vptr;
     virtual void f0();
@@ -11,18 +11,18 @@ class FootPivotAction {
     void* vptr;
     char p[0x18];
     int m1c;
-    Ref* m20;
+    Ref_17b560* m20;
     char p24[4];
-    Ref* m28;
+    Ref_17b560* m28;
     FootPivotAction* f2(unsigned char);
 };
-class Helper {
+class Helper_17b560 {
   public:
     void Fn();
 };
 extern void __cdecl thunk_FUN_00267090(FootPivotAction*);
 FootPivotAction* FootPivotAction::f2(unsigned char flags) {
-    *(void**)this = &g_vftable;
+    *(void**)this = &g_vftable_17b560;
     _ReadWriteBarrier();
     if (m28) {
         m28->f1();
@@ -34,7 +34,7 @@ FootPivotAction* FootPivotAction::f2(unsigned char flags) {
     }
     if (m1c)
         m1c = 0;
-    ((Helper*)this)->Fn();
+    ((Helper_17b560*)this)->Fn();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;

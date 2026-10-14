@@ -1,4 +1,4 @@
-struct Obj {
+struct Obj_e1590 {
     virtual void a0();
     virtual void a1();
     virtual void a2();
@@ -27,12 +27,12 @@ struct FEAnimation {
 struct FEPoseAnimation : FEAnimation {
     virtual float vfunc_5();
 };
-extern volatile float g;
+extern volatile float g_e1590;
 float FEPoseAnimation::vfunc_5() {
     char* base = (char*)this;
-    Obj* p = *(Obj**)(base + 0x0c);
-    Obj* m = *(Obj**)((char*)p + 0x4c);
-    float r = g;
+    Obj_e1590* p = *(Obj_e1590**)(base + 0x0c);
+    Obj_e1590* m = *(Obj_e1590**)((char*)p + 0x4c);
+    float r = g_e1590;
     if (m)
         return m->f();
     return r;

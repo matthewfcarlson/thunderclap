@@ -1,4 +1,4 @@
-typedef unsigned int u32;
+typedef unsigned int u32_2505b0;
 namespace audio {
 struct SeqAction {
     virtual void f0();
@@ -11,19 +11,19 @@ struct SeqAction {
     char pad[4];
 };
 struct SeqActionWaitBeat : SeqAction {
-    u32 m8;
-    u32 mc;
-    u32 m10;
-    u32 m14;
+    u32_2505b0 m8;
+    u32_2505b0 mc;
+    u32_2505b0 m10;
+    u32_2505b0 m14;
     void vfunc_2(void*, int);
 };
 } // namespace audio
-extern "C" void* __cdecl FUN_0024a390(u32, void*);
+extern "C" void* __cdecl FUN_0024a390(u32_2505b0, void*);
 void audio::SeqActionWaitBeat::vfunc_2(void* param, int unused) {
-    u32 value = *(u32*)((char*)param + 0x3c);
+    u32_2505b0 value = *(u32_2505b0*)((char*)param + 0x3c);
     void* result = FUN_0024a390(value, (char*)m8 + 0x10);
-    m14 = (u32)result;
+    m14 = (u32_2505b0)result;
     if (result)
-        m10 = *(u32*)((char*)result + 0x2c);
+        m10 = *(u32_2505b0*)((char*)result + 0x2c);
     mc = 2;
 }

@@ -1,4 +1,4 @@
-class GlobalThing {
+class GlobalThing_fc340 {
   public:
     virtual void v0();
     virtual void v1();
@@ -28,7 +28,7 @@ class GlobalThing {
     virtual void v25();
     virtual void v26(int);
 };
-extern GlobalThing* gThing;
+extern GlobalThing_fc340* gThing_fc340;
 void wrapper(int a) {
-    gThing->v26(a);
+    gThing_fc340->v26(a);
 }

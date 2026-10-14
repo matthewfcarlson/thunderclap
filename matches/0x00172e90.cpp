@@ -1,5 +1,5 @@
 extern "C" char DAT_00417988[];
-class Sub {
+class Sub_172e90 {
   public:
     void run();
     char pad[8];
@@ -18,7 +18,7 @@ class SyncToLocatorTrack {
     virtual void v9();
     virtual void v10();
     char pad[0x1c];
-    Sub sub;
+    Sub_172e90 sub;
     void* mThing;
     void step();
 };

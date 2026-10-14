@@ -1,11 +1,11 @@
 extern "C" int __cdecl allocate(void*, unsigned int);
-struct X {
+struct X_334910 {
     int finish();
 };
-extern "C" int g_value;
+extern "C" int g_value_334910;
 int __cdecl target(void* p) {
-    g_value = (int)p;
-    X* x = (X*)allocate(p, 0x4c);
+    g_value_334910 = (int)p;
+    X_334910* x = (X_334910*)allocate(p, 0x4c);
     if (x)
         return x->finish();
     return 0;

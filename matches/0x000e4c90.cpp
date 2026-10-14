@@ -1,4 +1,4 @@
-class Obj {
+class Obj_e4c90 {
   public:
     virtual void f0();
     virtual void f1();
@@ -60,7 +60,7 @@ class FEContainer {
     virtual void v51();
     virtual void v52();
     char pad[0x24c - sizeof(void*)];
-    Obj* items[0x80];
+    Obj_e4c90* items[0x80];
 };
 void FEContainer::vfunc_11() {
     for (int i = 0; i < 0x80; ++i) {

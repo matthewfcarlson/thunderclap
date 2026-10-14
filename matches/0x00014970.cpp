@@ -3,11 +3,11 @@ class H1 {
   public:
     void* f1();
 };
-class H2 {
+class H2_14970 {
   public:
     void* f2();
 };
-class H3 {
+class H3_14970 {
   public:
     bool f3(void*);
 };
@@ -31,11 +31,11 @@ class CProceduralDurationAnimationAction {
 
 bool CProceduralDurationAnimationAction::vfunc_8(int) {
     void* x = ((H1*)mAt1c)->f1();
-    void* y = ((H2*)x)->f2();
+    void* y = ((H2_14970*)x)->f2();
     bool r;
     if (y == 0)
         r = true;
     else
-        r = ((H3*)y)->f3(mAt24);
+        r = ((H3_14970*)y)->f3(mAt24);
     return !r;
 }

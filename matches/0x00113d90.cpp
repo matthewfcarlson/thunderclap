@@ -11,11 +11,11 @@ class Condition {
     virtual void f();
     char pad[0x14];
 };
-class Base {
+class Base_113d90 {
   public:
     void Init(int);
 };
-class Factory {
+class Factory_113d90 {
   public:
     virtual void a();
     virtual void b();
@@ -24,10 +24,10 @@ class Factory {
     virtual void e();
     virtual Condition* Create();
 };
-Condition* Factory::Create() {
+Condition* Factory_113d90::Create() {
     Condition* p = (Condition*)operator_new(0x18);
     if (p) {
-        ((Base*)p)->Init(0);
+        ((Base_113d90*)p)->Init(0);
         *(uint*)p = ((int)DAT_0040d984);
         *(uint*)((char*)p + 0xc) = 0;
         *((char*)p + 0x10) = 0;

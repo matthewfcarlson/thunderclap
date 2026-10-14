@@ -1,4 +1,4 @@
-extern void* g_vftable[];
+extern void* g_vftable_194490[];
 void operator delete(void*);
 void operator delete[](void*);
 struct T1 {
@@ -7,12 +7,12 @@ struct T1 {
 struct T2 {
     void Fini();
 };
-class Base {
+class Base_194490 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_194490 : public Base_194490 {
   public:
     char pad10[0xc];
     T1 m10;
@@ -34,10 +34,10 @@ class Obj : public Base {
     T2 m100;
     char pad128[0x27];
     T1 m128;
-    ~Obj() throw();
+    ~Obj_194490() throw();
 };
-Obj::~Obj() throw() {
-    vptr = g_vftable;
+Obj_194490::~Obj_194490() throw() {
+    vptr = g_vftable_194490;
     operator delete[](mdc);
     m128.Fini();
     m100.Fini();

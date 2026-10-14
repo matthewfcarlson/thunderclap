@@ -1,8 +1,8 @@
-class Sub {
+class Sub_3199d0 {
   public:
     virtual void Fn(float a, float b, float c);
 };
-class K {
+class K_3199d0 {
   public:
     virtual bool Init(float a, float b, float c);
     int pad4;
@@ -11,11 +11,11 @@ class K {
     float m10;
     float m14;
     float m18;
-    Sub sub;
+    Sub_3199d0 sub;
     char p20[0x18];
     float m38;
 };
-bool K::Init(float a, float b, float c) {
+bool K_3199d0::Init(float a, float b, float c) {
     m18 = a;
     m10 = b * b;
     float v = c * c;

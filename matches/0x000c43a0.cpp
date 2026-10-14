@@ -1,30 +1,30 @@
 extern void* v0[];
-extern void* v1[];
-extern void* v2[];
+extern void* v1_c43a0[];
+extern void* v2_c43a0[];
 extern void* gV[];
 void* operator new(unsigned int);
 
-struct H0 {
+struct H0_c43a0 {
     void* vptr;
     void* self;
     void* fn;
-    H0(void* s, void* f) : vptr(v0), self(s), fn(f) {}
+    H0_c43a0(void* s, void* f) : vptr(v0), self(s), fn(f) {}
 };
 struct H1 {
     void* vptr;
     void* self;
     void* fn;
-    H1(void* s, void* f) : vptr(v1), self(s), fn(f) {}
+    H1(void* s, void* f) : vptr(v1_c43a0), self(s), fn(f) {}
 };
-struct H2 {
+struct H2_c43a0 {
     void* vptr;
     void* self;
     void* fn;
-    H2(void* s, void* f) : vptr(v2), self(s), fn(f) {}
+    H2_c43a0(void* s, void* f) : vptr(v2_c43a0), self(s), fn(f) {}
 };
-void R1e0(const char*, H0*);
+void R1e0(const char*, H0_c43a0*);
 void R220(const char*, H1*);
-void R200(const char*, H2*);
+void R200(const char*, H2_c43a0*);
 void Mb45e0();
 void Mb45f0();
 void Mb4610();
@@ -87,76 +87,76 @@ void Mc2b90();
 void Mc3e50();
 void Mc3e70();
 void Mc4000();
-class Obj {
+class Obj_c43a0 {
   public:
     void* vptr;
     void* m4;
-    Obj* ctor(void* arg);
+    Obj_c43a0* ctor(void* arg);
 };
-Obj* Obj::ctor(void* arg) {
+Obj_c43a0* Obj_c43a0::ctor(void* arg) {
     vptr = gV;
     m4 = arg;
-    R1e0("Print", new H0(this, (void*)Mb45e0));
-    R1e0("SetDifficulty", new H0(this, (void*)Mbbb40));
-    R1e0("ResetDifficultySelectScreen", new H0(this, (void*)Mc04a0));
-    R1e0("ResetGame", new H0(this, (void*)Mc04c0));
-    R1e0("ReplayStoryMode", new H0(this, (void*)Mc04e0));
-    R1e0("StartGame", new H0(this, (void*)Mbecd0));
-    R1e0("StartNextMission", new H0(this, (void*)Mbef60));
-    R1e0("ReturnToNullMission", new H0(this, (void*)Mc0500));
-    R1e0("ExitSim", new H0(this, (void*)Mc0540));
-    R1e0("RestartSim", new H0(this, (void*)Mc0590));
-    R1e0("Continue", new H0(this, (void*)Mc05d0));
-    R1e0("SaveGame", new H0(this, (void*)Mbbb80));
-    R1e0("ChangeLocale", new H0(this, (void*)Mc1f00));
-    R1e0("JumpMarkerSelected", new H0(this, (void*)Mbbb90));
-    R1e0("JumpMarkerSelectionCancelled", new H0(this, (void*)Mbbbb0));
-    R1e0("ResetJumpMarkers", new H0(this, (void*)Mbbc00));
-    R1e0("AwardCheatersSmashPoints", new H0(this, (void*)Mbbc20));
+    R1e0("Print", new H0_c43a0(this, (void*)Mb45e0));
+    R1e0("SetDifficulty", new H0_c43a0(this, (void*)Mbbb40));
+    R1e0("ResetDifficultySelectScreen", new H0_c43a0(this, (void*)Mc04a0));
+    R1e0("ResetGame", new H0_c43a0(this, (void*)Mc04c0));
+    R1e0("ReplayStoryMode", new H0_c43a0(this, (void*)Mc04e0));
+    R1e0("StartGame", new H0_c43a0(this, (void*)Mbecd0));
+    R1e0("StartNextMission", new H0_c43a0(this, (void*)Mbef60));
+    R1e0("ReturnToNullMission", new H0_c43a0(this, (void*)Mc0500));
+    R1e0("ExitSim", new H0_c43a0(this, (void*)Mc0540));
+    R1e0("RestartSim", new H0_c43a0(this, (void*)Mc0590));
+    R1e0("Continue", new H0_c43a0(this, (void*)Mc05d0));
+    R1e0("SaveGame", new H0_c43a0(this, (void*)Mbbb80));
+    R1e0("ChangeLocale", new H0_c43a0(this, (void*)Mc1f00));
+    R1e0("JumpMarkerSelected", new H0_c43a0(this, (void*)Mbbb90));
+    R1e0("JumpMarkerSelectionCancelled", new H0_c43a0(this, (void*)Mbbbb0));
+    R1e0("ResetJumpMarkers", new H0_c43a0(this, (void*)Mbbc00));
+    R1e0("AwardCheatersSmashPoints", new H0_c43a0(this, (void*)Mbbc20));
     R220("VideoBrightnessChanged", new H1(this, (void*)Mbbc50));
-    R200("TargetingLockChanged", new H2(this, (void*)Mbbc90));
+    R200("TargetingLockChanged", new H2_c43a0(this, (void*)Mbbc90));
     R220("AudioDialogueVolumeChanged", new H1(this, (void*)Mbbcb0));
     R220("AudioMusicVolumeChanged", new H1(this, (void*)Mbbcd0));
     R220("AudioSoundEffectsVolumeChanged", new H1(this, (void*)Mbbcf0));
-    R200("AudioQualityChanged", new H2(this, (void*)Mbbd10));
-    R200("SubtitlesChanged", new H2(this, (void*)Mbbd30));
-    R200("ControlConfigVibrationChanged", new H2(this, (void*)Mbbd60));
-    R200("CameraInvertXChanged", new H2(this, (void*)Mbbd80));
-    R200("CameraInvertYChanged", new H2(this, (void*)Mbbda0));
-    R200("CheatGrayHulkChanged", new H2(this, (void*)Mbbdc0));
-    R200("CheatInvulnerabilityChanged", new H2(this, (void*)Mbbdf0));
-    R200("CheatAllMovesChanged", new H2(this, (void*)Mbbe20));
-    R200("MissionSelectedChanged", new H2(this, (void*)Mbbef0));
-    R1e0("DoSaveScreens", new H0(this, (void*)Mbbf00));
-    R1e0("DoUnlockable", new H0(this, (void*)Mc3e70));
-    R1e0("BackScreen", new H0(this, (void*)Mb45f0));
-    R1e0("SetUpMoveDescScreen", new H0(this, (void*)Mc3e50));
-    R1e0("UpdateStoryRecap", new H0(this, (void*)Mbc060));
-    R1e0("DoUnlockChapterMoves", new H0(this, (void*)Mc05f0));
-    R1e0("DoFECodeInput", new H0(this, (void*)Mc2b90));
-    R1e0("DoSimCodeInput", new H0(this, (void*)Mc0630));
-    R1e0("DoFullscreenAnswer", new H0(this, (void*)Mbbf20));
-    R1e0("UnlockAllBonus", new H0(this, (void*)Mc4000));
-    R1e0("ClearScreenHistory", new H0(this, (void*)Mb4610));
-    R1e0("StartFE", new H0(this, (void*)Mbc080));
-    R1e0("UpdateCheatsScreen", new H0(this, (void*)Mbc0b0));
-    R1e0("ApplyCheatsSettings", new H0(this, (void*)Mbc0d0));
-    R1e0("EnterBlonskyFile", new H0(this, (void*)Mbbeb0));
-    R1e0("UpdateControlButtonString", new H0(this, (void*)Mbef80));
-    R1e0("UpdateVibrationTextControl", new H0(this, (void*)Mbbed0));
-    R1e0("UpdateSimAudioWidgets", new H0(this, (void*)Mbc0a0));
-    R1e0("InitMUCheck", new H0(this, (void*)Mbc0f0));
-    R1e0("TriggerAnimationSound", new H0(this, (void*)Mbbe50));
-    R1e0("DialogSelectionChanged", new H0(this, (void*)Mbbe90));
-    R200("BlonskyFileSelectedChanged", new H2(this, (void*)Mbbf60));
-    R1e0("ResetDecryptingSequence", new H0(this, (void*)Mc1f30));
-    R1e0("PlayBlonskyFileDialogue", new H0(this, (void*)Mbbf70));
-    R1e0("UpdateMissionBriefingScreen", new H0(this, (void*)Mbbfa0));
-    R1e0("UpdateMissionObjectivesScreen", new H0(this, (void*)Mbc010));
-    R1e0("UpdateHintScreen", new H0(this, (void*)Mbbfd0));
-    R1e0("UpdateSmartHintScreen", new H0(this, (void*)Mbbff0));
-    R200("BuyableMoveSelectedChanged", new H2(this, (void*)Mbc030));
-    R200("EnabledMoveSelectedChanged", new H2(this, (void*)Mbc040));
-    R200("JumpMarkerSelectedChanged", new H2(this, (void*)Mbc050));
+    R200("AudioQualityChanged", new H2_c43a0(this, (void*)Mbbd10));
+    R200("SubtitlesChanged", new H2_c43a0(this, (void*)Mbbd30));
+    R200("ControlConfigVibrationChanged", new H2_c43a0(this, (void*)Mbbd60));
+    R200("CameraInvertXChanged", new H2_c43a0(this, (void*)Mbbd80));
+    R200("CameraInvertYChanged", new H2_c43a0(this, (void*)Mbbda0));
+    R200("CheatGrayHulkChanged", new H2_c43a0(this, (void*)Mbbdc0));
+    R200("CheatInvulnerabilityChanged", new H2_c43a0(this, (void*)Mbbdf0));
+    R200("CheatAllMovesChanged", new H2_c43a0(this, (void*)Mbbe20));
+    R200("MissionSelectedChanged", new H2_c43a0(this, (void*)Mbbef0));
+    R1e0("DoSaveScreens", new H0_c43a0(this, (void*)Mbbf00));
+    R1e0("DoUnlockable", new H0_c43a0(this, (void*)Mc3e70));
+    R1e0("BackScreen", new H0_c43a0(this, (void*)Mb45f0));
+    R1e0("SetUpMoveDescScreen", new H0_c43a0(this, (void*)Mc3e50));
+    R1e0("UpdateStoryRecap", new H0_c43a0(this, (void*)Mbc060));
+    R1e0("DoUnlockChapterMoves", new H0_c43a0(this, (void*)Mc05f0));
+    R1e0("DoFECodeInput", new H0_c43a0(this, (void*)Mc2b90));
+    R1e0("DoSimCodeInput", new H0_c43a0(this, (void*)Mc0630));
+    R1e0("DoFullscreenAnswer", new H0_c43a0(this, (void*)Mbbf20));
+    R1e0("UnlockAllBonus", new H0_c43a0(this, (void*)Mc4000));
+    R1e0("ClearScreenHistory", new H0_c43a0(this, (void*)Mb4610));
+    R1e0("StartFE", new H0_c43a0(this, (void*)Mbc080));
+    R1e0("UpdateCheatsScreen", new H0_c43a0(this, (void*)Mbc0b0));
+    R1e0("ApplyCheatsSettings", new H0_c43a0(this, (void*)Mbc0d0));
+    R1e0("EnterBlonskyFile", new H0_c43a0(this, (void*)Mbbeb0));
+    R1e0("UpdateControlButtonString", new H0_c43a0(this, (void*)Mbef80));
+    R1e0("UpdateVibrationTextControl", new H0_c43a0(this, (void*)Mbbed0));
+    R1e0("UpdateSimAudioWidgets", new H0_c43a0(this, (void*)Mbc0a0));
+    R1e0("InitMUCheck", new H0_c43a0(this, (void*)Mbc0f0));
+    R1e0("TriggerAnimationSound", new H0_c43a0(this, (void*)Mbbe50));
+    R1e0("DialogSelectionChanged", new H0_c43a0(this, (void*)Mbbe90));
+    R200("BlonskyFileSelectedChanged", new H2_c43a0(this, (void*)Mbbf60));
+    R1e0("ResetDecryptingSequence", new H0_c43a0(this, (void*)Mc1f30));
+    R1e0("PlayBlonskyFileDialogue", new H0_c43a0(this, (void*)Mbbf70));
+    R1e0("UpdateMissionBriefingScreen", new H0_c43a0(this, (void*)Mbbfa0));
+    R1e0("UpdateMissionObjectivesScreen", new H0_c43a0(this, (void*)Mbc010));
+    R1e0("UpdateHintScreen", new H0_c43a0(this, (void*)Mbbfd0));
+    R1e0("UpdateSmartHintScreen", new H0_c43a0(this, (void*)Mbbff0));
+    R200("BuyableMoveSelectedChanged", new H2_c43a0(this, (void*)Mbc030));
+    R200("EnabledMoveSelectedChanged", new H2_c43a0(this, (void*)Mbc040));
+    R200("JumpMarkerSelectedChanged", new H2_c43a0(this, (void*)Mbc050));
     return this;
 }

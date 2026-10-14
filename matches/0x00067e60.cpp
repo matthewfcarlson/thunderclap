@@ -2,13 +2,13 @@ struct Inner {
     int x[6];
     Inner();
 };
-struct Obj {
+struct Obj_67e60 {
     int v[5];
     int pad;
     Inner inner;
-    Obj* Copy(const Obj*);
+    Obj_67e60* Copy(const Obj_67e60*);
 };
-Obj* Obj::Copy(const Obj* src) {
+Obj_67e60* Obj_67e60::Copy(const Obj_67e60* src) {
     inner.Inner::Inner();
     v[0] = src->v[0];
     v[1] = src->v[1];

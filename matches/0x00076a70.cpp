@@ -1,5 +1,5 @@
 extern "C" char DAT_003fe8d8[];
-typedef unsigned int u32;
+typedef unsigned int u32_76a70;
 void* operator_new(unsigned int);
 struct Track {
     void Init();
@@ -17,7 +17,7 @@ Track* TrackFactoryTemplate::Create() {
     Track* p = (Track*)operator_new(0x54);
     if (p != 0) {
         p->Init();
-        *(u32*)p = ((int)DAT_003fe8d8);
+        *(u32_76a70*)p = ((int)DAT_003fe8d8);
         return p;
     }
     return 0;

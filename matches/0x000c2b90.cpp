@@ -1,25 +1,25 @@
-struct Obj {
+struct Obj_c2b90 {
     char pad[0x158];
     int mVal;
 };
-struct Target {
+struct Target_c2b90 {
     void A(int, int);
     void B();
     void C();
     void D(int);
 };
-struct Holder {
+struct Holder_c2b90 {
     int pad;
-    Target* mT;
+    Target_c2b90* mT;
     int Handle(int, int*);
 };
-extern char t1[], t2[];
+extern char t1_c2b90[], t2[];
 void* Cast(int);
-Obj* Conv(void*, int, char*, char*, int);
-int Holder::Handle(int a, int* p) {
+Obj_c2b90* Conv(void*, int, char*, char*, int);
+int Holder_c2b90::Handle(int a, int* p) {
     if (mT && a == 1) {
         int x = *p;
-        Obj* o = Conv(Cast(x), 0, t1, t2, 0);
+        Obj_c2b90* o = Conv(Cast(x), 0, t1_c2b90, t2, 0);
         if (o) {
             int v = o->mVal;
             mT->A(v, 0);

@@ -1,19 +1,19 @@
 extern "C" void* memset(void*, int, unsigned int);
-struct Elem {
+struct Elem_1e11d0 {
     void Init(int);
 };
-struct Obj {
+struct Obj_1e11d0 {
     char pad[0x1ed68];
     void Dec();
     void Df();
     void Target();
 };
-void Obj::Target() {
+void Obj_1e11d0::Target() {
     memset((char*)this + 8, 0, 0x600);
     char* s = (char*)this + 0x1ed68;
     int i;
     for (i = 0; i < 16; ++i) {
-        ((Elem*)(s - 8))->Init(0);
+        ((Elem_1e11d0*)(s - 8))->Init(0);
         *(int*)s = 0;
         *(int*)(s + 4) = 0;
         *(int*)(s + 8) = 0xff;
@@ -27,7 +27,7 @@ void Obj::Target() {
     int j, k;
     for (j = 0; j < 4; ++j)
         for (k = 0; k < 32; ++k) {
-            ((Elem*)t)->Init(0);
+            ((Elem_1e11d0*)t)->Init(0);
             t += 8;
         }
 }

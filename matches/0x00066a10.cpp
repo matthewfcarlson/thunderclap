@@ -1,4 +1,4 @@
-class Obj {
+class Obj_66a10 {
   public:
     char pad[0x390];
     int count;
@@ -9,7 +9,7 @@ class Obj {
     void Base();
     void Add(const int*);
 };
-void Obj::Add(const int* p) {
+void Obj_66a10::Add(const int* p) {
     Base();
     int i = count;
     if (i < 0x96) {

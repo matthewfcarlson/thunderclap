@@ -1,4 +1,4 @@
-struct Resource {
+struct Resource_98f50 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -28,20 +28,20 @@ struct Resource {
     virtual void slot26();
     virtual void slot27();
     virtual void slot28();
-    Resource* FUN_000a8400();
+    Resource_98f50* FUN_000a8400();
     void FUN_000a90f0(int index, unsigned value);
     void FUN_000a9130(int index, unsigned value);
     void FUN_000a9110(int index, unsigned value);
 };
 extern void* __cdecl thunk_FUN_0008d690(unsigned size);
-struct Owner {
+struct Owner_98f50 {
     char padding[0xb0];
-    Resource* resource;
+    Resource_98f50* resource;
     void initialize(unsigned a, unsigned b, unsigned c, unsigned d, unsigned e, unsigned f);
 };
-void Owner::initialize(unsigned a, unsigned b, unsigned c, unsigned d, unsigned e, unsigned f) {
+void Owner_98f50::initialize(unsigned a, unsigned b, unsigned c, unsigned d, unsigned e, unsigned f) {
     if (!resource) {
-        Resource* memory = (Resource*)thunk_FUN_0008d690(0x1c0);
+        Resource_98f50* memory = (Resource_98f50*)thunk_FUN_0008d690(0x1c0);
         resource = memory ? memory->FUN_000a8400() : 0;
         resource->slot0();
         resource->slot28();

@@ -1,4 +1,4 @@
-struct Stack {
+struct Stack_31e9b0 {
     int pad0;
     int pad1;
     int top;
@@ -9,15 +9,15 @@ struct StateBase {
     virtual void Restore(void* ctx);
 };
 
-class Ctx {
+class Ctx_31e9b0 {
   public:
     virtual void f0();
     char pad[0x30];
-    Stack* s34;
-    Stack* s38;
-    Stack* s3c;
-    Stack* s40;
-    Stack* s44;
+    Stack_31e9b0* s34;
+    Stack_31e9b0* s38;
+    Stack_31e9b0* s3c;
+    Stack_31e9b0* s40;
+    Stack_31e9b0* s44;
     StateBase* cur48;
     StateBase* cur4c;
     StateBase* cur50;
@@ -26,7 +26,7 @@ class Ctx {
     virtual void vfunc_88(unsigned char mask);
 };
 
-void Ctx::vfunc_88(unsigned char mask) {
+void Ctx_31e9b0::vfunc_88(unsigned char mask) {
     if (mask & 1) {
         s38->top--;
         cur4c = (StateBase*)(s38->data + s38->top * 0x1c);

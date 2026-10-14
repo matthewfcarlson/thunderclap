@@ -1,16 +1,16 @@
-class Worker {
+class Worker_24800 {
   public:
     int DoIt(int);
 };
 
-struct Container {
+struct Container_24800 {
     char pad[0x44];
-    Worker* worker;
+    Worker_24800* worker;
 };
 
-class Owner {
+class Owner_24800 {
   public:
-    Container* mCont; // 0x00
+    Container_24800* mCont; // 0x00
     int f4;           // 0x04
     int f8;           // 0x08
     int count;        // 0x0c
@@ -20,13 +20,13 @@ class Owner {
     int func();
 };
 
-int Owner::func() {
+int Owner_24800::func() {
     int sum = 0;
     int i = 0;
     if (count > 0) {
         int* p = arr;
         do {
-            Worker* w = mCont->worker;
+            Worker_24800* w = mCont->worker;
             int r = w->DoIt(*p);
             if (r != 0 && r != cmpVal)
                 ++sum;

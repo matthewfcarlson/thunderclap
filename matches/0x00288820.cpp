@@ -1,9 +1,9 @@
 extern void* __cdecl FUN_0008d6d0(unsigned int);
-struct B {
+struct B_288820 {
     int a;
-    B() { a = 0; }
+    B_288820() { a = 0; }
 };
-class AMB : public B {
+class AMB : public B_288820 {
   public:
     virtual void f0();
     unsigned int sz1;

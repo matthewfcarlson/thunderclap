@@ -1,5 +1,5 @@
 extern "C" char DAT_004279fc[];
-class Sub {
+class Sub_235490 {
   public:
     void init();
 };
@@ -14,7 +14,7 @@ class ParamValueNameList {
     virtual void f6();
     virtual void f7();
     int pad;
-    Sub sub;
+    Sub_235490 sub;
 };
 extern void __cdecl thunk_FUN_00267090(ParamValueNameList*);
 ParamValueNameList* ParamValueNameList::f0(int flag) {

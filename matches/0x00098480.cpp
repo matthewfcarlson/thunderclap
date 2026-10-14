@@ -1,4 +1,4 @@
-class Obj {
+class Obj_98480 {
   public:
     virtual void f0();
     virtual void f1();
@@ -33,16 +33,16 @@ class Obj {
     virtual void f30();
     virtual void f31(unsigned int);
 };
-class Owner {
+class Owner_98480 {
   public:
     char pad[0x170];
-    Obj* a;
-    Obj* b;
+    Obj_98480* a;
+    Obj_98480* b;
     unsigned char flag;
-    Obj* go(unsigned int);
+    Obj_98480* go(unsigned int);
 };
-Obj* Owner::go(unsigned int arg) {
-    Obj* result = b;
+Obj_98480* Owner_98480::go(unsigned int arg) {
+    Obj_98480* result = b;
     if (a) {
         if (flag)
             a->f31(arg);

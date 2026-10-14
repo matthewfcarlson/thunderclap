@@ -1,9 +1,9 @@
-class Sub {
+class Sub_311060 {
   public:
     void second(int);
     void third();
 };
-class C {
+class C_311060 {
     char pad[0x20c];
     int a;
     int b;
@@ -12,11 +12,11 @@ class C {
     void f();
 };
 void FUN_00310550();
-void C::f() {
+void C_311060::f() {
     a = b;
     FUN_00310550();
     b = 0x4e6e6b28;
-    Sub* p = (Sub*)((char*)this + 0x168);
+    Sub_311060* p = (Sub_311060*)((char*)this + 0x168);
     p->second(0x3c83126f);
     p->third();
 }

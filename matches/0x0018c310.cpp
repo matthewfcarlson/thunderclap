@@ -1,6 +1,6 @@
 extern "C" void* __cdecl alloc(unsigned int);
-extern int vtable;
-class Prop {
+extern int vtable_18c310;
+class Prop_18c310 {
   public:
     int vptr;
     int pad;
@@ -10,7 +10,7 @@ class Prop {
     int c;
     void Init();
 };
-class Factory {
+class Factory_18c310 {
   public:
     virtual void A();
     virtual void B();
@@ -19,11 +19,11 @@ class Factory {
     virtual void E();
     virtual void* Make();
 };
-void* Factory::Make() {
-    Prop* p = (Prop*)alloc(0x18);
+void* Factory_18c310::Make() {
+    Prop_18c310* p = (Prop_18c310*)alloc(0x18);
     if (p) {
         p->Init();
-        p->vptr = (int)&vtable;
+        p->vptr = (int)&vtable_18c310;
         p->a = 0;
         p->b = 0;
         p->c = 0;

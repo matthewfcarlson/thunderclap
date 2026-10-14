@@ -1,4 +1,4 @@
-class Obj {
+class Obj_68b20 {
   public:
     char pad[0x10];
     void* mValue;
@@ -6,7 +6,7 @@ class Obj {
     char Set(void* p);
 };
 
-char Obj::Set(void* p) {
+char Obj_68b20::Set(void* p) {
     mValue = p;
     return 1;
 }

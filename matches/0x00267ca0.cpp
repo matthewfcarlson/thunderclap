@@ -15,7 +15,7 @@ class TimerBase {
     virtual void l();
     virtual void m();
 };
-struct List {
+struct List_267ca0 {
     char pad[0x1c];
     unsigned int count;
     int* items;
@@ -27,14 +27,14 @@ class Timer : public TimerBase {
     char pad11[3];
     int mState;
     char pad18[8];
-    List* volatile mList;
+    List_267ca0* volatile mList;
     void vfunc_9();
 };
 void Timer::vfunc_9() {
     if (!mFlag) {
         mState = 0;
         mFlag = 1;
-        List* p = mList;
+        List_267ca0* p = mList;
         unsigned int n = p->count;
         unsigned int i = 0;
         if (n > 0) {

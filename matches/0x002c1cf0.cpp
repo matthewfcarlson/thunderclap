@@ -3,11 +3,11 @@ struct Request {
     char a;
     char b;
 };
-class Result {
+class Result_2c1cf0 {
   public:
     virtual void Finish();
 };
-class Factory {
+class Factory_2c1cf0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -18,16 +18,16 @@ class Factory {
     virtual void f6();
     virtual void f7();
     virtual void f8();
-    virtual Result* Create(Request*);
+    virtual Result_2c1cf0* Create(Request*);
 };
-Factory* gFactory;
-class Owner {
+Factory_2c1cf0* gFactory_2c1cf0;
+class Owner_2c1cf0 {
   public:
     char pad[0x10];
-    Result* result;
+    Result_2c1cf0* result;
     bool Run(int, int, int, int, int, int, int, int);
 };
-bool Owner::Run(int a, int b, int c, int d, int e, int f, int g, int h) {
+bool Owner_2c1cf0::Run(int a, int b, int c, int d, int e, int f, int g, int h) {
     Request request;
     request.b = 0;
     request.x[0] = a;
@@ -39,7 +39,7 @@ bool Owner::Run(int a, int b, int c, int d, int e, int f, int g, int h) {
     request.x[6] = g;
     request.x[7] = h;
     request.a = 1;
-    result = gFactory->Create(&request);
+    result = gFactory_2c1cf0->Create(&request);
     if (!result)
         return false;
     result->Finish();

@@ -1,14 +1,14 @@
-struct Callee {
+struct Callee_b3d80 {
     void Yes(int);
     void No(int);
 };
-struct Obj {
+struct Obj_b3d80 {
     char pad0[4];
-    Callee* p;
+    Callee_b3d80* p;
     char flag;
     void Run(int);
 };
-void Obj::Run(int unused) {
+void Obj_b3d80::Run(int unused) {
     if (flag)
         p->Yes(unused);
     else

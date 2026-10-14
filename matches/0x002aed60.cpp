@@ -14,9 +14,9 @@ class ImageBuilder {
     virtual void V8() {}
 };
 
-class Iface {
+class Iface_2aed60 {
   public:
-    virtual ~Iface() {}
+    virtual ~Iface_2aed60() {}
     virtual void V0() {}
     virtual void V1() {}
     virtual void V2() {}
@@ -28,7 +28,7 @@ class Iface {
     virtual void Process(void* param2, ImageBuilder* builder) {}
 };
 
-extern "C" Iface* __stdcall FUN_002ae9d0(void* param);
+extern "C" Iface_2aed60* __stdcall FUN_002ae9d0(void* param);
 
 class SomeClass {
   public:
@@ -39,7 +39,7 @@ class SomeClass {
 };
 
 int SomeClass::Method(void* param2, void* param3) {
-    Iface* iface = FUN_002ae9d0(param3);
+    Iface_2aed60* iface = FUN_002ae9d0(param3);
     if (!iface)
         return 0;
 

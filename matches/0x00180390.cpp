@@ -1,4 +1,4 @@
-class T {
+class T_180390 {
   public:
     virtual void V();
     char Set(int x);
@@ -6,7 +6,7 @@ class T {
     int mC;
 };
 
-char T::Set(int x) {
+char T_180390::Set(int x) {
     mC = x;
     return 1;
 }

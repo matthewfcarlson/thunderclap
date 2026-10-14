@@ -1,9 +1,9 @@
-class Base {
+class Base_287860 {
   public:
-    Base();
+    Base_287860();
 };
-extern int vtable;
-class Pose : public Base {
+extern int vtable_287860;
+class Pose : public Base_287860 {
   public:
     char pad[0x10f];
     Pose();
@@ -15,7 +15,7 @@ Pose::Pose() {
     *(int*)((char*)this + 0x14c) = 0;
     *(int*)((char*)this + 0x11c) = 0;
     *(int*)((char*)this + 0x134) = 0;
-    *(int*)this = (int)&vtable;
+    *(int*)this = (int)&vtable_287860;
     *(int*)((char*)this + 0x114) = 0x3f800000;
     *(int*)((char*)this + 0x148) = 0xffff;
 }

@@ -1,11 +1,11 @@
 struct Params {
     int a, b, c, d;
 };
-struct Obj {
-    Obj* Init(Params* p);
+struct Obj_265b70 {
+    Obj_265b70* Init(Params* p);
 };
 void* FUN_0008d690(int size);
-Obj* g_obj;
+Obj_265b70* g_obj_265b70;
 
 void FUN_00265b70(Params* p) {
     if (!p) {
@@ -14,18 +14,18 @@ void FUN_00265b70(Params* p) {
         def.b = 0x80;
         def.c = 0x20;
         def.d = 0x10000;
-        Obj* o = (Obj*)FUN_0008d690(0x3c);
+        Obj_265b70* o = (Obj_265b70*)FUN_0008d690(0x3c);
         if (o) {
-            g_obj = o->Init(&def);
+            g_obj_265b70 = o->Init(&def);
             return;
         }
-        g_obj = 0;
+        g_obj_265b70 = 0;
         return;
     }
-    Obj* o = (Obj*)FUN_0008d690(0x3c);
+    Obj_265b70* o = (Obj_265b70*)FUN_0008d690(0x3c);
     if (o) {
-        g_obj = o->Init(p);
+        g_obj_265b70 = o->Init(p);
         return;
     }
-    g_obj = 0;
+    g_obj_265b70 = 0;
 }

@@ -1,11 +1,11 @@
-struct Data {
+struct Data_602a0 {
     int x;
 };
-class Obj {
+class Obj_602a0 {
   public:
     char pad[0x58];
-    Data* Get();
+    Data_602a0* Get();
 };
-Data* Obj::Get() {
-    return (Data*)((char*)this + 0x58);
+Data_602a0* Obj_602a0::Get() {
+    return (Data_602a0*)((char*)this + 0x58);
 }

@@ -1,4 +1,4 @@
-class Obj {
+class Obj_fce10 {
   public:
     virtual int f0();
     virtual int f1();
@@ -22,7 +22,7 @@ class CControllerAgent {
     virtual void v9();
     virtual void v10();
     char pad[0x58 - 4];
-    Obj* member58;
+    Obj_fce10* member58;
     char pad2[0x20a8 - 0x5c];
     float helper(int, int);
 };

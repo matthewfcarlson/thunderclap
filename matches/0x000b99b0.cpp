@@ -3,10 +3,10 @@ extern char DAT_0049dbbc;
 extern char DAT_0049f4d8;
 extern void* __cdecl FUN_000fc260(const char*);
 extern void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
-struct Slider {
+struct Slider_b99b0 {
     void FUN_000f1a70(float);
 };
-struct Selector {
+struct Selector_b99b0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -34,28 +34,28 @@ struct Selector {
     virtual void v24();
     virtual void v25(int);
 };
-struct Audio {
+struct Audio_b99b0 {
     float FUN_001eba70();
     float FUN_001eb9d0();
     float FUN_001eba20();
     int FUN_001ebac0();
 };
-struct Target {
+struct Target_b99b0 {
     char pad[0x3c];
-    Audio* audio;
+    Audio_b99b0* audio;
     void update();
 };
-void Target::update() {
+void Target_b99b0::update() {
     if (!audio)
         return;
-    Slider* dialogue =
-        (Slider*)FUN_00344e74(FUN_000fc260("DialogueVolumeSlider"), 0, &DAT_0049dba4, &DAT_0049f4d8, 0);
-    Slider* music =
-        (Slider*)FUN_00344e74(FUN_000fc260("MusicVolumeSlider"), 0, &DAT_0049dba4, &DAT_0049f4d8, 0);
-    Slider* effects =
-        (Slider*)FUN_00344e74(FUN_000fc260("SoundFXVolumeSlider"), 0, &DAT_0049dba4, &DAT_0049f4d8, 0);
-    Selector* surround =
-        (Selector*)FUN_00344e74(FUN_000fc260("SurroundSelector"), 0, &DAT_0049dba4, &DAT_0049dbbc, 0);
+    Slider_b99b0* dialogue =
+        (Slider_b99b0*)FUN_00344e74(FUN_000fc260("DialogueVolumeSlider"), 0, &DAT_0049dba4, &DAT_0049f4d8, 0);
+    Slider_b99b0* music =
+        (Slider_b99b0*)FUN_00344e74(FUN_000fc260("MusicVolumeSlider"), 0, &DAT_0049dba4, &DAT_0049f4d8, 0);
+    Slider_b99b0* effects =
+        (Slider_b99b0*)FUN_00344e74(FUN_000fc260("SoundFXVolumeSlider"), 0, &DAT_0049dba4, &DAT_0049f4d8, 0);
+    Selector_b99b0* surround =
+        (Selector_b99b0*)FUN_00344e74(FUN_000fc260("SurroundSelector"), 0, &DAT_0049dba4, &DAT_0049dbbc, 0);
     if (dialogue)
         dialogue->FUN_000f1a70(audio->FUN_001eba70());
     if (music)

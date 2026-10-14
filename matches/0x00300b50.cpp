@@ -1,5 +1,5 @@
 extern void __cdecl Release(void*);
-class Obj {
+class Obj_300b50 {
   public:
     void Init();
     void* p0;
@@ -18,7 +18,7 @@ class Obj {
     void* q4;
     void Run();
 };
-void Obj::Run() {
+void Obj_300b50::Run() {
     Init();
     void* p = p4;
     q4 = p;

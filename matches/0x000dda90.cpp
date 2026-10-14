@@ -7,7 +7,7 @@ class ControllerPollerBase {
     virtual void vfunc_4();
     virtual int vfunc_5(int);
 };
-class Helper {
+class Helper_dda90 {
   public:
     int run(int, int);
 };
@@ -19,7 +19,7 @@ class ControllerPoller : public ControllerPollerBase {
 };
 extern "C" void* __cdecl FUN_0008d690(int);
 int ControllerPoller::vfunc_5(int param) {
-    Helper* p = (Helper*)FUN_0008d690(0x14);
+    Helper_dda90* p = (Helper_dda90*)FUN_0008d690(0x14);
     if (p)
         return p->run(field, param);
     return 0;

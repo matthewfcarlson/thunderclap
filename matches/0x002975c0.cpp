@@ -6,7 +6,7 @@ class VisibilityNode {
     virtual void a3();
     virtual int vfunc_4();
 };
-class Other {
+class Other_2975c0 {
   public:
     int helper(VisibilityNode*);
 };
@@ -14,6 +14,6 @@ extern void* alloc(int);
 int VisibilityNode::vfunc_4() {
     void* p = alloc(0x30);
     if (p)
-        return ((Other*)p)->helper(this);
+        return ((Other_2975c0*)p)->helper(this);
     return 0;
 }

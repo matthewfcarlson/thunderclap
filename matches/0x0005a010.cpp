@@ -1,14 +1,14 @@
-struct Inner {
+struct Inner_5a010 {
     void f(int);
 };
-struct Obj {
+struct Obj_5a010 {
     char pad[8];
-    Inner* a;
+    Inner_5a010* a;
     int b;
 };
-extern void __fastcall FUN_00059d30(Obj*);
+extern void __fastcall FUN_00059d30(Obj_5a010*);
 extern void __cdecl thunk_FUN_00267090(int);
-void __fastcall FUN_0005a010(Obj* self) {
+void __fastcall FUN_0005a010(Obj_5a010* self) {
     FUN_00059d30(self);
     if (self->a)
         self->a->f(3);

@@ -1,8 +1,8 @@
-struct C;
-struct B;
-struct A;
+struct C_e37f0;
+struct B_e37f0;
+struct A_e37f0;
 
-class C {
+class C_e37f0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -51,18 +51,18 @@ class C {
     virtual int GetResult();
 };
 
-class B {
+class B_e37f0 {
   public:
     char pad[4];
-    C* c;
+    C_e37f0* c;
 };
-class A {
+class A_e37f0 {
   public:
     char pad[8];
-    B* b;
+    B_e37f0* b;
 };
 
-class Item {
+class Item_e37f0 {
   public:
     int M(int a, int b);
     char pad[0x38];
@@ -70,18 +70,18 @@ class Item {
 
 extern "C" void f7810(int a, int b, int c);
 
-class Obj {
+class Obj_e37f0 {
   public:
     char pad1[0x14];
-    A* a;
+    A_e37f0* a;
     char pad2[0x154 - 0x18];
     int idx;
-    Item items[1];
+    Item_e37f0 items[1];
     void target(int p2, int p3);
 };
 
-void Obj::target(int p2, int p3) {
-    C* c = a->b->c;
+void Obj_e37f0::target(int p2, int p3) {
+    C_e37f0* c = a->b->c;
     int r = c->GetResult();
     f7810(items[idx].M(r, 0), p2, p3);
 }

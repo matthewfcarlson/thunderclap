@@ -1,19 +1,19 @@
-struct Tgt {
+struct Tgt_182310 {
     void G(int, int, int);
 };
-struct Ent {
+struct Ent_182310 {
     char pad[0x128];
-    Tgt* t128;
+    Tgt_182310* t128;
     int i12c;
-    Tgt* Get(int);
+    Tgt_182310* Get(int);
 };
-struct Holder {
-    Ent* Find();
+struct Holder_182310 {
+    Ent_182310* Find();
 };
-struct Src {
-    Holder* Hld();
+struct Src_182310 {
+    Holder_182310* Hld();
 };
-struct Cfg {
+struct Cfg_182310 {
     char pad[0x10];
     int idx;
     float f;
@@ -24,22 +24,22 @@ class Action {
     virtual void b();
     virtual bool vfunc_2();
 };
-class Prop : public Action {
+class Prop_182310 : public Action {
   public:
     virtual bool vfunc_3(int, int);
     char pad[0x18];
-    Cfg* cfg;
-    Src* src;
+    Cfg_182310* cfg;
+    Src_182310* src;
 };
-bool Prop::vfunc_3(int, int) {
+bool Prop_182310::vfunc_3(int, int) {
     if (!src)
         return false;
     {
-        Holder* h = src->Hld();
-        Ent* e = h->Find();
+        Holder_182310* h = src->Hld();
+        Ent_182310* e = h->Find();
         int i = cfg->idx;
         if (e) {
-            Tgt* t;
+            Tgt_182310* t;
             if (i < 0)
                 t = e->t128;
             else if (i < 8)

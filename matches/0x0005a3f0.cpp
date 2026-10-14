@@ -1,16 +1,16 @@
-class X {
+class X_5a3f0 {
   public:
     int A();
 };
-class Y {
+class Y_5a3f0 {
   public:
     int B();
 };
-int __cdecl target(X* param) {
+int __cdecl target(X_5a3f0* param) {
     if (param != 0) {
         int a = param->A();
         if (a != 0) {
-            int b = ((Y*)a)->B();
+            int b = ((Y_5a3f0*)a)->B();
             if (b != 0) {
                 int c = *(int*)(b + 0x334);
                 if (c != 0)

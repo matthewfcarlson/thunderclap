@@ -1,14 +1,14 @@
-typedef int(__cdecl* CompareFn)(void*, void*);
+typedef int(__cdecl* CompareFn_230be0)(void*, void*);
 struct Node {
     Node* prev;
     Node* next;
 };
-class Tree {
+class Tree_230be0 {
   public:
     Node* head;
-    Node* FindNode(CompareFn compare, void* value);
+    Node* FindNode(CompareFn_230be0 compare, void* value);
 };
-Node* Tree::FindNode(CompareFn compare, void* value) {
+Node* Tree_230be0::FindNode(CompareFn_230be0 compare, void* value) {
     Node* node = head;
     Node* sentinel = (Node*)((char*)this + 4);
     Node* result = sentinel;

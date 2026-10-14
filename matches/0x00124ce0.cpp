@@ -1,7 +1,7 @@
-class Helper {
+class Helper_124ce0 {
   public:
-    Helper* Get();
-    Helper* Next();
+    Helper_124ce0* Get();
+    Helper_124ce0* Next();
     int Check();
     void Act();
 };
@@ -15,13 +15,13 @@ class ClearProjectileDistanceAction {
     virtual bool vfunc_5(int, int);
     char pad[0x18];
     char* mData;
-    Helper* mHelper;
+    Helper_124ce0* mHelper;
 };
 bool ClearProjectileDistanceAction::vfunc_5(int a, int b) {
     if (a != 0)
         goto done;
     {
-        Helper* x = mHelper->Get();
+        Helper_124ce0* x = mHelper->Get();
         x = x->Next();
         if (mData[0x14] && x->Check())
             x->Act();

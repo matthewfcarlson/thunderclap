@@ -1,4 +1,4 @@
-struct Owner {
+struct Owner_fdc40 {
     char pad0[8];
     int count;
     void* items[1];
@@ -6,7 +6,7 @@ struct Owner {
 extern int __cdecl IsType(void*, int, const void*, const void*, int);
 extern const int AgentType;
 extern const int OccupationAgentType;
-int __fastcall Target(Owner* self) {
+int __fastcall Target(Owner_fdc40* self) {
     int i = 0;
     if (self->count > 0) {
         void** p = self->items;

@@ -1,4 +1,4 @@
-class Ref {
+class Ref_2828b0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -6,8 +6,8 @@ class Ref {
 class CMotionTrail {
   public:
     char pad[0x40];
-    Ref* a;
-    Ref* b;
+    Ref_2828b0* a;
+    Ref_2828b0* b;
     void vfunc_13();
 };
 void CMotionTrail::vfunc_13() {

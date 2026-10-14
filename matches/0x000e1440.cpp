@@ -1,4 +1,4 @@
-class Obj {
+class Obj_e1440 {
   public:
     virtual void a();
     virtual void b();
@@ -18,7 +18,7 @@ class FEAnimation {
     virtual void f5();
     virtual void f6();
     char pad[8];
-    Obj* mObj;
+    Obj_e1440* mObj;
 };
 void FEAnimation::vfunc_4(int) {
     if (mObj)

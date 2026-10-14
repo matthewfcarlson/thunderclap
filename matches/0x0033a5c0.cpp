@@ -1,13 +1,13 @@
-typedef unsigned int u32;
+typedef unsigned int u32_33a5c0;
 extern void f339dc0(void*, int);
-extern u32 f339f70(void*, int);
+extern u32_33a5c0 f339f70(void*, int);
 extern void f339d70(void*, int, int);
 extern int f212f40(void*, int);
-extern int f213e50(void*, int, u32);
+extern int f213e50(void*, int, u32_33a5c0);
 extern void f2133d0(void*, int);
 extern void f212e20(void*, int);
 int target(void* self, int unused) {
-    u32 edi;
+    u32_33a5c0 edi;
     int r;
     f339dc0(self, 3);
     edi = f339f70(self, 2);

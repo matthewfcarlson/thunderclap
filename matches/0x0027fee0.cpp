@@ -1,20 +1,20 @@
-class Ref {
+class Ref_27fee0 {
   public:
     virtual void A();
     virtual void Release();
 };
-class Owner {
+class Owner_27fee0 {
   public:
-    Ref* a;
+    Ref_27fee0* a;
     char pad[8];
-    Ref* b;
-    Ref* c;
-    Ref* d;
-    Ref* e;
+    Ref_27fee0* b;
+    Ref_27fee0* c;
+    Ref_27fee0* d;
+    Ref_27fee0* e;
     void Clear();
 };
-extern int gValue;
-void Owner::Clear() {
+extern int gValue_27fee0;
+void Owner_27fee0::Clear() {
     if (a) {
         a->Release();
         a = 0;
@@ -35,5 +35,5 @@ void Owner::Clear() {
         e->Release();
         e = 0;
     }
-    gValue = 0;
+    gValue_27fee0 = 0;
 }

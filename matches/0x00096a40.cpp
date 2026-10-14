@@ -1,15 +1,15 @@
-struct Sub {
+struct Sub_96a40 {
     void f(void*);
     void g(void*);
 };
-struct Obj {
+struct Obj_96a40 {
     char pad[8];
-    Sub* sub;
+    Sub_96a40* sub;
     int kind;
     char q[0x30];
     unsigned a, b, c;
 };
-void __cdecl target(Obj* p, unsigned* out) {
+void __cdecl target(Obj_96a40* p, unsigned* out) {
     if (p->kind == 5) {
         p->sub->f(out);
         return;

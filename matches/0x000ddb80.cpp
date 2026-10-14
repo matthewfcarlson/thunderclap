@@ -15,10 +15,10 @@ class ControllerState {
     int p4, p8, mA, mB;
 };
 extern void __cdecl thunk_FUN_00267090(void*);
-extern void* cvtable;
+extern void* cvtable_ddb80;
 extern void* ivtable;
 ControllerState* ControllerState::vfunc_0(unsigned char param) {
-    *(void**)this = &cvtable;
+    *(void**)this = &cvtable_ddb80;
     if (mA) {
         thunk_FUN_00267090((void*)mA);
         mA = 0;

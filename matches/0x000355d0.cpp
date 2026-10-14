@@ -1,17 +1,17 @@
-struct Result {
+struct Result_355d0 {
     int a, b, c;
 };
-struct Helper {
-    Result* Get(Result*);
+struct Helper_355d0 {
+    Result_355d0* Get(Result_355d0*);
 };
-struct Obj {
+struct Obj_355d0 {
     char pad[0x14];
-    Helper helper;
-    bool Run(Result*);
+    Helper_355d0 helper;
+    bool Run(Result_355d0*);
 };
-bool Obj::Run(Result* out) {
-    Result local;
-    Result* r = helper.Get(&local);
+bool Obj_355d0::Run(Result_355d0* out) {
+    Result_355d0 local;
+    Result_355d0* r = helper.Get(&local);
     *out = *r;
     return true;
 }

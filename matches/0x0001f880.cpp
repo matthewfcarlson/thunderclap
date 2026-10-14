@@ -1,17 +1,17 @@
-struct Ref {
+struct Ref_1f880 {
     virtual void AddRef();
     virtual void Release();
 };
-struct B {
-    B() throw();
+struct B_1f880 {
+    B_1f880() throw();
     virtual void V0();
     char pad04[0x18];
 };
-struct CAction : B {
-    Ref* m1c;
+struct CAction : B_1f880 {
+    Ref_1f880* m1c;
     int m20;
-    CAction(Ref* r, int a) {
-        Ref** q = &m1c;
+    CAction(Ref_1f880* r, int a) {
+        Ref_1f880** q = &m1c;
         *q = 0;
         if (r)
             r->AddRef();
@@ -24,9 +24,9 @@ struct CAction : B {
 };
 struct CCameraDramaticAction : CAction {
     int m24;
-    CCameraDramaticAction(int a, Ref* r);
+    CCameraDramaticAction(int a, Ref_1f880* r);
     virtual void V0();
 };
-CCameraDramaticAction::CCameraDramaticAction(int a, Ref* r) : CAction(r, a) {
+CCameraDramaticAction::CCameraDramaticAction(int a, Ref_1f880* r) : CAction(r, a) {
     m24 = 0;
 }

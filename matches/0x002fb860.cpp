@@ -1,15 +1,15 @@
-struct Vec {
+struct Vec_2fb860 {
     float x, y, z;
 };
-struct Obj {
+struct Obj_2fb860 {
     char pad[0x38];
     int mode;
     char pad2[12];
     float sx, sy, sz;
-    Vec a, b, c;
-    void FUN_002fb860(Vec* out, int index);
+    Vec_2fb860 a, b, c;
+    void FUN_002fb860(Vec_2fb860* out, int index);
 };
-void Obj::FUN_002fb860(Vec* out, int index) {
+void Obj_2fb860::FUN_002fb860(Vec_2fb860* out, int index) {
     float sign = index > 3 ? -1.0f : 1.0f;
     float x = sign * sx;
     float y = sign * sy;

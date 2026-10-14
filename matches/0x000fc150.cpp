@@ -1,4 +1,4 @@
-class C {
+class C_fc150 {
   public:
     virtual void f0();
     virtual void f1();
@@ -7,7 +7,7 @@ class C {
     virtual void f4();
     virtual void f5();
 };
-extern C* g;
+extern C_fc150* g_fc150;
 void target() {
-    g->f5();
+    g_fc150->f5();
 }

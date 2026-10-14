@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2a35d0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -6,7 +6,7 @@ class Obj {
 class DrawableHierarchy {
   public:
     char pad[0x10];
-    Obj* member;
+    Obj_2a35d0* member;
     void vfunc_14();
 };
 void DrawableHierarchy::vfunc_14() {

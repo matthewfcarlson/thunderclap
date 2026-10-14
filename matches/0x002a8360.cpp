@@ -1,28 +1,28 @@
 extern "C" char DAT_0042dc94[];
-typedef unsigned int u32;
+typedef unsigned int u32_2a8360;
 extern void* __cdecl alloc(unsigned int);
-class C;
-class Obj {
+class C_2a8360;
+class Obj_2a8360 {
   public:
-    u32 vf;
+    u32_2a8360 vf;
     char pad[0x3c];
-    u32 value;
-    u32 a44;
-    u32 a48;
-    u32 unused4c;
-    u32 a50;
-    u32 a54;
-    void init(C*);
+    u32_2a8360 value;
+    u32_2a8360 a44;
+    u32_2a8360 a48;
+    u32_2a8360 unused4c;
+    u32_2a8360 a50;
+    u32_2a8360 a54;
+    void init(C_2a8360*);
     void finish();
 };
-class C {
+class C_2a8360 {
   public:
     char pad[0x40];
-    u32 value;
-    Obj* vfunc_4();
+    u32_2a8360 value;
+    Obj_2a8360* vfunc_4();
 };
-Obj* C::vfunc_4() {
-    Obj* p = (Obj*)alloc(0x60);
+Obj_2a8360* C_2a8360::vfunc_4() {
+    Obj_2a8360* p = (Obj_2a8360*)alloc(0x60);
     if (p) {
         p->init(this);
         p->value = 0;

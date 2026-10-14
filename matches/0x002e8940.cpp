@@ -2,25 +2,25 @@ extern "C" double __cdecl fabs(double);
 extern int __cdecl _fwprintf(void* stream, const char* format, ...);
 extern char DAT_004d9a30;
 
-struct PngStruct {
+struct PngStruct_2e8940 {
     char pad00[0x60];
     unsigned int mode;
 };
 
-struct PngInfo {
+struct PngInfo_2e8940 {
     char pad00[8];
     unsigned int valid;
 };
 
-void __cdecl FUN_002e69a0(PngStruct* p, const char* msg);
-void __cdecl FUN_002e69d0(PngStruct* p, const char* msg);
-int __cdecl FUN_002e81e0(PngStruct* p, unsigned int length);
-void __cdecl FUN_002e7580(PngStruct* p, unsigned char* buf, unsigned int n);
+void __cdecl FUN_002e69a0(PngStruct_2e8940* p, const char* msg);
+void __cdecl FUN_002e69d0(PngStruct_2e8940* p, const char* msg);
+int __cdecl FUN_002e81e0(PngStruct_2e8940* p, unsigned int length);
+void __cdecl FUN_002e7580(PngStruct_2e8940* p, unsigned char* buf, unsigned int n);
 unsigned int __cdecl FUN_002e7500(const unsigned char* buf);
-void __cdecl FUN_002eb180(PngStruct* p, PngInfo* info, double wx, double wy, double rx, double ry, double gx,
+void __cdecl FUN_002eb180(PngStruct_2e8940* p, PngInfo_2e8940* info, double wx, double wy, double rx, double ry, double gx,
                           double gy, double bx, double by);
 
-void FUN_002e8940(PngStruct* png_ptr, PngInfo* info_ptr, unsigned int length) {
+void FUN_002e8940(PngStruct_2e8940* png_ptr, PngInfo_2e8940* info_ptr, unsigned int length) {
     unsigned char buf[4];
     float white_x, white_y, red_x, red_y, green_x, green_y, blue_x, blue_y;
 

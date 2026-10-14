@@ -1,21 +1,21 @@
 extern "C" void _ReadWriteBarrier();
-class Ref {
+class Ref_10ba60 {
   public:
     virtual void A();
     virtual void B();
 };
-extern int vt;
+extern int vt_10ba60;
 class FaceMotionAction {
   public:
     int vptr;
     char pad[0x18];
     int* p;
-    Ref* r;
+    Ref_10ba60* r;
     void Finish();
     void Run();
 };
 void FaceMotionAction::Run() {
-    vptr = (int)&vt;
+    vptr = (int)&vt_10ba60;
     _ReadWriteBarrier();
     if (r) {
         r->B();

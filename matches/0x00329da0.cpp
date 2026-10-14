@@ -1,7 +1,7 @@
-extern int gFlags;
-extern int gA[32];
-extern int gB[32];
-class C {
+extern int gFlags_329da0;
+extern int gA_329da0[32];
+extern int gB_329da0[32];
+class C_329da0 {
     char pad[0x74];
 
   public:
@@ -9,18 +9,18 @@ class C {
     int b[16];
     void F(int, int, int);
 };
-int gFlags;
-int gA[32];
-int gB[32];
-void C::F(int i, int x, int y) {
+int gFlags_329da0;
+int gA_329da0[32];
+int gB_329da0[32];
+void C_329da0::F(int i, int x, int y) {
     if (a[i] != x) {
         a[i] = x;
-        gFlags |= 0x800;
-        gA[i * 32] = x;
+        gFlags_329da0 |= 0x800;
+        gA_329da0[i * 32] = x;
     }
     if (b[i] != y) {
         b[i] = y;
-        gFlags |= 0x800;
-        gB[i * 32] = y;
+        gFlags_329da0 |= 0x800;
+        gB_329da0[i * 32] = y;
     }
 }

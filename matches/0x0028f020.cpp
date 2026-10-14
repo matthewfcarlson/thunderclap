@@ -1,4 +1,4 @@
-class Data {
+class Data_28f020 {
   public:
     char pad[0x10];
     virtual void a();
@@ -12,7 +12,7 @@ class Data {
     virtual void i();
     virtual void j(int, int*);
 };
-class RenderThing {
+class RenderThing_28f020 {
   public:
     virtual void a();
     virtual void b();
@@ -26,11 +26,11 @@ class RenderThing {
         int a, b, c;
     } vec;
 };
-int RenderThing::vfunc_3(int p) {
+int RenderThing_28f020::vfunc_3(int p) {
     V local;
     if (p) {
         local = vec;
-        Data* d = *(Data**)((char*)p + 0x10);
+        Data_28f020* d = *(Data_28f020**)((char*)p + 0x10);
         d->j(source, (int*)&local);
     }
     return p;

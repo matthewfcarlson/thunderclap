@@ -1,10 +1,10 @@
-struct Sub {
+struct Sub_274140 {
     virtual void a();
     virtual void b();
 };
 struct File {
     char pad0[4];
-    Sub sub;
+    Sub_274140 sub;
     char pad1[0xc];
     int state;
     char pad2[0x124 - 0x18];

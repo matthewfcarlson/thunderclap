@@ -1,4 +1,4 @@
-class Inner {
+class Inner_1c1310 {
   public:
     virtual void f0();
     virtual void f1();
@@ -20,14 +20,14 @@ class Inner {
     virtual void f17();
     virtual void f18(void*, unsigned);
 };
-class Outer {
+class Outer_1c1310 {
     char pad[8];
 
   public:
-    Inner* p;
+    Inner_1c1310* p;
     void target(void* arg);
 };
-void Outer::target(void* arg) {
-    Inner* q = p;
+void Outer_1c1310::target(void* arg) {
+    Inner_1c1310* q = p;
     q->f18(arg, *(unsigned*)((char*)arg + 12));
 }

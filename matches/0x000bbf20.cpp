@@ -3,13 +3,13 @@ class H {
   public:
     void Go(long);
 };
-class C {
+class C_bbf20 {
   public:
     char pad[4];
     H* field;
     int F(int, char**);
 };
-int C::F(int p, char** q) {
+int C_bbf20::F(int p, char** q) {
     if (field == 0)
         return -1;
     if (p != 1)

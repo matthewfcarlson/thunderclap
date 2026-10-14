@@ -1,30 +1,30 @@
-class Ref {
+class Ref_148840 {
   public:
     virtual void F();
     virtual void G();
 };
-class Root {
+class Root_148840 {
   public:
     virtual void V();
-    Root();
+    Root_148840();
 };
-class Sub {
+class Sub_148840 {
   public:
-    Sub();
+    Sub_148840();
     char pad[0x28];
 };
-class Action : public Root {
+class Action : public Root_148840 {
   public:
     char pad[0x18];
     int* mA;
-    Ref* mB;
-    Sub sub;
+    Ref_148840* mB;
+    Sub_148840 sub;
     int x;
     int y;
     unsigned char z;
-    Action(int* a, Ref* b);
+    Action(int* a, Ref_148840* b);
 };
-Action::Action(int* a, Ref* b) : mA(0), mB(0), sub() {
+Action::Action(int* a, Ref_148840* b) : mA(0), mB(0), sub() {
     x = 0;
     y = 0;
     z = 0;

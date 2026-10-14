@@ -18,17 +18,17 @@ class SimStateHairclub {
     virtual void v14();
     void cleanup();
     char pad[0x84];
-    struct Ref* member;
+    struct Ref_2fe530* member;
 };
-struct Ref {
+struct Ref_2fe530 {
     virtual void a();
     virtual void b();
 };
 void release(SimStateHairclub*);
 SimStateHairclub* SimStateHairclub::vfunc_2(unsigned char p) {
     *(unsigned long*)this = ((int)DAT_004319a4);
-    Ref* volatile* pm = &member;
-    Ref* m = *pm;
+    Ref_2fe530* volatile* pm = &member;
+    Ref_2fe530* m = *pm;
     if (m) {
         m->b();
         member = 0;

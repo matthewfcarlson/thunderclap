@@ -1,26 +1,26 @@
-struct Item {
+struct Item_222b90 {
     void* pad;
     float val;
     char flag;
     char rest[31];
 };
-class Obj {
+class Obj_222b90 {
     char pad[0x68];
     int count;
-    Item items[1];
+    Item_222b90 items[1];
 
   public:
     void Clear(char b);
 };
-class Ref {
+class Ref_222b90 {
   public:
     virtual void a();
     virtual void release();
 };
-void Obj::Clear(char b) {
+void Obj_222b90::Clear(char b) {
     if (b) {
         for (int i = count - 1; i >= 0; --i)
-            ((Ref*)items[i].pad)->release();
+            ((Ref_222b90*)items[i].pad)->release();
         count = 0;
     } else {
         for (int i = count - 1; i >= 0; --i) {

@@ -9,7 +9,7 @@ class DrawableCounter : public Visitor {
     virtual bool vfunc_0(Visitor*);
     virtual void vfunc_1();
 };
-class Item {
+class Item_296290 {
   public:
     virtual void a();
     virtual void b();
@@ -19,7 +19,7 @@ class Item {
     virtual int type();
 };
 bool DrawableCounter::vfunc_0(Visitor* p) {
-    if (p && ((Item*)p)->type() == 16)
+    if (p && ((Item_296290*)p)->type() == 16)
         ++count;
     return true;
 }

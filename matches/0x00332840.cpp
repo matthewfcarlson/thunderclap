@@ -1,4 +1,4 @@
-class Ref {
+class Ref_332840 {
   public:
     virtual void f0();
     virtual void f1();
@@ -31,9 +31,9 @@ class Shader {
     virtual void f23();
     virtual void f24();
     char pad[0x7c];
-    Ref* a;
-    Ref* b;
-    Ref* c;
+    Ref_332840* a;
+    Ref_332840* b;
+    Ref_332840* c;
     void cleanup();
 };
 void destroy(Shader*);

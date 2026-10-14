@@ -1,16 +1,16 @@
-class Ref {
+class Ref_2aae10 {
   public:
     virtual void a();
     virtual void Release();
 };
 extern int particleVtable;
-extern int refVtable;
+extern int refVtable_2aae10;
 class ParticleGeneratorLoader {
   public:
     int* vptr;
     int pad;
     unsigned count;
-    Ref* items[1];
+    Ref_2aae10* items[1];
     void cleanup();
 };
 void ParticleGeneratorLoader::cleanup() {
@@ -21,5 +21,5 @@ void ParticleGeneratorLoader::cleanup() {
             items[i] = 0;
         }
     }
-    vptr = &refVtable;
+    vptr = &refVtable_2aae10;
 }

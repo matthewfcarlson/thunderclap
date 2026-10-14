@@ -1,5 +1,5 @@
 // Same code shape as 0x00276700 (propagated; names are from that function)
-class Sub {
+class Sub_275db0 {
   public:
     virtual void F0();
     virtual void F1();
@@ -47,7 +47,7 @@ class InstanceDrive {
     virtual void F38();
     virtual void F39();
     virtual void F40();
-    Sub sub;
+    Sub_275db0 sub;
     int count;
 };
 void InstanceDrive::F0() {

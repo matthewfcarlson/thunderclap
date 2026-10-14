@@ -15,7 +15,7 @@ struct Base {
 struct Tail {
     Tail();
 };
-class Factory {
+class Factory_12d8a0 {
   public:
     virtual void a();
     virtual void b();
@@ -24,7 +24,7 @@ class Factory {
     virtual void e();
     virtual ThreatDodgeTrack* Create();
 };
-ThreatDodgeTrack* Factory::Create() {
+ThreatDodgeTrack* Factory_12d8a0::Create() {
     ThreatDodgeTrack* p = (ThreatDodgeTrack*)Alloc(0x28);
     if (p) {
         Base* b = (Base*)p;

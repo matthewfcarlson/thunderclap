@@ -1,12 +1,12 @@
-struct H2;
-struct H3;
+struct H2_2fd5a0;
+struct H3_2fd5a0;
 struct H1 {
-    H2* first(int);
+    H2_2fd5a0* first(int);
 };
-struct H2 {
-    H3* second();
+struct H2_2fd5a0 {
+    H3_2fd5a0* second();
 };
-struct H3 {
+struct H3_2fd5a0 {
     struct SimStateArticulated* third();
 };
 struct SimState {

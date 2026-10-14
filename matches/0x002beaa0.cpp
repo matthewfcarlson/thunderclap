@@ -13,13 +13,13 @@ class V {
     virtual void f10();
     virtual void f11();
 };
-struct Wrapper {
+struct Wrapper_2beaa0 {
     V* p;
 };
 class SpriteObject {
   public:
     char pad[0x48];
-    Wrapper* member;
+    Wrapper_2beaa0* member;
     void vfunc_19();
 };
 void SpriteObject::vfunc_19() {

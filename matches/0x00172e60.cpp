@@ -16,13 +16,13 @@ class JointRelativeTrack {
     JointRelativeTrack(int);
     void Init2();
 };
-struct Sub {
+struct Sub_172e60 {
     void Init();
 };
 void __cdecl destroy(JointRelativeTrack*);
 JointRelativeTrack::JointRelativeTrack(int flag) {
     *(int*)this = ((int)DAT_00417958);
-    ((Sub*)((char*)this + 0x18))->Init();
+    ((Sub_172e60*)((char*)this + 0x18))->Init();
     Init2();
     if (flag & 1)
         destroy(this);

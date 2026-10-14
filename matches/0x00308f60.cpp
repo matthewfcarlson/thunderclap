@@ -9,11 +9,11 @@ class PhysicsObject {
     virtual void f6();
     virtual void vfunc_7();
 };
-struct Owner {
+struct Owner_308f60 {
     char pad[0xc];
     float scale;
 };
-struct Elem {
+struct Elem_308f60 {
     char pad[0x28];
     float a;
     float b;
@@ -23,9 +23,9 @@ struct Elem {
 class HairclubPhysicsObject : public PhysicsObject {
   public:
     char pad18[0x18 - sizeof(PhysicsObject)];
-    Owner* p18;
+    Owner_308f60* p18;
     char pad1f8[0x1f8 - 0x1c];
-    Elem* arr;
+    Elem_308f60* arr;
     int count;
     virtual void vfunc_7();
 };

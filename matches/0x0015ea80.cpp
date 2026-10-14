@@ -1,28 +1,28 @@
 extern "C" char DAT_00415bb4[];
-class Base {
+class Base_15ea80 {
   public:
-    Base();
+    Base_15ea80();
     virtual void A();
     virtual void B();
     virtual void C();
 };
-class Ref {
+class Ref_15ea80 {
   public:
     virtual void X();
     virtual void Release();
 };
-class GrappleLocomotionSteerAction : public Base {
+class GrappleLocomotionSteerAction : public Base_15ea80 {
   public:
     virtual void A();
     virtual void B();
     virtual void C();
     char pad[24];
     int m1;
-    Ref* m2;
+    Ref_15ea80* m2;
     int m3;
-    GrappleLocomotionSteerAction(int, Ref*);
+    GrappleLocomotionSteerAction(int, Ref_15ea80*);
 };
-GrappleLocomotionSteerAction::GrappleLocomotionSteerAction(int x, Ref* p) {
+GrappleLocomotionSteerAction::GrappleLocomotionSteerAction(int x, Ref_15ea80* p) {
     *(int*)this = ((int)DAT_00415bb4);
     volatile int* q = &m1;
     *q = 0;

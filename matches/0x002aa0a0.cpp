@@ -3,16 +3,16 @@ inline void* operator new(unsigned int, void* where) {
     return where;
 }
 
-class Base {
+class Base_2aa0a0 {
   public:
-    Base(void* parent);
+    Base_2aa0a0(void* parent);
     virtual void b0();
     char pad[0x3c];
 };
 
-class EAC : public Base {
+class EAC : public Base_2aa0a0 {
   public:
-    EAC(void* parent) : Base(parent) {
+    EAC(void* parent) : Base_2aa0a0(parent) {
         m[0] = 0;
         m[1] = 0;
         m[2] = 0;

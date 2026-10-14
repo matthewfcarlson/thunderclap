@@ -15,13 +15,13 @@ class CollisionSolverAgent {
     char pad[4];
     void* member;
 };
-class Obj {
+class Obj_2f7dc0 {
   public:
     char pad[0x6c];
     int state;
     void helper(int);
 };
-class Ref {
+class Ref_2f7dc0 {
   public:
     char pad[0x20];
     int state;
@@ -32,11 +32,11 @@ class Ref {
     virtual void f4(void*, int, void*, int, int, int, int);
 };
 int CollisionSolverAgent::vfunc_6(void* a, int b, void* c, int d, int e, int f, int g, int* p, int* q) {
-    if (*p && !((Ref*)*p)->state && !((Obj*)a)->state)
-        ((Obj*)a)->helper(1);
-    if (*q && !((Ref*)*q)->state && !((Obj*)c)->state)
-        ((Obj*)c)->helper(1);
+    if (*p && !((Ref_2f7dc0*)*p)->state && !((Obj_2f7dc0*)a)->state)
+        ((Obj_2f7dc0*)a)->helper(1);
+    if (*q && !((Ref_2f7dc0*)*q)->state && !((Obj_2f7dc0*)c)->state)
+        ((Obj_2f7dc0*)c)->helper(1);
     if (member)
-        ((Ref*)member)->f4(a, b, c, d, e, f, g);
+        ((Ref_2f7dc0*)member)->f4(a, b, c, d, e, f, g);
     return 0;
 }

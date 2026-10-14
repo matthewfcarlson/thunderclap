@@ -4,7 +4,7 @@ class Cond {
   public:
     Cond(int);
 };
-class Factory {
+class Factory_1599f0 {
   public:
     virtual void a();
     virtual void b();
@@ -13,7 +13,7 @@ class Factory {
     virtual void e();
     virtual Cond* Make();
 };
-Cond* Factory::Make() {
+Cond* Factory_1599f0::Make() {
     Cond* p = (Cond*)Alloc(20);
     if (p) {
         p->Cond::Cond(0);

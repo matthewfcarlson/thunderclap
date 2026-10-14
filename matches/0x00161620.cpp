@@ -12,7 +12,7 @@ class GrappleLocomotionSteerTrack {
     virtual void v9();
     virtual int vfunc_10(int, int, int);
 };
-class Result {
+class Result_161620 {
   public:
     int Build(GrappleLocomotionSteerTrack*, int);
 };
@@ -21,7 +21,7 @@ extern void* __cdecl Allocate(unsigned int);
 int GrappleLocomotionSteerTrack::vfunc_10(int a, int b, int c) {
     int value = Get(c);
     if (value) {
-        Result* p = (Result*)Allocate(0x30);
+        Result_161620* p = (Result_161620*)Allocate(0x30);
         if (p)
             return p->Build(this, value);
     }

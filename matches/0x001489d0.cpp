@@ -1,16 +1,16 @@
-class C3 {
+class C3_1489d0 {
   public:
     void Release();
 };
-class C2 {
+class C2_1489d0 {
   public:
-    C3* Get();
+    C3_1489d0* Get();
 };
-class Motion {
+class Motion_1489d0 {
   public:
-    C2* Get();
+    C2_1489d0* Get();
 };
-class BaseAction {
+class BaseAction_1489d0 {
   public:
     virtual void a();
     virtual void b();
@@ -19,26 +19,26 @@ class BaseAction {
     virtual void e();
     virtual void f(int, int);
 };
-class Obj {
+class Obj_1489d0 {
   public:
     virtual void A();
     virtual void B();
 };
-class Sub {
+class Sub_1489d0 {
   public:
-    Obj* cur;
+    Obj_1489d0* cur;
     void Init(int, int);
     void Set(int);
     void Set2(int);
     void Finish();
 };
-class GrappleHitReactionAction : public BaseAction {
+class GrappleHitReactionAction : public BaseAction_1489d0 {
   public:
     char pad4[0x1c];
-    Motion* motion;
-    Sub sub;
+    Motion_1489d0* motion;
+    Sub_1489d0 sub;
     char pad28[0x24];
-    Obj* old;
+    Obj_1489d0* old;
     int count;
     char flag;
     virtual void f(int x, int y);
@@ -46,15 +46,15 @@ class GrappleHitReactionAction : public BaseAction {
 void GrappleHitReactionAction::f(int x, int y) {
     if (!x && !flag)
         sub.Init(count, y);
-    Obj* p = old;
-    Obj* q = sub.cur;
+    Obj_1489d0* p = old;
+    Obj_1489d0* q = sub.cur;
     flag = 0;
     if (p != q)
         motion->Get()->Get()->Release();
     sub.Set(x);
     if (x == count - 1)
         sub.Set2(1);
-    Obj* r = sub.cur;
+    Obj_1489d0* r = sub.cur;
     if (r)
         r->A();
     if (old)

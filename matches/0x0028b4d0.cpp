@@ -1,4 +1,4 @@
-struct Obj {
+struct Obj_28b4d0 {
     virtual void f0();
     virtual void f1();
 };
@@ -6,7 +6,7 @@ void thunk(int*);
 class IntChannel {
   public:
     char pad0[12];
-    Obj* volatile mObj;
+    Obj_28b4d0* volatile mObj;
     char pad10[4];
     int* m14;
     int* m18;
@@ -21,7 +21,7 @@ void IntChannel::vfunc_1() {
         m14 = 0;
         return;
     }
-    Obj* p = mObj;
+    Obj_28b4d0* p = mObj;
     if (p) {
         p->f1();
         mObj = 0;

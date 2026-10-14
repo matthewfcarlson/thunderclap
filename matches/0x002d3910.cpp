@@ -13,7 +13,7 @@ class ParticlePointGenerator {
     virtual void j();
     virtual void k();
 };
-class Helper {
+class Helper_2d3910 {
   public:
     int run(ParticlePointGenerator*);
 };
@@ -21,6 +21,6 @@ extern "C" void* __cdecl allocThing(unsigned int);
 int ParticlePointGenerator::vfunc_4() {
     void* p = allocThing(0x50);
     if (p)
-        return ((Helper*)p)->run(this);
+        return ((Helper_2d3910*)p)->run(this);
     return 0;
 }

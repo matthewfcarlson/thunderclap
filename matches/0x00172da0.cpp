@@ -1,5 +1,5 @@
 extern "C" char DAT_00417898[];
-class Part {
+class Part_172da0 {
   public:
     void Init();
 };
@@ -18,7 +18,7 @@ class JointTrackerTrack {
     virtual void* vfunc_9();
     virtual void* vfunc_10();
     char pad[0x14];
-    Part part;
+    Part_172da0 part;
     void Init();
 };
 JointTrackerTrack* JointTrackerTrack::vfunc_5(int f) {

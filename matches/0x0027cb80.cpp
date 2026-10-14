@@ -1,11 +1,11 @@
-class C {
+class C_27cb80 {
   public:
     char pad[0x90];
     int count;
     void* items[2];
     bool add(void* p);
 };
-bool C::add(void* p) {
+bool C_27cb80::add(void* p) {
     if (p && count < 1) {
         items[count] = p;
         ++count;

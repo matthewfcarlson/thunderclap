@@ -1,5 +1,5 @@
-typedef unsigned int u32;
-extern float __stdcall GetPointX(u32);
+typedef unsigned int u32_268d10;
+extern float __stdcall GetPointX(u32_268d10);
 namespace core {
 class ControllerInputPointXBox {
   public:
@@ -15,13 +15,13 @@ class ControllerInputPointXBox {
     virtual void v9();
     virtual void v10();
     virtual void v11();
-    virtual void vfunc_12(u32);
+    virtual void vfunc_12(u32_268d10);
     virtual void v13();
     virtual void v14();
     char pad[4];
     float value;
 };
-void ControllerInputPointXBox::vfunc_12(u32 arg) {
+void ControllerInputPointXBox::vfunc_12(u32_268d10 arg) {
     value = GetPointX(arg);
 }
 } // namespace core

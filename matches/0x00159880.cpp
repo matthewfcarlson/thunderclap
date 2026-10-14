@@ -14,7 +14,7 @@ class CollisionChargeCondition {
     char c;
     void Init(int);
 };
-class Factory {
+class Factory_159880 {
   public:
     virtual void V0();
     virtual void V1();
@@ -23,7 +23,7 @@ class Factory {
     virtual void V4();
     virtual CollisionChargeCondition* V5();
 };
-CollisionChargeCondition* Factory::V5() {
+CollisionChargeCondition* Factory_159880::V5() {
     CollisionChargeCondition* p = (CollisionChargeCondition*)Alloc(0x18);
     if (p) {
         p->Init(0);

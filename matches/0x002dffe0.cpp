@@ -1,9 +1,9 @@
 extern "C" char DAT_0042fbd4[];
-class Base {
+class Base_2dffe0 {
   public:
     void Init();
 };
-class PrimGroupSkinnedOptimized : public Base {
+class PrimGroupSkinnedOptimized : public Base_2dffe0 {
   public:
     char pad[0x40];
     int a40, a44, a48, a4c, a50;

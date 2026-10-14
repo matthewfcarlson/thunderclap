@@ -1,8 +1,8 @@
-struct Out {
+struct Out_2f5ec0 {
     char pad[4];
     float a, b, c, d, e, f;
 };
-class Helper {
+class Helper_2f5ec0 {
   public:
     void Transform(float*);
 };
@@ -28,7 +28,7 @@ class PhysicsObject {
     virtual void f17();
     virtual void f18();
     virtual void f19();
-    virtual void f20(float*, Out*, int, int, int);
+    virtual void f20(float*, Out_2f5ec0*, int, int, int);
     char pad[0x44 - 4];
     float offset;
     char pad2[0x98 - 0x48];
@@ -36,7 +36,7 @@ class PhysicsObject {
     char pad3[0x118 - 0xa4];
     unsigned int m0, m1, m2, m3, m4, m5;
 };
-void PhysicsObject::f20(float* p, Out* out, int, int, int) {
+void PhysicsObject::f20(float* p, Out_2f5ec0* out, int, int, int) {
     float t[3];
     t[0] = p[0] - x;
     t[1] = p[1] - y;
@@ -47,7 +47,7 @@ void PhysicsObject::f20(float* p, Out* out, int, int, int) {
     out->d = *(float*)&m3;
     out->e = *(float*)&m4;
     out->f = *(float*)&m5;
-    ((Helper*)out)->Transform(t);
+    ((Helper_2f5ec0*)out)->Transform(t);
     out->a = offset + out->a;
     out->d = offset + out->d;
     out->f = out->f + offset;

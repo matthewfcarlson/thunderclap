@@ -1,4 +1,4 @@
-extern const float zero;
+extern const float zero_30a090;
 class PhysicsJoint3D {
   public:
     virtual void f0();
@@ -30,7 +30,7 @@ class PhysicsJoint3D {
     volatile float vec[3];
 };
 void PhysicsJoint3D::f21(float* p) {
-    if ((vec[2] * p[2] + vec[1] * p[1]) + vec[0] * p[0] < zero) {
+    if ((vec[2] * p[2] + vec[1] * p[1]) + vec[0] * p[0] < zero_30a090) {
         flag = 1;
         out[0] = -vec[0];
         out[1] = -vec[1];

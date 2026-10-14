@@ -4,11 +4,11 @@ struct V {
     float b;
     float c;
 };
-struct Mat {
+struct Mat_22ccf0 {
     float a[11];
     void Set(V* v);
 };
-void Mat::Set(V* v) {
+void Mat_22ccf0::Set(V* v) {
     float s = (float)sqrt((double)(v->c * v->c + v->b * v->b));
     float n = 1.0f / s;
     float x = n * v->b;

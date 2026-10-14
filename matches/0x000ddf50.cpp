@@ -1,4 +1,4 @@
-class X {
+class X_ddf50 {
   public:
     virtual void f();
 };
@@ -74,7 +74,7 @@ class FEThings {
     char state;
     char gap[2];
     int count;
-    X* thing;
+    X_ddf50* thing;
 };
 void FEThings::f64(int p, int, int) {
     if (p == 0 && --count <= 0) {

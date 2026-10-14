@@ -5,10 +5,10 @@ struct Param {
 };
 extern int __cdecl Alloc(unsigned int);
 extern void __cdecl Register(void*, void*, int);
-extern int gCount;
-extern int gSlot;
+extern int gCount_534e0;
+extern int gSlot_534e0;
 void FUN_000534e0() {
-    if (gCount == 0) {
+    if (gCount_534e0 == 0) {
         Param* p = (Param*)Alloc(0x18);
         void* out;
         if (p) {
@@ -18,7 +18,7 @@ void FUN_000534e0() {
             out = p;
         } else
             out = 0;
-        Register(&gSlot, &out, 1);
+        Register(&gSlot_534e0, &out, 1);
     }
-    ++gCount;
+    ++gCount_534e0;
 }

@@ -1,4 +1,4 @@
-class Ctx {
+class Ctx_217160 {
   public:
     char p[0x10];
     int a;
@@ -18,7 +18,7 @@ class Param {
 };
 void FUN_00217100(int, Param*, int);
 void FUN_00217160(int p1, Param* p2) {
-    Ctx* c = *(Ctx**)((char*)p1 + 0x10);
+    Ctx_217160* c = *(Ctx_217160**)((char*)p1 + 0x10);
     *(int*)p2 = c->link;
     c->link = (int)p2;
     unsigned char b = p2->flags;

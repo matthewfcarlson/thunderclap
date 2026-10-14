@@ -1,17 +1,17 @@
-class Item {
+class Item_36e70 {
   public:
     char pad[0x10];
     char Check(int key);
     void Clear(int x);
 };
-class Owner {
+class Owner_36e70 {
   public:
     char pad[0x2150];
-    Item items[16];
+    Item_36e70 items[16];
     int Find(int key);
     char Update(int key, int value);
 };
-char Owner::Update(int key, int value) {
+char Owner_36e70::Update(int key, int value) {
     int i;
     if (value == 0) {
         for (i = 0; i < 16; ++i) {

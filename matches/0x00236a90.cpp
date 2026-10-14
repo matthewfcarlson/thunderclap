@@ -1,10 +1,10 @@
 namespace fight {
-class Base {
+class Base_236a90 {
   public:
-    Base();
+    Base_236a90();
     virtual void V();
 };
-class TrackFactory : public Base {
+class TrackFactory : public Base_236a90 {
   public:
     TrackFactory();
     virtual void V();

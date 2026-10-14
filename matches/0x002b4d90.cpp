@@ -1,5 +1,5 @@
 extern "C" char DAT_0042e584[];
-typedef unsigned int u32;
+typedef unsigned int u32_2b4d90;
 void* alloc(unsigned int);
 class ShadowMeshBufferImpl {
   public:
@@ -21,9 +21,9 @@ ShadowMeshBufferImpl* ShadowMeshBufferImpl::vfunc_4() {
     ShadowMeshBufferImpl* p = (ShadowMeshBufferImpl*)alloc(0x48);
     if (p) {
         p->initialize();
-        *(u32*)p = ((int)DAT_0042e584);
-        *(u32*)((char*)p + 0x40) = 0;
-        *(u32*)((char*)p + 0x10) = 2;
+        *(u32_2b4d90*)p = ((int)DAT_0042e584);
+        *(u32_2b4d90*)((char*)p + 0x40) = 0;
+        *(u32_2b4d90*)((char*)p + 0x10) = 2;
         return p;
     }
     return 0;

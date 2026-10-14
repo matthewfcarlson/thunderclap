@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2988e0 {
   public:
     char pad0[0x20];
     unsigned char flag;
@@ -11,7 +11,7 @@ class Obj {
     int end;
     void Clear();
 };
-void Obj::Clear() {
+void Obj_2988e0::Clear() {
     unsigned int n = (end - start) / 12;
     unsigned int i = 0;
     if (n != 0) {

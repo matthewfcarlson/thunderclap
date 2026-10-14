@@ -1,14 +1,14 @@
-extern int g_cur;
-extern int g_a;
-extern int g_b;
-extern char g_obj[];
+extern int g_cur_264d20;
+extern int g_a_264d20;
+extern int g_b_264d20;
+extern char g_obj_264d20[];
 
 int GetId();
 int Conv(int);
 void __cdecl Use(int);
 void __cdecl Use2(void*);
 
-class Q {
+class Q_264d20 {
   public:
     void Fn();
     char pad[8];
@@ -20,8 +20,8 @@ class Q {
     int m20;
 };
 
-void Q::Fn() {
-    if (GetId() == g_cur) {
+void Q_264d20::Fn() {
+    if (GetId() == g_cur_264d20) {
         unsigned s = m14;
         unsigned e = m18;
         int n;
@@ -31,11 +31,11 @@ void Q::Fn() {
             n = ((int)(e - m1c) >> 3) + ((int)(m20 - s) >> 3);
         }
         if ((unsigned)n > 0 || m8 != 0) {
-            g_b = Conv(g_a);
-            Use2(g_obj);
+            g_b_264d20 = Conv(g_a_264d20);
+            Use2(g_obj_264d20);
         }
     } else {
-        g_a = Conv(g_b);
-        Use(g_cur);
+        g_a_264d20 = Conv(g_b_264d20);
+        Use(g_cur_264d20);
     }
 }

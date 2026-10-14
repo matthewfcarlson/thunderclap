@@ -1,5 +1,5 @@
 typedef unsigned char u8;
-class Callback {
+class Callback_e1930 {
   public:
     virtual void a();
     virtual void b();
@@ -18,7 +18,7 @@ class FEDoWait : public FEDoAction {
     char pad[0x34 - sizeof(FEDoAction)];
     float limit;
     float elapsed;
-    Callback* callback;
+    Callback_e1930* callback;
     u8 done;
     void vfunc_2();
 };

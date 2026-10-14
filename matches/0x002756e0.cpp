@@ -1,12 +1,12 @@
 namespace core {
-struct Lock {
+struct Lock_2756e0 {
     virtual void acquire() throw();
     virtual void release() throw();
 };
 struct Drive {
     virtual void unused() throw();
     virtual void release() throw();
-    Lock lock;
+    Lock_2756e0 lock;
     char pad[12];
     int count;
 };

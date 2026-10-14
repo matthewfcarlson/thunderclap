@@ -1,4 +1,4 @@
-class C {
+class C_e55e0 {
     char pad[0xabc];
 
   public:
@@ -6,7 +6,7 @@ class C {
     int count;
     void Add(int);
 };
-void C::Add(int value) {
+void C_e55e0::Add(int value) {
     if (count < 0x20) {
         values[count] = value;
         ++count;

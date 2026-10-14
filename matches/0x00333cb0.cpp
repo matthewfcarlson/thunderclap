@@ -1,5 +1,5 @@
 namespace movie {
-struct Renderer {
+struct Renderer_333cb0 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -28,7 +28,7 @@ struct PlayerBink {
     char pad04[4];
     int field08;
     char pad0c[8];
-    Renderer* renderer;
+    Renderer_333cb0* renderer;
     int state;
     void* bink;
     int field20;

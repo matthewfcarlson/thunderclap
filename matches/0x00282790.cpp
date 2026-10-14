@@ -1,9 +1,9 @@
-class Base {
+class Base_282790 {
   public:
     virtual void Dummy();
-    Base();
+    Base_282790();
 };
-class CMotionTrail : public Base {
+class CMotionTrail : public Base_282790 {
   public:
     virtual void V();
     char p0[0x0c];

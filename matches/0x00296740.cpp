@@ -1,4 +1,4 @@
-class Item {
+class Item_296740 {
   public:
     virtual void a();
     virtual void b();
@@ -25,14 +25,14 @@ class BranchNode {
 
   public:
     int count;
-    Item** items;
-    void vfunc_18(Item*);
+    Item_296740** items;
+    void vfunc_18(Item_296740*);
 };
-void BranchNode::vfunc_18(Item* item) {
+void BranchNode::vfunc_18(Item_296740* item) {
     if (item) {
-        Item** slot = items + count;
+        Item_296740** slot = items + count;
         item->a();
-        Item* old = *slot;
+        Item_296740* old = *slot;
         if (old)
             old->b();
         *slot = item;

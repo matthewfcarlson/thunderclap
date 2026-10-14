@@ -1,4 +1,4 @@
-typedef unsigned char u8;
+typedef unsigned char u8_172f70;
 class DriftToPositionTrack {
   public:
     virtual void v0();
@@ -6,7 +6,7 @@ class DriftToPositionTrack {
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual DriftToPositionTrack* vfunc_5(u8);
+    virtual DriftToPositionTrack* vfunc_5(u8_172f70);
     virtual void v6();
     virtual void v7();
     virtual void v8();
@@ -18,7 +18,7 @@ class DriftToPositionTrack {
 extern void __cdecl ReleaseThing(void*);
 extern void __cdecl ReleaseSelf(void*);
 extern void* drift_vftable;
-DriftToPositionTrack* DriftToPositionTrack::vfunc_5(u8 flag) {
+DriftToPositionTrack* DriftToPositionTrack::vfunc_5(u8_172f70 flag) {
     *(void**)this = &drift_vftable;
     ReleaseThing(*(void**)((char*)this + 0x28));
     Finish();

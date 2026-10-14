@@ -1,12 +1,12 @@
 extern "C" char DAT_003f6fc8[];
-typedef unsigned int u32;
+typedef unsigned int u32_57750;
 extern void* __cdecl Alloc(unsigned int);
 struct CCollisionDirectionCondition {
-    u32 vptr;
-    u32 pad4, pad8, fieldC, field10;
+    u32_57750 vptr;
+    u32_57750 pad4, pad8, fieldC, field10;
     void Init(int);
 };
-class Factory {
+class Factory_57750 {
   public:
     virtual void f0();
     virtual void f1();
@@ -15,7 +15,7 @@ class Factory {
     virtual void f4();
     virtual CCollisionDirectionCondition* vfunc_5();
 };
-CCollisionDirectionCondition* Factory::vfunc_5() {
+CCollisionDirectionCondition* Factory_57750::vfunc_5() {
     CCollisionDirectionCondition* p = (CCollisionDirectionCondition*)Alloc(0x14);
     if (p) {
         p->Init(0);

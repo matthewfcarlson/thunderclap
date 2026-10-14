@@ -1,4 +1,4 @@
-struct RefObj {
+struct RefObj_11a200 {
   public:
     virtual void v0();
     virtual void Release();
@@ -14,7 +14,7 @@ class MotionClosestWaypointAction {
     void* mVptr;          // 0x00
     char pad1[24];        // 0x04..0x1B
     int m1c;              // 0x1C
-    RefObj* volatile m20; // 0x20
+    RefObj_11a200* volatile m20; // 0x20
     char pad2[60];        // 0x24..0x5F
     Sub60 m60;            // 0x60
 
@@ -27,7 +27,7 @@ void operator delete(void*);
 
 void* MotionClosestWaypointAction::vfunc_2(unsigned char flag) {
     *(volatile int*)this = (int)&dummy_vftable;
-    RefObj* p = m20;
+    RefObj_11a200* p = m20;
     if (p) {
         p->Release();
         m20 = 0;

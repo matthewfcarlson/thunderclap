@@ -11,16 +11,16 @@ class LocomotionSteerAction {
     void* m20;
     void* m24;
 };
-class Obj {
+class Obj_15c600 {
   public:
-    Obj* first();
-    Obj* second();
+    Obj_15c600* first();
+    Obj_15c600* second();
 };
-class Manager {
+class Manager_15c600 {
   public:
-    Obj* get();
+    Obj_15c600* get();
 };
-class Setter {
+class Setter_15c600 {
   public:
     void set(int, int, int);
 };
@@ -30,10 +30,10 @@ class Fin {
 };
 void LocomotionSteerAction::vfunc_4() {
     if (m24) {
-        Obj* edi = ((Manager*)m20)->get();
-        Obj* p = edi->first();
+        Obj_15c600* edi = ((Manager_15c600*)m20)->get();
+        Obj_15c600* p = edi->first();
         if (p) {
-            ((Setter*)p)->set((int)m24, 0, (int)0xbf800000);
+            ((Setter_15c600*)p)->set((int)m24, 0, (int)0xbf800000);
             if (*((char*)m1c + 0x48)) {
                 p = edi->second();
                 if (p)

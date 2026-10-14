@@ -3,7 +3,7 @@ extern "C" char DAT_0042b3a4[];
 extern "C" char DAT_0042b3ac[];
 extern "C" char DAT_0042b3b4[];
 extern "C" char DAT_0042b3fc[];
-extern int gValue;
+extern int gValue_26d480;
 void Init();
 class Allocator {
   public:
@@ -12,7 +12,7 @@ class Allocator {
 int* Allocator::Construct() {
     *(int*)this = ((int)DAT_0042b3fc);
     ((int*)this)[1] = ((int)DAT_0042afa8);
-    ((int*)this)[2] = gValue;
+    ((int*)this)[2] = gValue_26d480;
     Init();
     ((int*)this)[1] = ((int)DAT_0042b3a4);
     ((int*)this)[3] = 0;

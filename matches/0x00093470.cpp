@@ -7,25 +7,25 @@ struct CUnlockable {
 struct CUnlockableMove : CUnlockable {
     virtual CUnlockableMove* vfunc_0(unsigned char);
 };
-struct Helper {
+struct Helper_93470 {
     void run();
 };
 extern void* vtMove;
-extern void* vtBase;
+extern void* vtBase_93470;
 void thunk_FUN_00267090(void*);
 void __cdecl FreeThis(void*);
 CUnlockableMove* CUnlockableMove::vfunc_0(unsigned char param_2) {
     *(void**)this = &vtMove;
-    Helper* h = (Helper*)((char*)this + 0x40);
+    Helper_93470* h = (Helper_93470*)((char*)this + 0x40);
     h->run();
-    h = (Helper*)((char*)this + 0x38);
+    h = (Helper_93470*)((char*)this + 0x38);
     h->run();
-    *(void**)this = &vtBase;
+    *(void**)this = &vtBase_93470;
     if (m18) {
         thunk_FUN_00267090(m18);
         m18 = 0;
     }
-    h = (Helper*)((char*)this + 0x10);
+    h = (Helper_93470*)((char*)this + 0x10);
     h->run();
     if (param_2 & 1)
         FreeThis(this);

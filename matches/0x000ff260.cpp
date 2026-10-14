@@ -1,5 +1,5 @@
 extern "C" void _ReadWriteBarrier();
-class Obj {
+class Obj_ff260 {
   public:
     virtual void a();
     virtual void b();
@@ -14,7 +14,7 @@ class CHand2HandAgent {
     char p0[8];
     int m8;
     char p1[0x58 - 12];
-    Obj* obj;
+    Obj_ff260* obj;
     char p2[4];
     char m60;
     char p3[3];

@@ -1,7 +1,7 @@
-struct B {
+struct B_283a10 {
     void F(int);
 };
-struct C {
+struct C_283a10 {
     void G(int);
 };
 struct V {
@@ -13,16 +13,16 @@ struct V {
     virtual void f5();
     virtual void f6(int, int);
 };
-class A {
+class A_283a10 {
   public:
     char p[12];
-    B* a;
+    B_283a10* a;
     char q[4];
-    C* b;
+    C_283a10* b;
     V* c;
     void Run(int);
 };
-void A::Run(int x) {
+void A_283a10::Run(int x) {
     a->F(x);
     b->G(x);
     c->f6(x, 0);

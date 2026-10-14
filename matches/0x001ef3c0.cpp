@@ -1,20 +1,20 @@
-struct Entry {
+struct Entry_1ef3c0 {
     char pad[8];
     void Init(void*);
 };
-struct Helper {
+struct Helper_1ef3c0 {
     void Finish();
 };
-class Owner {
+class Owner_1ef3c0 {
   public:
     char pad[0x40];
     int count;
     void Run(void*, void*);
 };
-void Owner::Run(void* a, void* b) {
+void Owner_1ef3c0::Run(void* a, void* b) {
     if (count < 8) {
-        ((Entry*)((char*)this + count * 8))->Init(&a);
+        ((Entry_1ef3c0*)((char*)this + count * 8))->Init(&a);
         ++count;
     }
-    ((Helper*)&a)->Finish();
+    ((Helper_1ef3c0*)&a)->Finish();
 }

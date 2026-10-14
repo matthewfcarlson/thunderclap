@@ -1,62 +1,62 @@
-struct Resource {
+struct Resource_1d8e90 {
     virtual void slot0();
     virtual void release();
 };
-struct Controller {
+struct Controller_1d8e90 {
     char pad0[8];
     unsigned int field8, fieldC;
     char pad10[0x74];
     unsigned char active;
     void FUN_002fd8a0(int);
 };
-struct Link {
+struct Link_1d8e90 {
     char pad[0x10];
-    Controller* controller;
+    Controller_1d8e90* controller;
 };
-struct Manager {
+struct Manager_1d8e90 {
     void FUN_00067c80(void*);
 };
-struct Subsystem {
+struct Subsystem_1d8e90 {
     char pad[8];
-    Manager* manager;
+    Manager_1d8e90* manager;
 };
-struct Global {
+struct Global_1d8e90 {
     char pad[0x20];
-    Subsystem* subsystem;
+    Subsystem_1d8e90* subsystem;
 };
-extern Global* DAT_004dd700;
-struct Handle {
+extern Global_1d8e90* DAT_004dd700;
+struct Handle_1d8e90 {
     void FUN_0027af50();
     char bytes[12];
 };
-struct A {
+struct A_1d8e90 {
     void FUN_001b4540();
 };
-struct B {
+struct B_1d8e90 {
     void FUN_001c3b80();
 };
 struct CSPHulkPropInstance;
-A* __stdcall FUN_001b6580(CSPHulkPropInstance*);
-B* __stdcall FUN_001c3d90(void*);
+A_1d8e90* __stdcall FUN_001b6580(CSPHulkPropInstance*);
+B_1d8e90* __stdcall FUN_001c3d90(void*);
 struct CSPHulkPropInstance {
     virtual void slot0();
     virtual void slot1();
     char pad4[0x9c];
-    Link* link;
+    Link_1d8e90* link;
     char padA4[0x70];
-    Resource* r114;
-    Resource* r118;
-    Resource* r11c;
-    Resource* r120;
+    Resource_1d8e90* r114;
+    Resource_1d8e90* r118;
+    Resource_1d8e90* r11c;
+    Resource_1d8e90* r120;
     char pad124[0x10];
-    Resource* r134;
+    Resource_1d8e90* r134;
     char pad138[0x94];
     void* r1cc;
     char pad1d0[12];
-    Resource* r1dc;
+    Resource_1d8e90* r1dc;
     char pad1e0[0x60];
-    Handle handle;
-    Resource* r24c;
+    Handle_1d8e90 handle;
+    Resource_1d8e90* r24c;
     void FUN_001d8cd0();
     void FUN_001d8100();
     void FUN_0027e2d0();
@@ -82,7 +82,7 @@ CSPHulkPropInstance::~CSPHulkPropInstance() {
         r134 = 0;
     }
     if (link && link->controller) {
-        Controller* c = link->controller;
+        Controller_1d8e90* c = link->controller;
         bool active = c->active != 0;
         c->fieldC = 0;
         c->field8 = 0;

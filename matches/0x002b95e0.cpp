@@ -1,4 +1,4 @@
-extern const float g;
+extern const float g_2b95e0;
 class BillboardQuadGroup {
   public:
     virtual void a();
@@ -15,5 +15,5 @@ class BillboardQuadGroup {
     virtual float vfunc_11(int, int);
 };
 float BillboardQuadGroup::vfunc_11(int, int) {
-    return g;
+    return g_2b95e0;
 }

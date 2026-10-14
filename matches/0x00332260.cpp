@@ -1,21 +1,21 @@
-class Ref {
+class Ref_332260 {
   public:
     virtual void f();
     virtual void Release();
 };
-extern int vtable;
+extern int vtable_332260;
 class Building {
   public:
     virtual void v();
     char pad[0x7c];
-    Ref* a;
-    Ref* b;
-    Ref* c;
+    Ref_332260* a;
+    Ref_332260* b;
+    Ref_332260* c;
     void init();
     void cleanup();
 };
 void Building::init() {
-    *(int*)this = (int)&vtable;
+    *(int*)this = (int)&vtable_332260;
     if (a)
         a->Release();
     if (b)

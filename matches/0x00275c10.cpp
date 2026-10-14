@@ -1,19 +1,19 @@
 namespace core {
 
-struct Inner {
+struct Inner_275c10 {
     virtual void f0();
     virtual void f1();
 };
 
-struct Obj {
+struct Obj_275c10 {
     virtual void g0();
     virtual void g1();
-    Inner sub;
-    char pad[0x14 - 4 - sizeof(Inner)];
+    Inner_275c10 sub;
+    char pad[0x14 - 4 - sizeof(Inner_275c10)];
     int count;
 };
 
-struct Alloc {
+struct Alloc_275c10 {
     virtual void s0();
     virtual void s1();
     virtual void s2();
@@ -21,7 +21,7 @@ struct Alloc {
     virtual void Free(void* p);
 };
 
-extern Alloc* gAlloc;
+extern Alloc_275c10* gAlloc;
 extern int gLock;
 void __cdecl Lock(void* p);
 void __cdecl Unlock(void* p);
@@ -32,7 +32,7 @@ extern void* vtReq[];
 class DriveFileDestroyRequest {
   public:
     int mA;
-    Obj* mObj;
+    Obj_275c10* mObj;
     virtual void* vfunc_0(unsigned flags);
     virtual void vfunc_1();
 };

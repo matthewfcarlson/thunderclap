@@ -7,20 +7,20 @@ class Sub {
   public:
     Sub();
 };
-class Obj {
+class Obj_1233a0 {
   public:
     virtual void AddRef();
     virtual void Release();
 };
-extern char VT[];
+extern char VT_1233a0[];
 class D {
   public:
-    D* init(int a, Obj* b);
+    D* init(int a, Obj_1233a0* b);
 };
-D* D::init(int a, Obj* b) {
+D* D::init(int a, Obj_1233a0* b) {
     char* p = (char*)this;
     ((Base*)this)->Base::Base();
-    *(void**)p = VT;
+    *(void**)p = VT_1233a0;
     *(int*)(p + 0x50) = 0;
     *(int*)(p + 0x54) = 0;
     *(int*)(p + 0x58) = 0;
@@ -39,9 +39,9 @@ D* D::init(int a, Obj* b) {
     *(int*)(p + 0x7c) = a;
     if (b)
         b->AddRef();
-    Obj* old = *(Obj**)(p + 0x80);
+    Obj_1233a0* old = *(Obj_1233a0**)(p + 0x80);
     if (old)
         old->Release();
-    *(Obj**)(p + 0x80) = b;
+    *(Obj_1233a0**)(p + 0x80) = b;
     return this;
 }

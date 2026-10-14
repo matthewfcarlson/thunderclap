@@ -1,4 +1,4 @@
-class Thing {
+class Thing_1c1370 {
   public:
     virtual void f0();
     virtual void f1();
@@ -7,21 +7,21 @@ class Thing {
     virtual void f4();
     virtual void f5();
 };
-class Manager {
+class Manager_1c1370 {
   public:
     void Prep(int);
-    Thing* Get(int);
+    Thing_1c1370* Get(int);
 };
-class Obj {
+class Obj_1c1370 {
   public:
     char pad[0xbc];
-    Manager* mBC;
+    Manager_1c1370* mBC;
     int mC0;
     void Target(char flag);
 };
-void Obj::Target(char flag) {
+void Obj_1c1370::Target(char flag) {
     mBC->Prep(mC0);
-    Thing* t = mBC->Get(0);
+    Thing_1c1370* t = mBC->Get(0);
     if (flag)
         t->f3();
     t->f4();

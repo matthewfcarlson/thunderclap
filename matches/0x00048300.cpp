@@ -1,4 +1,4 @@
-extern int* gTable;
+extern int* gTable_48300;
 class CCondition {
   public:
     virtual int vfunc_0(int);
@@ -8,6 +8,6 @@ class CStageCondition : public CCondition {
     int vfunc_0(int);
 };
 int CStageCondition::vfunc_0(int index) {
-    int* p = gTable;
+    int* p = gTable_48300;
     return p[index];
 }

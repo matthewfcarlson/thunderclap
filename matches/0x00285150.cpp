@@ -1,4 +1,4 @@
-extern const float gZero;
+extern const float gZero_285150;
 namespace pure3d {
 class BlendFrameController {
   public:
@@ -22,6 +22,6 @@ class BlendFrameController {
 float BlendFrameController::vfunc_13() {
     if (count > 0)
         return *(float*)((char*)this + count * 0x2c);
-    return gZero;
+    return gZero_285150;
 }
 } // namespace pure3d

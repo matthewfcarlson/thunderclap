@@ -1,8 +1,8 @@
 struct State;
-typedef int(__cdecl* Callback)(State*);
-struct Registration {
+typedef int(__cdecl* Callback_3390d0)(State*);
+struct Registration_3390d0 {
     const char* name;
-    Callback function;
+    Callback_3390d0 function;
 };
 extern "C" {
 void __cdecl FUN_002135a0(State*, int, const char*);
@@ -12,9 +12,9 @@ void __cdecl FUN_00213680(State*, int, int);
 void __cdecl FUN_00212ed0(State*, int);
 void __cdecl FUN_00213790(State*, int, const char*);
 void __cdecl FUN_00212e20(State*, int);
-void __cdecl FUN_002134a0(State*, Callback, int);
+void __cdecl FUN_002134a0(State*, Callback_3390d0, int);
 }
-void __cdecl FUN_003390d0(State* state, const char* name, const Registration* entries, int upvalueCount) {
+void __cdecl FUN_003390d0(State* state, const char* name, const Registration_3390d0* entries, int upvalueCount) {
     if (name) {
         FUN_002135a0(state, -10001, name);
         if (!FUN_00212f00(state, -1)) {

@@ -1,11 +1,11 @@
-class Data;
-class Owner {
+class Data_891e0;
+class Owner_891e0 {
   public:
     char pad[0xac8];
-    Data* p;
+    Data_891e0* p;
     unsigned int Fn();
 };
-class Data {
+class Data_891e0 {
   public:
     char pad0[4];
     unsigned char a;
@@ -28,8 +28,8 @@ class Data {
     char p8[3];
     unsigned int n4;
 };
-unsigned int Owner::Fn() {
-    Data* x = p;
+unsigned int Owner_891e0::Fn() {
+    Data_891e0* x = p;
     unsigned int m = 0;
     unsigned int r = 0;
     if (x->a && x->n0 > 0)

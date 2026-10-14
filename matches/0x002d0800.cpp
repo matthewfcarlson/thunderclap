@@ -1,6 +1,6 @@
 extern void ReleaseThing(void*);
 extern int vertex_vftable;
-extern int ref_vftable;
+extern int ref_vftable_2d0800;
 class VertexOffsetList {
   public:
     int* vptr;
@@ -29,5 +29,5 @@ atexit:;
         ++q;
         --n;
     } while (n);
-    vptr = &ref_vftable;
+    vptr = &ref_vftable_2d0800;
 }

@@ -1,12 +1,12 @@
 extern "C" char DAT_003f7394[];
-typedef unsigned int u32;
+typedef unsigned int u32_58550;
 void* __cdecl Allocate(unsigned int);
 struct CMotionStateCondition {
-    u32 vtable;
-    u32 pad4;
-    u32 pad8;
-    u32 fieldC;
-    u32 field10;
+    u32_58550 vtable;
+    u32_58550 pad4;
+    u32_58550 pad8;
+    u32_58550 fieldC;
+    u32_58550 field10;
     void Initialize(int);
 };
 struct ConditionFactoryTemplate {

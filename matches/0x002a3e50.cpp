@@ -20,9 +20,9 @@ class ParticleSystem {
     virtual void a17();
     virtual void a18();
     char pad[0xa0];
-    class Callback* mCallback;
+    class Callback_2a3e50* mCallback;
 };
-class Callback {
+class Callback_2a3e50 {
   public:
     virtual void b0();
     virtual void b1();

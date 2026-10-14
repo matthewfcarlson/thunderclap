@@ -1,4 +1,4 @@
-extern const float zero;
+extern const float zero_311270;
 namespace physics {
 class ArticulatedPhysicsObject {
   public:
@@ -31,7 +31,7 @@ class ArticulatedPhysicsObject {
     unsigned char f21c, f21d;
     void first(int, int, int);
 };
-class Elem {
+class Elem_311270 {
     char p[0xef];
     unsigned char enabled;
 
@@ -40,7 +40,7 @@ class Elem {
 };
 } // namespace physics
 void physics::ArticulatedPhysicsObject::vfunc_17(int a1, int a2, int a3, int a4, int a5) {
-    if (field40 != zero) {
+    if (field40 != zero_311270) {
         f148 = 1;
         f21d = 0;
         if (a4 < 0 || !*((unsigned char*)((char*)items[a4] + 0xef))) {
@@ -48,7 +48,7 @@ void physics::ArticulatedPhysicsObject::vfunc_17(int a1, int a2, int a3, int a4,
             return;
         }
         first(a3, a4, a5);
-        ((Elem*)items[a4])->second(a1, a2);
+        ((Elem_311270*)items[a4])->second(a1, a2);
         field218 = 0;
         field214 = 0;
         f21c = 0;

@@ -11,25 +11,25 @@ class Node {
     char Check();
 };
 
-struct Mgr {
+struct Mgr_1c84e0 {
     char Test(const char* s, int a, int b);
 };
 
-extern Mgr* g_mgr;
+extern Mgr_1c84e0* g_mgr_1c84e0;
 
-class Obj {
+class Obj_1c84e0 {
   public:
     void A(Node* n, float f, int a, int b, int c);
     void B(int x, Node* n, int y);
     void Fn(int x, Node* n, int y);
 };
 
-void Obj::Fn(int x, Node* n, int y) {
+void Obj_1c84e0::Fn(int x, Node* n, int y) {
     if (!n)
         return;
     if (n->mHidden)
         return;
-    if (!g_mgr->Test("Compute Shadows", 0x73, 1))
+    if (!g_mgr_1c84e0->Test("Compute Shadows", 0x73, 1))
         return;
     if (n->mFlag) {
         float f = 0.6f;

@@ -1,20 +1,20 @@
-class C {
+class C_213680 {
   public:
     char pad0[8];
     int* mOut;
     char pad1[4];
-    struct A* mA;
+    struct A_213680* mA;
 };
-struct A {
+struct A_213680 {
     char pad[0x48];
     unsigned int m48;
     unsigned int m4c;
 };
-void f17440(C*);
+void f17440(C_213680*);
 int f15f70(int);
-int f19cc0(C*, int, int);
-void target(C* self, int p2, int p3) {
-    A* a = self->mA;
+int f19cc0(C_213680*, int, int);
+void target(C_213680* self, int p2, int p3) {
+    A_213680* a = self->mA;
     if (a->m4c >= a->m48)
         f17440(self);
     int* out = self->mOut;

@@ -1,11 +1,11 @@
 // Same code shape as 0x0028b5c0 (propagated; names are from that function)
-class Ref {
+class Ref_28b610 {
   public:
     virtual void f0();
     virtual void Release();
 };
 extern void __cdecl thunk(void*);
-class pure3d_Vector1DOFChannel {
+class pure3d_Vector1DOFChannel_28b610 {
   public:
     virtual void v0();
     virtual void v1();
@@ -21,7 +21,7 @@ class pure3d_Vector1DOFChannel {
     void* m28;
     void vfunc_1();
 };
-void pure3d_Vector1DOFChannel::vfunc_1() {
+void pure3d_Vector1DOFChannel_28b610::vfunc_1() {
     if (m12 == 0)
         thunk(m28);
     m28 = 0;
@@ -30,7 +30,7 @@ void pure3d_Vector1DOFChannel::vfunc_1() {
         m14 = 0;
         return;
     }
-    Ref* p = (Ref*)m12;
+    Ref_28b610* p = (Ref_28b610*)m12;
     if (p != 0) {
         p->Release();
         m12 = 0;

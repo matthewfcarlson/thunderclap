@@ -1,7 +1,7 @@
 extern "C" char DAT_004c7df0[];
-extern float gScale;
+extern float gScale_1f3950;
 void __cdecl Apply(int, float);
-class Obj {
+class Obj_1f3950 {
   public:
     char pad0[0xc0];
     int mPtr;
@@ -9,7 +9,7 @@ class Obj {
     int mBusy;
     void Set(float value);
 };
-void Obj::Set(float value) {
+void Obj_1f3950::Set(float value) {
     *(volatile float*)((int)DAT_004c7df0) = value;
     if (mPtr != 0 && mBusy == 0) {
         int x = *(int*)(mPtr + 4);

@@ -1,17 +1,17 @@
-struct Elem {
+struct Elem_1f1c80 {
     virtual void Del(int);
     char pad[4];
-    Elem* next;
+    Elem_1f1c80* next;
 };
-struct Item {
+struct Item_1f1c80 {
     char pad[0xc];
-    Item* next;
-    Elem* list;
+    Item_1f1c80* next;
+    Elem_1f1c80* list;
     void Clean();
 };
 struct Node {
     Node* first;
-    Item* second;
+    Item_1f1c80* second;
     char pad[4];
     Node* next;
     char sub[4];
@@ -26,18 +26,18 @@ void Node::Run() {
         q->Run();
         Destroy(q);
     }
-    Item* x = second;
+    Item_1f1c80* x = second;
     while (x) {
-        Item* q = x;
+        Item_1f1c80* q = x;
         x = x->next;
-        Elem* a = q->list;
+        Elem_1f1c80* a = q->list;
         while (a) {
-            Elem* z = a;
+            Elem_1f1c80* z = a;
             a = z->next;
             z->Del(1);
         }
         q->Clean();
         Destroy(q);
     }
-    ((Item*)((char*)this + 0x10))->Clean();
+    ((Item_1f1c80*)((char*)this + 0x10))->Clean();
 }

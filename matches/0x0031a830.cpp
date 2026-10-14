@@ -1,16 +1,16 @@
 extern "C" {
-extern float a;
-extern float b;
+extern float a_31a830;
+extern float b_31a830;
 extern float c;
 extern float d;
 extern float e;
 }
-class Obj {
+class Obj_31a830 {
   public:
     float v[25];
-    Obj();
+    Obj_31a830();
 };
-Obj::Obj() {
+Obj_31a830::Obj_31a830() {
     v[0] = 0.0f;
     v[1] = 0.0f;
     v[2] = 0.0f;
@@ -30,8 +30,8 @@ Obj::Obj() {
     v[16] = 1.0f;
     v[17] = 0.0f;
     v[18] = 0.0f;
-    v[19] = a;
-    v[20] = b;
+    v[19] = a_31a830;
+    v[20] = b_31a830;
     v[21] = c;
     v[22] = d * c;
     v[23] = e * c;

@@ -1,4 +1,4 @@
-extern const float gConstant;
+extern const float gConstant_ddbe0;
 float FUN_000ddbe0() {
-    return gConstant;
+    return gConstant_ddbe0;
 }

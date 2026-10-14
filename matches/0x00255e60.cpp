@@ -1,17 +1,17 @@
-struct Result {};
-class Obj {
+struct Result_255e60 {};
+class Obj_255e60 {
   public:
     char pad[0x14];
     int field;
     void Run(void*);
 };
-extern Result* __cdecl Find(int, int);
-extern void __cdecl SetA(Result*, int*);
-extern void __cdecl SetB(Result*, int*);
-extern void __cdecl SetC(Result*, int, int);
-extern void __cdecl SetD(Result*, int);
-void Obj::Run(void* data) {
-    Result* r = Find(field, 0);
+extern Result_255e60* __cdecl Find(int, int);
+extern void __cdecl SetA(Result_255e60*, int*);
+extern void __cdecl SetB(Result_255e60*, int*);
+extern void __cdecl SetC(Result_255e60*, int, int);
+extern void __cdecl SetD(Result_255e60*, int);
+void Obj_255e60::Run(void* data) {
+    Result_255e60* r = Find(field, 0);
     if (!r)
         return;
     SetA(r, (int*)(*(char**)((char*)data + 0x3c) + 0x90));

@@ -1,17 +1,17 @@
-class Child {
+class Child_337460 {
   public:
     char pad[0x81c];
     int value;
     int Check();
 };
-class Obj {
+class Obj_337460 {
   public:
     char pad[0x5108];
     int result;
-    Child* child;
+    Child_337460* child;
     void Run();
 };
-void Obj::Run() {
+void Obj_337460::Run() {
     int r;
     int v;
     do {

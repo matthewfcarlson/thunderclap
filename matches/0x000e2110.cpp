@@ -50,7 +50,7 @@ class SingleLayout : public FELayout {
     char pad[4];
     void* member;
 };
-class Other {
+class Other_e2110 {
   public:
     virtual void v0();
     virtual void v1();
@@ -89,5 +89,5 @@ class Other {
     virtual SingleLayout* v34();
 };
 bool SingleLayout::a13(int) {
-    return ((Other*)member)->v34() == this;
+    return ((Other_e2110*)member)->v34() == this;
 }

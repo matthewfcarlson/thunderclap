@@ -1,5 +1,5 @@
 extern "C" char DAT_004192fc[];
-class Sub {
+class Sub_18c760 {
   public:
     void initSub();
 };
@@ -7,10 +7,10 @@ class PropSetStateByNameTrack {
   public:
     void baseInit();
     char pad[0x18];
-    Sub sub;
+    Sub_18c760 sub;
 };
 extern void* __cdecl operator_new(unsigned int);
-class Factory {
+class Factory_18c760 {
   public:
     virtual void a();
     virtual void b();
@@ -19,7 +19,7 @@ class Factory {
     virtual void e();
     virtual PropSetStateByNameTrack* vfunc_5();
 };
-PropSetStateByNameTrack* Factory::vfunc_5() {
+PropSetStateByNameTrack* Factory_18c760::vfunc_5() {
     PropSetStateByNameTrack* p = (PropSetStateByNameTrack*)operator_new(0x20);
     if (p) {
         p->baseInit();

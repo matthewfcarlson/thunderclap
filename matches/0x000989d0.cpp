@@ -1,4 +1,4 @@
-class Obj {
+class Obj_989d0 {
   public:
     virtual void V0();
     virtual void V1();
@@ -34,29 +34,29 @@ class Obj {
     virtual void V31(void*);
     virtual void V32();
 };
-struct Triple {
+struct Triple_989d0 {
     int x, y, z;
-    void Set(Triple* s) {
+    void Set(Triple_989d0* s) {
         x = s->x;
         y = s->y;
         z = s->z;
     }
 };
-class Owner {
+class Owner_989d0 {
   public:
     char pad[0x170];
-    Obj* a;
-    Obj* b;
+    Obj_989d0* a;
+    Obj_989d0* b;
     char flag;
     char pad2[3];
     int zero;
     char pad3[0x28];
-    Triple t1a8;
-    void helper(Obj*, void*);
-    Triple* get(Obj*, Obj*);
-    char F(void*, Obj*, char, Obj*);
+    Triple_989d0 t1a8;
+    void helper(Obj_989d0*, void*);
+    Triple_989d0* get(Obj_989d0*, Obj_989d0*);
+    char F(void*, Obj_989d0*, char, Obj_989d0*);
 };
-char Owner::F(void* p2, Obj* p3, char p4, Obj* p5) {
+char Owner_989d0::F(void* p2, Obj_989d0* p3, char p4, Obj_989d0* p5) {
     p3->V0();
     a = p3;
     flag = p4;
@@ -66,7 +66,7 @@ char Owner::F(void* p2, Obj* p3, char p4, Obj* p5) {
     }
     p5->V0();
     b = p5;
-    Triple* q = get(a, p5);
+    Triple_989d0* q = get(a, p5);
     t1a8 = *q;
     zero = 0;
     return 1;

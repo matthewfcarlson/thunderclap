@@ -8,7 +8,7 @@ class Request {
     virtual void f5();
     virtual void f6();
 };
-class Manager {
+class Manager_274be0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -18,8 +18,8 @@ class Manager {
 };
 extern void FUN_0026d850(void*);
 extern void FUN_0026d840(void*);
-extern Manager* gManager;
-extern char gLock;
+extern Manager_274be0* gManager_274be0;
+extern char gLock_274be0;
 extern int gCompletionVtable;
 extern int gRequestVtable;
 class CompletionEventRequest {
@@ -34,9 +34,9 @@ void* CompletionEventRequest::vfunc_0(unsigned char param) {
     mRequest->f1();
     vptr = &gRequestVtable;
     if (param & 1) {
-        FUN_0026d850(&gLock);
-        gManager->f4(this);
-        FUN_0026d840(&gLock);
+        FUN_0026d850(&gLock_274be0);
+        gManager_274be0->f4(this);
+        FUN_0026d840(&gLock_274be0);
     }
     return this;
 }

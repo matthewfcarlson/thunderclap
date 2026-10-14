@@ -1,11 +1,11 @@
-struct Desc {
+struct Desc_2c4280 {
     unsigned char flag;
     char pad[3];
     int a, b;
     float c, d, e, f, g, h, i, j, k, l, m, n, o;
     void FUN_0029c240(int, void*, void*, float, float, float, float, float, float);
 };
-struct Manager {
+struct Manager_2c4280 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -43,9 +43,9 @@ struct Manager {
     virtual void v34();
     virtual void v35();
     virtual void v36();
-    virtual void v37(int, Desc*, int);
+    virtual void v37(int, Desc_2c4280*, int);
 };
-extern Manager* DAT_0052c2a8;
+extern Manager_2c4280* DAT_0052c2a8;
 namespace pure3d {
 struct SpotLight {
     char pad0[16];
@@ -64,7 +64,7 @@ struct SpotLight {
 } // namespace pure3d
 void pure3d::SpotLight::vfunc_9(int arg) {
     if (enabled) {
-        Desc desc;
+        Desc_2c4280 desc;
         desc.flag = flag;
         desc.a = 0;
         desc.b = -1;

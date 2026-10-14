@@ -1,7 +1,7 @@
-struct Obj {
+struct Obj_364560 {
     void Fn();
 };
-extern Obj g;
+extern Obj_364560 g_364560;
 void __cdecl FUN_00364560() {
-    g.Fn();
+    g_364560.Fn();
 }

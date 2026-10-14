@@ -1,21 +1,21 @@
-extern const float Zero;
+extern const float Zero_1eba80;
 extern const float Limit;
-class Inner {
+class Inner_1eba80 {
   public:
     void Set(float);
 };
-struct Holder {
-    Inner* obj;
+struct Holder_1eba80 {
+    Inner_1eba80* obj;
 };
-class C {
+class C_1eba80 {
   public:
-    Holder* holder;
+    Holder_1eba80* holder;
     char pad[0x10];
     float value;
     void F(float x);
 };
-void C::F(float x) {
-    if (!(x < Zero) && !(x > Limit)) {
+void C_1eba80::F(float x) {
+    if (!(x < Zero_1eba80) && !(x > Limit)) {
         holder->obj->Set(x);
         value = x;
     }

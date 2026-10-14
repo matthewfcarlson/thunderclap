@@ -1,10 +1,10 @@
-typedef unsigned int u32;
+typedef unsigned int u32_1a1440;
 extern void* LuaTrack_vft;
-void __cdecl cleanup(u32);
+void __cdecl cleanup(u32_1a1440);
 struct LuaTrack {
     void* vft;
     char pad[0x10];
-    u32 field14;
+    u32_1a1440 field14;
     void Tail();
     void Run();
 };

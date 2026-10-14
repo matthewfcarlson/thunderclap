@@ -1,5 +1,5 @@
 extern "C" void _ReadWriteBarrier();
-class Ref {
+class Ref_188960 {
   public:
     virtual void f0();
     virtual void f1();
@@ -18,9 +18,9 @@ class PropAnimationAction : public Action {
   public:
     char pad[0x18];
     int m1c;
-    Ref* m20;
-    Ref* m24;
-    Ref* m28;
+    Ref_188960* m20;
+    Ref_188960* m24;
+    Ref_188960* m28;
     virtual int f2(char);
 };
 extern char propVtable[];

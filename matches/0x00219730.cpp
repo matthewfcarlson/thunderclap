@@ -1,5 +1,5 @@
 extern "C" void __cdecl Copy(void*, void*, unsigned int, unsigned int);
-struct S {
+struct S_219730 {
     char pad0[8];
     void* p8;
     void* pc;
@@ -15,7 +15,7 @@ struct S {
     int n34;
     int n38;
 };
-void F(void* dst, S* src) {
+void F(void* dst, S_219730* src) {
     Copy(dst, src->pc, src->n2c * 4, 0);
     Copy(dst, src->p10, src->n34 * 4, 0);
     Copy(dst, src->p8, src->n28 * 8, 0);

@@ -1,6 +1,6 @@
 extern "C" char DAT_003fc058[];
 extern "C" void* __cdecl FUN_0008d690(int);
-struct Obj {
+struct Obj_774c0 {
     int vptr;
     int x4;
     int m8;
@@ -8,17 +8,17 @@ struct Obj {
     int m10;
     void Init();
 };
-class Factory {
+class Factory_774c0 {
   public:
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void d();
     virtual void e();
-    virtual Obj* vfunc_5();
+    virtual Obj_774c0* vfunc_5();
 };
-Obj* Factory::vfunc_5() {
-    Obj* p = (Obj*)FUN_0008d690(0x14);
+Obj_774c0* Factory_774c0::vfunc_5() {
+    Obj_774c0* p = (Obj_774c0*)FUN_0008d690(0x14);
     if (p) {
         p->Init();
         p->vptr = ((int)DAT_003fc058);

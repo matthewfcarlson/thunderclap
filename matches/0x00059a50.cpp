@@ -1,22 +1,22 @@
-struct Data {
+struct Data_59a50 {
     char pad[0x40];
     unsigned a, b, c;
 };
-struct Out {
+struct Out_59a50 {
     unsigned a, b, c;
 };
-class Obj {
+class Obj_59a50 {
   public:
     char pad[4];
     unsigned a;
     unsigned b;
     unsigned c;
     char pad2[8];
-    Data* p;
-    bool Get(Out* out);
+    Data_59a50* p;
+    bool Get(Out_59a50* out);
 };
-bool Obj::Get(Out* out) {
-    Data* d = p;
+bool Obj_59a50::Get(Out_59a50* out) {
+    Data_59a50* d = p;
     if (d) {
         out->a = d->a;
         out->b = d->b;

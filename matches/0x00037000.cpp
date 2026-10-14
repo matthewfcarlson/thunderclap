@@ -1,23 +1,23 @@
-struct Entry {
+struct Entry_37000 {
     unsigned char a;
     unsigned char flag;
     unsigned char rest[14];
 };
-struct Obj {
+struct Obj_37000 {
     unsigned char pad[0x2260];
-    Entry entries[4];
+    Entry_37000 entries[4];
 };
-class Helper {
+class Helper_37000 {
   public:
     void Do(int, int);
 };
-void __fastcall target(Obj* self) {
-    Entry* p = self->entries;
+void __fastcall target(Obj_37000* self) {
+    Entry_37000* p = self->entries;
     int n = 4;
     do {
         if (p->flag) {
             p->a = 0;
-            Helper* h = (Helper*)((char*)p - 8);
+            Helper_37000* h = (Helper_37000*)((char*)p - 8);
             h->Do(0, 0);
         }
         ++p;

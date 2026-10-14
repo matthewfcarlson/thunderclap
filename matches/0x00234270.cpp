@@ -7,7 +7,7 @@ class Param {
     virtual void v4();
     virtual void v5();
 };
-class Item {
+class Item_234270 {
   public:
     virtual void a();
     virtual void b();
@@ -16,8 +16,8 @@ class Item {
 };
 bool Param::vfunc_1(void* arg) {
     int i = 0;
-    Item* p;
-    while ((p = (Item*)first(i)) != 0) {
+    Item_234270* p;
+    while ((p = (Item_234270*)first(i)) != 0) {
         p->apply(this, arg);
         ++i;
     }

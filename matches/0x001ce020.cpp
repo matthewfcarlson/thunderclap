@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1ce020 {
   public:
     char pad[0x1198];
     float value;
@@ -9,7 +9,7 @@ class Obj {
     void Second(float);
     void Target(float);
 };
-void Obj::Target(float x) {
+void Obj_1ce020::Target(float x) {
     if (Check()) {
         if (!flag)
             value += x;

@@ -1,12 +1,12 @@
 extern "C" char DAT_0042e9bc[];
-typedef unsigned int u32;
+typedef unsigned int u32_2bf100;
 extern void BaseInit();
 struct ImageFont {
-    volatile u32 vt;
+    volatile u32_2bf100 vt;
     char pad[12];
-    volatile u32 a, b, c, d, e;
+    volatile u32_2bf100 a, b, c, d, e;
     volatile int f;
-    volatile u32 g, h, i, j;
+    volatile u32_2bf100 g, h, i, j;
     ImageFont();
 };
 ImageFont::ImageFont() {

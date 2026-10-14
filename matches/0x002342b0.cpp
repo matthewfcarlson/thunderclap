@@ -1,5 +1,5 @@
 class Param;
-class Item {
+class Item_2342b0 {
   public:
     virtual void A();
     virtual void B();
@@ -9,7 +9,7 @@ class Item {
 };
 class Param {
   public:
-    virtual Item* Get(int);
+    virtual Item_2342b0* Get(int);
     virtual void V1();
     virtual bool V2(int);
     virtual void V3();
@@ -23,7 +23,7 @@ bool Param::V2(int arg) {
     --n;
     if (n >= 0) {
         do {
-            Item* p = Get(n);
+            Item_2342b0* p = Get(n);
             p->Apply(this, arg);
             --n;
         } while (n >= 0);

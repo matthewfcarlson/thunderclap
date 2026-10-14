@@ -1,5 +1,5 @@
 extern "C" char DAT_003f7010[];
-class Sub {
+class Sub_48d60 {
   public:
     void Init();
 };
@@ -8,7 +8,7 @@ class CNameFlagConditionBase {
     int m0;
     char pad[8];
     int mC;
-    Sub sub;
+    Sub_48d60 sub;
     CNameFlagConditionBase();
 };
 extern void __stdcall FUN_00234590(int);

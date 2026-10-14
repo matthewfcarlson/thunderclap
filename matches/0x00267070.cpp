@@ -1,5 +1,5 @@
 extern "C" char DAT_00527f40[];
-struct Obj {
+struct Obj_267070 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -9,11 +9,11 @@ struct Obj {
     virtual void g();
     virtual void h(int);
 };
-struct Handle {
-    Obj* p;
+struct Handle_267070 {
+    Obj_267070* p;
 };
-extern Handle* __cdecl Get(void*, int);
+extern Handle_267070* __cdecl Get(void*, int);
 void __cdecl Target(int x) {
-    Handle* h = Get((void*)((int)DAT_00527f40), x);
+    Handle_267070* h = Get((void*)((int)DAT_00527f40), x);
     h->p->h(x);
 }

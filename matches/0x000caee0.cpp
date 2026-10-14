@@ -1,16 +1,16 @@
-class Inner {
+class Inner_caee0 {
   public:
     void A();
     void B(int);
 };
-class Obj {
+class Obj_caee0 {
     char pad[0x88];
-    Inner* member;
+    Inner_caee0* member;
 
   public:
     void Target(int);
 };
-void Obj::Target(int x) {
+void Obj_caee0::Target(int x) {
     if (member) {
         member->A();
         member->B(x);

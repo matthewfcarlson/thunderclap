@@ -1,4 +1,4 @@
-class C {
+class C_358c0 {
     char pad[0x1e4];
     int a;
     int d;
@@ -11,7 +11,7 @@ class C {
   public:
     void Set(bool x);
 };
-void C::Set(bool x) {
+void C_358c0::Set(bool x) {
     if (x) {
         ++count;
         if (count > 0) {

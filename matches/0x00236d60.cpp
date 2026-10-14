@@ -1,5 +1,5 @@
 // Same code shape as 0x002345b0 (propagated; names are from that function)
-class Ref {
+class Ref_236d60 {
   public:
     virtual void a();
     virtual void b();
@@ -8,15 +8,15 @@ class Ref {
     virtual void e();
     virtual void Release(int);
 };
-class Parent {
+class Parent_236d60 {
   public:
     virtual void p();
 };
 void __fastcall FUN_00234210(void* self);
-class Condition : public Parent {
+class Condition : public Parent_236d60 {
   public:
     virtual ~Condition();
-    Ref* mRef;
+    Ref_236d60* mRef;
 };
 Condition::~Condition() {
     if (mRef)

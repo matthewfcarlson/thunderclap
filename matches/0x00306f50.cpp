@@ -1,8 +1,8 @@
 // Same code shape as 0x00091d50 (propagated; names are from that function)
-struct Obj {
+struct Obj_306f50 {
     char pad[0x68];
-    Obj* Get();
+    Obj_306f50* Get();
 };
-Obj* Obj::Get() {
-    return (Obj*)((char*)this + 0x68);
+Obj_306f50* Obj_306f50::Get() {
+    return (Obj_306f50*)((char*)this + 0x68);
 }

@@ -1,4 +1,4 @@
-class Primary {
+class Primary_26e350 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -10,7 +10,7 @@ class Secondary {
     virtual void vfunc_2() = 0;
 };
 
-class ConsoleClient : public Primary, public Secondary {
+class ConsoleClient : public Primary_26e350, public Secondary {
   public:
     ConsoleClient();
     void vfunc_2();

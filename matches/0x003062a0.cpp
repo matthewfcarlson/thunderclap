@@ -1,9 +1,9 @@
-class List {
+class List_3062a0 {
   public:
     char** begin;
     char** end;
 };
-class Obj {
+class Obj_3062a0 {
   public:
     virtual int a();
     virtual int b();
@@ -13,16 +13,16 @@ class Obj {
     virtual int f();
     virtual int ready();
     char pad[16];
-    List* list;
+    List_3062a0* list;
     volatile unsigned char result;
     unsigned char run();
 };
-unsigned char Obj::run() {
+unsigned char Obj_3062a0::run() {
     if (ready() == 1 && list) {
         result = 0;
         unsigned int i = 0;
         while (i < (unsigned int)(list->end - list->begin)) {
-            if (((Obj*)list->begin[i])->run())
+            if (((Obj_3062a0*)list->begin[i])->run())
                 result = 1;
             ++i;
         }

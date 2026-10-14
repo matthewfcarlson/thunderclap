@@ -13,7 +13,7 @@ struct Track {
     unsigned char z;
 };
 extern void __fastcall init(Track*);
-struct Factory {
+struct Factory_17ed70 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -21,7 +21,7 @@ struct Factory {
     virtual void e();
     virtual Track* vfunc_5();
 };
-Track* Factory::vfunc_5() {
+Track* Factory_17ed70::vfunc_5() {
     Track* p = (Track*)alloc(0x14);
     if (p) {
         init(p);

@@ -1,6 +1,6 @@
 extern "C" void __cdecl thunk_FUN_00267090(void* p);
 void __cdecl operator delete(void* p);
-extern int g_vftable;
+extern int g_vftable_10e780;
 class AIHistoryNameCondition {
   public:
     virtual void vfunc_0();
@@ -18,7 +18,7 @@ class AIHistoryNameCondition {
 };
 AIHistoryNameCondition* AIHistoryNameCondition::vfunc_5(int flag) {
     void* x = m10;
-    *(void**)this = &g_vftable;
+    *(void**)this = &g_vftable_10e780;
     thunk_FUN_00267090(x);
     reset();
     if (flag & 1)

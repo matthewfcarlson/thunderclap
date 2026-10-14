@@ -1,12 +1,12 @@
 extern "C" char DAT_004272b8[];
-struct Sub {
+struct Sub_2235f0 {
     char pad[0x54];
     void init();
 };
 struct Puppet {
     void* vt;
     char pad[0xc];
-    Sub sub;
+    Sub_2235f0 sub;
     int a, b;
     void baseInit();
     void finish(int);

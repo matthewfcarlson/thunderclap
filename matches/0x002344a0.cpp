@@ -1,4 +1,4 @@
-class Ref {
+class Ref_2344a0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -7,13 +7,13 @@ class Ref {
     virtual void f4();
     virtual void f5(int);
 };
-class Owner {
+class Owner_2344a0 {
   public:
     char pad[4];
-    Ref* value;
-    void Set(Ref* p);
+    Ref_2344a0* value;
+    void Set(Ref_2344a0* p);
 };
-void Owner::Set(Ref* p) {
+void Owner_2344a0::Set(Ref_2344a0* p) {
     if (value)
         value->f5(1);
     value = p;

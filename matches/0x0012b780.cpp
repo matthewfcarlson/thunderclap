@@ -2,14 +2,14 @@ extern const char kRttiA[];
 extern const char kRttiB[];
 int CheckFn(int a, int b, const void* c, const void* d, int e);
 
-class Obj2 {
+class Obj2_12b780 {
   public:
     unsigned char Test(void* a, unsigned char b);
 };
-class Obj {
+class Obj_12b780 {
   public:
-    Obj* Get();
-    Obj2* Next();
+    Obj_12b780* Get();
+    Obj2_12b780* Next();
 };
 
 class ThreatCondition {
@@ -31,8 +31,8 @@ class ThreatCondition {
 bool ThreatCondition::vfunc_6(int a, int c, int d) {
     if (!CheckFn(c, 0, kRttiA, kRttiB, 0))
         return false;
-    Obj* o = ((Obj*)c)->Get();
-    Obj2* x = o->Next();
+    Obj_12b780* o = ((Obj_12b780*)c)->Get();
+    Obj2_12b780* x = o->Next();
     unsigned char r = x->Test(mBlock, mB);
     unsigned char m = mA;
     return r == m;

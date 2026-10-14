@@ -1,5 +1,5 @@
 typedef unsigned char u8;
-struct Obj {
+struct Obj_10dee0 {
     char pad[0x14];
     u8 flag;
 };
@@ -12,7 +12,7 @@ struct H {
 H* g();
 struct TokenSupressAction {
     char pad0[0x1c];
-    Obj* data;
+    Obj_10dee0* data;
     H* active;
     bool vfunc_5(int a, int b);
 };

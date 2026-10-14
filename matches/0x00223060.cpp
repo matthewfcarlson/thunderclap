@@ -1,18 +1,18 @@
-class A {
+class A_223060 {
   public:
     int f();
 };
-class B {
+class B_223060 {
   public:
     void g(int);
 };
-class C {
+class C_223060 {
   public:
     char pad[0x10];
-    A a;
+    A_223060 a;
     void f();
 };
-void C::f() {
+void C_223060::f() {
     int x = a.f();
-    ((B*)*(void**)((char*)this + 0x64))->g(x);
+    ((B_223060*)*(void**)((char*)this + 0x64))->g(x);
 }

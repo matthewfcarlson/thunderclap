@@ -2,7 +2,7 @@ extern void __cdecl ReleaseThing(void*);
 extern void* __cdecl Alloc(unsigned int);
 extern void __stdcall Init(void*, unsigned int, unsigned int, void(__cdecl*)());
 extern void __cdecl ElemCtor();
-class Obj {
+class Obj_22eda0 {
   public:
     int m0, m1;
     char pad[0x108];
@@ -11,7 +11,7 @@ class Obj {
     void* data2;
     void Target(unsigned int);
 };
-void Obj::Target(unsigned int n) {
+void Obj_22eda0::Target(unsigned int n) {
     m0 = -1;
     m1 = -1;
     if (count != n) {

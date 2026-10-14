@@ -1,29 +1,29 @@
-struct Item {
+struct Item_1f89e0 {
     __int64 Key();
 };
-struct Collection {
+struct Collection_1f89e0 {
     char pad[12];
     int count;
-    Item* Find(__int64);
-    Item* At(int);
+    Item_1f89e0* Find(__int64);
+    Item_1f89e0* At(int);
 };
-struct Manager {
+struct Manager_1f89e0 {
     char pad[4];
-    Collection* item;
+    Collection_1f89e0* item;
 };
-struct Root {
+struct Root_1f89e0 {
     char pad[0x20];
-    Manager* mgr;
+    Manager_1f89e0* mgr;
 };
-struct Owner {
-    Item* value;
+struct Owner_1f89e0 {
+    Item_1f89e0* value;
     char Test(const char*);
 };
-extern Root* gRoot;
+extern Root_1f89e0* gRoot_1f89e0;
 extern "C" __int64 __cdecl MakeKey(const char*);
-char Owner::Test(const char* name) {
-    Owner* saved = this;
-    Collection* c = gRoot->mgr->item;
+char Owner_1f89e0::Test(const char* name) {
+    Owner_1f89e0* saved = this;
+    Collection_1f89e0* c = gRoot_1f89e0->mgr->item;
     if (c) {
         value = c->Find(MakeKey(name));
         if (value)
@@ -35,7 +35,7 @@ char Owner::Test(const char* name) {
                 return 1;
             }
         }
-        Item* dead = *(Item* volatile*)&saved->value;
+        Item_1f89e0* dead = *(Item_1f89e0* volatile*)&saved->value;
     }
     return 0;
 }

@@ -1,8 +1,8 @@
-class Helper {
+class Helper_1d72a0 {
   public:
     void* Run();
 };
-class Other {
+class Other_1d72a0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -10,15 +10,15 @@ class Other {
     virtual void f3();
     virtual void* Get();
 };
-struct Obj {
+struct Obj_1d72a0 {
     char pad[0xa0];
-    Helper* p;
+    Helper_1d72a0* p;
     char pad2[0x78];
-    Other* other;
+    Other_1d72a0* other;
     char pad3[0x44];
     unsigned a, b, c;
 };
-void __fastcall FUN_001d72a0(Obj* self) {
+void __fastcall FUN_001d72a0(Obj_1d72a0* self) {
     unsigned* p;
     if (self->p)
         p = (unsigned*)((char*)self->p->Run() + 0x30);

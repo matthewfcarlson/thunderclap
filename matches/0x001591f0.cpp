@@ -1,5 +1,5 @@
 extern void* __cdecl Alloc(unsigned int);
-extern void* vtable;
+extern void* vtable_1591f0;
 class Condition {
   public:
     virtual void V0();
@@ -17,7 +17,7 @@ Condition* Condition::vfunc_5() {
     Condition* p = (Condition*)Alloc(0x14);
     if (p) {
         p->Init(0);
-        *(void**)p = &vtable;
+        *(void**)p = &vtable_1591f0;
         p->x = 0;
         p->y = 0;
         return p;

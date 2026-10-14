@@ -1,4 +1,4 @@
-class Child {
+class Child_296930 {
   public:
     virtual void f0();
     virtual void f1();
@@ -11,7 +11,7 @@ class Child {
     virtual void f8();
     virtual void f9();
 };
-class Callback {
+class Callback_296930 {
   public:
     virtual void f0();
     virtual void f1();
@@ -64,9 +64,9 @@ class TransformNode {
     unsigned int flags;
     char p14[4];
     unsigned int count;
-    Child** children;
+    Child_296930** children;
     char p20[0x88];
-    Callback* cb;
+    Callback_296930* cb;
 };
 void TransformNode::v9() {
     if (cb)

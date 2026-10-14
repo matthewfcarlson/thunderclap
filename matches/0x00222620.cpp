@@ -1,25 +1,25 @@
 extern "C" char DAT_004272b8[];
-typedef unsigned int u32;
+typedef unsigned int u32_222620;
 typedef unsigned char u8;
-struct Arg {
+struct Arg_222620 {
     virtual void F();
 };
-struct Sub {
+struct Sub_222620 {
     char x[4];
     void Init();
 };
 struct Puppet {
     char pad[0x2ec];
     void BaseInit();
-    Puppet* Init(Arg*);
+    Puppet* Init(Arg_222620*);
 };
-Puppet* Puppet::Init(Arg* param) {
+Puppet* Puppet::Init(Arg_222620* param) {
     BaseInit();
-    *(u32*)this = ((int)DAT_004272b8);
-    ((Sub*)((char*)this + 0x10))->Init();
-    *(u32*)((char*)this + 0x68) = 0;
+    *(u32_222620*)this = ((int)DAT_004272b8);
+    ((Sub_222620*)((char*)this + 0x10))->Init();
+    *(u32_222620*)((char*)this + 0x68) = 0;
     *(u8*)((char*)this + 0x2ec) = 0;
-    *(Arg**)((char*)this + 0x64) = param;
+    *(Arg_222620**)((char*)this + 0x64) = param;
     param->F();
     return this;
 }

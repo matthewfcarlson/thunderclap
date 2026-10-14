@@ -1,4 +1,4 @@
-class Ref {
+class Ref_2b9ee0 {
   public:
     virtual void F0();
     virtual void F1();
@@ -13,16 +13,16 @@ class BillboardQuadGroup {
     virtual void F5();
     virtual void F6();
     virtual void F7();
-    virtual void F8(Ref*);
+    virtual void F8(Ref_2b9ee0*);
     virtual void F9();
     virtual void F10();
     virtual void F11();
     char p0[12];
     int active;
     char p1[0x70];
-    Ref* current;
+    Ref_2b9ee0* current;
 };
-void BillboardQuadGroup::F8(Ref* value) {
+void BillboardQuadGroup::F8(Ref_2b9ee0* value) {
     if (value)
         value->F0();
     if (current)

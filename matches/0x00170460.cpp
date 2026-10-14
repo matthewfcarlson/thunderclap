@@ -1,4 +1,4 @@
-extern "C" int vtable;
+extern "C" int vtable_170460;
 void thunk(int);
 class DriftToPositionTrack {
   public:
@@ -9,7 +9,7 @@ class DriftToPositionTrack {
     void tail();
 };
 void DriftToPositionTrack::f() {
-    vf = (int)&vtable;
+    vf = (int)&vtable_170460;
     thunk(value);
     tail();
 }

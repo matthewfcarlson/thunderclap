@@ -9,7 +9,7 @@ class pddiObject {
     int field4;
     int field8;
 };
-struct DisplayMode {
+struct DisplayMode_31b520 {
     void FUN_00292330();
     char data[0x34];
 };
@@ -23,7 +23,7 @@ class d3dDisplay : public pddiObject {
     char caps[0x434 - 0x58];
     unsigned char b434, b435, b436, b437;
     int field438;
-    DisplayMode mode;
+    DisplayMode_31b520 mode;
     int field470, field474, field478, field47c, field480;
     float scaleX, scaleY, scaleZ;
     char pad490[8];

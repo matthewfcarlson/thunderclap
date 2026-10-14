@@ -1,7 +1,7 @@
-extern const float a, b, c, d, e, g, h, i;
+extern const float a_3209f0, b, c, d, e, g, h, i;
 float FUN(float x) {
-    if (x <= a)
-        return a;
+    if (x <= a_3209f0)
+        return a_3209f0;
     if (x <= b)
         return b;
     if (x <= c)

@@ -1,6 +1,6 @@
 extern "C" char DAT_004272b8[];
 class Puppet;
-class Aux {
+class Aux_223670 {
   public:
     void Init();
 };
@@ -24,7 +24,7 @@ Puppet* Puppet::f5() {
     if (p) {
         p->InitA();
         *((int*)p) = ((int)DAT_004272b8);
-        ((Aux*)((char*)p + 0x10))->Init();
+        ((Aux_223670*)((char*)p + 0x10))->Init();
         p->x = 0;
         p->y = 0;
         p->InitC(this);

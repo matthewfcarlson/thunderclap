@@ -1,6 +1,6 @@
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f3ce0[];
-class Arg {
+class Arg_20b50 {
   public:
     virtual void AddRef();
     virtual void Release();
@@ -10,13 +10,13 @@ class CAction {
     CAction();
     int vf;
     char pad[0x18];
-    Arg* mArg;
+    Arg_20b50* mArg;
 };
 class CDeathAction : public CAction {
   public:
-    CDeathAction(Arg*);
+    CDeathAction(Arg_20b50*);
 };
-CDeathAction::CDeathAction(Arg* a) {
+CDeathAction::CDeathAction(Arg_20b50* a) {
     vf = ((int)DAT_003f3390);
     mArg = 0;
     if (a)

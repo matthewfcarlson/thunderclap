@@ -1,18 +1,18 @@
 extern "C" char DAT_0048e0f0[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e134[];
-class Base {
+class Base_94100 {
   public:
-    Base(int a, int b);
+    Base_94100(int a, int b);
     virtual void f0();
     char pad[0xc];
 };
 
 extern "C" char __cdecl Lookup(const char* s);
 
-class Derived : public Base {
+class Derived_94100 : public Base_94100 {
   public:
-    Derived(int a, int b);
+    Derived_94100(int a, int b);
     virtual void f0();
     char c10, c11, c12, c13, c14, c15;
     char pad2[2];
@@ -21,10 +21,10 @@ class Derived : public Base {
     int m1c;
 };
 
-void Base::f0() {}
-void Derived::f0() {}
+void Base_94100::f0() {}
+void Derived_94100::f0() {}
 
-Derived::Derived(int a, int b) : Base(a, 6) {
+Derived_94100::Derived_94100(int a, int b) : Base_94100(a, 6) {
     m1c = b;
     c18 = Lookup((const char*)((int)DAT_0048e100));
     c10 = Lookup((const char*)((int)DAT_0048e134));

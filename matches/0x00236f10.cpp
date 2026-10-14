@@ -5,12 +5,12 @@ class Node {
     virtual void Call(void*);
     Node* next;
 };
-class Owner {
+class Owner_236f10 {
   public:
     Node* head;
     void Walk(void*);
 };
-void Owner::Walk(void* arg) {
+void Owner_236f10::Walk(void* arg) {
     for (Node* p = head; p; p = p->next)
         p->Call(arg);
 }

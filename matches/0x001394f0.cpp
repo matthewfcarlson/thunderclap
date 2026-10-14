@@ -11,7 +11,7 @@ class Track {
     void Init();
 };
 class GrappleHoverTrack : public Track {};
-class Factory {
+class Factory_1394f0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -20,7 +20,7 @@ class Factory {
     virtual void v4();
     virtual GrappleHoverTrack* v5();
 };
-GrappleHoverTrack* Factory::v5() {
+GrappleHoverTrack* Factory_1394f0::v5() {
     GrappleHoverTrack* p = (GrappleHoverTrack*)Alloc(0x18);
     if (p) {
         p->Init();

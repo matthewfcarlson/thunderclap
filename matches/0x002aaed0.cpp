@@ -1,9 +1,9 @@
-class ParticleEmitterHandlerBase {
+class ParticleEmitterHandlerBase_2aaed0 {
   public:
     virtual void Emit();
-    ParticleEmitterHandlerBase();
+    ParticleEmitterHandlerBase_2aaed0();
 };
-class DefaultParticleEmitterHandler : public ParticleEmitterHandlerBase {
+class DefaultParticleEmitterHandler : public ParticleEmitterHandlerBase_2aaed0 {
   public:
     virtual void Handle();
     DefaultParticleEmitterHandler();

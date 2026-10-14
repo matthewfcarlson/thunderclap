@@ -1,14 +1,14 @@
 struct V {
     int x, y, z;
 };
-struct T {
+struct T_357740 {
     V a;
     int f[9];
     V b;
-    T* Set(const V* pa, int p3, int p4, int p5, int p6, int p7, int p8, int p9, int p10, int p11,
+    T_357740* Set(const V* pa, int p3, int p4, int p5, int p6, int p7, int p8, int p9, int p10, int p11,
            const V* pb);
 };
-T* T::Set(const V* pa, int p3, int p4, int p5, int p6, int p7, int p8, int p9, int p10, int p11,
+T_357740* T_357740::Set(const V* pa, int p3, int p4, int p5, int p6, int p7, int p8, int p9, int p10, int p11,
           const V* pb) {
     a = *pa;
     b = *pb;

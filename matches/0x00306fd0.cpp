@@ -1,4 +1,4 @@
-class Helper {
+class Helper_306fd0 {
   public:
     void c2(int, int);
     void c3(void*, void*);
@@ -16,7 +16,7 @@ class CollisionRay {
     virtual void f8();
     virtual void f9();
     virtual void f10();
-    virtual void f11(Helper* h);
+    virtual void f11(Helper_306fd0* h);
     virtual void f12();
     virtual void f13();
     virtual void f14();
@@ -26,7 +26,7 @@ class CollisionRay {
     virtual void f18();
     char pad[0x70];
 };
-void CollisionRay::f11(Helper* h) {
+void CollisionRay::f11(Helper_306fd0* h) {
     int a = f4();
     h->c2(f4(), a);
     h->c3((char*)this + 0x74, (char*)this + 0x74);

@@ -1,4 +1,4 @@
-class Obj {
+class Obj_23b320 {
   public:
     virtual void A();
 };
@@ -20,13 +20,13 @@ class StringReader : public content::LoadObject {
 };
 class StreamStringReader : public StringReader {
   public:
-    Obj* mStream;
+    Obj_23b320* mStream;
     bool mDone;
     bool mErr;
     virtual void f2();
-    StreamStringReader(Obj*, int);
+    StreamStringReader(Obj_23b320*, int);
 };
-StreamStringReader::StreamStringReader(Obj* s, int b) : StringReader(b) {
+StreamStringReader::StreamStringReader(Obj_23b320* s, int b) : StringReader(b) {
     mDone = false;
     mErr = false;
     mStream = s;

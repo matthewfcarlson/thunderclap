@@ -1,10 +1,10 @@
-struct Obj {
+struct Obj_29fd20 {
     void Method(int v, void* self);
 };
-extern Obj* gObject;
-struct Caller {
+extern Obj_29fd20* gObject_29fd20;
+struct Caller_29fd20 {
     void Target(int value);
 };
-void Caller::Target(int value) {
-    gObject->Method(value, this);
+void Caller_29fd20::Target(int value) {
+    gObject_29fd20->Method(value, this);
 }

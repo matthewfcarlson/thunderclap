@@ -1,37 +1,37 @@
-class RefObj {
+class RefObj_237470 {
   public:
     virtual void AddRef();
     virtual void Release();
 };
 
-class Base {
+class Base_237470 {
   public:
-    Base();
+    Base_237470();
     virtual void f0();
     char pad[0x18];
 };
 
-class OpportunityAction : public Base {
+class OpportunityAction : public Base_237470 {
   public:
-    OpportunityAction(RefObj* a, int b, int c, int d, RefObj* e, int f, int g, int h, RefObj* i);
+    OpportunityAction(RefObj_237470* a, int b, int c, int d, RefObj_237470* e, int f, int g, int h, RefObj_237470* i);
     virtual void f0();
-    RefObj* m1c;
+    RefObj_237470* m1c;
     int m20;
     int m24;
     int m28;
-    RefObj* m2c;
+    RefObj_237470* m2c;
     int m30;
     int m34;
     int m38;
-    RefObj* m3c;
+    RefObj_237470* m3c;
     int m40;
     int m44;
     int m48;
     int m4c;
 };
 
-OpportunityAction::OpportunityAction(RefObj* a, int b, int c, int d, RefObj* e, int f, int g, int h,
-                                     RefObj* i) {
+OpportunityAction::OpportunityAction(RefObj_237470* a, int b, int c, int d, RefObj_237470* e, int f, int g, int h,
+                                     RefObj_237470* i) {
     m24 = c;
     m28 = d;
     m1c = 0;

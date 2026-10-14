@@ -1,9 +1,9 @@
-struct Vec {
+struct Vec_2c6de0 {
     short x, y, z, w;
-    void f(Vec* out, Vec* other);
+    void f(Vec_2c6de0* out, Vec_2c6de0* other);
 };
-void Vec::f(Vec* out, Vec* other) {
-    Vec t;
+void Vec_2c6de0::f(Vec_2c6de0* out, Vec_2c6de0* other) {
+    Vec_2c6de0 t;
     t.x = x - other->x;
     t.y = y - other->y;
     t.z = z - other->z;

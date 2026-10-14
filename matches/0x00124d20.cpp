@@ -1,13 +1,13 @@
-class Obj;
-class Actor {
+class Obj_124d20;
+class Actor_124d20 {
   public:
     char pad[0x10];
     char flag;
 };
-class Obj {
+class Obj_124d20 {
   public:
-    Obj* Resolve();
-    Obj* Check();
+    Obj_124d20* Resolve();
+    Obj_124d20* Check();
     void Apply(int a, int b);
     char pad[0x32c];
     char flag;
@@ -19,16 +19,16 @@ class TargetClearAction {
     virtual void vfunc_2();
     bool vfunc_3(int a, int b);
     char pad[0x1c - 4];
-    Actor* actor;
-    Obj* target;
+    Actor_124d20* actor;
+    Obj_124d20* target;
 };
 bool TargetClearAction::vfunc_3(int a, int b) {
     if (!target)
         return false;
-    Obj* r = target->Resolve();
+    Obj_124d20* r = target->Resolve();
     if (!r)
         return false;
-    Obj* r2 = r->Check();
+    Obj_124d20* r2 = r->Check();
     if (!r2)
         return false;
     if (actor->flag != 0 || r2->flag == 0)

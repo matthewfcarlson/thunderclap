@@ -11,7 +11,7 @@ class CAxisArcCondition {
     char pad[0x1c];
     void Init(int);
 };
-class Factory {
+class Factory_56be0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -20,7 +20,7 @@ class Factory {
     virtual void f4();
     virtual CAxisArcCondition* f5();
 };
-CAxisArcCondition* Factory::f5() {
+CAxisArcCondition* Factory_56be0::f5() {
     CAxisArcCondition* p = (CAxisArcCondition*)Alloc(0x20);
     if (p) {
         p->Init(0);

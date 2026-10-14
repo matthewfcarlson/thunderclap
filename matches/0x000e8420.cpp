@@ -1,4 +1,4 @@
-class M {
+class M_e8420 {
   public:
     virtual void f0();
     virtual void f1();
@@ -18,7 +18,7 @@ class M {
     virtual void start(int);
     virtual void end(int);
 };
-class Item {
+class Item_e8420 {
   public:
     virtual void a0();
     virtual void a1();
@@ -33,11 +33,11 @@ class Item {
     virtual void a10();
     virtual void run();
 };
-struct Holder {
-    M* m;
+struct Holder_e8420 {
+    M_e8420* m;
     void exec(float, float, float);
 };
-extern Holder* gHolder;
+extern Holder_e8420* gHolder_e8420;
 class FEThingsBase {
   public:
     virtual void v0();
@@ -52,7 +52,7 @@ class FEThingsBase {
     virtual void v9();
     virtual void vfunc_10();
     char pad[0x1760 - 4];
-    Item* item;
+    Item_e8420* item;
     char pad2[0x1830 - 0x1764];
     int active;
     float value;
@@ -60,11 +60,11 @@ class FEThingsBase {
 void FEThingsBase::vfunc_10() {
     if (item) {
         if (active) {
-            gHolder->m->start(0);
-            gHolder->exec(value, value, value);
+            gHolder_e8420->m->start(0);
+            gHolder_e8420->exec(value, value, value);
         }
         item->run();
         if (active)
-            gHolder->m->end(0);
+            gHolder_e8420->m->end(0);
     }
 }

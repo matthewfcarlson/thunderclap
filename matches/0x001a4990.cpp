@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1a4990 {
   public:
     virtual void v0();
     virtual void v1();
@@ -12,16 +12,16 @@ class Obj {
     virtual void v9();
     virtual void Call(int, int, int, int);
 };
-class Holder {
+class Holder_1a4990 {
   public:
-    virtual ~Holder();
+    virtual ~Holder_1a4990();
     char pad[0x10];
-    Obj* second;
+    Obj_1a4990* second;
     char rest[0x10];
     int* Run();
 };
-int* Holder::Run() {
-    Obj* first = (Obj*)this;
+int* Holder_1a4990::Run() {
+    Obj_1a4990* first = (Obj_1a4990*)this;
     first->Call(1, 6, 2, 1);
     if (second)
         second->Call(1, 2, 1, 1);

@@ -1,13 +1,13 @@
 struct Item;
-struct Inner {
+struct Inner_29f840 {
     int pad[5];
     int mCount; // 0x14
 };
-struct Entry {
-    Inner* mInner;
+struct Entry_29f840 {
+    Inner_29f840* mInner;
     void Set(int idx, Item* it); // FUN_0029eda0
 };
-struct Src {
+struct Src_29f840 {
     char pad[0x10];
     int mLimit;      // 0x10
     unsigned mCount; // 0x14
@@ -15,14 +15,14 @@ struct Src {
 };
 int __stdcall Grow(int n); // FUN_002a1180
 
-struct Owner {
+struct Owner_29f840 {
     char pad[0x24];
     int mTotal;
-    Entry* Find(Item* it); // FUN_0029c450
-    void Run(Src* s);
+    Entry_29f840* Find(Item* it); // FUN_0029c450
+    void Run(Src_29f840* s);
 };
 
-void Owner::Run(Src* s) {
+void Owner_29f840::Run(Src_29f840* s) {
     unsigned n = s->mCount;
     unsigned i = 0;
     for (i = 0; i < n; i++) {
@@ -31,7 +31,7 @@ void Owner::Run(Src* s) {
         Item* it = s->mItems[i];
         if (!it)
             continue;
-        Entry* e = Find(it);
+        Entry_29f840* e = Find(it);
         if (!e)
             continue;
         int c = *(int*)((char*)e->mInner + 0x14);

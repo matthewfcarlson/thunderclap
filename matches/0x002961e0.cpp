@@ -1,33 +1,33 @@
-typedef unsigned int u32;
-extern int gState;
-class B {
+typedef unsigned int u32_2961e0;
+extern int gState_2961e0;
+class B_2961e0 {
   public:
-    virtual u32 a0();
-    virtual u32 a1();
-    virtual u32 a2();
-    virtual u32 a3();
-    virtual u32 a4();
-    virtual u32 a5();
-    virtual u32 a6();
-    virtual u32 a7();
-    virtual u32 a8();
-    virtual u32 a9();
-    virtual u32 a10();
-    virtual u32 a11();
-    virtual u32 a12();
-    virtual u32 a13();
-    virtual u32 a14();
-    virtual u32 a15(u32, u32, u32, u32, u32);
+    virtual u32_2961e0 a0();
+    virtual u32_2961e0 a1();
+    virtual u32_2961e0 a2();
+    virtual u32_2961e0 a3();
+    virtual u32_2961e0 a4();
+    virtual u32_2961e0 a5();
+    virtual u32_2961e0 a6();
+    virtual u32_2961e0 a7();
+    virtual u32_2961e0 a8();
+    virtual u32_2961e0 a9();
+    virtual u32_2961e0 a10();
+    virtual u32_2961e0 a11();
+    virtual u32_2961e0 a12();
+    virtual u32_2961e0 a13();
+    virtual u32_2961e0 a14();
+    virtual u32_2961e0 a15(u32_2961e0, u32_2961e0, u32_2961e0, u32_2961e0, u32_2961e0);
 };
-class A {
+class A_2961e0 {
   public:
     char pad[0x40];
-    B* p;
-    u32 f(u32 a, u32 b, u32 c, u32 d);
+    B_2961e0* p;
+    u32_2961e0 f(u32_2961e0 a, u32_2961e0 b, u32_2961e0 c, u32_2961e0 d);
 };
-u32 A::f(u32 a, u32 b, u32 c, u32 d) {
+u32_2961e0 A_2961e0::f(u32_2961e0 a, u32_2961e0 b, u32_2961e0 c, u32_2961e0 d) {
     if (p) {
-        gState = 0;
+        gState_2961e0 = 0;
         return p->a15(a, b, 2, c, d);
     }
     return 0;

@@ -1,13 +1,13 @@
-struct Obj {
+struct Obj_221c40 {
     char pad[0x40];
     struct Sub {
-        void F(Obj*);
+        void F(Obj_221c40*);
     } sub;
     char pad2[0x0c];
     int state;
-    Obj* target();
+    Obj_221c40* target();
 };
-Obj* Obj::target() {
+Obj_221c40* Obj_221c40::target() {
     if (state == 1) {
         sub.F(this);
         state = 0;

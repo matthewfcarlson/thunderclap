@@ -6,9 +6,9 @@ struct StoreBase {
     void* member;
 };
 extern void __cdecl helper(void*);
-extern void* table;
+extern void* table_1c7840;
 StoreBase* StoreBase::vfunc_0(unsigned char flag) {
-    *(void**)this = &table;
+    *(void**)this = &table_1c7840;
     helper(member);
     if (flag & 1)
         helper(this);

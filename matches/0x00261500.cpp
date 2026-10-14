@@ -1,9 +1,9 @@
-struct Ctx {
+struct Ctx_261500 {
     char pad[0x2004];
     char* out;
 };
-const char* Next(Ctx*);
-char* Fn(Ctx* c) {
+const char* Next(Ctx_261500*);
+char* Fn(Ctx_261500* c) {
     char* start = c->out;
     *start = 0;
     char* d = start;

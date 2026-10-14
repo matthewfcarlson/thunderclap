@@ -1,21 +1,21 @@
-struct Base {
+struct Base_574a0 {
     virtual void f0();
-    Base() throw();
+    Base_574a0() throw();
     char pad[0x14];
 };
-struct CButtonUpCondition : Base {
+struct CButtonUpCondition : Base_574a0 {
     CButtonUpCondition() throw() {}
     virtual void f0();
 };
 void* operator new(unsigned int);
-struct F {
+struct F_574a0 {
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void d();
     virtual void e();
-    virtual Base* vfunc_5();
+    virtual Base_574a0* vfunc_5();
 };
-Base* F::vfunc_5() {
+Base_574a0* F_574a0::vfunc_5() {
     return new CButtonUpCondition;
 }

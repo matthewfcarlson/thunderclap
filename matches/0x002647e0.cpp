@@ -1,4 +1,4 @@
-class X {
+class X_2647e0 {
   public:
     char pad[0xC];
     unsigned char a;
@@ -8,7 +8,7 @@ class X {
     unsigned char first(int, int, int, int);
     unsigned char second(int, int, int, int);
 };
-unsigned char X::target(int x, int y, int z, int w) {
+unsigned char X_2647e0::target(int x, int y, int z, int w) {
     if (!a)
         return 0;
     if (!b)

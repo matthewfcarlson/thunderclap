@@ -1,5 +1,5 @@
-extern const float gZero;
-extern const float gOne;
+extern const float gZero_3ebb0;
+extern const float gOne_3ebb0;
 
 class ClampOwner {
   public:
@@ -12,10 +12,10 @@ class ClampOwner {
 float ClampOwner::Get(int key) {
     float value = mValue;
     if (key != mKey)
-        return gZero;
-    if (value >= gZero && value <= gOne)
+        return gZero_3ebb0;
+    if (value >= gZero_3ebb0 && value <= gOne_3ebb0)
         return value;
-    if (value > gOne)
-        return gOne;
-    return gZero;
+    if (value > gOne_3ebb0)
+        return gOne_3ebb0;
+    return gZero_3ebb0;
 }

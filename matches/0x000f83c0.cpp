@@ -1,4 +1,4 @@
-class Obj {
+class Obj_f83c0 {
   public:
     char pad[0x10];
     int initArg;
@@ -7,7 +7,7 @@ class Obj {
     int field20;
 };
 extern void __stdcall Init(int, int);
-Obj* __fastcall Copy(Obj* self, void*, Obj* src) {
+Obj_f83c0* __fastcall Copy(Obj_f83c0* self, void*, Obj_f83c0* src) {
     Init(src->initArg, 0);
     self->field14 = src->field14;
     *(int*)self = *(int*)src;

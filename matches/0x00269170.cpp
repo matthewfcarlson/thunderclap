@@ -1,5 +1,5 @@
 unsigned int GetTime();
-class Pad {
+class Pad_269170 {
   public:
     virtual void v0();
     virtual void v1();
@@ -43,7 +43,7 @@ class ControllerSystemXBox {
     char pad1[3];
     unsigned int mOffset;
     char pad2[8];
-    Pad mPads[4];
+    Pad_269170 mPads[4];
     unsigned int mInterval;
     unsigned int mLast;
     void Poll();

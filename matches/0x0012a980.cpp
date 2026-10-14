@@ -1,5 +1,5 @@
 extern "C" char DAT_0040fe74[];
-class Factory {
+class Factory_12a980 {
   public:
     virtual void A();
     virtual void B();
@@ -9,21 +9,21 @@ class Factory {
     virtual void* Make();
 };
 extern void* __cdecl FUN_0008d690(unsigned int);
-class Init {
+class Init_12a980 {
   public:
     void Start(int);
 };
-struct Obj {
+struct Obj_12a980 {
     unsigned int vt;
     int a;
     int b;
     int c;
     int d;
 };
-void* Factory::Make() {
-    Obj* p = (Obj*)FUN_0008d690(0x14);
+void* Factory_12a980::Make() {
+    Obj_12a980* p = (Obj_12a980*)FUN_0008d690(0x14);
     if (p) {
-        ((Init*)p)->Start(0);
+        ((Init_12a980*)p)->Start(0);
         p->vt = ((int)DAT_0040fe74);
         p->c = 0;
         p->d = 0;

@@ -1,7 +1,7 @@
 struct V {
     float x, y, z;
 };
-class Shape {
+class Shape_3023b0 {
   public:
     virtual void a0();
     virtual void a1();
@@ -13,7 +13,7 @@ class Shape {
     char pad[0x30];
     float radius;
 };
-class Test {
+class Test_3023b0 {
   public:
     char pad[0xc];
     float margin;
@@ -21,9 +21,9 @@ class Test {
     V d;
     float pad3[3];
     float dist2;
-    bool Check(Shape* a, Shape* b);
+    bool Check(Shape_3023b0* a, Shape_3023b0* b);
 };
-bool Test::Check(Shape* a, Shape* b) {
+bool Test_3023b0::Check(Shape_3023b0* a, Shape_3023b0* b) {
     if (a->Type() == 8 || a->Type() == 1)
         return true;
     V* pb = b->Pos();

@@ -1,6 +1,6 @@
 extern "C" char* strncpy(char*, const char*, unsigned int);
 
-class C {
+class C_e0000 {
   public:
     void Copy(const char* src);
 
@@ -9,6 +9,6 @@ class C {
     char buf[0x20];
 };
 
-void C::Copy(const char* src) {
+void C_e0000::Copy(const char* src) {
     strncpy(buf, src, 0x20);
 }

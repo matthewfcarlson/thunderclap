@@ -28,7 +28,7 @@ class TextureBuilder : public ImageHandler::Builder {
     char pad[0x14];
     void* mArg;
 };
-class Receiver {
+class Receiver_2ae820 {
   public:
     virtual void v0();
     virtual void v1();
@@ -48,7 +48,7 @@ class Receiver {
 };
 void TextureBuilder::vfunc_10() {
     if (mThing) {
-        Receiver* r = *(Receiver**)((char*)mThing + 0x10);
+        Receiver_2ae820* r = *(Receiver_2ae820**)((char*)mThing + 0x10);
         r->v14(mArg);
     }
 }

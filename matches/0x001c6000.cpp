@@ -1,15 +1,15 @@
-class Item {
+class Item_1c6000 {
   public:
     virtual void Done(int);
 };
-class Bag {
+class Bag_1c6000 {
   public:
     int pad;
-    Item** items;
+    Item_1c6000** items;
     unsigned int count;
-    void Remove(Item* p);
+    void Remove(Item_1c6000* p);
 };
-void Bag::Remove(Item* p) {
+void Bag_1c6000::Remove(Item_1c6000* p) {
     unsigned int i = 0;
     while (i < count) {
         if (p == items[i]) {

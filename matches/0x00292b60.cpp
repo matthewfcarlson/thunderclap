@@ -36,7 +36,7 @@ class Camera {
     char rest[0xcc - 0x24];
     unsigned char flag;
 };
-class Manager {
+class Manager_292b60 {
   public:
     virtual void f0();
     virtual void f1();
@@ -68,10 +68,10 @@ class Manager {
     virtual void f27();
     virtual void f28(int, int, int, int);
 };
-extern Manager* gManager;
+extern Manager_292b60* gManager_292b60;
 void Camera::a22() {
     a5(m10, m14);
     if (!flag)
         a26();
-    gManager->f28(m1c, m20, m10, m18);
+    gManager_292b60->f28(m1c, m20, m10, m18);
 }

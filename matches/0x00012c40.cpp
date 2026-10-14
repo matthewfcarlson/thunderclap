@@ -1,7 +1,7 @@
-class Body {
+class Body_12c40 {
   public:
-    Body* GetBody();
+    Body_12c40* GetBody();
 };
-Body* Body::GetBody() {
-    return (Body*)((char*)this + 0x20);
+Body_12c40* Body_12c40::GetBody() {
+    return (Body_12c40*)((char*)this + 0x20);
 }

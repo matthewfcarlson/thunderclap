@@ -1,56 +1,56 @@
-struct Reset {
+struct Reset_86cb0 {
     void FUN_00024800();
 };
 struct GlobalOwner {
     char pad[0x20];
-    Reset* reset;
+    Reset_86cb0* reset;
 };
 extern GlobalOwner* DAT_004dd700;
 extern unsigned char DAT_0049c0d8, DAT_0049caa0, DAT_004dd83e, DAT_004dd8e4;
 extern int DAT_0049c108;
-struct UI {
+struct UI_86cb0 {
     void FUN_0023f720(int*, int);
     bool FUN_0023f760(const char*, int, int);
     void FUN_0023f740();
 };
-extern UI* DAT_004dd6e8;
-struct Check {
+extern UI_86cb0* DAT_004dd6e8;
+struct Check_86cb0 {
     bool FUN_0008db70();
 };
-struct Mode {
+struct Mode_86cb0 {
     int kind;
 };
-struct Special {
+struct Special_86cb0 {
     void FUN_001b7d10(int, int);
 };
 struct Draw {
-    void FUN_001b93a0(Mode*, int, int, int, int, int);
+    void FUN_001b93a0(Mode_86cb0*, int, int, int, int, int);
 };
-struct Memory {
+struct Memory_86cb0 {
     void FUN_0008d0a0();
 };
-extern Memory* __stdcall FUN_0008ceb0(int);
+extern Memory_86cb0* __stdcall FUN_0008ceb0(int);
 extern void __cdecl FUN_000969c0(int);
 extern void __cdecl FUN_00096740();
-struct Target {
+struct Target_86cb0 {
     int field0;
-    Mode* mode;
+    Mode_86cb0* mode;
     int field8;
     int fieldc;
     int field10;
     int field14;
     int field18;
-    Check* check;
+    Check_86cb0* check;
     int field20;
     Draw* draw;
     int field28;
     int field2c;
     int field30;
-    Special* special;
+    Special_86cb0* special;
     int field38;
     void FUN_00086cb0();
 };
-void Target::FUN_00086cb0() {
+void Target_86cb0::FUN_00086cb0() {
     if (DAT_004dd700)
         DAT_004dd700->reset->FUN_00024800();
     if (!DAT_0049c0d8)

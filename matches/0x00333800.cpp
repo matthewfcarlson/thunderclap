@@ -1,4 +1,4 @@
-class A {
+class A_333800 {
   public:
     char pad[0x64];
     int m64;
@@ -6,7 +6,7 @@ class A {
     void Sub();
 };
 
-void A::Set(int arg) {
+void A_333800::Set(int arg) {
     m64 = arg;
     Sub();
 }

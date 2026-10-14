@@ -1,4 +1,4 @@
-class Obj {
+class Obj_296060 {
   public:
     virtual void a();
     virtual void b();
@@ -24,7 +24,7 @@ class DrawableNode {
     char pad[0x10];
     unsigned char flags;
     char pad2[7];
-    Obj* child;
+    Obj_296060* child;
     bool vfunc_7();
 };
 bool DrawableNode::vfunc_7() {

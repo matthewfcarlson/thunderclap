@@ -1,7 +1,7 @@
-struct Obj {
+struct Obj_363af0 {
     void f();
 };
-extern Obj g;
+extern Obj_363af0 g_363af0;
 void wrapper() {
-    g.f();
+    g_363af0.f();
 }

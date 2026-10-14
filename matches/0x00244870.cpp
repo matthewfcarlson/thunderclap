@@ -4,11 +4,11 @@ struct Node {
     int pad[2];
     int key;
 };
-struct Tree {
+struct Tree_244870 {
     Node* root;
     Node sentinel;
 };
-int* find(Tree* tree, int* key) {
+int* find(Tree_244870* tree, int* key) {
     Node* p = tree->root;
     Node* end = (Node*)((char*)tree + 4);
     while (p != end) {

@@ -1,4 +1,4 @@
-class Obj {
+class Obj_296620 {
   public:
     virtual void f0();
     virtual void f1();
@@ -25,7 +25,7 @@ class BranchNode {
     unsigned int flags;
     char pad2[4];
     unsigned int count;
-    Obj** items;
+    Obj_296620** items;
 };
 void BranchNode::vfunc_8(int a, int b, int c) {
     if ((flags & 1) == 0) {

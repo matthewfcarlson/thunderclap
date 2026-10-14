@@ -1,4 +1,4 @@
-class Obj {
+class Obj_99d20 {
   public:
     virtual void f0();
     virtual void f1();
@@ -36,12 +36,12 @@ class Obj {
     virtual void f33();
     virtual int f34(int, int, int, int, int);
 };
-class Host {
+class Host_99d20 {
   public:
     char pad[0xb8];
-    Obj* p;
+    Obj_99d20* p;
 };
-int __fastcall FUN_00099d20(Host* self, void*, int a, int b, int c, int d, int e) {
+int __fastcall FUN_00099d20(Host_99d20* self, void*, int a, int b, int c, int d, int e) {
     if (self->p)
         return self->p->f34(a, b, c, d, e);
 }

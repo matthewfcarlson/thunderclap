@@ -6,7 +6,7 @@ class Stream {
     virtual void v3();
     virtual void Read(void*, int);
 };
-class Obj {
+class Obj_23c1f0 {
     char pad[8];
     Stream* stream;
     unsigned char a, b, c;
@@ -15,7 +15,7 @@ class Obj {
     void Run();
     void Update();
 };
-void Obj::Run() {
+void Obj_23c1f0::Run() {
     int x;
     stream->Read(&x, 4);
     char y[4] = {0, 0, 0, 0};

@@ -14,11 +14,11 @@ class VelocityXZAngleCondition {
     float angle;
     void Init(int);
 };
-class Factory {
+class Factory_16de70 {
   public:
     VelocityXZAngleCondition* vfunc_5();
 };
-VelocityXZAngleCondition* Factory::vfunc_5() {
+VelocityXZAngleCondition* Factory_16de70::vfunc_5() {
     VelocityXZAngleCondition* p = (VelocityXZAngleCondition*)alloc(0x14);
     if (p) {
         p->Init(0);

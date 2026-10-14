@@ -1,4 +1,4 @@
-class C {
+class C_61e70 {
     char pad[0x40];
     int m;
 
@@ -6,7 +6,7 @@ class C {
     bool Set(int x);
 };
 
-bool C::Set(int x) {
+bool C_61e70::Set(int x) {
     m = x;
     return true;
 }

@@ -1,14 +1,14 @@
-class Base {
+class Base_608d0 {
   public:
-    Base();
+    Base_608d0();
     virtual void A();
     virtual void B();
     int m4;
 };
 
-class Derived : public Base {
+class Derived_608d0 : public Base_608d0 {
   public:
-    Derived();
+    Derived_608d0();
     virtual void C();
     int m8;
     int mC;
@@ -16,7 +16,7 @@ class Derived : public Base {
     int m14;
 };
 
-Derived::Derived() : Base() {
+Derived_608d0::Derived_608d0() : Base_608d0() {
     mC = 0;
     m10 = 0;
     m14 = -1;

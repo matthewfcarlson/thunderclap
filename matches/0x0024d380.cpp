@@ -1,5 +1,5 @@
 extern "C" char DAT_004e62d8[];
-extern int g_vftable;
+extern int g_vftable_24d380;
 class EntityLoader {
   public:
     int vptr;
@@ -7,7 +7,7 @@ class EntityLoader {
 };
 extern void FUN_00247550(void*, EntityLoader*);
 EntityLoader* EntityLoader::vfunc_2(unsigned char param) {
-    vptr = (int)&g_vftable;
+    vptr = (int)&g_vftable_24d380;
     if (param & 1)
         FUN_00247550((void*)((int)DAT_004e62d8), this);
     return this;

@@ -1,4 +1,4 @@
-typedef unsigned int u32;
+typedef unsigned int u32_293910;
 struct CameraAnimationController {
     virtual void f0();
     virtual void f1();
@@ -31,18 +31,18 @@ struct CameraAnimationController {
     virtual void f28();
     virtual void f29();
     char pad[0x10c];
-    u32 field110;
-    u32 field114;
+    u32_293910 field110;
+    u32_293910 field114;
     void init(CameraAnimationController*);
-    void finish(u32);
+    void finish(u32_293910);
 };
 extern "C" void* __cdecl alloc(unsigned int);
-extern u32 camera_vtable;
+extern u32_293910 camera_vtable_293910;
 CameraAnimationController* CameraAnimationController::f4() {
     CameraAnimationController* p = (CameraAnimationController*)alloc(0x118);
     if (p) {
         p->init(this);
-        *(u32*)p = (u32)&camera_vtable;
+        *(u32_293910*)p = (u32_293910)&camera_vtable_293910;
         p->field110 = 0xffffffff;
         p->field114 = 0;
         p->finish(field114);

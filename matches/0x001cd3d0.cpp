@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1cd3d0 {
   public:
     char pad0[8];
     int field8;
@@ -9,7 +9,7 @@ class Obj {
     void Init(int);
     void Tail(int);
 };
-void Obj::Init(int value) {
+void Obj_1cd3d0::Init(int value) {
     field8 = value;
     for (int i = 0; i < 0x40; ++i)
         data[i] = 0;

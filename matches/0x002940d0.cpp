@@ -1,4 +1,4 @@
-class Inner {
+class Inner_2940d0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -15,17 +15,17 @@ class Inner {
     virtual void f12();
     virtual unsigned int Get();
 };
-class Helper {
+class Helper_2940d0 {
   public:
     void Run(void* out, unsigned int value);
 };
-class Owner {
+class Owner_2940d0 {
   public:
     char pad[0x18];
-    Inner* ptr;
-    void Target(void* out, Helper* h);
+    Inner_2940d0* ptr;
+    void Target(void* out, Helper_2940d0* h);
 };
-void Owner::Target(void* out, Helper* h) {
+void Owner_2940d0::Target(void* out, Helper_2940d0* h) {
     if (ptr)
         h->Run(out, ptr->Get());
 }

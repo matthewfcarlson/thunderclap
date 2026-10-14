@@ -1,12 +1,12 @@
-struct Obj {
+struct Obj_999f0 {
     void G();
 };
-class T {
+class T_999f0 {
   public:
     char pad[0xc4];
-    Obj* p;
+    Obj_999f0* p;
     void Target();
 };
-void T::Target() {
-    ((Obj*)((char*)p + 0x250))->G();
+void T_999f0::Target() {
+    ((Obj_999f0*)((char*)p + 0x250))->G();
 }

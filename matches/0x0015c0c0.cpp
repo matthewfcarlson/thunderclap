@@ -1,9 +1,9 @@
 extern "C" char DAT_00415ad0[];
-class Base {
+class Base_15c0c0 {
   public:
     void Fin();
 };
-class Member {
+class Member_15c0c0 {
   public:
     void Rel();
     int pad[2];
@@ -13,11 +13,11 @@ class GrappleLocomotionSteerTrack {
     void Kill();
     int vf;
     char pad[0x14];
-    Member a;
-    Member b;
-    Member c;
-    Member d;
-    Member e;
+    Member_15c0c0 a;
+    Member_15c0c0 b;
+    Member_15c0c0 c;
+    Member_15c0c0 d;
+    Member_15c0c0 e;
 };
 void GrappleLocomotionSteerTrack::Kill() {
     vf = ((int)DAT_00415ad0);
@@ -26,5 +26,5 @@ void GrappleLocomotionSteerTrack::Kill() {
     c.Rel();
     b.Rel();
     a.Rel();
-    ((Base*)this)->Fin();
+    ((Base_15c0c0*)this)->Fin();
 }

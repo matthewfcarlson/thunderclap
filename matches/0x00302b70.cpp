@@ -1,4 +1,4 @@
-class Item {
+class Item_302b70 {
   public:
     virtual void a();
     virtual void b();
@@ -12,20 +12,20 @@ class Item {
     virtual void i();
     virtual void j();
     virtual void k();
-    virtual bool Check(Item*, int);
+    virtual bool Check(Item_302b70*, int);
     char pad[16];
     int value;
     unsigned char flag;
 };
-class Owner {
+class Owner_302b70 {
   public:
     char pad[12];
     int field;
-    void F(Item*, Item*);
-    void Pair(Item*, Item*);
-    void Order(Item*, Item*);
+    void F(Item_302b70*, Item_302b70*);
+    void Pair(Item_302b70*, Item_302b70*);
+    void Order(Item_302b70*, Item_302b70*);
 };
-void Owner::F(Item* a, Item* b) {
+void Owner_302b70::F(Item_302b70* a, Item_302b70* b) {
     if (a->Check(b, field)) {
         if (!a->flag) {
             if (a->value)

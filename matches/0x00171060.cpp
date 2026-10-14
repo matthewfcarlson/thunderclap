@@ -1,15 +1,15 @@
-struct Thing {
+struct Thing_171060 {
     int pad[4];
     int value;
 };
-struct ObjC {
+struct ObjC_171060 {
     void run(int);
 };
-struct ObjB {
-    ObjC* run();
+struct ObjB_171060 {
+    ObjC_171060* run();
 };
-struct ObjA {
-    ObjB* run();
+struct ObjA_171060 {
+    ObjB_171060* run();
 };
 class LocomotionStateAction {
   public:
@@ -20,14 +20,14 @@ class LocomotionStateAction {
     virtual void vfunc_4();
     virtual bool vfunc_5(int param, int unused);
     char pad[0x1c - 4];
-    Thing* field1c;
-    ObjA* field20;
+    Thing_171060* field1c;
+    ObjA_171060* field20;
 };
 bool LocomotionStateAction::vfunc_5(int param, int unused) {
     if (param)
         return true;
-    ObjB* b = field20->run();
-    ObjC* c = b->run();
+    ObjB_171060* b = field20->run();
+    ObjC_171060* c = b->run();
     c->run(field1c->value);
     return false;
 }

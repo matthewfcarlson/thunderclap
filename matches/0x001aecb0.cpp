@@ -1,34 +1,34 @@
-struct Src {
+struct Src_1aecb0 {
     int a;
     int b;
 };
-struct Obj {
+struct Obj_1aecb0 {
     char pad[0x10];
     int a;
     int b;
 };
-struct Out {
-    Obj* o;
+struct Out_1aecb0 {
+    Obj_1aecb0* o;
     void* t;
 };
-extern int __stdcall Make(void (*)(), Src*);
+extern int __stdcall Make(void (*)(), Src_1aecb0*);
 extern void* __cdecl Alloc(unsigned int);
 void CallbackA();
 void CallbackB();
-class T {
+class T_1aecb0 {
   public:
-    void Reg(Obj*, void (*)(), int);
-    void Run(Out* out, Src* s);
+    void Reg(Obj_1aecb0*, void (*)(), int);
+    void Run(Out_1aecb0* out, Src_1aecb0* s);
 };
-void T::Run(Out* out, Src* s) {
+void T_1aecb0::Run(Out_1aecb0* out, Src_1aecb0* s) {
     int r = Make(CallbackA, s);
     if (!r) {
         out->o = 0;
         out->t = 0;
         return;
     }
-    Obj* p = (Obj*)Alloc(0x18);
-    Obj* o;
+    Obj_1aecb0* p = (Obj_1aecb0*)Alloc(0x18);
+    Obj_1aecb0* o;
     if (p) {
         p->a = s->a;
         p->b = s->b;

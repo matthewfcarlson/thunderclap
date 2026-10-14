@@ -1,8 +1,8 @@
-class Obj {
+class Obj_3641e0 {
   public:
     void Fn();
 };
-extern Obj gObj;
+extern Obj_3641e0 gObj_3641e0;
 void FUN_003641e0() {
-    gObj.Fn();
+    gObj_3641e0.Fn();
 }

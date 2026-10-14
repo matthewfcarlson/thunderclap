@@ -1,4 +1,4 @@
-class I {
+class I_2beab0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -14,13 +14,13 @@ class I {
     virtual void f11();
     virtual void target();
 };
-struct Mid {
-    I* p;
+struct Mid_2beab0 {
+    I_2beab0* p;
 };
 class SpriteObject {
   public:
     char pad[0x48];
-    Mid* m;
+    Mid_2beab0* m;
     void vfunc_20();
 };
 void SpriteObject::vfunc_20() {

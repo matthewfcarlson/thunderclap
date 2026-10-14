@@ -13,7 +13,7 @@ class CSmartPropTypeCondition {
     int b;
 };
 extern "C" CSmartPropTypeCondition* Alloc(unsigned int);
-class Factory {
+class Factory_58a00 {
   public:
     virtual void F0();
     virtual void F1();
@@ -22,7 +22,7 @@ class Factory {
     virtual void F4();
     CSmartPropTypeCondition* Create();
 };
-CSmartPropTypeCondition* Factory::Create() {
+CSmartPropTypeCondition* Factory_58a00::Create() {
     CSmartPropTypeCondition* p = Alloc(0x14);
     if (p) {
         p->Init(0);

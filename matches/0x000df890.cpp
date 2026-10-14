@@ -1,14 +1,14 @@
 int Dup(int a);
-struct Slot {
+struct Slot_df890 {
     int a;
     int b;
 };
-struct S {
+struct S_df890 {
     char pad[0x400];
-    Slot s[64];
+    Slot_df890 s[64];
     void Add(int a, int b);
 };
-void S::Add(int a, int b) {
+void S_df890::Add(int a, int b) {
     int i = 0;
     int* p = (int*)((char*)this + 0x408);
     do {

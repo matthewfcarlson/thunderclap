@@ -11,7 +11,7 @@ class FlyingDashTrack {
     unsigned int f;
     void Init();
 };
-class Factory {
+class Factory_139430 {
   public:
     virtual void a();
     virtual void b();
@@ -21,7 +21,7 @@ class Factory {
     virtual FlyingDashTrack* vfunc_5();
 };
 extern void* __cdecl Alloc(unsigned int);
-FlyingDashTrack* Factory::vfunc_5() {
+FlyingDashTrack* Factory_139430::vfunc_5() {
     FlyingDashTrack* p = (FlyingDashTrack*)Alloc(0x24);
     if (p) {
         p->Init();

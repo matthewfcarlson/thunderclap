@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1d1c70 {
   public:
     char pad0[8];
     int value;
@@ -8,7 +8,7 @@ class Obj {
 };
 int __cdecl Get(int);
 void __cdecl Set(int, int);
-void __fastcall Target(Obj* self) {
+void __fastcall Target(Obj_1d1c70* self) {
     if (self->index >= 0) {
         int v = Get(self->value);
         int x = self->items[self->index];

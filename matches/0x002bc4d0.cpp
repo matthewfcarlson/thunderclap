@@ -1,11 +1,11 @@
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042e7f0[];
-class Ref {
+class Ref_2bc4d0 {
   public:
     virtual void A();
     virtual void B();
 };
-class OldBillboardObjectLoader : public Ref {
+class OldBillboardObjectLoader : public Ref_2bc4d0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -13,13 +13,13 @@ class OldBillboardObjectLoader : public Ref {
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    char pad[0x14 - sizeof(Ref)];
-    Ref* volatile mRef;
+    char pad[0x14 - sizeof(Ref_2bc4d0)];
+    Ref_2bc4d0* volatile mRef;
 };
 extern void __cdecl thunk(OldBillboardObjectLoader*);
 OldBillboardObjectLoader* OldBillboardObjectLoader::v2(int flags) {
     *(volatile int*)this = ((int)DAT_0042e7f0);
-    Ref* r = mRef;
+    Ref_2bc4d0* r = mRef;
     if (r) {
         r->B();
         mRef = 0;

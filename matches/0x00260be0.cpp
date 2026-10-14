@@ -1,10 +1,10 @@
 extern "C" int sprintf(char*, const char*, ...);
-class Owner {
+class Owner_260be0 {
   public:
     char pad[0x2004];
     int offset;
 };
-int FUN_00260be0(Owner* owner, float value) {
+int FUN_00260be0(Owner_260be0* owner, float value) {
     char buffer[256];
     int i = sprintf(buffer, "%f", (double)value);
     --i;

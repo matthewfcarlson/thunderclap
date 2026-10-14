@@ -1,5 +1,5 @@
 extern "C" char DAT_0042d9dc[];
-typedef unsigned int u32;
+typedef unsigned int u32_2a6c00;
 extern void* __cdecl alloc(unsigned int);
 class ProceduralVertexAnimController {
   public:
@@ -31,15 +31,15 @@ class ProceduralVertexAnimController {
     virtual void a25();
     virtual void a26();
     void init(ProceduralVertexAnimController*);
-    void copyfield(u32);
+    void copyfield(u32_2a6c00);
     char pad[0x3c];
-    u32 field40, field44, field48, field4c, field50;
+    u32_2a6c00 field40, field44, field48, field4c, field50;
 };
 void* ProceduralVertexAnimController::vfunc_4() {
     ProceduralVertexAnimController* p = (ProceduralVertexAnimController*)alloc(0x58);
     if (p) {
         p->init(this);
-        *(u32*)p = ((int)DAT_0042d9dc);
+        *(u32_2a6c00*)p = ((int)DAT_0042d9dc);
         p->field40 = 0;
         p->field48 = 0;
         p->field4c = 0;

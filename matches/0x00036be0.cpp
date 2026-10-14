@@ -2,11 +2,11 @@ class Builder {
   public:
     void Make(void*);
 };
-class Dest {
+class Dest_36be0 {
   public:
     void Send(int, void*);
 };
-class Obj {
+class Obj_36be0 {
   public:
     char pad[0x10];
     Builder* builder;
@@ -14,11 +14,11 @@ class Obj {
     int m1ca0;
     void Run(int);
 };
-void Obj::Run(int arg) {
+void Obj_36be0::Run(int arg) {
     char local[12];
     int value = m1ca0;
     if (value) {
-        Dest* p = (Dest*)(value + 0x58);
+        Dest_36be0* p = (Dest_36be0*)(value + 0x58);
         if (p) {
             builder->Make(local);
             p->Send(arg, local);

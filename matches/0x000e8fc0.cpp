@@ -1,4 +1,4 @@
-class Child {
+class Child_e8fc0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -47,7 +47,7 @@ class VScroll : public FELayout {
     virtual void v21();
     void helper(int, int);
     char pad[0x240];
-    Child* child;
+    Child_e8fc0* child;
     int val248;
     char pad3[0x1c];
     int val268;

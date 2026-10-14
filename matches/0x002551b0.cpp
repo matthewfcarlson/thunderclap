@@ -1,9 +1,9 @@
 extern "C" char DAT_0042a45c[];
-class Base {
+class Base_2551b0 {
   public:
-    Base();
+    Base_2551b0();
 };
-class SeqEventLogicOr : public Base {
+class SeqEventLogicOr : public Base_2551b0 {
   public:
     char pad[8];
     int b, c, d;

@@ -1,13 +1,13 @@
 extern "C" char DAT_00434578[];
-class Obj {
+class Obj_337870 {
   public:
     int vft;
     int a;
     int b;
-    Obj();
+    Obj_337870();
 };
 
-Obj::Obj() {
+Obj_337870::Obj_337870() {
     vft = ((int)DAT_00434578);
     a = 0;
     b = 0;

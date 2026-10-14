@@ -1,4 +1,4 @@
-class Obj {
+class Obj_160b0 {
   public:
     virtual void a();
     virtual void b();
@@ -18,27 +18,27 @@ class Obj {
     virtual void q();
     virtual int h(int, int);
 };
-class A {
+class A_160b0 {
   public:
-    Obj* get();
+    Obj_160b0* get();
 };
-class B {
+class B_160b0 {
   public:
-    Obj* next();
+    Obj_160b0* next();
 };
-class C {
+class C_160b0 {
   public:
-    Obj* find(int);
+    Obj_160b0* find(int);
 };
-struct Data {
+struct Data_160b0 {
     char pad[16];
     int value;
 };
 class CSmartPropSetStateAction {
   public:
     char pad[24];
-    A* first;
-    Data* second;
+    A_160b0* first;
+    Data_160b0* second;
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -49,11 +49,11 @@ class CSmartPropSetStateAction {
     virtual bool vfunc_7(int);
 };
 bool CSmartPropSetStateAction::vfunc_7(int arg) {
-    Obj* a = first->get();
-    B* b = (B*)a;
+    Obj_160b0* a = first->get();
+    B_160b0* b = (B_160b0*)a;
     a = b->next();
-    C* c = (C*)a;
-    Obj* p = c->find(0);
+    C_160b0* c = (C_160b0*)a;
+    Obj_160b0* p = c->find(0);
     if (p)
         p->h(second->value, 1);
     return false;

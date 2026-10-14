@@ -1,19 +1,19 @@
-class Origin {
+class Origin_102a50 {
   public:
     void Get(float*);
 };
-class Vec {
+class Vec_102a50 {
   public:
     float x, y, z;
     float Normalize();
 };
-class Owner {
+class Owner_102a50 {
   public:
     char pad[0x10];
-    Origin* origin;
+    Origin_102a50* origin;
     float Scale();
 };
-void FUN_00102a50(Owner* owner, float* src, Vec* dst) {
+void FUN_00102a50(Owner_102a50* owner, float* src, Vec_102a50* dst) {
     float local[3];
     owner->origin->Get(local);
     dst->x = src[0] - local[0];

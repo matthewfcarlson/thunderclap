@@ -1,7 +1,7 @@
-struct Block {
+struct Block_292ba0 {
     int x[16];
 };
-class Receiver {
+class Receiver_292ba0 {
   public:
     void call();
 };
@@ -38,8 +38,8 @@ class Camera {
     unsigned char flag;
 };
 void Camera::vfunc_26() {
-    Block* dst = (Block*)((char*)this + 0x4c);
+    Block_292ba0* dst = (Block_292ba0*)((char*)this + 0x4c);
     flag = 1;
-    *dst = *(Block*)((char*)this + 0x8c);
-    ((Receiver*)dst)->call();
+    *dst = *(Block_292ba0*)((char*)this + 0x8c);
+    ((Receiver_292ba0*)dst)->call();
 }

@@ -1,5 +1,5 @@
 extern void* __cdecl Alloc(unsigned int);
-extern int LocationVtable;
+extern int LocationVtable_132a00;
 struct LocationCondition {
     virtual void f0();
     char pad[8];
@@ -14,7 +14,7 @@ void* FactoryVfunc5() {
         p->b = 0;
         p->c = 0;
         p->d = 0;
-        *(int*)p = (int)&LocationVtable;
+        *(int*)p = (int)&LocationVtable_132a00;
         return p;
     }
     return 0;

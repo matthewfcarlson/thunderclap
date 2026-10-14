@@ -1,7 +1,7 @@
 extern "C" char DAT_0041d44c[];
-typedef unsigned int u32;
+typedef unsigned int u32_1ac930;
 void* __cdecl Allocate(unsigned int);
-class Initializer {
+class Initializer_1ac930 {
   public:
     void Init(int);
 };
@@ -9,7 +9,7 @@ class OffsetInitializer {
   public:
     void Init();
 };
-class Factory {
+class Factory_1ac930 {
   public:
     virtual void a();
     virtual void b();
@@ -20,16 +20,16 @@ class Factory {
 };
 class Condition {
   public:
-    u32 vf;
+    u32_1ac930 vf;
     char pad4[8];
     int x;
     int y;
     char pad14[4];
 };
-void* Factory::Create() {
+void* Factory_1ac930::Create() {
     Condition* p = (Condition*)Allocate(0x20);
     if (p) {
-        ((Initializer*)p)->Init(0);
+        ((Initializer_1ac930*)p)->Init(0);
         p->vf = ((int)DAT_0041d44c);
         p->x = 2;
         p->y = 0;

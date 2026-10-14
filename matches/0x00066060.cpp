@@ -1,8 +1,8 @@
-class Obj {
+class Obj_66060 {
   public:
-    Obj* Get();
+    Obj_66060* Get();
 };
 
-Obj* Obj::Get() {
+Obj_66060* Obj_66060::Get() {
     return this;
 }

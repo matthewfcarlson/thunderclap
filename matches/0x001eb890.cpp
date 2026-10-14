@@ -1,15 +1,15 @@
 // Same code shape as 0x001eb870 (propagated; names are from that function)
-class B {
+class B_1eb890 {
   public:
     void F();
 };
-class A {
+class A_1eb890 {
   public:
     void* v;
     char pad[4];
     char flag;
 };
-void __fastcall target(A* p) {
+void __fastcall target(A_1eb890* p) {
     if (p->flag)
-        ((B*)**(void***)p)->F();
+        ((B_1eb890*)**(void***)p)->F();
 }

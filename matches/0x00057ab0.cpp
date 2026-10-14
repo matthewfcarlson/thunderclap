@@ -24,7 +24,7 @@ class CCollisionPushbackVelocityCondition {
     void Init(int);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-class Factory : public ConditionFactory, public Entity, public LoadObject, public IRefCount {
+class Factory_57ab0 : public ConditionFactory, public Entity, public LoadObject, public IRefCount {
   public:
     virtual void v0();
     virtual void v1();
@@ -33,7 +33,7 @@ class Factory : public ConditionFactory, public Entity, public LoadObject, publi
     virtual void v4();
     virtual CCollisionPushbackVelocityCondition* v5();
 };
-CCollisionPushbackVelocityCondition* Factory::v5() {
+CCollisionPushbackVelocityCondition* Factory_57ab0::v5() {
     CCollisionPushbackVelocityCondition* p = (CCollisionPushbackVelocityCondition*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);

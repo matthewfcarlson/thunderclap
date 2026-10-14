@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2e75b0 {
   public:
     char pad0[0x64];
     int flags;
@@ -7,9 +7,9 @@ class Obj {
     char pad10c[0x114 - 0x10c];
     unsigned char mode;
 };
-extern void __cdecl FUN_002dd690(Obj*, int*, int);
+extern void __cdecl FUN_002dd690(Obj_2e75b0*, int*, int);
 extern int __cdecl FUN_002e7500(int*);
-int __cdecl target(Obj* p) {
+int __cdecl target(Obj_2e75b0* p) {
     int q;
     int b = 1;
     if (p->mode & 0x20) {

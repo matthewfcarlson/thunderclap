@@ -10,7 +10,7 @@ class CAction {
     virtual void a7();
     virtual void a8();
 };
-class Obj {
+class Obj_17630 {
   public:
     void* first();
     void* second();
@@ -19,13 +19,13 @@ class Obj {
 class CRageModeAction : public CAction {
   public:
     char pad[0x1c - 4];
-    Obj* member1;
+    Obj_17630* member1;
     int member2;
     bool vfunc_6(int);
 };
 bool CRageModeAction::vfunc_6(int arg) {
-    Obj* x = (Obj*)member1->first();
-    x = (Obj*)x->second();
+    Obj_17630* x = (Obj_17630*)member1->first();
+    x = (Obj_17630*)x->second();
     x->third(member2);
     return true;
 }

@@ -1,10 +1,10 @@
 extern "C" char DAT_0042fd84[];
 void __cdecl Release(void*) throw();
-class Base {
+class Base_2e6620 {
   public:
-    ~Base();
+    ~Base_2e6620();
 };
-class Language : public Base {
+class Language : public Base_2e6620 {
   public:
     ~Language();
     char pad[0x1c];

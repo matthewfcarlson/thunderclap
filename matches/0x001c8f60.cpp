@@ -1,15 +1,15 @@
 extern "C" char DAT_00421abc[];
-struct Thing {
+struct Thing_1c8f60 {
     virtual void Run();
-    Thing* Init(unsigned p);
+    Thing_1c8f60* Init(unsigned p);
 };
-extern Thing* __cdecl Alloc(unsigned n);
+extern Thing_1c8f60* __cdecl Alloc(unsigned n);
 class LevelLoader {
   public:
     unsigned vptr;
     int m4, m8, mc, m10;
     unsigned m14, m18;
-    Thing* m1c;
+    Thing_1c8f60* m1c;
     LevelLoader(unsigned a, unsigned b);
 };
 LevelLoader::LevelLoader(unsigned a, unsigned b) {
@@ -20,8 +20,8 @@ LevelLoader::LevelLoader(unsigned a, unsigned b) {
     vptr = ((int)DAT_00421abc);
     m14 = a;
     m18 = b;
-    Thing* t = Alloc(0x18);
-    Thing* r;
+    Thing_1c8f60* t = Alloc(0x18);
+    Thing_1c8f60* r;
     if (t)
         r = t->Init(m14);
     else

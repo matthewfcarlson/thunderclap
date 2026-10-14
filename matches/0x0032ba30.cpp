@@ -1,4 +1,4 @@
-extern int vtable;
+extern int vtable_32ba30;
 class Shader {
   public:
     virtual void V();
@@ -20,6 +20,6 @@ Shader* Shader::Target(int arg) {
     d = 0;
     e = 0;
     f = 0;
-    *(int*)this = (int)&vtable;
+    *(int*)this = (int)&vtable_32ba30;
     return this;
 }

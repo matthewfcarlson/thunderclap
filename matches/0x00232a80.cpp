@@ -6,12 +6,12 @@ class Node {
     Node* next;
     void Rel(Node*);
 };
-class Owner {
+class Owner_232a80 {
   public:
     Node* head;
     void Set(Node*);
 };
-void Owner::Set(Node* arg) {
+void Owner_232a80::Set(Node* arg) {
     if (arg) {
         Node* p = head;
         Node* last = 0;

@@ -1,9 +1,9 @@
-class Base {
+class Base_462a0 {
   public:
     int vptr;
-    Base();
+    Base_462a0();
     int data;
 };
-Base::Base() {
+Base_462a0::Base_462a0() {
     vptr = 0x3f6338;
 }

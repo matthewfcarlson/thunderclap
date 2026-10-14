@@ -1,32 +1,32 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
+extern void* g_vftable_2b56e0[];
 extern void* g_vftable2[];
 void operator delete(void*);
-class Ref {
+class Ref_2b56e0 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Base {
+class Base_2b56e0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_2b56e0 : public Base_2b56e0 {
   public:
     char pad[0x40 - 4];
-    Ref* m40;
-    Ref* m44;
-    Ref* m48;
+    Ref_2b56e0* m40;
+    Ref_2b56e0* m44;
+    Ref_2b56e0* m48;
     char pad2[0x70 - 0x4c];
-    Ref* m70;
+    Ref_2b56e0* m70;
     void* m74;
-    Ref* m78;
-    Ref* m7c;
-    ~Obj();
+    Ref_2b56e0* m78;
+    Ref_2b56e0* m7c;
+    ~Obj_2b56e0();
 };
-Obj::~Obj() {
-    vptr = g_vftable;
+Obj_2b56e0::~Obj_2b56e0() {
+    vptr = g_vftable_2b56e0;
     _ReadWriteBarrier();
     if (m70) {
         m70->Release();
@@ -46,7 +46,7 @@ Obj::~Obj() {
     }
     operator delete(m74);
     *(void* volatile*)&vptr = g_vftable2;
-    Ref* t = *(Ref* volatile*)&m40;
+    Ref_2b56e0* t = *(Ref_2b56e0* volatile*)&m40;
     if (t) {
         t->Release();
         m40 = 0;

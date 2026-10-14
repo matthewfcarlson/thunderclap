@@ -1,17 +1,17 @@
-typedef unsigned char u8;
+typedef unsigned char u8_1c9920;
 __int64 Make(int);
 void __stdcall Init(int, int, int);
-class Obj {
+class Obj_1c9920 {
   public:
     char pad[0xC];
     volatile int value;
     char rest[0xA0];
     unsigned int a;
     unsigned int b;
-    volatile u8 c;
-    Obj* Build(int, int, int, u8);
+    volatile u8_1c9920 c;
+    Obj_1c9920* Build(int, int, int, u8_1c9920);
 };
-Obj* Obj::Build(int p2, int p3, int p4, u8 p5) {
+Obj_1c9920* Obj_1c9920::Build(int p2, int p3, int p4, u8_1c9920 p5) {
     Init(1, 0xc0, p2);
     union U {
         __int64 q;

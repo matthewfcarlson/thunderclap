@@ -1,4 +1,4 @@
-class Obj {
+class Obj_cac60 {
   public:
     char pad0[0x264];
     char a[8][0x40];
@@ -15,7 +15,7 @@ class Obj {
     int x49c;
     void Init();
 };
-void Obj::Init() {
+void Obj_cac60::Init() {
     int i;
     for (i = 0; i < 8; i++)
         a[i][0] = 0;

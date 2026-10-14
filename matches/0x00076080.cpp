@@ -1,4 +1,4 @@
-typedef unsigned int u32;
+typedef unsigned int u32_76080;
 extern void* __cdecl Alloc(unsigned int);
 extern int ComboVtable;
 class CComboMessageTrack {
@@ -18,11 +18,11 @@ void* TrackFactory::vfunc_5() {
     CComboMessageTrack* p = (CComboMessageTrack*)Alloc(0x54);
     if (p) {
         p->Init();
-        *(u32*)p = (u32)&ComboVtable;
-        *(u32*)((char*)p + 0xc) = 0;
-        *(u32*)((char*)p + 0x50) = 0;
+        *(u32_76080*)p = (u32_76080)&ComboVtable;
+        *(u32_76080*)((char*)p + 0xc) = 0;
+        *(u32_76080*)((char*)p + 0x50) = 0;
         *((char*)p + 0x10) = 0;
-        *(u32*)((char*)p + 8) = 1;
+        *(u32_76080*)((char*)p + 8) = 1;
         return p;
     }
     return 0;

@@ -1,4 +1,4 @@
-class Helper {
+class Helper_181280 {
   public:
     void Init();
 };
@@ -8,13 +8,13 @@ class BallAndChainShootTrack {
     char pad[0x78];
     void Construct();
 };
-class Base {
+class Base_181280 {
   public:
     void Finish();
 };
 void BallAndChainShootTrack::Construct() {
     *(void**)this = &BallAndChainShootTrack_vftable;
-    ((Helper*)((char*)this + 0x78))->Init();
-    ((Helper*)((char*)this + 0x60))->Init();
-    ((Base*)this)->Finish();
+    ((Helper_181280*)((char*)this + 0x78))->Init();
+    ((Helper_181280*)((char*)this + 0x60))->Init();
+    ((Base_181280*)this)->Finish();
 }

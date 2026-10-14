@@ -1,4 +1,4 @@
-class C {
+class C_2f9d60 {
   public:
     char pad0[0x30];
     void* m30;
@@ -7,13 +7,13 @@ class C {
     void* m40;
     void* m44;
 
-    C* func(unsigned char p);
+    C_2f9d60* func(unsigned char p);
 };
 
 void __cdecl operator delete(void*);
 void __cdecl operator delete[](void*);
 
-C* C::func(unsigned char p) {
+C_2f9d60* C_2f9d60::func(unsigned char p) {
     void* v = m40;
     m44 = v;
     if (v) {

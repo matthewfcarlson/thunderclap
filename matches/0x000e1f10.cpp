@@ -1,5 +1,5 @@
 extern "C" char DAT_0040c0f4[];
-class Manager {
+class Manager_e1f10 {
   public:
     virtual void s0();
     virtual void s1();
@@ -57,10 +57,10 @@ class Manager {
 };
 class FELayout {
   public:
-    FELayout* init(Manager* p, int arg);
+    FELayout* init(Manager_e1f10* p, int arg);
     int vt;
     int a;
-    Manager* m;
+    Manager_e1f10* m;
     int b;
     int c;
     int e;
@@ -68,7 +68,7 @@ class FELayout {
     int f[3];
     float scale;
 };
-FELayout* FELayout::init(Manager* p, int arg) {
+FELayout* FELayout::init(Manager_e1f10* p, int arg) {
     int* q = &d[0];
     vt = ((int)DAT_0040c0f4);
     q[0] = 0;

@@ -1,9 +1,9 @@
-struct Pair {
+struct Pair_27af30 {
     unsigned a;
     unsigned b;
-    Pair& Assign(const Pair* src);
+    Pair_27af30& Assign(const Pair_27af30* src);
 };
-Pair& Pair::Assign(const Pair* src) {
+Pair_27af30& Pair_27af30::Assign(const Pair_27af30* src) {
     a = src->a;
     b = src->b;
     return *this;

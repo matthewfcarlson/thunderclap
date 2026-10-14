@@ -1,18 +1,18 @@
-typedef unsigned int u32;
+typedef unsigned int u32_1a11b0;
 struct Track {
     char x[0x148];
-    u32 Init();
+    u32_1a11b0 Init();
 };
-struct Factory {
+struct Factory_1a11b0 {
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void d();
     virtual void e();
-    virtual u32 f();
+    virtual u32_1a11b0 f();
 };
 void* operator new(unsigned int);
-u32 Factory::f() {
+u32_1a11b0 Factory_1a11b0::f() {
     Track* p = (Track*)::operator new(0x148);
     if (p)
         return p->Init();

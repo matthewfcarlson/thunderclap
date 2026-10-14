@@ -58,17 +58,17 @@ class FEMenuBase {
     char pad[0x990 - 4];
     void* volatile mObj;
 };
-class Obj {
+class Obj_ef8c0 {
   public:
     virtual void f0();
     virtual void f1();
 };
 void FEMenuBase::v54(void* p) {
-    Obj* old = (Obj*)mObj;
+    Obj_ef8c0* old = (Obj_ef8c0*)mObj;
     if (old) {
         old->f1();
         mObj = 0;
     }
     mObj = p;
-    ((Obj*)p)->f0();
+    ((Obj_ef8c0*)p)->f0();
 }

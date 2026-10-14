@@ -1,18 +1,18 @@
-extern const float gOne;
-struct Inner {
+extern const float gOne_2ef420;
+struct Inner_2ef420 {
     char pad[0x34];
     float value;
 };
-struct Holder {
+struct Holder_2ef420 {
     char pad[0x20];
-    Inner* inner;
+    Inner_2ef420* inner;
 };
-struct Obj {
+struct Obj_2ef420 {
     char pad[0x74];
-    Holder* holder;
+    Holder_2ef420* holder;
 };
-float __fastcall FUN_002ef420(Obj* self) {
+float __fastcall FUN_002ef420(Obj_2ef420* self) {
     if (self->holder)
         return self->holder->inner->value;
-    return gOne;
+    return gOne_2ef420;
 }

@@ -1,14 +1,14 @@
-struct Triple {
+struct Triple_306e10 {
     int a, b, c;
 };
-class Target {
+class Target_306e10 {
   public:
     int x0, x1, x2, x3, x4, x5, x6, x7;
     unsigned char flag;
     int x9;
-    void Set(Triple* a, Triple* b, int c, int d, unsigned char e, int f);
+    void Set(Triple_306e10* a, Triple_306e10* b, int c, int d, unsigned char e, int f);
 };
-void Target::Set(Triple* a, Triple* b, int c, int d, unsigned char e, int f) {
+void Target_306e10::Set(Triple_306e10* a, Triple_306e10* b, int c, int d, unsigned char e, int f) {
     x0 = a->a;
     x1 = a->b;
     x2 = a->c;

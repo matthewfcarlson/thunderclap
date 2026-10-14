@@ -1,8 +1,8 @@
-class Obj {
+class Obj_35ef90 {
   public:
     void Fn(int x);
 };
-extern Obj g_obj;
+extern Obj_35ef90 g_obj_35ef90;
 void __stdcall Target() {
-    g_obj.Fn(0);
+    g_obj_35ef90.Fn(0);
 }

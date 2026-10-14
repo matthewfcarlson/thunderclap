@@ -1,5 +1,5 @@
 namespace pure3d {
-class Particle {
+class Particle_2a7220 {
   public:
     virtual void f0();
     virtual void f1();
@@ -58,8 +58,8 @@ class ParticleController {
     int a44;
     int a48;
     int a4c;
-    Particle** begin;
-    Particle** end;
+    Particle_2a7220** begin;
+    Particle_2a7220** end;
 };
 void ParticleController::vfunc_23() {
     int x = a44;

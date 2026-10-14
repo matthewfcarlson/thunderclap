@@ -14,7 +14,7 @@ class ParamValueName : public ParamValueString {
   public:
     bool vfunc_6(void*, void*);
 };
-class Receiver {
+class Receiver_234bd0 {
   public:
     void run(void*);
 };
@@ -22,6 +22,6 @@ bool ParamValueName::vfunc_6(void* a, void* b) {
     void* x = get(a);
     if (!x)
         return false;
-    ((Receiver*)x)->run(b);
+    ((Receiver_234bd0*)x)->run(b);
     return true;
 }

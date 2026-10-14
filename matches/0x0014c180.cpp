@@ -4,7 +4,7 @@ class Track {
   public:
     Track();
 };
-class Factory {
+class Factory_14c180 {
   public:
     virtual void a0();
     virtual void a1();
@@ -13,7 +13,7 @@ class Factory {
     virtual void a4();
     Track* vfunc_5();
 };
-Track* Factory::vfunc_5() {
+Track* Factory_14c180::vfunc_5() {
     Track* p = (Track*)FUN_0008d690(0x10);
     if (p) {
         p->Track::Track();

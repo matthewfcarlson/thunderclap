@@ -8,14 +8,14 @@ class SlowMotionAction : public Action {
   public:
     void vfunc_4();
 };
-struct Receiver {
+struct Receiver_1442f0 {
     void call(int);
 };
-struct GlobalObj {
+struct GlobalObj_1442f0 {
     char pad[0x58];
-    Receiver* member;
+    Receiver_1442f0* member;
 };
-extern GlobalObj* gObj;
+extern GlobalObj_1442f0* gObj_1442f0;
 void SlowMotionAction::vfunc_4() {
-    gObj->member->call(value);
+    gObj_1442f0->member->call(value);
 }

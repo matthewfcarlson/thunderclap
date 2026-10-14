@@ -1,5 +1,5 @@
 extern "C" int strcmp(const char*, const char*);
-class Entry {
+class Entry_268a10 {
   public:
     virtual void f0();
     virtual void f1();
@@ -18,7 +18,7 @@ class ControllerXBox {
     virtual void f7();
     virtual void f8();
     virtual void f9();
-    virtual Entry* vfunc_10(const char*);
+    virtual Entry_268a10* vfunc_10(const char*);
     virtual void f11();
     virtual void f12();
     virtual void f13();
@@ -33,12 +33,12 @@ class ControllerXBox {
     char pad[0x10];
     unsigned int count;
 };
-Entry* ControllerXBox::vfunc_10(const char* s) {
+Entry_268a10* ControllerXBox::vfunc_10(const char* s) {
     unsigned int i;
     for (i = 0; i < count; i++) {
-        Entry* e = (Entry*)((char*)this + 0x18 + i * 0x34);
+        Entry_268a10* e = (Entry_268a10*)((char*)this + 0x18 + i * 0x34);
         if (strcmp(s, e->Name()) == 0)
-            return (Entry*)((char*)this + 0x18 + i * 0x34);
+            return (Entry_268a10*)((char*)this + 0x18 + i * 0x34);
     }
     return 0;
 }

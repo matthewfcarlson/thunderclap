@@ -2,16 +2,16 @@ class RandomCondition {
   public:
     virtual void F();
 };
-class Obj {
+class Obj_2386e0 {
   public:
     virtual void A();
     void Use(void*);
 };
 extern void* Build(void* arg, void* storage);
-int vtable;
+int vtable_2386e0;
 void Target(void* a, void* b) {
     RandomCondition local;
-    *(int*)&local = (int)&vtable;
+    *(int*)&local = (int)&vtable_2386e0;
     void* r = Build(b, &local);
-    ((Obj*)a)->Use(r);
+    ((Obj_2386e0*)a)->Use(r);
 }

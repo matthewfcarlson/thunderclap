@@ -1,17 +1,17 @@
-struct Ref {
+struct Ref_1cf40 {
     virtual void AddRef();
     virtual void Release();
 };
-struct B {
-    B() throw();
+struct B_1cf40 {
+    B_1cf40() throw();
     virtual void V0();
     char pad04[0x18];
 };
-struct CAction : B {
-    Ref* m1c;
+struct CAction : B_1cf40 {
+    Ref_1cf40* m1c;
     int m20;
-    CAction(Ref* r, int a) {
-        Ref** q = &m1c;
+    CAction(Ref_1cf40* r, int a) {
+        Ref_1cf40** q = &m1c;
         *q = 0;
         if (r)
             r->AddRef();
@@ -24,9 +24,9 @@ struct CAction : B {
 };
 struct CProceduralDurationAnimationAction : CAction {
     int m24;
-    CProceduralDurationAnimationAction(int a, Ref* r);
+    CProceduralDurationAnimationAction(int a, Ref_1cf40* r);
     virtual void V0();
 };
-CProceduralDurationAnimationAction::CProceduralDurationAnimationAction(int a, Ref* r) : CAction(r, a) {
+CProceduralDurationAnimationAction::CProceduralDurationAnimationAction(int a, Ref_1cf40* r) : CAction(r, a) {
     m24 = 0;
 }

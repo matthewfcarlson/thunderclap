@@ -24,10 +24,10 @@ class InstanceDrive {
     virtual bool f21();
     virtual bool f22();
     char pad[8];
-    class Other* other;
+    class Other_276cf0* other;
     void vfunc_22();
 };
-class Other {
+class Other_276cf0 {
   public:
     virtual void a();
     virtual void b();

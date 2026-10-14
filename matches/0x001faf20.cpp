@@ -10,13 +10,13 @@ class Stream {
     bool Try(MyFileStream* s, int x);
     void Close();
 };
-class Owner {
+class Owner_1faf20 {
   public:
     char pad[4];
     Stream* stream;
     bool Open(int x);
 };
-bool Owner::Open(int x) {
+bool Owner_1faf20::Open(int x) {
     MyFileStream local;
     local.v = 0;
     local.a = 0;

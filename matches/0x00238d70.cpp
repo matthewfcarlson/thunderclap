@@ -1,22 +1,22 @@
 extern "C" void _ReadWriteBarrier();
 extern void* g_vA[];
-class Ref {
+class Ref_238d70 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Base {
+class Base_238d70 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_238d70 : public Base_238d70 {
   public:
     char pad[28];
-    Ref* m;
-    ~Obj() throw();
+    Ref_238d70* m;
+    ~Obj_238d70() throw();
 };
-Obj::~Obj() throw() {
+Obj_238d70::~Obj_238d70() throw() {
     vptr = g_vA;
     _ReadWriteBarrier();
     if (m) {

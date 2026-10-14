@@ -1,4 +1,4 @@
-class Elem {
+class Elem_1fd130 {
   public:
     char pad[0x458];
     int mFlag;
@@ -7,19 +7,19 @@ class Elem {
     void Do(void* p);
 };
 
-class Container {
+class Container_1fd130 {
   public:
     char pad[0x234];
     int mArray;
     void Target(void* p2, void* p3);
 };
 
-void Container::Target(void* p2, void* p3) {
+void Container_1fd130::Target(void* p2, void* p3) {
     for (int i = 0; i < 0x6380; i += 0xc70) {
-        Elem* e = (Elem*)(mArray + i);
+        Elem_1fd130* e = (Elem_1fd130*)(mArray + i);
         if (e->mFlag != 0) {
-            if (((Elem*)(mArray + i))->Check(p3)) {
-                ((Elem*)(mArray + i))->Do(p2);
+            if (((Elem_1fd130*)(mArray + i))->Check(p3)) {
+                ((Elem_1fd130*)(mArray + i))->Do(p2);
             }
         }
     }

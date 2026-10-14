@@ -5,7 +5,7 @@ struct ObjEnd {
 struct ObjMid {
     ObjEnd* Call2();
 };
-struct ObjA {
+struct ObjA_1673c0 {
     ObjMid* Call1();
 };
 
@@ -24,7 +24,7 @@ class RageModeStateCondition {
 };
 
 bool RageModeStateCondition::vfunc_6(int a, int b, int c) {
-    ObjMid* m = ((ObjA*)b)->Call1();
+    ObjMid* m = ((ObjA_1673c0*)b)->Call1();
     ObjEnd* e = m->Call2();
     int v = e->field;
     switch (mode) {

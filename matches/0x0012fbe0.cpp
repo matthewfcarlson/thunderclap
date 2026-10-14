@@ -1,6 +1,6 @@
 extern "C" void __cdecl thunk_FUN_00267090(void* p);
 void __cdecl operator delete(void* p);
-extern int g_vftable;
+extern int g_vftable_12fbe0;
 
 class MissionProgressCondition {
   public:
@@ -19,7 +19,7 @@ class MissionProgressCondition {
 };
 
 MissionProgressCondition* MissionProgressCondition::vfunc_5(unsigned char flag) {
-    *(void**)this = &g_vftable;
+    *(void**)this = &g_vftable_12fbe0;
     thunk_FUN_00267090(m0c);
     thunk_FUN_00267090(m14);
     baseDtor();

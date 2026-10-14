@@ -1,21 +1,21 @@
 extern "C" char DAT_0041d3ec[];
-struct Obj {
+struct Obj_1ac6a0 {
     unsigned int vt;
     char pad[8];
     int value;
     void Init(int);
 };
 extern void* __cdecl Alloc(unsigned int);
-struct Factory {
+struct Factory_1ac6a0 {
     virtual void A();
     virtual void B();
     virtual void C();
     virtual void D();
     virtual void E();
-    virtual Obj* F5();
+    virtual Obj_1ac6a0* F5();
 };
-Obj* Factory::F5() {
-    Obj* p = (Obj*)Alloc(0x10);
+Obj_1ac6a0* Factory_1ac6a0::F5() {
+    Obj_1ac6a0* p = (Obj_1ac6a0*)Alloc(0x10);
     if (p) {
         p->Init(0);
         p->vt = ((int)DAT_0041d3ec);

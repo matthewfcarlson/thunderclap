@@ -1,4 +1,4 @@
-class Inner {
+class Inner_1d7590 {
   public:
     virtual void f0();
     virtual void f1();
@@ -10,20 +10,20 @@ class Inner {
     virtual void f7();
     void helper(int);
 };
-struct Wrap {
+struct Wrap_1d7590 {
     char pad[0x10];
-    Inner* ptr;
+    Inner_1d7590* ptr;
 };
-class Outer {
+class Outer_1d7590 {
   public:
     char pad[0xa0];
-    Wrap* ptr;
+    Wrap_1d7590* ptr;
     void run();
 };
-void Outer::run() {
-    Wrap* w = ptr;
+void Outer_1d7590::run() {
+    Wrap_1d7590* w = ptr;
     if (w) {
-        Inner* p = w->ptr;
+        Inner_1d7590* p = w->ptr;
         if (p) {
             p->helper(0);
             p->f7();

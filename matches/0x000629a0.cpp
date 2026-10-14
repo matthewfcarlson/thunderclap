@@ -1,11 +1,11 @@
-class Base {
+class Base_629a0 {
   public:
-    Base();
+    Base_629a0();
     virtual void baseMethod();
     char pad[4];
 };
 
-class ThrowingTrack : public Base {
+class ThrowingTrack : public Base_629a0 {
   public:
     virtual void method1();
     int m8;

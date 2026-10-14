@@ -1,41 +1,41 @@
-class Item {
+class Item_1c8000 {
   public:
     char pad[0x28];
     char flag;
 };
-class Manager {
+class Manager_1c8000 {
   public:
     char pad[0x10];
     int count;
     int capacity;
-    Item** items;
+    Item_1c8000** items;
 };
-class Obj {
+class Obj_1c8000 {
   public:
-    void Process(Item*);
+    void Process(Item_1c8000*);
 };
-class Service {
+class Service_1c8000 {
   public:
     void** vt;
 };
-Service* GetService();
-void __stdcall FUN_001c8000(Manager* m) {
+Service_1c8000* GetService();
+void __stdcall FUN_001c8000(Manager_1c8000* m) {
     if (m) {
         int i = 0;
         if (m->capacity > 0)
             do {
-                Item* item;
+                Item_1c8000* item;
                 if (i < m->count)
                     item = m->items[i];
                 else
                     item = 0;
                 if (item->flag) {
-                    Service* s = GetService();
-                    Obj* o = (Obj*)s->vt[49];
+                    Service_1c8000* s = GetService();
+                    Obj_1c8000* o = (Obj_1c8000*)s->vt[49];
                     o->Process(item);
                 } else {
-                    Service* s = GetService();
-                    Obj* o = (Obj*)s->vt[48];
+                    Service_1c8000* s = GetService();
+                    Obj_1c8000* o = (Obj_1c8000*)s->vt[48];
                     o->Process(item);
                 }
                 ++i;

@@ -42,10 +42,10 @@ class InstanceDrive {
     virtual void f39();
     virtual void f40();
     char pad[8];
-    struct Inner* p;
+    struct Inner_2767c0* p;
     void vfunc_3();
 };
-struct Inner {
+struct Inner_2767c0 {
     virtual void a();
     virtual void b();
     virtual void c();

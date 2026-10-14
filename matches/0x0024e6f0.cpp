@@ -1,32 +1,32 @@
-typedef unsigned int u32;
+typedef unsigned int u32_24e6f0;
 extern void* __cdecl Acquire(void*);
-extern char gPool;
-extern const char gName[];
-extern int gVtable;
-class audio_SeqEventNestTrackType {
+extern char gPool_24e6f0;
+extern const char gName_24e6f0[];
+extern int gVtable_24e6f0;
+class audio_SeqEventNestTrackType_24e6f0 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
     virtual void* f3();
 };
-class NameObj {
+class NameObj_24e6f0 {
   public:
     void set(const char*, int);
 };
-class NestTrack {
+class NestTrack_24e6f0 {
   public:
-    u32 vf;
+    u32_24e6f0 vf;
     char pad[4];
-    NameObj name;
+    NameObj_24e6f0 name;
     void init();
 };
-void* audio_SeqEventNestTrackType::f3() {
-    NestTrack* p = (NestTrack*)Acquire(&gPool);
+void* audio_SeqEventNestTrackType_24e6f0::f3() {
+    NestTrack_24e6f0* p = (NestTrack_24e6f0*)Acquire(&gPool_24e6f0);
     if (p) {
         p->init();
-        p->vf = (u32)&gVtable;
-        p->name.set(gName, 2);
+        p->vf = (u32_24e6f0)&gVtable_24e6f0;
+        p->name.set(gName_24e6f0, 2);
         return p;
     }
     return 0;

@@ -1,8 +1,8 @@
-struct Ref {
+struct Ref_2fe730 {
     virtual void a();
     virtual void b();
 };
-extern void* vftable;
+extern void* vftable_2fe730;
 struct SimulatedObject {
     virtual void v0();
     virtual void v1();
@@ -35,12 +35,12 @@ struct SimulatedObject {
     virtual void v28();
     virtual void v29();
     char pad[0x18];
-    Ref* member;
+    Ref_2fe730* member;
     void helper();
 };
 void thunk(SimulatedObject*);
 SimulatedObject* SimulatedObject::vfunc_2(unsigned int flag) {
-    *(void**)this = &vftable;
+    *(void**)this = &vftable_2fe730;
     if (member)
         member->b();
     helper();

@@ -1,4 +1,4 @@
-class C {
+class C_98460 {
     char pad[0x17c];
     float a;
     char pad2[0x30];
@@ -7,6 +7,6 @@ class C {
   public:
     int f(int);
 };
-int C::f(int x) {
+int C_98460::f(int x) {
     return a >= b;
 }

@@ -11,14 +11,14 @@ class SeqAction {
     int field8;
     int fieldC;
 };
-struct Temp {
+struct Temp_250a80 {
     char bytes[12];
     void init();
     void fini();
 };
-extern void operate(int, Temp*, int);
+extern void operate(int, Temp_250a80*, int);
 void SeqAction::f1(int p) {
-    Temp t;
+    Temp_250a80 t;
     t.init();
     operate(*(int*)(p + 0x3c) + 0x5c, &t, field8 + 8);
     fieldC = 0;

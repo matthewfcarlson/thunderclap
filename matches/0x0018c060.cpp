@@ -9,7 +9,7 @@ class PropSetStateByIndexTrack {
     int f;
     void Init();
 };
-class Factory {
+class Factory_18c060 {
   public:
     virtual void x0();
     virtual void x1();
@@ -19,7 +19,7 @@ class Factory {
     virtual PropSetStateByIndexTrack* vfunc_5();
 };
 extern void* __cdecl Allocate(unsigned int);
-PropSetStateByIndexTrack* Factory::vfunc_5() {
+PropSetStateByIndexTrack* Factory_18c060::vfunc_5() {
     PropSetStateByIndexTrack* p = (PropSetStateByIndexTrack*)Allocate(0x18);
     if (p) {
         p->Init();

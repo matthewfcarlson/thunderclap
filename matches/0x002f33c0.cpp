@@ -1,8 +1,8 @@
-struct Base {
+struct Base_2f33c0 {
     virtual void f0();
-    Base();
+    Base_2f33c0();
 };
-struct WCV : Base {
+struct WCV : Base_2f33c0 {
     WCV();
     virtual void f0();
 };

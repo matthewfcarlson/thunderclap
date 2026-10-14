@@ -9,7 +9,7 @@ class Track {
     virtual void d();
     virtual void e();
 };
-class Factory {
+class Factory_77900 {
   public:
     virtual void a();
     virtual void b();
@@ -30,7 +30,7 @@ class CWallSlideTrack : public Track {
     int x28;
     int x2c;
 };
-Track* Factory::Make() {
+Track* Factory_77900::Make() {
     CWallSlideTrack* p = (CWallSlideTrack*)Alloc(0x30);
     if (p) {
         p->Track::Track();

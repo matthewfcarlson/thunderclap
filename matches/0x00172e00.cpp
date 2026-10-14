@@ -1,21 +1,21 @@
 extern void* g_vA[];
 void operator delete(void*);
-struct Sub {
+struct Sub_172e00 {
     void* v;
     void Fin();
 };
-class Base {
+class Base_172e00 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_172e00 : public Base_172e00 {
   public:
     char pad[0x18 - 4];
-    Sub sub;
-    Obj* f5(unsigned char flags);
+    Sub_172e00 sub;
+    Obj_172e00* f5(unsigned char flags);
 };
-Obj* Obj::f5(unsigned char flags) {
+Obj_172e00* Obj_172e00::f5(unsigned char flags) {
     vptr = g_vA;
     sub.Fin();
     Fin();

@@ -12,20 +12,20 @@ class SeqEventCondition : public SeqEventContainer {
     virtual SeqEventCondition* vfunc_4(unsigned char);
     virtual void v5();
 };
-class A {
+class A_2515e0 {
   public:
     void f();
 };
-class B {
+class B_2515e0 {
   public:
     void f();
 };
 void __cdecl f47550(void*, SeqEventCondition*);
-extern char gBss;
+extern char gBss_2515e0;
 SeqEventCondition* SeqEventCondition::vfunc_4(unsigned char flag) {
-    ((A*)((char*)this + 0x14))->f();
-    ((B*)this)->f();
+    ((A_2515e0*)((char*)this + 0x14))->f();
+    ((B_2515e0*)this)->f();
     if (flag & 1)
-        f47550(&gBss, this);
+        f47550(&gBss_2515e0, this);
     return this;
 }

@@ -1,13 +1,13 @@
-typedef unsigned int U32;
-typedef unsigned long long U64;
-U64 __cdecl MakeValue(U32);
-class Obj {
+typedef unsigned int U32_e04f0;
+typedef unsigned long long U64_e04f0;
+U64_e04f0 __cdecl MakeValue(U32_e04f0);
+class Obj_e04f0 {
     char pad[0x88];
-    U64 value;
+    U64_e04f0 value;
 
   public:
-    void Set(U32 x);
+    void Set(U32_e04f0 x);
 };
-void Obj::Set(U32 x) {
+void Obj_e04f0::Set(U32_e04f0 x) {
     value = MakeValue(x);
 }

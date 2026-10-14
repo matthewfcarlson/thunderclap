@@ -1,21 +1,21 @@
-struct Item {
+struct Item_337040 {
     void Init();
 };
-struct Obj {
+struct Obj_337040 {
     char pad0[4];
     unsigned char b;
     char pad1[0x3f];
     unsigned int a;
     char pad2[0];
 };
-void __fastcall target(Obj* p) {
+void __fastcall target(Obj_337040* p) {
     p->a = 0;
     p->b = 0;
-    Item* q = (Item*)((char*)p + 0x48);
+    Item_337040* q = (Item_337040*)((char*)p + 0x48);
     int i = 0x18;
     do {
         q->Init();
-        q = (Item*)((char*)q + 0x18);
+        q = (Item_337040*)((char*)q + 0x18);
         --i;
     } while (i);
 }

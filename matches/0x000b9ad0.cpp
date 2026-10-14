@@ -6,10 +6,10 @@ struct Widget;
 extern Widget* __cdecl FUN_000fc260(const char* name);
 extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 
-struct Slider {
+struct Slider_b9ad0 {
     void FUN_000f1a70(float value);
 };
-class Selector {
+class Selector_b9ad0 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -38,7 +38,7 @@ class Selector {
     virtual void vfunc_24();
     virtual void vfunc_25(int value);
 };
-struct Settings {
+struct Settings_b9ad0 {
     float FUN_001eba70();
     float FUN_001eb9d0();
     float FUN_001eba20();
@@ -47,7 +47,7 @@ struct Settings {
 class OptionsMenu {
   public:
     char pad[0x3c];
-    Settings* settings;
+    Settings_b9ad0* settings;
     char pad40[0x1a06 - 0x40];
     unsigned char ready;
     void FUN_000b9ad0();
@@ -57,13 +57,13 @@ void OptionsMenu::FUN_000b9ad0() {
         ready = 1;
         return;
     }
-    Slider* dialogue =
-        (Slider*)FUN_00344e74(FUN_000fc260("DialogueVolumeSlider"), 0, DAT_0049dba4, DAT_0049f4d8, 0);
-    Slider* music =
-        (Slider*)FUN_00344e74(FUN_000fc260("MusicVolumeSlider"), 0, DAT_0049dba4, DAT_0049f4d8, 0);
-    Slider* fx = (Slider*)FUN_00344e74(FUN_000fc260("SoundFXVolumeSlider"), 0, DAT_0049dba4, DAT_0049f4d8, 0);
-    Selector* surround =
-        (Selector*)FUN_00344e74(FUN_000fc260("SurroundSelector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
+    Slider_b9ad0* dialogue =
+        (Slider_b9ad0*)FUN_00344e74(FUN_000fc260("DialogueVolumeSlider"), 0, DAT_0049dba4, DAT_0049f4d8, 0);
+    Slider_b9ad0* music =
+        (Slider_b9ad0*)FUN_00344e74(FUN_000fc260("MusicVolumeSlider"), 0, DAT_0049dba4, DAT_0049f4d8, 0);
+    Slider_b9ad0* fx = (Slider_b9ad0*)FUN_00344e74(FUN_000fc260("SoundFXVolumeSlider"), 0, DAT_0049dba4, DAT_0049f4d8, 0);
+    Selector_b9ad0* surround =
+        (Selector_b9ad0*)FUN_00344e74(FUN_000fc260("SurroundSelector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
     if (dialogue)
         dialogue->FUN_000f1a70(settings->FUN_001eba70());
     if (music)

@@ -1,14 +1,14 @@
-struct BasePart {
-    void Copy(BasePart*);
+struct BasePart_e2940 {
+    void Copy(BasePart_e2940*);
 };
-struct Item {
+struct Item_e2940 {
     char pad[0x38];
     int value;
 };
-struct Thing {
+struct Thing_e2940 {
     char pad00[0x14];
-    Item* item;
-    BasePart base;
+    Item_e2940* item;
+    BasePart_e2940 base;
     char pad1c[0x20];
     unsigned int color3c;
     unsigned char flag40;
@@ -24,9 +24,9 @@ struct Thing {
     unsigned int field78, field7c, field80;
     char p84[4];
     unsigned int field88, field8c, field90, field94;
-    void Copy(Thing*);
+    void Copy(Thing_e2940*);
 };
-void Thing::Copy(Thing* src) {
+void Thing_e2940::Copy(Thing_e2940* src) {
     base.Copy(&src->base);
     flag74 = src->flag74;
     field90 = src->field90;
@@ -43,9 +43,9 @@ void Thing::Copy(Thing* src) {
     field78 = src->field78;
     field7c = src->field7c;
     *(unsigned int volatile*)&field80 = src->field80;
-    Item* d = *(Item* volatile*)&item;
+    Item_e2940* d = *(Item_e2940* volatile*)&item;
     if (d) {
-        Item* s = src->item;
+        Item_e2940* s = src->item;
         d->value = s->value;
         s = src->item;
         d = item;

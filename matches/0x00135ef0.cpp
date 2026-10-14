@@ -1,26 +1,26 @@
 // Same code shape as 0x00174c10 (propagated; names are from that function)
-class Obj {
+class Obj_135ef0 {
   public:
     virtual void A();
     virtual void B();
 };
-class Base {
+class Base_135ef0 {
   public:
     virtual void X();
-    Base();
+    Base_135ef0();
 };
-class FootPivotAction : public Base {
+class FootPivotAction : public Base_135ef0 {
   public:
     virtual void A();
     virtual void B();
     char pad[0x18];
     int m1c;
-    Obj* m20;
+    Obj_135ef0* m20;
     int m24;
     int m28;
-    FootPivotAction(int, Obj*);
+    FootPivotAction(int, Obj_135ef0*);
 };
-FootPivotAction::FootPivotAction(int v, Obj* p) : Base() {
+FootPivotAction::FootPivotAction(int v, Obj_135ef0* p) : Base_135ef0() {
     volatile int* q = &m1c;
     q[0] = 0;
     q[1] = 0;

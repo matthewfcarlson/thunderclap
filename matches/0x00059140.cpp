@@ -1,24 +1,24 @@
 extern "C" void* __cdecl Allocate(unsigned int);
 extern "C" int CondVtable;
-struct Sub {
+struct Sub_59140 {
     int x;
     void Init();
 };
-class Cond {
+class Cond_59140 {
   public:
     virtual void V0();
     virtual void V1();
     int a, b, c;
-    Sub s;
+    Sub_59140 s;
     int pad;
     void Initialize(int);
 };
-class Factory {
+class Factory_59140 {
   public:
-    Cond* vfunc_5();
+    Cond_59140* vfunc_5();
 };
-Cond* Factory::vfunc_5() {
-    Cond* p = (Cond*)Allocate(0x18);
+Cond_59140* Factory_59140::vfunc_5() {
+    Cond_59140* p = (Cond_59140*)Allocate(0x18);
     if (p) {
         p->Initialize(0);
         *(int*)p = (int)&CondVtable;

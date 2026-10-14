@@ -1,4 +1,4 @@
-extern const float gScale;
+extern const float gScale_1a5750;
 class Animation {
   public:
     virtual void v0();

@@ -1,4 +1,4 @@
-class Receiver {
+class Receiver_28eea0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -23,7 +23,7 @@ class ShaderFloatBroadcast {
 };
 int ShaderFloatBroadcast::vfunc_3(void* p) {
     if (p) {
-        Receiver* r = *(Receiver**)((char*)p + 16);
+        Receiver_28eea0* r = *(Receiver_28eea0**)((char*)p + 16);
         r->invoke(x, y);
     }
     return (int)p;

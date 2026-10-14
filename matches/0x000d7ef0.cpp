@@ -1,4 +1,4 @@
-class Thing {
+class Thing_d7ef0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -46,23 +46,23 @@ class Thing {
     virtual void f43();
     virtual void f44();
 };
-Thing* __cdecl GetThing();
-class Control {
+Thing_d7ef0* __cdecl GetThing();
+class Control_d7ef0 {
   public:
     void SetLabel(const char*, int);
 };
-class Widget {
+class Widget_d7ef0 {
   public:
     char pad0[0x150];
-    Control* mControl;
+    Control_d7ef0* mControl;
     char pad1[0x21c - 0x154];
     int mState;
     char pad2[0x3b0 - 0x220];
     unsigned char mFlag;
     void Run(int);
 };
-void Widget::Run(int unused) {
-    Thing* p = GetThing();
+void Widget_d7ef0::Run(int unused) {
+    Thing_d7ef0* p = GetThing();
     p->f44();
     mControl->SetLabel("DynamicControlButtonLabel", 3);
     mFlag = 1;

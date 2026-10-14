@@ -1,8 +1,8 @@
-typedef unsigned int u32;
-extern void* __cdecl allocThing(u32);
-class Thing {
+typedef unsigned int u32_e65e0;
+extern void* __cdecl allocThing(u32_e65e0);
+class Thing_e65e0 {
   public:
-    u32 initialize();
+    u32_e65e0 initialize();
 };
 class FEThingsBase {
   public:
@@ -67,10 +67,10 @@ class FEThingsBase {
     virtual void v58();
     virtual void v59();
     virtual void v60();
-    virtual u32 vfunc_61(u32);
+    virtual u32_e65e0 vfunc_61(u32_e65e0);
 };
-u32 FEThingsBase::vfunc_61(u32) {
-    Thing* p = (Thing*)allocThing(0x800);
+u32_e65e0 FEThingsBase::vfunc_61(u32_e65e0) {
+    Thing_e65e0* p = (Thing_e65e0*)allocThing(0x800);
     if (p)
         return p->initialize();
     return 0;

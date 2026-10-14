@@ -6,7 +6,7 @@ class StateProp {
     virtual void f3();
     virtual int vfunc_4();
 };
-class Obj {
+class Obj_27d3e0 {
   public:
     int call(StateProp*);
 };
@@ -14,6 +14,6 @@ extern void* __cdecl thunk_FUN_0008d690(int);
 int StateProp::vfunc_4() {
     void* p = thunk_FUN_0008d690(0xe8);
     if (p)
-        return ((Obj*)p)->call(this);
+        return ((Obj_27d3e0*)p)->call(this);
     return 0;
 }

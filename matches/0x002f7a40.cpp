@@ -1,16 +1,16 @@
-struct Y {
+struct Y_2f7a40 {
     void m(int);
 };
-struct X {
+struct X_2f7a40 {
     char pad[0x74];
-    Y* y;
+    Y_2f7a40* y;
 };
-class C {
+class C_2f7a40 {
   public:
     char pad[0xfc];
-    X* field;
+    X_2f7a40* field;
     void target();
 };
-void C::target() {
+void C_2f7a40::target() {
     field->y->m(1);
 }

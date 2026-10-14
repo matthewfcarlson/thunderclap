@@ -1,5 +1,5 @@
 extern unsigned char initFlag;
-extern unsigned int table[256];
+extern unsigned int table_267400[256];
 void FUN_00267400(void) {
     if (!initFlag) {
         unsigned int i = 0;
@@ -37,7 +37,7 @@ void FUN_00267400(void) {
                 v = (v << 1) ^ 0x04c11db7;
             else
                 v <<= 1;
-            table[i] = v;
+            table_267400[i] = v;
             ++i;
         } while (i < 256);
         initFlag = 1;

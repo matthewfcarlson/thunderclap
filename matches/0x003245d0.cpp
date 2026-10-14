@@ -1,7 +1,7 @@
-struct Local {
+struct Local_3245d0 {
     unsigned a, b, c;
 };
-struct Skin {
+struct Skin_3245d0 {
     virtual void s0();
     virtual void s1();
     virtual void s2();
@@ -11,7 +11,7 @@ struct Skin {
     virtual void s6();
     virtual void s7();
     virtual void s8();
-    virtual void s9(unsigned, Local*);
+    virtual void s9(unsigned, Local_3245d0*);
     virtual void s10();
     virtual int s11();
     virtual void s12();
@@ -32,7 +32,7 @@ struct Skin {
     void FUN_00327d00();
     void FUN_00327d20(int);
 };
-struct Device {
+struct Device_3245d0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -80,10 +80,10 @@ struct Device {
     virtual void v44();
     virtual void v45();
     virtual void v46();
-    virtual void v47(int, Local*);
-    void FUN_00324270(Skin*);
+    virtual void v47(int, Local_3245d0*);
+    void FUN_00324270(Skin_3245d0*);
 };
-struct Receiver {
+struct Receiver_3245d0 {
     void FUN_003272f0();
 };
 namespace pure3d {
@@ -94,12 +94,12 @@ struct d3dExtHardwareSkinning {
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual void vfunc_6(Skin*, Receiver*);
-    Device* device;
+    virtual void vfunc_6(Skin_3245d0*, Receiver_3245d0*);
+    Device_3245d0* device;
 };
 } // namespace pure3d
-void pure3d::d3dExtHardwareSkinning::vfunc_6(Skin* skin, Receiver* receiver) {
-    Local data;
+void pure3d::d3dExtHardwareSkinning::vfunc_6(Skin_3245d0* skin, Receiver_3245d0* receiver) {
+    Local_3245d0 data;
     device->FUN_00324270(skin);
     skin->active = 1;
     device->v47(0, &data);

@@ -1,16 +1,16 @@
-class Ref {
+class Ref_25dbd0 {
   public:
     virtual void A();
     virtual void Release(int);
 };
-class Owner {
+class Owner_25dbd0 {
   public:
     char pad[0x4c];
     int* head;
     int* tail;
     void Remove(int*);
 };
-void Owner::Remove(int* p) {
+void Owner_25dbd0::Remove(int* p) {
     int* next = p + 1;
     int* prev = 0;
     int* cur = head;
@@ -26,5 +26,5 @@ void Owner::Remove(int* p) {
     if (*next == 0)
         tail = prev;
     if (p != 0)
-        ((Ref*)p)->Release(1);
+        ((Ref_25dbd0*)p)->Release(1);
 }

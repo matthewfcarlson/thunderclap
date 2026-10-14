@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2d5e00 {
   public:
     virtual void a();
     virtual void b();
@@ -15,13 +15,13 @@ class SpriteParticleEmitter {
     virtual void f5();
     virtual void f6();
     virtual void f7();
-    virtual void vfunc_8(Obj* p);
+    virtual void vfunc_8(Obj_2d5e00* p);
     char p0[0xc];
     int enabled;
     char p1[0x94];
-    Obj* mObj;
+    Obj_2d5e00* mObj;
 };
-void SpriteParticleEmitter::vfunc_8(Obj* p) {
+void SpriteParticleEmitter::vfunc_8(Obj_2d5e00* p) {
     if (p)
         p->a();
     if (mObj)

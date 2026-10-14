@@ -1,4 +1,4 @@
-class A {
+class A_28f9a0 {
   public:
     virtual void F0();
     virtual void F1();
@@ -14,7 +14,7 @@ class A {
     virtual void F11();
     virtual void F12(int);
 };
-class B {
+class B_28f9a0 {
   public:
     virtual void G0();
     virtual void G1();
@@ -31,9 +31,9 @@ class B {
     virtual void G12();
     virtual void G13(int);
 };
-extern A* gA;
-extern B** gB;
-class X {
+extern A_28f9a0* gA_28f9a0;
+extern B_28f9a0** gB_28f9a0;
+class X_28f9a0 {
   public:
     int refs;
     char pad[0xc8];
@@ -42,15 +42,15 @@ class X {
     unsigned char flag;
     void Fn();
 };
-void X::Fn() {
+void X_28f9a0::Fn() {
     ++refs;
-    gA->F4();
+    gA_28f9a0->F4();
     if (d) {
-        gA->F6(a);
-        gA->F8(b);
-        gA->F10(c);
-        gA->F12(d);
+        gA_28f9a0->F6(a);
+        gA_28f9a0->F8(b);
+        gA_28f9a0->F10(c);
+        gA_28f9a0->F12(d);
     }
-    (**gB).G13(0);
+    (**gB_28f9a0).G13(0);
     flag = 1;
 }

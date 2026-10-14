@@ -1,4 +1,4 @@
-class Target {
+class Target_22ba00 {
   public:
     char pad0[0xc];
     int a;
@@ -9,7 +9,7 @@ class Target {
     char pad30[0xc];
     int d;
 };
-void __fastcall TargetFn(Target* self) {
+void __fastcall TargetFn(Target_22ba00* self) {
     self->c = 0;
     self->b = 0;
     self->a = 0;

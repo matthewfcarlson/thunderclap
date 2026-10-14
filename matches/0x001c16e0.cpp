@@ -1,9 +1,9 @@
-struct Snd {
+struct Snd_1c16e0 {
     virtual void v0();
     virtual void Play(int, float, float, unsigned char);
 };
-extern Snd* gSnd;
-class Obj {
+extern Snd_1c16e0* gSnd;
+class Obj_1c16e0 {
   public:
     char p[0xd0];
     float a;
@@ -11,7 +11,7 @@ class Obj {
     unsigned char c;
     void Set(float x, float y);
 };
-void Obj::Set(float x, float y) {
+void Obj_1c16e0::Set(float x, float y) {
     a = x;
     b = y;
     if (x != 0.0f && gSnd) {

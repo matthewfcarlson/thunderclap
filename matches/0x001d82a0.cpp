@@ -1,15 +1,15 @@
-class Base {
+class Base_1d82a0 {
   public:
     virtual void A();
     virtual void B();
 };
-class Obj {
+class Obj_1d82a0 {
   public:
     char pad[0x21c];
-    Base* ptr;
+    Base_1d82a0* ptr;
     void Do();
 };
-void __fastcall target(Obj* self) {
+void __fastcall target(Obj_1d82a0* self) {
     self->Do();
     if (self->ptr) {
         self->ptr->B();

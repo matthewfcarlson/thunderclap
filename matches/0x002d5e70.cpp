@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2d5e70 {
   public:
     virtual void a();
     virtual void b();
@@ -30,11 +30,11 @@ class pure3d_SpriteParticleEmitter {
     virtual void v22();
     virtual void v23();
     virtual void v24();
-    virtual void v25(Obj*);
+    virtual void v25(Obj_2d5e70*);
     char pad[0x84 - 4];
-    Obj* member;
+    Obj_2d5e70* member;
 };
-void pure3d_SpriteParticleEmitter::v25(Obj* p) {
+void pure3d_SpriteParticleEmitter::v25(Obj_2d5e70* p) {
     if (p != member) {
         v15();
         if (p != member) {

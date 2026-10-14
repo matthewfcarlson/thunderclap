@@ -1,20 +1,20 @@
-typedef unsigned int u32;
-void F249A90(u32 a, u32* b);
-void F24A800(u32 a, int b);
-void F2497E0(u32 a);
-struct Pair {
-    u32 x;
-    u32 y;
+typedef unsigned int u32_1f3400;
+void F249A90(u32_1f3400 a, u32_1f3400* b);
+void F24A800(u32_1f3400 a, int b);
+void F2497E0(u32_1f3400 a);
+struct Pair_1f3400 {
+    u32_1f3400 x;
+    u32_1f3400 y;
 };
-struct Obj {
+struct Obj_1f3400 {
     char pad0[4];
-    u32 a;
+    u32_1f3400 a;
     char pad8[16];
-    u32 b;
-    void Target(u32);
+    u32_1f3400 b;
+    void Target(u32_1f3400);
 };
-void Obj::Target(u32 param) {
-    Pair p;
+void Obj_1f3400::Target(u32_1f3400 param) {
+    Pair_1f3400 p;
     if (a != 0) {
         p.x = 0;
         p.y = param;

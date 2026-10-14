@@ -22,7 +22,7 @@ class FELayout {
     virtual void f19();
     virtual void f20();
 };
-class Child {
+class Child_e2010 {
   public:
     virtual void a();
     virtual void b();
@@ -54,7 +54,7 @@ class SingleLayout : public FELayout {
     virtual void g21();
     virtual void g22();
     char pad[0x40 - sizeof(FELayout)];
-    Child* ptr;
+    Child_e2010* ptr;
 };
 void SingleLayout::g2() {
     if (ptr)

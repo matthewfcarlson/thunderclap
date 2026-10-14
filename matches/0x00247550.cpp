@@ -1,10 +1,10 @@
-typedef void(__cdecl* Fn)(void*, int, int);
-struct T {
+typedef void(__cdecl* Fn_247550)(void*, int, int);
+struct T_247550 {
     void* x;
     void* y;
-    Fn f;
+    Fn_247550 f;
 };
-extern T* g;
+extern T_247550* g_247550;
 void target(int a, int b) {
-    g->f(g, a, b);
+    g_247550->f(g_247550, a, b);
 }

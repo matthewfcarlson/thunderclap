@@ -43,28 +43,28 @@ class PhysicsObject {
     PhysicsObject(unsigned char);
     void finish();
 };
-struct A {
+struct A_2f61c0 {
     void a();
 };
-struct B {
+struct B_2f61c0 {
     void b();
 };
-struct C {
+struct C_2f61c0 {
     void c();
 };
 struct D {
     void d();
 };
-struct E {
+struct E_2f61c0 {
     void e();
 };
 extern void destroy(PhysicsObject*);
 PhysicsObject::PhysicsObject(unsigned char flag) {
-    ((A*)((char*)this + 0x168))->a();
-    ((B*)((char*)this + 0x114))->b();
-    ((C*)((char*)this + 0xf8))->c();
+    ((A_2f61c0*)((char*)this + 0x168))->a();
+    ((B_2f61c0*)((char*)this + 0x114))->b();
+    ((C_2f61c0*)((char*)this + 0xf8))->c();
     ((D*)((char*)this + 0xdc))->d();
-    ((E*)((char*)this + 0x30))->e();
+    ((E_2f61c0*)((char*)this + 0x30))->e();
     finish();
     if (flag & 1)
         destroy(this);

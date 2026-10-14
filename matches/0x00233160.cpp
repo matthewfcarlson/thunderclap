@@ -6,13 +6,13 @@ class Node {
     char pad18[8];
     Node* next;
 };
-class Container {
+class Container_233160 {
   public:
     char pad00[0x1c];
     Node* head;
     int Append(Node* node);
 };
-int Container::Append(Node* node) {
+int Container_233160::Append(Node* node) {
     if (!node)
         return -1;
     int count = 0;

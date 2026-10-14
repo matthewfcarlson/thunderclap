@@ -1,7 +1,7 @@
-struct Inner {
+struct Inner_1c3cc0 {
     void Do(int, int, int, int, int);
 };
-class X {
+class X_1c3cc0 {
   public:
     char pad[0x1c];
     int sub;
@@ -13,7 +13,7 @@ class X {
     unsigned char done;
     void f();
 };
-void X::f() {
-    ((Inner*)*(int*)this)->Do((int)((char*)this + 0x1c), a, b, c, d);
+void X_1c3cc0::f() {
+    ((Inner_1c3cc0*)*(int*)this)->Do((int)((char*)this + 0x1c), a, b, c, d);
     done = 1;
 }

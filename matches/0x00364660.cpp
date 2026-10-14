@@ -1,8 +1,8 @@
-class Thing {
+class Thing_364660 {
   public:
-    ~Thing() throw();
+    ~Thing_364660() throw();
 };
-extern Thing gThing;
+extern Thing_364660 gThing_364660;
 void FUN_00364660() {
-    gThing.~Thing();
+    gThing_364660.~Thing_364660();
 }

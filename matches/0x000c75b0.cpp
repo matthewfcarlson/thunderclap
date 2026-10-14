@@ -1,4 +1,4 @@
-class Obj {
+class Obj_c75b0 {
   public:
     char pad0[0x10];
     char enabled;
@@ -7,7 +7,7 @@ class Obj {
     bool GetData(int, int*);
     void ClearData(int);
 };
-void __fastcall FUN_000c75b0(Obj* p) {
+void __fastcall FUN_000c75b0(Obj_c75b0* p) {
     int local[3];
     if (p->enabled) {
         int i = 0;

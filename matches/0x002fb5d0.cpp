@@ -1,13 +1,13 @@
 extern "C" char DAT_004317dc[];
-struct Part {
+struct Part_2fb5d0 {
     void Init();
 };
 struct CollisionOBB {
     unsigned v;
     char pad[0x38];
-    Part b;
+    Part_2fb5d0 b;
     char pad2[0x3f];
-    Part a;
+    Part_2fb5d0 a;
     void Target();
     void Base();
 };

@@ -1,4 +1,4 @@
-struct Helper {
+struct Helper_69e40 {
     int run(int, int, int);
 };
 struct CDamageTrack {
@@ -9,7 +9,7 @@ struct CDamageTrack {
 };
 extern void* FUN_0008d690(int);
 int CDamageTrack::vfunc_12(int x) {
-    Helper* p = (Helper*)FUN_0008d690(0x28);
+    Helper_69e40* p = (Helper_69e40*)FUN_0008d690(0x28);
     if (p)
         return p->run(x, a, b);
     return 0;

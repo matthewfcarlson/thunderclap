@@ -1,5 +1,5 @@
 // Same code shape as 0x0001f5d0 (propagated; names are from that function)
-class Actor {
+class Actor_1f1f0 {
   public:
     virtual void V0();
     virtual void Release();
@@ -9,16 +9,16 @@ class CAction {
     CAction();
     virtual void V0();
     char pad[0x18];
-    Actor* mActor;
+    Actor_1f1f0* mActor;
 };
 class CIntangibleToActorsAction : public CAction {
   public:
-    CIntangibleToActorsAction(Actor*);
+    CIntangibleToActorsAction(Actor_1f1f0*);
     virtual void V1();
 };
 extern int vtAction;
 extern int vtDerived;
-CIntangibleToActorsAction::CIntangibleToActorsAction(Actor* a) {
+CIntangibleToActorsAction::CIntangibleToActorsAction(Actor_1f1f0* a) {
     *(int*)this = (int)&vtAction;
     mActor = 0;
     if (a)

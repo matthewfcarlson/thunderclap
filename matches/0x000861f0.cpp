@@ -1,18 +1,18 @@
-class Obj;
-class A {
+class Obj_861f0;
+class A_861f0 {
   public:
     void F();
-    void G(Obj*, int);
+    void G(Obj_861f0*, int);
 };
-class Obj {
+class Obj_861f0 {
   public:
     char pad[4];
     int m4;
     char pad2[0x18];
-    A* m20;
+    A_861f0* m20;
     void Target();
 };
-void Obj::Target() {
+void Obj_861f0::Target() {
     m20->F();
     m20->G(this, m4);
 }

@@ -1,24 +1,24 @@
 extern void* vA[];
 void* __cdecl FUN_0008d6d0(unsigned n) throw();
-struct Buf {
+struct Buf_30e480 {
     char* a;
     char* b;
     char* c;
     int pad;
-    Buf() throw() : a(0), b(0), c(0) {}
+    Buf_30e480() throw() : a(0), b(0), c(0) {}
 };
-struct Base {
+struct Base_30e480 {
     void* vptr;
-    Base() throw() { vptr = vA; }
+    Base_30e480() throw() { vptr = vA; }
 };
-class O : public Base {
+class O_30e480 : public Base_30e480 {
   public:
     int m4, m8, mc;
     char c10;
-    Buf b0, b1, b2, b3;
-    O() throw();
+    Buf_30e480 b0, b1, b2, b3;
+    O_30e480() throw();
 };
-O::O() throw() {
+O_30e480::O_30e480() throw() {
     m8 = 0;
     m4 = 0x14;
     mc = 0;

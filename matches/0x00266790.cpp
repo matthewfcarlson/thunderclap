@@ -1,21 +1,21 @@
-class Sub {
+class Sub_266790 {
   public:
     int f();
     int g();
 };
-class Obj {
+class Obj_266790 {
     char pad0[0x14];
     int mode;
     char pad18[4];
-    Sub* sub;
+    Sub_266790* sub;
 
   public:
     float run();
 };
 extern const float one;
-extern const float zero;
+extern const float zero_266790;
 extern const float fix;
-float Obj::run() {
+float Obj_266790::run() {
     switch (mode) {
     case 3:
         return 1.0f;

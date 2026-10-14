@@ -1,4 +1,4 @@
-class Controller {
+class Controller_2a7d50 {
   public:
     virtual void a0();
     virtual void a1();
@@ -28,7 +28,7 @@ class Controller {
     virtual void a25();
     virtual bool vfunc_26(void* p);
 };
-bool Controller::vfunc_26(void* p) {
+bool Controller_2a7d50::vfunc_26(void* p) {
     if (p != 0) {
         int* q = (int*)p;
         if (q[10] > 0) {

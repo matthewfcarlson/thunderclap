@@ -1,15 +1,15 @@
-struct Vec3 {
+struct Vec3_9f7d0 {
     float x, y, z;
     bool IsSmall();
 };
 extern "C" double exp(double);
 
-Vec3 Func(const Vec3* a, const Vec3* b, float t, float tau) {
+Vec3_9f7d0 Func(const Vec3_9f7d0* a, const Vec3_9f7d0* b, float t, float tau) {
     float f = 1.0f;
     if (tau != 0.0f) {
         f = 1.0f - (float)exp((double)(-(t / tau)));
     }
-    Vec3 r;
+    Vec3_9f7d0 r;
     r.x = (b->x - a->x) * f + a->x;
     r.y = (b->y - a->y) * f + a->y;
     r.z = (b->z - a->z) * f + a->z;

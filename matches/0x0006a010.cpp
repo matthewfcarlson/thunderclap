@@ -1,5 +1,5 @@
 extern "C" void* __cdecl FUN_0008d690(int);
-struct Worker {
+struct Worker_6a010 {
     int go(unsigned int, unsigned int);
 };
 class CComboTimerTrack {
@@ -11,6 +11,6 @@ class CComboTimerTrack {
 int CComboTimerTrack::vfunc_12(unsigned int param) {
     void* p = FUN_0008d690(0x24);
     if (p)
-        return ((Worker*)p)->go(param, field14);
+        return ((Worker_6a010*)p)->go(param, field14);
     return 0;
 }

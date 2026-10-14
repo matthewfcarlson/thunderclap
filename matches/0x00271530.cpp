@@ -1,4 +1,4 @@
-struct Obj {
+struct Obj_271530 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -23,11 +23,11 @@ struct Obj {
     virtual void f21();
     virtual void f22();
 };
-struct A {
-    Obj* p;
+struct A_271530 {
+    Obj_271530* p;
 };
-extern void __cdecl FUN_00271410(A*, int, int, int);
-void __cdecl FUN_00271530(A* a, int b, int c, int d) {
+extern void __cdecl FUN_00271410(A_271530*, int, int, int);
+void __cdecl FUN_00271530(A_271530* a, int b, int c, int d) {
     FUN_00271410(a, b, c, d);
     if (a->p)
         a->p->f22();

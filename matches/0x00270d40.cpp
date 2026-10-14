@@ -6,7 +6,7 @@ int __cdecl FUN_00270c10(const char*);
 unsigned char __cdecl FUN_002771b0(const char*);
 extern char DAT_0052a0f0;
 extern unsigned int DAT_0052a128;
-struct Receiver {
+struct Receiver_270d40 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -30,14 +30,14 @@ struct Receiver {
     virtual void slot20();
     virtual void slot21(const char*);
 };
-struct Entry {
+struct Entry_270d40 {
     char name[17];
     char pad[3];
-    Receiver* receiver;
+    Receiver_270d40* receiver;
     char path[256];
     char tail[4];
 };
-extern Entry DAT_00528418[];
+extern Entry_270d40 DAT_00528418[];
 void __cdecl FUN_00270d40(const char* name, const char* path) {
     char lower[20];
     strncpy(lower, name, 16);
@@ -48,7 +48,7 @@ void __cdecl FUN_00270d40(const char* name, const char* path) {
     int index = FUN_00270c10(lower);
     if (index == -1) {
         if (FUN_002771b0(lower) && DAT_0052a128 < 26) {
-            Entry& entry = DAT_00528418[DAT_0052a128];
+            Entry_270d40& entry = DAT_00528418[DAT_0052a128];
             strncpy(entry.name, lower, 16);
             entry.name[16] = 0;
             strncpy(entry.path, path, 256);
@@ -56,9 +56,9 @@ void __cdecl FUN_00270d40(const char* name, const char* path) {
             FUN_0026d840(&DAT_0052a0f0);
         }
     } else {
-        Entry& entry = DAT_00528418[index];
+        Entry_270d40& entry = DAT_00528418[index];
         strncpy(entry.path, path, 256);
-        Receiver* receiver = entry.receiver;
+        Receiver_270d40* receiver = entry.receiver;
         FUN_0026d840(&DAT_0052a0f0);
         receiver->slot21(path);
     }

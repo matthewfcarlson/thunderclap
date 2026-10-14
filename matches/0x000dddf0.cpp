@@ -1,9 +1,9 @@
-class Inner {
+class Inner_dddf0 {
   public:
     void Reset();
     bool Process(void*);
 };
-class Target {
+class Target_dddf0 {
   public:
     virtual void V0();
     virtual void V1();
@@ -13,10 +13,10 @@ class Target {
     virtual void V5();
     virtual void V6();
     char pad[0x2230 - 4];
-    Inner* inner;
+    Inner_dddf0* inner;
     char Run(void*);
 };
-char Target::Run(void* arg) {
+char Target_dddf0::Run(void* arg) {
     inner->Reset();
     bool b = inner->Process(arg);
     if (b)

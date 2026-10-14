@@ -1,10 +1,10 @@
 // Same code shape as 0x000187d0 (propagated; names are from that function)
-class A {
+class A_fe000 {
   public:
     virtual void f();
     virtual void g();
 };
-void FUN_000187d0(A** p) {
+void FUN_000187d0(A_fe000** p) {
     if (*p) {
         (*p)->g();
         *p = 0;

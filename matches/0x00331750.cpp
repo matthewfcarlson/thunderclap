@@ -1,16 +1,16 @@
-struct Mat {
+struct Mat_331750 {
     float v[16];
     void FUN_0022b980();
     void FUN_0022bc20(float, float, float);
-    void FUN_0022ca90(const Mat*, const Mat*);
-    void FUN_0022cc10(const Mat*, const Mat*);
+    void FUN_0022ca90(const Mat_331750*, const Mat_331750*);
+    void FUN_0022cc10(const Mat_331750*, const Mat_331750*);
     void FUN_0022c0b0();
     void FUN_0022cdb0();
     void FUN_0022c310(const float*, float*);
 };
 namespace D3D8 {
-void __stdcall D3DDevice_GetTransform(int, Mat*);
-void __fastcall D3DDevice_SetVertexShaderConstant4(int, const Mat*);
+void __stdcall D3DDevice_GetTransform(int, Mat_331750*);
+void __fastcall D3DDevice_SetVertexShaderConstant4(int, const Mat_331750*);
 void __fastcall D3DDevice_SetVertexShaderConstant1(int, const float*);
 } // namespace D3D8
 namespace pure3d {
@@ -20,7 +20,7 @@ struct d3dSpheremapVertexShader {
     void vfunc_24();
 };
 void d3dSpheremapVertexShader::vfunc_24() {
-    Mat projection, view, world, base, combined, temp, light, normal, transposedLight, transposedCombined,
+    Mat_331750 projection, view, world, base, combined, temp, light, normal, transposedLight, transposedCombined,
         transposedProjection, transposedBase;
     float in[4], out[4];
     D3D8::D3DDevice_GetTransform(6, &projection);

@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2c7180 {
   public:
     char pad0[8];
     unsigned int flags;
@@ -7,7 +7,7 @@ class Obj {
     void Clear();
 };
 void thunk_FUN_00267090(void*);
-void Obj::Clear() {
+void Obj_2c7180::Clear() {
     thunk_FUN_00267090(ptr);
     ptr = 0;
     flags &= 0xffffffef;

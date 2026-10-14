@@ -15,7 +15,7 @@ class PropDamageTrack : public Track {
     int x10;
     int x14;
 };
-class Factory {
+class Factory_18c3d0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -24,7 +24,7 @@ class Factory {
     virtual void f4();
     virtual PropDamageTrack* f5();
 };
-PropDamageTrack* Factory::f5() {
+PropDamageTrack* Factory_18c3d0::f5() {
     PropDamageTrack* p = (PropDamageTrack*)Alloc(0x18);
     if (p) {
         p->Track::Track();

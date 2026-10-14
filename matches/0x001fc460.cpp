@@ -1,7 +1,7 @@
 // Same code shape as 0x001fbfb0 (propagated; names are from that function)
 typedef unsigned int uint;
 extern "C" void __fastcall __security_check_cookie(uint);
-extern "C" uint g_cookie;
+extern "C" uint g_cookie_1fc460;
 class CLocator {
   public:
     virtual void f0();
@@ -17,6 +17,6 @@ class CLocator {
     virtual void f10();
 };
 void CLocator::vfunc_7(int) {
-    volatile uint t = g_cookie;
+    volatile uint t = g_cookie_1fc460;
     __security_check_cookie(t);
 }

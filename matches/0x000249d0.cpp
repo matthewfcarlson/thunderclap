@@ -1,4 +1,4 @@
-struct B {
+struct B_249d0 {
     char pad[0x44];
     struct Lookuper* lk;
 };
@@ -11,16 +11,16 @@ struct Node {
     int b;
 };
 
-class Target {
+class Target_249d0 {
   public:
-    B* mB;
+    B_249d0* mB;
     int pad1[2];
     int mCount;
     int mArr[1];
     bool Process();
 };
 
-bool Target::Process() {
+bool Target_249d0::Process() {
     int n = mCount;
     int i = 0;
     if (n > 0) {

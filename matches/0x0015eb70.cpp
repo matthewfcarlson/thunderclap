@@ -1,26 +1,26 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
-class Ref {
+extern void* g_vftable_15eb70[];
+class Ref_15eb70 {
   public:
     void* vptr;
     virtual void f0();
     virtual void f1();
 };
-class Helper {
+class Helper_15eb70 {
   public:
     void Fn();
 };
-class A {
+class A_15eb70 {
   public:
     void* vptr;
     char p[0x18];
-    Ref* m1c;
-    Ref* m20;
-    Ref* m24;
+    Ref_15eb70* m1c;
+    Ref_15eb70* m20;
+    Ref_15eb70* m24;
     void f();
 };
-void A::f() {
-    vptr = g_vftable;
+void A_15eb70::f() {
+    vptr = g_vftable_15eb70;
     _ReadWriteBarrier();
     if (m24) {
         m24->f1();
@@ -34,5 +34,5 @@ void A::f() {
         m1c->f1();
         m1c = 0;
     }
-    ((Helper*)this)->Fn();
+    ((Helper_15eb70*)this)->Fn();
 }

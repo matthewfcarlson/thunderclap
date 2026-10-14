@@ -1,4 +1,4 @@
-class C {
+class C_30efa0 {
   public:
     char pad[0xbc];
     int value;
@@ -7,9 +7,9 @@ class C {
     void third();
     void target(int);
 };
-void C::target(int arg) {
+void C_30efa0::target(int arg) {
     first();
-    ((C*)((char*)this + 0x14))->second(arg);
+    ((C_30efa0*)((char*)this + 0x14))->second(arg);
     value = 2;
     third();
 }

@@ -1,21 +1,21 @@
-extern void* g_vftable[];
-class Str {
+extern void* g_vftable_18cd40[];
+class Str_18cd40 {
   public:
     void Init();
 };
-class Base {
+class Base_18cd40 {
   public:
     void* vptr;
     char pad[12];
-    Str s;
+    Str_18cd40 s;
     void Fin();
 };
-class Cond : public Base {
+class Cond_18cd40 : public Base_18cd40 {
   public:
-    ~Cond();
+    ~Cond_18cd40();
 };
-Cond::~Cond() {
-    vptr = g_vftable;
+Cond_18cd40::~Cond_18cd40() {
+    vptr = g_vftable_18cd40;
     s.Init();
     Fin();
 }

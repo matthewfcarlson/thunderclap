@@ -1,21 +1,21 @@
-struct C {
+struct C_18f500 {
     void g();
 };
-struct A {
-    A* f1();
-    A* f2();
+struct A_18f500 {
+    A_18f500* f1();
+    A_18f500* f2();
     char pad[0x128];
-    C* field;
+    C_18f500* field;
 };
 class SimulationAction {
   public:
     char pad[0x20];
-    A* child;
+    A_18f500* child;
     void vfunc_4();
 };
 void SimulationAction::vfunc_4() {
-    A* a = child->f1();
-    A* b = a->f2();
+    A_18f500* a = child->f1();
+    A_18f500* b = a->f2();
     if (b->field)
         b->field->g();
 }

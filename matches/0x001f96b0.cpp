@@ -2,10 +2,10 @@ struct Param {
     int a;
     void finish();
 };
-struct Two {
+struct Two_1f96b0 {
     volatile unsigned char a, b;
 };
-struct Temp {
+struct Temp_1f96b0 {
     int a;
     int pad0;
     unsigned char c, d;
@@ -15,24 +15,24 @@ struct Temp {
     void init(Param*);
     void finish();
 };
-struct Out {
+struct Out_1f96b0 {
     char data[8];
 };
-struct Mgr {
-    void fn(Out*, Temp*);
+struct Mgr_1f96b0 {
+    void fn(Out_1f96b0*, Temp_1f96b0*);
 };
-struct Owner {
+struct Owner_1f96b0 {
     char pad[0xc6c];
-    Mgr* mgr;
-    void target(Param x, int y, Two z, int w, short v);
+    Mgr_1f96b0* mgr;
+    void target(Param x, int y, Two_1f96b0 z, int w, short v);
 };
-void Owner::target(Param x, int y, Two z, int w, short v) {
-    Temp t;
+void Owner_1f96b0::target(Param x, int y, Two_1f96b0 z, int w, short v) {
+    Temp_1f96b0 t;
     t.init(&x);
     t.c = z.a;
     t.d = z.b;
     t.b = v;
-    Out o;
+    Out_1f96b0 o;
     mgr->fn(&o, &t);
     t.finish();
     x.finish();

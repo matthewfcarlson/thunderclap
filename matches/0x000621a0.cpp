@@ -1,4 +1,4 @@
-typedef unsigned int u32;
+typedef unsigned int u32_621a0;
 struct Track {
     virtual void a();
     virtual void b();
@@ -21,22 +21,22 @@ struct CWeaponCollisionTrack : Track, Param {
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual u32 v10(u32 a, u32 b, u32 c);
+    virtual u32_621a0 v10(u32_621a0 a, u32_621a0 b, u32_621a0 c);
     virtual void v11();
 };
-extern int query(u32, int, const void*, const void*, int);
+extern int query(u32_621a0, int, const void*, const void*, int);
 extern void* alloc(unsigned int);
-struct Maker {
-    u32 construct(u32, CWeaponCollisionTrack*, int);
+struct Maker_621a0 {
+    u32_621a0 construct(u32_621a0, CWeaponCollisionTrack*, int);
 };
 extern const int rtti1;
 extern const int rtti2;
-u32 CWeaponCollisionTrack::v10(u32 a, u32 b, u32 c) {
+u32_621a0 CWeaponCollisionTrack::v10(u32_621a0 a, u32_621a0 b, u32_621a0 c) {
     int x = query(c, 0, &rtti1, &rtti2, 0);
     if (x) {
         void* p = alloc(0x80);
         if (p)
-            return ((Maker*)p)->construct(a, this, x);
+            return ((Maker_621a0*)p)->construct(a, this, x);
     }
     return 0;
 }

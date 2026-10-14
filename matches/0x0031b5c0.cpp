@@ -1,4 +1,4 @@
-extern int vtD;
+extern int vtD_31b5c0;
 extern int vtP;
 class D {
   public:
@@ -27,19 +27,19 @@ class D {
 };
 void __stdcall D3DDevice_Release();
 void __stdcall D3DResource_Release(int);
-class Helper {
+class Helper_31b5c0 {
   public:
     void Run();
 };
 void thunk_FUN_00267090(D*);
 D* D::f3(unsigned char flag) {
-    *(int*)this = (int)&vtD;
+    *(int*)this = (int)&vtD_31b5c0;
     if (x10)
         D3DDevice_Release();
     if (x498)
         D3DResource_Release(x498);
     *(int*)this = (int)&vtP;
-    ((Helper*)this)->Run();
+    ((Helper_31b5c0*)this)->Run();
     if (flag & 1)
         thunk_FUN_00267090(this);
     return this;

@@ -3,8 +3,8 @@ class CClimbingTrack {
     virtual int vfunc_0(int index);
 };
 
-extern int* gTable;
+extern int* gTable_68ef0;
 
 int CClimbingTrack::vfunc_0(int index) {
-    return gTable[index];
+    return gTable_68ef0[index];
 }

@@ -1,5 +1,5 @@
-extern int vtable;
-struct Sub {
+extern int vtable_1810c0;
+struct Sub_1810c0 {
     void Init();
     void Finish();
 };
@@ -9,8 +9,8 @@ class BallAndChainReturnTrack {
     void Build();
 };
 void BallAndChainReturnTrack::Build() {
-    *(int*)this = (int)&vtable;
-    ((Sub*)((char*)this + 0x60))->Init();
-    ((Sub*)((char*)this + 0x48))->Init();
-    ((Sub*)this)->Finish();
+    *(int*)this = (int)&vtable_1810c0;
+    ((Sub_1810c0*)((char*)this + 0x60))->Init();
+    ((Sub_1810c0*)((char*)this + 0x48))->Init();
+    ((Sub_1810c0*)this)->Finish();
 }

@@ -1,6 +1,6 @@
 extern "C" int strcmp(const char*, const char*);
 
-class Item {
+class Item_e6410 {
   public:
     virtual void f0();
     virtual void f1();
@@ -13,14 +13,14 @@ class Item {
     virtual const char* GetName();
 };
 
-class Container {
+class Container_e6410 {
   public:
     char pad[0x20c];
-    Item* mItems[256];
-    Item* Find(const char* name);
+    Item_e6410* mItems[256];
+    Item_e6410* Find(const char* name);
 };
 
-Item* Container::Find(const char* name) {
+Item_e6410* Container_e6410::Find(const char* name) {
     for (int i = 0; i < 256; i++) {
         if (mItems[i]) {
             if (strcmp(name, mItems[i]->GetName()) == 0)

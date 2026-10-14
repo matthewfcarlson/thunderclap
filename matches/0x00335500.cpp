@@ -1,19 +1,19 @@
-struct C {
+struct C_335500 {
     char pad[8];
     int type;
 };
-struct B {
+struct B_335500 {
     char pad[0x44];
     int count;
-    C* lookup(int);
+    C_335500* lookup(int);
 };
-struct A {
+struct A_335500 {
     char pad[4];
-    B* b;
+    B_335500* b;
     unsigned int* values;
     bool run(int index, unsigned int* out);
 };
-bool A::run(int index, unsigned int* out) {
+bool A_335500::run(int index, unsigned int* out) {
     if (index < 0)
         return false;
     if (index >= b->count)

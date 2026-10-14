@@ -1,4 +1,4 @@
-class Child {
+class Child_23eba0 {
     char pad[0x28];
 
   public:
@@ -16,7 +16,7 @@ class SpawnAction {
     virtual void f4();
     virtual void vfunc_5(int, int);
     char pad[0x28 - 4];
-    Child child;
+    Child_23eba0 child;
     int count;
     unsigned char flag;
 };

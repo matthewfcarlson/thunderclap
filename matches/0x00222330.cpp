@@ -1,24 +1,24 @@
-struct Bits {
+struct Bits_222330 {
     unsigned int count;
     unsigned int w[1];
 };
-struct Obj {
+struct Obj_222330 {
     char pad[0x10];
-    Bits* bits;
+    Bits_222330* bits;
 };
-struct Owner {
+struct Owner_222330 {
     char pad[0x14];
-    Obj* obj;
-    bool Check(Obj* other);
+    Obj_222330* obj;
+    bool Check(Obj_222330* other);
 };
-bool Owner::Check(Obj* other) {
+bool Owner_222330::Check(Obj_222330* other) {
     if (!other)
         return false;
-    Obj* p = obj;
+    Obj_222330* p = obj;
     if (!p)
         return true;
-    Bits* b = p->bits;
-    Bits* a = other->bits;
+    Bits_222330* b = p->bits;
+    Bits_222330* a = other->bits;
     unsigned int n = a->count;
     for (unsigned int i = 0; i < n; i++) {
         unsigned int m = 1 << (i & 31);

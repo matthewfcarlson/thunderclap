@@ -1,22 +1,22 @@
-extern void* g_vftable[];
+extern void* g_vftable_1ab700[];
 void operator delete(void*);
-class Sub {
+class Sub_1ab700 {
   public:
     void Fini();
 };
-class Base {
+class Base_1ab700 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_1ab700 : public Base_1ab700 {
   public:
     char pad[0x14];
-    Sub m18;
-    Obj* f2(unsigned char flags);
+    Sub_1ab700 m18;
+    Obj_1ab700* f2(unsigned char flags);
 };
-Obj* Obj::f2(unsigned char flags) {
-    vptr = g_vftable;
+Obj_1ab700* Obj_1ab700::f2(unsigned char flags) {
+    vptr = g_vftable_1ab700;
     m18.Fini();
     Fin();
     if (flags & 1)

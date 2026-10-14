@@ -1,4 +1,4 @@
-class Obj {
+class Obj_e6b80 {
   public:
     void Helper(int);
 };
@@ -33,7 +33,7 @@ class FEThingsBase {
     virtual void f26();
     virtual void f27(int);
     char pad[0x175c - 4];
-    Obj* a;
+    Obj_e6b80* a;
     char p2[8];
     int b;
     int d;
@@ -41,7 +41,7 @@ class FEThingsBase {
     int c;
 };
 void FEThingsBase::vfunc_19(int x) {
-    if ((Obj*)x != a) {
+    if ((Obj_e6b80*)x != a) {
         b = x;
         if (x) {
             f27(x);

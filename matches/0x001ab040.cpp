@@ -1,5 +1,5 @@
 // Same code shape as 0x0010d0f0 (propagated; names are from that function)
-struct Tail {
+struct Tail_1ab040 {
     void Init();
 };
 struct SemaphoreClearTrack {
@@ -8,9 +8,9 @@ struct SemaphoreClearTrack {
     void Finish();
     void Run();
 };
-extern void* vftable;
+extern void* vftable_1ab040;
 void SemaphoreClearTrack::Run() {
-    vptr = &vftable;
-    ((Tail*)((char*)this + 0x18))->Init();
+    vptr = &vftable_1ab040;
+    ((Tail_1ab040*)((char*)this + 0x18))->Init();
     Finish();
 }

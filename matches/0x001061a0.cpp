@@ -1,11 +1,11 @@
-class C {
+class C_1061a0 {
   public:
     char pad0[0x10];
     char* data;
     int count;
     void f(int index, int a, float b, float c, int d, float e, float f);
 };
-void C::f(int index, int a, float b, float c, int d, float e, float f) {
+void C_1061a0::f(int index, int a, float b, float c, int d, float e, float f) {
     if (index < count) {
         int off = index * 36;
         *(int*)(data + off + 12) = a;

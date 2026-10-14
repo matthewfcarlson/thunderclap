@@ -1,4 +1,4 @@
-class Sub {
+class Sub_920c0 {
   public:
     void Init();
     char b[8];
@@ -10,7 +10,7 @@ class CUnlockable {
     char p4[4];
     unsigned char flag;
     char p9[7];
-    Sub sub;
+    Sub_920c0 sub;
     int p18;
     char p1c[4];
     int p20;

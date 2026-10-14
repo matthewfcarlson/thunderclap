@@ -1,5 +1,5 @@
 extern "C" char DAT_00414170[];
-class Obj {
+class Obj_15a5e0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -9,21 +9,21 @@ class Obj {
     virtual void v5();
 };
 extern "C" void* __cdecl alloc(unsigned int);
-class Temp {
+class Temp_15a5e0 {
   public:
     void Init(int);
 };
-class Tail {
+class Tail_15a5e0 {
   public:
     void Init();
 };
-void* Factory_vfunc5(Obj* self) {
-    Obj* p = (Obj*)alloc(0x18);
+void* Factory_vfunc5(Obj_15a5e0* self) {
+    Obj_15a5e0* p = (Obj_15a5e0*)alloc(0x18);
     if (p) {
-        ((Temp*)p)->Init(0);
+        ((Temp_15a5e0*)p)->Init(0);
         *(int*)p = ((int)DAT_00414170);
         *(int*)((char*)p + 0xc) = 0;
-        ((Tail*)((char*)p + 0x10))->Init();
+        ((Tail_15a5e0*)((char*)p + 0x10))->Init();
         return p;
     }
     return 0;

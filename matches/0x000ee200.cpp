@@ -1,4 +1,4 @@
-class Ref {
+class Ref_ee200 {
   public:
     virtual void f0();
     virtual void f1();
@@ -28,7 +28,7 @@ class ImageSelector {
     virtual void v20();
     virtual void v21();
     char pad[0x150 - 4];
-    Ref* items[64];
+    Ref_ee200* items[64];
 };
 void ImageSelector::v21() {
     for (int i = 0; i < 8; i++)

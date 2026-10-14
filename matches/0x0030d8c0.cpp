@@ -1,11 +1,11 @@
-struct Inner {
+struct Inner_30d8c0 {
     char pad[0x6c];
     unsigned int value;
 };
 struct Param {
     char pad0[8];
-    Inner* p1;
-    Inner* p2;
+    Inner_30d8c0* p1;
+    Inner_30d8c0* p2;
     char pad1[8];
     unsigned int x, y, z;
 };

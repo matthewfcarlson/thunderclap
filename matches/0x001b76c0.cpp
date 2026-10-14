@@ -1,14 +1,14 @@
 // Same code shape as 0x001b75d0 (propagated; names are from that function)
-class Ref {
+class Ref_1b76c0 {
   public:
     virtual void F();
 };
-class Owner {
+class Owner_1b76c0 {
   public:
-    Ref* mRef;
-    Owner* Set(Ref* r);
+    Ref_1b76c0* mRef;
+    Owner_1b76c0* Set(Ref_1b76c0* r);
 };
-Owner* Owner::Set(Ref* r) {
+Owner_1b76c0* Owner_1b76c0::Set(Ref_1b76c0* r) {
     mRef = r;
     if (r)
         r->F();

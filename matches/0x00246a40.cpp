@@ -1,12 +1,12 @@
-struct S {
+struct S_246a40 {
     int Fn();
 };
-struct A {
+struct A_246a40 {
     char pad[0x1c];
-    S* m;
+    S_246a40* m;
 };
-bool Target(A* a, int* b) {
-    S* sub = a->m;
+bool Target(A_246a40* a, int* b) {
+    S_246a40* sub = a->m;
     int r = sub->Fn();
     *b = r;
     return true;

@@ -1,19 +1,19 @@
-struct Vec {
+struct Vec_172830 {
     float x, y, z;
     float elapsed;
     float FUN_0022d110();
     void FUN_00011140(float);
 };
-struct Body {
-    void FUN_00035760(Vec*);
+struct Body_172830 {
+    void FUN_00035760(Vec_172830*);
 };
-struct Actor {
-    Body* FUN_00059a30();
+struct Actor_172830 {
+    Body_172830* FUN_00059a30();
 };
-struct Handle {
-    Actor* FUN_000592a0();
+struct Handle_172830 {
+    Actor_172830* FUN_000592a0();
 };
-struct Source {
+struct Source_172830 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -35,19 +35,19 @@ struct MomentumXZAddAction {
     virtual void v4();
     virtual bool vfunc_5(int, float);
     char pad[24];
-    Source* source;
-    Handle* handle;
-    Vec momentum;
+    Source_172830* source;
+    Handle_172830* handle;
+    Vec_172830 momentum;
 };
 bool MomentumXZAddAction::vfunc_5(int flag, float dt) {
     if (flag)
         return true;
     if (!handle)
         return false;
-    Actor* actor = handle->FUN_000592a0();
+    Actor_172830* actor = handle->FUN_000592a0();
     if (!actor)
         return false;
-    Body* body = actor->FUN_00059a30();
+    Body_172830* body = actor->FUN_00059a30();
     if (!body)
         return false;
     float rate = source->rate;

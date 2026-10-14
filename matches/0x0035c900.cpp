@@ -1,9 +1,9 @@
-typedef unsigned __int64 U64;
-extern "C" U64 __cdecl FUN_0027b020(const char*);
-extern int gA;
-extern int gB;
+typedef unsigned __int64 U64_35c900;
+extern "C" U64_35c900 __cdecl FUN_0027b020(const char*);
+extern int gA_35c900;
+extern int gB_35c900;
 void FUN_0035c900() {
-    U64 r = FUN_0027b020((const char*)0x3f3fd8);
-    gA = (int)r;
-    gB = (int)(r >> 32);
+    U64_35c900 r = FUN_0027b020((const char*)0x3f3fd8);
+    gA_35c900 = (int)r;
+    gB_35c900 = (int)(r >> 32);
 }

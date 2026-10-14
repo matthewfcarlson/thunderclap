@@ -1,20 +1,20 @@
 extern "C" void _ReadWriteBarrier();
 extern "C" void* alloc(unsigned int) throw();
-struct E {
+struct E_2a4cb0 {
     int a, b, c, d;
 };
-struct Buffer {
-    E* begin;
-    E* end;
-    Buffer* target(unsigned int count, int unused);
+struct Buffer_2a4cb0 {
+    E_2a4cb0* begin;
+    E_2a4cb0* end;
+    Buffer_2a4cb0* target(unsigned int count, int unused);
 };
-Buffer* Buffer::target(unsigned int count, int unused) {
+Buffer_2a4cb0* Buffer_2a4cb0::target(unsigned int count, int unused) {
     if (count > 0) {
-        begin = (E*)alloc(count * 16);
+        begin = (E_2a4cb0*)alloc(count * 16);
         if (begin != 0) {
-            E* e = begin + count;
+            E_2a4cb0* e = begin + count;
             end = e;
-            for (E* p = begin; p != e; ++p) {
+            for (E_2a4cb0* p = begin; p != e; ++p) {
                 if (p != 0) {
                     p->a = 0;
                     p->b = 0;

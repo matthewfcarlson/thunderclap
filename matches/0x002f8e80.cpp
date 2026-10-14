@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2f8e80 {
   public:
     char pad[0x68];
     unsigned char m68;
@@ -6,16 +6,16 @@ class Obj {
     char p[6];
     unsigned char m70;
 };
-class Pair {
+class Pair_2f8e80 {
   public:
-    Obj* a;
-    Obj* b;
+    Obj_2f8e80* a;
+    Obj_2f8e80* b;
     int c;
     int d;
     unsigned char e;
     void f();
 };
-void Pair::f() {
+void Pair_2f8e80::f() {
     unsigned char z = 0;
     c = 0;
     if (a->m70 == z || b->m70 == z) {

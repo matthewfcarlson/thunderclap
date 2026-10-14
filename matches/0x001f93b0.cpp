@@ -1,15 +1,15 @@
-struct Sub {
+struct Sub_1f93b0 {
     void f();
 };
 void destroy(void*);
-class X {
+class X_1f93b0 {
     char pad[0x10];
 
   public:
-    X* run(unsigned char);
+    X_1f93b0* run(unsigned char);
 };
-X* X::run(unsigned char flags) {
-    ((Sub*)((char*)this + 0x10))->f();
+X_1f93b0* X_1f93b0::run(unsigned char flags) {
+    ((Sub_1f93b0*)((char*)this + 0x10))->f();
     if (flags & 1)
         destroy(this);
     return this;

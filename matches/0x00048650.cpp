@@ -1,6 +1,6 @@
-class Helper {
+class Helper_48650 {
   public:
-    Helper* first();
+    Helper_48650* first();
     int second();
 };
 class CAxisCondition {
@@ -20,7 +20,7 @@ class CAxisCondition {
     void vfunc_8(int);
 };
 void CAxisCondition::vfunc_8(int arg) {
-    Helper* h = ((Helper*)arg)->first();
+    Helper_48650* h = ((Helper_48650*)arg)->first();
     int v = h->second();
     f9(v, v + index * 0x38 + 0x1ff4);
 }

@@ -1,31 +1,31 @@
-extern const char s1[];
+extern const char s1_1eb560[];
 extern const char s2_00424200[];
-struct Temp {
+struct Temp_1eb560 {
     char pad[0x48];
     void Init();
     void SetName(const char*);
     void Finish();
 };
-struct Obj {};
-struct Owner {
-    Obj* Get();
+struct Obj_1eb560 {};
+struct Owner_1eb560 {
+    Obj_1eb560* Get();
 };
-struct Renderer {
-    void Draw(Temp*, int, int, float);
+struct Renderer_1eb560 {
+    void Draw(Temp_1eb560*, int, int, float);
 };
-void Build(Obj*, Temp*);
-struct C {
-    Renderer* m0;
-    Owner* m4;
+void Build(Obj_1eb560*, Temp_1eb560*);
+struct C_1eb560 {
+    Renderer_1eb560* m0;
+    Owner_1eb560* m4;
     char m8;
     void Fn(int);
 };
-void C::Fn(int t) {
-    Temp a;
+void C_1eb560::Fn(int t) {
+    Temp_1eb560 a;
     a.Init();
-    a.SetName(s1);
+    a.SetName(s1_1eb560);
     a.SetName(s2_00424200);
-    Obj* o = m4->Get();
+    Obj_1eb560* o = m4->Get();
     if (o)
         Build(o, &a);
     if (m8)

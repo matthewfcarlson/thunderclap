@@ -1,5 +1,5 @@
 // Same code shape as 0x0006f100 (propagated; names are from that function)
-struct Allocated {
+struct Allocated_6ffa0 {
     int Finish();
 };
 struct TrackFactoryTemplate {
@@ -12,7 +12,7 @@ struct TrackFactoryTemplate {
 };
 extern void* Allocate(unsigned int);
 int TrackFactoryTemplate::vfunc_5() {
-    Allocated* p = (Allocated*)Allocate(0x10);
+    Allocated_6ffa0* p = (Allocated_6ffa0*)Allocate(0x10);
     if (p)
         return p->Finish();
     return 0;

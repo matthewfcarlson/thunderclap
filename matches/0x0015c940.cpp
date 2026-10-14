@@ -1,16 +1,16 @@
-struct Sub {
+struct Sub_15c940 {
     void setA(int a, int b, float c);
     void setB(int a, int b);
 };
-struct Child {
+struct Child_15c940 {
     void doIt(int a);
 };
-struct Obj {
-    Sub* make();
-    Child* child();
+struct Obj_15c940 {
+    Sub_15c940* make();
+    Child_15c940* child();
 };
-struct Mgr {
-    Obj* get();
+struct Mgr_15c940 {
+    Obj_15c940* get();
 };
 
 namespace hulkfight {
@@ -23,19 +23,19 @@ class ClimbLocomotionAction {
     virtual void vfunc_3();
     virtual void vfunc_4();
     char pad[0x18];
-    Mgr* m1c;
+    Mgr_15c940* m1c;
     int m20;
     int m24;
 };
 
 void ClimbLocomotionAction::vfunc_4() {
     if (m20) {
-        Obj* o = m1c->get();
-        Sub* s = o->make();
+        Obj_15c940* o = m1c->get();
+        Sub_15c940* s = o->make();
         if (s) {
             s->setA(m20, 0, -1.0f);
             s->setB(m24, 0);
-            Child* c = o->child();
+            Child_15c940* c = o->child();
             if (c)
                 c->doIt(0);
         }

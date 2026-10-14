@@ -1,11 +1,11 @@
 extern char g_vtbl[];
 
-class Elem {
+class Elem_3375f0 {
   public:
     void Init();
 };
 
-class Container {
+class Container_3375f0 {
   public:
     int m_vptr;         // 0x00
     int field4;         // 0x04
@@ -13,14 +13,14 @@ class Container {
     int f5108;          // 0x5108
     int f510c;          // 0x510c
 
-    Container* Init();
+    Container_3375f0* Init();
 };
 
-Container* Container::Init() {
+Container_3375f0* Container_3375f0::Init() {
     *(int*)this = (int)g_vtbl;
     char* p = elems;
     for (int i = 0x20; i != 0; --i) {
-        ((Elem*)p)->Init();
+        ((Elem_3375f0*)p)->Init();
         p += 0x288;
     }
     field4 = 0;

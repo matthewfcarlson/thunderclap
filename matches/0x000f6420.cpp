@@ -1,6 +1,6 @@
 // Same code shape as 0x000c5b40 (propagated; names are from that function)
 extern int __fastcall g(void*);
-struct S {
+struct S_f6420 {
     void* p;
     volatile int a;
     char pad[0x3fc];
@@ -9,7 +9,7 @@ struct S {
     volatile int last;
     void f();
 };
-void S::f() {
+void S_f6420::f() {
     if (p) {
         count = 0;
         a = 0;

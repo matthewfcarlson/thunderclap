@@ -1,4 +1,4 @@
-class Checker {
+class Checker_276980 {
   public:
     virtual void a();
     virtual void b();
@@ -19,7 +19,7 @@ class Builder {
 class InstanceDrive {
   public:
     char pad[12];
-    Checker* checker;
+    Checker_276980* checker;
     int field10;
     void vfunc_8(int p2, int p3);
 };

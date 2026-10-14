@@ -9,7 +9,7 @@ extern void __cdecl FUN_0010c540();
 extern void __cdecl FUN_0010c550();
 extern int DAT_004e0b84;
 extern int DAT_004e0b80;
-struct ParamBase {
+struct ParamBase_112aa0 {
     virtual void slot0();
     char pad[12];
     void(__cdecl* callback)();
@@ -24,23 +24,23 @@ class KeywordWaitTrack;
 }
 } // namespace hulkfight
 namespace fight {
-template <class T> struct ParamFloatConstRange : ParamBase {
+template <class T> struct ParamFloatConstRange : ParamBase_112aa0 {
     virtual void slot0();
 };
-template <class T> struct ParamName : ParamBase {
+template <class T> struct ParamName : ParamBase_112aa0 {
     virtual void slot0();
 };
-template <class T> struct ParamBool : ParamBase {
+template <class T> struct ParamBool : ParamBase_112aa0 {
     virtual void slot0();
 };
 } // namespace fight
-extern void __cdecl FUN_002347b0(int*, ParamBase**, int);
+extern void __cdecl FUN_002347b0(int*, ParamBase_112aa0**, int);
 void __cdecl FUN_00112aa0() {
     if (DAT_004e0b84 == 0) {
-        ParamBase* params[4];
+        ParamBase_112aa0* params[4];
         void* mem = FUN_0008d690(24);
         if (mem) {
-            ParamBase* p = (ParamBase*)mem;
+            ParamBase_112aa0* p = (ParamBase_112aa0*)mem;
             p->FUN_00234960("timeBegin");
             p = new (mem) fight::ParamFloatConstRange<hulkfight::ai::KeywordWaitTrack>;
             p->callback = FUN_0010c520;
@@ -49,7 +49,7 @@ void __cdecl FUN_00112aa0() {
             params[0] = 0;
         mem = FUN_0008d690(24);
         if (mem) {
-            ParamBase* p = (ParamBase*)mem;
+            ParamBase_112aa0* p = (ParamBase_112aa0*)mem;
             p->FUN_00234960("timeEnd");
             p = new (mem) fight::ParamFloatConstRange<hulkfight::ai::KeywordWaitTrack>;
             p->callback = FUN_0010c530;
@@ -58,7 +58,7 @@ void __cdecl FUN_00112aa0() {
             params[1] = 0;
         mem = FUN_0008d690(24);
         if (mem) {
-            ParamBase* p = (ParamBase*)mem;
+            ParamBase_112aa0* p = (ParamBase_112aa0*)mem;
             p->FUN_00234a90("keyword");
             p = new (mem) fight::ParamName<hulkfight::ai::KeywordWaitTrack>;
             p->callback = FUN_0010c540;
@@ -67,7 +67,7 @@ void __cdecl FUN_00112aa0() {
             params[2] = 0;
         mem = FUN_0008d690(24);
         if (mem) {
-            ParamBase* p = (ParamBase*)mem;
+            ParamBase_112aa0* p = (ParamBase_112aa0*)mem;
             p->FUN_00234860("randomIntroWait");
             p = new (mem) fight::ParamBool<hulkfight::ai::KeywordWaitTrack>;
             p->callback = FUN_0010c550;

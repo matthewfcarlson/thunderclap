@@ -1,13 +1,13 @@
-typedef unsigned int U;
-extern U g;
-extern U __cdecl lookup(U, U);
-struct Obj {
-    U run(U, U, U);
+typedef unsigned int U_26cf20;
+extern U_26cf20 g_26cf20;
+extern U_26cf20 __cdecl lookup(U_26cf20, U_26cf20);
+struct Obj_26cf20 {
+    U_26cf20 run(U_26cf20, U_26cf20, U_26cf20);
 };
-U __cdecl target(U a, U b, U c) {
-    g = b;
-    U x = lookup(b, 0x4a4);
+U_26cf20 __cdecl target(U_26cf20 a, U_26cf20 b, U_26cf20 c) {
+    g_26cf20 = b;
+    U_26cf20 x = lookup(b, 0x4a4);
     if (x)
-        return ((Obj*)x)->run(a, b, c);
+        return ((Obj_26cf20*)x)->run(a, b, c);
     return 0;
 }

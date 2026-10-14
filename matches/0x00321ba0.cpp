@@ -77,9 +77,9 @@ class d3dContext : public pddiBaseContext {
 };
 } // namespace pure3d
 extern void __fastcall D3DDevice_SetRenderState_Simple(unsigned long, unsigned long);
-extern unsigned long g_state;
+extern unsigned long g_state_321ba0;
 void pure3d::d3dContext::vfunc_68(unsigned long x) {
     pddiBaseContext::vfunc_68(x);
     D3DDevice_SetRenderState_Simple(0x40368, x);
-    g_state = x;
+    g_state_321ba0 = x;
 }

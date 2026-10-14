@@ -1,7 +1,7 @@
-typedef unsigned int uint;
+typedef unsigned int uint_e2d50;
 class TextButton {
   public:
-    virtual uint f0();
+    virtual uint_e2d50 f0();
     virtual void f1();
     virtual void f2();
     virtual void f3();
@@ -13,7 +13,7 @@ class TextButton {
     virtual void f9();
     virtual void f10();
     virtual void f11();
-    virtual bool f12(uint, uint);
+    virtual bool f12(uint_e2d50, uint_e2d50);
     virtual void f13();
     virtual void f14();
     virtual void f15();
@@ -21,7 +21,7 @@ class TextButton {
     virtual void f17();
     virtual void f18();
 };
-bool TextButton::f12(uint a, uint b) {
+bool TextButton::f12(uint_e2d50 a, uint_e2d50 b) {
     f0();
     return false;
 }

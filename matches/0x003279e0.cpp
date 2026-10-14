@@ -5,13 +5,13 @@ struct ReceiverBaseA {
 struct ReceiverBaseB {
     int b;
 };
-struct Receiver : ReceiverBaseA, ReceiverBaseB {
+struct Receiver_3279e0 : ReceiverBaseA, ReceiverBaseB {
     void set(unsigned int);
 };
-struct ParameterEntry {
+struct ParameterEntry_3279e0 {
     unsigned int key;
     unsigned int reserved;
-    void (Receiver::*setter)(unsigned int);
+    void (Receiver_3279e0::*setter)(unsigned int);
     unsigned int extra[2];
 };
 namespace pure3d {
@@ -31,17 +31,17 @@ struct pddiBaseShader {
     virtual void vfunc_12();
     virtual void vfunc_13();
     virtual void slot14();
-    virtual ParameterEntry* vfunc_15();
+    virtual ParameterEntry_3279e0* vfunc_15();
     unsigned int fields[2];
     unsigned int serial;
 };
 bool pddiBaseShader::vfunc_5(unsigned int key, unsigned int value) {
-    ParameterEntry* entry = vfunc_15();
+    ParameterEntry_3279e0* entry = vfunc_15();
     if (!entry)
         return false;
     for (; entry->key; ++entry) {
         if (entry->key == key) {
-            (reinterpret_cast<Receiver*>(this)->*(entry->setter))(value);
+            (reinterpret_cast<Receiver_3279e0*>(this)->*(entry->setter))(value);
             unsigned int next = DAT_005555b8 + 1;
             DAT_005555b8 = next;
             if (next == 0xffffffffU)

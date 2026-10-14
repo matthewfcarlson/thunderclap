@@ -1,17 +1,17 @@
 struct V {
     float x, y, z;
 };
-struct Sub {
+struct Sub_e1e90 {
     void Get(V* out);
 };
 struct Node {
     char pad[0x18];
-    Sub sub;
+    Sub_e1e90 sub;
 };
-struct Handle {
+struct Handle_e1e90 {
     Node* p;
 };
-int Cmp(Handle* a, Handle* b) {
+int Cmp(Handle_e1e90* a, Handle_e1e90* b) {
     Node* na = a->p;
     Node* nb = b->p;
     if (!na)

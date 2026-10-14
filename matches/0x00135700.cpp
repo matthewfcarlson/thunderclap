@@ -2,34 +2,34 @@ struct P8 {
     int Get();
     void Set(int);
 };
-struct Tail {
+struct Tail_135700 {
     char pad[0x12c];
     int field;
 };
-struct Mid {
-    Tail* GetTail();
+struct Mid_135700 {
+    Tail_135700* GetTail();
 };
-struct Obj {
-    Mid* GetMid();
+struct Obj_135700 {
+    Mid_135700* GetMid();
 };
-struct Inner {
+struct Inner_135700 {
     virtual void f0();
     virtual void f1();
     int pad;
     P8* p8;
     int kind;
 };
-class Target {
+class Target_135700 {
   public:
     char pad[0x20];
-    Obj* mA;
+    Obj_135700* mA;
     int spare;
-    Inner* mItem;
+    Inner_135700* mItem;
     void Run();
 };
-void Target::Run() {
+void Target_135700::Run() {
     if (mItem != 0 && mItem->kind == 1) {
-        Tail* t = mA->GetMid()->GetTail();
+        Tail_135700* t = mA->GetMid()->GetTail();
         P8* p = mItem->p8;
         if (p != 0) {
             int v = t->field;

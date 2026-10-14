@@ -1,8 +1,8 @@
 extern "C" char DAT_0041c5f0[];
-struct Helper {
+struct Helper_1a5c50 {
     void Init();
 };
-struct TrackBase {
+struct TrackBase_1a5c50 {
     void InitTrack();
 };
 class EffectTrack {
@@ -23,11 +23,11 @@ class EffectTrack {
 void __cdecl Destroy(EffectTrack*);
 EffectTrack* EffectTrack::vfunc_5(unsigned char flag) {
     *(unsigned long*)this = ((int)DAT_0041c5f0);
-    ((Helper*)((char*)this + 0x58))->Init();
-    ((Helper*)((char*)this + 0x30))->Init();
-    ((Helper*)((char*)this + 0x20))->Init();
-    ((Helper*)((char*)this + 0x18))->Init();
-    ((TrackBase*)this)->InitTrack();
+    ((Helper_1a5c50*)((char*)this + 0x58))->Init();
+    ((Helper_1a5c50*)((char*)this + 0x30))->Init();
+    ((Helper_1a5c50*)((char*)this + 0x20))->Init();
+    ((Helper_1a5c50*)((char*)this + 0x18))->Init();
+    ((TrackBase_1a5c50*)this)->InitTrack();
     if (flag & 1)
         Destroy(this);
     return this;

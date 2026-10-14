@@ -1,5 +1,5 @@
 extern const char alphabet[];
-class Thing {
+class Thing_dca40 {
   public:
     char pad0[0x150];
     int count;
@@ -9,7 +9,7 @@ class Thing {
     int* values;
     bool Run();
 };
-bool Thing::Run() {
+bool Thing_dca40::Run() {
     int i = 0;
     if (count > 0) {
         do {

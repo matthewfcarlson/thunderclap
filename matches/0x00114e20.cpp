@@ -15,7 +15,7 @@ struct BaseInit {
 struct MemberInit {
     void go();
 };
-class Factory {
+class Factory_114e20 {
   public:
     virtual void a();
     virtual void b();
@@ -24,7 +24,7 @@ class Factory {
     virtual void e();
     virtual SemaphoreWaitTrack* f();
 };
-SemaphoreWaitTrack* Factory::f() {
+SemaphoreWaitTrack* Factory_114e20::f() {
     SemaphoreWaitTrack* p = (SemaphoreWaitTrack*)alloc(0x28);
     if (p != 0) {
         ((BaseInit*)p)->go();

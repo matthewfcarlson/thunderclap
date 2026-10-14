@@ -1,5 +1,5 @@
 typedef unsigned char byte;
-class Ref {
+class Ref_2f7fc0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -9,23 +9,23 @@ class Chunk {
     void init();
     char pad[0x1c];
 };
-class physics_ImpulseBasedCollisionSolver {
+class physics_ImpulseBasedCollisionSolver_2f7fc0 {
   public:
-    virtual ~physics_ImpulseBasedCollisionSolver();
+    virtual ~physics_ImpulseBasedCollisionSolver_2f7fc0();
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    Ref* r4;
+    Ref_2f7fc0* r4;
     char pad1[0x8c];
     Chunk c94;
     Chunk cb0;
     Chunk ccc;
     char pad2[0x14];
-    Ref* rfc;
+    Ref_2f7fc0* rfc;
 };
-void thunk_FUN_00267090(physics_ImpulseBasedCollisionSolver*);
-physics_ImpulseBasedCollisionSolver::~physics_ImpulseBasedCollisionSolver() {
+void thunk_FUN_00267090(physics_ImpulseBasedCollisionSolver_2f7fc0*);
+physics_ImpulseBasedCollisionSolver_2f7fc0::~physics_ImpulseBasedCollisionSolver_2f7fc0() {
     if (r4)
         r4->f1();
     if (rfc)

@@ -1,18 +1,18 @@
-class Base {
+class Base_11dd10 {
   public:
-    Base();
+    Base_11dd10();
     virtual void Fn();
     virtual void Release();
 };
-class StrafeCircleHBAction : public Base {
+class StrafeCircleHBAction : public Base_11dd10 {
   public:
     char pad[0x1c - 4];
     int mArg;
-    Base* mObj;
+    Base_11dd10* mObj;
     int mOther;
-    StrafeCircleHBAction(int a, Base* b);
+    StrafeCircleHBAction(int a, Base_11dd10* b);
 };
-StrafeCircleHBAction::StrafeCircleHBAction(int a, Base* b) : Base() {
+StrafeCircleHBAction::StrafeCircleHBAction(int a, Base_11dd10* b) : Base_11dd10() {
     int* q = &mArg;
     *q = 0;
     mObj = 0;

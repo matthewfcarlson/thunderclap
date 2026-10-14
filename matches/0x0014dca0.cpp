@@ -1,20 +1,20 @@
-class Base {
+class Base_14dca0 {
   public:
-    Base();
+    Base_14dca0();
     virtual void f();
     char pad[8];
 };
-class Part {
+class Part_14dca0 {
   public:
-    Part();
+    Part_14dca0();
     char pad[8];
 };
-class HitReactionFloatTrack : public Base {
+class HitReactionFloatTrack : public Base_14dca0 {
   public:
     HitReactionFloatTrack();
     virtual void f();
     int a, b, c;
-    Part part;
+    Part_14dca0 part;
     int x20, x24;
     float x28, x2c;
     int x30, x34, x38, x3c, x40, x44, x48, x4c;

@@ -5,8 +5,8 @@ extern "C" char DAT_004342fc[];
 extern "C" void* Allocate(void*, unsigned int);
 extern "C" void Init();
 extern "C" volatile unsigned int gStored;
-extern "C" volatile void* gResult;
-struct Callback {
+extern "C" volatile void* gResult_3351a0;
+struct Callback_3351a0 {
     unsigned int vtable;
     unsigned int arg;
     unsigned int subVtable;
@@ -14,7 +14,7 @@ struct Callback {
 };
 void CreateCallback(unsigned int arg) {
     gStored = arg;
-    Callback* p = (Callback*)Allocate((void*)arg, 0x10);
+    Callback_3351a0* p = (Callback_3351a0*)Allocate((void*)arg, 0x10);
     if (p) {
         p->vtable = ((int)DAT_0042afa8);
         p->arg = gStored;
@@ -23,7 +23,7 @@ void CreateCallback(unsigned int arg) {
         p->vtable = ((int)DAT_004342fc);
         p->subVtable = ((int)DAT_004342e8);
         p->field = 0;
-        gResult = p;
+        gResult_3351a0 = p;
     } else
-        gResult = 0;
+        gResult_3351a0 = 0;
 }

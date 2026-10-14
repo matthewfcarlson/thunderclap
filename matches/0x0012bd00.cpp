@@ -14,7 +14,7 @@ class ThreatDodgeTrack {
     virtual void vfunc_10();
     char pad[0x1c];
 };
-class Helper {
+class Helper_12bd00 {
   public:
     void call1();
     void call2();
@@ -22,8 +22,8 @@ class Helper {
 void FUN_00267090(ThreatDodgeTrack*);
 ThreatDodgeTrack* ThreatDodgeTrack::vfunc_5(unsigned char param_2) {
     *(void**)this = (void*)((int)DAT_00410c84);
-    ((Helper*)((char*)this + 0x20))->call1();
-    ((Helper*)this)->call2();
+    ((Helper_12bd00*)((char*)this + 0x20))->call1();
+    ((Helper_12bd00*)this)->call2();
     if (param_2 & 1)
         FUN_00267090(this);
     return this;

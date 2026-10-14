@@ -1,11 +1,11 @@
-class X {
+class X_cad60 {
   public:
-    X() {}
+    X_cad60() {}
     void Fn();
     char pad[0x224];
     char m224;
 };
 
-void X::Fn() {
+void X_cad60::Fn() {
     m224 = 0;
 }

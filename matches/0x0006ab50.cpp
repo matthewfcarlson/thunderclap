@@ -1,11 +1,11 @@
 void helper();
 
-class Base {
+class Base_6ab50 {
   public:
-    Base();
+    Base_6ab50();
 };
 
-class CStageTrack : public Base {
+class CStageTrack : public Base_6ab50 {
   public:
     CStageTrack();
     virtual void SomeVirtual();
@@ -15,7 +15,7 @@ class CStageTrack : public Base {
     int m10;
 };
 
-Base::Base() {
+Base_6ab50::Base_6ab50() {
     helper();
 }
 

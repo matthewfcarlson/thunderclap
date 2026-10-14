@@ -30,12 +30,12 @@ public:
 };
 }
 
-struct RefObj {
+struct RefObj_2ac610 {
     virtual void AddRef();
     virtual void Release();
 };
 
-struct LoadedRes : RefObj {
+struct LoadedRes : RefObj_2ac610 {
     char pad04[0x18];
     unsigned int type;
     char pad20[8];
@@ -79,7 +79,7 @@ public:
     virtual void c0();
     virtual void c1();
     virtual void c2();
-    virtual RefObj *load(content::LoadInventory::DynamicCaster<pure3d::Shader> *caster, unsigned __int64 id);
+    virtual RefObj_2ac610 *load(content::LoadInventory::DynamicCaster<pure3d::Shader> *caster, unsigned __int64 id);
 };
 
 struct Name_2ac610 {
@@ -94,28 +94,28 @@ struct IntVec_2ac610 {
 };
 
 struct PtrVec {
-    RefObj **begin;
-    RefObj **end;
+    RefObj_2ac610 **begin;
+    RefObj_2ac610 **end;
     void FUN_002ab8e0(int n, const unsigned int *def);
 };
 
 struct Matrix {
     void FUN_0022b980();
 };
-struct Small {
-    Small *FUN_002d6760();
+struct Small_2ac610 {
+    Small_2ac610 *FUN_002d6760();
     virtual void AddRef();
     virtual void Release();
 };
-struct Sub4c : RefObj {
+struct Sub4c : RefObj_2ac610 {
     Sub4c *FUN_002d4040(LoadedRes *r);
 };
-struct Sub30 : RefObj {
+struct Sub30 : RefObj_2ac610 {
     Sub30 *FUN_002d5640(LoadedRes *r, unsigned int n, float f);
 };
-RefObj *__cdecl FUN_002aa160(unsigned int v);
+RefObj_2ac610 *__cdecl FUN_002aa160(unsigned int v);
 
-class Obj_2ac610 : public RefObj {
+class Obj_2ac610 : public RefObj_2ac610 {
 public:
     virtual void o2();
     virtual void o3();
@@ -123,7 +123,7 @@ public:
     virtual void o5();
     virtual void o6();
     virtual void o7();
-    virtual void SetShader(RefObj *s);
+    virtual void SetShader(RefObj_2ac610 *s);
     char pad24[4];
     Name_2ac610 name;
     char pad10[4];
@@ -132,9 +132,9 @@ public:
     float v2c[3];
     unsigned int f38;
     char pad3c[0x4c];
-    RefObj *f88;
-    RefObj *f8c;
-    Small *f90;
+    RefObj_2ac610 *f88;
+    RefObj_2ac610 *f8c;
+    Small_2ac610 *f90;
     int f94;
     char pad98[0xd];
     unsigned char fa5;
@@ -153,9 +153,9 @@ public:
     unsigned int f184;
     unsigned int f188;
     char pad18c[0x30];
-    RefObj *f1bc;
-    RefObj *f1c0;
-    RefObj *f1c4;
+    RefObj_2ac610 *f1bc;
+    RefObj_2ac610 *f1c0;
+    RefObj_2ac610 *f1c4;
     IntVec_2ac610 f1c8;
     char pad1d0[4];
     PtrVec f1d4;
@@ -165,7 +165,7 @@ public:
 
 struct Extra {
     char FUN_002aa550(int v);
-    RefObj *FUN_002aa590(Stream *s, Ctx *ctx);
+    RefObj_2ac610 *FUN_002aa590(Stream *s, Ctx *ctx);
 };
 
 class Loader {
@@ -257,12 +257,12 @@ void Loader::FUN_002ac610(int a1, Stream *stream, Ctx *ctx, Extra *a4)
         ((Matrix *)m)->FUN_0022b980();
     }
     void *sm = FUN_0008d690(8);
-    Small *small = 0;
+    Small_2ac610 *small = 0;
     if (sm != 0)
-        small = ((Small *)sm)->FUN_002d6760();
+        small = ((Small_2ac610 *)sm)->FUN_002d6760();
     obj->f90 = small;
     small->AddRef();
-    RefObj *hold = FUN_002aa160(f.s28);
+    RefObj_2ac610 *hold = FUN_002aa160(f.s28);
     if (hold != 0)
         hold->AddRef();
     if (obj->f8c != 0)
@@ -334,7 +334,7 @@ void Loader::FUN_002ac610(int a1, Stream *stream, Ctx *ctx, Extra *a4)
             f.self->FUN_002a4b00(a1, stream, ctx);
         } else if (a4 != 0) {
             if (a4->FUN_002aa550(stream->FUN_00266c30()) == 1) {
-                RefObj *nr = a4->FUN_002aa590(stream, ctx);
+                RefObj_2ac610 *nr = a4->FUN_002aa590(stream, ctx);
                 if (nr != 0)
                     nr->AddRef();
                 if (obj->f88 != 0)

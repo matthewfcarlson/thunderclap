@@ -1,8 +1,8 @@
-extern const char s0[];
-extern const char s1[];
-extern const char s2[];
-extern const char s3[];
-extern const char s4[];
+extern const char s0_1d68e0[];
+extern const char s1_1d68e0[];
+extern const char s2_1d68e0[];
+extern const char s3_1d68e0[];
+extern const char s4_1d68e0[];
 extern const char s5[];
 extern const char s6[];
 extern const char s7[];
@@ -32,12 +32,12 @@ const char* f(int x) {
     if (x == 9)
         return s5;
     if (x == 10)
-        return s4;
+        return s4_1d68e0;
     if (x == 11)
-        return s3;
+        return s3_1d68e0;
     if (x == 12)
-        return s2;
+        return s2_1d68e0;
     if (x == 13)
-        return s0;
+        return s0_1d68e0;
     return 0;
 }

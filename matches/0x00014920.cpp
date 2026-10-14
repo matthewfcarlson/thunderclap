@@ -1,4 +1,4 @@
-class Thing {
+class Thing_14920 {
   public:
     virtual void a();
     virtual void b();
@@ -20,7 +20,7 @@ class CPushBackAnimationAction {
     virtual void a8();
     virtual float vfunc_9();
     char pad[0x18];
-    Thing* mThing;
+    Thing_14920* mThing;
 };
 float CPushBackAnimationAction::vfunc_9() {
     int* p = mThing->get();

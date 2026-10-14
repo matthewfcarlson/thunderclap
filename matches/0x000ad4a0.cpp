@@ -1,14 +1,14 @@
 // Same code shape as 0x000acf50 (propagated; names are from that function)
-struct Item {
+struct Item_ad4a0 {
     void Apply(int);
 };
-struct Owner {
+struct Owner_ad4a0 {
     char pad[0x10];
     int count;
-    Item** items;
+    Item_ad4a0** items;
     void Apply(int);
 };
-void Owner::Apply(int value) {
+void Owner_ad4a0::Apply(int value) {
     int i = 0;
     if (count > 0)
         do {

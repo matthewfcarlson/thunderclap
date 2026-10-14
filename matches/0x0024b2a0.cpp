@@ -13,14 +13,14 @@ struct Node {
     virtual void v11();
     virtual void v12();
 };
-struct Obj {
+struct Obj_24b2a0 {
     char pad[0x78];
     unsigned char a;
     unsigned char b;
     unsigned char c;
     void Remove();
 };
-void Obj::Remove() {
+void Obj_24b2a0::Remove() {
     int i = ((int)a + (int)b - 1) % (int)c;
     Node* p = (Node*)*(void**)((char*)this + i * 12);
     if (p)

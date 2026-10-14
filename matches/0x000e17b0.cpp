@@ -1,4 +1,4 @@
-extern const float zero;
+extern const float zero_e17b0;
 extern const float minusone;
 class FEDoAction {
   public:
@@ -9,7 +9,7 @@ class FEDoAction {
     virtual void vfunc_4();
 };
 class FEDoAnimation;
-class Helper {
+class Helper_e17b0 {
   public:
     virtual void a();
     virtual void b(FEDoAnimation*);
@@ -25,7 +25,7 @@ class FEDoAnimation : public FEDoAction {
     virtual void vfunc_1();
     virtual void vfunc_5();
     char p[0x30];
-    Helper* mHelper;
+    Helper_e17b0* mHelper;
     int state;
     float value;
     float time;
@@ -34,9 +34,9 @@ class FEDoAnimation : public FEDoAction {
     void update();
 };
 void FEDoAnimation::vfunc_1() {
-    Helper* h = mHelper;
+    Helper_e17b0* h = mHelper;
     if (h) {
-        if (time != zero) {
+        if (time != zero_e17b0) {
             value = h->f();
             update();
         } else if (value > minusone) {

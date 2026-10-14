@@ -1,16 +1,16 @@
-extern unsigned char gEnabled, gMode;
+extern unsigned char gEnabled_204e40, gMode;
 extern int __cdecl switchState(int);
-struct Item {
+struct Item_204e40 {
     char pad[0x3c];
     void init(const char*, int, int, int);
 };
-struct Obj {
+struct Obj_204e40 {
     char pad[0x48];
-    Item items[20];
+    Item_204e40 items[20];
     void run();
 };
-void Obj::run() {
-    if (gEnabled) {
+void Obj_204e40::run() {
+    if (gEnabled_204e40) {
         int id = 0x13 + (gMode != 0 ? 2 : 0);
         int old = switchState(7);
         for (int i = 0; i < 20; i++)

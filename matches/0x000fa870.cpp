@@ -1,25 +1,25 @@
-struct Item {
+struct Item_fa870 {
     int a;
-    Item* next;
-    void Append(Item*);
+    Item_fa870* next;
+    void Append(Item_fa870*);
 };
-struct Hdr {
+struct Hdr_fa870 {
     int count;
-    void First(Item*);
+    void First(Item_fa870*);
 };
 struct Lst {
-    Hdr* h;
-    void Put(Item* it);
+    Hdr_fa870* h;
+    void Put(Item_fa870* it);
 };
-void Lst::Put(Item* it) {
-    static Item* last = it;
+void Lst::Put(Item_fa870* it) {
+    static Item_fa870* last = it;
     if (h->count == 0) {
         h->First(it);
         last = it;
         return;
     }
     if (last != it) {
-        Item* n = last->next;
+        Item_fa870* n = last->next;
         if (n) {
             n->Append(it);
             last = it;

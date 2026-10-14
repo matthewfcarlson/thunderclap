@@ -1,11 +1,11 @@
 typedef unsigned long DWORD;
-struct Viewport {
+struct Viewport_323df0 {
     DWORD X, Y, Width, Height;
     float MinZ, MaxZ;
 };
 namespace D3D8 {
-void __stdcall D3DDevice_GetViewport(Viewport*);
-void __stdcall D3DDevice_SetViewport(Viewport*);
+void __stdcall D3DDevice_GetViewport(Viewport_323df0*);
+void __stdcall D3DDevice_SetViewport(Viewport_323df0*);
 } // namespace D3D8
 struct RenderTarget {
     virtual void s0();
@@ -18,7 +18,7 @@ struct RenderTarget {
     virtual int GetWidth();
     bool FUN_0031b180();
 };
-struct Aux {
+struct Aux_323df0 {
     void FUN_00328f10();
 };
 namespace pure3d {
@@ -137,10 +137,10 @@ class d3dContext : public pddiBaseContext {
     virtual void vfunc_102(int);
     char pad4[0x14c - 4];
     int counter;
-    Aux* aux;
+    Aux_323df0* aux;
     RenderTarget* target;
     char pad158[0x16c - 0x158];
-    Viewport vp;
+    Viewport_323df0 vp;
     void FUN_00320c60();
 };
 } // namespace pure3d

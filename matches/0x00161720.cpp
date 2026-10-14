@@ -12,13 +12,13 @@ class ClimbLocomotion4Track {
     virtual void v9();
     virtual int vfunc_10(int, int, int);
 };
-class Helper {
+class Helper_161720 {
   public:
     int f(ClimbLocomotion4Track*, int);
 };
-extern "C" Helper* FUN_0008d690(int);
+extern "C" Helper_161720* FUN_0008d690(int);
 int ClimbLocomotion4Track::vfunc_10(int a, int b, int c) {
-    Helper* p = FUN_0008d690(0x4c);
+    Helper_161720* p = FUN_0008d690(0x4c);
     if (p)
         return p->f(this, c);
     return 0;

@@ -1,12 +1,12 @@
 extern "C" char DAT_00420e24[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e134[];
-class Base {
+class Base_1b9c50 {
   public:
     void Init(void*, int);
 };
 extern "C" char __cdecl FUN_001d04d0(const char*);
-class Target : public Base {
+class Target_1b9c50 : public Base_1b9c50 {
   public:
     int pad0;
     char pad4[0x0c];
@@ -21,9 +21,9 @@ class Target : public Base {
     char b18;
     char pad19[3];
     int member1c;
-    Target(void* p, int x);
+    Target_1b9c50(void* p, int x);
 };
-Target::Target(void* p, int x) {
+Target_1b9c50::Target_1b9c50(void* p, int x) {
     Init(p, 3);
     *(int*)this = ((int)DAT_00420e24);
     member1c = x;

@@ -1,7 +1,7 @@
-extern void* v[];
-class O;
-extern O* g;
-class O {
+extern void* v_3c4a2b[];
+class O_3c4a2b;
+extern O_3c4a2b* g_3c4a2b;
+class O_3c4a2b {
   public:
     void* vptr;
     int a;
@@ -9,12 +9,12 @@ class O {
     int c;
     void* l0;
     void* l1;
-    O() throw();
+    O_3c4a2b() throw();
 };
-O::O() throw() {
+O_3c4a2b::O_3c4a2b() throw() {
     a = 2;
-    vptr = v;
-    g = this;
+    vptr = v_3c4a2b;
+    g_3c4a2b = this;
     l1 = &l0;
     l0 = &l0;
 }

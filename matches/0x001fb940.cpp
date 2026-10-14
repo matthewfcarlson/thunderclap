@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1fb940 {
   public:
     char pad[0xcd];
     unsigned char a;
@@ -6,6 +6,6 @@ class Obj {
     unsigned char b;
     void f();
 };
-void Obj::f() {
+void Obj_1fb940::f() {
     b = a;
 }

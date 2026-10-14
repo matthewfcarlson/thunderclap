@@ -1,4 +1,4 @@
-class X {
+class X_133260 {
   public:
     char Set(int value);
 
@@ -7,7 +7,7 @@ class X {
     int mValue;
 };
 
-char X::Set(int value) {
+char X_133260::Set(int value) {
     mValue = value;
     return 1;
 }

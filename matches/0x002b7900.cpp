@@ -1,4 +1,4 @@
-class Ref {
+class Ref_2b7900 {
   public:
     virtual void f0();
     virtual void f1();
@@ -39,8 +39,8 @@ class PolySkin {
     void* m5c;
     void* m60;
     char pad64[8];
-    Ref* m6c;
-    Ref* m70;
+    Ref_2b7900* m6c;
+    Ref_2b7900* m70;
     void last(int, int);
 };
 void PolySkin::vfunc_8(int a, int b) {

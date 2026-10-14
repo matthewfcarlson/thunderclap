@@ -7,20 +7,20 @@ extern void* vBase[];
 extern void* vIRef[];
 extern unsigned DAT_004cdbb0;
 extern void FUN_00266f00(unsigned, void*);
-class Part {
+class Part_272d90 {
   public:
     void Fini() throw();
 };
-struct Target {
+struct Target_272d90 {
     void* v0;
     void* v4;
     unsigned p8;
     void* vc;
     int pad;
-    Part part;
-    Target* Dtor(unsigned char flag) throw();
+    Part_272d90 part;
+    Target_272d90* Dtor(unsigned char flag) throw();
 };
-Target* Target::Dtor(unsigned char flag) throw() {
+Target_272d90* Target_272d90::Dtor(unsigned char flag) throw() {
     v0 = vDrive;
     v4 = vD4;
     vc = vDc;

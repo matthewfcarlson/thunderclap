@@ -1,5 +1,5 @@
 // Same code shape as 0x0001db40 (propagated; names are from that function)
-struct Obj {
+struct Obj_20020 {
     virtual void F();
     virtual void G();
 };
@@ -11,15 +11,15 @@ class CAction {
     virtual void V0();
     virtual void V1();
     char pad[0x18];
-    Obj* mObj;
+    Obj_20020* mObj;
     int mValue;
 };
 class CDrainHealthAction : public CAction {
   public:
-    CDrainHealthAction(Obj*, int);
+    CDrainHealthAction(Obj_20020*, int);
     virtual void V0();
 };
-CDrainHealthAction::CDrainHealthAction(Obj* arg, int value) {
+CDrainHealthAction::CDrainHealthAction(Obj_20020* arg, int value) {
     *(int*)this = (int)&VBase;
     mObj = 0;
     if (arg)

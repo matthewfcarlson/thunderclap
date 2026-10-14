@@ -1,9 +1,9 @@
-typedef unsigned char byte;
+typedef unsigned char byte_2a7e60;
 class SceneGraphVisibilityAnimationController {
   public:
     virtual void f0();
     virtual void f1();
-    virtual SceneGraphVisibilityAnimationController* f2(byte);
+    virtual SceneGraphVisibilityAnimationController* f2(byte_2a7e60);
     virtual void f3();
     virtual void f4();
     virtual void f5();
@@ -33,7 +33,7 @@ class SceneGraphVisibilityAnimationController {
 extern void* visibilityVtable;
 extern void FUN_00285800();
 extern void thunk_FUN_00267090(SceneGraphVisibilityAnimationController*);
-SceneGraphVisibilityAnimationController* SceneGraphVisibilityAnimationController::f2(byte param) {
+SceneGraphVisibilityAnimationController* SceneGraphVisibilityAnimationController::f2(byte_2a7e60 param) {
     *(void**)this = &visibilityVtable;
     *(int*)((char*)this + 0x44) = 0;
     FUN_00285800();

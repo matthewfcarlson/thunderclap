@@ -1,20 +1,20 @@
 extern "C" char DAT_0041460c[];
-class Obj {
+class Obj_151bc0 {
   public:
     virtual void F();
     virtual void G();
 };
 void BaseCtor();
-class Hit {
+class Hit_151bc0 {
   public:
     volatile int v;
     char pad[0x18];
     volatile int a;
-    Obj* b;
+    Obj_151bc0* b;
     char gap[0x1c];
-    Hit(int p, Obj* q);
+    Hit_151bc0(int p, Obj_151bc0* q);
 };
-Hit::Hit(int p, Obj* q) {
+Hit_151bc0::Hit_151bc0(int p, Obj_151bc0* q) {
     BaseCtor();
     v = ((int)DAT_0041460c);
     a = 0;

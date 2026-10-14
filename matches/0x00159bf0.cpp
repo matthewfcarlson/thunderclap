@@ -14,7 +14,7 @@ struct HitThrowTrack {
     int f28;
     void InitTrack();
 };
-class Factory {
+class Factory_159bf0 {
   public:
     virtual void a();
     virtual void b();
@@ -23,7 +23,7 @@ class Factory {
     virtual void e();
     virtual void* vfunc_5();
 };
-void* Factory::vfunc_5() {
+void* Factory_159bf0::vfunc_5() {
     HitThrowTrack* p = (HitThrowTrack*)Alloc(0x2c);
     if (p) {
         p->InitTrack();

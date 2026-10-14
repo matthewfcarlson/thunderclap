@@ -1,11 +1,11 @@
-typedef unsigned int u32;
-struct Sub {
-    void Call(void*, u32, int);
+typedef unsigned int u32_2ed6e0;
+struct Sub_2ed6e0 {
+    void Call(void*, u32_2ed6e0, int);
 };
-struct Obj {
+struct Obj_2ed6e0 {
     char pad[0xb0];
-    void Target(u32 arg);
+    void Target(u32_2ed6e0 arg);
 };
-void Obj::Target(u32 arg) {
-    ((Sub*)((char*)this + 0xb0))->Call((char*)this + 0x2c, arg, 0);
+void Obj_2ed6e0::Target(u32_2ed6e0 arg) {
+    ((Sub_2ed6e0*)((char*)this + 0xb0))->Call((char*)this + 0x2c, arg, 0);
 }

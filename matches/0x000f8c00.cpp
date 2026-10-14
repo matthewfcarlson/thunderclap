@@ -1,10 +1,10 @@
-class C {
+class C_f8c00 {
   public:
     int pad;
     int a[128];
     int f(int x);
 };
-int C::f(int x) {
+int C_f8c00::f(int x) {
     int i = 0;
     do {
         if (a[i] == 0)

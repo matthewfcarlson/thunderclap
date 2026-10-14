@@ -1,33 +1,33 @@
-struct F {
+struct F_1b42b0 {
     unsigned lo, hi;
 };
-inline F Or(const F& a, const F& b) {
-    F r;
+inline F_1b42b0 Or(const F_1b42b0& a, const F_1b42b0& b) {
+    F_1b42b0 r;
     r.lo = a.lo | b.lo;
     r.hi = a.hi | b.hi;
     return r;
 }
-struct Inner {
+struct Inner_1b42b0 {
     char pad[0x58];
-    F a, b;
+    F_1b42b0 a, b;
 };
-struct Obj {
+struct Obj_1b42b0 {
     char pad[0x74];
-    Inner* in;
+    Inner_1b42b0* in;
 };
-struct Mgr {
-    void Apply(Inner*);
+struct Mgr_1b42b0 {
+    void Apply(Inner_1b42b0*);
 };
-struct Foo {
+struct Foo_1b42b0 {
     char pad[8];
-    Mgr* mgr;
-    bool Fn(Obj* o);
+    Mgr_1b42b0* mgr;
+    bool Fn(Obj_1b42b0* o);
 };
-extern F g39e8, g39f0, g3a10, g3a18, g3a20;
-bool Foo::Fn(Obj* o) {
+extern F_1b42b0 g39e8, g39f0, g3a10, g3a18, g3a20;
+bool Foo_1b42b0::Fn(Obj_1b42b0* o) {
     if (!o)
         return false;
-    Inner* i = o->in;
+    Inner_1b42b0* i = o->in;
     if (!i)
         return false;
     i->a = g3a10;

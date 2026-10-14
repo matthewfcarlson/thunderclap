@@ -16,7 +16,7 @@ class SimState {
     virtual void a13();
     virtual void vfunc_14(int);
 };
-class Inner {
+class Inner_2fe270 {
   public:
     virtual void f0();
     virtual void f1();
@@ -30,10 +30,10 @@ class Inner {
     virtual void f9();
     virtual void f10();
 };
-class Owner {
+class Owner_2fe270 {
   public:
     char pad[0x20];
-    Inner* inner;
+    Inner_2fe270* inner;
     char pad2[0x50 - 0x24];
     char flag;
     void Helper(int);
@@ -41,12 +41,12 @@ class Owner {
 class SimStateHairclub : public SimState {
   public:
     char pad[0x74 - sizeof(SimState)];
-    Owner* owner;
+    Owner_2fe270* owner;
     void vfunc_14(int);
 };
 void SimStateHairclub::vfunc_14(int x) {
     SimState::vfunc_14(x);
-    Owner* o = owner;
+    Owner_2fe270* o = owner;
     if (o->flag) {
         owner->Helper(0);
         owner->inner->f10();

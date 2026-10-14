@@ -1,4 +1,4 @@
-struct Inner {
+struct Inner_27cc20 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -34,7 +34,7 @@ struct DrawableHierarchy {
 };
 struct StateProp : DrawableHierarchy {
     char pad[0x98];
-    Inner* mInner;
+    Inner_27cc20* mInner;
     virtual void s15();
     virtual void s16();
     virtual void vfunc_14();

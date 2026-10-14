@@ -1,16 +1,16 @@
 extern "C" char DAT_00434578[];
-class Ref {
+class Ref_337890 {
   public:
     virtual void F(int);
 };
-class Obj {
+class Obj_337890 {
   public:
     unsigned a;
     unsigned b;
-    Ref* member;
+    Ref_337890* member;
     void Go();
 };
-void Obj::Go() {
+void Obj_337890::Go() {
     a = ((int)DAT_00434578);
     if (member)
         member->F(1);

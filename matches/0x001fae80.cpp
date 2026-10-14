@@ -4,21 +4,21 @@ inline void* operator new(unsigned, void* p) throw() {
 }
 extern void* vGDH[];
 extern "C" void* __cdecl FUN_0008d690(unsigned int) throw();
-struct Inner {
-    Inner() throw();
+struct Inner_1fae80 {
+    Inner_1fae80() throw();
 };
-struct Target {
+struct Target_1fae80 {
     void* vf;
-    Inner* p4;
+    Inner_1fae80* p4;
     int p8, pc, p10, p14, p18, p1c, p20, p24, p28, p2c, p30;
-    Target() throw();
+    Target_1fae80() throw();
 };
-Target::Target() throw() {
+Target_1fae80::Target_1fae80() throw() {
     vf = vGDH;
     void* m = FUN_0008d690(0x5110);
-    Inner* i;
+    Inner_1fae80* i;
     if (m)
-        i = new (m) Inner;
+        i = new (m) Inner_1fae80;
     else
         i = 0;
     p4 = i;

@@ -3,9 +3,9 @@ class RegObj {
   public:
     virtual void Reg();
 };
-extern RegObj gReg;
+extern RegObj gReg_360e20;
 extern "C" void __cdecl Cleanup();
 void __cdecl Init() {
-    gReg.Reg();
+    gReg_360e20.Reg();
     atexit(Cleanup);
 }

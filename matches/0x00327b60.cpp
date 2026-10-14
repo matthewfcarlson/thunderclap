@@ -1,11 +1,11 @@
-class Target {
+class Target_327b60 {
   public:
     void m(int);
 };
-struct Entry {
+struct Entry_327b60 {
     int key;
     int p1;
-    void (Target::*fn)(int);
+    void (Target_327b60::*fn)(int);
     int off;
     int pad1;
     int pad2;
@@ -31,7 +31,7 @@ class pddiBaseShader {
     virtual void f16();
     virtual void f17();
     virtual void f18();
-    virtual Entry* f19();
+    virtual Entry_327b60* f19();
     virtual void f20();
     int pad;
     int pad2;
@@ -39,11 +39,11 @@ class pddiBaseShader {
 };
 extern int counter;
 bool pddiBaseShader::f9(int key, int arg) {
-    Entry* e = f19();
+    Entry_327b60* e = f19();
     if (e) {
         while (e->key) {
             if (e->key == key) {
-                Target* o = (Target*)((char*)this + e->off);
+                Target_327b60* o = (Target_327b60*)((char*)this + e->off);
                 (o->*e->fn)(arg);
                 ++counter;
                 if (counter == -1)
@@ -52,7 +52,7 @@ bool pddiBaseShader::f9(int key, int arg) {
                 ++counter;
                 return true;
             }
-            e = (Entry*)((char*)e + 24);
+            e = (Entry_327b60*)((char*)e + 24);
         }
     }
     return false;

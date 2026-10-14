@@ -1,4 +1,4 @@
-extern int* gArray;
+extern int* gArray_6a7e0;
 class CDriftTrack {
   public:
     virtual int vfunc_0(int a);
@@ -17,5 +17,5 @@ class CDriftTrack {
     virtual int vfunc_13();
 };
 int CDriftTrack::vfunc_0(int a) {
-    return gArray[a];
+    return gArray_6a7e0[a];
 }

@@ -3,13 +3,13 @@ class Node {
     virtual void Release(int);
     Node* next;
 };
-struct Entry {
+struct Entry_f9d20 {
     int a;
     int b;
     Node* head;
     int pad;
 };
-void __fastcall ClearEntries(Entry* p) {
+void __fastcall ClearEntries(Entry_f9d20* p) {
     int i = 128;
     do {
         if (p->a | p->b) {

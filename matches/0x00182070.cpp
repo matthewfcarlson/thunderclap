@@ -1,10 +1,10 @@
-struct A {
+struct A_182070 {
     void* f();
 };
-struct B {
+struct B_182070 {
     int f();
 };
-struct C {
+struct C_182070 {
     int f(int);
 };
 struct D {
@@ -20,12 +20,12 @@ class PropSetStateByNameAction {
     virtual bool vfunc_5(unsigned int, unsigned int);
     char pad4[0x18];
     int* mData;
-    A* mThing;
+    A_182070* mThing;
 };
 bool PropSetStateByNameAction::vfunc_5(unsigned int param, unsigned int) {
     if (param == 0 && mThing != 0) {
-        A* p = (A*)mThing->f();
-        int x = ((B*)p)->f();
+        A_182070* p = (A_182070*)mThing->f();
+        int x = ((B_182070*)p)->f();
         int index = mData[4];
         if (x != 0) {
             if (index < 0)
@@ -33,7 +33,7 @@ bool PropSetStateByNameAction::vfunc_5(unsigned int param, unsigned int) {
             else {
                 if (index >= 8)
                     return false;
-                x = ((C*)x)->f(index);
+                x = ((C_182070*)x)->f(index);
             }
             if (x != 0)
                 ((D*)x)->f((int*)((char*)mData + 0x18));

@@ -1,4 +1,4 @@
-class Inner {
+class Inner_e4da0 {
   public:
     virtual int f0();
     virtual int f1();
@@ -64,7 +64,7 @@ class FEContainer {
     virtual int f51();
     virtual int f52();
     char pad[0x44];
-    Inner* obj;
+    Inner_e4da0* obj;
     char pad2[0x808];
     int index;
 };

@@ -4,7 +4,7 @@ class Shader {
     virtual void F0();
     virtual void F1();
 };
-class Obj {
+class Obj_331690 {
   public:
     int vft;
     char pad[0x7c];
@@ -13,7 +13,7 @@ class Obj {
     void Fn();
     void End();
 };
-void Obj::Fn() {
+void Obj_331690::Fn() {
     Shader* x = a;
     vft = ((int)DAT_00433e64);
     if (x)

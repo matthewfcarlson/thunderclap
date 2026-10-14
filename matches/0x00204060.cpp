@@ -1,4 +1,4 @@
-class Owner {
+class Owner_204060 {
   public:
     char pad[0x58c];
     short* items;
@@ -6,7 +6,7 @@ class Owner {
     int count;
     short* find_item(int a, int b);
 };
-short* Owner::find_item(int a, int b) {
+short* Owner_204060::find_item(int a, int b) {
     if (a < 0 || b < 0)
         return 0;
     int i = 0;

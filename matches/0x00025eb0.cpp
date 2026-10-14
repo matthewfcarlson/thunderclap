@@ -1,6 +1,6 @@
 extern void __fastcall InitThing(void*);
-extern int gValue;
-class Thing {
+extern int gValue_25eb0;
+class Thing_25eb0 {
   public:
     char pad000[4];
     void* mChild;
@@ -19,7 +19,7 @@ class Thing {
     unsigned char m588;
     void Run();
 };
-void Thing::Run() {
+void Thing_25eb0::Run() {
     mFlag50 = 1;
     mA = 4;
     mB = 3;
@@ -28,7 +28,7 @@ void Thing::Run() {
     m350 = 0;
     m351 = 0;
     m352 = 1;
-    gValue = 0x41000000;
+    gValue_25eb0 = 0x41000000;
     m584 = 0x7fffffff;
     m588 = 0;
 }

@@ -1,6 +1,6 @@
 extern "C" void _ReadWriteBarrier();
 extern int orient_vftable, action_vftable;
-class Ref {
+class Ref_223a0 {
   public:
     virtual void f0();
     virtual void Release();
@@ -23,16 +23,16 @@ class COrientAction : public CAction {
     virtual void a1();
     virtual COrientAction* vfunc_2(unsigned int);
     char pad[0x18];
-    Ref* mSecond;
+    Ref_223a0* mSecond;
     char pad2[4];
-    Ref* mFirst;
+    Ref_223a0* mFirst;
     void helper();
 };
 void __cdecl thunk_FUN_00267090(COrientAction*);
 COrientAction* COrientAction::vfunc_2(unsigned int flags) {
     *(void**)this = &orient_vftable;
     _ReadWriteBarrier();
-    Ref* q = mFirst;
+    Ref_223a0* q = mFirst;
     if (q) {
         q->Release();
         mFirst = 0;

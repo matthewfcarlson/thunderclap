@@ -1,10 +1,10 @@
 extern "C" char DAT_00417df0[];
-class Ref {
+class Ref_17b110 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class Helper {
+class Helper_17b110 {
   public:
     void cleanup();
 };
@@ -20,15 +20,15 @@ class JointTrackerAction {
     virtual void f5();
     char pad[0x18];
     int m1c;
-    Ref* m20;
-    Ref* m24;
+    Ref_17b110* m20;
+    Ref_17b110* m24;
     char pad28[0x4c];
-    Ref* m74;
+    Ref_17b110* m74;
 };
 JointTrackerAction* JointTrackerAction::vfunc_2(int flag) {
     *(volatile int*)this = ((int)DAT_00417df0);
-    Ref* volatile* p = &m74;
-    Ref* a = *p;
+    Ref_17b110* volatile* p = &m74;
+    Ref_17b110* a = *p;
     if (a) {
         a->f1();
         m74 = 0;
@@ -43,7 +43,7 @@ JointTrackerAction* JointTrackerAction::vfunc_2(int flag) {
     }
     if (m1c)
         m1c = 0;
-    ((Helper*)this)->cleanup();
+    ((Helper_17b110*)this)->cleanup();
     if (flag & 1)
         delthis(this);
     return this;

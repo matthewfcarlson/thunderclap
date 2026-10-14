@@ -1,4 +1,4 @@
-class Buffer {
+class Buffer_27f6f0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -14,15 +14,15 @@ class Conv {
   public:
     void Run(void*, void*);
 };
-struct Obj {
+struct Obj_27f6f0 {
     char p0[4];
     void* a;
     unsigned int index;
     char p1[4];
-    Buffer* buffer;
+    Buffer_27f6f0* buffer;
     char p2[0x14];
 };
-void __stdcall Target(Obj* self) {
+void __stdcall Target(Obj_27f6f0* self) {
     char local[12];
     if (self->index != 0xffff) {
         Conv* c = (Conv*)((char*)*((void**)((char*)self->a + 0x1c)) + (self->index << 6));

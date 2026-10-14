@@ -1,37 +1,37 @@
-struct Thing {
+struct Thing_1b90b0 {
     char pad[0x24];
     unsigned flags;
     char pad2[0x32 - 0x28];
     char active;
     void Fn();
 };
-struct Part {
+struct Part_1b90b0 {
     unsigned Get();
     void Set(unsigned);
 };
-struct Engine {
+struct Engine_1b90b0 {
     void Stop(int);
 };
-struct Sub {
+struct Sub_1b90b0 {
     char pad[0x124];
-    Engine* p;
+    Engine_1b90b0* p;
 };
-struct Global {
+struct Global_1b90b0 {
     char pad[0x20];
-    Sub* sub;
+    Sub_1b90b0* sub;
     char pad2[0x3c - 0x24];
-    Part* part;
+    Part_1b90b0* part;
 };
-extern Global* g;
-struct Item {
+extern Global_1b90b0* g_1b90b0;
+struct Item_1b90b0 {
     void Act();
 };
-Item* __stdcall Make(int, float, int, int);
-void Thing::Fn() {
-    unsigned x = g->part->Get();
-    g->part->Set(flags | x);
+Item_1b90b0* __stdcall Make(int, float, int, int);
+void Thing_1b90b0::Fn() {
+    unsigned x = g_1b90b0->part->Get();
+    g_1b90b0->part->Set(flags | x);
     Make(1, 0.5f, 0, 0)->Act();
-    Engine* e = g->sub->p;
+    Engine_1b90b0* e = g_1b90b0->sub->p;
     if (e && active) {
         active = 0;
         e->Stop(0);

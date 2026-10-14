@@ -1,14 +1,14 @@
 extern "C" double cos(double);
 extern "C" double sin(double);
-struct Vec {
+struct Vec_3059c0 {
     float x, y, z;
     float Len();
 };
-struct Q {
+struct Q_3059c0 {
     float x, y, z, w;
 };
-bool FUN_003059c0(Vec* a, Q* b) {
-    Vec v = *a;
+bool FUN_003059c0(Vec_3059c0* a, Q_3059c0* b) {
+    Vec_3059c0 v = *a;
     bool r = false;
     float t = v.Len();
     if (t > 0.0001f) {

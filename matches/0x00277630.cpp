@@ -1,7 +1,7 @@
 extern int __cdecl f70ba0(int);
 extern int __cdecl f6fd50(int);
 extern int __cdecl f66eb0(int, int, int);
-class Obj {
+class Obj_277630 {
   public:
     char pad[0x14];
     int m14;
@@ -10,7 +10,7 @@ class Obj {
     int m20;
     void run(int, int, int);
 };
-void Obj::run(int a, int b, int c) {
+void Obj_277630::run(int a, int b, int c) {
     if (m1c == 0) {
         m20 = a;
         int x = f70ba0(c);

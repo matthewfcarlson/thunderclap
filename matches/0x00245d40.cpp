@@ -1,11 +1,11 @@
-struct P {
+struct P_245d40 {
     char pad[0x90];
     int line;
     unsigned pos;
     unsigned end;
     char Get(unsigned p);
 };
-void F(P* p) {
+void F(P_245d40* p) {
     while (p->pos < p->end) {
         char c = p->Get(p->pos);
         if (c != 9 && c != 32 && c != 10 && c != 13)

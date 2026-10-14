@@ -1,4 +1,4 @@
-class Child {
+class Child_e4dd0 {
   public:
     virtual int f0();
     virtual int f1();
@@ -65,7 +65,7 @@ class FEContainer {
     virtual int vfunc_51();
     virtual int vfunc_52();
     char pad[0x44];
-    Child* child;
+    Child_e4dd0* child;
     char rest[0x808];
     int state;
 };

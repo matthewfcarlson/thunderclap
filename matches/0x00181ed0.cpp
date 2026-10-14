@@ -1,20 +1,20 @@
-class Model {
+class Model_181ed0 {
   public:
     char pad[0x128];
     void* field;
     void Update(unsigned char);
     void Apply(void*, void*);
 };
-class Actor {
+class Actor_181ed0 {
   public:
     virtual void* A();
     virtual void* B();
     virtual void* C();
     virtual void* D();
-    Actor* Get();
-    Model* ModelFor();
+    Actor_181ed0* Get();
+    Model_181ed0* ModelFor();
 };
-struct Vec {
+struct Vec_181ed0 {
     int a, b, c;
 };
 class PropActorThinkingAction {
@@ -26,13 +26,13 @@ class PropActorThinkingAction {
     virtual void E();
     virtual void F();
     char pad[0x18];
-    Actor* actor;
-    Actor* context;
+    Actor_181ed0* actor;
+    Actor_181ed0* context;
 };
 bool PropActorThinkingAction::vfunc_3(int a, int b) {
-    Actor* x = context;
-    Actor* y = x->Get();
-    Model* m = y->ModelFor();
+    Actor_181ed0* x = context;
+    Actor_181ed0* y = x->Get();
+    Model_181ed0* m = y->ModelFor();
     unsigned char v = *((unsigned char*)actor + 0x10);
     m->Update(v);
     if (!v) {
@@ -40,8 +40,8 @@ bool PropActorThinkingAction::vfunc_3(int a, int b) {
         if (p) {
             void* q = context->D();
             if (q) {
-                Vec t = *((Vec*)((char*)q + 0x38));
-                ((Model*)p)->Apply(&t, (char*)q + 8);
+                Vec_181ed0 t = *((Vec_181ed0*)((char*)q + 0x38));
+                ((Model_181ed0*)p)->Apply(&t, (char*)q + 8);
             }
         }
     }

@@ -1,27 +1,27 @@
 extern "C" void _ReadWriteBarrier();
 extern void* vSeq[];
-class Ref {
+class Ref_237530 {
   public:
     virtual void F0();
     virtual void Release();
 };
-struct Base {
+struct Base_237530 {
     void* vf;
     void Dtor() throw();
 };
-struct Target : Base {
+struct Target_237530 : Base_237530 {
     char pad[0x18];
-    Ref* p1c;
+    Ref_237530* p1c;
     void* p20;
     char pad2[8];
-    Ref* p2c;
+    Ref_237530* p2c;
     char pad3[0xc];
-    Ref* p3c;
+    Ref_237530* p3c;
     char pad4[0xc];
-    Ref* p4c;
+    Ref_237530* p4c;
     void Dtor2() throw();
 };
-void Target::Dtor2() throw() {
+void Target_237530::Dtor2() throw() {
     vf = vSeq;
     _ReadWriteBarrier();
     if (p4c) {
@@ -42,5 +42,5 @@ void Target::Dtor2() throw() {
         p1c->Release();
         p1c = 0;
     }
-    Base::Dtor();
+    Base_237530::Dtor();
 }

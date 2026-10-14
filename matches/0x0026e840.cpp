@@ -5,7 +5,7 @@ class Console2 {
     void Func(void* msg, int n);
 };
 
-struct Msg {
+struct Msg_26e840 {
     int tag;
     void* self;
     unsigned p3;
@@ -22,7 +22,7 @@ class DebugConsole {
 
 void DebugConsole::vfunc_8(const char* s, unsigned p3, unsigned p4) {
     Console2* c = mConsole;
-    Msg msg;
+    Msg_26e840 msg;
     msg.tag = 6;
     msg.self = this;
     msg.p3 = p3;

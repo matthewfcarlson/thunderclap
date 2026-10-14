@@ -1,5 +1,5 @@
 class Branch;
-class Sub {
+class Sub_233390 {
   public:
     void helper(Branch*);
 };
@@ -21,7 +21,7 @@ class Branch {
     void vfunc_5();
 };
 void Branch::vfunc_5() {
-    ((Sub*)((char*)this + 0x18))->helper(this);
+    ((Sub_233390*)((char*)this + 0x18))->helper(this);
     for (Node* p = first; p; p = p->next)
         p->f5();
 }

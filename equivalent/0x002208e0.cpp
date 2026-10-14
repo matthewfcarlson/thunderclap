@@ -25,7 +25,7 @@ struct Proto : GCObject {
 struct Table;
 struct lua_State;
 
-struct FuncState {
+struct FuncState_2208e0 {
     Proto *f;                       // 0
     Table *h;                       // 4
     char pad8[8];
@@ -40,7 +40,7 @@ void __cdecl FUN_00217100(lua_State *L, Proto *f, GCObject *v);
 
 // equiv-conv: FUN_0034483c
 // equiv-conv: FUN_002208e0 ebx ecx stack
-int __cdecl FUN_002208e0(FuncState *fs, TObject *k, TObject *v)
+int __cdecl FUN_002208e0(FuncState_2208e0 *fs, TObject *k, TObject *v)
 {
     lua_State *L = fs->L;
     TObject *idx = FUN_00219ef0(L, fs->h, k);

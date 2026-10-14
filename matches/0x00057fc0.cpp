@@ -1,5 +1,5 @@
 extern "C" char DAT_003f72e0[];
-class AllocObj {
+class AllocObj_57fc0 {
   public:
     void Init(int);
 };
@@ -14,7 +14,7 @@ class ConditionFactoryTemplate {
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 void* ConditionFactoryTemplate::V5() {
-    AllocObj* p = (AllocObj*)FUN_0008d690(0x14);
+    AllocObj_57fc0* p = (AllocObj_57fc0*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
         *(void**)p = (void*)((int)DAT_003f72e0);

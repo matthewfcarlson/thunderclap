@@ -1,4 +1,4 @@
-class Ref {
+class Ref_330d90 {
   public:
     virtual void f0();
     virtual void f1();
@@ -31,14 +31,14 @@ class pure3d_d3dToonVertexShader {
     virtual void v23();
     virtual void v24();
     char pad[0x90];
-    Ref* m94;
-    Ref* m98;
+    Ref_330d90* m94;
+    Ref_330d90* m98;
     void helper();
 };
 extern char toon_vftable;
 void thunk_FUN_00267090(pure3d_d3dToonVertexShader*);
 pure3d_d3dToonVertexShader* pure3d_d3dToonVertexShader::vfunc_3(unsigned char p) {
-    Ref* r = m98;
+    Ref_330d90* r = m98;
     *(void**)this = &toon_vftable;
     if (r)
         r->f1();

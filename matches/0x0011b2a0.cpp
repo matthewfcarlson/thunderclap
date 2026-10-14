@@ -8,7 +8,7 @@ struct MotionFleeTrack {
 };
 void* __cdecl operator_new(unsigned int);
 extern char MotionFleeVtable;
-class Factory {
+class Factory_11b2a0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -17,7 +17,7 @@ class Factory {
     virtual void f4();
     virtual MotionFleeTrack* vfunc_5();
 };
-MotionFleeTrack* Factory::vfunc_5() {
+MotionFleeTrack* Factory_11b2a0::vfunc_5() {
     MotionFleeTrack* p = (MotionFleeTrack*)operator_new(0x18);
     if (p) {
         p->ctor();

@@ -1,7 +1,7 @@
 struct One {
     void* f();
 };
-struct Two {
+struct Two_134160 {
     void* f();
 };
 struct Three {
@@ -15,7 +15,7 @@ struct FallAction {
 };
 void FallAction::vfunc_4() {
     void* x = a->f();
-    void* y = ((Two*)x)->f();
+    void* y = ((Two_134160*)x)->f();
     if (y)
         ((Three*)y)->f(b, 0);
 }

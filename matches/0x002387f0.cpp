@@ -6,7 +6,7 @@ struct RandomCondition {
     int value;
     void Init(int);
 };
-struct Factory {
+struct Factory_2387f0 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -14,7 +14,7 @@ struct Factory {
     virtual void e();
     virtual RandomCondition* vfunc_5();
 };
-RandomCondition* Factory::vfunc_5() {
+RandomCondition* Factory_2387f0::vfunc_5() {
     RandomCondition* p = (RandomCondition*)alloc(0x10);
     if (p) {
         p->Init(0);

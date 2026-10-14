@@ -1,5 +1,5 @@
 // Same code shape as 0x00042930 (propagated; names are from that function)
-class C {
+class C_42960 {
   public:
     char pad0[0x118];
     unsigned char flag;
@@ -10,7 +10,7 @@ class C {
     void target(int, float);
 };
 void __stdcall helper(int, float);
-void C::target(int a, float b) {
+void C_42960::target(int a, float b) {
     if (!flag && field338 == 0)
         helper(a, b * scale);
 }

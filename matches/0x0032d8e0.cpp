@@ -4,11 +4,11 @@ class Shader {
     virtual void A();
     virtual void B();
 };
-class Base {
+class Base_32d8e0 {
   public:
     void Cleanup();
 };
-class Thing {
+class Thing_32d8e0 {
   public:
     virtual void V();
     char pad[0x7c];
@@ -16,7 +16,7 @@ class Thing {
     Shader* b;
     void Fn();
 };
-void Thing::Fn() {
+void Thing_32d8e0::Fn() {
     Shader* a = this->a;
     *(unsigned long*)this = ((int)DAT_00433b9c);
     if (a)
@@ -24,5 +24,5 @@ void Thing::Fn() {
     Shader* b = this->b;
     if (b)
         b->B();
-    ((Base*)this)->Cleanup();
+    ((Base_32d8e0*)this)->Cleanup();
 }

@@ -1,4 +1,4 @@
-class Thing {
+class Thing_32c300 {
   public:
     virtual void a0();
     virtual void a1();
@@ -19,17 +19,17 @@ class Thing {
 };
 class Shader {
     char pad[0x10];
-    Thing* obj;
+    Thing_32c300* obj;
 
   public:
     void vfunc_12();
 };
-struct Mat {
+struct Mat_32c300 {
     float x[16];
 };
 void Shader::vfunc_12() {
     obj->a15(2);
-    Mat m;
+    Mat_32c300 m;
     m.x[0] = 0.5f;
     m.x[1] = 0;
     m.x[2] = 0;

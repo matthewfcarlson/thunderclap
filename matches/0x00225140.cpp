@@ -1,20 +1,20 @@
 extern const float one;
-extern const float zero;
-struct Inner {
+extern const float zero_225140;
+struct Inner_225140 {
     char pad[0x10];
     float f;
 };
-class Obj {
+class Obj_225140 {
   public:
     char pad[0x20];
-    Inner* p;
+    Inner_225140* p;
     char pad2[0x20c];
     float value;
     void Set(float x);
 };
-void Obj::Set(float x) {
+void Obj_225140::Set(float x) {
     float v = p->f - one;
-    if (x < zero) {
+    if (x < zero_225140) {
         value = 0;
         return;
     }

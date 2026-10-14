@@ -4,7 +4,7 @@ class Node {
     Node* next;
     unsigned int Check();
 };
-class Entry {
+class Entry_1dd9e0 {
   public:
     char pad[0x18];
     Node* node;
@@ -12,16 +12,16 @@ class Entry {
     short index;
     char pad3[4];
 };
-class Obj {
+class Obj_1dd9e0 {
   public:
     char pad[0x608];
-    Entry entries[0x800];
+    Entry_1dd9e0 entries[0x800];
     unsigned char Target(int index);
 };
-unsigned char Obj::Target(int index) {
+unsigned char Obj_1dd9e0::Target(int index) {
     if (index < 0 || index >= 0x800)
         return 0;
-    Entry* e = &entries[index];
+    Entry_1dd9e0* e = &entries[index];
     int i = e->index + 0x104e;
     if ((*(unsigned char*)((char*)this + i * 0x14) & 1) && e->node && e->node->next)
         return e->node->next->Check();

@@ -1,5 +1,5 @@
 extern "C" char DAT_00413004[];
-class Factory {
+class Factory_146750 {
   public:
     virtual void A();
     virtual void B();
@@ -8,13 +8,13 @@ class Factory {
     virtual void E();
     virtual void* vfunc_5();
 };
-class Motion {
+class Motion_146750 {
   public:
     void Init();
 };
 extern void* __cdecl Alloc(unsigned int);
-void* Factory::vfunc_5() {
-    Motion* p = (Motion*)Alloc(0x14);
+void* Factory_146750::vfunc_5() {
+    Motion_146750* p = (Motion_146750*)Alloc(0x14);
     if (p) {
         p->Init();
         *(int*)p = ((int)DAT_00413004);

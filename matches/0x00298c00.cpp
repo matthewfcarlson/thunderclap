@@ -1,4 +1,4 @@
-class Obj {
+class Obj_298c00 {
   public:
     virtual void a();
     virtual void b();
@@ -35,15 +35,15 @@ class Obj22 {
     virtual void v();
     virtual char Check();
 };
-struct First {
+struct First_298c00 {
     char pad20[0x20];
     unsigned char count;
     char pad[0xf];
     unsigned char* ids;
     char pad2[8];
-    Obj** objs;
+    Obj_298c00** objs;
 };
-struct Second {
+struct Second_298c00 {
     char pad8[8];
     unsigned char count;
     char pad[0xf];
@@ -54,8 +54,8 @@ struct Second {
 class CompositeDrawable {
   public:
     char pad44[0x44];
-    First* first;
-    Second* second;
+    First_298c00* first;
+    Second_298c00* second;
     Obj22* third;
     Obj22* fourth;
     char a();
@@ -72,7 +72,7 @@ char CompositeDrawable::v7() {
     if (!second) {
         unsigned char n = first->count;
         while (i < n) {
-            Obj* o = first->objs[first->ids[i] * 3 + 2];
+            Obj_298c00* o = first->objs[first->ids[i] * 3 + 2];
             if (!o->Check())
                 return 0;
             ++i;

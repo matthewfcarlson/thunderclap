@@ -1,5 +1,5 @@
-typedef unsigned char(__cdecl* Compare)(int, int);
-void Sort3(int* a, int* b, int* c, Compare cmp) {
+typedef unsigned char(__cdecl* Compare_2a1e00)(int, int);
+void Sort3(int* a, int* b, int* c, Compare_2a1e00 cmp) {
     if (cmp(*b, *a)) {
         int t = *b;
         *b = *a;

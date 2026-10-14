@@ -1,23 +1,23 @@
-extern void* g_vftable[];
+extern void* g_vftable_2b7d30[];
 void* operator new(unsigned) throw();
-class Ref {
+class Ref_2b7d30 {
   public:
     virtual void AddRef();
     virtual void Release();
 };
-class A : public Ref {
+class A_2b7d30 : public Ref_2b7d30 {
   public:
-    A() throw();
+    A_2b7d30() throw();
     char pad[0x2c - 4];
 };
-class B : public Ref {
+class B_2b7d30 : public Ref_2b7d30 {
   public:
-    B() throw();
+    B_2b7d30() throw();
     char pad[0x24 - 4];
 };
-struct RP {
-    Ref* p;
-    void Set(Ref* r) {
+struct RP_2b7d30 {
+    Ref_2b7d30* p;
+    void Set(Ref_2b7d30* r) {
         if (r)
             r->AddRef();
         if (p)
@@ -25,7 +25,7 @@ struct RP {
         p = r;
     }
 };
-struct Pad {
+struct Pad_2b7d30 {
     unsigned char b24, b25, b26, b27, b28, b29, b2a;
     void Set() {
         b27 = 0x20;
@@ -37,7 +37,7 @@ struct Pad {
         b2a = 0x20;
     }
 };
-class Obj {
+class Obj_2b7d30 {
   public:
     void* vptr;
     int m4;
@@ -46,14 +46,14 @@ class Obj {
     int m10;
     char m14;
     int m18;
-    RP m1c;
-    RP m20;
-    Pad pd;
-    Obj();
+    RP_2b7d30 m1c;
+    RP_2b7d30 m20;
+    Pad_2b7d30 pd;
+    Obj_2b7d30();
 };
-Obj::Obj() {
+Obj_2b7d30::Obj_2b7d30() {
     m8 = 0x10001;
-    vptr = g_vftable;
+    vptr = g_vftable_2b7d30;
     m14 = 1;
     m18 = -1;
     m4 = 0;
@@ -62,6 +62,6 @@ Obj::Obj() {
     m1c.p = 0;
     m20.p = 0;
     pd.Set();
-    m1c.Set(new A);
-    m20.Set(new B);
+    m1c.Set(new A_2b7d30);
+    m20.Set(new B_2b7d30);
 }

@@ -1,25 +1,25 @@
-class Ref {
+class Ref_2b6f30 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class Provider {
+class Provider_2b6f30 {
   public:
     char pad[0x70];
-    Ref* getObj();
+    Ref_2b6f30* getObj();
 };
 class ShadowSkinImpl {
   public:
     char pad[0x70];
-    Provider* provider;
+    Provider_2b6f30* provider;
     char gap[8];
-    Ref* p;
-    void helper(Ref*);
+    Ref_2b6f30* p;
+    void helper(Ref_2b6f30*);
     void vfunc_6();
 };
 void ShadowSkinImpl::vfunc_6() {
     if (!p) {
-        Ref* r = provider->getObj();
+        Ref_2b6f30* r = provider->getObj();
         if (r)
             r->f0();
         if (p)

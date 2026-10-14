@@ -6,7 +6,7 @@ class Function {
     virtual void f2();
 };
 void __cdecl invoke(int, int, int, int);
-class Closure : public Function {
+class Closure_200420 : public Function {
   public:
     char pad[0x18];
     int a;
@@ -14,6 +14,6 @@ class Closure : public Function {
     virtual void f0();
     virtual void f2(int, int, int);
 };
-void Closure::f2(int x, int y, int z) {
+void Closure_200420::f2(int x, int y, int z) {
     invoke(b, y, z, a);
 }

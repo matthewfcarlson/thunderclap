@@ -1,30 +1,30 @@
-class Ref {
+class Ref_30fc90 {
   public:
     virtual void A();
     virtual void B();
 };
-extern void* vt1;
-extern void* vt2;
-class T {
+extern void* vt1_30fc90;
+extern void* vt2_30fc90;
+class T_30fc90 {
   public:
     virtual void V();
     int a4;
-    Ref* obj8;
-    Ref* objc;
+    Ref_30fc90* obj8;
+    Ref_30fc90* objc;
     int count;
     int a14;
-    Ref*** arr;
-    Ref*** rows;
+    Ref_30fc90*** arr;
+    Ref_30fc90*** rows;
 };
 void __cdecl drop(void*);
-void T::V() {
+void T_30fc90::V() {
     int i = count - 1;
-    *(void**)this = &vt1;
+    *(void**)this = &vt1_30fc90;
     if (i >= 0) {
         do {
             int j = ((int*)arr)[i] - 1;
             while (j >= 0) {
-                Ref* r = rows[i][j];
+                Ref_30fc90* r = rows[i][j];
                 r->B();
                 --j;
             }
@@ -36,5 +36,5 @@ void T::V() {
     drop(arr);
     obj8->B();
     objc->B();
-    *(void**)this = &vt2;
+    *(void**)this = &vt2_30fc90;
 }

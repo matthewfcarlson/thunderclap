@@ -38,7 +38,7 @@ class File {
 };
 } // namespace core
 extern "C" void init(void*);
-extern "C" char g_data;
+extern "C" char g_data_275e60;
 void core::File::vfunc_0_adj4() {
-    init(&g_data);
+    init(&g_data_275e60);
 }

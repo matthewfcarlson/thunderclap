@@ -1,20 +1,20 @@
 extern float kZeroF;
-struct A {
+struct A_17a30 {
     char pad[8];
-    A(const float& f);
+    A_17a30(const float& f);
     void done();
 };
-struct Obj {
-    void use(A* a);
+struct Obj_17a30 {
+    void use(A_17a30* a);
 };
-struct T {
+struct T_17a30 {
     void* first();
 };
-struct Base {
+struct Base_17a30 {
     char pad[0x1b50];
 };
-struct U {
-    Base* second();
+struct U_17a30 {
+    Base_17a30* second();
 };
 class CAIHintAction {
   public:
@@ -27,10 +27,10 @@ class CAIHintAction {
     void* mThing;
 };
 void CAIHintAction::vfunc_4() {
-    T* a = (T*)mThing;
-    U* b = (U*)a->first();
-    Base* o = b->second();
-    A local(kZeroF);
-    ((Obj*)((char*)o + 0x1b50))->use(&local);
+    T_17a30* a = (T_17a30*)mThing;
+    U_17a30* b = (U_17a30*)a->first();
+    Base_17a30* o = b->second();
+    A_17a30 local(kZeroF);
+    ((Obj_17a30*)((char*)o + 0x1b50))->use(&local);
     local.done();
 }

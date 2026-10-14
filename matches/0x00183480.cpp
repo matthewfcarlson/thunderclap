@@ -2,7 +2,7 @@ extern "C" void __cdecl thunk_FUN_00267090(void*);
 extern "C" void __cdecl thunk_FUN_00267090_2(void*);
 extern char PropSpawnTrack_vftable;
 
-class SubObj {
+class SubObj_183480 {
   public:
     void Reset();
 };
@@ -33,7 +33,7 @@ void* PropSpawnTrack::vfunc_5(unsigned char param) {
     void* m = *(void**)((char*)this + 0x10);
     *(void**)this = (void*)&PropSpawnTrack_vftable;
     thunk_FUN_00267090(m);
-    ((SubObj*)((char*)this + 0x18))->Reset();
+    ((SubObj_183480*)((char*)this + 0x18))->Reset();
     this->DoSomething();
     if (param & 1) {
         thunk_FUN_00267090_2(this);

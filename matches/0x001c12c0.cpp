@@ -1,4 +1,4 @@
-struct Inner {
+struct Inner_1c12c0 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -14,10 +14,10 @@ struct Inner {
     virtual void m();
     virtual void target();
 };
-struct Wrapper {
+struct Wrapper_1c12c0 {
     int pad[2];
-    Inner* ptr;
+    Inner_1c12c0* ptr;
 };
-void __fastcall FUN_001c12c0(Wrapper* self) {
+void __fastcall FUN_001c12c0(Wrapper_1c12c0* self) {
     self->ptr->target();
 }

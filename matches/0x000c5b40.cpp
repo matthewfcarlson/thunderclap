@@ -1,5 +1,5 @@
 extern int __fastcall g(void*);
-struct S {
+struct S_c5b40 {
     void* p;
     volatile int a;
     char pad[0x3fc];
@@ -8,7 +8,7 @@ struct S {
     volatile int last;
     void f();
 };
-void S::f() {
+void S_c5b40::f() {
     if (p) {
         count = 0;
         a = 0;

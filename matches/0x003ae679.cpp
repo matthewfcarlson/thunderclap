@@ -1,14 +1,14 @@
 extern "C" void _ReadWriteBarrier();
-extern void* v2[];
+extern void* v2_3ae679[];
 void __stdcall Free(void*, unsigned);
-class O {
+class O_3ae679 {
   public:
     void* vptr;
-    O* f2(unsigned char flags);
+    O_3ae679* f2(unsigned char flags);
     void Fin();
 };
-O* O::f2(unsigned char flags) {
-    vptr = v2;
+O_3ae679* O_3ae679::f2(unsigned char flags) {
+    vptr = v2_3ae679;
     _ReadWriteBarrier();
     Fin();
     if (flags & 1)

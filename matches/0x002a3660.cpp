@@ -1,7 +1,7 @@
 extern "C" char DAT_0042d88c[];
 void* __stdcall FUN_002a4e10(void*);
 void FUN_0022b980();
-struct Sub {
+struct Sub_2a3660 {
     void Init();
 };
 class ParticleSystem {
@@ -12,7 +12,7 @@ class ParticleSystem {
     char p2[3];
     float x;
     float y;
-    Sub sub;
+    Sub_2a3660 sub;
     char p3[0x3c];
     int a;
     int b;

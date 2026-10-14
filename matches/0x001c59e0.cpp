@@ -1,7 +1,7 @@
-struct Elem {
+struct Elem_1c59e0 {
     void f(int);
 };
-struct Obj {
+struct Obj_1c59e0 {
     char pad[0x10];
     unsigned int limit;
     char pad2[4];
@@ -9,10 +9,10 @@ struct Obj {
     int* items;
     void target(int);
 };
-void Obj::target(int arg) {
+void Obj_1c59e0::target(int arg) {
     int n = count;
     for (int i = 0; i <= n; ++i) {
         if ((unsigned)i < limit && items[i] != 0)
-            ((Elem*)items[i])->f(arg);
+            ((Elem_1c59e0*)items[i])->f(arg);
     }
 }

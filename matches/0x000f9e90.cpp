@@ -1,21 +1,21 @@
-class Item {
+class Item_f9e90 {
   public:
     char pad[4];
-    Item* next;
+    Item_f9e90* next;
     int state;
 };
-class Owner {
+class Owner_f9e90 {
   public:
     char pad[8];
-    Item* item;
-    Item* alternate;
+    Item_f9e90* item;
+    Item_f9e90* alternate;
     char pad2[4];
     char flag;
 };
-bool __fastcall FUN_000f9e90(Owner* self) {
-    Item* p = self->item;
+bool __fastcall FUN_000f9e90(Owner_f9e90* self) {
+    Item_f9e90* p = self->item;
     if (p != 0 && self->flag != 1) {
-        Item* q = self->alternate;
+        Item_f9e90* q = self->alternate;
         if (q == 0)
             p = p->next;
         else

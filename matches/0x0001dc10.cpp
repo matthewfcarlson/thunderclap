@@ -1,23 +1,23 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
-class Ref {
+extern void* g_vftable_1dc10[];
+class Ref_1dc10 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Base {
+class Base_1dc10 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_1dc10 : public Base_1dc10 {
   public:
     char pad[24];
-    Ref* m;
-    ~Obj();
+    Ref_1dc10* m;
+    ~Obj_1dc10();
 };
-Obj::~Obj() {
-    vptr = g_vftable;
+Obj_1dc10::~Obj_1dc10() {
+    vptr = g_vftable_1dc10;
     _ReadWriteBarrier();
     if (m) {
         m->Release();

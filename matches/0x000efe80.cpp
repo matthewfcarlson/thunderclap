@@ -1,5 +1,5 @@
 extern void* __cdecl GetThing(int);
-struct Helper {
+struct Helper_efe80 {
     int DoThing(void*, int);
 };
 class FEThingsBase {
@@ -67,6 +67,6 @@ class FEThingsBase {
 int FEThingsBase::vfunc_58(void* p) {
     void* q = GetThing(0x1da8);
     if (q)
-        return ((Helper*)q)->DoThing(p, 0);
+        return ((Helper_efe80*)q)->DoThing(p, 0);
     return 0;
 }

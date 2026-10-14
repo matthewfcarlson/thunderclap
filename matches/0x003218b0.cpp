@@ -50,9 +50,9 @@ class d3dContext {
     virtual void f47();
     char pad[0x200];
 };
-struct Thing {
+struct Thing_3218b0 {
     void call();
 };
 void d3dContext::f31(int) {
-    ((Thing*)(*(char**)((char*)this + 0x204)))->call();
+    ((Thing_3218b0*)(*(char**)((char*)this + 0x204)))->call();
 }

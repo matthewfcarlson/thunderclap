@@ -1,6 +1,6 @@
 extern "C" char DAT_00425c28[];
 extern void* __cdecl Alloc(unsigned int);
-struct Loader {
+struct Loader_2062d0 {
     unsigned int vptr;
     int a;
     int b;
@@ -8,21 +8,21 @@ struct Loader {
     int d;
     void* owner;
 };
-class Manager {
+class Manager_2062d0 {
   public:
-    void Register(Loader*, unsigned int);
+    void Register(Loader_2062d0*, unsigned int);
 };
-extern Manager* gManager;
-class Owner {
+extern Manager_2062d0* gManager_2062d0;
+class Owner_2062d0 {
   public:
     char pad[0x588];
     int param;
     void Target(int);
 };
-void Owner::Target(int value) {
+void Owner_2062d0::Target(int value) {
     param = value;
-    Loader* r;
-    Loader* p = (Loader*)Alloc(0x18);
+    Loader_2062d0* r;
+    Loader_2062d0* p = (Loader_2062d0*)Alloc(0x18);
     if (p != 0) {
         p->a = 0;
         p->b = 0x60000722;
@@ -34,5 +34,5 @@ void Owner::Target(int value) {
     } else {
         r = 0;
     }
-    gManager->Register(r, 0x60000722);
+    gManager_2062d0->Register(r, 0x60000722);
 }

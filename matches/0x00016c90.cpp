@@ -1,4 +1,4 @@
-class Aux {
+class Aux_16c90 {
   public:
     void helper(int);
 };
@@ -8,11 +8,11 @@ class CEffectAction {
     void* mObj;
     char pad2[4];
     int mArg;
-    Aux* helper1();
+    Aux_16c90* helper1();
     void vfunc_4();
 };
 void CEffectAction::vfunc_4() {
-    Aux* p = helper1();
+    Aux_16c90* p = helper1();
     if (*((char*)mObj + 0x50))
         p->helper(mArg);
 }

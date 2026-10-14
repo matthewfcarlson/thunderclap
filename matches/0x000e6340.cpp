@@ -1,4 +1,4 @@
-class Other {
+class Other_e6340 {
   public:
     virtual void f0();
     virtual void f1();
@@ -13,12 +13,12 @@ class FEThingsBase {
     virtual bool vfunc_2(int, int);
     virtual void f4();
     char p0[0x175c - 4];
-    Other* a;
-    Other* b;
+    Other_e6340* a;
+    Other_e6340* b;
     char p1[0x2100 - 0x1764];
     char flag;
     char p2[0x2218 - 0x2101];
-    Other* c;
+    Other_e6340* c;
 };
 bool FEThingsBase::vfunc_2(int x, int index) {
     if (*((char*)this + 0x2100 + index))

@@ -1,11 +1,11 @@
 extern "C" void __cdecl helper(int, int, int);
-class Obj {
+class Obj_1d1900 {
   public:
     char pad[8];
     int field;
     bool f(int n);
 };
-bool Obj::f(int n) {
+bool Obj_1d1900::f(int n) {
     if (n < 1)
         return false;
     helper(field, 0xffffd8f0, n);

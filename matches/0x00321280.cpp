@@ -2,7 +2,7 @@ namespace D3D8 {
 void __stdcall D3DDevice_SetTexture(unsigned int stage, int texture);
 void __stdcall D3DDevice_SetPalette(unsigned int stage, int palette);
 } // namespace D3D8
-class Helper {
+class Helper_321280 {
   public:
     void Init();
 };
@@ -24,7 +24,7 @@ class d3dContext : public pddiBaseContext {
     }* data;
 };
 void d3dContext::vfunc_5() {
-    ((Helper*)this)->Init();
+    ((Helper_321280*)this)->Init();
     D* d = data;
     for (unsigned int i = 0; i < 4; ++i) {
         d->c[i] = 0;

@@ -1,23 +1,23 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
+extern void* g_vftable_2ab830[];
 extern void* g_base_vftable[];
-class Ref {
+class Ref_2ab830 {
   public:
     void* vptr;
     virtual void f0();
     virtual void f1();
 };
-class A {
+class A_2ab830 {
   public:
     void* vptr;
     char p[0x10];
-    Ref* m14;
-    Ref* m18;
-    A* f2(unsigned char flags);
+    Ref_2ab830* m14;
+    Ref_2ab830* m18;
+    A_2ab830* f2(unsigned char flags);
 };
 void operator delete(void*);
-A* A::f2(unsigned char flags) {
-    vptr = g_vftable;
+A_2ab830* A_2ab830::f2(unsigned char flags) {
+    vptr = g_vftable_2ab830;
     _ReadWriteBarrier();
     if (m14) {
         m14->f1();

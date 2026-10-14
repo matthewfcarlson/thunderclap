@@ -1,9 +1,9 @@
 extern "C" char DAT_0042db8c[];
-typedef unsigned char u8;
+typedef unsigned char u8_2a7aa0;
 struct SceneGraphTransformAnimationController {
     virtual void v0();
     virtual void v1();
-    virtual SceneGraphTransformAnimationController* vfunc_2(u8);
+    virtual SceneGraphTransformAnimationController* vfunc_2(u8_2a7aa0);
     virtual void v3();
     virtual void v4();
     virtual void v5();
@@ -36,7 +36,7 @@ struct SceneGraphTransformAnimationController {
     int member;
 };
 void destroy(SceneGraphTransformAnimationController*);
-SceneGraphTransformAnimationController* SceneGraphTransformAnimationController::vfunc_2(u8 flag) {
+SceneGraphTransformAnimationController* SceneGraphTransformAnimationController::vfunc_2(u8_2a7aa0 flag) {
     *(unsigned long*)this = ((int)DAT_0042db8c);
     member = 0;
     init();

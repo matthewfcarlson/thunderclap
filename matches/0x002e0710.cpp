@@ -1,5 +1,5 @@
 extern "C" char DAT_0042fc74[];
-class Ref {
+class Ref_2e0710 {
   public:
     virtual void f0();
     virtual void f1();
@@ -19,7 +19,7 @@ class PrimGroupSkinnedPC {
     virtual void f10();
     void init(PrimGroupSkinnedPC*);
     char pad[0x64];
-    Ref* child;
+    Ref_2e0710* child;
 };
 extern void* alloc(unsigned int);
 void* PrimGroupSkinnedPC::vfunc_4() {
@@ -28,13 +28,13 @@ void* PrimGroupSkinnedPC::vfunc_4() {
         p->init(this);
         *(unsigned int*)p = ((int)DAT_0042fc74);
         *(unsigned int*)((char*)p + 0x68) = 0;
-        Ref* r = child;
+        Ref_2e0710* r = child;
         if (r)
             r->f0();
-        Ref* q = *(Ref**)((char*)p + 0x68);
+        Ref_2e0710* q = *(Ref_2e0710**)((char*)p + 0x68);
         if (q)
             q->f1();
-        *(Ref**)((char*)p + 0x68) = r;
+        *(Ref_2e0710**)((char*)p + 0x68) = r;
         return p;
     }
     return 0;

@@ -4,22 +4,22 @@ extern void* g_vS[];
 extern void* g_vC[];
 void operator delete(void*);
 void operator delete[](void*);
-class Ref {
+class Ref_28bb10 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Obj {
+class Obj_28bb10 {
   public:
     void* vptr;
     char pad[8];
-    Ref* m0c;
+    Ref_28bb10* m0c;
     char pad2[4];
     void* m14;
     void* m18;
-    ~Obj() throw();
+    ~Obj_28bb10() throw();
 };
-Obj::~Obj() throw() {
+Obj_28bb10::~Obj_28bb10() throw() {
     vptr = g_vF;
     if (!m0c)
         operator delete(m18);

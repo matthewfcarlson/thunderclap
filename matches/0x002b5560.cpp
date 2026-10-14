@@ -1,5 +1,5 @@
-typedef unsigned char u8;
-typedef unsigned int u32;
+typedef unsigned char u8_2b5560;
+typedef unsigned int u32_2b5560;
 extern int shadow_vtable;
 extern int ref_vtable;
 void release(void*);
@@ -8,13 +8,13 @@ class ShadowSkinTopology {
   public:
     virtual void v0();
     virtual void v1();
-    virtual ShadowSkinTopology* vfunc_2(u8);
-    u32 a;
-    u32 b;
-    u32 c;
-    u32 d;
+    virtual ShadowSkinTopology* vfunc_2(u8_2b5560);
+    u32_2b5560 a;
+    u32_2b5560 b;
+    u32_2b5560 c;
+    u32_2b5560 d;
 };
-ShadowSkinTopology* ShadowSkinTopology::vfunc_2(u8 param) {
+ShadowSkinTopology* ShadowSkinTopology::vfunc_2(u8_2b5560 param) {
     *(int**)this = &shadow_vtable;
     release((void*)b);
     release((void*)c);

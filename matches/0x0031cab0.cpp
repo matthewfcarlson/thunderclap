@@ -1,4 +1,4 @@
-class Dev {
+class Dev_31cab0 {
   public:
     virtual void p0();
     virtual void p1();
@@ -76,13 +76,13 @@ class Dev {
     virtual void x5();
     virtual void s5(int, int, int);
 };
-class St {
+class St_31cab0 {
   public:
-    virtual void v0(Dev*);
+    virtual void v0(Dev_31cab0*);
     unsigned char a;
     int b, c, d, pad, e, f, g;
 };
-void St::v0(Dev* dev) {
+void St_31cab0::v0(Dev_31cab0* dev) {
     dev->s0(a);
     dev->s1(b);
     dev->s2(c);

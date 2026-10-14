@@ -57,14 +57,14 @@ class pddiBaseContext {
     virtual void f53();
     virtual void vfunc_54(int);
 };
-struct State {
+struct State_3219f0 {
     char pad[0x105];
     char flag;
 };
 class d3dContext : public pddiBaseContext {
   public:
     char pad[0x150 - sizeof(pddiBaseContext)];
-    State* state;
+    State_3219f0* state;
     void vfunc_54(int);
 };
 } // namespace pure3d

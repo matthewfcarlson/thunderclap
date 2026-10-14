@@ -1,13 +1,13 @@
-struct Data {
+struct Data_293d00 {
     int a, b, c;
 };
-extern Data gData;
-extern int gA, gB, gC;
-struct InitObj {
+extern Data_293d00 gData_293d00;
+extern int gA_293d00, gB, gC;
+struct InitObj_293d00 {
     void foo();
 };
-extern InitObj gInit;
-class Host {
+extern InitObj_293d00 gInit_293d00;
+class Host_293d00 {
   public:
     virtual void f0();
     virtual void f1();
@@ -26,17 +26,17 @@ class Host {
     virtual void f14();
     virtual void f15();
     virtual void f16();
-    virtual void f17(int, Data*);
+    virtual void f17(int, Data_293d00*);
 };
-class Owner {
+class Owner_293d00 {
   public:
-    Host* host;
-    void run(Data* p);
+    Host_293d00* host;
+    void run(Data_293d00* p);
 };
-void Owner::run(Data* p) {
-    gInit.foo();
-    gA = p->a;
+void Owner_293d00::run(Data_293d00* p) {
+    gInit_293d00.foo();
+    gA_293d00 = p->a;
     gB = p->b;
     gC = p->c;
-    host->f17(0, &gData);
+    host->f17(0, &gData_293d00);
 }

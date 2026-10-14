@@ -1,19 +1,19 @@
 extern "C" char DAT_0040cfb4[];
-typedef unsigned char u8;
-typedef unsigned int u32;
-struct Ref {
+typedef unsigned char u8_fc720;
+typedef unsigned int u32_fc720;
+struct Ref_fc720 {
     virtual void a();
     virtual void b();
 };
 struct CActorAgent {
-    u32 vt;
+    u32_fc720 vt;
     char pad[0x54];
-    Ref* mRef;
+    Ref_fc720* mRef;
     void Cleanup();
-    CActorAgent* vfunc_2(u8 flag);
+    CActorAgent* vfunc_2(u8_fc720 flag);
 };
 extern void thunk(CActorAgent*);
-CActorAgent* CActorAgent::vfunc_2(u8 flag) {
+CActorAgent* CActorAgent::vfunc_2(u8_fc720 flag) {
     vt = ((int)DAT_0040cfb4);
     mRef->b();
     mRef = 0;

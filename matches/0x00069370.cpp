@@ -1,4 +1,4 @@
-class Obj {
+class Obj_69370 {
   public:
     char pad[0x30];
     int a;
@@ -8,6 +8,6 @@ class Obj {
     void f(int);
 };
 void callee(int, int, int, int, int);
-void Obj::f(int x) {
+void Obj_69370::f(int x) {
     callee(b, a, d, c, x);
 }

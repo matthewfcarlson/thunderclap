@@ -1,6 +1,6 @@
 // Same code shape as 0x0010dfa0 (propagated; names are from that function)
 struct Context;
-struct Inner {
+struct Inner_10dfd0 {
     Context* Get();
     void* FUN_00059a30();
 };

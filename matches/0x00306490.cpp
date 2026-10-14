@@ -3,7 +3,7 @@ class Res2 {
     void Set(void* a, int b);
 };
 
-class Mgr {
+class Mgr_306490 {
   public:
     virtual void m0();
     virtual void m1();
@@ -12,26 +12,26 @@ class Mgr {
     virtual Res2* Get(int id);
 };
 
-class Own {
+class Own_306490 {
   public:
     char pad[0x18];
-    Mgr* mMgr;
+    Mgr_306490* mMgr;
     char pad2[0x6b - 0x1c];
     char mFlag;
 };
 
-class Sub {
+class Sub_306490 {
   public:
     void Update();
 };
 
-class Vec {
+class Vec_306490 {
   public:
-    Sub** mBegin;
-    Sub** mEnd;
+    Sub_306490** mBegin;
+    Sub_306490** mEnd;
 };
 
-class Cls {
+class Cls_306490 {
   public:
     virtual void v0();
     virtual void v1();
@@ -43,8 +43,8 @@ class Cls {
     int pad1;
     int m8;
     int mC;
-    Own* mOwn;
-    Vec* mVec;
+    Own_306490* mOwn;
+    Vec_306490* mVec;
     char pad3;
     char mDone;
     char pad4[2];
@@ -52,7 +52,7 @@ class Cls {
     void Run();
 };
 
-void Cls::Run() {
+void Cls_306490::Run() {
     if (mOwn) {
         mDone = 0;
         if (GetId() != 1 && !mOwn->mFlag) {

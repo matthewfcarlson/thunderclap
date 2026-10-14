@@ -3,12 +3,12 @@ struct Node {
     Node* next;
     Node* parent;
 };
-struct Tree {
+struct Tree_2308a0 {
     Node* root;
     Node header;
     void Replace(Node*);
 };
-void Tree::Replace(Node* n) {
+void Tree_2308a0::Replace(Node* n) {
     Node* x = n->left;
     n->left = x->next;
     if (x->next != &header)

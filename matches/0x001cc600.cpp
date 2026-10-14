@@ -1,17 +1,17 @@
-struct C {
+struct C_1cc600 {
     void run(void*);
 };
-struct B {
+struct B_1cc600 {
     char pad[0x3c];
-    C* next;
+    C_1cc600* next;
 };
-struct A {
+struct A_1cc600 {
     char pad[0x0c];
-    B* child;
+    B_1cc600* child;
 };
-extern A* g;
+extern A_1cc600* g_1cc600;
 void __fastcall target(void* p) {
-    A* a = g;
+    A_1cc600* a = g_1cc600;
     if (a && a->child && a->child->next)
         a->child->next->run(p);
 }

@@ -1,5 +1,5 @@
-extern int gValue;
-class Target {
+extern int gValue_327d00;
+class Target_327d00 {
   public:
     virtual void f0();
     virtual void f1();
@@ -17,8 +17,8 @@ class Target {
     int value;
     int TargetFunction();
 };
-int Target::TargetFunction() {
-    if (value == gValue) {
+int Target_327d00::TargetFunction() {
+    if (value == gValue_327d00) {
         if (Check() == 1)
             return 1;
     }

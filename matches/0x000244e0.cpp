@@ -1,21 +1,21 @@
-class Helper {
+class Helper_244e0 {
   public:
     void Call(int);
 };
-class Owner {
+class Owner_244e0 {
   public:
     char pad[0x44];
-    Helper* mHelper;
+    Helper_244e0* mHelper;
 };
-class Outer {
+class Outer_244e0 {
   public:
-    Owner* mOwner;
+    Owner_244e0* mOwner;
     int pad[2];
     int count;
     int items[1];
     void run();
 };
-void Outer::run() {
+void Outer_244e0::run() {
     int i = 0;
     if (count > 0) {
         int* p = items;

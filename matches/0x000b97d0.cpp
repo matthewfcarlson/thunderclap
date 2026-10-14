@@ -1,32 +1,32 @@
-class Actor {
+class Actor_b97d0 {
   public:
     void A();
     void B(int);
 };
-class State {
+class State_b97d0 {
   public:
     char pad0[0x10];
     int state;
     char pad14[0x20];
-    Actor* a;
-    Actor* b;
+    Actor_b97d0* a;
+    Actor_b97d0* b;
     void Target();
 };
-struct Manager {
+struct Manager_b97d0 {
     char pad[0x2218];
     void* item;
     int value;
 };
-struct Item {
+struct Item_b97d0 {
     char pad[0x9a8];
     char busy;
 };
-extern Manager* GetManager();
+extern Manager_b97d0* GetManager();
 extern void __cdecl Finish();
-void State::Target() {
+void State_b97d0::Target() {
     if (state == 0x15) {
-        Manager* m = GetManager();
-        if (m->item == 0 || !((Item*)m->item)->busy) {
+        Manager_b97d0* m = GetManager();
+        if (m->item == 0 || !((Item_b97d0*)m->item)->busy) {
             state = 9;
             m = GetManager();
             if (m->value == 1 && state != 3) {

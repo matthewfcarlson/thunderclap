@@ -10,7 +10,7 @@ class H1 {
   public:
     void FUN_00234150();
 };
-class H2 {
+class H2_5b8c0 {
   public:
     void FUN_0027af50();
 };
@@ -19,7 +19,7 @@ CGrabTrack* CGrabTrack::vfunc_5(unsigned int flag) {
     vptr = (unsigned int*)((int)DAT_003f9a5c);
     ((H1*)((char*)this + 0x44))->FUN_00234150();
     ((H1*)((char*)this + 0x38))->FUN_00234150();
-    ((H2*)((char*)this + 0x18))->FUN_0027af50();
+    ((H2_5b8c0*)((char*)this + 0x18))->FUN_0027af50();
     FUN_00236d60();
     if (flag & 1)
         thunk_FUN_00267090(this);

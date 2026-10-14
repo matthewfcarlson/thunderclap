@@ -1,5 +1,5 @@
 namespace physics {
-struct Part {
+struct Part_2f55b0 {
     void work();
 };
 class PhysicsObject {
@@ -19,6 +19,6 @@ class PhysicsObject {
 };
 void PhysicsObject::vfunc_9() {
     flag = 1;
-    ((Part*)((char*)this + 0x168))->work();
+    ((Part_2f55b0*)((char*)this + 0x168))->work();
 }
 } // namespace physics

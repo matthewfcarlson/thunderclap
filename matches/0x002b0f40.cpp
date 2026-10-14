@@ -1,4 +1,4 @@
-extern int g_vtable;
+extern int g_vtable_2b0f40;
 class VertexOffsetExpressionMixerLoader {
   public:
     int m0;
@@ -13,5 +13,5 @@ VertexOffsetExpressionMixerLoader::VertexOffsetExpressionMixerLoader() {
     m8 = 0x21002;
     mC = 0;
     m10 = 0;
-    m0 = (int)&g_vtable;
+    m0 = (int)&g_vtable_2b0f40;
 }

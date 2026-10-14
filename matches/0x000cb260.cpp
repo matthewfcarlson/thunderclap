@@ -1,17 +1,17 @@
-class Sub {
+class Sub_cb260 {
   public:
     void Fn(int x);
 };
 
-class Obj {
+class Obj_cb260 {
   public:
     char pad[0x88];
-    Sub* m88;
+    Sub_cb260* m88;
     void Target(int x);
 };
 
-void Obj::Target(int x) {
-    Sub* p = m88;
+void Obj_cb260::Target(int x) {
+    Sub_cb260* p = m88;
     if (p)
         p->Fn(x);
 }

@@ -1,9 +1,9 @@
-struct TypeDesc {
+struct TypeDesc_14ed00 {
     void* vf;
 };
-extern TypeDesc gSrcTD;
-extern TypeDesc gDstTD;
-extern "C" void* __cdecl RTDynamicCast(void* p, long vfDelta, TypeDesc* src, TypeDesc* dst, int throwErr);
+extern TypeDesc_14ed00 gSrcTD;
+extern TypeDesc_14ed00 gDstTD;
+extern "C" void* __cdecl RTDynamicCast(void* p, long vfDelta, TypeDesc_14ed00* src, TypeDesc_14ed00* dst, int throwErr);
 
 class BattleObj {
   public:

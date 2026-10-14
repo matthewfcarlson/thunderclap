@@ -1,5 +1,5 @@
 // Same code shape as 0x002351a0 (propagated; names are from that function)
-class Helper {
+class Helper_235250 {
   public:
     void Process(int);
 };
@@ -17,5 +17,5 @@ class ParamValueBranch {
 void ParamValueBranch::vfunc_3(int a, int b) {
     int x = Query(a);
     if (x)
-        ((Helper*)x)->Process(b);
+        ((Helper_235250*)x)->Process(b);
 }

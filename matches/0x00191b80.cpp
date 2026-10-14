@@ -13,7 +13,7 @@ class SimulationTrack {
     SimulationTrack();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-class Factory {
+class Factory_191b80 {
   public:
     virtual void A();
     virtual void B();
@@ -22,7 +22,7 @@ class Factory {
     virtual void E();
     virtual SimulationTrack* vfunc_5();
 };
-SimulationTrack* Factory::vfunc_5() {
+SimulationTrack* Factory_191b80::vfunc_5() {
     SimulationTrack* p = (SimulationTrack*)FUN_0008d690(0x14);
     if (p) {
         p->SimulationTrack::SimulationTrack();

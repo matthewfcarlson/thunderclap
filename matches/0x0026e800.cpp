@@ -1,4 +1,4 @@
-class Helper {
+class Helper_26e800 {
   public:
     void call(void*, unsigned int);
 };
@@ -19,7 +19,7 @@ class DebugConsole {
     char pad[0x98 - 4];
     int field98;
     char pad2[0xa4 - 0x9c];
-    Helper* fieldA4;
+    Helper_26e800* fieldA4;
 };
 void DebugConsole::vfunc_7(int param) {
     int local[3];

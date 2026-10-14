@@ -8,12 +8,12 @@ class Reader {
     virtual int Read();
     virtual void Advance();
 };
-class Parser {
+class Parser_23a610 {
   public:
     char pad[8];
     Reader* reader;
 };
-int __fastcall target(Parser* p) {
+int __fastcall target(Parser_23a610* p) {
     int count = 0;
     char c = (char)p->reader->Read();
     while (_isspace((int)c) && c != '\n') {

@@ -5,13 +5,13 @@ class CRageModeTrack {
     int member;
     int vfunc_12(int);
 };
-class Other {
+class Other_6ae00 {
   public:
     int call(int, int);
 };
-extern "C" Other* __cdecl FUN_0008d690(int);
+extern "C" Other_6ae00* __cdecl FUN_0008d690(int);
 int CRageModeTrack::vfunc_12(int param) {
-    Other* p = FUN_0008d690(0x24);
+    Other_6ae00* p = FUN_0008d690(0x24);
     if (p)
         return p->call(param, member);
     return 0;

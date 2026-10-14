@@ -1,4 +1,4 @@
-struct Item {
+struct Item_2a1550 {
     float key;
     void* owner;
     void* ptr;
@@ -6,15 +6,15 @@ struct Item {
     void* extra;
 };
 
-struct Sub {
+struct Sub_2a1550 {
     char pad[0x48];
     char* begin;
     char* end;
 };
 
-struct Geom {
+struct Geom_2a1550 {
     char pad[0x40];
-    Sub* sub;
+    Sub_2a1550* sub;
     void* extra;
 };
 
@@ -27,14 +27,14 @@ class ShadowTraversal {
     virtual void f3();
     virtual void f4();
     virtual void f5();
-    virtual void f6(Geom* g, unsigned idx, float key);
+    virtual void f6(Geom_2a1550* g, unsigned idx, float key);
     char pad[0x38 - 4];
     int count;
-    Item* items;
+    Item_2a1550* items;
 };
 
-void ShadowTraversal::f6(Geom* g, unsigned idx, float key) {
-    Sub* s = g->sub;
+void ShadowTraversal::f6(Geom_2a1550* g, unsigned idx, float key) {
+    Sub_2a1550* s = g->sub;
     if (!s)
         return;
     if (idx >= (unsigned)((s->end - s->begin) >> 4))

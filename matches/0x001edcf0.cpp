@@ -2,12 +2,12 @@ extern "C" char DAT_00424398[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0049cad8[];
 extern "C" char Read(int*);
-class Obj {
+class Obj_1edcf0 {
   public:
     void Init(char*, int);
-    Obj* Fn(char*, int);
+    Obj_1edcf0* Fn(char*, int);
 };
-struct Layout {
+struct Layout_1edcf0 {
     void* v;
     char pad04[0x0c];
     char b10, b11, b12;
@@ -16,8 +16,8 @@ struct Layout {
     char pad19[3];
     int m1c;
 };
-Obj* Obj::Fn(char* p, int x) {
-    Layout* s = (Layout*)this;
+Obj_1edcf0* Obj_1edcf0::Fn(char* p, int x) {
+    Layout_1edcf0* s = (Layout_1edcf0*)this;
     Init(p, 3);
     s->v = (void*)((int)DAT_00424398);
     s->m1c = x;

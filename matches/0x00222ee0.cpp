@@ -1,5 +1,5 @@
-extern const float zeroValue;
-class Item {
+extern const float zeroValue_222ee0;
+class Item_222ee0 {
   public:
     virtual void a();
     virtual void b();
@@ -16,24 +16,24 @@ class Item {
     virtual void m();
     virtual bool Check();
 };
-struct Entry {
-    Item* obj;
+struct Entry_222ee0 {
+    Item_222ee0* obj;
     float value;
     char flag;
     char pad[31];
 };
-class Owner {
+class Owner_222ee0 {
   public:
     char pad[0x68];
     unsigned count;
-    Entry entries[1];
+    Entry_222ee0 entries[1];
     int target(int index);
 };
-int Owner::target(int index) {
+int Owner_222ee0::target(int index) {
     int found = 0;
     for (unsigned i = 0; i < count; ++i) {
-        Entry* e = &entries[i];
-        if (!e->obj->Check() && (e->value >= zeroValue || e->flag)) {
+        Entry_222ee0* e = &entries[i];
+        if (!e->obj->Check() && (e->value >= zeroValue_222ee0 || e->flag)) {
             if (index == found)
                 return (int)e->obj;
             ++found;

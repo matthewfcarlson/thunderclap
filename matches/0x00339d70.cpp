@@ -1,4 +1,4 @@
-typedef unsigned int U;
+typedef unsigned int U_339d70;
 extern int __cdecl GetType(int, int);
 extern int __cdecl GetName(int, int);
 extern int __cdecl Format(int, const char*, int, int);

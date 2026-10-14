@@ -1,5 +1,5 @@
 // Same code shape as 0x000e4d50 (propagated; names are from that function)
-class Child {
+class Child_e5600 {
   public:
     virtual void f0();
     virtual void f1();
@@ -32,7 +32,7 @@ class FEContainer {
     virtual void v14();
     virtual void vfunc_15();
     char pad[0x44];
-    Child* child;
+    Child_e5600* child;
 };
 void FEContainer::vfunc_15() {
     if (child) {

@@ -1,5 +1,5 @@
 // Same code shape as 0x000ddef0 (propagated; names are from that function)
-class Receiver {
+class Receiver_ddf00 {
   public:
     void go();
 };
@@ -46,7 +46,7 @@ class FEThingsBase {
     virtual void v38();
     virtual void v39();
     char pad[0x2220];
-    Receiver* ptr;
+    Receiver_ddf00* ptr;
 };
 class FEThings : public FEThingsBase {
   public:

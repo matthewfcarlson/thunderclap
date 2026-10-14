@@ -1,5 +1,5 @@
-extern unsigned char gFlag;
-class Obj {
+extern unsigned char gFlag_af650;
+class Obj_af650 {
   public:
     char pad0[8];
     unsigned char enabled;
@@ -7,9 +7,9 @@ class Obj {
     int* data;
     void Set(int, unsigned int, float);
 };
-void Obj::Set(int index, unsigned int element, float value) {
+void Obj_af650::Set(int index, unsigned int element, float value) {
     if (enabled && element < (unsigned int)data[index * 12]) {
-        if (gFlag)
+        if (gFlag_af650)
             data[index * 12 + element + 5] = 0;
         *(float*)(data + index * 12 + element + 3) = value;
     }

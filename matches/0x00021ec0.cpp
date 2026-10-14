@@ -1,7 +1,7 @@
 extern void* g_vftSpawnAction[];
 extern void* g_vftCAction[];
 
-struct IRef {
+struct IRef_21ec0 {
     virtual void vfunc_0();
     virtual void Release();
 };
@@ -12,9 +12,9 @@ class CSmartPropSpawnAction {
   public:
     void* volatile m_vftable;
     char m_pad0[0x18];
-    IRef* volatile m_pField1C;
+    IRef_21ec0* volatile m_pField1C;
     char m_pad4[0x4];
-    IRef* volatile m_pField24;
+    IRef_21ec0* volatile m_pField24;
     char m_pad8[0x40];
 
     CSmartPropSpawnAction* vfunc_2(unsigned char flags);
@@ -22,7 +22,7 @@ class CSmartPropSpawnAction {
 };
 
 CSmartPropSpawnAction* CSmartPropSpawnAction::vfunc_2(unsigned char flags) {
-    IRef* p;
+    IRef_21ec0* p;
 
     m_vftable = (void*)g_vftSpawnAction;
     p = m_pField24;

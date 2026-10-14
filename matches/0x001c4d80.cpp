@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1c4d80 {
   public:
     virtual void f0();
     virtual void f1();
@@ -12,14 +12,14 @@ class Obj {
     virtual void f9();
     virtual void f10(void*);
 };
-class Owner {
+class Owner_1c4d80 {
   public:
     char pad[0x14];
-    Obj* a;
+    Obj_1c4d80* a;
     void* b;
     void run();
 };
-void Owner::run() {
+void Owner_1c4d80::run() {
     if (a && b)
         a->f10(b);
 }

@@ -1,4 +1,4 @@
-class Item {
+class Item_2826e0 {
   public:
     virtual void a();
     virtual void b();
@@ -14,11 +14,11 @@ class Item {
     virtual void call(int, int);
     virtual bool test();
 };
-struct Entry {
-    Item* p;
+struct Entry_2826e0 {
+    Item_2826e0* p;
     char pad[12];
 };
-class Queue {
+class Queue_2826e0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -28,15 +28,15 @@ class Queue {
     virtual void v5();
     virtual void v6(int, int);
     char pad[0x44];
-    Entry* items;
+    Entry_2826e0* items;
     char pad2[0x10];
     char* flags;
     void run(int, int);
 };
-void Queue::run(int arg, int unused) {
+void Queue_2826e0::run(int arg, int unused) {
     int i;
     for (i = 0; i < 6; i++) {
-        Item* p = items[i].p;
+        Item_2826e0* p = items[i].p;
         if (flags[i * 8 + 4] && p) {
             p->call(arg, 0);
             if (p->test())

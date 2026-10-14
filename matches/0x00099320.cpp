@@ -1,4 +1,4 @@
-class A {
+class A_99320 {
   public:
     virtual void f0();
     virtual void f1();
@@ -39,10 +39,10 @@ class A {
     virtual void f36();
     virtual void f37();
 };
-struct B {
+struct B_99320 {
     char pad[0x10];
-    A* p;
+    A_99320* p;
 };
-void __fastcall target(B* self) {
+void __fastcall target(B_99320* self) {
     self->p->f37();
 }

@@ -1,25 +1,25 @@
 extern "C" char DAT_004318f4[];
-struct Base {
+struct Base_2fd840 {
     virtual void a();
     virtual void b();
 };
 void __cdecl release(void*);
-class Obj {
+class Obj_2fd840 {
   public:
     void cleanup(int);
 };
-class Sim {
+class Sim_2fd840 {
   public:
     void* vptr;
     char p1[0x6c];
-    Obj* m70;
+    Obj_2fd840* m70;
     char p2[0x14];
-    Base* m88;
+    Base_2fd840* m88;
     void* m8c;
     void tail();
     void run();
 };
-void Sim::run() {
+void Sim_2fd840::run() {
     vptr = (void*)((int)DAT_004318f4);
     if (m8c)
         release((char*)m8c - 4);

@@ -1,24 +1,24 @@
-struct Blob {
+struct Blob_30ef30 {
     int d[21];
     void Fin();
-    void Assign(const Blob* o);
+    void Assign(const Blob_30ef30* o);
 };
-struct Src {
-    Blob* Get();
+struct Src_30ef30 {
+    Blob_30ef30* Get();
 };
-struct Obj {
+struct Obj_30ef30 {
     int p0;
-    Src* src;
+    Src_30ef30* src;
     char pad[0x14 - 8];
-    Blob cur;
-    Blob saved;
+    Blob_30ef30 cur;
+    Blob_30ef30 saved;
     int state;
-    Blob* Update();
+    Blob_30ef30* Update();
 };
-Blob* Obj::Update() {
+Blob_30ef30* Obj_30ef30::Update() {
     if (state == 1) {
         if (src) {
-            Blob tmp = *src->Get();
+            Blob_30ef30 tmp = *src->Get();
             tmp.Fin();
             cur = saved;
             cur.Assign(&tmp);

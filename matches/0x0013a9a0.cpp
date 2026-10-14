@@ -1,12 +1,12 @@
-typedef unsigned char byte;
-struct Helper {
+typedef unsigned char byte_13a9a0;
+struct Helper_13a9a0 {
     int x;
     void run();
 };
-struct Main {
+struct Main_13a9a0 {
     void run();
 };
-extern int vf;
+extern int vf_13a9a0;
 extern void cleanup(void*);
 class AnimationVelocityScaledTrack {
   public:
@@ -15,22 +15,22 @@ class AnimationVelocityScaledTrack {
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual AnimationVelocityScaledTrack* v5(byte);
+    virtual AnimationVelocityScaledTrack* v5(byte_13a9a0);
     virtual void v6();
     virtual void v7();
     virtual void v8();
     virtual void v9();
     virtual void v10();
     char pad[0x14];
-    Helper h18;
+    Helper_13a9a0 h18;
     char gap[0x24];
-    Helper h40;
+    Helper_13a9a0 h40;
 };
-AnimationVelocityScaledTrack* AnimationVelocityScaledTrack::v5(byte x) {
-    *(int*)this = (int)&vf;
+AnimationVelocityScaledTrack* AnimationVelocityScaledTrack::v5(byte_13a9a0 x) {
+    *(int*)this = (int)&vf_13a9a0;
     h40.run();
     h18.run();
-    ((Main*)this)->run();
+    ((Main_13a9a0*)this)->run();
     if (x & 1)
         cleanup(this);
     return this;

@@ -1,4 +1,4 @@
-class Thing {
+class Thing_ac610 {
   public:
     char pad[0x14];
     float a;
@@ -12,7 +12,7 @@ class Thing {
     int copy2;
     void f();
 };
-void Thing::f() {
+void Thing_ac610::f() {
     copy1 = *(int*)&c;
     copy2 = *(int*)&a;
     out1 = (a + a) - (b + b) + d + c;

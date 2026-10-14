@@ -1,4 +1,4 @@
-typedef unsigned int u32;
+typedef unsigned int u32_33e160;
 void F339d70(void*, int, int);
 int F3392c0(void*, int);
 void F338fe0(void*, int, const char*);

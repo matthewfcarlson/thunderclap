@@ -1,19 +1,19 @@
 extern void* __cdecl Alloc(unsigned int);
-class Obj {
+class Obj_f2800 {
   public:
     int Build(int, int, int);
 };
-class Thing {
+class Thing_f2800 {
   public:
     int value;
     int ref;
     volatile int slots[32];
     int Run(int, int);
 };
-int Thing::Run(int a, int b) {
+int Thing_f2800::Run(int a, int b) {
     if (ref == 0)
         return 0;
-    Obj* p = (Obj*)Alloc(0x68);
+    Obj_f2800* p = (Obj_f2800*)Alloc(0x68);
     int result;
     if (p != 0)
         result = p->Build(ref, a, b);

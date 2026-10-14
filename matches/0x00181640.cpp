@@ -1,5 +1,5 @@
 extern "C" char DAT_0041959c[];
-class Sub {
+class Sub_181640 {
   public:
     void init();
 };
@@ -16,6 +16,6 @@ extern void __cdecl thunk(int);
 void PropSpawnTrack::run() {
     vftable = (void*)((int)DAT_0041959c);
     thunk(mValue);
-    ((Sub*)((char*)this + 0x18))->init();
+    ((Sub_181640*)((char*)this + 0x18))->init();
     finish();
 }

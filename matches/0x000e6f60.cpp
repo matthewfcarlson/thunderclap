@@ -54,7 +54,7 @@ class FEThingsBase {
     char p2[0x2104 - 0x17b4];
     char flag;
 };
-class Sub {
+class Sub_e6f60 {
   public:
     virtual void a();
     virtual void b();
@@ -74,17 +74,17 @@ class Sub {
     virtual void p();
     void helper(int);
 };
-class Obj {
+class Obj_e6f60 {
   public:
     void run();
 };
-struct Manager {
+struct Manager_e6f60 {
     char pad[0x20];
     void* obj;
 };
-extern Manager* gManager;
+extern Manager_e6f60* gManager_e6f60;
 extern char gByte;
-extern char gFlag;
+extern char gFlag_e6f60;
 void FEThingsBase::v23() {
     if (count < 0 || (flag == 0 && count == 0)) {
         v48(7);
@@ -93,15 +93,15 @@ void FEThingsBase::v23() {
     *(int*)((char*)this + 0x1768) = 0;
     *(int*)((char*)this + 0x17f8) = 1;
     *(int*)((char*)this + 0x176c) = 2;
-    if (*(Sub**)((char*)this + 0x175c)) {
-        (*(Sub**)((char*)this + 0x175c))->p();
-        (*(Sub**)((char*)this + 0x175c))->helper(*(int*)((char*)this + 0x176c));
+    if (*(Sub_e6f60**)((char*)this + 0x175c)) {
+        (*(Sub_e6f60**)((char*)this + 0x175c))->p();
+        (*(Sub_e6f60**)((char*)this + 0x175c))->helper(*(int*)((char*)this + 0x176c));
     }
     v24();
-    Manager* m = gManager;
+    Manager_e6f60* m = gManager_e6f60;
     gByte = 1;
-    if (m->obj && *(void**)((char*)m->obj + 0x124) && gFlag) {
-        gFlag = 0;
-        ((Obj*)*(void**)((char*)m->obj + 0x124))->run();
+    if (m->obj && *(void**)((char*)m->obj + 0x124) && gFlag_e6f60) {
+        gFlag_e6f60 = 0;
+        ((Obj_e6f60*)*(void**)((char*)m->obj + 0x124))->run();
     }
 }

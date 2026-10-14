@@ -1,4 +1,4 @@
-class A {
+class A_83d30 {
     char pad[0x1c];
 
   public:
@@ -8,7 +8,7 @@ class A {
             value = x;
     }
 };
-void __fastcall FUN_00083d30(A* self, void*, float x) {
+void __fastcall FUN_00083d30(A_83d30* self, void*, float x) {
     if (x >= 0.0f)
         self->value = x;
 }

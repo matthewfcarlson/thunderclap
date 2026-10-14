@@ -1,20 +1,20 @@
 extern "C" char DAT_0040eae0[];
 extern void* Alloc(unsigned int);
-class Obj {
+class Obj_11b110 {
   public:
     void Init(int);
 };
-class Factory {
+class Factory_11b110 {
   public:
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void d();
     virtual void e();
-    virtual Obj* f();
+    virtual Obj_11b110* f();
 };
-Obj* Factory::f() {
-    Obj* p = (Obj*)Alloc(0x24);
+Obj_11b110* Factory_11b110::f() {
+    Obj_11b110* p = (Obj_11b110*)Alloc(0x24);
     if (p) {
         p->Init(0);
         *(unsigned int*)p = ((int)DAT_0040eae0);

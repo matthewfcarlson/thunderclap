@@ -1,11 +1,11 @@
 // Same code shape as 0x002736e0 (propagated; names are from that function)
 class FileCompletionRequest;
-struct Callee {
+struct Callee_273780 {
     void f(FileCompletionRequest*);
 };
-struct Inner {
+struct Inner_273780 {
     char pad[12];
-    Callee* callee;
+    Callee_273780* callee;
 };
 class CompletionCallbackRequest {
   public:
@@ -21,7 +21,7 @@ class CompletionCallbackRequest {
 class FileCompletionRequest : public CompletionCallbackRequest {
   public:
     char pad[8];
-    Inner* member;
+    Inner_273780* member;
     int v1();
 };
 int FileCompletionRequest::v1() {

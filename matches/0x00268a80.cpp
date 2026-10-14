@@ -1,5 +1,5 @@
 extern "C" int strcmp(const char*, const char*);
-class Item {
+class Item_268a80 {
   public:
     virtual void a();
     virtual void b();
@@ -34,7 +34,7 @@ class ControllerXBox {
 };
 ControllerXBox* ControllerXBox::f15(const char* s) {
     for (unsigned i = 0; i < 2; i++) {
-        Item* p = (Item*)((char*)this + 0x428 + i * 16);
+        Item_268a80* p = (Item_268a80*)((char*)this + 0x428 + i * 16);
         if (strcmp(s, p->get()) == 0)
             return (ControllerXBox*)((char*)this + i * 16 + 0x428);
     }

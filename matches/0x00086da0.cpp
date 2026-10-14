@@ -1,4 +1,4 @@
-class B {
+class B_86da0 {
   public:
     void a();
 };
@@ -6,20 +6,20 @@ bool b80();
 void c90();
 void thunk();
 void f656a0();
-class C {
+class C_86da0 {
   public:
     void d(int, int);
 };
-class A {
+class A_86da0 {
   public:
     char pad[0x1c];
-    B* x;
+    B_86da0* x;
     char pad2[0x10];
-    C* y;
+    C_86da0* y;
     void tail();
     void run();
 };
-void A::run() {
+void A_86da0::run() {
     if (x)
         x->a();
     else {

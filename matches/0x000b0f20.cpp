@@ -4,14 +4,14 @@ struct InputPoint {
     virtual void slot2();
     virtual void slot3();
 };
-struct Controller {
+struct Controller_b0f20 {
     char pad0[0x54];
     unsigned int id;
     char pad1[0x490 - 0x58];
     float minimum;
     float maximum;
 };
-struct Result {
+struct Result_b0f20 {
     float value;
     unsigned int id;
     InputPoint* point;
@@ -19,8 +19,8 @@ struct Result {
 struct sControllerInputPointCallback {
     virtual void vfunc_0(unsigned int unused, float value);
     InputPoint* point;
-    Controller* controller;
-    Result* result;
+    Controller_b0f20* controller;
+    Result_b0f20* result;
 };
 void sControllerInputPointCallback::vfunc_0(unsigned int unused, float value) {
     point->slot3();

@@ -1,14 +1,14 @@
-struct Sub {
+struct Sub_221cd0 {
     char pad[0x10];
     void f(int);
 };
-struct C {
+struct C_221cd0 {
     char pad[0x40];
-    Sub sub;
+    Sub_221cd0 sub;
     int state;
     void* target();
 };
-void* C::target() {
+void* C_221cd0::target() {
     if (state == 2) {
         sub.f((int)this);
         state = 0;

@@ -1,28 +1,28 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
-class Ref {
+extern void* g_vftable_2a9de0[];
+class Ref_2a9de0 {
   public:
     void* vptr;
     virtual void f0();
     virtual void f1();
 };
-class Helper {
+class Helper_2a9de0 {
   public:
     void Fn();
 };
-class A {
+class A_2a9de0 {
   public:
     void* vptr;
     char p[0x3c];
-    Ref* m40;
-    Ref* m44;
+    Ref_2a9de0* m40;
+    Ref_2a9de0* m44;
     char p48[4];
     void* m4c;
     void f();
 };
 void operator delete[](void*);
-void A::f() {
-    vptr = g_vftable;
+void A_2a9de0::f() {
+    vptr = g_vftable_2a9de0;
     _ReadWriteBarrier();
     if (m40) {
         m40->f1();
@@ -33,5 +33,5 @@ void A::f() {
         m44 = 0;
     }
     operator delete[](m4c);
-    ((Helper*)this)->Fn();
+    ((Helper_2a9de0*)this)->Fn();
 }

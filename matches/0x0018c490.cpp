@@ -4,11 +4,11 @@ class Track {
   public:
     void Init();
 };
-class Factory {
+class Factory_18c490 {
   public:
     void* vfunc_5();
 };
-void* Factory::vfunc_5() {
+void* Factory_18c490::vfunc_5() {
     Track* p = (Track*)FUN_0008d690(0x14);
     if (p) {
         p->Init();

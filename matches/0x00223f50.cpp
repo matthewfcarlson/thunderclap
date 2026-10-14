@@ -1,4 +1,4 @@
-class Obj {
+class Obj_223f50 {
   public:
     char pad0[0x68];
     int count;
@@ -6,7 +6,7 @@ class Obj {
     unsigned char dirty;
 };
 extern "C" void __cdecl Move(void*, void*, int);
-void __fastcall Target(Obj* p) {
+void __fastcall Target(Obj_223f50* p) {
     if (p->dirty) {
         char* end = (char*)p + 0x6c + p->count * 0x28;
         p->dirty = 0;

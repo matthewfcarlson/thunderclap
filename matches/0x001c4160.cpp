@@ -1,16 +1,16 @@
-class Base {
+class Base_1c4160 {
   public:
     virtual void f0();
     virtual void f1();
 };
-class Obj {
+class Obj_1c4160 {
   public:
     char pad[0x10];
-    Base* member;
+    Base_1c4160* member;
     int target(unsigned char flag);
 };
-void thunk(Obj*);
-int Obj::target(unsigned char flag) {
+void thunk(Obj_1c4160*);
+int Obj_1c4160::target(unsigned char flag) {
     if (member)
         member->f1();
     member = 0;

@@ -1,22 +1,22 @@
-class A {
+class A_2833f0 {
   public:
     virtual void f();
     virtual void g();
 };
-struct B {
+struct B_2833f0 {
     char pad0[0x14];
     int m14;
-    A* m18;
+    A_2833f0* m18;
     int m1c;
 };
-struct C {
-    A* m0;
+struct C_2833f0 {
+    A_2833f0* m0;
     char pad4[0xc];
-    B* m10;
+    B_2833f0* m10;
     void target();
 };
-void C::target() {
-    B* b = m10;
+void C_2833f0::target() {
+    B_2833f0* b = m10;
     if (b->m18) {
         b->m18->g();
         b->m18 = 0;

@@ -1,4 +1,4 @@
-class X {
+class X_2987d0 {
   public:
     char pad0[0x20];
     unsigned char count;
@@ -10,7 +10,7 @@ class X {
     int* entries;
     void f(unsigned char);
 };
-void X::f(unsigned char v) {
+void X_2987d0::f(unsigned char v) {
     unsigned int i = v;
     if (entries[i * 3 + 2] && buffer[i] == 0xff) {
         buffer[i] = count;

@@ -1,11 +1,11 @@
 // cl-flags: /O2 /GR /GX
 
-class Callback {
+class Callback_e7b90 {
   public:
-    virtual void Invoke(class Manager* mgr, int result) = 0;
+    virtual void Invoke(class Manager_e7b90* mgr, int result) = 0;
 };
 
-class Manager {
+class Manager_e7b90 {
   public:
     bool IsActive();
     int GetValueBits();
@@ -19,7 +19,7 @@ class Manager {
 
 extern int g_GlobalFloatBits_004a0fec;
 
-void __stdcall ProcessManager(Manager* mgr, Callback* cb) {
+void __stdcall ProcessManager(Manager_e7b90* mgr, Callback_e7b90* cb) {
     bool flag = false;
 
     while (mgr->IsActive()) {

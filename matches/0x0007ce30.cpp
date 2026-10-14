@@ -3,16 +3,16 @@ extern "C" char DAT_0048e0f0[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e10c[];
 extern "C" char DAT_0048e134[];
-class Base {
+class Base_7ce30 {
   public:
-    Base(int a, int b);
+    Base_7ce30(int a, int b);
     virtual void f0();
     int pad4[3];
 };
 
 extern "C" char GetFlag(const char* name);
 
-class Method5 : public Base {
+class Method5 : public Base_7ce30 {
   public:
     Method5(int a, int b);
     virtual void f0();
@@ -23,10 +23,10 @@ class Method5 : public Base {
     int m1c;
 };
 
-void Base::f0() {}
+void Base_7ce30::f0() {}
 void Method5::f0() {}
 
-Method5::Method5(int a, int b) : Base(a, 5) {
+Method5::Method5(int a, int b) : Base_7ce30(a, 5) {
     m1c = b;
     m18 = GetFlag((const char*)((int)DAT_0048e100));
     m10 = GetFlag((const char*)((int)DAT_0048e0f0));

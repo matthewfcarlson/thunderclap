@@ -1,11 +1,11 @@
 extern "C" char DAT_004279fc[];
-struct Sub {
+struct Sub_235830 {
     void Init();
 };
 struct ParamValueConditionGroup {
     int vptr;
     char pad[4];
-    Sub sub;
+    Sub_235830 sub;
     ParamValueConditionGroup* vfunc_0(int);
 };
 extern void FUN_00267090(ParamValueConditionGroup*);

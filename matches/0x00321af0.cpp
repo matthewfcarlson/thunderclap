@@ -1,4 +1,4 @@
-typedef unsigned int u32;
+typedef unsigned int u32_321af0;
 typedef unsigned char u8;
 namespace pure3d {
 class pddiBaseContext {
@@ -65,22 +65,22 @@ class pddiBaseContext {
     virtual void f59();
     virtual void f60();
     virtual void f61();
-    virtual void vfunc_62(u32);
+    virtual void vfunc_62(u32_321af0);
 };
-class Device {
+class Device_321af0 {
   public:
-    void __fastcall Set(u32);
+    void __fastcall Set(u32_321af0);
 };
 class d3dContext : public pddiBaseContext {
   public:
     virtual void g63();
-    void vfunc_62(u32);
+    void vfunc_62(u32_321af0);
 };
 extern int state;
-void d3dContext::vfunc_62(u32 value) {
+void d3dContext::vfunc_62(u32_321af0 value) {
     pddiBaseContext::vfunc_62(value);
-    u32 v = (u8)value;
-    ((Device*)0x4035c)->Set(v);
+    u32_321af0 v = (u8)value;
+    ((Device_321af0*)0x4035c)->Set(v);
     state = v;
 }
 } // namespace pure3d

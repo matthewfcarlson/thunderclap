@@ -9,7 +9,7 @@ struct FEContainer {
     virtual void vfunc_7();
 };
 void __stdcall FUN_000e4ec0(int);
-struct Obj {
+struct Obj_ef160 {
     virtual void a0();
     virtual void a1();
     virtual void a2();
@@ -62,5 +62,5 @@ struct Obj {
 };
 void FEContainer::vfunc_7() {
     FUN_000e4ec0(9);
-    ((Obj*)*(void**)((char*)this + 4))->call(6);
+    ((Obj_ef160*)*(void**)((char*)this + 4))->call(6);
 }

@@ -1,9 +1,9 @@
 namespace pure3d {
-struct Vec {
+struct Vec_31d5d0 {
     unsigned int x[16];
     void fill(int, unsigned int);
 };
-struct Item {
+struct Item_31d5d0 {
     char a[8];
     unsigned int count;
     unsigned int ptr;
@@ -120,14 +120,14 @@ class pddiBaseContext {
     virtual void f107();
     virtual void f108(int);
     char pad[28];
-    Item* items[1];
+    Item_31d5d0* items[1];
 };
 } // namespace pure3d
 void pure3d::pddiBaseContext::vfunc_17(int i, int p) {
-    Vec t;
-    Item* q = items[i];
+    Vec_31d5d0 t;
+    Item_31d5d0* q = items[i];
     unsigned int d = q->count * 64 + q->ptr;
     t.fill(p, d);
-    *(Vec*)(q->count * 64 + q->ptr) = t;
+    *(Vec_31d5d0*)(q->count * 64 + q->ptr) = t;
     f108(i);
 }

@@ -1,4 +1,4 @@
-class Obj {
+class Obj_16f250 {
   public:
     void* vptr;
     float f;
@@ -7,7 +7,7 @@ class Obj {
     char Fn(int x);
 };
 
-char Obj::Fn(int x) {
+char Obj_16f250::Fn(int x) {
     mC = x;
     return 1;
 }

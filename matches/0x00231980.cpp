@@ -2,7 +2,7 @@ class Branch {
   public:
     void vfunc_7();
 };
-class Aux {
+class Aux_231980 {
   public:
     void f();
 };
@@ -13,6 +13,6 @@ class Node : public Branch {
     void vfunc_7();
 };
 void Node::vfunc_7() {
-    ((Aux*)((char*)this + 0x28))->f();
+    ((Aux_231980*)((char*)this + 0x28))->f();
     Branch::vfunc_7();
 }

@@ -1,11 +1,11 @@
-class Base {
+class Base_6a210 {
   public:
     virtual void FnBase0();
     virtual void FnBase1();
-    Base();
+    Base_6a210();
 };
 
-class CIntangibleToActorsTrack : public Base {
+class CIntangibleToActorsTrack : public Base_6a210 {
   public:
     virtual void Fn0();
     virtual void Fn1();

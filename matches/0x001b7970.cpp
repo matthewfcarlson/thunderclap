@@ -1,4 +1,4 @@
-struct Renderer {
+struct Renderer_1b7970 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -92,7 +92,7 @@ struct Renderer {
     virtual void v90();
     virtual void reset91();
 };
-struct Resource {
+struct Resource_1b7970 {
     virtual void v0();
     virtual void release();
     virtual void v2();
@@ -102,37 +102,37 @@ struct Resource {
     virtual void v6();
     virtual void stop();
 };
-struct Container {
+struct Container_1b7970 {
     void FUN_00086400();
 };
-struct Control {
+struct Control_1b7970 {
     void FUN_0008db60(int);
 };
-struct Manager {
+struct Manager_1b7970 {
     void FUN_001bf860(int);
 };
 struct Simulation {
     void FUN_001eb890();
     void FUN_001eb2a0(float, int);
 };
-struct Provider {
+struct Provider_1b7970 {
     Simulation* FUN_000862e0();
 };
-struct Globals {
+struct Globals_1b7970 {
     char pad[0x50];
-    Manager* manager;
-    Provider* provider;
+    Manager_1b7970* manager;
+    Provider_1b7970* provider;
 };
-extern Globals* DAT_004dd700;
-extern Renderer* DAT_0052c2a8;
+extern Globals_1b7970* DAT_004dd700;
+extern Renderer_1b7970* DAT_0052c2a8;
 extern unsigned char DAT_004e222c, DAT_004e222d;
 void __cdecl thunk_FUN_00267090(void*);
-struct Owner {
+struct Owner_1b7970 {
     char pad0[12];
-    Resource* resource;
+    Resource_1b7970* resource;
     char pad10[0x108];
-    Container* container;
-    Control* control;
+    Container_1b7970* container;
+    Control_1b7970* control;
     int unknown120;
     void* allocation;
     int state;
@@ -140,7 +140,7 @@ struct Owner {
     unsigned char active;
     void FUN_001b7970();
 };
-void Owner::FUN_001b7970() {
+void Owner_1b7970::FUN_001b7970() {
     if (!resource)
         return;
     DAT_0052c2a8->reset91();
@@ -151,11 +151,11 @@ void Owner::FUN_001b7970() {
     if (resource)
         resource->stop();
     if (resource) {
-        Resource* old = resource;
+        Resource_1b7970* old = resource;
         resource = 0;
         old->release();
     }
-    Container* c = container;
+    Container_1b7970* c = container;
     state = 0;
     c->FUN_00086400();
     if (allocation) {
@@ -167,7 +167,7 @@ void Owner::FUN_001b7970() {
     DAT_004dd700->provider->FUN_000862e0()->FUN_001eb890();
     for (int i = 0; i < 10; ++i)
         DAT_004dd700->provider->FUN_000862e0()->FUN_001eb2a0(0.01f, 0);
-    Control* ctl = control;
+    Control_1b7970* ctl = control;
     active = 0;
     ctl->FUN_0008db60(0);
 }

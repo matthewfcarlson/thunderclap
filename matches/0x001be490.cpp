@@ -1,4 +1,4 @@
-class Inner {
+class Inner_1be490 {
   public:
     char pad0[8];
     int a;
@@ -9,16 +9,16 @@ class Inner {
     char pad18[4];
     short f;
 };
-class Outer {
+class Outer_1be490 {
   public:
     char pad0[0x2c];
-    Inner* p;
+    Inner_1be490* p;
     char pad30[0x20];
     int q;
     void Reset();
 };
-void Outer::Reset() {
-    Inner* x = p;
+void Outer_1be490::Reset() {
+    Inner_1be490* x = p;
     q = 0;
     x->b = 0;
     x->c = 0;

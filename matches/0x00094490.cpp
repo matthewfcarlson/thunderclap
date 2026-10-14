@@ -1,9 +1,9 @@
-struct Obj;
-typedef void (Obj::*Fn)(int, int, int, int, int, int, int);
-struct Obj {
+struct Obj_94490;
+typedef void (Obj_94490::*Fn_94490)(int, int, int, int, int, int, int);
+struct Obj_94490 {
     int x;
 };
-void __cdecl FUN_00094490(Obj* a, int* p, int b, Fn fn) {
+void __cdecl FUN_00094490(Obj_94490* a, int* p, int b, Fn_94490 fn) {
     int* q = p;
     int v0 = *q;
     q++;

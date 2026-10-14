@@ -1,13 +1,13 @@
-struct Obj {
-    Obj* first();
-    Obj* second();
+struct Obj_175c0 {
+    Obj_175c0* first();
+    Obj_175c0* second();
     void third(int);
     void fourth(int);
 };
 struct CAction {
     virtual void q();
     char pad[0x18];
-    Obj* mObj;
+    Obj_175c0* mObj;
 };
 struct CInvulnerableAction : CAction {
     virtual void v0();
@@ -21,8 +21,8 @@ struct CInvulnerableAction : CAction {
     virtual void v8();
 };
 bool CInvulnerableAction::vfunc_6(int x) {
-    Obj* a = mObj->first();
-    Obj* b = a->second();
+    Obj_175c0* a = mObj->first();
+    Obj_175c0* b = a->second();
     b->third(1);
     b->fourth(1);
     return true;

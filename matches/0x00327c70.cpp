@@ -1,13 +1,13 @@
 extern "C" int __cdecl strcmp(const char*, const char*);
-typedef int(__cdecl* Handler)(int, const char*, int);
-struct Entry {
+typedef int(__cdecl* Handler_327c70)(int, const char*, int);
+struct Entry_327c70 {
     char name[64];
-    Handler handler;
+    Handler_327c70 handler;
     int context;
 };
 extern int DAT_005555c0;
-extern Entry DAT_005555c8[];
-extern Handler DAT_00555608;
+extern Entry_327c70 DAT_005555c8[];
+extern Handler_327c70 DAT_00555608;
 int __cdecl FUN_00327c70(int first, const char* name, int context) {
     int count = DAT_005555c0;
     for (int i = 0; i < count; ++i) {

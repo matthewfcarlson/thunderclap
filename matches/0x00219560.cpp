@@ -1,10 +1,10 @@
 extern "C" int __cdecl FUN_0021add0(void*, int, int, int);
 extern "C" void __cdecl FUN_00217130(void*, int, int);
-struct Pair {
+struct Pair_219560 {
     unsigned int a;
     unsigned int b;
 };
-extern "C" int __cdecl FUN_00219560(void* p1, int count, Pair* pair) {
+extern "C" int __cdecl FUN_00219560(void* p1, int count, Pair_219560* pair) {
     int size = count * 4 + 0x18;
     int r = FUN_0021add0(p1, 0, 0, size);
     FUN_00217130(p1, r, 6);

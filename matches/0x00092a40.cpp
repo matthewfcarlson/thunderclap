@@ -4,13 +4,13 @@ extern "C" char DAT_0049db1c[];
 extern "C" char DAT_0049db80[];
 extern void* __cdecl FUN_00344e74(void*, int, const char*, const char*, int);
 
-class C {
+class C_92a40 {
   public:
     void* items[1];
     unsigned char Fn(int index);
 };
 
-unsigned char C::Fn(int index) {
+unsigned char C_92a40::Fn(int index) {
     void* p = FUN_00344e74(items[index], 0, (const char*)((int)DAT_0049dab8), (const char*)((int)DAT_0049db80), 0);
     if (p)
         return *((unsigned char*)p + 0xb0);

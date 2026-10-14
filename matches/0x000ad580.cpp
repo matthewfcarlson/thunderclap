@@ -1,26 +1,26 @@
-struct Item {
+struct Item_ad580 {
     char pad[0x54];
     int id;
     void Do(int a, int b);
 };
 void Fallback(int a, int b);
-class Manager {
+class Manager_ad580 {
     char pad[0x10];
     int count;
-    Item** items;
+    Item_ad580** items;
 
   public:
     void Run(int id, int a, int b);
 };
-void Manager::Run(int id, int a, int b) {
+void Manager_ad580::Run(int id, int a, int b) {
     int n = count;
     int i = 0;
     if (n > 0) {
-        Item** arr = items;
+        Item_ad580** arr = items;
         int key = id;
-        Item** cur = arr;
+        Item_ad580** cur = arr;
         do {
-            Item* p = *cur;
+            Item_ad580* p = *cur;
             if (p && p->id == key) {
                 arr[i]->Do(a, b);
                 return;

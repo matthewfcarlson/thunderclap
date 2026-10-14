@@ -1,4 +1,4 @@
-struct Obj {
+struct Obj_e46b0 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -7,7 +7,7 @@ struct Obj {
     virtual void f();
     virtual void g(unsigned int, int);
 };
-struct Factory {
+struct Factory_e46b0 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -19,9 +19,9 @@ struct Factory {
     virtual void i();
     virtual void j();
     virtual void k();
-    virtual Obj* make(const char*, int);
+    virtual Obj_e46b0* make(const char*, int);
 };
-extern Factory* glob;
+extern Factory_e46b0* glob_e46b0;
 struct FEThingsBase {
     virtual void v0();
     virtual void v1();
@@ -91,12 +91,12 @@ struct FEThingsBase {
     virtual void v65();
     virtual void v66();
     char pad[0x17fc - 4];
-    Obj* ptr;
+    Obj_e46b0* ptr;
     void run();
 };
 void FEThingsBase::run() {
     if (!ptr) {
-        ptr = glob->make("simple", 0);
+        ptr = glob_e46b0->make("simple", 0);
         ptr->a();
         ptr->g(0x444d4c42, 1);
     }

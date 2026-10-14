@@ -1,18 +1,18 @@
 // Same code shape as 0x00221b30 (propagated; names are from that function)
-struct P {
+struct P_221be0 {
     int a[16];
 };
-struct Q {
+struct Q_221be0 {
     int a[4];
 };
-class X {
+class X_221be0 {
   public:
-    P p;
-    Q q;
+    P_221be0 p;
+    Q_221be0 q;
     int c;
-    void Copy(const X&);
+    void Copy(const X_221be0&);
 };
-void X::Copy(const X& other) {
+void X_221be0::Copy(const X_221be0& other) {
     p = other.p;
     q = other.q;
     c = other.c;

@@ -1,23 +1,23 @@
-extern char G100[], G10c[], G134[];
+extern char G100_cf160[], G10c[], G134[];
 char Lookup(char*);
-class Base {
+class Base_cf160 {
   public:
-    Base(int, int);
+    Base_cf160(int, int);
     virtual void X();
     char pad[0xc];
 };
-class M3 : public Base {
+class M3_cf160 : public Base_cf160 {
   public:
     virtual void X();
     char b10, b11, b12, pad2[5];
     char b18;
     char pad3[3];
     int m1c;
-    M3(int a, int c);
+    M3_cf160(int a, int c);
 };
-M3::M3(int a, int c) : Base(a, 3) {
+M3_cf160::M3_cf160(int a, int c) : Base_cf160(a, 3) {
     m1c = c;
-    b18 = Lookup(G100);
+    b18 = Lookup(G100_cf160);
     b10 = Lookup(G134);
     b11 = Lookup(G134);
     b12 = Lookup(G10c);

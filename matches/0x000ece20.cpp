@@ -1,5 +1,5 @@
 struct TextWindow;
-struct Sub {
+struct Sub_ece20 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -19,7 +19,7 @@ struct Sub {
 };
 struct TextWindow {
     char pad[0x14];
-    Sub* sub;
+    Sub_ece20* sub;
     float vfunc_9();
 };
 float TextWindow::vfunc_9() {

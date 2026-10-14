@@ -11,7 +11,7 @@ class StrafeCircleHBTrack {
     char pad[0x24];
     StrafeCircleHBTrack();
 };
-class Factory {
+class Factory_123030 {
   public:
     virtual void v0();
     virtual void v1();
@@ -20,7 +20,7 @@ class Factory {
     virtual void v4();
     virtual StrafeCircleHBTrack* v5();
 };
-StrafeCircleHBTrack* Factory::v5() {
+StrafeCircleHBTrack* Factory_123030::v5() {
     StrafeCircleHBTrack* p = (StrafeCircleHBTrack*)Alloc(0x28);
     if (p) {
         p->StrafeCircleHBTrack::StrafeCircleHBTrack();

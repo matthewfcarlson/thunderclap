@@ -8,11 +8,11 @@ class ControllerPollerBase {
     int d;
     ControllerPollerBase(void*);
 };
-extern u8 g;
+extern u8 g_de140;
 ControllerPollerBase::ControllerPollerBase(void* x) {
     p = x;
     a = 0;
-    g = 0;
+    g_de140 = 0;
     d = 0;
     c[0] = 0;
 }

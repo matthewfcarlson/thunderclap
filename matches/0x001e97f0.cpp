@@ -16,14 +16,14 @@ struct CSoundSequence {
     unsigned char pad2[0x102];
     unsigned int z;
 };
-class Owner {
+class Owner_1e97f0 {
   public:
     char pad0[8];
     CSoundSequence* slots[100];
     int count;
     CSoundSequence* Add();
 };
-CSoundSequence* Owner::Add() {
+CSoundSequence* Owner_1e97f0::Add() {
     if (count >= 100)
         return 0;
     CSoundSequence* r0 = (CSoundSequence*)FUN_0008d710(0x130, 6);

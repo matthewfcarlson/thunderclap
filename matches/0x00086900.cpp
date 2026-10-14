@@ -1,32 +1,32 @@
 typedef unsigned char u8;
-typedef unsigned int u32;
+typedef unsigned int u32_86900;
 extern u8 DAT_004dd6f0;
-struct Worker {
+struct Worker_86900 {
     void Reset(int);
 };
-struct Tail {
+struct Tail_86900 {
     void Run();
 };
-struct State {
+struct State_86900 {
     char p0[0x10];
-    u32 x10, x14, x18, x1c;
+    u32_86900 x10, x14, x18, x1c;
     char p20[0x18];
-    u32 x38, x3c;
+    u32_86900 x38, x3c;
     char p40[8];
     u8 x48;
 };
-struct Obj {
+struct Obj_86900 {
     char p0[8];
-    State* state;
+    State_86900* state;
     char pc[0x10];
-    Worker* worker;
+    Worker_86900* worker;
     char p20[0x10];
-    Tail* tail;
+    Tail_86900* tail;
 };
-void __fastcall FUN_00086900(Obj* self) {
+void __fastcall FUN_00086900(Obj_86900* self) {
     self->worker->Reset(0);
     DAT_004dd6f0 = 0;
-    State* s = self->state;
+    State_86900* s = self->state;
     s->x48 = 0;
     s->x3c = 0;
     s->x10 = 0;

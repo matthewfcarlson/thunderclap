@@ -1,5 +1,5 @@
-typedef unsigned int U;
-struct Obj {
+typedef unsigned int U_293d40;
+struct Obj_293d40 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -19,24 +19,24 @@ struct Obj {
     virtual void f16();
     virtual void f17(int, void*);
 };
-struct Holder {
-    Obj* p;
+struct Holder_293d40 {
+    Obj_293d40* p;
 };
-struct Sub {
+struct Sub_293d40 {
     void init();
 };
-extern U g0, g1, g2, g4, g5, g6;
-extern Sub gS;
-struct C {
-    Holder h;
-    void run(U, U, U);
+extern U_293d40 g0_293d40, g1, g2, g4, g5, g6;
+extern Sub_293d40 gS;
+struct C_293d40 {
+    Holder_293d40 h;
+    void run(U_293d40, U_293d40, U_293d40);
 };
-void C::run(U a, U b, U c) {
-    g0 = a;
+void C_293d40::run(U_293d40 a, U_293d40 b, U_293d40 c) {
+    g0_293d40 = a;
     g1 = b;
     g2 = c;
     gS.init();
-    g4 = g0;
+    g4 = g0_293d40;
     g5 = g1;
     g6 = g2;
     h.p->f17(0, (void*)&gS);

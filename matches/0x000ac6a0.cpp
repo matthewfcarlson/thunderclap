@@ -3,7 +3,7 @@ extern const float one;
 extern const float pi;
 extern const float halfpi;
 extern const float half;
-class Curve {
+class Curve_ac6a0 {
   public:
     char p[16];
     float scale;
@@ -14,7 +14,7 @@ class Curve {
     float constant;
     float Evaluate(float x);
 };
-float Curve::Evaluate(float x) {
+float Curve_ac6a0::Evaluate(float x) {
     float t = ((one - x) * pi + halfpi);
     t = (float)(sin((double)t) + one) * half - x;
     t = t * scale + x;

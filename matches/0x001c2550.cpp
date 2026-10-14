@@ -1,10 +1,10 @@
-struct Ent {
+struct Ent_1c2550 {
     char pad[8];
     float a;
     float v;
     float b;
 };
-class Obj {
+class Obj_1c2550 {
   public:
     virtual void v0();
     virtual void v1();
@@ -22,9 +22,9 @@ class Obj {
     virtual void v13();
     virtual void Fire();
 };
-Ent* __stdcall Find(Obj* o, bool flag);
-void __stdcall Fn(Obj* o, float x) {
-    Ent* e = Find(o, x < 1.0f);
+Ent_1c2550* __stdcall Find(Obj_1c2550* o, bool flag);
+void __stdcall Fn(Obj_1c2550* o, float x) {
+    Ent_1c2550* e = Find(o, x < 1.0f);
     if (e) {
         e->v = x;
         if (e->a > 0.0f)

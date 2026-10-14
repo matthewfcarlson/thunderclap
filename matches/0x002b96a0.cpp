@@ -1,11 +1,11 @@
-class Base {
+class Base_2b96a0 {
   public:
-    Base();
+    Base_2b96a0();
     virtual void A();
 };
-class BillboardQuadGroupLoader : public Base {
+class BillboardQuadGroupLoader : public Base_2b96a0 {
   public:
     BillboardQuadGroupLoader();
     virtual void A();
 };
-BillboardQuadGroupLoader::BillboardQuadGroupLoader() : Base() {}
+BillboardQuadGroupLoader::BillboardQuadGroupLoader() : Base_2b96a0() {}

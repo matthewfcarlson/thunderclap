@@ -1,14 +1,14 @@
 // Same code shape as 0x000fc1e0 (propagated; names are from that function)
-struct Inner {
+struct Inner_fc200 {
     void run(unsigned int, unsigned int);
 };
-struct Obj {
+struct Obj_fc200 {
     int pad;
-    Inner* field;
+    Inner_fc200* field;
 };
-extern Obj* g_obj;
-extern unsigned char g_flag;
+extern Obj_fc200* g_obj_fc200;
+extern unsigned char g_flag_fc200;
 void FUN_000fc1e0(unsigned int a, unsigned int b) {
-    g_obj->field->run(a, b);
-    g_flag = 1;
+    g_obj_fc200->field->run(a, b);
+    g_flag_fc200 = 1;
 }

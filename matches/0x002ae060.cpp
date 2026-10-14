@@ -1,22 +1,22 @@
 extern "C" void* memcpy(void*, const void*, unsigned);
-struct Info {
+struct Info_2ae060 {
     char p[0x10];
     int count;
     int p14;
     int bpp;
 };
-class IB {
+class IB_2ae060 {
   public:
     virtual void v0();
     virtual void v1();
     virtual void Put(const unsigned char* src);
-    Info* info;
+    Info_2ae060* info;
     unsigned* pal;
     unsigned char* dst;
     int idx;
     int stride;
 };
-void IB::Put(const unsigned char* src) {
+void IB_2ae060::Put(const unsigned char* src) {
     int n;
     if (info->bpp == 8) {
         n = info->count;

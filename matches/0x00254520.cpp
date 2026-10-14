@@ -1,6 +1,6 @@
 extern "C" char DAT_0042a2b0[];
 typedef unsigned char u8;
-struct Sub {
+struct Sub_254520 {
     void Setup(const char* s);
     char pad[8];
     u8 flags;
@@ -13,10 +13,10 @@ class Stream {
     int vf;
     void BaseInit();
     char pad[4];
-    Sub sub;
+    Sub_254520 sub;
 };
 extern void* Alloc(void*);
-extern int gPool;
+extern int gPool_254520;
 class Type {
   public:
     virtual void f0();
@@ -25,10 +25,10 @@ class Type {
     virtual Stream* vfunc_3();
 };
 Stream* Type::vfunc_3() {
-    Stream* p = (Stream*)Alloc(&gPool);
+    Stream* p = (Stream*)Alloc(&gPool_254520);
     if (p) {
         p->BaseInit();
-        Sub* s = &p->sub;
+        Sub_254520* s = &p->sub;
         p->vf = ((int)DAT_0042a2b0);
         s->Setup("MyRsdFile");
         s->flags &= 0xfe;

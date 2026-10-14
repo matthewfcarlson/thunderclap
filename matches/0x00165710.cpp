@@ -1,4 +1,4 @@
-class Obj {
+class Obj_165710 {
   public:
     int m0;
     char pad[8];
@@ -6,7 +6,7 @@ class Obj {
     bool Set(int v);
 };
 
-bool Obj::Set(int v) {
+bool Obj_165710::Set(int v) {
     m1 = v;
     return true;
 }

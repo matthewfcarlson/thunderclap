@@ -4,8 +4,8 @@ class Track {
     ~Track();
 };
 
-struct P18 {
-    ~P18();
+struct P18_194f40 {
+    ~P18_194f40();
     char pad[0x20];
 };
 struct P38 {
@@ -44,7 +44,7 @@ class FireProjectileTrack : public Track {
 
   private:
     char pad0[0x18 - 4];
-    P18 m18;
+    P18_194f40 m18;
     P38 m38;
     P88 m88;
     P9c m9c;
@@ -57,7 +57,7 @@ FireProjectileTrack* FireProjectileTrack::vfunc_5(unsigned char flag) {
     m9c.~P9c();
     m88.~P88();
     m38.~P38();
-    m18.~P18();
+    m18.~P18_194f40();
     this->Track::~Track();
     if ((flag & 1) != 0)
         FUN_00267090(this);

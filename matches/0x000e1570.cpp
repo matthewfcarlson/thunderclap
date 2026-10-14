@@ -1,4 +1,4 @@
-class FEThing {
+class FEThing_e1570 {
   public:
     virtual void a0();
     virtual void a1();
@@ -17,7 +17,7 @@ class FEThing {
 class FEData {
   public:
     char pad[0x4c];
-    FEThing* obj;
+    FEThing_e1570* obj;
 };
 class FEPoseAnimation {
   public:
@@ -26,7 +26,7 @@ class FEPoseAnimation {
     void vfunc_4(void*);
 };
 void FEPoseAnimation::vfunc_4(void* arg) {
-    FEThing* p = data->obj;
+    FEThing_e1570* p = data->obj;
     if (p)
         p->a12(arg);
 }

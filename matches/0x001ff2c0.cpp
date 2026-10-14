@@ -1,10 +1,10 @@
 extern "C" char DAT_00425374[];
-struct Base {
+struct Base_1ff2c0 {
     void Init(const char*, int);
 };
 extern unsigned char __cdecl FUN_001d04d0(const char*);
-extern char g0, g1, g2, g3;
-class CTriggerVolumeManager : public Base {
+extern char g0_1ff2c0, g1, g2, g3;
+class CTriggerVolumeManager : public Base_1ff2c0 {
   public:
     CTriggerVolumeManager(const char*, int);
     int m0;
@@ -21,7 +21,7 @@ CTriggerVolumeManager::CTriggerVolumeManager(const char* a, int c) {
     Init(a, 3);
     m0 = ((int)DAT_00425374);
     m1c = c;
-    b18 = FUN_001d04d0(&g0);
+    b18 = FUN_001d04d0(&g0_1ff2c0);
     b10 = FUN_001d04d0(&g1);
     b11 = FUN_001d04d0(&g2);
     b12 = FUN_001d04d0(&g3);

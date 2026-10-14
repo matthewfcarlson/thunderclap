@@ -1,4 +1,4 @@
-class Child {
+class Child_e2040 {
   public:
     virtual void f0();
     virtual void f1();
@@ -24,7 +24,7 @@ class FELayout {
 class SingleLayout : public FELayout {
   public:
     char pad[0x40];
-    Child* mChild;
+    Child_e2040* mChild;
     bool vfunc_6(int a, int b);
 };
 bool SingleLayout::vfunc_6(int a, int b) {

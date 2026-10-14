@@ -75,7 +75,7 @@ class Cq {
   public:
     void Use(int);
 };
-struct Obj {
+struct Obj_88b80 {
     char z[8];
     Ck* p08;
     Ce* p0c;
@@ -98,7 +98,7 @@ struct Obj {
     Cp* p50;
     void f(Cx*);
 };
-void Obj::f(Cx* x) {
+void Obj_88b80::f(Cx* x) {
     int q = x->Get();
     p3c->Use(q);
     p2c->Run();

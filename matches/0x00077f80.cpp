@@ -16,12 +16,12 @@ class CHeliDeathSpiralTrack {
     virtual void v13();
 };
 extern void* __cdecl FUN_0008d690(unsigned int);
-struct Helper {
+struct Helper_77f80 {
     unsigned int call(CHeliDeathSpiralTrack*, unsigned int);
 };
 unsigned int CHeliDeathSpiralTrack::vfunc_12(unsigned int x) {
     void* p = FUN_0008d690(0x48);
     if (p)
-        return ((Helper*)p)->call(this, x);
+        return ((Helper_77f80*)p)->call(this, x);
     return 0;
 }

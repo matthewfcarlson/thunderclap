@@ -1,24 +1,24 @@
-class Mgr;
-class Holder {
+class Mgr_1e820;
+class Holder_1e820 {
   public:
-    Holder* first();
-    Mgr* second();
+    Holder_1e820* first();
+    Mgr_1e820* second();
 };
-class Mgr {
+class Mgr_1e820 {
   public:
     char pad[0x1b64];
     void* ptr;
 };
-class Helper {
+class Helper_1e820 {
   public:
     void run();
 };
-class Obj {
+class Obj_1e820 {
   public:
     virtual void f0();
     virtual void f1();
 };
-Helper* __stdcall FUN_001b6580(void*);
+Helper_1e820* __stdcall FUN_001b6580(void*);
 class CGrabAction {
   public:
     virtual void f0();
@@ -32,12 +32,12 @@ class CGrabAction {
     void* mB;
 };
 void CGrabAction::vfunc_4() {
-    Mgr* m = ((Holder*)mA)->first()->second();
+    Mgr_1e820* m = ((Holder_1e820*)mA)->first()->second();
     if (m->ptr == this)
         m->ptr = 0;
     if (mB) {
         FUN_001b6580(mB)->run();
-        Obj* q = (Obj*)mB;
+        Obj_1e820* q = (Obj_1e820*)mB;
         if (q) {
             q->f1();
             mB = 0;

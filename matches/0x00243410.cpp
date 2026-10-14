@@ -1,10 +1,10 @@
 extern bool __cdecl ReadValue(int, int*);
-class C {
+class C_243410 {
   public:
     int value;
     int out;
 };
-bool __fastcall Target(C* self) {
+bool __fastcall Target(C_243410* self) {
     int a, b, c;
     int x = self->value;
     if (!ReadValue(x, &a))

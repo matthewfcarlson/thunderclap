@@ -1,10 +1,10 @@
-class Base {
+class Base_2a9cb0 {
   public:
     virtual void f();
     char pad[0x3c];
-    Base();
+    Base_2a9cb0();
 };
-class ExpressionAnimationController : public Base {
+class ExpressionAnimationController : public Base_2a9cb0 {
   public:
     int a, b, c, d;
     virtual void g();

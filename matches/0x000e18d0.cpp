@@ -1,4 +1,4 @@
-class Base {
+class Base_e18d0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -13,7 +13,7 @@ class FEDoAction {
     virtual void vfunc_3();
     virtual void vfunc_4();
 };
-class Inner {
+class Inner_e18d0 {
   public:
     virtual void a();
     virtual void b();
@@ -23,7 +23,7 @@ class Inner {
 class FEDoParticleSystem : public FEDoAction {
   public:
     char pad[0x34 - sizeof(FEDoAction)];
-    Inner* mInner;
+    Inner_e18d0* mInner;
     virtual void p0();
     virtual void p1();
     virtual void p2();

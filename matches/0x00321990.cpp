@@ -1,5 +1,5 @@
-typedef unsigned int u32;
-extern volatile u32 state;
+typedef unsigned int u32_321990;
+extern volatile u32_321990 state;
 extern volatile void* globalA;
 extern volatile void* globalB;
 class pddiBaseContext {

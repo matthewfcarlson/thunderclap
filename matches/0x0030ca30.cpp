@@ -1,21 +1,21 @@
 namespace physics {
-struct Sub {
+struct Sub_30ca30 {
     char pad[0x1c];
-    Sub() throw();
+    Sub_30ca30() throw();
 };
-struct Vec {
+struct Vec_30ca30 {
     float x, y, z;
-    Vec() throw() {}
-    Vec(float a, float b, float c) throw() : x(a), y(b), z(c) {}
+    Vec_30ca30() throw() {}
+    Vec_30ca30(float a, float b, float c) throw() : x(a), y(b), z(c) {}
 };
 class PhysicsJoint {
   public:
     virtual ~PhysicsJoint() throw();
     char pad[0x1c];
-    Vec v;
+    Vec_30ca30 v;
     char pad2[0x48 - 0x2c];
-    Sub s1;
-    Sub s2;
+    Sub_30ca30 s1;
+    Sub_30ca30 s2;
     PhysicsJoint() throw();
 };
 PhysicsJoint::PhysicsJoint() throw() : v(0.0f, 0.0f, 0.0f) {}

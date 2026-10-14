@@ -1,5 +1,5 @@
 extern void* frameVtable;
-class Base {
+class Base_284a90 {
   public:
     void Init(void*);
 };
@@ -9,7 +9,7 @@ class FrameController {
     FrameController(void*);
 };
 FrameController::FrameController(void* p) {
-    ((Base*)this)->Init(p);
+    ((Base_284a90*)this)->Init(p);
     *(void**)this = &frameVtable;
     ((char*)this)[0x10] = ((char*)p)[0x10];
 }

@@ -1,11 +1,11 @@
-struct Obj {
+struct Obj_2f2cb0 {
     int pad[3];
     int data[509];
     int end;
     void finish();
     void target();
 };
-void Obj::target() {
+void Obj_2f2cb0::target() {
     int* q = data;
     int n = 64;
     do {

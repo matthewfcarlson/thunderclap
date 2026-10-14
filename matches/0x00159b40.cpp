@@ -13,12 +13,12 @@ class Track {
     int w;
 };
 extern "C" void* __cdecl malloc(unsigned int);
-extern int vftable;
+extern int vftable_159b40;
 void* Track::vfunc_5() {
     Track* p = (Track*)malloc(0x14);
     if (p) {
         p->init();
-        *(int**)p = &vftable;
+        *(int**)p = &vftable_159b40;
         p->z = 0;
         p->w = 0;
         p->y = 1;

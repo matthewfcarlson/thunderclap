@@ -1,13 +1,13 @@
 typedef unsigned int uint;
-struct Item {
+struct Item_213190 {
     int type;
     int value;
 };
-Item* __fastcall GetItem(int, int);
-int __cdecl Check(int, Item*);
+Item_213190* __fastcall GetItem(int, int);
+int __cdecl Check(int, Item_213190*);
 void __cdecl Update(int);
 int __cdecl FUN_00213190(int a, int b) {
-    Item* p = GetItem(b, a);
+    Item_213190* p = GetItem(b, a);
     if (p->type == 4)
         return p->value + 0x10;
     int result = Check(a, p) ? p->value + 0x10 : 0;

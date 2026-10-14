@@ -1,34 +1,34 @@
-struct A {
+struct A_865d0 {
     void f2();
     void f4();
     void f6(int);
     void f7();
     void f8(void*, int);
 };
-struct B {
+struct B_865d0 {
     void f3(int);
 };
-struct C {
+struct C_865d0 {
     void f5();
 };
-extern unsigned char flag;
-struct Obj {
+extern unsigned char flag_865d0;
+struct Obj_865d0 {
     char pad0[4];
     int v4;
     char pad8[0x18];
-    A* p20;
+    A_865d0* p20;
     char pad24[0xc];
-    C* p30;
+    C_865d0* p30;
     char pad34[4];
-    B* p38;
-    A* init();
+    B_865d0* p38;
+    A_865d0* init();
 };
-void __fastcall target(Obj* self) {
-    A* edi = self->init();
-    if (!flag)
+void __fastcall target(Obj_865d0* self) {
+    A_865d0* edi = self->init();
+    if (!flag_865d0)
         edi->f2();
     else
-        flag = 0;
+        flag_865d0 = 0;
     self->p38->f3(0);
     edi->f4();
     self->p30->f5();

@@ -7,12 +7,12 @@ struct Node {
     unsigned char rest[0x3c];
     Node* child;
 };
-struct Obj {
+struct Obj_216ff0 {
     unsigned char pad[0x5c];
     Node* head;
 };
-void process(Obj*, Node*);
-void target(Obj* obj) {
+void process(Obj_216ff0*, Node*);
+void target(Obj_216ff0* obj) {
     Node* outer = obj->head;
     while (outer) {
         if (outer->flags & 3) {

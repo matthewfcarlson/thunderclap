@@ -1,5 +1,5 @@
-const float gZero = 0.0f;
-const float gOne = 1.0f;
+const float gZero_1c1580 = 0.0f;
+const float gOne_1c1580 = 1.0f;
 class Shader {
   public:
     virtual void f0();
@@ -11,12 +11,12 @@ class Shader {
     virtual void f6(int, int);
     virtual void f7(int, int);
 };
-class Arg {
+class Arg_1c1580 {
   public:
     char pad[16];
     Shader* shader;
 };
-class Manager {
+class Manager_1c1580 {
   public:
     virtual void f0();
     virtual void f1();
@@ -55,7 +55,7 @@ class Manager {
     virtual void f34();
     virtual void f35(int);
 };
-extern Manager* gManager;
+extern Manager_1c1580* gManager_1c1580;
 class HulkShaderCallback {
   public:
     char pad[8];
@@ -64,14 +64,14 @@ class HulkShaderCallback {
     float b;
     char pad2[4];
     int value;
-    int vfunc_4(Arg*);
+    int vfunc_4(Arg_1c1580*);
 };
-int HulkShaderCallback::vfunc_4(Arg* p) {
+int HulkShaderCallback::vfunc_4(Arg_1c1580* p) {
     int result = (int)p;
     if (a > 0.0f && p)
         p->shader->f7(0x45444146, 0);
     if (b > 0.0f)
-        gManager->f35(value);
+        gManager_1c1580->f35(value);
     if (c < 1.0f && p)
         p->shader->f6(0x4153524c, 0);
     return result;

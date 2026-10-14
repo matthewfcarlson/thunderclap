@@ -1,4 +1,4 @@
-class Device {
+class Device_262ee0 {
   public:
     virtual void f0();
     virtual void a();
@@ -33,7 +33,7 @@ class audio_HalRsdFileStream {
     virtual void v11();
     virtual void v12();
     char pad[0x1c];
-    Device* dev;
+    Device_262ee0* dev;
     char gap[8];
     int pos;
     int base;

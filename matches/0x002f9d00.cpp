@@ -3,7 +3,7 @@ inline unsigned short* cp(unsigned short* a, unsigned short* b, unsigned short* 
         *out = *a;
     return out;
 }
-class Str {
+class Str_2f9d00 {
   public:
     unsigned short* first;
     unsigned short* last;
@@ -12,7 +12,7 @@ class Str {
     void grow(unsigned short*, unsigned, unsigned short*);
     void fn(unsigned n, unsigned short* p);
 };
-void Str::fn(unsigned n, unsigned short* p) {
+void Str_2f9d00::fn(unsigned n, unsigned short* p) {
     if (!first)
         init(n);
     unsigned count = (unsigned)(last - first);

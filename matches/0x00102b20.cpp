@@ -1,4 +1,4 @@
-class Ref {
+class Ref_102b20 {
   public:
     virtual void a();
     virtual void Release();
@@ -8,7 +8,7 @@ class CMoveAgent {
     virtual ~CMoveAgent();
     void finish();
     char pad[0x64];
-    Ref* member;
+    Ref_102b20* member;
 };
 CMoveAgent::~CMoveAgent() {
     member->Release();

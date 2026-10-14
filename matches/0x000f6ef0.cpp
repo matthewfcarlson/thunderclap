@@ -1,18 +1,18 @@
-extern int g_one;
-struct T {
+extern int g_one_f6ef0;
+struct T_f6ef0 {
     int a[0x22 + 1];
     int f88;
     int pad[1];
     int i[1];
-    X();
+    X_f6ef0();
     int m[0x100];
 };
-struct X {
+struct X_f6ef0 {
     int w[0x48];
-    X();
+    X_f6ef0();
 };
-X::X() {
-    int one = g_one;
+X_f6ef0::X_f6ef0() {
+    int one = g_one_f6ef0;
     w[0x22] = 0;
     w[0] = 0;
     w[1] = 0;

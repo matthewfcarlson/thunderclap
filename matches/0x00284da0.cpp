@@ -33,9 +33,9 @@ class SimpleFrameController {
         float value;
     }* data;
 };
-extern const float zero;
+extern const float zero_284da0;
 float SimpleFrameController::vfunc_11() {
     if (data)
         return data->value;
-    return zero;
+    return zero_284da0;
 }

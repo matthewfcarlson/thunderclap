@@ -1,5 +1,5 @@
 extern "C" char DAT_0042d9dc[];
-class Controller {
+class Controller_2a5420 {
   public:
     char pad[0x40];
     int a;
@@ -10,7 +10,7 @@ class Controller {
     int e;
 };
 void Init();
-Controller* __fastcall Target(Controller* self) {
+Controller_2a5420* __fastcall Target(Controller_2a5420* self) {
     Init();
     *(int*)((char*)self + 0x40) = 0;
     *(int*)((char*)self + 0x48) = 0;

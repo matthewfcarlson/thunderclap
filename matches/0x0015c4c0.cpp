@@ -1,4 +1,4 @@
-struct Data {
+struct Data_15c4c0 {
     char pad[0x14];
     int a;
     int b;
@@ -7,7 +7,7 @@ struct Data {
 class LocomotionStrafe4Action {
   public:
     char pad[0x44];
-    Data* mData;
+    Data_15c4c0* mData;
     void vfunc_8(int* p2, int* p3, unsigned char* p4);
 };
 void LocomotionStrafe4Action::vfunc_8(int* p2, int* p3, unsigned char* p4) {

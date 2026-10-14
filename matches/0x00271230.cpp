@@ -1,4 +1,4 @@
-class Obj {
+class Obj_271230 {
   public:
     virtual void f0();
     virtual void f1();
@@ -24,9 +24,9 @@ class Obj {
     virtual void f21();
 };
 void FUN_002710d0(void*, int, int, int, int, int, int, int);
-void FUN_00271230(Obj* p, int a, int b, int c, int d, int e, int f, int g) {
+void FUN_00271230(Obj_271230* p, int a, int b, int c, int d, int e, int f, int g) {
     FUN_002710d0(p, a, b, c, d, e, f, g);
-    Obj* q = *(Obj**)p;
+    Obj_271230* q = *(Obj_271230**)p;
     if (q)
         q->f21();
 }

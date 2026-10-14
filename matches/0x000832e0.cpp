@@ -1,6 +1,6 @@
 extern "C" void _ReadWriteBarrier();
-typedef unsigned char byte;
-struct Holder {
+typedef unsigned char byte_832e0;
+struct Holder_832e0 {
     virtual void a();
     virtual void release();
 };
@@ -9,11 +9,11 @@ extern void __cdecl thunk_FUN_00267090(void*);
 struct CCow {
     void* vfptr;
     char pad[0x38];
-    Holder* mHolder;
-    CCow* vfunc_2(byte flags);
+    Holder_832e0* mHolder;
+    CCow* vfunc_2(byte_832e0 flags);
     void helper();
 };
-CCow* CCow::vfunc_2(byte flags) {
+CCow* CCow::vfunc_2(byte_832e0 flags) {
     vfptr = (void*)cow_vtable;
     _ReadWriteBarrier();
     if (mHolder) {

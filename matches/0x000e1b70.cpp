@@ -1,4 +1,4 @@
-struct Inner {
+struct Inner_e1b70 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -30,9 +30,9 @@ struct Inner {
     virtual void f28();
     virtual void f29(void*);
 };
-struct Holder {
+struct Holder_e1b70 {
     char pad[4];
-    Inner* p;
+    Inner_e1b70* p;
 };
 struct FEDoMenu {
     virtual void f0();
@@ -41,7 +41,7 @@ struct FEDoMenu {
     virtual void f3();
     virtual void f4();
     char pad[12];
-    Holder* m10;
+    Holder_e1b70* m10;
     char pad2[0x34 - 0x14];
 };
 void FEDoMenu::vfunc_1() {

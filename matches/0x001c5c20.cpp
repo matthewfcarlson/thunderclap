@@ -1,4 +1,4 @@
-class Provider {
+class Provider_1c5c20 {
   public:
     virtual void f0();
     virtual void f1();
@@ -10,19 +10,19 @@ class Builder {
   public:
     void* Create(int, int);
 };
-class Result {
+class Result_1c5c20 {
   public:
     void Finish(int);
 };
-class Owner {
+class Owner_1c5c20 {
   public:
     char pad[8];
-    Provider* provider;
+    Provider_1c5c20* provider;
     int value;
     void* Run(int);
 };
 extern void* Alloc(unsigned int);
-void* Owner::Run(int arg) {
+void* Owner_1c5c20::Run(int arg) {
     int n = provider->Get();
     void* p = Alloc(0xb0);
     void* r;
@@ -30,6 +30,6 @@ void* Owner::Run(int arg) {
         r = ((Builder*)p)->Create(arg, n);
     else
         r = 0;
-    ((Result*)r)->Finish(value);
+    ((Result_1c5c20*)r)->Finish(value);
     return r;
 }

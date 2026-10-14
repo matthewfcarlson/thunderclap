@@ -8,7 +8,7 @@ class BaseAllocated {
   public:
     void Init();
 };
-class Elem {
+class Elem_23d0a0 {
   public:
     void Build(int);
 };
@@ -24,7 +24,7 @@ ConditionFactoryCasterTemplate* ConditionFactoryCasterTemplate::V1(int x) {
     if (p) {
         p->Init();
         *(unsigned int*)p = ((int)DAT_00428a7c);
-        ((Elem*)((char*)p + 8))->Build(x);
+        ((Elem_23d0a0*)((char*)p + 8))->Build(x);
         return (ConditionFactoryCasterTemplate*)p;
     }
     return 0;

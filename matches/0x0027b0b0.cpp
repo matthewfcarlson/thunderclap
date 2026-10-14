@@ -5,16 +5,16 @@ class Entity {
     int b;
     int c;
 };
-class Derived {
+class Derived_27b0b0 {
   public:
     void* vptr;
     int a;
     int b;
     int c;
-    Derived(void*);
+    Derived_27b0b0(void*);
 };
 extern void* Entity_vftable;
-Derived::Derived(void* param) {
+Derived_27b0b0::Derived_27b0b0(void* param) {
     a = 0;
     vptr = &Entity_vftable;
     b = 0;

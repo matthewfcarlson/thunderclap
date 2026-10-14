@@ -1,4 +1,4 @@
-class Item {
+class Item_29f2e0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -8,30 +8,30 @@ class Item {
     virtual void f5();
     virtual void f6();
 };
-class List {
+class List_29f2e0 {
   public:
     char pad0[0x10];
     int count;
     char pad14[4];
-    Item** items;
+    Item_29f2e0** items;
     void init(int);
-    void process(int, Item*);
+    void process(int, Item_29f2e0*);
 };
-class Obj {
+class Obj_29f2e0 {
   public:
     char pad0[4];
-    List* data;
+    List_29f2e0* data;
     char pad8[4];
-    List* list;
+    List_29f2e0* list;
     int n;
     int run();
 };
-int Obj::run() {
+int Obj_29f2e0::run() {
     list->init(n);
     int i = 0;
     if (n > 0) {
         do {
-            Item* x;
+            Item_29f2e0* x;
             if (i < data->count)
                 x = data->items[i];
             else

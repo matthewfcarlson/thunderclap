@@ -4,11 +4,11 @@ class CHitAnimationTrack {
     int vfunc_12(int);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-struct Helper {
+struct Helper_5dda0 {
     int FUN_0001cfd0(CHitAnimationTrack*, int);
 };
 int CHitAnimationTrack::vfunc_12(int param) {
-    Helper* p = (Helper*)FUN_0008d690(0x28);
+    Helper_5dda0* p = (Helper_5dda0*)FUN_0008d690(0x28);
     if (p)
         return p->FUN_0001cfd0(this, param);
     return 0;

@@ -6,10 +6,10 @@ class CMoveTrack {
     float b;
     float vfunc_7();
 };
-float zero = 0.0f;
+float zero_69ae0 = 0.0f;
 float CMoveTrack::vfunc_7() {
     float d = b - a;
-    if (d < zero)
-        d = zero;
+    if (d < zero_69ae0)
+        d = zero_69ae0;
     return d;
 }

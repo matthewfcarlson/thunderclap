@@ -1,4 +1,4 @@
-struct Result {
+struct Result_f9ef0 {
     virtual void pad();
     virtual long long Get();
 };
@@ -7,22 +7,22 @@ struct Node {
     Node* next;
     int count;
 };
-struct Head {
+struct Head_f9ef0 {
     int pad;
     Node* first;
 };
-struct Owner {
+struct Owner_f9ef0 {
     char pad[8];
-    Head* head;
+    Head_f9ef0* head;
 };
 extern long long g_val;
-bool __fastcall FUN_000f9ef0(Owner* self) {
-    Head* h = self->head;
+bool __fastcall FUN_000f9ef0(Owner_f9ef0* self) {
+    Head_f9ef0* h = self->head;
     if (h) {
         Node* n = h->first;
         while (n) {
             if (n->count <= 1) {
-                long long v = ((Result*)n)->Get();
+                long long v = ((Result_f9ef0*)n)->Get();
                 if (v == g_val)
                     return true;
                 return false;

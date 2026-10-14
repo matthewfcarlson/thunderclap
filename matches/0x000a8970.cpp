@@ -1,24 +1,24 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
-class Ref {
+extern void* g_vftable_a8970[];
+class Ref_a8970 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Base {
+class Base_a8970 {
   public:
     void* vptr;
     void Fin();
 };
-class Cam : public Base {
+class Cam_a8970 : public Base_a8970 {
   public:
     char pad[0x170 - 4];
-    Ref* m170;
-    Ref* m174;
-    ~Cam();
+    Ref_a8970* m170;
+    Ref_a8970* m174;
+    ~Cam_a8970();
 };
-Cam::~Cam() {
-    vptr = g_vftable;
+Cam_a8970::~Cam_a8970() {
+    vptr = g_vftable_a8970;
     _ReadWriteBarrier();
     if (m170) {
         m170->Release();

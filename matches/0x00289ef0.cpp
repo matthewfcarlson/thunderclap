@@ -1,8 +1,8 @@
-class T {
+class T_289ef0 {
   public:
-    T* Init();
+    T_289ef0* Init();
 };
 
-T* T::Init() {
+T_289ef0* T_289ef0::Init() {
     return this;
 }

@@ -1,4 +1,4 @@
-class C {
+class C_29c240 {
   public:
     void Set(int a, const int* p, const int* q, int e, int f, int g, int h, int i, int j);
     char p0[4];
@@ -13,7 +13,7 @@ class C {
     int m34;
     int m38;
 };
-void C::Set(int a, const int* p, const int* q, int e, int f, int g, int h, int i, int j) {
+void C_29c240::Set(int a, const int* p, const int* q, int e, int f, int g, int h, int i, int j) {
     m8 = a;
     m4 = 2;
     x0 = p[0];

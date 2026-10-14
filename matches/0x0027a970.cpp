@@ -1,5 +1,5 @@
 extern "C" int __cdecl strncmp(const char*, const char*, unsigned int);
-struct NameEntry {
+struct NameEntry_27a970 {
     char text[32];
 };
 struct NameRing {
@@ -7,7 +7,7 @@ struct NameRing {
     unsigned int current;
     unsigned int capacity;
     char pad18[0x20];
-    NameEntry entries[1];
+    NameEntry_27a970 entries[1];
     bool FUN_0027a970(const char* name);
 };
 bool NameRing::FUN_0027a970(const char* name) {

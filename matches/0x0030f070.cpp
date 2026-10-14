@@ -1,14 +1,14 @@
 // Same code shape as 0x00221b70 (propagated; names are from that function)
-typedef unsigned int u32;
-struct Block {
-    u32 x[16];
+typedef unsigned int u32_30f070;
+struct Block_30f070 {
+    u32_30f070 x[16];
 };
-struct Obj {
-    Block block;
-    u32 a, b, c, d, e;
-    void Copy(const Block* src);
+struct Obj_30f070 {
+    Block_30f070 block;
+    u32_30f070 a, b, c, d, e;
+    void Copy(const Block_30f070* src);
 };
-void Obj::Copy(const Block* src) {
+void Obj_30f070::Copy(const Block_30f070* src) {
     block = *src;
     c = 0;
     b = 0;

@@ -1,16 +1,16 @@
-class Ref {
+class Ref_299170 {
   public:
     virtual void f0();
     virtual void Release();
 };
-class Target {
+class Target_299170 {
   public:
     char pad[8];
-    Ref* mRef;
+    Ref_299170* mRef;
     int Destroy(int flags);
 };
-extern void __cdecl thunk_FUN_00267090(Target*);
-int Target::Destroy(int flags) {
+extern void __cdecl thunk_FUN_00267090(Target_299170*);
+int Target_299170::Destroy(int flags) {
     if (mRef) {
         mRef->Release();
         mRef = 0;

@@ -3,12 +3,12 @@ class Node {
     virtual void Release(int);
     Node* next;
 };
-class Holder {
+class Holder_f9b00 {
   public:
     Node* head;
     void Set(Node*);
 };
-void Holder::Set(Node* value) {
+void Holder_f9b00::Set(Node* value) {
     Node* p = head;
     if (p) {
         do {

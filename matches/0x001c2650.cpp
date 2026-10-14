@@ -1,4 +1,4 @@
-class Item {
+class Item_1c2650 {
   public:
     virtual void a();
     virtual void b();
@@ -10,7 +10,7 @@ class Item {
     virtual void h();
     virtual void i(int, int);
 };
-class Mgr {
+class Mgr_1c2650 {
   public:
     virtual void a();
     virtual void b();
@@ -30,23 +30,23 @@ class Mgr {
     virtual void p(int);
     virtual void q(int);
 };
-struct Root {
-    Mgr* m;
+struct Root_1c2650 {
+    Mgr_1c2650* m;
 };
-extern Root* gRoot;
-class Target {
+extern Root_1c2650* gRoot_1c2650;
+class Target_1c2650 {
     char pad[0xbc];
-    Item* member;
+    Item_1c2650* member;
 
   public:
-    void helper(Item*, int);
-    void fn(Item*, int, int);
+    void helper(Item_1c2650*, int);
+    void fn(Item_1c2650*, int, int);
 };
-void Target::fn(Item* p, int x, int y) {
+void Target_1c2650::fn(Item_1c2650* p, int x, int y) {
     if (p) {
-        gRoot->m->p(0);
+        gRoot_1c2650->m->p(0);
         helper(p, y);
         p->i((int)member, x);
-        gRoot->m->q(0);
+        gRoot_1c2650->m->q(0);
     }
 }

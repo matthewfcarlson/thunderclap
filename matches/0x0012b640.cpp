@@ -1,5 +1,5 @@
-extern int vtable;
-class Helper {
+extern int vtable_12b640;
+class Helper_12b640 {
   public:
     void Init();
 };
@@ -14,8 +14,8 @@ class ThreatBallTrack {
     void Run();
 };
 void ThreatBallTrack::Run() {
-    *(int*)this = (int)&vtable;
-    ((Helper*)((char*)this + 0x30))->Init();
-    ((Helper*)((char*)this + 0x18))->Init();
+    *(int*)this = (int)&vtable_12b640;
+    ((Helper_12b640*)((char*)this + 0x30))->Init();
+    ((Helper_12b640*)((char*)this + 0x18))->Init();
     ((Ender*)this)->Finish();
 }

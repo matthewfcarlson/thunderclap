@@ -1,4 +1,4 @@
-class Base {
+class Base_1eff0 {
   public:
     virtual void Fn();
     virtual void Release();
@@ -14,18 +14,18 @@ class CAction {
     virtual void F();
     virtual void G();
     char pad[0x18];
-    Base* mRef;
+    Base_1eff0* mRef;
     int mValue;
     int mOther;
 };
 class CSmartPropSpawnAction : public CAction {
   public:
-    CSmartPropSpawnAction(int, Base*);
+    CSmartPropSpawnAction(int, Base_1eff0*);
     virtual void A();
 };
 extern int vtAction;
 extern int vtSpawn;
-CSmartPropSpawnAction::CSmartPropSpawnAction(int value, Base* ref) {
+CSmartPropSpawnAction::CSmartPropSpawnAction(int value, Base_1eff0* ref) {
     *(int*)this = (int)&vtAction;
     mRef = 0;
     if (ref)

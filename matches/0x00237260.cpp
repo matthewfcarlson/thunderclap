@@ -1,13 +1,13 @@
-class B {
+class B_237260 {
   public:
     int x;
 };
-class A {
+class A_237260 {
   public:
     char pad[0x18];
-    B val;
-    B* GetPtr();
+    B_237260 val;
+    B_237260* GetPtr();
 };
-B* A::GetPtr() {
+B_237260* A_237260::GetPtr() {
     return &val;
 }

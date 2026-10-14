@@ -1,21 +1,21 @@
-typedef unsigned int u32;
+typedef unsigned int u32_292e70;
 namespace pure3d {
-struct Sub {
+struct Sub_292e70 {
     void update();
 };
-struct Block {
-    u32 v[16];
+struct Block_292e70 {
+    u32_292e70 v[16];
 };
 struct Camera {
     char pad[0x8c];
-    Block field;
+    Block_292e70 field;
     char flag;
-    void vfunc_21(const u32* p);
+    void vfunc_21(const u32_292e70* p);
 };
-void Camera::vfunc_21(const u32* p) {
-    field = *(const Block*)p;
+void Camera::vfunc_21(const u32_292e70* p) {
+    field = *(const Block_292e70*)p;
     flag = 1;
-    *(Block*)((char*)this + 0x4c) = field;
-    ((Sub*)((char*)this + 0x4c))->update();
+    *(Block_292e70*)((char*)this + 0x4c) = field;
+    ((Sub_292e70*)((char*)this + 0x4c))->update();
 }
 } // namespace pure3d

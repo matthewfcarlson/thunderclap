@@ -1,13 +1,13 @@
-struct Obj;
-struct Manager {
+struct Obj_149b0;
+struct Manager_149b0 {
     void* Find(int);
 };
-struct Root {
+struct Root_149b0 {
     char pad[0x44];
-    Manager* mgr;
+    Manager_149b0* mgr;
 };
-extern Root* gRoot;
-struct Obj {
+extern Root_149b0* gRoot_149b0;
+struct Obj_149b0 {
     void Apply(int, int);
 };
 
@@ -25,7 +25,7 @@ struct CStunAnimationAction {
 
 void CStunAnimationAction::v4() {
     int x = *(int*)((char*)mAnim + 8);
-    Obj* o = (Obj*)gRoot->mgr->Find(x);
+    Obj_149b0* o = (Obj_149b0*)gRoot_149b0->mgr->Find(x);
     if (o)
         o->Apply(mValue, 0);
 }

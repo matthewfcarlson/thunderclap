@@ -1,12 +1,12 @@
 class CCameraManager;
 extern "C" void __stdcall FUN_001d0480(void*, int);
 extern "C" unsigned char __cdecl FUN_001d04d0(const void*);
-extern int g1, g2;
-class Base {
+extern int g1_9ca30, g2;
+class Base_9ca30 {
   public:
-    Base(void* a) { FUN_001d0480(a, 2); }
+    Base_9ca30(void* a) { FUN_001d0480(a, 2); }
 };
-class Method2 : public Base {
+class Method2 : public Base_9ca30 {
   public:
     virtual void invoke();
     char pad[12];
@@ -17,9 +17,9 @@ class Method2 : public Base {
     CCameraManager* mgr;
     Method2(void*, void*, CCameraManager*);
 };
-Method2::Method2(void* a, void* p, CCameraManager* m) : Base(a) {
+Method2::Method2(void* a, void* p, CCameraManager* m) : Base_9ca30(a) {
     mgr = m;
-    b3 = FUN_001d04d0(&g1);
+    b3 = FUN_001d04d0(&g1_9ca30);
     b1 = FUN_001d04d0(&g2);
     b2 = FUN_001d04d0(&g2);
 }

@@ -1,17 +1,17 @@
 extern "C" char DAT_004193ec[];
-struct Sub {
+struct Sub_180fc0 {
     void A();
     void B();
 };
-struct X {
+struct X_180fc0 {
     int* v;
     char pad[0x64];
     void f();
     void C();
 };
-void X::f() {
+void X_180fc0::f() {
     v = (int*)((int)DAT_004193ec);
-    ((Sub*)((char*)this + 0x78))->A();
-    ((Sub*)((char*)this + 0x68))->B();
+    ((Sub_180fc0*)((char*)this + 0x78))->A();
+    ((Sub_180fc0*)((char*)this + 0x68))->B();
     C();
 }

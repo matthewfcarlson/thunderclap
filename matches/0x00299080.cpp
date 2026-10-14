@@ -1,4 +1,4 @@
-class Item {
+class Item_299080 {
   public:
     virtual void f0();
     virtual void f1();
@@ -16,20 +16,20 @@ class Item {
     virtual void f13();
     virtual void reset();
 };
-struct Entry {
+struct Entry_299080 {
     char pad[8];
-    Item* item;
+    Item_299080* item;
 };
 struct Array {
-    Entry* first;
-    Entry* last;
+    Entry_299080* first;
+    Entry_299080* last;
     unsigned char size() const { return (unsigned char)(last - first); }
 };
-struct Vec {
+struct Vec_299080 {
     char pad[0x3c];
     Array arr;
 };
-class Ref {
+class Ref_299080 {
   public:
     virtual void f0();
     virtual void release();
@@ -52,9 +52,9 @@ class CompositeDrawable {
     virtual void f13();
     virtual void vfunc_14();
     char pad[0xc];
-    Ref* ref;
+    Ref_299080* ref;
     char pad2[0x30];
-    Vec* vec;
+    Vec_299080* vec;
 };
 void CompositeDrawable::vfunc_14() {
     if (ref) {

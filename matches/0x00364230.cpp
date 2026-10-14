@@ -1,8 +1,8 @@
-class Obj {
+class Obj_364230 {
   public:
     void Run();
 };
-Obj gObj;
+Obj_364230 gObj_364230;
 void __cdecl FUN_00364230() {
-    gObj.Run();
+    gObj_364230.Run();
 }

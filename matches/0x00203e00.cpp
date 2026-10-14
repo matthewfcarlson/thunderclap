@@ -1,4 +1,4 @@
-struct Global {
+struct Global_203e00 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -92,17 +92,17 @@ struct Global {
     virtual void cm();
     virtual void cn();
 };
-extern Global* DAT_0052c2a8;
-struct Item {
+extern Global_203e00* DAT_0052c2a8;
+struct Item_203e00 {
     void run();
 };
 extern void helper();
-struct Obj {
+struct Obj_203e00 {
     char pad[0x578];
-    Item* items[1];
+    Item_203e00* items[1];
     void target(int index);
 };
-void Obj::target(int index) {
+void Obj_203e00::target(int index) {
     DAT_0052c2a8->cn();
     if (items[index])
         items[index]->run();

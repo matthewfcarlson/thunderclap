@@ -1,9 +1,9 @@
-struct E {
+struct E_303700 {
     char d[0x44];
 };
-void F(E* a, E* b, E* c);
+void F(E_303700* a, E_303700* b, E_303700* c);
 
-void G(E* first, E* mid, E* last) {
+void G(E_303700* first, E_303700* mid, E_303700* last) {
     int n = last - first;
     if (n > 40) {
         int s = (n + 1) / 8;

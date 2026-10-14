@@ -5,14 +5,14 @@ class Chunk {
     int Find(int a, int b);
 };
 
-class Base {
+class Base_2d2570 {
   public:
-    Base() : mA(0) {}
+    Base_2d2570() : mA(0) {}
     virtual void f0();
     int mA;
 };
 
-class GenState : public Base {
+class GenState : public Base_2d2570 {
   public:
     GenState(Chunk* c);
     virtual void f0();

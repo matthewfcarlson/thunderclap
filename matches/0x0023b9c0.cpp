@@ -1,5 +1,5 @@
 // Same code shape as 0x0023b410 (propagated; names are from that function)
-class Inner {
+class Inner_23b9c0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -29,7 +29,7 @@ class ScriptReader {
     virtual void vfunc_18();
     virtual void f19();
     char pad[4];
-    Inner* p;
+    Inner_23b9c0* p;
 };
 void ScriptReader::vfunc_18() {
     p->f3();

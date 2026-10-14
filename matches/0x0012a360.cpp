@@ -8,7 +8,7 @@ class Cond {
     int x;
     int y;
 };
-class Factory {
+class Factory_12a360 {
   public:
     virtual void a();
     virtual void b();
@@ -17,7 +17,7 @@ class Factory {
     virtual void e();
     virtual Cond* F();
 };
-Cond* Factory::F() {
+Cond* Factory_12a360::F() {
     Cond* p = (Cond*)Allocate(0x14);
     if (p) {
         p->Cond::Cond(0);

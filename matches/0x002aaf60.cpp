@@ -1,18 +1,18 @@
-class Item {
+class Item_2aaf60 {
   public:
     virtual void A();
     virtual void B();
     virtual void C();
     virtual int Key();
 };
-class Container {
+class Container_2aaf60 {
   public:
     char pad[0x14];
     unsigned count;
-    Item* items[1];
-    void Put(Item*);
+    Item_2aaf60* items[1];
+    void Put(Item_2aaf60*);
 };
-void Container::Put(Item* item) {
+void Container_2aaf60::Put(Item_2aaf60* item) {
     if (item) {
         unsigned i = 0;
         while (i < count && items[i]->Key() != item->Key())

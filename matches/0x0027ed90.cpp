@@ -1,25 +1,25 @@
-struct Controller {
+struct Controller_27ed90 {
     void FUN_002fc670(int);
 };
 struct Object {
     virtual void AddRef();
     virtual void Release();
     char pad[0x9c];
-    Controller* controller;
+    Controller_27ed90* controller;
 };
-struct Entry {
+struct Entry_27ed90 {
     Object* object;
     void* data;
     unsigned flags;
 };
-struct Owner {
+struct Owner_27ed90 {
     char pad[0xb4];
     int count;
-    Entry entries[4];
+    Entry_27ed90 entries[4];
     void FUN_0027e780(Object*, void*);
     bool FUN_0027ed90(Object*, void*, unsigned);
 };
-bool Owner::FUN_0027ed90(Object* object, void* data, unsigned flags) {
+bool Owner_27ed90::FUN_0027ed90(Object* object, void* data, unsigned flags) {
     if (!object || !data || count >= 4)
         return false;
     if (flags & 4) {
@@ -27,7 +27,7 @@ bool Owner::FUN_0027ed90(Object* object, void* data, unsigned flags) {
             object->controller->FUN_002fc670(2);
         FUN_0027e780(object, data);
     }
-    Entry* entry = &entries[count];
+    Entry_27ed90* entry = &entries[count];
     object->AddRef();
     if (entry->object)
         entry->object->Release();

@@ -1,8 +1,8 @@
-extern void* g_vt[];
+extern void* g_vt_1616c0[];
 
-class RefObj {
+class RefObj_1616c0 {
   public:
-    virtual ~RefObj();
+    virtual ~RefObj_1616c0();
     virtual void Release();
 };
 
@@ -11,17 +11,17 @@ void __cdecl DeleteObj(void*);
 struct ClimbLocomotionAction {
     void* mVptr;
     char pad[0x18];
-    RefObj* m1c;
-    RefObj* m20;
-    RefObj* m24;
+    RefObj_1616c0* m1c;
+    RefObj_1616c0* m20;
+    RefObj_1616c0* m24;
     void BaseDtor();
     ClimbLocomotionAction* vfunc_2(unsigned char flags);
 };
 
 ClimbLocomotionAction* ClimbLocomotionAction::vfunc_2(unsigned char flags) {
     volatile ClimbLocomotionAction* v = this;
-    RefObj* p;
-    v->mVptr = g_vt;
+    RefObj_1616c0* p;
+    v->mVptr = g_vt_1616c0;
     p = v->m24;
     if (p) {
         p->Release();

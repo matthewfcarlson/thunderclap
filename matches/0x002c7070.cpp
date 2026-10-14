@@ -1,6 +1,6 @@
 typedef unsigned int size_t;
 extern "C" void* memset(void*, int, size_t);
-class Thing {
+class Thing_2c7070 {
   public:
     char pad0[0x0c];
     int count;
@@ -10,7 +10,7 @@ class Thing {
     void* d[2];
     void Clear();
 };
-void Thing::Clear() {
+void Thing_2c7070::Clear() {
     if (a)
         memset(a, 0, count * 12);
     if (b)

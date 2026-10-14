@@ -7,9 +7,9 @@ class Sub {
   public:
     Sub();
 };
-extern char VT[];
+extern char VT_12b100[];
 extern void* __cdecl FUN_0008d690(unsigned int);
-class Factory {
+class Factory_12b100 {
   public:
     virtual void a();
     virtual void b();
@@ -18,11 +18,11 @@ class Factory {
     virtual void e();
     virtual void* f();
 };
-void* Factory::f() {
+void* Factory_12b100::f() {
     Child* p = (Child*)FUN_0008d690(0x30);
     if (p) {
         p->Child::Child(0);
-        *(void**)p = VT;
+        *(void**)p = VT_12b100;
         *(int*)((char*)p + 0xc) = 0;
         *(float*)((char*)p + 0x10) = 1.5707964f;
         *(char*)((char*)p + 0x14) = 0;

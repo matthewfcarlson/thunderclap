@@ -1,18 +1,18 @@
-class A;
-class Arg {
+class A_5dc10;
+class Arg_5dc10 {
   public:
-    A* A1();
+    A_5dc10* A1();
 };
-class A {
+class A_5dc10 {
   public:
-    A* B();
+    A_5dc10* B();
     void* D(void*, void*);
 };
-class R {
+class R_5dc10 {
   public:
     unsigned int E();
 };
-class Q {
+class Q_5dc10 {
   public:
     int F(void*, void*, unsigned int);
 };
@@ -38,15 +38,15 @@ class COpportunityBallTrack {
 };
 extern void* __cdecl FUN_0008d690(unsigned int);
 int COpportunityBallTrack::vfunc_12(void* arg) {
-    A* a = ((Arg*)arg)->A1();
+    A_5dc10* a = ((Arg_5dc10*)arg)->A1();
     a = a->B();
     if (!a)
         return 0;
     void* m = m18;
     void* n = m1c;
-    unsigned int r = ((R*)a->D(m, n))->E();
+    unsigned int r = ((R_5dc10*)a->D(m, n))->E();
     if (r != 0xffff) {
-        Q* q = (Q*)FUN_0008d690(0x5c);
+        Q_5dc10* q = (Q_5dc10*)FUN_0008d690(0x5c);
         if (q)
             return q->F(this, arg, r);
     }

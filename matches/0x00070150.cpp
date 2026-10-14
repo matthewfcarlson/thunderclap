@@ -7,12 +7,12 @@ struct TrackFactoryTemplate {
     virtual void f4();
     virtual int vfunc_5();
 };
-struct Thing {
+struct Thing_70150 {
     int init();
 };
 void* operator new(unsigned int);
 int TrackFactoryTemplate::vfunc_5() {
-    Thing* p = (Thing*)operator new(0x14);
+    Thing_70150* p = (Thing_70150*)operator new(0x14);
     if (p)
         return p->init();
     return 0;

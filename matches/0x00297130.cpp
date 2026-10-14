@@ -6,13 +6,13 @@ class Scenegraph {
     virtual void d();
     virtual int vfunc_4();
 };
-class Obj {
+class Obj_297130 {
   public:
     int helper(Scenegraph*);
 };
-extern Obj* alloc(int);
+extern Obj_297130* alloc(int);
 int Scenegraph::vfunc_4() {
-    Obj* p = alloc(0x48);
+    Obj_297130* p = alloc(0x48);
     if (p)
         return p->helper(this);
     return 0;

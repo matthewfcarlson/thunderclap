@@ -1,11 +1,11 @@
-class Obj {
+class Obj_16eb10 {
   public:
     char pad[32];
     char m20;
     char m21;
     char Set(char v);
 };
-char Obj::Set(char v) {
+char Obj_16eb10::Set(char v) {
     m20 = v;
     return 1;
 }

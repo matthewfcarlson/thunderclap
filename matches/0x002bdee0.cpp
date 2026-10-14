@@ -1,11 +1,11 @@
-class Base {
+class Base_2bdee0 {
   public:
-    Base(int);
+    Base_2bdee0(int);
     virtual void V();
 };
-class SpriteObject : public Base {
+class SpriteObject : public Base_2bdee0 {
   public:
     SpriteObject();
     virtual void V();
 };
-SpriteObject::SpriteObject() : Base(1) {}
+SpriteObject::SpriteObject() : Base_2bdee0(1) {}

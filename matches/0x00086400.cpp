@@ -1,26 +1,26 @@
-struct Inner {
+struct Inner_86400 {
     char pad[0x18];
 };
-struct Mid {
+struct Mid_86400 {
     char pad[0x18];
-    Inner* p18;
+    Inner_86400* p18;
 };
-struct Outer {
+struct Outer_86400 {
     char pad[0x54];
-    Mid* p54;
+    Mid_86400* p54;
 };
-extern Outer* gGlobal;
-struct Final {
+extern Outer_86400* gGlobal_86400;
+struct Final_86400 {
     void Run();
 };
-struct Obj {
+struct Obj_86400 {
     int a;
     char pad[4];
     int c;
     void Run();
 };
-void Obj::Run() {
+void Obj_86400::Run() {
     a = c;
     c = 0;
-    ((Final*)gGlobal->p54->p18)->Run();
+    ((Final_86400*)gGlobal_86400->p54->p18)->Run();
 }

@@ -1,5 +1,5 @@
 bool Check();
-class Thing {
+class Thing_87940 {
   public:
     char pad[4];
     int* state;
@@ -8,7 +8,7 @@ class Thing {
     void StepB();
     void Target();
 };
-void Thing::Target() {
+void Thing_87940::Target() {
     if (!Check())
         Set(1);
     while (*state != 8) {

@@ -1,8 +1,8 @@
-class A {
+class A_27ff40 {
   public:
     void f(int, int);
 };
-class B {
+class B_27ff40 {
   public:
     void f(int, int);
 };
@@ -18,16 +18,16 @@ class V {
     virtual void v7();
     virtual void f(int, int);
 };
-class C {
+class C_27ff40 {
   public:
     char p[12];
-    A* a;
+    A_27ff40* a;
     char q[4];
-    B* b;
+    B_27ff40* b;
     V* c;
     void f(int, int);
 };
-void C::f(int x, int y) {
+void C_27ff40::f(int x, int y) {
     a->f(x, y);
     b->f(x, y);
     c->f(x, y);

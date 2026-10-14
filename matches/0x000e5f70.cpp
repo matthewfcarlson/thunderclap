@@ -1,9 +1,9 @@
 extern "C" void _ReadWriteBarrier();
-class Probe {
+class Probe_e5f70 {
   public:
     short* Find(int);
 };
-class Item {
+class Item_e5f70 {
     char pad[0x14];
 
   public:
@@ -13,7 +13,7 @@ class Item {
     char pad3[0xcc];
     unsigned char f141;
 };
-class Manager {
+class Manager_e5f70 {
   public:
     virtual void f0();
     virtual void f1();
@@ -61,30 +61,30 @@ class Manager {
     virtual void f43();
     virtual int get(int);
 };
-class Owner {
+class Owner_e5f70 {
     char pad[4];
 
   public:
-    Manager* mgr;
+    Manager_e5f70* mgr;
     char pad2[0x40];
     int selected;
     char pad3[0x94c];
-    Item* items[3];
+    Item_e5f70* items[3];
     char pad4[4];
     unsigned char done;
     void Update();
 };
-void Owner::Update() {
-    Item* a[3];
+void Owner_e5f70::Update() {
+    Item_e5f70* a[3];
     a[0] = items[0];
     a[1] = items[1];
     a[2] = items[2];
     int i = 0;
     do {
-        Item* p = a[i];
+        Item_e5f70* p = a[i];
         if (p) {
             int x = mgr->get(0);
-            short* q = ((Probe*)((char*)p + 0x18))->Find(x);
+            short* q = ((Probe_e5f70*)((char*)p + 0x18))->Find(x);
             if (q && *q) {
                 p->f141 = 1;
                 p->f74 = 1;

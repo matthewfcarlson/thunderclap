@@ -1,13 +1,13 @@
 extern "C" char DAT_004315dc[];
-class Big {
+class Big_2f5640 {
   public:
     void Init();
 };
-class Small {
+class Small_2f5640 {
   public:
     void Init();
 };
-class Base {
+class Base_2f5640 {
   public:
     void Init();
 };
@@ -20,10 +20,10 @@ class PhysicsObject {
 };
 void PhysicsObject::Setup() {
     vt = (void*)((int)DAT_004315dc);
-    ((Big*)((char*)this + 0x168))->Init();
-    ((Small*)((char*)this + 0x114))->Init();
-    ((Small*)((char*)this + 0xf8))->Init();
-    ((Small*)((char*)this + 0xdc))->Init();
-    ((Base*)((char*)this + 0x30))->Init();
+    ((Big_2f5640*)((char*)this + 0x168))->Init();
+    ((Small_2f5640*)((char*)this + 0x114))->Init();
+    ((Small_2f5640*)((char*)this + 0xf8))->Init();
+    ((Small_2f5640*)((char*)this + 0xdc))->Init();
+    ((Base_2f5640*)((char*)this + 0x30))->Init();
     Finish();
 }

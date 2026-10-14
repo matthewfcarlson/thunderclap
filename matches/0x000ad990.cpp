@@ -1,24 +1,24 @@
 extern "C" void* memset(void*, int, unsigned int);
-class Item {
+class Item_ad990 {
   public:
     void Release();
 };
-class Obj {
+class Obj_ad990 {
   public:
     void Reset();
     char pad0[16];
     int count;
-    Item** items;
+    Item_ad990** items;
     unsigned int a[17];
     unsigned int b[17];
     unsigned char pad1[12];
     unsigned int c[17];
     unsigned int d[17];
 };
-void Obj::Reset() {
+void Obj_ad990::Reset() {
     int i = count;
     while (--i >= 0) {
-        Item* p = items[i];
+        Item_ad990* p = items[i];
         if (p)
             p->Release();
     }

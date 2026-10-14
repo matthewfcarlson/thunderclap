@@ -1,4 +1,4 @@
-class C {
+class C_269f0 {
   public:
     char pad[0x228];
     char slots[0x100];
@@ -6,7 +6,7 @@ class C {
     int find(int, int);
     bool add(int, int);
 };
-bool C::add(int x, int y) {
+bool C_269f0::add(int x, int y) {
     int i = count;
     if (i >= 0x20)
         return false;

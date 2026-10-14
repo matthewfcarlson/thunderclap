@@ -1,10 +1,10 @@
-class Base {
+class Base_6ad90 {
   public:
-    Base();
+    Base_6ad90();
     virtual void B();
 };
 
-class CAlertStatusTrack : public Base {
+class CAlertStatusTrack : public Base_6ad90 {
   public:
     CAlertStatusTrack();
     virtual void Dummy();

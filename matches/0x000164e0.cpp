@@ -14,30 +14,30 @@ class CSmartPropEventAction {
     int mType;
     void* mB;
 };
-struct Sub {
+struct Sub_164e0 {
     int query(int);
 };
-struct Obj {
+struct Obj_164e0 {
     char pad[0x40];
     int value;
     char pad2[0xa8];
-    Sub* sub;
+    Sub_164e0* sub;
     void mutate(int);
     int finish(int);
 };
-struct A {
+struct A_164e0 {
     void* next();
 };
-struct B {
+struct B_164e0 {
     void* next();
-    Obj* find(void*);
+    Obj_164e0* find(void*);
 };
 bool CSmartPropEventAction::vfunc_6(int x) {
-    A* a = (A*)mA;
+    A_164e0* a = (A_164e0*)mA;
     void* p = a->next();
-    B* b = (B*)p;
+    B_164e0* b = (B_164e0*)p;
     p = b->next();
-    Obj* o = ((B*)p)->find(mB);
+    Obj_164e0* o = ((B_164e0*)p)->find(mB);
     if (o) {
         int old = o->value;
         o->mutate(mType);

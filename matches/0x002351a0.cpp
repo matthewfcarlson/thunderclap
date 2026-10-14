@@ -1,4 +1,4 @@
-class Helper {
+class Helper_2351a0 {
   public:
     void Process(int);
 };
@@ -16,5 +16,5 @@ class ParamValueBranch {
 void ParamValueBranch::vfunc_3(int a, int b) {
     int x = Query(a);
     if (x)
-        ((Helper*)x)->Process(b);
+        ((Helper_2351a0*)x)->Process(b);
 }

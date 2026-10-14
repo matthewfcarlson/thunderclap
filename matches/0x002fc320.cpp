@@ -1,16 +1,16 @@
 // Same code shape as 0x001b7620 (propagated; names are from that function)
-class Item {
+class Item_2fc320 {
   public:
     virtual void Add();
     virtual void Release();
 };
-class Holder {
+class Holder_2fc320 {
   public:
-    Item* mItem;
-    Item* Set(Item* item);
+    Item_2fc320* mItem;
+    Item_2fc320* Set(Item_2fc320* item);
 };
-Item* Holder::Set(Item* item) {
-    Item* old = mItem;
+Item_2fc320* Holder_2fc320::Set(Item_2fc320* item) {
+    Item_2fc320* old = mItem;
     if (old != item) {
         mItem = item;
         if (item)

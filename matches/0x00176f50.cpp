@@ -1,24 +1,24 @@
-class Thing {
+class Thing_176f50 {
   public:
     virtual void A();
     virtual void B();
 };
-extern char g_vftable[];
-class Base {
+extern char g_vftable_176f50[];
+class Base_176f50 {
   public:
     void* vptr;
-    Base();
+    Base_176f50();
 };
-class RestPoseAction : public Base {
+class RestPoseAction : public Base_176f50 {
   public:
     char pad[0x18];
     int a;
-    Thing* b;
+    Thing_176f50* b;
     int c;
-    RestPoseAction(int, Thing*);
+    RestPoseAction(int, Thing_176f50*);
 };
-RestPoseAction::RestPoseAction(int x, Thing* p) {
-    vptr = g_vftable;
+RestPoseAction::RestPoseAction(int x, Thing_176f50* p) {
+    vptr = g_vftable_176f50;
     int* q = &a;
     *q = 0;
     b = 0;

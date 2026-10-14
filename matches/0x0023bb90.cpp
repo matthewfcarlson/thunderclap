@@ -5,7 +5,7 @@ struct Stream {
     virtual void v3();
     virtual void Write(void* p, unsigned n);
 };
-struct W {
+struct W_23bb90 {
     char p0[8];
     Stream* s;
     char p1;
@@ -17,7 +17,7 @@ struct W {
     char pend;
     void Flush();
 };
-void W::Flush() {
+void W_23bb90::Flush() {
     if (pend) {
         unsigned junk;
         while (remain > 0) {

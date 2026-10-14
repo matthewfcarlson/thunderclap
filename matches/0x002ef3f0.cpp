@@ -1,8 +1,8 @@
-class Obj {
+class Obj_2ef3f0 {
   public:
     virtual void f();
 };
-class Old {
+class Old_2ef3f0 {
   public:
     void cleanup();
 };
@@ -22,14 +22,14 @@ class SimState {
     virtual void a11();
     virtual void a12();
     virtual void a13();
-    virtual void vfunc_14(Obj*);
+    virtual void vfunc_14(Obj_2ef3f0*);
     char pad[0x70];
-    Obj* member;
+    Obj_2ef3f0* member;
 };
-void SimState::vfunc_14(Obj* p) {
+void SimState::vfunc_14(Obj_2ef3f0* p) {
     if (p)
         p->f();
     if (member)
-        ((Old*)member)->cleanup();
+        ((Old_2ef3f0*)member)->cleanup();
     member = p;
 }

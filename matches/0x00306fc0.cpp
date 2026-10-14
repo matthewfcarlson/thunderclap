@@ -1,4 +1,4 @@
-struct physics_CollisionRay {
+struct physics_CollisionRay_306fc0 {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -8,4 +8,4 @@ struct physics_CollisionRay {
     virtual void vfunc_6();
 };
 
-void physics_CollisionRay::vfunc_5(int a, int b) {}
+void physics_CollisionRay_306fc0::vfunc_5(int a, int b) {}

@@ -1,5 +1,5 @@
 // Same code shape as 0x0030d320 (propagated; names are from that function)
-struct Sub {
+struct Sub_30d4a0 {
     void Destruct();
 };
 
@@ -14,15 +14,15 @@ class PhysicsJoint {
     int m20;
     int m24;
     char pad2[0x48 - 0x28];
-    Sub m48;
+    Sub_30d4a0 m48;
     char pad3[0x64 - 0x49];
-    Sub m64;
+    Sub_30d4a0 m64;
 
     void* vfunc_0(int flags);
 };
 
 void* PhysicsJoint::vfunc_0(int flags) {
-    Sub* p = &m64;
+    Sub_30d4a0* p = &m64;
     vptr = (void*)&PhysicsJoint_vft;
     p->Destruct();
     m48.Destruct();

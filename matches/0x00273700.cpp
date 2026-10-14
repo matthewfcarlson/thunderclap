@@ -8,7 +8,7 @@ struct I3 {
     virtual void c();
     virtual void d(int);
 };
-struct Obj {
+struct Obj_273700 {
     void* v;
     I0 sub;
     char pad[0x10];
@@ -16,7 +16,7 @@ struct Obj {
 };
 struct FileCompletionRequest {
     char pad[0xc];
-    Obj* p;
+    Obj_273700* p;
     I3* q;
     int arg;
     void vfunc_7();

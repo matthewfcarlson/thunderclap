@@ -1,29 +1,29 @@
-class Obj {
+class Obj_247a20 {
   public:
     int Check();
     void Start(int, int);
 };
-class State {
+class State_247a20 {
   public:
     char pad0[8];
-    Obj* mObj;
+    Obj_247a20* mObj;
     int mStatus;
     char mFlag;
     char pad11[3];
     int mValue;
 };
-class Callback {
+class Callback_247a20 {
   public:
     virtual void A();
-    virtual void B(void*, Obj*);
+    virtual void B(void*, Obj_247a20*);
 };
-class Owner {
+class Owner_247a20 {
   public:
     char pad0[0xac];
-    Callback* mCallback;
+    Callback_247a20* mCallback;
 };
-extern int Result(Obj*);
-void FUN_00247a20(Owner* owner, State* state, Obj* obj, int flag, int value) {
+extern int Result(Obj_247a20*);
+void FUN_00247a20(Owner_247a20* owner, State_247a20* state, Obj_247a20* obj, int flag, int value) {
     state->mFlag = (char)flag;
     state->mValue = value;
     state->mStatus = 1;

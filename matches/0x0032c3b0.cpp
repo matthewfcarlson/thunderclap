@@ -1,6 +1,6 @@
-extern unsigned int gState, gState1, gState2;
+extern unsigned int gState_32c3b0, gState1, gState2;
 extern void __stdcall SetTextureState(int, int);
-class Device {
+class Device_32c3b0 {
   public:
     char pad0[0x1c];
     int texCoord;
@@ -33,14 +33,14 @@ class Shader {
   public:
     char pad0[0x10];
     DevVirtual* v;
-    Device* dev;
+    Device_32c3b0* dev;
     void vfunc_13();
 };
 void Shader::vfunc_13() {
-    Device* d = dev;
+    Device_32c3b0* d = dev;
     if (d->stateE4 != 1) {
         d->stateE4 = 1;
-        gState |= 0x800;
+        gState_32c3b0 |= 0x800;
         gState1 = 1;
     }
     d = dev;
@@ -51,7 +51,7 @@ void Shader::vfunc_13() {
     d = dev;
     if (d->stateF8 != 0) {
         d->stateF8 = 0;
-        gState |= 0x400;
+        gState_32c3b0 |= 0x400;
         gState2 = 0;
     }
     v->q(2);

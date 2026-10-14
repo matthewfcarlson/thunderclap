@@ -3,46 +3,46 @@ struct Entity {
     char active;
     void Update();
 };
-struct EntList {
+struct EntList_65b80 {
     char pad[0xc];
     int count;
     Entity* Get(int i);
 };
-struct Game {
+struct Game_65b80 {
     char pad[0x20];
-    EntList* list;
+    EntList_65b80* list;
     char pad2[0x8];
     int val;
 };
-extern Game* g_game;
+extern Game_65b80* g_game_65b80;
 
-struct Clock {
+struct Clock_65b80 {
     float Now();
 };
 
-struct Obj {
+struct Obj_65b80 {
     int mType;
-    Clock* mClock;
+    Clock_65b80* mClock;
     char pad[0x354];
     float mNext;
     float mInterval;
     void Tick(int a);
 };
 
-void Obj::Tick(int a) {
+void Obj_65b80::Tick(int a) {
     if (!mClock)
         return;
     if (mType == 0) {
-        int v = *(int*)((char*)g_game + 0x2c);
+        int v = *(int*)((char*)g_game_65b80 + 0x2c);
         mType = v;
         if (!v)
             return;
     }
     if (mClock->Now() >= mNext) {
-        EntList* l = g_game->list;
+        EntList_65b80* l = g_game_65b80->list;
         int n = l->count;
         for (int i = 0; i < n; i++) {
-            Entity* e = g_game->list->Get(i);
+            Entity* e = g_game_65b80->list->Get(i);
             if (e && e->active)
                 e->Update();
         }

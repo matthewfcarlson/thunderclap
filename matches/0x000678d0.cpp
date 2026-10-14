@@ -1,15 +1,15 @@
 extern "C" int atexit(void (*)());
 extern "C" void cleanup();
-extern "C" unsigned int flag;
-struct Obj {
+extern "C" unsigned int flag_678d0;
+struct Obj_678d0 {
     void init();
 };
-extern Obj object;
-extern "C" Obj* target() {
-    if ((flag & 1) == 0) {
-        flag = flag | 1;
-        object.init();
+extern Obj_678d0 object_678d0;
+extern "C" Obj_678d0* target() {
+    if ((flag_678d0 & 1) == 0) {
+        flag_678d0 = flag_678d0 | 1;
+        object_678d0.init();
         atexit(cleanup);
     }
-    return &object;
+    return &object_678d0;
 }

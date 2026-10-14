@@ -1,6 +1,6 @@
 typedef float(__cdecl* RandomFn)();
 extern RandomFn gRandom;
-class Obj {
+class Obj_de1d0 {
   public:
     char pad[0x2c];
     float second;
@@ -8,7 +8,7 @@ class Obj {
     float first;
     void Update();
 };
-void Obj::Update() {
+void Obj_de1d0::Update() {
     first += gRandom();
     second += gRandom();
 }

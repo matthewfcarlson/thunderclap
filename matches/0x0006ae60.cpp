@@ -1,11 +1,11 @@
-class Base {
+class Base_6ae60 {
   public:
     virtual void f0();
     virtual void f1();
-    Base();
+    Base_6ae60();
 };
 
-class CDeathTrack : public Base {
+class CDeathTrack : public Base_6ae60 {
   public:
     virtual void f0();
     virtual void f1();

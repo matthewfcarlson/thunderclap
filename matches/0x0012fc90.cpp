@@ -5,7 +5,7 @@ void __cdecl thunk_FUN_00267090c(void*);
 extern char g_vftable_target;
 }
 
-struct BaseCls {
+struct BaseCls_12fc90 {
   public:
     void Dtor();
 };
@@ -28,7 +28,7 @@ void* DebugPrintCondition::v5(unsigned char flag) {
     *(char**)this = &g_vftable_target;
     thunk_FUN_00267090(m_p1);
     thunk_FUN_00267090b(m_p2);
-    ((BaseCls*)this)->Dtor();
+    ((BaseCls_12fc90*)this)->Dtor();
     if (flag & 1) {
         thunk_FUN_00267090c(this);
     }

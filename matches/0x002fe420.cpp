@@ -1,4 +1,4 @@
-class A {
+class A_2fe420 {
   public:
     virtual void f0();
     virtual void f1();
@@ -11,20 +11,20 @@ class A {
     char pad[0x34];
     int count;
 };
-class B {
+class B_2fe420 {
   public:
     char pad[0x24];
     int state;
     void Apply(int, unsigned char);
 };
-class C {
+class C_2fe420 {
   public:
     char pad70[0x70];
-    B* b;
-    A* a;
+    B_2fe420* b;
+    A_2fe420* a;
     void Run(int);
 };
-void C::Run(int x) {
+void C_2fe420::Run(int x) {
     if (a) {
         int* result = (int*)a->Get(x);
         if (b && b->state == 2) {

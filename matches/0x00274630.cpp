@@ -6,21 +6,21 @@ class V {
     virtual void A();
     virtual void B();
 };
-class Obj {
+class Obj_274630 {
   public:
     char pad[4];
     V sub;
     char rest[0x10];
     int count;
 };
-class Owner {
+class Owner_274630 {
   public:
     void Fn();
     char pad[8];
-    Obj* mObj;
+    Obj_274630* mObj;
 };
-void Owner::Fn() {
-    Obj* p = mObj;
+void Owner_274630::Fn() {
+    Obj_274630* p = mObj;
     *(unsigned long*)this = ((int)DAT_0042b9bc);
     p->sub.A();
     --(*(int*)((char*)mObj + 0x14));

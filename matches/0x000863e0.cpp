@@ -1,24 +1,24 @@
-struct Inner {
+struct Inner_863e0 {
     char pad[0x18];
     void f();
 };
-struct Mid {
+struct Mid_863e0 {
     char pad[0x18];
-    Inner* p;
+    Inner_863e0* p;
 };
-struct Root {
+struct Root_863e0 {
     char pad[0x54];
-    Mid* p;
+    Mid_863e0* p;
 };
-extern Root* g;
-struct Target {
+extern Root_863e0* g_863e0;
+struct Target_863e0 {
     unsigned int a;
     char pad[4];
     unsigned int b;
     void run(unsigned int x);
 };
-void Target::run(unsigned int x) {
+void Target_863e0::run(unsigned int x) {
     b = a;
     a = x;
-    g->p->p->f();
+    g_863e0->p->p->f();
 }

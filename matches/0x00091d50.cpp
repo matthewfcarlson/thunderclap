@@ -1,7 +1,7 @@
-struct Obj {
+struct Obj_91d50 {
     char pad[0x68];
-    Obj* Get();
+    Obj_91d50* Get();
 };
-Obj* Obj::Get() {
-    return (Obj*)((char*)this + 0x68);
+Obj_91d50* Obj_91d50::Get() {
+    return (Obj_91d50*)((char*)this + 0x68);
 }

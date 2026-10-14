@@ -11,7 +11,7 @@ class FEDoAction {
         void* ptr;
     }* member;
 };
-class Related {
+class Related_e1d20 {
   public:
     virtual void f0();
     virtual void f1();
@@ -48,12 +48,12 @@ class FEDoBackScreen : public FEDoAction {
 void FEDoBackScreen::vfunc_1() {
     if (a) {
         member->ptr;
-        ((Related*)member->ptr)->f23();
+        ((Related_e1d20*)member->ptr)->f23();
         return;
     }
     if (b) {
-        ((Related*)member->ptr)->f22();
+        ((Related_e1d20*)member->ptr)->f22();
         return;
     }
-    ((Related*)member->ptr)->f21();
+    ((Related_e1d20*)member->ptr)->f21();
 }

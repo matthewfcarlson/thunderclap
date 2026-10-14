@@ -1,6 +1,6 @@
 extern "C" int strcmp(const char*, const char*);
-extern char* gSentinel;
-extern char gEmpty[];
+extern char* gSentinel_240380;
+extern char gEmpty_240380[];
 class StringLike {
   public:
     char* mData;
@@ -9,8 +9,8 @@ class StringLike {
 char StringLike::Compare(const char* other) {
     char* p = mData;
     if (other == 0)
-        return p == gSentinel;
-    if (p == gSentinel)
-        p = gEmpty;
+        return p == gSentinel_240380;
+    if (p == gSentinel_240380)
+        p = gEmpty_240380;
     return strcmp(p, other) == 0;
 }

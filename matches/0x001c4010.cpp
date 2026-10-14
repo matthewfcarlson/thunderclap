@@ -1,9 +1,9 @@
-class Engine {
+class Engine_1c4010 {
   public:
     void Init(void*, int, int, int, int);
     void Finish(int);
 };
-class Thing {
+class Thing_1c4010 {
   public:
     char pad[0x5c];
     int a;
@@ -13,10 +13,10 @@ class Thing {
     char done;
     void Run(int);
 };
-void Thing::Run(int x) {
+void Thing_1c4010::Run(int x) {
     if (!done) {
-        (*(Engine**)pad)->Init(pad + 0x1c, a, b, c, d);
+        (*(Engine_1c4010**)pad)->Init(pad + 0x1c, a, b, c, d);
         done = 1;
     }
-    (*(Engine**)pad)->Finish(x);
+    (*(Engine_1c4010**)pad)->Finish(x);
 }

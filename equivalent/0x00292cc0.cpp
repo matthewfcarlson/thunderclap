@@ -2,11 +2,11 @@
 // FUN_00292cc0 @ 0x00292cc0
 // Screen-space scale of a point: projects the point through the view, then writes
 // (x, y) scale factors derived from the field of view and aspect ratio, and the depth.
-struct Vec3 { float x, y, z; };
+struct Vec3_292cc0 { float x, y, z; };
 struct Matrix { float m[16]; };
 
-struct Vec3Ops : Vec3 {
-    void FUN_0022d240(const Vec3 *in, const Matrix *matrix);
+struct Vec3Ops : Vec3_292cc0 {
+    void FUN_0022d240(const Vec3_292cc0 *in, const Matrix *matrix);
 };
 
 class Display {
@@ -18,7 +18,7 @@ public:
     virtual float GetAspect();      // slot 16
 };
 
-union PosArg { const Vec3 *p; float f; };
+union PosArg { const Vec3_292cc0 *p; float f; };
 struct Out { float x, y; int z; };
 
 extern Display *DAT_0052c2a4;

@@ -1,11 +1,11 @@
-class Base {
+class Base_6a070 {
   public:
-    Base();
+    Base_6a070();
     virtual void B0();
     int m_base;
 };
 
-class CInvincibleTrack : public Base {
+class CInvincibleTrack : public Base_6a070 {
   public:
     CInvincibleTrack();
     virtual void Fn0();
@@ -18,7 +18,7 @@ class CInvincibleTrack : public Base {
     int m_b;
 };
 
-CInvincibleTrack::CInvincibleTrack() : Base() {
+CInvincibleTrack::CInvincibleTrack() : Base_6a070() {
     m_a = 0;
     m_b = 0;
     m_f = -1.0f;

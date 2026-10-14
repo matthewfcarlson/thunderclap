@@ -1,13 +1,13 @@
-class CBase {
+class CBase_dee40 {
   public:
-    CBase() {
+    CBase_dee40() {
         a = 0;
         b = 0;
     }
     int a;
     int b;
 };
-class CDropShadowDisplayEffect : public CBase {
+class CDropShadowDisplayEffect : public CBase_dee40 {
   public:
     CDropShadowDisplayEffect();
     virtual void f();

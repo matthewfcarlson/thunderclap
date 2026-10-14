@@ -1,7 +1,7 @@
 extern "C" char DAT_003f421c[];
 extern "C" void __stdcall FUN_001d0480(const char*, int);
 extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
-extern const char g1[], g2[], g3[];
+extern const char g1_2d830[], g2[], g3[];
 class CActorManager {
   public:
     int vptr;
@@ -17,7 +17,7 @@ CActorManager::CActorManager(const char* a, int b) {
     FUN_001d0480(a, 4);
     vptr = ((int)DAT_003f421c);
     m1c = b;
-    b18 = FUN_001d04d0(g1);
+    b18 = FUN_001d04d0(g1_2d830);
     b10 = FUN_001d04d0(g2);
     b11 = FUN_001d04d0(g3);
     b12 = FUN_001d04d0(g3);

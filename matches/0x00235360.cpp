@@ -9,9 +9,9 @@ class ParamValue {
     virtual void vfunc_6();
     int pad;
 };
-class Sub {
+class Sub_235360 {
   public:
-    Sub();
+    Sub_235360();
 };
 class ParamValueFloat : public ParamValue {
   public:
@@ -19,7 +19,7 @@ class ParamValueFloat : public ParamValue {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_5();
-    Sub sub;
+    Sub_235360 sub;
 };
 extern void __cdecl thunk_FUN_00267090(ParamValueFloat*);
 ParamValueFloat::ParamValueFloat(unsigned int flags) {

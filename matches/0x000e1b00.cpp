@@ -6,11 +6,11 @@ class FEDoAction {
     virtual void vfunc_3();
     virtual void vfunc_4();
 };
-class Check {
+class Check_e1b00 {
   public:
     virtual int Call(int, int);
 };
-class Obj {
+class Obj_e1b00 {
   public:
     virtual void f0();
     virtual void f1();
@@ -62,16 +62,16 @@ class Obj {
     virtual void f47();
     virtual void f48(int);
 };
-struct Holder {
+struct Holder_e1b00 {
     int x;
-    Obj* p;
+    Obj_e1b00* p;
 };
 class FEDoFunction : public FEDoAction {
   public:
     char p10[12];
-    Holder* holder;
+    Holder_e1b00* holder;
     char p14[32];
-    Check* mCheck;
+    Check_e1b00* mCheck;
     int a38;
     int a3c;
     virtual void vfunc_1();

@@ -1,45 +1,45 @@
 extern void* g_vftableA[];
 extern void* g_vftableB[];
-class Inner {
+class Inner_275320 {
   public:
     virtual void a();
     virtual void b();
 };
-class Root {
+class Root_275320 {
   public:
     virtual void a();
     virtual void b();
 };
 extern void __cdecl FUN_0026d850(void*);
 extern void __cdecl FUN_0026d840(void*);
-struct Manager {
+struct Manager_275320 {
     virtual void x();
     virtual void y();
     virtual void z();
     virtual void q();
     virtual void add(void*);
 };
-extern Manager* g_mgr;
-extern char g_lock[];
-class Req {
+extern Manager_275320* g_mgr_275320;
+extern char g_lock_275320[];
+class Req_275320 {
   public:
     void* vt;
     int pad;
-    Inner* inner;
-    Req* vfunc_0(int flags);
+    Inner_275320* inner;
+    Req_275320* vfunc_0(int flags);
 };
-Req* Req::vfunc_0(int flags) {
-    Inner* p = inner;
+Req_275320* Req_275320::vfunc_0(int flags) {
+    Inner_275320* p = inner;
     vt = g_vftableA;
-    ((Inner*)((char*)p + 4))->a();
+    ((Inner_275320*)((char*)p + 4))->a();
     --*(int*)((char*)inner + 0x18);
-    ((Inner*)((char*)inner + 4))->b();
-    ((Root*)inner)->b();
+    ((Inner_275320*)((char*)inner + 4))->b();
+    ((Root_275320*)inner)->b();
     vt = g_vftableB;
     if (flags & 1) {
-        FUN_0026d850(g_lock);
-        g_mgr->add(this);
-        FUN_0026d840(g_lock);
+        FUN_0026d850(g_lock_275320);
+        g_mgr_275320->add(this);
+        FUN_0026d840(g_lock_275320);
     }
     return this;
 }

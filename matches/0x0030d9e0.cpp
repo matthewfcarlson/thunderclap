@@ -1,28 +1,28 @@
 struct Object {
     void run();
 };
-struct Entry {
+struct Entry_30d9e0 {
     int a;
     int b;
     int key;
     int d;
     Object* object;
 };
-struct Container {
+struct Container_30d9e0 {
     int pad;
-    Entry* begin;
-    Entry* end;
+    Entry_30d9e0* begin;
+    Entry_30d9e0* end;
     void scan(int key);
 };
-void Container::scan(int key) {
-    Entry* p = begin;
+void Container_30d9e0::scan(int key) {
+    Entry_30d9e0* p = begin;
     if (p <= end) {
         do {
             if (p->a == key || p->key == key)
                 p->object->run();
-            Entry* last = end;
-            Entry* old = p;
-            p = (Entry*)((char*)p + 20);
+            Entry_30d9e0* last = end;
+            Entry_30d9e0* old = p;
+            p = (Entry_30d9e0*)((char*)p + 20);
             if (old == last)
                 break;
         } while (1);

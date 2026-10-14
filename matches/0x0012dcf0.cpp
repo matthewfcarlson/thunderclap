@@ -1,10 +1,10 @@
 extern "C" char DAT_00411110[];
-struct Ref {
+struct Ref_12dcf0 {
     virtual void f0();
     virtual void f1();
 };
 extern void* Alloc(unsigned int);
-struct Memory {
+struct Memory_12dcf0 {
     void Init();
 };
 struct PostEvent_StringTrack {
@@ -18,7 +18,7 @@ struct PostEvent_StringTrack {
     virtual void v7();
     virtual void v8();
     virtual void v9();
-    virtual void* vfunc_10(int, int, Ref*);
+    virtual void* vfunc_10(int, int, Ref_12dcf0*);
 };
 void PostEvent_StringTrack::v0() {}
 void PostEvent_StringTrack::v1() {}
@@ -30,19 +30,19 @@ void PostEvent_StringTrack::v6() {}
 void PostEvent_StringTrack::v7() {}
 void PostEvent_StringTrack::v8() {}
 void PostEvent_StringTrack::v9() {}
-void* PostEvent_StringTrack::vfunc_10(int a, int b, Ref* param) {
+void* PostEvent_StringTrack::vfunc_10(int a, int b, Ref_12dcf0* param) {
     char* p = (char*)Alloc(0x24);
     if (p) {
-        ((Memory*)p)->Init();
+        ((Memory_12dcf0*)p)->Init();
         *(void**)(p + 0x1c) = this;
         *(unsigned int*)p = ((int)DAT_00411110);
         *(unsigned int*)(p + 0x20) = 0;
         if (param)
             param->f0();
-        Ref* old = *(Ref**)(p + 0x20);
+        Ref_12dcf0* old = *(Ref_12dcf0**)(p + 0x20);
         if (old)
             old->f1();
-        *(Ref**)(p + 0x20) = param;
+        *(Ref_12dcf0**)(p + 0x20) = param;
         return p;
     }
     return 0;

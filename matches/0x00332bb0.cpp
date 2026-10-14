@@ -1,5 +1,5 @@
 extern "C" char DAT_00433f74[];
-struct I {
+struct I_332bb0 {
     virtual void f();
     virtual void Release();
 };
@@ -7,8 +7,8 @@ class Shader {
   public:
     virtual void v0();
     char pad[0x7c];
-    I* m80;
-    I* m84;
+    I_332bb0* m80;
+    I_332bb0* m84;
     void target();
     void common();
 };

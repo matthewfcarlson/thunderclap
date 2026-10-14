@@ -4,16 +4,16 @@ struct Node {
     int key;
 };
 extern "C" Node* gHead = 0;
-extern "C" char gLock[8] = {0};
+extern "C" char gLock_26dbb0[8] = {0};
 typedef void(__stdcall* LockFn)(void*);
 extern "C" LockFn EnterPtr = 0;
 extern "C" LockFn LeavePtr = 0;
 extern "C" int __cdecl Key();
 extern "C" Node* __cdecl FUN_0026dbb0() {
     Node* p = gHead;
-    EnterPtr(gLock);
+    EnterPtr(gLock_26dbb0);
     while (p != 0 && p->key != Key())
         p = p->next;
-    LeavePtr(gLock);
+    LeavePtr(gLock_26dbb0);
     return p;
 }

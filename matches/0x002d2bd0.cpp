@@ -1,5 +1,5 @@
 extern "C" char DAT_00444152[];
-struct Owner {
+struct Owner_2d2bd0 {
     int pad;
     int Find(int, int);
 };
@@ -7,9 +7,9 @@ extern int vtab;
 struct BlendState {
     int* vptr;
     int a, b, c;
-    BlendState(Owner*);
+    BlendState(Owner_2d2bd0*);
 };
-BlendState::BlendState(Owner* arg) {
+BlendState::BlendState(Owner_2d2bd0* arg) {
     a = 0;
     vptr = &vtab;
     b = 0;

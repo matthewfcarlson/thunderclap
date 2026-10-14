@@ -1,6 +1,6 @@
 extern "C" char DAT_0043223c[];
 void __cdecl thunk(void*);
-struct Base {
+struct Base_3128d0 {
     void Dtor();
 };
 struct SkeletonInfo {
@@ -13,5 +13,5 @@ void SkeletonInfo::Free() {
     vf = (void*)((int)DAT_0043223c);
     if (member)
         thunk((char*)member - 4);
-    ((Base*)this)->Dtor();
+    ((Base_3128d0*)this)->Dtor();
 }

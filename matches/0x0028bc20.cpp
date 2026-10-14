@@ -1,18 +1,18 @@
 extern "C" void _ReadWriteBarrier();
 extern void* g_f2[];
 extern void* g_s[];
-extern void* g_c[];
+extern void* g_c_28bc20[];
 void __cdecl Drop(void*);
-class Res {
+class Res_28bc20 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Obj {
+class Obj_28bc20 {
   public:
     void* vptr;
     char pad[8];
-    Res* p0;
+    Res_28bc20* p0;
     char pad2[4];
     void* p1;
     void* p2;
@@ -30,7 +30,7 @@ class Obj {
     }
     void F();
 };
-void Obj::F() {
+void Obj_28bc20::F() {
     vptr = g_f2;
     if (!p0)
         Drop(p2);
@@ -38,5 +38,5 @@ void Obj::F() {
     Reset();
     vptr = g_s;
     Reset();
-    vptr = g_c;
+    vptr = g_c_28bc20;
 }

@@ -1,13 +1,13 @@
-typedef unsigned int u32;
-struct Obj {};
-void __cdecl f1(Obj*, int);
-void __cdecl f2(Obj*, int);
-void __cdecl f3(Obj*, int);
-int __cdecl f4(Obj*, int, int, int);
-void __cdecl f5(Obj*, int);
-void __cdecl f6(Obj*, int);
-void __cdecl f7(Obj*);
-void __cdecl target(Obj* p) {
+typedef unsigned int u32_33e200;
+struct Obj_33e200 {};
+void __cdecl f1(Obj_33e200*, int);
+void __cdecl f2(Obj_33e200*, int);
+void __cdecl f3(Obj_33e200*, int);
+int __cdecl f4(Obj_33e200*, int, int, int);
+void __cdecl f5(Obj_33e200*, int);
+void __cdecl f6(Obj_33e200*, int);
+void __cdecl f7(Obj_33e200*);
+void __cdecl target(Obj_33e200* p) {
     f1(p, 2);
     f2(p, 2);
     f3(p, 1);

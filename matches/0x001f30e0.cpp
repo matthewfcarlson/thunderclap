@@ -1,22 +1,22 @@
-struct StringValue {
+struct StringValue_1f30e0 {
     char data[8];
-    StringValue* FUN_0027b0e0(const char* text);
-    void FUN_0027af70(StringValue* source);
+    StringValue_1f30e0* FUN_0027b0e0(const char* text);
+    void FUN_0027af70(StringValue_1f30e0* source);
     void FUN_0027af50();
 };
-struct Record {
-    StringValue first;
-    StringValue second;
-    StringValue third;
+struct Record_1f30e0 {
+    StringValue_1f30e0 first;
+    StringValue_1f30e0 second;
+    StringValue_1f30e0 third;
     unsigned value;
     unsigned padding;
 };
 extern int DAT_004e3764;
-extern Record DAT_004e37b8[264];
+extern Record_1f30e0 DAT_004e37b8[264];
 void __stdcall FUN_001f30e0(const char* first, const char* second, const char* third, unsigned value) {
     if (DAT_004e3764 < 264) {
-        StringValue temporary;
-        StringValue* source = temporary.FUN_0027b0e0(first);
+        StringValue_1f30e0 temporary;
+        StringValue_1f30e0* source = temporary.FUN_0027b0e0(first);
         DAT_004e37b8[DAT_004e3764].first.FUN_0027af70(source);
         temporary.FUN_0027af50();
         source = temporary.FUN_0027b0e0(second);

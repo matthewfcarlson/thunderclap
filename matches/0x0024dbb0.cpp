@@ -1,4 +1,4 @@
-extern int gBss;
+extern int gBss_24dbb0;
 extern void FUN_00247550(const void*, void*);
 class ListenerEffectWin32 {
   public:
@@ -16,6 +16,6 @@ class ListenerEffectWin32 {
 ListenerEffectWin32* ListenerEffectWin32::vfunc_2(int flag) {
     BaseCall();
     if (flag & 1)
-        FUN_00247550(&gBss, this);
+        FUN_00247550(&gBss_24dbb0, this);
     return this;
 }

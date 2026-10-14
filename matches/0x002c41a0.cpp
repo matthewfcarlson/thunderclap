@@ -1,4 +1,4 @@
-struct T {
+struct T_2c41a0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -14,7 +14,7 @@ struct T {
     void Set(int x, int y, int z);
 };
 
-void T::Set(int x, int y, int z) {
+void T_2c41a0::Set(int x, int y, int z) {
     f1 = x;
     f2 = y;
     f3 = z;

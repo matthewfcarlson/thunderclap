@@ -1,11 +1,11 @@
-class X {
+class X_ada50 {
     char pad[0x90];
     int a[4];
 
   public:
     void f(int);
 };
-void X::f(int i) {
+void X_ada50::f(int i) {
     if (i >= 0 && i < 2) {
         a[i * 2] = 0;
         a[i * 2 + 1] = 0;

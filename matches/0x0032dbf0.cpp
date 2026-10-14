@@ -1,16 +1,16 @@
 // Same code shape as 0x0032ba70 (propagated; names are from that function)
-class Ref {
+class Ref_32dbf0 {
   public:
     virtual void f0();
     virtual void f1();
 };
-extern int vtable;
-class pure3d_d3dLightMapShader {
+extern int vtable_32dbf0;
+class pure3d_d3dLightMapShader_32dbf0 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual pure3d_d3dLightMapShader* vfunc_3(unsigned int);
+    virtual pure3d_d3dLightMapShader_32dbf0* vfunc_3(unsigned int);
     virtual void f4();
     virtual void f5();
     virtual void f6();
@@ -34,12 +34,12 @@ class pure3d_d3dLightMapShader {
     virtual void f24();
     void cleanup();
     char pad[0x80 - 4];
-    Ref* a;
-    Ref* b;
+    Ref_32dbf0* a;
+    Ref_32dbf0* b;
 };
-void __cdecl destroy(pure3d_d3dLightMapShader*);
-pure3d_d3dLightMapShader* pure3d_d3dLightMapShader::vfunc_3(unsigned int x) {
-    *(int*)this = (int)&vtable;
+void __cdecl destroy(pure3d_d3dLightMapShader_32dbf0*);
+pure3d_d3dLightMapShader_32dbf0* pure3d_d3dLightMapShader_32dbf0::vfunc_3(unsigned int x) {
+    *(int*)this = (int)&vtable_32dbf0;
     if (a)
         a->f1();
     if (b)

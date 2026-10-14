@@ -1,5 +1,5 @@
 extern "C" char DAT_00429fac[];
-typedef unsigned int u32;
+typedef unsigned int u32_252930;
 extern char g_seqVarVolumeHeap[];
 namespace audio {
 class SeqEventType {
@@ -12,7 +12,7 @@ class SeqEventType {
 class SeqEventVarVolume {
   public:
     void* vptr;
-    u32 pad;
+    u32_252930 pad;
     float volume;
     void Init();
 };

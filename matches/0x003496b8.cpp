@@ -1,15 +1,15 @@
 // cl-flags: /O1
-extern void* vt[];
+extern void* vt_3496b8[];
 extern "C" void* malloc(unsigned n) throw();
-class O {
+class O_3496b8 {
   public:
     void* vptr;
     char* s;
     int owned;
-    O(const char* const* p) throw();
+    O_3496b8(const char* const* p) throw();
 };
-O::O(const char* const* p) throw() {
-    vptr = vt;
+O_3496b8::O_3496b8(const char* const* p) throw() {
+    vptr = vt_3496b8;
     const char* q = *p;
     const char* r = q + 1;
     while (*q++) {

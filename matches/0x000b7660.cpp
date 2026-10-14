@@ -1,4 +1,4 @@
-class Selector {
+class Selector_b7660 {
   public:
     virtual void f0();
     virtual void f1();
@@ -29,25 +29,25 @@ class Selector {
     char pad[0x1d54];
     int count;
 };
-class State {
+class State_b7660 {
     char pad[12];
 
   public:
     char active;
 };
-class Owner {
+class Owner_b7660 {
     char pad[0x5c];
-    State* state;
+    State_b7660* state;
 
   public:
     void update();
 };
-extern int rttiA, rttiB;
+extern int rttiA_b7660, rttiB;
 extern int __cdecl find(const char*);
-extern Selector* __cdecl cast(int, int, void*, void*, int);
-void Owner::update() {
+extern Selector_b7660* __cdecl cast(int, int, void*, void*, int);
+void Owner_b7660::update() {
     if (state) {
-        Selector* p = cast(find("subtitle_selector"), 0, &rttiA, &rttiB, 0);
+        Selector_b7660* p = cast(find("subtitle_selector"), 0, &rttiA_b7660, &rttiB, 0);
         if (p) {
             if (state->active) {
                 if (p->count > 0)

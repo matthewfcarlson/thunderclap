@@ -1,4 +1,4 @@
-class Obj {
+class Obj_905f0 {
   public:
     char pad[0x19];
     unsigned char active;
@@ -7,10 +7,10 @@ class Obj {
     void process();
     void target();
 };
-void Obj::target() {
+void Obj_905f0::target() {
     int i;
     for (i = 0; i < count; ++i) {
-        Obj* cur = (Obj*)((char*)this + i * 0x40);
+        Obj_905f0* cur = (Obj_905f0*)((char*)this + i * 0x40);
         if (cur->active)
             cur->process();
     }

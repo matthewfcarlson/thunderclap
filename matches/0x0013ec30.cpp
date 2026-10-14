@@ -1,11 +1,11 @@
-extern const float rad = 0.0174533f;
-struct O {
+extern const float rad_13ec30 = 0.0174533f;
+struct O_13ec30 {
     virtual void V();
     char pad[0x40];
     float v;
     bool Set(float x);
 };
-bool O::Set(float x) {
-    v = x * rad;
+bool O_13ec30::Set(float x) {
+    v = x * rad_13ec30;
     return true;
 }

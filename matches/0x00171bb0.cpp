@@ -1,12 +1,12 @@
-class Actor;
-class Owner {
+class Actor_171bb0;
+class Owner_171bb0 {
     char pad[0x25];
 
   public:
     unsigned char flag;
-    Actor* GetActor();
+    Actor_171bb0* GetActor();
 };
-class Actor {
+class Actor_171bb0 {
     char pad[0x2140];
 
   public:
@@ -14,9 +14,9 @@ class Actor {
     void SetFlag(unsigned char);
     void SetPosition(void*);
 };
-class Manager {
+class Manager_171bb0 {
   public:
-    Owner* GetOwner();
+    Owner_171bb0* GetOwner();
 };
 class DriftToPositionAction {
   public:
@@ -27,8 +27,8 @@ class DriftToPositionAction {
     virtual void vfunc_4();
     virtual void f5();
     char pad1[0x18];
-    Owner* owner;
-    Manager* manager;
+    Owner_171bb0* owner;
+    Manager_171bb0* manager;
     char pad24[0x2c];
     unsigned char a;
     unsigned char b;
@@ -36,9 +36,9 @@ class DriftToPositionAction {
     char pad53[0x0b];
 };
 void DriftToPositionAction::vfunc_4() {
-    Owner* o = manager->GetOwner();
+    Owner_171bb0* o = manager->GetOwner();
     if (o) {
-        Actor* a = o->GetActor();
+        Actor_171bb0* a = o->GetActor();
         if (a) {
             if (owner->flag && c)
                 a->SetPosition((char*)this + 0x40);

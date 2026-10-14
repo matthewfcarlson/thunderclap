@@ -2,7 +2,7 @@ struct R5;
 struct R4;
 struct R2;
 struct R1;
-struct M;
+struct M_15370;
 struct T2;
 struct R3;
 
@@ -39,17 +39,17 @@ struct R1 {
     R2* Fn();
 };
 
-struct M {
+struct M_15370 {
     R1* Fn();
 };
 
-extern char g1[];
-extern char g2[];
+extern char g1_15370[];
+extern char g2_15370[];
 void* FUN_00344e74(void* e, int a, void* b, void* c, int d);
 
 struct CGrappleLocoStrafe4Action {
     char pad[0x1c];
-    M* m1c;
+    M_15370* m1c;
     int m20;
     T2* m24;
     bool vfunc_7(int arg);
@@ -68,7 +68,7 @@ bool CGrappleLocoStrafe4Action::vfunc_7(int arg) {
         return false;
     for (unsigned int i = 0; i < r3->f68; i++) {
         void* e = r3->GetElem(i);
-        T2* p = (T2*)FUN_00344e74(e, 0, g1, g2, 0);
+        T2* p = (T2*)FUN_00344e74(e, 0, g1_15370, g2_15370, 0);
         if (p) {
             m24->f24 = p->f24;
             m24->f12e4 = p->f12e4;

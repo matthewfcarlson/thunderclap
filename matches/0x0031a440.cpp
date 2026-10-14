@@ -1,4 +1,4 @@
-struct Part {
+struct Part_31a440 {
     char data[0x60];
     void FUN_0031a830();
 };
@@ -8,7 +8,7 @@ struct Object {
     char* current;
     char* end;
     unsigned int untouched;
-    Part part;
+    Part_31a440 part;
     unsigned int f70, f74, f78, f7c, flags, f84, f88, f8c, f90, f94, f98, f9c, fa0;
     Object* init();
 };

@@ -1,8 +1,8 @@
 void FUN_00230b60();
-struct Target {
-    Target* Run(int);
+struct Target_66860 {
+    Target_66860* Run(int);
 };
-Target* Target::Run(int x) {
+Target_66860* Target_66860::Run(int x) {
     FUN_00230b60();
     return this;
 }

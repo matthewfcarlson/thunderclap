@@ -1,27 +1,27 @@
-class Ref {
+class Ref_1774c0 {
   public:
     virtual void A();
     virtual void Drop();
 };
-class Base {
+class Base_1774c0 {
   public:
     virtual void V();
     char pad[0x18];
-    Base();
+    Base_1774c0();
 };
-extern void* g_vft;
-class Action : public Base {
+extern void* g_vft_1774c0;
+class Action : public Base_1774c0 {
   public:
     int a;
-    Ref* b;
+    Ref_1774c0* b;
     int c;
     int d;
     int e;
     int f;
-    Action(int, Ref*);
+    Action(int, Ref_1774c0*);
 };
-Action::Action(int x, Ref* p) {
-    *(void**)this = &g_vft;
+Action::Action(int x, Ref_1774c0* p) {
+    *(void**)this = &g_vft_1774c0;
     int* q = &a;
     *q = 0;
     b = 0;

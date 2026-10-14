@@ -22,7 +22,7 @@ class TransformNode {
     virtual void v18();
     virtual void v19();
 };
-class Helper {
+class Helper_2a3e20 {
   public:
     int call(TransformNode*);
 };
@@ -30,6 +30,6 @@ extern void* __cdecl alloc(int);
 int TransformNode::vfunc_4() {
     void* p = alloc(0xb0);
     if (p)
-        return ((Helper*)p)->call(this);
+        return ((Helper_2a3e20*)p)->call(this);
     return 0;
 }

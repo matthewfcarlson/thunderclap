@@ -9,7 +9,7 @@ class TextureLoader {
     void* mTexture;
     void* mOther;
 };
-struct Holder {
+struct Holder_2c2330 {
     char pad[0x14];
     void* p;
     void* q;
@@ -18,13 +18,13 @@ void __fastcall FUN_002ae910(void*);
 void __cdecl thunk_FUN_00267090(void*);
 extern int textureVtable, refVtable;
 void __fastcall FUN_002c2330(TextureLoader* self) {
-    void* p = ((Holder*)self)->p;
+    void* p = ((Holder_2c2330*)self)->p;
     *(int**)self = &textureVtable;
     if (p) {
         FUN_002ae910(p);
         thunk_FUN_00267090(p);
     }
-    if (((Holder*)self)->q)
-        ((IRefCount*)((Holder*)self)->q)->Release(1);
+    if (((Holder_2c2330*)self)->q)
+        ((IRefCount*)((Holder_2c2330*)self)->q)->Release(1);
     *(int**)self = &refVtable;
 }

@@ -1,4 +1,4 @@
-class X {
+class X_307ef0 {
   public:
     int n;
     int cap;
@@ -6,7 +6,7 @@ class X {
     void grow(int);
     char* next();
 };
-char* X::next() {
+char* X_307ef0::next() {
     if (n >= cap)
         grow(cap * 2);
     ++n;

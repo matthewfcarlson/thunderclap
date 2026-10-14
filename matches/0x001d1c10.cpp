@@ -1,4 +1,4 @@
-class C {
+class C_1d1c10 {
     char a[8];
     int obj;
     char b[0x5464];
@@ -11,7 +11,7 @@ class C {
 int __cdecl A(int);
 int __cdecl B(int, int);
 int __cdecl D(int, int);
-bool C::f(int p) {
+bool C_1d1c10::f(int p) {
     if (idx < 0)
         return false;
     int n = A(obj);

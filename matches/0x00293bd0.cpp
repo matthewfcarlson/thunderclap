@@ -1,4 +1,4 @@
-class Obj {
+class Obj_293bd0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -15,12 +15,12 @@ class Obj {
     virtual void f12();
     virtual void f13(int);
 };
-class Holder {
+class Holder_293bd0 {
   public:
-    Obj* p;
-    Holder* FUN_00293bd0(Obj*);
+    Obj_293bd0* p;
+    Holder_293bd0* FUN_00293bd0(Obj_293bd0*);
 };
-Holder* Holder::FUN_00293bd0(Obj* p) {
+Holder_293bd0* Holder_293bd0::FUN_00293bd0(Obj_293bd0* p) {
     this->p = p;
     p->f13(0);
     return this;

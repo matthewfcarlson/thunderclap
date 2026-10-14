@@ -1,4 +1,4 @@
-class Target {
+class Target_12e060 {
   public:
     char pad[0x10];
     int mValue;
@@ -6,7 +6,7 @@ class Target {
     char Set(int value);
 };
 
-char Target::Set(int value) {
+char Target_12e060::Set(int value) {
     mValue = value;
     return 1;
 }

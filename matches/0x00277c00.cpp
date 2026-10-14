@@ -1,7 +1,7 @@
-struct X {
+struct X_277c00 {
     int a[11];
 };
-X* __fastcall FUN_00277c00(X* p) {
+X_277c00* __fastcall FUN_00277c00(X_277c00* p) {
     int* q = (int*)p;
     q[0] = 0;
     q[1] = 0;

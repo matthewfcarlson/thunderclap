@@ -1,4 +1,4 @@
-class Dummy {
+class Dummy_2ce30 {
   public:
     void Call(void*);
 };
@@ -10,10 +10,10 @@ class Method1 {
     virtual void vfunc_2(void* a, void** b, void* c);
 
     char pad[0x18];
-    void (Dummy::*m_fn)(void*);
+    void (Dummy_2ce30::*m_fn)(void*);
 };
 
 void Method1::vfunc_2(void* a, void** b, void* c) {
-    Dummy* d = (Dummy*)a;
+    Dummy_2ce30* d = (Dummy_2ce30*)a;
     (d->*m_fn)(*b);
 }

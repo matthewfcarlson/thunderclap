@@ -1,42 +1,42 @@
-struct Vec3 {
+struct Vec3_310490 {
     int x, y, z;
 };
-struct Item {
+struct Item_310490 {
     char pad[0x98];
     int a, b, c;
 };
-struct Holder {
+struct Holder_310490 {
     char pad[0x10];
     int* records;
 };
-struct Ctx {
+struct Ctx_310490 {
   public:
     void* Get(int);
 };
-struct A {
+struct A_310490 {
   public:
     void* Next();
 };
-struct B {
+struct B_310490 {
   public:
     void* Next();
 };
-struct C {
+struct C_310490 {
   public:
-    void Run(int*, Vec3*);
+    void Run(int*, Vec3_310490*);
 };
-struct Root {
+struct Root_310490 {
     char pad[0x1fc];
-    Item** items;
+    Item_310490** items;
     char pad2[8];
-    Ctx* context;
+    Ctx_310490* context;
     char pad3[0x14];
-    Holder* holder;
-    void Do(int, Vec3*, char);
+    Holder_310490* holder;
+    void Do(int, Vec3_310490*, char);
 };
-void Root::Do(int index, Vec3* out, char flag) {
+void Root_310490::Do(int index, Vec3_310490* out, char flag) {
     if (!flag) {
-        Item* item = items[index];
+        Item_310490* item = items[index];
         if (item) {
             out->x = item->a;
             out->y = item->b;
@@ -45,7 +45,7 @@ void Root::Do(int index, Vec3* out, char flag) {
         }
     }
     void* a = context->Get(index);
-    void* b = ((A*)a)->Next();
-    void* c = ((B*)b)->Next();
-    ((C*)c)->Run(holder->records + index * 7, out);
+    void* b = ((A_310490*)a)->Next();
+    void* c = ((B_310490*)b)->Next();
+    ((C_310490*)c)->Run(holder->records + index * 7, out);
 }

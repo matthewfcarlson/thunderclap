@@ -1,4 +1,4 @@
-class C {
+class C_2a07a0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -14,7 +14,7 @@ class C {
     int m;
     void target(int);
 };
-void C::target(int a) {
+void C_2a07a0::target(int a) {
     m = a;
     f9(0);
 }

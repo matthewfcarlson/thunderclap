@@ -1,4 +1,4 @@
-class Obj {
+class Obj_e62e0 {
   public:
     virtual void f0();
     virtual bool f1(int, int);
@@ -47,10 +47,10 @@ class FEThingsBase {
     virtual void v38();
     virtual void v39();
     char pad[0x1758];
-    Obj* thing175c;
-    Obj* thing1760;
+    Obj_e62e0* thing175c;
+    Obj_e62e0* thing1760;
     char pad2[0xab4];
-    Obj* thing2218;
+    Obj_e62e0* thing2218;
 };
 bool FEThingsBase::v1(int a, int index) {
     if (*((unsigned char*)this + index + 0x2100))

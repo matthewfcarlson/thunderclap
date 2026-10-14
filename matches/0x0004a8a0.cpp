@@ -3,11 +3,11 @@ struct Node {
     int a;
     int b;
 };
-class Manager {
+class Manager_4a8a0 {
   public:
     Node* First();
 };
-class Helper {
+class Helper_4a8a0 {
   public:
     Node* Get();
 };
@@ -28,9 +28,9 @@ class CFightNodePrevCondition {
     unsigned char mFlag;
 };
 bool CFightNodePrevCondition::vfunc_7(void* arg) {
-    Manager* m = (Manager*)arg;
+    Manager_4a8a0* m = (Manager_4a8a0*)arg;
     Node* n = m->First();
-    Node* r = ((Helper*)n)->Get();
+    Node* r = ((Helper_4a8a0*)n)->Get();
     int x = r->a;
     if (mFlag == 0)
         x = r->b;

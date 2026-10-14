@@ -1,4 +1,4 @@
-class Thing {
+class Thing_d7d40 {
     char pad[0x30];
 
   public:
@@ -6,9 +6,9 @@ class Thing {
     char pad2[7];
     char b;
     void Base();
-    Thing* Init();
+    Thing_d7d40* Init();
 };
-Thing* Thing::Init() {
+Thing_d7d40* Thing_d7d40::Init() {
     Base();
     a = 0;
     b = 0;

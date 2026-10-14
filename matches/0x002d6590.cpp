@@ -1,8 +1,8 @@
-struct Resource {
+struct Resource_2d6590 {
     virtual void slot0();
     virtual void release();
 };
-struct Pool {
+struct Pool_2d6590 {
     char pad[8];
     unsigned count;
     void** items;
@@ -13,27 +13,27 @@ namespace pure3d {
 struct SpriteParticleEmitter {
     virtual void slot0();
     char pad04[0x80];
-    Pool* pool;
+    Pool_2d6590* pool;
     char pad88[0xc];
     unsigned resourceCount;
     char pad98[0x10];
-    Resource* resourceA8;
+    Resource_2d6590* resourceA8;
     char padAC[0x94];
     void* buffer;
     char pad144[8];
     unsigned itemCount;
     char pad150[0x6c];
-    Resource* resource1BC;
-    Resource* resource1C0;
-    Resource* resource1C4;
+    Resource_2d6590* resource1BC;
+    Resource_2d6590* resource1C0;
+    Resource_2d6590* resource1C4;
     void** items;
     char pad1CC[8];
-    Resource** resources;
+    Resource_2d6590** resources;
     void FUN_002d4b50();
     ~SpriteParticleEmitter();
 };
 SpriteParticleEmitter::~SpriteParticleEmitter() {
-    Pool* p = pool;
+    Pool_2d6590* p = pool;
     for (unsigned i = 0; i < itemCount; ++i) {
         void** entry = &items[i];
         if (*entry) {
@@ -47,7 +47,7 @@ SpriteParticleEmitter::~SpriteParticleEmitter() {
         resource1BC = 0;
     }
     for (unsigned i = 0; i < resourceCount; ++i) {
-        Resource** entry = &resources[i];
+        Resource_2d6590** entry = &resources[i];
         if (*entry) {
             (*entry)->release();
             *entry = 0;

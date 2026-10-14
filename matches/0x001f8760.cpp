@@ -1,20 +1,20 @@
-class Child {
+class Child_1f8760 {
   public:
 };
-class Thing {
+class Thing_1f8760 {
   public:
-    void Do(Child*);
+    void Do(Child_1f8760*);
 };
-class Owner {
+class Owner_1f8760 {
   public:
     char pad[0x448];
-    Child* child;
-    Thing* Get();
-    void Set(Child*);
+    Child_1f8760* child;
+    Thing_1f8760* Get();
+    void Set(Child_1f8760*);
 };
-void Owner::Set(Child* arg) {
-    Thing* t = Get();
-    Child* old = child;
+void Owner_1f8760::Set(Child_1f8760* arg) {
+    Thing_1f8760* t = Get();
+    Child_1f8760* old = child;
     t->Do(old);
     child = arg;
 }

@@ -1,26 +1,26 @@
-class Ref {
+class Ref_13f9c0 {
   public:
     virtual void First();
     virtual void Release();
 };
-class Base {
+class Base_13f9c0 {
   public:
     int v;
-    Base();
+    Base_13f9c0();
 };
 extern int wallvt;
-class WallRunAction : public Base {
+class WallRunAction : public Base_13f9c0 {
   public:
     char pad[0x18];
     int m1c;
-    Ref* m20;
+    Ref_13f9c0* m20;
     int m24, m28, m2c, m30, m34, m38, m3c, m40, m44, m48, m4c;
     char m50;
     char pad51[3];
     int m54;
-    WallRunAction(int, Ref*);
+    WallRunAction(int, Ref_13f9c0*);
 };
-WallRunAction::WallRunAction(int a, Ref* p) {
+WallRunAction::WallRunAction(int a, Ref_13f9c0* p) {
     v = (int)&wallvt;
     int* q = &m1c;
     *q = 0;

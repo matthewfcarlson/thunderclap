@@ -1,6 +1,6 @@
-extern int vt1, vt2;
+extern int vt1_2c89b0, vt2;
 extern void Free(void*);
-class Ref {
+class Ref_2c89b0 {
   public:
     virtual void f0();
     virtual void Release();
@@ -13,11 +13,11 @@ class D {
     void* q[4];
     void* r[2];
     void *p50, *p54;
-    Ref* a58;
+    Ref_2c89b0* a58;
     ~D();
 };
 D::~D() {
-    vptr = &vt1;
+    vptr = &vt1_2c89b0;
     Free(p14);
     Free(p18);
     Free(p1c);

@@ -10,7 +10,7 @@ class Hbase {
     virtual void f0();
     int a;
 };
-class Handler : public Hbase {
+class Handler_28e9b0 : public Hbase {
   public:
     virtual void f0();
 };
@@ -25,12 +25,12 @@ class ChannelLoader : public Lbase {
     ChannelLoader();
     virtual void f0();
     int count;
-    Handler* tbl[16];
+    Handler_28e9b0* tbl[16];
 };
 ChannelLoader::ChannelLoader() {
     count = 0;
     memset(tbl, 0, 64);
-    Handler* h = new (Alloc(8)) Handler;
+    Handler_28e9b0* h = new (Alloc(8)) Handler_28e9b0;
     if (h) {
         memmove(&tbl[1], &tbl[0], count << 2);
         tbl[0] = h;

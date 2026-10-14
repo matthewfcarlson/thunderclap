@@ -1,4 +1,4 @@
-class Child {
+class Child_296a50 {
   public:
     virtual void f0();
     virtual void f1();
@@ -37,7 +37,7 @@ class VisibilityNode : public BranchNode {
     char pad2[0x17];
     unsigned char enabled;
     char pad3[0x3];
-    Child* child;
+    Child_296a50* child;
 };
 void VisibilityNode::f8(int a, int b, int c) {
     if (!(flags & 1)) {

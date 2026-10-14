@@ -1,14 +1,14 @@
 extern "C" char DAT_004317dc[];
-typedef unsigned char byte;
+typedef unsigned char byte_2fba40;
 class H1 {
   public:
     void f();
 };
-class H2 {
+class H2_2fba40 {
   public:
     void f();
 };
-class H3 {
+class H3_2fba40 {
   public:
     void f();
 };
@@ -36,7 +36,7 @@ class CollisionOBB : public CollisionVolume {
   public:
     virtual void v0();
     virtual void v1();
-    virtual CollisionOBB* vfunc_2(byte);
+    virtual CollisionOBB* vfunc_2(byte_2fba40);
     virtual void v3();
     virtual void v4();
     virtual void v5();
@@ -54,12 +54,12 @@ class CollisionOBB : public CollisionVolume {
 };
 } // namespace physics
 void cleanup(physics::CollisionOBB*);
-physics::CollisionOBB* physics::CollisionOBB::vfunc_2(byte flag) {
+physics::CollisionOBB* physics::CollisionOBB::vfunc_2(byte_2fba40 flag) {
     CollisionOBB* self = this;
     *(unsigned long*)self = ((int)DAT_004317dc);
     ((H1*)((char*)self + 0x7c))->f();
-    ((H2*)((char*)self + 0x3c))->f();
-    ((H3*)self)->f();
+    ((H2_2fba40*)((char*)self + 0x3c))->f();
+    ((H3_2fba40*)self)->f();
     if (flag & 1)
         cleanup(self);
     return self;

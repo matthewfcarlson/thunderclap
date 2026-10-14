@@ -13,7 +13,7 @@ class MomentumXZAddTrack {
     void Init();
 };
 extern "C" void* __cdecl Alloc(unsigned int);
-class Factory {
+class Factory_17e5a0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -22,7 +22,7 @@ class Factory {
     virtual void f4();
     virtual MomentumXZAddTrack* f5();
 };
-MomentumXZAddTrack* Factory::f5() {
+MomentumXZAddTrack* Factory_17e5a0::f5() {
     MomentumXZAddTrack* p = (MomentumXZAddTrack*)Alloc(0x18);
     if (p) {
         p->Init();

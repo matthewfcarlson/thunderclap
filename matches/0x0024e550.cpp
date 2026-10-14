@@ -1,17 +1,17 @@
-struct Inner {
+struct Inner_24e550 {
     void Init(const char*, int);
 };
-class Base {
+class Base_24e550 {
   public:
-    Base();
+    Base_24e550();
     virtual void g();
 };
-class Track : public Base {
+class Track : public Base_24e550 {
   public:
     Track();
     virtual void g();
     char pad[4];
-    Inner in;
+    Inner_24e550 in;
 };
 Track::Track() {
     in.Init("MySeqTrack", 2);

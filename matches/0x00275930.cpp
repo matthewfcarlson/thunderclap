@@ -1,11 +1,11 @@
 extern "C" void InitOther();
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
-class Base {
+class Base_275930 {
   public:
     virtual void V();
-    Base(int);
+    Base_275930(int);
 };
-class DriveDestroyDirectoryRequest : public Base {
+class DriveDestroyDirectoryRequest : public Base_275930 {
   public:
     virtual void W();
     char pad[8];
@@ -13,7 +13,7 @@ class DriveDestroyDirectoryRequest : public Base {
     char tail;
     DriveDestroyDirectoryRequest(int, const char*);
 };
-DriveDestroyDirectoryRequest::DriveDestroyDirectoryRequest(int a, const char* s) : Base(a) {
+DriveDestroyDirectoryRequest::DriveDestroyDirectoryRequest(int a, const char* s) : Base_275930(a) {
     InitOther();
     strncpy(name, s, 16);
     tail = 0;

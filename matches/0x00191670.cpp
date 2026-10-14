@@ -1,4 +1,4 @@
-extern int RTTI1, RTTI2;
+extern int RTTI1_191670, RTTI2;
 class TankLocomotionTrack {
   public:
     virtual void v0();
@@ -13,15 +13,15 @@ class TankLocomotionTrack {
     virtual void v9();
     virtual int v10(int a, int b, int c);
 };
-class Created {
+class Created_191670 {
   public:
     int init(TankLocomotionTrack*, int);
 };
 extern int typecheck(void*, int, int*, int*, int);
-extern Created* alloc(int);
+extern Created_191670* alloc(int);
 int TankLocomotionTrack::v10(int a, int b, int c) {
-    if (typecheck((void*)c, 0, &RTTI1, &RTTI2, 0)) {
-        Created* p = alloc(0xa4);
+    if (typecheck((void*)c, 0, &RTTI1_191670, &RTTI2, 0)) {
+        Created_191670* p = alloc(0xa4);
         if (p)
             return p->init(this, c);
     }

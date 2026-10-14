@@ -1,5 +1,5 @@
 // Same code shape as 0x0012db50 (propagated; names are from that function)
-struct Obj {
+struct Obj_23f220 {
     virtual void F();
     virtual void R();
 };
@@ -8,11 +8,11 @@ struct PostEvent_StringAction {
     void* vf;
     int pad[6];
     int arg;
-    Obj* object;
+    Obj_23f220* object;
     void Init();
-    PostEvent_StringAction* Build(int, Obj*);
+    PostEvent_StringAction* Build(int, Obj_23f220*);
 };
-PostEvent_StringAction* PostEvent_StringAction::Build(int a, Obj* p) {
+PostEvent_StringAction* PostEvent_StringAction::Build(int a, Obj_23f220* p) {
     Init();
     vf = &PostEvent_StringAction_vftable;
     object = 0;

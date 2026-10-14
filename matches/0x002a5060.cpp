@@ -1,18 +1,18 @@
 extern "C" void _ReadWriteBarrier();
-class Base {
+class Base_2a5060 {
   public:
     virtual void B();
     int b[3];
-    Base();
+    Base_2a5060();
 };
-class DrawablePrimitive : public Base {
+class DrawablePrimitive : public Base_2a5060 {
   public:
     virtual void B();
     int a[11];
     DrawablePrimitive();
 };
 extern int drawable_vtable;
-DrawablePrimitive::DrawablePrimitive() : Base() {
+DrawablePrimitive::DrawablePrimitive() : Base_2a5060() {
     a[0] = 0;
     *((int*)this) = (int)&drawable_vtable;
     _ReadWriteBarrier();

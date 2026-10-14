@@ -1,17 +1,17 @@
-struct Sub {
+struct Sub_b4670 {
     char pad[8];
     void Clear();
 };
-struct Thing {
+struct Thing_b4670 {
     char pad[8];
-    Sub a;
-    Sub b;
-    Sub c;
+    Sub_b4670 a;
+    Sub_b4670 b;
+    Sub_b4670 c;
     void Clear();
 };
-void Thing::Clear() {
+void Thing_b4670::Clear() {
     c.Clear();
     b.Clear();
     a.Clear();
-    ((Sub*)this)->Clear();
+    ((Sub_b4670*)this)->Clear();
 }

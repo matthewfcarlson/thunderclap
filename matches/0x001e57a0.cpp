@@ -1,4 +1,4 @@
-class Thing {
+class Thing_1e57a0 {
   public:
     char pad[0x1ec40];
     int values[4];
@@ -7,7 +7,7 @@ class Thing {
     void Finish();
     void Cleanup();
 };
-void Thing::Cleanup() {
+void Thing_1e57a0::Cleanup() {
     int i = 0;
     if (count > 0) {
         int* p = values;

@@ -9,14 +9,14 @@ struct Allocator {
     virtual void release(void*);
 };
 extern Allocator* DAT_0052a1e4;
-struct Lock {
+struct Lock_2753c0 {
     virtual void enter();
     virtual void leave();
 };
 struct File {
     virtual void a();
     virtual void release();
-    Lock lock;
+    Lock_2753c0 lock;
     char pad[16];
     int count;
 };

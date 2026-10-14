@@ -1,10 +1,10 @@
-class Obj {
+class Obj_682e0 {
   public:
     bool Ctor(int arg);
     char pad[0xc];
     int mValue;
 };
-bool Obj::Ctor(int arg) {
+bool Obj_682e0::Ctor(int arg) {
     mValue = arg;
     return true;
 }

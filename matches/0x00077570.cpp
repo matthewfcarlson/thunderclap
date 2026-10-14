@@ -1,12 +1,12 @@
-class Base {
+class Base_77570 {
   public:
-    Base();
+    Base_77570();
     virtual void bv();
     int bx;
 };
-class CSoundTrack : public Base {
+class CSoundTrack : public Base_77570 {
   public:
-    CSoundTrack() : Base() {
+    CSoundTrack() : Base_77570() {
         zero = 0;
         flag = 0;
         flag2 = 0;

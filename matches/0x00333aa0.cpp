@@ -1,10 +1,10 @@
-struct Thing {
+struct Thing_333aa0 {
     char pad[0xc];
     unsigned int value;
 };
 class PlayerBink {
     char pad[0x18];
-    Thing* mThing;
+    Thing_333aa0* mThing;
 
   public:
     virtual void f0();

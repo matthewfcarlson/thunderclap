@@ -1,6 +1,6 @@
 extern "C" char DAT_0040dca4[];
 extern void* Alloc(unsigned int);
-class Sub {
+class Sub_114cb0 {
   public:
     void Init();
 };
@@ -13,7 +13,7 @@ class AIHistorySetTrack {
     float val;
     unsigned char flag;
     char pad[3];
-    Sub sub;
+    Sub_114cb0 sub;
     int tail;
     void BaseInit();
 };

@@ -1,9 +1,9 @@
-typedef unsigned int u32;
-struct Obj {
+typedef unsigned int u32_194d90;
+struct Obj_194d90 {
     char pad[0x20];
-    Obj* HelperA();
-    Obj* HelperB();
-    void DoWork(int, u32, u32);
+    Obj_194d90* HelperA();
+    Obj_194d90* HelperB();
+    void DoWork(int, u32_194d90, u32_194d90);
 };
 class MissilePunchAction {
   public:
@@ -14,15 +14,15 @@ class MissilePunchAction {
     virtual void f4();
     virtual void f5();
     char pad[0x1c - 4];
-    Obj* field1c;
-    Obj* field20;
+    Obj_194d90* field1c;
+    Obj_194d90* field20;
 };
 unsigned char MissilePunchAction::vfunc_3(int a, int b) {
     if (!field20)
         return 0;
-    Obj* x = field20->HelperA();
+    Obj_194d90* x = field20->HelperA();
     x = x->HelperB();
-    Obj* y = field1c;
-    x->DoWork(1, *(u32*)((char*)y + 0x14), *(u32*)((char*)y + 0x18));
+    Obj_194d90* y = field1c;
+    x->DoWork(1, *(u32_194d90*)((char*)y + 0x14), *(u32_194d90*)((char*)y + 0x18));
     return 1;
 }

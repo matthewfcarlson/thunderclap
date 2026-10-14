@@ -1,7 +1,7 @@
-struct A {
-    A* Get();
+struct A_11450 {
+    A_11450* Get();
 };
 
-A* A::Get() {
+A_11450* A_11450::Get() {
     return this;
 }

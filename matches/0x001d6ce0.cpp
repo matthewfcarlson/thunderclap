@@ -9,22 +9,22 @@ struct V {
     virtual void f7();
     virtual void f8(int, int);
 };
-struct A {
+struct A_1d6ce0 {
     bool run();
 };
-struct B {
+struct B_1d6ce0 {
     bool run();
 };
-struct G {
+struct G_1d6ce0 {
     char pad[8];
-    B* p;
+    B_1d6ce0* p;
 };
-extern G* g_4dd700;
+extern G_1d6ce0* g_4dd700;
 struct CSPHulkPropInstance {
     char x[0x9c];
     V* obj;
     char pad[0x4c];
-    A* a;
+    A_1d6ce0* a;
     void vfunc_8(int, int);
 };
 void CSPHulkPropInstance::vfunc_8(int x, int y) {

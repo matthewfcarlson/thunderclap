@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2748a0 {
   public:
     virtual void s0();
     virtual void s1();
@@ -22,16 +22,16 @@ class Obj {
     virtual int call19(void*, int);
     int* Fetch();
 };
-class Sub {
+class Sub_2748a0 {
   public:
     virtual void a();
     virtual void b();
 };
 struct Drive {
     char p0[4];
-    Sub sub;
+    Sub_2748a0 sub;
     char p1[4];
-    Obj* obj;
+    Obj_2748a0* obj;
     char p2[8];
     int result;
     char p3[4];
@@ -50,7 +50,7 @@ class DriveFindNextRequest {
     int arg;
 };
 int DriveFindNextRequest::vfunc_1() {
-    Obj* o = drive->obj;
+    Obj_2748a0* o = drive->obj;
     int r = o->call19((char*)drive + 0x1c, arg);
     int v = (int)o->Fetch();
     drive->sub.a();

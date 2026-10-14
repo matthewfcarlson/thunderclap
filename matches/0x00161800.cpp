@@ -4,11 +4,11 @@ class LocomotingAction {
   public:
     volatile int vptr;
     char pad[0x1c - 4];
-    class Obj* mObj;
+    class Obj_161800* mObj;
     void Base();
     LocomotingAction* V2(int);
 };
-class Obj {
+class Obj_161800 {
   public:
     virtual void V0();
     virtual void V1();

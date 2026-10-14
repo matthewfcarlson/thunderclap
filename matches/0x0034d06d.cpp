@@ -4,19 +4,19 @@ extern void* g_b4;
 extern int g_bc, g_c0;
 extern char *g_c4, *g_c8;
 extern int g_cc, g_d0;
-struct Sub {
+struct Sub_34d06d {
     char p[0x3c - 0];
 };
-struct O {
+struct O_34d06d {
     char pad[0x3c];
     char sub[1];
-    O* Init();
+    O_34d06d* Init();
     void Base();
-    O* Fn(char* a, int b, char* c, int d, int e);
+    O_34d06d* Fn(char* a, int b, char* c, int d, int e);
 };
-O* O::Fn(char* a, int b, char* c, int d, int e) {
+O_34d06d* O_34d06d::Fn(char* a, int b, char* c, int d, int e) {
     Base();
-    ((O*)sub)->Base();
+    ((O_34d06d*)sub)->Base();
     g_c0 = b;
     g_bc = b;
     if (a) {

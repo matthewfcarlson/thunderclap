@@ -1,7 +1,7 @@
 extern "C" char DAT_00494b44[];
 extern "C" char DAT_00494b60[];
 extern int check(void*, int, void*, void*, int);
-struct Obj {
+struct Obj_166c60 {
     void* getA();
     void* getB();
 };
@@ -20,7 +20,7 @@ class TargetingCondition {
 bool TargetingCondition::vfunc_6(void* unused, void* params, void* last) {
     if (!check(params, 0, (void*)((int)DAT_00494b44), (void*)((int)DAT_00494b60), 0))
         return false;
-    void* x = ((Obj*)params)->getA();
-    void* y = ((Obj*)x)->getB();
+    void* x = ((Obj_166c60*)params)->getA();
+    void* y = ((Obj_166c60*)x)->getB();
     return *((unsigned char*)y + 0x32c) == value;
 }

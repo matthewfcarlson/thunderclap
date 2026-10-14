@@ -1,12 +1,12 @@
-struct Block {
+struct Block_adad0 {
     int x[0x11];
 };
-class Thing {
+class Thing_adad0 {
   public:
     char pad[0xf0];
-    Block data;
-    void Copy(Block* out);
+    Block_adad0 data;
+    void Copy(Block_adad0* out);
 };
-void Thing::Copy(Block* out) {
+void Thing_adad0::Copy(Block_adad0* out) {
     *out = data;
 }

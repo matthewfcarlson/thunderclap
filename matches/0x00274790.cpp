@@ -5,7 +5,7 @@ class V {
     virtual void A();
     virtual void B();
 };
-class Inner {
+class Inner_274790 {
   public:
     virtual void X();
     virtual void Y();
@@ -21,7 +21,7 @@ class Request {
 class DriveRequest : public Request {
   public:
     char p[4];
-    Inner* sub;
+    Inner_274790* sub;
     void Cleanup();
 };
 void DriveRequest::Cleanup() {

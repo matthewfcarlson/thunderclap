@@ -1,4 +1,4 @@
-class Ref {
+class Ref_264470 {
   public:
     virtual void f0();
     virtual void f1();
@@ -10,17 +10,17 @@ class LoadStream {
     virtual void f1();
     virtual LoadStream* f2(unsigned char);
     char pad[4];
-    Ref* mRef;
+    Ref_264470* mRef;
     char pad2[20];
     void* a;
     void* b;
 };
-extern int streamvt, refvt;
+extern int streamvt_264470, refvt;
 void Init();
 void Free(void*);
 void Destroy(LoadStream*);
 LoadStream* LoadStream::f2(unsigned char flag) {
-    *(int*)this = (int)&streamvt;
+    *(int*)this = (int)&streamvt_264470;
     Init();
     if (mRef)
         mRef->f1();

@@ -8,8 +8,8 @@ extern "C" char DAT_00524c43[];
 extern "C" char DAT_00544152[];
 extern "C" char DAT_00544757[];
 extern "C" char DAT_00544e49[];
-extern int vt1;
-class Src {
+extern int vt1_2d4040;
+class Src_2d4040 {
   public:
     void* Find(unsigned a, unsigned b) throw();
 };
@@ -17,11 +17,11 @@ class D {
   public:
     void* vptr;
     void* v[18];
-    D(Src* s) throw();
+    D(Src_2d4040* s) throw();
 };
-D::D(Src* s) throw() {
+D::D(Src_2d4040* s) throw() {
     v[0] = 0;
-    vptr = &vt1;
+    vptr = &vt1_2d4040;
     v[1] = 0;
     v[2] = 0;
     v[3] = 0;

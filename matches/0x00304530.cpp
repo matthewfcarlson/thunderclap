@@ -17,30 +17,30 @@ struct Object {
     unsigned char enabled;
     void FUN_00306600(unsigned int);
 };
-struct Record {
+struct Record_304530 {
     Matrix matrix;
     unsigned int extra;
     void FUN_002f8ec0(unsigned int, unsigned int, Object*, unsigned int, unsigned int, unsigned int);
 };
-struct Renderer {
+struct Renderer_304530 {
     void FUN_00314be0(unsigned int, unsigned int, Object*, unsigned int, unsigned int, unsigned int);
 };
-struct Global {
+struct Global_304530 {
     char pad[0x70];
-    Renderer renderer;
+    Renderer_304530 renderer;
 };
-extern Global* DAT_00554c14;
-struct Queue {
+extern Global_304530* DAT_00554c14;
+struct Queue_304530 {
     unsigned int field0;
-    Record* next;
-    Record* end;
+    Record_304530* next;
+    Record_304530* end;
     void FUN_00304500();
     void target(unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e,
                 Object* object, unsigned int flags);
 };
-void Queue::target(unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e,
+void Queue_304530::target(unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e,
                    Object* object, unsigned int flags) {
-    Record temp;
+    Record_304530 temp;
     if (object->type() == 4 && object->enabled) {
         temp.matrix = object->matrix;
         temp.matrix.FUN_0022c3b0(e, e);
@@ -52,7 +52,7 @@ void Queue::target(unsigned int a, unsigned int b, unsigned int c, unsigned int 
     } else if (flags & 2) {
         object->FUN_00306600(b);
         temp.FUN_002f8ec0(a, d, object, d, c, e);
-        Record* dest = next;
+        Record_304530* dest = next;
         if ((unsigned int)dest < (unsigned int)end) {
             next = dest + 1;
             if (dest)

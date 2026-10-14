@@ -1,26 +1,26 @@
-struct V3 {
+struct V3_30e630 {
     int x, y, z;
     void Fix();
 };
-struct Base {
-    Base();
+struct Base_30e630 {
+    Base_30e630();
     virtual void v0();
     char p[0x18];
 };
 namespace physics {
-struct CollisionWall : Base {
-    V3 a;
+struct CollisionWall : Base_30e630 {
+    V3_30e630 a;
     char q[0x0c];
     int k;
-    V3 b;
+    V3_30e630 b;
     int gap;
-    V3 c;
-    V3 d;
-    CollisionWall(const V3* pa, const V3* pb);
+    V3_30e630 c;
+    V3_30e630 d;
+    CollisionWall(const V3_30e630* pa, const V3_30e630* pb);
     virtual void v1();
 };
 } // namespace physics
-physics::CollisionWall::CollisionWall(const V3* pa, const V3* pb) {
+physics::CollisionWall::CollisionWall(const V3_30e630* pa, const V3_30e630* pb) {
     b = *pb;
     d.x = pa->x;
     d.y = pa->y;
@@ -28,7 +28,7 @@ physics::CollisionWall::CollisionWall(const V3* pa, const V3* pb) {
     a.x = pa->x;
     a.y = pa->y;
     a.z = pa->z;
-    V3* p = &b;
+    V3_30e630* p = &b;
     p->Fix();
     c.x = p->x;
     c.y = p->y;

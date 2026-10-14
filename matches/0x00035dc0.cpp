@@ -1,42 +1,42 @@
-struct Vec3 {
+struct Vec3_35dc0 {
     float x, y, z;
 };
 
-struct Inner {
-    void GetVec(Vec3* out);
+struct Inner_35dc0 {
+    void GetVec(Vec3_35dc0* out);
 };
 
-struct Holder {
+struct Holder_35dc0 {
     char pad[0x10];
-    Inner in;
+    Inner_35dc0 in;
 };
 
-struct Sub {
-    Holder* Find();
+struct Sub_35dc0 {
+    Holder_35dc0* Find();
 };
 
-struct Vec3q : Vec3 {
-    char Query(Vec3* v, unsigned int id);
+struct Vec3q : Vec3_35dc0 {
+    char Query(Vec3_35dc0* v, unsigned int id);
 };
 
-struct Obj {
+struct Obj_35dc0 {
     char pad0[0x10];
-    Sub* mSub;
+    Sub_35dc0* mSub;
     char pad1[0x2074 - 0x14];
     float a, b, c;
     void Get(Vec3q* out);
 };
 
-void Obj::Get(Vec3q* out) {
+void Obj_35dc0::Get(Vec3q* out) {
     out->x = a;
     out->y = b;
     out->z = c;
-    Vec3 t;
+    Vec3_35dc0 t;
     t.x = 0;
     t.y = 0;
     t.z = 0;
     if (out->Query(&t, 0x3727c5ac)) {
-        Holder* h = mSub->Find();
+        Holder_35dc0* h = mSub->Find();
         if (h) {
             h->in.GetVec(&t);
             out->x = t.x;

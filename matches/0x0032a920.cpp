@@ -6,13 +6,13 @@ void __stdcall D3DDevice_SetTexture(DWORD, DWORD);
 struct Texture {
     void FUN_00326b00(int stage);
 };
-struct TextureState {
+struct TextureState_32a920 {
     char pad[8];
     Texture* tex[4];
     void FUN_00329bb0(int);
     void SetTextures(int mode, Texture* t0, Texture* t1, Texture* t2, Texture* t3);
 };
-void TextureState::SetTextures(int mode, Texture* t0, Texture* t1, Texture* t2, Texture* t3) {
+void TextureState_32a920::SetTextures(int mode, Texture* t0, Texture* t1, Texture* t2, Texture* t3) {
     if (t0 != tex[0]) {
         tex[0] = t0;
         if (t0) {

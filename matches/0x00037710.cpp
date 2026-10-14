@@ -1,4 +1,4 @@
-class Obj {
+class Obj_37710 {
   public:
     char pad[0x1c];
     int value;
@@ -7,11 +7,11 @@ class Obj {
     void init();
     void set(const float*);
 };
-extern const float zero;
-Obj* __fastcall target(Obj* self) {
+extern const float zero_37710;
+Obj_37710* __fastcall target(Obj_37710* self) {
     self->init();
     self->value = (int)0xbf800000;
-    self->set(&zero);
+    self->set(&zero_37710);
     self->pad[8] = (char)0xff;
     self->pad[9] = (char)0xff;
     self->a = 0;

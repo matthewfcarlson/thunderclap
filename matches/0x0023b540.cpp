@@ -4,10 +4,10 @@ class Chunk {
     int field;
     void Init(int);
 };
-extern int vtable;
+extern int vtable_23b540;
 Chunk* __fastcall Build(Chunk* self) {
     self->Init(3);
-    *(int*)self = (int)&vtable;
+    *(int*)self = (int)&vtable_23b540;
     self->field = 0;
     return self;
 }

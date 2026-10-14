@@ -1,11 +1,11 @@
-struct A {
+struct A_24cb70 {
     char pad[12];
     unsigned x, y, z;
 };
-struct B {
+struct B_24cb70 {
     unsigned x, y, z;
 };
-void __cdecl target(A* a, B* b) {
+void __cdecl target(A_24cb70* a, B_24cb70* b) {
     unsigned* d = &a->x;
     const unsigned* s = &b->x;
     d[0] = s[0];

@@ -1,6 +1,6 @@
 extern void* pvtable;
 extern void thunk_FUN_00267090(void*);
-struct Sub {
+struct Sub_2355f0 {
     void Init();
 };
 class ParamValue {
@@ -25,7 +25,7 @@ class ParamValueEntity : public ParamValue {
     virtual void v9();
     virtual void v10();
     char pad[4];
-    Sub sub;
+    Sub_2355f0 sub;
 };
 ParamValueEntity* ParamValueEntity::v0(unsigned int flags) {
     *(void**)this = &pvtable;

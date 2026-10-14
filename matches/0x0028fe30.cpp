@@ -1,11 +1,11 @@
-class Obj {
+class Obj_28fe30 {
   public:
     char pad[8];
     int value;
     void reset();
-    Obj* target();
+    Obj_28fe30* target();
 };
-Obj* Obj::target() {
+Obj_28fe30* Obj_28fe30::target() {
     reset();
     value = 0;
     return this;

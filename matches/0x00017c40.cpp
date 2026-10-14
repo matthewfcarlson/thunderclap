@@ -1,19 +1,19 @@
-struct A {
+struct A_17c40 {
     void* first();
 };
-struct B {
-    B* second();
+struct B_17c40 {
+    B_17c40* second();
     void act(int);
 };
 class CSnapToWallAction {
   public:
     char pad[0x1c];
-    A* mFirst;
-    B* mSecond;
+    A_17c40* mFirst;
+    B_17c40* mSecond;
     bool vfunc_7(int);
 };
 bool CSnapToWallAction::vfunc_7(int arg) {
-    B* b = (B*)mFirst->first();
+    B_17c40* b = (B_17c40*)mFirst->first();
     b = b->second();
     if (*(char*)((char*)mSecond + 0x24)) {
         b->act(1);

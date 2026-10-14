@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2d6cb0 {
   public:
     char pad[0x64];
     unsigned int flags;
@@ -7,7 +7,7 @@ class Obj {
     unsigned char flag114;
 };
 extern "C" unsigned int __cdecl helper(unsigned int, unsigned int, unsigned int);
-void __cdecl target(Obj* self, unsigned int a, unsigned int b) {
+void __cdecl target(Obj_2d6cb0* self, unsigned int a, unsigned int b) {
     if (self->flag114 & 32) {
         if ((self->flags & 0x300) != 0x300)
             goto work;

@@ -1,5 +1,5 @@
 extern "C" char DAT_0042c140[];
-class Ref {
+class Ref_27aec0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -8,7 +8,7 @@ void thunk(void*);
 class RDLReader {
   public:
     void* vptr;
-    Ref* member;
+    Ref_27aec0* member;
     void* data;
     void Close();
 };

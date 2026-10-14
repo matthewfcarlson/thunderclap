@@ -1,4 +1,4 @@
-class Thing {
+class Thing_8ff00 {
   public:
     char pad0[4];
     unsigned int divisor;
@@ -9,7 +9,7 @@ class Thing {
     void Clear(int value, int unused);
 };
 
-void Thing::Clear(int value, int unused) {
+void Thing_8ff00::Clear(int value, int unused) {
     unsigned int index = (value - base) / divisor;
     bits[index >> 5] &= ~(1u << (index & 31));
     if (index < limit)

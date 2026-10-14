@@ -1,4 +1,4 @@
-struct C {
+struct C_1725c0 {
     void* a;
     void* f592a0();
     void* f59a30();
@@ -6,12 +6,12 @@ struct C {
 };
 struct MoveJointAction {
     char pad[0x20];
-    C* mObj;
+    C_1725c0* mObj;
     void vfunc_4();
 };
 void MoveJointAction::vfunc_4() {
-    C* p = (C*)mObj;
-    p = (C*)p->f592a0();
-    p = (C*)p->f59a30();
+    C_1725c0* p = (C_1725c0*)mObj;
+    p = (C_1725c0*)p->f592a0();
+    p = (C_1725c0*)p->f59a30();
     p->f373e0(1);
 }

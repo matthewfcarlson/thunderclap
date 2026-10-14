@@ -1,17 +1,17 @@
-class Ref {
+class Ref_184880 {
   public:
     virtual void Fn();
     virtual void Release();
 };
 extern void BaseInit();
-extern int vtable;
+extern int vtable_184880;
 class BallAndChainShootAction {
   public:
-    BallAndChainShootAction(int, Ref*);
+    BallAndChainShootAction(int, Ref_184880*);
     int vt;
     char pad04[0x18];
     int mA;
-    Ref* mRef;
+    Ref_184880* mRef;
     int m24;
     int m28;
     int m2c;
@@ -25,9 +25,9 @@ class BallAndChainShootAction {
     int m4c;
     int m50;
 };
-BallAndChainShootAction::BallAndChainShootAction(int a, Ref* b) {
+BallAndChainShootAction::BallAndChainShootAction(int a, Ref_184880* b) {
     BaseInit();
-    vt = (int)&vtable;
+    vt = (int)&vtable_184880;
     int* q = &mA;
     *q = 0;
     mRef = 0;

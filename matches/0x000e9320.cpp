@@ -40,20 +40,20 @@ class TextureAnimationController : public FrameController {
     virtual void l();
     virtual void x12(int);
 };
-class W {
+class W_e9320 {
   public:
     char p[8];
     V* v;
 };
-class R {
+class R_e9320 {
   public:
     char p[0x3c];
-    W* w;
+    W_e9320* w;
 };
-class S {
+class S_e9320 {
   public:
     char p[0x44];
-    R* r;
+    R_e9320* r;
 };
 class TextButton {
   public:
@@ -75,7 +75,7 @@ class TextButton {
     char p[0x40];
     int val;
     char q[8];
-    S* obj;
+    S_e9320* obj;
     char pad[0xf4];
     int saved;
 };

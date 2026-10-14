@@ -1,11 +1,11 @@
 extern int __stdcall FUN_001dc070(void*);
-class Obj {
+class Obj_1dc1f0 {
   public:
     char pad[0x62a];
     short values[1];
     bool target(void* param);
 };
-bool Obj::target(void* param) {
+bool Obj_1dc1f0::target(void* param) {
     if (param) {
         int i = FUN_001dc070((char*)param + 8);
         if (i >= 0) {

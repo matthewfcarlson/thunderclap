@@ -1,21 +1,21 @@
-class Item {
+class Item_28b070 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
     virtual bool Test(void*);
 };
-class Container {
+class Container_28b070 {
   public:
     char pad[8];
     int count;
-    Item* items[1];
+    Item_28b070* items[1];
     bool Find(void*);
 };
-bool Container::Find(void* arg) {
+bool Container_28b070::Find(void* arg) {
     int i = 0;
     if (count > 0) {
-        Item** p = items;
+        Item_28b070** p = items;
         do {
             if ((*p)->Test(arg) == true)
                 return true;

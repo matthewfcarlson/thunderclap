@@ -1,5 +1,5 @@
-extern void* g_vftable[];
-class Obj {
+extern void* g_vftable_109ba0[];
+class Obj_109ba0 {
   public:
     void* vptr;
     void* m4;
@@ -16,13 +16,13 @@ class Obj {
     void* m2c;
     void* m30;
     char m34;
-    Obj() throw();
+    Obj_109ba0() throw();
 };
-Obj::Obj() throw() {
+Obj_109ba0::Obj_109ba0() throw() {
     m4 = 0;
     m8 = 0;
     mc = 0;
-    vptr = g_vftable;
+    vptr = g_vftable_109ba0;
     *(float*)&m28 = 1.0f;
     m2c = 0;
     m18 = 0;

@@ -1,10 +1,10 @@
-class X {
+class X_2fcb80 {
   public:
     char pad[4];
     float a[6];
     void Scale(float);
 };
-void X::Scale(float s) {
+void X_2fcb80::Scale(float s) {
     a[0] *= s;
     a[1] *= s;
     a[2] *= s;

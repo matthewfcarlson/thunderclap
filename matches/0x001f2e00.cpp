@@ -5,10 +5,10 @@ struct CSoundStreamAllocator {
 extern int __cdecl FUN_0024b030(int);
 extern int __cdecl FUN_0024c590(int, int);
 extern int __cdecl FUN_0026fd50(int, int);
-struct Receiver {
+struct Receiver_1f2e00 {
     void run(int);
 };
-extern Receiver* receiver;
+extern Receiver_1f2e00* receiver;
 extern void __cdecl FUN_0024bf90(int);
 int g800 = 0x800;
 void CSoundStreamAllocator::vfunc_1(int a, int c) {

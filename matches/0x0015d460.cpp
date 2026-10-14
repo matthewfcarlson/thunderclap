@@ -1,21 +1,21 @@
-class Ref {
+class Ref_15d460 {
   public:
     virtual void A();
     virtual void B();
 };
-extern int vtable;
-struct Base {
+extern int vtable_15d460;
+struct Base_15d460 {
     void InitBase();
 };
-struct LocomotionStrafeAction : Base {
+struct LocomotionStrafeAction : Base_15d460 {
     char pad[0x1c];
-    Ref* mRef;
+    Ref_15d460* mRef;
     int mOther;
-    LocomotionStrafeAction* Init(Ref*);
+    LocomotionStrafeAction* Init(Ref_15d460*);
 };
-LocomotionStrafeAction* LocomotionStrafeAction::Init(Ref* p) {
+LocomotionStrafeAction* LocomotionStrafeAction::Init(Ref_15d460* p) {
     InitBase();
-    *(int*)this = (int)&vtable;
+    *(int*)this = (int)&vtable_15d460;
     mRef = 0;
     mOther = 0;
     if (p)

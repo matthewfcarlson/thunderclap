@@ -1,26 +1,26 @@
 extern "C" void _ReadWriteBarrier();
 extern void* gD[];
-extern void* gA[];
-class Ref {
+extern void* gA_1d520[];
+class Ref_1d520 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Base {
+class Base_1d520 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_1d520 : public Base_1d520 {
   public:
     char pad_1c[0x18];
-    Ref* m1c;
+    Ref_1d520* m1c;
     char pad_24[0x4];
-    Ref* m24;
-    Ref* m28;
-    ~Obj();
+    Ref_1d520* m24;
+    Ref_1d520* m28;
+    ~Obj_1d520();
 };
-Obj::~Obj() {
+Obj_1d520::~Obj_1d520() {
     vptr = gD;
     _ReadWriteBarrier();
     if (m28) {
@@ -31,7 +31,7 @@ Obj::~Obj() {
         m24->Release();
         m24 = 0;
     }
-    vptr = gA;
+    vptr = gA_1d520;
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();

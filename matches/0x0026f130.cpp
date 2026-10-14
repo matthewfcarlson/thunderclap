@@ -1,4 +1,4 @@
-class X {
+class X_26f130 {
   public:
     virtual void f();
     virtual void g();
@@ -8,10 +8,10 @@ class Drive {
   public:
     virtual void vfunc_0();
     char pad[8];
-    X x;
+    X_26f130 x;
 };
 void Drive::vfunc_0() {
-    X* p = &x;
+    X_26f130* p = &x;
     p->f();
     ++p->n;
     p->g();

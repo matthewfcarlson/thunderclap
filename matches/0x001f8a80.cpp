@@ -1,16 +1,16 @@
-class Helper {
+class Helper_1f8a80 {
   public:
     void Release(int);
 };
-class Owner {
+class Owner_1f8a80 {
   public:
     char pad[0x20];
     volatile int member;
-    Helper* GetHelper();
+    Helper_1f8a80* GetHelper();
     void Set(int);
 };
-void Owner::Set(int value) {
-    Helper* h = GetHelper();
+void Owner_1f8a80::Set(int value) {
+    Helper_1f8a80* h = GetHelper();
     h->Release(member);
     member = value;
 }

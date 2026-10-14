@@ -1,5 +1,5 @@
 extern "C" unsigned int __cdecl strlen(const char*);
-class Obj {
+class Obj_1d35a0 {
   public:
     char pad[4];
     int state;
@@ -8,7 +8,7 @@ class Obj {
     int Do(int h, const char* text, int len, int x);
 };
 void __cdecl Init(int, int);
-int Obj::Func(const char* text, int x, int len) {
+int Obj_1d35a0::Func(const char* text, int x, int len) {
     Init(handle, 0);
     if (len == -1)
         len = strlen(text);

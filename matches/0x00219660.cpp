@@ -1,26 +1,26 @@
-struct G {
+struct G_219660 {
     char p[0x14];
     unsigned flags;
 };
-struct N {
-    N* next;
+struct N_219660 {
+    N_219660* next;
     char a[1];
     unsigned char b;
     char c[2];
     unsigned* d;
     unsigned e[2];
 };
-struct S {
+struct S_219660 {
     char p[0x10];
-    G* g;
+    G_219660* g;
     char q[0x34];
-    N* head;
+    N_219660* head;
 };
-void F1(S*, N*);
-void F2(S*, N*, int, int);
-void FUN(S* s, unsigned lim) {
-    G* g = s->g;
-    N* n = s->head;
+void F1(S_219660*, N_219660*);
+void F2(S_219660*, N_219660*, int, int);
+void FUN(S_219660* s, unsigned lim) {
+    G_219660* g = s->g;
+    N_219660* n = s->head;
     while (n && (unsigned)n->d >= lim) {
         s->head = n->next;
         if (n->b & (g->flags ^ 3)) {

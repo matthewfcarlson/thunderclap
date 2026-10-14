@@ -1,12 +1,12 @@
-class Inner {
+class Inner_272aa0 {
   public:
     virtual void A();
     virtual void B();
 };
-class Obj {
+class Obj_272aa0 {
   public:
     char pad0[0x0c];
-    Inner mInner;
+    Inner_272aa0 mInner;
     char pad10[0x44 - 0x10];
     int mValue;
     char pad48[0x54 - 0x48];
@@ -16,7 +16,7 @@ class Obj {
     void Run(int);
 };
 void __cdecl Helper(int);
-void Obj::Run(int arg) {
+void Obj_272aa0::Run(int arg) {
     mInner.A();
     mArg = arg;
     mFlag = 1;

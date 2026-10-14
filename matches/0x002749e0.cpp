@@ -19,13 +19,13 @@ struct Drive {
     virtual unsigned int slot17(void*);
     unsigned int FUN_00272880();
 };
-struct Lock {
+struct Lock_2749e0 {
     virtual void acquire();
     virtual void release();
 };
-struct State {
+struct State_2749e0 {
     unsigned int field0;
-    Lock lock;
+    Lock_2749e0 lock;
     unsigned int field8;
     Drive* drive;
     char padding[8];
@@ -41,7 +41,7 @@ struct DriveFileDestroyRequest {
     virtual void vfunc_5();
     virtual void vfunc_6();
     unsigned int field4;
-    State* state;
+    State_2749e0* state;
     unsigned int payload;
 };
 unsigned int DriveFileDestroyRequest::vfunc_1() {

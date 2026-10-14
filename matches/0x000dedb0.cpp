@@ -1,4 +1,4 @@
-class Renderer {
+class Renderer_dedb0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -25,7 +25,7 @@ class CDisplayEffect {
     class DrawableText : public Drawable {
       public:
         int value;
-        Renderer* renderer;
+        Renderer_dedb0* renderer;
         virtual void vfunc_0();
         virtual void vfunc_1();
         virtual void vfunc_2();

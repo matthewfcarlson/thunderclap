@@ -1,13 +1,13 @@
 extern char CFightParamsCollision_vftable[4];
 extern char CFightParams_vftable[4];
 
-class RefObj {
+class RefObj_59930 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
 };
 
-class SubObj {
+class SubObj_59930 {
   public:
     void destroy();
 };
@@ -28,10 +28,10 @@ class CFightParamsCollision {
   public:
     VPtr m_vptr;
     char pad0[8];
-    RefObj* volatile m_pC;
-    RefObj* volatile m_p10;
+    RefObj_59930* volatile m_pC;
+    RefObj_59930* volatile m_p10;
     char pad1[4];
-    SubObj m_sub;
+    SubObj_59930 m_sub;
 
     CFightParamsCollision* vfunc_2(unsigned char flag);
 };
@@ -40,12 +40,12 @@ CFightParamsCollision* CFightParamsCollision::vfunc_2(unsigned char flag) {
     this->m_vptr.n = (unsigned int)&CFightParamsCollision_vftable[0];
     this->m_sub.destroy();
     this->m_vptr.v = (unsigned int)&CFightParams_vftable[0];
-    RefObj* p10 = this->m_p10;
+    RefObj_59930* p10 = this->m_p10;
     if (p10 != 0) {
         p10->vfunc_1();
         this->m_p10 = 0;
     }
-    RefObj* pc = this->m_pC;
+    RefObj_59930* pc = this->m_pC;
     if (pc != 0) {
         pc->vfunc_1();
         this->m_pC = 0;

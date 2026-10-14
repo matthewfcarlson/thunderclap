@@ -1,6 +1,6 @@
 extern "C" char DAT_004144e0[];
 extern "C" void* __cdecl Alloc(unsigned int);
-class Obj {
+class Obj_15a480 {
   public:
     virtual void* A();
     virtual void* B();
@@ -14,8 +14,8 @@ class Obj {
     int y;
     float z;
 };
-void* Obj::F() {
-    Obj* p = (Obj*)Alloc(0x14);
+void* Obj_15a480::F() {
+    Obj_15a480* p = (Obj_15a480*)Alloc(0x14);
     if (p) {
         p->Init();
         *(int*)p = ((int)DAT_004144e0);

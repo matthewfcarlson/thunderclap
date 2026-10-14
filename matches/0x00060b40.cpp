@@ -1,21 +1,21 @@
 extern "C" char DAT_003faa80[];
-typedef unsigned char byte;
-struct Part {
+typedef unsigned char byte_60b40;
+struct Part_60b40 {
     void init();
 };
 struct CEffectTrack {
     unsigned long vf;
     char p4[20];
-    Part a18;
+    Part_60b40 a18;
     char p1c[15];
-    Part a28;
+    Part_60b40 a28;
     char p2c[7];
-    Part a30;
-    CEffectTrack* vfunc_5(byte);
+    Part_60b40 a30;
+    CEffectTrack* vfunc_5(byte_60b40);
     void helper();
 };
 extern void cleanup(CEffectTrack*);
-CEffectTrack* CEffectTrack::vfunc_5(byte param_2) {
+CEffectTrack* CEffectTrack::vfunc_5(byte_60b40 param_2) {
     vf = ((int)DAT_003faa80);
     a30.init();
     a28.init();

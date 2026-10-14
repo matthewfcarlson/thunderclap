@@ -1,22 +1,22 @@
-class Obj {
+class Obj_1bc830 {
   public:
     virtual void Fn0();
     virtual void Release();
 };
 
-class Holder {
+class Holder_1bc830 {
   public:
     int pad0;
-    Obj* a;
-    Obj* b;
-    Obj* c;
-    Obj* d;
-    Obj* e;
-    Obj* f;
+    Obj_1bc830* a;
+    Obj_1bc830* b;
+    Obj_1bc830* c;
+    Obj_1bc830* d;
+    Obj_1bc830* e;
+    Obj_1bc830* f;
     void Free();
 };
 
-void Holder::Free() {
+void Holder_1bc830::Free() {
     if (f) {
         f->Release();
         f = 0;

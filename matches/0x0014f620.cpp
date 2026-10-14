@@ -1,5 +1,5 @@
 // Same code shape as 0x00147d20 (propagated; names are from that function)
-class Base {
+class Base_14f620 {
   public:
     void run();
 };
@@ -14,5 +14,5 @@ class GrappleHitReactionAction {
     char pad[0x20];
 };
 void GrappleHitReactionAction::vfunc_4() {
-    ((Base*)((char*)this + 0x24))->run();
+    ((Base_14f620*)((char*)this + 0x24))->run();
 }

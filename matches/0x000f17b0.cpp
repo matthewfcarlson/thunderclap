@@ -1,7 +1,7 @@
-struct Receiver {
+struct Receiver_f17b0 {
     void FUN_000f8b00(float);
 };
-struct Renderer {
+struct Renderer_f17b0 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -52,17 +52,17 @@ struct Renderer {
     virtual void slot47();
     virtual void slot48(int);
 };
-struct Link {
+struct Link_f17b0 {
     char pad[4];
-    Renderer* renderer;
+    Renderer_f17b0* renderer;
 };
-struct Owner {
+struct Owner_f17b0 {
     char pad[8];
-    Link* link;
+    Link_f17b0* link;
 };
 struct Object {
     char pad0[0x14];
-    Owner* owner;
+    Owner_f17b0* owner;
     char pad1[0x138];
     float value;
     int state;
@@ -73,7 +73,7 @@ struct Object {
     int active;
     float decrement;
     char pad4[0x10];
-    Receiver* receiver;
+    Receiver_f17b0* receiver;
     int FUN_000e9e60();
     int FUN_000f17b0();
 };
@@ -89,7 +89,7 @@ int Object::FUN_000f17b0() {
         result = maximum;
     else
         result = minimum;
-    Receiver* r = receiver;
+    Receiver_f17b0* r = receiver;
     value = result;
     if (r)
         r->FUN_000f8b00(result);

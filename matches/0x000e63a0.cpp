@@ -1,4 +1,4 @@
-class Sub {
+class Sub_e63a0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -12,7 +12,7 @@ class Sub {
     virtual void v9();
     virtual void b(int);
 };
-class Mgr {
+class Mgr_e63a0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -48,34 +48,34 @@ class Mgr {
     virtual void h4();
     virtual void h5();
     virtual void h6();
-    virtual Sub* get();
+    virtual Sub_e63a0* get();
 };
-struct Inner {
+struct Inner_e63a0 {
     char p[0x175c];
-    Mgr* mgr;
+    Mgr_e63a0* mgr;
 };
-struct Obj {
+struct Obj_e63a0 {
     char p[4];
-    Inner* in;
+    Inner_e63a0* in;
     char q[0x9a0];
     char flag;
     char r[3];
     int val;
 };
-class C {
+class C_e63a0 {
   public:
     void Fn();
     char p[0x2218];
-    Obj* cur;
+    Obj_e63a0* cur;
     int saved;
 };
-void C::Fn() {
-    Obj* o = cur;
+void C_e63a0::Fn() {
+    Obj_e63a0* o = cur;
     if (o) {
         o->flag = 0;
-        Mgr* m = o->in->mgr;
+        Mgr_e63a0* m = o->in->mgr;
         if (m) {
-            Sub* s = m->get();
+            Sub_e63a0* s = m->get();
             if (s) {
                 s->a(0);
                 s->b(2);

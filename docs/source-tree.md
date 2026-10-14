@@ -3,12 +3,13 @@
 The per-function sources in `matches/` and `equivalent/` stay the source of truth. Three tools turn them
 into a source tree with one translation unit per recovered object file, and check that every function
 survives the merge. Plan: [shipping.md §1](shipping.md#1-the-source-tree-roadmap-steps-2-and-4). Splits:
-[splits.md](splits.md). Numbers below are from 2026-10-14.
+[splits.md](splits.md). Numbers below are from 2026-10-14, after the placeholder rename
+([below](#placeholder-names-toolsrename_placeholderspy)).
 
 ```sh
 build/venv/bin/python tools/infer_splits.py      # config/splits.json + docs/splits.md      (~7 s)
 build/venv/bin/python tools/gen_tree.py          # build/tree/{src,include}/ from the splits (~8 s)
-build/venv/bin/python tools/build_tree.py        # generate, compile, fall back, re-verify   (~6 min warm, ~12 min cold)
+build/venv/bin/python tools/build_tree.py --rounds 16  # generate, compile, fall back, re-verify (~6 min warm, ~15 min cold)
 build/venv/bin/python tools/build_tree.py --equiv 300   # also run equiv.py on 300 equivalent/ functions
 build/venv/bin/python tools/build_tree.py --only src/global/CAction.cpp  # one TU, current tree
 ```
@@ -66,14 +67,18 @@ still fails after the last round has all its functions isolated.
 | | |
 |---|---|
 | objects in `config/splits.json` | 1,803: 1,779 game, 1 game-init, 23 library |
-| TU files | 2,022 (1,780 objects + 10 flag variants + 232 isolated functions); 13 hold only placeholders |
-| TUs compiling | **2,021 / 2,022** |
-| verified functions in the tree | 23,244 (18,794 matches, 4,450 equivalent); 4,326 placeholders |
-| emitted merged / wrapped / isolated | 7,462 / 15,550 / 232 |
-| TUs where every function is merged | 425 (233 of them with more than one function) |
-| hoisted declarations | 732 in 18 headers (`common.h` 222, `global.h` 95, `hulkfight/motion.h` 62, `pure3d.h` 54, …); 18,789 stay at TU level |
-| **matches still matching after the merge** | **18,794 / 18,794** (6,124 merged, 12,603 wrapped, 67 isolated) |
-| equivalent/ functions compiling | 4,449 / 4,450 |
+| TU files | 2,004 (1,780 objects + 10 flag variants + 214 isolated functions); 10 hold only placeholders |
+| TUs compiling | **2,003 / 2,004** |
+| verified functions in the tree | 23,742 (19,235 matches, 4,507 equivalent) |
+| emitted merged / wrapped / isolated | **12,810 / 10,718 / 214** (before the rename: 7,462 / 15,550 / 232 of 23,244) |
+| TUs where every function is merged | 514 (325 of them with more than one function; before: 425 / 233) |
+| hoisted declarations | 646 in 19 headers (before: 732 in 18; per-source names hoist less) |
+| **matches still matching after the merge** | **19,235 / 19,235** (10,606 merged, 8,573 wrapped, 56 isolated) |
+| equivalent/ functions compiling | 4,506 / 4,507 |
+
+Run `build_tree.py` with `--rounds 16`. With the default 8, a run whose round 7 still has failures isolates every
+function of those TUs (round `rounds - 1` is the last resort): one run on 2026-10-14 isolated 1,102 functions of
+12 TUs that compile a round later. The fallbacks converge in 7 rounds today.
 
 The one failing TU is `src/global/CPatrolPathManager.iso_00106e90.cpp`: `equivalent/0x00106e90.cpp` does
 not compile on its own either (`FUN_0008d6d0` used without a declaration). It needs fixing in
@@ -81,8 +86,8 @@ not compile on its own either (`FUN_0008d6d0` used without a declaration). It ne
 
 How the target function is found in a merged object: by its mangled-name prefix built from the
 definition (`?vfunc_5@CSweepTrack@@`, `??1X@@` / `??_GX@@` for destructors and the deleting destructors
-the compiler generates from them; 7,453), by the `@fn_<addr>@` namespace tag for wrapped functions
-(15,550), any function of an isolated TU (231), and for 9 merged sources whose matched function is a
+the compiler generates from them; 12,798), by the `@fn_<addr>@` namespace tag for wrapped functions
+(10,718), any function of an isolated TU (213), and for 12 merged sources whose matched function is a
 compiler-generated or inline-emitted one, any unclaimed function of the TU. A match that stops matching is
 recompiled on its own to tell a regression from a function that doesn't match standalone.
 
@@ -95,48 +100,89 @@ mangled name, and the `fn_<addr>` namespace changes those names; it needs a name
 it can re-verify wrapped functions. Another difference from a standalone run: functions defined in the same
 object run as our code, like inlined helpers, instead of being bound to the original's addresses.
 
-## Why so few functions merge
+## Placeholder names (`tools/rename_placeholders.py`)
 
-Of 15,782 functions that could not be merged, the generator's reasons:
+Invented stub names (`Obj`, `C`, `X`, `Owner`, `Base`, `g_vftable`, …) meant different things in different
+sources and blocked about 11k merges. The tool gives them a per-source suffix:
+
+```sh
+build/venv/bin/python tools/rename_placeholders.py --dry-run     # what would change (and what is skipped, why)
+build/venv/bin/python tools/rename_placeholders.py               # rewrite matches/ and equivalent/
+```
+
+- **Scheme:** `Obj` in `matches/0x00123450.cpp` becomes `Obj_123450`: the source's address in lower-case hex
+  without leading zeros. Not the 8-digit form: `equiv.pick_symbol` takes the one object function whose name
+  contains the 8-digit address, and gen_tree classifies `_xxxxxxxx` names as address names.
+- **What is renamed:** file-level type names (class/struct/union/enum/typedef, also inside a namespace) and
+  file-level variable names, when two or more sources define the name differently (iterated to a fixed point:
+  a struct that mentions a renamed name changes text too), or when it is defined identically in several
+  sources and the source's own function definition uses it in its name or parameters (clone-propagated
+  sources). A name defined identically everywhere and used only in bodies keeps its name, so it can still be
+  hoisted into a header.
+- **Never renamed:** RTTI class and namespace names in any namespace (a global `struct FaceTargetAction` stands
+  for `hulkfight::ai::FaceTargetAction`; fixing those is next-step 2), `include/gen/` classes, the class parts of
+  `build/functions.csv` names (for variables, every identifier of them and the XDK symbols), address names
+  (`FUN_`/`DAT_`/`g_xxxxxxxx`, …), `_`-prefixed and library names. Per source also: names on its `// equiv-*`
+  lines (also inside mangled names: `PBUKey@@`), names used in preprocessor lines, everything in a file with
+  function-like macros (`t##R` pastes names together), and names that are also member names (`p->X`, `Foo::X`).
+- **Token-aware:** identifiers only (tools/cxx_items.py tokenizer); comments, strings and preprocessor lines
+  stay byte-for-byte, so the `// STATUS:` and `// equiv-*` lines don't change.
+- **Re-running** plans nothing on an unchanged corpus. New farm sources get the same treatment against the
+  corpus; a source that copies a suffixed stub from another one keeps the name while the definition is
+  identical, and gets its own suffix once it differs.
+
+First run (2026-10-14): 13,951 sources rewritten (10,266 matches/, 3,685 equivalent/; list in
+`build/rename-changed.txt`), 30,093 renames of 1,407 distinct names. All 10,266 matches still byte-match
+(`compare.py`); every changed equivalent/ file was run with `equiv.py --inputs 300` and none regressed (the 19
+that don't pass fail, crash or stay inconclusive the same way on the original source).
+
+**Rule for new sources** (batch agents, farm prompts): give a stub type or global without a real name the
+function's suffix from the start (`Obj_1b77e0`, `g_vftable_1b77e0`). Real names stay: RTTI classes in their
+namespace (`fight::ParamValue`, not a global `ParamValue`), `FUN_`/`DAT_` names. Copying a stub from another
+source is fine while it stays identical; once it changes, rename it to your own suffix.
+
+## Why functions still don't merge
+
+Of 10,932 functions that are not merged, the generator's reasons (first reason per function):
 
 | reason | functions |
 |---|---|
-| a declaration conflicts with the TU's chosen variant | 10,852 |
-| the same definition as another function in the TU (clone-propagated sources reuse their donor's names, e.g. three functions in `hulkfight/unk_0185f0.cpp` all define `Set(Obj**, Obj*)`) | 4,386 |
-| compile errors blamed by the build (mostly a second placement `operator new` with/without `throw()`; that changes codegen, a `throw()` new gets a null check) | 346 |
-| helper definitions besides the function itself (they could be inlined into neighbours: MSVC 7.1 `/O2` inlines any function defined anywhere in the TU) | 149 |
-| macros, using-directives, target defined inside a class | 75 |
+| a declaration conflicts with the TU's chosen variant | 6,408 |
+| the same definition as another function in the TU (clone-propagated sources define the same RTTI method, e.g. several `ParamIntConstRange::vfunc_2()`) | 3,927 |
+| compile errors blamed by the build (mostly a second placement `operator new` with/without `throw()`; that changes codegen, a `throw()` new gets a null check) | 168 |
+| helper definitions besides the function itself (they could be inlined into neighbours: MSVC 7.1 `/O2` inlines any function defined anywhere in the TU) | 150 |
+| macros, using-directives, target defined inside a class | 65 |
 
 ## Conflicts
 
-`build/tree/conflicts.json` lists **3,302 names declared incompatibly** across the verified sources:
-1,954 invented placeholder names, 700 address names (`FUN_`/`DAT_`/`thunk_`), 648 RTTI class names. 1,735
-of them actually blocked a merge inside some TU.
+`build/tree/conflicts.json` lists **2,225 names declared incompatibly** across the verified sources (3,302
+before the rename): 851 that gen_tree classifies as invented, 714 address names (`FUN_`/`DAT_`/`thunk_`), 660
+RTTI class names. 1,382 of them actually blocked a merge inside some TU (1,735 before).
 
 | class | names that blocked a merge | functions wrapped because of them |
 |---|---|---|
-| invented (`Obj`, `C`, `X`, `Owner`, `Item`, `Entry`, `Base`, `Node`, …) | 918 | 11,191 |
-| RTTI classes (`ParamIntConstRange`, `TrackFactoryTemplate`, `ParamEnumConstList`, `Closure*`, `Method*`, `FEThingsBase`, `pure3d::pddiBaseContext`, …) | 391 | 3,348 |
-| address names | 426 | 1,579 |
+| RTTI classes (`ParamIntConstRange`, `TrackFactoryTemplate`, `ParamEnumConstList`, `Closure*`, `Method*`, `FEThingsBase`, `pure3d::pddiBaseContext`, …) | 400 | 3,505 |
+| "invented" to gen_tree's classifier, which only knows full RTTI names. Nearly all are global-scope stubs of namespaced RTTI classes (`fight::ParamValue`, `fight::Node`/`scenegraph::Node`, `core::Object`, `CActorManager`, `hulkfight::ai::FaceTargetAction`, `fight::Action`, `Render::World`, …: 2,635 wraps); the rest are functions (`operator new` with/without `throw()`, `Alloc`, `atexit`, `__security_check_cookie`) | 545 | 3,142 |
+| address names | 437 | 1,855 |
 
-(A function counts once per conflicting name it uses, so the column sums to more than 10,852.)
+(A function counts once per conflicting name it uses, so the column sums to more than 6,408.)
 
 Top conflicts by functions blocked:
 
 | symbol | variants | sources | wrapped | e.g. |
 |---|---|---|---|---|
-| `Obj` | 2,449 | 3,259 | 2,402 | `struct Obj { void f(); };` vs `class Obj : public Base { … };` |
-| `ParamIntConstRange` | 4 | 1,418 | 704 | two stub layouts, one with a member-function pointer at +0x10 |
-| `TrackFactoryTemplate` | 42 | 1,034 | 524 | `struct { void* m_vptr; … }` vs `class { virtual void vf0(); … }` |
+| `ParamIntConstRange` | 4 | 1,418 | 703 | two stub layouts, one with a member-function pointer at +0x10 |
+| `TrackFactoryTemplate` | 72 | 1,034 | 524 | `struct { void* m_vptr; … }` vs `class { virtual void vf0(); … }` |
 | `ParamEnumConstList` | 10 | 677 | 504 | |
-| `C`, `X`, `Owner`, `Item`, `Entry`, `Target`, `Base`, `Node` | 290–600 each | | 210–420 each | invented helper types |
-| `ParamValue` | 18 | 1,084 | 263 | `virtual void v0()…` vs `virtual void a()…` (same slots, different names) |
-| `DAT_004dd700` | 40 | 375 | 136 | `extern World*` vs `extern Globals*` |
-| `FUN_0008d690` (allocator) | 31 | 993 | 84 | C++ vs `extern "C"` linkage, `unsigned` vs `unsigned int` |
-| `FUN_001d04d0` | 20 | 179 | 70 | `char(const char*)` vs `char(const void*) throw()` |
-| `DAT_004d9968` | 6 | 295 | 46 | C++ vs `extern "C"` linkage |
-| `FUN_00344e74` | 49 | 215 | 36 | five different parameter lists |
-| `thunk_FUN_00267090` (delete helper) | 65 | 2,341 | 24 | one overload per pointer type; coexist as overloads, so rarely blocking |
+| `ParamValue` (`fight::ParamValue`) | 18 | 1,084 | 263 | `virtual void v0()…` vs `virtual void a()…` (same slots, different names) |
+| `Node` (`fight::Node`, `pure3d::scenegraph::Node`) | 321 | 421 | 232 | |
+| `DAT_004dd700` | 277 | 382 | 174 | `extern World*` vs `extern Globals*` |
+| `Object` (`core::Object`, `Render::Object`) | 312 | 385 | 153 | |
+| `operator new` | 33 | 1,770 | 124 | placement new with and without `throw()` |
+| `CActorManager`, `FaceTargetAction`, `Action` | 24–149 | | 85–112 each | global stubs of RTTI classes |
+| `FUN_0008d690` (allocator) | 60 | 996 | 90 | C++ vs `extern "C"` linkage, `unsigned` vs `unsigned int` |
+| `FUN_0027b020` | 85 | 222 | 81 | |
+| `FUN_001d04d0` | 21 | 191 | 76 | `char(const char*)` vs `char(const void*) throw()` |
 
 **`include/gen/` is not used yet.** No stub agreed with it closely enough to swap blindly: the stubs name
 virtual slots and fields freely (`v0`, `a`, `f0`, `pad`), while `include/gen/` has `vfunc_N(int, …)`
@@ -145,25 +191,25 @@ signatures and only proven fields. Swapping is the job of `gen_headers.py --swap
 
 ## Next steps (ranked)
 
-1. **Rename invented placeholder types per function** (`Obj` → `Obj_0x00012400` or a real name) in
-   `matches/` and `equivalent/`. Mangled names change, code doesn't, so it is safe and mechanical
-   (re-verify with `compare.py`). The invented names account for 918 blocking names and about 11k wrapped
-   functions; `Obj` alone blocks 2,402.
-2. **Move the RTTI stubs onto `include/gen/`**, starting with the fight parameter/factory families:
+1. **Done: invented placeholder names renamed per source** (`tools/rename_placeholders.py`, above). Re-run it
+   when farm lanes add sources, and re-verify what it changes.
+2. **Move the RTTI stubs onto `include/gen/`**, including the global-scope stubs of namespaced classes
+   (`ParamValue`, `Node`, `Object`, `CActorManager`, `FaceTargetAction`, `Action`, `World`, …: 2,635 wraps),
+   starting with the fight parameter/factory families:
    `ParamIntConstRange`, `TrackFactoryTemplate`, `ParamEnumConstList`, `ParamValue`, `Closure*`/`Method*`
    cover 2,300+ wrapped functions. Use `gen_headers.swap_transform` per function, recompile, keep what
    still matches. This is roadmap step 2 and it also fixes the next item for those classes.
-3. **Give clone-propagated sources their own names.** 4,386 functions are wrapped only because a clone
-   reuses its donor's definition name in the same TU. `tools/clone_matches.py` /
+3. **Give clone-propagated sources their own names.** 3,927 functions are wrapped only because a clone
+   reuses its donor's definition name in the same TU (after the rename, nearly all RTTI methods). `tools/clone_matches.py` /
    `clone_equivalent.py` could emit the target's own name (`CMoveAddYTrack::vfunc_5`, from functions.csv).
-4. **Pin the address-name types**: one declaration per `FUN_`/`DAT_` (426 blocking names). A
+4. **Pin the address-name types**: one declaration per `FUN_`/`DAT_` (437 blocking names). A
    `include/decls/` of agreed prototypes for the most used ones (`FUN_0008d690`, the allocator,
    `thunk_FUN_00267090`, the delete helper, `DAT_004dd700`, `DAT_004d9968`, `FUN_001d04d0`) would remove most
-   of the 1,579 wraps; `DAT_004dd700` being `World*` in some files and `Globals*` in others is a real type
+   of the 1,855 wraps; `DAT_004dd700` being `World*` in some files and `Globals*` in others is a real type
    question.
 5. **Fix `equivalent/0x00106e90.cpp`** (doesn't compile standalone).
-6. **Moving the tree into a committed `src/`** needs: the merged fraction well above today's third (steps
-   1–4), so the tree reads as source rather than namespaces of stubs; a decision on COMDAT strays
+6. **Moving the tree into a committed `src/`** needs: the merged fraction well above today's 54% (steps
+   2–4), so the tree reads as source rather than namespaces of stubs; a decision on COMDAT strays
    (keep them where the linker put them, as now, or in their class's home); `matches/`/`equivalent/` either
    retired or generated from the tree; the build flags per TU recorded (today `// cl-flags:` lines); and
    `build_tree.py` wired into CI so a match that stops matching after a source edit is caught. Splits

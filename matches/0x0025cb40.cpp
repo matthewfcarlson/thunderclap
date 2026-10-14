@@ -4,11 +4,11 @@ struct Node {
     char pad[0x24];
     int count;
 };
-class Target {
+class Target_25cb40 {
   public:
     char Run(Node**);
 };
-char Target::Run(Node** p) {
+char Target_25cb40::Run(Node** p) {
     if (Check(*p, "\n[\n")) {
         ++(*p)->count;
         if (Parse(p, "mMin", this)) {

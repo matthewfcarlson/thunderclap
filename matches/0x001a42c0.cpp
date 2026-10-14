@@ -10,14 +10,14 @@ inline void Copy(char* dst, const char* src) {
         ++dst;
     } while (c);
 }
-class Obj {
+class Obj_1a42c0 {
     char pad[0x12c];
     char* str;
 
   public:
     unsigned char Set(const char* s);
 };
-unsigned char Obj::Set(const char* s) {
+unsigned char Obj_1a42c0::Set(const char* s) {
     Free(str);
     if (!s) {
         str = 0;

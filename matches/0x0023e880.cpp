@@ -1,8 +1,8 @@
-typedef unsigned int U;
+typedef unsigned int U_23e880;
 extern void* __cdecl FUN_0008d690(int);
-class Helper {
+class Helper_23e880 {
   public:
-    U FUN_0023e610(U, U, U, U);
+    U_23e880 FUN_0023e610(U_23e880, U_23e880, U_23e880, U_23e880);
 };
 class StopTrack {
   public:
@@ -16,11 +16,11 @@ class StopTrack {
     virtual void v7();
     virtual void v8();
     virtual void v9();
-    virtual U vfunc_10(U a, U b, U c);
+    virtual U_23e880 vfunc_10(U_23e880 a, U_23e880 b, U_23e880 c);
 };
-U StopTrack::vfunc_10(U a, U b, U c) {
-    Helper* p = (Helper*)FUN_0008d690(0x2c);
+U_23e880 StopTrack::vfunc_10(U_23e880 a, U_23e880 b, U_23e880 c) {
+    Helper_23e880* p = (Helper_23e880*)FUN_0008d690(0x2c);
     if (p)
-        return p->FUN_0023e610(a, (U)this, b, c);
+        return p->FUN_0023e610(a, (U_23e880)this, b, c);
     return 0;
 }

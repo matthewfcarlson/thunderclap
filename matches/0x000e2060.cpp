@@ -22,7 +22,7 @@ class FELayout {
     virtual void a19();
     virtual void a20();
 };
-class Inner {
+class Inner_e2060 {
   public:
     virtual void a0();
     virtual void a1();
@@ -41,7 +41,7 @@ class Inner {
 class SingleLayout : public FELayout {
   public:
     char pad[0x40];
-    Inner* inner;
+    Inner_e2060* inner;
     virtual void g5();
     virtual void g6();
     virtual bool g7(int, int);

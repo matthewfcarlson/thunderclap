@@ -1,17 +1,17 @@
 extern "C" double __cdecl __floor_default(double);
-struct Owner;
-struct Backend {
+struct Owner_2d5f20;
+struct Backend_2d5f20 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
     virtual void slot3();
     virtual void slot4();
     virtual void update(int);
-    virtual int consume(int, void*, int, int, Owner*);
+    virtual int consume(int, void*, int, int, Owner_2d5f20*);
 };
-struct Owner {
+struct Owner_2d5f20 {
     char pad0[0x88];
-    Backend* backend;
+    Backend_2d5f20* backend;
     char pad1[0xb0 - 0x8c];
     char data[0x14c - 0xb0];
     int used;
@@ -21,7 +21,7 @@ struct Owner {
     int* end;
     void target(int a, int b, int c);
 };
-void Owner::target(int a, int b, int c) {
+void Owner_2d5f20::target(int a, int b, int c) {
     if (!backend)
         return;
     backend->update(a);
@@ -30,7 +30,7 @@ void Owner::target(int a, int b, int c) {
         credit = (float)available;
     if (credit >= 1.0f) {
         double count = __floor_default(credit);
-        Backend* current = backend;
+        Backend_2d5f20* current = backend;
         int taken = current->consume((int)count, data, c, b, this);
         credit -= (float)taken;
     }

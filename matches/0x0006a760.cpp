@@ -15,14 +15,14 @@ class COrientTargetTrack {
     virtual int vfunc_12(void*);
     virtual void f13();
 };
-class A {
+class A_6a760 {
   public:
     char pad[0x33c];
-    A* Next();
+    A_6a760* Next();
 };
-class B {
+class B_6a760 {
   public:
-    A* Get();
+    A_6a760* Get();
 };
 class D {
   public:
@@ -31,8 +31,8 @@ class D {
 extern void* __cdecl FUN_0008d690(unsigned int);
 extern D* __cdecl FUN_0001fc60(void*);
 int COrientTargetTrack::vfunc_12(void* p) {
-    B* b = (B*)p;
-    A* a = b->Get();
+    B_6a760* b = (B_6a760*)p;
+    A_6a760* a = b->Get();
     a = a->Next();
     int v = *(int*)((char*)a + 0x338);
     if (!v)

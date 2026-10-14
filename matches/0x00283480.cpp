@@ -1,17 +1,17 @@
-typedef void(__fastcall* Fn)(void*);
-struct Obj {
-    Fn* v;
+typedef void(__fastcall* Fn_283480)(void*);
+struct Obj_283480 {
+    Fn_283480* v;
 };
-extern Obj* gObj;
-struct U {
+extern Obj_283480* gObj_283480;
+struct U_283480 {
     void f(int);
 };
-struct T {
+struct T_283480 {
     char pad[0x10];
-    U* m;
+    U_283480* m;
     void go(int);
 };
-void T::go(int x) {
-    gObj->v[91](gObj);
+void T_283480::go(int x) {
+    gObj_283480->v[91](gObj_283480);
     m->f(x);
 }

@@ -1,20 +1,20 @@
 // Same code shape as 0x000c6a20 (propagated; names are from that function)
-class Arg {
+class Arg_f6850 {
   public:
     virtual void F();
     int G();
 };
-class Obj {
+class Obj_f6850 {
   public:
-    Arg* mArg;
+    Arg_f6850* mArg;
     volatile int mOne;
     char pad[0x3fc];
     volatile int mIndex;
     int m408;
     int m40c;
-    Obj* Run(Arg*);
+    Obj_f6850* Run(Arg_f6850*);
 };
-Obj* Obj::Run(Arg* arg) {
+Obj_f6850* Obj_f6850::Run(Arg_f6850* arg) {
     mArg = arg;
     if (arg) {
         arg->F();

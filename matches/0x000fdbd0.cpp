@@ -1,15 +1,15 @@
-class Item {
+class Item_fdbd0 {
   public:
     virtual void F();
 };
-class Container {
+class Container_fdbd0 {
   public:
     char pad[8];
     int count;
-    Item* items[1];
-    int Add(Item* p);
+    Item_fdbd0* items[1];
+    int Add(Item_fdbd0* p);
 };
-int Container::Add(Item* p) {
+int Container_fdbd0::Add(Item_fdbd0* p) {
     items[count] = p;
     p->F();
     int n = ++count;

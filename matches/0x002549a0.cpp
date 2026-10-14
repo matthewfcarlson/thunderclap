@@ -31,8 +31,8 @@ class SeqEventSilence : public SeqEvent {
 extern char g_buffer[];
 extern void* __cdecl FUN_00247530(void*);
 extern int __cdecl FUN_000113e0(int, int);
-extern char VT[];
-class Helper {
+extern char VT_2549a0[];
+class Helper_2549a0 {
   public:
     void FUN_0025dc20(SeqActionSilence*);
 };
@@ -40,7 +40,7 @@ void SeqEventSilence::v2(int arg) {
     SeqActionSilence* a = (SeqActionSilence*)FUN_00247530(g_buffer);
     SeqActionSilence* r;
     if (a) {
-        a->vf = (int)VT;
+        a->vf = (int)VT_2549a0;
         a->owner = this;
         int x = mc;
         int y = m8;
@@ -51,5 +51,5 @@ void SeqEventSilence::v2(int arg) {
         r = a;
     } else
         r = 0;
-    ((Helper*)arg)->FUN_0025dc20(r);
+    ((Helper_2549a0*)arg)->FUN_0025dc20(r);
 }

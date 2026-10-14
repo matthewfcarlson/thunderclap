@@ -37,7 +37,7 @@ class Param {
     virtual void f18();
     virtual void Apply(int, int, int);
 };
-class physics_ImpulseBasedCollisionSolver {
+class physics_ImpulseBasedCollisionSolver_2f7c30 {
   public:
     virtual void f0();
     virtual void f1();
@@ -48,7 +48,7 @@ class physics_ImpulseBasedCollisionSolver {
     char pad[0x34 - 8];
     unsigned char flags;
 };
-void physics_ImpulseBasedCollisionSolver::vfunc_3(Param* p, int a, int b, int c) {
+void physics_ImpulseBasedCollisionSolver_2f7c30::vfunc_3(Param* p, int a, int b, int c) {
     if (p && !(flags & 1)) {
         int val = p->value;
         if (ctx->Check(val, a) != 1)

@@ -1,14 +1,14 @@
-struct Obj {
+struct Obj_172790 {
     char pad[0x1b0c];
     float amount;
     float Get();
     void Set(float, int);
 };
-struct Mid {
-    Obj* GetObj();
+struct Mid_172790 {
+    Obj_172790* GetObj();
 };
-struct Source {
-    Mid* GetMid();
+struct Source_172790 {
+    Mid_172790* GetMid();
 };
 struct Param {
     char pad[0x10];
@@ -24,15 +24,15 @@ class CriticalMassDrainAction {
     virtual char vfunc_3(int, int);
     char pad[0x18];
     Param* param;
-    Source* src;
+    Source_172790* src;
 };
 char CriticalMassDrainAction::vfunc_3(int x, int y) {
     if (!src)
         return 0;
-    Mid* m = src->GetMid();
+    Mid_172790* m = src->GetMid();
     if (!m)
         return 0;
-    Obj* o = m->GetObj();
+    Obj_172790* o = m->GetObj();
     if (!o)
         return 0;
     float amt = o->amount;

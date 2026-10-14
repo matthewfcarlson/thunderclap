@@ -1,8 +1,8 @@
-struct E {
+struct E_2277f0 {
     int x, y, z;
 };
-extern void __cdecl FUN_002273d0(E* first, int hole, int len, E v);
-void __cdecl FUN_002277f0(E* first, E* last) {
+extern void __cdecl FUN_002273d0(E_2277f0* first, int hole, int len, E_2277f0 v);
+void __cdecl FUN_002277f0(E_2277f0* first, E_2277f0* last) {
     int len = last - first;
     int parent = len / 2;
     while (parent > 0) {

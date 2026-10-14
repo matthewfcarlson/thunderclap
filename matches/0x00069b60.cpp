@@ -1,10 +1,10 @@
-class Base {
+class Base_69b60 {
   public:
-    Base();
+    Base_69b60();
     virtual void f0();
 };
 
-class CSweepTrack : public Base {
+class CSweepTrack : public Base_69b60 {
   public:
     CSweepTrack();
     virtual void f0();

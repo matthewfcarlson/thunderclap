@@ -1,8 +1,8 @@
-class Obj {
+class Obj_eec80 {
   public:
     void apply(int);
 };
-class Child {
+class Child_eec80 {
   public:
     virtual void c0();
     virtual void c1();
@@ -58,7 +58,7 @@ class Child {
     virtual void c51();
     virtual void c52();
     virtual void c53();
-    virtual Obj* get(int);
+    virtual Obj_eec80* get(int);
     int fallback(int);
 };
 class FEContainer {
@@ -108,11 +108,11 @@ class FEContainer {
     virtual void a42();
     virtual void a43();
     virtual int a44(int);
-    Child* child;
+    Child_eec80* child;
     int vfunc_27(int x, int y);
 };
 int FEContainer::vfunc_27(int x, int y) {
-    Obj* o = child->get(x);
+    Obj_eec80* o = child->get(x);
     a24((int)o, x);
     if (y) {
         int q = a44(y);

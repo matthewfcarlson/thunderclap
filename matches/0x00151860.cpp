@@ -1,33 +1,33 @@
-struct Obj {
+struct Obj_151860 {
     virtual void V0();
     virtual void V1();
 };
-struct Sub {
-    Obj* obj;
+struct Sub_151860 {
+    Obj_151860* obj;
     void Init(int, int);
     void Set(int);
     void Stop();
     void Start(int);
     void End();
 };
-struct C3 {
+struct C3_151860 {
     void f();
 };
-struct C2 {
-    C3* f();
+struct C2_151860 {
+    C3_151860* f();
 };
-struct C1 {
-    C2* f();
+struct C1_151860 {
+    C2_151860* f();
 };
-struct C0 {
-    C1* f();
+struct C0_151860 {
+    C1_151860* f();
 };
 struct HitReactionAction {
     char p0[0x20];
-    C0* m20;
-    Sub sub;
+    C0_151860* m20;
+    Sub_151860 sub;
     char p28[0x24];
-    Obj* m4c;
+    Obj_151860* m4c;
     int m50;
     char m54;
     void vfunc_5(int b, int a);
@@ -35,7 +35,7 @@ struct HitReactionAction {
 void HitReactionAction::vfunc_5(int b, int a) {
     if (!b && !m54)
         sub.Init(m50, a);
-    Obj* old = m4c;
+    Obj_151860* old = m4c;
     m54 = 0;
     if (old != sub.obj) {
         m20->f()->f()->f();
@@ -43,7 +43,7 @@ void HitReactionAction::vfunc_5(int b, int a) {
     sub.Set(b);
     if (b == m50 - 1)
         sub.Start(1);
-    Obj* q = sub.obj;
+    Obj_151860* q = sub.obj;
     if (q)
         q->V0();
     if (m4c)

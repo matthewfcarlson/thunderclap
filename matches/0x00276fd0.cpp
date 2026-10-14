@@ -1,4 +1,4 @@
-typedef unsigned int U;
+typedef unsigned int U_276fd0;
 namespace core {
 class InstanceDrive {
   public:
@@ -37,9 +37,9 @@ class InstanceDrive {
     virtual void f32();
     virtual void f33();
     virtual void f34();
-    virtual void vfunc_36(void*, U, U, U, U, U, U);
+    virtual void vfunc_36(void*, U_276fd0, U_276fd0, U_276fd0, U_276fd0, U_276fd0, U_276fd0);
 };
-class Obj {
+class Obj_276fd0 {
   public:
     virtual void a();
     virtual void b();
@@ -64,9 +64,9 @@ class Obj {
     virtual void u();
     virtual void v();
 };
-void InstanceDrive::vfunc_36(void* p, U a, U b, U c, U d, U e, U f) {
+void InstanceDrive::vfunc_36(void* p, U_276fd0 a, U_276fd0 b, U_276fd0 c, U_276fd0 d, U_276fd0 e, U_276fd0 f) {
     this->vfunc_36(p, a, b, c, d, e, f);
-    Obj* o = *(Obj**)p;
+    Obj_276fd0* o = *(Obj_276fd0**)p;
     if (o)
         o->v();
 }

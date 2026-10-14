@@ -1,4 +1,4 @@
-class Inner {
+class Inner_dede0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -20,7 +20,7 @@ class Drawable {
   public:
     virtual void d0();
     char pad[4];
-    Inner* p;
+    Inner_dede0* p;
 };
 class DrawableText : public Drawable {
   public:

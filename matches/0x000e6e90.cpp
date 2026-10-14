@@ -1,4 +1,4 @@
-struct Child {
+struct Child_e6e90 {
     virtual void s0();
     virtual void s1();
     virtual void s2();
@@ -24,11 +24,11 @@ struct Context {
     char pad[0x124];
     Action* action;
 };
-struct Manager {
+struct Manager_e6e90 {
     char pad[0x20];
     Context* context;
 };
-extern Manager* DAT_004dd700;
+extern Manager_e6e90* DAT_004dd700;
 extern unsigned char DAT_004e222c, DAT_004e2518;
 struct FEThingsBase {
     virtual void vfunc_0();
@@ -81,7 +81,7 @@ struct FEThingsBase {
     virtual void vfunc_47();
     virtual void vfunc_48(int);
     char pad0[0x175c - 4];
-    Child* child;
+    Child_e6e90* child;
     char pad1[8];
     int selected;
     int mode;

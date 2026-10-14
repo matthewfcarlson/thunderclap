@@ -1,28 +1,28 @@
-class Item {
+class Item_2833a0 {
   public:
     virtual void A();
     virtual void B();
 };
-class Inner {
+class Inner_2833a0 {
   public:
     char pad[0x14];
     int value;
-    Item* item;
+    Item_2833a0* item;
 };
-class Owner {
+class Owner_2833a0 {
   public:
-    Item* item;
+    Item_2833a0* item;
     char pad[0x0c];
-    Inner* inner;
-    void set(Item* p);
+    Inner_2833a0* inner;
+    void set(Item_2833a0* p);
 };
-void Owner::set(Item* p) {
+void Owner_2833a0::set(Item_2833a0* p) {
     if (p)
         p->A();
     if (item)
         item->B();
     item = p;
-    Inner* q = inner;
+    Inner_2833a0* q = inner;
     if (p)
         p->A();
     if (q->item)

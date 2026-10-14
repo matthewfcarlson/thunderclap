@@ -1,5 +1,5 @@
-class Obj;
-class Inner {
+class Obj_e2820;
+class Inner_e2820 {
   public:
     virtual void f0();
     virtual void f1();
@@ -16,15 +16,15 @@ class Inner {
     virtual void f12();
     virtual void f13();
     virtual void f14();
-    virtual void f15(int, Obj*);
+    virtual void f15(int, Obj_e2820*);
 };
-class Obj {
+class Obj_e2820 {
   public:
     char pad[0x14];
-    Inner* m;
+    Inner_e2820* m;
     int method(int);
 };
-int Obj::method(int param) {
+int Obj_e2820::method(int param) {
     m->f15(param, this);
     return param;
 }

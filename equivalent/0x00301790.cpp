@@ -15,7 +15,7 @@ struct Span {
     int end;
 };
 
-class Plane {
+class Plane_301790 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -65,12 +65,12 @@ public:
     float margin;
     char pad10[4];
     Vec3 rel;
-    void FUN_00314be0(Shape *s, Vec3 *a, Plane *p, Vec3 *b, float d, const Vec3 *n);
-    void FUN_00302c20(Shape *s, Plane *p);
-    void FUN_00301790(Plane *a0, Shape *shape);
+    void FUN_00314be0(Shape *s, Vec3 *a, Plane_301790 *p, Vec3 *b, float d, const Vec3 *n);
+    void FUN_00302c20(Shape *s, Plane_301790 *p);
+    void FUN_00301790(Plane_301790 *a0, Shape *shape);
 };
 
-void Solver::FUN_00301790(Plane *a0, Shape *shape)
+void Solver::FUN_00301790(Plane_301790 *a0, Shape *shape)
 {
     Frame_301790 f;
     Vec3 *pc = a0->vfunc_4();

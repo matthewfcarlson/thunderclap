@@ -24,27 +24,27 @@ struct V {
     virtual void f22();
     virtual void f23(int, void*);
 };
-struct Inner {
+struct Inner_2ba840 {
     V* v;
     char pad[0x7c];
     unsigned int x;
 };
-struct Obj {
-    Inner* p;
+struct Obj_2ba840 {
+    Inner_2ba840* p;
 };
-struct Billboard {
+struct Billboard_2ba840 {
     char pad[0x48];
-    Obj* obj;
+    Obj_2ba840* obj;
     char pad2[0x0c];
     unsigned int value;
     void vfunc_8(unsigned int, unsigned int);
     void helper(unsigned int, unsigned int);
 };
-extern V** gObj;
-void Billboard::vfunc_8(unsigned int a, unsigned int b) {
-    gObj[0]->f23(0, (char*)obj->p + 0x40);
+extern V** gObj_2ba840;
+void Billboard_2ba840::vfunc_8(unsigned int a, unsigned int b) {
+    gObj_2ba840[0]->f23(0, (char*)obj->p + 0x40);
     obj->p->x = value;
     helper(a, b);
     obj->p->x = 0x3f800000;
-    gObj[0]->f16(0);
+    gObj_2ba840[0]->f16(0);
 }

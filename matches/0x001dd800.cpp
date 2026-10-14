@@ -1,4 +1,4 @@
-struct Obj {
+struct Obj_1dd800 {
     char pad[0x62a];
     struct Rec {
         short index;
@@ -6,7 +6,7 @@ struct Obj {
     } rec[0x800];
     bool target(int index);
 };
-bool Obj::target(int index) {
+bool Obj_1dd800::target(int index) {
     if (index < 0 || index >= 0x800)
         return false;
     short v = rec[index].index;

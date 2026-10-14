@@ -2,19 +2,19 @@ class D {
   public:
     void g(void*, int, void*);
 };
-class A {
+class A_265210 {
   public:
     virtual void f();
 };
-class C {
+class C_265210 {
     char pad[0x10];
     D* m;
 
   public:
-    void run(A* a, void* b);
+    void run(A_265210* a, void* b);
 };
-void A::f() {}
-void C::run(A* a, void* b) {
+void A_265210::f() {}
+void C_265210::run(A_265210* a, void* b) {
     D* mm = m;
     a->f();
     mm->g(b, 0, a);

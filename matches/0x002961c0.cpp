@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2961c0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -24,7 +24,7 @@ class Scenegraph {
     virtual void vfunc_8();
     virtual void vfunc_9();
     char pad[0x3c];
-    Obj* m;
+    Obj_2961c0* m;
 };
 void Scenegraph::vfunc_9() {
     if (m)

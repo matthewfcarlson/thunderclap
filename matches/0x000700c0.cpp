@@ -3,7 +3,7 @@ class TrackFactoryTemplate {
   public:
     int vfunc_5();
 };
-class Effect {
+class Effect_700c0 {
   public:
     int Init();
 };
@@ -11,6 +11,6 @@ extern void* __cdecl operator_new(unsigned int);
 int TrackFactoryTemplate::vfunc_5() {
     void* p = operator_new(0x18);
     if (p)
-        return ((Effect*)p)->Init();
+        return ((Effect_700c0*)p)->Init();
     return 0;
 }

@@ -1,14 +1,14 @@
-class Obj {
+class Obj_262400 {
   public:
     unsigned int A();
     char* B();
 };
-class P2 {
+class P2_262400 {
   public:
     void SetExt(char*);
 };
 
-void* FUN_00262400(Obj* obj, P2* p2) {
+void* FUN_00262400(Obj_262400* obj, P2_262400* p2) {
     if (obj->A() > 0) {
         char* start = obj->B();
         char* p = (char*)obj->A();

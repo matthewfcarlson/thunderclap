@@ -1,6 +1,6 @@
-typedef unsigned int U32;
-void FUN_0030bf40(U32* param_1, int param_2, U32* param_3) {
-    volatile U32* out = param_3;
+typedef unsigned int U32_30bf40;
+void FUN_0030bf40(U32_30bf40* param_1, int param_2, U32_30bf40* param_3) {
+    volatile U32_30bf40* out = param_3;
     if (param_2 != 0) {
         do {
             if (out != 0)

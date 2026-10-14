@@ -3,7 +3,7 @@ namespace D3D8 {
 void __stdcall D3DDevice_SetPalette(DWORD, DWORD);
 void __stdcall D3DDevice_SetTexture(DWORD, DWORD);
 } // namespace D3D8
-class Obj {
+class Obj_326b00 {
   public:
     char pad[0x10];
     DWORD texA;
@@ -13,7 +13,7 @@ class Obj {
     DWORD palette;
     void Apply(DWORD);
 };
-void Obj::Apply(DWORD stage) {
+void Obj_326b00::Apply(DWORD stage) {
     D3D8::D3DDevice_SetPalette(stage, palette);
     DWORD texture = texB;
     if (texture == 0)

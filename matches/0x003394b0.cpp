@@ -1,12 +1,12 @@
 extern "C" void __cdecl copybytes(int, void*, int);
-struct Buffer {
+struct Buffer_3394b0 {
     char* pos;
     int count;
     int size;
     char data[512];
 };
-extern "C" void __cdecl flush(Buffer*);
-void __cdecl FUN_003394b0(Buffer* b, const char* src, int n) {
+extern "C" void __cdecl flush(Buffer_3394b0*);
+void __cdecl FUN_003394b0(Buffer_3394b0* b, const char* src, int n) {
     for (; n != 0; --n) {
         if (b->pos >= b->data + 512) {
             int len = b->pos - b->data;

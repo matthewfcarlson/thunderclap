@@ -1,4 +1,4 @@
-class C {
+class C_e0360 {
     char pad[0x180c];
 
   public:
@@ -7,7 +7,7 @@ class C {
     int c;
     void Set(int x, int y, int z);
 };
-void C::Set(int x, int y, int z) {
+void C_e0360::Set(int x, int y, int z) {
     a = x;
     b = y;
     c = z;

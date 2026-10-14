@@ -8,13 +8,13 @@ class JointDriver {
     int vfunc_4();
     int vfunc_5();
 };
-class Helper {
+class Helper_2b53c0 {
   public:
     int run(JointDriver*);
 };
 extern void* thunk_FUN_0008d690(int);
 int JointDriver::vfunc_5() {
-    Helper* p = (Helper*)thunk_FUN_0008d690(0x70);
+    Helper_2b53c0* p = (Helper_2b53c0*)thunk_FUN_0008d690(0x70);
     if (p)
         return p->run(this);
     return 0;

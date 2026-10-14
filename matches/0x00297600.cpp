@@ -1,5 +1,5 @@
 extern "C" char DAT_0042d3bc[];
-class Ref {
+class Ref_297600 {
   public:
     virtual void f0();
     virtual void f1();
@@ -11,12 +11,12 @@ class TransformNode {
     TransformNode* vfunc_2(unsigned int p);
     void helper();
     char pad[0xA8 - 4];
-    Ref* ref;
+    Ref_297600* ref;
 };
 void __cdecl thunk_FUN_00267090(TransformNode*);
 TransformNode* TransformNode::vfunc_2(unsigned int p) {
     *(volatile int*)this = ((int)DAT_0042d3bc);
-    Ref* r = *(Ref* volatile*)&ref;
+    Ref_297600* r = *(Ref_297600* volatile*)&ref;
     if (r) {
         r->f1();
         ref = 0;

@@ -1,15 +1,15 @@
-class Sub {
+class Sub_1c3b20 {
   public:
     void Fn();
 };
 
-class C {
+class C_1c3b20 {
   public:
     char pad[8];
-    Sub* mSub;
+    Sub_1c3b20* mSub;
     void Forward();
 };
 
-void C::Forward() {
+void C_1c3b20::Forward() {
     mSub->Fn();
 }

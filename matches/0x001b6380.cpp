@@ -1,10 +1,10 @@
 extern "C" void* Alloc(unsigned int);
-class Arena {
+class Arena_1b6380 {
   public:
     unsigned int *mStart, *mFree, *mEnd;
-    Arena();
+    Arena_1b6380();
 };
-Arena::Arena() {
+Arena_1b6380::Arena_1b6380() {
     mStart = 0;
     mFree = 0;
     mEnd = 0;

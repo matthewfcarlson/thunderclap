@@ -9,12 +9,12 @@ struct CSoundSequence {
     void cleanup();
 };
 extern void* soundvt[];
-extern void* refvt[];
+extern void* refvt_1e8bf0[];
 void CSoundSequence::cleanup() {
     vptr = soundvt;
     if (member) {
         member->Release();
         member = 0;
     }
-    vptr = refvt;
+    vptr = refvt_1e8bf0;
 }

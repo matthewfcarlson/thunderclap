@@ -1,4 +1,4 @@
-class Child {
+class Child_eece0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -58,7 +58,7 @@ class Child {
     virtual int f55(int);
     int fallback(int);
 };
-class Result {
+class Result_eece0 {
   public:
     int apply(int);
 };
@@ -117,7 +117,7 @@ class FEContainer {
     virtual void a50();
     virtual void a51();
     virtual void a52();
-    Child* child;
+    Child_eece0* child;
 };
 int FEContainer::vfunc_28(int a, int b) {
     int r = child->f55(a);
@@ -127,7 +127,7 @@ int FEContainer::vfunc_28(int a, int b) {
         if (!v)
             v = child->fallback(b);
         if (v) {
-            Result* res = (Result*)r;
+            Result_eece0* res = (Result_eece0*)r;
             res->apply(v);
         }
     }

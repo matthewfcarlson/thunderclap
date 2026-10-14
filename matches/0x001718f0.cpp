@@ -3,15 +3,15 @@ struct MotionData {
     float value;
     unsigned int id;
 };
-struct Holder {
+struct Holder_1718f0 {
     char pad[0x14];
     unsigned int id;
 };
-struct Resolver {
+struct Resolver_1718f0 {
     MotionData* get();
 };
-struct Caller {
-    Resolver* get();
+struct Caller_1718f0 {
+    Resolver_1718f0* get();
 };
 struct ChargeAction {
     virtual void v0() {}
@@ -21,13 +21,13 @@ struct ChargeAction {
     virtual void v4() {}
     virtual bool vfunc_5(int p2, float p3);
     char pad0[0x18];
-    Holder* holder;
-    Caller* source;
+    Holder_1718f0* holder;
+    Caller_1718f0* source;
     float scale;
 };
 bool ChargeAction::vfunc_5(int p2, float p3) {
     if (p2 == 0) {
-        Resolver* r = source->get();
+        Resolver_1718f0* r = source->get();
         MotionData* m = r->get();
         unsigned int id = holder->id;
         if (id != m->id)

@@ -1,25 +1,25 @@
-struct Obj {
+struct Obj_23ab40 {
     char pad[0x100];
-    Obj* next;
+    Obj_23ab40* next;
 };
-extern void __cdecl thunk_FUN_00267090(Obj*);
-class C {
+extern void __cdecl thunk_FUN_00267090(Obj_23ab40*);
+class C_23ab40 {
   public:
     char pad[0x12c];
     int count;
     char pad1[0x0c];
     void f();
 };
-void C::f() {
+void C_23ab40::f() {
     int n = count;
     if (--n >= 0) {
         char* p = (char*)this + 0x13c + n * 0x18;
         int left = n + 1;
         do {
             if (*((int*)p - 1) == 4) {
-                Obj* x = *(Obj**)p;
+                Obj_23ab40* x = *(Obj_23ab40**)p;
                 while (x) {
-                    Obj* cur = x;
+                    Obj_23ab40* cur = x;
                     x = x->next;
                     thunk_FUN_00267090(cur);
                 }

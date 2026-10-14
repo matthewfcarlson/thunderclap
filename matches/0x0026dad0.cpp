@@ -1,4 +1,4 @@
-struct Job {
+struct Job_26dad0 {
     char pad0[8];
     char inner[0x30];
     unsigned char active;
@@ -6,7 +6,7 @@ struct Job {
     int threadId;
     int handle;
 };
-extern "C" void __cdecl FUN_0026d940(Job*);
+extern "C" void __cdecl FUN_0026d940(Job_26dad0*);
 extern "C" void __cdecl FUN_0026d7a0(void*);
 extern "C" int __cdecl FUN_0020c14b();
 extern "C" void __stdcall FUN_0020bbc2(int);
@@ -17,7 +17,7 @@ void __stdcall ExitThread(int);
 extern "C" char DAT_0052a188;
 extern "C" void(__stdcall* DAT_003f2c8c)(void*);
 extern "C" void(__stdcall* DAT_003f2c88)(void*);
-void __cdecl FUN_0026dad0(Job* job) {
+void __cdecl FUN_0026dad0(Job_26dad0* job) {
     FUN_0026d940(job);
     DAT_003f2c8c(&DAT_0052a188);
     if (job->active) {

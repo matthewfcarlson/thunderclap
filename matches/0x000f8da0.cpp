@@ -7,13 +7,13 @@ class NamedValueFloat {
     float value44;
     void* callback48;
 };
-struct Callback {
+struct Callback_f8da0 {
     virtual void changed(float);
 };
 void NamedValueFloat::vfunc_1() {
     float v = value44;
     value40 = v;
     if (callback48)
-        ((Callback*)callback48)->changed(v);
+        ((Callback_f8da0*)callback48)->changed(v);
     vfunc_0();
 }

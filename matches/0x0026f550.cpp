@@ -1,4 +1,4 @@
-typedef unsigned int u32;
+typedef unsigned int u32_26f550;
 namespace core {
 class XboxDrive {
   public:
@@ -22,11 +22,11 @@ class XboxDrive {
     virtual void f17();
     virtual void f18();
     virtual void f19();
-    virtual u32 vfunc_20(u32*);
+    virtual u32_26f550 vfunc_20(u32_26f550*);
 };
 } // namespace core
-extern void __stdcall FUN_0020bbc2(u32);
-u32 core::XboxDrive::vfunc_20(u32* p) {
+extern void __stdcall FUN_0020bbc2(u32_26f550);
+u32_26f550 core::XboxDrive::vfunc_20(u32_26f550* p) {
     FUN_0020bbc2(*p);
     *p = 0xffffffff;
     return 1;

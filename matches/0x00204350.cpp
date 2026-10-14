@@ -1,26 +1,26 @@
-struct Sub {
+struct Sub_204350 {
     int Count();
 };
-struct Item {
+struct Item_204350 {
     char Check(int*);
 };
-struct Obj {
+struct Obj_204350 {
     char pad[4];
-    Obj* child;
+    Obj_204350* child;
     int Find(int);
 };
-extern Obj* GetQuery();
+extern Obj_204350* GetQuery();
 char __stdcall Target(int a, int b, int c) {
-    Obj* q = GetQuery();
+    Obj_204350* q = GetQuery();
     if (!q)
         return 0;
     q = GetQuery();
-    Obj* h = q->child;
+    Obj_204350* h = q->child;
     if (!h)
         return 0;
     q = GetQuery();
     h = q->child;
-    int n = ((Sub*)((char*)h + 0x18))->Count();
+    int n = ((Sub_204350*)((char*)h + 0x18))->Count();
     int args[3];
     args[0] = a;
     args[1] = b;
@@ -28,7 +28,7 @@ char __stdcall Target(int a, int b, int c) {
     for (int i = 0; i < n; ++i) {
         q = GetQuery();
         h = q->child;
-        Item* item = (Item*)h->Find(i);
+        Item_204350* item = (Item_204350*)h->Find(i);
         if (item && item->Check(args))
             return 1;
     }

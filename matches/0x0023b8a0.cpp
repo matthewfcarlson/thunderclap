@@ -1,5 +1,5 @@
 // Same code shape as 0x0023a460 (propagated; names are from that function)
-class Delegate {
+class Delegate_23b8a0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -30,7 +30,7 @@ class Delegate {
 class StringReader {
   public:
     char pad[8];
-    Delegate* sub;
+    Delegate_23b8a0* sub;
 };
 class IFileStringReader : public StringReader {
   public:

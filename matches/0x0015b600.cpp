@@ -1,11 +1,11 @@
-struct Sub {
+struct Sub_15b600 {
     char pad[0x40];
 };
-class A {
+class A_15b600 {
   public:
-    Sub sub;
+    Sub_15b600 sub;
     void* Get();
 };
-void* A::Get() {
+void* A_15b600::Get() {
     return (char*)&sub + 0x40;
 }

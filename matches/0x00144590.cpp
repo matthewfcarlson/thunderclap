@@ -1,10 +1,10 @@
-struct X {
-    X* a();
-    X* b();
+struct X_144590 {
+    X_144590* a();
+    X_144590* b();
     int d(int);
     void e(int);
 };
-extern X* __cdecl FUN_0027f250();
+extern X_144590* __cdecl FUN_0027f250();
 class MotionTrailStopAction {
   public:
     char pad00[0x1c];
@@ -17,9 +17,9 @@ class MotionTrailStopAction {
 };
 void MotionTrailStopAction::vfunc_4() {
     if (mCheck) {
-        X* a = ((X*)mCheck)->a();
-        X* b = a->b();
-        X* c = FUN_0027f250();
+        X_144590* a = ((X_144590*)mCheck)->a();
+        X_144590* b = a->b();
+        X_144590* c = FUN_0027f250();
         int t = mA->value;
         int v = b->d(t);
         c->e(v);

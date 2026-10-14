@@ -1,5 +1,5 @@
 // Same code shape as 0x00333370 (propagated; names are from that function)
-struct Data {
+struct Data_32a450 {
     int a, b, c, d, e;
 };
 class d3dShader {
@@ -25,13 +25,13 @@ class d3dShader {
     virtual void v18();
     virtual void v19();
     virtual void v20();
-    virtual void vfunc_21(Data*);
+    virtual void vfunc_21(Data_32a450*);
     virtual void v22();
     virtual void v23();
     virtual void v24();
     char pad[0x4c];
-    Data m;
+    Data_32a450 m;
 };
-void d3dShader::vfunc_21(Data* out) {
+void d3dShader::vfunc_21(Data_32a450* out) {
     *out = m;
 }

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 20/20)
 // FUN_001dec10 @ 0x001dec10
 struct Quat { float x, y, z, w; };
-struct Item {
+struct Item_1dec10 {
     virtual void vfn0();
     virtual void vfn1();
     void FUN_001d7ff0();
@@ -17,14 +17,14 @@ struct SlotA {
     char pad[8];
     void FUN_0027b040(int v);
 };
-struct SlotC {
+struct SlotC_1dec10 {
     char pad[6];
     void FUN_001db780(Quat *q);
 };
-struct Slot {
+struct Slot_1dec10 {
     SlotA a;            // 0x00
     SlotA b;            // 0x08
-    SlotC c;            // 0x10
+    SlotC_1dec10 c;            // 0x10
     short active;       // 0x16
     Res *res;           // 0x18
     int field1c;        // 0x1c
@@ -42,10 +42,10 @@ struct Rec {
     short s10;
     short s12;
 };
-class Pool {
+class Pool_1dec10 {
 public:
     char pad0[0x608];
-    Slot slots[0x800];      // 0x608
+    Slot_1dec10 slots[0x800];      // 0x608
     Rec recs[0x800];        // 0x14608
     int f1e608;
     int f1e60c;
@@ -53,14 +53,14 @@ public:
     int recCount;           // 0x1e614
     Buffer *buffer;         // 0x1e618
     int f1e61c;
-    Item *items[0x80];      // 0x1e620
+    Item_1dec10 *items[0x80];      // 0x1e620
     int itemCount;          // 0x1e820
     char pad1[0x1ec58 - 0x1e824];
     int f1ec58;
     void FUN_001dec10();
 };
 
-void Pool::FUN_001dec10()
+void Pool_1dec10::FUN_001dec10()
 {
     int i;
     for (i = 0; i < itemCount; i++) {
@@ -82,7 +82,7 @@ void Pool::FUN_001dec10()
     q.z = 0.0f;
     q.w = 1.0f;
     for (i = 0x800; i != 0; i--) {
-        Slot *s = &slots[0x800 - i];
+        Slot_1dec10 *s = &slots[0x800 - i];
         if (s->active != 0) {
             Rec *r = &recs[s->recIndex];
             if (r->s10 & 1) {

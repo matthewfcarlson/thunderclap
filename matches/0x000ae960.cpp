@@ -1,10 +1,10 @@
-class C {
+class C_ae960 {
   public:
     virtual void v();
     char* ptr;
     int f();
 };
-int C::f() {
+int C_ae960::f() {
     char* q = ptr + 0x134;
     int x = -1;
     if (q[0])

@@ -1,17 +1,17 @@
-class Thing {
+class Thing_4a050 {
   public:
     char pad[0x11c];
     void* p;
 };
-class Agent {
+class Agent_4a050 {
   public:
-    Thing* get();
+    Thing_4a050* get();
 };
-class Arg {
+class Arg_4a050 {
   public:
-    Agent* get();
+    Agent_4a050* get();
 };
-class Item {
+class Item_4a050 {
   public:
     __int64 get();
 };
@@ -24,18 +24,18 @@ class CCharacterTemplateVariationCondition {
     virtual void v4();
     virtual void v5();
     virtual void v6();
-    virtual bool vfunc_7(Arg*);
+    virtual bool vfunc_7(Arg_4a050*);
     char pad[4];
     int mode;
     __int64 key;
 };
-bool CCharacterTemplateVariationCondition::vfunc_7(Arg* arg) {
-    Thing* t = arg->get()->get();
+bool CCharacterTemplateVariationCondition::vfunc_7(Arg_4a050* arg) {
+    Thing_4a050* t = arg->get()->get();
     __int64 v;
     if (!t->p)
         v = 0;
     else
-        v = ((Item*)t->p)->get();
+        v = ((Item_4a050*)t->p)->get();
     switch (mode) {
     case 0:
         return v == key;

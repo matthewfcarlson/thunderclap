@@ -1,6 +1,6 @@
 extern int vtableA;
 extern int vtableB;
-class Part {
+class Part_4a030 {
   public:
     void Init();
 };
@@ -11,7 +11,7 @@ class CCondition {
 class CCharacterTemplateVariationCondition : public CCondition {
   public:
     char pad[12];
-    Part part;
+    Part_4a030 part;
     void Run();
     void Finish();
 };

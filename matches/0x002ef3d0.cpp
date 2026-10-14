@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2ef3d0 {
   public:
     virtual void Run();
     virtual void Release();
@@ -20,11 +20,11 @@ class SimState {
     virtual void a12();
     virtual void vfunc_13(void*);
     char pad[0x70 - 4];
-    Obj* mObj;
+    Obj_2ef3d0* mObj;
 };
 void SimState::vfunc_13(void* p) {
     if (mObj)
         mObj->Release();
-    mObj = (Obj*)p;
+    mObj = (Obj_2ef3d0*)p;
     mObj->Run();
 }

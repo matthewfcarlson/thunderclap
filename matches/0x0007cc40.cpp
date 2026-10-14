@@ -1,18 +1,18 @@
-class Item {
+class Item_7cc40 {
   public:
     virtual void A();
     virtual void B();
     virtual void C();
 };
-class Manager {
+class Manager_7cc40 {
   public:
     char pad[0x3800];
-    Item* slots[10];
+    Item_7cc40* slots[10];
     int count;
     int Search(int, int);
-    void Add(Item* item);
+    void Add(Item_7cc40* item);
 };
-void Manager::Add(Item* item) {
+void Manager_7cc40::Add(Item_7cc40* item) {
     int index = Search(*(int*)((char*)item + 8), *(int*)((char*)item + 12));
     if (index < 0 || slots[index] == 0) {
         int n = count;

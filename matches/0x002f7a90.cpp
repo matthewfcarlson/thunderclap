@@ -1,8 +1,8 @@
-struct S {
+struct S_2f7a90 {
     int a[17];
-    S(const S& o);
+    S_2f7a90(const S_2f7a90& o);
 };
-S::S(const S& o) {
+S_2f7a90::S_2f7a90(const S_2f7a90& o) {
     a[0] = o.a[0];
     a[1] = o.a[1];
     a[2] = o.a[2];

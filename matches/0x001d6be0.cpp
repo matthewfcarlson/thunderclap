@@ -23,13 +23,13 @@ class CSPHulkPropInstance : public StateProp {
     void* member;
     void vfunc_15();
 };
-class Other {
+class Other_1d6be0 {
   public:
     void f();
 };
 void CSPHulkPropInstance::vfunc_15() {
     if (member)
-        ((Other*)member)->f();
+        ((Other_1d6be0*)member)->f();
     else
         StateProp::vfunc_15();
 }

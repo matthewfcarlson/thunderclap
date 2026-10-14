@@ -1,23 +1,23 @@
-struct ObjA {
+struct ObjA_18620 {
     void* Get();
 };
-struct ObjB {
+struct ObjB_18620 {
     void* Next();
 };
-struct ObjC {
+struct ObjC_18620 {
     int Run();
 };
 class CClearHitRecordsAction {
   public:
     char pad[0x1c];
-    ObjA* mThing;
+    ObjA_18620* mThing;
     bool vfunc_6(int);
 };
 bool CClearHitRecordsAction::vfunc_6(int x) {
-    ObjA* a = mThing;
+    ObjA_18620* a = mThing;
     void* r = a->Get();
-    void* b = ((ObjB*)r)->Next();
+    void* b = ((ObjB_18620*)r)->Next();
     if (b)
-        ((ObjC*)b)->Run();
+        ((ObjC_18620*)b)->Run();
     return false;
 }

@@ -1,4 +1,4 @@
-class C {
+class C_1fcf40 {
   public:
     char pad[0x20c];
     int count;
@@ -6,7 +6,7 @@ class C {
     int foo();
 };
 extern void __fastcall FUN_001fb970(void*);
-int C::foo() {
+int C_1fcf40::foo() {
     int result = 0;
     if (count < 256) {
         char* p = (char*)buffer + (count << 6);

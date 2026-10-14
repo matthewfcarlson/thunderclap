@@ -1,5 +1,5 @@
 // Same code shape as 0x00225ef0 (propagated; names are from that function)
-class Item {
+class Item_228590 {
   public:
     virtual void a();
     virtual void release();
@@ -11,7 +11,7 @@ class LocomotionStrafeDriver {
     char pad[0x2c];
     unsigned count;
     struct Entry {
-        Item* item;
+        Item_228590* item;
         char rest[0x204];
     } entries[1];
     ~LocomotionStrafeDriver();

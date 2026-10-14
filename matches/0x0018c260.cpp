@@ -1,20 +1,20 @@
 extern "C" char DAT_0041950c[];
-struct PropTrack {
+struct PropTrack_18c260 {
     void Init();
     unsigned char pad[0x18];
 };
 void* __cdecl Alloc(unsigned int);
-class Factory {
+class Factory_18c260 {
   public:
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void d();
     virtual void e();
-    virtual PropTrack* vfunc_5();
+    virtual PropTrack_18c260* vfunc_5();
 };
-PropTrack* Factory::vfunc_5() {
-    PropTrack* p = (PropTrack*)Alloc(0x18);
+PropTrack_18c260* Factory_18c260::vfunc_5() {
+    PropTrack_18c260* p = (PropTrack_18c260*)Alloc(0x18);
     if (p) {
         p->Init();
         p->pad[0x14] = 1;

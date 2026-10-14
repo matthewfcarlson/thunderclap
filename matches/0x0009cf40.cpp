@@ -1,9 +1,9 @@
-extern char gA[], gB[], gC[];
+extern char gA_9cf40[], gB[], gC[];
 char __cdecl check(const char*);
-class Base {
+class Base_9cf40 {
   public:
     virtual void f();
-    Base(void*, int);
+    Base_9cf40(void*, int);
     char pad[12];
     char b10;
     char b11;
@@ -13,12 +13,12 @@ class Base {
     void* p1;
     void* p2;
 };
-class Method2 : public Base {
+class Method2 : public Base_9cf40 {
   public:
     virtual void f();
-    Method2(void* p, void* c) : Base(p, 2) {
+    Method2(void* p, void* c) : Base_9cf40(p, 2) {
         p1 = c;
-        b18 = check(gA);
+        b18 = check(gA_9cf40);
         b10 = check(gB);
         b11 = check(gC);
     }

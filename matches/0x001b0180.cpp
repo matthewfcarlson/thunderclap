@@ -1,15 +1,15 @@
-struct Owner {
+struct Owner_1b0180 {
     char pad[0x148];
     void* mLink;
 };
-struct Obj {
+struct Obj_1b0180 {
     char pad[8];
-    Owner* mOwner;
+    Owner_1b0180* mOwner;
     int mType;
 };
-struct Handle {
+struct Handle_1b0180 {
     char pad[0x18];
-    Obj* mObj;
+    Obj_1b0180* mObj;
 };
 
 class AICollisionSolverAgent {
@@ -24,13 +24,13 @@ class AICollisionSolverAgent {
     virtual void f7();
     virtual void f8();
     virtual void f9();
-    virtual bool vfunc_10(Handle* a, Handle* b);
+    virtual bool vfunc_10(Handle_1b0180* a, Handle_1b0180* b);
     virtual void f11();
 };
 
-bool AICollisionSolverAgent::vfunc_10(Handle* a, Handle* b) {
-    Obj* x = a->mObj;
-    Obj* y = b->mObj;
+bool AICollisionSolverAgent::vfunc_10(Handle_1b0180* a, Handle_1b0180* b) {
+    Obj_1b0180* x = a->mObj;
+    Obj_1b0180* y = b->mObj;
     if (!x || !y)
         return false;
     int tx = x->mType;
@@ -43,11 +43,11 @@ bool AICollisionSolverAgent::vfunc_10(Handle* a, Handle* b) {
         if (tx != 5)
             return false;
     } else if (tx == 5 && ty == 1) {
-        Owner* o = x->mOwner;
+        Owner_1b0180* o = x->mOwner;
         if (o && o->mLink && o->mLink == (void*)y->mOwner)
             return false;
     } else if (ty == 5 && tx == 1) {
-        Owner* o = y->mOwner;
+        Owner_1b0180* o = y->mOwner;
         if (o && o->mLink && o->mLink == (void*)x->mOwner)
             return false;
     }

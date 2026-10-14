@@ -1,5 +1,5 @@
-typedef unsigned int U;
-U* __cdecl FUN_002b0de0(U* dst, unsigned int count, U* src) {
+typedef unsigned int U_2b0de0;
+U_2b0de0* __cdecl FUN_002b0de0(U_2b0de0* dst, unsigned int count, U_2b0de0* src) {
     if (count) {
         for (; count; --count) {
             if (dst) {

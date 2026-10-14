@@ -1,4 +1,4 @@
-struct Helper {
+struct Helper_2f78c0 {
     int call();
 };
 struct PhysicsObject {
@@ -33,9 +33,9 @@ struct PhysicsObject {
     virtual int vfunc_28(int);
     void work(int, int);
 };
-extern Helper* __cdecl thunk_FUN_0008d690(unsigned int);
+extern Helper_2f78c0* __cdecl thunk_FUN_0008d690(unsigned int);
 int PhysicsObject::vfunc_28(int arg) {
-    Helper* p = thunk_FUN_0008d690(0x1f8);
+    Helper_2f78c0* p = thunk_FUN_0008d690(0x1f8);
     int result;
     if (p)
         result = p->call();

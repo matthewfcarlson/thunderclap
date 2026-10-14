@@ -1,4 +1,4 @@
-class Sub {
+class Sub_e6b30 {
   public:
     void run(int);
 };
@@ -48,7 +48,7 @@ void FEThingsBase::vfunc_17(int p) {
             state = 2;
             other = 2;
             if (old)
-                ((Sub*)old)->run(2);
+                ((Sub_e6b30*)old)->run(2);
         }
     }
 }

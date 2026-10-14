@@ -1,9 +1,9 @@
-class Obj {
+class Obj_8ffe0 {
   public:
     char pad[0xc80];
     int count;
 };
-void __fastcall target(Obj* self) {
+void __fastcall target(Obj_8ffe0* self) {
     int i = 2;
     if (i < self->count) {
         int* p = (int*)(self->pad + 0xb8);

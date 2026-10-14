@@ -1,33 +1,33 @@
-struct Obj;
-extern void* g_a;
-extern void* g_b;
+struct Obj_bc4d0;
+extern void* g_a_bc4d0;
+extern void* g_b_bc4d0;
 void __cdecl Fa(void*);
 void __cdecl Release(void*);
 void Fb();
-Obj* Fc();
-struct Obj {
+Obj_bc4d0* Fc();
+struct Obj_bc4d0 {
     void Fd();
 };
-struct Sub {
+struct Sub_bc4d0 {
     void Fe();
 };
-struct Mgr {
+struct Mgr_bc4d0 {
     void Ff();
 };
-struct Dev {
+struct Dev_bc4d0 {
     void Fg(int);
 };
 
-extern Mgr* g_mgr;
+extern Mgr_bc4d0* g_mgr_bc4d0;
 
-struct Main {
+struct Main_bc4d0 {
     char pad0[0x10];
     int state;
     char pad1[0xc];
-    Dev* dev;
+    Dev_bc4d0* dev;
     int arg;
     char pad2[0x34];
-    Sub* sub;
+    Sub_bc4d0* sub;
     char pad3[0xc];
     void* a[0x80];
     void* b[0x80];
@@ -36,8 +36,8 @@ struct Main {
     void Run();
 };
 
-void Main::Run() {
-    Fa(g_a);
+void Main_bc4d0::Run() {
+    Fa(g_a_bc4d0);
     int i;
     for (i = 0; i < 0x80; i++) {
         if (!a[i])
@@ -52,12 +52,12 @@ void Main::Run() {
         b[i] = 0;
     }
     Fb();
-    Obj* o = Fc();
+    Obj_bc4d0* o = Fc();
     if (o)
         o->Fd();
     if (sub)
         sub->Fe();
-    g_mgr->Ff();
+    g_mgr_bc4d0->Ff();
     dev->Fg(arg);
     state = 3;
     flag = 0;

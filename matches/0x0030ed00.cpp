@@ -1,17 +1,17 @@
-class Inner {
+class Inner_30ed00 {
   public:
     int data[0x15];
     void Init();
 };
-class Obj {
+class Obj_30ed00 {
   public:
     int z[5];
-    Inner one;
-    Inner two;
+    Inner_30ed00 one;
+    Inner_30ed00 two;
     int last;
-    Obj* Copy(Obj* src);
+    Obj_30ed00* Copy(Obj_30ed00* src);
 };
-Obj* Obj::Copy(Obj* src) {
+Obj_30ed00* Obj_30ed00::Copy(Obj_30ed00* src) {
     z[0] = 0;
     z[1] = 0;
     z[2] = 0;

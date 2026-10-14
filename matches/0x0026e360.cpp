@@ -2,13 +2,13 @@ extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042af64[];
 extern "C" char DAT_0042b474[];
 extern "C" char DAT_0042b47c[];
-typedef unsigned int u32;
+typedef unsigned int u32_26e360;
 extern void Init();
-extern u32 gSaved;
-extern u32 gState;
+extern u32_26e360 gSaved;
+extern u32_26e360 gState_26e360;
 class ConsoleClient {
   public:
-    u32 a, b, c;
+    u32_26e360 a, b, c;
     void Run();
 };
 void ConsoleClient::Run() {
@@ -18,5 +18,5 @@ void ConsoleClient::Run() {
     gSaved = c;
     b = ((int)DAT_0042af64);
     a = ((int)DAT_003f6098);
-    gState = 0;
+    gState_26e360 = 0;
 }

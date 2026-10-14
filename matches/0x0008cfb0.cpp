@@ -1,4 +1,4 @@
-class Inner {
+class Inner_8cfb0 {
   public:
     virtual void a0();
     virtual void a1();
@@ -13,13 +13,13 @@ class Inner {
     virtual void a10();
     virtual int Count();
 };
-class Obj {
+class Obj_8cfb0 {
   public:
     char pad[4];
-    Inner* p;
+    Inner_8cfb0* p;
     int run();
 };
-int Obj::run() {
+int Obj_8cfb0::run() {
     int result = 0;
     int value = 0;
     if (p) {

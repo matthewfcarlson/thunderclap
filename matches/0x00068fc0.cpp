@@ -1,13 +1,13 @@
-class Base {
+class Base_68fc0 {
   public:
     virtual void F0();
     virtual void F1();
-    Base();
+    Base_68fc0();
     int mBase0;
     int mBase1;
 };
 
-class CJumpTrack : public Base {
+class CJumpTrack : public Base_68fc0 {
   public:
     virtual void F2();
     virtual void F3();

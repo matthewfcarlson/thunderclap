@@ -18,17 +18,17 @@ struct V {
     virtual void x16();
     virtual void x17(int, int);
 };
-struct G {
+struct G_293c80 {
     void a();
     void b(int, int, int);
 };
-struct T {
+struct T_293c80 {
     V* p;
     void f(int, int, int);
 };
-extern G glob;
-void T::f(int a, int b, int c) {
-    glob.a();
-    glob.b(a, b, c);
-    p->x17(0, (int)&glob);
+extern G_293c80 glob_293c80;
+void T_293c80::f(int a, int b, int c) {
+    glob_293c80.a();
+    glob_293c80.b(a, b, c);
+    p->x17(0, (int)&glob_293c80);
 }

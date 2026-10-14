@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1b6d70 {
   public:
     int a;
     float b;
@@ -8,7 +8,7 @@ class Obj {
     float f;
     void Tick(float);
 };
-void Obj::Tick(float dt) {
+void Obj_1b6d70::Tick(float dt) {
     if (a != 0) {
         b -= dt;
         if (b <= 0.0f)

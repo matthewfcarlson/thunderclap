@@ -5,14 +5,14 @@ class DName {
   public:
     DName(int);
 };
-class Thing {
+class Thing_34ceaa {
   public:
     int mValue;
     char pad[0x28];
     DName a;
     DName b;
-    Thing();
+    Thing_34ceaa();
 };
-Thing::Thing() : a(3), b(1) {
+Thing_34ceaa::Thing_34ceaa() : a(3), b(1) {
     *(int*)this |= -1;
 }

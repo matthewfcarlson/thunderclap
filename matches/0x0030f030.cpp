@@ -1,5 +1,5 @@
 // Same code shape as 0x0030efa0 (propagated; names are from that function)
-class C {
+class C_30f030 {
   public:
     char pad[0xbc];
     int value;
@@ -8,9 +8,9 @@ class C {
     void third();
     void target(int);
 };
-void C::target(int arg) {
+void C_30f030::target(int arg) {
     first();
-    ((C*)((char*)this + 0x14))->second(arg);
+    ((C_30f030*)((char*)this + 0x14))->second(arg);
     value = 2;
     third();
 }

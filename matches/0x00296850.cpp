@@ -28,9 +28,9 @@ class TransformNode {
     unsigned count;
     void** items;
     char p2[0x88];
-    struct Obj* object;
+    struct Obj_296850* object;
 };
-class Obj {
+class Obj_296850 {
   public:
     virtual void a();
     virtual void b();
@@ -56,7 +56,7 @@ class Obj {
     virtual void v();
     virtual bool check();
 };
-class Item {
+class Item_296850 {
   public:
     virtual void a();
     virtual void b();
@@ -72,7 +72,7 @@ bool TransformNode::vfunc_7() {
         return false;
     if (!(flags & 1)) {
         for (unsigned i = 0; i < count; ++i)
-            if (!((Item*)items[i])->check())
+            if (!((Item_296850*)items[i])->check())
                 return false;
     }
     return true;

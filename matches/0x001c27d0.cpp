@@ -1,10 +1,10 @@
-class C {
+class C_1c27d0 {
   public:
     int count;
     float data[1];
     bool target(float* p);
 };
-bool C::target(float* p) {
+bool C_1c27d0::target(float* p) {
     int i = count - 1;
     if (i >= 0) {
         float* q = data + i * 4 + 1;

@@ -1,4 +1,4 @@
-class Sub {
+class Sub_1ab730 {
   public:
     void Init();
 };
@@ -12,7 +12,7 @@ class Event_CharacterTemplateVariationCondition {
     virtual void vfunc_5(int);
     virtual void vfunc_6();
     char pad[0x14];
-    Sub sub;
+    Sub_1ab730 sub;
     Event_CharacterTemplateVariationCondition(int);
     void Finish();
 };

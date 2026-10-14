@@ -1,8 +1,8 @@
-class C10 {
+class C10_86a40 {
   public:
     void F();
 };
-class C14 {
+class C14_86a40 {
   public:
     void F(int);
 };
@@ -32,21 +32,21 @@ class C48 {
   public:
     void F();
 };
-class A;
+class A_86a40;
 class C20 {
   public:
-    void F(A*, int*, int, C30*, C24*);
+    void F(A_86a40*, int*, int, C30*, C24*);
 };
-struct State {
+struct State_86a40 {
     int id;
 };
-class A {
+class A_86a40 {
   public:
     char pad0[4];
-    State* p4;
+    State_86a40* p4;
     char pad8[8];
-    C10* p10;
-    C14* p14;
+    C10_86a40* p10;
+    C14_86a40* p14;
     C18* p18;
     C1c* p1c;
     C20* p20;
@@ -59,7 +59,7 @@ class A {
     void Run(int);
 };
 extern bool __cdecl Check();
-void A::Run(int arg) {
+void A_86a40::Run(int arg) {
     p10->F();
     p14->F(arg);
     if (Check())

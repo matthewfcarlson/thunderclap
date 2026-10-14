@@ -1,17 +1,17 @@
-struct Helper {
+struct Helper_96b00 {
     char pad[8];
     bool Check(void*);
 };
-struct Obj {
+struct Obj_96b00 {
     char pad0[8];
-    Helper* helper;
+    Helper_96b00* helper;
     int state;
     char pad10[0x40];
     int a;
     int b;
     int c;
 };
-void __cdecl Target(Obj* self, int* out) {
+void __cdecl Target(Obj_96b00* self, int* out) {
     int n = self->state;
     --n;
     if (n != 0) {

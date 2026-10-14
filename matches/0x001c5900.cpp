@@ -1,27 +1,27 @@
-typedef unsigned int u32;
-struct Obj {
+typedef unsigned int u32_1c5900;
+struct Obj_1c5900 {
     virtual void f();
     char pad[4];
-    Obj* Create(u32);
+    Obj_1c5900* Create(u32_1c5900);
     bool Check();
 };
-struct Finder {
-    Obj* Find(u32);
+struct Finder_1c5900 {
+    Obj_1c5900* Find(u32_1c5900);
 };
-struct Registry {
-    void Register(void*, Obj*);
+struct Registry_1c5900 {
+    void Register(void*, Obj_1c5900*);
 };
-struct Manager {
+struct Manager_1c5900 {
     char p0[8];
-    Registry registry;
-    char p1[0x128 - 8 - sizeof(Registry)];
-    Finder finder;
-    char p2[0x248 - 0x128 - sizeof(Finder)];
-    Obj* saved;
-    Obj* Run(u32, u32);
+    Registry_1c5900 registry;
+    char p1[0x128 - 8 - sizeof(Registry_1c5900)];
+    Finder_1c5900 finder;
+    char p2[0x248 - 0x128 - sizeof(Finder_1c5900)];
+    Obj_1c5900* saved;
+    Obj_1c5900* Run(u32_1c5900, u32_1c5900);
 };
-Obj* Manager::Run(u32 a, u32 b) {
-    Obj* p = finder.Find(b);
+Obj_1c5900* Manager_1c5900::Run(u32_1c5900 a, u32_1c5900 b) {
+    Obj_1c5900* p = finder.Find(b);
     if (p) {
         p = p->Create(a);
         p->f();

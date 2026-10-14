@@ -1,4 +1,4 @@
-class Thing {
+class Thing_3060e0 {
   public:
     char pad[8];
     int a;
@@ -16,7 +16,7 @@ class Thing {
     int k;
     int l;
 };
-void __fastcall FUN_003060e0(Thing* p) {
+void __fastcall FUN_003060e0(Thing_3060e0* p) {
     p->a = -1;
     p->b = -1;
     p->c = 0;

@@ -7,10 +7,10 @@ struct CMotionHitGroundHeightTrack {
     float f;
     void construct();
 };
-extern int vtable;
+extern int vtable_77020;
 extern void* operator_new(unsigned int);
 
-class Factory {
+class Factory_77020 {
   public:
     virtual void f0();
     virtual void f1();
@@ -20,11 +20,11 @@ class Factory {
     virtual CMotionHitGroundHeightTrack* vfunc_5();
 };
 
-CMotionHitGroundHeightTrack* Factory::vfunc_5() {
+CMotionHitGroundHeightTrack* Factory_77020::vfunc_5() {
     CMotionHitGroundHeightTrack* p = (CMotionHitGroundHeightTrack*)operator_new(0x18);
     if (p) {
         p->construct();
-        p->vptr = (int)&vtable;
+        p->vptr = (int)&vtable_77020;
         p->d = 0;
         p->e = -1.0f;
         p->f = 1.0f;

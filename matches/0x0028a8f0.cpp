@@ -1,22 +1,22 @@
-struct Vec {
+struct Vec_28a8f0 {
     float x, y, z, w;
-    void FUN_0022b610(const Vec* a, const Vec* b);
+    void FUN_0022b610(const Vec_28a8f0* a, const Vec_28a8f0* b);
 };
-void __cdecl FUN_0022b080(Vec* out, const Vec* a, const Vec* b);
-struct Curve {
+void __cdecl FUN_0022b080(Vec_28a8f0* out, const Vec_28a8f0* a, const Vec_28a8f0* b);
+struct Curve_28a8f0 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
     virtual void slot3();
     virtual void slot4();
-    virtual void sample(float t, Vec* out);
+    virtual void sample(float t, Vec_28a8f0* out);
     char pad[12];
     int count;
     short* times;
-    void target(float a, float b, Vec* out);
+    void target(float a, float b, Vec_28a8f0* out);
 };
-void Curve::target(float a, float b, Vec* out) {
-    Vec first, second, start, end, tail;
+void Curve_28a8f0::target(float a, float b, Vec_28a8f0* out) {
+    Vec_28a8f0 first, second, start, end, tail;
     sample(a, &first);
     sample(b, &second);
     if (a <= b) {

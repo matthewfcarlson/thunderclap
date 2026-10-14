@@ -7,7 +7,7 @@ class AIHistoryCountTrack {
     int member;
     AIHistoryCountTrack();
 };
-class Factory {
+class Factory_1149d0 {
   public:
     virtual void A();
     virtual void B();
@@ -16,7 +16,7 @@ class Factory {
     virtual void E();
     virtual AIHistoryCountTrack* Create();
 };
-AIHistoryCountTrack* Factory::Create() {
+AIHistoryCountTrack* Factory_1149d0::Create() {
     AIHistoryCountTrack* p = (AIHistoryCountTrack*)Alloc(16);
     if (p) {
         p->AIHistoryCountTrack::AIHistoryCountTrack();

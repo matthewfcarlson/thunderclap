@@ -1,5 +1,5 @@
 // Same code shape as 0x000933a0 (propagated; names are from that function)
-class Inner {
+class Inner_93430 {
   public:
     void Reset();
 };
@@ -15,5 +15,5 @@ CUnlockable::~CUnlockable() {
         FreeMem(mPtr18);
         mPtr18 = 0;
     }
-    ((Inner*)((char*)this + 0x10))->Reset();
+    ((Inner_93430*)((char*)this + 0x10))->Reset();
 }

@@ -1,44 +1,44 @@
-extern void* g_a[];
-extern void* g_b[];
+extern void* g_a_31e500[];
+extern void* g_b_31e500[];
 void operator delete(void*);
-class Ref {
+class Ref_31e500 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Item {
+class Item_31e500 {
   public:
-    virtual ~Item();
+    virtual ~Item_31e500();
 };
-class Big {
+class Big_31e500 {
   public:
     void Fin();
 };
-class Base {
+class Base_31e500 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_31e500 : public Base_31e500 {
   public:
     char pad[4];
-    Ref* m8;
-    Ref* mc;
-    Ref* m10;
+    Ref_31e500* m8;
+    Ref_31e500* mc;
+    Ref_31e500* m10;
     char pad2[0xc];
-    Item* arr[5];
-    Item* m34;
-    Item* m38;
-    Item* m3c;
-    Item* m40;
-    Item* m44;
+    Item_31e500* arr[5];
+    Item_31e500* m34;
+    Item_31e500* m38;
+    Item_31e500* m3c;
+    Item_31e500* m40;
+    Item_31e500* m44;
     char pad3[0x144 - 0x48];
-    Big* m144;
+    Big_31e500* m144;
     void f();
 };
-void Obj::f() {
-    Ref* a = m10;
-    vptr = g_a;
+void Obj_31e500::f() {
+    Ref_31e500* a = m10;
+    vptr = g_a_31e500;
     a->Release();
     mc->Release();
     for (int i = 0; i < 5; i++)
@@ -54,11 +54,11 @@ void Obj::f() {
         delete m40;
     if (m44)
         delete m44;
-    Big* p = m144;
+    Big_31e500* p = m144;
     if (p) {
         p->Fin();
         operator delete(p);
     }
-    vptr = g_b;
+    vptr = g_b_31e500;
     Fin();
 }

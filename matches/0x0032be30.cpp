@@ -1,4 +1,4 @@
-struct Vec4 {
+struct Vec4_32be30 {
     float x, y, z, w;
 };
 struct Matrix {
@@ -45,7 +45,7 @@ class d3dLightMapShader {
 };
 } // namespace pure3d
 void pure3d::d3dLightMapShader::vfunc_24() {
-    Vec4 consts;
+    Vec4_32be30 consts;
     Matrix m6, m0, m1, prod, full, a, b;
     consts.x = 0.0f;
     consts.y = 0.5f;

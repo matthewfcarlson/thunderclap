@@ -1,11 +1,11 @@
 extern "C" char DAT_0042a1f0[];
-class Base {
+class Base_253780 {
   public:
     int a;
     int b;
-    Base();
+    Base_253780();
 };
-class SeqEventVarPitch : public Base {
+class SeqEventVarPitch : public Base_253780 {
   public:
     float value;
     SeqEventVarPitch();

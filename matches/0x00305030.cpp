@@ -1,4 +1,4 @@
-class Inner {
+class Inner_305030 {
   public:
     virtual void f0();
     virtual void f1();
@@ -14,11 +14,11 @@ class Inner {
     char pad[0x15];
     unsigned char state;
 };
-void __fastcall FUN_00306230(Inner* p);
-class Obj {
+void __fastcall FUN_00306230(Inner_305030* p);
+class Obj_305030 {
   public:
     char pad[0x20];
-    Inner* p;
+    Inner_305030* p;
     int x24;
     int x28;
     char pad2c[0x3c];
@@ -26,7 +26,7 @@ class Obj {
     unsigned char b69;
     void run();
 };
-void Obj::run() {
+void Obj_305030::run() {
     p->state = 0;
     b68 = 1;
     b69 = 1;

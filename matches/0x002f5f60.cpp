@@ -33,13 +33,13 @@ class PhysicsObject {
     virtual void f30();
     virtual float f31();
     char p10[12];
-    class Helper* member;
+    class Helper_2f5f60* member;
     char p40[44];
     float factor;
     char p98[84];
     float result[3];
 };
-class Helper {
+class Helper_2f5f60 {
   public:
     virtual void a();
     virtual void b();

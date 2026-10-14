@@ -1,4 +1,4 @@
-class Obj {
+class Obj_a0c40 {
   public:
     char pad[0x320];
     int state;
@@ -8,7 +8,7 @@ class Obj {
     int reset;
     void f(int x);
 };
-void Obj::f(int x) {
+void Obj_a0c40::f(int x) {
     reset = 0;
     if (state == 7) {
         prev = value;

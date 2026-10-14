@@ -1,4 +1,4 @@
-class Queue {
+class Queue_25dba0 {
   public:
     char pad[0x4c];
     int* head;
@@ -6,7 +6,7 @@ class Queue {
     void Add(int* item);
 };
 
-void Queue::Add(int* item) {
+void Queue_25dba0::Add(int* item) {
     int* node = item + 1;
     *node = 0;
     if (tail == 0) {

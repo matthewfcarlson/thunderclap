@@ -1,6 +1,6 @@
-extern float Zero;
+extern float Zero_1cd650;
 void Stop();
-class Thing {
+class Thing_1cd650 {
   public:
     char pad[0x11a8];
     float timer;
@@ -8,10 +8,10 @@ class Thing {
     int b;
     void Update(float dt);
 };
-void Thing::Update(float dt) {
-    if (timer != Zero) {
+void Thing_1cd650::Update(float dt) {
+    if (timer != Zero_1cd650) {
         timer = timer - dt;
-        if (timer <= Zero) {
+        if (timer <= Zero_1cd650) {
             timer = 0.0f;
             Stop();
             b = 0;

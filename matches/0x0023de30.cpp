@@ -7,11 +7,11 @@ class CommentCondition {
     int value;
     void Init(int);
 };
-class Factory {
+class Factory_23de30 {
   public:
     CommentCondition* vfunc_5();
 };
-CommentCondition* Factory::vfunc_5() {
+CommentCondition* Factory_23de30::vfunc_5() {
     CommentCondition* p = (CommentCondition*)alloc(0x10);
     if (p) {
         p->Init(3);

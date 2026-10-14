@@ -1,4 +1,4 @@
-struct SoundState {
+struct SoundState_258e50 {
     char pad[0x14];
     unsigned flags;
 };
@@ -12,7 +12,7 @@ struct Object {
     int gap;
     int buffers[1];
     char pad2[0x3c];
-    SoundState* sound;
+    SoundState_258e50* sound;
 };
 void __cdecl FUN_00258e50(Object* p) {
     p->state = 2;

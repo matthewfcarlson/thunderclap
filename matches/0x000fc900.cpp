@@ -1,4 +1,4 @@
-class X {
+class X_fc900 {
     char pad[0x70];
     unsigned char a;
     unsigned char b;
@@ -6,6 +6,6 @@ class X {
   public:
     int f();
 };
-int X::f() {
+int X_fc900::f() {
     return a && b;
 }

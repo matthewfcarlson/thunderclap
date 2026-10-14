@@ -1,24 +1,24 @@
-struct R {
+struct R_1c1e90 {
     virtual void A();
     virtual void Rel();
 };
-struct Sub {
+struct Sub_1c1e90 {
     void Cleanup();
     char pad[0xb0];
 };
-extern R* gR;
-struct C {
+extern R_1c1e90* gR;
+struct C_1c1e90 {
     virtual void V();
-    R* m4;
-    R* m8;
-    Sub sub;
-    R* mbc;
-    R* mc0;
-    R* mc4;
-    R* mc8;
+    R_1c1e90* m4;
+    R_1c1e90* m8;
+    Sub_1c1e90 sub;
+    R_1c1e90* mbc;
+    R_1c1e90* mc0;
+    R_1c1e90* mc4;
+    R_1c1e90* mc8;
     void Shutdown();
 };
-void C::Shutdown() {
+void C_1c1e90::Shutdown() {
     if (mbc) {
         mbc->Rel();
         mbc = 0;

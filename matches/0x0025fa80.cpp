@@ -1,6 +1,6 @@
 extern "C" char DAT_0042aa40[];
 extern void* gPtr;
-extern int gCount;
+extern int gCount_25fa80;
 void InitMeta(void*, void*);
 struct MetaType {
     void* vftable;
@@ -10,5 +10,5 @@ void MetaType::run() {
     void* p = gPtr;
     vftable = (void*)((int)DAT_0042aa40);
     InitMeta(p, this);
-    --gCount;
+    --gCount_25fa80;
 }

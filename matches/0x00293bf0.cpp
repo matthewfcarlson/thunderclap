@@ -1,9 +1,9 @@
-struct Global {
+struct Global_293bf0 {
     void a();
     void b(unsigned);
 };
-extern Global g;
-struct Obj {
+extern Global_293bf0 g_293bf0;
+struct Obj_293bf0 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -23,13 +23,13 @@ struct Obj {
     virtual void f16();
     virtual void f17(unsigned, void*);
 };
-struct Target {
-    Obj* obj;
+struct Target_293bf0 {
+    Obj_293bf0* obj;
     void run(unsigned);
 };
 char g52c2d8[4];
-void Target::run(unsigned arg) {
-    g.a();
-    g.b(arg);
+void Target_293bf0::run(unsigned arg) {
+    g_293bf0.a();
+    g_293bf0.b(arg);
     obj->f17(0, g52c2d8);
 }

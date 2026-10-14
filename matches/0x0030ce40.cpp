@@ -1,4 +1,4 @@
-extern const float zeroValue;
+extern const float zeroValue_30ce40;
 namespace physics {
 class PhysicsJoint1D {
   public:
@@ -35,7 +35,7 @@ class PhysicsJoint1D {
     float value;
 };
 bool PhysicsJoint1D::vfunc_4() {
-    if (value == zeroValue)
+    if (value == zeroValue_30ce40)
         return true;
     return false;
 }

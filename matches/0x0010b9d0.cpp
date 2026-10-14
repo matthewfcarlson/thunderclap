@@ -1,6 +1,6 @@
 extern "C" char DAT_0040d884[];
 extern "C" void _ReadWriteBarrier();
-struct Ref {
+struct Ref_10b9d0 {
     virtual void f0();
     virtual void Release();
 };
@@ -9,13 +9,13 @@ struct FaceTargetAction {
     int vptr;
     char pad[0x18];
     int field1c;
-    Ref* field20;
+    Ref_10b9d0* field20;
     void Cleanup();
 };
 void FaceTargetAction::Cleanup() {
     vptr = ((int)DAT_0040d884);
     _ReadWriteBarrier();
-    Ref* r = field20;
+    Ref_10b9d0* r = field20;
     if (r) {
         r->Release();
         field20 = 0;

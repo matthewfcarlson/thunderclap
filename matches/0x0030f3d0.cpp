@@ -1,19 +1,19 @@
-class Base {
+class Base_30f3d0 {
   public:
-    Base();
+    Base_30f3d0();
     char pad[0x40];
 };
-class Thing : public Base {
+class Thing_30f3d0 : public Base_30f3d0 {
   public:
     int a;
     int b;
     int c;
     float d;
     int e;
-    Thing(int);
+    Thing_30f3d0(int);
     void Finish(int);
 };
-Thing::Thing(int x) : Base() {
+Thing_30f3d0::Thing_30f3d0(int x) : Base_30f3d0() {
     c = 0;
     b = 0;
     a = 0;

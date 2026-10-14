@@ -1,9 +1,9 @@
 void* operator new(unsigned int);
-struct Base {
+struct Base_159ee0 {
     virtual void g();
-    Base();
+    Base_159ee0();
 };
-struct Track : Base {
+struct Track : Base_159ee0 {
     virtual void f();
     int x4, x8, xC;
     float x10;
@@ -18,7 +18,7 @@ Track::Track() {
     x10 = -1.0f;
     x18 = -5;
 }
-struct Factory {
+struct Factory_159ee0 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -26,7 +26,7 @@ struct Factory {
     virtual void e();
     virtual Track* v5();
 };
-Track* Factory::v5() {
+Track* Factory_159ee0::v5() {
     Track* p = (Track*)::operator new(0x24);
     if (p) {
         p->Track::Track();

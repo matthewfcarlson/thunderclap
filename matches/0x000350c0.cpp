@@ -1,4 +1,4 @@
-struct Y {
+struct Y_350c0 {
     char p0[0x14];
     int kind;
     char p1[0x18];
@@ -7,21 +7,21 @@ struct Y {
     char p2[4];
     float f3c;
 };
-struct X {
+struct X_350c0 {
     void Fn(float* p);
 };
-struct C {
+struct C_350c0 {
     char p0[0x10];
-    X* x;
+    X_350c0* x;
     char p1[0x108];
-    Y* y;
+    Y_350c0* y;
     char p2[0x20];
     int mode;
     bool F(float* p);
 };
-bool C::F(float* p) {
+bool C_350c0::F(float* p) {
     x->Fn(p);
-    Y* q;
+    Y_350c0* q;
     if (mode == 1 && (q = y) != 0) {
         float v = q->f30;
         if (v <= 0.0f)

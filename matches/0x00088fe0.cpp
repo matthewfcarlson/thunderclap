@@ -7,27 +7,27 @@ struct CO {
 };
 extern CO gCheckObj;
 extern void __cdecl StopMsg(const char*);
-struct Res {
+struct Res_88fe0 {
     void Done();
 };
-struct Svc {
-    Res* Run(unsigned int);
+struct Svc_88fe0 {
+    Res_88fe0* Run(unsigned int);
 };
-struct Glob {
+struct Glob_88fe0 {
     char pad[0x54];
-    Svc* svc;
+    Svc_88fe0* svc;
 };
-extern Glob* gGlob;
-struct Obj {
+extern Glob_88fe0* gGlob_88fe0;
+struct Obj_88fe0 {
     int a;
     int b;
     char buf[32];
     void target(unsigned int);
 };
-void Obj::target(unsigned int arg) {
+void Obj_88fe0::target(unsigned int arg) {
     Scan(arg, "c%dm%d", &a, &b);
     Fmt(buf, 32, "c%02dm%02d", a, b);
-    gGlob->svc->Run(arg)->Done();
+    gGlob_88fe0->svc->Run(arg)->Done();
     if (a > 1) {
         if (Check(&gCheckObj) != gCheckObj.val) {
             do {

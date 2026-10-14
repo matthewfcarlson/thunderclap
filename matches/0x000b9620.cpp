@@ -1,15 +1,15 @@
-struct Inner {
+struct Inner_b9620 {
     void A();
     void B(int);
     bool C();
 };
-struct Obj {
+struct Obj_b9620 {
     char pad[0x54];
-    Inner* p;
+    Inner_b9620* p;
     void Target();
 };
 void Exit();
-void Obj::Target() {
+void Obj_b9620::Target() {
     if (p) {
         p->A();
         p->B(0);

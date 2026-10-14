@@ -1,15 +1,15 @@
-class Sub {
+class Sub_23e4f0 {
   public:
     char pad[0x14];
 };
 
-class Obj {
+class Obj_23e4f0 {
   public:
     char pad[0x14];
-    Sub sub;
-    Sub* Get();
+    Sub_23e4f0 sub;
+    Sub_23e4f0* Get();
 };
 
-Sub* Obj::Get() {
+Sub_23e4f0* Obj_23e4f0::Get() {
     return &sub;
 }

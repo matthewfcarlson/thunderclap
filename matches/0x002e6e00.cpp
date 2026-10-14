@@ -1,13 +1,13 @@
-typedef unsigned int u32;
-struct Obj {
+typedef unsigned int u32_2e6e00;
+struct Obj_2e6e00 {
     char pad0[0x1c];
     int field1c;
     char pad20[4];
     int(__cdecl* callback)(int, int);
     int field28;
 };
-void Cleanup(int, Obj*);
-int __cdecl Target(Obj* p) {
+void Cleanup(int, Obj_2e6e00*);
+int __cdecl Target(Obj_2e6e00* p) {
     if (p && p->field1c && p->callback) {
         int v = *(int*)(p->field1c + 0x14);
         if (v)

@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1cced0 {
   public:
     char pad0[0x11a4];
     float value;
@@ -11,7 +11,7 @@ class Obj {
     char flag;
     void init();
 };
-void Obj::init() {
+void Obj_1cced0::init() {
     int i;
     for (i = 0; i < 16; i++) {
         entries[i] = 0;

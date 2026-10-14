@@ -1,4 +1,4 @@
-struct Msg {
+struct Msg_26e970 {
     int type;
     int a;
     int b;
@@ -7,16 +7,16 @@ struct Msg {
     int e;
     char f0, f1, f2, f3;
 };
-class C {
+class C_26e970 {
   public:
     char pad[0x9c];
     void* h;
-    void Send(Msg* m);
+    void Send(Msg_26e970* m);
     void Fn(int a, int b, int c, int d, char e, char f, char g, char h2, char i);
 };
-void C::Fn(int a, int b, int c, int d, char e, char f, char g, char h2, char i) {
+void C_26e970::Fn(int a, int b, int c, int d, char e, char f, char g, char h2, char i) {
     if (h) {
-        Msg m;
+        Msg_26e970 m;
         m.a = a;
         m.b = b;
         m.c = c;

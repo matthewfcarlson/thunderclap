@@ -1,9 +1,9 @@
-struct Ent {
+struct Ent_267280 {
     void* p;
     int a, b, c;
 };
-extern Ent tbl[];
-extern void* vt;
+extern Ent_267280 tbl[];
+extern void* vt_267280;
 extern void* g40;
 extern int g44, g48, g4c;
 extern void* g50;
@@ -25,7 +25,7 @@ void Target() {
     g4c = 0;
     unsigned i = 0;
     do {
-        Ent* e = (Ent*)((char*)tbl + i);
+        Ent_267280* e = (Ent_267280*)((char*)tbl + i);
         e->a = 0;
         e->c = 0;
         e->b = 0;

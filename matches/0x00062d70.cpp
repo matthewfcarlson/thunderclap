@@ -1,22 +1,22 @@
 extern int weaponVftable;
-struct SubA {
+struct SubA_62d70 {
     void init();
 };
-struct SubB {
+struct SubB_62d70 {
     void init2();
 };
-struct Base {
+struct Base_62d70 {
     void finish();
 };
 class CWeaponCollisionTrack {
   public:
     int vf;
     char x[0x28];
-    SubA s2c;
+    SubA_62d70 s2c;
     char y[0xb];
-    SubA s38;
+    SubA_62d70 s38;
     char z[0xf];
-    SubB s48;
+    SubB_62d70 s48;
     CWeaponCollisionTrack* vfunc_5(unsigned char p);
 };
 void destroy(CWeaponCollisionTrack*);
@@ -25,7 +25,7 @@ CWeaponCollisionTrack* CWeaponCollisionTrack::vfunc_5(unsigned char p) {
     s48.init2();
     s38.init();
     s2c.init();
-    ((Base*)this)->finish();
+    ((Base_62d70*)this)->finish();
     if (p & 1)
         destroy(this);
     return this;

@@ -1,7 +1,7 @@
-typedef unsigned char byte;
-extern int vftable;
+typedef unsigned char byte_5b7d0;
+extern int vftable_5b7d0;
 void __cdecl FreeMem(void*);
-struct Sub {
+struct Sub_5b7d0 {
     void Clean();
     char pad[8];
 };
@@ -12,14 +12,14 @@ class CGrappleSwapTrack {
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual CGrappleSwapTrack* vfunc_5(byte);
+    virtual CGrappleSwapTrack* vfunc_5(byte_5b7d0);
     void BaseClean();
     char pad[0xc];
-    Sub a;
-    Sub b;
+    Sub_5b7d0 a;
+    Sub_5b7d0 b;
 };
-CGrappleSwapTrack* CGrappleSwapTrack::vfunc_5(byte param_2) {
-    *(int*)this = (int)&vftable;
+CGrappleSwapTrack* CGrappleSwapTrack::vfunc_5(byte_5b7d0 param_2) {
+    *(int*)this = (int)&vftable_5b7d0;
     this->b.Clean();
     this->a.Clean();
     this->BaseClean();

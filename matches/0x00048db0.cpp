@@ -1,13 +1,13 @@
-struct Obj {
+struct Obj_48db0 {
     char _pad[0x2098];
     int f1;
     int f2;
 };
-struct Stage {
-    Obj* Get();
+struct Stage_48db0 {
+    Obj_48db0* Get();
 };
-struct Lookup {
-    Stage* Resolve();
+struct Lookup_48db0 {
+    Stage_48db0* Resolve();
 };
 
 class CNameFlagCondition {
@@ -21,7 +21,7 @@ class CNameFlagCondition {
 };
 
 bool CNameFlagCondition::vfunc_7(int arg) {
-    Obj* obj = ((Lookup*)arg)->Resolve()->Get();
+    Obj_48db0* obj = ((Lookup_48db0*)arg)->Resolve()->Get();
     switch (m_mode) {
     case 1:
         return (m_a != obj->f1 || m_b != obj->f2);

@@ -2,7 +2,7 @@ struct Stream {
     unsigned count;
     unsigned char* pos;
 };
-struct State {
+struct State_21b160 {
     unsigned code, a, b;
     char gap[8];
     unsigned mode;
@@ -14,7 +14,7 @@ struct State {
     unsigned extra;
 };
 extern "C" unsigned readSlow(Stream*);
-void init(unsigned x, State* s, Stream* p, unsigned y) {
+void init(unsigned x, State_21b160* s, Stream* p, unsigned y) {
     s->first = x;
     s->stream = p;
     s->a = 1;

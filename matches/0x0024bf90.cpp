@@ -7,7 +7,7 @@ extern void F247550(void*, void*);
 extern char g4e61a0[];
 extern void* g4e61e8;
 extern void* g4e61ec;
-struct Obj {
+struct Obj_24bf90 {
     void* a;
     void* b;
     void* c;
@@ -15,7 +15,7 @@ struct Obj {
     void* e;
     void* f;
 };
-void FUN_0024bf90(Obj* p) {
+void FUN_0024bf90(Obj_24bf90* p) {
     F24bae0(p, 1);
     F259b40(p->c);
     F25d300(p->d);

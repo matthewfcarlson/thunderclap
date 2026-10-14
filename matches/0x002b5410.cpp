@@ -7,11 +7,11 @@ struct Matrix {
     void FUN_0022c2b0(Vector*, Vector*);
     void FUN_0022c3b0(Vector*, Vector*);
 };
-struct MatrixSource {
+struct MatrixSource_2b5410 {
     Matrix* FUN_0028faa0();
 };
-extern MatrixSource* DAT_0052c2b4;
-struct Renderer {
+extern MatrixSource_2b5410* DAT_0052c2b4;
+struct Renderer_2b5410 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -88,7 +88,7 @@ struct Renderer {
     virtual void slot73();
     virtual void slot74(int, int, int);
 };
-extern Renderer* DAT_0052c2a8;
+extern Renderer_2b5410* DAT_0052c2a8;
 namespace pure3d {
 struct ShadowMeshImpl {
     virtual void vfunc_0();

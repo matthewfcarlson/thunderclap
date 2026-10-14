@@ -1,6 +1,6 @@
 extern "C" char DAT_003fa2c0[];
 typedef unsigned char BYTE;
-struct SubObj {
+struct SubObj_5e1a0 {
     void f();
 };
 void destroy(void* p);
@@ -24,8 +24,8 @@ struct CStunAnimationTrack {
 };
 CStunAnimationTrack* CStunAnimationTrack::vfunc_5(BYTE param) {
     *(unsigned long*)this = ((int)DAT_003fa2c0);
-    ((SubObj*)((char*)this + 0x30))->f();
-    ((SubObj*)((char*)this + 0x10))->f();
+    ((SubObj_5e1a0*)((char*)this + 0x30))->f();
+    ((SubObj_5e1a0*)((char*)this + 0x10))->f();
     this->core();
     if (param & 1)
         destroy(this);

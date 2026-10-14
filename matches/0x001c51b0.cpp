@@ -1,8 +1,8 @@
-struct Data {
+struct Data_1c51b0 {
     char pad[0x74];
     void* field74;
 };
-struct Item {
+struct Item_1c51b0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -19,7 +19,7 @@ struct Item {
     virtual void v13();
     virtual void v14();
     virtual void* v15();
-    Data* FUN_001d72e0();
+    Data_1c51b0* FUN_001d72e0();
 };
 struct Render {
     virtual void v0();
@@ -42,20 +42,20 @@ struct Render {
     virtual void v17(int, void*);
 };
 extern Render** DAT_0052c2ac;
-struct Parent {
+struct Parent_1c51b0 {
     char pad[0x23];
     unsigned char flag;
 };
-struct Owner;
+struct Owner_1c51b0;
 struct Context {
-    void FUN_001c25c0(Item*, Owner*, float);
+    void FUN_001c25c0(Item_1c51b0*, Owner_1c51b0*, float);
 };
-struct Owner {
+struct Owner_1c51b0 {
     char p0[0x10];
-    Item* fallback;
+    Item_1c51b0* fallback;
     char p14[4];
-    Parent* parent;
-    Item* item;
+    Parent_1c51b0* parent;
+    Item_1c51b0* item;
     char p20[2];
     unsigned char enabled;
     char p23[0x0d];
@@ -65,7 +65,7 @@ struct Owner {
     float b;
     int target(Context* context);
 };
-int Owner::target(Context* context) {
+int Owner_1c51b0::target(Context* context) {
     (*DAT_0052c2ac)->v15(0);
     if (!parent || parent->flag)
         (*DAT_0052c2ac)->v17(0, state);

@@ -16,11 +16,11 @@ class Condition {
     int q;
 };
 extern int AIHistoryNameCondition_vftable;
-class Factory {
+class Factory_18bb00 {
   public:
     void* vfunc_5();
 };
-void* Factory::vfunc_5() {
+void* Factory_18bb00::vfunc_5() {
     Condition* p = (Condition*)Alloc(0x18);
     void* result;
     if (p) {

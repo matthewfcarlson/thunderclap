@@ -3,13 +3,13 @@ class V {
     virtual void f0();
     virtual void f1();
 };
-struct Obj {
+struct Obj_2737a0 {
     char pad[4];
     V sub;
     char pad2[12];
     int count;
 };
-class Q {
+class Q_2737a0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -19,8 +19,8 @@ class Q {
 class DriveCompletionRequest {
   public:
     char pad[12];
-    Obj* p;
-    Q* q;
+    Obj_2737a0* p;
+    Q_2737a0* q;
     int arg;
     void vfunc_7();
 };

@@ -1,16 +1,16 @@
-struct B {
+struct B_d6f10 {
     void x(int);
 };
-struct C {
+struct C_d6f10 {
     void y(int);
 };
-struct A {
+struct A_d6f10 {
     int pad;
-    B* b;
-    C* c;
+    B_d6f10* b;
+    C_d6f10* c;
     void run(int);
 };
-void A::run(int v) {
+void A_d6f10::run(int v) {
     b->x(v);
     c->y(v);
 }

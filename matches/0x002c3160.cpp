@@ -1,22 +1,22 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_a[];
-extern void* g_b[];
+extern void* g_a_2c3160[];
+extern void* g_b_2c3160[];
 void operator delete(void*);
-class Ref {
+class Ref_2c3160 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Obj {
+class Obj_2c3160 {
   public:
     void* vptr;
     char pad[0x18];
-    Ref* m1c;
-    Ref* m20;
-    Obj* f2(unsigned char flags);
+    Ref_2c3160* m1c;
+    Ref_2c3160* m20;
+    Obj_2c3160* f2(unsigned char flags);
 };
-Obj* Obj::f2(unsigned char flags) {
-    vptr = g_a;
+Obj_2c3160* Obj_2c3160::f2(unsigned char flags) {
+    vptr = g_a_2c3160;
     _ReadWriteBarrier();
     if (m1c) {
         m1c->Release();
@@ -26,7 +26,7 @@ Obj* Obj::f2(unsigned char flags) {
         m20->Release();
         m20 = 0;
     }
-    vptr = g_b;
+    vptr = g_b_2c3160;
     if (flags & 1)
         operator delete(this);
     return this;

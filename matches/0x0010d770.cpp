@@ -1,8 +1,8 @@
-struct A {
-    A* f0();
+struct A_10d770 {
+    A_10d770* f0();
     int f1();
 };
-struct B {
+struct B_10d770 {
     char pad[0x14];
     int a14;
     int a18;
@@ -18,14 +18,14 @@ class ButtonAction {
     virtual void v4();
     virtual char vfunc_5(int, int);
     char pad[0x18];
-    B* mB;
-    A* mA;
+    B_10d770* mB;
+    A_10d770* mA;
 };
 char ButtonAction::vfunc_5(int p, int q) {
     if (p == 0) {
         if (!mA)
             return 0;
-        A* r = mA->f0();
+        A_10d770* r = mA->f0();
         int base = r->f1();
         int* d = (int*)(base + 0x1f58);
         d = d + mB->a14 * 3;

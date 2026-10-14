@@ -1,12 +1,12 @@
-struct Obj {
+struct Obj_5b4f0 {
     char pad[0x104];
     int field;
 };
-struct ObjB {
+struct ObjB_5b4f0 {
     char pad[0x330];
-    Obj* f330;
-    Obj* f334;
-    Obj* Get() {
+    Obj_5b4f0* f330;
+    Obj_5b4f0* f334;
+    Obj_5b4f0* Get() {
         if (f334)
             return f334;
         if (f330)
@@ -14,14 +14,14 @@ struct ObjB {
         return 0;
     }
 };
-struct ObjA {
-    ObjB* GetB();
+struct ObjA_5b4f0 {
+    ObjB_5b4f0* GetB();
 };
-struct Input {
-    ObjA* GetA();
+struct Input_5b4f0 {
+    ObjA_5b4f0* GetA();
 };
-struct Result {
-    Result* Init(int);
+struct Result_5b4f0 {
+    Result_5b4f0* Init(int);
 };
 void* __cdecl FUN_0008d690(int);
 class CGrappleIntangibleTrack {
@@ -38,20 +38,20 @@ class CGrappleIntangibleTrack {
     virtual void v9();
     virtual void v10();
     virtual void v11();
-    virtual Result* vfunc_12(Input*);
+    virtual Result_5b4f0* vfunc_12(Input_5b4f0*);
     virtual void v13();
 };
-Result* CGrappleIntangibleTrack::vfunc_12(Input* p) {
+Result_5b4f0* CGrappleIntangibleTrack::vfunc_12(Input_5b4f0* p) {
     if (p) {
-        ObjA* a = p->GetA();
+        ObjA_5b4f0* a = p->GetA();
         if (a) {
-            ObjB* b = a->GetB();
+            ObjB_5b4f0* b = a->GetB();
             if (b) {
-                Obj* x = b->Get();
+                Obj_5b4f0* x = b->Get();
                 if (x) {
                     int y = x->field;
                     if (y) {
-                        Result* z = (Result*)FUN_0008d690(0x20);
+                        Result_5b4f0* z = (Result_5b4f0*)FUN_0008d690(0x20);
                         if (z)
                             return z->Init(y);
                     }

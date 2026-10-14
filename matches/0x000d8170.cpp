@@ -1,18 +1,18 @@
-class B {
+class B_d8170 {
   public:
     int f(int, int);
 };
-class C {
+class C_d8170 {
   public:
     void g();
 };
-class Obj {
+class Obj_d8170 {
   public:
     char pad[0x150];
-    B* member;
+    B_d8170* member;
     void target(int a, int b);
 };
-void Obj::target(int a, int b) {
+void Obj_d8170::target(int a, int b) {
     int x = member->f(a, b);
-    ((C*)x)->g();
+    ((C_d8170*)x)->g();
 }

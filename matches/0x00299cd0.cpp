@@ -1,6 +1,6 @@
-extern int vt1;
+extern int vt1_299cd0;
 extern void* Alloc(unsigned) throw();
-struct Buf {
+struct Buf_299cd0 {
     char* b;
     char* e;
     void Init(unsigned n) throw() {
@@ -15,29 +15,29 @@ struct Buf {
         e = 0;
     }
 };
-struct Sub {
+struct Sub_299cd0 {
     void Fill(unsigned, const unsigned char*) throw();
 };
 class D {
   public:
     void* vptr;
     int a4;
-    Buf x8;
+    Buf_299cd0 x8;
     int p10;
-    Buf x14;
+    Buf_299cd0 x14;
     int p1c;
     char c20;
     char p21[3];
-    Buf x24;
+    Buf_299cd0 x24;
     int p2c;
-    Buf x30;
+    Buf_299cd0 x30;
     int p38;
-    Sub s3c;
+    Sub_299cd0 s3c;
     D(unsigned char n) throw();
 };
 D::D(unsigned char n) throw() {
     a4 = 0;
-    vptr = &vt1;
+    vptr = &vt1_299cd0;
     x8.Init(0x20);
     x14.Init(0x20);
     unsigned len = n;

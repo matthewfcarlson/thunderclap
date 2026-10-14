@@ -1,4 +1,4 @@
-class C {
+class C_c7af0 {
     char pad[0x2958];
 
   public:
@@ -6,7 +6,7 @@ class C {
     unsigned char b;
     void f();
 };
-void C::f() {
+void C_c7af0::f() {
     a = 1;
     b = 1;
 }

@@ -9,7 +9,7 @@ class Track {
     int c;
 };
 extern "C" void* __cdecl operator_new(unsigned int);
-class Factory {
+class Factory_77840 {
   public:
     virtual void f0();
     virtual void f1();
@@ -18,7 +18,7 @@ class Factory {
     virtual void f4();
     virtual void* f5();
 };
-void* Factory::f5() {
+void* Factory_77840::f5() {
     Track* p = (Track*)operator_new(0x18);
     if (p) {
         p->Track::Track();

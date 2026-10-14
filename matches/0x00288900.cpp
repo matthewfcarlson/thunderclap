@@ -1,4 +1,4 @@
-class Sub {
+class Sub_288900 {
   public:
     void Init();
     char pad[8];
@@ -8,7 +8,7 @@ class AnimationGroup {
     AnimationGroup();
     virtual ~AnimationGroup();
     char pad[4];
-    Sub sub;
+    Sub_288900 sub;
     int a, b, c, d;
 };
 AnimationGroup::AnimationGroup() {

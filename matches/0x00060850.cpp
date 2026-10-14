@@ -1,4 +1,4 @@
-class Obj {
+class Obj_60850 {
   public:
     int run(void*, int, int);
 };
@@ -17,18 +17,18 @@ class CGrappleEffectTrack {
     virtual int vfunc_10(int, int, int);
     virtual void f11();
 };
-struct Thing {
+struct Thing_60850 {
     char pad[0x104];
     int value;
 };
 extern void* Alloc(int);
-extern Thing* GetThing(int);
+extern Thing_60850* GetThing(int);
 int CGrappleEffectTrack::vfunc_10(int a, int b, int c) {
     void* p = Alloc(0x2c);
     if (p) {
-        Thing* q = GetThing(c);
+        Thing_60850* q = GetThing(c);
         int value = q->value;
-        return ((Obj*)p)->run(this, value, a);
+        return ((Obj_60850*)p)->run(this, value, a);
     }
     return 0;
 }

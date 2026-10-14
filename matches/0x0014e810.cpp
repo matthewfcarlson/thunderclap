@@ -26,18 +26,18 @@ class CollisionSourceIsMissileCondition : public Condition, public Param {
     unsigned char value;
 };
 extern int helper(void*, int, void*, void*, int);
-extern int typeA;
-extern int typeB;
-struct Source {
+extern int typeA_14e810;
+extern int typeB_14e810;
+struct Source_14e810 {
     virtual void a();
     virtual void b();
     virtual void c();
     virtual int get();
 };
 bool CollisionSourceIsMissileCondition::vfunc_6(int, void* p, int) {
-    if (helper(p, 0, &typeA, &typeB, 0) == 0)
+    if (helper(p, 0, &typeA_14e810, &typeB_14e810, 0) == 0)
         return false;
-    int x = ((Source*)p)->get();
+    int x = ((Source_14e810*)p)->get();
     if (!x)
         return false;
     return *(unsigned char*)(x + 0x14) == value;

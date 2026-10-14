@@ -8,11 +8,11 @@ class RDLObject {
     void Initialize();
     RDLObject();
 };
-extern int vtable;
+extern int vtable_27a890;
 RDLObject::RDLObject() {
     Initialize();
     a = 0;
     b = 0;
     c = 0;
-    *(int*)this = (int)&vtable;
+    *(int*)this = (int)&vtable_27a890;
 }

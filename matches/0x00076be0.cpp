@@ -14,11 +14,11 @@ class CIntangibleTrack {
     void Init();
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
-class Factory {
+class Factory_76be0 {
   public:
     CIntangibleTrack* vfunc_5();
 };
-CIntangibleTrack* Factory::vfunc_5() {
+CIntangibleTrack* Factory_76be0::vfunc_5() {
     CIntangibleTrack* p = (CIntangibleTrack*)FUN_0008d690(0x14);
     if (p) {
         p->Init();

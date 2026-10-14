@@ -1,4 +1,4 @@
-class A {
+class A_220810 {
   public:
     void* p0;
     int pad[2];
@@ -8,7 +8,7 @@ class A {
 };
 extern const char msg[];
 void err(int, const char*);
-void f(A* a, int n) {
+void f(A_220810* a, int n) {
     int x = a->m9 + n;
     if (x > (int)*(unsigned char*)((char*)a->p0 + 0x47)) {
         if (x >= 250)

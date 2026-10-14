@@ -1,14 +1,14 @@
-extern void* g_vftable[];
-class Base {
+extern void* g_vftable_510b0[];
+class Base_510b0 {
   public:
     void* vptr;
-    Base() { vptr = g_vftable; }
+    Base_510b0() { vptr = g_vftable_510b0; }
 };
-class Derived : public Base {
+class Derived_510b0 : public Base_510b0 {
   public:
     virtual void Dummy();
-    Derived();
+    Derived_510b0();
 };
-Derived::Derived() {
-    vptr = g_vftable;
+Derived_510b0::Derived_510b0() {
+    vptr = g_vftable_510b0;
 }

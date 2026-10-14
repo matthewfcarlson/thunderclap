@@ -1,23 +1,23 @@
-class Base {
+class Base_144c10 {
   public:
     virtual void V();
     char pad[0x18];
-    Base();
+    Base_144c10();
 };
-class Ref {
+class Ref_144c10 {
   public:
     virtual void Add();
     virtual void Release();
 };
-class HitEffectAction : public Base {
+class HitEffectAction : public Base_144c10 {
   public:
-    Ref* a;
+    Ref_144c10* a;
     int b;
-    Ref* c;
+    Ref_144c10* c;
     virtual void W();
-    HitEffectAction(Ref*, int, Ref*);
+    HitEffectAction(Ref_144c10*, int, Ref_144c10*);
 };
-HitEffectAction::HitEffectAction(Ref* p, int x, Ref* q) {
+HitEffectAction::HitEffectAction(Ref_144c10* p, int x, Ref_144c10* q) {
     a = 0;
     b = 0;
     c = 0;

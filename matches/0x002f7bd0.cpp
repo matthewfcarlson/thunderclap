@@ -1,4 +1,4 @@
-class C {
+class C_2f7bd0 {
   public:
     virtual void a0();
     virtual void a1();
@@ -23,17 +23,17 @@ class C {
     virtual bool second(int, int, int, int, int);
 };
 
-class S {
+class S_2f7bd0 {
   public:
     virtual void v0();
     virtual void v1();
-    virtual bool vfunc_2(C* o, int a, int b, int c, int d, int e);
+    virtual bool vfunc_2(C_2f7bd0* o, int a, int b, int c, int d, int e);
     virtual void v3();
     virtual void v4();
     char pad[60];
 };
 
-bool S::vfunc_2(C* o, int a, int b, int c, int d, int e) {
+bool S_2f7bd0::vfunc_2(C_2f7bd0* o, int a, int b, int c, int d, int e) {
     bool r = true;
     if (o) {
         if (!o->first(b, (int)((char*)this + 0x50), c, a, d, e)) {

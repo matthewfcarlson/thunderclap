@@ -1,25 +1,25 @@
-class Item {
+class Item_232290 {
   public:
     virtual void A();
     virtual void B();
-    void Handle(Item*);
+    void Handle(Item_232290*);
     float pad[3];
     float value;
 };
-class Owner {
+class Owner_232290 {
   public:
-    bool Attach(Item* item);
+    bool Attach(Item_232290* item);
     char pad0[0x1c];
     float amount;
-    Item* first;
-    Item* second;
+    Item_232290* first;
+    Item_232290* second;
 };
 
-bool Owner::Attach(Item* item) {
+bool Owner_232290::Attach(Item_232290* item) {
     if (!item)
         return false;
     item->value += amount;
-    Item* s0 = second;
+    Item_232290* s0 = second;
     if (s0 == 0) {
         item->A();
         if (first != 0)
@@ -29,7 +29,7 @@ bool Owner::Attach(Item* item) {
         s0->Handle(item);
     }
     item->A();
-    Item* t = second;
+    Item_232290* t = second;
     if (t)
         t->B();
     second = item;

@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2c2770 {
   public:
     virtual void f0();
     virtual void f1();
@@ -47,8 +47,8 @@ class Geometry {
     virtual void a17();
     virtual void a18();
     char pad[0x60 - 4];
-    Obj* p;
-    Obj* q;
+    Obj_2c2770* p;
+    Obj_2c2770* q;
 };
 class DrawableContainer {
   public:

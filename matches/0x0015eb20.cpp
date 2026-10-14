@@ -1,23 +1,23 @@
-class Thing {
+class Thing_15eb20 {
   public:
     virtual void A();
     virtual void B();
 };
-class Base {
+class Base_15eb20 {
   public:
     virtual void X();
-    Base();
+    Base_15eb20();
 };
-class ClimbLocomotionAction : public Base {
+class ClimbLocomotionAction : public Base_15eb20 {
   public:
     virtual void A();
     char pad[0x18];
-    Thing* mThing;
+    Thing_15eb20* mThing;
     int m20;
     int m24;
-    ClimbLocomotionAction(Thing*);
+    ClimbLocomotionAction(Thing_15eb20*);
 };
-ClimbLocomotionAction::ClimbLocomotionAction(Thing* p) {
+ClimbLocomotionAction::ClimbLocomotionAction(Thing_15eb20* p) {
     mThing = 0;
     m20 = 0;
     m24 = 0;

@@ -1,16 +1,16 @@
-class B {
+class B_265590 {
   public:
     void First();
     void Second();
 };
-class A {
+class A_265590 {
   public:
     char pad[12];
-    B* x;
-    B* y;
+    B_265590* x;
+    B_265590* y;
     void Run();
 };
-void A::Run() {
+void A_265590::Run() {
     x->First();
     y->Second();
 }

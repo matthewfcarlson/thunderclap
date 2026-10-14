@@ -1,18 +1,18 @@
-class Manager {
+class Manager_89e80 {
   public:
     int Get();
     void Set(int);
 };
-class Obj {
+class Obj_89e80 {
     char pad[0xabd];
 
   public:
     char flag;
     char other;
     void Init();
-    char Fn(Manager*, char);
+    char Fn(Manager_89e80*, char);
 };
-char Obj::Fn(Manager* m, char param) {
+char Obj_89e80::Fn(Manager_89e80* m, char param) {
     Init();
     char r = 0;
     int x = m->Get();

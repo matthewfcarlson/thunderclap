@@ -1,30 +1,30 @@
 extern "C" char DAT_00417da4[];
-class Obj {
+class Obj_175920 {
   public:
     virtual void V0();
     virtual void V1();
 };
-class Inner {
+class Inner_175920 {
   public:
     void Init();
     void SetName(const char*);
 };
-class Base {
+class Base_175920 {
   public:
-    Base();
+    Base_175920();
     virtual void A0();
 };
-class Action : public Base {
+class Action : public Base_175920 {
   public:
-    Action(int arg, Obj* obj);
+    Action(int arg, Obj_175920* obj);
     virtual void A0();
     char pad04[0x18];
     int field1c;
-    Obj* field20;
+    Obj_175920* field20;
     char pad24[4];
-    Inner inner;
+    Inner_175920 inner;
 };
-Action::Action(int arg, Obj* obj) {
+Action::Action(int arg, Obj_175920* obj) {
     field1c = 0;
     field20 = 0;
     inner.Init();

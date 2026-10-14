@@ -1,26 +1,26 @@
-struct Ref {
+struct Ref_174fb0 {
     virtual void f();
     virtual void g();
 };
-struct Sub {
+struct Sub_174fb0 {
     void Init();
     char d[8];
 };
-class Base {
+class Base_174fb0 {
   public:
-    Base();
+    Base_174fb0();
     virtual void v0();
     char pad[0x18];
 };
-class Drift : public Base {
+class Drift : public Base_174fb0 {
   public:
     int a;
-    Ref* r;
+    Ref_174fb0* r;
     char flag24;
     char p25[3];
     char p28[0xc];
     int f34;
-    Sub sub;
+    Sub_174fb0 sub;
     int f40;
     int f44;
     int f48;
@@ -28,10 +28,10 @@ class Drift : public Base {
     char f50;
     char f51;
     char f52;
-    Drift(int x, Ref* p);
+    Drift(int x, Ref_174fb0* p);
     virtual void v0();
 };
-Drift::Drift(int x, Ref* p) {
+Drift::Drift(int x, Ref_174fb0* p) {
     a = 0;
     r = 0;
     flag24 = 1;

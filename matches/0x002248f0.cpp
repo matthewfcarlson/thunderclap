@@ -6,18 +6,18 @@ class JointDriver {
     JointDriver(int arg);
 };
 extern void BaseInit();
-extern int gCount;
-extern int gMax;
+extern int gCount_2248f0;
+extern int gMax_2248f0;
 JointDriver::JointDriver(int arg) {
     BaseInit();
     *(int*)this = ((int)DAT_004272f0);
     *(int*)((char*)this + 0x10) = arg;
     *(int*)((char*)this + 0x14) = 3;
     ((JointDriver*)((char*)this + 0x18))->Init();
-    int a = gCount;
-    int b = gMax;
+    int a = gCount_2248f0;
+    int b = gMax_2248f0;
     a++;
-    gCount = a;
+    gCount_2248f0 = a;
     if (a > b)
-        gMax = a;
+        gMax_2248f0 = a;
 }

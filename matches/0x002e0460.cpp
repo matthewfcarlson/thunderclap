@@ -1,4 +1,4 @@
-class Ref {
+class Ref_2e0460 {
   public:
     virtual void f0();
     virtual void f1();
@@ -15,7 +15,7 @@ class Streamed : public PrimGroup {
     Streamed(const Streamed& o) : PrimGroup(o) {
         r1 = 0;
         x58 = o.x58;
-        Ref* p = o.r1;
+        Ref_2e0460* p = o.r1;
         if (p)
             p->f0();
         if (r1)
@@ -23,19 +23,19 @@ class Streamed : public PrimGroup {
         r1 = p;
     }
     int x58;
-    Ref* r1;
+    Ref_2e0460* r1;
 };
 class Skinned : public Streamed {
   public:
     virtual void v();
     Skinned(const Skinned& o);
     int x60;
-    Ref* r2;
+    Ref_2e0460* r2;
 };
 Skinned::Skinned(const Skinned& o) : Streamed(o) {
     x60 = 0;
     r2 = 0;
-    Ref* p = o.r2;
+    Ref_2e0460* p = o.r2;
     if (p)
         p->f0();
     if (r2)

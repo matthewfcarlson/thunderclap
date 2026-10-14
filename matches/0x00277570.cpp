@@ -3,12 +3,12 @@ struct Node {
     Node* next;
     int index;
 };
-class Queue {
+class Queue_277570 {
   public:
     void Push(Node* n);
     Node* heads[4];
 };
-void Queue::Push(Node* n) {
+void Queue_277570::Push(Node* n) {
     int i = n->index;
     if (heads[i] == 0) {
         heads[i] = n;

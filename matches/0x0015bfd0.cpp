@@ -1,12 +1,12 @@
 extern "C" char DAT_00415aa0[];
-struct Sub {
+struct Sub_15bfd0 {
     char pad[8];
     void init();
 };
 class LocomotionSprintTrack {
   public:
     char a[0x30];
-    Sub s0, s1, s2, s3, s4;
+    Sub_15bfd0 s0, s1, s2, s3, s4;
     void finish();
 };
 void __fastcall FUN_0015bfd0(LocomotionSprintTrack* self, void*) {

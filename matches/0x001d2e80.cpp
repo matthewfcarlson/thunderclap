@@ -1,4 +1,4 @@
-struct Obj {
+struct Obj_1d2e80 {
     char pad[8];
     void* m;
     void F1d1cb0();
@@ -10,7 +10,7 @@ extern void __cdecl F213600(void*, int);
 extern int __cdecl F212f00(void*, int);
 extern int __cdecl F212d80(void*, int);
 extern const char event[];
-bool Obj::target() {
+bool Obj_1d2e80::target() {
     int v = F212d70(m);
     F1d1cb0();
     F213380(m, event, 5);

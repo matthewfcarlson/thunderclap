@@ -1,10 +1,10 @@
 extern "C" char DAT_00494b44[];
 extern "C" char DAT_00494b60[];
-class P {
+class P_10d6b0 {
   public:
     void* get();
 };
-class Q {
+class Q_10d6b0 {
   public:
     void* query();
 };
@@ -25,8 +25,8 @@ bool LeashedCondition::vfunc_6(int unused, void* params, int unused2) {
     int ok = FUN_00344e74(params, 0, ((int)DAT_00494b44), ((int)DAT_00494b60), 0);
     if (!ok)
         return false;
-    void* a = ((P*)params)->get();
-    void* b = ((Q*)a)->query();
+    void* a = ((P_10d6b0*)params)->get();
+    void* b = ((Q_10d6b0*)a)->query();
     if (!b)
         return false;
     void* c = *(void**)((char*)b + 0x1ca0);

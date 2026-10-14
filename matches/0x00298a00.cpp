@@ -1,4 +1,4 @@
-class X {
+class X_298a00 {
   public:
     char pad0[8];
     unsigned char count;
@@ -8,7 +8,7 @@ class X {
     unsigned char* items;
     void f(unsigned char value);
 };
-void X::f(unsigned char value) {
+void X_298a00::f(unsigned char value) {
     --count;
     map[items[value]] = 0xff;
     if (count != value) {

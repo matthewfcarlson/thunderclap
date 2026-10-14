@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1c56d0 {
   public:
     virtual void a();
     virtual void b();
@@ -14,5 +14,5 @@ class Store {
 };
 void Store::c(void* param) {
     if (flag && param)
-        ((Obj*)param)->c(1);
+        ((Obj_1c56d0*)param)->c(1);
 }

@@ -1,5 +1,5 @@
 extern "C" char DAT_00428824[];
-class Elem {
+class Elem_23c4d0 {
   public:
     void Fn();
 };
@@ -21,7 +21,7 @@ class Reference {
 extern void __cdecl FUN_00267090(Reference*);
 Reference* Reference::vfunc_2(int flag) {
     *(int*)this = ((int)DAT_00428824);
-    ((Elem*)((char*)this + 0x28))->Fn();
+    ((Elem_23c4d0*)((char*)this + 0x28))->Fn();
     Init();
     if (flag & 1)
         FUN_00267090(this);

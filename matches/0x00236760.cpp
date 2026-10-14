@@ -4,15 +4,15 @@ struct Param {
     int a;
     int b;
 };
-struct Helper {
+struct Helper_236760 {
     void Run(int, int, Param*);
 };
-struct Owner {
+struct Owner_236760 {
     char pad[0x14];
-    Helper helper;
+    Helper_236760 helper;
     bool Target(Param* p);
 };
-bool Owner::Target(Param* p) {
+bool Owner_236760::Target(Param* p) {
     int x = p->a;
     int y = p->b;
     p->F();

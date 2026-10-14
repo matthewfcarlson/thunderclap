@@ -1,15 +1,15 @@
-class Thing {
+class Thing_1b3760 {
   public:
     virtual void A();
     virtual void B();
 };
-class Owner {
+class Owner_1b3760 {
   public:
     char pad[0x30];
-    Thing* mThing;
-    void Set(Thing*);
+    Thing_1b3760* mThing;
+    void Set(Thing_1b3760*);
 };
-void Owner::Set(Thing* p) {
+void Owner_1b3760::Set(Thing_1b3760* p) {
     if (p)
         p->A();
     if (mThing)

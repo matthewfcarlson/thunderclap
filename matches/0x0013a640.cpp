@@ -1,10 +1,10 @@
-class Base {
+class Base_13a640 {
   public:
-    Base();
+    Base_13a640();
     virtual void F();
 };
-class GrappleAnimationTrack : public Base {
+class GrappleAnimationTrack : public Base_13a640 {
   public:
     GrappleAnimationTrack();
 };
-GrappleAnimationTrack::GrappleAnimationTrack() : Base() {}
+GrappleAnimationTrack::GrappleAnimationTrack() : Base_13a640() {}

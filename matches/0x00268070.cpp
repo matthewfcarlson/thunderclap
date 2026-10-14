@@ -1,5 +1,5 @@
 extern "C" char DAT_0042aff0[];
-struct Obj {
+struct Obj_268070 {
     virtual void f();
 };
 class Timer {
@@ -12,12 +12,12 @@ class Timer {
     char pad[7];
     int x18;
     int x1c;
-    Obj* obj;
+    Obj_268070* obj;
     void vfunc_9();
-    Timer(Obj* e, int b, int c, int d, char g, int f);
+    Timer(Obj_268070* e, int b, int c, int d, char g, int f);
 };
 void InitTimer();
-Timer::Timer(Obj* e, int b, int c, int d, char g, int f) {
+Timer::Timer(Obj_268070* e, int b, int c, int d, char g, int f) {
     x8 = f;
     x0 = ((int)DAT_0042aff0);
     x4 = 1;

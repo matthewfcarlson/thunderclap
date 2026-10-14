@@ -4,7 +4,7 @@ class PhaseObj {
     virtual void f0();
     virtual void f1();
 };
-class Helper {
+class Helper_13b2a0 {
   public:
     void* get();
     void* next();
@@ -19,10 +19,10 @@ class AnimationPhaseMatchedAction {
 };
 void AnimationPhaseMatchedAction::vfunc_4() {
     if (a) {
-        void* x = ((Helper*)source)->get();
-        x = ((Helper*)x)->next();
+        void* x = ((Helper_13b2a0*)source)->get();
+        x = ((Helper_13b2a0*)x)->next();
         if (x) {
-            ((Helper*)x)->act(a, 0);
+            ((Helper_13b2a0*)x)->act(a, 0);
             if (a) {
                 ((PhaseObj*)a)->f1();
                 a = 0;

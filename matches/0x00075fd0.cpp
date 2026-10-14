@@ -1,10 +1,10 @@
 extern "C" char DAT_003fba38[];
 extern "C" void* __cdecl Allocate(unsigned int);
-class Init {
+class Init_75fd0 {
   public:
     void InitFn();
 };
-class Factory {
+class Factory_75fd0 {
   public:
     virtual void A();
     virtual void B();
@@ -13,10 +13,10 @@ class Factory {
     virtual void E();
     virtual void* Make();
 };
-void* Factory::Make() {
+void* Factory_75fd0::Make() {
     void* p = Allocate(0x14);
     if (p) {
-        ((Init*)p)->InitFn();
+        ((Init_75fd0*)p)->InitFn();
         *(unsigned int*)p = ((int)DAT_003fba38);
         *(unsigned int*)((char*)p + 0xc) = 0;
         *(unsigned int*)((char*)p + 0x10) = 0xbf800000;

@@ -1,19 +1,19 @@
 extern "C" char FUN_001d04d0(const char*);
-extern const char gA[];
-extern const char gB[];
-struct Base {
+extern const char gA_2e9a0[];
+extern const char gB_2e9a0[];
+struct Base_2e9a0 {
     virtual void f0();
-    Base(int, int);
+    Base_2e9a0(int, int);
     char pad[12];
     char b10;
     char p11[7];
     char b18;
 };
-struct Method1 : Base {
-    Method1(int a, int b) : Base(a, 1) {
+struct Method1 : Base_2e9a0 {
+    Method1(int a, int b) : Base_2e9a0(a, 1) {
         m1c = b;
-        b18 = FUN_001d04d0(gA);
-        b10 = FUN_001d04d0(gB);
+        b18 = FUN_001d04d0(gA_2e9a0);
+        b10 = FUN_001d04d0(gB_2e9a0);
     }
     virtual void f0();
     int m1c;

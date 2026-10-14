@@ -1,20 +1,20 @@
-class Ref {
+class Ref_b3b80 {
   public:
     virtual void F();
 };
-extern int vtable;
+extern int vtable_b3b80;
 class CSimController {
   public:
     int vt;
     int m;
-    Ref* p;
+    Ref_b3b80* p;
     char pad[0x10c];
-    CSimController(Ref*);
+    CSimController(Ref_b3b80*);
     void Init(void*, int);
 };
-CSimController::CSimController(Ref* q) {
+CSimController::CSimController(Ref_b3b80* q) {
     m = 0;
-    vt = (int)&vtable;
+    vt = (int)&vtable_b3b80;
     p = q;
     q->F();
     Init((char*)this + 0xc, 1);

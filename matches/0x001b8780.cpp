@@ -1,4 +1,4 @@
-struct Item {
+struct Item_1b8780 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -8,7 +8,7 @@ struct Item {
     virtual void d3();
     virtual void d(unsigned char);
 };
-struct Manager {
+struct Manager_1b8780 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -98,16 +98,16 @@ struct Manager {
     virtual void f86();
     virtual void f87();
     virtual void f88();
-    virtual Item* get(int);
+    virtual Item_1b8780* get(int);
 };
-extern Manager* gManager;
+extern Manager_1b8780* gManager_1b8780;
 extern int FUN_00266da0(int);
-struct Obj {
+struct Obj_1b8780 {
     char pad[0x33];
     unsigned char field;
 };
-void __fastcall target(Obj* self, int, unsigned char value) {
-    Item* p = gManager->get(0x103);
+void __fastcall target(Obj_1b8780* self, int, unsigned char value) {
+    Item_1b8780* p = gManager_1b8780->get(0x103);
     self->field = value;
     if (p) {
         int q = FUN_00266da0(0);

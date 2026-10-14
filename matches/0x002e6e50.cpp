@@ -1,25 +1,25 @@
-struct State {
+struct State_2e6e50 {
     char pad[12];
     int raw;
     int bits;
     void* table;
 };
 struct Stream;
-typedef void*(__cdecl* Alloc)(void*, unsigned, unsigned);
+typedef void*(__cdecl* Alloc_2e6e50)(void*, unsigned, unsigned);
 typedef void(__cdecl* Free)(void*, void*);
-typedef unsigned(__cdecl* Lookup)(unsigned);
+typedef unsigned(__cdecl* Lookup_2e6e50)(unsigned);
 extern void* __cdecl FUN_002eb120(void*, unsigned, unsigned);
 extern void __cdecl FUN_002eb140(void*, void*);
 extern unsigned __cdecl FUN_002eafc0(unsigned);
 struct Stream {
     char pad[24];
     int status;
-    State* state;
-    Alloc allocate;
+    State_2e6e50* state;
+    Alloc_2e6e50 allocate;
     Free release;
     void* context;
 };
-extern void* __cdecl FUN_002ea320(Stream*, Lookup, unsigned);
+extern void* __cdecl FUN_002ea320(Stream*, Lookup_2e6e50, unsigned);
 extern int __cdecl FUN_002e6e00(Stream*);
 extern int __cdecl FUN_002e6db0(Stream*);
 int __cdecl FUN_002e6e50(Stream* s, int bits, const char* version, int size) {
@@ -34,7 +34,7 @@ int __cdecl FUN_002e6e50(Stream* s, int bits, const char* version, int size) {
     }
     if (!s->release)
         s->release = FUN_002eb140;
-    s->state = (State*)s->allocate(s->context, 1, 24);
+    s->state = (State_2e6e50*)s->allocate(s->context, 1, 24);
     if (!s->state)
         return -4;
     s->state->table = 0;

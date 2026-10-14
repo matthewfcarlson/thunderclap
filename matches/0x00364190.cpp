@@ -1,8 +1,8 @@
-class A {
+class A_364190 {
   public:
     void Fn();
 };
-extern A gA;
+extern A_364190 gA_364190;
 void FUN_00364190() {
-    gA.Fn();
+    gA_364190.Fn();
 }

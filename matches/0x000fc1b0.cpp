@@ -1,4 +1,4 @@
-class A {
+class A_fc1b0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -178,7 +178,7 @@ class A {
     virtual void f175();
     virtual void f176();
 };
-A* g;
+A_fc1b0* g_fc1b0;
 void FUN_000fc1b0() {
-    g->f44();
+    g_fc1b0->f44();
 }

@@ -1,4 +1,4 @@
-typedef unsigned int U;
+typedef unsigned int U_327660;
 namespace pure3d {
 class pddiPrimBufferStream {
   public:
@@ -18,20 +18,20 @@ class pddiPrimBufferStream {
     virtual void f13();
     virtual void f14();
     virtual void f15();
-    virtual void f16(U*, U);
+    virtual void f16(U_327660*, U_327660);
     virtual void f17();
 };
 class d3dPrimBufferStream : public pddiPrimBufferStream {
   public:
     char pad[32];
-    U* a;
+    U_327660* a;
     char pad2[8];
-    U* b;
+    U_327660* b;
     void helper();
-    virtual void f16(U* p, U v);
+    virtual void f16(U_327660* p, U_327660 v);
 };
-void d3dPrimBufferStream::f16(U* p, U v) {
-    U* dst = a;
+void d3dPrimBufferStream::f16(U_327660* p, U_327660 v) {
+    U_327660* dst = a;
     dst[0] = p[0];
     dst[1] = p[1];
     dst[2] = p[2];

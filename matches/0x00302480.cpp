@@ -7,12 +7,12 @@ class VecSource {
     virtual void f3();
     virtual float* Get();
 };
-class Obj {
+class Obj_302480 {
   public:
     char pad[0x34];
     float radius;
 };
-float dist(Obj* a, Obj* b) {
+float dist(Obj_302480* a, Obj_302480* b) {
     float* p = ((VecSource*)a)->Get();
     float* q = ((VecSource*)b)->Get();
     float x = q[0] - p[0];

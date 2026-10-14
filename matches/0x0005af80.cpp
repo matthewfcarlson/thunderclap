@@ -4,21 +4,21 @@ class CGrappleSequenceTrack {
     char pad[0x1c];
     void Target();
 };
-class A {
+class A_5af80 {
   public:
     void InitA();
 };
-class B {
+class B_5af80 {
   public:
     void InitB();
 };
-class C {
+class C_5af80 {
   public:
     void Finish();
 };
 void CGrappleSequenceTrack::Target() {
     *(void**)this = (void*)((int)DAT_003f9a2c);
-    ((A*)((char*)this + 0x1c))->InitA();
-    ((B*)((char*)this + 0x0c))->InitB();
-    ((C*)this)->Finish();
+    ((A_5af80*)((char*)this + 0x1c))->InitA();
+    ((B_5af80*)((char*)this + 0x0c))->InitB();
+    ((C_5af80*)this)->Finish();
 }

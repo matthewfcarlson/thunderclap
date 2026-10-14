@@ -1,5 +1,5 @@
 // cl-flags: /Oy- /O1
-struct I64 {
+struct I64_21046f {
     int lo;
     int hi;
 };
@@ -7,7 +7,7 @@ struct I64 {
 extern int(__stdcall* g_NtQuery)(void* h, void* iosb, void* buf, int size, int cls);
 extern void __stdcall XapiSetLastNTError(int e);
 
-int __stdcall FUN_0021046f(void* h, I64* a, I64* b, I64* c) {
+int __stdcall FUN_0021046f(void* h, I64_21046f* a, I64_21046f* b, I64_21046f* c) {
     int buf[14];
     int iosb[2];
     int r = g_NtQuery(h, iosb, buf, 0x38, 0x22);

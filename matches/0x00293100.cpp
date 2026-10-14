@@ -1,25 +1,25 @@
-class Base {
+class Base_293100 {
   public:
     virtual void AddRef();
     virtual void Release();
 };
 
-struct TypeInfo {};
-extern TypeInfo tiSrc;
-extern TypeInfo tiA;
-extern TypeInfo tiB;
+struct TypeInfo_293100 {};
+extern TypeInfo_293100 tiSrc;
+extern TypeInfo_293100 tiA;
+extern TypeInfo_293100 tiB;
 
 extern "C" void* __cdecl DynCast(void* p, int off, void* src, void* dst, int isRef);
 
-class Holder {
+class Holder_293100 {
   public:
     char pad[0x110];
     int mType;
-    Base* mObj;
-    void Set(Base* p);
+    Base_293100* mObj;
+    void Set(Base_293100* p);
 };
 
-void Holder::Set(Base* p) {
+void Holder_293100::Set(Base_293100* p) {
     if (mObj) {
         mObj->Release();
         mObj = 0;

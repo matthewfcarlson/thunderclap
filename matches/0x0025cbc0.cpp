@@ -1,7 +1,7 @@
-struct Buffer {
+struct Buffer_25cbc0 {
     char data[0x1a4];
 };
-struct State {
+struct State_25cbc0 {
     void FUN_0023fac0();
     void FUN_00240190(unsigned);
     char data[4];
@@ -14,26 +14,26 @@ struct SourceTable {
     void(__cdecl* get)(SourceTable*, unsigned*);
     void(__cdecl* set)(SourceTable*, unsigned);
 };
-struct Source {
+struct Source_25cbc0 {
     SourceTable* table;
-    void FUN_00246f00(Buffer*, unsigned, unsigned, unsigned);
+    void FUN_00246f00(Buffer_25cbc0*, unsigned, unsigned, unsigned);
 };
-void __cdecl FUN_00263470(Buffer*);
-void __cdecl FUN_00263480(unsigned*, Buffer*);
+void __cdecl FUN_00263470(Buffer_25cbc0*);
+void __cdecl FUN_00263480(unsigned*, Buffer_25cbc0*);
 namespace audio {
 struct OmHalStream {
     virtual void dummy();
-    Source* source;
+    Source_25cbc0* source;
     unsigned remaining;
     unsigned result;
-    Buffer buffer;
+    Buffer_25cbc0 buffer;
     unsigned zero;
     unsigned option;
-    State state;
-    OmHalStream(Source*, unsigned, unsigned, unsigned);
+    State_25cbc0 state;
+    OmHalStream(Source_25cbc0*, unsigned, unsigned, unsigned);
 };
 } // namespace audio
-audio::OmHalStream::OmHalStream(Source* s, unsigned setup, unsigned count, unsigned opt) {
+audio::OmHalStream::OmHalStream(Source_25cbc0* s, unsigned setup, unsigned count, unsigned opt) {
     source = s;
     remaining = count;
     zero = 0;

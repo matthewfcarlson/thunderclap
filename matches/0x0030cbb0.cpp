@@ -1,5 +1,5 @@
 extern "C" char DAT_00431de4[];
-class Helper {
+class Helper_30cbb0 {
   public:
     void Init();
 };
@@ -12,8 +12,8 @@ class PhysicsJoint {
 extern void __cdecl AddRef(void*);
 void __fastcall Target(PhysicsJoint* self) {
     *(int*)self = ((int)DAT_00431de4);
-    ((Helper*)((char*)self + 0x64))->Init();
-    ((Helper*)((char*)self + 0x48))->Init();
+    ((Helper_30cbb0*)((char*)self + 0x64))->Init();
+    ((Helper_30cbb0*)((char*)self + 0x48))->Init();
     int value = self->m20;
     self->m24 = value;
     if (value)

@@ -1,29 +1,29 @@
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
-class Obj {
+class Obj_203a10 {
   public:
     bool A(int);
     bool B(int);
 };
-class Manager {
+class Manager_203a10 {
   public:
-    Obj* Get();
+    Obj_203a10* Get();
 };
-class Root {
+class Root_203a10 {
   public:
     char pad[0x54];
-    Manager* mgr;
+    Manager_203a10* mgr;
 };
-extern Root* gRoot;
-class C {
+extern Root_203a10* gRoot_203a10;
+class C_203a10 {
   public:
     char pad[0xaa4];
     char name[0x20];
     void Apply(int);
     void Run();
 };
-void C::Run() {
+void C_203a10::Run() {
     strncpy(name, "hulk", 0x20);
-    Obj* o = gRoot->mgr->Get();
+    Obj_203a10* o = gRoot_203a10->mgr->Get();
     if (o != 0) {
         int i = 0;
         while (o->A(i) || !o->B(i)) {

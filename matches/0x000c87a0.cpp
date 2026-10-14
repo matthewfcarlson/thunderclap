@@ -1,5 +1,5 @@
-extern void* g_vftable[];
-class Ref {
+extern void* g_vftable_c87a0[];
+class Ref_c87a0 {
   public:
     virtual void F0();
     virtual void Release();
@@ -8,25 +8,25 @@ struct T1 {
     char c;
     void Fini();
 };
-class Base {
+class Base_c87a0 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_c87a0 : public Base_c87a0 {
   public:
     char pad4[0xc];
-    Ref* m10;
-    Ref* m14;
-    Ref* m18;
-    Ref* m1c;
+    Ref_c87a0* m10;
+    Ref_c87a0* m14;
+    Ref_c87a0* m18;
+    Ref_c87a0* m1c;
     char pad20[0x22c - 0x20];
-    Ref* m22c[10];
-    ~Obj() throw();
+    Ref_c87a0* m22c[10];
+    ~Obj_c87a0() throw();
 };
-Obj::~Obj() throw() {
-    *(void* volatile*)&vptr = g_vftable;
-    Ref* t10 = *(Ref* volatile*)&m10;
+Obj_c87a0::~Obj_c87a0() throw() {
+    *(void* volatile*)&vptr = g_vftable_c87a0;
+    Ref_c87a0* t10 = *(Ref_c87a0* volatile*)&m10;
     if (t10) {
         t10->Release();
         m10 = 0;
@@ -43,7 +43,7 @@ Obj::~Obj() throw() {
         m1c->Release();
         m1c = 0;
     }
-    Ref** p = m22c;
+    Ref_c87a0** p = m22c;
     int n = 10;
     do {
         if (*p) {

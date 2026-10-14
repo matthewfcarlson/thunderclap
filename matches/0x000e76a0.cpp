@@ -1,10 +1,10 @@
-class Obj {
+class Obj_e76a0 {
   public:
     char pad[0x610];
     int entries[0x401];
     void put(int value);
 };
-void Obj::put(int value) {
+void Obj_e76a0::put(int value) {
     int i = 0;
     do {
         if (entries[i - 1] == 0)

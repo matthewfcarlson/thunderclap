@@ -1,8 +1,8 @@
-class Table {
+class Table_f9670 {
   public:
     int Find(int a, int b);
 };
-int Table::Find(int a, int b) {
+int Table_f9670::Find(int a, int b) {
     int i = 0;
     do {
         int x = ((int*)this)[i * 4];

@@ -1,6 +1,6 @@
 extern "C" char DAT_0042c514[];
 extern "C" void _ReadWriteBarrier();
-class Ref {
+class Ref_2835e0 {
   public:
     virtual void f0();
     virtual void Release();
@@ -9,13 +9,13 @@ class CLightQueue {
   public:
     void* vptr;
     char pad04[0x10];
-    Ref* m14;
+    Ref_2835e0* m14;
     char pad18[8];
-    Ref* m20;
+    Ref_2835e0* m20;
     char pad24[8];
-    Ref* m2c;
+    Ref_2835e0* m2c;
     char pad30[0x24];
-    Ref* m54;
+    Ref_2835e0* m54;
 };
 void __fastcall FUN_0027afd0(CLightQueue*);
 void __fastcall FUN_002835e0(CLightQueue* self) {

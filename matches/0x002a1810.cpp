@@ -1,36 +1,36 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
-extern void* g_ref[];
+extern void* g_vftable_2a1810[];
+extern void* g_ref_2a1810[];
 void operator delete(void*);
 void operator delete[](void*);
-class Ref {
+class Ref_2a1810 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Mem {
+class Mem_2a1810 {
   public:
-    ~Mem();
+    ~Mem_2a1810();
 };
-class Base {
+class Base_2a1810 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_2a1810 : public Base_2a1810 {
   public:
     char pad[0x14];
     void* vptr2;
     char pad1[4];
-    Mem m20;
+    Mem_2a1810 m20;
     char pad2[0x0b];
-    Ref* m2c;
+    Ref_2a1810* m2c;
     char pad3[0x0c];
     void* m3c;
-    Obj* f2(unsigned char flags);
+    Obj_2a1810* f2(unsigned char flags);
 };
-Obj* Obj::f2(unsigned char flags) {
-    vptr = g_vftable;
+Obj_2a1810* Obj_2a1810::f2(unsigned char flags) {
+    vptr = g_vftable_2a1810;
     _ReadWriteBarrier();
     if (m2c) {
         m2c->Release();
@@ -38,8 +38,8 @@ Obj* Obj::f2(unsigned char flags) {
     }
     if (m3c)
         operator delete[](m3c);
-    m20.~Mem();
-    vptr2 = g_ref;
+    m20.~Mem_2a1810();
+    vptr2 = g_ref_2a1810;
     Fin();
     if (flags & 1)
         operator delete(this);

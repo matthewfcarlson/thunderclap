@@ -1,6 +1,6 @@
 extern void* vFileCompletion;
 extern void* vRequest;
-class Obj {
+class Obj_2736b0 {
   public:
     virtual void f();
     virtual void g();
@@ -9,8 +9,8 @@ class FileCompletionRequest {
   public:
     void** vt;
     char pad[8];
-    Obj* m0c;
-    Obj* m10;
+    Obj_2736b0* m0c;
+    Obj_2736b0* m10;
     void Finish();
 };
 void FileCompletionRequest::Finish() {

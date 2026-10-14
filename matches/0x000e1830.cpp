@@ -6,7 +6,7 @@ class FEDoAction {
     virtual void v3();
     virtual void vfunc_4();
 };
-class Other {
+class Other_e1830 {
   public:
     virtual void a();
     virtual void b();
@@ -17,7 +17,7 @@ class FEDoAnimation : public FEDoAction {
   public:
     virtual void vfunc_5();
     char pad[0x30];
-    Other* mOther;
+    Other_e1830* mOther;
 };
 void FEDoAnimation::vfunc_5() {
     if (mOther)

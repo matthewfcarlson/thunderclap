@@ -1,10 +1,10 @@
 extern "C" char DAT_00417f48[];
-class Ref {
+class Ref_175cc0 {
   public:
     virtual void Add();
     virtual void Release();
 };
-class Helper {
+class Helper_175cc0 {
   public:
     void Init();
     void InitSub();
@@ -14,13 +14,13 @@ class Teleport {
     int vptr;
     char pad[0x18];
     int value;
-    Ref* ref;
+    Ref_175cc0* ref;
     char pad2[4];
-    Helper sub;
-    Teleport(int x, Ref* r);
+    Helper_175cc0 sub;
+    Teleport(int x, Ref_175cc0* r);
 };
-Teleport::Teleport(int x, Ref* r) {
-    ((Helper*)this)->Init();
+Teleport::Teleport(int x, Ref_175cc0* r) {
+    ((Helper_175cc0*)this)->Init();
     vptr = ((int)DAT_00417f48);
     value = 0;
     ref = 0;

@@ -1,11 +1,11 @@
-class A {
+class A_68bd0 {
   public:
     char pad[0x10];
     int m10;
     bool Set(int x);
 };
 
-bool A::Set(int x) {
+bool A_68bd0::Set(int x) {
     m10 = x;
     return true;
 }

@@ -1,4 +1,4 @@
-struct X {
+struct X_230b60 {
     int a;
     int b;
     int c;
@@ -8,7 +8,7 @@ struct X {
     int f;
     void Init();
 };
-void X::Init() {
+void X_230b60::Init() {
     int* p = &b;
     a = (int)p;
     b = (int)p;

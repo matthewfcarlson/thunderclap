@@ -1,18 +1,18 @@
-class Item {
+class Item_2aafe0 {
   public:
     virtual void A();
     virtual void B();
 };
-class Container {
+class Container_2aafe0 {
   public:
     char pad[0x14];
     unsigned count;
-    Item* items[1];
+    Item_2aafe0* items[1];
     void Remove(unsigned i);
 };
-void Container::Remove(unsigned i) {
+void Container_2aafe0::Remove(unsigned i) {
     if (i < count) {
-        Item* p = items[i];
+        Item_2aafe0* p = items[i];
         if (p) {
             p->B();
             items[i] = 0;

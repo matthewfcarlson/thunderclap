@@ -1,23 +1,23 @@
-struct Sub {
+struct Sub_30d980 {
     void Process();
 };
-struct Item {
+struct Item_30d980 {
     char pad[0x10];
-    Sub* sub;
+    Sub_30d980* sub;
 };
-struct Owner {
+struct Owner_30d980 {
     char pad[4];
-    Item* begin;
-    Item* end;
+    Item_30d980* begin;
+    Item_30d980* end;
     void Target();
 };
-void Owner::Target() {
-    Item* p = begin;
+void Owner_30d980::Target() {
+    Item_30d980* p = begin;
     if (p <= end) {
         do {
             p->sub->Process();
-            Item* old = p;
-            p = (Item*)((char*)p + 0x14);
+            Item_30d980* old = p;
+            p = (Item_30d980*)((char*)p + 0x14);
             if (old == end)
                 break;
         } while (1);

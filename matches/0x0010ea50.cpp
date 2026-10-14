@@ -1,30 +1,30 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
-class Ref {
+extern void* g_vftable_10ea50[];
+class Ref_10ea50 {
   public:
     virtual void F0();
     virtual void Release();
 };
-class Base {
+class Base_10ea50 {
   public:
     void* vptr;
     void Fin();
 };
 void Free(void*) throw();
-struct Sub {
+struct Sub_10ea50 {
     char c;
 };
-void __fastcall SubFini(Sub*) throw();
-void __fastcall SubFini2(Sub*) throw();
-void __fastcall SubFini3(Sub*) throw();
-class Obj : public Base {
+void __fastcall SubFini(Sub_10ea50*) throw();
+void __fastcall SubFini2(Sub_10ea50*) throw();
+void __fastcall SubFini3(Sub_10ea50*) throw();
+class Obj_10ea50 : public Base_10ea50 {
   public:
     char p18[20];
-    Sub s18;
-    Obj* f(unsigned char fl);
+    Sub_10ea50 s18;
+    Obj_10ea50* f(unsigned char fl);
 };
-Obj* Obj::f(unsigned char fl) {
-    vptr = g_vftable;
+Obj_10ea50* Obj_10ea50::f(unsigned char fl) {
+    vptr = g_vftable_10ea50;
     SubFini(&s18);
     Fin();
     if (fl & 1)

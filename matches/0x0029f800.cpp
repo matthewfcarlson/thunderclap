@@ -1,4 +1,4 @@
-class Thing {
+class Thing_29f800 {
   public:
     virtual void v0();
     virtual void v1();
@@ -9,22 +9,22 @@ class Thing {
     int field;
     void Prepare(int);
 };
-class Item {
+class Item_29f800 {
   public:
-    Thing* owner;
+    Thing_29f800* owner;
     void Apply(int, int);
 };
-class Manager {
+class Manager_29f800 {
     char pad[0x24];
 
   public:
     int count;
-    Item* Get(int);
+    Item_29f800* Get(int);
     void Run(int);
 };
-void Manager::Run(int arg) {
+void Manager_29f800::Run(int arg) {
     if (arg) {
-        Item* p = Get(arg);
+        Item_29f800* p = Get(arg);
         if (p) {
             int value = p->owner->field;
             p->owner->Prepare(value + 1);

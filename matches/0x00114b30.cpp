@@ -1,10 +1,10 @@
 extern void* __cdecl Alloc(unsigned int);
 extern int KeywordWaitVtable;
-class Helper {
+class Helper_114b30 {
   public:
     void Init();
 };
-class SetupObj {
+class SetupObj_114b30 {
   public:
     void Setup();
 };
@@ -21,11 +21,11 @@ struct KeywordWaitTrack {
 KeywordWaitTrack* __cdecl target() {
     KeywordWaitTrack* p = (KeywordWaitTrack*)Alloc(0x28);
     if (p) {
-        ((Helper*)p)->Init();
+        ((Helper_114b30*)p)->Init();
         p->vptr = (unsigned int)&KeywordWaitVtable;
         p->field0c = 0;
         p->field10 = -1.0f;
-        ((SetupObj*)((char*)p + 0x18))->Setup();
+        ((SetupObj_114b30*)((char*)p + 0x18))->Setup();
         p->field20 = 0;
         p->field08 = 1;
         return p;

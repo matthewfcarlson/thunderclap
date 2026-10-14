@@ -1,5 +1,5 @@
 extern "C" char DAT_0043386c[];
-class ShaderBase {
+class ShaderBase_32a9f0 {
   public:
     int v;
     char pad[0x7c];
@@ -10,7 +10,7 @@ class ShaderBase {
     int e;
 };
 void __stdcall BaseInit(int);
-class SimpleShader : public ShaderBase {
+class SimpleShader : public ShaderBase_32a9f0 {
   public:
     SimpleShader* Init(int);
 };

@@ -1,4 +1,4 @@
-class C {
+class C_fde20 {
   public:
     char pad[0x74];
     int value;
@@ -7,7 +7,7 @@ class C {
     int c;
     int f(int* out);
 };
-int C::f(int* out) {
+int C_fde20::f(int* out) {
     out[0] = a;
     out[1] = b;
     out[2] = c;

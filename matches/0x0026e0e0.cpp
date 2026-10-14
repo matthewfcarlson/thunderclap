@@ -1,4 +1,4 @@
-struct Obj {
+struct Obj_26e0e0 {
     char pad10[0x10];
     char field10[1];
     char pad68[0x68 - 0x11];
@@ -7,7 +7,7 @@ struct Obj {
     int state;
 };
 void cleanup(void*);
-void __fastcall target(Obj* self) {
+void __fastcall target(Obj_26e0e0* self) {
     int x = self->state;
     if (x == 3) {
         cleanup(&self->field68);

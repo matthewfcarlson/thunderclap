@@ -1,10 +1,10 @@
-class Obj {
+class Obj_7a200 {
   public:
     char pad[0x1920];
     int item;
     char rest[0x3f0 - 4];
 };
-int __fastcall find(Obj* self, void*, int key) {
+int __fastcall find(Obj_7a200* self, void*, int key) {
     int i = 0;
     int* p = &self->item;
     do {

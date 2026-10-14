@@ -1,6 +1,6 @@
 typedef unsigned int size_t;
 void* Alloc(unsigned int);
-class Obj {
+class Obj_1a1240 {
   public:
     void* Init();
 };
@@ -14,7 +14,7 @@ class TrackFactoryTemplate {
     virtual void* vfunc_5();
 };
 void* TrackFactoryTemplate::vfunc_5() {
-    Obj* p = (Obj*)Alloc(0xb0);
+    Obj_1a1240* p = (Obj_1a1240*)Alloc(0xb0);
     if (p)
         return p->Init();
     return 0;

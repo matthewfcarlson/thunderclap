@@ -1,20 +1,20 @@
 extern "C" char DAT_0042fb54[];
-typedef unsigned int U;
-class Base {
+typedef unsigned int U_2df4d0;
+class Base_2df4d0 {
   public:
     char pad[0x40];
-    Base();
+    Base_2df4d0();
 };
-class PrimGroup : public Base {
+class PrimGroup : public Base_2df4d0 {
   public:
-    U a, b, c, d, e;
-    PrimGroup(U x, U y);
+    U_2df4d0 a, b, c, d, e;
+    PrimGroup(U_2df4d0 x, U_2df4d0 y);
 };
-PrimGroup::PrimGroup(U x, U y) {
+PrimGroup::PrimGroup(U_2df4d0 x, U_2df4d0 y) {
     a = 0;
     b = 0;
     c = x;
-    *(U*)this = ((int)DAT_0042fb54);
+    *(U_2df4d0*)this = ((int)DAT_0042fb54);
     d = y;
     e = 0xffffffff;
 }

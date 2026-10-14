@@ -1,9 +1,9 @@
-extern const float k = 0.0174533f;
-class Obj {
+extern const float k_1334e0 = 0.0174533f;
+class Obj_1334e0 {
   public:
     char Set(float x);
 };
-char Obj::Set(float x) {
-    *(float*)((char*)this + 0x14) = x * k;
+char Obj_1334e0::Set(float x) {
+    *(float*)((char*)this + 0x14) = x * k_1334e0;
     return 1;
 }

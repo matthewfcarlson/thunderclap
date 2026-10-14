@@ -1,17 +1,17 @@
-class Record {
+class Record_14ffc0 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
     virtual void* f3();
 };
-class Helper {
+class Helper_14ffc0 {
   public:
     void g();
 };
 class ClearFightParamsHitRecordAction {
     char pad[0x1c];
-    Record* record;
+    Record_14ffc0* record;
 
   public:
     virtual void f0();
@@ -23,7 +23,7 @@ bool ClearFightParamsHitRecordAction::vfunc_3(int, int) {
     if (record) {
         void* p = record->f3();
         if (p) {
-            ((Helper*)p)->g();
+            ((Helper_14ffc0*)p)->g();
         }
     }
     return false;

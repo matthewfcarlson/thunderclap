@@ -1,13 +1,13 @@
 typedef void*(__cdecl* AllocFn)(void*, int, int);
 typedef void(__cdecl* FreeFn)(void*, void*);
-struct Manager {
+struct Manager_2ea320 {
     char pad[0x20];
     AllocFn alloc;
     FreeFn freefn;
     void* heap;
 };
 extern void* __cdecl FUN_002ea2a0(void*, void*, int);
-void* __cdecl FUN_002ea320(Manager* m, int param2, int param3) {
+void* __cdecl FUN_002ea320(Manager_2ea320* m, int param2, int param3) {
     void* a = m->alloc(m->heap, 1, 0x40);
     if (!a)
         return 0;

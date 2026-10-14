@@ -1,7 +1,7 @@
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_00431214[];
 void freeit(void*);
-class Obj {
+class Obj_2ef850 {
   public:
     virtual void a();
     virtual void b();
@@ -52,11 +52,11 @@ class SimState {
     virtual void f13();
     virtual void f14();
     char pad[0x6c];
-    Obj* m70;
-    Obj* m74;
+    Obj_2ef850* m70;
+    Obj_2ef850* m74;
 };
 SimState* SimState::f2(unsigned char flag) {
-    Obj* a = m74;
+    Obj_2ef850* a = m74;
     if (a) {
         *(void**)this = (void*)((int)DAT_00431214);
         *(int*)((char*)a + 0x18) = 0;

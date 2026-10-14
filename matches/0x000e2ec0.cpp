@@ -1,5 +1,5 @@
 extern "C" void* memcpy(void*, const void*, unsigned int);
-class Obj {
+class Obj_e2ec0 {
   public:
     char p0[0x78];
     unsigned int f78, f7c, f80;
@@ -8,10 +8,10 @@ class Obj {
     unsigned int f140, f144, f148, f14c, f150, f154, f158, f15c, f160, f164, f168;
     char p16c[0x10];
     unsigned int f17c;
-    void Init(Obj*);
-    void Copy(Obj*);
+    void Init(Obj_e2ec0*);
+    void Copy(Obj_e2ec0*);
 };
-void Obj::Copy(Obj* src) {
+void Obj_e2ec0::Copy(Obj_e2ec0* src) {
     Init(src);
     memcpy(f118, src->f118, 40);
     f158 = src->f158;

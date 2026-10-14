@@ -6,7 +6,7 @@ class FEDoAction {
     virtual void vfunc_3();
     virtual void vfunc_4();
 };
-class Component {
+class Component_e18a0 {
   public:
     virtual void f0();
     virtual void f1(FEDoAction*);
@@ -15,7 +15,7 @@ class FEDoParticleSystem : public FEDoAction {
     char pad[0x34 - sizeof(FEDoAction)];
 
   public:
-    Component* mComponent;
+    Component_e18a0* mComponent;
     int mState;
     virtual void vfunc_0();
     virtual void vfunc_1();

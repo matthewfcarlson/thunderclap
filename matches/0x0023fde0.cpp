@@ -1,13 +1,13 @@
 typedef unsigned short ushort;
 extern int Fmt(char* buf, int n, const char* fmt, char* va);
 extern void Mk(int* out, char* src, unsigned n, int len);
-struct Out {
+struct Out_23fde0 {
     int p;
     ushort flag;
     ushort pad;
     ushort len;
 };
-Out* Fn(Out* out, int x, const char* fmt, ...) {
+Out_23fde0* Fn(Out_23fde0* out, int x, const char* fmt, ...) {
     char buf[0x1000];
     char* va = (char*)&fmt + 4;
     int n = Fmt(buf, 0x1000, fmt, va);

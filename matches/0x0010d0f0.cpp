@@ -1,4 +1,4 @@
-struct Tail {
+struct Tail_10d0f0 {
     void Init();
 };
 struct SemaphoreClearTrack {
@@ -7,9 +7,9 @@ struct SemaphoreClearTrack {
     void Finish();
     void Run();
 };
-extern void* vftable;
+extern void* vftable_10d0f0;
 void SemaphoreClearTrack::Run() {
-    vptr = &vftable;
-    ((Tail*)((char*)this + 0x18))->Init();
+    vptr = &vftable_10d0f0;
+    ((Tail_10d0f0*)((char*)this + 0x18))->Init();
     Finish();
 }

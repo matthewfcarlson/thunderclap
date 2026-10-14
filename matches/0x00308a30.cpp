@@ -1,10 +1,10 @@
 namespace physics {
-class Base {
+class Base_308a30 {
   public:
-    Base();
+    Base_308a30();
     virtual void V();
 };
-class SimpleFilterAbs3D : public Base {
+class SimpleFilterAbs3D : public Base_308a30 {
   public:
     SimpleFilterAbs3D();
     virtual void V();

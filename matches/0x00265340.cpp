@@ -1,20 +1,20 @@
-typedef unsigned int u32;
-struct Pair {
+typedef unsigned int u32_265340;
+struct Pair_265340 {
     char data[24];
-    void First(u32);
-    void Second(u32, u32);
+    void First(u32_265340);
+    void Second(u32_265340, u32_265340);
 };
-struct Thing {
+struct Thing_265340 {
     char pad[12];
-    u32 field;
+    u32_265340 field;
     void Target(char*);
 };
 extern unsigned long long __cdecl Parse(char*, int, int);
-void Thing::Target(char* text) {
+void Thing_265340::Target(char* text) {
     if (*text == '.')
         ++text;
     unsigned long long value = Parse(text, 0, 0);
-    Pair local;
+    Pair_265340 local;
     local.First(field);
-    local.Second((u32)value, (u32)(value >> 32));
+    local.Second((u32_265340)value, (u32_265340)(value >> 32));
 }

@@ -1,11 +1,11 @@
 extern "C" char DAT_0040dc14[];
-typedef unsigned int u32;
+typedef unsigned int u32_114a70;
 void* __cdecl Alloc(unsigned int);
-class Base {
+class Base_114a70 {
   public:
     void Init();
 };
-class Member {
+class Member_114a70 {
   public:
     void Init();
 };
@@ -22,13 +22,13 @@ class HulkActionTrack {
 HulkActionTrack* target() {
     HulkActionTrack* p = (HulkActionTrack*)Alloc(0x28);
     if (p) {
-        ((Base*)p)->Init();
-        *(u32*)p = ((int)DAT_0040dc14);
-        *(u32*)((char*)p + 0xc) = 0;
-        *(u32*)((char*)p + 0x10) = 0xbf800000;
-        ((Member*)((char*)p + 0x18))->Init();
-        *(u32*)((char*)p + 0x20) = 0;
-        *(u32*)((char*)p + 8) = 1;
+        ((Base_114a70*)p)->Init();
+        *(u32_114a70*)p = ((int)DAT_0040dc14);
+        *(u32_114a70*)((char*)p + 0xc) = 0;
+        *(u32_114a70*)((char*)p + 0x10) = 0xbf800000;
+        ((Member_114a70*)((char*)p + 0x18))->Init();
+        *(u32_114a70*)((char*)p + 0x20) = 0;
+        *(u32_114a70*)((char*)p + 8) = 1;
         return p;
     }
     return (HulkActionTrack*)0L;

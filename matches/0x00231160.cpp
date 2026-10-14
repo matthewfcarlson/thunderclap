@@ -1,4 +1,4 @@
-class Obj {
+class Obj_231160 {
   public:
     void* m0;
     char pad[4];
@@ -6,9 +6,9 @@ class Obj {
     int mc;
     int m10;
     int m14;
-    Obj(int arg);
+    Obj_231160(int arg);
 };
-Obj::Obj(int arg) {
+Obj_231160::Obj_231160(int arg) {
     m0 = (void*)arg;
     m8 = 0;
     mc = 0;

@@ -8,7 +8,7 @@ class VelocityCondition {
     int b;
     void Init(int);
 };
-class Factory {
+class Factory_16d650 {
   public:
     virtual void f0();
     virtual void f1();
@@ -17,7 +17,7 @@ class Factory {
     virtual void f4();
     virtual VelocityCondition* vfunc_5();
 };
-VelocityCondition* Factory::vfunc_5() {
+VelocityCondition* Factory_16d650::vfunc_5() {
     VelocityCondition* p = (VelocityCondition*)alloc(0x14);
     if (p) {
         p->Init(0);

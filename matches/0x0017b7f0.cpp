@@ -1,7 +1,7 @@
 extern "C" void __cdecl opdelete(void*);
 extern void* const vftable_sym;
 
-class RelObj {
+class RelObj_17b7f0 {
   public:
     virtual void f0();
     virtual void Release();
@@ -12,7 +12,7 @@ class Sub28 {
     void Fn();
 };
 
-class BaseCls {
+class BaseCls_17b7f0 {
   public:
     void Dtor();
 };
@@ -28,7 +28,7 @@ class TeleportRelativeAction {
 
     char pad[0x18];
     int m1c;
-    RelObj* m20;
+    RelObj_17b7f0* m20;
     char pad28[4];
     Sub28 m28;
 };
@@ -36,8 +36,8 @@ class TeleportRelativeAction {
 TeleportRelativeAction* TeleportRelativeAction::vfunc_2(unsigned char param) {
     char* self = (char*)this;
     *(void**)self = (void*)&vftable_sym;
-    RelObj** pp = (RelObj**)(self + 0x20);
-    RelObj* p = *pp;
+    RelObj_17b7f0** pp = (RelObj_17b7f0**)(self + 0x20);
+    RelObj_17b7f0* p = *pp;
     if (p) {
         p->Release();
         *pp = 0;
@@ -48,7 +48,7 @@ TeleportRelativeAction* TeleportRelativeAction::vfunc_2(unsigned char param) {
         *q1c = 0;
     }
     ((Sub28*)(self + 0x28))->Fn();
-    ((BaseCls*)self)->Dtor();
+    ((BaseCls_17b7f0*)self)->Dtor();
     if (param & 1) {
         opdelete(self);
     }

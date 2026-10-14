@@ -1,4 +1,4 @@
-class Arg {
+class Arg_e7cd0 {
   public:
     char F90();
     unsigned int FAB();
@@ -9,17 +9,17 @@ class Arg {
     void FFB();
     void FA0();
 };
-class Out {
+class Out_e7cd0 {
   public:
-    virtual void Fn(Arg*, unsigned int);
+    virtual void Fn(Arg_e7cd0*, unsigned int);
 };
-class Obj {
+class Obj_e7cd0 {
   public:
     char pad[0x2220];
     char flag;
-    void Target(Arg*, Out*);
+    void Target(Arg_e7cd0*, Out_e7cd0*);
 };
-void Obj::Target(Arg* arg, Out* out) {
+void Obj_e7cd0::Target(Arg_e7cd0* arg, Out_e7cd0* out) {
     bool b = false;
     char c = arg->F90();
     while (c) {

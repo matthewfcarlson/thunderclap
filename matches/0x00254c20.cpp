@@ -1,8 +1,8 @@
 extern "C" char DAT_0042a3e4[];
-struct Base {
-    Base();
+struct Base_254c20 {
+    Base_254c20();
 };
-struct SeqEventLogicRepeat : Base {
+struct SeqEventLogicRepeat : Base_254c20 {
     char pad[8];
     int a[5];
     SeqEventLogicRepeat();

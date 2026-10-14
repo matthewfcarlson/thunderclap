@@ -1,54 +1,54 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
+extern void* g_vftable_ebca0[];
 extern void* g_vftable2[];
-class Ref {
+class Ref_ebca0 {
   public:
     virtual void F0();
     virtual void Release();
 };
 void operator delete[](void*) throw();
-struct Mgr {
+struct Mgr_ebca0 {
     void Rem(void* p) throw();
 };
-struct Own {
+struct Own_ebca0 {
     char p[8];
-    Mgr* m8;
+    Mgr_ebca0* m8;
 };
-struct Sub {
+struct Sub_ebca0 {
     char c;
     void Fin() throw();
 };
 struct Elt {
-    Sub s;
+    Sub_ebca0 s;
     char p[0x27];
-    Ref* r;
+    Ref_ebca0* r;
     char p2[0xc];
     void Fin() throw();
 };
-class Obj {
+class Obj_ebca0 {
   public:
     void* vptr;
     char p[0x14];
-    Sub s18;
+    Sub_ebca0 s18;
     char p2[0x37];
-    Ref* m50;
+    Ref_ebca0* m50;
     char p3[0xc];
-    Ref* m60;
-    Ref* m64;
+    Ref_ebca0* m60;
+    Ref_ebca0* m64;
     char p4[0x40];
-    Own* ma8;
+    Own_ebca0* ma8;
     char* mac;
     char p5[0xa8];
     Elt e[128];
     char pq[0x34];
-    Ref* m1d8c;
-    Ref* m1d90;
+    Ref_ebca0* m1d8c;
+    Ref_ebca0* m1d90;
     char* m1d94;
     void Pre() throw();
-    ~Obj() throw();
+    ~Obj_ebca0() throw();
 };
-Obj::~Obj() throw() {
-    vptr = g_vftable;
+Obj_ebca0::~Obj_ebca0() throw() {
+    vptr = g_vftable_ebca0;
     if (m1d94) {
         ma8->m8->Rem(m1d94 + 0x18);
         m1d94 = 0;

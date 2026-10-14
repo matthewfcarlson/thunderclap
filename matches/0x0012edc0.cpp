@@ -1,11 +1,11 @@
 extern "C" char DAT_00411374[];
-typedef unsigned int u32;
-extern void __cdecl ReleaseThing(u32);
+typedef unsigned int u32_12edc0;
+extern void __cdecl ReleaseThing(u32_12edc0);
 struct DebugPrintTrack {
-    u32 vftable;
+    u32_12edc0 vftable;
     char pad4[0x10];
-    u32 a;
-    u32 b;
+    u32_12edc0 a;
+    u32_12edc0 b;
     void Cleanup();
 };
 extern void __fastcall Finish(DebugPrintTrack*);

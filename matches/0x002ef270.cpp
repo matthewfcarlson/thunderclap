@@ -1,4 +1,4 @@
-class Inner {
+class Inner_2ef270 {
   public:
     virtual void f0();
     virtual void f1();
@@ -11,15 +11,15 @@ class Inner {
     virtual void f8();
     virtual void f9();
 };
-class Target {
+class Target_2ef270 {
   public:
     char pad[0x20];
-    Inner* p;
+    Inner_2ef270* p;
     char pad2[0x44];
     unsigned char a, b;
     void run();
 };
-void Target::run() {
+void Target_2ef270::run() {
     a = 1;
     b = 1;
     p->f8();

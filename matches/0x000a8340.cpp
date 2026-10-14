@@ -1,5 +1,5 @@
-class X {
+class X_a8340 {
   public:
-    X();
+    X_a8340();
 };
-X::X() {}
+X_a8340::X_a8340() {}

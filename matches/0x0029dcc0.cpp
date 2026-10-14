@@ -1,4 +1,4 @@
-class Obj {
+class Obj_29dcc0 {
   public:
     char pad[0x18];
     int field;
@@ -10,7 +10,7 @@ class Obj {
     float D(int, int);
     float F(int, int);
 };
-float Obj::F(int a, int b) {
+float Obj_29dcc0::F(int a, int b) {
     field = 0;
     float r = A(a, b);
     r = r + B(a, b);

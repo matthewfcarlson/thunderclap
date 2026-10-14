@@ -1,20 +1,20 @@
-class Child {
+class Child_3065b0 {
   public:
     void Update(int value);
 };
-class PtrRange {
+class PtrRange_3065b0 {
   public:
-    Child** begin;
-    Child** end;
+    Child_3065b0** begin;
+    Child_3065b0** end;
 };
-class Owner {
+class Owner_3065b0 {
   public:
     char pad[0x10];
     int value;
-    PtrRange* items;
+    PtrRange_3065b0* items;
     void Set(int v);
 };
-void Owner::Set(int v) {
+void Owner_3065b0::Set(int v) {
     if (value != v) {
         value = v;
         if (items) {

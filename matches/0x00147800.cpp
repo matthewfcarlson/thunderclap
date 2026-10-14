@@ -1,25 +1,25 @@
 extern "C" char DAT_00413738[];
-struct PartA {
+struct PartA_147800 {
     void Init();
 };
-struct PartB {
+struct PartB_147800 {
     void Init();
 };
-struct End {
+struct End_147800 {
     void Finish();
 };
 class GrappleExecuteTrack {
   public:
     virtual void v0();
     char pad4[0x10];
-    PartB p14;
+    PartB_147800 p14;
     char pad18[0x0c];
-    PartA p24;
+    PartA_147800 p24;
     void Run();
 };
 void GrappleExecuteTrack::Run() {
     *(unsigned long*)this = ((int)DAT_00413738);
-    ((PartA*)((char*)this + 0x24))->Init();
-    ((PartB*)((char*)this + 0x14))->Init();
-    ((End*)this)->Finish();
+    ((PartA_147800*)((char*)this + 0x24))->Init();
+    ((PartB_147800*)((char*)this + 0x14))->Init();
+    ((End_147800*)this)->Finish();
 }

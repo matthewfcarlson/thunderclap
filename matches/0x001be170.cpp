@@ -1,10 +1,10 @@
 void* operator new(unsigned int) throw();
 int Push(int) throw();
 
-struct Sub {
+struct Sub_1be170 {
     void Init() throw();
 };
-struct Node2 {
+struct Node2_1be170 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -15,18 +15,18 @@ struct Node2 {
 };
 struct Node {
     int pad[3];
-    Node2* c;
+    Node2_1be170* c;
     int pad2[3];
     virtual void init();
     Node() throw();
 };
-class Base {
+class Base_1be170 {
   public:
     virtual void f0();
     bool b4;
-    Base() throw() { b4 = true; }
+    Base_1be170() throw() { b4 = true; }
 };
-class CSubtitleOverlay : public Base {
+class CSubtitleOverlay : public Base_1be170 {
   public:
     int m8;
     char mc;
@@ -37,7 +37,7 @@ class CSubtitleOverlay : public Base {
     char b11c;
     char b11d;
     char pad2[2];
-    Sub sub;
+    Sub_1be170 sub;
     virtual void f0();
     CSubtitleOverlay() throw();
 };

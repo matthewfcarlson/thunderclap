@@ -1,4 +1,4 @@
-class Obj {
+class Obj_d7f60 {
   public:
     char pad0[0x1d4];
     int result;
@@ -8,7 +8,7 @@ class Obj {
     char flag;
     void update();
 };
-void Obj::update() {
+void Obj_d7f60::update() {
     result = -1;
     int i = 0;
     char* p = &slots[0][0];

@@ -1,17 +1,17 @@
 extern "C" char DAT_00427688[];
-class Base {
+class Base_231940 {
   public:
     void Init(int);
     char pad[0x28];
 };
-class Sub {
+class Sub_231940 {
   public:
     void Init();
 };
 class Node {
   public:
-    Base b;
-    Sub sub;
+    Base_231940 b;
+    Sub_231940 sub;
     Node* InitNode();
 };
 Node* Node::InitNode() {

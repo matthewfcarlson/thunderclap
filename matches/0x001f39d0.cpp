@@ -1,7 +1,7 @@
-static float gValue;
-static const float gScale = 0.01f;
+static float gValue_1f39d0;
+static const float gScale_1f39d0 = 0.01f;
 extern void __cdecl Apply(int, float);
-class Obj {
+class Obj_1f39d0 {
   public:
     char p0[8];
     int* items[1];
@@ -14,8 +14,8 @@ class Obj {
     int flag;
     void Update(float);
 };
-void Obj::Update(float x) {
-    gValue = x;
+void Obj_1f39d0::Update(float x) {
+    gValue_1f39d0 = x;
     if (flag == 0) {
         int i = 0;
         if (count > 0) {
@@ -25,7 +25,7 @@ void Obj::Update(float x) {
                 if (v != at8c && v != skip) {
                     int q = *(int*)(v + 4);
                     if (q)
-                        Apply(q, gValue * gScale);
+                        Apply(q, gValue_1f39d0 * gScale_1f39d0);
                 }
                 ++i;
                 ++p;

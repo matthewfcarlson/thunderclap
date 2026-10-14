@@ -1,8 +1,8 @@
-typedef unsigned int u32;
+typedef unsigned int u32_238020;
 extern void* Alloc(unsigned int);
 class Builder {
   public:
-    u32 Run(u32, u32, u32, u32, void*, u32, u32);
+    u32_238020 Run(u32_238020, u32_238020, u32_238020, u32_238020, void*, u32_238020, u32_238020);
 };
 class Track {
   public:
@@ -20,17 +20,17 @@ class Track {
 class SequenceTrack : public Track {
   public:
     char pad[8];
-    u32 field0c;
+    u32_238020 field0c;
     char pad10[8];
-    u32 field18;
+    u32_238020 field18;
     char pad1c[4];
-    u32 vfunc_10(u32, u32, u32);
+    u32_238020 vfunc_10(u32_238020, u32_238020, u32_238020);
 };
-u32 SequenceTrack::vfunc_10(u32 a, u32 b, u32 c) {
+u32_238020 SequenceTrack::vfunc_10(u32_238020 a, u32_238020 b, u32_238020 c) {
     Builder* p = (Builder*)Alloc(0x3c);
     if (p) {
-        u32 x = field0c;
-        return p->Run(a, (u32)this, x, field18, &pad1c, b, c);
+        u32_238020 x = field0c;
+        return p->Run(a, (u32_238020)this, x, field18, &pad1c, b, c);
     }
     return 0;
 }

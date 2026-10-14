@@ -11,7 +11,7 @@ class SmartPropIsCargoCondition {
     void Init(int);
 };
 extern void* __cdecl FUN_0008d690(unsigned int);
-class Factory {
+class Factory_18bc60 {
   public:
     virtual void A();
     virtual void B();
@@ -20,7 +20,7 @@ class Factory {
     virtual void E();
     SmartPropIsCargoCondition* V5();
 };
-SmartPropIsCargoCondition* Factory::V5() {
+SmartPropIsCargoCondition* Factory_18bc60::V5() {
     SmartPropIsCargoCondition* p = (SmartPropIsCargoCondition*)FUN_0008d690(0x10);
     if (p) {
         p->Init(0);

@@ -10,13 +10,13 @@ struct Function {
     virtual void v0();
     virtual void v1();
 };
-struct M4 : Function {
+struct M4_1e07a0 : Function {
     char pad[0x18];
     void (CAmbientsManager::*fn)(const char*, int, const math::Vector, const math::Vector);
     virtual void v0();
     virtual void v2(CAmbientsManager* o, char* a, int u);
 };
-void M4::v2(CAmbientsManager* o, char* a, int u) {
+void M4_1e07a0::v2(CAmbientsManager* o, char* a, int u) {
     char* p = a;
     const char* s = *(const char**)p;
     p += 4;

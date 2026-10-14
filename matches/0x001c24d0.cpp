@@ -1,11 +1,11 @@
-struct Ent {
+struct Ent_1c24d0 {
     char pad0[8];
     float f8;
     float fc;
     float f10;
     int f14;
 };
-class Obj {
+class Obj_1c24d0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -23,9 +23,9 @@ class Obj {
     virtual void v13();
     virtual void Fire();
 };
-Ent* __stdcall Find(Obj* o, bool b);
-void __stdcall F(Obj* o, int a, float t) {
-    Ent* e = Find(o, t > 0.0f);
+Ent_1c24d0* __stdcall Find(Obj_1c24d0* o, bool b);
+void __stdcall F(Obj_1c24d0* o, int a, float t) {
+    Ent_1c24d0* e = Find(o, t > 0.0f);
     if (e) {
         e->f14 = a;
         e->f10 = t;

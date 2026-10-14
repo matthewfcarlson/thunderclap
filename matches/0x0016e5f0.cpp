@@ -1,13 +1,13 @@
 typedef unsigned char u8;
 void* __cdecl Alloc(unsigned int);
 extern char kVtbl[];
-struct Sub0 {
+struct Sub0_16e5f0 {
     void Init(int);
 };
-struct Sub1 {
+struct Sub1_16e5f0 {
     void Init();
 };
-struct Obj {
+struct Obj_16e5f0 {
     void* vptr;
     char pad[0x18 - 4];
     int a, b, c;
@@ -15,20 +15,20 @@ struct Obj {
     int e, f;
     u8 flag;
 };
-struct Factory {
+struct Factory_16e5f0 {
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void d();
     virtual void e();
-    virtual Obj* v5();
+    virtual Obj_16e5f0* v5();
 };
-Obj* Factory::v5() {
-    Obj* p = (Obj*)Alloc(0x38);
+Obj_16e5f0* Factory_16e5f0::v5() {
+    Obj_16e5f0* p = (Obj_16e5f0*)Alloc(0x38);
     if (p) {
-        ((Sub0*)p)->Init(0);
+        ((Sub0_16e5f0*)p)->Init(0);
         p->vptr = (void*)kVtbl;
-        ((Sub1*)((char*)p + 0x10))->Init();
+        ((Sub1_16e5f0*)((char*)p + 0x10))->Init();
         p->a = 0;
         p->b = 0;
         p->c = 0;

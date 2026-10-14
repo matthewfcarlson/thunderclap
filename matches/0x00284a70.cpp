@@ -6,12 +6,12 @@ class FrameController {
     unsigned char value;
     FrameController* reset();
 };
-class Base {
+class Base_284a70 {
   public:
     void initialize();
 };
 FrameController* FrameController::reset() {
-    ((Base*)this)->initialize();
+    ((Base_284a70*)this)->initialize();
     *(void**)this = vtable_symbol;
     value = 0;
     return this;

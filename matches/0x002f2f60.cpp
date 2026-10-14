@@ -1,4 +1,4 @@
-class Vec {
+class Vec_2f2f60 {
   public:
     void normalize();
     float x, y, z;
@@ -23,7 +23,7 @@ class CollisionCylinder {
     char pad[0x4c];
     float x50, x54;
     char gap[0x18];
-    Vec v;
+    Vec_2f2f60 v;
     float x7c, x80;
     void base(float);
     void vfunc_7(float);
@@ -32,7 +32,7 @@ extern const float one;
 void CollisionCylinder::vfunc_7(float p) {
     x50 = p * x7c;
     x54 = p * x80;
-    Vec* q = &v;
+    Vec_2f2f60* q = &v;
     q->normalize();
     float f = one / p;
     q->x = f * q->x;

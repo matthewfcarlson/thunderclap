@@ -3,14 +3,14 @@ struct V {
 };
 float Ang(V*);
 extern "C" double sqrt(double);
-class C {
+class C_228d30 {
   public:
     char pad[0x8ac];
     float a;
     float b;
     void F(V* v);
 };
-void C::F(V* v) {
+void C_228d30::F(V* v) {
     V t = *v;
     t.y = 0.0f;
     a = Ang(&t);

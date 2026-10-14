@@ -1,4 +1,4 @@
-class Inner {
+class Inner_3046f0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -14,17 +14,17 @@ class Inner {
     void Stop();
     void Start();
 };
-class Obj {
+class Obj_3046f0 {
   public:
     char p[0x20];
-    Inner* inner;
+    Inner_3046f0* inner;
     char q[0x2c];
     char active;
     char r[0x17];
     char a, b;
     void Set(char x);
 };
-void Obj::Set(char x) {
+void Obj_3046f0::Set(char x) {
     if (active && !x) {
         active = x;
         inner->Stop();

@@ -1,7 +1,7 @@
-struct X {
+struct X_364200 {
     void A();
 };
-extern X gX;
+extern X_364200 gX;
 void Helper() {
     gX.A();
 }

@@ -1,9 +1,9 @@
-class Item {
+class Item_312240 {
   public:
     virtual void Use();
     virtual void Release();
 };
-class Owner {
+class Owner_312240 {
   public:
     virtual void V0();
     virtual void V1();
@@ -14,13 +14,13 @@ class Owner {
     virtual void V6();
     virtual void Notify();
     char pad[0x204];
-    Item* item;
+    Item_312240* item;
     void HelperA();
     void HelperB();
-    void Set(Item*);
+    void Set(Item_312240*);
 };
-void Owner::Set(Item* next) {
-    Item* old = item;
+void Owner_312240::Set(Item_312240* next) {
+    Item_312240* old = item;
     if (!next) {
         if (old)
             old->Release();

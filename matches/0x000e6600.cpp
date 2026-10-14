@@ -69,13 +69,13 @@ class FEThingsBase {
     virtual void v66();
 };
 extern "C" int __cdecl FUN_0008d690(int);
-class Helper {
+class Helper_e6600 {
   public:
     int run(int);
 };
 int FEThingsBase::vfunc_62(int a) {
     int x = FUN_0008d690(0x204);
     if (x)
-        return ((Helper*)x)->run(a);
+        return ((Helper_e6600*)x)->run(a);
     return 0;
 }

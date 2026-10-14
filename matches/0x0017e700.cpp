@@ -13,7 +13,7 @@ struct TeleportTrack {
     float last;
 };
 extern void* Alloc(unsigned int);
-class Factory {
+class Factory_17e700 {
   public:
     virtual void f0();
     virtual void f1();
@@ -22,7 +22,7 @@ class Factory {
     virtual void f4();
     virtual TeleportTrack* vfunc_5();
 };
-TeleportTrack* Factory::vfunc_5() {
+TeleportTrack* Factory_17e700::vfunc_5() {
     TeleportTrack* p = (TeleportTrack*)Alloc(0x1c);
     if (p) {
         ((TeleportTrackBase*)p)->Ctor();

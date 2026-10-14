@@ -1,4 +1,4 @@
-class C {
+class C_e5570 {
     char pad[0xaa4];
     unsigned a, b, c;
     unsigned char flag;
@@ -6,7 +6,7 @@ class C {
   public:
     void f(unsigned x, unsigned y, unsigned z, unsigned q, unsigned r);
 };
-void C::f(unsigned x, unsigned y, unsigned z, unsigned q, unsigned r) {
+void C_e5570::f(unsigned x, unsigned y, unsigned z, unsigned q, unsigned r) {
     a = x;
     b = y;
     flag = 1;

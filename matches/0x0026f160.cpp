@@ -1,4 +1,4 @@
-class X {
+class X_26f160 {
   public:
     virtual void First();
     virtual void Second();
@@ -6,7 +6,7 @@ class X {
     int count;
     void f();
 };
-void X::f() {
+void X_26f160::f() {
     First();
     if (--count == 0) {
         count = 0x5dc;

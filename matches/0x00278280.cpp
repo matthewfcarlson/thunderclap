@@ -1,5 +1,5 @@
-extern int gA;
-extern int gB;
+extern int gA_278280;
+extern int gB_278280;
 void __stdcall cleanup(int);
 class XboxSaveDrive {
   public:
@@ -30,8 +30,8 @@ class XboxSaveDrive {
 };
 int XboxSaveDrive::f10(int a, int b) {
     f11(a, b);
-    if (gA == a)
-        gB = 0;
+    if (gA_278280 == a)
+        gB_278280 = 0;
     cleanup(a);
     refs = refs - 1;
     return 1;

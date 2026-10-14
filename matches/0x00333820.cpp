@@ -1,4 +1,4 @@
-class Body {
+class Body_333820 {
   public:
     char pad[0x70];
     int mX;
@@ -6,7 +6,7 @@ class Body {
     void SetX(int v);
 };
 
-void Body::SetX(int v) {
+void Body_333820::SetX(int v) {
     mX = v;
     Helper();
 }

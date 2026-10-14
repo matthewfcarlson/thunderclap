@@ -1,18 +1,18 @@
-struct Entry {
+struct Entry_2e55a0 {
     int* begin;
     int* end;
     int pad;
 };
-class Obj {
+class Obj_2e55a0 {
   public:
     char pad[0x14];
-    Entry* entries;
+    Entry_2e55a0* entries;
     char Check(int, int*);
     int Count(int);
 };
-int Obj::Count(int index) {
+int Obj_2e55a0::Count(int index) {
     if (Check(index, &index) == 1) {
-        Entry* e = entries + index;
+        Entry_2e55a0* e = entries + index;
         return (e->end - e->begin);
     }
     return 0;

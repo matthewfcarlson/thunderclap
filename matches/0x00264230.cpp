@@ -1,4 +1,4 @@
-class Sink {
+class Sink_264230 {
   public:
     virtual void a();
     virtual void b();
@@ -7,10 +7,10 @@ class Sink {
     virtual void e();
     virtual void f(int);
 };
-class Obj {
+class Obj_264230 {
   public:
     char pad0[8];
-    Sink* sink;
+    Sink_264230* sink;
     char padc[1];
     char flag;
     char padE[6];
@@ -18,7 +18,7 @@ class Obj {
     void target(int);
     void refresh();
 };
-void Obj::target(int amount) {
+void Obj_264230::target(int amount) {
     sink->f(pos + amount);
     pos += amount;
     if (flag)

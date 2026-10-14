@@ -7,9 +7,9 @@ class IRefCount {
     virtual void* vfunc_2(unsigned char flags);
 };
 
-class Member {
+class Member_1eee90 {
   public:
-    ~Member();
+    ~Member_1eee90();
 
   private:
     char data[0x10];
@@ -21,10 +21,10 @@ class CSoundTriggerExecutionState : public IRefCount {
 
   private:
     char pad[0x18];
-    Member mMember;
+    Member_1eee90 mMember;
 };
 
-extern "C" void* IRefCount_vftable[];
+extern "C" void* IRefCount_vftable_1eee90[];
 void __cdecl operator delete(void*);
 void __cdecl operator delete[](void*);
 
@@ -43,10 +43,10 @@ void* CSoundTriggerExecutionState::vfunc_2(unsigned char flags) {
         int edi = eax + 1;
         do {
             esi = (CSoundTriggerExecutionState*)((char*)esi - 0x28);
-            Member* m = (Member*)((char*)esi + 0x18);
-            m->~Member();
+            Member_1eee90* m = (Member_1eee90*)((char*)esi + 0x18);
+            m->~Member_1eee90();
             --edi;
-            *(void***)esi = IRefCount_vftable;
+            *(void***)esi = IRefCount_vftable_1eee90;
         } while (edi);
     vector_loop_end:
         if (bl & 1) {
@@ -55,9 +55,9 @@ void* CSoundTriggerExecutionState::vfunc_2(unsigned char flags) {
         return ebp;
     }
 
-    Member* m = (Member*)((char*)esi + 0x18);
-    m->~Member();
-    *(void***)esi = IRefCount_vftable;
+    Member_1eee90* m = (Member_1eee90*)((char*)esi + 0x18);
+    m->~Member_1eee90();
+    *(void***)esi = IRefCount_vftable_1eee90;
     if (bl & 1) {
         operator delete(esi);
     }

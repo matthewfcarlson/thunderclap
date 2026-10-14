@@ -6,12 +6,12 @@ class RootMatrixDriver {
     int value;
     RootMatrixDriver(int);
 };
-class Base {
+class Base_2fc1d0 {
   public:
     void Init();
 };
 RootMatrixDriver::RootMatrixDriver(int x) {
-    ((Base*)this)->Init();
+    ((Base_2fc1d0*)this)->Init();
     value = x;
     vf = ((int)DAT_0043186c);
 }

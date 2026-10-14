@@ -1,18 +1,18 @@
 extern "C" char DAT_003f7404[];
 extern "C" void* __cdecl Alloc(unsigned int);
-struct InitObj {
+struct InitObj_56b30 {
     void Init(int);
 };
 struct CAlertStatusCondition {
     int a, b, c, d, e;
 };
-struct Factory {
+struct Factory_56b30 {
     void* MakeAlert();
 };
-void* Factory::MakeAlert() {
+void* Factory_56b30::MakeAlert() {
     CAlertStatusCondition* p = (CAlertStatusCondition*)Alloc(0x14);
     if (p != 0) {
-        ((InitObj*)p)->Init(0);
+        ((InitObj_56b30*)p)->Init(0);
         p->a = ((int)DAT_003f7404);
         p->d = 0;
         p->e = 0;

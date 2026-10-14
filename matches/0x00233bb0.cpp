@@ -5,7 +5,7 @@ class Node {
     char pad[0x1c];
     Node* next;
 };
-class Owner {
+class Owner_233bb0 {
     char pad[0x1c];
     Node* head;
 
@@ -14,7 +14,7 @@ class Owner {
     void G(int, Node*);
     char H(int i, int v);
 };
-char Owner::H(int i, int v) {
+char Owner_233bb0::H(int i, int v) {
     Node* n = head;
     int k = 0;
     while (n) {

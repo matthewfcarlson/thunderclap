@@ -3,15 +3,15 @@ class IA {
   public:
     virtual void v0();
 };
-class IB {
+class IB_334110 {
   public:
     void helper();
 };
-class MemoryTwoWayAllocator : public IA, public IB {
+class MemoryTwoWayAllocator : public IA, public IB_334110 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
 };
 void MemoryTwoWayAllocator::vfunc_1() {
-    IB::helper();
+    IB_334110::helper();
 }

@@ -1,6 +1,6 @@
 void* __cdecl operator new(unsigned int);
 extern "C" void _ReadWriteBarrier();
-class Root {
+class Root_76f50 {
   public:
     virtual void f0();
     virtual void f1();
@@ -9,18 +9,18 @@ class Root {
     virtual void f4();
     virtual void f5();
     char pad[8];
-    Root() throw();
+    Root_76f50() throw();
 };
-class Mid : public Root {
+class Mid_76f50 : public Root_76f50 {
   public:
     int a;
     float b;
-    Mid() throw() {
+    Mid_76f50() throw() {
         b = -1.0f;
         a = 0;
     }
 };
-class CJumpAttackTrack : public Mid {
+class CJumpAttackTrack : public Mid_76f50 {
   public:
     virtual void f0();
     virtual void f1();
@@ -47,15 +47,15 @@ class CJumpAttackTrack : public Mid {
         pi = 1.5707964f;
     }
 };
-class Factory {
+class Factory_76f50 {
   public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
     virtual void f3();
     virtual void f4();
-    virtual Root* f5();
+    virtual Root_76f50* f5();
 };
-Root* Factory::f5() {
+Root_76f50* Factory_76f50::f5() {
     return new CJumpAttackTrack;
 }

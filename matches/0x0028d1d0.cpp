@@ -7,7 +7,7 @@ struct RotationChannel {
     virtual void b();
     virtual void c();
 };
-struct Quaternion {
+struct Quaternion_28d1d0 {
     float a, b, c, d;
 };
 struct CompressedQuaternionChannel : RotationChannel {
@@ -16,11 +16,11 @@ struct CompressedQuaternionChannel : RotationChannel {
     CompressedQuaternion8* values;
     virtual void f0();
     virtual void f1();
-    virtual void f3(int, float*, Quaternion*);
+    virtual void f3(int, float*, Quaternion_28d1d0*);
 };
-void CompressedQuaternionChannel::f3(int index, float* time, Quaternion* out) {
+void CompressedQuaternionChannel::f3(int index, float* time, Quaternion_28d1d0* out) {
     *time = (float)indices[index];
     float temp[4];
     float* p = (values + index)->decode(temp);
-    *(Quaternion*)out = *(Quaternion*)p;
+    *(Quaternion_28d1d0*)out = *(Quaternion_28d1d0*)p;
 }

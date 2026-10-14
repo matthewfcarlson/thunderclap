@@ -1,5 +1,5 @@
-extern const float zero;
-struct Entry {
+extern const float zero_302e60;
+struct Entry_302e60 {
     int* a;
     int* b;
     int c;
@@ -7,24 +7,24 @@ struct Entry {
     unsigned char active;
     char pad[3];
 };
-struct Range {
-    Entry* first;
-    Entry* end;
+struct Range_302e60 {
+    Entry_302e60* first;
+    Entry_302e60* end;
 };
-struct Owner {
+struct Owner_302e60 {
     char pad0[4];
-    Range* range;
+    Range_302e60* range;
     char pad8[0x28];
     int result;
     char pad34[8];
     float decrement;
-    char Check(Entry*);
+    char Check(Entry_302e60*);
     void Update(int, int);
     void Run();
 };
-void Owner::Run() {
-    Entry* p = range->first;
-    Entry* e = range->end;
+void Owner_302e60::Run() {
+    Entry_302e60* p = range->first;
+    Entry_302e60* e = range->end;
     while (p != e) {
         result = 0;
         if (p->active) {

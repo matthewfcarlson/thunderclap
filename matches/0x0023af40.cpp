@@ -1,4 +1,4 @@
-struct Entry {
+struct Entry_23af40 {
     int type;
     int val;
     int pad[4];
@@ -19,7 +19,7 @@ class ScriptReader {
     char pad[0x12c - 4];
     int count;
     char pad2[0x138 - 0x130];
-    Entry e[1];
+    Entry_23af40 e[1];
 };
 bool ScriptReader::v9(int a, int b, float* out) {
     int i = Find(a, b, 3);

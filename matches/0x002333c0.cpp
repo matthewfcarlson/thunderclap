@@ -10,7 +10,7 @@ class Node {
     char pad[0x1c];
     Node* next;
 };
-struct Helper {
+struct Helper_2333c0 {
     void f(void*);
 };
 class Branch {
@@ -25,5 +25,5 @@ void Branch::vfunc_6() {
         p->f6();
         p = p->next;
     }
-    ((Helper*)((char*)this + 0x18))->f(this);
+    ((Helper_2333c0*)((char*)this + 0x18))->f(this);
 }

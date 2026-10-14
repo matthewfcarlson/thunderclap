@@ -1,18 +1,18 @@
-extern const float gZero;
-struct Inner {
+extern const float gZero_354c0;
+struct Inner_354c0 {
     char pad[0x10];
     void* Get();
     float Calc();
 };
-struct Owner {
+struct Owner_354c0 {
     char pad[0x10];
-    Inner* m;
+    Inner_354c0* m;
     float f();
 };
-float Owner::f() {
-    Inner* p = m;
+float Owner_354c0::f() {
+    Inner_354c0* p = m;
     void* q = p->Get();
     if (!q)
-        return gZero;
-    return ((Inner*)((char*)q + 0x10))->Calc();
+        return gZero_354c0;
+    return ((Inner_354c0*)((char*)q + 0x10))->Calc();
 }

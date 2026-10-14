@@ -1,4 +1,4 @@
-struct Item {
+struct Item_231a00 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -10,11 +10,11 @@ struct Item {
     virtual int Test(int, int);
     int a[3];
     int type;
-    Item* Next();
+    Item_231a00* Next();
     int target(int);
 };
-int Item::target(int param) {
-    Item* p = Next();
+int Item_231a00::target(int param) {
+    Item_231a00* p = Next();
     while (p) {
         if (p->type != 2) {
             int r = p->Test(param, 0);

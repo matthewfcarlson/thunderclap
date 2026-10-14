@@ -1,10 +1,10 @@
-class X {
+class X_26e200 {
   public:
     char pad[0x1d4];
     int mHead;
     bool f(void*);
 };
-bool X::f(void* p) {
+bool X_26e200::f(void* p) {
     int i = mHead;
     while (i != 0) {
         if (i == (int)p)

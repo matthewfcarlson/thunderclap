@@ -1,6 +1,6 @@
 extern "C" void* __cdecl alloc(unsigned int);
 extern "C" void* g_TargetClearTrackVtable;
-struct Obj {
+struct Obj_12aed0 {
     void* vptr;
     int pad;
     int x;
@@ -8,8 +8,8 @@ struct Obj {
     unsigned char z;
     void initBase();
 };
-Obj* factory() {
-    Obj* p = (Obj*)alloc(0x14);
+Obj_12aed0* factory() {
+    Obj_12aed0* p = (Obj_12aed0*)alloc(0x14);
     if (p) {
         p->initBase();
         p->vptr = &g_TargetClearTrackVtable;

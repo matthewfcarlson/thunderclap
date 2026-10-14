@@ -1,5 +1,5 @@
 void* __cdecl alloc(unsigned int);
-extern int vt;
+extern int vt_22a8a0;
 struct RestPoseDriver {
     int pad;
     void InitA(RestPoseDriver*);
@@ -10,7 +10,7 @@ RestPoseDriver* RestPoseDriver::vfunc_5() {
     RestPoseDriver* p = (RestPoseDriver*)alloc(0x20);
     if (p) {
         p->InitA(this);
-        *(int*)p = (int)&vt;
+        *(int*)p = (int)&vt_22a8a0;
         p->InitB(this);
         return p;
     }

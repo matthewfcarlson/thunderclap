@@ -1,4 +1,4 @@
-class A {
+class A_b4280 {
   public:
     virtual void f0();
     virtual void f1();
@@ -7,12 +7,12 @@ class A {
     virtual void f4();
     virtual void f5(void*, int);
 };
-class B {
+class B_b4280 {
   public:
     char pad[0x10];
-    A* p;
+    A_b4280* p;
 };
-void __fastcall target(B* self, void*, void* first, void* arg) {
+void __fastcall target(B_b4280* self, void*, void* first, void* arg) {
     int x = arg ? *(int*)((char*)arg + 0x10) : 0;
     self->p->f5(first, x);
 }

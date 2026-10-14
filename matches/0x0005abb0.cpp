@@ -1,5 +1,5 @@
 extern "C" char DAT_003f9980[];
-class Helper {
+class Helper_5abb0 {
   public:
     void Init();
     void Finish();
@@ -12,7 +12,7 @@ class CGrappleSwapTrack {
 };
 void CGrappleSwapTrack::Run() {
     *(void**)this = (void*)((int)DAT_003f9980);
-    ((Helper*)((char*)this + 0x18))->Init();
-    ((Helper*)((char*)this + 0x10))->Init();
-    ((Helper*)this)->Finish();
+    ((Helper_5abb0*)((char*)this + 0x18))->Init();
+    ((Helper_5abb0*)((char*)this + 0x10))->Init();
+    ((Helper_5abb0*)this)->Finish();
 }

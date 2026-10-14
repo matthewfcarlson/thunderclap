@@ -1,24 +1,24 @@
 // cl-flags: /O1
-extern void* v[];
+extern void* v_3c4a8f[];
 extern void* bv[];
-extern int g;
-class Ref {
+extern int g_3c4a8f;
+class Ref_3c4a8f {
   public:
     virtual void F0();
     virtual void F1();
     virtual void __stdcall Release();
 };
-class O {
+class O_3c4a8f {
   public:
     void* vptr;
     int pad;
-    Ref* m8;
-    Ref* mc;
-    ~O() throw();
+    Ref_3c4a8f* m8;
+    Ref_3c4a8f* mc;
+    ~O_3c4a8f() throw();
 };
-O::~O() throw() {
-    *(void* volatile*)&vptr = v;
-    g = 0;
+O_3c4a8f::~O_3c4a8f() throw() {
+    *(void* volatile*)&vptr = v_3c4a8f;
+    g_3c4a8f = 0;
     if (mc) {
         mc->Release();
         mc = 0;

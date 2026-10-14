@@ -19,7 +19,7 @@ class CStageTrack : public CTrack {
   public:
     virtual int vfunc_0(int index);
 };
-extern int* gTable;
+extern int* gTable_6ab40;
 int CStageTrack::vfunc_0(int index) {
-    return gTable[index];
+    return gTable_6ab40[index];
 }

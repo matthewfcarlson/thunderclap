@@ -1,10 +1,10 @@
-struct Core {
+struct Core_1c3fd0 {
     void Init(void*, int, int, int, int);
     void Finish();
 };
-class Obj {
+class Obj_1c3fd0 {
   public:
-    Core* core;
+    Core_1c3fd0* core;
     char pad[0x18];
     int field1;
     char pad2[0x3c];
@@ -14,7 +14,7 @@ class Obj {
     int field68;
     unsigned char flag6c;
 };
-void __fastcall Target(Obj* self) {
+void __fastcall Target(Obj_1c3fd0* self) {
     if (!self->flag6c) {
         self->core->Init(&self->field1, self->field5c, self->field60, self->field64, self->field68);
         self->flag6c = 1;

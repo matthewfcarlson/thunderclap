@@ -1,4 +1,4 @@
-struct Base {
+struct Base_262c40 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -12,7 +12,7 @@ struct Base {
 };
 struct HalRadicalAdpcmDecodeStream {
     char pad[4];
-    Base* mStream;
+    Base_262c40* mStream;
     void vfunc_9();
 };
 void HalRadicalAdpcmDecodeStream::vfunc_9() {

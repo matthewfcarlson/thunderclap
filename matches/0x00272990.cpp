@@ -3,7 +3,7 @@ class V {
     virtual void A();
     virtual void B();
 };
-class C {
+class C_272990 {
   public:
     char pad[0xc];
     V v;
@@ -12,7 +12,7 @@ class C {
     int value;
     void F(int);
 };
-void C::F(int x) {
+void C_272990::F(int x) {
     v.A();
     value = x;
     state = 2;

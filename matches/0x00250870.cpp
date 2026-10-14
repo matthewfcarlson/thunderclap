@@ -8,11 +8,11 @@ class SeqEvent {
     virtual void v5();
 };
 extern bool Check(void*, void*);
-class Inner {
+class Inner_250870 {
   public:
     bool CheckBeat(void*);
 };
-class Helper {
+class Helper_250870 {
   public:
     bool Probe(void*);
 };
@@ -23,7 +23,7 @@ class SeqEventWaitBeat : public SeqEvent {
     int vfunc_0(void*);
 };
 int SeqEventWaitBeat::vfunc_0(void* arg) {
-    if (((Helper*)this)->Probe(arg) && Check(arg, &field10) && ((Inner*)((char*)this + 8))->CheckBeat(arg))
+    if (((Helper_250870*)this)->Probe(arg) && Check(arg, &field10) && ((Inner_250870*)((char*)this + 8))->CheckBeat(arg))
         return 1;
     return 0;
 }

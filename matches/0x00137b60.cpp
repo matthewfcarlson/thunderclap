@@ -12,7 +12,7 @@ struct ParamStorage {
     void FUN_00234960(const char*);
     void FUN_002348e0(const char*);
 };
-struct Base {
+struct Base_137b60 {
     virtual void slot0();
     char data[12];
     void(__cdecl* callback)();
@@ -24,17 +24,17 @@ class GrappleHoverTrack;
 }
 } // namespace hulkfight
 namespace fight {
-template <class T> struct ParamFloatConstRange : Base {
+template <class T> struct ParamFloatConstRange : Base_137b60 {
     virtual void slot0();
 };
-template <class T> struct ParamIntConstRange : Base {
+template <class T> struct ParamIntConstRange : Base_137b60 {
     virtual void slot0();
 };
 } // namespace fight
-extern void __cdecl FUN_002347b0(int*, Base**, int);
+extern void __cdecl FUN_002347b0(int*, Base_137b60**, int);
 void target() {
     if (!DAT_004e0ecc) {
-        Base* entries[3];
+        Base_137b60* entries[3];
         void* p = FUN_0008d690(24);
         if (p) {
             ((ParamStorage*)p)->FUN_00234960("timeBegin");

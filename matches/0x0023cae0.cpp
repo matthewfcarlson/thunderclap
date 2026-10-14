@@ -1,5 +1,5 @@
 extern "C" char DAT_004288fc[];
-typedef unsigned int u32;
+typedef unsigned int u32_23cae0;
 void* operator_new(unsigned int);
 class Condition {
   public:
@@ -9,10 +9,10 @@ class Condition {
     virtual void d();
     void Init(int);
 };
-struct Tail {
+struct Tail_23cae0 {
     void InitTail();
 };
-class Factory {
+class Factory_23cae0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -21,12 +21,12 @@ class Factory {
     virtual void v4();
     virtual Condition* v5();
 };
-Condition* Factory::v5() {
+Condition* Factory_23cae0::v5() {
     Condition* p = (Condition*)operator_new(0x10);
     if (p) {
         p->Init(0);
-        *(u32*)p = ((int)DAT_004288fc);
-        ((Tail*)((char*)p + 12))->InitTail();
+        *(u32_23cae0*)p = ((int)DAT_004288fc);
+        ((Tail_23cae0*)((char*)p + 12))->InitTail();
         return p;
     }
     return 0;

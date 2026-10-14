@@ -1,7 +1,7 @@
 extern "C" char DAT_0042d1ec[];
 extern "C" char DAT_0042d28c[];
 extern "C" void _ReadWriteBarrier();
-class Ref {
+class Ref_296b50 {
   public:
     virtual void f();
     virtual void Release() throw();
@@ -9,7 +9,7 @@ class Ref {
 class DrawableNode {
   public:
     char pad[0x18];
-    Ref* member;
+    Ref_296b50* member;
     void Cleanup();
     void Finish();
 };

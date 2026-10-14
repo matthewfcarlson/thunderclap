@@ -1,4 +1,4 @@
-typedef unsigned int u32;
+typedef unsigned int u32_32d230;
 namespace pure3d {
 class d3dShader {
   public:
@@ -17,18 +17,18 @@ class d3dShader {
     virtual void a12();
     virtual void vfunc_13();
 };
-extern u32 gFlags;
-extern u32 gA;
-extern u32 gB;
+extern u32_32d230 gFlags;
+extern u32_32d230 gA;
+extern u32_32d230 gB;
 class d3dPointSpriteShader : public d3dShader {
   public:
     virtual void b14();
     void vfunc_13();
 };
 } // namespace pure3d
-u32 pure3d::gFlags;
-u32 pure3d::gA;
-u32 pure3d::gB;
+u32_32d230 pure3d::gFlags;
+u32_32d230 pure3d::gA;
+u32_32d230 pure3d::gB;
 void pure3d::d3dPointSpriteShader::vfunc_13() {
     d3dShader::vfunc_13();
     gA = 0;

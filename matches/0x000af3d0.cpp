@@ -1,12 +1,12 @@
 extern "C" char DAT_00405e3c[];
 extern "C" void _ReadWriteBarrier();
-struct Child {
+struct Child_af3d0 {
     virtual void a();
     virtual void b();
 };
 struct CGameControllerManager {
     void* vptr;
-    Child* child;
+    Child_af3d0* child;
     CGameControllerManager* vfunc_0(unsigned char p);
 };
 void thunk_FUN_00267090(CGameControllerManager*);

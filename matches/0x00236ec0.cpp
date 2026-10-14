@@ -1,4 +1,4 @@
-class Ref {
+class Ref_236ec0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -7,12 +7,12 @@ class Ref {
     virtual void f4();
     virtual void Release(int);
 };
-class Holder {
+class Holder_236ec0 {
   public:
-    Ref* p;
+    Ref_236ec0* p;
     void Clear();
 };
-void Holder::Clear() {
+void Holder_236ec0::Clear() {
     if (p)
         p->Release(1);
     p = 0;

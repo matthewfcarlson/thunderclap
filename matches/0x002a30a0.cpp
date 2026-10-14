@@ -1,10 +1,10 @@
 extern "C" char DAT_0054494c[];
-class Base {
+class Base_2a30a0 {
   public:
-    Base();
+    Base_2a30a0();
 };
 void* Alloc(unsigned int);
-class Manager {
+class Manager_2a30a0 {
   public:
     virtual void a();
     virtual void b();
@@ -14,21 +14,21 @@ class Manager {
     virtual void f();
     virtual void Call(unsigned int, int);
 };
-class Obj {
+class Obj_2a30a0 {
   public:
     virtual void Init();
     char pad[12];
-    Manager* manager;
+    Manager_2a30a0* manager;
 };
-Obj* __fastcall Construct(void*);
-class Target : public Base {
+Obj_2a30a0* __fastcall Construct(void*);
+class Target_2a30a0 : public Base_2a30a0 {
   public:
-    Target();
-    Obj* mObj;
+    Target_2a30a0();
+    Obj_2a30a0* mObj;
 };
-Target::Target() {
+Target_2a30a0::Target_2a30a0() {
     void* p = Alloc(0x20);
-    Obj* o;
+    Obj_2a30a0* o;
     if (p)
         o = Construct(p);
     else
@@ -36,19 +36,19 @@ Target::Target() {
     mObj = o;
     mObj->Init();
     {
-        Obj* q = mObj;
+        Obj_2a30a0* q = mObj;
         q->manager->Call(((int)DAT_0054494c), 0);
     }
     {
-        Obj* q = mObj;
+        Obj_2a30a0* q = mObj;
         q->manager->Call(0x444d4853, 0);
     }
     {
-        Obj* q = mObj;
+        Obj_2a30a0* q = mObj;
         q->manager->Call(0x54535441, 0);
     }
     {
-        Obj* q = mObj;
+        Obj_2a30a0* q = mObj;
         q->manager->Call(0x444d4c42, 4);
     }
 }

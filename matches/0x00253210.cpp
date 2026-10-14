@@ -1,16 +1,16 @@
-struct Stm {
+struct Stm_253210 {
     char pad[0x24];
     int depth;
 };
-extern bool Match(Stm*, const char*);
-extern bool ReadTrack_002530b0(Stm**, const char*, void*);
+extern bool Match(Stm_253210*, const char*);
+extern bool ReadTrack_002530b0(Stm_253210**, const char*, void*);
 extern const char sOpen[];
 extern const char sName_0042a108[];
 extern const char sClose[];
 class SeqEvent {
   public:
     virtual void v0();
-    virtual bool v1(Stm**);
+    virtual bool v1(Stm_253210**);
     virtual void v2();
     virtual void v3();
     virtual void v4();
@@ -20,15 +20,15 @@ class SeqEventNestTrack : public SeqEvent {
     char pad[8];
 
   public:
-    int vfunc_1(Stm**);
+    int vfunc_1(Stm_253210**);
 };
-int SeqEventNestTrack::vfunc_1(Stm** p) {
+int SeqEventNestTrack::vfunc_1(Stm_253210** p) {
     if (SeqEvent::v1(p)) {
         if (Match(*p, sOpen)) {
             (*p)->depth++;
             if (ReadTrack_002530b0(p, sName_0042a108, (char*)this + 8)) {
                 (*p)->depth--;
-                Stm* s = *p;
+                Stm_253210* s = *p;
                 if (Match(s, sClose))
                     return 1;
             }

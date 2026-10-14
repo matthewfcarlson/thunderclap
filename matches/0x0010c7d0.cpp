@@ -1,17 +1,17 @@
-struct Member {
+struct Member_10c7d0 {
     void Release();
 };
-struct Base {
+struct Base_10c7d0 {
     virtual void g();
     void Shutdown();
 };
-struct Derived : Base {
+struct Derived_10c7d0 : Base_10c7d0 {
     char pad[8];
-    Member m;
-    ~Derived();
+    Member_10c7d0 m;
+    ~Derived_10c7d0();
     virtual void f();
 };
-Derived::~Derived() {
+Derived_10c7d0::~Derived_10c7d0() {
     m.Release();
     Shutdown();
 }

@@ -1,11 +1,11 @@
 // Same code shape as 0x0010bd90 (propagated; names are from that function)
-struct RefCounted {
+struct RefCounted_188ab0 {
   public:
     virtual void f0();
     virtual void Release();
 };
 
-extern char g_vt[];
+extern char g_vt_188ab0[];
 extern "C" void opdel(void*);
 
 class FaceTargetAction {
@@ -16,13 +16,13 @@ class FaceTargetAction {
   private:
     char pad[0x1c];
     int m_1c;
-    RefCounted* m_20;
+    RefCounted_188ab0* m_20;
 };
 
 FaceTargetAction* FaceTargetAction::vfunc_2(int flag) {
     volatile int* p = (volatile int*)this;
-    *p = (int)&g_vt;
-    RefCounted* q = (RefCounted*)p[8];
+    *p = (int)&g_vt_188ab0;
+    RefCounted_188ab0* q = (RefCounted_188ab0*)p[8];
     if (q != 0) {
         q->Release();
         m_20 = 0;

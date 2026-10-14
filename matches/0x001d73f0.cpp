@@ -1,17 +1,17 @@
-struct Val {
+struct Val_1d73f0 {
     char pad[0x18];
     float value;
 };
-struct Global {
+struct Global_1d73f0 {
     char pad[0x24];
-    Val* p;
+    Val_1d73f0* p;
 };
-extern Global* g;
-class Helper {
+extern Global_1d73f0* g_1d73f0;
+class Helper_1d73f0 {
   public:
     int get();
 };
-class Other {
+class Other_1d73f0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -19,31 +19,31 @@ class Other {
     virtual void f3a();
     virtual int f4();
 };
-class Sub {
+class Sub_1d73f0 {
   public:
     int run(int);
 };
-class Self {
+class Self_1d73f0 {
   public:
     char p0[0x40];
     int arg;
     char p1[0xa0 - 0x44];
-    Helper* a;
+    Helper_1d73f0* a;
     char p2[0xec - 0xa4];
-    Sub* d;
+    Sub_1d73f0* d;
     char p3[0x11c - 0xf0];
-    Other* b;
+    Other_1d73f0* b;
 };
-int __fastcall target(Self* s) {
-    float limit = g->p->value;
+int __fastcall target(Self_1d73f0* s) {
+    float limit = g_1d73f0->p->value;
     int r;
     if (s->a)
         r = s->a->get() + 0x30;
     else
-        r = ((Other*)s->b)->f4();
+        r = ((Other_1d73f0*)s->b)->f4();
     if (*(float*)(r + 4) < limit)
         return -10;
     int v = s->arg;
-    Sub* d = s->d;
+    Sub_1d73f0* d = s->d;
     return d->run(v);
 }

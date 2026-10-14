@@ -1,11 +1,11 @@
 extern "C" char DAT_00405b2c[];
-typedef unsigned int u32;
+typedef unsigned int u32_ac3c0;
 extern void* gNisCam;
-class Base {
+class Base_ac3c0 {
   public:
     void BaseInit();
 };
-class Sub {
+class Sub_ac3c0 {
   public:
     void Init(void* p);
 };
@@ -14,11 +14,11 @@ class CNISCamera {
     char pad[0x174];
 };
 CNISCamera* __fastcall target(CNISCamera* self) {
-    ((Base*)self)->BaseInit();
+    ((Base_ac3c0*)self)->BaseInit();
     void* p = gNisCam;
-    *(u32*)self = ((int)DAT_00405b2c);
-    *(u32*)((char*)self + 0xd0) = 3;
-    ((Sub*)((char*)self + 8))->Init(p);
-    *(u32*)((char*)self + 0x170) = 0;
+    *(u32_ac3c0*)self = ((int)DAT_00405b2c);
+    *(u32_ac3c0*)((char*)self + 0xd0) = 3;
+    ((Sub_ac3c0*)((char*)self + 8))->Init(p);
+    *(u32_ac3c0*)((char*)self + 0x170) = 0;
     return self;
 }

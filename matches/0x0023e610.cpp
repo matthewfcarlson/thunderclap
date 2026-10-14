@@ -1,23 +1,23 @@
-class Ref {
+class Ref_23e610 {
   public:
     virtual void Add();
     virtual void Release();
 };
-class Parent {
+class Parent_23e610 {
   public:
     void Init();
 };
 extern int StopVtable;
-class StopAction : public Parent {
+class StopAction : public Parent_23e610 {
   public:
     char pad[0x1c];
-    Ref* mRef;
+    Ref_23e610* mRef;
     int mValue;
     int mArg;
-    Ref* mOther;
-    StopAction(Ref*, int, int, Ref*);
+    Ref_23e610* mOther;
+    StopAction(Ref_23e610*, int, int, Ref_23e610*);
 };
-StopAction::StopAction(Ref* a, int b, int c, Ref* d) {
+StopAction::StopAction(Ref_23e610* a, int b, int c, Ref_23e610* d) {
     Init();
     *(int*)this = (int)&StopVtable;
     mArg = c;

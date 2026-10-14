@@ -1,5 +1,5 @@
 typedef unsigned char u8;
-struct C {
+struct C_31da40 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -114,7 +114,7 @@ struct C {
     char pad[0x50 - 4];
     void* p;
 };
-void C::f38(int i, int v) {
+void C_31da40::f38(int i, int v) {
     if (i < 8) {
         *((u8*)p + (i + 1) * 0x7c) = (u8)v;
         f110(i, 0);

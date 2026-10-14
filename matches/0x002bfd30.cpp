@@ -1,5 +1,5 @@
 extern "C" char DAT_0042ea40[];
-struct Base {
+struct Base_2bfd30 {
     void Finish();
 };
 struct Image {
@@ -13,5 +13,5 @@ void __fastcall Image_Init(Image* self, void*) {
     int x = self->m24;
     self->vf = ((int)DAT_0042ea40);
     Thunk(x);
-    ((Base*)self)->Finish();
+    ((Base_2bfd30*)self)->Finish();
 }

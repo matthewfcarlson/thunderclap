@@ -1,5 +1,5 @@
 // Same code shape as 0x002df6f0 (propagated; names are from that function)
-class Helper {
+class Helper_2df710 {
   public:
     void go(int, int, int);
 };
@@ -12,5 +12,5 @@ class PrimGroupSkinnedStreamed {
     void vfunc_12(int);
 };
 void PrimGroupSkinnedStreamed::vfunc_12(int arg) {
-    ((Helper*)a)->go(arg, b, c);
+    ((Helper_2df710*)a)->go(arg, b, c);
 }

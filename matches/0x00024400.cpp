@@ -1,31 +1,31 @@
 extern "C" void* __cdecl thunk_FUN_0008d690(unsigned int);
-class Thing {
+class Thing_24400 {
   public:
     virtual void A();
     virtual void B();
     char pad[8];
     unsigned char ready;
 };
-class Factory {
+class Factory_24400 {
   public:
-    Thing* Make(int, int, int);
+    Thing_24400* Make(int, int, int);
 };
-class Manager {
+class Manager_24400 {
   public:
-    int Run(const char*, Thing*, int);
+    int Run(const char*, Thing_24400*, int);
 };
-extern "C" char gFlag;
-extern "C" Factory* gMaker;
-extern "C" Manager* gManager;
-char gFlag;
-Factory* gMaker;
-Manager* gManager;
+extern "C" char gFlag_24400;
+extern "C" Factory_24400* gMaker;
+extern "C" Manager_24400* gManager_24400;
+char gFlag_24400;
+Factory_24400* gMaker;
+Manager_24400* gManager_24400;
 int __stdcall FUN_00024400(int param, char skip) {
-    Thing* p;
+    Thing_24400* p;
     int result;
-    if (skip && !gFlag)
+    if (skip && !gFlag_24400)
         return 0;
-    Factory* f = (Factory*)thunk_FUN_0008d690(0x48);
+    Factory_24400* f = (Factory_24400*)thunk_FUN_0008d690(0x48);
     if (f)
         p = f->Make(param, 0, 1);
     else
@@ -35,7 +35,7 @@ int __stdcall FUN_00024400(int param, char skip) {
         p->B();
         return 0;
     }
-    result = gManager->Run("fig0", p, 0);
+    result = gManager_24400->Run("fig0", p, 0);
     p->B();
     return result;
 }

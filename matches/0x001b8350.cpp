@@ -1,4 +1,4 @@
-class Inner {
+class Inner_1b8350 {
   public:
     virtual void v0();
     virtual void v1();
@@ -12,14 +12,14 @@ class Inner {
     virtual void v9();
     virtual void v10(int);
 };
-class Thing {
+class Thing_1b8350 {
   public:
     char p0[4];
     int value;
     char p8;
     char flag9;
     char pa[2];
-    Inner* inner;
+    Inner_1b8350* inner;
     char p10[0x104];
     unsigned char b114;
     char p115[0x1b];
@@ -31,7 +31,7 @@ class Thing {
 };
 extern int getval();
 extern unsigned char gflag;
-void Thing::Run(int a, int b) {
+void Thing_1b8350::Run(int a, int b) {
     Helper(a, b114);
     if (inner) {
         flag9 = 0;

@@ -1,18 +1,18 @@
 extern "C" char DAT_0042baa0[];
-typedef unsigned int u32;
-class Base {
+typedef unsigned int u32_275230;
+class Base_275230 {
   public:
     int pad[3];
-    Base(u32);
+    Base_275230(u32_275230);
 };
 extern void Finish();
-class FileReadRequest : public Base {
+class FileReadRequest : public Base_275230 {
   public:
     int a, b, c;
-    FileReadRequest(u32, u32, u32, u32);
+    FileReadRequest(u32_275230, u32_275230, u32_275230, u32_275230);
 };
-FileReadRequest::FileReadRequest(u32 x, u32 y, u32 z, u32 w) : Base(x) {
-    *(u32*)this = ((int)DAT_0042baa0);
+FileReadRequest::FileReadRequest(u32_275230 x, u32_275230 y, u32_275230 z, u32_275230 w) : Base_275230(x) {
+    *(u32_275230*)this = ((int)DAT_0042baa0);
     a = y;
     b = z;
     c = w;

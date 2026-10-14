@@ -16,7 +16,7 @@ class CCameraDramaticTrack {
     virtual void v13();
     char pad[0x5c];
 };
-class Helper {
+class Helper_6b990 {
   public:
     void init();
     void finish();
@@ -26,15 +26,15 @@ void __cdecl thunk_FUN_00267090(CCameraDramaticTrack*);
 CCameraDramaticTrack* CCameraDramaticTrack::vfunc_5(unsigned char flag) {
     CCameraDramaticTrack* self = this;
     *(void**)self = &vfCamera;
-    Helper* h = (Helper*)((char*)self + 0x60);
+    Helper_6b990* h = (Helper_6b990*)((char*)self + 0x60);
     int n = 8;
     do {
-        h = (Helper*)((char*)h - 8);
+        h = (Helper_6b990*)((char*)h - 8);
         h->init();
         --n;
     } while (n);
     *(void**)self = &vfTrack;
-    ((Helper*)self)->finish();
+    ((Helper_6b990*)self)->finish();
     if (flag & 1)
         thunk_FUN_00267090(self);
     return self;

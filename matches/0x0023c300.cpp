@@ -4,11 +4,11 @@ struct Node {
     char pad14[0x14];
     Node* next;
 };
-struct Owner {
+struct Owner_23c300 {
     char pad0[0x28];
     Node* first;
 };
-Node* __fastcall target(Owner* self) {
+Node* __fastcall target(Owner_23c300* self) {
     Node* p = self->first;
     int n = 0;
     if (p != 0) {

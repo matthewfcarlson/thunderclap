@@ -2,10 +2,10 @@ extern "C" char DAT_003fa214[];
 struct H1 {
     void f();
 };
-struct H2 {
+struct H2_5e070 {
     void f();
 };
-struct H3 {
+struct H3_5e070 {
     void f();
 };
 struct CCollisionTrack {
@@ -28,10 +28,10 @@ CCollisionTrack* CCollisionTrack::vfunc_5(int flag) {
     *(unsigned long*)this = ((int)DAT_003fa214);
     ((H1*)((char*)this + 0x70))->f();
     ((H1*)((char*)this + 0x68))->f();
-    ((H2*)((char*)this + 0x58))->f();
-    ((H2*)((char*)this + 0x4c))->f();
+    ((H2_5e070*)((char*)this + 0x58))->f();
+    ((H2_5e070*)((char*)this + 0x4c))->f();
     ((H1*)((char*)this + 0x18))->f();
-    ((H3*)this)->f();
+    ((H3_5e070*)this)->f();
     if (flag & 1)
         thunk_FUN_00267090(this);
     return this;

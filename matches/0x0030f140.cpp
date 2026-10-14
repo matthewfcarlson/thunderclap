@@ -1,8 +1,8 @@
-struct Obj {
+struct Obj_30f140 {
     unsigned a[21];
-    void copy(Obj* src);
+    void copy(Obj_30f140* src);
 };
-void Obj::copy(Obj* src) {
+void Obj_30f140::copy(Obj_30f140* src) {
     a[0] = src->a[0];
     a[1] = src->a[1];
     a[2] = src->a[2];

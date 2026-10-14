@@ -1,6 +1,6 @@
-extern float g1;
-extern float g2;
+extern float g1_1afa90;
+extern float g2_1afa90;
 void Set(float a, float b) {
-    g2 = b;
-    g1 = a;
+    g2_1afa90 = b;
+    g1_1afa90 = a;
 }

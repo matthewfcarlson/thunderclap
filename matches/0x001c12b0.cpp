@@ -1,4 +1,4 @@
-class A {
+class A_1c12b0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -17,11 +17,11 @@ class A {
     virtual void f14();
     virtual void f15();
 };
-class B {
+class B_1c12b0 {
   public:
     char pad[8];
-    A* p;
+    A_1c12b0* p;
 };
-void __fastcall target(B* self) {
+void __fastcall target(B_1c12b0* self) {
     self->p->f14();
 }

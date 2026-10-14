@@ -1,5 +1,5 @@
-extern int gCount;
-class Item {
+extern int gCount_2321b0;
+class Item_2321b0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -7,25 +7,25 @@ class Item {
     virtual void f3();
     virtual void f4();
     char pad14[4];
-    Item* next;
+    Item_2321b0* next;
     unsigned int flags;
     void cleanup(int, int);
 };
-class Obj {
+class Obj_2321b0 {
   public:
-    Item* first;
+    Item_2321b0* first;
     char pad04[0x18];
     int value;
-    Item* list;
-    Item* extra;
+    Item_2321b0* list;
+    Item_2321b0* extra;
     void run();
 };
-void Obj::run() {
-    for (Item* i = list; i; i = i->next) {
+void Obj_2321b0::run() {
+    for (Item_2321b0* i = list; i; i = i->next) {
         bool b = ((i->flags >> 2) & 1) != 0;
         if (b) {
             i->f4();
-            --gCount;
+            --gCount_2321b0;
             i->cleanup(8, 1);
         }
     }

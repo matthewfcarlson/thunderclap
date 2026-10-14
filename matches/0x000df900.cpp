@@ -1,11 +1,11 @@
 int Conv(int);
-class C {
+class C_df900 {
   public:
     char pad[0x600];
     int e[128];
     void F(int a, int b);
 };
-void C::F(int a, int b) {
+void C_df900::F(int a, int b) {
     int i = 0;
     int* p = (int*)((char*)this + 0x608);
     do {

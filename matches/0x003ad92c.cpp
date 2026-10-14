@@ -1,6 +1,6 @@
 // cl-flags: /O1
 extern void* vb[];
-class O {
+class O_3ad92c {
   public:
     void* vptr;
     int a;
@@ -8,9 +8,9 @@ class O {
     int c;
     int d;
     int e;
-    O(int x, int y) throw();
+    O_3ad92c(int x, int y) throw();
 };
-O::O(int x, int y) throw() {
+O_3ad92c::O_3ad92c(int x, int y) throw() {
     c = 0;
     d = 0;
     a = x;

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // pure3d::d3dRefractVertexShader::vfunc_13 @ 0x0032f280
 namespace pure3d {
-struct ShaderState {
+struct ShaderState_32f280 {
     char pad[0xe4];
     int mode;
 };
@@ -10,7 +10,7 @@ struct Texture {
 };
 struct d3dRefractVertexShader {
     char pad0[0x14];
-    ShaderState* state;
+    ShaderState_32f280* state;
     char pad18[4];
     int value1c;
     char pad20[8];

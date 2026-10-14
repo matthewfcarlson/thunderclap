@@ -1,16 +1,16 @@
-struct Inner {
+struct Inner_d6f90 {
     char pad[4];
     char value;
 };
 
-struct Owner {
+struct Owner_d6f90 {
     char pad[4];
-    Inner* p;
+    Inner_d6f90* p;
 
     void Set(char c);
 };
 
-void Owner::Set(char c) {
-    Inner* q = p;
+void Owner_d6f90::Set(char c) {
+    Inner_d6f90* q = p;
     q->value = c;
 }

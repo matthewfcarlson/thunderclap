@@ -1,10 +1,10 @@
 // Same code shape as 0x001c4010 (propagated; names are from that function)
-class Engine {
+class Engine_1c4050 {
   public:
     void Init(void*, int, int, int, int);
     void Finish(int);
 };
-class Thing {
+class Thing_1c4050 {
   public:
     char pad[0x5c];
     int a;
@@ -14,10 +14,10 @@ class Thing {
     char done;
     void Run(int);
 };
-void Thing::Run(int x) {
+void Thing_1c4050::Run(int x) {
     if (!done) {
-        (*(Engine**)pad)->Init(pad + 0x1c, a, b, c, d);
+        (*(Engine_1c4050**)pad)->Init(pad + 0x1c, a, b, c, d);
         done = 1;
     }
-    (*(Engine**)pad)->Finish(x);
+    (*(Engine_1c4050**)pad)->Finish(x);
 }

@@ -1,31 +1,31 @@
-class Entry {
+class Entry_1b55c0 {
   public:
     int a, b, c;
 };
-class Owner {
+class Owner_1b55c0 {
   public:
     virtual void Fn();
     char pad[0x3c];
     int value;
     void* data;
 };
-class Dummy {
+class Dummy_1b55c0 {
   public:
     virtual void x();
     virtual void y();
 };
-class Base {
+class Base_1b55c0 {
   public:
     int* items;
     int pad[3];
     int count;
-    void Func(Owner*, int);
+    void Func(Owner_1b55c0*, int);
 };
-void Base::Func(Owner* obj, int value) {
+void Base_1b55c0::Func(Owner_1b55c0* obj, int value) {
     obj->value = value;
     int n = (unsigned short)*(unsigned short*)((char*)obj->data + 0x20);
     for (int i = 0; i < n; ++i) {
-        Entry* e = (Entry*)(*(int*)((char*)obj->data + 0x18) + (unsigned short)i * 0x18);
+        Entry_1b55c0* e = (Entry_1b55c0*)(*(int*)((char*)obj->data + 0x18) + (unsigned short)i * 0x18);
         if (e->a != -1)
             e->a = (value << 16) | e->a;
         if (e->b != -1)
@@ -37,7 +37,7 @@ void Base::Func(Owner* obj, int value) {
     int* p = items + value;
     obj->Fn();
     if (*p) {
-        ((Dummy*)*p)->y();
+        ((Dummy_1b55c0*)*p)->y();
     }
     *p = (int)obj;
 }

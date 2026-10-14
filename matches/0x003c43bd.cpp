@@ -1,8 +1,8 @@
-struct X {
+struct X_3c43bd {
     void Call_003c437a();
-    X* Target();
+    X_3c43bd* Target();
 };
-X* X::Target() {
+X_3c43bd* X_3c43bd::Target() {
     Call_003c437a();
     return this;
 }

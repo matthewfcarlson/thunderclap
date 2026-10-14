@@ -12,13 +12,13 @@ struct Matrix {
     void FUN_0022ca90(Matrix*, Matrix*);
     void FUN_0022be40(Vector*);
 };
-struct Owner {
+struct Owner_2b9310 {
     char pad[0x40];
     Matrix transform;
     int FUN_002b8f60(int, Matrix*, int, Object*, int);
     int target(int, Object*, int, Object*, int);
 };
-int Owner::target(int a, Object* from, int c, Object* to, int e) {
+int Owner_2b9310::target(int a, Object* from, int c, Object* to, int e) {
     Vector endpoint = to->position;
     Vector origin = from->position;
     Vector delta;

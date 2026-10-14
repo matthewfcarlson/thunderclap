@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2a9c00 {
   public:
     virtual void f0();
     virtual void f1();
@@ -28,23 +28,23 @@ class Obj {
     virtual void f25();
     virtual void f26();
     char pad[0x40 - sizeof(void*)];
-    Obj* link;
-    void initialize(Obj*);
-    Obj* vfunc_4();
+    Obj_2a9c00* link;
+    void initialize(Obj_2a9c00*);
+    Obj_2a9c00* vfunc_4();
 };
 extern "C" int BQVtable;
 extern "C" void* __cdecl alloc(unsigned int);
-Obj* Obj::vfunc_4() {
-    Obj* p = (Obj*)alloc(0x48);
+Obj_2a9c00* Obj_2a9c00::vfunc_4() {
+    Obj_2a9c00* p = (Obj_2a9c00*)alloc(0x48);
     if (p) {
         p->initialize(this);
         *(int*)p = (int)&BQVtable;
         int* z = (int*)((char*)p + 0x40);
         *z = 0;
-        Obj* q = link;
+        Obj_2a9c00* q = link;
         if (q)
             q->f0();
-        Obj* old = p->link;
+        Obj_2a9c00* old = p->link;
         if (old)
             old->f1();
         p->link = q;

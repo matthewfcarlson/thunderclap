@@ -1,24 +1,24 @@
 extern "C" void _ReadWriteBarrier();
-class Ref {
+class Ref_2e0090 {
   public:
     virtual void f();
     virtual void Release();
 };
 extern int vtSkin, vtOpt, vtBase;
-class Obj {
+class Obj_2e0090 {
   public:
     void* vptr;
     char p4[0x3c];
-    Ref* m40;
+    Ref_2e0090* m40;
     char p44[0x14];
-    Ref* m58;
+    Ref_2e0090* m58;
     char p5c[4];
-    Ref* m60;
-    Ref* m64;
+    Ref_2e0090* m60;
+    Ref_2e0090* m64;
     void Cleanup();
     void BaseCleanup();
 };
-void Obj::Cleanup() {
+void Obj_2e0090::Cleanup() {
     *(void* volatile*)&vptr = &vtSkin;
     _ReadWriteBarrier();
     if (m60) {

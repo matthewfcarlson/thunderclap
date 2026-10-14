@@ -1,10 +1,10 @@
-class A {
+class A_222bf0 {
   public:
     char pad[0x68];
     unsigned count;
     int f(int key);
 };
-int A::f(int key) {
+int A_222bf0::f(int key) {
     unsigned n = count;
     unsigned i = 0;
     if (n > 0) {

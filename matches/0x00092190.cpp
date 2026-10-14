@@ -1,6 +1,6 @@
-extern void* gB[];
+extern void* gB_92190[];
 extern void* gM[];
-struct S {
+struct S_92190 {
     int a, b;
     void Init();
 };
@@ -10,7 +10,7 @@ class Mov {
     char pad[4];
     unsigned char m8;
     char pad2[7];
-    S s10;
+    S_92190 s10;
     int m18;
     char pad3[4];
     unsigned char m20;
@@ -21,7 +21,7 @@ class Mov {
     Mov* ctor();
 };
 Mov* Mov::ctor() {
-    vptr = gB;
+    vptr = gB_92190;
     m8 = 1;
     s10.Init();
     m18 = 0;

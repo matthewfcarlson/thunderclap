@@ -1,5 +1,5 @@
-extern const float zero;
-class Helper {
+extern const float zero_69f10;
+class Helper_69f10 {
   public:
     int Apply(int, float);
 };
@@ -25,11 +25,11 @@ class CDrainHealthTrack {
 };
 int CDrainHealthTrack::vfunc_12(int arg) {
     float value = GetValue();
-    if (!(value <= zero)) {
+    if (!(value <= zero_69f10)) {
         float a = amount;
         int obj = FUN_0008d690(0x24);
         if (obj)
-            return ((Helper*)obj)->Apply(arg, a / value);
+            return ((Helper_69f10*)obj)->Apply(arg, a / value);
     }
     return 0;
 }

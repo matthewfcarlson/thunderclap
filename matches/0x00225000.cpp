@@ -1,19 +1,19 @@
 extern "C" char DAT_00427368[];
-struct Inner {
+struct Inner_225000 {
     virtual void A();
     virtual void B();
 };
-extern int gCount;
+extern int gCount_225000;
 struct AnimationDriver {
     void* vptr;
     char pad[0x1c];
-    Inner* mInner;
+    Inner_225000* mInner;
     void F();
     void Tail();
 };
 void AnimationDriver::F() {
     *(int*)this = ((int)DAT_00427368);
     mInner->B();
-    --gCount;
+    --gCount_225000;
     Tail();
 }

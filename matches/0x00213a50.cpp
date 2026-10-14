@@ -15,19 +15,19 @@ struct DataItem {
     int* ptr4;
 };
 
-struct Entry {
+struct Entry_213a50 {
     int type;
     int next;
     char pad[4];
     int data;
 };
 
-extern "C" Entry* __cdecl FUN_00219520(BufferHeader* buf, int zero);
+extern "C" Entry_213a50* __cdecl FUN_00219520(BufferHeader* buf, int zero);
 extern "C" void __cdecl FUN_00215460(BufferHeader* buf, int flag);
-extern "C" void __cdecl FUN_002159e0(BufferHeader* buf, Entry* entry, int zero);
+extern "C" void __cdecl FUN_002159e0(BufferHeader* buf, Entry_213a50* entry, int zero);
 
 void FUN_00213a50(BufferHeader* buf, DataItem* item) {
-    Entry* entry = FUN_00219520(buf, 0);
+    Entry_213a50* entry = FUN_00219520(buf, 0);
 
     entry->data = (int)item->ptr0;
 
@@ -53,6 +53,6 @@ void FUN_00213a50(BufferHeader* buf, DataItem* item) {
 
     buf->field_8 += 8;
 
-    Entry* entry3 = (Entry*)(buf->field_8 - 0x10);
+    Entry_213a50* entry3 = (Entry_213a50*)(buf->field_8 - 0x10);
     FUN_002159e0(buf, entry3, 0);
 }

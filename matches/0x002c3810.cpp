@@ -1,4 +1,4 @@
-class Impl {
+class Impl_2c3810 {
   public:
     void Helper();
 };
@@ -9,6 +9,6 @@ class Adj {
     virtual void c();
 };
 void Adj::c() {
-    Impl* p = (Impl*)((char*)this + (-16));
+    Impl_2c3810* p = (Impl_2c3810*)((char*)this + (-16));
     p->Helper();
 }

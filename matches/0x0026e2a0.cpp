@@ -1,4 +1,4 @@
-extern int gId;
+extern int gId_26e2a0;
 void Hook();
 void PoolInit(void* pool, int a, int b, int c, int d, const char* name, int e);
 
@@ -8,14 +8,14 @@ class IRefCount {
     virtual void f0();
 };
 
-class Obj {
+class Obj_26e2a0 {
   public:
-    Obj();
+    Obj_26e2a0();
     virtual void g0();
     int mId;
 };
 
-class RefC : public Obj {
+class RefC : public Obj_26e2a0 {
   public:
     RefC();
     virtual void g1();
@@ -36,11 +36,11 @@ class ConsoleClient : public IRefCount, public RefC {
 
 IRefCount::IRefCount() {}
 void IRefCount::f0() {}
-Obj::Obj() {
-    mId = gId;
+Obj_26e2a0::Obj_26e2a0() {
+    mId = gId_26e2a0;
     Hook();
 }
-void Obj::g0() {}
+void Obj_26e2a0::g0() {}
 RefC::RefC() {
     mRef = 1;
     Hook();

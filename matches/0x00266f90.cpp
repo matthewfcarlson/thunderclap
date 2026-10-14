@@ -1,4 +1,4 @@
-class Item {
+class Item_266f90 {
   public:
     virtual void f0();
     virtual void f1();
@@ -11,7 +11,7 @@ class Item {
     virtual bool Test(int);
 };
 struct Node {
-    Item* item;
+    Item_266f90* item;
     Node* child;
     Node* next;
 };

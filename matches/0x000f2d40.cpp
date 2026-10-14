@@ -1,34 +1,34 @@
-class Obj {
+class Obj_f2d40 {
   public:
     virtual void F();
 };
-struct Caster {
+struct Caster_f2d40 {
     virtual void C();
 };
-class Manager {
+class Manager_f2d40 {
   public:
     virtual void A();
     virtual void B();
     virtual void C();
-    virtual Obj* Create(const Caster&, unsigned long long);
+    virtual Obj_f2d40* Create(const Caster_f2d40&, unsigned long long);
 };
-extern Manager* gManager;
+extern Manager_f2d40* gManager_f2d40;
 extern unsigned long long __cdecl GetArg(void*);
-class Owner {
+class Owner_f2d40 {
     char pad[0x9a4];
 
   public:
-    Obj* slots[4];
+    Obj_f2d40* slots[4];
     void Run(void*);
 };
-void Owner::Run(void* p) {
+void Owner_f2d40::Run(void* p) {
     int i = 0;
     while (i < 4 && slots[i])
         ++i;
     if (i < 4) {
-        Manager* m = gManager;
+        Manager_f2d40* m = gManager_f2d40;
         unsigned long long a = GetArg(p);
-        Obj* o = m->Create(Caster(), a);
+        Obj_f2d40* o = m->Create(Caster_f2d40(), a);
         slots[i] = o;
         if (o)
             o->F();

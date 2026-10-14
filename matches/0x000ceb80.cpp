@@ -17,11 +17,11 @@ template <class T, class U, class V, class W, class X> class Method3 : public HU
     int id;
 };
 extern "C" unsigned char __cdecl FUN_001d04d0(const char*);
-extern const char g1[], g2[], g3[];
+extern const char g1_ceb80[], g2[], g3[];
 template <>
 Method3<HUDOverlay, int, const char*, const char*, float>::Method3(int x, const char* y) : HUDOverlay(x, 3) {
     id = (int)y;
-    d = FUN_001d04d0(g1);
+    d = FUN_001d04d0(g1_ceb80);
     a = FUN_001d04d0(g2);
     b = FUN_001d04d0(g2);
     c = FUN_001d04d0(g3);

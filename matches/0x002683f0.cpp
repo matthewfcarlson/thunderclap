@@ -19,7 +19,7 @@ class ControllerSystemXBox {
     char data[4 * 0x4a0];
 };
 int helper();
-class Pad {
+class Pad_2683f0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -47,7 +47,7 @@ void ControllerSystemXBox::vfunc_7(int a, int b) {
     int i = 4;
     do {
         if (p[0x49e]) {
-            Pad* q = (Pad*)p;
+            Pad_2683f0* q = (Pad_2683f0*)p;
             q->f18(helper() + mDiff);
         }
         p += 0x4a0;

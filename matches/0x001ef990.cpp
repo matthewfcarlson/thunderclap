@@ -1,16 +1,16 @@
-class Sub {
+class Sub_1ef990 {
   public:
     void Cleanup();
 };
-class Obj {
+class Obj_1ef990 {
     char pad[0xa0];
 
   public:
-    Sub sub;
+    Sub_1ef990 sub;
     void* Run(int flags);
 };
-extern void __cdecl thunk(Obj*);
-void* Obj::Run(int flags) {
+extern void __cdecl thunk(Obj_1ef990*);
+void* Obj_1ef990::Run(int flags) {
     sub.Cleanup();
     if (flags & 1)
         thunk(this);

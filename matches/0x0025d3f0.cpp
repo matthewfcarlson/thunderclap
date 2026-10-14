@@ -1,5 +1,5 @@
 int Check(int);
-class Obj {
+class Obj_25d3f0 {
   public:
     char p[0x34];
     int value;
@@ -8,7 +8,7 @@ class Obj {
     char flag;
     void Take(int*);
 };
-void Obj::Take(int* out) {
+void Obj_25d3f0::Take(int* out) {
     if (out) {
         int v = value;
         if (v != 0) {

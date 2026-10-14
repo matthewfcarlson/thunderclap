@@ -1,6 +1,6 @@
 extern "C" char DAT_003f6098[];
 extern "C" char DAT_0042aec8[];
-class Ref {
+class Ref_266630 {
   public:
     virtual void f0();
     virtual void f1();
@@ -20,7 +20,7 @@ class LoadInventory {
     virtual void vfunc_5();
     char pad[8];
     Ops* mA;
-    Ref* mB;
+    Ref_266630* mB;
 };
 void thunk_FUN_00267090(void*);
 void thunk_FUN_00267090(LoadInventory*);

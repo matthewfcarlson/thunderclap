@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2eefc0 {
   public:
     void Base();
     void Finish();
@@ -27,7 +27,7 @@ class Obj {
 };
 void __cdecl operator delete(void*);
 void __cdecl operator delete[](void*);
-void Obj::Finish() {
+void Obj_2eefc0::Finish() {
     Base();
     if (p10)
         operator delete(p10);

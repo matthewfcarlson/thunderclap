@@ -1,6 +1,6 @@
-class C {
+class C_a9e50 {
   public:
-    C();
+    C_a9e50();
 };
 
-C::C() {}
+C_a9e50::C_a9e50() {}

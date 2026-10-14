@@ -4,17 +4,17 @@ class Builder {
     void Add(const char*);
     void Finish();
 };
-class Runner {
+class Runner_1ebc80 {
   public:
     void Run(void*, void*, const char*, float);
 };
-class State {
+class State_1ebc80 {
   public:
-    Runner* runner;
+    Runner_1ebc80* runner;
     char pad[4];
     char enabled;
 };
-extern State* gState;
+extern State_1ebc80* gState_1ebc80;
 extern const char sObjects[];
 extern const char sDialogue[];
 extern const char sCow[];
@@ -31,7 +31,7 @@ void __stdcall target(void* param1, const char* param2) {
     b->Add(sObjects);
     b->Add(sDialogue);
     b->Add(sCow);
-    State* s = gState;
+    State_1ebc80* s = gState_1ebc80;
     if (s->enabled)
         s->runner->Run(local, (char*)param1 + 8, param2, 100.0f);
     b->Finish();

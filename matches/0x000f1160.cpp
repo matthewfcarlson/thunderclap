@@ -1,5 +1,5 @@
 extern "C" void _ReadWriteBarrier();
-struct RelObj {
+struct RelObj_f1160 {
   public:
     virtual void A();
     virtual void Release();
@@ -19,7 +19,7 @@ class FEAnimation {
     virtual void vfunc_6();
     void* mPtr;
     char pad[4];
-    RelObj* mRel;
+    RelObj_f1160* mRel;
 };
 
 FEAnimation* FEAnimation::vfunc_0(unsigned char param) {

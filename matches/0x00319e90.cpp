@@ -1,21 +1,21 @@
 // cl-flags: /O2 /GR /GX
 
-class Data {
+class Data_319e90 {
   public:
     void Init(void* src);
 };
 
-struct Element {
+struct Element_319e90 {
     void* header;
-    Data data;
+    Data_319e90 data;
 };
 
-class Container {
+class Container_319e90 {
     char _pad0[4];
 
   public:
-    Element* mCurrent;
-    Element* mEnd;
+    Element_319e90* mCurrent;
+    Element_319e90* mEnd;
 
   private:
     char _padC[0xA0 - 0xC];
@@ -25,16 +25,16 @@ class Container {
     void Add(void* param2, void* param3);
 };
 
-void Container::Add(void* param2, void* param3) {
+void Container_319e90::Add(void* param2, void* param3) {
     if (mState != 2) {
         char buffer[0x64];
         *(void**)buffer = param2;
-        Data* temp = (Data*)(buffer + 4);
+        Data_319e90* temp = (Data_319e90*)(buffer + 4);
         temp->Init(param3);
 
         if (mCurrent < mEnd) {
-            Element* oldCurrent = mCurrent;
-            mCurrent = (Element*)((char*)mCurrent + 0x64);
+            Element_319e90* oldCurrent = mCurrent;
+            mCurrent = (Element_319e90*)((char*)mCurrent + 0x64);
             if (oldCurrent) {
                 oldCurrent->header = *(void**)buffer;
                 oldCurrent->data.Init(temp);

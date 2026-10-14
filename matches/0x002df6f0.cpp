@@ -1,4 +1,4 @@
-class Helper {
+class Helper_2df6f0 {
   public:
     void go(int, int, int);
 };
@@ -11,5 +11,5 @@ class PrimGroupSkinnedStreamed {
     void vfunc_12(int);
 };
 void PrimGroupSkinnedStreamed::vfunc_12(int arg) {
-    ((Helper*)a)->go(arg, b, c);
+    ((Helper_2df6f0*)a)->go(arg, b, c);
 }

@@ -6,15 +6,15 @@ class Param {
     virtual void Drop();
 };
 void BaseInit();
-class Obj {
+class Obj_20a40 {
   public:
     void* v;
     char pad[0x18];
     Param* p;
     volatile int value;
-    Obj* ctor(int value, Param* p);
+    Obj_20a40* ctor(int value, Param* p);
 };
-Obj* Obj::ctor(int value, Param* p) {
+Obj_20a40* Obj_20a40::ctor(int value, Param* p) {
     BaseInit();
     v = (void*)((int)DAT_003f3390);
     this->p = 0;

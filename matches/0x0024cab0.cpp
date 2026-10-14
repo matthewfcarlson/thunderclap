@@ -1,8 +1,8 @@
-typedef unsigned int U;
-extern U g0, g1, g2, g3, g4, g5;
-void f(U* a, U* b) {
+typedef unsigned int U_24cab0;
+extern U_24cab0 g0_24cab0, g1, g2, g3, g4, g5;
+void f(U_24cab0* a, U_24cab0* b) {
     if (a) {
-        g0 = a[0];
+        g0_24cab0 = a[0];
         g1 = a[1];
         g2 = a[2];
     }

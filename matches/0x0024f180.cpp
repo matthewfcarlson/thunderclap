@@ -1,12 +1,12 @@
 extern unsigned int GetSize();
 extern unsigned int* Allocate(unsigned int);
 
-struct Owner {
+struct Owner_24f180 {
     char pad[0x40];
     unsigned int* data;
 };
 
-unsigned int* __fastcall FUN_0024f180(Owner* self) {
+unsigned int* __fastcall FUN_0024f180(Owner_24f180* self) {
     unsigned int* p = Allocate(GetSize());
     unsigned int* r;
     if (p) {

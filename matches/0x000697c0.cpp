@@ -1,10 +1,10 @@
-class Base {
+class Base_697c0 {
   public:
     virtual void B0();
-    Base();
+    Base_697c0();
 };
 
-class CComboMessageTrack : public Base {
+class CComboMessageTrack : public Base_697c0 {
   public:
     virtual void Fn0();
     int m4;

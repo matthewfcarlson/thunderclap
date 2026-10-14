@@ -1,10 +1,10 @@
-typedef unsigned int u32;
-class C {
+typedef unsigned int u32_1d4e00;
+class C_1d4e00 {
   public:
     char pad[0xa8];
-    u32 value;
-    u32 f();
+    u32_1d4e00 value;
+    u32_1d4e00 f();
 };
-u32 C::f() {
+u32_1d4e00 C_1d4e00::f() {
     return value;
 }

@@ -1,15 +1,15 @@
-class A {
+class A_234150 {
   public:
     virtual void f();
     virtual void g();
 };
 void FUN_00267090(int);
-class B {
+class B_234150 {
   public:
-    A* a;
+    A_234150* a;
     int b;
 };
-void __fastcall FUN_00234150(B* p) {
+void __fastcall FUN_00234150(B_234150* p) {
     if (p->a)
         p->a->g();
     p->a = 0;

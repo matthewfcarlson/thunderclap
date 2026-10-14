@@ -1,11 +1,11 @@
-struct Rd {
+struct Rd_23bcb0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
     virtual int Read(char* buf, unsigned n);
 };
-struct B {
+struct B_23bcb0 {
     virtual void s0();
     virtual void s1();
     virtual void s2();
@@ -18,7 +18,7 @@ struct B {
     virtual void s9();
     virtual bool V10(int a, int b, char* buf);
     char p4[4];
-    Rd* rd;
+    Rd_23bcb0* rd;
     char p5[1];
     char swap;
     char p6[2];
@@ -26,7 +26,7 @@ struct B {
     char p7[0xc];
     unsigned remain;
 };
-bool B::V10(int a, int b, char* buf) {
+bool B_23bcb0::V10(int a, int b, char* buf) {
     int* q = &mark;
     *q = -1;
     unsigned n = remain;

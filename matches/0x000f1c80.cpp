@@ -1,10 +1,10 @@
 extern "C" char DAT_0040c42c[];
 extern "C" char DAT_0040c6a4[];
-class Sub {
+class Sub_f1c80 {
   public:
     void init();
 };
-class Sub2 {
+class Sub2_f1c80 {
   public:
     void init();
 };
@@ -41,10 +41,10 @@ TextTable* TextTable::vfunc_2(unsigned char p) {
     char* q = (char*)this + 0x495c;
     for (int i = 0x200; i != 0; --i) {
         q -= 0x24;
-        ((Sub*)q)->init();
+        ((Sub_f1c80*)q)->init();
     }
     *(unsigned long*)this = ((int)DAT_0040c42c);
-    ((Sub2*)this)->init();
+    ((Sub2_f1c80*)this)->init();
     if (p & 1)
         thunk_FUN_00267090(this);
     return this;

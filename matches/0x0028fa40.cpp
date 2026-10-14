@@ -1,4 +1,4 @@
-class X {
+class X_28fa40 {
   public:
     virtual void x0();
     virtual void x1();
@@ -16,7 +16,7 @@ class X {
     virtual void x13();
     virtual void x14(int, void*);
 };
-class G {
+class G_28fa40 {
   public:
     virtual void y0();
     virtual void y1();
@@ -39,26 +39,26 @@ class G {
     virtual void y18();
     virtual void y19(void*);
 };
-struct Holder {
-    X* x;
+struct Holder_28fa40 {
+    X_28fa40* x;
 };
-struct Blk {
+struct Blk_28fa40 {
     unsigned int d[16];
 };
-extern G* gG;
-struct Obj {
+extern G_28fa40* gG_28fa40;
+struct Obj_28fa40 {
     char pad0[4];
-    Holder* h;
+    Holder_28fa40* h;
     char pad1[4];
     char buf1[64];
     char buf2[64];
     void f(unsigned int* a, unsigned int* b);
 };
-void Obj::f(unsigned int* a, unsigned int* b) {
-    *(Blk*)(buf1) = *(Blk*)a;
-    *(Blk*)(buf2) = *(Blk*)b;
-    Holder* hh = h;
-    X* xx = hh->x;
+void Obj_28fa40::f(unsigned int* a, unsigned int* b) {
+    *(Blk_28fa40*)(buf1) = *(Blk_28fa40*)a;
+    *(Blk_28fa40*)(buf2) = *(Blk_28fa40*)b;
+    Holder_28fa40* hh = h;
+    X_28fa40* xx = hh->x;
     xx->x14(0, buf1);
-    gG->y19(a);
+    gG_28fa40->y19(a);
 }

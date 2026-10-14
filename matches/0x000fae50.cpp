@@ -1,15 +1,15 @@
-struct Vec3 {
+struct Vec3_fae50 {
     float x, y, z;
 };
-class Obj {
+class Obj_fae50 {
     char pad[8];
     int active;
 
   public:
     float Next();
-    void Get(Vec3* out);
+    void Get(Vec3_fae50* out);
 };
-void Obj::Get(Vec3* out) {
+void Obj_fae50::Get(Vec3_fae50* out) {
     if (active == 0) {
         out->x = 0.0f;
         out->z = 0.0f;

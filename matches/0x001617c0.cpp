@@ -1,6 +1,6 @@
-extern int RTTI1;
-extern int RTTI2;
-class Result {
+extern int RTTI1_1617c0;
+extern int RTTI2_1617c0;
+class Result_1617c0 {
   public:
     int Make(void*);
 };
@@ -19,10 +19,10 @@ class LocomotingTrack {
     virtual int vfunc_10(void*, void*, void*);
 };
 extern int __cdecl FUN_00344e74(void*, int, const void*, const void*, int);
-extern Result* __cdecl FUN_0008d690(unsigned int);
+extern Result_1617c0* __cdecl FUN_0008d690(unsigned int);
 int LocomotingTrack::vfunc_10(void* a, void* b, void* c) {
-    if (FUN_00344e74(c, 0, &RTTI1, &RTTI2, 0)) {
-        Result* p = FUN_0008d690(0x20);
+    if (FUN_00344e74(c, 0, &RTTI1_1617c0, &RTTI2_1617c0, 0)) {
+        Result_1617c0* p = FUN_0008d690(0x20);
         if (p)
             return p->Make(c);
     }

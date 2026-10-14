@@ -4,20 +4,20 @@ struct Node {
     int kind;
     Node* child;
 };
-struct Manager {
+struct Manager_335f70 {
     char pad[0x44];
     int count;
     Node* Get(int);
 };
 extern int Size(int);
-class Obj {
+class Obj_335f70 {
   public:
     char pad[4];
-    Manager* mgr;
+    Manager_335f70* mgr;
     int** data;
     int Fetch(int index, int n);
 };
-int Obj::Fetch(int index, int n) {
+int Obj_335f70::Fetch(int index, int n) {
     if (index < 0)
         return 0;
     if (index >= mgr->count)

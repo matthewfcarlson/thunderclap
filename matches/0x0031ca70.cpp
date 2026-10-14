@@ -1,4 +1,4 @@
-class Device {
+class Device_31ca70 {
   public:
     virtual void m0();
     virtual void m1();
@@ -84,14 +84,14 @@ class Device {
 };
 class pure3d_pddiFogState {
   public:
-    virtual void vfunc_0(Device* d);
+    virtual void vfunc_0(Device_31ca70* d);
     unsigned char mode;
     char pad1[3];
     int a;
     int b;
     int c;
 };
-void pure3d_pddiFogState::vfunc_0(Device* d) {
+void pure3d_pddiFogState::vfunc_0(Device_31ca70* d) {
     d->f78(mode);
     d->f80(a, b, c);
 }

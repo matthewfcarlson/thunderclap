@@ -10,7 +10,7 @@ class PropGrabbableIsThrownCondition : public Condition {
     char flag;
 };
 void* __cdecl Alloc(unsigned int);
-class Factory {
+class Factory_18b860 {
   public:
     virtual void A();
     virtual void B();
@@ -19,7 +19,7 @@ class Factory {
     virtual void E();
     virtual PropGrabbableIsThrownCondition* Create();
 };
-PropGrabbableIsThrownCondition* Factory::Create() {
+PropGrabbableIsThrownCondition* Factory_18b860::Create() {
     PropGrabbableIsThrownCondition* p = (PropGrabbableIsThrownCondition*)Alloc(16);
     if (p) {
         p->PropGrabbableIsThrownCondition::PropGrabbableIsThrownCondition(0);

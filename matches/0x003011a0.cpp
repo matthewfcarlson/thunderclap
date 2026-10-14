@@ -1,36 +1,36 @@
-struct Vec3 {
+struct Vec3_3011a0 {
     float x, y, z;
 };
-struct Xf {
+struct Xf_3011a0 {
     char pad[0x28];
-    Vec3 pos;
+    Vec3_3011a0 pos;
 };
-struct Ent {
+struct Ent_3011a0 {
     char pad[0x20];
-    Xf* xf;
+    Xf_3011a0* xf;
 };
-struct Slot {
+struct Slot_3011a0 {
     char pad[0x6c];
-    void Process(Ent* e, unsigned flags);
+    void Process(Ent_3011a0* e, unsigned flags);
 };
-struct Sub {
-    void Add(Vec3* v);
+struct Sub_3011a0 {
+    void Add(Vec3_3011a0* v);
 };
-class Sim {
+class Sim_3011a0 {
   public:
-    Slot* mSlots;
+    Slot_3011a0* mSlots;
     char pad[0x164];
-    Sub mSub;
+    Sub_3011a0 mSub;
     char pad2[0x2033];
     unsigned mFlags;
-    void Update(Ent* e, int i);
+    void Update(Ent_3011a0* e, int i);
 };
-void Sim::Update(Ent* e, int i) {
+void Sim_3011a0::Update(Ent_3011a0* e, int i) {
     mSlots[i].Process(e, mFlags);
     if (mFlags & 8) {
-        Xf* x = e->xf;
-        Vec3 v;
-        const Vec3& p = x->pos;
+        Xf_3011a0* x = e->xf;
+        Vec3_3011a0 v;
+        const Vec3_3011a0& p = x->pos;
         float z = p.z + p.z;
         float y = p.y + p.y;
         float x0 = p.x + p.x;

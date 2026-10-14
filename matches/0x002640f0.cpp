@@ -1,4 +1,4 @@
-class Inner {
+class Inner_2640f0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -23,30 +23,30 @@ class Inner {
     virtual bool f20();
     virtual void f21();
 };
-class Manager {
+class Manager_2640f0 {
   public:
     void update();
 };
-extern Manager* gThing;
+extern Manager_2640f0* gThing_2640f0;
 extern int getThing();
-class Target {
+class Target_2640f0 {
   public:
     char pad0[8];
-    Inner* obj;
+    Inner_2640f0* obj;
     char padc[1];
     bool flag;
     char pad_e[0x36];
     int result;
     void run();
 };
-void Target::run() {
+void Target_2640f0::run() {
     if (obj) {
         if (flag) {
             obj->f21();
             return;
         }
         while (!obj->f20()) {
-            gThing->update();
+            gThing_2640f0->update();
             result = getThing();
         }
     }

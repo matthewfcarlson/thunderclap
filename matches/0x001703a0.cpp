@@ -1,20 +1,20 @@
-extern int vtable;
-class Part {
+extern int vtable_1703a0;
+class Part_1703a0 {
   public:
     int x[2];
     void Init();
 };
-class Obj {
+class Obj_1703a0 {
   public:
     int vt;
     char pad[0x14];
-    Part p18;
-    Part p20;
+    Part_1703a0 p18;
+    Part_1703a0 p20;
     void Final();
     void Run();
 };
-void Obj::Run() {
-    vt = (int)&vtable;
+void Obj_1703a0::Run() {
+    vt = (int)&vtable_1703a0;
     p20.Init();
     p18.Init();
     Final();

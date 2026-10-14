@@ -1,17 +1,17 @@
-class Item {
+class Item_2a4890 {
   public:
     virtual void f0();
     virtual void Release();
 };
 extern void Free(void*);
-class Container {
+class Container_2a4890 {
   public:
-    Item* first;
-    Item** begin;
-    Item** end;
+    Item_2a4890* first;
+    Item_2a4890** begin;
+    Item_2a4890** end;
     void Clear();
 };
-void Container::Clear() {
+void Container_2a4890::Clear() {
     if (first) {
         first->Release();
         first = 0;
@@ -21,7 +21,7 @@ void Container::Clear() {
     if (n <= 0) {
     } else
         do {
-            Item** q = begin + i;
+            Item_2a4890** q = begin + i;
             if (*q) {
                 (*q)->Release();
                 *q = 0;

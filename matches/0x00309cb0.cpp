@@ -1,4 +1,4 @@
-extern const float zero;
+extern const float zero_309cb0;
 class PhysicsJoint1D {
   public:
     virtual void f0();
@@ -15,7 +15,7 @@ class PhysicsJoint1D {
     void vfunc_21(float* p);
 };
 void PhysicsJoint1D::vfunc_21(float* p) {
-    if ((a * p[0] + b * p[1] + c * p[2]) * e < zero) {
+    if ((a * p[0] + b * p[1] + c * p[2]) * e < zero_309cb0) {
         flag = 1;
         d = -e;
     }

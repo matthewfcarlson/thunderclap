@@ -1,4 +1,4 @@
-class Dev {
+class Dev_332620 {
   public:
     virtual void v0();
     virtual void v1();
@@ -34,7 +34,7 @@ class Shader {
     virtual void a11();
     virtual void f12();
     char pad[0x0c];
-    Dev* mDev;
+    Dev_332620* mDev;
 };
 
 void Shader::f12() {

@@ -1,15 +1,15 @@
-typedef unsigned int u32;
+typedef unsigned int u32_23b950;
 struct DataReader {
     char pad[8];
-    struct Helper* member;
+    struct Helper_23b950* member;
 };
-struct Helper {
-    u32 call(u32, u32, u32, u32);
+struct Helper_23b950 {
+    u32_23b950 call(u32_23b950, u32_23b950, u32_23b950, u32_23b950);
 };
 struct StreamDataReader : DataReader {
-    u32 vfunc_4(u32 a, u32 b);
+    u32_23b950 vfunc_4(u32_23b950 a, u32_23b950 b);
 };
-u32 StreamDataReader::vfunc_4(u32 a, u32 b) {
+u32_23b950 StreamDataReader::vfunc_4(u32_23b950 a, u32_23b950 b) {
     member->call(a, b, 1, 1);
     return b;
 }

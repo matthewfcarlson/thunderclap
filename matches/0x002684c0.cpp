@@ -1,4 +1,4 @@
-class X {
+class X_2684c0 {
   public:
     virtual void a();
     virtual void b();
@@ -15,7 +15,7 @@ class X {
     virtual void m();
     virtual void n();
 };
-X* gp;
+X_2684c0* gp;
 void FUN_002684c0() {
     if (gp)
         gp->m();

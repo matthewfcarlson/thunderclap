@@ -3,7 +3,7 @@ class Track {
   public:
     int make();
 };
-class Factory {
+class Factory_1aa780 {
   public:
     virtual void f0();
     virtual void f1();
@@ -12,7 +12,7 @@ class Factory {
     virtual void f4();
     virtual int vfunc_5();
 };
-int Factory::vfunc_5() {
+int Factory_1aa780::vfunc_5() {
     Track* p = (Track*)operator new(0x198);
     if (p)
         return p->make();

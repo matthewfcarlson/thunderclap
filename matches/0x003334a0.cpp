@@ -1,6 +1,6 @@
-typedef unsigned int U;
-extern U DAT_00555b94;
-extern U DAT_00555b98;
+typedef unsigned int U_3334a0;
+extern U_3334a0 DAT_00555b94;
+extern U_3334a0 DAT_00555b98;
 struct Context {
     virtual void slot0();
     virtual void slot1();
@@ -82,8 +82,8 @@ struct Context {
     virtual void slot77();
     virtual void slot78();
     virtual unsigned char query();
-    virtual void set(U color, U second, U third);
-    virtual void get(U* color, U* second, U* third);
+    virtual void set(U_3334a0 color, U_3334a0 second, U_3334a0 third);
+    virtual void get(U_3334a0* color, U_3334a0* second, U_3334a0* third);
 };
 namespace pure3d {
 struct d3dShader {
@@ -92,7 +92,7 @@ struct d3dShader {
     char pad14[8];
     int mode;
     char pad20[88];
-    U color;
+    U_3334a0 color;
     void vfunc_13();
 };
 void d3dShader::vfunc_13() {
@@ -101,7 +101,7 @@ void d3dShader::vfunc_13() {
             DAT_00555b98 |= 1;
             DAT_00555b94 = 0xff000000;
         }
-        U oldColor, second, third;
+        U_3334a0 oldColor, second, third;
         context->get(&oldColor, &second, &third);
         if (oldColor == DAT_00555b94)
             context->set(color, second, third);

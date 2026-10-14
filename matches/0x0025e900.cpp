@@ -4,10 +4,10 @@ struct Node {
     Node* b;
     Node* c;
 };
-struct Tree {
+struct Tree_25e900 {
     Node* root;
 };
-void insert(Tree* param_1, Node* param_2) {
+void insert(Tree_25e900* param_1, Node* param_2) {
     Node* piVar1 = param_2->b;
     param_2->b = piVar1->a;
     if (piVar1->a != (Node*)(param_1 + 1)) {

@@ -1,15 +1,15 @@
 typedef unsigned int uint;
-struct Item {
+struct Item_2ee0c0 {
     uint a, b, c, d, e;
 };
-struct Buffer {
+struct Buffer_2ee0c0 {
     char pad0[4];
-    Item* cur;
-    Item* end;
-    bool Add(Item* value);
+    Item_2ee0c0* cur;
+    Item_2ee0c0* end;
+    bool Add(Item_2ee0c0* value);
 };
-bool Buffer::Add(Item* value) {
-    Item* p = cur;
+bool Buffer_2ee0c0::Add(Item_2ee0c0* value) {
+    Item_2ee0c0* p = cur;
     if ((uint)p < (uint)end) {
         cur = p + 1;
         if (p)

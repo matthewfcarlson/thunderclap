@@ -1,6 +1,6 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vt[];
-class Ref {
+extern void* g_vt_1a8db0[];
+class Ref_1a8db0 {
   public:
     virtual void F0();
     virtual void Release();
@@ -8,32 +8,32 @@ class Ref {
 struct El {
     void Fin() throw();
     int p0;
-    Ref* r1;
-    Ref* r2;
-    Ref* r3;
-    Ref* r4;
-    Ref* r5;
+    Ref_1a8db0* r1;
+    Ref_1a8db0* r2;
+    Ref_1a8db0* r3;
+    Ref_1a8db0* r4;
+    Ref_1a8db0* r5;
 };
-class A;
-extern A* g_cur;
-class Base {
+class A_1a8db0;
+extern A_1a8db0* g_cur_1a8db0;
+class Base_1a8db0 {
   public:
     void* vptr;
-    ~Base() throw();
+    ~Base_1a8db0() throw();
 };
-class A : public Base {
+class A_1a8db0 : public Base_1a8db0 {
   public:
     char pad[0x1c - 4];
     void* m1c;
-    Ref* m20;
+    Ref_1a8db0* m20;
     char pad2[0x2c - 0x24];
     El e[20];
-    ~A() throw();
+    ~A_1a8db0() throw();
 };
-A::~A() throw() {
-    vptr = g_vt;
-    if (g_cur == this)
-        g_cur = 0;
+A_1a8db0::~A_1a8db0() throw() {
+    vptr = g_vt_1a8db0;
+    if (g_cur_1a8db0 == this)
+        g_cur_1a8db0 = 0;
     if (m20) {
         m20->Release();
         m20 = 0;

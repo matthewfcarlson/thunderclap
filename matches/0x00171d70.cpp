@@ -3,7 +3,7 @@ class Locator {
     char pad[0x10];
     int value;
 };
-class Helper {
+class Helper_171d70 {
   public:
     int invoke(int);
 };
@@ -13,7 +13,7 @@ class TeleportToLocatorAction {
     Locator* locator;
     int active;
     char pad2[4];
-    Helper helper;
+    Helper_171d70 helper;
     virtual void v0();
     virtual void v1();
     virtual void v2();

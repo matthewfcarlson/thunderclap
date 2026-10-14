@@ -1,12 +1,12 @@
 extern "C" char DAT_004e7b50[];
 extern "C" char DAT_004e7b98[];
 namespace audio {
-class Obj {
+class Obj_263420 {
   public:
     virtual void f0();
     virtual void f1();
 };
-struct Aux {
+struct Aux_263420 {
     void f();
 };
 class HalRsdFileStream {
@@ -25,7 +25,7 @@ class HalRsdFileStream {
     virtual void f11();
     virtual void vfunc_12();
     char pad[0x1c];
-    Obj* mObj;
+    Obj_263420* mObj;
     void* mValue;
 };
 } // namespace audio
@@ -35,7 +35,7 @@ void audio::HalRsdFileStream::vfunc_12() {
         mObj->f1();
     if (mValue)
         FUN_00247550((void*)((int)DAT_004e7b50), mValue);
-    ((audio::Aux*)((char*)this + 0x10))->f();
-    ((audio::Aux*)((char*)this + 4))->f();
+    ((audio::Aux_263420*)((char*)this + 0x10))->f();
+    ((audio::Aux_263420*)((char*)this + 4))->f();
     FUN_00247550((void*)((int)DAT_004e7b98), this);
 }

@@ -1,11 +1,11 @@
 extern "C" char DAT_003ff014[];
 extern "C" char FUN_001d04d0(const char*);
-extern const char s0[], s1[], s2[], s3[];
-class Base {
+extern const char s0_7d380[], s1[], s2[], s3[];
+class Base_7d380 {
   public:
     void Init(const char*, int);
 };
-class Target : public Base {
+class Target_7d380 : public Base_7d380 {
   public:
     int vptr;
     char pad4[12];
@@ -17,13 +17,13 @@ class Target : public Base {
     char b18;
     char pad19[3];
     int member1c;
-    Target(const char*, int);
+    Target_7d380(const char*, int);
 };
-Target::Target(const char* p, int x) {
+Target_7d380::Target_7d380(const char* p, int x) {
     Init(p, 4);
     vptr = ((int)DAT_003ff014);
     member1c = x;
-    b18 = FUN_001d04d0(s0);
+    b18 = FUN_001d04d0(s0_7d380);
     b10 = FUN_001d04d0(s1);
     b11 = FUN_001d04d0(s2);
     b12 = FUN_001d04d0(s3);

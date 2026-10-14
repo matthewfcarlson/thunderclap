@@ -1,9 +1,9 @@
-struct Entry {
+struct Entry_1de140 {
     unsigned int a, b, c;
     float priority;
     unsigned short d, e;
 };
-Entry* __cdecl FUN_001de140(Entry* entries, int index, int limit, Entry value) {
+Entry_1de140* __cdecl FUN_001de140(Entry_1de140* entries, int index, int limit, Entry_1de140 value) {
     int parent = (index - 1) / 2;
     while (limit < index) {
         if (!(entries[parent].priority < value.priority))

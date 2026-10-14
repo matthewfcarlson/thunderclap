@@ -1,10 +1,10 @@
 extern "C" void* __cdecl Allocate(unsigned int);
-class Buffer {
+class Buffer_27b3b0 {
   public:
     int *mStart, *mCurrent, *mEnd;
     bool Create(int count);
 };
-bool Buffer::Create(int count) {
+bool Buffer_27b3b0::Create(int count) {
     int* p;
     if (count != 0) {
         p = (int*)Allocate(count * 24);

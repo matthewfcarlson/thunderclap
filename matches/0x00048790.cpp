@@ -1,5 +1,5 @@
 // Same code shape as 0x00048520 (propagated; names are from that function)
-extern int g_vft;
+extern int g_vft_48790;
 class CButtonValueCondition {
   public:
     int vf;
@@ -18,7 +18,7 @@ CButtonValueCondition* __fastcall FUN_00048520(CButtonValueCondition* self) {
     self->x6 = 4;
     self->x3 = 0;
     self->x5 = 0;
-    self->vf = (int)&g_vft;
+    self->vf = (int)&g_vft_48790;
     self->x7 = 0;
     return self;
 }

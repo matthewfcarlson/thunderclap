@@ -1,13 +1,13 @@
 namespace pure3d {
-class Base {
+class Base_32d320 {
   public:
-    Base(void* a);
+    Base_32d320(void* a);
     virtual void f();
     char pad[0x3c];
     int m40;
     char p[0x3c];
 };
-class d3dPointSpriteShader : public Base {
+class d3dPointSpriteShader : public Base_32d320 {
   public:
     d3dPointSpriteShader(void* a);
     virtual void f();
@@ -15,7 +15,7 @@ class d3dPointSpriteShader : public Base {
     unsigned char m84;
     int m88, m8c, m90, m94, m98, m9c, ma0;
 };
-d3dPointSpriteShader::d3dPointSpriteShader(void* a) : Base(a) {
+d3dPointSpriteShader::d3dPointSpriteShader(void* a) : Base_32d320(a) {
     m80 = 0;
     m84 = 1;
     m88 = 0x3f800000;

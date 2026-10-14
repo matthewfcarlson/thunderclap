@@ -1,9 +1,9 @@
-struct State {
+struct State_35b70 {
     char pad[0x308];
     float start, duration, end;
     void FUN_00035b70(float a, float b, float c);
 };
-void State::FUN_00035b70(float a, float b, float c) {
+void State_35b70::FUN_00035b70(float a, float b, float c) {
     if (b <= 0.0f)
         return;
     if (start > 0.0f && a > start) {

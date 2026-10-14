@@ -1,5 +1,5 @@
 extern "C" char DAT_00427688[];
-class Part {
+class Part_231d40 {
   public:
     void init();
 };
@@ -21,7 +21,7 @@ class Node {
 extern void third(Node*);
 Node* Node::vfunc_2(unsigned char p) {
     *(void**)this = (void*)((int)DAT_00427688);
-    ((Part*)((char*)this + 0x28))->init();
+    ((Part_231d40*)((char*)this + 0x28))->init();
     second();
     if (p & 1)
         third(this);

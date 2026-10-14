@@ -8,7 +8,7 @@ class Condition {
     virtual void e();
     virtual void f();
 };
-class Sub {
+class Sub_1ac890 {
   public:
     void Init();
 };
@@ -16,15 +16,15 @@ class Event_TriggerVolumeNameCondition : public Condition {
   public:
     void Init(int);
     char pad[0x0c];
-    Sub sub;
+    Sub_1ac890 sub;
 };
 extern void* __cdecl Allocate(int);
-class Factory {
+class Factory_1ac890 {
   public:
     void* v[6];
     void* vfunc_5();
 };
-void* Factory::vfunc_5() {
+void* Factory_1ac890::vfunc_5() {
     Event_TriggerVolumeNameCondition* p = (Event_TriggerVolumeNameCondition*)Allocate(0x18);
     if (p) {
         p->Init(0);

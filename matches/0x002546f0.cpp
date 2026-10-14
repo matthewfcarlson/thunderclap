@@ -1,11 +1,11 @@
-typedef unsigned int u32;
-extern u32 FUN_00267f80();
+typedef unsigned int u32_2546f0;
+extern u32_2546f0 FUN_00267f80();
 class SeqActionSilence {
     char pad[0x14];
 
   public:
-    u32 m14;
-    u32 m18;
+    u32_2546f0 m14;
+    u32_2546f0 m18;
     void vfunc_1(int);
 };
 void SeqActionSilence::vfunc_1(int) {

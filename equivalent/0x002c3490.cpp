@@ -2,17 +2,17 @@
 // pure3d::PointCamera::vfunc_26 @ 0x002c3490
 extern "C" double fabs(double);
 
-struct Vec3 {
+struct Vec3_2c3490 {
     float x, y, z;
     void FUN_0022d180();
 };
 
-struct Mat4 {
+struct Mat4_2c3490 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022bab0(float angle);
-    void FUN_0022bec0(Vec3* dir, Vec3* up);
-    void FUN_0022ca90(Mat4* a, Mat4* b);
+    void FUN_0022bec0(Vec3_2c3490* dir, Vec3_2c3490* up);
+    void FUN_0022ca90(Mat4_2c3490* a, Mat4_2c3490* b);
     void FUN_0022c120();
 };
 
@@ -29,21 +29,21 @@ public:
     virtual void vfunc_24(); virtual void vfunc_25();
     virtual void vfunc_26();
     char pad04[0x4c - 4];
-    Mat4 camera;
-    Mat4 view;
+    Mat4_2c3490 camera;
+    Mat4_2c3490 view;
     char dirty;
     char padcd[3];
-    Vec3 eye;
-    Vec3 target;
-    Vec3 up;
+    Vec3_2c3490 eye;
+    Vec3_2c3490 target;
+    Vec3_2c3490 up;
     float roll;
 };
 
 void PointCamera::vfunc_26()
 {
-    Mat4 look;
+    Mat4_2c3490 look;
     look.FUN_0022b980();
-    Vec3 dir;
+    Vec3_2c3490 dir;
     dir.x = target.x - eye.x;
     dir.y = target.y - eye.y;
     dir.z = target.z - eye.z;
@@ -51,7 +51,7 @@ void PointCamera::vfunc_26()
     float d = (float)fabs(dir.z * up.z + dir.y * up.y + dir.x * up.x);
     float t = (float)fabs(d - 1.0f);
     if (t <= 1e-05f) {
-        Vec3 alt;
+        Vec3_2c3490 alt;
         if (dir.y == 0.0f && dir.z == 0.0f) {
             alt.x = 0.0f;
             alt.y = 1.0f;
@@ -65,7 +65,7 @@ void PointCamera::vfunc_26()
     } else {
         look.FUN_0022bec0(&dir, &up);
     }
-    Mat4 rot;
+    Mat4_2c3490 rot;
     rot.FUN_0022b980();
     rot.FUN_0022bab0(roll);
     view.FUN_0022ca90(&rot, &look);

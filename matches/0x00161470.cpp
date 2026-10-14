@@ -12,7 +12,7 @@ class LocomotionStrafe4Track {
     virtual int vfunc_9();
     virtual int vfunc_10(int, int, int);
 };
-class Helper {
+class Helper_161470 {
   public:
     int run(LocomotionStrafe4Track*, int);
 };
@@ -20,6 +20,6 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int);
 int LocomotionStrafe4Track::vfunc_10(int a, int b, int c) {
     void* p = FUN_0008d690(0x48);
     if (p)
-        return ((Helper*)p)->run(this, c);
+        return ((Helper_161470*)p)->run(this, c);
     return 0;
 }

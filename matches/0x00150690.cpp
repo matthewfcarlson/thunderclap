@@ -1,6 +1,6 @@
-class Sub {
+class Sub_150690 {
   public:
-    Sub();
+    Sub_150690();
 };
 class HitReactionTrack {
   public:
@@ -16,7 +16,7 @@ class HitReactionTrack {
     virtual void v9();
     virtual void v10();
     char pad[0x14];
-    Sub sub;
+    Sub_150690 sub;
     void BaseCall();
     HitReactionTrack(int);
 };

@@ -1,15 +1,15 @@
-class Obj {
+class Obj_232a50 {
   public:
     virtual void f0();
     virtual void f1();
 };
 void __cdecl thunk(void*);
-class Target {
+class Target_232a50 {
   public:
-    Obj* m;
-    Target* f(unsigned char flags);
+    Obj_232a50* m;
+    Target_232a50* f(unsigned char flags);
 };
-Target* Target::f(unsigned char flags) {
+Target_232a50* Target_232a50::f(unsigned char flags) {
     if (m) {
         m->f1();
         m = 0;

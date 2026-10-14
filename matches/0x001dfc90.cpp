@@ -3,7 +3,7 @@ class Function {
     virtual void f0();
     virtual void f1();
 };
-struct Pair {
+struct Pair_1dfc90 {
     int a;
     int b;
 };
@@ -15,11 +15,11 @@ class Method2 : public Function {
   public:
     virtual void f0();
     virtual void f1();
-    virtual void f2(int, Pair*, int*);
+    virtual void f2(int, Pair_1dfc90*, int*);
     char pad[0x18];
     int (CSPManager::*mFn)(int, int);
 };
-void Method2::f2(int x, Pair* p, int* out) {
+void Method2::f2(int x, Pair_1dfc90* p, int* out) {
     int (CSPManager::*fn)(int, int) = mFn;
     CSPManager* m = (CSPManager*)x;
     int a = p->a;

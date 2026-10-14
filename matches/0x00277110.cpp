@@ -4,33 +4,33 @@ struct IMutable {
 };
 struct InstanceDrive;
 } // namespace core
-struct Source {
+struct Source_277110 {
     virtual void first();
     void FUN_00272b60(void*, void*, int);
 };
 struct Context {
     void FUN_002705f0();
 };
-struct Helper {
+struct Helper_277110 {
     void* FUN_002756c0(core::InstanceDrive*);
 };
 void* __cdecl FUN_00273560(unsigned int);
 namespace core {
-struct Primary {
+struct Primary_277110 {
     virtual void p();
 };
-struct InstanceDrive : Primary, IMutable {
+struct InstanceDrive : Primary_277110, IMutable {
     int refs;
-    Source* source;
+    Source_277110* source;
     Context* context;
     int state;
     char pad[8];
     char flag;
     virtual void p();
     virtual void m();
-    InstanceDrive(Source*, Context*);
+    InstanceDrive(Source_277110*, Context*);
 };
-InstanceDrive::InstanceDrive(Source* s, Context* c) {
+InstanceDrive::InstanceDrive(Source_277110* s, Context* c) {
     refs = 1;
     source = s;
     context = c;
@@ -38,7 +38,7 @@ InstanceDrive::InstanceDrive(Source* s, Context* c) {
     flag = 0;
     c->FUN_002705f0();
     source->first();
-    Helper* h = (Helper*)FUN_00273560(12);
+    Helper_277110* h = (Helper_277110*)FUN_00273560(12);
     void* result = h ? h->FUN_002756c0(this) : 0;
     source->FUN_00272b60(result, context, 0);
 }

@@ -1,10 +1,10 @@
-typedef unsigned int u32;
-struct Obj {
-    u32 pad;
-    u32 target(u32);
+typedef unsigned int u32_1c9a20;
+struct Obj_1c9a20 {
+    u32_1c9a20 pad;
+    u32_1c9a20 target(u32_1c9a20);
 };
-void __stdcall FUN_001c9750(int, int, u32);
-u32 Obj::target(u32 param) {
+void __stdcall FUN_001c9750(int, int, u32_1c9a20);
+u32_1c9a20 Obj_1c9a20::target(u32_1c9a20 param) {
     FUN_001c9750(2, 0xb0, param);
-    return (u32)this;
+    return (u32_1c9a20)this;
 }

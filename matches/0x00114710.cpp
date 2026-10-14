@@ -1,8 +1,8 @@
 extern "C" char DAT_0040db44[];
 typedef unsigned char u8;
-typedef unsigned int u32;
+typedef unsigned int u32_114710;
 void* __cdecl Allocate(unsigned int);
-struct InitObj {
+struct InitObj_114710 {
     void Init(int);
 };
 class ConditionFactoryTemplate {
@@ -17,10 +17,10 @@ class ConditionFactoryTemplate {
 void* ConditionFactoryTemplate::vfunc_5() {
     void* p = Allocate(0x10);
     if (p) {
-        ((InitObj*)p)->Init(0);
+        ((InitObj_114710*)p)->Init(0);
         ((u8*)p)[0xc] = 1;
         ((u8*)p)[0xd] = 1;
-        *(u32*)p = ((int)DAT_0040db44);
+        *(u32_114710*)p = ((int)DAT_0040db44);
         return p;
     }
     return (void*)0;

@@ -30,11 +30,11 @@ class Camera {
     char pad[0xcc - 4];
     unsigned char flag;
 };
-struct Helper {
+struct Helper_292c90 {
     void run(int, int);
 };
 void Camera::f23(int a, int b) {
     if (!flag)
         f26();
-    ((Helper*)((char*)this + 0x8c))->run(a, b);
+    ((Helper_292c90*)((char*)this + 0x8c))->run(a, b);
 }

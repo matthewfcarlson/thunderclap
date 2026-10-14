@@ -1,23 +1,23 @@
-class RefCounted {
+class RefCounted_1510f0 {
   public:
     virtual void AddRef() throw() = 0;
     virtual void Release() throw() = 0;
 };
-class Base {
+class Base_1510f0 {
   public:
-    Base() throw();
+    Base_1510f0() throw();
     virtual void BaseVirtual() throw();
     char pad[0x18];
 };
-class HitWaitAction : public Base {
+class HitWaitAction : public Base_1510f0 {
   public:
-    HitWaitAction(void* a, RefCounted* b) throw();
+    HitWaitAction(void* a, RefCounted_1510f0* b) throw();
     virtual void V1() throw();
     void* mA;
-    RefCounted* mB;
+    RefCounted_1510f0* mB;
     int mC;
 };
-HitWaitAction::HitWaitAction(void* a, RefCounted* b) throw() {
+HitWaitAction::HitWaitAction(void* a, RefCounted_1510f0* b) throw() {
     void** q = &mA;
     *q = 0;
     mB = 0;

@@ -3,7 +3,7 @@ struct RTTI {
 };
 extern RTTI DAT_004d3c0c, DAT_004d3bec;
 extern void* __cdecl FUN_00344e74(void*, int, RTTI*, RTTI*, int);
-struct Special {
+struct Special_3218c0 {
     void FUN_003285d0(int);
 };
 struct Shader {
@@ -35,7 +35,7 @@ struct Shader {
     void FUN_00327d00();
     void FUN_00327d20(int);
 };
-struct Output {
+struct Output_3218c0 {
     void FUN_003272f0();
 };
 namespace pure3d {
@@ -72,7 +72,7 @@ struct d3dContext {
     virtual void v29();
     virtual void v30();
     virtual void v31();
-    virtual void vfunc_32(Shader*, Output*);
+    virtual void vfunc_32(Shader*, Output_3218c0*);
     virtual void v33();
     virtual void v34();
     virtual void v35();
@@ -95,8 +95,8 @@ struct d3dContext {
     void FUN_00321310();
 };
 } // namespace pure3d
-void pure3d::d3dContext::vfunc_32(Shader* shader, Output* output) {
-    Special* special = (Special*)FUN_00344e74(shader, 0, &DAT_004d3bec, &DAT_004d3c0c, 0);
+void pure3d::d3dContext::vfunc_32(Shader* shader, Output_3218c0* output) {
+    Special_3218c0* special = (Special_3218c0*)FUN_00344e74(shader, 0, &DAT_004d3bec, &DAT_004d3c0c, 0);
     if (special) {
         special->FUN_003285d0(0);
         return;

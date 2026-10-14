@@ -1,4 +1,4 @@
-class A {
+class A_15c590 {
     char pad[0x28];
 
   public:
@@ -6,7 +6,7 @@ class A {
     float y;
     float F(float v);
 };
-float A::F(float v) {
+float A_15c590::F(float v) {
     if (v <= 0.0f)
         return 0.0f;
     if (v <= 0.5f)

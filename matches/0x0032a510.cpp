@@ -1,4 +1,4 @@
-class Obj {
+class Obj_32a510 {
     char pad[0x8c];
 
   public:
@@ -6,6 +6,6 @@ class Obj {
     void Set(void* p);
 };
 
-void Obj::Set(void* p) {
+void Obj_32a510::Set(void* p) {
     m8c = (p != 0);
 }

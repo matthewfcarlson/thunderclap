@@ -1,4 +1,4 @@
-class Item {
+class Item_2a4060 {
   public:
     virtual void v0();
     virtual void v1();
@@ -8,7 +8,7 @@ class Item {
     virtual void v5();
     virtual void Do(int, int);
 };
-class Owner {
+class Owner_2a4060 {
   public:
     virtual void v0();
     virtual void v1();
@@ -18,17 +18,17 @@ class Owner {
     virtual void v5();
     virtual void Finish();
 };
-class Container {
+class Container_2a4060 {
   public:
-    Owner* owner;
-    Item** begin;
-    Item** end;
+    Owner_2a4060* owner;
+    Item_2a4060** begin;
+    Item_2a4060** end;
     void Clear();
 };
-void Container::Clear() {
+void Container_2a4060::Clear() {
     int n = ((int)((char*)end - (char*)begin)) >> 2;
     for (unsigned int i = 0; i < (unsigned int)n; ++i) {
-        Item* p = begin[i];
+        Item_2a4060* p = begin[i];
         if (p)
             p->Do(0, 1);
     }

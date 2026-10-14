@@ -1,4 +1,4 @@
-class Obj {
+class Obj_1db9e0 {
   public:
     char pad[0x10];
     int value;
@@ -6,6 +6,6 @@ class Obj {
 };
 
 void Target() {
-    Obj o;
+    Obj_1db9e0 o;
     o.Get();
 }

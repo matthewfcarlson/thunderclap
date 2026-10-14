@@ -1,6 +1,6 @@
 extern "C" char DAT_00416678[];
 extern void* __cdecl FUN_0008d690(unsigned int);
-class Temp {
+class Temp_16d3a0 {
   public:
     virtual void V();
     char pad[8];
@@ -8,7 +8,7 @@ class Temp {
     int y;
     void Init(int);
 };
-class Factory {
+class Factory_16d3a0 {
   public:
     virtual void A();
     virtual void B();
@@ -17,8 +17,8 @@ class Factory {
     virtual void E();
     virtual void* vfunc_5();
 };
-void* Factory::vfunc_5() {
-    Temp* p = (Temp*)FUN_0008d690(0x14);
+void* Factory_16d3a0::vfunc_5() {
+    Temp_16d3a0* p = (Temp_16d3a0*)FUN_0008d690(0x14);
     if (p) {
         p->Init(0);
         *(unsigned int*)p = ((int)DAT_00416678);

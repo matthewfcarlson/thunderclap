@@ -1,4 +1,4 @@
-struct Tgt {
+struct Tgt_14e630 {
     char pad[0x4c];
     struct Q {
         char p[0xc];
@@ -10,12 +10,12 @@ class Params {
     virtual void a0();
     virtual void a1();
     virtual void a2();
-    virtual Tgt* Get();
+    virtual Tgt_14e630* Get();
 };
-extern char typeA;
-extern char typeB;
+extern char typeA_14e630;
+extern char typeB_14e630;
 extern "C" int __cdecl FUN_00344e74(void*, int, void*, void*, int);
-class Cond {
+class Cond_14e630 {
   public:
     virtual void v0();
     virtual void v1();
@@ -28,10 +28,10 @@ class Cond {
     int source;
     int mode;
 };
-bool Cond::vfunc_6(int, Params* p, int) {
-    if (!FUN_00344e74(p, 0, &typeA, &typeB, 0))
+bool Cond_14e630::vfunc_6(int, Params* p, int) {
+    if (!FUN_00344e74(p, 0, &typeA_14e630, &typeB_14e630, 0))
         return false;
-    Tgt* t = p->Get();
+    Tgt_14e630* t = p->Get();
     if (!t)
         return false;
     if (!t->q)

@@ -1,17 +1,17 @@
 void* operator new(unsigned n) throw();
-class A {
+class A_2c25b0 {
   public:
-    A() throw();
+    A_2c25b0() throw();
     char p[0xa4];
 };
-class B {
+class B_2c25b0 {
   public:
-    B() throw();
+    B_2c25b0() throw();
     char p[4];
 };
-class Base {
+class Base_2c25b0 {
   public:
-    Base() {
+    Base_2c25b0() {
         m4 = 0;
         m8 = 0x19000;
         mc = 0;
@@ -20,14 +20,14 @@ class Base {
     virtual void f0();
     int m4, m8, mc, m10;
 };
-class TextureLoader : public Base {
+class TextureLoader : public Base_2c25b0 {
   public:
     TextureLoader();
     virtual void f0();
-    A* m14;
-    B* m18;
+    A_2c25b0* m14;
+    B_2c25b0* m18;
 };
 TextureLoader::TextureLoader() {
-    m14 = new A;
-    m18 = new B;
+    m14 = new A_2c25b0;
+    m18 = new B_2c25b0;
 }

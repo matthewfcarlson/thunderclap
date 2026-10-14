@@ -1,27 +1,27 @@
-extern const float gZero;
-struct Entry {
+extern const float gZero_222da0;
+struct Entry_222da0 {
     int key;
     char pad[0x20];
     float value;
 };
-class Obj {
+class Obj_222da0 {
   public:
     char pad[0x68];
     unsigned count;
-    Entry entries[1];
+    Entry_222da0 entries[1];
     float target(int key);
 };
-float Obj::target(int key) {
+float Obj_222da0::target(int key) {
     unsigned n = count;
     unsigned i = 0;
     if (n > 0) {
-        Entry* p = (Entry*)((char*)this + 0x6c);
+        Entry_222da0* p = (Entry_222da0*)((char*)this + 0x6c);
         do {
             if (p->key == key)
                 return p->value;
             ++i;
-            p = (Entry*)((char*)p + 0x28);
+            p = (Entry_222da0*)((char*)p + 0x28);
         } while (i < n);
     }
-    return gZero;
+    return gZero_222da0;
 }

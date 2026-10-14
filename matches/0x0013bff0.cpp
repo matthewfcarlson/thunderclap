@@ -5,7 +5,7 @@ void __cdecl opdel(void*);
 void _ReadWriteBarrier();
 }
 
-class RefObj {
+class RefObj_13bff0 {
   public:
     virtual void vfunc_0();
     virtual void Release();
@@ -27,14 +27,14 @@ class AnimationAction {
 
     char pad[0x18];
     int m1c;
-    RefObj* m20;
-    RefObj* m24;
+    RefObj_13bff0* m20;
+    RefObj_13bff0* m24;
 };
 
 AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
     *(int*)this = (int)&g_anim_vtable;
     _ReadWriteBarrier();
-    RefObj* a = m20;
+    RefObj_13bff0* a = m20;
     if (a) {
         a->Release();
         m20 = 0;
@@ -43,7 +43,7 @@ AnimationAction* AnimationAction::vfunc_2(unsigned char param) {
     if (v) {
         m1c = 0;
     }
-    RefObj* b = m24;
+    RefObj_13bff0* b = m24;
     if (b) {
         b->Release();
         m24 = 0;

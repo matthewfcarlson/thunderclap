@@ -1,4 +1,4 @@
-struct Vec4 {
+struct Vec4_32e400 {
     float x, y, z, w;
 };
 struct Matrix {
@@ -12,8 +12,8 @@ void __stdcall D3DDevice_GetTransform(int type, Matrix* out);
 void __fastcall D3DDevice_SetVertexShaderConstant1(int reg, const void* data);
 void __fastcall D3DDevice_SetVertexShaderConstant4(int reg, const void* data);
 } // namespace D3D8
-struct Frame {
-    Vec4 consts;
+struct Frame_32e400 {
+    Vec4_32e400 consts;
     Matrix worldViewT;
     Matrix viewT;
     Matrix view;
@@ -54,7 +54,7 @@ class d3dLayeredShader {
     void FUN_0032e0e0();
 };
 void d3dLayeredShader::vfunc_24() {
-    Frame F;
+    Frame_32e400 F;
     F.consts.x = 0.0f;
     F.consts.y = 0.5f;
     F.consts.z = 1.0f;

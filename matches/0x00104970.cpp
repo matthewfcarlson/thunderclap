@@ -1,4 +1,4 @@
-class Thing {
+class Thing_104970 {
   public:
     virtual void f0();
     virtual void f1();
@@ -14,7 +14,7 @@ class Thing {
     int value;
     void Set(int);
 };
-void Thing::Set(int x) {
+void Thing_104970::Set(int x) {
     if (value != x) {
         f9();
         value = x;

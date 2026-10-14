@@ -7,7 +7,7 @@ class CUnlockable {
     void Destroy();
 };
 extern void __cdecl thunk_FUN_00267090(void*);
-struct Tail {
+struct Tail_91e30 {
     void f();
 };
 void CUnlockable::Destroy() {
@@ -16,5 +16,5 @@ void CUnlockable::Destroy() {
         thunk_FUN_00267090(m18);
         m18 = 0;
     }
-    ((Tail*)((char*)this + 0x10))->f();
+    ((Tail_91e30*)((char*)this + 0x10))->f();
 }

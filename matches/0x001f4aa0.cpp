@@ -2,7 +2,7 @@ extern "C" char DAT_00424b2c[];
 extern "C" char DAT_0048e100[];
 extern "C" char DAT_0048e134[];
 extern "C" char DAT_0049cad8[];
-class Obj {
+class Obj_1f4aa0 {
   public:
     int vptr;
     char pad4[0xc];
@@ -14,11 +14,11 @@ class Obj {
     char b18;
     char pad19[3];
     int m1c;
-    Obj(char*, char*);
+    Obj_1f4aa0(char*, char*);
 };
 extern "C" void __stdcall Init(void*, int);
 extern "C" char __cdecl Get(void*);
-Obj::Obj(char* a, char* b) {
+Obj_1f4aa0::Obj_1f4aa0(char* a, char* b) {
     Init(a, 4);
     vptr = ((int)DAT_00424b2c);
     m1c = (int)b;

@@ -1,5 +1,5 @@
 extern float gDelta;
-class Thing {
+class Thing_dde30 {
   public:
     virtual void f0();
     virtual void f1();
@@ -13,7 +13,7 @@ class Thing {
     virtual void Second();
     void Set(float x);
 };
-void Thing::Set(float x) {
+void Thing_dde30::Set(float x) {
     gDelta = x;
     First();
     Second();

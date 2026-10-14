@@ -4,12 +4,12 @@ struct Node {
     void F530(int, int, float);
     void F650(int, int, float);
 };
-struct Holder {
+struct Holder_afea0 {
     char pad[8];
     Node* nodes[1];
     void Set(int idx, float a, float b, float c);
 };
-void Holder::Set(int idx, float a, float b, float c) {
+void Holder_afea0::Set(int idx, float a, float b, float c) {
     if (idx < 0 || idx >= 1)
         return;
     Node* n = nodes[idx];

@@ -28,7 +28,7 @@ class VScroll : public FELayout {
     char pad[0x254 - 0x14];
     int field;
 };
-struct Obj {
+struct Obj_e2500 {
     virtual void a0();
     virtual void a1();
     virtual void a2();
@@ -66,6 +66,6 @@ struct Obj {
     virtual int get();
 };
 int VScroll::f13(int p) {
-    Obj* h = *(Obj**)((char*)this + 8);
+    Obj_e2500* h = *(Obj_e2500**)((char*)this + 8);
     return h->get() == (int)this && field == p;
 }

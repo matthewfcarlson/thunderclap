@@ -1,12 +1,12 @@
-class Base {
+class Base_62a80 {
   public:
-    Base();
-    virtual ~Base();
+    Base_62a80();
+    virtual ~Base_62a80();
     char m_a[4];
     char m_b[4];
 };
 
-class CSmartPropDropTrack : public Base {
+class CSmartPropDropTrack : public Base_62a80 {
   public:
     CSmartPropDropTrack();
     virtual ~CSmartPropDropTrack();

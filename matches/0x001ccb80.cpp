@@ -1,9 +1,9 @@
-class C {
+class C_1ccb80 {
   public:
     char pad[0x1190];
     void Init();
 };
-void C::Init() {
+void C_1ccb80::Init() {
     char* p = (char*)this + 0x214;
     int i = 0x10;
     do {

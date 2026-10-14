@@ -1,5 +1,5 @@
 namespace pure3d {
-struct Obj {
+struct Obj_2d4d40 {
     virtual void f0();
     virtual void f1();
 };
@@ -39,13 +39,13 @@ class ParticleEmitter {
     virtual void f31();
     virtual void f32();
     char pad[0x7c];
-    Obj* member;
+    Obj_2d4d40* member;
 };
 void ParticleEmitter::vfunc_23(void* p) {
     if (p)
-        ((Obj*)p)->f0();
+        ((Obj_2d4d40*)p)->f0();
     if (member)
         member->f1();
-    member = (Obj*)p;
+    member = (Obj_2d4d40*)p;
 }
 } // namespace pure3d

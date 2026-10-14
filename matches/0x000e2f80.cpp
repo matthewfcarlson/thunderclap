@@ -1,4 +1,4 @@
-class W {
+class W_e2f80 {
   public:
     char p[8];
     int* Get(int);
@@ -6,27 +6,27 @@ class W {
 class Z {
   public:
     char p[8];
-    W* w;
+    W_e2f80* w;
 };
-class Y {
+class Y_e2f80 {
   public:
     char p[4];
     Z* z;
 };
-class X {
+class X_e2f80 {
   public:
     char p[8];
-    Y* y;
+    Y_e2f80* y;
 };
-class Obj {
+class Obj_e2f80 {
   public:
     char p[0x14];
-    X* x;
+    X_e2f80* x;
     char q[0x1d94 - 0x18];
     int* arr;
     void f(int);
 };
-void Obj::f(int arg) {
+void Obj_e2f80::f(int arg) {
     int* p = x->y->z->w->Get(arg);
     arr = p;
     if (p) {

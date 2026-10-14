@@ -1,20 +1,20 @@
-class A {
+class A_268010 {
   public:
     virtual void f();
-    virtual ~A();
+    virtual ~A_268010();
 };
-class B {
+class B_268010 {
   public:
     virtual void f();
-    virtual ~B();
+    virtual ~B_268010();
 };
-class C : public A, public B {
+class C_268010 : public A_268010, public B_268010 {
   public:
     virtual void f();
-    virtual ~C();
+    virtual ~C_268010();
     int mX;
 };
-void C::f() {
+void C_268010::f() {
     mX = 0;
 }
-C::~C() {}
+C_268010::~C_268010() {}

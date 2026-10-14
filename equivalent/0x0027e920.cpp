@@ -7,7 +7,7 @@ struct Mat16 {
     float m[16];
 };
 
-struct Seg {
+struct Seg_27e920 {
     char type;
     char pad1[3];
     int f4;
@@ -24,7 +24,7 @@ struct SubInfo {
 };
 struct State_27e920 {
     char pad0[0x10];
-    Seg *seg;
+    Seg_27e920 *seg;
     char pad14[0x2c - 0x14];
     int subCount;
     SubInfo *subs;
@@ -235,7 +235,7 @@ void StateProp::v6(float dt, Arg2_27e920 a2)
         return;
     }
     fr.s = states->states[state];
-    Seg *seg = fr.s->seg;
+    Seg_27e920 *seg = fr.s->seg;
     while (seg->type == 1 && seg->f8 >= fr.oldT && seg->f8 < t) {
         if (b8c == 1)
             FUN_0027cc60(fr.s, fr.oldT, seg->f8);

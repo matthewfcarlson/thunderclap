@@ -1,13 +1,13 @@
 extern "C" char DAT_00428afc[];
-class Sub {
+class Sub_23d360 {
   public:
     void Setup(void*);
 };
-class Obj {
+class Obj_23d360 {
   public:
     void Init();
     char pad[8];
-    Sub sub;
+    Sub_23d360 sub;
 };
 extern void* __cdecl alloc(unsigned int);
 class FactoryBase {
@@ -15,16 +15,16 @@ class FactoryBase {
     virtual void V0();
     virtual void* V1(void*);
 };
-class Caster : public FactoryBase {
+class Caster_23d360 : public FactoryBase {
   public:
     char pad[4];
 };
-class ConditionFactoryCasterTemplate : public Caster {
+class ConditionFactoryCasterTemplate : public Caster_23d360 {
   public:
     void* V1(void*);
 };
 void* ConditionFactoryCasterTemplate::V1(void* a) {
-    Obj* p = (Obj*)alloc(16);
+    Obj_23d360* p = (Obj_23d360*)alloc(16);
     if (p) {
         p->Init();
         *((void**)p) = (void*)((int)DAT_00428afc);

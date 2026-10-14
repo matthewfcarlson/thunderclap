@@ -3,9 +3,9 @@ void* operator new(unsigned int, void* p) {
     return p;
 }
 
-class Base {
+class Base_132d80 {
   public:
-    Base();
+    Base_132d80();
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -13,7 +13,7 @@ class Base {
     virtual void f4();
 };
 
-class DebugPrintTrack : public Base {
+class DebugPrintTrack : public Base_132d80 {
   public:
     DebugPrintTrack();
     virtual void f5();
@@ -42,12 +42,12 @@ class TrackFactory {
     virtual void f4();
     virtual void* f5();
 };
-class Factory : public TrackFactory {
+class Factory_132d80 : public TrackFactory {
   public:
     void* f5();
 };
 
-void* Factory::f5() {
+void* Factory_132d80::f5() {
     DebugPrintTrack* p = (DebugPrintTrack*)Allocate(0x1c);
     if (p) {
         new (p) DebugPrintTrack();

@@ -1,4 +1,4 @@
-class Thing {
+class Thing_309b80 {
   public:
     virtual void a();
     virtual void b();
@@ -14,7 +14,7 @@ class Thing {
 };
 extern float gHalf;
 extern void Helper(int*, int, float);
-void Thing::Apply(int x) {
+void Thing_309b80::Apply(int x) {
     int local[3];
     if (!Check()) {
         Get(&local[0]);

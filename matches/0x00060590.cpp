@@ -1,4 +1,4 @@
-extern const float gZero;
+extern const float gZero_60590;
 class CMotionTrailTrack {
   public:
     virtual void v0();
@@ -24,5 +24,5 @@ class CMotionTrailTrack {
 float CMotionTrailTrack::vfunc_7() {
     if (flag)
         return b - a;
-    return gZero;
+    return gZero_60590;
 }

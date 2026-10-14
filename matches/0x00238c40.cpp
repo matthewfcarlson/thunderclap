@@ -1,6 +1,6 @@
-typedef unsigned int u32;
-extern void PrintSomething(u32, u32, const char*, u32);
-char fmt[] = "%s\n";
+typedef unsigned int u32_238c40;
+extern void PrintSomething(u32_238c40, u32_238c40, const char*, u32_238c40);
+char fmt_238c40[] = "%s\n";
 class PrintCondition {
   public:
     virtual void v0();
@@ -9,13 +9,13 @@ class PrintCondition {
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual bool vfunc_6(u32, u32, u32);
+    virtual bool vfunc_6(u32_238c40, u32_238c40, u32_238c40);
     char pad[8];
-    u32 a;
-    u32 b;
+    u32_238c40 a;
+    u32_238c40 b;
 };
-bool PrintCondition::vfunc_6(u32 x, u32 y, u32 z) {
+bool PrintCondition::vfunc_6(u32_238c40 x, u32_238c40 y, u32_238c40 z) {
     if (b)
-        PrintSomething(y, a, fmt, b);
+        PrintSomething(y, a, fmt_238c40, b);
     return true;
 }

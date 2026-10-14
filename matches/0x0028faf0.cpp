@@ -1,4 +1,4 @@
-class GlobalThing {
+class GlobalThing_28faf0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -7,8 +7,8 @@ class GlobalThing {
     virtual void f4();
     virtual void f5();
 };
-extern GlobalThing* gThing;
-class Other {
+extern GlobalThing_28faf0* gThing_28faf0;
+class Other_28faf0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -26,16 +26,16 @@ class Other {
     virtual void f13();
     virtual void f14();
 };
-class Target {
+class Target_28faf0 {
   public:
     char pad[0xe8];
-    Other* other;
+    Other_28faf0* other;
     char pad2[8];
     unsigned char flag;
     void run(bool);
 };
-void Target::run(bool b) {
-    gThing->f5();
+void Target_28faf0::run(bool b) {
+    gThing_28faf0->f5();
     flag = 0;
     if (b)
         other->f14();

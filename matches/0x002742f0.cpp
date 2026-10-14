@@ -1,16 +1,16 @@
-struct P;
-struct Sub {
+struct P_2742f0;
+struct Sub_2742f0 {
     virtual void a();
     virtual void b();
 };
-struct Inner {
-    void run(P* p, int v);
+struct Inner_2742f0 {
+    void run(P_2742f0* p, int v);
 };
-struct P {
+struct P_2742f0 {
     int x;
-    Sub s;
+    Sub_2742f0 s;
     int a;
-    Inner* i;
+    Inner_2742f0* i;
     int c;
     int d;
 };
@@ -24,7 +24,7 @@ class FileCancelRequest {
     virtual void v5();
     virtual void v6();
     char pad[4];
-    P* req;
+    P_2742f0* req;
 };
 int FileCancelRequest::v1() {
     req->i->run(req, req->c);

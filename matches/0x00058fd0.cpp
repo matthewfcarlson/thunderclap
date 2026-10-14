@@ -1,21 +1,21 @@
-struct Base {
+struct Base_58fd0 {
     virtual void f0();
-    Base() throw();
+    Base_58fd0() throw();
     char pad[0x14];
 };
-struct CNameFlagCondition : Base {
+struct CNameFlagCondition : Base_58fd0 {
     CNameFlagCondition() throw() {}
     virtual void f0();
 };
 void* operator new(unsigned int);
-struct F {
+struct F_58fd0 {
     virtual void a();
     virtual void b();
     virtual void c();
     virtual void d();
     virtual void e();
-    virtual Base* vfunc_5();
+    virtual Base_58fd0* vfunc_5();
 };
-Base* F::vfunc_5() {
+Base_58fd0* F_58fd0::vfunc_5() {
     return new CNameFlagCondition;
 }

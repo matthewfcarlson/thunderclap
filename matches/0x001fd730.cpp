@@ -1,23 +1,23 @@
-class Item {
+class Item_1fd730 {
   public:
     virtual void A();
     virtual void Release();
 };
-class Part {
+class Part_1fd730 {
   public:
     void Run();
 };
-class Obj {
+class Obj_1fd730 {
   public:
     char p0[8];
     int f8;
-    Item* items[128];
+    Item_1fd730* items[128];
     int f20c;
     char p210[0x24];
-    Part* parts;
+    Part_1fd730* parts;
     void Clear();
 };
-void Obj::Clear() {
+void Obj_1fd730::Clear() {
     int i;
     for (i = 0; i < 128; i++) {
         if (items[i]) {
@@ -28,5 +28,5 @@ void Obj::Clear() {
     f8 = 0;
     f20c = 0;
     for (i = 0; i < 0x6380; i += 0xc70)
-        ((Part*)((char*)parts + i))->Run();
+        ((Part_1fd730*)((char*)parts + i))->Run();
 }

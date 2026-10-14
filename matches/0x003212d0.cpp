@@ -1,5 +1,5 @@
 namespace pure3d {
-struct Block {
+struct Block_3212d0 {
     unsigned int v[16];
 };
 class d3dContext {
@@ -24,7 +24,7 @@ class d3dContext {
     virtual void f17();
     virtual void f18();
     virtual void f19();
-    virtual Block* f20();
+    virtual Block_3212d0* f20();
     char pad[0x414 - 4];
     void vfunc_110(int n, char b);
 };
@@ -33,8 +33,8 @@ void d3dContext::vfunc_110(int n, char b) {
     p[0x414] = 1;
     p[n + 0x40c] = 1;
     if (b) {
-        Block* s = f20();
-        Block* d = (Block*)(p + n * 0x40 + 0x20c);
+        Block_3212d0* s = f20();
+        Block_3212d0* d = (Block_3212d0*)(p + n * 0x40 + 0x20c);
         *d = *s;
     }
 }

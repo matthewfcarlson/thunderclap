@@ -1,38 +1,38 @@
-class Item {
+class Item_2b0100 {
   public:
     virtual void A() throw();
     virtual void B() throw();
 };
 extern "C" void __cdecl FreeMem(void*) throw();
-template <class T> struct Vec {
+template <class T> struct Vec_2b0100 {
     T* begin;
     T* end;
     T* cap;
     unsigned size() const { return end - begin; }
     T& operator[](unsigned i) { return begin[i]; }
-    ~Vec() throw() {
+    ~Vec_2b0100() throw() {
         if (begin)
             FreeMem(begin);
     }
 };
-template <int N> struct Buf {
+template <int N> struct Buf_2b0100 {
     void* p;
     char pad[N - 4];
-    ~Buf() throw() {
+    ~Buf_2b0100() throw() {
         if (p)
             FreeMem(p);
     }
 };
-class Base {
+class Base_2b0100 {
   public:
-    virtual ~Base() throw();
+    virtual ~Base_2b0100() throw();
     int pad[3];
 };
-class ExpressionGroup : public Base {
+class ExpressionGroup : public Base_2b0100 {
   public:
-    Vec<Item*> items;
+    Vec_2b0100<Item_2b0100*> items;
     char pad2[0xc];
-    Buf<4> extra;
+    Buf_2b0100<4> extra;
     virtual ~ExpressionGroup() throw();
 };
 ExpressionGroup::~ExpressionGroup() throw() {

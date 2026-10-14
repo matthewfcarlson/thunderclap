@@ -1,14 +1,14 @@
 extern "C" char DAT_0042ba20[];
-class Thing {
+class Thing_274fc0 {
   public:
     char pad[12];
     int y;
     int z;
     void Init(int);
-    Thing(int, int, int);
+    Thing_274fc0(int, int, int);
 };
 extern void Finish();
-Thing::Thing(int x, int yy, int zz) {
+Thing_274fc0::Thing_274fc0(int x, int yy, int zz) {
     Init(x);
     *(int*)this = ((int)DAT_0042ba20);
     y = yy;

@@ -1,10 +1,10 @@
-class Ref {
+class Ref_28b5c0 {
   public:
     virtual void f0();
     virtual void Release();
 };
 extern void __cdecl thunk(void*);
-class pure3d_Vector1DOFChannel {
+class pure3d_Vector1DOFChannel_28b5c0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -20,7 +20,7 @@ class pure3d_Vector1DOFChannel {
     void* m28;
     void vfunc_1();
 };
-void pure3d_Vector1DOFChannel::vfunc_1() {
+void pure3d_Vector1DOFChannel_28b5c0::vfunc_1() {
     if (m12 == 0)
         thunk(m28);
     m28 = 0;
@@ -29,7 +29,7 @@ void pure3d_Vector1DOFChannel::vfunc_1() {
         m14 = 0;
         return;
     }
-    Ref* p = (Ref*)m12;
+    Ref_28b5c0* p = (Ref_28b5c0*)m12;
     if (p != 0) {
         p->Release();
         m12 = 0;

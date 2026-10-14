@@ -1,9 +1,9 @@
-class A {
+class A_1eef90 {
   public:
     void f(void*, int);
 };
-A* __cdecl make();
+A_1eef90* __cdecl make();
 void __stdcall target(void* p) {
-    A* a = make();
+    A_1eef90* a = make();
     a->f(p, 0);
 }

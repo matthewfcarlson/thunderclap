@@ -1,4 +1,4 @@
-struct Provider {
+struct Provider_be230 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -45,16 +45,16 @@ struct Provider {
     virtual void slot43();
     virtual int slot44(int);
 };
-struct Binding {
+struct Binding_be230 {
     void FUN_000f8500(void*, int);
 };
 struct Channel {
     char pad[0x18];
-    Binding binding;
+    Binding_be230 binding;
 };
-struct Item {
+struct Item_be230 {
     char pad0[4];
-    Provider* provider;
+    Provider_be230* provider;
     char pad8[0x990];
     Channel* first;
     Channel* second;
@@ -63,30 +63,30 @@ struct Item {
     void FUN_000e5f70();
     void FUN_000e5f00(int);
 };
-struct Manager {
+struct Manager_be230 {
     char pad[0x2218];
-    Item* active;
-    Item* FUN_000e7620(int);
+    Item_be230* active;
+    Item_be230* FUN_000e7620(int);
     bool FUN_000be230(int, void*, void*, void*, void*, int, int, int);
 };
-bool Manager::FUN_000be230(int id, void* setup, void* a, void* b, void* c, int mode, int x, int y) {
+bool Manager_be230::FUN_000be230(int id, void* setup, void* a, void* b, void* c, int mode, int x, int y) {
     if (active)
         return false;
-    Item* item = FUN_000e7620(id);
+    Item_be230* item = FUN_000e7620(id);
     if (setup)
         item->FUN_000bb820(setup, x, y);
     if (a) {
-        Binding* dest = &item->first->binding;
+        Binding_be230* dest = &item->first->binding;
         int value = item->provider->slot44(1);
         dest->FUN_000f8500(a, value);
     }
     if (b) {
-        Binding* dest = &item->second->binding;
+        Binding_be230* dest = &item->second->binding;
         int value = item->provider->slot44(1);
         dest->FUN_000f8500(b, value);
     }
     if (c) {
-        Binding* dest = &item->third->binding;
+        Binding_be230* dest = &item->third->binding;
         int value = item->provider->slot44(1);
         dest->FUN_000f8500(c, value);
     }

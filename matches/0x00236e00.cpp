@@ -1,8 +1,8 @@
-class Obj {
+class Obj_236e00 {
   public:
     int value;
-    Obj();
+    Obj_236e00();
 };
-Obj::Obj() {
+Obj_236e00::Obj_236e00() {
     value = 0;
 }

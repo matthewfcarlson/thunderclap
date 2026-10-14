@@ -1,23 +1,23 @@
-struct State {
+struct State_e54d0 {
     int value;
     void action();
 };
-struct Obj {
+struct Obj_e54d0 {
     char pad[0xe0];
-    State state;
+    State_e54d0 state;
 };
-struct Host {
+struct Host_e54d0 {
     char pad[0x44c];
-    Obj* entries[0x80];
+    Obj_e54d0* entries[0x80];
 };
-void __fastcall FUN_000e54d0(Host* self) {
+void __fastcall FUN_000e54d0(Host_e54d0* self) {
     int i = 0;
-    Obj** p = self->entries;
+    Obj_e54d0** p = self->entries;
     do {
-        Obj* o = *p;
+        Obj_e54d0* o = *p;
         if (!o)
             return;
-        State* s = &o->state;
+        State_e54d0* s = &o->state;
         if (s->value == 3)
             s->action();
         ++i;

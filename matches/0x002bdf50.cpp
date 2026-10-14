@@ -1,6 +1,6 @@
 extern "C" char DAT_0042e914[];
 typedef unsigned int size_t;
-typedef unsigned int u32;
+typedef unsigned int u32_2bdf50;
 void* __cdecl alloc(size_t);
 namespace pure3d {
 class SpriteObject;
@@ -20,7 +20,7 @@ SpriteObject* SpriteObject::a4() {
     SpriteObject* p = (SpriteObject*)alloc(0x58);
     if (p) {
         ((Builder*)p)->init(this);
-        *(u32*)p = ((int)DAT_0042e914);
+        *(u32_2bdf50*)p = ((int)DAT_0042e914);
         return p;
     }
     return 0;

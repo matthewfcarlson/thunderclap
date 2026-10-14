@@ -1,4 +1,4 @@
-class Item {
+class Item_236f40 {
   public:
     virtual void a();
     virtual void b();
@@ -7,16 +7,16 @@ class Item {
     virtual void e();
     virtual void f();
     virtual char Match(int, int, int);
-    Item* next;
+    Item_236f40* next;
     int type;
 };
-class Owner {
+class Owner_236f40 {
   public:
-    Item* head;
+    Item_236f40* head;
     char Run(int, int, int);
 };
-char Owner::Run(int a, int b, int c) {
-    Item* n = head;
+char Owner_236f40::Run(int a, int b, int c) {
+    Item_236f40* n = head;
     bool active = true;
     bool invert = false;
     char result = 1;

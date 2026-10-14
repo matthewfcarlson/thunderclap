@@ -7,7 +7,7 @@ class CActorManager {
   public:
     bool (CActorManager::*m)(const char*, bool);
 };
-struct Pair {
+struct Pair_2c510 {
     const char* p;
     bool b;
 };
@@ -17,9 +17,9 @@ class Method2 : public Function {
     bool (CActorManager::*mFn)(const char*, bool);
     virtual void f0();
     virtual void f1();
-    virtual void f2(CActorManager* obj, Pair* p, bool* out);
+    virtual void f2(CActorManager* obj, Pair_2c510* p, bool* out);
 };
-void Method2::f2(CActorManager* obj, Pair* p, bool* out) {
+void Method2::f2(CActorManager* obj, Pair_2c510* p, bool* out) {
     bool (CActorManager::*fn)(const char*, bool) = mFn;
     const char* s = p->p;
     bool b = p->b;

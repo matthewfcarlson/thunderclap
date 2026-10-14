@@ -3,17 +3,17 @@ extern void* g_vftable_0042fcd4[];
 extern void* g_base_vftable[];
 void operator delete(void*);
 void operator delete[](void*);
-class Base {
+class Base_2e18e0 {
   public:
     void* vptr;
 };
-class Obj : public Base {
+class Obj_2e18e0 : public Base_2e18e0 {
   public:
     char pad[4];
     void* m8;
-    Obj* f2(unsigned char flags);
+    Obj_2e18e0* f2(unsigned char flags);
 };
-Obj* Obj::f2(unsigned char flags) {
+Obj_2e18e0* Obj_2e18e0::f2(unsigned char flags) {
     vptr = g_vftable_0042fcd4;
     _ReadWriteBarrier();
     if (m8)

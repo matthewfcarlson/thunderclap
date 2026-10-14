@@ -1,4 +1,4 @@
-struct Sub {
+struct Sub_292a50 {
     void h(void*, void*);
 };
 class Camera {
@@ -31,7 +31,7 @@ class Camera {
     virtual void f25();
     virtual void f26();
     char pad[0x48];
-    Sub sub;
+    Sub_292a50 sub;
     char pad2[0x7f];
     unsigned char flag;
 };

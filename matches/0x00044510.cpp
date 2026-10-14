@@ -1,7 +1,7 @@
-class A {
+class A_44510 {
   public:
     char pad0[8];
-    A* next;
+    A_44510* next;
     int kind;
 };
 class D {
@@ -9,10 +9,10 @@ class D {
     char pad0[0x14];
     int value;
 };
-bool f(A* a, int b) {
+bool f(A_44510* a, int b) {
     if (!a)
         return false;
-    A* p = 0;
+    A_44510* p = 0;
     switch (a->kind) {
     case 1:
         p = a->next;
@@ -21,7 +21,7 @@ bool f(A* a, int b) {
         p = a->next;
         if (!p)
             return false;
-        p = *(A**)((char*)p + 0x148);
+        p = *(A_44510**)((char*)p + 0x148);
         break;
     default:
         return false;

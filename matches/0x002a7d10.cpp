@@ -1,5 +1,5 @@
 typedef unsigned char u8;
-struct Helper {
+struct Helper_2a7d10 {
     void Decode(void* a, u8* out);
 };
 class SceneGraphVisibilityAnimationController {
@@ -15,7 +15,7 @@ class SceneGraphVisibilityAnimationController {
     char pad[0x30];
     void* a;
     char pad2[8];
-    Helper* b;
+    Helper_2a7d10* b;
     void* c;
     void vfunc_7();
 };

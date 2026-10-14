@@ -1,33 +1,33 @@
-struct State {
+struct State_b9770 {
     char pad[0x9a8];
     char flag;
 };
-struct Glob {
+struct Glob_b9770 {
     char pad[0x2218];
-    State* state;
+    State_b9770* state;
     int mode;
 };
-extern Glob* GetGlobal();
-struct A {
+extern Glob_b9770* GetGlobal();
+struct A_b9770 {
     void F();
     void G(int);
 };
-struct B {
+struct B_b9770 {
     void F(int);
 };
 extern void Ffc300();
-class Obj {
+class Obj_b9770 {
   public:
     char pad0[0x10];
     int state;
     char pad1[0x20];
-    A* a;
-    B* b;
+    A_b9770* a;
+    B_b9770* b;
     void Run();
 };
-void Obj::Run() {
+void Obj_b9770::Run() {
     if (state == 0x14) {
-        Glob* g = GetGlobal();
+        Glob_b9770* g = GetGlobal();
         if (!g->state || !g->state->flag) {
             state = 9;
             g = GetGlobal();

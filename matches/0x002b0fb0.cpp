@@ -1,12 +1,12 @@
 extern void* Alloc(unsigned int);
 extern void Init(void*, unsigned int, void*);
-class Buffer {
+class Buffer_2b0fb0 {
   public:
     int* begin;
     int* end;
     bool Make(unsigned int count, void* arg);
 };
-bool Buffer::Make(unsigned int count, void* arg) {
+bool Buffer_2b0fb0::Make(unsigned int count, void* arg) {
     if (begin != 0)
         return false;
     if (count > 0) {

@@ -1,14 +1,14 @@
 // Same code shape as 0x0022d210 (propagated; names are from that function)
-struct Obj {
+struct Obj_230720 {
     unsigned int x[3];
-    void F(Obj*);
+    void F(Obj_230720*);
 };
-struct Arg {
-    void Helper(Obj*, unsigned int*);
+struct Arg_230720 {
+    void Helper(Obj_230720*, unsigned int*);
 };
-void Obj::F(Obj* a) {
+void Obj_230720::F(Obj_230720* a) {
     unsigned int t[3];
-    ((Arg*)a)->Helper(this, t);
+    ((Arg_230720*)a)->Helper(this, t);
     x[0] = t[0];
     x[1] = t[1];
     x[2] = t[2];

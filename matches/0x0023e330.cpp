@@ -1,5 +1,5 @@
 extern "C" char DAT_00428d24[];
-class Ref {
+class Ref_23e330 {
   public:
     virtual void AddRef();
     virtual void Release();
@@ -22,9 +22,9 @@ class Track {
     virtual void a7();
     virtual void a8();
     virtual void a9();
-    virtual void* vfunc_10(void*, void*, Ref*);
+    virtual void* vfunc_10(void*, void*, Ref_23e330*);
 };
-void* Track::vfunc_10(void* p2, void* p3, Ref* p4) {
+void* Track::vfunc_10(void* p2, void* p3, Ref_23e330* p4) {
     Action* r = (Action*)Alloc(0x28);
     if (r) {
         r->Init();
@@ -33,10 +33,10 @@ void* Track::vfunc_10(void* p2, void* p3, Ref* p4) {
         *(unsigned long*)((char*)r + 0x20) = 0;
         if (p4)
             p4->AddRef();
-        Ref* old = *(Ref**)((char*)r + 0x20);
+        Ref_23e330* old = *(Ref_23e330**)((char*)r + 0x20);
         if (old)
             old->Release();
-        *(Ref**)((char*)r + 0x20) = p4;
+        *(Ref_23e330**)((char*)r + 0x20) = p4;
         return r;
     }
     return 0;

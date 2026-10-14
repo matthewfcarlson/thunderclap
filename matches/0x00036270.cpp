@@ -2,7 +2,7 @@ struct D {
     char pad[0x1a4];
     int v;
 };
-class C {
+class C_36270 {
   public:
     char pad[0x11c];
     D* p;
@@ -11,7 +11,7 @@ class C {
     int b;
     int f();
 };
-int C::f() {
+int C_36270::f() {
     int x = 0;
     if (p != 0)
         x = p->v;

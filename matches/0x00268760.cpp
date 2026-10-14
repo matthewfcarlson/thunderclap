@@ -1,4 +1,4 @@
-class Target {
+class Target_268760 {
   public:
     virtual void f0();
     virtual void f1();
@@ -8,7 +8,7 @@ class Target {
 };
 class ControllerXBox {
     char pad[0x454];
-    Target* member;
+    Target_268760* member;
 
   public:
     void vfunc_20(unsigned int a, unsigned int b);

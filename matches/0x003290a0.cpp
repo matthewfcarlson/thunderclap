@@ -1,10 +1,10 @@
-extern void* g_vftable[];
-struct Obj {
+extern void* g_vftable_3290a0[];
+struct Obj_3290a0 {
     void* vptr;
-    Obj() { vptr = g_vftable; }
+    Obj_3290a0() { vptr = g_vftable_3290a0; }
 };
-extern void* g_vftable[] = {(void*)0x433774};
-void* __fastcall FUN_003290a0(Obj* self) {
-    self->vptr = g_vftable;
+extern void* g_vftable_3290a0[] = {(void*)0x433774};
+void* __fastcall FUN_003290a0(Obj_3290a0* self) {
+    self->vptr = g_vftable_3290a0;
     return self;
 }

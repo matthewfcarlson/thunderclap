@@ -10,7 +10,7 @@ struct COrientTargetTrack {
 };
 void* operator_new(unsigned int);
 extern void* orient_vtable;
-class Factory {
+class Factory_77420 {
   public:
     virtual void v0();
     virtual void v1();
@@ -19,7 +19,7 @@ class Factory {
     virtual void v4();
     virtual COrientTargetTrack* v5();
 };
-COrientTargetTrack* Factory::v5() {
+COrientTargetTrack* Factory_77420::v5() {
     COrientTargetTrack* p = (COrientTargetTrack*)operator_new(0x2c);
     if (p) {
         p->init();

@@ -1,12 +1,12 @@
-typedef unsigned char bool8;
-class Obj {
+typedef unsigned char bool8_27aac0;
+class Obj_27aac0 {
   public:
     char pad[0x10];
     int index;
-    bool8 Check(int);
-    bool8 Target(int, int*);
+    bool8_27aac0 Check(int);
+    bool8_27aac0 Target(int, int*);
 };
-bool8 Obj::Target(int a, int* out) {
+bool8_27aac0 Obj_27aac0::Target(int a, int* out) {
     if (Check(a)) {
         *out = index * 0x60 + (int)this + 0xd38;
         return 1;

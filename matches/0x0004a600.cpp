@@ -1,11 +1,11 @@
 typedef unsigned char u8;
-struct A {
+struct A_4a600 {
     void* f();
 };
-struct B {
+struct B_4a600 {
     void* f();
 };
-struct Manager {
+struct Manager_4a600 {
     char pad[0x1b28];
     int field;
 };
@@ -22,10 +22,10 @@ struct CRageModeCondition {
     bool value;
 };
 bool CRageModeCondition::vfunc_7(void* arg) {
-    A* a = (A*)arg;
+    A_4a600* a = (A_4a600*)arg;
     void* p = a->f();
-    B* b = (B*)p;
-    Manager* q = (Manager*)b->f();
+    B_4a600* b = (B_4a600*)p;
+    Manager_4a600* q = (Manager_4a600*)b->f();
     bool r = q->field != 0;
     return r == value;
 }

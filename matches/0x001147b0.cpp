@@ -7,7 +7,7 @@ class Condition {
     void Init(int);
 };
 extern void* __cdecl Alloc(unsigned int);
-class Factory {
+class Factory_1147b0 {
   public:
     virtual void A();
     virtual void B();
@@ -16,7 +16,7 @@ class Factory {
     virtual void E();
     virtual Condition* Make();
 };
-Condition* Factory::Make() {
+Condition* Factory_1147b0::Make() {
     Condition* p = (Condition*)Alloc(0x10);
     if (p) {
         p->Init(0);

@@ -1,7 +1,7 @@
 struct H {
     void run();
 };
-class C {
+class C_2a2ef0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -17,7 +17,7 @@ class C {
     H h;
     void target(int x, int y, int z);
 };
-void C::target(int x, int y, int z) {
+void C_2a2ef0::target(int x, int y, int z) {
     *(int*)((char*)this + 0x58) = x;
     *(int*)((char*)this + 0x5c) = y;
     *(int*)((char*)this + 0x60) = z;

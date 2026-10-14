@@ -1,14 +1,14 @@
 extern "C" char DAT_00424d4c[];
-class Base {
+class Base_1f7720 {
   public:
-    Base(int, int);
+    Base_1f7720(int, int);
 };
 extern char sA[];
 extern char sB[];
 extern char sC[];
-class Obj : public Base {
+class Obj_1f7720 : public Base_1f7720 {
   public:
-    Obj(int, int);
+    Obj_1f7720(int, int);
     char pad0[0x10];
     char m10, m11, m12;
     char pad13[5];
@@ -17,7 +17,7 @@ class Obj : public Base {
     int m1c;
 };
 extern char FUN_001d04d0(const char*);
-Obj::Obj(int a, int b) : Base(a, 3) {
+Obj_1f7720::Obj_1f7720(int a, int b) : Base_1f7720(a, 3) {
     *(int*)this = ((int)DAT_00424d4c);
     m1c = b;
     m18 = FUN_001d04d0(sA);

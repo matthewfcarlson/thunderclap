@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2df750 {
   public:
     virtual void s0();
     virtual void s1();
@@ -8,7 +8,7 @@ class Obj {
     virtual void s5(void*);
     virtual void s6();
 };
-class Global {
+class Global_2df750 {
   public:
     virtual void g0();
     virtual void g1();
@@ -42,18 +42,18 @@ class Global {
     virtual void g29();
     virtual void g30();
     virtual void g31();
-    virtual void g32(void*, Obj*);
+    virtual void g32(void*, Obj_2df750*);
 };
-class Sub {
+class Sub_2df750 {
   public:
     void call(void*, int, int);
 };
-struct Res {
+struct Res_2df750 {
     char pad[0x10];
     void* val;
 };
-extern Global* gGlobal;
-class Prim {
+extern Global_2df750* gGlobal_2df750;
+class Prim_2df750 {
   public:
     virtual void v0();
     virtual void v1();
@@ -63,19 +63,19 @@ class Prim {
     virtual void v5();
     virtual void vfunc_6();
     char pad0[0x3c];
-    Res* res;
+    Res_2df750* res;
     char pad1[0x14];
-    Obj* obj;
+    Obj_2df750* obj;
     int m5c;
     int m60;
     int m64;
-    Sub* sub;
+    Sub_2df750* sub;
 };
-void Prim::vfunc_6() {
+void Prim_2df750::vfunc_6() {
     void* r = obj->s4();
     sub->call(r, m60, m64);
     obj->s5(r);
     obj->s6();
     void* v = res ? res->val : 0;
-    gGlobal->g32(v, obj);
+    gGlobal_2df750->g32(v, obj);
 }

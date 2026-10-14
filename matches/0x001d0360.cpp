@@ -12,14 +12,14 @@ struct CScenarioParams {
     void InitBase();
     CScenarioParams* target(const unsigned int* src);
 };
-extern unsigned int g_counter;
+extern unsigned int g_counter_1d0360;
 CScenarioParams* CScenarioParams::target(const unsigned int* src) {
     InitBase();
     vf = ((int)DAT_00422370);
     data.Init();
     unsigned int n = *src;
     memcpy(&data, src, n);
-    ++g_counter;
-    id = g_counter;
+    ++g_counter_1d0360;
+    id = g_counter_1d0360;
     return this;
 }

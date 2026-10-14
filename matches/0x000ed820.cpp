@@ -1,25 +1,25 @@
-class Elem {
+class Elem_ed820 {
   public:
     void Init();
     char d[0x24];
 };
-class Base {
+class Base_ed820 {
   public:
-    Base(int);
+    Base_ed820(int);
     virtual void X();
     char pad[0x14c];
 };
-class TextTable : public Base {
+class TextTable : public Base_ed820 {
   public:
     virtual void X();
     int m150, m154, m158;
-    Elem arr[0x200];
+    Elem_ed820 arr[0x200];
     int a, b, c, d;
     float e;
     float f[8];
     TextTable(int);
 };
-TextTable::TextTable(int x) : Base(x) {
+TextTable::TextTable(int x) : Base_ed820(x) {
     for (int i = 0; i < 0x200; i++)
         arr[i].Init();
     m150 = 0;

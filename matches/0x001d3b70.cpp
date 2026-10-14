@@ -1,25 +1,25 @@
-typedef unsigned int u32;
-class A {
+typedef unsigned int u32_1d3b70;
+class A_1d3b70 {
   public:
-    void f(u32);
+    void f(u32_1d3b70);
 };
-class B {
+class B_1d3b70 {
   public:
-    void f(u32);
+    void f(u32_1d3b70);
 };
-class Obj {
+class Obj_1d3b70 {
   public:
     char pad[8];
     void* field8;
     char pad2[4];
-    void run(u32 a, u32 b);
+    void run(u32_1d3b70 a, u32_1d3b70 b);
 };
-void __cdecl F3(void*, u32);
+void __cdecl F3(void*, u32_1d3b70);
 void __cdecl F4(void*, void*, int);
-void __cdecl F5(void*, int, u32);
-void Obj::run(u32 a, u32 b) {
-    ((A*)b)->f(a);
-    ((B*)((char*)this + 0xc))->f(b);
+void __cdecl F5(void*, int, u32_1d3b70);
+void Obj_1d3b70::run(u32_1d3b70 a, u32_1d3b70 b) {
+    ((A_1d3b70*)b)->f(a);
+    ((B_1d3b70*)((char*)this + 0xc))->f(b);
     void* x = field8;
     F3(x, b);
     F4(x, (void*)0x1d22a0, 1);

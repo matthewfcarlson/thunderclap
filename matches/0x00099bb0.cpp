@@ -1,15 +1,15 @@
 extern const float gConstant;
-class Sub {
+class Sub_99bb0 {
   public:
     float Fn();
 };
-class Obj {
+class Obj_99bb0 {
   public:
     char pad[0xb8];
-    Sub* mSub;
+    Sub_99bb0* mSub;
     float Fn();
 };
-float Obj::Fn() {
+float Obj_99bb0::Fn() {
     if (mSub)
         return mSub->Fn();
     return gConstant;

@@ -1,4 +1,4 @@
-extern int vftable;
+extern int vftable_2f7060;
 class PhysicsObjectLoader {
   public:
     int vptr;
@@ -13,5 +13,5 @@ PhysicsObjectLoader::PhysicsObjectLoader() {
     b = 0x7011000;
     c = 0;
     d = 0;
-    vptr = (int)&vftable;
+    vptr = (int)&vftable_2f7060;
 }

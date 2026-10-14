@@ -24,17 +24,17 @@ class CSPHulkPropInstance : public StateProp {
     int field40;
     virtual void vfunc_16(int, int);
 };
-class Manager {
+class Manager_1d65f0 {
   public:
     void helper(CSPHulkPropInstance*, const char*, int, int);
 };
-struct Root {
+struct Root_1d65f0 {
     char pad[0x34];
-    Manager* mgr;
+    Manager_1d65f0* mgr;
 };
-extern Root* gManager;
+extern Root_1d65f0* gManager_1d65f0;
 void CSPHulkPropInstance::vfunc_16(int a, int b) {
     StateProp::vfunc_16(a, b);
     if (field40 == 0)
-        gManager->mgr->helper(this, "State_0", 0x42480000, 0);
+        gManager_1d65f0->mgr->helper(this, "State_0", 0x42480000, 0);
 }

@@ -1,4 +1,4 @@
-class O {
+class O_688f0 {
   public:
     char Set(int v);
     int m4;
@@ -7,7 +7,7 @@ class O {
     int m1c;
 };
 
-char O::Set(int v) {
+char O_688f0::Set(int v) {
     m1c = v;
     return 1;
 }

@@ -1,45 +1,45 @@
-extern void* g_vftable[];
+extern void* g_vftable_1cd150[];
 extern "C" void* memset(void*, int, unsigned);
-struct Slot {
+struct Slot_1cd150 {
     float f;
     char c;
     char pad[0xff];
     int m;
-    Slot() throw() {
+    Slot_1cd150() throw() {
         f = -1.0f;
         c = 0;
         m = -1;
     }
 };
-struct T {
+struct T_1cd150 {
     char b;
     char pad[0x1f];
 };
-struct Base {
+struct Base_1cd150 {
     void* vptr;
-    Base() throw() { vptr = g_vftable; }
+    Base_1cd150() throw() { vptr = g_vftable_1cd150; }
 };
-class Obj : public Base {
+class Obj_1cd150 : public Base_1cd150 {
   public:
     int m4;
     int m8;
     int mc;
     char buf[0x100];
-    Slot s[16];
+    Slot_1cd150 s[16];
     int m1190;
     int m1194;
     int m1198;
     float m119c;
     char m11a0;
     char pad[0x1418 - 0x11a1];
-    T t[4];
+    T_1cd150 t[4];
     int d[4];
     char m14a8;
     char m14a9;
-    Obj() throw();
+    Obj_1cd150() throw();
     void Init() throw();
 };
-Obj::Obj() throw() {
+Obj_1cd150::Obj_1cd150() throw() {
     m4 = 0;
     mc = 0;
     m1198 = 0;

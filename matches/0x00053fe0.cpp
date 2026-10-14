@@ -10,13 +10,13 @@ extern unsigned char DAT_00427758;
 extern unsigned char DAT_0048f57c;
 extern unsigned int DAT_004dc524;
 extern unsigned char DAT_004dc520;
-struct Base {
+struct Base_53fe0 {
     virtual void slot0();
     char pad[12];
     void FUN_00234cc0(const char*);
 };
 namespace fight {
-template <class T> struct ParamEnumConstList : Base {
+template <class T> struct ParamEnumConstList : Base_53fe0 {
     virtual void slot0();
     void* values;
     unsigned int count;
@@ -25,14 +25,14 @@ template <class T> struct ParamEnumConstList : Base {
 };
 } // namespace fight
 class CMotionStateCondition;
-extern void __cdecl FUN_002347b0(void*, Base**, int);
+extern void __cdecl FUN_002347b0(void*, Base_53fe0**, int);
 void __cdecl FUN_00053fe0() {
     if (!DAT_004dc524) {
-        Base* items[2];
+        Base_53fe0* items[2];
         void* p = FUN_0008d690(32);
         if (p) {
             unsigned int count = DAT_00427760;
-            Base* b = (Base*)p;
+            Base_53fe0* b = (Base_53fe0*)p;
             b->FUN_00234cc0("compare");
             fight::ParamEnumConstList<CMotionStateCondition>* q =
                 new (p) fight::ParamEnumConstList<CMotionStateCondition>;
@@ -45,7 +45,7 @@ void __cdecl FUN_00053fe0() {
         p = FUN_0008d690(32);
         if (p) {
             unsigned int count = DAT_003f5bb8;
-            Base* b = (Base*)p;
+            Base_53fe0* b = (Base_53fe0*)p;
             b->FUN_00234cc0("motionState");
             fight::ParamEnumConstList<CMotionStateCondition>* q =
                 new (p) fight::ParamEnumConstList<CMotionStateCondition>;

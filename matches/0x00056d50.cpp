@@ -1,5 +1,5 @@
 extern void* __cdecl Alloc(unsigned int);
-extern int AxisVtable;
+extern int AxisVtable_56d50;
 struct CAxisDoubleTapCondition {
     int vt;
     int pad0;
@@ -11,16 +11,16 @@ struct CAxisDoubleTapCondition {
     int x4;
     void Init(int);
 };
-class Factory {
+class Factory_56d50 {
   public:
     CAxisDoubleTapCondition* vfunc_5();
 };
-CAxisDoubleTapCondition* Factory::vfunc_5() {
+CAxisDoubleTapCondition* Factory_56d50::vfunc_5() {
     CAxisDoubleTapCondition* p = (CAxisDoubleTapCondition*)Alloc(0x20);
     if (p) {
         p->Init(0);
         p->x0 = 0;
-        p->vt = (int)&AxisVtable;
+        p->vt = (int)&AxisVtable_56d50;
         p->x1 = 0;
         p->x2 = 0x3fc90fdb;
         p->x3 = 0;

@@ -1,25 +1,25 @@
-struct Obj {
+struct Obj_35a740 {
     virtual void f0();
     virtual void f1();
 };
-extern Obj* gList[];
-extern int gCount;
-void RemoveObj(Obj* o) {
+extern Obj_35a740* gList_35a740[];
+extern int gCount_35a740;
+void RemoveObj(Obj_35a740* o) {
     int i = 0;
-    if (gCount > 0) {
+    if (gCount_35a740 > 0) {
         do {
-            if (gList[i] == o) {
-                gList[i]->f1();
-                int last = gCount - 1;
-                gList[i] = 0;
-                gCount = last;
+            if (gList_35a740[i] == o) {
+                gList_35a740[i]->f1();
+                int last = gCount_35a740 - 1;
+                gList_35a740[i] = 0;
+                gCount_35a740 = last;
                 if (i != last) {
-                    gList[i] = gList[last];
-                    gList[last] = 0;
+                    gList_35a740[i] = gList_35a740[last];
+                    gList_35a740[last] = 0;
                 }
                 return;
             }
             i++;
-        } while (i < gCount);
+        } while (i < gCount_35a740);
     }
 }

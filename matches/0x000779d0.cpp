@@ -1,5 +1,5 @@
 extern "C" char DAT_003fc184[];
-struct Sub {
+struct Sub_779d0 {
     void subinit();
 };
 struct CAIHintTrack {
@@ -23,7 +23,7 @@ void* TrackFactoryTemplate::vfunc_5() {
         *(unsigned int*)p = ((int)DAT_003fc184);
         *(unsigned int*)((char*)p + 0xc) = 0;
         *(unsigned int*)((char*)p + 0x10) = 0xbf800000;
-        ((Sub*)((char*)p + 0x18))->subinit();
+        ((Sub_779d0*)((char*)p + 0x18))->subinit();
         *(unsigned int*)((char*)p + 8) = 1;
         return p;
     }

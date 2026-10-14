@@ -1,11 +1,11 @@
-class Base {
+class Base_3260f0 {
   public:
-    Base();
+    Base_3260f0();
     virtual void g();
 };
-class pddiTexture : public Base {
+class pddiTexture : public Base_3260f0 {
   public:
     pddiTexture();
     virtual void f();
 };
-pddiTexture::pddiTexture() : Base() {}
+pddiTexture::pddiTexture() : Base_3260f0() {}

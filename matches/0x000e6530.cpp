@@ -1,14 +1,14 @@
 extern "C" int strcmp(const char*, const char*);
-struct Item {
+struct Item_e6530 {
     char pad[0x18];
     char name[1];
 };
-struct T {
+struct T_e6530 {
     char pad[0x160c];
-    Item* items[64];
-    Item* Find(const char* s);
+    Item_e6530* items[64];
+    Item_e6530* Find(const char* s);
 };
-Item* T::Find(const char* s) {
+Item_e6530* T_e6530::Find(const char* s) {
     for (int i = 0; i < 64; i++) {
         if (items[i] && strcmp(items[i]->name, s) == 0)
             return items[i];

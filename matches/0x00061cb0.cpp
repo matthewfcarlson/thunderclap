@@ -1,4 +1,4 @@
-class Obj {
+class Obj_61cb0 {
     char pad[0xc];
     void* mPtr;
 
@@ -6,7 +6,7 @@ class Obj {
     bool Set(void* p);
 };
 
-bool Obj::Set(void* p) {
+bool Obj_61cb0::Set(void* p) {
     mPtr = p;
     return true;
 }

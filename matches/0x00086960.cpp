@@ -1,18 +1,18 @@
-extern unsigned char gFlag;
-class Other {
+extern unsigned char gFlag_86960;
+class Other_86960 {
   public:
     void First();
     void Second();
 };
-class Thing {
+class Thing_86960 {
   public:
     char pad[0x30];
-    Other* a;
-    Other* b;
+    Other_86960* a;
+    Other_86960* b;
     void Run();
 };
-void Thing::Run() {
-    gFlag = 1;
+void Thing_86960::Run() {
+    gFlag_86960 = 1;
     a->First();
     b->Second();
 }

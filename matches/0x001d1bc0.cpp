@@ -1,6 +1,6 @@
 extern int __cdecl FUN_00212d70(int);
 extern void __cdecl FUN_00213320(int);
-class Obj {
+class Obj_1d1bc0 {
   public:
     char pad0[8];
     int value;
@@ -9,7 +9,7 @@ class Obj {
     int index;
     bool f();
 };
-bool Obj::f() {
+bool Obj_1d1bc0::f() {
     if (index < 7 && index >= -1) {
         ++index;
         items[index] = FUN_00212d70(value);

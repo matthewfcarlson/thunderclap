@@ -1,9 +1,9 @@
 // Same code shape as 0x001131c0 (propagated; names are from that function)
-typedef unsigned int u32;
-extern int TypeA;
-extern int TypeB;
-struct Result {
-    u32 Init(void*, void*);
+typedef unsigned int u32_17b470;
+extern int TypeA_17b470;
+extern int TypeB_17b470;
+struct Result_17b470 {
+    u32_17b470 Init(void*, void*);
 };
 struct TokenSupressTrack {
     virtual void v0();
@@ -16,13 +16,13 @@ struct TokenSupressTrack {
     virtual void v7();
     virtual void v8();
     virtual void v9();
-    virtual u32 vfunc_10(u32 a, u32 b, void* p);
+    virtual u32_17b470 vfunc_10(u32_17b470 a, u32_17b470 b, void* p);
 };
 extern int Check(void*, int, int*, int*, int);
-extern Result* Alloc(int);
-u32 TokenSupressTrack::vfunc_10(u32 a, u32 b, void* p) {
-    if (Check(p, 0, &TypeA, &TypeB, 0)) {
-        Result* q = Alloc(0x28);
+extern Result_17b470* Alloc(int);
+u32_17b470 TokenSupressTrack::vfunc_10(u32_17b470 a, u32_17b470 b, void* p) {
+    if (Check(p, 0, &TypeA_17b470, &TypeB_17b470, 0)) {
+        Result_17b470* q = Alloc(0x28);
         if (q)
             return q->Init(this, p);
     }

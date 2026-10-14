@@ -1,18 +1,18 @@
 extern int vtLoader;
-extern int vtRef;
-class Ref {
+extern int vtRef_2aaf10;
+class Ref_2aaf10 {
   public:
     virtual void V0();
     virtual void Release();
 };
-class Loader {
+class Loader_2aaf10 {
   public:
     unsigned char pad[0x14];
     unsigned int count;
-    Ref* items[8];
+    Ref_2aaf10* items[8];
     void Destroy();
 };
-void Loader::Destroy() {
+void Loader_2aaf10::Destroy() {
     unsigned int i = 0;
     *(int*)this = (int)&vtLoader;
     while (i < count) {
@@ -26,5 +26,5 @@ void Loader::Destroy() {
         items[8]->Release();
         items[8] = 0;
     }
-    *(int*)this = (int)&vtRef;
+    *(int*)this = (int)&vtRef_2aaf10;
 }

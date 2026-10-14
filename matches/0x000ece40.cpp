@@ -1,4 +1,4 @@
-class Obj {
+class Obj_ece40 {
   public:
     virtual void x();
     virtual void Release();
@@ -6,15 +6,15 @@ class Obj {
 extern char tv[];
 extern char fv[];
 void destroy(void*);
-class Target {
+class Target_ece40 {
   public:
     char pad[0x154];
-    Obj* a;
-    Obj* b;
+    Obj_ece40* a;
+    Obj_ece40* b;
     void* c;
     void Finish();
 };
-void __fastcall target(Target* s) {
+void __fastcall target(Target_ece40* s) {
     *(void**)s = tv;
     if (s->c) {
         destroy(s->c);

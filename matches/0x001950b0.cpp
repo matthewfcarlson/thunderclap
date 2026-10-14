@@ -1,8 +1,8 @@
 extern "C" char DAT_0041b3a8[];
-struct Part {
+struct Part_1950b0 {
     void init();
 };
-struct Part2 {
+struct Part2_1950b0 {
     void init2();
 };
 void destroy(void*);
@@ -14,9 +14,9 @@ struct FireGroundShockwaveTrack {
 };
 FireGroundShockwaveTrack* FireGroundShockwaveTrack::vfunc_5(unsigned char flag) {
     vt = (void*)((int)DAT_0041b3a8);
-    ((Part*)((char*)this + 0xa8))->init();
-    ((Part2*)((char*)this + 0x98))->init2();
-    ((Part*)((char*)this + 0x40))->init();
+    ((Part_1950b0*)((char*)this + 0xa8))->init();
+    ((Part2_1950b0*)((char*)this + 0x98))->init2();
+    ((Part_1950b0*)((char*)this + 0x40))->init();
     baseInit();
     if (flag & 1)
         destroy(this);

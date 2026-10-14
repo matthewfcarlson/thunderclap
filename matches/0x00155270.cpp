@@ -11,13 +11,13 @@ namespace motion {
 class CollisionSourceSizeCondition;
 }
 } // namespace hulkfight
-struct Base {
+struct Base_155270 {
     virtual void slot0();
     char pad[12];
     void FUN_00234cc0(const char*);
 };
 namespace fight {
-template <class T> struct ParamEnumConstList : Base {
+template <class T> struct ParamEnumConstList : Base_155270 {
     virtual void slot0();
     void* entries;
     unsigned int count;
@@ -33,7 +33,7 @@ void FUN_00155270() {
         void* mem = FUN_0008d690(32);
         if (mem) {
             unsigned int count = DAT_00427760;
-            Base* base = (Base*)mem;
+            Base_155270* base = (Base_155270*)mem;
             base->FUN_00234cc0("compare");
             Param* p = new (mem) Param;
             p->entries = &DAT_00427758;
@@ -45,7 +45,7 @@ void FUN_00155270() {
         mem = FUN_0008d690(32);
         if (mem) {
             unsigned int count = DAT_003f5eb4;
-            Base* base = (Base*)mem;
+            Base_155270* base = (Base_155270*)mem;
             base->FUN_00234cc0("size");
             Param* p = new (mem) Param;
             p->entries = &DAT_0048f6b4;

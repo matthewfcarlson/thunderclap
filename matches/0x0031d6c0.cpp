@@ -6,7 +6,7 @@ class pddiObject {
     virtual void f2();
 };
 class pddiRenderContext : public pddiObject {};
-struct Block {
+struct Block_31d6c0 {
     unsigned long x[16];
 };
 class pddiBaseContext : public pddiRenderContext {
@@ -27,10 +27,10 @@ class pddiBaseContext : public pddiRenderContext {
     virtual void f16();
     virtual void f17();
     virtual void f18();
-    virtual void vfunc_19(const Block*);
+    virtual void vfunc_19(const Block_31d6c0*);
     char pad[0x58];
 };
-void pddiBaseContext::vfunc_19(const Block* p) {
-    *(Block*)((char*)this + 0x5c) = *p;
+void pddiBaseContext::vfunc_19(const Block_31d6c0* p) {
+    *(Block_31d6c0*)((char*)this + 0x5c) = *p;
 }
 } // namespace pure3d

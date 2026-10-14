@@ -1,6 +1,6 @@
 extern "C" char DAT_0040c924[];
 extern "C" void _ReadWriteBarrier();
-class Ref {
+class Ref_f1d70 {
   public:
     virtual void a();
     virtual void Release();
@@ -69,7 +69,7 @@ class FEScreenBase {
 class FEMenuBase : public FEScreenBase {
   public:
     char pad[0x98c];
-    Ref* field;
+    Ref_f1d70* field;
     virtual FEMenuBase* vfunc_0(unsigned char);
     void helper();
 };

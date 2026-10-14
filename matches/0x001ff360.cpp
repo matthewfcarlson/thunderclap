@@ -5,7 +5,7 @@ extern "C" char DAT_0048e128[];
 extern "C" char DAT_0048e134[];
 extern "C" void __stdcall FUN_001d0480(const char*, int);
 extern "C" char __cdecl FUN_001d04d0(const char*);
-class Trigger {
+class Trigger_1ff360 {
   public:
     void* vft;
     char pad4[12];
@@ -14,9 +14,9 @@ class Trigger {
     unsigned char a18;
     char pad19[3];
     int m1c;
-    Trigger(const char*, int);
+    Trigger_1ff360(const char*, int);
 };
-Trigger::Trigger(const char* s, int x) {
+Trigger_1ff360::Trigger_1ff360(const char* s, int x) {
     FUN_001d0480(s, 5);
     vft = (void*)((int)DAT_00425384);
     m1c = x;

@@ -1,4 +1,4 @@
-class Input {
+class Input_1fcea0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -12,20 +12,20 @@ class Input {
     virtual float value();
     int process();
 };
-struct Record {
+struct Record_1fcea0 {
     char data[0x40];
     void first(int);
     void second(float);
     void third(int);
 };
-class Owner {
+class Owner_1fcea0 {
   public:
     char pad[0x20c];
     int count;
-    Record* records;
-    bool add(Input*);
+    Record_1fcea0* records;
+    bool add(Input_1fcea0*);
 };
-bool Owner::add(Input* p) {
+bool Owner_1fcea0::add(Input_1fcea0* p) {
     if (count < 0x100) {
         char tmp[12];
         int a = p->get(tmp);

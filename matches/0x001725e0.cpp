@@ -4,51 +4,51 @@ class TargetBreakAction {
     void* mThing;
     void vfunc_4();
 };
-struct Obj {
+struct Obj_1725e0 {
     char pad[0x12c];
     int id;
 };
-struct Entry {
+struct Entry_1725e0 {
     char pad[0x328];
     int id;
     char flag;
 };
-struct Manager {
+struct Manager_1725e0 {
     char pad[0xc];
     int count;
-    Entry* get(int);
+    Entry_1725e0* get(int);
 };
-struct Root {
+struct Root_1725e0 {
     char pad[0x20];
-    Manager* manager;
+    Manager_1725e0* manager;
 };
-struct A {
+struct A_1725e0 {
     void* call();
 };
-struct B {
+struct B_1725e0 {
     void* call();
 };
-struct E {
+struct E_1725e0 {
     void call();
 };
-extern A* aFn;
-extern B* bFn;
-extern E* eFn;
-extern Root* gRoot;
+extern A_1725e0* aFn;
+extern B_1725e0* bFn;
+extern E_1725e0* eFn;
+extern Root_1725e0* gRoot_1725e0;
 void TargetBreakAction::vfunc_4() {
-    void* a = ((A*)mThing)->call();
+    void* a = ((A_1725e0*)mThing)->call();
     if (a) {
-        Obj* b = (Obj*)a;
-        b = (Obj*)((B*)a)->call();
+        Obj_1725e0* b = (Obj_1725e0*)a;
+        b = (Obj_1725e0*)((B_1725e0*)a)->call();
         if (b) {
             int id = b->id;
             if (id) {
-                Manager* m = gRoot->manager;
+                Manager_1725e0* m = gRoot_1725e0->manager;
                 int count = m->count;
                 for (int i = 0; i < count; ++i) {
-                    Entry* e = m->get(i);
+                    Entry_1725e0* e = m->get(i);
                     if (e->id == id) {
-                        ((E*)e)->call();
+                        ((E_1725e0*)e)->call();
                         e->flag = 0;
                     }
                 }

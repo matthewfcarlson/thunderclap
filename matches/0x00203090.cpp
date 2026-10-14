@@ -3,19 +3,19 @@ class CActorManager {
   public:
     float Get();
 };
-typedef float (CActorManager::*Fn)();
+typedef float (CActorManager::*Fn_203090)();
 class Closure0 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(int a, int b, float* out);
     char pad[0x18];
-    Fn mFn;
+    Fn_203090 mFn;
     CActorManager* mMgr;
 };
 void Closure0::vfunc_2(int a, int b, float* out) {
     CActorManager* m = mMgr;
-    Fn fn = mFn;
+    Fn_203090 fn = mFn;
     float v = (m->*fn)();
     if (out)
         *out = v;

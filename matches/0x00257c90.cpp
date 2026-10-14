@@ -1,14 +1,14 @@
-extern void* g_vftable[];
-extern char g_pool[];
+extern void* g_vftable_257c90[];
+extern char g_pool_257c90[];
 void F1(void*);
 void F2(void*);
 void Release2(void*, void*);
-class Base {
+class Base_257c90 {
   public:
     void* vptr;
     void Fin();
 };
-class Obj : public Base {
+class Obj_257c90 : public Base_257c90 {
   public:
     char pad[0x24];
     struct SB {
@@ -18,15 +18,15 @@ class Obj : public Base {
     } sb;
     char m3c[8];
     char m44[8];
-    Obj* f2(unsigned char flags);
+    Obj_257c90* f2(unsigned char flags);
 };
-Obj* Obj::f2(unsigned char flags) {
-    vptr = g_vftable;
+Obj_257c90* Obj_257c90::f2(unsigned char flags) {
+    vptr = g_vftable_257c90;
     sb.Reset();
     F1(m3c);
     F2(m44);
     Fin();
     if (flags & 1)
-        Release2(g_pool, this);
+        Release2(g_pool_257c90, this);
     return this;
 }

@@ -8,7 +8,7 @@ struct Param {
 };
 void __cdecl register_params(void*, Param**, int);
 extern int counter;
-extern void* registry;
+extern void* registry_1214f0;
 void target() {
     if (counter == 0) {
         Param* list[7];
@@ -69,7 +69,7 @@ void target() {
             list[6] = p;
         } else
             list[6] = 0;
-        register_params(&registry, list, 7);
+        register_params(&registry_1214f0, list, 7);
     }
     ++counter;
 }

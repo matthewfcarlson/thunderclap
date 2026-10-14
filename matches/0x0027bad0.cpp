@@ -11,13 +11,13 @@ class Partition {
     int c;
     int d;
 };
-class Owner {
+class Owner_27bad0 {
   public:
     char pad0[4];
     Partition* mEnd;
     void Resize(Partition* stop, int count);
 };
-void Owner::Resize(Partition* stop, int count) {
+void Owner_27bad0::Resize(Partition* stop, int count) {
     Partition* src = mEnd;
     Partition* dst = src + count;
     mEnd = dst;

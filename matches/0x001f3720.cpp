@@ -1,8 +1,8 @@
-struct Pair {
+struct Pair_1f3720 {
     int a;
     int b;
 };
-class Target {
+class Target_1f3720 {
   public:
     char pad[8];
     int x;
@@ -11,9 +11,9 @@ class Target {
     int w;
     unsigned char q;
     void Init(int, int);
-    void Set(Pair*, int, int, int, int, unsigned char);
+    void Set(Pair_1f3720*, int, int, int, int, unsigned char);
 };
-void Target::Set(Pair* p, int a, int b, int c, int d, unsigned char e) {
+void Target_1f3720::Set(Pair_1f3720* p, int a, int b, int c, int d, unsigned char e) {
     Init(p->a, p->b);
     x = a;
     y = b;

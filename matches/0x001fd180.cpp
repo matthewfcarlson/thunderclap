@@ -1,4 +1,4 @@
-class C {
+class C_1fd180 {
   public:
     char pad0[0x214];
     int* a[6];
@@ -6,7 +6,7 @@ class C {
     int last;
     void Set(int);
 };
-void C::Set(int value) {
+void C_1fd180::Set(int value) {
     int i;
     int found = -1;
     for (i = 0; i < 20; i++) {

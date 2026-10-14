@@ -1,22 +1,22 @@
 extern "C" void _ReadWriteBarrier();
-class Thing {
+class Thing_103340 {
   public:
     virtual void Use();
 };
-class Str {
+class Str_103340 {
   public:
-    Thing* Find();
+    Thing_103340* Find();
 };
-class AgentBase {
+class AgentBase_103340 {
   public:
     virtual void Init();
-    AgentBase(const char*);
+    AgentBase_103340(const char*);
 };
-class OccupationAgent : public AgentBase {
+class OccupationAgent : public AgentBase_103340 {
   public:
     virtual void Own();
     char pad04[0x58];
-    Thing* m5c;
+    Thing_103340* m5c;
     int m60;
     unsigned char m64;
     char pad65[0x3f];
@@ -32,7 +32,7 @@ class OccupationAgent : public AgentBase {
     int mCC, mD0, mD4, mD8, mDC, mE0, mE4, mE8, mEC;
     OccupationAgent(const char*);
 };
-OccupationAgent::OccupationAgent(const char* name) : AgentBase(name) {
+OccupationAgent::OccupationAgent(const char* name) : AgentBase_103340(name) {
     m60 = 0;
     _ReadWriteBarrier();
     mA4 = 1;
@@ -58,7 +58,7 @@ OccupationAgent::OccupationAgent(const char* name) : AgentBase(name) {
     _ReadWriteBarrier();
     mEC = 0;
     m64 = 0;
-    Thing* t = ((Str*)name)->Find();
+    Thing_103340* t = ((Str_103340*)name)->Find();
     m5c = t;
     t->Use();
 }

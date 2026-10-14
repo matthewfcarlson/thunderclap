@@ -1,12 +1,12 @@
-typedef unsigned int u32;
+typedef unsigned int u32_1f34f0;
 struct H {
     void Run();
 };
-extern void f2(u32);
-extern void f3(u32, u32);
-extern void f4(u32, u32);
-extern void f5(u32);
-class Obj {
+extern void f2(u32_1f34f0);
+extern void f3(u32_1f34f0, u32_1f34f0);
+extern void f4(u32_1f34f0, u32_1f34f0);
+extern void f5(u32_1f34f0);
+class Obj_1f34f0 {
   public:
     char p0[4];
     int b;
@@ -18,7 +18,7 @@ class Obj {
     int i;
     void Run();
 };
-void Obj::Run() {
+void Obj_1f34f0::Run() {
     if (c)
         ((H*)c)->Run();
     c = 0;

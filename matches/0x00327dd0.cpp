@@ -1,4 +1,4 @@
-class Obj {
+class Obj_327dd0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -15,12 +15,12 @@ class Obj {
     virtual void f12();
     virtual void f13();
 };
-extern Obj* gObj;
-extern int gState;
+extern Obj_327dd0* gObj_327dd0;
+extern int gState_327dd0;
 void target() {
-    Obj* p = gObj;
-    gState = -1;
-    gObj = 0;
+    Obj_327dd0* p = gObj_327dd0;
+    gState_327dd0 = -1;
+    gObj_327dd0 = 0;
     if (p)
         p->f13();
 }

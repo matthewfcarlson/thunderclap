@@ -1,12 +1,12 @@
 void Refresh();
-class Thing {
+class Thing_afb80 {
     char pad[8];
 
   public:
     char value;
     void Update(char);
 };
-void Thing::Update(char x) {
+void Thing_afb80::Update(char x) {
     if (value != x)
         Refresh();
     value = x;

@@ -1,10 +1,10 @@
-class X {
+class X_d71f0 {
   public:
     void a(int, int, int);
     unsigned int b();
     void c(unsigned int);
 };
-class Y {
+class Y_d71f0 {
   public:
     char pad[4];
     unsigned char x;
@@ -15,15 +15,15 @@ class Z {
     char pad[4];
     unsigned char x;
 };
-class A {
+class A_d71f0 {
   public:
     char pad[4];
-    Y* p4;
-    X* p8;
+    Y_d71f0* p4;
+    X_d71f0* p8;
     Z* pc;
     void f(int, int, int);
 };
-void A::f(int a, int b, int c) {
+void A_d71f0::f(int a, int b, int c) {
     p8->a(a, b, c);
     p4->a(a, b, c);
     unsigned int v = p8->b();

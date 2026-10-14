@@ -2,13 +2,13 @@
 // FUN_0009d1b0 @ 0x0009d1b0
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 namespace pure3d { class Animation; }
-struct Loader;
+struct Loader_9d1b0;
 namespace content {
 namespace LoadInventory {
 template <class T>
 struct DynamicCaster {
     virtual void v0();
-    Loader *pad4;
+    Loader_9d1b0 *pad4;
 };
 }
 }
@@ -18,7 +18,7 @@ struct Anim {
     virtual void v1();
 };
 
-struct Loader {
+struct Loader_9d1b0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -32,12 +32,12 @@ struct NameKey {
     void FUN_0027af50();
 };
 
-struct Mid {
-    Loader *FUN_00203d70();
+struct Mid_9d1b0 {
+    Loader_9d1b0 *FUN_00203d70();
 };
 
 struct Mgr54 {
-    Mid *FUN_000862a0();
+    Mid_9d1b0 *FUN_000862a0();
 };
 
 struct Sub20 {
@@ -95,7 +95,7 @@ void Node::FUN_0009d1b0(const char *n0, const char *n1, const char *n2, const ch
     lo.names[2] = n2;
     lo.names[3] = n3;
     count = 0;
-    Loader *loader = DAT_004dd700->f54->FUN_000862a0()->FUN_00203d70();
+    Loader_9d1b0 *loader = DAT_004dd700->f54->FUN_000862a0()->FUN_00203d70();
     for (int i = 0; i < 4; i++) {
         if (lo.names[i]) {
             lo.key.FUN_0027b0e0(lo.names[i]);

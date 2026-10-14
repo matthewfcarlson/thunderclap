@@ -10,7 +10,7 @@ namespace ai {
 class ThreatCondition;
 }
 } // namespace hulkfight
-struct Base {
+struct Base_12cd80 {
     virtual void slot0();
     char pad[12];
     void(__cdecl* callback)();
@@ -19,10 +19,10 @@ struct Base {
     void FUN_00234a90(const char*);
 };
 namespace fight {
-template <class T> struct ParamBool : Base {
+template <class T> struct ParamBool : Base_12cd80 {
     virtual void slot0();
 };
-template <class T> struct ParamName : Base {
+template <class T> struct ParamName : Base_12cd80 {
     virtual void slot0();
 };
 } // namespace fight
@@ -32,7 +32,7 @@ void __cdecl FUN_002347b0(void*, void**, int);
 void FUN_0012cd80() {
     if (!DAT_004e0e18) {
         void* params[3];
-        Base* mem = (Base*)FUN_0008d690(24);
+        Base_12cd80* mem = (Base_12cd80*)FUN_0008d690(24);
         if (mem) {
             mem->FUN_00234860("threat");
             fight::ParamBool<hulkfight::ai::ThreatCondition>* p =
@@ -41,7 +41,7 @@ void FUN_0012cd80() {
             params[0] = p;
         } else
             params[0] = 0;
-        mem = (Base*)FUN_0008d690(24);
+        mem = (Base_12cd80*)FUN_0008d690(24);
         if (mem) {
             mem->FUN_00234a90("threatName");
             fight::ParamName<hulkfight::ai::ThreatCondition>* p =
@@ -50,7 +50,7 @@ void FUN_0012cd80() {
             params[1] = p;
         } else
             params[1] = 0;
-        mem = (Base*)FUN_0008d690(24);
+        mem = (Base_12cd80*)FUN_0008d690(24);
         if (mem) {
             mem->FUN_00234860("threatRespondOnlyOnce");
             fight::ParamBool<hulkfight::ai::ThreatCondition>* p =

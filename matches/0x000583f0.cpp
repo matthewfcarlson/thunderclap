@@ -5,7 +5,7 @@ class CMotionClimbAngleCondition {
     void Init(int);
     int w[6];
 };
-class Factory {
+class Factory_583f0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -14,7 +14,7 @@ class Factory {
     virtual void v4();
     CMotionClimbAngleCondition* vfunc_5();
 };
-CMotionClimbAngleCondition* Factory::vfunc_5() {
+CMotionClimbAngleCondition* Factory_583f0::vfunc_5() {
     CMotionClimbAngleCondition* p = (CMotionClimbAngleCondition*)operator new(0x18);
     if (p) {
         p->Init(0);

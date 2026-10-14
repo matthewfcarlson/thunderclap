@@ -1,20 +1,20 @@
-class Obj {
+class Obj_140590 {
   public:
     virtual void f();
     virtual void g();
 };
-class Base {
+class Base_140590 {
   public:
-    Base();
+    Base_140590();
     virtual void a();
     char pad[0x18];
 };
-class Wall : public Base {
+class Wall : public Base_140590 {
   public:
-    Wall(int p, Obj* o);
+    Wall(int p, Obj_140590* o);
     virtual void a();
     int m1;
-    Obj* m2;
+    Obj_140590* m2;
     int m24;
     int m28;
     int m2c;
@@ -27,7 +27,7 @@ class Wall : public Base {
     int m48;
     int m4c;
 };
-Wall::Wall(int p, Obj* o) {
+Wall::Wall(int p, Obj_140590* o) {
     int* q = &m1;
     *q = 0;
     m2 = 0;

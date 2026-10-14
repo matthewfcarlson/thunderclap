@@ -1,5 +1,5 @@
 // Same code shape as 0x0030a260 (propagated; names are from that function)
-class C {
+class C_333770 {
     char pad[0x18];
     int value;
 
@@ -7,7 +7,7 @@ class C {
     void set(int);
 };
 void called();
-void C::set(int x) {
+void C_333770::set(int x) {
     value = x;
     called();
 }

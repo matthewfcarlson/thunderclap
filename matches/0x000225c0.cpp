@@ -1,7 +1,7 @@
 extern "C" char DAT_003f3390[];
 extern "C" char DAT_003f3c90[];
 extern "C" void _ReadWriteBarrier();
-class Obj {
+class Obj_225c0 {
   public:
     virtual void a();
     virtual void b();
@@ -19,7 +19,7 @@ class Haptic {
     virtual void f8();
     void cleanup();
     char pad[0x18];
-    Obj* mObj;
+    Obj_225c0* mObj;
     int mHandle;
 };
 extern void thunk(Haptic*);

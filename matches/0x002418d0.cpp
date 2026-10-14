@@ -3,11 +3,11 @@ struct Node {
     Node* parent;
     Node* right;
 };
-struct Tree {
+struct Tree_2418d0 {
     Node* root;
     Node head;
 };
-void swap_node(Tree* tree, Node* node) {
+void swap_node(Tree_2418d0* tree, Node* node) {
     Node* child = node->left;
     node->left = child->parent;
     if (child->parent != &tree->head)

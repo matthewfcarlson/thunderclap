@@ -1,9 +1,9 @@
-class Ref {
+class Ref_2fe6b0 {
   public:
     virtual void Init();
     virtual void Release();
 };
-class Obj {
+class Obj_2fe6b0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -13,12 +13,12 @@ class Obj {
     virtual void v5();
     virtual void v6();
     char pad[0x1c - 4];
-    Ref* ref;
+    Ref_2fe6b0* ref;
     virtual void v7();
     virtual void Changed();
-    void Set(Ref*);
+    void Set(Ref_2fe6b0*);
 };
-void Obj::Set(Ref* value) {
+void Obj_2fe6b0::Set(Ref_2fe6b0* value) {
     if (ref != value) {
         if (ref)
             ref->Release();

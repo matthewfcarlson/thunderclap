@@ -1,10 +1,10 @@
-class Base {
+class Base_6a8c0 {
   public:
-    Base();
+    Base_6a8c0();
     virtual void BaseFn();
 };
 
-class CUninterruptibleTrack : public Base {
+class CUninterruptibleTrack : public Base_6a8c0 {
   public:
     CUninterruptibleTrack();
     virtual void Fn();

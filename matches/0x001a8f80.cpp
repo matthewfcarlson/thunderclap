@@ -1,6 +1,6 @@
 extern "C" void _ReadWriteBarrier();
-extern void* g_vftable[];
-class Ref {
+extern void* g_vftable_1a8f80[];
+class Ref_1a8f80 {
   public:
     void* vptr;
     virtual void f0();
@@ -11,18 +11,18 @@ class EffectAction {
     void* vptr;
     char p[0x18];
     int m1c;
-    Ref* m20;
+    Ref_1a8f80* m20;
     char p24[4];
-    Ref* m28;
+    Ref_1a8f80* m28;
     EffectAction* f2(int);
 };
-class Helper {
+class Helper_1a8f80 {
   public:
     void Fn();
 };
 extern void __cdecl thunk_FUN_00267090(EffectAction*);
 EffectAction* EffectAction::f2(int flags) {
-    *(void* volatile*)this = &g_vftable;
+    *(void* volatile*)this = &g_vftable_1a8f80;
     _ReadWriteBarrier();
     if (m28) {
         m28->f1();
@@ -34,7 +34,7 @@ EffectAction* EffectAction::f2(int flags) {
     }
     if (m1c)
         m1c = 0;
-    ((Helper*)this)->Fn();
+    ((Helper_1a8f80*)this)->Fn();
     if (flags & 1)
         thunk_FUN_00267090(this);
     return this;

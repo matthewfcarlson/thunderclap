@@ -5,16 +5,16 @@ class Stream {
     char m0f;
     void Read(void* p, int a, int b, int c);
 };
-class Obj {
+class Obj_266cb0 {
   public:
-    Obj* Init(Stream* s);
+    Obj_266cb0* Init(Stream* s);
     void Next(unsigned int v);
     char m0;
     char pad[0x27f];
     int m280;
     Stream* m284;
 };
-Obj* Obj::Init(Stream* s) {
+Obj_266cb0* Obj_266cb0::Init(Stream* s) {
     unsigned int v;
     m280 = -1;
     m284 = s;

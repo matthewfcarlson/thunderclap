@@ -1,4 +1,4 @@
-typedef unsigned int uint;
+typedef unsigned int uint_23ef40;
 struct SpawnTrack {
     virtual void f0();
     virtual void f1();
@@ -10,14 +10,14 @@ struct SpawnTrack {
     virtual void f7();
     virtual void f8();
     virtual void f9();
-    virtual uint vfunc_10(uint, uint, uint);
+    virtual uint_23ef40 vfunc_10(uint_23ef40, uint_23ef40, uint_23ef40);
 };
-struct Alloc {
-    uint run(uint, SpawnTrack*, uint);
+struct Alloc_23ef40 {
+    uint_23ef40 run(uint_23ef40, SpawnTrack*, uint_23ef40);
 };
-extern Alloc* FUN_0008d690(uint);
-uint SpawnTrack::vfunc_10(uint a, uint b, uint c) {
-    Alloc* p = FUN_0008d690(0x58);
+extern Alloc_23ef40* FUN_0008d690(uint_23ef40);
+uint_23ef40 SpawnTrack::vfunc_10(uint_23ef40 a, uint_23ef40 b, uint_23ef40 c) {
+    Alloc_23ef40* p = FUN_0008d690(0x58);
     if (p)
         return p->run(a, this, c);
     return 0;

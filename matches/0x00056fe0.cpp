@@ -10,7 +10,7 @@ class CAxisReleaseCondition {
     virtual void v5();
     void Init();
 };
-class Factory {
+class Factory_56fe0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -19,7 +19,7 @@ class Factory {
     virtual void f4();
     CAxisReleaseCondition* vfunc_5();
 };
-CAxisReleaseCondition* Factory::vfunc_5() {
+CAxisReleaseCondition* Factory_56fe0::vfunc_5() {
     CAxisReleaseCondition* p = (CAxisReleaseCondition*)Allocate(0x18);
     if (p) {
         p->Init();

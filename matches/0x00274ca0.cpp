@@ -7,14 +7,14 @@ class Intf {
     virtual void f0();
     virtual void f1();
 };
-class Obj {
+class Obj_274ca0 {
   public:
     virtual void v0();
     Intf sub;
     char pad[0x10];
     int count;
 };
-class Target {
+class Target_274ca0 {
   public:
     virtual void Go();
 };
@@ -23,12 +23,12 @@ class FileCompletionRequest {
     int v;
     int a;
     int b;
-    Obj* c;
-    Target* d;
+    Obj_274ca0* c;
+    Target_274ca0* d;
     int e;
-    FileCompletionRequest(int x, Obj* y, Target* z, int w);
+    FileCompletionRequest(int x, Obj_274ca0* y, Target_274ca0* z, int w);
 };
-FileCompletionRequest::FileCompletionRequest(int x, Obj* y, Target* z, int w) {
+FileCompletionRequest::FileCompletionRequest(int x, Obj_274ca0* y, Target_274ca0* z, int w) {
     v = ((int)DAT_0042b914);
     a = 0;
     init();

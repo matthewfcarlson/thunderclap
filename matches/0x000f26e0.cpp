@@ -1,18 +1,18 @@
 // Same code shape as 0x000f2560 (propagated; names are from that function)
-struct Result {
+struct Result_f26e0 {
   public:
     virtual void method0();
 };
 
-struct Obj {
+struct Obj_f26e0 {
   public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Result* cast(void* caster, __int64 val);
+    virtual Result_f26e0* cast(void* caster, __int64 val);
 };
 
-extern Obj* g_dat;
+extern Obj_f26e0* g_dat_f26e0;
 
 __int64 __cdecl fun_p2(int p);
 
@@ -21,20 +21,20 @@ struct DynamicCaster {
     virtual void f0();
 };
 
-struct Base {
+struct Base_f26e0 {
     virtual void bv();
     int a;
     int b;
-    Base(int x, int y);
+    Base_f26e0(int x, int y);
 };
 
-struct FEShaderAnimation : Base {
-    Result* m_c;
+struct FEShaderAnimation : Base_f26e0 {
+    Result_f26e0* m_c;
     FEShaderAnimation(int p1, int p2);
 };
 
-FEShaderAnimation::FEShaderAnimation(int p1, int p2) : Base(p1, p2) {
-    Obj* obj = g_dat;
+FEShaderAnimation::FEShaderAnimation(int p1, int p2) : Base_f26e0(p1, p2) {
+    Obj_f26e0* obj = g_dat_f26e0;
     __int64 v = fun_p2(p2);
     m_c = obj->cast(&DynamicCaster(), v);
     if (m_c) {

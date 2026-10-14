@@ -1,4 +1,4 @@
-struct Obj {
+struct Obj_1d6670 {
     char pad0[0x40];
     int value;
     char pad1[0xa8];
@@ -7,10 +7,10 @@ struct Obj {
 struct Context {
     int Get(int);
 };
-extern const float g_one;
+extern const float g_one_1d6670;
 extern const float g_hundredth;
 extern const float g_factor;
-float __fastcall FUN_001d6670(Obj* self) {
+float __fastcall FUN_001d6670(Obj_1d6670* self) {
     int result = ((Context*)self->context)->Get(self->value);
     bool scale = result == 2;
     float value = 1.0f;

@@ -2,7 +2,7 @@
 struct exception {
     virtual ~exception();
 };
-struct X : exception {
-    virtual ~X() throw();
+struct X_349895 : exception {
+    virtual ~X_349895() throw();
 };
-X::~X() {}
+X_349895::~X_349895() {}

@@ -1,10 +1,10 @@
 class FileCompletionRequest;
-struct Callee {
+struct Callee_2736e0 {
     void f(FileCompletionRequest*);
 };
-struct Inner {
+struct Inner_2736e0 {
     char pad[12];
-    Callee* callee;
+    Callee_2736e0* callee;
 };
 class CompletionCallbackRequest {
   public:
@@ -20,7 +20,7 @@ class CompletionCallbackRequest {
 class FileCompletionRequest : public CompletionCallbackRequest {
   public:
     char pad[8];
-    Inner* member;
+    Inner_2736e0* member;
     int v1();
 };
 int FileCompletionRequest::v1() {

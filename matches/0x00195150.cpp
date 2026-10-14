@@ -1,24 +1,24 @@
 extern "C" void _ReadWriteBarrier();
-class Ref {
+class Ref_195150 {
   public:
     virtual void a();
     virtual void Release();
 };
-extern int vt;
+extern int vt_195150;
 class FireProjectileAction {
   public:
     int vptr;
     char pad[0x18];
     int m1c;
-    Ref* m20;
+    Ref_195150* m20;
     int m24;
-    Ref* m28;
-    Ref* m2c;
+    Ref_195150* m28;
+    Ref_195150* m2c;
     void finish();
     void clean();
 };
 void FireProjectileAction::clean() {
-    vptr = (int)&vt;
+    vptr = (int)&vt_195150;
     _ReadWriteBarrier();
     if (m2c) {
         m2c->Release();

@@ -1,4 +1,4 @@
-struct Inner {
+struct Inner_2d3e80 {
     virtual void a();
     virtual void b();
     virtual void c();
@@ -29,7 +29,7 @@ class ParticleEmitter {
     virtual void f16();
     virtual void vfunc_17(int, int);
     char pad[0x88 - 4];
-    Inner* ptr;
+    Inner_2d3e80* ptr;
 };
 void ParticleEmitter::vfunc_17(int a, int b) {
     if (ptr)

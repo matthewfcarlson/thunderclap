@@ -9,7 +9,7 @@ class Face {
     int mc;
     float m10;
 };
-class Factory {
+class Factory_10c060 {
   public:
     void* f0();
     void* f1();
@@ -18,7 +18,7 @@ class Factory {
     void* f4();
     Face* vfunc_5();
 };
-Face* Factory::vfunc_5() {
+Face* Factory_10c060::vfunc_5() {
     Face* p = (Face*)alloc(0x14);
     if (p) {
         p->Face::Face();

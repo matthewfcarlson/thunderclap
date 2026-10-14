@@ -5,24 +5,24 @@ class ChargeClearAction {
     void* mNext;
     void vfunc_4();
 };
-struct A {
+struct A_1719f0 {
     char pad[0x14];
     unsigned char flag;
 };
-struct B {
+struct B_1719f0 {
     char pad[0x1e58];
     int value;
 };
-struct First {
-    B* f();
+struct First_1719f0 {
+    B_1719f0* f();
 };
-struct Second {
-    B* g();
+struct Second_1719f0 {
+    B_1719f0* g();
 };
 void ChargeClearAction::vfunc_4() {
-    if (!((A*)mObj)->flag) {
-        B* x = ((First*)mNext)->f();
-        B* y = ((Second*)x)->g();
+    if (!((A_1719f0*)mObj)->flag) {
+        B_1719f0* x = ((First_1719f0*)mNext)->f();
+        B_1719f0* y = ((Second_1719f0*)x)->g();
         y->value = 0;
     }
 }

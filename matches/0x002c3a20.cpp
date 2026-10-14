@@ -1,5 +1,5 @@
 extern void Free(void*) throw();
-class Item {
+class Item_2c3a20 {
   public:
     void Fini() throw();
 };
@@ -12,14 +12,14 @@ struct ILanguageChangeCallback {
     virtual void e() = 0;
 };
 } // namespace core
-template <class T> struct Vec {
+template <class T> struct Vec_2c3a20 {
     T* b;
     T* e;
     T* c;
     unsigned size() const { return (unsigned)(e - b); }
     T& operator[](unsigned i) { return b[i]; }
     void clear() { e = b; }
-    ~Vec() throw() {
+    ~Vec_2c3a20() throw() {
         e = b;
         if (b)
             Free(b);
@@ -33,7 +33,7 @@ class Entity {
 };
 class TextBible : public Entity, public core::ILanguageChangeCallback {
   public:
-    Vec<Item*> items;
+    Vec_2c3a20<Item_2c3a20*> items;
     virtual ~TextBible() throw();
     virtual void a();
     virtual void b();

@@ -1,4 +1,4 @@
-class Helper {
+class Helper_250be0 {
   public:
     void Fn();
 };
@@ -16,7 +16,7 @@ class SeqEventExpression {
 extern void __cdecl FUN_00247550(void*, void*);
 extern char DAT_004e6b18;
 SeqEventExpression* SeqEventExpression::v4(int x) {
-    ((Helper*)((char*)this + 8))->Fn();
+    ((Helper_250be0*)((char*)this + 8))->Fn();
     this->Fn();
     if (x & 1)
         FUN_00247550(&DAT_004e6b18, this);

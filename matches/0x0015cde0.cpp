@@ -1,5 +1,5 @@
 extern void* heliVftable;
-struct Sub {
+struct Sub_15cde0 {
     void init();
 };
 class HeliLocomotionTrack {
@@ -21,7 +21,7 @@ class HeliLocomotionTrack {
 void thunk_FUN_00267090(HeliLocomotionTrack*);
 HeliLocomotionTrack* HeliLocomotionTrack::vfunc_5(int flag) {
     *(void**)this = &heliVftable;
-    ((Sub*)((char*)this + 0xa0))->init();
+    ((Sub_15cde0*)((char*)this + 0xa0))->init();
     after();
     if (flag & 1)
         thunk_FUN_00267090(this);

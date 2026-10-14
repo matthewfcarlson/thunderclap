@@ -1,13 +1,13 @@
-struct Ref {
+struct Ref_266850 {
     virtual void A();
     virtual void B();
 };
-struct Owner {
+struct Owner_266850 {
     char pad[0x1c];
-    Ref* member;
-    void Set(Ref*);
+    Ref_266850* member;
+    void Set(Ref_266850*);
 };
-void Owner::Set(Ref* p) {
+void Owner_266850::Set(Ref_266850* p) {
     if (p)
         p->A();
     if (member)

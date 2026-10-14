@@ -1,9 +1,9 @@
 // Same code shape as 0x00263e90 (propagated; names are from that function)
-class A {
+class A_31bf50 {
   public:
     virtual void f();
     virtual void g();
 };
-void __fastcall FUN_00263e90(A* p) {
+void __fastcall FUN_00263e90(A_31bf50* p) {
     p->g();
 }

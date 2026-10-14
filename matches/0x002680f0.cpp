@@ -1,5 +1,5 @@
 class Timer;
-class Child {
+class Child_2680f0 {
   public:
     virtual void f0();
     virtual void f1();
@@ -7,12 +7,12 @@ class Child {
     virtual void f3();
     virtual void f4(Timer*);
 };
-class Owner {
+class Owner_2680f0 {
   public:
     virtual void f0();
     virtual void f1();
     char pad[0x14];
-    Child* child;
+    Child_2680f0* child;
 };
 class Timer {
   public:
@@ -32,11 +32,11 @@ class Timer {
     virtual void f13();
     int refs;
     char pad[0x18];
-    Owner* owner;
+    Owner_2680f0* owner;
 };
 void Timer::f1() {
     if (--refs == 0) {
-        Owner* o = owner;
+        Owner_2680f0* o = owner;
         f2(0);
         o->child->f4(this);
         o->f1();

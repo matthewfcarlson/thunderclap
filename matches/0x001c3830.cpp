@@ -1,12 +1,12 @@
-class Inner {
+class Inner_1c3830 {
   public:
     void f();
 };
-class Outer {
+class Outer_1c3830 {
   public:
-    Inner* p;
+    Inner_1c3830* p;
     void g();
 };
-void Outer::g() {
+void Outer_1c3830::g() {
     p->f();
 }

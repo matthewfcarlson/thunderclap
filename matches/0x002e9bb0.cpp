@@ -1,16 +1,16 @@
-class Thing {
+class Thing_2e9bb0 {
     char pad[0x60];
 
   public:
     unsigned int flags;
 };
-extern void Init(Thing*, const char*);
-extern char* Alloc(Thing*, unsigned int);
-extern void Op(Thing*, char*, unsigned int);
-extern int Check(Thing*, int);
-extern void Free(Thing*, char*);
-extern void Make(Thing*, void*, void*, int);
-void FUN(Thing* a, void* x, unsigned int n) {
+extern void Init(Thing_2e9bb0*, const char*);
+extern char* Alloc(Thing_2e9bb0*, unsigned int);
+extern void Op(Thing_2e9bb0*, char*, unsigned int);
+extern int Check(Thing_2e9bb0*, int);
+extern void Free(Thing_2e9bb0*, char*);
+extern void Make(Thing_2e9bb0*, void*, void*, int);
+void FUN(Thing_2e9bb0* a, void* x, unsigned int n) {
     if (!(a->flags & 1))
         Init(a, "Missing IHDR before tEXt");
     if (a->flags & 4)

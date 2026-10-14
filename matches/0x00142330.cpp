@@ -13,15 +13,15 @@ struct WallJumpTrack {
 };
 extern int IsType(void*, int, const void*, const void*, int);
 extern void* Alloc(int);
-struct Result {
+struct Result_142330 {
     unsigned int init(WallJumpTrack*, unsigned int);
 };
-extern Result* MakeResult(void*);
+extern Result_142330* MakeResult(void*);
 extern const int RT1;
 extern const int RT2;
 unsigned int WallJumpTrack::vfunc_10(unsigned int a, unsigned int b, unsigned int c) {
     if (IsType((void*)c, 0, &RT1, &RT2, 0)) {
-        Result* r = (Result*)MakeResult((void*)0x50);
+        Result_142330* r = (Result_142330*)MakeResult((void*)0x50);
         if (r)
             return r->init(this, c);
     }

@@ -1,5 +1,5 @@
 extern "C" char DAT_00415a40[];
-struct Sub {
+struct Sub_15bde0 {
     void init();
 };
 struct HeliLocomotionTrack {
@@ -8,7 +8,7 @@ struct HeliLocomotionTrack {
     void ctor();
 };
 void HeliLocomotionTrack::ctor() {
-    Sub* p = (Sub*)((char*)this + 0xa0);
+    Sub_15bde0* p = (Sub_15bde0*)((char*)this + 0xa0);
     *(volatile unsigned long*)this = ((int)DAT_00415a40);
     p->init();
     parent();

@@ -1,9 +1,9 @@
-class Req {
+class Req_2745d0 {
   public:
     virtual void v0();
     virtual void v1();
 };
-class Dev {
+class Dev_2745d0 {
   public:
     virtual void a0();
     virtual void a1();
@@ -22,11 +22,11 @@ class Dev {
     virtual unsigned g();
     unsigned MakeValue();
 };
-struct Ctx {
+struct Ctx_2745d0 {
     char pad0[4];
-    Req sub;
+    Req_2745d0 sub;
     char pad1[4];
-    Dev* dev;
+    Dev_2745d0* dev;
     char pad2[8];
     unsigned value;
 };
@@ -40,10 +40,10 @@ class DriveFormatRequest {
     virtual void vfunc_5();
     virtual void vfunc_6();
     char pad[4];
-    Ctx* drive;
+    Ctx_2745d0* drive;
 };
 unsigned DriveFormatRequest::vfunc_1() {
-    Dev* d = drive->dev;
+    Dev_2745d0* d = drive->dev;
     unsigned x = d->g();
     unsigned y = d->MakeValue();
     drive->sub.v0();

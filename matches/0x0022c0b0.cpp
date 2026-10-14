@@ -1,8 +1,8 @@
-struct M {
+struct M_22c0b0 {
     float m[4][4];
     void T();
 };
-void M::T() {
+void M_22c0b0::T() {
     float a = m[0][1], b = m[0][2], c = m[0][3], d = m[1][2], e = m[1][3], f = m[2][3];
     m[0][1] = m[1][0];
     m[0][2] = m[2][0];

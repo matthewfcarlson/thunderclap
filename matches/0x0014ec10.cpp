@@ -13,16 +13,16 @@ class HitPushbackCondition {
     unsigned char value;
 };
 extern int Cast(void*, int, void*, void*, int);
-struct Obj {
-    Obj* A();
-    Obj* B();
+struct Obj_14ec10 {
+    Obj_14ec10* A();
+    Obj_14ec10* B();
     unsigned char C();
 };
 bool HitPushbackCondition::v6(void* a, void* params, void* c) {
     if (!Cast(params, 0, (void*)((int)DAT_00494b44), (void*)((int)DAT_00494b60), 0))
         return false;
-    Obj* x = ((Obj*)params)->A();
-    Obj* y = x->B();
+    Obj_14ec10* x = ((Obj_14ec10*)params)->A();
+    Obj_14ec10* y = x->B();
     unsigned char z = y->C();
     return (unsigned char)(z - value) == 0;
 }

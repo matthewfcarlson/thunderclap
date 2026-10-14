@@ -1,4 +1,4 @@
-struct Buffer {
+struct Buffer_25e0b0 {
     char p0[4];
     unsigned capacity;
     char p8[8];
@@ -10,7 +10,7 @@ struct Buffer {
     unsigned writeCount;
     unsigned wraps;
 };
-bool FUN_0025e0b0(Buffer* b, unsigned amount, int mode) {
+bool FUN_0025e0b0(Buffer_25e0b0* b, unsigned amount, int mode) {
     if (!amount)
         return true;
     unsigned pos = b->position, end = b->end, available;

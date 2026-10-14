@@ -1,6 +1,6 @@
 // Same code shape as 0x0002c760 (propagated; names are from that function)
 class CActorManager;
-typedef float (CActorManager::*Fn)(const char*);
+typedef float (CActorManager::*Fn_1fe9a0)(const char*);
 class CActorManager {
   public:
     float Get(const char* s);
@@ -11,10 +11,10 @@ class Method1 {
     virtual void f1();
     virtual void f2(CActorManager* a, const char** p, float* out);
     char pad[0x1c - 4];
-    Fn fn;
+    Fn_1fe9a0 fn;
 };
 void Method1::f2(CActorManager* a, const char** p, float* out) {
-    Fn f = fn;
+    Fn_1fe9a0 f = fn;
     const char* s = *p;
     float x = (a->*f)(s);
     if (out)

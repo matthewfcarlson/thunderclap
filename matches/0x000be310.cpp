@@ -1,4 +1,4 @@
-struct Provider {
+struct Provider_be310 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -45,16 +45,16 @@ struct Provider {
     virtual void slot43();
     virtual unsigned int slot44(int);
 };
-struct Binding {
+struct Binding_be310 {
     void FUN_000f8500(void*, unsigned int);
 };
 struct Channel {
     char pad[0x18];
-    Binding binding;
+    Binding_be310 binding;
 };
-struct Item {
+struct Item_be310 {
     char pad0[4];
-    Provider* provider;
+    Provider_be310* provider;
     char pad8[0x990];
     Channel* first;
     Channel* second;
@@ -63,31 +63,31 @@ struct Item {
     void FUN_000e5f70();
     void FUN_000e5f00(unsigned int);
 };
-struct Owner {
+struct Owner_be310 {
     char pad[0x2218];
-    Item* active;
-    Item* FUN_000e7620(unsigned int);
+    Item_be310* active;
+    Item_be310* FUN_000e7620(unsigned int);
     bool FUN_000be310(unsigned int, void*, void*, void*, void*, unsigned int, unsigned int, unsigned int);
 };
-bool Owner::FUN_000be310(unsigned int id, void* setup, void* a, void* b, void* c, unsigned int mode,
+bool Owner_be310::FUN_000be310(unsigned int id, void* setup, void* a, void* b, void* c, unsigned int mode,
                          unsigned int x, unsigned int y) {
     if (active)
         return false;
-    Item* item = FUN_000e7620(id);
+    Item_be310* item = FUN_000e7620(id);
     if (setup)
         item->FUN_000bb970(setup, x, y);
     if (a) {
-        Binding* binding = &item->first->binding;
+        Binding_be310* binding = &item->first->binding;
         unsigned int value = item->provider->slot44(1);
         binding->FUN_000f8500(a, value);
     }
     if (b) {
-        Binding* binding = &item->second->binding;
+        Binding_be310* binding = &item->second->binding;
         unsigned int value = item->provider->slot44(1);
         binding->FUN_000f8500(b, value);
     }
     if (c) {
-        Binding* binding = &item->third->binding;
+        Binding_be310* binding = &item->third->binding;
         unsigned int value = item->provider->slot44(1);
         binding->FUN_000f8500(c, value);
     }

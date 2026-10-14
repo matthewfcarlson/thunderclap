@@ -1,7 +1,7 @@
-struct A {
+struct A_484c0 {
     void* f();
 };
-struct B {
+struct B_484c0 {
     int f();
 };
 struct CButtonCondition {
@@ -20,7 +20,7 @@ struct CButtonCondition {
     int mIndex;
 };
 void CButtonCondition::f9(void* arg) {
-    void* p = ((A*)arg)->f();
-    int v = ((B*)p)->f();
+    void* p = ((A_484c0*)arg)->f();
+    int v = ((B_484c0*)p)->f();
     f9((void*)(v + 0x1f58 + mIndex * 12));
 }

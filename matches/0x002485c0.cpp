@@ -1,12 +1,12 @@
-typedef unsigned int U;
-struct Triple {
-    U a, b, c;
+typedef unsigned int U_2485c0;
+struct Triple_2485c0 {
+    U_2485c0 a, b, c;
 };
-struct Obj {
+struct Obj_2485c0 {
     char pad[0x90];
-    U a, b, c, d, e, f, g;
+    U_2485c0 a, b, c, d, e, f, g;
 };
-void target(Obj* self, Triple* p, Triple* q, U value) {
+void target(Obj_2485c0* self, Triple_2485c0* p, Triple_2485c0* q, U_2485c0 value) {
     if (p) {
         self->a = p->a;
         self->b = p->b;

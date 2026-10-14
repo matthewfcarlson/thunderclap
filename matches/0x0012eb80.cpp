@@ -1,17 +1,17 @@
 extern "C" char DAT_00411344[];
-typedef unsigned int U;
+typedef unsigned int U_12eb80;
 class DialogueTrack;
 extern void __fastcall final_fn(DialogueTrack*);
-extern void __cdecl release(U);
+extern void __cdecl release(U_12eb80);
 class DialogueTrack {
   public:
     void* vf;
     char pad[12];
-    U a;
-    U b;
+    U_12eb80 a;
+    U_12eb80 b;
     char pad2[4];
-    U c;
-    U d;
+    U_12eb80 c;
+    U_12eb80 d;
     void destroy();
 };
 void DialogueTrack::destroy() {

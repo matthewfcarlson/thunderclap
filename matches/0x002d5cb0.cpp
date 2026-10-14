@@ -21,14 +21,14 @@ class SpriteParticleEmitter {
     char pad2[0x1c8 - 0x150];
     int* items;
 };
-struct Buffer {
+struct Buffer_2d5cb0 {
     int a[2];
     int used;
     int* data;
 };
 void SpriteParticleEmitter::vfunc_15() {
     unsigned int i = 0;
-    Buffer* b = *(Buffer**)((char*)this + 0x84);
+    Buffer_2d5cb0* b = *(Buffer_2d5cb0**)((char*)this + 0x84);
     while (i < count) {
         int* p = items + i;
         int v = *p;

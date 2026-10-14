@@ -1,13 +1,13 @@
-struct Mat {
+struct Mat_31e930 {
     int m[16];
-    void Fn(void* a, Mat* b);
+    void Fn(void* a, Mat_31e930* b);
 };
 struct Stk {
     int p0, p4;
     int top;
-    Mat* data;
+    Mat_31e930* data;
 };
-class Ctx {
+class Ctx_31e930 {
   public:
     virtual void f0();
     virtual void f1();
@@ -124,12 +124,12 @@ class Ctx {
     Stk* stk[4];
     void Push(int w, void* a);
 };
-void Ctx::Push(int w, void* a) {
+void Ctx_31e930::Push(int w, void* a) {
     Stk* s = stk[w];
     s->top++;
     s->data[s->top] = s->data[s->top - 1];
     s = stk[w];
-    Mat local;
+    Mat_31e930 local;
     local.Fn(a, &s->data[s->top]);
     s->data[s->top] = local;
     Upd(w);

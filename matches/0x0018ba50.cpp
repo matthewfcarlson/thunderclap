@@ -10,7 +10,7 @@ class PropStateByIndexCondition {
     void Init(int);
 };
 extern void* Alloc(unsigned int);
-class Factory {
+class Factory_18ba50 {
   public:
     virtual void f0();
     virtual void f1();
@@ -19,7 +19,7 @@ class Factory {
     virtual void f4();
     virtual PropStateByIndexCondition* f5();
 };
-PropStateByIndexCondition* Factory::f5() {
+PropStateByIndexCondition* Factory_18ba50::f5() {
     PropStateByIndexCondition* p = (PropStateByIndexCondition*)Alloc(0x18);
     if (p) {
         p->Init(0);

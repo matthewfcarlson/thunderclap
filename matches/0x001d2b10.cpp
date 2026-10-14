@@ -1,13 +1,13 @@
 extern "C" int __cdecl GetLen(void*);
 extern "C" int __cdecl Check(void*, int);
 extern "C" int __cdecl Modify(void*, int, int, int);
-class Obj {
+class Obj_1d2b10 {
   public:
     char pad[8];
     void* data;
     int Run(int, int);
 };
-int Obj::Run(int start, int end) {
+int Obj_1d2b10::Run(int start, int end) {
     int len = GetLen(data);
     if (len == 0)
         return -1;

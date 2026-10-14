@@ -4,7 +4,7 @@ struct Node {
     Node* Init(int a, int b, int c);
     void Setup(int a);
 };
-struct List {
+struct List_1d45f0 {
     void Add(Node* n);
 };
 void __cdecl FnA(int a, Node* n);
@@ -12,15 +12,15 @@ void __cdecl FnB(int a, void* f, int c);
 void __cdecl FnC(int a, int b, int c);
 void Cb();
 
-struct Owner {
+struct Owner_1d45f0 {
     int pad0;
     int pad1;
     int mHandle;
-    List mList;
+    List_1d45f0 mList;
     void Create(int a, int b, int c);
 };
 
-void Owner::Create(int a, int b, int c) {
+void Owner_1d45f0::Create(int a, int b, int c) {
     Node* mem = (Node*)Alloc(0x24);
     Node* n;
     if (mem) {

@@ -1,4 +1,4 @@
-extern int vtable;
+extern int vtable_e1c40;
 class FEDoPopDialog {
   public:
     int vptr;
@@ -14,5 +14,5 @@ FEDoPopDialog::FEDoPopDialog(int x) {
     c = -1;
     d = x;
     e = 0;
-    vptr = (int)&vtable;
+    vptr = (int)&vtable_e1c40;
 }

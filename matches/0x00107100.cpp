@@ -1,10 +1,10 @@
 // Same code shape as 0x000ffeb0 (propagated; names are from that function)
-struct Thing {
+struct Thing_107100 {
     virtual void a();
     virtual void b();
 };
 extern int handVtable;
-struct Helper {
+struct Helper_107100 {
     void run();
 };
 void __cdecl thunk_FUN_00267090(void*);
@@ -35,14 +35,14 @@ class CHand2HandAgent {
     virtual void v22();
     virtual void v23();
     char pad[0x58];
-    Thing* thing;
+    Thing_107100* thing;
 };
 CHand2HandAgent* CHand2HandAgent::vfunc_2(unsigned char param) {
-    Thing* t = thing;
+    Thing_107100* t = thing;
     *(int*)this = (int)&handVtable;
     t->b();
     thing = 0;
-    ((Helper*)this)->run();
+    ((Helper_107100*)this)->run();
     if (param & 1)
         thunk_FUN_00267090(this);
     return this;

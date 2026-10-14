@@ -1,5 +1,5 @@
 extern "C" char DAT_0040feb4[];
-typedef unsigned int u32;
+typedef unsigned int u32_12aae0;
 typedef unsigned char u8;
 struct AcquireTargetCondition {
     virtual void v0();
@@ -15,7 +15,7 @@ struct AcquireTargetCondition {
     void Initialize(int);
 };
 void* __cdecl alloc(unsigned int);
-struct Factory {
+struct Factory_12aae0 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -23,11 +23,11 @@ struct Factory {
     virtual void f4();
     AcquireTargetCondition* make();
 };
-AcquireTargetCondition* Factory::make() {
+AcquireTargetCondition* Factory_12aae0::make() {
     AcquireTargetCondition* p = (AcquireTargetCondition*)alloc(0x18);
     if (p) {
         p->Initialize(0);
-        *(u32*)p = ((int)DAT_0040feb4);
+        *(u32_12aae0*)p = ((int)DAT_0040feb4);
         p->a = 1.57079637f;
         p->b = 100.0f;
         p->c = 1;

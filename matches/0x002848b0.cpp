@@ -1,4 +1,4 @@
-class Obj {
+class Obj_2848b0 {
   public:
     char pad[0x1c];
     int* base;
@@ -11,7 +11,7 @@ class Obj {
     void H4(int);
     void Run(int, int, int*);
 };
-void Obj::Run(int index, int value, int* out) {
+void Obj_2848b0::Run(int index, int value, int* out) {
     H1(value);
     H2(value);
     H3(value);

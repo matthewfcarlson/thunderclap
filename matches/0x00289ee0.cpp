@@ -1,7 +1,7 @@
-class X {
+class X_289ee0 {
   public:
-    X* Fn();
+    X_289ee0* Fn();
 };
-X* X::Fn() {
+X_289ee0* X_289ee0::Fn() {
     return this;
 }

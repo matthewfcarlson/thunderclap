@@ -1,7 +1,7 @@
 // Same code shape as 0x0004a030 (propagated; names are from that function)
 extern int vtableA;
 extern int vtableB;
-class Part {
+class Part_49f50 {
   public:
     void Init();
 };
@@ -12,7 +12,7 @@ class CCondition {
 class CCharacterTemplateVariationCondition : public CCondition {
   public:
     char pad[12];
-    Part part;
+    Part_49f50 part;
     void Run();
     void Finish();
 };

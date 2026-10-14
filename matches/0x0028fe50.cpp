@@ -1,12 +1,12 @@
-typedef unsigned int u32;
-void __cdecl thunk_FUN_00267090(u32);
-struct Obj {
+typedef unsigned int u32_28fe50;
+void __cdecl thunk_FUN_00267090(u32_28fe50);
+struct Obj_28fe50 {
     char pad[8];
-    u32 field;
+    u32_28fe50 field;
     void base();
     void method();
 };
-void Obj::method() {
+void Obj_28fe50::method() {
     if (field) {
         thunk_FUN_00267090(field);
         field = 0;

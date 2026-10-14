@@ -1,10 +1,10 @@
 extern "C" void _ReadWriteBarrier();
-struct Helper {
+struct Helper_30d590 {
     void Init() throw();
     char b[0x1c];
 };
-struct J;
-struct PJ {
+struct J_30d590;
+struct PJ_30d590 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -32,15 +32,15 @@ struct PJ {
     virtual void v24();
     virtual void v25();
     virtual void v26();
-    virtual PJ* d27();
-    virtual void v28(PJ* p);
+    virtual PJ_30d590* d27();
+    virtual void v28(PJ_30d590* p);
     int m4, m8, mc, m10, m14, m18, m1c;
     int m20, m24, m28;
     char p2c[0x1c];
-    Helper h48;
-    Helper h64;
+    Helper_30d590 h48;
+    Helper_30d590 h64;
     char tail[0xf8 - 0x80];
-    PJ() throw() {
+    PJ_30d590() throw() {
         _ReadWriteBarrier();
         m20 = 0;
         m24 = 0;
@@ -48,15 +48,15 @@ struct PJ {
         h48.Init();
         h64.Init();
     }
-    void Init(PJ* owner);
+    void Init(PJ_30d590* owner);
 };
-struct J : PJ {
-    J() throw() {}
-    virtual PJ* d27();
+struct J_30d590 : PJ_30d590 {
+    J_30d590() throw() {}
+    virtual PJ_30d590* d27();
 };
 void* operator new(unsigned int);
-PJ* J::d27() {
-    J* r = new J;
+PJ_30d590* J_30d590::d27() {
+    J_30d590* r = new J_30d590;
     r->Init(this);
     this->v28(r);
     return r;

@@ -1,12 +1,12 @@
 typedef unsigned short U16;
-class Buffer {
+class Buffer_2f9930 {
   public:
     char pad0[4];
     U16* cur;
     U16* end;
     void Insert(U16*, int, int);
 };
-void Buffer::Insert(U16* src, int count, int value) {
+void Buffer_2f9930::Insert(U16* src, int count, int value) {
     U16* p = cur;
     U16* q = p + count;
     if (q <= end) {

@@ -1,8 +1,8 @@
 // Same code shape as 0x00363af0 (propagated; names are from that function)
-struct Obj {
+struct Obj_364120 {
     void f();
 };
-extern Obj g;
+extern Obj_364120 g_364120;
 void wrapper() {
-    g.f();
+    g_364120.f();
 }

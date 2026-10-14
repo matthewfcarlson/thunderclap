@@ -55,7 +55,7 @@ class FEThingsBase {
     void* items[16];
     int count;
 };
-class Item {
+class Item_e6a00 {
   public:
     virtual void a();
     virtual void b();
@@ -76,11 +76,11 @@ class Item {
 };
 void FEThingsBase::f32() {
     while (count > 1) {
-        ((Item*)current)->p();
+        ((Item_e6a00*)current)->p();
         f48(1);
         --count;
         current = items[count];
-        ((Item*)current)->o();
+        ((Item_e6a00*)current)->o();
     }
     f31();
 }

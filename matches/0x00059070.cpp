@@ -1,4 +1,4 @@
-extern int vft;
+extern int vft_59070;
 class CSmartPropDistanceCondition {
   public:
     int vptr;
@@ -17,7 +17,7 @@ class CSmartPropDistanceCondition {
     void setup(int);
 };
 void* __cdecl alloc(unsigned int);
-class Factory {
+class Factory_59070 {
   public:
     virtual void a0();
     virtual void a1();
@@ -26,11 +26,11 @@ class Factory {
     virtual void a4();
     virtual CSmartPropDistanceCondition* create();
 };
-CSmartPropDistanceCondition* Factory::create() {
+CSmartPropDistanceCondition* Factory_59070::create() {
     CSmartPropDistanceCondition* p = (CSmartPropDistanceCondition*)alloc(0x30);
     if (p) {
         p->setup(0);
-        p->vptr = (int)&vft;
+        p->vptr = (int)&vft_59070;
         p->one = 1;
         p->val = 1.0f;
         p->inner.init();

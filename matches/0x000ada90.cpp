@@ -1,12 +1,12 @@
-struct Data {
+struct Data_ada90 {
     unsigned int x[0x11];
 };
-class Thing {
+class Thing_ada90 {
   public:
     char pad[0x5c];
-    Data data;
-    void Copy(Data* out);
+    Data_ada90 data;
+    void Copy(Data_ada90* out);
 };
-void Thing::Copy(Data* out) {
+void Thing_ada90::Copy(Data_ada90* out) {
     *out = data;
 }

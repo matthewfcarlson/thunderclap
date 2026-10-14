@@ -1,7 +1,7 @@
-struct Y {
+struct Y_29fca0 {
     bool Chk(void* a, int b);
 };
-struct N {
+struct N_29fca0 {
     char p[0x1c];
     int m1c;
     int m20;
@@ -11,12 +11,12 @@ struct N {
     int m40;
     void Do(int a);
 };
-struct X {
+struct X_29fca0 {
     char p[0x24];
     int m24;
-    bool Fn(int a, Y* y, N* n);
+    bool Fn(int a, Y_29fca0* y, N_29fca0* n);
 };
-bool X::Fn(int a, Y* y, N* n) {
+bool X_29fca0::Fn(int a, Y_29fca0* y, N_29fca0* n) {
     bool r = false;
     if (n) {
         int c = --n->m3c;

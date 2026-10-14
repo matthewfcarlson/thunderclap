@@ -1,11 +1,11 @@
 struct Node {
     Node* next;
 };
-struct List {
+struct List_25d640 {
     Node* head;
     Node* tail;
 };
-void FUN_0025d640(List* list, Node* item) {
+void FUN_0025d640(List_25d640* list, Node* item) {
     Node* target = (Node*)((char*)item + 4);
     Node* prev = 0;
     Node* cur = list->head;

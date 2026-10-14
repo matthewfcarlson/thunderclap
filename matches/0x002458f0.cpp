@@ -3,14 +3,14 @@ struct Reader {
     char(__cdecl* getEnd)(Reader*, int*);
     char(__cdecl* getStart)(Reader*, int*);
 };
-class Owner {
+class Owner_2458f0 {
   public:
     char pad[0x80];
     Reader* r;
     int a, b, c, d, e, diff, h;
-    Owner* Init(Reader*);
+    Owner_2458f0* Init(Reader*);
 };
-Owner* Owner::Init(Reader* rd) {
+Owner_2458f0* Owner_2458f0::Init(Reader* rd) {
     r = rd;
     a = 0;
     b = 0;

@@ -1,14 +1,14 @@
-struct Item {
+struct Item_2f9ff0 {
     void f(int);
 };
-extern "C" int __cdecl FUN_002f9ff0(Item* p, int count, int b) {
+extern "C" int __cdecl FUN_002f9ff0(Item_2f9ff0* p, int count, int b) {
     if (count != 0) {
         int n = count;
-        Item* q = p;
+        Item_2f9ff0* q = p;
         do {
             if (q)
                 q->f(b);
-            q = (Item*)((char*)q + 0x50);
+            q = (Item_2f9ff0*)((char*)q + 0x50);
             --n;
         } while (n != 0);
         return (int)q;

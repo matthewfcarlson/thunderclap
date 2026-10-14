@@ -1,15 +1,15 @@
-class Item {
+class Item_293ea0 {
   public:
     virtual void Use();
 };
-class Owner {
+class Owner_293ea0 {
   public:
     virtual void V();
     char pad[0x38];
-    Item* volatile items[32];
-    int Add(Item* item);
+    Item_293ea0* volatile items[32];
+    int Add(Item_293ea0* item);
 };
-int Owner::Add(Item* item) {
+int Owner_293ea0::Add(Item_293ea0* item) {
     int i = 0;
     do {
         if (items[i] == 0) {

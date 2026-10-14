@@ -1,4 +1,4 @@
-typedef unsigned int u32;
+typedef unsigned int u32_11a060;
 struct MotionLocatorTrack {
     virtual void f0();
     virtual void f1();
@@ -10,16 +10,16 @@ struct MotionLocatorTrack {
     virtual void f7();
     virtual void f8();
     virtual void f9();
-    virtual u32 vfunc_10(u32 a, u32 b, u32 c);
+    virtual u32_11a060 vfunc_10(u32_11a060 a, u32_11a060 b, u32_11a060 c);
 };
 struct Object {
-    u32 init(MotionLocatorTrack*, u32);
+    u32_11a060 init(MotionLocatorTrack*, u32_11a060);
 };
-extern int MatchType(u32, int, const void*, const void*, int);
+extern int MatchType(u32_11a060, int, const void*, const void*, int);
 extern Object* Alloc(unsigned int);
 extern const char ParamDesc[];
 extern const char FightParamsDesc[];
-u32 MotionLocatorTrack::vfunc_10(u32 a, u32 b, u32 c) {
+u32_11a060 MotionLocatorTrack::vfunc_10(u32_11a060 a, u32_11a060 b, u32_11a060 c) {
     if (MatchType(c, 0, ParamDesc, FightParamsDesc, 0)) {
         Object* p = Alloc(0x30);
         if (p)
