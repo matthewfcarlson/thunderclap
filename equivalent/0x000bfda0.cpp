@@ -1,0 +1,44 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_000bfda0 @ 0x000bfda0
+extern "C" void __fastcall __security_check_cookie(unsigned int);
+extern unsigned int DAT_004d9968;
+extern char DAT_0048e100;
+char FUN_001d04d0(const void*) throw();
+class Base {
+public:
+    virtual void v();
+    char p[12];
+    char a[8];
+    char result;
+    char z[3];
+    Base(const char*, int) throw();
+    void FUN_001d04a0();
+};
+template<class R>
+class Function0 : public Base {
+public:
+    void* f;
+    Function0(const char* n, void* x) : Base(n, 0) {
+        f = x;
+        result = FUN_001d04d0(&DAT_0048e100);
+    }
+    virtual void v();
+};
+class Registry {
+public:
+    void FUN_001d26d0(const char* name, Base* fn);
+    void FUN_000bfda0(const char* name, void* fn);
+};
+struct Frame {
+    Function0<void> closure;
+    unsigned int cookie;
+    Frame(const char* n, void* f) : closure(n, f) {
+        cookie = DAT_004d9968;
+    }
+};
+void Registry::FUN_000bfda0(const char* name, void* fn) {
+    Frame fr(name, fn);
+    FUN_001d26d0(name, &fr.closure);
+    fr.closure.FUN_001d04a0();
+    __security_check_cookie(fr.cookie);
+}
