@@ -1,0 +1,42 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// FUN_001de360 @ 0x001de360
+struct Sub {
+    virtual void v0();
+    virtual void v1();
+};
+struct Item {
+    int pad0;
+    Sub sub;
+    Item *FUN_001db1c0(int arg);
+};
+void *FUN_0008d690(unsigned int size);
+
+struct Owner {
+    char pad[0x1e824];
+    Item *current;
+    char pad1e828[8];
+    int arg;
+    char pad1e834[0x1ec40 - 0x1e834];
+    int z0, z1, z2, z3;
+    void FUN_001de360(int a);
+};
+
+void Owner::FUN_001de360(int a)
+{
+    Item *raw = (Item *)FUN_0008d690(0x10);
+    Item *item;
+    if (raw)
+        item = raw->FUN_001db1c0(a);
+    else
+        item = 0;
+    if (item)
+        item->sub.v0();
+    if (current)
+        current->sub.v1();
+    current = item;
+    arg = a;
+    z0 = 0;
+    z1 = 0;
+    z2 = 0;
+    z3 = 0;
+}
