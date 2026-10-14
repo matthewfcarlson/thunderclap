@@ -13,15 +13,15 @@ struct Node {
     short key;
 };
 
-struct Pool {
+struct Pool_207580 {
     Node *FUN_001c7f10(int id);
 };
 
-struct Holder {
+struct Holder_207580 {
     char pad0[4];
-    Pool *pool;
+    Pool_207580 *pool;
 };
-Holder *__cdecl FUN_001c3d90();
+Holder_207580 *__cdecl FUN_001c3d90();
 
 struct Slot3c {
     int f0;
@@ -30,11 +30,11 @@ struct Slot3c {
     int f38;
 };
 
-struct Handle {
+struct Handle_207580 {
     void FUN_00263e90();
 };
 
-struct Thing {
+struct Thing_207580 {
     void FUN_002660a0(int v);
 };
 
@@ -47,14 +47,14 @@ public:
     Slot3c slots[22];       // 0x48 (20 + 2)
     int keys[2];            // 0x570
     char pad578[0xaec - 0x578];
-    Handle *handle;         // 0xaec
+    Handle_207580 *handle;         // 0xaec
     char padaf0[2];
     char pending;           // 0xaf2
     void FUN_00207150();
     int FUN_00204c10(int v);
     void FUN_00207080(int v);
-    Handle *FUN_00203e90(char *path, int a, int b, char *slot, int c, int d, int e);
-    Thing *FUN_00203db0(int key);
+    Handle_207580 *FUN_00203e90(char *path, int a, int b, char *slot, int c, int d, int e);
+    Thing_207580 *FUN_00203db0(int key);
     void FUN_002067d0(int id, int v);
     bool FUN_00207580(int a1, bool a2);
 };

@@ -2,7 +2,7 @@
 // FUN_002e7dc0 @ 0x002e7dc0
 struct png_struct;
 
-struct png_row_info {
+struct png_row_info_2e7dc0 {
     unsigned int width;
     unsigned int rowbytes;
     unsigned char color_type;
@@ -18,7 +18,7 @@ static int abs_int(int v)
     return v < 0 ? -v : v;
 }
 
-void FUN_002e7dc0(png_struct *png_ptr, png_row_info *row_info, unsigned char *row,
+void FUN_002e7dc0(png_struct *png_ptr, png_row_info_2e7dc0 *row_info, unsigned char *row,
                   unsigned char *prev_row, int filter)
 {
     unsigned int i;

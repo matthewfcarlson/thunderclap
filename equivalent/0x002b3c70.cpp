@@ -1,33 +1,33 @@
 // STATUS: equivalent (tools/equiv.py level 3: 356 inputs, branch coverage 12/12)
 // FUN_002b3c70 @ 0x002b3c70
-struct V3 {
+struct V3_2b3c70 {
     float x, y, z;
     void FUN_0022d180();
 };
 
-struct Tri {
+struct Tri_2b3c70 {
     short a, b, c;
 };
 
-struct Mesh {
+struct Mesh_2b3c70 {
     char pad0[0x10];
-    V3 *verts;
+    V3_2b3c70 *verts;
 };
 
-struct Batch {
+struct Batch_2b3c70 {
     char pad0[8];
-    V3 *p8;
+    V3_2b3c70 *p8;
     char pad0c[4];
     int *p10;
     void FUN_0008ef00();
 };
 
-struct Sink {
+struct Sink_2b3c70 {
     char pad0[0x10];
     void *f10;
 };
 
-class Renderer {
+class Renderer_2b3c70 {
 public:
     virtual void v0();
     virtual void v1();
@@ -59,47 +59,47 @@ public:
     virtual void v27();
     virtual void v28();
     virtual void v29();
-    virtual Batch *v30(void *sink, int a, int b, int count, int c);
-    virtual void v31(Batch *b);
+    virtual Batch_2b3c70 *v30(void *sink, int a, int b, int count, int c);
+    virtual void v31(Batch_2b3c70 *b);
 };
 
-extern Renderer *DAT_0052c2a8;
-extern Sink *DAT_00554bb4;
+extern Renderer_2b3c70 *DAT_0052c2a8;
+extern Sink_2b3c70 *DAT_00554bb4;
 extern unsigned int DAT_0052cbac;
-extern Tri DAT_0052cbb0[];
+extern Tri_2b3c70 DAT_0052cbb0[];
 extern int DAT_004d06dc;
 
 class DebugMesh {
 public:
     char pad0[0x48];
-    Mesh *mesh;
+    Mesh_2b3c70 *mesh;
     float scale;
     char pad50[4];
     char outline;
     char pad55[3];
-    V3 off;
+    V3_2b3c70 off;
     void F();
 };
 
 void DebugMesh::F()
 {
-    V3 *verts = mesh->verts;
+    V3_2b3c70 *verts = mesh->verts;
     unsigned int count = DAT_0052cbac;
     if (count == 0)
         return;
-    V3 T;
+    V3_2b3c70 T;
     T.x = off.x;
     T.y = off.y;
     T.z = off.z;
     T.x = T.x * scale;
     T.y = T.y * scale;
     T.z = T.z * scale;
-    Batch *batch = DAT_0052c2a8->v30(DAT_00554bb4->f10, 0, 0x2020, count * 6, 0);
+    Batch_2b3c70 *batch = DAT_0052c2a8->v30(DAT_00554bb4->f10, 0, 0x2020, count * 6, 0);
     if (!outline) {
         for (unsigned short i = 0; i < DAT_0052cbac; i++) {
-            V3 A = verts[DAT_0052cbb0[i].a];
-            V3 B = verts[DAT_0052cbb0[i].b];
-            V3 C = verts[DAT_0052cbb0[i].c];
+            V3_2b3c70 A = verts[DAT_0052cbb0[i].a];
+            V3_2b3c70 B = verts[DAT_0052cbb0[i].b];
+            V3_2b3c70 C = verts[DAT_0052cbb0[i].c];
             *batch->p10 = DAT_004d06dc;
             batch->p8->x = C.x;
             batch->p8->y = C.y;
@@ -143,10 +143,10 @@ void DebugMesh::F()
     } else {
         for (unsigned short i = 0; i < DAT_0052cbac; i++) {
             struct Frame {
-                V3 B;
-                V3 C;
-                V3 A;
-                V3 D[3];
+                V3_2b3c70 B;
+                V3_2b3c70 C;
+                V3_2b3c70 A;
+                V3_2b3c70 D[3];
             } f;
             f.A = verts[DAT_0052cbb0[i].a];
             f.B = verts[DAT_0052cbb0[i].b];

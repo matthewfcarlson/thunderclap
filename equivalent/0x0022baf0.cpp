@@ -2,10 +2,10 @@
 // FUN_0022baf0 @ 0x0022baf0
 extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
-struct Vec { float x,y,z; void FUN_0022d1c0(const Vec*); };
-struct Matrix { float m[16]; void build(const Vec* axis,float angle); };
-void Matrix::build(const Vec* axis,float angle) {
- Vec v; v.FUN_0022d1c0(axis);
+struct Vec_22baf0 { float x,y,z; void FUN_0022d1c0(const Vec_22baf0*); };
+struct Matrix { float m[16]; void build(const Vec_22baf0* axis,float angle); };
+void Matrix::build(const Vec_22baf0* axis,float angle) {
+ Vec_22baf0 v; v.FUN_0022d1c0(axis);
  double s=sin((double)angle*0.5), c=cos((double)angle*0.5);
  float x=(float)(v.x*s), y=(float)(v.y*s);
  double z=v.z*s;

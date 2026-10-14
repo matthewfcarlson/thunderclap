@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 295 inputs, branch coverage 10/10)
 // FUN_002b4210 @ 0x002b4210
-union FI {
+union FI_2b4210 {
     float f;
     int i;
 };
-struct V3 {
+struct V3_2b4210 {
     float x, y, z;
     void FUN_0022d180();
 };
-struct Edge16 {
+struct Edge16_2b4210 {
     short a, b;
 };
 struct Vi {
@@ -16,12 +16,12 @@ struct Vi {
 };
 struct Builder {
     char pad00[8];
-    FI *pos;
+    FI_2b4210 *pos;
     char pad0c[4];
     int *color;
     void FUN_0008ef00();
 };
-class Layer {
+class Layer_2b4210 {
 public:
     virtual void v00();
     virtual void v04();
@@ -33,7 +33,7 @@ public:
     virtual void v1c();
     virtual void v20(unsigned int tag, int color);
 };
-class Renderer {
+class Renderer_2b4210 {
 public:
     virtual void v00();
     virtual void v04();
@@ -65,32 +65,32 @@ public:
     virtual void v6c();
     virtual void v70();
     virtual void v74();
-    virtual Builder *v78(Layer *layer, int b, int c, int d, int e);
+    virtual Builder *v78(Layer_2b4210 *layer, int b, int c, int d, int e);
     virtual void v7c(Builder *b);
 };
-struct Holder {
+struct Holder_2b4210 {
     char pad00[0x10];
-    Layer *layer;
+    Layer_2b4210 *layer;
 };
-extern Holder *DAT_00554bb4;
-extern Renderer *DAT_0052c2a8;
+extern Holder_2b4210 *DAT_00554bb4;
+extern Renderer_2b4210 *DAT_0052c2a8;
 extern unsigned int DAT_0052cba8;
-extern Edge16 DAT_00544bb0[];
+extern Edge16_2b4210 DAT_00544bb0[];
 extern int DAT_004d06dc;
 
-struct Geom {
+struct Geom_2b4210 {
     char pad00[0x10];
-    V3 *verts;
+    V3_2b4210 *verts;
 };
 class Shadow {
 public:
     char pad00[0x48];
-    Geom *geom;
+    Geom_2b4210 *geom;
     float scale;
     char pad50[4];
     char pointLight;
     char pad55[3];
-    V3 light;
+    V3_2b4210 light;
     void FUN_002b4210();
 };
 
@@ -98,30 +98,30 @@ void Shadow::FUN_002b4210()
 {
     Builder *b = DAT_0052c2a8->v78(DAT_00554bb4->layer, 0, 0x2020, DAT_0052cba8 * 6, 0);
     DAT_00554bb4->layer->v20(0x46464944, DAT_004d06dc);
-    V3 *verts = geom->verts;
+    V3_2b4210 *verts = geom->verts;
     if (!pointLight) {
-        V3 O;
+        V3_2b4210 O;
         float s = scale;
         O.x = s * light.x;
         O.y = s * light.y;
         O.z = s * light.z;
         for (unsigned short i = 0; i < DAT_0052cba8; i++) {
-            V3 *A = &verts[DAT_00544bb0[i].a];
-            V3 *B = &verts[DAT_00544bb0[i].b];
+            V3_2b4210 *A = &verts[DAT_00544bb0[i].a];
+            V3_2b4210 *B = &verts[DAT_00544bb0[i].b];
             int Az = ((Vi *)A)->z;
             float Ax = A->x;
             float Ay = A->y;
             Vi Bc = *(Vi *)B;
-            FI A2[3];
+            FI_2b4210 A2[3];
             A2[0].f = O.x + A->x;
             A2[1].f = O.y + A->y;
             A2[2].f = O.z + A->z;
-            FI B2[3];
+            FI_2b4210 B2[3];
             B2[0].f = O.x + B->x;
             B2[1].f = O.y + B->y;
             B2[2].f = O.z + B->z;
             {
-                FI *p = b->pos;
+                FI_2b4210 *p = b->pos;
                 int c = DAT_004d06dc;
                 p[2].i = Az;
                 p[0].f = Ax;
@@ -130,7 +130,7 @@ void Shadow::FUN_002b4210()
                 b->FUN_0008ef00();
             }
             {
-                FI *p = b->pos;
+                FI_2b4210 *p = b->pos;
                 int c = DAT_004d06dc;
                 p[0].i = A2[0].i;
                 p[1].i = A2[1].i;
@@ -139,7 +139,7 @@ void Shadow::FUN_002b4210()
                 b->FUN_0008ef00();
             }
             {
-                FI *p = b->pos;
+                FI_2b4210 *p = b->pos;
                 int c = DAT_004d06dc;
                 p[0].i = Bc.x;
                 p[1].i = Bc.y;
@@ -148,7 +148,7 @@ void Shadow::FUN_002b4210()
                 b->FUN_0008ef00();
             }
             {
-                FI *p = b->pos;
+                FI_2b4210 *p = b->pos;
                 int c = DAT_004d06dc;
                 p[0].i = Bc.x;
                 p[1].i = Bc.y;
@@ -157,7 +157,7 @@ void Shadow::FUN_002b4210()
                 b->FUN_0008ef00();
             }
             {
-                FI *p = b->pos;
+                FI_2b4210 *p = b->pos;
                 int c = DAT_004d06dc;
                 p[0].i = A2[0].i;
                 p[1].i = A2[1].i;
@@ -166,7 +166,7 @@ void Shadow::FUN_002b4210()
                 b->FUN_0008ef00();
             }
             {
-                FI *p = b->pos;
+                FI_2b4210 *p = b->pos;
                 int c = DAT_004d06dc;
                 p[0].i = B2[0].i;
                 p[1].i = B2[1].i;
@@ -176,13 +176,13 @@ void Shadow::FUN_002b4210()
             }
         }
     } else {
-        V3 L = light;
+        V3_2b4210 L = light;
         for (unsigned short i = 0; i < DAT_0052cba8; i++) {
-            V3 *A = &verts[DAT_00544bb0[i].a];
-            V3 *B = &verts[DAT_00544bb0[i].b];
+            V3_2b4210 *A = &verts[DAT_00544bb0[i].a];
+            V3_2b4210 *B = &verts[DAT_00544bb0[i].b];
             Vi Ac = *(Vi *)A;
             Vi Bc = *(Vi *)B;
-            V3 D1, D2;
+            V3_2b4210 D1, D2;
             D1.x = A->x - L.x;
             D1.y = A->y - L.y;
             D1.z = A->z - L.z;
@@ -197,16 +197,16 @@ void Shadow::FUN_002b4210()
             D2.x = D2.x * scale;
             D2.y = D2.y * scale;
             D2.z = D2.z * scale;
-            FI A2[3];
+            FI_2b4210 A2[3];
             A2[0].f = D1.x + A->x;
             A2[1].f = D1.y + A->y;
             A2[2].f = D1.z + A->z;
-            FI B2[3];
+            FI_2b4210 B2[3];
             B2[0].f = D2.x + B->x;
             B2[1].f = D2.y + B->y;
             B2[2].f = D2.z + B->z;
             {
-                FI *p = b->pos;
+                FI_2b4210 *p = b->pos;
                 int c = DAT_004d06dc;
                 p[0].i = Ac.x;
                 p[1].i = Ac.y;
@@ -215,7 +215,7 @@ void Shadow::FUN_002b4210()
                 b->FUN_0008ef00();
             }
             {
-                FI *p = b->pos;
+                FI_2b4210 *p = b->pos;
                 int c = DAT_004d06dc;
                 p[0].i = A2[0].i;
                 p[1].i = A2[1].i;
@@ -224,7 +224,7 @@ void Shadow::FUN_002b4210()
                 b->FUN_0008ef00();
             }
             {
-                FI *p = b->pos;
+                FI_2b4210 *p = b->pos;
                 int c = DAT_004d06dc;
                 p[0].i = Bc.x;
                 p[1].i = Bc.y;
@@ -233,7 +233,7 @@ void Shadow::FUN_002b4210()
                 b->FUN_0008ef00();
             }
             {
-                FI *p = b->pos;
+                FI_2b4210 *p = b->pos;
                 int c = DAT_004d06dc;
                 p[0].i = Bc.x;
                 p[1].i = Bc.y;
@@ -242,7 +242,7 @@ void Shadow::FUN_002b4210()
                 b->FUN_0008ef00();
             }
             {
-                FI *p = b->pos;
+                FI_2b4210 *p = b->pos;
                 int c = DAT_004d06dc;
                 p[0].i = A2[0].i;
                 p[1].i = A2[1].i;
@@ -251,7 +251,7 @@ void Shadow::FUN_002b4210()
                 b->FUN_0008ef00();
             }
             {
-                FI *p = b->pos;
+                FI_2b4210 *p = b->pos;
                 int c = DAT_004d06dc;
                 p[0].i = B2[0].i;
                 p[1].i = B2[1].i;

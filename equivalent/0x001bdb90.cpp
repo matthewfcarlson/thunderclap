@@ -16,46 +16,46 @@ class CompositeDrawable;
 class Locator;
 }
 
-class Res {
+class Res_1bdb90 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-class Composite : public Res {
+class Composite_1bdb90 : public Res_1bdb90 {
 public:
     void FUN_002998d0(int v);
 };
 
-class Inventory {
+class Inventory_1bdb90 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Res *get(void *caster, unsigned __int64 key);
+    virtual Res_1bdb90 *get(void *caster, unsigned __int64 key);
 };
 
 struct InvHolder {
     char pad0[0xaa0];
-    Inventory *inv;
+    Inventory_1bdb90 *inv;
 };
 
-struct Flags {
+struct Flags_1bdb90 {
     char pad0[0x32];
     char b32;
 };
 
-struct Holder {
+struct Holder_1bdb90 {
     InvHolder *FUN_000862a0();
-    Flags *FUN_00086290();
+    Flags_1bdb90 *FUN_00086290();
 };
 
-struct Manager {
+struct Manager_1bdb90 {
     char pad0[0x54];
-    Holder *holder;
+    Holder_1bdb90 *holder;
 };
 
-extern Manager *DAT_004dd700;
+extern Manager_1bdb90 *DAT_004dd700;
 extern const char *DAT_004c4bfc;
 extern const char *DAT_004c4bf8;
 extern const char *DAT_004c4bf4;
@@ -65,19 +65,19 @@ extern const char *DAT_004c4be8;
 extern "C" int __cdecl FUN_00266da0(int mode);
 unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
 
-class Widget {
+class Widget_1bdb90 {
 public:
     char pad0[4];
-    Res *r4;
-    Res *r8;
-    Res *rc;
-    Res *r10;
-    Res *r14;
-    Res *r18;
+    Res_1bdb90 *r4;
+    Res_1bdb90 *r8;
+    Res_1bdb90 *rc;
+    Res_1bdb90 *r10;
+    Res_1bdb90 *r14;
+    Res_1bdb90 *r18;
     void FUN_001bdb90();
 };
 
-void Widget::FUN_001bdb90()
+void Widget_1bdb90::FUN_001bdb90()
 {
     struct Frame {
         char caster[4];
@@ -85,8 +85,8 @@ void Widget::FUN_001bdb90()
     } f;
 
     f.saved = FUN_00266da0(0x11);
-    Inventory *inv = DAT_004dd700->holder->FUN_000862a0()->inv;
-    Res *r;
+    Inventory_1bdb90 *inv = DAT_004dd700->holder->FUN_000862a0()->inv;
+    Res_1bdb90 *r;
 
     r = inv->get(new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>, FUN_002672f0(DAT_004c4bfc, 0, 0));
     if (r)
@@ -95,7 +95,7 @@ void Widget::FUN_001bdb90()
         r4->Release();
     r4 = r;
     if (r)
-        ((Composite *)r)->FUN_002998d0(0);
+        ((Composite_1bdb90 *)r)->FUN_002998d0(0);
 
     r = inv->get(new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>, FUN_002672f0(DAT_004c4bf8, 0, 0));
     if (r)
@@ -104,7 +104,7 @@ void Widget::FUN_001bdb90()
         r8->Release();
     r8 = r;
     if (r)
-        ((Composite *)r)->FUN_002998d0(0);
+        ((Composite_1bdb90 *)r)->FUN_002998d0(0);
 
     r = inv->get(new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>, FUN_002672f0(DAT_004c4bf4, 0, 0));
     if (r)
@@ -113,7 +113,7 @@ void Widget::FUN_001bdb90()
         rc->Release();
     rc = r;
     if (r)
-        ((Composite *)r)->FUN_002998d0(0);
+        ((Composite_1bdb90 *)r)->FUN_002998d0(0);
 
     r = inv->get(new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>, FUN_002672f0(DAT_004c4bf0, 0, 0));
     if (r)
@@ -122,7 +122,7 @@ void Widget::FUN_001bdb90()
         r10->Release();
     r10 = r;
     if (r)
-        ((Composite *)r)->FUN_002998d0(0);
+        ((Composite_1bdb90 *)r)->FUN_002998d0(0);
 
     r = inv->get(new (f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>, FUN_002672f0(DAT_004c4bec, 0, 0));
     if (r)

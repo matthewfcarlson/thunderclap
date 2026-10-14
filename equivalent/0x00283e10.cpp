@@ -4,7 +4,7 @@
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
-typedef unsigned __int64 Key;
+typedef unsigned __int64 Key_283e10;
 
 namespace pure3d { class Shader; }
 namespace content {
@@ -16,31 +16,31 @@ struct DynamicCaster {
 }
 }
 
-struct V3 {
+struct V3_283e10 {
     float x, y, z;
     void FUN_00011090();
 };
 
-struct Mat4 {
+struct Mat4_283e10 {
     float m[16];
     void FUN_0022ba00();
-    void FUN_0022be40(const V3 *pos);
-    void FUN_0022bec0(const V3 *fwd, const V3 *up);
+    void FUN_0022be40(const V3_283e10 *pos);
+    void FUN_0022bec0(const V3_283e10 *fwd, const V3_283e10 *up);
     void FUN_0022c120();
-    void FUN_0022c410(int n, const V3 *src, V3 *dst);
+    void FUN_0022c410(int n, const V3_283e10 *src, V3_283e10 *dst);
 };
 
-struct Plane {
+struct Plane_283e10 {
     float a, b, c, d;
     void FUN_00078850();
-    void FUN_0022dfe0(const V3 *p0, const V3 *p1, const V3 *p2);
+    void FUN_0022dfe0(const V3_283e10 *p0, const V3_283e10 *p1, const V3_283e10 *p2);
 };
 
-void __stdcall FUN_00011520(void *arr, unsigned int size, int count, void (V3::*ctor)());
-void __stdcall FUN_00011520(void *arr, unsigned int size, int count, void (Plane::*ctor)());
+void __stdcall FUN_00011520(void *arr, unsigned int size, int count, void (V3_283e10::*ctor)());
+void __stdcall FUN_00011520(void *arr, unsigned int size, int count, void (Plane_283e10::*ctor)());
 
 struct Vert {
-    V3 pos;
+    V3_283e10 pos;
     float w;
     float uv[2];
 };
@@ -49,7 +49,7 @@ struct Clip {
     char data[0x48];
 };
 
-class Renderer {
+class Renderer_283e10 {
 public:
     virtual void r0();
     virtual void r1();
@@ -64,21 +64,21 @@ public:
     virtual void r10();
     virtual void r11();
     virtual void r12();
-    virtual void v13(const V3 *pos, float w, const float *uv);
+    virtual void v13(const V3_283e10 *pos, float w, const float *uv);
 };
 
-class Batch {
+class Batch_283e10 {
 public:
     virtual void b0();
     virtual void b1();
     virtual void b2();
     virtual void b3();
-    virtual Renderer *v4();
-    virtual void v5(Renderer *r);
+    virtual Renderer_283e10 *v4();
+    virtual void v5(Renderer_283e10 *r);
     virtual void v6();
 };
 
-class Chunks {
+class Chunks_283e10 {
 public:
     virtual void c0();
     virtual void c1();
@@ -94,78 +94,78 @@ public:
     virtual void addRef();
     virtual void release();
     char pad4[0xc];
-    Chunks *chunks;
+    Chunks_283e10 *chunks;
 };
 
-class Loader {
+class Loader_283e10 {
 public:
     virtual void l0();
     virtual void l1();
     virtual void l2();
-    virtual Shader *v3(content::LoadInventory::DynamicCaster<pure3d::Shader> *caster, Key key);
+    virtual Shader *v3(content::LoadInventory::DynamicCaster<pure3d::Shader> *caster, Key_283e10 key);
 };
 
 struct World {
-    void FUN_002f3830(V3 *out, int a1);
+    void FUN_002f3830(V3_283e10 *out, int a1);
 };
 
-struct Slot {
+struct Slot_283e10 {
     unsigned int id;
     int tag;
     Shader *shader;
-    V3 pos;
-    Batch *batch;
+    V3_283e10 pos;
+    Batch_283e10 *batch;
 };
 
 int __cdecl FUN_00266da0(int mode);
-void __cdecl FUN_00281fd0(World *w, float *size, Mat4 *m, int n, void **objs, Clip *clips);
-void __cdecl FUN_00281e60(Plane *planes, Clip *clip, Vert *out, int *n);
+void __cdecl FUN_00281fd0(World *w, float *size, Mat4_283e10 *m, int n, void **objs, Clip *clips);
+void __cdecl FUN_00281e60(Plane_283e10 *planes, Clip *clip, Vert *out, int *n);
 
-class Target;
+class Target_283e10;
 
-struct Frame {
+struct Frame_283e10 {
     union {
         float negHalfH;          // 0x00
         int nloc;
     } u0;
     union {
-        Slot *slot;              // 0x04
-        Batch *batch;
+        Slot_283e10 *slot;              // 0x04
+        Batch_283e10 *batch;
     } u4;
     int cnt;                     // 0x08
-    Target *self;                // 0x0c
+    Target_283e10 *self;                // 0x0c
     int stash10;                 // 0x10
     unsigned int c;              // 0x14
     Shader *shader;              // 0x18
     content::LoadInventory::DynamicCaster<pure3d::Shader> caster;  // 0x1c
     int oldMode;                 // 0x20
-    V3 out24;                    // 0x24
-    V3 corners[4];               // 0x30
-    V3 p;                        // 0x60
-    Mat4 m;                      // 0x6c
-    Plane planes[4];             // 0xac
-    Mat4 m2;                     // 0xec
+    V3_283e10 out24;                    // 0x24
+    V3_283e10 corners[4];               // 0x30
+    V3_283e10 p;                        // 0x60
+    Mat4_283e10 m;                      // 0x6c
+    Plane_283e10 planes[4];             // 0xac
+    Mat4_283e10 m2;                     // 0xec
     void *objs[40];              // 0x12c
     Clip clips[40];              // 0x1cc
     Vert verts[0x42];            // 0xd0c
     char unused[0x7d8c - 0xd0c - 0x42 * 0x18];
 };
 
-class Target {
+class Target_283e10 {
 public:
     char pad0[0x10];
     unsigned int counter;        // 0x10
     int count;                   // 0x14
-    Loader *loader;              // 0x18
+    Loader_283e10 *loader;              // 0x18
     int mode;                    // 0x1c
-    Slot slots[100];             // 0x20
-    unsigned int FUN_00283e10(Key *key, int a1, World *world, V3 *pos, V3 *up, float *size, int a6, int a7);
-    void FUN_002809b0(World *w, V3 *pos, float radius, int a1, int a1b, void **out, int *cnt, int max, int z0, int z1);
+    Slot_283e10 slots[100];             // 0x20
+    unsigned int FUN_00283e10(Key_283e10 *key, int a1, World *world, V3_283e10 *pos, V3_283e10 *up, float *size, int a6, int a7);
+    void FUN_002809b0(World *w, V3_283e10 *pos, float radius, int a1, int a1b, void **out, int *cnt, int max, int z0, int z1);
 };
 
-unsigned int Target::FUN_00283e10(Key *key, int a1, World *world, V3 *pos, V3 *up, float *size, int a6, int a7)
+unsigned int Target_283e10::FUN_00283e10(Key_283e10 *key, int a1, World *world, V3_283e10 *pos, V3_283e10 *up, float *size, int a6, int a7)
 {
-    Frame f;
+    Frame_283e10 f;
     int i;
     f.self = this;
     new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::Shader>;
@@ -176,7 +176,7 @@ unsigned int Target::FUN_00283e10(Key *key, int a1, World *world, V3 *pos, V3 *u
     if (n0 <= 1)
         return 0;
     f.c = counter;
-    Slot *slot = &slots[f.c % 100];
+    Slot_283e10 *slot = &slots[f.c % 100];
     f.u4.slot = slot;
     count = n0 - 1;
     f.shader->chunks->v6(0x444d5655, 1);
@@ -184,10 +184,10 @@ unsigned int Target::FUN_00283e10(Key *key, int a1, World *world, V3 *pos, V3 *u
     f.m.FUN_0022ba00();
     f.m.FUN_0022be40(pos);
     f.m.FUN_0022bec0(&f.out24, up);
-    memcpy(&f.m2, &f.m, sizeof(Mat4));
+    memcpy(&f.m2, &f.m, sizeof(Mat4_283e10));
     f.m2.FUN_0022c120();
-    FUN_00011520(f.planes, 0x10, 4, &Plane::FUN_00078850);
-    FUN_00011520(f.corners, 0xc, 4, &V3::FUN_00011090);
+    FUN_00011520(f.planes, 0x10, 4, &Plane_283e10::FUN_00078850);
+    FUN_00011520(f.corners, 0xc, 4, &V3_283e10::FUN_00011090);
     float hw = size[0] * 0.5f;
     float hh = size[1] * 0.5f;
     f.corners[0].z = 0;
@@ -230,7 +230,7 @@ unsigned int Target::FUN_00283e10(Key *key, int a1, World *world, V3 *pos, V3 *u
             if (total >= 0x42)
                 total = 0x42;
             f.u4.batch = slot->batch;
-            Renderer *r = f.u4.batch->v4();
+            Renderer_283e10 *r = f.u4.batch->v4();
             for (i = 0; i < total; i++)
                 r->v13(&f.verts[i].pos, f.verts[i].w, f.verts[i].uv);
             if (total < 0x42) {

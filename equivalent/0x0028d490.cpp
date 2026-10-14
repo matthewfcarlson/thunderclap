@@ -6,7 +6,7 @@ void* __cdecl FUN_0008d6d0(unsigned size);
 void __stdcall FUN_00011520(void* base, unsigned size, int count, void* ctor);
 extern char FUN_001db770;
 
-struct Pool {
+struct Pool_28d490 {
     void* FUN_002888c0(int size, int tag);
 };
 
@@ -15,7 +15,7 @@ public:
     int vptr;
     int field_04;
     int field_08;
-    Pool* parent;
+    Pool_28d490* parent;
     int count;
     int field_14;
     void* data;

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 20/20)
 // FUN_00306190 @ 0x00306190
-struct NodeList;
+struct NodeList_306190;
 
 class Node {
 public:
@@ -14,11 +14,11 @@ public:
     char pad04[4];
     int id;                     // 8
     char pad0c[8];
-    NodeList *children;         // 0x14
+    NodeList_306190 *children;         // 0x14
     Node *FUN_00306190(int wanted, bool strict);
 };
 
-struct NodeList {
+struct NodeList_306190 {
     Node **begin;
     Node **end;
 };

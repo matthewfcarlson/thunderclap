@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 5/6, incomplete)
 // pure3d::CompressedQuaternionChannel<math::CompressedQuaternion3>::vfunc_5 @ 0x0028dc90
-struct Quat {
+struct Quat_28dc90 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat *a, const Quat *b, float t);
+    void FUN_0022b750(const Quat_28dc90 *a, const Quat_28dc90 *b, float t);
 };
 
 struct CompressedQuaternion3 {
     signed char v[3];
-    Quat *FUN_0028dbb0(Quat *tmp);
+    Quat_28dc90 *FUN_0028dbb0(Quat_28dc90 *tmp);
 };
 
-struct Frame {
+struct Frame_28dc90 {
     int lo;
     int hi;
-    Quat q1;
-    Quat q0;
-    Quat tmp;
+    Quat_28dc90 q1;
+    Quat_28dc90 q0;
+    Quat_28dc90 tmp;
 };
 
 class CompressedQuaternionChannel {
@@ -25,7 +25,7 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual void vfunc_5(float time, Quat *out);
+    virtual void vfunc_5(float time, Quat_28dc90 *out);
     virtual void vfunc_6();
     void *field04;
     char pad08[0x10 - 8];
@@ -35,9 +35,9 @@ public:
     char FUN_00289f80(float time, int *lo, int *hi);
 };
 
-void CompressedQuaternionChannel::vfunc_5(float time, Quat *out)
+void CompressedQuaternionChannel::vfunc_5(float time, Quat_28dc90 *out)
 {
-    Frame f;
+    Frame_28dc90 f;
 
     if (FUN_00289f80(time, &f.lo, &f.hi) && field04 != 0) {
         float dt = time - (float)times[f.lo];

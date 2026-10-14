@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_0029fc00 @ 0x0029fc00
 // FUN_0029fc00 @ 0x0029fc00: advances one entry's countdown; when it expires, re-arms it and re-emits if still valid
-struct Region {
+struct Region_29fc00 {
     bool FUN_0022d2b0(void *outer, int key);
 };
 
-struct Entry {
+struct Entry_29fc00 {
     char pad00[0x1c];
     int owner;
     int key;
@@ -19,15 +19,15 @@ struct Entry {
     void FUN_0029ea40(int mode);
 };
 
-class Tracker {
+class Tracker_29fc00 {
 public:
     char pad00[0x24];
     int owner;
-    float FUN_0029dcc0(Region *region, int mode);
-    bool FUN_0029fc00(int mode, Region *region, Entry *entry);
+    float FUN_0029dcc0(Region_29fc00 *region, int mode);
+    bool FUN_0029fc00(int mode, Region_29fc00 *region, Entry_29fc00 *entry);
 };
 
-bool Tracker::FUN_0029fc00(int mode, Region *region, Entry *entry)
+bool Tracker_29fc00::FUN_0029fc00(int mode, Region_29fc00 *region, Entry_29fc00 *entry)
 {
     if (entry == 0)
         return false;

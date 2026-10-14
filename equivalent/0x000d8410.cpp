@@ -3,25 +3,25 @@
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
-struct Dummy {
+struct Dummy_d8410 {
     int FUN_0008c740(int zero, unsigned int *out1, int *out2);
     void FUN_0008c920();
 };
 
-struct Mid {
-    Dummy *FUN_00089a50();
+struct Mid_d8410 {
+    Dummy_d8410 *FUN_00089a50();
 };
 
-struct Mgr {
-    Mid *FUN_000b5000();
+struct Mgr_d8410 {
+    Mid_d8410 *FUN_000b5000();
 };
 
-struct Player {
+struct Player_d8410 {
     char pad0[0x9a8];
     char busy;
 };
 
-class Game {
+class Game_d8410 {
 public:
     virtual void v0();
     virtual void v1();
@@ -69,11 +69,11 @@ public:
     virtual void v43();
     virtual int v44();
     char pad04[0x2218 - 4];
-    Player *player;
+    Player_d8410 *player;
     void FUN_000e63a0();
 };
 
-Game *FUN_000fc3d0();
+Game_d8410 *FUN_000fc3d0();
 extern const char *DAT_004a0c64;
 
 struct Timer {
@@ -86,7 +86,7 @@ public:
     void FUN_000d8410();
 
     char pad0[0x150];
-    Mgr *mgr;
+    Mgr_d8410 *mgr;
     char pad154[0x1d0 - 0x154];
     int pending;
     char pad1d4[0x34c - 0x1d4];
@@ -144,7 +144,7 @@ void MemCardControl::FUN_000d8410()
             return;
         }
         for (;;) {
-            Player *pl = FUN_000fc3d0()->player;
+            Player_d8410 *pl = FUN_000fc3d0()->player;
             if (pl == 0 || !pl->busy)
                 break;
             FUN_000fc3d0()->FUN_000e63a0();
@@ -162,7 +162,7 @@ void MemCardControl::FUN_000d8410()
     }
     if (m == 8 || m == 9 || m == 0xb || m == 0xc || m == 0xd || m == 0x19 || m == 0x12 || m == 0x1e || m == 0x14) {
         for (;;) {
-            Player *pl = FUN_000fc3d0()->player;
+            Player_d8410 *pl = FUN_000fc3d0()->player;
             if (pl == 0 || !pl->busy)
                 break;
             FUN_000fc3d0()->FUN_000e63a0();

@@ -11,14 +11,14 @@ void __cdecl FUN_00047c70();
 void* __cdecl FUN_0008d690(unsigned);
 void __cdecl FUN_002347b0(void*,void*,int);
 inline void* __cdecl operator new(unsigned,void* p) { return p; }
-struct Base {
+struct Base_53220 {
  virtual void dummy();
  char data[12];
  void FUN_00234cc0(const char*);
 };
 class CCharacterSizeCondition;
 namespace fight {
-template<class T> struct ParamEnumConstList : Base {
+template<class T> struct ParamEnumConstList : Base_53220 {
  virtual void dummy();
  void* values;
  int count;
@@ -32,7 +32,7 @@ void __cdecl FUN_00053220() {
   void* mem = FUN_0008d690(32);
   if(mem) {
    int count = DAT_00427760;
-   Base* b=(Base*)mem;
+   Base_53220* b=(Base_53220*)mem;
    b->FUN_00234cc0("compare");
    list[0]=new(mem) fight::ParamEnumConstList<CCharacterSizeCondition>;
    list[0]->values=&DAT_00427758;
@@ -42,7 +42,7 @@ void __cdecl FUN_00053220() {
   mem = FUN_0008d690(32);
   if(mem) {
    int count = DAT_003f5eb4;
-   Base* b=(Base*)mem;
+   Base_53220* b=(Base_53220*)mem;
    b->FUN_00234cc0("size");
    list[1]=new(mem) fight::ParamEnumConstList<CCharacterSizeCondition>;
    list[1]->values=&DAT_0048f6b4;

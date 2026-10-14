@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1487 inputs, branch coverage 26/26)
 // FUN_00037860 @ 0x00037860
-struct Name {
+struct Name_37860 {
     int lo;
     int hi;
     void FUN_0027af00();
@@ -28,18 +28,18 @@ struct Slot50 {
 struct Ent28 {
     int a[10];
 };
-struct NameSlot {
-    Name n;
+struct NameSlot_37860 {
+    Name_37860 n;
     int c;
     int pad;
 };
 struct NameSlotF {
-    Name n;
+    Name_37860 n;
     float b;
     int pad;
 };
 struct NameSlot2 {
-    Name n;
+    Name_37860 n;
     char b8;
     char b9;
     char pad[6];
@@ -78,12 +78,12 @@ public:
     char pad[0x120];
     Obj120 *FUN_000fcd30(Obj0fee10 *p);
 };
-struct Mgr {
+struct Mgr_37860 {
     int FUN_00059ba0(int a);
 };
 struct World {
     char pad[0x44];
-    Mgr *mgr;
+    Mgr_37860 *mgr;
 };
 extern World *DAT_004dd700;
 void __cdecl FUN_000964d0();
@@ -94,7 +94,7 @@ class __declspec(novtable) Entity {
 public:
     virtual void v0();
     char pad04[4];
-    Name nameHolder;
+    Name_37860 nameHolder;
     void FUN_0027b070();
     Entity() { FUN_0027b070(); }
 };
@@ -291,7 +291,7 @@ public:
     char f1b48;
     char f1b49;
     char pad1b4a[0x6];
-    Name n1b50;
+    Name_37860 n1b50;
     int f1b58;
     int f1b5c;
     int f1b60;
@@ -311,7 +311,7 @@ public:
     char f1b90;
     char f1b91;
     char pad1b92[0x6];
-    Name n1b98;
+    Name_37860 n1b98;
     int f1ba0;
     char f1ba4;
     char pad1ba5[0x3];
@@ -322,7 +322,7 @@ public:
     char pad1c8e[0x2];
     int f1c90;
     char pad1c94[0x4];
-    Name n1c98;
+    Name_37860 n1c98;
     Obj0fee10* f1ca0;
     Obj109ba0* f1ca4;
     float f1ca8;
@@ -383,8 +383,8 @@ public:
     int f1d58;
     int f1d5c;
     char pad1d60[0x8];
-    Name n1d68;
-    Name n1d70;
+    Name_37860 n1d68;
+    Name_37860 n1d70;
     char f1d78;
     char f1d79;
     char pad1d7a[0x2];
@@ -426,7 +426,7 @@ public:
     char f2149;
     char pad214a[0x2];
     int f214c;
-    NameSlot ns2150[16];
+    NameSlot_37860 ns2150[16];
     int f2250;
     char pad2254[0x4];
     NameSlot2 ns2258[4];
@@ -441,7 +441,7 @@ public:
     char f22b0;
     char pad22b1[0x3];
     int f22b4;
-    Name n22b8;
+    Name_37860 n22b8;
     char f22c0;
     char f22c1;
     char pad22c2[0x12];

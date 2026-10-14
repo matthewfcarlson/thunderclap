@@ -3,16 +3,16 @@
 extern "C" double sqrt(double);
 extern float DAT_004d287c;
 
-struct Listener {
+struct Listener_2ece90 {
     void FUN_002f7a60();
 };
 struct SystemA {
     char pad00[0x68];
-    Listener listener;
+    Listener_2ece90 listener;
 };
 struct SystemB {
     char pad00[0xb0];
-    Listener listener;
+    Listener_2ece90 listener;
 };
 extern SystemA* DAT_0055547c;
 extern SystemB* DAT_00554c14;

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00237c90 @ 0x00237c90
 // FUN_00237c90: fight::SequenceAction constructor
-struct RefObj {
+struct RefObj_237c90 {
     virtual void AddRef();
     virtual void Release();
 };
@@ -11,20 +11,20 @@ extern "C" char DAT_00428130[];
 struct SequenceAction {
     int vptr;
     char pad04[0x18];
-    RefObj *f1c;
+    RefObj_237c90 *f1c;
     int f20;
-    RefObj *f24;
+    RefObj_237c90 *f24;
     int f28;
     int f2c;
     int f30;
-    RefObj *f34;
+    RefObj_237c90 *f34;
     int f38;
 
     void FUN_00232660();
-    SequenceAction *FUN_00237c90(RefObj *a, int b, RefObj *c, int d, int e, int f, RefObj *g);
+    SequenceAction *FUN_00237c90(RefObj_237c90 *a, int b, RefObj_237c90 *c, int d, int e, int f, RefObj_237c90 *g);
 };
 
-SequenceAction *SequenceAction::FUN_00237c90(RefObj *a, int b, RefObj *c, int d, int e, int f, RefObj *g)
+SequenceAction *SequenceAction::FUN_00237c90(RefObj_237c90 *a, int b, RefObj_237c90 *c, int d, int e, int f, RefObj_237c90 *g)
 {
     FUN_00232660();
     vptr = (int)DAT_00428130;

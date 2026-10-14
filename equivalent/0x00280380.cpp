@@ -1,33 +1,33 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_00280380 @ 0x00280380
-struct Resource {
+struct Resource_280380 {
  virtual void AddRef();
  virtual void Release();
  unsigned FUN_002843a0(unsigned a, unsigned b);
 };
-struct Key { unsigned a,b; };
+struct Key_280380 { unsigned a,b; };
 struct Matrix { unsigned words[16]; };
-struct Slot {
+struct Slot_280380 {
  unsigned id;
  unsigned char flag;
  char pad[3];
  Matrix matrix;
- Resource* first;
- Resource* second;
+ Resource_280380* first;
+ Resource_280380* second;
  unsigned value1,value2,index,extra;
 };
-struct Manager {
+struct Manager_280380 {
  char pad[16];
  unsigned nextId;
  char pad2[4];
- Slot slots[100];
- unsigned FUN_00280380(Resource* first, Resource* second, const Key* key, const Matrix* matrix, unsigned extra);
+ Slot_280380 slots[100];
+ unsigned FUN_00280380(Resource_280380* first, Resource_280380* second, const Key_280380* key, const Matrix* matrix, unsigned extra);
 };
-unsigned Manager::FUN_00280380(Resource* first, Resource* second, const Key* key, const Matrix* matrix, unsigned extra) {
+unsigned Manager_280380::FUN_00280380(Resource_280380* first, Resource_280380* second, const Key_280380* key, const Matrix* matrix, unsigned extra) {
  int i;
  for(i=0;i<100;++i) if(!slots[i].first) break;
  if(i==100) return 0;
- Slot& s=slots[i];
+ Slot_280380& s=slots[i];
  unsigned id=nextId;
  s.id=id;
  s.matrix=*matrix;

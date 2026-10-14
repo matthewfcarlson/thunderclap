@@ -6,14 +6,14 @@ struct HeapObj {
     static void* operator new(unsigned size) throw();
 };
 
-class MethodBase : public HeapObj {
+class MethodBase_1b84f0 : public HeapObj {
   public:
     virtual void m0();
     char pad_04[0x1c - 4];
 };
 
 template <class T, class R, class A, class B, class C, class D>
-class Method4 : public MethodBase {
+class Method4 : public MethodBase_1b84f0 {
   public:
     typedef R (T::*Fn)(A, B, C, D);
     Method4(const char* name, Fn fn) throw();
@@ -32,7 +32,7 @@ struct Closure2 {
     Closure2* FUN_001b81a0(const char* name, CFMVManager* owner, void (CFMVManager::*fn)(const char*, int));
 };
 
-struct Registry {
+struct Registry_1b84f0 {
     void FUN_001d3b70(const char* name, void* closure);
     void FUN_001b8420(const char* name, CFMVManager* owner, bool (CFMVManager::*fn)());
 };
@@ -67,7 +67,7 @@ class CFMVManager {
     bool FUN_001b6f00();
 };
 
-Registry* FUN_001d4c90();
+Registry_1b84f0* FUN_001d4c90();
 void* FUN_0008d690(unsigned size);
 
 CFMVManager::CFMVManager() {
@@ -86,7 +86,7 @@ CFMVManager::CFMVManager() {
     field_131 = 0;
     field_134 = 0;
 
-    Registry* reg = FUN_001d4c90();
+    Registry_1b84f0* reg = FUN_001d4c90();
 
     Closure2* playMovie = (Closure2*)FUN_0008d690(0x24);
     if (playMovie != 0)

@@ -5,7 +5,7 @@ extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 struct lua_State;
 
-struct lua_Debug {
+struct lua_Debug_1d0e00 {
     int word0;
     int word4;
     const char *what;       // 8
@@ -14,14 +14,14 @@ struct lua_Debug {
     char rest[0x60 - 0x14];
 };
 
-int __cdecl FUN_00213fc0(lua_State *L, int level, lua_Debug *ar);
-int __cdecl FUN_00214bd0(lua_State *L, const char *options, lua_Debug *ar);
+int __cdecl FUN_00213fc0(lua_State *L, int level, lua_Debug_1d0e00 *ar);
+int __cdecl FUN_00214bd0(lua_State *L, const char *options, lua_Debug_1d0e00 *ar);
 
 // Walks the call stack; frames whose first "what" letter is not f, g, l or t get value cleared.
 void FUN_001d0e00(lua_State *L)
 {
     struct Frame {
-        lua_Debug ar;
+        lua_Debug_1d0e00 ar;
         unsigned int cookie;
     } f;
     f.cookie = DAT_004d9968;

@@ -2,7 +2,7 @@
 // FUN_0024b170 @ 0x0024b170
 // Pump a streaming ring buffer: refill what the play cursor has consumed and switch to the
 // "finished" state (5) once the data runs out.
-struct Ring {
+struct Ring_24b170 {
     char pad0[4];
     unsigned int size;
     char pad8[0x18 - 8];
@@ -16,14 +16,14 @@ struct Stream {
     char pad0[8];
     void* handle;
     char padc[4];
-    Ring* ring;
+    Ring_24b170* ring;
     char pad14[0xc0 - 0x14];
     int state;
     int mode;
 };
 
 unsigned int __cdecl FUN_00258f00(void* handle);
-bool __cdecl FUN_0025e350(Ring* ring, unsigned int count);
+bool __cdecl FUN_0025e350(Ring_24b170* ring, unsigned int count);
 int __cdecl FUN_00259c50(void* handle);
 void __cdecl FUN_00258e50(void* handle);
 
@@ -31,7 +31,7 @@ void __cdecl FUN_00258e50(void* handle);
 bool FUN_0024b170(Stream* s)
 {
     unsigned int pos = FUN_00258f00(s->handle);
-    Ring* r = s->ring;
+    Ring_24b170* r = s->ring;
     unsigned int start = r->readPos;
     unsigned int count;
     if (start > pos) {

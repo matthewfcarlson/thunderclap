@@ -1,42 +1,42 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 44/44)
 // CAutoTargetAction::vfunc_7 @ 0x0001d570
-struct V3 {
+struct V3_1d570 {
     float x, y, z;
-    bool FUN_0022d2b0(V3 *other, float eps);
+    bool FUN_0022d2b0(V3_1d570 *other, float eps);
 };
 
-struct Target {
+struct Target_1d570 {
     virtual void ref();
     virtual void unref();
 };
 
-struct Fighter {
+struct Fighter_1d570 {
     char pad0[0x328];
-    Target *f328;                    // 0x328
+    Target_1d570 *f328;                    // 0x328
     char pad32c[0x3a4 - 0x32c];
-    Target *f3a4;                    // 0x3a4
+    Target_1d570 *f3a4;                    // 0x3a4
     char pad3a8[0x1d70 - 0x3a8];
     unsigned int idLo;               // 0x1d70
     unsigned int idHi;               // 0x1d74
     char pad1d78[0x2064 - 0x1d78];
-    V3 v2064;
+    V3_1d570 v2064;
     char pad2070[4];
-    V3 v2074;
-    V3 v2080;
-    void FUN_000350c0(V3 *out);
-    void FUN_00035550(V3 *out);
-    char FUN_0003a440(V3 *a, V3 *b, float c, float d, Target *t);
-    Target *FUN_00039c60(V3 *a, V3 *b, float lo, float hi, unsigned int p, unsigned int q, float r);
+    V3_1d570 v2074;
+    V3_1d570 v2080;
+    void FUN_000350c0(V3_1d570 *out);
+    void FUN_00035550(V3_1d570 *out);
+    char FUN_0003a440(V3_1d570 *a, V3_1d570 *b, float c, float d, Target_1d570 *t);
+    Target_1d570 *FUN_00039c60(V3_1d570 *a, V3_1d570 *b, float lo, float hi, unsigned int p, unsigned int q, float r);
     float FUN_000354c0();
-    void FUN_0003ffa0(Target *t, int z);
+    void FUN_0003ffa0(Target_1d570 *t, int z);
 };
 
-struct Anchor {
-    Fighter *FUN_00059a30();
+struct Anchor_1d570 {
+    Fighter_1d570 *FUN_00059a30();
 };
 
-struct Owner {
-    Anchor *FUN_000592a0();
+struct Owner_1d570 {
+    Anchor_1d570 *FUN_000592a0();
 };
 
 class Entity {
@@ -49,29 +49,29 @@ public:
     virtual void e5();
     virtual void e6();
     virtual void e7();
-    virtual V3 *v8(V3 *out);
+    virtual V3_1d570 *v8(V3_1d570 *out);
 };
 
-struct Registry {
+struct Registry_1d570 {
     Entity *FUN_001fc8c0(unsigned int lo, unsigned int hi);
 };
 
 struct World {
     char pad0[0x28];
-    Registry *registry;              // 0x28
+    Registry_1d570 *registry;              // 0x28
 };
 extern World *DAT_004dd700;
 
-struct Part18 {
+struct Part18_1d570 {
     void FUN_00221d20(float h);
 };
 
-struct Part {
+struct Part_1d570 {
     char pad0[0x18];
-    Part18 part18;                   // 0x18
+    Part18_1d570 part18;                   // 0x18
 };
 
-struct Cfg {
+struct Cfg_1d570 {
     char pad0[0x14];
     float f14;
     float f18;
@@ -83,15 +83,15 @@ struct Cfg {
     char b38;
 };
 
-union FS {
+union FS_1d570 {
     float f;
     unsigned int u;
 };
 
-float __cdecl FUN_00224f10(V3 *v);
+float __cdecl FUN_00224f10(V3_1d570 *v);
 float __cdecl FUN_00224fc0(float a, float b);
-void __cdecl FUN_00224d70(float angle, V3 *v);
-void __cdecl FUN_00096a90(Target *t, V3 *out);
+void __cdecl FUN_00224d70(float angle, V3_1d570 *v);
+void __cdecl FUN_00096a90(Target_1d570 *t, V3_1d570 *out);
 
 class CAutoTargetAction {
 public:
@@ -104,10 +104,10 @@ public:
     virtual void a6();
     virtual char vfunc_7(float dt);
     char pad04[0x1c - 4];
-    Owner *f1c;
-    Cfg *cfg;                        // 0x20
-    Part *f24;
-    Target *f28;
+    Owner_1d570 *f1c;
+    Cfg_1d570 *cfg;                        // 0x20
+    Part_1d570 *f24;
+    Target_1d570 *f28;
     float f2c;
 };
 
@@ -115,22 +115,22 @@ char CAutoTargetAction::vfunc_7(float dt)
 {
     if (f24 == 0)
         return 0;
-    Fighter *F = f1c->FUN_000592a0()->FUN_00059a30();
+    Fighter_1d570 *F = f1c->FUN_000592a0()->FUN_00059a30();
     struct Frame {
         float h;
-        FS ad;
+        FS_1d570 ad;
         float len;
         float rate;
         float s10;
-        V3 p;
-        V3 a;
-        V3 b;
-        V3 z;
+        V3_1d570 p;
+        V3_1d570 a;
+        V3_1d570 b;
+        V3_1d570 z;
     } f;
-    V3 &a = f.a;
-    V3 &b = f.b;
-    V3 &p = f.p;
-    V3 &z = f.z;
+    V3_1d570 &a = f.a;
+    V3_1d570 &b = f.b;
+    V3_1d570 &p = f.p;
+    V3_1d570 &z = f.z;
     a.x = 0.0f;
     a.y = 0.0f;
     a.z = 0.0f;
@@ -161,7 +161,7 @@ char CAutoTargetAction::vfunc_7(float dt)
                 }
             }
         }
-        Target *t;
+        Target_1d570 *t;
         if (cfg->flags & 2) {
             t = F->f3a4;
         } else {
@@ -191,13 +191,13 @@ char CAutoTargetAction::vfunc_7(float dt)
     }
 
     if (cfg->b38 != 0) {
-        Registry *reg = DAT_004dd700->registry;
+        Registry_1d570 *reg = DAT_004dd700->registry;
         if (reg == 0)
             return 1;
         Entity *e = reg->FUN_001fc8c0(F->idLo, F->idHi);
         if (e == 0)
             return 1;
-        V3 *r = e->v8(&z);
+        V3_1d570 *r = e->v8(&z);
         p.x = r->x;
         p.y = r->y;
         float rz = r->z;

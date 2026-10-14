@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_002f57d0 @ 0x002f57d0
 // Store a new target offset and note whether it is (nearly) zero; if a listener is attached, notify it.
-struct Vec3 {
+struct Vec3_2f57d0 {
     float x, y, z;
 };
 
@@ -19,13 +19,13 @@ public:
     char pad14[0xa4 - 0x14];
     char nearZero;
     char pada5[3];
-    Vec3 base;
-    Vec3 target;
+    Vec3_2f57d0 base;
+    Vec3_2f57d0 target;
 
-    void FUN_002f57d0(const Vec3* offset);
+    void FUN_002f57d0(const Vec3_2f57d0* offset);
 };
 
-void Node::FUN_002f57d0(const Vec3* offset)
+void Node::FUN_002f57d0(const Vec3_2f57d0* offset)
 {
     target = *offset;
     float x = target.x + base.x;

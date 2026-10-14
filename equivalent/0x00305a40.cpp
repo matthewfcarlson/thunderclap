@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00305a40 @ 0x00305a40
-struct Vec3 { float x, y, z; };
-int __cdecl FUN_00305a40(const Vec3* v, unsigned char absolute)
+struct Vec3_305a40 { float x, y, z; };
+int __cdecl FUN_00305a40(const Vec3_305a40* v, unsigned char absolute)
 {
     float x=v->x, y=v->y, z=v->z;
     if (absolute) {

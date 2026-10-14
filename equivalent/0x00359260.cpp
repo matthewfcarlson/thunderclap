@@ -2,7 +2,7 @@
 // FUN_00359260 @ 0x00359260
 extern "C" double __cdecl sqrt(double);
 
-struct Vec3 {
+struct Vec3_359260 {
     float x, y, z;
 };
 
@@ -14,12 +14,12 @@ static inline float fabsf_(float f)
     return x.f;
 }
 
-bool FUN_003577c0(Vec3* p, Vec3* a, Vec3* b, Vec3* c, Vec3* n);
-void FUN_00357ea0(Vec3* origin, Vec3* a, Vec3* b, Vec3* c, Vec3* closest, bool e0, bool e1, bool e2);
+bool FUN_003577c0(Vec3_359260* p, Vec3_359260* a, Vec3_359260* b, Vec3_359260* c, Vec3_359260* n);
+void FUN_00357ea0(Vec3_359260* origin, Vec3_359260* a, Vec3_359260* b, Vec3_359260* c, Vec3_359260* closest, bool e0, bool e1, bool e2);
 
 // Ray/plane distance plus triangle containment test; falls back to the closest edge point.
-bool FUN_00359260(Vec3* origin, float eps, Vec3* a, Vec3* b, Vec3* c, Vec3* normal,
-                  float* dist, Vec3* hit, Vec3* outDir, bool e0, bool e1, bool e2)
+bool FUN_00359260(Vec3_359260* origin, float eps, Vec3_359260* a, Vec3_359260* b, Vec3_359260* c, Vec3_359260* normal,
+                  float* dist, Vec3_359260* hit, Vec3_359260* outDir, bool e0, bool e1, bool e2)
 {
     float d = (origin->z - b->z) * normal->z + (origin->x - b->x) * normal->x + (origin->y - b->y) * normal->y;
     *dist = d;

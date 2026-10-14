@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 28/28)
 // FUN_00248670 @ 0x00248670
 extern "C" double __cdecl sqrt(double);
-struct Sound {
+struct Sound_248670 {
  float volume;
  unsigned FUN_0025d3e0();
 };
 // equiv-conv: FUN_0025d740 ecx stack
-void __cdecl FUN_0025d740(Sound* sound, unsigned ticks);
+void __cdecl FUN_0025d740(Sound_248670* sound, unsigned ticks);
 // equiv-conv: FUN_0025d780 ecx stack
-void __cdecl FUN_0025d780(Sound* sound, unsigned ticks);
-struct Owner { char reserved[48]; unsigned active; };
-struct Fade {
+void __cdecl FUN_0025d780(Sound_248670* sound, unsigned ticks);
+struct Owner_248670 { char reserved[48]; unsigned active; };
+struct Fade_248670 {
  char reserved[8];
- Sound* sound;
+ Sound_248670* sound;
  unsigned result;
  char reserved10[8];
  unsigned delay;
@@ -22,7 +22,7 @@ struct Fade {
  unsigned phase;
 };
 // equiv-conv: FUN_00248670 edi esi stack
-void __cdecl FUN_00248670(Owner* owner, Fade* fade, unsigned ticks) {
+void __cdecl FUN_00248670(Owner_248670* owner, Fade_248670* fade, unsigned ticks) {
  if (!owner->active) ticks = 0;
  if (fade->phase == 0) {
   fade->elapsed += ticks;

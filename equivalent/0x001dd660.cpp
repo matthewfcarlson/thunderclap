@@ -1,42 +1,42 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 13/14, incomplete)
 // FUN_001dd660 @ 0x001dd660
-struct V3 { float x, y, z; };
+struct V3_1dd660 { float x, y, z; };
 
 struct Matrix {
     float r[12];
-    V3 pos;
+    V3_1dd660 pos;
     float w;
     void FUN_0022b980();
-    void FUN_0022c2b0(V3 *in, V3 *out);
+    void FUN_0022c2b0(V3_1dd660 *in, V3_1dd660 *out);
 };
 
-struct Quat {
+struct Quat_1dd660 {
     float x, y, z, w;
     void FUN_0022b650(Matrix *m);
 };
 
 struct CompressedQuaternion6 {
     short v[3];
-    void FUN_001db820(Quat *out);
+    void FUN_001db820(Quat_1dd660 *out);
 };
 
-struct Bone {
+struct Bone_1dd660 {
     char pad0[0x30];
-    V3 pos;
+    V3_1dd660 pos;
     int pad3c;
 };
 
-struct BoneTable {
+struct BoneTable_1dd660 {
     char pad0[0x1c];
-    Bone *bones;
+    Bone_1dd660 *bones;
 };
 
-class BoneSource {
+class BoneSource_1dd660 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10();
-    virtual BoneTable *v11();
+    virtual BoneTable_1dd660 *v11();
 };
 
 class BoneIndexer { public: int FUN_001d4f30(); };
@@ -49,14 +49,14 @@ public:
     virtual void v12(); virtual void v13(); virtual void v14();
     virtual Matrix *v15();
     char pad04[0x9c - 4];
-    BoneSource *source;
+    BoneSource_1dd660 *source;
     char padA0[0xec - 0xa0];
     BoneIndexer *indexer;
 };
 
-struct Key { int lo; int hi; };
+struct Key_1dd660 { int lo; int hi; };
 
-struct Entry {
+struct Entry_1dd660 {
     int keyLo;
     int keyHi;
     char pad8[8];
@@ -68,28 +68,28 @@ struct Entry {
     char pad24[4];
 };
 
-struct Slot {
-    V3 pos;
+struct Slot_1dd660 {
+    V3_1dd660 pos;
     int pad0c;
     unsigned char flags;
     char pad11[3];
 };
 
-struct Frame {
-    V3 v;
-    Quat q;
+struct Frame_1dd660 {
+    V3_1dd660 v;
+    Quat_1dd660 q;
     Matrix m;
 };
 
-class Registry {
+class Registry_1dd660 {
 public:
     char pad0[0x608];
-    Entry entries[0x800];
-    Slot slots[1];
-    bool FUN_001dd660(Key *key, V3 *out);
+    Entry_1dd660 entries[0x800];
+    Slot_1dd660 slots[1];
+    bool FUN_001dd660(Key_1dd660 *key, V3_1dd660 *out);
 };
 
-bool Registry::FUN_001dd660(Key *key, V3 *out)
+bool Registry_1dd660::FUN_001dd660(Key_1dd660 *key, V3_1dd660 *out)
 {
     int lo = key->lo;
     int hi = key->hi;
@@ -101,16 +101,16 @@ bool Registry::FUN_001dd660(Key *key, V3 *out)
     if (i >= 0x800)
         return false;
 
-    Entry *e = &entries[i];
-    Slot *s = &slots[e->slot];
-    Frame f;
+    Entry_1dd660 *e = &entries[i];
+    Slot_1dd660 *s = &slots[e->slot];
+    Frame_1dd660 f;
     f.v.x = 0.0f;
     f.v.y = 0.75f;
     f.v.z = 0.0f;
     if ((s->flags & 1) && e->skel) {
         int bone = e->skel->indexer->FUN_001d4f30();
         if (bone != 0xffff) {
-            BoneTable *t = e->skel->source->v11();
+            BoneTable_1dd660 *t = e->skel->source->v11();
             *out = t->bones[bone].pos;
             return true;
         }

@@ -4,7 +4,7 @@
 void __cdecl thunk_FUN_00267090(void *p);
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 
-class Source {
+class Source_2a9ea0 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -13,18 +13,18 @@ public:
     int *end;
 };
 
-class Binder {
+class Binder_2a9ea0 {
 public:
     char pad00[0x40];
-    Source *source;
+    Source_2a9ea0 *source;
     char pad44[4];
     int count;
     int *values;
-    void FUN_002a9ea0(Source *src);
+    void FUN_002a9ea0(Source_2a9ea0 *src);
 };
 
 // Switches to a new source and allocates one zeroed value per element it holds.
-void Binder::FUN_002a9ea0(Source *src)
+void Binder_2a9ea0::FUN_002a9ea0(Source_2a9ea0 *src)
 {
     count = 0;
     thunk_FUN_00267090(values);

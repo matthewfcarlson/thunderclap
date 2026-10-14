@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 20/20)
 // FUN_00288080 @ 0x00288080
-struct Vec3 {
+struct Vec3_288080 {
     float x, y, z;
 };
 
-struct Pair {
+struct Pair_288080 {
     unsigned int a;
     unsigned int b;
 };
 
-struct NameKey {
+struct NameKey_288080 {
     char pad00[8];
     unsigned int lo;          // 0x08
     unsigned int hi;          // 0x0c
 };
 
-struct SkeletonData {
-    NameKey *FUN_0027b670(unsigned int lo, unsigned int hi);
+struct SkeletonData_288080 {
+    NameKey_288080 *FUN_0027b670(unsigned int lo, unsigned int hi);
 };
 
 class Skeleton {
@@ -24,13 +24,13 @@ public:
     virtual void AddRef();
     virtual void Release();
     char pad04[4];
-    SkeletonData *data;       // 0x08
+    SkeletonData_288080 *data;       // 0x08
     unsigned int jointCount;  // 0x0c
 };
 
 void FUN_0008d340(void *p);
 void *FUN_0008d6d0(unsigned int size);
-Pair FUN_002672f0(const char *name, int a, int b);
+Pair_288080 FUN_002672f0(const char *name, int a, int b);
 
 class SkeletonUser {
 public:
@@ -38,11 +38,11 @@ public:
     Skeleton *skeleton;       // 0x110
     char pad114[4];
     unsigned int capacity;    // 0x118
-    Vec3 *vecs0;              // 0x11c
-    Vec3 *vecs1;              // 0x120
-    Vec3 *vecs2;              // 0x124
-    Vec3 *vecs3;              // 0x128
-    Vec3 *vecs4;              // 0x12c
+    Vec3_288080 *vecs0;              // 0x11c
+    Vec3_288080 *vecs1;              // 0x120
+    Vec3_288080 *vecs2;              // 0x124
+    Vec3_288080 *vecs3;              // 0x128
+    Vec3_288080 *vecs4;              // 0x12c
     unsigned char dirty;      // 0x130
     char pad131[3];
     float *vals0;             // 0x134
@@ -51,7 +51,7 @@ public:
     float *vals3;             // 0x140
     float *vals4;             // 0x144
     char pad148[4];
-    NameKey *rootKey;         // 0x14c
+    NameKey_288080 *rootKey;         // 0x14c
 
     void FUN_00288080(Skeleton *sk);
 };
@@ -72,7 +72,7 @@ void SkeletonUser::FUN_00288080(Skeleton *sk)
         if (vecs0)
             FUN_0008d340(vecs0);
         capacity = skeleton->jointCount;
-        vecs0 = (Vec3 *)FUN_0008d6d0(capacity * 0x3c);
+        vecs0 = (Vec3_288080 *)FUN_0008d6d0(capacity * 0x3c);
         if (vals0)
             FUN_0008d340(vals0);
         vals0 = (float *)FUN_0008d6d0(capacity * 0x14);
@@ -89,8 +89,8 @@ void SkeletonUser::FUN_00288080(Skeleton *sk)
     if (rootKey)
         rootKey = skeleton->data->FUN_0027b670(rootKey->lo, rootKey->hi);
     if (rootKey == 0) {
-        SkeletonData *d = skeleton->data;
-        Pair p = FUN_002672f0("root", 0, 0);
+        SkeletonData_288080 *d = skeleton->data;
+        Pair_288080 p = FUN_002672f0("root", 0, 0);
         rootKey = d->FUN_0027b670(p.a, p.b);
     }
 }

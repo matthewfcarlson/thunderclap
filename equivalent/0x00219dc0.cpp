@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 10/10)
 // FUN_00219dc0 @ 0x00219dc0
-struct TObject {
+struct TObject_219dc0 {
     int tt;
     union {
         float n;
@@ -10,25 +10,25 @@ struct TObject {
 };
 
 struct Node {
-    TObject key;            // 0x00
-    TObject val;            // 0x08
+    TObject_219dc0 key;            // 0x00
+    TObject_219dc0 val;            // 0x08
     Node *next;             // 0x10
 };
 
-struct Table {
+struct Table_219dc0 {
     char pad00[7];
     unsigned char lsizenode;    // 0x07
     char pad08[4];
-    TObject *array;             // 0x0c
+    TObject_219dc0 *array;             // 0x0c
     Node *node;                 // 0x10
     char pad14[8];
     int sizearray;              // 0x1c
 };
 
-extern TObject DAT_00426824;    // luaO_nilobject
+extern TObject_219dc0 DAT_00426824;    // luaO_nilobject
 
 // Lua 5.0 luaH_getnum with lua_Number == float.
-const TObject *__cdecl luaH_getnum(Table *t, int key)
+const TObject_219dc0 *__cdecl luaH_getnum(Table_219dc0 *t, int key)
 {
     if (1 <= key && key <= t->sizearray)
         return &t->array[key - 1];

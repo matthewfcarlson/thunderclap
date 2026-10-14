@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 30/30)
 // hulkfight::LocationCondition::vfunc_6 @ 0x0012f320
-struct NameSource { const char* FUN_000897e0(); };
-struct Manager { NameSource* FUN_00086310(); };
-struct GlobalState { char pad[0x54]; Manager* manager; };
-extern GlobalState* DAT_004dd700;
+struct NameSource_12f320 { const char* FUN_000897e0(); };
+struct Manager_12f320 { NameSource_12f320* FUN_00086310(); };
+struct GlobalState_12f320 { char pad[0x54]; Manager_12f320* manager; };
+extern GlobalState_12f320* DAT_004dd700;
 extern const char DAT_003f335c[];
 extern "C" int __cdecl strncmp(const char*, const char*, unsigned int);
 extern "C" char* __cdecl strrchr(const char*, int);

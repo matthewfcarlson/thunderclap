@@ -1,36 +1,36 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 33/34, incomplete)
 // FUN_0003aaf0 @ 0x0003aaf0
-struct V3 {
+struct V3_3aaf0 {
     float x, y, z;
     float FUN_000111f0();
 };
 
-struct Ref { int FUN_001d64a0(); };
+struct Ref_3aaf0 { int FUN_001d64a0(); };
 
-struct Ent {
+struct Ent_3aaf0 {
     char pad0[8];
-    Ref* ref;
+    Ref_3aaf0* ref;
     int type;
 };
 
-struct Cam { bool FUN_00059a50(V3* out); };
+struct Cam_3aaf0 { bool FUN_00059a50(V3_3aaf0* out); };
 
-struct Host {
+struct Host_3aaf0 {
     char pad0[0x10];
-    Cam* cam;
+    Cam_3aaf0* cam;
     char pad14[0x14c - 0x14];
-    Ent* current;
+    Ent_3aaf0* current;
     char pad150[0x3a4 - 0x150];
-    Ent* target;
+    Ent_3aaf0* target;
 
-    bool FUN_0003a9d0(Ent* e);
-    bool FUN_0003a830(Ent* e, V3* out);
-    bool FUN_00039440(Ent* e, V3* a, int* b, int c);
+    bool FUN_0003a9d0(Ent_3aaf0* e);
+    bool FUN_0003a830(Ent_3aaf0* e, V3_3aaf0* out);
+    bool FUN_00039440(Ent_3aaf0* e, V3_3aaf0* a, int* b, int c);
 
-    bool Select(Ent* e);
+    bool Select(Ent_3aaf0* e);
 };
 
-static int Rank(Ent* e)
+static int Rank(Ent_3aaf0* e)
 {
     int t = 0;
     if (e->type == 5) t = e->ref->FUN_001d64a0();
@@ -41,19 +41,19 @@ static int Rank(Ent* e)
     return 0;
 }
 
-bool Host::Select(Ent* e)
+bool Host_3aaf0::Select(Ent_3aaf0* e)
 {
     if (e == 0 || e == current) return 0;
     if (target == 0) return FUN_0003a9d0(e);
 
-    V3 camPos;
+    V3_3aaf0 camPos;
     camPos.x = 0; camPos.y = 0; camPos.z = 0;
     cam->FUN_00059a50(&camPos);
-    V3 ePos;
+    V3_3aaf0 ePos;
     if (!FUN_0003a830(e, &ePos)) return 0;
 
     int rankNew = Rank(e);
-    V3 tPos;
+    V3_3aaf0 tPos;
     int extra = 0;
     if (FUN_00039440(target, &tPos, &extra, 0)) {
         int rankOld = Rank(target);

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 94/94)
 // FUN_000cb870 @ 0x000cb870
-class Iface {
+class Iface_cb870 {
 public:
     virtual void v0();
     virtual void Release();
@@ -25,18 +25,18 @@ public:
     virtual void Stop();
 };
 
-struct Sub {
+struct Sub_cb870 {
     char data[0x34];
     void FUN_000f7a10(int a, int b);
 };
 
 class Owner;
 
-struct Bits {
+struct Bits_cb870 {
     void FUN_000d6dd0(void *who);
 };
 
-static inline void Drop(Iface *&p)
+static inline void Drop(Iface_cb870 *&p)
 {
     if (p != 0) {
         p->Release();
@@ -44,70 +44,70 @@ static inline void Drop(Iface *&p)
     }
 }
 
-class Resources {
+class Resources_cb870 {
 public:
     char pad0[0x14];
-    Iface *r14;
-    Iface *r18;
+    Iface_cb870 *r14;
+    Iface_cb870 *r18;
     char pad1c[0x38];
-    Sub sub54;
-    Iface *r88;
-    Iface *r8c;
-    Iface *r90;
+    Sub_cb870 sub54;
+    Iface_cb870 *r88;
+    Iface_cb870 *r8c;
+    Iface_cb870 *r90;
     char pad94[0xd0];
-    Iface *r164;
-    Iface *r168;
+    Iface_cb870 *r164;
+    Iface_cb870 *r168;
     char pad16c[0x2c];
-    Iface *r198;
-    Iface *r19c;
+    Iface_cb870 *r198;
+    Iface_cb870 *r19c;
     char pad1a0[0x4];
-    Iface *r1a4;
-    Iface *r1a8;
-    Iface *r1ac;
-    Iface *r1b0;
-    Iface *r1b4;
-    Iface *r1b8;
-    Iface *a1bc[3];
-    Iface *a1c8[3];
-    Iface *a1d4[3];
-    Iface *r1e0;
-    Iface *r1e4;
-    Iface *r1e8;
+    Iface_cb870 *r1a4;
+    Iface_cb870 *r1a8;
+    Iface_cb870 *r1ac;
+    Iface_cb870 *r1b0;
+    Iface_cb870 *r1b4;
+    Iface_cb870 *r1b8;
+    Iface_cb870 *a1bc[3];
+    Iface_cb870 *a1c8[3];
+    Iface_cb870 *a1d4[3];
+    Iface_cb870 *r1e0;
+    Iface_cb870 *r1e4;
+    Iface_cb870 *r1e8;
     int z1ec[3];
-    Iface *r1f8;
-    Iface *a1fc[6];
+    Iface_cb870 *r1f8;
+    Iface_cb870 *a1fc[6];
     char pad214[0x4];
     Stoppable *r218;
-    Iface *r21c;
+    Iface_cb870 *r21c;
     char pad220[0x14];
-    Iface *r234;
+    Iface_cb870 *r234;
     char pad238[0xc];
-    Iface *r244;
-    Iface *r248;
+    Iface_cb870 *r244;
+    Iface_cb870 *r248;
     char pad24c[0x4];
-    Iface *r250;
-    Iface *r254;
-    Iface *r258;
-    Iface *r25c;
-    Iface *r260;
+    Iface_cb870 *r250;
+    Iface_cb870 *r254;
+    Iface_cb870 *r258;
+    Iface_cb870 *r25c;
+    Iface_cb870 *r260;
     char flags264[8][0x40];
-    Iface *r464;
-    Iface *r468;
-    Iface *r46c;
+    Iface_cb870 *r464;
+    Iface_cb870 *r468;
+    Iface_cb870 *r46c;
     char pad470[0x30];
-    Iface *r4a0;
-    Iface *r4a4;
-    Iface *r4a8;
-    Iface *r4ac;
-    Iface *r4b0;
-    Iface *r4b4;
+    Iface_cb870 *r4a0;
+    Iface_cb870 *r4a4;
+    Iface_cb870 *r4a8;
+    Iface_cb870 *r4ac;
+    Iface_cb870 *r4b0;
+    Iface_cb870 *r4b4;
     char pad4b8[0x50];
-    Iface *r508;
+    Iface_cb870 *r508;
 
-    void FUN_000cb870(Bits *bits);
+    void FUN_000cb870(Bits_cb870 *bits);
 };
 
-void Resources::FUN_000cb870(Bits *bits)
+void Resources_cb870::FUN_000cb870(Bits_cb870 *bits)
 {
     sub54.FUN_000f7a10(-1, 0);
     Drop(r14);

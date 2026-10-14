@@ -1,44 +1,44 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 10/10)
 // FUN_0021f460 @ 0x0021f460
 // Lua 5.0 lparser breakstat (with luaX_next inlined)
-struct BlockCnt {
-    BlockCnt *previous;
+struct BlockCnt_21f460 {
+    BlockCnt_21f460 *previous;
     int breaklist;          // 0x4
     unsigned char nactvar;  // 0x8
     unsigned char upval;    // 0x9
     unsigned char isbreak;  // 0xa
 };
 
-struct FuncState {
+struct FuncState_21f460 {
     char pad0[0x14];
-    BlockCnt *bl;           // 0x14
+    BlockCnt_21f460 *bl;           // 0x14
 };
 
-struct Token {
+struct Token_21f460 {
     int token;
     int seminfo;
 };
 
-struct LexState {
+struct LexState_21f460 {
     int current;
     int linenumber;
     int lastline;
-    Token t;                // 0xc
-    Token lookahead;        // 0x14
-    FuncState *fs;          // 0x1c
+    Token_21f460 t;                // 0xc
+    Token_21f460 lookahead;        // 0x14
+    FuncState_21f460 *fs;          // 0x1c
 };
 
-int __cdecl FUN_0021bbc0(LexState *ls, int *seminfo);                       // llex
-void __cdecl FUN_0021b060(LexState *ls, const char *msg);                   // luaX_syntaxerror
-int __cdecl FUN_00220bd0(FuncState *fs, int op, int a, int b, int c);       // luaK_codeABC
-int __cdecl FUN_00220cd0(FuncState *fs);                                    // luaK_jump
-void __cdecl FUN_002207c0(FuncState *fs, int *l1, int l2);                  // luaK_concat
+int __cdecl FUN_0021bbc0(LexState_21f460 *ls, int *seminfo);                       // llex
+void __cdecl FUN_0021b060(LexState_21f460 *ls, const char *msg);                   // luaX_syntaxerror
+int __cdecl FUN_00220bd0(FuncState_21f460 *fs, int op, int a, int b, int c);       // luaK_codeABC
+int __cdecl FUN_00220cd0(FuncState_21f460 *fs);                                    // luaK_jump
+void __cdecl FUN_002207c0(FuncState_21f460 *fs, int *l1, int l2);                  // luaK_concat
 
 // equiv-conv: FUN_0021f460 edi
-void FUN_0021f460(LexState *ls)
+void FUN_0021f460(LexState_21f460 *ls)
 {
-    FuncState *fs = ls->fs;
-    BlockCnt *bl = fs->bl;
+    FuncState_21f460 *fs = ls->fs;
+    BlockCnt_21f460 *bl = fs->bl;
     int upval = 0;
 
     // luaX_next(ls)

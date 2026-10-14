@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 745 inputs, branch coverage 62/64, incomplete)
 // FUN_0002a4b0 @ 0x0002a4b0
-struct Pair {
+struct Pair_2a4b0 {
     int x, y;
 };
 
-struct Holder {
+struct Holder_2a4b0 {
     virtual void v0();
     virtual void v1();
 };
 
-struct Sink {
+struct Sink_2a4b0 {
     void FUN_0027ffb0(int v);
 };
 
-struct Q {
+struct Q_2a4b0 {
     char pad0[0x60];
     void *f60;
     void *f64;
@@ -24,22 +24,22 @@ struct Q {
     char b121;
 };
 
-struct Obj {
+struct Obj_2a4b0 {
     char pad0[8];
     int f8;
     int fc;
     int *f10;
     char pad14[0x11c - 0x14];
-    struct Inner *f11c;
+    struct Inner_2a4b0 *f11c;
     char pad120[0x128 - 0x120];
     void *f128;
     void *f12c;
     char pad130[0x330 - 0x130];
-    Obj *f330;
-    Obj *f334;
-    Obj *f338;
+    Obj_2a4b0 *f330;
+    Obj_2a4b0 *f334;
+    Obj_2a4b0 *f338;
     char pad33c[0x1ca0 - 0x33c];
-    Q *f1ca0;
+    Q_2a4b0 *f1ca0;
     char pad1ca4[0x20b0 - 0x1ca4];
     int f20b0;
     int FUN_00036c60(int i);
@@ -49,34 +49,34 @@ struct Obj {
     void FUN_0003ea10(int v);
 };
 
-struct Inner {
+struct Inner_2a4b0 {
     char pad0[0x1b0];
     int f1b0;
 };
 
-struct List {
-    Obj *FUN_00059c10(int id);
+struct List_2a4b0 {
+    Obj_2a4b0 *FUN_00059c10(int id);
     void FUN_00059e50(int id);
 };
 
-struct Cursor {
+struct Cursor_2a4b0 {
     int FUN_000c7c60(int a, int b);
     void FUN_000c9100(int idx);
 };
-struct UI {
+struct UI_2a4b0 {
     char pad0[0x88];
-    Cursor *f88;
-    Cursor *FUN_000cae70();
+    Cursor_2a4b0 *f88;
+    Cursor_2a4b0 *FUN_000cae70();
 };
 
-struct Ctx;
+struct Ctx_2a4b0;
 
 struct Ctx8 {
-    void FUN_00098e30(Ctx *ctx, int a, int b);
+    void FUN_00098e30(Ctx_2a4b0 *ctx, int a, int b);
 };
 
 struct Ctx28 {
-    void FUN_001fe000(Obj *o);
+    void FUN_001fe000(Obj_2a4b0 *o);
     void FUN_001fc890(int a, int b);
 };
 
@@ -84,21 +84,21 @@ struct CtxC {
     void FUN_001e5720(void *p);
 };
 
-struct Buf {
+struct Buf_2a4b0 {
     char data[0xb0];
     void FUN_001c9a20(int v);
 };
 
 struct Ctx30 {
-    void FUN_001cbc20(Buf *b);
+    void FUN_001cbc20(Buf_2a4b0 *b);
 };
 
 struct Ctx3c {
     char pad0[8];
-    UI *ui;
+    UI_2a4b0 *ui;
 };
 
-struct Ctx {
+struct Ctx_2a4b0 {
     char pad0[8];
     Ctx8 *c8;
     CtxC *cc;
@@ -109,55 +109,55 @@ struct Ctx {
     char pad34[0x3c - 0x34];
     Ctx3c *c3c;
     char pad40[4];
-    List *list;
+    List_2a4b0 *list;
 };
 
-struct V2 {
-    void FUN_00065d10(Pair *p);
-    void FUN_00065e20(Pair *p);
+struct V2_2a4b0 {
+    void FUN_00065d10(Pair_2a4b0 *p);
+    void FUN_00065e20(Pair_2a4b0 *p);
 };
 struct HX {
-    void FUN_001b4c40(Holder *h);
+    void FUN_001b4c40(Holder_2a4b0 *h);
 };
-V2 *FUN_000678d0();
-Sink *FUN_0027f250();
+V2_2a4b0 *FUN_000678d0();
+Sink_2a4b0 *FUN_0027f250();
 unsigned int FUN_00036c80();
 HX *FUN_001b6580();
 
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 
-class Mgr {
+class Mgr_2a4b0 {
 public:
-    Ctx *ctx;
+    Ctx_2a4b0 *ctx;
     char pad4[8];
     int count;
     int ids[17];
     int arr1[16];
     int arr2[16];
     char padd4[0x124 - 0xd4];
-    Holder *f124;
+    Holder_2a4b0 *f124;
     char FUN_0002a4b0(int index, char flag);
     void FUN_00024720(int a, int b);
 };
 
-struct Frame {
-    Pair pair;          // 0x10
-    Buf buf;            // 0x18
+struct Frame_2a4b0 {
+    Pair_2a4b0 pair;          // 0x10
+    Buf_2a4b0 buf;            // 0x18
     unsigned int cookie;  // 0xb8
 };
 
-char Mgr::FUN_0002a4b0(int index, char flag)
+char Mgr_2a4b0::FUN_0002a4b0(int index, char flag)
 {
-    Frame f;
+    Frame_2a4b0 f;
     f.cookie = DAT_004d9968;
     if (index < 0 || index >= count) {
         __security_check_cookie(f.cookie);
         return 0;
     }
-    Obj *o = ctx->list->FUN_00059c10(ids[index]);
+    Obj_2a4b0 *o = ctx->list->FUN_00059c10(ids[index]);
     if (o) {
-        Sink *sink = FUN_0027f250();
+        Sink_2a4b0 *sink = FUN_0027f250();
         if (sink) {
             for (unsigned int i = 0; i < FUN_00036c80(); i++)
                 sink->FUN_0027ffb0(o->FUN_00036c60(i));
@@ -166,8 +166,8 @@ char Mgr::FUN_0002a4b0(int index, char flag)
             ctx->c28->FUN_001fe000(o);
             o->FUN_000385a0(0, 1);
         }
-        Inner *inner = o->f11c;
-        UI *ui = ctx->c3c->ui;
+        Inner_2a4b0 *inner = o->f11c;
+        UI_2a4b0 *ui = ctx->c3c->ui;
         if (inner && inner->f1b0 != 1 && ui && ui->FUN_000cae70()) {
             int v = o->FUN_00036d00();
             int slot = ui->FUN_000cae70()->FUN_000c7c60(1, v);
@@ -189,7 +189,7 @@ char Mgr::FUN_0002a4b0(int index, char flag)
     ctx->c8->FUN_00098e30(ctx, o->f8, o->fc);
 
     for (int i = 0; i < count; i++) {
-        Obj *other = ctx->list->FUN_00059c10(ids[i]);
+        Obj_2a4b0 *other = ctx->list->FUN_00059c10(ids[i]);
         if (i != index && other) {
             if (other->f330 == o)
                 other->f330 = 0;
@@ -197,7 +197,7 @@ char Mgr::FUN_0002a4b0(int index, char flag)
                 other->f334 = 0;
             if (other->f338 == o)
                 other->FUN_0003a680(0, -1, 0, 0, 0, 0, 0, 0);
-            Q *q = other->f1ca0;
+            Q_2a4b0 *q = other->f1ca0;
             if (q) {
                 void *t60 = q->f60;
                 q->b121 = 0;
@@ -213,8 +213,8 @@ char Mgr::FUN_0002a4b0(int index, char flag)
         }
     }
 
-    Holder *h = f124;
-    if (o == (Obj *)h && h) {
+    Holder_2a4b0 *h = f124;
+    if (o == (Obj_2a4b0 *)h && h) {
         h->v1();
         f124 = 0;
         FUN_001b6580()->FUN_001b4c40(f124);

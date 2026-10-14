@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 37 inputs, branch coverage 13/14, incomplete)
 // pure3d::ExpressionGroupLoader::vfunc_5 @ 0x002b0170
-struct Item {
+struct Item_2b0170 {
     virtual void v0();
 };
 
-struct StrField {
+struct StrField_2b0170 {
     int a, b;
     void FUN_0027b040(const char *s);
 };
 
-struct ExprGroup {
+struct ExprGroup_2b0170 {
     char pad0[8];
-    StrField name;
-    Item **items;
+    StrField_2b0170 name;
+    Item_2b0170 **items;
     char pad1[0x20 - 0x14];
     unsigned __int64 hash;
     int *vals;
-    ExprGroup *FUN_002b0060(int count);
+    ExprGroup_2b0170 *FUN_002b0060(int count);
 };
 
 struct Stream {
@@ -39,7 +39,7 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual unsigned __int64 v5(Item **out, unsigned __int64 *hash, Reader *r, int flag);
+    virtual unsigned __int64 v5(Item_2b0170 **out, unsigned __int64 *hash, Reader *r, int flag);
 };
 }
 
@@ -53,11 +53,11 @@ struct Reader {
     void *FUN_00266c30();
 };
 
-struct Registry {
+struct Registry_2b0170 {
     content::ObjectLoader *FUN_00265310(void *key);
 };
 
-extern Registry *DAT_00527c58;
+extern Registry_2b0170 *DAT_00527c58;
 
 void *FUN_00263ea0(unsigned int size);
 unsigned __int64 FUN_0027b020(const char *s);
@@ -70,17 +70,17 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual unsigned __int64 vfunc_5(ExprGroup **out, unsigned __int64 *outHash, Reader *r, int flag);
+    virtual unsigned __int64 vfunc_5(ExprGroup_2b0170 **out, unsigned __int64 *outHash, Reader *r, int flag);
 };
 
-unsigned __int64 ExpressionGroupLoader::vfunc_5(ExprGroup **out, unsigned __int64 *outHash, Reader *r, int flag)
+unsigned __int64 ExpressionGroupLoader::vfunc_5(ExprGroup_2b0170 **out, unsigned __int64 *outHash, Reader *r, int flag)
 {
     struct Frame {
         char pad[3];
         unsigned char len;
         union {
             int v;
-            Item *item;
+            Item_2b0170 *item;
         } u;
         unsigned __int64 x;
         char buf1[0x100];
@@ -100,9 +100,9 @@ unsigned __int64 ExpressionGroupLoader::vfunc_5(ExprGroup **out, unsigned __int6
 
     void *mem = FUN_00263ea0(0x38);
     int count = fr.u.v;
-    ExprGroup *g = 0;
+    ExprGroup_2b0170 *g = 0;
     if (mem)
-        g = ((ExprGroup *)mem)->FUN_002b0060(count);
+        g = ((ExprGroup_2b0170 *)mem)->FUN_002b0060(count);
     g->name.FUN_0027b040(fr.buf1);
     g->hash = FUN_0027b020(fr.buf2);
     for (int i = 0; i < count; i++) {
@@ -119,7 +119,7 @@ unsigned __int64 ExpressionGroupLoader::vfunc_5(ExprGroup **out, unsigned __int6
                     fr.u.item = 0;
                     el->v5(&fr.u.item, &fr.x, r, 0);
                     fr.u.item->v0();
-                    *(Item **)((char *)g->items + off) = fr.u.item;
+                    *(Item_2b0170 **)((char *)g->items + off) = fr.u.item;
                     off += 4;
                 }
             }

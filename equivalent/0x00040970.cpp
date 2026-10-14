@@ -3,54 +3,54 @@
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 
-union Bits {
+union Bits_40970 {
     float f;
     unsigned int u;
 };
 
-struct Buf {
+struct Buf_40970 {
     char data[0xb0];
     void FUN_001c9a40(unsigned int id);
 };
 
-struct Flags {
+struct Flags_40970 {
     bool FUN_00092940(int id);
 };
 
-struct Opts {
-    Flags *FUN_00086340();
+struct Opts_40970 {
+    Flags_40970 *FUN_00086340();
 };
 
-struct Sink {
-    void FUN_001cbc20(Buf *b);
+struct Sink_40970 {
+    void FUN_001cbc20(Buf_40970 *b);
 };
 
-struct Hero;
+struct Hero_40970;
 struct World {
     char pad00[0x20];
-    struct Hero *hero;          // 0x20
+    struct Hero_40970 *hero;          // 0x20
     char pad24[0xc];
-    Sink *sink30;               // 0x30
+    Sink_40970 *sink30;               // 0x30
     char pad34[0x20];
-    Opts *opts;                 // 0x54
+    Opts_40970 *opts;                 // 0x54
 };
 
-struct Hero {
+struct Hero_40970 {
     bool FUN_00025d30(void *self);
 };
 
 extern World *DAT_004dd700;
 
-struct Ref {
+struct Ref_40970 {
     unsigned int *id;
 };
 
-struct Obj11c {
+struct Obj11c_40970 {
     char pad00[0x130];
     float f130;
     float f134;
     char pad138[0x18];
-    Bits f150;
+    Bits_40970 f150;
     float f154;
     float f158;
     float f15c;
@@ -59,7 +59,7 @@ struct Obj11c {
     void FUN_000443c0();
 };
 
-struct Sub {
+struct Sub_40970 {
     void FUN_00059790(int v);
 };
 
@@ -68,21 +68,21 @@ struct Timer {
     void FUN_002322f0(int a, float dt);
 };
 
-class Actor {
+class Actor_40970 {
 public:
     char pad000[0x10];
     unsigned int *f10;          // 0x10
     char pad14[0xc8];
     Timer t0dc;                 // 0xdc
     char pad0e0[0x24];
-    Sub *sub104;                // 0x104
+    Sub_40970 *sub104;                // 0x104
     unsigned int f108;          // 0x108
     float f10c;
     float f110;
     char pad114[4];
     char b118;                  // 0x118
     char pad119[3];
-    Obj11c *o11c;               // 0x11c
+    Obj11c_40970 *o11c;               // 0x11c
     char pad120[0x1e0];
     float f300;
     float f304;
@@ -96,7 +96,7 @@ public:
     char pad33c[0x50];
     float f38c;
     char pad390[0x1b0c - 0x390];
-    Bits f1b0c;                 // 0x1b0c
+    Bits_40970 f1b0c;                 // 0x1b0c
     float f1b10;
     float f1b14;
     float f1b18;
@@ -117,13 +117,13 @@ public:
     void FUN_00040970(World *w, float dt);
 };
 
-void Actor::FUN_00040970(World *w, float dt)
+void Actor_40970::FUN_00040970(World *w, float dt)
 {
     struct Frame {
         float limit;
-        Bits g;
-        Bits av;
-        Buf buf;
+        Bits_40970 g;
+        Bits_40970 av;
+        Buf_40970 buf;
         unsigned int cookie;
     } f;
     f.cookie = DAT_004d9968;
@@ -150,7 +150,7 @@ void Actor::FUN_00040970(World *w, float dt)
     f1e4c = dt + f1e4c;
     if (f1b28 != 0)
         f1b2c = dt + f1b2c;
-    Obj11c *o = o11c;
+    Obj11c_40970 *o = o11c;
     if (o != 0) {
         double v = f1b30 - dt * o->f15c;
         if (!(0.0 < v))
@@ -167,7 +167,7 @@ void Actor::FUN_00040970(World *w, float dt)
         if (f1b0c.f > 0.0f) {
             f.av = f1b0c;
             f.limit = o11c->f130 * f1b14;
-            Obj11c *oc = o11c;
+            Obj11c_40970 *oc = o11c;
             bool proceed;
             if (b1b34 == 0) {
                 if (f1e4c > oc->f154) {
@@ -184,7 +184,7 @@ void Actor::FUN_00040970(World *w, float dt)
             if (proceed && f.av.f < f.limit) {
                 f.g = oc->f150;
                 double base;
-                if (((Hero *)w->hero)->FUN_00025d30(this) && w->opts->FUN_00086340()->FUN_00092940(0x2e2))
+                if (((Hero_40970 *)w->hero)->FUN_00025d30(this) && w->opts->FUN_00086340()->FUN_00092940(0x2e2))
                     base = f.g.f * 10.0f;
                 else
                     base = f.g.f;

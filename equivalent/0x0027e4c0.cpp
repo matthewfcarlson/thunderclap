@@ -4,20 +4,20 @@
 // equiv-map: ?thunk_FUN_002ee710@Cache@@QAEXH@Z = 0x002eecb0
 extern "C" void *memset(void *dst, int c, unsigned int n);
 
-struct Res {
+struct Res_27e4c0 {
     virtual void vfn0();
     virtual void vfn1();
 };
-struct Stage {
+struct Stage_27e4c0 {
     virtual void vfn0();
     virtual void vfn1();
     char pad[0x74 - 4];
     int key;                 // 0x74
 };
-struct Slot {                // 0x18 bytes
+struct Slot_27e4c0 {                // 0x18 bytes
     char pad0[0x10];
-    Stage *stage;            // 0x10
-    Res *aux;                // 0x14
+    Stage_27e4c0 *stage;            // 0x10
+    Res_27e4c0 *aux;                // 0x14
 };
 struct Choice {
     char pad[0x10];
@@ -28,23 +28,23 @@ struct Cache {
     void thunk_FUN_002ee510(Choice *c);
     void FUN_002ee6d0(Choice *c);
 };
-struct Entry {
+struct Entry_27e4c0 {
     char pad[0x2c];
     int slotCount;           // 0x2c
 };
-struct Table {
+struct Table_27e4c0 {
     char pad[0x1c];
-    Entry **entries;         // 0x1c
-    Entry **entriesEnd;      // 0x20
+    Entry_27e4c0 **entries;         // 0x1c
+    Entry_27e4c0 **entriesEnd;      // 0x20
 };
-struct Layout {
+struct Layout_27e4c0 {
     void FUN_00283460(int a, int b, int c);
     void FUN_002834b0(int v);
 };
-Layout *FUN_0027f250();
+Layout_27e4c0 *FUN_0027f250();
 extern Cache *DAT_00554c14;
 
-class Scene {
+class Scene_27e4c0 {
 public:
     virtual void vfn0();
     virtual void vfn1();
@@ -60,12 +60,12 @@ public:
     int current;             // 0x40
     int f44;
     char pad48[0x88 - 0x48];
-    Res *f88;
+    Res_27e4c0 *f88;
     char f8c;
     char pad8d[0x98 - 0x8d];
-    Table *table;            // 0x98
+    Table_27e4c0 *table;            // 0x98
     char pad9c[0xa4 - 0x9c];
-    Slot *slots;             // 0xa4
+    Slot_27e4c0 *slots;             // 0xa4
     int slotsPerEntry;       // 0xa8
     Choice **choices;        // 0xac
     void FUN_0027d780();
@@ -73,7 +73,7 @@ public:
     void FUN_0027e4c0(int index, bool notify);
 };
 
-void Scene::FUN_0027e4c0(int index, bool notify)
+void Scene_27e4c0::FUN_0027e4c0(int index, bool notify)
 {
     if (index < 0) return;
     if (index >= (int)(table->entriesEnd - table->entries)) return;
@@ -83,14 +83,14 @@ void Scene::FUN_0027e4c0(int index, bool notify)
             f88 = 0;
         }
     }
-    Layout *layout = FUN_0027f250();
+    Layout_27e4c0 *layout = FUN_0027f250();
     if (layout != 0) {
         layout->FUN_00283460(f8, fc, 0);
     }
     if (current != -1) {
         int n = table->entries[current]->slotCount;
         for (int i = 0; i < n; i++) {
-            Slot *s = &slots[i];
+            Slot_27e4c0 *s = &slots[i];
             if (slots[i].stage != 0) {
                 DAT_00554c14->thunk_FUN_002ee710(slots[i].stage->key);
                 s->stage->vfn1();
@@ -103,7 +103,7 @@ void Scene::FUN_0027e4c0(int index, bool notify)
         Choice *old = choices[current];
         if (old != 0) {
             if (old != choices[index]) {
-                Layout *l2 = FUN_0027f250();
+                Layout_27e4c0 *l2 = FUN_0027f250();
                 l2->FUN_002834b0(choices[current]->value);
             }
             DAT_00554c14->thunk_FUN_002ee510(choices[current]);

@@ -10,7 +10,7 @@ struct IntrusiveList {
     void Init() { head = &next; next = &next; prev = &next; last = &next; count = 0; }
 };
 
-struct Pool {
+struct Pool_24a5d0 {
     char data[0x48];
 };
 
@@ -18,25 +18,25 @@ struct ItemLink {
     ItemLink *next;
 };
 
-struct Item {
+struct Item_24a5d0 {
     char pad00[0x14];
     ItemLink link;           // 0x14
     char pad18[0x38 - 0x18];
     int attr;                // 0x38
 };
 
-struct Entry {
+struct Entry_24a5d0 {
     char pad00[0x10];
     int key;                 // 0x10
 };
 
-struct Source {
+struct Source_24a5d0 {
     char pad00[0x22];
     unsigned short refCount; // 0x22
     char pad24[0x3c - 0x24];
     ItemLink *itemHead;      // 0x3c
-    Entry *FUN_00257250();
-    Entry *FUN_00257270(Entry *cur);
+    Entry_24a5d0 *FUN_00257250();
+    Entry_24a5d0 *FUN_00257270(Entry_24a5d0 *cur);
 };
 
 struct SrcNode {
@@ -44,7 +44,7 @@ struct SrcNode {
     int f10;
     int f14;
     int f18;
-    Item *owner;             // 0x1c
+    Item_24a5d0 *owner;             // 0x1c
 };
 
 struct KeyNode {
@@ -62,10 +62,10 @@ public:
 }
 
 extern char DAT_004e5f98;
-extern Pool DAT_004e5ff0;
-extern Pool DAT_004e6080;
+extern Pool_24a5d0 DAT_004e5ff0;
+extern Pool_24a5d0 DAT_004e6080;
 void FUN_00257e80(void *list, void *item);
-void *FUN_00247530(Pool *pool);
+void *FUN_00247530(Pool_24a5d0 *pool);
 void FUN_00249ce0(IntrusiveList *list, SrcNode *node, int *attr);
 void *FUN_00242ce0(void *a3, int *key);
 
@@ -77,7 +77,7 @@ public:
     float f10;
     float f14;
     IntrusiveList nodes;     // 0x18
-    Source *source;          // 0x2c
+    Source_24a5d0 *source;          // 0x2c
     int mode;                // 0x30
     float f34;
     int f38;
@@ -96,10 +96,10 @@ public:
     audio::StreamPlayerAllocator *allocator; // 0xac
     audio::StreamPlayerAllocator ownAllocator; // 0xb0
 
-    StreamVoice(int a0, int a1, Source *a2, void *a3, int a4, audio::StreamPlayerAllocator *a5);
+    StreamVoice(int a0, int a1, Source_24a5d0 *a2, void *a3, int a4, audio::StreamPlayerAllocator *a5);
 };
 
-StreamVoice::StreamVoice(int a0, int a1, Source *a2, void *a3, int a4, audio::StreamPlayerAllocator *a5)
+StreamVoice::StreamVoice(int a0, int a1, Source_24a5d0 *a2, void *a3, int a4, audio::StreamPlayerAllocator *a5)
 {
     nodes.Init();
     keyHead = 0;
@@ -135,9 +135,9 @@ StreamVoice::StreamVoice(int a0, int a1, Source *a2, void *a3, int a4, audio::St
         allocator = &ownAllocator;
 
     ItemLink *l = source->itemHead;
-    Item *item = 0;
+    Item_24a5d0 *item = 0;
     if (l)
-        item = (Item *)((char *)l - 0x14);
+        item = (Item_24a5d0 *)((char *)l - 0x14);
     while (item) {
         SrcNode *node = (SrcNode *)FUN_00247530(&DAT_004e5ff0);
         if (node) {
@@ -149,13 +149,13 @@ StreamVoice::StreamVoice(int a0, int a1, Source *a2, void *a3, int a4, audio::St
         FUN_00249ce0(&nodes, node, &item->attr);
         l = item->link.next;
         if (l)
-            item = (Item *)((char *)l - 0x14);
+            item = (Item_24a5d0 *)((char *)l - 0x14);
         else
             item = 0;
     }
 
     if (a3) {
-        Entry *e = a2->FUN_00257250();
+        Entry_24a5d0 *e = a2->FUN_00257250();
         while (e) {
             void *h = FUN_00242ce0(a3, &e->key);
             KeyNode *kn = (KeyNode *)FUN_00247530(&DAT_004e6080);

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 121 inputs, branch coverage 16/16)
 // FUN_0021ded0 @ 0x0021ded0
-struct ExpDesc {
+struct ExpDesc_21ded0 {
     int k;
     int info;
     int aux;
@@ -10,7 +10,7 @@ struct ExpDesc {
 
 struct FuncState;
 
-struct LexState {
+struct LexState_21ded0 {
     char pad0[4];
     int linenumber;
     int lastline;
@@ -23,19 +23,19 @@ struct LexState {
     int nestlevel;
 };
 
-int FUN_0021bbc0(LexState *ls, int *seminfo);
-void FUN_0021afd0(LexState *ls, const char *msg, int token);
+int FUN_0021bbc0(LexState_21ded0 *ls, int *seminfo);
+void FUN_0021afd0(LexState_21ded0 *ls, const char *msg, int token);
 // equiv-conv: FUN_0021db50 eax edi
-void FUN_0021db50(LexState *ls, ExpDesc *v);
+void FUN_0021db50(LexState_21ded0 *ls, ExpDesc_21ded0 *v);
 // equiv-conv: FUN_0021dd30 eax
 int FUN_0021dd30(int token);
-void FUN_00221700(FuncState *fs, int op, ExpDesc *v);
-void FUN_002217c0(FuncState *fs, int op, ExpDesc *v);
-void FUN_002218d0(FuncState *fs, int op, ExpDesc *v, ExpDesc *v2);
+void FUN_00221700(FuncState *fs, int op, ExpDesc_21ded0 *v);
+void FUN_002217c0(FuncState *fs, int op, ExpDesc_21ded0 *v);
+void FUN_002218d0(FuncState *fs, int op, ExpDesc_21ded0 *v, ExpDesc_21ded0 *v2);
 
 extern const unsigned char DAT_00426e00[];
 
-static void next(LexState *ls)
+static void next(LexState_21ded0 *ls)
 {
     ls->lastline = ls->linenumber;
     if (ls->lookaheadToken != 0x11f) {
@@ -47,9 +47,9 @@ static void next(LexState *ls)
     }
 }
 
-int FUN_0021ded0(LexState *ls, ExpDesc *v, unsigned int limit)
+int FUN_0021ded0(LexState_21ded0 *ls, ExpDesc_21ded0 *v, unsigned int limit)
 {
-    ExpDesc v2;
+    ExpDesc_21ded0 v2;
     int op;
 
     ls->nestlevel++;

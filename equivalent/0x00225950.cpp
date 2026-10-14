@@ -4,12 +4,12 @@
 extern int DAT_004e5ab4;
 extern int DAT_004e5ab8;
 namespace choreo2 {
-struct Skel { char pad[0x10]; float length; };
+struct Skel_225950 { char pad[0x10]; float length; };
 class Driver {
 public:
     virtual void v0();
     char pad[0x1c];
-    Skel* skel;
+    Skel_225950* skel;
     char pad2[0x224 - 0x24];
     Driver(int a) throw();
 };

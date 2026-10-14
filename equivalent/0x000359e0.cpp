@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_000359e0 @ 0x000359e0
 // FUN_000359e0 @ 0x000359e0: fetches the current orientation of a character (own or its parent's) and applies it
-struct Quat {
+struct Quat_359e0 {
     unsigned x, y, z, w;
-    void FUN_00034ca0(Quat *src);
+    void FUN_00034ca0(Quat_359e0 *src);
 };
 
 struct Pose {
     char pad00[0x2c];
-    Quat orientation;
+    Quat_359e0 orientation;
 };
 
-class Source {
+class Source_359e0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -24,33 +24,33 @@ public:
     virtual Pose *GetPose();
 };
 
-struct Link {
+struct Link_359e0 {
     char pad00[8];
     Pose *pose;
 };
 
-struct Target {
-    void FUN_00059a50(Quat *q);
+struct Target_359e0 {
+    void FUN_00059a50(Quat_359e0 *q);
 };
 
-class Character {
+class Character_359e0 {
 public:
     char pad00[0x10];
-    Target *target;
+    Target_359e0 *target;
     char pad14[0x11c - 0x14];
-    Link *link;
+    Link_359e0 *link;
     char pad120[8];
-    Character *parent;
-    bool FUN_000352b0(Quat *q);
-    bool FUN_000359e0(Quat *out);
+    Character_359e0 *parent;
+    bool FUN_000352b0(Quat_359e0 *q);
+    bool FUN_000359e0(Quat_359e0 *out);
 };
 
 struct ParentLink {
     char pad00[0x11c];
-    Source *source;
+    Source_359e0 *source;
 };
 
-bool Character::FUN_000359e0(Quat *out)
+bool Character_359e0::FUN_000359e0(Quat_359e0 *out)
 {
     if (link == 0)
         return false;
@@ -65,7 +65,7 @@ bool Character::FUN_000359e0(Quat *out)
         return true;
     }
     if (parent != 0) {
-        Source *source = ((ParentLink *)parent)->source;
+        Source_359e0 *source = ((ParentLink *)parent)->source;
         if (source != 0) {
             Pose *p = source->GetPose();
             if (p != 0) {

@@ -15,17 +15,17 @@ public:
     void FUN_000fa0a0();
 };
 
-class Args {
+class Args_f3f00 {
 public:
     virtual void v0();
     virtual int GetType();
 };
 
-struct Vec3 {
+struct Vec3_f3f00 {
     float x, y, z;
 };
 
-class Source {
+class Source_f3f00 {
 public:
     virtual void v0();
     virtual void v1();
@@ -75,26 +75,26 @@ public:
     virtual void v45();
     virtual void v46();
     virtual void v47();
-    virtual void GetVec3(int key, Vec3* out);
+    virtual void GetVec3(int key, Vec3_f3f00* out);
     virtual void v49();
     virtual void GetFloat(int key, float* out);
 };
 
-struct Color {
+struct Color_f3f00 {
     int value;
-    Color* FUN_000115c0(int r, int g, int b, int a);
+    Color_f3f00* FUN_000115c0(int r, int g, int b, int a);
 };
 
-struct Box {
+struct Box_f3f00 {
     float f0, f4, f8, fc, f10, f14;
 };
 
 struct Frame3 {
     char pad00[0x14];
-    Box box;
+    Box_f3f00 box;
 };
 
-class Sink {
+class Sink_f3f00 {
 public:
     char pad00[0x150];
     float f150;
@@ -106,7 +106,7 @@ public:
     int f168;
     float f16c;
     char pad170[0x184 - 0x170];
-    Vec3 vec184;
+    Vec3_f3f00 vec184;
     Frame3* frame;
     char pad194[0x1ec - 0x194];
     int color;
@@ -124,8 +124,8 @@ public:
     public:
         virtual void vfunc_0(int a, int b);
         FEThingsBase* mObj;
-        void (FEThingsBase::*mFn)(Param* param, Source* c, void* d, Args* args);
-        Source* mC;
+        void (FEThingsBase::*mFn)(Param* param, Source_f3f00* c, void* d, Args_f3f00* args);
+        Source_f3f00* mC;
         void* mD;
     };
 
@@ -163,25 +163,25 @@ public:
     virtual void v31();
     virtual void v32();
     virtual void v33();
-    virtual char v34(Param* p, Args* a, ParseFunctor* f);
-    virtual char v35(Param* p, Source* c, void* d, Args* a);
-    virtual char v36(Param* p, Source* c, void* d, Args* a);
+    virtual char v34(Param* p, Args_f3f00* a, ParseFunctor* f);
+    virtual char v35(Param* p, Source_f3f00* c, void* d, Args_f3f00* a);
+    virtual char v36(Param* p, Source_f3f00* c, void* d, Args_f3f00* a);
 
-    void FUN_000f3f00(Param* param, Source* c, void* d, Args* args);
+    void FUN_000f3f00(Param* param, Source_f3f00* c, void* d, Args_f3f00* args);
 };
 
-struct Frame {
-    Vec3 pos;
+struct Frame_f3f00 {
+    Vec3_f3f00 pos;
     float scale;
     int pad10[2];
     FEThingsBase::ParseFunctor f;
-    Box box;
+    Box_f3f00 box;
 };
 
-void FEThingsBase::FUN_000f3f00(Param* param, Source* c, void* d, Args* args)
+void FEThingsBase::FUN_000f3f00(Param* param, Source_f3f00* c, void* d, Args_f3f00* args)
 {
-    Frame fr;
-    Sink* sink = (Sink*)FUN_00344e74(d, 0, DAT_0049f4f0, DAT_0049f4d8, 0);
+    Frame_f3f00 fr;
+    Sink_f3f00* sink = (Sink_f3f00*)FUN_00344e74(d, 0, DAT_0049f4f0, DAT_0049f4d8, 0);
     int type = args->GetType();
     switch (type) {
     case 0xe10f2442:
@@ -197,7 +197,7 @@ void FEThingsBase::FUN_000f3f00(Param* param, Source* c, void* d, Args* args)
         int a = 0xff;
         if (param->FUN_000f9e90())
             a = (int)param->FUN_000fad30();
-        Color col;
+        Color_f3f00 col;
         sink->color = col.FUN_000115c0(r, g, b, a)->value;
         return;
     }

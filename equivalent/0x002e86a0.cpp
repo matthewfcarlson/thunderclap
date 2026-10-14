@@ -1,28 +1,28 @@
 // STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 19/24, incomplete)
 // FUN_002e86a0 @ 0x002e86a0
-struct png_struct {
+struct png_struct_2e86a0 {
     char pad[0x60];
     unsigned int mode;
     char pad2[0x154 - 0x64];
     float gamma;
 };
 
-struct png_info {
+struct png_info_2e86a0 {
     char pad[8];
     unsigned int valid;
 };
 
 extern int DAT_004d9a30;
 
-void FUN_002e69a0(png_struct* png, const char* msg);
-void FUN_002e69d0(png_struct* png, const char* msg);
-int FUN_002e81e0(png_struct* png, unsigned int length);
-void FUN_002e7580(png_struct* png, unsigned char* buf, unsigned int length);
+void FUN_002e69a0(png_struct_2e86a0* png, const char* msg);
+void FUN_002e69d0(png_struct_2e86a0* png, const char* msg);
+int FUN_002e81e0(png_struct_2e86a0* png, unsigned int length);
+void FUN_002e7580(png_struct_2e86a0* png, unsigned char* buf, unsigned int length);
 unsigned int FUN_002e7500(unsigned char* buf);
-void FUN_002eb1f0(png_struct* png, png_info* info, double gamma);
+void FUN_002eb1f0(png_struct_2e86a0* png, png_info_2e86a0* info, double gamma);
 int FUN_00347792(void* stream, const char* fmt, ...);
 
-void FUN_002e86a0(png_struct* png, png_info* info, unsigned int length)
+void FUN_002e86a0(png_struct_2e86a0* png, png_info_2e86a0* info, unsigned int length)
 {
     unsigned char buf[4];
 

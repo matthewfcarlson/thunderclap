@@ -2,17 +2,17 @@
 // FUN_00305f00 @ 0x00305f00
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_305f00 {
     float x, y, z;
-    bool FUN_0022d2b0(const Vec3 *other, float eps);
+    bool FUN_0022d2b0(const Vec3_305f00 *other, float eps);
 };
 
 float FUN_00018a20(float x);
 
 // Axis (cross product b x a) and angle between two vectors.
-void FUN_00305f00(const Vec3 *a, const Vec3 *b, Vec3 *axis, float *angle)
+void FUN_00305f00(const Vec3_305f00 *a, const Vec3_305f00 *b, Vec3_305f00 *axis, float *angle)
 {
-    Vec3 zero;
+    Vec3_305f00 zero;
     float dot;
 
     float v1 = a->x * b->z - a->z * b->x;

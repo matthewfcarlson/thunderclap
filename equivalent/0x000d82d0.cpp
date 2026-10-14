@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000d82d0 @ 0x000d82d0
-struct Item { char data[0x24]; void FUN_000f7930(); };
-struct Entry { Item item; char pad[12]; unsigned char active; char pad2[7]; unsigned char flag; char pad3[3]; };
-struct StateA { char data[0x1c]; void FUN_000dee10(); };
-struct StateB { char data[0x14]; void FUN_000dee40(); };
-struct Record { int a,b,c,d; };
+struct Item_d82d0 { char data[0x24]; void FUN_000f7930(); };
+struct Entry_d82d0 { Item_d82d0 item; char pad[12]; unsigned char active; char pad2[7]; unsigned char flag; char pad3[3]; };
+struct StateA_d82d0 { char data[0x1c]; void FUN_000dee10(); };
+struct StateB_d82d0 { char data[0x14]; void FUN_000dee40(); };
+struct Record_d82d0 { int a,b,c,d; };
 struct FUN_000e9240 {
  virtual void slot0();
  char pad0[0x14c]; int owner;
@@ -13,13 +13,13 @@ struct FUN_000e9240 {
 };
 struct FEMemCardControl : FUN_000e9240 {
  virtual void slot0();
- Entry entries[5];
+ Entry_d82d0 entries[5];
  char gap[0x10];
- Item item1; unsigned char flag380; char pad380[3];
- Item item2; unsigned char enabled; char pad3a8[3]; int count; unsigned char flag3b0; char pad3b0[3];
- StateA stateA; StateB stateB;
+ Item_d82d0 item1; unsigned char flag380; char pad380[3];
+ Item_d82d0 item2; unsigned char enabled; char pad3a8[3]; int count; unsigned char flag3b0; char pad3b0[3];
+ StateA_d82d0 stateA; StateB_d82d0 stateB;
  int stateValue; unsigned char f8,f9,fa,fb,fc; char pad3ed[3]; int stateOther;
- Item item3; int mask; char pad41c[12]; FEMemCardControl* self; char pad42c[4]; Record records[2];
+ Item_d82d0 item3; int mask; char pad41c[12]; FEMemCardControl* self; char pad42c[4]; Record_d82d0 records[2];
  FEMemCardControl(int first,int second);
 };
 FEMemCardControl::FEMemCardControl(int first,int second) : FUN_000e9240(first) {

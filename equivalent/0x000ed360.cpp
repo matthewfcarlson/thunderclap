@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // TextWindow::vfunc_3 @ 0x000ed360
 // TextWindow::vfunc_3 @ 0x000ed360: recompute the line scale from the owner's reported extent
-class Metrics {
+class Metrics_ed360 {
 public:
     virtual void v0();
     virtual void v1();
@@ -16,7 +16,7 @@ public:
 
 struct Font {
     char pad0[0x24];
-    Metrics *metrics;
+    Metrics_ed360 *metrics;
 };
 
 struct LayoutEntry {
@@ -26,18 +26,18 @@ struct LayoutEntry {
     int f12;
 };
 
-struct Layout {
+struct Layout_ed360 {
     Font *font;
     int f4;
     LayoutEntry entries[8];
     int index;
     float f8c;
-    Layout *FUN_000f7fe0(Font *font);
+    Layout_ed360 *FUN_000f7fe0(Font *font);
     float FUN_000f88a0(const unsigned short *text);
     void FUN_000f78e0();
 };
 
-class Fonts {
+class Fonts_ed360 {
 public:
     virtual void v0();
     virtual void v1();
@@ -86,18 +86,18 @@ public:
     virtual Font *v44();
 };
 
-struct Hold {
+struct Hold_ed360 {
     char pad0[4];
-    Fonts *fonts;
+    Fonts_ed360 *fonts;
 };
 
-struct Vec3 {
+struct Vec3_ed360 {
     float x, y, z;
 };
 
 class FEObject;
 
-class Owner {
+class Owner_ed360 {
 public:
     virtual void v0();
     virtual void v1();
@@ -114,11 +114,11 @@ public:
     virtual void v12();
     virtual void v13();
     virtual void v14();
-    virtual void v15(Vec3 *out, FEObject *who);
+    virtual void v15(Vec3_ed360 *out, FEObject *who);
     virtual float v16(FEObject *who);
     virtual float v17(FEObject *who);
     char pad04[8 - 4];
-    Hold *hold;
+    Hold_ed360 *hold;
 };
 
 class FEObject {
@@ -128,7 +128,7 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     char pad04[0x14 - 4];
-    Owner *owner;
+    Owner_ed360 *owner;
 };
 
 class TextWindow : public FEObject {
@@ -146,8 +146,8 @@ void TextWindow::vfunc_3()
 {
     struct Frame {
         float k;
-        Vec3 tmp;
-        Layout layout;
+        Vec3_ed360 tmp;
+        Layout_ed360 layout;
     } fr;
 
     FEObject::vfunc_3();

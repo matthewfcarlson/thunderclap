@@ -7,14 +7,14 @@ void __cdecl FUN_0026d840(void *);
 int __cdecl FUN_00270c10(const char *);
 void __cdecl FUN_00270f10(char *, int);
 void * __cdecl FUN_00276680(unsigned int);
-struct Created { Created * FUN_00277110(void *, void *); };
-struct Entry { void *object; char padding[0x118]; };
-extern Entry DAT_0052842c[];
+struct Created_271410 { Created_271410 * FUN_00277110(void *, void *); };
+struct Entry_271410 { void *object; char padding[0x118]; };
+extern Entry_271410 DAT_0052842c[];
 extern char DAT_004cdc04;
 extern char DAT_0052a0f0;
 extern int DAT_0052a120;
 
-void __cdecl FUN_00271410(Created **result, const char *name, void *argument)
+void __cdecl FUN_00271410(Created_271410 **result, const char *name, void *argument)
 {
     char buffer[20];
     strncpy(buffer, name, 16);
@@ -24,7 +24,7 @@ void __cdecl FUN_00271410(Created **result, const char *name, void *argument)
 
     FUN_0026d850(&DAT_0052a0f0);
     int index = FUN_00270c10(buffer);
-    Entry *entry = 0;
+    Entry_271410 *entry = 0;
     if (index != -1 && DAT_0052842c[index].object)
         entry = &DAT_0052842c[index];
     if (!entry && DAT_004cdc04) {
@@ -36,7 +36,7 @@ void __cdecl FUN_00271410(Created **result, const char *name, void *argument)
             entry = &DAT_0052842c[index];
     }
     if (entry) {
-        Created *object = (Created *)FUN_00276680(0x24);
+        Created_271410 *object = (Created_271410 *)FUN_00276680(0x24);
         if (object)
             object = object->FUN_00277110(entry->object, argument);
         *result = object;

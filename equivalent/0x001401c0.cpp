@@ -1,59 +1,59 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 22/22)
 // hulkfight::motion::WallExitAction::vfunc_5 @ 0x001401c0
-struct Vec3 {
+struct Vec3_1401c0 {
     float x, y, z;
-    bool FUN_0022d2b0(const Vec3* other, float eps);
+    bool FUN_0022d2b0(const Vec3_1401c0* other, float eps);
     float FUN_0022d110();
 };
 
-union FloatBits {
+union FloatBits_1401c0 {
     float f;
     unsigned int u;
 };
 
-float __cdecl FUN_00224f10(Vec3* v);
+float __cdecl FUN_00224f10(Vec3_1401c0* v);
 float __cdecl FUN_00224fc0(float from, float to);
-void __cdecl FUN_00224d70(float angle, Vec3* v);
+void __cdecl FUN_00224d70(float angle, Vec3_1401c0* v);
 
-struct Xform {
-    void FUN_0022be40(Vec3* pos);
+struct Xform_1401c0 {
+    void FUN_0022be40(Vec3_1401c0* pos);
     void FUN_00221d20(float v);
 };
 
-struct Target {
+struct Target_1401c0 {
     char pad00[0x18];
-    Xform xform;
+    Xform_1401c0 xform;
 };
 
-struct Limits {
+struct Limits_1401c0 {
     char pad00[0x30];
     float halfHeight;
     float limit;
 };
 
-struct Fighter {
+struct Fighter_1401c0 {
     char pad00[0x11c];
-    Limits* limits;
+    Limits_1401c0* limits;
     char pad120[0x140 - 0x120];
     int mode;
     char pad144[0x1ad4 - 0x144];
-    Vec3 a;
-    Vec3 b;
-    Vec3 c;
-    Vec3 d;
+    Vec3_1401c0 a;
+    Vec3_1401c0 b;
+    Vec3_1401c0 c;
+    Vec3_1401c0 d;
     char pad1b04[0x2064 - 0x1b04];
-    Vec3 vel;
+    Vec3_1401c0 vel;
     void FUN_000359c0(int v);
-    void FUN_000357a0(Vec3* v);
+    void FUN_000357a0(Vec3_1401c0* v);
 };
 
-struct Anchor {
-    Fighter* FUN_00059a30();
-    void FUN_00059a50(Vec3* out);
+struct Anchor_1401c0 {
+    Fighter_1401c0* FUN_00059a30();
+    void FUN_00059a50(Vec3_1401c0* out);
 };
 
-struct Owner {
-    Anchor* FUN_000592a0();
+struct Owner_1401c0 {
+    Anchor_1401c0* FUN_000592a0();
 };
 
 struct Params {
@@ -73,11 +73,11 @@ public:
     virtual bool vfunc_5(int skip, float dt);
     char pad04[0x1c - 4];
     Params* params;
-    Owner* owner;
-    Target* target;
-    Vec3 g;
-    Vec3 n;
-    Vec3 vel;
+    Owner_1401c0* owner;
+    Target_1401c0* target;
+    Vec3_1401c0 g;
+    Vec3_1401c0 n;
+    Vec3_1401c0 vel;
 };
 
 bool WallExitAction::vfunc_5(int skip, float dt)
@@ -88,12 +88,12 @@ bool WallExitAction::vfunc_5(int skip, float dt)
     if (target == 0) {
         return false;
     }
-    Anchor* anchor = owner->FUN_000592a0();
-    Fighter* fighter = anchor->FUN_00059a30();
+    Anchor_1401c0* anchor = owner->FUN_000592a0();
+    Fighter_1401c0* fighter = anchor->FUN_00059a30();
     fighter->FUN_000359c0(3);
 
     float s1 = FUN_00224f10(&vel);
-    Vec3 fv = fighter->vel;
+    Vec3_1401c0 fv = fighter->vel;
     float s2 = FUN_00224f10(&fv);
     float held = s1;
     float diff = FUN_00224fc0(s1, s2);
@@ -105,7 +105,7 @@ bool WallExitAction::vfunc_5(int skip, float dt)
         if (!(held < 0.0f)) {
             float diff2 = FUN_00224fc0(s1, s2);
             float step = held * dt;
-            FloatBits ab;
+            FloatBits_1401c0 ab;
             ab.f = diff2;
             ab.u &= 0x7fffffff;
             if (!(ab.f <= step)) {
@@ -124,21 +124,21 @@ bool WallExitAction::vfunc_5(int skip, float dt)
     FUN_00224d70(v - s1, &vel);
 
     vel.y = vel.y - dt * params->drag;
-    Vec3 push;
+    Vec3_1401c0 push;
     push.x = vel.x * dt;
     push.y = vel.y * dt;
     push.z = vel.z * dt;
 
-    Vec3 pos;
+    Vec3_1401c0 pos;
     pos.x = 0.0f;
     pos.y = 0.0f;
     pos.z = 0.0f;
     anchor->FUN_00059a50(&pos);
 
     if (fighter->mode == 4) {
-        Vec3 f = fighter->d;
-        Vec3 gg = fighter->c;
-        Vec3 zero;
+        Vec3_1401c0 f = fighter->d;
+        Vec3_1401c0 gg = fighter->c;
+        Vec3_1401c0 zero;
         zero.x = 0.0f;
         zero.y = 0.0f;
         zero.z = 0.0f;
@@ -164,12 +164,12 @@ bool WallExitAction::vfunc_5(int skip, float dt)
     push.x = pos.x + push.x;
     push.y = pos.y + push.y;
     push.z = pos.z + push.z;
-    Limits* lim = fighter->limits;
+    Limits_1401c0* lim = fighter->limits;
     if (lim->halfHeight * 0.5f > push.y - g.y) {
         float t = n.z * g.z + n.y * g.y + n.x * g.x;
         float depth = n.x * push.x + n.y * push.y + n.z * push.z - t;
         if (depth < lim->limit) {
-            Vec3 h;
+            Vec3_1401c0 h;
             float d = lim->limit - depth;
             h.x = n.x * d;
             h.y = n.y * d;

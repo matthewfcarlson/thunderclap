@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001f3780 @ 0x001f3780
 // 0x001f3780: constructor that resets two names, an id and four unit-scale slots
-struct Name {
+struct Name_1f3780 {
     void FUN_0027af00();
     char data[8];
 };
 
-struct Slot {
+struct Slot_1f3780 {
     int a;
     int b;
     int pad08;
@@ -18,20 +18,20 @@ struct Slot {
     int pad24;
 };
 
-class Holder {
+class Holder_1f3780 {
 public:
-    Name name0;
-    Name name1;
+    Name_1f3780 name0;
+    Name_1f3780 name1;
     char pad10[0x64];
     int id;
     int field_78;
     int pad7c;
-    Slot slots[4];
+    Slot_1f3780 slots[4];
     int field_120;
-    Holder* FUN_001f3780();
+    Holder_1f3780* FUN_001f3780();
 };
 
-Holder* Holder::FUN_001f3780()
+Holder_1f3780* Holder_1f3780::FUN_001f3780()
 {
     name0.FUN_0027af00();
     name1.FUN_0027af00();

@@ -2,17 +2,17 @@
 // FUN_001a4e40 @ 0x001a4e40
 extern "C" unsigned int strlen(const char *);
 
-struct Entry {
+struct Entry_1a4e40 {
     const char *name;
     int pad[3];
 };
 
-struct Table {
+struct Table_1a4e40 {
     char pad0[0x5c];
-    Entry entries[20];
+    Entry_1a4e40 entries[20];
 };
 
-const char *FUN_001a4e40(Table *table, unsigned int index)
+const char *FUN_001a4e40(Table_1a4e40 *table, unsigned int index)
 {
     if (index > 0x13)
         return 0;

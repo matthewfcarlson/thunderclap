@@ -1,32 +1,32 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 7/8, incomplete)
 // FUN_00080cd0 @ 0x00080cd0
-struct Vec3 {
+struct Vec3_80cd0 {
     float x, y, z;
 };
 
-struct Xform {
+struct Xform_80cd0 {
     char data[0x30];
-    void FUN_0022cc90(Vec3 *v);
+    void FUN_0022cc90(Vec3_80cd0 *v);
 };
 
-class Pusher {
+class Pusher_80cd0 {
 public:
     char pad00[0x10];
     int state;
     char pad14[0x28 - 0x14];
     unsigned int flags;
     char pad2c[0x34 - 0x2c];
-    Xform xform;
-    Vec3 origin;
+    Xform_80cd0 xform;
+    Vec3_80cd0 origin;
     char pad70[0xd0 - 0x70];
-    Vec3 prev;
-    Vec3 cur;
-    void FUN_00080cd0(Vec3 *dir, bool keep);
+    Vec3_80cd0 prev;
+    Vec3_80cd0 cur;
+    void FUN_00080cd0(Vec3_80cd0 *dir, bool keep);
 };
 
-void Pusher::FUN_00080cd0(Vec3 *dir, bool keep)
+void Pusher_80cd0::FUN_00080cd0(Vec3_80cd0 *dir, bool keep)
 {
-    Vec3 neg;
+    Vec3_80cd0 neg;
     neg.x = -dir->x;
     neg.y = -dir->y;
     neg.z = -dir->z;
@@ -42,7 +42,7 @@ void Pusher::FUN_00080cd0(Vec3 *dir, bool keep)
     float c = cur.z - origin.z;
     float sum = b * dir->y + c * dir->z + a * dir->x;
     if (sum > 0.0f) {
-        Vec3 old = cur;
+        Vec3_80cd0 old = cur;
         cur = prev;
         prev = old;
         flags |= 0x40;

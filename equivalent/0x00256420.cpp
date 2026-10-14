@@ -19,7 +19,7 @@ public:
 }
 }
 
-struct ClipRef {
+struct ClipRef_256420 {
     char pad0[0x10];
     unsigned int idLo;
     unsigned int idHi;
@@ -32,7 +32,7 @@ struct Clip {
     void *source;
 };
 
-class ClipLookup {
+class ClipLookup_256420 {
 public:
     virtual void f0();
     virtual void f1();
@@ -40,16 +40,16 @@ public:
     virtual Clip *lookup(content::LoadInventory::DynamicCasterBase *caster, unsigned __int64 id);
 };
 
-struct Env {
+struct Env_256420 {
     char pad0[0x14];
     float scale;
     char pad18[0x88 - 0x18];
-    ClipLookup *clips;
+    ClipLookup_256420 *clips;
     char pad8c[0xb4 - 0x8c];
     unsigned char flags;
 };
 
-struct Voice {
+struct Voice_256420 {
     char pad0[0x1c];
     float *volume;
     float gain;
@@ -58,11 +58,11 @@ struct Voice {
     unsigned int *params;
 };
 
-struct Ctx {
+struct Ctx_256420 {
     char pad0[4];
-    Voice *voice;
+    Voice_256420 *voice;
     char pad8[0x3c - 8];
-    Env *env;
+    Env_256420 *env;
     char *ownerLink;
 };
 
@@ -76,16 +76,16 @@ int __cdecl FUN_00259c50(int handle);
 void __cdecl FUN_00259b40(int handle);
 void __cdecl FUN_00258c80(int handle, float v);
 
-union Flag {
+union Flag_256420 {
     char b;
     int w;
 };
 
-struct Frame {
+struct Frame_256420 {
     char pad0[4];
     int saved;                  // 0x10
-    Flag bit1;                  // 0x14
-    Flag bit0;                  // 0x18
+    Flag_256420 bit1;                  // 0x14
+    Flag_256420 bit0;                  // 0x18
     int caster;                 // 0x1c, holds a DynamicCaster
     unsigned int buf[63];       // 0x20
 };
@@ -98,21 +98,21 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual int vfunc_6(Ctx *ctx);
+    virtual int vfunc_6(Ctx_256420 *ctx);
     char pad04[4];
-    ClipRef *ref;       // 0x08
+    ClipRef_256420 *ref;       // 0x08
     int f0c;
     Clip *clip;         // 0x10
     int handle;         // 0x14
     int state;          // 0x18
-    void FUN_00256150(Ctx *ctx);
-    void FUN_00255e60(Ctx *ctx);
-    void FUN_00255ed0(Ctx *ctx);
+    void FUN_00256150(Ctx_256420 *ctx);
+    void FUN_00255e60(Ctx_256420 *ctx);
+    void FUN_00255ed0(Ctx_256420 *ctx);
 };
 
-int SeqActionClip::vfunc_6(Ctx *ctx)
+int SeqActionClip::vfunc_6(Ctx_256420 *ctx)
 {
-    Frame fr;
+    Frame_256420 fr;
     do {
         fr.saved = state;
         switch (state) {
@@ -144,8 +144,8 @@ int SeqActionClip::vfunc_6(Ctx *ctx)
         case 3:
             if (handle != 0 && FUN_00259c50(handle) != 0) {
                 FUN_00256150(ctx);
-                Voice *v = ctx->voice;
-                Env *e = ctx->env;
+                Voice_256420 *v = ctx->voice;
+                Env_256420 *e = ctx->env;
                 FUN_00258c80(handle, *v->volume * e->scale * v->gain * v->pan);
                 FUN_00255e60(ctx);
                 FUN_00255ed0(ctx);

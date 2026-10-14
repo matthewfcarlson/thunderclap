@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 144 inputs, branch coverage 140/180, incomplete)
 // FUN_001e6390 @ 0x001e6390
-struct V3 {
+struct V3_1e6390 {
     float x, y, z;
 };
 
-struct Entry {
-    V3 pos;
+struct Entry_1e6390 {
+    V3_1e6390 pos;
     float d2;
     unsigned short flags;
     short slot;
 };
 
-struct Inner2 {
+struct Inner2_1e6390 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -26,62 +26,62 @@ struct Inner2 {
     virtual char v11();
 };
 
-struct Inner {
+struct Inner_1e6390 {
     char pad0[0x6c];
     void *f6c;
-    Inner2 *f70;
+    Inner2_1e6390 *f70;
 };
 
-struct Gen {
+struct Gen_1e6390 {
     char pad0[0x80];
     float f80;
     void FUN_001c5080(float a, float b);
 };
 
-struct Obj {
+struct Obj_1e6390 {
     char pad0[0x114];
     int f114;
     char pad118[4];
-    Gen *f11c;
+    Gen_1e6390 *f11c;
     int FUN_001d6c70();
-    V3 *FUN_001d6b40();
-    Inner *FUN_001d72e0();
+    V3_1e6390 *FUN_001d6b40();
+    Inner_1e6390 *FUN_001d72e0();
 };
 
-struct Slot {
+struct Slot_1e6390 {
     char pad0[0x18];
-    Obj *f18;
+    Obj_1e6390 *f18;
     char pad1c[6];
     short s22;
     char pad24[4];
 };
 
-struct Listener {
-    V3 *FUN_001c39d0();
-    char FUN_001c4010(V3 *v);
+struct Listener_1e6390 {
+    V3_1e6390 *FUN_001c39d0();
+    char FUN_001c4010(V3_1e6390 *v);
 };
 
-struct Chain3 {
+struct Chain3_1e6390 {
     int f0;
     char pad4[4];
     int f8;
     int fc;
 };
-struct Chain2 {
+struct Chain2_1e6390 {
     char pad0[0x328];
-    Chain3 *f328;
+    Chain3_1e6390 *f328;
 };
-struct Chain1 {
+struct Chain1_1e6390 {
     char pad0[0x124];
-    Chain2 *f124;
+    Chain2_1e6390 *f124;
 };
 struct Chain0 {
     char pad0[0x20];
-    Chain1 *f20;
+    Chain1_1e6390 *f20;
 };
 
-extern Listener *__cdecl FUN_001c3d90();
-extern void __cdecl FUN_001e55f0(Entry *first, Entry *last, int n);
+extern Listener_1e6390 *__cdecl FUN_001c3d90();
+extern void __cdecl FUN_001e55f0(Entry_1e6390 *first, Entry_1e6390 *last, int n);
 extern float DAT_004c6f48;
 extern float DAT_004c6f44;
 extern float DAT_00421894;
@@ -92,7 +92,7 @@ extern float DAT_00423198[];
 extern int DAT_004e275c;
 extern unsigned int DAT_004e2760;
 
-struct Frame {
+struct Frame_1e6390 {
     int idx;                    // 0x00
     char pad4[0x1c - 4];
     volatile int cntB;          // 0x1c
@@ -102,24 +102,24 @@ struct Frame {
     } u20;                      // 0x20
     char pad24[4];
     int n2;                     // 0x28
-    V3 L;                       // 0x2c
+    V3_1e6390 L;                       // 0x2c
     volatile float tmpT;        // 0x38
     char pad3c[0x48 - 0x3c];
     int list2[128];             // 0x48
     int list3[128];             // 0x248
 };
 
-class Mgr {
+class Mgr_1e6390 {
 public:
     char pad0[0x608];
-    Slot slots[2048];
-    Entry entries[2048];
+    Slot_1e6390 slots[2048];
+    Entry_1e6390 entries[2048];
     char pad1e608[4];
     int lo;                     // 0x1e60c
     int hi;                     // 0x1e610
     int count;                  // 0x1e614
     char pad1e618[8];
-    Obj *objs[128];             // 0x1e620
+    Obj_1e6390 *objs[128];             // 0x1e620
     int nObjs;                  // 0x1e820
     char pad1e824[0x1e830 - 0x1e824];
     Chain0 *p1e830;
@@ -130,17 +130,17 @@ public:
     void FUN_001e6390();
 };
 
-void Mgr::FUN_001e6390()
+void Mgr_1e6390::FUN_001e6390()
 {
-    Frame f;
+    Frame_1e6390 f;
     if (nObjs > 0) {
         f.u20.cntA = nObjs;
-        Obj **po = objs;
+        Obj_1e6390 **po = objs;
         do {
-            Obj *o = *po;
+            Obj_1e6390 *o = *po;
             int sid = o->FUN_001d6c70();
-            Entry *e = &entries[slots[sid].s22];
-            V3 *pos = o->FUN_001d6b40();
+            Entry_1e6390 *e = &entries[slots[sid].s22];
+            V3_1e6390 *pos = o->FUN_001d6b40();
             e->pos.x = pos->x;
             e->pos.y = pos->y;
             e->pos.z = pos->z;
@@ -152,12 +152,12 @@ void Mgr::FUN_001e6390()
             f.u20.cntA--;
         } while (f.u20.cntA != 0);
     }
-    V3 *lp = FUN_001c3d90()->FUN_001c39d0();
+    V3_1e6390 *lp = FUN_001c3d90()->FUN_001c39d0();
     f.L.x = lp->x;
     f.L.y = lp->y;
     f.L.z = lp->z;
     f.cntB = count;
-    Entry *e = &entries[0];
+    Entry_1e6390 *e = &entries[0];
     for (int i = 0; i < f.cntB; i++, e++) {
         unsigned short fl = e->flags;
         if ((fl & 2) || (fl & 0x8000)) {
@@ -166,7 +166,7 @@ void Mgr::FUN_001e6390()
                 int h = hi;
                 if (i > h) {
                     if (i != h + 1) {
-                        Entry t = entries[h + 1];
+                        Entry_1e6390 t = entries[h + 1];
                         entries[h + 1] = *e;
                         *e = t;
                     }
@@ -174,13 +174,13 @@ void Mgr::FUN_001e6390()
                     hi = hh;
                     if (lo < 0) {
                         if (hh != 0) {
-                            Entry t = entries[0];
+                            Entry_1e6390 t = entries[0];
                             entries[0] = entries[hh];
                             entries[hh] = t;
                         }
                         lo = 1;
                     } else {
-                        Entry t = entries[lo];
+                        Entry_1e6390 t = entries[lo];
                         entries[lo] = entries[hh];
                         entries[hi] = t;
                         lo = lo + 1;
@@ -188,13 +188,13 @@ void Mgr::FUN_001e6390()
                 } else {
                     if (lo < 0) {
                         if (i != 0) {
-                            Entry t = entries[0];
+                            Entry_1e6390 t = entries[0];
                             entries[0] = *e;
                             *e = t;
                         }
                         lo = 1;
                     } else {
-                        Entry t = entries[lo];
+                        Entry_1e6390 t = entries[lo];
                         entries[lo] = *e;
                         *e = t;
                         lo = lo + 1;
@@ -218,14 +218,14 @@ void Mgr::FUN_001e6390()
                     int cnt = count;
                     if (hi >= cnt - 1) {
                         if (i != cnt - 1) {
-                            Entry t = entries[cnt - 1];
+                            Entry_1e6390 t = entries[cnt - 1];
                             entries[cnt - 1] = *e;
                             *e = t;
                         }
                         hi = count - 2;
                     } else {
                         if (hi != i) {
-                            Entry t = entries[hi];
+                            Entry_1e6390 t = entries[hi];
                             entries[hi] = *e;
                             *e = t;
                         }
@@ -238,7 +238,7 @@ void Mgr::FUN_001e6390()
                 if (i > hi) {
                     if (hi < 0) {
                         if (i != 0) {
-                            Entry t = entries[0];
+                            Entry_1e6390 t = entries[0];
                             entries[0] = *e;
                             *e = t;
                         }
@@ -246,7 +246,7 @@ void Mgr::FUN_001e6390()
                     } else if (i == hi + 1) {
                         hi = hi + 1;
                     } else {
-                        Entry t = entries[hi + 1];
+                        Entry_1e6390 t = entries[hi + 1];
                         entries[hi + 1] = *e;
                         *e = t;
                         hi = hi + 1;
@@ -257,7 +257,7 @@ void Mgr::FUN_001e6390()
             }
             int lw = lo;
             if (i < lw - 1) {
-                Entry t = entries[lw - 1];
+                Entry_1e6390 t = entries[lw - 1];
                 entries[lw - 1] = *e;
                 *e = t;
                 lo = lo - 1;
@@ -270,8 +270,8 @@ void Mgr::FUN_001e6390()
         int h1 = hi + 1;
         if (h1 >= count)
             h1 = count;
-        Entry *first = &entries[lo];
-        Entry *last = &entries[h1];
+        Entry_1e6390 *first = &entries[lo];
+        Entry_1e6390 *last = &entries[h1];
         FUN_001e55f0(first, last, last - first);
     }
     for (int i = 0; i < count; i++)
@@ -279,11 +279,11 @@ void Mgr::FUN_001e6390()
 
     f.u20.cur = 0;
     {
-        Chain1 *c1 = p1e830->f20;
+        Chain1_1e6390 *c1 = p1e830->f20;
         if (c1 != 0) {
-            Chain2 *c2 = c1->f124;
+            Chain2_1e6390 *c2 = c1->f124;
             if (c2 != 0) {
-                Chain3 *c3 = c2->f328;
+                Chain3_1e6390 *c3 = c2->f328;
                 if (c3 != 0 && c3->fc == 5)
                     f.u20.cur = (void *)c3->f8;
             }
@@ -294,7 +294,7 @@ void Mgr::FUN_001e6390()
     int n2 = 0;
     int cnt = count;
     if (cnt > 0) {
-        Entry *ee = &entries[0];
+        Entry_1e6390 *ee = &entries[0];
         for (f.cntB = cnt; f.cntB != 0; f.cntB--, ee++) {
             int L = limit;
             unsigned short fl = ee->flags;
@@ -318,9 +318,9 @@ void Mgr::FUN_001e6390()
                         }
                     }
                 } else {
-                    Slot *sl = &slots[ee->slot];
+                    Slot_1e6390 *sl = &slots[ee->slot];
                     if (sl->f18 != f.u20.cur) {
-                        Inner *in = sl->f18->FUN_001d72e0();
+                        Inner_1e6390 *in = sl->f18->FUN_001d72e0();
                         if (in != 0 && in->f6c != 0 && in->f70 != 0 && !in->f70->v11())
                             continue;
                         sl->f18->f11c->FUN_001c5080(DAT_00421894, DAT_0042189c);
@@ -367,9 +367,9 @@ void Mgr::FUN_001e6390()
                         ee->flags = ee->flags | 0x4000;
                     }
                 } else {
-                    Slot *sl = &slots[ee->slot];
+                    Slot_1e6390 *sl = &slots[ee->slot];
                     if (sl->f18 != f.u20.cur) {
-                        Inner *in = sl->f18->FUN_001d72e0();
+                        Inner_1e6390 *in = sl->f18->FUN_001d72e0();
                         if (in != 0 && in->f6c != 0 && in->f70 != 0 && !in->f70->v11())
                             continue;
                         if (ebp < L) {
@@ -399,7 +399,7 @@ void Mgr::FUN_001e6390()
             nb = ebp;
     }
     for (int i = 0; i < nb; i++) {
-        Slot *sl = &slots[f.list2[i]];
+        Slot_1e6390 *sl = &slots[f.list2[i]];
         if (sl->f18 != 0)
             FUN_001e5980(sl->s22);
     }
@@ -414,7 +414,7 @@ void Mgr::FUN_001e6390()
     if (nc >= limit - nObjs)
         nc = limit - nObjs;
     for (int i = 0; i < nc; i++) {
-        Slot *sl = &slots[f.list3[i]];
+        Slot_1e6390 *sl = &slots[f.list3[i]];
         if (sl->f18 == 0)
             FUN_001e2940(sl->s22);
     }

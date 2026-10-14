@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // CNISCamera::vfunc_27 @ 0x000ac4f0
-struct Vec3 { float x, y, z; };
+struct Vec3_ac4f0 { float x, y, z; };
 struct CameraPose {
     char pad00[0x20];
-    Vec3 a;
+    Vec3_ac4f0 a;
     float pad2c;
-    Vec3 b;
+    Vec3_ac4f0 b;
 };
 class CNISCamera {
   public:
@@ -14,9 +14,9 @@ class CNISCamera {
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
     virtual void v12(); virtual void v13();
     virtual CameraPose* GetPose();
-    Vec3* FUN_000ac4f0(Vec3* out);
+    Vec3_ac4f0* FUN_000ac4f0(Vec3_ac4f0* out);
 };
-Vec3* CNISCamera::FUN_000ac4f0(Vec3* out) {
+Vec3_ac4f0* CNISCamera::FUN_000ac4f0(Vec3_ac4f0* out) {
     CameraPose* p = GetPose();
     float x = p->a.x * 10.0f;
     float y = p->a.y * 10.0f;

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 704 inputs, branch coverage 24/24)
 // FUN_00230de0 @ 0x00230de0
 struct Node { Node* left; Node* right; Node* parent; unsigned char color; char padding[3]; };
-struct Tree {
+struct Tree_230de0 {
  Node* root;
  Node sentinel;
  unsigned int count;
@@ -9,7 +9,7 @@ struct Tree {
  void FUN_00230900(Node* node);
  void FUN_00230de0(Node* node);
 };
-void Tree::FUN_00230de0(Node* node) {
+void Tree_230de0::FUN_00230de0(Node* node) {
  Node* nil = &sentinel;
  Node* removed;
  if (node->left != nil && node->right != nil) removed = FUN_00230800(node);

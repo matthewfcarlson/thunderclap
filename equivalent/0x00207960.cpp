@@ -3,34 +3,34 @@
 // FUN_00207960: (re)start a playing object from the table at +0x578
 unsigned int __cdecl FUN_00267f80();
 
-struct Playing {
+struct Playing_207960 {
     void FUN_00263e90();
 };
 
-union Flag {
+union Flag_207960 {
     unsigned int word;
     char on;
 };
 
-class Player {
+class Player_207960 {
 public:
     char pad000[0x578];
     int table[3];
     int selected;
     char pad588[0xaec - 0x588];
-    Playing *current;
+    Playing_207960 *current;
     char padaf0[3];
     char started;
     char padaf4[8];
     unsigned int startTime;
 
-    void FUN_00203e30(Playing *p);
+    void FUN_00203e30(Playing_207960 *p);
     void FUN_00207410();
-    Playing *FUN_00203e90(int a, Flag flag, int z0, int z1, int entry, int first, int seven);
-    void FUN_00207960(int a, int index, Flag flag);
+    Playing_207960 *FUN_00203e90(int a, Flag_207960 flag, int z0, int z1, int entry, int first, int seven);
+    void FUN_00207960(int a, int index, Flag_207960 flag);
 };
 
-void Player::FUN_00207960(int a, int index, Flag flag)
+void Player_207960::FUN_00207960(int a, int index, Flag_207960 flag)
 {
     if (!flag.on)
         startTime = FUN_00267f80();
@@ -38,7 +38,7 @@ void Player::FUN_00207960(int a, int index, Flag flag)
         FUN_00203e30(current);
         FUN_00207410();
     }
-    Playing *p = FUN_00203e90(a, flag, 0, 0, table[index], table[0], 7);
+    Playing_207960 *p = FUN_00203e90(a, flag, 0, 0, table[index], table[0], 7);
     current = p;
     if (flag.on) {
         selected = index;

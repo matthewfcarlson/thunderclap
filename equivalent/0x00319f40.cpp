@@ -2,52 +2,52 @@
 // FUN_00319f40 @ 0x00319f40
 extern float DAT_004d2960;
 
-union Bits {
+union Bits_319f40 {
     float f;
     unsigned int u;
 };
 
-struct V3 {
+struct V3_319f40 {
     float x, y, z;
     float FUN_00018990() throw();
 };
 
-struct Body {
+struct Body_319f40 {
     char pad00[0x50];
-    V3 pos;                     // 0x50
-    V3 vel;                     // 0x5c
+    V3_319f40 pos;                     // 0x50
+    V3_319f40 vel;                     // 0x5c
     char pad68[0x18];
     float f80;                  // 0x80
 };
 
-struct Event {
+struct Event_319f40 {
     int type;                   // 0x00
-    Bits a[6];                  // 0x04
-    Bits f1c;                   // 0x1c
+    Bits_319f40 a[6];                  // 0x04
+    Bits_319f40 f1c;                   // 0x1c
     char pad20[0x10];
-    V3 diff;                    // 0x30
-    Bits f3c;                   // 0x3c
-    Bits f40;                   // 0x40
+    V3_319f40 diff;                    // 0x30
+    Bits_319f40 f3c;                   // 0x3c
+    Bits_319f40 f40;                   // 0x40
     char pad44[0x14];
     void FUN_0031a830() throw();
 };
 
-struct Tracker {
+struct Tracker_319f40 {
     char pad00[0x10];
     int state;                  // 0x10
-    Bits f14;
-    Bits f18;
-    Bits f1c;
-    Bits f20;
-    Bits f24;
-    Bits f28;
-    Bits f2c;
+    Bits_319f40 f14;
+    Bits_319f40 f18;
+    Bits_319f40 f1c;
+    Bits_319f40 f20;
+    Bits_319f40 f24;
+    Bits_319f40 f28;
+    Bits_319f40 f2c;
     float f30;
     float f34;
     float f38;
     float f3c;
-    V3 v40;                     // 0x40
-    Bits f4c;
+    V3_319f40 v40;                     // 0x40
+    Bits_319f40 f4c;
     float f50;
     float f54;
     float f58;
@@ -56,23 +56,23 @@ struct Tracker {
     char pad64[4];
     float f68;
     float f6c;
-    Body *a;                    // 0x70
-    Body *b;                    // 0x74
+    Body_319f40 *a;                    // 0x70
+    Body_319f40 *b;                    // 0x74
     char pad78[8];
     unsigned int flags;         // 0x80
     char flag84;
     char pad85[3];
     int count;                  // 0x88
-    Bits f8c;
-    Bits f90;
-    Bits f94;
-    Bits f98;
-    Bits f9c;
+    Bits_319f40 f8c;
+    Bits_319f40 f90;
+    Bits_319f40 f94;
+    Bits_319f40 f98;
+    Bits_319f40 f9c;
     void FUN_00319e90(int what, void *arg) throw();
     void FUN_00319f40();
 };
 
-void Tracker::FUN_00319f40()
+void Tracker_319f40::FUN_00319f40()
 {
     int n = count;
     if (n == 0)
@@ -98,7 +98,7 @@ void Tracker::FUN_00319f40()
     bool big = d > f60;
     if (!big) {
         unsigned int g = f8c.u;
-        Bits absg;
+        Bits_319f40 absg;
         absg.u = g & 0x7fffffff;
         double dbl = f9c.f;
         dbl = dbl + dbl;
@@ -115,10 +115,10 @@ void Tracker::FUN_00319f40()
                 state = 0;
                 FUN_00319e90(3, &state);
             }
-            Event e;
+            Event_319f40 e;
             e.FUN_0031a830();
-            Body *pa = a;
-            Body *pb = b;
+            Body_319f40 *pa = a;
+            Body_319f40 *pb = b;
             e.a[0] = f14;
             e.a[1] = f18;
             e.a[2] = f1c;
@@ -130,21 +130,21 @@ void Tracker::FUN_00319f40()
             e.diff.x = pa->pos.x - pb->pos.x;
             e.diff.y = pa->pos.y - pb->pos.y;
             e.diff.z = pa->pos.z - pb->pos.z;
-            Bits eb = f8c;
+            Bits_319f40 eb = f8c;
             e.f40 = f90;
-            Bits absg;
+            Bits_319f40 absg;
             absg.u = eb.u & 0x7fffffff;
             f9c.u = absg.u;
             e.f3c = eb;
             FUN_00319e90(1, &e);
         }
     } else if (flags & 0xe) {
-        Body *pa = a;
-        Body *pb = b;
+        Body_319f40 *pa = a;
+        Body_319f40 *pb = b;
         double dx = pa->pos.x - pb->pos.x;
         double dy = pa->pos.y - pb->pos.y;
         volatile float dz = pa->pos.z - pb->pos.z;
-        volatile V3 *vv = &v40;
+        volatile V3_319f40 *vv = &v40;
         vv->x = vv->x * 0.95f;
         vv->y = vv->y * 0.95f;
         vv->z = vv->z * 0.95f;
@@ -154,9 +154,9 @@ void Tracker::FUN_00319f40()
         unsigned int fl = flags;
         if (fl & 8) {
             if (fl & 0x800) {
-                Body *p = a;
+                Body_319f40 *p = a;
                 double h = 1.0f / DAT_004d2960;
-                Bits ab;
+                Bits_319f40 ab;
                 ab.u = *(unsigned int *)&f50 & 0x7fffffff;
                 double w = (h + DAT_004d2960) * p->f80 * 0.5f * 0.05f + f54 * 0.95f;
                 volatile float v = w;
@@ -169,9 +169,9 @@ void Tracker::FUN_00319f40()
                     f38 = 0.0f;
             }
             if (fl & 0x80000) {
-                Body *p = b;
+                Body_319f40 *p = b;
                 double h = 1.0f / DAT_004d2960;
-                Bits ab;
+                Bits_319f40 ab;
                 ab.u = *(unsigned int *)&f50 & 0x7fffffff;
                 double w = (h + DAT_004d2960) * p->f80 * 0.5f * 0.05f + f58 * 0.95f;
                 volatile float v = w;

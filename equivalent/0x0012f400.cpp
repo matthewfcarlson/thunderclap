@@ -4,14 +4,14 @@ extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 extern int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
 
-struct Script {
+struct Script_12f400 {
     char FUN_001d2ba0(const char* name, int a, int b);
     char FUN_001d2da0(const char* name, int* out);
     void FUN_001d2cd0(int value, char* buf, int size);
     void FUN_001d19d0(int n);
 };
 
-Script* __cdecl FUN_001d4c90();
+Script_12f400* __cdecl FUN_001d4c90();
 
 namespace hulkfight {
 
@@ -36,7 +36,7 @@ bool GameStateCondition::vfunc_6(int a, int b, int c)
     bool result = false;
 
     if (expected != 0) {
-        Script* script = FUN_001d4c90();
+        Script_12f400* script = FUN_001d4c90();
         char buf[0x80];
         for (int i = 0; i < 0x80; i++)
             buf[i] = 0;

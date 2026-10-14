@@ -11,21 +11,21 @@ struct Node {
     int state;
 };
 
-struct Tree {
+struct Tree_242f90 {
     Node *root;
     Node nil;
 };
 
-struct Owner {
+struct Owner_242f90 {
     char pad00[0x14];
-    Tree tree;
+    Tree_242f90 tree;
 };
 
-extern void __cdecl FUN_00242ec0(Owner *owner, Node *node);
+extern void __cdecl FUN_00242ec0(Owner_242f90 *owner, Node *node);
 
 // Advances every node's fade: state 1 ramps progress up to 1 (then state 2), state 3 ramps it
 // down and releases the node once it drops below 0.
-void FUN_00242f90(Owner *owner, float dt)
+void FUN_00242f90(Owner_242f90 *owner, float dt)
 {
     Node *nil = &owner->tree.nil;
     Node *node = owner->tree.root;

@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 182 inputs, branch coverage 44/46, incomplete)
 // FUN_000bdf50 @ 0x000bdf50
-struct State { int buttons[35]; struct Stick { unsigned int axis[2]; int unused[2]; } sticks[2]; };
-struct Device { void FUN_000af0f0(State*); };
-struct Input { Device* FUN_000af3a0(int); };
-struct Manager { Input* FUN_000862d0(); };
-struct Root { char pad[0x54]; Manager* manager; };
-extern Root* DAT_004dd700;
+struct State_bdf50 { int buttons[35]; struct Stick { unsigned int axis[2]; int unused[2]; } sticks[2]; };
+struct Device_bdf50 { void FUN_000af0f0(State_bdf50*); };
+struct Input_bdf50 { Device_bdf50* FUN_000af3a0(int); };
+struct Manager_bdf50 { Input_bdf50* FUN_000862d0(); };
+struct Root_bdf50 { char pad[0x54]; Manager_bdf50* manager; };
+extern Root_bdf50* DAT_004dd700;
 struct Action { void FUN_000de9a0(int); };
-struct System { char pad[0x182c]; Action* action; };
-System* __cdecl FUN_000fc3d0();
-struct Target {
+struct System_bdf50 { char pad[0x182c]; Action* action; };
+System_bdf50* __cdecl FUN_000fc3d0();
+struct Target_bdf50 {
  char pad[0x1a04]; unsigned char flag; unsigned char latched;
  bool FUN_000bdf50(bool mode, bool analog);
 };
-bool Target::FUN_000bdf50(bool mode, bool analog) {
+bool Target_bdf50::FUN_000bdf50(bool mode, bool analog) {
  if (!DAT_004dd700 || !DAT_004dd700->manager || !DAT_004dd700->manager->FUN_000862d0()) return false;
- Input* input = DAT_004dd700->manager->FUN_000862d0();
- State state;
+ Input_bdf50* input = DAT_004dd700->manager->FUN_000862d0();
+ State_bdf50 state;
  input->FUN_000af3a0(0)->FUN_000af0f0(&state);
  if (!mode) {
   if (state.buttons[0] == 1 || state.buttons[12] == 1 || state.buttons[3] == 1 || state.buttons[18] == 1) return true;

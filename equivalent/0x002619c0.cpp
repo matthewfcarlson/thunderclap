@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1006 inputs, branch coverage 9/10, incomplete)
 // FUN_002619c0 @ 0x002619c0
-struct Parser {
+struct Parser_2619c0 {
     char pad[0x2004];
     char *cursor;
 };
 
-char *__cdecl FUN_002611b0(Parser *p);
+char *__cdecl FUN_002611b0(Parser_2619c0 *p);
 
-char *FUN_002619c0(Parser *p)
+char *FUN_002619c0(Parser_2619c0 *p)
 {
     char *start = p->cursor;
     p->cursor = start + 1;

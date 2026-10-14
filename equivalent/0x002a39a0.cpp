@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 18/18)
 // pure3d::ParticleSystem::vfunc_8 @ 0x002a39a0
-class Device {
+class Device_2a39a0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -28,7 +28,7 @@ public:
     virtual void v23(int a, void* p);
 };
 
-class Child {
+class Child_2a39a0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -55,7 +55,7 @@ public:
     virtual void v22(void* out);
 };
 
-class Helper {
+class Helper_2a39a0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -76,36 +76,36 @@ public:
     virtual void v7();
 };
 
-struct Mat {
+struct Mat_2a39a0 {
     float m[16];
 };
 
-struct Elem {
-    Child* child;
+struct Elem_2a39a0 {
+    Child_2a39a0* child;
     char pad[12];
     void FUN_002a4060();
 };
 
-struct Renderer {
-    void FUN_0029b9d0(void* system, unsigned int index, Mat* mat, int arg);
+struct Renderer_2a39a0 {
+    void FUN_0029b9d0(void* system, unsigned int index, Mat_2a39a0* mat, int arg);
 };
 
-extern Device** DAT_0052c2ac;
+extern Device_2a39a0** DAT_0052c2ac;
 
 class ParticleSystem {
 public:
-    void run(Renderer* renderer, int arg);
+    void run(Renderer_2a39a0* renderer, int arg);
     char p0[0x10];
-    Helper* helper;
+    Helper_2a39a0* helper;
     char p1[0x48 - 0x14];
-    Elem* begin;
-    Elem* end;
+    Elem_2a39a0* begin;
+    Elem_2a39a0* end;
     char p2[0x64 - 0x50];
     char block64[0xa4 - 0x64];
     Lifecycle* life;
 };
 
-void ParticleSystem::run(Renderer* renderer, int arg)
+void ParticleSystem::run(Renderer_2a39a0* renderer, int arg)
 {
     (*DAT_0052c2ac)->v23(0, block64);
     if (life != 0)
@@ -115,7 +115,7 @@ void ParticleSystem::run(Renderer* renderer, int arg)
         unsigned int count = (unsigned int)(end - begin);
         if (helper != 0) {
             for (unsigned int i = 0; i < count; i++) {
-                Child* c = begin[i].child;
+                Child_2a39a0* c = begin[i].child;
                 c->v8(helper->v3(c->v7()));
                 begin[i].FUN_002a4060();
                 c->v8(helper->v4(c->v7()));
@@ -127,7 +127,7 @@ void ParticleSystem::run(Renderer* renderer, int arg)
     } else {
         unsigned int count = (unsigned int)(end - begin);
         for (unsigned int i = 0; i < count; i++) {
-            Mat mat;
+            Mat_2a39a0 mat;
             begin[i].child->v22(&mat);
             renderer->FUN_0029b9d0(this, i, &mat, arg);
         }

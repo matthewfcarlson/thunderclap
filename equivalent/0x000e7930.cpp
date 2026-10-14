@@ -12,13 +12,13 @@ public:
     void FUN_000fa0a0();
 };
 
-class Args {
+class Args_e7930 {
 public:
     virtual void v0();
     virtual int GetType();
 };
 
-class Sink {
+class Sink_e7930 {
 public:
     void FUN_000e2f80(char *s);
     char pad0[0x1d58];
@@ -34,7 +34,7 @@ public:
     public:
         virtual void vfunc_0(int a, int b);
         FEThingsBase *mObj;
-        void (FEThingsBase::*mFn)(Param *, int, void *, Args *);
+        void (FEThingsBase::*mFn)(Param *, int, void *, Args_e7930 *);
         int mC;
         int mD;
     };
@@ -73,17 +73,17 @@ public:
     virtual void v31();
     virtual void v32();
     virtual void v33();
-    virtual char v34(Param *p, Args *a, ParseFunctor *f);
-    virtual char v35(Param *p, int x, void *y, Args *a);
-    virtual char v36(Param *p, int x, void *y, Args *a);
+    virtual char v34(Param *p, Args_e7930 *a, ParseFunctor *f);
+    virtual char v35(Param *p, int x, void *y, Args_e7930 *a);
+    virtual char v36(Param *p, int x, void *y, Args_e7930 *a);
 
-    void FUN_000e7930(Param *param, int c, void *d, Args *args);
-    void Parse(Param *param, int c, void *d, Args *args);
+    void FUN_000e7930(Param *param, int c, void *d, Args_e7930 *args);
+    void Parse(Param *param, int c, void *d, Args_e7930 *args);
 };
 
-void FEThingsBase::Parse(Param *param, int c, void *d, Args *args)
+void FEThingsBase::Parse(Param *param, int c, void *d, Args_e7930 *args)
 {
-    Sink *sink = (Sink *)FUN_00344e74(d, 0, DAT_0049f4f0, DAT_004a128c, 0);
+    Sink_e7930 *sink = (Sink_e7930 *)FUN_00344e74(d, 0, DAT_0049f4f0, DAT_004a128c, 0);
     int type = args->GetType();
     if (type == 0xe10f2442) {
         sink->FUN_000e2f80(param->FUN_000fad90());

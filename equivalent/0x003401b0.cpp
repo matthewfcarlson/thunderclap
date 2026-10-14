@@ -8,7 +8,7 @@
 typedef union {
     float f;
     unsigned int u;
-} Wd;
+} Wd_3401b0;
 
 // equiv-conv: FUN_003401b0 eax ecx stack
 void FUN_003401b0(volatile float *d, int n, volatile float *tw)
@@ -30,7 +30,7 @@ void FUN_003401b0(volatile float *d, int n, volatile float *tw)
     int r65_esi;
     int r66_ebx;
     int r67_edi;
-    volatile Wd k38, k3c, k40;
+    volatile Wd_3401b0 k38, k3c, k40;
     volatile float * r15_edx;
     volatile float * r20_ecx;
     volatile float * r21_ecx;

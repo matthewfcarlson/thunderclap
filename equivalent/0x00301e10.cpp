@@ -2,19 +2,19 @@
 // FUN_00301e10 @ 0x00301e10
 extern "C" double sqrt(double);
 // equiv-conv: FUN_00314be0 ecx stack stack stack stack stack stack
-struct Vec3 {
+struct Vec3_301e10 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_00011160(float s, Vec3 *dir);
-    void FUN_001f6bc0(Vec3 *base, float s, Vec3 *dir);
+    void FUN_00011160(float s, Vec3_301e10 *dir);
+    void FUN_001f6bc0(Vec3_301e10 *base, float s, Vec3_301e10 *dir);
 };
 
-union FloatBits {
+union FloatBits_301e10 {
     float f;
     unsigned int u;
 };
 
-struct PtrRange {
+struct PtrRange_301e10 {
     char *begin;
     char *end;
 };
@@ -25,51 +25,51 @@ public:
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual Vec3 *GetPos();
+    virtual Vec3_301e10 *GetPos();
     char pad04[0x10];
-    PtrRange *list;
+    PtrRange_301e10 *list;
     char pad18[0x44 - 0x18];
-    Vec3 dir;
+    Vec3_301e10 dir;
     float radius;
     float half;
 };
 
 extern char DAT_00555481;
 
-class Collider {
+class Collider_301e10 {
 public:
     char pad00[0xc];
     float margin;
     char pad10[4];
-    Vec3 d;
+    Vec3_301e10 d;
 
-    char FUN_00315620(Vec3 *out, Vec3 *axis, float ext, Vec3 *u, Vec3 *b, float f50, float *kv, float L, float m, Cap *a, Cap *cap);
-    void FUN_00314be0(Cap *a, Vec3 *p1, Cap *b, Vec3 *p2, float depth, Vec3 *dir);
+    char FUN_00315620(Vec3_301e10 *out, Vec3_301e10 *axis, float ext, Vec3_301e10 *u, Vec3_301e10 *b, float f50, float *kv, float L, float m, Cap *a, Cap *cap);
+    void FUN_00314be0(Cap *a, Vec3_301e10 *p1, Cap *b, Vec3_301e10 *p2, float depth, Vec3_301e10 *dir);
     void FUN_00318bb0(Cap *a, Cap *b);
     void FUN_00318910(Cap *a, Cap *b);
     void FUN_00317700(Cap *a, Cap *b, int x, int y);
     void FUN_00301e10(Cap *a, Cap *b);
 };
 
-void Collider::FUN_00301e10(Cap *a, Cap *b)
+void Collider_301e10::FUN_00301e10(Cap *a, Cap *b)
 {
     struct Frame {
         float gap2;
-        Vec3 k;
-        Vec3 ua;
-        Vec3 q;
-        Vec3 p;
-        Vec3 ub;
+        Vec3_301e10 k;
+        Vec3_301e10 ua;
+        Vec3_301e10 q;
+        Vec3_301e10 p;
+        Vec3_301e10 ub;
     } f;
 
-    Vec3 *pa = a->GetPos();
-    Vec3 *pb = b->GetPos();
+    Vec3_301e10 *pa = a->GetPos();
+    Vec3_301e10 *pb = b->GetPos();
     d.x = pb->x - pa->x;
     d.y = pb->y - pa->y;
     d.z = pb->z - pa->z;
 
-    Vec3 *ad = &a->dir;
-    Vec3 *bd = &b->dir;
+    Vec3_301e10 *ad = &a->dir;
+    Vec3_301e10 *bd = &b->dir;
     double cx = ad->y * bd->z - ad->z * bd->y;
     double cy = ad->z * bd->x - ad->x * bd->z;
     volatile float cz = ad->x * bd->y - ad->y * bd->x;
@@ -83,7 +83,7 @@ void Collider::FUN_00301e10(Cap *a, Cap *b)
     volatile float Lf = (float)Lx;
     if (Lx > 9.99999997475243e-007f) {
         double dpx = f.k.z * d.z + f.k.y * d.y + f.k.x * d.x;
-        FloatBits ab;
+        FloatBits_301e10 ab;
         ab.f = (float)dpx;
         ab.u &= 0x7fffffff;
         if (ab.f > 9.99999997475243e-007f) {
@@ -107,7 +107,7 @@ void Collider::FUN_00301e10(Cap *a, Cap *b)
             f.ub.x = (float)(f.k.x * wb);
             f.ub.y = (float)(f.k.y * wb);
             f.ub.z = (float)(f.k.z * wb);
-            FloatBits sb;
+            FloatBits_301e10 sb;
             sb.f = (float)sx;
             sb.u &= 0x7fffffff;
             double m = sb.f - a->half - b->half;
@@ -138,10 +138,10 @@ void Collider::FUN_00301e10(Cap *a, Cap *b)
                 double g2 = plen - (b->radius + a->radius);
                 if (g2 <= margin) {
                     f.gap2 = (float)g2;
-                    FloatBits u1;
+                    FloatBits_301e10 u1;
                     u1.f = gapf;
                     u1.u &= 0x7fffffff;
-                    FloatBits u2;
+                    FloatBits_301e10 u2;
                     u2.f = f.gap2;
                     u2.u &= 0x7fffffff;
                     if (u1.f < u2.f) {
@@ -149,7 +149,7 @@ void Collider::FUN_00301e10(Cap *a, Cap *b)
                         f.ua.y = f.p.y * a->radius;
                         f.ua.z = f.p.z * a->radius;
                         f.ua.FUN_00011160(a->half, &f.q);
-                        Vec3 *ra = a->GetPos();
+                        Vec3_301e10 *ra = a->GetPos();
                         f.ua.x = f.ua.x + ra->x;
                         f.ua.y = f.ua.y + ra->y;
                         f.ua.z = f.ua.z + ra->z;

@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 167 inputs, branch coverage 240/244, incomplete)
 // FUN_001a71e0 @ 0x001a71e0
-typedef void (*Callback)();
+typedef void (*Callback_1a71e0)();
 void* __cdecl FUN_0008d690(unsigned);
 namespace hulkfight { namespace scenario { class NISAnimationTrack; } }
-struct ParamBase { virtual void slot0(); char padding[12]; void FUN_00234960(const char*); void FUN_002349e0(const char*); void FUN_00234cc0(const char*); void FUN_00234860(const char*); void FUN_002348e0(const char*); };
+struct ParamBase_1a71e0 { virtual void slot0(); char padding[12]; void FUN_00234960(const char*); void FUN_002349e0(const char*); void FUN_00234cc0(const char*); void FUN_00234860(const char*); void FUN_002348e0(const char*); };
 namespace fight {
-template<class T> struct ParamFloatConstRange: ParamBase { virtual void slot0(); Callback callback; unsigned extra; };
-template<class T> struct ParamString: ParamBase { virtual void slot0(); Callback callback; unsigned extra; };
-template<class T> struct ParamBool: ParamBase { virtual void slot0(); Callback callback; unsigned extra; };
-template<class T> struct ParamIntConstRange: ParamBase { virtual void slot0(); Callback callback; unsigned extra; };
-template<class T> struct ParamEnumConstList: ParamBase { virtual void slot0(); void* list; unsigned count; Callback callback; unsigned extra; };
+template<class T> struct ParamFloatConstRange: ParamBase_1a71e0 { virtual void slot0(); Callback_1a71e0 callback; unsigned extra; };
+template<class T> struct ParamString: ParamBase_1a71e0 { virtual void slot0(); Callback_1a71e0 callback; unsigned extra; };
+template<class T> struct ParamBool: ParamBase_1a71e0 { virtual void slot0(); Callback_1a71e0 callback; unsigned extra; };
+template<class T> struct ParamIntConstRange: ParamBase_1a71e0 { virtual void slot0(); Callback_1a71e0 callback; unsigned extra; };
+template<class T> struct ParamEnumConstList: ParamBase_1a71e0 { virtual void slot0(); void* list; unsigned count; Callback_1a71e0 callback; unsigned extra; };
 }
 using namespace fight;
 typedef hulkfight::scenario::NISAnimationTrack Track;
 extern unsigned DAT_004e175c, DAT_004e1758, DAT_003fb8f8, DAT_003fb8fc;
 extern char DAT_004c167c[], DAT_00496f9c[], DAT_00496fa4[];
-void __cdecl FUN_002347b0(void*, ParamBase**, unsigned);
+void __cdecl FUN_002347b0(void*, ParamBase_1a71e0**, unsigned);
 #define DECL(a) void FUN_##a();
 DECL(001a20f0) DECL(001a2100) DECL(001a2120) DECL(001a2140) DECL(001a2160) DECL(001a2180) DECL(001a36f0) DECL(001a21b0) DECL(001a21d0) DECL(001a2200) DECL(001a2220) DECL(001a2240) DECL(001a2260) DECL(001a2280) DECL(001a22a0) DECL(001a22c0) DECL(001a3750) DECL(001a22e0) DECL(001a2300) DECL(001a2320) DECL(001a2340)
 #define GROUPDECL(a,b,c,d,e) DECL(a) DECL(b) DECL(c) DECL(d) DECL(e)
@@ -47,7 +47,7 @@ GROUPDECL(001a2ce0,001a2d00,001a4800,001a4870,001a2d40)
 #define E(text,fn,listdata,num) { ParamEnumConstList<Track>* p=(ParamEnumConstList<Track>*)FUN_0008d690(sizeof(ParamEnumConstList<Track>)); if(p) { unsigned count=num; p->FUN_00234cc0(text); p->ParamEnumConstList<Track>::ParamEnumConstList(); p->list=listdata; p->count=count; p->callback=FUN_##fn; } params[n++]=p; }
 #define GROUP(k,a,b,c,d,e) B("is_Skeleton_" #k,a) B("drop_Weapon_" #k,b) S("animation" #k,c) S("character" #k,d) I("which_Drawable_" #k,e)
 void __cdecl FUN_001a71e0() {
- if(!DAT_004e175c) { ParamBase* params[121]; unsigned n=0;
+ if(!DAT_004e175c) { ParamBase_1a71e0* params[121]; unsigned n=0;
  F("timeBegin",001a20f0) F("timeEnd",001a2100) F("speed",001a2120) F("initFrame",001a2140) F("startFrame",001a2160) F("endFrame",001a2180)
  S("origin_Locator",001a36f0) E("originType",001a21b0,DAT_004c167c,4) F("orientation",001a21d0) B("use_Camera",001a2200)
  E("blendInTransition",001a2220,DAT_00496f9c,DAT_003fb8f8) E("blendInBlend",001a2240,DAT_00496fa4,DAT_003fb8fc) F("blendInDuration",001a2260)

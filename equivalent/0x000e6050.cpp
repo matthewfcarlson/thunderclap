@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 171 inputs, branch coverage 51/62, incomplete)
 // FEMenuBase::vfunc_3 @ 0x000e6050
-class Widget {
+class Widget_e6050 {
 public:
     virtual void v0();
     virtual void v1();
@@ -24,7 +24,7 @@ public:
     virtual char v19();
 };
 
-class Ref {
+class Ref_e6050 {
 public:
     virtual void v0();
     virtual void v1();
@@ -133,17 +133,17 @@ public:
     virtual void v49();
     virtual void v50();
     virtual void v51();
-    virtual void v52(Widget *w, int mode);
-    Ref *ref;
+    virtual void v52(Widget_e6050 *w, int mode);
+    Ref_e6050 *ref;
     char pad8[0x40];
-    Widget *current;
-    Widget *items[0x80];
+    Widget_e6050 *current;
+    Widget_e6050 *items[0x80];
     char pad24c[0x854 - 0x24c];
     int owner;
     char pad858[0xab8 - 0x858];
     char active;
     char padab9[3];
-    Widget *children[0x20];
+    Widget_e6050 *children[0x20];
     int childCount;
 
     void FUN_000e4ec0(int x);

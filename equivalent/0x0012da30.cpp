@@ -23,14 +23,14 @@ struct EventBuilder {
     void FUN_001cadf0(Key id);
 };
 
-struct Game {
+struct Game_12da30 {
     char pad00[0x2c];
     StatusCheck *status;     // 0x2c
     EventQueue *queue;       // 0x30
 };
-extern Game *DAT_004dd700;
+extern Game_12da30 *DAT_004dd700;
 
-struct ActionParams {
+struct ActionParams_12da30 {
     char pad00[0x10];
     Key id;                 // 0x10
     char requireStatus;      // 0x18
@@ -46,11 +46,11 @@ public:
     virtual void v4();
     virtual bool vfunc_5(int a, int b);
     char pad04[0x18];
-    ActionParams *params;    // 0x1c
+    ActionParams_12da30 *params;    // 0x1c
 };
 
 bool PostEvent_StringAction::vfunc_5(int a, int b) {
-    Game *game = DAT_004dd700;
+    Game_12da30 *game = DAT_004dd700;
     if (game) {
         if (params->requireStatus) {
             if (!game->status || !game->status->FUN_001ccff0())

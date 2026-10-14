@@ -1,23 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 26/26)
 // FUN_000adf20 @ 0x000adf20
-struct Bounds {
+struct Bounds_adf20 {
     float v[17];
 };
 
-union FloatBits {
+union FloatBits_adf20 {
     float f;
     unsigned int u;
 };
 
 static float abs_bits(float x)
 {
-    FloatBits b;
+    FloatBits_adf20 b;
     b.f = x;
     b.u &= 0x7fffffff;
     return b.f;
 }
 
-void FUN_000adf20(Bounds *dst, const Bounds *src)
+void FUN_000adf20(Bounds_adf20 *dst, const Bounds_adf20 *src)
 {
     int i;
 

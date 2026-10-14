@@ -3,39 +3,39 @@
 extern "C" double sqrt(double);
 extern const float DAT_003f32dc;
 
-struct V3 {
+struct V3_358030 {
     float x, y, z;
     void FUN_0022d180();
 };
 
-char FUN_0022d550(V3 *s, V3 *dir, V3 *a, V3 *b, float *outA, float *outB);
-char FUN_00357be0(V3 *s, V3 *dir, V3 *a, V3 *b, float *outA, float *outB);
+char FUN_0022d550(V3_358030 *s, V3_358030 *dir, V3_358030 *a, V3_358030 *b, float *outA, float *outB);
+char FUN_00357be0(V3_358030 *s, V3_358030 *dir, V3_358030 *a, V3_358030 *b, float *outA, float *outB);
 
 // Local frame laid out like the original's 0x94-byte frame: the callees see the neighbours of pr[],
 // and the per-edge lengths and unit directions are read back even when their edge was skipped.
-struct Frame {
+struct Frame_358030 {
     volatile float inv;
     float rx;
     float qzp;
     float rz;
     float pr[6];      // (ray t, edge t) for each of the three edges
     float t38, t3c, t40;
-    V3 dn;
-    V3 target;
+    V3_358030 dn;
+    V3_358030 target;
     float dist[3];
     float qx;
     float rzp;
     float t70;
     float len[3];
-    V3 n[3];
+    V3_358030 n[3];
 };
 
 // Closest approach of a ray (S, D) to the three edges of a triangle; reports the nearest edge.
-void FUN_00358030(V3 *S, V3 *D, char useSegment, V3 *P1, V3 *P0, V3 *P2,
-                  float *outRay, V3 *outPoint, V3 *outDir, float *outLen, float *outEdgeT,
+void FUN_00358030(V3_358030 *S, V3_358030 *D, char useSegment, V3_358030 *P1, V3_358030 *P0, V3_358030 *P2,
+                  float *outRay, V3_358030 *outPoint, V3_358030 *outDir, float *outLen, float *outEdgeT,
                   char doEdge0, char doEdge1, char doEdge2)
 {
-    Frame f;
+    Frame_358030 f;
     f.dn = *D;
     f.target.x = S->x + D->x;
     f.target.y = S->y + D->y;

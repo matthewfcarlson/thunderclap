@@ -2,7 +2,7 @@
 // pure3d::prop::CMotionTrail::vfunc_11 @ 0x00283110
 extern "C" double __cdecl sqrt(double);
 
-struct Vec3 {
+struct Vec3_283110 {
     float x, y, z;
 };
 
@@ -12,13 +12,13 @@ struct Skeleton {
 };
 
 struct JointXform {
-    void FUN_0022c2b0(Vec3 *out, Vec3 *in);
+    void FUN_0022c2b0(Vec3_283110 *out, Vec3_283110 *in);
 };
 
 struct TrailSample {
-    Vec3 pos[12];
+    Vec3_283110 pos[12];
     char rest[16];
-    void FUN_0027fa00(Vec3 *pts);
+    void FUN_0027fa00(Vec3_283110 *pts);
 };
 
 struct TrailData {
@@ -55,7 +55,7 @@ public:
     int length;
     int joint;
     int *jointIndex;
-    Vec3 *outPos;
+    Vec3_283110 *outPos;
     float timer;
 };
 }
@@ -64,10 +64,10 @@ public:
 void pure3d::prop::CMotionTrail::vfunc_11(float dt, int unused)
 {
     struct Frame {
-        Vec3 d;
+        Vec3_283110 d;
         float lenSq;
-        Vec3 pts[6];
-        Vec3 cross[6];
+        Vec3_283110 pts[6];
+        Vec3_283110 cross[6];
         struct { volatile unsigned x, y, z; } p;
         volatile float savedDt;
     } fr;
@@ -87,9 +87,9 @@ void pure3d::prop::CMotionTrail::vfunc_11(float dt, int unused)
         if (length > 0) {
             TrailSample *s = ring + (head + length - 1) % 50;
             int n = pointCount;
-            const Vec3 *cur = s->pos;
-            Vec3 *pt = fr.pts;
-            Vec3 *cr = fr.cross;
+            const Vec3_283110 *cur = s->pos;
+            Vec3_283110 *pt = fr.pts;
+            Vec3_283110 *cr = fr.cross;
             for (int i = 0; i < n; i++) {
                 fr.d.x = cur->x - pt->x;
                 fr.d.y = cur->y - pt->y;

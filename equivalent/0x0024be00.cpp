@@ -2,7 +2,7 @@
 // FUN_0024be00 @ 0x0024be00
 extern "C" void *memset(void *p, int c, unsigned n);
 
-struct Sub {
+struct Sub_24be00 {
     char pad0[0xc];
     float f0c;
     char pad10[0x28 - 0x10];
@@ -10,13 +10,13 @@ struct Sub {
     int f2c;
 };
 
-struct Rec {
-    Rec *next;
-    Rec *prev;
+struct Rec_24be00 {
+    Rec_24be00 *next;
+    Rec_24be00 *prev;
     int handle;
     int fc;
-    Sub *f10;
-    Sub *f14;
+    Sub_24be00 *f10;
+    Sub_24be00 *f14;
     int f18[10];
     char pad40[0xb8 - 0x40];
     char b8;
@@ -27,28 +27,28 @@ struct Rec {
     int fc0, fc4, fc8, fcc, fd0, fd4;
 };
 
-struct Pool {
+struct Pool_24be00 {
     char data[0x48];
 };
 
-extern Pool DAT_004e61a0;
-extern Rec *DAT_004e61e8;
-extern Rec *DAT_004e61ec;
+extern Pool_24be00 DAT_004e61a0;
+extern Rec_24be00 *DAT_004e61e8;
+extern Rec_24be00 *DAT_004e61ec;
 
 void *FUN_00247530(void *pool);
-void FUN_00247550(void *pool, Rec *r);
+void FUN_00247550(void *pool, Rec_24be00 *r);
 int FUN_0025d340(int a, int b, int c);
 int FUN_00259610(int a, int b, int c);
 void FUN_00258b40(int h, int one);
 int FUN_0025e070();
 int FUN_0025d040(int h);
-void FUN_0025e550(Sub *s, int a, int b, int c);
+void FUN_0025e550(Sub_24be00 *s, int a, int b, int c);
 
-Rec *FUN_0024be00(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
+Rec_24be00 *FUN_0024be00(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
 {
-    Rec *r = (Rec *)FUN_00247530(&DAT_004e61a0);
+    Rec_24be00 *r = (Rec_24be00 *)FUN_00247530(&DAT_004e61a0);
     if (r)
-        memset(r, 0, sizeof(Rec));
+        memset(r, 0, sizeof(Rec_24be00));
     r->handle = 0;
     r->fc = 0;
     r->fc0 = 0;
@@ -73,7 +73,7 @@ Rec *FUN_0024be00(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
     r->next = 0;
     r->handle = FUN_00259610(a1, a2, r->fc);
     FUN_00258b40(r->handle, 1);
-    Sub *s = (Sub *)FUN_00247530((void *)FUN_0025e070());
+    Sub_24be00 *s = (Sub_24be00 *)FUN_00247530((void *)FUN_0025e070());
     if (s) {
         s->f28 = 0;
         s->f2c = 0;
@@ -81,7 +81,7 @@ Rec *FUN_0024be00(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
     r->f10 = s;
     FUN_0025e550(r->f10, 0, 0, FUN_0025d040(r->fc));
     if (a5) {
-        Sub *s2 = (Sub *)FUN_00247530((void *)FUN_0025e070());
+        Sub_24be00 *s2 = (Sub_24be00 *)FUN_00247530((void *)FUN_0025e070());
         if (s2) {
             s2->f28 = 0;
             s2->f2c = 0;

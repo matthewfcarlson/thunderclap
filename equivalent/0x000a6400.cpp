@@ -2,7 +2,7 @@
 // FUN_000a6400 @ 0x000a6400
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_a6400 {
     float x, y, z;
     float FUN_0022d110();
 };
@@ -21,7 +21,7 @@ struct V3v {
     volatile float x, y, z;
 };
 
-union Bits {
+union Bits_a6400 {
     float f;
     unsigned int u;
 };
@@ -35,41 +35,41 @@ struct Sub338 {
     char FUN_00035a90();
 };
 
-class Ent {
+class Ent_a6400 {
 public:
     char pad0[0x11c];
     Radius *f11c;
     char pad120[0x338 - 0x120];
     Sub338 *f338;
-    void FUN_000382c0(V3 *out);
-    void FUN_00035550(V3 *out);
+    void FUN_000382c0(V3_a6400 *out);
+    void FUN_00035550(V3_a6400 *out);
     int FUN_00035910();
 };
 
-class Actor {
+class Actor_a6400 {
 public:
     char pad0[0x148];
-    Ent *f148;
-    void FUN_001d69f0(V3 *out);
+    Ent_a6400 *f148;
+    void FUN_001d69f0(V3_a6400 *out);
 };
 
-struct Mode {
+struct Mode_a6400 {
     char pad0[8];
     void *obj;
     int kind;
     char pad10[0x40 - 0x10];
-    V3 v40;
+    V3_a6400 v40;
 };
 
 float __cdecl FUN_000189c0(float v);
-void __cdecl FUN_000a04c0(V3 *delta, float *a, float *b, float *c);
+void __cdecl FUN_000a04c0(V3_a6400 *delta, float *a, float *b, float *c);
 float __cdecl FUN_000a00e0(float a, float b, float c, float d, float e);
 float __cdecl FUN_000a02a0(float v);
 float __cdecl FUN_000a03c0(float v, float lo, float hi);
-float __cdecl FUN_000a0450(V3 *v);
+float __cdecl FUN_000a0450(V3_a6400 *v);
 char __cdecl FUN_0009ffc0(float a, float b, float c, float *out);
 float __cdecl FUN_000a05b0(float a, float b, float c, float d, float e);
-V3 *__cdecl FUN_0009f8c0(V3 *out, float a, float b, float c);
+V3_a6400 *__cdecl FUN_0009f8c0(V3_a6400 *out, float a, float b, float c);
 
 #define CLAMP(v, lo, hi) \
     do { \
@@ -80,7 +80,7 @@ V3 *__cdecl FUN_0009f8c0(V3 *out, float a, float b, float c);
             (v) = (lo); \
     } while (0)
 
-struct Frame {
+struct Frame_a6400 {
     union { float hlen; float u; float k3; float k4; float mm; float r2; unsigned int abits; float afl; };
     float q;
     char pad8[3];
@@ -92,38 +92,38 @@ struct Frame {
     union { float p1c; float ey1; };
     union { float k1; float s2; };
     union { float limHi; float b2f; unsigned int b2u; };
-    union { V3 o; V3 dd; V3 d2; V3 d3; };
+    union { V3_a6400 o; V3_a6400 dd; V3_a6400 d2; V3_a6400 d3; };
     float dist;
     float angC;
     union { float o48; float hi3; };
     float angA;
     float angB;
-    V3 e;
+    V3_a6400 e;
     float f60;
     float p2;
     float oa2;
-    V3 t2;
-    union { V3 w; V3 w2; };
-    union { V3 d; V3 nv; };
+    V3_a6400 t2;
+    union { V3_a6400 w; V3_a6400 w2; };
+    union { V3_a6400 d; V3_a6400 nv; };
     float oa1;
     float p3;
     float p1;
-    V3 t1;
+    V3_a6400 t1;
 };
 
 class Camera {
 public:
     char pad0[0x170];
-    V3 v170;
+    V3_a6400 v170;
     char pad17c[0x194 - 0x17c];
-    V3 v194;
+    V3_a6400 v194;
     V3v v1a0;
     V3v v1ac;
     char pad1b8[0x1c4 - 0x1b8];
-    V3 pos;
-    V3 v1d0;
+    V3_a6400 pos;
+    V3_a6400 v1d0;
     char pad1dc[0x1e8 - 0x1dc];
-    V3 tgt;
+    V3_a6400 tgt;
     char pad1f4[0x20c - 0x1f4];
     float f20c;
     float f210;
@@ -136,9 +136,9 @@ public:
     float f238;
     float f23c;
     char pad240[0x248 - 0x240];
-    V3 v248;
+    V3_a6400 v248;
     char pad254[0x278 - 0x254];
-    V3 v278;
+    V3_a6400 v278;
     char pad284[0x2e4 - 0x284];
     float f2e4;
     float f2e8;
@@ -151,10 +151,10 @@ public:
     char f346;
     char f347;
     char pad348[0x350 - 0x348];
-    Ent *f350;
+    Ent_a6400 *f350;
     char pad354[0x414 - 0x354];
-    Mode *f414;
-    V3 v418;
+    Mode_a6400 *f414;
+    V3_a6400 v418;
     char pad424[0x444 - 0x424];
     float f444;
     float f448;
@@ -181,17 +181,17 @@ public:
 
 void Camera::FUN_000a6400(float a1, float a2)
 {
-    Frame f;
+    Frame_a6400 f;
     f.b17 = 0;
     if (f347 && f350 && f350->f338 && !f350->f338->FUN_00035a90())
         f.b17 = 1;
 
-    Mode *m = f414;
+    Mode_a6400 *m = f414;
     f.f60 = 3.0f;
-    V3 *cp = &v418;
+    V3_a6400 *cp = &v418;
     if (m->kind == 5) {
-        Actor *a = (Actor *)m->obj;
-        Ent *e = a->f148;
+        Actor_a6400 *a = (Actor_a6400 *)m->obj;
+        Ent_a6400 *e = a->f148;
         if (e) {
             e->FUN_000382c0(cp);
             f.f60 = e->f11c->f30;
@@ -199,11 +199,11 @@ void Camera::FUN_000a6400(float a1, float a2)
             a->FUN_001d69f0(cp);
         }
     } else if (m->kind == 1) {
-        Ent *e = (Ent *)m->obj;
+        Ent_a6400 *e = (Ent_a6400 *)m->obj;
         e->FUN_000382c0(cp);
         f.f60 = e->f11c->f30;
     } else if (m->kind == 7) {
-        v418 = *(V3 *)((char *)m->obj + 0x64);
+        v418 = *(V3_a6400 *)((char *)m->obj + 0x64);
         f.f60 = 0.8f;
     } else {
         v418 = m->v40;
@@ -211,7 +211,7 @@ void Camera::FUN_000a6400(float a1, float a2)
 
     FUN_000a0dc0(DAT_0049ec74 * 0.6f, DAT_0049ec7c * 0.5f, a2);
 
-    V3 *dp = &v1d0;
+    V3_a6400 *dp = &v1d0;
     f.w = *dp;
     f.hlen = (float)sqrt(f.w.z * f.w.z + f.w.x * f.w.x);
     f.d.x = v248.x - pos.x;
@@ -352,7 +352,7 @@ void Camera::FUN_000a6400(float a1, float a2)
     f47c = FUN_000a00e0(f47c, f.q, DAT_0049ec50, a2, 10.0f);
     f.r2 = FUN_000a00e0(f480, f.dist, 20.0f, a2, 0.5f);
     f480 = f.r2;
-    V3 *pp = FUN_0009f8c0(&f.dd, f478, f47c, f.r2);
+    V3_a6400 *pp = FUN_0009f8c0(&f.dd, f478, f47c, f.r2);
     float nx = pos.x + pp->x;
     float ny = pos.y + pp->y;
     float nz = pos.z + pp->z;

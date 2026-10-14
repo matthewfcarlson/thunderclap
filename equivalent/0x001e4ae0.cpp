@@ -22,23 +22,23 @@ public:
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
-struct Handle { char pad[4]; };
+struct Handle_1e4ae0 { char pad[4]; };
 
-class Factory {
+class Factory_1e4ae0 {
 public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual Handle *f3(content::LoadInventory::DynamicCaster<CSPHulkProp> *caster, unsigned int lo, unsigned int hi);
+    virtual Handle_1e4ae0 *f3(content::LoadInventory::DynamicCaster<CSPHulkProp> *caster, unsigned int lo, unsigned int hi);
 };
 
-struct Holder44 { Factory *FUN_00203d70(); };
-struct Holder28 { Holder44 *FUN_000862a0(); };
-struct Manager { char pad0[0x54]; Holder28 *holder; };
-extern Manager *DAT_004dd700;
+struct Holder44_1e4ae0 { Factory_1e4ae0 *FUN_00203d70(); };
+struct Holder28_1e4ae0 { Holder44_1e4ae0 *FUN_000862a0(); };
+struct Manager_1e4ae0 { char pad0[0x54]; Holder28_1e4ae0 *holder; };
+extern Manager_1e4ae0 *DAT_004dd700;
 extern int DAT_004e2748;
 
-struct Mat {
+struct Mat_1e4ae0 {
     float m[16];
     void FUN_0022b980();
 };
@@ -47,29 +47,29 @@ unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 int __cdecl FUN_000964a0(char *buf, int n, const char *fmt, const char *a, const char *b);
 int __cdecl FUN_00267760(char *buf, int n, const char *fmt, const char *a, int b);
 
-struct Frame {
+struct Frame_1e4ae0 {
     char caster[4];
     union {
         char name[0x80];
-        Mat mat;
+        Mat_1e4ae0 mat;
     } u;
     char text[0x100];
 };
 
-class Spawner {
+class Spawner_1e4ae0 {
 public:
     int FUN_001dbfe0(const char *key);
-    int FUN_001e4760(Handle *h, const char *text, int a, Mat *mat, int p5, int p6, int p7);
+    int FUN_001e4760(Handle_1e4ae0 *h, const char *text, int a, Mat_1e4ae0 *mat, int p5, int p6, int p7);
     int FUN_001e4ae0(const char *key, const char *name, const char *prefix, int p3, int p4, int p5);
 };
 
-int Spawner::FUN_001e4ae0(const char *key, const char *name, const char *prefix, int p3, int p4, int p5)
+int Spawner_1e4ae0::FUN_001e4ae0(const char *key, const char *name, const char *prefix, int p3, int p4, int p5)
 {
     unsigned int cookie = DAT_004d9968;
-    Frame f;
-    Factory *factory = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+    Frame_1e4ae0 f;
+    Factory_1e4ae0 *factory = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
     unsigned __int64 id = FUN_002672f0(name, 0, 0);
-    Handle *h = factory->f3(new (f.caster) content::LoadInventory::DynamicCaster<CSPHulkProp>,
+    Handle_1e4ae0 *h = factory->f3(new (f.caster) content::LoadInventory::DynamicCaster<CSPHulkProp>,
                             (unsigned int)id, (unsigned int)(id >> 32));
     if (!h) {
         FUN_000964a0(f.u.name, 0x80, "%s_%s", prefix, name);

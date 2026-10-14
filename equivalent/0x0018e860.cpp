@@ -2,10 +2,10 @@
 // FUN_0018e860 @ 0x0018e860
 namespace hulkfight { namespace motion { class VarCompareCondition; class GrappleVarCompareCondition; class TimerCondition; } }
 namespace fight { template<class T> struct ConditionFactoryCasterTemplate { virtual void create(); }; }
-struct Registry { void FUN_00236760(void *factory); };
+struct Registry_18e860 { void FUN_00236760(void *factory); };
 void *__cdecl FUN_002343e0(const char *name, void *caster);
 
-void __cdecl FUN_0018e860(Registry *r)
+void __cdecl FUN_0018e860(Registry_18e860 *r)
 {
     {
         fight::ConditionFactoryCasterTemplate<hulkfight::motion::VarCompareCondition> caster;

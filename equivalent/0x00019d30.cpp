@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_00019d30 @ 0x00019d30
-struct Vec3 {
+struct Vec3_19d30 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct RefObj {
+struct RefObj_19d30 {
     virtual void AddRef();
     virtual void Release();
 };
@@ -13,12 +13,12 @@ struct RefObj {
 struct Request {
     int r00;
     int r04;
-    Vec3 target;
+    Vec3_19d30 target;
     char pad14[4];
-    Vec3 aim;
+    Vec3_19d30 aim;
     unsigned char flag24;
     char pad25[0x4c - 0x25];
-    RefObj* ref;
+    RefObj_19d30* ref;
     char pad50[4];
     int r54;
     float r58;
@@ -30,27 +30,27 @@ struct Request {
     unsigned char r91;
     char pad92[0xa0 - 0x92];
     Request* FUN_00059820();
-    void FUN_000595f0(Vec3* v, float a, float b, float c);
+    void FUN_000595f0(Vec3_19d30* v, float a, float b, float c);
     void FUN_00059300();
 };
 
-struct Fighter {
+struct Fighter_19d30 {
     char pad00[0x12c];
-    RefObj* ref12c;
+    RefObj_19d30* ref12c;
     char pad130[0x328 - 0x130];
     int f328;
-    void FUN_00035230(Vec3* out);
+    void FUN_00035230(Vec3_19d30* out);
     void FUN_0003ffa0(void* obj, int zero);
     void FUN_00035c70(void* obj);
 };
 
-struct Anchor {
-    Fighter* FUN_00059a30();
-    void FUN_00059a50(Vec3* out);
+struct Anchor_19d30 {
+    Fighter_19d30* FUN_00059a30();
+    void FUN_00059a50(Vec3_19d30* out);
 };
 
-struct Owner {
-    Anchor* FUN_000592a0();
+struct Owner_19d30 {
+    Anchor_19d30* FUN_000592a0();
 };
 
 struct Params {
@@ -72,7 +72,7 @@ struct Params {
     float f104;
 };
 
-struct Target {
+struct Target_19d30 {
     char pad00[0x64];
     float a;
     float b;
@@ -83,36 +83,36 @@ struct Target {
 };
 
 // equiv-conv: FUN_00014210 eax ecx edx esi
-void FUN_00014210(int mode, Fighter* frame, void* obj, Vec3* out);
+void FUN_00014210(int mode, Fighter_19d30* frame, void* obj, Vec3_19d30* out);
 float __cdecl FUN_000964e0();
 
-struct Frame {
-    Vec3 delta;
+struct Frame_19d30 {
+    Vec3_19d30 delta;
     float fa;
     float fb;
     float fc;
-    Vec3 a;
-    Vec3 b;
+    Vec3_19d30 a;
+    Vec3_19d30 b;
     Request req;
     float spill;
-    Vec3 out;
+    Vec3_19d30 out;
 };
 
 class SpawnAction {
 public:
     char pad00[0x1c];
-    Owner* owner;
+    Owner_19d30* owner;
     Params* params;
-    void FUN_00019d30(Target* t, Vec3* p1, Vec3* p2);
+    void FUN_00019d30(Target_19d30* t, Vec3_19d30* p1, Vec3_19d30* p2);
 };
 
-void SpawnAction::FUN_00019d30(Target* t, Vec3* p1, Vec3* p2)
+void SpawnAction::FUN_00019d30(Target_19d30* t, Vec3_19d30* p1, Vec3_19d30* p2)
 {
-    Anchor* anchor = owner->FUN_000592a0();
-    Fighter* fighter = anchor->FUN_00059a30();
+    Anchor_19d30* anchor = owner->FUN_000592a0();
+    Fighter_19d30* fighter = anchor->FUN_00059a30();
     if (t == 0)
         return;
-    Frame f;
+    Frame_19d30 f;
     f.a.x = 0.0f;
     f.a.y = 0.0f;
     f.a.z = 0.0f;
@@ -123,7 +123,7 @@ void SpawnAction::FUN_00019d30(Target* t, Vec3* p1, Vec3* p2)
     fighter->FUN_00035230(&f.b);
     f.req.FUN_00059820();
 
-    Vec3 mid;
+    Vec3_19d30 mid;
     mid.x = p1->x + t->a;
     mid.y = p1->y + t->b;
     mid.z = p1->z + t->c;
@@ -147,7 +147,7 @@ void SpawnAction::FUN_00019d30(Target* t, Vec3* p1, Vec3* p2)
     f.req.r04 = pr->f6c;
     f.req.r91 = pr->b3b;
     f.req.r54 = pr->fdc;
-    RefObj* nr = fighter->ref12c;
+    RefObj_19d30* nr = fighter->ref12c;
     if (nr)
         nr->AddRef();
     if (f.req.ref)

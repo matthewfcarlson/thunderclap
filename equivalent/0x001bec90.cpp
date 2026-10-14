@@ -11,29 +11,29 @@ extern float DAT_004e2308;
 extern float DAT_004e230c;
 extern int DAT_004e22f0;
 
-struct Vec3 { float x, y, z; };
+struct Vec3_1bec90 { float x, y, z; };
 
 struct Owner;
 
-struct Slot {
+struct Slot_1bec90 {
     float weight;
     int a;
     int b;
     int value;
 };
 
-struct Blender {
+struct Blender_1bec90 {
     Owner *owner;
     int current;
-    Slot slots[8];
+    Slot_1bec90 slots[8];
     int index;
     float scale;
-    Blender *FUN_000f7fe0(Owner *o);
+    Blender_1bec90 *FUN_000f7fe0(Owner *o);
     void FUN_000f80e0(const char *text, int font, int flag);
     void FUN_000f78e0();
 };
 
-class Renderer {
+class Renderer_1bec90 {
 public:
     virtual void v0();
     virtual void v1();
@@ -54,17 +54,17 @@ public:
     virtual void v16(int a);
 };
 
-struct Display {
-    Renderer *renderer;
-    void FUN_00293d00(Vec3 *v);
+struct Display_1bec90 {
+    Renderer_1bec90 *renderer;
+    void FUN_00293d00(Vec3_1bec90 *v);
     void FUN_00293da0(float a, float b, float c);
 };
 
-extern Display *DAT_0052c2ac;
+extern Display_1bec90 *DAT_0052c2ac;
 
-struct Frame {
-    Vec3 v;
-    Blender b;
+struct Frame_1bec90 {
+    Vec3_1bec90 v;
+    Blender_1bec90 b;
     char buf[32];
     unsigned int cookie;
 };
@@ -79,7 +79,7 @@ public:
 
 void Overlay::FUN_001bec90()
 {
-    Frame f;
+    Frame_1bec90 f;
     f.cookie = DAT_004d9968;
     if (owner == 0) {
         __security_check_cookie(f.cookie);

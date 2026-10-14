@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 55/56, incomplete)
 // FUN_00279d30 @ 0x00279d30
-typedef unsigned char Byte;
-Byte* __cdecl FUN_00279d30(Byte* input, unsigned int unused, Byte* output, unsigned int limit, unsigned int fullSize)
+typedef unsigned char Byte_279d30;
+Byte_279d30* __cdecl FUN_00279d30(Byte_279d30* input, unsigned int unused, Byte_279d30* output, unsigned int limit, unsigned int fullSize)
 {
     unsigned int written = 0;
-    if (!limit) return (Byte*)fullSize;
+    if (!limit) return (Byte_279d30*)fullSize;
     if (limit == fullSize) {
         do {
             unsigned int token = *input++;
@@ -16,7 +16,7 @@ Byte* __cdecl FUN_00279d30(Byte* input, unsigned int unused, Byte* output, unsig
                     length += *input++;
                 }
                 unsigned int distance = (token >> 4) | ((unsigned int)*input++ << 4);
-                Byte* source = output - distance;
+                Byte_279d30* source = output - distance;
                 int groups = (int)length >> 2;
                 unsigned int remainder = length - groups * 4;
                 do {
@@ -49,7 +49,7 @@ Byte* __cdecl FUN_00279d30(Byte* input, unsigned int unused, Byte* output, unsig
                 length += *input++;
             }
             unsigned int distance = (token >> 4) | ((unsigned int)*input++ << 4);
-            Byte* source = output - distance;
+            Byte_279d30* source = output - distance;
             unsigned int remaining = bound - written;
             if ((int)length > (int)remaining) length = remaining;
             if (length) {

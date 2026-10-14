@@ -9,26 +9,26 @@ struct DynamicCaster {
 };
 }
 }
-typedef unsigned __int64 Key;
-Key __cdecl FUN_0027b020(const char *name);
+typedef unsigned __int64 Key_f5210;
+Key_f5210 __cdecl FUN_0027b020(const char *name);
 
-struct Controller {
+struct Controller_f5210 {
     virtual void AddRef();
 };
 
-class Inventory {
+class Inventory_f5210 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Controller *Find(void *caster, Key key);
+    virtual Controller_f5210 *Find(void *caster, Key_f5210 key);
 };
-extern Inventory *DAT_004dd9cc;
+extern Inventory_f5210 *DAT_004dd9cc;
 
-class Slots {
+class Slots_f5210 {
 public:
     char pad00[0x1c6c];
-    Controller *controllers[2];
+    Controller_f5210 *controllers[2];
     char gap[0x200];
     char names[2][0x100];
     char pad_names[0x2105 - 0x1c6c - 8 - 0x200 - 0x200];
@@ -37,7 +37,7 @@ public:
 };
 
 // Loads the named controller into the first free slot and remembers the default name next to it.
-void Slots::FUN_000f5210(const char *assetName)
+void Slots_f5210::FUN_000f5210(const char *assetName)
 {
     int i;
     for (i = 0; i < 2; ++i) {
@@ -46,10 +46,10 @@ void Slots::FUN_000f5210(const char *assetName)
     }
     if (i >= 2)
         return;
-    Inventory *inv = DAT_004dd9cc;
-    Key key = FUN_0027b020(assetName);
+    Inventory_f5210 *inv = DAT_004dd9cc;
+    Key_f5210 key = FUN_0027b020(assetName);
     content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> caster;
-    Controller *c = inv->Find(&caster, key);
+    Controller_f5210 *c = inv->Find(&caster, key);
     controllers[i] = c;
     if (!c)
         return;

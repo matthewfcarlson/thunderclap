@@ -33,7 +33,7 @@ struct Reader {
     Stream *stream;
 };
 
-class Factory {
+class Factory_2c1520 {
 public:
     virtual void f0();
     virtual void f1();
@@ -49,7 +49,7 @@ public:
 };
 }
 
-struct Name {
+struct Name_2c1520 {
     unsigned int lo, hi;
     void FUN_0027b040(const char *s);
 };
@@ -62,7 +62,7 @@ struct LightArray {
 
 struct LightGroup {
     char pad0[8];
-    Name name;              // 0x08
+    Name_2c1520 name;              // 0x08
     int count;              // 0x10
     int loaded;             // 0x14
     LightArray lights;      // 0x18
@@ -83,10 +83,10 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual void vfunc_5(LightGroup **out, Hash64 *id, Reader *rd, Factory *factory);
+    virtual void vfunc_5(LightGroup **out, Hash64 *id, Reader *rd, Factory_2c1520 *factory);
 };
 
-void LightGroupLoader::vfunc_5(LightGroup **out, Hash64 *id, Reader *rd, Factory *factory)
+void LightGroupLoader::vfunc_5(LightGroup **out, Hash64 *id, Reader *rd, Factory_2c1520 *factory)
 {
     struct Frame {
         unsigned char pad10[3];

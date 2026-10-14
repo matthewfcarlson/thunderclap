@@ -2,9 +2,9 @@
 // FUN_002fd950 @ 0x002fd950
 struct CountSource { int FUN_0030f450(); };
 struct Matrix { unsigned int words[16]; };
-struct Transform { Matrix* FUN_0030f100(); };
-struct Node { Transform* FUN_0030edf0(); };
-struct Entry {
+struct Transform_2fd950 { Matrix* FUN_0030f100(); };
+struct Node { Transform_2fd950* FUN_0030edf0(); };
+struct Entry_2fd950 {
  Node* node;
  unsigned int first[3];
  unsigned int second[3];
@@ -13,18 +13,18 @@ struct Entry {
  Matrix matrix;
  float value;
 };
-struct Owner {
+struct Owner_2fd950 {
  char padding[0x88];
  CountSource* source;
- Entry* entries;
+ Entry_2fd950* entries;
  void FUN_002fd950(float value);
 };
-void Owner::FUN_002fd950(float value) {
+void Owner_2fd950::FUN_002fd950(float value) {
  if (!source) return;
  int index = 0;
  if (source->FUN_0030f450() <= 0) return;
  do {
-  Entry* entry = entries + index;
+  Entry_2fd950* entry = entries + index;
   if (value == 0.0f) {
    entry->first[2] = 0;
    entry->first[1] = 0;
@@ -35,7 +35,7 @@ void Owner::FUN_002fd950(float value) {
    entry->reset = 1;
   } else {
    entry->value = value;
-   Transform* transform = entry->node->FUN_0030edf0();
+   Transform_2fd950* transform = entry->node->FUN_0030edf0();
    Matrix* matrix = transform->FUN_0030f100();
    for (int j = 0; j < 16; ++j) entry->matrix.words[j] = matrix->words[j];
    entry->reset = 0;

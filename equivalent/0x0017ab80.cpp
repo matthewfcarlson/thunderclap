@@ -4,10 +4,10 @@ inline void* operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
 void FUN_0016f930(); void FUN_0016f960(); void FUN_0016f9a0(); void FUN_0016f9d0();
 namespace hulkfight { namespace motion { class TeleportRelativeTrack; } }
-struct BaseFloat { virtual void slot0(); char pad[12]; void (*callback)(); int tail; void FUN_00234960(const char*); };
+struct BaseFloat_17ab80 { virtual void slot0(); char pad[12]; void (*callback)(); int tail; void FUN_00234960(const char*); };
 struct BaseVector { virtual void slot0(); char pad[12]; void (*callback)(); int tail; void FUN_00234e50(const char*); };
 namespace fight {
-template<class T> struct ParamFloatConstRange : BaseFloat { virtual void slot0(); };
+template<class T> struct ParamFloatConstRange : BaseFloat_17ab80 { virtual void slot0(); };
 template<class T> struct ParamVector : BaseVector { virtual void slot0(); };
 }
 extern int DAT_004e1394; extern int DAT_004e1390;

@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 12048 inputs, branch coverage 64/68, incomplete; run with --inputs 12000)
 // FUN_001ec480 @ 0x001ec480
 extern "C" int __cdecl strncmp(const char*, const char*, unsigned);
-struct Path {
+struct Path_1ec480 {
     char data[72];
     void FUN_001ef320();
     void FUN_001ef370(const char*);
     void FUN_001ef350();
 };
-struct Screen {
+struct Screen_1ec480 {
     void FUN_001f4610(int, int, int);
     void FUN_001f47b0(int);
     void FUN_001f46a0();
 };
-struct UI {
-    Screen* screen;
-    void FUN_001efe20(Path*, int, const char*, float);
+struct UI_1ec480 {
+    Screen_1ec480* screen;
+    void FUN_001efe20(Path_1ec480*, int, const char*, float);
 };
-struct Info { const char* FUN_0008a2f0(); };
-struct Owner { Info* FUN_00086310(); };
-struct Target {
-    UI* ui;
-    Owner* owner;
+struct Info_1ec480 { const char* FUN_0008a2f0(); };
+struct Owner_1ec480 { Info_1ec480* FUN_00086310(); };
+struct Target_1ec480 {
+    UI_1ec480* ui;
+    Owner_1ec480* owner;
     unsigned char enabled, active;
     void FUN_001ec480(const char*, const char*);
     void run(const char*, const char*);
@@ -30,8 +30,8 @@ struct Target {
     do { const char* a = (text); const char* b = (literal); \
          while (*a == *b && *b) { ++a; ++b; } \
          (result) = (*a == *b); } while (0)
-void Target::run(const char* name, const char* value) {
-    Path path;
+void Target_1ec480::run(const char* name, const char* value) {
+    Path_1ec480 path;
     path.FUN_001ef320();
     path.FUN_001ef370("Objects");
     path.FUN_001ef370("FE");
@@ -61,14 +61,14 @@ void Target::run(const char* name, const char* value) {
                 if (!success) EQUAL(success, name, "story_mission_success");
                 if (!success) EQUAL(success, name, "side_mission_success");
                 if (success) FUN_001ec480("success", "success");
-                UI* current = ui;
+                UI_1ec480* current = ui;
                 active = 1;
                 current->screen->FUN_001f4610(1, 1, 1);
             }
         } else {
             EQUAL(equal, value, "FE_back");
             if (equal) {
-                UI* current = ui;
+                UI_1ec480* current = ui;
                 active = 0;
                 current->screen->FUN_001f46a0();
             }
@@ -78,7 +78,7 @@ void Target::run(const char* name, const char* value) {
             EQUAL(equal, value, "FE_screen_enter_start");
             if (equal) {
                 FUN_001ec480("success", "success");
-                UI* current = ui;
+                UI_1ec480* current = ui;
                 active = 1;
                 current->screen->FUN_001f4610(1, 0, 0);
             } else {
@@ -92,7 +92,7 @@ void Target::run(const char* name, const char* value) {
         } else {
             EQUAL(equal, value, "FE_back");
             if (equal) {
-                UI* current = ui;
+                UI_1ec480* current = ui;
                 active = 0;
                 current->screen->FUN_001f46a0();
                 ui->screen->FUN_001f47b0(0);
@@ -101,7 +101,7 @@ void Target::run(const char* name, const char* value) {
     } else if (kind == 12) {
         EQUAL(equal, value, "FE_screen_enter_start");
         if (equal) {
-            UI* current = ui;
+            UI_1ec480* current = ui;
             active = 1;
             current->screen->FUN_001f4610(0, 1, 1);
             const char* briefing = owner->FUN_00086310()->FUN_0008a2f0();
@@ -110,7 +110,7 @@ void Target::run(const char* name, const char* value) {
         EQUAL(equal, value, "FE_back");
         if (equal) {
             ui->screen->FUN_001f47b0(0);
-            UI* current = ui;
+            UI_1ec480* current = ui;
             active = 0;
             current->screen->FUN_001f46a0();
         }
@@ -123,7 +123,7 @@ void Target::run(const char* name, const char* value) {
             if (equal) {
                 ui->screen->FUN_001f47b0(0);
                 if (active) {
-                    UI* current = ui;
+                    UI_1ec480* current = ui;
                     active = 0;
                     current->screen->FUN_001f46a0();
                 }

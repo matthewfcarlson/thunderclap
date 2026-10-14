@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // pure3d::QuaternionChannel::vfunc_5 @ 0x0028aa20
 namespace pure3d {
-struct Quaternion {
+struct Quaternion_28aa20 {
  float x,y,z,w;
- void FUN_0022b750(const Quaternion*, const Quaternion*, float);
+ void FUN_0022b750(const Quaternion_28aa20*, const Quaternion_28aa20*, float);
 };
 struct QuaternionChannel {
  virtual void vfunc_0();
@@ -11,15 +11,15 @@ struct QuaternionChannel {
  virtual void vfunc_2();
  virtual void vfunc_3();
  virtual void vfunc_4();
- virtual void vfunc_5(float time, Quaternion* out);
+ virtual void vfunc_5(float time, Quaternion_28aa20* out);
  virtual void vfunc_6();
  int active;
  char pad[12];
  short* times;
- Quaternion* values;
+ Quaternion_28aa20* values;
  bool FUN_00289f80(float, int*, int*);
 };
-void QuaternionChannel::vfunc_5(float time, Quaternion* out) {
+void QuaternionChannel::vfunc_5(float time, Quaternion_28aa20* out) {
  int first, second;
  bool found = FUN_00289f80(time, &first, &second);
  if (found && active) {

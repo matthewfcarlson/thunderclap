@@ -7,7 +7,7 @@ extern "C" char DAT_0048e134[];
 extern "C" char DAT_00423498[];
 extern "C" void __stdcall FUN_001d0480(void*, int);
 extern "C" char __cdecl FUN_001d04d0(const void*);
-class MethodObj {
+class MethodObj_1e0cb0 {
   public:
     int vptr;
     char pad4[12];
@@ -16,9 +16,9 @@ class MethodObj {
     char result;
     char pad19[3];
     void* fn;
-    MethodObj* FUN_001e0cb0(void*, void*);
+    MethodObj_1e0cb0* FUN_001e0cb0(void*, void*);
 };
-MethodObj* MethodObj::FUN_001e0cb0(void* name, void* f) {
+MethodObj_1e0cb0* MethodObj_1e0cb0::FUN_001e0cb0(void* name, void* f) {
     FUN_001d0480(name, 4);
     vptr = (int)DAT_00423498;
     fn = f;

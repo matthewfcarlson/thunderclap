@@ -8,18 +8,18 @@ public:
 
 class Drawable;
 
-struct Slot {
+struct Slot_298f00 {
     char pad00[8];
     Drawable *drawable;     // 0x8
 };
 
-struct SlotList {
+struct SlotList_298f00 {
     char pad00[0x3c];
-    Slot *begin;            // 0x3c
-    Slot *end;              // 0x40
+    Slot_298f00 *begin;            // 0x3c
+    Slot_298f00 *end;              // 0x40
 };
 
-struct Listener {
+struct Listener_298f00 {
     void FUN_00288080(Shader *shader);
 };
 
@@ -38,9 +38,9 @@ public:
     virtual void vfunc_10(Shader *shader);
     char pad04[0x3c];
     Shader *shader;         // 0x40
-    SlotList *slots;        // 0x44
+    SlotList_298f00 *slots;        // 0x44
     char pad48[4];
-    Listener *listener;     // 0x4c
+    Listener_298f00 *listener;     // 0x4c
 };
 
 void Drawable::vfunc_10(Shader *newShader)

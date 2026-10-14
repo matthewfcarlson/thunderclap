@@ -25,7 +25,7 @@ extern int DAT_004d2880;
 void FUN_002ecb70();
 void FUN_002ecb90(int units);
 
-struct Frame {
+struct Frame_2f4eb0 {
     char pad[2];
     unsigned char len1;
     unsigned char len2;
@@ -40,7 +40,7 @@ struct ExportInfoLoader {
 
 void ExportInfoLoader::vfunc_5(int a0, int a1, Reader* r, int a3)
 {
-    Frame f;
+    Frame_2f4eb0 f;
     int units;
     bool found;
 

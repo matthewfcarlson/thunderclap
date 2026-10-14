@@ -3,17 +3,17 @@
 extern unsigned int DAT_0049fb40;
 extern unsigned int DAT_004d9968;
 void __fastcall __security_check_cookie(unsigned int);
-struct State;
+struct State_c4220;
 // equiv-conv: FUN_000c3ea0 ecx
-void FUN_000c3ea0(State*);
-struct Player { void FUN_001b7310(const char*, int, int); };
-struct Screen { void FUN_001edf60(); void FUN_001ec480(const char*, const char*); };
-struct State {
- char pad0[8]; unsigned char finished; char pad9[7]; int mode; char pad14[0x28]; Screen* screen; char pad40[0x1b89]; char suffix[1];
+void FUN_000c3ea0(State_c4220*);
+struct Player_c4220 { void FUN_001b7310(const char*, int, int); };
+struct Screen_c4220 { void FUN_001edf60(); void FUN_001ec480(const char*, const char*); };
+struct State_c4220 {
+ char pad0[8]; unsigned char finished; char pad9[7]; int mode; char pad14[0x28]; Screen_c4220* screen; char pad40[0x1b89]; char suffix[1];
  bool FUN_000c3900(const char*,int,int,int,int,int,int);
- void update(Player* player);
+ void update(Player_c4220* player);
 };
-void State::update(Player* player) {
+void State_c4220::update(Player_c4220* player) {
  struct Buffer { char text[64]; unsigned int cookie; } buffer;
  buffer.cookie=DAT_004d9968;
  switch(DAT_0049fb40) {
@@ -45,7 +45,7 @@ void State::update(Player* player) {
  }
  if(finished) {
  FUN_000c3ea0(this);
- Screen* current=screen;
+ Screen_c4220* current=screen;
  DAT_0049fb40=0;
  if(current) { current->FUN_001edf60(); screen->FUN_001ec480("main","FE_screen_enter_start"); }
  mode=1;

@@ -2,94 +2,94 @@
 // FUN_002fda20 @ 0x002fda20
 extern "C" double sqrt(double);
 
-struct Vec3 { float x, y, z; };
+struct Vec3_2fda20 { float x, y, z; };
 
-struct Body {
+struct Body_2fda20 {
     char pad0[0x30];
-    Vec3 pos;
+    Vec3_2fda20 pos;
 };
 
-struct Source {
-    Body *FUN_0030f100();
+struct Source_2fda20 {
+    Body_2fda20 *FUN_0030f100();
 };
 
 struct Source2 {
-    Source *FUN_0030edf0();
+    Source_2fda20 *FUN_0030edf0();
 };
 
-struct Link {
+struct Link_2fda20 {
     char pad0[0x19];
     unsigned char active;
 };
 
-struct Follower {
+struct Follower_2fda20 {
     char pad0[0x20];
-    Link *link;
+    Link_2fda20 *link;
     char pad24[0x68 - 0x24];
     unsigned char done;
     unsigned char done2;
-    void FUN_002ef200(Vec3 *d);
+    void FUN_002ef200(Vec3_2fda20 *d);
 };
 
-struct Slot {
+struct Slot_2fda20 {
     Source2 *src;
-    Vec3 dir;
+    Vec3_2fda20 dir;
     char pad10[0x1c - 0x10];
     unsigned char started;
     char pad1d[3];
     char sub[0x50 - 0x20];
-    Vec3 pos;
+    Vec3_2fda20 pos;
     int f5c;
     int f60;
     char pad64[0x64 - 0x64];
 };
 
-extern "C" void FUN_002ef760(void *sub, Body *b, float one, int v, Vec3 *dir);
+extern "C" void FUN_002ef760(void *sub, Body_2fda20 *b, float one, int v, Vec3_2fda20 *dir);
 
-struct Tracker {
+struct Tracker_2fda20 {
     char pad0[0x74];
-    Follower *follower;
+    Follower_2fda20 *follower;
     char pad78[0x80 - 0x78];
     float range;
     unsigned char enabled;
     char pad85[0x8c - 0x85];
-    Slot *slots;
+    Slot_2fda20 *slots;
     int index;
     void Update();
 };
 
 extern float DAT_004d2960;
 
-void Tracker::Update()
+void Tracker_2fda20::Update()
 {
     if (follower != 0 && !follower->done) {
-        Slot *s = &slots[index];
-        Body *b = s->src->FUN_0030edf0()->FUN_0030f100();
-        Slot *s2 = &slots[index];
-        Vec3 d;
+        Slot_2fda20 *s = &slots[index];
+        Body_2fda20 *b = s->src->FUN_0030edf0()->FUN_0030f100();
+        Slot_2fda20 *s2 = &slots[index];
+        Vec3_2fda20 d;
         d.x = b->pos.x - s2->pos.x;
         d.y = b->pos.y - s2->pos.y;
         d.z = b->pos.z - s2->pos.z;
         if (d.z * d.z + d.y * d.y + d.x * d.x > 0.0f) {
             follower->FUN_002ef200(&d);
         } else {
-            Link *l = follower->link;
+            Link_2fda20 *l = follower->link;
             follower->done = 1;
             l->active = 0;
         }
     }
     if (enabled) {
-        Slot *s = &slots[index];
+        Slot_2fda20 *s = &slots[index];
         if (!s->started) {
             s->started = 1;
             FUN_002ef760(s->sub, s->src->FUN_0030edf0()->FUN_0030f100(), 1.0f, s->f60, &s->dir);
         }
-        Vec3 *v = &slots[index].dir;
+        Vec3_2fda20 *v = &slots[index].dir;
         float lenSq = v->z * v->z + v->y * v->y + v->x * v->x;
         float h = DAT_004d2960 * range;
         if (lenSq > h * h) {
             range = (float)sqrt(lenSq);
-            Follower *f = follower;
+            Follower_2fda20 *f = follower;
             if (f != 0) {
                 f->link->active = 0;
                 f->done = 1;

@@ -2,7 +2,7 @@
 // FUN_0021a610 @ 0x0021a610
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
-struct ZIO {
+struct ZIO_21a610 {
     unsigned int n;                     // bytes left in the current buffer
     const unsigned char *p;             // read position
     const unsigned char *(__cdecl *reader)(void *L, void *data, unsigned int *size);
@@ -11,7 +11,7 @@ struct ZIO {
 };
 
 // luaZ_read: copies n bytes out of the stream, returns the number of bytes missing
-unsigned int __cdecl FUN_0021a610(ZIO *z, void *b, unsigned int n)
+unsigned int __cdecl FUN_0021a610(ZIO_21a610 *z, void *b, unsigned int n)
 {
     while (n != 0) {
         if (z->n == 0) {

@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 28/28)
 // hulkfight::motion::HitThrowAction::vfunc_3 @ 0x00151fd0
-struct V3 {
+struct V3_151fd0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Name {
+struct Name_151fd0 {
     unsigned int lo, hi;
     void FUN_0027b040(const char *s);
 };
 
-struct Xform {
+struct Xform_151fd0 {
     char data[0x54];
-    void FUN_0022be40(const V3 *pos);
+    void FUN_0022be40(const V3_151fd0 *pos);
     void FUN_00221d20(float v);
 };
 
@@ -20,35 +20,35 @@ class JointDriver {
 public:
     virtual void AddRef();
     char pad4[4];
-    Name name;
+    Name_151fd0 name;
     char pad10[4];
     int mode;
-    Xform xform;
+    Xform_151fd0 xform;
     JointDriver *FUN_002248f0(int a);
 };
 
-struct Linked {
+struct Linked_151fd0 {
     void FUN_0003ee70(int handle);
 };
 
-class RefObj {
+class RefObj_151fd0 {
 public:
     virtual void AddRef();
     virtual void Release();
     char pad4[4];
-    Linked *linked;
+    Linked_151fd0 *linked;
     int kind;
 };
 
 struct TargetInfo {
     char pad0[0x28];
-    V3 pos;
+    V3_151fd0 pos;
     char pad34[0x84 - 0x34];
-    RefObj *ref;
+    RefObj_151fd0 *ref;
     int handle;
 };
 
-class OwnerObj {
+class OwnerObj_151fd0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -56,20 +56,20 @@ public:
     virtual TargetInfo *v3();
 };
 
-struct Body {
+struct Body_151fd0 {
     void FUN_00222890(JointDriver *d, float a, float b, float c, float e, float f, float g);
 };
 
-struct Stats {
+struct Stats_151fd0 {
     char pad0[0x12c];
     int handle;
 };
 
-struct Fighter {
-    void FUN_00059a50(V3 *out);
+struct Fighter_151fd0 {
+    void FUN_00059a50(V3_151fd0 *out);
 };
 
-struct Config {
+struct Config_151fd0 {
     char pad0[0x14];
     char flag14;
     char pad15[3];
@@ -80,24 +80,24 @@ struct Config {
     float f28;
 };
 
-struct Hook {
+struct Hook_151fd0 {
     char pad0[0x124];
     int enabled;
-    void FUN_00029b50(int a, RefObj *b, int c);
+    void FUN_00029b50(int a, RefObj_151fd0 *b, int c);
 };
 
-struct Sys {
+struct Sys_151fd0 {
     char pad0[0x20];
-    Hook *hook;
+    Hook_151fd0 *hook;
 };
 
-extern Sys *DAT_004dd700;
+extern Sys_151fd0 *DAT_004dd700;
 
 void *__cdecl FUN_00263ea0(unsigned int size);
-Fighter *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(Fighter *f);
-Body *__fastcall FUN_00059a40(Fighter *f);
-float __cdecl FUN_00224f10(V3 *v);
+Fighter_151fd0 *__fastcall FUN_000592a0(void *owner);
+Stats_151fd0 *__fastcall FUN_00059a30(Fighter_151fd0 *f);
+Body_151fd0 *__fastcall FUN_00059a40(Fighter_151fd0 *f);
+float __cdecl FUN_00224f10(V3_151fd0 *v);
 
 class HitThrowAction {
 public:
@@ -106,35 +106,35 @@ public:
     virtual void v2();
     virtual bool vfunc_3(int a, int b);
     char pad04[0x1c - 4];
-    Config *cfg;
-    OwnerObj *owner;
+    Config_151fd0 *cfg;
+    OwnerObj_151fd0 *owner;
     JointDriver *driver;
-    RefObj *ref;
+    RefObj_151fd0 *ref;
     int handle;
     float length;
-    V3 dir;
+    V3_151fd0 dir;
 };
 
 bool HitThrowAction::vfunc_3(int a, int b)
 {
     if (!owner)
         return false;
-    Fighter *fighter = FUN_000592a0(owner);
-    Stats *stats = FUN_00059a30(fighter);
-    Body *body = FUN_00059a40(fighter);
+    Fighter_151fd0 *fighter = FUN_000592a0(owner);
+    Stats_151fd0 *stats = FUN_00059a30(fighter);
+    Body_151fd0 *body = FUN_00059a40(fighter);
     if (!body)
         return false;
     TargetInfo *t = owner->v3();
     if (!t)
         return false;
 
-    V3 origin;
+    V3_151fd0 origin;
     origin.x = 0.0f;
     origin.y = 0.0f;
     origin.z = 0.0f;
     fighter->FUN_00059a50(&origin);
 
-    Config *c = cfg;
+    Config_151fd0 *c = cfg;
     float c20 = c->f20;
     float c24 = c->f24;
     float c28 = c->f28;
@@ -161,7 +161,7 @@ bool HitThrowAction::vfunc_3(int a, int b)
     dir = t->pos;
     length = dir.FUN_0022d110();
 
-    RefObj *r = t->ref;
+    RefObj_151fd0 *r = t->ref;
     if (r)
         r->AddRef();
     if (ref)

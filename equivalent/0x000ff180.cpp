@@ -3,10 +3,10 @@
 // CHand2HandAgent::CHand2HandAgent @ 0x000ff180
 void *__cdecl FUN_0008d690(unsigned int size);
 
-class Weapon {
+class Weapon_ff180 {
 public:
     virtual void AddRef();
-    Weapon *FUN_00109ba0();
+    Weapon_ff180 *FUN_00109ba0();
 };
 
 class AgentBase {
@@ -30,7 +30,7 @@ class CHand2HandAgent : public AgentBase {
 public:
     CHand2HandAgent(int arg);
     virtual void vfunc_9();
-    Weapon *f5c;
+    Weapon_ff180 *f5c;
     unsigned char b60;
     char pad61[3];
     int f64;
@@ -60,10 +60,10 @@ public:
 
 CHand2HandAgent::CHand2HandAgent(int arg) : AgentBase(arg)
 {
-    Weapon *w = 0;
+    Weapon_ff180 *w = 0;
     void *mem = FUN_0008d690(0x38);
     if (mem != 0)
-        w = ((Weapon *)mem)->FUN_00109ba0();
+        w = ((Weapon_ff180 *)mem)->FUN_00109ba0();
     f5c = w;
     w->AddRef();
     b60 = 0;

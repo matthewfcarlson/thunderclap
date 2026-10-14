@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 14/16, incomplete)
 // FUN_00320330 @ 0x00320330
-struct SurfaceDesc {
+struct SurfaceDesc_320330 {
     unsigned int Format, Type, Usage, Size, MultiSampleType, Width, Height;
 };
 namespace D3D8 {
 int __stdcall D3DDevice_GetRenderTarget2();
-void __stdcall D3DSurface_GetDesc(int, SurfaceDesc*);
+void __stdcall D3DSurface_GetDesc(int, SurfaceDesc_320330*);
 void __stdcall D3DResource_Release(int);
 int __stdcall D3DDevice_CreateTexture2(int, int, int, int, int, unsigned int, int);
 }
-class Viewport {
+class Viewport_320330 {
   public:
     virtual void s0();
     virtual void s1();
@@ -20,16 +20,16 @@ class Viewport {
     virtual int GetHeight();
     virtual int GetWidth();
 };
-struct Parent {
+struct Parent_320330 {
     char pad[0x154];
-    Viewport* viewport;
+    Viewport_320330* viewport;
 };
 class BlurEffect {
   public:
     unsigned char FUN_003202b0(const char* src, int* out);
     void Setup();
     char pad0[4];
-    Parent* parent;
+    Parent_320330* parent;
     char pad8[0x8c - 8];
     int ps0, ps1, ps2, ps3;
     int pad9c;
@@ -58,12 +58,12 @@ void BlurEffect::Setup() {
     if (!(ok & last))
         return;
     int rt = D3D8::D3DDevice_GetRenderTarget2();
-    SurfaceDesc desc;
+    SurfaceDesc_320330 desc;
     D3D8::D3DSurface_GetDesc(rt, &desc);
     D3D8::D3DResource_Release(rt);
     scaleX = (float)parent->viewport->GetWidth() / (float)desc.Width;
     scaleY = (float)parent->viewport->GetHeight() / (float)desc.Height;
-    Viewport* vp = parent->viewport;
+    Viewport_320330* vp = parent->viewport;
     int h = vp->GetHeight() / 4;
     int w = vp->GetWidth() / 4;
     tex0 = D3D8::D3DDevice_CreateTexture2(w, h, 1, 1, 0, desc.Format, 3);

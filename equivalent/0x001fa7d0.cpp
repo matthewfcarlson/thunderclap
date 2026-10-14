@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_001fa7d0 @ 0x001fa7d0
-struct Entry { char data[0x58]; void FUN_001f9810(int value); };
+struct Entry_1fa7d0 { char data[0x58]; void FUN_001f9810(int value); };
 struct Object {
  char pad0[0x10];
  int items[256];
@@ -8,7 +8,7 @@ struct Object {
  char pad414[0x44];
  int state;
  char pad45c[0x28c];
- Entry entries[1];
+ Entry_1fa7d0 entries[1];
  bool FUN_001f9040(int input, int item);
  bool FUN_001f87e0(int input, int item, int* index);
  void FUN_001fa1c0(int input, int item);

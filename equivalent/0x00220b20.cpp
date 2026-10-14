@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2599 inputs, branch coverage 4/4)
 // FUN_00220b20 @ 0x00220b20
-struct Storage {
+struct Storage_220b20 {
  char pad0[12];
  unsigned int* first;
  char pad10[4];
@@ -10,7 +10,7 @@ struct Storage {
  int secondCapacity;
 };
 struct Context {
- Storage* storage;
+ Storage_220b20* storage;
  char pad4[12];
  void* allocator;
  char pad14[4];
@@ -22,7 +22,7 @@ struct Context {
 void FUN_00220650(int marker, int a, int b, int c, int d, int e);
 void* __cdecl FUN_0021ae40(void* allocator, void* oldBuffer, int* capacity, int elementSize, int limit, const char* error);
 int __cdecl FUN_00220b20(Context* context, unsigned int firstValue, unsigned int secondValue) {
- Storage* storage = context->storage;
+ Storage_220b20* storage = context->storage;
  int count = context->count;
  FUN_00220650(context->marker, count, 255, count, 255, count);
  context->marker = -1;

@@ -1,39 +1,39 @@
 // STATUS: equivalent (tools/equiv.py level 3: 21 inputs, branch coverage 12/12)
 // FUN_00225f30 @ 0x00225f30
-struct Ref { virtual void FUN_ref0(); };
-struct Inner { char pad[0x10]; unsigned count; };
-struct Pair { unsigned a, b; };
-struct Entry {
-    Ref *obj;
-    Pair pairs[64];
+struct Ref_225f30 { virtual void FUN_ref0(); };
+struct Inner_225f30 { char pad[0x10]; unsigned count; };
+struct Pair_225f30 { unsigned a, b; };
+struct Entry_225f30 {
+    Ref_225f30 *obj;
+    Pair_225f30 pairs[64];
     unsigned tail;
 };
-struct Vec3 { unsigned x, y, z; };
-struct Obj {
+struct Vec3_225f30 { unsigned x, y, z; };
+struct Obj_225f30 {
     char pad0[0x10];
-    Inner *inner;
+    Inner_225f30 *inner;
     char pad1[0x28 - 0x14];
     unsigned w, h, n;
-    Entry entries[9];
-    Pair grid[1];
+    Entry_225f30 entries[9];
+    Pair_225f30 grid[1];
     char pad3[0x12dc - 0x127c - 8];
     unsigned char b0, b1;
     char pad4[2];
     unsigned f12e0, f12e4, f12e8, f12ec;
-    Vec3 v0, v1, v2, v3;
+    Vec3_225f30 v0, v1, v2, v3;
     unsigned f1320, f1324, f1328;
-    void FUN_0022a9e0(Obj *src);
-    Obj *FUN_00225f30(Obj *src);
+    void FUN_0022a9e0(Obj_225f30 *src);
+    Obj_225f30 *FUN_00225f30(Obj_225f30 *src);
 };
-Obj *Obj::FUN_00225f30(Obj *src)
+Obj_225f30 *Obj_225f30::FUN_00225f30(Obj_225f30 *src)
 {
     FUN_0022a9e0(src);
     w = src->w;
     h = src->h;
     n = src->n;
     unsigned cnt = inner->count;
-    Entry *d = entries;
-    Entry *s = src->entries;
+    Entry_225f30 *d = entries;
+    Entry_225f30 *s = src->entries;
     for (unsigned i = 0; i < n; i++) {
         d->obj = s->obj;
         d->obj->FUN_ref0();

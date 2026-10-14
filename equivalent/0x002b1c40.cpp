@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 160 inputs, branch coverage 29/30, incomplete)
 // pure3d::MultiController::vfunc_20 @ 0x002b1c40
-struct Controller {
+struct Controller_2b1c40 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -35,7 +35,7 @@ struct MultiController {
     int mode;
     char pad2[0x4];
     unsigned numChildren;
-    Controller **children;
+    Controller_2b1c40 **children;
 
     virtual float vfunc_20();
 };

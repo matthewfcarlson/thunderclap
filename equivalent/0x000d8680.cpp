@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 34/34)
 // FEMemCardControl::vfunc_5 @ 0x000d8680
-struct Metrics { int dummy; };
+struct Metrics_d8680 { int dummy; };
 
-class Fonts {
+class Fonts_d8680 {
 public:
     virtual void v0();
     virtual void v1();
@@ -48,21 +48,21 @@ public:
     virtual void v41();
     virtual void v42();
     virtual void v43();
-    virtual Metrics *v44();
+    virtual Metrics_d8680 *v44();
 };
 
-struct Hold {
+struct Hold_d8680 {
     char pad0[4];
-    Fonts *fonts;
+    Fonts_d8680 *fonts;
 };
 
-class Owner {
+class Owner_d8680 {
 public:
     char pad0[8];
-    Hold *hold;
+    Hold_d8680 *hold;
 };
 
-class Provider {
+class Provider_d8680 {
 public:
     virtual void v0();
     virtual void v1();
@@ -83,68 +83,68 @@ public:
     virtual void v16(int a);
 };
 
-struct ProviderRef {
-    Provider *provider;
+struct ProviderRef_d8680 {
+    Provider_d8680 *provider;
     void FUN_00293d00(void *state);
 };
 
-struct Player {
+struct Player_d8680 {
     char pad0[0x9a8];
     char busy;
 };
 
-class Game {
+class Game_d8680 {
 public:
     char pad0[0x2218];
-    Player *player;
+    Player_d8680 *player;
 };
 
-Game *FUN_000fc3d0();
+Game_d8680 *FUN_000fc3d0();
 
-struct Entry {
+struct Entry_d8680 {
     int a;
     int b;
     float scale;
 };
 
-struct Slot {
+struct Slot_d8680 {
     float weight;
     int a;
     int b;
     int value;
 };
 
-struct SlotStack {
-    Slot slots[8];
+struct SlotStack_d8680 {
+    Slot_d8680 slots[8];
     int index;
     float scale;
     void FUN_000f78f0();
 };
 
-struct Layout {
-    Metrics *font;
+struct Layout_d8680 {
+    Metrics_d8680 *font;
     int current;
-    SlotStack stack;
-    Layout *FUN_000f7fe0(Metrics *font);
-    void FUN_000f87f0(Entry *e, void *arg);
+    SlotStack_d8680 stack;
+    Layout_d8680 *FUN_000f7fe0(Metrics_d8680 *font);
+    void FUN_000f87f0(Entry_d8680 *e, void *arg);
     void FUN_000f78e0();
 };
 
-struct Item {
-    Entry entry;
-    char pad[0x38 - sizeof(Entry)];
+struct Item_d8680 {
+    Entry_d8680 entry;
+    char pad[0x38 - sizeof(Entry_d8680)];
 };
 
-struct Rec {
-    Entry entry;
-    char pad0c[0x30 - sizeof(Entry)];
+struct Rec_d8680 {
+    Entry_d8680 entry;
+    char pad0c[0x30 - sizeof(Entry_d8680)];
     char hasEntry;
     char pad31[7];
     char selected;
     char pad39[3];
 };
 
-extern ProviderRef *DAT_0052c2ac;
+extern ProviderRef_d8680 *DAT_0052c2ac;
 extern unsigned int DAT_004a0cfc;
 extern unsigned int DAT_004a0d00;
 extern unsigned int DAT_004a0d08;
@@ -161,7 +161,7 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     char pad04[0x14 - 4];
-    Owner *owner;
+    Owner_d8680 *owner;
     char pad18[0x154 - 0x18];
     char state154[0x178 - 0x154];
     char cells[5][12];
@@ -169,9 +169,9 @@ public:
     int sel;
     int sel2;
     char pad1d8[0x220 - 0x1d8];
-    Rec recs[5];
+    Rec_d8680 recs[5];
     char pad34c[0x35c - (0x220 + 5 * 0x3c)];
-    Item items[1];
+    Item_d8680 items[1];
     char pad394[0x3a8 - (0x35c + 0x38)];
     char flag3a8;
     char pad3a9[0x3ac - 0x3a9];
@@ -188,8 +188,8 @@ public:
 
 void FEMemCardControl::vfunc_5()
 {
-    Layout layout;
-    SlotStack *st = &layout.stack;
+    Layout_d8680 layout;
+    SlotStack_d8680 *st = &layout.stack;
 
     layout.FUN_000f7fe0(owner->hold->fonts->v44());
     st->slots[st->index].value = DAT_004a0cfc;
@@ -199,7 +199,7 @@ void FEMemCardControl::vfunc_5()
     }
     st->slots[st->index].b = 2;
 
-    Player *pl = FUN_000fc3d0()->player;
+    Player_d8680 *pl = FUN_000fc3d0()->player;
     if ((pl == 0 || !pl->busy) && mode != 0x20 && (mode == 3 || mode == 5 || mode == 4 || mode == 7)) {
         st->slots[st->index].a = 1;
         DAT_0052c2ac->provider->v15(0);
@@ -230,11 +230,11 @@ void FEMemCardControl::vfunc_5()
             }
             DAT_0052c2ac->provider->v15(0);
             DAT_0052c2ac->FUN_00293d00(cell);
-            Entry *e;
+            Entry_d8680 *e;
             if (!recs[i].hasEntry) {
                 if (!flag3a8)
                     st->slots[st->index].value = DAT_004a0d0c;
-                e = (Entry *)((char *)items + 0x28);
+                e = (Entry_d8680 *)((char *)items + 0x28);
             } else {
                 e = &recs[i].entry;
             }

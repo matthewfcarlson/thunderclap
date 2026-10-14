@@ -9,27 +9,27 @@ namespace pure3d {
 class ParticleSystem;
 }
 
-class Emitter {
+class Emitter_2a3d90 {
 public:
     virtual void AddRef();
     virtual void Release();
     virtual void v2();
     virtual void v3();
-    virtual Emitter *Clone();
+    virtual Emitter_2a3d90 *Clone();
     virtual void Attach(pure3d::ParticleSystem *owner);
 };
 
 namespace pure3d {
 
-class __declspec(novtable) DrawableContainerBase {
+class __declspec(novtable) DrawableContainerBase_2a3d90 {
 public:
     virtual void v0();
     char pad04[0x54];
     void FUN_002a4e40(const ParticleSystem *src);
-    DrawableContainerBase(const ParticleSystem *src) { FUN_002a4e40(src); }
+    DrawableContainerBase_2a3d90(const ParticleSystem *src) { FUN_002a4e40(src); }
 };
 
-class ParticleSystem : public DrawableContainerBase {
+class ParticleSystem : public DrawableContainerBase_2a3d90 {
 public:
     virtual void v0();
     unsigned char flag58;
@@ -37,12 +37,12 @@ public:
     int f5c;
     int f60;
     Matrix transform;
-    Emitter *emitter;
+    Emitter_2a3d90 *emitter;
     int fa8;
     ParticleSystem(const ParticleSystem *src);
 };
 
-ParticleSystem::ParticleSystem(const ParticleSystem *src) : DrawableContainerBase(src)
+ParticleSystem::ParticleSystem(const ParticleSystem *src) : DrawableContainerBase_2a3d90(src)
 {
     flag58 = src->flag58;
     f5c = src->f5c;
@@ -51,7 +51,7 @@ ParticleSystem::ParticleSystem(const ParticleSystem *src) : DrawableContainerBas
     fa8 = 0;
     transform.FUN_0022b980();
     if (src->emitter != 0) {
-        Emitter *copy = src->emitter->Clone();
+        Emitter_2a3d90 *copy = src->emitter->Clone();
         if (copy != 0)
             copy->AddRef();
         if (emitter != 0)

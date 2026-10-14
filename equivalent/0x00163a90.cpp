@@ -25,13 +25,13 @@ struct Animation {
     int dummy;
 };
 
-struct Id64 {
+struct Id64_163a90 {
     unsigned int lo;
     unsigned int hi;
     void FUN_0027af70(unsigned int *src);
 };
 
-struct Key {
+struct Key_163a90 {
     unsigned int lo;
     unsigned int hi;
 };
@@ -42,7 +42,7 @@ public:
     virtual void AddRef();
     virtual void Release();
     char pad04[4];
-    Id64 id;                // 0x08
+    Id64_163a90 id;                // 0x08
 };
 
 class StrafeDriver : public Driver {
@@ -51,7 +51,7 @@ public:
 };
 }
 
-class Factory {
+class Factory_163a90 {
 public:
     virtual void f0();
     virtual void f1();
@@ -59,14 +59,14 @@ public:
     virtual Animation *f3(void *caster, unsigned int lo, unsigned int hi);
 };
 
-struct Holder44 { Factory *FUN_00203d70(); };
-struct Holder28 { Holder44 *FUN_000862a0(); };
-struct Manager { char pad0[0x54]; Holder28 *holder; };
-extern Manager *DAT_004dd700;
+struct Holder44_163a90 { Factory_163a90 *FUN_00203d70(); };
+struct Holder28_163a90 { Holder44_163a90 *FUN_000862a0(); };
+struct Manager_163a90 { char pad0[0x54]; Holder28_163a90 *holder; };
+extern Manager_163a90 *DAT_004dd700;
 
 void *thunk_FUN_0008d690(unsigned int size);
 
-class StrafeData {
+class StrafeData_163a90 {
 public:
     virtual void v0();
     virtual void v1();
@@ -86,28 +86,28 @@ public:
     unsigned int f30;
     char pad34[4];
     unsigned int key38[2];      // 0x38
-    Key kA;                     // 0x40
-    Key kB;                     // 0x50
-    Key kE;                     // 0x50
-    Key kD;                     // 0x58
-    Key kC;                     // 0x60
-    Key kF;                     // 0x68
-    Key kI;                     // 0x70
-    Key kH;                     // 0x78
-    Key kG;                     // 0x80
-    Id64 f88;                   // 0x88
+    Key_163a90 kA;                     // 0x40
+    Key_163a90 kB;                     // 0x50
+    Key_163a90 kE;                     // 0x50
+    Key_163a90 kD;                     // 0x58
+    Key_163a90 kC;                     // 0x60
+    Key_163a90 kF;                     // 0x68
+    Key_163a90 kI;                     // 0x70
+    Key_163a90 kH;                     // 0x78
+    Key_163a90 kG;                     // 0x80
+    Id64_163a90 f88;                   // 0x88
     unsigned int f90;
     unsigned int f94;
     unsigned int f98;
 };
 
-union SlotF {
+union SlotF_163a90 {
     float *out;
     Animation *anim;
     char caster[4];
 };
 
-union SlotU {
+union SlotU_163a90 {
     unsigned int *out;
     Animation *anim;
     char caster[4];
@@ -126,16 +126,16 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     virtual void vfunc_6();
-    virtual void vfunc_7(void *rig, SlotF o2, SlotU o3, SlotU o4, SlotU o5, SlotU o6, SlotU o7, SlotU o8,
-                         unsigned int *o9, Id64 *o10, unsigned int *o11, unsigned int *o12, unsigned int *o13);
+    virtual void vfunc_7(void *rig, SlotF_163a90 o2, SlotU_163a90 o3, SlotU_163a90 o4, SlotU_163a90 o5, SlotU_163a90 o6, SlotU_163a90 o7, SlotU_163a90 o8,
+                         unsigned int *o9, Id64_163a90 *o10, unsigned int *o11, unsigned int *o12, unsigned int *o13);
     char pad04[0x1c];
     choreo2::Driver *driver;    // 0x20
     char pad24[0x20];
-    StrafeData *data;            // 0x44
+    StrafeData_163a90 *data;            // 0x44
 };
 
-void LocomotionStrafe4Action::vfunc_7(void *rig, SlotF o2, SlotU o3, SlotU o4, SlotU o5, SlotU o6,
-                                     SlotU o7, SlotU o8, unsigned int *o9, Id64 *o10, unsigned int *o11,
+void LocomotionStrafe4Action::vfunc_7(void *rig, SlotF_163a90 o2, SlotU_163a90 o3, SlotU_163a90 o4, SlotU_163a90 o5, SlotU_163a90 o6,
+                                     SlotU_163a90 o7, SlotU_163a90 o8, unsigned int *o9, Id64_163a90 *o10, unsigned int *o11,
                                      unsigned int *o12, unsigned int *o13)
 {
     unsigned int desc[12];
@@ -169,7 +169,7 @@ void LocomotionStrafe4Action::vfunc_7(void *rig, SlotF o2, SlotU o3, SlotU o4, S
     if ((lo | hi) == 0) {
         o7.anim = 0;
     } else {
-        Factory *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+        Factory_163a90 *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
         content::LoadInventory::DynamicCaster<pure3d::Animation> *c =
             new (o2.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>;
         o7.anim = fac->f3(c, lo, hi);
@@ -179,7 +179,7 @@ void LocomotionStrafe4Action::vfunc_7(void *rig, SlotF o2, SlotU o3, SlotU o4, S
     if ((lo | hi) == 0) {
         o2.anim = 0;
     } else {
-        Factory *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+        Factory_163a90 *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
         content::LoadInventory::DynamicCaster<pure3d::Animation> *c =
             new (o2.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>;
         o2.anim = fac->f3(c, lo, hi);
@@ -189,7 +189,7 @@ void LocomotionStrafe4Action::vfunc_7(void *rig, SlotF o2, SlotU o3, SlotU o4, S
     if ((lo | hi) == 0) {
         o3.anim = 0;
     } else {
-        Factory *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+        Factory_163a90 *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
         content::LoadInventory::DynamicCaster<pure3d::Animation> *c =
             new (o3.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>;
         o3.anim = fac->f3(c, lo, hi);
@@ -199,7 +199,7 @@ void LocomotionStrafe4Action::vfunc_7(void *rig, SlotF o2, SlotU o3, SlotU o4, S
     if ((lo | hi) == 0) {
         o4.anim = 0;
     } else {
-        Factory *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+        Factory_163a90 *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
         content::LoadInventory::DynamicCaster<pure3d::Animation> *c =
             new (o4.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>;
         o4.anim = fac->f3(c, lo, hi);
@@ -209,7 +209,7 @@ void LocomotionStrafe4Action::vfunc_7(void *rig, SlotF o2, SlotU o3, SlotU o4, S
     if ((lo | hi) == 0) {
         o5.anim = 0;
     } else {
-        Factory *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+        Factory_163a90 *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
         content::LoadInventory::DynamicCaster<pure3d::Animation> *c =
             new (o5.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>;
         o5.anim = fac->f3(c, lo, hi);
@@ -219,7 +219,7 @@ void LocomotionStrafe4Action::vfunc_7(void *rig, SlotF o2, SlotU o3, SlotU o4, S
     if ((lo | hi) == 0) {
         aF = 0;
     } else {
-        Factory *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+        Factory_163a90 *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
         content::LoadInventory::DynamicCaster<pure3d::Animation> *c =
             new (o6.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>;
         aF = fac->f3(c, lo, hi);
@@ -229,7 +229,7 @@ void LocomotionStrafe4Action::vfunc_7(void *rig, SlotF o2, SlotU o3, SlotU o4, S
     if ((lo | hi) == 0) {
         aG = 0;
     } else {
-        Factory *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+        Factory_163a90 *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
         content::LoadInventory::DynamicCaster<pure3d::Animation> *c =
             new (o6.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>;
         aG = fac->f3(c, lo, hi);
@@ -239,7 +239,7 @@ void LocomotionStrafe4Action::vfunc_7(void *rig, SlotF o2, SlotU o3, SlotU o4, S
     if ((lo | hi) == 0) {
         aH = 0;
     } else {
-        Factory *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+        Factory_163a90 *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
         content::LoadInventory::DynamicCaster<pure3d::Animation> *c =
             new (o6.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>;
         aH = fac->f3(c, lo, hi);
@@ -249,7 +249,7 @@ void LocomotionStrafe4Action::vfunc_7(void *rig, SlotF o2, SlotU o3, SlotU o4, S
     if ((lo | hi) == 0) {
         aI = 0;
     } else {
-        Factory *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+        Factory_163a90 *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
         content::LoadInventory::DynamicCaster<pure3d::Animation> *c =
             new (o6.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>;
         aI = fac->f3(c, lo, hi);

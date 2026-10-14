@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 23/24, incomplete)
 // CGrappleCharacterTemplateCondition::vfunc_7 @ 0x0004a160
-struct Fighter {
+struct Fighter_4a160 {
     char pad[4];
 };
-Fighter *__fastcall FUN_000592a0(void *owner);
+Fighter_4a160 *__fastcall FUN_000592a0(void *owner);
 
-struct Unit {
+struct Unit_4a160 {
     char pad00[0x11c];
-    struct Ids *ids;
+    struct Ids_4a160 *ids;
 };
 
-struct Ids {
+struct Ids_4a160 {
     unsigned __int64 FUN_000443c0();
 };
 
-struct Stats {
+struct Stats_4a160 {
     char pad00[0x330];
-    Unit *a330;
-    Unit *a334;
-    Unit *a338;
+    Unit_4a160 *a330;
+    Unit_4a160 *a334;
+    Unit_4a160 *a338;
 };
-Stats *__fastcall FUN_00059a30(Fighter *f);
+Stats_4a160 *__fastcall FUN_00059a30(Fighter_4a160 *f);
 
 class CGrappleCharacterTemplateCondition {
 public:
@@ -36,8 +36,8 @@ bool CGrappleCharacterTemplateCondition::vfunc_7(void *owner)
 {
     if (owner == 0)
         return false;
-    Stats *stats = FUN_00059a30(FUN_000592a0(owner));
-    Unit *unit = stats->a334;
+    Stats_4a160 *stats = FUN_00059a30(FUN_000592a0(owner));
+    Unit_4a160 *unit = stats->a334;
     if (unit == 0) {
         unit = stats->a330;
         if (unit == 0) {

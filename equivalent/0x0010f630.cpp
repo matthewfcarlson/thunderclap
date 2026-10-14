@@ -2,7 +2,7 @@
 // hulkfight::ai::KeyWordWaitCondition::vfunc_6 @ 0x0010f630
 extern "C" int atexit(void (*)());
 
-struct Key {
+struct Key_10f630 {
     unsigned lo;
     unsigned hi;
     void FUN_0027af00();
@@ -10,15 +10,15 @@ struct Key {
 };
 
 extern unsigned DAT_004e0c20;
-extern Key DAT_004e0c18;
+extern Key_10f630 DAT_004e0c18;
 void FUN_00363ef0();
 
-struct Fighter {
+struct Fighter_10f630 {
     float FUN_00037290(unsigned lo, unsigned hi);
 };
 
-struct Holder {
-    Fighter *FUN_00059a30();
+struct Holder_10f630 {
+    Fighter_10f630 *FUN_00059a30();
 };
 
 namespace fight {
@@ -26,7 +26,7 @@ class Params {
   public:
     virtual void v0();
     virtual void v1();
-    Holder *FUN_000592a0();
+    Holder_10f630 *FUN_000592a0();
 };
 }
 
@@ -50,7 +50,7 @@ bool KeyWordWaitCondition::FUN_0010f630(int a1, fight::Params *params, int a3)
     if (dynamic_cast<CFightParams *>(params) == 0)
         return false;
 
-    Fighter *fighter = params->FUN_000592a0()->FUN_00059a30();
+    Fighter_10f630 *fighter = params->FUN_000592a0()->FUN_00059a30();
     if (fighter == 0)
         return false;
 

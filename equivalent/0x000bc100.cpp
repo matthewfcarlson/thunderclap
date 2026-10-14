@@ -4,18 +4,18 @@ extern "C" void __cdecl FUN_000fc130(const void *arg);
 extern "C" void __cdecl FUN_0008d340(void *p);
 extern "C" void __cdecl FUN_000fc160();
 
-class Scene {
+class Scene_bc100 {
 public:
     void FUN_000f7ce0();
 };
 
-class Resource {
+class Resource_bc100 {
 public:
     void FUN_001bf860(int flag);
     void FUN_001bdf00();
 };
 
-class Hook {
+class Hook_bc100 {
 public:
     virtual void vf0();
     virtual void vf1();
@@ -85,45 +85,45 @@ public:
     virtual void vf65();
 };
 
-class Pool {
+class Pool_bc100 {
 public:
     void FUN_002665a0();
 };
 
-class Display {
+class Display_bc100 {
 public:
     void FUN_00294980(int arg);
 };
 
-struct Flag {
+struct Flag_bc100 {
     char pad0[4];
     char ready;
 };
 
-extern "C" Scene *__cdecl FUN_000fc1b0();
-extern "C" Hook *__cdecl FUN_000fc3d0();
-extern "C" Flag *__cdecl FUN_0008e090();
+extern "C" Scene_bc100 *__cdecl FUN_000fc1b0();
+extern "C" Hook_bc100 *__cdecl FUN_000fc3d0();
+extern "C" Flag_bc100 *__cdecl FUN_0008e090();
 extern "C" const void *DAT_0049f3ac;
-extern Pool *DAT_004dd9cc;
+extern Pool_bc100 *DAT_004dd9cc;
 
-class Loader {
+class Loader_bc100 {
 public:
     void FUN_000bc100();
 
     char pad0[0x10];
     int state;
     char pad1[0x20 - 0x14];
-    Display *display;
+    Display_bc100 *display;
     int displayArg;
     char active;
     char pad2[0x5c - 0x29];
-    Resource *resource;
+    Resource_bc100 *resource;
     char pad3[0x6c - 0x60];
     void *slotsA[128];
     void *slotsB[128];
 };
 
-void Loader::FUN_000bc100()
+void Loader_bc100::FUN_000bc100()
 {
     active = 0;
     FUN_000fc130(DAT_0049f3ac);
@@ -140,14 +140,14 @@ void Loader::FUN_000bc100()
         slotsB[i] = 0;
     }
     FUN_000fc160();
-    Scene *scene = FUN_000fc1b0();
+    Scene_bc100 *scene = FUN_000fc1b0();
     if (scene)
         scene->FUN_000f7ce0();
     if (resource) {
         resource->FUN_001bf860(1);
         resource->FUN_001bdf00();
     }
-    Hook *hook = FUN_000fc3d0();
+    Hook_bc100 *hook = FUN_000fc3d0();
     if (hook)
         hook->vf65();
     DAT_004dd9cc->FUN_002665a0();

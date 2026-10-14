@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1603 inputs, branch coverage 69/69)
 // FUN_002db320 @ 0x002db320
-struct RowInfo {
+struct RowInfo_2db320 {
     unsigned int width;
     unsigned int rowbytes;
     unsigned char color_type;
@@ -10,7 +10,7 @@ struct RowInfo {
 };
 
 // libpng png_do_gamma
-void __cdecl FUN_002db320(RowInfo *row_info, unsigned char *row, unsigned char *gamma_table,
+void __cdecl FUN_002db320(RowInfo_2db320 *row_info, unsigned char *row, unsigned char *gamma_table,
                           unsigned short **gamma_16_table, int gamma_shift)
 {
     unsigned char *sp;

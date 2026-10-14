@@ -8,17 +8,17 @@ public:
     virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15(); virtual void f16(); virtual void f17(); virtual void f18(); virtual void f19(); virtual void f20(); virtual void f21(); virtual void f22();
 };
 
-struct Item {
+struct Item_b5ca0 {
     char pad0[0x14];
     int value;                       // 0x14
     char pad18[0x24 - 0x18];
 };
 
-struct Entry {
+struct Entry_b5ca0 {
     int enabled;                     // 0
     int id;                          // 4
     char pad8[0x14 - 8];
-    Item *items;                     // 0x14
+    Item_b5ca0 *items;                     // 0x14
     char pad18[0x20 - 0x18];
     int sel;                         // 0x20
     char pad24[0x38 - 0x24];
@@ -27,12 +27,12 @@ struct Entry {
 class TextSelector : public FEObject {
 public:
     char pad_ts[0x168 - 4];
-    Entry entries[127];              // 0x168
+    Entry_b5ca0 entries[127];              // 0x168
     char pad_end[0x1d58 - 0x168 - 127 * 0x38];
     int count;                       // 0x1d58
 };
 
-struct Loc2 {
+struct Loc2_b5ca0 {
     char pad0[0x14];
     int f14;
     char pad18[0x24 - 0x18];
@@ -41,33 +41,33 @@ struct Loc2 {
     void FUN_000f7960();
 };
 
-struct Menu {
+struct Menu_b5ca0 {
     void FUN_00092870(int i, int v);
 };
 
-struct Getter {
+struct Getter_b5ca0 {
     void FUN_00203870(const char *s);
 };
 
-struct Reg {
-    Getter *FUN_000862a0();
+struct Reg_b5ca0 {
+    Getter_b5ca0 *FUN_000862a0();
 };
 
 struct World {
     char pad0[0x54];
-    Reg *f54;
+    Reg_b5ca0 *f54;
 };
 extern World *DAT_004dd700;
 
 FEObject *__cdecl FUN_000fc260(const char *name);
 
-struct Frame {
+struct Frame_b5ca0 {
     int i;                           // S+0x10
-    Entry *p;                        // 0x14
+    Entry_b5ca0 *p;                        // 0x14
     TextSelector *t;                 // 0x18
-    Loc2 A;                          // 0x1c
-    Loc2 B;                          // 0x40
-    Loc2 C;                          // 0x64
+    Loc2_b5ca0 A;                          // 0x1c
+    Loc2_b5ca0 B;                          // 0x40
+    Loc2_b5ca0 C;                          // 0x64
 };
 
 #define CHEAT(NAME, KEY, K) \
@@ -82,16 +82,16 @@ struct Frame {
     if (id == f.A.f14) \
         f4c->FUN_00092870(IDX, cur == on);
 
-class Env {
+class Env_b5ca0 {
 public:
     char pad0[0x4c];
-    Menu *f4c;
+    Menu_b5ca0 *f4c;
     void FUN_000b5ca0();
 };
 
-void Env::FUN_000b5ca0()
+void Env_b5ca0::FUN_000b5ca0()
 {
-    Frame f;
+    Frame_b5ca0 f;
     f.t = dynamic_cast<TextSelector *>(FUN_000fc260("unlocked_cheats"));
     if (f.t == 0)
         return;

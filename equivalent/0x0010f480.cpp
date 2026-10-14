@@ -2,29 +2,29 @@
 // hulkfight::ai::AIHistoryNameCondition::vfunc_6 @ 0x0010f480
 extern "C" int atexit(void (*)());
 
-struct Key {
+struct Key_10f480 {
     unsigned lo;
     unsigned hi;
     void FUN_0027af00();
-    void FUN_0027af70(Key *src);
+    void FUN_0027af70(Key_10f480 *src);
     void FUN_0027b040(int word);
-    char FUN_0027af90(Key *other);
+    char FUN_0027af90(Key_10f480 *other);
 };
 
 extern unsigned DAT_004e0c10;
-extern Key DAT_004e0c08;
-extern Key DAT_004e0c00;
+extern Key_10f480 DAT_004e0c08;
+extern Key_10f480 DAT_004e0c00;
 void FUN_00363ee0();
 void FUN_00363ed0();
 
-struct Fighter {
+struct Fighter_10f480 {
     char pad0[0x1b98];
-    Key history;             // 0x1b98
+    Key_10f480 history;             // 0x1b98
     int count;               // 0x1ba0
 };
 
-struct Holder {
-    Fighter *FUN_00059a30();
+struct Holder_10f480 {
+    Fighter_10f480 *FUN_00059a30();
 };
 
 namespace fight {
@@ -32,7 +32,7 @@ class Params {
   public:
     virtual void v0();
     virtual void v1();
-    Holder *FUN_000592a0();
+    Holder_10f480 *FUN_000592a0();
 };
 }
 
@@ -56,7 +56,7 @@ char AIHistoryNameCondition::FUN_0010f480(int a1, fight::Params *params, int a3)
     if (dynamic_cast<CFightParams *>(params) == 0)
         return 0;
 
-    Fighter *fighter = params->FUN_000592a0()->FUN_00059a30();
+    Fighter_10f480 *fighter = params->FUN_000592a0()->FUN_00059a30();
     if (fighter == 0)
         return 0;
 
@@ -76,7 +76,7 @@ char AIHistoryNameCondition::FUN_0010f480(int a1, fight::Params *params, int a3)
 
     int limit = (int)threshold;
     int count = fighter->count;
-    Key *hist = &fighter->history;
+    Key_10f480 *hist = &fighter->history;
 
     if (limit < 0) {
         if (mode == 3)

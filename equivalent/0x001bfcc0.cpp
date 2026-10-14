@@ -8,9 +8,9 @@ static float Abs(float v)
     return x.f;
 }
 
-struct Clock { float FUN_00085f80(); };
-struct Globals { char pad0[0x58]; Clock *clock; };
-extern Globals *DAT_004dd700;
+struct Clock_1bfcc0 { float FUN_00085f80(); };
+struct Globals_1bfcc0 { char pad0[0x58]; Clock_1bfcc0 *clock; };
+extern Globals_1bfcc0 *DAT_004dd700;
 
 class Overlay {
 public:

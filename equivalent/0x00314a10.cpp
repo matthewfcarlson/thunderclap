@@ -2,23 +2,23 @@
 // FUN_00314a10 @ 0x00314a10
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_314a10 {
     float x, y, z;
-    void FUN_000111b0(const V3* a, const V3* b);
+    void FUN_000111b0(const V3_314a10* a, const V3_314a10* b);
     float FUN_0022d110();
-    void FUN_001f6bc0(const V3* base, float scale, const V3* dir);
+    void FUN_001f6bc0(const V3_314a10* base, float scale, const V3_314a10* dir);
 };
 
 struct Capsule {
     char pad00[0xc];
     float inner;
     float radius;
-    int FUN_00314a10(const V3* a1, const V3* a2, const V3* axis, float f4, float f5, char flag, V3* out, V3* out2);
+    int FUN_00314a10(const V3_314a10* a1, const V3_314a10* a2, const V3_314a10* axis, float f4, float f5, char flag, V3_314a10* out, V3_314a10* out2);
 };
 
-int Capsule::FUN_00314a10(const V3* a1, const V3* a2, const V3* axis, float f4, float f5, char flag, V3* out, V3* out2)
+int Capsule::FUN_00314a10(const V3_314a10* a1, const V3_314a10* a2, const V3_314a10* axis, float f4, float f5, char flag, V3_314a10* out, V3_314a10* out2)
 {
-    V3 d;
+    V3_314a10 d;
     d.x = a2->x - a1->x;
     d.y = a2->y - a1->y;
     d.z = a2->z - a1->z;
@@ -44,7 +44,7 @@ int Capsule::FUN_00314a10(const V3* a1, const V3* a2, const V3* axis, float f4, 
         return 1;
     if (v <= inner * inner)
         return 1;
-    V3 c;
+    V3_314a10 c;
     c.FUN_000111b0(&d, axis);
     c.FUN_0022d110();
     if (v < 0.0f)

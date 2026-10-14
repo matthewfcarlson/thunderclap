@@ -5,14 +5,14 @@ void __cdecl thunk_FUN_00267090(void *p);
 void *__cdecl FUN_0008d750(int size, int align);
 int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 
-class StringTable {
+class StringTable_b1020 {
 public:
     int count;
     char (*data)[32];
     void FUN_000b1020(int n);
 };
 
-void StringTable::FUN_000b1020(int n)
+void StringTable_b1020::FUN_000b1020(int n)
 {
     if (count == n)
         return;

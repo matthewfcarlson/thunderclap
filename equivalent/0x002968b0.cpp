@@ -6,7 +6,7 @@ struct Matrix {
     void FUN_0022ca90(Matrix* a, Matrix* b);
 };
 
-struct Part {
+struct Part_2968b0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -19,7 +19,7 @@ struct Part {
     char FUN_00284ae0();
 };
 
-struct Device {
+struct Device_2968b0 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -30,7 +30,7 @@ struct Device {
 };
 
 struct Context {
-    Device* device;
+    Device_2968b0* device;
 };
 extern Context* DAT_0052c2ac;
 
@@ -48,7 +48,7 @@ public:
     char pad04[0xc];
     unsigned char flags;
     char pad11[0x97];
-    Part* part;
+    Part_2968b0* part;
 };
 
 class TransformNode : public BranchNode {

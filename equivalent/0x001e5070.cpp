@@ -1,24 +1,24 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_001e5070 @ 0x001e5070
 // FUN_001e5070 @ 0x001e5070: same as 0x001e5110 with the trailing flag set
-struct Settings {
+struct Settings_1e5070 {
     int FUN_00088fa0();
     int FUN_00088fb0();
 };
-struct Config {
+struct Config_1e5070 {
     char pad00[0x80];
-    Settings settings;
+    Settings_1e5070 settings;
 };
-struct Manager {
-    Config *FUN_00086310();
+struct Manager_1e5070 {
+    Config_1e5070 *FUN_00086310();
 };
-struct Global {
+struct Global_1e5070 {
     char pad00[0x54];
-    Manager *manager;
+    Manager_1e5070 *manager;
 };
-extern Global *DAT_004dd700;
+extern Global_1e5070 *DAT_004dd700;
 
-struct Triple {
+struct Triple_1e5070 {
     unsigned a;
     unsigned b;
     unsigned c;
@@ -26,13 +26,13 @@ struct Triple {
 
 void *__cdecl FUN_001d68e0(unsigned kind);
 
-class Emitter {
+class Emitter_1e5070 {
 public:
-    void FUN_001e4c40(void *entry, Triple *v, unsigned kind, unsigned w, unsigned x, unsigned y);
+    void FUN_001e4c40(void *entry, Triple_1e5070 *v, unsigned kind, unsigned w, unsigned x, unsigned y);
     void FUN_001e5070(unsigned kind, unsigned a, unsigned b, unsigned c, unsigned w);
 };
 
-void Emitter::FUN_001e5070(unsigned kind, unsigned a, unsigned b, unsigned c, unsigned w)
+void Emitter_1e5070::FUN_001e5070(unsigned kind, unsigned a, unsigned b, unsigned c, unsigned w)
 {
     int flag = DAT_004dd700->manager->FUN_00086310()->settings.FUN_00088fa0();
     int mode = DAT_004dd700->manager->FUN_00086310()->settings.FUN_00088fb0();
@@ -41,7 +41,7 @@ void Emitter::FUN_001e5070(unsigned kind, unsigned a, unsigned b, unsigned c, un
             return;
     }
     void *entry = FUN_001d68e0(kind);
-    Triple v;
+    Triple_1e5070 v;
     v.a = a;
     v.b = b;
     v.c = c;

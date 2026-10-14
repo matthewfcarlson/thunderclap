@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_000d5440 @ 0x000d5440
-class Gauge {
+class Gauge_d5440 {
 public:
     char pad000[0x22c];
     float level0;           // 0x22c
@@ -19,7 +19,7 @@ public:
     void FUN_000d5440();
 };
 
-void Gauge::FUN_000d5440()
+void Gauge_d5440::FUN_000d5440()
 {
     if (enabled0 && hold0 == 0) {
         double v = (0.15f + rate0) + 0.1f;

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 34/34)
 // FUN_00242860 @ 0x00242860
-struct Source {
+struct Source_242860 {
     char pad0[0x18];
     float f18;
     float f1c;
@@ -8,46 +8,46 @@ struct Source {
     unsigned char disabled;
 };
 
-struct Modifier {
+struct Modifier_242860 {
     char pad0[0x2c];
     float f2c;
     float f30;
 };
 
-struct Link;
+struct Link_242860;
 
-struct Entry {
+struct Entry_242860 {
     char pad0[8];
-    Link *next;
+    Link_242860 *next;
     char padC[4];
-    Source *source;
-    Modifier *modifier;
+    Source_242860 *source;
+    Modifier_242860 *modifier;
 };
 
-struct Link {
-    Entry *entry() { return (Entry *)((char *)this - 8); }
+struct Link_242860 {
+    Entry_242860 *entry() { return (Entry_242860 *)((char *)this - 8); }
 };
 
-struct TreeNode {
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode *parent;
+struct TreeNode_242860 {
+    TreeNode_242860 *left;
+    TreeNode_242860 *right;
+    TreeNode_242860 *parent;
     char padC[4];
-    Link *links;
+    Link_242860 *links;
     char pad14[0x20 - 0x14];
     float product0;
     float product1;
 };
 
-struct Tree {
-    TreeNode *root;
-    TreeNode nil;
+struct Tree_242860 {
+    TreeNode_242860 *root;
+    TreeNode_242860 nil;
 };
 
-void FUN_00242860(Tree *tree)
+void FUN_00242860(Tree_242860 *tree)
 {
-    TreeNode *nil = &tree->nil;
-    TreeNode *node = tree->root;
+    TreeNode_242860 *nil = &tree->nil;
+    TreeNode_242860 *node = tree->root;
     if (node == nil)
         return;
     while (node->left != nil)
@@ -58,10 +58,10 @@ void FUN_00242860(Tree *tree)
         float b = 1.0f;
 
         if (node->links != 0) {
-            Entry *e = node->links->entry();
+            Entry_242860 *e = node->links->entry();
             while (e != 0) {
-                Source *src = e->source;
-                Modifier *mod = e->modifier;
+                Source_242860 *src = e->source;
+                Modifier_242860 *mod = e->modifier;
                 if (src->f1c >= 1.0f) {
                     b = b * ((src->f1c - 1.0f) * mod->f2c + 1.0f);
                 } else {
@@ -80,9 +80,9 @@ void FUN_00242860(Tree *tree)
         node->product0 = a;
         node->product1 = b;
 
-        TreeNode *s = node->right;
+        TreeNode_242860 *s = node->right;
         if (s == nil) {
-            TreeNode *child = node;
+            TreeNode_242860 *child = node;
             s = node->parent;
             while (s != nil && child == s->right) {
                 child = s;

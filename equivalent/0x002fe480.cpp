@@ -2,7 +2,7 @@
 // FUN_002fe480 @ 0x002fe480
 extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 
-struct Source {
+struct Source_2fe480 {
     char pad0[0x18];
     int value;                // 0x18
 };
@@ -23,7 +23,7 @@ struct Channel {
     char muted;               // 0x19
 };
 
-struct Item {
+struct Item_2fe480 {
     char pad0[0x20];
     Channel *channel;         // 0x20
     char pad24[0x50 - 0x24];
@@ -49,23 +49,23 @@ public:
     virtual void v10();
     virtual void v11();
     virtual void v12();
-    virtual void v13(Source *src);
-    virtual void v14(Item *item);
+    virtual void v13(Source_2fe480 *src);
+    virtual void v14(Item_2fe480 *item);
     char pad[0x8c - 8];
     Entity *FUN_002fe3a0(int a, int b);
 };
 
-class Owner {
+class Owner_2fe480 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual Item *v5(Entity *e);
+    virtual Item_2fe480 *v5(Entity *e);
 };
 
-class Provider {
+class Provider_2fe480 {
 public:
     virtual void v0();
     virtual void v1();
@@ -95,10 +95,10 @@ public:
     virtual void v25();
     virtual void v26();
     virtual void v27();
-    virtual Source *v28(Entity *e);
+    virtual Source_2fe480 *v28(Entity *e);
 };
 
-Entity *__cdecl FUN_002fe480(int a, Owner *owner, Provider *provider)
+Entity *__cdecl FUN_002fe480(int a, Owner_2fe480 *owner, Provider_2fe480 *provider)
 {
     Entity *mem = (Entity *)FUN_0008d690(0x8c);
     Entity *e = 0;
@@ -106,13 +106,13 @@ Entity *__cdecl FUN_002fe480(int a, Owner *owner, Provider *provider)
         e = mem->FUN_002fe3a0(a, 0);
     if (e == 0)
         return 0;
-    Source *src = 0;
+    Source_2fe480 *src = 0;
     if (provider) {
         src = provider->v28(e);
         e->v13(src);
     }
     if (owner) {
-        Item *item = owner->v5(e);
+        Item_2fe480 *item = owner->v5(e);
         e->v14(item);
         if (item->active || item->pending)
             item->channel->v10();

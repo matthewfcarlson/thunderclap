@@ -6,7 +6,7 @@ int FUN_000964a0(char *buf, int size, const char *fmt, ...);
 
 struct Item;
 
-struct Label {
+struct Label_bc6a0 {
     void FUN_00089880(int *a, int *b);
     void FUN_000895e0(Item *item);
     void FUN_00089810(const char *name);
@@ -17,17 +17,17 @@ struct Highlight {
     void FUN_00093c40(const char *name);
 };
 
-class Menu {
+class Menu_bc6a0 {
 public:
     char pad0[0x34];
-    Label *label;           // 0x34
+    Label_bc6a0 *label;           // 0x34
     char pad38[0x4c - 0x38];
     Highlight *highlight;   // 0x4c
     Item *FUN_000b4cf0(const char *name);
     void FUN_000bc6a0();
 };
 
-void Menu::FUN_000bc6a0()
+void Menu_bc6a0::FUN_000bc6a0()
 {
     struct Frame {
         int b;

@@ -2,7 +2,7 @@
 // FUN_002aa300 @ 0x002aa300
 void *FUN_0008d690(unsigned int size);
 
-typedef void (*Callback)();
+typedef void (*Callback_2aa300)();
 
 void FUN_002d12c0();
 void FUN_002d12d0();
@@ -32,22 +32,22 @@ void FUN_002d1b00();
 void FUN_002d1bc0();
 void FUN_002d1cc0();
 
-class Emitter {
+class Emitter_2aa300 {
 public:
     char pad0[0x28];
-    Emitter *FUN_002d11f0();
-    void FUN_002d1240(Callback a, Callback b);
-    void FUN_002d1260(Callback a, Callback b);
-    void FUN_002d1280(Callback a, Callback b);
-    void FUN_002d12a0(Callback a, Callback b);
+    Emitter_2aa300 *FUN_002d11f0();
+    void FUN_002d1240(Callback_2aa300 a, Callback_2aa300 b);
+    void FUN_002d1260(Callback_2aa300 a, Callback_2aa300 b);
+    void FUN_002d1280(Callback_2aa300 a, Callback_2aa300 b);
+    void FUN_002d12a0(Callback_2aa300 a, Callback_2aa300 b);
 };
 
-Emitter *FUN_002aa300(unsigned int kind, unsigned int mode, unsigned int format, float a4, float a5)
+Emitter_2aa300 *FUN_002aa300(unsigned int kind, unsigned int mode, unsigned int format, float a4, float a5)
 {
-    Emitter *e = 0;
+    Emitter_2aa300 *e = 0;
     void *mem = FUN_0008d690(0x28);
     if (mem)
-        e = ((Emitter *)mem)->FUN_002d11f0();
+        e = ((Emitter_2aa300 *)mem)->FUN_002d11f0();
 
     if (a4 > 0.0f) {
         if (a5 > 0.0f)

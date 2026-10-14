@@ -5,14 +5,14 @@ struct Win {
     virtual void w48(int v);
 };
 
-struct B {
+struct B_dd040 {
     char pad0[4];
     Win *win;               // 0x4
 };
 
-struct A {
+struct A_dd040 {
     char pad0[8];
-    B *b;                   // 0x8
+    B_dd040 *b;                   // 0x8
 };
 
 class FETextInput {
@@ -37,7 +37,7 @@ public:
     virtual void vfunc_17();
     virtual void vfunc_18();
     char pad04[0x10];
-    A *owner;               // 0x14
+    A_dd040 *owner;               // 0x14
     char pad18[0x74 - 0x18];
     char enabled;           // 0x74
     char pad75[0x150 - 0x75];

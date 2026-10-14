@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 43 inputs, branch coverage 20/20)
 // pure3d::CameraAnimationController::vfunc_28 @ 0x00293450
-struct Vec3 {
+struct Vec3_293450 {
     float x, y, z;
 };
 
@@ -10,21 +10,21 @@ public:
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
-    virtual void vfunc_4(float t, Vec3 *out);
+    virtual void vfunc_4(float t, Vec3_293450 *out);
     void FUN_0028a1c0(float t, float *out);
 };
 
-struct Group {
+struct Group_293450 {
     Channel *FUN_00288960(unsigned __int64 key);
 };
 
-struct Source {
-    Group *FUN_00288a10(int arg);
+struct Source_293450 {
+    Group_293450 *FUN_00288a10(int arg);
 };
 
-struct ClipHead {
+struct ClipHead_293450 {
     char pad[0x2c];
-    Source *FUN_00284f50();
+    Source_293450 *FUN_00284f50();
     float FUN_00284f70();
     float FUN_00284f60();
 };
@@ -41,12 +41,12 @@ public:
     virtual void vfunc_7(float v);
     virtual void vfunc_8();
     virtual int vfunc_9(float v);
-    void FUN_002c33e0(const Vec3 *v);
-    void FUN_002c33b0(const Vec3 *v);
-    void FUN_002c3410(const Vec3 *v);
-    void FUN_00293af0(const Vec3 *v);
-    void FUN_00293a90(const Vec3 *v);
-    void FUN_00293ac0(const Vec3 *v);
+    void FUN_002c33e0(const Vec3_293450 *v);
+    void FUN_002c33b0(const Vec3_293450 *v);
+    void FUN_002c3410(const Vec3_293450 *v);
+    void FUN_00293af0(const Vec3_293450 *v);
+    void FUN_00293a90(const Vec3_293450 *v);
+    void FUN_00293ac0(const Vec3_293450 *v);
 };
 
 void __cdecl FUN_00292f60(float *t);
@@ -55,7 +55,7 @@ class CameraAnimationController {
 public:
     char pad0[0x28];
     unsigned int count;         // 0x28
-    ClipHead clips[5];          // 0x2c
+    ClipHead_293450 clips[5];          // 0x2c
     char pad108[0x110 - 0x108];
     int mode;                   // 0x110
     Camera *camera;             // 0x114
@@ -87,10 +87,10 @@ int CameraAnimationController::FUN_00293450()
             Channel *nclp;
             float out2c;
         };
-        Vec3 tmp;
-        Vec3 U;
-        Vec3 W;
-        Vec3 Z;
+        Vec3_293450 tmp;
+        Vec3_293450 U;
+        Vec3_293450 W;
+        Vec3_293450 Z;
     } fr;
 
     fr.self = this;
@@ -109,10 +109,10 @@ int CameraAnimationController::FUN_00293450()
     fr.i = 0;
 
     if (count != 0) {
-        ClipHead *h = &clips[0];
+        ClipHead_293450 *h = &clips[0];
         do {
-            Source *src = h->FUN_00284f50();
-            Group *grp = src->FUN_00288a10(0);
+            Source_293450 *src = h->FUN_00284f50();
+            Group_293450 *grp = src->FUN_00288a10(0);
             fr.A = h->FUN_00284f70();
             fr.B = h->FUN_00284f60();
             fr.C = 1.0f - fr.B;

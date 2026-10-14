@@ -17,23 +17,23 @@ struct Reader {
     void FUN_00266be0();
 };
 
-struct NameHolder {
+struct NameHolder_2ba8d0 {
     char pad[8];
     void FUN_0027b040(const char *name);
 };
 
-struct Sub40 {
+struct Sub40_2ba8d0 {
     char pad[0x40];
     void FUN_0022ba20(const void *q);
     void FUN_0022be40(const void *v);
 };
 
-struct Obj {
+struct Obj_2ba8d0 {
     char pad0[8];
-    NameHolder nameHolder;      // 0x08
+    NameHolder_2ba8d0 nameHolder;      // 0x08
     char pad10[0x3c - 0x10];
     int f3c;
-    Sub40 f40;
+    Sub40_2ba8d0 f40;
     float f80;
     float f84;
     int f88;
@@ -66,18 +66,18 @@ struct Obj {
     int ff4, ff8, ffc, f100, f104, f108;
 };
 
-struct Big : Obj {
-    Big *FUN_002b9520();
+struct Big_2ba8d0 : Obj_2ba8d0 {
+    Big_2ba8d0 *FUN_002b9520();
 };
 
-struct Small : Obj {
-    Small *FUN_002b8e80();
+struct Small_2ba8d0 : Obj_2ba8d0 {
+    Small_2ba8d0 *FUN_002b8e80();
 };
 
 int __cdecl FUN_002b87d0(int v);
 int __cdecl FUN_002b8800(int v);
 
-struct Frame {
+struct Frame_2ba8d0 {
     char pad0[3];
     char flag;          // 0x03
     int t1a4;           // 0x04
@@ -119,10 +119,10 @@ struct Frame {
     char name[0x100];   // 0xa8
 };
 
-Obj *__stdcall FUN_002ba8d0(Reader *r, int unused)
+Obj_2ba8d0 *__stdcall FUN_002ba8d0(Reader *r, int unused)
 {
-    Frame f;
-    Obj *o;
+    Frame_2ba8d0 f;
+    Obj_2ba8d0 *o;
 
     r->stream->FUN_002647e0(&f.t19c, 1, 4, 1);
     r->stream->FUN_002647e0(&f.flag, 1, 1, 1);
@@ -133,13 +133,13 @@ Obj *__stdcall FUN_002ba8d0(Reader *r, int unused)
     bool big = (f.t1a4 != 0);
     f.flag = big;
     if (big) {
-        Big *b = (Big *)thunk_FUN_0008d690(0x110);
+        Big_2ba8d0 *b = (Big_2ba8d0 *)thunk_FUN_0008d690(0x110);
         if (b != 0)
             o = b->FUN_002b9520();
         else
             o = 0;
     } else {
-        Small *s = (Small *)thunk_FUN_0008d690(0xc8);
+        Small_2ba8d0 *s = (Small_2ba8d0 *)thunk_FUN_0008d690(0xc8);
         if (s != 0)
             o = s->FUN_002b8e80();
         else

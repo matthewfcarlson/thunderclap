@@ -1,48 +1,48 @@
 // STATUS: equivalent (tools/equiv.py level 3: 85 inputs, branch coverage 27/30, incomplete)
 // hulkfight::ai::StrafeLateralHBAction::vfunc_5 @ 0x0011e1a0
-struct Vec3 {
+struct Vec3_11e1a0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-class RefCounted {
+class RefCounted_11e1a0 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-struct Mount {
+struct Mount_11e1a0 {
     char pad0[0x18];
-    bool FUN_00059a50(Vec3 *out);
+    bool FUN_00059a50(Vec3_11e1a0 *out);
 };
 
-struct Target : RefCounted {
+struct Target_11e1a0 : RefCounted_11e1a0 {
     char pad04[0x3c];
-    Vec3 pos;
+    Vec3_11e1a0 pos;
 };
 
-struct Stats {
+struct Stats_11e1a0 {
     char pad0[0x10];
-    Mount *mount;
+    Mount_11e1a0 *mount;
     char pad14[0x328 - 0x14];
-    Target *target;
+    Target_11e1a0 *target;
     char pad32c[0x2064 - 0x32c];
-    Vec3 aim;
+    Vec3_11e1a0 aim;
     float f2070;
-    Vec3 dir;
-    bool FUN_00035660(Vec3 *out);
+    Vec3_11e1a0 dir;
+    bool FUN_00035660(Vec3_11e1a0 *out);
 };
 
 void *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(void *x);
-extern "C" float FUN_00224f10(Vec3 *v);
+Stats_11e1a0 *__fastcall FUN_00059a30(void *x);
+extern "C" float FUN_00224f10(Vec3_11e1a0 *v);
 extern "C" float FUN_00224fc0(float from, float to);
 extern "C" float FUN_00083d90(float *v);
-extern "C" void FUN_00224d70(float angle, Vec3 *v);
+extern "C" void FUN_00224d70(float angle, Vec3_11e1a0 *v);
 
-extern Vec3 DAT_004a6ac0;
+extern Vec3_11e1a0 DAT_004a6ac0;
 
-struct Tuning {
+struct Tuning_11e1a0 {
     char pad0[0x1c];
     float low;
     float high;
@@ -60,9 +60,9 @@ public:
     virtual void vfunc_4();
     virtual bool vfunc_5(int a1, int a2);
     char pad04[0x18];
-    Tuning *tuning;     // 0x1c
+    Tuning_11e1a0 *tuning;     // 0x1c
     void *owner;        // 0x20
-    RefCounted *held;   // 0x24
+    RefCounted_11e1a0 *held;   // 0x24
 };
 
 bool StrafeLateralHBAction::vfunc_5(int a1, int a2)
@@ -72,10 +72,10 @@ bool StrafeLateralHBAction::vfunc_5(int a1, int a2)
     if (owner == 0)
         return false;
 
-    Stats *stats = FUN_00059a30(FUN_000592a0(owner));
-    Target *target = stats->target;
+    Stats_11e1a0 *stats = FUN_00059a30(FUN_000592a0(owner));
+    Target_11e1a0 *target = stats->target;
     if (target == 0) {
-        target = (Target *)held;
+        target = (Target_11e1a0 *)held;
         if (target == 0)
             return true;
     }
@@ -89,10 +89,10 @@ bool StrafeLateralHBAction::vfunc_5(int a1, int a2)
     struct {
         float side;
         float height;
-        Vec3 d;
-        Vec3 q;
-        Vec3 r;
-        Vec3 p;
+        Vec3_11e1a0 d;
+        Vec3_11e1a0 q;
+        Vec3_11e1a0 r;
+        Vec3_11e1a0 p;
     } fr;
     fr.p = target->pos;
     fr.q.x = 0.0f;

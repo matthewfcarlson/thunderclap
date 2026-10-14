@@ -13,7 +13,7 @@ template <> struct TypeTag<void> { static const void *get() { return &DAT_0048e1
 template <> struct TypeTag<bool> { static const void *get() { return &DAT_0048e0e4; } };
 template <> struct TypeTag<const char *> { static const void *get() { return &DAT_0048e0f0; } };
 
-class __declspec(novtable) MethodBase {
+class __declspec(novtable) MethodBase_1cc360 {
   public:
     virtual void m0();
     char pad_04[0xc];
@@ -22,14 +22,14 @@ class __declspec(novtable) MethodBase {
     char retType;
     char pad_19[3];
     void FUN_001d0480(const char *, int);
-    MethodBase(const char *n, int k) { FUN_001d0480(n, k); }
+    MethodBase_1cc360(const char *n, int k) { FUN_001d0480(n, k); }
 };
 
 template <class T, class R, class A>
-class Method1 : public MethodBase {
+class Method1 : public MethodBase_1cc360 {
   public:
     typedef R (T::*Fn)(A);
-    Method1(const char *name, Fn f) : MethodBase(name, 1) {
+    Method1(const char *name, Fn f) : MethodBase_1cc360(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argType = FUN_001d04d0(TypeTag<A>::get());
@@ -44,10 +44,10 @@ class Closure1 : public Method1<T, R, A> {
     T *owner;
 };
 
-struct Registry {
+struct Registry_1cc360 {
     void FUN_001d3b70(const char *name, void *closure);
 };
-Registry *FUN_001d4c90();
+Registry_1cc360 *FUN_001d4c90();
 
 struct EventSlot {
     char data[0x28];
@@ -98,7 +98,7 @@ CEventManager::CEventManager()
     f3fc = 0;
     f400 = 0;
 
-    Registry *reg = FUN_001d4c90();
+    Registry_1cc360 *reg = FUN_001d4c90();
     if (reg) {
         void *mem;
 

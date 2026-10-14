@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 342 inputs, branch coverage 69/70, incomplete)
 // pure3d::LightLoader::vfunc_5 @ 0x002c0cf0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
-typedef unsigned __int64 u64;
+typedef unsigned __int64 u64_2c0cf0;
 void *thunk_FUN_0008d690(unsigned int size);
 
 struct Reader {
@@ -17,7 +17,7 @@ struct Stream {
     void FUN_00266be0();
 };
 
-struct NameField {
+struct NameField_2c0cf0 {
     void FUN_0027b040(const char *name);
 };
 
@@ -33,7 +33,7 @@ public:
     virtual void v7(unsigned int x, unsigned int y, unsigned int z);
     virtual void v8(unsigned int *vec);
     char pad04[4];
-    NameField name;
+    NameField_2c0cf0 name;
     char pad09[0x12 - 9];
     char flag12;
     char pad13[0x28 - 0x13];
@@ -79,7 +79,7 @@ public:
     void FUN_002c3ce0(unsigned int v);
 };
 
-extern u64 __cdecl FUN_002672f0(const char *s, int a, int b);
+extern u64_2c0cf0 __cdecl FUN_002672f0(const char *s, int a, int b);
 
 class LightLoader {
 public:
@@ -88,22 +88,22 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void vfunc_5(Light **out, u64 *id, Stream *s, int unused);
+    virtual void vfunc_5(Light **out, u64_2c0cf0 *id, Stream *s, int unused);
 };
 
-union Flag {
+union Flag_2c0cf0 {
     unsigned char b;
     unsigned int w;
 };
 
-void LightLoader::vfunc_5(Light **out, u64 *id, Stream *s, int unused)
+void LightLoader::vfunc_5(Light **out, u64_2c0cf0 *id, Stream *s, int unused)
 {
     struct Frame {
         char pad00[3];
         char b13;                 // also holds the name length early on
         unsigned int i14;
         unsigned int a18;
-        Flag f1c;
+        Flag_2c0cf0 f1c;
         unsigned int v20;
         unsigned int pos[3];
         unsigned int s30, s34, s38;

@@ -13,7 +13,7 @@ struct ShaderCollection {
     unsigned char FUN_00320540();
 };
 
-struct Frame {
+struct Frame_320540 {
     void *compiled;
     ShaderCollection *self;
     unsigned int *slot;
@@ -21,7 +21,7 @@ struct Frame {
 };
 
 unsigned char ShaderCollection::FUN_00320540() {
-    Frame f;
+    Frame_320540 f;
     f.self = this;
     f.levels[0] = 1.0f; f.levels[1] = 2.0f; f.levels[2] = 4.0f; f.levels[3] = 8.0f;
     f.levels[4] = 16.0f; f.levels[5] = 32.0f; f.levels[6] = 64.0f; f.levels[7] = 255.0f;

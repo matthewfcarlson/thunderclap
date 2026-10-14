@@ -11,17 +11,17 @@ void FUN_0024af00(void* handle);
 void FUN_00240bb0();
 void FUN_002656a0();
 
-struct Part {
+struct Part_1f54c0 {
     char data[8];
     void FUN_0027af50();
 };
 
-struct Buffer {
-    Part first;
-    Part second;
+struct Buffer_1f54c0 {
+    Part_1f54c0 first;
+    Part_1f54c0 second;
 };
 
-struct Emitter {
+struct Emitter_1f54c0 {
     void FUN_001e8ac0();
 };
 
@@ -29,7 +29,7 @@ class CSoundSequenceVoice {
 public:
     virtual void v0();
     void* handle;
-    Emitter* emitter;
+    Emitter_1f54c0* emitter;
     int pad0c;
     int f10;
     char f14;
@@ -48,7 +48,7 @@ public:
     CSoundSequenceVoice* voices[32];
     int voiceCount;
     char pad8c[0xd4 - 0x8c];
-    Buffer* buffers[0x94];
+    Buffer_1f54c0* buffers[0x94];
     int f324;
     void FUN_001f54c0();
 };
@@ -56,7 +56,7 @@ public:
 void SoundMgr::FUN_001f54c0()
 {
     for (int i = 0; i < 0x94; i++) {
-        Buffer* b = buffers[i];
+        Buffer_1f54c0* b = buffers[i];
         if (b) {
             b->second.FUN_0027af50();
             b->first.FUN_0027af50();

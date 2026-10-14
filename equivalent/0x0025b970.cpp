@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 62 inputs, branch coverage 57/60, incomplete)
 // FUN_0025b970 @ 0x0025b970
-struct Str {
+struct Str_25b970 {
     char data[12];
     const char* FUN_0023fb00();
     char FUN_00240410(const char* s);
@@ -11,7 +11,7 @@ struct Stream {
     int indent;
 };
 
-struct Writer {
+struct Writer_25b970 {
     Stream* out;
 };
 
@@ -20,31 +20,31 @@ struct Node {
     Node* right;
     Node* parent;
     int color;
-    Str name;
-    Str defaultValue;
-    Str values[10];
+    Str_25b970 name;
+    Str_25b970 defaultValue;
+    Str_25b970 values[10];
 };
 
-struct Tree {
+struct Tree_25b970 {
     Node* root;
     Node nil;
 };
 
 char FUN_00246f50(Stream* s, const char* fmt, ...);
-char FUN_0025ac30(Writer* w, int a, int b);
+char FUN_0025ac30(Writer_25b970* w, int a, int b);
 const char* FUN_00262820(int index);
 
-class Section {
+class Section_25b970 {
 public:
-    Tree* tree;
+    Tree_25b970* tree;
     char pad04[4];
     int dirtyTimeLo;
     int dirtyTimeHi;
 
-    char FUN_0025b970(Writer* w);
+    char FUN_0025b970(Writer_25b970* w);
 };
 
-char Section::FUN_0025b970(Writer* w)
+char Section_25b970::FUN_0025b970(Writer_25b970* w)
 {
     char ok;
 

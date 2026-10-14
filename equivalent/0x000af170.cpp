@@ -4,7 +4,7 @@ struct Samples {
     float v[17];
 };
 
-class Source {
+class Source_af170 {
 public:
     void FUN_000ada70(Samples *out);
 };
@@ -15,7 +15,7 @@ struct Track {
     float value;
 };
 
-struct Stick {
+struct Stick_af170 {
     int state;
     float held;
     float x;
@@ -25,9 +25,9 @@ struct Stick {
 class InputTracker {
 public:
     char pad0[8];
-    Source *source;
+    Source_af170 *source;
     Track tracks[11];
-    Stick sticks[2];
+    Stick_af170 sticks[2];
     void FUN_000af170(float dt);
 };
 

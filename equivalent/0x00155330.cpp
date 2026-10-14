@@ -9,7 +9,7 @@ extern int DAT_004e1048;
 extern void FUN_0014c4f0();
 extern void FUN_0014c500();
 extern void* __cdecl FUN_0008d690(unsigned int);
-struct Base { void FUN_00234cc0(const char*); };
+struct Base_155330 { void FUN_00234cc0(const char*); };
 namespace hulkfight { namespace motion { class CollisionSourceTypeCondition; } }
 namespace fight {
 template<class T> struct ParamEnumConstList {
@@ -29,7 +29,7 @@ void FUN_00155330() {
   void* storage = FUN_0008d690(32);
   if (storage) {
    int count = DAT_00427760;
-   ((Base*)storage)->FUN_00234cc0("compare");
+   ((Base_155330*)storage)->FUN_00234cc0("compare");
    Param* p = new (storage) Param;
    p->count = count;
    p->values = &DAT_00427758;
@@ -38,7 +38,7 @@ void FUN_00155330() {
   } else params[0] = 0;
   storage = FUN_0008d690(32);
   if (storage) {
-   ((Base*)storage)->FUN_00234cc0("type");
+   ((Base_155330*)storage)->FUN_00234cc0("type");
    Param* p = new (storage) Param;
    p->values = &DAT_004af9f0;
    p->count = 2;

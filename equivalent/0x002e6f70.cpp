@@ -18,7 +18,7 @@ struct inflate_state {
     inflate_blocks_state *blocks;
 };
 
-struct z_stream {
+struct z_stream_2e6f70 {
     unsigned char *next_in;
     unsigned int avail_in;
     unsigned long total_in;
@@ -40,13 +40,13 @@ enum {
     CHECK4, CHECK3, CHECK2, CHECK1, DONE, BAD
 };
 
-int FUN_002ea3c0(inflate_blocks_state *s, z_stream *z, int r);
-void FUN_002ea2a0(inflate_blocks_state *s, z_stream *z, unsigned long *c);
+int FUN_002ea3c0(inflate_blocks_state *s, z_stream_2e6f70 *z, int r);
+void FUN_002ea2a0(inflate_blocks_state *s, z_stream_2e6f70 *z, unsigned long *c);
 
 #define NEEDBYTE { if (z->avail_in == 0) return r; r = f; }
 #define NEXTBYTE (z->avail_in--, z->total_in++, *z->next_in++)
 
-int FUN_002e6f70(z_stream *z, int f)
+int FUN_002e6f70(z_stream_2e6f70 *z, int f)
 {
     int r;
     unsigned int b;

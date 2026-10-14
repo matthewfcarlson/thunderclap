@@ -2,26 +2,26 @@
 // hulkfight::ai::TokenCondition::vfunc_6 @ 0x0010dcf0
 extern float DAT_003f32e0;
 
-struct V3 {
+struct V3_10dcf0 {
     float x, y, z;
 };
 
-struct Actor {
+struct Actor_10dcf0 {
     char pad0000[0x1b84];
     char flag1b84;
     char pad1b85[0x1cee - 0x1b85];
     unsigned char byte1cee;
 };
 
-struct Singleton {
-    Actor* FUN_00066390(V3* v);
+struct Singleton_10dcf0 {
+    Actor_10dcf0* FUN_00066390(V3_10dcf0* v);
     int FUN_00065c50();
     char FUN_00065ab0();
 };
-Singleton* FUN_000678d0();
+Singleton_10dcf0* FUN_000678d0();
 
-struct Handle {
-    Actor* FUN_00059a30();
+struct Handle_10dcf0 {
+    Actor_10dcf0* FUN_00059a30();
 };
 
 namespace fight {
@@ -33,42 +33,42 @@ public:
 
 class CFightParams : public fight::Params {
 public:
-    Handle* FUN_000592a0();
+    Handle_10dcf0* FUN_000592a0();
 };
 
-struct Info {
+struct Info_10dcf0 {
     int FUN_00088fa0();
     int FUN_00088fb0();
 };
 
 struct Entity {
     char pad00[0x80];
-    Info info;
+    Info_10dcf0 info;
 };
 
 struct World {
     Entity* FUN_00086310();
 };
 
-struct Obj10 {
-    char FUN_00059a50(V3* out);
+struct Obj10_10dcf0 {
+    char FUN_00059a50(V3_10dcf0* out);
 };
-struct Obj124 {
+struct Obj124_10dcf0 {
     char pad00[0x10];
-    Obj10* p10;
+    Obj10_10dcf0* p10;
 };
-struct Player {
+struct Player_10dcf0 {
     char pad00[0x124];
-    Obj124* p124;
+    Obj124_10dcf0* p124;
 };
 
-struct Game {
+struct Game_10dcf0 {
     char pad00[0x20];
-    Player* player;
+    Player_10dcf0* player;
     char pad24[0x54 - 0x24];
     World* world;
 };
-extern Game* DAT_004dd700;
+extern Game_10dcf0* DAT_004dd700;
 
 namespace hulkfight {
 namespace ai {
@@ -84,12 +84,12 @@ bool TokenCondition::vfunc_6(int arg0, fight::Params* params, int arg2)
 {
     if (!dynamic_cast<CFightParams*>(params))
         return false;
-    Actor* actor = ((CFightParams*)params)->FUN_000592a0()->FUN_00059a30();
+    Actor_10dcf0* actor = ((CFightParams*)params)->FUN_000592a0()->FUN_00059a30();
     if (!actor)
         return false;
     Entity* e = DAT_004dd700->world->FUN_00086310();
     if (e) {
-        Info* info = &e->info;
+        Info_10dcf0* info = &e->info;
         int a = info->FUN_00088fa0();
         int b = info->FUN_00088fb0();
         if (a == 7 && b == 2)
@@ -97,7 +97,7 @@ bool TokenCondition::vfunc_6(int arg0, fight::Params* params, int arg2)
     }
     if ((float)(int)actor->byte1cee == DAT_003f32e0)
         return true;
-    V3 pos;
+    V3_10dcf0 pos;
     pos.x = 0;
     pos.y = 0;
     pos.z = 0;

@@ -1,27 +1,27 @@
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 17/20, incomplete)
 // TextLabel::vfunc_5 @ 0x000eca60
-struct Vec3 {
+struct Vec3_eca60 {
     float x, y, z;
 };
 
-union Word {
+union Word_eca60 {
     float f;
     int i;
     unsigned int u;
 };
 
-struct Cell {
-    Word a, b, c, d;
+struct Cell_eca60 {
+    Word_eca60 a, b, c, d;
 };
 
-struct Source;
+struct Source_eca60;
 
 struct Builder {
     unsigned int hdr[2];
-    Cell cells[8];
+    Cell_eca60 cells[8];
     int cursor;
     float scale;
-    void FUN_000f7fe0(Source *src);
+    void FUN_000f7fe0(Source_eca60 *src);
     void FUN_000f78e0();
     void FUN_000f87f0(void *a, void *b);
 };
@@ -45,7 +45,7 @@ public:
 
 class TextLabel;
 
-class Source {
+class Source_eca60 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -55,7 +55,7 @@ public:
     virtual pure3d::FrameController *v18(int a);
 };
 
-struct Level2 {
+struct Level2_eca60 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -67,34 +67,34 @@ struct Level2 {
     virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
     virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
     virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43();
-    virtual Source *v44();
+    virtual Source_eca60 *v44();
 };
 
-struct Level1 {
+struct Level1_eca60 {
     char pad0[4];
-    Level2 *level2;
+    Level2_eca60 *level2;
 };
 
 struct Level0 {
     char pad0[8];
-    Level1 *level1;
+    Level1_eca60 *level1;
 };
 
-class Owner {
+class Owner_eca60 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
     virtual void v12(); virtual void v13();
-    virtual void v14(Vec3 *out, TextLabel *obj);
-    virtual void v15(Vec3 *out, TextLabel *obj);
+    virtual void v14(Vec3_eca60 *out, TextLabel *obj);
+    virtual void v15(Vec3_eca60 *out, TextLabel *obj);
     virtual float v16(TextLabel *obj);
     virtual float v17(TextLabel *obj);
     char pad04[4];
-    Level1 *p8;
+    Level1_eca60 *p8;
 };
 
-struct Pass {
+struct Pass_eca60 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -103,28 +103,28 @@ struct Pass {
     virtual void v16(int a);
 };
 
-struct PassHolder {
-    Pass *pass;
-    void FUN_00293d00(const Vec3 *v);
+struct PassHolder_eca60 {
+    Pass_eca60 *pass;
+    void FUN_00293d00(const Vec3_eca60 *v);
     void FUN_00293c80(int a, int b, int c);
     void FUN_00293da0(int a, int b, int c);
 };
 
-class Widget {
+class Widget_eca60 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(int a, int b);
 };
 
-struct Inner3c {
+struct Inner3c_eca60 {
     char pad0[8];
-    Source *source;
+    Source_eca60 *source;
 };
 
 struct Inner44 {
     char pad0[0x3c];
-    Inner3c *p3c;
+    Inner3c_eca60 *p3c;
 };
 
 struct Child50 {
@@ -135,10 +135,10 @@ struct Child50 {
     Inner44 *p44;
 };
 
-extern PassHolder *DAT_0052c2ac;
+extern PassHolder_eca60 *DAT_0052c2ac;
 
-void __cdecl FUN_000e11a0(Vec3 v, int a, int b);
-void __cdecl FUN_000e0cc0(Vec3 v, int a, int b);
+void __cdecl FUN_000e11a0(Vec3_eca60 v, int a, int b);
+void __cdecl FUN_000e0cc0(Vec3_eca60 v, int a, int b);
 
 class TextLabel {
 public:
@@ -150,7 +150,7 @@ public:
     virtual void vfunc_5();
 
     char pad04[0x10];
-    Owner *owner;               // 0x14
+    Owner_eca60 *owner;               // 0x14
     char sub18[0x3c - 0x18];    // 0x18
     unsigned int color;         // 0x3c
     unsigned char flag40;
@@ -161,22 +161,22 @@ public:
     int val4c;                  // 0x4c
     Child50 *child;             // 0x50
     int v54, v58, v5c;          // 0x54
-    Widget *w60;                // 0x60
-    Widget *w64;                // 0x64
+    Widget_eca60 *w60;                // 0x60
+    Widget_eca60 *w64;                // 0x64
     char pad68[4];
     unsigned int v6c;           // 0x6c
     unsigned int v70;           // 0x70
     unsigned char active;       // 0x74
     char pad75[3];
-    Vec3 anchor;                // 0x78
+    Vec3_eca60 anchor;                // 0x78
     char pad84[0xac - 0x84];
     void *val_ac;               // 0xac
     char padb0[0x118 - 0xb0];
     int v118, v11c, v120, v124; // 0x118
 };
 
-struct Frame {
-    Vec3 v1;
+struct Frame_eca60 {
+    Vec3_eca60 v1;
     float f1;
     Builder x;
 };
@@ -186,7 +186,7 @@ void TextLabel::vfunc_5()
     if (active == 0)
         return;
 
-    Frame f;
+    Frame_eca60 f;
 
     if (flag40 == 1) {
         DAT_0052c2ac->pass->v15(0);
@@ -205,7 +205,7 @@ void TextLabel::vfunc_5()
         DAT_0052c2ac->pass->v16(0);
     }
     if (child != 0) {
-        Source *obj = child->p44->p3c->source;
+        Source_eca60 *obj = child->p44->p3c->source;
         pure3d::TextureAnimationController *tac =
             dynamic_cast<pure3d::TextureAnimationController *>(obj->v18(0));
         if (tac != 0) {

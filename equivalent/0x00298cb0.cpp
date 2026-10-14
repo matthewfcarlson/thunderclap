@@ -3,15 +3,15 @@
 struct Matrix {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022be40(const struct V3 *translation);
+    void FUN_0022be40(const struct V3_298cb0 *translation);
 };
 
-struct V3 {
+struct V3_298cb0 {
     float x, y, z;
     void FUN_0022d210(const Matrix *m);
 };
 
-class Part {
+class Part_298cb0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -33,19 +33,19 @@ struct Transforms {
 
 class Drawable;
 
-struct Anchor {
+struct Anchor_298cb0 {
     char pad0[0x4c];
-    V3 offset;
+    V3_298cb0 offset;
     void FUN_0029fd20(Drawable *d);
 };
 
-struct Owner {
+struct Owner_298cb0 {
     char pad0[0x18];
-    Anchor *anchor;
-    Anchor *FUN_0029b490();
+    Anchor_298cb0 *anchor;
+    Anchor_298cb0 *FUN_0029b490();
 };
 
-class Element {
+class Element_298cb0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -55,7 +55,7 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual void Draw(Owner *owner, int arg);
+    virtual void Draw(Owner_298cb0 *owner, int arg);
     virtual void v9();
     virtual void v10();
     virtual void v11();
@@ -65,11 +65,11 @@ public:
     virtual int GetKind();
 };
 
-struct Entry {
+struct Entry_298cb0 {
     char kind;
     char pad1[3];
     int index;
-    Element *element;
+    Element_298cb0 *element;
 };
 
 struct DrawList {
@@ -78,10 +78,10 @@ struct DrawList {
     char pad21[0x30 - 0x21];
     unsigned char *order;
     char pad34[0x3c - 0x34];
-    Entry *entries;
+    Entry_298cb0 *entries;
 };
 
-class Device {
+class Device_298cb0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -109,11 +109,11 @@ public:
     virtual void SetTransform(int a, Matrix *m);
 };
 
-struct DeviceRef { Device *device; };
+struct DeviceRef { Device_298cb0 *device; };
 
 struct Camera {
     char pad0[0x8c];
-    struct Xf { char pad[0x30]; V3 pos; } xf;
+    struct Xf { char pad[0x30]; V3_298cb0 pos; } xf;
     Xf *FUN_0028faa0();
 };
 struct CameraRef { Camera *camera; };
@@ -131,18 +131,18 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual void Render(Owner *owner, int arg);
+    virtual void Render(Owner_298cb0 *owner, int arg);
     char pad04[0x2c - 4];
-    V3 offset;
+    V3_298cb0 offset;
     char pad38[0x40 - 0x38];
     Transforms *transforms;
     DrawList *list;
     char pad48[4];
-    Part *partA;
-    Part *partB;
+    Part_298cb0 *partA;
+    Part_298cb0 *partB;
 };
 
-void Drawable::Render(Owner *owner, int arg)
+void Drawable::Render(Owner_298cb0 *owner, int arg)
 {
     if (partA != 0) {
         if (!partA->FUN_00284ae0()) {
@@ -157,7 +157,7 @@ void Drawable::Render(Owner *owner, int arg)
     if (owner != 0) {
         if (owner->FUN_0029b490() != 0) {
             Matrix m;
-            V3 v;
+            V3_298cb0 v;
             m.FUN_0022b980();
             m.FUN_0022be40(&DAT_0052c2b0->camera->FUN_0028faa0()->pos);
             v = offset;
@@ -170,9 +170,9 @@ void Drawable::Render(Owner *owner, int arg)
     unsigned int n = list->count;
     if (n != 0) {
         for (unsigned int i = 0; n != 0; n--, i++) {
-            Entry *e = &list->entries[list->order[i]];
+            Entry_298cb0 *e = &list->entries[list->order[i]];
             if (e->kind == 1) {
-                Element *el = e->element;
+                Element_298cb0 *el = e->element;
                 if (el->GetKind() == 2 || el->GetKind() == 0x40) {
                     el->Draw(owner, arg);
                 } else {

@@ -2,9 +2,9 @@
 // FUN_00305c70 @ 0x00305c70
 extern "C" double sqrt(double); extern "C" double sin(double); extern "C" double cos(double);
 float __cdecl FUN_00018a20(float);
-struct Vec { float x,y,z; float FUN_0022d110(); };
-struct Quat { float x,y,z,w; void FUN_0022b1c0(float); void FUN_0022b120(); };
-bool __cdecl FUN_00305c70(const Vec* a,const Vec* b,Quat* out,bool* opposite) {
+struct Vec_305c70 { float x,y,z; float FUN_0022d110(); };
+struct Quat_305c70 { float x,y,z,w; void FUN_0022b1c0(float); void FUN_0022b120(); };
+bool __cdecl FUN_00305c70(const Vec_305c70* a,const Vec_305c70* b,Quat_305c70* out,bool* opposite) {
  *opposite=false;
  double lengths=sqrt(a->x*a->x+a->y*a->y+a->z*a->z)*sqrt(b->x*b->x+b->y*b->y+b->z*b->z);
  if(lengths < 0.000001f) {out->z=0;out->y=0;out->x=0;out->w=1;return false;}
@@ -13,7 +13,7 @@ bool __cdecl FUN_00305c70(const Vec* a,const Vec* b,Quat* out,bool* opposite) {
  double ratio=dot/lengths;
  float angle;
  if(ratio>=1.0f) angle=0; else angle=FUN_00018a20((float)ratio);
- Vec axis;
+ Vec_305c70 axis;
  axis.x=b->z*a->y-a->z*b->y;
  axis.y=b->x*a->z-b->z*a->x;
  axis.z=a->x*b->y-b->x*a->y;

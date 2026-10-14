@@ -53,26 +53,26 @@ struct TextOwner {
     virtual Locale* v44();
 };
 
-struct Widget {
+struct Widget_da230 {
     int FUN_000f83f0(Locale* loc, int arg);
     char pad[0x38];
 };
 
-struct Settings {
+struct Settings_da230 {
     char pad[0x1bc8];
     char flag;
 };
 
-struct Singleton {
-    Settings* FUN_00086280();
+struct Singleton_da230 {
+    Settings_da230* FUN_00086280();
 };
 
-struct Screen {
+struct Screen_da230 {
     void FUN_000be310(const char* font, char* text, const float* a, const void* b, const void* c,
                       int n, const char* s1, const char* s2);
 };
 
-class Menu {
+class Menu_da230 {
 public:
     void FUN_000da230(int idx);
     char p0[0x21c];
@@ -80,7 +80,7 @@ public:
     char p1[0x34c - 0x220];
     int offset;
     char p2[0x35c - 0x350];
-    Widget widgets[1];
+    Widget_da230 widgets[1];
     char p3[0x3b0 - 0x35c - 0x38];
     char done;
     char p4[0x3ea - 0x3b1];
@@ -97,17 +97,17 @@ extern const char* DAT_004de668;
 extern const char* DAT_004a0ce0;
 extern const char* DAT_004a0ce4;
 extern const char* DAT_004a0ce8;
-extern Singleton* DAT_004dd6ec;
+extern Singleton_da230* DAT_004dd6ec;
 extern float DAT_003f335c;
 
-void Menu::FUN_000da230(int idx)
+void Menu_da230::FUN_000da230(int idx)
 {
     unsigned int cookie = DAT_004d9968;
     char buf[0x400];
-    Screen* screen = (Screen*)FUN_000fc3d0();
+    Screen_da230* screen = (Screen_da230*)FUN_000fc3d0();
     Locale* loc = ((TextOwner*)screen)->v44();
     const char* fmt = loc->FUN_000f7220(loc->FUN_000f7d30(DAT_004de668));
-    int v = ((Widget*)((char*)this + 0x35c + idx * 0x38))->FUN_000f83f0(loc, 0);
+    int v = ((Widget_da230*)((char*)this + 0x35c + idx * 0x38))->FUN_000f83f0(loc, 0);
     FUN_000fc020(buf, 0x200, fmt, v);
     if (retryMode != 0) {
         const char* font;

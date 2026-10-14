@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // VScroll::vfunc_2 @ 0x000e2280
-struct V3 {
+struct V3_e2280 {
     float x, y, z;
 };
 
-class Pen {
+class Pen_e2280 {
 public:
     virtual void s0();
     virtual void s1();
@@ -25,14 +25,14 @@ public:
     virtual void vfunc_16(int a);
 };
 
-struct Renderer {
-    Pen* pen;
-    void FUN_00293d00(const V3* v);
-    void FUN_00293da0(V3 axis);
+struct Renderer_e2280 {
+    Pen_e2280* pen;
+    void FUN_00293d00(const V3_e2280* v);
+    void FUN_00293da0(V3_e2280 axis);
     void FUN_00293bf0(float angle);
 };
 
-class Child {
+class Child_e2280 {
 public:
     virtual void c0();
     virtual void c1();
@@ -45,7 +45,7 @@ public:
     virtual void vfunc_8(int a, int b);
 };
 
-class Widget {
+class Widget_e2280 {
 public:
     virtual void w0();
     virtual void w1();
@@ -55,19 +55,19 @@ public:
     virtual void vfunc_5();
 };
 
-struct Item {
-    Widget* obj;
+struct Item_e2280 {
+    Widget_e2280* obj;
     int pad[2];
     char active;
     char pad2[3];
 };
 
-struct Anchor {
-    const V3* FUN_000f6370(V3* out);
+struct Anchor_e2280 {
+    const V3_e2280* FUN_000f6370(V3_e2280* out);
 };
 
-extern Renderer* DAT_0052c2ac;
-void __cdecl FUN_000e11a0(V3 size, int color, int mode);
+extern Renderer_e2280* DAT_0052c2ac;
+void __cdecl FUN_000e11a0(V3_e2280 size, int color, int mode);
 
 class FELayout {
 public:
@@ -79,21 +79,21 @@ class VScroll : public FELayout {
 public:
     virtual void vfunc_2();
     char pad04[0x14];
-    Anchor anchor;
+    Anchor_e2280 anchor;
     char pad19[0x17];
     float height;
     char pad34[0xc];
-    Item items[32];
+    Item_e2280 items[32];
     int itemCount;
     char pad244[0x10];
     float width;
-    Child* child;
-    V3 axis;
+    Child_e2280* child;
+    V3_e2280 axis;
 };
 
 void VScroll::vfunc_2()
 {
-    V3 v;
+    V3_e2280 v;
 
     if (child != 0) {
         DAT_0052c2ac->pen->vfunc_15(0);
@@ -115,7 +115,7 @@ void VScroll::vfunc_2()
 
     DAT_0052c2ac->pen->vfunc_15(0);
     DAT_0052c2ac->FUN_00293d00(anchor.FUN_000f6370(&v));
-    V3 size;
+    V3_e2280 size;
     size.x = width * 1.1f;
     size.y = height * 1.1f;
     size.z = 0.0f;

@@ -13,30 +13,30 @@ public:
     void *items;              // 0x1d58
 };
 
-struct Marker {
+struct Marker_b50d0 {
     int FUN_00089960(int id);
     void FUN_000899d0(int v);
     void FUN_00089980();
 };
 
-struct Table {
+struct Table_b50d0 {
     int FUN_00093260(int idx);
 };
 
-struct Message {
+struct Message_b50d0 {
     char data[0x20];
     void FUN_001cae40(const char *name);
 };
 
-struct Sink {
-    void FUN_001cbc20(Message *msg);
+struct Sink_b50d0 {
+    void FUN_001cbc20(Message_b50d0 *msg);
 };
 
-struct Globals {
+struct Globals_b50d0 {
     char pad0[0x30];
-    Sink *sink;               // 0x30
+    Sink_b50d0 *sink;               // 0x30
 };
-extern Globals *DAT_004dd700;
+extern Globals_b50d0 *DAT_004dd700;
 
 FEObject *__cdecl FUN_000fc260(const char *name);
 void __cdecl FUN_000fc300();
@@ -44,9 +44,9 @@ void __cdecl FUN_000fc300();
 class JumpMarkerHud {
 public:
     char pad0[0x34];
-    Marker *marker;           // 0x34
+    Marker_b50d0 *marker;           // 0x34
     char pad38[0x4c - 0x38];
-    Table *table;             // 0x4c
+    Table_b50d0 *table;             // 0x4c
     void FUN_000b50d0();
 };
 
@@ -62,7 +62,7 @@ void JumpMarkerHud::FUN_000b50d0()
         return;
     marker->FUN_000899d0(table->FUN_00093260(id));
     marker->FUN_00089980();
-    Message msg;
+    Message_b50d0 msg;
     msg.FUN_001cae40("JumpMarkerSelected");
     DAT_004dd700->sink->FUN_001cbc20(&msg);
     FUN_000fc300();

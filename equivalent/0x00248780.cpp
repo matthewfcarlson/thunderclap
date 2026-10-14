@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 22/22)
 // FUN_00248780 @ 0x00248780
 extern "C" double __cdecl sqrt(double);
-struct Output { float value; int FUN_0025d3e0(); void FUN_0025d3f0(int); };
-struct State { char pad0[8]; Output* output; unsigned active; char pad10[8]; unsigned delay; unsigned duration; unsigned elapsed; float level; unsigned phase; };
+struct Output_248780 { float value; int FUN_0025d3e0(); void FUN_0025d3f0(int); };
+struct State_248780 { char pad0[8]; Output_248780* output; unsigned active; char pad10[8]; unsigned delay; unsigned duration; unsigned elapsed; float level; unsigned phase; };
 // equiv-conv: FUN_00248780 esi stack
-void __cdecl FUN_00248780(State* s, unsigned delta) {
+void __cdecl FUN_00248780(State_248780* s, unsigned delta) {
  if(s->phase==0) { s->elapsed+=delta; if(s->elapsed>=s->delay) { delta=s->elapsed-s->delay; s->phase=1; } }
  if(s->phase==1) {
   float duration=(float)(int)s->duration;

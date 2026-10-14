@@ -7,7 +7,7 @@ extern char DAT_0049f48c[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 extern void *__cdecl FUN_000fc260(const char *name);
 
-struct Label {
+struct Label_b8430 {
     int f00;
     char f04;
     char pad05[3];
@@ -22,37 +22,37 @@ struct Label {
     void FUN_000f8500(const char *text, int a, char flag);
 };
 
-class Widget {
+class Widget_b8430 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
     char pad04[0x14];
-    Label label;
+    Label_b8430 label;
 };
 
-struct Selector {
+struct Selector_b8430 {
     char pad00[0x154];
     int index;
 };
 
-class HintMenu {
+class HintMenu_b8430 {
 public:
     char pad00[0x1b50];
     int shown[32];
     void FUN_000b8430();
 };
 
-void HintMenu::FUN_000b8430()
+void HintMenu_b8430::FUN_000b8430()
 {
-    Widget *title = (Widget *)FUN_00344e74(FUN_000fc260("smart_hint_title"), 0, DAT_0049dba4, DAT_0049f48c, 0);
+    Widget_b8430 *title = (Widget_b8430 *)FUN_00344e74(FUN_000fc260("smart_hint_title"), 0, DAT_0049dba4, DAT_0049f48c, 0);
     if (title == 0)
         return;
-    Widget *text = (Widget *)FUN_00344e74(FUN_000fc260("smart_hint_text"), 0, DAT_0049dba4, DAT_0049f470, 0);
+    Widget_b8430 *text = (Widget_b8430 *)FUN_00344e74(FUN_000fc260("smart_hint_text"), 0, DAT_0049dba4, DAT_0049f470, 0);
     if (text == 0)
         return;
-    Selector *sel = (Selector *)FUN_00344e74(FUN_000fc260("smart_hint_selector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
+    Selector_b8430 *sel = (Selector_b8430 *)FUN_00344e74(FUN_000fc260("smart_hint_selector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
     if (sel == 0)
         return;
     if (sel->index < 0)

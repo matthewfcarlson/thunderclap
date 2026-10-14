@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001c6e60 @ 0x001c6e60
-struct Ref { virtual void AddRef(); virtual void Release(); };
+struct Ref_1c6e60 { virtual void AddRef(); virtual void Release(); };
 struct Words3 { unsigned int x,y,z; };
-struct Words6 { unsigned int a,b,c,d,e,f; };
+struct Words6_1c6e60 { unsigned int a,b,c,d,e,f; };
 struct Words4 { unsigned int a,b,c,d; };
 extern void* __cdecl FUN_0008d6d0(unsigned int bytes);
 extern void __cdecl FUN_001c6d60(void* begin, void* end);
 struct Object {
  char base[8]; unsigned char flag8,flag9; char padA[2];
- Ref* first; Ref* second; void* begin; void* end; unsigned int unused1c;
- Words3 position; Words6 data; Words4 more; unsigned short mode; char pad56[2]; unsigned int zero; float scale;
+ Ref_1c6e60* first; Ref_1c6e60* second; void* begin; void* end; unsigned int unused1c;
+ Words3 position; Words6_1c6e60 data; Words4 more; unsigned short mode; char pad56[2]; unsigned int zero; float scale;
  void FUN_0027af30(void* arg);
- Object* init(void* arg, Ref* a, Ref* b, unsigned int count, const Words3* p, unsigned short m, const Words6* d, const Words4* e);
+ Object* init(void* arg, Ref_1c6e60* a, Ref_1c6e60* b, unsigned int count, const Words3* p, unsigned short m, const Words6_1c6e60* d, const Words4* e);
 };
-Object* Object::init(void* arg, Ref* a, Ref* b, unsigned int count, const Words3* p, unsigned short m, const Words6* d, const Words4* e) {
+Object* Object::init(void* arg, Ref_1c6e60* a, Ref_1c6e60* b, unsigned int count, const Words3* p, unsigned short m, const Words6_1c6e60* d, const Words4* e) {
  FUN_0027af30(arg);
  flag8=0; flag9=0; first=0;
  if(a) { a->AddRef(); if(first) first->Release(); }

@@ -1,44 +1,44 @@
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 30/30)
 // FUN_00249b40 @ 0x00249b40
-struct Entry {
-    Entry *next;
+struct Entry_249b40 {
+    Entry_249b40 *next;
     char pad04[8];
     void *value;
 };
 
-struct TreeNode {
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode *parent;
+struct TreeNode_249b40 {
+    TreeNode_249b40 *left;
+    TreeNode_249b40 *right;
+    TreeNode_249b40 *parent;
     int pad0c;
-    Entry *entries;
+    Entry_249b40 *entries;
 };
 
-struct Tree {
+struct Tree_249b40 {
     char pad00[0x18];
-    TreeNode *root;
-    TreeNode nil;
+    TreeNode_249b40 *root;
+    TreeNode_249b40 nil;
 };
 
-bool FUN_00249b40(Tree *tree)
+bool FUN_00249b40(Tree_249b40 *tree)
 {
-    TreeNode *end = &tree->nil;
+    TreeNode_249b40 *end = &tree->nil;
     char found = 0;
-    TreeNode *cur = tree->root;
+    TreeNode_249b40 *cur = tree->root;
     if (cur != end) {
         while (cur->left != end)
             cur = cur->left;
         do {
-            for (Entry *e = cur->entries; e != 0; e = e->next) {
+            for (Entry_249b40 *e = cur->entries; e != 0; e = e->next) {
                 if (e->value != 0)
                     found = 1;
             }
-            TreeNode *next = cur->right;
+            TreeNode_249b40 *next = cur->right;
             if (next != end) {
                 while (next->left != end)
                     next = next->left;
             } else {
-                TreeNode *from = cur;
+                TreeNode_249b40 *from = cur;
                 next = cur->parent;
                 if (next != end) {
                     while (from == next->right) {

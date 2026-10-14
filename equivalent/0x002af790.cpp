@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 10/10)
 // FUN_002af790 @ 0x002af790
-struct Header { char pad[16]; int width; int height; };
+struct Header_2af790 { char pad[16]; int width; int height; };
 struct Reader { void FUN_002647e0(unsigned char*, int, int, int); void FUN_00264510(int); };
-struct Output { virtual void init(int,int,int,int,int); virtual void row(unsigned char*); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual int finish(); };
+struct Output_2af790 { virtual void init(int,int,int,int,int); virtual void row(unsigned char*); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual int finish(); };
 extern unsigned char* __cdecl FUN_00266e00(int,int);
 extern void __cdecl FUN_00267090(unsigned char*);
 // equiv-conv: FUN_002af790 edi stack stack
-int __cdecl FUN_002af790(Reader* reader, Header* header, Output* output) {
+int __cdecl FUN_002af790(Reader* reader, Header_2af790* header, Output_2af790* output) {
  output->init(header->width,header->height,24,1,0);
  struct Locals { unsigned short unused; unsigned char b,c; unsigned char* buffer; int padding; int row; int width; int unused2; unsigned char a; } s;
  s.width=header->width;

@@ -7,14 +7,14 @@ struct D3DLOCKED_RECT {
 namespace D3D8 {
 void __stdcall D3DTexture_LockRect(int texture, int level, D3DLOCKED_RECT* lr, const void* rect, int flags);
 }
-struct TexObj {
+struct TexObj_32fe00 {
     char pad0[0x10];
     int handle;
 };
 class GradientTex {
   public:
     char pad0[0x80];
-    TexObj* tex;
+    TexObj_32fe00* tex;
     char pad84[0xd4 - 0x84];
     int size;
     void Fill();

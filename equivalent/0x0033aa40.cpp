@@ -5,7 +5,7 @@ extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 struct lua_State;
 
-struct lua_Debug {
+struct lua_Debug_33aa40 {
     int event;
     const char* name;
     const char* namewhat;
@@ -25,20 +25,20 @@ int __cdecl FUN_00212fb0(lua_State* L, int idx);
 void __cdecl FUN_00213380(lua_State* L, const char* s, unsigned int len);
 const char* __cdecl FUN_00213470(lua_State* L, const char* fmt, ...);
 void __cdecl FUN_00213c90(lua_State* L, int n);
-int __cdecl FUN_00213fc0(lua_State* L, int level, lua_Debug* ar);
-int __cdecl FUN_00214bd0(lua_State* L, const char* what, lua_Debug* ar);
+int __cdecl FUN_00213fc0(lua_State* L, int level, lua_Debug_33aa40* ar);
+int __cdecl FUN_00214bd0(lua_State* L, const char* what, lua_Debug_33aa40* ar);
 
-struct Frame {
+struct Frame_33aa40 {
     int arg;
     int firstpart;
-    lua_Debug ar;
+    lua_Debug_33aa40 ar;
     unsigned int cookie;
 };
 
 // Lua 5.0 errorfb (stack traceback builder)
 int FUN_0033aa40(lua_State* L)
 {
-    Frame f;
+    Frame_33aa40 f;
     int level = 1;
     lua_State* L1;
 

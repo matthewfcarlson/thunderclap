@@ -2,9 +2,9 @@
 // FUN_0009fbd0 @ 0x0009fbd0
 extern "C" double exp(double);
 
-struct Vec3 { float x, y, z; };
+struct Vec3_9fbd0 { float x, y, z; };
 
-Vec3* FUN_0009fbd0(Vec3* out, Vec3* a, Vec3* b, Vec3* c, float tau, float dt)
+Vec3_9fbd0* FUN_0009fbd0(Vec3_9fbd0* out, Vec3_9fbd0* a, Vec3_9fbd0* b, Vec3_9fbd0* c, float tau, float dt)
 {
     volatile float k = 1.0f;
     if (dt != 0.0f)

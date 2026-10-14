@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FEThingsBase::vfunc_30 @ 0x000e6930
-class Item {
+class Item_e6930 {
 public:
     virtual void v0();
     virtual void v1();
@@ -20,7 +20,7 @@ public:
     virtual void Deactivate(); // slot 15
 };
 
-class Source {
+class Source_e6930 {
 public:
     virtual void v0();
     virtual void v1();
@@ -106,13 +106,13 @@ public:
     virtual void v39();
     virtual void SetValue(int v); // slot 40
     char pad04[0x175c - 4];
-    Source* source;     // 0x175c
-    Item* current;      // 0x1760
+    Source_e6930* source;     // 0x175c
+    Item_e6930* current;      // 0x1760
     char pad1764[0x1830 - 0x1764];
     int f1830;
     int f1834;
     int f1838;
-    Item* pending;      // 0x183c
+    Item_e6930* pending;      // 0x183c
 };
 
 void FEThingsBase::vfunc_30()

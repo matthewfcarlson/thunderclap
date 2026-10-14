@@ -3,17 +3,17 @@
 void* __cdecl FUN_00263ed0(unsigned int size, int flag);
 int __cdecl FUN_00266da0(int mode);
 
-struct Ctx;
-struct Cache;
+struct Ctx_265cd0;
+struct Cache_265cd0;
 struct Stream;
 
-struct Res {
+struct Res_265cd0 {
     char pad04[8];
     unsigned char ok;
     char pad0d[3];
     virtual void AddRef();
     virtual void Release();
-    Res* FUN_002644d0(Ctx* a, Cache* b, int c);
+    Res_265cd0* FUN_002644d0(Ctx_265cd0* a, Cache_265cd0* b, int c);
     void* FUN_00263fb0();
 };
 
@@ -31,7 +31,7 @@ struct Stream {
 struct Reader {
     char pad00[0x288];
     Reader* FUN_00266cb0(void* handle);
-    void FUN_002669d0(Ctx* ctx);
+    void FUN_002669d0(Ctx_265cd0* ctx);
     bool FUN_002669f0();
     int FUN_00266a30();
     int FUN_00266c30();
@@ -39,22 +39,22 @@ struct Reader {
     void FUN_002669c0();
 };
 
-struct Ctx {
+struct Ctx_265cd0 {
     char pad00[0x100];
     void* res;
     void* f104;
     void* f108;
 };
 
-struct Cache {
-    Res* FUN_00266880();
-    void FUN_00266850(Res* r);
+struct Cache_265cd0 {
+    Res_265cd0* FUN_00266880();
+    void FUN_00266850(Res_265cd0* r);
     void FUN_00266950(int v);
     int FUN_00266710();
     void FUN_00266820(Stream* s);
 };
 
-struct Pair {
+struct Pair_265cd0 {
     int a;
     int b;
 };
@@ -71,7 +71,7 @@ public:
     virtual void AddRef();
     virtual void Release();
     virtual void v2();
-    virtual void v3(LoadedObject** out, Pair* pair, void* a2, void* a3, void* a4);
+    virtual void v3(LoadedObject** out, Pair_265cd0* pair, void* a2, void* a3, void* a4);
 };
 
 class SimpleChunkHandler : public ObjectLoader {
@@ -84,26 +84,26 @@ public:
 };
 }
 
-struct Registry {
+struct Registry_265cd0 {
     content::ObjectLoader* FUN_00265310(int type);
 };
 
-extern Registry* DAT_00527c58;
+extern Registry_265cd0* DAT_00527c58;
 
-class Listener {
+class Listener_265cd0 {
 public:
-    virtual void v0(Ctx* ctx, void* x);
-    virtual void v1(Ctx* ctx);
+    virtual void v0(Ctx_265cd0* ctx, void* x);
+    virtual void v1(Ctx_265cd0* ctx);
     virtual void v2(int type);
-    virtual void v3(int type, LoadedObject* obj, Pair* pair);
+    virtual void v3(int type, LoadedObject* obj, Pair_265cd0* pair);
 };
 
-struct Frame {
+struct Frame_265cd0 {
     LoadedObject* obj;
-    Res* res;
+    Res_265cd0* res;
     void* self;
     int status;
-    Pair pair;
+    Pair_265cd0 pair;
     Reader reader;
 };
 
@@ -113,23 +113,23 @@ public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual void vfunc_3(Ctx* ctx, Cache* cache);
+    virtual void vfunc_3(Ctx_265cd0* ctx, Cache_265cd0* cache);
     char pad04[4];
-    Listener* listener;
+    Listener_265cd0* listener;
 };
 
-void P3DFileHandler::vfunc_3(Ctx* ctx, Cache* cache)
+void P3DFileHandler::vfunc_3(Ctx_265cd0* ctx, Cache_265cd0* cache)
 {
-    Frame f;
+    Frame_265cd0 f;
     f.self = this;
-    Res* res = cache->FUN_00266880();
+    Res_265cd0* res = cache->FUN_00266880();
     bool created = false;
     f.res = res;
     if (res == 0) {
         created = true;
         void* mem = FUN_00263ed0(0x48, 1);
         if (mem != 0)
-            f.res = ((Res*)mem)->FUN_002644d0(ctx, cache, 1);
+            f.res = ((Res_265cd0*)mem)->FUN_002644d0(ctx, cache, 1);
         else
             f.res = 0;
         cache->FUN_00266850(f.res);

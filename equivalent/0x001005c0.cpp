@@ -2,10 +2,10 @@
 // CHand2HandAgent::vfunc_20 @ 0x001005c0
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_1005c0 {
     float x, y, z;
     float FUN_0022d110() throw();
-    char FUN_0022d2b0(const Vec3 *z, float eps) throw();
+    char FUN_0022d2b0(const Vec3_1005c0 *z, float eps) throw();
 };
 
 struct Obj104;
@@ -13,27 +13,27 @@ struct Obj104;
 class CHand2HandAgent;
 
 struct World;
-struct List {
-    void FUN_00029250(int a, Vec3 *p, int b, int c) throw();
+struct List_1005c0 {
+    void FUN_00029250(int a, Vec3_1005c0 *p, int b, int c) throw();
 };
-struct World2 {
+struct World2_1005c0 {
     char pad00[0x20];
-    List *list;
+    List_1005c0 *list;
 };
 
-struct Ctx1 {
+struct Ctx1_1005c0 {
     char pad[0x1cbc];
     int f1cbc;
 };
 
-struct Out {
+struct Out_1005c0 {
     char pad00[0x10c];
     float v10c[3];
     float f118;
     float v11c[3];
 };
 
-union Arg3 {
+union Arg3_1005c0 {
     float f;
     unsigned int u;
 };
@@ -44,12 +44,12 @@ public:
     virtual void v1() throw();
     virtual void v2() throw();
     virtual void v3() throw();
-    virtual void v4(World2 *w, Arg3 a3, int z) throw();
+    virtual void v4(World2_1005c0 *w, Arg3_1005c0 a3, int z) throw();
     void FUN_001048d0(CHand2HandAgent *a) throw();
-    void FUN_00104c60(World2 *w, Vec3 *a, Vec3 *b, float c, int d, float e, float f) throw();
+    void FUN_00104c60(World2_1005c0 *w, Vec3_1005c0 *a, Vec3_1005c0 *b, float c, int d, float e, float f) throw();
 };
 
-struct Obj58 {
+struct Obj58_1005c0 {
     char pad[0x129];
     char b129;
     Obj104 *FUN_000fefc0() throw();
@@ -60,19 +60,19 @@ public:
     virtual void v0() throw();
     virtual void v1() throw();
     virtual void v2() throw();
-    virtual void v3(World2 *w, Ctx1 *c, Vec3 *out, Arg3 a3, int z) throw();
+    virtual void v3(World2_1005c0 *w, Ctx1_1005c0 *c, Vec3_1005c0 *out, Arg3_1005c0 a3, int z) throw();
     char pad04[0xc];
-    Vec3 v10;
+    Vec3_1005c0 v10;
 };
 
-extern World2 *DAT_004dd700;
+extern World2_1005c0 *DAT_004dd700;
 extern char DAT_004e0a99;
 extern float DAT_004a1c04;
 extern float DAT_004a1c08;
 extern float DAT_004a1c0c;
 
-char __cdecl FUN_00036b10(World2 *w, Vec3 *a, Vec3 *b, Vec3 *c, Vec3 *d, char *e, char *f) throw();
-float __cdecl FUN_0010ae50(World2 *w, Ctx1 *c, float thr, Vec3 *out, Vec3 *v138, int a, int b) throw();
+char __cdecl FUN_00036b10(World2_1005c0 *w, Vec3_1005c0 *a, Vec3_1005c0 *b, Vec3_1005c0 *c, Vec3_1005c0 *d, char *e, char *f) throw();
+float __cdecl FUN_0010ae50(World2_1005c0 *w, Ctx1_1005c0 *c, float thr, Vec3_1005c0 *out, Vec3_1005c0 *v138, int a, int b) throw();
 
 class CHand2HandAgent {
 public:
@@ -87,7 +87,7 @@ public:
     virtual void vfunc_8() throw();
     virtual void vfunc_9() throw();
     virtual void vfunc_10() throw();
-    virtual char vfunc_11(Ctx1 *c, int a, Arg3 b) throw();
+    virtual char vfunc_11(Ctx1_1005c0 *c, int a, Arg3_1005c0 b) throw();
     virtual void vfunc_12() throw();
     virtual void vfunc_13() throw();
     virtual void vfunc_14() throw();
@@ -96,48 +96,48 @@ public:
     virtual void vfunc_17() throw();
     virtual char vfunc_18(float f) throw();
     virtual void vfunc_19() throw();
-    virtual void vfunc_20(Ctx1 *c, Out *o, Arg3 a3);
+    virtual void vfunc_20(Ctx1_1005c0 *c, Out_1005c0 *o, Arg3_1005c0 a3);
     char pad04[0x54];
-    Obj58 *f58;
+    Obj58_1005c0 *f58;
     Obj5c *f5c;
     char pad60[0x28];
-    Vec3 v88;
-    Vec3 v94;
+    Vec3_1005c0 v88;
+    Vec3_1005c0 v94;
     int fa0;
     char pada4[0x18];
-    Vec3 vbc;
+    Vec3_1005c0 vbc;
     int fc8;
     char padcc[5];
     char bd1;
     char padd2;
     char bd3;
     char padd4[0x104 - 0xd4];
-    Vec3 v104;
+    Vec3_1005c0 v104;
     char pad110[0x138 - 0x110];
-    Vec3 v138;
-    Vec3 v144;
+    Vec3_1005c0 v138;
+    Vec3_1005c0 v144;
     char pad150[0x15c - 0x150];
-    Vec3 v15c;
-    Vec3 v168;
-    Vec3 v174;
+    Vec3_1005c0 v15c;
+    Vec3_1005c0 v168;
+    Vec3_1005c0 v174;
     float f180;
-    Vec3 v184;
+    Vec3_1005c0 v184;
 };
 
-void CHand2HandAgent::vfunc_20(Ctx1 *a1, Out *a2, Arg3 a3)
+void CHand2HandAgent::vfunc_20(Ctx1_1005c0 *a1, Out_1005c0 *a2, Arg3_1005c0 a3)
 {
     struct Frame {
         char pad0[2];
         char b12;
         char b13;
         float thr;
-        Vec3 V;
+        Vec3_1005c0 V;
         float tmp[3];
-        Vec3 P;
-        Vec3 Zv;
-        Vec3 F48;
-        Vec3 F54;
-        Vec3 O50;
+        Vec3_1005c0 P;
+        Vec3_1005c0 Zv;
+        Vec3_1005c0 F48;
+        Vec3_1005c0 F54;
+        Vec3_1005c0 O50;
     } f;
 
     f.V = v88;

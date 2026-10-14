@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001f06c0 @ 0x001f06c0
-typedef unsigned __int64 Key;
-extern Key __cdecl FUN_002672f0(const char*, int, int);
+typedef unsigned __int64 Key_1f06c0;
+extern Key_1f06c0 __cdecl FUN_002672f0(const char*, int, int);
 extern int __cdecl FUN_002673a0(const char*, int);
 
 class CSoundCommand_PlayFightDialogueEvent {
@@ -27,7 +27,7 @@ CSoundCommand_PlayFightDialogueEvent::CSoundCommand_PlayFightDialogueEvent(const
     f0c = arg;
     keyLo = 0;
     keyHi = 0;
-    Key k = FUN_002672f0(name, 0, 0);
+    Key_1f06c0 k = FUN_002672f0(name, 0, 0);
     keyHi = (unsigned int)(k >> 32);
     keyLo = (unsigned int)k;
     id = FUN_002673a0(sub, 0);

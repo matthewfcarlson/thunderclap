@@ -2,25 +2,25 @@
 // FUN_0021cd90 @ 0x0021cd90
 struct Context { char pad[0x24]; int saved; };
 struct Node { char pad[0xc]; int kind; char pad2[0xc]; Context* context; };
-struct Info { int unused; int value; };
-struct State { char pad[0x14]; Info* info; int count; };
-struct Value { int type; int value; int extra; int a; int b; };
+struct Info_21cd90 { int unused; int value; };
+struct State_21cd90 { char pad[0x14]; Info_21cd90* info; int count; };
+struct Value_21cd90 { int type; int value; int extra; int a; int b; };
 // equiv-conv: FUN_0021c240 ecx esi
 void FUN_0021c240(const char*, Context*);
 // equiv-conv: FUN_0021c3d0 esi
 int FUN_0021c3d0(Node*);
 int __cdecl FUN_002209b0(Context*, int);
 // equiv-conv: FUN_0021cd30 edi eax
-void FUN_0021cd30(Value*, Node*);
+void FUN_0021cd30(Value_21cd90*, Node*);
 // equiv-conv: FUN_0021c2e0 eax esi
 void FUN_0021c2e0(int, Node*);
-int __cdecl FUN_00221200(Context*, Value*);
-void __cdecl FUN_0021ded0(Node*, Value*, int);
+int __cdecl FUN_00221200(Context*, Value_21cd90*);
+void __cdecl FUN_0021ded0(Node*, Value_21cd90*, int);
 int __cdecl FUN_00220bd0(Context*, int, int, int, int);
-int __cdecl target(Node* node, State* state) {
+int __cdecl target(Node* node, State_21cd90* state) {
  Context* context = node->context;
  int saved = context->saved;
- Value left, right;
+ Value_21cd90 left, right;
  if(node->kind == 0x116) {
   if(state->count > 0x7ffffffd) FUN_0021c240("items in a constructor", context);
   ++state->count;

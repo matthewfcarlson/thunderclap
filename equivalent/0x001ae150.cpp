@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2397 inputs, branch coverage 20/20)
 // FUN_001ae150 @ 0x001ae150
 // FUN_001ae150 @ 0x001ae150: removes the first occurrence of a value from a ring buffer, rotating the older entries
-class Ring {
+class Ring_1ae150 {
 public:
     char pad00[0x18];
     int *head;
@@ -11,7 +11,7 @@ public:
     void FUN_001ae150(int value);
 };
 
-void Ring::FUN_001ae150(int value)
+void Ring_1ae150::FUN_001ae150(int value)
 {
     int count;
     if (head > tail)

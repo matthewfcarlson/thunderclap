@@ -2,7 +2,7 @@
 // FUN_0030be90 @ 0x0030be90
 extern float DAT_003f32e0;   // 0.0f
 
-class Contact {
+class Contact_30be90 {
 public:
     char pad00[0x98];
     float a98, a9c, aa0;     // 0x98
@@ -20,7 +20,7 @@ public:
 
 void __stdcall FUN_0030ad10(int mode, float *out);
 
-void Contact::FUN_0030be90() {
+void Contact_30be90::FUN_0030be90() {
     FUN_0030ad10(flagF8, &f154);
     f158 = aa0 * n140 + a9c * n13c + a98 * n138;
     if (flagF8) {

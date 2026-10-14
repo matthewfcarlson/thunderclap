@@ -3,14 +3,14 @@
 // FUN_0025cf70 @ 0x0025cf70: fills each plane of a surface region with a constant byte and records the size
 extern "C" void *__cdecl memset(void *, int, unsigned int);
 
-struct Surface {
+struct Surface_25cf70 {
     char pad00[0x10];
     char *base;
     unsigned int flags;
     int state;
 };
 
-char __cdecl FUN_0025cf70(Surface *s, unsigned int offset, unsigned int size, unsigned int *outSize)
+char __cdecl FUN_0025cf70(Surface_25cf70 *s, unsigned int offset, unsigned int size, unsigned int *outSize)
 {
     unsigned char fill = ((s->flags & 0x7c000000) == 0x20000000) ? 0x80 : 0;
     if (s->flags & 0x1f0) {

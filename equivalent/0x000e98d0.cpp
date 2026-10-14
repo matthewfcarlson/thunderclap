@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // HSlider::vfunc_3 @ 0x000e98d0
-class Metrics {
+class Metrics_e98d0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -15,7 +15,7 @@ public:
 
 struct Font {
     char pad0[0x24];
-    Metrics *metrics;
+    Metrics_e98d0 *metrics;
 };
 
 struct LayoutEntry {
@@ -25,18 +25,18 @@ struct LayoutEntry {
     int f12;
 };
 
-struct Layout {
+struct Layout_e98d0 {
     Font *font;
     int f4;
     LayoutEntry entries[8];
     int index;
     float f8c;
-    Layout *FUN_000f7fe0(Font *font);
+    Layout_e98d0 *FUN_000f7fe0(Font *font);
     float FUN_000f88a0(const unsigned short *text);
     void FUN_000f78e0();
 };
 
-class Fonts {
+class Fonts_e98d0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -85,14 +85,14 @@ public:
     virtual Font *v44();
 };
 
-struct Hold {
+struct Hold_e98d0 {
     char pad0[4];
-    Fonts *fonts;
+    Fonts_e98d0 *fonts;
 };
 
 class HSlider;
 
-class Owner {
+class Owner_e98d0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -113,7 +113,7 @@ public:
     virtual float v16(HSlider *s);
     virtual float v17(HSlider *s);
     char pad04[8 - 4];
-    Hold *hold;
+    Hold_e98d0 *hold;
 };
 
 class FEObject {
@@ -123,7 +123,7 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     char pad04[0x14 - 4];
-    Owner *owner;
+    Owner_e98d0 *owner;
 };
 
 class HSlider : public FEObject {
@@ -141,7 +141,7 @@ void HSlider::vfunc_3()
 {
     struct Frame {
         float k;
-        Layout layout;
+        Layout_e98d0 layout;
     } fr;
 
     FEObject::vfunc_3();
@@ -152,7 +152,7 @@ void HSlider::vfunc_3()
     f17c = fr.layout.FUN_000f88a0(text) + f17c;
 
     LayoutEntry *entry = &fr.layout.entries[fr.layout.index];
-    Metrics *m = fr.layout.font->metrics;
+    Metrics_e98d0 *m = fr.layout.font->metrics;
     fr.k = 14.0f / m->v7();
     f17c = m->FUN_000dfbf0(": ") * entry->scale * fr.k + f17c;
 

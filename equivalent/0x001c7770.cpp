@@ -6,7 +6,7 @@ extern void* __cdecl FUN_0008d690(unsigned int size);
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 
-struct IntArray {
+struct IntArray_1c7770 {
     char pad00[8];
     unsigned int capacity;   // 0x08
     char pad0c[4];
@@ -15,7 +15,7 @@ struct IntArray {
     void Reserve(unsigned int newCapacity);
 };
 
-void IntArray::Reserve(unsigned int newCapacity)
+void IntArray_1c7770::Reserve(unsigned int newCapacity)
 {
     int* fresh = static_cast<int*>(FUN_0008d690(newCapacity << 2));
     memset(fresh, 0, newCapacity << 2);

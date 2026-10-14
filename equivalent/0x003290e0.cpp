@@ -25,14 +25,14 @@ struct DeclFrame {
     unsigned int handle;
     unsigned int decl[63];
 };
-class ShaderCache {
+class ShaderCache_3290e0 {
   public:
     int pad0;
     unsigned int count;
     ShaderGroup groups[1];
     ShaderEntry* Get(const char* name, unsigned int a, unsigned int flags, int c);
 };
-ShaderEntry* ShaderCache::Get(const char* name, unsigned int a, unsigned int flags, int c) {
+ShaderEntry* ShaderCache_3290e0::Get(const char* name, unsigned int a, unsigned int flags, int c) {
     DeclFrame F;
     unsigned int hash = FUN_00329060(name);
     F.b = (unsigned char)(c & 1);

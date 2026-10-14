@@ -34,7 +34,7 @@ class SingleLayout : public FELayout {
     virtual char v22();
 };
 
-class Child {
+class Child_e5710 {
   public:
     virtual void v0();
     virtual void v1();
@@ -42,7 +42,7 @@ class Child {
     virtual char v3(int key, int arg);
 };
 
-class Names {
+class Names_e5710 {
   public:
     virtual void v0();
     virtual void v1();
@@ -55,7 +55,7 @@ class Names {
     virtual const char *v8();
 };
 
-class Parent {
+class Parent_e5710 {
   public:
     virtual void v0();
     virtual void v1();
@@ -82,24 +82,24 @@ class Parent {
     virtual void v22();
     virtual void v23();
     char pad[0x175c - 4];
-    Names *names;
+    Names_e5710 *names;
 };
 
-struct State {
+struct State_e5710 {
     char FUN_000b4f20();
     char FUN_000b8c90();
 };
-struct Sub {
-    State *FUN_00086280();
+struct Sub_e5710 {
+    State_e5710 *FUN_00086280();
     int *FUN_00086270();
 };
-struct Globals {
+struct Globals_e5710 {
     char pad[0x54];
-    Sub *sub;
+    Sub_e5710 *sub;
 };
-extern Globals *DAT_004dd700;
+extern Globals_e5710 *DAT_004dd700;
 
-union Arg2 {
+union Arg2_e5710 {
     int arg;
     char flag;
 };
@@ -109,7 +109,7 @@ class FEScreenBase {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual char vfunc_3(int key, Arg2 a2);
+    virtual char vfunc_3(int key, Arg2_e5710 a2);
     virtual void vfunc_4();
     virtual void vfunc_5();
     virtual void vfunc_6();
@@ -159,7 +159,7 @@ class FEScreenBase {
     virtual void vfunc_50();
     virtual void vfunc_51();
     virtual void setWidget(FELayout *w, int dir);
-    Parent *parent;
+    Parent_e5710 *parent;
     char pad08[0x48 - 0x8];
     FELayout *focus;
     FELayout *widgets[0x80];
@@ -170,13 +170,13 @@ class FEScreenBase {
     char padA7c[0xab8 - 0xa7c];
     char enabled;
     char padAB9[3];
-    Child *kids[0x20];
+    Child_e5710 *kids[0x20];
     int kidCount;
     char text_b40[0x40];
     char text_b80[0x40];
 };
 
-char FEScreenBase::vfunc_3(int key, Arg2 a2)
+char FEScreenBase::vfunc_3(int key, Arg2_e5710 a2)
 {
     if (!enabled)
         return 0;
@@ -190,7 +190,7 @@ char FEScreenBase::vfunc_3(int key, Arg2 a2)
         if (key == 0xa) {
             if (focus)
                 focus->v10(1);
-            State *s = DAT_004dd700->sub->FUN_00086280();
+            State_e5710 *s = DAT_004dd700->sub->FUN_00086280();
             if (!(s->FUN_000b4f20() && s->FUN_000b8c90()))
                 parent->v21();
             return 1;

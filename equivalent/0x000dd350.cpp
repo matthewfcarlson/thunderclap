@@ -14,7 +14,7 @@ struct Node {
     virtual unsigned __int64 vfunc_1();
 };
 
-class Parser {
+class Parser_dd350 {
 public:
     bool FUN_000f9ef0();
     void FUN_000f9f30();
@@ -26,7 +26,7 @@ public:
     void FUN_000f9fb0();
 };
 
-class Sink {
+class Sink_dd350 {
 public:
     virtual void v0();
     virtual void v1();
@@ -78,7 +78,7 @@ public:
     virtual void v47();
     virtual void Store(const char* name, void* dest);
 };
-class Handler {
+class Handler_dd350 {
 public:
     virtual void v0();
     virtual void v1();
@@ -114,13 +114,13 @@ public:
     virtual void v31();
     virtual void v32();
     virtual void v33();
-    virtual bool Handle34(Parser* p, Node* node, int flag);
-    virtual bool Handle35(Parser* p, Sink* sink, void* owner, Node* node);
-    virtual bool Handle36(Parser* p, Sink* sink, void* owner, Node* node);
-    virtual bool Handle37(Parser* p, Sink* sink, Node* node);
+    virtual bool Handle34(Parser_dd350* p, Node* node, int flag);
+    virtual bool Handle35(Parser_dd350* p, Sink_dd350* sink, void* owner, Node* node);
+    virtual bool Handle36(Parser_dd350* p, Sink_dd350* sink, void* owner, Node* node);
+    virtual bool Handle37(Parser_dd350* p, Sink_dd350* sink, Node* node);
 };
 
-struct Slot {
+struct Slot_dd350 {
     int a, b, c;
 };
 
@@ -128,22 +128,22 @@ int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, ...);
 void __cdecl FUN_0008d340(void* p);
 char* __cdecl FUN_0008d6d0(int size);
 
-class Config {
+class Config_dd350 {
 public:
     char pad0[0x150];
     int count;              // 0x150
     char pad154[0x15c - 0x154];
-    Slot* slotsA;           // 0x15c
-    Slot* slotsB;           // 0x160
+    Slot_dd350* slotsA;           // 0x15c
+    Slot_dd350* slotsB;           // 0x160
     char** namesA;          // 0x164
     char** namesB;          // 0x168
     char pad16c[0x17c - 0x16c];
     char b17c;
     void FUN_000dc810(int v);
-    bool FUN_000dd350(Parser* parser, Handler* handler, Sink* sink);
+    bool FUN_000dd350(Parser_dd350* parser, Handler_dd350* handler, Sink_dd350* sink);
 };
 
-bool Config::FUN_000dd350(Parser* parser, Handler* handler, Sink* sink)
+bool Config_dd350::FUN_000dd350(Parser_dd350* parser, Handler_dd350* handler, Sink_dd350* sink)
 {
     unsigned int cookie = DAT_004d9968;
     struct Frame {

@@ -5,7 +5,7 @@
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
 
-struct Name {
+struct Name_2b6930 {
     char data[8];
     void FUN_0027b040(const char *s);
 };
@@ -26,7 +26,7 @@ struct Stream {
 extern int DAT_00554bb4;
 extern "C" unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
 
-class Res;
+class Res_2b6930;
 
 namespace pure3d {
 
@@ -69,12 +69,12 @@ public:
     int f14[6];
     int f2c[4];
     char pad3c[4];
-    ::Res *f40;
+    ::Res_2b6930 *f40;
 };
 
 }
 
-class Res {
+class Res_2b6930 {
 public:
     virtual void v0();
     virtual void v1();
@@ -87,19 +87,19 @@ public:
     virtual void v8(int snapshot);
 };
 
-struct Target {
+struct Target_2b6930 {
     char pad0[8];
-    Name name;
+    Name_2b6930 name;
     char pad10[4];
     int f14[6];
     int f2c[4];
     char pad3c[0x48 - 0x3c];
-    Res **f48;
+    Res_2b6930 **f48;
     void FUN_002a4500(int which, pure3d::ShadowMeshBufferImpl *buf);
 };
 
-struct Manager {
-    void FUN_002e4d70(Res **slot, Stream *s, void *inv, int a, int b, char *flags);
+struct Manager_2b6930 {
+    void FUN_002e4d70(Res_2b6930 **slot, Stream *s, void *inv, int a, int b, char *flags);
 };
 
 namespace pure3d {
@@ -111,13 +111,13 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual void vfunc_5(Target **out, unsigned __int64 *outId, Stream *s, void *inv);
-    virtual Target *vfunc_6(int kind);
+    virtual void vfunc_5(Target_2b6930 **out, unsigned __int64 *outId, Stream *s, void *inv);
+    virtual Target_2b6930 *vfunc_6(int kind);
     char pad08[0x10];
-    Manager *mgr;   // 0x14
+    Manager_2b6930 *mgr;   // 0x14
 };
 
-struct Frame {
+struct Frame_2b6930 {
     char pad0[3];
     char useB;      // S3
     ShadowMeshBufferImpl *bufB;  // S4
@@ -138,9 +138,9 @@ struct Frame {
     char name[256]; // S84
 };
 
-void ShadowMeshBufferLoader::vfunc_5(Target **out, unsigned __int64 *outId, Stream *s, void *inv)
+void ShadowMeshBufferLoader::vfunc_5(Target_2b6930 **out, unsigned __int64 *outId, Stream *s, void *inv)
 {
-    Frame f;
+    Frame_2b6930 f;
     s->reader->FUN_002647e0(&f.useB, 1, 1, 1);
     unsigned int len = (unsigned char)f.useB;
     s->reader->FUN_002647e0(f.name, len, 1, 1);
@@ -156,7 +156,7 @@ void ShadowMeshBufferLoader::vfunc_5(Target **out, unsigned __int64 *outId, Stre
     if (kind == 1 || kind == 4 || kind == 7)
         f.useB = 0;
 
-    Target *impl = vfunc_6(f.useB ? 2 : 1);
+    Target_2b6930 *impl = vfunc_6(f.useB ? 2 : 1);
     impl->name.FUN_0027b040(f.name);
 
     void *mem = thunk_FUN_0008d690(0x48);
@@ -228,7 +228,7 @@ void ShadowMeshBufferLoader::vfunc_5(Target **out, unsigned __int64 *outId, Stre
             } else if (id == 0x10024) {
                 s->FUN_00266a30();
                 mgr->FUN_002e4d70(impl->f48, s, inv, 0, 1, f.flags);
-                Res *r = *impl->f48;
+                Res_2b6930 *r = *impl->f48;
                 r->v8(f.v20);
                 r->v0();
                 if (bufA->f40)
@@ -239,7 +239,7 @@ void ShadowMeshBufferLoader::vfunc_5(Target **out, unsigned __int64 *outId, Stre
             } else if (id == 0x10025) {
                 s->FUN_00266a30();
                 mgr->FUN_002e4d70(impl->f48 + 4, s, inv, 0, 1, f.flags);
-                Res *r = impl->f48[4];
+                Res_2b6930 *r = impl->f48[4];
                 r->v8(f.v20);
                 r->v0();
                 if (f.bufB->f40)

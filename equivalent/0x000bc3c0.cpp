@@ -11,11 +11,11 @@ class Request {
     bool FUN_00266750();
     int FUN_00266700();
 };
-class Target {
+class Target_bc3c0 {
   public:
     void FUN_00266220(int value);
 };
-class Manager {
+class Manager_bc3c0 {
   public:
     void FUN_00265810(const char* name, struct RequestState* state);
     int FUN_00264870();
@@ -29,10 +29,10 @@ struct RequestState {
     int arg;
     char field110;
 };
-extern Manager* DAT_00527c58;
+extern Manager_bc3c0* DAT_00527c58;
 void __cdecl FUN_00087990();
 
-void __stdcall FUN_000bc3c0(const char* src, Target* target, int arg) {
+void __stdcall FUN_000bc3c0(const char* src, Target_bc3c0* target, int arg) {
     struct Frame {
         RequestState st;
         volatile unsigned int cookie;

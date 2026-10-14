@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0015baf0 @ 0x0015baf0
-struct Name {
+struct Name_15baf0 {
     unsigned int a, b;
     void FUN_0027af00();
 };
 
-class __declspec(novtable) TrackBase {
+class __declspec(novtable) TrackBase_15baf0 {
 public:
     virtual void b0();
     int pad04;
     int pad08;
     void FUN_00236d40();
-    TrackBase() { FUN_00236d40(); }
+    TrackBase_15baf0() { FUN_00236d40(); }
 };
 
 namespace hulkfight { namespace motion {
-class LocomotionStrafe4Track : public TrackBase {
+class LocomotionStrafe4Track : public TrackBase_15baf0 {
 public:
     virtual void v1();
     virtual void v2();
@@ -28,7 +28,7 @@ public:
     char pad1d[3];
     float limits[7];                // 0x20 .. 0x38
     char pad3c[4];
-    Name names[11];                 // 0x40 .. 0x97
+    Name_15baf0 names[11];                 // 0x40 .. 0x97
     int f98;
     float f9c;
     float fa0;

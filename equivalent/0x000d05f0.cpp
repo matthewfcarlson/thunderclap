@@ -7,47 +7,47 @@ extern unsigned int DAT_004d9968;
 extern int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 extern unsigned __int64 __cdecl FUN_002672f0(const void *name, int a, int b);
 
-struct V3 {
+struct V3_d05f0 {
     float x, y, z;
 };
 
-struct Metrics {
+struct Metrics_d05f0 {
     int dummy;
 };
 
-struct Slot {
+struct Slot_d05f0 {
     float weight;
     int a;
     int b;
     int value;
 };
 
-struct SlotStack {
-    Slot slots[8];
+struct SlotStack_d05f0 {
+    Slot_d05f0 slots[8];
     int index;
     float scale;
     void FUN_000f78f0();
 };
 
-struct Label {
+struct Label_d05f0 {
     int f0;
     char rest[0x20];
     void FUN_000f7930();
     void FUN_000f7960();
-    void FUN_000f8500(const void *name, Metrics *font, int flag);
+    void FUN_000f8500(const void *name, Metrics_d05f0 *font, int flag);
 };
 
-struct Layout {
-    Metrics *font;
+struct Layout_d05f0 {
+    Metrics_d05f0 *font;
     int current;
-    SlotStack stack;
-    Layout *FUN_000f7fe0(Metrics *font);
-    void FUN_000f87f0(Label *e, void *arg);
+    SlotStack_d05f0 stack;
+    Layout_d05f0 *FUN_000f7fe0(Metrics_d05f0 *font);
+    void FUN_000f87f0(Label_d05f0 *e, void *arg);
     void FUN_000f80e0(const char *text, int a, const void *b);
     void FUN_000f78e0();
 };
 
-class Screen {
+class Screen_d05f0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -90,7 +90,7 @@ public:
     virtual void v38(int a, int b);
 };
 
-class Layer {
+class Layer_d05f0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -112,13 +112,13 @@ public:
 };
 
 struct Canvas {
-    Layer *layer;
+    Layer_d05f0 *layer;
     void FUN_00293d00(const void *v);
     void FUN_00293bf0(float angle);
     void FUN_00293da0(float a, float b, float c);
 };
 
-class UiObj {
+class UiObj_d05f0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -141,46 +141,46 @@ public:
     virtual void v18(int a);
 };
 
-struct UiVec {
+struct UiVec_d05f0 {
     char pad0[0x24];
-    UiObj **begin;
-    UiObj **end;
+    UiObj_d05f0 **begin;
+    UiObj_d05f0 **end;
 };
 
-struct Clock {
+struct Clock_d05f0 {
     float FUN_00085f80();
 };
-struct Obj10 {
-    int FUN_00059a50(V3 *out);
+struct Obj10_d05f0 {
+    int FUN_00059a50(V3_d05f0 *out);
 };
 struct World {
     char pad0[0x10];
-    Obj10 *p10;
+    Obj10_d05f0 *p10;
 };
 struct ObjMgr {
     World *FUN_00024280(unsigned __int64 id);
 };
-struct Owner {
+struct Owner_d05f0 {
     char pad0[0x20];
     ObjMgr *objmgr;
     char pad24[0x58 - 0x24];
-    Clock *clock;
+    Clock_d05f0 *clock;
 };
 struct Obj80 {
     float FUN_001cc8a0();
 };
-struct Part {
+struct Part_d05f0 {
     void FUN_000c75b0();
     void FUN_000c72e0();
     void FUN_000c8850();
 };
 
-extern Screen *DAT_0052c2a8;
+extern Screen_d05f0 *DAT_0052c2a8;
 extern Canvas *DAT_0052c2ac;
-extern V3 DAT_004ddf00;
-extern V3 DAT_004dde98;
-extern V3 DAT_004ddef4;
-extern V3 DAT_004ddeb0;
+extern V3_d05f0 DAT_004ddf00;
+extern V3_d05f0 DAT_004dde98;
+extern V3_d05f0 DAT_004ddef4;
+extern V3_d05f0 DAT_004ddeb0;
 extern float DAT_0049fcf4;
 extern float DAT_0049fcf0;
 extern float DAT_0049fd00;
@@ -190,7 +190,7 @@ extern float DAT_0049fcc4;
 extern int DAT_0049fcf8;
 extern int DAT_0049fd08;
 
-struct Frame {
+struct Frame_d05f0 {
     int padLow;
     float dist2;                // 0x00
     float out1;                 // 0x04
@@ -203,12 +203,12 @@ struct Frame {
         int n23;
     } sc;                       // 0x0c
     float dist1;                // 0x10
-    Layout layout;              // 0x14
+    Layout_d05f0 layout;              // 0x14
     union {
         char buf[0x44];
-        Label e2;
+        Label_d05f0 e2;
         int digits[6];
-        V3 p3;
+        V3_d05f0 p3;
     } u;                        // 0xa4
     unsigned int cookie;        // 0xe8
 };
@@ -222,14 +222,14 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     char pad04[0x0c - 4];
-    Owner *owner;
+    Owner_d05f0 *owner;
     char pad10[0x78 - 0x10];
     float f78;
-    Metrics *font;
+    Metrics_d05f0 *font;
     Obj80 *p80;
     char pad84[4];
-    Part *p88;
-    Part *p8c;
+    Part_d05f0 *p88;
+    Part_d05f0 *p8c;
     char pad90[4];
     char f94[0x14];
     float fa8;
@@ -243,22 +243,22 @@ public:
     float f144;
     int i148;
     char pad14c[0x1f8 - 0x14c];
-    UiObj *p1f8;
-    UiObj *arr[6];
+    UiObj_d05f0 *p1f8;
+    UiObj_d05f0 *arr[6];
     char pad214[0x244 - 0x214];
-    UiObj *p244;
-    UiVec *p248;
+    UiObj_d05f0 *p244;
+    UiVec_d05f0 *p248;
     int i24c;
     char pad250[0x4a0 - 0x250];
-    UiObj *p4a0;
+    UiObj_d05f0 *p4a0;
     char pad4a4[0x4ac - 0x4a4];
-    UiVec *p4ac;
-    UiVec *p4b0;
-    UiVec *p4b4;
-    V3 v4b8;
+    UiVec_d05f0 *p4ac;
+    UiVec_d05f0 *p4b0;
+    UiVec_d05f0 *p4b4;
+    V3_d05f0 v4b8;
     char name4c4[0x504 - 0x4c4];
     float f504;
-    UiObj *p508;
+    UiObj_d05f0 *p508;
     void FUN_000cc7e0();
     void FUN_000cf740();
     void FUN_000cda90();
@@ -267,7 +267,7 @@ public:
 
 void HUDOverlay::vfunc_4()
 {
-    Frame f;
+    Frame_d05f0 f;
     f.cookie = DAT_004d9968;
     int nscr = DAT_0052c2a8->v34();
     for (int i = 0; i < nscr; i++)
@@ -280,7 +280,7 @@ void HUDOverlay::vfunc_4()
     if (flags & 4)
         p88->FUN_000c8850();
 
-    SlotStack *st = &f.layout.stack;
+    SlotStack_d05f0 *st = &f.layout.stack;
     if (flags & 0x200) {
         DAT_0052c2ac->layer->v15(0);
         DAT_0052c2ac->FUN_00293d00(&DAT_004ddf00);
@@ -377,7 +377,7 @@ void HUDOverlay::vfunc_4()
         if (i24c == 4 && p244->v7()) {
             unsigned char cnt = (unsigned char)(p248->end - p248->begin);
             for (int i = 0; i < cnt; i++) {
-                UiObj *o = p248->begin[(unsigned char)i];
+                UiObj_d05f0 *o = p248->begin[(unsigned char)i];
                 o->v14(125.0f, 217.0f);
                 o->v12(125.0f);
                 o->v16(2);
@@ -395,14 +395,14 @@ void HUDOverlay::vfunc_4()
         ObjMgr *om1 = owner->objmgr;
         World *w1 = om1->FUN_00024280(FUN_002672f0("hulk", 0, 0));
         if (w1 != 0) {
-            V3 &p = f.u.p3;
+            V3_d05f0 &p = f.u.p3;
             w1->p10->FUN_00059a50(&p);
             f.dist1 = (float)sqrt((p.z - v4b8.z) * (p.z - v4b8.z) + (p.y - v4b8.y) * (p.y - v4b8.y) + (p.x - v4b8.x) * (p.x - v4b8.x));
         }
         ObjMgr *om2 = owner->objmgr;
         World *w2 = om2->FUN_00024280(FUN_002672f0(name4c4, 0, 0));
         if (w2 != 0) {
-            V3 &p = f.u.p3;
+            V3_d05f0 &p = f.u.p3;
             w2->p10->FUN_00059a50(&p);
             f.dist2 = (float)sqrt((p.z - v4b8.z) * (p.z - v4b8.z) + (p.y - v4b8.y) * (p.y - v4b8.y) + (p.x - v4b8.x) * (p.x - v4b8.x));
         }

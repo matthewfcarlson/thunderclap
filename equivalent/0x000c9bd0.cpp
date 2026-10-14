@@ -18,7 +18,7 @@ struct TexImpl {
     virtual int height();
 };
 
-struct Loaded {
+struct Loaded_c9bd0 {
     virtual void init();
     virtual void release();
     char pad04[4];
@@ -28,43 +28,43 @@ struct Loaded {
     void FUN_00263e90();
 };
 
-struct Inventory {
+struct Inventory_c9bd0 {
     virtual void i0();
     virtual void i1();
     virtual void i2();
-    virtual Loaded *find(void *caster, unsigned __int64 key);
-    Inventory *FUN_00266480(int n);
+    virtual Loaded_c9bd0 *find(void *caster, unsigned __int64 key);
+    Inventory_c9bd0 *FUN_00266480(int n);
 };
 
-struct Inner {
+struct Inner_c9bd0 {
     virtual void a0(); virtual void a1(); virtual void a2(); virtual void a3(); virtual void a4();
     virtual void set(unsigned int, unsigned int);
 };
-struct Resource {
+struct Resource_c9bd0 {
     virtual void init();
     virtual void release();
     char pad[12];
-    Inner *inner;           // 0x10
+    Inner_c9bd0 *inner;           // 0x10
 };
 
-struct Screen {
+struct Screen_c9bd0 {
 virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15(); virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19(); virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23(); virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27(); virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31(); virtual void s32(); virtual void s33(); virtual void s34(); virtual void s35(); virtual void s36(); virtual void s37(); virtual void s38(); virtual void s39(); virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43(); virtual void s44(); virtual void s45(); virtual void s46(); virtual void s47(); virtual void s48(); virtual void s49(); virtual void s50(); virtual void s51(); virtual void s52(); virtual void s53(); virtual void s54(); virtual void s55(); virtual void s56(); virtual void s57(); virtual void s58(); virtual void s59(); virtual void s60(); virtual void s61(); virtual void s62(); virtual void s63(); virtual void s64(); virtual void s65(); virtual void s66(); virtual void s67(); virtual void s68(); virtual void s69(); virtual void s70(); virtual void s71(); virtual void s72(); virtual void s73(); virtual void s74(); virtual void s75(); virtual void s76(); virtual void s77(); virtual void s78(); virtual void s79(); virtual void s80(); virtual void s81(); virtual void s82(); virtual void s83(); virtual void s84(); virtual void s85(); virtual void s86(); virtual void s87(); virtual void s88(); virtual void s89(); virtual void s90(); 
     virtual void v91();
 };
-extern Screen *DAT_0052c2a8;
+extern Screen_c9bd0 *DAT_0052c2a8;
 
 extern float DAT_0049fbb8;
 extern float DAT_0049fbc0;
 
-struct Entry {
+struct Entry_c9bd0 {
     const char *name;
     float v[5];
 };
 
-struct Frame {
+struct Frame_c9bd0 {
     int caster;             // 0x00 (vptr of the stack DynamicCaster / fild spill)
     int pad04;
-    Entry t[16];            // 0x08
+    Entry_c9bd0 t[16];            // 0x08
     char png[0x40];         // 0x188
     char path[0x100];       // 0x1c8
     unsigned int cookie;    // 0x2c8
@@ -73,8 +73,8 @@ struct Frame {
 class CHudMap {
 public:
     char pad0[0x10];
-    Loaded *tex;            // 0x10
-    Resource *res;          // 0x14
+    Loaded_c9bd0 *tex;            // 0x10
+    Resource_c9bd0 *res;          // 0x14
     char pad18[0xc];
     float f24, f28, f2c, f30, f34;
     char pad38[8];
@@ -83,13 +83,13 @@ public:
     float f210;
     char pad214[4];
     float f218;
-    void FUN_000c9550(const char *path, Inventory *inv, int n);
+    void FUN_000c9550(const char *path, Inventory_c9bd0 *inv, int n);
     void FUN_000c9bd0(char *name);
 };
 
 void CHudMap::FUN_000c9bd0(char *name)
 {
-    Frame f;
+    Frame_c9bd0 f;
     f.cookie = DAT_004d9968;
     memset(f.t, 0, sizeof f.t);
     f.pad04 = (int)0xc5064000;
@@ -186,7 +186,7 @@ void CHudMap::FUN_000c9bd0(char *name)
     FUN_000964a0(f.png, 0x40, "%s.png", name);
     if (tex != 0) {
         unsigned __int64 k = FUN_0027b020(f.png);
-        Loaded *t = tex;
+        Loaded_c9bd0 *t = tex;
         if ((unsigned int)k == t->idLo && (unsigned int)(k >> 32) == t->idHi) {
             __security_check_cookie(f.cookie);
             return;
@@ -207,7 +207,7 @@ void CHudMap::FUN_000c9bd0(char *name)
         }
     }
     FUN_000964a0(f.path, 0x100, "frontend/art/hud_maps/%s.p3d", name);
-    Inventory *inv = (Inventory *)FUN_00263ed0(0x14, 1);
+    Inventory_c9bd0 *inv = (Inventory_c9bd0 *)FUN_00263ed0(0x14, 1);
     if (inv != 0)
         inv = inv->FUN_00266480(0x400);
     else
@@ -215,7 +215,7 @@ void CHudMap::FUN_000c9bd0(char *name)
     inv->i0();
     FUN_000c9550(f.path, inv, 0xe);
     unsigned __int64 key = FUN_0027b020(f.png);
-    Loaded *l = inv->find(new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::Texture>, key);
+    Loaded_c9bd0 *l = inv->find(new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::Texture>, key);
     if (l != 0)
         l->init();
     if (tex != 0)

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FEThingsBase::vfunc_8 @ 0x000e83a0
-class Widget {
+class Widget_e83a0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -28,15 +28,15 @@ public:
     virtual void vfunc_7();
     virtual void vfunc_8();
     char pad04[0x175c - 4];
-    Widget* header;         // 0x175c
+    Widget_e83a0* header;         // 0x175c
     char pad1760[0x1a5c - 0x1760];
-    Widget* arrows[2];      // 0x1a5c
+    Widget_e83a0* arrows[2];      // 0x1a5c
     char pad1a64[0x2074 - 0x1a64];
     char arrowsVisible;     // 0x2074
     char pad2075[0x2080 - 0x2075];
-    Widget* items[32];      // 0x2080
+    Widget_e83a0* items[32];      // 0x2080
     char pad2100[0x2218 - 0x2100];
-    Widget* footer;         // 0x2218
+    Widget_e83a0* footer;         // 0x2218
 };
 
 void FEThingsBase::vfunc_8()

@@ -7,28 +7,28 @@ void *FUN_0008d690(unsigned int size);
 void *thunk_FUN_0008d690(unsigned int size);
 void *FUN_0008d6d0(unsigned int size);
 
-struct Name {
+struct Name_27def0 {
     int w0;
     int w1;
-    void FUN_0027af70(Name *other);
+    void FUN_0027af70(Name_27def0 *other);
 };
 
-struct Matrix16 {
+struct Matrix16_27def0 {
     unsigned int w[16];
     void FUN_0022b980();
 };
 
-class RefCounted {
+class RefCounted_27def0 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-struct Flag {
+struct Flag_27def0 {
     void FUN_00284ad0(char value);
 };
 
-class Material : public RefCounted {
+class Material_27def0 : public RefCounted_27def0 {
 public:
     virtual void v2();
     virtual void v3();
@@ -38,72 +38,72 @@ public:
     virtual int Hash();
     char pad04[0x44];
     int f48;
-    Flag *f4c;
-    Flag *f50;
+    Flag_27def0 *f4c;
+    Flag_27def0 *f50;
     void FUN_002998d0(int arg);
 };
 
-struct Source {
+struct Source_27def0 {
     char pad0[8];
-    Name name;
+    Name_27def0 name;
     void *source;
 };
 
-class Collider : public RefCounted {
+class Collider_27def0 : public RefCounted_27def0 {
 public:
     char pad04[4];
-    Name name;
+    Name_27def0 name;
     void *source;
-    Collider *FUN_002fe1a0(void *source);
+    Collider_27def0 *FUN_002fe1a0(void *source);
 };
 
-struct Shape {
+struct Shape_27def0 {
     char pad0[0x2c];
     unsigned int priority;
     char pad30[0x1c];
-    Source *src;
+    Source_27def0 *src;
 };
 
-struct ShapeObj {
-    ShapeObj *FUN_002f3630(void *source);
+struct ShapeObj_27def0 {
+    ShapeObj_27def0 *FUN_002f3630(void *source);
 };
 
-struct PtrVec {
-    Shape **begin;
-    Shape **end;
+struct PtrVec_27def0 {
+    Shape_27def0 **begin;
+    Shape_27def0 **end;
 };
 
-class Holder : public RefCounted {
+class Holder_27def0 : public RefCounted_27def0 {
 public:
     char pad04[0xc];
     void *p10;
-    Holder *FUN_002fc740(void *a, int b, int c, int d);
+    Holder_27def0 *FUN_002fc740(void *a, int b, int c, int d);
     void FUN_002fc670(int v);
 };
 
-struct Kind {
+struct Kind_27def0 {
     char pad0[0x78];
     int kind;
 };
 
-class Part {
+class Part_27def0 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual Material *v4();
+    virtual Material_27def0 *v4();
 };
 
-class Group : public RefCounted {
+class Group_27def0 : public RefCounted_27def0 {
 public:
     char pad04[4];
-    Name name;
-    Part *p10;
-    Kind *f14;
-    Part *part() { return p10; }
+    Name_27def0 name;
+    Part_27def0 *p10;
+    Kind_27def0 *f14;
+    Part_27def0 *part() { return p10; }
     int f18;
-    PtrVec shapes;
+    PtrVec_27def0 shapes;
 };
 
 namespace pure3d {
@@ -111,7 +111,7 @@ class __declspec(novtable) DrawableHierarchy {
 public:
     virtual void d0();
     char pad4[4];
-    Name name;
+    Name_27def0 name;
     char pad10[0x30];
     void FUN_002a3480();
     DrawableHierarchy() throw() { FUN_002a3480(); }
@@ -123,28 +123,28 @@ public:
     virtual void s1();
     int f40;
     int f44;
-    Matrix16 matrix;
+    Matrix16_27def0 matrix;
     int f88;
     char b8c;
     char pad8d[3];
     int f90;
     int f94;
-    Group *group;
-    Material *material;
-    Holder *holder;
+    Group_27def0 *group;
+    Material_27def0 *material;
+    Holder_27def0 *holder;
     void *table;
     unsigned int count;
-    Collider **colliders;
+    Collider_27def0 **colliders;
     char dirty;
     char padb1[3];
     int fb4;
     int tail[12];
     void FUN_0027d780();
 
-    StateProp(Group *a, int b);
+    StateProp(Group_27def0 *a, int b);
 };
 
-StateProp::StateProp(Group *a, int b)
+StateProp::StateProp(Group_27def0 *a, int b)
 {
     f40 = b;
     f44 = 0;
@@ -166,7 +166,7 @@ StateProp::StateProp(Group *a, int b)
         group->Release();
     group = a;
 
-    Material *m = a->part()->v4();
+    Material_27def0 *m = a->part()->v4();
     if (m)
         m->AddRef();
     if (material)
@@ -181,12 +181,12 @@ StateProp::StateProp(Group *a, int b)
 
     matrix.FUN_0022b980();
 
-    Kind *k = group->f14;
+    Kind_27def0 *k = group->f14;
     if (k) {
         bool two = k->kind == 2;
-        Holder *h = (Holder *)FUN_0008d690(0x18);
+        Holder_27def0 *h = (Holder_27def0 *)FUN_0008d690(0x18);
         if (h) {
-            Kind *fk = group->f14;
+            Kind_27def0 *fk = group->f14;
             int fv = group->f18;
             h = h->FUN_002fc740(fk, fv, material->Hash(), two);
         }
@@ -217,18 +217,18 @@ StateProp::StateProp(Group *a, int b)
         memset(t, 0, count * 24);
     }
 
-    colliders = (Collider **)FUN_0008d6d0((a->shapes.end - a->shapes.begin) * 4);
+    colliders = (Collider_27def0 **)FUN_0008d6d0((a->shapes.end - a->shapes.begin) * 4);
     int fin = 0;
     if (((unsigned int)a >= 1u) && ((int)((char *)a->shapes.end - (char *)a->shapes.begin) & ~3) > 0) {
         int j = 0;
         do {
-            Source *s = a->shapes.begin[j]->src;
+            Source_27def0 *s = a->shapes.begin[j]->src;
             if (s == 0) {
                 colliders[j] = 0;
             } else {
-                Collider *found = 0;
+                Collider_27def0 *found = 0;
                 for (int k2 = 0; k2 < j; k2++) {
-                    Collider *c = colliders[k2];
+                    Collider_27def0 *c = colliders[k2];
                     if (c != 0 && c->name.w0 == s->name.w0 && c->name.w1 == s->name.w1) {
                         found = c;
                         break;
@@ -239,13 +239,13 @@ StateProp::StateProp(Group *a, int b)
                     colliders[j]->AddRef();
                     dirty = 1;
                 } else {
-                    ShapeObj *so = (ShapeObj *)FUN_0008d690(0xd4);
+                    ShapeObj_27def0 *so = (ShapeObj_27def0 *)FUN_0008d690(0xd4);
                     void *sobj;
                     if (so)
                         sobj = so->FUN_002f3630(s->source);
                     else
                         sobj = 0;
-                    Collider *w = (Collider *)thunk_FUN_0008d690(0x18);
+                    Collider_27def0 *w = (Collider_27def0 *)thunk_FUN_0008d690(0x18);
                     if (w)
                         w = w->FUN_002fe1a0(sobj);
                     colliders[j] = w;

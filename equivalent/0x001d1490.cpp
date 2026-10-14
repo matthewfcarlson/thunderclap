@@ -2,13 +2,13 @@
 // FUN_001d1490 @ 0x001d1490
 extern int __cdecl FUN_00096670(const char *, const char *, unsigned int);
 extern int __cdecl FUN_00096600(const char *, const char *);
-struct Entry { int header; char text[1]; };
-struct Table {
- Entry *entries[20];
+struct Entry_1d1490 { int header; char text[1]; };
+struct Table_1d1490 {
+ Entry_1d1490 *entries[20];
  int count;
  char *FUN_001d1490(const char *prefix, const char *previous);
 };
-char *Table::FUN_001d1490(const char *prefix, const char *previous) {
+char *Table_1d1490::FUN_001d1490(const char *prefix, const char *previous) {
  if (!prefix || !*prefix || count <= 0) return 0;
  int i = 0;
  for (;;) {

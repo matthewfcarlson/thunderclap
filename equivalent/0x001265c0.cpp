@@ -5,16 +5,16 @@ extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 extern double __cdecl FUN_000189c0(float v);
 
-struct Vec3 {
+struct Vec3_1265c0 {
     float x, y, z;
 };
 
-struct Body {
+struct Body_1265c0 {
     char pad00[0x40];
-    Vec3 pos;
+    Vec3_1265c0 pos;
 };
 
-struct Holder {
+struct Holder_1265c0 {
     char pad00[0x10];
     void *f10;
 };
@@ -22,25 +22,25 @@ struct Holder {
 struct Locator;
 
 struct Locator {
-    char FUN_00059a50(Vec3 *out);
+    char FUN_00059a50(Vec3_1265c0 *out);
 };
 
-struct Res {
+struct Res_1265c0 {
     char pad00[0x10];
     Locator *loc;
     char pad14[0x328 - 0x14];
-    Body *body;
+    Body_1265c0 *body;
 };
 
-struct Resolver {
-    Res *FUN_00059a30();
+struct Resolver_1265c0 {
+    Res_1265c0 *FUN_00059a30();
 };
 
-struct Target {
-    Resolver *FUN_000592a0();
+struct Target_1265c0 {
+    Resolver_1265c0 *FUN_000592a0();
 };
 
-float __fastcall FUN_0022d110(Vec3 *v);
+float __fastcall FUN_0022d110(Vec3_1265c0 *v);
 
 class TargetAngleYCondition {
 public:
@@ -60,16 +60,16 @@ char TargetAngleYCondition::vfunc_6(int a, void *obj, int c)
 {
     if (!FUN_00344e74(obj, 0, DAT_00494b44, DAT_00494b60, 0))
         return 0;
-    Res *r = ((Target *)obj)->FUN_000592a0()->FUN_00059a30();
-    Body *body = r->body;
+    Res_1265c0 *r = ((Target_1265c0 *)obj)->FUN_000592a0()->FUN_00059a30();
+    Body_1265c0 *body = r->body;
     if (!body)
         return 0;
-    Vec3 from;
+    Vec3_1265c0 from;
     from.x = 0.0f;
     from.y = 0.0f;
     from.z = 0.0f;
     r->loc->FUN_00059a50(&from);
-    Vec3 d;
+    Vec3_1265c0 d;
     d.x = body->pos.x - from.x;
     d.y = body->pos.y - from.y;
     d.z = body->pos.z - from.z;

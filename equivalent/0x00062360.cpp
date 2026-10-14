@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00062360 @ 0x00062360
-struct Name {
+struct Name_62360 {
     unsigned int a, b;
     void FUN_0027af00();
     void FUN_0027b040(const char* s);
 };
 
-class __declspec(novtable) TrackBase {
+class __declspec(novtable) TrackBase_62360 {
 public:
     virtual void b0();
     int pad04;
     int pad08;
     void FUN_00236d40();
-    TrackBase() { FUN_00236d40(); }
+    TrackBase_62360() { FUN_00236d40(); }
 };
 
-class CSmartPropUpdateAttachmentTrack : public TrackBase {
+class CSmartPropUpdateAttachmentTrack : public TrackBase_62360 {
 public:
     virtual unsigned int vfunc_0(unsigned int);
     virtual void v1();
@@ -27,8 +27,8 @@ public:
     virtual void vfunc_7();
 
     int f0c, f10, f14;
-    Name bone;
-    Name prop;
+    Name_62360 bone;
+    Name_62360 prop;
     char enabled;
     char pad29[3];
     int f2c, f30, f34, f38, f3c, f40, f44;

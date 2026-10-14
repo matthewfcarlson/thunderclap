@@ -15,20 +15,20 @@ struct Node {
     int f28;
 };
 
-struct Owner {
+struct Owner_24ac40 {
     char pad00[0x10];
     Node *head;
 };
 
-struct Pair {
+struct Pair_24ac40 {
     int lo;
     int hi;
 };
 
-Node *__cdecl FUN_0024a9c0(void *a, Owner *b);
-void __cdecl FUN_00247ae0(void *a, Node *n, int b, int c, Pair *d);
+Node *__cdecl FUN_0024a9c0(void *a, Owner_24ac40 *b);
+void __cdecl FUN_00247ae0(void *a, Node *n, int b, int c, Pair_24ac40 *d);
 
-void __cdecl FUN_0024ac40(void *ctx, Owner *owner, int flag, int value, Pair *src)
+void __cdecl FUN_0024ac40(void *ctx, Owner_24ac40 *owner, int flag, int value, Pair_24ac40 *src)
 {
     for (Node *n = owner->head; n != 0; n = n->next) {
         if (n->type == 0 || n->type == 1 || n->type == 2) {

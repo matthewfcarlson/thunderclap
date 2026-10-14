@@ -3,7 +3,7 @@
 extern "C" double __cdecl tan(double);
 extern "C" double __cdecl atan(double);
 
-struct Plane {
+struct Plane_1c1f30 {
     float a, b, c, d;
 };
 
@@ -21,7 +21,7 @@ public:
     virtual void vfunc_9(int a);
     virtual void vfunc_10();
     virtual void vfunc_11();
-    virtual void vfunc_12(int which, Plane *out);
+    virtual void vfunc_12(int which, Plane_1c1f30 *out);
     virtual void vfunc_13();
     virtual void vfunc_14();
     virtual void vfunc_15();
@@ -33,7 +33,7 @@ public:
     virtual void vfunc_21(int a);
 };
 
-class System {
+class System_1c1f30 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -54,7 +54,7 @@ public:
     virtual float vfunc_16();
 };
 
-extern System *DAT_0052c2a4;
+extern System_1c1f30 *DAT_0052c2a4;
 extern float DAT_004c5114;
 
 class CameraState {
@@ -62,12 +62,12 @@ public:
     char pad00[8];
     Camera *camera;
     char pad0c[4];
-    Plane left;
-    Plane right;
-    Plane top;
-    Plane bottom;
-    Plane nearP;
-    Plane farP;
+    Plane_1c1f30 left;
+    Plane_1c1f30 right;
+    Plane_1c1f30 top;
+    Plane_1c1f30 bottom;
+    Plane_1c1f30 nearP;
+    Plane_1c1f30 farP;
     char pad70[0xb0 - 0x70];
     float halfX;
     float halfY;
@@ -88,7 +88,7 @@ void CameraState::FUN_001c1f30(int a, float fov, float aspect, int d, int e)
         halfY = (float)atan(tf / (DAT_0052c2a4->vfunc_16() * aspect));
         lastFov = fov;
     }
-    Plane tmp;
+    Plane_1c1f30 tmp;
     camera->vfunc_12(1, &tmp);
     left = tmp;
     camera->vfunc_12(2, &tmp);

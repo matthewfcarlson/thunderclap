@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // COrientAction::vfunc_7 @ 0x0001fab0
-struct Vec3 {
+struct Vec3_1fab0 {
     float x, y, z;
-    bool FUN_0022d2b0(const Vec3 *other, float epsilon);
+    bool FUN_0022d2b0(const Vec3_1fab0 *other, float epsilon);
 };
 
-struct Transform {
+struct Transform_1fab0 {
     void FUN_00221d20(float v);
 };
 
-struct JointObject {
+struct JointObject_1fab0 {
     char pad0[0x18];
-    Transform transform;
+    Transform_1fab0 transform;
 };
 
-struct Stats {
+struct Stats_1fab0 {
     char pad0[0x2064];
-    Vec3 dirB;
+    Vec3_1fab0 dirB;
     char pad2070[4];
-    Vec3 dirA;
+    Vec3_1fab0 dirA;
     float FUN_000354c0();
-    void FUN_00035550(Vec3 *out);
+    void FUN_00035550(Vec3_1fab0 *out);
 };
 
 struct OrientData {
@@ -31,8 +31,8 @@ struct OrientData {
 };
 
 void *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(void *x);
-extern "C" float FUN_00224f10(Vec3 *v);
+Stats_1fab0 *__fastcall FUN_00059a30(void *x);
+extern "C" float FUN_00224f10(Vec3_1fab0 *v);
 extern "C" float FUN_00224fc0(float from, float to);
 
 class COrientAction {
@@ -49,7 +49,7 @@ public:
     char pad04[0x18];
     void *owner;
     OrientData *data;
-    JointObject *joint;
+    JointObject_1fab0 *joint;
 };
 
 char COrientAction::vfunc_7(float dt)
@@ -57,17 +57,17 @@ char COrientAction::vfunc_7(float dt)
     if (joint == 0)
         return 0;
 
-    Stats *stats = FUN_00059a30(FUN_000592a0(owner));
+    Stats_1fab0 *stats = FUN_00059a30(FUN_000592a0(owner));
     float angle = stats->FUN_000354c0();
 
-    Vec3 dir;
+    Vec3_1fab0 dir;
     dir.x = 0.0f;
     dir.y = 0.0f;
     dir.z = 0.0f;
     if (!data->noDirA)
         dir = stats->dirA;
 
-    Vec3 zero;
+    Vec3_1fab0 zero;
     zero.x = 0.0f;
     zero.y = 0.0f;
     zero.z = 0.0f;

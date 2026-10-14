@@ -11,70 +11,70 @@ struct DynamicCaster {
 
 namespace pure3d { class DrawableHierarchy; }
 
-struct Key {
+struct Key_1c4190 {
     unsigned int lo;
     unsigned int hi;
 };
 
-class Res {
+class Res_1c4190 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-class Inventory;
-struct Holder44 {
-    Inventory *FUN_00203d70();
+class Inventory_1c4190;
+struct Holder44_1c4190 {
+    Inventory_1c4190 *FUN_00203d70();
 };
 
-class Inventory {
+class Inventory_1c4190 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Res *get(void *caster, unsigned int lo, unsigned int hi);
+    virtual Res_1c4190 *get(void *caster, unsigned int lo, unsigned int hi);
 };
 
-struct Holder {
-    Holder44 *FUN_000862a0();
+struct Holder_1c4190 {
+    Holder44_1c4190 *FUN_000862a0();
 };
 
-struct Manager {
+struct Manager_1c4190 {
     char pad0[0x54];
-    Holder *holder;
+    Holder_1c4190 *holder;
 };
 
-struct Entry;
+struct Entry_1c4190;
 
-struct Registry {
-    void FUN_001c5ae0(Entry *e);
+struct Registry_1c4190 {
+    void FUN_001c5ae0(Entry_1c4190 *e);
 };
 
-struct Entry {
+struct Entry_1c4190 {
     char pad0[0xc];
-    Res *res;
-    Entry *FUN_001c5cf0(Key *key, Res *r);
+    Res_1c4190 *res;
+    Entry_1c4190 *FUN_001c5cf0(Key_1c4190 *key, Res_1c4190 *r);
 };
 
-extern Manager *DAT_004dd700;
+extern Manager_1c4190 *DAT_004dd700;
 extern "C" int __cdecl FUN_00266da0(int mode);
 void *__cdecl FUN_0008d690(unsigned int size);
 
-class Loader {
+class Loader_1c4190 {
 public:
     char pad0[0xc];
-    Registry *registry;
-    void FUN_001c4190(Key *key);
+    Registry_1c4190 *registry;
+    void FUN_001c4190(Key_1c4190 *key);
 };
 
-void Loader::FUN_001c4190(Key *key)
+void Loader_1c4190::FUN_001c4190(Key_1c4190 *key)
 {
     int saved = FUN_00266da0(0xf);
-    Inventory *inv = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+    Inventory_1c4190 *inv = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
     content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> caster;
-    Res *res = inv->get(&caster, key->lo, key->hi);
+    Res_1c4190 *res = inv->get(&caster, key->lo, key->hi);
     if (res) {
-        Entry *e = (Entry *)FUN_0008d690(0x10);
+        Entry_1c4190 *e = (Entry_1c4190 *)FUN_0008d690(0x10);
         if (e)
             e = e->FUN_001c5cf0(key, res);
         if (e->res)

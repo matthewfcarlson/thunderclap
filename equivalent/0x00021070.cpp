@@ -2,25 +2,25 @@
 // CWallSlideAction::vfunc_7 @ 0x00021070
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_21070 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Xform {
-    void FUN_0022be40(Vec3* pos);
+struct Xform_21070 {
+    void FUN_0022be40(Vec3_21070* pos);
 };
 
 struct Entity {
     char pad00[0x2064];
-    Vec3 f2064;
+    Vec3_21070 f2064;
     float f2070;
     void FUN_000359c0(int mode);
-    void FUN_00035660(Vec3* out);
+    void FUN_00035660(Vec3_21070* out);
 };
 
-struct Anchor {
-    void FUN_00059a50(Vec3* out);
+struct Anchor_21070 {
+    void FUN_00059a50(Vec3_21070* out);
 };
 
 struct Params {
@@ -32,7 +32,7 @@ struct Params {
 
 struct Data2 {
     char pad00[0x18];
-    Xform xf;
+    Xform_21070 xf;
 };
 
 void* __fastcall FUN_000592a0(void* owner);
@@ -54,7 +54,7 @@ public:
     Params* params;
     Data2* data;
     float f28;
-    Vec3 vel;
+    Vec3_21070 vel;
 };
 
 char CWallSlideAction::vfunc_7(float dt)
@@ -63,16 +63,16 @@ char CWallSlideAction::vfunc_7(float dt)
         float step;
         float len;
         float lim;
-        Vec3 W;
-        Vec3 Z;
-        Vec3 v;
-        Vec3 U;
-        Vec3 O;
-        Vec3 P;
+        Vec3_21070 W;
+        Vec3_21070 Z;
+        Vec3_21070 v;
+        Vec3_21070 U;
+        Vec3_21070 O;
+        Vec3_21070 P;
     } f;
     if (data == 0)
         return 0;
-    Anchor* anchor = (Anchor*)FUN_000592a0(owner);
+    Anchor_21070* anchor = (Anchor_21070*)FUN_000592a0(owner);
     Entity* ent = FUN_00059a30(anchor);
     ent->FUN_000359c0(4);
     vel.y = vel.y - dt * params->f18;

@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 14/14)
 // hulkfight::motion::TargetMotionStateCondition::vfunc_6 @ 0x00167290
-struct Stats;
+struct Stats_167290;
 
-struct Ctx {
-    Stats *FUN_00059a30();
+struct Ctx_167290 {
+    Stats_167290 *FUN_00059a30();
 };
 
-class Owner {
+class Owner_167290 {
 public:
-    Ctx *FUN_000592a0();
+    Ctx_167290 *FUN_000592a0();
 };
 
-struct Target {
+struct Target_167290 {
     char pad0[0x140];
     unsigned int f140;
 };
 
-struct Stats {
+struct Stats_167290 {
     char pad0[0x328];
     struct Slot {
         char pad0[8];
-        Target *f8;
+        Target_167290 *f8;
         int fc;
     } *f328;
 };
@@ -33,16 +33,16 @@ public:
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual char vfunc_6(int a1, Owner *owner, int a3);
+    virtual char vfunc_6(int a1, Owner_167290 *owner, int a3);
     char pad4[8];
     int fc;
     unsigned int f10;
 };
 
-char TargetMotionStateCondition::vfunc_6(int a1, Owner *owner, int a3)
+char TargetMotionStateCondition::vfunc_6(int a1, Owner_167290 *owner, int a3)
 {
-    Stats *st = owner->FUN_000592a0()->FUN_00059a30();
-    Stats::Slot *slot = st->f328;
+    Stats_167290 *st = owner->FUN_000592a0()->FUN_00059a30();
+    Stats_167290::Slot *slot = st->f328;
     if (slot == 0 || slot->f8 == 0 || slot->fc != 1)
         return 1;
     unsigned int want = f10;

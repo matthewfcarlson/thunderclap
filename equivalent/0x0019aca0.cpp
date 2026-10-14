@@ -6,7 +6,7 @@ void __cdecl FUN_001927d0();
 void __cdecl FUN_001927e0();
 void __cdecl FUN_00192800();
 void __cdecl FUN_00192820();
-struct Base {
+struct Base_19aca0 {
  virtual void baseSlot();
  char padding[12];
  void (__cdecl *callback)();
@@ -15,7 +15,7 @@ struct Base {
 };
 namespace hulkfight { namespace motion { class AccuracyLatencyTrack; } }
 namespace fight {
-template<class T> struct ParamFloatConstRange : Base {
+template<class T> struct ParamFloatConstRange : Base_19aca0 {
  virtual void baseSlot();
 };
 }
@@ -27,13 +27,13 @@ void target() {
  if (DAT_004e1574 == 0) {
  Param* entries[4];
  void* p = FUN_0008d690(24);
- if(p) { ((Base*)p)->FUN_00234960("timeBegin"); entries[0] = new(p) Param; entries[0]->callback = FUN_001927d0; } else entries[0]=0;
+ if(p) { ((Base_19aca0*)p)->FUN_00234960("timeBegin"); entries[0] = new(p) Param; entries[0]->callback = FUN_001927d0; } else entries[0]=0;
  p = FUN_0008d690(24);
- if(p) { ((Base*)p)->FUN_00234960("timeEnd"); entries[1] = new(p) Param; entries[1]->callback = FUN_001927e0; } else entries[1]=0;
+ if(p) { ((Base_19aca0*)p)->FUN_00234960("timeEnd"); entries[1] = new(p) Param; entries[1]->callback = FUN_001927e0; } else entries[1]=0;
  p = FUN_0008d690(24);
- if(p) { ((Base*)p)->FUN_00234960("decay"); entries[2] = new(p) Param; entries[2]->callback = FUN_00192800; } else entries[2]=0;
+ if(p) { ((Base_19aca0*)p)->FUN_00234960("decay"); entries[2] = new(p) Param; entries[2]->callback = FUN_00192800; } else entries[2]=0;
  p = FUN_0008d690(24);
- if(p) { ((Base*)p)->FUN_00234960("decayScaler"); entries[3] = new(p) Param; entries[3]->callback = FUN_00192820; } else entries[3]=0;
+ if(p) { ((Base_19aca0*)p)->FUN_00234960("decayScaler"); entries[3] = new(p) Param; entries[3]->callback = FUN_00192820; } else entries[3]=0;
  FUN_002347b0(&DAT_004e1570, entries, 4);
  }
  ++DAT_004e1574;

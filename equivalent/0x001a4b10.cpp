@@ -7,7 +7,7 @@ public:
 };
 }
 
-struct PropInfo {
+struct PropInfo_1a4b10 {
     char pad0[4];
     int type;
     char pad8[0x20 - 8];
@@ -18,7 +18,7 @@ struct PropInfo {
 class CScenarioParams : public fight::Params {
 public:
     virtual void v1();
-    PropInfo *FUN_001d03c0();
+    PropInfo_1a4b10 *FUN_001d03c0();
 };
 
 namespace hulkfight {
@@ -44,7 +44,7 @@ bool hulkfight::scenario::Event_PropTypeCondition::vfunc_6(int a, fight::Params 
     CScenarioParams *sp = dynamic_cast<CScenarioParams *>(params);
     if (sp == 0)
         return false;
-    PropInfo *info = sp->FUN_001d03c0();
+    PropInfo_1a4b10 *info = sp->FUN_001d03c0();
     if (info->type < 0x12 || info->type > 0x17)
         return false;
     return info->typeLo == wantLo && info->typeHi == wantHi;

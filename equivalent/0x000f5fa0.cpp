@@ -9,21 +9,21 @@ struct Node {
     virtual unsigned vfunc_1();
 };
 
-struct Slot {
+struct Slot_f5fa0 {
     int a, b, c, d;
 };
 
-struct Script {
+struct Script_f5fa0 {
     void FUN_000f9a80();
 };
 
-struct Handle {
+struct Handle_f5fa0 {
     void *first;
     void *second;
-    Script *FUN_000fb240(const char *name);
+    Script_f5fa0 *FUN_000fb240(const char *name);
 };
 
-struct Tail {
+struct Tail_f5fa0 {
     int f00;
     char pad04[0x0c];
     int f10;
@@ -32,8 +32,8 @@ struct Tail {
     int f1c;
 };
 
-struct Table {
-    Slot slots[0x80];
+struct Table_f5fa0 {
+    Slot_f5fa0 slots[0x80];
     void FUN_000f9d20();
 };
 
@@ -43,14 +43,14 @@ public:
     virtual ~CScriptParser() {
         table.FUN_000f9d20();
     }
-    Script *script;
+    Script_f5fa0 *script;
     int a, b, c;
     unsigned char d, e;
     char pad16[2];
-    Handle handle;
-    Table table;
-    Tail tail;
-    CScriptParser *FUN_000faa10(Script *script);
+    Handle_f5fa0 handle;
+    Table_f5fa0 table;
+    Tail_f5fa0 tail;
+    CScriptParser *FUN_000faa10(Script_f5fa0 *script);
     char FUN_000f9e50();
     Node *FUN_000fb110();
     int FUN_000fad90();
@@ -61,23 +61,23 @@ struct Obj266 {
     int FUN_00266700();
 };
 
-struct Sink {
+struct Sink_f5fa0 {
     void FUN_00266220(int v);
 };
 
-struct Loader {
+struct Loader_f5fa0 {
     void FUN_00265920(int v, Obj266 **out, int flag);
 };
 
-extern Loader *DAT_00527c58;
-extern Sink *DAT_004dd9cc;
+extern Loader_f5fa0 *DAT_00527c58;
+extern Sink_f5fa0 *DAT_004dd9cc;
 
-struct Frame {
+struct Frame_f5fa0 {
     Obj266 *w;
     char parser[0x840];
 };
 
-class Runner {
+class Runner_f5fa0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -154,9 +154,9 @@ public:
     void FUN_000f5fa0(const char *src, int arg);
 };
 
-void Runner::FUN_000f5fa0(const char *src, int arg)
+void Runner_f5fa0::FUN_000f5fa0(const char *src, int arg)
 {
-    Frame f;
+    Frame_f5fa0 f;
     if (!active)
         f220c = arg;
     DollyScript::CScriptParser *p = (DollyScript::CScriptParser *)f.parser;
@@ -171,7 +171,7 @@ void Runner::FUN_000f5fa0(const char *src, int arg)
     p->tail.f18 = 0;
     strncpy(name, src, 0x100);
     int old = FUN_00266da0(10);
-    Script *script = p->handle.FUN_000fb240(name);
+    Script_f5fa0 *script = p->handle.FUN_000fb240(name);
     FUN_00266da0(old);
     p->FUN_000faa10(script);
     if (active) {

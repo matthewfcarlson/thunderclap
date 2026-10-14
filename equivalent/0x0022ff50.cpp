@@ -2,17 +2,17 @@
 // FUN_0022ff50 @ 0x0022ff50
 extern "C" double sqrt(double);
 
-struct Vec3 { float x, y, z; };
+struct Vec3_22ff50 { float x, y, z; };
 
 // Distance from point p to the segment [a, b].
-class Segment {
+class Segment_22ff50 {
 public:
-    Vec3 a;
-    Vec3 b;
-    float FUN_0022ff50(Vec3 *p);
+    Vec3_22ff50 a;
+    Vec3_22ff50 b;
+    float FUN_0022ff50(Vec3_22ff50 *p);
 };
 
-float Segment::FUN_0022ff50(Vec3 *p)
+float Segment_22ff50::FUN_0022ff50(Vec3_22ff50 *p)
 {
     float dx = b.x - a.x;
     float dy = b.y - a.y;

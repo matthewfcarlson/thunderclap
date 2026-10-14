@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 867 inputs, branch coverage 36/36)
 // FUN_0022a0d0 @ 0x0022a0d0
-struct Shape {
+struct Shape_22a0d0 {
     char pad[0x10];
     float f10;
     float f14;
 };
 
-struct Slot {
+struct Slot_22a0d0 {
     char pad[0x34];
-    Shape *shape;
+    Shape_22a0d0 *shape;
     char pad2[0x208 - 0x38];
 };
 
-struct Elem {
+struct Elem_22a0d0 {
     int idx;
     float w;
     float f;
@@ -20,9 +20,9 @@ struct Elem {
 
 float __cdecl FUN_0004af40(float lo, float hi, float x);
 float __cdecl FUN_0015cf40(float x);
-void __cdecl FUN_00229f40(Elem *first, Elem *last, int n);
+void __cdecl FUN_00229f40(Elem_22a0d0 *first, Elem_22a0d0 *last, int n);
 
-class Spawner {
+class Spawner_22a0d0 {
 public:
     char pad0[0x20];
     float f20;
@@ -37,13 +37,13 @@ public:
     char pad8a8[8];
     float t;
     unsigned k;
-    Elem arr[1];
+    Elem_22a0d0 arr[1];
 
     void FUN_002287b0(void *g, float w, float tt);
     void FUN_0022a0d0(float dt);
 };
 
-void Spawner::FUN_0022a0d0(float dt)
+void Spawner_22a0d0::FUN_0022a0d0(float dt)
 {
     unsigned n0 = n;
     unsigned m1 = m - 1;
@@ -93,8 +93,8 @@ void Spawner::FUN_0022a0d0(float dt)
         FUN_002287b0(grid[(row + 1) * stride], R, V);
     }
 
-    Elem *first = arr;
-    Elem *last = &arr[k];
+    Elem_22a0d0 *first = arr;
+    Elem_22a0d0 *last = &arr[k];
     FUN_00229f40(first, last, last - first);
 
     float sum = 0.0f;
@@ -114,7 +114,7 @@ void Spawner::FUN_0022a0d0(float dt)
             volatile float nw = inv2 * arr[i].w;
             arr[i].w = nw;
             W += nw * arr[i].f;
-            Shape *sh = ((Slot *)this)[arr[i].idx].shape;
+            Shape_22a0d0 *sh = ((Slot_22a0d0 *)this)[arr[i].idx].shape;
             if (sh) {
                 float a = sh->f10 - 1.0f;
                 float b = sh->f14;

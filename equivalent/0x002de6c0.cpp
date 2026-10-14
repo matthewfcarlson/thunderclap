@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 8/8)
 // FUN_002de6c0 @ 0x002de6c0
-struct Source {
+struct Source_2de6c0 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual unsigned int pixel(int x,int y);
 };
-struct Format {
+struct Format_2de6c0 {
  int width,height;
  char pad08[16];
  unsigned int redLeft,greenLeft,blueLeft,alphaLeft;
@@ -12,7 +12,7 @@ struct Format {
  int pitch;
 };
 // equiv-conv: FUN_002de6c0 eax esi stack
-void FUN_002de6c0(unsigned short* destination, Format* format, Source* source) {
+void FUN_002de6c0(unsigned short* destination, Format_2de6c0* format, Source_2de6c0* source) {
  int remainder = (int)((unsigned int)format->pitch - (unsigned int)format->width*2);
  int padding = (remainder / 2)*2;
  if(format->height <= 0) return;

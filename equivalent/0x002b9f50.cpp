@@ -4,17 +4,17 @@ struct Matrix {
     float m[16];
 };
 
-struct Sphere {
+struct Sphere_2b9f50 {
     int w[4];
 };
 
-struct Vec3 {
+struct Vec3_2b9f50 {
     float x, y, z;
     void FUN_0022d210(Matrix* m);
-    Sphere* FUN_000a8890(Sphere* out);
+    Sphere_2b9f50* FUN_000a8890(Sphere_2b9f50* out);
 };
 
-struct Quad {
+struct Quad_2b9f50 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -22,16 +22,16 @@ struct Quad {
     virtual void v4();
     virtual void Update();      // slot 5
     char pad04[0xc];
-    Vec3 lo;                    // 0x10
-    Vec3 hi;                    // 0x1c
+    Vec3_2b9f50 lo;                    // 0x10
+    Vec3_2b9f50 hi;                    // 0x1c
 };
 
 // scratch block: in the original the callee's output buffer overlaps the last box corner
-struct Frame {
-    Vec3 p;
-    Vec3 q;
-    Vec3 hi;
-    Vec3 lo;
+struct Frame_2b9f50 {
+    Vec3_2b9f50 p;
+    Vec3_2b9f50 q;
+    Vec3_2b9f50 hi;
+    Vec3_2b9f50 lo;
     int tail;
 };
 
@@ -52,19 +52,19 @@ public:
     virtual void vfunc_11();
 
     char pad04[0x10];
-    Vec3 min;                   // 0x14
-    Vec3 max;                   // 0x20
+    Vec3_2b9f50 min;                   // 0x14
+    Vec3_2b9f50 max;                   // 0x20
     int sphere[4];              // 0x2c
     char pad3c[4];
     Matrix matrix;              // 0x40
     char pad80[0x8c - 0x80];
-    Quad** begin;               // 0x8c
-    Quad** end;                 // 0x90
+    Quad_2b9f50** begin;               // 0x8c
+    Quad_2b9f50** end;                 // 0x90
 };
 
 void BillboardQuadGroup::vfunc_10()
 {
-    Frame f;
+    Frame_2b9f50 f;
     unsigned int i;
     unsigned int n;
 
@@ -84,7 +84,7 @@ void BillboardQuadGroup::vfunc_10()
         return;
     for (i = 0; i < n; i++) {
         begin[i]->Update();
-        Quad* q = begin[i];
+        Quad_2b9f50* q = begin[i];
         f.hi = q->hi;
         f.lo = q->lo;
         max.x = (max.x < f.hi.x) ? f.hi.x : max.x;
@@ -105,7 +105,7 @@ void BillboardQuadGroup::vfunc_10()
     min.x = (f.p.x < f.q.x) ? f.p.x : f.q.x;
     min.y = (f.p.y < f.q.y) ? f.p.y : f.q.y;
     min.z = (f.p.z < f.q.z) ? f.p.z : f.q.z;
-    Sphere* s = min.FUN_000a8890((Sphere*)&f.lo);
+    Sphere_2b9f50* s = min.FUN_000a8890((Sphere_2b9f50*)&f.lo);
     sphere[0] = s->w[0];
     sphere[1] = s->w[1];
     sphere[2] = s->w[2];

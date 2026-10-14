@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_00266480 @ 0x00266480
-class Pool {
+class Pool_266480 {
   public:
     void FUN_00231550(unsigned int size, int a, int b);
     void FUN_00231690();
@@ -26,7 +26,7 @@ class LoadInventory {
     char flag8;
     char flag9;
     char pad[2];
-    Pool* pool;
+    Pool_266480* pool;
     int field10;
 };
 }
@@ -35,7 +35,7 @@ content::LoadInventory::LoadInventory(unsigned int capacity) {
     field4 = 0;
     flag8 = 1;
     flag9 = 1;
-    Pool* p = (Pool*)FUN_0008d690(0x24);
+    Pool_266480* p = (Pool_266480*)FUN_0008d690(0x24);
     if (p != 0) {
         if (capacity == 0 || (capacity & (capacity - 1)) != 0)
             capacity = 1u << (FUN_00356c30(capacity) + 1);

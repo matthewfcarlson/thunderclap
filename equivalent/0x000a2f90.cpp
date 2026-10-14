@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000a2f90 @ 0x000a2f90
 extern "C" double sqrt(double);
-struct V3 {
+struct V3_a2f90 {
     float x, y, z;
 };
 
-float __cdecl FUN_000a0450(V3 *v);
+float __cdecl FUN_000a0450(V3_a2f90 *v);
 float __cdecl FUN_000a02a0(float a);
 
 class Turret {
@@ -24,7 +24,7 @@ void Turret::FUN_000a2f90(float x, int unused, float z, int arg)
 {
     if (target == 0)
         return;
-    V3 d;
+    V3_a2f90 d;
     d.y = 0.0f;
     d.x = x - baseX;
     volatile float *dz = &d.z;

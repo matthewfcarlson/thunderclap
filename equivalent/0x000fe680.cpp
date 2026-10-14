@@ -6,64 +6,64 @@ extern bool DAT_004e0a98;
 
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_fe680 {
     float x, y, z;
 };
 
-struct Rng {
+struct Rng_fe680 {
     float FUN_00078780();
 };
-Rng *FUN_000964d0();
+Rng_fe680 *FUN_000964d0();
 unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
 
-struct Slot {
+struct Slot_fe680 {
     char pad0[8];
     int f08;
     int f0c;
     char pad10[0x30];
-    V3 pos;
+    V3_fe680 pos;
 };
 
-struct Link {
+struct Link_fe680 {
     char pad0[0x12c];
-    Slot *slot;
+    Slot_fe680 *slot;
 };
 
-struct Part54 {
+struct Part54_fe680 {
     void FUN_00086310();
 };
 
-struct Target;
+struct Target_fe680;
 
-struct Sub20 {
-    bool FUN_00025d30(Target *t);
-    bool FUN_00024300(Target *t);
-    Link *FUN_00024280(unsigned __int64 id);
+struct Sub20_fe680 {
+    bool FUN_00025d30(Target_fe680 *t);
+    bool FUN_00024300(Target_fe680 *t);
+    Link_fe680 *FUN_00024280(unsigned __int64 id);
 };
 
 struct Entity {
     char pad0[0x20];
-    Sub20 *sub20;
+    Sub20_fe680 *sub20;
     char pad24[0x30];
-    Part54 *part54;
+    Part54_fe680 *part54;
 };
 
-struct Skel {
-    void FUN_00059a50(V3 *out);
+struct Skel_fe680 {
+    void FUN_00059a50(V3_fe680 *out);
 };
 
-struct Target {
+struct Target_fe680 {
     char pad0[0x10];
-    Skel *skel;
+    Skel_fe680 *skel;
     char pad14[0x1ccc];
     int f1ce0;
     int f1ce4;
-    bool FUN_00042990(Entity *e, Slot *q, float range, char *outB, char *outA);
+    bool FUN_00042990(Entity *e, Slot_fe680 *q, float range, char *outB, char *outA);
 };
 
 struct PState {
     char pad0[8];
-    Slot *slot;         // 8
+    Slot_fe680 *slot;         // 8
     char padc[6];
     char b12;
     char b13;
@@ -71,12 +71,12 @@ struct PState {
     float f18;
     char pad1c[0x18];
     float f34;
-    V3 qpos;            // 0x38
+    V3_fe680 qpos;            // 0x38
     char b44;
     char b45;
     char b46;
     char pad47[0x9c - 0x47];
-    void FUN_000fe300(V3 *p, int found, int a, int b, float dt);
+    void FUN_000fe300(V3_fe680 *p, int found, int a, int b, float dt);
     void FUN_000fdf20();
 };
 
@@ -88,7 +88,7 @@ public:
     virtual void vfunc_3(Entity *a1, float dt);
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual Target *vfunc_6();
+    virtual Target_fe680 *vfunc_6();
     virtual void vfunc_7();
     virtual void vfunc_8(int v);
     virtual int vfunc_9();
@@ -103,7 +103,7 @@ public:
 
 void CCharacterGolem::vfunc_3(Entity *a1, float dt)
 {
-    Target *t = vfunc_6();
+    Target_fe680 *t = vfunc_6();
     a1->part54->FUN_00086310();
     if (!a1->sub20->FUN_00025d30(t)) {
         float x = dt + f12c;
@@ -122,18 +122,18 @@ void CCharacterGolem::vfunc_3(Entity *a1, float dt)
         char found;
         char pad15[3];
         float dist;
-        Rng *rng;
-        V3 qpos;
-        V3 pos0;
+        Rng_fe680 *rng;
+        V3_fe680 qpos;
+        V3_fe680 pos0;
     } fr;
     PState *ps = &p;
     fr.rng = FUN_000964d0();
     if (DAT_004e0a98 && t != 0) {
-        Sub20 *s20 = a1->sub20;
+        Sub20_fe680 *s20 = a1->sub20;
         unsigned __int64 id = FUN_002672f0("hulk", 0, 0);
         ps->slot = s20->FUN_00024280(id)->slot;
     }
-    Slot *q = ps->slot;
+    Slot_fe680 *q = ps->slot;
     if (q != 0 && t != 0) {
         t->skel->FUN_00059a50(&fr.pos0);
         fr.qpos = q->pos;

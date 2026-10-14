@@ -7,10 +7,10 @@ struct CAgent {
 };
 
 struct CPathGraphAgent : CAgent {
-    CPathGraphAgent *FUN_00105f50(struct AgentHost *host);
+    CPathGraphAgent *FUN_00105f50(struct AgentHost_fec60 *host);
 };
 
-struct AgentHost {
+struct AgentHost_fec60 {
     CAgent *FUN_000fdd30(const void *type);
 };
 
@@ -19,7 +19,7 @@ extern char DAT_004a1bdc;
 int __cdecl FUN_00266da0(int v);
 void *__cdecl FUN_0008d690(unsigned int size);
 
-void __cdecl FUN_000fec60(AgentHost *host, CAgent **slot)
+void __cdecl FUN_000fec60(AgentHost_fec60 *host, CAgent **slot)
 {
     CAgent *found = host->FUN_000fdd30(&DAT_004a1bdc);
     if (found) {

@@ -23,28 +23,28 @@ public:
 
 namespace pure3d { class Texture; }
 
-struct Pair {
+struct Pair_28f2c0 {
     unsigned int lo;
     unsigned int hi;
 };
-Pair FUN_002672f0(const char *name, int a, int b);
-Pair FUN_0027b020(const char *name);
+Pair_28f2c0 FUN_002672f0(const char *name, int a, int b);
+Pair_28f2c0 FUN_0027b020(const char *name);
 
-struct Name {
+struct Name_28f2c0 {
     unsigned int lo, hi;
     void FUN_0027b040(const char *s);
 };
 
-class __declspec(novtable) NamedBase {
+class __declspec(novtable) NamedBase_28f2c0 {
 public:
     virtual void v0();
     char pad04[4];
-    Name name;
+    Name_28f2c0 name;
     void FUN_0027b070();
-    NamedBase() { FUN_0027b070(); }
+    NamedBase_28f2c0() { FUN_0027b070(); }
 };
 
-class Impl {
+class Impl_28f2c0 {
 public:
     virtual void AddRef();
     virtual void v1();
@@ -59,7 +59,7 @@ public:
     virtual void v10(int a, float *b);
 };
 
-class Dev {
+class Dev_28f2c0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -72,9 +72,9 @@ public:
     virtual void v8();
     virtual void v9();
     virtual void v10();
-    virtual Impl *v11(const char *name, void *data);
+    virtual Impl_28f2c0 *v11(const char *name, void *data);
 };
-extern Dev *DAT_0052c2a0;
+extern Dev_28f2c0 *DAT_0052c2a0;
 
 class TexRes {
 public:
@@ -82,7 +82,7 @@ public:
     void *f10;
 };
 
-class Factory {
+class Factory_28f2c0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -104,9 +104,9 @@ struct Reader {
 };
 
 namespace pure3d {
-class Shader : public NamedBase {
+class Shader : public NamedBase_28f2c0 {
 public:
-    Impl *f10;
+    Impl_28f2c0 *f10;
     char f14;
     char pad15[3];
     int f18;
@@ -122,10 +122,10 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual void vfunc_5(Shader **out, Pair *outId, Reader *r, Factory *f);
+    virtual void vfunc_5(Shader **out, Pair_28f2c0 *outId, Reader *r, Factory_28f2c0 *f);
 };
 
-void ShaderLoader::vfunc_5(Shader **out, Pair *outId, Reader *r, Factory *f)
+void ShaderLoader::vfunc_5(Shader **out, Pair_28f2c0 *outId, Reader *r, Factory_28f2c0 *f)
 {
     struct Frame {
         char pad0[2];
@@ -205,7 +205,7 @@ void ShaderLoader::vfunc_5(Shader **out, Pair *outId, Reader *r, Factory *f)
                 unsigned int len = fr.len3;
                 r->stream->FUN_002647e0(fr.buf4, len, 1, 1);
                 fr.buf4[len] = 0;
-                Pair h = FUN_0027b020(fr.buf4);
+                Pair_28f2c0 h = FUN_0027b020(fr.buf4);
                 content::LoadInventory::DynamicCaster<pure3d::Texture> *caster =
                     new ((void *)&fr.v14) content::LoadInventory::DynamicCaster<pure3d::Texture>;
                 TexRes *tex = f->v3(caster, h.lo, h.hi);

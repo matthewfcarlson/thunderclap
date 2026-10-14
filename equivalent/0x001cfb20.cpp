@@ -20,7 +20,7 @@ template <> struct TypeTag<bool> { static const void *get() { return &DAT_0048e0
 template <> struct TypeTag<const char *> { static const void *get() { return &DAT_0048e0f0; } };
 template <> struct TypeTag<eMissionObjectiveState> { static const void *get() { return &DAT_004c55f0; } };
 
-class __declspec(novtable) MethodBase {
+class __declspec(novtable) MethodBase_1cfb20 {
   public:
     virtual void m0();
     char pad_04[0xc];
@@ -29,14 +29,14 @@ class __declspec(novtable) MethodBase {
     char retType;
     char pad_19[3];
     void FUN_001d0480(const char *, int);
-    MethodBase(const char *n, int k) { FUN_001d0480(n, k); }
+    MethodBase_1cfb20(const char *n, int k) { FUN_001d0480(n, k); }
 };
 
 template <class T, class R, class A>
-class Method1 : public MethodBase {
+class Method1 : public MethodBase_1cfb20 {
   public:
     typedef R (T::*Fn)(A);
-    Method1(const char *name, Fn f) : MethodBase(name, 1) {
+    Method1(const char *name, Fn f) : MethodBase_1cfb20(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argType = FUN_001d04d0(TypeTag<A>::get());
@@ -92,7 +92,7 @@ class CScenarioManager {
     void FUN_001cfb20(int arg);
 };
 
-struct Raw {
+struct Raw_1cfb20 {
     void *FUN_001ce440(const char *name, CScenarioManager *o, void (CScenarioManager::*fn)(int, float));
     void *FUN_001ce4e0(const char *name, CScenarioManager *o, int (CScenarioManager::*fn)(float, const char *));
     void *FUN_001ce590(const char *name, CScenarioManager *o, void (CScenarioManager::*fn)(float, const char *));
@@ -100,19 +100,19 @@ struct Raw {
     void *FUN_001ce8f0(const char *name, CScenarioManager *o, void (CScenarioManager::*fn)(int, int));
 };
 
-struct Registry {
+struct Registry_1cfb20 {
     void FUN_001d3b70(const char *name, void *closure);
     void FUN_001cf160(const char *name, CScenarioManager *o, int (CScenarioManager::*fn)());
     void FUN_001cf1d0(const char *name, CScenarioManager *o, float (CScenarioManager::*fn)());
     void FUN_001cf2e0(const char *name, CScenarioManager *o, bool (CScenarioManager::*fn)());
     void FUN_001cf490(const char *name, CScenarioManager *o, void (CScenarioManager::*fn)());
 };
-Registry *FUN_001d4c90();
+Registry_1cfb20 *FUN_001d4c90();
 
 void CScenarioManager::FUN_001cfb20(int arg)
 {
     f4 = arg;
-    Registry *reg = FUN_001d4c90();
+    Registry_1cfb20 *reg = FUN_001d4c90();
     if (reg) {
     {
         void *mem = FUN_0008d690(0x24);
@@ -166,7 +166,7 @@ void CScenarioManager::FUN_001cfb20(int arg)
         void *mem = FUN_0008d690(0x24);
         void *c;
         if (mem)
-            c = ((Raw *)mem)->FUN_001ce440("sm_SetVar", this, &CScenarioManager::FUN_001cc9b0);
+            c = ((Raw_1cfb20 *)mem)->FUN_001ce440("sm_SetVar", this, &CScenarioManager::FUN_001cc9b0);
         else
             c = 0;
         reg->FUN_001d3b70("sm_SetVar", c);
@@ -176,7 +176,7 @@ void CScenarioManager::FUN_001cfb20(int arg)
         void *mem = FUN_0008d690(0x24);
         void *c;
         if (mem)
-            c = ((Raw *)mem)->FUN_001ce4e0("sm_StartTimer", this, &CScenarioManager::FUN_001cc9d0);
+            c = ((Raw_1cfb20 *)mem)->FUN_001ce4e0("sm_StartTimer", this, &CScenarioManager::FUN_001cc9d0);
         else
             c = 0;
         reg->FUN_001d3b70("sm_StartTimer", c);
@@ -231,7 +231,7 @@ void CScenarioManager::FUN_001cfb20(int arg)
         void *mem = FUN_0008d690(0x24);
         void *c;
         if (mem)
-            c = ((Raw *)mem)->FUN_001ce590("sm_AddComboGrade", this, &CScenarioManager::FUN_001cce80);
+            c = ((Raw_1cfb20 *)mem)->FUN_001ce590("sm_AddComboGrade", this, &CScenarioManager::FUN_001cce80);
         else
             c = 0;
         reg->FUN_001d3b70("sm_AddComboGrade", c);
@@ -255,7 +255,7 @@ void CScenarioManager::FUN_001cfb20(int arg)
         void *mem = FUN_0008d690(0x24);
         void *c;
         if (mem)
-            c = ((Raw *)mem)->FUN_001ce7c0("sm_SetMissionObjective", this, &CScenarioManager::FUN_001ccf70);
+            c = ((Raw_1cfb20 *)mem)->FUN_001ce7c0("sm_SetMissionObjective", this, &CScenarioManager::FUN_001ccf70);
         else
             c = 0;
         reg->FUN_001d3b70("sm_SetMissionObjective", c);
@@ -271,7 +271,7 @@ void CScenarioManager::FUN_001cfb20(int arg)
         void *mem = FUN_0008d690(0x24);
         void *c;
         if (mem)
-            c = ((Raw *)mem)->FUN_001ce8f0("sm_SetMissionObjectiveState", this, &CScenarioManager::FUN_001ccfc0);
+            c = ((Raw_1cfb20 *)mem)->FUN_001ce8f0("sm_SetMissionObjectiveState", this, &CScenarioManager::FUN_001ccfc0);
         else
             c = 0;
         reg->FUN_001d3b70("sm_SetMissionObjectiveState", c);

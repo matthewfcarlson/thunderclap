@@ -5,32 +5,32 @@ void FUN_0008d330(void* p);
 void FUN_000a9e50(void* p);
 void __stdcall FUN_00011520(void* base, int stride, int count, void (*fn)(void*));
 
-struct Matrix4 {
+struct Matrix4_22f400 {
     char data[0x80];
-    Matrix4* FUN_0022e470(const Matrix4* src);
+    Matrix4_22f400* FUN_0022e470(const Matrix4_22f400* src);
 };
 
-struct Elem {
+struct Elem_22f400 {
     unsigned int w0, w1, w2, w3;
 };
 
-struct Shape {
+struct Shape_22f400 {
     unsigned int f00;
     unsigned int f04;
-    Matrix4 m08;
-    Matrix4 m88;
+    Matrix4_22f400 m08;
+    Matrix4_22f400 m88;
     char flag108;
     char pad109[3];
     unsigned int f10c;
     unsigned int count;
-    Elem* elems;
+    Elem_22f400* elems;
     unsigned int* extra;
     unsigned int f11c;
     unsigned int f120;
-    Shape* FUN_0022f400(const Shape* src);
+    Shape_22f400* FUN_0022f400(const Shape_22f400* src);
 };
 
-Shape* Shape::FUN_0022f400(const Shape* src)
+Shape_22f400* Shape_22f400::FUN_0022f400(const Shape_22f400* src)
 {
     f00 = src->f00;
     f04 = src->f04;
@@ -43,14 +43,14 @@ Shape* Shape::FUN_0022f400(const Shape* src)
     unsigned int n = src->count;
     count = n;
     if (n != 0) {
-        Elem* e = (Elem*)FUN_0008d690(n << 4);
+        Elem_22f400* e = (Elem_22f400*)FUN_0008d690(n << 4);
         if (e != 0)
             FUN_00011520(e, 0x10, n, (void (*)(void*))FUN_000a9e50);
         elems = e;
     }
     for (unsigned int i = 0; i < count; i++) {
-        Elem* d = &elems[i];
-        const Elem* s = &src->elems[i];
+        Elem_22f400* d = &elems[i];
+        const Elem_22f400* s = &src->elems[i];
         d->w0 = s->w0;
         d->w1 = s->w1;
         d->w2 = s->w2;

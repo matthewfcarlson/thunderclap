@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 8/8)
 // FUN_002e17c0 @ 0x002e17c0
-struct Mat {
+struct Mat_2e17c0 {
     char d[64];
 };
 
@@ -8,8 +8,8 @@ void *__cdecl FUN_0008d6d0(unsigned int n);
 
 struct MatVec {
     char pad0[8];
-    Mat *begin;
-    Mat *end;
+    Mat_2e17c0 *begin;
+    Mat_2e17c0 *end;
 };
 
 namespace pure3d {
@@ -18,8 +18,8 @@ public:
     BoneMatrixList(MatVec *src);
     virtual void f0();
     int f4;
-    Mat *begin;
-    Mat *end;
+    Mat_2e17c0 *begin;
+    Mat_2e17c0 *end;
 };
 }
 
@@ -29,9 +29,9 @@ pure3d::BoneMatrixList::BoneMatrixList(MatVec *src)
     unsigned int n = src->end - src->begin;
     if (n != 0) {
         unsigned int bytes = n * 64;
-        begin = (Mat *)FUN_0008d6d0(bytes);
+        begin = (Mat_2e17c0 *)FUN_0008d6d0(bytes);
         if (begin != 0) {
-            end = (Mat *)((char *)begin + bytes);
+            end = (Mat_2e17c0 *)((char *)begin + bytes);
         } else {
             begin = 0;
             end = 0;

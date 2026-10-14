@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 69/70, incomplete)
 // FUN_00323130 @ 0x00323130
-namespace D3D8 { struct Texture; struct Surface; struct SurfaceDesc { unsigned int data[16]; }; Surface* __stdcall D3DTexture_GetSurfaceLevel2(Texture*, unsigned int); void __stdcall D3DDevice_SetRenderTarget(Surface*, unsigned int); void __stdcall D3DResource_Release(Surface*); void __stdcall D3DDevice_SetTexture(unsigned int, Texture*); void __fastcall D3DDevice_SetRenderState_Simple(unsigned int, unsigned int); void __stdcall D3DDevice_SetVertexShader(unsigned int); void __stdcall D3DDevice_SetPixelShader(unsigned int); void __stdcall D3DDevice_SetPixelShaderConstant(unsigned int, const float*, unsigned int); void __stdcall D3DDevice_DrawVerticesUP(unsigned int, unsigned int, const void*, unsigned int); }
-void __stdcall FUN_003821c0(D3D8::Texture*, unsigned int, D3D8::SurfaceDesc*);
+namespace D3D8 { struct Texture; struct Surface; struct SurfaceDesc_323130 { unsigned int data[16]; }; Surface* __stdcall D3DTexture_GetSurfaceLevel2(Texture*, unsigned int); void __stdcall D3DDevice_SetRenderTarget(Surface*, unsigned int); void __stdcall D3DResource_Release(Surface*); void __stdcall D3DDevice_SetTexture(unsigned int, Texture*); void __fastcall D3DDevice_SetRenderState_Simple(unsigned int, unsigned int); void __stdcall D3DDevice_SetVertexShader(unsigned int); void __stdcall D3DDevice_SetPixelShader(unsigned int); void __stdcall D3DDevice_SetPixelShaderConstant(unsigned int, const float*, unsigned int); void __stdcall D3DDevice_DrawVerticesUP(unsigned int, unsigned int, const void*, unsigned int); }
+void __stdcall FUN_003821c0(D3D8::Texture*, unsigned int, D3D8::SurfaceDesc_323130*);
 namespace XGRAPHC { int __stdcall XGIsSwizzledFormat(unsigned int); }
 extern unsigned int DAT_0039db08,DAT_0039db1c,DAT_0039db20,DAT_0039db9c,DAT_0039dba0,DAT_0039dc1c,DAT_0039dc20,DAT_0039dc9c,DAT_0039dca0,DAT_0039ddfc,DAT_0039de08,DAT_0039de0c,DAT_0039de38;
-struct Effect { char pad0[0x88]; unsigned int shaders[5]; char pad1[0xf0-0x9c]; float offsets[20]; float values[20]; D3D8::Texture* FUN_00323130(D3D8::Texture* source,D3D8::Texture* target); };
-D3D8::Texture* Effect::FUN_00323130(D3D8::Texture* source,D3D8::Texture* target) {
+struct Effect_323130 { char pad0[0x88]; unsigned int shaders[5]; char pad1[0xf0-0x9c]; float offsets[20]; float values[20]; D3D8::Texture* FUN_00323130(D3D8::Texture* source,D3D8::Texture* target); };
+D3D8::Texture* Effect_323130::FUN_00323130(D3D8::Texture* source,D3D8::Texture* target) {
  D3D8::Surface* surface=D3D8::D3DTexture_GetSurfaceLevel2(target,0); D3D8::D3DDevice_SetRenderTarget(surface,0); D3D8::D3DResource_Release(surface);
  for(unsigned int i=0;i<4;++i) D3D8::D3DDevice_SetTexture(i,source);
  DAT_0039db1c=DAT_0039db20=DAT_0039db9c=DAT_0039dba0=DAT_0039dc1c=DAT_0039dc20=DAT_0039dc9c=DAT_0039dca0=2; DAT_0039db08|=15;
- D3D8::SurfaceDesc desc; FUN_003821c0(source,0,&desc);
+ D3D8::SurfaceDesc_323130 desc; FUN_003821c0(source,0,&desc);
  float w=(float)desc.data[5]-0.5f, h=(float)desc.data[6]-0.5f;
  float tw=XGRAPHC::XGIsSwizzledFormat(desc.data[0])?1.0f:(float)desc.data[5];
  float th=XGRAPHC::XGIsSwizzledFormat(desc.data[0])?1.0f:(float)desc.data[6];

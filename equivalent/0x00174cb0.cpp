@@ -1,36 +1,36 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 20/20)
 // hulkfight::motion::FootPivotAction::vfunc_5 @ 0x00174cb0
-struct Vec3 {
+struct Vec3_174cb0 {
     float x, y, z;
-    bool FUN_0022d2b0(const Vec3 *other, float eps);
+    bool FUN_0022d2b0(const Vec3_174cb0 *other, float eps);
 };
 
 struct Matrix {
     float m[16];
-    void FUN_0022c2b0(const Vec3 *in, Vec3 *out);
+    void FUN_0022c2b0(const Vec3_174cb0 *in, Vec3_174cb0 *out);
 };
 
-struct Transform {
+struct Transform_174cb0 {
     void FUN_00221d20(float v);
 };
 
-struct JointObject {
+struct JointObject_174cb0 {
     char pad0[0x18];
-    Transform transform;
+    Transform_174cb0 transform;
 };
 
-struct Target {
+struct Target_174cb0 {
     char pad0[0x40];
-    Vec3 pos;
+    Vec3_174cb0 pos;
 };
 
-struct Stats {
+struct Stats_174cb0 {
     char pad0[0x328];
-    Target *target;
+    Target_174cb0 *target;
     char pad32c[0x2064 - 0x32c];
-    Vec3 aim;
+    Vec3_174cb0 aim;
     float FUN_000354c0();
-    void FUN_00035720(Vec3 *v);
+    void FUN_00035720(Vec3_174cb0 *v);
 };
 
 struct Skeleton2 {
@@ -43,24 +43,24 @@ struct Skeleton1 {
     Skeleton2 *inner;
 };
 
-struct Body {
-    Stats *FUN_00059a30();
+struct Body_174cb0 {
+    Stats_174cb0 *FUN_00059a30();
     Skeleton1 *FUN_00059a40();
-    void FUN_00059a50(Vec3 *out);
+    void FUN_00059a50(Vec3_174cb0 *out);
 };
 
 struct Pivot {
     char pad0[0x20];
-    Vec3 local;
+    Vec3_174cb0 local;
     float angleOffset;      // 0x2c
     float turnRate;         // 0x30
     char useTarget;         // 0x34
 };
 
-Body *__fastcall FUN_000592a0(void *owner);
-extern "C" float FUN_00224f10(Vec3 *v);
+Body_174cb0 *__fastcall FUN_000592a0(void *owner);
+extern "C" float FUN_00224f10(Vec3_174cb0 *v);
 extern "C" float FUN_00224fc0(float from, float to);
-extern "C" void FUN_00224d70(float angle, Vec3 *v);
+extern "C" void FUN_00224d70(float angle, Vec3_174cb0 *v);
 
 namespace hulkfight {
 namespace motion {
@@ -76,7 +76,7 @@ public:
     Pivot *pivot;           // 0x1c
     void *owner;            // 0x20
     unsigned int index;     // 0x24
-    JointObject *joint;     // 0x28
+    JointObject_174cb0 *joint;     // 0x28
 };
 
 bool FootPivotAction::vfunc_5(int a1, float dt)
@@ -85,25 +85,25 @@ bool FootPivotAction::vfunc_5(int a1, float dt)
     struct {
         float out;
         float rate;
-        Vec3 t;
+        Vec3_174cb0 t;
         float angleNow;
         float target;
-        Vec3 d;
-        Vec3 m;
-        Vec3 f;
-        Vec3 r;
-        Vec3 a;
-        Vec3 z;
+        Vec3_174cb0 d;
+        Vec3_174cb0 m;
+        Vec3_174cb0 f;
+        Vec3_174cb0 r;
+        Vec3_174cb0 a;
+        Vec3_174cb0 z;
         Matrix mtx;
     } fr;
 
     if (a1 != 0)
         return true;
 
-    Body *body = FUN_000592a0(owner);
+    Body_174cb0 *body = FUN_000592a0(owner);
     if (body == 0)
         return false;
-    Stats *stats = body->FUN_00059a30();
+    Stats_174cb0 *stats = body->FUN_00059a30();
     if (stats == 0)
         return false;
     Skeleton1 *skel = body->FUN_00059a40();
@@ -130,7 +130,7 @@ bool FootPivotAction::vfunc_5(int a1, float dt)
 
     float ang;
     if (pivot->useTarget) {
-        Target *tgt = stats->target;
+        Target_174cb0 *tgt = stats->target;
         if (tgt != 0) {
             fr.t.x = tgt->pos.x - fr.m.x;
             fr.t.y = tgt->pos.y - fr.m.y;

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 22/22)
 // pure3d::BlendFrameController::vfunc_6 @ 0x00284fa0
-struct Owner {
+struct Owner_284fa0 {
     char pad00[0x14];
     float rate;
     char pad18;
@@ -18,7 +18,7 @@ struct Track {
     int f1c;
     int a20;
     int f24;
-    Owner* owner;
+    Owner_284fa0* owner;
 };
 
 class BlendFrameController {
@@ -73,7 +73,7 @@ void BlendFrameController::vfunc_6(float dt, char force)
 
     for (unsigned int i = 0; i < count; i++) {
         Track* t = &tracks[i];
-        Owner* owner = t->owner;
+        Owner_284fa0* owner = t->owner;
         t->cur = owner->FUN_00289db0(&t->f18, &t->f24, t->cur, dt, t->a4, t->a8, t->f1c == 0, t->a20);
 
         float x = t->remain - step * owner->rate;

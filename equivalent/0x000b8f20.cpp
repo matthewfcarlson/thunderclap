@@ -3,14 +3,14 @@
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int DAT_004d9968;
 
-class Manager { public: char pad[4]; };
-Manager *__cdecl FUN_000fc1b0();
+class Manager_b8f20 { public: char pad[4]; };
+Manager_b8f20 *__cdecl FUN_000fc1b0();
 
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 int FUN_00345804(const char *str, const char *fmt, ...);
 
-struct TextEntry {
-    void FUN_000f8500(const char *name, Manager *manager, char flag);
+struct TextEntry_b8f20 {
+    void FUN_000f8500(const char *name, Manager_b8f20 *manager, char flag);
 };
 
 class FEObject {
@@ -33,7 +33,7 @@ class TextLabel : public FEObject {
 public:
     virtual void vfunc_1();
     char pad04[0x14];
-    TextEntry entry;
+    TextEntry_b8f20 entry;
 };
 
 class TextHost : public FEObject {

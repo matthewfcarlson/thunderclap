@@ -1,31 +1,31 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_003335e0 @ 0x003335e0
-typedef unsigned int U;
-extern U* __cdecl FUN_0031c680(U* out, U color, U mask, U alpha);
+typedef unsigned int U_3335e0;
+extern U_3335e0* __cdecl FUN_0031c680(U_3335e0* out, U_3335e0 color, U_3335e0 mask, U_3335e0 alpha);
 
-struct Obj {
+struct Obj_3335e0 {
     char p0[0x18];
-    U mode;             // 0x18
-    U activeMode;       // 0x1c
+    U_3335e0 mode;             // 0x18
+    U_3335e0 activeMode;       // 0x1c
     char p20[0x10];
     float scale;        // 0x30
     float result;       // 0x34
-    U alpha;            // 0x38
+    U_3335e0 alpha;            // 0x38
     char p3c[0xc];
     unsigned char enabled;  // 0x48
     char p49[7];
-    U c50, c54, c58, c5c;
+    U_3335e0 c50, c54, c58, c5c;
     char p60[4];
-    U c64, c68, c6c, c70;
+    U_3335e0 c64, c68, c6c, c70;
     void FUN_003335e0();
 };
 
-void Obj::FUN_003335e0()
+void Obj_3335e0::FUN_003335e0()
 {
     // Frame slots: t1 shares the slot the original uses for the int->float conversion of 255 - alpha.
-    struct Locals { U t1, t2, t3, t4, t5; } local;
-    U a0 = alpha;
-    U inverse = 255 - a0;
+    struct Locals { U_3335e0 t1, t2, t3, t4, t5; } local;
+    U_3335e0 a0 = alpha;
+    U_3335e0 inverse = 255 - a0;
     local.t1 = inverse;
     activeMode = (mode == 0 && a0 > 0) ? 1 : mode;
     double v = (double)inverse * 0.0039215688593685627f * scale;
@@ -45,10 +45,10 @@ void Obj::FUN_003335e0()
         break;
     case 2:
     case 3: {
-        U *r = FUN_0031c680(&local.t1, c6c, 0xff000000, a0);
-        U a = alpha;
-        U val = *r;
-        U arg = c64;
+        U_3335e0 *r = FUN_0031c680(&local.t1, c6c, 0xff000000, a0);
+        U_3335e0 a = alpha;
+        U_3335e0 val = *r;
+        U_3335e0 arg = c64;
         c58 = val;
         r = FUN_0031c680(&local.t2, arg, 0xff000000, a);
         a = alpha;

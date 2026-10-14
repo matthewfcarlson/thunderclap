@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00227300 @ 0x00227300
-struct Point { unsigned int x; union { float y; unsigned int yBits; }; unsigned int z; };
-void __cdecl FUN_00227300(Point* a, Point* b, Point* c)
+struct Point_227300 { unsigned int x; union { float y; unsigned int yBits; }; unsigned int z; };
+void __cdecl FUN_00227300(Point_227300* a, Point_227300* b, Point_227300* c)
 {
     if (b->y > a->y) {
         unsigned int x = b->x, y = b->yBits, z = b->z;

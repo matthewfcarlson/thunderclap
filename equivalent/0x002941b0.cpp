@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002941b0 @ 0x002941b0
-struct Vec { float x,y,z; };
-struct Source {
+struct Vec_2941b0 { float x,y,z; };
+struct Source_2941b0 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5();
  virtual void getFactors(float*,float*);
 };
-struct Screen {
+struct Screen_2941b0 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5();
  virtual int height(); virtual int width();
 };
-extern Screen* DAT_0052c2a4;
+extern Screen_2941b0* DAT_0052c2a4;
 struct Object {
- char pad[8]; float left,top,right,bottom; Source* source;
- void target(Vec* input, Vec* output);
+ char pad[8]; float left,top,right,bottom; Source_2941b0* source;
+ void target(Vec_2941b0* input, Vec_2941b0* output);
 };
-void Object::target(Vec* input, Vec* output) {
+void Object::target(Vec_2941b0* input, Vec_2941b0* output) {
  if (!source) return;
- union { Vec* pointer; float value; } factor;
+ union { Vec_2941b0* pointer; float value; } factor;
  factor.pointer=output;
  float unused;
  output->z=0.0f;

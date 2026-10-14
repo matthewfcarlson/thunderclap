@@ -2,41 +2,41 @@
 // FUN_000afaf0 @ 0x000afaf0
 extern char DAT_004dda3d;
 
-class Notifier {
+class Notifier_afaf0 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5();
     virtual void Reset(int flag);        // slot 6
 };
 
-class Source {
+class Source_afaf0 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
     virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-    virtual Notifier *GetNotifier(unsigned int index);   // slot 16
+    virtual Notifier_afaf0 *GetNotifier(unsigned int index);   // slot 16
 };
 
-struct Group {
+struct Group_afaf0 {
     unsigned int count;      // 0x00
     char pad04[8];
     void *entries[8];        // 0x0c
-    Source *owner;           // 0x2c
+    Source_afaf0 *owner;           // 0x2c
 };
 
-class Manager {
+class Manager_afaf0 {
 public:
     char pad00[8];
     char active;             // 0x08
     char pad09[7];
     int groupCount;          // 0x10
-    Group *groups;           // 0x14
+    Group_afaf0 *groups;           // 0x14
     void FUN_000af530(int group, unsigned int entry, int flag);
     void FUN_000afaf0();
 };
 
-void Manager::FUN_000afaf0() {
+void Manager_afaf0::FUN_000afaf0() {
     if (!active)
         return;
     for (int g = 0; g < groupCount; g++) {

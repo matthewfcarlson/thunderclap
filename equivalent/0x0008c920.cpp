@@ -11,9 +11,9 @@ struct Object {
  virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31(); virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
  virtual void query(Object**, char*, int,int,int,int,int);
 };
-struct State { Object* object; char pad[0x58]; int state; char pad2[0x54]; int values[5]; };
-struct Manager { char pad[8]; State* data; int FUN_0008c590(int, unsigned, int*); void target(); };
-void Manager::target() {
+struct State_8c920 { Object* object; char pad[0x58]; int state; char pad2[0x54]; int values[5]; };
+struct Manager_8c920 { char pad[8]; State_8c920* data; int FUN_0008c590(int, unsigned, int*); void target(); };
+void Manager_8c920::target() {
  struct Workspace { Object* item; int status; char buffer[260]; unsigned int cookie; } work;
  work.cookie = DAT_004d9968;
  Object* root = data->object;

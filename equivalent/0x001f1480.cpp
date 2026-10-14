@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 12/12)
 // FUN_001f1480 @ 0x001f1480
-struct Part { char data[8]; void FUN_0027af50(); };
-struct Key { Part parts[8]; char extra[8]; void FUN_001f0090(void*); };
+struct Part_1f1480 { char data[8]; void FUN_0027af50(); };
+struct Key_1f1480 { Part_1f1480 parts[8]; char extra[8]; void FUN_001f0090(void*); };
 struct Node;
-struct Group { char pad[4]; Node* head; };
-struct Node { char pad[8]; Group* group; Node* next; unsigned a,b; float weight; unsigned tail; void FUN_0027af00(); void FUN_0027b040(void*); };
+struct Group_1f1480 { char pad[4]; Node* head; };
+struct Node { char pad[8]; Group_1f1480* group; Node* next; unsigned a,b; float weight; unsigned tail; void FUN_0027af00(); void FUN_0027b040(void*); };
 extern Node* DAT_004e3710;
 extern void* __cdecl FUN_0008d710(unsigned,unsigned);
-struct Owner { Group* FUN_001efb80(Key*); void FUN_001f1480(void*,void*,float); };
-void Owner::FUN_001f1480(void* value, void* key, float weight) {
- Key temporary;
+struct Owner_1f1480 { Group_1f1480* FUN_001efb80(Key_1f1480*); void FUN_001f1480(void*,void*,float); };
+void Owner_1f1480::FUN_001f1480(void* value, void* key, float weight) {
+ Key_1f1480 temporary;
  temporary.FUN_001f0090(key);
- Group* group = FUN_001efb80(&temporary);
+ Group_1f1480* group = FUN_001efb80(&temporary);
  if(group) {
   Node* node = (Node*)FUN_0008d710(32,6);
   if(node) {

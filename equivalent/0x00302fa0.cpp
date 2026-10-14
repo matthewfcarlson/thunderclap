@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 6/6)
 // FUN_00302fa0 @ 0x00302fa0
-struct Entry {
+struct Entry_302fa0 {
     unsigned int data[9];
     float priority;
     unsigned int rest[7];
-    void FUN_002f7a90(const Entry* source);
+    void FUN_002f7a90(const Entry_302fa0* source);
 };
-Entry* __cdecl FUN_00302fa0(Entry* entries, int index, int lowerBound, Entry value) {
+Entry_302fa0* __cdecl FUN_00302fa0(Entry_302fa0* entries, int index, int lowerBound, Entry_302fa0 value) {
     int parent = (index - 1) / 2;
     while (lowerBound < index) {
         if (!(entries[parent].priority < value.priority)) break;
@@ -14,7 +14,7 @@ Entry* __cdecl FUN_00302fa0(Entry* entries, int index, int lowerBound, Entry val
         index = parent;
         parent = (parent - 1) / 2;
     }
-    Entry* destination = &entries[index];
+    Entry_302fa0* destination = &entries[index];
     *destination = value;
     return destination;
 }

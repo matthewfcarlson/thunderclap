@@ -7,7 +7,7 @@ struct MessageSink {
 extern float DAT_004a06d4;
 extern float DAT_004a06dc;
 
-union FloatBits {
+union FloatBits_d5290 {
     float f;
     unsigned int u;
 };
@@ -37,7 +37,7 @@ void MessageBox::Update(float dt)
     if (f47c == 0 && b484)
         open = true;
 
-    FloatBits a;
+    FloatBits_d5290 a;
 
     if (open) {
         a.f = slide;

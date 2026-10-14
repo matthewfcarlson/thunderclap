@@ -5,13 +5,13 @@ struct Key64 {
     unsigned int hi;
 };
 
-struct Slot {
+struct Slot_1f87e0 {
     char pad0[0x34];
     int value;              // 0x34
     char pad38[0x58 - 0x38];
 };
 
-struct Ref {
+struct Ref_1f87e0 {
     char pad0[0x10];
     int *target;            // 0x10
 };
@@ -21,24 +21,24 @@ struct Request {
     Key64 key;              // 0x08
 };
 
-unsigned __int64 __cdecl FUN_0027b020(Slot *slot);
+unsigned __int64 __cdecl FUN_0027b020(Slot_1f87e0 *slot);
 
-class SlotTable {
+class SlotTable_1f87e0 {
 public:
     char pad0[0x458];
     int enabled;            // 0x458
     char pad45c[0x6f4 - 0x45c];
     char slotStorage[0xc68 - 0x6f4];
     int count;              // 0xc68
-    bool FUN_001f87e0(Ref *ref, Request *req, unsigned int *outIndex);
+    bool FUN_001f87e0(Ref_1f87e0 *ref, Request *req, unsigned int *outIndex);
 };
 
-bool SlotTable::FUN_001f87e0(Ref *ref, Request *req, unsigned int *outIndex)
+bool SlotTable_1f87e0::FUN_001f87e0(Ref_1f87e0 *ref, Request *req, unsigned int *outIndex)
 {
     if (enabled == 0)
         return false;
     for (int i = 0; i < count; i++) {
-        Slot *slot = (Slot *)slotStorage + i;
+        Slot_1f87e0 *slot = (Slot_1f87e0 *)slotStorage + i;
         unsigned int lo = req->key.lo;
         unsigned int hi = req->key.hi;
         unsigned __int64 id = FUN_0027b020(slot);

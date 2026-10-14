@@ -12,14 +12,14 @@ void FUN_00212e20(lua_State *L, int idx);
 const char *FUN_0033df70(lua_State *L, void *ud, unsigned int *size);
 int FUN_00213b20(lua_State *L, const char *(*reader)(lua_State *, void *, unsigned int *), void *ud, const char *chunkname);
 
-struct LoadState {
+struct LoadState_33e010 {
     int ref;
     int pending;
 };
 
 int FUN_0033e010(lua_State *L)
 {
-    LoadState ls;
+    LoadState_33e010 ls;
     const char *chunkname = FUN_00339e60(L, 2, "=(load)", 0);
     FUN_00339d70(L, 1, 6);
     FUN_00212d80(L, 1);

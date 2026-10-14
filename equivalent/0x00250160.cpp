@@ -1,32 +1,32 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // audio::SeqActionWait::vfunc_6 @ 0x00250160
-struct Str {
+struct Str_250160 {
     char *data;
     short mode;
     short pad6;
     short len;
     short pad10;
-    Str *FUN_0023fac0();
-    Str *FUN_0023fc40(const char *text, int len);
-    bool FUN_00240310(const Str *other);
+    Str_250160 *FUN_0023fac0();
+    Str_250160 *FUN_0023fc40(const char *text, int len);
+    bool FUN_00240310(const Str_250160 *other);
 };
-extern "C" void __fastcall FUN_00240060(Str *s);
+extern "C" void __fastcall FUN_00240060(Str_250160 *s);
 
-struct Table { char pad[0x10]; };
-struct Mgr {
+struct Table_250160 { char pad[0x10]; };
+struct Mgr_250160 {
     char pad[0x5c];
-    Table table;
+    Table_250160 table;
 };
-struct Ctx {
+struct Ctx_250160 {
     char pad[0x3c];
-    Mgr *mgr;
+    Mgr_250160 *mgr;
 };
 struct WaitData {
     char pad[8];
-    Str name;
+    Str_250160 name;
 };
 
-void FUN_002613b0(Table *t, Str *out, Str *in);
+void FUN_002613b0(Table_250160 *t, Str_250160 *out, Str_250160 *in);
 
 class SeqAction {
 public:
@@ -36,7 +36,7 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual void vfunc_6(Ctx *ctx);
+    virtual void vfunc_6(Ctx_250160 *ctx);
     char pad04[4];
     WaitData *data;     // 0x08
     int state;          // 0x0c
@@ -45,14 +45,14 @@ public:
 namespace audio {
 class SeqActionWait : public SeqAction {
 public:
-    virtual void vfunc_6(Ctx *ctx);
+    virtual void vfunc_6(Ctx_250160 *ctx);
 };
 }
 
-void audio::SeqActionWait::vfunc_6(Ctx *ctx)
+void audio::SeqActionWait::vfunc_6(Ctx_250160 *ctx)
 {
-    Str value;
-    Str probe;
+    Str_250160 value;
+    Str_250160 probe;
     switch (state) {
     case 1:
     case 4:

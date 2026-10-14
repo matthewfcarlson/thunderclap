@@ -19,7 +19,7 @@ struct HandlerObj {
     int f0c;
 };
 
-struct Inventory {
+struct Inventory_1fb260 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -29,8 +29,8 @@ struct Inventory {
 };
 
 // The incoming pointer's stack slot doubles as the caster storage.
-union InventoryArg {
-    Inventory *inv;
+union InventoryArg_1fb260 {
+    Inventory_1fb260 *inv;
     char caster[4];
 };
 
@@ -39,16 +39,16 @@ extern "C" void __fastcall __security_check_cookie(unsigned int);
 unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 
-class DataLoader {
+class DataLoader_1fb260 {
 public:
     char pad0[0x2c];
     int cur;
     int end;
     void FUN_001faa80(int a, int b);
-    bool FUN_001fb260(InventoryArg arg);
+    bool FUN_001fb260(InventoryArg_1fb260 arg);
 };
 
-bool DataLoader::FUN_001fb260(InventoryArg arg)
+bool DataLoader_1fb260::FUN_001fb260(InventoryArg_1fb260 arg)
 {
     struct Frame {
         char buf[0x40];
@@ -56,7 +56,7 @@ bool DataLoader::FUN_001fb260(InventoryArg arg)
     } f;
     f.cookie = DAT_004d9968;
     if (cur < end) {
-        Inventory *inv = arg.inv;
+        Inventory_1fb260 *inv = arg.inv;
         for (int i = cur; i < end; i++) {
             FUN_000964a0(f.buf, 0x40, "GameDataHandlerRaw%d", i);
             unsigned __int64 key = FUN_002672f0(f.buf, 0, 0);

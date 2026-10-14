@@ -23,18 +23,18 @@ static float AbsF(float v)
     return c.f;
 }
 
-struct V3 {
+struct V3_a38c0 {
     float x, y, z;
     float FUN_000259c0();
     float FUN_0022d110();
-    void FUN_00011160(float s, V3 *d);
-    void FUN_00011250(V3 *out, V3 *other);
+    void FUN_00011160(float s, V3_a38c0 *d);
+    void FUN_00011250(V3_a38c0 *out, V3_a38c0 *other);
 };
 
-V3 *__cdecl FUN_0009f8c0(V3 *out, float yaw, float pitch, float scale);
+V3_a38c0 *__cdecl FUN_0009f8c0(V3_a38c0 *out, float yaw, float pitch, float scale);
 float __cdecl FUN_0009faa0(float cur, float target, float dt, float rate);
-void __cdecl FUN_000a04c0(V3 *dir, float *yaw, float *pitch, float *len);
-float __cdecl FUN_000a0450(V3 *v);
+void __cdecl FUN_000a04c0(V3_a38c0 *dir, float *yaw, float *pitch, float *len);
+float __cdecl FUN_000a0450(V3_a38c0 *v);
 float __cdecl FUN_000a03c0(float v, float lo, float hi);
 float __cdecl FUN_000189c0(float v);
 float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
@@ -42,12 +42,12 @@ char __cdecl FUN_00018960(float a, float b, float eps);
 float __cdecl FUN_000a00e0(float a, float b, float c, float d, float e);
 float __cdecl FUN_000a05b0(float a, float b, float c, float d, float e);
 
-struct Input32c {
+struct Input32c_a38c0 {
     char pad00[0x14];
     char FUN_000a2370(float dt, float *outA, float *outB, char *outC);
 };
 
-struct Frame {
+struct Frame_a38c0 {
     float pitch;   // E-0x50
     float outB;    // E-0x4c
     float yaw;     // E-0x48
@@ -56,21 +56,21 @@ struct Frame {
     float angB;    // E-0x3c
     float angA;    // E-0x38
     float outA;    // E-0x34
-    V3 dv;         // E-0x30
-    V3 w;          // E-0x24
-    V3 u;          // E-0x18
-    V3 o;          // E-0x0c
+    V3_a38c0 dv;         // E-0x30
+    V3_a38c0 w;          // E-0x24
+    V3_a38c0 u;          // E-0x18
+    V3_a38c0 o;          // E-0x0c
 };
 
-class Cam {
+class Cam_a38c0 {
 public:
     char pad000[0x194];
-    V3 p194;
+    V3_a38c0 p194;
     char pad1a0[0x1b8 - 0x1a0];
-    V3 p1b8;
-    V3 p1c4;
+    V3_a38c0 p1b8;
+    V3_a38c0 p1c4;
     char pad1d0[0x1e8 - 0x1d0];
-    V3 p1e8;
+    V3_a38c0 p1e8;
     char pad1f4[0x204 - 0x1f4];
     float f204;
     char pad208[0x20c - 0x208];
@@ -79,11 +79,11 @@ public:
     char pad214[0x23c - 0x214];
     float f23c;
     char pad240[0x248 - 0x240];
-    V3 p248;
+    V3_a38c0 p248;
     char pad254[0x29c - 0x254];
-    V3 p29c;
+    V3_a38c0 p29c;
     char pad2a8[0x32c - 0x2a8];
-    Input32c in32c;
+    Input32c_a38c0 in32c;
     char pad340[0x346 - 0x340];
     char b346;
     char pad347;
@@ -96,11 +96,11 @@ public:
     float f3c4;
     float f3c8;
     float f3cc;
-    V3 p3d0;
+    V3_a38c0 p3d0;
     char pad3dc[0x3e0 - 0x3dc];
     float f3e0;
     char pad3e4[0x3f4 - 0x3e4];
-    V3 p3f4;
+    V3_a38c0 p3f4;
     char pad400[0x444 - 0x400];
     float f444;
     float f448;
@@ -124,9 +124,9 @@ public:
     void Update(float unused, float dt);
 };
 
-void Cam::Update(float unused, float dt)
+void Cam_a38c0::Update(float unused, float dt)
 {
-    Frame f;
+    Frame_a38c0 f;
     float dt0 = dt;
 
     f.dv.x = p1c4.x - p29c.x;
@@ -314,7 +314,7 @@ void Cam::Update(float unused, float dt)
     }
 
     f484 = f448;
-    V3 *r = FUN_0009f8c0(&f.o, f3bc, f3c0, f3c4);
+    V3_a38c0 *r = FUN_0009f8c0(&f.o, f3bc, f3c0, f3c4);
     p194.x = r->x + p1c4.x;
     p194.y = r->y + p1c4.y;
     f.o.z = r->z + p1c4.z;

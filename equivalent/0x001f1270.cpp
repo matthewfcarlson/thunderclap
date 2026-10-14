@@ -5,7 +5,7 @@ extern char DAT_0042476c[];
 void *__cdecl FUN_00263ed0(int size, int tag);
 void *__cdecl FUN_0008d710(int size, int tag);
 
-struct SoundBank {
+struct SoundBank_1f1270 {
     int vptr;
     int f04;
     char pad08[0x198 - 8];
@@ -19,7 +19,7 @@ struct SoundBank {
 };
 
 struct SoundEngine {
-    SoundEngine *FUN_001f4ba0(SoundBank *bank);
+    SoundEngine *FUN_001f4ba0(SoundBank_1f1270 *bank);
 };
 
 class SoundResourceManager;
@@ -28,7 +28,7 @@ extern SoundResourceManager *DAT_004e370c;
 class SoundResourceManager {
 public:
     SoundEngine *engine;
-    SoundBank *bank;
+    SoundBank_1f1270 *bank;
     int f08;
     int f0c;
     SoundResourceManager *FUN_001f1270();
@@ -36,7 +36,7 @@ public:
 
 SoundResourceManager *SoundResourceManager::FUN_001f1270()
 {
-    SoundBank *b = (SoundBank *)FUN_00263ed0(0x524, 6);
+    SoundBank_1f1270 *b = (SoundBank_1f1270 *)FUN_00263ed0(0x524, 6);
     if (b) {
         b->f04 = 0;
         b->vptr = (int)DAT_0042476c;

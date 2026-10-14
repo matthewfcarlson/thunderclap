@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 12/14, incomplete)
 // FUN_001e55f0 @ 0x001e55f0
-struct Item { char data[20]; };
-struct Partition { Item* first; Item* second; };
-void __cdecl FUN_001e4490(Partition*, Item*, Item*);
-void __cdecl FUN_001e4190(Item*, Item*);
-void __cdecl FUN_001e2800(Item*, Item*, int, int);
-void __cdecl FUN_001e46d0(Item*, Item*);
-void __cdecl FUN_001e55f0(Item* begin, Item* end, int depth) {
+struct Item_1e55f0 { char data[20]; };
+struct Partition { Item_1e55f0* first; Item_1e55f0* second; };
+void __cdecl FUN_001e4490(Partition*, Item_1e55f0*, Item_1e55f0*);
+void __cdecl FUN_001e4190(Item_1e55f0*, Item_1e55f0*);
+void __cdecl FUN_001e2800(Item_1e55f0*, Item_1e55f0*, int, int);
+void __cdecl FUN_001e46d0(Item_1e55f0*, Item_1e55f0*);
+void __cdecl FUN_001e55f0(Item_1e55f0* begin, Item_1e55f0* end, int depth) {
  int count = end-begin;
  while (count > 32) {
   if (depth <= 0) {

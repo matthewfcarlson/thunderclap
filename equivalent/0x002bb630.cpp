@@ -2,16 +2,16 @@
 // pure3d::BillboardQuad::vfunc_5 @ 0x002bb630
 extern "C" double sqrt(double);
 
-union FloatBits {
+union FloatBits_2bb630 {
     float f;
     unsigned int u;
 };
 
-struct Mat {
+struct Mat_2bb630 {
     char data[0x30];
 };
 
-struct V3 {
+struct V3_2bb630 {
     union {
         float x;
         int ix;
@@ -24,7 +24,7 @@ struct V3 {
         float z;
         int iz;
     };
-    void FUN_0022d210(const Mat *m);
+    void FUN_0022d210(const Mat_2bb630 *m);
 };
 
 namespace pure3d {
@@ -39,15 +39,15 @@ public:
     virtual void vfunc_5();
     virtual void vfunc_6();
     char pad04[0xc];
-    V3 bmin;        // 0x10
-    V3 bmax;        // 0x1c
-    V3 ctr;         // 0x28
+    V3_2bb630 bmin;        // 0x10
+    V3_2bb630 bmax;        // 0x1c
+    V3_2bb630 ctr;         // 0x28
     float radius;   // 0x34
     char pad38[8];
-    Mat mat;        // 0x40
-    V3 c70;         // 0x70
+    Mat_2bb630 mat;        // 0x40
+    V3_2bb630 c70;         // 0x70
     char pad7c[4];
-    V3 half;        // 0x80
+    V3_2bb630 half;        // 0x80
     char pad8c[4];
     int flag;       // 0x90
 };
@@ -63,7 +63,7 @@ void BillboardQuad::vfunc_5()
         ctr.iz = c70.iz;
         float len = (float)sqrt(hz * hz + hy * hy + hx * hx);
         radius = len;
-        V3 pn[2];
+        V3_2bb630 pn[2];
         pn[0].x = len;
         pn[0].y = len;
         pn[0].z = len;
@@ -73,8 +73,8 @@ void BillboardQuad::vfunc_5()
         pn[1].z = nl;
         pn[0].FUN_0022d210(&mat);
         pn[1].FUN_0022d210(&mat);
-        V3 &p = pn[0];
-        V3 &n = pn[1];
+        V3_2bb630 &p = pn[0];
+        V3_2bb630 &n = pn[1];
         bmax.x = (p.x < n.x) ? n.x : p.x;
         bmax.y = (p.y < n.y) ? n.y : p.y;
         bmax.z = (p.z < n.z) ? n.z : p.z;
@@ -84,7 +84,7 @@ void BillboardQuad::vfunc_5()
         return;
     }
 
-    V3 c[8];
+    V3_2bb630 c[8];
     float zn = (half.z > 0.0f) ? -half.z : 0.0f;
     float nx = -half.x;
     c[0].x = nx;
@@ -147,7 +147,7 @@ void BillboardQuad::vfunc_5()
     ctr.z = ctr.z * 0.5f;
     volatile float *vc = &ctr.x;
     float len = (float)sqrt(vc[0] * vc[0] + vc[1] * vc[1] + vc[2] * vc[2]);
-    FloatBits fb;
+    FloatBits_2bb630 fb;
     fb.f = len;
     fb.u &= 0x7fffffff;
     radius = fb.f;

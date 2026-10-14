@@ -2,7 +2,7 @@
 // FUN_0025c920 @ 0x0025c920
 extern "C" int sprintf(char* dst, const char* fmt, ...);
 
-class Str {
+class Str_25c920 {
 public:
     char* data;
     short mode;
@@ -10,24 +10,24 @@ public:
     short length;
     short pad10;
 
-    Str* FUN_0023fd20(int capacity);
-    Str* FUN_0023fc40(const char* text, int flag);
-    Str* FUN_0023fc90(const char* text, int len, int mode);
-    Str* FUN_00240190(const Str* other);
-    Str* FUN_0023ff50(const Str* other);
-    Str* FUN_00240170(const Str* other);
+    Str_25c920* FUN_0023fd20(int capacity);
+    Str_25c920* FUN_0023fc40(const char* text, int flag);
+    Str_25c920* FUN_0023fc90(const char* text, int len, int mode);
+    Str_25c920* FUN_00240190(const Str_25c920* other);
+    Str_25c920* FUN_0023ff50(const Str_25c920* other);
+    Str_25c920* FUN_00240170(const Str_25c920* other);
     void FUN_00240060();
     const char* FUN_0023fb00();
 };
 
 extern int DAT_004cd264;
-Str* __cdecl FUN_00262700(Str* path, const Str* part);
+Str_25c920* __cdecl FUN_00262700(Str_25c920* path, const Str_25c920* part);
 
-Str* __cdecl FUN_0025c920(Str* out, const Str* dir, const unsigned long long* id, const Str* extra)
+Str_25c920* __cdecl FUN_0025c920(Str_25c920* out, const Str_25c920* dir, const unsigned long long* id, const Str_25c920* extra)
 {
-    Str path;
-    Str tmp;
-    Str hex;
+    Str_25c920 path;
+    Str_25c920 tmp;
+    Str_25c920 hex;
     char name[0x20];
     char ch[2];
 

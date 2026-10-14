@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 22 inputs, branch coverage 16/16)
 // FUN_0026b970 @ 0x0026b970
-typedef unsigned int U;
-struct Node { U previousSize; U size; Node* next; Node* previous; };
-struct Heap {
- U flags;
+typedef unsigned int U_26b970;
+struct Node { U_26b970 previousSize; U_26b970 size; Node* next; Node* previous; };
+struct Heap_26b970 {
+ U_26b970 flags;
  Node* fastBins[10];
  Node* top;
- U reserved;
- U binStorage[256];
- U binmap[4];
- U trimThreshold;
- U topPad;
- U mmapThreshold;
- U mmapCount;
- U mmapLimit;
- U maxMmapCount;
- U pageSize;
+ U_26b970 reserved;
+ U_26b970 binStorage[256];
+ U_26b970 binmap[4];
+ U_26b970 trimThreshold;
+ U_26b970 topPad;
+ U_26b970 mmapThreshold;
+ U_26b970 mmapCount;
+ U_26b970 mmapLimit;
+ U_26b970 maxMmapCount;
+ U_26b970 pageSize;
 };
-void __cdecl FUN_0026b970(Heap* heap) {
- U count = heap->flags;
+void __cdecl FUN_0026b970(Heap_26b970* heap) {
+ U_26b970 count = heap->flags;
  if (!count) {
-  for (U i = 0; i < 127; ++i) {
+  for (U_26b970 i = 0; i < 127; ++i) {
    Node* bin = (Node*)&heap->binStorage[i * 2];
    bin->next = bin;
    bin->previous = bin;
@@ -41,13 +41,13 @@ void __cdecl FUN_0026b970(Heap* heap) {
   if (block) {
    *slot = 0;
    do {
-    U size = block->size;
+    U_26b970 size = block->size;
     Node* next = block->next;
-    U actual = size & ~1u;
+    U_26b970 actual = size & ~1u;
     Node* following = (Node*)((char*)block + actual);
-    U followingSize = following->size & ~3u;
+    U_26b970 followingSize = following->size & ~3u;
     if (!(size & 1)) {
-     U previousSize = block->previousSize;
+     U_26b970 previousSize = block->previousSize;
      actual += previousSize;
      block = (Node*)((char*)block - previousSize);
      Node* back = block->previous;
@@ -56,7 +56,7 @@ void __cdecl FUN_0026b970(Heap* heap) {
      back->next = forward;
     }
     if (following != heap->top) {
-     U used = ((Node*)((char*)following + followingSize))->size & 1;
+     U_26b970 used = ((Node*)((char*)following + followingSize))->size & 1;
      following->size = followingSize;
      if (!used) {
       actual += followingSize;

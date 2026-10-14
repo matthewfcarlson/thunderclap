@@ -7,7 +7,7 @@ extern "C" char DAT_0048e0f0[];
 extern "C" char DAT_0040b1a8[];
 extern "C" char __cdecl FUN_001d04d0(const void*);
 
-class Callback {
+class Callback_d5550 {
   public:
     int vptr;
     char pad4[12];
@@ -17,10 +17,10 @@ class Callback {
     char pad19[3];
     void* owner;
     void FUN_001d0480(void*, int);
-    Callback* Init(void*, void*);
+    Callback_d5550* Init(void*, void*);
 };
 
-Callback* Callback::Init(void* name, void* value) {
+Callback_d5550* Callback_d5550::Init(void* name, void* value) {
     FUN_001d0480(name, 7);
     vptr = (int)DAT_0040b1a8;
     owner = value;

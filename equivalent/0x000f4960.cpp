@@ -16,15 +16,15 @@ public:
     void FUN_000f9fb0();
 };
 
-class Key {
+class Key_f4960 {
 public:
     virtual void v0();
     virtual int v1();
 };
 
-class NewObj;
+class NewObj_f4960;
 
-class Obj {
+class Obj_f4960 {
 public:
     virtual void v0();
     virtual void v1();
@@ -81,10 +81,10 @@ public:
     void FUN_000e5570(float a, float b, int c, int d, int e);
     void FUN_000e5540(const char *s);
     void FUN_000f2d40(const char *s);
-    void FUN_000e55e0(NewObj *n);
+    void FUN_000e55e0(NewObj_f4960 *n);
 };
 
-class NewObj {
+class NewObj_f4960 {
 public:
     char pad0[0xab8];
     bool bab8;
@@ -92,13 +92,13 @@ public:
 };
 
 class FEThingsBase;
-typedef void (FEThingsBase::*ParseFn)(Tok *, int, Obj *, Key *);
+typedef void (FEThingsBase::*ParseFn)(Tok *, int, Obj_f4960 *, Key_f4960 *);
 
 class FEThingsBase {
 public:
     class ParseFunctor {
     public:
-        ParseFunctor(FEThingsBase *o, ParseFn f, Obj *obj)
+        ParseFunctor(FEThingsBase *o, ParseFn f, Obj_f4960 *obj)
         {
             owner = o;
             fn = f;
@@ -109,7 +109,7 @@ public:
         FEThingsBase *owner;
         ParseFn fn;
         int zero;
-        Obj *target;
+        Obj_f4960 *target;
     };
 
     virtual void v0();
@@ -146,22 +146,22 @@ public:
     virtual void v31();
     virtual void v32();
     virtual void v33();
-    virtual bool v34(Tok *p, Key *key, ParseFunctor *pf);
+    virtual bool v34(Tok *p, Key_f4960 *key, ParseFunctor *pf);
     virtual void v35();
     virtual void v36();
-    virtual bool v37(Tok *p, Obj *obj, Key *key);
+    virtual bool v37(Tok *p, Obj_f4960 *obj, Key_f4960 *key);
     virtual void v38();
-    virtual bool v39(Tok *p, void *slot, Key *key);
+    virtual bool v39(Tok *p, void *slot, Key_f4960 *key);
     char pad9c[0x2105 - 4];
     char f2105[0x2210 - 0x2105];
-    bool (__cdecl *cb)(void *ud, FEThingsBase *self, Obj *obj, Tok *p, Key *key);
+    bool (__cdecl *cb)(void *ud, FEThingsBase *self, Obj_f4960 *obj, Tok *p, Key_f4960 *key);
     void *ud;
-    NewObj *FUN_000efca0(const char *s, int v);
-    void FUN_000f0950(Tok *p, int z, NewObj *n, int x);
-    void FUN_000f4960(Tok *p, int a1, Obj *obj, Key *key);
+    NewObj_f4960 *FUN_000efca0(const char *s, int v);
+    void FUN_000f0950(Tok *p, int z, NewObj_f4960 *n, int x);
+    void FUN_000f4960(Tok *p, int a1, Obj_f4960 *obj, Key_f4960 *key);
 };
 
-void FEThingsBase::FUN_000f4960(Tok *p, int a1, Obj *obj, Key *key)
+void FEThingsBase::FUN_000f4960(Tok *p, int a1, Obj_f4960 *obj, Key_f4960 *key)
 {
     int hash = key->v1();
     switch (hash) {
@@ -210,7 +210,7 @@ void FEThingsBase::FUN_000f4960(Tok *p, int a1, Obj *obj, Key *key)
         return;
     case 0x16082730: {
         const char *s = p->FUN_000fad90();
-        NewObj *n = FUN_000efca0(s, obj->v35());
+        NewObj_f4960 *n = FUN_000efca0(s, obj->v35());
         n->FUN_000e4610(f2105);
         if (p->FUN_000f9e90()) {
             const char *t = p->FUN_000fad90();

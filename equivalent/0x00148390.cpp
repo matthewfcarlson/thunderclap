@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // hulkfight::motion::GrappleOrientationCondition::vfunc_6 @ 0x00148390
-struct Vec3 {
+struct Vec3_148390 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-class Ent {
+class Ent_148390 {
 public:
     char pad0[0x10];
-    Ent *FUN_00059a30();
-    char FUN_00059a50(Vec3 *out);
+    Ent_148390 *FUN_00059a30();
+    char FUN_00059a50(Vec3_148390 *out);
 };
 
 namespace fight {
@@ -18,7 +18,7 @@ public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    Ent *FUN_000592a0();
+    Ent_148390 *FUN_000592a0();
 };
 }
 
@@ -28,15 +28,15 @@ public:
     virtual void vfunc_4();
 };
 
-class Actor {
+class Actor_148390 {
 public:
     char pad0[0x10];
-    Ent *ent;
+    Ent_148390 *ent;
     float FUN_000354c0();
 };
 
-Actor *FUN_00048260(fight::Params *p);
-float FUN_00224f10(Vec3 *v);
+Actor_148390 *FUN_00048260(fight::Params *p);
+float FUN_00224f10(Vec3_148390 *v);
 float FUN_00224fc0(float x, float y);
 
 class GrappleOrientationCondition {
@@ -58,22 +58,22 @@ char GrappleOrientationCondition::vfunc_6(int a1, fight::Params *params, float a
 {
     if (dynamic_cast<CFightParams *>(params) == 0)
         return 0;
-    Ent *e = params->FUN_000592a0();
+    Ent_148390 *e = params->FUN_000592a0();
     e->FUN_00059a30();
-    Actor *actor = FUN_00048260(params);
+    Actor_148390 *actor = FUN_00048260(params);
     if (actor == 0)
         return 0;
-    Vec3 a;
+    Vec3_148390 a;
     a.x = 0;
     a.y = 0;
     a.z = 0;
     e->FUN_00059a50(&a);
-    Vec3 b;
+    Vec3_148390 b;
     b.x = 0;
     b.y = 0;
     b.z = 0;
     actor->ent->FUN_00059a50(&b);
-    Vec3 v;
+    Vec3_148390 v;
     v.x = a.x;
     v.y = a.y;
     v.z = a.z;

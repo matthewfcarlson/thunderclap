@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // physics::ArticulatedPhysicsObject::vfunc_5 @ 0x003110a0
-class Child {
+class Child_3110a0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -16,7 +16,7 @@ public:
     virtual void vfunc_11(float a, float b, float dt);
 };
 
-struct Body {
+struct Body_3110a0 {
     char pad0[0x5c];
     float spin[3];
     char pad68[0x94 - 0x68];
@@ -38,11 +38,11 @@ class ArticulatedPhysicsObject : public PhysicsObject {
 public:
     virtual void vfunc_5(float dt);
     char pad04[0xc];
-    Body *body;
+    Body_3110a0 *body;
     char pad14[0xc0 - 0x14];
     float velocity[3];
     char padcc[0x1f8 - 0xcc];
-    Child **children;
+    Child_3110a0 **children;
     char pad1fc[4];
     int childCount;
     char pad204[0x20c - 0x204];

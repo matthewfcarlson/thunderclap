@@ -8,12 +8,12 @@ extern float DAT_0040b158[3];
 extern float DAT_004ddff0;
 extern int DAT_004ddf98;
 
-struct Rec {
+struct Rec_d5b20 {
     int a, b, c;
 };
-extern Rec DAT_004ddfcc[3];
+extern Rec_d5b20 DAT_004ddfcc[3];
 
-class Dev {
+class Dev_d5b20 {
   public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
     virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9();
@@ -21,14 +21,14 @@ class Dev {
     virtual void v15(int a);
     virtual void v16(int a);
 };
-struct Ctx {
-    Dev *dev;
+struct Ctx_d5b20 {
+    Dev_d5b20 *dev;
     void FUN_00293d00(void *p);
     void FUN_00293d40(float a, float b, int c);
 };
-extern Ctx *DAT_0052c2ac;
+extern Ctx_d5b20 *DAT_0052c2ac;
 
-class Obj24 {
+class Obj24_d5b20 {
   public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
     virtual void v5(); virtual void v6();
@@ -37,30 +37,30 @@ class Obj24 {
     virtual float v9(void *p);
     virtual float v10(void *p);
 };
-struct Owner {
+struct Owner_d5b20 {
     char pad[0x24];
-    Obj24 *p24;
+    Obj24_d5b20 *p24;
 };
 
 struct Builder {
     char data[8];
-    void FUN_000f7fe0(Owner *o);
+    void FUN_000f7fe0(Owner_d5b20 *o);
     void FUN_000f78e0();
     void FUN_000f81b0(void *a, int b, void *c);
 };
 
-struct Vtx {
+struct Vtx_d5b20 {
     float a;
     int b;
     int c;
     unsigned int color;
 };
-struct Q {
+struct Q_d5b20 {
     int a, b;
     float c;
 };
 
-struct Elem {
+struct Elem_d5b20 {
     char obj[0x200];
     char obj2[0x18];
     float f0, f4, f8;
@@ -69,20 +69,20 @@ struct Elem {
     char flag;
     char pad235[0x23c - 0x235];
 };
-struct Item {
+struct Item_d5b20 {
     char pad0[0x100];
     unsigned int color;
     float f0, f4;
 };
 
-struct Frame {
+struct Frame_d5b20 {
     float u;
     float s;
-    Rec *savedRec;
+    Rec_d5b20 *savedRec;
     float t1;
-    Q q;
+    Q_d5b20 q;
     Builder a;
-    Vtx v[8];
+    Vtx_d5b20 v[8];
     int n;
     float w;
 };
@@ -92,10 +92,10 @@ class MessageOverlay {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4();
     char pad04[8];
-    Owner *owner;
+    Owner_d5b20 *owner;
     char pad10[4];
-    Elem elems[2];
-    Item items[3];
+    Elem_d5b20 elems[2];
+    Item_d5b20 items[3];
     char pad7b0[4];
     float f7b4;
     float f7b8;
@@ -108,7 +108,7 @@ void MessageOverlay::v4()
 {
     if (!owner)
         return;
-    Frame f;
+    Frame_d5b20 f;
     FUN_000d50f0();
     f.a.FUN_000f7fe0(owner);
     DAT_0052c2ac->dev->v15(0);
@@ -117,7 +117,7 @@ void MessageOverlay::v4()
     f.q.c = f7b8;
     DAT_0052c2ac->FUN_00293d00(&f.q);
     for (int k = 0; k < 2; k++) {
-        Elem *e = &elems[k];
+        Elem_d5b20 *e = &elems[k];
         if (e->flag) {
             f.v[f.n].a = e->f8 * f7b4;
             f.v[f.n].c = e->f10;
@@ -149,9 +149,9 @@ void MessageOverlay::v4()
         }
     }
     float *tbl = DAT_0040b158;
-    Rec *rec = DAT_004ddfcc;
-    for (int k = 0; (Rec *)rec < (Rec *)&DAT_004ddff0; k++, rec++, tbl++) {
-        Item *it = &items[k];
+    Rec_d5b20 *rec = DAT_004ddfcc;
+    for (int k = 0; (Rec_d5b20 *)rec < (Rec_d5b20 *)&DAT_004ddff0; k++, rec++, tbl++) {
+        Item_d5b20 *it = &items[k];
         if (it->f0 < DAT_004ddff0) {
             DAT_0052c2ac->dev->v15(0);
             DAT_0052c2ac->FUN_00293d00(rec);
@@ -168,7 +168,7 @@ void MessageOverlay::v4()
                 f.a.FUN_000f81b0(it, 0, f7d4);
             }
             if (it->f0 < 1.0f) {
-                Obj24 *o = owner->p24;
+                Obj24_d5b20 *o = owner->p24;
                 if (o) {
                     f.s = *tbl * f7b4 * (14.0f / o->v7());
                     f.t1 = o->v10(it) * f.s;

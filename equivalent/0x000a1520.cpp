@@ -2,7 +2,7 @@
 // CChaseCamera::vfunc_34 @ 0x000a1520
 extern "C" double atan2(double y, double x);
 
-struct Vec3 {
+struct Vec3_a1520 {
     float x, y, z;
 };
 
@@ -48,12 +48,12 @@ public:
     virtual void v37();
     virtual void v38();
     char pad04[0x194 - 4];
-    Vec3 pos;
+    Vec3_a1520 pos;
     char pad1a0[0x1b8 - 0x1a0];
-    Vec3 savedA;
-    Vec3 lookAt;
+    Vec3_a1520 savedA;
+    Vec3_a1520 lookAt;
     char pad1d0[0x1e8 - 0x1d0];
-    Vec3 savedB;
+    Vec3_a1520 savedB;
     char pad1f4[0x320 - 0x1f4];
     int mode;
     char pad324[0x350 - 0x324];
@@ -66,9 +66,9 @@ public:
     float outC;
     float value;
     char pad3cc[0x3d0 - 0x3cc];
-    Vec3 snapA;
-    Vec3 snapB;
-    Vec3 snapPos;
+    Vec3_a1520 snapA;
+    Vec3_a1520 snapB;
+    Vec3_a1520 snapPos;
     char pad3f4[0x40c - 0x3f4];
     int field40c;
     char pad410[0x440 - 0x410];
@@ -80,7 +80,7 @@ public:
     void FUN_000a0c40(int v);
 };
 
-void __cdecl FUN_000a04c0(Vec3 *delta, float *a, float *b, float *c);
+void __cdecl FUN_000a04c0(Vec3_a1520 *delta, float *a, float *b, float *c);
 
 void CChaseCamera::vfunc_34(int a1, int a2, float a3, float a4, float a5)
 {
@@ -99,7 +99,7 @@ void CChaseCamera::vfunc_34(int a1, int a2, float a3, float a4, float a5)
         snapA = savedA;
         snapB = savedB;
         snapPos = pos;
-        Vec3 delta;
+        Vec3_a1520 delta;
         delta.x = pos.x - lookAt.x;
         delta.y = pos.y - lookAt.y;
         delta.z = pos.z - lookAt.z;

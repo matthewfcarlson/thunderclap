@@ -1,20 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_000aa2b0 @ 0x000aa2b0
-struct Vec3 { float x, y, z; };
+struct Vec3_aa2b0 { float x, y, z; };
 
-class Query {
+class Query_aa2b0 {
 public:
-    bool FUN_00201e00(Vec3 *a, Vec3 *b, int one, Vec3 *out2, Vec3 *out1, int z1, int z2);
+    bool FUN_00201e00(Vec3_aa2b0 *a, Vec3_aa2b0 *b, int one, Vec3_aa2b0 *out2, Vec3_aa2b0 *out1, int z1, int z2);
 };
 
 struct World {
     char pad0[0x24];
-    Query *query;
+    Query_aa2b0 *query;
 };
 
 extern World *DAT_004dd700;
 
-float __stdcall FUN_000aa2b0(Vec3 *v1, Vec3 *v2, float a3, float a4, float a5)
+float __stdcall FUN_000aa2b0(Vec3_aa2b0 *v1, Vec3_aa2b0 *v2, float a3, float a4, float a5)
 {
     float m = (v1->y < v2->y) ? v2->y : v1->y;
     if (a3 < m)
@@ -23,10 +23,10 @@ float __stdcall FUN_000aa2b0(Vec3 *v1, Vec3 *v2, float a3, float a4, float a5)
     float c = a3 - a4;
     float s = (c < lim) ? lim : c;
 
-    Vec3 B = *v2;
-    Vec3 A = *v1;
-    Vec3 out1;
-    Vec3 out2;
+    Vec3_aa2b0 B = *v2;
+    Vec3_aa2b0 A = *v1;
+    Vec3_aa2b0 out1;
+    Vec3_aa2b0 out2;
     B.y = s;
     A.y = s;
     bool ok = DAT_004dd700->query->FUN_00201e00(&A, &B, 1, &out2, &out1, 0, 0);

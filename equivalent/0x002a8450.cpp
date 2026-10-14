@@ -2,11 +2,11 @@
 // pure3d::ShaderAnimationController::vfunc_7 @ 0x002a8450
 namespace pure3d {
 
-struct Vec3 {
+struct Vec3_2a8450 {
     float x, y, z;
 };
 
-struct Quat {
+struct Quat_2a8450 {
     float x, y, z, w;
 };
 
@@ -35,11 +35,11 @@ public:
     virtual void s6(int id, int value);
     virtual void s7(int id, float value);
     virtual void s8(int id, int color);
-    virtual void s9(int id, const Vec3 *v);
-    virtual void s10(int id, const Quat *q);
+    virtual void s9(int id, const Vec3_2a8450 *v);
+    virtual void s10(int id, const Quat_2a8450 *q);
 };
 
-struct SinkHolder {
+struct SinkHolder_2a8450 {
     char pad00[0x10];
     ParamSink *sink;          // 0x10
 };
@@ -51,9 +51,9 @@ public:
     virtual void c1();
     virtual unsigned int type();
     virtual void c3();
-    virtual void sampleVec3(float frame, Vec3 *out);
+    virtual void sampleVec3(float frame, Vec3_2a8450 *out);
     virtual void c5();
-    virtual void sampleQuat(float frame, Quat *out);
+    virtual void sampleQuat(float frame, Quat_2a8450 *out);
     char pad04[4];
     int paramId;              // 0x08
     void FUN_0028a0b0(float frame, int *out);
@@ -63,14 +63,14 @@ public:
     void FUN_0028a1c0(float frame, float *out);
 };
 
-struct ChannelList {
+struct ChannelList_2a8450 {
     char pad00[0x14];
     int count;                // 0x14
     Channel *FUN_00288950(int index);
 };
 
 struct Animation {
-    ChannelList *FUN_00288a10(int index);
+    ChannelList_2a8450 *FUN_00288a10(int index);
 };
 
 class ShaderAnimationController {
@@ -87,18 +87,18 @@ public:
     float frame;              // 0x34
     char pad38[4];
     Animation *anim;          // 0x3c
-    SinkHolder *target;       // 0x40
+    SinkHolder_2a8450 *target;       // 0x40
 
 };
 
 void ShaderAnimationController::vfunc_7()
 {
-    ChannelList *list = anim->FUN_00288a10(0);
+    ChannelList_2a8450 *list = anim->FUN_00288a10(0);
     for (int i = 0; i < list->count; i++) {
         Channel *ch = list->FUN_00288950(i);
         switch (ch->type()) {
         case 0x544f52: {
-            Quat q;
+            Quat_2a8450 q;
             ch->sampleQuat(frame, &q);
             target->sink->s10(ch->paramId, &q);
             break;
@@ -139,7 +139,7 @@ void ShaderAnimationController::vfunc_7()
             break;
         }
         case 0x54434556: {
-            Vec3 v;
+            Vec3_2a8450 v;
             ch->sampleVec3(frame, &v);
             target->sink->s9(ch->paramId, &v);
             break;

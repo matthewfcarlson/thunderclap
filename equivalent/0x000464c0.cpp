@@ -17,15 +17,15 @@ extern const char* DAT_0048f6b4[];
 extern const char* DAT_0048f6d0[];
 extern float DAT_003f5eb8[];
 
-struct Vec3 { float x, y, z; };
-struct Key {
+struct Vec3_464c0 { float x, y, z; };
+struct Key_464c0 {
     unsigned int first, second;
     void FUN_0027af00();
-    void FUN_0027af10(Key src);
+    void FUN_0027af10(Key_464c0 src);
     void FUN_0027af50();
     void FUN_0027b040(const char* s);
 };
-extern Key DAT_004dc350;
+extern Key_464c0 DAT_004dc350;
 
 namespace content {
 namespace LoadInventory {
@@ -43,30 +43,30 @@ public:
 namespace pure3d { class DrawableHierarchy; class ShadowSkin; }
 class CSPHulkProp;
 
-class Obj {
+class Obj_464c0 {
 public:
     virtual void v0();
     virtual void v1();
 };
-class Factory {
+class Factory_464c0 {
 public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual Obj* f3(content::LoadInventory::DynamicCasterBase* caster, unsigned int lo, unsigned int hi);
+    virtual Obj_464c0* f3(content::LoadInventory::DynamicCasterBase* caster, unsigned int lo, unsigned int hi);
 };
-struct Holder44 { Factory* FUN_00203d70(); };
-struct Holder28 { Holder44* FUN_000862a0(); };
-struct Manager { char pad0[0x54]; Holder28* holder; };
-extern Manager* DAT_004dd700;
+struct Holder44_464c0 { Factory_464c0* FUN_00203d70(); };
+struct Holder28_464c0 { Holder44_464c0* FUN_000862a0(); };
+struct Manager_464c0 { char pad0[0x54]; Holder28_464c0* holder; };
+extern Manager_464c0* DAT_004dd700;
 
-struct Finder { int FUN_0027b200(unsigned int lo, unsigned int hi); };
-struct Skel { char pad0[8]; Finder* finder; };
+struct Finder_464c0 { int FUN_0027b200(unsigned int lo, unsigned int hi); };
+struct Skel_464c0 { char pad0[8]; Finder_464c0* finder; };
 class Node {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5();
     virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10();
-    virtual Skel* v11();
+    virtual Skel_464c0* v11();
 };
 
 class Reader {
@@ -74,39 +74,39 @@ public:
     char FUN_0027aa20(const char* name, float* out);
     void FUN_0027a9d0(const char* name, int* out);
     void FUN_0027aac0(const char* name, const char** out);
-    void FUN_0027ab00(const char* name, Vec3* out);
+    void FUN_0027ab00(const char* name, Vec3_464c0* out);
 };
-class Scope {
+class Scope_464c0 {
 public:
     char FUN_001d2ba0(const char* name, int a, int b);
     char FUN_001d2d40(const char* name, float* out);
     void FUN_001d19d0(int n);
 };
-Scope* FUN_001d4c90();
+Scope_464c0* FUN_001d4c90();
 
 struct Sub12 { char b[12]; void FUN_00233f20(const char* s); };
-struct Attach {
-    Obj* r;
+struct Attach_464c0 {
+    Obj_464c0* r;
     char pad4[4];
     unsigned int jlo;
     unsigned int jhi;
-    Vec3 off;
-    Vec3 ori;
+    Vec3_464c0 off;
+    Vec3_464c0 ori;
 };
 
 // The original's locals, at their stack offsets (relative to its esp after the prologue, minus 0x14): the
 // checker fills the words behind every out-parameter, so what sits next to what matters.
-struct Frame {
+struct Frame_464c0 {
     int* jidp;                                              // 0x10
     union { const char* s14; char* namep; } x14;            // 0x14  Size / CameraSize, joint name cursor
-    union { Vec3* offp; char pad[4]; } u18;                 // 0x18
+    union { Vec3_464c0* offp; char pad[4]; } u18;                 // 0x18
     union { const char* js; const char* ps; char caster[4]; } u1c;
-    union { Factory* inv; float m; } u20;
+    union { Factory_464c0* inv; float m; } u20;
     union { const char* js2; const char** nm; } u24;        // 0x24
     float def;                                              // 0x28
     const char* s1;                                         // 0x2c
     const char* sal;                                        // 0x30
-    union { Key tmp; char caster[4]; Finder* finder; } u34; // 0x34
+    union { Key_464c0 tmp; char caster[4]; Finder_464c0* finder; } u34; // 0x34
     const char* t5;                                         // 0x3c
     int u4, u5;                                             // 0x40 0x44
     const char* s2;                                         // 0x48
@@ -134,9 +134,9 @@ struct Frame {
 class CharDef {
 public:
     bool FUN_000464c0(int unused, Reader* props);
-    void FUN_00045da0(Obj* o);
-    void FUN_00045f30(Obj* o);
-    void FUN_00044820(Key* k, float f);
+    void FUN_00045da0(Obj_464c0* o);
+    void FUN_00045f30(Obj_464c0* o);
+    void FUN_00044820(Key_464c0* k, float f);
     int f000;
     char pad004[0x4];
     Node* p8;
@@ -150,10 +150,10 @@ public:
     float f02c;
     float f030;
     float f034;
-    Vec3 f038;
+    Vec3_464c0 f038;
     char jname[3][0x20];
     int jid[3];
-    Vec3 joff[3];
+    Vec3_464c0 joff[3];
     float jrad[3];
     Sub12 sub[6];
     float f128;
@@ -183,18 +183,18 @@ public:
     float f188;
     float f18c;
     int f190;
-    Vec3 f194;
+    Vec3_464c0 f194;
     float f1a0;
     int f1a4;
     float f1a8;
     float f1ac;
     int f1b0;
     char pad1b4[0x4];
-    Attach attach[8];
+    Attach_464c0 attach[8];
     char b2f8;
     char pad2f9[0x3];
     float f2fc;
-    Vec3 f300;
+    Vec3_464c0 f300;
     float f30c;
     float f310;
     float f314;
@@ -272,7 +272,7 @@ public:
 };
 
 bool CharDef::FUN_000464c0(int unused, Reader* props) {
-    Frame fr;
+    Frame_464c0 fr;
     fr.cookie = DAT_004d9968;
     fr.u20.inv = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
     fr.s1 = 0;
@@ -446,7 +446,7 @@ bool CharDef::FUN_000464c0(int unused, Reader* props) {
         fr.u34.tmp.FUN_0027af50();
     }
     for (int i = 0; i < 8; i++) {
-        Attach* ap = &attach[i];
+        Attach_464c0* ap = &attach[i];
         FUN_00267760(fr.buf, 0x80, "AttachProp%d", i);
         fr.u1c.ps = 0;
         props->FUN_0027aac0(fr.buf, &fr.u1c.ps);
@@ -455,7 +455,7 @@ bool CharDef::FUN_000464c0(int unused, Reader* props) {
             if (h != 0) {
                 content::LoadInventory::DynamicCaster<CSPHulkProp>* caster =
                     new (fr.u34.caster) content::LoadInventory::DynamicCaster<CSPHulkProp>;
-                Obj* r = fr.u20.inv->f3(caster, (unsigned int)h, (unsigned int)(h >> 32));
+                Obj_464c0* r = fr.u20.inv->f3(caster, (unsigned int)h, (unsigned int)(h >> 32));
                 if (r) {
                     r->v0();
                     if (ap->r)
@@ -574,7 +574,7 @@ bool CharDef::FUN_000464c0(int unused, Reader* props) {
     b475 = (fr.u14 != 0);
     this->f478 = 65.0f; props->FUN_0027aa20("PivotThresholdHalf", &this->f478);
     this->f47c = 165.0f; props->FUN_0027aa20("PivotThresholdFull", &this->f47c);
-    Scope* sc = FUN_001d4c90();
+    Scope_464c0* sc = FUN_001d4c90();
     if (sc->FUN_001d2ba0("constants", 1, 0)) {
         if (sc->FUN_001d2ba0("actors", 0, 0)) {
             float* pf = &f128;

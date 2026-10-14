@@ -3,18 +3,18 @@
 struct Stream {
  virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual int FUN_read(void*, unsigned);
 };
-struct Value { void FUN_0027af60(unsigned, unsigned); void FUN_0027b040(const char*); };
+struct Value_23bf10 { void FUN_0027af60(unsigned, unsigned); void FUN_0027b040(const char*); };
 extern "C" void* __cdecl FUN_00238190(int);
 extern "C" char* __cdecl FUN_00266e00(void*, unsigned);
 extern "C" void __cdecl FUN_00267090(void*);
 namespace fight {
 struct BinReader {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6();
- virtual bool vfunc_7(unsigned a, unsigned b, Value* out);
+ virtual bool vfunc_7(unsigned a, unsigned b, Value_23bf10* out);
  virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11(); virtual void vfunc_12(unsigned,unsigned,unsigned*);
  char pad4[4]; Stream* stream; char padc; unsigned char reverse; unsigned char binary; char padf; int length; char pad14[12]; unsigned remaining;
 };
-bool BinReader::vfunc_7(unsigned a, unsigned b, Value* out) {
+bool BinReader::vfunc_7(unsigned a, unsigned b, Value_23bf10* out) {
  if(binary) {
   union { unsigned words[2]; unsigned char bytes[8]; } data;
   unsigned amount=remaining; if(amount>8) amount=8;

@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 111 inputs, branch coverage 26/26)
 // hulkfight::motion::PropMassCondition::vfunc_6 @ 0x001837e0
-struct Scaler {
+struct Scaler_1837e0 {
     float FUN_001dd190(int lo, int hi);
 };
 
-struct Globals {
+struct Globals_1837e0 {
     char pad0[0xc];
-    Scaler *scaler;
+    Scaler_1837e0 *scaler;
 };
 
 namespace fight {
@@ -22,20 +22,20 @@ class CFightParams : public fight::Params {
     virtual void v2();
 };
 
-struct Meter {
+struct Meter_1837e0 {
     float FUN_001d8160();
 };
 
-struct Fighter {
+struct Fighter_1837e0 {
     char pad0[0x128];
-    Meter *defaultMeter;
-    Meter *FUN_00035ef0(int index);
+    Meter_1837e0 *defaultMeter;
+    Meter_1837e0 *FUN_00035ef0(int index);
 };
 
-extern Globals *DAT_004dd700;
+extern Globals_1837e0 *DAT_004dd700;
 
 void *__fastcall FUN_000592a0(void *owner);
-Fighter *__fastcall FUN_00059a30(void *holder);
+Fighter_1837e0 *__fastcall FUN_00059a30(void *holder);
 bool __cdecl FUN_00018960(float a, float b, float eps);
 
 class PropMassCondition {
@@ -56,11 +56,11 @@ bool PropMassCondition::vfunc_6(void *unused, fight::Params *params, int unused2
 {
     if (dynamic_cast<CFightParams *>(params) == 0)
         return false;
-    Fighter *fighter = FUN_00059a30(FUN_000592a0(params));
+    Fighter_1837e0 *fighter = FUN_00059a30(FUN_000592a0(params));
     if (!fighter)
         return false;
 
-    Meter *meter;
+    Meter_1837e0 *meter;
     if (slot < 0) {
         meter = fighter->defaultMeter;
     } else {

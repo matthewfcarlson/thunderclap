@@ -2,19 +2,19 @@
 // FUN_0022d550 @ 0x0022d550
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_22d550 {
     float x, y, z;
     void FUN_0022d180();
 };
 
 // Closest approach between a line (point P + t * dir ...) and a segment, see out parameters.
-char FUN_0022d550(const V3 *s, const V3 *dir, const V3 *p, const V3 *t, float *outA, float *outB)
+char FUN_0022d550(const V3_22d550 *s, const V3_22d550 *dir, const V3_22d550 *p, const V3_22d550 *t, float *outA, float *outB)
 {
-    V3 d1;
+    V3_22d550 d1;
     d1.x = s->x - p->x;
     d1.y = s->y - p->y;
     d1.z = s->z - p->z;
-    V3 d2;
+    V3_22d550 d2;
     d2.x = t->x - p->x;
     d2.y = t->y - p->y;
     d2.z = t->z - p->z;

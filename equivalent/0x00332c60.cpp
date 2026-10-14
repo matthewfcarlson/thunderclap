@@ -3,8 +3,8 @@
 namespace D3D8 { void __stdcall D3DDevice_GetLight(unsigned, void*); void __stdcall D3DDevice_GetTransform(unsigned, void*); void __fastcall D3DDevice_SetVertexShaderConstant1(unsigned, const void*); void __fastcall D3DDevice_SetVertexShaderConstant4(unsigned, const void*); }
 struct Matrix { float v[16]; void FUN_0022ca90(const Matrix*,const Matrix*); void FUN_0022cc10(const Matrix*,const Matrix*); void FUN_0022c0b0(); void FUN_0022cdb0(); void FUN_0022c310(const float*, float*); };
 struct Light { char pad[64]; float direction[3]; char rest[196]; };
-struct LightSource { void FUN_00321dc0(int*,int); };
-namespace pure3d { struct d3dBumpMapVertexShader { char pad[16]; LightSource* source; void vfunc_24(); }; }
+struct LightSource_332c60 { void FUN_00321dc0(int*,int); };
+namespace pure3d { struct d3dBumpMapVertexShader { char pad[16]; LightSource_332c60* source; void vfunc_24(); }; }
 void pure3d::d3dBumpMapVertexShader::vfunc_24() {
  struct Constants { float zero[4]; float direction[4]; float origin[4]; int index; char padding[12]; float out2[4]; float out1[4]; } constants;
  constants.zero[0]=constants.zero[1]=constants.zero[2]=constants.zero[3]=0;

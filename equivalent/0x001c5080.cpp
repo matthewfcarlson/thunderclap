@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001c5080 @ 0x001c5080
-class Blend {
+class Blend_1c5080 {
 public:
     char pad0[0x80];
     float held;             // 0x80
@@ -9,7 +9,7 @@ public:
     void FUN_001c5080(float input, float duration);
 };
 
-void Blend::FUN_001c5080(float input, float duration)
+void Blend_1c5080::FUN_001c5080(float input, float duration)
 {
     float v;
     if (input >= 0.0f && input <= 1.0f)

@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3083 inputs, branch coverage 84/85, incomplete)
 // FUN_0007bf80 @ 0x0007bf80
-struct V3 {
+struct V3_7bf80 {
     float x, y, z;
-    char FUN_0022d2b0(const V3 *other, float eps);
+    char FUN_0022d2b0(const V3_7bf80 *other, float eps);
 };
 
-struct Rec {
+struct Rec_7bf80 {
     char pad0[0x18];
     int f18;
     int f1c;
@@ -19,21 +19,21 @@ struct Rec {
     char pad45[3];
 };
 
-struct XObj {
+struct XObj_7bf80 {
     char pad0[0x14];
     int count;
     int FUN_00106160(int idx);
 };
 
-struct Obj18 {
-    XObj *FUN_00106210(int id);
+struct Obj18_7bf80 {
+    XObj_7bf80 *FUN_00106210(int id);
 };
 struct P382c {
     char pad0[0x18];
-    Obj18 *p18;
+    Obj18_7bf80 *p18;
 };
 
-struct Item {
+struct Item_7bf80 {
     char pad0[0x10];
     int type;
     char pad14[0x20 - 0x14];
@@ -41,7 +41,7 @@ struct Item {
     char pad24[0x28 - 0x24];
     unsigned int f28;
     char pad2c[0x64 - 0x2c];
-    V3 v64;
+    V3_7bf80 v64;
     char pad70[0xbc - 0x70];
     int ibc;
     int ic0;
@@ -49,7 +49,7 @@ struct Item {
     int ic8;
     int icc;
     char padd0[0xdc - 0xd0];
-    V3 vdc;
+    V3_7bf80 vdc;
     void FUN_00080ea0(void *dst, void *src);
     void FUN_00080f20(int a);
     void FUN_00080cb0(int a);
@@ -59,35 +59,35 @@ struct Item {
     void FUN_00080ef0(int a);
 };
 
-class Anim {
+class Anim_7bf80 {
 public:
     char pad0[0x1904];
     char recsRaw[0x354c - 0x1904];
-    Item *items[8];
+    Item_7bf80 *items[8];
     char pad356c[0x382c - 0x356c];
     P382c *p382c;
     int FUN_0007a200(int a);
     void FUN_0007afb0(int g, int to, int slot, int icc, void *out1, void *out2);
-    Rec *R(int i) { return (Rec *)(recsRaw) + i; }
+    Rec_7bf80 *R(int i) { return (Rec_7bf80 *)(recsRaw) + i; }
     void F(int idx);
 };
 
-void Anim::F(int idx)
+void Anim_7bf80::F(int idx)
 {
     struct Frame {
         int pa[3];
         int pb[3];
     } fr;
-    Item *it = items[idx];
+    Item_7bf80 *it = items[idx];
     if (it->type != 1)
         return;
     if (!it->v64.FUN_0022d2b0(&it->vdc, 0.3f))
         return;
     if (it->ibc < 0) {
         int ic0 = it->ic0;
-        Obj18 *o = p382c->p18;
+        Obj18_7bf80 *o = p382c->p18;
         int ic8 = it->ic8;
-        XObj *x = o->FUN_00106210(ic0);
+        XObj_7bf80 *x = o->FUN_00106210(ic0);
         if (x) {
             int nxt;
             if (it->icc == 0) {
@@ -110,7 +110,7 @@ void Anim::F(int idx)
     int ic8 = it->ic8;
     int ic4 = it->ic4;
     int base = g * 14;
-    Rec *rec = R(ic0 + base);
+    Rec_7bf80 *rec = R(ic0 + base);
     int s2 = rec->f18;
     int icc = it->icc;
     int s1 = rec->f40;
@@ -128,7 +128,7 @@ void Anim::F(int idx)
         it->FUN_00080f10(-1);
         rec->cnt--;
         rec->hist[ic8]--;
-        Rec *r2 = R(ic4 + base);
+        Rec_7bf80 *r2 = R(ic4 + base);
         r2->cnt++;
         r2->hist[ic8]++;
         return;
@@ -192,7 +192,7 @@ void Anim::F(int idx)
             it->FUN_00080f00(ebx);
             rec->cnt--;
             rec->hist[ic8]--;
-            Rec *r2 = R(edi2 * 14 + ebx);
+            Rec_7bf80 *r2 = R(edi2 * 14 + ebx);
             r2->cnt++;
             r2->hist[ic8]++;
             return;
@@ -201,7 +201,7 @@ void Anim::F(int idx)
     for (int k = 0; k < 3; k++) {
         if (ebx != -1)
             break;
-        Rec *rj = R(base);
+        Rec_7bf80 *rj = R(base);
         for (int j = 0; j < 14; j++, rj++) {
             if (rj->active) {
                 if (rj->f18 == fr.pa[k] && rj->f40 == fr.pb[k]) {

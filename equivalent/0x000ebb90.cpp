@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000ebb90 @ 0x000ebb90
-struct Item { char pad[0x24]; int a; int b; char tail[12]; void FUN_000f7930(); };
+struct Item_ebb90 { char pad[0x24]; int a; int b; char tail[12]; void FUN_000f7930(); };
 struct FUN_000e9240 { virtual void slot0(); char pad[0x13c]; unsigned char flag; char tail[15]; FUN_000e9240(int); };
 struct TextSelector : FUN_000e9240 {
  virtual void slot0();
  int count, index;
- Item items[128];
+ Item_ebb90 items[128];
  int f1d58, f1d5c; char gap60[8];
  float f1d68, f1d6c, f1d70; char gap74[8];
  int f1d7c,f1d80; unsigned char wrap; char gap85[3];

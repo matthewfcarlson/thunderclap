@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/12, incomplete)
 // FUN_002b4990 @ 0x002b4990
-struct Vec3 {
+struct Vec3_2b4990 {
     float x, y, z;
     void FUN_0022c3b0();
     void FUN_0022d180();
 };
 
-struct Vec4 {
+struct Vec4_2b4990 {
     float x, y, z, w;
 };
 
-class Probe {
+class Probe_2b4990 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -25,44 +25,44 @@ public:
     virtual void vfunc_10();
     virtual void vfunc_11();
     virtual void vfunc_12();
-    virtual Vec3 *vfunc_13(const Vec3 *from, Vec3 *out);
+    virtual Vec3_2b4990 *vfunc_13(const Vec3_2b4990 *from, Vec3_2b4990 *out);
     virtual void vfunc_14();
     virtual void vfunc_15();
-    virtual char vfunc_16(Vec3 *pos, float w);
+    virtual char vfunc_16(Vec3_2b4990 *pos, float w);
 };
 
-struct Scene {
+struct Scene_2b4990 {
     char pad0[0x18];
-    Probe *probe;
-    void FUN_00294500(Vec3 origin, Vec3 *target);
-    void FUN_002940d0(const Vec3 *from, Vec3 *out);
+    Probe_2b4990 *probe;
+    void FUN_00294500(Vec3_2b4990 origin, Vec3_2b4990 *target);
+    void FUN_002940d0(const Vec3_2b4990 *from, Vec3_2b4990 *out);
 };
 
-struct SceneRoot {
+struct SceneRoot_2b4990 {
     char pad0[8];
-    Scene *scene;
+    Scene_2b4990 *scene;
 };
 
 struct World {
-    SceneRoot *root;
+    SceneRoot_2b4990 *root;
 };
 extern World *DAT_0052c2b0;
 
-class Mover {
+class Mover_2b4990 {
 public:
     char pad0[0x2c];
-    Vec4 origin;
+    Vec4_2b4990 origin;
     char pad3c[0x4c - 0x3c];
     float reach;
     float pending;
     char useScene;
     char pad55[0x64 - 0x55];
-    Vec3 goal;
+    Vec3_2b4990 goal;
 
     void FUN_002b4990();
 };
 
-void Mover::FUN_002b4990()
+void Mover_2b4990::FUN_002b4990()
 {
     if (pending != 0.0f) {
         reach = pending;
@@ -71,15 +71,15 @@ void Mover::FUN_002b4990()
     if (reach != 0.0f)
         return;
 
-    Scene *scene = DAT_0052c2b0->root->scene;
-    Probe *probe = scene->probe;
-    Vec4 pos = origin;
-    Vec3 dir;
-    scene->FUN_00294500(*(Vec3 *)&origin, (Vec3 *)&pos);
+    Scene_2b4990 *scene = DAT_0052c2b0->root->scene;
+    Probe_2b4990 *probe = scene->probe;
+    Vec4_2b4990 pos = origin;
+    Vec3_2b4990 dir;
+    scene->FUN_00294500(*(Vec3_2b4990 *)&origin, (Vec3_2b4990 *)&pos);
     if (useScene == 0) {
         probe->vfunc_13(&goal, &dir)->FUN_0022c3b0();
     } else {
-        Vec3 from;
+        Vec3_2b4990 from;
         scene->FUN_002940d0(&goal, &from);
         dir.x = pos.x - from.x;
         dir.y = pos.y - from.y;
@@ -91,7 +91,7 @@ void Mover::FUN_002b4990()
         pos.x = dir.x + pos.x;
         pos.y = dir.y + pos.y;
         pos.z = dir.z + pos.z;
-        if (probe->vfunc_16((Vec3 *)&pos, pos.w) == 0)
+        if (probe->vfunc_16((Vec3_2b4990 *)&pos, pos.w) == 0)
             break;
         steps++;
     } while (steps < 100);

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 6/6)
 // FUN_0021d790 @ 0x0021d790
 // Lua 5.0 lparser primaryexp (with luaX_next inlined)
-struct expdesc {
+struct expdesc_21d790 {
     int k;
     int info;
     int aux;
@@ -9,36 +9,36 @@ struct expdesc {
     int f;
 };
 
-struct FuncState {
+struct FuncState_21d790 {
     char pad0[1];
 };
 
-struct Token {
+struct Token_21d790 {
     int token;
     int seminfo;
 };
 
-struct LexState {
+struct LexState_21d790 {
     int current;
     int linenumber;
     int lastline;
-    Token t;                // 0xc
-    Token lookahead;        // 0x14
-    FuncState *fs;          // 0x1c
+    Token_21d790 t;                // 0xc
+    Token_21d790 lookahead;        // 0x14
+    FuncState_21d790 *fs;          // 0x1c
 };
 
-int __cdecl FUN_0021bbc0(LexState *ls, int *seminfo);                       // llex
-void __cdecl FUN_0021b060(LexState *ls, const char *msg);                   // luaX_syntaxerror
-void __cdecl FUN_0021ded0(LexState *ls, expdesc *v, int limit);             // subexpr
+int __cdecl FUN_0021bbc0(LexState_21d790 *ls, int *seminfo);                       // llex
+void __cdecl FUN_0021b060(LexState_21d790 *ls, const char *msg);                   // luaX_syntaxerror
+void __cdecl FUN_0021ded0(LexState_21d790 *ls, expdesc_21d790 *v, int limit);             // subexpr
 // equiv-conv: FUN_0021c340 esi edi stack eax
-void FUN_0021c340(LexState *ls, int what, int who, int line);               // check_match
+void FUN_0021c340(LexState_21d790 *ls, int what, int who, int line);               // check_match
 // equiv-conv: FUN_0021c3d0 esi
-int FUN_0021c3d0(LexState *ls);                                             // str_checkname
-void __cdecl FUN_0021c790(FuncState *fs, int name, expdesc *v, int base);   // singlevar
-void __cdecl FUN_00220d90(FuncState *fs, expdesc *v);                       // luaK_dischargevars
+int FUN_0021c3d0(LexState_21d790 *ls);                                             // str_checkname
+void __cdecl FUN_0021c790(FuncState_21d790 *fs, int name, expdesc_21d790 *v, int base);   // singlevar
+void __cdecl FUN_00220d90(FuncState_21d790 *fs, expdesc_21d790 *v);                       // luaK_dischargevars
 
 // equiv-conv: FUN_0021d790 eax ebx
-void FUN_0021d790(LexState *ls, expdesc *v)
+void FUN_0021d790(LexState_21d790 *ls, expdesc_21d790 *v)
 {
     switch (ls->t.token) {
     case '(': {

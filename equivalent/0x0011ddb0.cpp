@@ -1,48 +1,48 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 38/38)
 // hulkfight::ai::StrafeCircleHBAction::vfunc_5 @ 0x0011ddb0
-struct Vec3 {
+struct Vec3_11ddb0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-class RefCounted {
+class RefCounted_11ddb0 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-struct Mount {
+struct Mount_11ddb0 {
     char pad0[0x18];
-    bool FUN_00059a50(Vec3 *out);
+    bool FUN_00059a50(Vec3_11ddb0 *out);
 };
 
-struct Target : RefCounted {
+struct Target_11ddb0 : RefCounted_11ddb0 {
     char pad04[0x3c];
-    Vec3 pos;
+    Vec3_11ddb0 pos;
 };
 
-struct Stats {
+struct Stats_11ddb0 {
     char pad0[0x10];
-    Mount *mount;
+    Mount_11ddb0 *mount;
     char pad14[0x328 - 0x14];
-    Target *target;
+    Target_11ddb0 *target;
     char pad32c[0x2064 - 0x32c];
-    Vec3 aim;
+    Vec3_11ddb0 aim;
     float f2070;
-    Vec3 dir;
-    bool FUN_00035660(Vec3 *out);
+    Vec3_11ddb0 dir;
+    bool FUN_00035660(Vec3_11ddb0 *out);
 };
 
 void *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(void *x);
-extern "C" float FUN_00224f10(Vec3 *v);
+Stats_11ddb0 *__fastcall FUN_00059a30(void *x);
+extern "C" float FUN_00224f10(Vec3_11ddb0 *v);
 extern "C" float FUN_00224fc0(float from, float to);
 extern "C" float FUN_00083d90(float *v);
-extern "C" void FUN_00224d70(float angle, Vec3 *v);
+extern "C" void FUN_00224d70(float angle, Vec3_11ddb0 *v);
 
-extern Vec3 DAT_004a6ac0;
+extern Vec3_11ddb0 DAT_004a6ac0;
 
-struct Tuning {
+struct Tuning_11ddb0 {
     char pad0[0x14];
     float inner;
     float outer;
@@ -62,9 +62,9 @@ public:
     virtual void vfunc_4();
     virtual bool vfunc_5(int a1, int a2);
     char pad04[0x18];
-    Tuning *tuning;     // 0x1c
+    Tuning_11ddb0 *tuning;     // 0x1c
     void *owner;        // 0x20
-    RefCounted *held;   // 0x24
+    RefCounted_11ddb0 *held;   // 0x24
 };
 
 bool StrafeCircleHBAction::vfunc_5(int a1, int a2)
@@ -74,10 +74,10 @@ bool StrafeCircleHBAction::vfunc_5(int a1, int a2)
     if (owner == 0)
         return false;
 
-    Stats *stats = FUN_00059a30(FUN_000592a0(owner));
-    Target *target = stats->target;
+    Stats_11ddb0 *stats = FUN_00059a30(FUN_000592a0(owner));
+    Target_11ddb0 *target = stats->target;
     if (target == 0) {
-        target = (Target *)held;
+        target = (Target_11ddb0 *)held;
         if (target == 0)
             return true;
     }
@@ -91,10 +91,10 @@ bool StrafeCircleHBAction::vfunc_5(int a1, int a2)
     struct {
         float side;
         float height;
-        Vec3 d;
-        Vec3 q;
-        Vec3 r;
-        Vec3 p;
+        Vec3_11ddb0 d;
+        Vec3_11ddb0 q;
+        Vec3_11ddb0 r;
+        Vec3_11ddb0 p;
     } fr;
     fr.p = target->pos;
     fr.q.x = 0.0f;

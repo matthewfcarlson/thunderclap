@@ -2,19 +2,19 @@
 // FUN_00299da0 @ 0x00299da0
 void* FUN_0008d6d0(unsigned int size);
 
-class Ref {
+class Ref_299da0 {
 public:
     virtual void AddRef();
     virtual void Release();
     virtual void v2();
     virtual void v3();
-    virtual Ref* Clone();
+    virtual Ref_299da0* Clone();
 };
 
 struct PrimEntry {
     char flag;
     int value;
-    Ref* ref;
+    Ref_299da0* ref;
 };
 
 struct PrimEntryList {
@@ -112,10 +112,10 @@ ActivePrimitiveList::ActivePrimitiveList(const ActivePrimitiveList& src)
         data30[i] = src.data30[i];
         entries.begin[i].value = src.entries.begin[i].value;
         entries.begin[i].flag = src.entries.begin[i].flag;
-        Ref* r = src.entries.begin[i].ref;
+        Ref_299da0* r = src.entries.begin[i].ref;
         if (r) {
             PrimEntry* d = &entries.begin[i];
-            Ref* c = r->Clone();
+            Ref_299da0* c = r->Clone();
             if (c)
                 c->AddRef();
             if (d->ref)

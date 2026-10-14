@@ -1,28 +1,28 @@
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 29/30, incomplete)
 // hulkfight::motion::HitPushbackAction::vfunc_3 @ 0x0014f680
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
-struct V3 {
+struct V3_14f680 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_000111b0(const V3 *a, const V3 *b);
+    void FUN_000111b0(const V3_14f680 *a, const V3_14f680 *b);
 };
 
-struct Str {
+struct Str_14f680 {
     void FUN_0027b040(const char *s);
 };
 
-struct Sub18 {
-    void FUN_0022be40(V3 *v);
+struct Sub18_14f680 {
+    void FUN_0022be40(V3_14f680 *v);
     void FUN_00221d20(float f);
 };
 
 struct Push {
     virtual void v0();
     char pad04[0x8 - 0x4];
-    Str name;               // 0x8
+    Str_14f680 name;               // 0x8
     char pad09[0x14 - 0x9];
     int flags;              // 0x14
-    Sub18 sub;              // 0x18
+    Sub18_14f680 sub;              // 0x18
     char pad19[0x70 - 0x19];
     Push *FUN_002248f0(int a);
 };
@@ -43,42 +43,42 @@ struct Params {
     float w0;               // 0x30
 };
 
-struct Hit {
+struct Hit_14f680 {
     char pad0[0x8];
     float x8;
     char pad0c[4];
     float x10;
     char pad14[0x28 - 0x14];
-    V3 vec;                 // 0x28
+    V3_14f680 vec;                 // 0x28
     char pad34[0x5c - 0x34];
     float f5c;
 };
 
-struct Player {
+struct Player_14f680 {
     char pad0[0x140];
     int mode;               // 0x140
     float FUN_000354c0();
 };
 
-struct Body {
+struct Body_14f680 {
     char pad0[0x40];
-    V3 pos;                 // 0x40
+    V3_14f680 pos;                 // 0x40
     void FUN_00222890(Push *p, float a, float b, float c, float d, float e, float f);
 };
 
-struct Owner {
-    Player *FUN_00059a30();
-    Body *FUN_00059a40();
+struct Owner_14f680 {
+    Player_14f680 *FUN_00059a30();
+    Body_14f680 *FUN_00059a40();
 };
 
-struct Link {
-    Owner *FUN_000592a0();
+struct Link_14f680 {
+    Owner_14f680 *FUN_000592a0();
     virtual void v0(); virtual void v1(); virtual void v2();
-    virtual Hit *v3();
+    virtual Hit_14f680 *v3();
 };
 
 extern void *thunk_FUN_0008d690(unsigned int size);
-extern float __cdecl FUN_00224f10(V3 *v);
+extern float __cdecl FUN_00224f10(V3_14f680 *v);
 
 class HitPushbackAction {
 public:
@@ -90,10 +90,10 @@ public:
     virtual void vfunc_5();
     char pad04[0x18];
     Params *params;         // 0x1c
-    Link *link;             // 0x20
+    Link_14f680 *link;             // 0x20
     Push *push;             // 0x24
     float f28;
-    V3 v;                   // 0x2c
+    V3_14f680 v;                   // 0x2c
     float f38;
     float f3c;
     float f40;
@@ -103,12 +103,12 @@ bool HitPushbackAction::vfunc_3(void *a, void *b)
 {
     if (link == 0)
         return false;
-    Owner *own = link->FUN_000592a0();
-    Player *pl = own->FUN_00059a30();
-    Body *body = own->FUN_00059a40();
+    Owner_14f680 *own = link->FUN_000592a0();
+    Player_14f680 *pl = own->FUN_00059a30();
+    Body_14f680 *body = own->FUN_00059a40();
     if (body == 0)
         return false;
-    Hit *hit = link->v3();
+    Hit_14f680 *hit = link->v3();
     if (hit == 0)
         return false;
     Params *pa = params;
@@ -130,7 +130,7 @@ bool HitPushbackAction::vfunc_3(void *a, void *b)
         flag = 3;
     push->flags = flag;
     push->v0();
-    V3 *bp = &body->pos;
+    V3_14f680 *bp = &body->pos;
     push->sub.FUN_0022be40(bp);
     float arg;
     if (params->flag != 0)
@@ -170,15 +170,15 @@ bool HitPushbackAction::vfunc_3(void *a, void *b)
     }
     if (mode == 2 && f24 > 0.0f) {
         f40 = f24 * f38;
-        V3 w;
+        V3_14f680 w;
         w.x = bp->x;
         w.z = bp->z;
         w.x = w.x - hit->x8;
         w.y = 0.0f;
         w.z = w.z - hit->x10;
         w.FUN_0022d110();
-        V3 vc = v;
-        V3 cr;
+        V3_14f680 vc = v;
+        V3_14f680 cr;
         cr.FUN_000111b0(&vc, &w);
         if (cr.y < 0.0f)
             f40 = -f40;

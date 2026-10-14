@@ -4,68 +4,68 @@ extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 
-struct V3 {
+struct V3_118050 {
     float x, y, z;
 };
 
-struct Body {
+struct Body_118050 {
     char pad00[0x40];
-    V3 pos;
+    V3_118050 pos;
 };
 
 struct Locator {
-    char FUN_00059a50(V3 *out);
+    char FUN_00059a50(V3_118050 *out);
 };
 
-struct Res {
+struct Res_118050 {
     char pad00[0x10];
     Locator *loc;
     char pad14[0x328 - 0x14];
-    Body *body;
+    Body_118050 *body;
     char pad32c[0x2064 - 0x32c];
-    V3 vel;
+    V3_118050 vel;
 };
 
-struct Resolver {
-    Res *FUN_00059a30();
+struct Resolver_118050 {
+    Res_118050 *FUN_00059a30();
 };
 
-struct Target {
-    Resolver *FUN_000592a0();
+struct Target_118050 {
+    Resolver_118050 *FUN_000592a0();
 };
 
-struct Hit {
+struct Hit_118050 {
     char pad00[0x16];
     unsigned short info;
 };
 
-struct Slot {
+struct Slot_118050 {
     void FUN_00025260(int a, int b, int c);
 };
 
-struct Mgr {
+struct Mgr_118050 {
     void FUN_001dcf60(int a);
 };
 
-struct Game {
+struct Game_118050 {
     char pad00[0xc];
-    Mgr *mgr;
+    Mgr_118050 *mgr;
     char pad10[0x20 - 0x10];
-    Slot *slot;
+    Slot_118050 *slot;
 };
 
-extern Game *DAT_004dd700;
+extern Game_118050 *DAT_004dd700;
 
-extern char __cdecl FUN_00202560(V3 *from, float dist, int flag, V3 *outA, V3 *outB, int p6, int p7, Hit **outHit);
-extern V3 *__cdecl FUN_00083e00(V3 *out, V3 *in, float s);
+extern char __cdecl FUN_00202560(V3_118050 *from, float dist, int flag, V3_118050 *outA, V3_118050 *outB, int p6, int p7, Hit_118050 **outHit);
+extern V3_118050 *__cdecl FUN_00083e00(V3_118050 *out, V3_118050 *in, float s);
 
-struct Frame {
-    V3 pos;
-    V3 w;
-    V3 tmp;
-    V3 outA;
-    V3 ret;
-    V3 outB;
+struct Frame_118050 {
+    V3_118050 pos;
+    V3_118050 w;
+    V3_118050 tmp;
+    V3_118050 outA;
+    V3_118050 ret;
+    V3_118050 outB;
 };
 
 class HasGroundPointExtendedCondition {
@@ -86,26 +86,26 @@ public:
     char pad12[2];
     float scale;
     float limit;
-    V3 dir;
+    V3_118050 dir;
 };
 
 char HasGroundPointExtendedCondition::vfunc_6(int a, void *obj, int c)
 {
-    Frame f;
+    Frame_118050 f;
     if (!FUN_00344e74(obj, 0, DAT_00494b44, DAT_00494b60, 0))
         return 0;
-    Res *r = ((Target *)obj)->FUN_000592a0()->FUN_00059a30();
+    Res_118050 *r = ((Target_118050 *)obj)->FUN_000592a0()->FUN_00059a30();
     if (!r)
         return 0;
     if (!useBody) {
         r->loc->FUN_00059a50(&f.pos);
     } else {
-        Body *body = r->body;
+        Body_118050 *body = r->body;
         if (!body)
             return 0;
         f.pos = body->pos;
     }
-    Hit *hit = 0;
+    Hit_118050 *hit = 0;
     if (useVel) {
         float s = scale;
         f.tmp.x = s * r->vel.x;
@@ -116,7 +116,7 @@ char HasGroundPointExtendedCondition::vfunc_6(int a, void *obj, int c)
         f.w.y = f.tmp.y + f.pos.y;
     } else if (useScaled) {
         f.tmp = dir;
-        V3 *p = FUN_00083e00(&f.ret, &f.tmp, scale);
+        V3_118050 *p = FUN_00083e00(&f.ret, &f.tmp, scale);
         f.tmp.z = f.pos.z + p->z;
         f.w.z = f.tmp.z;
         f.w.x = f.pos.x + p->x;

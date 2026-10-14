@@ -26,7 +26,7 @@ public:
 };
 }
 
-struct Parser {
+struct Parser_eff20 {
     float FUN_000fad30();
     unsigned int FUN_000faeb0();
     const char *FUN_000fad90();
@@ -36,13 +36,13 @@ struct Parser {
     DollyScript::CScriptToken *FUN_000fb150();
 };
 
-class Callback {
+class Callback_eff20 {
 public:
     virtual void a();
     virtual void b();
 };
 
-class __declspec(novtable) FEBase {
+class __declspec(novtable) FEBase_eff20 {
 public:
     virtual void v0();
     virtual void v1();
@@ -54,7 +54,7 @@ public:
     int id2;
     void *parent;
     char name[0x20];
-    FEBase(void *p)
+    FEBase_eff20(void *p)
     {
         id1 = -1;
         id2 = -1;
@@ -63,13 +63,13 @@ public:
     }
 };
 
-class FEDoWait : public FEBase {
+class FEDoWait : public FEBase_eff20 {
 public:
     float limit;
     float elapsed;
-    Callback *callback;
+    Callback_eff20 *callback;
     unsigned char done;
-    FEDoWait(void *p, float lim) : FEBase(p)
+    FEDoWait(void *p, float lim) : FEBase_eff20(p)
     {
         limit = lim;
         callback = 0;
@@ -78,11 +78,11 @@ public:
     }
 };
 
-class FEDoBackScreen : public FEBase {
+class FEDoBackScreen : public FEBase_eff20 {
 public:
     unsigned char b34;
     unsigned char b35;
-    FEDoBackScreen(void *p, unsigned char b, unsigned char c) : FEBase(p)
+    FEDoBackScreen(void *p, unsigned char b, unsigned char c) : FEBase_eff20(p)
     {
         b34 = b;
         b35 = c;
@@ -90,37 +90,37 @@ public:
     FEDoBackScreen *FUN_000e1cf0(void *p, unsigned char b, unsigned char c);
 };
 
-struct CmdA : FEBase {
-    char padA[0x54 - sizeof(FEBase)];
+struct CmdA : FEBase_eff20 {
+    char padA[0x54 - sizeof(FEBase_eff20)];
     CmdA *FUN_000e1970(void *p, const char *s);
 };
-struct CmdB : FEBase {
-    char padB[0x34 - sizeof(FEBase)];
+struct CmdB : FEBase_eff20 {
+    char padB[0x34 - sizeof(FEBase_eff20)];
     CmdB *FUN_000e1c40(void *p);
 };
-struct CmdC : FEBase {
-    char padC[0x34 - sizeof(FEBase)];
+struct CmdC : FEBase_eff20 {
+    char padC[0x34 - sizeof(FEBase_eff20)];
     CmdC *FUN_000e1c60(void *p);
 };
-struct CmdE : FEBase {
-    char padE[0x54 - sizeof(FEBase)];
+struct CmdE : FEBase_eff20 {
+    char padE[0x54 - sizeof(FEBase_eff20)];
     CmdE *FUN_000e1b30(void *p, const char *s);
 };
-struct CmdF : FEBase {
-    char padF[0x54 - sizeof(FEBase)];
+struct CmdF : FEBase_eff20 {
+    char padF[0x54 - sizeof(FEBase_eff20)];
     CmdF *FUN_000e1c90(void *p, const char *s);
 };
-struct CmdG : FEBase {
-    char padG[0x1b8 - sizeof(FEBase)];
+struct CmdG : FEBase_eff20 {
+    char padG[0x1b8 - sizeof(FEBase_eff20)];
     CmdG *FUN_000e1b90(void *p, const char *a, const char *b, const char *c, const char *d, const char *e, int mode);
 };
-struct CmdSeq : FEBase {
-    char padS[0x3c - sizeof(FEBase)];
+struct CmdSeq : FEBase_eff20 {
+    char padS[0x3c - sizeof(FEBase_eff20)];
     int *items;
     CmdSeq *FUN_000e19d0(void *p, const char *name, int count);
 };
-struct CmdH : FEBase {
-    char padH[0x40 - sizeof(FEBase)];
+struct CmdH : FEBase_eff20 {
+    char padH[0x40 - sizeof(FEBase_eff20)];
     unsigned int f40;
     char pad44[4];
     unsigned int f48;
@@ -132,11 +132,11 @@ struct CmdH : FEBase {
     void FUN_000e86a0(unsigned int v);
 };
 
-class Owner {
+class Owner_eff20 {
 public:
     virtual void o0();
 };
-struct Parent {
+struct Parent_eff20 {
     virtual void p0();
     virtual void p1();
     virtual void p2();
@@ -157,21 +157,21 @@ struct Parent {
     virtual void p17();
     virtual void p18();
     virtual void p19();
-    virtual void Add(FEBase *c);
+    virtual void Add(FEBase_eff20 *c);
 };
-struct Sink {
-    void FUN_000e2c60(FEBase *c);
+struct Sink_eff20 {
+    void FUN_000e2c60(FEBase_eff20 *c);
 };
 
 union Slot1 {
-    Parser *p;
+    Parser_eff20 *p;
     float f;
     unsigned char b;
-    FEBase *cmd;
+    FEBase_eff20 *cmd;
     const char *s;
 };
 
-struct Frame {
+struct Frame_eff20 {
     unsigned int off; // 0x10
     FEDoWait *objA;   // 0x14
     int id1;          // 0x18
@@ -184,22 +184,22 @@ struct Frame {
 
 class Builder {
 public:
-    void FUN_000e76a0(FEBase *c);
-    void FUN_000eff20(Slot1 a1, Parent *a2, Sink *a3, int a4);
+    void FUN_000e76a0(FEBase_eff20 *c);
+    void FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4);
 };
 
-void Builder::FUN_000eff20(Slot1 a1, Parent *a2, Sink *a3, int a4)
+void Builder::FUN_000eff20(Slot1 a1, Parent_eff20 *a2, Sink_eff20 *a3, int a4)
 {
-    Frame f;
-    Parser *p = a1.p;
-    FEBase *cmd = 0;
+    Frame_eff20 f;
+    Parser_eff20 *p = a1.p;
+    FEBase_eff20 *cmd = 0;
     int type = a4;
     f.self = this;
     f.objA = 0;
     f.id1 = 0;
     f.id2 = 0;
     f.name = "";
-    Parent *parent = a2;
+    Parent_eff20 *parent = a2;
     if (type == 4) {
         f.id1 = (int)p->FUN_000fad30();
         f.id2 = (int)p->FUN_000fad30();
@@ -420,7 +420,7 @@ void Builder::FUN_000eff20(Slot1 a1, Parent *a2, Sink *a3, int a4)
         strncpy(cmd->name, f.name, 0x20);
         FEDoWait *w = f.objA;
         if (w != 0) {
-            w->callback = (Callback *)cmd;
+            w->callback = (Callback_eff20 *)cmd;
             this->FUN_000e76a0(cmd);
             cmd = w;
         }

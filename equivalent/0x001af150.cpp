@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001af150 @ 0x001af150
-struct Pair {
+struct Pair_1af150 {
     union {
         int first;
         float value;
@@ -8,7 +8,7 @@ struct Pair {
     int second;
 };
 
-struct Key {
+struct Key_1af150 {
     int w[10];
 };
 
@@ -19,41 +19,41 @@ struct Node {
     int id;
 };
 
-struct Map {
+struct Map_1af150 {
     int link[6];
     void FUN_00230b60();
     void FUN_00230f50(void (*fn)(void *, void *), void *param);
-    Pair *FUN_001ae9e0(Pair *out, const Key *key);
-    Pair *FUN_001aecb0(Pair *out, const Pair *key);
+    Pair_1af150 *FUN_001ae9e0(Pair_1af150 *out, const Key_1af150 *key);
+    Pair_1af150 *FUN_001aecb0(Pair_1af150 *out, const Pair_1af150 *key);
 };
 
 struct Owner;
 
 /* Layout of the original's 0x84-byte frame (offsets from the frame bottom). u34 is never written: the original
    copies whatever the caller left in that stack slot into key word 8. */
-struct Frame {
-    Pair pair1;      // 0x00
-    Map mapB;        // 0x08
+struct Frame_1af150 {
+    Pair_1af150 pair1;      // 0x00
+    Map_1af150 mapB;        // 0x08
     int gap1;        // 0x20
-    Map mapA;        // 0x24
+    Map_1af150 mapA;        // 0x24
     int gap2;        // 0x3c
-    Key k;           // 0x40
+    Key_1af150 k;           // 0x40
     int z28;         // 0x68
     int z2c;         // 0x6c
     int z30;         // 0x70
     int u34;         // 0x74
     int gap3;        // 0x78
-    Pair pair2;      // 0x7c
+    Pair_1af150 pair2;      // 0x7c
 };
 
 void FUN_001ad560(void *node, void *param);
 void FUN_001ad550(void *node, void *param);
-Node *FUN_001aedb0(Map *a, Map *b, int c, int d, Pair *e);
+Node *FUN_001aedb0(Map_1af150 *a, Map_1af150 *b, int c, int d, Pair_1af150 *e);
 char FUN_001ad5c0(Owner *o, Node *n);
 
 float FUN_001af150(Owner *o, const int *in, int c, int d, int *outId)
 {
-    Frame f;
+    Frame_1af150 f;
     f.mapA.FUN_00230b60();
     f.mapB.FUN_00230b60();
     f.k.w[0] = in[0];
@@ -68,7 +68,7 @@ float FUN_001af150(Owner *o, const int *in, int c, int d, int *outId)
     f.z30 = 0;
     f.k.w[8] = f.u34;
     f.k.w[9] = -1;
-    Pair *p = f.mapA.FUN_001ae9e0(&f.pair1, &f.k);
+    Pair_1af150 *p = f.mapA.FUN_001ae9e0(&f.pair1, &f.k);
     f.mapB.FUN_001aecb0(&f.pair2, p);
     f.pair1.first = -1;
     Node *n = FUN_001aedb0(&f.mapA, &f.mapB, c, d, &f.pair1);

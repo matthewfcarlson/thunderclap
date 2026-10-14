@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0028dbb0 @ 0x0028dbb0
-struct Quaternion { float x,y,z,w; };
+struct Quaternion_28dbb0 { float x,y,z,w; };
 extern "C" double __cdecl sqrt(double);
-struct PackedQuaternion {
+struct PackedQuaternion_28dbb0 {
  signed char x,y,z;
- Quaternion* unpack(Quaternion* output);
+ Quaternion_28dbb0* unpack(Quaternion_28dbb0* output);
 };
-Quaternion* PackedQuaternion::unpack(Quaternion* output) {
+Quaternion_28dbb0* PackedQuaternion_28dbb0::unpack(Quaternion_28dbb0* output) {
  float fx = x * 0.0078740157186985016f;
  float fy = y * 0.0078740157186985016f;
  float fz = z * 0.0078740157186985016f;

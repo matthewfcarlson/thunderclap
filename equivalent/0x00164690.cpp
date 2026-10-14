@@ -23,53 +23,53 @@ extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *d
 extern char DAT_0048d534[];
 extern char DAT_004b3b20[];
 
-struct Name {
+struct Name_164690 {
     unsigned int lo, hi;
-    void FUN_0027af70(const Name *other);
+    void FUN_0027af70(const Name_164690 *other);
 };
 
-struct Handle {
+struct Handle_164690 {
     char pad0[8];
-    Name name;
+    Name_164690 name;
 };
 
-class Factory {
+class Factory_164690 {
 public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual Handle *f3(content::LoadInventory::DynamicCaster<pure3d::Animation> *caster, unsigned int lo, unsigned int hi);
+    virtual Handle_164690 *f3(content::LoadInventory::DynamicCaster<pure3d::Animation> *caster, unsigned int lo, unsigned int hi);
 };
 
-struct Holder44 { Factory *FUN_00203d70(); };
-struct Holder28 { Holder44 *FUN_000862a0(); };
-struct Manager { char pad0[0x54]; Holder28 *holder; };
-extern Manager *DAT_004dd700;
+struct Holder44_164690 { Factory_164690 *FUN_00203d70(); };
+struct Holder28_164690 { Holder44_164690 *FUN_000862a0(); };
+struct Manager_164690 { char pad0[0x54]; Holder28_164690 *holder; };
+extern Manager_164690 *DAT_004dd700;
 
-struct Sub { char pad[4]; };
+struct Sub_164690 { char pad[4]; };
 
 struct Cand {
     virtual void AddRef();
     virtual void Release();
     char pad4[4];
-    Name name;
+    Name_164690 name;
     char pad10[0x24 - 0x10];
     float value;
 };
 
 struct Anims {
-    Handle *a1;
-    Handle *a2;
-    Handle *a3;
+    Handle_164690 *a1;
+    Handle_164690 *a2;
+    Handle_164690 *a3;
 };
 
-class Blend {
+class Blend_164690 {
 public:
     virtual void AddRef();
     virtual void Release();
     char pad4[4];
-    Name name;
-    Blend *FUN_00229760(Sub *skel, int zero, int mode, Anims *anims, int zero2);
+    Name_164690 name;
+    Blend_164690 *FUN_00229760(Sub_164690 *skel, int zero, int mode, Anims *anims, int zero2);
     void FUN_00222550(int a, int b);
 };
 
@@ -80,17 +80,17 @@ struct Track {
     char pad0[0x68];
     unsigned int count;
     Item *FUN_00222e20(unsigned int index);
-    Sub *FUN_002226b0();
-    void FUN_00222890(Blend *a, float t, int c40, float one, int c44, int c48, float m1);
+    Sub_164690 *FUN_002226b0();
+    void FUN_00222890(Blend_164690 *a, float t, int c40, float one, int c44, int c48, float m1);
 };
 
-struct Fighter { char pad[4]; };
-Fighter *__fastcall FUN_000592a0(void *owner);
-void *__fastcall FUN_00059a30(Fighter *f);
-Track *__fastcall FUN_00059a40(Fighter *f);
-void __cdecl FUN_0015cfd0(Sub *skel, Blend *b);
+struct Fighter_164690 { char pad[4]; };
+Fighter_164690 *__fastcall FUN_000592a0(void *owner);
+void *__fastcall FUN_00059a30(Fighter_164690 *f);
+Track *__fastcall FUN_00059a40(Fighter_164690 *f);
+void __cdecl FUN_0015cfd0(Sub_164690 *skel, Blend_164690 *b);
 
-class Config {
+class Config_164690 {
 public:
     virtual void v0();
     virtual void v1();
@@ -101,10 +101,10 @@ public:
     virtual void v6();
     virtual float v7();
     char pad04[0x14];
-    Name key;
-    Name id1;
-    Name id2;
-    Name id3;
+    Name_164690 key;
+    Name_164690 id1;
+    Name_164690 id2;
+    Name_164690 id3;
     int f38;
     int f3c;
     int f40;
@@ -119,9 +119,9 @@ public:
     virtual void v2();
     virtual bool vfunc_3(int a, int b);
     char pad04[0x18];
-    Config *cfg;
+    Config_164690 *cfg;
     void *owner;
-    Blend *cur;
+    Blend_164690 *cur;
 };
 
 bool GrappleLocomotionSteerAction::vfunc_3(int a, int b)
@@ -133,17 +133,17 @@ bool GrappleLocomotionSteerAction::vfunc_3(int a, int b)
         } s0;
         union {
             float foundValue;
-            Handle *anim1;
+            Handle_164690 *anim1;
             char caster[4];
         } s1;
-        Sub *skel;
-        Name *keyPtr;
+        Sub_164690 *skel;
+        Name_164690 *keyPtr;
         unsigned int keyHi;
         float tmp;
         Anims anims;
     } fr;
 
-    Fighter *fighter = FUN_000592a0(owner);
+    Fighter_164690 *fighter = FUN_000592a0(owner);
     FUN_00059a30(fighter);
     Track *track = FUN_00059a40(fighter);
     if (!track)
@@ -171,14 +171,14 @@ bool GrappleLocomotionSteerAction::vfunc_3(int a, int b)
         fr.s0.found->AddRef();
     if (cur)
         cur->Release();
-    cur = (Blend *)fr.s0.found;
+    cur = (Blend_164690 *)fr.s0.found;
 
     if (!fr.s0.found) {
-        Config *c0 = cfg;
+        Config_164690 *c0 = cfg;
         fr.keyPtr = &c0->key;
         unsigned int lo1 = c0->id1.lo;
         unsigned int hi1 = c0->id1.hi;
-        Factory *factory;
+        Factory_164690 *factory;
         if ((lo1 | hi1) == 0) {
             fr.s1.anim1 = 0;
         } else {
@@ -190,7 +190,7 @@ bool GrappleLocomotionSteerAction::vfunc_3(int a, int b)
 
         unsigned int lo2 = cfg->id2.lo;
         unsigned int hi2 = cfg->id2.hi;
-        Handle *anim2;
+        Handle_164690 *anim2;
         if ((lo2 | hi2) == 0) {
             anim2 = 0;
         } else {
@@ -202,7 +202,7 @@ bool GrappleLocomotionSteerAction::vfunc_3(int a, int b)
 
         unsigned int lo3 = cfg->id3.lo;
         unsigned int hi3 = cfg->id3.hi;
-        Handle *anim3;
+        Handle_164690 *anim3;
         if ((lo3 | hi3) == 0) {
             anim3 = 0;
         } else {
@@ -223,10 +223,10 @@ bool GrappleLocomotionSteerAction::vfunc_3(int a, int b)
         fr.anims.a1 = fr.s1.anim1;
         fr.anims.a2 = anim2;
         fr.anims.a3 = anim3;
-        Blend *created;
+        Blend_164690 *created;
         void *mem = FUN_00263ea0(0x910);
         if (mem)
-            created = ((Blend *)mem)->FUN_00229760(fr.skel, 0, mode, &fr.anims, 0);
+            created = ((Blend_164690 *)mem)->FUN_00229760(fr.skel, 0, mode, &fr.anims, 0);
         else
             created = 0;
         if (created)
@@ -240,7 +240,7 @@ bool GrappleLocomotionSteerAction::vfunc_3(int a, int b)
     cur->FUN_00222550(cfg->f38, cfg->f3c);
     FUN_0015cfd0(fr.skel, cur);
     fr.tmp = cfg->v7();
-    Config *c = cfg;
+    Config_164690 *c = cfg;
     track->FUN_00222890(cur, fr.tmp, c->f40, 1.0f, c->f44, c->f48, -1.0f);
     return true;
 }

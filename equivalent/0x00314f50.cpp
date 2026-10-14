@@ -5,45 +5,45 @@
 // including the compiler's scratch/pointer slots, because the current checker compares the CONTENTS of locals
 // passed by pointer and a fuzzed axis index reads those slots), FPU-resident values are recomputed inline from
 // volatile reads, slot loads through an index are snapshotted at load time.
-union Wd {
+union Wd_314f50 {
     float f;
     unsigned int u;
 };
 
-struct V3 {
+struct V3_314f50 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct BoxA {
+struct BoxA_314f50 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-    virtual V3 *Center();
+    virtual V3_314f50 *Center();
 };
 
 struct BoxB {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-    virtual V3 *Center();
+    virtual V3_314f50 *Center();
     void FUN_002fb940(volatile float *out, int idx);
 };
-typedef BoxA VBox;
+typedef BoxA_314f50 VBox;
 
-class Sweep {
+class Sweep_314f50 {
 public:
     char pad0[0xc];
     float f0c;
     float f10;
     float delta[3];
     void FUN_00313540(unsigned order, float a, float b, float c);
-    void FUN_003137f0(BoxA *a, volatile float *p, unsigned e1, unsigned e2, int axis);
-    void FUN_00314be0(BoxA *a, volatile float *p, BoxB *b, volatile float *c, unsigned d, volatile float *n);
-    void FUN_00314f50(BoxA *a, BoxB *b);
+    void FUN_003137f0(BoxA_314f50 *a, volatile float *p, unsigned e1, unsigned e2, int axis);
+    void FUN_00314be0(BoxA_314f50 *a, volatile float *p, BoxB *b, volatile float *c, unsigned d, volatile float *n);
+    void FUN_00314f50(BoxA_314f50 *a, BoxB *b);
 };
 
-void Sweep::FUN_00314f50(BoxA *pa, BoxB *pb)
+void Sweep_314f50::FUN_00314f50(BoxA_314f50 *pa, BoxB *pb)
 {
     volatile float *T = (volatile float *)this;
     volatile float *A = (volatile float *)pa;
-    volatile Wd L[49];
+    volatile Wd_314f50 L[49];
     float f11;
     float f22;
     float f26;
@@ -196,7 +196,7 @@ void Sweep::FUN_00314f50(BoxA *pa, BoxB *pb)
     L[12].u = (unsigned)&L[38].f;
     do {
         esiv = L[12].u;
-        ((Sweep *)T)->FUN_00313540((unsigned)&L[34].f, ((volatile float *)esiv)[-1], ((volatile float *)esiv)[0], ((volatile float *)esiv)[1]);
+        ((Sweep_314f50 *)T)->FUN_00313540((unsigned)&L[34].f, ((volatile float *)esiv)[-1], ((volatile float *)esiv)[0], ((volatile float *)esiv)[1]);
         L[15].u = 0;
         do {
             int done = 0;
@@ -276,17 +276,17 @@ void Sweep::FUN_00314f50(BoxA *pa, BoxB *pb)
     L[21].f = (((-(L[11].f * L[0].f)) * r45_ecx[2]) + L[4].f);
                 special = (T[3] == T[4]) && (L[0].f > 0.0f) && ((L[5].f > 0.0f) || (L[7].f > 0.0f)) && (((L[7].f > 0.0f ? L[7].f : 0.0f) * (L[7].f > 0.0f ? L[7].f : 0.0f) + (L[5].f > 0.0f ? L[5].f : 0.0f) * (L[5].f > 0.0f ? L[5].f : 0.0f)) + L[0].f * L[0].f > 0.001f);
                 if (special) {
-                    ((Sweep *)T)->FUN_003137f0((BoxA *)A, &L[19].f, L[5].u, L[7].u, r30_edi);
+                    ((Sweep_314f50 *)T)->FUN_003137f0((BoxA_314f50 *)A, &L[19].f, L[5].u, L[7].u, r30_edi);
     L[16].f = (L[19].f - L[2].f);
     L[17].f = (L[20].f - L[3].f);
     L[18].f = (L[21].f - L[4].f);
-                    L[0].f = ((V3 *)&L[16].f)->FUN_0022d110();
+                    L[0].f = ((V3_314f50 *)&L[16].f)->FUN_0022d110();
                 } else {
     L[16].f = ((-L[11].f) * r45_ecx[0]);
     L[17].f = ((-L[11].f) * r45_ecx[1]);
     L[18].f = ((-L[11].f) * r45_ecx[2]);
                 }
-                ((Sweep *)T)->FUN_00314be0((BoxA *)A, &L[19].f, (BoxB *)pb, &L[2].f, L[0].u, &L[16].f);
+                ((Sweep_314f50 *)T)->FUN_00314be0((BoxA_314f50 *)A, &L[19].f, (BoxB *)pb, &L[2].f, L[0].u, &L[16].f);
                 done = 1;
             } while (0);
             if (done)

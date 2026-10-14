@@ -1,41 +1,41 @@
 // STATUS: equivalent (tools/equiv.py level 3: 134 inputs, branch coverage 42/44, incomplete)
 // hulkfight::motion::DriftToPositionAction::vfunc_5 @ 0x00175360
-struct Vec3 {
+struct Vec3_175360 {
     float x, y, z;
     float FUN_0022d110();
     float FUN_00018990();
-    bool FUN_0022d2b0(const Vec3 *other, float eps);
+    bool FUN_0022d2b0(const Vec3_175360 *other, float eps);
 };
 
-struct Flagged {
+struct Flagged_175360 {
     char pad00[0x24];
     bool flag;
 };
 
-struct Actor {
+struct Actor_175360 {
     char pad000[0x2064];
-    Vec3 direction;
+    Vec3_175360 direction;
     float strength;
-    void FUN_000353a0(Vec3 *v);
-    void FUN_00035720(Vec3 *v);
+    void FUN_000353a0(Vec3_175360 *v);
+    void FUN_00035720(Vec3_175360 *v);
     void FUN_000354e0(float v);
 };
 
-struct Body {
-    Actor *FUN_00059a30();
-    void FUN_00059a50(Vec3 *out);
+struct Body_175360 {
+    Actor_175360 *FUN_00059a30();
+    void FUN_00059a50(Vec3_175360 *out);
 };
 
-struct Owner {
-    Body *FUN_000592a0();
+struct Owner_175360 {
+    Body_175360 *FUN_000592a0();
 };
 
 extern __int64 DAT_004e13c8;
 extern __int64 DAT_004e13d0;
 extern __int64 DAT_004e13e0;
-extern Vec3 DAT_004e13e8;
+extern Vec3_175360 DAT_004e13e8;
 extern unsigned int DAT_004e13f4;
-extern "C" float FUN_00224f10(Vec3 *v);
+extern "C" float FUN_00224f10(Vec3_175360 *v);
 
 static bool IdIs(int lo, int hi, __int64 v)
 {
@@ -55,15 +55,15 @@ public:
     virtual bool vfunc_5(int mode, float dt);
 
     char pad04[0x18];
-    Flagged *marker;        // 0x1c
-    Owner *owner;           // 0x20
+    Flagged_175360 *marker;        // 0x1c
+    Owner_175360 *owner;           // 0x20
     bool useSnapshot;       // 0x24
     char pad25[3];
-    Vec3 snapshot;          // 0x28
+    Vec3_175360 snapshot;          // 0x28
     float timer;            // 0x34
     int idLo;               // 0x38
     int idHi;               // 0x3c
-    Vec3 pos;               // 0x40
+    Vec3_175360 pos;               // 0x40
     char pad4c[6];
     bool moved;             // 0x52
 };
@@ -74,18 +74,18 @@ public:
 bool hulkfight::motion::DriftToPositionAction::vfunc_5(int mode, float dt)
 {
     struct Frame {
-        Vec3 e;
-        Vec3 d;
-        Vec3 v;
+        Vec3_175360 e;
+        Vec3_175360 d;
+        Vec3_175360 v;
     } fr;
 
     if (mode != 0 || dt == 0.0f)
         return true;
 
-    Body *body = owner->FUN_000592a0();
+    Body_175360 *body = owner->FUN_000592a0();
     if (body == 0)
         return false;
-    Actor *actor = body->FUN_00059a30();
+    Actor_175360 *actor = body->FUN_00059a30();
     if (actor == 0)
         return false;
     body->FUN_00059a50(&fr.v);

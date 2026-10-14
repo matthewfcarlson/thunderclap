@@ -18,7 +18,7 @@ struct PresentParams {
     DWORD FullScreen_PresentationInterval;
     DWORD reserved[4];
 };
-struct SurfaceDesc {
+struct SurfaceDesc_31ae70 {
     DWORD Format, Type, Usage, Size, MultiSampleType, Width, Height;
 };
 struct DisplayConfig {
@@ -55,7 +55,7 @@ long __stdcall Direct3D_CreateDevice(DWORD, DWORD, void*, DWORD, PresentParams*,
 void __stdcall D3DDevice_Swap(DWORD);
 void __stdcall D3DDevice_GetGammaRamp(void*);
 Surface* __stdcall D3DDevice_GetRenderTarget2();
-void __stdcall D3DSurface_GetDesc(Surface*, SurfaceDesc*);
+void __stdcall D3DSurface_GetDesc(Surface*, SurfaceDesc_31ae70*);
 Texture* __stdcall D3DDevice_CreateTexture2(DWORD, DWORD, DWORD, DWORD, DWORD, DWORD, DWORD);
 void __stdcall D3DResource_Release(void*);
 void __stdcall D3DDevice_SetVerticalBlankCallback(void (__cdecl*)(void*));
@@ -192,7 +192,7 @@ bool pure3d::d3dDisplay::vfunc_4(const DisplayConfig* init) {
     }
     D3D8::D3DDevice_GetGammaRamp(gammaRamp);
     Surface* rt = D3D8::D3DDevice_GetRenderTarget2();
-    SurfaceDesc desc;
+    SurfaceDesc_31ae70 desc;
     D3D8::D3DSurface_GetDesc(rt, &desc);
     bbWidth = desc.Width;
     bbHeight = desc.Height;

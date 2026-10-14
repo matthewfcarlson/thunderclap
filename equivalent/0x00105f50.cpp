@@ -3,18 +3,18 @@
 extern float DAT_004a1c80;
 extern __int64 DAT_004dc0c0;
 
-struct Stats {
+struct Stats_105f50 {
     char pad0[0x380];
     int value;
     __int64 FUN_000443c0();
 };
 
-struct Body {
+struct Body_105f50 {
     char pad0[0x11c];
-    Stats *stats;
+    Stats_105f50 *stats;
 };
 
-class Owner {
+class Owner_105f50 {
 public:
     virtual void v0();
     virtual void v1();
@@ -22,40 +22,40 @@ public:
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual Body *v6();
+    virtual Body_105f50 *v6();
 };
 
-struct Ring {
+struct Ring_105f50 {
     void **head;
     void **cur;
     void **base;
     void **end;
 };
 
-struct Registry {
+struct Registry_105f50 {
     char pad0[0x18];
-    Ring ring;
+    Ring_105f50 ring;
 };
 
-struct Manager {
+struct Manager_105f50 {
     char pad0[0x1c];
-    Registry *registry;
+    Registry_105f50 *registry;
 };
 
-extern Manager *DAT_004dd700;
+extern Manager_105f50 *DAT_004dd700;
 
 class __declspec(novtable) CCharacterAgent {
 public:
     virtual void v0();
     char pad04[0x58 - 4];
-    Owner *owner;
-    void FUN_000fc760(Owner *o);
-    CCharacterAgent(Owner *o) { FUN_000fc760(o); }
+    Owner_105f50 *owner;
+    void FUN_000fc760(Owner_105f50 *o);
+    CCharacterAgent(Owner_105f50 *o) { FUN_000fc760(o); }
 };
 
 class CPathGraphAgent : public CCharacterAgent {
 public:
-    CPathGraphAgent(Owner *o);
+    CPathGraphAgent(Owner_105f50 *o);
     virtual void v1();
     virtual void v2();
     virtual void v3();
@@ -84,7 +84,7 @@ public:
     int fd4, fd8, fdc, fe0, fe4, fe8, fec, ff0;
 };
 
-CPathGraphAgent::CPathGraphAgent(Owner *o) : CCharacterAgent(o)
+CPathGraphAgent::CPathGraphAgent(Owner_105f50 *o) : CCharacterAgent(o)
 {
     f90 = 0;
     f94 = 0;
@@ -110,7 +110,7 @@ CPathGraphAgent::CPathGraphAgent(Owner *o) : CCharacterAgent(o)
     f70 = 0;
     f74 = 0;
 
-    Body *body = o->v6();
+    Body_105f50 *body = o->v6();
     if (body->stats)
         fb8 = body->stats->value;
     __int64 id = body->stats->FUN_000443c0();
@@ -129,7 +129,7 @@ CPathGraphAgent::CPathGraphAgent(Owner *o) : CCharacterAgent(o)
     fac = 0;
     fb0 = 0;
 
-    Ring *r = &DAT_004dd700->registry->ring;
+    Ring_105f50 *r = &DAT_004dd700->registry->ring;
     if (r->cur < r->end) {
         if (r->cur)
             *r->cur = &flag5c;

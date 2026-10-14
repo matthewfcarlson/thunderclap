@@ -2,7 +2,7 @@
 // FUN_002e82a0 @ 0x002e82a0
 struct png_info;
 
-struct png_struct {
+struct png_struct_2e82a0 {
     char pad0[0x60];
     unsigned int mode;
     char pad64[0xc0 - 0x64];
@@ -20,15 +20,15 @@ struct png_struct {
     unsigned char channels;             // 0x122
 };
 
-void FUN_002e69a0(png_struct *png_ptr, const char *msg);
-void FUN_002e7580(png_struct *png_ptr, unsigned char *buf, unsigned int length);
-void FUN_002e81e0(png_struct *png_ptr, unsigned int skip);
+void FUN_002e69a0(png_struct_2e82a0 *png_ptr, const char *msg);
+void FUN_002e7580(png_struct_2e82a0 *png_ptr, unsigned char *buf, unsigned int length);
+void FUN_002e81e0(png_struct_2e82a0 *png_ptr, unsigned int skip);
 unsigned int FUN_002e7500(unsigned char *buf);
-void FUN_002eb240(png_struct *png_ptr, png_info *info_ptr, unsigned int width, unsigned int height,
+void FUN_002eb240(png_struct_2e82a0 *png_ptr, png_info *info_ptr, unsigned int width, unsigned int height,
                   int bit_depth, int color_type, int interlace, int compression, int filter);
 
 // libpng png_handle_IHDR
-void FUN_002e82a0(png_struct *png_ptr, png_info *info_ptr, unsigned int length)
+void FUN_002e82a0(png_struct_2e82a0 *png_ptr, png_info *info_ptr, unsigned int length)
 {
     unsigned char buf[13];
 

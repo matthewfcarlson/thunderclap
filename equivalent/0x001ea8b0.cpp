@@ -16,7 +16,7 @@ template <> struct TypeTag<const char *> { static const void *get() { return &DA
 template <> struct TypeTag<char *> { static const void *get() { return &DAT_0049cad8; } };
 template <> struct TypeTag<int> { static const void *get() { return &DAT_0048e134; } };
 
-class __declspec(novtable) MethodBase {
+class __declspec(novtable) MethodBase_1ea8b0 {
 public:
     virtual void m0();
     char pad_04[0xc];
@@ -25,14 +25,14 @@ public:
     char retType;
     char pad_19[3];
     void FUN_001d0480(const char *, int);
-    MethodBase(const char *n, int k) { FUN_001d0480(n, k); }
+    MethodBase_1ea8b0(const char *n, int k) { FUN_001d0480(n, k); }
 };
 
 template <class T, class R, class A>
-class Method1 : public MethodBase {
+class Method1 : public MethodBase_1ea8b0 {
 public:
     typedef R (T::*Fn)(A);
-    Method1(const char *name, Fn f) : MethodBase(name, 1) {
+    Method1(const char *name, Fn f) : MethodBase_1ea8b0(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argType = FUN_001d04d0(TypeTag<A>::get());
@@ -47,10 +47,10 @@ public:
     T *owner;
 };
 
-struct Registry {
+struct Registry_1ea8b0 {
     void FUN_001d3b70(const char *name, void *closure);
 };
-Registry *FUN_001d4c90();
+Registry_1ea8b0 *FUN_001d4c90();
 
 struct SoundConfig {
     int size;
@@ -68,10 +68,10 @@ struct Streams {
 class CSoundResourceManager;
 extern CSoundResourceManager *DAT_004e3690;
 
-struct Fx {
+struct Fx_1ea8b0 {
     void FUN_00265240(CSoundResourceManager *owner, const char *name);
 };
-extern Fx *DAT_00527c58;
+extern Fx_1ea8b0 *DAT_00527c58;
 
 void *FUN_00263ed0(unsigned int size, int kind);
 void FUN_002474f0(void *p);
@@ -117,7 +117,7 @@ int CSoundResourceManager::FUN_001ea8b0(int arg)
     streams = s;
 
     DAT_00527c58->FUN_00265240(this, "clips");
-    Registry *reg = FUN_001d4c90();
+    Registry_1ea8b0 *reg = FUN_001d4c90();
     void *mem;
 
     mem = FUN_0008d690(0x24);

@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 8/8)
 // FUN_00336380 @ 0x00336380
-struct Parser { const char* FUN_00337980(); void FUN_003379b0(); };
+struct Parser_336380 { const char* FUN_00337980(); void FUN_003379b0(); };
 struct Context { char pad[12]; int* type; };
 struct Allocator { void* FUN_00337d60(unsigned int size, int alignment); };
 extern Allocator DAT_0055dbb0;
 extern "C" long __cdecl atol(const char*);
 int __cdecl FUN_00337f20(int);
-struct Owner;
-typedef bool (__fastcall *Handler)(Owner*, Context*, void*, Parser*, Context*, int);
-extern Handler DAT_004d9800[];
-struct Owner { bool FUN_00336380(void** output, Parser* parser, Context* context, void* unused); };
-bool Owner::FUN_00336380(void** output, Parser* parser, Context* context, void* unused) {
+struct Owner_336380;
+typedef bool (__fastcall *Handler_336380)(Owner_336380*, Context*, void*, Parser_336380*, Context*, int);
+extern Handler_336380 DAT_004d9800[];
+struct Owner_336380 { bool FUN_00336380(void** output, Parser_336380* parser, Context* context, void* unused); };
+bool Owner_336380::FUN_00336380(void** output, Parser_336380* parser, Context* context, void* unused) {
  const char* text = parser->FUN_00337980();
  if (!text) return false;
  int* type = context->type;

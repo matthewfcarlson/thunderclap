@@ -4,25 +4,25 @@ struct Object {
     virtual void slot0();
     virtual void release();
 };
-struct Entry {
+struct Entry_27d6c0 {
     Object* object;
     unsigned int state;
     unsigned int extra;
 };
-struct Container {
+struct Container_27d6c0 {
     char padding[0xb4];
     int count;
-    Entry entries[1];
+    Entry_27d6c0 entries[1];
     bool remove(Object* object);
 };
-bool Container::remove(Object* object) {
+bool Container_27d6c0::remove(Object* object) {
     if (!object) return false;
     int index;
     for (index = 0; index < count; ++index) {
         if (entries[index].object == object) break;
     }
     if (index >= count) return false;
-    Entry& entry = entries[index];
+    Entry_27d6c0& entry = entries[index];
     entry.state = 0;
     if (entry.object) {
         entry.object->release();

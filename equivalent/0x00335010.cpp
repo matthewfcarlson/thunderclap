@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 11/12, incomplete)
 // movie::BinkCallback::vfunc_3_adj8 @ 0x00335010
-struct FileStream {
+struct FileStream_335010 {
     virtual void vf0();
     virtual void vf1();
     virtual void vf2();
@@ -35,7 +35,7 @@ struct BinkRequest {
     unsigned int peak;
     char pad44[0x4];
     unsigned int outstanding;
-    FileStream* stream;
+    FileStream_335010* stream;
     char pad50[0x4];
     int readStart;
     char pad58[0x4];

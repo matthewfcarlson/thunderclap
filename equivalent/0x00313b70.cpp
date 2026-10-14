@@ -2,46 +2,46 @@
 // FUN_00313b70 @ 0x00313b70
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_313b70 {
     float x, y, z;
     float FUN_0022d110() throw();
-    void FUN_00011160(float s, Vec3 *d) throw();
-    void FUN_00095e80(float s, Vec3 *axis) throw();
+    void FUN_00011160(float s, Vec3_313b70 *d) throw();
+    void FUN_00095e80(float s, Vec3_313b70 *axis) throw();
 };
 
-class Box {
+class Box_313b70 {
 public:
     virtual void v0() throw();
     virtual void v1() throw();
     virtual void v2() throw();
     virtual void v3() throw();
-    virtual Vec3 *v4() throw();
+    virtual Vec3_313b70 *v4() throw();
     char pad04[0x34];
     int f38;
     char pad3c[0xc];
     float ext[3];
-    Vec3 axis[3];
+    Vec3_313b70 axis[3];
 };
 
-union FloatBits {
+union FloatBits_313b70 {
     float f;
     unsigned int u;
 };
 
-union Arg1 {
-    Box *box;
+union Arg1_313b70 {
+    Box_313b70 *box;
     float f;
     unsigned int u;
 };
 
-union Arg2 {
-    Vec3 *p;
+union Arg2_313b70 {
+    Vec3_313b70 *p;
     float f;
 };
 
-union Arg3 {
-    Vec3 *out;
-    Vec3 *axis;
+union Arg3_313b70 {
+    Vec3_313b70 *out;
+    Vec3_313b70 *axis;
 };
 
 union Arg7 {
@@ -52,17 +52,17 @@ union Arg7 {
 float __cdecl FUN_00083d90(float *w) throw();
 char __cdecl FUN_00018960(float a, float b, float eps) throw();
 
-class Sweeper {
+class Sweeper_313b70 {
 public:
     char pad00[0xc];
     float f0c;
     float f10;
     void FUN_00313540(int *out, unsigned int e0, unsigned int e1, unsigned int e2) throw();
-    void FUN_003137f0(Box *box, Vec3 *pt, unsigned int r1, unsigned int r2, int idx) throw();
-    char FUN_00313b70(Arg1 a1, Arg2 a2, Arg3 a3, Vec3 *a4, float *a5, float a6, Arg7 a7);
+    void FUN_003137f0(Box_313b70 *box, Vec3_313b70 *pt, unsigned int r1, unsigned int r2, int idx) throw();
+    char FUN_00313b70(Arg1_313b70 a1, Arg2_313b70 a2, Arg3_313b70 a3, Vec3_313b70 *a4, float *a5, float a6, Arg7 a7);
 };
 
-char Sweeper::FUN_00313b70(Arg1 a1, Arg2 a2, Arg3 a3, Vec3 *a4, float *a5, float a6, Arg7 a7)
+char Sweeper_313b70::FUN_00313b70(Arg1_313b70 a1, Arg2_313b70 a2, Arg3_313b70 a3, Vec3_313b70 *a4, float *a5, float a6, Arg7 a7)
 {
     union IntF {
         int i;
@@ -72,18 +72,18 @@ char Sweeper::FUN_00313b70(Arg1 a1, Arg2 a2, Arg3 a3, Vec3 *a4, float *a5, float
         float c;
         float tmp1;
         float tmp2;
-        Sweeper *self;
+        Sweeper_313b70 *self;
         float R;
         float E[3];
         float W[3];
         IntF G[3];
     } f;
 
-    Box *box = a1.box;
-    Vec3 *P = a2.p;
+    Box_313b70 *box = a1.box;
+    Vec3_313b70 *P = a2.p;
     f.R = a6 + f10;
     f.self = this;
-    const Vec3 *cen = box->v4();
+    const Vec3_313b70 *cen = box->v4();
     double dx = P->x - cen->x;
     double dy = P->y - cen->y;
     f.G[1].f = (float)dy;
@@ -124,7 +124,7 @@ char Sweeper::FUN_00313b70(Arg1 a1, Arg2 a2, Arg3 a3, Vec3 *a4, float *a5, float
         if (-m > f.E[idx]) {
             if (a7.flag == 0)
                 return 1;
-            Vec3 *cp = a3.out;
+            Vec3_313b70 *cp = a3.out;
             *cp = *P;
             float w = f.W[idx];
             double sg;
@@ -135,7 +135,7 @@ char Sweeper::FUN_00313b70(Arg1 a1, Arg2 a2, Arg3 a3, Vec3 *a4, float *a5, float
             else
                 sg = 0.0;
             double ns = -sg;
-            Vec3 *ax = &box->axis[idx];
+            Vec3_313b70 *ax = &box->axis[idx];
             a4->x = ns * ax->x;
             a4->y = ns * ax->y;
             a4->z = ns * ax->z;
@@ -187,10 +187,10 @@ char Sweeper::FUN_00313b70(Arg1 a1, Arg2 a2, Arg3 a3, Vec3 *a4, float *a5, float
             return 1;
         double r = FUN_00083d90(&f.W[bp]);
         a7.s = (float)(-r);
-        Vec3 *cp = a3.out;
+        Vec3_313b70 *cp = a3.out;
         *cp = *P;
         double q = (a6 + f.E[bp]) * a7.s;
-        Vec3 *ax = &box->axis[bp];
+        Vec3_313b70 *ax = &box->axis[bp];
         cp->x = q * ax->x + cp->x;
         cp->y = q * ax->y + cp->y;
         cp->z = q * ax->z + cp->z;

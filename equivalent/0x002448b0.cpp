@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 314 inputs, branch coverage 51/64, incomplete)
 // FUN_002448b0 @ 0x002448b0
-struct Info {
+struct Info_2448b0 {
     char pad0[0x30];
     unsigned int lo;
     unsigned int hi;
 };
 
-struct Key {
+struct Key_2448b0 {
     unsigned int lo;
     unsigned int hi;
     unsigned int lo2;
@@ -24,7 +24,7 @@ struct Node {
 };
 
 // Object that embeds a tree node right after its vptr.
-struct Obj {
+struct Obj_2448b0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -33,20 +33,20 @@ struct Obj {
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual Info *getInfo();
+    virtual Info_2448b0 *getInfo();
     Node node;
 };
 
-struct Tree {
+struct Tree_2448b0 {
     Node *root;
     Node nil;
 };
 
-int __cdecl FUN_00244080(Key *key, Obj *parent);
-void __cdecl FUN_00243c80(Tree *tree, Node *node);
-void __cdecl FUN_00243cd0(Tree *tree, Node *node);
+int __cdecl FUN_00244080(Key_2448b0 *key, Obj_2448b0 *parent);
+void __cdecl FUN_00243c80(Tree_2448b0 *tree, Node *node);
+void __cdecl FUN_00243cd0(Tree_2448b0 *tree, Node *node);
 
-bool __cdecl FUN_002448b0(Tree *tree, Obj *obj, Key *key)
+bool __cdecl FUN_002448b0(Tree_2448b0 *tree, Obj_2448b0 *obj, Key_2448b0 *key)
 {
     Node *nil = &tree->nil;
     Node *n = &obj->node;
@@ -69,7 +69,7 @@ bool __cdecl FUN_002448b0(Tree *tree, Obj *obj, Key *key)
         } else if (key->lo > cur->lo) {
             c = 1;
         } else {
-            Info *info = ((Obj *)((char *)cur - 4))->getInfo();
+            Info_2448b0 *info = ((Obj_2448b0 *)((char *)cur - 4))->getInfo();
             if (key->hi2 > info->hi)
                 c = 1;
             else if (key->hi2 < info->hi)
@@ -93,7 +93,7 @@ bool __cdecl FUN_002448b0(Tree *tree, Obj *obj, Key *key)
     if (last == nil) {
         tree->root = n;
     } else {
-        if (FUN_00244080(key, (Obj *)((char *)last - 4)) < 0)
+        if (FUN_00244080(key, (Obj_2448b0 *)((char *)last - 4)) < 0)
             last->left = n;
         else
             last->right = n;

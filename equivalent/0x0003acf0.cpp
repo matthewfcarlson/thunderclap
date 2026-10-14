@@ -12,89 +12,89 @@ struct Matrix {
     void FUN_0022b980();
 };
 
-struct Event {
+struct Event_3acf0 {
     char data[0x30];
-    Event *FUN_001ca830(Key a, Key b, int c, int d);
-    Event *FUN_001ca3d0(Key a, Key b, int c, int d);
+    Event_3acf0 *FUN_001ca830(Key a, Key b, int c, int d);
+    Event_3acf0 *FUN_001ca3d0(Key a, Key b, int c, int d);
 };
 
-struct Sink {
+struct Sink_3acf0 {
     char pad0[0x30];
-    void FUN_001cbc20(Event *e);
+    void FUN_001cbc20(Event_3acf0 *e);
 };
 
-struct Global {
+struct Global_3acf0 {
     char pad0[0x30];
-    Sink *sink;
+    Sink_3acf0 *sink;
 };
 
-struct Fighter;
+struct Fighter_3acf0;
 
-struct Obj;
+struct Obj_3acf0;
 
-struct Owner {
+struct Owner_3acf0 {
     char pad0[8];
-    Fighter *holder;
+    Fighter_3acf0 *holder;
     int count;
 };
 
-struct Obj {
+struct Obj_3acf0 {
     virtual void AddRef();
     virtual void Release();
     int pad4;
     Key key;
     char pad10[0xec - 0x10];
-    Obj *fec;
+    Obj_3acf0 *fec;
     char pad_f0[0x114 - 0xf0];
-    Owner *owner;
+    Owner_3acf0 *owner;
     void FUN_001d7ee0(int v);
     void FUN_001d71e0(int v);
 };
 
-struct Slot {
-    Obj *obj;
+struct Slot_3acf0 {
+    Obj_3acf0 *obj;
     int k0;
     int k1;
     int k2;
     Matrix m;
 };
 
-struct Fighter {
+struct Fighter_3acf0 {
     char pad0[0x10];
     int *f10;
     char pad14[0x12c - 0x14];
     int f12c;
     char pad130[0x3a8 - 0x130];
-    Slot slots[8];
+    Slot_3acf0 slots[8];
     char pad628[0x1f51 - 0x628];
     char b1f51;
-    Obj *FUN_00035ef0(int i);
-    char FUN_0003acf0(int slot, Obj *newObj, int a3, int a4, int a5, Matrix *m);
+    Obj_3acf0 *FUN_00035ef0(int i);
+    char FUN_0003acf0(int slot, Obj_3acf0 *newObj, int a3, int a4, int a5, Matrix *m);
 };
 
-extern Global *DAT_004dd700;
+extern Global_3acf0 *DAT_004dd700;
 
-char Fighter::FUN_0003acf0(int slot, Obj *newObj, int a3, int a4, int a5, Matrix *m)
+char Fighter_3acf0::FUN_0003acf0(int slot, Obj_3acf0 *newObj, int a3, int a4, int a5, Matrix *m)
 {
-    Global *g = DAT_004dd700;
+    Global_3acf0 *g = DAT_004dd700;
     if (slot < 0 || slot >= 8)
         return 0;
-    Slot *s = &slots[slot];
-    Obj *old = s->obj;
-    Event e;
+    Slot_3acf0 *s = &slots[slot];
+    Obj_3acf0 *old = s->obj;
+    Event_3acf0 e;
     if (old != 0 && old != newObj) {
         old->FUN_001d7ee0(0);
         old->FUN_001d71e0(0);
-        Sink *sink = g->sink;
+        Sink_3acf0 *sink = g->sink;
         if (sink != 0) {
             e.FUN_001ca830(old->key, old->fec->key, *f10, slot);
             sink->FUN_001cbc20(&e);
         }
     }
     if (newObj != 0) {
-        Owner *o = newObj->owner;
+        Owner_3acf0 *o = newObj->owner;
         if (o != 0 && o->count == 1 && o->holder != 0) {
-            Fighter *h = o->holder;
+            Fighter_3acf0 *h = o->holder;
             for (int j = 0; j < 8; j++) {
                 if (h->FUN_00035ef0(j) == newObj && (h != this || j != slot)) {
                     h->FUN_0003acf0(j, 0, -1, 0, 0, 0);
@@ -118,7 +118,7 @@ char Fighter::FUN_0003acf0(int slot, Obj *newObj, int a3, int a4, int a5, Matrix
         s->obj->FUN_001d7ee0(f12c);
     b1f51 = 0;
     if (newObj != 0 && newObj != old) {
-        Sink *sink = g->sink;
+        Sink_3acf0 *sink = g->sink;
         if (sink != 0) {
             e.FUN_001ca3d0(newObj->key, newObj->fec->key, *f10, slot);
             sink->FUN_001cbc20(&e);

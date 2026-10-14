@@ -20,7 +20,7 @@ struct Stream {
     void FUN_00266be0();
 };
 
-struct Face {
+struct Face_3078a0 {
     int v[3];
     unsigned char c[4];
     unsigned short a;
@@ -29,13 +29,13 @@ struct Face {
     unsigned short e;
 };
 
-struct Geom {
+struct Geom_3078a0 {
     char pad00[8];
     float *verts;
     float *f0c;
     unsigned char *f10;
     unsigned short *indices;
-    Face *faces;
+    Face_3078a0 *faces;
     unsigned short n1c;
     char pad1e[2];
     unsigned short n20;
@@ -45,27 +45,27 @@ struct Geom {
     float inv[3];
 };
 
-struct Mesh {
+struct Mesh_3078a0 {
     char pad00[0x44];
-    Geom *geom;
-    Mesh *FUN_002f3530();
+    Geom_3078a0 *geom;
+    Mesh_3078a0 *FUN_002f3530();
 };
 
-typedef void(__cdecl *Hook)(Stream *s, Mesh *m);
-extern Hook DAT_00555444;
+typedef void(__cdecl *Hook_3078a0)(Stream *s, Mesh_3078a0 *m);
+extern Hook_3078a0 DAT_00555444;
 
-union Slot {
+union Slot_3078a0 {
     Stream *s;
     unsigned int u;
     unsigned short w;
 };
 
-struct Frame {
+struct Frame_3078a0 {
     unsigned int s10;
     unsigned int s14;
     unsigned int s18;
     unsigned int i1c;
-    Geom *saved20;
+    Geom_3078a0 *saved20;
     unsigned int n24;
     unsigned int x28;
     unsigned int n2c;
@@ -85,16 +85,16 @@ struct Frame {
     float dz;
 };
 
-Mesh *FUN_003078a0(Slot a1)
+Mesh_3078a0 *FUN_003078a0(Slot_3078a0 a1)
 {
-    Frame f;
+    Frame_3078a0 f;
     Stream *stream = a1.s;
     stream->reader->FUN_002647e0(&a1.u, 1, 4, 1);
     void *mem = FUN_0008d690(0xd4);
-    Mesh *mesh = 0;
+    Mesh_3078a0 *mesh = 0;
     if (mem != 0)
-        mesh = ((Mesh *)mem)->FUN_002f3530();
-    Geom *g = mesh->geom;
+        mesh = ((Mesh_3078a0 *)mem)->FUN_002f3530();
+    Geom_3078a0 *g = mesh->geom;
     f.saved20 = g;
     stream->reader->FUN_002647e0(&a1.u, 1, 4, 1);
     stream->reader->FUN_002647e0(&a1.u, 1, 4, 1);
@@ -126,13 +126,13 @@ Mesh *FUN_003078a0(Slot a1)
             unsigned int n = (unsigned short)f.t38;
             g->n20 = (unsigned short)f.t38;
             unsigned int *raw = (unsigned int *)FUN_0008d6d0(n * 24 + 4);
-            Face *arr;
+            Face_3078a0 *arr;
             if (raw != 0) {
                 raw[0] = n;
-                arr = (Face *)(raw + 1);
+                arr = (Face_3078a0 *)(raw + 1);
                 f.x28 = (unsigned int)arr;
                 FUN_00011520(arr, 0x18, n, FUN_002fa720);
-                arr = (Face *)f.x28;
+                arr = (Face_3078a0 *)f.x28;
             } else {
                 arr = 0;
             }
@@ -140,7 +140,7 @@ Mesh *FUN_003078a0(Slot a1)
             g->faces = arr;
             if (g->n20 != 0) {
                 do {
-                    Face *e = mesh->geom->faces + i;
+                    Face_3078a0 *e = mesh->geom->faces + i;
                     stream->reader->FUN_002647e0(&a1.u, 1, 2, 1);
                     e->a = a1.w;
                     stream->reader->FUN_002647e0(&f.s10, 1, 2, 1);
@@ -238,7 +238,7 @@ Mesh *FUN_003078a0(Slot a1)
             g->f10 = q;
             stream->reader->FUN_002647e0(q, sz, 1, 1);
         } else if (id == 0x7016000) {
-            Hook h = DAT_00555444;
+            Hook_3078a0 h = DAT_00555444;
             if (h != 0)
                 h(stream, mesh);
         }

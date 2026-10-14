@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 6/6)
 // hulkfight::motion::AccuracyLatencyAction::vfunc_4 @ 0x00194cb0
-struct Player {
+struct Player_194cb0 {
     char pad0[0x1d54];
     int aimX;               // 0x1d54
     int aimY;               // 0x1d58
@@ -8,11 +8,11 @@ struct Player {
     int aimW;               // 0x1d60
     int aimV;               // 0x1d64
 };
-struct PlayerRef {
-    Player *FUN_00059a30();
+struct PlayerRef_194cb0 {
+    Player_194cb0 *FUN_00059a30();
 };
-struct Owner {
-    PlayerRef *FUN_000592a0();
+struct Owner_194cb0 {
+    PlayerRef_194cb0 *FUN_000592a0();
 };
 
 extern int DAT_004e15b0;
@@ -28,13 +28,13 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     char pad04[0x1c];
-    Owner *owner;           // 0x20
+    Owner_194cb0 *owner;           // 0x20
 };
 
 void AccuracyLatencyAction::vfunc_4()
 {
-    PlayerRef *ref = owner->FUN_000592a0();
-    Player *player = ref->FUN_00059a30();
+    PlayerRef_194cb0 *ref = owner->FUN_000592a0();
+    Player_194cb0 *player = ref->FUN_00059a30();
 
     // function-local static zero vector
     if (!(DAT_004e15bc & 1)) {

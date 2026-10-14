@@ -2,61 +2,61 @@
 // hulkfight::ai::MotionClosestWaypointAction::vfunc_3 @ 0x00117ab0
 extern "C" double sqrt(double);
 
-struct Vec3 { float x, y, z; };
+struct Vec3_117ab0 { float x, y, z; };
 
 struct WaypointList {
     char pad[0x14];
     int count;
-    Vec3 *FUN_00106160(int index);
+    Vec3_117ab0 *FUN_00106160(int index);
 };
 
-struct Registry {
+struct Registry_117ab0 {
     WaypointList *FUN_00106230(int key);
 };
 
-struct Globals {
+struct Globals_117ab0 {
     char pad[0x18];
-    Registry *registry;
+    Registry_117ab0 *registry;
 };
-extern Globals *DAT_004dd700;
+extern Globals_117ab0 *DAT_004dd700;
 
 struct Locator {
-    void FUN_00059a50(Vec3 *out);
+    void FUN_00059a50(Vec3_117ab0 *out);
 };
 
-struct Selector {
+struct Selector_117ab0 {
     void *FUN_000fdc40();
     int FUN_001034d0();
 };
 
-struct Name {
+struct Name_117ab0 {
     void FUN_0027b040(const char *s);
 };
 
-struct Fighter {
+struct Fighter_117ab0 {
     char pad0[0x10];
     Locator *locator;
     char pad1[0x1ca0 - 0x14];
-    Selector *selector;
+    Selector_117ab0 *selector;
     char pad2[0x2140 - 0x1ca4];
     unsigned char flag2140;
     char pad3[8];
     unsigned char flag2149;
-    void FUN_00036e70(Name *n, int v);
+    void FUN_00036e70(Name_117ab0 *n, int v);
     int FUN_00036d30();
-    void FUN_000353d0(Vec3 *p);
+    void FUN_000353d0(Vec3_117ab0 *p);
 };
 
-struct Owner {
+struct Owner_117ab0 {
     char pad[0x29];
     char enabled;
 };
 
-struct Finder {
+struct Finder_117ab0 {
     void *FUN_000592a0();
 };
 struct Finder2 {
-    Fighter *FUN_00059a30();
+    Fighter_117ab0 *FUN_00059a30();
 };
 
 class MotionClosestWaypointAction {
@@ -66,26 +66,26 @@ public:
     virtual void f2();
     virtual bool vfunc_3(int a, int b);
     char pad04[0x1c - 4];
-    Owner *owner;
-    Finder *finder;
-    Vec3 savedPos;
+    Owner_117ab0 *owner;
+    Finder_117ab0 *finder;
+    Vec3_117ab0 savedPos;
     char pad30[0x3c - 0x30];
-    Vec3 target;
+    Vec3_117ab0 target;
     int index;
     char pad4c[0x58 - 0x4c];
     unsigned char savedFlag;
     char pad59[0x60 - 0x59];
-    Name name;
+    Name_117ab0 name;
 };
 
 bool MotionClosestWaypointAction::vfunc_3(int a, int b)
 {
-    Fighter *fighter = ((Finder2 *)finder->FUN_000592a0())->FUN_00059a30();
+    Fighter_117ab0 *fighter = ((Finder2 *)finder->FUN_000592a0())->FUN_00059a30();
     float best;
-    Vec3 *first;
-    Vec3 firstCopy;
-    Vec3 pos;
-    Vec3 unused;
+    Vec3_117ab0 *first;
+    Vec3_117ab0 firstCopy;
+    Vec3_117ab0 pos;
+    Vec3_117ab0 unused;
     WaypointList *list;
     int i;
     int count;
@@ -101,13 +101,13 @@ bool MotionClosestWaypointAction::vfunc_3(int a, int b)
     name.FUN_0027b040("waypoint_stuck");
     fighter->FUN_00036e70(&name, 0);
 
-    Registry *reg = DAT_004dd700->registry;
+    Registry_117ab0 *reg = DAT_004dd700->registry;
     list = reg->FUN_00106230(fighter->FUN_00036d30());
     if (list == 0) {
         if (fighter->selector == 0 || fighter->selector->FUN_000fdc40() == 0) {
             return false;
         }
-        Selector *sel = (Selector *)fighter->selector->FUN_000fdc40();
+        Selector_117ab0 *sel = (Selector_117ab0 *)fighter->selector->FUN_000fdc40();
         reg = DAT_004dd700->registry;
         list = reg->FUN_00106230(sel->FUN_001034d0());
         if (list == 0) {
@@ -126,7 +126,7 @@ bool MotionClosestWaypointAction::vfunc_3(int a, int b)
     }
     count = list->count;
     for (i = 1; i < count; i++) {
-        Vec3 *v = list->FUN_00106160(i);
+        Vec3_117ab0 *v = list->FUN_00106160(i);
         volatile float dx = v->x - pos.x;
         double dy = v->y - pos.y;
         double dz = v->z - pos.z;

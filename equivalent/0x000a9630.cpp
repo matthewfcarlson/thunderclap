@@ -9,45 +9,45 @@ extern const float DAT_004218ac;
 extern const float DAT_004218b8;
 extern const float DAT_004218bc;
 
-struct Sphere {
+struct Sphere_a9630 {
     float x, y, z, radius;
 };
-struct Effect {
+struct Effect_a9630 {
     void FUN_001c5130(float a, float b);
 };
-struct SubObj {
+struct SubObj_a9630 {
     char pad[0x11c];
-    Effect* effect;
+    Effect_a9630* effect;
 };
-struct Attach {
+struct Attach_a9630 {
     char pad[0x10];
-    Effect* effect;
+    Effect_a9630* effect;
 };
-struct Item {
+struct Item_a9630 {
     char pad[0x124];
-    Attach* attach;
-    bool FUN_000359e0(Sphere* out);
-    SubObj* FUN_00035ef0(int index);
+    Attach_a9630* attach;
+    bool FUN_000359e0(Sphere_a9630* out);
+    SubObj_a9630* FUN_00035ef0(int index);
 };
-struct List {
+struct List_a9630 {
     char pad[0xc];
     int count;
-    Item* FUN_00024190(int index);
-    bool FUN_00024300(Item* item);
-    bool FUN_000242d0(Item* item);
+    Item_a9630* FUN_00024190(int index);
+    bool FUN_00024300(Item_a9630* item);
+    bool FUN_000242d0(Item_a9630* item);
 };
-struct Holder {
+struct Holder_a9630 {
     char pad[0x20];
-    List* list;
+    List_a9630* list;
 };
-struct Vec3 {
+struct Vec3_a9630 {
     float x, y, z;
 };
 struct Camera {
     char pad[0x30];
-    Vec3 pos;
+    Vec3_a9630 pos;
 };
-class Manager {
+class Manager_a9630 {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -64,22 +64,22 @@ class Manager {
     virtual void vfunc_12();
     virtual void vfunc_13();
     virtual Camera* vfunc_14();
-    void FUN_000a9630(Holder* holder);
+    void FUN_000a9630(Holder_a9630* holder);
 };
-void Manager::FUN_000a9630(Holder* holder) {
+void Manager_a9630::FUN_000a9630(Holder_a9630* holder) {
     volatile unsigned int cookie = DAT_004d9968;
     int count = holder->list->count;
     for (int i = 0; i < count; i++) {
-        Item* item = holder->list->FUN_00024190(i);
+        Item_a9630* item = holder->list->FUN_00024190(i);
         if (!item)
             continue;
         if (holder->list->FUN_00024300(item))
             continue;
-        Sphere s;
+        Sphere_a9630 s;
         if (!item->FUN_000359e0(&s))
             continue;
         Camera* cam = vfunc_14();
-        Vec3 c = cam->pos;
+        Vec3_a9630 c = cam->pos;
         float dx = s.x - c.x;
         float dy = s.y - c.y;
         float dz = s.z - c.z;
@@ -95,7 +95,7 @@ void Manager::FUN_000a9630(Holder* holder) {
         if (item->attach && item->attach->effect)
             item->attach->effect->FUN_001c5130(a, b);
         for (int j = 0; j < 8; j++) {
-            SubObj* sub = item->FUN_00035ef0(j);
+            SubObj_a9630* sub = item->FUN_00035ef0(j);
             if (sub && sub->effect)
                 sub->effect->FUN_001c5130(a, b);
         }

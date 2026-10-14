@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001fd640 @ 0x001fd640
-struct Vec3 { float x,y,z; };
+struct Vec3_1fd640 { float x,y,z; };
 extern "C" double __cdecl sqrt(double);
-extern void __cdecl FUN_0022d3a0(void*, Vec3*, Vec3*, float, float*);
-void __cdecl FUN_001fd640(void* context, Vec3* start, Vec3* end, Vec3* output) {
+extern void __cdecl FUN_0022d3a0(void*, Vec3_1fd640*, Vec3_1fd640*, float, float*);
+void __cdecl FUN_001fd640(void* context, Vec3_1fd640* start, Vec3_1fd640* end, Vec3_1fd640* output) {
     double dx = (double)end->x - start->x;
     float dy = end->y - start->y;
     double dz = (double)end->z - start->z;
@@ -15,7 +15,7 @@ void __cdecl FUN_001fd640(void* context, Vec3* start, Vec3* end, Vec3* output) {
         return;
     }
     double inv = 1.0 / length;
-    Vec3 direction;
+    Vec3_1fd640 direction;
     direction.x = (float)(dx*inv);
     direction.y = (float)(dy*inv);
     direction.z = (float)(dz*inv);

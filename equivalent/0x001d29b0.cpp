@@ -12,7 +12,7 @@ void FUN_00213320(int h);
 void FUN_00213870(int h, int idx, int v);
 }
 
-class Runner {
+class Runner_1d29b0 {
 public:
     char pad0[8];
     int handle;
@@ -20,7 +20,7 @@ public:
     char FUN_001d29b0(int arg, char *failed);
 };
 
-char Runner::FUN_001d29b0(int arg, char *failed)
+char Runner_1d29b0::FUN_001d29b0(int arg, char *failed)
 {
     if (arg == 0) {
         *failed = 1;

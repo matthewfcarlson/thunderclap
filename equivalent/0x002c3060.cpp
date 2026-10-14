@@ -1,39 +1,39 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 24/24)
 // FUN_002c3060 @ 0x002c3060
 namespace pure3d { struct Geometry; }
-struct Ref {
+struct Ref_2c3060 {
  virtual void AddRef();
  virtual void Release();
  virtual void slot2();
  virtual void slot3();
- virtual Ref* Clone();
+ virtual Ref_2c3060* Clone();
  virtual void SetOwner(pure3d::Geometry*);
  void FUN_002a6930(pure3d::Geometry*);
 };
-struct Helper : Ref { Helper* FUN_002d1090(pure3d::Geometry*); };
+struct Helper_2c3060 : Ref_2c3060 { Helper_2c3060* FUN_002d1090(pure3d::Geometry*); };
 void* __cdecl FUN_0008d690(unsigned int);
-struct Base {
+struct Base_2c3060 {
  virtual void slot0();
  char padding[0x54];
- Base(pure3d::Geometry*);
+ Base_2c3060(pure3d::Geometry*);
 };
 namespace pure3d {
-struct Geometry : Base {
- Ref* resource;
- Helper* helper;
- Ref* first;
- Ref* second;
+struct Geometry : Base_2c3060 {
+ Ref_2c3060* resource;
+ Helper_2c3060* helper;
+ Ref_2c3060* first;
+ Ref_2c3060* second;
  virtual void slot0();
  Geometry(Geometry* source);
 };
-Geometry::Geometry(Geometry* source) : Base(source) {
+Geometry::Geometry(Geometry* source) : Base_2c3060(source) {
  resource=0; helper=0; first=0; second=0;
- Ref* r=source->resource;
+ Ref_2c3060* r=source->resource;
  if(r) r->AddRef();
  if(resource) resource->Release();
  resource=r;
  if(source->helper) {
-  Helper* h=(Helper*)FUN_0008d690(0x18);
+  Helper_2c3060* h=(Helper_2c3060*)FUN_0008d690(0x18);
   if(h) h=h->FUN_002d1090(this);
   helper=h;
   h->AddRef();

@@ -6,7 +6,7 @@ struct Node {
     Node *parent;
 };
 
-class Item {
+class Item_25fb00 {
 public:
     virtual void vfn0();
     virtual void vfn1();
@@ -31,14 +31,14 @@ void ItemTree::FUN_0025fb00(int arg)
     if (child)
         child->FUN_0025fb00(arg);
 
-    Item *item;
+    Item_25fb00 *item;
     if (root == &nil) {
         item = 0;
     } else {
         Node *n = root;
         while (n->left != &nil)
             n = n->left;
-        item = (Item *)((char *)n - 4);
+        item = (Item_25fb00 *)((char *)n - 4);
     }
 
     while (item) {
@@ -62,6 +62,6 @@ void ItemTree::FUN_0025fb00(int arg)
         if (next == &nil)
             item = 0;
         else
-            item = (Item *)((char *)next - 4);
+            item = (Item_25fb00 *)((char *)next - 4);
     }
 }

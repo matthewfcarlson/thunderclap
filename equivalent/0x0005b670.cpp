@@ -1,23 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // CGrappleSmartPropDropTrack::vfunc_12 @ 0x0005b670
 struct Settings;
-struct Slot {
+struct Slot_5b670 {
     char pad00[0x104];
     Settings* settings;
 };
-struct Fighter {
+struct Fighter_5b670 {
     char pad00[0x330];
-    Slot* primary;
-    Slot* secondary;
+    Slot_5b670* primary;
+    Slot_5b670* secondary;
 };
 struct Context {
-    Fighter* FUN_00059a30();
+    Fighter_5b670* FUN_00059a30();
 };
-struct Owner {
+struct Owner_5b670 {
     Context* FUN_000592a0();
 };
 class CGrappleSmartPropDropTrack;
-struct Created {
+struct Created_5b670 {
     void* FUN_0001f360(CGrappleSmartPropDropTrack* track, Settings* settings);
 };
 void* __cdecl FUN_0008d690(unsigned int size);
@@ -36,20 +36,20 @@ public:
     virtual void v9();
     virtual void v10();
     virtual void v11();
-    void* v12(Owner* owner);
+    void* v12(Owner_5b670* owner);
 };
 
-void* CGrappleSmartPropDropTrack::v12(Owner* owner)
+void* CGrappleSmartPropDropTrack::v12(Owner_5b670* owner)
 {
     if (owner == 0)
         return 0;
     Context* ctx = owner->FUN_000592a0();
     if (ctx == 0)
         return 0;
-    Fighter* fighter = ctx->FUN_00059a30();
+    Fighter_5b670* fighter = ctx->FUN_00059a30();
     if (fighter == 0)
         return 0;
-    Slot* slot = fighter->secondary;
+    Slot_5b670* slot = fighter->secondary;
     if (slot == 0)
         slot = fighter->primary;
     if (slot == 0)
@@ -57,7 +57,7 @@ void* CGrappleSmartPropDropTrack::v12(Owner* owner)
     Settings* settings = slot->settings;
     if (settings == 0)
         return 0;
-    Created* c = static_cast<Created*>(FUN_0008d690(0x24));
+    Created_5b670* c = static_cast<Created_5b670*>(FUN_0008d690(0x24));
     if (c == 0)
         return 0;
     return c->FUN_0001f360(this, settings);

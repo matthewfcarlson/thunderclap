@@ -12,7 +12,7 @@ extern uint DAT_0039dc90, DAT_0039dc94, DAT_0039dc98;
 extern uint DAT_0039de9c, DAT_0039dea0, DAT_0039dea4;
 extern uint DAT_004d4efc[];
 
-struct TextureState {
+struct TextureState_3331c0 {
     char pad0[0x18];
     uint coord0;
     uint coord1;
@@ -44,7 +44,7 @@ class d3dBumpMapVertexShader {
     virtual void vfunc_13();
     virtual void vfunc_14(int unused);
     char pad04[0x14 - 4 - 0];
-    TextureState* state;
+    TextureState_3331c0* state;
     char pad18[0x40 - 0x18];
     uint mode;
     uint value;

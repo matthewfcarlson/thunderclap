@@ -26,15 +26,15 @@ public:
     virtual void Release();
 };
 
-struct NameField {
+struct NameField_2bf680 {
     unsigned int keyLo;
     unsigned int keyHi;
     void FUN_0027b040(const char *name);
 };
 
-struct Glyph {
+struct Glyph_2bf680 {
     unsigned short a, b, c, d, e, f;
-    Glyph() : a(0), b(0), c(0), d(0), e(0), f(0) {}
+    Glyph_2bf680() : a(0), b(0), c(0), d(0), e(0), f(0) {}
 };
 
 namespace content {
@@ -54,17 +54,17 @@ public:
 };
 }
 
-struct Registry {
+struct Registry_2bf680 {
     content::ObjectLoader *FUN_00265310(int id);
 };
 
-extern Registry *DAT_00527c58;
+extern Registry_2bf680 *DAT_00527c58;
 
 class __declspec(novtable) ImageFontBase {
 public:
     virtual void v0();
     char pad04[4];
-    NameField name;
+    NameField_2bf680 name;
     void FUN_0027b070();
     ImageFontBase() { FUN_0027b070(); }
 };
@@ -81,7 +81,7 @@ public:
     Image *image;
     int f2c;
     unsigned int count;
-    Glyph *glyphs;
+    Glyph_2bf680 *glyphs;
     ImageFont() : f10(0), f14(0), f18(0), f1c(0), f20(0), f24(-1), image(0), f2c(0), count(0), glyphs(0) {}
     virtual void v1();
     virtual void v2();
@@ -181,13 +181,13 @@ int pure3d::ImageFontLoader::vfunc_5(ImageFont **out, unsigned __int64 *outKey, 
             r->stream->FUN_002647e0(&f.cnt, 1, 4, 1);
             unsigned int cnt = f.cnt;
             font->count = cnt;
-            Glyph *arr = 0;
+            Glyph_2bf680 *arr = 0;
             int *blk = (int *)FUN_0008d6d0(cnt * 12 + 4);
             if (blk) {
                 *blk = cnt;
-                arr = (Glyph *)(blk + 1);
+                arr = (Glyph_2bf680 *)(blk + 1);
                 for (int k = 0; k < (int)cnt; k++)
-                    new (&arr[k]) Glyph();
+                    new (&arr[k]) Glyph_2bf680();
             }
             font->glyphs = arr;
             for (unsigned int i = 0; i < font->count; i++) {

@@ -2,7 +2,7 @@
 // FUN_002821d0 @ 0x002821d0
 void *__cdecl FUN_00263ea0(unsigned int size);
 
-class Attr {
+class Attr_2821d0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -15,16 +15,16 @@ public:
     virtual void setColor(unsigned int tag, unsigned int value);
 };
 
-class Res {
+class Res_2821d0 {
 public:
     virtual void addRef();
     char pad04[0xc];
-    Attr *attr;              // 0x10
+    Attr_2821d0 *attr;              // 0x10
     char locked;             // 0x14
     char pad15[3];
     int mode;                // 0x18
     char pad1c[4];
-    Res *FUN_0028edf0(const char *name, int flags);
+    Res_2821d0 *FUN_0028edf0(const char *name, int flags);
 };
 
 namespace pure3d {
@@ -40,7 +40,7 @@ public:
 
 class CLightQueue : public QueueBase {
 public:
-    Res *res;                // 0x14
+    Res_2821d0 *res;                // 0x14
     int f18;
     int f1c;
     int f20;
@@ -61,13 +61,13 @@ CLightQueue::CLightQueue()
     f20 = 0;
     f54 = 0;
     void *mem = FUN_00263ea0(0x20);
-    Res *r = 0;
+    Res_2821d0 *r = 0;
     if (mem)
-        r = static_cast<Res *>(mem)->FUN_0028edf0("simple", 0);
+        r = static_cast<Res_2821d0 *>(mem)->FUN_0028edf0("simple", 0);
     res = r;
     res->addRef();
 
-    Res *e = res;
+    Res_2821d0 *e = res;
     e->attr->setInt(0x54494c, 1);
     e->locked = 1;
     res->attr->setInt(0x44495332, 0);

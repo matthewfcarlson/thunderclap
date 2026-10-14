@@ -6,13 +6,13 @@ public:
     void FUN_000fa0a0();
 };
 
-class Args {
+class Args_f4e90 {
 public:
     virtual void v0();
     virtual int GetType();
 };
 
-class Target {
+class Target_f4e90 {
 public:
     virtual void v0();
     virtual void v1();
@@ -73,9 +73,9 @@ public:
     public:
         virtual void vfunc_0(int a, int b);
         FEThingsBase *mObj;
-        void (FEThingsBase::*mFn)(Param *, int, Target *, Args *);
+        void (FEThingsBase::*mFn)(Param *, int, Target_f4e90 *, Args_f4e90 *);
         int mC;
-        Target *mD;
+        Target_f4e90 *mD;
     };
 
     virtual void v0();
@@ -112,18 +112,18 @@ public:
     virtual void v31();
     virtual void v32();
     virtual void v33();
-    virtual char v34(Param *p, Args *a, ParseFunctor *f);
+    virtual char v34(Param *p, Args_f4e90 *a, ParseFunctor *f);
     virtual void v35();
     virtual void v36();
-    virtual char v37(Param *p, Target *t, Args *a);
+    virtual char v37(Param *p, Target_f4e90 *t, Args_f4e90 *a);
     char pad[0x2210 - 4];
-    char (*callback)(int ctx, FEThingsBase *self, int zero, Param *p, Args *a);
+    char (*callback)(int ctx, FEThingsBase *self, int zero, Param *p, Args_f4e90 *a);
     int callbackCtx;
 
-    void FUN_000f4e90(Param *p, int unused, Target *t, Args *a);
+    void FUN_000f4e90(Param *p, int unused, Target_f4e90 *t, Args_f4e90 *a);
 };
 
-void FEThingsBase::FUN_000f4e90(Param *p, int unused, Target *t, Args *a)
+void FEThingsBase::FUN_000f4e90(Param *p, int unused, Target_f4e90 *t, Args_f4e90 *a)
 {
     switch (a->GetType()) {
     case 0xf98f68f8:

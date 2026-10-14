@@ -1,20 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0006a3a0 @ 0x0006a3a0
-struct Name {
+struct Name_6a3a0 {
     unsigned int a, b;
     void FUN_0027af00();
 };
 
-class __declspec(novtable) TrackBase {
+class __declspec(novtable) TrackBase_6a3a0 {
 public:
     virtual void b0();
     int pad04;
     int mode;
     void FUN_00236d40();
-    TrackBase() { FUN_00236d40(); }
+    TrackBase_6a3a0() { FUN_00236d40(); }
 };
 
-class CCameraDramaticTrack : public TrackBase {
+class CCameraDramaticTrack : public TrackBase_6a3a0 {
 public:
     virtual void v1();
     virtual void v2();
@@ -22,7 +22,7 @@ public:
     int f0c;
     float f10;
     int f14, f18, f1c;
-    Name names[8];
+    Name_6a3a0 names[8];
     float weights[8];
     float scale;
     char flag;

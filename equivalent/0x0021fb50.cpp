@@ -5,15 +5,15 @@ struct Zio;
 struct Buffer;
 struct Str;
 
-struct LocVar {
+struct LocVar_21fb50 {
     Str *name;
     int startpc;
     int endpc;
 };
 
-struct Proto {
+struct Proto_21fb50 {
     char pad0[0x18];
-    LocVar *locvars;
+    LocVar_21fb50 *locvars;
     char pad1[0x38 - 0x1c];
     int nlocvars;
 };
@@ -33,7 +33,7 @@ char *FUN_0021a6b0(State *L, Buffer *buf, unsigned int n);
 int FUN_0021a610(Zio *z, char *dst, unsigned int n);
 Str *FUN_00219430(State *L, const char *s, unsigned int len);
 
-struct Frame {
+struct Frame_21fb50 {
     int w;
     int count;
     unsigned int size;
@@ -43,15 +43,15 @@ struct Frame {
 };
 
 // equiv-conv: FUN_0021fb50 eax stack
-void FUN_0021fb50(Reader *r, Proto *p)
+void FUN_0021fb50(Reader *r, Proto_21fb50 *p)
 {
-    Frame f;
+    Frame_21fb50 f;
     FUN_0021f8c0(4, &f.v, r);
     if (f.v < 0) {
         FUN_0021f800("bad integer", r);
     }
     int n = f.v;
-    p->locvars = (LocVar *)FUN_0021add0(r->L, 0, 0, n * 12);
+    p->locvars = (LocVar_21fb50 *)FUN_0021add0(r->L, 0, 0, n * 12);
     p->nlocvars = n;
     int i;
     for (i = 0; i < n; i++)

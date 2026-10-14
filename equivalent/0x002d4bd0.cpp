@@ -2,7 +2,7 @@
 // pure3d::ParticleEmitter::vfunc_19 @ 0x002d4bd0
 extern "C" double floor(double x);
 
-class Child {
+class Child_2d4bd0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -40,7 +40,7 @@ public:
     virtual void s18();
     virtual void vfunc_19(float t);
     char pad04[0x88 - 0x04];
-    Child* child;
+    Child_2d4bd0* child;
     char pad8c[0x94 - 0x8c];
     unsigned int frameCount;
     int frame;

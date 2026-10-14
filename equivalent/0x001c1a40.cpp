@@ -22,7 +22,7 @@ class GameDrawableInfo {
 };
 }
 
-class Base {
+class Base_1c1a40 {
   public:
     virtual void v0();
     virtual void v1();
@@ -35,25 +35,25 @@ class Base {
     virtual void v8();
     virtual void v9(float x);
 };
-struct Child : public Base {
+struct Child_1c1a40 : public Base_1c1a40 {
 };
-struct Owner : public Base {
-    Owner* FUN_0029bea0(int a, int b);
-    void FUN_0029b690(Base* child);
+struct Owner_1c1a40 : public Base_1c1a40 {
+    Owner_1c1a40* FUN_0029bea0(int a, int b);
+    void FUN_0029b690(Base_1c1a40* child);
 };
-struct Root : public Base {
+struct Root_1c1a40 : public Base_1c1a40 {
     char pad[0x2c - 4];
     int field2c;
-    Root* FUN_00294880();
-    void FUN_00294980(Base* other);
+    Root_1c1a40* FUN_00294880();
+    void FUN_00294980(Base_1c1a40* other);
 };
-struct ObjA : public Base { char pad[0x1c - 4]; char flag; ObjA* FUN_002a2d50(int n); };
-struct ObjB : public Base { ObjB* FUN_002a2130(int n); };
-struct ObjC : public Base { ObjC* FUN_002a16c0(int n, int m); };
-struct ObjD : public Base { ObjD* FUN_0029f600(int a, int b); void FUN_0029f800(Base* o); };
-struct ObjE : public Base { ObjE* FUN_002a1140(int n); };
-struct ObjF : public Base { ObjF* FUN_002a1230(); void FUN_002a07a0(unsigned int color); };
-struct ObjG : public Base { ObjG* FUN_00292d70(); };
+struct ObjA_1c1a40 : public Base_1c1a40 { char pad[0x1c - 4]; char flag; ObjA_1c1a40* FUN_002a2d50(int n); };
+struct ObjB_1c1a40 : public Base_1c1a40 { ObjB_1c1a40* FUN_002a2130(int n); };
+struct ObjC_1c1a40 : public Base_1c1a40 { ObjC_1c1a40* FUN_002a16c0(int n, int m); };
+struct ObjD : public Base_1c1a40 { ObjD* FUN_0029f600(int a, int b); void FUN_0029f800(Base_1c1a40* o); };
+struct ObjE : public Base_1c1a40 { ObjE* FUN_002a1140(int n); };
+struct ObjF : public Base_1c1a40 { ObjF* FUN_002a1230(); void FUN_002a07a0(unsigned int color); };
+struct ObjG : public Base_1c1a40 { ObjG* FUN_00292d70(); };
 
 extern int DAT_0042d5f8;
 extern int DAT_0042d5fc;
@@ -61,7 +61,7 @@ extern pure3d::GameDrawableInfo* DAT_004e2314;
 extern pure3d::pddiExtFramebufferEffects* DAT_004e2318;
 void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 
-class Display {
+class Display_1c1a40 {
   public:
     virtual void v0();
 };
@@ -160,25 +160,25 @@ class DisplayHolder {
 };
 extern DisplayHolder* DAT_0052c2a8;
 
-struct Plane { float a, b, c, d; };
+struct Plane_1c1a40 { float a, b, c, d; };
 
-class SubObj {
+class SubObj_1c1a40 {
   public:
     char pad0[4];
-    Plane planes[6];
+    Plane_1c1a40 planes[6];
     char pad70[0xac - 0x64];
     void FUN_001c2760();
     void FUN_001c2770(int a, int b);
 };
 
-class Hud {
+class Hud_1c1a40 {
   public:
     int field0;
-    Root* root;
+    Root_1c1a40* root;
     ObjG* objG;
-    SubObj sub;
+    SubObj_1c1a40 sub;
     int fieldb8;
-    Owner* owner;
+    Owner_1c1a40* owner;
     ObjD* objc0;
     ObjD* objc4;
     ObjE* objc8;
@@ -194,12 +194,12 @@ class Hud {
     float fe4;
     float fe8;
     unsigned int colorec;
-    ObjC* objf0;
+    ObjC_1c1a40* objf0;
     int ff4[6];
-    Hud* FUN_001c1a40();
+    Hud_1c1a40* FUN_001c1a40();
 };
 
-Hud* Hud::FUN_001c1a40() {
+Hud_1c1a40* Hud_1c1a40::FUN_001c1a40() {
     field0 = 0;
     sub.FUN_001c2760();
     fieldb8 = 0;
@@ -223,29 +223,29 @@ Hud* Hud::FUN_001c1a40() {
         ff4[i] = 0;
 
     void* mem = thunk_FUN_0008d690(0x38);
-    Owner* o = 0;
+    Owner_1c1a40* o = 0;
     if (mem)
-        o = ((Owner*)mem)->FUN_0029bea0(3, 0x400);
+        o = ((Owner_1c1a40*)mem)->FUN_0029bea0(3, 0x400);
     owner = o;
     o->v0();
 
     mem = FUN_0008d690(0x38);
-    ObjA* a = 0;
+    ObjA_1c1a40* a = 0;
     if (mem)
-        a = ((ObjA*)mem)->FUN_002a2d50(0x400);
+        a = ((ObjA_1c1a40*)mem)->FUN_002a2d50(0x400);
     owner->FUN_0029b690(a);
     a->flag = 1;
 
     mem = FUN_0008d690(0x34);
-    ObjB* b = 0;
+    ObjB_1c1a40* b = 0;
     if (mem)
-        b = ((ObjB*)mem)->FUN_002a2130(0x400);
+        b = ((ObjB_1c1a40*)mem)->FUN_002a2130(0x400);
     owner->FUN_0029b690(b);
 
     mem = FUN_0008d690(0x48);
-    ObjC* c = 0;
+    ObjC_1c1a40* c = 0;
     if (mem)
-        c = ((ObjC*)mem)->FUN_002a16c0(0x100, DAT_0042d5fc);
+        c = ((ObjC_1c1a40*)mem)->FUN_002a16c0(0x100, DAT_0042d5fc);
     objf0 = c;
     owner->FUN_0029b690(c);
 
@@ -289,9 +289,9 @@ Hud* Hud::FUN_001c1a40() {
     f->v1();
 
     mem = FUN_0008d690(0x140);
-    Root* r = 0;
+    Root_1c1a40* r = 0;
     if (mem)
-        r = ((Root*)mem)->FUN_00294880();
+        r = ((Root_1c1a40*)mem)->FUN_00294880();
     root = r;
     r->v0();
 

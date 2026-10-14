@@ -1,23 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 16/16)
 // FUN_0030a270 @ 0x0030a270
 extern "C" double sqrt(double);
-union FloatBits {
+union FloatBits_30a270 {
     float f;
     int i;
 };
 
-struct Vec3 {
+struct Vec3_30a270 {
     float x, y, z;
 };
 
-struct Row {
+struct Row_30a270 {
     char pad00[0x18];
     float limit;
 };
 
 struct Mgr220 {
     char pad00[0x10];
-    Row *rows;
+    Row_30a270 *rows;
 };
 
 class Node;
@@ -50,31 +50,31 @@ public:
     virtual void vfunc_13();
     virtual void vfunc_14();
     virtual void vfunc_15();
-    virtual void vfunc_16(Vec3 *in, Vec3 *out);
+    virtual void vfunc_16(Vec3_30a270 *in, Vec3_30a270 *out);
     char pad04[8 - 4];
     int index;
     char pad0c[0x18 - 0xc];
     Context *ctx;
     Node *parent;
     char pad20[0xd4 - 0x20];
-    Vec3 origin;
+    Vec3_30a270 origin;
     char pade0[0xe4 - 0xe0];
     float radius;
     float weight;
     char flagEC;
     char flagED;
     char flagEE;
-    int FUN_0030a270(Vec3 *pos, Vec3 *dir);
+    int FUN_0030a270(Vec3_30a270 *pos, Vec3_30a270 *dir);
 };
 
-int Node::FUN_0030a270(Vec3 *pos, Vec3 *dir)
+int Node::FUN_0030a270(Vec3_30a270 *pos, Vec3_30a270 *dir)
 {
     weight = 0.0f;
     flagEE = 0;
     flagEC = 0;
     if (this != ctx->active) {
         if (radius > 0.0f) {
-            Vec3 d;
+            Vec3_30a270 d;
             d.x = pos->x - origin.x;
             d.y = pos->y - origin.y;
             d.z = pos->z - origin.z;
@@ -88,7 +88,7 @@ int Node::FUN_0030a270(Vec3 *pos, Vec3 *dir)
                     weight = 1.0f;
                 } else {
                     float dot = d.z * dir->z + d.y * dir->y + d.x * dir->x;
-                    FloatBits u;
+                    FloatBits_30a270 u;
                     u.f = dot;
                     u.i &= 0x7fffffff;
                     if (u.f >= DAT_004d317c)

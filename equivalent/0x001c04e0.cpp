@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 22/24, incomplete)
 // FUN_001c04e0 @ 0x001c04e0
-struct Listener {
+struct Listener_1c04e0 {
     virtual void vf0();
     virtual void vf1();
     virtual void vf2();
@@ -9,15 +9,15 @@ struct Listener {
 struct StateHolder {
     int* FUN_00086270();
 };
-struct Clock {
+struct Clock_1c04e0 {
     float FUN_00085f80();
 };
 struct ClockOwner {
     char pad[0x58];
-    Clock* clock;
+    Clock_1c04e0* clock;
 };
 extern ClockOwner* DAT_004dd700;
-struct Fader {
+struct Fader_1c04e0 {
     float timer;
     int pending;
     char pad0[4];
@@ -26,14 +26,14 @@ struct Fader {
     char pad2[0x20 - 0x0e];
     int mode;
     char pad3[0x2c - 0x24];
-    Listener* listener;
+    Listener_1c04e0* listener;
     char pad4[0x4c - 0x30];
     StateHolder* state;
     int alpha;
     void FUN_001bf9b0();
     void Update(float dt);
 };
-void Fader::Update(float dt) {
+void Fader_1c04e0::Update(float dt) {
     if (!active)
         return;
     if (*state->FUN_00086270() != 6) {

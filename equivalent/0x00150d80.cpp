@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 178 inputs, branch coverage 33/40, incomplete)
 // hulkfight::motion::CollisionDamageHealthCompareCondition::vfunc_6 @ 0x00150d80
-struct Member;
+struct Member_150d80;
 
 namespace fight {
 class Params {
@@ -8,7 +8,7 @@ public:
     virtual void vfunc_0();
     virtual Params *vfunc_1();
     virtual Params *vfunc_2();
-    virtual Member *vfunc_3();
+    virtual Member_150d80 *vfunc_3();
 };
 }
 
@@ -18,7 +18,7 @@ public:
     virtual void vfunc_5();
 };
 
-struct Member {
+struct Member_150d80 {
     char pad0[0x78];
     float value;
 };
@@ -27,14 +27,14 @@ struct Context {
     char pad[4];
 };
 
-struct Actor {
+struct Actor_150d80 {
     char pad0[0x1b0c];
     float maxValue;
     float scale;
 };
 
 Context *__fastcall FUN_000592a0(void *obj);
-Actor *__fastcall FUN_00059a30(Context *ctx);
+Actor_150d80 *__fastcall FUN_00059a30(Context *ctx);
 bool __cdecl FUN_00018960(float a, float b, float eps);
 
 namespace hulkfight {
@@ -60,10 +60,10 @@ bool CollisionDamageHealthCompareCondition::vfunc_6(int arg0, fight::Params *par
 {
     if (dynamic_cast<CFightParams *>(params) == 0)
         return false;
-    Member *m = params->vfunc_3();
+    Member_150d80 *m = params->vfunc_3();
     if (m == 0)
         return false;
-    Actor *actor = FUN_00059a30(FUN_000592a0(params));
+    Actor_150d80 *actor = FUN_00059a30(FUN_000592a0(params));
     float value = m->value;
     float limit = threshold;
 

@@ -5,7 +5,7 @@ int __stdcall D3DDevice_CreateTexture2(unsigned long w, unsigned long h, unsigne
 int __stdcall D3DDevice_CreatePalette2(unsigned long size);
 void __stdcall Get2DSurfaceDesc(int tex, unsigned long level, void* desc);
 }
-struct SurfaceDesc {
+struct SurfaceDesc_326330 {
     unsigned long format;
     unsigned long type;
     unsigned long usage;
@@ -103,7 +103,7 @@ public:
     virtual int GetMaxTextureSize();
 };
 void __cdecl FUN_0031c230(unsigned long code);
-void __cdecl FUN_0031c570(SurfaceDesc* desc, int a, void* out, int b);
+void __cdecl FUN_0031c570(SurfaceDesc_326330* desc, int a, void* out, int b);
 void __cdecl FUN_0031e1f0(int tex, int bytes);
 // equiv-conv: FUN_00325fb0 edx
 int __cdecl FUN_00325fb0(int field);
@@ -208,7 +208,7 @@ bool TextureResource::Create(int w, int h, int a2, int a3, int mips, int fmt, in
     FUN_0031c230(texture != 0 ? 0 : 0x8007000e);
     if (mapped == 11)
         palette = D3D8::D3DDevice_CreatePalette2(0);
-    SurfaceDesc desc;
+    SurfaceDesc_326330 desc;
     D3D8::Get2DSurfaceDesc(texture, 0, &desc);
     FUN_0031c230(0);
     SetDirty(field0f0);

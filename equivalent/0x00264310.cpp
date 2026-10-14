@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00264310 @ 0x00264310
-struct Sink {
+struct Sink_264310 {
     virtual void vfn0();
     virtual void vfn1();
     virtual void vfn2();
@@ -29,12 +29,12 @@ struct Sink {
 
 extern char DAT_004e7c28[0x40000];
 
-void __cdecl thunk_FUN_002710d0(Sink **out, const char *name, int a, int b, int c, int d, int e, int f);
+void __cdecl thunk_FUN_002710d0(Sink_264310 **out, const char *name, int a, int b, int c, int d, int e, int f);
 
 class Stream {
 public:
     char pad0[8];
-    Sink *sink;              // 0x8
+    Sink_264310 *sink;              // 0x8
     char open;               // 0xc
     char pad1;
     char buffered;           // 0xe

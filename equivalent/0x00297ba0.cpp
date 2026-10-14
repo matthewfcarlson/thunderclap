@@ -3,7 +3,7 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 void *thunk_FUN_0008d690(unsigned int size);
 
-struct Name {
+struct Name_297ba0 {
     char data[8];
     void FUN_0027b040(const char *s);
 };
@@ -44,28 +44,28 @@ public:
     virtual void v17();
     virtual void AddChild(Node *child);
     char pad04[4];
-    Name name;
+    Name_297ba0 name;
 };
 
-class NodeA : public Node {
+class NodeA_297ba0 : public Node {
 public:
     char pad[0x28 - 0x10];
-    NodeA *FUN_002972e0(int v);
+    NodeA_297ba0 *FUN_002972e0(int v);
 };
 
-class NodeB : public Node {
+class NodeB_297ba0 : public Node {
 public:
     char pad[0xb0 - 0x10];
-    NodeB *FUN_00297460(int v);
+    NodeB_297ba0 *FUN_00297460(int v);
     int FUN_001a4990();
 };
 
-class NodeC : public Node {
+class NodeC_297ba0 : public Node {
 public:
     char pad[0x28 - 0x10];
     bool flag28;
     char pad29[0x30 - 0x29];
-    NodeC *FUN_00297560(int v);
+    NodeC_297ba0 *FUN_00297560(int v);
 };
 
 namespace pure3d {
@@ -80,35 +80,35 @@ public:
 };
 }
 
-struct Holder {
+struct Holder_297ba0 {
     char pad00[0x18];
     void *child18;
-    Holder *FUN_00295fd0();
+    Holder_297ba0 *FUN_00295fd0();
     char pad1c[4];
     char name8[0];
     void FUN_00296b80(pure3d::DrawableHierarchy *h);
 };
 
-struct HolderName {
+struct HolderName_297ba0 {
     char pad[8];
-    Name name;
+    Name_297ba0 name;
 };
 
 pure3d::DrawableHierarchy *FUN_000c0de0(void *ctx, char *name);
 
-struct Frame {
+struct Frame_297ba0 {
     int x;
     char name[0x100];
 };
 
-class SceneLoader {
+class SceneLoader_297ba0 {
 public:
     Node *FUN_00297ba0(Stream *s, void *ctx);
 };
 
-Node *SceneLoader::FUN_00297ba0(Stream *s, void *ctx)
+Node *SceneLoader_297ba0::FUN_00297ba0(Stream *s, void *ctx)
 {
-    Frame f;
+    Frame_297ba0 f;
     Node *node = 0;
     int id = s->FUN_00266c30();
 
@@ -123,9 +123,9 @@ Node *SceneLoader::FUN_00297ba0(Stream *s, void *ctx)
         s->FUN_000f9600(f.name);
         s->reader->FUN_002647e0(&f.x, 1, 4, 1);
         void *mem = thunk_FUN_0008d690(0x28);
-        NodeA *a = 0;
+        NodeA_297ba0 *a = 0;
         if (mem)
-            a = ((NodeA *)mem)->FUN_002972e0(f.x);
+            a = ((NodeA_297ba0 *)mem)->FUN_002972e0(f.x);
         a->name.FUN_0027b040(f.name);
         node = a;
         break;
@@ -134,9 +134,9 @@ Node *SceneLoader::FUN_00297ba0(Stream *s, void *ctx)
         s->FUN_000f9600(f.name);
         s->reader->FUN_002647e0(&f.x, 1, 4, 1);
         void *mem = thunk_FUN_0008d690(0xb0);
-        NodeB *b = 0;
+        NodeB_297ba0 *b = 0;
         if (mem)
-            b = ((NodeB *)mem)->FUN_00297460(f.x);
+            b = ((NodeB_297ba0 *)mem)->FUN_00297460(f.x);
         b->name.FUN_0027b040(f.name);
         s->reader->FUN_002647e0((void *)b->FUN_001a4990(), 0x10, 4, 1);
         node = b;
@@ -146,9 +146,9 @@ Node *SceneLoader::FUN_00297ba0(Stream *s, void *ctx)
         s->FUN_000f9600(f.name);
         s->reader->FUN_002647e0(&f.x, 1, 4, 1);
         void *mem = thunk_FUN_0008d690(0x30);
-        NodeC *c = 0;
+        NodeC_297ba0 *c = 0;
         if (mem)
-            c = ((NodeC *)mem)->FUN_00297560(f.x);
+            c = ((NodeC_297ba0 *)mem)->FUN_00297560(f.x);
         c->name.FUN_0027b040(f.name);
         s->reader->FUN_002647e0(&f.x, 1, 4, 1);
         c->flag28 = (f.x != 0);
@@ -157,11 +157,11 @@ Node *SceneLoader::FUN_00297ba0(Stream *s, void *ctx)
     }
     case 6: {
         void *mem = thunk_FUN_0008d690(0x20);
-        Holder *h = 0;
+        Holder_297ba0 *h = 0;
         if (mem)
-            h = ((Holder *)mem)->FUN_00295fd0();
+            h = ((Holder_297ba0 *)mem)->FUN_00295fd0();
         s->FUN_000f9600(f.name);
-        ((HolderName *)h)->name.FUN_0027b040(f.name);
+        ((HolderName_297ba0 *)h)->name.FUN_0027b040(f.name);
         s->FUN_000f9600(f.name);
         pure3d::DrawableHierarchy *dh = FUN_000c0de0(ctx, f.name);
         h->FUN_00296b80(dh);

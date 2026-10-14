@@ -10,9 +10,9 @@ extern int DAT_0048f590;
 extern void FUN_001a1f00();
 extern void FUN_001a1f10();
 extern void* __cdecl FUN_0008d690(unsigned int);
-struct Base { virtual void slot0(); void FUN_00234cc0(const char*); };
+struct Base_1a6ff0 { virtual void slot0(); void FUN_00234cc0(const char*); };
 namespace hulkfight { namespace scenario { class Event_LocomotionStateNamePreviousCondition; } }
-namespace fight { template<class T> struct ParamEnumConstList : Base {
+namespace fight { template<class T> struct ParamEnumConstList : Base_1a6ff0 {
  virtual void slot0();
  char pad[12];
  int* entries;

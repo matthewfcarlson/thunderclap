@@ -1,58 +1,58 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 138/142, incomplete)
 // FUN_00084c40 @ 0x00084c40
-struct V3 {
+struct V3_84c40 {
     float x, y, z;
     float FUN_0022d110();
     void FUN_0022d180();
     float FUN_000111f0();
-    V3 *FUN_00011250(V3 *out, V3 *other);
-    void FUN_000110d0(V3 *other);
-    void FUN_000110f0(V3 *other);
-    void FUN_00083be0(V3 *a, V3 *b);
-    void FUN_00083ba0(V3 *a);
+    V3_84c40 *FUN_00011250(V3_84c40 *out, V3_84c40 *other);
+    void FUN_000110d0(V3_84c40 *other);
+    void FUN_000110f0(V3_84c40 *other);
+    void FUN_00083be0(V3_84c40 *a, V3_84c40 *b);
+    void FUN_00083ba0(V3_84c40 *a);
 };
 
 struct Matrix {
     float m[16];
-    void FUN_0022c3b0(V3 *in, V3 *out);
+    void FUN_0022c3b0(V3_84c40 *in, V3_84c40 *out);
 };
 
-struct NameHolder {
+struct NameHolder_84c40 {
     char pad[8];
     void FUN_0027af00();
     void FUN_0027af50();
 };
 
-struct Args {
+struct Args_84c40 {
     float x, y, z, dt;
 };
 
-struct Rng {
+struct Rng_84c40 {
     int s0, s1;
     float FUN_000787e0(float lo, float hi);
     unsigned int FUN_00011330(unsigned int n);
 };
 
-struct Probe {
+struct Probe_84c40 {
     bool FUN_00092940(int id);
 };
 
-struct Holder {
-    Probe *FUN_00086340();
+struct Holder_84c40 {
+    Probe_84c40 *FUN_00086340();
 };
 
-struct Volume {
+struct Volume_84c40 {
     bool FUN_001c4010(float *v4);
 };
 
 struct CamSub {
-    bool FUN_00059a50(V3 *out);
+    bool FUN_00059a50(V3_84c40 *out);
 };
 
 struct Camera {
     char pad00[0x10];
     CamSub *sub;
-    void FUN_00035660(V3 *out);
+    void FUN_00035660(V3_84c40 *out);
 };
 
 struct CamOwner {
@@ -60,76 +60,76 @@ struct CamOwner {
     Camera *camera;
 };
 
-struct Registry {
+struct Registry_84c40 {
     void FUN_001dd520(int key, Matrix *out);
-    bool FUN_001dd930(int key, NameHolder *name);
+    bool FUN_001dd930(int key, NameHolder_84c40 *name);
     int FUN_001dc0d0(int key);
     bool FUN_001dd800(int key);
 };
 
-struct Mover;
+struct Mover_84c40;
 
-struct Controller {
-    void FUN_001ebe10(Mover *who, NameHolder *name, const char *effect);
+struct Controller_84c40 {
+    void FUN_001ebe10(Mover_84c40 *who, NameHolder_84c40 *name, const char *effect);
 };
 
-struct Manager {
+struct Manager_84c40 {
     void FUN_0007da40(void *p);
 };
 
-struct Globals {
+struct Globals_84c40 {
     char pad00[0x0c];
-    Registry *registry;     // 0x0c
+    Registry_84c40 *registry;     // 0x0c
     char pad10[0x20 - 0x10];
     CamOwner *camOwner;     // 0x20
     char pad24[0x34 - 0x24];
-    Controller *controller; // 0x34
+    Controller_84c40 *controller; // 0x34
     char pad38[0x4c - 0x38];
-    Manager *manager;       // 0x4c
+    Manager_84c40 *manager;       // 0x4c
     char pad50[4];
-    Holder *holder;         // 0x54
+    Holder_84c40 *holder;         // 0x54
 };
 
-extern Globals *DAT_004dd700;
+extern Globals_84c40 *DAT_004dd700;
 extern float DAT_003ff9ac;
 extern float DAT_003ff9b0;
 extern float DAT_0049bf80;
 extern float DAT_0049bf88;
 
-Rng *FUN_000964d0();
-Volume *FUN_001c3d90();
+Rng_84c40 *FUN_000964d0();
+Volume_84c40 *FUN_001c3d90();
 float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
 bool __cdecl FUN_00018960(float a, float b, float c);
-V3 *__cdecl FUN_00083dd0(V3 *out, float s, V3 *v);
+V3_84c40 *__cdecl FUN_00083dd0(V3_84c40 *out, float s, V3_84c40 *v);
 float __cdecl FUN_00083d90(float *v);
-void __cdecl FUN_00224d70(float angle, V3 *v);
-float __cdecl FUN_00224f10(V3 *v);
+void __cdecl FUN_00224d70(float angle, V3_84c40 *v);
+float __cdecl FUN_00224f10(V3_84c40 *v);
 float __cdecl FUN_00224fc0(float a, float b);
 
-union FloatBits {
+union FloatBits_84c40 {
     float f;
     unsigned int u;
 };
 
-struct Frame {
+struct Frame_84c40 {
     char pad0[3];
     char b13;                       // 0x13
-    union { Rng *rng; float lo; float t; unsigned int u; int i; } s14;
+    union { Rng_84c40 *rng; float lo; float t; unsigned int u; int i; } s14;
     union { float dy; unsigned int dyu; float B; } s18;
-    V3 tmp;                         // 0x1c
-    union { Controller *ctrl; float lo2; float t28; } s28;
-    V3 dir;                         // 0x2c
-    union { Registry *reg; float A; } s38;
-    V3 d;                           // 0x3c
-    union { float len; NameHolder name; } s48;
-    V3 hdir;                        // 0x50
-    V3 fwd;                         // 0x5c
-    V3 camPos;                      // 0x68
+    V3_84c40 tmp;                         // 0x1c
+    union { Controller_84c40 *ctrl; float lo2; float t28; } s28;
+    V3_84c40 dir;                         // 0x2c
+    union { Registry_84c40 *reg; float A; } s38;
+    V3_84c40 d;                           // 0x3c
+    union { float len; NameHolder_84c40 name; } s48;
+    V3_84c40 hdir;                        // 0x50
+    V3_84c40 fwd;                         // 0x5c
+    V3_84c40 camPos;                      // 0x68
     float vol[4];                   // 0x74
     Matrix m;                       // 0x84
 };
 
-class Mover {
+class Mover_84c40 {
 public:
     char pad00[0x10];
     int state;              // 0x10
@@ -147,33 +147,33 @@ public:
     int key;                // 0x34
     char pad38[8];
     int f40;
-    V3 f44;
-    V3 f50;
+    V3_84c40 f44;
+    V3_84c40 f50;
     char pad5c[4];
-    V3 pos;                 // 0x60
-    V3 f6c;
-    V3 f78;
-    V3 f84;
+    V3_84c40 pos;                 // 0x60
+    V3_84c40 f6c;
+    V3_84c40 f78;
+    V3_84c40 f84;
     char pad90[0x9c - 0x90];
-    V3 f9c;
-    V3 fa8;
+    V3_84c40 f9c;
+    V3_84c40 fa8;
     float fb4;
     float fb8;
     float fbc;
     float fc0;
 
-    bool FUN_000843c0(V3 dir, float dt);
-    void FUN_00083e60(V3 d1, V3 d2, V3 p);
+    bool FUN_000843c0(V3_84c40 dir, float dt);
+    void FUN_00083e60(V3_84c40 d1, V3_84c40 d2, V3_84c40 p);
     void FUN_00084610(float dt);
     void FUN_00084830(float dt);
     void FUN_00084c40(float dt);
 };
 
-void Mover::FUN_00084c40(float dt)
+void Mover_84c40::FUN_00084c40(float dt)
 {
-    Frame fr;
-    Globals *g = DAT_004dd700;
-    Probe *probe = g->holder->FUN_00086340();
+    Frame_84c40 fr;
+    Globals_84c40 *g = DAT_004dd700;
+    Probe_84c40 *probe = g->holder->FUN_00086340();
     fr.b13 = probe->FUN_00092940(0x25);
     fr.s38.reg = DAT_004dd700->registry;
     fr.s28.ctrl = DAT_004dd700->controller;
@@ -219,7 +219,7 @@ void Mover::FUN_00084c40(float dt)
                 f78.FUN_00083be0(&fr.d, &fr.dir);
                 f78.FUN_00083ba0(&fr.dir);
                 f78.FUN_0022d180();
-                V3 &p = fr.fwd;
+                V3_84c40 &p = fr.fwd;
                 fr.s18.dy = f28;
                 fr.tmp.x = (fr.dir.x + f78.x) * fr.s18.dy;
                 p.z = fr.dir.z + f78.z;
@@ -369,7 +369,7 @@ void Mover::FUN_00084c40(float dt)
         break;
     }
     case 5: {
-        V3 *r = f9c.FUN_00011250(&fr.tmp, &pos);
+        V3_84c40 *r = f9c.FUN_00011250(&fr.tmp, &pos);
         fr.s14.t = dt * f18;
         if (fr.tmp.FUN_000111f0() <= fr.s14.t * fr.s14.t) {
             state = 7;
@@ -385,7 +385,7 @@ void Mover::FUN_00084c40(float dt)
         break;
     }
     case 6: {
-        V3 *r = f9c.FUN_00011250(&fr.tmp, &pos);
+        V3_84c40 *r = f9c.FUN_00011250(&fr.tmp, &pos);
         fr.s14.t = dt * f18;
         if (fr.tmp.FUN_000111f0() <= fr.s14.t * fr.s14.t) {
             state = 8;
@@ -405,7 +405,7 @@ void Mover::FUN_00084c40(float dt)
             DAT_004dd700->manager->FUN_0007da40((char *)this + 8);
             return;
         }
-        V3 *r = f50.FUN_00011250(&fr.tmp, &f44);
+        V3_84c40 *r = f50.FUN_00011250(&fr.tmp, &f44);
         if (FUN_000843c0(*r, dt))
             break;
         state = 11;
@@ -419,7 +419,7 @@ void Mover::FUN_00084c40(float dt)
             DAT_004dd700->manager->FUN_0007da40((char *)this + 8);
             return;
         }
-        V3 *r = f50.FUN_00011250(&fr.tmp, &f44);
+        V3_84c40 *r = f50.FUN_00011250(&fr.tmp, &f44);
         if (FUN_000843c0(*r, dt))
             break;
         state = 12;
@@ -429,7 +429,7 @@ void Mover::FUN_00084c40(float dt)
         break;
     }
     case 9: {
-        V3 *r = f44.FUN_00011250(&fr.tmp, &pos);
+        V3_84c40 *r = f44.FUN_00011250(&fr.tmp, &pos);
         fr.s14.t = dt * f18;
         if (fr.tmp.FUN_000111f0() <= fr.s14.t * fr.s14.t) {
             state = 11;
@@ -447,7 +447,7 @@ void Mover::FUN_00084c40(float dt)
         break;
     }
     case 10: {
-        V3 *r = f44.FUN_00011250(&fr.tmp, &pos);
+        V3_84c40 *r = f44.FUN_00011250(&fr.tmp, &pos);
         fr.s14.t = dt * f18;
         if (fr.tmp.FUN_000111f0() <= fr.s14.t * fr.s14.t) {
             state = 12;
@@ -469,7 +469,7 @@ void Mover::FUN_00084c40(float dt)
             DAT_004dd700->manager->FUN_0007da40((char *)this + 8);
             return;
         }
-        V3 *r;
+        V3_84c40 *r;
         if (FUN_00018960(fb8, 0.0f, 1e-05f)) {
             state = 0;
             r = f44.FUN_00011250(&fr.tmp, &pos);
@@ -490,7 +490,7 @@ void Mover::FUN_00084c40(float dt)
         break;
     }
     case 1: {
-        V3 *r = f50.FUN_00011250(&fr.tmp, &pos);
+        V3_84c40 *r = f50.FUN_00011250(&fr.tmp, &pos);
         f6c = *r;
         if (f6c.FUN_000111f0() <= 16.0f) {
             f18 = 0;
@@ -507,7 +507,7 @@ void Mover::FUN_00084c40(float dt)
         break;
     }
     case 2: {
-        V3 *r = f50.FUN_00011250(&fr.tmp, &pos);
+        V3_84c40 *r = f50.FUN_00011250(&fr.tmp, &pos);
         f6c = *r;
         if (f6c.FUN_000111f0() <= 16.0f) {
             f18 = 0;
@@ -524,7 +524,7 @@ void Mover::FUN_00084c40(float dt)
         break;
     }
     case 0: {
-        V3 *r = f50.FUN_00011250(&fr.tmp, &pos);
+        V3_84c40 *r = f50.FUN_00011250(&fr.tmp, &pos);
         f6c = *r;
         int t = f40;
         if (t == 0 || t == 5) {

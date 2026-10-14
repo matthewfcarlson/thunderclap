@@ -1,23 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 20/20)
 // FUN_00027930 @ 0x00027930
-struct Key {
+struct Key_27930 {
  unsigned int first;
  void FUN_0027af00();
  void FUN_0027b040(const char* text);
 };
-extern Key DAT_004dc108;
+extern Key_27930 DAT_004dc108;
 extern unsigned int DAT_004dc10c;
 extern unsigned int DAT_004dc110;
 extern "C" void __cdecl FUN_00363b20();
 extern "C" int __cdecl atexit(void (__cdecl*)());
-struct Entry { unsigned int first, second; unsigned char active; char padding[7]; };
-struct Owner {
+struct Entry_27930 { unsigned int first, second; unsigned char active; char padding[7]; };
+struct Owner_27930 {
  char padding[0x380];
- Entry entries[32];
+ Entry_27930 entries[32];
  int count;
  bool FUN_00027930(char* destination, const char* suffix);
 };
-bool Owner::FUN_00027930(char* destination, const char* suffix) {
+bool Owner_27930::FUN_00027930(char* destination, const char* suffix) {
  if (!(DAT_004dc110 & 1)) {
   DAT_004dc110 |= 1;
   DAT_004dc108.FUN_0027af00();

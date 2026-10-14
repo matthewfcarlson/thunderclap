@@ -1,28 +1,28 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 10/10)
 // FUN_00220c40 @ 0x00220c40
 // Lua 5.0 luaK_nil: merge consecutive OP_LOADNIL instructions.
-struct LexState {
+struct LexState_220c40 {
     char pad[8];
     int lastline;               // 0x08
 };
 
-struct Proto {
+struct Proto_220c40 {
     char pad[0xc];
     unsigned int *code;         // 0x0c
 };
 
-struct FuncState {
-    Proto *f;                   // 0x00
+struct FuncState_220c40 {
+    Proto_220c40 *f;                   // 0x00
     char pad04[8];
-    LexState *ls;               // 0x0c
+    LexState_220c40 *ls;               // 0x0c
     char pad10[8];
     int pc;                     // 0x18
     int lasttarget;             // 0x1c
 };
 
-int __cdecl FUN_00220b20(FuncState *fs, unsigned int instruction, int line);     // luaK_code
+int __cdecl FUN_00220b20(FuncState_220c40 *fs, unsigned int instruction, int line);     // luaK_code
 
-void __cdecl FUN_00220c40(FuncState *fs, int from, int n) {
+void __cdecl FUN_00220c40(FuncState_220c40 *fs, int from, int n) {
     if (fs->pc > fs->lasttarget) {
         unsigned int *previous = &fs->f->code[fs->pc - 1];
         unsigned int ins = *previous;

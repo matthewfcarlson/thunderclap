@@ -2,10 +2,10 @@
 // FUN_002dcd90 @ 0x002dcd90
 extern "C" int sprintf(char *, const char *, ...);
 
-struct png_struct;
+struct png_struct_2dcd90;
 typedef unsigned char png_byte;
 
-struct png_row_info {
+struct png_row_info_2dcd90 {
     unsigned int width;
     unsigned int rowbytes;
     png_byte color_type;
@@ -14,13 +14,13 @@ struct png_row_info {
     png_byte pixel_depth;
 };
 
-struct png_color_16 {
+struct png_color_16_2dcd90 {
     unsigned short v[5];
 };
 
-struct png_struct {
+struct png_struct_2dcd90 {
     char pad000[0x54];
-    void (__cdecl *read_user_transform_fn)(png_struct *, png_row_info *, png_byte *);
+    void (__cdecl *read_user_transform_fn)(png_struct_2dcd90 *, png_row_info_2dcd90 *, png_byte *);
     char pad058[0x64 - 0x58];
     unsigned int flags;
     unsigned int transformations;
@@ -29,7 +29,7 @@ struct png_struct {
     char pade0[4];
     png_byte *row_buf;
     char pade8[0xf8 - 0xe8];
-    png_row_info row_info;
+    png_row_info_2dcd90 row_info;
     char pad104[0x10c - 0x104];
     void *palette;
     char pad110[2];
@@ -41,8 +41,8 @@ struct png_struct {
     char pad11f[0x126 - 0x11f];
     unsigned short filler;
     char pad128[0x130 - 0x128];
-    png_color_16 background;
-    png_color_16 background_1;
+    png_color_16_2dcd90 background;
+    png_color_16_2dcd90 background_1;
     char pad144[0x150 - 0x144];
     int gamma_shift;
     char pad154[0x15c - 0x154];
@@ -56,7 +56,7 @@ struct png_struct {
     png_byte shift[5];
     char pad17e[0x180 - 0x17e];
     void *trans;
-    png_color_16 trans_values;
+    png_color_16_2dcd90 trans_values;
     char pad18e[0x1e4 - 0x18e];
     void *palette_lookup;
     void *dither_index;
@@ -64,28 +64,28 @@ struct png_struct {
     png_byte rgb_to_gray_status;
 };
 
-void __cdecl FUN_002e69a0(png_struct *p, const char *msg);
-void __cdecl FUN_002e69d0(png_struct *p, const char *msg);
-void __cdecl FUN_002db6b0(png_row_info *ri, png_byte *row, void *palette, void *trans, int num_trans);
-void __cdecl FUN_002db8d0(png_row_info *ri, png_byte *row, png_color_16 *trans_values);
-void __cdecl FUN_002dd3a0(png_row_info *ri, png_byte *row, int flags);
-int __cdecl FUN_002d9c30(png_struct *p, png_row_info *ri, png_byte *row);
-void __cdecl FUN_002d9ae0(png_row_info *ri, png_byte *row);
-void __cdecl FUN_002da380(png_row_info *ri, png_byte *row, png_color_16 *trans_values, png_color_16 *background, png_color_16 *background_1, void *gamma_table, void *gamma_from_1, void *gamma_to_1, void *gamma_16_table, void *gamma_16_from_1, void *gamma_16_to_1, int gamma_shift);
-void __cdecl FUN_002db320(png_row_info *ri, png_byte *row, void *gamma_table, void *gamma_16_table, int gamma_shift);
-void __cdecl FUN_002d95c0(png_row_info *ri, png_byte *row);
-void __cdecl FUN_002dbc50(png_row_info *ri, png_byte *row, void *palette_lookup, void *dither_index);
-void __cdecl FUN_002dd2e0(png_row_info *ri, png_byte *row);
-void __cdecl FUN_002d93f0(png_row_info *ri, png_byte *row, png_byte *shift);
-void __cdecl FUN_002d92c0(png_row_info *ri, png_byte *row);
-void __cdecl FUN_002dd5c0(png_row_info *ri, png_byte *row);
-void __cdecl FUN_002dd350(png_row_info *ri, png_byte *row);
-void __cdecl FUN_002d9840(png_row_info *ri, png_byte *row, unsigned int filler, unsigned int flags);
-void __cdecl FUN_002d9720(png_row_info *ri, png_byte *row);
-void __cdecl FUN_002d9610(png_row_info *ri, png_byte *row);
-void __cdecl FUN_002dd310(png_row_info *ri, png_byte *row);
+void __cdecl FUN_002e69a0(png_struct_2dcd90 *p, const char *msg);
+void __cdecl FUN_002e69d0(png_struct_2dcd90 *p, const char *msg);
+void __cdecl FUN_002db6b0(png_row_info_2dcd90 *ri, png_byte *row, void *palette, void *trans, int num_trans);
+void __cdecl FUN_002db8d0(png_row_info_2dcd90 *ri, png_byte *row, png_color_16_2dcd90 *trans_values);
+void __cdecl FUN_002dd3a0(png_row_info_2dcd90 *ri, png_byte *row, int flags);
+int __cdecl FUN_002d9c30(png_struct_2dcd90 *p, png_row_info_2dcd90 *ri, png_byte *row);
+void __cdecl FUN_002d9ae0(png_row_info_2dcd90 *ri, png_byte *row);
+void __cdecl FUN_002da380(png_row_info_2dcd90 *ri, png_byte *row, png_color_16_2dcd90 *trans_values, png_color_16_2dcd90 *background, png_color_16_2dcd90 *background_1, void *gamma_table, void *gamma_from_1, void *gamma_to_1, void *gamma_16_table, void *gamma_16_from_1, void *gamma_16_to_1, int gamma_shift);
+void __cdecl FUN_002db320(png_row_info_2dcd90 *ri, png_byte *row, void *gamma_table, void *gamma_16_table, int gamma_shift);
+void __cdecl FUN_002d95c0(png_row_info_2dcd90 *ri, png_byte *row);
+void __cdecl FUN_002dbc50(png_row_info_2dcd90 *ri, png_byte *row, void *palette_lookup, void *dither_index);
+void __cdecl FUN_002dd2e0(png_row_info_2dcd90 *ri, png_byte *row);
+void __cdecl FUN_002d93f0(png_row_info_2dcd90 *ri, png_byte *row, png_byte *shift);
+void __cdecl FUN_002d92c0(png_row_info_2dcd90 *ri, png_byte *row);
+void __cdecl FUN_002dd5c0(png_row_info_2dcd90 *ri, png_byte *row);
+void __cdecl FUN_002dd350(png_row_info_2dcd90 *ri, png_byte *row);
+void __cdecl FUN_002d9840(png_row_info_2dcd90 *ri, png_byte *row, unsigned int filler, unsigned int flags);
+void __cdecl FUN_002d9720(png_row_info_2dcd90 *ri, png_byte *row);
+void __cdecl FUN_002d9610(png_row_info_2dcd90 *ri, png_byte *row);
+void __cdecl FUN_002dd310(png_row_info_2dcd90 *ri, png_byte *row);
 
-void __cdecl FUN_002dcd90(png_struct *png_ptr)
+void __cdecl FUN_002dcd90(png_struct_2dcd90 *png_ptr)
 {
     if (png_ptr->row_buf == 0) {
         char msg[50];

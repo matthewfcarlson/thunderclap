@@ -6,7 +6,7 @@ extern "C" char *__cdecl strncpy(char *, const char *, unsigned int);
 
 extern unsigned int DAT_004d9968;
 
-class Menu;
+class Menu_c5180;
 
 
 class Node {
@@ -22,7 +22,7 @@ public:
     virtual const char *vfunc_8();
 };
 
-class Service {
+class Service_c5180 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -44,25 +44,25 @@ public:
     void FUN_000b0080(int dt);
 };
 
-class Source {
+class Source_c5180 {
 public:
     void *FUN_000862d0();
     Timer *FUN_00086330();
     int FUN_00086300();
 };
 
-class Probe {
+class Probe_c5180 {
 public:
     char pad0[0x2218];
-    struct Flags *flags;
+    struct Flags_c5180 *flags;
 };
 
-struct Flags {
+struct Flags_c5180 {
     char pad0[0x9a8];
     char enabled;
 };
 
-class Block4 {
+class Block4_c5180 {
 public:
     int f0;
     int f4;
@@ -103,20 +103,20 @@ void FUN_000fc280(const char *s);
 void FUN_000fc340(const char *s);
 void FUN_000fc170(int v);
 void FUN_000fc330();
-Probe *FUN_000fc3d0();
+Probe_c5180 *FUN_000fc3d0();
 Node *FUN_000fc310();
 Flag4 *FUN_0008e090();
 
 extern char DAT_004e222c;
-extern Service *DAT_0052c2a8;
+extern Service_c5180 *DAT_0052c2a8;
 
-struct Frame {
+struct Frame_c5180 {
     Node *cur;
     char name[0x40];
     unsigned int cookie;
 };
 
-class Menu {
+class Menu_c5180 {
 public:
     char pad0[0x10];
     int state;
@@ -125,7 +125,7 @@ public:
     Target34 *f34;
     Aux38 *f38;
     int f3c;
-    Block4 *f40;
+    Block4_c5180 *f40;
     char pad44[0x54 - 0x44];
     Aux54 *f54;
     char pad58[4];
@@ -140,7 +140,7 @@ public:
     char pad1d00[0x1d34 - 0x1d00];
     float f1d34;
     void FUN_000b9090(int dt);
-    void FUN_000bfbe0(Source *src, int dt);
+    void FUN_000bfbe0(Source_c5180 *src, int dt);
     void FUN_000b8c50(const char *a, const char *b);
     void FUN_000b9620();
     void FUN_000b9ad0();
@@ -155,14 +155,14 @@ public:
     void FUN_000b97d0();
     void FUN_000bcf40(void *a);
     void FUN_000b90c0(int a);
-    void FUN_000c5180(Source *src, void *a1, float dt, int a3, Aux54 *a4);
+    void FUN_000c5180(Source_c5180 *src, void *a1, float dt, int a3, Aux54 *a4);
 };
 
-void Menu::FUN_000c5180(Source *src, void *a1, float dt, int a3, Aux54 *a4)
+void Menu_c5180::FUN_000c5180(Source_c5180 *src, void *a1, float dt, int a3, Aux54 *a4)
 {
-    Frame f;
+    Frame_c5180 f;
     f.cookie = DAT_004d9968;
-    Block4 *blk = f40;
+    Block4_c5180 *blk = f40;
     f30 = a1;
     f3c = a3;
     blk->f4 = a3;
@@ -170,7 +170,7 @@ void Menu::FUN_000c5180(Source *src, void *a1, float dt, int a3, Aux54 *a4)
     int dtBits = *(int *)&dt;
     f54 = a4;
     src->FUN_00086330()->FUN_000b0080(dtBits);
-    Probe *probe = FUN_000fc3d0();
+    Probe_c5180 *probe = FUN_000fc3d0();
     if (probe->flags && probe->flags->enabled)
         f1d34 = dt + f1d34;
     f1cfc = dt + f1cfc;

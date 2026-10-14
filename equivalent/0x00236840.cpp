@@ -5,21 +5,21 @@ void *thunk_FUN_0008d690(unsigned int size);
 int FUN_00238190(int index);
 int FUN_00266da0(int value);
 
-struct NameHolder {
+struct NameHolder_236840 {
     char pad[8];
     void FUN_0027b040(const char *name);
 };
 
-struct Ring {
+struct Ring_236840 {
     char data[0x24];
-    Ring *FUN_00231550(int capacity, int a, int b);
+    Ring_236840 *FUN_00231550(int capacity, int a, int b);
 };
 
 class Node {
 public:
     virtual void AddRef();
     char pad04[4];
-    NameHolder name;
+    NameHolder_236840 name;
     Node *FUN_0023c620();
 };
 
@@ -39,8 +39,8 @@ public:
     Context();
     virtual void v1();
     int f10;
-    Ring ringA;
-    Ring ringB;
+    Ring_236840 ringA;
+    Ring_236840 ringB;
     Node *node;
 };
 

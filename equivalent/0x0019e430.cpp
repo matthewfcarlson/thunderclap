@@ -3,7 +3,7 @@
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
-struct V3 {
+struct V3_19e430 {
     float x, y, z;
     float FUN_0022d110();
     float FUN_00018990();
@@ -20,41 +20,41 @@ struct DynamicCaster {
 }
 }
 
-struct Prop {
+struct Prop_19e430 {
     char pad[4];
 };
 
-struct Inventory {
+struct Inventory_19e430 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Prop *v3(content::LoadInventory::DynamicCaster<CSPHulkProp> *caster, unsigned __int64 key);
+    virtual Prop_19e430 *v3(content::LoadInventory::DynamicCaster<CSPHulkProp> *caster, unsigned __int64 key);
 };
 
-struct Holder44 { Inventory *FUN_00203d70(); };
-struct Holder28 { Holder44 *FUN_000862a0(); };
+struct Holder44_19e430 { Inventory_19e430 *FUN_00203d70(); };
+struct Holder28_19e430 { Holder44_19e430 *FUN_000862a0(); };
 struct FlagSrc {
     char FUN_00092940(int id);
 };
-struct Manager {
+struct Manager_19e430 {
     char pad0[0x14];
     void *pool;
     char pad18[0x54 - 0x18];
-    Holder28 *holder;
+    Holder28_19e430 *holder;
 };
 
 struct Matrix {
     float m[16];
     void FUN_0022ca90(const Matrix *src, void *arg);
-    void FUN_0022c2b0(const V3 *in, V3 *out);
-    void FUN_0022c3b0(const V3 *in, V3 *out);
+    void FUN_0022c2b0(const V3_19e430 *in, V3_19e430 *out);
+    void FUN_0022c3b0(const V3_19e430 *in, V3_19e430 *out);
 };
 
 struct CtrlSub {
     int FUN_0027b200(unsigned int lo, unsigned int hi);
 };
 
-struct Ctrl {
+struct Ctrl_19e430 {
     char pad0[8];
     CtrlSub *sub;
     char padc[0x1c - 0xc];
@@ -67,20 +67,20 @@ public:
     int f74;
 };
 
-class Weapon {
+class Weapon_19e430 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
     virtual void v12(); virtual void v13(); virtual void v14();
     virtual void *v15();
-    Ctrl *FUN_001d68d0();
+    Ctrl_19e430 *FUN_001d68d0();
     Entity *FUN_001d72e0();
 };
 
-struct Target { char pad[4]; };
+struct Target_19e430 { char pad[4]; };
 
-class Projectile {
+class Projectile_19e430 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -90,53 +90,53 @@ public:
     void *f44;
     char pad48[0x54 - 0x48];
     float f54, f58, f5c, f60, f64, f68;
-    V3 dir;
+    V3_19e430 dir;
     float f78;
     int f7c;
     char pad80[0xdc - 0x80];
-    Projectile *FUN_001962b0(struct Cfg *cfg, Prop *prop);
-    void FUN_00196640(Target *t);
+    Projectile_19e430 *FUN_001962b0(struct Cfg_19e430 *cfg, Prop_19e430 *prop);
+    void FUN_00196640(Target_19e430 *t);
 };
 
-struct Pool {
-    int FUN_001b6b00(int id, V3 *a);
-    void FUN_001b6d00(int id, Projectile *p);
+struct Pool_19e430 {
+    int FUN_001b6b00(int id, V3_19e430 *a);
+    void FUN_001b6d00(int id, Projectile_19e430 *p);
 };
 
 struct Allocator {
     void *FUN_0008fe90(unsigned int size);
 };
 
-struct Stats {
+struct Stats_19e430 {
     char pad0[0x120];
-    Ctrl *ctrl;
+    Ctrl_19e430 *ctrl;
     char pad124[4];
     int f128;
     char pad12c[0x328 - 0x12c];
-    Target *target;
+    Target_19e430 *target;
     char pad32c[0x1d14 - 0x32c];
     float f1d14;
     char pad1d18[4];
     int f1d1c;
-    Weapon *FUN_00035ef0(int slot);
-    void FUN_00035660(V3 *out);
-    Target *FUN_00039c60(V3 *a, V3 *b, int lo, int hi, int z1, int z2, int z3);
+    Weapon_19e430 *FUN_00035ef0(int slot);
+    void FUN_00035660(V3_19e430 *out);
+    Target_19e430 *FUN_00039c60(V3_19e430 *a, V3_19e430 *b, int lo, int hi, int z1, int z2, int z3);
 };
 
 struct Context {
     char pad[4];
-    void FUN_00059a50(V3 *out);
+    void FUN_00059a50(V3_19e430 *out);
 };
 
-struct Cfg {
+struct Cfg_19e430 {
     char pad0[0x10];
     unsigned __int64 key10;
     char pad18[0x34 - 0x18];
     int slot;
     unsigned int key38lo;
     unsigned int key38hi;
-    V3 v40;
-    V3 v4c;
+    V3_19e430 v40;
+    V3_19e430 v4c;
     char b58;
     char pad59[3];
     float f5c;
@@ -151,19 +151,19 @@ struct Cfg {
     int fb4;
 };
 
-struct Owner { char pad[8]; void *f8; };
+struct Owner_19e430 { char pad[8]; void *f8; };
 
-extern Manager *DAT_004dd700;
+extern Manager_19e430 *DAT_004dd700;
 extern Allocator DAT_004e2210;
 extern unsigned __int64 DAT_004e16e8;
 extern unsigned int DAT_004e16f0;
 
-Context *__fastcall FUN_000592a0(Owner *owner);
-Stats *__fastcall FUN_00059a30(Context *ctx);
-FlagSrc *__fastcall FUN_00086340(Holder28 *s);
+Context *__fastcall FUN_000592a0(Owner_19e430 *owner);
+Stats_19e430 *__fastcall FUN_00059a30(Context *ctx);
+FlagSrc *__fastcall FUN_00086340(Holder28_19e430 *s);
 unsigned __int64 __cdecl FUN_0027afb0(const char *s);
-char __cdecl FUN_00096b50(Target *t, V3 *c, void *out);
-void __cdecl FUN_001947a0(Stats *fighter, float x);
+char __cdecl FUN_00096b50(Target_19e430 *t, V3_19e430 *c, void *out);
+void __cdecl FUN_001947a0(Stats_19e430 *fighter, float x);
 
 namespace hulkfight {
 namespace motion {
@@ -176,8 +176,8 @@ public:
     virtual void vfunc_4();
     virtual char vfunc_5(int a0, int a1);
     char pad04[0x18];
-    Cfg *cfg;
-    Owner *owner;
+    Cfg_19e430 *cfg;
+    Owner_19e430 *owner;
 };
 
 char FireMissileAction::vfunc_5(int a0, int a1)
@@ -188,8 +188,8 @@ char FireMissileAction::vfunc_5(int a0, int a1)
         return 0;
 
     union Word {
-        Prop *prop;
-        Weapon *wo;
+        Prop_19e430 *prop;
+        Weapon_19e430 *wo;
         float f;
         unsigned int u;
     };
@@ -198,12 +198,12 @@ char FireMissileAction::vfunc_5(int a0, int a1)
         Word s14;
         char pad18[3];
         char ok;
-        Stats *fighter;
-        V3 tmp;
-        V3 a;
-        V3 b;
+        Stats_19e430 *fighter;
+        V3_19e430 tmp;
+        V3_19e430 a;
+        V3_19e430 b;
         void *pool;
-        V3 pos;
+        V3_19e430 pos;
         Context *ctx;
         int id;
         Matrix m;
@@ -212,7 +212,7 @@ char FireMissileAction::vfunc_5(int a0, int a1)
     f.pool = DAT_004dd700->pool;
     f.ctx = FUN_000592a0(owner);
     f.fighter = FUN_00059a30(f.ctx);
-    Inventory *inv = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+    Inventory_19e430 *inv = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
     char flag = FUN_00086340(DAT_004dd700->holder)->FUN_00092940(0x2f);
     bool got = false;
     if (flag) {
@@ -229,13 +229,13 @@ char FireMissileAction::vfunc_5(int a0, int a1)
             return 0;
     }
 
-    Cfg *c0 = cfg;
+    Cfg_19e430 *c0 = cfg;
     int slot = c0->slot;
-    Ctrl *ctrl = f.fighter->ctrl;
+    Ctrl_19e430 *ctrl = f.fighter->ctrl;
     int idx = 0;
     f.s14.wo = 0;
     if (slot >= 0 && slot < 8) {
-        Weapon *w = f.fighter->FUN_00035ef0(slot);
+        Weapon_19e430 *w = f.fighter->FUN_00035ef0(slot);
         if (w != 0) {
             if (f.fighter->f128 != 0)
                 f.s14.wo = w;
@@ -246,7 +246,7 @@ char FireMissileAction::vfunc_5(int a0, int a1)
         }
     }
     if (ctrl != 0) {
-        Cfg *c1 = cfg;
+        Cfg_19e430 *c1 = cfg;
         if ((c1->key38lo | c1->key38hi) != 0) {
             idx = ctrl->sub->FUN_0027b200(c1->key38lo, c1->key38hi);
             if (idx == 0xffff)
@@ -274,28 +274,28 @@ char FireMissileAction::vfunc_5(int a0, int a1)
     }
 
     int fb4 = cfg->fb4;
-    f.id = ((Pool *)f.pool)->FUN_001b6b00(fb4, &f.a);
+    f.id = ((Pool_19e430 *)f.pool)->FUN_001b6b00(fb4, &f.a);
     if (f.id < 0)
         return 0;
     void *mem = DAT_004e2210.FUN_0008fe90(0xdc);
-    Projectile *proj;
+    Projectile_19e430 *proj;
     if (mem)
-        proj = ((Projectile *)mem)->FUN_001962b0(cfg, f.s10.prop);
+        proj = ((Projectile_19e430 *)mem)->FUN_001962b0(cfg, f.s10.prop);
     else
         proj = 0;
     proj->AddRef();
     proj->f44 = owner->f8;
     proj->f14 = fb4;
-    Target *tgt = f.fighter->target;
+    Target_19e430 *tgt = f.fighter->target;
     if (tgt == 0) {
-        Cfg *c3 = cfg;
+        Cfg_19e430 *c3 = cfg;
         f.s10.u = c3->f6c;
         f.s14.u = c3->f68;
         tgt = f.fighter->FUN_00039c60(&f.a, &f.b, c3->f68, c3->f6c, 0, 0, 0);
     }
     proj->FUN_00196640(tgt);
 
-    Cfg *c4 = cfg;
+    Cfg_19e430 *c4 = cfg;
     bool bl = false;
     f.s10.u = 0;
     f.s14.u = 0;
@@ -326,7 +326,7 @@ char FireMissileAction::vfunc_5(int a0, int a1)
     proj->dir.y = f.b.y;
     proj->dir.z = f.b.z;
 
-    Cfg *c5 = cfg;
+    Cfg_19e430 *c5 = cfg;
     f.s10.f = c5->f5c;
     float w78 = f.s10.f;
     if (c5->b58) {
@@ -345,7 +345,7 @@ char FireMissileAction::vfunc_5(int a0, int a1)
     proj->f60 = f.a.x;
     proj->f64 = f.a.y;
     proj->f68 = f.a.z;
-    ((Pool *)f.pool)->FUN_001b6d00(f.id, proj);
+    ((Pool_19e430 *)f.pool)->FUN_001b6d00(f.id, proj);
     proj->Release();
     return 0;
 }

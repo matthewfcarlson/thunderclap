@@ -2,7 +2,7 @@
 // FUN_001a5290 @ 0x001a5290
 extern "C" int __cdecl strcmp(const char *, const char *);
 
-class Checker {
+class Checker_1a5290 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -20,37 +20,37 @@ public:
     virtual bool v7();
 };
 
-struct Resource {
+struct Resource_1a5290 {
     bool FUN_00222a00(int arg);
 };
 
-struct Info {
+struct Info_1a5290 {
     char pad0[0x4c];
     const char *name;
 };
 
-struct Slot {
+struct Slot_1a5290 {
     char used;
     char pad1[3];
     int arg;
-    Resource *resource;
+    Resource_1a5290 *resource;
     char pad0c[0x18 - 0xc];
 };
 
-class Loader {
+class Loader_1a5290 {
 public:
     char pad00[0x1c];
-    Info *info;
+    Info_1a5290 *info;
     char pad20[4];
-    Checker *checker;
+    Checker_1a5290 *checker;
     char pad28[4];
-    Slot slots[20];
+    Slot_1a5290 slots[20];
     char pad_end[0x210 - 0x2c - 20 * 0x18];
     Readiness *ready;
     bool FUN_001a5290();
 };
 
-bool Loader::FUN_001a5290()
+bool Loader_1a5290::FUN_001a5290()
 {
     if (checker) {
         const char *name = info->name;

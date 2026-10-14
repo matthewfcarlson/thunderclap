@@ -4,13 +4,13 @@
 void* FUN_0008d690(unsigned int);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 class Owner;
-class Registry { public:
+class Registry_1f8000 { public:
     void FUN_001d3b70(const char*, void*);
     void FUN_001f8000(const char* a1, Owner* a2, void (*a3)());
 };
-class Entry { public: void* FUN_001f7c40(const char*, Owner*, void (*)()); };
-void Registry::FUN_001f8000(const char* a1, Owner* a2, void (*a3)()) {
-    Entry* e = (Entry*)FUN_0008d690(0x24);
+class Entry_1f8000 { public: void* FUN_001f7c40(const char*, Owner*, void (*)()); };
+void Registry_1f8000::FUN_001f8000(const char* a1, Owner* a2, void (*a3)()) {
+    Entry_1f8000* e = (Entry_1f8000*)FUN_0008d690(0x24);
     void* x = 0;
     if (e)
         x = e->FUN_001f7c40(a1, a2, a3);

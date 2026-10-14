@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00059510 @ 0x00059510
-struct Resource {
+struct Resource_59510 {
  virtual void unused();
  virtual void release();
 };
-struct State {
+struct State_59510 {
  unsigned field00, field04;
  unsigned position[3];
  unsigned char flag14; char pad15[3];
@@ -14,18 +14,18 @@ struct State {
  unsigned char flag34; char pad35[3];
  unsigned vector38[3];
  unsigned char flag44; char pad45[7];
- Resource *resource4c, *resource50;
+ Resource_59510 *resource4c, *resource50;
  unsigned field54, field58, field5c;
- Resource *resource60;
+ Resource_59510 *resource60;
  unsigned field64, field68;
- Resource *resource6c, *resource70;
+ Resource_59510 *resource6c, *resource70;
  unsigned field74, field78, field7c, field80;
- Resource *resource84;
+ Resource_59510 *resource84;
  unsigned field88, field8c;
  unsigned char flag90, flag91;
  void FUN_00059510();
 };
-void State::FUN_00059510() {
+void State_59510::FUN_00059510() {
  if (resource4c) { resource4c->release(); resource4c = 0; }
  if (resource50) { resource50->release(); resource50 = 0; }
  if (resource6c) { resource6c->release(); resource6c = 0; }

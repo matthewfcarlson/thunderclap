@@ -2,33 +2,33 @@
 // FUN_00280d90 @ 0x00280d90
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_280d90 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Vtx {
-    V3 p;
-    V3 n;
+struct Vtx_280d90 {
+    V3_280d90 p;
+    V3_280d90 n;
 };
 
-char FUN_00280840(const V3 *center, float radius, const Vtx *a, const Vtx *b, const Vtx *c);
+char FUN_00280840(const V3_280d90 *center, float radius, const Vtx_280d90 *a, const Vtx_280d90 *b, const Vtx_280d90 *c);
 
-static __forceinline void MidNormal(Vtx *m, const Vtx *a, const Vtx *b)
+static __forceinline void MidNormal(Vtx_280d90 *m, const Vtx_280d90 *a, const Vtx_280d90 *b)
 {
     m->n.x = (b->n.x - a->n.x) * 0.5f + a->n.x;
     m->n.y = (b->n.y - a->n.y) * 0.5f + a->n.y;
     m->n.z = (b->n.z - a->n.z) * 0.5f + a->n.z;
 }
 
-static __forceinline void MidPos(Vtx *m, const Vtx *a, const Vtx *b)
+static __forceinline void MidPos(Vtx_280d90 *m, const Vtx_280d90 *a, const Vtx_280d90 *b)
 {
     m->p.x = (b->p.x - a->p.x) * 0.5f + a->p.x;
     m->p.y = (b->p.y - a->p.y) * 0.5f + a->p.y;
     m->p.z = (b->p.z - a->p.z) * 0.5f + a->p.z;
 }
 
-static __forceinline float EdgeLen(const Vtx *a, const Vtx *b)
+static __forceinline float EdgeLen(const Vtx_280d90 *a, const Vtx_280d90 *b)
 {
     float dx = b->p.x - a->p.x;
     float dy = b->p.y - a->p.y;
@@ -36,17 +36,17 @@ static __forceinline float EdgeLen(const Vtx *a, const Vtx *b)
     return (float)sqrt(dz * dz + dy * dy + dx * dx);
 }
 
-void FUN_00280d90(Vtx *verts, int n, int limit, int *outN, V3 center, float radius, float maxEdge)
+void FUN_00280d90(Vtx_280d90 *verts, int n, int limit, int *outN, V3_280d90 center, float radius, float maxEdge)
 {
     int pass = 8;
     do {
         int i = 0;
         int snap = n;
-        Vtx *slot = verts;
+        Vtx_280d90 *slot = verts;
         while (i < snap) {
             if (n >= limit - 9)
                 break;
-            Vtx t[3];
+            Vtx_280d90 t[3];
             t[0] = slot[0];
             t[1] = slot[1];
             t[2] = slot[2];
@@ -77,7 +77,7 @@ void FUN_00280d90(Vtx *verts, int n, int limit, int *outN, V3 center, float radi
                     big = mid;
                     mid = tmp;
                 }
-                Vtx m[3];
+                Vtx_280d90 m[3];
                 MidPos(&m[0], &t[0], &t[1]);
                 MidNormal(&m[0], &t[0], &t[1]);
                 m[0].n.FUN_0022d110();
@@ -88,7 +88,7 @@ void FUN_00280d90(Vtx *verts, int n, int limit, int *outN, V3 center, float radi
                 MidNormal(&m[2], &t[2], &t[0]);
                 m[2].n.FUN_0022d110();
 
-                Vtx out[12];
+                Vtx_280d90 out[12];
                 int count;
                 if (!(len[big] > maxEdge)) {
                     out[0] = t[0];

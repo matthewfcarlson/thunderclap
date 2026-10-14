@@ -30,14 +30,14 @@ public:
 };
 }
 
-class Registry {
+class Registry_f3940 {
 public:
     virtual void r0();
     virtual void r1();
     virtual void r2();
     virtual Entity *lookup(content::LoadInventory::DynamicCasterBase *caster, unsigned __int64 id);
 };
-extern Registry *DAT_004dd9cc;
+extern Registry_f3940 *DAT_004dd9cc;
 
 class FEControl {
 public:
@@ -54,13 +54,13 @@ public:
     void FUN_000e3b70(Entity *e);
 };
 
-struct Token {
+struct Token_f3940 {
     const char *FUN_000fad90();
     float FUN_000fad30();
     void FUN_000fa0a0();
 };
 
-class Parser {
+class Parser_f3940 {
 public:
     virtual void p0();
     virtual void p1();
@@ -137,29 +137,29 @@ public:
     virtual void v31();
     virtual void v32();
     virtual void v33();
-    virtual int v34(Token *a0, Node *a3, ParseFunctor *fn);
-    virtual int v35(Token *a0, Parser *a1, FEControl *a2, Node *a3);
-    virtual int v36(Token *a0, Parser *a1, FEControl *a2, Node *a3);
+    virtual int v34(Token_f3940 *a0, Node *a3, ParseFunctor *fn);
+    virtual int v35(Token_f3940 *a0, Parser_f3940 *a1, FEControl *a2, Node *a3);
+    virtual int v36(Token_f3940 *a0, Parser_f3940 *a1, FEControl *a2, Node *a3);
     class ParseFunctor {
     public:
         virtual void call();
         FEThingsBase *owner;
-        void (FEThingsBase::*fn)(Token *a0, Parser *a1, FEControl *a2, Node *a3);
-        Parser *a1;
+        void (FEThingsBase::*fn)(Token_f3940 *a0, Parser_f3940 *a1, FEControl *a2, Node *a3);
+        Parser_f3940 *a1;
         FEControl *a2;
-        ParseFunctor(FEThingsBase *o, void (FEThingsBase::*f)(Token *, Parser *, FEControl *, Node *), Parser *p1, FEControl *p2)
+        ParseFunctor(FEThingsBase *o, void (FEThingsBase::*f)(Token_f3940 *, Parser_f3940 *, FEControl *, Node *), Parser_f3940 *p1, FEControl *p2)
             : owner(o), fn(f), a1(p1), a2(p2) {}
     };
-    void FUN_000f3940(Token *a0, Parser *a1, FEControl *a2, Node *a3);
+    void FUN_000f3940(Token_f3940 *a0, Parser_f3940 *a1, FEControl *a2, Node *a3);
 };
 
-void FEThingsBase::FUN_000f3940(Token *a0, Parser *a1, FEControl *a2, Node *a3)
+void FEThingsBase::FUN_000f3940(Token_f3940 *a0, Parser_f3940 *a1, FEControl *a2, Node *a3)
 {
     TextWindow *win = dynamic_cast<TextWindow *>(a2);
     switch (a3->tag()) {
     case 0xcc74e7a7: {
         const char *nameA = a0->FUN_000fad90();
-        Registry *reg = DAT_004dd9cc;
+        Registry_f3940 *reg = DAT_004dd9cc;
         unsigned __int64 idA = FUN_0027b020(nameA);
         content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> casterA;
         Entity *e = reg->lookup(&casterA, idA);

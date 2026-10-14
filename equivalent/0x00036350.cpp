@@ -2,7 +2,7 @@
 // FUN_00036350 @ 0x00036350
 float __cdecl FUN_000964e0();
 
-struct Owner {
+struct Owner_36350 {
     char pad0[0x398];
     char flip;
     char pad399[0x1e60 - 0x399];
@@ -11,7 +11,7 @@ struct Owner {
     void FUN_00036350(int index, float offset);
 };
 
-void Owner::FUN_00036350(int index, float offset)
+void Owner_36350::FUN_00036350(int index, float offset)
 {
     if (index < 0 || index >= 14)
         return;

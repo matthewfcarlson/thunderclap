@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000d50f0 @ 0x000d50f0
-struct V3 {
+struct V3_d50f0 {
     float x, y, z;
 };
 
-struct VertexBuf {
+struct VertexBuf_d50f0 {
     char pad0[8];
-    V3 *vertex;
+    V3_d50f0 *vertex;
     char pad0c[4];
     unsigned *color;
     void FUN_0008ef00();
 };
 
-class Renderer {
+class Renderer_d50f0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -44,8 +44,8 @@ public:
     virtual void v27();
     virtual void v28();
     virtual void v29();
-    virtual VertexBuf *beginQuad(int obj, int one, int flags, int four, int zero);
-    virtual void endQuad(VertexBuf *buf);
+    virtual VertexBuf_d50f0 *beginQuad(int obj, int one, int flags, int four, int zero);
+    virtual void endQuad(VertexBuf_d50f0 *buf);
     virtual void v32();
     virtual void v33();
     virtual void v34();
@@ -75,7 +75,7 @@ public:
     virtual void setState(int on);
 };
 
-class Provider {
+class Provider_d50f0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -96,8 +96,8 @@ public:
     virtual void v16(int a);
 };
 
-struct ProviderRef {
-    Provider *provider;
+struct ProviderRef_d50f0 {
+    Provider_d50f0 *provider;
     void FUN_00293d00(void *state);
 };
 
@@ -106,8 +106,8 @@ struct Overlay {
     int f10;
 };
 
-extern Renderer *DAT_0052c2a8;
-extern ProviderRef *DAT_0052c2ac;
+extern Renderer_d50f0 *DAT_0052c2a8;
+extern ProviderRef_d50f0 *DAT_0052c2ac;
 extern char DAT_004ddfc0[];
 
 class FadeQuad {
@@ -131,14 +131,14 @@ void FadeQuad::FUN_000d50f0()
     DAT_0052c2ac->provider->v15(0);
     DAT_0052c2ac->FUN_00293d00(DAT_004ddfc0);
 
-    VertexBuf *buf = DAT_0052c2a8->beginQuad(overlay->f10, 1, 0x2020, 4, 0);
+    VertexBuf_d50f0 *buf = DAT_0052c2a8->beginQuad(overlay->f10, 1, 0x2020, 4, 0);
 
     float x0 = 16.6f * -0.5f;
     float y0 = 3.0f * -0.5f;
     float x1 = amount * 0.5f;
     float y1 = 3.0f * 0.5f;
 
-    V3 *v = buf->vertex;
+    V3_d50f0 *v = buf->vertex;
     v->y = y0;
     v->x = x0;
     v->z = 0.0f;

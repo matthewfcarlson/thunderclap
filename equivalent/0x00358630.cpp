@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00358630 @ 0x00358630
 // Interval test along a direction: writes (centre - radius) to *out and returns whether |centre| <= radius.
-struct Vec3 {
+struct Vec3_358630 {
     float x, y, z;
 };
 
@@ -12,8 +12,8 @@ union AbsFloat {
 
 extern "C" double sqrt(double);
 
-bool __cdecl FUN_00358630(const Vec3 *a, const Vec3 *b, float k1, float k2, char flag, float offset,
-                          const Vec3 *dir, float *out)
+bool __cdecl FUN_00358630(const Vec3_358630 *a, const Vec3_358630 *b, float k1, float k2, char flag, float offset,
+                          const Vec3_358630 *dir, float *out)
 {
     float centre = a->z * dir->z + a->y * dir->y + dir->x * a->x + offset;
 

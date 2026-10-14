@@ -6,7 +6,7 @@ void __stdcall D3DDevice_SetVertexShader(DWORD);
 void __stdcall D3DDevice_SetStreamSource(DWORD, void*, DWORD);
 void __stdcall D3DDevice_DrawVertices(DWORD, DWORD, DWORD);
 }
-struct ShaderInfo {
+struct ShaderInfo_31c080 {
     char pad[0x14];
     DWORD handle;
 };
@@ -40,7 +40,7 @@ class d3dPrimStream : public d3dBasePrimStream {
     char pad140[0x144 - 0x140];
     int bufIndex;
     char pad148[0x158 - 0x148];
-    ShaderInfo* shader;
+    ShaderInfo_31c080* shader;
     int pending;
     virtual void vfunc_0();
     virtual void vfunc_1();

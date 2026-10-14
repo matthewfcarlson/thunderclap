@@ -1,31 +1,31 @@
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 11/14, incomplete)
 // FUN_0030f510 @ 0x0030f510
-struct Mat {
+struct Mat_30f510 {
     float m[16];
 };
 
 struct Pose {
-    Mat* FUN_0030f100();
+    Mat_30f510* FUN_0030f100();
 };
 
-struct Item {
+struct Item_30f510 {
     Pose* FUN_0030ef30();
     Pose* FUN_0030edf0();
     char pad[0xc0];
 };
 
-struct Group {
+struct Group_30f510 {
     char pad[0x10];
     int count;
 };
 
-struct Out {
+struct Out_30f510 {
     char pad[8];
-    Group* group;
+    Group_30f510* group;
     char pad2[8];
-    Mat* dstA;
+    Mat_30f510* dstA;
     char pad3[4];
-    Mat* dstB;
+    Mat_30f510* dstB;
     char flag20;
     char flag21;
     char flag22;
@@ -34,13 +34,13 @@ struct Out {
 
 class Skeleton {
 public:
-    void run(Out* out, bool both);
+    void run(Out_30f510* out, bool both);
     char p0[8];
-    Group* group;
-    Item* items;
+    Group_30f510* group;
+    Item_30f510* items;
 };
 
-void Skeleton::run(Out* out, bool both)
+void Skeleton::run(Out_30f510* out, bool both)
 {
     if (out->group != group)
         return;
@@ -48,7 +48,7 @@ void Skeleton::run(Out* out, bool both)
     int n = group == 0 ? 0 : group->count;
     if (both) {
         for (int i = 0; i < n; i++) {
-            Item* it = &items[i];
+            Item_30f510* it = &items[i];
             out->dstA[i] = *it->FUN_0030ef30()->FUN_0030f100();
             out->dstB[i] = *it->FUN_0030edf0()->FUN_0030f100();
             out->flag22 = 0;

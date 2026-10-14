@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // choreo2::AnimationDriver::vfunc_11 @ 0x002256a0
-struct Quat {
+struct Quat_2256a0 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat *a, const Quat *b, float t);
+    void FUN_0022b750(const Quat_2256a0 *a, const Quat_2256a0 *b, float t);
 };
 
-struct Vec3 {
+struct Vec3_2256a0 {
     float x, y, z;
 };
 
@@ -15,11 +15,11 @@ public:
     virtual void vf1();
     virtual void vf2();
     virtual void vf3();
-    virtual void vf4(int track, Vec3 *out);
-    virtual void vf5(int track, Quat *out);
+    virtual void vf4(int track, Vec3_2256a0 *out);
+    virtual void vf5(int track, Quat_2256a0 *out);
 };
 
-class ChannelSet {
+class ChannelSet_2256a0 {
 public:
     Channel *FUN_00288960(unsigned int tagLo, unsigned int tagHi);
 };
@@ -27,23 +27,23 @@ public:
 class Pose {
 public:
     char pad0[0x30];
-    Vec3 position;
+    Vec3_2256a0 position;
     char pad1[0x50 - 0x3c];
     int state;
-    Quat *FUN_00221cd0();
-    void FUN_00221cf0(Quat *q);
-    void FUN_0022be40(Vec3 *v);
+    Quat_2256a0 *FUN_00221cd0();
+    void FUN_00221cf0(Quat_2256a0 *q);
+    void FUN_0022be40(Vec3_2256a0 *v);
 };
 
-class Source {
+class Source_2256a0 {
 public:
-    ChannelSet *FUN_00288ad0(unsigned int a, unsigned int b);
+    ChannelSet_2256a0 *FUN_00288ad0(unsigned int a, unsigned int b);
 };
 
-struct Frame {
+struct Frame_2256a0 {
     char pad[0x10];
-    Quat rot;
-    Quat q;
+    Quat_2256a0 rot;
+    Quat_2256a0 q;
 };
 
 class AnimationDriver {
@@ -62,17 +62,17 @@ public:
     virtual char vfunc_11(unsigned int a, unsigned int b, Pose *pose, float t);
 
     char pad0[0x20 - 4];
-    Source *source;
+    Source_2256a0 *source;
     char pad1[0x23c - 0x24];
     int track;
 };
 
 char AnimationDriver::vfunc_11(unsigned int a, unsigned int b, Pose *pose, float t)
 {
-    ChannelSet *set = source->FUN_00288ad0(a, b);
+    ChannelSet_2256a0 *set = source->FUN_00288ad0(a, b);
     if (set == 0)
         return 0;
-    Frame f;
+    Frame_2256a0 f;
     char result = 0;
     Channel *rotCh = set->FUN_00288960(0x544f52, 0x544f52);
     if (rotCh != 0) {
@@ -85,9 +85,9 @@ char AnimationDriver::vfunc_11(unsigned int a, unsigned int b, Pose *pose, float
     }
     Channel *posCh = set->FUN_00288960(0x4e415254, 0x54434556);
     if (posCh != 0) {
-        posCh->vf4(track, (Vec3 *)&f.q);
-        Vec3 *tp = (Vec3 *)&f.q;
-        Vec3 cur = pose->position;
+        posCh->vf4(track, (Vec3_2256a0 *)&f.q);
+        Vec3_2256a0 *tp = (Vec3_2256a0 *)&f.q;
+        Vec3_2256a0 cur = pose->position;
         cur.x = (tp->x - cur.x) * t + cur.x;
         cur.y = (tp->y - cur.y) * t + cur.y;
         cur.z = (tp->z - cur.z) * t + cur.z;

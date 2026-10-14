@@ -2,7 +2,7 @@
 // FUN_00338d90 @ 0x00338d90
 struct lua_State;
 
-struct lua_Debug {
+struct lua_Debug_338d90 {
     int event;
     const char *name;
     const char *namewhat;
@@ -19,16 +19,16 @@ extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern char DAT_003f335c;
 
-int __cdecl FUN_00213fc0(lua_State *L, int level, lua_Debug *ar);
+int __cdecl FUN_00213fc0(lua_State *L, int level, lua_Debug_338d90 *ar);
 void __cdecl FUN_00213380(lua_State *L, const char *s, unsigned int len);
 const char *__cdecl FUN_00213470(lua_State *L, const char *fmt, ...);
-int __cdecl FUN_00214bd0(lua_State *L, const char *what, lua_Debug *ar);
+int __cdecl FUN_00214bd0(lua_State *L, const char *what, lua_Debug_338d90 *ar);
 
 // Lua 5.0 luaL_where: pushes "source:line: " for the given call level, or "".
 void luaL_where(lua_State *L, int level)
 {
     struct Frame {
-        lua_Debug ar;
+        lua_Debug_338d90 ar;
         unsigned int cookie;
     } f;
     f.cookie = DAT_004d9968;

@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 2/2)
 // pure3d::pddiBaseContext::vfunc_44 @ 0x0031dbd0
 // Sets the position of light `index` (0..7) in the context's light table and re-applies the light.
-struct Vec3 {
+struct Vec3_31dbd0 {
     float x, y, z;
 };
 struct Light {
     int unused0;
-    Vec3 pos;
+    Vec3_31dbd0 pos;
     float w;
     char rest[0x7c - 0x14];
 };
@@ -57,7 +57,7 @@ public:
     virtual void vfunc_41();
     virtual void vfunc_42();
     virtual void vfunc_43();
-    virtual void vfunc_44(int index, const Vec3 *pos);
+    virtual void vfunc_44(int index, const Vec3_31dbd0 *pos);
     virtual void vfunc_45();
     virtual void vfunc_46();
     virtual void vfunc_47();
@@ -128,10 +128,10 @@ public:
     Light *lights;
 };
 
-void pddiBaseContext::vfunc_44(int index, const Vec3 *pos)
+void pddiBaseContext::vfunc_44(int index, const Vec3_31dbd0 *pos)
 {
     if (index < 8) {
-        Vec3 p = *pos;
+        Vec3_31dbd0 p = *pos;
         Light *l = &lights[index];
         l->pos = p;
         l->w = 1.0f;

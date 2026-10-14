@@ -1,31 +1,31 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 14/14)
 // FUN_00306930 @ 0x00306930
-class Item {
+class Item_306930 {
 public:
     virtual void AddRef();
     void FUN_003065b0(void *owner);
 };
 
-struct ItemVec {
-    Item **begin;
-    Item **end;
-    Item **cap;
+struct ItemVec_306930 {
+    Item_306930 **begin;
+    Item_306930 **end;
+    Item_306930 **cap;
 };
 
 void *__cdecl FUN_0008d690(unsigned int size);
 
-class Owner {
+class Owner_306930 {
 public:
     char pad0[0x10];
     void *context;      // 0x10
-    ItemVec *items;     // 0x14
-    void FUN_00306930(Item *item);
+    ItemVec_306930 *items;     // 0x14
+    void FUN_00306930(Item_306930 *item);
 };
 
-void Owner::FUN_00306930(Item *item)
+void Owner_306930::FUN_00306930(Item_306930 *item)
 {
     if (items == 0) {
-        ItemVec *v = (ItemVec *)FUN_0008d690(0x10);
+        ItemVec_306930 *v = (ItemVec_306930 *)FUN_0008d690(0x10);
         if (v) {
             v->begin = 0;
             v->end = 0;
@@ -38,9 +38,9 @@ void Owner::FUN_00306930(Item *item)
                 return;
         }
     }
-    ItemVec *v = items;
+    ItemVec_306930 *v = items;
     if (v->end < v->cap) {
-        Item **slot = v->end;
+        Item_306930 **slot = v->end;
         v->end = slot + 1;
         if (slot)
             *slot = item;

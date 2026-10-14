@@ -28,7 +28,7 @@ public:
 };
 
 // The incoming argument slot doubles as an output byte.
-union ParamArg {
+union ParamArg_236c50 {
     Param *param;
     char flag;
 };
@@ -38,13 +38,13 @@ public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual bool vfunc_3(unsigned __int64 id, int extra, ParamArg arg);
+    virtual bool vfunc_3(unsigned __int64 id, int extra, ParamArg_236c50 arg);
     virtual void vfunc_4(int extra, Param *param);
     char pad04[4];
     int value;              // 0x8
 };
 
-bool Track::vfunc_3(unsigned __int64 id, int extra, ParamArg arg)
+bool Track::vfunc_3(unsigned __int64 id, int extra, ParamArg_236c50 arg)
 {
     Param *param = arg.param;
     int count;

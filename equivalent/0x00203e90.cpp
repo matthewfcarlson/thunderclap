@@ -3,7 +3,7 @@
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" char* strncpy(char* dst, const char* src, unsigned int n);
 
-class Handle {
+class Handle_203e90 {
 public:
     virtual void v0();
     bool FUN_00266750();
@@ -19,60 +19,60 @@ struct Request {
     char pad10d[3];
 };
 
-struct Mgr {
+struct Mgr_203e90 {
     char pad00[4];
     int limit;
-    void FUN_00265810(Request* r, Handle** out);
+    void FUN_00265810(Request* r, Handle_203e90** out);
     int FUN_00264870();
     void FUN_00264860(int v);
 };
 
-struct Target {
+struct Target_203e90 {
     void FUN_00266220(int v);
 };
 
-struct Item {
+struct Item_203e90 {
     void FUN_000bd1b0(int v);
 };
 
-struct Holder {
+struct Holder_203e90 {
     char pad00[0x20];
-    Item* item;
-    Item* FUN_00086280();
+    Item_203e90* item;
+    Item_203e90* FUN_00086280();
 };
 
-struct Actor {
+struct Actor_203e90 {
     char pad00[4];
     char f04;
     char pad05[0x21];
     short f26;
     char pad28[0x10];
-    Target* f38;
+    Target_203e90* f38;
 };
 
 int FUN_00266da0(int v);
 unsigned int FUN_00267f80();
 void FUN_00087990();
 extern unsigned int DAT_004d9968;
-extern Mgr* DAT_00527c58;
+extern Mgr_203e90* DAT_00527c58;
 
-class Owner {
+class Owner_203e90 {
 public:
     char pad000[0x588];
-    Holder* f588;
+    Holder_203e90* f588;
     char pad58c[0xaf5 - 0x58c];
     char fAF5;
     char padAF6[6];
     unsigned int fAFC;
 
-    Handle* Run(const char* name, bool a2, bool a3, Actor* actor, Target* target, int a6, int a7);
+    Handle_203e90* Run(const char* name, bool a2, bool a3, Actor_203e90* actor, Target_203e90* target, int a6, int a7);
 };
 
-Handle* Owner::Run(const char* name, bool a2, bool a3, Actor* actor, Target* target, int a6, int a7)
+Handle_203e90* Owner_203e90::Run(const char* name, bool a2, bool a3, Actor_203e90* actor, Target_203e90* target, int a6, int a7)
 {
     unsigned int cookie = DAT_004d9968;
     struct Frame {
-        Handle* out;
+        Handle_203e90* out;
         int saved;
         int prev;
         Request req;
@@ -94,7 +94,7 @@ Handle* Owner::Run(const char* name, bool a2, bool a3, Actor* actor, Target* tar
         f.req.f108 = actor->f26;
     DAT_00527c58->FUN_00265810(&f.req, &f.out);
     if (!a2) {
-        Item* item = f588->FUN_00086280();
+        Item_203e90* item = f588->FUN_00086280();
         if (a3 && item && !fAF5)
             item->FUN_000bd1b0(0);
         f.saved = DAT_00527c58->FUN_00264870();
@@ -108,11 +108,11 @@ Handle* Owner::Run(const char* name, bool a2, bool a3, Actor* actor, Target* tar
         }
         DAT_00527c58->FUN_00264860(f.saved);
         int n = f.out->FUN_00266700();
-        Target* t = actor ? actor->f38 : target;
+        Target_203e90* t = actor ? actor->f38 : target;
         t->FUN_00266220(n);
     }
     FUN_00266da0(f.prev);
-    Handle* result = f.out;
+    Handle_203e90* result = f.out;
     __security_check_cookie(cookie);
     return result;
 }

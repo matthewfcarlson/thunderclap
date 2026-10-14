@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00214160 @ 0x00214160
-struct TString { char pad[0x10]; char data[1]; };
-struct Proto { char pad0[0x20]; TString *source; char pad1[0x3c - 0x24]; int linedefined; };
-struct Closure { char pad0[6]; char isC; char pad1[5]; Proto *p; };
-struct CallInfo { int pad; Closure *cl; };
-struct DebugInfo {
+struct TString_214160 { char pad[0x10]; char data[1]; };
+struct Proto_214160 { char pad0[0x20]; TString_214160 *source; char pad1[0x3c - 0x24]; int linedefined; };
+struct Closure_214160 { char pad0[6]; char isC; char pad1[5]; Proto_214160 *p; };
+struct CallInfo_214160 { int pad; Closure_214160 *cl; };
+struct DebugInfo_214160 {
     char pad0[0xc];
     const char *what;
     const char *source;
@@ -15,9 +15,9 @@ struct DebugInfo {
 void __cdecl FUN_00216340(char *out, const char *source, unsigned int len);
 
 // equiv-conv: FUN_00214160 ecx eax
-void FUN_00214160(DebugInfo *ar, CallInfo *ci)
+void FUN_00214160(DebugInfo_214160 *ar, CallInfo_214160 *ci)
 {
-    Closure *cl = ci->cl;
+    Closure_214160 *cl = ci->cl;
     if (cl->isC) {
         ar->source = "=[C]";
         ar->linedefined = -1;

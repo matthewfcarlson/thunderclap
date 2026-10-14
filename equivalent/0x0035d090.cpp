@@ -3,11 +3,11 @@
 extern "C" int atexit(void (*)());
 void FUN_00363cc0();
 
-struct Table {
+struct Table_35d090 {
     int w00, w01, w02, w03, w04, w05, w06, w07, w08, w09;
     int w10, w11, w12, w13, w14, w15, w16, w17, w18;
 };
-extern Table DAT_004dd784;
+extern Table_35d090 DAT_004dd784;
 
 void FUN_0035d090()
 {

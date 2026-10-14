@@ -2,12 +2,12 @@
 // FUN_000b0a50 @ 0x000b0a50
 extern "C" int strcmp(const char *, const char *);
 
-struct Elem {
+struct Elem_b0a50 {
     char data[0x20];
 };
-extern Elem DAT_003f335c;
+extern Elem_b0a50 DAT_003f335c;
 
-class Control {
+class Control_b0a50 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -22,7 +22,7 @@ public:
     virtual void vfunc_10(float lo, float hi);
 };
 
-class Factory {
+class Factory_b0a50 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -34,20 +34,20 @@ public:
     virtual void vfunc_7();
     virtual void vfunc_8();
     virtual void vfunc_9();
-    virtual Control *vfunc_10(Elem *e);
+    virtual Control_b0a50 *vfunc_10(Elem_b0a50 *e);
 };
 
-struct Rec {
+struct Rec_b0a50 {
     int count;
-    Elem *items;
+    Elem_b0a50 *items;
 };
 
-struct Row {
-    Control *ctl[2][3];
+struct Row_b0a50 {
+    Control_b0a50 *ctl[2][3];
     int flag[2][3];
 };
 
-void FUN_000b0a50(Factory *factory, int na, int nb, Rec *a, Rec *b, Rec *c, Control ***outA, Row *outB, Control **outC)
+void FUN_000b0a50(Factory_b0a50 *factory, int na, int nb, Rec_b0a50 *a, Rec_b0a50 *b, Rec_b0a50 *c, Control_b0a50 ***outA, Row_b0a50 *outB, Control_b0a50 **outC)
 {
     int i;
     int k;
@@ -55,15 +55,15 @@ void FUN_000b0a50(Factory *factory, int na, int nb, Rec *a, Rec *b, Rec *c, Cont
     int e;
 
     for (i = 0; i < na; i++) {
-        Rec *rec = &a[i];
+        Rec_b0a50 *rec = &a[i];
         int cnt = rec->count;
         for (int j = 0; j < cnt; j++) {
-            Elem *p;
+            Elem_b0a50 *p;
             if (j >= 0 && j < rec->count)
                 p = &rec->items[j];
             else
                 p = &DAT_003f335c;
-            Control *ctl = factory->vfunc_10(p);
+            Control_b0a50 *ctl = factory->vfunc_10(p);
             if (ctl) {
                 ctl->vfunc_10(0.0f, 1.0f);
                 ctl->AddRef();
@@ -74,12 +74,12 @@ void FUN_000b0a50(Factory *factory, int na, int nb, Rec *a, Rec *b, Rec *c, Cont
         }
     }
 
-    Rec *walk = b;
+    Rec_b0a50 *walk = b;
     for (k = 0; k < nb; k++) {
         for (m = 0; m < 2; m++) {
             for (e = 0; e < 3; e++) {
-                Elem *p = (walk->count > 0) ? walk->items : &DAT_003f335c;
-                Control *ctl = factory->vfunc_10(p);
+                Elem_b0a50 *p = (walk->count > 0) ? walk->items : &DAT_003f335c;
+                Control_b0a50 *ctl = factory->vfunc_10(p);
                 if (ctl) {
                     const char *name = ctl->vfunc_4();
                     if (strcmp(name, "XAxis") == 0 || strcmp(name, "YAxis") == 0 ||
@@ -102,8 +102,8 @@ void FUN_000b0a50(Factory *factory, int na, int nb, Rec *a, Rec *b, Rec *c, Cont
         }
     }
 
-    Elem *p = (c->count > 0) ? c->items : &DAT_003f335c;
-    Control *ctl = factory->vfunc_10(p);
+    Elem_b0a50 *p = (c->count > 0) ? c->items : &DAT_003f335c;
+    Control_b0a50 *ctl = factory->vfunc_10(p);
     if (ctl) {
         ctl->vfunc_10(0.0f, 1.0f);
         if (outC) {

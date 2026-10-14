@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 13/14, incomplete)
 // FUN_002205a0 @ 0x002205a0
 // Lua 5.0 need_value
-struct Proto { char pad0[0xc]; unsigned int *code; };
-struct FuncState { Proto *f; };
+struct Proto_2205a0 { char pad0[0xc]; unsigned int *code; };
+struct FuncState_2205a0 { Proto_2205a0 *f; };
 extern unsigned char DAT_00426ba4[];
 
 // equiv-conv: FUN_002205a0 ecx eax stack
-int __cdecl FUN_002205a0(int list, FuncState *fs, int cond)
+int __cdecl FUN_002205a0(int list, FuncState_2205a0 *fs, int cond)
 {
     while (list != -1) {
         unsigned int *pi = &fs->f->code[list];

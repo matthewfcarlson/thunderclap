@@ -1,25 +1,25 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 12/12)
 // FUN_0021b0d0 @ 0x0021b0d0
 // Lua 5.0 llex.c inclinenumber(LS): skip a newline sequence ("\n", "\r", "\n\r" or "\r\n") and count the line.
-struct Zio {
+struct Zio_21b0d0 {
     unsigned int n;
     unsigned char* p;
 };
 
-struct LexState {
+struct LexState_21b0d0 {
     int current;
     int linenumber;
     int lastline;
     int token;
     char pad[0x24 - 0x10];
-    Zio* z;
+    Zio_21b0d0* z;
 };
 
-int __cdecl FUN_0021a550(Zio* z);                                    // luaZ_fill
-void __cdecl FUN_0021afd0(LexState* ls, const char* msg, int token); // luaX_lexerror
+int __cdecl FUN_0021a550(Zio_21b0d0* z);                                    // luaZ_fill
+void __cdecl FUN_0021afd0(LexState_21b0d0* ls, const char* msg, int token); // luaX_lexerror
 
 // equiv-conv: FUN_0021b0d0 esi
-void FUN_0021b0d0(LexState* ls)
+void FUN_0021b0d0(LexState_21b0d0* ls)
 {
     int old = ls->current;
 

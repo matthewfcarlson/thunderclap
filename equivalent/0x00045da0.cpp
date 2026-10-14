@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 24/24)
 // FUN_00045da0 @ 0x00045da0
-struct Key {
+struct Key_45da0 {
     unsigned lo;
     unsigned hi;
     void FUN_0027af10(unsigned a, unsigned b);
     void FUN_0027af50();
 };
 
-struct Bone {
+struct Bone_45da0 {
     char pad0[0x34];
     float offset;            // 0x34
     char pad38[8];
@@ -15,7 +15,7 @@ struct Bone {
 
 struct Skeleton {
     char pad0[0x1c];
-    Bone *bones;             // 0x1c
+    Bone_45da0 *bones;             // 0x1c
     int FUN_0027b200(unsigned __int64 id);
 };
 
@@ -24,7 +24,7 @@ struct ModelHolder {
     Skeleton *skeleton;      // 0x08
 };
 
-class Owner {
+class Owner_45da0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -43,31 +43,31 @@ public:
     unsigned keyHi;          // 0x0c
 };
 
-struct Registry {
-    int FUN_001c5b00(Key *k);
+struct Registry_45da0 {
+    int FUN_001c5b00(Key_45da0 *k);
 };
-struct Manager {
+struct Manager_45da0 {
     char pad0[0xc];
-    Registry *registry;      // 0x0c
-    void FUN_001c4190(Key *k);
+    Registry_45da0 *registry;      // 0x0c
+    void FUN_001c4190(Key_45da0 *k);
 };
-Manager *__cdecl FUN_001c3d90();
+Manager_45da0 *__cdecl FUN_001c3d90();
 unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 
-struct Tracker {
+struct Tracker_45da0 {
     char pad0[8];
-    Owner *owner;            // 0x08
-    Owner *pending;          // 0x0c
+    Owner_45da0 *owner;            // 0x08
+    Owner_45da0 *pending;          // 0x0c
     char pad10[0x10];
     int rootIdx;             // 0x20
     int balanceIdx;          // 0x24
     int headIdx;             // 0x28
     float rootOffset;        // 0x2c
 
-    char FUN_00045da0(Owner *newOwner);
+    char FUN_00045da0(Owner_45da0 *newOwner);
 };
 
-char Tracker::FUN_00045da0(Owner *newOwner)
+char Tracker_45da0::FUN_00045da0(Owner_45da0 *newOwner)
 {
     if (newOwner == owner)
         return 1;
@@ -114,7 +114,7 @@ char Tracker::FUN_00045da0(Owner *newOwner)
     }
 
     {
-        Key k;
+        Key_45da0 k;
         k.FUN_0027af10(owner->keyLo, owner->keyHi);
         bool found = FUN_001c3d90()->registry->FUN_001c5b00(&k) == 0;
         k.FUN_0027af50();
@@ -122,7 +122,7 @@ char Tracker::FUN_00045da0(Owner *newOwner)
             return 1;
     }
     {
-        Key k;
+        Key_45da0 k;
         k.FUN_0027af10(owner->keyLo, owner->keyHi);
         FUN_001c3d90()->FUN_001c4190(&k);
         k.FUN_0027af50();

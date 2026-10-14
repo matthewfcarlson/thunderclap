@@ -4,7 +4,7 @@ struct Vec3i {
     int x, y, z;
 };
 
-struct Placement {
+struct Placement_99bf0 {
     char pad[0x30];
     Vec3i pos;
 };
@@ -25,10 +25,10 @@ public:
     virtual void v11();
     virtual void v12();
     virtual void v13();
-    virtual Placement *vfunc_14();
+    virtual Placement_99bf0 *vfunc_14();
 };
 
-struct Holder {
+struct Holder_99bf0 {
     char pad00[4];
     unsigned int flags;
     char pad08[8];
@@ -38,7 +38,7 @@ struct Holder {
     void FUN_00099bf0(Vec3i *out);
 };
 
-void Holder::FUN_00099bf0(Vec3i *out)
+void Holder_99bf0::FUN_00099bf0(Vec3i *out)
 {
     Vec3i result = { 0, 0, 0 };
     Node *node;

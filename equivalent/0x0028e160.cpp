@@ -16,7 +16,7 @@ public:
     void FUN_00266be0();
 };
 
-struct Prim {
+struct Prim_28e160 {
     char pad00[4];
     int f4;
     int f8;
@@ -25,33 +25,33 @@ struct Prim {
     void *f18;
 };
 
-struct Parent;
+struct Parent_28e160;
 
-struct Frame {
+struct Frame_28e160 {
     int l14, l10, lc, l8, l4;
 };
 
-struct Mem {
-    Prim *FUN_0028c0b0(int count, Parent *p);
-    Prim *FUN_0028d150(int count, Parent *p);
-    Prim *FUN_0028d490(int count, Parent *p);
-    Prim *FUN_0028d750(int count, Parent *p);
-    Prim *FUN_0028dae0(int count, Parent *p);
+struct Mem_28e160 {
+    Prim_28e160 *FUN_0028c0b0(int count, Parent_28e160 *p);
+    Prim_28e160 *FUN_0028d150(int count, Parent_28e160 *p);
+    Prim_28e160 *FUN_0028d490(int count, Parent_28e160 *p);
+    Prim_28e160 *FUN_0028d750(int count, Parent_28e160 *p);
+    Prim_28e160 *FUN_0028dae0(int count, Parent_28e160 *p);
 };
 
-struct Parent {
-    Mem *FUN_002888c0(int size, int tag);
+struct Parent_28e160 {
+    Mem_28e160 *FUN_002888c0(int size, int tag);
 };
 
-Prim *__stdcall FUN_0028e160(Reader *R, int unused, Parent *parent)
+Prim_28e160 *__stdcall FUN_0028e160(Reader *R, int unused, Parent_28e160 *parent)
 {
-    Frame f;
+    Frame_28e160 f;
     Reader *Rr = R;
-    Parent *par = parent;
+    Parent_28e160 *par = parent;
     int *pcount = (int *)&R;        // the first argument slot is reused for counts
     int *pval = (int *)&parent;     // and the third for the chunk values
     int count;
-    Prim *obj;
+    Prim_28e160 *obj;
     int id = Rr->FUN_00266c30() - 0x121105;
     if ((unsigned int)id > 0xf)
         return 0;
@@ -61,10 +61,10 @@ Prim *__stdcall FUN_0028e160(Reader *R, int unused, Parent *parent)
         Rr->stream->FUN_002647e0(pcount, 1, 4, 1);
         count = *pcount;
         if (par == 0) {
-            Mem *m = (Mem *)FUN_0008d690(0x1c);
+            Mem_28e160 *m = (Mem_28e160 *)FUN_0008d690(0x1c);
             obj = m ? m->FUN_0028c0b0(count, 0) : 0;
         } else {
-            Mem *m = par->FUN_002888c0(0x1c, 7);
+            Mem_28e160 *m = par->FUN_002888c0(0x1c, 7);
             obj = m ? m->FUN_0028c0b0(count, par) : 0;
         }
         obj->f8 = f.l14;
@@ -91,10 +91,10 @@ Prim *__stdcall FUN_0028e160(Reader *R, int unused, Parent *parent)
         Rr->stream->FUN_002647e0(pcount, 1, 4, 1);
         count = *pcount;
         if (par == 0) {
-            Mem *m = (Mem *)FUN_0008d690(0x1c);
+            Mem_28e160 *m = (Mem_28e160 *)FUN_0008d690(0x1c);
             obj = m ? m->FUN_0028d150(count, 0) : 0;
         } else {
-            Mem *m = par->FUN_002888c0(0x1c, 7);
+            Mem_28e160 *m = par->FUN_002888c0(0x1c, 7);
             obj = m ? m->FUN_0028d150(count, par) : 0;
         }
         obj->f8 = f.l10;
@@ -118,10 +118,10 @@ Prim *__stdcall FUN_0028e160(Reader *R, int unused, Parent *parent)
         Rr->stream->FUN_002647e0(pcount, 1, 4, 1);
         count = *pcount;
         if (par == 0) {
-            Mem *m = (Mem *)FUN_0008d690(0x1c);
+            Mem_28e160 *m = (Mem_28e160 *)FUN_0008d690(0x1c);
             obj = m ? m->FUN_0028d490(count, 0) : 0;
         } else {
-            Mem *m = par->FUN_002888c0(0x1c, 7);
+            Mem_28e160 *m = par->FUN_002888c0(0x1c, 7);
             obj = m ? m->FUN_0028d490(count, par) : 0;
         }
         obj->f8 = f.l10;
@@ -133,10 +133,10 @@ Prim *__stdcall FUN_0028e160(Reader *R, int unused, Parent *parent)
         Rr->stream->FUN_002647e0(pcount, 1, 4, 1);
         count = *pcount;
         if (par == 0) {
-            Mem *m = (Mem *)FUN_0008d690(0x1c);
+            Mem_28e160 *m = (Mem_28e160 *)FUN_0008d690(0x1c);
             obj = m ? m->FUN_0028d750(count, 0) : 0;
         } else {
-            Mem *m = par->FUN_002888c0(0x1c, 7);
+            Mem_28e160 *m = par->FUN_002888c0(0x1c, 7);
             obj = m ? m->FUN_0028d750(count, par) : 0;
         }
         obj->f8 = f.l10;
@@ -148,10 +148,10 @@ Prim *__stdcall FUN_0028e160(Reader *R, int unused, Parent *parent)
         Rr->stream->FUN_002647e0(pcount, 1, 4, 1);
         count = *pcount;
         if (par == 0) {
-            Mem *m = (Mem *)FUN_0008d690(0x1c);
+            Mem_28e160 *m = (Mem_28e160 *)FUN_0008d690(0x1c);
             obj = m ? m->FUN_0028dae0(count, 0) : 0;
         } else {
-            Mem *m = par->FUN_002888c0(0x1c, 7);
+            Mem_28e160 *m = par->FUN_002888c0(0x1c, 7);
             obj = m ? m->FUN_0028dae0(count, par) : 0;
         }
         obj->f8 = f.l10;

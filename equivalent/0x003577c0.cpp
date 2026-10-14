@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_003577c0 @ 0x003577c0
-struct Vec3 {
+struct Vec3_3577c0 {
     float x, y, z;
 };
 
 // Is p inside the triangle v1 v2 v3 (all on the plane with normal n)?
-bool FUN_003577c0(const Vec3 *p, const Vec3 *v1, const Vec3 *v2, const Vec3 *v3, const Vec3 *n)
+bool FUN_003577c0(const Vec3_3577c0 *p, const Vec3_3577c0 *v1, const Vec3_3577c0 *v2, const Vec3_3577c0 *v3, const Vec3_3577c0 *n)
 {
     struct Frame {
         float cx, cy;

@@ -2,30 +2,30 @@
 // FUN_0010ac60 @ 0x0010ac60
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_10ac60 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Vec4 {
+struct Vec4_10ac60 {
     float x, y, z, w;
 };
 
 struct Locator {
-    void FUN_00059a50(Vec3 *out);
+    void FUN_00059a50(Vec3_10ac60 *out);
 };
 
-struct Body {
+struct Body_10ac60 {
     char pad[0x10];
     Locator *locator;
-    char FUN_000359e0(Vec4 *out);
+    char FUN_000359e0(Vec4_10ac60 *out);
 };
 
-float FUN_0010ac60(Body *a, Body *b, float radius, Vec3 *out)
+float FUN_0010ac60(Body_10ac60 *a, Body_10ac60 *b, float radius, Vec3_10ac60 *out)
 {
-    Vec3 pa;
-    Vec3 pb;
-    Vec4 info;
+    Vec3_10ac60 pa;
+    Vec3_10ac60 pb;
+    Vec4_10ac60 info;
     float ra;
     float rb;
 

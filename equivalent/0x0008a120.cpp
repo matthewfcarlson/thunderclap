@@ -2,7 +2,7 @@
 // FUN_0008a120 @ 0x0008a120
 extern "C" int memcmp(const void *a, const void *b, unsigned n);
 
-struct NameEntry {
+struct NameEntry_8a120 {
     unsigned __int64 key;
     char name[16];
 };
@@ -15,7 +15,7 @@ unsigned __int64 __cdecl FUN_0027b020(const char *s);
 class LevelRegistry {
 public:
     char pad0[0x158];
-    NameEntry entries[100];
+    NameEntry_8a120 entries[100];
     int FUN_00089400(const char *s);
     void FUN_00089f00(const char *key, const char *value);
     void FUN_0008a120();

@@ -5,8 +5,8 @@ extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern int DAT_004e3694;
 extern float DAT_004e369c, DAT_004e36a0;
-struct Manager { void FUN_00265920(char *, int *, int); };
-extern Manager *DAT_00527c58;
+struct Manager_1e8d40 { void FUN_00265920(char *, int *, int); };
+extern Manager_1e8d40 *DAT_00527c58;
 struct Clip {
  int active;
  int reserved;

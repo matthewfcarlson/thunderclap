@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000aa130 @ 0x000aa130
-struct Vec3 { float x, y, z; void FUN_0022d210(struct Mat* m); };
-struct Mat {
+struct Vec3_aa130 { float x, y, z; void FUN_0022d210(struct Mat_aa130* m); };
+struct Mat_aa130 {
     float m[16];
-    void FUN_0022ca90(Mat* a, Mat* b);
+    void FUN_0022ca90(Mat_aa130* a, Mat_aa130* b);
 };
 
-class Target {
+class Target_aa130 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5();
@@ -20,32 +20,32 @@ public:
     virtual void v24(int a, int b, int c);
 };
 
-class Source {
+class Source_aa130 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
     virtual void v12(); virtual void v13();
-    virtual Mat* v14();
+    virtual Mat_aa130* v14();
 };
 
-class Obj {
+class Obj_aa130 {
 public:
     char pad04[0x424];
-    Target* target;
-    Source* source;
-    bool FUN_000aa130(int a, Mat* b, float* out);
+    Target_aa130* target;
+    Source_aa130* source;
+    bool FUN_000aa130(int a, Mat_aa130* b, float* out);
 };
 
-bool Obj::FUN_000aa130(int a, Mat* b, float* out)
+bool Obj_aa130::FUN_000aa130(int a, Mat_aa130* b, float* out)
 {
     if (target == 0)
         return false;
     target->v24(a, 0, 0);
     target->v12(0);
     target->v7();
-    Mat view = *source->v14();
-    Mat res;
+    Mat_aa130 view = *source->v14();
+    Mat_aa130 res;
     res.FUN_0022ca90(&view, b);
     view = res;
     out[0] = view.m[12];
@@ -59,8 +59,8 @@ bool Obj::FUN_000aa130(int a, Mat* b, float* out)
     out[8] = view.m[6];
     target->v6(1.0f, 1);
     target->v7();
-    Mat* sm = source->v14();
-    Vec3 t;
+    Mat_aa130* sm = source->v14();
+    Vec3_aa130 t;
     t.x = sm->m[12];
     t.y = sm->m[13];
     t.z = sm->m[14];

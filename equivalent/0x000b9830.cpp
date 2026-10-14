@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 129 inputs, branch coverage 20/20)
 // FUN_000b9830 @ 0x000b9830
 extern "C" char* strncpy(char*, const char*, unsigned int);
-class Player {
+class Player_b9830 {
   public:
     char pad[0x9a8];
     char busy;
 };
-class Game {
+class Game_b9830 {
   public:
     char pad[0x2218];
-    Player* player;
+    Player_b9830* player;
     int mode;
 };
 class Entry;
-class Queue {
+class Queue_b9830 {
   public:
     int FUN_00088fa0();
 };
-class Mission {
+class Mission_b9830 {
   public:
     char pad[0x80];
-    Queue queue;
+    Queue_b9830 queue;
     void FUN_00089390();
     char FUN_00089a10();
     void FUN_00089a30(char flag);
@@ -28,30 +28,30 @@ class Mission {
     void FUN_000895e0(Entry* e);
     void FUN_00089810(Entry* e);
 };
-class Hud {
+class Hud_b9830 {
   public:
     void FUN_001cc620(int state);
 };
-Game* __cdecl FUN_000fc3d0();
+Game_b9830* __cdecl FUN_000fc3d0();
 void __cdecl FUN_000fc300();
 
-class Menu {
+class Menu_b9830 {
   public:
     char pad0[0x10];
     int state;
     char pad1[0x34 - 0x14];
-    Mission* mission;
-    Hud* hud;
+    Mission_b9830* mission;
+    Hud_b9830* hud;
     char pad2[0x1c8c - 0x3c];
     char saveName[32];
     Entry* FUN_000b4cf0(Entry* e);
     void FUN_000b9830();
 };
 
-void Menu::FUN_000b9830() {
+void Menu_b9830::FUN_000b9830() {
     if (state != 0x16)
         return;
-    Player* p = FUN_000fc3d0()->player;
+    Player_b9830* p = FUN_000fc3d0()->player;
     if (p != 0 && p->busy != 0)
         return;
     state = 9;

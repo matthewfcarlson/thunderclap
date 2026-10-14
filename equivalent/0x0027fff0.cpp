@@ -3,12 +3,12 @@
 extern const float DAT_003f32dc;
 extern const float DAT_0042c46c;
 struct Object;
-struct Entry { unsigned a,b; Object* object; };
-struct Container { char pad[0x3c]; Entry* begin; Entry* end; };
+struct Entry_27fff0 { unsigned a,b; Object* object; };
+struct Container_27fff0 { char pad[0x3c]; Entry_27fff0* begin; Entry_27fff0* end; };
 struct Object {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual int kind();
  virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual int subtype();
- char pad[0x40]; Container* container; char pad2[0x10]; float value;
+ char pad[0x40]; Container_27fff0* container; char pad2[0x10]; float value;
  void FUN_002a3be0(int, float);
 };
 void __stdcall FUN_0027fff0(Object* object, float value) {
@@ -16,7 +16,7 @@ void __stdcall FUN_0027fff0(Object* object, float value) {
  delta.f = value - DAT_003f32dc; delta.u &= 0x7fffffff;
  if (delta.f <= DAT_0042c46c) return;
  if (object->kind() == 4) {
-  Container* container = object->container;
+  Container_27fff0* container = object->container;
   unsigned count = (unsigned char)(container->end - container->begin);
   for (unsigned i=0; i<count; ++i) {
    Object* child = container->begin[(unsigned char)i].object;

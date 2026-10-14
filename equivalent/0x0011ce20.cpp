@@ -2,70 +2,70 @@
 // hulkfight::ai::StrafeRunAction::vfunc_5 @ 0x0011ce20
 extern "C" double pow(double, double);
 
-struct Vec3 {
+struct Vec3_11ce20 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-union Slot {
+union Slot_11ce20 {
     int i;
     float f;
     unsigned int u;
 };
 
-class RefCounted {
+class RefCounted_11ce20 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-struct Mount {
+struct Mount_11ce20 {
     char pad0[0x18];
-    bool FUN_00059a50(Vec3 *out);
+    bool FUN_00059a50(Vec3_11ce20 *out);
 };
 
-struct Target : RefCounted {
+struct Target_11ce20 : RefCounted_11ce20 {
     char pad04[0x3c];
-    Vec3 pos;
+    Vec3_11ce20 pos;
 };
 
-struct Player {
+struct Player_11ce20 {
     char pad0[0x10];
-    Mount *mount;
+    Mount_11ce20 *mount;
 };
 
-struct Hub20 {
+struct Hub20_11ce20 {
     char pad0[0x124];
-    Player *player;
+    Player_11ce20 *player;
 };
 
 struct World {
     char pad0[0x20];
-    Hub20 *hub;
+    Hub20_11ce20 *hub;
 };
 
-struct Stats {
+struct Stats_11ce20 {
     char pad0[0x10];
-    Mount *mount;
+    Mount_11ce20 *mount;
     char pad14[0x328 - 0x14];
-    Target *target;
+    Target_11ce20 *target;
     char pad32c[0x2064 - 0x32c];
-    Vec3 aim;
+    Vec3_11ce20 aim;
     float f2070;
-    Vec3 dir;
-    bool FUN_00035660(Vec3 *out);
+    Vec3_11ce20 dir;
+    bool FUN_00035660(Vec3_11ce20 *out);
 };
 
 void *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(void *x);
-extern "C" float FUN_00224f10(Vec3 *v);
+Stats_11ce20 *__fastcall FUN_00059a30(void *x);
+extern "C" float FUN_00224f10(Vec3_11ce20 *v);
 extern "C" float FUN_00224fc0(float from, float to);
-extern "C" void FUN_00224d70(float angle, Vec3 *v);
+extern "C" void FUN_00224d70(float angle, Vec3_11ce20 *v);
 
-extern Vec3 DAT_004a6ac0;
+extern Vec3_11ce20 DAT_004a6ac0;
 extern World *DAT_004dd700;
 
-struct Tuning {
+struct Tuning_11ce20 {
     char pad0[0x14];
     float f14;
     float f18;
@@ -89,26 +89,26 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual bool vfunc_5(Slot a0, Slot a1);
+    virtual bool vfunc_5(Slot_11ce20 a0, Slot_11ce20 a1);
     char pad04[0x18];
-    Tuning *tuning;
+    Tuning_11ce20 *tuning;
     void *owner;
-    RefCounted *held;
+    RefCounted_11ce20 *held;
     int f28;
     int mode;
 };
 
-bool StrafeRunAction::vfunc_5(Slot a0, Slot a1)
+bool StrafeRunAction::vfunc_5(Slot_11ce20 a0, Slot_11ce20 a1)
 {
     if (a0.i != 0)
         return true;
     if (owner == 0)
         return false;
 
-    Stats *stats = FUN_00059a30(FUN_000592a0(owner));
-    Target *target = stats->target;
+    Stats_11ce20 *stats = FUN_00059a30(FUN_000592a0(owner));
+    Target_11ce20 *target = stats->target;
     if (target == 0) {
-        target = (Target *)held;
+        target = (Target_11ce20 *)held;
         if (target == 0)
             return true;
     }
@@ -124,15 +124,15 @@ bool StrafeRunAction::vfunc_5(Slot a0, Slot a1)
         float t18;
         float t1c;
         float dy;
-        Vec3 w;
-        Vec3 d;
-        Vec3 fwd;
-        Vec3 pos;
-        Vec3 q;
+        Vec3_11ce20 w;
+        Vec3_11ce20 d;
+        Vec3_11ce20 fwd;
+        Vec3_11ce20 pos;
+        Vec3_11ce20 q;
     } fr;
 
     fr.pos = target->pos;
-    Tuning *tn = tuning;
+    Tuning_11ce20 *tn = tuning;
     if (tn->b2d) {
         int m = mode;
         if (m == 1 || m == 2 || m == 8)
@@ -212,11 +212,11 @@ bool StrafeRunAction::vfunc_5(Slot a0, Slot a1)
         tn = tuning;
         fr.t1c = tn->f1c;
         fr.t18 = tn->f20;
-        Hub20 *hub = DAT_004dd700->hub;
-        Player *pl = hub->player;
+        Hub20_11ce20 *hub = DAT_004dd700->hub;
+        Player_11ce20 *pl = hub->player;
         if (pl != 0) {
             pl->mount->FUN_00059a50(&fr.pos);
-            Tuning *t3 = tuning;
+            Tuning_11ce20 *t3 = tuning;
             fr.step = t3->f28;
             a1.f = t3->f24;
             if (t3->b2c) {

@@ -6,11 +6,11 @@ struct Entry3 {
 struct Entry14 {
     int w[14];
 };
-struct Table {
+struct Table_b35f0 {
     Entry3 small[13];
     Entry14 big[2];
 };
-void __stdcall FUN_000b35f0(Table* t, bool clearBig) {
+void __stdcall FUN_000b35f0(Table_b35f0* t, bool clearBig) {
     for (int i = 0; i < 13; i++) {
         t->small[i].a = 0;
         t->small[i].b = 0;

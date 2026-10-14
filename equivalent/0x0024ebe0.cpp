@@ -5,14 +5,14 @@ struct Stream {
     int depth;
 };
 
-struct Writer {
+struct Writer_24ebe0 {
     Stream *stream;
 };
 
 char __cdecl FUN_00246f50(Stream *s, const char *text);
-char __cdecl FUN_0025aab0(Writer *w, int value);
+char __cdecl FUN_0025aab0(Writer_24ebe0 *w, int value);
 
-bool FUN_0024ebe0(Writer *w, const unsigned char *bytes)
+bool FUN_0024ebe0(Writer_24ebe0 *w, const unsigned char *bytes)
 {
     if (!FUN_00246f50(w->stream, "\n[\n"))
         return false;

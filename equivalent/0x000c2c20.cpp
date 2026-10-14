@@ -18,37 +18,37 @@ extern void __cdecl FUN_000fc280(const char *name);
 struct Shader;
 struct Tex;
 
-struct Name {
+struct Name_c2c20 {
     unsigned int lo;
     unsigned int hi;
     void FUN_0027af00();
-    Name *FUN_0027b0e0(const char *s);
-    void FUN_0027af70(const Name *other);
+    Name_c2c20 *FUN_0027b0e0(const char *s);
+    void FUN_0027af70(const Name_c2c20 *other);
     void FUN_0027af50();
     const char *FUN_0027b010();
 };
 
-struct Loc {
+struct Loc_c2c20 {
     int FUN_000f7240(unsigned int lo, unsigned int hi);
     const char *FUN_00088ea0(const char *id);
 };
-extern Loc *__cdecl FUN_000fc1b0();
+extern Loc_c2c20 *__cdecl FUN_000fc1b0();
 
-struct Label {
-    void FUN_000f8500(const char *text, Loc *loc, char flag);
+struct Label_c2c20 {
+    void FUN_000f8500(const char *text, Loc_c2c20 *loc, char flag);
     void FUN_000f7a10(int idx, int z);
     void FUN_000f79a0(const char *text, int z);
 };
 
-class Widget {
+class Widget_c2c20 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
     char pad04[0x18 - 4];
-    Label label;
-    char pad2c[0x74 - 0x18 - sizeof(Label)];
+    Label_c2c20 label;
+    char pad2c[0x74 - 0x18 - sizeof(Label_c2c20)];
     char b74;
     char pad75[0x141 - 0x75];
     char b141;
@@ -60,23 +60,23 @@ public:
 
 struct Unlockable {
     char pad0[0x10];
-    Name id;
+    Name_c2c20 id;
     const char *FUN_00092040();
-    Name *FUN_00092050();
-    Name *FUN_00092070();
+    Name_c2c20 *FUN_00092050();
+    Name_c2c20 *FUN_00092070();
     const char *FUN_00092090();
     char FUN_00091f40();
     char FUN_00091fb0();
 };
 
-struct Unlockables {
+struct Unlockables_c2c20 {
     Unlockable *FUN_00092ad0(int id);
     char FUN_00092860(int id);
     int FUN_000932a0(int idx);
     void FUN_000929a0(int id, int z);
 };
 
-struct Gate {
+struct Gate_c2c20 {
     char FUN_000893c0();
 };
 
@@ -88,24 +88,24 @@ extern int DAT_00584554;
 Shader *__cdecl FUN_000c0db0(void *a, const char *name);
 Tex *__cdecl FUN_000c1ed0(void *a, const char *name);
 
-struct Holder54 {
+struct Holder54_c2c20 {
     struct Pts *FUN_00086370();
 };
 struct Pts {
     int FUN_00090110();
 };
-struct Hub {
+struct Hub_c2c20 {
     char pad0[0x54];
-    Holder54 *p54;
+    Holder54_c2c20 *p54;
 };
-extern Hub *DAT_004dd700;
+extern Hub_c2c20 *DAT_004dd700;
 
 class MovesMenu {
 public:
     char pad0[0x34];
-    Gate *p34;
+    Gate_c2c20 *p34;
     char pad38[0x4c - 0x38];
-    Unlockables *p4c;
+    Unlockables_c2c20 *p4c;
     void FUN_000c21b0(int id);
     void FUN_000ba040();
     void FUN_000b8c50(const char *a, const char *b);
@@ -115,11 +115,11 @@ public:
 void MovesMenu::F()
 {
     char flagD, f0e, flagF;
-    Name C;
-    Name B;
-    Name A;
-    Name E;
-    Name *nameDesc;
+    Name_c2c20 C;
+    Name_c2c20 B;
+    Name_c2c20 A;
+    Name_c2c20 E;
+    Name_c2c20 *nameDesc;
     const char *image;
     __declspec(align(8)) char buf[0x100];
     unsigned int cookie = DAT_004d9968;
@@ -138,7 +138,7 @@ void MovesMenu::F()
         __security_check_cookie(cookie);
         return;
     }
-    Widget *sel = (Widget *)FUN_00344e74(FUN_000fc260(name), 0, DAT_0049dba4, DAT_0049dbbc, 0);
+    Widget_c2c20 *sel = (Widget_c2c20 *)FUN_00344e74(FUN_000fc260(name), 0, DAT_0049dba4, DAT_0049dbbc, 0);
     if (!sel || !sel->p1d58 || sel->sel == -1) {
         __security_check_cookie(cookie);
         return;
@@ -157,7 +157,7 @@ void MovesMenu::F()
     A.FUN_0027af00();
     B.FUN_0027b0e0("TBS_UNLOCKABLE_MOVE_DESCRIPTION_SAVAGE");
     C.FUN_0027af00();
-    Name *combo;
+    Name_c2c20 *combo;
     int id;
     if (f0e) {
         id = 4;
@@ -190,9 +190,9 @@ void MovesMenu::F()
     FUN_000ba040();
     FUN_000fc280("MovesDescription");
     if (C.lo | C.hi) {
-        Widget *t = (Widget *)FUN_00344e74(FUN_000fc260("enabled_moves_name"), 0, DAT_0049dba4, DAT_0049f48c, 0);
+        Widget_c2c20 *t = (Widget_c2c20 *)FUN_00344e74(FUN_000fc260("enabled_moves_name"), 0, DAT_0049dba4, DAT_0049f48c, 0);
         if (t) {
-            Label *lbl = &t->label;
+            Label_c2c20 *lbl = &t->label;
             int r = FUN_000fc1b0()->FUN_000f7240(C.lo, C.hi);
             if (r == -1)
                 lbl->FUN_000f8500(C.FUN_0027b010(), FUN_000fc1b0(), 1);
@@ -201,9 +201,9 @@ void MovesMenu::F()
         }
     }
     if (combo) {
-        Widget *t = (Widget *)FUN_00344e74(FUN_000fc260("enabled_moves_button_combo"), 0, DAT_0049dba4, DAT_0049f48c, 0);
+        Widget_c2c20 *t = (Widget_c2c20 *)FUN_00344e74(FUN_000fc260("enabled_moves_button_combo"), 0, DAT_0049dba4, DAT_0049f48c, 0);
         if (t) {
-            Label *lbl = &t->label;
+            Label_c2c20 *lbl = &t->label;
             if (f0e) {
                 lbl->FUN_000f8500("", 0, 1);
             } else {
@@ -215,11 +215,11 @@ void MovesMenu::F()
             }
         }
     }
-    Name *desc = nameDesc;
+    Name_c2c20 *desc = nameDesc;
     if (desc) {
-        Widget *t = (Widget *)FUN_00344e74(FUN_000fc260("enabled_moves_description"), 0, DAT_0049dba4, DAT_0049f470, 0);
+        Widget_c2c20 *t = (Widget_c2c20 *)FUN_00344e74(FUN_000fc260("enabled_moves_description"), 0, DAT_0049dba4, DAT_0049f470, 0);
         if (t) {
-            Label *lbl = &t->label;
+            Label_c2c20 *lbl = &t->label;
             int r = FUN_000fc1b0()->FUN_000f7240(desc->lo, desc->hi);
             if (r == -1)
                 lbl->FUN_000f8500(desc->FUN_0027b010(), FUN_000fc1b0(), 1);
@@ -238,7 +238,7 @@ void MovesMenu::F()
                 sh->FUN_000b4280(&DAT_00584554, tex);
         }
     }
-    Widget *btn = (Widget *)FUN_00344e74(FUN_000fc260("purchase_move"), 0, DAT_0049dba4, DAT_0049f4a4, 0);
+    Widget_c2c20 *btn = (Widget_c2c20 *)FUN_00344e74(FUN_000fc260("purchase_move"), 0, DAT_0049dba4, DAT_0049f4a4, 0);
     char bl = flagF;
     if (btn) {
         if (!bl && flagD) {
@@ -248,7 +248,7 @@ void MovesMenu::F()
             btn->b141 = 1;
             btn->b74 = 1;
         }
-        Label *lbl = &btn->label;
+        Label_c2c20 *lbl = &btn->label;
         if (bl && flagD)
             FUN_000fc020(buf, 0x40, FUN_000fc1b0()->FUN_00088ea0("TBS_MENU_ITEM_TUTORIAL"));
         else
@@ -256,7 +256,7 @@ void MovesMenu::F()
         lbl->FUN_000f79a0(buf, 0);
         btn->vfunc_3();
     }
-    Widget *pts = (Widget *)FUN_00344e74(FUN_000fc260("enabled_moves_smash_points"), 0, DAT_0049dba4, DAT_0049f48c, 0);
+    Widget_c2c20 *pts = (Widget_c2c20 *)FUN_00344e74(FUN_000fc260("enabled_moves_smash_points"), 0, DAT_0049dba4, DAT_0049f48c, 0);
     if (pts) {
         int p = DAT_004dd700->p54->FUN_00086370()->FUN_00090110();
         FUN_000fc020(buf, 0x40, FUN_000fc1b0()->FUN_00088ea0("TBS_SMASH_POINTS_TOTAL"), p);

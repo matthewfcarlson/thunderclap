@@ -39,7 +39,7 @@ struct Node {
     Node *FUN_0028c2a0(unsigned x, void *parent);
 };
 
-class LoadContext {
+class LoadContext_28ea80 {
 public:
     virtual void f0();
     virtual void f1();
@@ -47,7 +47,7 @@ public:
     virtual Entity *lookup(content::LoadInventory::DynamicCasterBase *caster, unsigned __int64 id);
 };
 
-class Parent {
+class Parent_28ea80 {
 public:
     void *FUN_002888c0(int size, int tag);
 };
@@ -64,7 +64,7 @@ void *FUN_0008d690(unsigned size);
 extern char DAT_00121110;
 unsigned __int64 __cdecl FUN_0027b020(const char *s);
 
-struct Frame {
+struct Frame_28ea80 {
     char pad[3];
     unsigned char len;     // 0x0b
     int a;                 // 0x0c, later reused as the caster object
@@ -72,9 +72,9 @@ struct Frame {
     char name[0x100];      // 0x14
 };
 
-Node *__stdcall FUN_0028ea80(Reader *r, LoadContext *ctx, Parent *parent)
+Node *__stdcall FUN_0028ea80(Reader *r, LoadContext_28ea80 *ctx, Parent_28ea80 *parent)
 {
-    Frame f;
+    Frame_28ea80 f;
     Node *node;
 
     r->stream->FUN_002647e0(&f.a, 1, 4, 1);

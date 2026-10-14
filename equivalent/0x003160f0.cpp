@@ -2,28 +2,28 @@
 // FUN_003160f0 @ 0x003160f0
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_3160f0 {
     float x, y, z;
 };
 
-union FloatBits {
+union FloatBits_3160f0 {
     float f;
     unsigned int u;
 };
 
 struct CapB;
 
-class BoxA {
+class BoxA_3160f0 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual V3* v4();
+    virtual V3_3160f0* v4();
     char pad04[0x48 - 4];
     float ext[3];
-    V3 axis[3];
-    void FUN_002fb990(V3* out, int axis, int sign);
+    V3_3160f0 axis[3];
+    void FUN_002fb990(V3_3160f0* out, int axis, int sign);
 };
 
 class CapB {
@@ -32,14 +32,14 @@ public:
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual V3* v4();
+    virtual V3_3160f0* v4();
     char pad04[0x44 - 4];
-    V3 dir;
+    V3_3160f0 dir;
     float f50;
     float f54;
 };
 
-struct Frame {
+struct Frame_3160f0 {
     float scratch;
     float f4unused;
     float adp;
@@ -52,33 +52,33 @@ struct Frame {
     float kx;
     float ky;
     float kz;
-    V3 out;
-    V3 u;
+    V3_3160f0 out;
+    V3_3160f0 u;
     float len;
     float q;
 };
 
-class Collider {
+class Collider_3160f0 {
 public:
     char pad00[0xc];
     float f0c;
     char pad10[4];
-    V3 d;
-    void FUN_00315620(V3* out, V3* axis, float ext, V3* u, V3* b, float f50, float* kv, float L, float m, BoxA* a, CapB* cap);
-    void FUN_003160f0(BoxA* a, CapB* b);
+    V3_3160f0 d;
+    void FUN_00315620(V3_3160f0* out, V3_3160f0* axis, float ext, V3_3160f0* u, V3_3160f0* b, float f50, float* kv, float L, float m, BoxA_3160f0* a, CapB* cap);
+    void FUN_003160f0(BoxA_3160f0* a, CapB* b);
 };
 
-void Collider::FUN_003160f0(BoxA* a, CapB* b)
+void Collider_3160f0::FUN_003160f0(BoxA_3160f0* a, CapB* b)
 {
-    Frame f;
-    V3* pa = a->v4();
-    V3* pb = b->v4();
+    Frame_3160f0 f;
+    V3_3160f0* pa = a->v4();
+    V3_3160f0* pb = b->v4();
     d.x = pb->x - pa->x;
     d.y = pb->y - pa->y;
     d.z = pb->z - pa->z;
     for (f.i = 0; f.i < 3; f.i++) {
-        V3* ax = &a->axis[f.i];
-        V3* bb = &b->dir;
+        V3_3160f0* ax = &a->axis[f.i];
+        V3_3160f0* bb = &b->dir;
         double cx = bb->z * ax->y - bb->y * ax->z;
         double cy = ax->z * bb->x - bb->z * ax->x;
         volatile float cz = bb->y * ax->x - ax->y * bb->x;
@@ -93,7 +93,7 @@ void Collider::FUN_003160f0(BoxA* a, CapB* b)
             continue;
         double dpx = f.kz * d.z + f.ky * d.y + f.kx * d.x;
         f.adp = (float)dpx;
-        FloatBits fb;
+        FloatBits_3160f0 fb;
         fb.f = f.adp;
         fb.u &= 0x7fffffff;
         f.adp = fb.f;
@@ -107,10 +107,10 @@ void Collider::FUN_003160f0(BoxA* a, CapB* b)
         for (f.j = 0; f.j < 2; f.j++) {
             a->FUN_002fb990(&f.out, f.i, f.j);
             f.q = (f.out.z * f.kz + f.out.y * f.ky + f.out.x * f.kx) * f.inv;
-            FloatBits sb;
+            FloatBits_3160f0 sb;
             sb.f = f.s;
             sb.u &= 0x7fffffff;
-            FloatBits qb;
+            FloatBits_3160f0 qb;
             qb.f = f.q;
             qb.u &= 0x7fffffff;
             f.m = (float)(sb.f - (qb.f + f.f54));

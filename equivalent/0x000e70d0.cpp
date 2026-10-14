@@ -45,7 +45,7 @@ struct Node {
     virtual void *find(const char *name);
 };
 
-class Registry {
+class Registry_e70d0 {
 public:
     char pad0[0xc];
     Node *groupA[0x40];      // 0xc
@@ -61,7 +61,7 @@ public:
     void *FUN_000e70d0(const char *name);
 };
 
-void *Registry::FUN_000e70d0(const char *name)
+void *Registry_e70d0::FUN_000e70d0(const char *name)
 {
     unsigned int cookie = DAT_004d9968;
     char buf[0x40];

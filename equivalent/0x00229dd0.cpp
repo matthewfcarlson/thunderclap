@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 15/18, incomplete)
 // FUN_00229dd0 @ 0x00229dd0
-struct Item {
+struct Item_229dd0 {
     int pad0;
     float key;
     int pad8;
 };
 
-void __cdecl FUN_00228990(Item *dest, Item *first, Item *last, int a, int b);
+void __cdecl FUN_00228990(Item_229dd0 *dest, Item_229dd0 *first, Item_229dd0 *last, int a, int b);
 
 // Insertion sort of [first, last) by descending key.
-void FUN_00229dd0(Item *first, Item *last) {
+void FUN_00229dd0(Item_229dd0 *first, Item_229dd0 *last) {
     if (first == last) {
         return;
     }
-    for (Item *cur = first + 1; cur != last; cur++) {
-        Item *next = cur + 1;
-        Item *pos;
+    for (Item_229dd0 *cur = first + 1; cur != last; cur++) {
+        Item_229dd0 *next = cur + 1;
+        Item_229dd0 *pos;
         if (cur->key > first->key) {
             pos = first;
         } else {

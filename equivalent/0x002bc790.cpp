@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 129 inputs, branch coverage 66/78, incomplete)
 // FUN_002bc790 @ 0x002bc790
 inline void *operator new(unsigned int, void *p) throw() { return p; }
-struct Vec3 {
+struct Vec3_2bc790 {
     float x, y, z;
 };
 
@@ -33,33 +33,33 @@ public:
     void FUN_00266be0();
 };
 
-class NameHolder {
+class NameHolder_2bc790 {
 public:
     char pad00[8];
     void FUN_0027b040(const char *name);
 };
 
-class Child {
+class Child_2bc790 {
 public:
     virtual void v0();
     virtual void v1();
 };
 
-class ChildList {
+class ChildList_2bc790 {
 public:
-    Child **begin;
+    Child_2bc790 **begin;
     char pad04[8];
-    void FUN_002bc520(int n, Child **value);
+    void FUN_002bc520(int n, Child_2bc790 **value);
 };
 
-class Mat4 {
+class Mat4_2bc790 {
 public:
     float m[16];
     void FUN_0022ba20(const float *q);
-    void FUN_0022be40(const Vec3 *t);
+    void FUN_0022be40(const Vec3_2bc790 *t);
 };
 
-class Quad {
+class Quad_2bc790 {
 public:
     virtual void v0();
     virtual void v1();
@@ -71,28 +71,28 @@ public:
     virtual void v7();
     virtual void v8(void *shader);
     char pad04[4];
-    NameHolder name;
+    NameHolder_2bc790 name;
     char pad10[4];
-    Vec3 v14;
-    Vec3 v20;
-    Vec3 v2c;
+    Vec3_2bc790 v14;
+    Vec3_2bc790 v20;
+    Vec3_2bc790 v2c;
     int i38;
     char pad3c[0x40 - 0x3c];
-    Mat4 mat40;
+    Mat4_2bc790 mat40;
     char pad80[0x88 - 0x80];
     char b88;
     char b89;
     char b8a;
     char pad8b[1];
-    ChildList list;
+    ChildList_2bc790 list;
     int f98;
     int f9c;
     int fa0;
     float fa4, fa8, fac, fb0, fb4, fb8, fbc, fc0;
     int fc4, fc8;
     char padcc[4];
-    Quad *FUN_002bc580();
-    Quad *FUN_002bc660();
+    Quad_2bc790 *FUN_002bc580();
+    Quad_2bc790 *FUN_002bc660();
 };
 
 class ErrorShader {
@@ -100,7 +100,7 @@ public:
     ErrorShader *FUN_0028edf0(const char *what, int flag);
 };
 
-class Factory {
+class Factory_2bc790 {
 public:
     virtual void v0();
     virtual void v1();
@@ -108,9 +108,9 @@ public:
     virtual ErrorShader *v3(content::LoadInventory::DynamicCaster<pure3d::Shader> *caster, unsigned __int64 id);
 };
 
-struct Parent {
+struct Parent_2bc790 {
     char pad00[8];
-    NameHolder name;
+    NameHolder_2bc790 name;
     char pad10[0x40 - 0x10];
     float f40;
     char pad44[4];
@@ -122,7 +122,7 @@ extern "C" double cos(double);
 unsigned __int64 FUN_0027b020(const char *name);
 void FUN_0028fcc0(const char *fmt, ...);
 
-struct Frame {
+struct Frame_2bc790 {
     unsigned char pad10[3];
     unsigned char len;               // S+0x13 (byte count, then the type flag)
     int count;                       // 0x14
@@ -148,23 +148,23 @@ struct Frame {
     float j3;                        // 0x64
     float j4;                        // 0x68
     float j5;                        // 0x6c
-    Vec3 pos;                        // 0x70
+    Vec3_2bc790 pos;                        // 0x70
     float q4[4];                     // 0x7c
     unsigned int name1[64];          // 0x8c
     unsigned int name2[64];          // 0x18c
 };
 
-class Group {
+class Group_2bc790 {
 public:
-    void FUN_002a46d0(void *a, Quad *q);
-    Child *FUN_002ba8d0(Reader *r, Factory *factory);
-    void FUN_002a4b00(void *a, Reader *r, Factory *factory);
-    void FUN_002bc790(Parent *parent, Reader *r, Factory *factory);
+    void FUN_002a46d0(void *a, Quad_2bc790 *q);
+    Child_2bc790 *FUN_002ba8d0(Reader *r, Factory_2bc790 *factory);
+    void FUN_002a4b00(void *a, Reader *r, Factory_2bc790 *factory);
+    void FUN_002bc790(Parent_2bc790 *parent, Reader *r, Factory_2bc790 *factory);
 };
 
-void Group::FUN_002bc790(Parent *parent, Reader *r, Factory *factory)
+void Group_2bc790::FUN_002bc790(Parent_2bc790 *parent, Reader *r, Factory_2bc790 *factory)
 {
-    Frame fr;
+    Frame_2bc790 fr;
     char *name1 = (char *)fr.name1;
     char *name2 = (char *)fr.name2;
     fr.self = this;
@@ -179,17 +179,17 @@ void Group::FUN_002bc790(Parent *parent, Reader *r, Factory *factory)
     name2[n2] = 0;
     r->stream->FUN_002647e0(&fr.count, 1, 4, 1);
     fr.len = fr.count != 0;
-    Quad *o;
+    Quad_2bc790 *o;
     if (fr.len == 1) {
         void *mem = FUN_00263ea0(0xd0);
         o = 0;
         if (mem != 0)
-            o = ((Quad *)mem)->FUN_002bc660();
+            o = ((Quad_2bc790 *)mem)->FUN_002bc660();
     } else {
         void *mem = FUN_00263ea0(0x98);
         o = 0;
         if (mem != 0)
-            o = ((Quad *)mem)->FUN_002bc580();
+            o = ((Quad_2bc790 *)mem)->FUN_002bc580();
     }
     FUN_002a46d0(parent->p48, o);
     parent->name.FUN_0027b040(name1);
@@ -214,7 +214,7 @@ void Group::FUN_002bc790(Parent *parent, Reader *r, Factory *factory)
     r->stream->FUN_002647e0(&fr.count, 1, 4, 1);
     fr.slot1c = 0;
     fr.idx = 0;
-    o->list.FUN_002bc520(fr.count, (Child **)&fr.slot1c);
+    o->list.FUN_002bc520(fr.count, (Child_2bc790 **)&fr.slot1c);
 
     if (!r->FUN_002669f0())
         return;
@@ -229,8 +229,8 @@ void Group::FUN_002bc790(Parent *parent, Reader *r, Factory *factory)
             r->stream->FUN_002647e0(&o->v20, 3, 4, 1);
         } else if (chunk == 0x17005) {
             if ((unsigned int)fr.idx < (unsigned int)fr.count) {
-                Child **slot = o->list.begin + fr.idx;
-                Child *child = FUN_002ba8d0(r, factory);
+                Child_2bc790 **slot = o->list.begin + fr.idx;
+                Child_2bc790 *child = FUN_002ba8d0(r, factory);
                 if (child != 0)
                     child->v0();
                 if (*slot != 0)

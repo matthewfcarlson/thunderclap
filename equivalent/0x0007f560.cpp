@@ -3,30 +3,30 @@
 extern float DAT_00421898;
 extern float DAT_004218c0;
 
-struct Vec3 {
+struct Vec3_7f560 {
     float x, y, z;
 };
 
-struct Emitter {
+struct Emitter_7f560 {
     void FUN_001c5080(float a, float b);
 };
 
-struct Obj {
+struct Obj_7f560 {
     virtual void v0();
     virtual void v1();
     char pad[0xec - 4];
-    Emitter *emitter;
+    Emitter_7f560 *emitter;
 
-    void FUN_00080ea0(Vec3 *a, Vec3 *b);
+    void FUN_00080ea0(Vec3_7f560 *a, Vec3_7f560 *b);
     void FUN_00080ef0(int a);
     void FUN_00080f00(int a);
     void FUN_00080f20(int a);
-    void FUN_00080e30(Vec3 *a);
+    void FUN_00080e30(Vec3_7f560 *a);
     void FUN_00080f30(int a);
     void FUN_00081b20(int a);
 };
 
-struct Cell {
+struct Cell_7f560 {
     char pad0[0x1c];
     int head;
     char pad1[0x2c - 0x20];
@@ -34,33 +34,33 @@ struct Cell {
     int counts[6];
 };
 
-struct Row {
-    Cell cells[14];
+struct Row_7f560 {
+    Cell_7f560 cells[14];
 };
 
-struct Mgr {
+struct Mgr_7f560 {
     char pad[0x1904];
-    Row rows[1];
+    Row_7f560 rows[1];
 
     bool FUN_00078d20(int a2, int a3, int *outA, int *a2slot);
-    Obj *FUN_0007f310(int a1, int one, int a, int b);
-    void FUN_0007afb0(int a2, int a3, int a4, int a5, Vec3 *c, Vec3 *b);
-    void FUN_00078ee0(Vec3 *c, Vec3 *b);
-    void FUN_0007b380(Obj *o);
+    Obj_7f560 *FUN_0007f310(int a1, int one, int a, int b);
+    void FUN_0007afb0(int a2, int a3, int a4, int a5, Vec3_7f560 *c, Vec3_7f560 *b);
+    void FUN_00078ee0(Vec3_7f560 *c, Vec3_7f560 *b);
+    void FUN_0007b380(Obj_7f560 *o);
 
     void FUN_0007f560(int a1, int a2, int a3, int a4, int a5);
 };
 
-void Mgr::FUN_0007f560(int a1, int a2, int a3, int a4, int a5)
+void Mgr_7f560::FUN_0007f560(int a1, int a2, int a3, int a4, int a5)
 {
     int la;
-    Vec3 lc;
-    Vec3 lb;
+    Vec3_7f560 lc;
+    Vec3_7f560 lb;
 
     int a2orig = a2;
     if (!FUN_00078d20(a2orig, a3, &la, &a2))
         return;
-    Obj *o = FUN_0007f310(a1, 1, la, a2);
+    Obj_7f560 *o = FUN_0007f310(a1, 1, la, a2);
     if (o == 0)
         return;
     o->v0();
@@ -74,7 +74,7 @@ void Mgr::FUN_0007f560(int a1, int a2, int a3, int a4, int a5)
     o->FUN_00080e30(&lc);
     o->FUN_00080f30(a5);
     FUN_0007b380(o);
-    Cell *c = &rows[a2orig].cells[a3];
+    Cell_7f560 *c = &rows[a2orig].cells[a3];
     c->counts[a4]++;
     c->total++;
     o->FUN_00081b20(0);

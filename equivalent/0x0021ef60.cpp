@@ -3,19 +3,19 @@
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
-struct LocVar {
+struct LocVar_21ef60 {
     void *name;
     int startpc;
     int endpc;
 };
-struct Proto {
+struct Proto_21ef60 {
     char pad0[0x18];
-    LocVar *locvars;
+    LocVar_21ef60 *locvars;
     char pad1c[0x20];
     int lineDefined;
 };
-struct FuncState {
-    Proto *f;
+struct FuncState_21ef60 {
+    Proto_21ef60 *f;
     char pad4[0x14];
     int pc;
     char pad1c[8];
@@ -25,56 +25,56 @@ struct FuncState {
     char pad35[0x41];
     unsigned short actvar[200];
 };
-struct LexState {
+struct LexState_21ef60 {
     char pad0[4];
     int linenumber;
     int lastline;
     int token;
     char pad10[0xc];
-    FuncState *fs;
+    FuncState_21ef60 *fs;
     void *L;
 };
-struct ExpDesc {
+struct ExpDesc_21ef60 {
     int k;
     int info;
     int aux;
     int t;
     int f;
 };
-struct Frame {
-    ExpDesc v;
-    ExpDesc b;
-    FuncState newfs;
+struct Frame_21ef60 {
+    ExpDesc_21ef60 v;
+    ExpDesc_21ef60 b;
+    FuncState_21ef60 newfs;
 };
 
 // equiv-conv: FUN_0021c3d0 esi
-void *FUN_0021c3d0(LexState *ls);
+void *FUN_0021c3d0(LexState_21ef60 *ls);
 // equiv-conv: FUN_0021c240 ecx edx
 void FUN_0021c240(const char *what, int limit);
-unsigned short __cdecl FUN_0021c490(LexState *ls, void *name);
-void __cdecl FUN_00220850(FuncState *fs, int n);
+unsigned short __cdecl FUN_0021c490(LexState_21ef60 *ls, void *name);
+void __cdecl FUN_00220850(FuncState_21ef60 *fs, int n);
 // equiv-conv: FUN_0021cac0 eax ecx
-void FUN_0021cac0(FuncState *newfs, LexState *ls);
+void FUN_0021cac0(FuncState_21ef60 *newfs, LexState_21ef60 *ls);
 // equiv-conv: FUN_0021c2e0 esi eax
-void FUN_0021c2e0(LexState *ls, int token);
+void FUN_0021c2e0(LexState_21ef60 *ls, int token);
 // equiv-conv: FUN_0021d210 eax
-void FUN_0021d210(LexState *ls);
-void __cdecl FUN_0021f640(LexState *ls);
+void FUN_0021d210(LexState_21ef60 *ls);
+void __cdecl FUN_0021f640(LexState_21ef60 *ls);
 // equiv-conv: FUN_0021c340 esi edi stack eax
-void FUN_0021c340(LexState *ls, int what, int who, int line);
-void __cdecl FUN_0021cb80(LexState *ls);
-void __cdecl FUN_0021c9b0(LexState *ls, FuncState *newfs, ExpDesc *e);
-void __cdecl FUN_00221280(FuncState *fs, ExpDesc *var, ExpDesc *e);
+void FUN_0021c340(LexState_21ef60 *ls, int what, int who, int line);
+void __cdecl FUN_0021cb80(LexState_21ef60 *ls);
+void __cdecl FUN_0021c9b0(LexState_21ef60 *ls, FuncState_21ef60 *newfs, ExpDesc_21ef60 *e);
+void __cdecl FUN_00221280(FuncState_21ef60 *fs, ExpDesc_21ef60 *var, ExpDesc_21ef60 *e);
 
 // equiv-conv: FUN_0021ef60 ebx
-void FUN_0021ef60(LexState *ls)
+void FUN_0021ef60(LexState_21ef60 *ls)
 {
     unsigned int cookie = DAT_004d9968;
-    Frame f;
-    FuncState *fs = ls->fs;
+    Frame_21ef60 f;
+    FuncState_21ef60 *fs = ls->fs;
     void *name = FUN_0021c3d0(ls);
 
-    FuncState *cur = ls->fs;
+    FuncState_21ef60 *cur = ls->fs;
     if (cur->nactvar + 1 > 200)
         FUN_0021c240("local variables", 200);
     cur->actvar[cur->nactvar] = FUN_0021c490(ls, name);

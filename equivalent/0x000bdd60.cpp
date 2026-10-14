@@ -14,7 +14,7 @@ public:
     unsigned int color;
 };
 
-class Screen {
+class Screen_bdd60 {
 public:
     virtual void v0();
     virtual void v1();
@@ -44,40 +44,40 @@ public:
     virtual void SetVisible(int on);
 };
 
-struct Notifier { void FUN_0023f8f0(); };
-struct Widget { void FUN_001bf8b0(); };
+struct Notifier_bdd60 { void FUN_0023f8f0(); };
+struct Widget_bdd60 { void FUN_001bf8b0(); };
 struct Overlay {
     void FUN_00293ef0();
     void FUN_00294080();
 };
 
 extern Presenter *DAT_0052c2a8;
-extern Notifier *DAT_004dd6e8;
+extern Notifier_bdd60 *DAT_004dd6e8;
 
 void FUN_000fc1a0();
-Screen *FUN_000fc310();
+Screen_bdd60 *FUN_000fc310();
 FEObject *FUN_000fc260(const char *name);
 float FUN_000186b0(float *v, float *lo, float *hi);
 
-class Menu {
+class Menu_bdd60 {
 public:
     char pad0[0x10];
     unsigned int state;
     char pad14[0x20 - 0x14];
     Overlay *overlay;
     char pad24[0x5c - 0x24];
-    Widget *widget;
+    Widget_bdd60 *widget;
     char pad60[0x1cfc - 0x60];
     float timer;
     void FUN_000bdd60();
 };
 
-void Menu::FUN_000bdd60()
+void Menu_bdd60::FUN_000bdd60()
 {
     overlay->FUN_00293ef0();
     if (state == 0) {
         FUN_000fc1a0();
-        Screen *s = FUN_000fc310();
+        Screen_bdd60 *s = FUN_000fc310();
         if (s != 0) {
             if (memcmp(s->GetName(), "blonsky_file", 13) == 0) {
                 if (widget != 0)

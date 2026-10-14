@@ -2,12 +2,12 @@
 // pure3d::OldParticleSystemLoader::vfunc_5 @ 0x002ad550
 extern "C" char *strstr(const char *, const char *);
 
-struct StrField {
+struct StrField_2ad550 {
     int a, b;
     void FUN_0027b040(const char *s);
 };
 
-class Item {
+class Item_2ad550 {
 public:
     virtual void v0();
     virtual void v1();
@@ -39,30 +39,30 @@ public:
 
 struct Slot;
 
-struct Host {
-    void FUN_002a46d0(void *slot, Item *item);
+struct Host_2ad550 {
+    void FUN_002a46d0(void *slot, Item_2ad550 *item);
 };
 
 struct Wrapper;
 
-struct Extra {
+struct Extra_2ad550 {
     char pad0[8];
-    StrField name;
+    StrField_2ad550 name;
     char pad1[0x60 - 0x10];
-    Extra *FUN_002a73d0();
+    Extra_2ad550 *FUN_002a73d0();
 };
 
 struct Particle;
 
-struct Table {
+struct Table_2ad550 {
     char pad0[8];
-    StrField name2;
-    void FUN_0027af70(StrField *name);
+    StrField_2ad550 name2;
+    void FUN_0027af70(StrField_2ad550 *name);
 };
 
-struct Block {
+struct Block_2ad550 {
     char pad0[8];
-    StrField name;
+    StrField_2ad550 name;
     char pad1[0x48 - 0x10];
     char *slots;
     char pad2[0x58 - 0x4c];
@@ -72,14 +72,14 @@ struct Block {
     int value;
     char pad4[0xa4 - 0x64];
     void *extra;
-    Block *FUN_002a3660(int arg);
+    Block_2ad550 *FUN_002a3660(int arg);
     void FUN_002a3c80(void *extra);
 };
 
 struct ExtraObj {
     char pad0[8];
-    Table table;
-    char pad1[0x60 - 0x8 - sizeof(Table)];
+    Table_2ad550 table;
+    char pad1[0x60 - 0x8 - sizeof(Table_2ad550)];
     ExtraObj *FUN_002a73d0();
 };
 
@@ -113,15 +113,15 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual unsigned __int64 vfunc_5(Block **out, unsigned __int64 *outHash, Reader *r, int flag);
+    virtual unsigned __int64 vfunc_5(Block_2ad550 **out, unsigned __int64 *outHash, Reader *r, int flag);
     char pad04[0x14 - 4];
     int f14;
-    Host *f18;
-    Item *FUN_002acd70(Reader *r, int flag);
+    Host_2ad550 *f18;
+    Item_2ad550 *FUN_002acd70(Reader *r, int flag);
 };
 }
 
-unsigned __int64 pure3d::OldParticleSystemLoader::vfunc_5(Block **out, unsigned __int64 *outHash, Reader *r, int flag)
+unsigned __int64 pure3d::OldParticleSystemLoader::vfunc_5(Block_2ad550 **out, unsigned __int64 *outHash, Reader *r, int flag)
 {
     struct Frame {
         union {
@@ -155,9 +155,9 @@ unsigned __int64 pure3d::OldParticleSystemLoader::vfunc_5(Block **out, unsigned 
         *sep = 0;
 
     void *mem = FUN_00263ea0(0xb0);
-    Block *b = 0;
+    Block_2ad550 *b = 0;
     if (mem)
-        b = ((Block *)mem)->FUN_002a3660(fr.slot14);
+        b = ((Block_2ad550 *)mem)->FUN_002a3660(fr.slot14);
     b->name.FUN_0027b040(fr.buf);
     b->value = fr.slot1c;
     b->count = (float)(unsigned int)fr.slot18;
@@ -167,7 +167,7 @@ unsigned __int64 pure3d::OldParticleSystemLoader::vfunc_5(Block **out, unsigned 
         int off = 0;
         do {
             if (r->FUN_00266a30() == 0x15806) {
-                Item *item = FUN_002acd70(r, flag);
+                Item_2ad550 *item = FUN_002acd70(r, flag);
                 item->v25(f14);
                 f18->FUN_002a46d0(b->slots + off, item);
                 off += 0x10;

@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 153 inputs, branch coverage 12/12)
 // FUN_002b27d0 @ 0x002b27d0
 void* __cdecl FUN_0008d6d0(unsigned int);
-struct Item {
+struct Item_2b27d0 {
  virtual void retain();
  virtual void release();
  virtual void slot2();
  virtual void slot3();
- virtual Item* clone();
+ virtual Item_2b27d0* clone();
 };
 namespace pure3d {
 struct MultiController;
@@ -22,8 +22,8 @@ struct MultiController : FUN_00284a90 {
  unsigned char flag;
  char padding[3];
  unsigned int count;
- Item** begin;
- Item** end;
+ Item_2b27d0** begin;
+ Item_2b27d0** end;
  virtual void slot0();
  MultiController(const MultiController& source);
 };
@@ -33,14 +33,14 @@ MultiController::MultiController(const MultiController& source) : FUN_00284a90(s
  count=source.count;
  unsigned int n=(unsigned int)((int)((unsigned int)source.end-(unsigned int)source.begin)>>2);
  if(n>0) {
- begin=(Item**)FUN_0008d6d0(n*4);
+ begin=(Item_2b27d0**)FUN_0008d6d0(n*4);
  if(begin) end=begin+n;
  else {begin=0;end=0;}
  } else {begin=0;end=0;}
  for(unsigned int i=0;i<count;++i) {
  begin[i]=0;
- Item* value=source.begin[i]->clone();
- Item** slot=begin+i;
+ Item_2b27d0* value=source.begin[i]->clone();
+ Item_2b27d0** slot=begin+i;
  if(value) value->retain();
  if(*slot) (*slot)->release();
  *slot=value;

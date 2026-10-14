@@ -4,17 +4,17 @@ struct Reader {
     bool FUN_00246f00(char *buf, int size, int a, int b);
 };
 
-struct Printer {
+struct Printer_25bce0 {
     void FUN_0023fe50(const char *text);
 };
 
-struct Holder {
+struct Holder_25bce0 {
     Reader *reader;
 };
 
-bool __cdecl FUN_0025abd0(Holder *h, int *len);
+bool __cdecl FUN_0025abd0(Holder_25bce0 *h, int *len);
 
-bool __cdecl FUN_0025bce0(Holder *h, Printer *out)
+bool __cdecl FUN_0025bce0(Holder_25bce0 *h, Printer_25bce0 *out)
 {
     struct Frame {
         int len;

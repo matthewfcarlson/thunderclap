@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 46/46)
 // FUN_002c8130 @ 0x002c8130
-struct Dev {
+struct Dev_2c8130 {
     virtual void v0(int a, int b, int c);
     virtual void v1(int a, int b, int c);
     virtual void v2(int a, int b, int c);
@@ -16,7 +16,7 @@ struct Dev {
     virtual void v16(const int *a, int b);
 };
 
-struct Desc {
+struct Desc_2c8130 {
     char pad0[8];
     unsigned type;                  // 0x8
     unsigned count;                 // 0xc
@@ -27,7 +27,7 @@ struct Desc {
 };
 
 // equiv-conv: FUN_002c8130 ecx eax esi
-void FUN_002c8130(unsigned char flag, Desc *d, Dev *dev)
+void FUN_002c8130(unsigned char flag, Desc_2c8130 *d, Dev_2c8130 *dev)
 {
     unsigned n = d->count;
     const int *a, *b, *c, *e;

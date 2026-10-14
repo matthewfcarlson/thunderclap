@@ -1,27 +1,27 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 21/22, incomplete)
 // CHeliDeathSpiralAction::vfunc_7 @ 0x00018170
-struct Vec3 {
+struct Vec3_18170 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Quat {
+struct Quat_18170 {
     float x, y, z, w;
     void FUN_0022b1c0(float angle);
-    void FUN_0022b170(float angle, Vec3 *axis);
+    void FUN_0022b170(float angle, Vec3_18170 *axis);
 };
 
-void __cdecl FUN_00224d70(float angle, Vec3 *v);
-void FUN_0022b080(Quat *out, Quat *a, Quat *b);
+void __cdecl FUN_00224d70(float angle, Vec3_18170 *v);
+void FUN_0022b080(Quat_18170 *out, Quat_18170 *a, Quat_18170 *b);
 
-struct Xform {
-    void FUN_0022be40(Vec3 *pos);
-    void FUN_00221cf0(Quat *q);
+struct Xform_18170 {
+    void FUN_0022be40(Vec3_18170 *pos);
+    void FUN_00221cf0(Quat_18170 *q);
 };
 
-struct Target {
+struct Target_18170 {
     char pad00[0x18];
-    Xform xform;
+    Xform_18170 xform;
 };
 
 struct Params {
@@ -31,41 +31,41 @@ struct Params {
     float tilt;
 };
 
-struct Ground {
+struct Ground_18170 {
     float FUN_00099b70();
 };
 
-struct Globals {
+struct Globals_18170 {
     char pad00[8];
-    Ground *ground;
+    Ground_18170 *ground;
 };
 
-extern Globals *DAT_004dd700;
+extern Globals_18170 *DAT_004dd700;
 
-struct Anchor;
+struct Anchor_18170;
 
-struct Other {
+struct Other_18170 {
     char pad00[0x10];
-    Anchor *anchor;
+    Anchor_18170 *anchor;
 };
 
-struct Fighter {
+struct Fighter_18170 {
     char pad00[0x1d8];
-    Vec3 push;
+    Vec3_18170 push;
     char pad1e4[0x334 - 0x1e4];
-    Other *other;
+    Other_18170 *other;
     void FUN_000359c0(int mode);
     void FUN_000357e0();
-    void FUN_00035660(Vec3 *out);
+    void FUN_00035660(Vec3_18170 *out);
 };
 
-struct Anchor {
-    Fighter *FUN_00059a30();
-    char FUN_00059a50(Vec3 *out);
+struct Anchor_18170 {
+    Fighter_18170 *FUN_00059a30();
+    char FUN_00059a50(Vec3_18170 *out);
 };
 
-struct Owner {
-    Anchor *FUN_000592a0();
+struct Owner_18170 {
+    Anchor_18170 *FUN_000592a0();
 };
 
 class CHeliDeathSpiralAction {
@@ -80,11 +80,11 @@ public:
     virtual bool vfunc_7(float dt);
     virtual void vfunc_8();
     char pad04[0x18];
-    Owner *owner;
+    Owner_18170 *owner;
     Params *params;
-    Target *target;
-    Vec3 goal;
-    Vec3 pos;
+    Target_18170 *target;
+    Vec3_18170 goal;
+    Vec3_18170 pos;
     float spin;
     float angle;
 };
@@ -94,23 +94,23 @@ bool CHeliDeathSpiralAction::vfunc_7(float dt)
     if (target == 0) {
         return false;
     }
-    Anchor *anchor = owner->FUN_000592a0();
-    Fighter *f = anchor->FUN_00059a30();
+    Anchor_18170 *anchor = owner->FUN_000592a0();
+    Fighter_18170 *f = anchor->FUN_00059a30();
     f->FUN_000359c0(3);
     pos.x = f->push.x + pos.x;
     pos.y = f->push.y + pos.y;
     pos.z = f->push.z + pos.z;
     f->FUN_000357e0();
-    Vec3 p;
+    Vec3_18170 p;
     anchor->FUN_00059a50(&p);
-    Vec3 v;
+    Vec3_18170 v;
     v.x = 0.0f;
     v.y = 0.0f;
     v.z = 0.0f;
     f->FUN_00035660(&v);
     pos.y = v.y;
-    Other *other = f->other;
-    Vec3 w;
+    Other_18170 *other = f->other;
+    Vec3_18170 w;
     w.x = 0.0f;
     w.y = 0.0f;
     w.z = 0.0f;
@@ -129,8 +129,8 @@ bool CHeliDeathSpiralAction::vfunc_7(float dt)
     goal.y = goal.y - dt * params->gravity;
     pos.y = pos.y - dt * params->gravity;
 
-    Vec3 c = pos;
-    Vec3 *bp = &pos;
+    Vec3_18170 c = pos;
+    Vec3_18170 *bp = &pos;
     float rate = params->followRate;
     float zx;
     float zy;
@@ -139,7 +139,7 @@ bool CHeliDeathSpiralAction::vfunc_7(float dt)
         zy = goal.y;
         c.z = goal.z;
     } else {
-        Vec3 d;
+        Vec3_18170 d;
         d.x = goal.x - c.x;
         d.y = goal.y - c.y;
         d.z = goal.z - c.z;
@@ -160,7 +160,7 @@ bool CHeliDeathSpiralAction::vfunc_7(float dt)
     bp->x = zx;
     bp->z = c.z;
     bp->y = zy;
-    Vec3 pf;
+    Vec3_18170 pf;
     pf.x = pos.x * dt;
     pf.y = pos.y * dt;
     pf.z = pos.z * dt;
@@ -170,15 +170,15 @@ bool CHeliDeathSpiralAction::vfunc_7(float dt)
     target->xform.FUN_0022be40(&pf);
     float na = dt * spin + angle;
     angle = na;
-    Quat q1;
+    Quat_18170 q1;
     q1.FUN_0022b1c0(na);
-    Quat q2;
+    Quat_18170 q2;
     q2.x = 0.0f;
     q2.y = 0.0f;
     q2.z = 0.0f;
     q2.w = 1.0f;
     if (other != 0) {
-        Vec3 g;
+        Vec3_18170 g;
         g.x = p.x - w.x;
         g.y = 0.0f;
         g.z = p.z - w.z;
@@ -197,7 +197,7 @@ bool CHeliDeathSpiralAction::vfunc_7(float dt)
         }
         q2.FUN_0022b170(h, &g);
     }
-    Quat q3;
+    Quat_18170 q3;
     FUN_0022b080(&q3, &q2, &q1);
     target->xform.FUN_00221cf0(&q3);
     return true;

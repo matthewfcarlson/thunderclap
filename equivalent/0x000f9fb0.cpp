@@ -10,7 +10,7 @@ public:
     Node *next;
 };
 
-class NodeList {
+class NodeList_f9fb0 {
 public:
     char pad0[8];
     Node *cur;
@@ -19,7 +19,7 @@ public:
     void FUN_000f9fb0();
 };
 
-void NodeList::FUN_000f9fb0()
+void NodeList_f9fb0::FUN_000f9fb0()
 {
     Node *n = cur;
     if (n == 0)

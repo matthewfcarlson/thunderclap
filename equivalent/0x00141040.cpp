@@ -2,60 +2,60 @@
 // hulkfight::motion::WallJumpAction::vfunc_5 @ 0x00141040
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_141040 {
     float x, y, z;
     float FUN_0022d110();
-    bool FUN_0022d2b0(V3 *other, float limit);
+    bool FUN_0022d2b0(V3_141040 *other, float limit);
 };
 
-struct Plane {
+struct Plane_141040 {
     float x, y, z, w;
-    void FUN_00037680(const V3 *n, const V3 *p);
+    void FUN_00037680(const V3_141040 *n, const V3_141040 *p);
 };
 
-struct Mat4 {
+struct Mat4_141040 {
     float m[16];
-    void FUN_0022be40(const V3 *pos);
+    void FUN_0022be40(const V3_141040 *pos);
     void FUN_00221d20(float angle);
 };
 
-struct Sub11c {
+struct Sub11c_141040 {
     char pad0[0x30];
     float f30;
     float f34;
 };
 
-struct Stats {
+struct Stats_141040 {
     char pad0[0x11c];
-    Sub11c *f11c;
+    Sub11c_141040 *f11c;
     char pad120[0x140 - 0x120];
     int f140;
     char pad144[0x1ad4 - 0x144];
-    V3 v1ad4;
-    V3 v1ae0;
-    V3 v1aec;
-    V3 v1af8;
+    V3_141040 v1ad4;
+    V3_141040 v1ae0;
+    V3_141040 v1aec;
+    V3_141040 v1af8;
     char pad1b04[0x2064 - 0x1b04];
-    V3 v2064;
+    V3_141040 v2064;
     void FUN_000359c0(int v);
-    void FUN_000357a0(V3 *v);
+    void FUN_000357a0(V3_141040 *v);
 };
 
-struct Clock {
-    Stats *FUN_00059a30();
-    char FUN_00059a50(V3 *out);
+struct Clock_141040 {
+    Stats_141040 *FUN_00059a30();
+    char FUN_00059a50(V3_141040 *out);
 };
 
-struct OwnerObj {
-    Clock *FUN_000592a0();
+struct OwnerObj_141040 {
+    Clock_141040 *FUN_000592a0();
 };
 
 struct Driver {
     char pad0[0x18];
-    Mat4 xform;
+    Mat4_141040 xform;
 };
 
-struct Cfg {
+struct Cfg_141040 {
     char pad0[0x20];
     float f20;
     char pad24[0x2c - 0x24];
@@ -64,18 +64,18 @@ struct Cfg {
     float f34;
 };
 
-double __cdecl FUN_00224f10(V3 *v);
+double __cdecl FUN_00224f10(V3_141040 *v);
 double __cdecl FUN_00224fc0(int a, int b);
-void __cdecl FUN_00224d70(int angle, V3 *v);
-extern V3 DAT_004ad77c;
+void __cdecl FUN_00224d70(int angle, V3_141040 *v);
+extern V3_141040 DAT_004ad77c;
 
-union Slot {
+union Slot_141040 {
     int i;
     float f;
     unsigned int u;
 };
 
-union Bits {
+union Bits_141040 {
     float f;
     unsigned int u;
     int i;
@@ -88,34 +88,34 @@ public:
     virtual void vf2();
     virtual void vf3();
     virtual void vf4();
-    virtual bool vfunc_5(Slot a1, Slot a2);
+    virtual bool vfunc_5(Slot_141040 a1, Slot_141040 a2);
     char pad04[0x1c - 4];
-    Cfg *cfg;
-    OwnerObj *owner;
+    Cfg_141040 *cfg;
+    OwnerObj_141040 *owner;
     Driver *target;
-    V3 contactPos;
-    V3 contactNormal;
+    V3_141040 contactPos;
+    V3_141040 contactNormal;
     char hasContact;
     char pad41[3];
-    V3 vel2;
+    V3_141040 vel2;
 };
 
-bool WallJumpAction::vfunc_5(Slot a1, Slot a2)
+bool WallJumpAction::vfunc_5(Slot_141040 a1, Slot_141040 a2)
 {
     struct Frame {
         float s0;
         float s4;
         float s8;
         float sC;
-        Clock *clk;
-        V3 v0;
-        V3 d;
-        V3 a;
-        V3 b;
-        V3 vc;
-        V3 p;
-        V3 vcopy;
-        Plane q;
+        Clock_141040 *clk;
+        V3_141040 v0;
+        V3_141040 d;
+        V3_141040 a;
+        V3_141040 b;
+        V3_141040 vc;
+        V3_141040 p;
+        V3_141040 vcopy;
+        Plane_141040 q;
     } f;
 
     if (a1.i != 0)
@@ -124,7 +124,7 @@ bool WallJumpAction::vfunc_5(Slot a1, Slot a2)
         return false;
 
     f.clk = owner->FUN_000592a0();
-    Stats *st = f.clk->FUN_00059a30();
+    Stats_141040 *st = f.clk->FUN_00059a30();
     st->FUN_000359c0(3);
     f.s0 = (float)FUN_00224f10(&vel2);
     f.vcopy = st->v2064;
@@ -144,7 +144,7 @@ bool WallJumpAction::vfunc_5(Slot a1, Slot a2)
             double stepd = (double)f.sC * a2.f;
             f.sC = (float)stepd;
             f.s8 = (float)diff3;
-            Bits ab;
+            Bits_141040 ab;
             ab.f = f.s8;
             ab.u &= 0x7fffffff;
             f.s8 = ab.f;
@@ -159,7 +159,7 @@ bool WallJumpAction::vfunc_5(Slot a1, Slot a2)
     float wf = (float)(v - f.s0);
     FUN_00224d70(*(int *)&wf, &vel2);
 
-    Cfg *c2 = cfg;
+    Cfg_141040 *c2 = cfg;
     vel2.y = (float)((double)vel2.y - a2.f * c2->f20);
     *(int *)&f.s8 = *(int *)&c2->f34;
     f.sC = (float)FUN_00224f10(&vel2);
@@ -180,7 +180,7 @@ bool WallJumpAction::vfunc_5(Slot a1, Slot a2)
     f.v0.z = (float)(f.v0.z * u);
     st->FUN_000357a0(&f.v0);
 
-    V3 tv = vel2;
+    V3_141040 tv = vel2;
     f.p.x = 0.0f;
     f.d.x = tv.x * a2.f;
     f.d.y = tv.y * a2.f;
@@ -195,7 +195,7 @@ bool WallJumpAction::vfunc_5(Slot a1, Slot a2)
     if (st->f140 == 4) {
         f.a = st->v1af8;
         f.b = st->v1aec;
-        V3 *z = (V3 *)&f.q;
+        V3_141040 *z = (V3_141040 *)&f.q;
         z->x = 0.0f;
         z->y = 0.0f;
         z->z = 0.0f;
@@ -227,7 +227,7 @@ bool WallJumpAction::vfunc_5(Slot a1, Slot a2)
             float R = st->f11c->f34;
             if (dist < R) {
                 double k = R - dist;
-                V3 n = contactNormal;
+                V3_141040 n = contactNormal;
                 f.a.x = (float)(n.x * k);
                 f.a.y = (float)(n.y * k);
                 f.a.z = (float)(n.z * k);

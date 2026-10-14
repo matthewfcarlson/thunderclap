@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 145 inputs, branch coverage 32/38, incomplete)
 // FUN_001b98e0 @ 0x001b98e0
-class Target {
+class Target_1b98e0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -13,7 +13,7 @@ public:
     virtual int v8(float a0, int color2, float a1, float a2, int color1, float a3, float a4, float a5);
 };
 
-class Manager {
+class Manager_1b98e0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -104,10 +104,10 @@ public:
     virtual void v86();
     virtual void v87();
     virtual void v88();
-    virtual Target *v89(int id);
+    virtual Target_1b98e0 *v89(int id);
 };
 
-extern Manager *DAT_0052c2a8;
+extern Manager_1b98e0 *DAT_0052c2a8;
 extern int DAT_004c3bf0;
 extern int DAT_004c3bf4;
 extern int DAT_004c3bf8;
@@ -129,7 +129,7 @@ static int clamp255(int v)
     return v;
 }
 
-class LightSetup {
+class LightSetup_1b98e0 {
 public:
     char pad00[0x34];
     int r1;     // 0x34
@@ -147,7 +147,7 @@ public:
     int FUN_001b98e0(float a0, float a1, float a2, float a3, float a4, float a5);
 };
 
-int LightSetup::FUN_001b98e0(float a0, float a1, float a2, float a3, float a4, float a5)
+int LightSetup_1b98e0::FUN_001b98e0(float a0, float a1, float a2, float a3, float a4, float a5)
 {
     p0 = a0;
     p1 = a1;
@@ -155,7 +155,7 @@ int LightSetup::FUN_001b98e0(float a0, float a1, float a2, float a3, float a4, f
     p3 = a3;
     p4 = a4;
     p5 = a5;
-    Target *t = DAT_0052c2a8->v89(0x103);
+    Target_1b98e0 *t = DAT_0052c2a8->v89(0x103);
     if (t == 0)
         return 0;
     DAT_004e2254 = a0;

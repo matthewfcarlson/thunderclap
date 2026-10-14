@@ -6,7 +6,7 @@ struct Base12 {
     char data[12];
     void FUN_00236d40();
 };
-struct Name8 {
+struct Name8_5b6f0 {
     int lo, hi;
     void FUN_0027af00();
 };
@@ -19,7 +19,7 @@ public:
     int f0c;
     int f10;
     char pad14[4];
-    Name8 n18, n20, n28, n30, n38, n40, n48, n50, n58, n60, n68;
+    Name8_5b6f0 n18, n20, n28, n30, n38, n40, n48, n50, n58, n60, n68;
     int f70, f74, f78;
 
     CGrappleLocoStrafe4Track() {}

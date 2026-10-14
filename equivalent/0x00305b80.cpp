@@ -5,7 +5,7 @@ struct Node {
     float x, y, z;
 };
 
-union FloatBits {
+union FloatBits_305b80 {
     float f;
     unsigned int u;
 };
@@ -13,7 +13,7 @@ union FloatBits {
 // True when every component of a and b differs by no more than tol.
 bool FUN_00305b80(const Node* a, const Node* b, float tol)
 {
-    FloatBits d;
+    FloatBits_305b80 d;
     d.f = a->x - b->x;
     d.u &= 0x7fffffff;
     if (d.f > tol)

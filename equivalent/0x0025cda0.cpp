@@ -1,29 +1,29 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0025cda0 @ 0x0025cda0
 struct Stream;
-struct Pair {
+struct Pair_25cda0 {
     int a, b;
 };
 
-class Header;
-bool __cdecl FUN_0025ccf0(Stream *s, Header *h);
+class Header_25cda0;
+bool __cdecl FUN_0025ccf0(Stream *s, Header_25cda0 *h);
 bool __cdecl FUN_0025aa80(Stream *s, char *out);
 bool __cdecl FUN_0025abd0(Stream *s, unsigned int *out);
-bool __cdecl FUN_0025c490(Stream *s, Pair *out);
+bool __cdecl FUN_0025c490(Stream *s, Pair_25cda0 *out);
 
-class Header {
+class Header_25cda0 {
 public:
     char pad0[8];
     unsigned char enabled : 1;      // 0x8, bit 0
     char pad9[3];
     unsigned int id : 31;           // 0xc, low 31 bits
     unsigned int reserved : 1;
-    Pair range;                     // 0x10
+    Pair_25cda0 range;                     // 0x10
 
     bool FUN_0025cda0(Stream *s);
 };
 
-bool Header::FUN_0025cda0(Stream *s)
+bool Header_25cda0::FUN_0025cda0(Stream *s)
 {
     struct Frame {
         union {

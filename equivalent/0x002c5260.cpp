@@ -8,7 +8,7 @@ extern "C" double sin(double);
 extern float DAT_0042ef28;
 extern float DAT_0042ef48;
 
-struct V3 {
+struct V3_2c5260 {
     float x, y, z;
     void FUN_0022d180();
 };
@@ -17,7 +17,7 @@ struct Matrix {
     float m[16];
 };
 
-class Layer {
+class Layer_2c5260 {
 public:
     virtual void v0();
     virtual void v1();
@@ -45,15 +45,15 @@ public:
     virtual void v23(int state, Matrix *m);
 };
 
-struct VertexBuf {
+struct VertexBuf_2c5260 {
     char pad0[8];
-    V3 *cursor;
+    V3_2c5260 *cursor;
     char padc[4];
     int *tag;
     void FUN_0008ef00();
 };
 
-class Renderer {
+class Renderer_2c5260 {
 public:
     virtual void v0();
     virtual void v1();
@@ -85,21 +85,21 @@ public:
     virtual void v27();
     virtual void v28();
     virtual void v29();
-    virtual VertexBuf* v30(int a, int b, int c, int n, int z);
-    virtual void v31(VertexBuf *b);
+    virtual VertexBuf_2c5260* v30(int a, int b, int c, int n, int z);
+    virtual void v31(VertexBuf_2c5260 *b);
 };
 
-extern Layer **DAT_0052c2ac;
-extern Renderer *DAT_0052c2a8;
+extern Layer_2c5260 **DAT_0052c2ac;
+extern Renderer_2c5260 *DAT_0052c2a8;
 
-Matrix *FUN_002c50c0(Matrix *out, V3 mid, V3 end);
+Matrix *FUN_002c50c0(Matrix *out, V3_2c5260 mid, V3_2c5260 end);
 
-void __cdecl FUN_002c5260(float r1, V3 *a, float r2, V3 *b, int handle, int tag, float n)
+void __cdecl FUN_002c5260(float r1, V3_2c5260 *a, float r2, V3_2c5260 *b, int handle, int tag, float n)
 {
     struct Frame {
         volatile float theta;
         volatile float sinv;
-        V3 d;
+        V3_2c5260 d;
         volatile float nh;
         volatile float y;
         volatile float z;
@@ -115,7 +115,7 @@ void __cdecl FUN_002c5260(float r1, V3 *a, float r2, V3 *b, int handle, int tag,
     volatile float h = (float)(sqrt(len2) * 0.5f);
     fr.d.FUN_0022d180();
     volatile float hz = fr.d.z * h;
-    V3 mid;
+    V3_2c5260 mid;
     mid.x = fr.d.x * h + a->x;
     mid.y = fr.d.y * h + a->y;
     mid.z = hz + a->z;
@@ -124,7 +124,7 @@ void __cdecl FUN_002c5260(float r1, V3 *a, float r2, V3 *b, int handle, int tag,
 
     int e1 = (r1 != 0.0f) ? 2 : 0;
     int e2 = (r2 != 0.0f) ? 2 : 0;
-    VertexBuf *vb = DAT_0052c2a8->v30(handle, 2, 0x2020, (2 * (int)n + 1) * (e2 + e1 + 2), 0);
+    VertexBuf_2c5260 *vb = DAT_0052c2a8->v30(handle, 2, 0x2020, (2 * (int)n + 1) * (e2 + e1 + 2), 0);
 
     volatile float step;
     if (r1 != 0.0f) {
@@ -139,7 +139,7 @@ void __cdecl FUN_002c5260(float r1, V3 *a, float r2, V3 *b, int handle, int tag,
             float zp = fr.z;
             fr.y = (float)(cos((double)fr.theta) * r1);
             fr.z = (float)(sin((double)fr.theta) * r1);
-            V3 *c = vb->cursor;
+            V3_2c5260 *c = vb->cursor;
             c->x = fr.nh;
             c->y = yp;
             c->z = zp;
@@ -166,7 +166,7 @@ void __cdecl FUN_002c5260(float r1, V3 *a, float r2, V3 *b, int handle, int tag,
             float zp = fr.z;
             fr.y = (float)(cos((double)fr.theta) * r2);
             fr.z = (float)(sin((double)fr.theta) * r2);
-            V3 *c = vb->cursor;
+            V3_2c5260 *c = vb->cursor;
             c->x = h;
             c->y = yp;
             c->z = zp;
@@ -191,7 +191,7 @@ void __cdecl FUN_002c5260(float r1, V3 *a, float r2, V3 *b, int handle, int tag,
         volatile float cf = (float)cx;
         double sx = sin((double)fr.theta);
         fr.sinv = (float)sx;
-        V3 *c = vb->cursor;
+        V3_2c5260 *c = vb->cursor;
         c->x = fr.nh;
         c->y = (float)(cx * r1);
         c->z = (float)(sx * r1);

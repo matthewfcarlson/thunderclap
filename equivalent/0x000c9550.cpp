@@ -3,7 +3,7 @@
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" char* strncpy(char* dst, const char* src, unsigned int n);
 
-class Handle {
+class Handle_c9550 {
 public:
     virtual void v0();
     virtual void Release();
@@ -26,43 +26,43 @@ struct Request {
     char pad10d[3];
 };
 
-struct Mgr {
+struct Mgr_c9550 {
     char pad00[4];
     int limit;
-    void FUN_00265810(Request* r, Handle** out);
+    void FUN_00265810(Request* r, Handle_c9550** out);
     int FUN_00264870();
     void FUN_00264860(int v);
 };
 
-struct Item {
+struct Item_c9550 {
     void FUN_001eb2a0(int a, int b);
 };
 
-struct Scene {
-    Item* FUN_000862e0();
+struct Scene_c9550 {
+    Item_c9550* FUN_000862e0();
 };
 
-struct Sys {
+struct Sys_c9550 {
     char pad00[0x54];
-    Scene* scene;
+    Scene_c9550* scene;
 };
 
-struct Target {
+struct Target_c9550 {
     void FUN_00266220(int v);
 };
 
-void thunk_FUN_00271230(Handle** out, const char* name, int a, int b, int c, int d, int e, int f);
+void thunk_FUN_00271230(Handle_c9550** out, const char* name, int a, int b, int c, int d, int e, int f);
 void FUN_002656a0();
 extern unsigned int DAT_004d9968;
-extern Mgr* DAT_00527c58;
-extern Sys* DAT_004dd700;
+extern Mgr_c9550* DAT_00527c58;
+extern Sys_c9550* DAT_004dd700;
 
-void __stdcall FUN_000c9550(const char* name, Target* target, int arg)
+void __stdcall FUN_000c9550(const char* name, Target_c9550* target, int arg)
 {
     unsigned int cookie = DAT_004d9968;
     struct Frame {
-        Handle* l2;
-        Handle* l1;
+        Handle_c9550* l2;
+        Handle_c9550* l1;
         Request req;
     } f;
     thunk_FUN_00271230(&f.l1, name, 0, 0, 1, 0, 1, 1);
@@ -89,7 +89,7 @@ void __stdcall FUN_000c9550(const char* name, Target* target, int arg)
     DAT_00527c58->FUN_00265810(&f.req, &f.l2);
     int saved = DAT_00527c58->FUN_00264870();
     DAT_00527c58->FUN_00264860(250000);
-    Scene* scene = DAT_004dd700->scene;
+    Scene_c9550* scene = DAT_004dd700->scene;
     while (!f.l2->FUN_00266750()) {
         FUN_002656a0();
         scene->FUN_000862e0()->FUN_001eb2a0(0, 0);

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 49 inputs, branch coverage 11/12, incomplete)
 // FUN_001c2c90 @ 0x001c2c90
-struct Vec3 {
+struct Vec3_1c2c90 {
     float x, y, z;
     void Scale(float s) {
         x = x * s;
@@ -9,17 +9,17 @@ struct Vec3 {
     }
 };
 
-class PointSet {
+class PointSet_1c2c90 {
 public:
-    Vec3 *FUN_001c2c90(Vec3 *out);
+    Vec3_1c2c90 *FUN_001c2c90(Vec3_1c2c90 *out);
 
-    Vec3 points[32];
+    Vec3_1c2c90 points[32];
     unsigned int count;
 };
 
-Vec3 *PointSet::FUN_001c2c90(Vec3 *out)
+Vec3_1c2c90 *PointSet_1c2c90::FUN_001c2c90(Vec3_1c2c90 *out)
 {
-    Vec3 sum;
+    Vec3_1c2c90 sum;
     sum.x = 0.0f;
     sum.y = 0.0f;
     sum.z = 0.0f;

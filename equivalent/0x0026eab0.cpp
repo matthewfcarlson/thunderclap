@@ -5,24 +5,24 @@ struct Node {
     Node* next;
     void FUN_0026de40();
 };
-struct Packet {
+struct Packet_26eab0 {
     char data[0x108];
     unsigned size;
-    Packet* next;
+    Packet_26eab0* next;
 };
 struct PacketQueue {
     virtual void slot0();
     virtual void finish();
     virtual void slot2();
     virtual void slot3();
-    virtual void consume(Packet*);
+    virtual void consume(Packet_26eab0*);
 };
 struct EventTarget {
     void FUN_0026e8f0(unsigned);
     void FUN_0026e920(unsigned, bool, bool, bool);
     void FUN_0026e970(unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned);
 };
-struct Event {
+struct Event_26eab0 {
     unsigned type;
     EventTarget* target;
     unsigned value;
@@ -37,7 +37,7 @@ struct Event {
     unsigned char components[4];
     char remaining[0xe8];
 };
-struct Cursor {
+struct Cursor_26eab0 {
     unsigned zero;
     void* handle;
     unsigned rest[31];
@@ -45,7 +45,7 @@ struct Cursor {
 bool FUN_0026eed0();
 int __cdecl FUN_0026ef10(void*);
 void __cdecl FUN_0026eef0(void*);
-int __cdecl FUN_0026ef50(Cursor*);
+int __cdecl FUN_0026ef50(Cursor_26eab0*);
 int __cdecl FUN_0026ef20(void*, void*);
 int __cdecl FUN_0026ef30(void*, void*, unsigned, unsigned);
 int __cdecl FUN_0026ef40(void*, void*, unsigned, unsigned);
@@ -55,8 +55,8 @@ struct Connection {
     char output[0x58];
     unsigned state;
     PacketQueue* queue;
-    Packet* pending;
-    Event event;
+    Packet_26eab0* pending;
+    Event_26eab0 event;
     Node* nodes;
     void FUN_0026e030();
     void FUN_0026e0e0();
@@ -78,7 +78,7 @@ void Connection::FUN_0026eab0() {
             state = 2;
         }
     } else if (state == 2) {
-        Cursor cursor = {0};
+        Cursor_26eab0 cursor = {0};
         cursor.handle = input;
         if (FUN_0026ef50(&cursor) > 0) {
             if (FUN_0026ef20(input, output) < 0) {
@@ -95,7 +95,7 @@ void Connection::FUN_0026eab0() {
                 }
                 if (pending) {
                     for (;;) {
-                        Packet* packet = pending;
+                        Packet_26eab0* packet = pending;
                         if (FUN_0026ef40(output, packet, packet->size, 0) < 0) {
                             FUN_0026e0e0();
                             FUN_0026e030();
@@ -114,7 +114,7 @@ void Connection::FUN_0026eab0() {
             }
         }
     } else if (state == 3) {
-        Cursor cursor = {0};
+        Cursor_26eab0 cursor = {0};
         cursor.handle = output;
         if (FUN_0026ef50(&cursor) > 0) {
             do {

@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00194290 @ 0x00194290
-struct Sub8 {
+struct Sub8_194290 {
     unsigned int a, b;
     void FUN_0027af00();
 };
-struct Sub0C {
+struct Sub0C_194290 {
     unsigned int a, b, c;
     void FUN_00233dd0();
 };
 
-class __declspec(novtable) TrackBase {
+class __declspec(novtable) TrackBase_194290 {
 public:
     virtual void b0();
     int pad04;
     int pad08;
     void FUN_00236d40();
-    TrackBase() { FUN_00236d40(); }
+    TrackBase_194290() { FUN_00236d40(); }
 };
 
 namespace hulkfight {
 namespace motion {
-class FireMissileTrack : public TrackBase {
+class FireMissileTrack : public TrackBase_194290 {
 public:
     virtual unsigned int vfunc_0(unsigned int);
     virtual void v1();
@@ -32,13 +32,13 @@ public:
     virtual void vfunc_7();
 
     int f0c;
-    Sub8 s10;
-    Sub8 s18;
-    Sub8 s20;
+    Sub8_194290 s10;
+    Sub8_194290 s18;
+    Sub8_194290 s20;
     int f28, f2c;
     float f30;
     int f34;
-    Sub8 s38;
+    Sub8_194290 s38;
     int f40, f44, f48, f4c, f50;
     float f54;
     char f58;
@@ -58,15 +58,15 @@ public:
     int f98;
     float f9c, fa0, fa4, fa8, fac, fb0;
     int fb4, fb8;
-    Sub0C sbc;
-    Sub0C sc8;
+    Sub0C_194290 sbc;
+    Sub0C_194290 sc8;
     int fd4, fd8, fdc, fe0;
     int fe4_pad;
-    Sub8 se8;
+    Sub8_194290 se8;
     int ff0, ff4, ff8, ffc;
-    Sub0C s100;
+    Sub0C_194290 s100;
     int f10c, f110, f114, f118, f11c, f120, f124;
-    Sub8 s128;
+    Sub8_194290 s128;
     int f130, f134, f138, f13c, f140, f144;
 
     FireMissileTrack();

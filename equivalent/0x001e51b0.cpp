@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 13/13)
 // FUN_001e51b0 @ 0x001e51b0
-struct Vec3 {
+struct Vec3_1e51b0 {
     float x, y, z;
 };
 
@@ -8,40 +8,40 @@ struct Entity;
 
 struct Entity {
     char pad00[0x164];
-    Vec3 pos;
+    Vec3_1e51b0 pos;
     int FUN_001d69a0();
     // equiv-conv: FUN_001d6990 ecx stack
     int FUN_001d6990(int extra);
 };
 
-char FUN_00202560(Vec3* p, float radius, int a, Vec3* hit, Vec3* normal, int b, int c, int d);
+char FUN_00202560(Vec3_1e51b0* p, float radius, int a, Vec3_1e51b0* hit, Vec3_1e51b0* normal, int b, int c, int d);
 void* FUN_001d68e0(int count);
 
-struct Frame {
+struct Frame_1e51b0 {
     float tmp;
-    Vec3 p;
-    Vec3 hit;
-    Vec3 normal;
-    Vec3 snapped;
-    Vec3 corners[4];
+    Vec3_1e51b0 p;
+    Vec3_1e51b0 hit;
+    Vec3_1e51b0 normal;
+    Vec3_1e51b0 snapped;
+    Vec3_1e51b0 corners[4];
 };
 
-struct Listener {
+struct Listener_1e51b0 {
     void FUN_001d7460(Entity* e);
 };
 
-class Placer {
+class Placer_1e51b0 {
 public:
-    Vec3* FUN_001dcb00(Vec3* out, Vec3* in);
-    Listener* FUN_001e4c40(void* p, Vec3* corners, int count, int a, int b, int c);
+    Vec3_1e51b0* FUN_001dcb00(Vec3_1e51b0* out, Vec3_1e51b0* in);
+    Listener_1e51b0* FUN_001e4c40(void* p, Vec3_1e51b0* corners, int count, int a, int b, int c);
 
     // equiv-conv: FUN_001e51b0 ecx stack esi
     void FUN_001e51b0(Entity* e, int extra);
 };
 
-void Placer::FUN_001e51b0(Entity* e, int extra)
+void Placer_1e51b0::FUN_001e51b0(Entity* e, int extra)
 {
-    Frame f;
+    Frame_1e51b0 f;
 
     f.p.x = e->pos.x;
     f.p.y = e->pos.y + 0.5f;
@@ -87,7 +87,7 @@ void Placer::FUN_001e51b0(Entity* e, int extra)
 
     int count = e->FUN_001d6990(extra);
     if (count > 0) {
-        Listener* l = FUN_001e4c40(FUN_001d68e0(count), f.corners, count, 0, 0, 1);
+        Listener_1e51b0* l = FUN_001e4c40(FUN_001d68e0(count), f.corners, count, 0, 0, 1);
         if (l)
             l->FUN_001d7460(e);
     }

@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_0026d990 @ 0x0026d990
-struct Obj;
+struct Obj_26d990;
 struct Node {
     int value;
     int unused;
-    Obj* owner;
+    Obj_26d990* owner;
     Node* next;
     Node* previous;
 };
-struct Obj {
+struct Obj_26d990 {
     char reserved[8];
     Node node;
     void* fiber;
@@ -29,9 +29,9 @@ namespace XAPILIB {
     void* __stdcall ConvertThreadToFiber(void*);
     int __stdcall SetThreadPriority(int, int);
 }
-extern "C" void FUN_0026d8f0(Obj*);
+extern "C" void FUN_0026d8f0(Obj_26d990*);
 extern "C" int DAT_004cd9d8;
-void __cdecl FUN_0026d990(Obj* self) {
+void __cdecl FUN_0026d990(Obj_26d990* self) {
     self->first = 0;
     self->last = 0;
     self->enabled = 1;

@@ -6,7 +6,7 @@ struct Timer {
  void FUN_0027af70(Timer* source);
  void FUN_0027af50();
 };
-struct Entry {
+struct Entry_c7b70 {
  int id;
  unsigned int x,y,z;
  unsigned int zero0,zero1,zero2,zero3,zero4;
@@ -17,16 +17,16 @@ struct Entry {
  unsigned char flag0,flag1;
  char tail[2];
 };
-struct Manager {
+struct Manager_c7b70 {
  char pad[0x258];
- Entry entries[128];
+ Entry_c7b70 entries[128];
  int FUN_000c7b70(int id,unsigned int x,unsigned int y,unsigned int z);
 };
-int Manager::FUN_000c7b70(int id,unsigned int x,unsigned int y,unsigned int z) {
+int Manager_c7b70::FUN_000c7b70(int id,unsigned int x,unsigned int y,unsigned int z) {
  int i;
  for(i=0;i<128;++i) if(entries[i].id==-1) break;
  if(i==128) return -1;
- Entry &e=entries[i];
+ Entry_c7b70 &e=entries[i];
  e.id=id;
  Timer temp;
  Timer* result=temp.FUN_0027af00();

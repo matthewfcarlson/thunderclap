@@ -3,7 +3,7 @@
 // equiv-map: ?FUN_00232240@SubObj@@QAEXXZ = 0x002325f0
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
-class Releasable {
+class Releasable_3f090 {
 public:
     virtual void v0();
     virtual void release();
@@ -21,14 +21,14 @@ public:
     virtual void v7();
 };
 
-struct Id64 {
+struct Id64_3f090 {
     unsigned int lo, hi;
     void FUN_0027af10(unsigned int lo, unsigned int hi);
     void FUN_0027af50() throw();
 };
 
 struct Id16 {
-    Id64 id;
+    Id64_3f090 id;
     char pad8[8];
     void FUN_0027af50() throw();
 };
@@ -41,7 +41,7 @@ struct Pair2 {
     int f148;
 };
 
-struct Linked {
+struct Linked_3f090 {
     virtual void v0();
     virtual void release();
     char pad4[4];
@@ -57,7 +57,7 @@ struct Linked2 {
 };
 
 struct SlotOwner {
-    void FUN_001e5bb0(Releasable *r, int flag);
+    void FUN_001e5bb0(Releasable_3f090 *r, int flag);
 };
 
 struct World {
@@ -66,24 +66,24 @@ struct World {
 };
 extern World *DAT_004dd700;
 
-struct Handle {
-    void FUN_001c3b30(Id64 *id);
+struct Handle_3f090 {
+    void FUN_001c3b30(Id64_3f090 *id);
 };
-Handle *FUN_001c3d90();
+Handle_3f090 *FUN_001c3d90();
 
-struct Registry {
+struct Registry_3f090 {
     void FUN_001b4140(void *owner);
 };
-Registry *FUN_001b6580();
+Registry_3f090 *FUN_001b6580();
 
-struct Slot {
-    Releasable *a;
-    Releasable *b;
+struct Slot_3f090 {
+    Releasable_3f090 *a;
+    Releasable_3f090 *b;
     char pad8[0x28 - 8];
 };
 
 struct Item50 {
-    Releasable *obj;
+    Releasable_3f090 *obj;
     char pad4[0x4c];
 };
 
@@ -102,53 +102,53 @@ public:
     char pad10[0xb4 - 0x10];
     SubObj sub_b4;
     SubObj sub_dc;
-    Releasable *f104;
-    Releasable *f108;
-    Releasable *f10c;
+    Releasable_3f090 *f104;
+    Releasable_3f090 *f108;
+    Releasable_3f090 *f10c;
     char pad110[0x11c - 0x110];
-    Releasable *f11c;
-    Releasable *f120;
+    Releasable_3f090 *f11c;
+    Releasable_3f090 *f120;
     int f124;
     Linked2 *f128;
-    Linked *f12c;
-    Releasable *f130;
+    Linked_3f090 *f12c;
+    Releasable_3f090 *f130;
     char pad134[0x14c - 0x134];
-    Releasable *f14c;
+    Releasable_3f090 *f14c;
     char pad150[0x328 - 0x150];
-    Releasable *f328;
+    Releasable_3f090 *f328;
     char pad32c[0x388 - 0x32c];
-    Releasable *f388;
+    Releasable_3f090 *f388;
     char pad38c[0x3a4 - 0x38c];
-    Releasable *f3a4;
+    Releasable_3f090 *f3a4;
     Item50 items[8];
     char pad628[0x638 - 0x628];
-    Slot slots[0x80];
+    Slot_3f090 slots[0x80];
     char pad1a38[0x1ad0 - 0x1a38];
-    Releasable *f1ad0;
+    Releasable_3f090 *f1ad0;
     char pad1ad4[0x1b50 - 0x1ad4];
-    Id64 id1b50;
+    Id64_3f090 id1b50;
     char pad1b58[0x1b98 - 0x1b58];
-    Id64 id1b98;
+    Id64_3f090 id1b98;
     char pad1ba0[0x1ba8 - 0x1ba0];
     Id16 ids1ba8[14];
     char pad1c88[0x1c98 - 0x1c88];
-    Id64 id1c98;
+    Id64_3f090 id1c98;
     Wide *f1ca0;
-    Releasable *f1ca4;
+    Releasable_3f090 *f1ca4;
     char pad1ca8[0x1d68 - 0x1ca8];
-    Id64 id1d68;
-    Id64 id1d70;
+    Id64_3f090 id1d68;
+    Id64_3f090 id1d70;
     char pad1d78[0x2098 - 0x1d78];
-    Id64 id2098;
+    Id64_3f090 id2098;
     char pad20a0[0x2150 - 0x20a0];
     Id16 ids2150[16];
     char pad2250[0x2258 - 0x2250];
     Id16 ids2250[4];
     char pad2298[0x22b4 - 0x2298];
-    Releasable *f22b4;
-    Id64 id22b8;
+    Releasable_3f090 *f22b4;
+    Id64_3f090 id22b8;
     char pad22c0[0x22e4 - 0x22c0];
-    Releasable *f22e4;
+    Releasable_3f090 *f22e4;
 
     void FUN_0003b620(int v);
     void FUN_0003acf0(int a, int b, int c, int d, int e, int f);
@@ -174,7 +174,7 @@ void CCharacter::FUN_0003f090()
     }
     SlotOwner *owner = w->f0c;
     for (int i = 0; i < 8; i++) {
-        Releasable *r = items[i].obj;
+        Releasable_3f090 *r = items[i].obj;
         if (r) {
             r->v0();
             FUN_0003acf0(i, 0, -1, 0, 0, 0);
@@ -218,14 +218,14 @@ void CCharacter::FUN_0003f090()
     }
     if (f128) {
         f128->f148 = 0;
-        owner->FUN_001e5bb0((Releasable *)f128, 1);
+        owner->FUN_001e5bb0((Releasable_3f090 *)f128, 1);
     }
     if (f128) {
         f128->release();
         f128 = 0;
     }
     if (f124) {
-        Id64 key;
+        Id64_3f090 key;
         key.FUN_0027af10(f08, f0c);
         FUN_001c3d90()->FUN_001c3b30(&key);
         key.FUN_0027af50();

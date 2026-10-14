@@ -4,27 +4,27 @@ extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 
-struct Contact {
+struct Contact_14ea20 {
     char pad00[0x50];
     int target;           // 0x50
 };
 
-struct Fighter {
+struct Fighter_14ea20 {
     char pad00[0x328];
     int currentTarget;    // 0x328
 };
 
-struct Body {
-    Fighter* FUN_00059a30();
+struct Body_14ea20 {
+    Fighter_14ea20* FUN_00059a30();
 };
 
-class Target {
+class Target_14ea20 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Contact* v3();
-    Body* FUN_000592a0();
+    virtual Contact_14ea20* v3();
+    Body_14ea20* FUN_000592a0();
 };
 
 namespace hulkfight {
@@ -38,7 +38,7 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual bool vfunc_6(void* a1, Target* target, void* a3);
+    virtual bool vfunc_6(void* a1, Target_14ea20* target, void* a3);
 
     char pad04[8];
     unsigned char expected;   // 0x0c
@@ -47,12 +47,12 @@ public:
 }
 }
 
-bool hulkfight::motion::CollisionTargetIsTargetCondition::vfunc_6(void* a1, Target* target, void* a3)
+bool hulkfight::motion::CollisionTargetIsTargetCondition::vfunc_6(void* a1, Target_14ea20* target, void* a3)
 {
     if (FUN_00344e74(target, 0, DAT_00494b44, DAT_00494b60, 0) == 0)
         return false;
-    Fighter* fighter = target->FUN_000592a0()->FUN_00059a30();
-    Contact* contact = target->v3();
+    Fighter_14ea20* fighter = target->FUN_000592a0()->FUN_00059a30();
+    Contact_14ea20* contact = target->v3();
     if (contact == 0)
         return false;
     return (contact->target == fighter->currentTarget) == expected;

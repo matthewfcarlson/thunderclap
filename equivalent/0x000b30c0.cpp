@@ -2,7 +2,7 @@
 // FUN_000b30c0 @ 0x000b30c0
 extern float DAT_00406094[];
 
-class Item {
+class Item_b30c0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -16,17 +16,17 @@ public:
     virtual float v9(int mode);
 };
 
-union Cell {
-    Item *item;
+union Cell_b30c0 {
+    Item_b30c0 *item;
     int mode;
 };
 
-union FS {
+union FS_b30c0 {
     float f;
     unsigned int u;
 };
 
-class Blender {
+class Blender_b30c0 {
 public:
     char pad000[0x54];
     int mode;                        // 0x54
@@ -36,12 +36,12 @@ public:
     float lo2;                       // 0x498
     float hi2;                       // 0x49c
 
-    void FUN_000b30c0(int groups, int pairs, int *counts, Item ***items, Cell *cells, Item *single,
+    void FUN_000b30c0(int groups, int pairs, int *counts, Item_b30c0 ***items, Cell_b30c0 *cells, Item_b30c0 *single,
                        float *out1, float *out2, float *out3);
 };
 
 // The original keeps the normalised value unrounded on the FPU stack, so these are inlined helpers.
-static __forceinline float Normalise(const Blender *b, float v)
+static __forceinline float Normalise(const Blender_b30c0 *b, float v)
 {
     if (v < b->lo)
         return 0.0f;
@@ -50,7 +50,7 @@ static __forceinline float Normalise(const Blender *b, float v)
     return (v - b->lo) / (b->hi - b->lo);
 }
 
-static __forceinline float Ratio(const Blender *b, float a, float range)
+static __forceinline float Ratio(const Blender_b30c0 *b, float a, float range)
 {
     if (a < b->lo2)
         return 0.0f;
@@ -60,7 +60,7 @@ static __forceinline float Ratio(const Blender *b, float a, float range)
 }
 
 // Shrink factor for an (x, y) pair: derived from its larger magnitude.
-static __forceinline float PickRatio(const Blender *b, float ax, float ay, float range)
+static __forceinline float PickRatio(const Blender_b30c0 *b, float ax, float ay, float range)
 {
     float m = 0.0f;
     float r1 = 0.0f;
@@ -73,7 +73,7 @@ static __forceinline float PickRatio(const Blender *b, float ax, float ay, float
     return r1;
 }
 
-void Blender::FUN_000b30c0(int groups, int pairs, int *counts, Item ***items, Cell *cells, Item *single,
+void Blender_b30c0::FUN_000b30c0(int groups, int pairs, int *counts, Item_b30c0 ***items, Cell_b30c0 *cells, Item_b30c0 *single,
                             float *out1, float *out2, float *out3)
 {
     int i;
@@ -81,14 +81,14 @@ void Blender::FUN_000b30c0(int groups, int pairs, int *counts, Item ***items, Ce
         float t = 0.0f;
         int n = counts[i * 2];
         for (int j = 0; j < n; j++) {
-            Item *it = items[i][j];
+            Item_b30c0 *it = items[i][j];
             if (it == 0) {
                 t = 0.0f;
             } else {
                 float v = it->v9(0);
                 t = Normalise(this, v);
             }
-            FS ad;
+            FS_b30c0 ad;
             ad.f = t;
             ad.u &= 0x7fffffff;
             if (!(ad.f <= 1e-5f))
@@ -105,7 +105,7 @@ void Blender::FUN_000b30c0(int groups, int pairs, int *counts, Item ***items, Ce
         t6 = Normalise(this, v);
     }
     float scale = 1.0f;
-    FS a6;
+    FS_b30c0 a6;
     a6.f = t6;
     a6.u &= 0x7fffffff;
     if (!(a6.f <= 1e-5f))
@@ -116,7 +116,7 @@ void Blender::FUN_000b30c0(int groups, int pairs, int *counts, Item ***items, Ce
             for (int e = 0; e < 2; e++) {
                 float acc = 0.0f;
                 for (int k = 0; k < 3; k++) {
-                    Item *it = cells[p * 12 + e * 3 + k].item;
+                    Item_b30c0 *it = cells[p * 12 + e * 3 + k].item;
                     if (it != 0)
                         acc = it->v9(0) + acc;
                 }
@@ -137,7 +137,7 @@ void Blender::FUN_000b30c0(int groups, int pairs, int *counts, Item ***items, Ce
             for (int e = 0; e < 2; e++) {
                 float sum = 0.0f;
                 for (int k = 0; k < 3; k++) {
-                    Item *it = cells[p * 12 + e * 3 + k].item;
+                    Item_b30c0 *it = cells[p * 12 + e * 3 + k].item;
                     if (it != 0) {
                         float w = it->v9(0);
                         int m = cells[p * 12 + 6 + e * 3 + k].mode;
@@ -156,10 +156,10 @@ void Blender::FUN_000b30c0(int groups, int pairs, int *counts, Item ***items, Ce
     float range = hi2 - lo2;
     for (int p = 0; p < pairs; p++) {
         float *xy = out2 + p * 2;
-        FS ax;
+        FS_b30c0 ax;
         ax.f = xy[0];
         ax.u &= 0x7fffffff;
-        FS ay;
+        FS_b30c0 ay;
         ay.f = xy[1];
         ay.u &= 0x7fffffff;
         xy[0] = scale * PickRatio(this, ax.f, ay.f, range) * xy[0];

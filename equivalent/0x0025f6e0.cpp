@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 880 inputs, branch coverage 24/24)
 // FUN_0025f6e0 @ 0x0025f6e0
 struct Node { Node* left; Node* right; Node* parent; unsigned color; };
-struct Tree { Node* root; Node sentinel; };
-struct Entry { unsigned data; Node node; };
-extern Node* __cdecl FUN_0025ed00(Tree*,Node*);
-extern void __cdecl FUN_0025ed40(Tree*,Node*);
-void __cdecl FUN_0025f6e0(Tree* tree, Entry* entry) {
+struct Tree_25f6e0 { Node* root; Node sentinel; };
+struct Entry_25f6e0 { unsigned data; Node node; };
+extern Node* __cdecl FUN_0025ed00(Tree_25f6e0*,Node*);
+extern void __cdecl FUN_0025ed40(Tree_25f6e0*,Node*);
+void __cdecl FUN_0025f6e0(Tree_25f6e0* tree, Entry_25f6e0* entry) {
  Node* z=&entry->node; Node* nil=&tree->sentinel;
  Node* y;
  if(z->left!=nil && z->right!=nil) y=FUN_0025ed00(tree,z); else y=z;

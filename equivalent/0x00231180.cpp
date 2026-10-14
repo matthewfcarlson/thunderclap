@@ -1,20 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2730 inputs, branch coverage 9/10, incomplete)
 // FUN_00231180 @ 0x00231180
-struct Entry {
+struct Entry_231180 {
     unsigned int first;
     unsigned int second;
 };
 
-struct Table {
+struct Table_231180 {
     unsigned int capacity;  // 0x00
     char pad04[0x14];
     void **slots;           // 0x18
-    Entry *entries;         // 0x1c
+    Entry_231180 *entries;         // 0x1c
     char sentinel[4];       // 0x20
 };
 
-struct Probe {
-    Table *table;           // 0x00
+struct Probe_231180 {
+    Table_231180 *table;           // 0x00
     int pad04;
     unsigned int first;     // 0x08
     unsigned int second;    // 0x0c
@@ -23,9 +23,9 @@ struct Probe {
     void *FUN_00231180(unsigned int first, unsigned int second);
 };
 
-void *Probe::FUN_00231180(unsigned int firstKey, unsigned int secondKey)
+void *Probe_231180::FUN_00231180(unsigned int firstKey, unsigned int secondKey)
 {
-    Table *t = table;
+    Table_231180 *t = table;
     second = secondKey;
     first = firstKey;
     index = (t->capacity - 1) & firstKey;

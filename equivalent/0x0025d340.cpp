@@ -2,7 +2,7 @@
 // FUN_0025d340 @ 0x0025d340
 extern char DAT_004e7898[];
 
-struct Sub {
+struct Sub_25d340 {
     void FUN_0023fac0();
     void FUN_00240060();
 };
@@ -15,14 +15,14 @@ struct Node {
     int handle;         // 0x10
     int value;          // 0x14
     int field18;        // 0x18
-    Sub sub;            // 0x1c
+    Sub_25d340 sub;            // 0x1c
 };
 
-struct Registry {
+struct Registry_25d340 {
     char pad0[0x14];
     char list[4];       // 0x14
 };
-extern Registry* DAT_004e5ce0;
+extern Registry_25d340* DAT_004e5ce0;
 
 Node* __cdecl FUN_00247530(char* pool);
 void __cdecl FUN_00247550(char* pool, Node* node);

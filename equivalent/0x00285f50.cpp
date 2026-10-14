@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 140 inputs, branch coverage 10/10)
 // FUN_00285f50 @ 0x00285f50
 // equiv-map: ??1Entity@pure3d@@UAE@XZ = 0x0027afd0
-class RefObj {
+class RefObj_285f50 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 struct Track {
     char pad0[0x28];
-    RefObj* owner;
+    RefObj_285f50* owner;
 };
 namespace pure3d {
 class Entity {

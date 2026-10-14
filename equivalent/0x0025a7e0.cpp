@@ -24,7 +24,7 @@ public:
 };
 }
 
-struct Key {
+struct Key_25a7e0 {
     int value;
 };
 
@@ -32,13 +32,13 @@ class MixRegistry {
 public:
     char pad0[0x38];
     char table[1];      // 0x38
-    audio::MixBuss* FUN_0025a7e0(Key* key);
+    audio::MixBuss* FUN_0025a7e0(Key_25a7e0* key);
 };
 
 bool __cdecl FUN_0025a610(void* table, audio::MixBuss* buss, int* key);
 
 // Creates a mix buss for the key and registers it; frees it again when registration fails.
-audio::MixBuss* MixRegistry::FUN_0025a7e0(Key* key)
+audio::MixBuss* MixRegistry::FUN_0025a7e0(Key_25a7e0* key)
 {
     void* mem = FUN_00247530(FUN_00241670());
     audio::MixBuss* buss = 0;

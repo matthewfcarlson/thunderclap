@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1047 inputs, branch coverage 14/16, incomplete)
 // FUN_001deda0 @ 0x001deda0
 // FUN_001deda0: find the entry with the given 64-bit key and notify its owner about the slot's flags
-struct Entry {
+struct Entry_1deda0 {
     int keyLo;
     int keyHi;
     char pad08[0xe];
@@ -11,34 +11,34 @@ struct Entry {
     char pad24[4];
 };
 
-struct Slot {
+struct Slot_1deda0 {
     char pad00[0x10];
     unsigned short flags;
     char pad12[2];
 };
 
-struct Key {
+struct Key_1deda0 {
     char pad00[8];
     int lo;
     int hi;
 };
 
-struct Target {
+struct Target_1deda0 {
     char pad00[0x594];
     void FUN_001b5d20(unsigned int a, unsigned int b);
 };
 
-class Manager {
+class Manager_1deda0 {
 public:
     char pad00[0x608];
-    Entry entries[0x800];
-    Slot slots[1];
+    Entry_1deda0 entries[0x800];
+    Slot_1deda0 slots[1];
 
-    Target *FUN_001b6580();
-    void FUN_001deda0(Key *key);
+    Target_1deda0 *FUN_001b6580();
+    void FUN_001deda0(Key_1deda0 *key);
 };
 
-void Manager::FUN_001deda0(Key *key)
+void Manager_1deda0::FUN_001deda0(Key_1deda0 *key)
 {
     int i;
     for (i = 0; i < 0x800; i++) {
@@ -47,8 +47,8 @@ void Manager::FUN_001deda0(Key *key)
     }
     if (i >= 0x800)
         return;
-    Entry *e = &entries[i];
-    Slot *s = &slots[e->slot];
+    Entry_1deda0 *e = &entries[i];
+    Slot_1deda0 *s = &slots[e->slot];
     if (!(s->flags & 0x300))
         return;
     char *t = (char *)FUN_001b6580() + 0x594;
@@ -60,5 +60,5 @@ void Manager::FUN_001deda0(Key *key)
         mode = 1;
     if (flags & 0x200)
         mode += 2;
-    ((Target *)t)->FUN_001b5d20(e->f16, mode);
+    ((Target_1deda0 *)t)->FUN_001b5d20(e->f16, mode);
 }

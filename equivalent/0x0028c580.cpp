@@ -15,7 +15,7 @@ struct Node {
     Node *FUN_0028b9c0(unsigned x, Node *parent);
 };
 
-struct Parent {
+struct Parent_28c580 {
     void *FUN_002888c0(int size, int tag);
 };
 
@@ -30,7 +30,7 @@ struct Reader {
 extern char DAT_00121110;
 void *FUN_0008d690(unsigned size);
 
-Node * __stdcall FUN_0028c580(Reader *r, unsigned unused, Parent *parent)
+Node * __stdcall FUN_0028c580(Reader *r, unsigned unused, Parent_28c580 *parent)
 {
     unsigned x;
     unsigned a;

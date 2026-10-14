@@ -1,27 +1,27 @@
 // STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 46/50, incomplete)
 // FUN_002e9880 @ 0x002e9880
-struct png_struct {
+struct png_struct_2e9880 {
     char pad0[0x60];
     unsigned int mode;
 };
 
-struct png_info {
+struct png_info_2e9880 {
     char pad0[8];
     unsigned int valid;
 };
 
-void __cdecl FUN_002e69a0(png_struct *png_ptr, const char *msg);
-void __cdecl FUN_002e69d0(png_struct *png_ptr, const char *msg);
-int __cdecl FUN_002e81e0(png_struct *png_ptr, unsigned int skip);
-void *__cdecl FUN_002e6c00(png_struct *png_ptr, unsigned int size);
-void __cdecl FUN_002e6c40(png_struct *png_ptr, void *ptr);
-void __cdecl FUN_002e7580(png_struct *png_ptr, unsigned char *buf, unsigned int length);
+void __cdecl FUN_002e69a0(png_struct_2e9880 *png_ptr, const char *msg);
+void __cdecl FUN_002e69d0(png_struct_2e9880 *png_ptr, const char *msg);
+int __cdecl FUN_002e81e0(png_struct_2e9880 *png_ptr, unsigned int skip);
+void *__cdecl FUN_002e6c00(png_struct_2e9880 *png_ptr, unsigned int size);
+void __cdecl FUN_002e6c40(png_struct_2e9880 *png_ptr, void *ptr);
+void __cdecl FUN_002e7580(png_struct_2e9880 *png_ptr, unsigned char *buf, unsigned int length);
 int __cdecl FUN_002e7530(const unsigned char *buf);
-void __cdecl FUN_002eb330(png_struct *png_ptr, png_info *info_ptr, char *purpose, int X0, int X1,
+void __cdecl FUN_002eb330(png_struct_2e9880 *png_ptr, png_info_2e9880 *info_ptr, char *purpose, int X0, int X1,
                           int type, int nparams, char *units, char **params);
 
 // libpng png_handle_pCAL
-void png_handle_pCAL(png_struct *png_ptr, png_info *info_ptr, unsigned int length)
+void png_handle_pCAL(png_struct_2e9880 *png_ptr, png_info_2e9880 *info_ptr, unsigned int length)
 {
     char *buf;
     char *endptr;

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002c50c0 @ 0x002c50c0
-struct Vec3 {
+struct Vec3_2c50c0 {
     float x, y, z;
     void FUN_0022d180();
 };
@@ -16,9 +16,9 @@ Matrix *FUN_002c50c0(Matrix *out, float fromX, float fromY, float fromZ,
 {
     Matrix mat;
     FUN_0022b980(&mat);
-    Vec3 *dir = (Vec3 *)&mat.m[0];
-    Vec3 *up = (Vec3 *)&mat.m[4];
-    Vec3 *right = (Vec3 *)&mat.m[8];
+    Vec3_2c50c0 *dir = (Vec3_2c50c0 *)&mat.m[0];
+    Vec3_2c50c0 *up = (Vec3_2c50c0 *)&mat.m[4];
+    Vec3_2c50c0 *right = (Vec3_2c50c0 *)&mat.m[8];
 
     dir->x = toX - fromX;
     dir->y = toY - fromY;

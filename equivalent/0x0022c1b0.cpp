@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0022c1b0 @ 0x0022c1b0
-struct Vec { float x,y,z; void FUN_0022d180(); };
-struct Matrix { Vec a; float pad0; Vec b; float pad1; Vec c; void target(); };
+struct Vec_22c1b0 { float x,y,z; void FUN_0022d180(); };
+struct Matrix { Vec_22c1b0 a; float pad0; Vec_22c1b0 b; float pad1; Vec_22c1b0 c; void target(); };
 void Matrix::target() {
- Vec first = a;
- Vec second = b;
+ Vec_22c1b0 first = a;
+ Vec_22c1b0 second = b;
  first.FUN_0022d180();
- Vec third;
+ Vec_22c1b0 third;
  third.x = second.z * first.y - second.y * first.z;
  third.y = first.z * second.x - second.z * first.x;
  third.z = second.y * first.x - first.y * second.x;

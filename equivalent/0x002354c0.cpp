@@ -2,17 +2,17 @@
 // fight::ParamValueNameList::vfunc_5 @ 0x002354c0
 extern "C" int atexit(void (*)());
 
-struct Key {
+struct Key_2354c0 {
     unsigned lo;
     unsigned hi;
     void FUN_0027af00();
 };
 
 extern unsigned DAT_004e5bd8;
-extern Key DAT_004e5bd0;
+extern Key_2354c0 DAT_004e5bd0;
 void FUN_00364140();
 
-class Sink {
+class Sink_2354c0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -21,7 +21,7 @@ public:
     virtual void v4();
     virtual void v5();
     virtual void v6();
-    virtual void v7(int a, int b, Key *k);
+    virtual void v7(int a, int b, Key_2354c0 *k);
 };
 
 class ParamValueNameList {
@@ -31,17 +31,17 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void vfunc_5(int a1, int a2, Sink *sink);
+    virtual void vfunc_5(int a1, int a2, Sink_2354c0 *sink);
     virtual void v6();
-    virtual Key *v7(int a1);
+    virtual Key_2354c0 *v7(int a1);
     int f4;
     int f8;
     int fc;
 };
 
-void ParamValueNameList::vfunc_5(int a1, int a2, Sink *sink)
+void ParamValueNameList::vfunc_5(int a1, int a2, Sink_2354c0 *sink)
 {
-    Key *k = v7(a1);
+    Key_2354c0 *k = v7(a1);
     if (k == 0) {
         if ((DAT_004e5bd8 & 1) == 0) {
             DAT_004e5bd8 |= 1;

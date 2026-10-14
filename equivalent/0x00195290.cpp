@@ -6,82 +6,82 @@ extern char DAT_004d2a40;
 extern char DAT_00554c1c;
 extern int DAT_00554c18;
 
-struct V3 {
+struct V3_195290 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Ent;
+struct Ent_195290;
 
-struct Shape {
+struct Shape_195290 {
     char pad0[8];
-    Ent *ent;           // 8
+    Ent_195290 *ent;           // 8
     int kind;           // 0xc
 };
 
 struct Node {
     char pad0[0x18];
-    Shape *shape;
+    Shape_195290 *shape;
 };
 
-struct Rec {
+struct Rec_195290 {
     float t;
     Node *node;
     float c;
 };
 
-struct HitList {
+struct HitList_195290 {
     int count;
     char pad4[4];
-    Rec *recs;          // 8
+    Rec_195290 *recs;          // 8
 };
 
-struct Ent {
+struct Ent_195290 {
 };
 
-struct Probe {
+struct Probe_195290 {
     char pad0[0x128];
-    Ent *ent128;
+    Ent_195290 *ent128;
     void FUN_000368d0(int v);
     void FUN_00035fa0(int v);
-    Ent *FUN_00035ef0(int i);
-    bool FUN_00035c30(Shape *s);
-    void FUN_00035c70(Shape *s);
+    Ent_195290 *FUN_00035ef0(int i);
+    bool FUN_00035c30(Shape_195290 *s);
+    void FUN_00035c70(Shape_195290 *s);
 };
 
-struct Handle {
+struct Handle_195290 {
     char pad0[8];
-    Probe *probe;       // 8
+    Probe_195290 *probe;       // 8
     int kind;           // 0xc
 };
 
-struct Scene {
-    bool FUN_002ee140(HitList *list, V3 *origin, V3 *end, int z);
+struct Scene_195290 {
+    bool FUN_002ee140(HitList_195290 *list, V3_195290 *origin, V3_195290 *end, int z);
 };
 
-struct Caster {
-    bool FUN_00201e00(V3 *origin, V3 *end, int mask, V3 *hit, V3 *normal, void **out1, void **out2);
+struct Caster_195290 {
+    bool FUN_00201e00(V3_195290 *origin, V3_195290 *end, int mask, V3_195290 *hit, V3_195290 *normal, void **out1, void **out2);
 };
 
-struct Sub10 {
+struct Sub10_195290 {
     char pad0[8];
-    Scene *scene;
+    Scene_195290 *scene;
 };
 
 struct World {
     char pad0[0x10];
-    Sub10 *sub10;
+    Sub10_195290 *sub10;
     char pad14[0x10];
-    Caster *caster;     // 0x24
+    Caster_195290 *caster;     // 0x24
 };
 extern World *DAT_004dd700;
 
-HitList *FUN_00202f00();
-void __cdecl FUN_002f1ce0(V3 *origin, float c, V3 *normal, Shape **slot);
+HitList_195290 *FUN_00202f00();
+void __cdecl FUN_002f1ce0(V3_195290 *origin, float c, V3_195290 *normal, Shape_195290 **slot);
 
 // equiv-conv: FUN_00195290 ecx eax edx edi stack stack stack stack stack stack stack
-bool FUN_00195290(V3 *self, void **out2, void **out1, V3 *origin, V3 *end, V3 *normal, Shape **shapeOut,
-                  Handle *h, char flag, char *flagOut, int g)
+bool FUN_00195290(V3_195290 *self, void **out2, void **out1, V3_195290 *origin, V3_195290 *end, V3_195290 *normal, Shape_195290 **shapeOut,
+                  Handle_195290 *h, char flag, char *flagOut, int g)
 {
     World *w = DAT_004dd700;
     bool hit = w->caster->FUN_00201e00(origin, end, 1, self, normal, out1, out2);
@@ -95,13 +95,13 @@ bool FUN_00195290(V3 *self, void **out2, void **out1, V3 *origin, V3 *end, V3 *n
         double dz = az - origin->z;
         dist = (float)sqrt(dz * dz + dy * dy + dx * dx);
     }
-    HitList *list = FUN_00202f00();
+    HitList_195290 *list = FUN_00202f00();
     DAT_004d2a3c = 2;
     DAT_004d2a40 = 0;
     DAT_00554c1c = 0;
     DAT_00554c18 = g;
-    Scene *scene = w->sub10->scene;
-    Probe *obj = 0;
+    Scene_195290 *scene = w->sub10->scene;
+    Probe_195290 *obj = 0;
     if (h != 0 && h->kind == 1) {
         obj = h->probe;
         if (obj != 0) {
@@ -112,24 +112,24 @@ bool FUN_00195290(V3 *self, void **out2, void **out1, V3 *origin, V3 *end, V3 *n
     if (scene->FUN_002ee140(list, origin, end, 0)) {
         int n = list->count;
         struct Frame {
-            Shape *slot;
-            Rec rec;
+            Shape_195290 *slot;
+            Rec_195290 rec;
         } f;
         for (int i = 0; i < n; i++) {
-            Rec *r = &list->recs[i];
+            Rec_195290 *r = &list->recs[i];
             f.rec.t = r->t;
             f.rec.node = r->node;
             f.rec.c = r->c;
             Node *node = f.rec.node;
-            Shape *shape = node->shape;
+            Shape_195290 *shape = node->shape;
             f.slot = shape;
             int kind = shape->kind;
             bool process = true;
             if (kind == 1) {
-                if (shape == (Shape *)h)
+                if (shape == (Shape_195290 *)h)
                     process = false;
             } else if (kind == 5) {
-                Ent *ent = shape->ent;
+                Ent_195290 *ent = shape->ent;
                 if (ent == 0) {
                     process = false;
                 } else if (obj != 0) {
@@ -156,7 +156,7 @@ bool FUN_00195290(V3 *self, void **out2, void **out1, V3 *origin, V3 *end, V3 *n
                     obj->FUN_00035c70(shape);
             }
             if (f.rec.t > 0.0f && f.rec.t < dist) {
-                Shape *shape2 = node->shape;
+                Shape_195290 *shape2 = node->shape;
                 *self = *end;
                 self->x = self->x - origin->x;
                 self->y = self->y - origin->y;

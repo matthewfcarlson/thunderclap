@@ -4,14 +4,14 @@ extern "C" double __cdecl atan(double);
 extern "C" double __cdecl cos(double);
 extern "C" double __cdecl sin(double);
 
-struct TwiddleTable {
+struct TwiddleTable_33ed90 {
     int size;
     int one;
 };
 
 /* Builds the FFT twiddle-factor table w[] for a transform of nw points (Ooura-style makewt). */
 // equiv-conv: FUN_0033ed90 eax ecx edi
-void FUN_0033ed90(TwiddleTable *ip, int nw, float *w)
+void FUN_0033ed90(TwiddleTable_33ed90 *ip, int nw, float *w)
 {
     int nwh;
     int nw0;

@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 43 inputs, branch coverage 4/4)
 // FUN_00281e60 @ 0x00281e60
-struct Plane {
+struct Plane_281e60 {
     float nx, ny, nz, d;
 };
 
-struct Vtx {
+struct Vtx_281e60 {
     unsigned int f[6];
 };
 
-struct Frame {
+struct Frame_281e60 {
     int count;
-    Vtx outBuf[10];
-    Vtx bufC[10];
-    Vtx bufB[10];
-    Vtx bufA[10];
+    Vtx_281e60 outBuf[10];
+    Vtx_281e60 bufC[10];
+    Vtx_281e60 bufB[10];
+    Vtx_281e60 bufA[10];
 };
 
-void __cdecl FUN_00280be0(const Plane* plane, const Vtx* in, int inCount, Vtx* out, int* outCount);
+void __cdecl FUN_00280be0(const Plane_281e60* plane, const Vtx_281e60* in, int inCount, Vtx_281e60* out, int* outCount);
 
-void __cdecl FUN_00281e60(const Plane* planes, const Vtx* tri, Vtx* out, int* outCount)
+void __cdecl FUN_00281e60(const Plane_281e60* planes, const Vtx_281e60* tri, Vtx_281e60* out, int* outCount)
 {
-    Frame f;
+    Frame_281e60 f;
 
     FUN_00280be0(&planes[0], tri, 3, f.bufC, &f.count);
     FUN_00280be0(&planes[1], f.bufC, f.count, f.bufB, &f.count);

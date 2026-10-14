@@ -3,15 +3,15 @@
 extern char DAT_00494b44, DAT_00494b60;
 extern "C" void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern bool __cdecl FUN_00018960(float,float,float);
-struct C { float FUN_000356f0(); };
-struct B { C* FUN_00059a30(); };
-struct A { B* FUN_000592a0(); };
+struct C_168280 { float FUN_000356f0(); };
+struct B_168280 { C_168280* FUN_00059a30(); };
+struct A_168280 { B_168280* FUN_000592a0(); };
 namespace hulkfight { namespace motion {
 struct VelocityAnimatedYCondition {
- virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual bool vfunc_6(void*, A*, void*);
+ virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual bool vfunc_6(void*, A_168280*, void*);
  char pad[8]; unsigned operation; float threshold;
 };
-bool VelocityAnimatedYCondition::vfunc_6(void*, A* actor, void*) {
+bool VelocityAnimatedYCondition::vfunc_6(void*, A_168280* actor, void*) {
  if (!FUN_00344e74(actor,0,&DAT_00494b44,&DAT_00494b60,0)) return false;
  float value=actor->FUN_000592a0()->FUN_00059a30()->FUN_000356f0();
  switch(operation) {

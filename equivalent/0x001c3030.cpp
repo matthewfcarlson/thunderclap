@@ -1,56 +1,56 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2726 inputs, branch coverage 47/50, incomplete)
 // FUN_001c3030 @ 0x001c3030
-struct Vec3 {
+struct Vec3_1c3030 {
     float x, y, z;
-    bool FUN_0022d2b0(Vec3 *other, float eps);
+    bool FUN_0022d2b0(Vec3_1c3030 *other, float eps);
     void FUN_0022d180();
 };
 
-struct Plane {
+struct Plane_1c3030 {
     float nx, ny, nz;
     float d;
 };
 
-union FS {
+union FS_1c3030 {
     float f;
     unsigned int u;
 };
 
-struct PointSet {
-    Vec3 points[32];
+struct PointSet_1c3030 {
+    Vec3_1c3030 points[32];
     unsigned int count;
-    void FUN_001c2c20(Vec3 *p);
-    Vec3 *FUN_001c2c90(Vec3 *out);
+    void FUN_001c2c20(Vec3_1c3030 *p);
+    Vec3_1c3030 *FUN_001c2c90(Vec3_1c3030 *out);
 };
 
-struct Segment {
-    Vec3 p;
-    Vec3 q;
+struct Segment_1c3030 {
+    Vec3_1c3030 p;
+    Vec3_1c3030 q;
     char dropped;
     char pad19[3];
 };
 
-int __cdecl FUN_001c2940(Plane *a, Plane *b, Vec3 *point, Vec3 *dir);
+int __cdecl FUN_001c2940(Plane_1c3030 *a, Plane_1c3030 *b, Vec3_1c3030 *point, Vec3_1c3030 *dir);
 
 // A convex region bounded by up to six planes.
-struct Hull {
+struct Hull_1c3030 {
     unsigned int count;
-    Plane planes[6];
-    Vec3 *FUN_001c3030(Vec3 *out);
+    Plane_1c3030 planes[6];
+    Vec3_1c3030 *FUN_001c3030(Vec3_1c3030 *out);
 };
 
 // Clips every pairwise plane-intersection line against all planes, then returns the centroid of the surviving
 // segment end points.
-Vec3 *Hull::FUN_001c3030(Vec3 *out)
+Vec3_1c3030 *Hull_1c3030::FUN_001c3030(Vec3_1c3030 *out)
 {
     struct Frame {
-        Vec3 dir;                    // 0x00
+        Vec3_1c3030 dir;                    // 0x00
         char pad0c[0x2c - 0x0c];
-        Vec3 pt;                     // 0x2c
+        Vec3_1c3030 pt;                     // 0x2c
         char pad38[0x60 - 0x38];
-        Segment segs[32];            // 0x60
+        Segment_1c3030 segs[32];            // 0x60
         unsigned int segCount;       // 0x3e0
-        PointSet set;                // 0x3e4
+        PointSet_1c3030 set;                // 0x3e4
     } f;
 
     for (int k = 0; k < 32; k++)
@@ -68,7 +68,7 @@ Vec3 *Hull::FUN_001c3030(Vec3 *out)
             f.dir.x = f.dir.x * 10000.0f;
             f.dir.y = f.dir.y * 10000.0f;
             f.dir.z = f.dir.z * 10000.0f;
-            Vec3 far1;
+            Vec3_1c3030 far1;
             far1.x = f.pt.x + f.dir.x;
             far1.y = f.pt.y + f.dir.y;
             far1.z = f.pt.z + f.dir.z;
@@ -85,15 +85,15 @@ Vec3 *Hull::FUN_001c3030(Vec3 *out)
 
     unsigned int s;
     for (s = 0; s < f.segCount; s++) {
-        Segment *seg = &f.segs[s];
+        Segment_1c3030 *seg = &f.segs[s];
         int clipped = 0;
         if (n != 0) {
             unsigned int j;
             for (j = 0; j < n; j++) {
-                Plane *pl = &planes[j];
+                Plane_1c3030 *pl = &planes[j];
                 float inP = ((seg->p.z * pl->nz + seg->p.y * pl->ny) + pl->nx * seg->p.x) <= -pl->d ? 1.0f : 0.0f;
                 float inQ = ((seg->q.z * pl->nz + seg->q.y * pl->ny) + pl->nx * seg->q.x) <= -pl->d ? 1.0f : 0.0f;
-                Vec3 *outer;
+                Vec3_1c3030 *outer;
                 if (inP == 0.0f) {
                     if (inQ == 0.0f)
                         continue;
@@ -103,13 +103,13 @@ Vec3 *Hull::FUN_001c3030(Vec3 *out)
                         continue;
                     outer = &seg->q;
                 }
-                Vec3 *inner = outer->FUN_0022d2b0(&seg->p, 1e-5f) ? &seg->q : &seg->p;
+                Vec3_1c3030 *inner = outer->FUN_0022d2b0(&seg->p, 1e-5f) ? &seg->q : &seg->p;
                 f.dir.x = inner->x - outer->x;
                 f.dir.y = inner->y - outer->y;
                 f.dir.z = inner->z - outer->z;
                 f.dir.FUN_0022d180();
                 double den = (f.dir.y * pl->ny + f.dir.x * pl->nx) + f.dir.z * pl->nz;
-                FS ad;
+                FS_1c3030 ad;
                 ad.f = (float)den;
                 ad.u &= 0x7fffffff;
                 double num = -pl->d - ((pl->nz * outer->z + pl->ny * outer->y) + outer->x * pl->nx);

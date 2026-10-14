@@ -6,11 +6,11 @@ extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 extern unsigned int DAT_004d9968;
 extern unsigned __int64 DAT_004dc060;
 
-struct Vec3 {
+struct Vec3_103c30 {
     float x, y, z;
 };
 
-struct Key {
+struct Key_103c30 {
     unsigned int lo, hi;
 };
 
@@ -23,13 +23,13 @@ struct ScriptArgs {
     void FUN_001d1630();
 };
 
-struct Script {
+struct Script_103c30 {
     int FUN_001d3b00(const char* name, ScriptArgs args);
 };
-extern Script* __cdecl FUN_001d4c90();
+extern Script_103c30* __cdecl FUN_001d4c90();
 extern unsigned __int64 __cdecl FUN_0027afb0(const char* s);
 
-extern Vec3 DAT_004e0a9c;
+extern Vec3_103c30 DAT_004e0a9c;
 extern unsigned int DAT_004e0aa8;
 extern unsigned char DAT_004a1c44;
 extern float DAT_004a1c40;
@@ -39,15 +39,15 @@ extern float DAT_004a1c60;
 
 extern float __cdecl FUN_000964e0();
 extern float __cdecl FUN_00083d90(float* v);
-extern Vec3* __cdecl FUN_00083e00(Vec3* out, Vec3* in, float s);
-extern float __cdecl FUN_00224f10(Vec3* v);
+extern Vec3_103c30* __cdecl FUN_00083e00(Vec3_103c30* out, Vec3_103c30* in, float s);
+extern float __cdecl FUN_00224f10(Vec3_103c30* v);
 extern float __cdecl FUN_00224fc0(float a, float b);
-extern void __cdecl FUN_00224d70(float angle, Vec3* out);
+extern void __cdecl FUN_00224d70(float angle, Vec3_103c30* out);
 
-struct Vec3Ops : Vec3 {
+struct Vec3Ops_103c30 : Vec3_103c30 {
     float FUN_00018990();
     float FUN_0022d110();
-    char FUN_0022d2b0(Vec3* other, float eps);
+    char FUN_0022d2b0(Vec3_103c30* other, float eps);
 };
 
 struct AnimReq {
@@ -69,62 +69,62 @@ struct Locator {
     int first;
     char pad04[0x14];
     void* f18;
-    int FUN_00059a50(Vec3* out);
+    int FUN_00059a50(Vec3_103c30* out);
 };
 
-struct NodeList {
+struct NodeList_103c30 {
     char pad00[0x10];
     char* nodes;
     int count;
-    Vec3* FUN_00106160(int idx);
+    Vec3_103c30* FUN_00106160(int idx);
 };
 
-struct Mode {
+struct Mode_103c30 {
     char pad00[0x14];
     int f14;
     unsigned __int64 FUN_000443c0();
 };
 
-struct Body {
+struct Body_103c30 {
     char pad00[0x10];
     Locator* locator;
     char pad14[0x11c - 0x14];
-    Mode* mode;
+    Mode_103c30* mode;
     char pad120[0x1ac4 - 0x120];
-    Vec3 v1ac4;
+    Vec3_103c30 v1ac4;
     char pad1ad0[0x1d68 - 0x1ad0];
     unsigned __int64 f1d68;
     char pad1d70[0x1f70 - 0x1d70];
     int f1f70;
     char pad1f74[0x2064 - 0x1f74];
-    Vec3 v2064;
+    Vec3_103c30 v2064;
     float f2070;
-    Vec3 v2074;
+    Vec3_103c30 v2074;
     char pad2080[0x208c - 0x2080];
-    Vec3Ops v208c;
+    Vec3Ops_103c30 v208c;
     char pad2098[0x22b0 - 0x2098];
     char f22b0;
     char* FUN_00036d00();
 };
 
-struct Obj60 {
+struct Obj60_103c30 {
     char pad00[0x40];
-    Vec3 pos;
+    Vec3_103c30 pos;
 };
 
-struct Part {
+struct Part_103c30 {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual Body* vfunc_6();
+    virtual Body_103c30* vfunc_6();
     virtual void vfunc_7();
     virtual void vfunc_8();
     virtual int vfunc_9();
     char pad04[0x60 - 4];
-    Obj60* f60;
+    Obj60_103c30* f60;
     char pad64[0xe8 - 0x64];
     char flagE8;
     char flagE9;
@@ -133,38 +133,38 @@ struct Part {
 struct Ident {
     int FUN_000897e0();
 };
-struct Obj54 {
+struct Obj54_103c30 {
     Ident* FUN_00086310();
 };
-struct Ctx {
+struct Ctx_103c30 {
     char pad00[0x30];
     ScriptArgs* f30;
     char pad34[0x54 - 0x34];
-    Obj54* f54;
+    Obj54_103c30* f54;
 };
-struct Sink {
+struct Sink_103c30 {
     int FUN_001cbc20(AnimReq* r);
 };
-struct Ctx2 {
+struct Ctx2_103c30 {
     char pad00[0x30];
-    Sink* f30;
+    Sink_103c30* f30;
     char pad34[0x54 - 0x34];
-    Obj54* f54;
+    Obj54_103c30* f54;
 };
 
 class COccupationAgent;
-class AgentSub {
+class AgentSub_103c30 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
-    virtual void vfunc_4(Ctx2* c, float dt, int a3);
+    virtual void vfunc_4(Ctx2_103c30* c, float dt, int a3);
     char pad04[0x89 - 4];
     char b89;
     void FUN_001048d0(COccupationAgent* owner);
     char FUN_00104920();
-    void FUN_00104c60(Ctx2* c, Vec3* locPos, Vec3* nodePos, float f, unsigned char b, float g, int z);
+    void FUN_00104c60(Ctx2_103c30* c, Vec3_103c30* locPos, Vec3_103c30* nodePos, float f, unsigned char b, float g, int z);
 };
 
 class COccupationAgent {
@@ -173,7 +173,7 @@ public:
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
-    virtual void vfunc_4(Ctx2* c, float dt, int a3);
+    virtual void vfunc_4(Ctx2_103c30* c, float dt, int a3);
     virtual void vfunc_5();
     virtual void vfunc_6();
     virtual void vfunc_7();
@@ -183,9 +183,9 @@ public:
     char pad04[4];
     float limit;
     char pad0c[0x58 - 0xc];
-    Part* part;
-    AgentSub* sub;
-    NodeList* list;
+    Part_103c30* part;
+    AgentSub_103c30* sub;
+    NodeList_103c30* list;
     char name[0x40];
     char fa4;
     char fa5;
@@ -206,14 +206,14 @@ public:
     float fD4;
     float fD8;
     float fDC;
-    Vec3 vE0;
+    Vec3_103c30 vE0;
     float fEC;
-    void FUN_000fc550(Ctx2* c, float dt, int a3);
+    void FUN_000fc550(Ctx2_103c30* c, float dt, int a3);
     void FUN_00103a50();
     char FUN_001034e0();
 };
 
-void COccupationAgent::vfunc_4(Ctx2* a1, float a2, int a3)
+void COccupationAgent::vfunc_4(Ctx2_103c30* a1, float a2, int a3)
 {
     unsigned int cookie = DAT_004d9968;
     FUN_000fc550(a1, a2, a3);
@@ -222,7 +222,7 @@ void COccupationAgent::vfunc_4(Ctx2* a1, float a2, int a3)
             limit = 0.0f;
             break;
         }
-        Body* b = part->vfunc_6();
+        Body_103c30* b = part->vfunc_6();
         if (part != 0 && part->vfunc_9() == 4)
             break;
         sub->FUN_001048d0(this);
@@ -233,13 +233,13 @@ void COccupationAgent::vfunc_4(Ctx2* a1, float a2, int a3)
             if (t <= 1e-05f)
                 fC4 = 1.0f;
         }
-        Vec3 v;
+        Vec3_103c30 v;
         v.x = 0.0f;
         v.y = 0.0f;
         v.z = 0.0f;
         b->locator->FUN_00059a50(&v);
         if (iB8 == -1) {
-            Part* p = part;
+            Part_103c30* p = part;
             if (p->flagE9) {
                 p->flagE8 = 0;
                 b->f22b0 = 0;
@@ -249,7 +249,7 @@ void COccupationAgent::vfunc_4(Ctx2* a1, float a2, int a3)
         b->f22b0 = sub->FUN_00104920();
         if (!sub->FUN_00104920() && !fa5) {
             FUN_00103a50();
-            Vec3 tmp = *list->FUN_00106160(iB8);
+            Vec3_103c30 tmp = *list->FUN_00106160(iB8);
             sub->FUN_00104c60(a1, &v, &tmp, fBC, bC0, fC4, 0);
             if (!sub->FUN_00104920()) {
                 fD4 = 0.0f;
@@ -275,7 +275,7 @@ void COccupationAgent::vfunc_4(Ctx2* a1, float a2, int a3)
             fDC = 0.0f;
             fEC = 0.0f;
             if (a2 > 0.0f) {
-                Sink* snk = a1->f30;
+                Sink_103c30* snk = a1->f30;
                 if (snk != 0) {
                     AnimReq req;
                     int locId = *(int*)part->vfunc_6()->locator;
@@ -286,7 +286,7 @@ void COccupationAgent::vfunc_4(Ctx2* a1, float a2, int a3)
                     }
                     snk->FUN_001cbc20(&req);
                 }
-                Script* dbg = FUN_001d4c90();
+                Script_103c30* dbg = FUN_001d4c90();
                 if (dbg != 0) {
                     char buf1[0x100];
                     strncpy(buf1, name, 0x100);
@@ -314,16 +314,16 @@ void COccupationAgent::vfunc_4(Ctx2* a1, float a2, int a3)
                 }
             }
             if (!fa5 && iB4 != iB8 && iB8 != -1) {
-                Vec3 tmp = *list->FUN_00106160(iB8);
+                Vec3_103c30 tmp = *list->FUN_00106160(iB8);
                 sub->FUN_00104c60(a1, &v, &tmp, fBC, bC0, fC4, 0);
                 sub->vfunc_4(a1, a2, a3);
             }
         }
         if (bC8 == 1) {
-            Obj60* o = part->f60;
+            Obj60_103c30* o = part->f60;
             if (o != 0) {
-                Vec3 w = o->pos;
-                Vec3 u;
+                Vec3_103c30 w = o->pos;
+                Vec3_103c30 u;
                 u.x = 0.0f;
                 u.y = 0.0f;
                 u.z = 0.0f;
@@ -332,8 +332,8 @@ void COccupationAgent::vfunc_4(Ctx2* a1, float a2, int a3)
                 w.y = w.y - u.y;
                 w.z = w.z - u.z;
                 if (sqrt(w.z * w.z + w.y * w.y + w.x * w.x) > 0.1f) {
-                    ((Vec3Ops*)&w)->FUN_0022d110();
-                    Vec3* dst = &part->vfunc_6()->v2074;
+                    ((Vec3Ops_103c30*)&w)->FUN_0022d110();
+                    Vec3_103c30* dst = &part->vfunc_6()->v2074;
                     dst->x = w.x;
                     dst->y = w.y;
                     dst->z = w.z;
@@ -348,29 +348,29 @@ void COccupationAgent::vfunc_4(Ctx2* a1, float a2, int a3)
             }
             if (DAT_004a1c44 && list != 0 && iB8 < list->count - 1 && iB8 >= 0 &&
                 b->v208c.FUN_0022d2b0(&DAT_004e0a9c, 1e-05f)) {
-                Vec3 u2;
+                Vec3_103c30 u2;
                 u2.x = 0.0f;
                 u2.y = 0.0f;
                 u2.z = 0.0f;
                 b->locator->FUN_00059a50(&u2);
                 float r = DAT_004a1c40;
-                Vec3 cur;
+                Vec3_103c30 cur;
                 cur.x = u2.x;
                 cur.z = u2.z;
                 cur.y = 0.0f;
-                Vec3* p = list->FUN_00106160(iB8);
+                Vec3_103c30* p = list->FUN_00106160(iB8);
                 int idx = iB8;
-                Vec3 nxt;
-                Vec3 R;
+                Vec3_103c30 nxt;
+                Vec3_103c30 R;
                 R.x = p->x;
                 R.z = p->z;
                 R.y = 0.0f;
                 nxt.x = R.x;
                 nxt.y = R.y;
                 nxt.z = p->z;
-                Vec3Ops out;
+                Vec3Ops_103c30 out;
                 bool exact = false;
-                Vec3Ops d;
+                Vec3Ops_103c30 d;
                 if (r > 0.0f) {
                     for (;;) {
                         d.x = nxt.x - cur.x;
@@ -383,7 +383,7 @@ void COccupationAgent::vfunc_4(Ctx2* a1, float a2, int a3)
                             d.y = nxt.y - cur.y;
                             d.z = nxt.z - cur.z;
                             d.FUN_0022d110();
-                            Vec3* sc = FUN_00083e00(&nxt, &d, seg + r);
+                            Vec3_103c30* sc = FUN_00083e00(&nxt, &d, seg + r);
                             R.x = cur.x + sc->x;
                             out.x = R.x - u2.x;
                             out.y = 0.0f;
@@ -439,7 +439,7 @@ void COccupationAgent::vfunc_4(Ctx2* a1, float a2, int a3)
             if (fDC < 0.0f)
                 fEC = FUN_000964e0() * 1.5f;
         } else {
-            Vec3 u3;
+            Vec3_103c30 u3;
             u3.x = 0.0f;
             u3.y = 0.0f;
             u3.z = 0.0f;
@@ -447,11 +447,11 @@ void COccupationAgent::vfunc_4(Ctx2* a1, float a2, int a3)
             if (sqrt((u3.z - fD4) * (u3.z - fD4) + (u3.y - fD0) * (u3.y - fD0) + (u3.x - fCC) * (u3.x - fCC)) < 1.0f) {
                 fD8 = a2 + fD8;
                 if (fD8 > 1.0f) {
-                    Vec3Ops t3;
+                    Vec3Ops_103c30 t3;
                     t3.x = b->v1ac4.x;
                     t3.y = b->v1ac4.y;
                     t3.z = b->v1ac4.z;
-                    Vec3 z3;
+                    Vec3_103c30 z3;
                     z3.x = 0.0f;
                     z3.y = 0.0f;
                     z3.z = 0.0f;

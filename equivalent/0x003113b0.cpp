@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // physics::ArticulatedPhysicsObject::vfunc_18 @ 0x003113b0
 struct Vector { float x,y,z; };
-struct Body {
+struct Body_3113b0 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual bool slot14(void*,Vector*,void*);
  char pad[0xeb]; unsigned char enabled;
 };
 namespace physics {
 struct PhysicsObject {
- char pad[0x40]; float mass; char pad2[0x1b8]; Body** bodies; char pad3[0x14]; unsigned int state214,state218; unsigned char state21c;
+ char pad[0x40]; float mass; char pad2[0x1b8]; Body_3113b0** bodies; char pad3[0x14]; unsigned int state214,state218; unsigned char state21c;
  bool vfunc_18(void*,Vector*,void*,void*,int,int);
 };
 struct ArticulatedPhysicsObject : PhysicsObject {

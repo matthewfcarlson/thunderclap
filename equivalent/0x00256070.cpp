@@ -6,20 +6,20 @@ struct Stream {
     int indent;
 };
 
-struct Writer {
+struct Writer_256070 {
     Stream* out;
 };
 
 char FUN_00246f50(Stream* s, const char* fmt, ...);
-char FUN_00250ef0(Writer* w, const char* name, void* value);
-char FUN_00254000(Writer* w, const char* name, void* value);
+char FUN_00250ef0(Writer_256070* w, const char* name, void* value);
+char FUN_00254000(Writer_256070* w, const char* name, void* value);
 
 namespace audio {
 
 class SeqEvent {
 public:
     virtual void v0();
-    char vfunc_1(Writer* w);
+    char vfunc_1(Writer_256070* w);
     char pad04[4];
 };
 
@@ -28,10 +28,10 @@ public:
     char field_08[4];
     char field_0c[4];
     char field_10[4];
-    int vfunc_1(Writer* w);
+    int vfunc_1(Writer_256070* w);
 };
 
-int SeqEventClip::vfunc_1(Writer* w)
+int SeqEventClip::vfunc_1(Writer_256070* w)
 {
     if (!SeqEvent::vfunc_1(w))
         return 0;

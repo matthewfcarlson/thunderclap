@@ -3,7 +3,7 @@
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
-struct CreateParams {
+struct CreateParams_8ca70 {
     void* buffer;
     int a;
     int b;
@@ -12,7 +12,7 @@ struct CreateParams {
     int e;
 };
 
-class Obj {
+class Obj_8ca70 {
 public:
     virtual void v00();
     virtual void v04();
@@ -50,40 +50,40 @@ public:
     virtual void v84();
     virtual void v88();
     virtual void v8c();
-    virtual void v90(Obj** out, CreateParams p);
+    virtual void v90(Obj_8ca70** out, CreateParams_8ca70 p);
 };
 
-struct Slot {
-    Obj* obj;
-    Obj* aux;
+struct Slot_8ca70 {
+    Obj_8ca70* obj;
+    Obj_8ca70* aux;
     char pad08[0xc0];
 };
 
 extern "C" int FUN_0026b800(int a, int b, char* buf, int c, int d, int e, int f);
 
-class Manager {
+class Manager_8ca70 {
 public:
     char pad00[8];
-    Slot* slots;
+    Slot_8ca70* slots;
     int FUN_0008c590(int index, int a, int* status);
     int FUN_0008ca70(int index, int arg1, int arg2, int arg3, int arg4);
 };
 
-int Manager::FUN_0008ca70(int index, int arg1, int arg2, int arg3, int arg4)
+int Manager_8ca70::FUN_0008ca70(int index, int arg1, int arg2, int arg3, int arg4)
 {
     struct {
-        Obj* created;
+        Obj_8ca70* created;
         int status;
         char buf[0x104];
         unsigned int guard;
     } f;
     int result;
     f.guard = DAT_004d9968;
-    Obj* obj = slots[index].obj;
+    Obj_8ca70* obj = slots[index].obj;
     obj->v58();
     if (slots[index].aux) {
         slots[index].aux->v54();
-        Obj** auxSlot = &slots[index].aux;
+        Obj_8ca70** auxSlot = &slots[index].aux;
         if (*auxSlot) {
             (*auxSlot)->v04();
             *auxSlot = 0;
@@ -96,7 +96,7 @@ int Manager::FUN_0008ca70(int index, int arg1, int arg2, int arg3, int arg4)
         } else {
             if (arg4 != 0)
                 FUN_0026b800(arg4, 2, f.buf, 1, 0x2e, 0x40, 0);
-            CreateParams p;
+            CreateParams_8ca70 p;
             f.created = 0;
             p.buffer = f.buf;
             p.a = 0;

@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 137 inputs, branch coverage 15/16, incomplete)
 // FUN_0021d630 @ 0x0021d630
-struct FuncState {
+struct FuncState_21d630 {
     char pad0[0x24];
     int freereg;
 };
 
-struct LexState {
+struct LexState_21d630 {
     char pad0[4];
     int linenumber;
     int lastline;
@@ -13,10 +13,10 @@ struct LexState {
     int seminfo;
     int lookahead_token;
     int lookahead_seminfo;
-    FuncState *fs;
+    FuncState_21d630 *fs;
 };
 
-struct ExpDesc {
+struct ExpDesc_21d630 {
     int k;
     int info;
     int aux;
@@ -24,33 +24,33 @@ struct ExpDesc {
     int f;
 };
 
-struct Frame {
+struct Frame_21d630 {
     int line;
-    ExpDesc args;
+    ExpDesc_21d630 args;
 };
 
-void __cdecl FUN_0021b060(LexState *ls, const char *msg);
-int __cdecl FUN_0021bbc0(LexState *ls, int *seminfo);
+void __cdecl FUN_0021b060(LexState_21d630 *ls, const char *msg);
+int __cdecl FUN_0021bbc0(LexState_21d630 *ls, int *seminfo);
 // equiv-conv: FUN_0021c190 esi
-void FUN_0021c190(LexState *ls);
+void FUN_0021c190(LexState_21d630 *ls);
 // equiv-conv: FUN_0021c340 esi edi stack eax
-void FUN_0021c340(LexState *ls, int what, int who, int line);
+void FUN_0021c340(LexState_21d630 *ls, int what, int who, int line);
 // equiv-conv: FUN_0021cf70 ecx eax
-void FUN_0021cf70(LexState *ls, void *e);
+void FUN_0021cf70(LexState_21d630 *ls, void *e);
 // equiv-conv: FUN_0021d5c0 esi edi
-int FUN_0021d5c0(LexState *ls, void *e);
-int __cdecl FUN_002209b0(FuncState *fs, int ts);
-void __cdecl FUN_00220a50(FuncState *fs, ExpDesc *e, int nresults);
-int __cdecl FUN_00220bd0(FuncState *fs, int op, int a, int b, int c);
-void __cdecl FUN_00220b00(FuncState *fs, int line);
-void __cdecl FUN_00221110(FuncState *fs, void *e);
+int FUN_0021d5c0(LexState_21d630 *ls, void *e);
+int __cdecl FUN_002209b0(FuncState_21d630 *fs, int ts);
+void __cdecl FUN_00220a50(FuncState_21d630 *fs, ExpDesc_21d630 *e, int nresults);
+int __cdecl FUN_00220bd0(FuncState_21d630 *fs, int op, int a, int b, int c);
+void __cdecl FUN_00220b00(FuncState_21d630 *fs, int line);
+void __cdecl FUN_00221110(FuncState_21d630 *fs, void *e);
 
 // funcargs(ls, f): ls arrives in eax, f on the stack.
 // equiv-conv: FUN_0021d630 eax stack
-void FUN_0021d630(LexState *ls, ExpDesc *f)
+void FUN_0021d630(LexState_21d630 *ls, ExpDesc_21d630 *f)
 {
-    FuncState *fs = ls->fs;
-    Frame fr;
+    FuncState_21d630 *fs = ls->fs;
+    Frame_21d630 fr;
     int line;
     fr.line = ls->linenumber;
     line = fr.line;

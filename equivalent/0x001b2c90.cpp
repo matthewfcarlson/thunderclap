@@ -1,37 +1,37 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3060 inputs, branch coverage 26/26)
 // AICollisionSolverAgent::vfunc_7 @ 0x001b2c90
-struct Vec { float x,y,z; float FUN_0022d110(); void FUN_00011140(float); };
-struct Body;
-struct Actor { char pad[0x114]; Body* linked1; Body* linked2; char pad2[0x30]; unsigned char active; };
-struct Tag { char pad[8]; unsigned int a,b; };
-struct Body { char pad[8]; Actor* actor; int kind; char pad2[0x64]; Tag* tag; };
-struct ContactObject { char pad[0x18]; Body* body; };
-struct Contact { char pad[8]; ContactObject* first; ContactObject* second; };
-struct Manager { bool FUN_00079950(void*); };
-struct Global { char pad[0x4c]; Manager* manager; };
-extern Global* DAT_004dd700;
+struct Vec_1b2c90 { float x,y,z; float FUN_0022d110(); void FUN_00011140(float); };
+struct Body_1b2c90;
+struct Actor_1b2c90 { char pad[0x114]; Body_1b2c90* linked1; Body_1b2c90* linked2; char pad2[0x30]; unsigned char active; };
+struct Tag_1b2c90 { char pad[8]; unsigned int a,b; };
+struct Body_1b2c90 { char pad[8]; Actor_1b2c90* actor; int kind; char pad2[0x64]; Tag_1b2c90* tag; };
+struct ContactObject { char pad[0x18]; Body_1b2c90* body; };
+struct Contact_1b2c90 { char pad[8]; ContactObject* first; ContactObject* second; };
+struct Manager_1b2c90 { bool FUN_00079950(void*); };
+struct Global_1b2c90 { char pad[0x4c]; Manager_1b2c90* manager; };
+extern Global_1b2c90* DAT_004dd700;
 extern unsigned int DAT_004e2198, DAT_004e219c;
 extern float DAT_004c37f8;
 extern "C" double __cdecl sqrt(double);
 struct AICollisionSolverAgent {
- void FUN_001b1080(Actor*,Actor*,Vec*,Body*);
- void FUN_001b1270(Actor*,Actor*,Vec*,Contact*,Body*,Body*);
- int vfunc_7(Vec*,Contact*);
+ void FUN_001b1080(Actor_1b2c90*,Actor_1b2c90*,Vec_1b2c90*,Body_1b2c90*);
+ void FUN_001b1270(Actor_1b2c90*,Actor_1b2c90*,Vec_1b2c90*,Contact_1b2c90*,Body_1b2c90*,Body_1b2c90*);
+ int vfunc_7(Vec_1b2c90*,Contact_1b2c90*);
 };
-int AICollisionSolverAgent::vfunc_7(Vec* v, Contact* c) {
- Body* first=c->first->body; Body* second=c->second->body;
+int AICollisionSolverAgent::vfunc_7(Vec_1b2c90* v, Contact_1b2c90* c) {
+ Body_1b2c90* first=c->first->body; Body_1b2c90* second=c->second->body;
  if(first->kind==5) {
  if(second->kind==1) FUN_001b1080(first->actor,second->actor,v,second);
  else if(second->kind==5) FUN_001b1270(first->actor,second->actor,v,c,first,second);
  }
  if(second->kind==5) {
- Actor* a=second->actor;
+ Actor_1b2c90* a=second->actor;
  if(first!=a->linked1 && first!=a->linked2 && first->kind==1) FUN_001b1080(a,first->actor,v,first);
  }
  if(first->kind==5) {
- Tag* t=second->tag;
+ Tag_1b2c90* t=second->tag;
  if(t->a==DAT_004e2198 && t->b==DAT_004e219c) {
- Actor* a=first->actor;
+ Actor_1b2c90* a=first->actor;
  if(a->active && !DAT_004dd700->manager->FUN_00079950((char*)a+8)) {
  if(sqrt((double)v->x*v->x+(double)v->y*v->y+(double)v->z*v->z)>=DAT_004c37f8) {
  v->FUN_0022d110(); v->FUN_00011140(DAT_004c37f8);

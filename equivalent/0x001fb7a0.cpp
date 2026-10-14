@@ -3,15 +3,15 @@
 extern unsigned DAT_004d9968;
 void __fastcall __security_check_cookie(unsigned);
 struct Params { unsigned kind; char text[692]; void FUN_001d1630(); };
-struct Recipient { void FUN_001d3b00(const char*, Params); };
-Recipient* __cdecl FUN_001d4c90();
-struct Argument { const char* FUN_00036d00(); };
+struct Recipient_1fb7a0 { void FUN_001d3b00(const char*, Params); };
+Recipient_1fb7a0* __cdecl FUN_001d4c90();
+struct Argument_1fb7a0 { const char* FUN_00036d00(); };
 int __cdecl sprintf(char*, const char*, ...);
 void __cdecl FUN_000964a0(char*, unsigned, const char*, const char*);
-struct CTriggerVolume { char pad[0x90]; char name[1]; void vfunc_15(Argument*); };
-void CTriggerVolume::vfunc_15(Argument* argument) {
+struct CTriggerVolume { char pad[0x90]; char name[1]; void vfunc_15(Argument_1fb7a0*); };
+void CTriggerVolume::vfunc_15(Argument_1fb7a0* argument) {
  unsigned cookie = DAT_004d9968;
- Recipient* recipient = FUN_001d4c90();
+ Recipient_1fb7a0* recipient = FUN_001d4c90();
  if (recipient) {
  char eventName[256];
  sprintf(eventName, "%s_OnInside", name);

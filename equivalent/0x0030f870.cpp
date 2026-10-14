@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 30/30)
 // FUN_0030f870 @ 0x0030f870
-class Elem {
+class Elem_30f870 {
 public:
     int index;
-    Elem *parent;
+    Elem_30f870 *parent;
     char pad8[4];
     int depth;
     char pad10[0xc0 - 0x10];
     void FUN_0030ebd0();
-    void FUN_0030ebe0(const Elem *src);
+    void FUN_0030ebe0(const Elem_30f870 *src);
     void FUN_0030ec20(int depth);
-    void FUN_0030ec70(Elem *child);
+    void FUN_0030ec70(Elem_30f870 *child);
 };
 
 void FUN_0030eba0();
@@ -32,7 +32,7 @@ class Skeleton {
 public:
     char pad0[8];
     Shared *shared;
-    Elem *elems;
+    Elem_30f870 *elems;
     void FUN_0030f870(Skeleton *other);
 };
 
@@ -53,7 +53,7 @@ void Skeleton::FUN_0030f870(Skeleton *other)
     shared = src;
 
     if (elems) {
-        Elem *old = elems;
+        Elem_30f870 *old = elems;
         int *block = (int *)old - 1;
         for (int i = *block - 1; i >= 0; i--)
             old[i].FUN_0030ebd0();
@@ -65,12 +65,12 @@ void Skeleton::FUN_0030f870(Skeleton *other)
         elems = 0;
         return;
     }
-    int *mem = (int *)FUN_0008d6d0(n * sizeof(Elem) + 4);
-    Elem *arr = 0;
+    int *mem = (int *)FUN_0008d6d0(n * sizeof(Elem_30f870) + 4);
+    Elem_30f870 *arr = 0;
     if (mem) {
         *mem = n;
-        arr = (Elem *)(mem + 1);
-        FUN_00011520(arr, sizeof(Elem), n, FUN_0030eba0);
+        arr = (Elem_30f870 *)(mem + 1);
+        FUN_00011520(arr, sizeof(Elem_30f870), n, FUN_0030eba0);
     }
     elems = arr;
     elems[0].FUN_0030ebe0(&other->elems[0]);

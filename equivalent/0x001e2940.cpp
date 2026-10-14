@@ -17,45 +17,45 @@ public:
 
 class CSPHulkProp;
 
-struct V3 {
+struct V3_1e2940 {
     float x, y, z;
 };
 
-struct Quat {
+struct Quat_1e2940 {
     float x, y, z, w;
-    void FUN_0022b650(struct Mat4 *m);
+    void FUN_0022b650(struct Mat4_1e2940 *m);
 };
 
-struct Mat4 {
+struct Mat4_1e2940 {
     float m[12];
-    V3 trans;
+    V3_1e2940 trans;
     float w;
     void FUN_0022b980();
 };
 
 struct Thing;
 
-struct Factory {
+struct Factory_1e2940 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
     virtual Thing *f3(content::LoadInventory::DynamicCaster<CSPHulkProp> *caster, int a, int b);
 };
-struct Zone {
+struct Zone_1e2940 {
     Thing *FUN_00046400(int a, int b);
 };
-struct Holder44 { Factory *FUN_00203d70(); Zone *FUN_00204d70(int idx); };
-struct Holder28 {
-    Holder44 *FUN_000862a0();
+struct Holder44_1e2940 { Factory_1e2940 *FUN_00203d70(); Zone_1e2940 *FUN_00204d70(int idx); };
+struct Holder28_1e2940 {
+    Holder44_1e2940 *FUN_000862a0();
 };
-struct Manager { char pad0[0x54]; Holder28 *holder; };
-extern Manager *DAT_004dd700;
+struct Manager_1e2940 { char pad0[0x54]; Holder28_1e2940 *holder; };
+extern Manager_1e2940 *DAT_004dd700;
 
-struct Camera { V3 *FUN_001c39d0(); };
+struct Camera { V3_1e2940 *FUN_001c39d0(); };
 Camera *FUN_001c3d90();
 
-struct Rec;
-struct Sub8 {
+struct Rec_1e2940;
+struct Sub8_1e2940 {
     void FUN_0027b040(const char *name);
     void FUN_0027af70(void *other);
 };
@@ -65,13 +65,13 @@ struct PtrA0 {
     void *FUN_002fc2d0();
     void FUN_002fc670(int v);
 };
-struct Link { int FUN_001d5c70(int index); Rec *FUN_001d56f0(int a); };
+struct Link_1e2940 { int FUN_001d5c70(int index); Rec_1e2940 *FUN_001d56f0(int a); };
 struct Holder11c { void FUN_001c5080(float a, float b); };
 
-struct Event;
-struct Sub74;
+struct Event_1e2940;
+struct Sub74_1e2940;
 
-struct Prop {
+struct Prop_1e2940 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -90,14 +90,14 @@ struct Prop {
     virtual void v15();
     virtual void v16(int a, int b);
     char pad04[4];
-    Sub8 sub8;
+    Sub8_1e2940 sub8;
     char pad09[0x40 - 9];
     int f40;
     char pad44[0x9c - 0x44];
     Ptr9c *p9c;
     PtrA0 *pa0;
     char pada4[0xec - 0xa4];
-    Link *link;
+    Link_1e2940 *link;
     char padf0[0x11c - 0xf0];
     Holder11c *holder;
     char pad120[0x144 - 0x120];
@@ -115,9 +115,9 @@ struct Prop {
     void FUN_001d62b0(int a);
     void FUN_001d6c80(int a);
     int FUN_001d6990();
-    void FUN_001d6b60(Mat4 m, int flag);
+    void FUN_001d6b60(Mat4_1e2940 m, int flag);
     void FUN_001d63b0(int count);
-    Event *FUN_001d72e0();
+    Event_1e2940 *FUN_001d72e0();
     void FUN_001d7e70();
     void FUN_001d7590();
     void FUN_001d7510();
@@ -126,7 +126,7 @@ struct Prop {
     void FUN_0027cd10(void *q);
 };
 
-struct Item {
+struct Item_1e2940 {
     char pad[0x28];
     int a28;
     int a2c;
@@ -134,13 +134,13 @@ struct Item {
     int lo;
     int hi;
 };
-struct Rec {
+struct Rec_1e2940 {
     char pad[0x44];
     int count;
     char *items;
 };
 
-struct Sub20 {
+struct Sub20_1e2940 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -153,16 +153,16 @@ struct Sub20 {
     virtual void v9();
     virtual void v10(); 
 };
-struct Sub74 {
+struct Sub74_1e2940 {
     char pad[8];
     char sub8[1];
     char pad9[0x20 - 9];
-    Sub20 *s20;
+    Sub20_1e2940 *s20;
     char pad24[0x68 - 0x24];
     char b68;
     char b69;
 };
-struct Sub70 {
+struct Sub70_1e2940 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -171,7 +171,7 @@ struct Sub70 {
     virtual void v5();
     virtual void v6(int a);
 };
-struct Event {
+struct Event_1e2940 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -181,12 +181,12 @@ struct Event {
     virtual void v6();
     virtual void v7();
     char pad04[0x70 - 4];
-    Sub70 *p70;
-    Sub74 *p74;
+    Sub70_1e2940 *p70;
+    Sub74_1e2940 *p74;
 };
 
 struct Obj1b {
-    void FUN_001b4450(Prop *p, int z);
+    void FUN_001b4450(Prop_1e2940 *p, int z);
 };
 Obj1b *FUN_001b6580();
 
@@ -199,15 +199,15 @@ struct Node {
 struct SrcPart {
     char pad0[6];
     short s16;
-    void FUN_001db820(Quat *out);
+    void FUN_001db820(Quat_1e2940 *out);
 };
 
-struct Entry {
+struct Entry_1e2940 {
     char pad0[8];
     int a8;
     int ac;
     SrcPart src;
-    Prop *obj;
+    Prop_1e2940 *obj;
     Node *list;
     unsigned short w20;
     short s22;
@@ -217,8 +217,8 @@ struct Entry {
     const char *FUN_0027b010();
 };
 
-struct Slot {
-    V3 pos;
+struct Slot_1e2940 {
+    V3_1e2940 pos;
     char pad0c[4];
     unsigned short flags;
     short entry;
@@ -232,45 +232,45 @@ extern int DAT_004c617c;
 extern int DAT_004c6180;
 unsigned __int64 FUN_0027b020(const char *name) throw();
 
-class Mgr {
+class Mgr_1e2940 {
 public:
     char pad0[0x608];
-    Entry entries[2048];
-    Slot slots[2048];
+    Entry_1e2940 entries[2048];
+    Slot_1e2940 slots[2048];
     char pad1e608[0x18];
-    Prop *objs[128];
+    Prop_1e2940 *objs[128];
     int objCount;
-    Prop *FUN_001de4f0(Thing *t, Entry *e, int c, Mat4 *m);
+    Prop_1e2940 *FUN_001de4f0(Thing *t, Entry_1e2940 *e, int c, Mat4_1e2940 *m);
     char FUN_001dbec0(int a, int b);
-    Prop *F(int idx);
+    Prop_1e2940 *F(int idx);
 };
 
-Prop *Mgr::F(int idx)
+Prop_1e2940 *Mgr_1e2940::F(int idx)
 {
-    Slot *slot = &slots[idx];
-    Entry *ent = &entries[slot->entry];
+    Slot_1e2940 *slot = &slots[idx];
+    Entry_1e2940 *ent = &entries[slot->entry];
     if (slot->flags & 1)
         return 0;
     slot->flags = slot->flags | 1;
     struct Frame {
         volatile union { char b; int w; } fromLookup;
         int pad[2];
-        Quat q;
-        Mat4 M;
+        Quat_1e2940 q;
+        Mat4_1e2940 M;
     } fr;
     fr.fromLookup.b = 0;
-    Mat4 &M = fr.M;
+    Mat4_1e2940 &M = fr.M;
     M.FUN_0022b980();
     ent->src.FUN_001db820(&fr.q);
     fr.q.FUN_0022b650(&M);
     M.trans.x = slot->pos.x;
     M.trans.y = slot->pos.y;
     M.trans.z = slot->pos.z;
-    Prop *prop = 0;
+    Prop_1e2940 *prop = 0;
     content::LoadInventory::DynamicCaster<CSPHulkProp> caster;
     Thing *found = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70()->f3(&caster, ent->a8, ent->ac);
     if (!found) {
-        Zone *zone = DAT_004dd700->holder->FUN_000862a0()->FUN_00204d70(ent->src.s16);
+        Zone_1e2940 *zone = DAT_004dd700->holder->FUN_000862a0()->FUN_00204d70(ent->src.s16);
         if (!zone) {
             slot->flags &= 0xfffe;
             return prop;
@@ -309,7 +309,7 @@ Prop *Mgr::F(int idx)
     prop->b144 = (slot->flags >> 13) & 1;
     if (!(slot->flags & 2)) {
         Camera *cam = FUN_001c3d90();
-        V3 *cp = cam->FUN_001c39d0();
+        V3_1e2940 *cp = cam->FUN_001c39d0();
         float dx = cp->x - M.trans.x;
         float dy = cp->y - M.trans.y;
         float dz = cp->z - M.trans.z;
@@ -359,9 +359,9 @@ Prop *Mgr::F(int idx)
     if (ent->w20) {
         prop->FUN_0027cb40((float)(int)ent->w20 * 0.01f);
         static unsigned __int64 effectHash = FUN_0027b020("Effect");
-        Rec *rec = prop->link->FUN_001d56f0(prop->f40);
+        Rec_1e2940 *rec = prop->link->FUN_001d56f0(prop->f40);
         for (int i = 0; i < rec->count; i++) {
-            Item *it = (Item *)(rec->items + i * 0x58);
+            Item_1e2940 *it = (Item_1e2940 *)(rec->items + i * 0x58);
             if ((unsigned __int64)(unsigned int)it->lo == (effectHash & 0xffffffff) &&
                 (unsigned int)it->hi == (unsigned int)(effectHash >> 32)) {
                 if (FUN_001dbec0(it->a28, it->a2c))
@@ -377,11 +377,11 @@ Prop *Mgr::F(int idx)
         prop->pa0->FUN_002fc670((int)r);
     }
     prop->FUN_001d7e70();
-    Event *ev = prop->FUN_001d72e0();
+    Event_1e2940 *ev = prop->FUN_001d72e0();
     if (ev && ev->p74) {
         FUN_001b6580()->FUN_001b4450(prop, 0);
-        Sub74 *e74 = ev->p74;
-        ((Sub8 *)(e74->sub8 - 0))->FUN_0027af70(ent);
+        Sub74_1e2940 *e74 = ev->p74;
+        ((Sub8_1e2940 *)(e74->sub8 - 0))->FUN_0027af70(ent);
         e74 = ev->p74;
         if (e74->b68 || e74->b69)
             e74->s20->v10();

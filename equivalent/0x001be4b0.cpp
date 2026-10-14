@@ -1,23 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_001be4b0 @ 0x001be4b0
-struct Vec3 { float x, y, z; };
+struct Vec3_1be4b0 { float x, y, z; };
 
 struct Owner;
 
-struct Slot {
+struct Slot_1be4b0 {
     float weight;
     int a;
     int b;
     int value;
 };
 
-struct Blender {
+struct Blender_1be4b0 {
     Owner* owner;
     int current;
-    Slot slots[8];
+    Slot_1be4b0 slots[8];
     int index;
     float scale;
-    Blender* FUN_000f7fe0(Owner* o);
+    Blender_1be4b0* FUN_000f7fe0(Owner* o);
     void FUN_000f81b0(int v, int font, int flag);
     void FUN_000f87c0(int v, int font, int flag);
     void FUN_000f78e0();
@@ -25,13 +25,13 @@ struct Blender {
 
 struct Poly {
     char pad00[8];
-    Vec3* pos;
+    Vec3_1be4b0* pos;
     char pad0c[4];
     int* color;
     void FUN_0008ef00();
 };
 
-class Screen {
+class Screen_1be4b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -94,7 +94,7 @@ public:
     virtual void v58(int a);
     virtual char v59();
 };
-class Viewport {
+class Viewport_1be4b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -114,7 +114,7 @@ public:
     virtual void v15();
     virtual float v16();
 };
-class Layer {
+class Layer_1be4b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -141,18 +141,18 @@ public:
 };
 
 struct Canvas {
-    Layer* layer;
-    void FUN_00293d00(Vec3* v);
+    Layer_1be4b0* layer;
+    void FUN_00293d00(Vec3_1be4b0* v);
     void FUN_00293da0(float x, float y, float z);
 };
 
-struct Panel {
+struct Panel_1be4b0 {
     char pad00[0x10];
     int f10;
 };
 
-extern Screen* DAT_0052c2a8;
-extern Viewport* DAT_0052c2a4;
+extern Screen_1be4b0* DAT_0052c2a8;
+extern Viewport_1be4b0* DAT_0052c2a4;
 extern Canvas* DAT_0052c2ac;
 extern float DAT_004c4c18;
 extern float DAT_004c4c1c;
@@ -178,7 +178,7 @@ class Overlay {
     char b54;
     char b55;
     char pad56[2];
-    Panel* panel;
+    Panel_1be4b0* panel;
     void FUN_001be4b0(int index);
 };
 
@@ -187,7 +187,7 @@ void Overlay::FUN_001be4b0(int index)
     struct Frame {
         float width;
         float tmp;
-        Vec3 v;
+        Vec3_1be4b0 v;
         int saved55;
         union {
             char c;
@@ -198,7 +198,7 @@ void Overlay::FUN_001be4b0(int index)
         char pad_ac[0xc];
         float rightB;
         char pad_a0[8];
-        Blender b;
+        Blender_1be4b0 b;
     } f;
     if (owner == 0)
         return;
@@ -237,7 +237,7 @@ void Overlay::FUN_001be4b0(int index)
         Poly* p = DAT_0052c2a8->v30(panel->f10, 1, 0x2020, 4, 0);
         float left = f.width * -0.8f;
         float right = f.width * 0.8f;
-        Vec3* pv = p->pos;
+        Vec3_1be4b0* pv = p->pos;
         pv->y = -4.0f;
         pv->z = 0.0f;
         f.rightA = right;

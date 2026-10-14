@@ -6,7 +6,7 @@ extern unsigned int DAT_0052c290;
 extern unsigned int DAT_0052c294;
 extern unsigned int DAT_0052c298;
 
-struct Effect {
+struct Effect_27dd30 {
     char pad0[0x40];
     unsigned int idLo;      // 0x40
     unsigned int idHi;      // 0x44
@@ -18,16 +18,16 @@ struct Effect {
 struct EffectList {
     char pad0[0x44];
     int count;              // 0x44
-    Effect *items;          // 0x48
+    Effect_27dd30 *items;          // 0x48
 };
 
-class Player {
+class Player_27dd30 {
 public:
-    void FUN_0027cd10(Effect *e);
+    void FUN_0027cd10(Effect_27dd30 *e);
     void FUN_0027dd30(EffectList *list, float lo, float hi);
 };
 
-void Player::FUN_0027dd30(EffectList *list, float lo, float hi)
+void Player_27dd30::FUN_0027dd30(EffectList *list, float lo, float hi)
 {
     if (!(DAT_0052c298 & 1)) {
         DAT_0052c298 |= 1;
@@ -36,7 +36,7 @@ void Player::FUN_0027dd30(EffectList *list, float lo, float hi)
         DAT_0052c294 = (unsigned int)(id >> 32);
     }
     for (int i = 0; i < list->count; i++) {
-        Effect *e = &list->items[i];
+        Effect_27dd30 *e = &list->items[i];
         if (e->idLo == DAT_0052c290 && e->idHi == DAT_0052c294 && e->time >= lo && e->time < hi)
             FUN_0027cd10(e);
     }

@@ -24,11 +24,11 @@ public:
     virtual void Release();
 };
 
-struct Chunks {
+struct Chunks_2bed90 {
     Image* FUN_002c0590(Reader* r, int tag);
 };
 
-struct NameField {
+struct NameField_2bed90 {
     unsigned int keyLo;
     unsigned int keyHi;
     void FUN_0027b040(const char* name);
@@ -54,7 +54,7 @@ public:
 }
 }
 
-class Ctx {
+class Ctx_2bed90 {
 public:
     virtual void v0();
     virtual void v1();
@@ -66,7 +66,7 @@ class __declspec(novtable) SpriteObjectBase {
 public:
     virtual void v0();
     char pad04[4];
-    NameField name;
+    NameField_2bed90 name;
     void FUN_002a4e10(int one);
     SpriteObjectBase(int one) { FUN_002a4e10(one); }
 };
@@ -108,18 +108,18 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual int vfunc_5(pure3d::SpriteObject** out, unsigned __int64* outKey, Reader* r, Ctx* ctx);
+    virtual int vfunc_5(pure3d::SpriteObject** out, unsigned __int64* outKey, Reader* r, Ctx_2bed90* ctx);
     virtual void v6();
     virtual void v7();
     virtual Image* v8(Reader* r, int tag);
     virtual Image* v9(Reader* r, int tag);
     char pad04[0x14 - 4];
     int f14;
-    Chunks* f18;
+    Chunks_2bed90* f18;
 };
 }
 
-int pure3d::SpriteLoader::vfunc_5(pure3d::SpriteObject** out, unsigned __int64* outKey, Reader* r, Ctx* ctx)
+int pure3d::SpriteLoader::vfunc_5(pure3d::SpriteObject** out, unsigned __int64* outKey, Reader* r, Ctx_2bed90* ctx)
 {
     struct Frame {
         char pad10[3];

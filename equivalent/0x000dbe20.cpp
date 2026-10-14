@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3105 inputs, branch coverage 59/66, incomplete)
 // FEMemCardControl::vfunc_12 @ 0x000dbe20
-class Sink {
+class Sink_dbe20 {
 public:
     virtual void v0();
     virtual void v1();
@@ -53,17 +53,17 @@ public:
     virtual void v48(int mode);
 };
 
-struct Hub {
+struct Hub_dbe20 {
     char pad0[4];
-    Sink *sink;
+    Sink_dbe20 *sink;
 };
 
-struct Holder {
+struct Holder_dbe20 {
     char pad0[8];
-    Hub *hub;
+    Hub_dbe20 *hub;
 };
 
-struct Entry {
+struct Entry_dbe20 {
     char valid;
     char pad01[7];
     char locked;
@@ -88,12 +88,12 @@ public:
     virtual void vfunc_11();
     virtual char vfunc_12(int cmd, int unused);
     char pad04[0x10];
-    Holder *holder;
+    Holder_dbe20 *holder;
     char pad18[0x1d0 - 0x18];
     int cursorId;
     int sel;
     char pad1d8[0x250 - 0x1d8];
-    Entry entries[5];
+    Entry_dbe20 entries[5];
     char pad37c[0x3a8 - 0x37c];
     char useMouse;
     char pad3a9[3];

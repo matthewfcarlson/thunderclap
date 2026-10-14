@@ -22,20 +22,20 @@ public:
 
 namespace pure3d { class CompositeDrawable; }
 
-struct Color {
+struct Color_f42c0 {
     int value;
-    Color *FUN_000115c0(int r, int g, int b, int a);
+    Color_f42c0 *FUN_000115c0(int r, int g, int b, int a);
 };
 
-class Reg {
+class Reg_f42c0 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void *v3(content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> *caster, unsigned int lo, unsigned int hi);
 };
-extern Reg *DAT_004dd9cc;
-int __cdecl FUN_000c0d80(Reg *g, const char *s);
+extern Reg_f42c0 *DAT_004dd9cc;
+int __cdecl FUN_000c0d80(Reg_f42c0 *g, const char *s);
 
 struct ParseState {
     char data[0x24];
@@ -51,27 +51,27 @@ public:
     int FUN_000faeb0();
     char FUN_000f9e90();
     void FUN_000fa0a0();
-    class Child *FUN_000fb150();
+    class Child_f42c0 *FUN_000fb150();
 };
 
-class Child {
+class Child_f42c0 {
 public:
     virtual void v0();
     virtual int GetHash();
 };
 
-class Args {
+class Args_f42c0 {
 public:
     virtual void v0();
     virtual int GetType();
 };
 
-struct Made {
+struct Made_f42c0 {
     char pad0[0x74];
     char f74;
 };
 
-class Factory {
+class Factory_f42c0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -102,10 +102,10 @@ public:
     virtual void v26();
     virtual void v27();
     virtual void v28();
-    virtual Made *v29(const char *name, int z);
+    virtual Made_f42c0 *v29(const char *name, int z);
 };
 
-class Target {
+class Target_f42c0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -135,17 +135,17 @@ public:
     char pad04[0x1d5c - 4];
     int f1d5c;
     char pad1d60[0x1d98 - 0x1d60];
-    Made *f1d98;
+    Made_f42c0 *f1d98;
     char pad1d9c[0x1da4 - 0x1d9c];
     int f1da4;
     void FUN_000ebda0(int v);
     void FUN_000ebdd0(int v);
     void FUN_000e2f80(const char *s);
-    void FUN_000e3770(Made *m);
+    void FUN_000e3770(Made_f42c0 *m);
 };
 
 union Slot3 {
-    Target *d;
+    Target_f42c0 *d;
     char flag;
     int w;
 };
@@ -156,9 +156,9 @@ public:
     public:
         virtual void vfunc_0(int a, int b);
         FEThingsBase *mObj;
-        void (FEThingsBase::*mFn)(Param *, Factory *, Slot3, Args *);
-        Factory *mC;
-        Target *mD;
+        void (FEThingsBase::*mFn)(Param *, Factory_f42c0 *, Slot3, Args_f42c0 *);
+        Factory_f42c0 *mC;
+        Target_f42c0 *mD;
     };
 
     virtual void vf0();
@@ -194,10 +194,10 @@ public:
     virtual void vf30();
     virtual void vf31();
     virtual void vf32();
-    virtual void v33(Child *c, ParseState *st);
-    virtual char v34(Param *p, Args *a, ParseFunctor *f);
-    virtual char v35(Param *p, Factory *c, Target *d, Args *a);
-    virtual char v36(Param *p, Factory *c, Target *d, Args *a);
+    virtual void v33(Child_f42c0 *c, ParseState *st);
+    virtual char v34(Param *p, Args_f42c0 *a, ParseFunctor *f);
+    virtual char v35(Param *p, Factory_f42c0 *c, Target_f42c0 *d, Args_f42c0 *a);
+    virtual char v36(Param *p, Factory_f42c0 *c, Target_f42c0 *d, Args_f42c0 *a);
     virtual void w37();
     virtual void w38();
     virtual void w39();
@@ -207,12 +207,12 @@ public:
     virtual void w43();
     virtual void *v44();
 
-    void FUN_000f42c0(Param *p, Factory *c, Slot3 d3, Args *args);
+    void FUN_000f42c0(Param *p, Factory_f42c0 *c, Slot3 d3, Args_f42c0 *args);
 };
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
-struct Frame {
+struct Frame_f42c0 {
     int pad10;
     char raw[0x24];
 };
@@ -225,10 +225,10 @@ static __forceinline int StrLen(const char *s)
     return (int)(e - s) - 1;
 }
 
-void FEThingsBase::FUN_000f42c0(Param *p, Factory *c, Slot3 d3, Args *args)
+void FEThingsBase::FUN_000f42c0(Param *p, Factory_f42c0 *c, Slot3 d3, Args_f42c0 *args)
 {
-    Frame fr;
-    Target *d = d3.d;
+    Frame_f42c0 fr;
+    Target_f42c0 *d = d3.d;
     int type = args->GetType();
     switch (type) {
     case 0xbd69b501: {
@@ -256,7 +256,7 @@ void FEThingsBase::FUN_000f42c0(Param *p, Factory *c, Slot3 d3, Args *args)
         int a = 0xff;
         if (p->FUN_000f9e90())
             a = (int)p->FUN_000fad30();
-        Color col;
+        Color_f42c0 col;
         d->f1da4 = col.FUN_000115c0(r, g, b, a)->value;
         return;
     }
@@ -281,7 +281,7 @@ void FEThingsBase::FUN_000f42c0(Param *p, Factory *c, Slot3 d3, Args *args)
             (*(ParseState *)fr.raw).FUN_000f7930();
             (*(ParseState *)fr.raw).FUN_000f8500("", v44(), 1);
             const char *tag = p->FUN_000fad90();
-            Reg *g = DAT_004dd9cc;
+            Reg_f42c0 *g = DAT_004dd9cc;
             Pair64 h = FUN_0027b020(tag);
             content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> *caster =
                 new ((void *)&d3) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>;
@@ -318,7 +318,7 @@ void FEThingsBase::FUN_000f42c0(Param *p, Factory *c, Slot3 d3, Args *args)
                 d->f1d98->f74 = 0;
         }
         d3.flag = 0;
-        Child *ch = p->FUN_000fb150();
+        Child_f42c0 *ch = p->FUN_000fb150();
         while (ch != 0) {
             if (ch->GetHash() == 0x1f4ee86f) {
                 d3.flag = 1;

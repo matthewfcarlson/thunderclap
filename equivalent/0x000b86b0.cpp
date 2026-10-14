@@ -18,14 +18,14 @@ struct ScriptArgs {
     void FUN_001d1630();
 };
 
-struct Script {
+struct Script_b86b0 {
     int FUN_001d3b00(const char *name, ScriptArgs args);
     int FUN_001d27b0(const char *name);
 };
 
-extern Script *__cdecl FUN_001d4c90();
+extern Script_b86b0 *__cdecl FUN_001d4c90();
 
-struct Label {
+struct Label_b86b0 {
     int f00;
     char f04;
     char pad05[3];
@@ -46,18 +46,18 @@ struct Obj893 {
     char FUN_000893c0();
 };
 
-struct Obj54 {
+struct Obj54_b86b0 {
     Obj893 *FUN_00086310();
 };
 
-struct Game {
+struct Game_b86b0 {
     char pad00[0x54];
-    Obj54 *f54;
+    Obj54_b86b0 *f54;
 };
 
-extern Game *DAT_004dd700;
+extern Game_b86b0 *DAT_004dd700;
 
-struct CodeTable {
+struct CodeTable_b86b0 {
     char FUN_00092860(int index);
     char *FUN_00093110(int index);
 };
@@ -83,28 +83,28 @@ public:
     virtual void vfunc_16();
     virtual void vfunc_17();
     virtual void vfunc_18();
-    virtual void vfunc_19(Label *label, int a, int b);
+    virtual void vfunc_19(Label_b86b0 *label, int a, int b);
     void FUN_000e36c0();
 };
 
-struct Frame {
-    Label label;
+struct Frame_b86b0 {
+    Label_b86b0 label;
     unsigned short text[0x40];
     char pad_ac[0x80];
     ScriptArgs args;
     unsigned int cookie;
 };
 
-class CheatMenu {
+class CheatMenu_b86b0 {
 public:
     char pad00[0x4c];
-    CodeTable *codes;
+    CodeTable_b86b0 *codes;
     void FUN_000b86b0();
 };
 
-void CheatMenu::FUN_000b86b0()
+void CheatMenu_b86b0::FUN_000b86b0()
 {
-    Frame f;
+    Frame_b86b0 f;
     f.cookie = DAT_004d9968;
     CheatList *list = (CheatList *)FUN_00344e74(FUN_000fc260("cheat_code_list"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
     if (list) {
@@ -118,7 +118,7 @@ void CheatMenu::FUN_000b86b0()
                     if (codes->FUN_00092860(0x21))
                         continue;
                 } else {
-                    Script *script = FUN_001d4c90();
+                    Script_b86b0 *script = FUN_001d4c90();
                     f.args.FUN_001d1630();
                     f.args.tag = 1;
                     FUN_00267760(f.args.text[0], 0x40, "%d", i);

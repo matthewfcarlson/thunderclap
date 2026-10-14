@@ -5,7 +5,7 @@ struct OutputState {
     void FUN_0022e930(void* output, int divisor);
     void FUN_0022eb00(void* output);
 };
-struct Animator {
+struct Animator_22f120 {
     char padding[0x88];
     OutputState state;
     unsigned char looping;
@@ -17,7 +17,7 @@ struct Animator {
     bool FUN_0022ef20(int flag, float position);
     void* FUN_0022f120(void* output);
 };
-void* Animator::FUN_0022f120(void* output) {
+void* Animator_22f120::FUN_0022f120(void* output) {
     int next = (int)((unsigned int)tick + 1u);
     float position = (float)((double)next / (double)divisor);
     unsigned char loop = looping;

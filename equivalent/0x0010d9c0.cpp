@@ -4,57 +4,57 @@ extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 
-struct Vec3 {
+struct Vec3_10d9c0 {
     float x, y, z;
 };
 
-struct Body {
+struct Body_10d9c0 {
     char pad00[0x40];
-    Vec3 pos;
+    Vec3_10d9c0 pos;
 };
 
 struct Locator {
-    char FUN_00059a50(Vec3 *out);
+    char FUN_00059a50(Vec3_10d9c0 *out);
 };
 
-struct Res {
+struct Res_10d9c0 {
     char pad00[0x10];
     Locator *loc;
     char pad14[0x328 - 0x14];
-    Body *body;
+    Body_10d9c0 *body;
 };
 
-struct Resolver {
-    Res *FUN_00059a30();
+struct Resolver_10d9c0 {
+    Res_10d9c0 *FUN_00059a30();
 };
 
-struct Target {
-    Resolver *FUN_000592a0();
+struct Target_10d9c0 {
+    Resolver_10d9c0 *FUN_000592a0();
 };
 
-struct Hit {
+struct Hit_10d9c0 {
     char pad00[0x16];
     unsigned short info;
 };
 
-struct Slot {
+struct Slot_10d9c0 {
     void FUN_00025260(int a, int b, int c);
 };
 
-struct Mgr {
+struct Mgr_10d9c0 {
     void FUN_001dcf60(int a);
 };
 
-struct Game {
+struct Game_10d9c0 {
     char pad00[0xc];
-    Mgr *mgr;
+    Mgr_10d9c0 *mgr;
     char pad10[0x20 - 0x10];
-    Slot *slot;
+    Slot_10d9c0 *slot;
 };
 
-extern Game *DAT_004dd700;
+extern Game_10d9c0 *DAT_004dd700;
 
-extern char __cdecl FUN_00202560(Vec3 *from, float dist, int flag, Vec3 *outA, Vec3 *outB, int p6, int p7, Hit **outHit);
+extern char __cdecl FUN_00202560(Vec3_10d9c0 *from, float dist, int flag, Vec3_10d9c0 *outA, Vec3_10d9c0 *outB, int p6, int p7, Hit_10d9c0 **outHit);
 
 class OnBlockedTriangleCondition {
 public:
@@ -76,24 +76,24 @@ char OnBlockedTriangleCondition::vfunc_6(int a, void *obj, int c)
 {
     if (!FUN_00344e74(obj, 0, DAT_00494b44, DAT_00494b60, 0))
         return 0;
-    Res *r = ((Target *)obj)->FUN_000592a0()->FUN_00059a30();
+    Res_10d9c0 *r = ((Target_10d9c0 *)obj)->FUN_000592a0()->FUN_00059a30();
     if (!r)
         return 0;
-    Vec3 pos;
+    Vec3_10d9c0 pos;
     if (!useBody) {
         r->loc->FUN_00059a50(&pos);
     } else {
-        Body *body = r->body;
+        Body_10d9c0 *body = r->body;
         if (!body)
             return 0;
         pos = body->pos;
     }
-    Hit *hit = 0;
+    Hit_10d9c0 *hit = 0;
     DAT_004dd700->slot->FUN_00025260(0, 0, 0);
     DAT_004dd700->mgr->FUN_001dcf60(0);
     pos.y = pos.y + 5.0f;
-    Vec3 outB;
-    Vec3 outA;
+    Vec3_10d9c0 outB;
+    Vec3_10d9c0 outA;
     char found = FUN_00202560(&pos, 20.0f, 1, &outA, &outB, 0, 0, &hit);
     DAT_004dd700->slot->FUN_00025260(1, 0, 0);
     DAT_004dd700->mgr->FUN_001dcf60(1);

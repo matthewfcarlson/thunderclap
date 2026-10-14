@@ -6,20 +6,20 @@ struct Name {
     ~Name() throw();
     bool FUN_0027af90(const Name *other) throw();
 };
-struct Entry {
+struct Entry_1f85f0 {
     char pad0[8];
     Name key;
 };
-struct Table {
+struct Table_1f85f0 {
     char pad0[0x10];
-    Entry *entries[0x100];
+    Entry_1f85f0 *entries[0x100];
     int count;
     char pad414[0x458 - 0x414];
     int enabled;
     int FUN_001f85f0(Name name);
 };
 
-int Table::FUN_001f85f0(Name name)
+int Table_1f85f0::FUN_001f85f0(Name name)
 {
     if (enabled == 0)
         return -1;

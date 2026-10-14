@@ -1,37 +1,37 @@
 // STATUS: equivalent (tools/equiv.py level 3: 131 inputs, branch coverage 33/41, incomplete)
 // FUN_002f19d0 @ 0x002f19d0
-struct Vec3 {
+struct Vec3_2f19d0 {
     float x, y, z;
 };
 
-struct Vec3Thiscall : Vec3 {
+struct Vec3Thiscall : Vec3_2f19d0 {
     void FUN_00011160(float scale, const float *dir);
 };
 
-union FloatBits {
+union FloatBits_2f19d0 {
     float f;
     unsigned int u;
 };
 
 static float AbsF(float x)
 {
-    FloatBits b;
+    FloatBits_2f19d0 b;
     b.f = x;
     b.u &= 0x7fffffff;
     return b.f;
 }
 
-class Shape;
+class Shape_2f19d0;
 
 struct ShapeList {
-    Shape **begin;
-    Shape **end;
+    Shape_2f19d0 **begin;
+    Shape_2f19d0 **end;
 };
 
-class Shape {
+class Shape_2f19d0 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-    virtual Vec3 *Center();
+    virtual Vec3_2f19d0 *Center();
     virtual void v5();
     virtual int Type();
     virtual void v7(); virtual void v8(); virtual void v9();
@@ -60,12 +60,12 @@ public:
     };
 };
 
-bool FUN_002f19d0(Vec3 *p, Shape *shape)
+bool FUN_002f19d0(Vec3_2f19d0 *p, Shape_2f19d0 *shape)
 {
     if (!shape->ready)
         shape->Prepare();
 
-    Vec3 *c = shape->Center();
+    Vec3_2f19d0 *c = shape->Center();
     Vec3Thiscall d;
     d.x = p->x - c->x;
     d.y = p->y - c->y;

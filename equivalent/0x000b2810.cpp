@@ -3,66 +3,66 @@
 extern char DAT_0049caae;
 extern "C" char *__cdecl FUN_00267830(char *dst, const char *src, int n);
 
-struct Arr {
+struct Arr_b2810 {
     int cap;
     char *data;
     void FUN_000b1020(int n);
 };
 
-class Pad {
+class Pad_b2810 {
 public:
     char pad0[0xc - 0x0];
     char b0c;
     char padd[0x58 - 0xd];
-    Arr a58;
-    Arr a60;
-    Arr a68;
-    Arr a70;
-    Arr a78;
-    Arr a80;
-    Arr a88;
-    Arr a90;
-    Arr a98;
-    Arr aa0;
-    Arr aa8;
-    Arr ab0;
-    Arr ab8;
-    Arr ac0;
-    Arr ac8;
-    Arr ad0;
-    Arr ad8;
-    Arr ae0;
-    Arr ae8;
-    Arr af0;
-    Arr af8;
-    Arr a100;
-    Arr a108;
+    Arr_b2810 a58;
+    Arr_b2810 a60;
+    Arr_b2810 a68;
+    Arr_b2810 a70;
+    Arr_b2810 a78;
+    Arr_b2810 a80;
+    Arr_b2810 a88;
+    Arr_b2810 a90;
+    Arr_b2810 a98;
+    Arr_b2810 aa0;
+    Arr_b2810 aa8;
+    Arr_b2810 ab0;
+    Arr_b2810 ab8;
+    Arr_b2810 ac0;
+    Arr_b2810 ac8;
+    Arr_b2810 ad0;
+    Arr_b2810 ad8;
+    Arr_b2810 ae0;
+    Arr_b2810 ae8;
+    Arr_b2810 af0;
+    Arr_b2810 af8;
+    Arr_b2810 a100;
+    Arr_b2810 a108;
     char pad110[0x1c8 - 0x110];
-    Arr a1c8;
-    Arr a1d0;
-    Arr a1d8;
-    Arr a1e0;
-    Arr a1e8;
-    Arr a1f0;
-    Arr a1f8;
-    Arr a200;
-    Arr a208;
-    Arr a210;
-    Arr a218;
-    Arr a220;
-    Arr a228;
-    Arr a230;
-    Arr a238;
-    Arr a240;
-    Arr a248;
-    Arr a250;
-    Arr a258;
-    Arr a260;
-    Arr a268;
-    Arr a270;
-    Arr a278;
-    Arr a280;
-    Arr a288;
+    Arr_b2810 a1c8;
+    Arr_b2810 a1d0;
+    Arr_b2810 a1d8;
+    Arr_b2810 a1e0;
+    Arr_b2810 a1e8;
+    Arr_b2810 a1f0;
+    Arr_b2810 a1f8;
+    Arr_b2810 a200;
+    Arr_b2810 a208;
+    Arr_b2810 a210;
+    Arr_b2810 a218;
+    Arr_b2810 a220;
+    Arr_b2810 a228;
+    Arr_b2810 a230;
+    Arr_b2810 a238;
+    Arr_b2810 a240;
+    Arr_b2810 a248;
+    Arr_b2810 a250;
+    Arr_b2810 a258;
+    Arr_b2810 a260;
+    Arr_b2810 a268;
+    Arr_b2810 a270;
+    Arr_b2810 a278;
+    Arr_b2810 a280;
+    Arr_b2810 a288;
     char pad290[0x490 - 0x290];
     float f490;
     float f494;
@@ -74,7 +74,7 @@ public:
     void FUN_000b2810();
 };
 
-void Pad::FUN_000b2810()
+void Pad_b2810::FUN_000b2810()
 {
     b0c = 1;
     f490 = 0.2f;

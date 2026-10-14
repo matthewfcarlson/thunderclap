@@ -1,92 +1,92 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 48/48)
 // hulkfight::motion::FlyingAutoTargetAction::vfunc_5 @ 0x00135f90
-struct V3 {
+struct V3_135f90 {
     float x, y, z;
     float FUN_0022d110();
-    bool FUN_0022d2b0(const V3 *other, float epsilon);
-    void FUN_00011160(float s, V3 *d);
+    bool FUN_0022d2b0(const V3_135f90 *other, float epsilon);
+    void FUN_00011160(float s, V3_135f90 *d);
 };
 
-union FloatBits {
+union FloatBits_135f90 {
     float f;
     unsigned int u;
 };
 
 static float AbsF(float v)
 {
-    FloatBits b;
+    FloatBits_135f90 b;
     b.f = v;
     b.u &= 0x7fffffff;
     return b.f;
 }
 
-extern "C" float __cdecl FUN_00224f10(V3 *v);
-extern "C" void __cdecl FUN_00224d70(float angle, V3 *v);
+extern "C" float __cdecl FUN_00224f10(V3_135f90 *v);
+extern "C" void __cdecl FUN_00224d70(float angle, V3_135f90 *v);
 extern "C" float __cdecl FUN_00224ea0(float x, float z);
 extern "C" float __cdecl FUN_00224fc0(float a, float b);
 
-class Target {
+class Target_135f90 {
 public:
     virtual void v0();
     virtual void v1();
     char pad04[4];
-    struct Mesh *mesh;
+    struct Mesh_135f90 *mesh;
     int kind;
     char pad10[0x40 - 0x10];
-    V3 pos;
+    V3_135f90 pos;
 };
 
-struct Mesh {
+struct Mesh_135f90 {
     char pad0[0x11c];
-    struct Info *info;
+    struct Info_135f90 *info;
     char pad120[0x140 - 0x120];
     int type;
 };
 
-struct Info {
+struct Info_135f90 {
     char pad0[0x30];
     float height;
 };
 
-struct Stats {
+struct Stats_135f90 {
     char pad0[0x328];
-    Target *target;
+    Target_135f90 *target;
     char pad32c[0x2064 - 0x32c];
-    V3 aim2064;
+    V3_135f90 aim2064;
     char pad2070[4];
-    V3 aim2074;
-    V3 aim2080;
+    V3_135f90 aim2074;
+    V3_135f90 aim2080;
     void FUN_000359c0(int n);
-    void FUN_000350c0(V3 *out);
-    void FUN_00035550(V3 *out);
+    void FUN_000350c0(V3_135f90 *out);
+    void FUN_00035550(V3_135f90 *out);
     float FUN_000354c0();
-    bool FUN_0003a440(V3 *w, V3 *v, float a, int c2c, Target *t);
-    Target *FUN_00039c60(V3 *w, V3 *v, int c28, int c2c, unsigned int flags, int z0, int z1);
-    void FUN_0003ffa0(Target *t, int z);
+    bool FUN_0003a440(V3_135f90 *w, V3_135f90 *v, float a, int c2c, Target_135f90 *t);
+    Target_135f90 *FUN_00039c60(V3_135f90 *w, V3_135f90 *v, int c28, int c2c, unsigned int flags, int z0, int z1);
+    void FUN_0003ffa0(Target_135f90 *t, int z);
 };
 
-struct Pool {
-    Stats *FUN_00059a30();
+struct Pool_135f90 {
+    Stats_135f90 *FUN_00059a30();
 };
 
-struct Owner {
-    Pool *FUN_000592a0();
+struct Owner_135f90 {
+    Pool_135f90 *FUN_000592a0();
 };
 
-struct Transform {
-    void FUN_0022be40(V3 *p);
+struct Transform_135f90 {
+    void FUN_0022be40(V3_135f90 *p);
     void FUN_00221d20(float a);
 };
 
-struct Rig {
+struct Rig_135f90 {
     char pad0[0x18];
-    Transform transform;
+    Transform_135f90 transform;
 };
 
-struct Config {
+struct Config_135f90 {
     char pad0[0x14];
     float f14;
-    V3 vec18;
+    V3_135f90 vec18;
     float f24;
     int i28;
     int i2c;
@@ -103,10 +103,10 @@ public:
     virtual void vfunc_4();
     virtual char vfunc_5(int a0, float a1);
     char pad04[0x18];
-    Config *cfg;     // 0x1c
-    Owner *owner;    // 0x20
-    Rig *rig;        // 0x24
-    Target *tgt;     // 0x28
+    Config_135f90 *cfg;     // 0x1c
+    Owner_135f90 *owner;    // 0x20
+    Rig_135f90 *rig;        // 0x24
+    Target_135f90 *tgt;     // 0x28
 };
 
 char FlyingAutoTargetAction::vfunc_5(int a0, float a1)
@@ -116,21 +116,21 @@ char FlyingAutoTargetAction::vfunc_5(int a0, float a1)
     if (rig == 0)
         return 0;
 
-    Pool *pool = owner->FUN_000592a0();
-    Stats *stats = pool->FUN_00059a30();
+    Pool_135f90 *pool = owner->FUN_000592a0();
+    Stats_135f90 *stats = pool->FUN_00059a30();
     stats->FUN_000359c0(3);
-    V3 w;
+    V3_135f90 w;
     w.x = 0.0f;
     w.y = 0.0f;
     w.z = 0.0f;
     stats->FUN_000350c0(&w);
-    V3 t;
+    V3_135f90 t;
     stats->FUN_00035550(&t);
-    V3 v = t;
+    V3_135f90 v = t;
     bool usedFallback = false;
 
     if (tgt == 0) {
-        V3 z;
+        V3_135f90 z;
         v = stats->aim2080;
         z.x = 0.0f; z.y = 0.0f; z.z = 0.0f;
         if (v.FUN_0022d2b0(&z, 1e-5f)) {
@@ -146,7 +146,7 @@ char FlyingAutoTargetAction::vfunc_5(int a0, float a1)
             }
         }
 
-        Target *found = stats->target;
+        Target_135f90 *found = stats->target;
         bool direct = false;
         if (found) {
             if (stats->FUN_0003a440(&w, &v, 6.2831855f, cfg->i2c, found))
@@ -166,25 +166,25 @@ char FlyingAutoTargetAction::vfunc_5(int a0, float a1)
         tgt = found;
     }
 
-    V3 dest = w;
+    V3_135f90 dest = w;
     if (tgt) {
         if (stats->target == 0)
             stats->FUN_0003ffa0(tgt, 0);
-        V3 p = tgt->pos;
+        V3_135f90 p = tgt->pos;
         v.x = p.x - w.x;
         v.y = p.y - w.y;
         v.z = p.z - w.z;
         float h = FUN_00224f10(&v);
-        V3 rv = cfg->vec18;
+        V3_135f90 rv = cfg->vec18;
         FUN_00224d70(h + 3.14159274f, &rv);
-        V3 q;
+        V3_135f90 q;
         q.x = rv.x + p.x;
         q.y = rv.y + p.y;
         q.z = rv.z + p.z;
         if (tgt->kind == 1) {
-            Mesh *m = tgt->mesh;
+            Mesh_135f90 *m = tgt->mesh;
             if (m) {
-                Info *info = m->info;
+                Info_135f90 *info = m->info;
                 if (info) {
                     int type = m->type;
                     if (type != 3 && type != 4)
@@ -192,7 +192,7 @@ char FlyingAutoTargetAction::vfunc_5(int a0, float a1)
                 }
             }
         }
-        V3 d;
+        V3_135f90 d;
         d.x = q.x - w.x;
         d.y = q.y - w.y;
         d.z = q.z - w.z;

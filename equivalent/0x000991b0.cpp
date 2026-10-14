@@ -2,7 +2,7 @@
 // FUN_000991b0 @ 0x000991b0
 void *FUN_00263ea0(unsigned int size);
 
-struct Vec3 {
+struct Vec3_991b0 {
     int x, y, z;
     void FUN_000a9050();
 };
@@ -43,7 +43,7 @@ public:
     virtual void v31(void *owner);
 };
 
-class Target {
+class Target_991b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -79,7 +79,7 @@ public:
     void FUN_000fd8a0(void *owner, int arg);
 };
 
-class Helper {
+class Helper_991b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -110,55 +110,55 @@ public:
     virtual void v26();
     virtual void v27();
     virtual void v28();
-    Helper *FUN_000983d0();
+    Helper_991b0 *FUN_000983d0();
     void FUN_00098480(void *owner);
     char FUN_000989d0(void *owner, Node *node, int zero, Node *target);
 };
 
 struct Sel {
-    Target *FUN_000fdc30();
+    Target_991b0 *FUN_000fdc30();
 };
 
-struct Mgr {
+struct Mgr_991b0 {
     char pad0[0x1ca0];
     Sel *sel;
 };
 
-struct Level {
+struct Level_991b0 {
     char pad0[0x124];
-    Mgr *mgr;
+    Mgr_991b0 *mgr;
 };
 
-struct Owner {
+struct Owner_991b0 {
     char pad0[0x20];
-    Level *level;
+    Level_991b0 *level;
 };
 
-Vec3 *__stdcall FUN_000a9170(Node *a, Node *b);
+Vec3_991b0 *__stdcall FUN_000a9170(Node *a, Node *b);
 
-class Controller {
+class Controller_991b0 {
 public:
     char pad0[4];
     int flags;
     char pad8[8];
     Node *target;
     char pad14[0xbc - 0x14];
-    Helper *helper;
-    void FUN_000991b0(Owner *owner, Node *node, Node *tgt, bool arg4, bool arg5);
+    Helper_991b0 *helper;
+    void FUN_000991b0(Owner_991b0 *owner, Node *node, Node *tgt, bool arg4, bool arg5);
 };
 
-void Controller::FUN_000991b0(Owner *owner, Node *node, Node *tgt, bool arg4, bool arg5)
+void Controller_991b0::FUN_000991b0(Owner_991b0 *owner, Node *node, Node *tgt, bool arg4, bool arg5)
 {
     int out1, out2;
-    Vec3 v;
+    Vec3_991b0 v;
 
     if (node == tgt || !tgt)
         return;
 
     if (arg4) {
-        Mgr *mgr = owner->level->mgr;
+        Mgr_991b0 *mgr = owner->level->mgr;
         if (mgr) {
-            Target *cur = mgr->sel->FUN_000fdc30();
+            Target_991b0 *cur = mgr->sel->FUN_000fdc30();
             if (cur) {
                 node->v6(&out1, &out2);
                 float f = node->v8();
@@ -170,14 +170,14 @@ void Controller::FUN_000991b0(Owner *owner, Node *node, Node *tgt, bool arg4, bo
 
     v.FUN_000a9050();
     if (node) {
-        Vec3 *p = FUN_000a9170(node, tgt);
+        Vec3_991b0 *p = FUN_000a9170(node, tgt);
         v = *p;
         if (!arg5 && v.x != 0) {
             int fl = flags | 0x20;
-            Helper *h = helper;
+            Helper_991b0 *h = helper;
             flags = fl;
             if (!h) {
-                Helper *mem = (Helper *)FUN_00263ea0(0x1b8);
+                Helper_991b0 *mem = (Helper_991b0 *)FUN_00263ea0(0x1b8);
                 if (mem)
                     h = mem->FUN_000983d0();
                 else

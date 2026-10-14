@@ -6,19 +6,19 @@ struct Node {
     void FUN_000fa0a0();
 };
 
-struct Item {
+struct Item_f4790 {
 };
 
-struct Factory {
-    Item* FUN_000f28c0(Node* n);
-    Item* FUN_000f2740(Node* n);
-    Item* FUN_000f2860(Node* n);
-    Item* FUN_000f27a0(Node* n);
-    Item* FUN_000f2920(Node* n);
-    Item* FUN_000f2800(Node* a, Node* b);
+struct Factory_f4790 {
+    Item_f4790* FUN_000f28c0(Node* n);
+    Item_f4790* FUN_000f2740(Node* n);
+    Item_f4790* FUN_000f2860(Node* n);
+    Item_f4790* FUN_000f27a0(Node* n);
+    Item_f4790* FUN_000f2920(Node* n);
+    Item_f4790* FUN_000f2800(Node* a, Node* b);
 };
 
-struct Message {
+struct Message_f4790 {
     virtual void m0();
     virtual unsigned int GetId();
 };
@@ -63,13 +63,13 @@ public:
     virtual void v35();
     virtual void v36();
     virtual void v37();
-    virtual void vfunc_38(Node* node, Item* item);
-    virtual char vfunc_39(Node* node, Factory* factory, Message* msg);
+    virtual void vfunc_38(Node* node, Item_f4790* item);
+    virtual char vfunc_39(Node* node, Factory_f4790* factory, Message_f4790* msg);
 };
 
-char FEThingsBase::vfunc_39(Node* node, Factory* factory, Message* msg)
+char FEThingsBase::vfunc_39(Node* node, Factory_f4790* factory, Message_f4790* msg)
 {
-    Item* item;
+    Item_f4790* item;
     Node* first;
     switch (msg->GetId()) {
     case 0xceaa8e00:

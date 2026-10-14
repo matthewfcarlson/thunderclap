@@ -4,9 +4,9 @@ extern "C" void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern char DAT_00494b44;
 extern char DAT_00494b60;
 extern bool __cdecl FUN_00018960(float, float, float);
-struct Body { float FUN_00035680(); };
-struct Actor { Body* FUN_00059a30(); };
-struct Context { Actor* FUN_000592a0(); };
+struct Body_167e20 { float FUN_00035680(); };
+struct Actor_167e20 { Body_167e20* FUN_00059a30(); };
+struct Context { Actor_167e20* FUN_000592a0(); };
 namespace hulkfight { namespace motion {
 struct VelocityYCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5();

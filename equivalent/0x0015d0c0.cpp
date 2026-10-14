@@ -9,7 +9,7 @@ extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *d
 extern float DAT_003f32e0;
 float __cdecl FUN_0015cf40(float value);
 
-struct Marker {
+struct Marker_15d0c0 {
     char pad0[0x24];
     float value;
 };
@@ -32,12 +32,12 @@ struct Track {
     Item *FUN_00222e20(unsigned int index);
 };
 
-struct Timeline {
+struct Timeline_15d0c0 {
     Track *FUN_00059a40();
 };
 
-struct Source {
-    Timeline *FUN_000592a0();
+struct Source_15d0c0 {
+    Timeline_15d0c0 *FUN_000592a0();
 };
 
 class PhaseCondition {
@@ -48,13 +48,13 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual bool vfunc_6(int unused1, Source *source, int unused3);
+    virtual bool vfunc_6(int unused1, Source_15d0c0 *source, int unused3);
     char pad4[8];
     float phase;
     float tolerance;
 };
 
-bool PhaseCondition::vfunc_6(int unused1, Source *source, int unused3)
+bool PhaseCondition::vfunc_6(int unused1, Source_15d0c0 *source, int unused3)
 {
     if (!FUN_00344e74(source, 0, DAT_00494b44, DAT_00494b60, 0))
         return false;
@@ -72,7 +72,7 @@ bool PhaseCondition::vfunc_6(int unused1, Source *source, int unused3)
             break;
         }
         Item *item = track->FUN_00222e20(i);
-        Marker *m = (Marker *)FUN_00344e74(item, 0, DAT_0048d534, DAT_004ac1d0, 0);
+        Marker_15d0c0 *m = (Marker_15d0c0 *)FUN_00344e74(item, 0, DAT_0048d534, DAT_004ac1d0, 0);
         if (m) {
             x = m->value - phase;
             break;

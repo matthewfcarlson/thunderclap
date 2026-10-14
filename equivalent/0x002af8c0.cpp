@@ -9,7 +9,7 @@ struct Reader {
     char FUN_002647e0(void *dst, int count, int size, int flag);
 };
 
-struct Header {
+struct Header_2af8c0 {
     unsigned magic;
     unsigned char b4, b5, b6, b7;
     unsigned w8, wc, w10, w14;
@@ -18,7 +18,7 @@ struct Header {
 };
 
 // equiv-conv: FUN_002af8c0 esi edi
-void FUN_002af8c0(Header *h, Reader *r)
+void FUN_002af8c0(Header_2af8c0 *h, Reader *r)
 {
     unsigned tmp;
 

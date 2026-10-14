@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 84/90, incomplete)
 // FUN_00307240 @ 0x00307240
-struct Vec3 {
+struct Vec3_307240 {
     float x, y, z;
     void FUN_001f6bc0(const float *a, float t, const float *b) throw();
 };
 
-struct Ctx {
+struct Ctx_307240 {
     float v0[3];
     float v1[3];
     float v2[3];
     float v3[3];
 };
 
-union Arg {
-    Ctx *ctx;
+union Arg_307240 {
+    Ctx_307240 *ctx;
     unsigned int n2;
 };
 
@@ -32,10 +32,10 @@ static __forceinline void Append(unsigned short w)
 
 struct Stream {
     unsigned short w[1];
-    void FUN_00307240(Arg a);
+    void FUN_00307240(Arg_307240 a);
 };
 
-void Stream::FUN_00307240(Arg a)
+void Stream::FUN_00307240(Arg_307240 a)
 {
     struct Frame {
         unsigned short *p;
@@ -47,12 +47,12 @@ void Stream::FUN_00307240(Arg a)
             unsigned int n;
             float val;
         } u;
-        Vec3 save;
-        Vec3 out;
+        Vec3_307240 save;
+        Vec3_307240 out;
     } f;
 
-    Ctx *ctx = a.ctx;
-    Arg pa;
+    Ctx_307240 *ctx = a.ctx;
+    Arg_307240 pa;
     pa.ctx = ctx;
     f.p = (unsigned short *)this;
     for (;;) {
@@ -184,8 +184,8 @@ void Stream::FUN_00307240(Arg a)
         f.c.code = code;
         f.out.FUN_001f6bc0(ctx->v2, t, ctx->v3);
         if (ctx->v3[f.c.code] >= 0.0f) {
-            f.save = *(Vec3 *)ctx->v1;
-            *(Vec3 *)ctx->v1 = f.out;
+            f.save = *(Vec3_307240 *)ctx->v1;
+            *(Vec3_307240 *)ctx->v1 = f.out;
             if (op & 1) {
                 if ((unsigned short)ebp != 0) {
                     unsigned int n = (unsigned short)ebp;
@@ -200,9 +200,9 @@ void Stream::FUN_00307240(Arg a)
                 esi++;
                 ((Stream *)sub)->FUN_00307240(pa);
             }
-            *(Vec3 *)ctx->v1 = f.save;
-            f.save = *(Vec3 *)ctx->v0;
-            *(Vec3 *)ctx->v0 = f.out;
+            *(Vec3_307240 *)ctx->v1 = f.save;
+            f.save = *(Vec3_307240 *)ctx->v0;
+            *(Vec3_307240 *)ctx->v0 = f.out;
             if (op & 2) {
                 unsigned int n = a.n2;
                 if ((unsigned short)n != 0) {
@@ -217,11 +217,11 @@ void Stream::FUN_00307240(Arg a)
                 unsigned short *sub = f.p + *esi;
                 ((Stream *)sub)->FUN_00307240(pa);
             }
-            *(Vec3 *)ctx->v0 = f.save;
+            *(Vec3_307240 *)ctx->v0 = f.save;
             return;
         }
-        f.save = *(Vec3 *)ctx->v0;
-        *(Vec3 *)ctx->v0 = f.out;
+        f.save = *(Vec3_307240 *)ctx->v0;
+        *(Vec3_307240 *)ctx->v0 = f.out;
         if (op & 1) {
             if ((unsigned short)ebp != 0) {
                 unsigned int n = (unsigned short)ebp;
@@ -236,9 +236,9 @@ void Stream::FUN_00307240(Arg a)
             esi++;
             ((Stream *)sub)->FUN_00307240(pa);
         }
-        *(Vec3 *)ctx->v0 = f.save;
-        f.save = *(Vec3 *)ctx->v1;
-        *(Vec3 *)ctx->v1 = f.out;
+        *(Vec3_307240 *)ctx->v0 = f.save;
+        f.save = *(Vec3_307240 *)ctx->v1;
+        *(Vec3_307240 *)ctx->v1 = f.out;
         if (op & 2) {
             unsigned int n = a.n2;
             if ((unsigned short)n != 0) {
@@ -253,7 +253,7 @@ void Stream::FUN_00307240(Arg a)
             unsigned short *sub = f.p + *esi;
             ((Stream *)sub)->FUN_00307240(pa);
         }
-        *(Vec3 *)ctx->v1 = f.save;
+        *(Vec3_307240 *)ctx->v1 = f.save;
         return;
     }
 }

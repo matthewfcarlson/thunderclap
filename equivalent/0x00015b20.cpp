@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 142 inputs, branch coverage 38/40, incomplete)
 // CSmartPropAttachAction::vfunc_4 @ 0x00015b20
-struct V3 {
+struct V3_15b20 {
     float x, y, z;
     float FUN_0022d110();
 };
 
 struct Matrix {
     float m[12];
-    V3 pos;
+    V3_15b20 pos;
     float w;
     void FUN_0022b980();
     void FUN_0022bc20(float x, float y, float z);
@@ -15,12 +15,12 @@ struct Matrix {
     void FUN_0022ca90(Matrix* a, Matrix* b);
 };
 
-struct Key {
+struct Key_15b20 {
     unsigned int lo;
     unsigned int hi;
 };
 
-struct Fighter {
+struct Fighter_15b20 {
     char pad00[0x328];
     void* f328;
     char pad32c[0x20a8 - 0x32c];
@@ -30,32 +30,32 @@ struct Fighter {
     void FUN_0003acf0(int a, void* target, unsigned int joint, int d, int e, Matrix* m);
 };
 
-struct JointFinder {
+struct JointFinder_15b20 {
     unsigned int FUN_0027b200(unsigned int lo, unsigned int hi);
 };
 
 struct Skeleton {
     char pad00[8];
-    JointFinder* finder;
+    JointFinder_15b20* finder;
     char pad0c[0x1c - 0xc];
     char* table;
 };
 
-struct Rig {
+struct Rig_15b20 {
     char pad00[0x64];
     Skeleton* skel;
 };
 
-struct Anchor {
-    Fighter* FUN_00059a30();
-    Rig* FUN_00059a40();
+struct Anchor_15b20 {
+    Fighter_15b20* FUN_00059a30();
+    Rig_15b20* FUN_00059a40();
 };
 
-struct Owner {
-    Anchor* FUN_000592a0();
+struct Owner_15b20 {
+    Anchor_15b20* FUN_000592a0();
 };
 
-struct Link {
+struct Link_15b20 {
     void* link;
     char pad04[8];
     int kind;
@@ -63,57 +63,57 @@ struct Link {
 
 struct Target;
 
-struct Handle {
+struct Handle_15b20 {
     char pad00[8];
     Target* target;
     int kind;
 };
 
-struct Part {
+struct Part_15b20 {
     int FUN_001d4de0();
 };
 
 struct Target {
     char pad00[0xec];
-    Part* partEc;
+    Part_15b20* partEc;
     char padf0[0xfc - 0xf0];
     int state;
     void FUN_0027d4f0(int v);
     void FUN_001d8fc0(float v);
-    Handle* FUN_001d6c90();
+    Handle_15b20* FUN_001d6c90();
     void FUN_001d6ca0(int v);
     bool FUN_001d7300();
-    void thunk_FUN_0027d410(const Key* k);
+    void thunk_FUN_0027d410(const Key_15b20* k);
 };
 
-struct Attach {
+struct Attach_15b20 {
     char pad00[0x14];
     int f14;
-    Key joint;
+    Key_15b20 joint;
     int f20;
     int f24;
     unsigned char hasLocal;
     char pad29[3];
-    V3 offset;
-    V3 localPos;
+    V3_15b20 offset;
+    V3_15b20 localPos;
     float dist;
     char pad48[0x58 - 0x48];
-    Key key;
+    Key_15b20 key;
 };
 
-struct Holder {
+struct Holder_15b20 {
     char pad00[8];
     Target* target;
     int kind;
     Matrix mat;
 };
 
-struct Frame {
-    V3 d;
+struct Frame_15b20 {
+    V3_15b20 d;
     float dist;
     Target* target;
-    V3 q;
-    Fighter* fighter;
+    V3_15b20 q;
+    Fighter_15b20* fighter;
     int p20;
     int p24;
     Matrix m;
@@ -131,14 +131,14 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     char pad04[0x1c - 4];
-    Owner* owner;
-    Attach* attach;
-    Holder* holder;
+    Owner_15b20* owner;
+    Attach_15b20* attach;
+    Holder_15b20* holder;
 };
 
 void CSmartPropAttachAction::vfunc_4()
 {
-    Frame f;
+    Frame_15b20 f;
     if (holder == 0)
         return;
     if (holder->kind != 5)
@@ -167,9 +167,9 @@ void CSmartPropAttachAction::vfunc_4()
         return;
 
     unsigned int joint = 0xffff;
-    Anchor* anchor = owner->FUN_000592a0();
+    Anchor_15b20* anchor = owner->FUN_000592a0();
     f.fighter = anchor->FUN_00059a30();
-    Rig* rig = anchor->FUN_00059a40();
+    Rig_15b20* rig = anchor->FUN_00059a40();
     Skeleton* skel = 0;
     if (rig != 0) {
         skel = rig->skel;
@@ -209,12 +209,12 @@ void CSmartPropAttachAction::vfunc_4()
             }
         }
     }
-    Fighter* fighter = f.fighter;
+    Fighter_15b20* fighter = f.fighter;
     fighter->FUN_0003acf0(attach->f14, f.target, joint, f.p20, f.p24, &f.m);
     if (fighter->f20a8 >= 0 && fighter->f328 == (void*)holder)
         fighter->FUN_000393c0();
-    Attach* a = attach;
-    const Key* k = &a->key;
+    Attach_15b20* a = attach;
+    const Key_15b20* k = &a->key;
     if (k != 0 && (k->lo | k->hi) != 0)
         f.target->thunk_FUN_0027d410(k);
 }

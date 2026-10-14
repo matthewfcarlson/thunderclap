@@ -11,7 +11,7 @@ struct ListLink {
     ListLink* next;
 };
 
-class Settings {
+class Settings_24a510 {
 public:
     char pad0[0x10];
     int owner;
@@ -36,10 +36,10 @@ public:
     ListLink* link64;
     ListLink listB[3];  // 0x68: second empty circular list
     int zero74;
-    Settings* FUN_0024a510(int ownerArg);
+    Settings_24a510* FUN_0024a510(int ownerArg);
 };
 
-Settings* Settings::FUN_0024a510(int ownerArg) {
+Settings_24a510* Settings_24a510::FUN_0024a510(int ownerArg) {
     owner = ownerArg;
     pScaleA = &DAT_004cc22c;
     pScaleB = &DAT_004cc228;

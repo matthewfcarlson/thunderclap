@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 62 inputs, branch coverage 21/22, incomplete)
 // choreo2::AnimationDriver::vfunc_10 @ 0x00225300
-struct Quat {
+struct Quat_225300 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat* a, const Quat* b, float t);
+    void FUN_0022b750(const Quat_225300* a, const Quat_225300* b, float t);
 };
 
-struct Vec3 {
+struct Vec3_225300 {
     float x, y, z;
 };
 
-struct Mat4 {
+struct Mat4_225300 {
     char pad00[0x30];
-    Vec3 pos;
+    Vec3_225300 pos;
     float w;
 };
 
@@ -21,68 +21,68 @@ public:
     virtual void vf1();
     virtual void vf2();
     virtual void vf3();
-    virtual void vf4(int track, Vec3* out);
-    virtual void vf5(int track, Quat* out);
-    void FUN_0028a8f0(int a, int b, Quat* out);
+    virtual void vf4(int track, Vec3_225300* out);
+    virtual void vf5(int track, Quat_225300* out);
+    void FUN_0028a8f0(int a, int b, Quat_225300* out);
 };
 
 class Pose {
 public:
     char pad0[0x30];
-    Vec3 position;
+    Vec3_225300 position;
     char pad1[0x50 - 0x3c];
     int state;
-    Quat* FUN_00221cd0();
-    void FUN_00221cf0(Quat* q);
-    void FUN_0022be40(Vec3* v);
+    Quat_225300* FUN_00221cd0();
+    void FUN_00221cf0(Quat_225300* q);
+    void FUN_0022be40(Vec3_225300* v);
 };
 
-struct PoseData {
+struct PoseData_225300 {
     char pad00[0x10];
-    Quat* quats;
-    Mat4* mats;
+    Quat_225300* quats;
+    Mat4_225300* mats;
 };
 
 struct SourceData {
     char pad00[0x14];
-    Quat* quats;
-    Mat4* mats;
+    Quat_225300* quats;
+    Mat4_225300* mats;
 };
 
-struct Mask {
+struct Mask_225300 {
     int pad00;
     unsigned int bits[1];
 };
 
-struct Filter {
+struct Filter_225300 {
     char pad00[0x10];
-    Mask* mask;
+    Mask_225300* mask;
 };
 
-struct Frame {
+struct Frame_225300 {
     union {
-        Quat root;
-        Vec3 cur;
-        Vec3 old;
+        Quat_225300 root;
+        Vec3_225300 cur;
+        Vec3_225300 old;
     };
     union {
-        Quat qb;
-        Vec3 tgt;
-        Vec3 pos;
+        Quat_225300 qb;
+        Vec3_225300 tgt;
+        Vec3_225300 pos;
     };
     union {
-        Quat qa;
-        Quat dst;
+        Quat_225300 qa;
+        Quat_225300 dst;
     };
-    Quat src;
+    Quat_225300 src;
 };
 
-struct Pair {
+struct Pair_225300 {
     Channel* pos;
     Channel* rot;
 };
 
-void FUN_0022b080(Quat* out, Quat* a, Quat* b);
+void FUN_0022b080(Quat_225300* out, Quat_225300* a, Quat_225300* b);
 
 class AnimationDriver {
 public:
@@ -96,28 +96,28 @@ public:
     virtual void vfunc_7();
     virtual void vfunc_8();
     virtual void vfunc_9();
-    virtual void vfunc_10(Pose* from, Pose* to, PoseData* data, float t);
+    virtual void vfunc_10(Pose* from, Pose* to, PoseData_225300* data, float t);
 
     char pad04[0x10 - 4];
     SourceData* source;
-    Filter* filter;
+    Filter_225300* filter;
     unsigned int first;
     unsigned int last;
     char pad20[4];
-    Pair pairs[1];
+    Pair_225300 pairs[1];
     char pad2c[0x234 - 0x2c];
     char doPosition;
     char doRotation;
     char pad236[2];
     int prevTrack;
     int track;
-    void FUN_002251d0(Pose* pose, int a, int b, Vec3* out);
+    void FUN_002251d0(Pose* pose, int a, int b, Vec3_225300* out);
 };
 
-void AnimationDriver::vfunc_10(Pose* from, Pose* to, PoseData* data, float t)
+void AnimationDriver::vfunc_10(Pose* from, Pose* to, PoseData_225300* data, float t)
 {
-    Frame f;
-    Mask* mask = 0;
+    Frame_225300 f;
+    Mask_225300* mask = 0;
     if (filter)
         mask = filter->mask;
     unsigned int count = last;
@@ -181,7 +181,7 @@ void AnimationDriver::vfunc_10(Pose* from, Pose* to, PoseData* data, float t)
             f.pos = source->mats[i].pos;
         }
         f.old = data->mats[i].pos;
-        Vec3* out = &data->mats[i].pos;
+        Vec3_225300* out = &data->mats[i].pos;
         out->z = (f.pos.z - f.old.z) * t + f.old.z;
         out->x = (f.pos.x - f.old.x) * t + f.old.x;
         out->y = (f.pos.y - f.old.y) * t + f.old.y;

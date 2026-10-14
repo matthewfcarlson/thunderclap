@@ -1,38 +1,38 @@
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 38/38)
 // FUN_001d7b80 @ 0x001d7b80
-struct Vec3 {
+struct Vec3_1d7b80 {
     float x, y, z;
 };
 
-struct Key {
+struct Key_1d7b80 {
     unsigned int lo;
     unsigned int hi;
 };
 
-struct Flags {
+struct Flags_1d7b80 {
     char pad00[0x68];
     unsigned char b68;
     unsigned char b69;
 };
 
-struct State {
+struct State_1d7b80 {
     char pad00[8];
     void *owner;              // 0x08
     int mode;                 // 0x0c
     char pad10[0x74 - 0x10];
-    Flags *flags;             // 0x74
+    Flags_1d7b80 *flags;             // 0x74
 };
 
-struct Xform {
+struct Xform_1d7b80 {
     char pad00[0x30];
-    Vec3 pos;                 // 0x30
+    Vec3_1d7b80 pos;                 // 0x30
 };
 
-class Part {
+class Part_1d7b80 {
 public:
     char pad00[0x10];
-    State *state;             // 0x10
-    Xform *FUN_002fc6f0();
+    State_1d7b80 *state;             // 0x10
+    Xform_1d7b80 *FUN_002fc6f0();
 };
 
 class Locator {
@@ -41,7 +41,7 @@ public:
     virtual void l1();
     virtual void l2();
     virtual void l3();
-    virtual Vec3 *l4();
+    virtual Vec3_1d7b80 *l4();
 };
 
 struct Matched {
@@ -54,31 +54,31 @@ struct Recorder {
     void FUN_00066a10();
 };
 
-struct Manager {
+struct Manager_1d7b80 {
     char pad00[0xc];
-    struct Listener *listener; // 0x0c
+    struct Listener_1d7b80 *listener; // 0x0c
 };
 
-class Actor;
-struct Listener {
-    void FUN_001dc170(Actor *a, int flag);
+class Actor_1d7b80;
+struct Listener_1d7b80 {
+    void FUN_001dc170(Actor_1d7b80 *a, int flag);
 };
 
-extern Manager *DAT_004dd700;
-extern Key DAT_004e2520;
-extern Key DAT_004e2528;
-extern Key DAT_004e2530;
-extern Key DAT_004e2550;
-extern Key DAT_004e2558;
+extern Manager_1d7b80 *DAT_004dd700;
+extern Key_1d7b80 DAT_004e2520;
+extern Key_1d7b80 DAT_004e2528;
+extern Key_1d7b80 DAT_004e2530;
+extern Key_1d7b80 DAT_004e2550;
+extern Key_1d7b80 DAT_004e2558;
 
-Recorder *__stdcall FUN_000678d0(Key *key);
+Recorder *__stdcall FUN_000678d0(Key_1d7b80 *key);
 
-class Actor {
+class Actor_1d7b80 {
 public:
     char pad000[8];
-    Key key;                  // 0x08
+    Key_1d7b80 key;                  // 0x08
     char pad10[0xa0 - 0x10];
-    Part *part;               // 0xa0
+    Part_1d7b80 *part;               // 0xa0
     char pada4[0xb0 - 0xa4];
     unsigned char hasHook;    // 0xb0
     char padb1[0xec - 0xb1];
@@ -91,26 +91,26 @@ public:
     char pad100[0x11c - 0x100];
     Locator *locator;         // 0x11c
     char pad120[0x164 - 0x120];
-    Vec3 posA;                // 0x164
-    Vec3 posB;                // 0x170
-    Vec3 posC;                // 0x17c
-    Vec3 posD;                // 0x188
+    Vec3_1d7b80 posA;                // 0x164
+    Vec3_1d7b80 posB;                // 0x170
+    Vec3_1d7b80 posC;                // 0x17c
+    Vec3_1d7b80 posD;                // 0x188
     char pad194[0x1a0 - 0x194];
     unsigned char fired;      // 0x1a0
 
-    void FUN_0027de50(int a, Actor *b);
+    void FUN_0027de50(int a, Actor_1d7b80 *b);
     void FUN_001d7b80(int a, int b);
 };
 
-void Actor::FUN_001d7b80(int a, int b)
+void Actor_1d7b80::FUN_001d7b80(int a, int b)
 {
     fFC = 0;
     if (part) {
-        State *st = part->state;
+        State_1d7b80 *st = part->state;
         if (st) {
             st->mode = 5;
             st->owner = this;
-            Flags *fl = st->flags;
+            Flags_1d7b80 *fl = st->flags;
             if (fl) {
                 fl->b69 = 0;
                 fl->b68 = 0;
@@ -120,7 +120,7 @@ void Actor::FUN_001d7b80(int a, int b)
     if (hasHook)
         FUN_0027de50(5, this);
 
-    const Vec3 *src;
+    const Vec3_1d7b80 *src;
     if (part)
         src = &part->FUN_002fc6f0()->pos;
     else
@@ -154,12 +154,12 @@ void Actor::FUN_001d7b80(int a, int b)
                 return;
             if (key.lo == DAT_004e2520.lo && key.hi == DAT_004e2520.hi)
                 return;
-            Key k;
+            Key_1d7b80 k;
             k.lo = key.lo;
             k.hi = key.hi;
             FUN_000678d0(&k)->FUN_00066a10();
             fired = 1;
-            Listener *l = DAT_004dd700->listener;
+            Listener_1d7b80 *l = DAT_004dd700->listener;
             if (l)
                 l->FUN_001dc170(this, 1);
         }

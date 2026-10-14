@@ -1,62 +1,62 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3051 inputs, branch coverage 42/42)
 // CClimbEdgeCondition::vfunc_7 @ 0x0004a9d0
-struct Vec3 {
+struct Vec3_4a9d0 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_00011160(float scale, Vec3 *dir);
-    void FUN_000111b0(Vec3 *a, Vec3 *b);
+    void FUN_00011160(float scale, Vec3_4a9d0 *dir);
+    void FUN_000111b0(Vec3_4a9d0 *a, Vec3_4a9d0 *b);
 };
 
-struct HitExtra {
+struct HitExtra_4a9d0 {
     int b;
     int c;
     int d;
     int e;
 };
 
-struct HitInfo {
+struct HitInfo_4a9d0 {
     char pad00[0x16];
     unsigned char flags16;
 };
 
-struct Limits {
+struct Limits_4a9d0 {
     char pad00[0x30];
     float half;
     float full;
 };
 
-struct Fighter {
+struct Fighter_4a9d0 {
     char pad00[0x11c];
-    Limits *limits;
+    Limits_4a9d0 *limits;
     char pad120[0x334 - 0x120];
     void *attach334;
     void *attach338;
     char pad33c[0x1af8 - 0x33c];
-    Vec3 facing;
+    Vec3_4a9d0 facing;
     unsigned int contact;
-    char FUN_00038de0(Vec3 *from, Vec3 *to, int a, int foreign, HitExtra *outB, Vec3 *outN, int c, HitInfo **hit);
+    char FUN_00038de0(Vec3_4a9d0 *from, Vec3_4a9d0 *to, int a, int foreign, HitExtra_4a9d0 *outB, Vec3_4a9d0 *outN, int c, HitInfo_4a9d0 **hit);
 };
 
-struct Owner {
-    Fighter *FUN_00059a30();
-    char FUN_00059a50(Vec3 *out);
+struct Owner_4a9d0 {
+    Fighter_4a9d0 *FUN_00059a30();
+    char FUN_00059a50(Vec3_4a9d0 *out);
 };
 
 struct Params {
-    Owner *FUN_000592a0();
+    Owner_4a9d0 *FUN_000592a0();
 };
 
-struct Holder {
+struct Holder_4a9d0 {
     char pad00[0x124];
     void *current;
 };
 
-struct Globals {
+struct Globals_4a9d0 {
     char pad00[0x20];
-    Holder *holder;
+    Holder_4a9d0 *holder;
 };
 
-extern Globals *DAT_004dd700;
+extern Globals_4a9d0 *DAT_004dd700;
 
 class CClimbEdgeCondition {
 public:
@@ -78,8 +78,8 @@ bool CClimbEdgeCondition::vfunc_7(Params *params)
     if (type < 0 || type >= 6) {
         return false;
     }
-    Owner *owner = params->FUN_000592a0();
-    Fighter *f = owner->FUN_00059a30();
+    Owner_4a9d0 *owner = params->FUN_000592a0();
+    Fighter_4a9d0 *f = owner->FUN_00059a30();
     unsigned int contact = f->contact;
     if (type == 4) {
         return (contact & 0xf) == 0xf;
@@ -93,18 +93,18 @@ bool CClimbEdgeCondition::vfunc_7(Params *params)
     if (!checkSweep) {
         return true;
     }
-    Limits *lim = f->limits;
+    Limits_4a9d0 *lim = f->limits;
     if (lim == 0) {
         return false;
     }
     float h = lim->half;
     float m = lim->full;
-    Vec3 v = f->facing;
+    Vec3_4a9d0 v = f->facing;
     v.y = 0.0f;
     v.FUN_0022d110();
 
-    Vec3 d;
-    Vec3 w;
+    Vec3_4a9d0 d;
+    Vec3_4a9d0 w;
     switch (type) {
     case 0:
         d.y = 1.0f;
@@ -136,18 +136,18 @@ bool CClimbEdgeCondition::vfunc_7(Params *params)
         return false;
     }
 
-    Vec3 nv;
+    Vec3_4a9d0 nv;
     nv.x = v.x * -1.0f;
     nv.y = v.y * -1.0f;
     nv.z = v.z * -1.0f;
-    Vec3 pos;
+    Vec3_4a9d0 pos;
     if (!owner->FUN_00059a50(&pos)) {
         return false;
     }
     pos.FUN_00011160(m, &v);
 
     float twoH = h + h;
-    Vec3 e;
+    Vec3_4a9d0 e;
     e.x = pos.x + d.x * twoH;
     e.y = pos.y + d.y * twoH;
     e.z = pos.z + d.z * twoH;
@@ -157,14 +157,14 @@ bool CClimbEdgeCondition::vfunc_7(Params *params)
     if (f != cur && f->attach338 != cur && f->attach334 != cur) {
         foreign = 1;
     }
-    Vec3 hitN;
-    HitExtra hitB;
-    HitInfo *hit;
+    Vec3_4a9d0 hitN;
+    HitExtra_4a9d0 hitB;
+    HitInfo_4a9d0 *hit;
     if (f->FUN_00038de0(&pos, &e, 0, foreign, &hitB, &hitN, 0, 0)) {
         return false;
     }
     float twoM = m + m;
-    Vec3 p;
+    Vec3_4a9d0 p;
     p.x = nv.x * twoM + e.x;
     p.y = nv.y * twoM + e.y;
     p.z = nv.z * twoM + e.z;

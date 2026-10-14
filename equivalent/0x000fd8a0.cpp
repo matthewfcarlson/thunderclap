@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 8/8)
 // FUN_000fd8a0 @ 0x000fd8a0
-struct Vec3 { float x, y, z; };
+struct Vec3_fd8a0 { float x, y, z; };
 
-struct Mat {
+struct Mat_fd8a0 {
     float m[16];
 };
 
@@ -19,11 +19,11 @@ struct ViewTable {
     ViewSource *FUN_000b3d20(int slot);
 };
 
-struct Owner {
+struct Owner_fd8a0 {
     char pad0[0x140];
     int mode;
     char pad144[0x1af8 - 0x144];
-    Vec3 aim;
+    Vec3_fd8a0 aim;
     char pad1b04[0x1ff8 - 0x1b04];
     int f1ff8;
     float f1ffc;
@@ -35,7 +35,7 @@ struct Owner {
     int slot;
 };
 
-class Provider {
+class Provider_fd8a0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -43,40 +43,40 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual Owner *GetOwner();
+    virtual Owner_fd8a0 *GetOwner();
 };
 
-struct Args {
+struct Args_fd8a0 {
     char pad0[4];
     ViewTable *table;
 };
 
-extern "C" void FUN_000fce60(Mat *m, Vec3 *axis, int a, int b, float c, float d, Vec3 *out);
-extern "C" void FUN_000fd010(Mat *m, int a, int b, float c, float d, Vec3 *out);
+extern "C" void FUN_000fce60(Mat_fd8a0 *m, Vec3_fd8a0 *axis, int a, int b, float c, float d, Vec3_fd8a0 *out);
+extern "C" void FUN_000fd010(Mat_fd8a0 *m, int a, int b, float c, float d, Vec3_fd8a0 *out);
 
-class Sweep {
+class Sweep_fd8a0 {
 public:
     char pad0[0x58];
-    Provider *provider;
+    Provider_fd8a0 *provider;
     char pad5c[0xa0 - 0x5c];
     unsigned char started;
     unsigned char flagA1;
     char pada2[2];
-    Vec3 out1;
-    Vec3 out2;
-    Vec3 out3;
-    Vec3 out4;
+    Vec3_fd8a0 out1;
+    Vec3_fd8a0 out2;
+    Vec3_fd8a0 out3;
+    Vec3_fd8a0 out4;
     int fd4;
-    Mat matrix;
+    Mat_fd8a0 matrix;
     int f118;
     int f11c;
-    void Start(Args *args, const Mat *m, int a, int b);
+    void Start(Args_fd8a0 *args, const Mat_fd8a0 *m, int a, int b);
 };
 
-void Sweep::Start(Args *args, const Mat *m, int a, int b)
+void Sweep_fd8a0::Start(Args_fd8a0 *args, const Mat_fd8a0 *m, int a, int b)
 {
-    Owner *o = provider->GetOwner();
-    Vec3 v;
+    Owner_fd8a0 *o = provider->GetOwner();
+    Vec3_fd8a0 v;
     if (o->mode == 4) {
         v = o->aim;
     } else {

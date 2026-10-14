@@ -4,14 +4,14 @@ struct Matrix {
     float m[16];
 };
 
-struct Handle {
+struct Handle_2bc1b0 {
     char pad00[0x10];
     void *target;
 };
 
 struct Lock;
 
-class Engine {
+class Engine_2bc1b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -43,7 +43,7 @@ public:
     virtual void v27();
     virtual void v28();
     virtual void v29();
-    virtual Lock *v30(Handle *h, int a, int b, int count, int c);
+    virtual Lock *v30(Handle_2bc1b0 *h, int a, int b, int count, int c);
     virtual void v31(Lock *l);
     virtual void v32();
     virtual void v33();
@@ -79,7 +79,7 @@ public:
     virtual unsigned char v63();
 };
 
-class Renderer {
+class Renderer_2bc1b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -105,7 +105,7 @@ public:
     virtual void v21(int a);
 };
 
-class MatrixSource {
+class MatrixSource_2bc1b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -124,13 +124,13 @@ public:
     virtual Matrix *v14();
 };
 
-struct Display {
-    Renderer *renderer;
+struct Display_2bc1b0 {
+    Renderer_2bc1b0 *renderer;
 };
 
 struct SceneNode {
     char pad00[0x18];
-    MatrixSource *source;
+    MatrixSource_2bc1b0 *source;
 };
 
 struct Camera {
@@ -139,15 +139,15 @@ struct Camera {
     Matrix *FUN_0028faa0();
 };
 
-extern Engine *DAT_0052c2a8;
-extern Display *DAT_0052c2ac;
+extern Engine_2bc1b0 *DAT_0052c2a8;
+extern Display_2bc1b0 *DAT_0052c2ac;
 extern Camera *DAT_0052c2b4;
 
-struct Quad {
+struct Quad_2bc1b0 {
     void FUN_002bbb40(Lock *lock, Matrix *view, Matrix *proj, Matrix *world, float scale, int arg);
 };
 
-struct Owner {
+struct Owner_2bc1b0 {
     char pad00[0x10];
     void *target;
 };
@@ -171,13 +171,13 @@ public:
 
     char pad04[0x80 - 4];
     int arg80;
-    Owner *owner;               // 0x84
+    Owner_2bc1b0 *owner;               // 0x84
     char disabled;              // 0x88
     unsigned char keep;         // 0x89
     char useScale;              // 0x8a
     char pad8b;
-    Quad **begin;               // 0x8c
-    Quad **end;                 // 0x90
+    Quad_2bc1b0 **begin;               // 0x8c
+    Quad_2bc1b0 **end;                 // 0x90
 
     float FUN_002ba220();
 };
@@ -219,7 +219,7 @@ void pure3d::BillboardQuadGroup::vfunc_6()
     fr.scale = vfunc_11(&fr.m1, &fr.m2) * fr.scale;
     DAT_0052c2ac->renderer->v21(0);
 
-    Handle *h = (Handle *)owner->target;
+    Handle_2bc1b0 *h = (Handle_2bc1b0 *)owner->target;
     Lock *lock = DAT_0052c2a8->v30(h, 0, 0x2021, (int)(end - begin) * 6, 0);
     for (unsigned int i = 0; i < (unsigned int)(end - begin); i++)
         begin[i]->FUN_002bbb40(lock, &fr.m1, &fr.m2, &fr.m3, fr.scale, arg80);

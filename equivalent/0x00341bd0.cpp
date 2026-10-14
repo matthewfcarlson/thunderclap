@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00341bd0 @ 0x00341bd0
-struct Twiddle {
+struct Twiddle_341bd0 {
     float pad0;
     float a;
     float b;
@@ -10,7 +10,7 @@ struct Twiddle {
 // rows are combined with the two twiddle factors and written back. Every intermediate the original
 // rounds to float through a stack slot is a volatile float here.
 // equiv-conv: FUN_00341bd0 eax ecx
-void FUN_00341bd0(float *m, Twiddle *c)
+void FUN_00341bd0(float *m, Twiddle_341bd0 *c)
 {
     float ka = c->a;
     float kb = c->b;

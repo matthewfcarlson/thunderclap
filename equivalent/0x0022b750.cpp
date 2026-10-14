@@ -2,8 +2,8 @@
 // FUN_0022b750 @ 0x0022b750
 extern "C" float __cdecl FUN_00018a20(float);
 extern "C" double __cdecl sin(double);
-struct Quaternion { float x,y,z,w; void interpolate(const Quaternion* a,const Quaternion* b,float t); };
-void Quaternion::interpolate(const Quaternion* a,const Quaternion* b,float t) {
+struct Quaternion_22b750 { float x,y,z,w; void interpolate(const Quaternion_22b750* a,const Quaternion_22b750* b,float t); };
+void Quaternion_22b750::interpolate(const Quaternion_22b750* a,const Quaternion_22b750* b,float t) {
  double dot = (double)a->z*b->z + (double)a->y*b->y + (double)b->w*a->w + (double)a->x*b->x;
  float d=(float)dot;
  float sign=1.0f;

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1832 inputs, branch coverage 92/95, incomplete)
 // FUN_002d7440 @ 0x002d7440
 // libpng 1.2.x png_read_row, as compiled into the game (zlib 1.2 inflate, Adam7 interlace handling).
-struct ZStream {
+struct ZStream_2d7440 {
     unsigned char *next_in;          // 0x00
     unsigned int avail_in;           // 0x04
     unsigned int total_in;
@@ -18,7 +18,7 @@ struct ZStream {
     unsigned int reserved;
 };
 
-struct RowInfo {
+struct RowInfo_2d7440 {
     unsigned int width;              // 0x00
     unsigned int rowbytes;           // 0x04
     unsigned char color_type;        // 0x08
@@ -27,15 +27,15 @@ struct RowInfo {
     unsigned char pixel_depth;       // 0x0b
 };
 
-struct PngStruct;
-typedef void (*ReadRowFn)(PngStruct *png, unsigned int row, int pass);
+struct PngStruct_2d7440;
+typedef void (*ReadRowFn)(PngStruct_2d7440 *png, unsigned int row, int pass);
 
-struct PngStruct {
+struct PngStruct_2d7440 {
     char pad00[0x60];
     unsigned int mode;               // 0x60
     unsigned int flags;              // 0x64
     unsigned int transformations;    // 0x68
-    ZStream zstream;                 // 0x6c
+    ZStream_2d7440 zstream;                 // 0x6c
     unsigned char *zbuf;             // 0xa4
     unsigned int zbuf_size;          // 0xa8
     char padac[0xc0 - 0xac];
@@ -48,7 +48,7 @@ struct PngStruct {
     unsigned char *prev_row;         // 0xe0
     unsigned char *row_buf;          // 0xe4
     char pade8[0xf8 - 0xe8];
-    RowInfo row_info;                // 0xf8
+    RowInfo_2d7440 row_info;                // 0xf8
     unsigned int idat_size;          // 0x104
     char pad108[0x114 - 0x108];
     unsigned char chunk_name[4];     // 0x114
@@ -69,22 +69,22 @@ extern int DAT_004d112c[];           // png_pass_mask
 extern int DAT_004d1148[];           // png_pass_dsp_mask
 extern const char DAT_004d103c[4];   // "IDAT"
 
-void __cdecl FUN_002e7fb0(PngStruct *png);                                   // png_read_start_row
-void __cdecl FUN_002e7680(PngStruct *png, unsigned char *row, int mask);     // png_combine_row
-void __cdecl FUN_002ea010(PngStruct *png);                                   // png_read_finish_row
-void __cdecl FUN_002e69a0(PngStruct *png, const char *msg);                  // png_error
-void __cdecl FUN_002e81e0(PngStruct *png, unsigned int skip);                // png_crc_finish
-void __cdecl FUN_002dd690(PngStruct *png, unsigned char *buf, unsigned int size);   // png_read_data
+void __cdecl FUN_002e7fb0(PngStruct_2d7440 *png);                                   // png_read_start_row
+void __cdecl FUN_002e7680(PngStruct_2d7440 *png, unsigned char *row, int mask);     // png_combine_row
+void __cdecl FUN_002ea010(PngStruct_2d7440 *png);                                   // png_read_finish_row
+void __cdecl FUN_002e69a0(PngStruct_2d7440 *png, const char *msg);                  // png_error
+void __cdecl FUN_002e81e0(PngStruct_2d7440 *png, unsigned int skip);                // png_crc_finish
+void __cdecl FUN_002dd690(PngStruct_2d7440 *png, unsigned char *buf, unsigned int size);   // png_read_data
 unsigned int __cdecl FUN_002e7500(unsigned char *buf);                       // png_get_uint_31
-void __cdecl FUN_002d6c90(PngStruct *png);                                   // png_reset_crc
-void __cdecl FUN_002e7580(PngStruct *png, unsigned char *buf, unsigned int size);   // png_crc_read
-int __cdecl FUN_002e6f70(ZStream *z, int flush);                             // inflate
-void __cdecl FUN_002e7dc0(PngStruct *png, RowInfo *info, unsigned char *row, unsigned char *prev, int filter);
-void __cdecl FUN_002e6b30(PngStruct *png, unsigned char *dst, unsigned char *src, unsigned int size);
-void __cdecl FUN_002dcd90(PngStruct *png);                                   // png_do_read_transformations
-void __cdecl FUN_002e7990(RowInfo *info, unsigned char *row, int pass, unsigned int transformations);
+void __cdecl FUN_002d6c90(PngStruct_2d7440 *png);                                   // png_reset_crc
+void __cdecl FUN_002e7580(PngStruct_2d7440 *png, unsigned char *buf, unsigned int size);   // png_crc_read
+int __cdecl FUN_002e6f70(ZStream_2d7440 *z, int flush);                             // inflate
+void __cdecl FUN_002e7dc0(PngStruct_2d7440 *png, RowInfo_2d7440 *info, unsigned char *row, unsigned char *prev, int filter);
+void __cdecl FUN_002e6b30(PngStruct_2d7440 *png, unsigned char *dst, unsigned char *src, unsigned int size);
+void __cdecl FUN_002dcd90(PngStruct_2d7440 *png);                                   // png_do_read_transformations
+void __cdecl FUN_002e7990(RowInfo_2d7440 *info, unsigned char *row, int pass, unsigned int transformations);
 
-void __cdecl FUN_002d7440(PngStruct *png, unsigned char *row, unsigned char *dsp_row)
+void __cdecl FUN_002d7440(PngStruct_2d7440 *png, unsigned char *row, unsigned char *dsp_row)
 {
     if (!(png->flags & 0x40))
         FUN_002e7fb0(png);

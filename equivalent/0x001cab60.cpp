@@ -2,7 +2,7 @@
 // FUN_001cab60 @ 0x001cab60
 extern unsigned int DAT_004d9968;
 extern void __fastcall __security_check_cookie(unsigned int);
-struct Writer {
+struct Writer_1cab60 {
  bool FUN_001d2e80();
  void FUN_001d1d50(const char*, const char*);
  void FUN_001d1dd0(const char*, int);
@@ -15,12 +15,12 @@ struct Object {
  unsigned int propLow, propHigh, typeLow, typeHigh;
  int state, increase;
  unsigned int originLow, originHigh;
- Writer* FUN_001d4c90();
+ Writer_1cab60* FUN_001d4c90();
  bool FUN_001cab60();
 };
 bool Object::FUN_001cab60() {
  unsigned int cookie = DAT_004d9968;
- Writer* w = FUN_001d4c90();
+ Writer_1cab60* w = FUN_001d4c90();
  if (!w || !w->FUN_001d2e80()) {
  __security_check_cookie(cookie);
  return false;

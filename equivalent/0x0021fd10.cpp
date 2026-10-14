@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 18/18)
 // FUN_0021fd10 @ 0x0021fd10
 struct Reader { void* context; void* input; void* allocator; };
-struct Output { char pad[0x1c]; void** values; char pad2[4]; int count; char pad3[0x1c]; unsigned char expected; };
+struct Output_21fd10 { char pad[0x1c]; void** values; char pad2[4]; int count; char pad3[0x1c]; unsigned char expected; };
 // equiv-conv: FUN_0021f8c0 eax ecx edx
 void FUN_0021f8c0(int bytes, int* result, Reader* reader);
 void __cdecl FUN_0021f800(const char*, ...);
@@ -10,7 +10,7 @@ void* __cdecl FUN_0021a6b0(void*, void*, int);
 int __cdecl FUN_0021a610(void*, void*, int);
 void* __cdecl FUN_00219430(void*, void*, int);
 // equiv-conv: FUN_0021fd10 eax stack
-void __cdecl FUN_0021fd10(Reader* reader, Output* output) {
+void __cdecl FUN_0021fd10(Reader* reader, Output_21fd10* output) {
  struct { int count; int length; } local;
  FUN_0021f8c0(4, &local.count, reader);
  int count=local.count;

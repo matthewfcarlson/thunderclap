@@ -4,14 +4,14 @@ extern int DAT_004dd078;
 extern unsigned int DAT_004d9968;
 extern void __fastcall __security_check_cookie(unsigned int);
 extern int __cdecl FUN_000964a0(char*, unsigned int, const char*, ...);
-struct Actor {
+struct Actor_80820 {
  bool FUN_0007a420(int*, int*, int*, int*);
  int FUN_0007a8f0(int*, int*);
  int FUN_0007f560(const char*, int, int, int, int);
  int FUN_0007f690(const char*, int, int, int);
  int FUN_00080820();
 };
-int Actor::FUN_00080820() {
+int Actor_80820::FUN_00080820() {
  int a,b,c,d;
  char name[32];
  volatile unsigned int cookie=DAT_004d9968;

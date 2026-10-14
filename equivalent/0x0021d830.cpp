@@ -4,7 +4,7 @@ struct LuaState;
 
 struct FuncState;
 
-struct LexState {
+struct LexState_21d830 {
     char pad0[4];
     int linenumber;
     int lastline;
@@ -16,7 +16,7 @@ struct LexState {
     LuaState* L;
 };
 
-struct ExpDesc {
+struct ExpDesc_21d830 {
     int k;
     int info;
     int aux;
@@ -24,31 +24,31 @@ struct ExpDesc {
     int f;
 };
 
-int __cdecl FUN_0021bbc0(LexState* ls, int* seminfo);
-void __cdecl FUN_0021b060(LexState* ls, const char* msg);
-const char* __cdecl FUN_0021af00(LexState* ls, int token);
+int __cdecl FUN_0021bbc0(LexState_21d830* ls, int* seminfo);
+void __cdecl FUN_0021b060(LexState_21d830* ls, const char* msg);
+const char* __cdecl FUN_0021af00(LexState_21d830* ls, int token);
 const char* FUN_00216320(LuaState* L, const char* fmt, ...);
-int __cdecl FUN_0021ded0(LexState* ls, ExpDesc* v, unsigned int limit);
-void __cdecl FUN_00221110(FuncState* fs, ExpDesc* e);
-void __cdecl FUN_00221190(FuncState* fs, ExpDesc* e);
-void __cdecl FUN_002211e0(FuncState* fs, ExpDesc* e);
-void __cdecl FUN_002216e0(FuncState* fs, ExpDesc* v, ExpDesc* key);
-void __cdecl FUN_00221360(FuncState* fs, ExpDesc* v, ExpDesc* key);
+int __cdecl FUN_0021ded0(LexState_21d830* ls, ExpDesc_21d830* v, unsigned int limit);
+void __cdecl FUN_00221110(FuncState* fs, ExpDesc_21d830* e);
+void __cdecl FUN_00221190(FuncState* fs, ExpDesc_21d830* e);
+void __cdecl FUN_002211e0(FuncState* fs, ExpDesc_21d830* e);
+void __cdecl FUN_002216e0(FuncState* fs, ExpDesc_21d830* v, ExpDesc_21d830* key);
+void __cdecl FUN_00221360(FuncState* fs, ExpDesc_21d830* v, ExpDesc_21d830* key);
 int __cdecl FUN_002209b0(FuncState* fs, int ts);
 // equiv-conv: FUN_0021d790 eax ebx
-void FUN_0021d790(LexState* ls, ExpDesc* v);
+void FUN_0021d790(LexState_21d830* ls, ExpDesc_21d830* v);
 // equiv-conv: FUN_0021ccb0 eax ebx
-void FUN_0021ccb0(LexState* ls, ExpDesc* v);
+void FUN_0021ccb0(LexState_21d830* ls, ExpDesc_21d830* v);
 // equiv-conv: FUN_0021d630 eax stack
-void FUN_0021d630(LexState* ls, ExpDesc* f);
+void FUN_0021d630(LexState_21d830* ls, ExpDesc_21d830* f);
 
 // Lua 5.0 primaryexp: a prefix expression followed by any number of field,
 // index, method-call and call suffixes. v arrives in eax, ls in esi.
 // equiv-conv: FUN_0021d830 eax esi
-void FUN_0021d830(ExpDesc* v, LexState* ls)
+void FUN_0021d830(ExpDesc_21d830* v, LexState_21d830* ls)
 {
-    ExpDesc key;
-    ExpDesc method;
+    ExpDesc_21d830 key;
+    ExpDesc_21d830 method;
     FuncState* fs = ls->fs;
 
     FUN_0021d790(ls, v);

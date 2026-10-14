@@ -8,11 +8,11 @@ struct LevelInfo {
 struct LevelTable {
     LevelInfo* FUN_00086280(const char* name);
 };
-struct Globals {
+struct Globals_895e0 {
     char pad[0x54];
     LevelTable* levels;
 };
-extern Globals* DAT_004dd700;
+extern Globals_895e0* DAT_004dd700;
 struct LevelAbbrev {
     const char* name;
     const char* abbrev;

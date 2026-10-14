@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_001aa150 @ 0x001aa150
 // FUN_001aa150 @ 0x001aa150
-struct Placement;
+struct Placement_1aa150;
 namespace core {
 struct IRefCount {
     virtual void r0();
@@ -23,26 +23,26 @@ public:
 class TransformNode : public Node {
 public:
     virtual void t4();
-    Placement *FUN_001a4990();
+    Placement_1aa150 *FUN_001a4990();
 };
 }
 }
 
 using namespace pure3d::scenegraph;
 
-struct Vec3 {
+struct Vec3_1aa150 {
     float x, y, z;
 };
 
-struct Transform {
+struct Transform_1aa150 {
     char data[0x40];
     void FUN_0022b980();
-    void FUN_0022be40(const Vec3 *pos);
+    void FUN_0022be40(const Vec3_1aa150 *pos);
     void FUN_0022ba70(float v);
 };
 
-struct Placement {
-    void FUN_00098380(const Transform *xf);
+struct Placement_1aa150 {
+    void FUN_00098380(const Transform_1aa150 *xf);
 };
 
 // Anything the controller can track; slot 9 is called on it.
@@ -75,7 +75,7 @@ public:
     virtual Node *q12(int a);
 };
 
-struct Cursor {
+struct Cursor_1aa150 {
     unsigned int a;
     int b;
     void *c;
@@ -84,59 +84,59 @@ struct Cursor {
     Entity *FUN_001a6e10();
 };
 
-struct Inner {
+struct Inner_1aa150 {
     char pad0[0xc];
     unsigned int f0c;
 };
 
-struct Registry {
-    Inner *FUN_00203d60(int index);
+struct Registry_1aa150 {
+    Inner_1aa150 *FUN_00203d60(int index);
 };
 
-struct Owner {
+struct Owner_1aa150 {
     char pad0[0x2c];
     float f2c;
     char pad30[0x54 - 0x30];
     int f54;
 };
 
-struct Finish {
+struct Finish_1aa150 {
     void FUN_001b92c0(Entity *e);
 };
 
-struct Handle {
-    Finish *FUN_00086290();
+struct Handle_1aa150 {
+    Finish_1aa150 *FUN_00086290();
 };
 
-struct Manager {
+struct Manager_1aa150 {
     char pad0[0x54];
-    Handle *handle;
+    Handle_1aa150 *handle;
 };
 
-extern Manager *DAT_004dd700;
+extern Manager_1aa150 *DAT_004dd700;
 
-class Controller {
+class Controller_1aa150 {
 public:
     char pad0[0x1c];
-    Owner *owner;
+    Owner_1aa150 *owner;
     char pad20[0x20c - 0x20];
-    Registry *registry;
+    Registry_1aa150 *registry;
     Entity *entity;
     unsigned char noOwner;
 
-    void FUN_001a54a0(Vec3 *out1, float *out2);
+    void FUN_001a54a0(Vec3_1aa150 *out1, float *out2);
     void FUN_001aa150();
 };
 
 
-void Controller::FUN_001aa150()
+void Controller_1aa150::FUN_001aa150()
 {
     struct Frame {
         float f;
         float extra;
-        Cursor it;
-        Vec3 out1;
-        Transform xf;
+        Cursor_1aa150 it;
+        Vec3_1aa150 out1;
+        Transform_1aa150 xf;
     } fr;
 
     int idx;
@@ -144,7 +144,7 @@ void Controller::FUN_001aa150()
         idx = 0;
     else
         idx = owner->f54;
-    Inner *inner = registry->FUN_00203d60(idx);
+    Inner_1aa150 *inner = registry->FUN_00203d60(idx);
     fr.it.FUN_002314a0(inner->f0c);
     fr.it.c = inner;
     Entity *e = fr.it.FUN_00231640();

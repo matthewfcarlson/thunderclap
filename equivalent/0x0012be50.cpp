@@ -6,28 +6,28 @@ extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 extern char FUN_00018960(float a, float b, float eps);
 
-struct Vec3 {
+struct Vec3_12be50 {
     float x, y, z;
 };
 
 struct Locator {
-    void FUN_00059a50(Vec3 *out);
+    void FUN_00059a50(Vec3_12be50 *out);
 };
 
-struct Actor {
+struct Actor_12be50 {
     char pad0[0x10];
     Locator *locator;
     char pad14[0x22a0 - 0x14];
-    Vec3 pos;
+    Vec3_12be50 pos;
     char FUN_00037080(char *a, int b);
 };
 
-struct Chain {
-    Actor *FUN_00059a30();
+struct Chain_12be50 {
+    Actor_12be50 *FUN_00059a30();
 };
 
-struct Owner {
-    Chain *FUN_000592a0();
+struct Owner_12be50 {
+    Chain_12be50 *FUN_000592a0();
 };
 
 class ThreatDistanceCondition {
@@ -38,7 +38,7 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual char vfunc_6(int unused1, Owner *owner, int unused3);
+    virtual char vfunc_6(int unused1, Owner_12be50 *owner, int unused3);
     char pad4[8];
     unsigned int mode;
     float threshold;
@@ -47,16 +47,16 @@ public:
     unsigned char keyFlag;
 };
 
-char ThreatDistanceCondition::vfunc_6(int unused1, Owner *owner, int unused3)
+char ThreatDistanceCondition::vfunc_6(int unused1, Owner_12be50 *owner, int unused3)
 {
     if (!FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0))
         return 0;
-    Actor *actor = owner->FUN_000592a0()->FUN_00059a30();
+    Actor_12be50 *actor = owner->FUN_000592a0()->FUN_00059a30();
     if (!actor->FUN_00037080(key, keyFlag))
         return 0;
 
-    Vec3 target = actor->pos;
-    Vec3 mine;
+    Vec3_12be50 target = actor->pos;
+    Vec3_12be50 mine;
     mine.x = 0;
     mine.y = 0;
     mine.z = 0;

@@ -13,13 +13,13 @@ struct Reader {
     int FUN_00266c30();
 };
 
-struct NameField {
+struct NameField_27c720 {
     void FUN_0027b040(const char* name);
 };
 
 struct Skeleton {
     char pad0[8];
-    NameField name;
+    NameField_27c720 name;
     char pad9[0x18 - 9];
     char* matrices;
     char pad1c[8];
@@ -33,7 +33,7 @@ void* FUN_00263ea0(unsigned int size);
 void FUN_0028fcc0(const char* fmt, const char* name);
 unsigned __int64 FUN_002672f0(const char* s, int a, int b);
 
-struct Frame {
+struct Frame_27c720 {
     char pad0[3];
     unsigned char len;
     int w10;
@@ -55,7 +55,7 @@ public:
 
 void LegacySkeletonLoader::vfunc_5(Skeleton** out, unsigned __int64* outId, Reader* r, int unused)
 {
-    Frame f;
+    Frame_27c720 f;
 
     r->stream->FUN_002647e0(&f.len, 1, 1, 1);
     unsigned int n = f.len;

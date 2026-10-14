@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2976 inputs, branch coverage 4/4)
 // FUN_002947e0 @ 0x002947e0
-struct V3 {
+struct V3_2947e0 {
     float x, y, z;
 };
 
-struct Matrix4 {
+struct Matrix4_2947e0 {
     float m[16];
-    void FUN_0022c2b0(const V3 *in, V3 *out);
+    void FUN_0022c2b0(const V3_2947e0 *in, V3_2947e0 *out);
 };
 
-class Frame {
+class Frame_2947e0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -24,22 +24,22 @@ public:
     virtual void v10();
     virtual void v11();
     virtual void v12();
-    virtual Matrix4 *GetMatrix();
+    virtual Matrix4_2947e0 *GetMatrix();
 };
 
-class Holder {
+class Holder_2947e0 {
 public:
-    void FUN_002947e0(V3 in, V3 *out);
+    void FUN_002947e0(V3_2947e0 in, V3_2947e0 *out);
 
     char pad0[0x18];
-    Frame *frame;
+    Frame_2947e0 *frame;
 };
 
-void Holder::FUN_002947e0(V3 in, V3 *out) {
+void Holder_2947e0::FUN_002947e0(V3_2947e0 in, V3_2947e0 *out) {
     if (frame == 0) {
         return;
     }
-    V3 local;
+    V3_2947e0 local;
     frame->GetMatrix()->FUN_0022c2b0(&in, &local);
     if (local.z == 0.0f) {
         out->x = 0;

@@ -2,54 +2,54 @@
 // FUN_00314430 @ 0x00314430
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_314430 {
     float x;
     float y;
     float z;
-    void FUN_00095e80(float s, V3 *v);
-    void FUN_001f6bc0(V3 *a, float s, V3 *b);
-    void FUN_00011110(V3 *a, V3 *b);
+    void FUN_00095e80(float s, V3_314430 *v);
+    void FUN_001f6bc0(V3_314430 *a, float s, V3_314430 *b);
+    void FUN_00011110(V3_314430 *a, V3_314430 *b);
     float FUN_0022d110();
-    void FUN_00034440(V3 *a, V3 *b);
-    void FUN_00011160(float s, V3 *b);
+    void FUN_00034440(V3_314430 *a, V3_314430 *b);
+    void FUN_00011160(float s, V3_314430 *b);
     void FUN_00011140(float s);
     float FUN_000111f0();
-    void FUN_000110d0(V3 *b);
+    void FUN_000110d0(V3_314430 *b);
 };
 
 float __cdecl FUN_00083d90(float *x);
 
-class Prim {
+class Prim_314430 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual V3 *v4();
+    virtual V3_314430 *v4();
     char pad04[0x44 - 4];
-    V3 v;
+    V3_314430 v;
     float f50;
     float f54;
     char b58;
 };
 
-class Sweeper;
-class Sweeper {
+class Sweeper_314430;
+class Sweeper_314430 {
 public:
     char pad0[0xc];
     float r;
     char pad10[4];
-    V3 n;
-    bool FUN_00314430(Prim *p, V3 *a1, float a2, V3 *a3, float *a4, V3 *a5, V3 *a6, char a7);
+    V3_314430 n;
+    bool FUN_00314430(Prim_314430 *p, V3_314430 *a1, float a2, V3_314430 *a3, float *a4, V3_314430 *a5, V3_314430 *a6, char a7);
 };
 
-bool Sweeper::FUN_00314430(Prim *p, V3 *a1, float a2, V3 *a3, float *a4, V3 *a5, V3 *a6, char a7)
+bool Sweeper_314430::FUN_00314430(Prim_314430 *p, V3_314430 *a1, float a2, V3_314430 *a3, float *a4, V3_314430 *a5, V3_314430 *a6, char a7)
 {
     struct {
         float d;
         float absd;
-        Sweeper *self;
-        V3 *np;
+        Sweeper_314430 *self;
+        V3_314430 *np;
     } l;
     double d = p->v.z * n.z + p->v.y * n.y + p->v.x * n.x;
     l.self = this;
@@ -116,7 +116,7 @@ bool Sweeper::FUN_00314430(Prim *p, V3 *a1, float a2, V3 *a3, float *a4, V3 *a5,
 
     if (!(u > 1.0e-6f))
         return false;
-    V3 tmp;
+    V3_314430 tmp;
     tmp.FUN_00095e80(-l.d, &p->v);
     a3->FUN_00034440(l.np, &tmp);
     *a4 = (float)(u - f54c - a2);

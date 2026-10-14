@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 116 inputs, branch coverage 12/16, incomplete)
 // FUN_001def30 @ 0x001def30
-struct Id {
+struct Id_1def30 {
     int lo, hi;
 };
 
-struct Entry {
+struct Entry_1def30 {
     char pad0[8];
     int idLo;
     int idHi;
 };
 
-Id __cdecl FUN_00096d80(const char *name);
+Id_1def30 __cdecl FUN_00096d80(const char *name);
 
-class Table {
+class Table_1def30 {
 public:
-    Entry *FUN_001def30(const char *name);
+    Entry_1def30 *FUN_001def30(const char *name);
 
     char pad0[0x1e620];
-    Entry *entries[128];
+    Entry_1def30 *entries[128];
     int count;
 
-    Entry *At(int i) {
+    Entry_1def30 *At(int i) {
         if (i < count && i >= 0) {
             return entries[i];
         }
@@ -28,10 +28,10 @@ public:
     }
 };
 
-Entry *Table::FUN_001def30(const char *name) {
-    Id id = FUN_00096d80(name);
+Entry_1def30 *Table_1def30::FUN_001def30(const char *name) {
+    Id_1def30 id = FUN_00096d80(name);
     for (int i = 0; i < count; i++) {
-        Entry *e = At(i);
+        Entry_1def30 *e = At(i);
         if (e->idLo == id.lo && e->idHi == id.hi) {
             return At(i);
         }

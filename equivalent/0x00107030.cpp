@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 13/14, incomplete)
 // CRangedAgent::vfunc_3 @ 0x00107030
 // CRangedAgent::vfunc_3 @ 0x00107030
-struct Stats {
+struct Stats_107030 {
     char pad0[0x3a0];
     float limit;
 };
 
-struct Weapon {
+struct Weapon_107030 {
     char pad0[0x11c];
-    Stats *stats;
+    Stats_107030 *stats;
 };
 
-struct Unit {
+struct Unit_107030 {
     char pad0[8];
     void *binding;
     char pad0c[0x45 - 0xc];
@@ -19,7 +19,7 @@ struct Unit {
     char flag46;
 };
 
-class Brain {
+class Brain_107030 {
 public:
     virtual void v0();
     virtual void v1();
@@ -27,12 +27,12 @@ public:
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual Weapon *v6();
+    virtual Weapon_107030 *v6();
     virtual void v7();
     virtual void v8();
     virtual int v9();
     char pad[0x58 - 4];
-    Unit unit;
+    Unit_107030 unit;
 };
 
 class CRangedAgent {
@@ -44,7 +44,7 @@ public:
     char pad4[4];
     float value;
     char pad0c[0x58 - 0xc];
-    Brain *brain;
+    Brain_107030 *brain;
 
     float FUN_000fc4e0(int a, int b);
 };
@@ -52,8 +52,8 @@ public:
 float CRangedAgent::vfunc_3(int a, int b)
 {
     FUN_000fc4e0(a, b);
-    Weapon *weapon = brain->v6();
-    Unit *unit = &brain->unit;
+    Weapon_107030 *weapon = brain->v6();
+    Unit_107030 *unit = &brain->unit;
     value = 0.0f;
     if (unit == 0 || unit->binding == 0)
         return 0.0f;

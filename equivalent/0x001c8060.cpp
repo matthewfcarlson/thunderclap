@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 42/44, incomplete)
 // FUN_001c8060 @ 0x001c8060
-struct Key {
+struct Key_1c8060 {
     unsigned lo;
     unsigned hi;
     void FUN_0027af10(unsigned lo, unsigned hi);
     void FUN_0027af50();
 };
 
-struct Entry {
+struct Entry_1c8060 {
     unsigned lo;
     unsigned hi;
     char active;
@@ -15,27 +15,27 @@ struct Entry {
     bool FUN_001c6660(int query);
 };
 
-struct Index {
-    Entry *FUN_001c75e0(Key *k);
+struct Index_1c8060 {
+    Entry_1c8060 *FUN_001c75e0(Key_1c8060 *k);
 };
 
-class Registry {
+class Registry_1c8060 {
 public:
     char pad0[0x18];
-    Index index;
+    Index_1c8060 index;
     char pad19[0xf];
     int count;
-    Entry **table;
+    Entry_1c8060 **table;
 
-    Entry *FUN_001c8060(int query, Key *out);
+    Entry_1c8060 *FUN_001c8060(int query, Key_1c8060 *out);
 };
 
-Entry *Registry::FUN_001c8060(int query, Key *out)
+Entry_1c8060 *Registry_1c8060::FUN_001c8060(int query, Key_1c8060 *out)
 {
-    Entry *e = 0;
+    Entry_1c8060 *e = 0;
     bool found = false;
     if (out != 0 && (out->lo | out->hi) != 0) {
-        Key k;
+        Key_1c8060 k;
         k.lo = 0;
         k.FUN_0027af10(out->lo, out->hi);
         e = index.FUN_001c75e0(&k);
@@ -48,11 +48,11 @@ Entry *Registry::FUN_001c8060(int query, Key *out)
     for (int pass = 0; pass < 2; pass++) {
         int i = 0;
         for (;;) {
-            Entry **t = table;
+            Entry_1c8060 **t = table;
             if (t[i] == 0) {
                 int n = count;
                 while (i <= n) {
-                    Entry *next = t[i + 1];
+                    Entry_1c8060 *next = t[i + 1];
                     i++;
                     if (next != 0)
                         break;

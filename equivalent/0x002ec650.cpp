@@ -2,7 +2,7 @@
 // FUN_002ec650 @ 0x002ec650
 extern "C" void *memcpy(void *dst, const void *src, unsigned n);
 
-struct z_stream {
+struct z_stream_2ec650 {
     unsigned char *next_in;
     unsigned avail_in;
     unsigned total_in;
@@ -15,7 +15,7 @@ struct z_stream {
 
 typedef unsigned (*check_fn)(unsigned, const unsigned char *, unsigned);
 
-struct inflate_blocks_state {
+struct inflate_blocks_state_2ec650 {
     char pad[0x28];
     unsigned char *window;
     unsigned char *end;
@@ -25,7 +25,7 @@ struct inflate_blocks_state {
     unsigned check;
 };
 
-int FUN_002ec650(inflate_blocks_state *s, z_stream *z, int r)
+int FUN_002ec650(inflate_blocks_state_2ec650 *s, z_stream_2ec650 *z, int r)
 {
     unsigned char *p = z->next_out;
     unsigned char *q = s->read;

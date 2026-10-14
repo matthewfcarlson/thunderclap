@@ -1,20 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 29/36, incomplete)
 // FUN_002731d0 @ 0x002731d0
-struct Item;
-struct Worker { int FUN_00272880(); int FUN_00272a20(); unsigned char FUN_00272b50(); void FUN_00272aa0(Item*); };
-struct Item { virtual void destroy(int); virtual int result(); virtual void unused(); virtual Worker* worker(); virtual int process(); Item* next; };
-struct Lock { virtual void enter(); virtual void leave(); };
+struct Item_2731d0;
+struct Worker_2731d0 { int FUN_00272880(); int FUN_00272a20(); unsigned char FUN_00272b50(); void FUN_00272aa0(Item_2731d0*); };
+struct Item_2731d0 { virtual void destroy(int); virtual int result(); virtual void unused(); virtual Worker_2731d0* worker(); virtual int process(); Item_2731d0* next; };
+struct Lock_2731d0 { virtual void enter(); virtual void leave(); };
 struct Signal { int value; };
 void __cdecl FUN_0026d890(Signal*);
 void __cdecl FUN_0026d8a0(Signal*);
-struct State { char pad0[12]; Lock lock; char pad10[0x54]; unsigned char stopped; char pad65[3]; Signal ready; Item* heads[3]; Item* tails[3]; Signal done; unsigned char requeue; char pad89[3]; int count; Item* FUN_00273140(int*); };
-int __cdecl FUN_002731d0(State* s) {
+struct State_2731d0 { char pad0[12]; Lock_2731d0 lock; char pad10[0x54]; unsigned char stopped; char pad65[3]; Signal ready; Item_2731d0* heads[3]; Item_2731d0* tails[3]; Signal done; unsigned char requeue; char pad89[3]; int count; Item_2731d0* FUN_00273140(int*); };
+int __cdecl FUN_002731d0(State_2731d0* s) {
  unsigned char pending=0;
  FUN_0026d890(&s->ready);
  while (!s->stopped) {
   int index;
-  Item* item=s->FUN_00273140(&index);
-  Worker* w=item->worker();
+  Item_2731d0* item=s->FUN_00273140(&index);
+  Worker_2731d0* w=item->worker();
   int result;
   if(w->FUN_00272880()!=0 && w->FUN_00272880()!=1) { result=item->process(); if(result==1) result=item->result(); }
   else result=item->result();

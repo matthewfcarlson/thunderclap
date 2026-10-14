@@ -6,7 +6,7 @@ extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 char __cdecl FUN_00018960(float a, float b, float epsilon);
 
-struct Vec3 {
+struct Vec3_125680 {
     float x, y, z;
 };
 
@@ -17,48 +17,48 @@ struct TargetObj {
     float z;
 };
 
-struct Target {
+struct Target_125680 {
     char pad0[8];
     TargetObj *obj;
     int kind;
     char pad10[0x30];
-    Vec3 pos;
+    Vec3_125680 pos;
 };
 
 struct Locator {
     char pad0[0x12c];
-    Target *target;
+    Target_125680 *target;
 };
 
-struct Slot {
+struct Slot_125680 {
     char pad0[0x124];
     Locator *locator;
 };
 
-struct Scene {
+struct Scene_125680 {
     char pad0[0x20];
-    Slot *slot;
+    Slot_125680 *slot;
 };
 
-extern Scene *DAT_004dd700;
+extern Scene_125680 *DAT_004dd700;
 
-struct Position {
-    void FUN_00059a50(Vec3 *out);
+struct Position_125680 {
+    void FUN_00059a50(Vec3_125680 *out);
 };
 
-struct Actor {
+struct Actor_125680 {
     char pad0[0x10];
-    Position *position;
+    Position_125680 *position;
     char pad14[0x314];
-    Target *target;
+    Target_125680 *target;
 };
 
-struct Chain {
-    Actor *FUN_00059a30();
+struct Chain_125680 {
+    Actor_125680 *FUN_00059a30();
 };
 
-struct Owner {
-    Chain *FUN_000592a0();
+struct Owner_125680 {
+    Chain_125680 *FUN_000592a0();
 };
 
 class TargetDistanceXZCondition {
@@ -69,7 +69,7 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual char vfunc_6(int unused1, Owner *owner, int unused3);
+    virtual char vfunc_6(int unused1, Owner_125680 *owner, int unused3);
     char pad4[8];
     int mode;
     float threshold;
@@ -77,17 +77,17 @@ public:
     char useObj;
 };
 
-char TargetDistanceXZCondition::vfunc_6(int unused1, Owner *owner, int unused3)
+char TargetDistanceXZCondition::vfunc_6(int unused1, Owner_125680 *owner, int unused3)
 {
     if (!FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0))
         return 0;
-    Actor *actor = owner->FUN_000592a0()->FUN_00059a30();
-    Vec3 origin;
+    Actor_125680 *actor = owner->FUN_000592a0()->FUN_00059a30();
+    Vec3_125680 origin;
     origin.x = 0.0f;
     origin.y = 0.0f;
     origin.z = 0.0f;
     actor->position->FUN_00059a50(&origin);
-    Target *t = actor->target;
+    Target_125680 *t = actor->target;
     if (useLocator) {
         Locator *loc = DAT_004dd700->slot->locator;
         if (loc)

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
 // CCollisionHitLocationCondition::vfunc_7 @ 0x00048bb0
-struct Target { char pad[0x74]; int value; };
-struct Ctx { virtual void s0(); virtual void s1(); virtual void s2(); virtual Target* GetTarget(); };
+struct Target_48bb0 { char pad[0x74]; int value; };
+struct Ctx_48bb0 { virtual void s0(); virtual void s1(); virtual void s2(); virtual Target_48bb0* GetTarget(); };
 class CCollisionHitLocationCondition {
 public:
  virtual void vfunc_0();
@@ -11,13 +11,13 @@ public:
  virtual void vfunc_4();
  virtual void vfunc_5();
  virtual void vfunc_6();
- virtual bool vfunc_7(Ctx* ctx);
+ virtual bool vfunc_7(Ctx_48bb0* ctx);
  char pad[8];
  unsigned op;
  int threshold;
 };
-bool CCollisionHitLocationCondition::vfunc_7(Ctx* ctx) {
- Target* t = ctx->GetTarget();
+bool CCollisionHitLocationCondition::vfunc_7(Ctx_48bb0* ctx) {
+ Target_48bb0* t = ctx->GetTarget();
  if (t) {
   int v = t->value;
   switch (op) {

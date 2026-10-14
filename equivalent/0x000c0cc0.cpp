@@ -21,7 +21,7 @@ public:
     virtual void vfn0();
 };
 
-class MethodBase {
+class MethodBase_c0cc0 {
 public:
     virtual void m0();
     char pad_04[0xc];
@@ -29,15 +29,15 @@ public:
     char pad_11[7];
     char retType;
     char pad_19[3];
-    MethodBase(const char *n, int k) throw();
+    MethodBase_c0cc0(const char *n, int k) throw();
     void FUN_001d04a0();
 };
 
 template <class T, class R, class A>
-class Method1 : public MethodBase {
+class Method1 : public MethodBase_c0cc0 {
 public:
     typedef R (T::*Fn)(A);
-    Method1(const char *name, Fn f) throw() : MethodBase(name, 1) {
+    Method1(const char *name, Fn f) throw() : MethodBase_c0cc0(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argType = FUN_001d04d0(TypeTag<A>::get());
@@ -54,24 +54,24 @@ public:
     T *owner;
 };
 
-typedef Closure1<CFEManager, void, int> Closure;
+typedef Closure1<CFEManager, void, int> Closure_c0cc0;
 
-struct Frame {
-    Closure closure;
+struct Frame_c0cc0 {
+    Closure_c0cc0 closure;
     unsigned int cookie;
-    Frame(const char *n, CFEManager *o, Closure::Fn f) throw() : closure(n, o, f) {
+    Frame_c0cc0(const char *n, CFEManager *o, Closure_c0cc0::Fn f) throw() : closure(n, o, f) {
         cookie = DAT_004d9968;
     }
 };
 
-class Registry {
+class Registry_c0cc0 {
 public:
-    void FUN_001d26d0(const char *name, MethodBase *m);
-    void FUN_000c0cc0(const char *name, CFEManager *owner, Closure::Fn f);
+    void FUN_001d26d0(const char *name, MethodBase_c0cc0 *m);
+    void FUN_000c0cc0(const char *name, CFEManager *owner, Closure_c0cc0::Fn f);
 };
 
-void Registry::FUN_000c0cc0(const char *name, CFEManager *owner, Closure::Fn f) {
-    Frame fr(name, owner, f);
+void Registry_c0cc0::FUN_000c0cc0(const char *name, CFEManager *owner, Closure_c0cc0::Fn f) {
+    Frame_c0cc0 fr(name, owner, f);
     FUN_001d26d0(name, &fr.closure);
     fr.closure.FUN_001d04a0();
     __security_check_cookie(fr.cookie);

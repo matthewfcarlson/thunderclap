@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2241 inputs, branch coverage 4/4)
 // FUN_002d1540 @ 0x002d1540
 // FUN_002d1540 @ 0x002d1540: re-rolls an entry's random byte once enough time has passed since the last roll
-struct RandomState {
+struct RandomState_2d1540 {
     unsigned int first;
     unsigned int second;
     void FUN_0022aba0(int seed);
 };
-extern RandomState DAT_00554bf0;
+extern RandomState_2d1540 DAT_00554bf0;
 extern unsigned int DAT_00554bf8;
 
-struct Limits {
+struct Limits_2d1540 {
     char pad00[8];
     unsigned int range;
     float interval;
 };
 
-struct Owner {
+struct Owner_2d1540 {
     char pad00[0x1bc];
-    Limits *limits;
+    Limits_2d1540 *limits;
 };
 
-struct Entry {
+struct Entry_2d1540 {
     char pad00[0x19];
     unsigned char roll;
     char pad1a[0x2c - 0x1a];
@@ -29,13 +29,13 @@ struct Entry {
     float last;
 };
 
-void __cdecl FUN_002d1540(int a, Owner *owner, Entry *entry)
+void __cdecl FUN_002d1540(int a, Owner_2d1540 *owner, Entry_2d1540 *entry)
 {
     if (!(DAT_00554bf8 & 1)) {
         DAT_00554bf8 |= 1;
         DAT_00554bf0.FUN_0022aba0(0);
     }
-    Limits *limits = owner->limits;
+    Limits_2d1540 *limits = owner->limits;
     if (entry->now - entry->last > limits->interval) {
         entry->last = entry->now;
         unsigned int bound = limits->range - 1;

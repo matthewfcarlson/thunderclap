@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20 inputs, branch coverage 28/30, incomplete)
 // FUN_002fffa0 @ 0x002fffa0
 struct Object { virtual void slot0(); virtual void release(); };
-struct Pair { Object* first; Object* second; unsigned x,y,z; };
-struct Manager {
+struct Pair_2fffa0 { Object* first; Object* second; unsigned x,y,z; };
+struct Manager_2fffa0 {
  Object** begin; Object** end; char pad0[8];
  Object** otherBegin; Object** otherEnd; char pad1[24];
- Pair* pairsBegin; Pair* pairsEnd;
+ Pair_2fffa0* pairsBegin; Pair_2fffa0* pairsEnd;
  bool remove(Object* object, unsigned flags);
 };
-bool Manager::remove(Object* object, unsigned flags) {
+bool Manager_2fffa0::remove(Object* object, unsigned flags) {
  Object** p=begin;
  Object** stop=end;
  if(p!=stop) {
@@ -32,11 +32,11 @@ bool Manager::remove(Object* object, unsigned flags) {
  }
  bool found=false;
  if(!(flags&8)) {
-  Pair* q=pairsBegin;
+  Pair_2fffa0* q=pairsBegin;
   if(q!=pairsEnd) {
    do {
     if(q->first==object || q->second==object) {
-     Pair* last=pairsEnd-1;
+     Pair_2fffa0* last=pairsEnd-1;
      pairsEnd=last;
      if(q<last) { q->first=last->first; q->second=last->second; q->x=last->x; q->y=last->y; q->z=last->z; }
      found=true;

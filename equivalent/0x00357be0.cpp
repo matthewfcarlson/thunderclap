@@ -2,23 +2,23 @@
 // FUN_00357be0 @ 0x00357be0
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_357be0 {
     float x, y, z;
 };
 
-struct Frame {
-    Vec3 w;
-    Vec3 dir;
+struct Frame_357be0 {
+    Vec3_357be0 w;
+    Vec3_357be0 dir;
 };
 
-extern void __cdecl FUN_0022d730(Vec3 *a, Vec3 *dirA, float lenA, Vec3 *b, Vec3 *dirB, float lenB, int p7, int p8);
+extern void __cdecl FUN_0022d730(Vec3_357be0 *a, Vec3_357be0 *dirA, float lenA, Vec3_357be0 *b, Vec3_357be0 *dirB, float lenB, int p7, int p8);
 
 // Builds the unit direction and length of the segments p0->p1 and p2->p3 and forwards them.
 // dx and dy stay unrounded on the FPU, everything the original stores is read back from memory.
-void FUN_00357be0(Vec3 *p0, Vec3 *p1, Vec3 *p2, Vec3 *p3, int arg5, int arg6)
+void FUN_00357be0(Vec3_357be0 *p0, Vec3_357be0 *p1, Vec3_357be0 *p2, Vec3_357be0 *p3, int arg5, int arg6)
 {
-    Frame frame;
-    volatile Frame *fr = &frame;
+    Frame_357be0 frame;
+    volatile Frame_357be0 *fr = &frame;
     double dx = p1->x - p0->x;
     double dy = p1->y - p0->y;
     fr->dir.z = p1->z - p0->z;

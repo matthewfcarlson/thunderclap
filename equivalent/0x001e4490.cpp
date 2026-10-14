@@ -1,33 +1,33 @@
 // STATUS: equivalent (tools/equiv.py level 3: 62 inputs, branch coverage 60/62, incomplete)
 // FUN_001e4490 @ 0x001e4490
-struct Elem {
+struct Elem_1e4490 {
     char pad0[0xc];
     float key;
     char pad1[4];
 };
 
-struct ElemPair {
-    Elem* first;
-    Elem* second;
+struct ElemPair_1e4490 {
+    Elem_1e4490* first;
+    Elem_1e4490* second;
 };
 
-void FUN_001e4210(Elem* a, Elem* b, Elem* c);
-void FUN_001e0fc0(Elem* a, Elem* b);
+void FUN_001e4210(Elem_1e4490* a, Elem_1e4490* b, Elem_1e4490* c);
+void FUN_001e0fc0(Elem_1e4490* a, Elem_1e4490* b);
 
-ElemPair* FUN_001e4490(ElemPair* out, Elem* first, Elem* last)
+ElemPair_1e4490* FUN_001e4490(ElemPair_1e4490* out, Elem_1e4490* first, Elem_1e4490* last)
 {
-    Elem* mid = first + (last - first) / 2;
+    Elem_1e4490* mid = first + (last - first) / 2;
     FUN_001e4210(first, mid, last - 1);
 
-    Elem* pfirst = mid;
-    Elem* plast = mid + 1;
+    Elem_1e4490* pfirst = mid;
+    Elem_1e4490* plast = mid + 1;
     while (first < pfirst && !(pfirst[-1].key < pfirst->key) && !(pfirst->key < pfirst[-1].key))
         --pfirst;
     while (plast < last && !(plast->key < pfirst->key) && !(pfirst->key < plast->key))
         ++plast;
 
-    Elem* gfirst = plast;
-    Elem* glast = pfirst;
+    Elem_1e4490* gfirst = plast;
+    Elem_1e4490* glast = pfirst;
     for (;;) {
         for (; gfirst < last; ++gfirst) {
             if (pfirst->key < gfirst->key) {

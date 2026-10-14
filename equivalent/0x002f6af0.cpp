@@ -3,28 +3,28 @@
 extern "C" double sqrt(double);
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
-struct Vec3 {
+struct Vec3_2f6af0 {
     float x, y, z;
-    void FUN_0022d260(struct Mat *m) throw();
+    void FUN_0022d260(struct Mat_2f6af0 *m) throw();
 };
 
-struct Quat {
+struct Quat_2f6af0 {
     float q[4];
     void FUN_0022b120() throw();
-    void FUN_0022b650(struct Mat *m) throw();
+    void FUN_0022b650(struct Mat_2f6af0 *m) throw();
 };
 
-struct Mat {
+struct Mat_2f6af0 {
     float m[16];
-    void FUN_0022c3b0(Vec3 *in, Vec3 *out) throw();
-    void FUN_0022be40(Vec3 *p) throw();
+    void FUN_0022c3b0(Vec3_2f6af0 *in, Vec3_2f6af0 *out) throw();
+    void FUN_0022be40(Vec3_2f6af0 *p) throw();
 };
 
 struct Integ {
-    void FUN_002fd020(Vec3 *a, Vec3 *b) throw();
+    void FUN_002fd020(Vec3_2f6af0 *a, Vec3_2f6af0 *b) throw();
 };
 
-class Body {
+class Body_2f6af0 {
 public:
     virtual void v0() throw();
     virtual void v1() throw();
@@ -32,11 +32,11 @@ public:
     virtual void v3() throw();
     virtual void v4() throw();
     virtual void v5() throw();
-    virtual void v6(Mat *m, float dt) throw();
+    virtual void v6(Mat_2f6af0 *m, float dt) throw();
     virtual void v7() throw();
-    virtual void v8(Vec3 *p, Vec3 *q, int z) throw();
+    virtual void v8(Vec3_2f6af0 *p, Vec3_2f6af0 *q, int z) throw();
     char pad04[0x58];
-    Vec3 a;
+    Vec3_2f6af0 a;
     union {
         float f68;
         unsigned int u68;
@@ -47,9 +47,9 @@ extern float DAT_00555458;
 extern float DAT_004d2ba0;
 extern float DAT_004d2b84;
 extern float DAT_004d2ba4;
-char __cdecl FUN_003059c0(Vec3 *a, Quat *z) throw();
+char __cdecl FUN_003059c0(Vec3_2f6af0 *a, Quat_2f6af0 *z) throw();
 void *__cdecl FUN_0022b080(void *a, void *b, void *c) throw();
-void __cdecl FUN_00305700(unsigned int s, Mat *src, Mat *dst) throw();
+void __cdecl FUN_00305700(unsigned int s, Mat_2f6af0 *src, Mat_2f6af0 *dst) throw();
 
 class PhysicsObject {
 public:
@@ -94,45 +94,45 @@ public:
     virtual void vfunc_38(float dt);
     virtual void vfunc_39() throw();
     char pad04[0xc];
-    Body *f10;
+    Body_2f6af0 *f10;
     char pad14[0x10];
     int f24;
     char pad28[0x1c];
     float f44;
     int f48;
-    Vec3 v4c;
-    Mat mat58;
-    Vec3 v98;
+    Vec3_2f6af0 v4c;
+    Mat_2f6af0 mat58;
+    Vec3_2f6af0 v98;
     char ba4;
     char pada5[3];
-    Vec3 va8;
-    Vec3 vb4;
-    Vec3 vc0;
-    Quat vcc;
+    Vec3_2f6af0 va8;
+    Vec3_2f6af0 vb4;
+    Vec3_2f6af0 vc0;
+    Quat_2f6af0 vcc;
     char padDC[0xf8 - 0xdc];
     Integ m_f8;
     char padF9[0x114 - 0xf9];
     Integ m_114;
     char pad115[0x130 - 0x115];
-    Vec3 v130;
-    Vec3 v13c;
+    Vec3_2f6af0 v130;
+    Vec3_2f6af0 v13c;
     char pad148[0x164 - 0x148];
     float f164;
     char pad168[0x1cc - 0x168];
     float f1cc;
     char b1d0;
-    void FUN_002f5a20(Vec3 *q) throw();
+    void FUN_002f5a20(Vec3_2f6af0 *q) throw();
 };
 
 void PhysicsObject::vfunc_38(float dt)
 {
     struct Frame {
         float s0;
-        Vec3 A;
-        Vec3 Y;
-        Vec3 Q;
-        Quat Z;
-        Mat M2;
+        Vec3_2f6af0 A;
+        Vec3_2f6af0 Y;
+        Vec3_2f6af0 Q;
+        Quat_2f6af0 Z;
+        Mat_2f6af0 M2;
     } f;
 
     double kk = 1.0f - dt * f164;
@@ -155,10 +155,10 @@ void PhysicsObject::vfunc_38(float dt)
                 if (m > 2) {
                     mat58.FUN_0022c3b0(&v4c, &f.Y);
                 } else {
-                    f.Y = *(Vec3 *)((char *)this + 0x58 + (m << 4));
+                    f.Y = *(Vec3_2f6af0 *)((char *)this + 0x58 + (m << 4));
                 }
             }
-            Body *o = f10;
+            Body_2f6af0 *o = f10;
             double dotAY = o->a.z * f.Y.z + o->a.y * f.Y.y + o->a.x * f.Y.x;
             double s = -((1.0f - f.s0) * dotAY);
             double ypx = f.Y.x * s;
@@ -179,7 +179,7 @@ void PhysicsObject::vfunc_38(float dt)
     f.Q.x = h * v130.x + f.Q.x;
     f.Q.y = h * v130.y + f.Q.y;
     f.Q.z = h * v130.z + f.Q.z;
-    Vec3 *a = &f10->a;
+    Vec3_2f6af0 *a = &f10->a;
     f.A.x = a->x;
     f.A.y = a->y;
     f.A.z = a->z;
@@ -197,7 +197,7 @@ void PhysicsObject::vfunc_38(float dt)
         vc0.z = dt * v13c.z + vc0.z;
     }
     m_114.FUN_002fd020(&vc0, &f10->a);
-    Body *ec = f10;
+    Body_2f6af0 *ec = f10;
     double sum2 = ec->a.x * ec->a.x + ec->a.y * ec->a.y + ec->a.z * ec->a.z;
     bool skipNext = false;
     if (sum2 > DAT_004d2ba0) {
@@ -223,7 +223,7 @@ void PhysicsObject::vfunc_38(float dt)
         }
     }
     if (!skipNext) {
-        Vec3 *pa = &f10->a;
+        Vec3_2f6af0 *pa = &f10->a;
         f.A.x = f.A.x + pa->x;
         f.A.y = f.A.y + pa->y;
         double azs = f.A.z + pa->z;
@@ -231,7 +231,7 @@ void PhysicsObject::vfunc_38(float dt)
         f.A.y = f.A.y * f.s0;
         f.A.z = azs * f.s0;
         if (FUN_003059c0(&f.A, &f.Z)) {
-            Quat *edi = &vcc;
+            Quat_2f6af0 *edi = &vcc;
             FUN_0022b080(&f.Z, &f.Z, edi);
             vcc.q[0] = f.Z.q[0];
             vcc.q[1] = f.Z.q[1];

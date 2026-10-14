@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00045ce0 @ 0x00045ce0
 namespace core { struct IRefCount { virtual void slot0(); virtual void slot1(); }; }
-struct Item { virtual void slot0(); virtual void slot1(); };
-struct Block { char data[16]; void FUN_0027af50(); };
-struct Small { char data[12]; void FUN_00234150(); };
-struct Entry { Item* object; char data[36]; };
+struct Item_45ce0 { virtual void slot0(); virtual void slot1(); };
+struct Block_45ce0 { char data[16]; void FUN_0027af50(); };
+struct Small_45ce0 { char data[12]; void FUN_00234150(); };
+struct Entry_45ce0 { Item_45ce0* object; char data[36]; };
 struct CCharacterTemplate : core::IRefCount {
- int unused; Item* a; Item* b;
- char pad[0xd0]; Small small[6]; char gap[0x90]; Entry entries[8]; char gap2[0x188]; Block blocks[14];
+ int unused; Item_45ce0* a; Item_45ce0* b;
+ char pad[0xd0]; Small_45ce0 small[6]; char gap[0x90]; Entry_45ce0 entries[8]; char gap2[0x188]; Block_45ce0 blocks[14];
  virtual void slot0(); virtual void slot1(); ~CCharacterTemplate();
 };
 CCharacterTemplate::~CCharacterTemplate() {

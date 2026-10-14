@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 22/22)
 // FUN_001c52f0 @ 0x001c52f0
-struct Clock {
+struct Clock_1c52f0 {
     float FUN_00085f80();
 };
 
-struct Manager {
+struct Manager_1c52f0 {
     char pad0[0x58];
-    Clock *clock;
+    Clock_1c52f0 *clock;
 };
 
-extern Manager *DAT_004dd700;
+extern Manager_1c52f0 *DAT_004dd700;
 
-class Blender {
+class Blender_1c52f0 {
 public:
     char pad0[0x80];
     float value;
@@ -27,7 +27,7 @@ public:
     void FUN_001c52f0(float unused);
 };
 
-void Blender::FUN_001c52f0(float unused)
+void Blender_1c52f0::FUN_001c52f0(float unused)
 {
     float dt = DAT_004dd700->clock->FUN_00085f80();
     if (!(dt < 0.1f))

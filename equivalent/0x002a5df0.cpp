@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1176 inputs, branch coverage 30/30)
 // FUN_002a5df0 @ 0x002a5df0
-struct Item {
+struct Item_2a5df0 {
     virtual void v0();
     virtual void v1();
     virtual int GetType();
@@ -12,23 +12,23 @@ struct Item {
 };
 
 
-struct V3 {
+struct V3_2a5df0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
 
-struct List {
+struct List_2a5df0 {
     char pad0[0x14];
     int count;
-    Item *FUN_00288950(int index);
+    Item_2a5df0 *FUN_00288950(int index);
 };
 
 struct Clips {
-    List *FUN_00288a10(int flags);
+    List_2a5df0 *FUN_00288a10(int flags);
 };
 
-struct Anim {
+struct Anim_2a5df0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -59,15 +59,15 @@ struct Anim {
 
 void __cdecl FUN_002a5a20(float v, int a2, int a3, int a4, float *params);
 
-struct Frame {
+struct Frame_2a5df0 {
     float t;        // time; a TIME item overrides it; divides the result
     float t0;       // time as read at the start: passed to every item
     float f[14];
 };
 
-void FUN_002a5df0(Anim *obj, int a2, int a3, int a4)
+void FUN_002a5df0(Anim_2a5df0 *obj, int a2, int a3, int a4)
 {
-    Frame fr;
+    Frame_2a5df0 fr;
     fr.f[0] = 1.0f;
     fr.f[1] = 0.0f;
     fr.f[2] = 0.0f;
@@ -83,9 +83,9 @@ void FUN_002a5df0(Anim *obj, int a2, int a3, int a4)
     fr.f[12] = 0.0f;
     fr.f[13] = 0.2f;
     fr.t0 = fr.t = obj->v13();
-    List *list = obj->v25()->FUN_00288a10(0);
+    List_2a5df0 *list = obj->v25()->FUN_00288a10(0);
     for (int i = 0; i < list->count; i++) {
-        Item *item = list->FUN_00288950(i);
+        Item_2a5df0 *item = list->FUN_00288950(i);
         int type = item->GetType();
         if (type == 0x31544c46) {
             float *dst;
@@ -107,7 +107,7 @@ void FUN_002a5df0(Anim *obj, int a2, int a3, int a4)
                 item->v4(fr.t0, &fr.f[1]);
             } else if (item->subType == 0x52494457) {
                 item->v4(fr.t0, &fr.f[4]);
-                ((V3 *)&fr.f[4])->FUN_0022d110();
+                ((V3_2a5df0 *)&fr.f[4])->FUN_0022d110();
             }
         }
     }

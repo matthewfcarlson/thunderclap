@@ -6,13 +6,13 @@ extern char DAT_00494b60;
 extern "C" bool __cdecl FUN_00018960(float,float,float);
 extern "C" double __cdecl sqrt(double);
 struct Force { char pad[0x38]; float x,y,z; };
-struct Source { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual Force* slot3(); };
+struct Source_150a10 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual Force* slot3(); };
 namespace hulkfight { namespace motion {
 struct CollisionSourceForceMagnitudeCondition {
-virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual bool vfunc_6(void*, Source*, void*);
+virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual bool vfunc_6(void*, Source_150a10*, void*);
 char pad[8]; unsigned comparison; float threshold;
 };
-bool CollisionSourceForceMagnitudeCondition::vfunc_6(void*, Source* source, void*) {
+bool CollisionSourceForceMagnitudeCondition::vfunc_6(void*, Source_150a10* source, void*) {
 if (!FUN_00344e74(source,0,&DAT_00494b44,&DAT_00494b60,0)) return false;
 Force* force=source->slot3();
 if (!force) return false;

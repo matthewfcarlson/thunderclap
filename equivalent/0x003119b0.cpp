@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 26 inputs, branch coverage 36/42, incomplete)
 // FUN_003119b0 @ 0x003119b0
-struct UIntRange {
+struct UIntRange_3119b0 {
     unsigned int *first;
     unsigned int *second;
 };
@@ -8,7 +8,7 @@ struct UIntRange {
 void __cdecl FUN_003117f0(unsigned int *a, unsigned int *b, unsigned int *c);
 
 // std::_Unguarded_partition for unsigned int* (three-way split around a median pivot).
-UIntRange *__cdecl FUN_003119b0(UIntRange *out, unsigned int *first, unsigned int *last)
+UIntRange_3119b0 *__cdecl FUN_003119b0(UIntRange_3119b0 *out, unsigned int *first, unsigned int *last)
 {
     unsigned int *mid = first + (last - first) / 2;
     FUN_003117f0(first, mid, last - 1);

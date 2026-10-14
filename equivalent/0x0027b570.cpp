@@ -8,7 +8,7 @@ struct ResourceInfo {
  char* begin;
  char* end;
 };
-struct Owner {
+struct Owner_27b570 {
  ResourceInfo* info;
  void* buffer;
  void** entries;
@@ -17,7 +17,7 @@ struct Owner {
  void** records;
  void cleanup();
 };
-void Owner::cleanup() {
+void Owner_27b570::cleanup() {
  if (!info) return;
  unsigned int i;
  for (i=0; i<info->count; ++i) FUN_0008d340(entries[i]);

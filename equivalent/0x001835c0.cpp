@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 22/22)
 // hulkfight::motion::GrapplePropStateByNameCondition::vfunc_6 @ 0x001835c0
-struct Mgr;
-struct Actor;
-struct Player;
+struct Mgr_1835c0;
+struct Actor_1835c0;
+struct Player_1835c0;
 
 namespace fight {
 class Params {
 public:
     virtual void v0();
-    Mgr *FUN_000592a0();
+    Mgr_1835c0 *FUN_000592a0();
 };
 }
 
@@ -17,37 +17,37 @@ public:
     virtual void v1();
 };
 
-struct StateInfo {
+struct StateInfo_1835c0 {
     char pad0[8];
     unsigned int idLo;      // 0x08
     unsigned int idHi;      // 0x0c
 };
 
-struct StateTable {
+struct StateTable_1835c0 {
     char pad0[0x1c];
-    StateInfo **states;     // 0x1c
+    StateInfo_1835c0 **states;     // 0x1c
 };
 
-struct Actor {
+struct Actor_1835c0 {
     char pad0[0x40];
     int state;              // 0x40
     char pad44[0x98 - 0x44];
-    StateTable *table;      // 0x98
+    StateTable_1835c0 *table;      // 0x98
 };
 
-struct Roster {
+struct Roster_1835c0 {
     char pad0[0x128];
-    Actor *self;            // 0x128
-    Actor *FUN_00035ef0(int index);
+    Actor_1835c0 *self;            // 0x128
+    Actor_1835c0 *FUN_00035ef0(int index);
 };
 
-struct Player {
+struct Player_1835c0 {
     char pad0[0x338];
-    Roster *roster;         // 0x338
+    Roster_1835c0 *roster;         // 0x338
 };
 
-struct Mgr {
-    Player *FUN_00059a30();
+struct Mgr_1835c0 {
+    Player_1835c0 *FUN_00059a30();
 };
 
 namespace hulkfight {
@@ -75,11 +75,11 @@ bool hulkfight::motion::GrapplePropStateByNameCondition::vfunc_6(int a, fight::P
 {
     if (dynamic_cast<CFightParams *>(params) == 0)
         return false;
-    Player *player = params->FUN_000592a0()->FUN_00059a30();
-    Roster *roster = player->roster;
+    Player_1835c0 *player = params->FUN_000592a0()->FUN_00059a30();
+    Roster_1835c0 *roster = player->roster;
     if (roster == 0)
         return false;
-    Actor *actor;
+    Actor_1835c0 *actor;
     if (playerIndex < 0) {
         actor = roster->self;
     } else {
@@ -89,7 +89,7 @@ bool hulkfight::motion::GrapplePropStateByNameCondition::vfunc_6(int a, fight::P
     }
     if (actor == 0)
         return false;
-    StateInfo *info = actor->table->states[actor->state];
+    StateInfo_1835c0 *info = actor->table->states[actor->state];
     unsigned int lo = info->idLo;
     unsigned int hi = info->idHi;
     bool same = (lo == wantLo && hi == wantHi);

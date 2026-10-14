@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 28/34, incomplete)
 // FEControllerSystem::vfunc_1 @ 0x000b3f10
-struct Pad {
+struct Pad_b3f10 {
     void FUN_000ada70(float *state);
 };
 
@@ -30,7 +30,7 @@ class FEControllerSystem {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1(int index, float *out);
-    Pad *pads[1];           // 0x4
+    Pad_b3f10 *pads[1];           // 0x4
 };
 
 void FEControllerSystem::vfunc_1(int index, float *out)

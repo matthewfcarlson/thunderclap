@@ -19,16 +19,16 @@ struct Item72 {
     char pad[0x44];
 };
 
-struct Target {
+struct Target_7b880 {
     void FUN_001e5bc0(int arg);
 };
 
-struct Mgr {
+struct Mgr_7b880 {
     char pad[0xc];
-    Target* target;
+    Target_7b880* target;
 };
 
-class Pool {
+class Pool_7b880 {
 public:
     void run(int slot);
     char p0[0x3718];
@@ -39,10 +39,10 @@ public:
     char p4[12];
     Entity* active[20];
     char p5[0x382c - (0x37ac + 80)];
-    Mgr* mgr;
+    Mgr_7b880* mgr;
 };
 
-void Pool::run(int slot)
+void Pool_7b880::run(int slot)
 {
     counters[slots[slot]->category]--;
 

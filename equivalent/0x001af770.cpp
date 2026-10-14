@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 22/22)
 // FUN_001af770 @ 0x001af770
-struct Vec3 {
+struct Vec3_1af770 {
     float x, y, z;
 };
 struct Vec6 {
-    Vec3 a, b;
+    Vec3_1af770 a, b;
 };
-struct Job {
+struct Job_1af770 {
     unsigned char kind;
     unsigned char started;
     char pad02[2];
-    Vec3 f04;
-    Vec3 f10;
-    Vec3 f1c;
+    Vec3_1af770 f04;
+    Vec3_1af770 f10;
+    Vec3_1af770 f1c;
     int f28;
     int f2c;
     Vec6 f30;
-    Vec3 f48;
+    Vec3_1af770 f48;
     int f54;
     int result;
     int f5c;
@@ -24,11 +24,11 @@ struct Job {
 class JobQueue {
   public:
     char pad00[0x18];
-    Job** head;
-    Job** tail;
-    Job** begin;
-    Job** end;
-    int FUN_001af650(Vec3* a, Vec3* b, Vec3* c, int d, int e, Vec6* f, Vec3* g, int* h, int i);
+    Job_1af770** head;
+    Job_1af770** tail;
+    Job_1af770** begin;
+    Job_1af770** end;
+    int FUN_001af650(Vec3_1af770* a, Vec3_1af770* b, Vec3_1af770* c, int d, int e, Vec6* f, Vec3_1af770* g, int* h, int i);
     void FUN_001af770();
 };
 void JobQueue::FUN_001af770() {
@@ -41,7 +41,7 @@ void JobQueue::FUN_001af770() {
     for (int i = 0; i < count; i++) {
         if (started)
             break;
-        Job* job = *head;
+        Job_1af770* job = *head;
         if (!(tail < end))
             tail = head;
         head = head + 1;

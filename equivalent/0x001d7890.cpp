@@ -1,45 +1,45 @@
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 15/16, incomplete)
 // FUN_001d7890 @ 0x001d7890
 struct Item74 { char pad0[0x71]; char b71; char b72; };
-struct Item10 { char pad0[0x74]; Item74 *p74; };
-struct Node { char pad0[0x10]; Item10 *p10; };
-struct Rec { char pad0[0x44]; int count; };
-struct ItemList { char pad0[0x1c]; };
+struct Item10_1d7890 { char pad0[0x74]; Item74 *p74; };
+struct Node { char pad0[0x10]; Item10_1d7890 *p10; };
+struct Rec_1d7890 { char pad0[0x44]; int count; };
+struct ItemList_1d7890 { char pad0[0x1c]; };
 
-struct Indexer {
-    ItemList *FUN_001d4fc0();
+struct Indexer_1d7890 {
+    ItemList_1d7890 *FUN_001d4fc0();
     int FUN_001d5c70(int index);
     bool FUN_001d4df0();
     Node *FUN_001d4e00();
-    Rec *FUN_001d56f0(int i);
+    Rec_1d7890 *FUN_001d56f0(int i);
 };
 
-struct SubA {
+struct SubA_1d7890 {
     int a; int pad4; int b; int padc; int c;
     void FUN_001b6d60();
 };
-struct SubB {
+struct SubB_1d7890 {
     int a; int b;
-    SubB *FUN_0027af00();
+    SubB_1d7890 *FUN_0027af00();
 };
 
 class __declspec(novtable) CSPHulkPropBase {
 public:
-    CSPHulkPropBase(ItemList *list, int arg) { FUN_0027def0(list, arg); }
+    CSPHulkPropBase(ItemList_1d7890 *list, int arg) { FUN_0027def0(list, arg); }
     virtual void v0();
-    CSPHulkPropBase *FUN_0027def0(ItemList *list, int arg);
+    CSPHulkPropBase *FUN_0027def0(ItemList_1d7890 *list, int arg);
 };
 
 class CSPHulkPropInstance : public CSPHulkPropBase {
 public:
-    CSPHulkPropInstance(Indexer *idx, int arg);
+    CSPHulkPropInstance(Indexer_1d7890 *idx, int arg);
     virtual void v1();
     char pad4[0x9c];
     Node* node;
     char pada4[0x44];
     char fe8;
     char pade9[0x3];
-    Indexer* indexer;
+    Indexer_1d7890* indexer;
     int ff0;
     int ff4;
     char ff8;
@@ -87,7 +87,7 @@ public:
     char f1a0;
     char f1a1;
     char pad1a2[0x2];
-    SubA sub1;
+    SubA_1d7890 sub1;
     char pad1b8[0x4];
     int f1bc;
     int f1c0;
@@ -130,7 +130,7 @@ public:
     int f234;
     int f238;
     char pad23c[0x4];
-    SubB sub2;
+    SubB_1d7890 sub2;
     int f248;
     int f24c;
     int f250;
@@ -145,7 +145,7 @@ public:
     int f270;
 };
 
-CSPHulkPropInstance::CSPHulkPropInstance(Indexer *idx, int arg)
+CSPHulkPropInstance::CSPHulkPropInstance(Indexer_1d7890 *idx, int arg)
     : CSPHulkPropBase(idx->FUN_001d4fc0(), arg)
 {
     indexer = idx;
@@ -239,12 +239,12 @@ CSPHulkPropInstance::CSPHulkPropInstance(Indexer *idx, int arg)
     if (indexer->FUN_001d4df0()) {
         f150 = (int)indexer->FUN_001d4e00();
         if (node) {
-            Item10 *a = node->p10;
+            Item10_1d7890 *a = node->p10;
             if (a) {
                 Item74 *b = a->p74;
                 if (b) {
                     b->b72 = 0;
-                    Item10 *c = node ? node->p10 : 0;
+                    Item10_1d7890 *c = node ? node->p10 : 0;
                     c->p74->b71 = 0;
                 }
             }
@@ -252,7 +252,7 @@ CSPHulkPropInstance::CSPHulkPropInstance(Indexer *idx, int arg)
     }
     int i = 0;
     if (indexer->FUN_001d56f0(0)->count > 0) {
-        Rec *r;
+        Rec_1d7890 *r;
         do {
             i++;
             r = indexer->FUN_001d56f0(0);

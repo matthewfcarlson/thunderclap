@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // physics::SimState::vfunc_8 @ 0x002ef530
-struct Vec3 {
+struct Vec3_2ef530 {
     float x, y, z;
 };
 
@@ -14,7 +14,7 @@ public:
     virtual void vfunc_5();
     virtual void vfunc_6();
     virtual void vfunc_7();
-    virtual void vfunc_8(const Vec3 *p, Vec3 *out, int unused);
+    virtual void vfunc_8(const Vec3_2ef530 *p, Vec3_2ef530 *out, int unused);
     virtual void vfunc_9();
     virtual void vfunc_10();
     virtual void vfunc_11();
@@ -22,13 +22,13 @@ public:
     virtual void vfunc_13();
     virtual void vfunc_14();
     char pad04[0x3c];
-    Vec3 origin;
+    Vec3_2ef530 origin;
     char pad4c[4];
-    Vec3 offset;
-    Vec3 axis;
+    Vec3_2ef530 offset;
+    Vec3_2ef530 axis;
 };
 
-void SimState::vfunc_8(const Vec3 *p, Vec3 *out, int unused)
+void SimState::vfunc_8(const Vec3_2ef530 *p, Vec3_2ef530 *out, int unused)
 {
     float dx = p->x - origin.x;
     float dy = p->y - origin.y;

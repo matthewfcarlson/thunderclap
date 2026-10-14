@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 31/32, incomplete)
 // FUN_001bf8b0 @ 0x001bf8b0
-struct Tracker {
+struct Tracker_1bf8b0 {
     int FUN_000f7240(int a, int b);
 };
 
-class Handler {
+class Handler_1bf8b0 {
 public:
     void FUN_001bf8b0();
     void FUN_001bea80();
@@ -22,13 +22,13 @@ public:
     int mode;
     char enabled;
     char pad3[0x34 - 0x25];
-    Tracker *trackA;
-    Tracker *trackB;
+    Tracker_1bf8b0 *trackA;
+    Tracker_1bf8b0 *trackB;
     char pad4[0x50 - 0x3c];
     int pending;
 };
 
-void Handler::FUN_001bf8b0()
+void Handler_1bf8b0::FUN_001bf8b0()
 {
     if (enabled && trackA && trackB) {
         if (mode == 0)

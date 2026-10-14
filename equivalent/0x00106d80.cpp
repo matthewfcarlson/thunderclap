@@ -4,18 +4,18 @@
 void* FUN_0008d690(unsigned int);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 class CPatrolPathManager;
-class Registry { public:
+class Registry_106d80 { public:
     void FUN_001d3b70(const char*, void*);
     void FUN_00106d80(const char* a1, CPatrolPathManager* a2, void (*a3)());
 };
 template<class C, class R, class A1, class A2, class A3> class Closure3;
 template<> class Closure3<CPatrolPathManager, bool, const char*, bool, int> { public: virtual void v(); char pad[0x1c]; CPatrolPathManager* owner; Closure3(CPatrolPathManager* o) { owner = o; } };
-class Raw { public: void FUN_001069c0(const char*, void (*)()); };
-void Registry::FUN_00106d80(const char* a1, CPatrolPathManager* a2, void (*a3)()) {
+class Raw_106d80 { public: void FUN_001069c0(const char*, void (*)()); };
+void Registry_106d80::FUN_00106d80(const char* a1, CPatrolPathManager* a2, void (*a3)()) {
     void* m = FUN_0008d690(0x24);
     void* x = 0;
     if (m) {
-        ((Raw*)m)->FUN_001069c0(a1, a3);
+        ((Raw_106d80*)m)->FUN_001069c0(a1, a3);
         x = new (m) Closure3<CPatrolPathManager, bool, const char*, bool, int>(a2);
     }
     FUN_001d3b70(a1, x);

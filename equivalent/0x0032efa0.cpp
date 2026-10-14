@@ -21,12 +21,12 @@ extern unsigned int DAT_0039dc4c;
 extern unsigned int DAT_0039de18;
 extern unsigned int DAT_004d4efc[];
 extern unsigned int DAT_004d4f24[];
-class TexObj {
+class TexObj_32efa0 {
   public:
     void FUN_00326300(Surface* s);
     void FUN_00326b00(int stage);
 };
-struct StageCache {
+struct StageCache_32efa0 {
     void FUN_00329e50(int a, int b, int c, int d);
     void FUN_00329c90(int stage, int value);
     void FUN_00329cf0(int a, int b, int c);
@@ -34,7 +34,7 @@ struct StageCache {
     void FUN_00329bb0(int a);
     void FUN_00329f70(int a, int b, const void* p);
     char pad0[8];
-    TexObj* tex[4];
+    TexObj_32efa0* tex[4];
     int texCoordIndex[4];
     int modes[4];
     char pad38[0x48 - 0x38];
@@ -48,7 +48,7 @@ struct StageCache {
     char pad104[0x108 - 0x104];
     unsigned int textureFactor;
 };
-struct Viewport {
+struct Viewport_32efa0 {
     void FUN_0031b1e0();
     char pad0[0x498];
     Surface* surface;
@@ -120,7 +120,7 @@ class Context {
     virtual void s62();
     virtual unsigned char Slot63();
     char pad4[0x154 - 4];
-    Viewport* viewport;
+    Viewport_32efa0* viewport;
 };
 class RefractShader {
   public:
@@ -129,7 +129,7 @@ class RefractShader {
     void vfunc_14(int unused);
     char pad0[0x10];
     Context* ctx;
-    StageCache* cache;
+    StageCache_32efa0* cache;
     char pad18[4];
     int f1c;
     char pad20[0x28 - 0x20];
@@ -142,8 +142,8 @@ class RefractShader {
     char f50[0x7c - 0x50];
     unsigned char b7c;
     char pad7d[0x80 - 0x7d];
-    TexObj* tex80;
-    TexObj* tex84;
+    TexObj_32efa0* tex80;
+    TexObj_32efa0* tex84;
     char pad88[4];
     float alpha;
     unsigned int color;
@@ -184,7 +184,7 @@ void RefractShader::vfunc_14(int) {
         DAT_0039db08 |= 0x800;
         DAT_0039db60 = 5;
     }
-    TexObj* t0 = surf ? tex84 : 0;
+    TexObj_32efa0* t0 = surf ? tex84 : 0;
     if (t0 != cache->tex[0]) {
         cache->tex[0] = t0;
         if (t0) {
@@ -195,7 +195,7 @@ void RefractShader::vfunc_14(int) {
         }
     }
     cache->FUN_00329e50(1, (b48 != 0) + 3, 0, 2);
-    TexObj* t1 = tex80;
+    TexObj_32efa0* t1 = tex80;
     if (t1 != cache->tex[1]) {
         cache->tex[1] = t1;
         if (t1) {
@@ -206,7 +206,7 @@ void RefractShader::vfunc_14(int) {
         }
     }
     FUN_0032a320(1, 0);
-    StageCache* c2 = cache;
+    StageCache_32efa0* c2 = cache;
     c2->FUN_00329cf0(2, 0xf, 5);
     if (c2->f9c != 1) {
         c2->f9c = 1;

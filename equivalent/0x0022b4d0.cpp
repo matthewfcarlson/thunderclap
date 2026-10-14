@@ -1,20 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0022b4d0 @ 0x0022b4d0
-struct Vec3 {
+struct Vec3_22b4d0 {
     float x, y, z;
 };
 
-struct Quat {
+struct Quat_22b4d0 {
     float x, y, z, w;
-    void Rotate(const Vec3 *v, Vec3 *out);
+    void Rotate(const Vec3_22b4d0 *v, Vec3_22b4d0 *out);
 };
 
-void __cdecl FUN_0022b080(Quat *out, const Quat *a, const Quat *b);
+void __cdecl FUN_0022b080(Quat_22b4d0 *out, const Quat_22b4d0 *a, const Quat_22b4d0 *b);
 
-void Quat::Rotate(const Vec3 *v, Vec3 *out)
+void Quat_22b4d0::Rotate(const Vec3_22b4d0 *v, Vec3_22b4d0 *out)
 {
-    Quat tmp;
-    Quat vec;
+    Quat_22b4d0 tmp;
+    Quat_22b4d0 vec;
     vec.x = v->x;
     vec.y = v->y;
     vec.z = v->z;

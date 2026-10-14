@@ -10,19 +10,19 @@ class CUnlockableGallery : public CUnlockable {
     const char* FUN_00092330();
     void FUN_00092360(char flag);
 };
-class ItemTable {
+class ItemTable_c3db0 {
   public:
     CUnlockable* FUN_00092ad0(int index);
 };
 extern int DAT_0049fb34;
 extern int DAT_0049fb38;
 
-class Screen {
+class Screen_c3db0 {
   public:
     char pad0[0x10];
     int field10;
     char pad1[0x4c - 0x14];
-    ItemTable* items;
+    ItemTable_c3db0* items;
     char pad2[0x1878 - 0x50];
     char flag1878;
     char pad3[3];
@@ -36,7 +36,7 @@ class Screen {
     void FUN_000c3db0();
 };
 
-void Screen::FUN_000c3db0() {
+void Screen_c3db0::FUN_000c3db0() {
     CUnlockableGallery* g = dynamic_cast<CUnlockableGallery*>(items->FUN_00092ad0(selected));
     if (g == 0)
         return;

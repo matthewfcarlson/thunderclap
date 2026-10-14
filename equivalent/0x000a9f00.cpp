@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 8/8)
 // CHypnoticCamera::vfunc_36 @ 0x000a9f00
-class Input {
+class Input_a9f00 {
 public:
     char FUN_00092940(int button);
 };
 
-class Pad {
+class Pad_a9f00 {
 public:
-    Input *FUN_00086340();
+    Input_a9f00 *FUN_00086340();
 };
 
-struct Globals {
+struct Globals_a9f00 {
     char pad0[0x54];
-    Pad *pad;
+    Pad_a9f00 *pad;
 };
 
-class Device {
+class Device_a9f00 {
 public:
     virtual void v0();
     virtual void v1();
@@ -83,7 +83,7 @@ public:
     virtual char v63();
 };
 
-class Cam {
+class Cam_a9f00 {
 public:
     virtual void v0();
     virtual void v1();
@@ -104,7 +104,7 @@ public:
     virtual void v16(int a);
 };
 
-class Clock {
+class Clock_a9f00 {
 public:
     virtual void v0();
     virtual void v1();
@@ -125,7 +125,7 @@ public:
     virtual float v16();
 };
 
-class Target {
+class Target_a9f00 {
 public:
     virtual void v0();
     virtual void v1();
@@ -138,17 +138,17 @@ public:
     virtual void v8(int a, int b);
 };
 
-class Renderer {
+class Renderer_a9f00 {
 public:
-    Cam *cam;
+    Cam_a9f00 *cam;
     void FUN_00293da0(float a, float b, float c);
     void FUN_00293d40(int a, int b, float c);
 };
 
-extern Globals *DAT_004dd700;
-extern Device *DAT_0052c2a8;
-extern Renderer *DAT_0052c2ac;
-extern Clock *DAT_0052c2a4;
+extern Globals_a9f00 *DAT_004dd700;
+extern Device_a9f00 *DAT_0052c2a8;
+extern Renderer_a9f00 *DAT_0052c2ac;
+extern Clock_a9f00 *DAT_0052c2a4;
 
 class CHypnoticCamera {
 public:
@@ -190,13 +190,13 @@ public:
     virtual void vfunc_35();
     virtual void vfunc_36();
     char pad04[0x478 - 4];
-    Target *target;
+    Target_a9f00 *target;
     char active;
 };
 
 void CHypnoticCamera::vfunc_36()
 {
-    Input *input = DAT_004dd700->pad->FUN_00086340();
+    Input_a9f00 *input = DAT_004dd700->pad->FUN_00086340();
     if (input->FUN_00092940(0xe))
         return;
     if (input->FUN_00092940(0xd))

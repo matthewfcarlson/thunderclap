@@ -2,15 +2,15 @@
 // FUN_002f9a80 @ 0x002f9a80
 void *FUN_0008d6d0(unsigned int size);
 
-struct Vertex {
+struct Vertex_2f9a80 {
     int w[4];
 };
 
-struct MeshBuffers {
+struct MeshBuffers_2f9a80 {
     char pad[0x30];
-    Vertex *vertsStart;
-    Vertex *vertsBegin;
-    Vertex *vertsEnd;
+    Vertex_2f9a80 *vertsStart;
+    Vertex_2f9a80 *vertsBegin;
+    Vertex_2f9a80 *vertsEnd;
     char pad3c[4];
     unsigned short *indicesStart;
     unsigned short *indicesBegin;
@@ -18,10 +18,10 @@ struct MeshBuffers {
     void FUN_002f9a80(unsigned int numVerts, unsigned int numIndices);
 };
 
-void MeshBuffers::FUN_002f9a80(unsigned int numVerts, unsigned int numIndices)
+void MeshBuffers_2f9a80::FUN_002f9a80(unsigned int numVerts, unsigned int numIndices)
 {
     if (numVerts != 0) {
-        vertsStart = (Vertex *)FUN_0008d6d0(numVerts * sizeof(Vertex));
+        vertsStart = (Vertex_2f9a80 *)FUN_0008d6d0(numVerts * sizeof(Vertex_2f9a80));
         if (vertsStart != 0) {
             vertsBegin = vertsStart;
             vertsEnd = vertsStart + numVerts;

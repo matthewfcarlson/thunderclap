@@ -5,25 +5,25 @@ struct Object {
  char pad[0x4c];
  unsigned char flag50, flag51;
 };
-struct Service {
+struct Service_3010a0 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9();
  virtual bool pair(Object*,Object*);
  virtual bool single(Object*);
 };
-struct Global { char pad[0x6c]; Service* service; };
-extern Global* DAT_0055547c;
-struct Pair { char data[20]; Pair* FUN_002f8ef0(Object*, Object*); };
-struct Queue { void FUN_002ee0c0(Pair*); };
+struct Global_3010a0 { char pad[0x6c]; Service_3010a0* service; };
+extern Global_3010a0* DAT_0055547c;
+struct Pair_3010a0 { char data[20]; Pair_3010a0* FUN_002f8ef0(Object*, Object*); };
+struct Queue_3010a0 { void FUN_002ee0c0(Pair_3010a0*); };
 void __cdecl FUN_00300bc0(Object**,Object**,unsigned);
-struct Container {
+struct Container_3010a0 {
  Object** begin; Object** end; Object** capacity;
  char pad0[8];
  Object** specialEnd; Object** specialCapacity;
  char pad1[0x14];
- Queue queue;
+ Queue_3010a0 queue;
  void target(Object* object, unsigned flags);
 };
-void Container::target(Object* object, unsigned flags) {
+void Container_3010a0::target(Object* object, unsigned flags) {
  if (!(flags & 8)) {
   if (DAT_0055547c->service->single(object)) {
    if ((unsigned)specialEnd < (unsigned)specialCapacity) {
@@ -39,8 +39,8 @@ void Container::target(Object* object, unsigned flags) {
     if (DAT_0055547c->service->pair(object,other)) {
      unsigned char a=object->flag50;
      if (!(a && other->flag50) && (object->flag51 || !other->flag50) && (other->flag51 || !a)) {
-      if(a) { Pair p; queue.FUN_002ee0c0(p.FUN_002f8ef0(object,other)); }
-      else { Pair p; queue.FUN_002ee0c0(p.FUN_002f8ef0(other,object)); }
+      if(a) { Pair_3010a0 p; queue.FUN_002ee0c0(p.FUN_002f8ef0(object,other)); }
+      else { Pair_3010a0 p; queue.FUN_002ee0c0(p.FUN_002f8ef0(other,object)); }
      }
     }
     ++i;

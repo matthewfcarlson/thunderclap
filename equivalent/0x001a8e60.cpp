@@ -1,47 +1,47 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001a8e60 @ 0x001a8e60
-struct Item {
+struct Item_1a8e60 {
     char data[0x18];
     void FUN_001a5d50();
 };
-struct Releasable {
+struct Releasable_1a8e60 {
     virtual void v0();
     virtual void release();
 };
-struct Config {
+struct Config_1a8e60 {
     char pad0[0x52];
     char flag;
     char pad53;
     int f54;
 };
-struct Sink {
+struct Sink_1a8e60 {
     void FUN_00203e00(int value);
 };
-struct Inner {
+struct Inner_1a8e60 {
     void FUN_001b92c0();
 };
-struct Selector {
-    Inner *FUN_00086290(int arg);
+struct Selector_1a8e60 {
+    Inner_1a8e60 *FUN_00086290(int arg);
 };
 struct World {
     char pad0[0x54];
-    Selector *f54;
+    Selector_1a8e60 *f54;
 };
 extern World *DAT_004dd700;
 extern char DAT_004e1764;
 
-struct Owner {
+struct Owner_1a8e60 {
     char pad0[0x1c];
-    Config *config;
+    Config_1a8e60 *config;
     char pad20[4];
-    Releasable *f24;
-    Releasable *f28;
-    Item items[20];
-    Sink *sink;
+    Releasable_1a8e60 *f24;
+    Releasable_1a8e60 *f28;
+    Item_1a8e60 items[20];
+    Sink_1a8e60 *sink;
     void FUN_001a8e60();
 };
 
-void Owner::FUN_001a8e60()
+void Owner_1a8e60::FUN_001a8e60()
 {
     DAT_004dd700->f54->FUN_00086290(0)->FUN_001b92c0();
     for (int i = 0; i < 20; i++)

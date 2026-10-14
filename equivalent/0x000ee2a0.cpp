@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // ImageSelector::vfunc_3 @ 0x000ee2a0
 // ImageSelector::vfunc_3 @ 0x000ee2a0: recompute cell size and origin from the owner's reported extent
-struct Vec3 {
+struct Vec3_ee2a0 {
     float x, y, z;
 };
 
 class FEObject;
 
-class Owner {
+class Owner_ee2a0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -24,7 +24,7 @@ public:
     virtual void v12();
     virtual void v13();
     virtual void v14();
-    virtual void GetExtent(Vec3 *out, FEObject *who);
+    virtual void GetExtent(Vec3_ee2a0 *out, FEObject *who);
 };
 
 class FEObject {
@@ -34,7 +34,7 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     char pad04[0x14 - 4];
-    Owner *owner;
+    Owner_ee2a0 *owner;
 };
 
 class ImageSelector : public FEObject {
@@ -52,7 +52,7 @@ public:
 
 void ImageSelector::vfunc_3()
 {
-    Vec3 s;
+    Vec3_ee2a0 s;
     FEObject::vfunc_3();
     owner->GetExtent(&s, this);
     cellW = s.x / columns;

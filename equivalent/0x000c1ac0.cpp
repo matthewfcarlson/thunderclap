@@ -10,29 +10,29 @@ extern char DAT_0049f48c[];
 void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 void* __cdecl FUN_000fc260(const char* name);
 int __cdecl FUN_000fc1b0();
-struct Id { unsigned lo, hi; };
-Id __cdecl FUN_0027b020(const char* s);
-struct Label { void FUN_000f8500(const char* text, int a, int b); };
-struct Element { char pad[0x18]; Label label; };
+struct Id_c1ac0 { unsigned lo, hi; };
+Id_c1ac0 __cdecl FUN_0027b020(const char* s);
+struct Label_c1ac0 { void FUN_000f8500(const char* text, int a, int b); };
+struct Element_c1ac0 { char pad[0x18]; Label_c1ac0 label; };
 class Drawable {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
     virtual void v5(); virtual void v6(float t, int flag); virtual void v7(); virtual void v8();
     virtual void v9();
 };
-class Inventory {
+class Inventory_c1ac0 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2();
     virtual Drawable* Find(content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>* caster, unsigned lo, unsigned hi);
 };
-extern Inventory* DAT_004dd9cc;
+extern Inventory_c1ac0* DAT_004dd9cc;
 void ShowDecryptBar() {
-    Element* e = (Element*)FUN_00344e74(FUN_000fc260("dycrypting_sequence_text"), 0, DAT_0049dba4, DAT_0049f48c, 0);
+    Element_c1ac0* e = (Element_c1ac0*)FUN_00344e74(FUN_000fc260("dycrypting_sequence_text"), 0, DAT_0049dba4, DAT_0049f48c, 0);
     if (e)
         e->label.FUN_000f8500("", FUN_000fc1b0(), 1);
-    Inventory* inv = DAT_004dd9cc;
+    Inventory_c1ac0* inv = DAT_004dd9cc;
     content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> caster;
-    Id id = FUN_0027b020("decryptingProgressBar");
+    Id_c1ac0 id = FUN_0027b020("decryptingProgressBar");
     Drawable* d = inv->Find(&caster, id.lo, id.hi);
     if (d) {
         d->v9();

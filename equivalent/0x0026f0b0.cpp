@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 3/4, incomplete)
 // FUN_0026f0b0 @ 0x0026f0b0
 namespace core {
-struct A { virtual void a(); };
-struct B { virtual void b(); char pad[4]; };
-struct C { virtual void c(); };
-struct Device { virtual void f0(); virtual void f1(); char pad[12]; int status; };
-class XboxDrive : public A, public B, public C {
+struct A_26f0b0 { virtual void a(); };
+struct B_26f0b0 { virtual void b(); char pad[4]; };
+struct C_26f0b0 { virtual void c(); };
+struct Device_26f0b0 { virtual void f0(); virtual void f1(); char pad[12]; int status; };
+class XboxDrive : public A_26f0b0, public B_26f0b0, public C_26f0b0 {
 public:
  char padding[0xa8];
- Device *device;
+ Device_26f0b0 *device;
  char middle[8];
  char path[0x11c];
  void *handle;

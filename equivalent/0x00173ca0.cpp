@@ -2,29 +2,29 @@
 // hulkfight::motion::JointPivotTrackerAction::vfunc_5 @ 0x00173ca0
 extern "C" int __cdecl _isnan(double);
 
-struct V3 {
+struct V3_173ca0 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_000111b0(V3 *a, V3 *b);
-    void FUN_00011160(float s, V3 *b);
+    void FUN_000111b0(V3_173ca0 *a, V3_173ca0 *b);
+    void FUN_00011160(float s, V3_173ca0 *b);
 };
 
 struct Q4 {
     float x, y, z, w;
-    void FUN_000111b0(V3 *a, V3 *b);
+    void FUN_000111b0(V3_173ca0 *a, V3_173ca0 *b);
 };
 
-struct Mat4 {
+struct Mat4_173ca0 {
     float m[12];
-    V3 t;
+    V3_173ca0 t;
     float w;
     void FUN_0022b980();
     void FUN_0022c0b0();
-    void FUN_0022c3b0(V3 *in, V3 *out);
-    void FUN_0022baf0(V3 *axis, float angle);
-    void FUN_0022bec0(V3 *a, V3 *b);
-    void FUN_0022ca90(Mat4 *a, Mat4 *b);
-    void FUN_0022c2b0(Q4 *in, V3 *out);
+    void FUN_0022c3b0(V3_173ca0 *in, V3_173ca0 *out);
+    void FUN_0022baf0(V3_173ca0 *axis, float angle);
+    void FUN_0022bec0(V3_173ca0 *a, V3_173ca0 *b);
+    void FUN_0022ca90(Mat4_173ca0 *a, Mat4_173ca0 *b);
+    void FUN_0022c2b0(Q4 *in, V3_173ca0 *out);
 };
 
 float __cdecl FUN_00018a20(float v);
@@ -32,7 +32,7 @@ bool __cdecl FUN_00018960(float a, float b, float eps);
 int __cdecl FUN_00011070(float v);
 
 struct Slot18 {
-    void FUN_00221c60(Mat4 *m);
+    void FUN_00221c60(Mat4_173ca0 *m);
 };
 
 class JointDriver {
@@ -49,33 +49,33 @@ struct SkelInfo {
     unsigned short *parents;
 };
 
-struct Skel {
+struct Skel_173ca0 {
     char pad00[8];
     SkelInfo *info;
     char pad0c[0x1c - 0xc];
-    Mat4 *mats;
+    Mat4_173ca0 *mats;
 };
 
-struct Rig {
+struct Rig_173ca0 {
     char pad00[0x64];
-    Skel *skel;
+    Skel_173ca0 *skel;
     void FUN_00222970(JointDriver *d, int a);
     void FUN_00222890(JointDriver *d, float a, int b, float c, int e, int f, float g);
 };
 
-struct Tracker;
-struct Stats {
-    Tracker *FUN_0003ffe0(unsigned int a, unsigned int b, unsigned int flag, Tracker *prev, V3 *out);
+struct Tracker_173ca0;
+struct Stats_173ca0 {
+    Tracker_173ca0 *FUN_0003ffe0(unsigned int a, unsigned int b, unsigned int flag, Tracker_173ca0 *prev, V3_173ca0 *out);
 };
 
-struct Fighter { char pad[4]; };
-Fighter *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(Fighter *f);
-Rig *__fastcall FUN_00059a40(Fighter *f);
+struct Fighter_173ca0 { char pad[4]; };
+Fighter_173ca0 *__fastcall FUN_000592a0(void *owner);
+Stats_173ca0 *__fastcall FUN_00059a30(Fighter_173ca0 *f);
+Rig_173ca0 *__fastcall FUN_00059a40(Fighter_173ca0 *f);
 
 struct Obj35 {
-    void FUN_00035020(V3 *p);
-    void FUN_000350c0(V3 *p);
+    void FUN_00035020(V3_173ca0 *p);
+    void FUN_000350c0(V3_173ca0 *p);
 };
 
 struct Info8 {
@@ -83,7 +83,7 @@ struct Info8 {
     Q4 q;
 };
 
-struct Comp {
+struct Comp_173ca0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -95,7 +95,7 @@ struct Comp {
     virtual Info8 *vf8();
 };
 
-class Char {
+class Char_173ca0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -112,25 +112,25 @@ public:
     virtual void v12();
     virtual void v13();
     virtual void v14();
-    virtual Mat4 *vf15();
+    virtual Mat4_173ca0 *vf15();
     char pad04[0x11c - 4];
-    Comp *f11c;
+    Comp_173ca0 *f11c;
     char pad120[0x148 - 0x120];
     Obj35 *f148;
-    void FUN_001d69f0(V3 *p);
+    void FUN_001d69f0(V3_173ca0 *p);
 };
 
-struct Tracker {
+struct Tracker_173ca0 {
     virtual void AddRef();
     virtual void Release();
     char pad04[4];
     void *obj;
     int kind;
     char pad10[0x40 - 0x10];
-    V3 pos;
+    V3_173ca0 pos;
 };
 
-struct TrackerData {
+struct TrackerData_173ca0 {
     char pad00[0x38];
     float rate;
     float lo;
@@ -154,13 +154,13 @@ public:
     virtual void vfunc_4();
     virtual bool vfunc_5(int a, float dt);
     char pad04[0x1c - 4];
-    TrackerData *data;
+    TrackerData_173ca0 *data;
     void *owner;
     JointDriver *driver;
-    V3 side;
-    V3 axis;
-    Mat4 mat;
-    Tracker *tracker;
+    V3_173ca0 side;
+    V3_173ca0 axis;
+    Mat4_173ca0 mat;
+    Tracker_173ca0 *tracker;
 };
 
 static inline float AbsF(float f)
@@ -171,29 +171,29 @@ static inline float AbsF(float f)
     return x.f;
 }
 
-struct Frame {
+struct Frame_173ca0 {
     float s10;                      // 0x10: scratch / hi / lim
     union { int idx; float c; unsigned int flagw; unsigned char flagb; } u14;
-    union { Skel *skel; float angle; } u18;
-    V3 v1c;                         // 0x1c
-    V3 p28;                         // 0x28
+    union { Skel_173ca0 *skel; float angle; } u18;
+    V3_173ca0 v1c;                         // 0x1c
+    V3_173ca0 p28;                         // 0x28
     float lo;                       // 0x34
-    V3 out38;                       // 0x38
-    Rig *rig;                       // 0x44
-    V3 t48;                         // 0x48
-    V3 v54;                         // 0x54
-    V3 d60;                         // 0x60
+    V3_173ca0 out38;                       // 0x38
+    Rig_173ca0 *rig;                       // 0x44
+    V3_173ca0 t48;                         // 0x48
+    V3_173ca0 v54;                         // 0x54
+    V3_173ca0 d60;                         // 0x60
     float s6c;                      // 0x6c
-    V3 v70;                         // 0x70
+    V3_173ca0 v70;                         // 0x70
     Q4 q7c;                         // 0x7c
-    V3 v8c;                         // 0x8c
-    Mat4 m98;                       // 0x98
-    Mat4 md8;                       // 0xd8
-    Mat4 m118;                      // 0x118
-    Mat4 m158;                      // 0x158
-    Mat4 m198;                      // 0x198
-    Mat4 m1d8;                      // 0x1d8
-    Mat4 m218;                      // 0x218
+    V3_173ca0 v8c;                         // 0x8c
+    Mat4_173ca0 m98;                       // 0x98
+    Mat4_173ca0 md8;                       // 0xd8
+    Mat4_173ca0 m118;                      // 0x118
+    Mat4_173ca0 m158;                      // 0x158
+    Mat4_173ca0 m198;                      // 0x198
+    Mat4_173ca0 m1d8;                      // 0x1d8
+    Mat4_173ca0 m218;                      // 0x218
 };
 
 bool JointPivotTrackerAction::vfunc_5(int a, float dt)
@@ -201,15 +201,15 @@ bool JointPivotTrackerAction::vfunc_5(int a, float dt)
     if (a != 0 || dt == 0.0f)
         return true;
 
-    Frame F;
-    Fighter *fighter = FUN_000592a0(owner);
-    Stats *stats = FUN_00059a30(fighter);
+    Frame_173ca0 F;
+    Fighter_173ca0 *fighter = FUN_000592a0(owner);
+    Stats_173ca0 *stats = FUN_00059a30(fighter);
     F.rig = FUN_00059a40(fighter);
     F.u18.skel = F.rig->skel;
-    TrackerData *d = data;
+    TrackerData_173ca0 *d = data;
 
     F.u14.flagb = d->flag;
-    Tracker *tr = stats->FUN_0003ffe0(d->i48, d->i4c, F.u14.flagw, tracker, &F.d60);
+    Tracker_173ca0 *tr = stats->FUN_0003ffe0(d->i48, d->i4c, F.u14.flagw, tracker, &F.d60);
     if (tr)
         tr->AddRef();
     if (tracker)
@@ -235,7 +235,7 @@ bool JointPivotTrackerAction::vfunc_5(int a, float dt)
             else if (mode == 2)
                 o->FUN_00035020(&F.p28);
         } else if (tr->kind == 5) {
-            Char *o = (Char *)tr->obj;
+            Char_173ca0 *o = (Char_173ca0 *)tr->obj;
             if (o) {
                 o->FUN_001d69f0(&F.p28);
                 if (o->f148) {

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003618a0 @ 0x003618a0
-struct Entry {
+struct Entry_3618a0 {
     void (*fn)();
     int a;
     int b;
@@ -11,7 +11,7 @@ void FUN_00328580();
 void FUN_00328590();
 void FUN_003285a0();
 void FUN_003285b0();
-extern Entry DAT_004d4d08[5];
+extern Entry_3618a0 DAT_004d4d08[5];
 
 void FUN_003618a0()
 {

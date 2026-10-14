@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_003129e0 @ 0x003129e0
-struct Vec { float x,y,z; };
+struct Vec_3129e0 { float x,y,z; };
 struct Object {
- virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual Vec* position();
+ virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual Vec_3129e0* position();
  char pad[0x24];
- Vec extent;
+ Vec_3129e0 extent;
 };
-void __stdcall FUN_003129e0(Vec* upper, Vec* lower, Object* object) {
- Vec* p = object->position();
+void __stdcall FUN_003129e0(Vec_3129e0* upper, Vec_3129e0* lower, Object* object) {
+ Vec_3129e0* p = object->position();
  double v = (double)object->extent.x + p->x;
  upper->x = v > upper->x ? (float)v : upper->x;
  p = object->position();

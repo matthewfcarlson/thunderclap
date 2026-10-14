@@ -4,7 +4,7 @@ extern "C" void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, cha
 extern char DAT_004d098c[];
 extern char DAT_004d09a8[];
 
-class Target {
+class Target_2de520 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -25,22 +25,22 @@ public:
     virtual int GetValue();                             // slot 18 (0x48)
 };
 
-class Source {
+class Source_2de520 {
 public:
     char pad0[0x10];
-    Target* target;     // 0x10
+    Target_2de520* target;     // 0x10
 };
 
 class ImageConverter {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4();
-    virtual void vfunc_5(void* dest, Source* src, int key);
+    virtual void vfunc_5(void* dest, Source_2de520* src, int key);
     virtual void v6();
     virtual void Apply(void* dest, int value);         // slot 7 (0x1c)
 };
 
-void ImageConverter::vfunc_5(void* dest, Source* src, int key)
+void ImageConverter::vfunc_5(void* dest, Source_2de520* src, int key)
 {
     if (src == 0)
         return;

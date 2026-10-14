@@ -5,27 +5,27 @@ inline void* operator new(unsigned int, void* p) throw() { return p; }
 inline void operator delete(void*, void*) throw() {}
 void* thunk_FUN_0008d690(unsigned int size) throw();
 void* FUN_0008d690(unsigned int size) throw();
-typedef unsigned long long u64;
+typedef unsigned long long u64_2c2ab0;
 
-class RefObj {
+class RefObj_2c2ab0 {
 public:
     virtual void AddRef() throw();
     virtual void Release() throw();
 };
 
 namespace content {
-class ObjectLoader : public RefObj {
+class ObjectLoader : public RefObj_2c2ab0 {
 public:
     virtual void v2() throw();
 };
 }
 
 struct Ctx;
-struct Loader;
+struct Loader_2c2ab0;
 class Geometry;
 
 namespace pure3d {
-class FrameController : public RefObj {
+class FrameController : public RefObj_2c2ab0 {
 public:
     virtual void v2() throw();
 };
@@ -44,7 +44,7 @@ class FrameControllerLoader : public content::ObjectLoader {
 public:
     virtual void v3() throw();
     virtual void v4() throw();
-    virtual void v5(FrameController** out, u64* res, Loader* ld, Ctx* ctx) throw();
+    virtual void v5(FrameController** out, u64_2c2ab0* res, Loader_2c2ab0* ld, Ctx* ctx) throw();
 };
 }
 
@@ -52,7 +52,7 @@ struct Stream {
     void FUN_002647e0(void* dst, int a, int b, int c) throw();
 };
 
-struct Loader {
+struct Loader_2c2ab0 {
     char pad000[0x284];
     Stream* stream;
     bool FUN_002669f0() throw();
@@ -60,28 +60,28 @@ struct Loader {
     void FUN_00266be0() throw();
 };
 
-struct Mgr {
+struct Mgr_2c2ab0 {
     content::ObjectLoader* FUN_00265310(unsigned int id) throw();
 };
-extern Mgr* DAT_00527c58;
+extern Mgr_2c2ab0* DAT_00527c58;
 
-struct Holder {
+struct Holder_2c2ab0 {
     void* p;
     void FUN_002e4e90() throw();
-    RefObj* FUN_002e6340(Loader* ld, Ctx* ctx) throw();
+    RefObj_2c2ab0* FUN_002e6340(Loader_2c2ab0* ld, Ctx* ctx) throw();
     void FUN_002e4ea0() throw();
 };
 
-struct Pair {
+struct Pair_2c2ab0 {
     unsigned int w16;
     unsigned int w20;
 };
 
-struct Obj18 : public RefObj {
-    Obj18* FUN_002d1090(Geometry* g) throw();
+struct Obj18_2c2ab0 : public RefObj_2c2ab0 {
+    Obj18_2c2ab0* FUN_002d1090(Geometry* g) throw();
 };
 
-struct NameObj {
+struct NameObj_2c2ab0 {
     char data[0xc];
     void FUN_0027b040(const char* s) throw();
 };
@@ -91,7 +91,7 @@ public:
     virtual void g0() throw();
     virtual void g1() throw();
     char pad04[4];
-    NameObj name;
+    NameObj_2c2ab0 name;
     float v14[3];
     float v20[3];
     float v2c[3];
@@ -110,22 +110,22 @@ public:
     Geometry(unsigned int n) : GeometryBase(n) { p58 = 0; p5c = 0; p60 = 0; p64 = 0; }
     virtual void g0() throw();
     virtual void g1() throw();
-    RefObj* p58;
-    RefObj* p5c;
+    RefObj_2c2ab0* p58;
+    RefObj_2c2ab0* p5c;
     pure3d::VertexAnimController* p60;
     pure3d::ProceduralVertexAnimController* p64;
 };
 
-struct SubA {
+struct SubA_2c2ab0 {
     void FUN_002df840(unsigned int a) throw();
-    void FUN_002e4d70(char* dst, Loader* ld, Ctx* ctx, int z, int f, Pair* p) throw();
+    void FUN_002e4d70(char* dst, Loader_2c2ab0* ld, Ctx* ctx, int z, int f, Pair_2c2ab0* p) throw();
 };
-struct SubB {
+struct SubB_2c2ab0 {
     void FUN_002df890(unsigned int a) throw();
-    void FUN_002e4e00(char* dst, Loader* ld, Ctx* ctx, int z, bool f) throw();
+    void FUN_002e4e00(char* dst, Loader_2c2ab0* ld, Ctx* ctx, int z, bool f) throw();
 };
 
-u64 FUN_002672f0(const char* name, int a, int b) throw();
+u64_2c2ab0 FUN_002672f0(const char* name, int a, int b) throw();
 
 namespace pure3d {
 class GeometryLoader {
@@ -135,30 +135,30 @@ public:
     virtual void v2() throw();
     virtual void v3() throw();
     virtual void v4() throw();
-    virtual u64 vfunc_5(Geometry** out, u64* hashOut, Loader* ld, Ctx* ctx) throw();
+    virtual u64_2c2ab0 vfunc_5(Geometry** out, u64_2c2ab0* hashOut, Loader_2c2ab0* ld, Ctx* ctx) throw();
     char pad04[0x10];
     unsigned char f14;
     char pad15[3];
     unsigned int f18;
-    SubA* f1c;
-    SubB* f20;
+    SubA_2c2ab0* f1c;
+    SubB_2c2ab0* f20;
     unsigned int f24;
     unsigned int f28;
 };
 
-u64 GeometryLoader::vfunc_5(Geometry** out, u64* hashOut, Loader* ld, Ctx* ctx)
+u64_2c2ab0 GeometryLoader::vfunc_5(Geometry** out, u64_2c2ab0* hashOut, Loader_2c2ab0* ld, Ctx* ctx)
 {
     struct Frame {
         char pad0[3];
         unsigned char lenFlag;      // S+3
         union {
             unsigned int version;   // S+4
-            Holder holder;
+            Holder_2c2ab0 holder;
         };
         FrameController* ctl;       // S+8
         GeometryLoader* self;       // S+12
         union {                     // S+16
-            Pair pair;
+            Pair_2c2ab0 pair;
             unsigned char b[8];
         };
         int offset;                 // S+24
@@ -174,7 +174,7 @@ u64 GeometryLoader::vfunc_5(Geometry** out, u64* hashOut, Loader* ld, Ctx* ctx)
         unsigned int r7;            // S+64
         unsigned int r1;            // S+68
         unsigned int skip;          // S+72
-        u64 res;                    // S+76
+        u64_2c2ab0 res;                    // S+76
         char name[256];             // S+84
     } fr;
 
@@ -247,16 +247,16 @@ u64 GeometryLoader::vfunc_5(Geometry** out, u64* hashOut, Loader* ld, Ctx* ctx)
                 break;
             case 0x121305: {
                 fr.holder.FUN_002e4e90();
-                RefObj* a = fr.holder.FUN_002e6340(ld, ctx);
+                RefObj_2c2ab0* a = fr.holder.FUN_002e6340(ld, ctx);
                 if (a)
                     a->AddRef();
                 if (g->p58)
                     g->p58->Release();
                 g->p58 = a;
                 void* m = FUN_0008d690(0x18);
-                Obj18* o;
+                Obj18_2c2ab0* o;
                 if (m)
-                    o = ((Obj18*)m)->FUN_002d1090(g);
+                    o = ((Obj18_2c2ab0*)m)->FUN_002d1090(g);
                 else
                     o = 0;
                 if (o)
@@ -304,7 +304,7 @@ u64 GeometryLoader::vfunc_5(Geometry** out, u64* hashOut, Loader* ld, Ctx* ctx)
         } while (ld->FUN_002669f0());
     }
     *out = g;
-    u64 r = FUN_002672f0(fr.name, 0, 0);
+    u64_2c2ab0 r = FUN_002672f0(fr.name, 0, 0);
     *hashOut = r;
     return r;
 }

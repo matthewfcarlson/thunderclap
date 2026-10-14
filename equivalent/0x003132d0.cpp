@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 27 inputs, branch coverage 25/26, incomplete)
 // FUN_003132d0 @ 0x003132d0
-struct Box {
+struct Box_3132d0 {
     float minx, miny, minz;
     float maxx, maxy, maxz;
 };
@@ -9,13 +9,13 @@ class HashGrid {
 public:
     unsigned short table[0x1000];
     short* parent;
-    void FUN_003132d0(Box* boxes, int count);
+    void FUN_003132d0(Box_3132d0* boxes, int count);
 };
 
-void HashGrid::FUN_003132d0(Box* boxes, int count)
+void HashGrid::FUN_003132d0(Box_3132d0* boxes, int count)
 {
     for (int i = 0; i < count; i++) {
-        Box* b = &boxes[i];
+        Box_3132d0* b = &boxes[i];
         for (int x = (int)b->minx; x <= (int)b->maxx; x++) {
             for (int y = (int)b->miny; y <= (int)b->maxy; y++) {
                 for (int z = (int)b->minz; z <= (int)b->maxz; z++) {

@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
 // FUN_00036d90 @ 0x00036d90
-struct Key { unsigned int low, high; };
-struct Entry {
+struct Key_36d90 { unsigned int low, high; };
+struct Entry_36d90 {
  unsigned int low, high;
  unsigned int value, extra;
- char FUN_0027af90(Key* key);
- void FUN_0027af70(Key* key);
+ char FUN_0027af90(Key_36d90* key);
+ void FUN_0027af70(Key_36d90* key);
 };
-struct Cache {
+struct Cache_36d90 {
  char padding[0x2150];
- Entry entries[16];
+ Entry_36d90 entries[16];
  int next;
- int FUN_00036d90(Key* key);
+ int FUN_00036d90(Key_36d90* key);
 };
-int Cache::FUN_00036d90(Key* key) {
+int Cache_36d90::FUN_00036d90(Key_36d90* key) {
  if ((key->low | key->high) == 0) return -1;
  for (int i=0;i<16;++i) {
   if (entries[i].FUN_0027af90(key)) return i;

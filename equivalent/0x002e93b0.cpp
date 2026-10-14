@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 114 inputs, branch coverage 21/22, incomplete)
 // FUN_002e93b0 @ 0x002e93b0
-struct png_color_16 {
+struct png_color_16_2e93b0 {
     unsigned char index;
     unsigned char pad1;
     unsigned short red;
@@ -9,36 +9,36 @@ struct png_color_16 {
     unsigned short gray;
 };
 
-struct png_color {
+struct png_color_2e93b0 {
     unsigned char red;
     unsigned char green;
     unsigned char blue;
 };
 
-struct png_info {
+struct png_info_2e93b0 {
     char pad0[8];
     unsigned int valid;
 };
 
-struct png_struct {
+struct png_struct_2e93b0 {
     char pad0[0x60];
     unsigned int mode;
     char pad64[0x10c - 0x64];
-    png_color *palette;
+    png_color_2e93b0 *palette;
     char pad110[0x11e - 0x110];
     unsigned char color_type;
     char pad11f[0x130 - 0x11f];
-    png_color_16 background;
+    png_color_16_2e93b0 background;
 };
 
-void __cdecl FUN_002e69a0(png_struct *png_ptr, const char *msg);
-void __cdecl FUN_002e69d0(png_struct *png_ptr, const char *msg);
-int __cdecl FUN_002e81e0(png_struct *png_ptr, unsigned int skip);
-void __cdecl FUN_002e7580(png_struct *png_ptr, unsigned char *buf, unsigned int length);
+void __cdecl FUN_002e69a0(png_struct_2e93b0 *png_ptr, const char *msg);
+void __cdecl FUN_002e69d0(png_struct_2e93b0 *png_ptr, const char *msg);
+int __cdecl FUN_002e81e0(png_struct_2e93b0 *png_ptr, unsigned int skip);
+void __cdecl FUN_002e7580(png_struct_2e93b0 *png_ptr, unsigned char *buf, unsigned int length);
 unsigned short __cdecl FUN_002e7560(const unsigned char *buf);
-void __cdecl FUN_002eb150(png_struct *png_ptr, png_info *info_ptr, png_color_16 *background);
+void __cdecl FUN_002eb150(png_struct_2e93b0 *png_ptr, png_info_2e93b0 *info_ptr, png_color_16_2e93b0 *background);
 
-void png_handle_bKGD(png_struct *png_ptr, png_info *info_ptr, unsigned int length)
+void png_handle_bKGD(png_struct_2e93b0 *png_ptr, png_info_2e93b0 *info_ptr, unsigned int length)
 {
     unsigned int truelen;
     unsigned char buf[6];

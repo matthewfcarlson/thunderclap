@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00342800 @ 0x00342800
-struct Block16 {
+struct Block16_342800 {
     float v[16];
 };
 
-struct Scaler {
+struct Scaler_342800 {
     int pad0;
     float scale;
     // data block arrives in eax
-    void FUN_00342800(Block16* d);
+    void FUN_00342800(Block16_342800* d);
 };
 
 // equiv-conv: FUN_00342800 ecx eax
-void Scaler::FUN_00342800(Block16* d)
+void Scaler_342800::FUN_00342800(Block16_342800* d)
 {
     float S = scale;
     float* v = d->v;

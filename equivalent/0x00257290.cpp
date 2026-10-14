@@ -1,39 +1,39 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 14/14)
 // FUN_00257290 @ 0x00257290
 // Write the "mSeqTrackList" block: every track in the linked list, one per line.
-struct Writer {
+struct Writer_257290 {
     char pad0[0x24];
     int indent;
 };
 
-struct Archive {
-    Writer* writer;
+struct Archive_257290 {
+    Writer_257290* writer;
 };
 
-char FUN_00246f50(Writer* writer, const char* fmt, ...);
+char FUN_00246f50(Writer_257290* writer, const char* fmt, ...);
 
-struct Link {
-    Link* next;
+struct Link_257290 {
+    Link_257290* next;
 };
 
 class Track {
 public:
-    virtual char Write(Archive* ar);
+    virtual char Write(Archive_257290* ar);
     char pad4[0x10];
 };
 
-class TrackItem : public Track, public Link {
+class TrackItem : public Track, public Link_257290 {
 };
 
 class SeqTrackList {
 public:
     char pad0[0x3c];
-    Link* first;
+    Link_257290* first;
 
-    bool FUN_00257290(Archive* ar);
+    bool FUN_00257290(Archive_257290* ar);
 };
 
-bool SeqTrackList::FUN_00257290(Archive* ar)
+bool SeqTrackList::FUN_00257290(Archive_257290* ar)
 {
     if (!FUN_00246f50(ar->writer, "mSeqTrackList\n[\n")) {
         return false;

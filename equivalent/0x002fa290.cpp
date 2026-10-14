@@ -7,20 +7,20 @@ extern float DAT_004d2c90;
 extern float DAT_004d2c94;
 extern float DAT_004d2c98;
 
-struct Vec3 {
+struct Vec3_2fa290 {
     float x, y, z;
 };
 
-struct Box {
+struct Box_2fa290 {
     float x, y, z;
-    bool FUN_002f90c0(Vec3* p);
+    bool FUN_002f90c0(Vec3_2fa290* p);
 };
 
 struct Matrix {
     char data[0x40];
 };
 
-struct Item {
+struct Item_2fa290 {
     char pad00[0x8c];
     Matrix xform;               // 0x8c
     char hasXform;              // 0xcc
@@ -29,31 +29,31 @@ struct Item {
 };
 
 class VisCache;
-struct Entry;
+struct Entry_2fa290;
 
 // temporary built from an item's transform and the cache
-struct Temp {
+struct Temp_2fa290 {
     char data[0x18];
     void FUN_00298530(Matrix* xform, VisCache* cache);
 };
 
-struct Entry {
-    Item* item;                 // 0x00
+struct Entry_2fa290 {
+    Item_2fa290* item;                 // 0x00
     int version;                // 0x04
     unsigned short* first;      // 0x08
     unsigned short* last;       // 0x0c
-    void FUN_002fa1f0(void* source, Item* item);
+    void FUN_002fa1f0(void* source, Item_2fa290* item);
 };
 
 // The dead argument slots double as scratch: the iterator lives in the first one, and the
 // temporary is built in the whole block.
-union Frame {
+union Frame_2fa290 {
     struct {
-        Vec3 pos;
-        Vec3 size;
+        Vec3_2fa290 pos;
+        Vec3_2fa290 size;
     } in;
-    Entry* it;
-    Temp temp;
+    Entry_2fa290* it;
+    Temp_2fa290 temp;
 };
 
 struct ShortVec {
@@ -63,25 +63,25 @@ struct ShortVec {
     void FUN_002f9930(unsigned short* pos, int count, unsigned short* src);
 };
 
-Entry* FUN_002f9460(Entry* first, Entry* last, Entry* dest);
+Entry_2fa290* FUN_002f9460(Entry_2fa290* first, Entry_2fa290* last, Entry_2fa290* dest);
 
 class VisCache {
 public:
-    void FUN_002fa290(Frame frame, Item* item, Entry* out);
+    void FUN_002fa290(Frame_2fa290 frame, Item_2fa290* item, Entry_2fa290* out);
     void FUN_002f9ed0();
 
-    Vec3 lo;                    // 0x00
-    Vec3 hi;                    // 0x0c
-    Box box;                    // 0x18
-    Vec3 boxMax;                // 0x24
-    Entry* begin;               // 0x30
-    Entry* end;                 // 0x34
-    Entry* cap;                 // 0x38
+    Vec3_2fa290 lo;                    // 0x00
+    Vec3_2fa290 hi;                    // 0x0c
+    Box_2fa290 box;                    // 0x18
+    Vec3_2fa290 boxMax;                // 0x24
+    Entry_2fa290* begin;               // 0x30
+    Entry_2fa290* end;                 // 0x34
+    Entry_2fa290* cap;                 // 0x38
     char pad3c[4];
     ShortVec shorts;            // 0x40
 };
 
-void VisCache::FUN_002fa290(Frame frame, Item* item, Entry* out)
+void VisCache::FUN_002fa290(Frame_2fa290 frame, Item_2fa290* item, Entry_2fa290* out)
 {
     if (box.FUN_002f90c0(&frame.in.pos)) {
         frame.it = begin;
@@ -95,10 +95,10 @@ void VisCache::FUN_002fa290(Frame frame, Item* item, Entry* out)
                         out->last = frame.it->last;
                         return;
                     }
-                    Entry* last = end;
-                    Entry* src = frame.it + 1;
+                    Entry_2fa290* last = end;
+                    Entry_2fa290* src = frame.it + 1;
                     if (src != last) {
-                        Entry* dst = frame.it;
+                        Entry_2fa290* dst = frame.it;
                         do {
                             *dst = *src;
                             src++;
@@ -156,14 +156,14 @@ void VisCache::FUN_002fa290(Frame frame, Item* item, Entry* out)
     shorts.FUN_002f9930(oldEnd, out->last - out->first, out->first);
 
     if (end < cap) {
-        Entry* slot = end;
+        Entry_2fa290* slot = end;
         end = slot + 1;
         if (slot)
             *slot = *out;
     }
 
     unsigned short* newEnd = shorts.end;
-    Entry* tail = end - 1;
+    Entry_2fa290* tail = end - 1;
     tail->first = oldEnd;
     tail->last = newEnd;
 }

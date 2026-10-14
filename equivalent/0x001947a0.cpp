@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 16/16)
 // FUN_001947a0 @ 0x001947a0
-struct Vec3 {
+struct Vec3_1947a0 {
     float x, y, z;
 };
 
@@ -11,19 +11,19 @@ struct Wanderer {
     int direction;
 };
 
-struct RandState {
+struct RandState_1947a0 {
     unsigned s0;
     unsigned s1;
     float FUN_000787e0(float lo, float hi);
 };
 
-RandState* FUN_000964d0();
+RandState_1947a0* FUN_000964d0();
 
 // Random walk step: the position arrives in esi, the walker and the step size on the stack.
 // equiv-conv: FUN_001947a0 esi stack stack
-void FUN_001947a0(Vec3* pos, Wanderer* w, float step)
+void FUN_001947a0(Vec3_1947a0* pos, Wanderer* w, float step)
 {
-    RandState* rng = FUN_000964d0();
+    RandState_1947a0* rng = FUN_000964d0();
     int dir = w->direction;
     if (dir == 1 || dir == 0) {
         rng->s0 = (rng->s0 & 0xffff) * 0x9069 + (rng->s0 >> 16);

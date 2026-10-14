@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_000e0850 @ 0x000e0850
-struct Vec3 {
+struct Vec3_e0850 {
     float x, y, z;
 };
 
@@ -15,7 +15,7 @@ public:
     virtual void vfunc_6(int a, int b);
 };
 
-class Factory {
+class Factory_e0850 {
 public:
     virtual void v0();
     virtual void v1();
@@ -31,7 +31,7 @@ public:
     virtual Texture *vfunc_11(const char *name, int flags);
 };
 
-class Device {
+class Device_e0850 {
 public:
     virtual void v0();
     virtual void v1();
@@ -68,13 +68,13 @@ public:
 };
 
 extern Texture *DAT_004de954;
-extern Factory *DAT_0052c2a0;
-extern Device *DAT_0052c2a8;
+extern Factory_e0850 *DAT_0052c2a0;
+extern Device_e0850 *DAT_0052c2a8;
 
-void __cdecl FUN_000e07c0(Vec3 a, Vec3 b, int color);
+void __cdecl FUN_000e07c0(Vec3_e0850 a, Vec3_e0850 b, int color);
 
 /* Draws the outline of a quad in debug lines. */
-void __cdecl FUN_000e0850(Vec3 p0, Vec3 p1, Vec3 p2, Vec3 p3, int color, int arg)
+void __cdecl FUN_000e0850(Vec3_e0850 p0, Vec3_e0850 p1, Vec3_e0850 p2, Vec3_e0850 p3, int color, int arg)
 {
     if (DAT_004de954 == 0) {
         DAT_004de954 = DAT_0052c2a0->vfunc_11("simple", 0);

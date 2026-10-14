@@ -16,7 +16,7 @@ public:
     Stream *FUN_00264190(void *data, unsigned int size);
 };
 
-class Source {
+class Source_232ae0 {
 public:
     virtual void s0();
     virtual void s1();
@@ -45,13 +45,13 @@ public:
     virtual int GetOption();
 };
 
-class Loader {
+class Loader_232ae0 {
 public:
     int FUN_00232870(void *data, Stream *stream, unsigned int size, int option);
-    int FUN_00232ae0(Source *source, unsigned int size);
+    int FUN_00232ae0(Source_232ae0 *source, unsigned int size);
 };
 
-int Loader::FUN_00232ae0(Source *source, unsigned int size)
+int Loader_232ae0::FUN_00232ae0(Source_232ae0 *source, unsigned int size)
 {
     int saved = FUN_00266da0(FUN_00238190(2));
     void *buffer = FUN_0008d6d0(size);

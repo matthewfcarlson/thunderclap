@@ -2,7 +2,7 @@
 // FUN_00309520 @ 0x00309520
 void *__cdecl FUN_0008d6d0(unsigned int size);
 
-struct Vec3 {
+struct Vec3_309520 {
     float x, y, z;
 };
 
@@ -13,25 +13,25 @@ struct SymMatrix {
     void FUN_002fcaf0(const SymMatrix *src);
 };
 
-struct Part {
+struct Part_309520 {
     SymMatrix inertia;
-    Vec3 pos;
+    Vec3_309520 pos;
     float mass;
     float massBits;
     unsigned char active;
     char pad31[3];
 };
 
-struct Source {
+struct Source_309520 {
     char pad0[0x34];
     float mass;
     char pad38[0x48 - 0x38];
     SymMatrix inertia;
     char pad64[0x80 - 0x64];
-    Vec3 pos;
+    Vec3_309520 pos;
 };
 
-struct Settings {
+struct Settings_309520 {
     char pad0[0xc];
     float massScale;
 };
@@ -83,7 +83,7 @@ public:
     char pad04[0xc];
     int hook;
     char pad14[4];
-    Settings *settings;
+    Settings_309520 *settings;
     char pad1c[8];
     int mode;
     char pad28[0x10];
@@ -95,22 +95,22 @@ public:
 
 class HairclubPhysicsObject : public PhysicsObject {
 public:
-    Part *parts;
+    Part_309520 *parts;
     int count;
     void FUN_00309410();
-    HairclubPhysicsObject(int a, Source **sources, int n) throw();
+    HairclubPhysicsObject(int a, Source_309520 **sources, int n) throw();
 };
 
-HairclubPhysicsObject::HairclubPhysicsObject(int a, Source **sources, int n) throw() : PhysicsObject(a)
+HairclubPhysicsObject::HairclubPhysicsObject(int a, Source_309520 **sources, int n) throw() : PhysicsObject(a)
 {
     parts = 0;
     count = n;
     mode = 2;
-    Part *arr = 0;
-    int *mem = (int *)FUN_0008d6d0(n * sizeof(Part) + 4);
+    Part_309520 *arr = 0;
+    int *mem = (int *)FUN_0008d6d0(n * sizeof(Part_309520) + 4);
     if (mem) {
         *mem = n;
-        arr = (Part *)(mem + 1);
+        arr = (Part_309520 *)(mem + 1);
         for (int i = 0; i < n; i++)
             arr[i].inertia.FUN_002fca90();
     }

@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 38/38)
 // FUN_002e0cc0 @ 0x002e0cc0
-struct V3 {
+struct V3_2e0cc0 {
     int x, y, z;
 };
 
 struct VtxRec {
     int idx;
-    V3 v;
+    V3_2e0cc0 v;
 };
 
 struct UvRec {
@@ -35,7 +35,7 @@ struct UvVec {
     UvRec *cap;
 };
 
-struct Src {
+struct Src_2e0cc0 {
     char pad0[0x14];
     VtxRec *vbegin;        // 0x14
     VtxRec *vend;          // 0x18
@@ -47,23 +47,23 @@ struct Src {
     UvVec ext[2];          // 0x5c
 };
 
-struct Mesh {
+struct Mesh_2e0cc0 {
     char pad0[0x10];
-    V3 *f10;
-    V3 *f14;
+    V3_2e0cc0 *f10;
+    V3_2e0cc0 *f14;
     Pair8 *uv[4];          // 0x18
     Entry8 *ext[2];        // 0x28
     void FUN_002c7070();
 };
 
-class Model {
+class Model_2e0cc0 {
 public:
     char pad0[0x5c];
-    Mesh *mesh;            // 0x5c
-    void FUN_002e0cc0(Src *src, char flag);
+    Mesh_2e0cc0 *mesh;            // 0x5c
+    void FUN_002e0cc0(Src_2e0cc0 *src, char flag);
 };
 
-void Model::FUN_002e0cc0(Src *src, char flag)
+void Model_2e0cc0::FUN_002e0cc0(Src_2e0cc0 *src, char flag)
 {
     if (flag == 1)
         mesh->FUN_002c7070();
@@ -73,7 +73,7 @@ void Model::FUN_002e0cc0(Src *src, char flag)
         for (i = 0; i < n; i++) {
             VtxRec *e = &src->vbegin[i];
             int idx = e->idx;
-            V3 *d = &mesh->f10[idx];
+            V3_2e0cc0 *d = &mesh->f10[idx];
             d->x = e->v.x;
             d->y = e->v.y;
             d->z = e->v.z;
@@ -84,7 +84,7 @@ void Model::FUN_002e0cc0(Src *src, char flag)
         for (i = 0; i < n; i++) {
             VtxRec *e = &src->nbegin[i];
             int idx = e->idx;
-            V3 *d = &mesh->f14[idx];
+            V3_2e0cc0 *d = &mesh->f14[idx];
             d->x = e->v.x;
             d->y = e->v.y;
             d->z = e->v.z;

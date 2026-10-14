@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 18/18)
 // FUN_002080b0 @ 0x002080b0
-class Dev {
+class Dev_2080b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -96,7 +96,7 @@ public:
     virtual void v91();
 };
 
-class Slot {
+class Slot_2080b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -104,57 +104,57 @@ public:
     void FUN_002665a0();
 };
 
-class Ent {
+class Ent_2080b0 {
 public:
     char pad[0x31];
     char flag31;
     void FUN_001b90b0();
 };
 
-class EntList { public: Ent *FUN_00086290(); };
-class Input {
+class EntList_2080b0 { public: Ent_2080b0 *FUN_00086290(); };
+class Input_2080b0 {
 public:
     int FUN_000d6f50();
     void FUN_000d7030(int v);
 };
-class G;
-class Res { public: void FUN_0009a400(G *g); };
+class G_2080b0;
+class Res_2080b0 { public: void FUN_0009a400(G_2080b0 *g); };
 
-class G {
+class G_2080b0 {
 public:
     char pad0[8];
-    Res *res;
+    Res_2080b0 *res;
     char pad0c[0x30];
-    Input *input;
+    Input_2080b0 *input;
     char pad40[0x14];
-    EntList *ents;
+    EntList_2080b0 *ents;
 };
 
-extern Dev *DAT_0052c2a8;
-extern G *DAT_004dd700;
+extern Dev_2080b0 *DAT_0052c2a8;
+extern G_2080b0 *DAT_004dd700;
 
-class Obj;
-class Aux { public: int FUN_00266710(); };
+class Obj_2080b0;
+class Aux_2080b0 { public: int FUN_00266710(); };
 
-class Obj {
+class Obj_2080b0 {
 public:
     char pad0[0x578];
-    Slot *slots[3];
+    Slot_2080b0 *slots[3];
     char pad584[0x9a4 - 0x584];
     int mask;
     char pad9a8[0xaec - 0x9a8];
-    Aux *aux;
+    Aux_2080b0 *aux;
     char af0;
     char af1;
     char af2;
     char af3;
-    void FUN_00203e30(Aux *a);
+    void FUN_00203e30(Aux_2080b0 *a);
     void FUN_00207410();
     void FUN_00207d80();
     void FUN_002080b0();
 };
 
-void Obj::FUN_002080b0()
+void Obj_2080b0::FUN_002080b0()
 {
     if (!af1)
         return;

@@ -2,25 +2,25 @@
 // FUN_002611b0 @ 0x002611b0
 extern "C" int strcmp(const char *a, const char *b);
 
-struct Interp;
+struct Interp_2611b0;
 
 struct Builtin {
     const char *name;
-    const char *(__cdecl *fn)(Interp *in);
+    const char *(__cdecl *fn)(Interp_2611b0 *in);
 };
 extern Builtin DAT_004cd388[];
 extern int DAT_004cd418;
 
-struct Str {
+struct Str_2611b0 {
     char data[0x10];
-    Str *FUN_0023fc40(const char *text, int len);
+    Str_2611b0 *FUN_0023fc40(const char *text, int len);
     const char *FUN_0023fb00();
     void FUN_00240060();
 };
 
 struct Symbols;
 
-struct Interp {
+struct Interp_2611b0 {
     Symbols *symbols;        // 0x0000
     char pad04[0x2004 - 4];
     char *out;               // 0x2004
@@ -28,11 +28,11 @@ struct Interp {
     char *end;               // 0x200c
 };
 
-void __cdecl FUN_00260b30(Interp *in);
+void __cdecl FUN_00260b30(Interp_2611b0 *in);
 int __cdecl FUN_002673a0(const char *text, int radix);
-Str *__cdecl FUN_002610e0(Symbols *symbols, int *key);
+Str_2611b0 *__cdecl FUN_002610e0(Symbols *symbols, int *key);
 
-const char *__cdecl FUN_002611b0(Interp *in)
+const char *__cdecl FUN_002611b0(Interp_2611b0 *in)
 {
     if (in->cur >= in->end)
         return "";
@@ -66,9 +66,9 @@ const char *__cdecl FUN_002611b0(Interp *in)
     if (*token != '$')
         return token;
 
-    Str name;
+    Str_2611b0 name;
     int key = FUN_002673a0(name.FUN_0023fc40(token + 1, 2)->FUN_0023fb00(), 0);
-    Str *found = FUN_002610e0(in->symbols, &key);
+    Str_2611b0 *found = FUN_002610e0(in->symbols, &key);
     name.FUN_00240060();
 
     if (found != 0) {

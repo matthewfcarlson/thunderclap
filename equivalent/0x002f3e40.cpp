@@ -1,44 +1,44 @@
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 27/28, incomplete)
 // FUN_002f3e40 @ 0x002f3e40
-struct Vec3 {
+struct Vec3_2f3e40 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-union FloatBits {
+union FloatBits_2f3e40 {
     float f;
     unsigned int u;
 };
 
-struct Segment {
-    Vec3 a;
-    Vec3 b;
+struct Segment_2f3e40 {
+    Vec3_2f3e40 a;
+    Vec3_2f3e40 b;
 };
 
 struct ClipOut {
-    Vec3 a;
-    Vec3 b;
-    Vec3 start;
-    Vec3 dir;
+    Vec3_2f3e40 a;
+    Vec3_2f3e40 b;
+    Vec3_2f3e40 start;
+    Vec3_2f3e40 dir;
 };
 
-struct Bounds {
+struct Bounds_2f3e40 {
     char pad00[0x24];
-    Vec3 origin;
+    Vec3_2f3e40 origin;
     char pad30[0x3c - 0x30];
-    Vec3 scale;
+    Vec3_2f3e40 scale;
 };
 
 class RayClipper {
 public:
     char pad00[0x44];
-    Bounds *bounds;
-    void Clip(ClipOut *out, const Segment *seg);
+    Bounds_2f3e40 *bounds;
+    void Clip(ClipOut *out, const Segment_2f3e40 *seg);
 };
 
-void RayClipper::Clip(ClipOut *out, const Segment *seg)
+void RayClipper::Clip(ClipOut *out, const Segment_2f3e40 *seg)
 {
-    Bounds *bd = bounds;
+    Bounds_2f3e40 *bd = bounds;
     float tmin;
     double tmax;
     int axis;
@@ -75,7 +75,7 @@ void RayClipper::Clip(ClipOut *out, const Segment *seg)
     s = &out->start.z;
     dp = &out->dir.z;
     for (axis = 0; axis < 3; axis++) {
-        FloatBits bits;
+        FloatBits_2f3e40 bits;
         bits.f = *dp;
         bits.u &= 0x7fffffff;
         if (bits.f >= 1e-5f) {

@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 8 inputs, branch coverage 12/14, incomplete)
 // FUN_00279f80 @ 0x00279f80
 struct Node { unsigned int parent; unsigned int left; unsigned int right; };
-struct Tree { unsigned int root; Node *nodes; };
+struct Tree_279f80 { unsigned int root; Node *nodes; };
 // equiv-conv: FUN_00279f80 ecx stack stack stack stack stack
-unsigned char FUN_00279f80(unsigned int end, const unsigned char *data, unsigned int position, unsigned int *offset, unsigned int *length, Tree *tree)
+unsigned char FUN_00279f80(unsigned int end, const unsigned char *data, unsigned int position, unsigned int *offset, unsigned int *length, Tree_279f80 *tree)
 {
     unsigned int current = tree->nodes[tree->root].right;
     unsigned int count = end - position;

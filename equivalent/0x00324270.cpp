@@ -2,7 +2,7 @@
 // FUN_00324270 @ 0x00324270
 // FUN_00324270 @ 0x00324270
 namespace pure3d {
-struct Vec4 {
+struct Vec4_324270 {
     float x;
     float y;
     float z;
@@ -12,7 +12,7 @@ struct Vec4 {
     };
 };
 // equiv-conv: FUN_0031ffc0 ecx stack
-void FUN_0031ffc0(Vec4* self, unsigned int packed);
+void FUN_0031ffc0(Vec4_324270* self, unsigned int packed);
 struct Matrix {
     float m[16];
     void FUN_0022c0b0();
@@ -26,11 +26,11 @@ struct ShaderColors {
 };
 struct Light {
     int type;
-    Vec4 diffuse;
-    Vec4 specular;
-    Vec4 ambient;
+    Vec4_324270 diffuse;
+    Vec4_324270 specular;
+    Vec4_324270 ambient;
     float position[3];
-    Vec4 directionRange;
+    Vec4_324270 directionRange;
     float falloff;
     float attenuation[3];
     float theta;
@@ -114,7 +114,7 @@ void __fastcall D3DDevice_SetVertexShaderConstant4(int reg, const void* data);
 
 void pure3d::Shader::FUN_00324270(ColorSource* source) {
     int ids[4];
-    Vec4 constA, zero, out1, out2, out3, out4, out5;
+    Vec4_324270 constA, zero, out1, out2, out3, out4, out5;
     ShaderColors colors;
     unsigned int scratch;
     Matrix view, inverse;

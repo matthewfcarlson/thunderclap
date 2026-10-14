@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 24/24)
 // FUN_001fc150 @ 0x001fc150
-struct Vec3 {
+struct Vec3_1fc150 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-void __cdecl FUN_00224d70(float angle, Vec3 *v);
+void __cdecl FUN_00224d70(float angle, Vec3_1fc150 *v);
 
-class Volume {
+class Volume_1fc150 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -17,22 +17,22 @@ public:
     virtual void vfunc_5();
     virtual void vfunc_6();
     virtual void vfunc_7();
-    virtual bool vfunc_8(Vec3 point);
+    virtual bool vfunc_8(Vec3_1fc150 point);
     char pad04[0xb0 - 4];
-    Vec3 minimum;
-    Vec3 maximum;
+    Vec3_1fc150 minimum;
+    Vec3_1fc150 maximum;
     float angle;
 
-    void FUN_001fbec0(Vec3 *pivot);
-    Vec3 *FUN_001fc150(Vec3 *out, const Vec3 *a, const Vec3 *b);
+    void FUN_001fbec0(Vec3_1fc150 *pivot);
+    Vec3_1fc150 *FUN_001fc150(Vec3_1fc150 *out, const Vec3_1fc150 *a, const Vec3_1fc150 *b);
 };
 
-Vec3 *Volume::FUN_001fc150(Vec3 *out, const Vec3 *a, const Vec3 *b)
+Vec3_1fc150 *Volume_1fc150::FUN_001fc150(Vec3_1fc150 *out, const Vec3_1fc150 *a, const Vec3_1fc150 *b)
 {
     struct Frame {
-        Vec3 p;
-        Vec3 r;
-        Vec3 pivot;
+        Vec3_1fc150 p;
+        Vec3_1fc150 r;
+        Vec3_1fc150 pivot;
     } fr;
 
     fr.r.x = 0.0f;

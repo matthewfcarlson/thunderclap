@@ -1,32 +1,32 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 12/12)
 // choreo2::JointDriver::vfunc_10 @ 0x002249d0
-struct V3 {
+struct V3_2249d0 {
     float x, y, z;
 };
 
-struct Quat {
+struct Quat_2249d0 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat *a, const Quat *b, float t);
+    void FUN_0022b750(const Quat_2249d0 *a, const Quat_2249d0 *b, float t);
 };
 
-struct Transform {
+struct Transform_2249d0 {
     char pad0[0x30];
-    V3 pos;
-    Quat *FUN_00221cd0();
-    void FUN_00221cf0(const Quat *q);
-    void FUN_0022be40(const V3 *p);
+    V3_2249d0 pos;
+    Quat_2249d0 *FUN_00221cd0();
+    void FUN_00221cf0(const Quat_2249d0 *q);
+    void FUN_0022be40(const V3_2249d0 *p);
 };
 
 struct JointPose {
     char pad0[0x30];
-    V3 pos;
+    V3_2249d0 pos;
     char pad3c[4];
 };
 
-struct PoseSet {
+struct PoseSet_2249d0 {
     char pad0[0xc];
     unsigned int count;
-    Quat *rotations;
+    Quat_2249d0 *rotations;
     JointPose *poses;
 };
 
@@ -42,26 +42,26 @@ public:
     virtual void vfunc_7();
     virtual void vfunc_8();
     virtual void vfunc_9();
-    virtual void vfunc_10(int a, Transform *target, PoseSet *set, float t);
+    virtual void vfunc_10(int a, Transform_2249d0 *target, PoseSet_2249d0 *set, float t);
     char pad04[0x10 - 4];
     unsigned int index;
     unsigned char flags;
     char pad15[3];
-    Transform goal;
+    Transform_2249d0 goal;
 };
 
-void JointDriver::vfunc_10(int a, Transform *target, PoseSet *set, float t)
+void JointDriver::vfunc_10(int a, Transform_2249d0 *target, PoseSet_2249d0 *set, float t)
 {
     if (index == 0) {
         if (flags & 1) {
-            V3 p = target->pos;
+            V3_2249d0 p = target->pos;
             p.x = (goal.pos.x - p.x) * t + p.x;
             p.y = (goal.pos.y - p.y) * t + p.y;
             p.z = (goal.pos.z - p.z) * t + p.z;
             target->FUN_0022be40(&p);
         }
         if (flags & 2) {
-            Quat q = *target->FUN_00221cd0();
+            Quat_2249d0 q = *target->FUN_00221cd0();
             q.FUN_0022b750(&q, goal.FUN_00221cd0(), t);
             target->FUN_00221cf0(&q);
         }
@@ -70,7 +70,7 @@ void JointDriver::vfunc_10(int a, Transform *target, PoseSet *set, float t)
             return;
         if (flags & 1) {
             JointPose *jp = &set->poses[index];
-            V3 p = jp->pos;
+            V3_2249d0 p = jp->pos;
             float x = (goal.pos.x - p.x) * t + p.x;
             float y = (goal.pos.y - p.y) * t + p.y;
             float z = (goal.pos.z - p.z) * t + p.z;
@@ -79,7 +79,7 @@ void JointDriver::vfunc_10(int a, Transform *target, PoseSet *set, float t)
             jp->pos.y = y;
         }
         if (flags & 2) {
-            Quat q = set->rotations[index];
+            Quat_2249d0 q = set->rotations[index];
             q.FUN_0022b750(&q, goal.FUN_00221cd0(), t);
             set->rotations[index] = q;
         }

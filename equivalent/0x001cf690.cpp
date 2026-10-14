@@ -15,20 +15,20 @@ template <> struct Tid<int> { static const char *p() { return DAT_0048e134; } };
 template <> struct Tid<float> { static const char *p() { return DAT_0048e128; } };
 template <> struct Tid<const char *> { static const char *p() { return DAT_0048e0f0; } };
 
-class __declspec(novtable) MethodBase {
+class __declspec(novtable) MethodBase_1cf690 {
 public:
     virtual void m0();
     char pad_04[0xc];
-    MethodBase(const char *n, int k) { FUN_001d0480(n, k); }
+    MethodBase_1cf690(const char *n, int k) { FUN_001d0480(n, k); }
     void FUN_001d0480(const char *, int);
     void FUN_001d04a0();
 };
 
 template <class T, class R, class A, class B>
-class Method2 : public MethodBase {
+class Method2 : public MethodBase_1cf690 {
 public:
     typedef R (T::*Fn)(A, B);
-    Method2(const char *name, Fn f) : MethodBase(name, 2) {
+    Method2(const char *name, Fn f) : MethodBase_1cf690(name, 2) {
         fn = f;
         c18 = FUN_001d04d0(Tid<R>::p());
         c10 = FUN_001d04d0(Tid<A>::p());
@@ -91,7 +91,7 @@ public:
     void FUN_001cf690();
 };
 
-struct Registry {
+struct Registry_1cf690 {
     void FUN_001ce990(const char *, CScenarioManager *, void (CScenarioManager::*)(int));
     void FUN_001cea20(const char *, CScenarioManager *, int (CScenarioManager::*)());
     void FUN_001ceaa0(const char *, CScenarioManager *, float (CScenarioManager::*)());
@@ -103,17 +103,17 @@ struct Registry {
     void FUN_001ceec0(const char *, CScenarioManager *, void (CScenarioManager::*)(const char *));
     void FUN_001cef50(const char *, CScenarioManager *, const char * (CScenarioManager::*)(int));
     void FUN_001cf030(const char *, CScenarioManager *, int (CScenarioManager::*)(int));
-    void FUN_001d26d0(const char *, MethodBase *);
+    void FUN_001d26d0(const char *, MethodBase_1cf690 *);
 };
 
-Registry *FUN_001d4c90();
+Registry_1cf690 *FUN_001d4c90();
 
 void CScenarioManager::FUN_001cf690()
 {
     unsigned int cookie = DAT_004d9968;
     new (this) CScenarioManager;
     FUN_001cced0();
-    Registry *reg = FUN_001d4c90();
+    Registry_1cf690 *reg = FUN_001d4c90();
     if (reg) {
         reg->FUN_001ce990("sm_SetMissionState", this, &CScenarioManager::FUN_001cc620);
         reg->FUN_001cea20("sm_GetMissionState", this, &CScenarioManager::FUN_001cc840);

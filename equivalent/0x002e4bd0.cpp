@@ -22,19 +22,19 @@ public:
 }
 }
 
-class ShaderObj {
+class ShaderObj_2e4bd0 {
 public:
     virtual void v0();
     virtual void v1();
-    ShaderObj *FUN_0028edf0(const char *name, int flags);
+    ShaderObj_2e4bd0 *FUN_0028edf0(const char *name, int flags);
 };
 
-class LoadContext {
+class LoadContext_2e4bd0 {
 public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual ShaderObj *lookup(content::LoadInventory::DynamicCaster<pure3d::Shader> *caster,
+    virtual ShaderObj_2e4bd0 *lookup(content::LoadInventory::DynamicCaster<pure3d::Shader> *caster,
                               unsigned __int64 id);
 };
 
@@ -48,7 +48,7 @@ struct Stream {
     int FUN_00266c30();
 };
 
-struct Frame {
+struct Frame_2e4bd0 {
     int scratch;             // 0x08
     char pad[3];
     unsigned char len;       // 0x0f
@@ -58,7 +58,7 @@ struct Frame {
 class ShaderLoader {
 public:
     char pad0[8];
-    ShaderObj *shader;       // 0x08
+    ShaderObj_2e4bd0 *shader;       // 0x08
     int word0c;
     int mask;                // 0x10
     int word14;
@@ -66,12 +66,12 @@ public:
     int word1c;
     int word20;
     int word24;
-    char FUN_002e4bd0(Stream *s, LoadContext *ctx);
+    char FUN_002e4bd0(Stream *s, LoadContext_2e4bd0 *ctx);
 };
 
-char ShaderLoader::FUN_002e4bd0(Stream *s, LoadContext *ctx)
+char ShaderLoader::FUN_002e4bd0(Stream *s, LoadContext_2e4bd0 *ctx)
 {
-    Frame f;
+    Frame_2e4bd0 f;
     if (s->FUN_00266c30() != 0x10002)
         return 0;
 
@@ -92,9 +92,9 @@ char ShaderLoader::FUN_002e4bd0(Stream *s, LoadContext *ctx)
     if (shader == 0) {
         FUN_0028fcc0("warning : shader \"%s\" not found during primgroup load\n", f.name);
         void *mem = FUN_00263ea0(0x20);
-        ShaderObj *err = 0;
+        ShaderObj_2e4bd0 *err = 0;
         if (mem)
-            err = static_cast<ShaderObj *>(mem)->FUN_0028edf0("error", 0);
+            err = static_cast<ShaderObj_2e4bd0 *>(mem)->FUN_0028edf0("error", 0);
         shader = err;
     }
     shader->v0();

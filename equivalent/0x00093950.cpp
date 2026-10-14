@@ -29,18 +29,18 @@ public:
     char marked;
 };
 
-struct Mgr {
+struct Mgr_93950 {
     char FUN_000893c0();
 };
 
-struct Holder {
-    Mgr *FUN_000b5000();
+struct Holder_93950 {
+    Mgr_93950 *FUN_000b5000();
 };
 
-struct Menu {
+struct Menu_93950 {
     CUnlockable *slots[0x266];
     char pad[0xd88 - 0x998];
-    Holder *holder;
+    Holder_93950 *holder;
 
     void FUN_00093600(int index, int arg);
     void FUN_00093950(const char *name, char wait, unsigned char *outFound, char *outLinked, unsigned char *outPicked, int *outPos);
@@ -49,14 +49,14 @@ struct Menu {
 unsigned __int64 __cdecl FUN_0027b020(const char *s);
 FEObject *__cdecl FUN_000fc260(void *name);
 
-void Menu::FUN_00093950(const char *name, char wait, unsigned char *outFound, char *outLinked, unsigned char *outPicked, int *outPos)
+void Menu_93950::FUN_00093950(const char *name, char wait, unsigned char *outFound, char *outLinked, unsigned char *outPicked, int *outPos)
 {
     unsigned __int64 h = FUN_0027b020(name);
     *outFound = 0;
     *outLinked = 0;
     *outPicked = 0;
     char ready = 0;
-    Mgr *mgr = 0;
+    Mgr_93950 *mgr = 0;
     if (holder)
         mgr = holder->FUN_000b5000();
 

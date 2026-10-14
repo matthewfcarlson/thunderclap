@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_00269030 @ 0x00269030
-struct Pad {
+struct Pad_269030 {
     virtual void m0(); virtual void m1(); virtual void m2(); virtual void m3(); virtual void m4();
     virtual void m5(); virtual void m6(); virtual void m7(); virtual void m8(); virtual void m9();
     virtual void m10(); virtual void m11(); virtual void m12(); virtual void m13(); virtual void m14();
@@ -9,12 +9,12 @@ struct Pad {
     char reserved[0x49a]; unsigned char enabled; char end;
     void FUN_00268fa0();
 };
-struct Device { virtual void d0(); virtual void d1(); virtual void d2(); virtual void d3(int, int); };
+struct Device_269030 { virtual void d0(); virtual void d1(); virtual void d2(); virtual void d3(int, int); };
 extern int DAT_004cdbb0;
-extern Device* DAT_00528388;
+extern Device_269030* DAT_00528388;
 int FUN_002705f0();
 int FUN_00267f80();
-void __cdecl FUN_00270940(Device**, int);
+void __cdecl FUN_00270940(Device_269030**, int);
 namespace core {
 struct Object { virtual void b0(); int id; Object() : id(DAT_004cdbb0) { FUN_002705f0(); } };
 struct IControllerSystem {
@@ -33,13 +33,13 @@ struct ControllerSystemXBox : IControllerSystem, Object {
     ControllerSystemXBox(int first, int second);
 };
 ControllerSystemXBox::ControllerSystemXBox(int first, int second) {
-    Pad* pads = (Pad*)padBytes;
+    Pad_269030* pads = (Pad_269030*)padBytes;
     valuec = 0; value10 = 0; value14 = 0; value18 = 0; value1c = 0;
     for (int i = 0; i < 4; ++i) pads[i].FUN_00268fa0();
     FUN_002705f0();
     value12a0 = 10;
     value12a4 = FUN_00267f80();
-    Device** devices = &DAT_00528388;
+    Device_269030** devices = &DAT_00528388;
     for (int j = 0; j < 4; ++j) {
         FUN_00270940(&devices[j], second);
         devices[j]->d3(3, 22);

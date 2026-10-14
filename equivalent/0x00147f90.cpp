@@ -12,7 +12,7 @@ struct Params {
     int f24;
 };
 
-struct Source {
+struct Source_147f90 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -32,40 +32,40 @@ struct Source {
     int f2c;
 };
 
-struct Target {
+struct Target_147f90 {
     void FUN_000819f0(int a, int b, int c, float d, int e, unsigned int f, int g);
 };
 
-struct Player {
-    Target *FUN_00036020();
+struct Player_147f90 {
+    Target_147f90 *FUN_00036020();
 };
 
-struct Anchor {
-    Player *FUN_00059a30();
+struct Anchor_147f90 {
+    Player_147f90 *FUN_00059a30();
 };
 
-struct Owner {
-    Anchor *FUN_000592a0();
+struct Owner_147f90 {
+    Anchor_147f90 *FUN_000592a0();
 };
 
 class CivilianAnimationAction {
 public:
     char pad00[0x1c];
-    Source *src;
-    Owner *owner;
+    Source_147f90 *src;
+    Owner_147f90 *owner;
 
     char FUN_00147f90(int unused1, int unused2);
 };
 
 char CivilianAnimationAction::FUN_00147f90(int unused1, int unused2)
 {
-    Player *p = owner->FUN_000592a0()->FUN_00059a30();
+    Player_147f90 *p = owner->FUN_000592a0()->FUN_00059a30();
     if (p == 0)
         return 0;
-    Target *t = p->FUN_00036020();
+    Target_147f90 *t = p->FUN_00036020();
     if (t == 0)
         return 0;
-    Source *s = src;
+    Source_147f90 *s = src;
     Params q;
     q.f2c = s->f2c;
     q.flag.b = s->b28;

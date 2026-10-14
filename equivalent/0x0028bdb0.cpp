@@ -3,7 +3,7 @@
 // equiv-map: ??1Channel@pure3d@@UAE@XZ = 0x0028bcd0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
 void thunk_FUN_00267090(void*) throw();
-class Owner {
+class Owner_28bdb0 {
 public:
     virtual void vfunc_0() throw();
     virtual void vfunc_1() throw();
@@ -13,7 +13,7 @@ class Channel {
 public:
     virtual ~Channel() throw();
     char pad4[8];
-    Owner* owner;
+    Owner_28bdb0* owner;
     char pad10[4];
     void* frames;
 };

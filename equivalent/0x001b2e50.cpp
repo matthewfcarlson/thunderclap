@@ -44,7 +44,7 @@ class Function2 : public Function {
     Fn fn;
 };
 
-struct Registry { void FUN_001d3b70(const char*, void*); };
+struct Registry_1b2e50 { void FUN_001d3b70(const char*, void*); };
 
 class __declspec(novtable) CollisionSolverAgentBase {
   public:
@@ -70,7 +70,7 @@ class AICollisionSolverAgent : public CollisionSolverAgentBase {
 };
 
 AICollisionSolverAgent::AICollisionSolverAgent() {
-    Registry* reg = (Registry*)FUN_001d4c90();
+    Registry_1b2e50* reg = (Registry_1b2e50*)FUN_001d4c90();
     if (reg) {
         void* mem = FUN_0008d690(0x20);
         Function2<void, float, float>* a = 0;

@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 683 inputs, branch coverage 14/14)
 // FUN_002224a0 @ 0x002224a0
-struct BitSet {
+struct BitSet_2224a0 {
     unsigned int count;
     unsigned int words[1];
 };
 
 struct BitSource {
     char pad00[0x10];
-    BitSet *bits;            // 0x10
+    BitSet_2224a0 *bits;            // 0x10
     unsigned int total;      // not used here
 };
 
@@ -30,7 +30,7 @@ void BitRange::FUN_002224a0(BitSource *src) {
         return;
     }
     source = src;
-    BitSet *b = src->bits;
+    BitSet_2224a0 *b = src->bits;
     unsigned int count = b->count;
     for (unsigned int i = 0; i < count; i++) {
         if (b->words[i >> 5] & (1u << (i & 31))) {

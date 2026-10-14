@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 16/16)
 // FUN_001f3af0 @ 0x001f3af0
-struct Item { void FUN_001e8ac0(); };
-struct State {
- char pad0[4]; void* handle; Item* item; char padC[8]; bool active;
+struct Item_1f3af0 { void FUN_001e8ac0(); };
+struct State_1f3af0 {
+ char pad0[4]; void* handle; Item_1f3af0* item; char padC[8]; bool active;
  void FUN_001f3400(int);
- void FUN_001f32b0(Item*,int,int);
+ void FUN_001f32b0(Item_1f3af0*,int,int);
  void FUN_001f3370(void*);
 };
-struct Input { char pad[0x6c]; float value; };
+struct Input_1f3af0 { char pad[0x6c]; float value; };
 extern bool __cdecl FUN_00249b40(void*);
 extern void __cdecl FUN_0024af00(void*);
 extern void __cdecl FUN_00247890(void*,float);
 struct Object {
- char pad0[0xc8]; State* state; char padCC[0x334-0xcc]; float scale;
- bool run(Item*,void*,Input*);
+ char pad0[0xc8]; State_1f3af0* state; char padCC[0x334-0xcc]; float scale;
+ bool run(Item_1f3af0*,void*,Input_1f3af0*);
 };
-bool Object::run(Item* item,void* arg,Input* input) {
+bool Object::run(Item_1f3af0* item,void* arg,Input_1f3af0* input) {
  if (!state || !item) return false;
  if (state->handle && !FUN_00249b40(state->handle)) return false;
  if (input->value > 75.0f) return false;

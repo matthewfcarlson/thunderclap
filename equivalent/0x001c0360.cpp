@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 18/18)
 // FUN_001c0360 @ 0x001c0360
-struct Vec3 { float x, y, z; };
+struct Vec3_1c0360 { float x, y, z; };
 
 extern float DAT_004de600;
 extern float DAT_004de604;
@@ -9,14 +9,14 @@ extern float DAT_004e230c;
 extern float DAT_004e2310;
 extern float DAT_004c4c40;
 
-struct Entry {
+struct Entry_1c0360 {
     float a;
     float b;
     int c;
     int d;
 };
 
-struct Child {
+struct Child_1c0360 {
     char pad0[8];
     int field08;
     char flag0c;
@@ -27,40 +27,40 @@ struct Child {
     short word1c;
 };
 
-struct Source {
+struct Source_1c0360 {
     char pad0[0x2c];
     int field2c;
 };
 
-struct Holder {
-    Source *FUN_000862b0();
+struct Holder_1c0360 {
+    Source_1c0360 *FUN_000862b0();
 };
 
-float __cdecl FUN_000f6a70(int a, Vec3 *v, int target);
+float __cdecl FUN_000f6a70(int a, Vec3_1c0360 *v, int target);
 
-class Shake {
+class Shake_1c0360 {
 public:
     float value;
     int count;
-    Entry *entries;
+    Entry_1c0360 *entries;
     char pad0c;
     char flag0d;
     char pad0e[0x12];
     int mode;
     char flag24;
     char pad25[7];
-    Child *child;
+    Child_1c0360 *child;
     char pad30[8];
     int target;
     char pad3c[0x10];
-    Holder *holder;
+    Holder_1c0360 *holder;
     int field50;
     char pad54;
     char flag55;
     void FUN_001c0360(int newMode, int newCount);
 };
 
-void Shake::FUN_001c0360(int newMode, int newCount)
+void Shake_1c0360::FUN_001c0360(int newMode, int newCount)
 {
     if (entries != 0 || count != 0) {
         count = 0;
@@ -70,7 +70,7 @@ void Shake::FUN_001c0360(int newMode, int newCount)
         flag55 = 0;
         if (mode == 2)
             child->flag0c = 0;
-        Child *c = child;
+        Child_1c0360 *c = child;
         field50 = 0;
         c->flag0c = 0;
         c->field10 = 0;
@@ -84,7 +84,7 @@ void Shake::FUN_001c0360(int newMode, int newCount)
         return;
     count = newCount;
     for (int i = 0; i < count; i++) {
-        Entry *e = &entries[i];
+        Entry_1c0360 *e = &entries[i];
         e->a = -1.0f;
         e->b = -1.0f;
     }
@@ -104,8 +104,8 @@ void Shake::FUN_001c0360(int newMode, int newCount)
         float sa = a * 0.6f;
         DAT_004e2308 = sa + ha;
         DAT_004e230c = b * 0.26f + hb;
-        Source *src = holder->FUN_000862b0();
-        Vec3 v;
+        Source_1c0360 *src = holder->FUN_000862b0();
+        Vec3_1c0360 v;
         v.x = DAT_004de600 * -0.5f;
         v.z = 0.0f;
         v.y = DAT_004de604 * 0.5f;

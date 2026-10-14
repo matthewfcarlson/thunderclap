@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 22/22)
 // hulkfight::motion::PushOutAction::vfunc_5 @ 0x00174940
-struct V3 {
+struct V3_174940 {
     float x, y, z;
     float FUN_0022d110();
     float FUN_00018990();
@@ -8,21 +8,21 @@ struct V3 {
 
 struct Matrix {
     float m[16];
-    void FUN_0022c2b0(const V3 *in, V3 *out);
-    void FUN_0022c3b0(const V3 *in, V3 *out);
+    void FUN_0022c2b0(const V3_174940 *in, V3_174940 *out);
+    void FUN_0022c3b0(const V3_174940 *in, V3_174940 *out);
 };
 
-struct Table {
+struct Table_174940 {
     char pad0[0x1c];
     Matrix *mats;
 };
 
-struct Layers {
+struct Layers_174940 {
     char pad0[0x64];
-    Table *table;
+    Table_174940 *table;
 };
 
-struct Wrap {
+struct Wrap_174940 {
     char pad0[0x124];
     void *f124;
 };
@@ -31,31 +31,31 @@ struct Entity {
     char pad0[0x334];
     void *f334;
     void *f338;
-    bool FUN_00038de0(V3 *from, V3 *to, int a, int flag, V3 *hit, V3 *normal, int b, int c);
-    void FUN_00035760(V3 *push);
+    bool FUN_00038de0(V3_174940 *from, V3_174940 *to, int a, int flag, V3_174940 *hit, V3_174940 *normal, int b, int c);
+    void FUN_00035760(V3_174940 *push);
 };
 
-struct Handle {
+struct Handle_174940 {
     Entity *FUN_00059a30();
-    Layers *FUN_00059a40();
+    Layers_174940 *FUN_00059a40();
 };
 
-struct Owner {
-    Handle *FUN_000592a0();
+struct Owner_174940 {
+    Handle_174940 *FUN_000592a0();
 };
 
 struct World {
     char pad0[0x20];
-    Wrap *wrap;
+    Wrap_174940 *wrap;
 };
 extern World *DAT_004dd700;
 
 bool __cdecl FUN_00018960(float a, float b, float eps);
 
-struct Data {
+struct Data_174940 {
     char pad0[0x20];
-    V3 pa;              // 0x20
-    V3 pb;              // 0x2c
+    V3_174940 pa;              // 0x20
+    V3_174940 pb;              // 0x2c
     float f38;
     float f3c;
     char b40;
@@ -73,8 +73,8 @@ public:
     virtual void vfunc_4();
     virtual bool vfunc_5(int a1, int a2);
     char pad04[0x18];
-    Data *data;         // 0x1c
-    Owner *owner;       // 0x20
+    Data_174940 *data;         // 0x1c
+    Owner_174940 *owner;       // 0x20
     int index;          // 0x24
 };
 
@@ -82,25 +82,25 @@ bool PushOutAction::vfunc_5(int a1, int a2)
 {
     if (a1 != 0)
         return true;
-    Handle *y = owner->FUN_000592a0();
+    Handle_174940 *y = owner->FUN_000592a0();
     if (y == 0)
         return false;
     Entity *x = y->FUN_00059a30();
     if (x == 0)
         return false;
-    Layers *layers = y->FUN_00059a40();
+    Layers_174940 *layers = y->FUN_00059a40();
     if (layers == 0)
         return false;
     Matrix *mats = layers->table->mats;
     struct Frame {
-        V3 t;
+        V3_174940 t;
         float f38;
-        V3 c;
-        V3 p;
-        V3 b;
+        V3_174940 c;
+        V3_174940 p;
+        V3_174940 b;
         float rem;
-        V3 hit;
-        V3 normal;
+        V3_174940 hit;
+        V3_174940 normal;
         Matrix m;
     } f;
     int idx = index;
@@ -147,7 +147,7 @@ bool PushOutAction::vfunc_5(int a1, int a2)
     else
         ratio = f.rem / f.f38;
     f.t = f.normal;
-    Data *d = data;
+    Data_174940 *d = data;
     double k = ratio * d->f3c;
     f.t.x = (float)(f.t.x * k);
     f.t.y = (float)(f.t.y * k);

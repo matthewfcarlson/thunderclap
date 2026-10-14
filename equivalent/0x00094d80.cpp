@@ -4,18 +4,18 @@
 void* FUN_0008d690(unsigned int);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 class CUnlockablesManager;
-class Registry { public:
+class Registry_94d80 { public:
     void FUN_001d3b70(const char*, void*);
     void FUN_00094d80(const char* a1, CUnlockablesManager* a2, void (*a3)());
 };
 template<class C, class R, class A1, class A2, class A3, class A4, class A5, class A6> class Closure6;
 template<> class Closure6<CUnlockablesManager, void, int, const char*, const char*, const char*, const char*, int> { public: virtual void v(); char pad[0x1c]; CUnlockablesManager* owner; Closure6(CUnlockablesManager* o) { owner = o; } };
-class Raw { public: void FUN_00094100(const char*, void (*)()); };
-void Registry::FUN_00094d80(const char* a1, CUnlockablesManager* a2, void (*a3)()) {
+class Raw_94d80 { public: void FUN_00094100(const char*, void (*)()); };
+void Registry_94d80::FUN_00094d80(const char* a1, CUnlockablesManager* a2, void (*a3)()) {
     void* m = FUN_0008d690(0x24);
     void* x = 0;
     if (m) {
-        ((Raw*)m)->FUN_00094100(a1, a3);
+        ((Raw_94d80*)m)->FUN_00094100(a1, a3);
         x = new (m) Closure6<CUnlockablesManager, void, int, const char*, const char*, const char*, const char*, int>(a2);
     }
     FUN_001d3b70(a1, x);

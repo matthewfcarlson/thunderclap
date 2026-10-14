@@ -1,35 +1,35 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002b9ac0 @ 0x002b9ac0
-struct Mat4 {
+struct Mat4_2b9ac0 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022ba70(float angle);
-    void FUN_0022ca90(Mat4 *a, Mat4 *b);
+    void FUN_0022ca90(Mat4_2b9ac0 *a, Mat4_2b9ac0 *b);
 };
 
-struct Vec3 {
+struct Vec3_2b9ac0 {
     float x, y, z;
     void FUN_0022d180();
-    void FUN_0022d260(Mat4 *m);
+    void FUN_0022d260(Mat4_2b9ac0 *m);
 };
 
 float FUN_00018a20(float x);
 
-class Box {
+class Box_2b9ac0 {
 public:
-    void FUN_002b8f60(Mat4 *a, Mat4 *b, Mat4 *c, Mat4 *d, float scale);
-    void FUN_002b9ac0(Mat4 *a, Mat4 *c, Mat4 *b, Mat4 *d, float scale);
+    void FUN_002b8f60(Mat4_2b9ac0 *a, Mat4_2b9ac0 *b, Mat4_2b9ac0 *c, Mat4_2b9ac0 *d, float scale);
+    void FUN_002b9ac0(Mat4_2b9ac0 *a, Mat4_2b9ac0 *c, Mat4_2b9ac0 *b, Mat4_2b9ac0 *d, float scale);
 };
 
-void Box::FUN_002b9ac0(Mat4 *a, Mat4 *c, Mat4 *b, Mat4 *d, float scale)
+void Box_2b9ac0::FUN_002b9ac0(Mat4_2b9ac0 *a, Mat4_2b9ac0 *c, Mat4_2b9ac0 *b, Mat4_2b9ac0 *d, float scale)
 {
-    Vec3 pa;
-    Vec3 pb;
-    Vec3 up;
-    Vec3 fwd;
-    Vec3 w;
-    Mat4 rot;
-    Mat4 comb;
+    Vec3_2b9ac0 pa;
+    Vec3_2b9ac0 pb;
+    Vec3_2b9ac0 up;
+    Vec3_2b9ac0 fwd;
+    Vec3_2b9ac0 w;
+    Mat4_2b9ac0 rot;
+    Mat4_2b9ac0 comb;
 
     pb.x = d->m[12];
     pb.y = d->m[13];
@@ -56,8 +56,8 @@ void Box::FUN_002b9ac0(Mat4 *a, Mat4 *c, Mat4 *b, Mat4 *d, float scale)
     float t1z = (float)(up.z * dot1);
     /* the original recomputes pb-pa in unrounded x87 form for this dot product too; the volatile
        reads keep the compiler from sharing the differences with dot1 (which would spill them rounded) */
-    volatile Vec3 *vb = &pb;
-    volatile Vec3 *va = &pa;
+    volatile Vec3_2b9ac0 *vb = &pb;
+    volatile Vec3_2b9ac0 *va = &pa;
     double dot2 = fwd.z * (vb->z - va->z) + fwd.y * (vb->y - va->y) + fwd.x * (vb->x - va->x);
     float t2y = (float)(fwd.y * dot2);
     float t2z = (float)(fwd.z * dot2);

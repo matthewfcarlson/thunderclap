@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 48/48)
 // FUN_002d7150 @ 0x002d7150
 // libpng png_read_info
-struct PngStruct {
+struct PngStruct_2d7150 {
     char pad0[0x60];
     unsigned int mode;
     char pad64[0x104 - 0x64];
@@ -14,13 +14,13 @@ struct PngStruct {
     unsigned char sigBytes;
 };
 
-struct PngInfo {
+struct PngInfo_2d7150 {
     char pad0[0x20];
     unsigned char signature[8];
 };
 
 union PngArg {
-    PngStruct* png;
+    PngStruct_2d7150* png;
     unsigned char buf[4];
 };
 
@@ -42,34 +42,34 @@ extern const unsigned int DAT_004d10a4; // "tIME"
 extern const unsigned int DAT_004d10ac; // "tRNS"
 extern const unsigned int DAT_004d10b4; // "zTXt"
 
-void FUN_002dd690(PngStruct* png, void* buf, unsigned int n);
+void FUN_002dd690(PngStruct_2d7150* png, void* buf, unsigned int n);
 unsigned int FUN_002e7500(const void* buf);
-void FUN_002d6c90(PngStruct* png);
-void FUN_002e7580(PngStruct* png, void* buf, unsigned int n);
-void FUN_002e82a0(PngStruct* png, PngInfo* info, unsigned int len);
-void FUN_002e69a0(PngStruct* png, const char* msg);
-void FUN_002e84e0(PngStruct* png, PngInfo* info, unsigned int len);
-void FUN_002e8640(PngStruct* png, PngInfo* info, unsigned int len);
-void FUN_002e93b0(PngStruct* png, PngInfo* info, unsigned int len);
-void FUN_002e8940(PngStruct* png, PngInfo* info, unsigned int len);
-void FUN_002e86a0(PngStruct* png, PngInfo* info, unsigned int len);
-void FUN_002e9570(PngStruct* png, PngInfo* info, unsigned int len);
-void FUN_002e9790(PngStruct* png, PngInfo* info, unsigned int len);
-void FUN_002e9880(PngStruct* png, PngInfo* info, unsigned int len);
-void FUN_002e96a0(PngStruct* png, PngInfo* info, unsigned int len);
-void FUN_002e87e0(PngStruct* png, PngInfo* info, unsigned int len);
-void FUN_002e8f80(PngStruct* png, PngInfo* info, unsigned int len);
-void FUN_002e9bb0(PngStruct* png, PngInfo* info, unsigned int len);
-void FUN_002e9ac0(PngStruct* png, PngInfo* info, unsigned int len);
-void FUN_002e91b0(PngStruct* png, PngInfo* info, unsigned int len);
-void FUN_002e9c60(PngStruct* png, PngInfo* info, unsigned int len);
-void FUN_002e9fc0(PngStruct* png, PngInfo* info, unsigned int len);
+void FUN_002d6c90(PngStruct_2d7150* png);
+void FUN_002e7580(PngStruct_2d7150* png, void* buf, unsigned int n);
+void FUN_002e82a0(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
+void FUN_002e69a0(PngStruct_2d7150* png, const char* msg);
+void FUN_002e84e0(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
+void FUN_002e8640(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
+void FUN_002e93b0(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
+void FUN_002e8940(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
+void FUN_002e86a0(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
+void FUN_002e9570(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
+void FUN_002e9790(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
+void FUN_002e9880(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
+void FUN_002e96a0(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
+void FUN_002e87e0(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
+void FUN_002e8f80(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
+void FUN_002e9bb0(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
+void FUN_002e9ac0(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
+void FUN_002e91b0(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
+void FUN_002e9c60(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
+void FUN_002e9fc0(PngStruct_2d7150* png, PngInfo_2d7150* info, unsigned int len);
 
 int FUN_002d6bb0(const unsigned char* sig, unsigned int start, unsigned int n);
 
-void FUN_002d7150(PngArg arg, PngInfo* info)
+void FUN_002d7150(PngArg arg, PngInfo_2d7150* info)
 {
-    PngStruct* png = arg.png;
+    PngStruct_2d7150* png = arg.png;
     unsigned int length;
 
     if (png->sigBytes < 8) {

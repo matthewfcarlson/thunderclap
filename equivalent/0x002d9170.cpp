@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 116 inputs, branch coverage 50/50)
 // FUN_002d9170 @ 0x002d9170
-struct Source {
+struct Source_2d9170 {
     char pad0[0x68];
     unsigned int flags;
     char pad6c[0x112 - 0x6c];
@@ -13,7 +13,7 @@ struct Source {
     void *link;
 };
 
-struct Format {
+struct Format_2d9170 {
     unsigned int width;
     char pad4[0xc - 4];
     unsigned int rowBytes;
@@ -30,7 +30,7 @@ struct Format {
     unsigned char tag[10];
 };
 
-void FUN_002d9170(Source *src, Format *fmt)
+void FUN_002d9170(Source_2d9170 *src, Format_2d9170 *fmt)
 {
     unsigned char bl = 8;
 

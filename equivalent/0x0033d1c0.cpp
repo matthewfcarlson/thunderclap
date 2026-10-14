@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 19/19)
 // FUN_0033d1c0 @ 0x0033d1c0
-struct Writer { char* current; char buffer[0x208]; };
+struct Writer_33d1c0 { char* current; char buffer[0x208]; };
 extern "C" char* __cdecl FUN_00339df0(void*, void*, unsigned*);
-extern "C" void __cdecl FUN_00339470(Writer*);
-extern "C" void __cdecl FUN_003394b0(Writer*, const char*, unsigned);
+extern "C" void __cdecl FUN_00339470(Writer_33d1c0*);
+extern "C" void __cdecl FUN_003394b0(Writer_33d1c0*, const char*, unsigned);
 // equiv-conv: FUN_0033d1c0 esi edx ecx
-void FUN_0033d1c0(Writer* writer, void* a, void* b) {
+void FUN_0033d1c0(Writer_33d1c0* writer, void* a, void* b) {
  unsigned count;
  char* text = FUN_00339df0(a,b,&count);
  char* end = writer->buffer + sizeof(writer->buffer);

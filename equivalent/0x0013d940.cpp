@@ -15,13 +15,13 @@ struct DynamicCaster {
 
 namespace pure3d { class Animation; }
 
-struct Id64 {
+struct Id64_13d940 {
     unsigned int lo;
     unsigned int hi;
-    void FUN_0027af70(Id64 *src);
+    void FUN_0027af70(Id64_13d940 *src);
 };
 
-struct V3 {
+struct V3_13d940 {
     float x, y, z;
     float FUN_00018990();
 };
@@ -32,7 +32,7 @@ public:
     virtual void AddRef();
     virtual void Release();
     char pad04[4];
-    Id64 id;
+    Id64_13d940 id;
 };
 
 class AnimationDriver : public Driver {
@@ -44,14 +44,14 @@ public:
 };
 }
 
-struct Anim {
+struct Anim_13d940 {
     char pad0[8];
-    Id64 id;
+    Id64_13d940 id;
     char pad10[8];
     char b18;
 };
 
-struct Player : public choreo2::Driver {
+struct Player_13d940 : public choreo2::Driver {
     char pad10[0x20 - 0x10];
     struct Node *node;
     char pad24[0x224 - 0x24];
@@ -60,13 +60,13 @@ struct Player : public choreo2::Driver {
     char pad226[0x22c - 0x226];
     int e0;
     int e1;
-    Player *FUN_00225950(void *h, Anim *a);
+    Player_13d940 *FUN_00225950(void *h, Anim_13d940 *a);
     void FUN_002250e0(float v);
     void FUN_00225140(float v);
     void FUN_00225cf0(float v);
     void FUN_00225e00(float vres, float v, int e0, int e1);
     float FUN_00225b30();
-    void FUN_002251d0(void *layers10, int e0, int e1, V3 *out);
+    void FUN_002251d0(void *layers10, int e0, int e1, V3_13d940 *out);
     void FUN_002224a0(int v);
 };
 
@@ -76,57 +76,57 @@ struct Node {
     float f14;
 };
 
-struct Rig {
+struct Rig_13d940 {
     int FUN_0027b670(unsigned int lo, unsigned int hi);
 };
 
-struct Stats {
-    void FUN_00035660(V3 *out);
+struct Stats_13d940 {
+    void FUN_00035660(V3_13d940 *out);
     float FUN_00035690();
     float FUN_00035680();
-    void FUN_000356c0(V3 *out);
+    void FUN_000356c0(V3_13d940 *out);
     float FUN_00035700();
     float FUN_000356f0();
 };
 
-class Owner;
+class Owner_13d940;
 struct Context { char pad[4]; };
-Context *__fastcall FUN_000592a0(Owner *owner);
-Stats *__fastcall FUN_00059a30(Context *ctx);
+Context *__fastcall FUN_000592a0(Owner_13d940 *owner);
+Stats_13d940 *__fastcall FUN_00059a30(Context *ctx);
 
-struct LayerSet {
+struct LayerSet_13d940 {
     char pad0[0x68];
     unsigned int count;
     char pad6c[0x10 - 0xc];
-    Rig *FUN_002226b0();
+    Rig_13d940 *FUN_002226b0();
     choreo2::Driver *FUN_00222e20(unsigned int index);
-    void FUN_00222890(Player *d, float dur, int a, float b, int c, int e, float f);
+    void FUN_00222890(Player_13d940 *d, float dur, int a, float b, int c, int e, float f);
 };
-LayerSet *__fastcall FUN_00059a40(Context *ctx);
+LayerSet_13d940 *__fastcall FUN_00059a40(Context *ctx);
 
 extern "C" float __cdecl FUN_00225be0(float c30, int e0, int e1, int z);
 extern "C" float __cdecl FUN_000964e0();
 extern "C" double sqrt(double);
 
-class Factory {
+class Factory_13d940 {
 public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual Anim *f3(content::LoadInventory::DynamicCaster<pure3d::Animation> *caster, unsigned int lo, unsigned int hi);
+    virtual Anim_13d940 *f3(content::LoadInventory::DynamicCaster<pure3d::Animation> *caster, unsigned int lo, unsigned int hi);
 };
 
-struct Holder44 { Factory *FUN_00203d70(); };
-struct Holder28 { Holder44 *FUN_000862a0(); };
-struct Manager { char pad0[0x54]; Holder28 *holder; };
-extern Manager *DAT_004dd700;
+struct Holder44_13d940 { Factory_13d940 *FUN_00203d70(); };
+struct Holder28_13d940 { Holder44_13d940 *FUN_000862a0(); };
+struct Manager_13d940 { char pad0[0x54]; Holder28_13d940 *holder; };
+extern Manager_13d940 *DAT_004dd700;
 
-class Owner {
+class Owner_13d940 {
 public:
     virtual void v0();
 };
 
-class Cfg {
+class Cfg_13d940 {
 public:
     virtual void v0();
     virtual void v1();
@@ -147,7 +147,7 @@ public:
     float f34;
     float f38;
     int mode3c;
-    Id64 id40;
+    Id64_13d940 id40;
     int i48;
     int i4c;
     int i50;
@@ -164,15 +164,15 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     char pad04[0x18];
-    Cfg *cfg;       // 0x1c
-    Owner *owner;   // 0x20
-    Player *player; // 0x24
+    Cfg_13d940 *cfg;       // 0x1c
+    Owner_13d940 *owner;   // 0x20
+    Player_13d940 *player; // 0x24
 };
 
-struct Frame {
+struct Frame_13d940 {
     char caster[4];
     char pad4[28];
-    V3 vec;
+    V3_13d940 vec;
 };
 
 static float AbsF(float v)
@@ -188,16 +188,16 @@ char AnimationVelocityScaledAction::vfunc_3(int a0, int a1)
     if (owner == 0)
         return 0;
     Context *ctx = FUN_000592a0(owner);
-    Stats *stats = FUN_00059a30(ctx);
-    LayerSet *layers = FUN_00059a40(ctx);
+    Stats_13d940 *stats = FUN_00059a30(ctx);
+    LayerSet_13d940 *layers = FUN_00059a40(ctx);
     if (layers == 0)
         return 0;
-    Rig *h = layers->FUN_002226b0();
+    Rig_13d940 *h = layers->FUN_002226b0();
     unsigned int lo = cfg->keyLo;
     unsigned int hi = cfg->keyHi;
-    Frame f;
-    Factory *fa = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
-    Anim *anim = fa->f3(new (f.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>, lo, hi);
+    Frame_13d940 f;
+    Factory_13d940 *fa = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+    Anim_13d940 *anim = fa->f3(new (f.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>, lo, hi);
     if (anim == 0)
         return 0;
 
@@ -228,9 +228,9 @@ char AnimationVelocityScaledAction::vfunc_3(int a0, int a1)
     }
 
     void *mem = thunk_FUN_0008d690(0x240);
-    Player *p = 0;
+    Player_13d940 *p = 0;
     if (mem)
-        p = ((Player *)mem)->FUN_00225950(h, anim);
+        p = ((Player_13d940 *)mem)->FUN_00225950(h, anim);
     if (p)
         p->AddRef();
     if (player)
@@ -300,7 +300,7 @@ char AnimationVelocityScaledAction::vfunc_3(int a0, int a1)
         break;
     }
     float v = val / s;
-    Cfg *c = cfg;
+    Cfg_13d940 *c = cfg;
     if (v < c->f28)
         v = c->f28;
     if (c->f2c > 0.0f && v > c->f2c)

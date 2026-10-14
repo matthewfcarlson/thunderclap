@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_00107140 @ 0x00107140
-struct Clock {
+struct Clock_107140 {
     float FUN_00078780();
 };
-Clock *__cdecl FUN_000964d0();
+Clock_107140 *__cdecl FUN_000964d0();
 
-struct Tuning {
+struct Tuning_107140 {
     char pad0[0x394];
     float f394;
     float f398;
@@ -15,26 +15,26 @@ struct Tuning {
     float f3a8;
 };
 
-struct Player {
+struct Player_107140 {
     char pad0[0x11c];
-    Tuning *tuning;
+    Tuning_107140 *tuning;
     char pad120[0x1cd0 - 0x120];
     float f1cd0;
 };
 
-struct PlayerHolder {
+struct PlayerHolder_107140 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual Player *GetPlayer();
+    virtual Player_107140 *GetPlayer();
 };
 
-struct Agent {
+struct Agent_107140 {
     char pad0[0x58];
-    PlayerHolder *holder;
+    PlayerHolder_107140 *holder;
     char pad5c[0x84 - 0x5c];
     float f84;
     float f88;
@@ -47,13 +47,13 @@ struct Agent {
     void Init();
 };
 
-void Agent::Init()
+void Agent_107140::Init()
 {
-    Clock *clock = FUN_000964d0();
-    Player *player = holder->GetPlayer();
+    Clock_107140 *clock = FUN_000964d0();
+    Player_107140 *player = holder->GetPlayer();
     if (player == 0)
         return;
-    Tuning *t = player->tuning;
+    Tuning_107140 *t = player->tuning;
     if (t == 0)
         return;
 

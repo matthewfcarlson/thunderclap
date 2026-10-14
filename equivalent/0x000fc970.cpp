@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 115 inputs, branch coverage 34/40, incomplete)
 // CChaseAgent::vfunc_3 @ 0x000fc970
-struct Binding;
+struct Binding_fc970;
 
-struct Unit {
+struct Unit_fc970 {
     char pad0[8];
-    Binding *binding;
+    Binding_fc970 *binding;
     char pad0c[0x12 - 0xc];
     char flag12;
     char pad13;
@@ -19,29 +19,29 @@ struct Unit {
     float FUN_000fc830();
 };
 
-struct Stats {
+struct Stats_fc970 {
     char pad0[0x3a0];
     float limit;
 };
 
-struct Weapon {
+struct Weapon_fc970 {
     char pad0[0x11c];
-    Stats *stats;
+    Stats_fc970 *stats;
     int FUN_00035ef0(int a);
 };
 
-struct Mode {
+struct Mode_fc970 {
     char pad0[0x140];
     int kind;
 };
 
-struct Binding {
+struct Binding_fc970 {
     char pad0[8];
-    Mode *mode;
+    Mode_fc970 *mode;
     int type;
 };
 
-class Brain {
+class Brain_fc970 {
 public:
     virtual void v0();
     virtual void v1();
@@ -49,12 +49,12 @@ public:
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual Weapon *v6();
+    virtual Weapon_fc970 *v6();
     virtual void v7();
     virtual void v8();
     virtual int v9();
     char pad[0x58 - 4];
-    Unit unit;
+    Unit_fc970 unit;
 };
 
 class CChaseAgent {
@@ -62,25 +62,25 @@ public:
     char pad0[8];
     float timer;
     char pad0c[0x58 - 0xc];
-    Brain *brain;
+    Brain_fc970 *brain;
     char pad5c[0x6c - 0x5c];
     char engaged;
     char pad6d[3];
     float f70;
-    float FUN_000fc4e0(Unit *u, int a);
-    float FUN_000fc970(Unit *u, int a);
+    float FUN_000fc4e0(Unit_fc970 *u, int a);
+    float FUN_000fc970(Unit_fc970 *u, int a);
 };
 
-float CChaseAgent::FUN_000fc970(Unit *arg, int a)
+float CChaseAgent::FUN_000fc970(Unit_fc970 *arg, int a)
 {
     FUN_000fc4e0(arg, a);
-    Binding *bind = brain->unit.binding;
-    Unit *u = &brain->unit;
+    Binding_fc970 *bind = brain->unit.binding;
+    Unit_fc970 *u = &brain->unit;
     timer = 0.0f;
     if (!bind)
         return 0.0f;
 
-    Weapon *w = brain->v6();
+    Weapon_fc970 *w = brain->v6();
     if (!w)
         return timer;
     if (brain->v9() < 2)

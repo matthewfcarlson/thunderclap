@@ -2,27 +2,27 @@
 // FUN_0024cf20 @ 0x0024cf20
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_24cf20 {
     float x, y, z;
 };
 
-struct Edge {
-    Vec3 origin;
+struct Edge_24cf20 {
+    Vec3_24cf20 origin;
     char pad0c[0x18 - 0xc];
-    Vec3 axis;
-    Vec3 side;
+    Vec3_24cf20 axis;
+    Vec3_24cf20 side;
     char pad30[0x3c - 0x30];
     char clampMode;
-    bool FUN_0022d2b0(const Vec3 *p, float eps);
+    bool FUN_0022d2b0(const Vec3_24cf20 *p, float eps);
 };
 
-void FUN_0024cf20(Edge *e, const Vec3 *p, float *outCross, float *outAlong)
+void FUN_0024cf20(Edge_24cf20 *e, const Vec3_24cf20 *p, float *outCross, float *outAlong)
 {
     double q;
     if (e->FUN_0022d2b0(p, 1e-5f)) {
         q = 0.0f;
     } else {
-        Vec3 d;
+        Vec3_24cf20 d;
         d.x = e->origin.x - p->x;
         d.y = e->origin.y - p->y;
         d.z = e->origin.z - p->z;
@@ -43,7 +43,7 @@ void FUN_0024cf20(Edge *e, const Vec3 *p, float *outCross, float *outAlong)
         if (e->FUN_0022d2b0(p, 1e-5f)) {
             r = 0.0f;
         } else {
-            Vec3 d;
+            Vec3_24cf20 d;
             d.x = e->origin.x - p->x;
             d.y = e->origin.y - p->y;
             d.z = e->origin.z - p->z;

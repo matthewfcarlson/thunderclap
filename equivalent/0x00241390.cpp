@@ -5,33 +5,33 @@ struct Environment {
  int room, roomHF; float rolloff, decay, decayHF;
  int reflections; float reflectionsDelay; int reverb; float reverbDelay, diffusion, density, reference;
 };
-struct SoundState {
+struct SoundState_241390 {
  uint unknown0, bufferSize, unknown8; void *buffer; uint used;
  uint list1[2], list2[2]; uint clock, heap, heapSize, heapUsed;
  void *device; char reserved[0x30]; Environment environment;
  float volume, secondaryVolume; uint flags, count; unsigned char enabled; char padding[3]; uint allocationSize;
 };
-struct Config { uint first, second; };
-extern SoundState *DAT_004e5ce0;
+struct Config_241390 { uint first, second; };
+extern SoundState_241390 *DAT_004e5ce0;
 extern uint DAT_004e5ce8[4];
 extern Environment DAT_004e5cb0;
 uint __cdecl FUN_0026fd50(uint, uint);
-struct Temporary { char data[64]; void *FUN_002584d0(uint *, uint *, uint, int); void FUN_002580e0(); };
-SoundState *__cdecl FUN_00247530(void *);
+struct Temporary_241390 { char data[64]; void *FUN_002584d0(uint *, uint *, uint, int); void FUN_002580e0(); };
+SoundState_241390 *__cdecl FUN_00247530(void *);
 namespace DSOUND { int __stdcall DirectSoundCreate(void *, void *, void *); }
 void __cdecl FUN_002411b0(); void __cdecl FUN_0024c9c0(); void __cdecl FUN_0024c7f0(int);
 uint __stdcall FUN_0020c731(uint, uint, uint);
 uint __cdecl FUN_00267f80(); void __cdecl FUN_00257dd0(void *);
-struct Message { void FUN_0023fe50(const char *); };
-bool __cdecl FUN_00241390(Config *config, Message *message) {
- uint size = FUN_0026fd50(config->second, 0x1000) + sizeof(SoundState);
+struct Message_241390 { void FUN_0023fe50(const char *); };
+bool __cdecl FUN_00241390(Config_241390 *config, Message_241390 *message) {
+ uint size = FUN_0026fd50(config->second, 0x1000) + sizeof(SoundState_241390);
  uint first[2] = {DAT_004e5ce8[0],DAT_004e5ce8[1]};
  uint second[2] = {DAT_004e5ce8[2],DAT_004e5ce8[3]};
- Temporary temp;
+ Temporary_241390 temp;
  DAT_004e5ce0 = FUN_00247530(temp.FUN_002584d0(second, first, size, 4));
  temp.FUN_002580e0();
  unsigned char *bytes = reinterpret_cast<unsigned char *>(DAT_004e5ce0);
- for (uint i=0;i<sizeof(SoundState);++i) bytes[i]=0;
+ for (uint i=0;i<sizeof(SoundState_241390);++i) bytes[i]=0;
  DAT_004e5ce0->allocationSize=size;
  DSOUND::DirectSoundCreate(0,&DAT_004e5ce0->device,0);
  FUN_002411b0(); FUN_0024c9c0(); FUN_0024c7f0(1);
@@ -42,7 +42,7 @@ bool __cdecl FUN_00241390(Config *config, Message *message) {
  DAT_004e5ce0->heap=value;
  value=FUN_0026fd50(config->second,0x1000);
  DAT_004e5ce0->bufferSize=value;
- SoundState *state=DAT_004e5ce0;
+ SoundState_241390 *state=DAT_004e5ce0;
  state->buffer=state->bufferSize ? state+1 : 0;
  DAT_004e5ce0->used=0;
  value=FUN_00267f80();

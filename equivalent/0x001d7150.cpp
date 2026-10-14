@@ -1,27 +1,27 @@
 // STATUS: equivalent (tools/equiv.py level 3: 204 inputs, branch coverage 8/8)
 // FUN_001d7150 @ 0x001d7150
-struct Id {
+struct Id_1d7150 {
     unsigned int lo;
     unsigned int hi;
 };
-extern Id DAT_004e2560[];
+extern Id_1d7150 DAT_004e2560[];
 
-struct Counter {
+struct Counter_1d7150 {
     int FUN_001d5710();
 };
 
-struct Item {
+struct Item_1d7150 {
     char pad00[8];
     unsigned int lo;
     unsigned int hi;
 };
 
-struct ItemList {
+struct ItemList_1d7150 {
     char pad00[0x1c];
-    Item **items;
+    Item_1d7150 **items;
 };
 
-class Manager {
+class Manager_1d7150 {
 public:
     virtual void v0();
     virtual void v1();
@@ -41,20 +41,20 @@ public:
     virtual void v15();
     virtual void Select(int index, int flag);
     char pad04[0x94];
-    ItemList *list;
+    ItemList_1d7150 *list;
     char pad9c[0xec - 0x9c];
-    Counter *counter;
+    Counter_1d7150 *counter;
     bool SelectById(int id);
 };
 
-bool Manager::SelectById(int id)
+bool Manager_1d7150::SelectById(int id)
 {
     int count = counter->FUN_001d5710();
     if (count <= 0)
         return false;
     unsigned int lo = DAT_004e2560[id].lo;
     unsigned int hi = DAT_004e2560[id].hi;
-    Item **p = list->items;
+    Item_1d7150 **p = list->items;
     for (int i = 0; i < count; i++) {
         if (p[i]->lo == lo && p[i]->hi == hi) {
             Select(i, 1);

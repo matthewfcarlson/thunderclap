@@ -3,7 +3,7 @@
 extern float DAT_0042ef28;   // pi
 extern float DAT_0042ef48;   // 2 * pi
 
-struct V3 {
+struct V3_2c4cb0 {
     float x, y, z;
 };
 
@@ -11,10 +11,10 @@ struct Matrix {
     float m[16];
     Matrix() {}
     void FUN_0022b980();
-    void FUN_0022be40(const V3 *pos);
+    void FUN_0022be40(const V3_2c4cb0 *pos);
 };
 
-class Device {
+class Device_2c4cb0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -42,15 +42,15 @@ public:
     virtual void v23(int state, Matrix *m);
 };
 
-struct VertexBuf {
+struct VertexBuf_2c4cb0 {
     char pad0[8];
-    V3 *cursor;         // 8
+    V3_2c4cb0 *cursor;         // 8
     char padc[4];
     int *tag;           // 0x10
     void FUN_0008ef00();
 };
 
-class Renderer {
+class Renderer_2c4cb0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -82,24 +82,24 @@ public:
     virtual void v27();
     virtual void v28();
     virtual void v29();
-    virtual VertexBuf *v30(int a, int b, int c, int n, int z);
-    virtual void v31(VertexBuf *b);
+    virtual VertexBuf_2c4cb0 *v30(int a, int b, int c, int n, int z);
+    virtual void v31(VertexBuf_2c4cb0 *b);
 };
 
-extern Device **DAT_0052c2ac;
-extern Renderer *DAT_0052c2a8;
+extern Device_2c4cb0 **DAT_0052c2ac;
+extern Renderer_2c4cb0 *DAT_0052c2a8;
 
 void __cdecl FUN_00356bf0(float r, float az, float pol, float *x, float *y, float *z);
 
-void __cdecl FUN_002c4cb0(float a1, V3 *a2, int a3, int a4, float a5, float a6)
+void __cdecl FUN_002c4cb0(float a1, V3_2c4cb0 *a2, int a3, int a4, float a5, float a6)
 {
     Matrix m;
     m.FUN_0022b980();
     m.FUN_0022be40(a2);
     (*DAT_0052c2ac)->v23(0, &m);
-    Renderer *rend = DAT_0052c2a8;
-    VertexBuf *vb = rend->v30(a3, 2, 0x2020, (int)((a6 + a6 + 1.0f) * (a5 + 1.0f) * 4.0f), 0);
-    V3 v;
+    Renderer_2c4cb0 *rend = DAT_0052c2a8;
+    VertexBuf_2c4cb0 *vb = rend->v30(a3, 2, 0x2020, (int)((a6 + a6 + 1.0f) * (a5 + 1.0f) * 4.0f), 0);
+    V3_2c4cb0 v;
     FUN_00356bf0(a1, 0, 0, &v.x, &v.y, &v.z);
     volatile float dphi = DAT_0042ef28 / a5;
     volatile float outerA = 0;
@@ -110,9 +110,9 @@ void __cdecl FUN_002c4cb0(float a1, V3 *a2, int a3, int a4, float a5, float a6)
         innerB = 0;
         double x;
         do {
-            V3 a = v;
+            V3_2c4cb0 a = v;
             FUN_00356bf0(a1, ph, innerB, &v.x, &v.y, &v.z);
-            V3 *c = vb->cursor;
+            V3_2c4cb0 *c = vb->cursor;
             c->x = a.x;
             c->z = a.z;
             c->y = a.y;
@@ -141,9 +141,9 @@ void __cdecl FUN_002c4cb0(float a1, V3 *a2, int a3, int a4, float a5, float a6)
         outerA = 0;
         double x;
         do {
-            V3 a = v;
+            V3_2c4cb0 a = v;
             FUN_00356bf0(a1, outerA, ph, &v.x, &v.y, &v.z);
-            V3 *c = vb->cursor;
+            V3_2c4cb0 *c = vb->cursor;
             c->x = a.x;
             c->z = a.z;
             c->y = a.y;

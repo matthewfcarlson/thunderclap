@@ -14,7 +14,7 @@ struct NameEx {
 
 int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 
-class Record {
+class Record_1f91b0 {
 public:
     char pad0[8];
     int f8;
@@ -25,10 +25,10 @@ public:
     int f40, f44, f48, f4c;
     unsigned char b50, b51;
     unsigned short w52;
-    Record *FUN_001f91b0(const Record *src);
+    Record_1f91b0 *FUN_001f91b0(const Record_1f91b0 *src);
 };
 
-Record *Record::FUN_001f91b0(const Record *src)
+Record_1f91b0 *Record_1f91b0::FUN_001f91b0(const Record_1f91b0 *src)
 {
     f8 = src->f8;
     FUN_00267760(label, 0x20, "%s", src->label);

@@ -12,18 +12,18 @@ public:
     virtual void v1();
 };
 
-struct Fighter {
+struct Fighter_1819f0 {
     char pad0[0x128];
     void *f128;
     void *FUN_00035ef0(int slot);
 };
 
-struct Anchor {
-    Fighter *FUN_00059a30();
+struct Anchor_1819f0 {
+    Fighter_1819f0 *FUN_00059a30();
 };
 
 struct FightHandle {
-    Anchor *FUN_000592a0();
+    Anchor_1819f0 *FUN_000592a0();
 };
 
 namespace hulkfight {
@@ -49,7 +49,7 @@ bool hulkfight::motion::PropIsAttachedCondition::vfunc_6(int a, fight::Params *p
     CFightParams *fp = dynamic_cast<CFightParams *>(params);
     if (fp == 0)
         return false;
-    Fighter *f = ((FightHandle *)params)->FUN_000592a0()->FUN_00059a30();
+    Fighter_1819f0 *f = ((FightHandle *)params)->FUN_000592a0()->FUN_00059a30();
     void *prop = 0;
     if (f != 0) {
         if (slot < 0)

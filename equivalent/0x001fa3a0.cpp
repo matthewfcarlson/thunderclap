@@ -4,49 +4,49 @@ extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 int __cdecl FUN_00267760(char *buf, int size, const char *fmt);
 
-struct S8 {
+struct S8_1fa3a0 {
     int a;
     int b;
-    void FUN_0027af30(const S8 *src);
+    void FUN_0027af30(const S8_1fa3a0 *src);
     void FUN_0027b040(const char *name);
 };
 
 /* 16-byte by-value argument; only the first ten bytes are copied. Overlays a record's
    name and two flag bytes, which are re-read after the name copy. */
-struct SlotKey {
-    S8 name;
+struct SlotKey_1fa3a0 {
+    S8_1fa3a0 name;
     char flagA;
     char flagB;
     char pad[6];
-    SlotKey(const SlotKey &src) {
+    SlotKey_1fa3a0(const SlotKey_1fa3a0 &src) {
         name.FUN_0027af30(&src.name);
         flagA = src.flagA;
         flagB = src.flagB;
     }
 };
 
-struct Event {
+struct Event_1fa3a0 {
     int words[24];
     void FUN_001ca040(const void *a, const void *b);
 };
 
-struct Listener {
-    void FUN_001cbc20(Event *ev);
+struct Listener_1fa3a0 {
+    void FUN_001cbc20(Event_1fa3a0 *ev);
 };
 
-struct Manager {
+struct Manager_1fa3a0 {
     char pad00[0x30];
-    Listener *listener;
+    Listener_1fa3a0 *listener;
 };
 
-extern Manager *DAT_004dd700;
+extern Manager_1fa3a0 *DAT_004dd700;
 
-struct Record {
+struct Record_1fa3a0 {
     char pad00[8];
     int field08;
     char label[0x20];
     char pad2c[4];
-    S8 name;
+    S8_1fa3a0 name;
     unsigned char flagA;
     unsigned char flagB;
     char pad3a[6];
@@ -55,7 +55,7 @@ struct Record {
     unsigned char f51;
     unsigned short f52;
     char pad54[4];
-    void FUN_001f91b0(const Record *src);
+    void FUN_001f91b0(const Record_1fa3a0 *src);
 };
 
 struct Channel {
@@ -71,10 +71,10 @@ public:
     char pad4ac[0x6e0 - 0x4ac - 0x28 + 0x28];
     int channelCount;
     char pad6e4[4];
-    Record records[16];
+    Record_1fa3a0 records[16];
     int recordCount;
 
-    void FUN_001f9fc0(SlotKey key);
+    void FUN_001f9fc0(SlotKey_1fa3a0 key);
     void FUN_001fa3a0(int index);
 };
 
@@ -85,17 +85,17 @@ void Mixer::FUN_001fa3a0(int index)
     if (index >= 0 && index < recordCount) {
         for (int i = 0; i < channelCount; i++) {
             if (channels[i].flag) {
-                Record *r = &records[index];
+                Record_1fa3a0 *r = &records[index];
                 r->flagB = (unsigned char)i;
-                FUN_001f9fc0(*(SlotKey *)&r->name);
+                FUN_001f9fc0(*(SlotKey_1fa3a0 *)&r->name);
             }
         }
-        Record *r = &records[index];
+        Record_1fa3a0 *r = &records[index];
         r->flagB = 0xff;
 
-        Listener *l = DAT_004dd700->listener;
+        Listener_1fa3a0 *l = DAT_004dd700->listener;
         if (l) {
-            Event ev;
+            Event_1fa3a0 ev;
             ev.FUN_001ca040(settings, r->label);
             l->FUN_001cbc20(&ev);
         }

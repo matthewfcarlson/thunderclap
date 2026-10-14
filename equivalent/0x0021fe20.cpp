@@ -1,28 +1,28 @@
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 34/34)
 // FUN_0021fe20 @ 0x0021fe20
-struct Proto;
+struct Proto_21fe20;
 
-struct Zio {
+struct Zio_21fe20 {
     unsigned int n;                 // 0x0
     unsigned char *p;               // 0x4
 };
 
-struct LoadState {
+struct LoadState_21fe20 {
     void *L;                        // 0x0
-    Zio *z;                         // 0x4
+    Zio_21fe20 *z;                         // 0x4
     void *buff;                     // 0x8
 };
 
-struct TValue {
+struct TValue_21fe20 {
     int tt;                         // 0x0
     void *value;                    // 0x4
 };
 
-struct Proto {
+struct Proto_21fe20 {
     char pad0[8];
-    TValue *k;                      // 0x08
+    TValue_21fe20 *k;                      // 0x08
     char pad0c[4];
-    Proto **p;                      // 0x10
+    Proto_21fe20 **p;                      // 0x10
     char pad14[0x20 - 0x14];
     void *source;                   // 0x20
     char pad24[4];
@@ -33,17 +33,17 @@ struct Proto {
 
 void __cdecl FUN_0021f800(const char *fmt, ...);
 // equiv-conv: FUN_0021f8c0 edx ecx eax
-void FUN_0021f8c0(LoadState *S, void *out, int size);
+void FUN_0021f8c0(LoadState_21fe20 *S, void *out, int size);
 void *__cdecl FUN_0021add0(void *L, void *block, int oldsize, int newsize);
-int __cdecl FUN_0021a550(Zio *z);
+int __cdecl FUN_0021a550(Zio_21fe20 *z);
 void *__cdecl FUN_0021a6b0(void *L, void *buff, int size);
-int __cdecl FUN_0021a610(Zio *z, void *buff, int size);
+int __cdecl FUN_0021a610(Zio_21fe20 *z, void *buff, int size);
 void *__cdecl FUN_00219430(void *L, void *str, int len);
-Proto *__cdecl FUN_00220050(LoadState *S, void *source);
+Proto_21fe20 *__cdecl FUN_00220050(LoadState_21fe20 *S, void *source);
 
 // Lua 5.0 undump: LoadConstants(S, f) followed by LoadFunctions
 // equiv-conv: FUN_0021fe20 eax stack
-void FUN_0021fe20(LoadState *S, Proto *f)
+void FUN_0021fe20(LoadState_21fe20 *S, Proto_21fe20 *f)
 {
     struct Frame {
         int n;
@@ -57,14 +57,14 @@ void FUN_0021fe20(LoadState *S, Proto *f)
         FUN_0021f800("bad integer");
 
     int n = fr.n;
-    f->k = (TValue *)FUN_0021add0(S->L, 0, 0, n * 8);
+    f->k = (TValue_21fe20 *)FUN_0021add0(S->L, 0, 0, n * 8);
     f->sizek = n;
     for (int i = 0; i < n; ++i)
         f->k[i].tt = 0;
 
     for (fr.index = 0; fr.index < n; ++fr.index) {
-        TValue *o = &f->k[fr.index];
-        Zio *z = S->z;
+        TValue_21fe20 *o = &f->k[fr.index];
+        Zio_21fe20 *z = S->z;
         unsigned int left = z->n;
         z->n = left - 1;
         z = S->z;
@@ -112,7 +112,7 @@ void FUN_0021fe20(LoadState *S, Proto *f)
         FUN_0021f800("bad integer");
 
     int np = fr.index;
-    f->p = (Proto **)FUN_0021add0(S->L, 0, 0, np * 4);
+    f->p = (Proto_21fe20 **)FUN_0021add0(S->L, 0, 0, np * 4);
     f->sizep = np;
     for (int i = 0; i < np; ++i)
         f->p[i] = 0;

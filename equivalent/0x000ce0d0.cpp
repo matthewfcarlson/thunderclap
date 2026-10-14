@@ -20,7 +20,7 @@ struct Obj218 {
     virtual void v14();
 };
 
-struct Target {
+struct Target_ce0d0 {
     char pad0[0x218];
     Obj218* obj;
     char* target;      // 0x21c, float at +0xc
@@ -45,7 +45,7 @@ static float clamp01(float v)
     return 0.0f;
 }
 
-void Target::Update(float dt)
+void Target_ce0d0::Update(float dt)
 {
     elapsed = dt + elapsed;
     if (fading) {

@@ -3,7 +3,7 @@
 // Wrap an angle in degrees into [0, 360). NaN and values beyond +-3600 give 0.
 extern "C" int __cdecl _isnan(double);
 
-union FloatBits {
+union FloatBits_a0330 {
     float f;
     unsigned int u;
 };
@@ -13,7 +13,7 @@ float FUN_000a0330(float degrees)
     if (_isnan(degrees)) {
         return 0.0f;
     }
-    FloatBits magnitude;
+    FloatBits_a0330 magnitude;
     magnitude.f = degrees;
     magnitude.u &= 0x7fffffff;
     if (magnitude.f > 3600.0f) {

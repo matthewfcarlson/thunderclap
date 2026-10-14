@@ -2,18 +2,18 @@
 // FUN_00283ca0 @ 0x00283ca0
 namespace pure3d { struct DrawableHierarchy { virtual void AddRef(); virtual void Release(); }; }
 namespace content { struct LoadInventory { template<class T> struct DynamicCaster { virtual T* Cast(void*); }; }; }
-struct Key { unsigned a,b; };
-struct Entry { virtual void m0(); virtual void m1(); virtual void m2(); virtual void m3(); virtual pure3d::DrawableHierarchy* m4(); };
-struct Inventory { virtual void m0(); virtual void m1(); virtual void m2(); virtual Entry* Find(content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>*,unsigned,unsigned); };
-struct Stats { virtual void m0(); virtual void m1(); virtual void m2(); virtual void m3(); virtual void m4(); virtual void m5(); virtual void m6(); virtual void m7(); virtual void m8(); virtual void Query(unsigned*,unsigned,unsigned,unsigned); };
-extern Stats* __cdecl FUN_00266f40(unsigned);
+struct Key_283ca0 { unsigned a,b; };
+struct Entry_283ca0 { virtual void m0(); virtual void m1(); virtual void m2(); virtual void m3(); virtual pure3d::DrawableHierarchy* m4(); };
+struct Inventory_283ca0 { virtual void m0(); virtual void m1(); virtual void m2(); virtual Entry_283ca0* Find(content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>*,unsigned,unsigned); };
+struct Stats_283ca0 { virtual void m0(); virtual void m1(); virtual void m2(); virtual void m3(); virtual void m4(); virtual void m5(); virtual void m6(); virtual void m7(); virtual void m8(); virtual void Query(unsigned*,unsigned,unsigned,unsigned); };
+extern Stats_283ca0* __cdecl FUN_00266f40(unsigned);
 extern unsigned __cdecl FUN_00266da0(unsigned);
-struct Destination { int FUN_00283510(pure3d::DrawableHierarchy*,unsigned,unsigned,unsigned); };
-struct Target { Inventory* inventory; unsigned id; unsigned pad; Destination* dest; int FUN_00283ca0(Key*,unsigned,unsigned,unsigned); };
-int Target::FUN_00283ca0(Key* key,unsigned a,unsigned b,unsigned c) {
+struct Destination_283ca0 { int FUN_00283510(pure3d::DrawableHierarchy*,unsigned,unsigned,unsigned); };
+struct Target_283ca0 { Inventory_283ca0* inventory; unsigned id; unsigned pad; Destination_283ca0* dest; int FUN_00283ca0(Key_283ca0*,unsigned,unsigned,unsigned); };
+int Target_283ca0::FUN_00283ca0(Key_283ca0* key,unsigned a,unsigned b,unsigned c) {
  if (!inventory) return 0;
  content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> caster;
- Entry* entry=inventory->Find(&caster,key->a,key->b);
+ Entry_283ca0* entry=inventory->Find(&caster,key->a,key->b);
  if (!entry) return 0;
  unsigned count;
  FUN_00266f40(id)->Query(&count,0,0,0);

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000e2860 @ 0x000e2860
-struct SubObject {
+struct SubObject_e2860 {
     char data[0x24];
     void FUN_000f7930();
 };
@@ -8,7 +8,7 @@ struct FEObject {
     virtual void slot0();
     unsigned int baseFields[4]; // 04
     unsigned int field14;
-    SubObject sub; // 18
+    SubObject_e2860 sub; // 18
     int field3c;
     unsigned char field40;
     char pad41[3];

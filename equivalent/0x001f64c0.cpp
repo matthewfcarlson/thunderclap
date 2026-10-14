@@ -2,14 +2,14 @@
 // FUN_001f64c0 @ 0x001f64c0
 extern unsigned DAT_004d9968;
 void __fastcall __security_check_cookie(unsigned);
-struct Vec { float x,y,z; };
-struct Transform { char pad[0x30]; Vec a,b,c; };
-void __cdecl FUN_0024ca70(Vec*);
-void __cdecl FUN_0024cab0(Vec*,Vec*);
-struct Child { void FUN_001f5860(unsigned); };
+struct Vec_1f64c0 { float x,y,z; };
+struct Transform_1f64c0 { char pad[0x30]; Vec_1f64c0 a,b,c; };
+void __cdecl FUN_0024ca70(Vec_1f64c0*);
+void __cdecl FUN_0024cab0(Vec_1f64c0*,Vec_1f64c0*);
+struct Child_1f64c0 { void FUN_001f5860(unsigned); };
 struct Object {
- char pad0[8]; Child* children[32]; int count;
- char pad1[0x328-0x8c]; Transform* transform;
+ char pad0[8]; Child_1f64c0* children[32]; int count;
+ char pad1[0x328-0x8c]; Transform_1f64c0* transform;
  int pad2; int state;
  void FUN_001f4140(int);
  void FUN_001f5c20(unsigned);

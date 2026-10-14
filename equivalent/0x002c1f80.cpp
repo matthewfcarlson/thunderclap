@@ -4,7 +4,7 @@ extern "C" int sprintf(char *buf, const char *fmt, ...);
 void *FUN_0008d6d0(unsigned int size);
 void FUN_0008d340(void *p);
 
-class Ref {
+class Ref_2c1f80 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -24,29 +24,29 @@ struct Reader {
     void FUN_00266ca0(int handle);
 };
 
-struct Factory {
-    Ref *FUN_002aecb0(char *name);
-    Ref *FUN_002aed60(int handle, int arg);
+struct Factory_2c1f80 {
+    Ref_2c1f80 *FUN_002aecb0(char *name);
+    Ref_2c1f80 *FUN_002aed60(int handle, int arg);
 };
 
-class Sink {
+class Sink_2c1f80 {
 public:
     virtual void v0();
     virtual void v1();
-    virtual void *Install(Ref **items, int count, int a, int b);
-    virtual void *InstallScaled(Ref **items, int count, int a, int b);
+    virtual void *Install(Ref_2c1f80 **items, int count, int a, int b);
+    virtual void *InstallScaled(Ref_2c1f80 **items, int count, int a, int b);
 };
 
-class Loader {
+class Loader_2c1f80 {
 public:
     char pad0[0x14];
-    Factory *defaultFactory;    // 0x14
-    Sink *sink;                 // 0x18
+    Factory_2c1f80 *defaultFactory;    // 0x14
+    Sink_2c1f80 *sink;                 // 0x18
 
-    void *FUN_002c1f80(Reader *r, Factory *factory, int a3, int a4, int a5);
+    void *FUN_002c1f80(Reader *r, Factory_2c1f80 *factory, int a3, int a4, int a5);
 };
 
-void *Loader::FUN_002c1f80(Reader *r, Factory *factory, int a3, int a4, int a5)
+void *Loader_2c1f80::FUN_002c1f80(Reader *r, Factory_2c1f80 *factory, int a3, int a4, int a5)
 {
     if (factory == 0)
         factory = defaultFactory;
@@ -56,9 +56,9 @@ void *Loader::FUN_002c1f80(Reader *r, Factory *factory, int a3, int a4, int a5)
         char pad[3];
         unsigned char len;
         int v0;
-        Ref **items;
+        Ref_2c1f80 **items;
         void *result;
-        Loader *self;
+        Loader_2c1f80 *self;
         int count;
         int v2;
         char buf1[0x80];
@@ -81,7 +81,7 @@ void *Loader::FUN_002c1f80(Reader *r, Factory *factory, int a3, int a4, int a5)
     r->stream->FUN_002647e0(&f.v0, 1, 4, 1);
 
     f.result = (void *)a3;
-    f.items = (Ref **)FUN_0008d6d0(f.count * 4);
+    f.items = (Ref_2c1f80 **)FUN_0008d6d0(f.count * 4);
     int n = 0;
     if (r->FUN_002669f0()) {
         do {
@@ -93,7 +93,7 @@ void *Loader::FUN_002c1f80(Reader *r, Factory *factory, int a3, int a4, int a5)
                     if (id == 0x19002) {
                         r->stream->FUN_002647e0(&f.v2, 1, 4, 1);
                         int h = r->FUN_00266c90();
-                        Ref *obj = factory->FUN_002aed60(h, f.v0);
+                        Ref_2c1f80 *obj = factory->FUN_002aed60(h, f.v0);
                         f.items[n] = obj;
                         obj->AddRef();
                         r->FUN_00266ca0(h);
@@ -104,7 +104,7 @@ void *Loader::FUN_002c1f80(Reader *r, Factory *factory, int a3, int a4, int a5)
                         int l2 = f.len;
                         r->stream->FUN_002647e0(f.buf2, l2, 1, 1);
                         f.buf2[l2] = 0;
-                        Ref *obj = factory->FUN_002aecb0(f.buf2);
+                        Ref_2c1f80 *obj = factory->FUN_002aecb0(f.buf2);
                         f.items[n] = obj;
                         obj->AddRef();
                         n++;

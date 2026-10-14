@@ -13,7 +13,7 @@ struct Builder {
     void FUN_0008ef00();
 };
 
-class Renderer {
+class Renderer_1be260 {
 public:
     virtual void v00();
     virtual void v04();
@@ -76,7 +76,7 @@ public:
     virtual void ve8(int a);
 };
 
-class Device {
+class Device_1be260 {
 public:
     virtual void v00();
     virtual void v04();
@@ -98,28 +98,28 @@ public:
 };
 
 struct DeviceHolder {
-    Device* device;
+    Device_1be260* device;
     void FUN_00293d00(char* p);
 };
 
-extern Renderer* DAT_0052c2a8;
+extern Renderer_1be260* DAT_0052c2a8;
 extern DeviceHolder* DAT_0052c2ac;
 
-struct Layer {
+struct Layer_1be260 {
     char pad00[0x10];
     int handle;
 };
 
-class Quad {
+class Quad_1be260 {
 public:
     char pad00[0x10];
     float size;
     char pad14[4];
-    Layer* layer;
+    Layer_1be260* layer;
     void FUN_001be260();
 };
 
-void Quad::FUN_001be260()
+void Quad_1be260::FUN_001be260()
 {
     DAT_0052c2a8->ve8(0);
     DAT_0052c2ac->device->v3c(0);

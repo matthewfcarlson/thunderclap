@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 236 inputs, branch coverage 12/12)
 // FUN_002828e0 @ 0x002828e0
-struct Key { unsigned a,b; };
-struct Triple { unsigned a,b,c; };
-struct Resource { virtual void AddRef(); virtual void Release(); unsigned FUN_002843a0(unsigned a,unsigned b); };
+struct Key_2828e0 { unsigned a,b; };
+struct Triple_2828e0 { unsigned a,b,c; };
+struct Resource_2828e0 { virtual void AddRef(); virtual void Release(); unsigned FUN_002843a0(unsigned a,unsigned b); };
 struct Object {
- char pad[0x40]; Resource* first; Resource* second; int count; float invC,invA,invB; unsigned x,y,z; char gap[4]; unsigned zeroA,zeroB,result; unsigned* indices; Triple* triples; unsigned finalA; float finalB,invFinal;
- void FUN_002828e0(unsigned a,float b,Resource* r2,Resource* r1,const Key* keys,const Triple* data,int n,const Key* key,unsigned x0,unsigned y0,unsigned z0,float f1,float f2,float f3);
+ char pad[0x40]; Resource_2828e0* first; Resource_2828e0* second; int count; float invC,invA,invB; unsigned x,y,z; char gap[4]; unsigned zeroA,zeroB,result; unsigned* indices; Triple_2828e0* triples; unsigned finalA; float finalB,invFinal;
+ void FUN_002828e0(unsigned a,float b,Resource_2828e0* r2,Resource_2828e0* r1,const Key_2828e0* keys,const Triple_2828e0* data,int n,const Key_2828e0* key,unsigned x0,unsigned y0,unsigned z0,float f1,float f2,float f3);
 };
-void Object::FUN_002828e0(unsigned a,float b,Resource* r2,Resource* r1,const Key* keys,const Triple* data,int n,const Key* key,unsigned x0,unsigned y0,unsigned z0,float f1,float f2,float f3) {
+void Object::FUN_002828e0(unsigned a,float b,Resource_2828e0* r2,Resource_2828e0* r1,const Key_2828e0* keys,const Triple_2828e0* data,int n,const Key_2828e0* key,unsigned x0,unsigned y0,unsigned z0,float f1,float f2,float f3) {
  if(r1) r1->AddRef();
  if(first) first->Release();
  first=r1;

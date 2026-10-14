@@ -6,11 +6,11 @@ extern "C" double atan2(double y, double x);
 
 struct Obj13;
 
-struct V3 {
+struct V3_396a0 {
     float x, y, z;
     float FUN_00018990();
     float FUN_000111f0();
-    void FUN_0022d240(V3 *in, Obj13 *cam);
+    void FUN_0022d240(V3_396a0 *in, Obj13 *cam);
 };
 
 struct Obj13 {
@@ -30,61 +30,61 @@ struct Obj13 {
     virtual Obj13 *v13();
 };
 
-struct Inner {
+struct Inner_396a0 {
     Obj13 *FUN_001c19a0();
 };
-struct Cam {
-    Inner *inner;
-    V3 *FUN_001c39d0();
+struct Cam_396a0 {
+    Inner_396a0 *inner;
+    V3_396a0 *FUN_001c39d0();
 };
-Cam *FUN_001c3d90();
+Cam_396a0 *FUN_001c3d90();
 
-struct HitObj {
+struct HitObj_396a0 {
     char pad0[0x10];
     int f10;
 };
 
-struct Sub11c {
+struct Sub11c_396a0 {
     char pad0[0x1a0];
     float f1a0;
 };
-struct Sub8 {
+struct Sub8_396a0 {
     char pad0[0x40];
     int f40;
     char pad44[0x11c - 0x44];
-    Sub11c *p11c;
-    HitObj *FUN_001d75c0(int idx);
+    Sub11c_396a0 *p11c;
+    HitObj_396a0 *FUN_001d75c0(int idx);
 };
-struct Thing {
+struct Thing_396a0 {
     char pad0[8];
-    Sub8 *p8;
+    Sub8_396a0 *p8;
     int type;
 };
 
-struct Ray {
-    char FUN_00201e00(V3 *from, V3 *to, int one, V3 *outA, V3 *outB, int z1, HitObj **hit);
+struct Ray_396a0 {
+    char FUN_00201e00(V3_396a0 *from, V3_396a0 *to, int one, V3_396a0 *outA, V3_396a0 *outB, int z1, HitObj_396a0 **hit);
 };
-struct List {
+struct List_396a0 {
     int **begin;
     int **end;
 };
-struct ListOwner {
-    List *FUN_002ed700();
+struct ListOwner_396a0 {
+    List_396a0 *FUN_002ed700();
 };
-struct Mid {
+struct Mid_396a0 {
     char pad0[8];
-    ListOwner *p8;
+    ListOwner_396a0 *p8;
 };
-struct Hub {
+struct Hub_396a0 {
     char pad0[0x10];
-    Mid *p10;
+    Mid_396a0 *p10;
     char pad14[0x24 - 0x14];
-    Ray *p24;
+    Ray_396a0 *p24;
 };
-extern Hub *DAT_004dd700;
+extern Hub_396a0 *DAT_004dd700;
 
-Thing *FUN_000969d0(int a);
-char FUN_00035e70(Thing *t, float len);
+Thing_396a0 *FUN_000969d0(int a);
+char FUN_00035e70(Thing_396a0 *t, float len);
 
 static float HalfPi()
 {
@@ -94,32 +94,32 @@ static float HalfPi()
 class Picker {
 public:
     char pad0[0x328];
-    Thing *p328;
-    void FUN_000350c0(V3 *out);
-    char FUN_00039440(Thing *t, V3 *out, int *score, int flag);
-    Thing *F(float x, float z, int minScore);
+    Thing_396a0 *p328;
+    void FUN_000350c0(V3_396a0 *out);
+    char FUN_00039440(Thing_396a0 *t, V3_396a0 *out, int *score, int flag);
+    Thing_396a0 *F(float x, float z, int minScore);
 };
 
-Thing *Picker::F(float x, float z, int minScore)
+Thing_396a0 *Picker::F(float x, float z, int minScore)
 {
     struct Frame {
         char pad0c[3];
         char flag;
         float d;
         int best;
-        V3 R;
+        V3_396a0 R;
         int score2;
-        V3 Tp;
-        V3 T;
-        HitObj *hit;
+        V3_396a0 Tp;
+        V3_396a0 T;
+        HitObj_396a0 *hit;
         float bestAngle;
         float dA;
         float dB;
-        V3 D;
-        V3 H;
-        V3 P;
+        V3_396a0 D;
+        V3_396a0 H;
+        V3_396a0 P;
         float B;
-        Thing *result;
+        Thing_396a0 *result;
         float A;
         int idx;
         float inv;
@@ -127,10 +127,10 @@ Thing *Picker::F(float x, float z, int minScore)
         int f24spill;
         Obj13 *cam;
         int count;
-        V3 W;
-        V3 outA;
-        V3 X;
-        V3 outB;
+        V3_396a0 W;
+        V3_396a0 outA;
+        V3_396a0 X;
+        V3_396a0 outB;
     } fr;
 
     float len = (float)sqrt(x * x + z * z);
@@ -144,7 +144,7 @@ Thing *Picker::F(float x, float z, int minScore)
     fr.P.y = 0;
     fr.P.z = 0;
     FUN_000350c0(&fr.P);
-    Thing *cur = p328;
+    Thing_396a0 *cur = p328;
     fr.best = 0x80000000;
     fr.A = 0;
     fr.B = 0;
@@ -157,11 +157,11 @@ Thing *Picker::F(float x, float z, int minScore)
         fr.A = (float)atan2(fr.R.x, fr.R.z);
         fr.B = (float)atan2(fr.R.y, fr.R.z);
     }
-    Ray *ray = DAT_004dd700->p24;
+    Ray_396a0 *ray = DAT_004dd700->p24;
     fr.result = 0;
     fr.bestAngle = 3.4028235e38f;
     fr.flag = 0;
-    List *list = DAT_004dd700->p10->p8->FUN_002ed700();
+    List_396a0 *list = DAT_004dd700->p10->p8->FUN_002ed700();
     if (!list)
         return fr.result;
     int count = (int)(list->end - list->begin);
@@ -169,7 +169,7 @@ Thing *Picker::F(float x, float z, int minScore)
         int *item = list->begin[i];
         if (!item)
             continue;
-        Thing *th = FUN_000969d0(item[6]);
+        Thing_396a0 *th = FUN_000969d0(item[6]);
         if (!th)
             continue;
         if (th == p328)
@@ -225,7 +225,7 @@ Thing *Picker::F(float x, float z, int minScore)
         }
         bl = 0;
         if (ok) {
-            V3 *cp = FUN_001c3d90()->FUN_001c39d0();
+            V3_396a0 *cp = FUN_001c3d90()->FUN_001c39d0();
             fr.X.x = cp->x;
             fr.X.y = cp->y;
             fr.X.z = cp->z;
@@ -245,7 +245,7 @@ Thing *Picker::F(float x, float z, int minScore)
                 } else {
                     bool commit = false;
                     if (fr.hit && th->type == 5 && th->p8) {
-                        HitObj *ho = th->p8->FUN_001d75c0(th->p8->f40);
+                        HitObj_396a0 *ho = th->p8->FUN_001d75c0(th->p8->f40);
                         if (ho && ho->f10 == (int)fr.hit) {
                             bl = 0;
                             commit = true;

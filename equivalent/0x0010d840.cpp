@@ -4,10 +4,10 @@ extern char DAT_00494b44;
 extern char DAT_00494b60;
 extern "C" void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 struct Entity;
-struct Part { void FUN_00059a30(); };
-struct Entity { Part* FUN_000592a0(); };
-struct Manager { void FUN_00066530(); int FUN_00065f60(); };
-extern Manager* __cdecl FUN_000678d0();
+struct Part_10d840 { void FUN_00059a30(); };
+struct Entity { Part_10d840* FUN_000592a0(); };
+struct Manager_10d840 { void FUN_00066530(); int FUN_00065f60(); };
+extern Manager_10d840* __cdecl FUN_000678d0();
 namespace hulkfight { namespace ai {
 struct PropsToChuckCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5();

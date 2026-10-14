@@ -8,16 +8,16 @@ struct Node {
  void FUN_0030ec20(int);
  void FUN_0030ec70(Node*);
 };
-struct Source {
+struct Source_30f6b0 {
  virtual void retain();
  char pad[12]; int count; char pad2[20]; unsigned short* parents;
 };
 namespace physics { struct Pose {
  virtual void slot0();
- int state; Source* source; Node* nodes;
- Pose(Source*);
+ int state; Source_30f6b0* source; Node* nodes;
+ Pose(Source_30f6b0*);
 }; }
-physics::Pose::Pose(Source* s) {
+physics::Pose::Pose(Source_30f6b0* s) {
  state=0;
  if (!s) {source=0;nodes=0;return;}
  source=s; source->retain();

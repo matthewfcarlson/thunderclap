@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // physics::SimpleFilter3D::vfunc_1 @ 0x00319720
-struct V3 {
+struct V3_319720 {
     float x, y, z;
 };
 
 class SimpleFilter3D {
 public:
     virtual void vfunc_0();
-    virtual void vfunc_1(const V3 *in, float dt);
+    virtual void vfunc_1(const V3_319720 *in, float dt);
     virtual void vfunc_2();
     float rate[3];     // 0x04
     float alpha[3];    // 0x10
@@ -15,7 +15,7 @@ public:
     float lastDt;      // 0x28
 };
 
-void SimpleFilter3D::vfunc_1(const V3 *in, float dt)
+void SimpleFilter3D::vfunc_1(const V3_319720 *in, float dt)
 {
     if (dt != lastDt) {
         alpha[0] = dt * rate[0];

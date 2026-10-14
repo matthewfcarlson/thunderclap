@@ -2,7 +2,7 @@
 // FUN_0029f8c0 @ 0x0029f8c0
 extern int DAT_004cf730;
 
-struct Rec {
+struct Rec_29f8c0 {
     int field_00;
     int color;
     char pad[0x18 - 8];
@@ -10,7 +10,7 @@ struct Rec {
     int field_1c;
 };
 
-struct ItemList {
+struct ItemList_29f8c0 {
     char pad0[0x10];
     int limit;
     int count;
@@ -20,32 +20,32 @@ struct ItemList {
     void FUN_002a1180(int index);
 };
 
-struct Slots {
-    ItemList *list;
-    Rec *recs;
+struct Slots_29f8c0 {
+    ItemList_29f8c0 *list;
+    Rec_29f8c0 *recs;
 
     void FUN_0029eda0(int index, void *item);
 };
 
-struct Owner;
+struct Owner_29f8c0;
 
-struct Owner {
+struct Owner_29f8c0 {
     char pad[0x24];
     int removed;
 
-    Slots *FUN_0029c450(void *key);
+    Slots_29f8c0 *FUN_0029c450(void *key);
     void FUN_0029f8c0(void *key);
 };
 
-void Owner::FUN_0029f8c0(void *key)
+void Owner_29f8c0::FUN_0029f8c0(void *key)
 {
     if (key == 0)
         return;
 
-    Slots *s = FUN_0029c450(key);
+    Slots_29f8c0 *s = FUN_0029c450(key);
 
     for (int i = s->list->count - 1; i >= 0; i--) {
-        ItemList *l = s->list;
+        ItemList_29f8c0 *l = s->list;
         void *item = (i < l->limit) ? l->items[i] : 0;
         if (item != key)
             continue;

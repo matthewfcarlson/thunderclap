@@ -41,12 +41,12 @@ public:
     virtual void *v3(void *caster, unsigned __int64 key);
 };
 
-struct NameHolder {
+struct NameHolder_2870d0 {
     char pad[8];
     void FUN_0027b040(const char *name);
 };
 
-struct IdObj {
+struct IdObj_2870d0 {
     char pad0[8];
     unsigned int lo;
     unsigned int hi;
@@ -77,9 +77,9 @@ struct SceneGraphObj {
     pure3d::scenegraph::Node *FUN_002961e0(unsigned int lo, unsigned int hi, int a, int b);
 };
 
-class Base {
+class Base_2870d0 {
 public:
-    IdObj *FUN_00288a10(int a);
+    IdObj_2870d0 *FUN_00288a10(int a);
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -106,22 +106,22 @@ public:
     virtual void v23();
     virtual void v24(void *a, int b, int c);
     char pad04[4];
-    NameHolder nameHolder;
+    NameHolder_2870d0 nameHolder;
 };
 
-class Exp : public Base { public: Exp *FUN_002a9cb0(); void FUN_002a9ea0(void *r); };
-class Cam : public Base { public: Cam *FUN_00292eb0(); void FUN_00293100(void *r); };
-class Bqg : public Base { public: Bqg *FUN_002a9760(); void FUN_002a98f0(int v); };
-class Tex : public Base { public: Tex *FUN_002a9410(); void FUN_002a9540(void *r); };
-class Shad : public Base { public: Shad *FUN_002a83e0(); void FUN_002a8650(void *r); };
-class Efx : public Base { public: Efx *FUN_002a73d0(); void FUN_002a75a0(void *r); };
-class Lite : public Base { public: Lite *FUN_002a87c0(); void FUN_002a8aa0(void *r); };
-class Ptrn : public Base { public: Ptrn *FUN_00287860(); void FUN_00288080(int v); };
-class Strn : public Base { public: Strn *FUN_002a7730(); void FUN_002a77c0(pure3d::scenegraph::TransformNode *n); };
-class Pvis : public Base { public: Pvis *FUN_002a80c0(); void FUN_002a8310(SceneRes *r); };
-class Svis : public Base { public: Svis *FUN_002a7b90(); void FUN_002a7cf0(pure3d::scenegraph::VisibilityNode *n); };
-class Pvrt : public Base { public: Pvrt *FUN_002a5420(); void FUN_002a6930(void *r); };
-class Vrtx : public Base { public: Vrtx *FUN_002a6cb0(); void FUN_002a6ed0(void *r); };
+class Exp_2870d0 : public Base_2870d0 { public: Exp_2870d0 *FUN_002a9cb0(); void FUN_002a9ea0(void *r); };
+class Cam_2870d0 : public Base_2870d0 { public: Cam_2870d0 *FUN_00292eb0(); void FUN_00293100(void *r); };
+class Bqg : public Base_2870d0 { public: Bqg *FUN_002a9760(); void FUN_002a98f0(int v); };
+class Tex_2870d0 : public Base_2870d0 { public: Tex_2870d0 *FUN_002a9410(); void FUN_002a9540(void *r); };
+class Shad : public Base_2870d0 { public: Shad *FUN_002a83e0(); void FUN_002a8650(void *r); };
+class Efx : public Base_2870d0 { public: Efx *FUN_002a73d0(); void FUN_002a75a0(void *r); };
+class Lite : public Base_2870d0 { public: Lite *FUN_002a87c0(); void FUN_002a8aa0(void *r); };
+class Ptrn : public Base_2870d0 { public: Ptrn *FUN_00287860(); void FUN_00288080(int v); };
+class Strn : public Base_2870d0 { public: Strn *FUN_002a7730(); void FUN_002a77c0(pure3d::scenegraph::TransformNode *n); };
+class Pvis : public Base_2870d0 { public: Pvis *FUN_002a80c0(); void FUN_002a8310(SceneRes *r); };
+class Svis : public Base_2870d0 { public: Svis *FUN_002a7b90(); void FUN_002a7cf0(pure3d::scenegraph::VisibilityNode *n); };
+class Pvrt : public Base_2870d0 { public: Pvrt *FUN_002a5420(); void FUN_002a6930(void *r); };
+class Vrtx : public Base_2870d0 { public: Vrtx *FUN_002a6cb0(); void FUN_002a6ed0(void *r); };
 
 void *__cdecl FUN_00286750(Reader *r, const char *name);
 void *__cdecl FUN_000f23a0(Reader *r, const char *name);
@@ -132,7 +132,7 @@ SceneRes *__cdecl FUN_000c0d80(Reader *r, const char *name);
 SceneGraphObj *__cdecl FUN_000f23d0(Reader *r, const char *name);
 void *__cdecl FUN_000c9ba0(Reader *r, const char *name);
 
-struct Frame {
+struct Frame_2870d0 {
     char pad0[3];
     char b3;                // 0x03
     void *caster;           // 0x04 (placement-new'd DynamicCaster)
@@ -150,14 +150,14 @@ public:
     virtual void v4();
     virtual void v5();
     virtual void v6();
-    virtual Base *v7(const char *name, unsigned int tag, StreamHolder *sh, Reader *r);
+    virtual Base_2870d0 *v7(const char *name, unsigned int tag, StreamHolder *sh, Reader *r);
 };
 
-Base *OldFrameControllerLoader::v7(const char *name, unsigned int tag, StreamHolder *sh, Reader *r)
+Base_2870d0 *OldFrameControllerLoader::v7(const char *name, unsigned int tag, StreamHolder *sh, Reader *r)
 {
-    Frame f;
-    Base *esi = 0;
-    Base *obj;
+    Frame_2870d0 f;
+    Base_2870d0 *esi = 0;
+    Base_2870d0 *obj;
     unsigned int len;
 
     sh->stream->FUN_002647e0(&f.x8, 1, 4, 1);
@@ -171,13 +171,13 @@ Base *OldFrameControllerLoader::v7(const char *name, unsigned int tag, StreamHol
     f.name2[len] = 0;
     if (tag != 0x584645) {
         unsigned __int64 key = FUN_0027b020(f.name2);
-        esi = (Base *)r->v3(new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>, key);
+        esi = (Base_2870d0 *)r->v3(new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>, key);
     }
 
     switch (tag) {
     case 0x505845: {
-        Exp *p = (Exp *)thunk_FUN_0008d690(0x50);
-        Exp *o;
+        Exp_2870d0 *p = (Exp_2870d0 *)thunk_FUN_0008d690(0x50);
+        Exp_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a9cb0();
         else
@@ -191,8 +191,8 @@ Base *OldFrameControllerLoader::v7(const char *name, unsigned int tag, StreamHol
         return o;
     }
     case 0x4d4143: {
-        Cam *p = (Cam *)thunk_FUN_0008d690(0x118);
-        Cam *o;
+        Cam_2870d0 *p = (Cam_2870d0 *)thunk_FUN_0008d690(0x118);
+        Cam_2870d0 *o;
         if (p != 0)
             o = p->FUN_00292eb0();
         else
@@ -206,8 +206,8 @@ Base *OldFrameControllerLoader::v7(const char *name, unsigned int tag, StreamHol
         return o;
     }
     case 0x584554: {
-        Tex *p = (Tex *)thunk_FUN_0008d690(0x48);
-        Tex *o;
+        Tex_2870d0 *p = (Tex_2870d0 *)thunk_FUN_0008d690(0x48);
+        Tex_2870d0 *o;
         if (p != 0)
             o = p->FUN_002a9410();
         else
@@ -321,7 +321,7 @@ Base *OldFrameControllerLoader::v7(const char *name, unsigned int tag, StreamHol
         SceneGraphObj *sg = FUN_000f23d0(r, f.name1);
         if (sg == 0)
             return o;
-        IdObj *id = esi->FUN_00288a10(0);
+        IdObj_2870d0 *id = esi->FUN_00288a10(0);
         pure3d::scenegraph::Node *nd = sg->FUN_002961e0(id->lo, id->hi, 2, 0);
         o->FUN_002a77c0(dynamic_cast<pure3d::scenegraph::TransformNode *>(nd));
         return o;
@@ -354,7 +354,7 @@ Base *OldFrameControllerLoader::v7(const char *name, unsigned int tag, StreamHol
         SceneGraphObj *sg = (SceneGraphObj *)r->v3(new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::scenegraph::Scenegraph>, key);
         if (sg == 0)
             return o;
-        IdObj *id = esi->FUN_00288a10(0);
+        IdObj_2870d0 *id = esi->FUN_00288a10(0);
         pure3d::scenegraph::Node *nd = sg->FUN_002961e0(id->lo, id->hi, 4, 0);
         o->FUN_002a7cf0(dynamic_cast<pure3d::scenegraph::VisibilityNode *>(nd));
         return o;

@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // physics::SimpleFilter3D::vfunc_0 @ 0x003196a0
-struct Vec3 {
+struct Vec3_3196a0 {
     float x, y, z;
 };
 
 class SimpleFilter3D {
 public:
-    virtual bool vfunc_0(const Vec3* origin, const Vec3* extent, int unused);
+    virtual bool vfunc_0(const Vec3_3196a0* origin, const Vec3_3196a0* extent, int unused);
     virtual void vfunc_1();
     virtual void vfunc_2();
     float inv[3];       // 0x04
@@ -16,7 +16,7 @@ public:
 };
 
 // Stores the origin and the reciprocal of each extent; fails unless every extent is positive.
-bool SimpleFilter3D::vfunc_0(const Vec3* o, const Vec3* e, int unused)
+bool SimpleFilter3D::vfunc_0(const Vec3_3196a0* o, const Vec3_3196a0* e, int unused)
 {
     if (e->x > 0.0f && e->y > 0.0f && e->z > 0.0f) {
         const int* src = (const int*)o;

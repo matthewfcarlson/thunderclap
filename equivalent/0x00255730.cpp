@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 101 inputs, branch coverage 24/24)
 // audio::SeqEventCrossFade::vfunc_1 @ 0x00255730
-struct Writer {
+struct Writer_255730 {
     char pad0[0x24];
     int indent;
 };
 
-struct Archive {
-    Writer *writer;
+struct Archive_255730 {
+    Writer_255730 *writer;
 };
 
 struct NameBuf {
@@ -21,30 +21,30 @@ struct TrackName {
     char data[0xc];
 };
 
-char FUN_00246f50(Writer *writer, const char *fmt, ...);
-char FUN_0024eb60(Archive *ar, const char *name, unsigned int *value);
-char FUN_00250ef0(Archive *ar, const char *name, char *value);
-char FUN_0024e600(Archive *ar, const char *name, TrackName *value);
-char FUN_0024eff0(Archive *ar, const char *name, NameBuf *value);
-char FUN_00250640(Archive *ar, const char *name, BeatSet *value);
+char FUN_00246f50(Writer_255730 *writer, const char *fmt, ...);
+char FUN_0024eb60(Archive_255730 *ar, const char *name, unsigned int *value);
+char FUN_00250ef0(Archive_255730 *ar, const char *name, char *value);
+char FUN_0024e600(Archive_255730 *ar, const char *name, TrackName *value);
+char FUN_0024eff0(Archive_255730 *ar, const char *name, NameBuf *value);
+char FUN_00250640(Archive_255730 *ar, const char *name, BeatSet *value);
 
 namespace audio {
 
 class SeqEvent {
 public:
-    virtual char vfunc_0(Archive *ar);
-    virtual char vfunc_1(Archive *ar);
-    virtual char vfunc_2(Archive *ar);
-    virtual char vfunc_3(Archive *ar);
-    virtual char vfunc_4(Archive *ar);
-    virtual char vfunc_5(Archive *ar);
+    virtual char vfunc_0(Archive_255730 *ar);
+    virtual char vfunc_1(Archive_255730 *ar);
+    virtual char vfunc_2(Archive_255730 *ar);
+    virtual char vfunc_3(Archive_255730 *ar);
+    virtual char vfunc_4(Archive_255730 *ar);
+    virtual char vfunc_5(Archive_255730 *ar);
     char pad04[4];
 };
 
 class SeqEventCrossFade : public SeqEvent {
 public:
-    virtual char vfunc_0(Archive *ar);
-    virtual char vfunc_1(Archive *ar);
+    virtual char vfunc_0(Archive_255730 *ar);
+    virtual char vfunc_1(Archive_255730 *ar);
     unsigned int fadeInStartMs;
     unsigned int fadeInMs;
     unsigned int fadeOutStartMs;
@@ -57,7 +57,7 @@ public:
     BeatSet beatSet;
 };
 
-char SeqEventCrossFade::vfunc_1(Archive *ar)
+char SeqEventCrossFade::vfunc_1(Archive_255730 *ar)
 {
     if (!SeqEvent::vfunc_1(ar))
         return 0;

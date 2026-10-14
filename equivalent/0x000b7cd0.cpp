@@ -4,19 +4,19 @@ extern "C" int strcmp(const char* a, const char* b);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 
-struct Text {
+struct Text_b7cd0 {
     char pad[0x24];
     void FUN_000f7930();
     void FUN_000f79a0(const unsigned short* s, int n);
     void FUN_000f7960();
 };
 
-struct Ui {
+struct Ui_b7cd0 {
     int FUN_000f7d30(const char* name);
     const unsigned short* FUN_000f7220(int index);
 };
 
-class UiMgr {
+class UiMgr_b7cd0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -62,7 +62,7 @@ public:
     virtual void v41();
     virtual void v42();
     virtual void v43();
-    virtual Ui* v44();
+    virtual Ui_b7cd0* v44();
 };
 
 class FEObject {
@@ -94,46 +94,46 @@ public:
     virtual void v16();
     virtual void v17();
     virtual void v18();
-    virtual void v19(Text* item, int a, int b);
+    virtual void v19(Text_b7cd0* item, int a, int b);
     void FUN_000e36c0();
 };
 
-struct Unlocks {
+struct Unlocks_b7cd0 {
     bool FUN_00092860(int id);
 };
 
 FEObject* FUN_000fc260(const char* name);
-UiMgr* FUN_000fc3d0();
+UiMgr_b7cd0* FUN_000fc3d0();
 void FUN_000964a0(char* buf, int size, const char* fmt, ...);
 void FUN_000fc020(unsigned short* buf, int count, const unsigned short* fmt, ...);
 
-struct Frame {
+struct Frame_b7cd0 {
     int count;
     TextSelector* menu;
     const char** np;
     const char* cur;
     int* out;
     void* self;
-    Ui* ui;
+    Ui_b7cd0* ui;
     const char* names[6];
-    Text text;
+    Text_b7cd0 text;
     char header[0x40];
     unsigned short label[0x80];
     unsigned int cookie;
 };
 
-class HintMenu {
+class HintMenu_b7cd0 {
 public:
     char pad00[0x4c];
-    Unlocks* unlocks;
+    Unlocks_b7cd0* unlocks;
     char pad50[0x1a0c - 0x50];
     int ids[64];
     void FUN_000b7cd0();
 };
 
-void HintMenu::FUN_000b7cd0()
+void HintMenu_b7cd0::FUN_000b7cd0()
 {
-    Frame f;
+    Frame_b7cd0 f;
     f.cookie = DAT_004d9968;
     f.self = this;
     f.menu = dynamic_cast<TextSelector*>(FUN_000fc260("hint_selector"));

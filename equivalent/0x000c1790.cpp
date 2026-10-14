@@ -25,7 +25,7 @@ struct DynamicCaster {
 }
 }
 
-struct Loader {
+struct Loader_c1790 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -33,61 +33,61 @@ struct Loader {
     void FUN_002665a0();
 };
 
-struct Ui {
+struct Ui_c1790 {
     void FUN_000f7850();
     void FUN_000f89e0();
     void FUN_000f6fe0(int index);
 };
 
-struct Label {
+struct Label_c1790 {
     void FUN_000f79a0(const unsigned short* s, int n);
 };
 
 struct DynamicLabel {
     char pad00[0x18];
-    Label label;
+    Label_c1790 label;
 };
 
-struct Panel {
+struct Panel_c1790 {
     void FUN_001bde50(int index);
     void FUN_001bde90();
     void FUN_001bdeb0();
 };
 
-extern Loader* DAT_004dd9c8;
+extern Loader_c1790* DAT_004dd9c8;
 
 int __cdecl FUN_00266da0(int mode);
-Ui* __cdecl FUN_000fc1b0();
+Ui_c1790* __cdecl FUN_000fc1b0();
 const char* __cdecl FUN_000f7120(int index);
 void FUN_000964a0(char* buf, int size, const char* fmt, ...);
 bool __cdecl FUN_000fc1c0(const char* path);
 unsigned __int64 __cdecl FUN_0027b020(const char* name);
 DynamicLabel* __cdecl FUN_000fc260(const char* name);
 
-struct Frame {
+struct Frame_c1790 {
     content::LoadInventory::DynamicCaster<pure3d::TextureFont> caster;
     void* self;
-    Ui* ui;
+    Ui_c1790* ui;
     int oldMode;
     char path[0x40];
     unsigned short text[0x100];
     unsigned int cookie;
 };
 
-class FrontEnd {
+class FrontEnd_c1790 {
 public:
     char pad00[0x5c];
-    Panel* panel;
+    Panel_c1790* panel;
     char pad60[0x1bc9 - 0x60];
     char lang[8];
     int FUN_000bc900(unsigned short* buf, int pos, const char* key, int idx);
-    void FUN_000bc3c0(const char* path, Loader* loader, int zero);
+    void FUN_000bc3c0(const char* path, Loader_c1790* loader, int zero);
     bool FUN_000c1790(const char* code);
 };
 
-bool FrontEnd::FUN_000c1790(const char* code)
+bool FrontEnd_c1790::FUN_000c1790(const char* code)
 {
-    Frame f;
+    Frame_c1790 f;
     f.cookie = DAT_004d9968;
     f.self = this;
     f.oldMode = FUN_00266da0(0xe);
@@ -135,18 +135,18 @@ bool FrontEnd::FUN_000c1790(const char* code)
         second = "font_serpentine_lt_med";
     }
     {
-        Loader* ld = DAT_004dd9c8;
+        Loader_c1790* ld = DAT_004dd9c8;
         unsigned __int64 h = FUN_0027b020(first);
         new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::TextureFont>;
         ld->v3(&f.caster, h)->FUN_00295250(0xfa0);
     }
     {
-        Loader* ld = DAT_004dd9c8;
+        Loader_c1790* ld = DAT_004dd9c8;
         unsigned __int64 h = FUN_0027b020(second);
         new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::TextureFont>;
         ld->v3(&f.caster, h)->FUN_00295250(0xfa0);
     }
-    Ui* ui = f.ui;
+    Ui_c1790* ui = f.ui;
     if (ui) {
         ui->FUN_000f89e0();
         int i = 0;
@@ -163,7 +163,7 @@ bool FrontEnd::FUN_000c1790(const char* code)
         panel->FUN_001bdeb0();
     DynamicLabel* dl = FUN_000fc260("DynamicControlButtonLabel");
     if (dl) {
-        Label* lbl = &dl->label;
+        Label_c1790* lbl = &dl->label;
         if (lbl) {
             int p = this->FUN_000bc900(f.text, 0, "TBS_MENU_ITEM_BONUS_FEATURES_SELECT", 0);
             this->FUN_000bc900(f.text, p, "TBS_MENU_ITEM_BUTTON_BACK", 1);

@@ -19,7 +19,7 @@ public:
 }
 }
 
-struct ClipRef {
+struct ClipRef_1ea5a0 {
     unsigned int idLo;
     unsigned int idHi;
 };
@@ -29,7 +29,7 @@ struct Clip {
     unsigned short refs;
 };
 
-class ClipLookup {
+class ClipLookup_1ea5a0 {
 public:
     virtual void f0();
     virtual void f1();
@@ -40,14 +40,14 @@ public:
 
 struct Request {
     char pad0[4];
-    ClipRef *ref;
+    ClipRef_1ea5a0 *ref;
 };
 
 extern char DAT_004e36bc;
 bool __cdecl FUN_00245720(Clip **out, void *source, const char *name, void *option);
 void FUN_001e8a60();
 
-struct Arg {
+struct Arg_1ea5a0 {
     union {
         Request *request;
         Clip *clip;
@@ -57,14 +57,14 @@ struct Arg {
 class ClipUser {
 public:
     char pad0[0x518];
-    ClipLookup *clips;
-    void Acquire(Arg arg);
+    ClipLookup_1ea5a0 *clips;
+    void Acquire(Arg_1ea5a0 arg);
 };
 
-void ClipUser::Acquire(Arg arg)
+void ClipUser::Acquire(Arg_1ea5a0 arg)
 {
     Request *req = arg.request;
-    ClipRef *ref = req->ref;
+    ClipRef_1ea5a0 *ref = req->ref;
     content::LoadInventory::DynamicCaster<audio::Clip> caster;
     arg.clip = clips->lookup(&caster, ref->idLo, ref->idHi);
     if (arg.clip == 0) {

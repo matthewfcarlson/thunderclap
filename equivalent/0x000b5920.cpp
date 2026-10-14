@@ -2,7 +2,7 @@
 // FUN_000b5920 @ 0x000b5920
 extern char DAT_004de768[];
 
-struct Control {
+struct Control_b5920 {
     char pad00[5];
     char busy;
     char pad06[2];
@@ -10,24 +10,24 @@ struct Control {
     void FUN_000aff30(int a, float x, float y, float z, const char *name);
 };
 
-struct Entry {
+struct Entry_b5920 {
     char pad[0x134];
     char name[1];
 };
 
-struct Registry {
-    Entry *FUN_000ae640(int index);
+struct Registry_b5920 {
+    Entry_b5920 *FUN_000ae640(int index);
 };
 
-struct Panel {
+struct Panel_b5920 {
     char pad00[0x44];
-    Control *control;
+    Control_b5920 *control;
     char pad48[0x58 - 0x48];
-    Registry *registry;
+    Registry_b5920 *registry;
     void FUN_000b5920(int enable);
 };
 
-void Panel::FUN_000b5920(int enable)
+void Panel_b5920::FUN_000b5920(int enable)
 {
     if (control != 0) {
         char wasBusy = control->busy;

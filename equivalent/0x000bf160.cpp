@@ -13,12 +13,12 @@ public:
     unsigned char f141;
 };
 
-struct Item {
+struct Item_bf160 {
     char pad0[0x14];
     int id;
 };
 
-class Panel {
+class Panel_bf160 {
 public:
     virtual void v0();
     virtual void v1();
@@ -42,35 +42,35 @@ public:
     virtual void Select(int id);
 };
 
-class Manager {
+class Manager_bf160 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Panel *Find(const char *name);
+    virtual Panel_bf160 *Find(const char *name);
 };
 
-struct Settings {
+struct Settings_bf160 {
     char pad0[0xabf];
     unsigned char difficulty;
     unsigned char FUN_000893c0();
 };
 
-Manager *__cdecl FUN_000fc3d0();
-Item *__cdecl FUN_000fc260(const char *name);
+Manager_bf160 *__cdecl FUN_000fc3d0();
+Item_bf160 *__cdecl FUN_000fc260(const char *name);
 
 class DifficultyScreen {
 public:
     char pad0[0x34];
-    Settings *settings;
+    Settings_bf160 *settings;
     void FUN_000bf160();
 };
 
 void DifficultyScreen::FUN_000bf160()
 {
-    Panel *sel = FUN_000fc3d0()->Find("difficulty_select");
+    Panel_bf160 *sel = FUN_000fc3d0()->Find("difficulty_select");
     if (sel != 0) {
-        Item *normal = FUN_000fc260("difficulty_normal");
+        Item_bf160 *normal = FUN_000fc260("difficulty_normal");
         if (normal != 0)
             sel->Select(normal->id);
     }

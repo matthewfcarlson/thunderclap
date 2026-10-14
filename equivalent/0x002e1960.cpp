@@ -10,7 +10,7 @@ void *__cdecl FUN_0008d690(unsigned int size);
 void *__cdecl FUN_00266e00(int a, int b);
 void __cdecl FUN_00267090(void *p);
 
-class Ref {
+class Ref_2e1960 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -76,7 +76,7 @@ public:
     virtual void b13(int id, unsigned int v);
 };
 
-class Factory {
+class Factory_2e1960 {
 public:
     virtual void f0();
     virtual void f1();
@@ -91,7 +91,7 @@ public:
     virtual Builder *f10(void *desc);
 };
 
-class Maker {
+class Maker_2e1960 {
 public:
     virtual void m0();
     virtual void m1();
@@ -192,11 +192,11 @@ public:
     virtual void g86();
     virtual void g87();
     virtual void g88();
-    virtual Maker *g89(int id);
+    virtual Maker_2e1960 *g89(int id);
 };
 
 
-struct Desc {
+struct Desc_2e1960 {
     int f40;
     int f44;
     unsigned char c48[8];
@@ -209,7 +209,7 @@ struct Desc {
     int f60;
 };
 
-class PalList : public Ref {
+class PalList : public Ref_2e1960 {
 public:
     char pad04[4];
     char *begin;
@@ -221,7 +221,7 @@ struct Hdr8 {
     int f10;
 };
 
-struct Hdr {
+struct Hdr_2e1960 {
     char pad00[8];
     Hdr8 *f8;
     int fc;
@@ -259,7 +259,7 @@ public:
     int f4c;
     int f50;
     char pad54[4];
-    Ref *f58;
+    Ref_2e1960 *f58;
 };
 
 namespace pure3d {
@@ -280,22 +280,22 @@ public:
 class PrimGroupPalette : public PrimGroup {
 public:
     char pad5c[4];
-    Ref *f60;
-    Ref *f64;
+    Ref_2e1960 *f60;
+    Ref_2e1960 *f64;
     PrimGroupPalette *FUN_002dffe0(int a, int b);
 };
 
-struct IntVec {
+struct IntVec_2e1960 {
     int *data;
     int cap;
     void FUN_002e18c0(unsigned int n);
 };
 
 namespace pure3d {
-class MatrixPaletteList : public Ref {
+class MatrixPaletteList : public Ref_2e1960 {
 public:
     int f4;
-    IntVec vec;
+    IntVec_2e1960 vec;
     MatrixPaletteList()
     {
         f4 = 0;
@@ -305,9 +305,9 @@ public:
 };
 }
 
-struct Frame {
+struct Frame_2e1960 {
     unsigned int s0;                // 0
-    Hdr *self;                      // 4
+    Hdr_2e1960 *self;                      // 4
     PrimGroup *obj;                 // 8
     unsigned int u12;               // 12
     unsigned int local20;           // 16
@@ -317,7 +317,7 @@ struct Frame {
     unsigned int u32;               // 32
     unsigned int s36;               // 36
     unsigned int u40;               // 40
-    Desc d;                         // 44
+    Desc_2e1960 d;                         // 44
     unsigned int s80;               // 80
     unsigned int v64;               // 84
     float v2[2];                    // 88
@@ -328,12 +328,12 @@ struct Frame {
     float v144[3];
 };
 
-extern Factory *DAT_0052c2a0;
+extern Factory_2e1960 *DAT_0052c2a0;
 extern Factory2 *DAT_0052c2a8;
 
-void Hdr::Load(int a1, Reader *R, int a3, PalList *a4, unsigned int *a5)
+void Hdr_2e1960::Load(int a1, Reader *R, int a3, PalList *a4, unsigned int *a5)
 {
-    Frame f;
+    Frame_2e1960 f;
     f.self = this;
     unsigned int flags = f1c;
     if (flags & 0x20)
@@ -366,7 +366,7 @@ void Hdr::Load(int a1, Reader *R, int a3, PalList *a4, unsigned int *a5)
     obj->f44 = fc;
     FUN_002a46d0(a1, obj);
 
-    Desc &d = f.d;
+    Desc_2e1960 &d = f.d;
     d.f40 = fc;
     d.f44 = f1c;
     d.f50 = f20;
@@ -383,12 +383,12 @@ void Hdr::Load(int a1, Reader *R, int a3, PalList *a4, unsigned int *a5)
     d.f60 = f28;
     Builder *B = DAT_0052c2a0->f10(&d);
     if (B)
-        ((Ref *)B)->AddRef();
+        ((Ref_2e1960 *)B)->AddRef();
     if (obj->f58)
         obj->f58->Release();
-    obj->f58 = (Ref *)B;
+    obj->f58 = (Ref_2e1960 *)B;
 
-    Maker *mk = DAT_0052c2a8->g89(0x106);
+    Maker_2e1960 *mk = DAT_0052c2a8->g89(0x106);
     if (mk) {
         bool hasPal = (a4 != 0);
         if (mk->m4(f8->f10, hasPal)) {

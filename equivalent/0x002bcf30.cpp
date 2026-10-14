@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 210 inputs, branch coverage 34/40, incomplete)
 // FUN_002bcf30 @ 0x002bcf30
-struct Vec3 {
+struct Vec3_2bcf30 {
     float x, y, z;
 };
 
@@ -32,26 +32,26 @@ public:
     void FUN_00266be0();
 };
 
-class NameHolder {
+class NameHolder_2bcf30 {
 public:
     char pad00[8];
     void FUN_0027b040(const char *name);
 };
 
-class Child {
+class Child_2bcf30 {
 public:
     virtual void v0();
     virtual void v1();
 };
 
-class ChildList {
+class ChildList_2bcf30 {
 public:
-    Child **begin;
+    Child_2bcf30 **begin;
     char pad04[8];
-    void FUN_002bc520(int n, Child **value);
+    void FUN_002bc520(int n, Child_2bcf30 **value);
 };
 
-class Quad {
+class Quad_2bcf30 {
 public:
     virtual void v0();
     virtual void v1();
@@ -63,19 +63,19 @@ public:
     virtual void v7();
     virtual void v8(void *shader);
     char pad04[4];
-    NameHolder name;
+    NameHolder_2bcf30 name;
     char pad10[4];
-    Vec3 v14;
-    Vec3 v20;
-    Vec3 v2c;
+    Vec3_2bcf30 v14;
+    Vec3_2bcf30 v20;
+    Vec3_2bcf30 v2c;
     int i38;
     char pad3c[0x88 - 0x3c];
     char b88;
     char b89;
     char b8a;
     char pad8b[1];
-    ChildList list;
-    Quad *FUN_002bc580();
+    ChildList_2bcf30 list;
+    Quad_2bcf30 *FUN_002bc580();
 };
 
 class ErrorShader {
@@ -83,7 +83,7 @@ public:
     ErrorShader *FUN_0028edf0(const char *what, int flag);
 };
 
-class Factory {
+class Factory_2bcf30 {
 public:
     virtual void v0();
     virtual void v1();
@@ -91,9 +91,9 @@ public:
     virtual ErrorShader *v3(content::LoadInventory::DynamicCaster<pure3d::Shader> *caster, unsigned __int64 id);
 };
 
-struct Parent {
+struct Parent_2bcf30 {
     char pad00[8];
-    NameHolder name;
+    NameHolder_2bcf30 name;
     char pad10[0x40 - 0x10];
     float f40;
     char pad44[4];
@@ -104,7 +104,7 @@ void *FUN_00263ea0(unsigned int size);
 unsigned __int64 FUN_0027b020(const char *name);
 void FUN_0028fcc0(const char *fmt, ...);
 
-struct Frame {
+struct Frame_2bcf30 {
     unsigned char pad10[3];
     unsigned char len;
     int count;
@@ -119,17 +119,17 @@ struct Frame {
     unsigned int name2[64];
 };
 
-class Group {
+class Group_2bcf30 {
 public:
-    void FUN_002a46d0(void *a, Quad *q);
-    Child *FUN_002bb0b0(Reader *r, Factory *factory);
-    void FUN_002a4b00(void *a, Reader *r, Factory *factory);
-    void FUN_002bcf30(Parent *parent, Reader *r, Factory *factory);
+    void FUN_002a46d0(void *a, Quad_2bcf30 *q);
+    Child_2bcf30 *FUN_002bb0b0(Reader *r, Factory_2bcf30 *factory);
+    void FUN_002a4b00(void *a, Reader *r, Factory_2bcf30 *factory);
+    void FUN_002bcf30(Parent_2bcf30 *parent, Reader *r, Factory_2bcf30 *factory);
 };
 
-void Group::FUN_002bcf30(Parent *parent, Reader *r, Factory *factory)
+void Group_2bcf30::FUN_002bcf30(Parent_2bcf30 *parent, Reader *r, Factory_2bcf30 *factory)
 {
-    Frame fr;
+    Frame_2bcf30 fr;
     char *name1 = (char *)fr.name1;
     char *name2 = (char *)fr.name2;
     fr.self = this;
@@ -151,9 +151,9 @@ void Group::FUN_002bcf30(Parent *parent, Reader *r, Factory *factory)
     r->stream->FUN_002647e0(&fr.count, 1, 4, 1);
 
     void *mem = FUN_00263ea0(0x98);
-    Quad *o = 0;
+    Quad_2bcf30 *o = 0;
     if (mem != 0) {
-        o = ((Quad *)mem)->FUN_002bc580();
+        o = ((Quad_2bcf30 *)mem)->FUN_002bc580();
     }
     FUN_002a46d0(parent->p48, o);
     parent->name.FUN_0027b040(name1);
@@ -175,7 +175,7 @@ void Group::FUN_002bcf30(Parent *parent, Reader *r, Factory *factory)
     o->b8a = fr.flag3;
     fr.slot1c = 0;
     fr.idx = 0;
-    o->list.FUN_002bc520(fr.count, (Child **)&fr.slot1c);
+    o->list.FUN_002bc520(fr.count, (Child_2bcf30 **)&fr.slot1c);
 
     if (!r->FUN_002669f0()) {
         return;
@@ -191,8 +191,8 @@ void Group::FUN_002bcf30(Parent *parent, Reader *r, Factory *factory)
             r->stream->FUN_002647e0(&o->v20, 3, 4, 1);
         } else if (chunk == 0x17001) {
             if ((unsigned int)fr.idx < (unsigned int)fr.count) {
-                Child **slot = o->list.begin + fr.idx;
-                Child *child = FUN_002bb0b0(r, factory);
+                Child_2bcf30 **slot = o->list.begin + fr.idx;
+                Child_2bcf30 *child = FUN_002bb0b0(r, factory);
                 if (child != 0) {
                     child->v0();
                 }

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 8/8)
 // FUN_002c0240 @ 0x002c0240
-class Surface {
+class Surface_2c0240 {
 public:
     virtual void v0();
     virtual void v1();
@@ -28,7 +28,7 @@ public:
 };
 
 // equiv-conv: FUN_002c0240 ecx eax ebx stack stack stack stack
-void __cdecl FUN_002c0240(Surface *surf, int y, int x, char *dst, int w, int h, int dstStride)
+void __cdecl FUN_002c0240(Surface_2c0240 *surf, int y, int x, char *dst, int w, int h, int dstStride)
 {
     int stride = surf->stride;
     char *src = surf->base + stride * y + x;

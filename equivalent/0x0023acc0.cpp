@@ -4,20 +4,20 @@ struct Node {
     char text[0x100];
     Node* next;           // 0x100
 };
-struct Entry {
+struct Entry_23acc0 {
     int type;
     Node* head;           // 0x04
     char pad08[0x18 - 8];
 };
-struct Table {
+struct Table_23acc0 {
     char pad00[0x12c];
     int count;            // 0x12c
     char pad130[8];
-    Entry entries[1];     // 0x138
+    Entry_23acc0 entries[1];     // 0x138
     bool TotalLength(int index, int* total);
 };
 
-bool Table::TotalLength(int index, int* total)
+bool Table_23acc0::TotalLength(int index, int* total)
 {
     if (index < 0 || index >= count)
         return false;

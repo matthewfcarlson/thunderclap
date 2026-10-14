@@ -47,7 +47,7 @@ public:
     virtual void vf35(int a, int b, int c, int d);
 };
 
-class Transition {
+class Transition_9bb50 {
 public:
     char FUN_00098460(int a);
     View *FUN_00098480(int a);
@@ -70,7 +70,7 @@ public:
     char dirty;
     char pad3[0xb8 - 0x19];
     View *previous;
-    Transition *transition;
+    Transition_9bb50 *transition;
 };
 
 void ViewSwitcher::FUN_0009bb50(int a, int b)

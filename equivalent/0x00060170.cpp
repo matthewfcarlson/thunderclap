@@ -2,7 +2,7 @@
 // FUN_00060170 @ 0x00060170
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 
-struct Sub {
+struct Sub_60170 {
     char data[8];
     void FUN_0027b040(int arg);
 };
@@ -10,7 +10,7 @@ struct Sub {
 struct Object {
     char head[0x10c];
     int f10c, f110, f114, f118, f11c, f120, f124, f128, f12c, f130, f134, f138, f13c;
-    Sub sub;
+    Sub_60170 sub;
     char flag;
     void FUN_00060170();
 };

@@ -15,7 +15,7 @@ public:
     virtual void Finish(int a, int b, int *state);                           // slot 10
 };
 
-class Parser {
+class Parser_2340b0 {
 public:
     char pad0[8];
     int state;              // 0x8
@@ -24,7 +24,7 @@ public:
     bool FUN_002340b0(int a, int b, Reader *reader);
 };
 
-bool Parser::FUN_002340b0(int a, int b, Reader *reader)
+bool Parser_2340b0::FUN_002340b0(int a, int b, Reader *reader)
 {
     unsigned int cookie = DAT_004d9968;
     char buf[0x400] = "";

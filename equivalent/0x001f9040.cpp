@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_001f9040 @ 0x001f9040
-struct V3 {
+struct V3_1f9040 {
     float x, y, z;
 };
 
-class Target {
+class Target_1f9040 {
 public:
     virtual void v0();
     virtual void v1();
@@ -14,16 +14,16 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual void v8(V3 *out);
+    virtual void v8(V3_1f9040 *out);
 };
 
-struct Tracker {
-    bool FUN_00059a50(V3 *out);
+struct Tracker_1f9040 {
+    bool FUN_00059a50(V3_1f9040 *out);
 };
 
-struct Source {
+struct Source_1f9040 {
     char pad0[0x10];
-    Tracker *tracker;       // 0x10
+    Tracker_1f9040 *tracker;       // 0x10
 };
 
 class Area {
@@ -31,16 +31,16 @@ public:
     char pad0[0x458];
     int enabled;            // 0x458
     float FUN_001f8890();
-    bool FUN_001f9040(Source *src, Target *target);
+    bool FUN_001f9040(Source_1f9040 *src, Target_1f9040 *target);
 };
 
-bool Area::FUN_001f9040(Source *src, Target *target)
+bool Area::FUN_001f9040(Source_1f9040 *src, Target_1f9040 *target)
 {
     if (enabled == 0)
         return false;
     struct Frame {
-        V3 other;
-        V3 pos;
+        V3_1f9040 other;
+        V3_1f9040 pos;
     } fr;
     if (!src->tracker->FUN_00059a50(&fr.pos))
         return false;

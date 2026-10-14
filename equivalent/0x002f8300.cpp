@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_002f8300 @ 0x002f8300
 extern "C" double sqrt(double);
-struct V3 {
+struct V3_2f8300 {
     float x, y, z;
 };
 
-struct Peer {
+struct Peer_2f8300 {
     char pad[0x1c];
     float f1c;
 };
@@ -18,10 +18,10 @@ struct SymMatrix {
     void FUN_002fca90() throw();
     void FUN_002fcaa0() throw();
     void FUN_002fd0c0(SymMatrix *src) throw();
-    void FUN_002fd020(V3 *in, V3 *out) throw();
+    void FUN_002fd020(V3_2f8300 *in, V3_2f8300 *out) throw();
 };
 
-struct Target {
+struct Target_2f8300 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -29,28 +29,28 @@ struct Target {
     virtual void v4();
     virtual void v5();
     virtual void v6();
-    virtual int v7(V3 *r, void *p);
+    virtual int v7(V3_2f8300 *r, void *p);
 };
 
 float FUN_002f2950(float a, float b);
 
-struct Owner {
+struct Owner_2f8300 {
     virtual void s0();
     virtual void s1();
     virtual void s2();
     virtual void s3();
     virtual float v4();
-    Target *target;                 // 0x04
+    Target_2f8300 *target;                 // 0x04
     char pad08[4];
     char pos[8];                    // 0x0c
-    Peer *peer14;                   // 0x14
-    Peer *peer18;                   // 0x18
+    Peer_2f8300 *peer14;                   // 0x14
+    Peer_2f8300 *peer18;                   // 0x18
     char pad1c[8];
-    V3 dir;                         // 0x24
+    V3_2f8300 dir;                         // 0x24
     char pad30[0x20];
-    V3 res;                         // 0x50
+    V3_2f8300 res;                         // 0x50
     char pad5c[0x18];
-    V3 vec74;                       // 0x74
+    V3_2f8300 vec74;                       // 0x74
     float f80;                      // 0x80
     char pad84[0x10];
     char a94[0x1c];                 // 0x94
@@ -63,19 +63,19 @@ struct Owner {
     int FUN_002f8300();
 };
 
-int Owner::FUN_002f8300()
+int Owner_2f8300::FUN_002f8300()
 {
-    volatile V3 *r = &res;
+    volatile V3_2f8300 *r = &res;
     struct Frame {
         float f10;
         float f14;
         float f18;
         float f1c;
         float f20;
-        V3 d;
-        V3 a30;
-        V3 v3c;
-        V3 v48;
+        V3_2f8300 d;
+        V3_2f8300 a30;
+        V3_2f8300 v3c;
+        V3_2f8300 v48;
         SymMatrix m54;
     } fr;
 
@@ -178,7 +178,7 @@ int Owner::FUN_002f8300()
         r->y = fr.a30.y * w2 + r->y;
         r->z = fr.a30.z * w2 + r->z;
     }
-    int ret = target->v7((V3 *)r, pos);
+    int ret = target->v7((V3_2f8300 *)r, pos);
     fr.m54.FUN_002fcaa0();
     return ret;
 }

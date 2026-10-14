@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 278 inputs, branch coverage 6/6)
 // pure3d::MultiController::vfunc_7 @ 0x002b2040
-struct Controller {
+struct Controller_2b2040 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5();
     virtual void Advance(float dt, int flag);       // slot 6
 };
 
-struct Blend {
+struct Blend_2b2040 {
     float weight;
     float a;
     int mode;
 };
 
-float __cdecl FUN_002899e0(Blend *blend, void *target, float c, float d, float e, float f, bool g);
+float __cdecl FUN_002899e0(Blend_2b2040 *blend, void *target, float c, float d, float e, float f, bool g);
 
 namespace pure3d {
 class MultiController {
@@ -38,10 +38,10 @@ public:
     float rateA;            // 0x28
     float rateB;            // 0x2c
     char pad30[4];
-    Blend blend;            // 0x34
+    Blend_2b2040 blend;            // 0x34
     char pad40[0x44 - 0x40];
     unsigned int childCount;    // 0x44
-    Controller **children;      // 0x48
+    Controller_2b2040 **children;      // 0x48
 };
 
 void MultiController::vfunc_7()

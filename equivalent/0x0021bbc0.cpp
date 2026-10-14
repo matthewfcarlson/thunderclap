@@ -7,7 +7,7 @@
 // equiv-conv: FUN_0021b1c0 edi
 // equiv-conv: FUN_0021b720 ecx stack stack
 
-struct Zio {
+struct Zio_21bbc0 {
     unsigned int n;
     const unsigned char *p;
 };
@@ -17,42 +17,42 @@ struct Buff {
     int n;
 };
 
-struct TString {
+struct TString_21bbc0 {
     char pad0[6];
     unsigned char reserved;
 };
 
-struct SemInfo {
-    TString *ts;
+struct SemInfo_21bbc0 {
+    TString_21bbc0 *ts;
 };
 
-struct LexState {
+struct LexState_21bbc0 {
     int current;
     char pad4[0x24 - 4];
-    Zio *z;
+    Zio_21bbc0 *z;
     Buff *buff;
 };
 
-extern "C" int __cdecl FUN_0021a550(Zio *z);
-void FUN_0021b0d0(LexState *ls);
-int FUN_0021b480(LexState *ls);
-void FUN_0021b520(LexState *ls, SemInfo *seminfo);
-void FUN_0021b230(LexState *ls, SemInfo *seminfo);
-void FUN_0021b1c0(LexState *ls);
-void FUN_0021b720(LexState *ls, int del, SemInfo *seminfo);
-extern "C" TString *__cdecl FUN_0021b080(LexState *ls, const char *str, int len);
-extern "C" void __cdecl FUN_0021afd0(LexState *ls, const char *msg, int token);
+extern "C" int __cdecl FUN_0021a550(Zio_21bbc0 *z);
+void FUN_0021b0d0(LexState_21bbc0 *ls);
+int FUN_0021b480(LexState_21bbc0 *ls);
+void FUN_0021b520(LexState_21bbc0 *ls, SemInfo_21bbc0 *seminfo);
+void FUN_0021b230(LexState_21bbc0 *ls, SemInfo_21bbc0 *seminfo);
+void FUN_0021b1c0(LexState_21bbc0 *ls);
+void FUN_0021b720(LexState_21bbc0 *ls, int del, SemInfo_21bbc0 *seminfo);
+extern "C" TString_21bbc0 *__cdecl FUN_0021b080(LexState_21bbc0 *ls, const char *str, int len);
+extern "C" void __cdecl FUN_0021afd0(LexState_21bbc0 *ls, const char *msg, int token);
 extern "C" int isspace(int c);
 extern "C" int isdigit(int c);
 extern "C" int isalpha(int c);
 extern "C" int isalnum(int c);
 
-static int Zgetc(LexState *ls)
+static int Zgetc(LexState_21bbc0 *ls)
 {
     unsigned int n = ls->z->n;
     ls->z->n = n - 1;
     if (n > 0) {
-        Zio *z = ls->z;
+        Zio_21bbc0 *z = ls->z;
         const unsigned char *p = z->p;
         int c = *p;
         z->p = p + 1;
@@ -61,7 +61,7 @@ static int Zgetc(LexState *ls)
     return FUN_0021a550(ls->z);
 }
 
-int FUN_0021bbc0(LexState *ls, SemInfo *seminfo)
+int FUN_0021bbc0(LexState_21bbc0 *ls, SemInfo_21bbc0 *seminfo)
 {
     ls->buff->n = 0;
     for (;;) {
@@ -175,7 +175,7 @@ int FUN_0021bbc0(LexState *ls, SemInfo *seminfo)
             do {
                 FUN_0021b1c0(ls);
             } while (isalnum(ls->current) || ls->current == '_');
-            TString *ts = FUN_0021b080(ls, ls->buff->buffer, ls->buff->n);
+            TString_21bbc0 *ts = FUN_0021b080(ls, ls->buff->buffer, ls->buff->n);
             unsigned char r = ts->reserved;
             if (r > 0)
                 return r + 0x100;

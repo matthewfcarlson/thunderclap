@@ -2,59 +2,59 @@
 // FUN_00097a30 @ 0x00097a30
 extern "C" double cos(double);
 
-struct V3 {
+struct V3_97a30 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_000111b0(const V3 *a, const V3 *b);
+    void FUN_000111b0(const V3_97a30 *a, const V3_97a30 *b);
     float FUN_000111f0();
 };
 
-struct Mat {
+struct Mat_97a30 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022baf0(const V3 *axis, float angle);
-    void FUN_0022c3b0(const V3 *in, V3 *out);
+    void FUN_0022baf0(const V3_97a30 *axis, float angle);
+    void FUN_0022c3b0(const V3_97a30 *in, V3_97a30 *out);
 };
 
-struct Rng {
+struct Rng_97a30 {
     int FUN_00011380(int a, int b);
     float FUN_000787e0(float lo, float hi);
 };
 
-extern Rng *DAT_004e5acc;
+extern Rng_97a30 *DAT_004e5acc;
 extern float DAT_004dd940;
 
-bool __cdecl FUN_00096b50(void *ev, V3 *out, int *err);
-void __cdecl FUN_00096b00(void *ev, V3 *out);
+bool __cdecl FUN_00096b50(void *ev, V3_97a30 *out, int *err);
+void __cdecl FUN_00096b00(void *ev, V3_97a30 *out);
 float __cdecl FUN_000189c0(float v);
 float __cdecl FUN_00018710(float *k, float *len);
-void __cdecl FUN_00224d70(float angle, V3 *v);
+void __cdecl FUN_00224d70(float angle, V3_97a30 *v);
 
-union FU {
+union FU_97a30 {
     float f;
     unsigned int u;
 };
 
-struct Frame {
+struct Frame_97a30 {
     float s;            // 0x00
-    V3 v;               // 0x04
+    V3_97a30 v;               // 0x04
     float len;          // 0x10
-    V3 r;               // 0x14
-    V3 p;               // 0x20
-    V3 w;               // 0x2c
+    V3_97a30 r;               // 0x14
+    V3_97a30 p;               // 0x20
+    V3_97a30 w;               // 0x2c
     union {
         int err;
         float k;
     } u38;              // 0x38
-    V3 axis;            // 0x3c
-    V3 cross;           // 0x48
-    Mat m;              // 0x54
+    V3_97a30 axis;            // 0x3c
+    V3_97a30 cross;           // 0x48
+    Mat_97a30 m;              // 0x54
 };
 
-int __cdecl FUN_00097a30(float a0, float a1, float a2, void *a3, float a4, V3 *a5, float a6, V3 *a7,
+int __cdecl FUN_00097a30(float a0, float a1, float a2, void *a3, float a4, V3_97a30 *a5, float a6, V3_97a30 *a7,
                          float a8, float a9, float a10, int a11)
 {
-    Frame f;
+    Frame_97a30 f;
     int mode;
 
     f.v.x = 0.0f;
@@ -66,7 +66,7 @@ int __cdecl FUN_00097a30(float a0, float a1, float a2, void *a3, float a4, V3 *a
 
     mode = a11;
     if (a9 != 0.0f && a10 != 0.0f) {
-        Rng *rng = DAT_004e5acc;
+        Rng_97a30 *rng = DAT_004e5acc;
         if (mode == 1)
             mode = rng->FUN_00011380(2, 0xb);
         switch (mode) {
@@ -190,7 +190,7 @@ int __cdecl FUN_00097a30(float a0, float a1, float a2, void *a3, float a4, V3 *a
         return mode;
     double F = FUN_000189c0(f.p.y);
     f.u38.k = (float)F;
-    FU q;
+    FU_97a30 q;
     q.f = f.u38.k;
     q.u &= 0x7fffffff;
     f.len = q.f;

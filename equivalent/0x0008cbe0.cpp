@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2985 inputs, branch coverage 15/16, incomplete)
 // FUN_0008cbe0 @ 0x0008cbe0
-struct Engine {
+struct Engine_8cbe0 {
     void FUN_001eb870();
     void FUN_001eb890();
 };
 
-struct Manager {
-    Engine *FUN_000862e0();
+struct Manager_8cbe0 {
+    Engine_8cbe0 *FUN_000862e0();
 };
 
-extern Manager *DAT_004dd6ec;
+extern Manager_8cbe0 *DAT_004dd6ec;
 
 void *FUN_0008d690(unsigned int size);
 int __cdecl FUN_00266da0(int mode);
@@ -18,7 +18,7 @@ void __cdecl FUN_0008d330(void *p);
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
-class SubObj {
+class SubObj_8cbe0 {
 public:
     virtual void v0();
     virtual void Release();
@@ -34,7 +34,7 @@ public:
 };
 
 class Source;
-class Stage {
+class Stage_8cbe0 {
 public:
     virtual void v0();
     virtual void Release();
@@ -46,7 +46,7 @@ public:
     virtual void v21();
 };
 
-class Slot {
+class Slot_8cbe0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -60,35 +60,35 @@ public:
     virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
     virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
     virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
-    virtual void v36(SubObj **out, char *buf, int a, int b, void *c, int d, int e);
+    virtual void v36(SubObj_8cbe0 **out, char *buf, int a, int b, void *c, int d, int e);
 };
 
-struct Entry {
-    Slot *slot;
-    Stage *stage;
+struct Entry_8cbe0 {
+    Slot_8cbe0 *slot;
+    Stage_8cbe0 *stage;
     char pad[0xc8 - 8];
 };
 
-class Loader {
+class Loader_8cbe0 {
 public:
     void *FUN_0008cbe0(int index, int a, int b, int c, int d);
 
     char pad0[4];
     int param;
-    Entry *entries;
+    Entry_8cbe0 *entries;
 };
 
-void *Loader::FUN_0008cbe0(int index, int a, int b, int c, int d)
+void *Loader_8cbe0::FUN_0008cbe0(int index, int a, int b, int c, int d)
 {
     unsigned int cookie = DAT_004d9968;
     char buf[0x100];
     DAT_004dd6ec->FUN_000862e0()->FUN_001eb870();
-    Slot *slot = entries[index].slot;
+    Slot_8cbe0 *slot = entries[index].slot;
     slot->v22();
     if (entries[index].stage) {
         entries[index].stage->v21();
-        Stage **slotStage = &entries[index].stage;
-        Stage *stage = *slotStage;
+        Stage_8cbe0 **slotStage = &entries[index].stage;
+        Stage_8cbe0 *stage = *slotStage;
         if (stage) {
             stage->Release();
             *slotStage = 0;
@@ -100,7 +100,7 @@ void *Loader::FUN_0008cbe0(int index, int a, int b, int c, int d)
     state[1] = 0;
     FUN_00266da0(prev);
     FUN_0026b800(buf, 1, d, 2, 0x2e, 0x100, 0);
-    SubObj *sub = 0;
+    SubObj_8cbe0 *sub = 0;
     slot->v36(&sub, buf, 1, 3, state, param, 1);
     void *result = slot->v23();
     FUN_0008d330(state);

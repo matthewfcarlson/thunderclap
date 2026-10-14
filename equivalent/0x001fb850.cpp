@@ -4,7 +4,7 @@
 // An existing pair is left alone when flag == 1.
 extern "C" void* __cdecl memmove(void*, const void*, unsigned int);
 
-struct Pair {
+struct Pair_1fb850 {
     int a;
     int b;
 };
@@ -12,7 +12,7 @@ struct Pair {
 class CTriggerVolume {
 public:
     char pad0[0x10];
-    Pair pairs[16];
+    Pair_1fb850 pairs[16];
     char pad90[0xd0 - 0x90];
     int count;
 
@@ -46,5 +46,5 @@ void CTriggerVolume::FUN_001fb850(int a, int b, char flag)
         return;
     }
     count = n - 1;
-    memmove(&pairs[i], &pairs[i + 1], (n - 1 - i) * sizeof(Pair));
+    memmove(&pairs[i], &pairs[i + 1], (n - 1 - i) * sizeof(Pair_1fb850));
 }

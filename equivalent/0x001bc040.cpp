@@ -5,19 +5,19 @@ extern "C" int __cdecl sprintf(char*, const char*, ...);
 extern "C" char* __cdecl strcpy(char*, const char*);
 extern unsigned int DAT_004d9968;
 
-struct Controller {
+struct Controller_1bc040 {
     int FUN_000ae960();
 };
 
-struct Profile {
-    Controller* FUN_000862c0();
+struct Profile_1bc040 {
+    Controller_1bc040* FUN_000862c0();
 };
 
-struct Globals {
+struct Globals_1bc040 {
     char pad[0x54];
-    Profile* profile;
+    Profile_1bc040* profile;
 };
-extern Globals* DAT_004dd700;
+extern Globals_1bc040* DAT_004dd700;
 
 void __cdecl FUN_001bb0b0(const char* key);
 

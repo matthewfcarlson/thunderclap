@@ -4,7 +4,7 @@ extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 extern "C" void *memset(void *dst, int c, unsigned int n);
 void FUN_0027b8f0();
 
-struct Name {
+struct Name_27bee0 {
     char data[8];
 };
 
@@ -13,7 +13,7 @@ class __declspec(novtable) Entity {
 public:
     virtual void e0();
     char pad4[4];
-    Name name;
+    Name_27bee0 name;
     void FUN_0027b070();
     Entity() throw() { FUN_0027b070(); }
 };

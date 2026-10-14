@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 52 inputs, branch coverage 14/14)
 // FUN_002de790 @ 0x002de790
-struct PixelFormat {
+struct PixelFormat_2de790 {
  unsigned width, height;
  char reserved08[12];
  unsigned char directCopy;
@@ -11,7 +11,7 @@ struct PixelFormat {
  unsigned pitch;
 };
 // equiv-conv: FUN_002de790 eax ebx stack
-void __cdecl FUN_002de790(unsigned char* destination, volatile PixelFormat* format, const unsigned* source)
+void __cdecl FUN_002de790(unsigned char* destination, volatile PixelFormat_2de790* format, const unsigned* source)
 {
  unsigned rows = format->height;
  if (format->directCopy) {

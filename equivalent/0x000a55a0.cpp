@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 36/38, incomplete)
 // FUN_000a55a0 @ 0x000a55a0
-struct V3 {
+struct V3_a55a0 {
     float x, y, z;
 };
 
-struct Sub32c {
+struct Sub32c_a55a0 {
     char pad0[0x345 - 0x32c];
     char FUN_000a2370(int dt, float *a, float *b, float *c);
 };
@@ -19,13 +19,13 @@ struct Inner11c {
     Inner18 *f11c;
 };
 
-struct Stats {
+struct Stats_a55a0 {
     char pad0[0x338];
     Inner11c *f338;
-    char FUN_00035550(V3 *out);
+    char FUN_00035550(V3_a55a0 *out);
 };
 
-union Slot {
+union Slot_a55a0 {
     int i;
     float f;
     unsigned int u;
@@ -41,25 +41,25 @@ extern float DAT_0049ec98;
 extern float DAT_0049eca8;
 
 void __stdcall FUN_000a0dc0(int a, int b, int c);
-void __cdecl FUN_000a04c0(V3 *v, float *p1, float *p2, float *p3);
+void __cdecl FUN_000a04c0(V3_a55a0 *v, float *p1, float *p2, float *p3);
 double __cdecl FUN_000a00e0(int a, int b, int c, int d, int e);
 double __cdecl FUN_000186b0(float *v, float *lo, float *hi);
-double __cdecl FUN_000a0450(V3 *v);
+double __cdecl FUN_000a0450(V3_a55a0 *v);
 double __cdecl FUN_000a02a0(float v);
 double __cdecl FUN_000a03c0(int v, float lo, float hi);
 double __cdecl FUN_000a05b0(int a, float b, int c, int d, int e);
-V3 *__cdecl FUN_0009f8c0(V3 *out, int a, int b, int c);
+V3_a55a0 *__cdecl FUN_0009f8c0(V3_a55a0 *out, int a, int b, int c);
 
 class Camera {
 public:
     char pad0[0x194];
-    V3 out194;
+    V3_a55a0 out194;
     char pad1a0[0x1c4 - 0x1a0];
-    V3 pos;
+    V3_a55a0 pos;
     char pad1d0[0x1e8 - 0x1d0];
-    V3 tgt;
+    V3_a55a0 tgt;
     char pad1f4[0x26c - 0x1f4];
-    V3 v26c;
+    V3_a55a0 v26c;
     char pad278[0x2e4 - 0x278];
     float f2e4;
     float f2e8;
@@ -69,10 +69,10 @@ public:
     char pad2f8[0x2fc - 0x2f8];
     float f2fc;
     char pad300[0x32c - 0x300];
-    Sub32c sub32c;
+    Sub32c_a55a0 sub32c;
     char b345;
     char pad346[0x350 - 0x346];
-    Stats *f350;
+    Stats_a55a0 *f350;
     char pad354[0x444 - 0x354];
     float f444;
     int f448;
@@ -87,10 +87,10 @@ public:
     int f488;
     void FUN_000a0940(int z);
     void FUN_000a0ac0(float a, float b);
-    void FUN_000a55a0(int a1, Slot a2);
+    void FUN_000a55a0(int a1, Slot_a55a0 a2);
 };
 
-void Camera::FUN_000a55a0(int a1, Slot a2)
+void Camera::FUN_000a55a0(int a1, Slot_a55a0 a2)
 {
     struct Frame {
         float s0;
@@ -102,8 +102,8 @@ void Camera::FUN_000a55a0(int a1, Slot a2)
         float s24;
         float s28;
         float s32;
-        V3 d;
-        V3 v;
+        V3_a55a0 d;
+        V3_a55a0 v;
     } f;
 
     int dt = a2.i;
@@ -140,7 +140,7 @@ void Camera::FUN_000a55a0(int a1, Slot a2)
             if (flag)
                 f488 = *(int *)&DAT_0049ec98;
         } else if (b345) {
-            Stats *e = f350;
+            Stats_a55a0 *e = f350;
             Inner11c *i1 = e->f338;
             if (i1 != 0) {
                 Inner18 *i2 = i1->f11c;
@@ -169,7 +169,7 @@ void Camera::FUN_000a55a0(int a1, Slot a2)
         f.s0 = (float)FUN_000a00e0(*(int *)&f.s0, a2.i, *(int *)&DAT_0049ec48, dt, 0);
     }
 
-    V3 *p = FUN_0009f8c0(&f.v, *(int *)&f.s4, *(int *)&f.s0, *(int *)&f.s8);
+    V3_a55a0 *p = FUN_0009f8c0(&f.v, *(int *)&f.s4, *(int *)&f.s0, *(int *)&f.s8);
     float nx = pos.x + p->x;
     float ny = pos.y + p->y;
     f.v.z = pos.z + p->z;

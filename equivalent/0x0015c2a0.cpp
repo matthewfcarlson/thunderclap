@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 18/18)
 // FUN_0015c2a0 @ 0x0015c2a0
-struct Table {
+struct Table_15c2a0 {
     char pad0[0x2c];
     int count;
     float FUN_00226960(int index, float angle);
 };
 
-class RangeSet {
+class RangeSet_15c2a0 {
 public:
     char pad0[0x20];
-    Table *table;
+    Table_15c2a0 *table;
     float f24;
     float f28;
     float f2c;
@@ -22,7 +22,7 @@ public:
     void FUN_0015c2a0(float a0, float a1, float a2, float a3, float a4, float a5);
 };
 
-void RangeSet::FUN_0015c2a0(float a0, float a1, float a2, float a3, float a4, float a5)
+void RangeSet_15c2a0::FUN_0015c2a0(float a0, float a1, float a2, float a3, float a4, float a5)
 {
     if (a3 < 0.0f)
         f34 = table->FUN_00226960(table->count - 1, 0.0f);

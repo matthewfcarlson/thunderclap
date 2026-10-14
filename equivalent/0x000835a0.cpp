@@ -20,44 +20,44 @@ namespace pure3d { class Animation; }
 inline void *operator new(unsigned int, void *p) { return p; }
 inline void operator delete(void *, void *) {}
 
-struct Vec3 {
+struct Vec3_835a0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Mat {
+struct Mat_835a0 {
     float m[16];
-    void FUN_0022c3b0(Vec3 *in, Vec3 *out);
-    void FUN_0022cc90(Vec3 *v);
+    void FUN_0022c3b0(Vec3_835a0 *in, Vec3_835a0 *out);
+    void FUN_0022cc90(Vec3_835a0 *v);
 };
 
-void __cdecl FUN_00224d70(float angle, Vec3 *v);
-void FUN_00082d30(Mat *m);
+void __cdecl FUN_00224d70(float angle, Vec3_835a0 *v);
+void FUN_00082d30(Mat_835a0 *m);
 
-struct Rng {
+struct Rng_835a0 {
     unsigned int s0, s1;
     float FUN_000787e0(float lo, float hi);
 };
-Rng *FUN_000964d0();
+Rng_835a0 *FUN_000964d0();
 
-struct Chan {
+struct Chan_835a0 {
     void *FUN_00288960(unsigned int a, unsigned int b);
 };
 
-struct Anim {
-    Chan *FUN_00288a20(int z);
+struct Anim_835a0 {
+    Chan_835a0 *FUN_00288a20(int z);
 };
 
-class Factory {
+class Factory_835a0 {
 public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual Anim *f3(content::LoadInventory::DynamicCaster<pure3d::Animation> *caster, unsigned int lo, unsigned int hi);
+    virtual Anim_835a0 *f3(content::LoadInventory::DynamicCaster<pure3d::Animation> *caster, unsigned int lo, unsigned int hi);
 };
 
-struct Holder44 { Factory *FUN_00203d70(); };
-struct Holder28 { Holder44 *FUN_000862a0(); };
+struct Holder44_835a0 { Factory_835a0 *FUN_00203d70(); };
+struct Holder28_835a0 { Holder44_835a0 *FUN_000862a0(); };
 
 struct VObj70 {
     virtual void v0();
@@ -81,64 +81,64 @@ struct EntB {
     void FUN_002ef8b0(int z);
 };
 
-struct Ent {
+struct Ent_835a0 {
     char pad00[0x114];
     int f114;
     EntB *FUN_001d72e0();
     void FUN_001d7510();
 };
 
-struct Fighter {
-    void FUN_00059a50(Vec3 *out);
+struct Fighter_835a0 {
+    void FUN_00059a50(Vec3_835a0 *out);
 };
 
-struct Player {
+struct Player_835a0 {
     char pad00[0x10];
-    Fighter *f10;
+    Fighter_835a0 *f10;
 };
 
-struct List {
+struct List_835a0 {
     char pad00[0x124];
-    Player *player;
+    Player_835a0 *player;
 };
 
 class Action;
 
-struct Mgr2 {
+struct Mgr2_835a0 {
     void FUN_001ebc80(Action *a, const char *s);
 };
 
 struct World {
-    void FUN_001dd520(int id, Mat *out);
+    void FUN_001dd520(int id, Mat_835a0 *out);
     char FUN_001dd800(int id);
-    Ent *FUN_001dc0d0(int id);
-    Vec3 *FUN_001dc3b0(int id);
-    void FUN_001dd470(int id, Mat *m, float dt);
+    Ent_835a0 *FUN_001dc0d0(int id);
+    Vec3_835a0 *FUN_001dc3b0(int id);
+    void FUN_001dd470(int id, Mat_835a0 *m, float dt);
 };
 
-struct Globals {
+struct Globals_835a0 {
     char pad00[0xc];
     World *world;
     char pad10[0x20 - 0x10];
-    List *list;
+    List_835a0 *list;
     char pad24[0x34 - 0x24];
-    Mgr2 *mgr2;
+    Mgr2_835a0 *mgr2;
     char pad38[0x54 - 0x38];
-    Holder28 *holder;
+    Holder28_835a0 *holder;
 };
-extern Globals *DAT_004dd700;
+extern Globals_835a0 *DAT_004dd700;
 
-struct Entry {
+struct Entry_835a0 {
     int id0;
     int id1;
     char b08;
     char pad09[7];
 };
-extern Entry DAT_004dd270[];
+extern Entry_835a0 DAT_004dd270[];
 extern int DAT_003ff8bc[];
 extern int DAT_003ff8e0[];
 
-class Ctl {
+class Ctl_835a0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -182,13 +182,13 @@ public:
     float f2c;
     float f30;
     float f34;
-    Anim *f38;
-    Ctl *f3c;
-    Chan *f40;
+    Anim_835a0 *f38;
+    Ctl_835a0 *f3c;
+    Chan_835a0 *f40;
     void *f44;
     void *f48;
-    void FUN_00082db0(float dt, Mat *m);
-    void FUN_00083080(Mat *m, Vec3 *v, float eps);
+    void FUN_00082db0(float dt, Mat_835a0 *m);
+    void FUN_00083080(Mat_835a0 *m, Vec3_835a0 *v, float eps);
     void FUN_000835a0(float dt);
 };
 
@@ -197,15 +197,15 @@ void Action::FUN_000835a0(float dt)
     struct Frame {
         char pad0[3];
         char alive;
-        Ent *ent;
+        Ent_835a0 *ent;
         union {
             float F;
             float T;
         };
         World *w;
-        Vec3 V;
-        Vec3 out;
-        Mat A;
+        Vec3_835a0 V;
+        Vec3_835a0 out;
+        Mat_835a0 A;
     } f;
 
     f.w = DAT_004dd700->world;
@@ -229,7 +229,7 @@ noreset:
     if (state != prevState) {
         prevState = state;
         int tsz = DAT_003ff8bc[state] - 1;
-        Rng *rng = FUN_000964d0();
+        Rng_835a0 *rng = FUN_000964d0();
         unsigned int lo = rng->s0;
         rng->s0 = (lo & 0xffff) * 0x9069 + (lo >> 16);
         unsigned int hi = rng->s1;
@@ -237,8 +237,8 @@ noreset:
         rng->s1 = v1;
         unsigned int pick = ((v1 & 0xffff) + (rng->s0 << 16)) % (unsigned int)(tsz + 1);
         int idx = pick + DAT_003ff8e0[state];
-        Factory *factory = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
-        Entry *e = &DAT_004dd270[idx];
+        Factory_835a0 *factory = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+        Entry_835a0 *e = &DAT_004dd270[idx];
         content::LoadInventory::DynamicCaster<pure3d::Animation> *caster = new (&f.F) content::LoadInventory::DynamicCaster<pure3d::Animation>;
         f38 = factory->f3(caster, e->id0, e->id1);
         if (f38 == 0)
@@ -262,7 +262,7 @@ noreset:
         char sel = e->b08;
         f3c->v16(2);
         f3c->v18(sel ? 0 : 1);
-        Mgr2 *m2 = DAT_004dd700->mgr2;
+        Mgr2_835a0 *m2 = DAT_004dd700->mgr2;
         switch (state) {
         case 0:
             f20 = FUN_000964d0()->FUN_000787e0(2.0f, 10.0f);
@@ -325,9 +325,9 @@ after:
     f24 = f.T;
     f28 = dt + f28;
     if (state == 4) {
-        Player *pl = DAT_004dd700->list->player;
+        Player_835a0 *pl = DAT_004dd700->list->player;
         pl->f10->FUN_00059a50(&f.V);
-        Vec3 *p = DAT_004dd700->world->FUN_001dc3b0(f10);
+        Vec3_835a0 *p = DAT_004dd700->world->FUN_001dc3b0(f10);
         f.V.x = f.V.x - p->x;
         f.V.y = f.V.y - p->y;
         f.V.z = f.V.z - p->z;

@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00275600 @ 0x00275600
 namespace core {
-struct Lock { virtual void enter(); virtual void leave(); };
-struct Drive { virtual void acquire(); Lock lock; char pad[12]; unsigned count; };
+struct Lock_275600 { virtual void enter(); virtual void leave(); };
+struct Drive { virtual void acquire(); Lock_275600 lock; char pad[12]; unsigned count; };
 struct Request {
  virtual void dummy();
  unsigned state;

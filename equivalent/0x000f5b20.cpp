@@ -19,7 +19,7 @@ union ParamSlot {
     float f;
 };
 
-class Args {
+class Args_f5b20 {
 public:
     virtual void v0();
     virtual int GetType();
@@ -35,7 +35,7 @@ struct Node {
     void FUN_001bded0();
 };
 
-struct Holder {
+struct Holder_f5b20 {
     void FUN_000f8df0(int name, float f, int v);
     void FUN_000f8e70(int name, int iv, int v);
 };
@@ -48,7 +48,7 @@ public:
     public:
         virtual void vfunc_0(int a, int b);
         FEThingsBase *mObj;
-        void (FEThingsBase::*mFn)(ParamSlot param, Source *c, void *d, Args *args);
+        void (FEThingsBase::*mFn)(ParamSlot param, Source *c, void *d, Args_f5b20 *args);
         Source *mC;
         void *mD;
     };
@@ -87,12 +87,12 @@ public:
     virtual void v31();
     virtual void v32();
     virtual void v33();
-    virtual char v34(Param *p, Args *a, ParseFunctor *f);
+    virtual char v34(Param *p, Args_f5b20 *a, ParseFunctor *f);
     virtual void v35();
     virtual void v36();
     virtual void v37();
     virtual void v38();
-    virtual char v39(Param *p, char *buf, Args *a);
+    virtual char v39(Param *p, char *buf, Args_f5b20 *a);
     virtual void v40();
     virtual void v41();
     virtual void v42();
@@ -101,7 +101,7 @@ public:
     virtual Node *v45(int t);
 
     int field4;
-    Holder *field8;
+    Holder_f5b20 *field8;
     char pad0c[0x1828 - 0xc];
     int field1828;
     char pad182c[0x2078 - 0x182c];
@@ -121,14 +121,14 @@ public:
     void FUN_000f50a0(int t);
     void FUN_000f52a0(int t);
 
-    void FUN_000f5b20(ParamSlot slot, Source *c, void *d, Args *args);
+    void FUN_000f5b20(ParamSlot slot, Source *c, void *d, Args_f5b20 *args);
 };
 
 struct ParseFrame {
     FEThingsBase::ParseFunctor f;
 };
 
-void FEThingsBase::FUN_000f5b20(ParamSlot slot, Source *c, void *d, Args *args)
+void FEThingsBase::FUN_000f5b20(ParamSlot slot, Source *c, void *d, Args_f5b20 *args)
 {
     Param *param = slot.p;
     ParseFrame fr;

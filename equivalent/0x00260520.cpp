@@ -6,26 +6,26 @@ struct Node {
     Node *parent;
 };
 
-struct Tree {
+struct Tree_260520 {
     Node *root;
     Node nil;
 };
 
-struct Item {
+struct Item_260520 {
     char pad[0x48];
     Node node;
 };
 
-static __forceinline Item *ItemOf(Node *n)
+static __forceinline Item_260520 *ItemOf(Node *n)
 {
-    return (Item *)((char *)n - 0x48);
+    return (Item_260520 *)((char *)n - 0x48);
 }
 
-Item *FUN_00260520(Tree *tree, int steps)
+Item_260520 *FUN_00260520(Tree_260520 *tree, int steps)
 {
     Node *nil = &tree->nil;
     Node *node = tree->root;
-    Item *item;
+    Item_260520 *item;
     if (node == nil) {
         item = 0;
     } else {

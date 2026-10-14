@@ -8,7 +8,7 @@ extern unsigned int DAT_004d2ef8;
 extern unsigned int DAT_004d2efc;
 extern unsigned int DAT_004d2f00;
 
-struct Buffer {
+struct Buffer_300a00 {
     char *begin;
     char *end;
     char *cap;
@@ -17,11 +17,11 @@ struct Buffer {
 
 class Pools {
 public:
-    Buffer a;
-    Buffer c;
-    Buffer d;
-    Buffer b;
-    Buffer e;
+    Buffer_300a00 a;
+    Buffer_300a00 c;
+    Buffer_300a00 d;
+    Buffer_300a00 b;
+    Buffer_300a00 e;
     unsigned char flag;
     char pad51[3];
     unsigned int f54, f58, f5c, f60, f64, f68;

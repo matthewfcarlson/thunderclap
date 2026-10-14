@@ -14,26 +14,26 @@ public:
 };
 
 struct Converter;
-struct Loader;
+struct Loader_1fab00;
 
 // The two stack argument words double as a tiny scoped object whose first word
 // is overwritten with a vptr after it has been read.
-struct ArgSlot {
+struct ArgSlot_1fab00 {
     void* word0;
     int word1;
     void FUN_00337c00();
     void FUN_00337c10();
 };
 
-bool __stdcall FUN_00337c20(MyBufferStream* stream, const char* name, Converter* converter, Loader* loader);
+bool __stdcall FUN_00337c20(MyBufferStream* stream, const char* name, Converter* converter, Loader_1fab00* loader);
 
-struct Loader {
+struct Loader_1fab00 {
     char pad00[4];
     Converter* converter;   // 0x04
-    bool Load(ArgSlot args);
+    bool Load(ArgSlot_1fab00 args);
 };
 
-bool Loader::Load(ArgSlot args)
+bool Loader_1fab00::Load(ArgSlot_1fab00 args)
 {
     MyBufferStream stream(args.word0, args.word1);
     args.FUN_00337c00();

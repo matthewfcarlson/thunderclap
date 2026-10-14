@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000f6530 @ 0x000f6530
-struct Triple { unsigned x,y,z; };
+struct Triple_f6530 { unsigned x,y,z; };
 struct Object {
  virtual void slot0();
  virtual void slot1();
@@ -14,12 +14,12 @@ struct Object {
  virtual void setSecond(float a);
  virtual float getSecond();
  char padding[0xcc];
- Triple atD0;
- Triple atDC;
- Triple atE8;
- void FUN_00293a90(Triple*);
- void FUN_00293ac0(Triple*);
- void FUN_00293af0(Triple*);
+ Triple_f6530 atD0;
+ Triple_f6530 atDC;
+ Triple_f6530 atE8;
+ void FUN_00293a90(Triple_f6530*);
+ void FUN_00293ac0(Triple_f6530*);
+ void FUN_00293af0(Triple_f6530*);
 };
 void __cdecl FUN_000f6530(Object* source, Object* dest) {
  dest->setFirst(source->getFirst());
@@ -27,7 +27,7 @@ void __cdecl FUN_000f6530(Object* source, Object* dest) {
  unsigned a,b;
  source->getPair(&a,&b);
  dest->setPair(a,b);
- Triple t=source->atDC;
+ Triple_f6530 t=source->atDC;
  dest->FUN_00293a90(&t);
  t=source->atE8;
  dest->FUN_00293ac0(&t);

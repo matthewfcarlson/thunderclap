@@ -7,10 +7,10 @@ struct CAgent {
 };
 
 struct CMoveAgent : CAgent {
-    CMoveAgent *FUN_00102ac0(struct AgentHost *host);
+    CMoveAgent *FUN_00102ac0(struct AgentHost_feb20 *host);
 };
 
-struct AgentHost {
+struct AgentHost_feb20 {
     CAgent *FUN_000fdd30(const void *type);
 };
 
@@ -19,7 +19,7 @@ extern char DAT_004a1ba4;
 int __cdecl FUN_00266da0(int v);
 void *__cdecl FUN_0008d690(unsigned int size);
 
-void __cdecl FUN_000feb20(AgentHost *host, CAgent **slot)
+void __cdecl FUN_000feb20(AgentHost_feb20 *host, CAgent **slot)
 {
     CAgent *found = host->FUN_000fdd30(&DAT_004a1ba4);
     if (found) {

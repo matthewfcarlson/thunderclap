@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 571 inputs, branch coverage 20/22, incomplete)
 // FUN_001d60c0 @ 0x001d60c0
-struct Entry { int unused[2]; int type; int next; };
-struct Node { char pad[0x24]; int count; Entry* entries; };
-struct Table { char pad[0x1c]; Node** nodes; };
-struct Object { char pad[0x90]; Table* table; int FUN_001d5c70(int index); int FUN_001d60c0(); };
+struct Entry_1d60c0 { int unused[2]; int type; int next; };
+struct Node { char pad[0x24]; int count; Entry_1d60c0* entries; };
+struct Table_1d60c0 { char pad[0x1c]; Node** nodes; };
+struct Object { char pad[0x90]; Table_1d60c0* table; int FUN_001d5c70(int index); int FUN_001d60c0(); };
 int Object::FUN_001d60c0() {
  int total=0;
  int value=FUN_001d5c70(0);

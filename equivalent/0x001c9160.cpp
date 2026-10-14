@@ -8,15 +8,15 @@ extern "C" void __fastcall __security_check_cookie(unsigned int);
 namespace pure3d { class DrawableHierarchy; class LightGroup; }
 namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
 
-struct Id64 {
+struct Id64_1c9160 {
     unsigned int lo;
     unsigned int hi;
-    Id64 *FUN_0027b0e0(const char *s);
-    void FUN_0027af70(Id64 *other);
+    Id64_1c9160 *FUN_0027b0e0(const char *s);
+    void FUN_0027af70(Id64_1c9160 *other);
     void FUN_0027af50();
 };
 
-struct Loaded {
+struct Loaded_1c9160 {
     virtual void l0();
 };
 
@@ -32,15 +32,15 @@ struct LightGroup {
     Light **arr;
 };
 
-struct Holder {
+struct Holder_1c9160 {
     void FUN_0029fa30();
     void FUN_0029f800(Light *l);
 };
 
-struct Lights {
+struct Lights_1c9160 {
     char pad00[0xc0];
-    Holder *h0;
-    Holder *h1;
+    Holder_1c9160 *h0;
+    Holder_1c9160 *h1;
 };
 
 struct Stream {
@@ -56,28 +56,28 @@ struct Reader {
     void FUN_00266be0();
 };
 
-struct Inventory {
+struct Inventory_1c9160 {
     virtual void i0();
     virtual void i1();
     virtual void i2();
-    virtual Loaded *find(void *caster, unsigned __int64 key);
+    virtual Loaded_1c9160 *find(void *caster, unsigned __int64 key);
 };
 
-struct Target {
+struct Target_1c9160 {
     char pad00[0x758];
-    Id64 name;
-    void FUN_001c7fa0(Loaded *a, Loaded *c);
-    void FUN_001c8000(Loaded *b);
+    Id64_1c9160 name;
+    void FUN_001c7fa0(Loaded_1c9160 *a, Loaded_1c9160 *c);
+    void FUN_001c8000(Loaded_1c9160 *b);
 };
 
-class Handler {
+class Handler_1c9160 {
 public:
     virtual void h0();
     virtual void h1();
     virtual void h2();
     virtual void h3();
     virtual int GetId();
-    virtual void Load(int *x, Id64 *y, Reader *r, Inventory *inv);
+    virtual void Load(int *x, Id64_1c9160 *y, Reader *r, Inventory_1c9160 *inv);
 };
 
 extern unsigned int DAT_004d9968;
@@ -93,14 +93,14 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual void vfunc_5(int *out1, Id64 *out2, Reader *rd, Inventory *inv);
+    virtual void vfunc_5(int *out1, Id64_1c9160 *out2, Reader *rd, Inventory_1c9160 *inv);
     char pad04[0x10];
-    Target *target;
-    Lights *lights;
-    Handler *handler;
+    Target_1c9160 *target;
+    Lights_1c9160 *lights;
+    Handler_1c9160 *handler;
 };
 
-void LevelLoader::vfunc_5(int *out1, Id64 *out2, Reader *rd, Inventory *inv)
+void LevelLoader::vfunc_5(int *out1, Id64_1c9160 *out2, Reader *rd, Inventory_1c9160 *inv)
 {
     struct Frame {
         struct {
@@ -112,21 +112,21 @@ void LevelLoader::vfunc_5(int *out1, Id64 *out2, Reader *rd, Inventory *inv)
             char caster[4];
         } s14;
         union {
-            Loaded *a;
+            Loaded_1c9160 *a;
             LightGroup *lg;
         } s18;
         union {
-            Loaded *b;
+            Loaded_1c9160 *b;
             char caster[4];
         } s1c;
         union {
-            Loaded *c;
+            Loaded_1c9160 *c;
             char caster[4];
         } s20;
         LevelLoader *self;
         union {
             char caster[4];
-            Id64 id;
+            Id64_1c9160 id;
         } s28;
         char bufD[0x100];
         char bufB[0x100];
@@ -156,7 +156,7 @@ void LevelLoader::vfunc_5(int *out1, Id64 *out2, Reader *rd, Inventory *inv)
         unsigned __int64 k1 = FUN_0027b020(fr.bufC);
         content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> *c1 =
             new (fr.s1c.caster) content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>;
-        Loaded *r1 = inv->find(c1, k1);
+        Loaded_1c9160 *r1 = inv->find(c1, k1);
         fr.s18.a = r1;
         unsigned __int64 k2 = FUN_0027b020(fr.bufC);
         content::LoadInventory::DynamicCaster<pure3d::LightGroup> *c2 =
@@ -166,7 +166,7 @@ void LevelLoader::vfunc_5(int *out1, Id64 *out2, Reader *rd, Inventory *inv)
         unsigned __int64 k3 = FUN_0027b020(fr.bufC);
         content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> *c3 =
             new (fr.s20.caster) content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>;
-        Loaded *r3 = inv->find(c3, k3);
+        Loaded_1c9160 *r3 = inv->find(c3, k3);
         fr.s20.c = r3;
         if (r1 == 0 && r3 == 0) {
             unsigned __int64 k4 = FUN_0027b020(fr.bufB);
@@ -191,7 +191,7 @@ void LevelLoader::vfunc_5(int *out1, Id64 *out2, Reader *rd, Inventory *inv)
             new (fr.s14.caster) content::LoadInventory::DynamicCaster<pure3d::LightGroup>;
         fr.s18.lg = (LightGroup *)inv->find(c5, k5);
         self = fr.self;
-        Target *tg = self->target;
+        Target_1c9160 *tg = self->target;
         tg->name.FUN_0027af70(fr.s28.id.FUN_0027b0e0(fr.bufD));
         fr.s28.id.FUN_0027af50();
         self->lights->h0->FUN_0029fa30();

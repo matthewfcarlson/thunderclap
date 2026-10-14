@@ -2,13 +2,13 @@
 // physics::PhysicsJoint::vfunc_14 @ 0x0030a410
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_30a410 {
     float x, y, z;
-    void FUN_000111b0(Vec3* a, Vec3* b);
+    void FUN_000111b0(Vec3_30a410* a, Vec3_30a410* b);
 };
 
-struct Basis {
-    void FUN_002fd020(Vec3* in, Vec3* out);
+struct Basis_30a410 {
+    void FUN_002fd020(Vec3_30a410* in, Vec3_30a410* out);
 };
 
 extern float DAT_004d31b0;
@@ -39,7 +39,7 @@ public:
     class PhysicsObjectBase* owner;
     PhysicsJoint* child;
     char pad20[0xd4 - 0x20];
-    Vec3 anchor;
+    Vec3_30a410 anchor;
     char padE0[0xe8 - 0xe0];
     float weight;
     char padEC;
@@ -49,14 +49,14 @@ public:
     virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7();
     virtual void vfunc_8(); virtual void vfunc_9(); virtual void vfunc_10(); virtual void vfunc_11();
     virtual void vfunc_12(); virtual void vfunc_13();
-    virtual bool vfunc_14(Vec3* p1, Vec3* p2, Basis* basis);
+    virtual bool vfunc_14(Vec3_30a410* p1, Vec3_30a410* p2, Basis_30a410* basis);
     virtual void vfunc_15();
-    virtual void vfunc_16(Vec3* in, Vec3* out);
-    virtual void vfunc_17(Vec3* a, float len, Vec3* b);
+    virtual void vfunc_16(Vec3_30a410* in, Vec3_30a410* out);
+    virtual void vfunc_17(Vec3_30a410* a, float len, Vec3_30a410* b);
     virtual void vfunc_18();
-    virtual void vfunc_19(Vec3* v);
-    virtual float vfunc_20(Vec3* v);
-    virtual void vfunc_21(Vec3* v);
+    virtual void vfunc_19(Vec3_30a410* v);
+    virtual float vfunc_20(Vec3_30a410* v);
+    virtual void vfunc_21(Vec3_30a410* v);
 };
 
 class PhysicsObjectBase {
@@ -76,17 +76,17 @@ public:
     float scale;
 };
 
-bool PhysicsJoint::vfunc_14(Vec3* p1, Vec3* p2, Basis* basis)
+bool PhysicsJoint::vfunc_14(Vec3_30a410* p1, Vec3_30a410* p2, Basis_30a410* basis)
 {
     if (this == owner->current)
         return true;
 
     if (weight > 0.0f && !flagED && active) {
         struct Frame {
-            Vec3 b;
-            Vec3 a;
-            Vec3 c;
-            Vec3 d;
+            Vec3_30a410 b;
+            Vec3_30a410 a;
+            Vec3_30a410 c;
+            Vec3_30a410 d;
         } f;
         float len;
 

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 30/30)
 // FUN_00081420 @ 0x00081420
 extern "C" double sqrt(double);
-struct Vec3 {
+struct Vec3_81420 {
     float x, y, z;
     float FUN_0022d110();
 };
@@ -11,21 +11,21 @@ struct Matrix {
     void FUN_0022ba70(float angle);
 };
 
-struct Clock {
+struct Clock_81420 {
     float FUN_000787e0(float lo, float hi);
 };
 
-struct RefObj {
+struct RefObj_81420 {
     char pad00[8];
-    RefObj* next;       // 0x08
+    RefObj_81420* next;       // 0x08
     int kind;           // 0x0c
 };
 
-struct Linked {
+struct Linked_81420 {
     void FUN_0003ee70(int handle);
 };
 
-struct Stats {
+struct Stats_81420 {
     char pad00[0x10];
     int* handlePtr;     // 0x10
     bool FUN_00035ab0();
@@ -33,24 +33,24 @@ struct Stats {
 
 struct Request {
     char pad00[8];
-    Stats* stats;       // 0x08
+    Stats_81420* stats;       // 0x08
     int kind;           // 0x0c
 };
 
-struct Controller {
-    void FUN_001ec980(Stats* stats, const char* name);
+struct Controller_81420 {
+    void FUN_001ec980(Stats_81420* stats, const char* name);
 };
 
 struct World {
     char pad00[0x34];
-    Controller* controller;
+    Controller_81420* controller;
 };
 
-struct Source {
+struct Source_81420 {
     char b14pad[0x14];
     char flag14;        // 0x14
     char pad15[0x28 - 0x15];
-    Vec3 vel;           // 0x28
+    Vec3_81420 vel;           // 0x28
     char flag34;        // 0x34
     char pad35[0x4c - 0x35];
     Request* req;       // 0x4c
@@ -59,15 +59,15 @@ struct Source {
     char pad68[0x78 - 0x68];
     float f78;
     char pad7c[0x84 - 0x7c];
-    RefObj* f84;
+    RefObj_81420* f84;
     int f88;
     float f8c;
     char flag90;        // 0x90
 };
 
-class Fx {
+class Fx_81420 {
 public:
-    void FUN_00081420(Source* src);
+    void FUN_00081420(Source_81420* src);
 
     char pad00[0x10];
     int state;          // 0x10
@@ -84,22 +84,22 @@ public:
     int f98;
     int f9c;
     int fa0;
-    Vec3 fa4;
+    Vec3_81420 fa4;
     float fb0;
     float fb4;
-    RefObj* fb8;
+    RefObj_81420* fb8;
     char padbc[0x100 - 0xbc];
     int f100;
 };
 
-extern Clock* DAT_004e5acc;
+extern Clock_81420* DAT_004e5acc;
 extern World* DAT_004dd700;
 
-float FUN_00224f10(Vec3* v);
+float FUN_00224f10(Vec3_81420* v);
 int FUN_000113e0(int lo, int hi);
-void FUN_00018810(RefObj** slot, RefObj* obj);
+void FUN_00018810(RefObj_81420** slot, RefObj_81420* obj);
 
-void Fx::FUN_00081420(Source* src)
+void Fx_81420::FUN_00081420(Source_81420* src)
 {
     if (state == 5 || state == 6)
         return;
@@ -141,9 +141,9 @@ void Fx::FUN_00081420(Source* src)
         fb0 = fa4.FUN_0022d110();
         fb4 = src->f8c;
         FUN_00018810(&fb8, src->f84);
-        RefObj* r = fb8;
+        RefObj_81420* r = fb8;
         if (r && r->kind == 1) {
-            Linked* l = (Linked*)r->next;
+            Linked_81420* l = (Linked_81420*)r->next;
             if (l)
                 l->FUN_0003ee70(f100);
         }
@@ -152,7 +152,7 @@ void Fx::FUN_00081420(Source* src)
 
     Request* req = src->req;
     if (req && req->kind == 1) {
-        Stats* stats = req->stats;
+        Stats_81420* stats = req->stats;
         f24 = *stats->handlePtr;
         if (stats->FUN_00035ab0() && !src->flag34)
             DAT_004dd700->controller->FUN_001ec980(stats, "punch_sml");

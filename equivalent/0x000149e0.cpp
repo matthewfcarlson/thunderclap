@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/14, incomplete)
 // FUN_000149e0 @ 0x000149e0
-struct Table {
+struct Table_149e0 {
     float FUN_00069620(int i);
     float FUN_000695e0(int i);
 };
 
-struct Info {
+struct Info_149e0 {
     char pad0[0x10];
     float limit;
     float scale;
 };
 
-struct Anim {
+struct Anim_149e0 {
     char pad0[0x20];
-    Info *info;
+    Info_149e0 *info;
     void FUN_00225e00(float a, float b, float c, float d);
 };
 
@@ -22,8 +22,8 @@ public:
     char FUN_000149e0(int index);
 
     char pad0[0x20];
-    Table *table;
-    Anim *anim;
+    Table_149e0 *table;
+    Anim_149e0 *anim;
     int index;
     float accum;
 };

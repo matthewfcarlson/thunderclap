@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3070 inputs, branch coverage 60/60)
 // FUN_001d8350 @ 0x001d8350
 // equiv-map: ??0Id64@@QAE@ABU0@@Z = 0x0027af30
-struct V3 {
+struct V3_1d8350 {
     float x, y, z;
     float FUN_000259c0();
     float FUN_0022d180();
@@ -12,66 +12,66 @@ struct Id64 {
     Id64(const Id64 &src);
 };
 
-struct Event {
+struct Event_1d8350 {
     char data[0x28];
     void FUN_001ca540(Id64 self, Id64 other, int id);
 };
 
-struct Voice {
+struct Voice_1d8350 {
     void FUN_00092540(int kind, Id64 id, int z);
     char FUN_00092dc0(int v);
     char FUN_00092940(int v);
 };
 
-struct Sound {
+struct Sound_1d8350 {
     void FUN_00090720(const char *name, int flag);
 };
 
-struct Mgr {
+struct Mgr_1d8350 {
     char pad0[0x3c];
-    Voice *f3c;
+    Voice_1d8350 *f3c;
     char pad40[8];
-    Sound *f48;
-    Voice *FUN_00086340();
-    Sound *FUN_00086370();
+    Sound_1d8350 *f48;
+    Voice_1d8350 *FUN_00086340();
+    Sound_1d8350 *FUN_00086370();
 };
 
 struct Sender {
-    void FUN_001cbc20(Event *e);
+    void FUN_001cbc20(Event_1d8350 *e);
 };
 
 struct World {
     char pad0[0x30];
     Sender *f30;
     char pad34[0x54 - 0x34];
-    Mgr *f54;
+    Mgr_1d8350 *f54;
 };
 extern World *DAT_004dd700;
-extern Mgr *DAT_004dd6ec;
+extern Mgr_1d8350 *DAT_004dd6ec;
 extern char DAT_004e2518;
 
-struct Fighter {
+struct Fighter_1d8350 {
     char pad0[0x10];
     int *f10;
     char pad14[0x1b0c - 0x14];
     float f1b0c;
     char FUN_000373a0(int state);
-    void FUN_000352b0(V3 *out);
+    void FUN_000352b0(V3_1d8350 *out);
 };
 
-struct Owner {
+struct Owner_1d8350 {
     char pad0[8];
     Id64 id8;
 };
 
-V3 *__cdecl FUN_00083e00(V3 *out, V3 *a, float s);
+V3_1d8350 *__cdecl FUN_00083e00(V3_1d8350 *out, V3_1d8350 *a, float s);
 
-class Collector {
+class Collector_1d8350 {
 public:
     char pad0[8];
     Id64 id8;              // 8
     char pad10[0xec - 0x10];
-    Owner *owner;          // 0xec
+    Owner_1d8350 *owner;          // 0xec
     float f0;              // 0xf0
     float f4;              // 0xf4
     char bf8;
@@ -83,24 +83,24 @@ public:
     int state;             // 0x150
     float f154;
 
-    V3 *FUN_001d6b40();
-    void FUN_001d7810(V3 v);
+    V3_1d8350 *FUN_001d6b40();
+    void FUN_001d7810(V3_1d8350 v);
     void FUN_0027d4f0(int v);
-    void FUN_001d8350(Fighter *a);
+    void FUN_001d8350(Fighter_1d8350 *a);
 };
 
-struct Frame {
-    V3 pc;                 // 0xc
-    V3 d;                  // 0x18
-    V3 tmp;                // 0x24
-    V3 v1;                 // 0x30
-    V3 out;                // 0x3c
-    Event ev;              // 0x48
+struct Frame_1d8350 {
+    V3_1d8350 pc;                 // 0xc
+    V3_1d8350 d;                  // 0x18
+    V3_1d8350 tmp;                // 0x24
+    V3_1d8350 v1;                 // 0x30
+    V3_1d8350 out;                // 0x3c
+    Event_1d8350 ev;              // 0x48
 };
 
-void Collector::FUN_001d8350(Fighter *a)
+void Collector_1d8350::FUN_001d8350(Fighter_1d8350 *a)
 {
-    Frame f;
+    Frame_1d8350 f;
     if (a == 0)
         return;
     if (a->f1b0c <= 0.0f)
@@ -116,7 +116,7 @@ void Collector::FUN_001d8350(Fighter *a)
     if (!a->FUN_000373a0(state))
         return;
     a->FUN_000352b0(&f.v1);
-    V3 *p = FUN_001d6b40();
+    V3_1d8350 *p = FUN_001d6b40();
     f.pc.x = p->x;
     f.pc.y = p->y;
     f.pc.z = p->z;
@@ -135,8 +135,8 @@ void Collector::FUN_001d8350(Fighter *a)
             if (f0 > len)
                 f0 = len;
             f.d.FUN_0022d180();
-            V3 *res = FUN_00083e00(&f.out, &f.d, f0);
-            V3 r;
+            V3_1d8350 *res = FUN_00083e00(&f.out, &f.d, f0);
+            V3_1d8350 r;
             r.x = f.pc.x + res->x;
             r.y = f.pc.y + res->y;
             r.z = f.pc.z + res->z;
@@ -178,7 +178,7 @@ void Collector::FUN_001d8350(Fighter *a)
     f.ev.FUN_001ca540(id8, owner->id8, fid);
     int s2 = state;
     if (s2 == 1 || s2 == 2 || s2 == 3 || s2 == 4) {
-        Voice *v = DAT_004dd700->f54->FUN_00086340();
+        Voice_1d8350 *v = DAT_004dd700->f54->FUN_00086340();
         if (!v->FUN_00092dc0(0x15)) {
             v = DAT_004dd700->f54->FUN_00086340();
             if (v->FUN_00092940(0x15))

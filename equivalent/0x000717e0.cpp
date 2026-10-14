@@ -6,13 +6,13 @@ void __cdecl FUN_00068520();
 void __cdecl FUN_00068530();
 void __cdecl FUN_00068540();
 class CDrainHealthTrack;
-struct ParamBase {
+struct ParamBase_717e0 {
     virtual void slot0();
     char data[12];
     void FUN_00234960(const char*);
 };
 namespace fight {
-template<class T> struct ParamFloatConstRange : ParamBase {
+template<class T> struct ParamFloatConstRange : ParamBase_717e0 {
     virtual void slot0();
     void (__cdecl *callback)();
     unsigned int tail;
@@ -29,7 +29,7 @@ void __cdecl FUN_000717e0() {
         for (int i=0;i<3;++i) {
             void* memory=FUN_0008d690(24);
             if (memory) {
-                ((ParamBase*)memory)->FUN_00234960(names[i]);
+                ((ParamBase_717e0*)memory)->FUN_00234960(names[i]);
                 params[i]=new(memory) fight::ParamFloatConstRange<CDrainHealthTrack>;
                 params[i]->callback=callbacks[i];
             } else params[i]=0;

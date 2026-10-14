@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 25/26, incomplete)
 // FUN_0024b920 @ 0x0024b920
-class Sink {
+class Sink_24b920 {
 public:
     virtual void v0();
     virtual int state();
@@ -13,7 +13,7 @@ public:
     virtual char poll(unsigned int *out);
 };
 
-struct Source {
+struct Source_24b920 {
     unsigned int base;
     char pad4[4];
     unsigned int f8;
@@ -21,30 +21,30 @@ struct Source {
     unsigned int off;
 };
 
-struct Slot {
-    Sink *sink;
+struct Slot_24b920 {
+    Sink_24b920 *sink;
     char rest[8];
 };
 
-struct Queue {
-    Slot slots[10];
+struct Queue_24b920 {
+    Slot_24b920 slots[10];
     void FUN_0024b270();
 };
 
-char FUN_0025e450(Source *src, int size);
-char FUN_0024af90(Source *src);
-Source *FUN_0025e090(Source *src);
-unsigned int FUN_0026fd80(Source *src, int size);
-void FUN_0025e0b0(Source *src, unsigned int v, int zero);
+char FUN_0025e450(Source_24b920 *src, int size);
+char FUN_0024af90(Source_24b920 *src);
+Source_24b920 *FUN_0025e090(Source_24b920 *src);
+unsigned int FUN_0026fd80(Source_24b920 *src, int size);
+void FUN_0025e0b0(Source_24b920 *src, unsigned int v, int zero);
 int FUN_00267f80(unsigned int live);
 
-struct Player {
+struct Player_24b920 {
     char pad0[0x14];
-    Source *source;
+    Source_24b920 *source;
     int f18;
     int f1c;
     char pad20[0x40 - 0x20];
-    Queue queue;
+    Queue_24b920 queue;
     unsigned char current;
     unsigned char enabled;
     char pad_ba[0xc8 - 0xba];
@@ -54,7 +54,7 @@ struct Player {
 };
 
 // equiv-conv: FUN_0024b920 esi ebx
-void FUN_0024b920(Player *p, unsigned int live)
+void FUN_0024b920(Player_24b920 *p, unsigned int live)
 {
     unsigned int got;
 
@@ -62,10 +62,10 @@ void FUN_0024b920(Player *p, unsigned int live)
         return;
     if (!p->enabled)
         return;
-    Slot *slot = &p->queue.slots[p->current];
+    Slot_24b920 *slot = &p->queue.slots[p->current];
     if (slot == 0)
         return;
-    Sink *sink = slot->sink;
+    Sink_24b920 *sink = slot->sink;
     if (sink != 0) {
         if (sink->state() != 2)
             return;

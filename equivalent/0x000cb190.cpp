@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000cb190 @ 0x000cb190
-struct Vec3 { float x, y, z; };
+struct Vec3_cb190 { float x, y, z; };
 
-struct Inner {
-    int FUN_000c93e0(int a, int b, Vec3 p, Vec3 q, Vec3 r);
+struct Inner_cb190 {
+    int FUN_000c93e0(int a, int b, Vec3_cb190 p, Vec3_cb190 q, Vec3_cb190 r);
 };
 
-struct Wrapper {
+struct Wrapper_cb190 {
     char pad00[0x88];
-    Inner* inner;         // 0x88
-    int Forward(int a, int b, Vec3 p, Vec3 q, Vec3 r);
+    Inner_cb190* inner;         // 0x88
+    int Forward(int a, int b, Vec3_cb190 p, Vec3_cb190 q, Vec3_cb190 r);
 };
 
-int Wrapper::Forward(int a, int b, Vec3 p, Vec3 q, Vec3 r)
+int Wrapper_cb190::Forward(int a, int b, Vec3_cb190 p, Vec3_cb190 q, Vec3_cb190 r)
 {
     if (inner == 0)
         return -1;

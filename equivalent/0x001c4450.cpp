@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001c4450 @ 0x001c4450
-struct Transition {
+struct Transition_1c4450 {
  char pad[0x14];
  unsigned char active1; char pad15[3];
  float current1, target1, rate1;
@@ -8,7 +8,7 @@ struct Transition {
  float current2, target2, rate2;
  void FUN_001c4450(unsigned char first, float firstTime, unsigned char second, float secondTime);
 };
-void Transition::FUN_001c4450(unsigned char first, float firstTime, unsigned char second, float secondTime) {
+void Transition_1c4450::FUN_001c4450(unsigned char first, float firstTime, unsigned char second, float secondTime) {
  float duration = second ? secondTime : 0.0f;
  float target = second ? 0.0f : 1.0f;
  target1 = target;

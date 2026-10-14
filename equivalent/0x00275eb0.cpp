@@ -3,7 +3,7 @@
 void* __cdecl FUN_00273560(unsigned int);
 namespace core { struct File; }
 struct Request { Request* FUN_00275230(core::File*, unsigned int, unsigned int, unsigned int); };
-struct Queue { void FUN_00272b60(Request*, unsigned int, unsigned int); };
+struct Queue_275eb0 { void FUN_00272b60(Request*, unsigned int, unsigned int); };
 namespace core {
 struct File {
  virtual void vfunc_0();
@@ -11,7 +11,7 @@ struct File {
  virtual void vfunc_2();
  virtual void vfunc_3(unsigned int, unsigned int, unsigned int);
  char padding[8];
- Queue* queue;
+ Queue_275eb0* queue;
  unsigned int context;
 };
 void File::vfunc_3(unsigned int a, unsigned int b, unsigned int c) {

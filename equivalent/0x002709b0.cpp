@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_002709b0 @ 0x002709b0
-struct Record { unsigned int value; unsigned char active; char unused[0x117]; };
-extern Record DAT_0052842c[26];
+struct Record_2709b0 { unsigned int value; unsigned char active; char unused[0x117]; };
+extern Record_2709b0 DAT_0052842c[26];
 extern char DAT_0052a10c;
 extern char DAT_0052a0f0;
 extern unsigned char DAT_0052a11d;

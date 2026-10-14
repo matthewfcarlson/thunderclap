@@ -3,14 +3,14 @@
 extern const char *DAT_00496f8c[4];
 int __cdecl FUN_00096600(const char *a, const char *b);
 
-class Palette {
+class Palette_258b0 {
 public:
     char pad0[0xd30];
     unsigned int colors[4];
     void FUN_000258b0(const char *name, float r, float g, float b);
 };
 
-void Palette::FUN_000258b0(const char *name, float r, float g, float b)
+void Palette_258b0::FUN_000258b0(const char *name, float r, float g, float b)
 {
     int i;
     for (i = 0; i < 4; i++) {

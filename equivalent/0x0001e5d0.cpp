@@ -1,43 +1,43 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
 // CGrabAction::vfunc_8 @ 0x0001e5d0
-struct Vec3 {
+struct Vec3_1e5d0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Mat {
+struct Mat_1e5d0 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022c2b0(const Vec3 *in, Vec3 *out);
+    void FUN_0022c2b0(const Vec3_1e5d0 *in, Vec3_1e5d0 *out);
 };
 
 struct Skeleton {
     char pad0[0x1c];
-    Mat *matrices;
+    Mat_1e5d0 *matrices;
 };
 
-struct Body {
+struct Body_1e5d0 {
     char pad0[0x64];
     Skeleton *skeleton;
 };
 
-struct Fighter { char pad[4]; };
-Fighter *__fastcall FUN_000592a0(void *owner);
-Body *__fastcall FUN_00059a40(Fighter *f);
+struct Fighter_1e5d0 { char pad[4]; };
+Fighter_1e5d0 *__fastcall FUN_000592a0(void *owner);
+Body_1e5d0 *__fastcall FUN_00059a40(Fighter_1e5d0 *f);
 
-class Link {
+class Link_1e5d0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
 };
 
-struct Data {
+struct Data_1e5d0 {
     char pad0[0x20];
-    Vec3 offset;
+    Vec3_1e5d0 offset;
     float f2c;
 };
 
-class Effect {
+class Effect_1e5d0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -45,7 +45,7 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual void vfunc_6(Mat *m, int arg);
+    virtual void vfunc_6(Mat_1e5d0 *m, int arg);
 };
 
 class CAction {
@@ -61,12 +61,12 @@ public:
     virtual char vfunc_8(int arg);
     char pad04[0x18];
     void *ownerObj;
-    Data *data;
+    Data_1e5d0 *data;
     int matrixIndex;
-    Effect *effect;
-    Vec3 pos;
+    Effect_1e5d0 *effect;
+    Vec3_1e5d0 pos;
     char finished;
-    void FUN_0001df20(Vec3 *at, Vec3 *delta);
+    void FUN_0001df20(Vec3_1e5d0 *at, Vec3_1e5d0 *delta);
 };
 
 class CGrabAction : public CAction {
@@ -78,16 +78,16 @@ char CGrabAction::vfunc_8(int arg)
 {
     if (finished)
         return 0;
-    Fighter *fighter = FUN_000592a0(ownerObj);
-    Body *body = FUN_00059a40(fighter);
+    Fighter_1e5d0 *fighter = FUN_000592a0(ownerObj);
+    Body_1e5d0 *body = FUN_00059a40(fighter);
     if (body == 0)
         return 0;
 
-    Vec3 off = data->offset;
-    Vec3 world;
+    Vec3_1e5d0 off = data->offset;
+    Vec3_1e5d0 world;
     body->skeleton->matrices[matrixIndex].FUN_0022c2b0(&off, &world);
 
-    Vec3 d;
+    Vec3_1e5d0 d;
     d.x = world.x - pos.x;
     d.y = world.y - pos.y;
     d.z = world.z - pos.z;
@@ -111,8 +111,8 @@ char CGrabAction::vfunc_8(int arg)
         if (n > 0x40)
             n = 0x40;
         double step = dist / (float)n;
-        Vec3 cur = pos;
-        Vec3 sv = d;
+        Vec3_1e5d0 cur = pos;
+        Vec3_1e5d0 sv = d;
         sv.x = (float)(sv.x * step);
         sv.y = (float)(sv.y * step);
         sv.z = (float)(sv.z * step);
@@ -127,7 +127,7 @@ char CGrabAction::vfunc_8(int arg)
     }
 
     if (effect != 0) {
-        Mat t;
+        Mat_1e5d0 t;
         t.FUN_0022b980();
         t.m[12] = world.x;
         t.m[13] = world.y;

@@ -18,7 +18,7 @@ struct TexModeEntry {
     int v;
     int pad[2];
 };
-struct StageRegs {
+struct StageRegs_328bf0 {
     int addr0, addr1, addr2;
     int mode0, mode1, mode2;
     char pad0[0x30 - 0x18];
@@ -43,7 +43,7 @@ extern unsigned int DAT_004d4efc[];
 extern unsigned int DAT_004d4ed0[];
 extern unsigned int DAT_004d4f04[];
 extern unsigned int DAT_004d4f24[];
-struct Material {
+struct Material_328bf0 {
     char pad0[8];
     Texture* tex[4];
     char pad18[0x28 - 0x18];
@@ -78,8 +78,8 @@ struct Material {
     int f120;
     void FUN_00328bf0();
 };
-void Material::FUN_00328bf0() {
-    StageRegs* regs = (StageRegs*)(DAT_0039db1c - 0xc);
+void Material_328bf0::FUN_00328bf0() {
+    StageRegs_328bf0* regs = (StageRegs_328bf0*)(DAT_0039db1c - 0xc);
     for (unsigned int i = 0; i < 4; i++) {
         if (tex[i]) {
             tex[i]->FUN_00326b00(i);

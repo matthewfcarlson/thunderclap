@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00337c20 @ 0x00337c20
-struct Buffer {
+struct Buffer_337c20 {
     unsigned int field0;
     void* data;
     unsigned int field8;
@@ -20,9 +20,9 @@ struct Stream {
     virtual bool available();
 };
 struct Converter { void* FUN_003373e0(void* data); };
-struct Output { virtual void slot0(); virtual void emit(Buffer* value); };
-bool __stdcall FUN_00337c20(Stream* stream, void* arg, Converter* converter, Output* output) {
-    Buffer buffer;
+struct Output_337c20 { virtual void slot0(); virtual void emit(Buffer_337c20* value); };
+bool __stdcall FUN_00337c20(Stream* stream, void* arg, Converter* converter, Output_337c20* output) {
+    Buffer_337c20 buffer;
     buffer.FUN_003352a0();
     stream->open(arg);
     while (stream->available()) {

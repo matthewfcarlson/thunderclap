@@ -4,7 +4,7 @@ namespace D3D8 {
 void __stdcall D3DDevice_SetTextureState_TexCoordIndex(unsigned long stage, unsigned long value);
 void __fastcall D3DDevice_SetRenderState_Simple(unsigned long method, unsigned long value);
 }
-struct StageRegs {
+struct StageRegs_32cc50 {
     unsigned int a;
     unsigned int b;
     unsigned int c;
@@ -13,14 +13,14 @@ struct StageRegs {
     char pad58[0x80 - 0x58];
 };
 extern unsigned int DAT_0039db08;
-extern StageRegs DAT_0039db10[];
+extern StageRegs_32cc50 DAT_0039db10[];
 extern unsigned int DAT_0039de18;
 extern unsigned int DAT_004d4efc;
 extern unsigned int DAT_004d4f00;
 extern unsigned int DAT_004d4f24[];
 
 class Texture;
-class DeviceState {
+class DeviceState_32cc50 {
 public:
     char pad0[0x18];
     int texCoord0;
@@ -39,7 +39,7 @@ public:
     void FUN_00329f70(int a, int b, const void* p);
 };
 class d3dProjectedTextureShader;
-class ShaderBase {
+class ShaderBase_32cc50 {
 public:
     virtual void vf0();
     virtual void vf1();
@@ -57,10 +57,10 @@ public:
     virtual void vf13();
     virtual void vf14(int arg);
 };
-class pure3d_d3dProjectedTextureShader : public ShaderBase {
+class pure3d_d3dProjectedTextureShader_32cc50 : public ShaderBase_32cc50 {
 public:
     char pad04[0x14 - 4];
-    DeviceState* dev;
+    DeviceState_32cc50* dev;
     char pad18[0x44 - 0x18];
     int stageValue;
     unsigned char byte48;
@@ -74,7 +74,7 @@ public:
     void FUN_0032a260();
     virtual void vf14(int arg);
 };
-void pure3d_d3dProjectedTextureShader::vf14(int arg) {
+void pure3d_d3dProjectedTextureShader_32cc50::vf14(int arg) {
     dev->FUN_0032a920(2, tex0, tex1, 0, 0);
     dev->FUN_00329e50(0, 4, 1, 2);
     if (dev->texCoord0 != 0) {

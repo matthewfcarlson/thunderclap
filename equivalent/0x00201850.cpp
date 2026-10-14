@@ -13,7 +13,7 @@ public:
     void FUN_002647e0(void *out, int a, int b, int c);
 };
 
-class Loader {
+class Loader_201850 {
 public:
     char pad0[0x284];
     File *file;            // 0x284
@@ -22,19 +22,19 @@ public:
     void FUN_00266be0();
 };
 
-struct Rec {
+struct Rec_201850 {
     char pad0[0x16];
     unsigned short bits;   // 0x16
 };
 
-struct Table {
+struct Table_201850 {
     char pad0[0x18];
-    Rec *recs;
+    Rec_201850 *recs;
 };
 
-struct Ctx {
+struct Ctx_201850 {
     char pad0[0x44];
-    Table *table;
+    Table_201850 *table;
 };
 
 char __cdecl FUN_002017d0(char *buf, int *shift, unsigned int *mask);
@@ -42,7 +42,7 @@ int __cdecl FUN_00201780(const char *name);
 void *__cdecl FUN_00266e00(int a, int bytes);
 void __cdecl FUN_00266f00(int a, void *p);
 
-struct Frame {
+struct Frame_201850 {
     char pad0[0xe];
     unsigned char len2;    // 0xe
     unsigned char len1;    // 0xf
@@ -71,10 +71,10 @@ struct Frame {
     char buf2[0x100];      // 0x138
 };
 
-void FUN_00201850(Loader *l, Ctx *ctx)
+void FUN_00201850(Loader_201850 *l, Ctx_201850 *ctx)
 {
     unsigned int cookie = DAT_004d9968;
-    Frame f;
+    Frame_201850 f;
     l->file->FUN_002647e0(&f.u18.a, 1, 4, 1);
     l->file->FUN_002647e0(&f.u18.a, 1, 4, 1);
     while (l->FUN_002669f0()) {
@@ -97,7 +97,7 @@ void FUN_00201850(Loader *l, Ctx *ctx)
                     f.u14.mask = 1 << f.u18.h;
                     do {
                         unsigned short v = f.u1c.f2[f.c];
-                        Rec *r = &ctx->table->recs[v];
+                        Rec_201850 *r = &ctx->table->recs[v];
                         unsigned int bits = r->bits >> 3;
                         l->file->FUN_002647e0(&f.flag, 1, 2, 1);
                         if (f.flag != 0)
@@ -130,7 +130,7 @@ void FUN_00201850(Loader *l, Ctx *ctx)
                     f.u18.notC = ~f.c;
                     do {
                         l->file->FUN_002647e0(&f.g, 1, 2, 1);
-                        Rec *r = &ctx->table->recs[f.u14.f[i]];
+                        Rec_201850 *r = &ctx->table->recs[f.u14.f[i]];
                         unsigned int old = r->bits;
                         unsigned int val = ((f.g << f.u1c.d) & f.c) << 3;
                         val |= ((f.u18.notC << 3) | 7) & old;

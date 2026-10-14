@@ -4,7 +4,7 @@ struct TextTable {
  int FUN_000f7d30(const char*);
  const unsigned short* FUN_000f7220(int);
 };
-struct Dialog {
+struct Dialog_d9a80 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
  virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7();
  virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11();
@@ -19,9 +19,9 @@ struct Dialog {
  virtual TextTable* slot44();
  void FUN_000be310(const char*, const unsigned short*, const float*, const float*, const char*, int, const char*, const char*);
 };
-struct Status { char pad[0x1bc8]; unsigned char active; };
-struct Manager { Status* FUN_00086280(); };
-extern Manager* DAT_004dd6ec;
+struct Status_d9a80 { char pad[0x1bc8]; unsigned char active; };
+struct Manager_d9a80 { Status_d9a80* FUN_00086280(); };
+extern Manager_d9a80* DAT_004dd6ec;
 extern const char* DAT_004a0cb0;
 extern const char* DAT_004a0ce0;
 extern const char* DAT_004a0ce4;
@@ -31,17 +31,17 @@ extern float DAT_003f335c;
 extern unsigned int DAT_004d9968;
 void __fastcall __security_check_cookie(unsigned int);
 void __cdecl FUN_000fc020(unsigned short*, int, const unsigned short*);
-struct Screen {
+struct Screen_d9a80 {
  char pad0[0x21c]; int state;
  char pad1[0x3b0-0x220]; unsigned char visible;
  char pad2[0x3eb-0x3b1]; unsigned char mode;
- Dialog* FUN_000fc3d0();
+ Dialog_d9a80* FUN_000fc3d0();
  void FUN_000d9a80(int);
 };
-void Screen::FUN_000d9a80(int) {
+void Screen_d9a80::FUN_000d9a80(int) {
  unsigned short text[512];
  unsigned int cookie = DAT_004d9968;
- Dialog* dialog = FUN_000fc3d0();
+ Dialog_d9a80* dialog = FUN_000fc3d0();
  TextTable* table = dialog->slot44();
  int id = table->FUN_000f7d30(DAT_004a0cb0);
  const unsigned short* source = table->FUN_000f7220(id);
@@ -49,7 +49,7 @@ void Screen::FUN_000d9a80(int) {
  const char* heading;
  if (mode) heading = DAT_004a0ce8;
  else {
- Status* status = DAT_004dd6ec->FUN_00086280();
+ Status_d9a80* status = DAT_004dd6ec->FUN_00086280();
  heading = status->active ? DAT_004a0ce4 : DAT_004a0ce0;
  }
  const char* option = DAT_004a0c60;

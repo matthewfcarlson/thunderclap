@@ -6,19 +6,19 @@ extern "C" double __cdecl sqrt(double);
 void __cdecl Del340(void *p);
 void __cdecl Del330(void *p);
 
-struct V3 {
+struct V3_1050d0 {
     float x, y, z;
     float FUN_0022d110();
     float FUN_00018990();
-    char FUN_0022d2b0(V3 *other, float eps);
-    void FUN_00011250(V3 *out, V3 *other);
+    char FUN_0022d2b0(V3_1050d0 *other, float eps);
+    void FUN_00011250(V3_1050d0 *out, V3_1050d0 *other);
 };
 
 struct Locator {
-    void FUN_00059a50(V3 *out);
+    void FUN_00059a50(V3_1050d0 *out);
 };
 
-struct Body {
+struct Body_1050d0 {
     char pad0[0x10];
     Locator *locator;
     char pad14[0x1a64 - 0x14];
@@ -27,12 +27,12 @@ struct Body {
     float f1d0c;
     float f1d10;
     char pad1d14[0x2074 - 0x1d14];
-    V3 v2074;
+    V3_1050d0 v2074;
     char FUN_000372f0();
 };
 
 struct PNode {
-    V3 pos;
+    V3_1050d0 pos;
     int link;
 };
 struct PList {
@@ -41,7 +41,7 @@ struct PList {
     PNode *FUN_00106160(int idx);
 };
 
-struct Part2 {
+struct Part2_1050d0 {
     char pad0[0x60];
     PList *f60;
     char pad64[0xb8 - 0x64];
@@ -49,10 +49,10 @@ struct Part2 {
 };
 
 struct Mgr20 {
-    void FUN_00024300(Body *b);
+    void FUN_00024300(Body_1050d0 *b);
     void FUN_00025260(int a, int b, int c);
 };
-struct Ctx {
+struct Ctx_1050d0 {
     char pad0[0x20];
     Mgr20 *f20;
 };
@@ -65,53 +65,53 @@ struct World {
 };
 extern World *DAT_004dd700;
 
-class Part {
+class Part_1050d0 {
 public:
     virtual void p0(); virtual void p1(); virtual void p2(); virtual void p3(); virtual void p4();
     virtual void p5();
-    virtual Body *vfunc_6();
+    virtual Body_1050d0 *vfunc_6();
     virtual void p7(); virtual void p8();
     virtual int vfunc_9();
     char pad04[0xe8 - 4];
     char flagE8;
     char pad_e9[0x129 - 0xe9];
     char b129;
-    Part2 *FUN_000fdc40();
+    Part2_1050d0 *FUN_000fdc40();
 };
 
 struct VList {
-    V3 *nodes;
+    V3_1050d0 *nodes;
     int f04;
     int count;
     void *f0c;
 };
 
-class AgentSub {
+class AgentSub_1050d0 {
 public:
     virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
-    virtual void vfunc_4(Ctx *c, float dt, int a3);
+    virtual void vfunc_4(Ctx_1050d0 *c, float dt, int a3);
     char pad04[0x76 - 4];
     char b76;
     char pad77[0x89 - 0x77];
     char b89;
-    void FUN_00102b90(V3 *p, float a, int b);
+    void FUN_00102b90(V3_1050d0 *p, float a, int b);
 };
 
-struct Dir {
+struct Dir_1050d0 {
     virtual void d0(); virtual void d1(); virtual void d2(); virtual void d3();
-    virtual float vfunc_4(V3 *target, V3 *pos, Body *b, Ctx *a1, float dt, V3 *fbc, V3 *w);
+    virtual float vfunc_4(V3_1050d0 *target, V3_1050d0 *pos, Body_1050d0 *b, Ctx_1050d0 *a1, float dt, V3_1050d0 *fbc, V3_1050d0 *w);
 };
 
 float __cdecl FUN_00018710(float *a, float *b);
 float __cdecl FUN_000186f0(float *a, float *b);
-V3 *__cdecl FUN_00083e00(V3 *out, V3 *in, float s);
-float __cdecl FUN_0010b1c0(Ctx *a1, Body *b, float thr, V3 *out);
-char __cdecl FUN_00036b10(Ctx *w, V3 *a, V3 *b, V3 *c, V3 *d, char *e, char *f);
+V3_1050d0 *__cdecl FUN_00083e00(V3_1050d0 *out, V3_1050d0 *in, float s);
+float __cdecl FUN_0010b1c0(Ctx_1050d0 *a1, Body_1050d0 *b, float thr, V3_1050d0 *out);
+char __cdecl FUN_00036b10(Ctx_1050d0 *w, V3_1050d0 *a, V3_1050d0 *b, V3_1050d0 *c, V3_1050d0 *d, char *e, char *f);
 
 extern float DAT_004a1c64;
 extern float DAT_004a1c7c;
 
-struct Frame {
+struct Frame_1050d0 {
     float L;                          // path-length / scratch (reused for t and k later)
     union {
         float gy;
@@ -122,32 +122,32 @@ struct Frame {
     char fl19;
     char flag1a;
     char fl1b;
-    V3 qv;
-    V3 dv;
-    V3 pos;
-    V3 pp;
-    V3 o1;
-    V3 v3;
+    V3_1050d0 qv;
+    V3_1050d0 dv;
+    V3_1050d0 pos;
+    V3_1050d0 pp;
+    V3_1050d0 o1;
+    V3_1050d0 v3;
     float two;
-    Body *bsave;
-    V3 h;
-    V3 out1;
-    V3 out2;
+    Body_1050d0 *bsave;
+    V3_1050d0 h;
+    V3_1050d0 out1;
+    V3_1050d0 out2;
 };
 
 class CPathAgent {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-    virtual float vfunc_4(Ctx *a1, float a2, int a3);
+    virtual float vfunc_4(Ctx_1050d0 *a1, float a2, int a3);
     char pad04[0x58 - 4];
-    Part *part;
+    Part_1050d0 *part;
     char pad5c[4];
-    AgentSub *sub;
+    AgentSub_1050d0 *sub;
     VList *list;
     int idx;
     float f6c;
-    V3 p70;
-    V3 p7c;
+    V3_1050d0 p70;
+    V3_1050d0 p7c;
     char b88;
     char b89;
     char pad8a[2];
@@ -158,29 +158,29 @@ public:
     float f94;
     float f98;
     char pad9c[4];
-    V3 pa0;
+    V3_1050d0 pa0;
     float fac;
-    V3 pb0;
-    V3 pbc;
-    Dir *fc8;
+    V3_1050d0 pb0;
+    V3_1050d0 pbc;
+    Dir_1050d0 *fc8;
     char padcc[0xe4 - 0xcc];
     float fe4;
-    V3 pe8;
+    V3_1050d0 pe8;
     float ff4;
     float ff8;
 
-    void FUN_000fc550(Ctx *a1, float a2, int a3);
-    void FUN_00104c60(Ctx *a1, V3 *pos, V3 *p7c, float f8c, int b90, float f94, int z);
+    void FUN_000fc550(Ctx_1050d0 *a1, float a2, int a3);
+    void FUN_00104c60(Ctx_1050d0 *a1, V3_1050d0 *pos, V3_1050d0 *p7c, float f8c, int b90, float f94, int z);
 };
 
 
-float CPathAgent::vfunc_4(Ctx *a1, float a2, int a3)
+float CPathAgent::vfunc_4(Ctx_1050d0 *a1, float a2, int a3)
 {
-    Frame f;
+    Frame_1050d0 f;
     FUN_000fc550(a1, a2, a3);
     // The early exits fall off the end without a value: the original leaves the x87 stack empty there.
     if (b88 && !(part && part->vfunc_9() == 4)) {
-        Body *b = part->vfunc_6();
+        Body_1050d0 *b = part->vfunc_6();
         f.bsave = b;
         b->locator->FUN_00059a50(&f.pos);
         f.dv.x = p70.x - f.pos.x;
@@ -210,7 +210,7 @@ float CPathAgent::vfunc_4(Ctx *a1, float a2, int a3)
                 b->f1d0c = f.L;
             }
             if (f.L - 0.2f > f6c) {
-                Part2 *p = part->FUN_000fdc40();
+                Part2_1050d0 *p = part->FUN_000fdc40();
                 if (p && p->f60) {
                     PNode *n1 = p->f60->FUN_00106160(p->fb8);
                     if (n1) {
@@ -260,7 +260,7 @@ float CPathAgent::vfunc_4(Ctx *a1, float a2, int a3)
             f.g.gy = f.qv.FUN_00018990();      // segment length; f.L (distance to the waypoint) stays live
             f.qv.FUN_0022d110();
             f.two = 2.0f;
-            V3 *step = FUN_00083e00(&f.pp, &f.qv, FUN_000186f0(&f.two, &f.g.gy));
+            V3_1050d0 *step = FUN_00083e00(&f.pp, &f.qv, FUN_000186f0(&f.two, &f.g.gy));
             f.o1.x = f.dv.x + step->x;
             f.o1.y = f.dv.y + step->y;
             f.o1.z = f.dv.z + step->z;
@@ -414,7 +414,7 @@ float CPathAgent::vfunc_4(Ctx *a1, float a2, int a3)
             f.pp.x = (pb0.x + pb0.x) + f.pos.x;
             f.pp.z = f.qv.z + f.pos.z;
         }
-        Body *tb = f.bsave;
+        Body_1050d0 *tb = f.bsave;
         f.h.x = f.pp.x - f.pos.x;
         f.h.y = 0.0f;
         f.h.z = f.pp.z - f.pos.z;

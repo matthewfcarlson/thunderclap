@@ -2,7 +2,7 @@
 // FUN_0028c040 @ 0x0028c040
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
 void thunk_FUN_00267090(void*) throw();
-class Owner {
+class Owner_28c040 {
 public:
     virtual void vfunc_0() throw();
     virtual void vfunc_1() throw();
@@ -12,7 +12,7 @@ class Channel {
 public:
     virtual ~Channel() throw() {}
     char pad4[8];
-    Owner* owner;
+    Owner_28c040* owner;
     char pad10[4];
     void* frames;
 };

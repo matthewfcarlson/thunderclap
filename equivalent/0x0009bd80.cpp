@@ -2,40 +2,40 @@
 // FUN_0009bd80 @ 0x0009bd80
 void* FUN_00263ea0(unsigned int size);
 
-struct V3 {
+struct V3_9bd80 {
     float x, y, z;
 };
 
 struct Matrix {
     float m[16];
-    void FUN_0022c2b0(const V3* in, V3* out);
+    void FUN_0022c2b0(const V3_9bd80* in, V3_9bd80* out);
 };
 
-struct Releasable {
+struct Releasable_9bd80 {
     virtual void r0();
     virtual void Release();
 };
 
-struct Owner2 {
+struct Owner2_9bd80 {
     char pad[0x124];
-    struct Probe* probe;
+    struct Probe_9bd80* probe;
 };
 
-struct Owner {
+struct Owner_9bd80 {
     char pad[0x20];
-    Owner2* inner;
+    Owner2_9bd80* inner;
 };
 
-struct Probe {
-    void FUN_000382c0(V3* out);
+struct Probe_9bd80 {
+    void FUN_000382c0(V3_9bd80* out);
 };
 
-struct Owner;
-struct Handle {
-    void FUN_00098480(Owner* owner);
+struct Owner_9bd80;
+struct Handle_9bd80 {
+    void FUN_00098480(Owner_9bd80* owner);
 };
 
-class Solver {
+class Solver_9bd80 {
 public:
     virtual void s0();
     virtual void s1();
@@ -67,18 +67,18 @@ public:
     virtual void s27();
     virtual void Start();
     char pad[0x1c0 - 4];
-    Solver* FUN_000a8400();
-    int FUN_000a89c0(Owner* owner, Releasable** items, void* data, int count, int arg5, Matrix* m, V3* t);
-    void FUN_000a84c0(Releasable* a, int b, Matrix* m);
+    Solver_9bd80* FUN_000a8400();
+    int FUN_000a89c0(Owner_9bd80* owner, Releasable_9bd80** items, void* data, int count, int arg5, Matrix* m, V3_9bd80* t);
+    void FUN_000a84c0(Releasable_9bd80* a, int b, Matrix* m);
 };
 
-struct Frame {
-    V3 local;
-    V3 tmp;
+struct Frame_9bd80 {
+    V3_9bd80 local;
+    V3_9bd80 tmp;
     Matrix mat;
 };
 
-class Tracker {
+class Tracker_9bd80 {
 public:
     char pad00[4];
     unsigned int flags;
@@ -90,28 +90,28 @@ public:
     char blocked;
     char pad1b;
     int count;
-    Releasable* items[8];
+    Releasable_9bd80* items[8];
     int ids[8];
     char data[0x50];
-    Solver* solver;
+    Solver_9bd80* solver;
     char padb4[8];
-    Handle* handle;
-    int FUN_0009bd80(Owner* owner, Matrix* m, V3 pos, int arg5);
-    void FUN_000991b0(Owner* owner, int a, Solver* s, int c, int d);
+    Handle_9bd80* handle;
+    int FUN_0009bd80(Owner_9bd80* owner, Matrix* m, V3_9bd80 pos, int arg5);
+    void FUN_000991b0(Owner_9bd80* owner, int a, Solver_9bd80* s, int c, int d);
 };
 
-int Tracker::FUN_0009bd80(Owner* owner, Matrix* m, V3 pos, int arg5)
+int Tracker_9bd80::FUN_0009bd80(Owner_9bd80* owner, Matrix* m, V3_9bd80 pos, int arg5)
 {
     if (blocked != 0)
         return -1;
-    Probe* probe = owner->inner->probe;
+    Probe_9bd80* probe = owner->inner->probe;
     if (disabled == 0 && count != 0 && probe != 0 && enabled != 0) {
         unsigned int fl = flags;
         if (((fl >> 1) & 1) == 0 && ((fl >> 6) & 1) == 0 && (fl & 0x5e) == 0) {
             if ((fl >> 5) & 1)
                 handle->FUN_00098480(owner);
             flags = flags & ~0x20u;
-            Frame f;
+            Frame_9bd80 f;
             m->FUN_0022c2b0(&pos, &f.local);
             f.mat = *m;
             f.mat.m[12] = f.local.x;
@@ -119,7 +119,7 @@ int Tracker::FUN_0009bd80(Owner* owner, Matrix* m, V3 pos, int arg5)
             f.mat.m[14] = f.local.z;
             probe->FUN_000382c0(&f.tmp);
             if (solver == 0) {
-                Solver* s = (Solver*)FUN_00263ea0(0x1c0);
+                Solver_9bd80* s = (Solver_9bd80*)FUN_00263ea0(0x1c0);
                 if (s != 0)
                     s = s->FUN_000a8400();
                 solver = s;

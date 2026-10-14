@@ -1,28 +1,28 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 14/14)
 // FUN_000ce280 @ 0x000ce280
-struct Vec3 {
+struct Vec3_ce280 {
     float x, y, z;
 };
 
-union Word {
+union Word_ce280 {
     float f;
     int i;
     unsigned int u;
 };
 
-struct Cell {
-    Word a, b, c, d;
+struct Cell_ce280 {
+    Word_ce280 a, b, c, d;
 };
 
-struct Source {
+struct Source_ce280 {
     int FUN_000f7240(unsigned int lo, unsigned int hi);
 };
 
-struct Handle {
-    void FUN_0008ef90(const Vec3 *pos, int color);
+struct Handle_ce280 {
+    void FUN_0008ef90(const Vec3_ce280 *pos, int color);
 };
 
-struct Device {
+struct Device_ce280 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -31,8 +31,8 @@ struct Device {
     virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
     virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
     virtual void v28(); virtual void v29();
-    virtual Handle *v30(int a, int b, int c, int d, int e);
-    virtual void v31(Handle *h);
+    virtual Handle_ce280 *v30(int a, int b, int c, int d, int e);
+    virtual void v31(Handle_ce280 *h);
     virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
     virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
     virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43();
@@ -43,7 +43,7 @@ struct Device {
     virtual void v58(int on);
 };
 
-struct Pass {
+struct Pass_ce280 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -52,9 +52,9 @@ struct Pass {
     virtual void v16(int a);
 };
 
-struct PassHolder {
-    Pass *pass;
-    void FUN_00293d00(const Vec3 *color);
+struct PassHolder_ce280 {
+    Pass_ce280 *pass;
+    void FUN_00293d00(const Vec3_ce280 *color);
 };
 
 struct Texture {
@@ -64,10 +64,10 @@ struct Texture {
 
 struct Builder {
     char hdr[8];
-    Cell cells[8];
+    Cell_ce280 cells[8];
     int cursor;
     float scale;
-    void FUN_000f7fe0(Source *src);
+    void FUN_000f7fe0(Source_ce280 *src);
     void FUN_000f78e0();
     float FUN_000cb750(int idx, int mode);
     float FUN_000cb6f0(int idx, int mode);
@@ -76,15 +76,15 @@ struct Builder {
 
 extern float DAT_0049fd14;
 extern int DAT_0049fd18;
-extern Device *DAT_0052c2a8;
-extern PassHolder *DAT_0052c2ac;
-extern Vec3 DAT_004ddea4;
+extern Device_ce280 *DAT_0052c2a8;
+extern PassHolder_ce280 *DAT_0052c2ac;
+extern Vec3_ce280 DAT_004ddea4;
 
-class Billboard {
+class Billboard_ce280 {
 public:
     char pad0[0x78];
     float size;             // 0x78
-    Source *source;         // 0x7c
+    Source_ce280 *source;         // 0x7c
     char pad80[0x94 - 0x80];
     char extra[0x228 - 0x94];
     unsigned int keyLo;     // 0x228
@@ -96,21 +96,21 @@ public:
     void FUN_000ce280();
 };
 
-struct Frame {
+struct Frame_ce280 {
     float w;
-    Word hb;
-    Vec3 v[4];
+    Word_ce280 hb;
+    Vec3_ce280 v[4];
     Builder x;
 };
 
-void Billboard::FUN_000ce280()
+void Billboard_ce280::FUN_000ce280()
 {
     if (source == 0)
         return;
     if ((keyLo | keyHi) == 0)
         return;
 
-    Frame f;
+    Frame_ce280 f;
     f.x.FUN_000f7fe0(source);
     int idx = source->FUN_000f7240(keyLo, keyHi);
     if (idx != -1) {
@@ -133,10 +133,10 @@ void Billboard::FUN_000ce280()
         if (!(f.hb.f <= 1e-05f)) {
             DAT_0052c2a8->v58(0);
             DAT_0052c2ac->pass->v15(0);
-            Vec3 *c = &f.v[0];
+            Vec3_ce280 *c = &f.v[0];
             *c = DAT_004ddea4;
             DAT_0052c2ac->FUN_00293d00(c);
-            Handle *h = DAT_0052c2a8->v30(texture->id, 1, 0x2020, 4, 0);
+            Handle_ce280 *h = DAT_0052c2a8->v30(texture->id, 1, 0x2020, 4, 0);
 
             f.v[0].x = f.w * -0.5f;
             f.v[0].y = height * -0.5f;
@@ -160,7 +160,7 @@ void Billboard::FUN_000ce280()
             DAT_0052c2a8->v58(1);
             if (alpha > 0) {
                 DAT_0052c2ac->pass->v15(0);
-                Vec3 *c2 = &f.v[1];
+                Vec3_ce280 *c2 = &f.v[1];
                 *c2 = DAT_004ddea4;
                 DAT_0052c2ac->FUN_00293d00(c2);
                 f.x.FUN_000f87c0(idx, DAT_0049fd18, extra);

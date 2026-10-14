@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00221200 @ 0x00221200
 // Lua 5.0 luaK_exp2RK
-struct FuncState {
+struct FuncState_221200 {
     char pad[0x28];
     int nk;
 };
 
-struct expdesc {
+struct expdesc_221200 {
     int k;          // VNIL = 1, VK = 4
     int info;
     int aux;
@@ -14,13 +14,13 @@ struct expdesc {
     int f;
 };
 
-void __cdecl FUN_00220d90(FuncState* fs, expdesc* e);       // luaK_dischargevars
-int __cdecl FUN_00221190(FuncState* fs, expdesc* e);        // luaK_exp2anyreg
+void __cdecl FUN_00220d90(FuncState_221200* fs, expdesc_221200* e);       // luaK_dischargevars
+int __cdecl FUN_00221190(FuncState_221200* fs, expdesc_221200* e);        // luaK_exp2anyreg
 // nil_constant(fs)
 // equiv-conv: FUN_00220a10 eax
-int FUN_00220a10(FuncState* fs);
+int FUN_00220a10(FuncState_221200* fs);
 
-int FUN_00221200(FuncState* fs, expdesc* e)
+int FUN_00221200(FuncState_221200* fs, expdesc_221200* e)
 {
     if (e->t == e->f)
         FUN_00220d90(fs, e);

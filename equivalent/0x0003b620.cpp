@@ -2,23 +2,23 @@
 // FUN_0003b620 @ 0x0003b620
 struct Mat;
 
-struct Ref {
+struct Ref_3b620 {
     virtual void vfunc_0();
     virtual void vfunc_1();
 };
 
-struct Sub {
+struct Sub_3b620 {
     char data[0x28];
     void FUN_00232240();
 };
 
-struct Weapon {
+struct Weapon_3b620 {
     char pad00[0xec];
     int fec;
 };
 
-struct Slot {
-    Weapon *weapon;
+struct Slot_3b620 {
+    Weapon_3b620 *weapon;
     char pad04[0x50 - 4];
 };
 
@@ -29,52 +29,52 @@ struct Bank {
     int FUN_000446c0(int index);
 };
 
-struct Link124 {
+struct Link124_3b620 {
     char pad00[0x10];
     Bank *owner;
 };
 
-class Actor {
+class Actor_3b620 {
 public:
     char pad00[0xb4];
-    Sub sub0;
-    Sub sub1;
+    Sub_3b620 sub0;
+    Sub_3b620 sub1;
     char pad104[4];
-    Ref *f108;
-    Ref *f10c;
+    Ref_3b620 *f108;
+    Ref_3b620 *f10c;
     char pad110[0x11c - 0x110];
     Bank *bank;
     char pad120[0x124 - 0x120];
-    Link124 *f124;
-    Actor *f128;
+    Link124_3b620 *f124;
+    Actor_3b620 *f128;
     char pad12c[0x300 - 0x12c];
     int f300;
     int f304;
     char pad308[0x320 - 0x308];
     int f320;
     char pad324[0x334 - 0x324];
-    Actor *f334;
-    Actor *f338;
+    Actor_3b620 *f334;
+    Actor_3b620 *f338;
     char pad33c[0x3a8 - 0x33c];
-    Slot slots[8];
+    Slot_3b620 slots[8];
     char pad628[4];
-    Ref *f62c;
-    Ref *f630;
+    Ref_3b620 *f62c;
+    Ref_3b620 *f630;
     char pad634[0x1ad0 - 0x634];
-    Ref *f1ad0;
+    Ref_3b620 *f1ad0;
     char pad1ad4[0x1b60 - 0x1ad4];
-    Ref *f1b60;
+    Ref_3b620 *f1b60;
     int f1b64;
     char pad1b68[0x1e58 - 0x1b68];
     int f1e58;
     void FUN_00038c40();
     void FUN_000393c0();
-    void FUN_0003a680(Actor *target, int a, int b, int c, Mat *m, float e5, float e6, float e7);
+    void FUN_0003a680(Actor_3b620 *target, int a, int b, int c, Mat *m, float e5, float e6, float e7);
     void FUN_0003acf0(int a, int b, int c, int d, int e, int f);
     char FUN_0003b620(char reset);
 };
 
-char Actor::FUN_0003b620(char reset)
+char Actor_3b620::FUN_0003b620(char reset)
 {
     f1b64 = 0;
     FUN_00038c40();
@@ -111,7 +111,7 @@ char Actor::FUN_0003b620(char reset)
     f630 = 0;
     if (reset) {
         for (int i = 0; i < 8; i++) {
-            Weapon *w = slots[i].weapon;
+            Weapon_3b620 *w = slots[i].weapon;
             if (w && bank) {
                 int cur = w->fec;
                 if (cur == bank->FUN_000446c0(i))

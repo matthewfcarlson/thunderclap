@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 126 inputs, branch coverage 24/28, incomplete)
 // pure3d::AnimationFrameController::vfunc_20 @ 0x00284b70
-struct Status {
+struct Status_284b70 {
     char pad[0x18];
     char state;
 };
@@ -32,7 +32,7 @@ class AnimController {
     virtual void v22();
     virtual void v23();
     virtual void v24();
-    virtual Status *getStatus();
+    virtual Status_284b70 *getStatus();
     virtual void v26();
 };
 
@@ -47,7 +47,7 @@ float AnimController::vfunc_20()
 
     switch (getMode()) {
     case 0: {
-        Status *s = getStatus();
+        Status_284b70 *s = getStatus();
         if (s == 0)
             return 0.0f;
         if (s->state != 1)

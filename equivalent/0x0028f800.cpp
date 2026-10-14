@@ -2,7 +2,7 @@
 // FUN_0028f800 @ 0x0028f800
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 
-class Device {
+class Device_28f800 {
   public:
     virtual int slot0();
     virtual int slot1();
@@ -95,34 +95,34 @@ class Device {
     virtual int slot88();
     virtual int slot89(int);
 };
-struct Source { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(Device*); };
-struct Sink { virtual void slot0(); };
-struct Mat { char data[0x40]; void FUN_0022b980(); };
-struct Helper { Helper* FUN_00293bd0(Device*); };
+struct Source_28f800 { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(Device_28f800*); };
+struct Sink_28f800 { virtual void slot0(); };
+struct Mat_28f800 { char data[0x40]; void FUN_0022b980(); };
+struct Helper_28f800 { Helper_28f800* FUN_00293bd0(Device_28f800*); };
 
-class Widget {
+class Widget_28f800 {
   public:
-    Widget* FUN_0028f800(Source* src, Sink* sink, Device* dev);
+    Widget_28f800* FUN_0028f800(Source_28f800* src, Sink_28f800* sink, Device_28f800* dev);
     void* f00;
-    Helper* helper;
+    Helper_28f800* helper;
     void* f08;
-    Mat m0c;
-    Mat m4c;
+    Mat_28f800 m0c;
+    Mat_28f800 m4c;
     char pad_8c[0xcc - 0x8c];
     unsigned int color;
     float scale;
     int f_d4;
     int f_d8;
     int f_dc;
-    Source* source;
-    Device* device;
-    Sink* sink;
+    Source_28f800* source;
+    Device_28f800* device;
+    Sink_28f800* sink;
     int f_ec;
     int f_f0;
     unsigned char f_f4;
 };
 
-Widget* Widget::FUN_0028f800(Source* src, Sink* snk, Device* dev) {
+Widget_28f800* Widget_28f800::FUN_0028f800(Source_28f800* src, Sink_28f800* snk, Device_28f800* dev) {
     f00 = 0;
     f08 = 0;
     f_dc = 0;
@@ -141,7 +141,7 @@ Widget* Widget::FUN_0028f800(Source* src, Sink* snk, Device* dev) {
     m0c.FUN_0022b980();
     m4c.FUN_0022b980();
     void* mem = FUN_0008d690(4);
-    helper = mem ? ((Helper*)mem)->FUN_00293bd0(device) : 0;
+    helper = mem ? ((Helper_28f800*)mem)->FUN_00293bd0(device) : 0;
     f_d8 = 0;
     color = 0xff000000;
     f_ec = device->slot89(0x102);

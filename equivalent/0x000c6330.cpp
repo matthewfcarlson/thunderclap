@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000c6330 @ 0x000c6330
-struct V3 {
+struct V3_c6330 {
     float x, y, z;
 };
 
@@ -33,7 +33,7 @@ public:
 
 class Prim;
 
-class Gfx {
+class Gfx_c6330 {
 public:
     virtual void v0();
     virtual void v1();
@@ -71,11 +71,11 @@ public:
 
 extern Shader *DAT_004dde68;
 extern ShaderLib *DAT_0052c2a0;
-extern Gfx *DAT_0052c2a8;
+extern Gfx_c6330 *DAT_0052c2a8;
 
-void __cdecl FUN_000c5fa0(Prim *prim, V3 a, V3 b, unsigned int color);
+void __cdecl FUN_000c5fa0(Prim *prim, V3_c6330 a, V3_c6330 b, unsigned int color);
 
-void FUN_000c6330(V3 c0, V3 c1, V3 c2, V3 c3, V3 c4, V3 c5, V3 c6, V3 c7, unsigned int color, int count)
+void FUN_000c6330(V3_c6330 c0, V3_c6330 c1, V3_c6330 c2, V3_c6330 c3, V3_c6330 c4, V3_c6330 c5, V3_c6330 c6, V3_c6330 c7, unsigned int color, int count)
 {
     if (DAT_004dde68 == 0) {
         DAT_004dde68 = DAT_0052c2a0->find("simple", 0);

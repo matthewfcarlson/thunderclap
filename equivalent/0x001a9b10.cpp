@@ -61,11 +61,11 @@ public:
 }
 }
 
-struct Vec3 {
+struct Vec3_1a9b10 {
     float x, y, z;
 };
 
-class Controller {
+class Controller_1a9b10 {
 public:
     virtual void v0();
     virtual void v1();
@@ -93,7 +93,7 @@ public:
     virtual void v23();
     virtual void v24(pure3d::Animation *anim, unsigned int g, float t);
     char pad[0x150 - 4];
-    Controller *FUN_00287860();
+    Controller_1a9b10 *FUN_00287860();
     void FUN_000118c0(void *v);
     void FUN_00284ad0(int a);
 };
@@ -106,7 +106,7 @@ struct Driver {
     float f230;
     Driver *FUN_00225950(void *rig, pure3d::Animation *anim);
     void FUN_000118c0(void *v);
-    void FUN_00225e00(float t, Vec3 v);
+    void FUN_00225e00(float t, Vec3_1a9b10 v);
     float FUN_00225b30();
     void FUN_00225cf0(float v);
 };
@@ -115,35 +115,35 @@ struct Context {
     char pad[4];
 };
 
-struct LayerSet {
+struct LayerSet_1a9b10 {
     char pad00[4];
-    LayerSet *FUN_00222620(void *tag);
+    LayerSet_1a9b10 *FUN_00222620(void *tag);
     void FUN_000118c0(void *v);
     void *FUN_002226b0();
     void FUN_00222890(Driver *d, float t, int a, float b, float c, float e, float f);
 };
-LayerSet *__fastcall FUN_00059a40(Context *ctx);
+LayerSet_1a9b10 *__fastcall FUN_00059a40(Context *ctx);
 
-struct Item {
+struct Item_1a9b10 {
     char pad00[0x10];
     Context *ctx;
     void FUN_0003dd00(int a);
     void FUN_00040170();
     void FUN_000354e0(float v);
-    void FUN_00035250(Vec3 *v);
+    void FUN_00035250(Vec3_1a9b10 *v);
 };
 
-struct ModeB {
-    Item *FUN_00024280(unsigned __int64 key);
+struct ModeB_1a9b10 {
+    Item_1a9b10 *FUN_00024280(unsigned __int64 key);
 };
 
-struct Globals {
+struct Globals_1a9b10 {
     char pad0[0x20];
-    ModeB *modeB;
+    ModeB_1a9b10 *modeB;
 };
-extern Globals *DAT_004dd700;
+extern Globals_1a9b10 *DAT_004dd700;
 
-class Inventory {
+class Inventory_1a9b10 {
 public:
     virtual void l0();
     virtual void l1();
@@ -152,15 +152,15 @@ public:
     void *FUN_001a9420(const char *name);
 };
 
-struct Registry {
-    Inventory *FUN_00203d60(int index);
+struct Registry_1a9b10 {
+    Inventory_1a9b10 *FUN_00203d60(int index);
 };
 
-struct SceneRoot {
+struct SceneRoot_1a9b10 {
     pure3d::scenegraph::Node *FUN_002961e0(unsigned int lo, unsigned int hi, int a, int b);
 };
 
-class Owner {
+class Owner_1a9b10 {
 public:
     virtual void v0();
     virtual void v1();
@@ -181,40 +181,40 @@ public:
     int f54;
 };
 
-struct Out {
+struct Out_1a9b10 {
     char b0;
     char pad1[2];
     char b3;
     Driver *driver;
-    LayerSet *layers;
-    Item *item;
+    LayerSet_1a9b10 *layers;
+    Item_1a9b10 *item;
     pure3d::CompositeDrawable *drawable;
     pure3d::scenegraph::DrawableNode *node;
 };
 
 unsigned __int64 FUN_002672f0(const char *s, int a, int b);
 void FUN_0013a790(Driver **slot, Driver *v);
-void FUN_00059c50(LayerSet **slot, LayerSet *v);
+void FUN_00059c50(LayerSet_1a9b10 **slot, LayerSet_1a9b10 *v);
 void FUN_00081070(pure3d::CompositeDrawable **slot, pure3d::CompositeDrawable *v);
 void FUN_001a5a30(pure3d::scenegraph::DrawableNode **slot, pure3d::scenegraph::DrawableNode *v);
-void FUN_00025960(Item **slot, Item *v);
+void FUN_00025960(Item_1a9b10 **slot, Item_1a9b10 *v);
 float FUN_000964e0();
 float __cdecl FUN_00225be0(float a, float b, float c, int d);
 
 class AnimSetup {
 public:
     char pad00[0x1c];
-    Owner *owner;
+    Owner_1a9b10 *owner;
     char pad20[0x20c - 0x20];
-    Registry *registry;
-    SceneRoot *scene;
+    Registry_1a9b10 *registry;
+    SceneRoot_1a9b10 *scene;
     unsigned char noOwner;
 
-    void FUN_001a54a0(Vec3 *pos, float *angle);
-    bool FUN_001a9b10(Out *out, const char *animName, const char *name2, bool a, bool isCustom, int c, bool d);
+    void FUN_001a54a0(Vec3_1a9b10 *pos, float *angle);
+    bool FUN_001a9b10(Out_1a9b10 *out, const char *animName, const char *name2, bool a, bool isCustom, int c, bool d);
 };
 
-bool AnimSetup::FUN_001a9b10(Out *out, const char *animName, const char *name2, bool a, bool isCustom, int c, bool d)
+bool AnimSetup::FUN_001a9b10(Out_1a9b10 *out, const char *animName, const char *name2, bool a, bool isCustom, int c, bool d)
 {
     if (out == 0)
         return false;
@@ -224,7 +224,7 @@ bool AnimSetup::FUN_001a9b10(Out *out, const char *animName, const char *name2, 
         idx = 0;
     else
         idx = owner->f54;
-    Inventory *inv = registry->FUN_00203d60(idx);
+    Inventory_1a9b10 *inv = registry->FUN_00203d60(idx);
 
     content::LoadInventory::DynamicCaster<pure3d::Animation> caster;
     pure3d::Animation *anim = inv->Find(caster, FUN_002672f0(animName, 0, 0));
@@ -233,8 +233,8 @@ bool AnimSetup::FUN_001a9b10(Out *out, const char *animName, const char *name2, 
 
     void *rig;
     void *tag;
-    LayerSet *layers;
-    Item *item = 0;
+    LayerSet_1a9b10 *layers;
+    Item_1a9b10 *item = 0;
 
     if (isCustom) {
         rig = inv->FUN_001a9420(name2);
@@ -254,9 +254,9 @@ bool AnimSetup::FUN_001a9b10(Out *out, const char *animName, const char *name2, 
         tag = cd->vf11();
         if (cd->controller == 0) {
             void *mem = thunk_FUN_0008d690(0x150);
-            Controller *ctrl = 0;
+            Controller_1a9b10 *ctrl = 0;
             if (mem != 0)
-                ctrl = ((Controller *)mem)->FUN_00287860();
+                ctrl = ((Controller_1a9b10 *)mem)->FUN_00287860();
             cd->FUN_00298f90(ctrl);
             ctrl->v24(anim, 0, 0.0f);
             ctrl->FUN_000118c0(cd);
@@ -269,11 +269,11 @@ bool AnimSetup::FUN_001a9b10(Out *out, const char *animName, const char *name2, 
         void *mem2 = thunk_FUN_0008d690(0x2f0);
         layers = 0;
         if (mem2 != 0)
-            layers = ((LayerSet *)mem2)->FUN_00222620(tag);
+            layers = ((LayerSet_1a9b10 *)mem2)->FUN_00222620(tag);
         layers->FUN_000118c0(rig);
         FUN_00059c50(&out->layers, layers);
     } else {
-        ModeB *mb = DAT_004dd700->modeB;
+        ModeB_1a9b10 *mb = DAT_004dd700->modeB;
         unsigned __int64 key = FUN_002672f0(name2, 0, 0);
         item = mb->FUN_00024280(key);
         if (item == 0)
@@ -298,7 +298,7 @@ bool AnimSetup::FUN_001a9b10(Out *out, const char *animName, const char *name2, 
     Driver *drv = out->driver;
     drv->b224 = 0;
 
-    Vec3 v;
+    Vec3_1a9b10 v;
     v.z = owner->f20;
     v.y = owner->f1c;
     v.x = owner->f14;
@@ -318,7 +318,7 @@ bool AnimSetup::FUN_001a9b10(Out *out, const char *animName, const char *name2, 
 
     out->b0 = 1;
     if (!isCustom) {
-        Vec3 pos;
+        Vec3_1a9b10 pos;
         float angle;
         float r = owner->f2c;
         FUN_001a54a0(&pos, &angle);

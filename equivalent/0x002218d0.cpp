@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 191 inputs, branch coverage 41/42, incomplete)
 // FUN_002218d0 @ 0x002218d0
-struct Operand {
+struct Operand_2218d0 {
     int kind;
     int val;
     int f08;
@@ -8,36 +8,36 @@ struct Operand {
     int f10;
 };
 
-struct Table {
+struct Table_2218d0 {
     char pad00[0xc];
     unsigned int* words;
 };
 
-struct Pool {
+struct Pool_2218d0 {
     char pad00[8];
     int handle;
 };
 
-struct Ctx {
-    Table* table;
+struct Ctx_2218d0 {
+    Table_2218d0* table;
     char pad04[8];
-    Pool* pool;
+    Pool_2218d0* pool;
     char pad10[0x14];
     int counter;
     char pad28[0xc];
     unsigned char minReg;
 };
 
-void* FUN_00221200(Ctx* c, Operand* op);
-void FUN_00220d90(Ctx* c, Operand* op);
-void FUN_00221190(Ctx* c, Operand* op);
-void FUN_00221110(Ctx* c, Operand* op);
-void FUN_002207c0(Ctx* c, int* dst, int src);
-int FUN_00220b20(Ctx* c, int a, int b);
+void* FUN_00221200(Ctx_2218d0* c, Operand_2218d0* op);
+void FUN_00220d90(Ctx_2218d0* c, Operand_2218d0* op);
+void FUN_00221190(Ctx_2218d0* c, Operand_2218d0* op);
+void FUN_00221110(Ctx_2218d0* c, Operand_2218d0* op);
+void FUN_002207c0(Ctx_2218d0* c, int* dst, int src);
+int FUN_00220b20(Ctx_2218d0* c, int a, int b);
 // equiv-conv: FUN_00221860 ecx edx stack eax
-void FUN_00221860(void* self, int sel, Ctx* c, void* extra);
+void FUN_00221860(void* self, int sel, Ctx_2218d0* c, void* extra);
 
-void FUN_002218d0(Ctx* c, int sel, Operand* a, Operand* b)
+void FUN_002218d0(Ctx_2218d0* c, int sel, Operand_2218d0* a, Operand_2218d0* b)
 {
     if (sel == 5) {
         if (b->f0c != b->f10)
@@ -45,7 +45,7 @@ void FUN_002218d0(Ctx* c, int sel, Operand* a, Operand* b)
         else
             FUN_00220d90(c, b);
         if (b->kind == 0xa) {
-            Table* tab = c->table;
+            Table_2218d0* tab = c->table;
             if ((tab->words[b->val] & 0x3f) == 0x13) {
                 if (a->kind == 0xb) {
                     if (a->val >= (int)c->minReg && a->val < 0xfa)

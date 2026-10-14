@@ -8,37 +8,37 @@ struct Key {
     void FUN_0027af50();
 };
 
-struct Item {
+struct Item_1f8f70 {
     char pad[1];
 };
 
-struct Factory {
-    Item* FUN_001fc8c0(int lo, int hi);
+struct Factory_1f8f70 {
+    Item_1f8f70* FUN_001fc8c0(int lo, int hi);
 };
 
-struct Game {
+struct Game_1f8f70 {
     char pad[0x28];
-    Factory* factory;       // 0x28
+    Factory_1f8f70* factory;       // 0x28
 };
-extern Game* DAT_004dd700;
+extern Game_1f8f70* DAT_004dd700;
 
-class Registry {
+class Registry_1f8f70 {
 public:
     char pad0[0x10];
-    Item* items[256];       // 0x10
+    Item_1f8f70* items[256];       // 0x10
     int count;              // 0x410
     int FUN_001f85f0(Key key);
     int FUN_001f8f70(const char* name);
 };
 
 // equiv-map: ??0Key@@QAE@ABU0@@Z = 0x0027af30
-int Registry::FUN_001f8f70(const char* name)
+int Registry_1f8f70::FUN_001f8f70(const char* name)
 {
     Key key;
     key.FUN_0027b0e0(name);
     int index = FUN_001f85f0(key);
     if (index == -1) {
-        Item* item = DAT_004dd700->factory->FUN_001fc8c0(key.lo, key.hi);
+        Item_1f8f70* item = DAT_004dd700->factory->FUN_001fc8c0(key.lo, key.hi);
         if (item != 0) {
             index = count;
             items[index] = item;

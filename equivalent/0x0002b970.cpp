@@ -14,25 +14,25 @@ extern unsigned int DAT_004dc0e0;
 extern unsigned int DAT_004dc0e4;
 extern unsigned char DAT_004dc288;
 
-struct V3 {
+struct V3_2b970 {
     float x, y, z;
 };
 
-struct Name {
+struct Name_2b970 {
     void FUN_0027b040(const char *s);
 };
 
-struct Comp;
-struct Char;
+struct Comp_2b970;
+struct Char_2b970;
 
-struct Ent {
+struct Ent_2b970 {
     char pad0[0x60];
     int f60;
     char pad64[0xe8 - 0x64];
     char be8;
     char pad0e9[0x118 - 0xe9];
-    Name name;
-    void FUN_000fdbd0(Comp *c);
+    Name_2b970 name;
+    void FUN_000fdbd0(Comp_2b970 *c);
 };
 
 struct Def {
@@ -47,29 +47,29 @@ struct Def {
     unsigned __int64 FUN_000443c0();
 };
 
-struct Registry {
+struct Registry_2b970 {
     char pad0[0xc];
     int count;
     Def *FUN_00044ad0(unsigned int lo, unsigned int hi);
     Def *FUN_00044ab0(int i);
 };
 
-struct Owner {
-    void FUN_00059cd0(Char *c);
+struct Owner_2b970 {
+    void FUN_00059cd0(Char_2b970 *c);
 };
-struct Factory {
+struct Factory_2b970 {
     int *FUN_00059b60();
-    Owner *FUN_00059ba0(int *x);
+    Owner_2b970 *FUN_00059ba0(int *x);
 };
 struct Slot8b {
     void FUN_000c7d10(int a, const char *name);
 };
-struct Slot8 {
+struct Slot8_2b970 {
     Slot8b *FUN_000cae70();
 };
-struct P3c {
+struct P3c_2b970 {
     char pad0[8];
-    Slot8 *p8;
+    Slot8_2b970 *p8;
 };
 struct Pl2 {
     char pad0[0x12c];
@@ -83,22 +83,22 @@ struct World {
     char pad0[0x20];
     G20 *p20;
     char pad24[0x3c - 0x24];
-    P3c *p3c;
+    P3c_2b970 *p3c;
     char pad40[4];
-    Factory *p44;
+    Factory_2b970 *p44;
 };
 
-struct Comp {
-    Comp *FUN_001076f0(Ent *e);
-    Comp *FUN_000ff180(Ent *e);
-    Comp *FUN_000fcb10(Ent *e);
-    Comp *FUN_00105f50(Ent *e);
-    Comp *FUN_00103340(Ent *e);
+struct Comp_2b970 {
+    Comp_2b970 *FUN_001076f0(Ent_2b970 *e);
+    Comp_2b970 *FUN_000ff180(Ent_2b970 *e);
+    Comp_2b970 *FUN_000fcb10(Ent_2b970 *e);
+    Comp_2b970 *FUN_00105f50(Ent_2b970 *e);
+    Comp_2b970 *FUN_00103340(Ent_2b970 *e);
     void FUN_00103b60(World *w, const char *anim, int z);
     void FUN_001034b0(int a);
 };
 
-class Char {
+class Char_2b970 {
 public:
     virtual void v0();
     virtual void v1();
@@ -107,10 +107,10 @@ public:
     char pad120[0x128 - 0x120];
     void *p128;
     char pad12c[0x1ca0 - 0x12c];
-    Ent *p1ca0;
+    Ent_2b970 *p1ca0;
     char pad1ca4[0x1d7c - 0x1ca4];
     int f1d7c;
-    Char *FUN_00037860(int *x);
+    Char_2b970 *FUN_00037860(int *x);
     void FUN_00036d60(char *name);
     void FUN_00042b40(Def *d);
     void FUN_0003f650();
@@ -118,54 +118,54 @@ public:
     char FUN_00035a90();
     void FUN_000368d0(int a);
     void FUN_00035fa0(int a);
-    void FUN_0003f400(V3 *p);
+    void FUN_0003f400(V3_2b970 *p);
     void FUN_000354e0(float a);
     void FUN_00035ce0(int a);
 };
 
-class Spawner {
+class Spawner_2b970 {
 public:
     World *p0;
-    Registry *p4;
+    Registry_2b970 *p4;
     char pad8[0x128 - 8];
     char name[0x100];
     char pad228[0x584 - 0x228];
     int f584;
     char b588;
     int FUN_00024280(unsigned int lo, unsigned int hi);
-    int FUN_0002a3c0(Char *c);
+    int FUN_0002a3c0(Char_2b970 *c);
     void FUN_0002b590();
-    char F(const char *defName, V3 pos, float angle, const char *name2, const char *anim, char flag8,
+    char F(const char *defName, V3_2b970 pos, float angle, const char *name2, const char *anim, char flag8,
            const char *name9, char arg10);
 };
 
-static Comp *MakeComp1(Ent *e)
+static Comp_2b970 *MakeComp1(Ent_2b970 *e)
 {
     void *m = FUN_0008d690(0xb0);
-    return m ? ((Comp *)m)->FUN_001076f0(e) : 0;
+    return m ? ((Comp_2b970 *)m)->FUN_001076f0(e) : 0;
 }
-static Comp *MakeComp2(Ent *e)
+static Comp_2b970 *MakeComp2(Ent_2b970 *e)
 {
     void *m = FUN_0008d690(0x1a0);
-    return m ? ((Comp *)m)->FUN_000ff180(e) : 0;
+    return m ? ((Comp_2b970 *)m)->FUN_000ff180(e) : 0;
 }
-static Comp *MakeComp3(Ent *e)
+static Comp_2b970 *MakeComp3(Ent_2b970 *e)
 {
     void *m = FUN_0008d690(0x74);
-    return m ? ((Comp *)m)->FUN_000fcb10(e) : 0;
+    return m ? ((Comp_2b970 *)m)->FUN_000fcb10(e) : 0;
 }
-static Comp *MakeComp4(Ent *e)
+static Comp_2b970 *MakeComp4(Ent_2b970 *e)
 {
     void *m = FUN_0008d690(0xf4);
-    return m ? ((Comp *)m)->FUN_00105f50(e) : 0;
+    return m ? ((Comp_2b970 *)m)->FUN_00105f50(e) : 0;
 }
-static Comp *MakeComp5(Ent *e)
+static Comp_2b970 *MakeComp5(Ent_2b970 *e)
 {
     void *m = FUN_0008d690(0xf0);
-    return m ? ((Comp *)m)->FUN_00103340(e) : 0;
+    return m ? ((Comp_2b970 *)m)->FUN_00103340(e) : 0;
 }
 
-char Spawner::F(const char *defName, V3 pos, float angle, const char *name2, const char *anim, char flag8,
+char Spawner_2b970::F(const char *defName, V3_2b970 pos, float angle, const char *name2, const char *anim, char flag8,
                 const char *name9, char arg10)
 {
     int old = FUN_00266da0(0xc);
@@ -179,7 +179,7 @@ char Spawner::F(const char *defName, V3 pos, float angle, const char *name2, con
         FUN_00266da0(old);
         return 0;
     }
-    Registry *reg0 = p4;
+    Registry_2b970 *reg0 = p4;
     unsigned __int64 dh = FUN_0027b020(defName);
     Def *def = reg0->FUN_00044ad0((unsigned int)dh, (unsigned int)(dh >> 32));
     if (!def) {
@@ -207,16 +207,16 @@ char Spawner::F(const char *defName, V3 pos, float angle, const char *name2, con
             return 0;
         }
     }
-    Factory *fac = p0->p44;
+    Factory_2b970 *fac = p0->p44;
     int *fx = fac->FUN_00059b60();
     void *mem = thunk_FUN_0008d690(0x2300);
-    Char *ch;
+    Char_2b970 *ch;
     if (mem)
-        ch = ((Char *)mem)->FUN_00037860(fx);
+        ch = ((Char_2b970 *)mem)->FUN_00037860(fx);
     else
         ch = 0;
     ch->v0();
-    Owner *ow = fac->FUN_00059ba0(fx);
+    Owner_2b970 *ow = fac->FUN_00059ba0(fx);
     if (ow)
         ow->FUN_00059cd0(ch);
     ch->FUN_00036d60(name);
@@ -224,7 +224,7 @@ char Spawner::F(const char *defName, V3 pos, float angle, const char *name2, con
     ch->FUN_0003f650();
     ch->FUN_000362f0();
     if (arg10 && !ch->FUN_00035a90()) {
-        V3 A, B;
+        V3_2b970 A, B;
         ch->FUN_000368d0(0);
         ch->FUN_00035fa0(0);
         if (FUN_00202560(&pos, 10.0f, 0, &B, &A, 0, 0, 0))
@@ -236,7 +236,7 @@ char Spawner::F(const char *defName, V3 pos, float angle, const char *name2, con
     ch->FUN_000354e0(angle * 0.0174533f);
     bool doTail = false;
     if (ch->p128 == 0) {
-        Ent *ent = ch->p1ca0;
+        Ent_2b970 *ent = ch->p1ca0;
         unsigned __int64 did = def->FUN_000443c0();
         bool skipAll = (unsigned int)did == DAT_004dc0e0 && (unsigned int)(did >> 32) == DAT_004dc0e4;
         if (!skipAll) {
@@ -250,7 +250,7 @@ char Spawner::F(const char *defName, V3 pos, float angle, const char *name2, con
                 if (def->b38f)
                     ent->FUN_000fdbd0(MakeComp4(ent));
                 if (def->b390) {
-                    Comp *c = MakeComp5(ent);
+                    Comp_2b970 *c = MakeComp5(ent);
                     if (memcmp(anim, "none", 5) != 0)
                         c->FUN_00103b60(p0, anim, 0);
                     ent->FUN_000fdbd0(c);
@@ -264,9 +264,9 @@ char Spawner::F(const char *defName, V3 pos, float angle, const char *name2, con
     }
     if (!doTail && !def->b37c) {
         Def *cd = ch->p11c;
-        Ent *ent = ch->p1ca0;
+        Ent_2b970 *ent = ch->p1ca0;
         if (cd->b390) {
-            Comp *c = MakeComp5(ent);
+            Comp_2b970 *c = MakeComp5(ent);
             if (memcmp(anim, "none", 5) != 0) {
                 c->FUN_00103b60(p0, anim, 0);
                 if (ch->p11c->f14 == 5)
@@ -279,7 +279,7 @@ char Spawner::F(const char *defName, V3 pos, float angle, const char *name2, con
             ent->be8 = flag8;
         }
         Def *cd2 = ch->p11c;
-        Comp *c2 = 0;
+        Comp_2b970 *c2 = 0;
         bool add = false;
         if (cd2->f14 == 4) {
             if (cd2->b38c) {
@@ -308,7 +308,7 @@ char Spawner::F(const char *defName, V3 pos, float angle, const char *name2, con
     f584 = 0x7fffffff;
     b588 = 0;
     int res = FUN_0002a3c0(ch);
-    Slot8 *s8 = p0->p3c->p8;
+    Slot8_2b970 *s8 = p0->p3c->p8;
     Def *cd4 = ch->p11c;
     if (cd4 && cd4->f1b0 != 1 && s8) {
         if (s8->FUN_000cae70())

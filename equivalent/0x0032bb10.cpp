@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_0032bb10 @ 0x0032bb10
-struct Vec4 {
+struct Vec4_32bb10 {
     float x, y, z, w;
 };
 struct D3DLIGHT8 {
     int Type;
-    Vec4 Diffuse, Specular, Ambient;
+    Vec4_32bb10 Diffuse, Specular, Ambient;
     float Position[3];
     float Direction[3];
     float Range, Falloff, Attenuation0, Attenuation1, Attenuation2, Theta, Phi;
@@ -17,18 +17,18 @@ void __fastcall D3DDevice_SetVertexShaderConstant1(int reg, const void* data);
 struct LightMgr {
     void FUN_00321dc0(int* out, int count);
 };
-struct LightConst {
+struct LightConst_32bb10 {
     unsigned char used;
-    Vec4 pos;
-    Vec4 atten;
-    Vec4 color;
+    Vec4_32bb10 pos;
+    Vec4_32bb10 atten;
+    Vec4_32bb10 color;
 };
-struct Frame {
-    LightConst lights[4];
+struct Frame_32bb10 {
+    LightConst_32bb10 lights[4];
     int ids[4];
     D3DLIGHT8 light;
 };
-class LightSet {
+class LightSet_32bb10 {
   public:
     char pad0[0x10];
     LightMgr* mgr;
@@ -39,8 +39,8 @@ class LightSet {
     int mode;
     void Upload();
 };
-void LightSet::Upload() {
-    Frame F;
+void LightSet_32bb10::Upload() {
+    Frame_32bb10 F;
     F.lights[0].used = 0;
     F.lights[0].pos.x = 1.0f;
     F.lights[0].pos.y = 1.0f;

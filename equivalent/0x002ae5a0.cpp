@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 16/16)
 // pure3d::TextureBuilder::vfunc_1 @ 0x002ae5a0
 namespace pure3d {
-struct PixelFormat {
+struct PixelFormat_2ae5a0 {
  int width; int unknown4; int bits; char reserved[8]; unsigned char directCopy; char pad[3];
  unsigned redLeft, greenLeft, blueLeft, alphaLeft;
  unsigned redRight, greenRight, blueRight, alphaRight;
@@ -10,14 +10,14 @@ struct PixelFormat {
 struct TextureBuilder {
  virtual void vfunc_0();
  virtual void vfunc_1(const unsigned* source);
- unsigned active; unsigned unknown8; PixelFormat* format; unsigned stride; unsigned char* destination; unsigned row;
+ unsigned active; unsigned unknown8; PixelFormat_2ae5a0* format; unsigned stride; unsigned char* destination; unsigned row;
 };
 void TextureBuilder::vfunc_1(const unsigned* source) {
  if (!active) return;
  if (format->bits == 16) {
   unsigned short* out = (unsigned short*)destination;
   for (int i=0; i<format->width; ++i) {
-   PixelFormat* f = format;
+   PixelFormat_2ae5a0* f = format;
    unsigned p = *source++;
    unsigned b = ((p & 0xffu) >> (f->blueRight & 31)) << (f->blueLeft & 31);
    unsigned r = ((p & 0xff0000u) >> (f->redRight & 31)) << (f->redLeft & 31);

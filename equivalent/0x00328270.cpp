@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 30/30)
 // FUN_00328270 @ 0x00328270
-struct Vertex {
+struct Vertex_328270 {
     float x;
     float y;
     int color;
 };
-struct Batch {
+struct Batch_328270 {
     char pad_00[8];
-    Vertex* vertex;
+    Vertex_328270* vertex;
     char pad_0c[4];
     int* extra;
     void FUN_0008ef00();
@@ -17,7 +17,7 @@ struct GlyphInfo {
     unsigned char numPoints;
     unsigned char numVerts;
 };
-class Renderer {
+class Renderer_328270 {
   public:
     virtual void v0();
     virtual void v1();
@@ -49,12 +49,12 @@ class Renderer {
     virtual void v27();
     virtual void v28();
     virtual void v29();
-    virtual Batch* v30(int a, int b, int c, int count, int d);
-    virtual void v31(Batch* batch);
+    virtual Batch_328270* v30(int a, int b, int c, int count, int d);
+    virtual void v31(Batch_328270* batch);
 };
 class TextDrawer {
   public:
-    Renderer* renderer;
+    Renderer_328270* renderer;
     void FUN_00328270(const char* text, int x, int y, int color, int extra);
 };
 extern float DAT_004d4cd0;
@@ -76,7 +76,7 @@ void TextDrawer::FUN_00328270(const char* text, int px, int py, int color, int e
         if (c >= 0x20 && c <= 0x7f)
             count += DAT_004d4ad0[c].numVerts;
     }
-    Batch* batch = 0;
+    Batch_328270* batch = 0;
     if (count != 0)
         batch = renderer->v30(0, 2, 0x2020, count, 0);
     for (const char* p = text; *p != 0; ++p) {
@@ -99,7 +99,7 @@ void TextDrawer::FUN_00328270(const char* text, int px, int py, int color, int e
                     ++i;
                 } else {
                     for (int k = 0; k < 2; ++k) {
-                        Vertex* v = batch->vertex;
+                        Vertex_328270* v = batch->vertex;
                         v->color = color;
                         v->x = (float)g[(i + k) * 2] * halfX + baseX;
                         v->y = (float)g[(i + k) * 2 + 1] * halfY + y;

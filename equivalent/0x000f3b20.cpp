@@ -22,29 +22,29 @@ struct DynamicCaster {
 }
 }
 
-struct Vec3 {
+struct Vec3_f3b20 {
     float x, y, z;
 };
 
-union ParamArg {
+union ParamArg_f3b20 {
     class Param *p;
     char raw[4];
 };
 
-class Obj {
+class Obj_f3b20 {
 public:
     void FUN_000e9090(pure3d::CompositeDrawable *d);
-    void FUN_000f1bd0(Vec3 v);
+    void FUN_000f1bd0(Vec3_f3b20 v);
 };
 
-class Sink {
+class Sink_f3b20 {
 public:
     char pad0[0x154];
-    Obj *objA;
-    Obj *objB;
+    Obj_f3b20 *objA;
+    Obj_f3b20 *objB;
     char pad1[0x4970 - 0x15c];
     float values[8];
-    void FUN_000e3de0(Obj *o);
+    void FUN_000e3de0(Obj_f3b20 *o);
 };
 
 class Param {
@@ -55,13 +55,13 @@ public:
     char FUN_000f9e90();
 };
 
-class Args {
+class Args_f3b20 {
 public:
     virtual void v0();
     virtual int GetType();
 };
 
-class Loader {
+class Loader_f3b20 {
 public:
     virtual void v0();
     virtual void v1();
@@ -92,10 +92,10 @@ public:
     virtual void v26();
     virtual void v27();
     virtual void v28();
-    virtual Obj *v29(const char *name, int flag);
+    virtual Obj_f3b20 *v29(const char *name, int flag);
 };
 
-class Inventory {
+class Inventory_f3b20 {
 public:
     virtual void v0();
     virtual void v1();
@@ -103,7 +103,7 @@ public:
     virtual pure3d::CompositeDrawable *v3(content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> *caster, unsigned __int64 key);
 };
 
-extern Inventory *DAT_004dd9cc;
+extern Inventory_f3b20 *DAT_004dd9cc;
 
 class FEThingsBase {
 public:
@@ -150,23 +150,23 @@ public:
     virtual void v31();
     virtual void v32();
     virtual void v33();
-    virtual char v34(Param *p, Args *a, ParseFunctor *f);
-    virtual char v35(Param *p, Loader *c, void *d, Args *a);
-    virtual char v36(Param *p, Loader *c, void *d, Args *a);
+    virtual char v34(Param *p, Args_f3b20 *a, ParseFunctor *f);
+    virtual char v35(Param *p, Loader_f3b20 *c, void *d, Args_f3b20 *a);
+    virtual char v36(Param *p, Loader_f3b20 *c, void *d, Args_f3b20 *a);
 
     void FUN_000f3940(int a, int b, int c, int d);
-    void FUN_000f3b20(ParamArg arg, Loader *c, void *d, Args *args);
+    void FUN_000f3b20(ParamArg_f3b20 arg, Loader_f3b20 *c, void *d, Args_f3b20 *args);
 };
 
-void FEThingsBase::FUN_000f3b20(ParamArg arg, Loader *c, void *d, Args *args)
+void FEThingsBase::FUN_000f3b20(ParamArg_f3b20 arg, Loader_f3b20 *c, void *d, Args_f3b20 *args)
 {
     Param *param = arg.p;
-    Sink *sink = (Sink *)FUN_00344e74(d, 0, DAT_0049f4f0, DAT_004a1274, 0);
+    Sink_f3b20 *sink = (Sink_f3b20 *)FUN_00344e74(d, 0, DAT_0049f4f0, DAT_004a1274, 0);
     int type = args->GetType();
     if (type == 0xcc74e7a7) {
         Param *p = param;
         const char *s = p->FUN_000fad90();
-        Inventory *inv = DAT_004dd9cc;
+        Inventory_f3b20 *inv = DAT_004dd9cc;
         unsigned __int64 key = FUN_0027b020(s);
         content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> *caster = new (&arg) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>;
         pure3d::CompositeDrawable *drawable = inv->v3(caster, key);
@@ -181,7 +181,7 @@ void FEThingsBase::FUN_000f3b20(ParamArg arg, Loader *c, void *d, Args *args)
             sink->objA = c->v29(name, 0);
             if (sink->objA)
                 sink->objA->FUN_000e9090(drawable);
-            Vec3 rot;
+            Vec3_f3b20 rot;
             rot.x = 0.0f;
             rot.y = 0.0f;
             rot.z = -1.57079637f;
@@ -197,7 +197,7 @@ void FEThingsBase::FUN_000f3b20(ParamArg arg, Loader *c, void *d, Args *args)
         sink->objB = c->v29(name, 0);
         if (sink->objB)
             sink->objB->FUN_000e9090(drawable);
-        Vec3 rot2;
+        Vec3_f3b20 rot2;
         rot2.x = 0.0f;
         rot2.y = 0.0f;
         rot2.z = 1.57079637f;

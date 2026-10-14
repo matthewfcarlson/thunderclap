@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00089bf0 @ 0x00089bf0
 extern "C" int __cdecl FUN_00267760(char*, unsigned int, const char*, ...);
-struct Entry { int first, second; char reserved[16]; };
-struct State {
+struct Entry_89bf0 { int first, second; char reserved[16]; };
+struct State_89bf0 {
  char text0[32], text1[32], text2[32], text3[32];
  int id0, index0; char pad88[32];
  int id1, index1; char padB0[32];
@@ -10,13 +10,13 @@ struct State {
  int values[6];
  int handles[10];
  char text4[32];
- Entry entries[100];
+ Entry_89bf0 entries[100];
  int mode;
  unsigned char flag0, flag1, flag2, flag3;
  int counters[4];
- State* FUN_00089bf0();
+ State_89bf0* FUN_00089bf0();
 };
-State* State::FUN_00089bf0() {
+State_89bf0* State_89bf0::FUN_00089bf0() {
  id0 = index0 = -1;
  id1 = index1 = -1;
  id2 = index2 = -1;

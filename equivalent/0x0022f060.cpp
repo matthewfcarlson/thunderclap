@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_0022f060 @ 0x0022f060
-struct Buffer { void FUN_0022e930(void* destination, unsigned int stride); };
+struct Buffer_22f060 { void FUN_0022e930(void* destination, unsigned int stride); };
 struct Object {
- char pad0[0x88]; Buffer buffer;
- char pad1[0x108-0x88-sizeof(Buffer)];
+ char pad0[0x88]; Buffer_22f060 buffer;
+ char pad1[0x108-0x88-sizeof(Buffer_22f060)];
  unsigned char mode; char pad2[7]; unsigned int count;
  char pad3[8]; unsigned int total; unsigned int stride;
  void FUN_0022ef20(int flag, float count);

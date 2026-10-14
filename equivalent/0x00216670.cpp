@@ -10,43 +10,43 @@ struct GCHeader {
     unsigned char lsizenode; // 0x07
 };
 
-struct TString : GCHeader {
+struct TString_216670 : GCHeader {
     char pad08[8];
     char str[1];             // 0x10
 };
 
-struct TValue {
+struct TValue_216670 {
     int tt;
     GCHeader *value;
 };
 
 struct Node {
-    TValue key;
-    TValue val;
+    TValue_216670 key;
+    TValue_216670 val;
     Node *next;
 };
 
-struct Table : GCHeader {
-    Table *metatable;        // 0x08
-    TValue *array;           // 0x0c
+struct Table_216670 : GCHeader {
+    Table_216670 *metatable;        // 0x08
+    TValue_216670 *array;           // 0x0c
     Node *node;              // 0x10
     Node *lastfree;          // 0x14
     GCHeader *gclist;        // 0x18
     int sizearray;           // 0x1c
 };
 
-struct GlobalState {
+struct GlobalState_216670 {
     char pad00[0x30];
-    Table *gray;             // 0x30
+    Table_216670 *gray;             // 0x30
     char pad34[0x80 - 0x34];
     void *tmname;            // 0x80
 };
 
-void __cdecl FUN_002164b0(GlobalState *g, GCHeader *o);
-TValue *__cdecl FUN_00217580(Table *mt, int event, void *name);
+void __cdecl FUN_002164b0(GlobalState_216670 *g, GCHeader *o);
+TValue_216670 *__cdecl FUN_00217580(Table_216670 *mt, int event, void *name);
 
 // equiv-conv: FUN_00216670 edi stack
-int FUN_00216670(Table *t, GlobalState *g)
+int FUN_00216670(Table_216670 *t, GlobalState_216670 *g)
 {
     int weakkey = 0;
     int weakvalue = 0;
@@ -54,12 +54,12 @@ int FUN_00216670(Table *t, GlobalState *g)
     if (t->metatable && (t->metatable->marked & 3))
         FUN_002164b0(g, t->metatable);
 
-    Table *mt = t->metatable;
+    Table_216670 *mt = t->metatable;
     if (mt && !(mt->flags & 8)) {
-        TValue *mode = FUN_00217580(mt, 3, g->tmname);
+        TValue_216670 *mode = FUN_00217580(mt, 3, g->tmname);
         if (mode && mode->tt == 4) {
-            weakkey = strchr(static_cast<TString *>(mode->value)->str, 'k') != 0;
-            weakvalue = strchr(static_cast<TString *>(mode->value)->str, 'v') != 0;
+            weakkey = strchr(static_cast<TString_216670 *>(mode->value)->str, 'k') != 0;
+            weakvalue = strchr(static_cast<TString_216670 *>(mode->value)->str, 'v') != 0;
             if (weakkey || weakvalue) {
                 t->marked = (t->marked & 0xe7) | (((weakvalue << 1) | weakkey) << 3);
                 t->gclist = g->gray;
@@ -74,7 +74,7 @@ int FUN_00216670(Table *t, GlobalState *g)
         int i = t->sizearray;
         while (i != 0) {
             i--;
-            TValue *v = &t->array[i];
+            TValue_216670 *v = &t->array[i];
             if (v->tt >= 4 && (v->value->marked & 3))
                 FUN_002164b0(g, v->value);
         }

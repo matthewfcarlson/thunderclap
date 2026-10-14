@@ -2,7 +2,7 @@
 // FUN_001f3ec0 @ 0x001f3ec0
 extern float DAT_004c7df8;
 
-struct Voice {
+struct Voice_1f3ec0 {
     char pad0[4];
     void *sound;
     char pad8[0x10 - 8];
@@ -14,28 +14,28 @@ struct Voice {
 
 void __cdecl FUN_00247890(void *sound, float volume);
 
-class VoicePool {
+class VoicePool_1f3ec0 {
 public:
-    Voice *FUN_001f3ec0(int a, int unused, int flags, int c, char tag);
+    Voice_1f3ec0 *FUN_001f3ec0(int a, int unused, int flags, int c, char tag);
 
     char pad0[8];
-    Voice *voices[32];
+    Voice_1f3ec0 *voices[32];
     int count;
-    Voice *reserved8c;
+    Voice_1f3ec0 *reserved8c;
     char pad90[0xc0 - 0x90];
-    Voice *reservedC0;
-    Voice *reservedC4;
-    Voice *reservedC8;
-    Voice *reservedCC;
+    Voice_1f3ec0 *reservedC0;
+    Voice_1f3ec0 *reservedC4;
+    Voice_1f3ec0 *reservedC8;
+    Voice_1f3ec0 *reservedCC;
     char padd0[0x334 - 0xd0];
     float volumeScale;
 };
 
-Voice *VoicePool::FUN_001f3ec0(int a, int unused, int flags, int c, char tag)
+Voice_1f3ec0 *VoicePool_1f3ec0::FUN_001f3ec0(int a, int unused, int flags, int c, char tag)
 {
     int n = count;
     for (int i = 0; i < n; i++) {
-        Voice *v = voices[i];
+        Voice_1f3ec0 *v = voices[i];
         if (v->sound == 0 && v != reserved8c && v != reservedCC && v != reservedC0
             && v != reservedC4 && v != reservedC8) {
             voices[i]->flags = flags;

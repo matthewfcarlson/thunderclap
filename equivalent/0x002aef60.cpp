@@ -22,7 +22,7 @@ public:
     TextureBuilder(int a, int b);
 };
 
-class Handler {
+class Handler_2aef60 {
 public:
     virtual void v0();
     virtual void v1();
@@ -36,9 +36,9 @@ public:
     virtual void Build(Stream *stream, TextureBuilder *builder);
 };
 
-class Owner {
+class Owner_2aef60 {
 public:
-    Handler *FUN_002ae980(unsigned int id);
+    Handler_2aef60 *FUN_002ae980(unsigned int id);
     void FUN_002aef60(unsigned int id, int a, int b);
 };
 
@@ -58,12 +58,12 @@ TextureBuilder::TextureBuilder(int a, int b)
     f1c = b;
 }
 
-void Owner::FUN_002aef60(unsigned int id, int a, int b)
+void Owner_2aef60::FUN_002aef60(unsigned int id, int a, int b)
 {
     void *memory = thunk_FUN_0008d690(0x48);
     Stream *stream = memory ? ((Stream *)memory)->FUN_00264430(id, 0, 0) : 0;
     stream->AddRef();
-    Handler *handler = FUN_002ae980(id);
+    Handler_2aef60 *handler = FUN_002ae980(id);
     if (handler) {
         TextureBuilder builder(a, b);
         handler->Build(stream, &builder);

@@ -4,7 +4,7 @@ extern float DAT_004e18c0[];
 extern float DAT_004e18d0[];
 extern float DAT_004e18bc[];
 
-class Timeline {
+class Timeline_1b3440 {
 public:
     char pad0[0xc];
     int track;
@@ -17,7 +17,7 @@ public:
     bool FUN_001b3440(float dt);
 };
 
-bool Timeline::FUN_001b3440(float dt)
+bool Timeline_1b3440::FUN_001b3440(float dt)
 {
     int t = track;
     if (t < 0)

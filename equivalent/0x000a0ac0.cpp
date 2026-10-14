@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000a0ac0 @ 0x000a0ac0
-struct Vec3 { float x, y, z; };
+struct Vec3_a0ac0 { float x, y, z; };
 
-extern void __cdecl FUN_000a04c0(Vec3* d, float* a, float* b, float* len);
+extern void __cdecl FUN_000a04c0(Vec3_a0ac0* d, float* a, float* b, float* len);
 extern float __cdecl FUN_000a02a0(float angle);
 
-struct Aim {
+struct Aim_a0ac0 {
     char pad0[0x194];
-    Vec3 origin;          // 0x194
+    Vec3_a0ac0 origin;          // 0x194
     char pad1[0x1e8 - 0x1a0];
-    Vec3 target;          // 0x1e8
+    Vec3_a0ac0 target;          // 0x1e8
     char pad2[0x20c - 0x1f4];
     float yawBase;        // 0x20c
     float pitchBase;      // 0x210
@@ -26,9 +26,9 @@ struct Aim {
     void FUN_000a0ac0(float pitch0, float yaw);
 };
 
-void Aim::FUN_000a0ac0(float pitch0, float yaw)
+void Aim_a0ac0::FUN_000a0ac0(float pitch0, float yaw)
 {
-    Vec3 d;
+    Vec3_a0ac0 d;
     float len;
     d.x = target.x - origin.x;
     d.y = target.y - origin.y;

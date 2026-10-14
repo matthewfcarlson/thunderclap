@@ -20,12 +20,12 @@ public:
 }
 namespace pure3d { class CompositeDrawable; }
 
-struct Sub {
+struct Sub_c6bc0 {
     int FUN_002843a0(unsigned __int64 key);
     void FUN_002848b0(int id, int zero, int value);
 };
 
-struct Resource {
+struct Resource_c6bc0 {
     virtual void AddRef();
     virtual void Release();
     virtual void v2();
@@ -37,22 +37,22 @@ struct Resource {
     virtual void v8();
     virtual void v9();
     virtual void v10();
-    virtual Sub *v11();
+    virtual Sub_c6bc0 *v11();
 };
 
-struct Loader {
+struct Loader_c6bc0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Resource *v3(content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> *caster, unsigned __int64 key);
+    virtual Resource_c6bc0 *v3(content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> *caster, unsigned __int64 key);
 };
-extern Loader *DAT_004dd9cc;
+extern Loader_c6bc0 *DAT_004dd9cc;
 
 void FUN_000c6bc0(const char *name, const char *sub, int value)
 {
-    Loader *loader = DAT_004dd9cc;
+    Loader_c6bc0 *loader = DAT_004dd9cc;
     content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> caster;
-    Resource *res = loader->v3(&caster, FUN_002672f0(name, 0, 0));
+    Resource_c6bc0 *res = loader->v3(&caster, FUN_002672f0(name, 0, 0));
     if (res) {
         res->AddRef();
         int id = res->v11()->FUN_002843a0(FUN_0027b020(sub));

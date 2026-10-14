@@ -2,7 +2,7 @@
 // FUN_001f2c00 @ 0x001f2c00
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 struct InitObject { void FUN_001ea8b0(int); };
-struct Owner { void FUN_001f6990(); };
+struct Owner_1f2c00 { void FUN_001f6990(); };
 struct StateData { char data[8]; void FUN_0027af00(); void FUN_0027b040(int); };
 struct CSoundTriggerExecutionState {
  virtual void slot0();
@@ -15,15 +15,15 @@ struct CSoundTriggerExecutionState {
  int field24;
 };
 void* __cdecl FUN_0008d750(int,int);
-struct Target {
- Owner* owner;
+struct Target_1f2c00 {
+ Owner_1f2c00* owner;
  InitObject* init;
  int field8;
  CSoundTriggerExecutionState* entries;
  void FUN_001f2730();
  void FUN_001f2c00(int arg);
 };
-void Target::FUN_001f2c00(int arg) {
+void Target_1f2c00::FUN_001f2c00(int arg) {
  init->FUN_001ea8b0(arg);
  owner->FUN_001f6990();
  void* storage=FUN_0008d750(0xfa4,6);

@@ -3,7 +3,7 @@
 // CAxisArcCondition::vfunc_10 @ 0x0004b630: compares the axis value against the stored limit with the configured test
 bool FUN_00018960(float a, float b, float epsilon);
 
-struct AxisInput {
+struct AxisInput_4b630 {
     char pad00[0x18];
     float value;
     int state;
@@ -21,13 +21,13 @@ public:
     virtual void v7();
     virtual void v8();
     virtual void v9();
-    virtual bool vfunc_10(AxisInput *input, int *outState);
+    virtual bool vfunc_10(AxisInput_4b630 *input, int *outState);
     char pad04[0x14];
     unsigned int mode;
     float limit;
 };
 
-bool CAxisArcCondition::vfunc_10(AxisInput *input, int *outState)
+bool CAxisArcCondition::vfunc_10(AxisInput_4b630 *input, int *outState)
 {
     *outState = input->state;
     switch (mode) {

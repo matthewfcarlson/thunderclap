@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_00269590 @ 0x00269590
-struct RefObject { virtual void slot0(); virtual void FUN_virtual1(); };
-extern RefObject* DAT_00528388[4];
+struct RefObject_269590 { virtual void slot0(); virtual void FUN_virtual1(); };
+extern RefObject_269590* DAT_00528388[4];
 extern void* DAT_0042b2a4[];
 extern void* DAT_0042b29c[];
 extern void* DAT_0042b14c[];

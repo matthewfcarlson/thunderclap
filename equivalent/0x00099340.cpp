@@ -3,7 +3,7 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 void *thunk_FUN_0008d690(unsigned int size);
 
-class Range {
+class Range_99340 {
 public:
     virtual void v0();
     virtual void v1();
@@ -35,23 +35,23 @@ public:
     virtual void v27();
     virtual void v28();
     char pad[0x2d0 - 4];
-    Range *FUN_000ac7d0();
+    Range_99340 *FUN_000ac7d0();
     void FUN_000a90f0(int which, int v);
     void FUN_000a9130(int which, int v);
     void FUN_000a9110(int which, float v);
 };
 
-class Panel {
+class Panel_99340 {
 public:
     char pad0[0xc4];
-    Range *range;
+    Range_99340 *range;
     void FUN_00099340();
 };
 
-void Panel::FUN_00099340()
+void Panel_99340::FUN_00099340()
 {
     if (range == 0) {
-        Range *r = (Range *)thunk_FUN_0008d690(0x2d0);
+        Range_99340 *r = (Range_99340 *)thunk_FUN_0008d690(0x2d0);
         if (r != 0)
             r = r->FUN_000ac7d0();
         range = r;

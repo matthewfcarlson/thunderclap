@@ -32,16 +32,16 @@ void FUN_002d1cc0();
 
 void* __cdecl FUN_0008d690(unsigned int size);
 
-class Emitter {
+class Emitter_2aa160 {
 public:
-    Emitter* FUN_002d11f0();
+    Emitter_2aa160* FUN_002d11f0();
     void FUN_002d1240(Code a, Code b);
     void FUN_002d1260(Code a, Code b);
     void FUN_002d1280(Code a, Code b);
     void FUN_002d12a0(Code a, Code b);
 };
 
-Emitter* __cdecl FUN_002aa160(unsigned int n)
+Emitter_2aa160* __cdecl FUN_002aa160(unsigned int n)
 {
     unsigned int code = n / 3;
     unsigned int kind = n % 3;
@@ -50,9 +50,9 @@ Emitter* __cdecl FUN_002aa160(unsigned int n)
     unsigned int s2 = (code >> 4) & 3;
 
     void* mem = FUN_0008d690(0x28);
-    Emitter* e = 0;
+    Emitter_2aa160* e = 0;
     if (mem)
-        e = ((Emitter*)mem)->FUN_002d11f0();
+        e = ((Emitter_2aa160*)mem)->FUN_002d11f0();
 
     switch (kind) {
     case 0: e->FUN_002d1240(FUN_002d1310, FUN_002d12f0); break;

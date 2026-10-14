@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 13/14, incomplete)
 // FUN_00213fc0 @ 0x00213fc0
-struct Obj { char pad[6]; char isC; };
-struct CallInfo { Obj **func; int pad4; int pad8; int n; };
-struct State { char pad0[0x14]; CallInfo *ci; char pad1[0x28 - 0x18]; CallInfo *base_ci; };
-struct DebugInfo { char pad[0x5c]; int currentline; };
+struct Obj_213fc0 { char pad[6]; char isC; };
+struct CallInfo_213fc0 { Obj_213fc0 **func; int pad4; int pad8; int n; };
+struct State_213fc0 { char pad0[0x14]; CallInfo_213fc0 *ci; char pad1[0x28 - 0x18]; CallInfo_213fc0 *base_ci; };
+struct DebugInfo_213fc0 { char pad[0x5c]; int currentline; };
 
-int FUN_00213fc0(State *L, int level, DebugInfo *ar)
+int FUN_00213fc0(State_213fc0 *L, int level, DebugInfo_213fc0 *ar)
 {
-    CallInfo *ci = L->ci;
+    CallInfo_213fc0 *ci = L->ci;
     if (level > 0) {
         do {
             if (ci <= L->base_ci) {

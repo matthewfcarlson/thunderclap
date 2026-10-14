@@ -3,19 +3,19 @@
 typedef unsigned int uint;
 extern "C" void* __cdecl FUN_00266e00(uint, uint);
 extern "C" void __cdecl FUN_00267090(void*);
-struct Pair { uint first, second; };
-struct Table {
+struct Pair_231690 { uint first, second; };
+struct Table_231690 {
  uint count, used, other;
  char padding[12];
  void** entries;
- Pair* pairs;
+ Pair_231690* pairs;
  char sentinel[4];
  void FUN_00231590(uint, uint, void*);
  void FUN_00231690();
 };
-void Table::FUN_00231690() {
+void Table_231690::FUN_00231690() {
  void** savedEntries = (void**)FUN_00266e00(1, count * 4);
- Pair* savedPairs = (Pair*)FUN_00266e00(1, count * 8);
+ Pair_231690* savedPairs = (Pair_231690*)FUN_00266e00(1, count * 8);
  uint i;
  uint n = (count * 4) / 4;
  for (i=0; i<n; ++i) savedEntries[i] = entries[i];

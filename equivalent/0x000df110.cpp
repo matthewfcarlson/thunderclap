@@ -3,7 +3,7 @@
 extern "C" double cos(double);
 extern "C" double sin(double);
 
-struct Vec3 {
+struct Vec3_df110 {
     float x, y, z;
 };
 
@@ -15,7 +15,7 @@ public:
     virtual float v0c();
 };
 
-class Device {
+class Device_df110 {
 public:
     virtual void v00();
     virtual void v04();
@@ -36,12 +36,12 @@ public:
     virtual void v40(int a);
 };
 
-struct Holder {
-    Device *device;
-    void FUN_00293d00(Vec3 *v);
+struct Holder_df110 {
+    Device_df110 *device;
+    void FUN_00293d00(Vec3_df110 *v);
 };
 
-class Renderer {
+class Renderer_df110 {
 public:
     virtual void v00();
     virtual void v04();
@@ -105,13 +105,13 @@ public:
     virtual char vec();
 };
 
-extern Renderer *DAT_0052c2a8;
-extern Holder *DAT_0052c2ac;
+extern Renderer_df110 *DAT_0052c2a8;
+extern Holder_df110 *DAT_0052c2ac;
 extern unsigned int DAT_004de944;
 extern float DAT_004de940;
 extern float DAT_004de93c;
 
-struct Entry {
+struct Entry_df110 {
     float a, b;
     int level;
 };
@@ -134,7 +134,7 @@ public:
 
 void CGlowDisplayEffect::vfunc_0(Target1 *t)
 {
-    Vec3 V;
+    Vec3_df110 V;
     V.x = 0.0f;
     V.y = 0.0f;
     V.z = 0.0f;
@@ -185,7 +185,7 @@ void CGlowDisplayEffect::vfunc_0(Target1 *t)
     float ss = (float)(DAT_004de93c * s);
     float fs = (float)s;
 
-    Entry e[24];
+    Entry_df110 e[24];
     e[0].a = h;   e[0].b = h;   e[0].level = 1;
     e[1].a = -h;  e[1].b = h;   e[1].level = 1;
     e[2].a = -h;  e[2].b = -h;  e[2].level = 1;

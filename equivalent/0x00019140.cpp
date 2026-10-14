@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 22/22)
 // CDropAction::vfunc_7 @ 0x00019140
-struct Vec3 {
+struct Vec3_19140 {
     float x, y, z;
 };
 
-union FloatBits {
+union FloatBits_19140 {
     float f;
     unsigned int u;
 };
@@ -14,13 +14,13 @@ float __cdecl FUN_00224fc0(float from, float to);
 
 static inline float AbsBits(float v)
 {
-    FloatBits bits;
+    FloatBits_19140 bits;
     bits.f = v;
     bits.u &= 0x7fffffff;
     return bits.f;
 }
 
-struct Fighter {
+struct Fighter_19140 {
     char pad00[0x2064];
     float velX;
     char pad2068[4];
@@ -29,13 +29,13 @@ struct Fighter {
     void FUN_000359c0(int mode);
 };
 
-struct Anchor {
-    Fighter *FUN_00059a30();
-    void FUN_00059a50(Vec3 *out);
+struct Anchor_19140 {
+    Fighter_19140 *FUN_00059a30();
+    void FUN_00059a50(Vec3_19140 *out);
 };
 
-struct Owner {
-    Anchor *FUN_000592a0();
+struct Owner_19140 {
+    Anchor_19140 *FUN_000592a0();
 };
 
 struct DropParams {
@@ -48,15 +48,15 @@ struct DropParams {
     float maxFall;
 };
 
-struct Transform {
+struct Transform_19140 {
     float FUN_002220d0();
     void FUN_00221d20(float angle);
-    void FUN_0022be40(Vec3 *pos);
+    void FUN_0022be40(Vec3_19140 *pos);
 };
 
 struct DropTarget {
     char pad00[0x18];
-    Transform xform;
+    Transform_19140 xform;
 };
 
 class CDropAction {
@@ -71,7 +71,7 @@ public:
     virtual bool vfunc_7(float dt);
     virtual void vfunc_8();
     char pad04[0x1c - 4];
-    Owner *owner;
+    Owner_19140 *owner;
     DropParams *params;
     DropTarget *target;
     float angle;
@@ -83,8 +83,8 @@ bool CDropAction::vfunc_7(float dt)
     if (target == 0) {
         return false;
     }
-    Anchor *anchor = owner->FUN_000592a0();
-    Fighter *fighter = anchor->FUN_00059a30();
+    Anchor_19140 *anchor = owner->FUN_000592a0();
+    Fighter_19140 *fighter = anchor->FUN_00059a30();
     fighter->FUN_000359c0(3);
 
     if (fighter->timer > 0.0f) {
@@ -133,7 +133,7 @@ bool CDropAction::vfunc_7(float dt)
         fall = limit;
     }
 
-    Vec3 pos;
+    Vec3_19140 pos;
     pos.x = 0.0f;
     pos.y = 0.0f;
     pos.z = 0.0f;

@@ -2,7 +2,7 @@
 // FUN_000af700 @ 0x000af700
 extern "C" int strcmp(const char *a, const char *b);
 
-class Info {
+class Info_af700 {
 public:
     virtual void v0();
     virtual void v1();
@@ -10,7 +10,7 @@ public:
     virtual void v3();
     virtual const char *v4();
 };
-class Device {
+class Device_af700 {
 public:
     virtual void v0();
     virtual void v1();
@@ -28,26 +28,26 @@ public:
     virtual void v13();
     virtual void v14();
     virtual void v15();
-    virtual Info *v16(unsigned int i);
+    virtual Info_af700 *v16(unsigned int i);
 };
 
-struct Record {
+struct Record_af700 {
     unsigned int count;
     int kind[2];
     int state[2];
     char pad14[0x18];
-    Device *device;
+    Device_af700 *device;
 };
 
-class Controller {
+class Controller_af700 {
 public:
     char pad0[0x14];
-    Record *records;
+    Record_af700 *records;
     void FUN_000af530(int index, unsigned int port, int flag);
-    void FUN_000af700(int index, Device *dev);
+    void FUN_000af700(int index, Device_af700 *dev);
 };
 
-void Controller::FUN_000af700(int index, Device *dev)
+void Controller_af700::FUN_000af700(int index, Device_af700 *dev)
 {
     if (dev == records[index].device)
         return;
@@ -61,7 +61,7 @@ void Controller::FUN_000af700(int index, Device *dev)
         if (records[index].count > 2)
             records[index].count = 2;
         for (unsigned int i = 0; i < records[index].count; i++) {
-            Info *info = records[index].device->v16(i);
+            Info_af700 *info = records[index].device->v16(i);
             info->v3();
             const char *name = info->v4();
             if (strcmp(name, "Analog") == 0)

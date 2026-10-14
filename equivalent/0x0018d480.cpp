@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 26/26)
 // hulkfight::motion::TimerCondition::vfunc_6 @ 0x0018d480
-struct Timing {
+struct Timing_18d480 {
     char pad0[0x1e60];
     float values[14];
     unsigned char valid[14];
     float FUN_0003eca0(const char* name);
     void FUN_00036350(int idx, float v);
 };
-struct Clock {
-    Timing* FUN_00059a30();
+struct Clock_18d480 {
+    Timing_18d480* FUN_00059a30();
 };
 namespace fight {
 class Params {
 public:
     virtual void vfunc_0();
     char pad4[4];
-    Clock* FUN_000592a0();
+    Clock_18d480* FUN_000592a0();
 };
 }
 class CFightParams : public fight::Params {
@@ -49,7 +49,7 @@ bool TimerCondition::vfunc_6(int a, fight::Params* params, int c)
         return false;
     if (dynamic_cast<CFightParams*>(params) == 0)
         return false;
-    Timing* timing = params->FUN_000592a0()->FUN_00059a30();
+    Timing_18d480* timing = params->FUN_000592a0()->FUN_00059a30();
     float target = limit;
     if (useNamed != 0) {
         float v = timing->FUN_0003eca0(DAT_004bebb4[nameIndex]);

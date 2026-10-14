@@ -4,31 +4,31 @@ void* __cdecl FUN_0008d710(unsigned size, int alignment);
 void* __cdecl FUN_0008d750(unsigned size, int alignment);
 void __cdecl FUN_0008d330(void*);
 inline void* operator new(unsigned, void* p) { return p; }
-struct Controller;
-struct State { int first; int middle; int last; };
+struct Controller_b1c90;
+struct State_b1c90 { int first; int middle; int last; };
 struct sControllerInputPointCallback;
-struct Point {
+struct Point_b1c90 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6();
  virtual void attach(sControllerInputPointCallback*, int);
 };
-struct Device {
+struct Device_b1c90 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
  virtual int count(const char*);
- virtual Point* point(const char*, int);
+ virtual Point_b1c90* point(const char*, int);
 };
 struct sControllerInputPointCallback {
  virtual void callback();
- Point* point;
- Controller* controller;
- State* state;
+ Point_b1c90* point;
+ Controller_b1c90* controller;
+ State_b1c90* state;
 };
-struct Controller {
- char pad0[0x10]; Device* device;
+struct Controller_b1c90 {
+ char pad0[0x10]; Device_b1c90* device;
  char pad1[0x40]; int id;
  char pad2[0x450]; sControllerInputPointCallback** callbacks;
- void FUN_000b1c90(State*, int);
+ void FUN_000b1c90(State_b1c90*, int);
 };
-void Controller::FUN_000b1c90(State* state, int requested) {
+void Controller_b1c90::FUN_000b1c90(State_b1c90* state, int requested) {
  if (id != requested || !device) return;
  state->first = 0;
  state->last = 0;
@@ -47,7 +47,7 @@ void Controller::FUN_000b1c90(State* state, int requested) {
  }
  callbacks = (sControllerInputPointCallback**)FUN_0008d750((unsigned)n*4,4);
  for (int i=0; i<n; ++i) {
-  Point* p = device->point("Button",i);
+  Point_b1c90* p = device->point("Button",i);
   if (p) {
    void* storage = FUN_0008d710(16,4);
    sControllerInputPointCallback* c = 0;

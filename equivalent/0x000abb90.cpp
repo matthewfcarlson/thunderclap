@@ -3,60 +3,60 @@
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int cookie);
 
-struct V3 { float x, y, z; };
+struct V3_abb90 { float x, y, z; };
 
-struct Mat4 {
+struct Mat4_abb90 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022bda0(float a, float b, float c);
-    void FUN_0022be40(const V3 *t);
-    void FUN_0022ca90(const Mat4 *a, const Mat4 *b);
+    void FUN_0022be40(const V3_abb90 *t);
+    void FUN_0022ca90(const Mat4_abb90 *a, const Mat4_abb90 *b);
 };
 
-struct Hub {
+struct Hub_abb90 {
     void FUN_000afe80();
 };
 
-struct Reg {
-    Hub *FUN_00086330();
+struct Reg_abb90 {
+    Hub_abb90 *FUN_00086330();
 };
 
-struct Clock {
+struct Clock_abb90 {
     float FUN_00085f80();
 };
 
-struct Sys;
-struct Ev {
+struct Sys_abb90;
+struct Ev_abb90 {
     char pad0[8];
-    Sys *f8;
+    Sys_abb90 *f8;
     char pad0c[0x54 - 0xc];
-    Reg *f54;
-    Clock *f58;
+    Reg_abb90 *f54;
+    Clock_abb90 *f58;
 };
 
-struct Sys {
-    void FUN_00099050(Ev *e);
+struct Sys_abb90 {
+    void FUN_00099050(Ev_abb90 *e);
 };
 
 struct World {
     char pad0[0x54];
-    Reg *f54;
+    Reg_abb90 *f54;
 };
 extern World *DAT_004dd700;
 
-struct Snd {
+struct Snd_abb90 {
     void FUN_001eb560(const char *s);
     void FUN_001eb8d0(const char *s);
     void FUN_001eb6a0();
     void FUN_001eb6b0();
     void FUN_001ec480(const char *a, const char *b);
 };
-Snd *FUN_001eb200();
+Snd_abb90 *FUN_001eb200();
 char FUN_0009fa00();
 float FUN_000a02a0(float v);
-void FUN_000a04c0(V3 *delta, float *a, float *b, float *out);
+void FUN_000a04c0(V3_abb90 *delta, float *a, float *b, float *out);
 
-struct Anim {
+struct Anim_abb90 {
     virtual void a0(); virtual void a1(); virtual void a2(); virtual void a3(); virtual void a4(); virtual void a5();
     virtual void v6(float ms, int flag);
     virtual void v7(); virtual void v8();
@@ -65,21 +65,21 @@ struct Anim {
 
 struct AnimM {
     virtual void m0(); virtual void m1(); virtual void m2(); virtual void m3(); virtual void m4(); virtual void m5(); virtual void m6(); virtual void m7(); virtual void m8(); virtual void m9(); virtual void m10(); virtual void m11(); virtual void m12(); virtual void m13();
-    virtual Mat4 *v14();
+    virtual Mat4_abb90 *v14();
     char pad4[0x10 - 0x4];
     float f10;
 };
 
-struct Curve {
+struct Curve_abb90 {
     char pad0[0x80];
-    void FUN_0022e500(int n, const V3 *p0, const V3 *t0, const V3 *p1, const V3 *t1);
-    void FUN_0022e890(V3 *out, float s);
+    void FUN_0022e500(int n, const V3_abb90 *p0, const V3_abb90 *t0, const V3_abb90 *p1, const V3_abb90 *t1);
+    void FUN_0022e890(V3_abb90 *out, float s);
 };
 
-struct Key {
+struct Key_abb90 {
     float time;                    // 0x00
-    V3 pos;                        // 0x04
-    V3 tang;                       // 0x10
+    V3_abb90 pos;                        // 0x04
+    V3_abb90 tang;                       // 0x10
     float roll;                    // 0x1c
     float pitch;                   // 0x20
     unsigned char flagA;           // 0x24
@@ -93,9 +93,9 @@ struct Q124 { char pad0[0x124]; R124 *f124; };
 class CGameCamera {
 public:
     virtual void c0(); virtual void c1(); virtual void c2(); virtual void c3(); virtual void c4(); virtual void c5(); virtual void c6(); virtual void c7(); virtual void c8(); virtual void c9(); virtual void c10(); virtual void c11(); virtual void c12(); virtual void c13(); virtual void c14(); virtual void c15(); virtual void c16(); virtual void c17(); virtual void c18(); virtual void c19(); virtual void c20();
-    virtual void v21(Mat4 *m);
+    virtual void v21(Mat4_abb90 *m);
     virtual void c22(); virtual void c23(); virtual void c24(); virtual void c25(); virtual void c26(); virtual void c27(); virtual void c28(); virtual void c29(); virtual void c30(); virtual void c31(); virtual void c32(); virtual void c33(); virtual void c34();
-    virtual void vfunc_35(Ev *e, float dt, int c, int d);
+    virtual void vfunc_35(Ev_abb90 *e, float dt, int c, int d);
 };
 
 class CHypnoticCamera : public CGameCamera {
@@ -105,8 +105,8 @@ public:
     char padf2[0x170 - 0xf2];
     Q124 *f170;
     char pad174[0x1c4 - 0x174];
-    Key keys[11];                  // 0x1c4
-    Curve curve;                   // 0x37c
+    Key_abb90 keys[11];                  // 0x1c4
+    Curve_abb90 curve;                   // 0x37c
     int count;                     // 0x3fc
     int cur;                       // 0x400
     char pad404[4];
@@ -117,41 +117,41 @@ public:
     float f418;
     float f41c;
     float f420;
-    Anim *f424;
+    Anim_abb90 *f424;
     AnimM *f428;
-    Mat4 m42c;                     // 0x42c (translation at 0x45c)
+    Mat4_abb90 m42c;                     // 0x42c (translation at 0x45c)
     float t;                       // 0x46c
     float f470;
     unsigned char b474;
     char pad475[3];
-    Anim *f478;
+    Anim_abb90 *f478;
     unsigned char b47c;
     unsigned char b47d;
     unsigned char b47e;
 
     void FUN_000aa680();
     void FUN_000a9090(float v);
-    virtual void vfunc_35(Ev *e, float dt, int c, int d);
+    virtual void vfunc_35(Ev_abb90 *e, float dt, int c, int d);
 };
 
-struct Frame {
+struct Frame_abb90 {
     float a;                       // E-0xc0
     float b;                       // E-0xbc
     float s;                       // E-0xb8
     float ac;                      // E-0xb4
     float bc;                      // E-0xb0
-    V3 tmp0;                       // E-0xac
-    V3 out;                        // E-0xa0
-    V3 tmp1;                       // E-0x94
+    V3_abb90 tmp0;                       // E-0xac
+    V3_abb90 out;                        // E-0xa0
+    V3_abb90 tmp1;                       // E-0x94
     float f88;                     // E-0x88
-    Mat4 M;                        // E-0x84
-    Mat4 R;                        // E-0x44
+    Mat4_abb90 M;                        // E-0x84
+    Mat4_abb90 R;                        // E-0x44
     unsigned int cookie;           // E-0x4
 };
 
-void CHypnoticCamera::vfunc_35(Ev *e, float dt, int c, int d)
+void CHypnoticCamera::vfunc_35(Ev_abb90 *e, float dt, int c, int d)
 {
-    Frame f;
+    Frame_abb90 f;
     f.cookie = DAT_004d9968;
     if (bf1 != 0) {
         __security_check_cookie(f.cookie);
@@ -159,7 +159,7 @@ void CHypnoticCamera::vfunc_35(Ev *e, float dt, int c, int d)
     }
     if (b47d == 0) {
         FUN_000aa680();
-        Snd *sn = FUN_001eb200();
+        Snd_abb90 *sn = FUN_001eb200();
         sn->FUN_001eb560("hypnotic_on");
         sn->FUN_001eb8d0("hypnotic_on");
     }
@@ -182,7 +182,7 @@ void CHypnoticCamera::vfunc_35(Ev *e, float dt, int c, int d)
                 t = t - dt;
             if (t < 0.0f) {
                 e->f8->FUN_00099050(e);
-                Snd *sn = FUN_001eb200();
+                Snd_abb90 *sn = FUN_001eb200();
                 sn->FUN_001eb560("hypnotic_off");
                 sn->FUN_001eb8d0("hypnotic_off");
                 sn->FUN_001eb6b0();
@@ -273,8 +273,8 @@ void CHypnoticCamera::vfunc_35(Ev *e, float dt, int c, int d)
             cur = si;
         }
         curve.FUN_0022e890(&f.out, f.s);
-        Key *k0 = &keys[si];
-        Key *k1 = &keys[si + 1];
+        Key_abb90 *k0 = &keys[si];
+        Key_abb90 *k1 = &keys[si + 1];
         f.a = FUN_000a02a0(k1->roll - k0->roll) * f.s + k0->roll;
         f.b = (k1->pitch - k0->pitch) * f.s + k0->pitch;
         f.ac = f.a;

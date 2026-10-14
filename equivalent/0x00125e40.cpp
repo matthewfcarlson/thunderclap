@@ -6,31 +6,31 @@ extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 char __cdecl FUN_00018960(float a, float b, float epsilon);
 
-struct Vec3 {
+struct Vec3_125e40 {
     float x, y, z;
 };
 
-struct Body {
+struct Body_125e40 {
     char pad0[0x328];
     char *pad328;
 };
 
-struct Velocity {
+struct Velocity_125e40 {
     char pad0[0x50];
-    Vec3 value;
+    Vec3_125e40 value;
 };
 
-struct Actor {
+struct Actor_125e40 {
     char pad0[0x328];
-    Velocity *target;
+    Velocity_125e40 *target;
 };
 
-struct Chain {
-    Actor *FUN_00059a30();
+struct Chain_125e40 {
+    Actor_125e40 *FUN_00059a30();
 };
 
-struct Owner {
-    Chain *FUN_000592a0();
+struct Owner_125e40 {
+    Chain_125e40 *FUN_000592a0();
 };
 
 class TargetVelocityXZCondition {
@@ -41,17 +41,17 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual char vfunc_6(int unused1, Owner *owner, int unused3);
+    virtual char vfunc_6(int unused1, Owner_125e40 *owner, int unused3);
     char pad4[8];
     int mode;
     float threshold;
 };
 
-char TargetVelocityXZCondition::vfunc_6(int unused1, Owner *owner, int unused3)
+char TargetVelocityXZCondition::vfunc_6(int unused1, Owner_125e40 *owner, int unused3)
 {
     if (!FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0))
         return 0;
-    Velocity *v = owner->FUN_000592a0()->FUN_00059a30()->target;
+    Velocity_125e40 *v = owner->FUN_000592a0()->FUN_00059a30()->target;
     if (!v)
         return 0;
 

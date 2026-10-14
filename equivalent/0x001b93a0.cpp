@@ -1,27 +1,27 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3080 inputs, branch coverage 83/96, incomplete)
 // FUN_001b93a0 @ 0x001b93a0
-struct Vec3 {
+struct Vec3_1b93a0 {
     float x, y, z;
 };
 
 class Node {
 public:
-    char FUN_00059a50(Vec3 *out);
+    char FUN_00059a50(Vec3_1b93a0 *out);
 };
 
-class Region {
+class Region_1b93a0 {
 public:
-    char FUN_001c8790(Vec3 *pos);
+    char FUN_001c8790(Vec3_1b93a0 *pos);
 };
 
-class Tracker {
+class Tracker_1b93a0 {
 public:
-    Vec3 *FUN_001c39d0();
+    Vec3_1b93a0 *FUN_001c39d0();
     char pad0[4];
-    Region *region;
+    Region_1b93a0 *region;
 };
 
-class Display {
+class Display_1b93a0 {
 public:
     virtual void vf0();
     virtual void vf1();
@@ -36,7 +36,7 @@ public:
     virtual void vf9();
 };
 
-class Renderer {
+class Renderer_1b93a0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -127,10 +127,10 @@ public:
     virtual char v86();
     virtual void v87();
     virtual void v88();
-    virtual Display *v89(int v);
+    virtual Display_1b93a0 *v89(int v);
 };
 
-class Probe {
+class Probe_1b93a0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -149,44 +149,44 @@ public:
     virtual void v14();
 };
 
-class Settings {
+class Settings_1b93a0 {
 public:
     char FUN_0023f760(const char *name, int a, int b);
     char FUN_0023f770(const char *name, int a);
 };
 
-class Input {
+class Input_1b93a0 {
 public:
     char FUN_00092940(int button);
 };
 
-class Pad {
+class Pad_1b93a0 {
 public:
-    Input *FUN_00086340();
+    Input_1b93a0 *FUN_00086340();
 };
 
-struct Globals {
+struct Globals_1b93a0 {
     char pad0[0x54];
-    Pad *pad;
+    Pad_1b93a0 *pad;
 };
 
-class Stats {
+class Stats_1b93a0 {
 public:
     void FUN_0028f9a0();
     void FUN_0028faf0(int v);
 };
 
-struct Body {
+struct Body_1b93a0 {
     char pad0[0x10];
     Node *node;
 };
 
-struct Controller {
+struct Controller_1b93a0 {
     char pad0[0x124];
-    Body *body;
+    Body_1b93a0 *body;
 };
 
-struct Frame {
+struct Frame_1b93a0 {
     int type;
 };
 
@@ -195,37 +195,37 @@ public:
     void FUN_001bc720();
 };
 
-class Fader {
+class Fader_1b93a0 {
 public:
     void FUN_001bf8b0();
 };
 
-struct Scene {
+struct Scene_1b93a0 {
     char pad0[0x20];
-    Controller *controller;
+    Controller_1b93a0 *controller;
     char pad1[0x40 - 0x24];
     Camera *camera;
     char pad2[0x50 - 0x44];
-    Fader *fader;
+    Fader_1b93a0 *fader;
 };
 
-class Menu {
+class Menu_1b93a0 {
 public:
     void FUN_000bdd60();
 };
 
-class Overlays {
+class Overlays_1b93a0 {
 public:
     void FUN_000d6c70();
 };
 
 extern char DAT_004dd8e4;
 extern float DAT_004dd91c;
-extern Probe *DAT_0052c2a4;
-extern Renderer *DAT_0052c2a8;
-extern Stats *DAT_0052c2b4;
-extern Settings *DAT_004dd6e8;
-extern Globals *DAT_004dd700;
+extern Probe_1b93a0 *DAT_0052c2a4;
+extern Renderer_1b93a0 *DAT_0052c2a8;
+extern Stats_1b93a0 *DAT_0052c2b4;
+extern Settings_1b93a0 *DAT_004dd6e8;
+extern Globals_1b93a0 *DAT_004dd700;
 extern char DAT_004e2240;
 extern char DAT_004e2241;
 extern float DAT_004e2244;
@@ -253,18 +253,18 @@ extern int DAT_004c3c04;
 extern float DAT_004c3c08;
 extern float DAT_004c3c0c;
 
-Tracker *FUN_001c3d90();
+Tracker_1b93a0 *FUN_001c3d90();
 unsigned int FUN_00267f00();
 
-class Frontend {
+class Frontend_1b93a0 {
 public:
-    void FUN_001b93a0(Frame *frame, Scene *scene, Menu *menu, Overlays *overlays, int a4, int a5);
+    void FUN_001b93a0(Frame_1b93a0 *frame, Scene_1b93a0 *scene, Menu_1b93a0 *menu, Overlays_1b93a0 *overlays, int a4, int a5);
 
     char pad0[0x31];
     char skip;
 };
 
-void Frontend::FUN_001b93a0(Frame *frame, Scene *scene, Menu *menu, Overlays *overlays, int a4, int a5)
+void Frontend_1b93a0::FUN_001b93a0(Frame_1b93a0 *frame, Scene_1b93a0 *scene, Menu_1b93a0 *menu, Overlays_1b93a0 *overlays, int a4, int a5)
 {
     if (skip)
         return;
@@ -277,9 +277,9 @@ void Frontend::FUN_001b93a0(Frame *frame, Scene *scene, Menu *menu, Overlays *ov
     }
     DAT_0052c2b4->FUN_0028f9a0();
     if (frame->type == 4 || frame->type == 6) {
-        Vec3 pos = *FUN_001c3d90()->FUN_001c39d0();
+        Vec3_1b93a0 pos = *FUN_001c3d90()->FUN_001c39d0();
         if (!FUN_001c3d90()->region->FUN_001c8790(&pos)) {
-            Controller *c = scene->controller;
+            Controller_1b93a0 *c = scene->controller;
             if (c->body != 0) {
                 if (c->body->node->FUN_00059a50(&pos))
                     FUN_001c3d90()->region->FUN_001c8790(&pos);
@@ -288,8 +288,8 @@ void Frontend::FUN_001b93a0(Frame *frame, Scene *scene, Menu *menu, Overlays *ov
         scene->camera->FUN_001bc720();
         if (!DAT_004e2240)
             DAT_004e2240 = 1;
-        Display *d = DAT_0052c2a8->v89(0x103);
-        Input *input = DAT_004dd700->pad->FUN_00086340();
+        Display_1b93a0 *d = DAT_0052c2a8->v89(0x103);
+        Input_1b93a0 *input = DAT_004dd700->pad->FUN_00086340();
         if (input->FUN_00092940(0xe)) {
             d->vf4(-100.0f, 0.0f, 0.0f, 0.5f, 0xffffd490u);
             d->vf3(1);

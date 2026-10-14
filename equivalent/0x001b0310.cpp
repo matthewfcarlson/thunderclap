@@ -2,7 +2,7 @@
 // FUN_001b0310 @ 0x001b0310
 extern "C" int atexit(void (*)());
 
-struct Key {
+struct Key_1b0310 {
     unsigned lo;
     unsigned hi;
     void FUN_0027af00();
@@ -10,7 +10,7 @@ struct Key {
 };
 
 extern unsigned DAT_004e1800;
-extern Key DAT_004e17f8;
+extern Key_1b0310 DAT_004e17f8;
 void FUN_00363fd0();
 bool FUN_00044500(void *p);
 
@@ -24,15 +24,15 @@ extern float DAT_004c370c;
 extern float DAT_004c3710;
 extern float DAT_004c3714;
 
-struct Inner {
+struct Inner_1b0310 {
     char pad0[0x14];
     void *f14;
 };
 
-struct Attacker {
+struct Attacker_1b0310 {
     char pad0[0x11c];
-    Inner *f11c;
-    int FUN_00036e40(Key *k);
+    Inner_1b0310 *f11c;
+    int FUN_00036e40(Key_1b0310 *k);
 };
 
 struct Victim {
@@ -42,7 +42,7 @@ struct Victim {
 };
 
 // equiv-conv: FUN_001b0310 esi edi
-float FUN_001b0310(Attacker *atk, Victim *vic)
+float FUN_001b0310(Attacker_1b0310 *atk, Victim *vic)
 {
     float v;
     if (atk != 0) {

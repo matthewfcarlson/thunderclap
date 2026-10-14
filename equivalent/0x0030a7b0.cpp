@@ -1,37 +1,37 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 13/14, incomplete)
 // FUN_0030a7b0 @ 0x0030a7b0
-struct Vec3 {
+struct Vec3_30a7b0 {
     float x, y, z;
 };
 
-struct Item {
+struct Item_30a7b0 {
     char pad0[4];
-    Vec3 delta;
-    Vec3 pos;
+    Vec3_30a7b0 delta;
+    Vec3_30a7b0 pos;
     char pad2[0x64 - 0x1c];
     void FUN_002fd730();
 };
 
-struct ItemTable {
+struct ItemTable_30a7b0 {
     char pad[0x8c];
-    Item *items;
+    Item_30a7b0 *items;
 };
 
 struct Store {
     char pad0[0x10];
-    ItemTable *table;
+    ItemTable_30a7b0 *table;
     char pad1[0x98 - 0x14];
-    Vec3 refPos;
+    Vec3_30a7b0 refPos;
 };
 
-struct Mover;
+struct Mover_30a7b0;
 
-struct Anchor {
+struct Anchor_30a7b0 {
     char pad[0xd4];
-    Vec3 pos;
+    Vec3_30a7b0 pos;
 };
 
-struct Mover {
+struct Mover_30a7b0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -54,7 +54,7 @@ struct Mover {
     virtual void v19();
     virtual void v20();
     virtual void v21();
-    virtual void getDelta(Vec3 *out);
+    virtual void getDelta(Vec3_30a7b0 *out);
     virtual void afterDelta();
 
     char active;
@@ -62,21 +62,21 @@ struct Mover {
     int index;
     char pad1[0x18 - 0xc];
     Store *store;
-    Anchor *anchor;
-    Mover **begin;
-    Mover **end;
+    Anchor_30a7b0 *anchor;
+    Mover_30a7b0 **begin;
+    Mover_30a7b0 **end;
     char pad3[0xd4 - 0x28];
-    Vec3 target;
+    Vec3_30a7b0 target;
     char pad4[0xe8 - 0xe0];
     float pending;
     char hasPending;
 
-    void FUN_0030a7b0(Vec3 a, Vec3 b);
+    void FUN_0030a7b0(Vec3_30a7b0 a, Vec3_30a7b0 b);
 };
 
-void Mover::FUN_0030a7b0(Vec3 a, Vec3 b)
+void Mover_30a7b0::FUN_0030a7b0(Vec3_30a7b0 a, Vec3_30a7b0 b)
 {
-    Vec3 ref;
+    Vec3_30a7b0 ref;
     if (anchor) {
         ref = anchor->pos;
     } else {
@@ -84,11 +84,11 @@ void Mover::FUN_0030a7b0(Vec3 a, Vec3 b)
     }
 
     struct Frame {
-        Vec3 v;
+        Vec3_30a7b0 v;
         volatile float dx;
         float spare[2];
     } f;
-    Vec3 &v = f.v;
+    Vec3_30a7b0 &v = f.v;
     f.dx = target.x - ref.x;
     float dx = f.dx;
     double dy = target.y - ref.y;
@@ -102,7 +102,7 @@ void Mover::FUN_0030a7b0(Vec3 a, Vec3 b)
     a.y += cy;
     a.z += v.z;
 
-    Item *item = &store->table->items[index];
+    Item_30a7b0 *item = &store->table->items[index];
     item->FUN_002fd730();
     item->delta.x += a.x;
     item->delta.y += a.y;

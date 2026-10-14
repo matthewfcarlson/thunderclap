@@ -2,21 +2,21 @@
 // FUN_00231230 @ 0x00231230
 struct Slot;
 
-struct Key {
+struct Key_231230 {
     unsigned a, b;
 };
 
-struct Table {
+struct Table_231230 {
     unsigned cap;
     char pad4[0x18 - 4];
     Slot **slots;
-    Key *keys;
+    Key_231230 *keys;
     char end[1];
 };
 
-class Probe {
+class Probe_231230 {
 public:
-    Table *table;
+    Table_231230 *table;
     char pad4[4];
     unsigned ka, kb;
     unsigned pos;
@@ -24,9 +24,9 @@ public:
     Slot *FUN_00231230();
 };
 
-Slot *Probe::FUN_00231230()
+Slot *Probe_231230::FUN_00231230()
 {
-    Table *t = table;
+    Table_231230 *t = table;
     unsigned s = step;
     pos = pos + s;
     unsigned tries = 0;

@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0022bec0 @ 0x0022bec0
 extern float DAT_00427598;
-struct Vec { float x,y,z,w; void FUN_0022d180(); };
-struct Basis { Vec a,b,c; void FUN_0022bec0(Vec* u, Vec* v); };
-void Basis::FUN_0022bec0(Vec* u, Vec* v) {
+struct Vec_22bec0 { float x,y,z,w; void FUN_0022d180(); };
+struct Basis_22bec0 { Vec_22bec0 a,b,c; void FUN_0022bec0(Vec_22bec0* u, Vec_22bec0* v); };
+void Basis_22bec0::FUN_0022bec0(Vec_22bec0* u, Vec_22bec0* v) {
  float cy=u->x*v->z-u->z*v->x;
  float cz=u->y*v->x-u->x*v->y;
  float cx=u->z*v->y-u->y*v->z;

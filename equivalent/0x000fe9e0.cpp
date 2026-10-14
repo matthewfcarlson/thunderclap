@@ -7,10 +7,10 @@ struct CAgent {
 };
 
 struct CHand2HandAgent : CAgent {
-    CHand2HandAgent *FUN_000ff180(struct AgentHost *host);
+    CHand2HandAgent *FUN_000ff180(struct AgentHost_fe9e0 *host);
 };
 
-struct AgentHost {
+struct AgentHost_fe9e0 {
     CAgent *FUN_000fdd30(const void *type);
 };
 
@@ -19,7 +19,7 @@ extern char DAT_004a1b84;
 int __cdecl FUN_00266da0(int v);
 void *__cdecl FUN_0008d690(unsigned int size);
 
-void __cdecl FUN_000fe9e0(AgentHost *host, CAgent **slot)
+void __cdecl FUN_000fe9e0(AgentHost_fe9e0 *host, CAgent **slot)
 {
     CAgent *found = host->FUN_000fdd30(&DAT_004a1b84);
     if (found) {

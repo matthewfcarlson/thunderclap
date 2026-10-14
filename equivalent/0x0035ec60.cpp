@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0035ec60 @ 0x0035ec60
-typedef unsigned __int64 Key;
-extern Key __cdecl FUN_0027b020(const char*);
+typedef unsigned __int64 Key_35ec60;
+extern Key_35ec60 __cdecl FUN_0027b020(const char*);
 
-extern Key DAT_004e25a0;
-extern Key DAT_004e25a8;
-extern Key DAT_004e25b0;
-extern Key DAT_004e25b8;
-extern Key DAT_004e25c0;
-extern Key DAT_004e25c8;
+extern Key_35ec60 DAT_004e25a0;
+extern Key_35ec60 DAT_004e25a8;
+extern Key_35ec60 DAT_004e25b0;
+extern Key_35ec60 DAT_004e25b8;
+extern Key_35ec60 DAT_004e25c0;
+extern Key_35ec60 DAT_004e25c8;
 
 void FUN_0035ec60()
 {

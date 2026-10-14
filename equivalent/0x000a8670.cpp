@@ -2,13 +2,13 @@
 // FUN_000a8670 @ 0x000a8670
 struct Matrix;
 
-struct Vec3 {
+struct Vec3_a8670 {
     float x, y, z;
-    char FUN_0022d2b0(const Vec3 *other, float eps) const;
+    char FUN_0022d2b0(const Vec3_a8670 *other, float eps) const;
     void FUN_0022d210(const Matrix *m);
 };
 
-class Curve {
+class Curve_a8670 {
 public:
     virtual void v0();
     virtual void v1();
@@ -25,9 +25,9 @@ public:
     virtual void v12(float t);
 };
 
-struct Follower {
+struct Follower_a8670 {
     char pad0[0xd0];
-    Vec3 position;
+    Vec3_a8670 position;
 };
 
 struct Matrix {
@@ -36,14 +36,14 @@ struct Matrix {
 
 struct PathSampler {
     char pad0[0x170];
-    Curve *curve;
-    Follower *follower;
+    Curve_a8670 *curve;
+    Follower_a8670 *follower;
     char pad178[8];
     Matrix transform;
-    int FUN_000a8670(Vec3 *out, int count);
+    int FUN_000a8670(Vec3_a8670 *out, int count);
 };
 
-int PathSampler::FUN_000a8670(Vec3 *out, int count)
+int PathSampler::FUN_000a8670(Vec3_a8670 *out, int count)
 {
     if (curve == 0)
         return -1;
@@ -51,8 +51,8 @@ int PathSampler::FUN_000a8670(Vec3 *out, int count)
     float length = curve->v11();
     int written = 0;
     int lastIndex = 0;
-    Vec3 last;
-    Vec3 pos;
+    Vec3_a8670 last;
+    Vec3_a8670 pos;
 
     if (count > 0) {
         float denom = (float)(count - 1);

@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 24/24)
 // FUN_00067230 @ 0x00067230
-struct Vec3 {
+struct Vec3_67230 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Transform {
-    void FUN_00059a50(Vec3 *out);
+struct Transform_67230 {
+    void FUN_00059a50(Vec3_67230 *out);
 };
 
-struct Target {
+struct Target_67230 {
     char pad0[0x10];
-    Transform *transform;
+    Transform_67230 *transform;
     char pad1[0x1b0c - 0x14];
     float score;
     char pad2[0x1ba4 - 0x1b10];
@@ -19,71 +19,71 @@ struct Target {
     int FUN_00035910();
 };
 
-struct TargetTable {
+struct TargetTable_67230 {
     char pad0[0x124];
-    Target *player;
-    Target *FUN_00024280(int a, int b);
+    Target_67230 *player;
+    Target_67230 *FUN_00024280(int a, int b);
 };
 
 struct World {
     char pad0[0x20];
-    TargetTable *targets;
+    TargetTable_67230 *targets;
 };
 
 extern World *DAT_004dd700;
 
-struct Key {
+struct Key_67230 {
     int a, b;
 };
 
-struct TreeNode {
+struct TreeNode_67230 {
     char pad0[0x18];
     int keyA;
     int keyB;
 };
 
-struct Entry {
+struct Entry_67230 {
     float dist;
     int unused;
     int keyA;
     int keyB;
 };
 
-struct Tree {
+struct Tree_67230 {
     int link[6];
     void FUN_00230f50(void (__cdecl *cb)(void *, void *), void *user);
-    void FUN_00066a90(int *out, Entry *entry);
-    TreeNode *FUN_00230ea0();
-    TreeNode *FUN_00230800(TreeNode *node);
+    void FUN_00066a90(int *out, Entry_67230 *entry);
+    TreeNode_67230 *FUN_00230ea0();
+    TreeNode_67230 *FUN_00230800(TreeNode_67230 *node);
 };
 
 void __cdecl FUN_00066930(void *node, void *user);
 
-class Tracker {
+class Tracker_67230 {
 public:
-    bool FUN_00067230(Target *self);
+    bool FUN_00067230(Target_67230 *self);
 
     char pad0[0x154];
-    Vec3 origin;
+    Vec3_67230 origin;
     char pad2[0x170 - 0x160];
-    Key keys[40];
+    Key_67230 keys[40];
     int count;
     char pad4[0x2c4 - 0x2b4];
     int bonus;
     char pad5[0x2d0 - 0x2c8];
     int limit;
     char pad6[0x310 - 0x2d4];
-    Tree tree;
+    Tree_67230 tree;
 };
 
-bool Tracker::FUN_00067230(Target *self)
+bool Tracker_67230::FUN_00067230(Target_67230 *self)
 {
     struct Frame {
         int outPair[2];
-        Vec3 d;
-        Vec3 pos;
-        Vec3 player;
-        Entry entry;
+        Vec3_67230 d;
+        Vec3_67230 pos;
+        Vec3_67230 player;
+        Entry_67230 entry;
     } f;
     int n = 0;
     int nearCount = 0;
@@ -94,7 +94,7 @@ bool Tracker::FUN_00067230(Target *self)
     tree.FUN_00230f50(FUN_00066930, &tree);
     DAT_004dd700->targets->player->transform->FUN_00059a50(&f.player);
     for (i = 0; i < count; i++) {
-        Target *t = DAT_004dd700->targets->FUN_00024280(keys[i].a, keys[i].b);
+        Target_67230 *t = DAT_004dd700->targets->FUN_00024280(keys[i].a, keys[i].b);
         t->transform->FUN_00059a50(&f.pos);
         if (!(t->score < 0.0f)) {
             f.d.x = f.pos.x - origin.x;
@@ -116,11 +116,11 @@ bool Tracker::FUN_00067230(Target *self)
     }
     if (tree.link[5] < limit)
         return false;
-    TreeNode *node = tree.FUN_00230ea0();
+    TreeNode_67230 *node = tree.FUN_00230ea0();
     if (node == 0)
         return false;
     do {
-        Target *t = DAT_004dd700->targets->FUN_00024280(node->keyA, node->keyB);
+        Target_67230 *t = DAT_004dd700->targets->FUN_00024280(node->keyA, node->keyB);
         if (t != 0) {
             if (n < bonus + nearCount) {
                 n++;

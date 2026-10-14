@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 10/10)
 // FUN_00231590 @ 0x00231590
-struct Entry {
+struct Entry_231590 {
     unsigned int first;
     unsigned int second;
 };
 
-struct Table;
+struct Table_231590;
 
-struct Probe {
-    Table *table;           // 0x00
+struct Probe_231590 {
+    Table_231590 *table;           // 0x00
     int pad04;
     unsigned int first;     // 0x08
     unsigned int second;    // 0x0c
@@ -18,22 +18,22 @@ struct Probe {
     void *FUN_00231370();
 };
 
-struct Table {
+struct Table_231590 {
     unsigned int capacity;  // 0x00
     unsigned int count;     // 0x04
     unsigned int used;      // 0x08
     char pad0c[8];
     unsigned int maxLoad;   // 0x14
     void **slots;           // 0x18
-    Entry *entries;         // 0x1c
+    Entry_231590 *entries;         // 0x1c
     char sentinel[4];       // 0x20
     void FUN_002310a0(unsigned int newCapacity);
     void FUN_00231590(unsigned int first, unsigned int second, void *item);
 };
 
-void Table::FUN_00231590(unsigned int first, unsigned int second, void *item)
+void Table_231590::FUN_00231590(unsigned int first, unsigned int second, void *item)
 {
-    Probe it;
+    Probe_231590 it;
     it.table = this;
     it.first = 0;
     it.second = 0;

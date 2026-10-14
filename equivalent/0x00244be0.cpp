@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 100 inputs, branch coverage 28/32, incomplete)
 // FUN_00244be0 @ 0x00244be0
-struct Key2 {
+struct Key2_244be0 {
     unsigned int lo, hi;
 };
 
@@ -8,12 +8,12 @@ struct Node {
     Node *left;                // 0x00
     Node *right;               // 0x04
     char pad08[0x14 - 8];
-    Key2 key;                  // 0x14
+    Key2_244be0 key;                  // 0x14
 };
 
-struct Info {
+struct Info_244be0 {
     char pad0[0x30];
-    Key2 key;                  // 0x30
+    Key2_244be0 key;                  // 0x30
 };
 
 class Object {
@@ -26,21 +26,21 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual Info *v8();
+    virtual Info_244be0 *v8();
     Node node;                 // 0x04
 };
 
-struct Tree {
+struct Tree_244be0 {
     Node *first;               // 0x00
     Node sentinel;             // 0x04
 };
 
-struct Query {
-    Key2 primary;              // 0x00
-    Key2 secondary;            // 0x08
+struct Query_244be0 {
+    Key2_244be0 primary;              // 0x00
+    Key2_244be0 secondary;            // 0x08
 };
 
-static int Compare(const Key2 &a, const Key2 &b)
+static int Compare(const Key2_244be0 &a, const Key2_244be0 &b)
 {
     if (a.hi < b.hi || (a.hi == b.hi && a.lo < b.lo))
         return -1;
@@ -49,7 +49,7 @@ static int Compare(const Key2 &a, const Key2 &b)
     return 0;
 }
 
-Object *__cdecl FUN_00244be0(Tree *tree, Query *query)
+Object *__cdecl FUN_00244be0(Tree_244be0 *tree, Query_244be0 *query)
 {
     Node *end = &tree->sentinel;
     Node *node = tree->first;

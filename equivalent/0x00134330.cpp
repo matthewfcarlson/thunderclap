@@ -1,46 +1,46 @@
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 18/18)
 // hulkfight::motion::FlyingBrakeAction::vfunc_5 @ 0x00134330
-struct V3 {
+struct V3_134330 {
     float x, y, z;
     float FUN_0022d110();
-    bool FUN_0022d2b0(const V3* other, float epsilon);
-    void FUN_0022be40(const V3* p);
+    bool FUN_0022d2b0(const V3_134330* other, float epsilon);
+    void FUN_0022be40(const V3_134330* p);
 };
 
-struct Tuning {
+struct Tuning_134330 {
     char pad0[0x34];
     float scale;                // 0x34
 };
 
-struct Stats {
+struct Stats_134330 {
     char pad0[0x11c];
-    Tuning* tuning;             // 0x11c
+    Tuning_134330* tuning;             // 0x11c
     char pad120[0x140 - 0x120];
     int state;                  // 0x140
     char pad144[0x1ae0 - 0x144];
-    V3 aimB;                    // 0x1ae0
+    V3_134330 aimB;                    // 0x1ae0
     char pad1aec[0x1af8 - 0x1aec];
-    V3 aimA;                    // 0x1af8
+    V3_134330 aimA;                    // 0x1af8
     void FUN_000359c0(int v);
-    void FUN_00035550(V3* out);
-    void FUN_000357a0(V3* v);
+    void FUN_00035550(V3_134330* out);
+    void FUN_000357a0(V3_134330* v);
 };
 
-struct Pool {
-    Stats* FUN_00059a30();
-    bool FUN_00059a50(V3* out);
+struct Pool_134330 {
+    Stats_134330* FUN_00059a30();
+    bool FUN_00059a50(V3_134330* out);
 };
 
-struct Owner {
-    Pool* FUN_000592a0();
+struct Owner_134330 {
+    Pool_134330* FUN_000592a0();
 };
 
-struct Mover {
+struct Mover_134330 {
     char pad0[0x18];
-    V3 pos;                     // 0x18
+    V3_134330 pos;                     // 0x18
 };
 
-struct Limits {
+struct Limits_134330 {
     char pad0[0x18];
     float f18;
     float f1c;
@@ -58,11 +58,11 @@ public:
     virtual void vfunc_4();
     virtual char vfunc_5(int skip, float dt);
     char pad04[0x18];
-    Limits* limits;             // 0x1c
-    Owner* owner;               // 0x20
-    Mover* mover;               // 0x24
-    V3 vel;                     // 0x28
-    V3 acc;                     // 0x34
+    Limits_134330* limits;             // 0x1c
+    Owner_134330* owner;               // 0x20
+    Mover_134330* mover;               // 0x24
+    V3_134330 vel;                     // 0x28
+    V3_134330 acc;                     // 0x34
 };
 
 char FlyingBrakeAction::vfunc_5(int skip, float dt)
@@ -72,19 +72,19 @@ char FlyingBrakeAction::vfunc_5(int skip, float dt)
     if (mover == 0)
         return 0;
 
-    Pool* pool = owner->FUN_000592a0();
-    Stats* stats = pool->FUN_00059a30();
+    Pool_134330* pool = owner->FUN_000592a0();
+    Stats_134330* stats = pool->FUN_00059a30();
     stats->FUN_000359c0(3);
 
-    V3 p;
+    V3_134330 p;
     p.x = 0.0f;
     p.y = 0.0f;
     p.z = 0.0f;
     pool->FUN_00059a50(&p);
 
     if (stats->state == 4) {
-        V3 v = stats->aimA;
-        V3 zero;
+        V3_134330 v = stats->aimA;
+        V3_134330 zero;
         zero.x = 0.0f;
         zero.y = 0.0f;
         zero.z = 0.0f;
@@ -117,7 +117,7 @@ char FlyingBrakeAction::vfunc_5(int skip, float dt)
     vel.y = dt * acc.y + vel.y;
     vel.z = dt * acc.z + vel.z;
 
-    Limits* lim = limits;
+    Limits_134330* lim = limits;
     float m = lim->f20;
     if (!(m < 0.0f)) {
         float negm = -m;

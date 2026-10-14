@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000b9230 @ 0x000b9230
-class Screen {
+class Screen_b9230 {
   public:
     virtual void v0();
     virtual void v1();
@@ -29,7 +29,7 @@ class Screen {
     virtual void v24(int mode);
     virtual int v25();
 };
-class Layer {
+class Layer_b9230 {
   public:
     virtual void v0();
     virtual void v1();
@@ -49,7 +49,7 @@ class Layer {
     virtual void v15(int a);
     virtual void v16(int a);
 };
-class Viewport {
+class Viewport_b9230 {
   public:
     virtual void v0();
     virtual void v1();
@@ -69,7 +69,7 @@ class Viewport {
     virtual void v15();
     virtual float v16();
 };
-class Widget {
+class Widget_b9230 {
   public:
     virtual void v0();
     virtual void v1();
@@ -82,15 +82,15 @@ class Widget {
     virtual void v8(int a, int b);
 };
 struct Canvas {
-    Layer* layer;
+    Layer_b9230* layer;
     void FUN_00293d40(float x, float y, float z);
     void FUN_00293da0(float x, float y, float z);
 };
-extern Screen* DAT_0052c2a8;
+extern Screen_b9230* DAT_0052c2a8;
 extern Canvas* DAT_0052c2ac;
-extern Viewport* DAT_0052c2a4;
+extern Viewport_b9230* DAT_0052c2a4;
 
-void __cdecl FUN_000b9230(Widget* widget) {
+void __cdecl FUN_000b9230(Widget_b9230* widget) {
     int saved = DAT_0052c2a8->v25();
     DAT_0052c2a8->v24(1);
     DAT_0052c2a8->v12(6);

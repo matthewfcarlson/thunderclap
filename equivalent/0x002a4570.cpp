@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 8 inputs, branch coverage 6/6)
 // pure3d::DrawableContainer::vfunc_12 @ 0x002a4570
-struct V3 { float x, y, z; };
+struct V3_2a4570 { float x, y, z; };
 
-struct Sphere { float x, y, z, r; };
+struct Sphere_2a4570 { float x, y, z, r; };
 
-struct Box {
-    V3 min;
-    V3 max;
-    void FUN_000a87f0(V3* p);
-    Sphere* FUN_000a8890(Sphere* out);
+struct Box_2a4570 {
+    V3_2a4570 min;
+    V3_2a4570 max;
+    void FUN_000a87f0(V3_2a4570* p);
+    Sphere_2a4570* FUN_000a8890(Sphere_2a4570* out);
 };
 
-union Temp {
-    Box box;
-    Sphere sphere;
+union Temp_2a4570 {
+    Box_2a4570 box;
+    Sphere_2a4570 sphere;
 };
 
-class Child {
+class Child_2a4570 {
 public:
     virtual void v0();
     virtual void v1();
@@ -30,29 +30,29 @@ public:
     virtual void v9();
     virtual void v10();
     char pad[0x14 - 4];
-    Box box;
+    Box_2a4570 box;
 };
 
-struct Slot {
-    Child* child;
+struct Slot_2a4570 {
+    Child_2a4570* child;
     char pad[12];
 };
 
-class Container {
+class Container_2a4570 {
 public:
     void run();
     char p0[0x14];
-    Box box;
-    Sphere sphere;
+    Box_2a4570 box;
+    Sphere_2a4570 sphere;
     char p1[0x48 - 0x3c];
-    Slot* begin;
-    Slot* end;
+    Slot_2a4570* begin;
+    Slot_2a4570* end;
 };
 
-void Container::run()
+void Container_2a4570::run()
 {
     unsigned int count = (unsigned int)(end - begin);
-    Temp t;
+    Temp_2a4570 t;
     if (count == 0) {
         box.min.x = 0;
         box.min.y = 0;
@@ -61,18 +61,18 @@ void Container::run()
         box.max.y = 1.0f;
         box.max.z = 1.0f;
     } else {
-        Child* first = begin[0].child;
+        Child_2a4570* first = begin[0].child;
         first->v10();
         t.box = first->box;
         box = t.box;
         for (unsigned int i = 1; i < count; i++) {
-            Child* c = begin[i].child;
+            Child_2a4570* c = begin[i].child;
             c->v10();
             t.box = c->box;
             box.FUN_000a87f0(&t.box.min);
             box.FUN_000a87f0(&t.box.max);
         }
     }
-    Sphere* s = box.FUN_000a8890(&t.sphere);
+    Sphere_2a4570* s = box.FUN_000a8890(&t.sphere);
     sphere = *s;
 }

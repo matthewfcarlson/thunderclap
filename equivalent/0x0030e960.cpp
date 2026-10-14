@@ -11,22 +11,22 @@ public:
     void FUN_0030e960();
 };
 
-union FloatBits {
+union FloatBits_30e960 {
     float f;
     unsigned int u;
 };
 
 void CollisionWall::FUN_0030e960()
 {
-    FloatBits a;
+    FloatBits_30e960 a;
     a.f = dir[0];
     a.u &= 0x7fffffff;
     inv[0] = (1.0f - a.f < 1e-5f) ? 0.0f : 5e8f;
-    FloatBits b;
+    FloatBits_30e960 b;
     b.f = dir[1];
     b.u &= 0x7fffffff;
     inv[1] = (1.0f - b.f < 1e-5f) ? 0.0f : 5e8f;
-    FloatBits c;
+    FloatBits_30e960 c;
     c.f = dir[2];
     c.u &= 0x7fffffff;
     inv[2] = (1.0f - c.f < 1e-5f) ? 0.0f : 5e8f;

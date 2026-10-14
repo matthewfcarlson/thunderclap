@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 22 inputs, branch coverage 8/8)
 // FUN_002e11e0 @ 0x002e11e0
-struct V3 {
+struct V3_2e11e0 {
     float x, y, z;
 };
 
@@ -15,15 +15,15 @@ struct DeltaList {
     Delta* end;
 };
 
-struct VertexBuffer {
+struct VertexBuffer_2e11e0 {
     char pad0[0x10];
-    V3* verts;
+    V3_2e11e0* verts;
 };
 
 class Morph {
 public:
     char pad0[0x5c];
-    VertexBuffer* buffer;
+    VertexBuffer_2e11e0* buffer;
 
     void FUN_002e11e0(DeltaList* list, float weight);
 };
@@ -37,7 +37,7 @@ void Morph::FUN_002e11e0(DeltaList* list, float weight)
         float x = weight * d->dx;
         float y = weight * d->dy;
         float z = weight * d->dz;
-        V3* v = &buffer->verts[d->vertex];
+        V3_2e11e0* v = &buffer->verts[d->vertex];
         v->x += x;
         v->y += y;
         v->z += z;

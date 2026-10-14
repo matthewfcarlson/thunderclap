@@ -2,45 +2,45 @@
 // hulkfight::motion::GroundSlideAction::vfunc_3 @ 0x00151220
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_151220 {
     float x, y, z;
     float FUN_0022d110();
 };
-struct Name {
+struct Name_151220 {
     unsigned int lo, hi;
     void FUN_0027b040(const char* s);
 };
-struct Xform {
+struct Xform_151220 {
     char data[0x54];
     void FUN_00221d20(float a);
 };
 void* FUN_00263ea0(unsigned int size);
-float FUN_00224f10(V3* v);
+float FUN_00224f10(V3_151220* v);
 
 class JointDriver {
 public:
     virtual void AddRef();
     char pad4[4];
-    Name name;
+    Name_151220 name;
     char pad10[8];
-    Xform xform;
+    Xform_151220 xform;
     JointDriver* FUN_002248f0(int a);
 };
 
-struct Timing {
-    bool FUN_000356c0(V3* out);
+struct Timing_151220 {
+    bool FUN_000356c0(V3_151220* out);
 };
 struct Skeleton {
     void FUN_00222890(JointDriver* d, float a, float b, float c, float e, float f, float g);
 };
-struct Clock {
-    Timing* FUN_00059a30();
+struct Clock_151220 {
+    Timing_151220* FUN_00059a30();
     Skeleton* FUN_00059a40();
 };
-struct Target {
-    Clock* FUN_000592a0();
+struct Target_151220 {
+    Clock_151220* FUN_000592a0();
 };
-struct Config {
+struct Config_151220 {
     char pad0[0x14];
     float angleOffset;
     char pad18[0x20 - 0x18];
@@ -59,27 +59,27 @@ public:
     virtual void f2();
     virtual bool vfunc_3(int a, int b);
     char pad04[0x1c - 4];
-    Config* cfg;
-    Target* target;
+    Config_151220* cfg;
+    Target_151220* target;
     JointDriver* driver;
     float speed;
 };
 
 bool GroundSlideAction::vfunc_3(int a, int b)
 {
-    Clock* clock = target->FUN_000592a0();
-    Timing* timing = clock->FUN_00059a30();
+    Clock_151220* clock = target->FUN_000592a0();
+    Timing_151220* timing = clock->FUN_00059a30();
     Skeleton* skel = clock->FUN_00059a40();
     if (skel == 0)
         return false;
-    V3 dir;
+    V3_151220 dir;
     dir.x = 0.0f; dir.y = 0.0f; dir.z = 0.0f;
     if (!timing->FUN_000356c0(&dir))
         return false;
     speed = (float)sqrt(dir.z * dir.z + dir.x * dir.x + dir.y * dir.y);
     dir.y = 0.0f;
     dir.FUN_0022d110();
-    Config* c = cfg;
+    Config_151220* c = cfg;
     if (c->minSpeed > 0.0f && c->minSpeed > speed)
         speed = c->minSpeed;
     float lim24 = c->f24;

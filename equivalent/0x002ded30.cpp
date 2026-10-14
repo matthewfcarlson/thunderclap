@@ -6,7 +6,7 @@ struct Image {
     int height;
 };
 
-struct Surface {
+struct Surface_2ded30 {
     int width;
     int height;
     char pad08[4];
@@ -17,9 +17,9 @@ struct Surface {
     int cursor;
 };
 
-void __stdcall FUN_002de5a0(Image *img, Surface *s);
-void __stdcall FUN_002de990(Image *img, Surface *s);
-void __stdcall FUN_002de9c0(Image *img, Surface *s);
+void __stdcall FUN_002de5a0(Image *img, Surface_2ded30 *s);
+void __stdcall FUN_002de990(Image *img, Surface_2ded30 *s);
+void __stdcall FUN_002de9c0(Image *img, Surface_2ded30 *s);
 
 class ImageConverter {
 public:
@@ -29,12 +29,12 @@ public:
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual void vfunc_6(Image *img, Surface *s, int row);
+    virtual void vfunc_6(Image *img, Surface_2ded30 *s, int row);
     virtual void v7();
     virtual void v8();
 };
 
-void ImageConverter::vfunc_6(Image *img, Surface *s, int row)
+void ImageConverter::vfunc_6(Image *img, Surface_2ded30 *s, int row)
 {
     if (img->width != s->width || img->height != s->height || row >= s->rows)
         return;

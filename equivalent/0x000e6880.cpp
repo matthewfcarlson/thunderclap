@@ -3,7 +3,7 @@
 // FEThingsBase::vfunc_29 @ 0x000e6880: selects the thing whose name matches, then refreshes the screen
 extern "C" int __cdecl strcmp(const char *, const char *);
 
-class Thing {
+class Thing_e6880 {
 public:
     virtual void v0();
     virtual void v1();
@@ -68,12 +68,12 @@ public:
     virtual void v47();
     virtual void Refresh(int mode);
     char pad04[0x20c - 4];
-    Thing *things[256];
+    Thing_e6880 *things[256];
     char pad60c[0x1830 - 0x60c];
     int f1830;
     float f1834;
     int f1838;
-    Thing *selected;
+    Thing_e6880 *selected;
 };
 
 void FEThingsBase::vfunc_29(const char *name)

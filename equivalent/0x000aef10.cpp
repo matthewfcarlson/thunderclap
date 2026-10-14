@@ -76,24 +76,24 @@ public:
     Closure1(const char* name, void (T::*f)(bool), T* t) throw() : Method1<T, R, A>(name, f) { target = t; }
 };
 
-class DeviceManager {
+class DeviceManager_aef10 {
 public:
-    DeviceManager(int flags) throw();
+    DeviceManager_aef10(int flags) throw();
     char pad[0x170];
     virtual void vf0();
     void FUN_000adc00(int);
 };
-class Registry {
+class Registry_aef10 {
 public:
     void FUN_001d3b70(const char* name, Function* fn);
 };
-Registry* __cdecl FUN_001d4c90();
+Registry_aef10* __cdecl FUN_001d4c90();
 
 class CControllerManager {
 public:
     CControllerManager();
     virtual void vf0();
-    DeviceManager* devices;
+    DeviceManager_aef10* devices;
     int field8;
     int fieldC;
     int field10;
@@ -107,7 +107,7 @@ public:
 
 CControllerManager::CControllerManager() {
     field8 = 1;
-    devices = new DeviceManager(0);
+    devices = new DeviceManager_aef10(0);
     devices->vf0();
     devices->FUN_000adc00(field8);
     fieldC = 0;
@@ -119,7 +119,7 @@ CControllerManager::CControllerManager() {
     FUN_000af480();
     for (int i = 2; i < 9; i++)
         flags[i] = 0;
-    Registry* reg = FUN_001d4c90();
+    Registry_aef10* reg = FUN_001d4c90();
     reg->FUN_001d3b70("ctrl_IsButtonPressed",
         new Closure0<CControllerManager, bool>("ctrl_IsButtonPressed", &CControllerManager::FUN_000ae9f0, this));
     reg->FUN_001d3b70("ctrl_SetButtonLock",

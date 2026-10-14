@@ -1,20 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 9/10, incomplete)
 // FUN_001fbb80 @ 0x001fbb80
-struct V3 { float x, y, z; };
+struct V3_1fbb80 { float x, y, z; };
 
 float __cdecl FUN_0004af40(float lo, float hi, float v);
 
-class Bounds {
+class Bounds_1fbb80 {
 public:
     char pad0[0xb0];
-    V3 min;
-    V3 max;
+    V3_1fbb80 min;
+    V3_1fbb80 max;
     float angle;
     unsigned char sideFlags;
-    void FUN_001fbb80(V3 *a, V3 *b, float rawAngle);
+    void FUN_001fbb80(V3_1fbb80 *a, V3_1fbb80 *b, float rawAngle);
 };
 
-void Bounds::FUN_001fbb80(V3 *a, V3 *b, float rawAngle)
+void Bounds_1fbb80::FUN_001fbb80(V3_1fbb80 *a, V3_1fbb80 *b, float rawAngle)
 {
     float r = FUN_0004af40(0.0f, 6.2831855f, rawAngle);
     float ar = r < 0.0f ? -r : r;
@@ -31,8 +31,8 @@ void Bounds::FUN_001fbb80(V3 *a, V3 *b, float rawAngle)
             v = r;
     }
 
-    V3 lo = *a;
-    V3 hi = *b;
+    V3_1fbb80 lo = *a;
+    V3_1fbb80 hi = *b;
     sideFlags = 0xff;
     float minX, minY, minZ;
     if (a->x > b->x) {

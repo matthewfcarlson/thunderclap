@@ -1,28 +1,28 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001b8e40 @ 0x001b8e40
-struct V3 { float x, y, z; };
-struct Id64 {
+struct V3_1b8e40 { float x, y, z; };
+struct Id64_1b8e40 {
     unsigned int lo;
     unsigned int hi;
     void FUN_0027af50();
-    Id64* FUN_0027b0e0(const char* name);
+    Id64_1b8e40* FUN_0027b0e0(const char* name);
 };
 struct Matrix {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022be40(const V3* v);
+    void FUN_0022be40(const V3_1b8e40* v);
 };
 struct Spawned;
-struct Spawner {
-    Spawned* FUN_00283a40(Id64* id, Matrix* mat, float a, float b);
+struct Spawner_1b8e40 {
+    Spawned* FUN_00283a40(Id64_1b8e40* id, Matrix* mat, float a, float b);
 };
-Spawner* FUN_0027f250();
+Spawner_1b8e40* FUN_0027f250();
 
 Spawned* __stdcall FUN_001b8e40(const char* name, float x, float y, float z) {
-    Spawner* spawner = FUN_0027f250();
+    Spawner_1b8e40* spawner = FUN_0027f250();
     union {
-        V3 pos;
-        Id64 id;
+        V3_1b8e40 pos;
+        Id64_1b8e40 id;
     } u;
     Matrix mat;
     mat.FUN_0022b980();

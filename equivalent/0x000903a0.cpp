@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_000903a0 @ 0x000903a0
-struct Slot {
+struct Slot_903a0 {
     int threshold;
     char pad[0x20];
     char name[0x20];
 };
-struct Table {
+struct Table_903a0 {
     char pad[0xc8c];
-    Slot slot[16];
+    Slot_903a0 slot[16];
     const char* Find(int value);
 };
-const char* Table::Find(int value) {
+const char* Table_903a0::Find(int value) {
     int found = -1;
     for (int i = 0; i < 16; i++) {
         if (slot[i].name[0] && value >= slot[i].threshold)

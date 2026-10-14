@@ -1,42 +1,42 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/10, incomplete)
 // FUN_00084920 @ 0x00084920
-struct V3 {
+struct V3_84920 {
     float x, y, z;
     void FUN_0022d180();
 };
 
-union FloatBits {
+union FloatBits_84920 {
     float f;
     unsigned int u;
 };
 
-struct Frame {
+struct Frame_84920 {
     float dot;
-    V3 lo;
-    V3 hi;
+    V3_84920 lo;
+    V3_84920 hi;
 };
 
-class Tracker {
+class Tracker_84920 {
 public:
     char pad00[0x10];
     int state;
     char pad14[0x38 - 0x14];
-    V3 a;
-    V3 b;
-    V3 c;
+    V3_84920 a;
+    V3_84920 b;
+    V3_84920 c;
     char pad5c[0xbc - 0x5c];
     int fbc;
-    void FUN_00083e60(V3 d1, V3 d2, V3 p);
-    void FUN_00084920(V3 na, V3 nb, V3 nc);
+    void FUN_00083e60(V3_84920 d1, V3_84920 d2, V3_84920 p);
+    void FUN_00084920(V3_84920 na, V3_84920 nb, V3_84920 nc);
 };
 
-void Tracker::FUN_00084920(V3 na, V3 nb, V3 nc)
+void Tracker_84920::FUN_00084920(V3_84920 na, V3_84920 nb, V3_84920 nc)
 {
-    Frame f;
-    FloatBits t;
+    Frame_84920 f;
+    FloatBits_84920 t;
     if (state == 3) {
-        V3& thisd = f.hi;
-        V3& argd = f.lo;
+        V3_84920& thisd = f.hi;
+        V3_84920& argd = f.lo;
         thisd.x = c.x - b.x;
         thisd.y = c.y - b.y;
         thisd.z = c.z - b.z;
@@ -54,8 +54,8 @@ void Tracker::FUN_00084920(V3 na, V3 nb, V3 nc)
             state = 5;
         }
     } else if (state == 4) {
-        V3& thisd = f.lo;
-        V3& argd = f.hi;
+        V3_84920& thisd = f.lo;
+        V3_84920& argd = f.hi;
         thisd.x = c.x - b.x;
         thisd.y = c.y - b.y;
         thisd.z = c.z - b.z;
@@ -73,8 +73,8 @@ void Tracker::FUN_00084920(V3 na, V3 nb, V3 nc)
             state = 6;
         }
     } else if (state == 13) {
-        V3& thisd = f.lo;
-        V3& argd = f.hi;
+        V3_84920& thisd = f.lo;
+        V3_84920& argd = f.hi;
         thisd.x = c.x - b.x;
         thisd.y = c.y - b.y;
         thisd.z = c.z - b.z;

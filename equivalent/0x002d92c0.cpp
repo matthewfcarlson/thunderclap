@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2800 inputs, branch coverage 26/26)
 // FUN_002d92c0 @ 0x002d92c0
-struct RowInfo {
+struct RowInfo_2d92c0 {
  unsigned int width;
  unsigned int rowBytes;
  unsigned char type;
@@ -8,7 +8,7 @@ struct RowInfo {
  unsigned char channels;
  unsigned char pixelDepth;
 };
-void __cdecl FUN_002d92c0(RowInfo* info, unsigned char* row) {
+void __cdecl FUN_002d92c0(RowInfo_2d92c0* info, unsigned char* row) {
  unsigned int depth = info->bitDepth;
  if (depth >= 8) return;
  unsigned int width = info->width;

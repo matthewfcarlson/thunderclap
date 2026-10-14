@@ -5,7 +5,7 @@ struct Stream {
  int FUN_00263fc0();
  void FUN_00264510(int);
 };
-struct Info { char pad0[8]; int position; char pad1[4]; int width; int height; char pad2[20]; int paletteCount; };
+struct Info_2af670 { char pad0[8]; int position; char pad1[4]; int width; int height; char pad2[20]; int paletteCount; };
 struct Image {
  virtual void init(int,int,int,int,void*);
  virtual void slot1();
@@ -16,7 +16,7 @@ struct Image {
 extern void* __cdecl FUN_00266e00(int,int);
 extern void __cdecl FUN_00267090(void*);
 // equiv-conv: FUN_002af670 esi ebx stack
-int __cdecl FUN_002af670(Info* info, Stream* stream, Image* image) {
+int __cdecl FUN_002af670(Info_2af670* info, Stream* stream, Image* image) {
  unsigned int palette[256] = {0};
  int count = info->paletteCount;
  if (!count) count = 256;

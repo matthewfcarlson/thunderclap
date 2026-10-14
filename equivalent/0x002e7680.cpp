@@ -2,7 +2,7 @@
 // FUN_002e7680 @ 0x002e7680
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
 
-struct PngStruct {
+struct PngStruct_2e7680 {
     char pad0[0x68];
     unsigned int transformations;
     char pad6c[0xc0 - 0x6c];
@@ -13,7 +13,7 @@ struct PngStruct {
     unsigned char pixel_depth;
 };
 
-void __cdecl FUN_002e7680(PngStruct *png_ptr, unsigned char *row, int mask)
+void __cdecl FUN_002e7680(PngStruct_2e7680 *png_ptr, unsigned char *row, int mask)
 {
     if (mask == 0xff) {
         unsigned int rowbytes = (png_ptr->pixel_depth * png_ptr->width + 7) >> 3;

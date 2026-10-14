@@ -8,23 +8,23 @@ struct Invincible {
     char FUN_00036170();
 };
 
-struct Body {
+struct Body_1249b0 {
     char pad0[8];
     Invincible *invincible;
     int state;
 };
 
-struct Res {
+struct Res_1249b0 {
     char pad00[0x328];
-    Body *body;
+    Body_1249b0 *body;
 };
 
-struct Resolver {
-    Res *FUN_00059a30();
+struct Resolver_1249b0 {
+    Res_1249b0 *FUN_00059a30();
 };
 
-struct Target {
-    Resolver *FUN_000592a0();
+struct Target_1249b0 {
+    Resolver_1249b0 *FUN_000592a0();
 };
 
 class TargetInvincibleCondition {
@@ -44,7 +44,7 @@ bool TargetInvincibleCondition::vfunc_6(int a, void *obj, int c) {
     if (!FUN_00344e74(obj, 0, DAT_00494b44, DAT_00494b60, 0)) {
         return false;
     }
-    Body *body = ((Target *)obj)->FUN_000592a0()->FUN_00059a30()->body;
+    Body_1249b0 *body = ((Target_1249b0 *)obj)->FUN_000592a0()->FUN_00059a30()->body;
     if (body == 0) {
         return false;
     }

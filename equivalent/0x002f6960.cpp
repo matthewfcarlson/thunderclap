@@ -3,16 +3,16 @@
 extern float DAT_004d2bc8;
 extern float DAT_003f32e0;
 
-struct Vec3 {
+struct Vec3_2f6960 {
     float x, y, z;
 };
 
-class Part;
+class Part_2f6960;
 struct PartList {
-    Part **parts;
+    Part_2f6960 **parts;
 };
 
-struct Probe {
+struct Probe_2f6960 {
     char pad0[0x1c];
     float a;                 // 0x1c
     char pad20[8];
@@ -21,7 +21,7 @@ struct Probe {
     float c;                 // 0x34
 };
 
-class Part {
+class Part_2f6960 {
 public:
     virtual void p0();
     virtual void p1();
@@ -38,32 +38,32 @@ public:
     virtual void p12();
     virtual void p13();
     virtual void p14();
-    virtual Probe *GetProbe();       // slot 15
+    virtual Probe_2f6960 *GetProbe();       // slot 15
     char pad4[0x10];
     PartList *list;                  // 0x14
 };
 
-struct Rig {
+struct Rig_2f6960 {
     char pad0[0x20];
-    Part *part;                      // 0x20
+    Part_2f6960 *part;                      // 0x20
 };
 
-struct Body {
+struct Body_2f6960 {
     char pad0[0x50];
-    Vec3 force;                      // 0x50
-    Vec3 torque;                     // 0x5c
+    Vec3_2f6960 force;                      // 0x50
+    Vec3_2f6960 torque;                     // 0x5c
     char pad68[4];
     int mode;                        // 0x6c
     char pad70[4];
-    Rig *rig;                        // 0x74
+    Rig_2f6960 *rig;                        // 0x74
 };
 
-struct Contact {
+struct Contact_2f6960 {
     char pad0[0x1c];
     char data1c[1];                  // 0x1c
 };
 
-struct Solver {
+struct Solver_2f6960 {
     void FUN_00011160(int a, char *b);
 };
 
@@ -110,13 +110,13 @@ public:
     virtual void v38(float dt);
     virtual void v39();
     char pad4[0xc];
-    Body *body;                      // 0x10
+    Body_2f6960 *body;                      // 0x10
     char pad14[8];
-    Contact *contact;                // 0x1c
+    Contact_2f6960 *contact;                // 0x1c
     char pad20[0x20];
     int param40;                     // 0x40
     char pad44[0xec];
-    Solver solver;                   // 0x130
+    Solver_2f6960 solver;                   // 0x130
     char pad131[0x1cc - 0x131];
     float accum;                     // 0x1cc
     char pad1d0[0x1ec - 0x1d0];
@@ -148,7 +148,7 @@ void PhysicsObject::vfunc_5(float dt)
         if (v12(dt)) {
             bool ok = (flags & 1) != 0;
             if (ok) {
-                Part *part = body->rig->part;
+                Part_2f6960 *part = body->rig->part;
                 if (partIndex != 0xff) {
                     PartList *list = part->list;
                     if (list != 0)
@@ -156,16 +156,16 @@ void PhysicsObject::vfunc_5(float dt)
                 }
                 ok = (part->GetKind() == 5);
                 if (ok) {
-                    Probe *p = part->GetProbe();
+                    Probe_2f6960 *p = part->GetProbe();
                     ok = absf(p->a) < DAT_004d2bc8 && absf(p->b) < DAT_004d2bc8 && absf(p->c) < DAT_004d2bc8;
                 }
             }
             if (!ok) {
-                Vec3 *f = &body->force;
+                Vec3_2f6960 *f = &body->force;
                 f->z = 0;
                 f->y = 0;
                 f->x = 0;
-                Vec3 *t = &body->torque;
+                Vec3_2f6960 *t = &body->torque;
                 t->z = 0;
                 t->y = 0;
                 t->x = 0;

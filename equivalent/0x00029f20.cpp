@@ -3,35 +3,35 @@
 // Distance between two named pawns (-1 when either is missing or has no position).
 unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 
-struct Vec3 {
+struct Vec3_29f20 {
     float x, y, z;
 };
 
-struct Body {
-    bool FUN_00059a50(Vec3 *out);
+struct Body_29f20 {
+    bool FUN_00059a50(Vec3_29f20 *out);
 };
 
-struct Pawn {
+struct Pawn_29f20 {
     char pad[0x10];
-    Body *body;
+    Body_29f20 *body;
 };
 
-float __cdecl FUN_00025990(Vec3 *a, Vec3 *b);
+float __cdecl FUN_00025990(Vec3_29f20 *a, Vec3_29f20 *b);
 
-struct Group {
-    Pawn *FUN_00024280(unsigned __int64 key);
+struct Group_29f20 {
+    Pawn_29f20 *FUN_00024280(unsigned __int64 key);
     float FUN_00029f20(const char *nameA, const char *nameB);
 };
 
-float Group::FUN_00029f20(const char *nameA, const char *nameB)
+float Group_29f20::FUN_00029f20(const char *nameA, const char *nameB)
 {
     struct Frame {
-        Vec3 b;
-        Vec3 a;
+        Vec3_29f20 b;
+        Vec3_29f20 a;
     } fr;
-    Pawn *pa = FUN_00024280(FUN_002672f0(nameA, 0, 0));
+    Pawn_29f20 *pa = FUN_00024280(FUN_002672f0(nameA, 0, 0));
     if (pa) {
-        Pawn *pb = FUN_00024280(FUN_002672f0(nameB, 0, 0));
+        Pawn_29f20 *pb = FUN_00024280(FUN_002672f0(nameB, 0, 0));
         if (pb && pa->body->FUN_00059a50(&fr.a) && pb->body->FUN_00059a50(&fr.b))
             return FUN_00025990(&fr.a, &fr.b);
     }

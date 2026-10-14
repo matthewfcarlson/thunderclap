@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 171 inputs, branch coverage 65/66, incomplete)
 // pure3d::prop::StateProp::vfunc_6 @ 0x0027e920
-struct V3 {
+struct V3_27e920 {
     float x, y, z;
 };
 struct Mat16 {
@@ -18,11 +18,11 @@ struct SubInfo {
     int f8;
     int fc;
     float f10;
-    V3 a;
-    V3 b;
+    V3_27e920 a;
+    V3_27e920 b;
     char pad2c[4];
 };
-struct State {
+struct State_27e920 {
     char pad0[0x10];
     Seg *seg;
     char pad14[0x2c - 0x14];
@@ -31,10 +31,10 @@ struct State {
 };
 struct StateList {
     char pad0[0x1c];
-    State **states;
+    State_27e920 **states;
 };
 
-struct Pair {
+struct Pair_27e920 {
     int a;
     int b;
 };
@@ -43,20 +43,20 @@ struct Info74 {
     int a;
     int b;
 };
-struct MatSource {
+struct MatSource_27e920 {
     char pad[0x74];
     Info74 *info;
 };
-struct Table {
+struct Table_27e920 {
     char pad[0x3c];
     int *rows;
-    unsigned char FUN_00298960(Pair *p);
+    unsigned char FUN_00298960(Pair_27e920 *p);
 };
 
 struct Sink84 {
     void FUN_00284820(int r);
 };
-class Obj18 {
+class Obj18_27e920 {
   public:
     virtual void v0();
     virtual void v1();
@@ -67,9 +67,9 @@ class Obj18 {
     virtual void v6(float dt, int flag);
 };
 
-struct Entry {
+struct Entry_27e920 {
     char pad0[0x10];
-    MatSource *obj;
+    MatSource_27e920 *obj;
     char pad14[4];
     void FUN_002fc580(float t, int flag);
     Mat16 *FUN_002fc6f0();
@@ -82,7 +82,7 @@ class MatOwner {
     Mat16 *mats;
 };
 
-class Ctl88 : public Obj18 {
+class Ctl88 : public Obj18_27e920 {
   public:
     virtual void v7();
     virtual void v8();
@@ -114,7 +114,7 @@ struct Slot48 {
 };
 
 struct Ctl9cB;
-class Ctl9c : public Obj18 {
+class Ctl9c : public Obj18_27e920 {
   public:
     virtual void v7();
     virtual void v8();
@@ -122,10 +122,10 @@ class Ctl9c : public Obj18 {
     virtual void v10();
     virtual Sink84 *v11();
     char pad[0x44 - 4];
-    Table *table;
+    Table_27e920 *table;
     Slot48 *slot48;
 };
-class Ctl9cB : public Obj18 {
+class Ctl9cB : public Obj18_27e920 {
   public:
     virtual void v7();
     virtual void v8();
@@ -141,18 +141,18 @@ struct ListEntry {
     char pad[3];
 };
 
-struct Frame {
+struct Frame_27e920 {
     float oldT;
     union {
         int cnt;
-        Pair pair;
+        Pair_27e920 pair;
     };
-    State *s;
-    V3 b;
-    V3 a;
+    State_27e920 *s;
+    V3_27e920 b;
+    V3_27e920 a;
 };
 
-union Arg2 {
+union Arg2_27e920 {
     int v;
     char b;
 };
@@ -165,7 +165,7 @@ class StateProp {
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual void v6(float dt, Arg2 a2);
+    virtual void v6(float dt, Arg2_27e920 a2);
     virtual void v7();
     virtual void v8();
     virtual void v9();
@@ -185,8 +185,8 @@ class StateProp {
     char pad8d[0x98 - 0x8d];
     StateList *states;
     Ctl9c *p9c;
-    Entry *pa0;
-    Entry *pa4;
+    Entry_27e920 *pa0;
+    Entry_27e920 *pa4;
     char pada8[0xb4 - 0xa8];
     int entryCount;
     ListEntry entries[1];
@@ -194,21 +194,21 @@ class StateProp {
     void FUN_0027e780(void *obj, int f4);
     void FUN_0027d780();
     void FUN_0027dca0();
-    void FUN_0027cc60(State *s, float a, float b);
-    void FUN_0027dd30(State *s, float a, float b);
-    void FUN_0027db30(Entry *e, int f8, int fc, V3 a, V3 b);
+    void FUN_0027cc60(State_27e920 *s, float a, float b);
+    void FUN_0027dd30(State_27e920 *s, float a, float b);
+    void FUN_0027db30(Entry_27e920 *e, int f8, int fc, V3_27e920 a, V3_27e920 b);
 };
 
-void StateProp::v6(float dt, Arg2 a2)
+void StateProp::v6(float dt, Arg2_27e920 a2)
 {
     for (int i = 0; i < entryCount; i++) {
         ListEntry *e = &entries[i];
         if (e->flags & 4)
             FUN_0027e780(e->obj, e->f4);
         if (e->flags & 1)
-            ((Obj18 *)e->obj)->v6(dt, a2.v);
+            ((Obj18_27e920 *)e->obj)->v6(dt, a2.v);
     }
-    Frame fr;
+    Frame_27e920 fr;
     fr.oldT = t;
     t = dt * 0.03f + t;
     if (state == -1) {
@@ -273,13 +273,13 @@ void StateProp::v6(float dt, Arg2 a2)
     }
     if (!pa0)
         return;
-    State *cur = states->states[state];
+    State_27e920 *cur = states->states[state];
     fr.cnt = cur->subCount;
     if (fr.cnt > 0) {
         int off1 = 0, off2 = 0;
         a2.v = fr.cnt;
         do {
-            Entry *e = (Entry *)((char *)pa4 + off1);
+            Entry_27e920 *e = (Entry_27e920 *)((char *)pa4 + off1);
             SubInfo *f = (SubInfo *)((char *)fr.s->subs + off2);
             if (!e->obj && f->f10 <= t) {
                 fr.a = f->a;
@@ -297,15 +297,15 @@ void StateProp::v6(float dt, Arg2 a2)
         int off = 0;
         a2.v = fr.cnt;
         do {
-            Entry *e = (Entry *)((char *)pa4 + off);
+            Entry_27e920 *e = (Entry_27e920 *)((char *)pa4 + off);
             if (e->obj) {
                 e->FUN_002fc580(dt, 0);
-                fr.pair.a = ((Entry *)((char *)pa4 + off))->obj->info->a;
-                fr.pair.b = ((Entry *)((char *)pa4 + off))->obj->info->b;
+                fr.pair.a = ((Entry_27e920 *)((char *)pa4 + off))->obj->info->a;
+                fr.pair.b = ((Entry_27e920 *)((char *)pa4 + off))->obj->info->b;
                 unsigned char row = p9c->table->FUN_00298960(&fr.pair);
                 Ctl9c *pp = p9c;
                 int dstIndex = pp->table->rows[row * 3 + 1];
-                Mat16 *src = ((Entry *)((char *)pa4 + off))->FUN_002fc6f0();
+                Mat16 *src = ((Entry_27e920 *)((char *)pa4 + off))->FUN_002fc6f0();
                 MatOwner *owner = (MatOwner *)pp->v11();
                 owner->mats[dstIndex] = *src;
             }

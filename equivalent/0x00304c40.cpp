@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 848 inputs, branch coverage 7/8, incomplete)
 // FUN_00304c40 @ 0x00304c40
 struct Node;
-struct NodeVec {
+struct NodeVec_304c40 {
     Node** begin;
     Node** end;
 };
@@ -9,18 +9,18 @@ struct Node {
     char pad0[0xc];
     unsigned char* bits;
     char pad10[4];
-    NodeVec* children;
+    NodeVec_304c40* children;
     unsigned char value;
 };
 struct Context {
     char pad0[8];
     int index;
 };
-class Walker {
+class Walker_304c40 {
 public:
     void FUN_00304c40(Node* node, Context* ctx);
 };
-void Walker::FUN_00304c40(Node* node, Context* ctx) {
+void Walker_304c40::FUN_00304c40(Node* node, Context* ctx) {
     node->value = node->bits[ctx->index];
     if (node->children == 0)
         return;

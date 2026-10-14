@@ -17,7 +17,7 @@ struct Reader {
     void FUN_001d1900(int);
 };
 Reader* __cdecl FUN_001d4c90();
-struct Entry {
+struct Entry_1fd9a0 {
     char pad0[0x410];
     int f410;
     int f414;
@@ -34,15 +34,15 @@ struct Entry {
     void FUN_001f87c0(int);
     void FUN_001f87d0(int);
 };
-struct Manager {
+struct Manager_1fd9a0 {
     char pad[0x234];
-    Entry* entries;
+    Entry_1fd9a0* entries;
     int FUN_001fcff0(char*);
     int FUN_001fd390(char*);
     void FUN_001fd070(int);
     bool FUN_001fd9a0(const char* file);
 };
-bool Manager::FUN_001fd9a0(const char* file) {
+bool Manager_1fd9a0::FUN_001fd9a0(const char* file) {
     struct Frame {
         char pad[3];
         bool ok;
@@ -57,7 +57,7 @@ bool Manager::FUN_001fd9a0(const char* file) {
     } f;
     f.cookie = DAT_004d9968;
     int slot = 0;
-    Entry* e = entries;
+    Entry_1fd9a0* e = entries;
     for (; slot < 8; slot++, e++) {
         if (e->active == 0)
             break;

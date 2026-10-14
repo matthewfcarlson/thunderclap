@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 6/6)
 // FUN_00278d30 @ 0x00278d30
 namespace XAPILIB { unsigned long __stdcall GetLastError(); }
-struct Result { unsigned state; unsigned char status; };
-struct Source { char reserved[0x244]; char data[1]; };
+struct Result_278d30 { unsigned state; unsigned char status; };
+struct Source_278d30 { char reserved[0x244]; char data[1]; };
 extern "C" void __cdecl FUN_0026b800(void *, int, void *, int, int, int, int);
-struct Handler {
+struct Handler_278d30 {
  char reserved[0xb4]; unsigned error;
  unsigned FUN_002787c0(unsigned);
  bool FUN_002784c0(void *, unsigned);
- int FUN_00278d30(Result *, Source *, int, unsigned);
+ int FUN_00278d30(Result_278d30 *, Source_278d30 *, int, unsigned);
 };
-int Handler::FUN_00278d30(Result *result, Source *source, int code, unsigned value) {
+int Handler_278d30::FUN_00278d30(Result_278d30 *result, Source_278d30 *source, int code, unsigned value) {
  if (code == -1) {
   unsigned err = XAPILIB::GetLastError();
   if (err == 0x12) {

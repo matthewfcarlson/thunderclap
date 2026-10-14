@@ -12,12 +12,12 @@ public:
     virtual unsigned long long GetTypeId();
 };
 
-class Arg {
+class Arg_d3d80 {
 public:
     int FUN_000fad90();
 };
 
-class Owner {
+class Owner_d3d80 {
 public:
     virtual void v0();
     virtual void v1();
@@ -47,29 +47,29 @@ public:
     unsigned char dirty;
 };
 
-class ObjA {
+class ObjA_d3d80 {
 public:
-    ObjA *FUN_000d7af0(int a, int b);
-    char FUN_000d7890(Arg *arg, void *p2, Owner *owner);
+    ObjA_d3d80 *FUN_000d7af0(int a, int b);
+    char FUN_000d7890(Arg_d3d80 *arg, void *p2, Owner_d3d80 *owner);
 };
-class ObjB {
+class ObjB_d3d80 {
 public:
-    ObjB *FUN_000d82d0(int a, void *p1);
-    char FUN_000dc230(Arg *arg, void *p2, Owner *owner);
+    ObjB_d3d80 *FUN_000d82d0(int a, void *p1);
+    char FUN_000dc230(Arg_d3d80 *arg, void *p2, Owner_d3d80 *owner);
 };
-class ObjC {
+class ObjC_d3d80 {
 public:
-    ObjC *FUN_000dc590(int a);
-    char FUN_000dd350(Arg *arg, void *p2, Owner *owner);
+    ObjC_d3d80 *FUN_000dc590(int a);
+    char FUN_000dd350(Arg_d3d80 *arg, void *p2, Owner_d3d80 *owner);
 };
 
-char __cdecl FUN_000d3d80(void *p1, void *p2, Owner *owner, Arg *arg, Typed *typed)
+char __cdecl FUN_000d3d80(void *p1, void *p2, Owner_d3d80 *owner, Arg_d3d80 *arg, Typed *typed)
 {
     if (typed->GetTypeId() == DAT_004ddf30) {
         int a = arg->FUN_000fad90();
         int b = arg->FUN_000fad90();
-        ObjA *mem = (ObjA *)FUN_0008d690(0x158);
-        ObjA *obj = 0;
+        ObjA_d3d80 *mem = (ObjA_d3d80 *)FUN_0008d690(0x158);
+        ObjA_d3d80 *obj = 0;
         if (mem)
             obj = mem->FUN_000d7af0(a, b);
         owner->vfunc_23(obj, a);
@@ -77,8 +77,8 @@ char __cdecl FUN_000d3d80(void *p1, void *p2, Owner *owner, Arg *arg, Typed *typ
     }
     if (typed->GetTypeId() == DAT_004ddf50) {
         int a = arg->FUN_000fad90();
-        ObjB *mem = (ObjB *)FUN_0008d690(0x458);
-        ObjB *obj = 0;
+        ObjB_d3d80 *mem = (ObjB_d3d80 *)FUN_0008d690(0x458);
+        ObjB_d3d80 *obj = 0;
         if (mem)
             obj = mem->FUN_000d82d0(a, p1);
         owner->vfunc_23(obj, a);
@@ -87,8 +87,8 @@ char __cdecl FUN_000d3d80(void *p1, void *p2, Owner *owner, Arg *arg, Typed *typ
     }
     if (typed->GetTypeId() == DAT_004ddf58) {
         int a = arg->FUN_000fad90();
-        ObjC *mem = (ObjC *)FUN_0008d690(0x180);
-        ObjC *obj = 0;
+        ObjC_d3d80 *mem = (ObjC_d3d80 *)FUN_0008d690(0x180);
+        ObjC_d3d80 *obj = 0;
         if (mem)
             obj = mem->FUN_000dc590(a);
         owner->vfunc_23(obj, a);

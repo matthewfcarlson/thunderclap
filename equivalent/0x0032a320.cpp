@@ -12,7 +12,7 @@ struct StageState2 {
     volatile int field_f4[4];
     void FUN_00329c90(int, int);
 };
-struct StageRegs {
+struct StageRegs_32a320 {
     int a, b, c;
     char pad[0x80 - 12];
 };
@@ -22,9 +22,9 @@ struct CoordReg {
 };
 extern CoordReg DAT_0039db64[];
 extern unsigned int DAT_0039db08;
-extern StageRegs DAT_0039db10[];
+extern StageRegs_32a320 DAT_0039db10[];
 extern unsigned int DAT_004d4efc[];
-struct Stage {
+struct Stage_32a320 {
     char pad[0x14];
     StageState2* st;
     char pad2[0x40 - 0x18];
@@ -32,7 +32,7 @@ struct Stage {
     int value;
     void Set(int stage, int coord);
 };
-void Stage::Set(int stage, int coord) {
+void Stage_32a320::Set(int stage, int coord) {
     if (st->texCoordIndex[stage] != stage) {
         st->texCoordIndex[stage] = stage;
         D3D8::D3DDevice_SetTextureState_TexCoordIndex(stage, stage);

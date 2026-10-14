@@ -1,36 +1,36 @@
 // STATUS: equivalent (tools/equiv.py level 3: 122 inputs, branch coverage 24/24)
 // hulkfight::motion::JointPlantedCondition::vfunc_6 @ 0x0015d200
-struct Mat {
+struct Mat_15d200 {
     float m[16];
 };
 
-struct BoneEntry {
+struct BoneEntry_15d200 {
     char pad0[0x10];
     unsigned int *bits;
     char pad14[0x28 - 0x14];
 };
 
-struct Finder {
+struct Finder_15d200 {
     char pad0[0x44];
-    BoneEntry *begin;
-    BoneEntry *end;
+    BoneEntry_15d200 *begin;
+    BoneEntry_15d200 *end;
     int FUN_0027b200(unsigned int lo, unsigned int hi);
 };
 
 struct Skeleton {
     char pad0[8];
-    Finder *finder;
+    Finder_15d200 *finder;
     char pad0c[0x1c - 0xc];
-    Mat *matrices;
+    Mat_15d200 *matrices;
 };
 
-struct Body {
+struct Body_15d200 {
     char pad0[0x64];
     Skeleton *skeleton;
-    void FUN_00224540(BoneEntry *entry, float *out);
+    void FUN_00224540(BoneEntry_15d200 *entry, float *out);
 };
 
-struct Stats {
+struct Stats_15d200 {
     char pad0[0x140];
     int mode;
     char pad144[0x1a48 - 0x144];
@@ -46,9 +46,9 @@ struct Stats {
     char f1b08;
 };
 
-struct Handle {
-    Stats *FUN_00059a30();
-    Body *FUN_00059a40();
+struct Handle_15d200 {
+    Stats_15d200 *FUN_00059a30();
+    Body_15d200 *FUN_00059a40();
 };
 
 namespace fight {
@@ -60,7 +60,7 @@ public:
 
 class CFightParams : public fight::Params {
 public:
-    Handle *FUN_000592a0();
+    Handle_15d200 *FUN_000592a0();
 };
 
 namespace hulkfight {
@@ -87,17 +87,17 @@ bool JointPlantedCondition::vfunc_6(int a1, fight::Params *params, int a3)
     if (!dynamic_cast<CFightParams *>(params))
         return false;
 
-    Handle *handle = ((CFightParams *)params)->FUN_000592a0();
-    Stats *stats = handle->FUN_00059a30();
-    Body *body = handle->FUN_00059a40();
+    Handle_15d200 *handle = ((CFightParams *)params)->FUN_000592a0();
+    Stats_15d200 *stats = handle->FUN_00059a30();
+    Body_15d200 *body = handle->FUN_00059a40();
     Skeleton *skel = body->skeleton;
-    Finder *finder = skel->finder;
+    Finder_15d200 *finder = skel->finder;
     unsigned int id = finder->FUN_0027b200(idLo, idHi);
     if (id == 0xffff)
         return false;
 
     unsigned int count = (unsigned int)(finder->end - finder->begin);
-    BoneEntry *e = finder->begin;
+    BoneEntry_15d200 *e = finder->begin;
     for (unsigned int i = 0; i < count; i++, e++) {
         if (e->bits[(id >> 5) + 1] & (1u << (id & 0x1f))) {
             float v = 0.0f;

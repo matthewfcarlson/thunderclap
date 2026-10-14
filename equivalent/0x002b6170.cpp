@@ -5,9 +5,9 @@ void *FUN_0008d690(unsigned int size);
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 extern "C" unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
 
-struct V3 { float x, y, z; };
+struct V3_2b6170 { float x, y, z; };
 
-struct Name {
+struct Name_2b6170 {
     char data[8];
     void FUN_0027b040(const char *s);
 };
@@ -54,12 +54,12 @@ public:
     virtual void v0();
     virtual void v1();
     char pad04[0xc];
-    V3 *f10;
-    V3 *f14;
+    V3_2b6170 *f10;
+    V3_2b6170 *f14;
     VertexSet *FUN_002b5070(int a, int b);
 };
 
-struct Res {
+struct Res_2b6170 {
     char pad0[0x14];
     float f14[6];
     float f2c[4];
@@ -68,24 +68,24 @@ struct Res {
     VertexSet *f48;
 };
 
-struct Target {
+struct Target_2b6170 {
     char pad0[8];
-    Name name;
+    Name_2b6170 name;
     char pad10[4];
     float f14[6];
     float f2c[4];
     char pad3c[0x48 - 0x3c];
-    Res **f48;
+    Res_2b6170 **f48;
 };
 
-struct Frame {
+struct Frame_2b6170 {
     int cntA;                        // S+0x10
-    Res *r0;                         // 0x14
+    Res_2b6170 *r0;                         // 0x14
     float t[6];                      // 0x18
     char pad30[3];
     unsigned char len;               // 0x33
     int nf;                          // 0x34
-    Target *dest;                    // 0x38
+    Target_2b6170 *dest;                    // 0x38
     int tmp3c;                       // 0x3c
     int cnt;                         // 0x40
     int cnt2;                        // 0x44
@@ -101,13 +101,13 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual void vfunc_5(Target **out, unsigned __int64 *outId, Stream *s, void *inv);
-    virtual Target *vfunc_6();
+    virtual void vfunc_5(Target_2b6170 **out, unsigned __int64 *outId, Stream *s, void *inv);
+    virtual Target_2b6170 *vfunc_6();
 };
 
-void ShadowMeshLoader::vfunc_5(Target **out, unsigned __int64 *outId, Stream *s, void *inv)
+void ShadowMeshLoader::vfunc_5(Target_2b6170 **out, unsigned __int64 *outId, Stream *s, void *inv)
 {
-    Frame f;
+    Frame_2b6170 f;
     s->reader->FUN_002647e0(&f.len, 1, 1, 1);
     unsigned int len = f.len;
     s->reader->FUN_002647e0(f.name, len, 1, 1);
@@ -177,7 +177,7 @@ void ShadowMeshLoader::vfunc_5(Target **out, unsigned __int64 *outId, Stream *s,
         } while (s->FUN_002669f0());
     }
 
-    Res *r = f.r0;
+    Res_2b6170 *r = f.r0;
     f.t[0] = r->f14[0];
     f.t[1] = r->f14[1];
     f.t[2] = r->f14[2];
@@ -202,17 +202,17 @@ void ShadowMeshLoader::vfunc_5(Target **out, unsigned __int64 *outId, Stream *s,
     unsigned int i;
     for (i = 0; i < (unsigned int)f.nf; i++) {
         unsigned short *ip = (unsigned short *)((char *)topo->f10 + i * 12);
-        V3 *vb = vs->f10;
-        V3 *pa = vb + ip[0];
-        V3 *pb = vb + ip[1];
-        V3 *pc = vb + ip[2];
+        V3_2b6170 *vb = vs->f10;
+        V3_2b6170 *pa = vb + ip[0];
+        V3_2b6170 *pb = vb + ip[1];
+        V3_2b6170 *pc = vb + ip[2];
         double d1x = pb->x - pa->x;
         double d1y = pb->y - pa->y;
         double d1z = pb->z - pa->z;
         f.t[0] = pc->x - pb->x;
         f.t[1] = pc->y - pb->y;
         double ez = pc->z - pb->z;
-        V3 *out3 = (V3 *)((char *)vs->f14 + i * 12);
+        V3_2b6170 *out3 = (V3_2b6170 *)((char *)vs->f14 + i * 12);
         out3->x = (float)(ez * d1y - f.t[1] * d1z);
         out3->y = (float)(d1z * f.t[0] - ez * d1x);
         out3->z = (float)(f.t[1] * d1x - d1y * f.t[0]);

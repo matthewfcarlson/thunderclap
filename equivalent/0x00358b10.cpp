@@ -7,14 +7,14 @@
 extern "C" double sqrt(double);
 extern "C" float fabsf(float);
 
-struct V3 {
+struct V3_358b10 {
     float x, y, z;
-    void FUN_000111b0(const V3 *a, const V3 *b);
+    void FUN_000111b0(const V3_358b10 *a, const V3_358b10 *b);
     void FUN_0022d180();
     float FUN_00018990();
 };
 
-union Wd {
+union Wd_358b10 {
     float f;
     unsigned int u;
 };
@@ -29,7 +29,7 @@ volatile float *FUN_00083e00(volatile float *out, volatile float *dir, float t);
 bool FUN_00358b10(volatile float *a1, volatile float *a2, float a3, float a4, volatile float *a5, int a6, int a7,
                   volatile float *a8, volatile float *a9, volatile float *a10, volatile float *a11)
 {
-    volatile Wd L[38];
+    volatile Wd_358b10 L[38];
     double len;
     int r10_edx;
     int r11_edx;
@@ -176,7 +176,7 @@ bool FUN_00358b10(volatile float *a1, volatile float *a2, float a3, float a4, vo
     *(volatile unsigned*)&a11[2] = r32_ecx;
         return 1;
     }
-    ((V3 *)&L[10].f)->FUN_000111b0((V3 *)a2, (V3 *)a8);
+    ((V3_358b10 *)&L[10].f)->FUN_000111b0((V3_358b10 *)a2, (V3_358b10 *)a8);
     L[2].f = (((L[12].f * L[12].f) + (L[11].f * L[11].f)) + (L[10].f * L[10].f));
     L[0].f = ((((L[12].f * (L[20].f - L[29].f)) + ((L[19].f - L[28].f) * L[11].f)) + ((L[18].f - L[27].f) * L[10].f)) + (((L[12].f * (L[20].f - L[29].f)) + ((L[19].f - L[28].f) * L[11].f)) + ((L[18].f - L[27].f) * L[10].f)));
     if (!(1e-5f < ((((((L[12].f * (L[20].f - L[29].f)) + ((L[19].f - L[28].f) * L[11].f)) + ((L[18].f - L[27].f) * L[10].f)) + (((L[12].f * (L[20].f - L[29].f)) + ((L[19].f - L[28].f) * L[11].f)) + ((L[18].f - L[27].f) * L[10].f))) * L[0].f) - (((((((L[20].f - L[29].f) * (L[20].f - L[29].f)) + ((L[19].f - L[28].f) * (L[19].f - L[28].f))) + ((L[18].f - L[27].f) * (L[18].f - L[27].f))) - (a3 * a3)) * L[2].f) * 4.0f))))
@@ -200,7 +200,7 @@ bool FUN_00358b10(volatile float *a1, volatile float *a2, float a3, float a4, vo
     L[10].f = ((L[18].f + r1[0]) - L[7].f);
     L[11].f = ((L[19].f + r1[1]) - L[8].f);
     L[12].f = (L[35].f - L[9].f);
-    ((V3 *)&L[10].f)->FUN_0022d180();
+    ((V3_358b10 *)&L[10].f)->FUN_0022d180();
     FUN_00358030(&L[4].f, &L[10].f, 1, a5, a6, a7, &L[3].f, &L[30].f, &L[21].f, &L[37].f, &L[13].f, 1, 1, 1);
     r1 = FUN_00083e00(&L[33].f, &L[10].f, L[3].f);
     r36_ecx = L[13].u;
@@ -218,7 +218,7 @@ bool FUN_00358b10(volatile float *a1, volatile float *a2, float a3, float a4, vo
     L[21].f = (L[7].f - (L[30].f + l271));
     L[22].f = (L[8].f - (L[31].f + l274));
     L[23].f = (L[9].f - L[35].f);
-    len = ((V3 *)&L[21].f)->FUN_00018990();
+    len = ((V3_358b10 *)&L[21].f)->FUN_00018990();
     a9[0] = len;
     if (!(len < 0.1f))
         return 0;

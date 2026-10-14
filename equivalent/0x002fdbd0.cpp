@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002fdbd0 @ 0x002fdbd0
-struct Vec { float x,y,z; };
-struct Matrix { char pad[0x30]; Vec position; };
+struct Vec_2fdbd0 { float x,y,z; };
+struct Matrix { char pad[0x30]; Vec_2fdbd0 position; };
 struct Node { Matrix* FUN_0030f100(); };
-struct Owner { Node* FUN_0030edf0(); };
-void __cdecl FUN_002ef760(Matrix*, Matrix*, float, void*, Vec*);
+struct Owner_2fdbd0 { Node* FUN_0030edf0(); };
+void __cdecl FUN_002ef760(Matrix*, Matrix*, float, void*, Vec_2fdbd0*);
 struct Object {
- Owner* owner;
- Vec base;
- Vec axis;
+ Owner_2fdbd0* owner;
+ Vec_2fdbd0 base;
+ Vec_2fdbd0 axis;
  unsigned char initialized;
  char pad[3];
  Matrix cached;
  char pad2[4];
  void* context;
- void FUN_002fdbd0(Vec* input, Vec* output);
+ void FUN_002fdbd0(Vec_2fdbd0* input, Vec_2fdbd0* output);
 };
-void Object::FUN_002fdbd0(Vec* input, Vec* output) {
+void Object::FUN_002fdbd0(Vec_2fdbd0* input, Vec_2fdbd0* output) {
  if (!initialized) {
   void* c = context;
   initialized = 1;

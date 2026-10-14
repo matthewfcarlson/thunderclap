@@ -2,7 +2,7 @@
 // MyControllerCallback::vfunc_0 @ 0x0008dbb0
 extern "C" int strcmp(const char *a, const char *b);
 
-struct Item {
+struct Item_8dbb0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -12,54 +12,54 @@ struct Item {
     virtual const char *v6();
 };
 
-struct Mgr {
+struct Mgr_8dbb0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual int Count();
-    virtual Item *Get(int i);
+    virtual Item_8dbb0 *Get(int i);
 };
-Mgr *FUN_002684b0();
+Mgr_8dbb0 *FUN_002684b0();
 
-struct Table {
+struct Table_8dbb0 {
     char pad0[0x134];
     char name[1];
 };
 
-struct Profile {
+struct Profile_8dbb0 {
     char pad0[4];
-    Table *table;
+    Table_8dbb0 *table;
     void FUN_000ae8a0(const char *key);
     void FUN_000ae8b0(const char *key);
 };
 
-struct Fx {
+struct Fx_8dbb0 {
     char pad0[8];
     char enabled;
     void FUN_001eb870();
     void FUN_001eb2a0(float f, int zero);
 };
-struct Cam {
+struct Cam_8dbb0 {
     void FUN_001b8160();
 };
 struct Rumble {
     void FUN_000afe80();
 };
 
-struct Manager {
+struct Manager_8dbb0 {
     char pad0[0x10];
 };
 
-struct Holder {
+struct Holder_8dbb0 {
     char pad0[0x54];
-    Manager *mgr;
+    Manager_8dbb0 *mgr;
 };
-extern Holder *DAT_004dd700;
+extern Holder_8dbb0 *DAT_004dd700;
 
-Profile *__fastcall FUN_000862c0(Manager *m);
-Cam *__fastcall FUN_00086300(Manager *m);
-Rumble *__fastcall FUN_00086330(Manager *m);
-Fx *__fastcall FUN_000862e0(Manager *m);
+Profile_8dbb0 *__fastcall FUN_000862c0(Manager_8dbb0 *m);
+Cam_8dbb0 *__fastcall FUN_00086300(Manager_8dbb0 *m);
+Rumble *__fastcall FUN_00086330(Manager_8dbb0 *m);
+Fx_8dbb0 *__fastcall FUN_000862e0(Manager_8dbb0 *m);
 
 extern char DAT_004e222c;
 extern char DAT_004ddbe1;
@@ -111,10 +111,10 @@ void MyControllerCallback::vfunc_0(IController *c)
 
     if (DAT_004dd700 != 0 && DAT_004dd700->mgr != 0 && FUN_000862c0(DAT_004dd700->mgr) != 0) {
         if (c->v3()) {
-            Manager *m = DAT_004dd700->mgr;
+            Manager_8dbb0 *m = DAT_004dd700->mgr;
             FUN_000862c0(m)->FUN_000ae8a0(c->v6());
         } else {
-            Manager *m = DAT_004dd700->mgr;
+            Manager_8dbb0 *m = DAT_004dd700->mgr;
             FUN_000862c0(m)->FUN_000ae8b0(c->v6());
         }
     }

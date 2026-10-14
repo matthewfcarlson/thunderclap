@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 771 inputs, branch coverage 8/8)
 // FUN_000df700 @ 0x000df700
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d330
-struct Pair {
+struct Pair_df700 {
     void *first;
     void *second;
 };
@@ -10,10 +10,10 @@ void __cdecl thunk_FUN_00267090(void *p);
 
 class PairTable {
 public:
-    Pair a[64];                    // 0x000
-    Pair b[64];                    // 0x200
-    Pair c[64];                    // 0x400
-    Pair d[64];                    // 0x600
+    Pair_df700 a[64];                    // 0x000
+    Pair_df700 b[64];                    // 0x200
+    Pair_df700 c[64];                    // 0x400
+    Pair_df700 d[64];                    // 0x600
     void FUN_000df700();
 };
 

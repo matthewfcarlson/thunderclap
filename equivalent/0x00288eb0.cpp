@@ -5,14 +5,14 @@ extern "C" void *__cdecl memset(void *, int, unsigned int);
 void *FUN_0008d690(unsigned int size);
 void *FUN_0008d6d0(unsigned int size);
 
-struct StrField {
+struct StrField_288eb0 {
     int a, b;
     void FUN_0027af00();
     void FUN_0027b040(const char *s);
-    StrField() { FUN_0027af00(); }
+    StrField_288eb0() { FUN_0027af00(); }
 };
 
-struct Alloc {
+struct Alloc_288eb0 {
     virtual void v0();
     char pad4[0xc];
     unsigned int cur10;
@@ -26,11 +26,11 @@ class AnimationGroup {
 public:
     virtual void v0();
     char pad4[4];
-    StrField name;
+    StrField_288eb0 name;
     int f10;
     unsigned int f14;
     int *f18;
-    Alloc *f1c;
+    Alloc_288eb0 *f1c;
     AnimationGroup() {
         f10 = 0;
         f14 = 0;
@@ -53,18 +53,18 @@ struct Reader {
     void FUN_00266be0();
 };
 
-struct Child {
-    void *FUN_0028b0b0(Reader *r, int ctx, Alloc *a);
+struct Child_288eb0 {
+    void *FUN_0028b0b0(Reader *r, int ctx, Alloc_288eb0 *a);
 };
 
-class Loader {
+class Loader_288eb0 {
 public:
     char pad0[0x14];
-    Child *child;
-    pure3d::AnimationGroup *FUN_00288eb0(Reader *r, int ctx, Alloc *alloc);
+    Child_288eb0 *child;
+    pure3d::AnimationGroup *FUN_00288eb0(Reader *r, int ctx, Alloc_288eb0 *alloc);
 };
 
-pure3d::AnimationGroup *Loader::FUN_00288eb0(Reader *r, int ctx, Alloc *alloc)
+pure3d::AnimationGroup *Loader_288eb0::FUN_00288eb0(Reader *r, int ctx, Alloc_288eb0 *alloc)
 {
     struct Frame {
         char pad[3];

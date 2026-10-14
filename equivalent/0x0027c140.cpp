@@ -9,7 +9,7 @@ unsigned __int64 FUN_002672f0(const char *s, int a, int b);
 extern "C" int __cdecl FUN_0028fcc0(const char *fmt, ...);
 unsigned int FUN_0027b340(const char *s);
 
-struct Name8 {
+struct Name8_27c140 {
     void FUN_0027b040(const char *name);
 };
 
@@ -17,7 +17,7 @@ struct Stream {
     void FUN_002647e0(void *dst, int count, int size, int flag);
 };
 
-struct Loader {
+struct Loader_27c140 {
     char pad0[0x284];
     Stream *stream;
     char FUN_002669f0();
@@ -27,7 +27,7 @@ struct Loader {
     void FUN_000f9600(char *buf);
 };
 
-struct Elem {
+struct Elem_27c140 {
     char pad0[8];
     unsigned int idLo;
     unsigned int idHi;
@@ -38,7 +38,7 @@ struct Elem {
     int f20;
 };
 
-struct Info {
+struct Info_27c140 {
     void *skel;
     unsigned int f4;
     char **names8;
@@ -49,13 +49,13 @@ struct Info {
 
 struct Skeleton {
     char pad0[8];
-    Name8 name;
+    Name8_27c140 name;
     char pad9[0x18 - 9];
     char *mats;
     char pad1c[0x24 - 0x1c];
     char *ids;
     char *parents;
-    Info *info;
+    Info_27c140 *info;
     char pad30[4];
     char *arrA;
     char pad38[0x44 - 0x38];
@@ -68,7 +68,7 @@ class SkeletonLoader {
 public:
     char pad0[0x14];
     char b14;
-    void F(Skeleton **out, unsigned __int64 *outId, Loader *ld, int unused);
+    void F(Skeleton **out, unsigned __int64 *outId, Loader_27c140 *ld, int unused);
 };
 
 static char *DupStr(const char *src)
@@ -88,7 +88,7 @@ static char *DupStr(const char *src)
     return dst;
 }
 
-void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader *ld, int unused)
+void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader_27c140 *ld, int unused)
 {
     struct Frame {
         char pad0c[2];
@@ -120,10 +120,10 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader *ld, int 
         sk = raw->FUN_0027bee0(nJoints, fr.v10, fr.v18);
     fr.v24 = (int)sk;
     sk->name.FUN_0027b040(fr.N);
-    Info *sp = 0;
+    Info_27c140 *sp = 0;
     fr.v14 = 0;
     if (b14) {
-        Info *p = (Info *)FUN_0008d690(0x18);
+        Info_27c140 *p = (Info_27c140 *)FUN_0008d690(0x18);
         if (p) {
             p->f4 = 0;
             p->names8 = 0;
@@ -170,7 +170,7 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader *ld, int 
                 ld->stream->FUN_002647e0(&fr.v44, 1, 4, 1);
                 *(unsigned short *)(sk->parents + fr.v34) = (unsigned short)fr.v44;
                 ld->stream->FUN_002647e0(sk->mats + fr.v2c, 0x10, 4, 1);
-                Info *s2 = (Info *)fr.v14;
+                Info_27c140 *s2 = (Info_27c140 *)fr.v14;
                 if (s2) {
                     char *dup = DupStr(fr.N2);
                     *(char **)((char *)s2->names8 + fr.v28) = dup;
@@ -180,7 +180,7 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader *ld, int 
                 fr.v2c += 0x40;
                 fr.v28 += 4;
             } else if (ld->FUN_00266c30() == 0x23002) {
-                Elem *e = (Elem *)(sk->arrA + fr.v20);
+                Elem_27c140 *e = (Elem_27c140 *)(sk->arrA + fr.v20);
                 ld->stream->FUN_002647e0(&fr.len2, 1, 1, 1);
                 int n = fr.len2;
                 ld->stream->FUN_002647e0(fr.N3, n, 1, 1);
@@ -198,7 +198,7 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader *ld, int 
                         j++;
                     } while (j < cnt);
                 }
-                Info *s2 = (Info *)fr.v14;
+                Info_27c140 *s2 = (Info_27c140 *)fr.v14;
                 if (s2) {
                     char *dup = DupStr(fr.N3);
                     *(char **)((char *)s2->names10 + fr.v1c) = dup;
@@ -206,7 +206,7 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader *ld, int 
                 fr.v20 += 0x18;
                 fr.v1c += 4;
             } else if (ld->FUN_00266c30() == 0x23003) {
-                Elem *e = (Elem *)(sk->arrB + fr.v18);
+                Elem_27c140 *e = (Elem_27c140 *)(sk->arrB + fr.v18);
                 ld->FUN_000f9600(fr.N4);
                 unsigned __int64 h = FUN_002672f0(fr.N4, 0, 0);
                 e->idLo = (unsigned int)h;
@@ -227,7 +227,7 @@ void SkeletonLoader::F(Skeleton **out, unsigned __int64 *outId, Loader *ld, int 
                         j++;
                     } while (j < cnt);
                 }
-                Info *s2 = (Info *)fr.v14;
+                Info_27c140 *s2 = (Info_27c140 *)fr.v14;
                 if (s2) {
                     char *dup = DupStr(fr.N4);
                     *(char **)((char *)s2->names14 + fr.v10) = dup;

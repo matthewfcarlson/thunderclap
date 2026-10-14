@@ -5,14 +5,14 @@ extern char DAT_004d09a8[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 extern void *__cdecl FUN_00263ea0(unsigned int size);
 
-struct Sub {
+struct Sub_2de250 {
     char data[8];
-    void FUN_0027af70(Sub *src);
+    void FUN_0027af70(Sub_2de250 *src);
 };
 
 struct Image {
     char pad0[8];
-    Sub sub;
+    Sub_2de250 sub;
     int width;
     int height;
     int format;
@@ -20,7 +20,7 @@ struct Image {
     int extra;
 };
 
-class Surface {
+class Surface_2de250 {
 public:
     virtual void s0();
     virtual void s1();
@@ -39,7 +39,7 @@ public:
     virtual void s14(int a);
 };
 
-class Source {
+class Source_2de250 {
 public:
     virtual void p0();
     virtual void p1();
@@ -67,19 +67,19 @@ public:
     virtual void t0();
     virtual void Release();
     char pad4[4];
-    Sub sub;
-    Surface *surface;
+    Sub_2de250 sub;
+    Surface_2de250 *surface;
     Texture *FUN_002c1c30();
     bool FUN_002c1c70(int w, int h, int fmt, int extra, int a, int mode, int b);
 };
 
-class Game {
+class Game_2de250 {
 public:
     virtual void g0();
     virtual void g1();
     virtual int GetState();
 };
-extern Game *DAT_0052c2a0;
+extern Game_2de250 *DAT_0052c2a0;
 
 class ImageConverter {
 public:
@@ -120,10 +120,10 @@ Texture *ImageConverter::vfunc_1(Image *img, bool flag)
     }
 
     if (tex) {
-        Surface *s = tex->surface;
+        Surface_2de250 *s = tex->surface;
         vfunc_7(img, s->s13(0, 0));
         s->s14(0);
-        Source *src = (Source *)FUN_00344e74(img, 0, DAT_004d098c, DAT_004d09a8, 0);
+        Source_2de250 *src = (Source_2de250 *)FUN_00344e74(img, 0, DAT_004d098c, DAT_004d09a8, 0);
         if (src) {
             if (s->GetKind() == 7 || s->GetKind() == 8)
             {

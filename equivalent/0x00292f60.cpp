@@ -3,16 +3,16 @@
 extern "C" double sqrt(double);
 extern "C" double floor(double);
 
-struct Vec3 {
+struct Vec3_292f60 {
     float x, y, z;
 };
 
-struct Frame {
-    Vec3 a;
-    Vec3 b;
+struct Frame_292f60 {
+    Vec3_292f60 a;
+    Vec3_292f60 b;
 };
 
-class Sampler {
+class Sampler_292f60 {
 public:
     virtual void v0();
     virtual void v1();
@@ -23,9 +23,9 @@ public:
 
 // Snap *p to its floor when the two samplers disagree enough; sampler a arrives in esi, b in edi.
 // equiv-conv: FUN_00292f60 esi edi stack
-void FUN_00292f60(Sampler *a, Sampler *b, float *p)
+void FUN_00292f60(Sampler_292f60 *a, Sampler_292f60 *b, float *p)
 {
-    Frame f;
+    Frame_292f60 f;
     float lo = (float)floor((double)*p);
     float hi = (float)floor((double)(*p + 1.0f));
     bool bad = false;

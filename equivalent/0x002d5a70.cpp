@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 6/6)
 // pure3d::SpriteParticleEmitter::vfunc_14 @ 0x002d5a70
-struct Vec3 {
+struct Vec3_2d5a70 {
     float x, y, z;
 };
 
-struct Particle {
-    Vec3 pos;
+struct Particle_2d5a70 {
+    Vec3_2d5a70 pos;
     unsigned int color;
     float f10;
     float f14;
@@ -13,7 +13,7 @@ struct Particle {
     unsigned char b19;
     short s1a;
     float f1c;
-    Vec3 vel;
+    Vec3_2d5a70 vel;
     int f2c;
     float f30;
     int f34;
@@ -25,21 +25,21 @@ struct Particle {
 struct ParticlePool {
     char pad0[8];
     unsigned int size;
-    Particle** data;
+    Particle_2d5a70** data;
 };
 
-struct Palette {
+struct Palette_2d5a70 {
     char pad0[8];
     int count;
 };
 
-struct Rng {
+struct Rng_2d5a70 {
     float FUN_00143100();
     char FUN_002d49c0(int lo, int hi);
     char FUN_00011380(int lo, int hi);
 };
 
-extern Rng DAT_00554c04;
+extern Rng_2d5a70 DAT_00554c04;
 
 unsigned int* FUN_002e6780(unsigned int* out, int a, unsigned int b);
 unsigned int* FUN_002e6840(unsigned int* out, unsigned int v, unsigned int b);
@@ -72,14 +72,14 @@ public:
     signed char c1b8;
     signed char c1b9;
     char pad1ba[2];
-    Palette* palette;
+    Palette_2d5a70* palette;
     char pad1c0[8];
-    Particle** begin;
-    Particle** end;
-    bool vfunc_14(Vec3* dir, Vec3* pos, int arg2);
+    Particle_2d5a70** begin;
+    Particle_2d5a70** end;
+    bool vfunc_14(Vec3_2d5a70* dir, Vec3_2d5a70* pos, int arg2);
 };
 
-bool SpriteParticleEmitter::vfunc_14(Vec3* dir, Vec3* pos, int arg2)
+bool SpriteParticleEmitter::vfunc_14(Vec3_2d5a70* dir, Vec3_2d5a70* pos, int arg2)
 {
     if ((unsigned int)count >= (unsigned int)(end - begin))
         return false;
@@ -88,10 +88,10 @@ bool SpriteParticleEmitter::vfunc_14(Vec3* dir, Vec3* pos, int arg2)
     unsigned int n = pl->size;
     if (n == 0)
         return false;
-    Particle** items = pl->data;
+    Particle_2d5a70** items = pl->data;
     n--;
     pl->size = n;
-    Particle* p = items[n];
+    Particle_2d5a70* p = items[n];
     items[n] = 0;
     if (p == 0)
         return false;

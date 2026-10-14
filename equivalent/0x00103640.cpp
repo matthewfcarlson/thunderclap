@@ -1,24 +1,24 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_00103640 @ 0x00103640
-struct Game;
-struct Vec3 {
+struct Game_103640;
+struct Vec3_103640 {
     float x, y, z;
 };
 
 class Waypoint;
 
-class Anchor {
+class Anchor_103640 {
 public:
-    char FUN_00059a50(Vec3 *out);
+    char FUN_00059a50(Vec3_103640 *out);
 };
 
-class Pawn {
+class Pawn_103640 {
 public:
     char pad0[0x10];
-    Anchor *anchor;
+    Anchor_103640 *anchor;
 };
 
-class Holder {
+class Holder_103640 {
 public:
     virtual void v0();
     virtual void v1();
@@ -26,12 +26,12 @@ public:
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual Pawn *pawn();
+    virtual Pawn_103640 *pawn();
 };
 
-class Marker;
+class Marker_103640;
 
-class Target {
+class Target_103640 {
 public:
     virtual void v0();
     virtual void v1();
@@ -44,11 +44,11 @@ public:
     virtual void v8();
     virtual void v9();
     virtual void v10();
-    virtual void setPosition(Vec3 pos);
+    virtual void setPosition(Vec3_103640 pos);
     char pad_[0x7c - 4];
-    Vec3 home;
-    void FUN_001048d0(Marker *m);
-    void FUN_00104c60(Game *g, Vec3 *a, Vec3 *b, int bc, unsigned int c0, int c4, int zero);
+    Vec3_103640 home;
+    void FUN_001048d0(Marker_103640 *m);
+    void FUN_00104c60(Game_103640 *g, Vec3_103640 *a, Vec3_103640 *b, int bc, unsigned int c0, int c4, int zero);
 };
 
 class Locator {
@@ -61,43 +61,43 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual Vec3 *position(Vec3 *out);
+    virtual Vec3_103640 *position(Vec3_103640 *out);
 };
 
-struct Registry {
+struct Registry_103640 {
     char pad0[0x28];
-    struct Index *index;
+    struct Index_103640 *index;
 };
 
-struct Index {
+struct Index_103640 {
     Locator *FUN_001fd780(const char *name);
 };
 
-struct Game {
+struct Game_103640 {
     char pad0[0x28];
-    Index *index;
+    Index_103640 *index;
 };
 
-extern Game *DAT_004dd700;
+extern Game_103640 *DAT_004dd700;
 
 int FUN_000964a0(char *buf, int size, const char *fmt, ...);
 
-union NameSlot {
+union NameSlot_103640 {
     const char *name;
     float y;
 };
 
-class Marker {
+class Marker_103640 {
 public:
     char pad0[0x58];
-    Holder *holder;
-    Target *target;
+    Holder_103640 *holder;
+    Target_103640 *target;
     char pad60[4];
     char label[0x40];
     char pad_a4;
     unsigned char active;
     char pad_a6[2];
-    Vec3 pos;
+    Vec3_103640 pos;
     int b4;
     int b8;
     int bc;
@@ -105,21 +105,21 @@ public:
     char pad_c1[3];
     int c4;
 
-    void FUN_00103640(NameSlot name, float x, float y, float z);
+    void FUN_00103640(NameSlot_103640 name, float x, float y, float z);
 };
 
-void Marker::FUN_00103640(NameSlot name, float x, float y, float z)
+void Marker_103640::FUN_00103640(NameSlot_103640 name, float x, float y, float z)
 {
     struct Frame {
-        Vec3 v1;
-        Vec3 v4;
-        Vec3 v2;
-        Vec3 v3;
+        Vec3_103640 v1;
+        Vec3_103640 v4;
+        Vec3_103640 v2;
+        Vec3_103640 v3;
     } fr;
 
     if (target == 0)
         return;
-    Pawn *p = holder->pawn();
+    Pawn_103640 *p = holder->pawn();
     const char *nm = name.name;
     FUN_000964a0(label, 0x40, "%s", nm);
     Locator *loc = DAT_004dd700->index->FUN_001fd780(nm);

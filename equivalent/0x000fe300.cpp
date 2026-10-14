@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_000fe300 @ 0x000fe300
-struct Vec { float x,y,z; };
-struct State {
- char pad[0x12]; unsigned char active; char pad13; float age; char pad18[4]; Vec value;
- void update(const Vec* target, unsigned char flag, float rate, float threshold, float dt);
+struct Vec_fe300 { float x,y,z; };
+struct State_fe300 {
+ char pad[0x12]; unsigned char active; char pad13; float age; char pad18[4]; Vec_fe300 value;
+ void update(const Vec_fe300* target, unsigned char flag, float rate, float threshold, float dt);
 };
-void State::update(const Vec* target, unsigned char flag, float rate, float threshold, float dt) {
+void State_fe300::update(const Vec_fe300* target, unsigned char flag, float rate, float threshold, float dt) {
  if (flag || age < threshold) {
   if (!active && threshold + threshold < age) {
    value.x=target->x; value.y=target->y; value.z=target->z;

@@ -1,30 +1,30 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // hulkfight::motion::HitReactionFloatAction::vfunc_5 @ 0x001519a0
 // Hit reaction "float" action: advance to step `step`, switching the active animation reference.
-class Ref {
+class Ref_1519a0 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-class Fighter {
+class Fighter_1519a0 {
 public:
     void FUN_00035cd0();
 };
 
-class FighterRef {
+class FighterRef_1519a0 {
 public:
-    Fighter* FUN_00059a30();
+    Fighter_1519a0* FUN_00059a30();
 };
 
-class Owner {
+class Owner_1519a0 {
 public:
-    FighterRef* FUN_000592a0();
+    FighterRef_1519a0* FUN_000592a0();
 };
 
 class Track {
 public:
-    Ref* current;
+    Ref_1519a0* current;
     char pad4[0x24];
 
     void FUN_002322f0(int count, int arg);
@@ -36,9 +36,9 @@ public:
 class HitReactionFloatAction {
 public:
     char pad0[0x20];
-    Owner* owner;
+    Owner_1519a0* owner;
     Track track;
-    Ref* previous;
+    Ref_1519a0* previous;
     int stepCount;
     char started;
 
@@ -58,7 +58,7 @@ void HitReactionFloatAction::FUN_001519a0(int step, int arg)
     if (step == stepCount - 1) {
         track.FUN_002324b0(1);
     }
-    Ref* now = track.current;
+    Ref_1519a0* now = track.current;
     if (now) {
         now->AddRef();
     }

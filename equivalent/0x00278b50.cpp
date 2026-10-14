@@ -8,7 +8,7 @@ namespace XAPILIB { extern "C" char* __stdcall XMUNameFromDriveLetter(unsigned i
 extern "C" int __stdcall FUN_00208b9c(char*, unsigned int*, unsigned int*, unsigned int*);
 extern "C" unsigned int __stdcall FUN_00209a8e(char*);
 extern "C" void __cdecl FUN_0026b800(char*, int, char*, int, int, int, int);
-struct Target {
+struct Target_278b50 {
  char pad0[0x60]; unsigned int result, size, count, sector;
  char name[0x41]; char padB1[3]; unsigned int previous;
  char padB8[0x14]; char flagCC; char padCD[6]; char digit, letter;
@@ -17,14 +17,14 @@ struct Target {
  unsigned int FUN_002787c0(char*); void FUN_00278b50();
 };
 struct DiskInfo { char root[4]; unsigned int low, high, last, unused, other; };
-void Target::FUN_00278b50() {
+void Target_278b50::FUN_00278b50() {
  sector = 512; size = 0; count = 0;
  int row = 0, col = 0;
  if (drive != 'U') {
   name[0] = 0;
   if (flagCC == 'U') { row = -1; col = -1; }
   else { row = (signed char)digit - '1'; col = (signed char)letter - 'A'; }
-  ((Target*)&DAT_0052a228)->FUN_00278060();
+  ((Target_278b50*)&DAT_0052a228)->FUN_00278060();
   if (row >= 0 && col >= 0) {
    unsigned int index = row + col * 4;
    unsigned char mask = (unsigned char)(1 << (index & 31));

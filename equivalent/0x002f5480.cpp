@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_002f5480 @ 0x002f5480
-struct Part30 { char data[0xac]; void FUN_0027af00(); };
+struct Part30_2f5480 { char data[0xac]; void FUN_0027af00(); };
 struct Part1c { char data[0x1c]; void FUN_002fca90(); };
 struct Part168 { char data[0x6c]; void FUN_00308cc0(); };
 extern unsigned int DAT_004d2b74;
@@ -15,7 +15,7 @@ struct FUN_002fe640 {
 namespace physics {
 struct PhysicsObject : FUN_002fe640 {
  virtual void slot0();
- Part30 part30;
+ Part30_2f5480 part30;
  Part1c partdc, partf8, part114;
  char pad130[0x38];
  Part168 part168;

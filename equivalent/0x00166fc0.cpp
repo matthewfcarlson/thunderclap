@@ -4,15 +4,15 @@ extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 
-struct Vec3 {
+struct Vec3_166fc0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
 struct Matrix {
     float m[16];
-    void FUN_0022c2b0(const Vec3* in, Vec3* out);
-    void FUN_0022c3b0(const Vec3* in, Vec3* out);
+    void FUN_0022c2b0(const Vec3_166fc0* in, Vec3_166fc0* out);
+    void FUN_0022c3b0(const Vec3_166fc0* in, Vec3_166fc0* out);
 };
 
 struct Skeleton {
@@ -25,15 +25,15 @@ struct Entity;
 
 struct World {
     char pad00[0x20];
-    struct Player* player;
+    struct Player_166fc0* player;
 };
 
-struct Player {
+struct Player_166fc0 {
     char pad00[0x124];
     Entity* current;
 };
 
-struct Slot {
+struct Slot_166fc0 {
     int pad00;
     int pad04;
     struct Entity* entity;
@@ -48,29 +48,29 @@ struct Entity {
     Entity* ignoreA;
 };
 
-struct Holder {
+struct Holder_166fc0 {
     char pad00[0x328];
-    Slot* slot;
+    Slot_166fc0* slot;
 };
 
-struct Target {
-    Holder* FUN_000592a0();
+struct Target_166fc0 {
+    Holder_166fc0* FUN_000592a0();
 };
 
-struct Holder2 {
-    Holder* FUN_00059a30();
+struct Holder2_166fc0 {
+    Holder_166fc0* FUN_00059a30();
 };
 
-struct Obj2 {
-    Holder* FUN_00059a30();
+struct Obj2_166fc0 {
+    Holder_166fc0* FUN_00059a30();
 };
 
-struct Obj1 {
-    Obj2* FUN_000592a0();
+struct Obj1_166fc0 {
+    Obj2_166fc0* FUN_000592a0();
 };
 
 extern World* DAT_004dd700;
-char FUN_002027c0(Vec3* a, Vec3* b, int c, int d, Vec3* hitPos, Vec3* hitNormal, int e, int f);
+char FUN_002027c0(Vec3_166fc0* a, Vec3_166fc0* b, int c, int d, Vec3_166fc0* hitPos, Vec3_166fc0* hitNormal, int e, int f);
 
 class RayCastTargetCondition {
 public:
@@ -78,23 +78,23 @@ public:
     char pad04[0xc];
     unsigned int boneLo;
     unsigned int boneHi;
-    Vec3 offset;
-    Vec3 direction;
+    Vec3_166fc0 offset;
+    Vec3_166fc0 direction;
     float length;
     char invert;
 
-    char vfunc_6(int arg0, Obj1* target, int arg2);
+    char vfunc_6(int arg0, Obj1_166fc0* target, int arg2);
 };
 
-char RayCastTargetCondition::vfunc_6(int arg0, Obj1* target, int arg2)
+char RayCastTargetCondition::vfunc_6(int arg0, Obj1_166fc0* target, int arg2)
 {
     if (FUN_00344e74(target, 0, DAT_00494b44, DAT_00494b60, 0) == 0)
         return 0;
-    Holder* holder = target->FUN_000592a0()->FUN_00059a30();
+    Holder_166fc0* holder = target->FUN_000592a0()->FUN_00059a30();
     if (holder == 0)
         return 0;
 
-    Slot* slot = holder->slot;
+    Slot_166fc0* slot = holder->slot;
     if (slot == 0)
         return 0;
     Entity* ent = slot->entity;
@@ -114,12 +114,12 @@ char RayCastTargetCondition::vfunc_6(int arg0, Obj1* target, int arg2)
         }
         Matrix* src = &skel->matrices[idx];
 
-        Vec3 res;
-        Vec3 tmp;
-        Vec3 from;
-        Vec3 dir;
-        Vec3 hitPos;
-        Vec3 hitNormal;
+        Vec3_166fc0 res;
+        Vec3_166fc0 tmp;
+        Vec3_166fc0 from;
+        Vec3_166fc0 dir;
+        Vec3_166fc0 hitPos;
+        Vec3_166fc0 hitNormal;
         Matrix mtx;
 
         from.x = 0; from.y = 0; from.z = 0;

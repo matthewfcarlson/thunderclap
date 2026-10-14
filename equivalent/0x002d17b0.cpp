@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002d17b0 @ 0x002d17b0
-struct Curves {
+struct Curves_2d17b0 {
     char pad0[0x14];
     float *tableA;      // 0x14
     char pad18[8];
     float *tableB;      // 0x20
 };
 
-struct Owner {
+struct Owner_2d17b0 {
     char pad0[0x1a4];
     float gain;         // 0x1a4
     char pad1a8[4];
     float weight;       // 0x1ac
     char pad1b0[0xc];
-    Curves *curves;     // 0x1bc
+    Curves_2d17b0 *curves;     // 0x1bc
 };
 
-struct State {
+struct State_2d17b0 {
     float x;            // 0
     float y;            // 4
     float z;            // 8
@@ -29,7 +29,7 @@ struct State {
     short steps;        // 0x3c
 };
 
-void __cdecl FUN_002d17b0(float dt, int index, float t, Owner *owner, State *state)
+void __cdecl FUN_002d17b0(float dt, int index, float t, Owner_2d17b0 *owner, State_2d17b0 *state)
 {
     float *a = owner->curves->tableA;
     float *b = owner->curves->tableB;

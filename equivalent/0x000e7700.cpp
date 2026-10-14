@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FEThingsBase::vfunc_33 @ 0x000e7700
-class Thing {
+class Thing_e7700 {
   public:
     void* FUN_000f7240(unsigned __int64 id);
 };
-class Other {
+class Other_e7700 {
   public:
-    void FUN_000f8500(void* a, Thing* b, int c);
+    void FUN_000f8500(void* a, Thing_e7700* b, int c);
     void FUN_000f7a10(void* a, int b);
 };
-class Source {
+class Source_e7700 {
   public:
     virtual void v0();
     virtual unsigned __int64 GetId();
@@ -27,13 +27,13 @@ class FEThingsBase {
     virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
     virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
     virtual void v32();
-    virtual char FUN_000e7700(Source* s, Other* o);
+    virtual char FUN_000e7700(Source_e7700* s, Other_e7700* o);
     virtual void v34(); virtual void v35(); virtual void v36(); virtual void v37();
     virtual void v38(); virtual void v39(); virtual void v40(); virtual void v41();
     virtual void v42(); virtual void v43();
-    virtual Thing* Lookup();
+    virtual Thing_e7700* Lookup();
 };
-char FEThingsBase::FUN_000e7700(Source* s, Other* o) {
+char FEThingsBase::FUN_000e7700(Source_e7700* s, Other_e7700* o) {
     if (s->GetId() == 2) {
         void* child = s->child;
         o->FUN_000f8500(child, Lookup(), 1);

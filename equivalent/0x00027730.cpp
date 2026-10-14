@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 22/22)
 // FUN_00027730 @ 0x00027730
-struct Key { unsigned first, second; void FUN_0027af00(); void FUN_0027b040(const char*); };
-extern Key DAT_004dc0e8;
+struct Key_27730 { unsigned first, second; void FUN_0027af00(); void FUN_0027b040(const char*); };
+extern Key_27730 DAT_004dc0e8;
 extern unsigned DAT_004dc0f0;
 extern void __cdecl FUN_00363b00();
 extern int __cdecl _atexit(void (__cdecl*)());
-struct Entry { unsigned first, second; unsigned char flag; char pad[7]; };
-struct Object { char pad[0x380]; Entry entries[32]; int count; bool FUN_00027730(char* destination, const char* source); };
+struct Entry_27730 { unsigned first, second; unsigned char flag; char pad[7]; };
+struct Object { char pad[0x380]; Entry_27730 entries[32]; int count; bool FUN_00027730(char* destination, const char* source); };
 bool Object::FUN_00027730(char* destination, const char* source) {
  if (!(DAT_004dc0f0 & 1)) { DAT_004dc0f0 |= 1; DAT_004dc0e8.FUN_0027af00(); _atexit(FUN_00363b00); }
  if (!destination || !source) return false;

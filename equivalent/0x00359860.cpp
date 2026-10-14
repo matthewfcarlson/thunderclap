@@ -2,13 +2,13 @@
 // FUN_00359860 @ 0x00359860
 extern "C" double __cdecl fabs(double);
 
-struct Vec3 {
+struct Vec3_359860 {
     float x, y, z;
 };
 
 struct Matrix {
     float m[16];
-    void FUN_0022c2b0(const Vec3 *in, Vec3 *out);
+    void FUN_0022c2b0(const Vec3_359860 *in, Vec3_359860 *out);
 };
 
 static inline float fabsf_(float f)
@@ -20,12 +20,12 @@ static inline float fabsf_(float f)
 }
 
 // Slab test of a ray against an oriented box: returns the negated smallest per-axis ratio.
-float FUN_00359860(Vec3 *origin, Vec3 *extent, Vec3 *axisX, Vec3 *axisY, Vec3 *axisZ, Vec3 *dir, Vec3 *point)
+float FUN_00359860(Vec3_359860 *origin, Vec3_359860 *extent, Vec3_359860 *axisX, Vec3_359860 *axisY, Vec3_359860 *axisZ, Vec3_359860 *dir, Vec3_359860 *point)
 {
     struct Frame {
-        Vec3 v;
-        Vec3 q;
-        Vec3 p;
+        Vec3_359860 v;
+        Vec3_359860 q;
+        Vec3_359860 p;
         Matrix m;
     } f;
 

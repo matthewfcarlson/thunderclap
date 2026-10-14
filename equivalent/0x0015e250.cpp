@@ -2,22 +2,22 @@
 // hulkfight::motion::LocomotionSprintAction::vfunc_5 @ 0x0015e250
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_15e250 {
     float x, y, z;
     float FUN_0022d110();
-    bool FUN_0022d2b0(V3 *other, float limit);
+    bool FUN_0022d2b0(V3_15e250 *other, float limit);
 };
 
-struct Stats {
+struct Stats_15e250 {
     char pad0[0x2064];
-    V3 v2064;
+    V3_15e250 v2064;
     char pad2070[4];
-    V3 v2074;
+    V3_15e250 v2074;
     float FUN_000354c0();
-    char FUN_00035550(V3 *out);
+    char FUN_00035550(V3_15e250 *out);
 };
 
-struct Target {
+struct Target_15e250 {
     char pad0[0x8a0];
     float f8a0;
     float f8a4;
@@ -26,7 +26,7 @@ struct Target {
     float f8b0;
 };
 
-struct Cfg {
+struct Cfg_15e250 {
     char pad0[0x18];
     float f18;
     float f1c;
@@ -35,21 +35,21 @@ struct Cfg {
 };
 
 void *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(void *x);
+Stats_15e250 *__fastcall FUN_00059a30(void *x);
 double __cdecl FUN_00224ea0(float x, float z);
 double __cdecl FUN_00224fc0(int a, int b);
-double __cdecl FUN_00224f10(V3 *v);
+double __cdecl FUN_00224f10(V3_15e250 *v);
 double __cdecl FUN_00083d90(float *v);
-void __cdecl FUN_00224d70(int angle, V3 *v);
-extern V3 DAT_004b4d60;
+void __cdecl FUN_00224d70(int angle, V3_15e250 *v);
+extern V3_15e250 DAT_004b4d60;
 
-union Slot {
+union Slot_15e250 {
     int i;
     float f;
     unsigned int u;
 };
 
-union Bits {
+union Bits_15e250 {
     float f;
     unsigned int u;
     int i;
@@ -62,17 +62,17 @@ public:
     virtual void vf2();
     virtual void vf3();
     virtual void vf4();
-    virtual bool vfunc_5(Slot a1, Slot a2);
+    virtual bool vfunc_5(Slot_15e250 a1, Slot_15e250 a2);
     char pad04[0x1c - 4];
-    Cfg *cfg;
+    Cfg_15e250 *cfg;
     void *owner;
-    Target *target;
+    Target_15e250 *target;
     char pad28[4];
     float f2c;
     float FUN_0015c4f0(float v);
 };
 
-bool LocomotionSprintAction::vfunc_5(Slot a1, Slot a2)
+bool LocomotionSprintAction::vfunc_5(Slot_15e250 a1, Slot_15e250 a2)
 {
     struct Frame {
         float s0;
@@ -81,12 +81,12 @@ bool LocomotionSprintAction::vfunc_5(Slot a1, Slot a2)
         float sC;
         float s10;
         float s14;
-        V3 w;
-        V3 v2;
-        V3 z;
-        V3 v;
-        V3 v0;
-        V3 v1;
+        V3_15e250 w;
+        V3_15e250 v2;
+        V3_15e250 z;
+        V3_15e250 v;
+        V3_15e250 v0;
+        V3_15e250 v1;
     } f;
 
     if (a1.i != 0)
@@ -94,7 +94,7 @@ bool LocomotionSprintAction::vfunc_5(Slot a1, Slot a2)
     if (target == 0)
         return false;
 
-    Stats *st = FUN_00059a30(FUN_000592a0(owner));
+    Stats_15e250 *st = FUN_00059a30(FUN_000592a0(owner));
     f.v = st->v2064;
     f.z.x = 0.0f;
     f.z.y = 0.0f;
@@ -116,7 +116,7 @@ bool LocomotionSprintAction::vfunc_5(Slot a1, Slot a2)
     target->f8a8 = cur;
     double dd = FUN_00224fc0(*(int *)&f.s0, h0);
     dd = dd * 0.31830987f;
-    Cfg *c = cfg;
+    Cfg_15e250 *c = cfg;
     *(int *)&f.s4 = *(int *)&c->f1c;
     *(int *)&a1.i = *(int *)&c->f18;
     dd = dd * f.s4;
@@ -124,9 +124,9 @@ bool LocomotionSprintAction::vfunc_5(Slot a1, Slot a2)
 
     double rr = dd;
     if (a1.f > 0.0f) {
-        Bits fc;
+        Bits_15e250 fc;
         fc.f = f2c;
-        Bits ab;
+        Bits_15e250 ab;
         ab.u = fc.u & 0x7fffffff;
         *(int *)&f.sC = fc.i;
         if (ab.f < a1.f)
@@ -135,7 +135,7 @@ bool LocomotionSprintAction::vfunc_5(Slot a1, Slot a2)
             f.s8 = a1.f;
         rr = (double)f.s10 - FUN_00083d90(&f2c) * f.s8 / a1.f * f.s4;
     }
-    Target *t1 = target;
+    Target_15e250 *t1 = target;
     double sum = rr * a2.f + f2c;
     f2c = (float)sum;
     double ang = sum * a2.f + f.s0;
@@ -150,8 +150,8 @@ bool LocomotionSprintAction::vfunc_5(Slot a1, Slot a2)
     FUN_00224d70(*(int *)&na, &f.v0);
     f.v1 = DAT_004b4d60;
     FUN_00224d70(h0, &f.v1);
-    Cfg *c2 = cfg;
-    Slot s20;
+    Cfg_15e250 *c2 = cfg;
+    Slot_15e250 s20;
     s20.f = c2->f20;
     a1.f = s20.f;
     double dot = f.v0.z * f.v1.z + f.v0.y * f.v1.y + f.v0.x * f.v1.x;
@@ -171,7 +171,7 @@ bool LocomotionSprintAction::vfunc_5(Slot a1, Slot a2)
     f.s4 = target->f8a4;
     a1.f = (float)u;
     f.s8 = f.sC - f.s0;
-    Bits b1;
+    Bits_15e250 b1;
     b1.f = f.s8;
     b1.u &= 0x7fffffff;
     double outA;

@@ -9,7 +9,7 @@ struct Reader {
     void FUN_00264510(int bytes);
 };
 
-class Writer {
+class Writer_2af510 {
 public:
     virtual void vfunc_0(int width, int height, int bitsPerPixel, int flag, unsigned int *palette);
     virtual void vfunc_1();
@@ -35,7 +35,7 @@ struct ImageHeader {
 };
 
 /* Reads a 4-bit paletted image from the stream and feeds it to the writer one row at a time. */
-void __cdecl FUN_002af510(Reader *reader, ImageHeader *img, Writer *writer)
+void __cdecl FUN_002af510(Reader *reader, ImageHeader *img, Writer_2af510 *writer)
 {
     unsigned int palette[16];
     int i;

@@ -2,11 +2,11 @@
 // core::FileCommitRequest::vfunc_0 @ 0x002751c0
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* p) { return p; }
-struct Lock { virtual void lock(); virtual void unlock(); };
-struct File { virtual void slot0(); virtual void release(); Lock mutex; char pad[16]; int count; };
-struct Alloc { virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void free(void*); };
+struct Lock_2751c0 { virtual void lock(); virtual void unlock(); };
+struct File { virtual void slot0(); virtual void release(); Lock_2751c0 mutex; char pad[16]; int count; };
+struct Alloc_2751c0 { virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void free(void*); };
 extern char DAT_0052a1c8;
-extern Alloc* DAT_0052a1e4;
+extern Alloc_2751c0* DAT_0052a1e4;
 void __cdecl FUN_0026d850(void*);
 void __cdecl FUN_0026d840(void*);
 namespace core {

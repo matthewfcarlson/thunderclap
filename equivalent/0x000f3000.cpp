@@ -29,14 +29,14 @@ public:
     virtual void addRef();
 };
 
-class Inventory {
+class Inventory_f3000 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual Scenegraph* find(content::LoadInventory::DynamicCasterBase* caster, unsigned __int64 key);
 };
-extern Inventory* DAT_004dd9cc;
+extern Inventory_f3000* DAT_004dd9cc;
 extern int DAT_004de94c;
 
 void __cdecl FUN_000f69e0(Scenegraph* shape, float* scale);
@@ -189,7 +189,7 @@ FEThingsBase::FEThingsBase()
 
     {
         content::LoadInventory::DynamicCaster<pure3d::scenegraph::Scenegraph> caster;
-        Inventory* inv = DAT_004dd9cc;
+        Inventory_f3000* inv = DAT_004dd9cc;
         unsigned __int64 key = FUN_0027b020("cursor_group");
         Scenegraph* sg = inv->find(&caster, key);
         cursorGroup = sg;
@@ -201,7 +201,7 @@ FEThingsBase::FEThingsBase()
     cursorScale[2] = 1.0f;
     {
         content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> caster;
-        Inventory* inv = DAT_004dd9cc;
+        Inventory_f3000* inv = DAT_004dd9cc;
         unsigned __int64 key = FUN_0027b020("cursor_planeShape");
         Scenegraph* shape = inv->find(&caster, key);
         if (shape)

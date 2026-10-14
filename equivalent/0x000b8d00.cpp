@@ -5,13 +5,13 @@ extern "C" unsigned int DAT_004d9968;
 
 extern const char DAT_003f335c[];
 
-class Manager { public: char pad[4]; };
-Manager *__cdecl FUN_000fc1b0();
+class Manager_b8d00 { public: char pad[4]; };
+Manager_b8d00 *__cdecl FUN_000fc1b0();
 
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 
-struct TextEntry {
-    void FUN_000f8500(const char *name, Manager *manager, char flag);
+struct TextEntry_b8d00 {
+    void FUN_000f8500(const char *name, Manager_b8d00 *manager, char flag);
 };
 
 class FEObject {
@@ -28,7 +28,7 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     char pad04[0x14];
-    TextEntry entry;
+    TextEntry_b8d00 entry;
 };
 
 class TextLabel : public FEObject {
@@ -38,7 +38,7 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     char pad04[0x14];
-    TextEntry entry;
+    TextEntry_b8d00 entry;
     char pad19[0x3c - 0x19];
     // Not reset per iteration: status values outside 1..3 reuse the previous colour (as the original does).
     unsigned int color;

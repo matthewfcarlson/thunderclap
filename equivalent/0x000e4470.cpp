@@ -2,33 +2,33 @@
 // FEContainer::vfunc_49 @ 0x000e4470
 extern "C" char *strchr(const char *s, int c);
 
-struct Arg {
+struct Arg_e4470 {
     int FUN_0022b980();
 };
 
-struct Table {
+struct Table_e4470 {
     int FUN_0027b200(unsigned int lo, unsigned int hi);
 };
 
-struct Thing {
+struct Thing_e4470 {
     char pad0[8];
-    Table *table;           // 0x8
-    int FUN_00284860(int index, int zero, Arg *arg);
+    Table_e4470 *table;           // 0x8
+    int FUN_00284860(int index, int zero, Arg_e4470 *arg);
 };
 
-class Child {
+class Child_e4470 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10();
-    virtual Thing *GetThing();      // slot 11
+    virtual Thing_e4470 *GetThing();      // slot 11
 };
 
-union Hash {
+union Hash_e4470 {
     unsigned __int64 q;
     unsigned int w[2];
 };
-Hash FUN_0027b020(const char *s);
+Hash_e4470 FUN_0027b020(const char *s);
 
 class FEContainer {
 public:
@@ -81,19 +81,19 @@ public:
     virtual void vfunc_46();
     virtual void vfunc_47();
     virtual void vfunc_48();
-    virtual int vfunc_49(const char *name, Arg *arg);
+    virtual int vfunc_49(const char *name, Arg_e4470 *arg);
 
     char pad4[0x28 - 4];
-    Child *children[8];     // 0x28
+    Child_e4470 *children[8];     // 0x28
 };
 
-int FEContainer::vfunc_49(const char *name, Arg *arg)
+int FEContainer::vfunc_49(const char *name, Arg_e4470 *arg)
 {
     char *dot = strchr(name, '.');
     if (dot != 0)
         return (int)dot;
 
-    Hash id;
+    Hash_e4470 id;
     id.q = FUN_0027b020(name).q;
     for (int i = 0; i < 8; i++) {
         if (children[i] == 0)

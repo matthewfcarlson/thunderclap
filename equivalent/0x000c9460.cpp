@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_000c9460 @ 0x000c9460
-struct Surface {
+struct Surface_c9460 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4();
  virtual int width(); virtual int height();
 };
-struct Holder { char pad[16]; Surface* surface; };
-struct Point { float x,y; };
-struct Mapper {
- char pad0[16]; Holder* holder; char pad1[44]; float sx,sy,ox,oy;
- Point* FUN_000c9460(Point* output, float x, float unused, float y);
+struct Holder_c9460 { char pad[16]; Surface_c9460* surface; };
+struct Point_c9460 { float x,y; };
+struct Mapper_c9460 {
+ char pad0[16]; Holder_c9460* holder; char pad1[44]; float sx,sy,ox,oy;
+ Point_c9460* FUN_000c9460(Point_c9460* output, float x, float unused, float y);
 };
-Point* Mapper::FUN_000c9460(Point* output, float x, float unused, float y) {
+Point_c9460* Mapper_c9460::FUN_000c9460(Point_c9460* output, float x, float unused, float y) {
  int w = holder->surface->width();
  float u = (x * sx + ox) / w;
  int h = holder->surface->height();

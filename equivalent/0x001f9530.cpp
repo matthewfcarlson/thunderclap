@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 4/4)
 // FUN_001f9530 @ 0x001f9530
-struct Id64 {
+struct Id64_1f9530 {
     unsigned int lo;
     unsigned int hi;
-    void FUN_0027af30(const Id64 *src);
+    void FUN_0027af30(const Id64_1f9530 *src);
 };
 
 // An entry description: an id followed by two flag bytes and a 16-bit value.
 struct KeyInfo {
-    Id64 id;                // 0x00
+    Id64_1f9530 id;                // 0x00
     char flagA;             // 0x08
     char flagB;             // 0x09
     char pad0a[6];
@@ -32,21 +32,21 @@ public:
 extern char FUN_001f92b0;
 extern char FUN_001f92f0;
 
-struct Handle {
+struct Handle_1f9530 {
     Node *node;
-    class Registry *owner;
+    class Registry_1f9530 *owner;
 };
 
-class Registry {
+class Registry_1f9530 {
 public:
     char pad00[0x18];
     Allocator *allocator;   // 0x18
     void *FUN_00230be0(void *matcher, const KeyInfo *key);
     void FUN_00230c30(Node *node, void *init, void *found);
-    Handle *FUN_001f9530(Handle *out, const KeyInfo *key);
+    Handle_1f9530 *FUN_001f9530(Handle_1f9530 *out, const KeyInfo *key);
 };
 
-Handle *Registry::FUN_001f9530(Handle *out, const KeyInfo *key)
+Handle_1f9530 *Registry_1f9530::FUN_001f9530(Handle_1f9530 *out, const KeyInfo *key)
 {
     void *found = FUN_00230be0(&FUN_001f92f0, key);
     if (found == 0) {

@@ -12,29 +12,29 @@ struct Request {
     int FUN_00208b90(int i);
 };
 
-struct Player {
+struct Player_207a00 {
     int FUN_00266710();
     void FUN_002666e0();
 };
 
-class Layers {
+class Layers_207a00 {
 public:
     char pad0[0x590];
     Request *request;
     char pad594[0x5a4 - 0x594];
     char state[0x548];
-    Player *player;
+    Player_207a00 *player;
     char busy;
     char pad_af1;
     char flagAf2;
     int FUN_00203bb0();
-    void FUN_00203e30(Player *p);
+    void FUN_00203e30(Player_207a00 *p);
     bool FUN_002046b0(int cur);
     void FUN_00207410();
     void FUN_00207a00(Request *req);
 };
 
-void Layers::FUN_00207a00(Request *req)
+void Layers_207a00::FUN_00207a00(Request *req)
 {
     int i;
     int countA = req->countA;

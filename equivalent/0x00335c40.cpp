@@ -1,32 +1,32 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 8/8)
 // FUN_00335c40 @ 0x00335c40
-struct TypeInfo {
+struct TypeInfo_335c40 {
     int tag;
 };
 
-struct Desc {
+struct Desc_335c40 {
     char pad0[8];
     int kind;
-    TypeInfo *type;
+    TypeInfo_335c40 *type;
 };
 
-struct Types {
+struct Types_335c40 {
     char pad0[0x44];
     int count;
-    Desc *FUN_00337090(int idx);
+    Desc_335c40 *FUN_00337090(int idx);
 };
 
 int __cdecl FUN_00337f20(int tag);
 
-class Table {
+class Table_335c40 {
 public:
     char pad0[4];
-    Types *types;
+    Types_335c40 *types;
     char **rows;
     bool FUN_00335c40(int idx, int k, int *out0, int *out1);
 };
 
-bool Table::FUN_00335c40(int idx, int k, int *out0, int *out1)
+bool Table_335c40::FUN_00335c40(int idx, int k, int *out0, int *out1)
 {
     if (idx < 0 || idx >= types->count)
         return false;

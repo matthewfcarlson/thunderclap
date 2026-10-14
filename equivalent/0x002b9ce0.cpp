@@ -2,16 +2,16 @@
 // pure3d::BillboardCutOffQuad::vfunc_6 @ 0x002b9ce0
 extern "C" double sqrt(double);
 
-struct Mat4 {
+struct Mat4_2b9ce0 {
     float m[16];
 };
 
-struct V3 {
+struct V3_2b9ce0 {
     float x, y, z;
 };
 
-void __cdecl FUN_002b8840(float *outA, float *outB, unsigned c, float *d, float *e, Mat4 *mat, V3 *dir);
-void __cdecl FUN_002b8b30(float *outA, float *outB, unsigned c, float *d, float *e, Mat4 *mat, V3 *dir);
+void __cdecl FUN_002b8840(float *outA, float *outB, unsigned c, float *d, float *e, Mat4_2b9ce0 *mat, V3_2b9ce0 *dir);
+void __cdecl FUN_002b8b30(float *outA, float *outB, unsigned c, float *d, float *e, Mat4_2b9ce0 *mat, V3_2b9ce0 *dir);
 void __cdecl FUN_002b8e20(float *out, unsigned c, float *d, float len);
 
 class BillboardCutOffQuad {
@@ -38,10 +38,10 @@ public:
     float f_100;
     float f_104;
 
-    void FUN_002b9ce0(float *outA, float *outB, Mat4 *from, Mat4 *to);
+    void FUN_002b9ce0(float *outA, float *outB, Mat4_2b9ce0 *from, Mat4_2b9ce0 *to);
 };
 
-void BillboardCutOffQuad::FUN_002b9ce0(float *outA, float *outB, Mat4 *from, Mat4 *to)
+void BillboardCutOffQuad::FUN_002b9ce0(float *outA, float *outB, Mat4_2b9ce0 *from, Mat4_2b9ce0 *to)
 {
     if (enabled != 1)
         return;
@@ -52,8 +52,8 @@ void BillboardCutOffQuad::FUN_002b9ce0(float *outA, float *outB, Mat4 *from, Mat
         float scaleC;
         float scaleD;
         float unused;
-        V3 d;
-        V3 t;
+        V3_2b9ce0 d;
+        V3_2b9ce0 t;
         char pad30[0x18];
         float scaleG;
         float len;

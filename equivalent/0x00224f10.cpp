@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00224f10 @ 0x00224f10
-struct Vec3 { float x,y,z; };
+struct Vec3_224f10 { float x,y,z; };
 extern "C" double __cdecl sqrt(double);
 extern void __cdecl FUN_00224ea0(float x, float z);
-void __cdecl FUN_00224f10(const Vec3* v) {
+void __cdecl FUN_00224f10(const Vec3_224f10* v) {
     float x=v->x, z=v->z;
     union { float f; unsigned int u; } a;
     a.f=v->y; a.u &= 0x7fffffff;

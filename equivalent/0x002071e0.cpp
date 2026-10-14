@@ -7,7 +7,7 @@ int __cdecl FUN_00266da0(int tag);
 void __cdecl FUN_00267110(int id);
 void __cdecl FUN_00267090(void *p);
 
-struct Voice {
+struct Voice_2071e0 {
     virtual void v0();
     virtual void v1();
 };
@@ -19,45 +19,45 @@ struct Stream {
     virtual void v1();
 };
 
-struct Handle {
+struct Handle_2071e0 {
     void FUN_00263e90();
 };
 
-struct Mgr54 {
+struct Mgr54_2071e0 {
     void *FUN_00086290();
 };
-struct Dummy {
+struct Dummy_2071e0 {
     void FUN_001b9020();
 };
 struct Mgr3c {
     int FUN_000d6f50();
     void FUN_000d7030(int v);
 };
-struct Global {
+struct Global_2071e0 {
     char pad0[0x3c];
     Mgr3c *mgr3c;          // 0x3c
     char pad40[0x54 - 0x40];
-    Mgr54 *mgr54;          // 0x54
+    Mgr54_2071e0 *mgr54;          // 0x54
 };
-extern Global *DAT_004dd700;
+extern Global_2071e0 *DAT_004dd700;
 
-struct Slot {
+struct Slot_2071e0 {
     unsigned char used;            // 0x00
     unsigned char used2;           // 0x01
     char pad02[0x22 - 2];
     short id;                      // 0x22
     char pad24[4];
     void *buf;                     // 0x28
-    Voice *voice;                  // 0x2c
+    Voice_2071e0 *voice;                  // 0x2c
     char pad30[4];
-    Handle *handle;                // 0x34
+    Handle_2071e0 *handle;                // 0x34
     char pad38[4];
 };
 
 class Mixer {
 public:
     char pad0[0x4c];
-    Slot slots[20];                // 0x4c
+    Slot_2071e0 slots[20];                // 0x4c
     char pad4fc[0x578 - 0x4fc];
     Stream *streams[3];            // 0x578
     char pad584[0x5a4 - 0x584];
@@ -112,7 +112,7 @@ void Mixer::FUN_002071e0(int n)
 
     if (DAT_004c91d8) {
         for (int i = 0; i < 20; ++i) {
-            Slot *s = &slots[i];
+            Slot_2071e0 *s = &slots[i];
             if (s->used)
                 continue;
             if (s->handle != 0) {
@@ -156,8 +156,8 @@ void Mixer::FUN_002071e0(int n)
             st->FUN_002660a0(streams[0]);
     }
     ready = 1;
-    Mgr54 *m54 = DAT_004dd700->mgr54;
-    ((Dummy *)m54->FUN_00086290())->FUN_001b9020();
+    Mgr54_2071e0 *m54 = DAT_004dd700->mgr54;
+    ((Dummy_2071e0 *)m54->FUN_00086290())->FUN_001b9020();
     field9a4 = DAT_004dd700->mgr3c->FUN_000d6f50();
     DAT_004dd700->mgr3c->FUN_000d7030(0x180);
     FUN_00266da0(tag);

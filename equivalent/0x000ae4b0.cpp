@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000ae4b0 @ 0x000ae4b0
-struct Item { void FUN_000b2810(); };
+struct Item_ae4b0 { void FUN_000b2810(); };
 struct CController {
     virtual void slot0();
     int field4;
@@ -8,7 +8,7 @@ struct CController {
     unsigned char enabled;
     char padD[3];
     int count;
-    Item **items;
+    Item_ae4b0 **items;
     int block18[17];
     int block5c[17];
     int fieldA0, fieldA4, fieldA8;

@@ -1,20 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_001fa040 @ 0x001fa040
-struct Name {
+struct Name_1fa040 {
     unsigned int lo, hi;
     void FUN_0027b040(const char* s);
 };
-struct Tree {
+struct Tree_1fa040 {
     void FUN_00230f50(void (__cdecl *cb)(void*, void*), void* user);
 };
-struct Pool {
+struct Pool_1fa040 {
     bool FUN_001d1900(int n);
 };
-Pool* FUN_001d4c90();
+Pool_1fa040* FUN_001d4c90();
 void FUN_00267760(char* dst, int n, const char* fmt, ...);
 void __cdecl FUN_001f9f80(void* node, void* user);
 
-struct SlotA {
+struct SlotA_1fa040 {
     int a0;
     int a4;
     int a8;
@@ -27,11 +27,11 @@ struct SlotA {
     char a24;
     char pad25[3];
 };
-struct SlotB {
+struct SlotB_1fa040 {
     int b0;
     char label[0x20];
     int pad24;
-    Name name;
+    Name_1fa040 name;
     unsigned char c30;
     unsigned char c31;
     char pad32[2];
@@ -45,13 +45,13 @@ struct SlotB {
     short f4a;
     int pad4c;
     int w50;
-    Tree* tree54;
+    Tree_1fa040* tree54;
 };
 
-class Table {
+class Table_1fa040 {
 public:
     char pad0[8];
-    Name name;
+    Name_1fa040 name;
     char pad10[0x410 - 0x10];
     int f410;
     int f414;
@@ -68,14 +68,14 @@ public:
     int f454;
     int f458;
     int f45c;
-    SlotA slotsA[16];
+    SlotA_1fa040 slotsA[16];
     int f6e0;
     char pad6e4[0x6f0 - 0x6e4];
-    SlotB slotsB[16];
+    SlotB_1fa040 slotsB[16];
     void FUN_001fa040();
 };
 
-void Table::FUN_001fa040()
+void Table_1fa040::FUN_001fa040()
 {
     f410 = 0;
     f414 = -1;
@@ -91,7 +91,7 @@ void Table::FUN_001fa040()
     // words in the tail of the last slotB record: one is cleared here, the next is read as a Tree below
     slotsB[15].w50 = 0;
     for (int i = 0; i < 16; i++) {
-        SlotA& s = slotsA[i];
+        SlotA_1fa040& s = slotsA[i];
         s.a0 = 0;
         s.a4 = -1;
         s.a8 = -1;
@@ -101,12 +101,12 @@ void Table::FUN_001fa040()
         s.a18 = 0;
         s.a1c = 0;
         s.a24 = 0;
-        Pool* p = FUN_001d4c90();
+        Pool_1fa040* p = FUN_001d4c90();
         p->FUN_001d1900(s.a20);
         s.a20 = -1;
     }
     for (int j = 0; j < 16; j++) {
-        SlotB& s = slotsB[j];
+        SlotB_1fa040& s = slotsB[j];
         s.b0 = 0;
         FUN_00267760(s.label, 0x20, "CONSTRUCTED, BUT NOT YET NAMED");
         s.f38 = 0;
@@ -122,9 +122,9 @@ void Table::FUN_001fa040()
     }
     f440 = 0;
     f444 = 0;
-    Tree* tree = slotsB[15].tree54;
+    Tree_1fa040* tree = slotsB[15].tree54;
     tree->FUN_00230f50(FUN_001f9f80, tree);
-    Pool* pool = FUN_001d4c90();
+    Pool_1fa040* pool = FUN_001d4c90();
     pool->FUN_001d1900(f448);
     int old = f44c;
     f448 = -1;

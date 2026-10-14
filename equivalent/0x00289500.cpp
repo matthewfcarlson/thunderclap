@@ -16,27 +16,27 @@ extern char DAT_00121006;
 extern char DAT_00121401;
 extern char DAT_00121402;
 
-struct Pair {
+struct Pair_289500 {
     unsigned int lo;
     unsigned int hi;
 };
-Pair FUN_002672f0(const char *name, int a, int b);
+Pair_289500 FUN_002672f0(const char *name, int a, int b);
 
-struct Name {
+struct Name_289500 {
     unsigned int lo, hi;
     void FUN_0027b040(const char *s);
 };
 
-class __declspec(novtable) NamedBase {
+class __declspec(novtable) NamedBase_289500 {
 public:
     virtual void v0();
     char pad04[4];
-    Name name;
+    Name_289500 name;
     void FUN_0027b070();
-    NamedBase() { FUN_0027b070(); }
+    NamedBase_289500() { FUN_0027b070(); }
 };
 
-struct Alloc {
+struct Alloc_289500 {
     virtual void v0();
     char pad4[0xc];
     unsigned int cur10;
@@ -58,7 +58,7 @@ struct Reader {
 };
 
 namespace pure3d {
-class Animation : public NamedBase {
+class Animation : public NamedBase_289500 {
 public:
     int f10;
     float f14;
@@ -69,7 +69,7 @@ public:
     int f24;
     int f28;
     int *f2c;
-    Alloc *f30;
+    Alloc_289500 *f30;
     int f34;
     char *f38;
     virtual void v1();
@@ -80,7 +80,7 @@ public:
 };
 }
 
-class Table {
+class Table_289500 {
 public:
     float FUN_dummy();
 };
@@ -93,16 +93,16 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual void vfunc_5(Animation **out, Pair *outId, Reader *r, int ctx);
+    virtual void vfunc_5(Animation **out, Pair_289500 *outId, Reader *r, int ctx);
     char pad04[0x14];
     int f18;
     int f1c;
     int f20;
-    Alloc *FUN_00289070(Reader *r);
-    int FUN_00288eb0(Reader *r, int ctx, Alloc *alloc);
+    Alloc_289500 *FUN_00289070(Reader *r);
+    int FUN_00288eb0(Reader *r, int ctx, Alloc_289500 *alloc);
 };
 
-void AnimationLoader::vfunc_5(Animation **out, Pair *outId, Reader *r, int ctx)
+void AnimationLoader::vfunc_5(Animation **out, Pair_289500 *outId, Reader *r, int ctx)
 {
     struct Frame {
         char pad10[3];
@@ -165,7 +165,7 @@ void AnimationLoader::vfunc_5(Animation **out, Pair *outId, Reader *r, int ctx)
                 if (anim->f38 == 0) {
                     if (anim->f30 != 0) {
                         anim->f30->v0();
-                        Alloc *pool = anim->f30;
+                        Alloc_289500 *pool = anim->f30;
                         unsigned int bytes = anim->f34 * 24;
                         if (bytes > 0) {
                             unsigned int off = (pool->cur14 + 3) & 0xfffffffc;
@@ -190,8 +190,8 @@ void AnimationLoader::vfunc_5(Animation **out, Pair *outId, Reader *r, int ctx)
                 r->stream->FUN_002647e0(name2, n2, 1, 1);
                 name2[n2] = 0;
                 r->stream->FUN_002647e0(&skip, 1, 4, 1);
-                Pair key = FUN_002672f0(name2, 0, 0);
-                *(Pair *)(anim->f38 + rowOff) = key;
+                Pair_289500 key = FUN_002672f0(name2, 0, 0);
+                *(Pair_289500 *)(anim->f38 + rowOff) = key;
                 r->stream->FUN_002647e0(&count, 1, 4, 1);
                 unsigned int k = 0;
                 int off = rowOff;

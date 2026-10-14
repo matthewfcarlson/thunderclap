@@ -14,10 +14,10 @@ struct DynamicCaster {
 
 namespace pure3d { class Animation; }
 
-struct Id64 {
+struct Id64_23160 {
     unsigned int lo;
     unsigned int hi;
-    void FUN_0027af70(Id64 *src);
+    void FUN_0027af70(Id64_23160 *src);
 };
 
 namespace choreo2 {
@@ -26,7 +26,7 @@ public:
     virtual void AddRef();
     virtual void Release();
     char pad04[4];
-    Id64 id;
+    Id64_23160 id;
     void FUN_002224a0(int v);
 };
 
@@ -37,24 +37,24 @@ public:
 };
 }
 
-struct Rig {
+struct Rig_23160 {
     int FUN_0027b670(unsigned int lo, unsigned int hi);
 };
 
-struct Stats {
+struct Stats_23160 {
     char pad0[0x120];
     struct Inner {
         char pad0[8];
-        Rig *rig;
+        Rig_23160 *rig;
     } *inner;
 };
 
-class Owner;
+class Owner_23160;
 struct Context { char pad[4]; };
-Context *__fastcall FUN_000592a0(Owner *owner);
-Stats *__fastcall FUN_00059a30(Context *ctx);
+Context *__fastcall FUN_000592a0(Owner_23160 *owner);
+Stats_23160 *__fastcall FUN_00059a30(Context *ctx);
 
-struct LayerSet {
+struct LayerSet_23160 {
     char pad0[0x64];
     void *rigRef;
     unsigned int count;
@@ -62,9 +62,9 @@ struct LayerSet {
     choreo2::Driver *FUN_00222e20(unsigned int index);
     void FUN_00222890(choreo2::Driver *d, float dur, float a, float b, float c, float e, float f);
 };
-LayerSet *__fastcall FUN_00059a40(Context *ctx);
+LayerSet_23160 *__fastcall FUN_00059a40(Context *ctx);
 
-class Factory {
+class Factory_23160 {
 public:
     virtual void f0();
     virtual void f1();
@@ -72,22 +72,22 @@ public:
     virtual void *f3(content::LoadInventory::DynamicCaster<pure3d::Animation> *caster, unsigned int lo, unsigned int hi);
 };
 
-struct Holder44 { Factory *FUN_00203d70(); };
-struct Holder28 { Holder44 *FUN_000862a0(); };
-struct Manager { char pad0[0x54]; Holder28 *holder; };
-extern Manager *DAT_004dd700;
+struct Holder44_23160 { Factory_23160 *FUN_00203d70(); };
+struct Holder28_23160 { Holder44_23160 *FUN_000862a0(); };
+struct Manager_23160 { char pad0[0x54]; Holder28_23160 *holder; };
+extern Manager_23160 *DAT_004dd700;
 
-class Owner {
+class Owner_23160 {
 public:
     virtual void v0();
 };
 
-struct Key {
+struct Key_23160 {
     unsigned int lo;
     unsigned int hi;
 };
 
-class StrafeData {
+class StrafeData_23160 {
 public:
     virtual void v0();
     virtual void v1();
@@ -98,9 +98,9 @@ public:
     virtual void v6();
     virtual float v7();
     char pad04[0x14];
-    Id64 id;
-    Key keys[9];
-    Key rigKey;
+    Id64_23160 id;
+    Key_23160 keys[9];
+    Key_23160 rigKey;
     float f70;
     float f74;
     float f78;
@@ -120,42 +120,42 @@ public:
     virtual void vfunc_7();
     virtual void vfunc_8();
     char pad04[0x18];
-    Owner *owner;
-    StrafeData *data;
+    Owner_23160 *owner;
+    StrafeData_23160 *data;
     choreo2::LocomotionStrafeDriver *driver;
 };
 
-struct Frame {
+struct Frame_23160 {
     void *a1;
     void *a2;
     void *a3;
     void *a4;
     int n;
     void *a0;
-    LayerSet *layers;
-    Id64 *idPtr;
+    LayerSet_23160 *layers;
+    Id64_23160 *idPtr;
     unsigned int t30;
     unsigned int t34;
     void *anims[12];
 };
 
-static __forceinline void *LoadAnim(StrafeData *sd, int idx, void *slot)
+static __forceinline void *LoadAnim(StrafeData_23160 *sd, int idx, void *slot)
 {
     unsigned int lo = sd->keys[idx].lo;
     unsigned int hi = sd->keys[idx].hi;
     if ((lo | hi) == 0)
         return 0;
-    Factory *fa = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+    Factory_23160 *fa = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
     return fa->f3(new (slot) content::LoadInventory::DynamicCaster<pure3d::Animation>, lo, hi);
 }
 
 bool CGrappleLocoStrafe4Action::vfunc_6(int arg)
 {
-    Frame f;
+    Frame_23160 f;
     Context *ctx = FUN_000592a0(owner);
     FUN_00059a30(ctx);
     f.layers = FUN_00059a40(ctx);
-    LayerSet *layers = f.layers;
+    LayerSet_23160 *layers = f.layers;
     if (layers == 0)
         return false;
 
@@ -219,11 +219,11 @@ bool CGrappleLocoStrafe4Action::vfunc_6(int arg)
     }
     driver->AddRef();
 
-    StrafeData *sd = data;
+    StrafeData_23160 *sd = data;
     unsigned int rlo = sd->rigKey.lo;
     unsigned int rhi = sd->rigKey.hi;
-    Owner *own = owner;
-    f.idPtr = (Id64 *)driver;
+    Owner_23160 *own = owner;
+    f.idPtr = (Id64_23160 *)driver;
     if ((rlo | rhi) != 0) {
         int r = FUN_00059a30(FUN_000592a0(own))->inner->rig->FUN_0027b670(rlo, rhi);
         if (r != 0)

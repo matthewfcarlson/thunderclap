@@ -1,37 +1,37 @@
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 12/12)
 // FUN_0031a6b0 @ 0x0031a6b0
-struct Rest {
+struct Rest_31a6b0 {
     char data[96];
-    void FUN_0031a8b0(const Rest *src);
+    void FUN_0031a8b0(const Rest_31a6b0 *src);
 };
 
-struct Elem {
+struct Elem_31a6b0 {
     unsigned int first;
-    Rest rest;
+    Rest_31a6b0 rest;
 };
 
-struct Sub {
+struct Sub_31a6b0 {
     char data[0x60];
-    void FUN_00319c80(const Sub *src);
+    void FUN_00319c80(const Sub_31a6b0 *src);
 };
 
-class Container {
+class Container_31a6b0 {
 public:
-    Elem *begin;
-    Elem *end;
-    Elem *cap;
+    Elem_31a6b0 *begin;
+    Elem_31a6b0 *end;
+    Elem_31a6b0 *cap;
     char pad0c[4];
-    Sub sub;
+    Sub_31a6b0 sub;
     unsigned int f70, f74, f78, f7c, f80;
     unsigned char f84;
     char pad85[3];
     unsigned int f88, f8c, f90, f94, f98, f9c;
     int state;
 
-    Container *FUN_0031a6b0(const Container *other);
+    Container_31a6b0 *FUN_0031a6b0(const Container_31a6b0 *other);
 };
 
-Container *Container::FUN_0031a6b0(const Container *other)
+Container_31a6b0 *Container_31a6b0::FUN_0031a6b0(const Container_31a6b0 *other)
 {
     if (this == other)
         return this;
@@ -42,11 +42,11 @@ Container *Container::FUN_0031a6b0(const Container *other)
     end = begin;
 
     for (unsigned int i = 0; i < (unsigned int)(((int)other->end - (int)other->begin) / 100); i++) {
-        Elem tmp;
-        const Elem *s = &other->begin[i];
+        Elem_31a6b0 tmp;
+        const Elem_31a6b0 *s = &other->begin[i];
         tmp.first = s->first;
         tmp.rest.FUN_0031a8b0(&s->rest);
-        Elem *p = end;
+        Elem_31a6b0 *p = end;
         if (p < cap) {
             end = p + 1;
             if (p) {

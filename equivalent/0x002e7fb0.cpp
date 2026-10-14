@@ -5,7 +5,7 @@ extern const unsigned int DAT_004d10d8[7];  // png_pass_inc
 extern const unsigned int DAT_004d10f4[7];  // png_pass_ystart
 extern const unsigned int DAT_004d1110[7];  // png_pass_yinc
 
-struct png_struct {
+struct png_struct_2e7fb0 {
     char pad0[0x64];
     unsigned int flags;                 // 0x64
     unsigned int transformations;       // 0x68
@@ -34,12 +34,12 @@ struct png_struct {
     unsigned char pixel_depth;          // 0x121
 };
 
-void __cdecl FUN_002dc3e0(png_struct *png_ptr);
-unsigned char *__cdecl FUN_002e6c00(png_struct *png_ptr, unsigned int size);
-void __cdecl FUN_002e6b60(png_struct *png_ptr, unsigned char *ptr, int value, unsigned int size);
+void __cdecl FUN_002dc3e0(png_struct_2e7fb0 *png_ptr);
+unsigned char *__cdecl FUN_002e6c00(png_struct_2e7fb0 *png_ptr, unsigned int size);
+void __cdecl FUN_002e6b60(png_struct_2e7fb0 *png_ptr, unsigned char *ptr, int value, unsigned int size);
 
 // libpng png_read_start_row
-void __cdecl FUN_002e7fb0(png_struct *png_ptr)
+void __cdecl FUN_002e7fb0(png_struct_2e7fb0 *png_ptr)
 {
     int max_pixel_depth;
     unsigned int row_bytes;

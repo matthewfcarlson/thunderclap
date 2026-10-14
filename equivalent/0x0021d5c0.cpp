@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 4/4)
 // FUN_0021d5c0 @ 0x0021d5c0
 struct FuncState;
-struct LexState {
+struct LexState_21d5c0 {
     int pad00;
     int linenumber;
     int lastline;
@@ -11,14 +11,14 @@ struct LexState {
     int lookaheadSeminfo;
     FuncState* fs;
 };
-struct Exp { int k; int info; int aux; int t; int f; };
-void __cdecl FUN_00221110(FuncState* fs, Exp* e);
-int __cdecl FUN_0021ded0(LexState* ls, Exp* v, unsigned int limit);
-int __cdecl FUN_0021bbc0(LexState* ls, int* seminfo);
+struct Exp_21d5c0 { int k; int info; int aux; int t; int f; };
+void __cdecl FUN_00221110(FuncState* fs, Exp_21d5c0* e);
+int __cdecl FUN_0021ded0(LexState_21d5c0* ls, Exp_21d5c0* v, unsigned int limit);
+int __cdecl FUN_0021bbc0(LexState_21d5c0* ls, int* seminfo);
 
 // Lua 5.0 explist1(ls, v): ls arrives in esi, v in edi.
 // equiv-conv: FUN_0021d5c0 esi edi
-int FUN_0021d5c0(LexState* ls, Exp* v)
+int FUN_0021d5c0(LexState_21d5c0* ls, Exp_21d5c0* v)
 {
     int n = 1;
     FUN_0021ded0(ls, v, 0);

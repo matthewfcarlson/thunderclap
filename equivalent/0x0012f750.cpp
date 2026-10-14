@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2355 inputs, branch coverage 36/36)
 // hulkfight::DialogueAction::vfunc_3 @ 0x0012f750
-struct Item { char pad[0x1c]; int f1c; };
-struct Info {
+struct Item_12f750 { char pad[0x1c]; int f1c; };
+struct Info_12f750 {
     char pad0[0x10];
     int f10;
     const char *name14;
@@ -10,23 +10,23 @@ struct Info {
     const char *name20;
     char flag24;
 };
-struct Sub { const char *FUN_000443b0(); };
-struct Player {
+struct Sub_12f750 { const char *FUN_000443b0(); };
+struct Player_12f750 {
     char pad0[0x11c];
-    Sub *sub11c;
+    Sub_12f750 *sub11c;
     char pad1[0x334 - 0x120];
-    Player *f334;
+    Player_12f750 *f334;
     char pad2[0x20b0 - 0x338];
     int f20b0;
     const char *FUN_00036d00();
 };
-struct Mgr { Player *FUN_00059a30(); };
-struct Obj3 { char FUN_00092de0(); };
-struct Holder { char pad[8]; int f8; Mgr *FUN_000592a0(); };
-struct Svc { Obj3 *FUN_00086340(int n); };
-struct Target { void FUN_001ecda0(char *a, int b, char *c, int d); };
-struct Sink2 { char pad[0x34]; Target *t34; };
-extern Svc *DAT_004dd6ec;
+struct Mgr_12f750 { Player_12f750 *FUN_00059a30(); };
+struct Obj3_12f750 { char FUN_00092de0(); };
+struct Holder_12f750 { char pad[8]; int f8; Mgr_12f750 *FUN_000592a0(); };
+struct Svc_12f750 { Obj3_12f750 *FUN_00086340(int n); };
+struct Target_12f750 { void FUN_001ecda0(char *a, int b, char *c, int d); };
+struct Sink2 { char pad[0x34]; Target_12f750 *t34; };
+extern Svc_12f750 *DAT_004dd6ec;
 extern Sink2 *DAT_004dd700;
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -38,8 +38,8 @@ public:
     virtual void vfunc_2();
     virtual char vfunc_3(int a, int b);
     char pad[0x1c - 4];
-    Info *info;
-    Holder *f20;
+    Info_12f750 *info;
+    Holder_12f750 *f20;
 };
 
 char DialogueAction::vfunc_3(int a, int b)
@@ -49,11 +49,11 @@ char DialogueAction::vfunc_3(int a, int b)
         __security_check_cookie(cookie0);
         return 0;
     }
-    Player *pl = 0;
-    Mgr *mgr = f20->FUN_000592a0();
+    Player_12f750 *pl = 0;
+    Mgr_12f750 *mgr = f20->FUN_000592a0();
     if (mgr)
         pl = mgr->FUN_00059a30();
-    Info *inf = info;
+    Info_12f750 *inf = info;
     if (inf->flag24) {
         if (pl && pl->f334)
             pl = pl->f334;

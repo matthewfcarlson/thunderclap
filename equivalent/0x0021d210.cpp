@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 156 inputs, branch coverage 22/28, incomplete)
 // FUN_0021d210 @ 0x0021d210
-struct Proto {
+struct Proto_21d210 {
     char pad00[0x3c];
     int lineDefined;            // 0x3c
     char pad40[0x45 - 0x40];
@@ -8,12 +8,12 @@ struct Proto {
     unsigned char isVararg;     // 0x46
 };
 
-struct LexState;
+struct LexState_21d210;
 
-struct FuncState {
-    Proto* f;
+struct FuncState_21d210 {
+    Proto_21d210* f;
     char pad04[8];
-    LexState* ls;               // 0xc
+    LexState_21d210* ls;               // 0xc
     void* L;                    // 0x10
     char pad14[0x34 - 0x14];
     unsigned char nactvar;      // 0x34
@@ -21,7 +21,7 @@ struct FuncState {
     unsigned short actvar[200];
 };
 
-struct LexState {
+struct LexState_21d210 {
     int pad00;
     int linenumber;
     int lastline;
@@ -29,22 +29,22 @@ struct LexState {
     int seminfo;
     int lookaheadToken;
     int lookaheadSeminfo;
-    FuncState* fs;              // 0x1c
+    FuncState_21d210* fs;              // 0x1c
 };
 
-int __cdecl FUN_0021bbc0(LexState* ls, int* seminfo);
-void FUN_0021b060(LexState* ls, const char* msg);
-int __cdecl FUN_0021b080(LexState* ls, const char* s, int len);
-unsigned short FUN_0021c490(LexState* ls, int name);
+int __cdecl FUN_0021bbc0(LexState_21d210* ls, int* seminfo);
+void FUN_0021b060(LexState_21d210* ls, const char* msg);
+int __cdecl FUN_0021b080(LexState_21d210* ls, const char* s, int len);
+unsigned short FUN_0021c490(LexState_21d210* ls, int name);
 const char* FUN_00216320(void* L, const char* fmt, ...);
-void FUN_0021afd0(LexState* ls, const char* msg, int token);
-void __cdecl FUN_00220850(FuncState* fs, int n);
+void FUN_0021afd0(LexState_21d210* ls, const char* msg, int token);
+void __cdecl FUN_00220850(FuncState_21d210* fs, int n);
 // equiv-conv: FUN_0021c2e0 esi eax
-void FUN_0021c2e0(LexState* ls, int token);
+void FUN_0021c2e0(LexState_21d210* ls, int token);
 // equiv-conv: FUN_0021c570 eax edx
-void FUN_0021c570(LexState* ls, int n);
+void FUN_0021c570(LexState_21d210* ls, int n);
 
-static inline void Next(LexState* ls)
+static inline void Next(LexState_21d210* ls)
 {
     ls->lastline = ls->linenumber;
     if (ls->lookaheadToken != 0x11f) {
@@ -56,7 +56,7 @@ static inline void Next(LexState* ls)
     }
 }
 
-static inline void CheckLocalLimit(FuncState* fs, int count)
+static inline void CheckLocalLimit(FuncState_21d210* fs, int count)
 {
     if (fs->nactvar + count > 200) {
         int line = fs->f->lineDefined;
@@ -71,11 +71,11 @@ static inline void CheckLocalLimit(FuncState* fs, int count)
 
 // Lua 5.0 parlist(ls): ls arrives in eax.
 // equiv-conv: FUN_0021d210 eax
-void FUN_0021d210(LexState* ls)
+void FUN_0021d210(LexState_21d210* ls)
 {
-    FuncState* fs0 = ls->fs;
-    FuncState* fs;
-    Proto* f = fs0->f;
+    FuncState_21d210* fs0 = ls->fs;
+    FuncState_21d210* fs;
+    Proto_21d210* f = fs0->f;
     int nparams = 0;
 
     f->isVararg = 0;
@@ -97,7 +97,7 @@ void FUN_0021d210(LexState* ls)
             } else if (ls->token == 0x118) {
                 Next(ls);
                 int name = FUN_0021b080(ls, "arg", 3);
-                FuncState* cur = ls->fs;
+                FuncState_21d210* cur = ls->fs;
                 CheckLocalLimit(cur, nparams + 1);
                 cur->actvar[cur->nactvar + nparams] = FUN_0021c490(ls, name);
                 nparams++;

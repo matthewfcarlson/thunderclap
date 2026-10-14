@@ -2,37 +2,37 @@
 // CDriftAction::vfunc_7 @ 0x0001fe60
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_1fe60 {
     float x, y, z;
 };
 
-struct Player {
+struct Player_1fe60 {
     char pad0[0x2064];
     float f2064;
     float f2068;
     float f206c;
     float f2070;
-    bool FUN_00035550(V3 *out);
-    bool FUN_000356c0(V3 *out);
+    bool FUN_00035550(V3_1fe60 *out);
+    bool FUN_000356c0(V3_1fe60 *out);
     float FUN_000354c0();
-    void FUN_000357a0(const V3 *v);
+    void FUN_000357a0(const V3_1fe60 *v);
 };
 
-struct Mgr {
-    Player *FUN_00059a30();
+struct Mgr_1fe60 {
+    Player_1fe60 *FUN_00059a30();
 };
 
-struct Holder {
-    Mgr *FUN_000592a0();
+struct Holder_1fe60 {
+    Mgr_1fe60 *FUN_000592a0();
 };
 
-struct Cfg {
+struct Cfg_1fe60 {
     char pad0[0x14];
     float c14;
     float c18;
 };
 
-void FUN_00224d70(float angle, V3 *v);
+void FUN_00224d70(float angle, V3_1fe60 *v);
 
 class CDriftAction {
 public:
@@ -45,8 +45,8 @@ public:
     virtual void vfunc_6();
     virtual bool vfunc_7(float arg);
     char pad[0x1c - 4];
-    Holder *f1c;
-    Cfg *f20;
+    Holder_1fe60 *f1c;
+    Cfg_1fe60 *f20;
 };
 
 bool CDriftAction::vfunc_7(float arg)
@@ -55,12 +55,12 @@ bool CDriftAction::vfunc_7(float arg)
         float dot;
         float s;
         float L;
-        V3 h;
-        V3 g;
-        V3 k;
+        V3_1fe60 h;
+        V3_1fe60 g;
+        V3_1fe60 k;
     } fr;
-    Mgr *mgr = f1c->FUN_000592a0();
-    Player *pl = mgr->FUN_00059a30();
+    Mgr_1fe60 *mgr = f1c->FUN_000592a0();
+    Player_1fe60 *pl = mgr->FUN_00059a30();
     fr.s = pl->f2070;
     if (!(fr.s > 0.0f))
         return true;
@@ -72,7 +72,7 @@ bool CDriftAction::vfunc_7(float arg)
     double d = fr.g.y * pl->f2068 + fr.g.z * pl->f206c + fr.g.x * pl->f2064;
     fr.dot = (float)d;
     if (d > 0.0) {
-        Cfg *cfg = f20;
+        Cfg_1fe60 *cfg = f20;
         fr.h.x = 0.0f;
         fr.h.y = 0.0f;
         fr.h.z = -((cfg->c14 + (cfg->c18 - cfg->c14) * fr.s) * fr.dot * arg);
@@ -87,7 +87,7 @@ bool CDriftAction::vfunc_7(float arg)
         fr.h.y = 0.0f;
         if (!(fr.h.x * fr.g.x + fr.h.z * fr.g.z + fr.g.y * 0.0f > 0.0f))
             return true;
-        Cfg *cfg = f20;
+        Cfg_1fe60 *cfg = f20;
         fr.L = (float)sqrt(fr.h.z * fr.h.z + fr.h.x * fr.h.x);
         float A = cfg->c14 + (cfg->c18 - cfg->c14) * fr.s;
         float B = A;

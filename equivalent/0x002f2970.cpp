@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // physics::PhysicsPropertiesLoader::vfunc_5 @ 0x002f2970
-typedef unsigned __int64 Key;
+typedef unsigned __int64 Key_2f2970;
 struct Reader { void FUN_002647e0(void*, unsigned, unsigned, unsigned); };
 struct Context { char pad[0x284]; Reader* reader; };
-Key __cdecl FUN_0027b020(const char*);
-struct Manager { void FUN_002f27c0(Key, float, float, float, float); };
-extern Manager* DAT_00554c30;
+Key_2f2970 __cdecl FUN_0027b020(const char*);
+struct Manager_2f2970 { void FUN_002f27c0(Key_2f2970, float, float, float, float); };
+extern Manager_2f2970* DAT_00554c30;
 namespace physics {
 struct PhysicsPropertiesLoader {
 virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4();
@@ -23,7 +23,7 @@ context->reader->FUN_002647e0(&data.d,1,4,1);
 context->reader->FUN_002647e0(&data.a,1,4,1);
 context->reader->FUN_002647e0(&data.c,1,4,1);
 float x=data.a*0.5f+1.0f, y=data.b+data.b, z=data.c*-1.0f, w=data.d+data.d;
-Key key=FUN_0027b020(data.name);
+Key_2f2970 key=FUN_0027b020(data.name);
 DAT_00554c30->FUN_002f27c0(key,x,y,z,w);
 }
 }

@@ -1,24 +1,24 @@
 // STATUS: equivalent (tools/equiv.py level 3: 93 inputs, branch coverage 20/20)
 // hulkfight::motion::ImpulseVelocityAction::vfunc_5 @ 0x00190a40
-struct V3 {
+struct V3_190a40 {
     float x, y, z;
-    bool FUN_0022d2b0(const V3 *other, float eps);
+    bool FUN_0022d2b0(const V3_190a40 *other, float eps);
 };
 
-struct Mat {
+struct Mat_190a40 {
     float m[16];
-    void FUN_0022c2b0(const V3 *in, V3 *out);
-    void FUN_0022c3b0(const V3 *in, V3 *out);
+    void FUN_0022c2b0(const V3_190a40 *in, V3_190a40 *out);
+    void FUN_0022c3b0(const V3_190a40 *in, V3_190a40 *out);
 };
 
 float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
 
-struct Prop {
+struct Prop_190a40 {
     char pad0[0x1e58];
     float scale;
 };
 
-struct Table {
+struct Table_190a40 {
     char pad0[0x10];
     unsigned int count;
     char pad14[0x10];
@@ -28,25 +28,25 @@ struct Table {
 
 struct Skeleton {
     char pad0[8];
-    Table *table;
+    Table_190a40 *table;
     char pad0c[0x10];
-    Mat *mats;
+    Mat_190a40 *mats;
 };
 
-struct Holder {
+struct Holder_190a40 {
     char pad0[0x120];
     Skeleton *skel;
     char pad124[0x210];
-    Prop *propB;    // 0x334
-    Prop *propA;    // 0x338
-    void FUN_00038410(V3 *a, V3 *b);
+    Prop_190a40 *propB;    // 0x334
+    Prop_190a40 *propA;    // 0x338
+    void FUN_00038410(V3_190a40 *a, V3_190a40 *b);
 };
 
-struct Source {
+struct Source_190a40 {
     char pad0[8];
-    V3 posA;
+    V3_190a40 posA;
     char pad14[0x14];
-    V3 velB;
+    V3_190a40 velB;
     char pad34[0xc];
 };
 
@@ -54,29 +54,29 @@ struct Params {
     char pad0[0x10];
     unsigned int idLo;
     unsigned int idHi;
-    V3 anchor;      // 0x18
-    V3 start;       // 0x24
-    V3 end;         // 0x30
+    V3_190a40 anchor;      // 0x18
+    V3_190a40 start;       // 0x24
+    V3_190a40 end;         // 0x30
     char pad3c;
     char pad3d[3];
     float factor;   // 0x40
 };
 
-struct Handle {
-    Holder *FUN_00059a30();
+struct Handle_190a40 {
+    Holder_190a40 *FUN_00059a30();
 };
 
-struct Owner {
+struct Owner_190a40 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Source *GetSource();
-    Handle *FUN_000592a0();
+    virtual Source_190a40 *GetSource();
+    Handle_190a40 *FUN_000592a0();
 };
 
 struct ArgBlock {
     char pad0[0x28];
-    V3 vel;
+    V3_190a40 vel;
 };
 
 class ImpulseVelocityAction {
@@ -89,14 +89,14 @@ public:
     virtual bool vfunc_5(int a, int b);
     char pad4[0x18];
     Params *params;
-    Owner *owner;
+    Owner_190a40 *owner;
 };
 
 bool ImpulseVelocityAction::vfunc_5(int a, int b)
 {
     if (a != 0)
         return true;
-    Holder *holder = owner->FUN_000592a0()->FUN_00059a30();
+    Holder_190a40 *holder = owner->FUN_000592a0()->FUN_00059a30();
     Skeleton *skel = holder->skel;
     if (skel == 0)
         return false;
@@ -106,14 +106,14 @@ bool ImpulseVelocityAction::vfunc_5(int a, int b)
         if (idx == 0xffff)
             idx = 0;
     }
-    Mat m = skel->mats[idx];
-    V3 zero;
+    Mat_190a40 m = skel->mats[idx];
+    V3_190a40 zero;
     zero.x = 0;
     zero.y = 0;
     zero.z = 0;
-    V3 t1 = params->anchor;
+    V3_190a40 t1 = params->anchor;
     m.FUN_0022c2b0(&t1, &zero);
-    V3 p = params->start;
+    V3_190a40 p = params->start;
     t1 = params->end;
     if (t1.z * t1.z + t1.y * t1.y + t1.x * t1.x > 0.0f) {
         float scale = 0;
@@ -135,7 +135,7 @@ bool ImpulseVelocityAction::vfunc_5(int a, int b)
         p.y = p.y + t1.y;
         p.z = p.z + t1.z;
     }
-    V3 w;
+    V3_190a40 w;
     w.x = 0;
     w.y = 0;
     w.z = 0;
@@ -148,7 +148,7 @@ bool ImpulseVelocityAction::vfunc_5(int a, int b)
         doSet = w.FUN_0022d2b0(&t1, 0.00001f);
     }
     if (doSet) {
-        Source *src = owner->GetSource();
+        Source_190a40 *src = owner->GetSource();
         if (src != 0) {
             zero = src->posA;
             w = ((ArgBlock *)src)->vel;

@@ -2,7 +2,7 @@
 // physics::PhysicsJoint3D::vfunc_11 @ 0x0030b4c0
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_30b4c0 {
     float x, y, z;
 };
 
@@ -54,10 +54,10 @@ public:
     char pad18[0xf4 - 0x18];
     int mode;
     char padf8[0x120 - 0xf8];
-    volatile Vec3 pos;
-    Vec3 posTarget;
-    volatile Vec3 vel;
-    Vec3 velTarget;
+    volatile Vec3_30b4c0 pos;
+    Vec3_30b4c0 posTarget;
+    volatile Vec3_30b4c0 vel;
+    Vec3_30b4c0 velTarget;
     char settled;
     char flag151;
 };

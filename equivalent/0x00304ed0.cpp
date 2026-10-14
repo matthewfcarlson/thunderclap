@@ -2,7 +2,7 @@
 // FUN_00304ed0 @ 0x00304ed0
 // equiv-map: ??0ObjectBase@@QAE@XZ = 0x0027b070
 
-struct Name {
+struct Name_304ed0 {
     int a;
     int b;
     void FUN_0027af00();
@@ -18,7 +18,7 @@ public:
 namespace physics {
 class CollisionObject : public ObjectBase {
 public:
-    Name name;              // 0x10
+    Name_304ed0 name;              // 0x10
     int f18, f1c, f20, f24, f28, f2c, f30;
     char b34, b35;
     char pad36[2];

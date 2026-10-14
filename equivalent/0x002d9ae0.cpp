@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 137 inputs, branch coverage 24/28, incomplete)
 // FUN_002d9ae0 @ 0x002d9ae0
-struct ImageInfo {
+struct ImageInfo_2d9ae0 {
     unsigned int width;
     unsigned int pitch;
     unsigned char flags;
@@ -10,7 +10,7 @@ struct ImageInfo {
 };
 
 // Expands a grayscale (flags 0) or gray+alpha (flags 4) image to RGB(A) in place, walking backwards.
-void __cdecl FUN_002d9ae0(ImageInfo *info, unsigned char *data)
+void __cdecl FUN_002d9ae0(ImageInfo_2d9ae0 *info, unsigned char *data)
 {
     unsigned char depth = info->depth;
     unsigned int width = info->width;

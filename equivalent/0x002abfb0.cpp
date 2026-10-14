@@ -8,7 +8,7 @@ struct Stream {
     char FUN_002647e0(void* dst, int a, int size, int b);
 };
 
-struct Source;
+struct Source_2abfb0;
 struct Reader {
     char pad000[0x284];
     Stream* stream;
@@ -17,10 +17,10 @@ struct Reader {
     void FUN_00266be0();
 };
 
-struct Item {
+struct Item_2abfb0 {
 };
 
-class Releasable {
+class Releasable_2abfb0 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -34,7 +34,7 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void Load(Source** out0, unsigned int* out1, Reader* r, void* arg);
+    virtual void Load(Source_2abfb0** out0, unsigned int* out1, Reader* r, void* arg);
 };
 }
 
@@ -46,48 +46,48 @@ public:
 };
 }
 
-struct Registry {
+struct Registry_2abfb0 {
     content::ObjectLoader* FUN_00265310(int id);
 };
 
-extern Registry* DAT_00527c58;
+extern Registry_2abfb0* DAT_00527c58;
 
-class Element {
+class Element_2abfb0 {
 public:
     virtual void AddRef();
-    Element* FUN_002d2bd0(Item* item);
+    Element_2abfb0* FUN_002d2bd0(Item_2abfb0* item);
 };
 
-struct Source : public Releasable {
+struct Source_2abfb0 : public Releasable_2abfb0 {
     char pad04[0x24];
     int count;
-    Item** items;
-    Item* FUN_00288a10(int index);
+    Item_2abfb0** items;
+    Item_2abfb0* FUN_00288a10(int index);
 };
 
-struct ElementList {
-    Element** begin;
-    Element** end;
-    char FUN_002aba00(unsigned int n, Element* const* fill);
+struct ElementList_2abfb0 {
+    Element_2abfb0** begin;
+    Element_2abfb0** end;
+    char FUN_002aba00(unsigned int n, Element_2abfb0* const* fill);
 };
 
-class Generator {
+class Generator_2abfb0 {
 public:
     virtual void v0();
     char pad04[0x18];
     int used;
     char pad20[8];
-    Releasable* source;
-    ElementList elements;
+    Releasable_2abfb0* source;
+    ElementList_2abfb0 elements;
     char pad34[4];
     unsigned int dim0;
     unsigned int dim1;
     char pad40[8];
-    Generator* FUN_002d3b40();
+    Generator_2abfb0* FUN_002d3b40();
 };
 
-struct Frame {
-    Source* out0;
+struct Frame_2abfb0 {
+    Source_2abfb0* out0;
     unsigned int y;
     void* z;
     unsigned int old;
@@ -95,14 +95,14 @@ struct Frame {
     unsigned int pad14;
 };
 
-Generator* __stdcall FUN_002abfb0(Reader* r, void* arg)
+Generator_2abfb0* __stdcall FUN_002abfb0(Reader* r, void* arg)
 {
-    Frame f;
+    Frame_2abfb0 f;
     r->stream->FUN_002647e0(&f.old, 1, 4, 1);
-    Generator* gen = 0;
+    Generator_2abfb0* gen = 0;
     void* mem = FUN_00263ea0(0x48);
     if (mem != 0)
-        gen = ((Generator*)mem)->FUN_002d3b40();
+        gen = ((Generator_2abfb0*)mem)->FUN_002d3b40();
     r->stream->FUN_002647e0(&f.y, 1, 4, 1);
     gen->dim0 = f.y;
     r->stream->FUN_002647e0(&f.y, 1, 4, 1);
@@ -115,16 +115,16 @@ Generator* __stdcall FUN_002abfb0(Reader* r, void* arg)
             loader->FUN_00288e80(1);
             loader->Load(&f.out0, &f.out1, r, arg);
             if (f.out0 != 0) {
-                Source* src = f.out0;
+                Source_2abfb0* src = f.out0;
                 src->AddRef();
                 if (gen->source != 0)
                     gen->source->Release();
                 gen->source = src;
                 f.y = f.out0->count;
                 f.z = 0;
-                gen->elements.FUN_002aba00(f.y, (Element* const*)&f.z);
+                gen->elements.FUN_002aba00(f.y, (Element_2abfb0* const*)&f.z);
                 for (int i = 0; i < (int)f.y; i++) {
-                    Element* e = (Element*)FUN_0008d690(0x10);
+                    Element_2abfb0* e = (Element_2abfb0*)FUN_0008d690(0x10);
                     f.z = e;
                     if (e != 0)
                         e = e->FUN_002d2bd0(f.out0->FUN_00288a10(i));

@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3054 inputs, branch coverage 15/18, incomplete)
 // FUN_001b9ab0 @ 0x001b9ab0
-struct Sink { int FUN_001c1790(unsigned argb); };
-struct Holder { Sink* sink; };
-Holder* FUN_001c3d90();
+struct Sink_1b9ab0 { int FUN_001c1790(unsigned argb); };
+struct Holder_1b9ab0 { Sink_1b9ab0* sink; };
+Holder_1b9ab0* FUN_001c3d90();
 static int Clamp255(int v) { return v < 0 ? 0 : (v > 255 ? 255 : v); }
 int __stdcall SetColor(int r, int g, int b) {
     int cr = Clamp255(r);

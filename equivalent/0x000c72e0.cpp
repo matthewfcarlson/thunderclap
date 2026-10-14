@@ -2,45 +2,45 @@
 // FUN_000c72e0 @ 0x000c72e0
 extern "C" double sqrt(double);
 
-struct Mat {
+struct Mat_c72e0 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022bab0(float angle);
 };
 
-struct V3 {
+struct V3_c72e0 {
     float x, y, z;
-    void FUN_0022d210(const Mat *m);
+    void FUN_0022d210(const Mat_c72e0 *m);
     void FUN_0022d110();
 };
 
-struct V4 { float x, y, z, w; };
+struct V4_c72e0 { float x, y, z, w; };
 
-struct Cam {
-    char FUN_001c4050(V4 *p);
-    const Mat *FUN_001c3fd0();
+struct Cam_c72e0 {
+    char FUN_001c4050(V4_c72e0 *p);
+    const Mat_c72e0 *FUN_001c3fd0();
 };
 
-struct Pos {
-    void FUN_00059a50(V3 *out);
+struct Pos_c72e0 {
+    void FUN_00059a50(V3_c72e0 *out);
 };
 
-struct Fade {
+struct Fade_c72e0 {
     virtual void v0();
     virtual void v1();
-    Fade *FUN_0028ee60(int tag, float f);
+    Fade_c72e0 *FUN_0028ee60(int tag, float f);
 };
 
-struct Eff {
+struct Eff_c72e0 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(int a, int b);
     virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12();
-    virtual void v13(Fade *f);
+    virtual void v13(Fade_c72e0 *f);
     virtual void v14();
 };
 
-struct Mgr {
+struct Mgr_c72e0 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -49,10 +49,10 @@ struct Mgr {
     virtual void v14();
     virtual void v15(int a);
     virtual void v16(int a);
-    virtual void v17(int a, Mat *m);
+    virtual void v17(int a, Mat_c72e0 *m);
 };
 
-struct Meter {
+struct Meter_c72e0 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -60,81 +60,81 @@ struct Meter {
     virtual float v16();
 };
 
-struct Holder {
-    Mgr *mgr;
-    void FUN_00293d00(V3 *p);
+struct Holder_c72e0 {
+    Mgr_c72e0 *mgr;
+    void FUN_00293d00(V3_c72e0 *p);
     void FUN_00293da0(float a, float b, float c);
 };
 
-struct Player {
+struct Player_c72e0 {
     char pad0[0x10];
-    Pos *pos;               // 0x10
+    Pos_c72e0 *pos;               // 0x10
 };
 
-struct Me {
+struct Me_c72e0 {
     char pad0[0x124];
-    Player *player;         // 0x124
+    Player_c72e0 *player;         // 0x124
 };
 
-struct Game {
+struct Game_c72e0 {
     char pad0[0x20];
-    Me *me;                 // 0x20
+    Me_c72e0 *me;                 // 0x20
 };
 
-struct Slot {
-    Eff *a;
-    Eff *b;
+struct Slot_c72e0 {
+    Eff_c72e0 *a;
+    Eff_c72e0 *b;
 };
 
-struct Entry {
+struct Entry_c72e0 {
     int idx;
-    V3 p;
+    V3_c72e0 p;
     char pad10[0x10];
 };
 
-extern Game *DAT_004dd700;
-extern Meter *DAT_0052c2a4;
-extern Holder *DAT_0052c2ac;
+extern Game_c72e0 *DAT_004dd700;
+extern Meter_c72e0 *DAT_0052c2a4;
+extern Holder_c72e0 *DAT_0052c2ac;
 extern float DAT_0049fb8c;
-extern Cam *FUN_001c3d90();
+extern Cam_c72e0 *FUN_001c3d90();
 extern float FUN_00018a20(float x);
 extern void *FUN_0008d690(unsigned int size);
 
-struct Self {
+struct Self_c72e0 {
     char pad0[0x10];
     char active;            // 0x10
     char pad11[3];
-    Slot slots[1];          // 0x14
+    Slot_c72e0 slots[1];          // 0x14
     char pad1c[0x60 - 0x1c];
-    Entry entries[16];      // 0x60
+    Entry_c72e0 entries[16];      // 0x60
     void FUN_000c72e0();
 };
 
-void Self::FUN_000c72e0()
+void Self_c72e0::FUN_000c72e0()
 {
     if (!active)
         return;
     for (int n = 0; n < 16; n++) {
-        Entry *e = &entries[n];
+        Entry_c72e0 *e = &entries[n];
         if (e->idx == -1)
             continue;
-        V3 pos;
+        V3_c72e0 pos;
         DAT_004dd700->me->player->pos->FUN_00059a50(&pos);
         float dx = e->p.x - pos.x;
         float dz = e->p.z - pos.z;
-        Cam *cam = FUN_001c3d90();
-        V4 v4;
+        Cam_c72e0 *cam = FUN_001c3d90();
+        V4_c72e0 v4;
         v4.x = e->p.x;
         v4.y = e->p.y;
         v4.z = e->p.z;
         v4.w = 1.0f;
         if (cam->FUN_001c4050(&v4) == 1)
             continue;
-        const Mat *src = cam->FUN_001c3fd0();
+        const Mat_c72e0 *src = cam->FUN_001c3fd0();
         float pz = e->p.z;
         float px = e->p.x;
-        Mat M = *src;
-        V3 P;
+        Mat_c72e0 M = *src;
+        V3_c72e0 P;
         P.x = px;
         P.y = e->p.y;
         P.z = pz;
@@ -149,7 +149,7 @@ void Self::FUN_000c72e0()
         P.y = P.y * 0.65f;
         if (t > 0.0)
             angle = -angle;
-        Mat Q;
+        Mat_c72e0 Q;
         Q.FUN_0022b980();
         Q.FUN_0022bab0(angle);
         DAT_0052c2ac->mgr->v15(0);
@@ -161,9 +161,9 @@ void Self::FUN_000c72e0()
             d = 60.0f;
         float f = (float)(d / 60.0f * 0.6f);
         void *mem = FUN_0008d690(0x10);
-        Fade *fd = 0;
+        Fade_c72e0 *fd = 0;
         if (mem != 0)
-            fd = ((Fade *)mem)->FUN_0028ee60(0x45444146, f);
+            fd = ((Fade_c72e0 *)mem)->FUN_0028ee60(0x45444146, f);
         fd->v0();
         int i0 = e->idx;
         if (slots[i0].a != 0) {

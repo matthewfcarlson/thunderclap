@@ -37,7 +37,7 @@ extern void (__stdcall *DAT_003f2c58)(FileTime *out);
 extern DWORD __stdcall FUN_00354d4f(TimeZoneInformation *tz, int *flag);
 extern BOOLEAN __stdcall FUN_00354fa8(SystemTime *date, FileTime *out, FileTime *now, int year);
 
-struct Frame {
+struct Frame_3551b2 {
     FileTime std;
     FileTime dst;
     DWORD aLow;
@@ -52,7 +52,7 @@ DWORD __stdcall GetTimeZoneInformation(TimeZoneInformation *tz);
 
 DWORD __stdcall XAPILIB::GetTimeZoneInformation(TimeZoneInformation *tz)
 {
-    Frame f;
+    Frame_3551b2 f;
     TimeZoneInformation *p = tz;
     DWORD err = FUN_00354d4f(p, (int *)&tz);
     if (err != 0) {

@@ -5,21 +5,21 @@ inline void* operator new(size_t, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
 extern int DAT_0048e100, DAT_0048e134, DAT_0048e0f0, DAT_0048e0e4;
 unsigned char __cdecl FUN_001d04d0(const void*);
-typedef void (*Callback)();
+typedef void (*Callback_8bf80)();
 #define CB(a) void FUN_##a();
 CB(00023e50) CB(00023e60) CB(000893c0) CB(000895c0) CB(000897e0) CB(00089800) CB(00089820) CB(00089830) CB(000898d0) CB(00089910) CB(00089920) CB(00089a00) CB(00089a10) CB(00089ab0) CB(00089f00) CB(00089f80) CB(0008a060) CB(0008a090) CB(0008a2b0) CB(0008a2d0) CB(0008a310) CB(0008abc0)
 struct Pool { Pool* FUN_0008c7f0(); void FUN_0008c470(int); };
 class CGameFlowManager;
-struct Binding { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); char pad4[12]; unsigned char argumentType; char pad11[7]; unsigned char resultType; char pad19[3]; Callback callback; void FUN_001d0480(const char*,int); void* FUN_0008b310(const char*,CGameFlowManager*,Callback); };
+struct Binding { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); char pad4[12]; unsigned char argumentType; char pad11[7]; unsigned char resultType; char pad19[3]; Callback_8bf80 callback; void FUN_001d0480(const char*,int); void* FUN_0008b310(const char*,CGameFlowManager*,Callback_8bf80); };
 template<class C, class R, class A> struct Method1 : Binding { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); };
 template<class C, class R, class A> struct Closure1 : Method1<C,R,A> { C* owner; virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); };
-struct Registry { void FUN_0008bb50(const char*,CGameFlowManager*,Callback); void FUN_0008bbc0(const char*,CGameFlowManager*,Callback); void FUN_0008bc30(const char*,CGameFlowManager*,Callback); void FUN_0008bd40(const char*,CGameFlowManager*,Callback); void FUN_0008bdb0(const char*,CGameFlowManager*,Callback); void FUN_0008bf10(const char*,CGameFlowManager*,Callback); void FUN_001d3b70(const char*,void*); };
-Registry* FUN_001d4c90();
+struct Registry_8bf80 { void FUN_0008bb50(const char*,CGameFlowManager*,Callback_8bf80); void FUN_0008bbc0(const char*,CGameFlowManager*,Callback_8bf80); void FUN_0008bc30(const char*,CGameFlowManager*,Callback_8bf80); void FUN_0008bd40(const char*,CGameFlowManager*,Callback_8bf80); void FUN_0008bdb0(const char*,CGameFlowManager*,Callback_8bf80); void FUN_0008bf10(const char*,CGameFlowManager*,Callback_8bf80); void FUN_001d3b70(const char*,void*); };
+Registry_8bf80* FUN_001d4c90();
 class CGameFlowManager { public: char padding[0xac0]; void* context; Pool* pool; unsigned int* records; void* other; void FUN_0008bf80(void*,void*); };
 #define MAKE(R,A,name,cb,rt,at) { void* mem=FUN_0008d690(0x24); Closure1<CGameFlowManager,R,A>* b=0; if(mem) { Binding* base=(Binding*)mem; base->FUN_001d0480(name,1); Method1<CGameFlowManager,R,A>* m=new(mem) Method1<CGameFlowManager,R,A>; m->callback=cb; m->resultType=FUN_001d04d0(&rt); m->argumentType=FUN_001d04d0(&at); b=new(mem) Closure1<CGameFlowManager,R,A>; b->owner=this; } reg->FUN_001d3b70(name,b); }
 void CGameFlowManager::FUN_0008bf80(void* first,void* second) {
  Pool* p=(Pool*)FUN_0008d690(12); if(p) p=p->FUN_0008c7f0(); pool=p; p->FUN_0008c470(0xbe8); other=second;
- Registry* reg=FUN_001d4c90(); if(!reg) return;
+ Registry_8bf80* reg=FUN_001d4c90(); if(!reg) return;
  reg->FUN_0008bb50("gfm_GetChapter",this,FUN_00023e50);
  reg->FUN_0008bb50("gfm_GetMission",this,FUN_00023e60);
  reg->FUN_0008bbc0("gfm_GetChapterMission",this,FUN_0008a2d0);

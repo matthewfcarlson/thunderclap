@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 145 inputs, branch coverage 76/84, incomplete)
 // pure3d::LightAnimationController::vfunc_28 @ 0x002a8bb0
-struct V3 {
+struct V3_2a8bb0 {
     float x, y, z;
 };
 
@@ -10,7 +10,7 @@ public:
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual void v4(unsigned int t, V3 *out);
+    virtual void v4(unsigned int t, V3_2a8bb0 *out);
 };
 
 struct ColChan {
@@ -21,17 +21,17 @@ struct BoolChan {
     void FUN_0028ac90(unsigned int t, char *out);
 };
 
-struct Chans {
+struct Chans_2a8bb0 {
     void *FUN_00288960(int a, int b);
 };
 
-struct Anim {
-    Chans *FUN_00288a10(int i);
+struct Anim_2a8bb0 {
+    Chans_2a8bb0 *FUN_00288a10(int i);
 };
 
-struct Elem {
+struct Elem_2a8bb0 {
     char pad[0x2c];
-    Anim *FUN_00284f50();
+    Anim_2a8bb0 *FUN_00284f50();
     float FUN_00284f70();
     float FUN_00284f60();
 };
@@ -46,10 +46,10 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual void v8(V3 *out);
+    virtual void v8(V3_2a8bb0 *out);
     void FUN_002c3f00(float x, float y, float z);
-    void FUN_002a2fc0(V3 *v);
-    void FUN_002c4250(V3 *v);
+    void FUN_002a2fc0(V3_2a8bb0 *v);
+    void FUN_002c4250(V3_2a8bb0 *v);
     void FUN_002c41a0(float x, float y, float z);
     void FUN_002c41e0(float x, float y, float z);
     void FUN_002c3d00(float x, float y, float z);
@@ -57,23 +57,23 @@ public:
     void FUN_002a0820(char flag);
 };
 
-struct Sink {
+struct Sink_2a8bb0 {
     void FUN_00293e90(unsigned int color);
 };
-struct SinkHolder {
+struct SinkHolder_2a8bb0 {
     char pad0[8];
-    Sink *f8;
+    Sink_2a8bb0 *f8;
 };
-extern SinkHolder *DAT_0052c2b4;
+extern SinkHolder_2a8bb0 *DAT_0052c2b4;
 
-union Slot {
+union Slot_2a8bb0 {
     volatile float f;
     unsigned int u;
     int i;
 };
 
-struct Frame {
-    Slot s0, s4, s8, sc;                // 0x00..0x0c
+struct Frame_2a8bb0 {
+    Slot_2a8bb0 s0, s4, s8, sc;                // 0x00..0x0c
     volatile float acc0, acc1, acc2, acc3;  // 0x10..0x1c
     char pad20[3];
     char flag;                          // 0x23
@@ -83,10 +83,10 @@ struct Frame {
     volatile float e;                   // 0x48
     volatile float bx, by, bz;          // 0x4c
     int idx;                            // 0x58
-    V3 tdir;                            // 0x5c
-    V3 tcone;                           // 0x68
-    V3 tattn;                           // 0x74
-    V3 tpos;                            // 0x80
+    V3_2a8bb0 tdir;                            // 0x5c
+    V3_2a8bb0 tcone;                           // 0x68
+    V3_2a8bb0 tattn;                           // 0x74
+    V3_2a8bb0 tpos;                            // 0x80
 };
 
 class LightAnimationController {
@@ -123,7 +123,7 @@ public:
     virtual void v29();
     char pad04[0x28 - 4];
     unsigned int count;         // 0x28
-    Elem elems[1];              // 0x2c
+    Elem_2a8bb0 elems[1];              // 0x2c
     char pad58[0x110 - 0x58];
     int mode;                   // 0x110
     Light *light;               // 0x114
@@ -131,7 +131,7 @@ public:
 
 void LightAnimationController::v28()
 {
-    Frame f;
+    Frame_2a8bb0 f;
     unsigned int cnt = count;
     unsigned int color;
     int c0, c1, c2, c3;
@@ -156,9 +156,9 @@ void LightAnimationController::v28()
         f.e = 0.0f;
         f.idx = 0;
         if (cnt != 0) {
-            Elem *el = &elems[0];
+            Elem_2a8bb0 *el = &elems[0];
             do {
-                Chans *Y = el->FUN_00284f50()->FUN_00288a10(0);
+                Chans_2a8bb0 *Y = el->FUN_00284f50()->FUN_00288a10(0);
                 f.s8.f = el->FUN_00284f70();
                 f.s4.f = el->FUN_00284f60();
                 f.s0.f = 1.0f - f.s4.f;
@@ -219,15 +219,15 @@ void LightAnimationController::v28()
         }
         switch (mode) {
         case 1:
-            light->v8((V3 *)&f.ax);
+            light->v8((V3_2a8bb0 *)&f.ax);
             light->FUN_002c3f00(f.cx, f.cy, f.cz);
             break;
         case 2:
-            light->FUN_002a2fc0((V3 *)&f.bx);
+            light->FUN_002a2fc0((V3_2a8bb0 *)&f.bx);
             break;
         case 3:
-            light->v8((V3 *)&f.ax);
-            light->FUN_002c4250((V3 *)&f.bx);
+            light->v8((V3_2a8bb0 *)&f.ax);
+            light->FUN_002c4250((V3_2a8bb0 *)&f.bx);
             light->FUN_002c41a0(f.cx, f.cy, f.cz);
             light->FUN_002c41e0(f.dx, f.dy, f.dz);
             break;
@@ -267,10 +267,10 @@ void LightAnimationController::v28()
     }
 
     if (cnt != 0) {
-        Elem *el = &elems[0];
+        Elem_2a8bb0 *el = &elems[0];
         unsigned int i = 0;
         do {
-            Chans *Y = el->FUN_00284f50()->FUN_00288a10(0);
+            Chans_2a8bb0 *Y = el->FUN_00284f50()->FUN_00288a10(0);
             f.sc.f = el->FUN_00284f70();
             f.s0.f = el->FUN_00284f60();
             f.s4.f = 1.0f - f.s0.f;
@@ -311,7 +311,7 @@ void LightAnimationController::v28()
         c3 = 0;
     else if (c3 > 0xff)
         c3 = 0xff;
-    Sink *sink = DAT_0052c2b4->f8;
+    Sink_2a8bb0 *sink = DAT_0052c2b4->f8;
     if (sink != 0) {
         color = (((c3 << 8 | c0) << 8 | c1) << 8) | c2;
         sink->FUN_00293e90(color);

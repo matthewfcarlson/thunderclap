@@ -4,17 +4,17 @@
 // otherwise leave the current screen.
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 
-class Screen {
+class Screen_bf450 {
 public:
     void FUN_001cc620(int next);
 };
 
-class DialogManager {
+class DialogManager_bf450 {
 public:
     void FUN_000be230(const char* dialog, const char* text, const char* extra, const char* ok, const char* cancel, int buttons, int a, int b);
 };
 
-DialogManager* __cdecl FUN_000fc3d0();
+DialogManager_bf450* __cdecl FUN_000fc3d0();
 void __cdecl FUN_000fc300();
 
 class MenuState {
@@ -22,7 +22,7 @@ public:
     char pad0[0x10];
     int state;
     char pad14[0x38 - 0x14];
-    Screen* screen;
+    Screen_bf450* screen;
     char pad3c[0x1c8c - 0x3c];
     char name[0x20];
 

@@ -7,15 +7,15 @@ struct MultiController {
 };
 namespace pure3d { struct MultiController; namespace scenegraph { struct Scenegraph; } }
 namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void * Cast(void *); }; } }
-struct Inventory { virtual void v0(); virtual void v1(); virtual void v2(); virtual MultiController *Find(void *, unsigned int, unsigned int); };
-extern Inventory *DAT_004dd9cc;
+struct Inventory_f2db0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual MultiController *Find(void *, unsigned int, unsigned int); };
+extern Inventory_f2db0 *DAT_004dd9cc;
 extern unsigned __int64 __cdecl FUN_0027b020(const char *);
 extern void __cdecl FUN_000f6410(MultiController *, MultiController *);
-struct Target { char pad[0x9b4]; MultiController *controllers[4]; void run(const char *,const char *); };
-void Target::run(const char *name,const char *scene) {
+struct Target_f2db0 { char pad[0x9b4]; MultiController *controllers[4]; void run(const char *,const char *); };
+void Target_f2db0::run(const char *name,const char *scene) {
  int i; for(i=0;i<4;++i) if(!controllers[i]) break;
  if(i==4) return;
- Inventory *inv=DAT_004dd9cc;
+ Inventory_f2db0 *inv=DAT_004dd9cc;
  unsigned __int64 key=FUN_0027b020(name);
  content::LoadInventory::DynamicCaster<pure3d::MultiController> caster;
  MultiController *p=inv->Find(&caster,(unsigned)key,(unsigned)(key>>32));

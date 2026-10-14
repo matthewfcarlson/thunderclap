@@ -9,7 +9,7 @@ char FUN_001d04d0(const void *type);
 void *FUN_0008d690(unsigned int size);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
-class __declspec(novtable) MethodBase {
+class __declspec(novtable) MethodBase_1d4830 {
   public:
     virtual void m0();
     char pad_04[0xc];
@@ -20,19 +20,19 @@ class __declspec(novtable) MethodBase {
     char pad_19[3];
     void FUN_001d0480(const char *, int);
     void FUN_001d04b0(const char *name);
-    MethodBase(const char *n, int k) { FUN_001d0480(n, k); }
+    MethodBase_1d4830(const char *n, int k) { FUN_001d0480(n, k); }
 };
 
 struct LuaState;
 int FUN_001d22a0(LuaState *L);
 int FUN_001d4460(LuaState *L);
-void FUN_00213550(LuaState *L, MethodBase *obj);
+void FUN_00213550(LuaState *L, MethodBase_1d4830 *obj);
 void FUN_002134a0(LuaState *L, int (*fn)(LuaState *), int n);
 void FUN_00213790(LuaState *L, int index, const char *name);
 
-struct HandlerTable {
+struct HandlerTable_1d4830 {
     char data[0x1000];
-    void FUN_001d1180(MethodBase *closure);
+    void FUN_001d1180(MethodBase_1d4830 *closure);
 };
 struct WatchList {
     char data[0x4404];
@@ -45,7 +45,7 @@ class ScriptHandler {
     virtual void v0();
     int f04;
     LuaState *L;
-    HandlerTable table;
+    HandlerTable_1d4830 table;
     int f100c;
     char pad1010[0x1060 - 0x1010];
     int f1060;
@@ -74,10 +74,10 @@ template <> struct TypeTag<float> { static const void *get() { return &DAT_0048e
 template <> struct TypeTag<ScriptHandler::script_state> { static const void *get() { return &DAT_004c5d10; } };
 
 template <class T, class R, class A>
-class Method1 : public MethodBase {
+class Method1 : public MethodBase_1d4830 {
   public:
     typedef R (T::*Fn)(A);
-    Method1(const char *name, Fn f) : MethodBase(name, 1) {
+    Method1(const char *name, Fn f) : MethodBase_1d4830(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argType = FUN_001d04d0(TypeTag<A>::get());
@@ -93,10 +93,10 @@ class Closure1 : public Method1<T, R, A> {
 };
 
 template <class T, class R, class A, class B>
-class Method2 : public MethodBase {
+class Method2 : public MethodBase_1d4830 {
   public:
     typedef R (T::*Fn)(A, B);
-    Method2(const char *name, Fn f) : MethodBase(name, 2) {
+    Method2(const char *name, Fn f) : MethodBase_1d4830(name, 2) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argType = FUN_001d04d0(TypeTag<A>::get());

@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0027f070 @ 0x0027f070
-struct Vertex {
+struct Vertex_27f070 {
     float x, y, z;
     unsigned char b, g, r, a;
     float u, v;
 
-    void lerp(const Vertex* from, const Vertex* to, float t);
+    void lerp(const Vertex_27f070* from, const Vertex_27f070* to, float t);
 };
 
-void Vertex::lerp(const Vertex* from, const Vertex* to, float t)
+void Vertex_27f070::lerp(const Vertex_27f070* from, const Vertex_27f070* to, float t)
 {
     x = (to->x - from->x) * t + from->x;
     y = (to->y - from->y) * t + from->y;

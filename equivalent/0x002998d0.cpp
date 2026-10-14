@@ -2,13 +2,13 @@
 // FUN_002998d0 @ 0x002998d0
 void *__cdecl FUN_0008d690(unsigned int size);
 
-class RefCounted {
+class RefCounted_2998d0 {
 public:
     virtual void addRef();
     virtual void release();
 };
 
-class Item {
+class Item_2998d0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -28,19 +28,19 @@ public:
     virtual void v15();
     virtual unsigned count();
     virtual void v17();
-    virtual RefCounted *get(unsigned index);
+    virtual RefCounted_2998d0 *get(unsigned index);
 };
 
-struct Entry {
+struct Entry_2998d0 {
     int a;
     int b;
-    Item *item;
+    Item_2998d0 *item;
 };
 
-struct Source {
+struct Source_2998d0 {
     char pad[0x3c];
-    Entry *begin;
-    Entry *end;
+    Entry_2998d0 *begin;
+    Entry_2998d0 *end;
 };
 
 class Bundle {
@@ -48,23 +48,23 @@ public:
     virtual void addRef();
     virtual void release();
     char pad04[0x24 - 4];
-    RefCounted **slots;      // 0x24
+    RefCounted_2998d0 **slots;      // 0x24
     Bundle *FUN_00299680(unsigned count);
     void FUN_00298a60();
 };
 
-class Owner {
+class Owner_2998d0 {
 public:
     char pad00[0x44];
-    Source *source;          // 0x44
+    Source_2998d0 *source;          // 0x44
     Bundle *bundle;          // 0x48
-    RefCounted *extraA;      // 0x4c
-    RefCounted *extraB;      // 0x50
+    RefCounted_2998d0 *extraA;      // 0x4c
+    RefCounted_2998d0 *extraB;      // 0x50
 
     void FUN_002998d0(unsigned char release);
 };
 
-void Owner::FUN_002998d0(unsigned char release)
+void Owner_2998d0::FUN_002998d0(unsigned char release)
 {
     if (bundle != 0) {
         if (release == 1) {
@@ -81,7 +81,7 @@ void Owner::FUN_002998d0(unsigned char release)
     unsigned total = 0;
     int i;
     for (i = 0; i < n; i++) {
-        Item *item = source->begin[(unsigned char)i].item;
+        Item_2998d0 *item = source->begin[(unsigned char)i].item;
         if (item != 0)
             total += item->count();
     }
@@ -97,16 +97,16 @@ void Owner::FUN_002998d0(unsigned char release)
     b->addRef();
 
     for (i = 0; i < n; i++) {
-        Item *item = source->begin[(unsigned char)i].item;
+        Item_2998d0 *item = source->begin[(unsigned char)i].item;
         unsigned j = 0;
         if (item->count() != 0) {
             do {
-                *(RefCounted **)&bundle->slots[total - 1] = 0;
-                RefCounted **slot = (RefCounted **)&bundle->slots[total - 1];
-                RefCounted *r = item->get(j);
+                *(RefCounted_2998d0 **)&bundle->slots[total - 1] = 0;
+                RefCounted_2998d0 **slot = (RefCounted_2998d0 **)&bundle->slots[total - 1];
+                RefCounted_2998d0 *r = item->get(j);
                 if (r != 0)
                     r->addRef();
-                RefCounted *old = *slot;
+                RefCounted_2998d0 *old = *slot;
                 if (old != 0)
                     old->release();
                 *slot = r;
@@ -117,24 +117,24 @@ void Owner::FUN_002998d0(unsigned char release)
     }
 
     if (extraB != 0) {
-        *(RefCounted **)&bundle->slots[total - 1] = 0;
-        RefCounted *r = extraB;
-        RefCounted **slot = (RefCounted **)&bundle->slots[total - 1];
+        *(RefCounted_2998d0 **)&bundle->slots[total - 1] = 0;
+        RefCounted_2998d0 *r = extraB;
+        RefCounted_2998d0 **slot = (RefCounted_2998d0 **)&bundle->slots[total - 1];
         if (r != 0)
             r->addRef();
-        RefCounted *old = *slot;
+        RefCounted_2998d0 *old = *slot;
         if (old != 0)
             old->release();
         *slot = r;
         total--;
     }
     if (extraA != 0) {
-        *(RefCounted **)&bundle->slots[total - 1] = 0;
-        RefCounted *r = extraA;
-        RefCounted **slot = (RefCounted **)&bundle->slots[total - 1];
+        *(RefCounted_2998d0 **)&bundle->slots[total - 1] = 0;
+        RefCounted_2998d0 *r = extraA;
+        RefCounted_2998d0 **slot = (RefCounted_2998d0 **)&bundle->slots[total - 1];
         if (r != 0)
             r->addRef();
-        RefCounted *old = *slot;
+        RefCounted_2998d0 *old = *slot;
         if (old != 0)
             old->release();
         *slot = r;

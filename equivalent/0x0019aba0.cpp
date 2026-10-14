@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 10/10)
 // FUN_0019aba0 @ 0x0019aba0
-typedef void (__cdecl *Callback)();
+typedef void (__cdecl *Callback_19aba0)();
 void __cdecl FUN_00192770();
 void __cdecl FUN_00192780();
 void __cdecl FUN_001927a0();
@@ -14,14 +14,14 @@ namespace fight {
 template<class T> struct ParamFloatConstRange {
  virtual void slot0();
  char data[12];
- Callback callback;
+ Callback_19aba0 callback;
  int tail;
  void FUN_00234960(const char*);
 };
 template<class T> struct ParamBranch {
  virtual void slot0();
  char data[12];
- Callback callback;
+ Callback_19aba0 callback;
  int tail;
  void FUN_00235170(const char*);
 };

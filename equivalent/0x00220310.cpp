@@ -2,14 +2,14 @@
 // FUN_00220310 @ 0x00220310
 struct State;
 
-struct Zio {
+struct Zio_220310 {
     unsigned int n;
     unsigned char *p;
 };
 
 struct Reader {
     State *L;
-    Zio *zio;
+    Zio_220310 *zio;
     int unused8;
     int swap;
 };
@@ -22,7 +22,7 @@ void FUN_002202a0(Reader *S, int size, const char *name);
 void FUN_0021f8c0(int size, void *dst, Reader *r);
 // equiv-conv: FUN_0021f800 stack esi
 void FUN_0021f800(const char *msg, Reader *r, ...);
-int __cdecl FUN_0021a550(Zio *z);
+int __cdecl FUN_0021a550(Zio_220310 *z);
 
 // Lua 5.0 luaU_loadheader tail (version, endianness, sizes, test number); S arrives in eax.
 // equiv-conv: FUN_00220310 eax
@@ -31,7 +31,7 @@ void FUN_00220310(Reader *S)
     float x;
     int ch;
     unsigned int n;
-    Zio *z;
+    Zio_220310 *z;
 
     FUN_00220220(S);
 

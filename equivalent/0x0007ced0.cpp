@@ -11,7 +11,7 @@ public:
     void Dummy(const char* name, int n, unsigned int flag, math::Vector a, math::Vector b);
 };
 typedef void (CAmbientsManager::*AmbientFn)(const char* name, int n, unsigned int flag, math::Vector a, math::Vector b);
-struct Args {
+struct Args_7ced0 {
     const char* name;
     int n;
     bool flag;
@@ -21,7 +21,7 @@ struct Args {
 };
 // The incoming args pointer is dead once read, and its stack slot then carries the flag byte.
 union ArgsSlot {
-    Args* args;
+    Args_7ced0* args;
     bool flag;
     unsigned int word;
 };
@@ -37,7 +37,7 @@ public:
     virtual void vfunc_2(CAmbientsManager* owner, ArgsSlot slot, void* result);
 };
 void Method5::vfunc_2(CAmbientsManager* owner, ArgsSlot slot, void* result) {
-    Args* args = slot.args;
+    Args_7ced0* args = slot.args;
     const char* name = args->name;
     int n = args->n;
     slot.flag = args->flag;

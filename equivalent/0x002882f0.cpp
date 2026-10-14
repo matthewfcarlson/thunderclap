@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 26/26)
 // pure3d::PoseAnimationController::vfunc_28 @ 0x002882f0
-struct Vec3 {
+struct Vec3_2882f0 {
     float x, y, z;
 };
 
-struct Quat {
+struct Quat_2882f0 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat* a, const Quat* b, float t);
+    void FUN_0022b750(const Quat_2882f0* a, const Quat_2882f0* b, float t);
 };
 
-struct Mat4 {
+struct Mat4_2882f0 {
     char pad00[0x30];
-    Vec3 pos;
+    Vec3_2882f0 pos;
     float w;
 };
 
@@ -22,8 +22,8 @@ public:
     virtual void vf2();
     virtual void vf3();
     virtual void vf4();
-    virtual void vf5(float t, Quat* out);
-    void FUN_0028a8f0(float prevT, float t, Quat* out);
+    virtual void vf5(float t, Quat_2882f0* out);
+    void FUN_0028a8f0(float prevT, float t, Quat_2882f0* out);
 };
 
 class PosChannel {
@@ -32,17 +32,17 @@ public:
     virtual void vf1();
     virtual void vf2();
     virtual void vf3();
-    virtual void vf4(float t, Vec3* out);
-    virtual void vf5(float prevT, float t, Vec3* out);
+    virtual void vf4(float t, Vec3_2882f0* out);
+    virtual void vf5(float prevT, float t, Vec3_2882f0* out);
 };
 
-struct Binding {
+struct Binding_2882f0 {
     RotChannel* rot;
     PosChannel* pos;
     float prevTime;
 };
 
-struct Layer {
+struct Layer_2882f0 {
     float time;
     char pad04[0x14 - 4];
     float weight;
@@ -53,16 +53,16 @@ struct Layer {
 
 struct SourcePose {
     char pad00[0x14];
-    Quat* quats;
-    Mat4* mats;
+    Quat_2882f0* quats;
+    Mat4_2882f0* mats;
 };
 
 struct PoseBuffer {
     char pad00[8];
     SourcePose* src;
     unsigned int count;
-    Quat* quats;
-    Mat4* mats;
+    Quat_2882f0* quats;
+    Mat4_2882f0* mats;
     char pad18[8];
     char flag20;
     char flag21;
@@ -70,21 +70,21 @@ struct PoseBuffer {
     char flag23;
 };
 
-struct Mask {
+struct Mask_2882f0 {
     int pad00;
     unsigned int bits[1];
 };
 
-struct Filter {
+struct Filter_2882f0 {
     char pad00[0x10];
-    Mask* mask;
+    Mask_2882f0* mask;
 };
 
 struct BlendFrame {
-    Vec3 p0;
-    Vec3 v;
-    Quat q;
-    Quat r;
+    Vec3_2882f0 p0;
+    Vec3_2882f0 v;
+    Quat_2882f0 q;
+    Quat_2882f0 r;
 };
 
 namespace pure3d {
@@ -94,12 +94,12 @@ public:
     virtual void vfunc_0();
     char pad04[0x28 - 4];
     unsigned int layerCount;
-    Layer layers[5];
+    Layer_2882f0 layers[5];
     char pad108[0x110 - 0x108];
     PoseBuffer* pose;
     float weight;
     char pad118[4];
-    Binding* binds[4];
+    Binding_2882f0* binds[4];
     char pad12c[4];
     char flag130;
     char useTimes;
@@ -107,7 +107,7 @@ public:
     float* times[4];
     char pad144[4];
     int special;
-    Filter* filter;
+    Filter_2882f0* filter;
     void FUN_00287e20();
     virtual void vfunc_28();
 };
@@ -121,7 +121,7 @@ void PoseAnimationController::vfunc_28()
     SourcePose* src = pose->src;
     float invw = 1.0f - weight;
     unsigned int n = pose->count;
-    Mask* mask = filter->mask;
+    Mask_2882f0* mask = filter->mask;
 
     for (unsigned int i = 0; i < n; i++) {
         if (!(mask->bits[i >> 5] & (1u << (i & 31))))
@@ -161,7 +161,7 @@ void PoseAnimationController::vfunc_28()
                 f.p0.y = (f.v.y - f.p0.y) * wl + f.p0.y;
                 f.p0.z = (f.v.z - f.p0.z) * wl + f.p0.z;
             } else {
-                Vec3* sp = &src->mats[i].pos;
+                Vec3_2882f0* sp = &src->mats[i].pos;
                 f.p0.x = (sp->x - f.p0.x) * wl + f.p0.x;
                 f.p0.y = (sp->y - f.p0.y) * wl + f.p0.y;
                 f.p0.z = (sp->z - f.p0.z) * wl + f.p0.z;
@@ -171,7 +171,7 @@ void PoseAnimationController::vfunc_28()
 
         if (partial) {
             f.q.FUN_0022b750(&f.q, &pose->quats[i], invw);
-            Vec3* dp = &pose->mats[i].pos;
+            Vec3_2882f0* dp = &pose->mats[i].pos;
             f.p0.x = (dp->x - f.p0.x) * invw + f.p0.x;
             f.p0.y = (dp->y - f.p0.y) * invw + f.p0.y;
             f.p0.z = (dp->z - f.p0.z) * invw + f.p0.z;

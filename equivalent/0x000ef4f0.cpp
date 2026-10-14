@@ -21,7 +21,7 @@ struct CameraLike {
     virtual void vf4();
     virtual void vf5(float angle, float scale);
 };
-struct Clock {
+struct Clock_ef4f0 {
     virtual void vf0();
     virtual void vf1();
     virtual void vf2();
@@ -40,10 +40,10 @@ struct Clock {
     virtual void vf15();
     virtual float vf16();
 };
-struct Widget {
+struct Widget_ef4f0 {
     void FUN_000dff70();
 };
-extern Clock* DAT_0052c2a4;
+extern Clock_ef4f0* DAT_0052c2a4;
 extern float (__stdcall *DAT_004de948)(int);
 void __cdecl FUN_0009f790(void* obj, float t, float* a, float* b);
 void __cdecl FUN_000f61e0(CameraLike* cam);
@@ -71,7 +71,7 @@ public:
     ScreenItem* groupA[4];
     char pad9b4[0x9c4 - 0x9b4];
     ScreenItem* groupB[6];
-    Widget widget;
+    Widget_ef4f0 widget;
     char pad9dd[0xab8 - 0x9dd];
     bool active;
     ScreenItem* items[0x20];

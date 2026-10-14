@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 138 inputs, branch coverage 10/10)
 // FUN_00287db0 @ 0x00287db0
-struct Elem {
+struct Elem_287db0 {
     char pad[0x2c];
     float FUN_00284f70();
 };
 
-struct Inner {
+struct Inner_287db0 {
     char pad[0x10];
     unsigned int count;
 };
 
-struct Mid {
+struct Mid_287db0 {
     char pad[8];
-    Inner *inner;
+    Inner_287db0 *inner;
 };
 
-struct Anim {
+struct Anim_287db0 {
     char pad00[0x28];
     unsigned int numElems;
-    Elem elems[1];
+    Elem_287db0 elems[1];
     char pad58[0x110 - 0x2c - 0x2c];
-    Mid *mid;
+    Mid_287db0 *mid;
     char pad114[0x131 - 0x114];
     char enabled;
     char pad132[2];
@@ -28,7 +28,7 @@ struct Anim {
     void FUN_00287db0();
 };
 
-void Anim::FUN_00287db0()
+void Anim_287db0::FUN_00287db0()
 {
     if (!enabled)
         return;

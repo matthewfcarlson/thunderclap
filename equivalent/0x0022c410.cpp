@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_0022c410 @ 0x0022c410
-struct Vec3 {
+struct Vec3_22c410 {
     float x, y, z;
 };
 
@@ -8,10 +8,10 @@ struct Matrix {
     float m[16];
 
     // Transforms n points (row-vector convention, translation in the last row).
-    void FUN_0022c410(int n, const Vec3* src, Vec3* dst);
+    void FUN_0022c410(int n, const Vec3_22c410* src, Vec3_22c410* dst);
 };
 
-void Matrix::FUN_0022c410(int n, const Vec3* src, Vec3* dst)
+void Matrix::FUN_0022c410(int n, const Vec3_22c410* src, Vec3_22c410* dst)
 {
     for (int i = 0; i < n; i++) {
         float x = src[i].z * m[8] + src[i].x * m[0] + src[i].y * m[4] + m[12];

@@ -18,13 +18,13 @@ struct Font {
     virtual void v14(unsigned int *color);
 };
 
-struct Fade {
+struct Fade_f7330 {
     virtual void v0();
     virtual void v1();
-    Fade *FUN_0028ee60(int tag, float f);
+    Fade_f7330 *FUN_0028ee60(int tag, float f);
 };
 
-struct Token {
+struct Token_f7330 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -38,7 +38,7 @@ struct Token {
     virtual void v10();
     virtual void v11();
     virtual void v12();
-    virtual void v13(Fade *f);
+    virtual void v13(Fade_f7330 *f);
     virtual void v14();
     char pad04[0x14 - 4];
     float f14;
@@ -50,10 +50,10 @@ struct Token {
 
 struct TokenTable {
     const char **FUN_000d3ee0();
-    Token *FUN_000d3f10(const char *name);
+    Token_f7330 *FUN_000d3f10(const char *name);
 };
 
-struct Mgr {
+struct Mgr_f7330 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -62,31 +62,31 @@ struct Mgr {
     virtual void v16(int a);
 };
 
-struct Holder {
-    Mgr *mgr;
+struct Holder_f7330 {
+    Mgr_f7330 *mgr;
     void FUN_00293d40(float x, float y, float z);
     void FUN_00293da0(float a, float b, float c);
 };
 
-struct Probe {
+struct Probe_f7330 {
     char pad[0x18];
     void FUN_000ded90(const unsigned short *text, Font *font);
 };
 
-struct Callback {
-    virtual void v0(Probe *p);
+struct Callback_f7330 {
+    virtual void v0(Probe_f7330 *p);
 };
 
-struct Run {
+struct Run_f7330 {
     const unsigned short *text;     // 0x00
     float width;                    // 0x04
-    Token *tok;                     // 0x08
+    Token_f7330 *tok;                     // 0x08
     float tokW;                     // 0x0c
     float scale;                    // 0x10
     float tokY;                     // 0x14
 };
 
-extern Holder *DAT_0052c2ac;
+extern Holder_f7330 *DAT_0052c2ac;
 extern void *FUN_0008d690(unsigned int size);
 // finds the candidate name (ebx) inside the text (eax), returns the match
 // equiv-conv: FUN_000f72e0 eax ebx
@@ -94,7 +94,7 @@ unsigned short *FUN_000f72e0(const unsigned short *text, const char *name);
 
 class GlyphRun;
 
-struct Frame {
+struct Frame_f7330 {
     union {
         const char **list;
         float acc;
@@ -114,8 +114,8 @@ struct Frame {
     } u1c;
     float h1;               // 0x20
     float lineH;            // 0x24
-    Probe probe;            // 0x28
-    Run runs[16];           // 0x40
+    Probe_f7330 probe;            // 0x28
+    Run_f7330 runs[16];           // 0x40
 };
 
 class GlyphRun {
@@ -125,12 +125,12 @@ public:
     char pad28[0x114 - 0x28];
     TokenTable *table;      // 0x114
     float f118;
-    void FUN_000f7330(unsigned short *text, int font, int unused, int mode, Callback *cb);
+    void FUN_000f7330(unsigned short *text, int font, int unused, int mode, Callback_f7330 *cb);
 };
 
-void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode, Callback *cb)
+void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode, Callback_f7330 *cb)
 {
-    Frame f;
+    Frame_f7330 f;
     f.u18.self = this;
     f.h1 = fonts[font]->v7();
     f.lineH = f.h1 - fonts[font]->v8();
@@ -140,7 +140,7 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
     f.runs[1].text = 0;
     if (table != 0) {
         f.u10.list = table->FUN_000d3ee0();
-        Run *r = &f.runs[0];
+        Run_f7330 *r = &f.runs[0];
         do {
             r->text = f.u1c.text;
             int i = 0;
@@ -171,7 +171,7 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
             int len = (int)(e - name - 1);
             f.u1c.text = found + len;
             r->tok = table->FUN_000d3f10(name);
-            Token *tok = r->tok;
+            Token_f7330 *tok = r->tok;
             if (tok != 0) {
                 float a = tok->f14;
                 float b = tok->f18;
@@ -190,7 +190,7 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
 
     f.u10.acc = 0;
     if (f.runs[0].text != 0) {
-        Run *r = &f.runs[0];
+        Run_f7330 *r = &f.runs[0];
         do {
             r->width = fonts[font]->v10(r->text);
             f.u10.acc = r->width + f.u10.acc;
@@ -208,7 +208,7 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
         DAT_0052c2ac->FUN_00293d40(f.u10.acc * k, 0, 0);
     }
     if (f.runs[0].text != 0) {
-        Run *r = &f.runs[0];
+        Run_f7330 *r = &f.runs[0];
         do {
             if (cb != 0) {
                 f.probe.FUN_000ded90(r->text, fonts[font]);
@@ -216,7 +216,7 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
             }
             fonts[font]->v11(r->text, 0);
             DAT_0052c2ac->FUN_00293d40(r->width, 0, 0);
-            Token *tok = r->tok;
+            Token_f7330 *tok = r->tok;
             if (tok != 0) {
                 DAT_0052c2ac->mgr->v15(0);
                 float y = (-f.lineH - r->tokY * r->scale) - (f118 - 1.0f) * f.h1 * 0.5f;
@@ -226,9 +226,9 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
                 f.u14.alpha = f.u1c.color >> 24;
                 f.u14.fade = 1.0f - (float)f.u14.alpha * 0.003921569f;
                 void *mem = FUN_0008d690(0x10);
-                Fade *fd = 0;
+                Fade_f7330 *fd = 0;
                 if (mem != 0)
-                    fd = ((Fade *)mem)->FUN_0028ee60(0x45444146, f.u14.fade);
+                    fd = ((Fade_f7330 *)mem)->FUN_0028ee60(0x45444146, f.u14.fade);
                 tok->v13(fd);
                 tok->v8(0, 0);
                 tok->v14();

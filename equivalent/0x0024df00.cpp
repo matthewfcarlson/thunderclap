@@ -46,14 +46,14 @@ public:
     const float* limit;
 };
 }
-struct Registry { virtual void v0(); };
+struct Registry_24df00 { virtual void v0(); };
 extern unsigned int DAT_004e6320[2];
 extern unsigned int DAT_004e6328[2];
 extern unsigned int DAT_004e6330[2];
 extern unsigned int DAT_004e6338[2];
 extern char DAT_004e6360;
 extern const float DAT_003f335c;
-extern Registry DAT_004e6468;
+extern Registry_24df00 DAT_004e6468;
 extern void* __cdecl FUN_00247530(om::TypeBase* temp);
 void FUN_0024df00()
 {
@@ -141,6 +141,6 @@ void FUN_0024df00()
         if (p)
             new (p) om::MetaTypeAttribScalar<float>(&DAT_004e6360, "mHalListenerEffect.hFReference", 0x54, 20.0f, 20000.0f, 20.0f, "HF Reference", &DAT_003f335c);
     }
-    Registry* reg = &DAT_004e6468;
+    Registry_24df00* reg = &DAT_004e6468;
     reg->v0();
 }

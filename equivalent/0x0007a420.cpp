@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 60/64, incomplete)
 // FUN_0007a420 @ 0x0007a420
-struct V3 {
+struct V3_7a420 {
     float x, y, z;
 };
 
-struct Rng {
+struct Rng_7a420 {
     unsigned int s0;
     unsigned int s1;
     int FUN_00011330(int maxValue);
 };
 
-struct Cell {
+struct Cell_7a420 {
     float x0;
     float pad04;
     float z0;
@@ -27,42 +27,42 @@ struct Cell {
     char pad45[3];
 };
 
-struct Probe {
-    void FUN_00059a50(V3 *out);
+struct Probe_7a420 {
+    void FUN_00059a50(V3_7a420 *out);
 };
 
-struct Actor {
+struct Actor_7a420 {
     char pad00[0x10];
-    Probe *probe;
-    void FUN_00035660(V3 *out);
+    Probe_7a420 *probe;
+    void FUN_00035660(V3_7a420 *out);
 };
 
-struct Ctx {
+struct Ctx_7a420 {
     char pad00[0x124];
-    Actor *actor;
+    Actor_7a420 *actor;
 };
 
-struct Owner {
+struct Owner_7a420 {
     char pad00[0x20];
-    Ctx *ctx;
+    Ctx_7a420 *ctx;
 };
 
-extern Rng *DAT_004e5acc;
-Rng *FUN_000964d0();
+extern Rng_7a420 *DAT_004e5acc;
+Rng_7a420 *FUN_000964d0();
 
-class Grid {
+class Grid_7a420 {
 public:
     char pad0000[0x1904];
-    Cell cells[98];
+    Cell_7a420 cells[98];
     char pad3494[0x382c - 0x3494];
-    Owner *owner;
+    Owner_7a420 *owner;
     char FUN_0007a420(int *outRow, int *outCol, int *outSlot, int *outFlag);
 };
 
-char Grid::FUN_0007a420(int *outRow, int *outCol, int *outSlot, int *outFlag)
+char Grid_7a420::FUN_0007a420(int *outRow, int *outCol, int *outSlot, int *outFlag)
 {
     struct Frame {
-        Grid *self;
+        Grid_7a420 *self;
         int row;
         int bestFlag;
         int n;
@@ -73,19 +73,19 @@ char Grid::FUN_0007a420(int *outRow, int *outCol, int *outSlot, int *outFlag)
         float t0;
         float pad34;
         float t2;
-        V3 B;
+        V3_7a420 B;
         int start;
-        V3 A;
+        V3_7a420 A;
         int flags[14];
         int cand[14];
     } fr;
 
     fr.self = this;
-    Actor *actor = owner->ctx->actor;
+    Actor_7a420 *actor = owner->ctx->actor;
     actor->probe->FUN_00059a50(&fr.A);
     actor->FUN_00035660(&fr.B);
 
-    Rng *r0 = DAT_004e5acc;
+    Rng_7a420 *r0 = DAT_004e5acc;
     r0->s0 = (r0->s0 & 0xffff) * 0x9069 + (r0->s0 >> 16);
     r0->s1 = (r0->s1 & 0xffff) * 0x4650 + (r0->s1 >> 16);
     unsigned int v = (r0->s0 << 16) + (r0->s1 & 0xffff);
@@ -93,11 +93,11 @@ char Grid::FUN_0007a420(int *outRow, int *outCol, int *outSlot, int *outFlag)
     fr.k = 0;
     for (;;) {
         fr.row = (fr.k + fr.start) % 7;
-        Cell *row0 = &cells[fr.row * 14];
+        Cell_7a420 *row0 = &cells[fr.row * 14];
         if (row0->f1c > 0) {
             int n = 0;
             for (int j = 0; j < 14; j++) {
-                Cell *c = &row0[j];
+                Cell_7a420 *c = &row0[j];
                 if (!c->active)
                     continue;
                 if (c->state >= 4)
@@ -157,12 +157,12 @@ char Grid::FUN_0007a420(int *outRow, int *outCol, int *outSlot, int *outFlag)
                 if (bi != -1) {
                     int best2 = 2;
                     int bj = -1;
-                    Rng *rr = FUN_000964d0();
+                    Rng_7a420 *rr = FUN_000964d0();
                     rr->s0 = (rr->s0 & 0xffff) * 0x9069 + (rr->s0 >> 16);
                     unsigned int b = (rr->s1 & 0xffff) * 0x4650 + (rr->s1 >> 16);
                     rr->s1 = b;
                     int k = (int)(b & 3);
-                    Cell *cc = &cells[bi + fr.row * 14];
+                    Cell_7a420 *cc = &cells[bi + fr.row * 14];
                     if (cc->arr[k] < best2) {
                         best2 = cc->arr[0];
                         bj = 0;

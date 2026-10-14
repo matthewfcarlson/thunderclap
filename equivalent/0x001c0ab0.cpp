@@ -15,17 +15,17 @@ int __cdecl FUN_00266da0(int id);
 int __cdecl FUN_000f7120(int handle);
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 
-struct Label {
+struct Label_1c0ab0 {
     void FUN_000f7110();
     void FUN_000f7a80(const char *text);
 };
 
-struct Printer {
+struct Printer_1c0ab0 {
     void FUN_001d3600(const char *text, int flag);
 };
-Printer *__cdecl FUN_001d4c90();
+Printer_1c0ab0 *__cdecl FUN_001d4c90();
 
-struct Slot {
+struct Slot_1c0ab0 {
     int pad0[2];
     int f8;
     char fc;
@@ -36,13 +36,13 @@ struct Slot {
     short f1c;
 };
 
-class Menu {
+class Menu_1c0ab0 {
 public:
     char pad00[0x2c];
-    Slot *slot;              // 0x2c
+    Slot_1c0ab0 *slot;              // 0x2c
     char pad30[4];
-    Label *labelA;           // 0x34
-    Label *labelB;           // 0x38
+    Label_1c0ab0 *labelA;           // 0x34
+    Label_1c0ab0 *labelB;           // 0x38
     int hasPrinter;          // 0x3c
     int f40;
     char pad44[4];
@@ -54,7 +54,7 @@ public:
     void FUN_001c0ab0(const char *name);
 };
 
-void Menu::FUN_001c0ab0(const char *name)
+void Menu_1c0ab0::FUN_001c0ab0(const char *name)
 {
     unsigned int cookie = DAT_004d9968;
     char buf[0x40];
@@ -76,7 +76,7 @@ void Menu::FUN_001c0ab0(const char *name)
         }
         if (hasPrinter != 0) {
             f40 = 0;
-            Printer *p = FUN_001d4c90();
+            Printer_1c0ab0 *p = FUN_001d4c90();
             int t2 = FUN_00266da0(1);
             p->FUN_001d3600(DAT_004c4c70, 0);
             FUN_00266da0(t2);
@@ -95,7 +95,7 @@ void Menu::FUN_001c0ab0(const char *name)
         }
         if (hasPrinter != 0) {
             f40 = 0;
-            Printer *p = FUN_001d4c90();
+            Printer_1c0ab0 *p = FUN_001d4c90();
             int t2 = FUN_00266da0(1);
             p->FUN_001d3600(DAT_004c4c60, 0);
             FUN_000964a0(buf, 0x40, DAT_004c4c78, name, name);
@@ -104,7 +104,7 @@ void Menu::FUN_001c0ab0(const char *name)
         }
     }
 
-    Slot *s = slot;
+    Slot_1c0ab0 *s = slot;
     if (s != 0) {
         s->fc = 0;
         s->f10 = 0;

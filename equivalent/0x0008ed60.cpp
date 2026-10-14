@@ -4,14 +4,14 @@ namespace XAPILIB { int __stdcall XGetLaunchInfo(unsigned long* launchType, void
 extern "C" void __cdecl FUN_0008f880(int argc, char** argv);
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int cookie);
-struct LaunchData { char bytes[0xc00]; };
+struct LaunchData_8ed60 { char bytes[0xc00]; };
 void __cdecl FUN_0008ed60()
 {
     unsigned int cookie = DAT_004d9968;
     unsigned long launchType = 0;
     char* args[32];
-    LaunchData commandLine;
-    LaunchData launchData;
+    LaunchData_8ed60 commandLine;
+    LaunchData_8ed60 launchData;
     int result = XAPILIB::XGetLaunchInfo(&launchType, &launchData);
     commandLine = launchData;
     args[0] = "HULK-XBOX";

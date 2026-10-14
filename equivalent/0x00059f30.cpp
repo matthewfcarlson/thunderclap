@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 294 inputs, branch coverage 22/22)
 // FUN_00059f30 @ 0x00059f30
-struct Resource { void FUN_0003b620(int); void FUN_00263e90(); };
+struct Resource_59f30 { void FUN_0003b620(int); void FUN_00263e90(); };
 struct Object { virtual void slot0(); virtual void slot1(); void FUN_00222b90(int); };
 void __cdecl FUN_0008d330(void*);
 void __cdecl FUN_0008d340(void*);
-struct Item { char pad[16]; Resource* resource; int unused; Object* object; char tail[8]; void* FUN_00059f30(unsigned char flags); };
-void* Item::FUN_00059f30(unsigned char flags) {
+struct Item_59f30 { char pad[16]; Resource_59f30* resource; int unused; Object* object; char tail[8]; void* FUN_00059f30(unsigned char flags); };
+void* Item_59f30::FUN_00059f30(unsigned char flags) {
  if (flags & 2) {
   int* cookie = reinterpret_cast<int*>(this)-1;
   int count=*cookie;
   if(count>0) {
-   Item* end=this+count;
+   Item_59f30* end=this+count;
    do {
     --end;
     if(end->resource) { end->resource->FUN_0003b620(0); end->resource->FUN_00263e90(); end->resource=0; }

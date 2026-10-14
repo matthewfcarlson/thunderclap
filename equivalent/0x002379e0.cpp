@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // fight::OpportunityTrack::vfunc_10 @ 0x002379e0
 void* __cdecl FUN_0008d690(unsigned size);
-struct Sub { int w[3]; };
+struct Sub_2379e0 { int w[3]; };
 struct Node {
-    void* FUN_00237470(void* a1, void* self, float a, float b, int f18, int f24, Sub* sub, void* a2, void* a3);
+    void* FUN_00237470(void* a1, void* self, float a, float b, int f18, int f24, Sub_2379e0* sub, void* a2, void* a3);
 };
 class OpportunityTrack {
 public:
@@ -25,7 +25,7 @@ public:
     int f18;
     char pad2[8];
     int f24;
-    Sub sub;
+    Sub_2379e0 sub;
 };
 void* OpportunityTrack::vfunc_10(void* a1, void* a2, void* a3) {
     float rise = end - start;

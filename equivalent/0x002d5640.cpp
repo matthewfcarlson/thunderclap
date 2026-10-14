@@ -9,16 +9,16 @@ public:
     void FUN_0028ad20(float t, float *out);
 };
 
-class ChannelSet {
+class ChannelSet_2d5640 {
 public:
     Channel *FUN_00288960(unsigned int tagLo, unsigned int tagHi);
 };
 
-class Source {
+class Source_2d5640 {
 public:
     char pad0[0x10];
     float length;
-    ChannelSet *FUN_00288a10(int index);
+    ChannelSet_2d5640 *FUN_00288a10(int index);
 };
 
 namespace pure3d {
@@ -38,11 +38,11 @@ public:
         float *tbl24;
         unsigned char *bytes28;
         unsigned char *bytes2c;
-        OverLifeAttributes(Source *src, int n, int arg);
+        OverLifeAttributes(Source_2d5640 *src, int n, int arg);
     };
 };
 
-SpriteParticleEmitter::OverLifeAttributes::OverLifeAttributes(Source *src, int n, int arg)
+SpriteParticleEmitter::OverLifeAttributes::OverLifeAttributes(Source_2d5640 *src, int n, int arg)
 {
     f04 = 0;
     count = n;
@@ -66,7 +66,7 @@ SpriteParticleEmitter::OverLifeAttributes::OverLifeAttributes(Source *src, int n
     if (src == 0)
         return;
 
-    ChannelSet *cs = src->FUN_00288a10(0);
+    ChannelSet_2d5640 *cs = src->FUN_00288a10(0);
     int life = (int)src->length;
     Channel *ch;
 

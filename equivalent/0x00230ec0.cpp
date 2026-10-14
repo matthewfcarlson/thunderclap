@@ -9,7 +9,7 @@ struct Node {
 
 typedef char (__cdecl *NodeCallback)(Node* node, int arg);
 
-class Tree {
+class Tree_230ec0 {
 public:
     Node* root;
     Node nil;
@@ -17,7 +17,7 @@ public:
     bool FUN_00230ec0(NodeCallback callback, int arg);
 };
 
-bool Tree::FUN_00230ec0(NodeCallback callback, int arg)
+bool Tree_230ec0::FUN_00230ec0(NodeCallback callback, int arg)
 {
     Node* n;
     if (root == &nil) {

@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 166 inputs, branch coverage 9/10, incomplete)
 // FUN_002431a0 @ 0x002431a0
-struct Pool {
+struct Pool_2431a0 {
     unsigned int stride;
     char *head;
     char *buf;
 };
-Pool *FUN_002431a0(Pool *p, char *buf, unsigned int total, unsigned int elem)
+Pool_2431a0 *FUN_002431a0(Pool_2431a0 *p, char *buf, unsigned int total, unsigned int elem)
 {
     if (elem < 4)
         elem = 4;

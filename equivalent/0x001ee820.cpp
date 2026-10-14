@@ -5,9 +5,9 @@ void* __cdecl operator new(size_t, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned);
 extern int DAT_0048e100, DAT_0048e0f0, DAT_0048e128, DAT_0048e0e4, DAT_0049cad8;
 unsigned char __cdecl FUN_001d04d0(const void*);
-struct Owner { void FUN_001f2c00(unsigned); };
+struct Owner_1ee820 { void FUN_001f2c00(unsigned); };
 class CSoundRealTimeManager { public:
- Owner* owner; unsigned id;
+ Owner_1ee820* owner; unsigned id;
  void FUN_001ee820();
  void FUN_001eb550(); void FUN_001eb560(const char*); void FUN_001eb6c0(const char*);
  void FUN_001eb130(float); void FUN_001eb140(bool); void FUN_001eb150(float); void FUN_001eb160(float);
@@ -36,15 +36,15 @@ template<class C,class R,class A,class B,class D> class Closure3: public Command
  void(C::*method)(A,B,D); C* object; virtual void slot0();
  Closure3(const char* name,C* obj,void(C::*fn)(A,B,D)):Command(name,fn) {object=obj;}
 };
-struct Registry {
+struct Registry_1ee820 {
  void FUN_001d3b70(const char*,Command*);
  void FUN_001ee5b0(const char*,CSoundRealTimeManager*,void(CSoundRealTimeManager::*)());
 };
-Registry* __cdecl FUN_001d4c90();
+Registry_1ee820* __cdecl FUN_001d4c90();
 #define ADD1(N,A,F,T) { void* mem=FUN_0008d690(36); Command* cmd=0; if(mem) cmd=new(mem) Closure1<CSoundRealTimeManager,void,A>(N,this,&CSoundRealTimeManager::F,&T); registry->FUN_001d3b70(N,cmd); }
 void CSoundRealTimeManager::FUN_001ee820() {
  owner->FUN_001f2c00(id);
- Registry* registry=FUN_001d4c90();
+ Registry_1ee820* registry=FUN_001d4c90();
  ADD1("snd_TriggerMusic",const char*,FUN_001eb560,DAT_0048e0f0)
  registry->FUN_001ee5b0("snd_StopMusic",this,&CSoundRealTimeManager::FUN_001eb550);
  ADD1("snd_TriggerAmbience",const char*,FUN_001eb6c0,DAT_0048e0f0)

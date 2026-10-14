@@ -2,26 +2,26 @@
 // FUN_00226610 @ 0x00226610
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_226610 {
     float x, y, z;
 };
 
-class Chan {
+class Chan_226610 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void v5(int a, float t, Vec3 *out);
+    virtual void v5(int a, float t, Vec3_226610 *out);
 };
 
-class Child {
+class Child_226610 {
 public:
-    Chan *FUN_00288960(unsigned __int64 key);
+    Chan_226610 *FUN_00288960(unsigned __int64 key);
 };
 
-class IdObj {
+class IdObj_226610 {
 public:
     virtual void addRef();
     char pad04[0x10 - 4];
@@ -29,57 +29,57 @@ public:
     float f14;
     char pad18[0x20 - 0x18];
     int f20;
-    Child *FUN_00288ad0(unsigned __int64 key);
+    Child_226610 *FUN_00288ad0(unsigned __int64 key);
 };
 
-struct Slot {
-    Chan *tran;
-    Chan *rot;
+struct Slot_226610 {
+    Chan_226610 *tran;
+    Chan_226610 *rot;
 };
 
-struct Record {
-    IdObj *id;
-    Slot slots[64];
+struct Record_226610 {
+    IdObj_226610 *id;
+    Slot_226610 slots[64];
     int tail;
 };
 
-struct Entry {
+struct Entry_226610 {
     int slot;
     float weight;
 };
 
-struct Keys {
+struct Keys_226610 {
     char pad[0x10];
     unsigned count;
     char pad2[0x24 - 0x14];
     unsigned __int64 *keys;
 };
 
-class Table {
+class Table_226610 {
 public:
     char pad0[0x10];
-    Keys *keysOwner;
+    Keys_226610 *keysOwner;
     char pad1[0x28 - 0x14];
     unsigned perRow;
     unsigned rows;
     unsigned count;
-    Record records[9];
-    Entry entries[1];
+    Record_226610 records[9];
+    Entry_226610 entries[1];
 
-    void FUN_00226610(unsigned row, IdObj **ids, float *weights);
+    void FUN_00226610(unsigned row, IdObj_226610 **ids, float *weights);
 };
 
-void Table::FUN_00226610(unsigned row, IdObj **ids, float *weights)
+void Table_226610::FUN_00226610(unsigned row, IdObj_226610 **ids, float *weights)
 {
     if (row >= rows)
         return;
-    Entry *e = entries + perRow * row;
+    Entry_226610 *e = entries + perRow * row;
     unsigned m10 = keysOwner->count;
     unsigned k = 0;
     if (perRow == 0)
         return;
     do {
-        IdObj *id = ids[k];
+        IdObj_226610 *id = ids[k];
         if (id == 0) {
             e->slot = 9;
             if (weights == 0) {
@@ -103,7 +103,7 @@ void Table::FUN_00226610(unsigned row, IdObj **ids, float *weights)
                 ids[k]->addRef();
                 for (unsigned j = 0; j < m10; j++) {
                     unsigned __int64 key = keysOwner->keys[j];
-                    Child *child = ids[k]->FUN_00288ad0(key);
+                    Child_226610 *child = ids[k]->FUN_00288ad0(key);
                     if (child) {
                         records[count].slots[j].rot = child->FUN_00288960(0x00544f5200544f52ui64);
                         records[count].slots[j].tran = child->FUN_00288960(0x544345564e415254ui64);
@@ -121,12 +121,12 @@ void Table::FUN_00226610(unsigned row, IdObj **ids, float *weights)
             } else if (weights != 0 && weights[k] >= 0.0f) {
                 e->weight = weights[k];
             } else {
-                Chan *chan = records[idx].slots[0].tran;
+                Chan_226610 *chan = records[idx].slots[0].tran;
                 if (chan == 0) {
                     e->weight = 0.0f;
                 } else {
-                    IdObj *rid = records[idx].id;
-                    Vec3 v;
+                    IdObj_226610 *rid = records[idx].id;
+                    Vec3_226610 v;
                     v.x = 0.0f;
                     v.y = 0.0f;
                     v.z = 0.0f;

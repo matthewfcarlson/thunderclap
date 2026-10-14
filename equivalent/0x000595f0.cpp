@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000595f0 @ 0x000595f0
-struct Vec { float x,y,z; };
-struct World { char pad[16]; Vec value; };
+struct Vec_595f0 { float x,y,z; };
+struct World { char pad[16]; Vec_595f0 value; };
 extern World* DAT_00554c10;
-struct Obj { char pad[0x28]; Vec velocity; char pad2[0x28]; float duration; char pad3[4]; float acceleration;
-void FUN_000595f0(const Vec* v, float scale, float time, float height);
+struct Obj_595f0 { char pad[0x28]; Vec_595f0 velocity; char pad2[0x28]; float duration; char pad3[4]; float acceleration;
+void FUN_000595f0(const Vec_595f0* v, float scale, float time, float height);
 };
-void Obj::FUN_000595f0(const Vec* v, float scale, float time, float height) {
+void Obj_595f0::FUN_000595f0(const Vec_595f0* v, float scale, float time, float height) {
  if (time <= 0.0f) { duration=0.0f; velocity.z=0.0f; velocity.y=0.0f; velocity.x=0.0f; acceleration=DAT_00554c10->value.y * -0.01f; return; }
  double inverse=1.0f / (double)time;
  duration=time; velocity=*v;

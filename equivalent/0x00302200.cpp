@@ -2,36 +2,36 @@
 // FUN_00302200 @ 0x00302200
 extern "C" double sqrt(double);
 
-struct Vec3 { float x, y, z; };
+struct Vec3_302200 { float x, y, z; };
 
 struct Vec3N {
     float x, y, z;
     void FUN_0022d180();
 };
 
-class Body {
+class Body_302200 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
-    virtual Vec3 *GetPos();
+    virtual Vec3_302200 *GetPos();
     char pad4[0x34 - 4];
     float radius;
 };
 
-struct Resolver {
+struct Resolver_302200 {
     char pad0[0xc];
     float margin;
-    void FUN_00314be0(Body *a, Vec3 *pa, Body *b, Vec3 *pb, float depth, Vec3N *normal);
-    void Resolve(Body *a, Body *b);
+    void FUN_00314be0(Body_302200 *a, Vec3_302200 *pa, Body_302200 *b, Vec3_302200 *pb, float depth, Vec3N *normal);
+    void Resolve(Body_302200 *a, Body_302200 *b);
 };
 
-void Resolver::Resolve(Body *a, Body *b)
+void Resolver_302200::Resolve(Body_302200 *a, Body_302200 *b)
 {
     struct { volatile float x; float y; float z; } d;
-    Vec3 *pb = b->GetPos();
-    Vec3 *pa = a->GetPos();
+    Vec3_302200 *pb = b->GetPos();
+    Vec3_302200 *pa = a->GetPos();
     d.x = pa->x - pb->x;
     d.y = pa->y - pb->y;
     d.z = pa->z - pb->z;
@@ -54,8 +54,8 @@ void Resolver::Resolve(Body *a, Body *b)
         n.z = n.z * -1.0f;
 
         float ra = a->radius;
-        Vec3 *q = a->GetPos();
-        Vec3 p1;
+        Vec3_302200 *q = a->GetPos();
+        Vec3_302200 p1;
         p1.x = ra * n.x + q->x;
         p1.y = n.y * ra + q->y;
         p1.z = n.z * ra + q->z;
@@ -65,7 +65,7 @@ void Resolver::Resolve(Body *a, Body *b)
         n.y = n.y * -1.0f;
         n.z = n.z * -1.0f;
         q = b->GetPos();
-        Vec3 p2;
+        Vec3_302200 p2;
         p2.x = rb * n.x + q->x;
         p2.y = n.y * rb + q->y;
         p2.z = n.z * rb + q->z;

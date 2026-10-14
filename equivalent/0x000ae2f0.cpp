@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 30/40, incomplete)
 // FUN_000ae2f0 @ 0x000ae2f0
-struct Item {
+struct Item_ae2f0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -9,15 +9,15 @@ struct Item {
     virtual void v5();
     virtual const char *v6();
 };
-struct Mgr {
+struct Mgr_ae2f0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual int Count();
-    virtual Item *Get(int i);
+    virtual Item_ae2f0 *Get(int i);
 };
-Mgr *FUN_002684b0();
-struct Entry {
+Mgr_ae2f0 *FUN_002684b0();
+struct Entry_ae2f0 {
     char pad0[0xd];
     char flag;
     char pad1[6];
@@ -26,23 +26,23 @@ struct Entry {
     void FUN_000b0740(const char *s);
     void FUN_000b2810();
 };
-struct Table {
+struct Table_ae2f0 {
     char pad0[0xc];
     char flag;
     char pad1[3];
     int count;
-    Entry **entries;
+    Entry_ae2f0 **entries;
     char pad2[0x134 - 0x18];
     char str134[0x100];
     void FUN_000ae090(int n);
     void FUN_000ae2f0(const char *key);
 };
-void Table::FUN_000ae2f0(const char *key)
+void Table_ae2f0::FUN_000ae2f0(const char *key)
 {
-    Table *self = this;
+    Table_ae2f0 *self = this;
     int n = count;
-    Entry **p = entries;
-    Entry *e = 0;
+    Entry_ae2f0 **p = entries;
+    Entry_ae2f0 *e = 0;
     bool found = false;
     for (int i = 0; i < n; i++, p++) {
         e = *p;
@@ -78,9 +78,9 @@ void Table::FUN_000ae2f0(const char *key)
     }
     self->FUN_000ae090(FUN_002684b0()->Count());
     for (int i = 0; i < FUN_002684b0()->Count(); i++) {
-        Entry *en = self->entries[i];
+        Entry_ae2f0 *en = self->entries[i];
         const char *arg;
-        Item *it = FUN_002684b0()->Get(i);
+        Item_ae2f0 *it = FUN_002684b0()->Get(i);
         if (it != 0 && FUN_002684b0()->Get(i)->v3() != 0)
             arg = FUN_002684b0()->Get(i)->v6();
         else

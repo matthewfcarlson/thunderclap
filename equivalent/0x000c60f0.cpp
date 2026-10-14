@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_000c60f0 @ 0x000c60f0
-struct Vec3 {
+struct Vec3_c60f0 {
     float x, y, z;
 };
 
-class Resource;
+class Resource_c60f0;
 class Handle;
 
-class Factory {
+class Factory_c60f0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -20,10 +20,10 @@ public:
     virtual void v8();
     virtual void v9();
     virtual void v10();
-    virtual Resource *v11(const char *name, int flag);
+    virtual Resource_c60f0 *v11(const char *name, int flag);
 };
 
-class Resource {
+class Resource_c60f0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -34,7 +34,7 @@ public:
     virtual void v6(unsigned int tag, int flag);
 };
 
-class Device {
+class Device_c60f0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -66,17 +66,17 @@ public:
     virtual void v27();
     virtual void v28();
     virtual void v29();
-    virtual Handle *v30(Resource *r, int count, int a, int b, int c);
+    virtual Handle *v30(Resource_c60f0 *r, int count, int a, int b, int c);
     virtual void v31(Handle *h);
 };
 
-extern Factory *DAT_0052c2a0;
-extern Device *DAT_0052c2a8;
-extern Resource *DAT_004dde68;
+extern Factory_c60f0 *DAT_0052c2a0;
+extern Device_c60f0 *DAT_0052c2a8;
+extern Resource_c60f0 *DAT_004dde68;
 
-void FUN_000c5fa0(Handle *h, Vec3 a, Vec3 b, unsigned int color);
+void FUN_000c5fa0(Handle *h, Vec3_c60f0 a, Vec3_c60f0 b, unsigned int color);
 
-void FUN_000c60f0(Vec3 a, Vec3 b, Vec3 c, Vec3 d, unsigned int color, int count)
+void FUN_000c60f0(Vec3_c60f0 a, Vec3_c60f0 b, Vec3_c60f0 c, Vec3_c60f0 d, unsigned int color, int count)
 {
     if (DAT_004dde68 == 0) {
         DAT_004dde68 = DAT_0052c2a0->v11("simple", 0);

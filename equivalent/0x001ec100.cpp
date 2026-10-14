@@ -5,72 +5,72 @@ extern "C" char *strcpy(char *dst, const char *src);
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
-struct Query {
+struct Query_1ec100 {
     char data[0x44];
-    Query *FUN_001ef320();
+    Query_1ec100 *FUN_001ef320();
     void FUN_001ef350();
     void FUN_001ef370(const char *name);
 };
-struct Vec3 { float x, y, z; };
+struct Vec3_1ec100 { float x, y, z; };
 struct Entity {
     char pad0[8];
-    Vec3 pos;                // 0x8
+    Vec3_1ec100 pos;                // 0x8
     char pad1[0x11c - 0x14];
-    struct Info *info;       // 0x11c
+    struct Info_1ec100 *info;       // 0x11c
 };
-struct Info {
+struct Info_1ec100 {
     const char *FUN_000443b0();
     long long FUN_000443c0();
 };
-struct Flags {
+struct Flags_1ec100 {
     bool FUN_00092de0(int v);
 };
-struct Config {
-    Flags *FUN_00086340();
+struct Config_1ec100 {
+    Flags_1ec100 *FUN_00086340();
 };
-struct Logic {
+struct Logic_1ec100 {
     bool FUN_00027fc0(const char *a, const char *b);
 };
-struct Env {
+struct Env_1ec100 {
     char pad[0x20];
-    Logic *logic;            // 0x20
+    Logic_1ec100 *logic;            // 0x20
 };
-struct Lookup {
+struct Lookup_1ec100 {
     void *FUN_00086310();
 };
-struct Spawner {
-    void FUN_001efe20(Query *q, Vec3 *pos, const char *name, float radius);
+struct Spawner_1ec100 {
+    void FUN_001efe20(Query_1ec100 *q, Vec3_1ec100 *pos, const char *name, float radius);
 };
-struct SpawnGlobals {
-    Spawner *spawner;        // 0x0
+struct SpawnGlobals_1ec100 {
+    Spawner_1ec100 *spawner;        // 0x0
     char pad[4];
     char enabled;            // 0x8
 };
-void FUN_001eb440(void *target, Query *q);
+void FUN_001eb440(void *target, Query_1ec100 *q);
 
-extern Config *DAT_004dd6ec;
+extern Config_1ec100 *DAT_004dd6ec;
 extern int DAT_004dc0e0;
 extern int DAT_004dc0e4;
-extern SpawnGlobals *DAT_004e36d8;
+extern SpawnGlobals_1ec100 *DAT_004e36d8;
 
-class Handler {
+class Handler_1ec100 {
 public:
-    Env *env;                // 0x0
-    Lookup *lookup;          // 0x4
+    Env_1ec100 *env;                // 0x0
+    Lookup_1ec100 *lookup;          // 0x4
     void FUN_001ec100(Entity *entity, const char *name);
 };
 
-struct Frame {
+struct Frame_1ec100 {
     int spill;
-    Query q;
+    Query_1ec100 q;
     int gap;
     char buf[0x40];
     unsigned int cookie;
 };
 
-void Handler::FUN_001ec100(Entity *entity, const char *name)
+void Handler_1ec100::FUN_001ec100(Entity *entity, const char *name)
 {
-    Frame f;
+    Frame_1ec100 f;
     f.cookie = DAT_004d9968;
     if (entity != 0 && entity->info != 0) {
         int i;

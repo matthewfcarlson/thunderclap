@@ -1,40 +1,40 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // CAvoidBehaviour::vfunc_4 @ 0x00109c00
-struct V3 {
+struct V3_109c00 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-class Ctx;
+class Ctx_109c00;
 
 class Prober {
 public:
-    char FUN_00024540(Ctx *who);
+    char FUN_00024540(Ctx_109c00 *who);
 };
 
-struct Target {
+struct Target_109c00 {
     char pad0[0x20];
     Prober *prober;
 };
 
-class Ctx {
+class Ctx_109c00 {
 public:
     char pad0[0x1d04];
     char hit;
     char pad1d05[0x2064 - 0x1d05];
-    V3 p2064;
+    V3_109c00 p2064;
     float limit;
-    V3 p2074;
+    V3_109c00 p2074;
     char pad2080[0x208c - 0x2080];
-    V3 p208c;
+    V3_109c00 p208c;
     float FUN_00035700();
 };
 
-struct Frame {
+struct Frame_109c00 {
     char pad0[3];
     char flag;
-    V3 diff;
-    V3 w;
+    V3_109c00 diff;
+    V3_109c00 w;
     int pad2c;
     volatile float e;
     volatile float f;
@@ -48,21 +48,21 @@ public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual char v3(Target *tgt, Ctx *ctx, V3 *out, int a5, int zero);
-    virtual bool vfunc_4(V3 *a, V3 *b, Ctx *ctx, Target *tgt, int a5, V3 *d, V3 *c);
+    virtual char v3(Target_109c00 *tgt, Ctx_109c00 *ctx, V3_109c00 *out, int a5, int zero);
+    virtual bool vfunc_4(V3_109c00 *a, V3_109c00 *b, Ctx_109c00 *ctx, Target_109c00 *tgt, int a5, V3_109c00 *d, V3_109c00 *c);
 
     char pad4[0xc];
-    V3 dir;
-    V3 pad1c;
+    V3_109c00 dir;
+    V3_109c00 pad1c;
     float peak;
     float ratio;
     int f30;
     char f34;
 };
 
-bool CAvoidBehaviour::vfunc_4(V3 *a, V3 *b, Ctx *ctx, Target *tgt, int a5, V3 *d, V3 *c)
+bool CAvoidBehaviour::vfunc_4(V3_109c00 *a, V3_109c00 *b, Ctx_109c00 *ctx, Target_109c00 *tgt, int a5, V3_109c00 *d, V3_109c00 *c)
 {
-    Frame fr;
+    Frame_109c00 fr;
     fr.flag = 0;
     fr.diff.x = a->x - b->x;
     fr.diff.y = a->y - b->y;

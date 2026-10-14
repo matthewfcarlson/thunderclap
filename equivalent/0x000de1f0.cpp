@@ -6,7 +6,7 @@ extern "C" char *strcpy(char *dst, const char *src);
 extern char DAT_004de768[];
 extern char DAT_004de7a8[];
 
-class Item {
+class Item_de1f0 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2();
     virtual const char *Name();
@@ -15,7 +15,7 @@ public:
     virtual float Value(int axis);
 };
 
-class Device {
+class Device_de1f0 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2();
     virtual bool IsReady();
@@ -23,26 +23,26 @@ public:
     virtual const char *Name();
     virtual unsigned int ItemCount();
     virtual void v8(); virtual void v9(); virtual void v10();
-    virtual Item *GetItem(unsigned int index);
+    virtual Item_de1f0 *GetItem(unsigned int index);
 };
 
-class DeviceManager {
+class DeviceManager_de1f0 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2();
     virtual int Count();
-    virtual Device *Get(int index);
+    virtual Device_de1f0 *Get(int index);
 };
 
-DeviceManager *FUN_002684b0();
+DeviceManager_de1f0 *FUN_002684b0();
 
 void __stdcall FUN_000de1f0(bool analog)
 {
     for (int i = 0; i < FUN_002684b0()->Count(); i++) {
-        Device *dev = FUN_002684b0()->Get(i);
+        Device_de1f0 *dev = FUN_002684b0()->Get(i);
         if (dev == 0 || !dev->IsReady())
             continue;
         for (unsigned int j = 0; j < dev->ItemCount(); j++) {
-            Item *item = dev->GetItem(j);
+            Item_de1f0 *item = dev->GetItem(j);
             if (item == 0)
                 continue;
             if (!analog) {

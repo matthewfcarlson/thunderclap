@@ -5,13 +5,13 @@ struct Mat64 {
     void FUN_0022ca90(Mat64 *a, Mat64 *b);
 };
 
-class Counted {
+class Counted_29b9d0 {
 public:
     virtual void addRef();
     virtual void release();
 };
 
-class Provider {
+class Provider_29b9d0 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -21,7 +21,7 @@ public:
     virtual Mat64 *getMatrix(int a);
 };
 
-class Source {
+class Source_29b9d0 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4();
@@ -32,7 +32,7 @@ public:
     int FUN_002a50b0();
 };
 
-class Target {
+class Target_29b9d0 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2();
     virtual void *v3(void *a);
@@ -40,17 +40,17 @@ public:
 };
 
 struct SourceRef {
-    Source *src;
+    Source_29b9d0 *src;
     char pad[12];
 };
 
-struct Entry;
+struct Entry_29b9d0;
 
-class Listener {
+class Listener_29b9d0 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5();
-    virtual void onMatch(Entry *e, int idx, int extra);
+    virtual void onMatch(Entry_29b9d0 *e, int idx, int extra);
     char pad04[4];
     char kind;
     char pad09[3];
@@ -58,23 +58,23 @@ public:
     int key;
 };
 
-struct Entry {
+struct Entry_29b9d0 {
     Mat64 mat;
-    Counted *objA;
-    Counted *objB;
+    Counted_29b9d0 *objA;
+    Counted_29b9d0 *objB;
 };
 
-class Anim : public Counted {
+class Anim_29b9d0 : public Counted_29b9d0 {
 public:
     char pad4[0xc];
-    Target *target;
+    Target_29b9d0 *target;
     char pad14[0x40 - 0x14];
     int f40;
     char pad44[4];
     SourceRef *sources;
 };
 
-extern Provider **DAT_0052c2ac;
+extern Provider_29b9d0 **DAT_0052c2ac;
 
 class Mixer {
 public:
@@ -82,32 +82,32 @@ public:
     unsigned listenerCount;
     int cur;
     char pad18[4];
-    Listener **listeners;
+    Listener_29b9d0 **listeners;
     char pad20[8];
-    Entry *entries;
-    void FUN_0029b9d0(Anim *anim, int idx, Mat64 *m, Counted *q);
+    Entry_29b9d0 *entries;
+    void FUN_0029b9d0(Anim_29b9d0 *anim, int idx, Mat64 *m, Counted_29b9d0 *q);
 };
 
-void Mixer::FUN_0029b9d0(Anim *anim, int idx, Mat64 *m, Counted *q)
+void Mixer::FUN_0029b9d0(Anim_29b9d0 *anim, int idx, Mat64 *m, Counted_29b9d0 *q)
 {
     if (m) {
-        Entry *e = &entries[cur];
+        Entry_29b9d0 *e = &entries[cur];
         Mat64 *src = (*DAT_0052c2ac)->getMatrix(0);
         e->mat.FUN_0022ca90(m, src);
     } else {
-        Entry *e = &entries[cur];
+        Entry_29b9d0 *e = &entries[cur];
         Mat64 *src = (*DAT_0052c2ac)->getMatrix(0);
         e->mat = *src;
     }
 
-    Counted **slotA = &entries[cur].objA;
+    Counted_29b9d0 **slotA = &entries[cur].objA;
     if (anim)
         anim->addRef();
     if (*slotA)
         (*slotA)->release();
     *slotA = anim;
 
-    Counted **slotB = &entries[cur].objB;
+    Counted_29b9d0 **slotB = &entries[cur].objB;
     if (q)
         q->addRef();
     if (*slotB)
@@ -115,13 +115,13 @@ void Mixer::FUN_0029b9d0(Anim *anim, int idx, Mat64 *m, Counted *q)
     *slotB = q;
 
     int extra = anim->f40;
-    Source *r = anim->sources[idx].src;
-    Target *t = anim->target;
+    Source_29b9d0 *r = anim->sources[idx].src;
+    Target_29b9d0 *t = anim->target;
     if (t)
         r->apply(t->v3(r->getKey()));
 
     for (unsigned i = 0; i < listenerCount; i++) {
-        Listener *l = listeners[i];
+        Listener_29b9d0 *l = listeners[i];
         if (l->kind == 1) {
             unsigned lm = l->mask;
             if (lm & r->getMask()) {

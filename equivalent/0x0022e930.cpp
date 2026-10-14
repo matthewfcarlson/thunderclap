@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_0022e930 @ 0x0022e930
-struct V3 {
+struct V3_22e930 {
     float x, y, z;
 };
 
@@ -8,22 +8,22 @@ struct Matrix {
     float m[16];
 };
 
-struct Vec4 {
+struct Vec4_22e930 {
     unsigned int w[4];
     void FUN_002306c0(const Matrix* mat);
 };
 
-class Segment {
+class Segment_22e930 {
 public:
     unsigned int m[4][4];
-    Vec4 pos;
-    Vec4 a;
-    Vec4 b;
-    Vec4 c;
-    V3* FUN_0022e930(V3* out, unsigned int n);
+    Vec4_22e930 pos;
+    Vec4_22e930 a;
+    Vec4_22e930 b;
+    Vec4_22e930 c;
+    V3_22e930* FUN_0022e930(V3_22e930* out, unsigned int n);
 };
 
-V3* Segment::FUN_0022e930(V3* out, unsigned int n)
+V3_22e930* Segment_22e930::FUN_0022e930(V3_22e930* out, unsigned int n)
 {
     double inv = 1.0f / (double)n;
     a.w[0] = m[3][0];

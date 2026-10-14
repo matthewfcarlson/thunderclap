@@ -7,33 +7,33 @@ extern "C" const char DAT_0048e100[];
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
-class __declspec(novtable) MethodBase {
+class __declspec(novtable) MethodBase_bfcc0 {
   public:
     virtual void m0();
     char pad_04[0x14];
     char enabled;
     char pad_19[3];
-    MethodBase(const char* n, int k) { FUN_001d0480(n, k); }
+    MethodBase_bfcc0(const char* n, int k) { FUN_001d0480(n, k); }
     void FUN_001d0480(const char*, int);
 };
 
 template <class R>
-class Function0 : public MethodBase {
+class Function0 : public MethodBase_bfcc0 {
   public:
     typedef R (*Fn)();
-    Function0(const char* name, Fn f) : MethodBase(name, 0) {
+    Function0(const char* name, Fn f) : MethodBase_bfcc0(name, 0) {
         fn = f;
         enabled = FUN_001d04d0(DAT_0048e100);
     }
     Fn fn;
 };
 
-struct Registry {
+struct Registry_bfcc0 {
     void FUN_001d3b70(const char*, void*);
     void FUN_000bfcc0(const char* name, void (*fn)());
 };
 
-void Registry::FUN_000bfcc0(const char* name, void (*fn)()) {
+void Registry_bfcc0::FUN_000bfcc0(const char* name, void (*fn)()) {
     void* mem = FUN_0008d690(0x20);
     Function0<void>* c = 0;
     if (mem)

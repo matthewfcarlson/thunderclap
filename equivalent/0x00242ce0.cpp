@@ -9,11 +9,11 @@ struct Node {
     int refs;
     float v20, v24;
 };
-struct Map { Node* root; };
+struct Map_242ce0 { Node* root; };
 extern char DAT_004e5e88[];
 Node* __cdecl FUN_00247530(void* heap);
-void __cdecl FUN_00242a00(Map* map, Node* node, unsigned* key);
-Node* FindOrInsert(Map* map, const unsigned* key) {
+void __cdecl FUN_00242a00(Map_242ce0* map, Node* node, unsigned* key);
+Node* FindOrInsert(Map_242ce0* map, const unsigned* key) {
     Node* nil = (Node*)((char*)map + 4);
     Node* n = map->root;
     Node* volatile hit = 0;

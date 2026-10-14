@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/14, incomplete)
 // FUN_002b4b40 @ 0x002b4b40
-struct Vec3 {
+struct Vec3_2b4b40 {
     float x, y, z;
     void FUN_0022c3b0();
     void FUN_0022d180();
 };
 
-struct Vec4 { float x, y, z, w; };
+struct Vec4_2b4b40 { float x, y, z, w; };
 
-class Probe {
+class Probe_2b4b40 {
 public:
     virtual void v0();
     virtual void v1();
@@ -23,53 +23,53 @@ public:
     virtual void v10();
     virtual void v11();
     virtual void v12();
-    virtual Vec3 *Direction(const Vec3 *point, Vec3 *out);
+    virtual Vec3_2b4b40 *Direction(const Vec3_2b4b40 *point, Vec3_2b4b40 *out);
     virtual void v14();
     virtual void v15();
-    virtual bool Step(Vec4 *pos, float w);
+    virtual bool Step(Vec4_2b4b40 *pos, float w);
 };
 
-struct Space {
+struct Space_2b4b40 {
     char pad0[0x18];
-    Probe *probe;
-    void FUN_002940d0(const Vec3 *in, Vec3 *out);
+    Probe_2b4b40 *probe;
+    void FUN_002940d0(const Vec3_2b4b40 *in, Vec3_2b4b40 *out);
 };
 
-struct Root {
+struct Root_2b4b40 {
     char pad0[8];
-    Space *space;
+    Space_2b4b40 *space;
 };
 
-struct Globals {
-    Root *root;
+struct Globals_2b4b40 {
+    Root_2b4b40 *root;
 };
-extern Globals *DAT_0052c2b0;
+extern Globals_2b4b40 *DAT_0052c2b0;
 
 struct Node {
     char pad0[0x1c];
     char *data;
 };
 
-class Tracer {
+class Tracer_2b4b40 {
 public:
     char pad0[0x2c];
-    Vec4 origin;
+    Vec4_2b4b40 origin;
     char pad3c[0x4c - 0x3c];
     float result;
     float override;
     char useOffset;
     char pad55[0x64 - 0x55];
-    Vec3 point;
+    Vec3_2b4b40 point;
     void FUN_002b4b40(Node *node);
 };
 
-struct Frame {
-    Vec3 dir;
-    Vec3 tmp;
-    Vec4 pos;
+struct Frame_2b4b40 {
+    Vec3_2b4b40 dir;
+    Vec3_2b4b40 tmp;
+    Vec4_2b4b40 pos;
 };
 
-void Tracer::FUN_002b4b40(Node *node)
+void Tracer_2b4b40::FUN_002b4b40(Node *node)
 {
     if (override != 0.0f) {
         result = override;
@@ -78,15 +78,15 @@ void Tracer::FUN_002b4b40(Node *node)
     if (result != 0.0f || node == 0)
         return;
 
-    Space *space = DAT_0052c2b0->root->space;
-    Probe *probe = space->probe;
-    Frame f;
+    Space_2b4b40 *space = DAT_0052c2b0->root->space;
+    Probe_2b4b40 *probe = space->probe;
+    Frame_2b4b40 f;
     f.pos = origin;
-    const Vec3 *shift = (const Vec3 *)(node->data + 0x30);
+    const Vec3_2b4b40 *shift = (const Vec3_2b4b40 *)(node->data + 0x30);
     f.pos.x = f.pos.x + shift->x;
     f.pos.y = f.pos.y + shift->y;
     f.pos.z = f.pos.z + shift->z;
-    space->FUN_002940d0((Vec3 *)&f.pos, (Vec3 *)&f.pos);
+    space->FUN_002940d0((Vec3_2b4b40 *)&f.pos, (Vec3_2b4b40 *)&f.pos);
     if (!useOffset) {
         probe->Direction(&point, &f.dir)->FUN_0022c3b0();
     } else {

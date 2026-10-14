@@ -5,7 +5,7 @@ void __cdecl FUN_00035db0(int v);
 extern char DAT_004dd83a;
 extern char DAT_004dd83b;
 
-struct Bag {
+struct Bag_8a8f0 {
     void FUN_001eb870();
     void FUN_001eb890();
     void FUN_001eb9e0(int v);
@@ -22,33 +22,33 @@ struct FlagObj {
 
 struct Opt1 { void FUN_000ae930(int v); };
 struct Opt2 { void FUN_000afe10(bool v); };
-struct Bits {
+struct Bits_8a8f0 {
     void FUN_00093600(int i, bool v);
     void FUN_00092870(int i, bool v);
     void FUN_000929a0(int i, int v);
 };
-struct Pool { void FUN_000901d0(int i, int v); };
-struct Pair {
+struct Pool_8a8f0 { void FUN_000901d0(int i, int v); };
+struct Pair_8a8f0 {
     void FUN_000b46c0();
     void FUN_000c3ea0();
 };
 
 struct World {
-    Bag *FUN_000862e0();
+    Bag_8a8f0 *FUN_000862e0();
     Opt1 *FUN_000862c0();
     Opt2 *FUN_00086330();
-    Bits *FUN_00086340();
-    Pool *FUN_00086370();
-    Pair *FUN_00086280();
+    Bits_8a8f0 *FUN_00086340();
+    Pool_8a8f0 *FUN_00086370();
+    Pair_8a8f0 *FUN_00086280();
     FlagObj *FUN_00086380();
 };
 extern World *DAT_004dd6ec;
 
-struct Rec24 {
+struct Rec24_8a8f0 {
     int a, b, c, d, e, f;
 };
 
-struct Level {
+struct Level_8a8f0 {
     char pad0[0x18];
     unsigned char b18;
     unsigned char b19;
@@ -69,13 +69,13 @@ struct Level {
     char pad37;
     int bits1[32];      // 0x38
     int bits2[32];      // 0xb8
-    Rec24 recs[100];    // 0x138
+    Rec24_8a8f0 recs[100];    // 0x138
     int arr[51];        // 0xa98
     int count;          // 0xb64
     char padb68[0xbe8 - 0xb68];
 };
 
-class Game {
+class Game_8a8f0 {
 public:
     char pad0[0x80];
     int f80;
@@ -88,20 +88,20 @@ public:
     int fd4;
     char name[0x20];
     char padf8[0x60];
-    Rec24 recs[100];    // 0x158
+    Rec24_8a8f0 recs[100];    // 0x158
     int fab8;
     char padabc[3];
     char babf;
     char pad_ac0[8];
-    Level *table;       // 0xac8
+    Level_8a8f0 *table;       // 0xac8
     bool FUN_0008a8f0(int idx, World *w);
     void FUN_0008a120();
 };
 
-bool Game::FUN_0008a8f0(int idx, World *w)
+bool Game_8a8f0::FUN_0008a8f0(int idx, World *w)
 {
     DAT_004dd6ec->FUN_000862e0()->FUN_001eb870();
-    Level *lv = &table[idx];
+    Level_8a8f0 *lv = &table[idx];
     fd4 = lv->b19;
     fd0 = lv->b18;
     FUN_00267760(name, 0x20, "c%02dm%02d", lv->b18, lv->b19);
@@ -127,7 +127,7 @@ bool Game::FUN_0008a8f0(int idx, World *w)
     fab8 = lv->b2c;
     if (fab8 < 0 || fab8 > 2)
         fab8 = 1;
-    Bits *bits = w->FUN_00086340();
+    Bits_8a8f0 *bits = w->FUN_00086340();
     for (int i = 0; i < 0x2fe; i++) {
         bits->FUN_00093600(i, 1);
         bits->FUN_00092870(i, 0);
@@ -139,7 +139,7 @@ bool Game::FUN_0008a8f0(int idx, World *w)
     }
     for (int i = 0; i < 0x2fe; i++)
         bits->FUN_000929a0(i, 0);
-    Pool *pool = w->FUN_00086370();
+    Pool_8a8f0 *pool = w->FUN_00086370();
     for (int i = 0; i < lv->count; i++)
         pool->FUN_000901d0(i, lv->arr[i]);
     for (int k = 0; k < 100; k++) {

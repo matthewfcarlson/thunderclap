@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 638 inputs, branch coverage 30/30)
 // pure3d::BlendFrameController::vfunc_24 @ 0x00285fc0
-struct RefObj {
+struct RefObj_285fc0 {
     virtual void AddRef();
     virtual void Release();
     char pad04[0xc];
@@ -18,7 +18,7 @@ struct Track {
     int f1c;
     int a20;
     int f24;
-    RefObj* owner;
+    RefObj_285fc0* owner;
 };
 
 class BlendFrameController {
@@ -47,7 +47,7 @@ public:
     virtual void v21();
     virtual void v22();
     virtual void v23();
-    virtual void vfunc_24(RefObj* obj, float start, float blend);
+    virtual void vfunc_24(RefObj_285fc0* obj, float start, float blend);
     virtual void v25();
     virtual void v26();
     virtual void v27();
@@ -61,7 +61,7 @@ public:
     Track tracks[4];
 };
 
-void BlendFrameController::vfunc_24(RefObj* obj, float start, float blend)
+void BlendFrameController::vfunc_24(RefObj_285fc0* obj, float start, float blend)
 {
     float len = obj->length - 1.0f;
     if (len < 0.0f)

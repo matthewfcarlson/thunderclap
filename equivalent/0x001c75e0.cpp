@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 144 inputs, branch coverage 22/22)
 // FUN_001c75e0 @ 0x001c75e0
-struct Key {
+struct Key_1c75e0 {
     unsigned int lo;
     unsigned int hi;
 };
 
-struct Slot {
+struct Slot_1c75e0 {
     unsigned int keyLo;
     unsigned int keyHi;
     void *value;
@@ -13,23 +13,23 @@ struct Slot {
 };
 
 struct Resolved {
-    char FUN_0027af90(Key *key);
+    char FUN_0027af90(Key_1c75e0 *key);
 };
 
-class Cache {
+class Cache_1c75e0 {
 public:
     virtual void v0();
     virtual Resolved *v1(void *source);
     char pad04[0xc];
     int sourceCount;
     void **sources;
-    Slot slots[16];
+    Slot_1c75e0 slots[16];
     unsigned int clock;
 
-    void *FUN_001c75e0(Key *key);
+    void *FUN_001c75e0(Key_1c75e0 *key);
 };
 
-void *Cache::FUN_001c75e0(Key *key)
+void *Cache_1c75e0::FUN_001c75e0(Key_1c75e0 *key)
 {
     int i;
 

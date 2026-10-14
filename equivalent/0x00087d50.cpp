@@ -7,21 +7,21 @@ inline void* operator new(unsigned int, void* p) throw() { return p; }
 
 class CTimeManager { public: float FUN_dummy(); };
 
-class __declspec(novtable) MethodBase {
+class __declspec(novtable) MethodBase_87d50 {
   public:
     virtual void m0();
     char pad_04[0x14];
     char enabled;
     char pad_19[3];
     void FUN_001d0480(const char*, int);
-    MethodBase(const char* n, int k) { FUN_001d0480(n, k); }
+    MethodBase_87d50(const char* n, int k) { FUN_001d0480(n, k); }
 };
 
 template <class T, class R>
-class Method0 : public MethodBase {
+class Method0 : public MethodBase_87d50 {
   public:
     typedef R (T::*Fn)();
-    Method0(const char* name, Fn f) : MethodBase(name, 0) {
+    Method0(const char* name, Fn f) : MethodBase_87d50(name, 0) {
         fn = f;
         enabled = FUN_001d04d0(DAT_0048e128);
     }
@@ -35,12 +35,12 @@ class Closure0 : public Method0<T, R> {
     T* owner;
 };
 
-struct Registry {
+struct Registry_87d50 {
     void FUN_001d3b70(const char*, void*);
     void FUN_00087d50(const char* name, CTimeManager* owner, float (CTimeManager::*fn)());
 };
 
-void Registry::FUN_00087d50(const char* name, CTimeManager* owner, float (CTimeManager::*fn)()) {
+void Registry_87d50::FUN_00087d50(const char* name, CTimeManager* owner, float (CTimeManager::*fn)()) {
     void* mem = FUN_0008d690(0x24);
     Closure0<CTimeManager, float>* c = 0;
     if (mem)

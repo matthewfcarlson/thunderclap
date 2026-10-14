@@ -2,17 +2,17 @@
 // FUN_001ccad0 @ 0x001ccad0
 extern unsigned int DAT_004d9968;
 void __fastcall __security_check_cookie(unsigned int);
-struct Receiver { void FUN_001d3f00(const char*, const char*); };
+struct Receiver_1ccad0 { void FUN_001d3f00(const char*, const char*); };
 extern "C" int __cdecl FUN_00267760(char*, unsigned int, const char*, ...);
 struct Timer { float remaining; char text[256]; int id; };
-struct Owner {
+struct Owner_1ccad0 {
  char pad[0x110]; Timer timers[16];
- Receiver* FUN_001d4c90();
+ Receiver_1ccad0* FUN_001d4c90();
  void update(float elapsed);
 };
-void Owner::update(float elapsed) {
+void Owner_1ccad0::update(float elapsed) {
  unsigned int cookie=DAT_004d9968;
- Receiver* receiver = FUN_001d4c90();
+ Receiver_1ccad0* receiver = FUN_001d4c90();
  if (receiver) {
  char buffer[64];
  for (int i=0;i<16;++i) {

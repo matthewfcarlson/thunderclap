@@ -20,12 +20,12 @@ struct InnerCtl {
     unsigned char flag19;
 };
 
-struct Binding {
+struct Binding_2fddf0 {
     char pad0[0x18];
     int handle;
 };
 
-struct Item {
+struct Item_2fddf0 {
     char pad0[0x20];
     InnerCtl *ctl;
     char pad24[0x50 - 0x24];
@@ -36,12 +36,12 @@ struct Item {
     void FUN_00304740(int handle);
 };
 
-struct Flagged {
+struct Flagged_2fddf0 {
     char pad0[0x94];
     unsigned char flag;
 };
 
-class Sink {
+class Sink_2fddf0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -56,25 +56,25 @@ public:
     virtual void vfunc_10();
     virtual void vfunc_11();
     virtual void vfunc_12();
-    virtual void vfunc_13(Binding *b);
-    virtual void vfunc_14(Item *item);
+    virtual void vfunc_13(Binding_2fddf0 *b);
+    virtual void vfunc_14(Item_2fddf0 *item);
     char pad04[0x90];
     unsigned char flag94;
 };
 
-class Source {
+class Source_2fddf0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual Item *vfunc_5(Sink *sink);
+    virtual Item_2fddf0 *vfunc_5(Sink_2fddf0 *sink);
     char pad04[0x14];
-    Flagged *flagged;
+    Flagged_2fddf0 *flagged;
 };
 
-class Provider {
+class Provider_2fddf0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -104,9 +104,9 @@ public:
     virtual void vfunc_25();
     virtual void vfunc_26();
     virtual void vfunc_27();
-    virtual Binding *vfunc_28(Sink *sink);
+    virtual Binding_2fddf0 *vfunc_28(Sink_2fddf0 *sink);
     char pad04[0xc];
-    Flagged *flagged;
+    Flagged_2fddf0 *flagged;
     char pad14[0x24 - 0x14];
     int kind;
     char pad28[0x220 - 0x28];
@@ -120,25 +120,25 @@ struct PoseItem {
     void FUN_0030ee40(Pose *pose);
 };
 
-struct Chain {
+struct Chain_2fddf0 {
     char pad0[8];
     void *owner;
     void FUN_0030f4c0();
     PoseItem *FUN_0030f490(int index);
 };
 
-struct Handler {
-    Handler *FUN_00312440(void *owner);
+struct Handler_2fddf0 {
+    Handler_2fddf0 *FUN_00312440(void *owner);
 };
 
 void *__cdecl FUN_0008d690(unsigned int size);
 void *__cdecl FUN_00263ea0(unsigned int size);
 
 struct SinkInit {
-    Sink *FUN_002fdc90(Chain *chain, int arg);
+    Sink_2fddf0 *FUN_002fdc90(Chain_2fddf0 *chain, int arg);
 };
 
-Sink *__cdecl FUN_002fddf0(Chain *chain, Source *source, Provider *provider)
+Sink_2fddf0 *__cdecl FUN_002fddf0(Chain_2fddf0 *chain, Source_2fddf0 *source, Provider_2fddf0 *provider)
 {
     chain->FUN_0030f4c0();
     Pose *pose = chain->FUN_0030f490(0)->FUN_0030ef30();
@@ -147,14 +147,14 @@ Sink *__cdecl FUN_002fddf0(Chain *chain, Source *source, Provider *provider)
     SinkInit *mem = (SinkInit *)FUN_0008d690(0x98);
     if (mem == 0)
         return 0;
-    Sink *sink = mem->FUN_002fdc90(chain, 0);
+    Sink_2fddf0 *sink = mem->FUN_002fdc90(chain, 0);
     if (sink == 0)
         return 0;
 
-    Binding *binding = 0;
+    Binding_2fddf0 *binding = 0;
     if (provider != 0) {
         if (provider->kind == 1 && provider->extra == 0) {
-            Handler *h = (Handler *)FUN_00263ea0(0x18);
+            Handler_2fddf0 *h = (Handler_2fddf0 *)FUN_00263ea0(0x18);
             if (h != 0)
                 h = h->FUN_00312440(chain->owner);
             provider->FUN_00310e90(h);
@@ -170,7 +170,7 @@ Sink *__cdecl FUN_002fddf0(Chain *chain, Source *source, Provider *provider)
     }
 
     if (source != 0) {
-        Item *item;
+        Item_2fddf0 *item;
         if (source->flagged != 0) {
             if (source->flagged->flag != 0)
                 sink->flag94 = 1;

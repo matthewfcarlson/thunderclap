@@ -7,7 +7,7 @@ struct Rec6 {
     int w[6];
 };
 
-struct Slot {
+struct Slot_8b560 {
     int f00;
     char b04;
     char pad05[3];
@@ -36,12 +36,12 @@ struct Obj3Item {
     int f38;
 };
 
-struct Obj3 {
+struct Obj3_8b560 {
     char padz[0xc80];
     int fc80;
 };
 
-struct Obj2 {
+struct Obj2_8b560 {
     char FUN_00092860(int i);
     char FUN_00092940(int i);
 };
@@ -59,14 +59,14 @@ struct Ent2 {
     char b08;
 };
 
-struct Obj1 {
+struct Obj1_8b560 {
     char pad000[0x10c];
     int f10c;
     unsigned short *FUN_000f7d30(char *name);
     unsigned short *FUN_000f7220(unsigned short *p);
 };
 
-struct Cfg {
+struct Cfg_8b560 {
     float FUN_001eb9d0();
     float FUN_001eba20();
     float FUN_001eba70();
@@ -81,24 +81,24 @@ struct Obj3Src {
 };
 
 struct Res;
-Obj1 *__fastcall thunk_FUN_000fc1b0(Res *r);
+Obj1_8b560 *__fastcall thunk_FUN_000fc1b0(Res *r);
 
-struct Replay {
-    Cfg *FUN_000862e0();
+struct Replay_8b560 {
+    Cfg_8b560 *FUN_000862e0();
     Res *FUN_00086280();
     Ent2 *FUN_000862c0();
     Ent1 *FUN_00086330();
-    Obj2 *FUN_00086340();
-    Obj3 *FUN_00086370();
+    Obj2_8b560 *FUN_00086340();
+    Obj3_8b560 *FUN_00086370();
     Ent0 *FUN_00086380();
 };
 
-struct Mgr2 {
+struct Mgr2_8b560 {
     int FUN_0008cd80(int a1, int a2);
-    int FUN_0008cbe0(int a1, int a2, Slot *slot, int size, unsigned short *name);
+    int FUN_0008cbe0(int a1, int a2, Slot_8b560 *slot, int size, unsigned short *name);
 };
 
-extern Replay *DAT_004dd6ec;
+extern Replay_8b560 *DAT_004dd6ec;
 extern int DAT_0049c294;
 extern char DAT_004dd83a;
 extern char DAT_004dd83b;
@@ -124,15 +124,15 @@ public:
     char pad0ab9[6];
     char babf;
     char pad0ac0[4];
-    Mgr2 *fac4;
-    Slot *slots;
+    Mgr2_8b560 *fac4;
+    Slot_8b560 *slots;
     void FUN_00089a60(char *out);
     int FUN_00089160();
     void FUN_0008ad90(int *chapter, int *mission);
-    int FUN_0008b560(int a1, int a2, Replay *a3);
+    int FUN_0008b560(int a1, int a2, Replay_8b560 *a3);
 };
 
-int SaveMgr::FUN_0008b560(int a1, int a2, Replay *a3)
+int SaveMgr::FUN_0008b560(int a1, int a2, Replay_8b560 *a3)
 {
     struct Frame {
         union {
@@ -143,7 +143,7 @@ int SaveMgr::FUN_0008b560(int a1, int a2, Replay *a3)
             int j;
             int mission;
         } u1;
-        Obj3 *obj3;
+        Obj3_8b560 *obj3;
         char buf[64];
         unsigned short wbuf[64];
         unsigned int cookie;
@@ -152,7 +152,7 @@ int SaveMgr::FUN_0008b560(int a1, int a2, Replay *a3)
     fr.cookie = DAT_004d9968;
     DAT_004dd6ec->FUN_000862e0()->FUN_001eb870();
     int off = a2 * 0xbe8;
-    Slot *esi = (Slot *)((char *)slots + off);
+    Slot_8b560 *esi = (Slot_8b560 *)((char *)slots + off);
     esi->b18 = bd0;
     esi->b19 = bd4;
     esi->b1a = babf;
@@ -160,7 +160,7 @@ int SaveMgr::FUN_0008b560(int a1, int a2, Replay *a3)
     esi->f00 = DAT_0049c294;
     esi->f08 = FUN_00089160();
     esi->b04 = 1;
-    Obj1 *obj1 = thunk_FUN_000fc1b0(a3->FUN_00086280());
+    Obj1_8b560 *obj1 = thunk_FUN_000fc1b0(a3->FUN_00086280());
     int cls = obj1->f10c;
     char kind;
     switch (cls) {
@@ -182,7 +182,7 @@ int SaveMgr::FUN_0008b560(int a1, int a2, Replay *a3)
     for (int i = 0; i < 100; i++)
         esi->rec[i] = rec[i];
     esi->b2c = bab8;
-    Obj2 *obj2 = a3->FUN_00086340();
+    Obj2_8b560 *obj2 = a3->FUN_00086340();
     for (int i = 0; i < 0x2fe; i++) {
         if (i == 0x1b) {
             esi->bits38[0] |= 0x8000000;
@@ -207,7 +207,7 @@ int SaveMgr::FUN_0008b560(int a1, int a2, Replay *a3)
         }
     }
     fr.obj3 = a3->FUN_00086370();
-    Obj3 *obj3 = fr.obj3;
+    Obj3_8b560 *obj3 = fr.obj3;
     esi->fb64 = obj3->fc80;
     memset(esi->row0, 0, 200);
     esi->fb60 = 1;
@@ -280,7 +280,7 @@ int SaveMgr::FUN_0008b560(int a1, int a2, Replay *a3)
             if (!dup)
                 break;
         }
-        result = fac4->FUN_0008cbe0(a1, a2, (Slot *)((char *)slots + off), 0xbe8, namep);
+        result = fac4->FUN_0008cbe0(a1, a2, (Slot_8b560 *)((char *)slots + off), 0xbe8, namep);
         if (counter >= 5) {
             unsigned int *rng = FUN_000964d0();
             unsigned int lo = rng[0];

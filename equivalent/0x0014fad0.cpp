@@ -1,25 +1,25 @@
 // STATUS: equivalent (tools/equiv.py level 3: 113 inputs, branch coverage 18/18)
 // hulkfight::motion::HitFloatAction::vfunc_5 @ 0x0014fad0
-struct V3 {
+struct V3_14fad0 {
     float x, y, z;
-    bool FUN_0022d2b0(const V3 *other, float eps);
+    bool FUN_0022d2b0(const V3_14fad0 *other, float eps);
     float FUN_0022d110();
 };
 
-struct Transform {
-    void FUN_0022be40(const V3 *pos);
+struct Transform_14fad0 {
+    void FUN_0022be40(const V3_14fad0 *pos);
 };
 
-class FloatObject {
+class FloatObject_14fad0 {
 public:
     virtual void vfunc_0();
     char pad04[0x18 - 4];
-    Transform transform;
+    Transform_14fad0 transform;
 };
 
-struct Target {
+struct Target_14fad0 {
     char pad0[0x28];
-    V3 size;
+    V3_14fad0 size;
     char pad34[0x5c - 0x34];
     float limit;
 };
@@ -31,50 +31,50 @@ struct PlayerCfg {
     float f34;
 };
 
-struct Player {
+struct Player_14fad0 {
     char pad0[0x11c];
     PlayerCfg *cfg;
     char pad120[0x140 - 0x120];
     int mode;
     char pad144[0x1ae0 - 0x144];
-    V3 v1ae0;
+    V3_14fad0 v1ae0;
     char pad1aec[0x1af8 - 0x1aec];
-    V3 v1af8;
+    V3_14fad0 v1af8;
     void FUN_000359c0(int a);
-    void FUN_00035550(V3 *out);
-    void FUN_000357a0(const V3 *v);
+    void FUN_00035550(V3_14fad0 *out);
+    void FUN_000357a0(const V3_14fad0 *v);
 };
 
-struct Mgr {
-    Player *FUN_00059a30();
-    bool FUN_00059a50(V3 *out);
+struct Mgr_14fad0 {
+    Player_14fad0 *FUN_00059a30();
+    bool FUN_00059a50(V3_14fad0 *out);
 };
 
-struct Holder {
-    Mgr *FUN_000592a0();
+struct Holder_14fad0 {
+    Mgr_14fad0 *FUN_000592a0();
 };
 
 struct Grav {
     char pad0[0x10];
-    V3 v;
+    V3_14fad0 v;
 };
 
-extern V3 DAT_004afa08;
+extern V3_14fad0 DAT_004afa08;
 extern Grav *DAT_00554c10;
 float DAT_003f3320;
 float DAT_003f3388;
-float __cdecl FUN_00224f10(const V3 *v);
-void __cdecl FUN_00224d70(float angle, V3 *v);
+float __cdecl FUN_00224f10(const V3_14fad0 *v);
+void __cdecl FUN_00224d70(float angle, V3_14fad0 *v);
 
-class Owner {
+class Owner_14fad0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual Target *vfunc_3();
+    virtual Target_14fad0 *vfunc_3();
 };
 
-union Arg1 {
+union Arg1_14fad0 {
     int skip;
     float angle;
 };
@@ -86,34 +86,34 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual bool vfunc_5(Arg1 a, float dt);
+    virtual bool vfunc_5(Arg1_14fad0 a, float dt);
     char pad04[0x20 - 4];
-    Owner *owner;
-    FloatObject *floatObj;
+    Owner_14fad0 *owner;
+    FloatObject_14fad0 *floatObj;
     float time;
     float speed;
     float f30;
     float f34;
 };
 
-bool HitFloatAction::vfunc_5(Arg1 a, float dt)
+bool HitFloatAction::vfunc_5(Arg1_14fad0 a, float dt)
 {
-    V3 vecA;
-    V3 dir;
-    V3 vecB;
-    V3 pos;
+    V3_14fad0 vecA;
+    V3_14fad0 dir;
+    V3_14fad0 vecB;
+    V3_14fad0 pos;
 
     if (a.skip)
         return true;
     if (!floatObj)
         return false;
-    Target *target = owner->vfunc_3();
+    Target_14fad0 *target = owner->vfunc_3();
     if (!target)
         return false;
 
-    Holder *holder = (Holder *)owner;
-    Mgr *mgr = holder->FUN_000592a0();
-    Player *pl = mgr->FUN_00059a30();
+    Holder_14fad0 *holder = (Holder_14fad0 *)owner;
+    Mgr_14fad0 *mgr = holder->FUN_000592a0();
+    Player_14fad0 *pl = mgr->FUN_00059a30();
     pl->FUN_000359c0(3);
     a.angle = FUN_00224f10(&target->size);
     dir = DAT_004afa08;

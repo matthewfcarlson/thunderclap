@@ -3,13 +3,13 @@
 struct Matrix {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022be40(struct Query *q);
+    void FUN_0022be40(struct Query_27cd10 *q);
     void FUN_0022bc20(float x, float y, float z);
     void FUN_0022ca90(Matrix *in, Matrix *by);
     void FUN_0022c120();
 };
 
-struct Query {
+struct Query_27cd10 {
     char pad0[0xc];
     float x;                    // 0xc
     float y;                    // 0x10
@@ -25,13 +25,13 @@ struct Query {
     int inMode;                 // 0x4c
 };
 
-struct Palette {
+struct Palette_27cd10 {
     char pad0[0x1c];
     Matrix *matrices;           // 0x1c
     int FUN_002843a0(int a, int b);
 };
 
-struct Holder {
+struct Holder_27cd10 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -43,16 +43,16 @@ struct Holder {
     virtual void v8();
     virtual void v9();
     virtual void v10();
-    virtual Palette *palette();     // 0x2c
+    virtual Palette_27cd10 *palette();     // 0x2c
 };
 
-struct Target {
+struct Target_27cd10 {
     int FUN_00283a40(void *block, Matrix *m, float scale, int f);
-    int FUN_00283b10(void *block, Palette *pal, void *block2, Matrix *m, float scale, int f);
+    int FUN_00283b10(void *block, Palette_27cd10 *pal, void *block2, Matrix *m, float scale, int f);
     void FUN_0027ff90(int hit, int a, int b);
 };
 
-class Renderer {
+class Renderer_27cd10 {
 public:
     virtual void v0();
     virtual void v1();
@@ -74,29 +74,29 @@ public:
     int field8;                         // 0x8
     int fieldc;                         // 0xc
     char pad10[0x9c - 0x10];
-    Holder *holder;                     // 0x9c
+    Holder_27cd10 *holder;                     // 0x9c
 
-    Target *FUN_0027f250();
-    void FUN_0027cd10(Query *q);
+    Target_27cd10 *FUN_0027f250();
+    void FUN_0027cd10(Query_27cd10 *q);
 };
 
-void Renderer::FUN_0027cd10(Query *q)
+void Renderer_27cd10::FUN_0027cd10(Query_27cd10 *q)
 {
     struct Frame {
-        Target *target;
-        Renderer *self;
+        Target_27cd10 *target;
+        Renderer_27cd10 *self;
         Matrix o2;
         Matrix o1;
         Matrix mc;
     } fr;
 
     fr.self = this;
-    Target *target = FUN_0027f250();
+    Target_27cd10 *target = FUN_0027f250();
     fr.target = target;
     if (target == 0)
         return;
 
-    Palette *pal = holder->palette();
+    Palette_27cd10 *pal = holder->palette();
 
     switch (q->inMode) {
     case 0:

@@ -1,27 +1,27 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 13/14, incomplete)
 // pure3d::ExpressionAnimationController::vfunc_26 @ 0x002a9e30
-struct Elem {
+struct Elem_2a9e30 {
     int FUN_002afe80(void* key);
 };
-struct Anim {
+struct Anim_2a9e30 {
     char pad00[0x1c];
     int tag;
     char pad20[8];
     int count;
     void* FUN_00288a10(int i);
 };
-struct Inner {
+struct Inner_2a9e30 {
     char pad[0x10];
-    Elem* elem;
+    Elem_2a9e30* elem;
 };
 class ExprCtl {
   public:
     virtual void v0();
     char pad04[0x3c];
-    Inner* inner;
-    char FUN_002a9e30(Anim* a);
+    Inner_2a9e30* inner;
+    char FUN_002a9e30(Anim_2a9e30* a);
 };
-char ExprCtl::FUN_002a9e30(Anim* a) {
+char ExprCtl::FUN_002a9e30(Anim_2a9e30* a) {
     if (a == 0)
         return 0;
     if (a->count <= 0)
@@ -29,7 +29,7 @@ char ExprCtl::FUN_002a9e30(Anim* a) {
     if (a->tag != 0x505845)
         return 0;
     if (inner != 0) {
-        Elem* e = inner->elem;
+        Elem_2a9e30* e = inner->elem;
         int i = 0;
         do {
             void* item = a->FUN_00288a10(i);

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 54/54)
 // FUN_0026de40 @ 0x0026de40
-struct Event {
+struct Event_26de40 {
  unsigned type, a;
  union { unsigned b; unsigned char keyFlags[4]; };
  unsigned c,d,kind;
@@ -16,14 +16,14 @@ struct ReceiverB {
  virtual void action2(unsigned,unsigned,unsigned,unsigned,bool,bool,bool);
  virtual void action3(unsigned,unsigned,unsigned,unsigned,bool,bool,bool,bool);
 };
-struct Queue {
+struct Queue_26de40 {
  char pad[0x9c]; ReceiverB* receiverB; ReceiverA* receiverA; char pad2[8];
- Event events[256]; unsigned writeIndex,readIndex;
+ Event_26de40 events[256]; unsigned writeIndex,readIndex;
  void FUN_0026de40();
 };
-void Queue::FUN_0026de40() {
+void Queue_26de40::FUN_0026de40() {
  while(writeIndex != readIndex) {
-  Event& e=events[readIndex];
+  Event_26de40& e=events[readIndex];
   readIndex=(readIndex+1)&255;
   switch(e.type) {
    case 0: if(receiverA) receiverA->key(e.a); break;

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 119 inputs, branch coverage 39/42, incomplete)
 // FUN_001b7d10 @ 0x001b7d10
-class Source {
+class Source_1b7d10 {
 public:
     virtual void vf0();
     virtual void vf1();
@@ -25,19 +25,19 @@ public:
     void FUN_001c05d0(float a, float b);
 };
 
-struct Globals {
+struct Globals_1b7d10 {
     char pad0[0x50];
     Mixer *mixer;
 };
 
-class Pad {
+class Pad_1b7d10 {
 public:
     void FUN_000af0f0(unsigned int *out);
 };
 
 class PadManager {
 public:
-    Pad *FUN_000af3a0(int index);
+    Pad_1b7d10 *FUN_000af3a0(int index);
 };
 
 class Voices {
@@ -51,29 +51,29 @@ public:
     void FUN_000af650(int voice, int slot, int v);
 };
 
-struct Entry {
+struct Entry_1b7d10 {
     float time;
     float gain0;
     float gain1;
     int pan;
 };
 
-struct EntryList {
+struct EntryList_1b7d10 {
     int count;
-    Entry entries[1];
+    Entry_1b7d10 entries[1];
 };
 
-struct Status {
+struct Status_1b7d10 {
     int pad0;
     int state;
 };
 
-extern Globals *DAT_004dd700;
+extern Globals_1b7d10 *DAT_004dd700;
 
 void FUN_00333ef0();
 unsigned int FUN_00267f80();
 
-class Player {
+class Player_1b7d10 {
 public:
     void FUN_001b7d10(PadManager *pads, Voices *voices);
     void FUN_001b7970();
@@ -83,13 +83,13 @@ public:
     char done;
     char restart;
     char pad1[2];
-    Source *source;
+    Source_1b7d10 *source;
     char pad2[0x124 - 0x10];
-    EntryList *list;
-    Status *status;
+    EntryList_1b7d10 *list;
+    Status_1b7d10 *status;
 };
 
-void Player::FUN_001b7d10(PadManager *pads, Voices *voices)
+void Player_1b7d10::FUN_001b7d10(PadManager *pads, Voices *voices)
 {
     if (source == 0 || done)
         return;
@@ -118,7 +118,7 @@ void Player::FUN_001b7d10(PadManager *pads, Voices *voices)
     if (voices == 0)
         return;
     for (int i = 0; i < list->count; i++) {
-        Entry *e = &list->entries[i];
+        Entry_1b7d10 *e = &list->entries[i];
         if (!(e->time > 0.0f))
             continue;
         int pos = source->vf15();

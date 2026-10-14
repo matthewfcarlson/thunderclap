@@ -1,41 +1,41 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_000fce60 @ 0x000fce60
-struct Vec3 { float x, y, z; };
+struct Vec3_fce60 { float x, y, z; };
 
-struct Quat {
+struct Quat_fce60 {
     float x, y, z, w;
-    void FUN_0022baf0(const Vec3 *axis, float angle);
-    void FUN_0022c3b0(const Vec3 *in, Vec3 *out);
+    void FUN_0022baf0(const Vec3_fce60 *axis, float angle);
+    void FUN_0022c3b0(const Vec3_fce60 *in, Vec3_fce60 *out);
 };
 
 extern "C" float FUN_00224ea0(float y, float x);
-extern "C" void FUN_00224d70(float angle, Vec3 *v);
+extern "C" void FUN_00224d70(float angle, Vec3_fce60 *v);
 extern float DAT_004a1aa0;
 extern float DAT_004a1aa4;
 extern float DAT_004a1aa8;
 
-union FloatBits {
+union FloatBits_fce60 {
     float f;
     unsigned int u;
 };
 
-void FUN_000fce60(Quat *rot, Vec3 *axis, int unused2, int unused3, float a4, float a5, Vec3 *out)
+void FUN_000fce60(Quat_fce60 *rot, Vec3_fce60 *axis, int unused2, int unused3, float a4, float a5, Vec3_fce60 *out)
 {
-    FloatBits fy;
+    FloatBits_fce60 fy;
     fy.f = axis->y;
     fy.u &= 0x7fffffff;
 
     if (fy.f <= 0.001f) {
-        Quat q;
-        Vec3 up;
+        Quat_fce60 q;
+        Vec3_fce60 up;
         q.FUN_0022baf0(axis, -(FUN_00224ea0(a4, a5) + 3.14159274101257f));
         up.x = 0.0f;
         up.y = 1.0f;
         up.z = 0.0f;
         q.FUN_0022c3b0(&up, out);
     } else {
-        Vec3 fwd;
-        Vec3 w;
+        Vec3_fce60 fwd;
+        Vec3_fce60 w;
         fwd.x = 0.0f;
         fwd.y = 0.0f;
         fwd.z = 1.0f;
@@ -52,7 +52,7 @@ void FUN_000fce60(Quat *rot, Vec3 *axis, int unused2, int unused3, float a4, flo
         FUN_00224d70(angle, out);
     }
 
-    FloatBits b4, b5;
+    FloatBits_fce60 b4, b5;
     b4.f = a4;
     b4.u &= 0x7fffffff;
     b5.f = a5;

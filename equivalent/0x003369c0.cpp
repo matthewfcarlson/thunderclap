@@ -1,25 +1,25 @@
 // STATUS: equivalent (tools/equiv.py level 3: 179 inputs, branch coverage 68/83, incomplete)
 // FUN_003369c0 @ 0x003369c0
-struct Entry {
+struct Entry_3369c0 {
     char pad0[8];
     int type;               // 0x08
     unsigned int *desc;     // 0x0c
     char pad10[8];
 };
 
-struct Header {
+struct Header_3369c0 {
     char pad0[4];
     char name[0x40];        // 0x04
     int count;              // 0x44
-    Entry entries[1];       // 0x48
-    Entry *FUN_00337090(int index);
+    Entry_3369c0 entries[1];       // 0x48
+    Entry_3369c0 *FUN_00337090(int index);
 };
 
-struct Pool {
+struct Pool_3369c0 {
     char *FUN_00337d60(unsigned int size, unsigned int align);
 };
 
-extern Pool DAT_0055dbb0;
+extern Pool_3369c0 DAT_0055dbb0;
 extern unsigned int DAT_0055dbb4;
 
 unsigned int __cdecl FUN_00335270(unsigned int v);
@@ -30,7 +30,7 @@ unsigned int __cdecl FUN_00335270(unsigned int v);
 class Relocator {
 public:
     char pad0[4];
-    Header *hdr;            // 0x04
+    Header_3369c0 *hdr;            // 0x04
     unsigned int *arr;      // 0x08
     unsigned int data2;     // 0x0c
     void FUN_003369c0(char swap);
@@ -41,7 +41,7 @@ void Relocator::FUN_003369c0(char swap)
     int count = hdr->count;
     int i;
     for (i = 0; i < count; i++) {
-        Entry *e = hdr->FUN_00337090(i);
+        Entry_3369c0 *e = hdr->FUN_00337090(i);
         unsigned int *p;
         unsigned int v;
         switch (e->type) {

@@ -10,24 +10,24 @@ class CUnlockableMove : public CUnlockable {
     char flag;
     void FUN_00091f30(int arg);
 };
-class ItemTable {
+class ItemTable_bf5c0 {
   public:
     CUnlockable* FUN_00092ad0(int index);
 };
-struct Game {
+struct Game_bf5c0 {
     char FUN_000be230(const char* cls, const char* msg, const char* title, const char* ok,
                       const char* cancel, int buttons, int a, int b);
 };
-Game* __cdecl FUN_000fc3d0();
+Game_bf5c0* __cdecl FUN_000fc3d0();
 
-class Screen {
+class Screen_bf5c0 {
   public:
     char pad0[0x4c];
-    ItemTable* items;
+    ItemTable_bf5c0* items;
     char FUN_000bf5c0(int lastRow);
 };
 
-char Screen::FUN_000bf5c0(int lastRow) {
+char Screen_bf5c0::FUN_000bf5c0(int lastRow) {
     int table[7][20] = {
         { -1 },
         { 0x266, 0x267, 0x268, 0x269, 0x26a, 0x2a6, 0x2b0, 0x28f, 0x26d, 0x271, 0x2af, 0x27f, 0x296, -1 },

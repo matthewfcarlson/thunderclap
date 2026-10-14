@@ -1,25 +1,25 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 21/24, incomplete)
 // FUN_001f8b40 @ 0x001f8b40
-struct V3 {
+struct V3_1f8b40 {
     float x, y, z;
 };
 
-struct Sub {
+struct Sub_1f8b40 {
     int FUN_00204200(float x, float y, float z);
     char FUN_00204440(int idx);
     char FUN_00204470(int idx);
 };
 
-struct Tracker {
-    Sub *FUN_000862a0();
+struct Tracker_1f8b40 {
+    Sub_1f8b40 *FUN_000862a0();
 };
 
-struct Mgr {
-    const char *FUN_001ff950(V3 pos, int a, int b, float lo, float hi);
+struct Mgr_1f8b40 {
+    const char *FUN_001ff950(V3_1f8b40 pos, int a, int b, float lo, float hi);
     int FUN_001fc8c0(unsigned __int64 id);
 };
 
-struct Obj {
+struct Obj_1f8b40 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -28,27 +28,27 @@ struct Obj {
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual void getPos(V3 *out);   // 0x20
+    virtual void getPos(V3_1f8b40 *out);   // 0x20
 };
 
-struct Global {
+struct Global_1f8b40 {
     char pad0[0x28];
-    Mgr *mgr;                       // 0x28
+    Mgr_1f8b40 *mgr;                       // 0x28
     char pad2c[0x54 - 0x2c];
-    Tracker *tracker;               // 0x54
+    Tracker_1f8b40 *tracker;               // 0x54
 };
-extern Global *DAT_004dd700;
+extern Global_1f8b40 *DAT_004dd700;
 
 unsigned __int64 __cdecl FUN_0027b020(const char *s);
 
-int __stdcall FUN_001f8b40(int a1, Obj *obj, float x, float y, float z)
+int __stdcall FUN_001f8b40(int a1, Obj_1f8b40 *obj, float x, float y, float z)
 {
     struct Frame {
-        V3 p;
-        V3 q;
+        V3_1f8b40 p;
+        V3_1f8b40 q;
     } f;
 
-    Mgr *mgr = DAT_004dd700->mgr;
+    Mgr_1f8b40 *mgr = DAT_004dd700->mgr;
     if (mgr == 0)
         return 0;
 

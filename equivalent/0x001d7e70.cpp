@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001d7e70 @ 0x001d7e70
-struct Source {
+struct Source_1d7e70 {
     float FUN_001d4ea0(unsigned int key);
 };
-class Sink {
+class Sink_1d7e70 {
   public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -16,25 +16,25 @@ class Sink {
     virtual void v32(); virtual void v33(); virtual void v34();
     virtual void SetValue(float f);
 };
-struct Mid {
+struct Mid_1d7e70 {
     char pad[0x70];
-    Sink* sink;
+    Sink_1d7e70* sink;
 };
-struct Owner {
+struct Owner_1d7e70 {
     char pad[0x10];
-    Mid* mid;
+    Mid_1d7e70* mid;
 };
-class Obj {
+class Obj_1d7e70 {
   public:
     char pad00[0x40];
     unsigned int key;
     char pad44[0xa0 - 0x44];
-    Owner* owner;
+    Owner_1d7e70* owner;
     char padA4[0xec - 0xa4];
-    Source* source;
+    Source_1d7e70* source;
     void FUN_001d7e70();
 };
-void Obj::FUN_001d7e70() {
+void Obj_1d7e70::FUN_001d7e70() {
     if (owner == 0)
         return;
     if (owner->mid == 0)
@@ -42,7 +42,7 @@ void Obj::FUN_001d7e70() {
     if (owner->mid->sink == 0)
         return;
     if (source->FUN_001d4ea0(key) > 0.0f) {
-        Sink* sink = owner->mid->sink;
+        Sink_1d7e70* sink = owner->mid->sink;
         sink->SetValue(source->FUN_001d4ea0(key));
     }
 }

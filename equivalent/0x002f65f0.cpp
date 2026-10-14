@@ -11,11 +11,11 @@ extern float DAT_00555450;
 extern float DAT_00555454;
 extern float DAT_00555458;
 
-struct V3 {
+struct V3_2f65f0 {
     float x, y, z;
 };
 
-struct Id64 {
+struct Id64_2f65f0 {
     int lo, hi;
     void FUN_0027af00() throw();
 };
@@ -30,7 +30,7 @@ struct SymMatrix {
     void FUN_002fca90() throw();
 };
 
-struct Filter {
+struct Filter_2f65f0 {
     char data[0x64];
     void FUN_00308cc0() throw();
     void FUN_00308a70(void *owner) throw();
@@ -80,7 +80,7 @@ public:
 
 class PhysicsObject : public SimulatedObject {
 public:
-    Id64 id30;
+    Id64_2f65f0 id30;
     int f38;
     int f3c;
     int f40;
@@ -90,24 +90,24 @@ public:
     int f50;
     int f54;
     Matrix m58;
-    V3 v98;
+    V3_2f65f0 v98;
     char pada4[4];
-    V3 va8;
-    V3 vb4;
-    V3 vc0;
-    V3 vcc;
+    V3_2f65f0 va8;
+    V3_2f65f0 vb4;
+    V3_2f65f0 vc0;
+    V3_2f65f0 vcc;
     float fd8;
     SymMatrix symdc;
     SymMatrix symf8;
     SymMatrix sym114;
-    V3 v130;
-    V3 v13c;
+    V3_2f65f0 v130;
+    V3_2f65f0 v13c;
     char b148;
     char pad149[3];
-    V3 v14c;
-    V3 v158;
+    V3_2f65f0 v14c;
+    V3_2f65f0 v158;
     float f164;
-    Filter filt168;
+    Filter_2f65f0 filt168;
     int f1cc;
     char b1d0;
     char pad1d1[3];

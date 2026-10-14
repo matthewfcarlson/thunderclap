@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 11/12, incomplete)
 // FUN_0022efb0 @ 0x0022efb0
 // FUN_0022efb0 @ 0x0022efb0: clamps a fractional position into [0, count], then moves the cursor there
-struct Cursor {
+struct Cursor_22efb0 {
     void FUN_0022e890(int target, float delta);
 };
 
@@ -9,8 +9,8 @@ class Track {
 public:
     int first;
     char pad04[4];
-    Cursor cursor;
-    char pad_cursor[0x100 - sizeof(Cursor)];
+    Cursor_22efb0 cursor;
+    char pad_cursor[0x100 - sizeof(Cursor_22efb0)];
     char fromEnd;
     char pad109[7];
     unsigned int count;

@@ -3,10 +3,10 @@
 struct SoundKey { unsigned int low, high; };
 struct LoopState { SoundKey key; unsigned int eventId; unsigned char pitchActive; char pad[3]; float pitch; float pitchStep; char rest[16]; };
 struct SoundInstance { char pad[0x80]; LoopState loops[4]; };
-struct Lookup { int FUN_001e98b0(SoundKey*); };
+struct Lookup_1f0420 { int FUN_001e98b0(SoundKey*); };
 struct Instances { SoundInstance* FUN_001f31a0(unsigned int); };
-struct SoundSystem { Instances* instances; Lookup* lookup; };
-extern SoundSystem* DAT_004e370c;
+struct SoundSystem_1f0420 { Instances* instances; Lookup_1f0420* lookup; };
+extern SoundSystem_1f0420* DAT_004e370c;
 struct CSoundCommand { virtual void vfunc_0(); virtual unsigned int vfunc_1(unsigned int, unsigned int); char pad[12]; };
 struct CSoundCommand_SetLoopPitchEvent : CSoundCommand {
  SoundKey key; unsigned int eventId; float pitch; float duration;

@@ -2,7 +2,7 @@
 // FUN_00302c20 @ 0x00302c20
 class Entity;
 
-struct EntityList {
+struct EntityList_302c20 {
     Entity **begin;
     Entity **end;
 };
@@ -23,10 +23,10 @@ public:
     virtual void v11();
     virtual bool CanCollide(Entity *other, int mask);
     char pad04[0x10];
-    EntityList *children;
+    EntityList_302c20 *children;
 };
 
-class Collider {
+class Collider_302c20 {
 public:
     char pad0[0xc];
     int mask;
@@ -34,10 +34,10 @@ public:
     void FUN_00302c20(Entity *a, Entity *b);
 };
 
-void Collider::FUN_00302c20(Entity *a, Entity *b)
+void Collider_302c20::FUN_00302c20(Entity *a, Entity *b)
 {
-    EntityList *listA = a->children;
-    EntityList *listB = b->children;
+    EntityList_302c20 *listA = a->children;
+    EntityList_302c20 *listB = b->children;
     if (listA != 0) {
         if (listB != 0) {
             for (unsigned int i = 0; i < (unsigned int)(listA->end - listA->begin); i++) {

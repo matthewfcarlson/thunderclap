@@ -5,7 +5,7 @@ struct Adapter {
  Adapter* FUN_00275390(core::File*, unsigned int);
 };
 extern void* __cdecl FUN_00273560(unsigned int);
-struct Sink { void FUN_00272b60(Adapter*, unsigned int, unsigned int); };
+struct Sink_275f50 { void FUN_00272b60(Adapter*, unsigned int, unsigned int); };
 namespace core {
 struct File {
  virtual void vfunc_0();
@@ -15,7 +15,7 @@ struct File {
  virtual void vfunc_4();
  virtual void vfunc_5(unsigned int arg);
  char padding[8];
- Sink* sink;
+ Sink_275f50* sink;
  unsigned int value;
 };
 void File::vfunc_5(unsigned int arg) {

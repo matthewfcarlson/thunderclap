@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 12/12)
 // FUN_00233f20 @ 0x00233f20
-class Owned {
+class Owned_233f20 {
 public:
     virtual void v0();
     virtual void Release();
@@ -10,15 +10,15 @@ void FUN_00267090(char *p);
 void *FUN_00238190(int kind);
 char *FUN_00266e00(void *pool, int size);
 
-class NameHolder {
+class NameHolder_233f20 {
 public:
     bool FUN_00233f20(const char *name);
 
-    Owned *owner;
+    Owned_233f20 *owner;
     char *text;
 };
 
-bool NameHolder::FUN_00233f20(const char *name) {
+bool NameHolder_233f20::FUN_00233f20(const char *name) {
     if (text != name) {
         FUN_00267090(text);
         int len = 0;

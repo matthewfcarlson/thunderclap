@@ -5,34 +5,34 @@
 // Returns the used length.
 void *__cdecl FUN_0008d6d0(unsigned int bytes);
 
-struct Str {
+struct Str_2f9ed0 {
     int pad0;
     int pad4;
     unsigned short *begin;          // 8
     unsigned short *end;            // 0xc
 };
 
-struct Buffer {
+struct Buffer_2f9ed0 {
     unsigned short *begin;          // 0
     unsigned short *end;            // 4
     unsigned short *cap;            // 8
     void FUN_002f9bc0(unsigned short *pos, unsigned int count, const unsigned short *value);
 };
 
-struct Pool {
+struct Pool_2f9ed0 {
     char pad00[0x30];
-    Str *strBegin;                  // 0x30
-    Str *strEnd;                    // 0x34
+    Str_2f9ed0 *strBegin;                  // 0x30
+    Str_2f9ed0 *strEnd;                    // 0x34
     char pad38[8];
-    Buffer buf;                     // 0x40
+    Buffer_2f9ed0 buf;                     // 0x40
 
     unsigned int FUN_002f9ed0();
 };
 
-unsigned int Pool::FUN_002f9ed0()
+unsigned int Pool_2f9ed0::FUN_002f9ed0()
 {
     unsigned short *dest = buf.begin;
-    for (Str *s = strBegin; s != strEnd; s++) {
+    for (Str_2f9ed0 *s = strBegin; s != strEnd; s++) {
         unsigned short *src = s->begin;
         if (src != dest) {
             unsigned short *last = s->end;

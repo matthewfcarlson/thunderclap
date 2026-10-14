@@ -9,17 +9,17 @@ extern char DAT_004cf658[];
 void *__cdecl FUN_00263ea0(unsigned int size);
 void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 
-struct V3 {
+struct V3_29e320 {
     float x, y, z;
 };
 
 struct Node {
     Node *FUN_002a2e70();
     void FUN_002a07a0(unsigned int color);
-    void FUN_002a2fc0(const V3 *pos);
+    void FUN_002a2fc0(const V3_29e320 *pos);
 };
 
-struct Container {
+struct Container_29e320 {
     char pad0[0x10];
     int count;              // 0x10
     int size;               // 0x14
@@ -27,26 +27,26 @@ struct Container {
     void FUN_002a0fc0(int index, Node *node);
 };
 
-struct List {
+struct List_29e320 {
     void FUN_002a1180(int n);
 };
 
-struct Rec {                // 0x20 bytes
+struct Rec_29e320 {                // 0x20 bytes
     int f00;
     unsigned int color;     // 0x04
     int f08;
-    V3 pos;                 // 0x0c
+    V3_29e320 pos;                 // 0x0c
     int f18;
     int f1c;
 };
 
 struct Holder40 {
-    List *list;
-    Rec *recs;
+    List_29e320 *list;
+    Rec_29e320 *recs;
     void FUN_0029c660();
 };
 
-union Arg3 {
+union Arg3_29e320 {
     int value;
     char flag;
 };
@@ -63,16 +63,16 @@ static inline int ColorMax(unsigned int c)
     return m;
 }
 
-class Effect {
+class Effect_29e320 {
 public:
     char pad0[0x40];
     Holder40 *f40;
     float FUN_0029dcc0(int a, int b);
     float FUN_0029dd30(Holder40 *h);
-    void FUN_0029e320(Container *c, V3 *p, Arg3 a3);
+    void FUN_0029e320(Container_29e320 *c, V3_29e320 *p, Arg3_29e320 a3);
 };
 
-void Effect::FUN_0029e320(Container *c, V3 *p, Arg3 a3)
+void Effect_29e320::FUN_0029e320(Container_29e320 *c, V3_29e320 *p, Arg3_29e320 a3)
 {
     int n = c->size;
     if (n == 0)
@@ -122,7 +122,7 @@ void Effect::FUN_0029e320(Container *c, V3 *p, Arg3 a3)
                 c->FUN_002a0fc0(i, obj);
             }
             obj->FUN_002a07a0((((v | 0xffffff00u) << 8 | v) << 8) | v);
-            V3 pos = f40->recs[i].pos;
+            V3_29e320 pos = f40->recs[i].pos;
             obj->FUN_002a2fc0(&pos);
         }
     }

@@ -3,42 +3,42 @@
 // 0x0021e080: Lua parser block(ls): enter a block, parse the chunk, then leave the block
 // equiv-conv: FUN_0021e080 eax
 // equiv-conv: FUN_0021c5b0 eax edx
-struct LexState;
-struct BlockCnt;
+struct LexState_21e080;
+struct BlockCnt_21e080;
 
-struct FuncState {
+struct FuncState_21e080 {
     char pad00[0xc];
-    LexState* ls;
+    LexState_21e080* ls;
     char pad10[4];
-    BlockCnt* bl;
+    BlockCnt_21e080* bl;
     char pad18[0xc];
     int freereg;
     char pad28[0xc];
     unsigned char nactvar;
 };
 
-struct LexState {
+struct LexState_21e080 {
     char pad00[0x1c];
-    FuncState* fs;
+    FuncState_21e080* fs;
 };
 
-struct BlockCnt {
-    BlockCnt* previous;
+struct BlockCnt_21e080 {
+    BlockCnt_21e080* previous;
     int breaklist;
     unsigned char nactvar;
     unsigned char upval;
     unsigned char isbreakable;
 };
 
-void __cdecl FUN_0021f640(LexState* ls);
-void FUN_0021c5b0(LexState* ls, int nactvar);
-void __cdecl FUN_00220bd0(FuncState* fs, int op, int a, int b, int c);
-void __cdecl FUN_00220d70(FuncState* fs, int list);
+void __cdecl FUN_0021f640(LexState_21e080* ls);
+void FUN_0021c5b0(LexState_21e080* ls, int nactvar);
+void __cdecl FUN_00220bd0(FuncState_21e080* fs, int op, int a, int b, int c);
+void __cdecl FUN_00220d70(FuncState_21e080* fs, int list);
 
-void FUN_0021e080(LexState* ls)
+void FUN_0021e080(LexState_21e080* ls)
 {
-    FuncState* fs = ls->fs;
-    BlockCnt bl;
+    FuncState_21e080* fs = ls->fs;
+    BlockCnt_21e080 bl;
 
     bl.breaklist = -1;
     bl.isbreakable = 0;
@@ -49,7 +49,7 @@ void FUN_0021e080(LexState* ls)
 
     FUN_0021f640(ls);
 
-    BlockCnt* b = fs->bl;
+    BlockCnt_21e080* b = fs->bl;
     fs->bl = b->previous;
     FUN_0021c5b0(fs->ls, b->nactvar);
     if (b->upval)

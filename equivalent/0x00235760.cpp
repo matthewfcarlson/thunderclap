@@ -3,21 +3,21 @@
 struct Item;
 struct Entity;
 
-struct Registry {
+struct Registry_235760 {
     char pad0[0xc];
     void *container;        // 0xc
 };
 
-struct Iter {
+struct Iter_235760 {
     void *container;
     int index;
-    Registry *owner;
+    Registry_235760 *owner;
     void FUN_002314a0(void *container);
     Item *FUN_00231640();
     Item *FUN_002314c0();
 };
 
-extern Registry *DAT_004e5bb8;
+extern Registry_235760 *DAT_004e5bb8;
 
 namespace fight {
 class ParamValueInventoryEntity {
@@ -34,12 +34,12 @@ int ParamValueInventoryEntity::vfunc_9(Entity *owner, Item *wanted)
 {
     if (wanted == 0)
         return 0;
-    Registry *reg = DAT_004e5bb8;
+    Registry_235760 *reg = DAT_004e5bb8;
     if (reg == 0)
         return 0;
 
     int pos = 1;
-    Iter it;
+    Iter_235760 it;
     it.FUN_002314a0(reg->container);
     it.owner = reg;
     for (Item *item = it.FUN_00231640(); item != 0; item = it.FUN_002314c0()) {

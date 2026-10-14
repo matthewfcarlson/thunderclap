@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // pure3d::pddiBaseContext::vfunc_42 @ 0x0031db00
 namespace pure3d {
-struct LightState {
+struct LightState_31db00 {
  char reserved[0x44];
  float red, green, blue;
  char reserved50[4];
@@ -23,7 +23,7 @@ struct pddiBaseContext {
  virtual void vfunc_90(); virtual void vfunc_91(); virtual void vfunc_92(); virtual void vfunc_93(); virtual void vfunc_94(); virtual void vfunc_95(); virtual void vfunc_96(); virtual void vfunc_97(); virtual void vfunc_98(); virtual void vfunc_99();
  virtual void vfunc_100(); virtual void vfunc_101(); virtual void vfunc_102(); virtual void vfunc_103(); virtual void vfunc_104(); virtual void vfunc_105(); virtual void vfunc_106(); virtual void vfunc_107(); virtual void vfunc_108(); virtual void vfunc_109(); virtual void vfunc_110(int index, int flag);
  char reserved[0x4c];
- LightState* lights;
+ LightState_31db00* lights;
 };
 void pddiBaseContext::vfunc_42(int index, unsigned color) {
  if (index < 8) {

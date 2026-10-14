@@ -18,17 +18,17 @@ struct Stream {
     IoHandle *handle;
 };
 
-struct Pair {
+struct Pair_2450e0 {
     unsigned a;
     unsigned b;
 };
-struct Header {
+struct Header_2450e0 {
     unsigned key;
     unsigned unused;
     unsigned size;
 };
 
-class Resource {
+class Resource_2450e0 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -36,41 +36,41 @@ public:
     virtual void v3();
     virtual void v4();
     virtual char Load(Stream *s);
-    char FUN_00245040(Pair *p);
+    char FUN_00245040(Pair_2450e0 *p);
 };
-class Entry {
+class Entry_2450e0 {
 public:
     virtual void v0();
     virtual void v1();
-    virtual Resource *Get();
+    virtual Resource_2450e0 *Get();
     char pad4[0x2c];
     char data30[1];                                    // 0x30
 };
 struct Registry;
 
 extern Registry *DAT_004cc088;
-char __cdecl FUN_002433b0(Stream *s, Header *h);
-char __cdecl FUN_00244d10(Stream *s, Pair *p);
-Entry *__cdecl FUN_00244870(Registry *r, unsigned *key);
-Resource *__cdecl FUN_00244fa0(Pair *p, char *src);
+char __cdecl FUN_002433b0(Stream *s, Header_2450e0 *h);
+char __cdecl FUN_00244d10(Stream *s, Pair_2450e0 *p);
+Entry_2450e0 *__cdecl FUN_00244870(Registry *r, unsigned *key);
+Resource_2450e0 *__cdecl FUN_00244fa0(Pair_2450e0 *p, char *src);
 
-struct Source {
+struct Source_2450e0 {
     Stream *stream;          // 0x00
     unsigned remaining;      // 0x04
 
-    char FUN_002450e0(Resource **out);
+    char FUN_002450e0(Resource_2450e0 **out);
 };
 
 // The original keeps all its locals in one 0x18-byte frame and reuses the dead argument slot.
-struct Frame {
+struct Frame_2450e0 {
     unsigned base;           // E+0x0c
-    Pair pair;               // E+0x10
-    Header hdr;              // E+0x18
+    Pair_2450e0 pair;               // E+0x10
+    Header_2450e0 hdr;              // E+0x18
 };
 
-char Source::FUN_002450e0(Resource **out)
+char Source_2450e0::FUN_002450e0(Resource_2450e0 **out)
 {
-    Frame f;
+    Frame_2450e0 f;
     *out = 0;
     if (remaining == 0)
         return 1;
@@ -88,7 +88,7 @@ char Source::FUN_002450e0(Resource **out)
         return 0;
 
     f.hdr.unused = f.hdr.key;
-    Entry *entry = FUN_00244870(DAT_004cc088, &f.hdr.unused);
+    Entry_2450e0 *entry = FUN_00244870(DAT_004cc088, &f.hdr.unused);
     if (entry == 0)
         return 0;
 

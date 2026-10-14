@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 135 inputs, branch coverage 36/36)
 // FUN_00092540 @ 0x00092540
-struct Triple {
+struct Triple_92540 {
     int a;
     int b;
     int c;
     void FUN_0027af50();
 };
 
-class Registry {
+class Registry_92540 {
 public:
     bool FUN_00092470(int lo, int hi, const char* fmt, int a, int b, int c);
-    void FUN_00092540(int kind, Triple t);
+    void FUN_00092540(int kind, Triple_92540 t);
 };
 
-void Registry::FUN_00092540(int kind, Triple t)
+void Registry_92540::FUN_00092540(int kind, Triple_92540 t)
 {
     if (kind == 3) {
         this->FUN_00092470(0x52, 0x8d, "comic_%d", t.a, t.b, t.c);

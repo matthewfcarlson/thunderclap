@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FEControl::vfunc_17 @ 0x000f13a0
-struct V3 {
+struct V3_f13a0 {
     float x, y, z;
 };
 
-void __cdecl FUN_000e09b0(V3 a, V3 b, unsigned int color, int mode);
+void __cdecl FUN_000e09b0(V3_f13a0 a, V3_f13a0 b, unsigned int color, int mode);
 
-class Device {
+class Device_f13a0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -27,15 +27,15 @@ public:
     virtual void v16(int a);
 };
 
-struct Holder {
-    Device* device;
-    void FUN_00293d00(const V3* v);
+struct Holder_f13a0 {
+    Device_f13a0* device;
+    void FUN_00293d00(const V3_f13a0* v);
     void FUN_00293da0(float a, float b, float c);
 };
 
-extern Holder* DAT_0052c2ac;
+extern Holder_f13a0* DAT_0052c2ac;
 
-class Widget {
+class Widget_f13a0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -48,20 +48,20 @@ public:
     virtual void v8(int a, int b);
 };
 
-struct Screen {
+struct Screen_f13a0 {
     char pad0[0x1818];
-    Widget* widget;
-    V3 scale;
+    Widget_f13a0* widget;
+    V3_f13a0 scale;
 };
 
-struct Root {
+struct Root_f13a0 {
     char pad0[4];
-    Screen* screen;
+    Screen_f13a0* screen;
 };
 
-struct Parent {
+struct Parent_f13a0 {
     char pad0[8];
-    Root* root;
+    Root_f13a0* root;
 };
 
 class FEControl {
@@ -86,28 +86,28 @@ public:
     virtual void vfunc_17(float a1, float a2, float a3, float a4);
     virtual void v18();
     char pad04[0x10];
-    Parent* parent;
+    Parent_f13a0* parent;
 };
 
 void FEControl::vfunc_17(float a1, float a2, float a3, float a4)
 {
-    Screen* screen = parent->root->screen;
-    Widget* widget = screen->widget;
+    Screen_f13a0* screen = parent->root->screen;
+    Widget_f13a0* widget = screen->widget;
     if (widget == 0) {
-        V3 va;
+        V3_f13a0 va;
         va.x = a1;
         va.y = a2;
         va.z = 0.0f;
-        V3 vb;
+        V3_f13a0 vb;
         vb.x = a3;
         vb.y = a4;
         vb.z = 0.0f;
         FUN_000e09b0(va, vb, 0xff4d5eff, 2);
         return;
     }
-    V3 scale = screen->scale;
+    V3_f13a0 scale = screen->scale;
     DAT_0052c2ac->device->v15(0);
-    V3 center;
+    V3_f13a0 center;
     if (a3 > 0.0f && a1 < 0.0f)
         center.x = (a1 + a3) * 0.5f;
     else

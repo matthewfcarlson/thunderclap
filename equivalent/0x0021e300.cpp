@@ -1,34 +1,34 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 26/26)
 // FUN_0021e300 @ 0x0021e300
-struct LocVar {
+struct LocVar_21e300 {
     int varname;
     int startpc;
     int endpc;
 };
 
-struct Proto {
+struct Proto_21e300 {
     char pad0[0xc];
     unsigned int *code;         // 0xc
     char pad10[0x18 - 0x10];
-    LocVar *locvars;            // 0x18
+    LocVar_21e300 *locvars;            // 0x18
 };
 
-struct LexState;
+struct LexState_21e300;
 
-struct BlockCnt {
-    BlockCnt *previous;
+struct BlockCnt_21e300 {
+    BlockCnt_21e300 *previous;
     int breaklist;
     unsigned char nactvar;
     unsigned char upval;
     unsigned char isbreakable;
 };
 
-struct FuncState {
-    Proto *f;                   // 0x0
+struct FuncState_21e300 {
+    Proto_21e300 *f;                   // 0x0
     char pad4[8];
-    LexState *ls;               // 0xc
+    LexState_21e300 *ls;               // 0xc
     char pad10[4];
-    BlockCnt *bl;               // 0x14
+    BlockCnt_21e300 *bl;               // 0x14
     int pc;                     // 0x18
     int lasttarget;             // 0x1c
     int jpc;                    // 0x20
@@ -39,7 +39,7 @@ struct FuncState {
     unsigned short actvar[200];
 };
 
-struct LexState {
+struct LexState_21e300 {
     int pad0;
     int linenumber;
     int lastline;
@@ -47,11 +47,11 @@ struct LexState {
     int seminfo;
     int lookaheadToken;
     int lookaheadSeminfo;
-    FuncState *fs;              // 0x1c
+    FuncState_21e300 *fs;              // 0x1c
     void *L;                    // 0x20
 };
 
-struct Exp {
+struct Exp_21e300 {
     int k;
     int info;
     int aux;
@@ -59,25 +59,25 @@ struct Exp {
     int f;
 };
 
-int __cdecl FUN_0021bbc0(LexState *ls, int *seminfo);
-int __cdecl FUN_00220cd0(FuncState *fs);
-int __cdecl FUN_00220530(FuncState *fs);
-int __cdecl FUN_0021ded0(LexState *ls, Exp *v, unsigned int limit);
-void __cdecl FUN_00221560(FuncState *fs, Exp *v);
-void __cdecl FUN_002207c0(FuncState *fs, int *l1, int l2);
-void FUN_0021b060(LexState *ls, const char *msg);
-const char *__cdecl FUN_0021af00(LexState *ls, int token);
+int __cdecl FUN_0021bbc0(LexState_21e300 *ls, int *seminfo);
+int __cdecl FUN_00220cd0(FuncState_21e300 *fs);
+int __cdecl FUN_00220530(FuncState_21e300 *fs);
+int __cdecl FUN_0021ded0(LexState_21e300 *ls, Exp_21e300 *v, unsigned int limit);
+void __cdecl FUN_00221560(FuncState_21e300 *fs, Exp_21e300 *v);
+void __cdecl FUN_002207c0(FuncState_21e300 *fs, int *l1, int l2);
+void FUN_0021b060(LexState_21e300 *ls, const char *msg);
+const char *__cdecl FUN_0021af00(LexState_21e300 *ls, int token);
 const char *FUN_00216320(void *L, const char *fmt, ...);
 // equiv-conv: FUN_0021e080 eax
-void FUN_0021e080(LexState *ls);
-void __cdecl FUN_00220d70(FuncState *fs, int list);
-void __cdecl FUN_00221ae0(FuncState *fs, int list, int target);
-int __cdecl FUN_00220b20(FuncState *fs, unsigned int instr, int line);
-int __cdecl FUN_00220bd0(FuncState *fs, int op, int a, int b, int c);
+void FUN_0021e080(LexState_21e300 *ls);
+void __cdecl FUN_00220d70(FuncState_21e300 *fs, int list);
+void __cdecl FUN_00221ae0(FuncState_21e300 *fs, int list, int target);
+int __cdecl FUN_00220b20(FuncState_21e300 *fs, unsigned int instr, int line);
+int __cdecl FUN_00220bd0(FuncState_21e300 *fs, int op, int a, int b, int c);
 // equiv-conv: FUN_0021c340 esi edi stack eax
-void FUN_0021c340(LexState *ls, int what, int who, int line);
+void FUN_0021c340(LexState_21e300 *ls, int what, int who, int line);
 
-static inline void Next(LexState *ls)
+static inline void Next(LexState_21e300 *ls)
 {
     ls->lastline = ls->linenumber;
     if (ls->lookaheadToken != 0x11f) {
@@ -90,18 +90,18 @@ static inline void Next(LexState *ls)
 }
 
 // Lua 5.0 whilestat(ls, line)
-void FUN_0021e300(LexState *ls, int line)
+void FUN_0021e300(LexState_21e300 *ls, int line)
 {
     unsigned int codeexp[105];
-    BlockCnt bl;
-    Exp v;
+    BlockCnt_21e300 bl;
+    Exp_21e300 v;
     int whileinit;
     int expinit;
     int lineexp;
     int sizeexp;
     int blockinit;
     int i;
-    FuncState *fs = ls->fs;
+    FuncState_21e300 *fs = ls->fs;
 
     Next(ls);
     whileinit = FUN_00220cd0(fs);
@@ -144,9 +144,9 @@ void FUN_0021e300(LexState *ls, int line)
         FUN_00220b20(fs, codeexp[i], lineexp);
     FUN_0021c340(ls, 0x106, 0x115, line);
 
-    BlockCnt *b = fs->bl;
+    BlockCnt_21e300 *b = fs->bl;
     fs->bl = b->previous;
-    FuncState *fs2 = fs->ls->fs;
+    FuncState_21e300 *fs2 = fs->ls->fs;
     int level = b->nactvar;
     while (fs2->nactvar > level) {
         fs2->nactvar--;

@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 117 inputs, branch coverage 16/20, incomplete)
 // FUN_002a23d0 @ 0x002a23d0
-typedef bool (__cdecl *Less)(int a, int b);
+typedef bool (__cdecl *Less_2a23d0)(int a, int b);
 
 void __cdecl FUN_002a1ac0(int *first, int *middle, int *last, int a, int b);
 
 // Insertion sort of [first, last) of 4-byte elements with a comparison callback.
-void FUN_002a23d0(int *first, int *last, Less less)
+void FUN_002a23d0(int *first, int *last, Less_2a23d0 less)
 {
     if (first == last)
         return;

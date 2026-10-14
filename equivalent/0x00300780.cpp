@@ -1,50 +1,50 @@
 // STATUS: equivalent (tools/equiv.py level 3: 32 inputs, branch coverage 18/22, incomplete)
 // FUN_00300780 @ 0x00300780
-struct Vec3 {
+struct Vec3_300780 {
     float x, y, z;
 };
 
-struct Edge {
+struct Edge_300780 {
     void *a;
     void *b;
     int c;
     int d;
     char e;
     char pad11[3];
-    Edge *FUN_002f8ef0(void *first, void *second);
+    Edge_300780 *FUN_002f8ef0(void *first, void *second);
 };
 
-struct Body {
+struct Body_300780 {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual Vec3 *vfunc_3();
+    virtual Vec3_300780 *vfunc_3();
     char pad04[0x28 - 4];
-    Vec3 half;
+    Vec3_300780 half;
 };
 
-struct Item {
+struct Item_300780 {
     char pad00[0x20];
-    Body *body;
+    Body_300780 *body;
 };
 
-struct Group {
-    Item **begin;
-    Item **end;
+struct Group_300780 {
+    Item_300780 **begin;
+    Item_300780 **end;
     char pad08[0x30 - 8];
-    Edge *edgeBegin;
-    Edge *edgeEnd;
-    Edge *edgeCap;
+    Edge_300780 *edgeBegin;
+    Edge_300780 *edgeEnd;
+    Edge_300780 *edgeCap;
 };
 
-struct Box {
-    Vec3 lo;
-    Vec3 hi;
+struct Box_300780 {
+    Vec3_300780 lo;
+    Vec3_300780 hi;
 };
 
 struct GridPart {
     char pad00[0x2024];
-    Box *boxes;
+    Box_300780 *boxes;
     short *links;
     short *heads;
     char pad2030[4];
@@ -53,9 +53,9 @@ struct GridPart {
     int FUN_00313450(int n);
 };
 
-class Broadphase {
+class Broadphase_300780 {
 public:
-    Group *group;
+    Group_300780 *group;
     char pad04[0x168 - 4];
     GridPart grid;
     void FUN_003006e0(int arg);
@@ -63,17 +63,17 @@ public:
     void FUN_00300780(int arg);
 };
 
-void Broadphase::FUN_00300780(int arg)
+void Broadphase_300780::FUN_00300780(int arg)
 {
     if (grid.flags & 8) {
-        Group *g = group;
+        Group_300780 *g = group;
         g->edgeEnd = g->edgeBegin;
         int count = g->end - g->begin;
         grid.FUN_00312db0(count);
-        Box *boxes = grid.boxes;
+        Box_300780 *boxes = grid.boxes;
         for (int i = 0; i < count; i++) {
-            Body *body = g->begin[i]->body;
-            Vec3 *c = body->vfunc_3();
+            Body_300780 *body = g->begin[i]->body;
+            Vec3_300780 *c = body->vfunc_3();
             boxes[i].lo.x = c->x - body->half.x;
             boxes[i].lo.y = c->y - body->half.y;
             boxes[i].lo.z = c->z - body->half.z;
@@ -93,9 +93,9 @@ void Broadphase::FUN_00300780(int arg)
                 unsigned short ax = links[a];
                 while (ax != 0xffff) {
                     int b = (short)ax;
-                    Edge tmp;
-                    Edge *e = tmp.FUN_002f8ef0(g->begin[a], g->begin[b]);
-                    Edge *end = g->edgeEnd;
+                    Edge_300780 tmp;
+                    Edge_300780 *e = tmp.FUN_002f8ef0(g->begin[a], g->begin[b]);
+                    Edge_300780 *end = g->edgeEnd;
                     if (end < g->edgeCap) {
                         g->edgeEnd = end + 1;
                         if (end)

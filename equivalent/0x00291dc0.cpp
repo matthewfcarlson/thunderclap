@@ -3,7 +3,7 @@
 extern "C" void* __cdecl FUN_00263ea0(unsigned int size);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
-class __declspec(novtable) LoaderBase {
+class __declspec(novtable) LoaderBase_291dc0 {
   public:
     virtual void slot0();
     int f04;
@@ -79,7 +79,7 @@ class BMPHandler : public ImageHandlerBase {
     virtual void slot14();
     virtual void slot15();
 };
-class IgnoreLoader : public LoaderBase {
+class IgnoreLoader : public LoaderBase_291dc0 {
   public:
     IgnoreLoader() { f04 = 0; id = 0; f0c = 0; f10 = 0; }
     virtual void slot0();
@@ -91,41 +91,41 @@ class IgnoreLoader : public LoaderBase {
 };
 }
 
-struct Raw {
-    LoaderBase* FUN_002c29b0();
-    LoaderBase* FUN_002c25b0();
-    LoaderBase* FUN_0028f280();
-    LoaderBase* FUN_002c1b30();
-    LoaderBase* FUN_002c1480();
-    LoaderBase* FUN_002c1930();
-    LoaderBase* FUN_002c14c0();
-    LoaderBase* FUN_002c0c40();
-    LoaderBase* FUN_002955c0();
-    LoaderBase* FUN_002bfa30();
-    LoaderBase* FUN_002beca0();
-    LoaderBase* FUN_002bc3d0();
-    LoaderBase* FUN_0027b980();
-    LoaderBase* FUN_002b7d30();
-    LoaderBase* FUN_00299410();
-    LoaderBase* FUN_002b6150();
-    LoaderBase* FUN_002b6870();
-    LoaderBase* FUN_002b68c0();
-    LoaderBase* FUN_00289e00();
-    LoaderBase* FUN_00286520();
-    LoaderBase* FUN_002b23a0();
-    LoaderBase* FUN_002acc60();
-    LoaderBase* FUN_00297150();
-    LoaderBase* FUN_002aff60();
-    LoaderBase* FUN_002b0f40();
-    LoaderBase* FUN_002aff20();
-    LoaderBase* FUN_00290740();
+struct Raw_291dc0 {
+    LoaderBase_291dc0* FUN_002c29b0();
+    LoaderBase_291dc0* FUN_002c25b0();
+    LoaderBase_291dc0* FUN_0028f280();
+    LoaderBase_291dc0* FUN_002c1b30();
+    LoaderBase_291dc0* FUN_002c1480();
+    LoaderBase_291dc0* FUN_002c1930();
+    LoaderBase_291dc0* FUN_002c14c0();
+    LoaderBase_291dc0* FUN_002c0c40();
+    LoaderBase_291dc0* FUN_002955c0();
+    LoaderBase_291dc0* FUN_002bfa30();
+    LoaderBase_291dc0* FUN_002beca0();
+    LoaderBase_291dc0* FUN_002bc3d0();
+    LoaderBase_291dc0* FUN_0027b980();
+    LoaderBase_291dc0* FUN_002b7d30();
+    LoaderBase_291dc0* FUN_00299410();
+    LoaderBase_291dc0* FUN_002b6150();
+    LoaderBase_291dc0* FUN_002b6870();
+    LoaderBase_291dc0* FUN_002b68c0();
+    LoaderBase_291dc0* FUN_00289e00();
+    LoaderBase_291dc0* FUN_00286520();
+    LoaderBase_291dc0* FUN_002b23a0();
+    LoaderBase_291dc0* FUN_002acc60();
+    LoaderBase_291dc0* FUN_00297150();
+    LoaderBase_291dc0* FUN_002aff60();
+    LoaderBase_291dc0* FUN_002b0f40();
+    LoaderBase_291dc0* FUN_002aff20();
+    LoaderBase_291dc0* FUN_00290740();
 };
 
-struct Registry {
+struct Registry_291dc0 {
     void FUN_00265210(void*, int);
     void FUN_00265240(void*, const char*);
 };
-extern "C" Registry* DAT_00527c58;
+extern "C" Registry_291dc0* DAT_00527c58;
 
 void FUN_00291dc0(){
     void* mem = FUN_00263ea0(0xc);
@@ -140,87 +140,87 @@ void FUN_00291dc0(){
     pure3d::BMPHandler* bmp = 0;
     if (mem) bmp = new (mem) pure3d::BMPHandler();
     DAT_00527c58->FUN_00265240(bmp, "bmp");
-    LoaderBase* l;
+    LoaderBase_291dc0* l;
     mem = FUN_00263ea0(0x2c);
-    l = mem ? ((Raw*)mem)->FUN_002c29b0() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002c29b0() : 0;
     DAT_00527c58->FUN_00265210(l, 0x10000);
     mem = FUN_00263ea0(0x1c);
-    l = mem ? ((Raw*)mem)->FUN_002c25b0() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002c25b0() : 0;
     DAT_00527c58->FUN_00265210(l, 0x19000);
     mem = FUN_00263ea0(0x14);
-    l = mem ? ((Raw*)mem)->FUN_0028f280() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_0028f280() : 0;
     DAT_00527c58->FUN_00265210(l, 0x11000);
     mem = FUN_00263ea0(0x14);
-    l = mem ? ((Raw*)mem)->FUN_002c1b30() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002c1b30() : 0;
     DAT_00527c58->FUN_00265210(l, 0x2200);
     mem = FUN_00263ea0(0x14);
-    l = mem ? ((Raw*)mem)->FUN_002c1480() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002c1480() : 0;
     DAT_00527c58->FUN_00265210(l, 0x13000);
     mem = FUN_00263ea0(0x14);
-    l = mem ? ((Raw*)mem)->FUN_002c1930() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002c1930() : 0;
     DAT_00527c58->FUN_00265210(l, 0x14000);
     mem = FUN_00263ea0(0x14);
-    l = mem ? ((Raw*)mem)->FUN_002c14c0() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002c14c0() : 0;
     DAT_00527c58->FUN_00265210(l, 0x2380);
     mem = FUN_00263ea0(0x1c);
-    l = mem ? ((Raw*)mem)->FUN_002c0c40() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002c0c40() : 0;
     DAT_00527c58->FUN_00265210(l, 0x19001);
     mem = FUN_00263ea0(0x14);
-    l = mem ? ((Raw*)mem)->FUN_002955c0() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002955c0() : 0;
     DAT_00527c58->FUN_00265210(l, 0x22000);
     mem = FUN_00263ea0(0x14);
-    l = mem ? ((Raw*)mem)->FUN_002bfa30() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002bfa30() : 0;
     DAT_00527c58->FUN_00265210(l, 0x22002);
     mem = FUN_00263ea0(0x24);
-    l = mem ? ((Raw*)mem)->FUN_002beca0() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002beca0() : 0;
     DAT_00527c58->FUN_00265210(l, 0x19005);
     mem = FUN_00263ea0(0x18);
-    l = mem ? ((Raw*)mem)->FUN_002bc3d0() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002bc3d0() : 0;
     DAT_00527c58->FUN_00265210(l, 0x17006);
     mem = FUN_00263ea0(0x18);
-    l = mem ? ((Raw*)mem)->FUN_0027b980() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_0027b980() : 0;
     DAT_00527c58->FUN_00265210(l, 0x23000);
     mem = FUN_00263ea0(0x2c);
-    l = mem ? ((Raw*)mem)->FUN_002b7d30() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002b7d30() : 0;
     DAT_00527c58->FUN_00265210(l, 0x10001);
     mem = FUN_00263ea0(0x14);
-    l = mem ? ((Raw*)mem)->FUN_00299410() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_00299410() : 0;
     DAT_00527c58->FUN_00265210(l, 0x123000);
     mem = FUN_00263ea0(0x14);
-    l = mem ? ((Raw*)mem)->FUN_002b6150() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002b6150() : 0;
     DAT_00527c58->FUN_00265210(l, 0x1001a);
     mem = FUN_00263ea0(0x14);
-    l = mem ? ((Raw*)mem)->FUN_002b6870() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002b6870() : 0;
     DAT_00527c58->FUN_00265210(l, 0x10019);
     mem = FUN_00263ea0(0x18);
-    l = mem ? ((Raw*)mem)->FUN_002b68c0() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002b68c0() : 0;
     DAT_00527c58->FUN_00265210(l, 0x10023);
     mem = FUN_00263ea0(0x24);
-    l = mem ? ((Raw*)mem)->FUN_00289e00() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_00289e00() : 0;
     DAT_00527c58->FUN_00265210(l, 0x121000);
     mem = FUN_00263ea0(0x28);
-    l = mem ? ((Raw*)mem)->FUN_00286520() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_00286520() : 0;
     DAT_00527c58->FUN_00265210(l, 0x121201);
     mem = FUN_00263ea0(0x14);
-    l = mem ? ((Raw*)mem)->FUN_002b23a0() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002b23a0() : 0;
     DAT_00527c58->FUN_00265210(l, 0x121202);
     mem = FUN_00263ea0(0x3c);
-    l = mem ? ((Raw*)mem)->FUN_002acc60() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002acc60() : 0;
     DAT_00527c58->FUN_00265210(l, 0x1580c);
     mem = FUN_00263ea0(0x14);
-    l = mem ? ((Raw*)mem)->FUN_00297150() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_00297150() : 0;
     DAT_00527c58->FUN_00265210(l, 0x120100);
     mem = FUN_00263ea0(0x14);
-    l = mem ? ((Raw*)mem)->FUN_002aff60() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002aff60() : 0;
     DAT_00527c58->FUN_00265210(l, 0x21001);
     mem = FUN_00263ea0(0x14);
-    l = mem ? ((Raw*)mem)->FUN_002b0f40() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002b0f40() : 0;
     DAT_00527c58->FUN_00265210(l, 0x21002);
     mem = FUN_00263ea0(0x14);
-    l = mem ? ((Raw*)mem)->FUN_002aff20() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_002aff20() : 0;
     DAT_00527c58->FUN_00265210(l, 0x21000);
     mem = FUN_00263ea0(0x14);
-    l = mem ? ((Raw*)mem)->FUN_00290740() : 0;
+    l = mem ? ((Raw_291dc0*)mem)->FUN_00290740() : 0;
     DAT_00527c58->FUN_00265210(l, 0x802000a);
     mem = FUN_00263ea0(0x14);
     pure3d::IgnoreLoader* ign = 0;

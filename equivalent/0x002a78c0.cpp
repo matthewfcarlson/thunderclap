@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 12/12)
 // pure3d::SceneGraphTransformAnimationController::vfunc_28 @ 0x002a78c0
-struct V3 { float x, y, z; };
+struct V3_2a78c0 { float x, y, z; };
 
 struct Matrix {
     float r[12];
-    V3 pos;
+    V3_2a78c0 pos;
     float w;
 };
 
-struct Quat {
+struct Quat_2a78c0 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat* a, const Quat* b, float t);
+    void FUN_0022b750(const Quat_2a78c0* a, const Quat_2a78c0* b, float t);
     void FUN_0022b650(Matrix* m);
 };
 
@@ -20,18 +20,18 @@ public:
     virtual void vf1();
     virtual void vf2();
     virtual void vf3();
-    virtual void vf4(float t, V3* out);
-    virtual void vf5(float t, Quat* out);
+    virtual void vf4(float t, V3_2a78c0* out);
+    virtual void vf5(float t, Quat_2a78c0* out);
 };
 
-class ChannelSet {
+class ChannelSet_2a78c0 {
 public:
     Channel* FUN_00288960(unsigned int tagLo, unsigned int tagHi);
 };
 
-class Source {
+class Source_2a78c0 {
 public:
-    ChannelSet* FUN_00288a10(int index);
+    ChannelSet_2a78c0* FUN_00288a10(int index);
 };
 
 class Node {
@@ -64,8 +64,8 @@ struct Track {
     int f1c;
     int a20;
     int f24;
-    Source* owner;
-    Source* FUN_00284f50();
+    Source_2a78c0* owner;
+    Source_2a78c0* FUN_00284f50();
     float FUN_00284f70();
     float FUN_00284f60();
 };
@@ -116,10 +116,10 @@ void SceneGraphTransformAnimationController::vfunc_28()
         float inv;
         unsigned int i;
         float cur;
-        V3 acc;
-        V3 t;
-        Quat q;
-        Quat r;
+        V3_2a78c0 acc;
+        V3_2a78c0 t;
+        Quat_2a78c0 q;
+        Quat_2a78c0 r;
     } fr;
     fr.acc.x = 0.0f;
     fr.acc.y = 0.0f;
@@ -132,8 +132,8 @@ void SceneGraphTransformAnimationController::vfunc_28()
     if (count != 0) {
         Track* trk = &tracks[0];
         do {
-            Source* src = trk->FUN_00284f50();
-            ChannelSet* cs = src->FUN_00288a10(0);
+            Source_2a78c0* src = trk->FUN_00284f50();
+            ChannelSet_2a78c0* cs = src->FUN_00288a10(0);
             fr.cur = trk->FUN_00284f70();
             fr.w = trk->FUN_00284f60();
             fr.inv = 1.0f - fr.w;

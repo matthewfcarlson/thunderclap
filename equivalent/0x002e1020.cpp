@@ -5,12 +5,12 @@ struct Elem16 {
     float v[3];
 };
 
-struct Elem12 {
+struct Elem12_2e1020 {
     int id;
     float v[2];
 };
 
-struct Emitter {
+struct Emitter_2e1020 {
     char pad0[0x10];
     void *kindA;
     void *kindB;
@@ -21,13 +21,13 @@ struct Emitter {
     void FUN_002c6f70(int id, const float *v, int k, int ctx);
 };
 
-struct Lists {
-    Elem12 *begin;
-    Elem12 *end;
-    Elem12 *cap;
+struct Lists_2e1020 {
+    Elem12_2e1020 *begin;
+    Elem12_2e1020 *end;
+    Elem12_2e1020 *cap;
 };
 
-struct Batch {
+struct Batch_2e1020 {
     char pad0[0x14];
     Elem16 *aBegin;
     Elem16 *aEnd;
@@ -35,18 +35,18 @@ struct Batch {
     Elem16 *bBegin;
     Elem16 *bEnd;
     char pad28[0x2c - 0x28];
-    Lists lists[6];
+    Lists_2e1020 lists[6];
 };
 
-class Dispatcher {
+class Dispatcher_2e1020 {
 public:
     char pad0[0x5c];
-    Emitter *emitter;
+    Emitter_2e1020 *emitter;
 
-    void FUN_002e1020(Batch *batch, int ctx, unsigned int mask);
+    void FUN_002e1020(Batch_2e1020 *batch, int ctx, unsigned int mask);
 };
 
-void Dispatcher::FUN_002e1020(Batch *batch, int ctx, unsigned int mask)
+void Dispatcher_2e1020::FUN_002e1020(Batch_2e1020 *batch, int ctx, unsigned int mask)
 {
     if (emitter->kindA && (mask & 0x10)) {
         unsigned int n = batch->aEnd - batch->aBegin;
@@ -71,7 +71,7 @@ void Dispatcher::FUN_002e1020(Batch *batch, int ctx, unsigned int mask)
             unsigned int n = batch->lists[k].end - batch->lists[k].begin;
             if (n != 0) {
                 for (unsigned int i = 0; i != n; i++) {
-                    Elem12 *e = &batch->lists[k].begin[i];
+                    Elem12_2e1020 *e = &batch->lists[k].begin[i];
                     emitter->FUN_002c6f30(e->id, e->v, k, ctx);
                 }
             }
@@ -82,7 +82,7 @@ void Dispatcher::FUN_002e1020(Batch *batch, int ctx, unsigned int mask)
             unsigned int n = batch->lists[4 + k].end - batch->lists[4 + k].begin;
             if (n != 0) {
                 for (unsigned int i = 0; i != n; i++) {
-                    Elem12 *e = &batch->lists[4 + k].begin[i];
+                    Elem12_2e1020 *e = &batch->lists[4 + k].begin[i];
                     emitter->FUN_002c6f70(e->id, e->v, k, ctx);
                 }
             }

@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 36/36)
 // FUN_002ba220 @ 0x002ba220
-struct Vec3 {
+struct Vec3_2ba220 {
     float x, y, z;
-    void FUN_0022d240(Vec3 *v, void *matrix);
+    void FUN_0022d240(Vec3_2ba220 *v, void *matrix);
 };
 
 struct Matrix {
     float m[16];
 };
 
-struct Mesh {
+struct Mesh_2ba220 {
     char pad00[8];
-    Vec3 *verts;
+    Vec3_2ba220 *verts;
     char pad0c[4];
     unsigned int *colors;
     void FUN_0008ef00();
@@ -19,7 +19,7 @@ struct Mesh {
 
 struct Handle;
 
-class Layer {
+class Layer_2ba220 {
 public:
     virtual void v0();
     virtual void v1();
@@ -45,7 +45,7 @@ public:
     virtual void v21(int a);
 };
 
-class Obj {
+class Obj_2ba220 {
 public:
     virtual void v0();
     virtual void v1();
@@ -63,7 +63,7 @@ public:
     virtual int v4();
 };
 
-class Engine {
+class Engine_2ba220 {
 public:
     virtual void v0();
     virtual void v1();
@@ -95,8 +95,8 @@ public:
     virtual void v27();
     virtual void v28();
     virtual void v29();
-    virtual Mesh* v30(Handle* h, int a, int b, int count, int c);
-    virtual void v31(Mesh* m);
+    virtual Mesh_2ba220* v30(Handle* h, int a, int b, int count, int c);
+    virtual void v31(Mesh_2ba220* m);
     virtual void v32();
     virtual void v33();
     virtual void v34();
@@ -154,10 +154,10 @@ public:
     virtual void v86();
     virtual void v87();
     virtual void v88();
-    virtual Obj* v89(int id);
+    virtual Obj_2ba220* v89(int id);
 };
 
-class Xform {
+class Xform_2ba220 {
 public:
     virtual void v0();
     virtual void v1();
@@ -182,28 +182,28 @@ public:
     virtual void v20();
     virtual void v21();
     virtual void v22();
-    virtual void v23(Vec3 *in, Vec3 *out);
+    virtual void v23(Vec3_2ba220 *in, Vec3_2ba220 *out);
 };
 
-struct Scene {
+struct Scene_2ba220 {
     char pad00[0x18];
-    Xform *xf;
-    void FUN_002940d0(const Vec3 *in, Vec3 *out);
-    void FUN_00294670(Vec3 v, Vec3 *p);
+    Xform_2ba220 *xf;
+    void FUN_002940d0(const Vec3_2ba220 *in, Vec3_2ba220 *out);
+    void FUN_00294670(Vec3_2ba220 v, Vec3_2ba220 *p);
 };
 
-struct Display {
-    Layer *layer;
+struct Display_2ba220 {
+    Layer_2ba220 *layer;
 };
 
 struct Camera {
     char pad00[8];
-    Scene *scene;
+    Scene_2ba220 *scene;
     Matrix *FUN_0028faa0();
 };
 
-extern Engine *DAT_0052c2a8;
-extern Display *DAT_0052c2ac;
+extern Engine_2ba220 *DAT_0052c2a8;
+extern Display_2ba220 *DAT_0052c2ac;
 extern Camera *DAT_0052c2b4;
 
 extern "C" int __cdecl FUN_0034483c();
@@ -211,7 +211,7 @@ extern "C" int __cdecl FUN_0034483c();
 class BillboardQuadGroup {
 public:
     char pad00[0x70];
-    Vec3 pos70;
+    Vec3_2ba220 pos70;
     float FUN_002ba220();
 };
 
@@ -226,13 +226,13 @@ float BillboardQuadGroup::FUN_002ba220()
             unsigned char flag;
             int word;
         } prev;
-        Vec3 out;
-        Vec3 p1;
-        Vec3 p3;
-        Vec3 p2;
+        Vec3_2ba220 out;
+        Vec3_2ba220 p1;
+        Vec3_2ba220 p3;
+        Vec3_2ba220 p2;
     } fr;
 
-    Obj *o = DAT_0052c2a8->v89(0x500002);
+    Obj_2ba220 *o = DAT_0052c2a8->v89(0x500002);
     if (o == 0)
         return 1.0f;
     int mult = 1;
@@ -253,8 +253,8 @@ float BillboardQuadGroup::FUN_002ba220()
     DAT_0052c2a8->v56(0, 0, 0, 1);
     fr.prev.flag = DAT_0052c2a8->v63();
     DAT_0052c2a8->v62(0);
-    Scene *scene = DAT_0052c2b4->scene;
-    Vec3 tmp;
+    Scene_2ba220 *scene = DAT_0052c2b4->scene;
+    Vec3_2ba220 tmp;
     tmp.FUN_0022d240(&pos70, DAT_0052c2b4->FUN_0028faa0());
     scene->FUN_002940d0(&tmp, &fr.out);
     float r = fr.out.z * 0.01f;
@@ -264,7 +264,7 @@ float BillboardQuadGroup::FUN_002ba220()
     fr.y1 = fr.out.y + r;
     DAT_0052c2ac->layer->v21(0);
     o->v2();
-    Mesh *m = DAT_0052c2a8->v30(0, 1, 0x2020, 4, 0);
+    Mesh_2ba220 *m = DAT_0052c2a8->v30(0, 1, 0x2020, 4, 0);
     *m->colors = 0xff000000;
     m->verts->x = fr.x0;
     m->verts->y = fr.y0;
@@ -290,7 +290,7 @@ float BillboardQuadGroup::FUN_002ba220()
     DAT_0052c2ac->layer->v16(0);
     DAT_0052c2a8->v62(fr.prev.word);
     DAT_0052c2a8->v56(1, 1, 1, 1);
-    Xform *xf = scene->xf;
+    Xform_2ba220 *xf = scene->xf;
     fr.p1.x = fr.x0;
     fr.p1.y = fr.y0;
     fr.p1.z = fr.out.z;

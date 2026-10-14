@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 14/14)
 // hulkfight::motion::JointRelativeAction::vfunc_3 @ 0x001714b0
-struct Vec3 {
+struct Vec3_1714b0 {
     float x, y, z;
 };
 
@@ -8,82 +8,82 @@ struct Matrix {
     float m[16];
 };
 
-struct Quat {
+struct Quat_1714b0 {
     float x, y, z, w;
     void FUN_0022b370(const Matrix* m);
     void FUN_0022b220(float x, float y, float z);
 };
 
-void FUN_0022b080(Quat* out, Quat* a, Quat* b);
+void FUN_0022b080(Quat_1714b0* out, Quat_1714b0* a, Quat_1714b0* b);
 void* FUN_00263ea0(unsigned int size);
 
-struct NameField {
+struct NameField_1714b0 {
     void FUN_0027b040(const char* s);
 };
 
-struct Xform {
+struct Xform_1714b0 {
     char data[0x54];
-    void FUN_00221cf0(const Quat* q);
-    void FUN_0022be40(const Vec3* p);
+    void FUN_00221cf0(const Quat_1714b0* q);
+    void FUN_0022be40(const Vec3_1714b0* p);
 };
 
 class JointDriver {
 public:
     virtual void AddRef();
     char pad04[4];
-    NameField name;
+    NameField_1714b0 name;
     char pad0c[4];
     int jointIndex;
     int flags;
-    Xform xform;
+    Xform_1714b0 xform;
     JointDriver* FUN_002248a0();
 };
 
-struct Anim;
+struct Anim_1714b0;
 
-struct Anim {
+struct Anim_1714b0 {
     char pad00[0x14];
-    Quat* bindQuats;
+    Quat_1714b0* bindQuats;
     Matrix* bindPoses;
     int FUN_0027b200(unsigned int lo, unsigned int hi);
 };
 
 struct Skeleton {
     char pad00[8];
-    Anim* anim;
+    Anim_1714b0* anim;
     char pad0c[8];
     Matrix* matrices;
 };
 
-struct Player {
+struct Player_1714b0 {
     char pad00[0x120];
     Skeleton* skeleton;
 };
 
-struct Tracker {
+struct Tracker_1714b0 {
     void FUN_00222890(JointDriver* d, float a, float b, float c, float e, float f, float g);
 };
 
-struct Clock {
-    Player* FUN_00059a30();
-    Tracker* FUN_00059a40();
+struct Clock_1714b0 {
+    Player_1714b0* FUN_00059a30();
+    Tracker_1714b0* FUN_00059a40();
 };
 
-struct Target {
-    Clock* FUN_000592a0();
+struct Target_1714b0 {
+    Clock_1714b0* FUN_000592a0();
 };
 
-struct Config {
+struct Config_1714b0 {
     char pad00[0x18];
     unsigned int nameLo;
     unsigned int nameHi;
     char useBind;
     char flag21;
     char pad22[2];
-    Vec3 offset;
+    Vec3_1714b0 offset;
     char flag30;
     char pad31[3];
-    Vec3 scale;
+    Vec3_1714b0 scale;
     float limitA;
     float limitB;
     float limitC;
@@ -102,26 +102,26 @@ public:
     virtual void v5();
 
     char pad04[0x1c - 4];
-    Config* cfg;
-    Target* owner;
+    Config_1714b0* cfg;
+    Target_1714b0* owner;
     JointDriver* driver;
-    Quat jointRot;
-    Vec3 jointPos;
-    Quat relRot;
-    Vec3 relPos;
+    Quat_1714b0 jointRot;
+    Vec3_1714b0 jointPos;
+    Quat_1714b0 relRot;
+    Vec3_1714b0 relPos;
 };
 
 bool JointRelativeAction::vfunc_3(int a, int b)
 {
-    Clock* clock = owner->FUN_000592a0();
-    Player* player = clock->FUN_00059a30();
-    Tracker* tracker = clock->FUN_00059a40();
+    Clock_1714b0* clock = owner->FUN_000592a0();
+    Player_1714b0* player = clock->FUN_00059a30();
+    Tracker_1714b0* tracker = clock->FUN_00059a40();
     if (tracker == 0)
         return false;
 
-    Config* c = cfg;
+    Config_1714b0* c = cfg;
     Skeleton* skel = player->skeleton;
-    Anim* anim = skel->anim;
+    Anim_1714b0* anim = skel->anim;
     int idx = 0;
     if ((c->nameLo | c->nameHi) != 0) {
         idx = anim->FUN_0027b200(c->nameLo, c->nameHi);
@@ -129,21 +129,21 @@ bool JointRelativeAction::vfunc_3(int a, int b)
             idx = 0;
     }
 
-    Vec3 unused;
+    Vec3_1714b0 unused;
     Matrix m = skel->matrices[idx];
     jointRot.FUN_0022b370(&m);
     jointPos.x = m.m[12];
     jointPos.y = m.m[13];
     jointPos.z = m.m[14];
 
-    Vec3 s = cfg->scale;
+    Vec3_1714b0 s = cfg->scale;
     relRot.FUN_0022b220(s.x, s.y, s.z);
     unused = cfg->offset;
     relPos = unused;
 
     if (cfg->useBind) {
         FUN_0022b080(&relRot, &relRot, &anim->bindQuats[idx]);
-        const Vec3* t = (const Vec3*)((char*)anim->bindPoses + idx * 64 + 0x30);
+        const Vec3_1714b0* t = (const Vec3_1714b0*)((char*)anim->bindPoses + idx * 64 + 0x30);
         relPos.x = t->x + relPos.x;
         relPos.y = t->y + relPos.y;
         relPos.z = t->z + relPos.z;

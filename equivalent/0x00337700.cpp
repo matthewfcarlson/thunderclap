@@ -3,7 +3,7 @@
 extern "C" long atol(const char *s);
 void *__cdecl FUN_0008d690(unsigned int size);
 
-class AttrDef {
+class AttrDef_337700 {
 public:
     bool FUN_00337210(void *loader);
 };
@@ -23,7 +23,7 @@ public:
     XmlReader *reader;
     const char *FUN_00337460();
     void FUN_003374a0();
-    AttrDef *FUN_00337680(const char *name);
+    AttrDef_337700 *FUN_00337680(const char *name);
     bool Load(void *src, void *arg);
 };
 
@@ -44,7 +44,7 @@ bool XmlLoader::Load(void *src, void *arg) {
     if (!r->FUN_003385f0(arg)) {
         status = 9;
     } else {
-        AttrDef *def = 0;
+        AttrDef_337700 *def = 0;
         const char *tok = FUN_00337460();
         if (tok == 0) {
             reader->FUN_00338630();

@@ -10,36 +10,36 @@ extern float DAT_004c4c54;
 extern int DAT_004e22f0;
 extern float DAT_004e22f8;
 
-struct Owner { char pad[0x24]; int values[1]; };
-struct Slot { float weight; int a; int b; int value; };
-struct Blender {
-    Owner *owner; int current; Slot slots[8]; int index; float scale;
-    Blender *FUN_000f7fe0(Owner *o);
+struct Owner_1bf0c0 { char pad[0x24]; int values[1]; };
+struct Slot_1bf0c0 { float weight; int a; int b; int value; };
+struct Blender_1bf0c0 {
+    Owner_1bf0c0 *owner; int current; Slot_1bf0c0 slots[8]; int index; float scale;
+    Blender_1bf0c0 *FUN_000f7fe0(Owner_1bf0c0 *o);
     void FUN_000f78e0();
     float FUN_000d4900(void *p, int k);
 };
-struct Sink {
+struct Sink_1bf0c0 {
     float FUN_000d6d90();
     void FUN_000d6dd0();
 };
-struct Holder { Sink *FUN_000862b0(void *who); };
-struct Game { char pad[0x54]; Holder *holder; };
-extern Game *DAT_004dd700;
+struct Holder_1bf0c0 { Sink_1bf0c0 *FUN_000862b0(void *who); };
+struct Game_1bf0c0 { char pad[0x54]; Holder_1bf0c0 *holder; };
+extern Game_1bf0c0 *DAT_004dd700;
 
-union FBits { float f; unsigned u; };
+union FBits_1bf0c0 { float f; unsigned u; };
 
 static float absf(float v)
 {
-    FBits b;
+    FBits_1bf0c0 b;
     b.f = v;
     b.u &= 0x7fffffff;
     return b.f;
 }
 
-class Fader {
+class Fader_1bf0c0 {
 public:
     char pad0[8];
-    Owner *owner;
+    Owner_1bf0c0 *owner;
     bool active;
     char pad0d[3];
     float level;
@@ -51,7 +51,7 @@ public:
     void FUN_001bf0c0(float dt);
 };
 
-void Fader::FUN_001bf0c0(float dt)
+void Fader_1bf0c0::FUN_001bf0c0(float dt)
 {
     if ((active || !(absf(level) <= DAT_0042144c)) && !started) {
         DAT_004dd700->holder->FUN_000862b0(this)->FUN_000d6d90();
@@ -59,7 +59,7 @@ void Fader::FUN_001bf0c0(float dt)
         alpha = 0;
     }
     if (active && owner != 0) {
-        Blender b;
+        Blender_1bf0c0 b;
         b.FUN_000f7fe0(owner);
         b.slots[b.index].weight = DAT_004c4c44 * DAT_004c4c40;
         b.slots[b.index].b = 2;

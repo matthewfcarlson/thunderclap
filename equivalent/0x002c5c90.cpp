@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002c5c90 @ 0x002c5c90
-struct Src {
+struct Src_2c5c90 {
     char pad00[0x14];
     int f14;
     float p[3];
@@ -8,12 +8,12 @@ struct Src {
 
 void FUN_002c5260(float width, float* from, float w2, float* to, int a, int b, int c, int d);
 
-struct Obj {
+struct Obj_2c5c90 {
     int w0, w4, w8, wc;
-    void FUN_002c5c90(Src* s, float f);
+    void FUN_002c5c90(Src_2c5c90* s, float f);
 };
 
-void Obj::FUN_002c5c90(Src* s, float f)
+void Obj_2c5c90::FUN_002c5c90(Src_2c5c90* s, float f)
 {
     struct Frame {
         float p0copy;

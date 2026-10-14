@@ -3,26 +3,26 @@
 typedef unsigned long DWORD;
 struct Texture;
 struct Palette;
-struct SurfaceDesc {
+struct SurfaceDesc_3265f0 {
     DWORD Format, Type, Usage, Size, MultiSampleType, Width, Height;
 };
 namespace D3D8 {
 Texture* __stdcall D3DDevice_CreateTexture2(DWORD width, DWORD height, DWORD depth, DWORD levels, DWORD usage, DWORD format, DWORD type);
 Palette* __stdcall D3DDevice_CreatePalette2(DWORD size);
 }
-void __stdcall thunk_FUN_0038acb0(Texture* tex, DWORD level, SurfaceDesc* out);
+void __stdcall thunk_FUN_0038acb0(Texture* tex, DWORD level, SurfaceDesc_3265f0* out);
 void FUN_0031c230(long hr);
 // equiv-conv: FUN_00325fb0 edx
 int FUN_00325fb0(int mask);
 void FUN_0031e1f0(Texture* tex, int size);
-struct Layout {
+struct Layout_3265f0 {
     int f0, f4, f8, fc, f10;
     char pad14[0x44 - 0x14];
     int mask;
     char pad48[0x54 - 0x48];
 };
-void FUN_0031c600(SurfaceDesc* desc, int a, Layout* out, int b);
-struct Ctx {
+void FUN_0031c600(SurfaceDesc_3265f0* desc, int a, Layout_3265f0* out, int b);
+struct Ctx_3265f0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -110,7 +110,7 @@ struct Ctx {
     virtual int GetMaxTextureSize();
 };
 // equiv-conv: FUN_00325fd0 eax edx ecx stack
-int FUN_00325fd0(int a4, int a5, int a7, Ctx* ctx);
+int FUN_00325fd0(int a4, int a5, int a7, Ctx_3265f0* ctx);
 struct TextureBuilder {
     virtual void v0();
     virtual void v1();
@@ -133,13 +133,13 @@ struct TextureBuilder {
     virtual void SetFormat(int);
     char pad4[4];
     int error;
-    Ctx* ctx;
+    Ctx_3265f0* ctx;
     char pad10[0x18 - 0x10];
     Texture* tex;
     char pad1c[0x68 - 0x1c];
     Palette* palette;
     int format;
-    Layout layout;
+    Layout_3265f0 layout;
     int c4pad;
     int srcFormat;
     int usage;
@@ -183,7 +183,7 @@ bool TextureBuilder::Create(int w, int h, int d, int a4, int a5, int lvls, int a
     FUN_0031c230(tex ? 0 : 0x8007000e);
     if (format == 0xb)
         palette = D3D8::D3DDevice_CreatePalette2(0);
-    SurfaceDesc desc;
+    SurfaceDesc_3265f0 desc;
     thunk_FUN_0038acb0(tex, 0, &desc);
     FUN_0031c230(0);
     SetFormat(fieldf0);

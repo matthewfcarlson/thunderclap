@@ -3,18 +3,18 @@
 extern "C" int atexit(void (*)());
 void FUN_00363b70();
 
-struct NameKey {
+struct NameKey_28720 {
     int lo, hi;
     void FUN_0027af00();
     void FUN_0027b040(const char* s);
 };
 
-struct Registry {
-    void FUN_00065ee0(NameKey* key);
+struct Registry_28720 {
+    void FUN_00065ee0(NameKey_28720* key);
 };
 
-Registry* FUN_000678d0();
-extern NameKey DAT_004dc158;
+Registry_28720* FUN_000678d0();
+extern NameKey_28720 DAT_004dc158;
 extern unsigned int DAT_004dc160;
 
 // Looks up the static name key in the registry.
@@ -26,6 +26,6 @@ void __stdcall FUN_00028720(const char* name, int unused)
         atexit(FUN_00363b70);
     }
     DAT_004dc158.FUN_0027b040(name);
-    NameKey key = DAT_004dc158;
+    NameKey_28720 key = DAT_004dc158;
     FUN_000678d0()->FUN_00065ee0(&key);
 }

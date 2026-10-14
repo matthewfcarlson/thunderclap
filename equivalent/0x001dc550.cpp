@@ -7,14 +7,14 @@ struct Matrix {
  void FUN_0022bc20(float,float,float);
 };
 struct Vector { float x,y,z; void FUN_0022b220(float,float,float); };
-struct Rotation { char data[8]; void FUN_001db780(const Vector*); };
+struct Rotation_1dc550 { char data[8]; void FUN_001db780(const Vector*); };
 struct Node { Matrix* FUN_001d6b40(); void FUN_001d6b60(Matrix,int); };
-struct Record { char pad[16]; Rotation rotation; Node* node; char pad2[6]; short id; char pad3[4]; };
-struct Flag { unsigned char bits; char pad[19]; };
+struct Record_1dc550 { char pad[16]; Rotation_1dc550 rotation; Node* node; char pad2[6]; short id; char pad3[4]; };
+struct Flag_1dc550 { unsigned char bits; char pad[19]; };
 struct Object {
  union {
-  struct { char pad[0x608]; Record records[1]; } entries;
-  struct { char pad[0x14618]; Flag flags[1]; } status;
+  struct { char pad[0x608]; Record_1dc550 records[1]; } entries;
+  struct { char pad[0x14618]; Flag_1dc550 flags[1]; } status;
  };
  int FUN_001dbfe0(int);
  bool target(int key,float x,float y,float z);
@@ -22,7 +22,7 @@ struct Object {
 bool Object::target(int key,float x,float y,float z) {
  int index=FUN_001dbfe0(key);
  if(index<0) return false;
- Record* record=&entries.records[index];
+ Record_1dc550* record=&entries.records[index];
  if((status.flags[record->id].bits&1) && record->node) {
   Matrix transform;
   transform.FUN_0022b980();

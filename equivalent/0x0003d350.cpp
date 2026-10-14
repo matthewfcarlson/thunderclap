@@ -5,20 +5,20 @@ extern char DAT_004d2a40;
 extern char DAT_00554c1c;
 extern int DAT_00554c18;
 
-struct V3 {
+struct V3_3d350 {
     float x, y, z;
     float FUN_0022d110();
-    char FUN_0022d2b0(const V3 *other, float eps);
-    void FUN_00011160(float s, const V3 *d);
+    char FUN_0022d2b0(const V3_3d350 *other, float eps);
+    void FUN_00011160(float s, const V3_3d350 *d);
     char FUN_000375a0();
 };
 
-char __cdecl FUN_002027c0(V3 *from, V3 *to, int a, int b, V3 *hitPos, V3 *hitNormal, int c, int d);
+char __cdecl FUN_002027c0(V3_3d350 *from, V3_3d350 *to, int a, int b, V3_3d350 *hitPos, V3_3d350 *hitNormal, int c, int d);
 
-class Fighter;
+class Fighter_3d350;
 
-struct Mover {
-    void FUN_002226f0(V3 *v);
+struct Mover_3d350 {
+    void FUN_002226f0(V3_3d350 *v);
 };
 struct Slot74 {
     char pad00[0x72];
@@ -28,18 +28,18 @@ struct Rig12c {
     char pad00[0x74];
     Slot74 *f74;
 };
-struct Obj1d72 {
+struct Obj1d72_3d350 {
     char pad00[0x74];
     Slot74 *f74;
 };
-struct Obj128 {
-    Obj1d72 *FUN_001d72e0();
+struct Obj128_3d350 {
+    Obj1d72_3d350 *FUN_001d72e0();
 };
 struct Hold10 {
-    Mover *FUN_00059a40();
-    void FUN_00059a50(V3 *out);
+    Mover_3d350 *FUN_00059a40();
+    void FUN_00059a50(V3_3d350 *out);
 };
-struct Gear {
+struct Gear_3d350 {
     char pad00[0x10];
     char b10;
     char pad11[0x30 - 0x11];
@@ -59,41 +59,41 @@ struct Ex {
     Ey *f8;
 };
 struct Ee {
-    char FUN_002ee140(Ex *e, V3 *a, V3 *b, int z);
+    char FUN_002ee140(Ex *e, V3_3d350 *a, V3_3d350 *b, int z);
 };
 struct Wld {
     char pad00[8];
     Ee *f8;
 };
-struct Holder20 {
+struct Holder20_3d350 {
     char pad00[0x124];
-    Fighter *f124;
+    Fighter_3d350 *f124;
 };
 struct Hit202 {
-    char FUN_00202460(V3 *from, V3 *dir, float len, int c, V3 *o1, V3 *o2, int d, int e);
+    char FUN_00202460(V3_3d350 *from, V3_3d350 *dir, float len, int c, V3_3d350 *o1, V3_3d350 *o2, int d, int e);
 };
-struct Arg1 {
+struct Arg1_3d350 {
     char pad00[0x10];
     Wld *f10;
     char pad14[0x20 - 0x14];
-    Holder20 *f20;
+    Holder20_3d350 *f20;
     Hit202 *f24;
 };
 
 Ex *__cdecl FUN_00202f00();
 
-class Fighter {
+class Fighter_3d350 {
 public:
     char pad00[0x10];
     Hold10 *f10;
     char pad14[0x44 - 0x14];
-    V3 p44;
+    V3_3d350 p44;
     char pad50[0x68 - 0x50];
-    V3 r68;
+    V3_3d350 r68;
     char pad74[0x11c - 0x74];
-    Gear *f11c;
+    Gear_3d350 *f11c;
     char pad120[0x128 - 0x120];
-    Obj128 *f128;
+    Obj128_3d350 *f128;
     Rig12c *f12c;
     char pad130[0x140 - 0x130];
     int mode;
@@ -105,43 +105,43 @@ public:
     float f1c4;
     float f1c8;
     char pad1cc[0x334 - 0x1cc];
-    Fighter *f334;
-    Fighter *f338;
+    Fighter_3d350 *f334;
+    Fighter_3d350 *f338;
     char pad33c[0x1b20 - 0x33c];
     int f1b20;
 
     void FUN_00035fa0(int a);
-    void FUN_00035550(V3 *out);
-    void FUN_000350c0(V3 *out);
-    void FUN_0003d1c0(int a, unsigned int b, V3 *c, V3 *d);
-    Obj128 *FUN_dummy128();
-    void Update(Arg1 *a1, float a2);
+    void FUN_00035550(V3_3d350 *out);
+    void FUN_000350c0(V3_3d350 *out);
+    void FUN_0003d1c0(int a, unsigned int b, V3_3d350 *c, V3_3d350 *d);
+    Obj128_3d350 *FUN_dummy128();
+    void Update(Arg1_3d350 *a1, float a2);
 };
 
-void Fighter::Update(Arg1 *a1, float a2)
+void Fighter_3d350::Update(Arg1_3d350 *a1, float a2)
 {
     if (f1b20 > 0)
         return;
-    Mover *mv = f10->FUN_00059a40();
-    V3 p;
+    Mover_3d350 *mv = f10->FUN_00059a40();
+    V3_3d350 p;
     p.x = 0;
     p.y = 0;
     p.z = 0;
     f10->FUN_00059a50(&p);
-    V3 q = p44;
+    V3_3d350 q = p44;
     Hit202 *a1f24 = a1->f24;
-    V3 pc;
+    V3_3d350 pc;
     float len;
-    V3 hitV;
+    V3_3d350 hitV;
     if (f338 != 0) {
-        V3 c;
+        V3_3d350 c;
         c.x = 0;
         c.y = 0;
         c.z = 0;
         f338->FUN_000350c0(&c);
-        V3 c2 = c;
-        V3 pcopy = p;
-        V3 d;
+        V3_3d350 c2 = c;
+        V3_3d350 pcopy = p;
+        V3_3d350 d;
         d.x = p.x - c2.x;
         d.y = p.y - c2.y;
         d.z = p.z - c2.z;
@@ -150,8 +150,8 @@ void Fighter::Update(Arg1 *a1, float a2)
             return;
         f338->FUN_00035fa0(0);
         FUN_00035fa0(0);
-        V3 hitPos;
-        V3 hitNormal;
+        V3_3d350 hitPos;
+        V3_3d350 hitNormal;
         if (FUN_002027c0(&c2, &pcopy, 0, 0, &hitPos, &hitNormal, 0, 0)) {
             hitV = hitPos;
             if (hitNormal.y < 0.5f) {
@@ -182,12 +182,12 @@ void Fighter::Update(Arg1 *a1, float a2)
     if (f128 != 0)
         return;
 
-    V3 dd;
+    V3_3d350 dd;
     dd.x = p.x - q.x;
     dd.y = p.y - q.y;
     dd.z = p.z - q.z;
     float lenSq = dd.x * dd.x + dd.y * dd.y + dd.z * dd.z;
-    Fighter *cur = a1->f20->f124;
+    Fighter_3d350 *cur = a1->f20->f124;
     union { unsigned int w; unsigned char b; } flag34;
     if (cur == this || f334 == cur || f338 == cur)
         flag34.b = 1;
@@ -197,7 +197,7 @@ void Fighter::Update(Arg1 *a1, float a2)
     int bl = flag34.b;
     int ebx;
     if (!bl) {
-        Gear *g = f11c;
+        Gear_3d350 *g = f11c;
         ebx = 0;
         if (!g->b10 && mode != 3 && al == 0) {
             if (lenSq < 1.0f)
@@ -206,27 +206,27 @@ void Fighter::Update(Arg1 *a1, float a2)
     } else {
         ebx = 0;
     }
-    Gear *gear = f11c;
+    Gear_3d350 *gear = f11c;
     float g30 = gear->f30;
     float g34 = gear->f34;
-    V3 r = r68;
-    V3 P3 = p;
+    V3_3d350 r = r68;
+    V3_3d350 P3 = p;
     if (mode == 1 || mode == 2) {
         P3.y = g30 * 0.5f + P3.y;
     } else if (mode == 4) {
-        V3 s;
+        V3_3d350 s;
         s.x = 0;
         s.y = 0;
         s.z = 0;
         FUN_00035550(&s);
         P3.FUN_00011160(-g34, &s);
     }
-    V3 D;
+    V3_3d350 D;
     D.x = P3.x - r.x;
     D.y = P3.y - r.y;
     D.z = P3.z - r.z;
     float dl = D.FUN_0022d110();
-    V3 U = D;
+    V3_3d350 U = D;
     P3.x = D.x * dl;
     P3.y = D.y * dl;
     P3.z = D.z * dl;
@@ -248,21 +248,21 @@ void Fighter::Update(Arg1 *a1, float a2)
     if (!D.FUN_000375a0())
         return;
 
-    V3 o1, o2;
+    V3_3d350 o1, o2;
     if (a1f24->FUN_00202460(&r, &D, len2, !flag34.b, &o1, &o2, 0, 0)) {
         if (mode == 3 && o2.y > 0.5f) {
-            V3 H = o1;
+            V3_3d350 H = o1;
             mv->FUN_002226f0(&H);
             return;
         }
-        V3 W = q;
+        V3_3d350 W = q;
         if (mode != 4) {
             if (p.y <= q.y)
                 W.y = p.y;
         }
         mv->FUN_002226f0(&W);
         p = W;
-        V3 N = o2;
+        V3_3d350 N = o2;
         if (!(mode == 3 && o2.y < 0.0f)) {
             N.y = 0;
             N.FUN_0022d110();

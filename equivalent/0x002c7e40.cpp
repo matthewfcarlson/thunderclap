@@ -1,69 +1,69 @@
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 46/46)
 // FUN_002c7e40 @ 0x002c7e40
-struct V3 {
+struct V3_2c7e40 {
     float x, y, z;
 };
 
-struct V2 {
+struct V2_2c7e40 {
     int a;
     int b;
 };
 
-class Renderer {
+class Renderer_2c7e40 {
 public:
-    virtual void vfunc_0(V3 v);
-    virtual void vfunc_1(V3 v);
-    virtual void vfunc_2(V3 v);
-    virtual void vfunc_3(V3 v);
+    virtual void vfunc_0(V3_2c7e40 v);
+    virtual void vfunc_1(V3_2c7e40 v);
+    virtual void vfunc_2(V3_2c7e40 v);
+    virtual void vfunc_3(V3_2c7e40 v);
     virtual void vfunc_4(unsigned int color, int channel);
     virtual void vfunc_5();
-    virtual void vfunc_6(V2 v, int channel);
+    virtual void vfunc_6(V2_2c7e40 v, int channel);
     virtual void vfunc_7();
     virtual void vfunc_8();
     virtual void vfunc_9();
     virtual void vfunc_10();
     virtual void vfunc_11();
-    virtual void vfunc_12(V3 *a, V3 *b, V2 *c);
-    virtual void vfunc_13(V3 *a, unsigned int color, V2 *c);
-    virtual void vfunc_14(V3 *a, V2 *c);
-    virtual void vfunc_15(V3 *a, V3 *b);
-    virtual void vfunc_16(V3 *a, unsigned int color);
+    virtual void vfunc_12(V3_2c7e40 *a, V3_2c7e40 *b, V2_2c7e40 *c);
+    virtual void vfunc_13(V3_2c7e40 *a, unsigned int color, V2_2c7e40 *c);
+    virtual void vfunc_14(V3_2c7e40 *a, V2_2c7e40 *c);
+    virtual void vfunc_15(V3_2c7e40 *a, V3_2c7e40 *b);
+    virtual void vfunc_16(V3_2c7e40 *a, unsigned int color);
 };
 
-struct Batch {
+struct Batch_2c7e40 {
     char pad0[8];
     unsigned int flags;         // 0x8
     char padc[4];
     unsigned int count;         // 0x10
     unsigned short *indices;    // 0x14
-    V3 *pos0;                   // 0x18
-    V3 *pos1;                   // 0x1c
-    V3 *pos0b;                  // 0x20
-    V3 *pos1b;                  // 0x24
-    V3 *pos2;                   // 0x28
-    V3 *pos2b;                  // 0x2c
-    V3 *extra;                  // 0x30
-    V3 *extraB;                 // 0x34
-    V2 *uv0;                    // 0x38
-    V2 *uv1;                    // 0x3c
-    V2 *uv2;                    // 0x40
-    V2 *uv3;                    // 0x44
+    V3_2c7e40 *pos0;                   // 0x18
+    V3_2c7e40 *pos1;                   // 0x1c
+    V3_2c7e40 *pos0b;                  // 0x20
+    V3_2c7e40 *pos1b;                  // 0x24
+    V3_2c7e40 *pos2;                   // 0x28
+    V3_2c7e40 *pos2b;                  // 0x2c
+    V3_2c7e40 *extra;                  // 0x30
+    V3_2c7e40 *extraB;                 // 0x34
+    V2_2c7e40 *uv0;                    // 0x38
+    V2_2c7e40 *uv1;                    // 0x3c
+    V2_2c7e40 *uv2;                    // 0x40
+    V2_2c7e40 *uv3;                    // 0x44
     unsigned int *col0;         // 0x48
     unsigned int *col1;         // 0x4c
 };
 
 // batch arrives in eax, mode in cl, renderer in esi.
 // equiv-conv: FUN_002c7e40 eax ecx esi
-void FUN_002c7e40(Batch *s, char mode, Renderer *r)
+void FUN_002c7e40(Batch_2c7e40 *s, char mode, Renderer_2c7e40 *r)
 {
     unsigned int n = s->count;
     unsigned short *idx = s->indices;
-    V3 *p0;
-    V3 *p1;
-    V3 *p2;
-    V3 *q;
+    V3_2c7e40 *p0;
+    V3_2c7e40 *p1;
+    V3_2c7e40 *p2;
+    V3_2c7e40 *q;
     unsigned int *colors[2];
-    V2 *uvs[4];
+    V2_2c7e40 *uvs[4];
     unsigned int i;
 
     if (mode == 1) {

@@ -8,12 +8,12 @@ void *__cdecl FUN_0008d690(unsigned int size);
 struct Node;
 struct Item;
 
-struct Listener {
+struct Listener_337a30 {
     virtual void v0();
     virtual void OnNode(Node *node);
 };
 
-struct Registry {
+struct Registry_337a30 {
     Item *FUN_003373e0(const char *name);
 };
 
@@ -32,21 +32,21 @@ public:
     int hasOwner;
     Node *FUN_003352a0();
     void FUN_003352c0(const char *text);
-    char FUN_00335300(class Parser *parser);
+    char FUN_00335300(class Parser_337a30 *parser);
     void FUN_00336f30(Item *item, int arg);
 };
 
-class Parser {
+class Parser_337a30 {
 public:
     char pad0[4];
     int state;
     Reader *reader;
     const char *__fastcall FUN_00337980();
     void FUN_003379b0();
-    bool FUN_00337a30(void *source, int a1, Registry *registry, Listener *listener, int a4);
+    bool FUN_00337a30(void *source, int a1, Registry_337a30 *registry, Listener_337a30 *listener, int a4);
 };
 
-bool Parser::FUN_00337a30(void *source, int a1, Registry *registry, Listener *listener, int a4)
+bool Parser_337a30::FUN_00337a30(void *source, int a1, Registry_337a30 *registry, Listener_337a30 *listener, int a4)
 {
     if (reader)
         reader->Destroy(1);

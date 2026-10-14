@@ -1,27 +1,27 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000ac7d0 @ 0x000ac7d0
-struct ResourceName {
+struct ResourceName_ac7d0 {
     int word;
     void FUN_0027b040(const char *name);
 };
 
 class CScriptCamera;
 
-class __declspec(novtable) CCameraBase {
+class __declspec(novtable) CCameraBase_ac7d0 {
 public:
     virtual void v0();
     char pad04[4];
-    ResourceName name;      // 0x08
+    ResourceName_ac7d0 name;      // 0x08
     char pad0c[0xd0 - 0xc];
     int mode;               // 0xd0
     char padd4[0x170 - 0xd4];
-    CCameraBase *FUN_000a9400();
-    CCameraBase() { FUN_000a9400(); }
+    CCameraBase_ac7d0 *FUN_000a9400();
+    CCameraBase_ac7d0() { FUN_000a9400(); }
 };
 
 extern const char *DAT_0049ee00;
 
-class CScriptCamera : public CCameraBase {
+class CScriptCamera : public CCameraBase_ac7d0 {
 public:
     virtual void v0();
     unsigned char f170;

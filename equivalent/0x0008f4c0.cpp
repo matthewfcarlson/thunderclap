@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 581 inputs, branch coverage 10/10)
 // FUN_0008f4c0 @ 0x0008f4c0
-struct Vertex {
+struct Vertex_8f4c0 {
     float x, y, z;
 };
 
-struct Mesh {
+struct Mesh_8f4c0 {
     char pad00[8];
-    Vertex* vert;
+    Vertex_8f4c0* vert;
     char pad0c[4];
     unsigned int* color;
     void FUN_0008ef00();
 };
 
-class Res {
+class Res_8f4c0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -23,12 +23,12 @@ public:
     virtual void vfunc_6(int tag, int flag);
 };
 
-struct Gfx {
+struct Gfx_8f4c0 {
     char pad00[0x10];
-    Res* res;
+    Res_8f4c0* res;
 };
 
-class Device {
+class Device_8f4c0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -60,8 +60,8 @@ public:
     virtual void vfunc_27();
     virtual void vfunc_28();
     virtual void vfunc_29();
-    virtual Mesh* vfunc_30(Res* res, int a, int b, int c, int d);
-    virtual void vfunc_31(Mesh* m);
+    virtual Mesh_8f4c0* vfunc_30(Res_8f4c0* res, int a, int b, int c, int d);
+    virtual void vfunc_31(Mesh_8f4c0* m);
     virtual void vfunc_32();
     virtual void vfunc_33();
     virtual void vfunc_34();
@@ -92,7 +92,7 @@ public:
     virtual char vfunc_59();
 };
 
-class Holder {
+class Holder_8f4c0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -113,22 +113,22 @@ public:
     virtual void vfunc_16(int v);
 };
 
-struct Label {
+struct Label_8f4c0 {
     void FUN_0008f3a0();
 };
 
 struct Overlay {
     char pad00[4];
     int count;
-    Label* items[1];
+    Label_8f4c0* items[1];
 };
 
-extern Device* DAT_0052c2a8;
-extern Holder** DAT_0052c2ac;
-Gfx* FUN_00085cd0();
+extern Device_8f4c0* DAT_0052c2a8;
+extern Holder_8f4c0** DAT_0052c2ac;
+Gfx_8f4c0* FUN_00085cd0();
 void FUN_00085d30();
 
-struct Frame {
+struct Frame_8f4c0 {
     union {
         int i;
         float y;
@@ -149,7 +149,7 @@ public:
 
 void DebugOverlay::FUN_0008f4c0()
 {
-    Frame f;
+    Frame_8f4c0 f;
     f.self = this;
     if (!FUN_00085cd0())
         FUN_00085d30();
@@ -162,12 +162,12 @@ void DebugOverlay::FUN_0008f4c0()
     (*DAT_0052c2ac)->vfunc_15(0);
     (*DAT_0052c2ac)->vfunc_13(0);
 
-    Gfx* gfx = FUN_00085cd0();
+    Gfx_8f4c0* gfx = FUN_00085cd0();
     gfx->res->vfunc_6(0x444d4c42, 1);
 
-    Mesh* m = DAT_0052c2a8->vfunc_30(gfx->res, 1, 0x2020, 4, 0);
+    Mesh_8f4c0* m = DAT_0052c2a8->vfunc_30(gfx->res, 1, 0x2020, 4, 0);
     {
-        Vertex* v = m->vert;
+        Vertex_8f4c0* v = m->vert;
         v->x = 70.0f;
         v->y = 20.0f;
         v->z = 1.0f;
@@ -175,7 +175,7 @@ void DebugOverlay::FUN_0008f4c0()
         m->FUN_0008ef00();
     }
     {
-        Vertex* v = m->vert;
+        Vertex_8f4c0* v = m->vert;
         v->x = 570.0f;
         v->y = 20.0f;
         v->z = 1.0f;
@@ -183,7 +183,7 @@ void DebugOverlay::FUN_0008f4c0()
         m->FUN_0008ef00();
     }
     {
-        Vertex* v = m->vert;
+        Vertex_8f4c0* v = m->vert;
         v->x = 70.0f;
         v->y = 204.0f;
         v->z = 1.0f;
@@ -191,7 +191,7 @@ void DebugOverlay::FUN_0008f4c0()
         m->FUN_0008ef00();
     }
     {
-        Vertex* v = m->vert;
+        Vertex_8f4c0* v = m->vert;
         v->x = 570.0f;
         v->y = 204.0f;
         v->z = 1.0f;
@@ -202,7 +202,7 @@ void DebugOverlay::FUN_0008f4c0()
 
     m = DAT_0052c2a8->vfunc_30(gfx->res, 3, 0x2020, 5, 0);
     {
-        Vertex* v = m->vert;
+        Vertex_8f4c0* v = m->vert;
         v->x = 70.0f;
         v->y = 20.0f;
         v->z = 1.0f;
@@ -210,7 +210,7 @@ void DebugOverlay::FUN_0008f4c0()
         m->FUN_0008ef00();
     }
     {
-        Vertex* v = m->vert;
+        Vertex_8f4c0* v = m->vert;
         v->x = 570.0f;
         v->y = 20.0f;
         v->z = 1.0f;
@@ -218,7 +218,7 @@ void DebugOverlay::FUN_0008f4c0()
         m->FUN_0008ef00();
     }
     {
-        Vertex* v = m->vert;
+        Vertex_8f4c0* v = m->vert;
         v->x = 570.0f;
         v->y = 204.0f;
         v->z = 1.0f;
@@ -226,7 +226,7 @@ void DebugOverlay::FUN_0008f4c0()
         m->FUN_0008ef00();
     }
     {
-        Vertex* v = m->vert;
+        Vertex_8f4c0* v = m->vert;
         v->x = 70.0f;
         v->y = 204.0f;
         v->z = 1.0f;
@@ -234,7 +234,7 @@ void DebugOverlay::FUN_0008f4c0()
         m->FUN_0008ef00();
     }
     {
-        Vertex* v = m->vert;
+        Vertex_8f4c0* v = m->vert;
         v->x = 70.0f;
         v->y = 20.0f;
         v->z = 1.0f;
@@ -245,7 +245,7 @@ void DebugOverlay::FUN_0008f4c0()
 
     m = DAT_0052c2a8->vfunc_30(gfx->res, 2, 0x2020, 0x14, 0);
     for (int i = 1; i <= 10; i++) {
-        Vertex* v = m->vert;
+        Vertex_8f4c0* v = m->vert;
         f.tmp.i = i;
         v->x = 70.0f;
         v->z = 1.0f;
@@ -264,7 +264,7 @@ void DebugOverlay::FUN_0008f4c0()
 
     m = DAT_0052c2a8->vfunc_30(gfx->res, 2, 0x2020, 0xa, 0);
     for (int i = 1; i <= 5; i++) {
-        Vertex* v = m->vert;
+        Vertex_8f4c0* v = m->vert;
         f.tmp.i = i;
         v->x = 70.0f;
         v->z = 1.0f;

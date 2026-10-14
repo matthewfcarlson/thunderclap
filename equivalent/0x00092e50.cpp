@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_00092e50 @ 0x00092e50
-struct Name {
+struct Name_92e50 {
     char data[8];
     void FUN_0027b040(const char *s);
 };
@@ -12,14 +12,14 @@ public:
 class CUnlockableBlonskyFile : public CUnlockable {
 public:
     char pad04[0xc];
-    Name title;
+    Name_92e50 title;
     char pad18[8];
-    Name subtitle;
+    Name_92e50 subtitle;
     char text[0x40];
     char pad68[1];
 };
 
-class UnlockableList {
+class UnlockableList_92e50 {
 public:
     CUnlockable *items[1];
     void FUN_00092c80(const char *s, int idx);
@@ -27,7 +27,7 @@ public:
                       const char *file, const char *text);
 };
 
-void UnlockableList::FUN_00092e50(const char *id, int idx, const char *title, const char *subtitle,
+void UnlockableList_92e50::FUN_00092e50(const char *id, int idx, const char *title, const char *subtitle,
                                   const char *file, const char *text)
 {
     if (idx < 0x34 || idx > 0x51)

@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 15/16, incomplete)
 // hulkfight::motion::FlyingDashAction::vfunc_3 @ 0x00135c80
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
-struct V3 {
+struct V3_135c80 {
     float x, y, z;
     float FUN_0022d110();
-    bool FUN_0022d2b0(const V3* other, float epsilon);
+    bool FUN_0022d2b0(const V3_135c80* other, float epsilon);
 };
 
-struct Transform {
-    void FUN_00221be0(const V3* pose);
+struct Transform_135c80 {
+    void FUN_00221be0(const V3_135c80* pose);
     void FUN_00221d20(float v);
 };
 
-struct ResourceName {
+struct ResourceName_135c80 {
     char data[12];
     void FUN_0027b040(const char* name);
 };
@@ -21,20 +21,20 @@ class RigObject {
 public:
     virtual void vfunc_0();
     char pad04[4];
-    ResourceName name;
+    ResourceName_135c80 name;
     unsigned int flags;
-    Transform transform;
-    char rest[0x70 - 0x18 - sizeof(Transform)];
+    Transform_135c80 transform;
+    char rest[0x70 - 0x18 - sizeof(Transform_135c80)];
     RigObject* FUN_002248f0(unsigned int id);
 };
 
-struct Scene {
+struct Scene_135c80 {
     char pad0[0x10];
-    V3 pos;
+    V3_135c80 pos;
     void FUN_00222890(RigObject* obj, float a, float b, float c, float d, float e, float f);
 };
 
-struct Config {
+struct Config_135c80 {
     char pad0[0x14];
     float scale;                // 0x14
     float f18;
@@ -42,47 +42,47 @@ struct Config {
     float f20;
 };
 
-struct Target {
+struct Target_135c80 {
     char pad0[0x10];
-    V3 pos;
+    V3_135c80 pos;
 };
 
-struct Stats {
+struct Stats_135c80 {
     char pad0[0x328];
-    Target* target;             // 0x328
+    Target_135c80* target;             // 0x328
     unsigned char targetActive; // 0x32c
     char pad32d[0x2064 - 0x32d];
-    V3 aim;                     // 0x2064
+    V3_135c80 aim;                     // 0x2064
     float aimBias;              // 0x2070
-    bool FUN_000356c0(V3* out);
-    void FUN_00035550(V3* out);
+    bool FUN_000356c0(V3_135c80* out);
+    void FUN_00035550(V3_135c80* out);
 };
 
-struct Pool {
-    Stats* FUN_00059a30();
-    Scene* FUN_00059a40();
-    bool FUN_00059a50(V3* out);
+struct Pool_135c80 {
+    Stats_135c80* FUN_00059a30();
+    Scene_135c80* FUN_00059a40();
+    bool FUN_00059a50(V3_135c80* out);
 };
 
-struct Owner {
-    Pool* FUN_000592a0();
+struct Owner_135c80 {
+    Pool_135c80* FUN_000592a0();
 };
 
-union FloatBits {
+union FloatBits_135c80 {
     float f;
     unsigned int u;
 };
 
 static float AbsF(float v)
 {
-    FloatBits b;
+    FloatBits_135c80 b;
     b.f = v;
     b.u &= 0x7fffffff;
     return b.f;
 }
 
 void* __cdecl thunk_FUN_0008d690(unsigned int size);
-void __cdecl FUN_00096a90(Target* t, V3* out);
+void __cdecl FUN_00096a90(Target_135c80* t, V3_135c80* out);
 extern "C" float FUN_00224ea0(float x, float z);
 
 namespace hulkfight { namespace motion {
@@ -96,17 +96,17 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     char pad04[0x18];
-    Config* cfg;                // 0x1c
-    Owner* owner;               // 0x20
+    Config_135c80* cfg;                // 0x1c
+    Owner_135c80* owner;               // 0x20
     RigObject* rig;             // 0x24
-    V3 dir;                     // 0x28
+    V3_135c80 dir;                     // 0x28
 };
 
 char FlyingDashAction::vfunc_3(int a, int b)
 {
-    Pool* pool = owner->FUN_000592a0();
-    Stats* stats = pool->FUN_00059a30();
-    Scene* scene = pool->FUN_00059a40();
+    Pool_135c80* pool = owner->FUN_000592a0();
+    Stats_135c80* stats = pool->FUN_00059a30();
+    Scene_135c80* scene = pool->FUN_00059a40();
     if (scene == 0)
         return 0;
 
@@ -125,10 +125,10 @@ char FlyingDashAction::vfunc_3(int a, int b)
     scene->FUN_00222890(rig, -1.0f, f18, 1.0f, f1c, f20, -1.0f);
 
     bool useTarget = false;
-    V3 r;
-    Target* target = stats->target;
+    V3_135c80 r;
+    Target_135c80* target = stats->target;
     if (target != 0 && stats->targetActive) {
-        V3 q;
+        V3_135c80 q;
         q.x = 0.0f;
         q.y = 0.0f;
         q.z = 0.0f;
@@ -142,7 +142,7 @@ char FlyingDashAction::vfunc_3(int a, int b)
         r.z = r.z - q.z;
         r.FUN_0022d110();
 
-        V3 w;
+        V3_135c80 w;
         w.x = stats->aim.x;
         w.y = 0.0f;
         w.z = stats->aim.z;

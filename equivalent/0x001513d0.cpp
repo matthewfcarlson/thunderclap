@@ -1,34 +1,34 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // hulkfight::motion::GroundSlideAction::vfunc_5 @ 0x001513d0
 extern "C" double sqrt(double);
-struct V3 {
+struct V3_1513d0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Mat4 {
+struct Mat4_1513d0 {
     float m[16];
-    void FUN_0022be40(const V3 *pos);
+    void FUN_0022be40(const V3_1513d0 *pos);
 };
 
-struct Timing {
+struct Timing_1513d0 {
     char pad0[0x2064];
-    V3 fp2064;
+    V3_1513d0 fp2064;
     float f2070;
     float FUN_000354c0();
-    char FUN_00035660(V3 *out);
+    char FUN_00035660(V3_1513d0 *out);
 };
 
-struct Clock {
-    Timing *FUN_00059a30();
-    char FUN_00059a50(V3 *out);
+struct Clock_1513d0 {
+    Timing_1513d0 *FUN_00059a30();
+    char FUN_00059a50(V3_1513d0 *out);
 };
 
-struct Target {
-    Clock *FUN_000592a0();
+struct Target_1513d0 {
+    Clock_1513d0 *FUN_000592a0();
 };
 
-struct Config {
+struct Config_1513d0 {
     char pad0[0x14];
     float angleOffset;     // 0x14
     float f18;
@@ -39,13 +39,13 @@ struct Config {
 
 struct Driver {
     char pad0[0x18];
-    Mat4 xform;
+    Mat4_1513d0 xform;
 };
 
 extern float DAT_004afa08;
 extern float DAT_004afa0c;
 extern float DAT_004afa10;
-void __cdecl FUN_00224d70(float angle, V3 *v);
+void __cdecl FUN_00224d70(float angle, V3_1513d0 *v);
 
 class GroundSlideAction {
 public:
@@ -56,31 +56,31 @@ public:
     virtual void f4();
     virtual bool vfunc_5(int a, float dt);
     char pad04[0x1c - 4];
-    Config *cfg;           // 0x1c
-    Target *target;        // 0x20
+    Config_1513d0 *cfg;           // 0x1c
+    Target_1513d0 *target;        // 0x20
     Driver *driver;        // 0x24
     float speed;           // 0x28
 };
 
-struct Frame {
+struct Frame_1513d0 {
     float speed;           // 0x10
     float t;               // 0x14
     float limit;           // 0x18
-    V3 d;                  // 0x1c
-    V3 e;                  // 0x28
-    V3 fwd;                // 0x34
-    V3 w;                  // 0x40
-    V3 o;                  // 0x4c
-    V3 r;                  // 0x58
+    V3_1513d0 d;                  // 0x1c
+    V3_1513d0 e;                  // 0x28
+    V3_1513d0 fwd;                // 0x34
+    V3_1513d0 w;                  // 0x40
+    V3_1513d0 o;                  // 0x4c
+    V3_1513d0 r;                  // 0x58
 };
 
 bool GroundSlideAction::vfunc_5(int a, float dt)
 {
     if (driver == 0)
         return false;
-    Frame f;
-    Clock *clock = target->FUN_000592a0();
-    Timing *timing = clock->FUN_00059a30();
+    Frame_1513d0 f;
+    Clock_1513d0 *clock = target->FUN_000592a0();
+    Timing_1513d0 *timing = clock->FUN_00059a30();
     f.fwd.x = DAT_004afa08;
     f.fwd.y = DAT_004afa0c;
     f.fwd.z = DAT_004afa10;

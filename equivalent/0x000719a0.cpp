@@ -7,7 +7,7 @@ void __cdecl FUN_000685a0();
 extern unsigned DAT_004dcf8c;
 extern unsigned DAT_004dcf88;
 inline void* __cdecl operator new(unsigned, void* p) { return p; }
-struct Base {
+struct Base_719a0 {
  virtual void slot0();
  char pad[12];
  void (__cdecl *callback)();
@@ -16,18 +16,18 @@ struct Base {
 };
 class CInvincibleTrack;
 namespace fight {
-template<class T> struct ParamFloatConstRange : Base {
+template<class T> struct ParamFloatConstRange : Base_719a0 {
  virtual void slot0();
 };
 }
-void __cdecl FUN_002347b0(unsigned*, Base**, int);
+void __cdecl FUN_002347b0(unsigned*, Base_719a0**, int);
 void __cdecl FUN_000719a0() {
  if (!DAT_004dcf8c) {
- Base* list[3];
+ Base_719a0* list[3];
  const char* names[3] = {"timeBegin", "timeEnd", "extensionTime"};
  void (__cdecl *callbacks[3])() = {FUN_00068580,FUN_00068590,FUN_000685a0};
  for (int i=0;i<3;++i) {
-  Base* p = (Base*)FUN_0008d690(24);
+  Base_719a0* p = (Base_719a0*)FUN_0008d690(24);
   if(p) {
    p->FUN_00234960(names[i]);
    new(p) fight::ParamFloatConstRange<CInvincibleTrack>;

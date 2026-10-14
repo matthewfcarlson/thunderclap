@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 17/18, incomplete)
 // FUN_00303080 @ 0x00303080
-struct Elem {
+struct Elem_303080 {
     unsigned int w[17];
 };
 
 // std::rotate for 0x44-byte elements (Dinkumware _Rotate, random access).
-void FUN_00303080(Elem* first, Elem* mid, Elem* last)
+void FUN_00303080(Elem_303080* first, Elem_303080* mid, Elem_303080* last)
 {
     int shift = mid - first;
     int total = last - first;
@@ -18,10 +18,10 @@ void FUN_00303080(Elem* first, Elem* mid, Elem* last)
     }
     if (cycles < total) {
         for (; cycles > 0; cycles--) {
-            Elem* hole = first + cycles;
-            Elem* next = hole;
-            Elem holeVal = *hole;
-            Elem* next1;
+            Elem_303080* hole = first + cycles;
+            Elem_303080* next = hole;
+            Elem_303080 holeVal = *hole;
+            Elem_303080* next1;
             if (next + shift == last)
                 next1 = first;
             else

@@ -2,17 +2,17 @@
 // pure3d::pddiBaseContext::vfunc_46 @ 0x0031dc90
 namespace pure3d {
 
-struct Vec3 {
+struct Vec3_31dc90 {
     float x, y, z;
 };
 
-struct Vec4 {
+struct Vec4_31dc90 {
     float x, y, z, w;
 };
 
-struct LightState {
+struct LightState_31dc90 {
     char pad00[0x24];
-    Vec4 direction;
+    Vec4_31dc90 direction;
     char pad34[0x7c - 0x34];
 };
 
@@ -64,7 +64,7 @@ public:
     virtual void vfunc_43();
     virtual void vfunc_44();
     virtual void vfunc_45();
-    virtual void vfunc_46(int index, const Vec3* direction);
+    virtual void vfunc_46(int index, const Vec3_31dc90* direction);
     virtual void vfunc_47();
     virtual void vfunc_48();
     virtual void vfunc_49();
@@ -131,13 +131,13 @@ public:
     virtual void vfunc_110(int index, int enable);
 
     char pad04[0x4c];
-    LightState* lights;
+    LightState_31dc90* lights;
 };
 
-void pddiBaseContext::vfunc_46(int index, const Vec3* direction)
+void pddiBaseContext::vfunc_46(int index, const Vec3_31dc90* direction)
 {
     if (index < 8) {
-        Vec4 v;
+        Vec4_31dc90 v;
         v.x = direction->x;
         v.y = direction->y;
         v.z = direction->z;

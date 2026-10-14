@@ -3,19 +3,19 @@
 // 0x001d1410: insert an entry into a sorted pointer table of at most 20 entries
 int __cdecl FUN_00096600(const char* a, const char* b);
 
-struct Entry {
+struct Entry_1d1410 {
     int field_00;
     char name[1];
 };
 
 class SortedTable {
 public:
-    Entry* items[20];
+    Entry_1d1410* items[20];
     int count;
-    bool Insert(Entry* e);
+    bool Insert(Entry_1d1410* e);
 };
 
-bool SortedTable::Insert(Entry* e)
+bool SortedTable::Insert(Entry_1d1410* e)
 {
     if (count >= 20)
         return false;

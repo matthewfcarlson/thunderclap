@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 38/42, incomplete)
 // FUN_002bd570 @ 0x002bd570
-struct Tile {
+struct Tile_2bd570 {
     int x0;
     int y0;
     int x1;
@@ -21,7 +21,7 @@ struct Mosaic {
     int minSize;
     char pad70[0xa0 - 0x70];
     char single;
-    int FUN_002bd570(Tile **tiles, int *rows, int *cols);
+    int FUN_002bd570(Tile_2bd570 **tiles, int *rows, int *cols);
     int Chunk(int remaining);
 };
 
@@ -39,7 +39,7 @@ int Mosaic::Chunk(int rem)
     return c - border * 2;
 }
 
-int Mosaic::FUN_002bd570(Tile **tiles, int *rows, int *cols)
+int Mosaic::FUN_002bd570(Tile_2bd570 **tiles, int *rows, int *cols)
 {
     if (single) {
         if (tiles == 0) {
@@ -58,7 +58,7 @@ int Mosaic::FUN_002bd570(Tile **tiles, int *rows, int *cols)
 
     int rowCount = 0;
     int y = 0;
-    Tile **row = tiles;
+    Tile_2bd570 **row = tiles;
     while (y < height) {
         int h = Chunk(height - y);
         int y1 = y + h;
@@ -82,7 +82,7 @@ int Mosaic::FUN_002bd570(Tile **tiles, int *rows, int *cols)
         int x1 = x + w;
         if (tiles != 0) {
             for (rowCount = 0; rowCount < *rows; rowCount++) {
-                Tile *t = (Tile *)((char *)tiles[rowCount] + offset);
+                Tile_2bd570 *t = (Tile_2bd570 *)((char *)tiles[rowCount] + offset);
                 t->x0 = x;
                 t->x1 = x1;
                 t->w = w;
@@ -90,7 +90,7 @@ int Mosaic::FUN_002bd570(Tile **tiles, int *rows, int *cols)
         }
         x = x1;
         colCount++;
-        offset += sizeof(Tile);
+        offset += sizeof(Tile_2bd570);
     }
 
     if (tiles == 0) {

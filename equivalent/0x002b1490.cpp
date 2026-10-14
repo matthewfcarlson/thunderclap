@@ -1,32 +1,32 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 10/10)
 // FUN_002b1490 @ 0x002b1490
-struct IntVec {
+struct IntVec_2b1490 {
     int* begin;
     int* end;
 };
 
-struct Source {
+struct Source_2b1490 {
     char pad[0x28];
-    IntVec vec;
+    IntVec_2b1490 vec;
 };
 
 struct Rec16 {
     char pad[16];
 };
 
-struct Scratch {
+struct Scratch_2b1490 {
     int w[6];
 };
 
 struct RecList {
     Rec16* data;
     char pad[12];
-    void FUN_002b1330(int count, Scratch* s);
+    void FUN_002b1330(int count, Scratch_2b1490* s);
 };
 
-struct Index {
+struct Index_2b1490 {
     char pad[12];
-    void FUN_002b1070(int first, Scratch* s);
+    void FUN_002b1070(int first, Scratch_2b1490* s);
 };
 
 class Packer {
@@ -34,17 +34,17 @@ public:
     void run();
     void FUN_002b1230(Rec16* dst, int len, int* src, int start);
     char p0[0x10];
-    Source* source;
+    Source_2b1490* source;
     char p1[0x20 - 0x14];
-    Index index;
+    Index_2b1490 index;
     RecList list;
 };
 
 void Packer::run()
 {
-    IntVec* vec = &source->vec;
+    IntVec_2b1490* vec = &source->vec;
     unsigned int count = (unsigned int)(vec->end - vec->begin);
-    Scratch s;
+    Scratch_2b1490 s;
 
     if (count < 2 || vec->begin[0] >= 0) {
         for (int i = 0; i < 6; i++)

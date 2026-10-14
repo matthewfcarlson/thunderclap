@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 36/36)
 // FUN_0024bc70 @ 0x0024bc70
-class Sink {
+class Sink_24bc70 {
 public:
     virtual void v0();
     virtual int state();
@@ -16,36 +16,36 @@ public:
     virtual void finish();
 };
 
-struct Slot {
-    Sink *sink;
+struct Slot_24bc70 {
+    Sink_24bc70 *sink;
     char rest[8];
 };
 
-struct Queue {
-    Slot slots[10];
+struct Queue_24bc70 {
+    Slot_24bc70 slots[10];
     unsigned char current;
     unsigned char enabled;
     unsigned char count;
-    Slot *FUN_0024b2d0();
-    Slot *FUN_0024b310(Slot *cur);
+    Slot_24bc70 *FUN_0024b2d0();
+    Slot_24bc70 *FUN_0024b310(Slot_24bc70 *cur);
 };
 
-struct Span {
+struct Span_24bc70 {
     char pad0[0x1c];
     unsigned int start;
     unsigned int length;
 };
 
-struct Resource { char pad[4]; };
+struct Resource_24bc70 { char pad[4]; };
 
-struct Player {
+struct Player_24bc70 {
     char pad0[8];
     int handle;
     unsigned int limit;
-    Span *span;
-    Resource *res;
+    Span_24bc70 *span;
+    Resource_24bc70 *res;
     char pad18[0x40 - 0x18];
-    Queue queue;
+    Queue_24bc70 queue;
     int f0bc;
     int state;
     int f0c4;
@@ -56,18 +56,18 @@ unsigned int __cdecl FUN_0025d040(unsigned int v);
 int __cdecl FUN_00259c50(int handle);
 void __cdecl FUN_00258ea0(int handle, int arg);
 void __cdecl FUN_0025e290(void *obj);
-void __cdecl FUN_0024bae0(Player *p, int arg);
+void __cdecl FUN_0024bae0(Player_24bc70 *p, int arg);
 // equiv-conv: FUN_0024b170 eax
-void FUN_0024b170(Player *p);
+void FUN_0024b170(Player_24bc70 *p);
 // equiv-conv: FUN_0024b480 eax
-void FUN_0024b480(Player *p);
+void FUN_0024b480(Player_24bc70 *p);
 // equiv-conv: FUN_0024b550 esi
-void FUN_0024b550(Player *p);
+void FUN_0024b550(Player_24bc70 *p);
 // equiv-conv: FUN_0024b920 esi ebx
-void FUN_0024b920(Player *p, unsigned int live);
+void FUN_0024b920(Player_24bc70 *p, unsigned int live);
 
 // equiv-conv: FUN_0024bc70 eax ebx
-void FUN_0024bc70(Player *p, unsigned int live)
+void FUN_0024bc70(Player_24bc70 *p, unsigned int live)
 {
     int state = p->state;
     if (state == 1) {
@@ -85,8 +85,8 @@ void FUN_0024bc70(Player *p, unsigned int live)
     } else if (state == 5) {
         if (FUN_00259c50(p->handle) == 0 && p->f0c4 == 0 && p->f0c8 == 0) {
             int found = 0;
-            for (Slot *s = p->queue.FUN_0024b2d0(); s != 0; s = p->queue.FUN_0024b310(s)) {
-                Sink *sink = s->sink;
+            for (Slot_24bc70 *s = p->queue.FUN_0024b2d0(); s != 0; s = p->queue.FUN_0024b310(s)) {
+                Sink_24bc70 *sink = s->sink;
                 if (sink != 0) {
                     int r = sink->state();
                     if (r == 1) {

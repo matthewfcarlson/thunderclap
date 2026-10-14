@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_001f42d0 @ 0x001f42d0
 extern "C" double sqrt(double);
-struct Id {
+struct Id_1f42d0 {
     unsigned int lo;
     unsigned int hi;
     void FUN_0027b0e0(const char *name);
@@ -21,35 +21,35 @@ struct Node {
     int f78;
 };
 
-struct Settings {
+struct Settings_1f42d0 {
     char pad0[8];
     struct Gate {
         char FUN_000997a0();
     } *gate;
 };
 
-extern Settings *DAT_004dd700;
+extern Settings_1f42d0 *DAT_004dd700;
 
 union IdSlot {
     unsigned int raw[3];
-    Id id;
+    Id_1f42d0 id;
 };
 
-class Manager {
+class Manager_1f42d0 {
 public:
     char pad0[0x328];
     Node *parent;
 
-    Node *FUN_001f31a0(const Id *id);
-    void FUN_001f42d0(const Id *id, void *owner, float px, float py, float pz,
+    Node *FUN_001f31a0(const Id_1f42d0 *id);
+    void FUN_001f42d0(const Id_1f42d0 *id, void *owner, float px, float py, float pz,
                       unsigned int a6, unsigned int a7, unsigned int a8,
                       unsigned int a9, unsigned int a10, unsigned int a11,
                       IdSlot a12, int a15);
 };
 
-Node * __stdcall FUN_001f4010(void *owner, const Id *id, int limit);
+Node * __stdcall FUN_001f4010(void *owner, const Id_1f42d0 *id, int limit);
 
-void Manager::FUN_001f42d0(const Id *id, void *owner, float px, float py, float pz,
+void Manager_1f42d0::FUN_001f42d0(const Id_1f42d0 *id, void *owner, float px, float py, float pz,
                            unsigned int a6, unsigned int a7, unsigned int a8,
                            unsigned int a9, unsigned int a10, unsigned int a11,
                            IdSlot a12, int a15)

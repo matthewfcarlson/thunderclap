@@ -14,17 +14,17 @@ public:
     char pad[4];
 };
 
-struct Flags {
+struct Flags_b5bf0 {
     bool FUN_00092de0();
 };
 
-struct Reg {
-    Flags *FUN_00086340(int id);
+struct Reg_b5bf0 {
+    Flags_b5bf0 *FUN_00086340(int id);
 };
 
 struct World {
     char pad0[0x54];
-    Reg *f54;
+    Reg_b5bf0 *f54;
 };
 extern World *DAT_004dd700;
 

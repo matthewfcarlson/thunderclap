@@ -3,73 +3,73 @@
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 
-struct Vec3 {
+struct Vec3_1820d0 {
     float x, y, z;
 };
 
-struct Mat {
+struct Mat_1820d0 {
     float m[16];
     void FUN_0022ba00();
-    void FUN_0022bc20(Vec3 euler);
-    void FUN_0022ca90(const Mat* a, const Mat* b);
-    void FUN_0022c3b0(const Vec3* in, Vec3* out);
-    void FUN_0022c2b0(const Vec3* in, Vec3* out);
+    void FUN_0022bc20(Vec3_1820d0 euler);
+    void FUN_0022ca90(const Mat_1820d0* a, const Mat_1820d0* b);
+    void FUN_0022c3b0(const Vec3_1820d0* in, Vec3_1820d0* out);
+    void FUN_0022c2b0(const Vec3_1820d0* in, Vec3_1820d0* out);
 };
 
-struct BoneTable {
+struct BoneTable_1820d0 {
     char pad0[0x10];
     unsigned int FUN_0027b200(int a, int b);
 };
 
-struct Skel {
+struct Skel_1820d0 {
     char pad0[8];
-    BoneTable* table;
+    BoneTable_1820d0* table;
     char pad0c[0x1c - 0xc];
-    Mat* matrices;
+    Mat_1820d0* matrices;
 };
 
-struct Holder {
+struct Holder_1820d0 {
     char pad0[0x120];
-    Skel* skel;
+    Skel_1820d0* skel;
 };
 
-struct Clock {
-    Holder* FUN_00059a30();
+struct Clock_1820d0 {
+    Holder_1820d0* FUN_00059a30();
 };
 
-struct Owner {
-    Clock* FUN_000592a0();
+struct Owner_1820d0 {
+    Clock_1820d0* FUN_000592a0();
 };
 
-struct Config {
+struct Config_1820d0 {
     char pad0[0x10];
     int f10;
     char pad14[4];
     int keyA;
     int keyB;
-    Vec3 pos;
-    Vec3 rot;
-    Vec3 dir;
-    Vec3 pt;
+    Vec3_1820d0 pos;
+    Vec3_1820d0 rot;
+    Vec3_1820d0 dir;
+    Vec3_1820d0 pt;
 };
 
-struct Spawner {
-    void FUN_001e5860(const char* name, int f10, Vec3 pos);
+struct Spawner_1820d0 {
+    void FUN_001e5860(const char* name, int f10, Vec3_1820d0 pos);
     void* FUN_001def30(const char* name);
 };
 
-struct Prop {
+struct Prop_1820d0 {
     char pad0[0xa0];
     void* node;
-    void FUN_001d6b60(Mat m, int flag);
+    void FUN_001d6b60(Mat_1820d0 m, int flag);
     int FUN_001d72e0();
     void FUN_001d7510();
-    void FUN_001d86d0(Vec3* dir, Vec3* pos);
+    void FUN_001d86d0(Vec3_1820d0* dir, Vec3_1820d0* pos);
 };
 
 struct World {
     char pad0[0xc];
-    Spawner* spawner;
+    Spawner_1820d0* spawner;
 };
 
 extern World* DAT_004dd700;
@@ -84,25 +84,25 @@ class PropSpawnAction {
     virtual void v2();
     virtual bool vfunc_3(int a, int b);
     char pad4[0x1c - 4];
-    Config* cfg;
-    Owner* owner;
+    Config_1820d0* cfg;
+    Owner_1820d0* owner;
 };
 
 bool PropSpawnAction::vfunc_3(int a, int b)
 {
     volatile unsigned int cookie = DAT_004d9968;
     struct Frame {
-        Vec3 tmp;
-        Vec3 dir;
-        Vec3 pos;
-        Mat world;
-        Mat local;
+        Vec3_1820d0 tmp;
+        Vec3_1820d0 dir;
+        Vec3_1820d0 pos;
+        Mat_1820d0 world;
+        Mat_1820d0 local;
         char name[0x80];
     } fr;
     if (owner) {
-        Holder* h = owner->FUN_000592a0()->FUN_00059a30();
-        Skel* skel = h->skel;
-        BoneTable* table = skel->table;
+        Holder_1820d0* h = owner->FUN_000592a0()->FUN_00059a30();
+        Skel_1820d0* skel = h->skel;
+        BoneTable_1820d0* table = skel->table;
         unsigned int bone = 0;
         int keyA = cfg->keyA;
         int keyB = cfg->keyB;
@@ -111,7 +111,7 @@ bool PropSpawnAction::vfunc_3(int a, int b)
             if (bone == 0xffff)
                 bone = 0;
         }
-        Mat* parent = skel->matrices + bone;
+        Mat_1820d0* parent = skel->matrices + bone;
         fr.local.FUN_0022ba00();
         fr.tmp = cfg->pos;
         fr.local.m[12] = fr.tmp.x;
@@ -120,14 +120,14 @@ bool PropSpawnAction::vfunc_3(int a, int b)
         fr.local.FUN_0022bc20(cfg->rot);
         fr.world.FUN_0022ca90(&fr.local, parent);
         FUN_00267760(fr.name, 0x80, "propSpawn%d", DAT_004e1504);
-        Spawner* spawner = DAT_004dd700->spawner;
+        Spawner_1820d0* spawner = DAT_004dd700->spawner;
         DAT_004e1504++;
-        Vec3 where;
+        Vec3_1820d0 where;
         where.x = fr.world.m[12];
         where.y = fr.world.m[13];
         where.z = fr.world.m[14];
         spawner->FUN_001e5860(fr.name, cfg->f10, where);
-        Prop* prop = (Prop*)spawner->FUN_001def30(fr.name);
+        Prop_1820d0* prop = (Prop_1820d0*)spawner->FUN_001def30(fr.name);
         if (prop) {
             prop->FUN_001d6b60(fr.world, 0);
             if (prop->FUN_001d72e0()) {

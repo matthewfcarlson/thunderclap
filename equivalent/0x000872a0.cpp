@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000872a0 @ 0x000872a0
-struct Vec3 {
+struct Vec3_872a0 {
     float x, y, z;
 };
 
-struct Pos {
-    void FUN_00059a50(Vec3 *out);
+struct Pos_872a0 {
+    void FUN_00059a50(Vec3_872a0 *out);
 };
 
-struct Body {
+struct Body_872a0 {
     char pad0[0x10];
-    Pos *pos;
+    Pos_872a0 *pos;
     void FUN_000ae990();
     void FUN_000afe80();
     float FUN_000354c0();
 };
 
-struct Link {
+struct Link_872a0 {
     char pad0[8];
     char flag;
 };
@@ -24,69 +24,69 @@ struct Link {
 
 struct Entity {
     char pad0[0x124];
-    Body *body;
+    Body_872a0 *body;
 };
 
-struct Holder {
+struct Holder_872a0 {
     char pad0[4];
-    Link *link;
+    Link_872a0 *link;
     char pad1[0x20 - 8];
     Entity *entity;
 };
 
-struct Display {
+struct Display_872a0 {
     char pad0[0x10];
-    Body *a;
+    Body_872a0 *a;
     char pad1[4];
-    Body *b;
+    Body_872a0 *b;
 };
 
-struct Globals {
+struct Globals_872a0 {
     char pad1[0x54];
-    Display *display;
+    Display_872a0 *display;
 };
 
 struct Camera {
     void FUN_00089900(float angle);
-    void FUN_000898a0(Vec3 v);
+    void FUN_000898a0(Vec3_872a0 v);
     char FUN_00089a40();
 };
 
-struct Sub0 {
+struct Sub0_872a0 {
     void FUN_001b7590();
 };
 
-struct Sub1 {
+struct Sub1_872a0 {
     void FUN_000bd1b0(int arg);
 };
 
-struct Status {
+struct Status_872a0 {
     int state;
 };
 
-class Tracker {
+class Tracker_872a0 {
 public:
     void FUN_000872a0();
     void FUN_00086980(int flag);
 
     char pad0[4];
-    Status *status;
+    Status_872a0 *status;
     char pad1[4];
-    Holder *holder;
+    Holder_872a0 *holder;
     char pad2[0x20 - 0x10];
-    Sub1 *sub1;
+    Sub1_872a0 *sub1;
     char pad3[0x34 - 0x24];
-    Sub0 *sub0;
+    Sub0_872a0 *sub0;
     Camera *camera;
 };
 
-extern Globals *DAT_004dd700;
+extern Globals_872a0 *DAT_004dd700;
 
-void Tracker::FUN_000872a0()
+void Tracker_872a0::FUN_000872a0()
 {
     sub0->FUN_001b7590();
     holder->link->flag = 1;
-    Vec3 pos;
+    Vec3_872a0 pos;
     holder->entity->body->pos->FUN_00059a50(&pos);
     camera->FUN_000898a0(pos);
     camera->FUN_00089900(holder->entity->body->FUN_000354c0() * 57.295776f);

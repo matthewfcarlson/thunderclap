@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 6/6)
 // FUN_001b7310 @ 0x001b7310
-struct State {
+struct State_1b7310 {
     int value;
     void FUN_000863e0(int value);
 };
@@ -12,7 +12,7 @@ struct Object {
     char text[256];
     unsigned char flag;
     char pad115[3];
-    State* state;
+    State_1b7310* state;
     void update(const char* source, unsigned int parameterValue, unsigned char flagValue);
 };
 void Object::update(const char* source, unsigned int parameterValue, unsigned char flagValue) {

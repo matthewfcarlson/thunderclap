@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 22/22)
 // FUN_000b0cf0 @ 0x000b0cf0
-struct Resource {
+struct Resource_b0cf0 {
  virtual void slot0();
  virtual void release();
 };
-struct Record { Resource* resources[6]; char padding[24]; };
-struct Group { Resource* resources[4]; };
-void __cdecl FUN_000b0cf0(int groupCount, int recordCount, Group** groups, Record* records, Resource** single)
+struct Record_b0cf0 { Resource_b0cf0* resources[6]; char padding[24]; };
+struct Group_b0cf0 { Resource_b0cf0* resources[4]; };
+void __cdecl FUN_000b0cf0(int groupCount, int recordCount, Group_b0cf0** groups, Record_b0cf0* records, Resource_b0cf0** single)
 {
  if (single && *single) { (*single)->release(); *single = 0; }
  if (recordCount > 0) {

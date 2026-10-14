@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // audio::SeqActionCrossFade::vfunc_2 @ 0x00255a00
 struct String { char data[12]; void FUN_0023fac0(); void FUN_00240170(void*); void FUN_00240060(); const char* FUN_0023fb00(); };
-struct Sound { char pad[44]; unsigned value; };
+struct Sound_255a00 { char pad[44]; unsigned value; };
 struct Bank { char pad[92]; char table[1]; };
 struct Context { char pad[60]; Bank* bank; };
 struct Params { char pad[28]; char name[12]; char other[1]; };
 void __cdecl FUN_002613b0(void*,String*,String*);
 unsigned __cdecl FUN_002673a0(const char*,int);
 void* __cdecl FUN_0024a370(Bank*,unsigned*);
-Sound* __cdecl FUN_0024a390(Bank*,void*);
-Sound* __cdecl FUN_002495f0(void*);
-Sound* __cdecl FUN_0024a9c0(Bank*,void*);
-void __cdecl FUN_00247a10(Sound*);
-namespace audio { struct SeqActionCrossFade { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(Context*,unsigned); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); unsigned field4; Params* params; unsigned state; Sound* current; Sound* previous; unsigned previousValue; bool FUN_00255980(Bank*,Sound*); }; }
+Sound_255a00* __cdecl FUN_0024a390(Bank*,void*);
+Sound_255a00* __cdecl FUN_002495f0(void*);
+Sound_255a00* __cdecl FUN_0024a9c0(Bank*,void*);
+void __cdecl FUN_00247a10(Sound_255a00*);
+namespace audio { struct SeqActionCrossFade { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(Context*,unsigned); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); unsigned field4; Params* params; unsigned state; Sound_255a00* current; Sound_255a00* previous; unsigned previousValue; bool FUN_00255980(Bank*,Sound_255a00*); }; }
 void audio::SeqActionCrossFade::vfunc_2(Context* context,unsigned id) {
  Bank* bank=context->bank;
  String result; result.FUN_0023fac0();

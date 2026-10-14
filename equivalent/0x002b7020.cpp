@@ -2,14 +2,14 @@
 // pure3d::ShadowSkinLoader::vfunc_5 @ 0x002b7020
 inline void *operator new(unsigned int, void *p) { return p; }
 
-class Ref {
+class Ref_2b7020 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
 namespace content {
-class ObjectLoader : public Ref {
+class ObjectLoader : public Ref_2b7020 {
 public:
     virtual void o2();
     virtual void o3();
@@ -27,12 +27,12 @@ unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned int lo, unsigned i
 void *__cdecl FUN_00266e00(int a, int b);
 void __cdecl FUN_00267090(void *a);
 
-struct Mat {
+struct Mat_2b7020 {
     float m[16];
     void FUN_0022b980();
     void FUN_00011550();
 };
-void __stdcall FUN_00011520(void *arr, unsigned int size, int count, void (Mat::*ctor)());
+void __stdcall FUN_00011520(void *arr, unsigned int size, int count, void (Mat_2b7020::*ctor)());
 
 struct Stream {
     int FUN_002647e0(void *buf, int count, int size, int flag);
@@ -50,7 +50,7 @@ public:
 
 namespace pure3d { class Skeleton; }
 
-class Inv {
+class Inv_2b7020 {
 public:
     virtual void i0();
     virtual void i1();
@@ -58,7 +58,7 @@ public:
     virtual void *i3(void *caster, unsigned __int64 key);
 };
 
-struct NameHolder {
+struct NameHolder_2b7020 {
     char pad[8];
     void FUN_0027b040(const char *name);
 };
@@ -67,22 +67,22 @@ class SkelObj {
 public:
     virtual void AddRef();
     virtual void Release();
-    Ref *FUN_0027b240();
+    Ref_2b7020 *FUN_0027b240();
 };
 
-class SkinTopo18 : public Ref {
+class SkinTopo18 : public Ref_2b7020 {
 public:
     SkinTopo18 *FUN_002b5070(int a, int b);
 };
 
-struct Rec0 {
+struct Rec0_2b7020 {
     unsigned int x, y, z;
     unsigned short idx;
     unsigned char c0;
     unsigned char pad0f;
     unsigned int pad10;
 };
-struct Rec1 {
+struct Rec1_2b7020 {
     unsigned int x, y, z;
     unsigned short idx;
     unsigned short pad0e;
@@ -90,14 +90,14 @@ struct Rec1 {
     unsigned char c0, c1;
     unsigned short pad1a;
 };
-struct Rec2 {
+struct Rec2_2b7020 {
     unsigned int x, y, z;
     unsigned short idx;
     unsigned short pad0e;
     unsigned int d10, d14, d18;
     unsigned char c0, c1, c2, c3;
 };
-struct Vertex {
+struct Vertex_2b7020 {
     unsigned int x, y, z;
     unsigned int pad0c;
     unsigned int w0, w1, w2;
@@ -106,7 +106,7 @@ struct Vertex {
 
 namespace pure3d {
 
-class ShadowMeshTopology : public Ref {
+class ShadowMeshTopology : public Ref_2b7020 {
 public:
     int pad04;
     int nVerts;
@@ -125,12 +125,12 @@ public:
     }
 };
 
-class ShadowSkinTopology : public Ref {
+class ShadowSkinTopology : public Ref_2b7020 {
 public:
     int pad04;
-    Rec0 *r0;
-    Rec1 *r1;
-    Rec2 *r2;
+    Rec0_2b7020 *r0;
+    Rec1_2b7020 *r1;
+    Rec2_2b7020 *r2;
     int n0;
     int n1;
     int n2;
@@ -143,9 +143,9 @@ public:
         n0 = a;
         n1 = b;
         n2 = c;
-        r0 = (Rec0 *)FUN_0008d6d0(a * 20);
-        r1 = (Rec1 *)FUN_0008d6d0(n1 * 0x1c);
-        r2 = (Rec2 *)FUN_0008d6d0(n2 << 5);
+        r0 = (Rec0_2b7020 *)FUN_0008d6d0(a * 20);
+        r1 = (Rec1_2b7020 *)FUN_0008d6d0(n1 * 0x1c);
+        r2 = (Rec2_2b7020 *)FUN_0008d6d0(n2 << 5);
     }
 };
 
@@ -156,28 +156,28 @@ struct SkelRef {
     int count;
 };
 
-class Mesh {
+class Mesh_2b7020 {
 public:
     char pad00[0x14];
     float v14[6];
     float v2c[3];
     int f38;
     char pad3c[0x44 - 0x3c];
-    Ref *topo;
-    Ref *skinTopo;
+    Ref_2b7020 *topo;
+    Ref_2b7020 *skinTopo;
     char pad4c[0x70 - 0x4c];
     SkelObj *skel;
-    Mat *mats;
-    Ref *skinTopo2;
+    Mat_2b7020 *mats;
+    Ref_2b7020 *skinTopo2;
     SkelRef *f7c;
 };
 
-struct MeshHolder { Mesh *mesh; };
+struct MeshHolder { Mesh_2b7020 *mesh; };
 
 struct Copy24 { unsigned int a[6]; };
 struct Copy16 { unsigned int a[4]; };
 
-class Target {
+class Target_2b7020 {
 public:
     char pad00[8];
     char pad08[0x14 - 0x8];
@@ -190,12 +190,12 @@ public:
 namespace pure3d {
 class ShadowSkinLoader : public content::ObjectLoader {
 public:
-    virtual unsigned __int64 v5(Target **objOut, unsigned __int64 *hashOut, Reader *R, Inv *inv);
-    virtual Target *v6();
+    virtual unsigned __int64 v5(Target_2b7020 **objOut, unsigned __int64 *hashOut, Reader *R, Inv_2b7020 *inv);
+    virtual Target_2b7020 *v6();
 };
 }
 
-struct Frame {
+struct Frame_2b7020 {
     char pad0[3];
     unsigned char len;      // 0x03
     int nf;                 // 0x04 (read, then reused for topo)
@@ -219,9 +219,9 @@ static bool Zero(unsigned int *p)
     return *(float *)p == 0.0f;
 }
 
-unsigned __int64 pure3d::ShadowSkinLoader::v5(Target **objOut, unsigned __int64 *hashOut, Reader *R, Inv *inv)
+unsigned __int64 pure3d::ShadowSkinLoader::v5(Target_2b7020 **objOut, unsigned __int64 *hashOut, Reader *R, Inv_2b7020 *inv)
 {
-    Frame f;
+    Frame_2b7020 f;
     unsigned int n;
 
     R->stream->FUN_002647e0(&f.len, 1, 1, 1);
@@ -238,10 +238,10 @@ unsigned __int64 pure3d::ShadowSkinLoader::v5(Target **objOut, unsigned __int64 
 
     int nvv = f.nv;
     int nfv = f.nf;
-    Target *obj = v6();
+    Target_2b7020 *obj = v6();
     f.x30 = (int)obj;
-    ((NameHolder *)((char *)obj + 8))->FUN_0027b040(f.name1);
-    Mesh *A = obj->holder->mesh;
+    ((NameHolder_2b7020 *)((char *)obj + 8))->FUN_0027b040(f.name1);
+    Mesh_2b7020 *A = obj->holder->mesh;
     f.A = (int)A;
 
     void *m1 = FUN_0008d690(0x18);
@@ -276,15 +276,15 @@ unsigned __int64 pure3d::ShadowSkinLoader::v5(Target **objOut, unsigned __int64 
     A->skel = sk;
     if (sk) {
         sk->AddRef();
-        Ref *r = A->skel->FUN_0027b240();
+        Ref_2b7020 *r = A->skel->FUN_0027b240();
         A->f7c = (SkelRef *)r;
         r->AddRef();
         int cnt = A->f7c->count + 1;
         void *mem = FUN_0008d6d0(cnt << 6);
-        Mat *mats;
+        Mat_2b7020 *mats;
         if (mem) {
-            FUN_00011520(mem, 0x40, cnt, &Mat::FUN_00011550);
-            mats = (Mat *)mem;
+            FUN_00011520(mem, 0x40, cnt, &Mat_2b7020::FUN_00011550);
+            mats = (Mat_2b7020 *)mem;
         } else {
             mats = 0;
         }
@@ -339,7 +339,7 @@ unsigned __int64 pure3d::ShadowSkinLoader::v5(Target **objOut, unsigned __int64 
     }
 
     int n0 = 0, n1 = 0, n2 = 0;
-    Vertex *vtx = (Vertex *)vbuf;
+    Vertex_2b7020 *vtx = (Vertex_2b7020 *)vbuf;
     for (int i = 0; i < nvv; i++) {
         if (Zero(&vtx[i].w2) && Zero(&vtx[i].w1))
             n0++;
@@ -363,9 +363,9 @@ unsigned __int64 pure3d::ShadowSkinLoader::v5(Target **objOut, unsigned __int64 
 
     int o0 = 0, o1 = 0, o2 = 0;
     for (unsigned int i = 0; i < (unsigned int)nvv; i++) {
-        Vertex *v = &vtx[i];
+        Vertex_2b7020 *v = &vtx[i];
         if (Zero(&v->w2) && Zero(&v->w1)) {
-            Rec0 *r = (Rec0 *)((char *)stop->r0 + o0);
+            Rec0_2b7020 *r = (Rec0_2b7020 *)((char *)stop->r0 + o0);
             r->x = v->x;
             r->y = v->y;
             r->z = v->z;
@@ -373,7 +373,7 @@ unsigned __int64 pure3d::ShadowSkinLoader::v5(Target **objOut, unsigned __int64 
             r->c0 = v->c[0];
             o0 += 0x14;
         } else if (Zero(&v->w2)) {
-            Rec1 *r = (Rec1 *)((char *)stop->r1 + o1);
+            Rec1_2b7020 *r = (Rec1_2b7020 *)((char *)stop->r1 + o1);
             r->x = v->x;
             r->y = v->y;
             r->z = v->z;
@@ -384,7 +384,7 @@ unsigned __int64 pure3d::ShadowSkinLoader::v5(Target **objOut, unsigned __int64 
             r->d14 = v->w1;
             o1 += 0x1c;
         } else {
-            Rec2 *r = (Rec2 *)((char *)stop->r2 + o2);
+            Rec2_2b7020 *r = (Rec2_2b7020 *)((char *)stop->r2 + o2);
             r->x = v->x;
             r->y = v->y;
             r->z = v->z;

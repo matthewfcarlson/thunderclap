@@ -2,13 +2,13 @@
 // FUN_000f0b90 @ 0x000f0b90
 extern "C" int strcmp(const char *a, const char *b);
 
-struct Res {
+struct Res_f0b90 {
     virtual void v0();
     virtual void v1();
 };
 
-struct Obj {
-    virtual ~Obj();
+struct Obj_f0b90 {
+    virtual ~Obj_f0b90();
     virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
     virtual void v5(); virtual void v6(); virtual void v7();
     virtual const char *v8();
@@ -16,25 +16,25 @@ struct Obj {
     char name[1];           // 0x858
 };
 
-struct Pair {
-    Res *res[2];
+struct Pair_f0b90 {
+    Res_f0b90 *res[2];
 };
 
-struct Mgr {
+struct Mgr_f0b90 {
     char pad0[0xc];
-    Obj *objs[0x40];                // 0xc
+    Obj_f0b90 *objs[0x40];                // 0xc
     char pad10c[0x20c - 0x10c];
-    Obj *objs2[0x100];              // 0x20c
+    Obj_f0b90 *objs2[0x100];              // 0x20c
     char pad60c[0x160c - 0x60c];
     void *bufs[0x40];               // 0x160c
     char curName[0x175c - 0x170c];  // 0x170c
-    Obj *cur;                       // 0x175c
+    Obj_f0b90 *cur;                       // 0x175c
     char pad1760[0x1854 - 0x1760];
-    Res *rA[2];                     // 0x1854
+    Res_f0b90 *rA[2];                     // 0x1854
     char nameA[2][0x100];           // 0x185c
-    Res *rB[2];                     // 0x1a5c
+    Res_f0b90 *rB[2];                     // 0x1a5c
     char nameB[2][0x100];           // 0x1a64
-    Res *rC[2];                     // 0x1c64
+    Res_f0b90 *rC[2];                     // 0x1c64
     char padC[8];
     char nameC[2][0x100];           // 0x1c74
     void FUN_000f0b90(const char *name);
@@ -43,12 +43,12 @@ struct Mgr {
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d330
 extern void __cdecl thunk_FUN_00267090(void *p);
 
-void Mgr::FUN_000f0b90(const char *name)
+void Mgr_f0b90::FUN_000f0b90(const char *name)
 {
     if (name == 0)
         return;
     for (int i = 0; i < 0x40; i++) {
-        Obj *o = objs[i];
+        Obj_f0b90 *o = objs[i];
         if (o != 0 && strcmp(o->name, name) == 0) {
             if (strcmp(o->v8(), curName) == 0)
                 curName[0] = 0;
@@ -61,7 +61,7 @@ void Mgr::FUN_000f0b90(const char *name)
         }
     }
     for (int i = 0; i < 0x100; i++) {
-        Obj *o = objs2[i];
+        Obj_f0b90 *o = objs2[i];
         if (o != 0 && strcmp(o->name, name) == 0) {
             delete o;
             objs2[i] = 0;

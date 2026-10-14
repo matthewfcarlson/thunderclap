@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 18/18)
 // FUN_0029eda0 @ 0x0029eda0
-struct Source {
+struct Source_29eda0 {
     int FUN_002a0850();
     float *FUN_002a0870();
     char pad0[0x12];
@@ -10,7 +10,7 @@ struct Source {
     int mode;
 };
 
-struct Entry {
+struct Entry_29eda0 {
     int f0;
     unsigned color;
     float radiusSq;
@@ -19,20 +19,20 @@ struct Entry {
     int f1c;
 };
 
-struct Backend {
-    void FUN_002a0fc0(int index, Source *src);
+struct Backend_29eda0 {
+    void FUN_002a0fc0(int index, Source_29eda0 *src);
 };
 
 extern unsigned DAT_004cf730;
 
-class EntryTable {
+class EntryTable_29eda0 {
 public:
-    Backend *backend;
-    Entry *entries;
-    void FUN_0029eda0(int index, Source *src);
+    Backend_29eda0 *backend;
+    Entry_29eda0 *entries;
+    void FUN_0029eda0(int index, Source_29eda0 *src);
 };
 
-void EntryTable::FUN_0029eda0(int index, Source *src)
+void EntryTable_29eda0::FUN_0029eda0(int index, Source_29eda0 *src)
 {
     backend->FUN_002a0fc0(index, src);
     entries[index].f0 = 0;

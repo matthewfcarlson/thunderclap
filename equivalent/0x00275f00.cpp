@@ -5,7 +5,7 @@ namespace core { struct File; }
 struct Operation {
  Operation* FUN_002752e0(core::File* file, unsigned int a, unsigned int b, unsigned int c);
 };
-struct Manager {
+struct Manager_275f00 {
  unsigned int FUN_00272b60(Operation* operation, unsigned int value, unsigned int zero);
 };
 namespace core {
@@ -16,7 +16,7 @@ struct File {
  virtual void vfunc_3();
  virtual unsigned int vfunc_4(unsigned int a, unsigned int b, unsigned int c);
  char padding[8];
- Manager* manager;
+ Manager_275f00* manager;
  unsigned int value;
 };
 unsigned int File::vfunc_4(unsigned int a, unsigned int b, unsigned int c) {

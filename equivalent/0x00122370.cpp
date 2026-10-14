@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 12/12)
 // hulkfight::ai::PathAction::vfunc_3 @ 0x00122370
-struct Zone { char pad[0x380]; int value; };
-struct ZoneRef { char pad[0x11c]; Zone* zone; };
+struct Zone_122370 { char pad[0x380]; int value; };
+struct ZoneRef { char pad[0x11c]; Zone_122370* zone; };
 struct Node { ZoneRef* FUN_00059a30(); };
-struct Owner { Node* FUN_000592a0(); };
+struct Owner_122370 { Node* FUN_000592a0(); };
 
-struct Ring {
+struct Ring_122370 {
     void** head;
     void** cur;
     void** begin;
@@ -14,27 +14,27 @@ struct Ring {
 
 struct Listeners {
     char pad[0x18];
-    Ring ring;
+    Ring_122370 ring;
 };
 
-struct Global {
+struct Global_122370 {
     char pad[0x1c];
     Listeners* listeners;
     char pad2[0x28 - 0x20];
     int stamp;
 };
 
-struct Source {
+struct Source_122370 {
     char pad[0x38];
     int id;
 };
 
-struct Sub {
+struct Sub_122370 {
     char pad[0x10];
     void FUN_0027b040(int id);
 };
 
-extern Global* DAT_004dd700;
+extern Global_122370* DAT_004dd700;
 
 class PathAction {
 public:
@@ -56,13 +56,13 @@ public:
     int w80;
     int w84;
     int w88;
-    Source* src8c;
-    Owner* owner90;
+    Source_122370* src8c;
+    Owner_122370* owner90;
     char p3[0xb0 - 0x94];
     int wb0[6];
     ZoneRef* zoneRef;
     char p4[4];
-    Sub sub;
+    Sub_122370 sub;
     int stamp;
     int we4;
     char p6[4];
@@ -94,7 +94,7 @@ bool PathAction::run(int a, int b)
         w64[i] = 0;
     w74 = 2;
 
-    Ring* ring = &DAT_004dd700->listeners->ring;
+    Ring_122370* ring = &DAT_004dd700->listeners->ring;
     if (ring->cur < ring->limit) {
         if (ring->cur != 0)
             *ring->cur = &c1c;

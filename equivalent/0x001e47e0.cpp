@@ -2,13 +2,13 @@
 // FUN_001e47e0 @ 0x001e47e0
 extern "C" void __fastcall __security_check_cookie(unsigned);
 
-struct Id {
+struct Id_1e47e0 {
     unsigned int lo, hi;
     void FUN_0027b0e0(const char *name);
     void FUN_0027af50();
 };
 
-struct Vec3 { float x, y, z; bool FUN_0022d2b0(const Vec3 *other, float eps); };
+struct Vec3_1e47e0 { float x, y, z; bool FUN_0022d2b0(const Vec3_1e47e0 *other, float eps); };
 
 struct Matrix {
     float m[16];
@@ -16,14 +16,14 @@ struct Matrix {
     void FUN_0022be40(const void *src);
     void FUN_0022bc20(float x, float y, float z);
     void FUN_0022ca90(const Matrix *a, const void *b);
-    void FUN_0022c3b0(const Vec3 *in, Vec3 *out);
+    void FUN_0022c3b0(const Vec3_1e47e0 *in, Vec3_1e47e0 *out);
 };
 
 
-struct Attach {
+struct Attach_1e47e0 {
     char pad0[0xc];
     float tx, ty, tz;
-    Vec3 offset;
+    Vec3_1e47e0 offset;
     char pad24[4];
     char key[0x10];
     unsigned int boneLo, boneHi;
@@ -31,16 +31,16 @@ struct Attach {
     int mode;
 };
 
-struct Part {
+struct Part_1e47e0 {
     char pad0[8];
     char id[8];
     char pad10[0x1c - 0x10];
     char *base;
     void FUN_001d7510();
-    void FUN_001d86d0(const Vec3 *dir, const Matrix *pos);
+    void FUN_001d86d0(const Vec3_1e47e0 *dir, const Matrix *pos);
 };
 
-struct Skel {
+struct Skel_1e47e0 {
     char pad0[0x1c];
     char *base;
     unsigned int FUN_002843a0(unsigned int lo, unsigned int hi);
@@ -50,10 +50,10 @@ struct SkelHolder {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10();
-    virtual Part *v11();
+    virtual Part_1e47e0 *v11();
 };
 
-struct Owner {
+struct Owner_1e47e0 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -63,11 +63,11 @@ struct Owner {
     char id[8];
     char pad10[0x9c - 0x10];
     SkelHolder *holder;
-    const Vec3 *FUN_001d6cb0();
+    const Vec3_1e47e0 *FUN_001d6cb0();
 };
 
 struct Slot40 { char pad[0x22]; short idx; char pad2[4]; };
-struct Slot14 { unsigned char flags; char pad[0x13]; };
+struct Slot14_1e47e0 { unsigned char flags; char pad[0x13]; };
 
 extern int DAT_004e2744;
 extern unsigned int DAT_004d9968;
@@ -79,19 +79,19 @@ public:
     char pad0[0x608];
     Slot40 slots[100];
     char padx[0x14618 - 0x608 - 100 * 0x28];
-    Slot14 flagTab[1];
+    Slot14_1e47e0 flagTab[1];
     int FUN_001dc070(const void *id);
-    Part *FUN_001def30(const char *name);
-    void FUN_001e43b0(Id *id, const void *key, Matrix *m, int flag);
-    Part *FUN_001e47e0(Owner *owner, Attach *a);
+    Part_1e47e0 *FUN_001def30(const char *name);
+    void FUN_001e43b0(Id_1e47e0 *id, const void *key, Matrix *m, int flag);
+    Part_1e47e0 *FUN_001e47e0(Owner_1e47e0 *owner, Attach_1e47e0 *a);
 };
 
-Part *World::FUN_001e47e0(Owner *owner, Attach *a)
+Part_1e47e0 *World::FUN_001e47e0(Owner_1e47e0 *owner, Attach_1e47e0 *a)
 {
     Matrix mat38;
     Matrix mat78;
     char name[32];
-    Part *result = 0;
+    Part_1e47e0 *result = 0;
     unsigned int cookie = DAT_004d9968;
 
     if (owner == 0) {
@@ -107,7 +107,7 @@ Part *World::FUN_001e47e0(Owner *owner, Attach *a)
         mat78.FUN_0022b980();
         mat78.FUN_0022be40(a);
         mat78.FUN_0022bc20(a->tx, a->ty, a->tz);
-        Skel *sk = (Skel *)owner->holder->v11();
+        Skel_1e47e0 *sk = (Skel_1e47e0 *)owner->holder->v11();
         unsigned int r = sk->FUN_002843a0(a->boneLo, a->boneHi);
         const void *p;
         if (r == 0xffff)
@@ -130,18 +130,18 @@ Part *World::FUN_001e47e0(Owner *owner, Attach *a)
         break;
     }
 
-    Id id;
+    Id_1e47e0 id;
     id.FUN_0027b0e0(name);
     FUN_001e43b0(&id, a->key, &mat38, 1);
     id.FUN_0027af50();
 
-    Part *part = FUN_001def30(name);
+    Part_1e47e0 *part = FUN_001def30(name);
     if (part) {
         result = part;
         part->FUN_001d7510();
 
-        Vec3 pos = a->offset;
-        Vec3 zero;
+        Vec3_1e47e0 pos = a->offset;
+        Vec3_1e47e0 zero;
         zero.x = 0.0f;
         zero.y = 0.0f;
         zero.z = 0.0f;
@@ -150,8 +150,8 @@ Part *World::FUN_001e47e0(Owner *owner, Attach *a)
             part->FUN_001d86d0(&pos, (Matrix *)&mat38.m[12]);
         }
 
-        const Vec3 *src = owner->FUN_001d6cb0();
-        Vec3 v;
+        const Vec3_1e47e0 *src = owner->FUN_001d6cb0();
+        Vec3_1e47e0 v;
         v.x = src->x;
         v.y = src->y;
         v.z = src->z;

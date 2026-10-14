@@ -11,7 +11,7 @@ extern unsigned int DAT_0039de18;
 struct Texture {
     void FUN_00326b00(int stage);
 };
-struct TextureState {
+struct TextureState_32aa70 {
     char pad0[8];
     Texture* tex[4];
     char pad18[0x48 - 0x18];
@@ -44,7 +44,7 @@ class d3dSimpleShader {
     virtual void f13();
     virtual void vfunc_14(int unused);
     char pad4[0x14 - 4];
-    TextureState* state;
+    TextureState_32aa70* state;
     char pad18[4];
     int mode;
     char pad20[0x38 - 0x20];
@@ -107,7 +107,7 @@ void pure3d::d3dSimpleShader::vfunc_14(int unused) {
             n++;
         }
     }
-    TextureState* s = state;
+    TextureState_32aa70* s = state;
     Texture* t0 = tex;
     if (s->tex[0] != t0) {
         s->tex[0] = t0;

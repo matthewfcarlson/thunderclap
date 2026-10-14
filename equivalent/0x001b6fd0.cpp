@@ -8,7 +8,7 @@ struct Vertices {
     char pad1[4];
     unsigned int *color;
 };
-struct Screen {
+struct Screen_1b6fd0 {
     virtual void vfn0();
     virtual void vfn1();
     virtual void vfn2();
@@ -18,7 +18,7 @@ struct Screen {
     virtual int vfn6();
     virtual int vfn7();
 };
-struct Device {
+struct Device_1b6fd0 {
     virtual void vfn0();
     virtual void vfn1();
     virtual void vfn2();
@@ -79,7 +79,7 @@ struct Device {
     virtual void vfn57();
     virtual void vfn58(int v);
 };
-struct Stage {
+struct Stage_1b6fd0 {
     virtual void vfn0();
     virtual void vfn1();
     virtual void vfn2();
@@ -99,23 +99,23 @@ struct Stage {
     virtual void vfn16(int v);
 };
 
-extern Screen *DAT_0052c2a4;
-extern Device *DAT_0052c2a8;
-extern Stage **DAT_0052c2ac;
+extern Screen_1b6fd0 *DAT_0052c2a4;
+extern Device_1b6fd0 *DAT_0052c2a8;
+extern Stage_1b6fd0 **DAT_0052c2ac;
 
-struct Holder {
+struct Holder_1b6fd0 {
     char pad[0x10];
     Surface *surface;
 };
 
-class Fader {
+class Fader_1b6fd0 {
 public:
     void FUN_001b6fd0(int alpha);
     char pad0[0xc];
-    Holder *holder;
+    Holder_1b6fd0 *holder;
 };
 
-void Fader::FUN_001b6fd0(int alpha)
+void Fader_1b6fd0::FUN_001b6fd0(int alpha)
 {
     float w = (float)DAT_0052c2a4->vfn7();
     float h = (float)DAT_0052c2a4->vfn6();

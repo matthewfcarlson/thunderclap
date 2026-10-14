@@ -2,42 +2,42 @@
 // CHeadTrackerAction::vfunc_7 @ 0x000202f0
 extern "C" int __cdecl _isnan(double d);
 
-struct V3 {
+struct V3_202f0 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_000111b0(const V3 *a, const V3 *b);
+    void FUN_000111b0(const V3_202f0 *a, const V3_202f0 *b);
 };
 
-struct V4 { float x, y, z, w; };
+struct V4_202f0 { float x, y, z, w; };
 
-struct Mat4 {
+struct Mat4_202f0 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022baf0(const V3 *axis, float angle);
-    void FUN_0022c3b0(const V3 *in, V3 *out);
-    void FUN_0022c2b0(const V4 *a, V3 *b);
-    void FUN_0022bec0(const V3 *fwd, const V3 *up);
-    void FUN_0022ca90(const Mat4 *a, const Mat4 *b);
+    void FUN_0022baf0(const V3_202f0 *axis, float angle);
+    void FUN_0022c3b0(const V3_202f0 *in, V3_202f0 *out);
+    void FUN_0022c2b0(const V4_202f0 *a, V3_202f0 *b);
+    void FUN_0022bec0(const V3_202f0 *fwd, const V3_202f0 *up);
+    void FUN_0022ca90(const Mat4_202f0 *a, const Mat4_202f0 *b);
     void FUN_0022c0b0();
-    void FUN_0022cc10(const Mat4 *a, const Mat4 *b);
+    void FUN_0022cc10(const Mat4_202f0 *a, const Mat4_202f0 *b);
 };
 
-struct Xf {
+struct Xf_202f0 {
     char data[16];
-    void FUN_0022b370(const Mat4 *m);
+    void FUN_0022b370(const Mat4_202f0 *m);
 };
 
-struct Part18 {
-    void FUN_00221cf0(const Xf *x);
+struct Part18_202f0 {
+    void FUN_00221cf0(const Xf_202f0 *x);
 };
 
-struct Obj1 {
-    void FUN_00035020(V3 *out);
+struct Obj1_202f0 {
+    void FUN_00035020(V3_202f0 *out);
 };
 
 struct Q2 {
     char pad0[0x2c];
-    V4 f2c;
+    V4_202f0 f2c;
 };
 
 struct Aux3 {
@@ -46,41 +46,41 @@ struct Aux3 {
     virtual Q2 *v8();
 };
 
-struct Obj2 {
+struct Obj2_202f0 {
     virtual void o0(); virtual void o1(); virtual void o2(); virtual void o3();
     virtual void o4(); virtual void o5(); virtual void o6(); virtual void o7();
     virtual void o8(); virtual void o9(); virtual void o10(); virtual void o11();
     virtual void o12(); virtual void o13(); virtual void o14();
-    virtual Mat4 *v15();
+    virtual Mat4_202f0 *v15();
     char pad_o[0x11c - 0x4];
     Aux3 *f11c;
     char pad120[0x148 - 0x120];
-    Obj1 *f148;
+    Obj1_202f0 *f148;
 };
 
-struct Target {
+struct Target_202f0 {
     virtual void ref();
     virtual void unref();
     char pad4[4];
     union {
-        Obj1 *o1;
-        Obj2 *o2;
+        Obj1_202f0 *o1;
+        Obj2_202f0 *o2;
     } u08;                           // 8
     int f0c;
     char pad10[0x40 - 0x10];
-    V3 v40;
+    V3_202f0 v40;
 };
 
-struct Bone {
+struct Bone_202f0 {
     char pad0[0x28];
     unsigned short *parent;          // 0x28
 };
 
 struct YBlk {
     char pad0[8];
-    Bone *f8;
+    Bone_202f0 *f8;
     char pad0c[0x1c - 0xc];
-    Mat4 *f1c;
+    Mat4_202f0 *f1c;
 };
 
 struct CfgA {
@@ -94,7 +94,7 @@ struct CfgB {
     char pad0[0x10];
     int f10;
     char pad14[0x18 - 0x14];
-    Part18 part18;
+    Part18_202f0 part18;
 };
 
 struct XBlk {
@@ -106,63 +106,63 @@ struct XBlk {
 
 struct Aux4 {
     char pad0[0x12c];
-    Target *f12c;
+    Target_202f0 *f12c;
 };
 
-struct Fighter {
+struct Fighter_202f0 {
     char pad0[0x328];
-    Target *f328;
+    Target_202f0 *f328;
     unsigned char b32c;
     char pad32d[0x334 - 0x32d];
     Aux4 *f334;
-    void FUN_00035dc0(V3 *out);
-    char FUN_0003a440(V3 *a, V3 *b, int lo, int hi, Target *t);
-    Target *FUN_00039c60(V3 *a, V3 *b, int lo, int hi, int p, int q, int r);
+    void FUN_00035dc0(V3_202f0 *out);
+    char FUN_0003a440(V3_202f0 *a, V3_202f0 *b, int lo, int hi, Target_202f0 *t);
+    Target_202f0 *FUN_00039c60(V3_202f0 *a, V3_202f0 *b, int lo, int hi, int p, int q, int r);
     float FUN_000354c0();
 };
 
-struct Anchor {
-    Fighter *FUN_00059a30();
+struct Anchor_202f0 {
+    Fighter_202f0 *FUN_00059a30();
     XBlk *FUN_00059a40();
 };
 
-struct Owner {
-    Anchor *FUN_000592a0();
+struct Owner_202f0 {
+    Anchor_202f0 *FUN_000592a0();
 };
 
 float __cdecl FUN_00018a20(float v);
 float __cdecl FUN_000189c0(float v);
 float __cdecl FUN_00224ea0(float a, float b);
 float __cdecl FUN_00224fc0(float a, float b);
-void __cdecl FUN_00224d70(float a, V3 *v);
+void __cdecl FUN_00224d70(float a, V3_202f0 *v);
 extern float DAT_0048e054;
 extern float DAT_0048e05c;
 
-union FS {
+union FS_202f0 {
     float f;
     int i;
 };
 
-struct Frame {
-    FS s10;                          // S+0x10
-    FS s14;                          // 0x14
-    V3 v18;                          // 0x18
-    FS s24;                          // 0x24
-    V3 v28;                          // 0x28
-    V3 t34;                          // 0x34
-    V3 v40;                          // 0x40
+struct Frame_202f0 {
+    FS_202f0 s10;                          // S+0x10
+    FS_202f0 s14;                          // 0x14
+    V3_202f0 v18;                          // 0x18
+    FS_202f0 s24;                          // 0x24
+    V3_202f0 v28;                          // 0x28
+    V3_202f0 t34;                          // 0x34
+    V3_202f0 v40;                          // 0x40
     int s4c;                         // 0x4c
     XBlk *X;                         // 0x50
-    V3 boneT;                        // 0x54
+    V3_202f0 boneT;                        // 0x54
     YBlk *Y;                         // 0x60
-    V3 v64;                          // 0x64
-    V3 v70;                          // 0x70
+    V3_202f0 v64;                          // 0x64
+    V3_202f0 v70;                          // 0x70
     int bone;                        // 0x7c
-    Mat4 m80;                        // 0x80
-    Mat4 mc0;                        // 0xc0
-    Mat4 m100;                       // 0x100
-    Mat4 m140;                       // 0x140
-    Mat4 m180;                       // 0x180
+    Mat4_202f0 m80;                        // 0x80
+    Mat4_202f0 mc0;                        // 0xc0
+    Mat4_202f0 m100;                       // 0x100
+    Mat4_202f0 m140;                       // 0x140
+    Mat4_202f0 m180;                       // 0x180
 };
 
 class CHeadTrackerAction {
@@ -171,34 +171,34 @@ public:
     virtual void h4(); virtual void h5(); virtual void h6();
     virtual char vfunc_7(float dt);
     char pad04[0x1c - 0x4];
-    Owner *f1c;
+    Owner_202f0 *f1c;
     CfgA *f20;
     CfgB *f24;
-    V3 v28;
-    Mat4 m34;
+    V3_202f0 v28;
+    Mat4_202f0 m34;
     unsigned char b74;
     char pad75[3];
-    Xf xf78;
-    Target *f88;
+    Xf_202f0 xf78;
+    Target_202f0 *f88;
     unsigned int f8c;
 };
 
 char CHeadTrackerAction::vfunc_7(float dt)
 {
-    Frame f;
-    Anchor *an = f1c->FUN_000592a0();
-    Fighter *F = an->FUN_00059a30();
+    Frame_202f0 f;
+    Anchor_202f0 *an = f1c->FUN_000592a0();
+    Fighter_202f0 *F = an->FUN_00059a30();
     f.X = an->FUN_00059a40();
     f8c = f8c + 1;
     f.Y = f.X->f64;
     f.bone = f24->f10;
-    Mat4 *bm = &f.Y->f1c[f.bone];
+    Mat4_202f0 *bm = &f.Y->f1c[f.bone];
     f.boneT.x = bm->m[12];
     f.boneT.y = bm->m[13];
     f.boneT.z = bm->m[14];
     F->FUN_00035dc0(&f.v28);
 
-    Target *tgt;
+    Target_202f0 *tgt;
     bool have = false;
     if (F->b32c == 0) {
         tgt = F->f328;
@@ -242,14 +242,14 @@ char CHeadTrackerAction::vfunc_7(float dt)
     if (tgt->f0c == 1) {
         tgt->u08.o1->FUN_00035020(&f.t34);
     } else if (tgt->f0c == 5) {
-        Obj2 *o2 = tgt->u08.o2;
+        Obj2_202f0 *o2 = tgt->u08.o2;
         if (o2 != 0) {
             if (o2->f148 != 0) {
                 o2->f148->FUN_00035020(&f.t34);
             } else if (o2->f11c != 0) {
                 Q2 *q = o2->f11c->v8();
                 if (q != 0) {
-                    V4 w = q->f2c;
+                    V4_202f0 w = q->f2c;
                     o2->v15()->FUN_0022c2b0(&w, &f.t34);
                 }
             }

@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 16/16)
 // pure3d::SpriteLoader::vfunc_9 @ 0x002be1b0
-struct StrField {
+struct StrField_2be1b0 {
     int a, b;
     void FUN_0027b040(const char *s);
 };
 
 struct Sprite {
     char pad0[8];
-    StrField name;
+    StrField_2be1b0 name;
 };
 
-struct SpriteData {
+struct SpriteData_2be1b0 {
     char pad0[0x8c];
     int field8c;
     void FUN_002ae950(int a, int b, int c, int d);
@@ -53,7 +53,7 @@ public:
     virtual void vfunc_8();
     virtual Sprite *vfunc_9(Reader *r, int unused);
     char pad04[0x1c - 4];
-    SpriteData *data;
+    SpriteData_2be1b0 *data;
 };
 }
 

@@ -1,27 +1,27 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 46/46)
 // CSPManager::vfunc_1 @ 0x001e5f10
 // CSPManager::vfunc_1 @ 0x001e5f10
-typedef unsigned __int64 Key;
-extern Key __cdecl FUN_002672f0(const char *, Key) throw();
+typedef unsigned __int64 Key_1e5f10;
+extern Key_1e5f10 __cdecl FUN_002672f0(const char *, Key_1e5f10) throw();
 
-struct NameHolder {
+struct NameHolder_1e5f10 {
     char data[8];
     void FUN_0027b040(const char *name);
 };
-struct IdHolder {
+struct IdHolder_1e5f10 {
     char data[8];
-    void FUN_0027af60(Key k);
+    void FUN_0027af60(Key_1e5f10 k);
 };
-struct Quat {
+struct Quat_1e5f10 {
     float x, y, z, w;
     void FUN_0022b220(float x, float y, float z);
 };
 struct QSlot {
     char data[6];
-    void FUN_001db780(Quat *q);
+    void FUN_001db780(Quat_1e5f10 *q);
 };
 
-struct Element {
+struct Element_1e5f10 {
     char pad0[0xc];
     const char *name;
     const char *FUN_003365b0(const char *attr);
@@ -32,7 +32,7 @@ struct Element {
     void FUN_003364f0(const char *attr, int *out);
 };
 
-struct Unlocks {
+struct Unlocks_1e5f10 {
     char FUN_00092940(int id);
     char FUN_00092860(int idx);
 };
@@ -45,22 +45,22 @@ struct OptMain {
 };
 struct OptHolder {
     OptMain *FUN_00086310();
-    Unlocks *FUN_00086340();
+    Unlocks_1e5f10 *FUN_00086340();
 };
 struct Sub2c {
     char FUN_001cd010();
 };
-struct Globals {
+struct Globals_1e5f10 {
     char pad[0x2c];
     Sub2c *sub2c;
     char pad30[0x54 - 0x30];
     OptHolder *opt;
 };
-extern Globals *DAT_004dd700;
+extern Globals_1e5f10 *DAT_004dd700;
 
 struct SPEntry {
-    NameHolder name;     // 0
-    IdHolder id;         // 8
+    NameHolder_1e5f10 name;     // 0
+    IdHolder_1e5f10 id;         // 8
     QSlot q;             // 0x10
     short rooms;         // 0x16
     char pad18[4];
@@ -73,14 +73,14 @@ struct SPEntry {
     void FUN_001dbba0();
 };
 
-struct Frame {
+struct Frame_1e5f10 {
     char pad10[3];
     char persistent;
     int unlockable, collision, fade, initialState, rooms, usage;
-    Key key;
+    Key_1e5f10 key;
     float rx, ry, rz;
     float tx, ty, tz;
-    Quat q;
+    Quat_1e5f10 q;
 };
 
 struct SPLink {
@@ -92,7 +92,7 @@ struct SPLink {
 class CSPManager {
 public:
     virtual void vfunc_0();
-    virtual bool vfunc_1(Element *e);
+    virtual bool vfunc_1(Element_1e5f10 *e);
     virtual void vfunc_2();
     virtual void vfunc_3();
     char pad04[0x608 - 4];
@@ -106,11 +106,11 @@ public:
     void FUN_001dbe60();
 };
 
-bool CSPManager::vfunc_1(Element *e)
+bool CSPManager::vfunc_1(Element_1e5f10 *e)
 {
     if (linkCount >= 0x800)
         return false;
-    Frame f;
+    Frame_1e5f10 f;
     f.unlockable = -1;
     f.collision = 0;
     f.fade = 0;
@@ -127,11 +127,11 @@ bool CSPManager::vfunc_1(Element *e)
     e->FUN_003364c0("CollisionPropIndex", &f.collision);
     e->FUN_003364c0("FadeRange", &f.fade);
     e->FUN_003364c0("UnlockableIndex", &f.unlockable);
-    Key key = FUN_002672f0(drawable, 0);
+    Key_1e5f10 key = FUN_002672f0(drawable, 0);
     key = FUN_002672f0("_", key);
     key = FUN_002672f0(drawable, key);
-    static Key streetLight = FUN_002672f0("streetLight_streetLight", 0);
-    Unlocks *u = DAT_004dd700->opt->FUN_00086340();
+    static Key_1e5f10 streetLight = FUN_002672f0("streetLight_streetLight", 0);
+    Unlocks_1e5f10 *u = DAT_004dd700->opt->FUN_00086340();
     if (key == streetLight && u->FUN_00092940(0x1a))
         key = FUN_002672f0("gorilla_gorilla", 0);
     if (DAT_004dd700->opt->FUN_00086310()->s80.FUN_00088fa0() != 8 && f.unlockable >= 0) {

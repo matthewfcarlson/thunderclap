@@ -1,33 +1,33 @@
 // STATUS: equivalent (tools/equiv.py level 3: 151 inputs, branch coverage 43/44, incomplete)
 // pure3d::ParticleSystemLoader::vfunc_5 @ 0x002ab030
 // pure3d::ParticleSystemLoader::vfunc_5 @ 0x002ab030
-typedef unsigned __int64 Key;
+typedef unsigned __int64 Key_2ab030;
 extern char DAT_0049c7dc[];
 extern char DAT_004ce770[];
 extern char DAT_0049fd74[];
 extern char DAT_0049fd9c[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 extern void *__cdecl FUN_00263ea0(unsigned int size);
-extern Key __cdecl FUN_002672f0(const char *, int, int);
+extern Key_2ab030 __cdecl FUN_002672f0(const char *, int, int);
 
-struct V3 {
+struct V3_2ab030 {
     float x, y, z;
 };
 
-struct Mat4 {
+struct Mat4_2ab030 {
     float m[16];
-    void FUN_0022be40(const V3 *pos);
+    void FUN_0022be40(const V3_2ab030 *pos);
 };
 
-struct Quat {
+struct Quat_2ab030 {
     float x, y, z, w;
-    void FUN_0022b650(Mat4 *out);
+    void FUN_0022b650(Mat4_2ab030 *out);
 };
 
-struct NameHolder {
+struct NameHolder_2ab030 {
     char data[8];
     void FUN_0027b040(const char *name);
-    void FUN_0027af70(const NameHolder *other);
+    void FUN_0027af70(const NameHolder_2ab030 *other);
 };
 
 struct Stream {
@@ -49,7 +49,7 @@ public:
     virtual void release();
 };
 
-class Factory {
+class Factory_2ab030 {
 public:
     virtual void retain();
     virtual void release();
@@ -59,12 +59,12 @@ public:
     virtual void create(Object **out, unsigned *aux, Reader *reader, unsigned arg);
 };
 
-struct Manager {
+struct Manager_2ab030 {
     void *FUN_00265310(unsigned id);
 };
-extern Manager *DAT_00527c58;
+extern Manager_2ab030 *DAT_00527c58;
 
-class Emitter {
+class Emitter_2ab030 {
 public:
     virtual void v0();
     virtual void v1();
@@ -94,12 +94,12 @@ public:
     virtual void v25(Object *arg);
 };
 
-struct Slot16 {
-    Emitter *emitter;
+struct Slot16_2ab030 {
+    Emitter_2ab030 *emitter;
     char pad[12];
 };
 
-class Gen {
+class Gen_2ab030 {
 public:
     virtual void v0();
     virtual void v1();
@@ -107,7 +107,7 @@ public:
     virtual int v3();
 };
 
-class Binder {
+class Binder_2ab030 {
 public:
     char pad0[0x38];
     struct Bind *dummy;
@@ -115,41 +115,41 @@ public:
 
 struct BindTable {
     char FUN_002aa6d0(int id);
-    void FUN_002aa720(Slot16 *slot, Reader *r, unsigned arg);
+    void FUN_002aa720(Slot16_2ab030 *slot, Reader *r, unsigned arg);
 };
 
-class Particle {
+class Particle_2ab030 {
 public:
     virtual void v0();
     char pad4[4];
-    NameHolder name;      // 8
+    NameHolder_2ab030 name;      // 8
     char pad10[4];
-    V3 v14;
-    V3 v20;
-    V3 v2c;
+    V3_2ab030 v14;
+    V3_2ab030 v20;
+    V3_2ab030 v2c;
     float f38;
     char pad3c[4];
     float f40;
     char pad44[4];
-    Slot16 *slots;        // 0x48
+    Slot16_2ab030 *slots;        // 0x48
     char pad4c[0xc];
     char b58;
     float f5c;
     int f60;
-    Mat4 mat;             // 0x64
+    Mat4_2ab030 mat;             // 0x64
     char pad_a4_[0xa4 - 0xa4];
-    Particle *FUN_002a3660(int a);
+    Particle_2ab030 *FUN_002a3660(int a);
     void FUN_002a3c80(void *child);
 };
 
-class Child {
+class Child_2ab030 {
 public:
     char pad0[8];
-    NameHolder name;
-    Child *FUN_002a73d0();
+    NameHolder_2ab030 name;
+    Child_2ab030 *FUN_002a73d0();
 };
 
-struct Frame {
+struct Frame_2ab030 {
     char pad10[4];
     unsigned f14;
     unsigned f18;
@@ -160,14 +160,14 @@ struct Frame {
     float f2c;
     int f30;
     float f34;
-    V3 pos;
+    V3_2ab030 pos;
     unsigned aux;
     char pad48[4];
-    Quat quat;
+    Quat_2ab030 quat;
     char name[0x100];
 };
 
-class Loader {
+class Loader_2ab030 {
 public:
     virtual void v0();
     virtual void v1();
@@ -176,14 +176,14 @@ public:
     virtual void v4();
     char pad4[0x10];
     unsigned count;
-    Gen *list[8];
+    Gen_2ab030 *list[8];
     BindTable *table;
-    unsigned FUN_002ab030(Particle **out, Key *outId, Reader *reader, unsigned arg);
+    unsigned FUN_002ab030(Particle_2ab030 **out, Key_2ab030 *outId, Reader *reader, unsigned arg);
 };
 
-unsigned Loader::FUN_002ab030(Particle **out, Key *outId, Reader *reader, unsigned arg)
+unsigned Loader_2ab030::FUN_002ab030(Particle_2ab030 **out, Key_2ab030 *outId, Reader *reader, unsigned arg)
 {
-    Frame f;
+    Frame_2ab030 f;
     f.self = this;
     reader->stream->FUN_002647e0(&f.f28, 1, 4, 1);
     reader->stream->FUN_002647e0(&f.name[0xff], 1, 1, 1);
@@ -198,9 +198,9 @@ unsigned Loader::FUN_002ab030(Particle **out, Key *outId, Reader *reader, unsign
     reader->stream->FUN_002647e0(&f.pos, 3, 4, 1);
     reader->stream->FUN_002647e0(&f.f14, 1, 4, 1);
     void *mem = FUN_00263ea0(0xb0);
-    Particle *p;
+    Particle_2ab030 *p;
     if (mem)
-        p = ((Particle *)mem)->FUN_002a3660(f.f14);
+        p = ((Particle_2ab030 *)mem)->FUN_002a3660(f.f14);
     else
         p = 0;
     p->name.FUN_0027b040(f.name);
@@ -223,7 +223,7 @@ unsigned Loader::FUN_002ab030(Particle **out, Key *outId, Reader *reader, unsign
             p->f38 = f.f2c;
             break;
         case 0x121201: {
-            Factory *factory = (Factory *)FUN_00344e74(DAT_00527c58->FUN_00265310(0x121201), 0, DAT_0049c7dc, DAT_004ce770, 0);
+            Factory_2ab030 *factory = (Factory_2ab030 *)FUN_00344e74(DAT_00527c58->FUN_00265310(0x121201), 0, DAT_0049c7dc, DAT_004ce770, 0);
             factory->retain();
             f.f20 = 0;
             factory->create(&f.f20, &f.aux, reader, arg);
@@ -256,10 +256,10 @@ unsigned Loader::FUN_002ab030(Particle **out, Key *outId, Reader *reader, unsign
             break;
         }
         default: {
-            Loader *self = (Loader *)f.self;
+            Loader_2ab030 *self = (Loader_2ab030 *)f.self;
             if (self->table->FUN_002aa6d0(reader->FUN_00266c30()) == 1) {
                 self->table->FUN_002aa720(&p->slots[off], reader, arg);
-                Emitter *e = p->slots[off].emitter;
+                Emitter_2ab030 *e = p->slots[off].emitter;
                 unsigned i;
                 for (i = 0; i < self->count; i++) {
                     if (self->list[i]->v3() == e->v11()) {
@@ -276,16 +276,16 @@ unsigned Loader::FUN_002ab030(Particle **out, Key *outId, Reader *reader, unsign
     }
     if (*(void **)((char *)p + 0xa4) == 0) {
         void *m2 = FUN_00263ea0(0x60);
-        Child *c;
+        Child_2ab030 *c;
         if (m2)
-            c = ((Child *)m2)->FUN_002a73d0();
+            c = ((Child_2ab030 *)m2)->FUN_002a73d0();
         else
             c = 0;
         c->name.FUN_0027af70(&p->name);
         p->FUN_002a3c80(c);
     }
     *out = p;
-    Key key = FUN_002672f0(f.name, 0, 0);
+    Key_2ab030 key = FUN_002672f0(f.name, 0, 0);
     *outId = key;
     return (unsigned)key;
 }

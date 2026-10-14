@@ -2,57 +2,57 @@
 // hulkfight::scenario::EffectAction::vfunc_3 @ 0x001a5f00
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
-struct V3 {
+struct V3_1a5f00 {
     float x, y, z;
 };
 
 struct Matrix {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022be40(const V3 *t);
+    void FUN_0022be40(const V3_1a5f00 *t);
     void FUN_0022bc20(float x, float y, float z);
     void FUN_0022ca90(const Matrix *a, const Matrix *b);
     void FUN_0022c120();
 };
 
-class RefObj {
+class RefObj_1a5f00 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-class Anim : public RefObj {
+class Anim_1a5f00 : public RefObj_1a5f00 {
 public:
     virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5();
     virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9();
     virtual void v10();
-    virtual Anim *v11();
-    Anim *FUN_002960d0();
+    virtual Anim_1a5f00 *v11();
+    Anim_1a5f00 *FUN_002960d0();
 };
 
-struct Ctrl {
+struct Ctrl_1a5f00 {
     char pad0[8];
     unsigned int keylo;
     unsigned int keyhi;
     char padc[0x120 - 0x10];
-    Ctrl *f120;
+    Ctrl_1a5f00 *f120;
     char pad124[0x1a4c - 0x124];
     float f1a4c;
     bool FUN_00035160(Matrix *out);
 };
 
-struct List {
+struct List_1a5f00 {
     char pad0[0xc];
     int count;
-    Ctrl *FUN_00024190(int i);
+    Ctrl_1a5f00 *FUN_00024190(int i);
 };
 
 struct World {
     char pad0[0x20];
-    List *list;
+    List_1a5f00 *list;
 };
 
-class Cfg {
+class Cfg_1a5f00 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5();
@@ -68,8 +68,8 @@ public:
     char pad2c[4];
     unsigned int key30lo;
     unsigned int key30hi;
-    V3 v38;
-    V3 v44;
+    V3_1a5f00 v38;
+    V3_1a5f00 v44;
     int mode2;
     char pad54[4];
     int f58;
@@ -77,18 +77,18 @@ public:
     float f60;
 };
 
-struct Mgr {
+struct Mgr_1a5f00 {
     void *FUN_00283a40(void *a, Matrix *m, float t, float f60);
-    void *FUN_00283b10(void *a, Ctrl *c, void *b, Matrix *m, float t, float f60);
-    void *FUN_00283be0(void *a, Ctrl *c, float t, float f60);
+    void *FUN_00283b10(void *a, Ctrl_1a5f00 *c, void *b, Matrix *m, float t, float f60);
+    void *FUN_00283be0(void *a, Ctrl_1a5f00 *c, float t, float f60);
 };
 
 extern World *DAT_004dd700;
-struct Registry {
-    Anim *FUN_001a57d0(unsigned int lo, unsigned int hi);
+struct Registry_1a5f00 {
+    Anim_1a5f00 *FUN_001a57d0(unsigned int lo, unsigned int hi);
 };
-extern Registry *DAT_004e1760;
-Mgr *FUN_0027f250();
+extern Registry_1a5f00 *DAT_004e1760;
+Mgr_1a5f00 *FUN_0027f250();
 
 namespace hulkfight {
 namespace scenario {
@@ -101,18 +101,18 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     char pad04[0x18];
-    Cfg *cfg;
+    Cfg_1a5f00 *cfg;
     char pad20[4];
     void *result;
-    Anim *anim;
+    Anim_1a5f00 *anim;
     Matrix cache;
-    void FUN_001a5840(Ctrl *c, unsigned int lo, unsigned int hi, Matrix *out);
+    void FUN_001a5840(Ctrl_1a5f00 *c, unsigned int lo, unsigned int hi, Matrix *out);
 };
 
 bool EffectAction::vfunc_3(int a, int b)
 {
     union Word {
-        Ctrl *ctrl;
+        Ctrl_1a5f00 *ctrl;
         float t;
         unsigned int u;
         float f;
@@ -122,28 +122,28 @@ bool EffectAction::vfunc_3(int a, int b)
         Word w14;
         Word w18;
         Word w1c;
-        V3 tmp2;
-        V3 tmp4;
-        V3 tmp1;
+        V3_1a5f00 tmp2;
+        V3_1a5f00 tmp4;
+        V3_1a5f00 tmp1;
         Matrix mb;
         Matrix mc;
         Matrix ma;
     } f;
 
-    Cfg *c0 = cfg;
+    Cfg_1a5f00 *c0 = cfg;
     unsigned int lo = c0->key18lo;
     unsigned int hi = c0->key18hi;
-    Ctrl *esi = 0;
+    Ctrl_1a5f00 *esi = 0;
     f.w10.ctrl = 0;
     f.w14.u = lo;
     f.w18.u = hi;
     if ((lo | hi) != 0) {
-        List *list = DAT_004dd700->list;
+        List_1a5f00 *list = DAT_004dd700->list;
         bool searched = true;
         if (list->count > 0) {
             int i = 0;
             do {
-                Ctrl *item = list->FUN_00024190(i);
+                Ctrl_1a5f00 *item = list->FUN_00024190(i);
                 if (item != 0 && item->keylo == f.w14.u && item->keyhi == f.w18.u) {
                     esi = item->f120;
                     f.w10.ctrl = item;
@@ -155,22 +155,22 @@ bool EffectAction::vfunc_3(int a, int b)
             } while (i < list->count);
         }
         if (searched && DAT_004e1760 != 0) {
-            Anim *an = DAT_004e1760->FUN_001a57d0(f.w14.u, f.w18.u);
+            Anim_1a5f00 *an = DAT_004e1760->FUN_001a57d0(f.w14.u, f.w18.u);
             if (an != 0)
                 an->AddRef();
             if (anim != 0)
                 anim->Release();
             anim = an;
             if (an != 0)
-                esi = (Ctrl *)an->FUN_002960d0()->v11();
+                esi = (Ctrl_1a5f00 *)an->FUN_002960d0()->v11();
         }
     }
 
-    Mgr *mgr = FUN_0027f250();
+    Mgr_1a5f00 *mgr = FUN_0027f250();
     switch (cfg->mode1) {
     case 0: {
         f.ma.FUN_0022b980();
-        V3 *t = (V3 *)&f.w14;
+        V3_1a5f00 *t = (V3_1a5f00 *)&f.w14;
         *t = cfg->v38;
         f.ma.FUN_0022be40(t);
         f.ma.FUN_0022bc20(cfg->v44.x, cfg->v44.y, cfg->v44.z);
@@ -210,7 +210,7 @@ bool EffectAction::vfunc_3(int a, int b)
         break;
     }
 
-    Cfg *c1 = cfg;
+    Cfg_1a5f00 *c1 = cfg;
     f.w10.t = c1->f10;
     f.w10.t = f.w10.t - c1->v6();
     f.w14.f = cfg->f60;

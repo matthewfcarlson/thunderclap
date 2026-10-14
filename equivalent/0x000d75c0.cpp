@@ -5,7 +5,7 @@ void *operator new(size_t) throw();
 extern char DAT_0048e0e4, DAT_0048e100, DAT_0048e134;
 char FUN_001d04d0(const void *) throw();
 
-class Base {
+class Base_d75c0 {
 public:
     virtual void v();
     char p[12];
@@ -13,14 +13,14 @@ public:
     char q[7];
     char result;
     char z[3];
-    Base(const char *, int) throw();
+    Base_d75c0(const char *, int) throw();
 };
 
 template <class C, class R, class A>
-class Method1 : public Base {
+class Method1 : public Base_d75c0 {
 public:
     void (*f)();
-    Method1(const char *n, void (*x)(), const void *r, const void *a) : Base(n, 1)
+    Method1(const char *n, void (*x)(), const void *r, const void *a) : Base_d75c0(n, 1)
     {
         f = x;
         result = FUN_001d04d0(r);
@@ -42,20 +42,20 @@ public:
 
 class CSimOverlayManager;
 
-struct Registry {
+struct Registry_d75c0 {
     void FUN_001d3b70(const char *name, void *obj);
     void FUN_000d7550(const char *name, CSimOverlayManager *mgr, void (*fn)());
 };
-Registry *FUN_001d4c90();
+Registry_d75c0 *FUN_001d4c90();
 
-struct Panel {
+struct Panel_d75c0 {
     char pad[0x810];
-    Panel *FUN_000d6640();
+    Panel_d75c0 *FUN_000d6640();
 };
 
-struct Overlays {
+struct Overlays_d75c0 {
     char pad[0x510];
-    Overlays *FUN_000d1720();
+    Overlays_d75c0 *FUN_000d1720();
 };
 
 void FUN_000d6fb0();
@@ -70,19 +70,19 @@ class CSimOverlayManager {
 public:
     CSimOverlayManager();
     virtual void v0();
-    Panel *panel;
-    Overlays *overlays;
+    Panel_d75c0 *panel;
+    Overlays_d75c0 *overlays;
     int f0c;
 };
 
 CSimOverlayManager::CSimOverlayManager()
 {
-    Panel *p = new Panel;
+    Panel_d75c0 *p = new Panel_d75c0;
     panel = p ? p->FUN_000d6640() : 0;
-    Overlays *o = new Overlays;
+    Overlays_d75c0 *o = new Overlays_d75c0;
     overlays = o ? o->FUN_000d1720() : 0;
     f0c = 0;
-    Registry *r = FUN_001d4c90();
+    Registry_d75c0 *r = FUN_001d4c90();
     if (r) {
         r->FUN_001d3b70("hud_ShowOverlays", new Closure1<CSimOverlayManager, void, bool>("hud_ShowOverlays", this, FUN_000d6fb0, &DAT_0048e100, &DAT_0048e0e4));
         r->FUN_001d3b70("hud_ShowHUD", new Closure1<CSimOverlayManager, void, bool>("hud_ShowHUD", this, FUN_000d6f80, &DAT_0048e100, &DAT_0048e0e4));

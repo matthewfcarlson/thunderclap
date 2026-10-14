@@ -2,14 +2,14 @@
 // FUN_00093020 @ 0x00093020
 extern char DAT_0049dab8;
 extern char DAT_0049dafc;
-struct Value { void FUN_0027b040(void* source); char bytes[20]; };
-struct Item { char pad[16]; Value value; int kind; char data[8]; };
-extern Item* __cdecl FUN_00344e74(void*, int, void*, void*, int);
+struct Value_93020 { void FUN_0027b040(void* source); char bytes[20]; };
+struct Item_93020 { char pad[16]; Value_93020 value; int kind; char data[8]; };
+extern Item_93020* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern void __cdecl FUN_00267760(void*, int, void*);
-struct Container { void* items[50]; void FUN_00093020(int index, void* source, void* data); };
-void Container::FUN_00093020(int index, void* source, void* data) {
+struct Container_93020 { void* items[50]; void FUN_00093020(int index, void* source, void* data); };
+void Container_93020::FUN_00093020(int index, void* source, void* data) {
  if (index < 0 || index > 49) return;
- Item* item = FUN_00344e74(items[index], 0, &DAT_0049dab8, &DAT_0049dafc, 0);
+ Item_93020* item = FUN_00344e74(items[index], 0, &DAT_0049dab8, &DAT_0049dafc, 0);
  if (!item) return;
  item->value.FUN_0027b040(source);
  FUN_00267760(item->data, 8, data);

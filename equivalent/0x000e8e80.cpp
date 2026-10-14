@@ -10,7 +10,7 @@ public:
     virtual void c0();
 };
 
-class Child {
+class Child_e8e80 {
 public:
     virtual void c0();
     virtual void c1();
@@ -27,7 +27,7 @@ public:
     virtual char vfunc_12(int a, int b);
 };
 
-class Manager {
+class Manager_e8e80 {
 public:
     virtual void m0();
     virtual void m1();
@@ -49,7 +49,7 @@ public:
     virtual int vfunc_17();
 };
 
-struct Item {
+struct Item_e8e80 {
     FEObject *obj;
     int pad[3];
 };
@@ -85,11 +85,11 @@ public:
     virtual void v19();
     virtual void v21();
     char pad04[4];
-    Manager *manager;
+    Manager_e8e80 *manager;
     char padC[0x40 - 0xc];
-    Item items[32];
+    Item_e8e80 items[32];
     char pad240[4];
-    Child *child;
+    Child_e8e80 *child;
     int index;
     char pad24c[0x268 - 0x24c];
     int fallbackIndex;

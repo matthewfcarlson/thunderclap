@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 28/28)
 // FUN_002ee260 @ 0x002ee260
-struct V3 {
+struct V3_2ee260 {
     float x, y, z;
 };
 
-class Bounds {
+class Bounds_2ee260 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual V3 *GetPos();
+    virtual V3_2ee260 *GetPos();
     virtual void v5();
     virtual int GetKind();
     char pad04[0x24];
@@ -20,50 +20,50 @@ public:
     float limit;
 };
 
-class Obj {
+class Obj_2ee260 {
 public:
     virtual void AddRef();
     char pad04[0x1c];
-    Bounds *bounds;
+    Bounds_2ee260 *bounds;
     char pad24[0x2c];
     bool listed;
 };
 
-struct Entry {
-    Obj *obj;
+struct Entry_2ee260 {
+    Obj_2ee260 *obj;
     float x0;
     float x1;
     float z0;
     float z1;
 };
 
-class Tracker {
+class Tracker_2ee260 {
 public:
     char pad0[4];
-    Obj **end;
-    Obj **capEnd;
+    Obj_2ee260 **end;
+    Obj_2ee260 **capEnd;
     char padc[8];
-    Obj **sorted;
+    Obj_2ee260 **sorted;
     unsigned int sortedCount;
     float maxA;
     float maxB;
-    Entry *entries;
+    Entry_2ee260 *entries;
     unsigned int entryCount;
 
-    void FUN_002ee260(Obj *obj);
+    void FUN_002ee260(Obj_2ee260 *obj);
 };
 
-void Tracker::FUN_002ee260(Obj *obj)
+void Tracker_2ee260::FUN_002ee260(Obj_2ee260 *obj)
 {
     if (end < capEnd) {
-        Obj **p = end;
+        Obj_2ee260 **p = end;
         end = p + 1;
         if (p != 0)
             *p = obj;
     }
     obj->AddRef();
     if (obj->listed) {
-        Bounds *b;
+        Bounds_2ee260 *b;
         b = obj->bounds;
         float x0 = b->GetPos()->x - b->halfX;
         b = obj->bounds;
@@ -89,8 +89,8 @@ void Tracker::FUN_002ee260(Obj *obj)
                     if (!(hi < lo))
                         return;
                 }
-                Entry *p1 = &entries[k - 1];
-                Entry tmp = *p1;
+                Entry_2ee260 *p1 = &entries[k - 1];
+                Entry_2ee260 tmp = *p1;
                 *p1 = entries[k - 2];
                 entries[k - 2] = tmp;
             }
@@ -108,8 +108,8 @@ void Tracker::FUN_002ee260(Obj *obj)
             float a = sorted[k - 1]->bounds->GetPos()->x;
             if (!(a < sorted[k - 2]->bounds->GetPos()->x))
                 return;
-            Obj *lo = sorted[k - 2];
-            Obj *hi = sorted[k - 1];
+            Obj_2ee260 *lo = sorted[k - 2];
+            Obj_2ee260 *hi = sorted[k - 1];
             sorted[k - 1] = lo;
             sorted[k - 2] = hi;
             k--;

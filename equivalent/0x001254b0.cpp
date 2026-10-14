@@ -2,51 +2,51 @@
 // hulkfight::ai::ProjectileDistanceCondition::vfunc_6 @ 0x001254b0
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_1254b0 {
     float x, y, z;
 };
 
-struct Aim {
-    bool FUN_00059a50(V3 *out);
+struct Aim_1254b0 {
+    bool FUN_00059a50(V3_1254b0 *out);
 };
 
-struct Body {
+struct Body_1254b0 {
     char pad0[0x1c9];
     char flag;
 };
 
-struct Weapon {
+struct Weapon_1254b0 {
     char pad0[0x1b0];
     int state;
 };
 
-struct Rig {
+struct Rig_1254b0 {
     char pad0[0x11c];
-    Weapon *weapon;
+    Weapon_1254b0 *weapon;
 };
 
-struct Target {
+struct Target_1254b0 {
     char pad0[8];
-    Rig *rig;             // 0x08 (a Body when type == 5)
+    Rig_1254b0 *rig;             // 0x08 (a Body when type == 5)
     int type;             // 0x0c
     char pad10[0x40 - 0x10];
-    V3 pos;               // 0x40
+    V3_1254b0 pos;               // 0x40
 };
 
-struct Fighter {
+struct Fighter_1254b0 {
     char pad0[0x10];
-    Aim *aim;
-    Target *FUN_00037400();
+    Aim_1254b0 *aim;
+    Target_1254b0 *FUN_00037400();
 };
 
-struct Holder {
-    Fighter *FUN_00059a30();
+struct Holder_1254b0 {
+    Fighter_1254b0 *FUN_00059a30();
 };
 
 class fightParams {
 public:
     virtual void v0();
-    Holder *FUN_000592a0();
+    Holder_1254b0 *FUN_000592a0();
 };
 
 class CFightParams : public fightParams {
@@ -77,20 +77,20 @@ bool ProjectileDistanceCondition::vfunc_6(int a, fightParams *params, int b)
     if (dynamic_cast<CFightParams *>(params) == 0)
         return false;
 
-    Fighter *f = params->FUN_000592a0()->FUN_00059a30();
-    V3 origin;
+    Fighter_1254b0 *f = params->FUN_000592a0()->FUN_00059a30();
+    V3_1254b0 origin;
     origin.x = 0.0f;
     origin.y = 0.0f;
     origin.z = 0.0f;
     f->aim->FUN_00059a50(&origin);
 
-    Target *t = f->FUN_00037400();
+    Target_1254b0 *t = f->FUN_00037400();
     if (t == 0)
         return false;
 
     int type = t->type;
     if (type == 5) {
-        if (((Body *)t->rig)->flag == 0)
+        if (((Body_1254b0 *)t->rig)->flag == 0)
             return false;
     } else {
         if (skipNonBody != 0)
@@ -106,7 +106,7 @@ bool ProjectileDistanceCondition::vfunc_6(int a, fightParams *params, int b)
         }
     }
 
-    V3 *p = &t->pos;
+    V3_1254b0 *p = &t->pos;
     float dx = p->x - origin.x;
     float dy = p->y - origin.y;
     float dz = p->z - origin.z;

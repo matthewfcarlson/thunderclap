@@ -10,32 +10,32 @@ class CFightParams : public fight::Params {
 public:
     virtual void vfunc_0();
 };
-struct Owner {
+struct Owner_115f40 {
     char pad[8];
     int state;
-    Owner* next;
+    Owner_115f40* next;
     char pad2[0x1a39 - 0x10];
     char groundPoint;
 };
-struct Fighter {
+struct Fighter_115f40 {
     char pad[0x328];
-    Owner* owner;
+    Owner_115f40* owner;
     char pad2[0x1a39 - 0x32c];
     char groundPoint;
 };
-struct Slot {
+struct Slot_115f40 {
     char pad[8];
     int kind;
-    Fighter* fighter;
+    Fighter_115f40* fighter;
 };
-struct Mid {
+struct Mid_115f40 {
     char pad[0x328];
-    Slot* slot;
+    Slot_115f40* slot;
     char pad2[0x1a39 - 0x32c];
     char groundPoint;
 };
 void* __fastcall FUN_000592a0(void* p);
-Mid* __fastcall FUN_00059a30(void* p);
+Mid_115f40* __fastcall FUN_00059a30(void* p);
 namespace hulkfight { namespace ai {
 class HasGroundPointCondition {
 public:
@@ -53,12 +53,12 @@ public:
 bool HasGroundPointCondition::vfunc_6(int a, fight::Params* params, int c) {
     if (!dynamic_cast<CFightParams*>(params))
         return false;
-    Mid* m = FUN_00059a30(FUN_000592a0(params));
+    Mid_115f40* m = FUN_00059a30(FUN_000592a0(params));
     if (useOwner) {
-        Slot* s = m->slot;
+        Slot_115f40* s = m->slot;
         if (!s || s->kind != 1)
             return false;
-        Fighter* f = s->fighter;
+        Fighter_115f40* f = s->fighter;
         if (!f)
             return false;
         return f->groundPoint == expected;

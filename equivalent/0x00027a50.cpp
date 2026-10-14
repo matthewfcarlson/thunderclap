@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 18/18)
 // FUN_00027a50 @ 0x00027a50
-struct Key { unsigned int first, second; void FUN_0027af00(); void FUN_0027b040(const char*); };
-extern Key DAT_004dc118;
+struct Key_27a50 { unsigned int first, second; void FUN_0027af00(); void FUN_0027b040(const char*); };
+extern Key_27a50 DAT_004dc118;
 extern unsigned int DAT_004dc120;
 extern void __cdecl FUN_00363b30();
 extern int __cdecl atexit(void (__cdecl*)());
 extern void* __cdecl memmove(void*, const void*, unsigned int);
-struct Entry { unsigned int first, second; char rest[8]; };
-struct Object { char pad[0x380]; Entry entries[32]; int count; bool FUN_00027a50(char* destination, const char* suffix); };
+struct Entry_27a50 { unsigned int first, second; char rest[8]; };
+struct Object { char pad[0x380]; Entry_27a50 entries[32]; int count; bool FUN_00027a50(char* destination, const char* suffix); };
 bool Object::FUN_00027a50(char* destination, const char* suffix) {
  if (!(DAT_004dc120 & 1)) { DAT_004dc120 |= 1; DAT_004dc118.FUN_0027af00(); atexit(FUN_00363b30); }
  if (!destination || !suffix) return false;

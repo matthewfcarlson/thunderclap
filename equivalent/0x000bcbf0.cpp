@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 26/26)
 // FUN_000bcbf0 @ 0x000bcbf0
-struct Pair {
+struct Pair_bcbf0 {
     int a;
     int b;
 };
 
-struct Manager {
+struct Manager_bcbf0 {
     int FUN_000f7240(int a, int b);
 };
-Manager *__cdecl FUN_000fc1b0();
+Manager_bcbf0 *__cdecl FUN_000fc1b0();
 
-struct TextEntry {
+struct TextEntry_bcbf0 {
     char pad[0x24];
     void FUN_000f7930();
     void FUN_000f7960();
     void FUN_000f7a10(int id, int flag);
-    void FUN_000f8500(const char *name, Manager *manager, int flag);
+    void FUN_000f8500(const char *name, Manager_bcbf0 *manager, int flag);
 };
 
 extern char DAT_003f335c[];
@@ -32,10 +32,10 @@ public:
     char pad21[0x30 - 0x21];
     const char *name;
     int pad34;
-    Pair id;
+    Pair_bcbf0 id;
     char FUN_00091f40();
     const char *FUN_00092040();
-    Pair *FUN_00092050();
+    Pair_bcbf0 *FUN_00092050();
 };
 
 class CUnlockableCheat : public CUnlockable {
@@ -73,32 +73,32 @@ public:
     virtual void vfunc_16();
     virtual void vfunc_17();
     virtual void vfunc_18();
-    virtual void vfunc_19(TextEntry *entry, int a, int b);
-    virtual void vfunc_20(int index, TextEntry *entry);
+    virtual void vfunc_19(TextEntry_bcbf0 *entry, int a, int b);
+    virtual void vfunc_20(int index, TextEntry_bcbf0 *entry);
     char pad04[0x1d58 - 4];
     int count;
     void FUN_000e36c0();
 };
 
-struct Unlockables {
+struct Unlockables_bcbf0 {
     CUnlockable *FUN_00092ad0(int index);
-    Pair *FUN_00092bb0(int index);
+    Pair_bcbf0 *FUN_00092bb0(int index);
     int FUN_000932a0(int index);
 };
 
 
 
-struct NameSource {
+struct NameSource_bcbf0 {
     const char *FUN_0027b010();
 };
 
-struct Owner {
+struct Owner_bcbf0 {
     char pad0[0x4c];
-    Unlockables *items;
+    Unlockables_bcbf0 *items;
     void FUN_000bcbf0();
 };
 
-void Owner::FUN_000bcbf0()
+void Owner_bcbf0::FUN_000bcbf0()
 {
     CUnlockableMove *first = dynamic_cast<CUnlockableMove *>(items->FUN_00092ad0(0x266));
     if (first == 0)
@@ -121,7 +121,7 @@ void Owner::FUN_000bcbf0()
             flag = 0;
     }
 
-    TextEntry entry;
+    TextEntry_bcbf0 entry;
     entry.FUN_000f7930();
     entry.FUN_000f8500(DAT_003f335c, FUN_000fc1b0(), 1);
     sel->FUN_000e36c0();
@@ -130,7 +130,7 @@ void Owner::FUN_000bcbf0()
         int slot = items->FUN_000932a0(i - 0x266);
         if (slot == -1)
             continue;
-        Pair *p = items->FUN_00092bb0(slot);
+        Pair_bcbf0 *p = items->FUN_00092bb0(slot);
         if ((p->a | p->b) == 0)
             continue;
         CUnlockableMove *move = dynamic_cast<CUnlockableMove *>(items->FUN_00092ad0(slot));
@@ -138,17 +138,17 @@ void Owner::FUN_000bcbf0()
             continue;
         if (!move->FUN_00091f40() && !flag)
             continue;
-        Pair *q = items->FUN_00092bb0(slot);
+        Pair_bcbf0 *q = items->FUN_00092bb0(slot);
         int id = FUN_000fc1b0()->FUN_000f7240(q->a, q->b);
         if (id != -1) {
             entry.FUN_000f7a10(id, 0);
         } else {
-            Manager *m = FUN_000fc1b0();
-            NameSource *ns = (NameSource *)items->FUN_00092bb0(slot);
+            Manager_bcbf0 *m = FUN_000fc1b0();
+            NameSource_bcbf0 *ns = (NameSource_bcbf0 *)items->FUN_00092bb0(slot);
             entry.FUN_000f8500(ns->FUN_0027b010(), m, 1);
         }
         sel->vfunc_19(&entry, 0, 0);
-        Pair *r = move->FUN_00092050();
+        Pair_bcbf0 *r = move->FUN_00092050();
         int id2 = FUN_000fc1b0()->FUN_000f7240(r->a, r->b);
         entry.FUN_000f7a10(id2, 0);
         sel->vfunc_20(sel->count - 1, &entry);

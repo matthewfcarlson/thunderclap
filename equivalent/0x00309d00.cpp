@@ -2,32 +2,32 @@
 // physics::PhysicsJoint3D::vfunc_12 @ 0x00309d00
 extern float DAT_004218f0;
 
-struct V3 {
+struct V3_309d00 {
     float x, y, z;
 };
 
-struct Frame {
+struct Frame_309d00 {
     char pad0[0x10];
-    V3 v;
+    V3_309d00 v;
     void FUN_002fd730();
 };
 
-struct Mid {
+struct Mid_309d00 {
     char pad0[0x8c];
-    Frame *frame;
+    Frame_309d00 *frame;
 };
 
-struct Basis {
+struct Basis_309d00 {
     char pad0[0x1c];
-    V3 w;
+    V3_309d00 w;
 };
 
-struct Body {
+struct Body_309d00 {
     char pad0[0x10];
-    Mid *mid;
+    Mid_309d00 *mid;
     char pad14[8];
-    Basis *basis;
-    void FUN_00310490(void *a, V3 *out, int z);
+    Basis_309d00 *basis;
+    void FUN_00310490(void *a, V3_309d00 *out, int z);
 };
 
 namespace physics {
@@ -46,7 +46,7 @@ public:
     virtual void vfunc_9();
     virtual void vfunc_10();
     virtual void vfunc_11();
-    virtual void vfunc_12(float a1, float a2, float a3, float a4, V3 *p5, V3 *p6, float a7);
+    virtual void vfunc_12(float a1, float a2, float a3, float a4, V3_309d00 *p5, V3_309d00 *p6, float a7);
     virtual void vfunc_13();
     virtual void vfunc_14();
     virtual void vfunc_15();
@@ -54,7 +54,7 @@ public:
     virtual void vfunc_17();
     virtual void vfunc_18();
     virtual void vfunc_19();
-    virtual float vfunc_20(V3 *t);
+    virtual float vfunc_20(V3_309d00 *t);
     virtual void vfunc_21();
     virtual void vfunc_22();
     virtual void vfunc_23();
@@ -66,25 +66,25 @@ public:
     char pad4[4];
     void *target;       // 8
     char padc[0xc];
-    Body *body;         // 0x18
+    Body_309d00 *body;         // 0x18
     char pad1c[0xc8];
     float scale;        // 0xe4
     char pade8[0x38];
-    V3 accum;           // 0x120
+    V3_309d00 accum;           // 0x120
     char pad12c[0x25];
     char flag151;
 };
 
-void PhysicsJoint3D::vfunc_12(float a1, float a2, float a3, float a4, V3 *p5, V3 *p6, float a7)
+void PhysicsJoint3D::vfunc_12(float a1, float a2, float a3, float a4, V3_309d00 *p5, V3_309d00 *p6, float a7)
 {
     // Values the original keeps in x87 registers are double (80-bit); spills are volatile float.
-    V3 u;
+    V3_309d00 u;
     body->FUN_00310490(target, &u, 0);
     double cx = u.y * p5->z - u.z * p5->y;
     double cy = u.z * p5->x - u.x * p5->z;
     volatile float cz = u.x * p5->y - u.y * p5->x;
     volatile float na1 = -a1;
-    V3 t;
+    V3_309d00 t;
     t.x = (float)(cx * na1);
     double cyn = cy * na1;
     double czn = cz * na1;
@@ -95,7 +95,7 @@ void PhysicsJoint3D::vfunc_12(float a1, float a2, float a3, float a4, V3 *p5, V3
     t.x = (float)(vx * na2 + t.x);
     t.y = (float)(vy * na2 + cyn);
     t.z = (float)(vz * na2 + czn);
-    V3 *w = &body->basis->w;
+    V3_309d00 *w = &body->basis->w;
     double wx = u.y * w->z - u.z * w->y;
     double wy = u.z * w->x - u.x * w->z;
     volatile float wz = u.x * w->y - u.y * w->x;
@@ -103,7 +103,7 @@ void PhysicsJoint3D::vfunc_12(float a1, float a2, float a3, float a4, V3 *p5, V3
     t.y = (float)(wy * a3 + t.y);
     t.z = (float)(wz * a3 + t.z);
     if (a4 != 0.0f) {
-        Frame *q = body->mid->frame;
+        Frame_309d00 *q = body->mid->frame;
         q->FUN_002fd730();
         if (q->v.x * q->v.x + q->v.y * q->v.y + q->v.z * q->v.z > DAT_004218f0) {
             q = body->mid->frame;

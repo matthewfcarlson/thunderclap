@@ -10,88 +10,88 @@ struct IdBlock {
     unsigned int idHi;
 };
 
-struct Stats {
+struct Stats_1d6ec0 {
     int FUN_00088fa0();
     int FUN_00088fb0();
 };
 
-struct Scene {
+struct Scene_1d6ec0 {
     char pad0[0x80];
-    Stats stats;
+    Stats_1d6ec0 stats;
 };
 
 struct Boss {
     bool FUN_00092940(int flag);
 };
 
-struct Level {
-    Scene* FUN_00086310();
+struct Level_1d6ec0 {
+    Scene_1d6ec0* FUN_00086310();
     Boss* FUN_00086340();
 };
 
-struct Meter {
+struct Meter_1d6ec0 {
     int FUN_001d5e80(int mode);
     float FUN_001d4e90();
 };
 
-struct Effect {
+struct Effect_1d6ec0 {
     void FUN_001c4ac0(int* color, float scale);
 };
 
-struct Body {
+struct Body_1d6ec0 {
     char pad0[0x1b0];
     int kind;
 };
 
-struct Fighter {
+struct Fighter_1d6ec0 {
     char pad0[0x11c];
-    Body* body;
+    Body_1d6ec0* body;
 };
 
-struct Ref {
+struct Ref_1d6ec0 {
     char pad0[8];
-    Fighter* fighter;
+    Fighter_1d6ec0* fighter;
     int type;
 };
 
-struct Roster {
+struct Roster_1d6ec0 {
     char pad0[0x124];
-    Fighter* player;
-    bool FUN_000242d0(Fighter* f);
+    Fighter_1d6ec0* player;
+    bool FUN_000242d0(Fighter_1d6ec0* f);
 };
 
 struct Rules {
     bool FUN_000997a0();
 };
 
-struct Globals {
+struct Globals_1d6ec0 {
     char pad0[8];
     Rules* rules;
     char pad0c[0x14];
-    Roster* roster;
+    Roster_1d6ec0* roster;
     char pad24[0x30];
-    Level* level;
+    Level_1d6ec0* level;
 };
 
-extern Globals* DAT_004dd700;
+extern Globals_1d6ec0* DAT_004dd700;
 
 struct Hit;
 
-class Receiver {
+class Receiver_1d6ec0 {
 public:
     char pad0[0x40];
     int f40;
     char pad44[0x9c - 0x44];
     IdBlock* tag;
     char padA0[0xec - 0xa0];
-    Meter* meter;
+    Meter_1d6ec0* meter;
     char padF0[0x108 - 0xf0];
     int health;
     int threshold;
     char pad110[4];
-    Ref* attackerRef;
+    Ref_1d6ec0* attackerRef;
     char pad118[4];
-    Effect* effect;
+    Effect_1d6ec0* effect;
     char pad120[0x148 - 0x120];
     int blocked;
     char pad14c[0x194 - 0x14c];
@@ -99,11 +99,11 @@ public:
     char pad195[3];
     int kindMatch;
     float kindScale;
-    void FUN_001d6e10(Ref* r);
-    bool FUN_001d6ec0(int amount, Ref* victim, bool forced);
+    void FUN_001d6e10(Ref_1d6ec0* r);
+    bool FUN_001d6ec0(int amount, Ref_1d6ec0* victim, bool forced);
 };
 
-bool Receiver::FUN_001d6ec0(int amount, Ref* victim, bool forced)
+bool Receiver_1d6ec0::FUN_001d6ec0(int amount, Ref_1d6ec0* victim, bool forced)
 {
     if (!(DAT_004e25f8 & 1)) {
         DAT_004e25f8 |= 1;
@@ -115,7 +115,7 @@ bool Receiver::FUN_001d6ec0(int amount, Ref* victim, bool forced)
     if (tagBlock) {
         unsigned int lo = tagBlock->idLo;
         unsigned int hi = tagBlock->idHi;
-        Scene* scene = DAT_004dd700->level->FUN_00086310();
+        Scene_1d6ec0* scene = DAT_004dd700->level->FUN_00086310();
         if (scene) {
             int a = scene->stats.FUN_00088fa0();
             int b = scene->stats.FUN_00088fb0();
@@ -127,7 +127,7 @@ bool Receiver::FUN_001d6ec0(int amount, Ref* victim, bool forced)
     if (immune)
         return false;
 
-    Ref* att = attackerRef;
+    Ref_1d6ec0* att = attackerRef;
     if (att) {
         if (att->type == 1 && DAT_004dd700->roster->FUN_000242d0(att->fighter) && !DAT_004dd700->rules->FUN_000997a0())
             return false;
@@ -157,12 +157,12 @@ bool Receiver::FUN_001d6ec0(int amount, Ref* victim, bool forced)
         return false;
 
     if (victim && victim->type == 1) {
-        Fighter* ft = victim->fighter;
+        Fighter_1d6ec0* ft = victim->fighter;
         if (ft->body) {
             if (ft->body->kind == kindMatch)
                 dmg = (int)(amount * kindScale);
         }
-        Globals* g = DAT_004dd700;
+        Globals_1d6ec0* g = DAT_004dd700;
         if (ft == g->roster->player) {
             if (g->level->FUN_00086340()->FUN_00092940(0x14))
                 dmg += dmg;

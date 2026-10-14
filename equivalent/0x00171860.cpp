@@ -18,28 +18,28 @@ public:
     float elapsed;
 };
 
-class Fighter {
+class Fighter_171860 {
 public:
     char pad0[0x1e58];
     float baseline;
     int lastStep;
 };
 
-class FighterRef {
+class FighterRef_171860 {
 public:
-    Fighter* FUN_00059a30();
+    Fighter_171860* FUN_00059a30();
 };
 
-class Owner {
+class Owner_171860 {
 public:
-    FighterRef* FUN_000592a0();
+    FighterRef_171860* FUN_000592a0();
 };
 
 class ChargeAction {
 public:
     char pad0[0x1c];
     ActionDef* def;
-    Owner* owner;
+    Owner_171860* owner;
     float progress;
 
     bool FUN_00171860(int a, int b);
@@ -47,7 +47,7 @@ public:
 
 bool ChargeAction::FUN_00171860(int a, int b)
 {
-    Fighter* fighter = owner->FUN_000592a0()->FUN_00059a30();
+    Fighter_171860* fighter = owner->FUN_000592a0()->FUN_00059a30();
     int step = def->step;
     if (def->restart != 0 || step != fighter->lastStep) {
         fighter->baseline = 0;

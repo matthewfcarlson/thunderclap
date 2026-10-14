@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0022fe40 @ 0x0022fe40
 // 0x0022fe40: write the component-wise normalised (min, max) corners of an axis aligned box
-struct Box {
+struct Box_22fe40 {
     float v[6];
-    Box* FUN_0022fe40(Box* out);
+    Box_22fe40* FUN_0022fe40(Box_22fe40* out);
 };
 
-Box* Box::FUN_0022fe40(Box* out)
+Box_22fe40* Box_22fe40::FUN_0022fe40(Box_22fe40* out)
 {
     float lo[3];
     float hi[3];

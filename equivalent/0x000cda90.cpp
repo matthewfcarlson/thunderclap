@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2926 inputs, branch coverage 39/40, incomplete)
 // FUN_000cda90 @ 0x000cda90
-struct Batch {
+struct Batch_cda90 {
     char pad00[8];
     unsigned int *pos;
     char pad0c[4];
@@ -8,7 +8,7 @@ struct Batch {
     void FUN_0008ef00();
 };
 
-class Device {
+class Device_cda90 {
 public:
     virtual void v0();
     virtual void v1();
@@ -40,12 +40,12 @@ public:
     virtual void v27();
     virtual void v28();
     virtual void v29();
-    virtual Batch *Begin(unsigned int id, int a, int b, int c, int d);
-    virtual void End(Batch *b);
+    virtual Batch_cda90 *Begin(unsigned int id, int a, int b, int c, int d);
+    virtual void End(Batch_cda90 *b);
 };
-extern Device *DAT_0052c2a8;
+extern Device_cda90 *DAT_0052c2a8;
 
-class Cam {
+class Cam_cda90 {
 public:
     virtual void v0();
     virtual void v1();
@@ -67,17 +67,17 @@ public:
 };
 
 struct Vec3f { float x, y, z; };
-struct Renderer {
-    Cam *cam;
+struct Renderer_cda90 {
+    Cam_cda90 *cam;
     void FUN_00293d00(const void *v);
     void FUN_00293bf0(float a);
     void FUN_00293da0(float a, float b, float c);
 };
-extern Renderer *DAT_0052c2ac;
+extern Renderer_cda90 *DAT_0052c2ac;
 extern Vec3f DAT_004ddef4;
 extern float DAT_0049fd28;
 
-class Widget {
+class Widget_cda90 {
 public:
     virtual void w0();
     virtual void w1();
@@ -98,33 +98,33 @@ struct WList {
     char pad00[8];
     unsigned char count;
     char pad09[0x1b];
-    Widget **items;
+    Widget_cda90 **items;
 };
 
-struct Pt {
+struct Pt_cda90 {
     char pad00[0x10];
     float f10;
     char pad14[4];
     unsigned int f18;
 };
 
-struct Id { char pad[0x10]; unsigned int id; };
+struct Id_cda90 { char pad[0x10]; unsigned int id; };
 
-class Obj {
+class Obj_cda90 {
 public:
     char pad00[0x90];
-    Id *p90;
+    Id_cda90 *p90;
     char pad94[0x24];
     unsigned int flags;
     char padbc[0x250 - 0xbc];
-    Widget *p250;
-    Widget *p254;
-    Widget *p258;
+    Widget_cda90 *p250;
+    Widget_cda90 *p254;
+    Widget_cda90 *p258;
     WList *p25c;
     WList *p260;
     char pad264[0x464 - 0x264];
-    Pt *p464;
-    Pt *p468;
+    Pt_cda90 *p464;
+    Pt_cda90 *p468;
     float f46c;
     float f470;
     int f474;
@@ -139,27 +139,27 @@ public:
     void FUN_000cda90();
 };
 
-union I {
+union I_cda90 {
     int i;
     unsigned int u;
     float f;
 };
 
-struct Frame {
+struct Frame_cda90 {
     unsigned int s10;
     unsigned int s14;
-    I s18;
-    I s1c;
+    I_cda90 s18;
+    I_cda90 s1c;
     int A;
-    I s24;
-    I s28;
-    I s2c;
+    I_cda90 s24;
+    I_cda90 s28;
+    I_cda90 s2c;
     float g1;
 };
 
-void Obj::FUN_000cda90()
+void Obj_cda90::FUN_000cda90()
 {
-    Frame f;
+    Frame_cda90 f;
     if (!(flags & 2))
         return;
     if (p250 == 0)
@@ -192,7 +192,7 @@ void Obj::FUN_000cda90()
     p250->Flush(0, 0);
     unsigned int alpha = (unsigned int)f494 << 24;
     unsigned int col1 = alpha | 0xff0000;
-    Widget *obj1 = p258;
+    Widget_cda90 *obj1 = p258;
     WList *wl = p260;
     if (f474 != 0) {
         obj1 = p254;
@@ -207,7 +207,7 @@ void Obj::FUN_000cda90()
             f.s18.i = 0;
             if (wl->count > 0) {
                 do {
-                    Widget *w = wl->items[(unsigned char)f.s18.i];
+                    Widget_cda90 *w = wl->items[(unsigned char)f.s18.i];
                     f.s28.i = f.s24.i;
                     if (A >= f.s24.i)
                         f.s28.i = A;
@@ -215,16 +215,16 @@ void Obj::FUN_000cda90()
                     f.s18.i++;
                     A = f.A;
                 } while (f.s18.i < wl->count);
-                obj1 = (Widget *)f.s1c.u;
+                obj1 = (Widget_cda90 *)f.s1c.u;
             }
             obj1->Flush(0, 0);
-            obj1 = (Widget *)f.s1c.u;
+            obj1 = (Widget_cda90 *)f.s1c.u;
             A = f.A;
         }
         f.s18.i = 0;
         if (wl->count > 0) {
             do {
-                Widget *w = wl->items[(unsigned char)f.s18.i];
+                Widget_cda90 *w = wl->items[(unsigned char)f.s18.i];
                 f.s28.i = A;
                 if (!(A < f.s24.i))
                     f.s28.i = f.s24.i;
@@ -232,18 +232,18 @@ void Obj::FUN_000cda90()
                 f.s18.i++;
                 A = f.A;
             } while (f.s18.i < wl->count);
-            obj1 = (Widget *)f.s1c.u;
+            obj1 = (Widget_cda90 *)f.s1c.u;
         }
     } else {
         f.s18.i = 0;
         if (wl->count > 0) {
             f.s28.f = (float)f.A;
             do {
-                Widget *w = wl->items[(unsigned char)f.s18.i];
+                Widget_cda90 *w = wl->items[(unsigned char)f.s18.i];
                 w->SetValue(f.s28.f);
                 f.s18.i++;
             } while (f.s18.i < wl->count);
-            obj1 = (Widget *)f.s1c.u;
+            obj1 = (Widget_cda90 *)f.s1c.u;
         }
     }
     obj1->Flush(0, 0);
@@ -257,7 +257,7 @@ void Obj::FUN_000cda90()
     if (f480 > f484 && (f.s28.f = f480 - f484, f.s28.u &= 0x7fffffff, f.s28.f > 1e-5f)) {
         float Y2 = p464->f10 - f.s2c.f * f470;
         f.s18.f = Y2;
-        Batch *b = DAT_0052c2a8->Begin(p90->id, 1, 0x2020, 4, 0);
+        Batch_cda90 *b = DAT_0052c2a8->Begin(p90->id, 1, 0x2020, 4, 0);
         unsigned int *pp = b->pos;
         pp[0] = f.s18.u;
         pp[1] = 0;
@@ -286,7 +286,7 @@ void Obj::FUN_000cda90()
         edi = 0;
     } else if (f.s24.i > f.A) {
         f.s2c.f = p464->f10 - f.s2c.f * f470;
-        Batch *b = DAT_0052c2a8->Begin(p90->id, 1, 0x2020, 4, 0);
+        Batch_cda90 *b = DAT_0052c2a8->Begin(p90->id, 1, 0x2020, 4, 0);
         unsigned int *pp = b->pos;
         pp[0] = f.s2c.u;
         pp[1] = 0;
@@ -314,7 +314,7 @@ void Obj::FUN_000cda90()
         DAT_0052c2a8->End(b);
         edi = 0;
     } else {
-        Batch *b = DAT_0052c2a8->Begin(p90->id, 1, 0x2020, 4, 0);
+        Batch_cda90 *b = DAT_0052c2a8->Begin(p90->id, 1, 0x2020, 4, 0);
         unsigned int *pp = b->pos;
         pp[0] = f.s18.u;
         pp[1] = 0;

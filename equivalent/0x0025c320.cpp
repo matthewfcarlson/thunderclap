@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 15/16, incomplete)
 // FUN_0025c320 @ 0x0025c320
-struct Header { unsigned int flags; };
-struct Row { unsigned int values[4]; };
-void __cdecl FUN_0025c320(Header* header, Row* output, unsigned char special, unsigned char extra)
+struct Header_25c320 { unsigned int flags; };
+struct Row_25c320 { unsigned int values[4]; };
+void __cdecl FUN_0025c320(Header_25c320* header, Row_25c320* output, unsigned char special, unsigned char extra)
 {
     unsigned int count = (header->flags >> 4) & 31;
     if (count == 1) {

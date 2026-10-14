@@ -2,13 +2,13 @@
 // FUN_002a4760 @ 0x002a4760
 void *FUN_0008d6d0(unsigned int size);
 
-struct IntVector {
+struct IntVector_2a4760 {
     int *first;
     int *last;
-    IntVector(const IntVector &other) throw();
+    IntVector_2a4760(const IntVector_2a4760 &other) throw();
 };
 
-IntVector::IntVector(const IntVector &other) throw()
+IntVector_2a4760::IntVector_2a4760(const IntVector_2a4760 &other) throw()
 {
     int count = other.last - other.first;
     if (count != 0) {

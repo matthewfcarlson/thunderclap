@@ -35,7 +35,7 @@ public:
     virtual void v9(int stream, TextureBuilder *tb);
 };
 
-class ImageRegistry {
+class ImageRegistry_2aeec0 {
 public:
     char pad0[0x8c];
     int p8c;
@@ -49,7 +49,7 @@ public:
     int FUN_002aeec0(int stream, int unused, int type);
 };
 
-int ImageRegistry::FUN_002aeec0(int stream, int unused, int type)
+int ImageRegistry_2aeec0::FUN_002aeec0(int stream, int unused, int type)
 {
     ImageHandler *h = FUN_002ae9d0(type);
     if (h == 0)

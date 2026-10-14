@@ -7,7 +7,7 @@ struct KeyEntry {
     unsigned int lo, hi;
 };
 
-class KeyTable {
+class KeyTable_f7240 {
 public:
     char pad00[0x18];
     KeyEntry *entries;
@@ -16,7 +16,7 @@ public:
     int FUN_000f7240(unsigned int lo, unsigned int hi);
 };
 
-int KeyTable::FUN_000f7240(unsigned int lo, unsigned int hi)
+int KeyTable_f7240::FUN_000f7240(unsigned int lo, unsigned int hi)
 {
     union {
         unsigned __int64 q;

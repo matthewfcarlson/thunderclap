@@ -8,21 +8,21 @@ struct Node {
     unsigned key;
 };
 
-struct Tree {
+struct Tree_24f280 {
     Node* root;
     Node nil;
 };
 
-struct Holder {
+struct Holder_24f280 {
     int prefix;
     Node node;
 };
 
-extern "C" void FUN_00247d50(Tree* tree, Node* node);
-extern "C" void FUN_00247da0(Tree* tree, Node* node);
+extern "C" void FUN_00247d50(Tree_24f280* tree, Node* node);
+extern "C" void FUN_00247da0(Tree_24f280* tree, Node* node);
 
 // Red-black tree unique-key insert with rebalance. color: 1 = red, 0 = black.
-char FUN_0024f280(Tree* tree, Holder* nodeArg, const unsigned* keyPtr)
+char FUN_0024f280(Tree_24f280* tree, Holder_24f280* nodeArg, const unsigned* keyPtr)
 {
     Node* nil = &tree->nil;
     Node* node = &nodeArg->node;

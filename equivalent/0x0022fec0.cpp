@@ -2,7 +2,7 @@
 // FUN_0022fec0 @ 0x0022fec0
 extern "C" double sqrt(double);
 
-struct Bounds {
+struct Bounds_22fec0 {
     float min[3];
     float max[3];
     void GetCenter(struct CenterRadius *out);
@@ -13,7 +13,7 @@ struct CenterRadius {
     float radius;
 };
 
-void Bounds::GetCenter(CenterRadius *out)
+void Bounds_22fec0::GetCenter(CenterRadius *out)
 {
     float dx = min[0] - max[0];
     float dy = min[1] - max[1];

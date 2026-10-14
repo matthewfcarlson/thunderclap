@@ -2,12 +2,12 @@
 // FUN_002d7b60 @ 0x002d7b60
 // libpng png_read_destroy-style teardown: free every owned buffer, then wipe the struct
 // while preserving the jmpbuf header and a few fields.
-struct Head {
+struct Head_2d7b60 {
     int w[16];
 };
 
-struct PngInfo {
-    Head head;                 // 0x00 .. 0x40 (jmp_buf), preserved
+struct PngInfo_2d7b60 {
+    Head_2d7b60 head;                 // 0x00 .. 0x40 (jmp_buf), preserved
     int keep40;                // 0x40
     int keep44;                // 0x44
     int keep48;                // 0x48
@@ -45,12 +45,12 @@ struct PngInfo {
     char pad218[4];
 };
 
-void FUN_002d6d10(PngInfo* png, int extra);
-void FUN_002e6c40(PngInfo* png, void* ptr);
-void thunk_FUN_002e6c40(PngInfo* png, void* ptr);
+void FUN_002d6d10(PngInfo_2d7b60* png, int extra);
+void FUN_002e6c40(PngInfo_2d7b60* png, void* ptr);
+void thunk_FUN_002e6c40(PngInfo_2d7b60* png, void* ptr);
 void FUN_002e6e00(void* zstream);
 
-void FUN_002d7b60(PngInfo* png, int a, int b)
+void FUN_002d7b60(PngInfo_2d7b60* png, int a, int b)
 {
     if (a)
         FUN_002d6d10(png, a);
@@ -99,7 +99,7 @@ void FUN_002d7b60(PngInfo* png, int a, int b)
     int k214 = png->keep214;
     int k48 = png->keep48;
     int k40 = png->keep40;
-    Head head = png->head;
+    Head_2d7b60 head = png->head;
     int k44 = png->keep44;
     unsigned int* p = (unsigned int*)png;
     for (int i = 0; i < 0x87; i++)

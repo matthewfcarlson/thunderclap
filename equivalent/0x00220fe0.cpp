@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00220fe0 @ 0x00220fe0
-struct Record { int type; int value; int unused; int left; int right; };
-struct Info { int a,b,c; };
-struct Context { char pad[12]; Info* info; char pad2[8]; int position; int savedPosition; int link; };
+struct Record_220fe0 { int type; int value; int unused; int left; int right; };
+struct Info_220fe0 { int a,b,c; };
+struct Context { char pad[12]; Info_220fe0* info; char pad2[8]; int position; int savedPosition; int link; };
 // equiv-conv: FUN_00220e90 eax ebx esi
-void __cdecl FUN_00220e90(Context*, Record*, int);
+void __cdecl FUN_00220e90(Context*, Record_220fe0*, int);
 void __cdecl FUN_002207c0(Context*, int*, int);
 // equiv-conv: FUN_002205a0 eax ecx stack
 int __cdecl FUN_002205a0(Context*, int, int);
@@ -14,7 +14,7 @@ int __cdecl FUN_00220b20(Context*, int, int);
 // equiv-conv: FUN_00220650 ebx edx stack stack stack stack stack
 void __cdecl FUN_00220650(Context*, int, int, int, int, int, int);
 // equiv-conv: target eax stack stack
-int __cdecl target(Context* ctx, Record* rec, int flag) {
+int __cdecl target(Context* ctx, Record_220fe0* rec, int flag) {
  FUN_00220e90(ctx, rec, flag);
  if(rec->type==9) FUN_002207c0(ctx,&rec->left,rec->value);
  if(rec->left!=rec->right) {

@@ -3,42 +3,42 @@
 // Group method: look up a named pawn and run a collision sweep between two points, caching the result.
 unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 
-struct Vec3 {
+struct Vec3_2a0e0 {
     float x, y, z;
 };
 
-struct HitExtra {
+struct HitExtra_2a0e0 {
     int b, c, d, e;
 };
 
-struct Pawn {
-    char FUN_00038de0(Vec3 *from, Vec3 *to, int a, int foreign, HitExtra *outB, Vec3 *outN, int *outC, int hit);
+struct Pawn_2a0e0 {
+    char FUN_00038de0(Vec3_2a0e0 *from, Vec3_2a0e0 *to, int a, int foreign, HitExtra_2a0e0 *outB, Vec3_2a0e0 *outN, int *outC, int hit);
 };
 
 // The name pointer's argument slot is reused as an out-int for the sweep.
-union NameSlot {
+union NameSlot_2a0e0 {
     const char *name;
     int out;
 };
 
-struct Group {
+struct Group_2a0e0 {
     char pad000[0x124];
-    Pawn *current;              // 0x124
+    Pawn_2a0e0 *current;              // 0x124
     char pad128[0x353 - 0x128];
     char active;                // 0x353
-    Vec3 from;                  // 0x354
-    Vec3 to;                    // 0x360
+    Vec3_2a0e0 from;                  // 0x354
+    Vec3_2a0e0 to;                    // 0x360
     char hit;                   // 0x36c
     char pad36d[3];
-    HitExtra extra;             // 0x370
+    HitExtra_2a0e0 extra;             // 0x370
 
-    Pawn *FUN_00024280(unsigned __int64 key);
-    char FUN_0002a0e0(NameSlot name, float fx, float fy, float fz, float tx, float ty, float tz);
+    Pawn_2a0e0 *FUN_00024280(unsigned __int64 key);
+    char FUN_0002a0e0(NameSlot_2a0e0 name, float fx, float fy, float fz, float tx, float ty, float tz);
 };
 
-char Group::FUN_0002a0e0(NameSlot name, float fx, float fy, float fz, float tx, float ty, float tz)
+char Group_2a0e0::FUN_0002a0e0(NameSlot_2a0e0 name, float fx, float fy, float fz, float tx, float ty, float tz)
 {
-    Pawn *pawn = FUN_00024280(FUN_002672f0(name.name, 0, 0));
+    Pawn_2a0e0 *pawn = FUN_00024280(FUN_002672f0(name.name, 0, 0));
     if (!pawn)
         return 0;
     active = 1;
@@ -51,7 +51,7 @@ char Group::FUN_0002a0e0(NameSlot name, float fx, float fy, float fz, float tx, 
     int foreign = 0;
     if (pawn != current)
         foreign = 1;
-    Vec3 normal;
+    Vec3_2a0e0 normal;
     name.out = 0;
     hit = pawn->FUN_00038de0(&from, &to, 0, foreign, &extra, &normal, &name.out, 0);
     return hit;

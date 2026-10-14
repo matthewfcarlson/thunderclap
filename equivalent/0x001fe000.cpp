@@ -23,34 +23,34 @@ struct Name {
     Name(const Name &other) throw();
 };
 
-struct Slot {
+struct Slot_1fe000 {
     char pad[0xc70];
     short FUN_001f9630(RawName n);
     bool FUN_001f9670(Name n, short value);
 };
 
-struct Entry {
+struct Entry_1fe000 {
     Id8 id;
     unsigned char slot;
     unsigned char b;
 };
 
-struct Pool {
+struct Pool_1fe000 {
     char pad[0x22b8];
-    Entry entry;
+    Entry_1fe000 entry;
 };
 
 class Mixer {
 public:
-    void FUN_001fe000(Pool *pool);
+    void FUN_001fe000(Pool_1fe000 *pool);
 
     char pad0[0x234];
     char *slots;
 };
 
 // equiv-map: ??0Name@@QAE@ABU0@@Z = 0x001f8940
-void Mixer::FUN_001fe000(Pool *pool) {
-    Entry *e = &pool->entry;
+void Mixer::FUN_001fe000(Pool_1fe000 *pool) {
+    Entry_1fe000 *e = &pool->entry;
     if (e == 0) {
         return;
     }
@@ -59,9 +59,9 @@ void Mixer::FUN_001fe000(Pool *pool) {
         return;
     }
     int offset = slot * 0xc70;
-    short idx = ((Slot *)(slots + offset))->FUN_001f9630(*(RawName *)e);
+    short idx = ((Slot_1fe000 *)(slots + offset))->FUN_001f9630(*(RawName *)e);
     if (idx == -2 || idx == -1 || idx < 0) {
         return;
     }
-    ((Slot *)(slots + offset))->FUN_001f9670(*(Name *)e, idx + 1);
+    ((Slot_1fe000 *)(slots + offset))->FUN_001f9670(*(Name *)e, idx + 1);
 }

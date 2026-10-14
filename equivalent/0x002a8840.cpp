@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 30/30)
 // pure3d::LightAnimationController::vfunc_27 @ 0x002a8840
-struct Vec3 { float x, y, z; };
+struct Vec3_2a8840 { float x, y, z; };
 
-union Scalar {
+union Scalar_2a8840 {
     float f;
     int i;
     unsigned char b;
@@ -14,22 +14,22 @@ public:
     virtual void vf1();
     virtual void vf2();
     virtual void vf3();
-    virtual void sampleVec3(float frame, Vec3 *out);
+    virtual void sampleVec3(float frame, Vec3_2a8840 *out);
     void FUN_0028ad20(float frame, int *out);
     void FUN_0028ac90(float frame, unsigned char *out);
 };
 
-struct ChannelSet {
+struct ChannelSet_2a8840 {
     Channel *FUN_00288960(unsigned int tagLo, unsigned int tagHi);
 };
 
-struct Source {
-    ChannelSet *FUN_00288a10(int index);
+struct Source_2a8840 {
+    ChannelSet_2a8840 *FUN_00288a10(int index);
 };
 
 struct Track {
     char data[0x110 - 0x2c];
-    Source *FUN_00284f50();
+    Source_2a8840 *FUN_00284f50();
     float FUN_00284f70();
 };
 
@@ -43,26 +43,26 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual void setDirection(Vec3 *dir);
+    virtual void setDirection(Vec3_2a8840 *dir);
     void FUN_002a07a0(int color);
     void FUN_002a0820(int value);
-    void FUN_002a2fc0(Vec3 *dir);
-    void FUN_002c4250(Vec3 *dir);
+    void FUN_002a2fc0(Vec3_2a8840 *dir);
+    void FUN_002c4250(Vec3_2a8840 *dir);
     void FUN_002c3d00(float x, float y, float z);
     void FUN_002c41a0(float x, float y, float z);
     void FUN_002c3f00(float x, float y, float z);
     void FUN_002c41e0(float x, float y, float z);
 };
 
-struct Sink {
+struct Sink_2a8840 {
     void FUN_00293e90(int color);
 };
 
-struct Globals {
+struct Globals_2a8840 {
     char pad[8];
-    Sink *sink;
+    Sink_2a8840 *sink;
 };
-extern Globals *DAT_0052c2b4;
+extern Globals_2a8840 *DAT_0052c2b4;
 
 class LightAnimationController {
 public:
@@ -105,12 +105,12 @@ public:
 void LightAnimationController::vfunc_27()
 {
     struct Frame {
-        Scalar s;
-        Vec3 v;
+        Scalar_2a8840 s;
+        Vec3_2a8840 v;
     } fr;
-    Source *src = track.FUN_00284f50();
+    Source_2a8840 *src = track.FUN_00284f50();
     fr.s.f = track.FUN_00284f70();
-    ChannelSet *cs = src->FUN_00288a10(0);
+    ChannelSet_2a8840 *cs = src->FUN_00288a10(0);
     Channel *c;
 
     if (light == 0) {

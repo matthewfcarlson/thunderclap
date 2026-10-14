@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 10 inputs, branch coverage 37/42, incomplete)
 // FUN_002a2200 @ 0x002a2200
-typedef bool (*Less)(int a, int b);
+typedef bool (*Less_2a2200)(int a, int b);
 
-struct Range {
+struct Range_2a2200 {
     int *first;
     int *second;
 };
 
-void FUN_002a1fe0(int *first, int *mid, int *last, Less less);
+void FUN_002a1fe0(int *first, int *mid, int *last, Less_2a2200 less);
 
 static void Swap(int *a, int *b)
 {
@@ -18,7 +18,7 @@ static void Swap(int *a, int *b)
 
 // Partitions [first, last) around a median-of-three pivot into
 // [first, lo) < pivot, [lo, hi) == pivot, [hi, last) > pivot and returns {lo, hi}.
-Range *FUN_002a2200(Range *out, int *first, int *last, Less less)
+Range_2a2200 *FUN_002a2200(Range_2a2200 *out, int *first, int *last, Less_2a2200 less)
 {
     int *mid = first + (last - first) / 2;
     FUN_002a1fe0(first, mid, last - 1, less);

@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 9/10, incomplete)
 // FUN_000c7d10 @ 0x000c7d10
-struct Key {
+struct Key_c7d10 {
     int lo, hi;
     void FUN_0027af50();
 };
 
 struct Str8 {
     char pad[8];
-    void FUN_0027af70(Key *k);
+    void FUN_0027af70(Key_c7d10 *k);
 };
 
-struct Entry {
+struct Entry_c7d10 {
     int key;
     int f4, f8, fc, f10, f14, f18, f1c, f20;
     char pad24[4];
@@ -23,40 +23,40 @@ struct Entry {
     char pad3e[2];
 };
 
-struct Registry {
+struct Registry_c7d10 {
     int FUN_00024280(int id0, int id1);
 };
 
-struct Lookup {
-    bool FUN_001dd7b0(Key *k);
+struct Lookup_c7d10 {
+    bool FUN_001dd7b0(Key_c7d10 *k);
 };
 
-struct Manager {
+struct Manager_c7d10 {
     char pad0[0xc];
-    Lookup *lookup;
+    Lookup_c7d10 *lookup;
     char pad10[0x20 - 0x10];
-    Registry *registry;
+    Registry_c7d10 *registry;
 };
 
-extern Manager *DAT_004dd700;
+extern Manager_c7d10 *DAT_004dd700;
 
-void __cdecl FUN_00096e50(Key *k, int name);
+void __cdecl FUN_00096e50(Key_c7d10 *k, int name);
 
-class Table {
+class Table_c7d10 {
 public:
     char pad0[0x258];
-    Entry entries[128];
+    Entry_c7d10 entries[128];
     int FUN_000c7c60(int a, int b);
     int FUN_000c7d10(int a, int b);
 };
 
-int Table::FUN_000c7d10(int a, int b)
+int Table_c7d10::FUN_000c7d10(int a, int b)
 {
     int slot = FUN_000c7c60(a, b);
     if (slot != -1)
         return slot;
 
-    Key key;
+    Key_c7d10 key;
     int flag;
     FUN_00096e50(&key, b);
     if (DAT_004dd700->registry->FUN_00024280(key.lo, key.hi)) {
@@ -79,7 +79,7 @@ int Table::FUN_000c7d10(int a, int b)
         return slot;
     }
 
-    Entry *e = &entries[i];
+    Entry_c7d10 *e = &entries[i];
     e->key = a;
     e->str.FUN_0027af70(&key);
     e->flag = flag;

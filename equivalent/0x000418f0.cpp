@@ -2,63 +2,63 @@
 // FUN_000418f0 @ 0x000418f0
 extern "C" double __cdecl sqrt(double);
 
-struct V3 {
+struct V3_418f0 {
     float x, y, z;
     float FUN_0022d110();
-    char FUN_0022d2b0(V3 *other, float eps);
+    char FUN_0022d2b0(V3_418f0 *other, float eps);
 };
 
-struct RefObj {
+struct RefObj_418f0 {
     virtual void AddRef();
     virtual void Release();
 };
 
-struct Sub10 {
-    void FUN_00222120(V3 *out);
+struct Sub10_418f0 {
+    void FUN_00222120(V3_418f0 *out);
 };
 
-struct Mover {
+struct Mover_418f0 {
     char pad0[0x10];
-    Sub10 s10;
+    Sub10_418f0 s10;
     char pad14[0x40 - 0x14];
-    V3 p40;
-    void FUN_002226f0(V3 *pos);
+    V3_418f0 p40;
+    void FUN_002226f0(V3_418f0 *pos);
     void FUN_00222700(float a);
 };
 
 struct Locator {
     char pad0[0x18];
-    Mover *f18;
-    Mover *FUN_00059a40();
-    void FUN_00059a50(V3 *out);
+    Mover_418f0 *f18;
+    Mover_418f0 *FUN_00059a40();
+    void FUN_00059a50(V3_418f0 *out);
 };
 
-struct Cell {
+struct Cell_418f0 {
     int FUN_00204200(float x, float y, float z);
     char FUN_00204440(int c);
 };
-struct Holder {
-    Cell *FUN_000862a0();
+struct Holder_418f0 {
+    Cell_418f0 *FUN_000862a0();
 };
 struct Flt {
     float FUN_00099b70();
 };
-struct Ctx;
-struct Chara;
-struct Owner {
+struct Ctx_418f0;
+struct Chara_418f0;
+struct Owner_418f0 {
     char pad0[0x124];
-    Chara *f124;
+    Chara_418f0 *f124;
 };
-struct Ctx {
+struct Ctx_418f0 {
     char pad0[8];
     Flt *f08;
     char pad0c[0x20 - 0xc];
-    Owner *f20;
+    Owner_418f0 *f20;
     char pad24[0x54 - 0x24];
-    Holder *f54;
+    Holder_418f0 *f54;
 };
 
-struct Ctrl {
+struct Ctrl_418f0 {
     char pad0[0x14];
     int f14;
     char pad18[0x34 - 0x18];
@@ -66,32 +66,32 @@ struct Ctrl {
     unsigned __int64 FUN_000443c0();
 };
 
-struct Fx {
+struct Fx_418f0 {
     char FUN_0023f730(const char *s);
     void FUN_0023f740();
 };
-extern Fx *DAT_004dd6e8;
+extern Fx_418f0 *DAT_004dd6e8;
 extern unsigned __int64 DAT_004dc060;
 extern unsigned __int64 DAT_004dc090;
 extern unsigned int DAT_004dc2fc;
 extern float DAT_004dc2f8;
 extern float DAT_004dc2f4;
 
-struct Ref14c : RefObj {
+struct Ref14c : RefObj_418f0 {
     char pad4[8];
     int f0c;
 };
 
 float __cdecl FUN_00224ea0(float a, float b);
 float __cdecl FUN_00224fc0(float a, float b);
-V3 *__cdecl FUN_00083e00(V3 *out, V3 *in, float s);
+V3_418f0 *__cdecl FUN_00083e00(V3_418f0 *out, V3_418f0 *in, float s);
 
-struct Hit {
-    char FUN_00201e00(V3 *a, V3 *b, int c, V3 *d, V3 *e, int f, int g);
+struct Hit_418f0 {
+    char FUN_00201e00(V3_418f0 *a, V3_418f0 *b, int c, V3_418f0 *d, V3_418f0 *e, int f, int g);
 };
 struct World {
     char pad0[0x24];
-    Hit *f24;
+    Hit_418f0 *f24;
 };
 extern World *DAT_004dd700;
 
@@ -100,39 +100,39 @@ struct Sub14 {
 };
 
 struct Ref14c;
-struct Frame {
-    V3 w88;
+struct Frame_418f0 {
+    V3_418f0 w88;
     float fl;
-    Mover *obj18;
-    V3 w74;
+    Mover_418f0 *obj18;
+    V3_418f0 w74;
     char pad68[2];
     char b66;
     char flag65;
-    V3 w64;
-    V3 w58;
-    V3 A;
+    V3_418f0 w64;
+    V3_418f0 w58;
+    V3_418f0 A;
     Ref14c *D;
-    V3 pos;
+    V3_418f0 pos;
     float adiff;
     int ctype;
-    V3 B;
+    V3_418f0 B;
     float thr;
-    V3 w18;
-    V3 cur;
+    V3_418f0 w18;
+    V3_418f0 cur;
 };
 
-class Chara {
+class Chara_418f0 {
 public:
     char pad000[0x10];
     Locator *f10;
     char pad14[0x44 - 0x14];
-    V3 p44;
+    V3_418f0 p44;
     char pad50[0x68 - 0x50];
-    V3 p68;
+    V3_418f0 p68;
     char pad74[0x84 - 0x74];
     float f84;
     char pad88[0x11c - 0x88];
-    Ctrl *f11c;
+    Ctrl_418f0 *f11c;
     char pad120[0x134 - 0x120];
     int f134;
     int f138;
@@ -144,44 +144,44 @@ public:
     char pad150[0x1c0 - 0x150];
     float f1c0, f1c4, f1c8;
     char pad1cc[0x334 - 0x1cc];
-    Chara *ignoreA;
-    Chara *ignoreB;
+    Chara_418f0 *ignoreA;
+    Chara_418f0 *ignoreB;
     char pad33c[0x3a4 - 0x33c];
-    RefObj *f3a4;
+    RefObj_418f0 *f3a4;
     char pad3a8[0x1a38 - 0x3a8];
     char b1a38;
     char b1a39;
     char pad1a3a[2];
-    V3 p1a3c;
-    V3 p1a48;
-    V3 p1a54;
-    V3 p1a60;
-    V3 p1a6c;
-    V3 p1a78;
-    V3 p1a84;
+    V3_418f0 p1a3c;
+    V3_418f0 p1a48;
+    V3_418f0 p1a54;
+    V3_418f0 p1a60;
+    V3_418f0 p1a6c;
+    V3_418f0 p1a78;
+    V3_418f0 p1a84;
     char pad1a90[0x1ad4 - 0x1a90];
-    V3 p1ad4;
-    V3 p1ae0;
-    V3 p1aec;
-    V3 p1af8;
+    V3_418f0 p1ad4;
+    V3_418f0 p1ae0;
+    V3_418f0 p1aec;
+    V3_418f0 p1af8;
     int f1b04;
     char b1b08;
     char pad1b09[0x1b20 - 0x1b09];
     int f1b20;
 
     void FUN_00038c40();
-    char FUN_00038c70(V3 *a, V3 *b, V3 *c, Ref14c **d, int e, char *f);
-    void FUN_00035550(V3 *out);
-    char FUN_0003f7b0(V3 *p1, V3 *p2, V3 *o1, V3 *o2, V3 *d, V3 *n2, unsigned int *flags);
-    void FUN_000418f0(Ctx *a1, float a2);
+    char FUN_00038c70(V3_418f0 *a, V3_418f0 *b, V3_418f0 *c, Ref14c **d, int e, char *f);
+    void FUN_00035550(V3_418f0 *out);
+    char FUN_0003f7b0(V3_418f0 *p1, V3_418f0 *p2, V3_418f0 *o1, V3_418f0 *o2, V3_418f0 *d, V3_418f0 *n2, unsigned int *flags);
+    void FUN_000418f0(Ctx_418f0 *a1, float a2);
 };
 
 static float K1() { return 1.04719758f; }
 static float K2() { return 0.52359879f; }
 
-void Chara::FUN_000418f0(Ctx *a1, float a2)
+void Chara_418f0::FUN_000418f0(Ctx_418f0 *a1, float a2)
 {
-    Frame f;
+    Frame_418f0 f;
     f.obj18 = f10->FUN_00059a40();
     f.pos.x = 0.0f;
     f.pos.y = 0.0f;
@@ -190,10 +190,10 @@ void Chara::FUN_000418f0(Ctx *a1, float a2)
     f.cur.x = p44.x;
     f.cur.y = p44.y;
     f.cur.z = p44.z;
-    Chara *own = a1->f20->f124;
+    Chara_418f0 *own = a1->f20->f124;
     f.b66 = 0;
     if (!(own == this || ignoreA == own || ignoreB == own)) {
-        Cell *cell = a1->f54->FUN_000862a0();
+        Cell_418f0 *cell = a1->f54->FUN_000862a0();
         int idx = cell->FUN_00204200(f.pos.x, f.pos.y, f.pos.z);
         if (!a1->f54->FUN_000862a0()->FUN_00204440(idx))
             return;
@@ -453,7 +453,7 @@ void Chara::FUN_000418f0(Ctx *a1, float a2)
     f.w64.x = 0.0f;
     f.w64.y = 0.0f;
     f.w64.z = 0.0f;
-    Mover *m2 = f10->FUN_00059a40();
+    Mover_418f0 *m2 = f10->FUN_00059a40();
     float xx, zz;
     if (m2) {
         m2->s10.FUN_00222120(&f.w88);

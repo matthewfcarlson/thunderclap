@@ -1,31 +1,31 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 6/6)
 // FUN_002f1010 @ 0x002f1010
-struct Vec3 {
+struct Vec3_2f1010 {
     float x, y, z;
 };
 
-class Shape {
+class Shape_2f1010 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
-    virtual Vec3 *vfunc_4();
+    virtual Vec3_2f1010 *vfunc_4();
     char pad04[0x28 - 4];
-    Vec3 extent;
+    Vec3_2f1010 extent;
 };
 
-char FUN_002f0080(Vec3 *p, Vec3 *q, Vec3 *extent);
-char FUN_002f0e80(Vec3 *p, Vec3 *q, Vec3 *d, float radius, Shape *shape, float *t);
+char FUN_002f0080(Vec3_2f1010 *p, Vec3_2f1010 *q, Vec3_2f1010 *extent);
+char FUN_002f0e80(Vec3_2f1010 *p, Vec3_2f1010 *q, Vec3_2f1010 *d, float radius, Shape_2f1010 *shape, float *t);
 
 // Segment p -> q tested against a shape grown by radius; on a hit writes the world-space hit point.
 // The radius parameter slot receives the hit parameter t.
-bool FUN_002f1010(Vec3 p, Vec3 q, Shape *shape, float radius, Vec3 *out)
+bool FUN_002f1010(Vec3_2f1010 p, Vec3_2f1010 q, Shape_2f1010 *shape, float radius, Vec3_2f1010 *out)
 {
-    Vec3 ext;
-    Vec3 d;
+    Vec3_2f1010 ext;
+    Vec3_2f1010 d;
 
-    Vec3 *o = shape->vfunc_4();
+    Vec3_2f1010 *o = shape->vfunc_4();
     p.x = p.x - o->x;
     p.y = p.y - o->y;
     p.z = p.z - o->z;

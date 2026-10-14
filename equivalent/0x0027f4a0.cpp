@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1557 inputs, branch coverage 6/6)
 // FUN_0027f4a0 @ 0x0027f4a0
-struct Device {
+struct Device_27f4a0 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -22,32 +22,32 @@ struct Device {
     virtual char GetFlag();                                                 // slot 63
 };
 
-struct Resource {
+struct Resource_27f4a0 {
     char pad0[0x10];
     int handle;             // 0x10
 };
 
-struct Slot {
-    Resource *resource;     // 0x0
+struct Slot_27f4a0 {
+    Resource_27f4a0 *resource;     // 0x0
     char pad4[0xc];
     int value;              // 0x10
     char pad14[8];
 };
 
-extern Device *DAT_0052c2a8;
+extern Device_27f4a0 *DAT_0052c2a8;
 
-class Ring {
+class Ring_27f4a0 {
 public:
     char pad0[0x10];
     unsigned int cursor;    // 0x10
     int count;              // 0x14
     char pad18[0x28 - 0x18];
-    Slot slots[100];        // 0x28
+    Slot_27f4a0 slots[100];        // 0x28
 
     void FUN_0027f4a0();
 };
 
-void Ring::FUN_0027f4a0()
+void Ring_27f4a0::FUN_0027f4a0()
 {
     union {
         unsigned int word;
@@ -56,7 +56,7 @@ void Ring::FUN_0027f4a0()
     saved.flag = DAT_0052c2a8->GetFlag();
     DAT_0052c2a8->SetFlag(0);
     for (int i = 0; i < 85; i++) {
-        Slot *s = &slots[(cursor + i + 15) % 100];
+        Slot_27f4a0 *s = &slots[(cursor + i + 15) % 100];
         if (s->resource != 0 && s->value != 0)
             DAT_0052c2a8->SetTexture(s->resource->handle, s->value);
     }

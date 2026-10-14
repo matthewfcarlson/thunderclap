@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000cb750 @ 0x000cb750
-class Curve {
+class Curve_cb750 {
 public:
     virtual void v0();
     virtual void v1();
@@ -17,28 +17,28 @@ public:
 
 struct Bank {
     char pad00[0x24];
-    Curve* curves[1];         // 0x24
+    Curve_cb750* curves[1];         // 0x24
     int FUN_000f7220(int a);
 };
 
-struct Slot { float value; float pad[3]; };
+struct Slot_cb750 { float value; float pad[3]; };
 
-struct Sampler {
+struct Sampler_cb750 {
     Bank* bank;               // 0x00
     char pad04[4];
-    Slot slots[1];            // 0x08 (16 bytes each)
+    Slot_cb750 slots[1];            // 0x08 (16 bytes each)
     char pad18[0x88 - 0x18];
     int current;              // 0x88
     float Sample(int a, int b);
 };
 
-float Sampler::Sample(int a, int b)
+float Sampler_cb750::Sample(int a, int b)
 {
     if (a < 0)
         return 0.0f;
-    Curve* curve = bank->curves[b];
-    Curve* first = bank->curves[0];
-    Slot* slot = &slots[current];
+    Curve_cb750* curve = bank->curves[b];
+    Curve_cb750* first = bank->curves[0];
+    Slot_cb750* slot = &slots[current];
     float inv = 14.0f / first->v7();
     return curve->v10(bank->FUN_000f7220(a)) * slot->value * inv;
 }

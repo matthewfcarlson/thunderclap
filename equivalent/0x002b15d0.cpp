@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 8/8)
 // FUN_002b15d0 @ 0x002b15d0
 // pure3d::VertexOffsetExpressionMixer::VertexOffsetExpressionMixer @ 0x002b15d0
-struct Source {
+struct Source_2b15d0 {
     virtual void AddRef();
     virtual void Release();
     char pad04[0xc];
@@ -15,7 +15,7 @@ struct FUN_0027b070 {
     char pad04[0xc];
 };
 
-struct IntVector {
+struct IntVector_2b15d0 {
     int *first;
     int *last;
     void FUN_002b1010(unsigned int count, int *value);
@@ -24,21 +24,21 @@ struct IntVector {
 namespace pure3d {
 class VertexOffsetExpressionMixer : public FUN_0027b070 {
 public:
-    Source *source;
-    IntVector weights;
+    Source_2b15d0 *source;
+    IntVector_2b15d0 weights;
     char pad1c[4];
     int f20;
     int f24;
     char pad28[4];
     int f2c;
     int f30;
-    VertexOffsetExpressionMixer(Source *s);
+    VertexOffsetExpressionMixer(Source_2b15d0 *s);
     void FUN_002b1490();
     virtual void v1();
 };
 }
 
-pure3d::VertexOffsetExpressionMixer::VertexOffsetExpressionMixer(Source *s)
+pure3d::VertexOffsetExpressionMixer::VertexOffsetExpressionMixer(Source_2b15d0 *s)
 {
     source = 0;
     weights.first = 0;

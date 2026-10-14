@@ -1,23 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 18/18)
 // FUN_001b0090 @ 0x001b0090
-struct Info { char pad[0x6c]; int blocked; };
-struct Mgr { bool FUN_00079950(void* key); };
-struct World { char pad[0x4c]; Mgr* mgr; };
+struct Info_1b0090 { char pad[0x6c]; int blocked; };
+struct Mgr_1b0090 { bool FUN_00079950(void* key); };
+struct World { char pad[0x4c]; Mgr_1b0090* mgr; };
 extern World* DAT_004dd700;
-struct Level { char pad[0x50]; char flag; };
-struct Ctx { char pad[0x74]; Level* level; };
-struct Unit {
+struct Level_1b0090 { char pad[0x50]; char flag; };
+struct Ctx_1b0090 { char pad[0x74]; Level_1b0090* level; };
+struct Unit_1b0090 {
  char pad0[8]; int key;
  char pad1[0xe8 - 0xc]; char hit;
  char pad2[0x114 - 0xe9]; int v114;
  char pad3[0x148 - 0x118]; int v148;
  char v14c; char v14d;
  bool FUN_001d7300();
- Info* FUN_001d72e0();
+ Info_1b0090* FUN_001d72e0();
  bool FUN_001d6a80();
  void FUN_001d7510();
 };
-int __stdcall UnitUpdate(Unit* u, int unused, Ctx* ctx) {
+int __stdcall UnitUpdate(Unit_1b0090* u, int unused, Ctx_1b0090* ctx) {
  if (u->FUN_001d7300()
      && u->FUN_001d72e0()->blocked == 0
      && u->v114 == 0 && u->v148 == 0 && !u->v14d

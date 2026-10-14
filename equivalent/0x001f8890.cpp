@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 20/20)
 // FUN_001f8890 @ 0x001f8890
-struct Entry { float value; char padding[36]; };
+struct Entry_1f8890 { float value; char padding[36]; };
 struct Object {
  char pad0[0x458];
  int enabled;
  char pad1[0x20];
- Entry entries[15];
+ Entry_1f8890 entries[15];
  char pad2[12];
  int count;
  float target();

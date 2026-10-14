@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 21/22, incomplete)
 // hulkfight::motion::CollisionChargeCondition::vfunc_6 @ 0x00150c30
-struct Fighter {
+struct Fighter_150c30 {
     char pad0[0x213c];
     float value;
 };
 
-struct Holder {
-    Fighter *FUN_00059a30();
+struct Holder_150c30 {
+    Fighter_150c30 *FUN_00059a30();
 };
 
-struct Target {
+struct Target_150c30 {
     char pad0[0x7c];
     float value;
 };
@@ -20,8 +20,8 @@ class Params {
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Target *v3();
-    Holder *FUN_000592a0();
+    virtual Target_150c30 *v3();
+    Holder_150c30 *FUN_000592a0();
 };
 }
 
@@ -62,11 +62,11 @@ char CollisionChargeCondition::vfunc_6(int a1, fight::Params *params, int a3)
     if (dynamic_cast<CFightParams *>(params) == 0)
         return false;
 
-    Target *target = params->v3();
+    Target_150c30 *target = params->v3();
     if (target == 0)
         return false;
 
-    Fighter *fighter = params->FUN_000592a0()->FUN_00059a30();
+    Fighter_150c30 *fighter = params->FUN_000592a0()->FUN_00059a30();
 
     float a = target->value;
     float b = threshold;

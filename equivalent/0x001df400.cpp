@@ -2,36 +2,36 @@
 // FUN_001df400 @ 0x001df400
 // Arg is passed by value as a union: the original reuses the dead first argument slot as a
 // bool local and pushes the whole dword (stale high bytes) to the final call.
-union Arg {
+union Arg_1df400 {
     int id;
     unsigned char flag;
     unsigned int word;
 };
 
-class Target {
+class Target_1df400 {
 public:
     void FUN_001d74c0(int a, int b, int c, unsigned int flag);
 };
 
-class Registry {
+class Registry_1df400 {
 public:
     int FUN_00106230(int a);
 };
 
-struct Globals {
+struct Globals_1df400 {
     char pad0[0x18];
-    Registry* registry;
+    Registry_1df400* registry;
 };
-extern Globals* DAT_004dd700;
+extern Globals_1df400* DAT_004dd700;
 
-class Manager {
+class Manager_1df400 {
 public:
-    Target* FUN_001def30(int id);
-    bool FUN_001df400(Arg id, int a2, int a3, int a4, const char* mode);
+    Target_1df400* FUN_001def30(int id);
+    bool FUN_001df400(Arg_1df400 id, int a2, int a3, int a4, const char* mode);
 };
 
-bool Manager::FUN_001df400(Arg id, int a2, int a3, int a4, const char* mode) {
-    Target* target = FUN_001def30(id.id);
+bool Manager_1df400::FUN_001df400(Arg_1df400 id, int a2, int a3, int a4, const char* mode) {
+    Target_1df400* target = FUN_001def30(id.id);
     if (!target)
         return false;
     int value = DAT_004dd700->registry->FUN_00106230(a2);

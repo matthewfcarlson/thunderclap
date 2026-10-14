@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 22/22)
 // FUN_00249810 @ 0x00249810
 extern "C" double __cdecl sqrt(double);
-struct Payload { float value; int FUN_0025d3e0(); void FUN_0025dfc0(int, unsigned int); };
+struct Payload_249810 { float value; int FUN_0025d3e0(); void FUN_0025dfc0(int, unsigned int); };
 struct Node;
-struct Link { Link* next; };
-struct List { char pad[0x48]; Link* first; };
-struct Node { char pad0[8]; Payload* payload; int state; unsigned char flag; char pad11[3]; int field14; char pad18[12]; float value; int field28; char pad2c[4]; List* list; Link link; };
+struct Link_249810 { Link_249810* next; };
+struct List_249810 { char pad[0x48]; Link_249810* first; };
+struct Node { char pad0[8]; Payload_249810* payload; int state; unsigned char flag; char pad11[3]; int field14; char pad18[12]; float value; int field28; char pad2c[4]; List_249810* list; Link_249810 link; };
 void __cdecl FUN_00247b30(int, Node*, int, int*);
 // equiv-conv: FUN_00249810 esi stack
 void FUN_00249810(Node* self, int argument) {
@@ -15,7 +15,7 @@ void FUN_00249810(Node* self, int argument) {
  if(status!=0) return;
  int result=0;
  if(self->field14==0) {
-  Link* link=self->list->first;
+  Link_249810* link=self->list->first;
   while(link) {
    Node* node=reinterpret_cast<Node*>(reinterpret_cast<char*>(link)-0x34);
    if(node!=self && node->state!=0 && node->state!=5) { FUN_00247b30(argument,node,0,&result); break; }

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00020220 @ 0x00020220
-class RefCounted {
+class RefCounted_20220 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -15,7 +15,7 @@ public:
 
 class CAction : public ActionBase {
 public:
-    CAction(RefCounted *r) throw() {
+    CAction(RefCounted_20220 *r) throw() {
         owner = 0;
         if (r != 0)
             r->AddRef();
@@ -24,12 +24,12 @@ public:
         owner = r;
     }
     virtual void v1();
-    RefCounted *owner;
+    RefCounted_20220 *owner;
 };
 
 class CHeadTrackerAction : public CAction {
 public:
-    CHeadTrackerAction(int id, RefCounted *r) throw();
+    CHeadTrackerAction(int id, RefCounted_20220 *r) throw();
     virtual void v2();
     int id;
     int field24;
@@ -45,7 +45,7 @@ public:
 };
 
 // equiv-map: ??0ActionBase@@QAE@XZ = 0x00232660
-CHeadTrackerAction::CHeadTrackerAction(int actionId, RefCounted *r) throw() : CAction(r)
+CHeadTrackerAction::CHeadTrackerAction(int actionId, RefCounted_20220 *r) throw() : CAction(r)
 {
     field24 = 0;
     w88 = 0;

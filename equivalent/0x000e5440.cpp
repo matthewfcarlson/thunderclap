@@ -2,7 +2,7 @@
 // FUN_000e5440 @ 0x000e5440
 extern float DAT_003f32e0;
 
-class Fader {
+class Fader_e5440 {
 public:
     char pad00[0xa74];
     float level;             // 0xa74
@@ -17,7 +17,7 @@ public:
     void FUN_000e5440(int newState);
 };
 
-void Fader::FUN_000e5440(int newState) {
+void Fader_e5440::FUN_000e5440(int newState) {
     int old = state;
     state = newState;
     switch (newState) {

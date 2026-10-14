@@ -1,24 +1,24 @@
 // STATUS: equivalent (tools/equiv.py level 3: 164 inputs, branch coverage 24/28, incomplete)
 // FUN_0021cf70 @ 0x0021cf70
-struct Proto {
+struct Proto_21cf70 {
     char pad00[0xc];
     unsigned int* code;         // 0xc
     char pad10[0x3c - 0x10];
     int lineDefined;            // 0x3c
 };
 
-struct LexState;
+struct LexState_21cf70;
 
-struct FuncState {
-    Proto* f;
+struct FuncState_21cf70 {
+    Proto_21cf70* f;
     char pad04[8];
-    LexState* ls;               // 0xc
+    LexState_21cf70* ls;               // 0xc
     void* L;                    // 0x10
     char pad14[0x24 - 0x14];
     int freereg;                // 0x24
 };
 
-struct LexState {
+struct LexState_21cf70 {
     int pad00;
     int linenumber;
     int lastline;
@@ -26,10 +26,10 @@ struct LexState {
     int seminfo;
     int lookaheadToken;
     int lookaheadSeminfo;
-    FuncState* fs;              // 0x1c
+    FuncState_21cf70* fs;              // 0x1c
 };
 
-struct Exp {
+struct Exp_21cf70 {
     int k;
     int info;
     int aux;
@@ -38,31 +38,31 @@ struct Exp {
 };
 
 struct ConsControl {
-    Exp v;
-    Exp* t;
+    Exp_21cf70 v;
+    Exp_21cf70* t;
     int nh;
     int na;
     int tostore;
 };
 
-int __cdecl FUN_00220bd0(FuncState* fs, int op, int a, int b, int c);
-int __cdecl FUN_00220c10(FuncState* fs, int op, int a, int bx);
-void __cdecl FUN_00221110(FuncState* fs, Exp* e);
-int __cdecl FUN_0021ded0(LexState* ls, Exp* v, unsigned int limit);
-int __cdecl FUN_0021bbc0(LexState* ls, int* seminfo);
+int __cdecl FUN_00220bd0(FuncState_21cf70* fs, int op, int a, int b, int c);
+int __cdecl FUN_00220c10(FuncState_21cf70* fs, int op, int a, int bx);
+void __cdecl FUN_00221110(FuncState_21cf70* fs, Exp_21cf70* e);
+int __cdecl FUN_0021ded0(LexState_21cf70* ls, Exp_21cf70* v, unsigned int limit);
+int __cdecl FUN_0021bbc0(LexState_21cf70* ls, int* seminfo);
 const char* FUN_00216320(void* L, const char* fmt, ...);
-void FUN_0021afd0(LexState* ls, const char* msg, int token);
+void FUN_0021afd0(LexState_21cf70* ls, const char* msg, int token);
 int FUN_00215f50(unsigned int x);
 int FUN_00215f70(unsigned int x);
 // equiv-conv: FUN_0021c2e0 esi eax
-void FUN_0021c2e0(LexState* ls, int token);
+void FUN_0021c2e0(LexState_21cf70* ls, int token);
 // equiv-conv: FUN_0021c340 esi edi stack eax
-void FUN_0021c340(LexState* ls, int what, int who, int line);
+void FUN_0021c340(LexState_21cf70* ls, int what, int who, int line);
 // equiv-conv: FUN_0021cec0 esi edi
-void FUN_0021cec0(ConsControl* cc, FuncState* fs);
-void __cdecl FUN_0021cd90(LexState* ls, ConsControl* cc);
+void FUN_0021cec0(ConsControl* cc, FuncState_21cf70* fs);
+void __cdecl FUN_0021cd90(LexState_21cf70* ls, ConsControl* cc);
 
-static inline void Next(LexState* ls)
+static inline void Next(LexState_21cf70* ls)
 {
     ls->lastline = ls->linenumber;
     if (ls->lookaheadToken != 0x11f) {
@@ -76,9 +76,9 @@ static inline void Next(LexState* ls)
 
 // Lua 5.0 constructor(ls, t): ls arrives in ecx, t in eax.
 // equiv-conv: FUN_0021cf70 ecx eax
-void FUN_0021cf70(LexState* ls, Exp* t)
+void FUN_0021cf70(LexState_21cf70* ls, Exp_21cf70* t)
 {
-    FuncState* fs = ls->fs;
+    FuncState_21cf70* fs = ls->fs;
     int line = ls->linenumber;
     int pc = FUN_00220bd0(fs, 0xa, 0, 0, 0);
     ConsControl cc;
@@ -87,7 +87,7 @@ void FUN_0021cf70(LexState* ls, Exp* t)
     t->f = -1;
     t->k = 0xa;
     t->info = pc;
-    FuncState* fs1 = ls->fs;
+    FuncState_21cf70* fs1 = ls->fs;
     cc.tostore = 0;
     cc.na = 0;
     cc.nh = 0;
@@ -127,7 +127,7 @@ void FUN_0021cf70(LexState* ls, Exp* t)
         } else {
             FUN_0021ded0(ls, &cc.v, 0);
             if (cc.na > 0x3ffff) {
-                FuncState* f2 = ls->fs;
+                FuncState_21cf70* f2 = ls->fs;
                 const char* msg;
                 int ld = f2->f->lineDefined;
                 if (ld != 0)

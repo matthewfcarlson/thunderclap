@@ -8,7 +8,7 @@ extern "C" const char DAT_0048e0f0[];
 
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
-class __declspec(novtable) MethodBase {
+class __declspec(novtable) MethodBase_bfc50 {
   public:
     virtual void m0();
     char pad_04[0xc];
@@ -16,15 +16,15 @@ class __declspec(novtable) MethodBase {
     char pad_11[7];
     char argType;
     char pad_19[3];
-    MethodBase(const char* n, int k) { FUN_001d0480(n, k); }
+    MethodBase_bfc50(const char* n, int k) { FUN_001d0480(n, k); }
     void FUN_001d0480(const char*, int);
 };
 
 template <class R, class A>
-class Function1 : public MethodBase {
+class Function1 : public MethodBase_bfc50 {
   public:
     typedef R (*Fn)(A);
-    Function1(const char* name, Fn f) : MethodBase(name, 1) {
+    Function1(const char* name, Fn f) : MethodBase_bfc50(name, 1) {
         fn = f;
         argType = FUN_001d04d0(DAT_0048e100);
         retType = FUN_001d04d0(DAT_0048e0f0);
@@ -32,12 +32,12 @@ class Function1 : public MethodBase {
     Fn fn;
 };
 
-struct Registry {
+struct Registry_bfc50 {
     void FUN_001d3b70(const char*, void*);
     void FUN_000bfc50(const char* name, void (*fn)(const char*));
 };
 
-void Registry::FUN_000bfc50(const char* name, void (*fn)(const char*)) {
+void Registry_bfc50::FUN_000bfc50(const char* name, void (*fn)(const char*)) {
     void* mem = FUN_0008d690(0x20);
     Function1<void, const char*>* c = 0;
     if (mem)

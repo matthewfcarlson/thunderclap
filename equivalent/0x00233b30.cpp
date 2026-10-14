@@ -6,12 +6,12 @@ class Node {
 public:
     virtual void OnAttached();
     char pad04[0x14 - 4];
-    class List* owner;      // 0x14
+    class List_233b30* owner;      // 0x14
     char pad18[0x20 - 0x18];
     Node* next;             // 0x20
 };
 
-class List {
+class List_233b30 {
 public:
     char pad0[0x1c];
     Node* head;             // 0x1c
@@ -20,7 +20,7 @@ public:
 };
 
 // Inserts node at the given position (end if past the last); negative index appends via FUN_00233160.
-int List::FUN_00233b30(int index, Node* node)
+int List_233b30::FUN_00233b30(int index, Node* node)
 {
     if (node == 0)
         return -1;

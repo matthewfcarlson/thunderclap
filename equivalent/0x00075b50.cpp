@@ -7,7 +7,7 @@ void __cdecl FUN_00068b50();
 void __cdecl FUN_00068b60();
 extern int DAT_004dd00c;
 extern int DAT_004dd008;
-struct ParamBase {
+struct ParamBase_75b50 {
  virtual void slot0();
  char reserved[12];
  void (__cdecl *callback)();
@@ -17,28 +17,28 @@ struct ParamBase {
 };
 class CAIHintTrack;
 namespace fight {
- template<class T> struct ParamFloatConstRange : ParamBase { virtual void slot0(); };
- template<class T> struct ParamName : ParamBase { virtual void slot0(); };
+ template<class T> struct ParamFloatConstRange : ParamBase_75b50 { virtual void slot0(); };
+ template<class T> struct ParamName : ParamBase_75b50 { virtual void slot0(); };
 }
-void __cdecl FUN_002347b0(int*, ParamBase**, int);
+void __cdecl FUN_002347b0(int*, ParamBase_75b50**, int);
 void __cdecl FUN_00075b50() {
  if (DAT_004dd00c == 0) {
-  ParamBase* params[3];
-  ParamBase* p = (ParamBase*)FUN_0008d690(24);
+  ParamBase_75b50* params[3];
+  ParamBase_75b50* p = (ParamBase_75b50*)FUN_0008d690(24);
   if(p) {
    p->FUN_00234960("timeBegin");
    new(p) fight::ParamFloatConstRange<CAIHintTrack>;
    p->callback = FUN_00068b40;
   }
   params[0]=p;
-  p=(ParamBase*)FUN_0008d690(24);
+  p=(ParamBase_75b50*)FUN_0008d690(24);
   if(p) {
    p->FUN_00234960("timeEnd");
    new(p) fight::ParamFloatConstRange<CAIHintTrack>;
    p->callback=FUN_00068b50;
   }
   params[1]=p;
-  p=(ParamBase*)FUN_0008d690(24);
+  p=(ParamBase_75b50*)FUN_0008d690(24);
   if(p) {
    p->FUN_00234a90("hint");
    new(p) fight::ParamName<CAIHintTrack>;

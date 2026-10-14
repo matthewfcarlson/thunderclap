@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 14/14)
 // FUN_0021f500 @ 0x0021f500
 // Lua 5.0 lparser statement(): returns 1 when the statement must be the last of its block.
-struct LexState {
+struct LexState_21f500 {
     char pad0[4];
     int linenumber;
     int lastline;
@@ -9,35 +9,35 @@ struct LexState {
 };
 
 // equiv-conv: FUN_0021c190 esi
-void FUN_0021c190(LexState *ls);
+void FUN_0021c190(LexState_21f500 *ls);
 // equiv-conv: FUN_0021c290 ecx esi
-int FUN_0021c290(int token, LexState *ls);
+int FUN_0021c290(int token, LexState_21f500 *ls);
 // equiv-conv: FUN_0021c340 eax esi edi stack
-void FUN_0021c340(int line, LexState *ls, int what, int who);
+void FUN_0021c340(int line, LexState_21f500 *ls, int what, int who);
 // equiv-conv: FUN_0021e080 eax
-void FUN_0021e080(LexState *ls);
-void FUN_0021e300(LexState *ls, int line);
+void FUN_0021e080(LexState_21f500 *ls);
+void FUN_0021e300(LexState_21f500 *ls, int line);
 // equiv-conv: FUN_0021e5b0 eax stack
-void FUN_0021e5b0(LexState *ls, int line);
+void FUN_0021e5b0(LexState_21f500 *ls, int line);
 // equiv-conv: FUN_0021ecd0 eax stack
-void FUN_0021ecd0(LexState *ls, int line);
+void FUN_0021ecd0(LexState_21f500 *ls, int line);
 // equiv-conv: FUN_0021ee70 eax stack
-void FUN_0021ee70(LexState *ls, int line);
+void FUN_0021ee70(LexState_21f500 *ls, int line);
 // equiv-conv: FUN_0021ef60 ebx
-void FUN_0021ef60(LexState *ls);
+void FUN_0021ef60(LexState_21f500 *ls);
 // equiv-conv: FUN_0021f0a0 eax
-void FUN_0021f0a0(LexState *ls);
+void FUN_0021f0a0(LexState_21f500 *ls);
 // equiv-conv: FUN_0021f280 eax esi
-void FUN_0021f280(LexState *ls, int line);
+void FUN_0021f280(LexState_21f500 *ls, int line);
 // equiv-conv: FUN_0021f300 eax
-void FUN_0021f300(LexState *ls);
+void FUN_0021f300(LexState_21f500 *ls);
 // equiv-conv: FUN_0021f350 eax
-void FUN_0021f350(LexState *ls);
+void FUN_0021f350(LexState_21f500 *ls);
 // equiv-conv: FUN_0021f460 edi
-void FUN_0021f460(LexState *ls);
+void FUN_0021f460(LexState_21f500 *ls);
 
 // equiv-conv: FUN_0021f500 eax
-int FUN_0021f500(LexState *ls)
+int FUN_0021f500(LexState_21f500 *ls)
 {
     int line = ls->linenumber;
     switch (ls->token) {

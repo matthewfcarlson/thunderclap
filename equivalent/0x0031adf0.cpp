@@ -2,15 +2,15 @@
 // FUN_0031adf0 @ 0x0031adf0
 extern int DAT_004d35dc;
 extern int FUN_00356667();
-struct DisplayMode { int width; unsigned char bytes[8]; };
-extern DisplayMode DAT_004d350c[];
+struct DisplayMode_31adf0 { int width; unsigned char bytes[8]; };
+extern DisplayMode_31adf0 DAT_004d350c[];
 int __cdecl FUN_0031adf0(int index) {
     int flags = DAT_004d35dc;
     if (flags == -1) {
         flags = FUN_00356667();
         DAT_004d35dc = flags;
     }
-    DisplayMode &mode = DAT_004d350c[index];
+    DisplayMode_31adf0 &mode = DAT_004d350c[index];
     int width = mode.width;
     int result = 1;
     if (width == 480) {

@@ -2,7 +2,7 @@
 // FUN_0021ccb0 @ 0x0021ccb0
 struct FuncState;
 
-struct LexState {
+struct LexState_21ccb0 {
     int current;            // 0x00
     int linenumber;         // 0x04
     int lastline;           // 0x08
@@ -13,7 +13,7 @@ struct LexState {
     FuncState* fs;          // 0x1c
 };
 
-struct ExpDesc {
+struct ExpDesc_21ccb0 {
     int k;
     int info;
     int aux;
@@ -22,13 +22,13 @@ struct ExpDesc {
 };
 
 void __cdecl FUN_00221190(FuncState* fs, int x);
-int __cdecl FUN_0021bbc0(LexState* ls, int* seminfo);
+int __cdecl FUN_0021bbc0(LexState_21ccb0* ls, int* seminfo);
 int __cdecl FUN_0021c3d0();
 int __cdecl FUN_002209b0(FuncState* fs, int v);
-int __cdecl FUN_002216e0(FuncState* fs, int x, ExpDesc* e, FuncState* fs2, int v);
+int __cdecl FUN_002216e0(FuncState* fs, int x, ExpDesc_21ccb0* e, FuncState* fs2, int v);
 
 // equiv-conv: FUN_0021ccb0 eax ebx
-int FUN_0021ccb0(LexState* ls, int x)
+int FUN_0021ccb0(LexState_21ccb0* ls, int x)
 {
     FuncState* fs = ls->fs;
     FUN_00221190(fs, x);
@@ -40,7 +40,7 @@ int FUN_0021ccb0(LexState* ls, int x)
     } else {
         ls->token = FUN_0021bbc0(ls, &ls->seminfo);
     }
-    ExpDesc e;
+    ExpDesc_21ccb0 e;
     int v = FUN_0021c3d0();
     e.info = FUN_002209b0(ls->fs, v);
     e.k = 4;

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 11/12, incomplete)
 // CJumpAction::vfunc_6 @ 0x00013b90
-struct Vec3 {
+struct Vec3_13b90 {
     float x, y, z;
 };
 
@@ -8,63 +8,63 @@ struct Pose {
     char data[1];
 };
 
-struct Transform {
+struct Transform_13b90 {
     void FUN_00221be0(const Pose *pose);
     void FUN_00221d20(float v);
 };
 
-struct ResourceName {
+struct ResourceName_13b90 {
     char data[12];
     void FUN_0027b040(const char *name);
 };
 
-class JointObject {
+class JointObject_13b90 {
 public:
     virtual void vfunc_0();
     char pad04[4];
-    ResourceName name;
+    ResourceName_13b90 name;
     unsigned int flags;
-    Transform transform;
-    char rest[0x70 - 0x18 - sizeof(Transform)];
-    JointObject *FUN_002248f0(unsigned int id);
+    Transform_13b90 transform;
+    char rest[0x70 - 0x18 - sizeof(Transform_13b90)];
+    JointObject_13b90 *FUN_002248f0(unsigned int id);
 };
 
-struct Scene {
+struct Scene_13b90 {
     char pad0[0x10];
     Pose pose;
-    void FUN_00222890(JointObject *obj, float a, int b, float c, float d, float e, float f);
+    void FUN_00222890(JointObject_13b90 *obj, float a, int b, float c, float d, float e, float f);
 };
 
-struct Mount {
-    void FUN_00059a50(Vec3 *out);
+struct Mount_13b90 {
+    void FUN_00059a50(Vec3_13b90 *out);
 };
 
-struct Stats {
+struct Stats_13b90 {
     char pad0[0x10];
-    Mount *mount;
+    Mount_13b90 *mount;
     char pad14[0x2064 - 0x14];
-    Vec3 charge;
+    Vec3_13b90 charge;
     float chargeTime;
     float FUN_0003ec00(int arg);
     void FUN_000354e0(float v);
 };
 
-struct Controller {
-    void FUN_001ec980(Stats *stats, const char *name);
+struct Controller_13b90 {
+    void FUN_001ec980(Stats_13b90 *stats, const char *name);
 };
 
-struct Manager {
-    void FUN_00099d20(struct Globals *g, Stats *s, float a, float b, float c);
+struct Manager_13b90 {
+    void FUN_00099d20(struct Globals_13b90 *g, Stats_13b90 *s, float a, float b, float c);
 };
 
-struct Globals {
+struct Globals_13b90 {
     char pad0[8];
-    Manager *manager;
+    Manager_13b90 *manager;
     char pad0c[0x34 - 0xc];
-    Controller *controller;
+    Controller_13b90 *controller;
 };
 
-class Input {
+class Input_13b90 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -104,11 +104,11 @@ public:
 };
 
 void *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(void *x);
-Scene *__fastcall FUN_00059a40(void *x);
-extern "C" float FUN_00224f10(Vec3 *v);
+Stats_13b90 *__fastcall FUN_00059a30(void *x);
+Scene_13b90 *__fastcall FUN_00059a40(void *x);
+extern "C" float FUN_00224f10(Vec3_13b90 *v);
 void *__cdecl FUN_00263ea0(unsigned int size);
-extern Globals *DAT_004dd700;
+extern Globals_13b90 *DAT_004dd700;
 
 class CJumpAction {
 public:
@@ -123,8 +123,8 @@ public:
     virtual void vfunc_8();
     char pad04[0x18];
     void *owner;
-    Input *input;
-    JointObject *joint;
+    Input_13b90 *input;
+    JointObject_13b90 *joint;
     float f28;
     float f2c;
     float f30;
@@ -133,15 +133,15 @@ public:
 char CJumpAction::vfunc_6(int arg)
 {
     void *fighter = FUN_000592a0(owner);
-    Stats *stats = FUN_00059a30(fighter);
-    Scene *scene = FUN_00059a40(fighter);
+    Stats_13b90 *stats = FUN_00059a30(fighter);
+    Scene_13b90 *scene = FUN_00059a40(fighter);
     if (scene == 0)
         return 0;
 
     void *mem = FUN_00263ea0(0x70);
-    JointObject *obj = 0;
+    JointObject_13b90 *obj = 0;
     if (mem)
-        obj = ((JointObject *)mem)->FUN_002248f0(0);
+        obj = ((JointObject_13b90 *)mem)->FUN_002248f0(0);
     joint = obj;
 
     obj->name.FUN_0027b040("jump");
@@ -164,10 +164,10 @@ char CJumpAction::vfunc_6(int arg)
     f2c = input->FUN_00069210(speed);
     f30 = input->FUN_000692c0(speed);
 
-    Globals *g = DAT_004dd700;
+    Globals_13b90 *g = DAT_004dd700;
     g->manager->FUN_00099d20(g, stats, f2c, f28, f30);
 
-    Vec3 out;
+    Vec3_13b90 out;
     stats->mount->FUN_00059a50(&out);
     if (!(speed < 1.0f) && out.y > 100.0f)
         g->controller->FUN_001ec980(stats, "StartChargedJump");

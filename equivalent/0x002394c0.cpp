@@ -3,19 +3,19 @@
 extern "C" void __fastcall __security_check_cookie(unsigned);
 extern unsigned DAT_004d9968;
 
-struct Item {
+struct Item_2394c0 {
     char pad0[0xc];
     unsigned int bits;      // 0xc
     float x;                // 0x10
     float y;                // 0x14
 };
 
-struct Part {
-    void FUN_00232060(struct Owner *owner, int a, int b, int c);
-    void FUN_002320d0(struct Owner *owner, int a, int b);
+struct Part_2394c0 {
+    void FUN_00232060(struct Owner_2394c0 *owner, int a, int b, int c);
+    void FUN_002320d0(struct Owner_2394c0 *owner, int a, int b);
 };
 
-struct Child {
+struct Child_2394c0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -24,14 +24,14 @@ struct Child {
     virtual void v5();
     virtual float getX();                                  // 0x18
     virtual float getY();                                  // 0x1c
-    virtual Part *lookup(Part *a, int b);                  // 0x20
-    virtual int check(struct Owner *owner, Part *a, int b); // 0x24
-    virtual Item *make(struct Owner *owner, Part *a, int b); // 0x28
-    Child *next;            // 0x4
+    virtual Part_2394c0 *lookup(Part_2394c0 *a, int b);                  // 0x20
+    virtual int check(struct Owner_2394c0 *owner, Part_2394c0 *a, int b); // 0x24
+    virtual Item_2394c0 *make(struct Owner_2394c0 *owner, Part_2394c0 *a, int b); // 0x28
+    Child_2394c0 *next;            // 0x4
     int kind;               // 0x8
 };
 
-struct Owner {
+struct Owner_2394c0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -40,25 +40,25 @@ struct Owner {
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual Owner *find(int a, int b);  // 0x20
+    virtual Owner_2394c0 *find(int a, int b);  // 0x20
     char pad4[0x28 - 4];
-    Child *first;           // 0x28
+    Child_2394c0 *first;           // 0x28
 };
 
-struct Slots {
+struct Slots_2394c0 {
     char pad0[0x20];
 };
 
-struct Sub {
-    void FUN_00232290(Item *item);
-    void FUN_00232030(Owner *owner);
+struct Sub_2394c0 {
+    void FUN_00232290(Item_2394c0 *item);
+    void FUN_00232030(Owner_2394c0 *owner);
     void FUN_002322f0(int a, int b);
     char FUN_00231ee0();
 };
 
 int __cdecl FUN_00238190(int n);
 int __cdecl FUN_00266da0(int h);
-struct Check {
+struct Check_2394c0 {
     char FUN_00236f40(int a, int b, int c);
 };
 
@@ -70,12 +70,12 @@ public:
     char pad10[0x1c - 0x10];
     int field1c;
     char pad20[4];
-    Owner *owner;           // 0x24
+    Owner_2394c0 *owner;           // 0x24
     int field28;
-    Check *field2c;
-    Part *part;             // 0x30
+    Check_2394c0 *field2c;
+    Part_2394c0 *part;             // 0x30
     int field34;
-    Sub sub;                // 0x38
+    Sub_2394c0 sub;                // 0x38
     char pad39[0x60 - 0x39];
     int field60;
     char done;              // 0x64
@@ -85,7 +85,7 @@ public:
 char ExecuteAction::FUN_002394c0(int a1, int a2)
 {
     unsigned cookie = DAT_004d9968;
-    Part *seen[8];
+    Part_2394c0 *seen[8];
     char mark[8];
     int handle = FUN_00266da0(FUN_00238190(3));
     field60 = a1;
@@ -96,7 +96,7 @@ char ExecuteAction::FUN_002394c0(int a1, int a2)
         return 0;
     }
 
-    Owner *found = owner->find(field34, 0);
+    Owner_2394c0 *found = owner->find(field34, 0);
     if (found == 0) {
         FUN_00266da0(handle);
         __security_check_cookie(cookie);
@@ -105,11 +105,11 @@ char ExecuteAction::FUN_002394c0(int a1, int a2)
 
     int count = 0;
     int allow = 1;
-    for (Child *c = found->first; c != 0; c = c->next) {
+    for (Child_2394c0 *c = found->first; c != 0; c = c->next) {
         int kind = c->kind;
-        Part *r = c->lookup(part, field34);
+        Part_2394c0 *r = c->lookup(part, field34);
         if (part == r) {
-            Item *it = c->make(found, part, field34);
+            Item_2394c0 *it = c->make(found, part, field34);
             if (it) {
                 it->x = c->getX();
                 it->y = c->getY();

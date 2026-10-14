@@ -5,31 +5,31 @@ extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" double sqrt(double);
 extern char DAT_004a1bfc;
 
-struct RandState {
+struct RandState_102590 {
     float FUN_00078780();
 };
-RandState *__cdecl FUN_000964d0();
+RandState_102590 *__cdecl FUN_000964d0();
 
-struct V3 {
+struct V3_102590 {
     float x;
     float y;
     float z;
 };
 
-struct Sub {
+struct Sub_102590 {
     char pad[0x10c];
-    V3 v;
+    V3_102590 v;
 };
 
-struct Player {
+struct Player_102590 {
     char pad0[0x1cd8];
     float lo;
     float hi;
     char pad1ce0[0x1f58 - 0x1ce0];
-    Sub sub;
+    Sub_102590 sub;
 };
 
-class Ctrl {
+class Ctrl_102590 {
 public:
     virtual void v0();
     virtual void v1();
@@ -37,7 +37,7 @@ public:
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual Player *v6();
+    virtual Player_102590 *v6();
     virtual void v7();
     virtual void v8();
     virtual int v9();
@@ -57,20 +57,20 @@ public:
     virtual void v9();
     virtual void v10();
     virtual void v11();
-    virtual char v12(Player *pl);
+    virtual char v12(Player_102590 *pl);
     virtual void v13();
     virtual void v14(int a0, float dt);
-    virtual char v15(int a0, Player *pl);
+    virtual char v15(int a0, Player_102590 *pl);
     virtual void v16();
-    virtual char v17(Sub *sub, float dt);
+    virtual char v17(Sub_102590 *sub, float dt);
     virtual void v18();
     virtual void v19();
-    virtual void v20(Player *pl, Sub *sub, float dt);
-    virtual void v21(Player *pl, Sub *sub, float dt);
-    virtual void v22(Player *pl, Sub *sub, float dt);
-    virtual void v23(Player *pl, Sub *sub, float dt);
+    virtual void v20(Player_102590 *pl, Sub_102590 *sub, float dt);
+    virtual void v21(Player_102590 *pl, Sub_102590 *sub, float dt);
+    virtual void v22(Player_102590 *pl, Sub_102590 *sub, float dt);
+    virtual void v23(Player_102590 *pl, Sub_102590 *sub, float dt);
     char pad04[0x58 - 4];
-    Ctrl *ctrl;
+    Ctrl_102590 *ctrl;
     char pad5c[4];
     char b60;
     char pad61[3];
@@ -86,8 +86,8 @@ public:
     float f80;
     float f84;
     char pad88[0xb0 - 0x88];
-    V3 dirA;
-    V3 dirB;
+    V3_102590 dirA;
+    V3_102590 dirB;
     float fc8;
     char bcc;
     char padcd[0xd1 - 0xcd];
@@ -99,16 +99,16 @@ public:
     float fdc;
     float fe0;
     char pade4[0x138 - 0xe4];
-    V3 w0;
-    V3 w1;
-    V3 w2;
-    V3 w3;
-    V3 w4;
-    V3 va;
+    V3_102590 w0;
+    V3_102590 w1;
+    V3_102590 w2;
+    V3_102590 w3;
+    V3_102590 w4;
+    V3_102590 va;
     float f180;
-    V3 vb;
+    V3_102590 vb;
     int f190;
-    V3 cur;
+    V3_102590 cur;
 
     void FUN_000fc550(int a0, float dt, int a2);
 };
@@ -121,9 +121,9 @@ void CHand2HandAgent::vfunc_4(int a0, float dt, int a2)
         va.x = va.y = va.z = 0.0f;
         vb.x = vb.y = vb.z = 0.0f;
     }
-    RandState *rng = FUN_000964d0();
-    Player *pl = ctrl->v6();
-    Sub *sub = &pl->sub;
+    RandState_102590 *rng = FUN_000964d0();
+    Player_102590 *pl = ctrl->v6();
+    Sub_102590 *sub = &pl->sub;
     if (ctrl) {
         if (ctrl->v9() == 4) {
             __security_check_cookie(cookie);

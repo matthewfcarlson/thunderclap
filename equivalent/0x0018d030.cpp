@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 22/22)
 // hulkfight::motion::GrappleVarCompareCondition::vfunc_6 @ 0x0018d030
-struct Key {
+struct Key_18d030 {
     unsigned int lo;
     unsigned int hi;
 };
 
 struct Grappler {
-    int FUN_00036e40(Key *key);
+    int FUN_00036e40(Key_18d030 *key);
 };
 Grappler *__cdecl FUN_00048260(void *owner);
 
@@ -17,7 +17,7 @@ class GrappleVarCompareCondition {
 public:
     virtual void vfunc_0();
     char pad04[0xc];
-    Key variable;
+    Key_18d030 variable;
     int op;
     int value;
     bool vfunc_6(int a, void *owner, int c);

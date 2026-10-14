@@ -5,7 +5,7 @@ extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
-struct Name {
+struct Name_2afba0 {
     char data[8];
     void FUN_0027b040(const char *s);
 };
@@ -15,7 +15,7 @@ class __declspec(novtable) Entity {
 public:
     virtual void e0();
     char pad4[4];
-    Name name;
+    Name_2afba0 name;
     void FUN_0027b070();
     Entity() throw() { FUN_0027b070(); }
 };
@@ -42,15 +42,15 @@ struct Stream {
     Reader *reader;
 };
 
-union Cell {
+union Cell_2afba0 {
     int i;
     float f;
 };
 
-struct Frame {
+struct Frame_2afba0 {
     char pad[3];
     unsigned char len;
-    Cell cell;
+    Cell_2afba0 cell;
     char name[0x100];
 };
 
@@ -66,7 +66,7 @@ public:
 
 void ExpressionLoader::vfunc_5(pure3d::Expression **out, unsigned __int64 *outId, Stream *s, void *ctx)
 {
-    Frame f;
+    Frame_2afba0 f;
     s->reader->FUN_002647e0(&f.cell, 1, 4, 1);
     s->reader->FUN_002647e0(&f.len, 1, 1, 1);
     s->reader->FUN_002647e0(f.name, f.len, 1, 1);

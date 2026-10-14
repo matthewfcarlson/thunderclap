@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_003429f0 @ 0x003429f0
-struct Block16 {
+struct Block16_3429f0 {
     float v[16];
 };
 
-struct Twiddle {
+struct Twiddle_3429f0 {
     int pad0;
     float c1;
     char pad8[8];
     float c2;
     float c3;
     // data block arrives in eax
-    void FUN_003429f0(Block16 *d);
+    void FUN_003429f0(Block16_3429f0 *d);
 };
 
 // equiv-conv: FUN_003429f0 ecx eax
-void Twiddle::FUN_003429f0(Block16 *d)
+void Twiddle_3429f0::FUN_003429f0(Block16_3429f0 *d)
 {
     float *v = d->v;
     float fVar1 = c1;

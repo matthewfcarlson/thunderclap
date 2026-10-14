@@ -1,20 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_0033cc10 @ 0x0033cc10
-struct MatchState { const char* begin; const char* end; void* state; unsigned depth; char captures[256]; };
-struct Locals { unsigned length; const char* pattern; unsigned patternLength; int anchored; MatchState match; };
+struct MatchState_33cc10 { const char* begin; const char* end; void* state; unsigned depth; char captures[256]; };
+struct Locals_33cc10 { unsigned length; const char* pattern; unsigned patternLength; int anchored; MatchState_33cc10 match; };
 extern "C" const char* __cdecl FUN_00339df0(void*, int, unsigned*);
 extern "C" int __cdecl FUN_00339fe0(void*, int, int);
 extern "C" int __cdecl FUN_00213160(void*, int);
 extern "C" char* __cdecl strpbrk(const char*, const char*);
-extern "C" const char* __cdecl FUN_0033c7e0(MatchState*, const char*, const char*);
+extern "C" const char* __cdecl FUN_0033c7e0(MatchState_33cc10*, const char*, const char*);
 // equiv-conv: FUN_0033caa0 eax stack stack stack
 extern "C" const char* __cdecl FUN_0033caa0(const char*, unsigned, const char*, unsigned);
 extern "C" void __cdecl FUN_00213360(void*, unsigned);
 extern "C" void __cdecl FUN_00213320(void*);
 // equiv-conv: FUN_0033cb70 esi eax ecx
-extern "C" int __cdecl FUN_0033cb70(MatchState*, int, int);
+extern "C" int __cdecl FUN_0033cb70(MatchState_33cc10*, int, int);
 int __cdecl FUN_0033cc10(void* state) {
- Locals local;
+ Locals_33cc10 local;
  const char* text = FUN_00339df0(state,1,&local.length);
  const char* pattern = FUN_00339df0(state,2,&local.patternLength);
  local.pattern = pattern;

@@ -11,14 +11,14 @@ static float AbsF(float v)
     return c.f;
 }
 
-struct V3 {
+struct V3_1da540 {
     float x, y, z;
     float FUN_0022d110();
     float FUN_00018990();
-    void FUN_00011160(float s, V3 *d);
+    void FUN_00011160(float s, V3_1da540 *d);
 };
 
-struct RefObj {
+struct RefObj_1da540 {
     virtual void AddRef();
     virtual void Release();
 };
@@ -26,20 +26,20 @@ struct RefObj {
 extern unsigned __int64 DAT_004e2548;
 
 struct Entity;
-struct Actor;
+struct Actor_1da540;
 
-struct Ref : RefObj {
+struct Ref_1da540 : RefObj_1da540 {
     int pad4;
     union {
         Entity *ent;
-        Actor *act;
+        Actor_1da540 *act;
     };
     int type;
     char pad10[0x70 - 0x10];
     int f70;
 };
 
-struct Sub : RefObj {
+struct Sub_1da540 : RefObj_1da540 {
     char pad[0x68];
     int f6c;
 };
@@ -47,19 +47,19 @@ struct Sub : RefObj {
 struct Request {
     int r00;
     int r04;
-    V3 target;                 // 0x08
+    V3_1da540 target;                 // 0x08
     char pad14[4];
-    V3 aim;                    // 0x18
+    V3_1da540 aim;                    // 0x18
     char pad24[4];
-    V3 dir;                    // 0x28
+    V3_1da540 dir;                    // 0x28
     char pad34[4];
-    V3 vel;                    // 0x38
+    V3_1da540 vel;                    // 0x38
     char pad44[0x4c - 0x44];
-    RefObj *f4c;
-    RefObj *f50;
+    RefObj_1da540 *f4c;
+    RefObj_1da540 *f50;
     float f54;
     char pad58[0x60 - 0x58];
-    RefObj *f60;
+    RefObj_1da540 *f60;
     char pad64[0x78 - 0x64];
     float f78;
     float f7c;
@@ -69,219 +69,219 @@ struct Request {
     void FUN_00059300();
 };
 
-struct Job : RefObj {
-    Job *FUN_000598e0(void *a, Request *req);
-    void FUN_00059790(Sub *s);
+struct Job_1da540 : RefObj_1da540 {
+    Job_1da540 *FUN_000598e0(void *a, Request *req);
+    void FUN_00059790(Sub_1da540 *s);
 };
 
-struct Handle {
-    char FUN_00231ad0(void *sink, Job *job, int n);
+struct Handle_1da540 {
+    char FUN_00231ad0(void *sink, Job_1da540 *job, int n);
 };
 
-struct Queue {
+struct Queue_1da540 {
     virtual void q0(); virtual void q1(); virtual void q2(); virtual void q3();
     virtual void q4(); virtual void q5(); virtual void q6(); virtual void q7();
-    virtual Handle *Submit(Job *job, int n);
+    virtual Handle_1da540 *Submit(Job_1da540 *job, int n);
 };
 
-struct Ctrl {
+struct Ctrl_1da540 {
     char pad0[0x14];
     int f14;
 };
 
-struct Hit {
+struct Hit_1da540 {
     char pad0[0x40];
-    V3 f40;
+    V3_1da540 f40;
 };
 
 struct Owner3 {
     void *a;
-    Ref *b;
+    Ref_1da540 *b;
     int c;
 };
 
-struct Pusher {
+struct Pusher_1da540 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-    virtual void v8(V3 *pos, V3 *out, int n);
+    virtual void v8(V3_1da540 *pos, V3_1da540 *out, int n);
 };
 
-struct Obj70 {
+struct Obj70_1da540 {
     char pad0[0x10];
-    Pusher *f10;
+    Pusher_1da540 *f10;
     char pad14[0x98 - 0x14];
-    V3 v98;
+    V3_1da540 v98;
 };
 
-struct Mid10 {
+struct Mid10_1da540 {
     char pad0[0x70];
-    Obj70 *f70;
+    Obj70_1da540 *f70;
 };
 
-struct Holder {
+struct Holder_1da540 {
     char pad0[0x10];
-    Mid10 *f10;
+    Mid10_1da540 *f10;
 };
 
-struct Actor {
+struct Actor_1da540 {
     char pad0[0x10];
     void **f10;
     char pad14[0xdc - 0x14];
     int fdc;
     char pade0[0x11c - 0xe0];
-    Ctrl *f11c;
+    Ctrl_1da540 *f11c;
     char pad120[0x12c - 0x120];
-    RefObj *f12c;
+    RefObj_1da540 *f12c;
     char pad130[0x3a4 - 0x130];
     int f3a4;
     char FUN_000360f0();
-    void FUN_0003a9d0(Sub *s);
-    void FUN_000350c0(V3 *out);
-    void FUN_00043ae0(Ref *a1, V3 *a2, float a3, float a4, float a5, int a6, int a7, int a8, Sub *a9);
-    Hit *FUN_00039c60(V3 *pos, V3 *dir, float a3, float a4, int a5, Owner3 *o, int a7);
+    void FUN_0003a9d0(Sub_1da540 *s);
+    void FUN_000350c0(V3_1da540 *out);
+    void FUN_00043ae0(Ref_1da540 *a1, V3_1da540 *a2, float a3, float a4, float a5, int a6, int a7, int a8, Sub_1da540 *a9);
+    Hit_1da540 *FUN_00039c60(V3_1da540 *pos, V3_1da540 *dir, float a3, float a4, int a5, Owner3 *o, int a7);
 };
 
-struct Ready {
+struct Ready_1da540 {
     int FUN_001d4de0();
     int FUN_001d5e80(int v);
     unsigned __int64 FUN_001d4f70();
 };
 
-struct Mover {
-    void FUN_00083320(V3 *a, V3 *b, float c, char airborne, V3 *e, char forced);
+struct Mover_1da540 {
+    void FUN_00083320(V3_1da540 *a, V3_1da540 *b, float c, char airborne, V3_1da540 *e, char forced);
 };
 
-struct Ray {
-    char FUN_00201e00(V3 *a, V3 *b, int c, V3 *d, V3 *e, int f, int g);
+struct Ray_1da540 {
+    char FUN_00201e00(V3_1da540 *a, V3_1da540 *b, int c, V3_1da540 *d, V3_1da540 *e, int f, int g);
 };
 
 struct Sink30 {
     void FUN_001cbd10(const char *s);
 };
 
-struct Fx34;
+struct Fx34_1da540;
 
 struct Reqs {
-    Mover *FUN_0007ad00(void *p);
+    Mover_1da540 *FUN_0007ad00(void *p);
 };
 
 struct World {
     char pad0[0x24];
-    Ray *p24;
+    Ray_1da540 *p24;
     char pad28[0x30 - 0x28];
     Sink30 *p30;
-    Fx34 *p34;
+    Fx34_1da540 *p34;
     char pad38[0x4c - 0x38];
     Reqs *p4c;
 };
 extern World *DAT_004dd700;
 
-struct Sub1a4 {
-    char FUN_001b6e90(Ref *a);
-    void FUN_001b6e60(Ref *a);
-    void FUN_001b6de0(Ref *a);
+struct Sub1a4_1da540 {
+    char FUN_001b6e90(Ref_1da540 *a);
+    void FUN_001b6e60(Ref_1da540 *a);
+    void FUN_001b6de0(Ref_1da540 *a);
 };
 
-struct Sub240 {
+struct Sub240_1da540 {
     char pad[8];
 };
 
 class Entity;
 
-struct Fx34 {
+struct Fx34_1da540 {
     void FUN_001ebd80(Entity *e, const char *name, float v, int z);
 };
 
 extern "C" int __cdecl FUN_00266da0(int mode);
 void *__cdecl FUN_0008d690(unsigned int size);
-void __cdecl FUN_00018810(RefObj **slot, RefObj *obj);
-void __cdecl FUN_00224d70(float ang, V3 *v);
-void __cdecl FUN_00096b50(Ref *a1, V3 *out, int *count);
-int __cdecl FUN_00097a30(float a1, float a2, float a3, void *a4, float a5, V3 *a6, float a7, V3 *a8, int a9, int a10, int a11, int a12);
+void __cdecl FUN_00018810(RefObj_1da540 **slot, RefObj_1da540 *obj);
+void __cdecl FUN_00224d70(float ang, V3_1da540 *v);
+void __cdecl FUN_00096b50(Ref_1da540 *a1, V3_1da540 *out, int *count);
+int __cdecl FUN_00097a30(float a1, float a2, float a3, void *a4, float a5, V3_1da540 *a6, float a7, V3_1da540 *a8, int a9, int a10, int a11, int a12);
 
 class Entity {
 public:
     char pad000[0x40];
     int f40;
     char pad44[0xa0 - 0x44];
-    Holder *f0a0;
+    Holder_1da540 *f0a0;
     char pad0a4[0xb0 - 0xa4];
     char b0b0;
     char pad0b1[0xec - 0xb1];
-    Ready *ready;
+    Ready_1da540 *ready;
     char pad0f0[0x110 - 0xf0];
     char b110;
     char pad111[3];
-    Ref *f114;
-    Ref *f118;
+    Ref_1da540 *f114;
+    Ref_1da540 *f118;
     char pad11c[0x148 - 0x11c];
-    Actor *f148;
+    Actor_1da540 *f148;
     char pad14c[1];
     char b14d;
     char pad14e[0x1a4 - 0x14e];
-    Sub1a4 s1a4;
+    Sub1a4_1da540 s1a4;
     char pad1a5[0x1c9 - 0x1a5];
     char b1c9;
     char pad1ca[0x1fc - 0x1ca];
-    Ref *f1fc;
-    V3 v200;
-    V3 v20c;
+    Ref_1da540 *f1fc;
+    V3_1da540 v200;
+    V3_1da540 v20c;
     float f218;
-    Ref *f21c;
+    Ref_1da540 *f21c;
     float f220;
     int f224;
     float f228;
     float f22c;
     float f230;
     float f234;
-    Queue *p238;
+    Queue_1da540 *p238;
     char pad23c[4];
-    Sub240 s240;
+    Sub240_1da540 s240;
     int f248;
 
     void FUN_001d82d0();
-    void FUN_001d6ec0(int a, Ref *b, int c);
+    void FUN_001d6ec0(int a, Ref_1da540 *b, int c);
     int FUN_001d73f0();
-    Sub *FUN_001d72e0();
+    Sub_1da540 *FUN_001d72e0();
     char FUN_001d7300();
-    void FUN_001d86d0(V3 *v, V3 *w);
-    void FUN_001d66b0(V3 *a, V3 *b);
+    void FUN_001d86d0(V3_1da540 *v, V3_1da540 *w);
+    void FUN_001d66b0(V3_1da540 *a, V3_1da540 *b);
     void FUN_001d8100();
-    void FUN_001d8c70(Hit *h);
+    void FUN_001d8c70(Hit_1da540 *h);
     void FUN_001d8cd0();
     void FUN_001d8d90(int a);
     void FUN_001d71e0(int a);
-    char FUN_001da350(Ref *a1, V3 *a2, V3 *a3, float a4, void *a5, float a6, int a7, float a8, float a9,
-                      float a10, float a11, Queue *a12, Sub240 *a13);
-    int FUN_001da540(Ref *a1, V3 *a2, V3 *a3, float a4);
+    char FUN_001da350(Ref_1da540 *a1, V3_1da540 *a2, V3_1da540 *a3, float a4, void *a5, float a6, int a7, float a8, float a9,
+                      float a10, float a11, Queue_1da540 *a12, Sub240_1da540 *a13);
+    int FUN_001da540(Ref_1da540 *a1, V3_1da540 *a2, V3_1da540 *a3, float a4);
 };
 
-struct Frame {
+struct Frame_1da540 {
     char pad0[2];
     char b12;
     char b13;
-    union { Actor *p14; float F; } u14;
-    V3 v;
+    union { Actor_1da540 *p14; float F; } u14;
+    V3_1da540 v;
     char pad14[3];
     char flagA;
     union { int saved; int cntOut; float flagF; } u18;
     char pad1c[3];
     char flagB;
-    V3 v2;
-    V3 w;
-    V3 pos;
-    Sub1a4 *volatile sp;
+    V3_1da540 v2;
+    V3_1da540 w;
+    V3_1da540 pos;
+    Sub1a4_1da540 *volatile sp;
     Owner3 own;
     union {
         Request req;
-        struct { char pad[0x98]; V3 t0; V3 t1; } t;
+        struct { char pad[0x98]; V3_1da540 t0; V3_1da540 t1; } t;
     } rq;
-    V3 t2;
+    V3_1da540 t2;
 };
 
-int Entity::FUN_001da540(Ref *a1, V3 *a2, V3 *a3, float a4)
+int Entity::FUN_001da540(Ref_1da540 *a1, V3_1da540 *a2, V3_1da540 *a3, float a4)
 {
-    Frame f;
+    Frame_1da540 f;
     if (s1a4.FUN_001b6e90(a1))
         return 1;
 
@@ -290,17 +290,17 @@ int Entity::FUN_001da540(Ref *a1, V3 *a2, V3 *a3, float a4)
     f.u14.p14 = 0;
 
     if (a1 != 0) {
-        Ref *r = f21c;
+        Ref_1da540 *r = f21c;
         if (r && r->type == 5 && a1->type == 1) {
-            Ref *k = (Ref *)r->ent->f114;
+            Ref_1da540 *k = (Ref_1da540 *)r->ent->f114;
             if (k) {
-                Actor *aa = a1->act;
-                if (aa && (Ref *)aa->f12c == k)
+                Actor_1da540 *aa = a1->act;
+                if (aa && (Ref_1da540 *)aa->f12c == k)
                     a1 = r;
             }
         }
 
-        Actor *tgt = 0;
+        Actor_1da540 *tgt = 0;
         if (a1->type == 5) {
             Entity *o = a1->ent;
             if (o) {
@@ -325,7 +325,7 @@ int Entity::FUN_001da540(Ref *a1, V3 *a2, V3 *a3, float a4)
                         f.b13 = 1;
                     }
                     if (o->b14d && o->FUN_001d72e0()->f6c == 0) {
-                        Mover *m = DAT_004dd700->p4c->FUN_0007ad00((char *)o + 8);
+                        Mover_1da540 *m = DAT_004dd700->p4c->FUN_0007ad00((char *)o + 8);
                         if (m) {
                             f.v = v200;
                             f.v.FUN_0022d110();
@@ -357,7 +357,7 @@ int Entity::FUN_001da540(Ref *a1, V3 *a2, V3 *a3, float a4)
             f.b12 = (mode == 3 || mode == 2);
             f.b13 = (mode != 0);
             if (!tgt->FUN_000360f0()) {
-                Handle *slot = 0;
+                Handle_1da540 *slot = 0;
                 if (p238) {
                     if (tgt->f3a4 == 0)
                         tgt->FUN_0003a9d0(FUN_001d72e0());
@@ -378,7 +378,7 @@ int Entity::FUN_001da540(Ref *a1, V3 *a2, V3 *a3, float a4)
                     if (f1fc)
                         FUN_00018810(&f.rq.req.f4c, f1fc);
                     FUN_00018810(&f.rq.req.f50, tgt->f12c);
-                    Job *job = (Job *)FUN_0008d690(0xb0);
+                    Job_1da540 *job = (Job_1da540 *)FUN_0008d690(0xb0);
                     if (job)
                         job = job->FUN_000598e0(*tgt->f10, &f.rq.req);
                     job->AddRef();
@@ -443,7 +443,7 @@ int Entity::FUN_001da540(Ref *a1, V3 *a2, V3 *a3, float a4)
         bl = f.b13;
     }
 
-    Actor *victim = 0;
+    Actor_1da540 *victim = 0;
     if (f1fc && f1fc->type == 1)
         victim = f1fc->act;
     int cnt = f224;
@@ -453,8 +453,8 @@ int Entity::FUN_001da540(Ref *a1, V3 *a2, V3 *a3, float a4)
             f.pos.x = 0.0f;
             f.pos.y = 0.0f;
             f.pos.z = 0.0f;
-            Mid10 *m10 = f0a0 ? f0a0->f10 : 0;
-            Obj70 *o70 = m10->f70;
+            Mid10_1da540 *m10 = f0a0 ? f0a0->f10 : 0;
+            Obj70_1da540 *o70 = m10->f70;
             f.pos = o70->v98;
             f.w.x = 0.0f;
             f.w.y = 0.0f;
@@ -477,7 +477,7 @@ int Entity::FUN_001da540(Ref *a1, V3 *a2, V3 *a3, float a4)
                 f.own.a = f0a0 ? f0a0->f10 : 0;
                 f.own.b = a1;
                 f.own.c = 0;
-                Hit *hit = victim->FUN_00039c60(&f.pos, &f.v, 3.14159274f, 50.0f, c, &f.own, 0);
+                Hit_1da540 *hit = victim->FUN_00039c60(&f.pos, &f.v, 3.14159274f, 50.0f, c, &f.own, 0);
                 if (hit) {
                     f.v2.x = f.v.x;
                     f.v2.y = f.v.y;

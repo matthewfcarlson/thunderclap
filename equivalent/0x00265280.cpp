@@ -1,23 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 12/12)
 // FUN_00265280 @ 0x00265280
-struct Item {
+struct Item_265280 {
     virtual void unused();
     virtual void release();
     void FUN_00266950(int);
 };
-struct Owner { void FUN_002666e0(); };
-struct Entry { Item* item; unsigned value; };
-struct Queue {
+struct Owner_265280 { void FUN_002666e0(); };
+struct Entry_265280 { Item_265280* item; unsigned value; };
+struct Queue_265280 {
     char pad0[8];
-    Owner* owner;
+    Owner_265280* owner;
     char padC[8];
-    Entry* read;
-    Entry* write;
-    Entry* begin;
-    Entry* end;
+    Entry_265280* read;
+    Entry_265280* write;
+    Entry_265280* begin;
+    Entry_265280* end;
     void clear();
 };
-void Queue::clear() {
+void Queue_265280::clear() {
     for (;;) {
         unsigned count;
         if ((unsigned)read <= (unsigned)write)
@@ -25,7 +25,7 @@ void Queue::clear() {
         else
             count = (((int)((unsigned)write - (unsigned)begin)) >> 3) + (((int)((unsigned)end - (unsigned)read)) >> 3);
         if (!count) break;
-        Item* item = read->item;
+        Item_265280* item = read->item;
         unsigned value = read->value;
         if ((unsigned)write >= (unsigned)end) write = read;
         ++read;

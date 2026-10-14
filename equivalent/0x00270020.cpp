@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 41 inputs, branch coverage 6/6)
 // FUN_00270020 @ 0x00270020
-struct Pool {
+struct Pool_270020 {
     char pad0[0x10];
     void* freeHead;
     void* owner;
@@ -15,7 +15,7 @@ struct Pool {
 };
 extern "C" unsigned __cdecl FUN_0026fd50(unsigned, unsigned);
 extern "C" void* __cdecl FUN_00266eb0(void*, unsigned, unsigned);
-void Pool::FUN_00270020(void* buffer, unsigned itemSize, unsigned itemCount, unsigned flagsValue, void* allocator, unsigned unused6, unsigned itemAdjustment) {
+void Pool_270020::FUN_00270020(void* buffer, unsigned itemSize, unsigned itemCount, unsigned flagsValue, void* allocator, unsigned unused6, unsigned itemAdjustment) {
     stride = FUN_0026fd50(itemSize, itemAdjustment);
     count = itemCount;
     flags = flagsValue;

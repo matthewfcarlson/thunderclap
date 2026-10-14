@@ -1,57 +1,57 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 9/12, incomplete)
 // FUN_001a54a0 @ 0x001a54a0
-struct Vec3 {
+struct Vec3_1a54a0 {
     float x, y, z;
 };
 
 struct ModeA {
     int FUN_001def30(int id);
-    Vec3 *FUN_001df190(Vec3 *tmp, int id);
+    Vec3_1a54a0 *FUN_001df190(Vec3_1a54a0 *tmp, int id);
     float FUN_001dc4a0(int id);
 };
 
-struct Item {
-    unsigned char FUN_000352b0(Vec3 *out);
+struct Item_1a54a0 {
+    unsigned char FUN_000352b0(Vec3_1a54a0 *out);
     float FUN_000354c0();
 };
 
-struct ModeB {
+struct ModeB_1a54a0 {
     int FUN_00024280(unsigned __int64 key);
-    Item *FUN_000259f0(int id);
+    Item_1a54a0 *FUN_000259f0(int id);
 };
 
 struct ModeC {
-    Vec3 *FUN_001fd7d0(Vec3 *tmp, int id);
+    Vec3_1a54a0 *FUN_001fd7d0(Vec3_1a54a0 *tmp, int id);
     float FUN_001fd830(int id);
 };
 
-struct Globals {
+struct Globals_1a54a0 {
     char pad0[0xc];
     ModeA *modeA;
     char pad10[0x20 - 0x10];
-    ModeB *modeB;
+    ModeB_1a54a0 *modeB;
     char pad24[0x28 - 0x24];
     ModeC *modeC;
 };
 
-struct Source {
+struct Source_1a54a0 {
     char pad0[0x24];
     int id;
     int mode;
 };
 
-extern Globals *DAT_004dd700;
+extern Globals_1a54a0 *DAT_004dd700;
 extern "C" unsigned __int64 FUN_002672f0(int id, int a, int b);
 
-struct Component {
+struct Component_1a54a0 {
     char pad0[0x1c];
-    Source *source;
-    void FUN_001a54a0(Vec3 *outVec, float *outScalar);
+    Source_1a54a0 *source;
+    void FUN_001a54a0(Vec3_1a54a0 *outVec, float *outScalar);
 };
 
-void Component::FUN_001a54a0(Vec3 *outVec, float *outScalar)
+void Component_1a54a0::FUN_001a54a0(Vec3_1a54a0 *outVec, float *outScalar)
 {
-    Vec3 tmp;
+    Vec3_1a54a0 tmp;
 
     outVec->x = 0;
     outVec->y = 0;
@@ -65,7 +65,7 @@ void Component::FUN_001a54a0(Vec3 *outVec, float *outScalar)
         *outVec = *DAT_004dd700->modeC->FUN_001fd7d0(&tmp, id);
         *outScalar = DAT_004dd700->modeC->FUN_001fd830(id) * 0.0174533f;
     } else if (mode == 1) {
-        ModeB *b = DAT_004dd700->modeB;
+        ModeB_1a54a0 *b = DAT_004dd700->modeB;
         unsigned __int64 key = FUN_002672f0(id, 0, 0);
         if (b->FUN_00024280(key) == 0)
             return;

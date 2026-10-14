@@ -11,33 +11,33 @@ extern float DAT_004c4c40;
 extern float DAT_004c4c44;
 extern float DAT_004c4c48;
 
-struct Owner {
+struct Owner_1bee10 {
     char pad0[0x24];
     int values[1];
     int FUN_000f7240(int a, int b);
     int FUN_000f7220(int index);
 };
 
-struct Slot {
+struct Slot_1bee10 {
     float weight;
     int a;
     int b;
     int value;
 };
 
-struct Blender {
-    Owner *owner;
+struct Blender_1bee10 {
+    Owner_1bee10 *owner;
     int current;
-    Slot slots[8];
+    Slot_1bee10 slots[8];
     int index;
     float scale;
-    Blender *FUN_000f7fe0(Owner *o);
+    Blender_1bee10 *FUN_000f7fe0(Owner_1bee10 *o);
     void FUN_000f78e0();
 };
 
 int __cdecl FUN_000fba10(int handle, int a, int b, int value, float t, int extra);
 
-class Effect {
+class Effect_1bee10 {
 public:
     char pad0[0x10];
     int keyA;
@@ -47,18 +47,18 @@ public:
     char pad24[4];
     int handle;
     char pad2c[0x44 - 0x2c];
-    Owner *owner;
+    Owner_1bee10 *owner;
 
     int FUN_001bee10();
 };
 
-int Effect::FUN_001bee10()
+int Effect_1bee10::FUN_001bee10()
 {
     int result = 1;
     if (owner == 0)
         return result;
 
-    Blender b;
+    Blender_1bee10 b;
     b.FUN_000f7fe0(owner);
     b.slots[b.index].weight = DAT_004c4c1c;
     b.slots[b.index].a = 1;

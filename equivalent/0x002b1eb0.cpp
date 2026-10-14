@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 12/12)
 // FUN_002b1eb0 @ 0x002b1eb0
-class Child {
+class Child_2b1eb0 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -30,12 +30,12 @@ public:
     int param;              // 0x3c
     char pad40[4];
     unsigned int count;     // 0x44
-    Child **children;       // 0x48
-    Child **capacityEnd;    // 0x4c
-    void FUN_002b1eb0(Child *child);
+    Child_2b1eb0 **children;       // 0x48
+    Child_2b1eb0 **capacityEnd;    // 0x4c
+    void FUN_002b1eb0(Child_2b1eb0 *child);
 };
 
-void Mixer::FUN_002b1eb0(Child *child)
+void Mixer::FUN_002b1eb0(Child_2b1eb0 *child)
 {
     unsigned int n = count;
     for (unsigned int i = 0; i < count; i++) {
@@ -45,7 +45,7 @@ void Mixer::FUN_002b1eb0(Child *child)
     if (n >= (unsigned int)(capacityEnd - children))
         return;
 
-    Child **slot = &children[n];
+    Child_2b1eb0 **slot = &children[n];
     if (child)
         child->AddRef();
     if (*slot)

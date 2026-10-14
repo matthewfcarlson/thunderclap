@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 26 inputs, branch coverage 36/36)
 // FEThingsBase::vfunc_4 @ 0x000efaf0
-struct Owned {
-    virtual ~Owned();
+struct Owned_efaf0 {
+    virtual ~Owned_efaf0();
 };
 struct Released {
     virtual void vfn0();
@@ -15,10 +15,10 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     char pad0[0x8];
-    Owned *objsA[0x40];       // 0xc
-    Owned *objsB[0x40];       // 0x10c
-    Owned *objsC[0x100];      // 0x20c
-    Owned *objsD[0x400];      // 0x60c
+    Owned_efaf0 *objsA[0x40];       // 0xc
+    Owned_efaf0 *objsB[0x40];       // 0x10c
+    Owned_efaf0 *objsC[0x100];      // 0x20c
+    Owned_efaf0 *objsD[0x400];      // 0x60c
     char pad1[0x170c - 0x160c];
     char flag170c;
     char pad2[0x175c - 0x170d];

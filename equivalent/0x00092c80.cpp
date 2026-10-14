@@ -3,21 +3,21 @@
 extern "C" int __cdecl FUN_00345804(const char *str, const char *fmt, ...);
 unsigned __int64 __cdecl FUN_0027b020(const char *name);
 
-struct Slot {
+struct Slot_92c80 {
     unsigned __int64 key;
     int chapter;
     int mission;
     int values[16];
 };
 
-class SlotTable {
+class SlotTable_92c80 {
 public:
     char pad0[0xd90];
-    Slot slots[32];
+    Slot_92c80 slots[32];
     void FUN_00092c80(const char *name, int value);
 };
 
-void SlotTable::FUN_00092c80(const char *name, int value)
+void SlotTable_92c80::FUN_00092c80(const char *name, int value)
 {
     if (*name == 0)
         return;
@@ -32,7 +32,7 @@ void SlotTable::FUN_00092c80(const char *name, int value)
             return;
     }
 
-    Slot *s = &slots[i];
+    Slot_92c80 *s = &slots[i];
     s->key = key;
     if (FUN_00345804(name, "c%dm%d", &s->chapter, &s->mission) != 2)
         return;

@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001a3140 @ 0x001a3140
-struct Sub8 {
+struct Sub8_1a3140 {
     unsigned int a, b;
     void FUN_0027af00();
 };
 
-class __declspec(novtable) TrackBase {
+class __declspec(novtable) TrackBase_1a3140 {
 public:
     virtual void b0();
     int pad04;
     int pad08;
     void FUN_00236d40();
-    TrackBase() { FUN_00236d40(); }
+    TrackBase_1a3140() { FUN_00236d40(); }
 };
 
 namespace hulkfight {
 namespace scenario {
-class EffectTrack : public TrackBase {
+class EffectTrack : public TrackBase_1a3140 {
 public:
     virtual unsigned int vfunc_0(unsigned int);
     virtual void v1();
@@ -30,14 +30,14 @@ public:
     int f0c;
     float f10;
     int pad14;
-    Sub8 s18;
-    Sub8 s20;
+    Sub8_1a3140 s18;
+    Sub8_1a3140 s20;
     int f28;
     int pad2c;
-    Sub8 s30;
+    Sub8_1a3140 s30;
     int f38, f3c, f40, f44, f48, f4c, f50;
     int pad54;
-    Sub8 s58;
+    Sub8_1a3140 s58;
     float f60;
 
     EffectTrack();

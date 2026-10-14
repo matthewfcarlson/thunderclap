@@ -4,17 +4,17 @@ struct TypeDescriptor;
 extern TypeDescriptor DAT_00494b44;
 extern TypeDescriptor DAT_00494b60;
 extern "C" void* __cdecl FUN_00344e74(void*, int, TypeDescriptor*, TypeDescriptor*, int);
-struct State { char pad[0x39c]; int value; };
-struct Context { State* FUN_00059a30(); };
-struct Actor { Context* FUN_000592a0(); };
+struct State_10dc30 { char pad[0x39c]; int value; };
+struct Context { State_10dc30* FUN_00059a30(); };
+struct Actor_10dc30 { Context* FUN_000592a0(); };
 namespace hulkfight { namespace ai {
 struct RandomKeyWordWaitCondition {
- virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual bool vfunc_6(void*, Actor*, void*);
+ virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual bool vfunc_6(void*, Actor_10dc30*, void*);
  char pad[8]; unsigned comparison; int threshold;
 };
-bool RandomKeyWordWaitCondition::vfunc_6(void*, Actor* actor, void*) {
+bool RandomKeyWordWaitCondition::vfunc_6(void*, Actor_10dc30* actor, void*) {
  if (!FUN_00344e74(actor,0,&DAT_00494b44,&DAT_00494b60,0)) return false;
- State* state = actor->FUN_000592a0()->FUN_00059a30();
+ State_10dc30* state = actor->FUN_000592a0()->FUN_00059a30();
  if (!state) return false;
  int value = state->value;
  switch(comparison) {

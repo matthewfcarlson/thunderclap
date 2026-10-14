@@ -5,11 +5,11 @@ extern "C" int __cdecl FUN_00266da0(int mode);
 void* __cdecl FUN_0008d690(unsigned int size);
 void FUN_00363b90();
 
-struct Vec3 {
+struct Vec3_437a0 {
     float x, y, z;
 };
 
-struct Key {
+struct Key_437a0 {
     unsigned lo;
     unsigned hi;
     void FUN_0027af00();
@@ -17,16 +17,16 @@ struct Key {
 };
 
 extern unsigned DAT_004dc318;
-extern Key DAT_004dc310;
+extern Key_437a0 DAT_004dc310;
 extern unsigned DAT_004dc080;
 extern unsigned DAT_004dc084;
 
-class Event {
+class Event_437a0 {
 public:
     virtual void v0();
     virtual void v1();
     char pad04[0xb0 - 4];
-    Event* FUN_000598e0(int first, void* params);
+    Event_437a0* FUN_000598e0(int first, void* params);
 };
 
 struct Target2 {
@@ -34,7 +34,7 @@ struct Target2 {
     float f1d20;
 };
 
-struct Target {
+struct Target_437a0 {
     char pad00[8];
     Target2* f08;
     int f0c;
@@ -44,12 +44,12 @@ struct Params {
     char pad00[0x24];
     char b24;
     char pad25[3];
-    Vec3 vec28;
+    Vec3_437a0 vec28;
     char pad34[0x44 - 0x34];
     char b44;
     char pad45[3];
     int f48;
-    Target* f4c;
+    Target_437a0* f4c;
     char pad50[4];
     int f54;
     char pad58[0x80 - 0x58];
@@ -59,10 +59,10 @@ struct Params {
     unsigned char b91;
 };
 
-struct Actor {
-    void FUN_00231ad0(Vec3* where, Event* ev, int t);
-    char FUN_00231a40(Vec3* where, Event* ev);
-    char FUN_001d6ec0(int a, Target* t, int c);
+struct Actor_437a0 {
+    void FUN_00231ad0(Vec3_437a0* where, Event_437a0* ev, int t);
+    char FUN_00231a40(Vec3_437a0* where, Event_437a0* ev);
+    char FUN_001d6ec0(int a, Target_437a0* t, int c);
 };
 
 class Holder110 {
@@ -75,10 +75,10 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual Actor* v8(Event* ev, int z);
+    virtual Actor_437a0* v8(Event_437a0* ev, int z);
 };
 
-struct Obj11c {
+struct Obj11c_437a0 {
     char pad00[0x110];
     Holder110* f110;
     char pad114[0x1a4 - 0x114];
@@ -86,66 +86,66 @@ struct Obj11c {
     unsigned __int64 FUN_000443c0();
 };
 
-struct Sub2 {
+struct Sub2_437a0 {
     float FUN_002220d0();
 };
 
 struct Anchor2 {
     char pad00[0x10];
-    Sub2 sub;
+    Sub2_437a0 sub;
 };
 
-struct Owner {
+struct Owner_437a0 {
     int first;
     Anchor2* FUN_00059a40();
 };
 
-struct Sub {
+struct Sub_437a0 {
     void FUN_00232240();
 };
 
-struct Entry {
-    Actor* a;
+struct Entry_437a0 {
+    Actor_437a0* a;
     char pad[76];
 };
 
-extern "C" float __cdecl FUN_00224f10(Vec3* v);
+extern "C" float __cdecl FUN_00224f10(Vec3_437a0* v);
 extern "C" float __cdecl FUN_00224fc0(float a, float b);
 
-class Unit {
+class Unit_437a0 {
 public:
     char pad00[0x10];
-    Owner* f10;
+    Owner_437a0* f10;
     char pad14[0xb4 - 0x14];
-    Sub subB4;
+    Sub_437a0 subB4;
     char padB5[0xdc - 0xb5];
-    Vec3 fdc;
+    Vec3_437a0 fdc;
     char pade8[0x11c - 0xe8];
-    Obj11c* f11c;
+    Obj11c_437a0* f11c;
     char pad120[0x318 - 0x120];
     int f318;
     int f31c;
     float f320;
     char pad324[0x3a8 - 0x324];
-    Entry entries[8];
+    Entry_437a0 entries[8];
     float f628;
     char pad62c[0x1d28 - 0x62c];
     char b1d28;
     int FUN_00035fe0();
-    char FUN_00043350(float dt, Target* t, int a, int b, int c, int d);
-    Actor* FUN_000392e0(Event* ev);
+    char FUN_00043350(float dt, Target_437a0* t, int a, int b, int c, int d);
+    Actor_437a0* FUN_000392e0(Event_437a0* ev);
     void FUN_00035930(int v);
-    int FUN_00036e40(Key* k);
+    int FUN_00036e40(Key_437a0* k);
     void FUN_00037000();
-    char FUN_000437a0(float dt, Params* p, Vec3* where, Actor* actor, char flag5);
+    char FUN_000437a0(float dt, Params* p, Vec3_437a0* where, Actor_437a0* actor, char flag5);
 };
 
-union FloatBits {
+union FloatBits_437a0 {
     float f;
     unsigned int u;
 };
 
-char Unit::FUN_000437a0(float dt, Params* p, Vec3* where, Actor* actor, char flag5)
+char Unit_437a0::FUN_000437a0(float dt, Params* p, Vec3_437a0* where, Actor_437a0* actor, char flag5)
 {
     if (f11c == 0)
         return 0;
@@ -167,7 +167,7 @@ char Unit::FUN_000437a0(float dt, Params* p, Vec3* where, Actor* actor, char fla
             ang = 0.0f;
         else
             ang = anchor->sub.FUN_002220d0();
-        FloatBits r;
+        FloatBits_437a0 r;
         r.f = FUN_00224fc0(yawBase, ang);
         r.u &= 0x7fffffff;
         if (f628 * 0.5f > r.f)
@@ -181,7 +181,7 @@ char Unit::FUN_000437a0(float dt, Params* p, Vec3* where, Actor* actor, char fla
     }
     char ok;
     if (behind) {
-        Actor* target = 0;
+        Actor_437a0* target = 0;
         if (idx >= 0 && idx < 8)
             target = entries[idx].a;
         ok = target->FUN_001d6ec0((int)dt, p->f4c, 0);
@@ -191,23 +191,23 @@ char Unit::FUN_000437a0(float dt, Params* p, Vec3* where, Actor* actor, char fla
     p->b44 = !ok;
     if (!counted) {
         float factor = 1.0f;
-        Target* t = p->f4c;
+        Target_437a0* t = p->f4c;
         if (t != 0 && t->f0c == 1 && t->f08 != 0)
             factor = t->f08->f1d20;
         f320 = factor * dt + f320;
     }
-    Event* ev = (Event*)FUN_0008d690(0xb0);
+    Event_437a0* ev = (Event_437a0*)FUN_0008d690(0xb0);
     if (ev != 0)
         ev = ev->FUN_000598e0(f10->first, p);
     else
         ev = 0;
     ev->v0();
     if (!flag5) {
-        Actor* act = actor;
+        Actor_437a0* act = actor;
         if (act == 0)
             act = FUN_000392e0(ev);
         if (act != 0) {
-            Vec3* w = where;
+            Vec3_437a0* w = where;
             if (w == 0)
                 w = &fdc;
             act->FUN_00231ad0(w, ev, -(int)dt);
@@ -220,7 +220,7 @@ char Unit::FUN_000437a0(float dt, Params* p, Vec3* where, Actor* actor, char fla
                 }
                 DAT_004dc310.FUN_0027b040("no_ai_reset");
                 int r = FUN_00036e40(&DAT_004dc310);
-                Sub* sub = &subB4;
+                Sub_437a0* sub = &subB4;
                 if (sub != 0 && r == 0) {
                     FUN_00037000();
                     sub->FUN_00232240();
@@ -230,9 +230,9 @@ char Unit::FUN_000437a0(float dt, Params* p, Vec3* where, Actor* actor, char fla
     } else {
         Holder110* h = f11c->f110;
         if (h != 0) {
-            Actor* act = h->v8(ev, 0);
+            Actor_437a0* act = h->v8(ev, 0);
             if (act != 0) {
-                Vec3* w = where;
+                Vec3_437a0* w = where;
                 if (w == 0)
                     w = &fdc;
                 act->FUN_00231ad0(w, ev, -(int)dt);

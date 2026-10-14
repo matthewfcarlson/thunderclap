@@ -6,12 +6,12 @@ extern int DAT_004e3690;
 void __cdecl FUN_0008d340(void *p);
 void __cdecl FUN_0008d330(void *p);
 
-struct Counted {
+struct Counted_1e9680 {
     char pad0[0xc];
     int refs;
 };
 
-class Item {
+class Item_1e9680 {
 public:
     virtual void v0();
     virtual void v1();
@@ -19,7 +19,7 @@ public:
     char pad04[0x20];
     int users;
     char pad28[4];
-    Counted *list[0x40];
+    Counted_1e9680 *list[0x40];
     int listCount;
 };
 
@@ -28,7 +28,7 @@ struct Node {
     void *next;
 };
 
-class Entry {
+class Entry_1e9680 {
 public:
     virtual void v0();
     virtual void v1();
@@ -42,35 +42,35 @@ void __cdecl FUN_002416c0(void *a, Node *node, int flag);
 void __cdecl FUN_00243090(void *a, float f);
 void __cdecl FUN_00242ca0(void *a, Node **node);
 
-class Manager;
+class Manager_1e9680;
 
-struct Renderer {
-    void FUN_00265560(Manager *m);
+struct Renderer_1e9680 {
+    void FUN_00265560(Manager_1e9680 *m);
 };
-extern Renderer *DAT_00527c58;
+extern Renderer_1e9680 *DAT_00527c58;
 void __cdecl FUN_00240eb0();
 void __cdecl FUN_00240a10();
 
-class Manager {
+class Manager_1e9680 {
 public:
     char pad0[8];
-    Item *items[100];
+    Item_1e9680 *items[100];
     int itemCount;
     void *blocks[200];
     int blockCount;
-    Entry *entries[20];
+    Entry_1e9680 *entries[20];
     int entryCount;
     void FUN_001e9680();
 };
 
-void Manager::FUN_001e9680()
+void Manager_1e9680::FUN_001e9680()
 {
     FUN_0008d340(DAT_004e2788);
     for (int i = 0; i < itemCount; i++) {
-        Item *item = items[i];
+        Item_1e9680 *item = items[i];
         if (item->users > 0) {
             for (int j = 0; j < item->listCount; j++) {
-                Counted *c = item->list[j];
+                Counted_1e9680 *c = item->list[j];
                 if (c != 0)
                     c->refs--;
             }
@@ -87,7 +87,7 @@ void Manager::FUN_001e9680()
     }
     blockCount = 0;
     for (int i = 0; i < entryCount; i++) {
-        Entry *e = entries[i];
+        Entry_1e9680 *e = entries[i];
         void *ctx = FUN_00240750();
         FUN_002416c0(ctx, e->node, 0);
         if (e->node->next != 0) {

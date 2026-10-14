@@ -1,25 +1,25 @@
 // STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 22/22)
 // choreo2::LocomotionSteerDriver::vfunc_12 @ 0x00229360
-struct Source {
+struct Source_229360 {
     char pad0[8];
     int a;
     int b;
 };
 
-struct Anim {
+struct Anim_229360 {
     char pad0[0x10];
     float weight;
     char FUN_00288d10(int zero, int a, int b, float *outHi, float *outLo);
     float FUN_00288de0(int which, int zero, int a, int b);
 };
 
-struct Entry {
-    Anim *anim;
+struct Entry_229360 {
+    Anim_229360 *anim;
     char pad04[0x204 - 4];
     float bias;
 };
 
-struct Blend {
+struct Blend_229360 {
     unsigned int entry;
     float weight;
     float pad;
@@ -41,18 +41,18 @@ public:
     virtual void vfunc_9();
     virtual void vfunc_10();
     virtual void vfunc_11();
-    virtual bool vfunc_12(Source *src, float *out);
+    virtual bool vfunc_12(Source_229360 *src, float *out);
     char pad04[0x24 - 4];
     float scale;
     char pad28[0x34 - 0x28];
-    Entry entries[4];
+    Entry_229360 entries[4];
     char padEnd[0x8b4 - 0x34 - 4 * 0x208];
     unsigned int blendCount;
-    Blend blends[1];
-    char FUN_00222330(Source *src);
+    Blend_229360 blends[1];
+    char FUN_00222330(Source_229360 *src);
 };
 
-bool LocomotionSteerDriver::vfunc_12(Source *src, float *out)
+bool LocomotionSteerDriver::vfunc_12(Source_229360 *src, float *out)
 {
     if (blendCount == 0)
         return false;
@@ -65,11 +65,11 @@ bool LocomotionSteerDriver::vfunc_12(Source *src, float *out)
     bool result = false;
     float sum = 0.0f;
     for (unsigned int i = 0; i < blendCount; i++) {
-        Blend *bl = &blends[i];
+        Blend_229360 *bl = &blends[i];
         sum = sum + bl->weight;
         float ratio = bl->weight / sum;
-        Entry *e = &entries[bl->entry];
-        Anim *anim = e->anim;
+        Entry_229360 *e = &entries[bl->entry];
+        Anim_229360 *anim = e->anim;
         if (anim) {
             float hi;
             float lo;

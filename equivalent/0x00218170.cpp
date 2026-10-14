@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 112 inputs, branch coverage 23/23)
 // FUN_00218170 @ 0x00218170
-struct Str {
+struct Str_218170 {
     char pad[0x10];
     char data[1];
 };
@@ -12,7 +12,7 @@ struct TV {
 
 struct StrTV {
     int tag;
-    Str *s;
+    Str_218170 *s;
 };
 
 struct Info14 {
@@ -25,7 +25,7 @@ struct Info10 {
     int f98;
 };
 
-struct Ctx {
+struct Ctx_218170 {
     char pad0[0xc];
     int f0c;
     Info10 *f10;
@@ -34,26 +34,26 @@ struct Ctx {
     int f44;
 };
 
-struct Frame {
+struct Frame_218170 {
     TV a;
     TV b;
 };
 
 int FUN_00215ff0(const char *str, int *out);
 TV *FUN_00219e50(int a, int b);
-void FUN_00214a90(Ctx *ctx, const char *msg);
+void FUN_00214a90(Ctx_218170 *ctx, const char *msg);
 // equiv-conv: FUN_00217750 eax ecx edx stack
-void FUN_00217750(TV *lhs, Ctx *ctx, TV *rhs, TV *fn);
+void FUN_00217750(TV *lhs, Ctx_218170 *ctx, TV *rhs, TV *fn);
 // equiv-conv: FUN_00217790 eax ecx
 void FUN_00217790(TV *res, ...);
 // equiv-conv: FUN_00217af0 stack stack ebx esi edi
-int FUN_00217af0(TV *res, int op, TV *lhs, Ctx *ctx, TV *rhs);
-void FUN_00214d40(Ctx *ctx, TV *lhs, TV *rhs);
+int FUN_00217af0(TV *res, int op, TV *lhs, Ctx_218170 *ctx, TV *rhs);
+void FUN_00214d40(Ctx_218170 *ctx, TV *lhs, TV *rhs);
 
 // equiv-conv: FUN_00218170 eax ecx edx stack stack stack
-int FUN_00218170(TV *rhs, TV *lhs, int line, Ctx *ctx, TV *res, int op)
+int FUN_00218170(TV *rhs, TV *lhs, int line, Ctx_218170 *ctx, TV *res, int op)
 {
-    Frame fr;
+    Frame_218170 fr;
     TV *a;
     TV *b;
     ctx->f14->line = line;

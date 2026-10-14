@@ -1,48 +1,48 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 23/26, incomplete)
 // FUN_0030df50 @ 0x0030df50
-struct Elem {
+struct Elem_30df50 {
     char data[0xa4];
-    Elem *FUN_0031a440();
-    void FUN_0031a4f0(Elem *src);
+    Elem_30df50 *FUN_0031a440();
+    void FUN_0031a4f0(Elem_30df50 *src);
     void FUN_0031a800();
 };
 
-struct Range {
+struct Range_30df50 {
     char pad0[0x10];
     int offset;
 };
 
-class Pool {
+class Pool_30df50 {
 public:
     int FUN_0030df50();
 
     char pad0[4];
-    Range *rangesBegin;
-    Range *rangesEnd;
+    Range_30df50 *rangesBegin;
+    Range_30df50 *rangesEnd;
     char pad0c[0x24 - 0x0c];
     int *freeBegin;
     int *freeEnd;
     char pad2c[0x34 - 0x2c];
-    Elem *elemBegin;
-    Elem *elemEnd;
-    Elem *elemCap;
+    Elem_30df50 *elemBegin;
+    Elem_30df50 *elemEnd;
+    Elem_30df50 *elemCap;
 };
 
-int Pool::FUN_0030df50()
+int Pool_30df50::FUN_0030df50()
 {
     if ((((char *)freeEnd - (char *)freeBegin) & ~3) != 0) {
         freeEnd = freeEnd - 1;
         return *freeEnd;
     }
 
-    Elem tmp;
-    Elem *added = 0;
+    Elem_30df50 tmp;
+    Elem_30df50 *added = 0;
     int count = elemEnd - elemBegin;
 
     if (count == 0) {
-        Elem *src = tmp.FUN_0031a440();
+        Elem_30df50 *src = tmp.FUN_0031a440();
         bool ok;
-        Elem *end = elemEnd;
+        Elem_30df50 *end = elemEnd;
         if (end < elemCap) {
             elemEnd = end + 1;
             if (end)
@@ -57,10 +57,10 @@ int Pool::FUN_0030df50()
         return (int)added;
     }
 
-    Elem *oldBegin = elemBegin;
-    Elem *src = tmp.FUN_0031a440();
+    Elem_30df50 *oldBegin = elemBegin;
+    Elem_30df50 *src = tmp.FUN_0031a440();
     bool ok;
-    Elem *end = elemEnd;
+    Elem_30df50 *end = elemEnd;
     if (end < elemCap) {
         elemEnd = end + 1;
         if (end)
@@ -75,9 +75,9 @@ int Pool::FUN_0030df50()
 
     if (oldBegin != elemBegin) {
         int delta = (char *)elemBegin - (char *)oldBegin;
-        Range *r = rangesBegin;
+        Range_30df50 *r = rangesBegin;
         if (!(r > rangesEnd)) {
-            Range *prev;
+            Range_30df50 *prev;
             do {
                 r->offset += delta;
                 prev = r;

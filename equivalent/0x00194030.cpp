@@ -6,7 +6,7 @@ struct Base12 {
     char data[12];
     void FUN_00236d40();
 };
-struct Name8 {
+struct Name8_194030 {
     int lo, hi;
     void FUN_0027af00();
 };
@@ -25,11 +25,11 @@ public:
     int f0c;
     float f10;
     char pad14[4];
-    Name8 n18;
+    Name8_194030 n18;
     int f20, f24;
     float f28;
     int f2c;
-    Name8 n30;
+    Name8_194030 n30;
     int f38, f3c, f40, f44, f48;
     float f4c, f50, f54, f58;
     int f5c;
@@ -38,7 +38,7 @@ public:
     float f64;
     int f68;
     char pad6c[4];
-    Name8 n70;
+    Name8_194030 n70;
     int f78, f7c;
     float f80;
     Name12 n84;
@@ -51,7 +51,7 @@ public:
     char padad[3];
     Name12 nb0;
     char padbc[4];
-    Name8 nc0;
+    Name8_194030 nc0;
     int fc8, fcc, fd0, fd4, fd8, fdc, fe0, fe4, fe8;
     float fec;
     char bf0;

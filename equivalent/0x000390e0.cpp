@@ -1,41 +1,41 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 16/16)
 // FUN_000390e0 @ 0x000390e0
-struct Vec3 { float x, y, z; };
+struct Vec3_390e0 { float x, y, z; };
 
-struct Mat {
+struct Mat_390e0 {
     float m[16];
-    void FUN_0022c2b0(const Vec3* in, Vec3* out);
+    void FUN_0022c2b0(const Vec3_390e0* in, Vec3_390e0* out);
 };
 
-struct Holder {
+struct Holder_390e0 {
     int FUN_00059a40();
 };
 
-struct BoneTable {
+struct BoneTable_390e0 {
     char pad[0xa0];
     int FUN_00044630(int id);
-    Vec3* FUN_00044650(int id);
+    Vec3_390e0* FUN_00044650(int id);
     float FUN_000446a0(int id);
 };
 
 struct Skeleton {
     char pad[0x1c];
-    Mat* matrices;
+    Mat_390e0* matrices;
 };
 
 extern int DAT_003f5bc4[3];
 
-class Probe {
+class Probe_390e0 {
   public:
     char pad0[0x10];
-    Holder* holder;
+    Holder_390e0* holder;
     char pad1[0x11c - 0x14];
-    BoneTable* table;
+    BoneTable_390e0* table;
     Skeleton* skeleton;
-    int FUN_000390e0(const Vec3* origin, const Vec3* dir, float extra, Vec3* out);
+    int FUN_000390e0(const Vec3_390e0* origin, const Vec3_390e0* dir, float extra, Vec3_390e0* out);
 };
 
-int Probe::FUN_000390e0(const Vec3* origin, const Vec3* dir, float extra, Vec3* out) {
+int Probe_390e0::FUN_000390e0(const Vec3_390e0* origin, const Vec3_390e0* dir, float extra, Vec3_390e0* out) {
     if (table == 0 || holder->FUN_00059a40() == 0)
         return 0;
     Skeleton* skel = skeleton;
@@ -46,10 +46,10 @@ int Probe::FUN_000390e0(const Vec3* origin, const Vec3* dir, float extra, Vec3* 
         int bone = table->FUN_00044630(id);
         if (bone == 0xffff)
             continue;
-        Vec3 pos;
-        Mat* m = skel->matrices + bone;
+        Vec3_390e0 pos;
+        Mat_390e0* m = skel->matrices + bone;
         m->FUN_0022c2b0(table->FUN_00044650(id), &pos);
-        Vec3 d;
+        Vec3_390e0 d;
         d.x = pos.x - origin->x;
         d.y = pos.y - origin->y;
         d.z = pos.z - origin->z;

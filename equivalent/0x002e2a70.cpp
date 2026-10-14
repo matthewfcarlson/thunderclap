@@ -22,12 +22,12 @@ struct Stream {
     float FUN_001c61e0();
 };
 
-struct RefObj {
+struct RefObj_2e2a70 {
     virtual void AddRef();
     virtual void Release();
 };
 
-struct IntVec {
+struct IntVec_2e2a70 {
     unsigned int *begin;
     unsigned int *end;
     void FUN_002e18c0(unsigned int n);
@@ -38,7 +38,7 @@ public:
     virtual void AddRef();
     virtual void Release();
     int pad4;
-    IntVec vec;
+    IntVec_2e2a70 vec;
     int pad10;
     MatrixPaletteList() { vec.begin = 0; vec.end = 0; }
 };
@@ -55,10 +55,10 @@ struct VData {
     char *tex[4];
     char *uv[4];
     char *f58;
-    void FUN_002d0a50(int a, RefObj *b, MatrixPaletteList *c);
+    void FUN_002d0a50(int a, RefObj_2e2a70 *b, MatrixPaletteList *c);
 };
 
-class Buffer {
+class Buffer_2e2a70 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -72,7 +72,7 @@ public:
     virtual void b9(unsigned short *buf, unsigned int n);
 };
 
-struct Desc {
+struct Desc_2e2a70 {
     unsigned int a;
     unsigned int flags;
     unsigned char tag[8];
@@ -85,7 +85,7 @@ struct Desc {
     unsigned int g;
 };
 
-class Factory {
+class Factory_2e2a70 {
 public:
     virtual void f0();
     virtual void f1();
@@ -97,11 +97,11 @@ public:
     virtual void f7();
     virtual void f8();
     virtual void f9();
-    virtual Buffer *Create(Desc *d);
+    virtual Buffer_2e2a70 *Create(Desc_2e2a70 *d);
 };
-extern Factory *DAT_0052c2a0;
+extern Factory_2e2a70 *DAT_0052c2a0;
 
-struct Vec3 { float x, y, z; };
+struct Vec3_2e2a70 { float x, y, z; };
 
 class PrimObj2 {
 public:
@@ -115,18 +115,18 @@ public:
     virtual void v7();
     virtual void SetName(int v);
     char pad04[0x10];
-    Vec3 v14;
-    Vec3 v20;
-    Vec3 v2c;
+    Vec3_2e2a70 v14;
+    Vec3_2e2a70 v20;
+    Vec3_2e2a70 v2c;
     float f38;
     char pad3c[8];
     unsigned int f44;
     char pad48[8];
     unsigned int f50;
     char pad54[4];
-    Buffer *vb;
-    RefObj *pal;
-    RefObj *palShared;
+    Buffer_2e2a70 *vb;
+    RefObj_2e2a70 *pal;
+    RefObj_2e2a70 *palShared;
     MatrixPaletteList *list;
     VData *vdata;
     PrimObj2 *FUN_002e0620(unsigned int a, unsigned int b, unsigned int c);
@@ -138,7 +138,7 @@ union Slot2 {
     MatrixPaletteList *list;
     unsigned int cnt;
 };
-union Slot5 {
+union Slot5_2e2a70 {
     const unsigned int *p;
     unsigned int u;
 };
@@ -157,12 +157,12 @@ public:
     unsigned int f28;
     void FUN_002a46d0(int a1, PrimObj2 *o);
     void FUN_002a4b00(int a1, Stream *s, int a3);
-    void FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj *a4, Slot5 a5);
+    void FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5_2e2a70 a5);
 };
 
-struct Frame {
+struct Frame_2e2a70 {
     PrimObj2 *obj;     // 0x10
-    Buffer *vb;        // 0x14
+    Buffer_2e2a70 *vb;        // 0x14
     unsigned int vA;   // 0x18
     unsigned int cnt;  // 0x1c
     PrimLoader *self;  // 0x20
@@ -170,12 +170,12 @@ struct Frame {
     unsigned int tmpw; // 0x28
     unsigned int tmpd; // 0x2c
     unsigned int idx;  // 0x30
-    Desc d;            // 0x34
+    Desc_2e2a70 d;            // 0x34
 };
 
-void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj *a4, Slot5 a5)
+void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5_2e2a70 a5)
 {
-    Frame f;
+    Frame_2e2a70 f;
     unsigned int fl = flags;
     f.self = this;
     unsigned int vA;
@@ -217,7 +217,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj *a4, Slot5 a5)
         *(unsigned int *)&f.d.tag[0] = lo;
         *(unsigned int *)&f.d.tag[4] = hi;
     }
-    Buffer *vb = DAT_0052c2a0->Create(&f.d);
+    Buffer_2e2a70 *vb = DAT_0052c2a0->Create(&f.d);
     f.vb = vb;
     if (vb != 0)
         vb->AddRef();
@@ -368,7 +368,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj *a4, Slot5 a5)
                             i++;
                         } while (i < n);
                     }
-                    RefObj *p = a4;
+                    RefObj_2e2a70 *p = a4;
                     if (p != 0)
                         p->AddRef();
                     PrimObj2 *o = f.obj;

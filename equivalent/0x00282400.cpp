@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 13/14, incomplete)
 // FUN_00282400 @ 0x00282400
-struct V3 {
+struct V3_282400 {
     float x, y, z;
 };
 
-struct Elem {
+struct Elem_282400 {
     char data[0x18];
 };
 
-struct Desc {
+struct Desc_282400 {
     int f0;
     int flags;
     char name[7];
@@ -22,7 +22,7 @@ struct Desc {
     int f20;
 };
 
-class Buf {
+class Buf_282400 {
   public:
     virtual void v0();
     virtual void v1();
@@ -48,12 +48,12 @@ class Stream {
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual Buf* v4();
-    virtual void v5(Buf* b);
+    virtual Buf_282400* v4();
+    virtual void v5(Buf_282400* b);
     virtual void v6();
 };
 
-class Factory {
+class Factory_282400 {
   public:
     virtual void v0();
     virtual void v1();
@@ -65,10 +65,10 @@ class Factory {
     virtual void v7();
     virtual void v8();
     virtual void v9();
-    virtual Stream* v10(Desc* d);
+    virtual Stream* v10(Desc_282400* d);
 };
 
-class Screen {
+class Screen_282400 {
   public:
     virtual void v0();
     virtual void v1();
@@ -164,25 +164,25 @@ class Screen {
     virtual void v91();
 };
 
-struct Source {
+struct Source_282400 {
     char pad0[0x18];
-    V3 pos;
+    V3_282400 pos;
 };
 
-struct Registry {
-    int FUN_001b4890(V3* pos, int key, int* ids, int cap);
+struct Registry_282400 {
+    int FUN_001b4890(V3_282400* pos, int key, int* ids, int cap);
 };
 
-struct Singleton {
+struct Singleton_282400 {
     char pad0[0x594];
-    Registry registry;
+    Registry_282400 registry;
 };
 
-struct Item {
+struct Item_282400 {
     char pad0[0x10];
-    Source* source;
+    Source_282400* source;
     char pad14[0xc];
-    V3 savedPos;
+    V3_282400 savedPos;
     char pad2c[4];
     int key0;
     int key1;
@@ -192,31 +192,31 @@ struct Item {
 typedef void* (__fastcall *CtorFn)(void*);
 void* __fastcall FUN_0027f5a0(void* p);
 void __stdcall FUN_00011520(void* arr, unsigned int size, int count, CtorFn ctor);
-void __stdcall FUN_0027f6f0(Item* item);
-Singleton* __cdecl FUN_001b6580();
-void __cdecl FUN_0027f5f0(int key, int n, int* ids, Elem* out);
-void __cdecl FUN_00280d90(Elem* out, int n3, int cap, int* outCount, V3 center, int key0, int key1);
+void __stdcall FUN_0027f6f0(Item_282400* item);
+Singleton_282400* __cdecl FUN_001b6580();
+void __cdecl FUN_0027f5f0(int key, int n, int* ids, Elem_282400* out);
+void __cdecl FUN_00280d90(Elem_282400* out, int n3, int cap, int* outCount, V3_282400 center, int key0, int key1);
 int __cdecl FUN_00266da0(int mode);
 
-extern Factory* DAT_0052c2a0;
-extern Screen* DAT_0052c2a8;
+extern Factory_282400* DAT_0052c2a0;
+extern Screen_282400* DAT_0052c2a8;
 
 class Builder {
   public:
     char pad0[0x18];
     int mode;
-    void FUN_00282400(Item* item);
+    void FUN_00282400(Item_282400* item);
 };
 
-void Builder::FUN_00282400(Item* item)
+void Builder::FUN_00282400(Item_282400* item)
 {
     struct Frame {
         int b0;
         int b1;
-        V3 a;
-        Desc desc;
+        V3_282400 a;
+        Desc_282400 desc;
         int ids[0x1f4];
-        Elem arr[0x5dc];
+        Elem_282400 arr[0x5dc];
     } fr;
     if (item == 0)
         return;
@@ -231,7 +231,7 @@ void Builder::FUN_00282400(Item* item)
     FUN_00011520(fr.arr, 0x18, 0x5dc, FUN_0027f5a0);
     FUN_0027f5f0(key0, n, fr.ids, fr.arr);
     int key1 = fr.b1;
-    V3 center = fr.a;
+    V3_282400 center = fr.a;
     fr.b0 = 0;
     FUN_00280d90(fr.arr, n * 3, 0x5dc, &fr.b0, center, key0, key1);
     int count = fr.b0;
@@ -249,7 +249,7 @@ void Builder::FUN_00282400(Item* item)
         fr.desc.f20 = 0;
         int prev = FUN_00266da0(mode);
         stream = DAT_0052c2a0->v10(&fr.desc);
-        Buf* buf = stream->v4();
+        Buf_282400* buf = stream->v4();
         for (int i = 0; i < count; i++) {
             buf->v15((float*)&fr.arr[i], (float*)&fr.arr[i] + 3);
         }

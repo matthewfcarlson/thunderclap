@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 385 inputs, branch coverage 30/30)
 // FUN_00228120 @ 0x00228120
-struct Obj {
+struct Obj_228120 {
     char pad00[0x10];
     float a10;
     float b14;
 };
 
-struct Slot {
-    Obj* obj;
+struct Slot_228120 {
+    Obj_228120* obj;
     char pad04[0x204];
 };
 
-struct Cell {
+struct Cell_228120 {
     int id;
     float val;
 };
 
-struct Entry {
+struct Entry_228120 {
     int id;
     float weight;
     float value;
@@ -25,9 +25,9 @@ struct Entry {
 float FUN_00224fc0(float a, float b);
 float FUN_0004af40(float lo, float hi, float x);
 float FUN_0015cf40(float x);
-void FUN_00227f90(Entry* first, Entry* last, int count);
+void FUN_00227f90(Entry_228120* first, Entry_228120* last, int count);
 
-class Sampler {
+class Sampler_228120 {
 public:
     char pad00[0x20];
     float f20;
@@ -35,20 +35,20 @@ public:
     unsigned int width;
     unsigned int height;
     char pad30[4];
-    Slot slots[9];
-    Cell cells[12];
+    Slot_228120 slots[9];
+    Cell_228120 cells[12];
     char pad_dc[4];
     float f12e0;
     float f12e4;
     float threshold;
     unsigned int count;
-    Entry entries[16];
+    Entry_228120 entries[16];
 
     void FUN_002262d0(int id, float weight, float value);
     void FUN_00228120(float arg);
 };
 
-void Sampler::FUN_00228120(float arg)
+void Sampler_228120::FUN_00228120(float arg)
 {
     unsigned int n = width * height;
     count = 0;
@@ -92,8 +92,8 @@ void Sampler::FUN_00228120(float arg)
         FUN_002262d0(cells[aboveNext].id, f * tt, v2);
     }
 
-    Entry* first = &entries[0];
-    Entry* last = &entries[count];
+    Entry_228120* first = &entries[0];
+    Entry_228120* last = &entries[count];
     FUN_00227f90(first, last, last - first);
 
     double acc = 0;
@@ -114,7 +114,7 @@ void Sampler::FUN_00228120(float arg)
             volatile float nw = rinv * entries[k].weight;
             entries[k].weight = nw;
             s2 = s2 + nw * entries[k].value;
-            Obj* o = slots[entries[k].id].obj;
+            Obj_228120* o = slots[entries[k].id].obj;
             if (o) {
                 double num = o->a10 - 1.0f;
                 float den = o->b14;

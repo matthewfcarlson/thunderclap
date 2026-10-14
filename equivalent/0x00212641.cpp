@@ -23,7 +23,7 @@ struct DirInfo {
     unsigned int nameLength;
     char name[1];
 };
-struct Frame {
+struct Frame_212641 {
     ObjectAttributes attr;
     IoStatusBlock iosb;
     AnsiString ansi;
@@ -42,7 +42,7 @@ extern int (__stdcall *DAT_003f2be0)(void *handle);
 
 int __stdcall FUN_00212641(void *dir, unsigned int *clusters, DirInfo *info)
 {
-    Frame f;
+    Frame_212641 f;
     int status;
     unsigned int *total = clusters;
 

@@ -3,51 +3,51 @@
 extern "C" double cos(double);
 extern "C" double fabs(double);
 
-struct V3 {
+struct V3_176770 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_000111b0(const V3 *a, const V3 *b);
-    char FUN_0022d2b0(const V3 *z, float eps);
+    void FUN_000111b0(const V3_176770 *a, const V3_176770 *b);
+    char FUN_0022d2b0(const V3_176770 *z, float eps);
 };
 
-struct Mat {
+struct Mat_176770 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022baf0(const V3 *axis, float angle);
-    void FUN_0022c3b0(const V3 *in, V3 *out);
+    void FUN_0022baf0(const V3_176770 *axis, float angle);
+    void FUN_0022c3b0(const V3_176770 *in, V3_176770 *out);
     void FUN_0022ba70(float angle);
-    void FUN_0022ca90(Mat *a, Mat *b);
+    void FUN_0022ca90(Mat_176770 *a, Mat_176770 *b);
 };
 
-struct YObj {
+struct YObj_176770 {
     char pad0[0x1a39];
     char b1a39;
     char pad1a3a[0x1a6c - 0x1a3a];
-    V3 v1a6c;
+    V3_176770 v1a6c;
     char pad1a78[0x2064 - 0x1a78];
-    V3 v2064;
-    void FUN_00035550(V3 *out);
+    V3_176770 v2064;
+    void FUN_00035550(V3_176770 *out);
 };
 
-struct XObj {
-    YObj *FUN_00059a30();
-    void FUN_00059a50(V3 *out);
+struct XObj_176770 {
+    YObj_176770 *FUN_00059a30();
+    void FUN_00059a50(V3_176770 *out);
 };
 
-struct F20 {
-    XObj *FUN_000592a0();
+struct F20_176770 {
+    XObj_176770 *FUN_000592a0();
 };
 
-struct Sub18 {
-    void FUN_00221c60(Mat *m);
+struct Sub18_176770 {
+    void FUN_00221c60(Mat_176770 *m);
 };
 
 struct F24 {
     char pad0[0x18];
-    Sub18 sub18;
+    Sub18_176770 sub18;
 };
 
-struct P1c {
+struct P1c_176770 {
     char pad0[0x18];
     float f18;
     float f1c;
@@ -64,11 +64,11 @@ struct Lim {
     char pad0[0x18];
     float f18;
 };
-struct Mid {
+struct Mid_176770 {
     char pad0[0x24];
     Lim *p24;
 };
-extern Mid *DAT_004dd700;
+extern Mid_176770 *DAT_004dd700;
 
 extern float DAT_004b7d18;
 extern float DAT_004b7d1c;
@@ -76,38 +76,38 @@ extern float DAT_004b7d20;
 extern float DAT_004e13f8;
 extern unsigned int DAT_004e13fc;
 
-float __cdecl FUN_00224f10(V3 *v);
+float __cdecl FUN_00224f10(V3_176770 *v);
 float __cdecl FUN_00224fc0(float a, float b);
 float __cdecl FUN_00083d90(float *v);
-void __cdecl FUN_00224d70(float angle, V3 *v);
-void __cdecl FUN_00224db0(Mat *m, V3 *a, V3 *b);
+void __cdecl FUN_00224d70(float angle, V3_176770 *v);
+void __cdecl FUN_00224db0(Mat_176770 *m, V3_176770 *a, V3_176770 *b);
 
-struct Frame {
+struct Frame_176770 {
     float t0;           // 0x00
     char pad4[3];
     char b7;            // 0x07
     float s8;           // 0x08
     float sc;           // 0x0c
     float s10;          // 0x10
-    V3 q;               // 0x14
-    V3 u;               // 0x20
+    V3_176770 q;               // 0x14
+    V3_176770 u;               // 0x20
     float ang;          // 0x2c
     float lim;          // 0x30
-    V3 z;               // 0x34
-    V3 g;               // 0x40
-    V3 h;               // 0x4c
-    V3 k;               // 0x58
+    V3_176770 z;               // 0x34
+    V3_176770 g;               // 0x40
+    V3_176770 h;               // 0x4c
+    V3_176770 k;               // 0x58
     union {
-        XObj *X;
+        XObj_176770 *X;
         float dd;
     } u64;              // 0x64
-    V3 w;               // 0x68
-    V3 n;               // 0x74
-    Mat M1;             // 0x80
-    Mat M2;             // 0xc0
-    Mat M3;             // 0x100
-    Mat M4;             // 0x140
-    Mat M5;             // 0x180
+    V3_176770 w;               // 0x68
+    V3_176770 n;               // 0x74
+    Mat_176770 M1;             // 0x80
+    Mat_176770 M2;             // 0xc0
+    Mat_176770 M3;             // 0x100
+    Mat_176770 M4;             // 0x140
+    Mat_176770 M5;             // 0x180
 };
 
 class SurfAction {
@@ -119,20 +119,20 @@ public:
     virtual void v4();
     virtual bool v5(int a0, float dt);
     char pad04[0x1c - 4];
-    P1c *p1c;
-    F20 *p20;
+    P1c_176770 *p1c;
+    F20_176770 *p20;
     F24 *p24;
     float f28;
     float f2c;
     float f30;
     float f34;
-    V3 v38;
+    V3_176770 v38;
     float f44_unused;
 };
 
 bool SurfAction::v5(int a0, float dt)
 {
-    Frame f;
+    Frame_176770 f;
 
     if (a0)
         return true;
@@ -140,7 +140,7 @@ bool SurfAction::v5(int a0, float dt)
         return false;
 
     f.u64.X = p20->FUN_000592a0();
-    YObj *Y = f.u64.X->FUN_00059a30();
+    YObj_176770 *Y = f.u64.X->FUN_00059a30();
     f.g.x = DAT_004b7d18;
     f.g.y = DAT_004b7d1c;
     f.g.z = DAT_004b7d20;
@@ -173,7 +173,7 @@ bool SurfAction::v5(int a0, float dt)
     float f28s = f28;
     f.ang = f28s;
     double sd = FUN_00224fc0(f28s, ang0) * 0.31830987334251404f;
-    P1c *p = p1c;
+    P1c_176770 *p = p1c;
     f.t0 = p->f24;
     f.sc = p->f28;
     sd = sd * f.sc;

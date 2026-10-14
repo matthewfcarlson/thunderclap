@@ -3,7 +3,7 @@
 struct Color4 {
     float r, g, b, a;
 };
-struct Light8 {
+struct Light8_332ec0 {
     unsigned int type;
     Color4 diffuse;
     Color4 specular;
@@ -23,11 +23,11 @@ struct LightQuery {
     int index;
     int extra[3];
 };
-struct LightSource {
+struct LightSource_332ec0 {
     void FUN_00321dc0(LightQuery* out, int flags);
 };
 namespace D3D8 {
-void __stdcall D3DDevice_GetLight(unsigned int index, Light8* out);
+void __stdcall D3DDevice_GetLight(unsigned int index, Light8_332ec0* out);
 void __stdcall D3DDevice_SetPixelShaderConstant(unsigned int reg, const float* data, unsigned int count);
 void __fastcall D3DDevice_SetVertexShaderConstant1(int reg, const float* data);
 void __stdcall D3DDevice_SetPixelShader(unsigned int handle);
@@ -50,7 +50,7 @@ class d3dBumpMapVertexShader {
     virtual void vfunc_11();
     virtual void vfunc_12();
     char pad04[0xc];
-    LightSource* lightSource;
+    LightSource_332ec0* lightSource;
     Context* ctx;
     char pad18[0x50 - 0x18];
     unsigned char diffB, diffG, diffR, pad53;
@@ -71,7 +71,7 @@ void d3dBumpMapVertexShader::vfunc_12() {
     int lightIndex = query.index;
     if (lightIndex == -1)
         lightIndex = 0;
-    Light8 light;
+    Light8_332ec0 light;
     D3D8::D3DDevice_GetLight(lightIndex, &light);
     float v[4];
     v[0] = (float)diffR * light.diffuse.r * 0.003921569f;

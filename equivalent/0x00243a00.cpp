@@ -1,25 +1,25 @@
 // STATUS: equivalent (tools/equiv.py level 3: 205 inputs, branch coverage 60/60)
 // FUN_00243a00 @ 0x00243a00
-struct RbNode {
-    RbNode* left;
-    RbNode* right;
-    RbNode* parent;
+struct RbNode_243a00 {
+    RbNode_243a00* left;
+    RbNode_243a00* right;
+    RbNode_243a00* parent;
     int color; // 0 = black, 1 = red
 };
 
-struct RbTree {
-    RbNode* root;
-    RbNode nil;
+struct RbTree_243a00 {
+    RbNode_243a00* root;
+    RbNode_243a00 nil;
 };
 
 // Red-black tree erase rebalancing: 'x' is the node that carries the extra black.
-void FUN_00243a00(RbTree* tree, RbNode* x)
+void FUN_00243a00(RbTree_243a00* tree, RbNode_243a00* x)
 {
-    RbNode* nil = &tree->nil;
-    RbNode* y;
-    RbNode* z;
-    RbNode* p;
-    RbNode* c;
+    RbNode_243a00* nil = &tree->nil;
+    RbNode_243a00* y;
+    RbNode_243a00* z;
+    RbNode_243a00* p;
+    RbNode_243a00* c;
 
     if (x == tree->root) {
         x->color = 0;

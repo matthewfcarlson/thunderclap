@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // core::FileReadRequest::vfunc_1 @ 0x00273f00
 typedef unsigned int uint;
-struct Info { char pad[12]; uint limit; };
-struct Device {
+struct Info_273f00 { char pad[12]; uint limit; };
+struct Device_273f00 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11();
  virtual int read(uint, char*, uint, uint, void*, uint, uint*, uint);
- Info* FUN_002728d0(); uint FUN_00272880();
+ Info_273f00* FUN_002728d0(); uint FUN_00272880();
 };
-struct Lock { virtual void enter(); virtual void leave(); };
-struct Reader { bool FUN_00277ca0(); int FUN_00278010(Device*,uint,char*,uint,uint,void*,uint,uint*,uint); char pad[0x30]; };
-struct File { uint unknown; Lock lock; uint x8; Device* device; uint x10; uint status; char gap[6]; char name[0x102]; uint handle; uint position; uint length; Reader reader; uint extra; };
+struct Lock_273f00 { virtual void enter(); virtual void leave(); };
+struct Reader { bool FUN_00277ca0(); int FUN_00278010(Device_273f00*,uint,char*,uint,uint,void*,uint,uint*,uint); char pad[0x30]; };
+struct File { uint unknown; Lock_273f00 lock; uint x8; Device_273f00* device; uint x10; uint status; char gap[6]; char name[0x102]; uint handle; uint position; uint length; Reader reader; uint extra; };
 extern uint __cdecl FUN_0026fd50(uint,uint);
 namespace core {
 struct FileReadRequest {
@@ -19,7 +19,7 @@ struct FileReadRequest {
 int FileReadRequest::vfunc_1() {
  uint length=file->length;
  uint count=size;
- Device* device=file->device;
+ Device_273f00* device=file->device;
  if(file->position>=length) count=0;
  uint maximum=FUN_0026fd50(length,device->FUN_002728d0()->limit);
  uint position=file->position;

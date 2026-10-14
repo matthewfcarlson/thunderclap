@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 4/4)
 // FUN_00330350 @ 0x00330350
-struct SurfaceDesc { unsigned int format; unsigned int rest[6]; };
+struct SurfaceDesc_330350 { unsigned int format; unsigned int rest[6]; };
 namespace D3D8 {
 void* __stdcall D3DDevice_GetBackBuffer2(unsigned int index);
-void __stdcall D3DSurface_GetDesc(void* surface, SurfaceDesc* desc);
+void __stdcall D3DSurface_GetDesc(void* surface, SurfaceDesc_330350* desc);
 void __stdcall D3DResource_Release(void* surface);
 void* __stdcall D3DDevice_CreateTexture2(unsigned int width, unsigned int height, unsigned int depth, unsigned int levels, unsigned int usage, unsigned int format, unsigned int pool);
 }
 void* __cdecl FUN_0008d690(unsigned int bytes);
-struct Renderer {
+struct Renderer_330350 {
  char pad0[0x10];
  void* device;
  char pad1[0x70];
@@ -17,9 +17,9 @@ struct Renderer {
  void FUN_00330350();
 };
 struct TextureObject { TextureObject* FUN_00326110(void* device, void* texture); };
-void Renderer::FUN_00330350() {
+void Renderer_330350::FUN_00330350() {
  if (texture == 0) {
-  SurfaceDesc desc;
+  SurfaceDesc_330350 desc;
   void* backBuffer = D3D8::D3DDevice_GetBackBuffer2(0);
   D3D8::D3DSurface_GetDesc(backBuffer, &desc);
   D3D8::D3DResource_Release(backBuffer);

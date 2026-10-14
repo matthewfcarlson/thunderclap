@@ -10,22 +10,22 @@ struct Name {
     ~Name() throw();
 };
 
-struct Msg {
+struct Msg_147db0 {
     char data[0x20];
-    Msg *FUN_001c9b30(Name key);
+    Msg_147db0 *FUN_001c9b30(Name key);
 };
 
-struct Dispatcher {
-    void FUN_001cbc20(Msg *m);
+struct Dispatcher_147db0 {
+    void FUN_001cbc20(Msg_147db0 *m);
 };
 
-struct System {
+struct System_147db0 {
     char pad0[0x30];
-    Dispatcher *dispatcher;
+    Dispatcher_147db0 *dispatcher;
 };
-extern System *DAT_004dd700;
+extern System_147db0 *DAT_004dd700;
 
-struct Target {
+struct Target_147db0 {
     char pad0[8];
     Name name;
     char pad10[0x100 - 0x10];
@@ -33,25 +33,25 @@ struct Target {
     void FUN_00080cb0(int v);
 };
 
-struct Fighter {
+struct Fighter_147db0 {
     char pad0[0x328];
     int f328;
     char pad32c[0x630 - 0x32c];
-    Target *target;
+    Target_147db0 *target;
     char pad634[0x20a8 - 0x634];
     int f20a8;
-    Target *FUN_00036030();
+    Target_147db0 *FUN_00036030();
     void FUN_0003b190(int v);
-    void FUN_0003b160(Target *t);
+    void FUN_0003b160(Target_147db0 *t);
     void FUN_000393c0();
 };
 
-struct Holder {
-    Fighter *FUN_00059a30();
+struct Holder_147db0 {
+    Fighter_147db0 *FUN_00059a30();
 };
 
 struct Params {
-    Holder *FUN_000592a0();
+    Holder_147db0 *FUN_000592a0();
 };
 
 namespace hulkfight {
@@ -69,10 +69,10 @@ public:
 
 bool CivilianAttachAction::vfunc_3(int a, int b)
 {
-    Fighter *fighter = owner->FUN_000592a0()->FUN_00059a30();
+    Fighter_147db0 *fighter = owner->FUN_000592a0()->FUN_00059a30();
     if (fighter == 0)
         return false;
-    Target *target = fighter->FUN_00036030();
+    Target_147db0 *target = fighter->FUN_00036030();
     if (target == 0)
         return false;
 
@@ -80,7 +80,7 @@ bool CivilianAttachAction::vfunc_3(int a, int b)
     fighter->FUN_0003b160(target);
     target->FUN_00080cb0(5);
 
-    Msg msg;
+    Msg_147db0 msg;
     msg.FUN_001c9b30(target->name);
     DAT_004dd700->dispatcher->FUN_001cbc20(&msg);
 

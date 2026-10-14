@@ -1,47 +1,47 @@
 // STATUS: equivalent (tools/equiv.py level 3: 472 inputs, branch coverage 307/382, incomplete)
 // FUN_002cb2b0 @ 0x002cb2b0
-struct Vec2 { float x, y; };
-struct Vec3 { float x, y, z; };
+struct Vec2_2cb2b0 { float x, y; };
+struct Vec3_2cb2b0 { float x, y, z; };
 
-struct Blend {
+struct Blend_2cb2b0 {
     char pad00[0x10];
-    Vec3* q0;
-    Vec3* q1;
-    Vec2* r0;
-    Vec2* r1;
-    Vec2* r2;
-    Vec2* r3;
+    Vec3_2cb2b0* q0;
+    Vec3_2cb2b0* q1;
+    Vec2_2cb2b0* r0;
+    Vec2_2cb2b0* r1;
+    Vec2_2cb2b0* r2;
+    Vec2_2cb2b0* r3;
     short* d0;
     short* d1;
 };
 
-struct Source {
+struct Source_2cb2b0 {
     char pad00[8];
     unsigned flags;
     unsigned count;
     char pad10[4];
     unsigned short* index;
-    Vec3* p0;
-    Vec3* p1;
-    Vec3* p2;
-    Vec3* p3;
+    Vec3_2cb2b0* p0;
+    Vec3_2cb2b0* p1;
+    Vec3_2cb2b0* p2;
+    Vec3_2cb2b0* p3;
     char pad28[0x38 - 0x28];
-    Vec2* s0;
-    Vec2* s1;
-    Vec2* s2;
-    Vec2* s3;
+    Vec2_2cb2b0* s0;
+    Vec2_2cb2b0* s1;
+    Vec2_2cb2b0* s2;
+    Vec2_2cb2b0* s3;
     unsigned* col0;
     unsigned* col1;
     char pad50[8];
-    Blend* blend;
+    Blend_2cb2b0* blend;
 };
 
-struct VertexSink {
+struct VertexSink_2cb2b0 {
     char pad00[8];
-    Vec3* pos;
-    Vec3* normal;
+    Vec3_2cb2b0* pos;
+    Vec3_2cb2b0* normal;
     unsigned* color;
-    Vec2* uv;
+    Vec2_2cb2b0* uv;
     void FUN_0008ef00();
 };
 
@@ -63,7 +63,7 @@ static __forceinline unsigned AddColor(unsigned c, const short* d)
     return (((a << 8 | r) << 8 | g) << 8) | b;
 }
 
-static __forceinline void PutPos(VertexSink* out, const Vec3* p, const Vec3* q)
+static __forceinline void PutPos(VertexSink_2cb2b0* out, const Vec3_2cb2b0* p, const Vec3_2cb2b0* q)
 {
     if (q) {
         float z = p->z + q->z;
@@ -82,7 +82,7 @@ static __forceinline void PutPos(VertexSink* out, const Vec3* p, const Vec3* q)
     }
 }
 
-static __forceinline void PutNormal(VertexSink* out, const Vec3* p, const Vec3* q)
+static __forceinline void PutNormal(VertexSink_2cb2b0* out, const Vec3_2cb2b0* p, const Vec3_2cb2b0* q)
 {
     if (q) {
         float z = p->z + q->z;
@@ -102,7 +102,7 @@ static __forceinline void PutNormal(VertexSink* out, const Vec3* p, const Vec3* 
 }
 
 // out->uv is reloaded before every store: the fuzzed pointer may point into the sink itself.
-static __forceinline void PutUv(VertexSink* out, int k, const Vec2* s, const Vec2* r)
+static __forceinline void PutUv(VertexSink_2cb2b0* out, int k, const Vec2_2cb2b0* s, const Vec2_2cb2b0* r)
 {
     if (r) {
         float y = s->y + r->y;
@@ -126,11 +126,11 @@ static __forceinline void PutColor(unsigned* dst, const unsigned* c, const short
 }
 
 // equiv-conv: FUN_002cb2b0 ecx stack esi
-void FUN_002cb2b0(Source* src, unsigned char flag, VertexSink* out)
+void FUN_002cb2b0(Source_2cb2b0* src, unsigned char flag, VertexSink_2cb2b0* out)
 {
     unsigned count = src->count;
-    Vec3* p0;
-    Vec3* p1;
+    Vec3_2cb2b0* p0;
+    Vec3_2cb2b0* p1;
     if (flag == 1) {
         p0 = src->p2;
         p1 = src->p3;
@@ -140,24 +140,24 @@ void FUN_002cb2b0(Source* src, unsigned char flag, VertexSink* out)
     }
     unsigned* col0 = src->col0;
     unsigned* col1 = src->col1;
-    Vec2* s0 = src->s0;
-    Vec2* s1 = src->s1;
-    Vec2* s2 = src->s2;
-    Vec2* s3 = src->s3;
+    Vec2_2cb2b0* s0 = src->s0;
+    Vec2_2cb2b0* s1 = src->s1;
+    Vec2_2cb2b0* s2 = src->s2;
+    Vec2_2cb2b0* s3 = src->s3;
     unsigned flags = src->flags & 0xfffc7fff;
-    Blend* b = src->blend;
-    Vec3* q0 = 0;
-    Vec3* q1 = 0;
+    Blend_2cb2b0* b = src->blend;
+    Vec3_2cb2b0* q0 = 0;
+    Vec3_2cb2b0* q1 = 0;
     if (flag == 0) {
         q0 = b->q0;
         q1 = b->q1;
     }
     short* d0 = b->d0;
     short* d1 = b->d1;
-    Vec2* r0 = b->r0;
-    Vec2* r1 = b->r1;
-    Vec2* r2 = b->r2;
-    Vec2* r3 = b->r3;
+    Vec2_2cb2b0* r0 = b->r0;
+    Vec2_2cb2b0* r1 = b->r1;
+    Vec2_2cb2b0* r2 = b->r2;
+    Vec2_2cb2b0* r3 = b->r3;
     unsigned i;
 
     // jump table 0x2cd0e8 / byte table 0x2cd100: flags-0x2001 = 0x00, 0x0f, 0x10, 0x1f, 0x20 (everything else: the generic loop)

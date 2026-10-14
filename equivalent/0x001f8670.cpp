@@ -9,14 +9,14 @@ struct Key {
     ~Key() throw();
 };
 
-struct Item {
+struct Item_1f8670 {
     char pad[1];
 };
 
-class Registry {
+class Registry_1f8670 {
 public:
     char pad0[0x10];
-    Item *items[256];       // 0x10
+    Item_1f8670 *items[256];       // 0x10
     int count;              // 0x410
     int firstActive;        // 0x414
     int activeCount;        // 0x418
@@ -26,7 +26,7 @@ public:
 };
 
 // Removes the item named `key` by moving the last item into its slot; returns its old index or -1.
-int Registry::FUN_001f8670(Key key)
+int Registry_1f8670::FUN_001f8670(Key key)
 {
     if (activeCount != 0 && firstActive >= 0) {
         int index = FUN_001f85f0(key);

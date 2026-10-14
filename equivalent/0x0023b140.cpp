@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // fight::ScriptReader::vfunc_16 @ 0x0023b140
-struct Pair {
+struct Pair_23b140 {
  unsigned int low, high;
- void FUN_0027af70(Pair*);
+ void FUN_0027af70(Pair_23b140*);
  void FUN_0027b040(int);
 };
 namespace fight {
@@ -15,8 +15,8 @@ struct ScriptReader {
  char pad[12];
  int depth;
  int limits[65];
- Pair result;
- Pair pending;
+ Pair_23b140 result;
+ Pair_23b140 pending;
  int pendingLimit;
  void FUN_0023ab40();
  void FUN_0023a6b0();

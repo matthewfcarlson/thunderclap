@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_002fbdc0 @ 0x002fbdc0
-struct Vec { float x,y,z; };
-struct Shape {
- char pad[0x38]; int aligned; char pad2[0xc]; float extentX,extentY,extentZ; Vec axisX,axisY,axisZ;
- float FUN_002fbdc0(const Vec* v, int excluded);
+struct Vec_2fbdc0 { float x,y,z; };
+struct Shape_2fbdc0 {
+ char pad[0x38]; int aligned; char pad2[0xc]; float extentX,extentY,extentZ; Vec_2fbdc0 axisX,axisY,axisZ;
+ float FUN_002fbdc0(const Vec_2fbdc0* v, int excluded);
 };
-float Shape::FUN_002fbdc0(const Vec* v, int excluded) {
+float Shape_2fbdc0::FUN_002fbdc0(const Vec_2fbdc0* v, int excluded) {
  union Bits { float f; unsigned int u; } b;
  double sum=0.0f;
  if (!aligned) {

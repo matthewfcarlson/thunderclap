@@ -4,25 +4,25 @@ void FUN_00066900();
 void FUN_000668c0();
 void *FUN_0008d6d0(unsigned int size);
 
-struct Key {
+struct Key_66a90 {
     int w[4];
 };
 struct Node {
     char pad0[0x10];
-    Key key;
+    Key_66a90 key;
 };
-struct Result {
+struct Result_66a90 {
     Node *node;
     void *owner;
 };
-void *__stdcall FUN_00230be0(void (*match)(), const Key *key);
+void *__stdcall FUN_00230be0(void (*match)(), const Key_66a90 *key);
 
-struct Owner {
+struct Owner_66a90 {
     void FUN_00230c30(Node *node, void (*notify)(), void *found);
-    void FUN_00066a90(Result *out, const Key *key);
+    void FUN_00066a90(Result_66a90 *out, const Key_66a90 *key);
 };
 
-void Owner::FUN_00066a90(Result *out, const Key *key)
+void Owner_66a90::FUN_00066a90(Result_66a90 *out, const Key_66a90 *key)
 {
     void *found = FUN_00230be0(FUN_00066900, key);
     if (found == 0) {

@@ -17,7 +17,7 @@ struct Reader {
     void FUN_00266be0();
 };
 
-class RefCounted {
+class RefCounted_2e6340 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -26,8 +26,8 @@ public:
 };
 
 struct Track {
-    RefCounted** begin;
-    RefCounted** end;
+    RefCounted_2e6340** begin;
+    RefCounted_2e6340** end;
     int cap;
 };
 
@@ -72,7 +72,7 @@ public:
 
 class KeyFrameLoader {
 public:
-    RefCounted* FUN_002e5b20(Reader* r, Parent* parent);
+    RefCounted_2e6340* FUN_002e5b20(Reader* r, Parent* parent);
     pure3d::VertexAnimKeyFrameList* FUN_002e6340(Reader* r, Parent* parent);
 };
 
@@ -116,15 +116,15 @@ pure3d::VertexAnimKeyFrameList* KeyFrameLoader::FUN_002e6340(Reader* r, Parent* 
                 track->end = 0;
             } else {
                 unsigned int bytes = f.count * 4;
-                RefCounted** p = (RefCounted**)FUN_0008d6d0(bytes);
+                RefCounted_2e6340** p = (RefCounted_2e6340**)FUN_0008d6d0(bytes);
                 track->begin = p;
                 if (p == 0) {
                     track->begin = 0;
                     track->end = 0;
                 } else {
-                    track->end = (RefCounted**)((char*)p + bytes);
+                    track->end = (RefCounted_2e6340**)((char*)p + bytes);
                     for (unsigned int k = f.count; k != 0; k--, p++)
-                        new (p) RefCounted*(0);
+                        new (p) RefCounted_2e6340*(0);
                 }
             }
         }
@@ -134,10 +134,10 @@ pure3d::VertexAnimKeyFrameList* KeyFrameLoader::FUN_002e6340(Reader* r, Parent* 
     f.scratch = 0;
     while (r->FUN_002669f0()) {
         if (r->FUN_00266a30() == 0x121306) {
-            RefCounted* obj = f.self->FUN_002e5b20(r, parent);
+            RefCounted_2e6340* obj = f.self->FUN_002e5b20(r, parent);
             f.list->FUN_002e5330(obj->id, &f.scratch);
             unsigned int* used = &f.counts[f.scratch];
-            RefCounted** slot = &f.list->tracks.begin[f.scratch].begin[*used];
+            RefCounted_2e6340** slot = &f.list->tracks.begin[f.scratch].begin[*used];
             obj->AddRef();
             if (*slot)
                 (*slot)->Release();

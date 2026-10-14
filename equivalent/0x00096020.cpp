@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00096020 @ 0x00096020
-struct Vec { float x,y,z; };
+struct Vec_96020 { float x,y,z; };
 struct Matrix { float m[12]; };
-void __cdecl FUN_00096020(Matrix* out, const Vec* a, const Vec* b) {
+void __cdecl FUN_00096020(Matrix* out, const Vec_96020* a, const Vec_96020* b) {
     float x = b->z*a->y - b->y*a->z;
     float y = b->x*a->z - b->z*a->x;
     float z = b->y*a->x - b->x*a->y;

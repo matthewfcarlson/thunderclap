@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 312 inputs, branch coverage 9/10, incomplete)
 // FUN_0022aaa0 @ 0x0022aaa0
-struct Pair { unsigned a,b; };
-struct Source { char pad[16]; float scale; char pad2[12]; float fallback; float FUN_00288de0(unsigned,unsigned,unsigned,unsigned); };
+struct Pair_22aaa0 { unsigned a,b; };
+struct Source_22aaa0 { char pad[16]; float scale; char pad2[12]; float fallback; float FUN_00288de0(unsigned,unsigned,unsigned,unsigned); };
 float __cdecl FUN_0004af40(float,float,float);
-float __cdecl FUN_0022aaa0(Pair* entries, Source* source) {
+float __cdecl FUN_0022aaa0(Pair_22aaa0* entries, Source_22aaa0* source) {
  if (!entries || !(entries[0].a | entries[0].b)) return source->fallback;
  float t=(source->scale-1.0f)*0.5f;
  float result=source->FUN_00288de0(0,0,entries[0].a,entries[0].b);

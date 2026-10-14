@@ -5,13 +5,13 @@ extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" char *__cdecl strcat(char *dst, const char *src);
 
-class Crusher {
+class Crusher_1ecd00 {
 public:
     void FUN_001ec980(int a, const char *name);
     void FUN_001ecd00(const char *name, int a);
 };
 
-void Crusher::FUN_001ecd00(const char *name, int a)
+void Crusher_1ecd00::FUN_001ecd00(const char *name, int a)
 {
     struct Frame {
         char buf[70];

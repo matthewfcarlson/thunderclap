@@ -6,9 +6,9 @@ extern float DAT_0040d258;
 
 struct Node;
 
-struct SubObj {
+struct SubObj_310ec0 {
     char pad0[4];
-    void FUN_002fcaf0(SubObj* other);
+    void FUN_002fcaf0(SubObj_310ec0* other);
 };
 
 struct Node {
@@ -26,7 +26,7 @@ struct Node {
     float f3c;
     float f40;
     char pad44[4];
-    SubObj sub;             // 0x48
+    SubObj_310ec0 sub;             // 0x48
     float f4c;
     float f50;
     float f54;
@@ -44,7 +44,7 @@ struct Node {
     float fF0;              // 0xf0
 };
 
-struct Tree {
+struct Tree_310ec0 {
     char pad0[0x3c];
     float total;            // 0x3c
     float weight;           // 0x40
@@ -61,7 +61,7 @@ struct Tree {
     void FUN_00310550();
 };
 
-void Tree::FUN_00310ec0()
+void Tree_310ec0::FUN_00310ec0()
 {
     int i;
     total = 0;   // zero bit pattern, stores of integer 0

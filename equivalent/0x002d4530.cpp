@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 13/13)
 // pure3d::SpriteParticleEmitter::vfunc_18 @ 0x002d4530
-class Source {
+class Source_2d4530 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -17,7 +17,7 @@ public:
     virtual void v16(); virtual void v17();
     virtual float vfunc_18(int which);
     char pad04[0x88 - 0x4 - 0x0];
-    Source *source;
+    Source_2d4530 *source;
     char pad8c[0x158 - 0x8c];
     float f158;
     char pad15c[0x168 - 0x15c];

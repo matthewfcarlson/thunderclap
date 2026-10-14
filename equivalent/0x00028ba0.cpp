@@ -3,20 +3,20 @@
 unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 char __cdecl FUN_00345475(int c);
 
-struct Pawn {
+struct Pawn_28ba0 {
     char pad[0x1e58];
     int value;
     int mode;
 };
 
-struct Group {
-    Pawn *FUN_00024280(unsigned __int64 key);
+struct Group_28ba0 {
+    Pawn_28ba0 *FUN_00024280(unsigned __int64 key);
     void FUN_00028ba0(const char *name, int value, const char *modeName);
 };
 
-void Group::FUN_00028ba0(const char *name, int value, const char *modeName)
+void Group_28ba0::FUN_00028ba0(const char *name, int value, const char *modeName)
 {
-    Pawn *pawn = FUN_00024280(FUN_002672f0(name, 0, 0));
+    Pawn_28ba0 *pawn = FUN_00024280(FUN_002672f0(name, 0, 0));
     if (pawn) {
         pawn->mode = 0;
         if (modeName) {

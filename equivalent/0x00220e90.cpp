@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 12/12)
 // FUN_00220e90 @ 0x00220e90
-struct State { unsigned kind; unsigned value; };
-struct Buffer { char pad[12]; unsigned* words; };
-struct Context { Buffer* buffer; };
-void __cdecl FUN_00220d90(Context*, State*);
+struct State_220e90 { unsigned kind; unsigned value; };
+struct Buffer_220e90 { char pad[12]; unsigned* words; };
+struct Context { Buffer_220e90* buffer; };
+void __cdecl FUN_00220d90(Context*, State_220e90*);
 void __cdecl FUN_00220c40(Context*, unsigned, int);
 void __cdecl FUN_00220bd0(Context*, int, unsigned, unsigned, int);
 void __cdecl FUN_00220c10(Context*, int, unsigned, unsigned);
 // equiv-conv: FUN_00220e90 ebx esi edi
-void FUN_00220e90(State* state, unsigned value, Context* context) {
+void FUN_00220e90(State_220e90* state, unsigned value, Context* context) {
  FUN_00220d90(context, state);
  switch(state->kind) {
  case 1: FUN_00220c40(context,value,1); break;

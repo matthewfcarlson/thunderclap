@@ -4,17 +4,17 @@ extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 extern int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 
-struct Msg {
+struct Msg_1cd220 {
     int w0, w1, w2, w3, w4, w5;
-    Msg *FUN_001ca060(int v);
-    Msg *FUN_001ca0d0();
+    Msg_1cd220 *FUN_001ca060(int v);
+    Msg_1cd220 *FUN_001ca0d0();
 };
 
-struct Sink {
-    int FUN_001cbc20(Msg *m);
+struct Sink_1cd220 {
+    int FUN_001cbc20(Msg_1cd220 *m);
 };
 
-struct Loader {
+struct Loader_1cd220 {
     int FUN_001d3600(char *path, int flag);
 };
 
@@ -22,42 +22,42 @@ struct Visibility {
     void FUN_000d6fb0(char v);
 };
 
-struct Child {
+struct Child_1cd220 {
     char pad00[0x3c];
     Visibility *vis;
 };
 
-struct Holder {
+struct Holder_1cd220 {
     char pad00[0xc];
-    Child *child;
+    Child_1cd220 *child;
 };
 
-extern Holder *DAT_004dd6ec;
+extern Holder_1cd220 *DAT_004dd6ec;
 
-struct Obj24 {
+struct Obj24_1cd220 {
     int FUN_001b9130(int v);
 };
 
-struct Obj28 {
+struct Obj28_1cd220 {
     int FUN_002088a0();
     int FUN_002089f0();
 };
 
-struct Obj54 {
-    Obj24 *FUN_00086290();
-    Obj28 *FUN_000862a0();
+struct Obj54_1cd220 {
+    Obj24_1cd220 *FUN_00086290();
+    Obj28_1cd220 *FUN_000862a0();
 };
 
-struct Game {
+struct Game_1cd220 {
     char pad00[0x54];
-    Obj54 *f54;
+    Obj54_1cd220 *f54;
 };
 
-extern Game *DAT_004dd700;
+extern Game_1cd220 *DAT_004dd700;
 
-extern Loader *__cdecl FUN_001d4c90();
+extern Loader_1cd220 *__cdecl FUN_001d4c90();
 
-struct Names {
+struct Names_1cd220 {
     char *FUN_000897e0();
     char *FUN_000897f0();
     char *FUN_0008a2d0();
@@ -65,25 +65,25 @@ struct Names {
 
 struct Target4 {
     char pad00[0x30];
-    Sink *sink;
+    Sink_1cd220 *sink;
 };
 
-struct Frame {
-    Msg msg;
+struct Frame_1cd220 {
+    Msg_1cd220 msg;
     char buf[0x80];
     unsigned int cookie;
 };
 
-struct Slot {
+struct Slot_1cd220 {
     char used;
     char pad[0x1f];
 };
 
-class Mission {
+class Mission_1cd220 {
 public:
     char pad00[4];
     Target4 *f4;
-    Names *names;
+    Names_1cd220 *names;
     int f0c;
     char pad10[0x1190 - 0x10];
     int f1190;
@@ -92,15 +92,15 @@ public:
     float f119c;
     char b11a0;
     char pad11a1[0x1418 - 0x11a1];
-    Slot slots[4];
+    Slot_1cd220 slots[4];
     int slotVals[4];
     void FUN_001ccb80();
     void FUN_001cd220(char flag);
 };
 
-void Mission::FUN_001cd220(char flag)
+void Mission_1cd220::FUN_001cd220(char flag)
 {
-    Frame f;
+    Frame_1cd220 f;
     f.cookie = DAT_004d9968;
     f0c = 0;
     f1198 = 0;
@@ -111,9 +111,9 @@ void Mission::FUN_001cd220(char flag)
         slots[i].used = 0;
         slotVals[i] = 0;
     }
-    Loader *loader = FUN_001d4c90();
+    Loader_1cd220 *loader = FUN_001d4c90();
     if (loader) {
-        Holder *h = DAT_004dd6ec;
+        Holder_1cd220 *h = DAT_004dd6ec;
         if (h && h->child && h->child->vis)
             h->child->vis->FUN_000d6fb0(0);
         DAT_004dd700->f54->FUN_00086290()->FUN_001b9130(0);
@@ -130,7 +130,7 @@ void Mission::FUN_001cd220(char flag)
         DAT_004dd700->f54->FUN_000862a0()->FUN_002088a0();
         DAT_004dd700->f54->FUN_000862a0()->FUN_002089f0();
         if (f4) {
-            Sink *sink = f4->sink;
+            Sink_1cd220 *sink = f4->sink;
             if (sink) {
                 if (flag) {
                     f.msg.FUN_001ca0d0();

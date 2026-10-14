@@ -2,23 +2,23 @@
 // FUN_001962b0 @ 0x001962b0
 // equiv-map: ?thunk_FUN_0027d410@Node@@QAEXPAUId64@@@Z = 0x001d6630
 // equiv-map: ??0CProjectile@@QAE@XZ = 0x001b6800
-struct V3 {
+struct V3_1962b0 {
     float x, y, z;
 };
 
-struct Mat4 {
+struct Mat4_1962b0 {
     float m[16];
     void FUN_0022b980();
 };
 
-struct Id64 {
+struct Id64_1962b0 {
     int lo;
     int hi;
 };
 
-struct MissileCfg {
+struct MissileCfg_1962b0 {
     char pad0[0x18];
-    Id64 id;            // 0x18
+    Id64_1962b0 id;            // 0x18
     char pad20[0x60 - 0x20];
     int f60;
     int f64;
@@ -48,7 +48,7 @@ struct MissileCfg {
     int fb0;
 };
 
-struct Rng {
+struct Rng_1962b0 {
     unsigned s0;
     unsigned s1;
 };
@@ -64,31 +64,31 @@ struct Node {
     char b1d8;
     int FUN_001d6c70();
     int FUN_001d6b40();
-    void thunk_FUN_0027d410(Id64 *id);
+    void thunk_FUN_0027d410(Id64_1962b0 *id);
 };
 
 struct Mgr;
 
-struct Factory {
-    Node *FUN_001e4760(int name, char *buf, int a, Mat4 *m, int b, int c, int d);
+struct Factory_1962b0 {
+    Node *FUN_001e4760(int name, char *buf, int a, Mat4_1962b0 *m, int b, int c, int d);
     int FUN_001dbfe0(char *buf);
     void FUN_001e3200(char *buf, int lo, int hi);
     void FUN_001dc230(int h, int mode);
 };
 
-struct Handle {
-    void FUN_001eb7e0(void *p, void *q, int h, V3 *zero, V3 *up, V3 pos, int mode);
+struct Handle_1962b0 {
+    void FUN_001eb7e0(void *p, void *q, int h, V3_1962b0 *zero, V3_1962b0 *up, V3_1962b0 pos, int mode);
 };
 
-struct Scene {
-    Handle *FUN_000862e0();
+struct Scene_1962b0 {
+    Handle_1962b0 *FUN_000862e0();
 };
 
 struct World {
     char pad0[0xc];
-    Factory *factory;   // 0xc
+    Factory_1962b0 *factory;   // 0xc
     char pad10[0x54 - 0x10];
-    Scene *scene;       // 0x54
+    Scene_1962b0 *scene;       // 0x54
 };
 
 class CProjectile {
@@ -105,7 +105,7 @@ public:
 extern World *DAT_004dd700;
 extern char DAT_004e15d0[];
 extern int DAT_004e16d0;
-Rng *__cdecl FUN_000964d0();
+Rng_1962b0 *__cdecl FUN_000964d0();
 extern int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 
 namespace hulkfight {
@@ -130,7 +130,7 @@ public:
     int f34;
     char b38;
     char pad39[3];
-    MissileCfg *cfg;        // 0x3c
+    MissileCfg_1962b0 *cfg;        // 0x3c
     int h40;
     int f44;
     int f48;
@@ -169,13 +169,13 @@ public:
     float fd0;
     int fd4;
     float fd8;
-    ProjectileMissile(MissileCfg *src, int name);
+    ProjectileMissile(MissileCfg_1962b0 *src, int name);
 };
 
 }
 }
 
-hulkfight::motion::ProjectileMissile::ProjectileMissile(MissileCfg *src, int name)
+hulkfight::motion::ProjectileMissile::ProjectileMissile(MissileCfg_1962b0 *src, int name)
 {
     h40 = -1;
     f44 = 0;
@@ -228,7 +228,7 @@ hulkfight::motion::ProjectileMissile::ProjectileMissile(MissileCfg *src, int nam
     f34 = 0;
     int pick;
     if (flag != 0) {
-        Rng *rng = FUN_000964d0();
+        Rng_1962b0 *rng = FUN_000964d0();
         rng->s0 = (rng->s0 & 0xffff) * 0x9069 + (rng->s0 >> 16);
         rng->s1 = (rng->s1 & 0xffff) * 0x4650 + (rng->s1 >> 16);
         pick = (int)(((rng->s0 << 16) + (rng->s1 & 0xffff)) % 3) - 1;
@@ -236,10 +236,10 @@ hulkfight::motion::ProjectileMissile::ProjectileMissile(MissileCfg *src, int nam
         pick = f18;
     }
     fc0 = pick;
-    Factory *factory = DAT_004dd700->factory;
+    Factory_1962b0 *factory = DAT_004dd700->factory;
     FUN_00267760(DAT_004e15d0, 0x100, "projectile_missile_%d", DAT_004e16d0);
     DAT_004e16d0 = DAT_004e16d0 + 1;
-    Mat4 m;
+    Mat4_1962b0 m;
     m.FUN_0022b980();
     Node *node = factory->FUN_001e4760(name, DAT_004e15d0, 0, &m, 0, 0, 0);
     if (node == 0) {
@@ -251,21 +251,21 @@ hulkfight::motion::ProjectileMissile::ProjectileMissile(MissileCfg *src, int nam
         int base = node->fec;
         node->b144 = 1;
         node->b1d8 = 1;
-        V3 zero;
-        V3 up;
+        V3_1962b0 zero;
+        V3_1962b0 up;
         zero.x = 0;
         zero.y = 0;
         zero.z = 0;
         up.x = 0;
         up.y = 1.0f;
         up.z = 0;
-        V3 origin;
+        V3_1962b0 origin;
         origin.x = 0;
         origin.y = 0;
         origin.z = 0;
-        Scene *scene = DAT_004dd700->scene;
+        Scene_1962b0 *scene = DAT_004dd700->scene;
         int h = node->FUN_001d6b40();
-        Handle *hd = scene->FUN_000862e0();
+        Handle_1962b0 *hd = scene->FUN_000862e0();
         hd->FUN_001eb7e0(node->sub8, (char *)base + 8, h, &zero, &up, origin, 3);
         if ((cfg->id.lo | cfg->id.hi) != 0)
             node->thunk_FUN_0027d410(&cfg->id);

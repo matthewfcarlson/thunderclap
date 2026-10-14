@@ -18,26 +18,26 @@ struct Name {
     ~Name() throw();
 };
 
-struct Finder {
+struct Finder_1eb740 {
     int FUN_00086310() throw();
 };
 
-struct Sink {
+struct Sink_1eb740 {
     void FUN_001efe20(StrList *list, Name *name, int a, float scale) throw();
 };
 
 void __cdecl FUN_001eb440(int found, StrList *list) throw();
 
-class Loader {
+class Loader_1eb740 {
 public:
-    Sink *sink;
-    Finder *finder;
+    Sink_1eb740 *sink;
+    Finder_1eb740 *finder;
     char enabled;
 
     void FUN_001eb740(const char *dir, int a, const char *name) throw();
 };
 
-void Loader::FUN_001eb740(const char *dir, int a, const char *name)
+void Loader_1eb740::FUN_001eb740(const char *dir, int a, const char *name)
 {
     StrList list;
     list.FUN_001ef370("Objects");

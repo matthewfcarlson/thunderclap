@@ -4,7 +4,7 @@ extern "C" int FUN_00267760(char *buf, int size, const char *fmt, int n);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int DAT_004d9968;
 
-class Src {
+class Src_3f650 {
 public:
     char pad0[0x168 - 0x0];
     int s12;
@@ -36,7 +36,7 @@ public:
 class Entity {
 public:
     char pad0[0x11c - 0x0];
-    Src * src;
+    Src_3f650 * src;
     char pad2[0x394 - 0x120];
     int d13;
     char pad4[0x1cf8 - 0x398];
@@ -72,7 +72,7 @@ public:
 void Entity::FUN_0003f650()
 {
     unsigned int cookie = DAT_004d9968;
-    Src *s = src;
+    Src_3f650 *s = src;
     if (s == 0) {
         __security_check_cookie(cookie);
         return;

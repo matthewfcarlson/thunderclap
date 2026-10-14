@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00294880 @ 0x00294880
-struct Mat { char data[0x40]; void FUN_0022b980(); };
+struct Mat_294880 { char data[0x40]; void FUN_0022b980(); };
 namespace pure3d {
 class View {
   public:
@@ -19,8 +19,8 @@ class View {
     int zeros[32];
     unsigned char flag;
     char pad_bd[3];
-    Mat m0;
-    Mat m1;
+    Mat_294880 m0;
+    Mat_294880 m1;
 };
 }
 pure3d::View::View() {

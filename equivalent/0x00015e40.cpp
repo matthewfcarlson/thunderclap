@@ -1,44 +1,44 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 14/14)
 // CSmartPropSpawnAction::vfunc_7 @ 0x00015e40
-struct Vec3 {
+struct Vec3_15e40 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Mat {
+struct Mat_15e40 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022bc20(float x, float y, float z);
     void FUN_0022c120();
-    void FUN_0022ca90(Mat *a, Mat *b);
+    void FUN_0022ca90(Mat_15e40 *a, Mat_15e40 *b);
 };
 
-struct JointFinder {
+struct JointFinder_15e40 {
     unsigned int FUN_0027b200(int lo, int hi);
 };
 
-struct SkeletonData {
+struct SkeletonData_15e40 {
     char pad0[8];
-    JointFinder *finder;
+    JointFinder_15e40 *finder;
     char pad0c[0x1c - 0xc];
-    Mat *mats;
+    Mat_15e40 *mats;
 };
 
-struct Body {
+struct Body_15e40 {
     char pad0[0x64];
-    SkeletonData *skeleton;
+    SkeletonData_15e40 *skeleton;
 };
 
-struct Fighter {
+struct Fighter_15e40 {
     char pad[4];
 };
 
 struct Entity {
-    void FUN_00035160(Mat *out);
-    void FUN_0003acf0(int a, void *b, unsigned int joint, int p1, int p2, Mat *m);
+    void FUN_00035160(Mat_15e40 *out);
+    void FUN_0003acf0(int a, void *b, unsigned int joint, int p1, int p2, Mat_15e40 *m);
 };
 
-class MatSource {
+class MatSource_15e40 {
 public:
     virtual void v0();
     virtual void v1();
@@ -55,7 +55,7 @@ public:
     virtual void v12();
     virtual void v13();
     virtual void v14();
-    virtual Mat *getMat();
+    virtual Mat_15e40 *getMat();
 };
 
 struct SpawnData {
@@ -68,14 +68,14 @@ struct SpawnData {
     int p2;
     char hasEuler;
     char pada9[3];
-    Vec3 anchor;
-    Vec3 euler;
+    Vec3_15e40 anchor;
+    Vec3_15e40 euler;
     float stiffness;
 };
 
-Fighter *__fastcall FUN_000592a0(void *owner);
-Entity *__fastcall FUN_00059a30(Fighter *f);
-Body *__fastcall FUN_00059a40(Fighter *f);
+Fighter_15e40 *__fastcall FUN_000592a0(void *owner);
+Entity *__fastcall FUN_00059a30(Fighter_15e40 *f);
+Body_15e40 *__fastcall FUN_00059a40(Fighter_15e40 *f);
 
 class CSmartPropSpawnAction {
 public:
@@ -91,22 +91,22 @@ public:
     char pad04[0x18];
     void *owner;
     SpawnData *data;
-    MatSource *source;
+    MatSource_15e40 *source;
 };
 
 char CSmartPropSpawnAction::vfunc_7(int arg)
 {
-    Mat result;
-    Mat parent;
-    Mat inv;
-    Vec3 pos;
-    Vec3 anchor;
+    Mat_15e40 result;
+    Mat_15e40 parent;
+    Mat_15e40 inv;
+    Vec3_15e40 pos;
+    Vec3_15e40 anchor;
     int p1, p2;
 
-    Fighter *fighter = FUN_000592a0(owner);
+    Fighter_15e40 *fighter = FUN_000592a0(owner);
     Entity *stats = FUN_00059a30(fighter);
-    Body *body = FUN_00059a40(fighter);
-    SkeletonData *skel = 0;
+    Body_15e40 *body = FUN_00059a40(fighter);
+    SkeletonData_15e40 *skel = 0;
     unsigned int joint = 0xffff;
     if (body != 0) {
         skel = body->skeleton;

@@ -2,11 +2,11 @@
 // physics::PhysicsObjectLoader::vfunc_5 @ 0x002f70a0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
-struct Vec3 {
+struct Vec3_2f70a0 {
     float x, y, z;
 };
 
-struct Key {
+struct Key_2f70a0 {
     unsigned int lo;
     unsigned int hi;
     void FUN_0027b040(const char *name);
@@ -34,9 +34,9 @@ struct Reader {
     void FUN_00266be0();
 };
 
-class Part {
+class Part_2f70a0 {
 public:
-    virtual ~Part();
+    virtual ~Part_2f70a0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
@@ -57,24 +57,24 @@ struct Props;
 
 struct SimObject {
     char pad00[8];
-    Key key8;
+    Key_2f70a0 key8;
     char pad10[0x30 - 0x10];
-    Key key30;
+    Key_2f70a0 key30;
     void FUN_002fe6b0(void *world);
 };
 
-struct Composite : SimObject {
-    Composite *FUN_00309520(Props *props, Part **parts, int count);
+struct Composite_2f70a0 : SimObject {
+    Composite_2f70a0 *FUN_00309520(Props *props, Part_2f70a0 **parts, int count);
 };
 
 struct Articulated : SimObject {
-    Articulated *FUN_002f6220(Props *props, Vec3 *center, SymMatrix *sm, unsigned int c);
+    Articulated *FUN_002f6220(Props *props, Vec3_2f70a0 *center, SymMatrix *sm, unsigned int c);
 };
 
 extern void *DAT_00554c10;
 
 void __cdecl FUN_002f5fe0(Reader *r, SymMatrix *sm);
-Part *__cdecl FUN_0030d4f0(unsigned int a, Vec3 *v, unsigned int b, unsigned int c);
+Part_2f70a0 *__cdecl FUN_0030d4f0(unsigned int a, Vec3_2f70a0 *v, unsigned int b, unsigned int c);
 unsigned __int64 __cdecl FUN_0027b020(const char *name);
 Props *__cdecl FUN_002f2750(unsigned __int64 key);
 int __cdecl FUN_00266da0(int sel);
@@ -90,10 +90,10 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual void vfunc_5(void **outObj, Key *outKey, Reader *r, int unused);
+    virtual void vfunc_5(void **outObj, Key_2f70a0 *outKey, Reader *r, int unused);
 };
 
-void PhysicsObjectLoader::vfunc_5(void **outObj, Key *outKey, Reader *r, int unused)
+void PhysicsObjectLoader::vfunc_5(void **outObj, Key_2f70a0 *outKey, Reader *r, int unused)
 {
     struct Frame {
         char pad00[3];
@@ -107,9 +107,9 @@ void PhysicsObjectLoader::vfunc_5(void **outObj, Key *outKey, Reader *r, int unu
         int a;                       // 0x1c   kind
         unsigned int v3;             // 0x20
         unsigned int v5;             // 0x24
-        Vec3 zero;                   // 0x28
+        Vec3_2f70a0 zero;                   // 0x28
         SymMatrix sm;                // 0x34
-        Vec3 center;                 // 0x50
+        Vec3_2f70a0 center;                 // 0x50
         char name1[0x100];           // 0x5c
         char name2[0x100];           // 0x15c
         char msg[0x12c];             // 0x25c
@@ -128,11 +128,11 @@ void PhysicsObjectLoader::vfunc_5(void **outObj, Key *outKey, Reader *r, int unu
     r->stream->FUN_002647e0(&f.c, 1, 4, 1);
     r->stream->FUN_002647e0(&f.d, 1, 4, 1);
 
-    Part **parts = 0;
+    Part_2f70a0 **parts = 0;
     int count = 0;
     if (f.b > 0) {
         int prev = FUN_00266da0(1);
-        parts = (Part **)FUN_0008d6d0(f.b * 4);
+        parts = (Part_2f70a0 **)FUN_0008d6d0(f.b * 4);
         FUN_00266da0(prev);
     }
     f.sm.FUN_002fca90();
@@ -165,7 +165,7 @@ void PhysicsObjectLoader::vfunc_5(void **outObj, Key *outKey, Reader *r, int unu
                 r->FUN_00266be0();
             }
             int prev = FUN_00266da0(1);
-            Part *p = FUN_0030d4f0(f.v5, &f.zero, f.v1, f.v0);
+            Part_2f70a0 *p = FUN_0030d4f0(f.v5, &f.zero, f.v1, f.v0);
             parts[count] = p;
             if (p->f6 > 0)
                 p->fe4 = f.v2;
@@ -184,9 +184,9 @@ void PhysicsObjectLoader::vfunc_5(void **outObj, Key *outKey, Reader *r, int unu
     SimObject *res = 0;
     if (f.a == 2) {
         void *mem = thunk_FUN_0008d690(0x200);
-        Composite *c = 0;
+        Composite_2f70a0 *c = 0;
         if (mem != 0)
-            c = ((Composite *)mem)->FUN_00309520(props, parts, count);
+            c = ((Composite_2f70a0 *)mem)->FUN_00309520(props, parts, count);
         res = c;
         for (int i = 0; i < f.b; i++) {
             if (parts[i] != 0)

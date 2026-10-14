@@ -2,38 +2,38 @@
 // pure3d::BillboardCutOffQuadGroup::vfunc_11 @ 0x002ba600
 extern "C" double sqrt(double);
 
-struct Vec2 {
+struct Vec2_2ba600 {
     float a, b;
 };
 
-struct Vec3 {
+struct Vec3_2ba600 {
     float x, y, z;
 };
 
-struct Probe {
+struct Probe_2ba600 {
     char pad00[0x30];
-    Vec3 pos;
+    Vec3_2ba600 pos;
 };
 
-union Slot {
-    Probe* p;
+union Slot_2ba600 {
+    Probe_2ba600* p;
     float f;
     unsigned int u;
 };
 
-struct Frame {
+struct Frame_2ba600 {
     float outB0;
     float outA1;
     float outA0;
     float dx;
     float dy;
     float dz;
-    Vec3 normal;
+    Vec3_2ba600 normal;
     float spare[3];
 };
 
-void FUN_002b8840(float* out0, float* out1, int p98, const Vec2* r0, const Vec2* r1, Probe* a, Vec3* normal);
-void FUN_002b8b30(float* out0, float* out1, int p9c, const Vec2* r0, const Vec2* r1, Probe* b, Vec3* normal);
+void FUN_002b8840(float* out0, float* out1, int p98, const Vec2_2ba600* r0, const Vec2_2ba600* r1, Probe_2ba600* a, Vec3_2ba600* normal);
+void FUN_002b8b30(float* out0, float* out1, int p9c, const Vec2_2ba600* r0, const Vec2_2ba600* r1, Probe_2ba600* b, Vec3_2ba600* normal);
 
 namespace pure3d {
 
@@ -50,25 +50,25 @@ public:
     virtual void v8();
     virtual void v9();
     virtual void v10();
-    virtual float vfunc_11(Slot a, Slot b);
+    virtual float vfunc_11(Slot_2ba600 a, Slot_2ba600 b);
 
     char pad04[0x98 - 4];
     int field98;
     int field9c;
     int mode;
-    Vec2 rangeA4;
-    Vec2 rangeAC;
-    Vec2 rangeB4;
-    Vec2 rangeBC;
+    Vec2_2ba600 rangeA4;
+    Vec2_2ba600 rangeAC;
+    Vec2_2ba600 rangeB4;
+    Vec2_2ba600 rangeBC;
     float fadeStart;
     float fadeEnd;
 };
 
-float BillboardCutOffQuadGroup::vfunc_11(Slot a, Slot b)
+float BillboardCutOffQuadGroup::vfunc_11(Slot_2ba600 a, Slot_2ba600 b)
 {
-    Probe* pa = a.p;
-    Probe* pb = b.p;
-    Frame f;
+    Probe_2ba600* pa = a.p;
+    Probe_2ba600* pb = b.p;
+    Frame_2ba600 f;
 
     f.dx = pb->pos.x - pa->pos.x;
     f.dy = pb->pos.y - pa->pos.y;

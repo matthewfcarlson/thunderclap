@@ -6,8 +6,8 @@ void __cdecl FUN_0026d850(void *);
 void __cdecl FUN_0026d840(void *);
 int __cdecl FUN_00270c10(const char *);
 extern char DAT_0052a0f0;
-struct Record { char name[0x11c]; };
-extern Record DAT_00528430[];
+struct Record_270e60 { char name[0x11c]; };
+extern Record_270e60 DAT_00528430[];
 
 void __cdecl FUN_00270e60(const char *key, char *output)
 {

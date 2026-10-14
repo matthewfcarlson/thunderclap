@@ -8,12 +8,12 @@ extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *d
 extern unsigned __cdecl FUN_0026fd50(unsigned value, unsigned align);
 extern void *__cdecl FUN_0008d710(unsigned size, int tag);
 
-struct Key {
+struct Key_1ea190 {
     int a;
     int b;
 };
 
-struct Entry {
+struct Entry_1ea190 {
     int f00;
     void *f04;
     unsigned f08;
@@ -21,18 +21,18 @@ struct Entry {
     unsigned f10;
 };
 
-struct Pool {
+struct Pool_1ea190 {
     char pad00[0x19c];
-    Entry *entries[200];
+    Entry_1ea190 *entries[200];
     int count;
-    Entry *FUN_001e9900(Key *key);
+    Entry_1ea190 *FUN_001e9900(Key_1ea190 *key);
 };
 
-extern Pool *DAT_004e3690;
+extern Pool_1ea190 *DAT_004e3690;
 
-struct Source {
+struct Source_1ea190 {
     char pad00[0x10];
-    Key key;
+    Key_1ea190 key;
     unsigned char flags;
     char pad19[3];
     unsigned size;
@@ -43,44 +43,44 @@ struct Request {
     unsigned bits;
 };
 
-struct Link {
-    Link *next;
+struct Link_1ea190 {
+    Link_1ea190 *next;
 };
 
-struct Item {
+struct Item_1ea190 {
     int pad00;
-    Link link;
+    Link_1ea190 link;
 };
 
-struct List {
+struct List_1ea190 {
     char pad00[0xc];
-    Link *head;
+    Link_1ea190 *head;
 };
 
-class Collector {
+class Collector_1ea190 {
 public:
     char pad00[0x20];
     unsigned total;
     char pad24[0x2c - 0x24];
-    Entry *used[64];
+    Entry_1ea190 *used[64];
     int usedCount;
-    int FUN_001ea190(Request *req, List *list);
+    int FUN_001ea190(Request *req, List_1ea190 *list);
 };
 
-int Collector::FUN_001ea190(Request *req, List *list)
+int Collector_1ea190::FUN_001ea190(Request *req, List_1ea190 *list)
 {
-    Item *it = 0;
+    Item_1ea190 *it = 0;
     if (list->head)
-        it = (Item *)((char *)list->head - 4);
+        it = (Item_1ea190 *)((char *)list->head - 4);
     while (it) {
-        List *sub = (List *)FUN_00344e74(it, 0, DAT_004c7150, DAT_004c7170, 0);
+        List_1ea190 *sub = (List_1ea190 *)FUN_00344e74(it, 0, DAT_004c7150, DAT_004c7170, 0);
         if (sub) {
             FUN_001ea190(req, sub);
         } else {
-            Source *src = (Source *)FUN_00344e74(it, 0, DAT_004c7150, DAT_004c712c, 0);
+            Source_1ea190 *src = (Source_1ea190 *)FUN_00344e74(it, 0, DAT_004c7150, DAT_004c712c, 0);
             if (src) {
-                Key key = src->key;
-                Link *keyLink = (Link *)&src->key;
+                Key_1ea190 key = src->key;
+                Link_1ea190 *keyLink = (Link_1ea190 *)&src->key;
                 unsigned size = 0;
                 if (!(src->flags & 1)) {
                     unsigned v = (src->size & 0x7fffffff) - 0x800;
@@ -90,8 +90,8 @@ int Collector::FUN_001ea190(Request *req, List *list)
                     else
                         size = FUN_0026fd50(v, align);
                 }
-                Pool *pool = DAT_004e3690;
-                Entry *e = pool->FUN_001e9900(&key);
+                Pool_1ea190 *pool = DAT_004e3690;
+                Entry_1ea190 *e = pool->FUN_001e9900(&key);
                 if (e) {
                     unsigned lvl = (req->bits >> 5) & 0x1f;
                     if (e->f10 > lvl)
@@ -100,7 +100,7 @@ int Collector::FUN_001ea190(Request *req, List *list)
                     if (pool->count >= 200) {
                         e = 0;
                     } else {
-                        pool->entries[pool->count++] = (Entry *)FUN_0008d710(0x14, 6);
+                        pool->entries[pool->count++] = (Entry_1ea190 *)FUN_0008d710(0x14, 6);
                         e = pool->entries[pool->count - 1];
                         if (e) {
                             e->f04 = keyLink;
@@ -116,7 +116,7 @@ int Collector::FUN_001ea190(Request *req, List *list)
                 usedCount++;
             }
         }
-        it = it->link.next ? (Item *)((char *)it->link.next - 4) : 0;
+        it = it->link.next ? (Item_1ea190 *)((char *)it->link.next - 4) : 0;
     }
     return 0;
 }

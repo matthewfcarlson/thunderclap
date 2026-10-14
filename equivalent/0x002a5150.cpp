@@ -7,16 +7,16 @@ public:
     virtual void vfunc_0();
     int refs;
 };
-struct Sub {
+struct Sub_2a5150 {
     char data[8];
-    void FUN_0027af70(const Sub* other);
+    void FUN_0027af70(const Sub_2a5150* other);
 };
 namespace pure3d {
 class DrawablePrimitive : public Resource {
 public:
     DrawablePrimitive(const DrawablePrimitive& src);
     virtual void vfunc_0();
-    Sub sub;
+    Sub_2a5150 sub;
     int f10;
     int f14;
     int f18;

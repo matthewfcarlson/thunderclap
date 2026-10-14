@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 60 inputs, branch coverage 8/8)
 // FUN_002de600 @ 0x002de600
-struct Format {
+struct Format_2de600 {
  unsigned width, height;
  char pad08[16];
  unsigned redLeft, greenLeft, blueLeft, alphaLeft;
@@ -9,7 +9,7 @@ struct Format {
  int pitch;
 };
 // equiv-conv: FUN_002de600 eax ecx esi
-void FUN_002de600(unsigned short* destination, const unsigned* source, const Format* format)
+void FUN_002de600(unsigned short* destination, const unsigned* source, const Format_2de600* format)
 {
  int padding = (format->pitch - (int)(format->width * 2)) / 2;
  unsigned rows = format->height;

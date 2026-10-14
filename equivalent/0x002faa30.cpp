@@ -1,44 +1,44 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 30/30)
 // FUN_002faa30 @ 0x002faa30
-struct V3 {
+struct V3_2faa30 {
     float x, y, z;
 };
 
-struct Box {
-    V3 lo;
-    V3 hi;
-    char FUN_002f3360(Box *other);
+struct Box_2faa30 {
+    V3_2faa30 lo;
+    V3_2faa30 hi;
+    char FUN_002f3360(Box_2faa30 *other);
 };
 
-struct Tri;
+struct Tri_2faa30;
 
-struct Mesh {
+struct Mesh_2faa30 {
     char pad0[8];
-    V3 *verts;
+    V3_2faa30 *verts;
     char pad1[0x18 - 0xc];
-    Tri *tris;
+    Tri_2faa30 *tris;
 };
 
 struct Context {
     char pad[0x44];
-    Mesh *mesh;
+    Mesh_2faa30 *mesh;
 };
 
-struct Basis {
-    V3 pos;
+struct Basis_2faa30 {
+    V3_2faa30 pos;
     char pad0c[0xc];
-    V3 axisX;                        // 0x18
-    V3 axisY;                        // 0x24
-    V3 axisZ;                        // 0x30
+    V3_2faa30 axisX;                        // 0x18
+    V3_2faa30 axisY;                        // 0x24
+    V3_2faa30 axisZ;                        // 0x30
 };
 
-class Shape {
+class Shape_2faa30 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual V3 *v4();                // the shape's reference point
+    virtual V3_2faa30 *v4();                // the shape's reference point
     virtual void v5();
     virtual void v6();
     virtual void v7();
@@ -49,55 +49,55 @@ public:
     virtual void v12();
     virtual void v13();
     virtual void v14();
-    virtual Basis *v15();
+    virtual Basis_2faa30 *v15();
     char pad04[0x28 - 4];
-    V3 half;                         // 0x28
+    V3_2faa30 half;                         // 0x28
     char pad34[0x48 - 0x34];
-    V3 f48;                          // 0x48
+    V3_2faa30 f48;                          // 0x48
 };
 
-struct Registry {
-    char FUN_00304530(Shape *shape, unsigned int index, float depth, V3 *o1, V3 *o2, Context *ctx, int flags);
+struct Registry_2faa30 {
+    char FUN_00304530(Shape_2faa30 *shape, unsigned int index, float depth, V3_2faa30 *o1, V3_2faa30 *o2, Context *ctx, int flags);
 };
-struct Manager {
+struct Manager_2faa30 {
     char pad[0x1b0];
-    Registry reg;
+    Registry_2faa30 reg;
 };
-extern Manager *DAT_00554c14;
+extern Manager_2faa30 *DAT_00554c14;
 extern float DAT_004d2cb4;
 
-void FUN_002fa6b0(V3 *a, V3 *b, V3 *c, V3 *normal);
-char FUN_0035a2a0(V3 *a1, V3 *a2, V3 *axisX, V3 *axisY, V3 *axisZ, V3 *v0, V3 *v1, V3 *v2, V3 *normal,
-                  float *depth, V3 *centre, V3 *outN, int f1, int f2, int f4);
+void FUN_002fa6b0(V3_2faa30 *a, V3_2faa30 *b, V3_2faa30 *c, V3_2faa30 *normal);
+char FUN_0035a2a0(V3_2faa30 *a1, V3_2faa30 *a2, V3_2faa30 *axisX, V3_2faa30 *axisY, V3_2faa30 *axisZ, V3_2faa30 *v0, V3_2faa30 *v1, V3_2faa30 *v2, V3_2faa30 *normal,
+                  float *depth, V3_2faa30 *centre, V3_2faa30 *outN, int f1, int f2, int f4);
 
-union Flag {
+union Flag_2faa30 {
     char b;
     int w;
 };
 
-struct Frame {
-    V3 v2;
-    V3 v1;
-    Box tri;
+struct Frame_2faa30 {
+    V3_2faa30 v2;
+    V3_2faa30 v1;
+    Box_2faa30 tri;
     float depth;
-    V3 vB;
-    V3 pt;
-    V3 v0;
-    Box sb;
+    V3_2faa30 vB;
+    V3_2faa30 pt;
+    V3_2faa30 v0;
+    Box_2faa30 sb;
     char pad70[0x88 - 0x70];
-    Flag f4;
-    Flag f2;
-    Flag f1;
-    Basis *t2;
-    Basis *t3;
-    V3 normal;
-    V3 centre;
-    V3 outN;
+    Flag_2faa30 f4;
+    Flag_2faa30 f2;
+    Flag_2faa30 f1;
+    Basis_2faa30 *t2;
+    Basis_2faa30 *t3;
+    V3_2faa30 normal;
+    V3_2faa30 centre;
+    V3_2faa30 outN;
 };
 
-class Tri {
+class Tri_2faa30 {
 public:
-    char FUN_002faa30(Shape *shape, Context *ctx, int flags);
+    char FUN_002faa30(Shape_2faa30 *shape, Context *ctx, int flags);
     char pad0[0x10];
     unsigned short i0;
     unsigned short i1;
@@ -106,10 +106,10 @@ public:
     char pad1[8];
 };
 
-char Tri::FUN_002faa30(Shape *shape, Context *ctx, int flags)
+char Tri_2faa30::FUN_002faa30(Shape_2faa30 *shape, Context *ctx, int flags)
 {
-    Frame f;
-    V3 *verts = ctx->mesh->verts;
+    Frame_2faa30 f;
+    V3_2faa30 *verts = ctx->mesh->verts;
     f.v0 = verts[i0];
     f.v1 = verts[i1];
     f.v2 = verts[i2];
@@ -172,10 +172,10 @@ char Tri::FUN_002faa30(Shape *shape, Context *ctx, int flags)
         f.vB.y = f.vB.y + DAT_004d2cb4;
         f.vB.z = f.vB.z + DAT_004d2cb4;
     }
-    Basis *b1 = shape->v15();
+    Basis_2faa30 *b1 = shape->v15();
     f.t2 = shape->v15();
     f.t3 = shape->v15();
-    Basis *b4 = shape->v15();
+    Basis_2faa30 *b4 = shape->v15();
     char hit = FUN_0035a2a0(&b4->pos, &f.vB, &f.t3->axisX, &f.t2->axisY, &b1->axisZ, &f.v0, &f.v1, &f.v2,
                             &f.normal, &f.depth, &f.centre, &f.outN, f.f1.w, f.f2.w, f.f4.w);
     if (touch)

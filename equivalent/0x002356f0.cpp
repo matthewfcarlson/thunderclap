@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 221 inputs, branch coverage 8/8)
 // fight::ParamValueInventoryEntity::vfunc_8 @ 0x002356f0
-struct Manager { char pad00[0xc]; void* list; };
+struct Manager_2356f0 { char pad00[0xc]; void* list; };
 struct Item;
-struct Iter {
+struct Iter_2356f0 {
     void* list;
     int index;
-    Manager* owner;
+    Manager_2356f0* owner;
     void FUN_002314a0(void* list);
     Item* FUN_00231640();
     Item* FUN_002314c0();
 };
-extern Manager* DAT_004e5bb8;
+extern Manager_2356f0* DAT_004e5bb8;
 
 class ParamValueInventoryEntity {
 public:
@@ -27,11 +27,11 @@ public:
 
 int ParamValueInventoryEntity::v8(int param)
 {
-    Manager* mgr = DAT_004e5bb8;
+    Manager_2356f0* mgr = DAT_004e5bb8;
     if (mgr == 0)
         return 0;
     int count = 1;
-    Iter it;
+    Iter_2356f0 it;
     it.FUN_002314a0(mgr->list);
     it.owner = mgr;
     Item* item = it.FUN_00231640();

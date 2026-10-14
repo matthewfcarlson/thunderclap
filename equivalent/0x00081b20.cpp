@@ -15,29 +15,29 @@ struct DynamicCaster {
 }
 }
 
-struct Vec3;
-struct Orient;
+struct Vec3_81b20;
+struct Orient_81b20;
 
-struct Vec3 {
+struct Vec3_81b20 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_00011160(float amount, Vec3 *dir);
-    Vec3 *FUN_00011250(Vec3 *out, Vec3 *b);
-    void FUN_00023750(Vec3 *b);
+    void FUN_00011160(float amount, Vec3_81b20 *dir);
+    Vec3_81b20 *FUN_00011250(Vec3_81b20 *out, Vec3_81b20 *b);
+    void FUN_00023750(Vec3_81b20 *b);
 };
 
-struct Orient {
+struct Orient_81b20 {
     char pad[0x30];
-    void FUN_0022cc90(Vec3 *v);
-    void FUN_0022c3b0(Vec3 *in, Vec3 *out);
+    void FUN_0022cc90(Vec3_81b20 *v);
+    void FUN_0022c3b0(Vec3_81b20 *in, Vec3_81b20 *out);
     void FUN_0022ba70(float angle);
 };
 
-struct Quat {
+struct Quat_81b20 {
     float x, y, z, w;
-    void FUN_0022b370(Orient *o);
+    void FUN_0022b370(Orient_81b20 *o);
     void FUN_0022b120();
-    void FUN_0022b650(Orient *o);
+    void FUN_0022b650(Orient_81b20 *o);
 };
 
 struct Matrix {
@@ -58,37 +58,37 @@ struct Cue {
 };
 // equiv-map: ??0Cue@@QAE@UKey@@H@Z = 0x001c9c00
 
-struct Rng {
+struct Rng_81b20 {
     float FUN_000787e0(float lo, float hi);
     int FUN_00011330(int n);
 };
 
-Rng *__cdecl FUN_000964d0();
-float __cdecl FUN_00224f10(Vec3 *v);
-void __cdecl FUN_00224d70(float angle, Vec3 *v);
+Rng_81b20 *__cdecl FUN_000964d0();
+float __cdecl FUN_00224f10(Vec3_81b20 *v);
+void __cdecl FUN_00224d70(float angle, Vec3_81b20 *v);
 float __cdecl FUN_00080ba0(float a, float b);
-void __cdecl FUN_0022b080(Quat *out, Quat *a, Quat *b);
+void __cdecl FUN_0022b080(Quat_81b20 *out, Quat_81b20 *a, Quat_81b20 *b);
 
-struct Rig;
+struct Rig_81b20;
 struct Animation2 {
     char pad00[0x10];
     float f10;
     float f14;
-    Rig *FUN_00288a20(int x);
+    Rig_81b20 *FUN_00288a20(int x);
 };
 
-struct Part {
+struct Part_81b20 {
     char pad00[4];
-    void FUN_0028a8f0(float a, float b, Quat *q);
+    void FUN_0028a8f0(float a, float b, Quat_81b20 *q);
 };
 
-struct Rig {
-    Part *FUN_00288960(int a, int b);
+struct Rig_81b20 {
+    Part_81b20 *FUN_00288960(int a, int b);
 };
 
-void __cdecl FUN_00080f60(Part *f8, Part *fc, Orient *o, float a, float b, Vec3 *out);
+void __cdecl FUN_00080f60(Part_81b20 *f8, Part_81b20 *fc, Orient_81b20 *o, float a, float b, Vec3_81b20 *out);
 
-struct Controller {
+struct Controller_81b20 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -120,9 +120,9 @@ struct Controller {
 
 struct Pose {
     char pad00[0x10];
-    Quat *q;
+    Quat_81b20 *q;
     Matrix *mat;
-    void FUN_00284820(Orient *o);
+    void FUN_00284820(Orient_81b20 *o);
 };
 
 struct PoseOwner {
@@ -140,42 +140,42 @@ struct PoseOwner {
     virtual Pose *vf11();
 };
 
-struct Releasable {
+struct Releasable_81b20 {
     virtual void v0();
     virtual void vf1();
 };
 
-struct Fx {
+struct Fx_81b20 {
     void FUN_001c5080(float a, float b);
-    void FUN_001c4d60(Orient *o);
+    void FUN_001c4d60(Orient_81b20 *o);
 };
 
-struct Slot {
+struct Slot_81b20 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual void vf6(Orient *o, int x);
+    virtual void vf6(Orient_81b20 *o, int x);
 };
 
 struct Entity {
     char pad00[0x10];
-    struct Holder *holder;
+    struct Holder_81b20 *holder;
     char pad14[0x140 - 0x14];
     int f140;
-    void FUN_00035660(Vec3 *out);
+    void FUN_00035660(Vec3_81b20 *out);
 };
 
-struct Holder {
-    void FUN_00059a50(Vec3 *out);
+struct Holder_81b20 {
+    void FUN_00059a50(Vec3_81b20 *out);
 };
 
-struct Player {
+struct Player_81b20 {
     char pad00[0x124];
     Entity *entity;
-    void FUN_00029bb0(struct Slot *a, Releasable *b, float c);
+    void FUN_00029bb0(struct Slot_81b20 *a, Releasable_81b20 *b, float c);
 };
 
 struct Splash {
@@ -199,40 +199,40 @@ struct Obj30 {
     void FUN_001cbc20(Cue *p);
 };
 
-struct Factory {
+struct Factory_81b20 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual Animation2 *f3(content::LoadInventory::DynamicCaster<pure3d::Animation> *caster, int a, int b);
 };
 
-struct Mid {
-    Factory *FUN_00203d70();
+struct Mid_81b20 {
+    Factory_81b20 *FUN_00203d70();
 };
 
-struct Flags {
+struct Flags_81b20 {
     bool FUN_00092940(int id);
 };
 
-struct Holder54 {
-    Mid *FUN_000862a0();
-    Flags *FUN_00086340();
+struct Holder54_81b20 {
+    Mid_81b20 *FUN_000862a0();
+    Flags_81b20 *FUN_00086340();
 };
 
 struct World {
     char pad00[0x20];
-    Player *player;
+    Player_81b20 *player;
     W24 *w24;
     char pad28[8];
     Obj30 *obj30;
     Mgr34 *mgr;
     char pad38[0x54 - 0x38];
-    Holder54 *holder;
+    Holder54_81b20 *holder;
 };
 
-struct Gravity {
+struct Gravity_81b20 {
     char pad00[0x10];
-    Vec3 g;
+    Vec3_81b20 g;
 };
 
 struct EntryRec {
@@ -243,10 +243,10 @@ struct EntryRec {
 };
 
 extern World *DAT_004dd700;
-extern Gravity *DAT_00554c10;
-extern Vec3 DAT_0049bf1c;
+extern Gravity_81b20 *DAT_00554c10;
+extern Vec3_81b20 DAT_0049bf1c;
 extern float DAT_00421894;
-int __cdecl FUN_00098190(float a, float b, float c, int d, Releasable *o, float e, Vec3 *pos, Vec3 *va, int f, int g, int h, int i);
+int __cdecl FUN_00098190(float a, float b, float c, int d, Releasable_81b20 *o, float e, Vec3_81b20 *pos, Vec3_81b20 *va, int f, int g, int h, int i);
 extern int DAT_003ff488[];
 extern int DAT_003ff508[];
 extern int DAT_003ff4c8[];
@@ -260,11 +260,11 @@ static __forceinline void AbsInPlace(float &v)
 }
 
 struct Frame81 {
-    Vec3 v10;
+    Vec3_81b20 v10;
     float s1c;
-    Vec3 v20;
+    Vec3_81b20 v20;
     float s2c;
-    Quat q30;
+    Quat_81b20 q30;
     char cbuf[8];
     char slot48[16];
     char slot58[0x40];
@@ -283,10 +283,10 @@ public:
     unsigned flags;
     float timer;
     float limit;
-    Orient orient;
-    Vec3 pos;
+    Orient_81b20 orient;
+    Vec3_81b20 pos;
     char pad70[4];
-    Vec3 old;
+    Vec3_81b20 old;
     float f80;
     float f84;
     float f88;
@@ -296,24 +296,24 @@ public:
     float f98;
     int v9c;
     float fa0;
-    Vec3 va4;
+    Vec3_81b20 va4;
     float fb0;
     float fb4;
-    Releasable *fb8;
+    Releasable_81b20 *fb8;
     int fbc;
     float fc0;
     float fc4;
     char pad_c8[4];
     int fcc;
-    Vec3 vd0;
-    Vec3 vdc;
+    Vec3_81b20 vd0;
+    Vec3_81b20 vdc;
     PoseOwner *fe8;
-    Fx *fec;
-    Controller *volatile ctrl;
-    Rig *rig;
-    Part *part;
-    Part *joint;
-    Slot *fx100;
+    Fx_81b20 *fec;
+    Controller_81b20 *volatile ctrl;
+    Rig_81b20 *rig;
+    Part_81b20 *part;
+    Part_81b20 *joint;
+    Slot_81b20 *fx100;
 
     void FUN_00081b20(float dt);
 };
@@ -324,10 +324,10 @@ void CAnimState::FUN_00081b20(float dt)
     char *cbuf = fr.cbuf;
     char *slot58 = fr.slot58;
     char *slot48 = fr.slot48;
-    Vec3 &v48 = *(Vec3 *)slot48;
-    Vec3 &v10 = fr.v10;
-    Vec3 &v20 = fr.v20;
-    Vec3 &v30 = *(Vec3 *)&fr.q30;
+    Vec3_81b20 &v48 = *(Vec3_81b20 *)slot48;
+    Vec3_81b20 &v10 = fr.v10;
+    Vec3_81b20 &v20 = fr.v20;
+    Vec3_81b20 &v30 = *(Vec3_81b20 *)&fr.q30;
     int &next = *(int *)(cbuf + 4);
     next = 0x10;
     float dx = pos.x - old.x;
@@ -362,7 +362,7 @@ void CAnimState::FUN_00081b20(float dt)
         if (state == 7) {
             pick = v9c;
         } else {
-            Rng *rg = FUN_000964d0();
+            Rng_81b20 *rg = FUN_000964d0();
             int cnt = (flags & 4) ? DAT_003ff508[state] : DAT_003ff488[state];
             pick = rg->FUN_00011330(cnt - 1);
             if (fb8 != 0) {
@@ -372,13 +372,13 @@ void CAnimState::FUN_00081b20(float dt)
         }
         int base = (flags & 4) ? DAT_003ff548[state] : DAT_003ff4c8[state];
         int idx = base + pick;
-        Factory *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+        Factory_81b20 *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
         rec = &DAT_004dd090[idx];
         content::LoadInventory::DynamicCaster<pure3d::Animation> *caster = new (cbuf) content::LoadInventory::DynamicCaster<pure3d::Animation>;
         Animation2 *anim = fac->f3(caster, rec->lo, rec->hi);
         if (anim == 0)
             return;
-        Rig *r = anim->FUN_00288a20(0);
+        Rig_81b20 *r = anim->FUN_00288a20(0);
         rig = r;
         if (r != 0) {
             part = r->FUN_00288960(0x4e415254, 0x54434556);
@@ -494,7 +494,7 @@ void CAnimState::FUN_00081b20(float dt)
     }
 
     if (state == 3) {
-        Holder *h = DAT_004dd700->player->entity->holder;
+        Holder_81b20 *h = DAT_004dd700->player->entity->holder;
         Entity *tgt = DAT_004dd700->player->entity;
         h->FUN_00059a50(&v10);
         v10.x = v10.x - pos.x;
@@ -534,7 +534,7 @@ void CAnimState::FUN_00081b20(float dt)
     float &B = fr.s1c;
     B = ctrl->vf13();
     Pose *ps = fe8->vf11();
-    Quat &qz = fr.q30;
+    Quat_81b20 &qz = fr.q30;
     qz.x = 0.0f;
     qz.y = 0.0f;
     qz.z = 0.0f;
@@ -546,14 +546,14 @@ void CAnimState::FUN_00081b20(float dt)
 
     if (!(flags & 8)) {
         v20 = pos;
-        Quat &qi = *(Quat *)slot48;
+        Quat_81b20 &qi = *(Quat_81b20 *)slot48;
         qi.x = 0.0f;
         qi.y = 0.0f;
         qi.z = 0.0f;
         qi.w = 1.0f;
         if (joint != 0)
             joint->FUN_0028a8f0(A, B, &qi);
-        Quat &q58 = *(Quat *)slot58;
+        Quat_81b20 &q58 = *(Quat_81b20 *)slot58;
         q58.FUN_0022b370(&orient);
         FUN_0022b080(&q58, &q58, &qi);
         FUN_00080f60(part, joint, &orient, A, B, &v10);
@@ -665,12 +665,12 @@ void CAnimState::FUN_00081b20(float dt)
                     flags &= ~0x40u;
                     flags |= 0x20;
                 } else {
-                    Holder *h = DAT_004dd700->player->entity->holder;
+                    Holder_81b20 *h = DAT_004dd700->player->entity->holder;
                     h->FUN_00059a50(&v20);
                     v20.FUN_00023750(&pos);
                     vdc.FUN_00011250(&v10, &pos);
                     if ((v20.z * v10.z + v20.x * v10.x) + v20.y * v10.y > 0.0f) {
-                        Vec3 *r = vd0.FUN_00011250(&v48, &pos);
+                        Vec3_81b20 *r = vd0.FUN_00011250(&v48, &pos);
                         if ((v20.z * r->z + v20.x * r->x) + v20.y * r->y < 0.0f) {
                             v20 = vdc;
                             vdc = vd0;

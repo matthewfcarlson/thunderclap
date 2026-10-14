@@ -2,19 +2,19 @@
 // FUN_002a0b00 @ 0x002a0b00
 extern char DAT_0042d668[];
 
-struct Vec3 { float x, y, z; };
+struct Vec3_2a0b00 { float x, y, z; };
 
 struct Light {
     int vptr;
     char pad04[0xc];
     char b10, b11, b12, b13;
     int f14;
-    Vec3 v18;
+    Vec3_2a0b00 v18;
     int f24;
     char pad28[4];
     int f2c;
-    Vec3 v30;
-    Vec3 v3c;
+    Vec3_2a0b00 v30;
+    Vec3_2a0b00 v3c;
     int f48, f4c, f50, f54;
     void FUN_0027b0b0(const Light *src);
     Light *FUN_002a0b00(const Light *src);

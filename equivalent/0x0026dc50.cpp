@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0026dc50 @ 0x0026dc50
-struct Worker {
+struct Worker_26dc50 {
     char pad00[8];
     int value08;
     int value0c;
-    Worker *self10;
+    Worker_26dc50 *self10;
     int value14;
     int value18;
     int value1c;
@@ -21,14 +21,14 @@ struct Worker {
     void *thread48;
 };
 extern int DAT_004cd9d0[];
-void __cdecl FUN_0026d8f0(Worker *);
+void __cdecl FUN_0026d8f0(Worker_26dc50 *);
 unsigned long __stdcall FUN_0026db70(void *);
 namespace XAPILIB {
 void * __stdcall CreateThread(void *, unsigned long, unsigned long (__stdcall *)(void *), void *, unsigned long, unsigned long *);
 int __stdcall SetThreadPriority(void *, int);
 }
 int __stdcall FUN_0020bd91(void *);
-int __cdecl FUN_0026dc50(Worker *worker, int first, int second, int priority, unsigned long stackSize, int unused) {
+int __cdecl FUN_0026dc50(Worker_26dc50 *worker, int first, int second, int priority, unsigned long stackSize, int unused) {
     worker->active38 = 1;
     worker->link2c = &worker->value08;
     worker->value28 = 0;

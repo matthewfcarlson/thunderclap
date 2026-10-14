@@ -13,12 +13,12 @@ struct GraphNode {
     GraphEntry *entries;
 };
 
-struct Graph {
+struct Graph_1d6770 {
     GraphNode *FUN_001d56f0(int id);
     int FUN_001d5710();
 };
 
-struct Listener {
+struct Listener_1d6770 {
     void FUN_002fc670(int v);
 };
 
@@ -44,9 +44,9 @@ public:
     char pad04[0x40 - 4];
     int current;
     char pad44[0xa0 - 0x44];
-    Listener *listener;
+    Listener_1d6770 *listener;
     char pada4[0xec - 0xa4];
-    Graph *graph;
+    Graph_1d6770 *graph;
     void FUN_001d6770();
 };
 

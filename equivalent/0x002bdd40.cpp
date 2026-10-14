@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // pure3d::Sprite::vfunc_6 @ 0x002bdd40
-struct Vec3 {
+struct Vec3_2bdd40 {
     float x, y, z;
 };
 
@@ -9,27 +9,27 @@ struct Shader {
     virtual void SetTexture(int id, void *tex);
 };
 
-struct Material {
+struct Material_2bdd40 {
     char pad0[0x10];
     Shader *shader;
 };
 
-struct Quad {
-    Vec3 pos;
+struct Quad_2bdd40 {
+    Vec3_2bdd40 pos;
     float w;
     float uv[2];
 };
 
-struct Batch {
+struct Batch_2bdd40 {
     void FUN_0008ef00();
     char pad0[8];
-    Vec3 *pos;
+    Vec3_2bdd40 *pos;
     char pad1[4];
     float *w;
     float *uv;
 };
 
-class Device {
+class Device_2bdd40 {
 public:
     virtual void d0();
     virtual void d1();
@@ -61,11 +61,11 @@ public:
     virtual void d27();
     virtual void d28();
     virtual void d29();
-    virtual Batch *CreateBatch(void *obj, int a, int b, int c, int d);
-    virtual void Submit(Batch *b);
+    virtual Batch_2bdd40 *CreateBatch(void *obj, int a, int b, int c, int d);
+    virtual void Submit(Batch_2bdd40 *b);
 };
 
-extern Device *DAT_0052c2a8;
+extern Device_2bdd40 *DAT_0052c2a8;
 
 struct Texture {
     char pad0[0x10];
@@ -73,7 +73,7 @@ struct Texture {
 };
 
 struct Verts {
-    Quad corner[4];
+    Quad_2bdd40 corner[4];
 };
 
 namespace pure3d {
@@ -96,7 +96,7 @@ public:
     int count;
     Verts *verts;
     Texture **textures;
-    Material *material;
+    Material_2bdd40 *material;
 };
 }
 
@@ -105,11 +105,11 @@ void pure3d::Sprite::vfunc_6()
     for (int i = 0; i < count; i++) {
         Texture *t = textures[i];
         material->shader->SetTexture(0x584554, t->tex);
-        Batch *b = DAT_0052c2a8->CreateBatch(material->shader, 1, 0x2021, 4, 0);
+        Batch_2bdd40 *b = DAT_0052c2a8->CreateBatch(material->shader, 1, 0x2021, 4, 0);
         for (int k = 0; k < 4; k++) {
-            Quad *q = &verts[i].corner[k];
+            Quad_2bdd40 *q = &verts[i].corner[k];
             float w = q->w;
-            Vec3 *p = b->pos;
+            Vec3_2bdd40 *p = b->pos;
             p->x = q->pos.x;
             p->y = q->pos.y;
             p->z = q->pos.z;

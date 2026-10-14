@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2978 inputs, branch coverage 0/0)
 // FUN_002c6f70 @ 0x002c6f70
-struct Value { short component[4]; };
+struct Value_2c6f70 { short component[4]; };
 struct Object {
  char pad[0x28];
- Value* values[1];
- void blend(int index, const Value* target, int bank, float fraction);
+ Value_2c6f70* values[1];
+ void blend(int index, const Value_2c6f70* target, int bank, float fraction);
 };
-void Object::blend(int index, const Value* target, int bank, float fraction) {
+void Object::blend(int index, const Value_2c6f70* target, int bank, float fraction) {
  for (int i=0;i<4;++i) {
   short* destination = &values[bank][index].component[i];
   int difference = (int)target->component[i] - (int)*destination;

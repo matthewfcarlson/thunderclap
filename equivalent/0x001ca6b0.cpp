@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001ca6b0 @ 0x001ca6b0
-struct Id64 {
+struct Id64_1ca6b0 {
     unsigned int lo, hi;
-    ~Id64() throw();
+    ~Id64_1ca6b0() throw();
 };
-union Key {
+union Key_1ca6b0 {
     unsigned __int64 q;
     unsigned int w[2];
 };
@@ -17,16 +17,16 @@ struct Request {
     int f0c;
     int value;
     int f14;
-    Id64 first;
-    Id64 second;
+    Id64_1ca6b0 first;
+    Id64_1ca6b0 second;
     int f28;
     int f2c;
     unsigned int keyLo;
     unsigned int keyHi;
-    Request *FUN_001ca6b0(Id64 a, Id64 b, int c, const char *name, int v);
+    Request *FUN_001ca6b0(Id64_1ca6b0 a, Id64_1ca6b0 b, int c, const char *name, int v);
 };
 
-Request *Request::FUN_001ca6b0(Id64 a, Id64 b, int c, const char *name, int v)
+Request *Request::FUN_001ca6b0(Id64_1ca6b0 a, Id64_1ca6b0 b, int c, const char *name, int v)
 {
     size = 0;
     kind = 0;
@@ -47,7 +47,7 @@ Request *Request::FUN_001ca6b0(Id64 a, Id64 b, int c, const char *name, int v)
     size = 0x38;
     kind = 0x14;
     f28 = c;
-    Key k;
+    Key_1ca6b0 k;
     k.q = FUN_0027b020(name);
     keyLo = k.w[0];
     keyHi = k.w[1];

@@ -2,38 +2,38 @@
 // CMoveAgent::vfunc_4 @ 0x00102cd0
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_102cd0 {
     float x, y, z;
     float FUN_0022d110();
-    char FUN_0022d2b0(const V3* other, float eps);
+    char FUN_0022d2b0(const V3_102cd0* other, float eps);
     float FUN_00018990();
 };
 
-class Body {
+class Body_102cd0 {
 public:
-    void FUN_00059a50(V3* out);
+    void FUN_00059a50(V3_102cd0* out);
 };
 
-class Agent {
+class Agent_102cd0 {
 public:
     char pad00[0x10];
-    Body* body;
+    Body_102cd0* body;
     char pad14[0x2064 - 0x14];
-    V3 dir;
+    V3_102cd0 dir;
     float speed;
-    V3 aim;
-    void FUN_00035550(V3* v);
+    V3_102cd0 aim;
+    void FUN_00035550(V3_102cd0* v);
 };
 
-class Obj60 {
+class Obj60_102cd0 {
 public:
     char pad00[0x10];
-    Body* body;
+    Body_102cd0* body;
     char pad14[0x1ca0 - 0x14];
     char* link;
 };
 
-class Item {
+class Item_102cd0 {
 public:
     char pad[0x40];
     float x;
@@ -41,7 +41,7 @@ public:
     float z;
 };
 
-class Sub58 {
+class Sub58_102cd0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -49,40 +49,40 @@ public:
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual Agent* v6();
+    virtual Agent_102cd0* v6();
     virtual void v7();
     virtual void v8();
     virtual int v9();
     char pad04[0x60 - 4];
-    Item* item;
+    Item_102cd0* item;
     char pad64[0xe8 - 0x64];
     char flagE8;
     int FUN_000fdc80();
     int FUN_000fdc40();
 };
 
-class Arg1 {
+class Arg1_102cd0 {
 public:
     char pad00[0x20];
-    struct Gate* gate;
+    struct Gate_102cd0* gate;
 };
 
-struct Gate {
-    char FUN_00024300(Agent* a);
+struct Gate_102cd0 {
+    char FUN_00024300(Agent_102cd0* a);
 };
 
 struct Env;
-float FUN_0010ae50(Env* e, Agent* a, float f, V3* v1, V3* v2, int zero, Obj60** out);
+float FUN_0010ae50(Env* e, Agent_102cd0* a, float f, V3_102cd0* v1, V3_102cd0* v2, int zero, Obj60_102cd0** out);
 
 extern Env* DAT_004dd700;
-void FUN_00102bf0(Agent* a, V3* pos, float f, V3* out);
-void FUN_00102a50(Agent* a, V3* pos, V3* out);
+void FUN_00102bf0(Agent_102cd0* a, V3_102cd0* pos, float f, V3_102cd0* out);
+void FUN_00102a50(Agent_102cd0* a, V3_102cd0* pos, V3_102cd0* out);
 
 class CMoveAgent {
 public:
     char pad00[0x58];
-    Sub58* sub;
-    V3 pos;
+    Sub58_102cd0* sub;
+    V3_102cd0 pos;
     char pad68[4];
     char flag6c;
     char pad6d[3];
@@ -90,20 +90,20 @@ public:
     char flag74;
     char flag75;
     char flag76;
-    void FUN_000fc550(Arg1* a, int b, int c);
-    void F(Arg1* a, int b, int c);
+    void FUN_000fc550(Arg1_102cd0* a, int b, int c);
+    void F(Arg1_102cd0* a, int b, int c);
 };
 
-void CMoveAgent::F(Arg1* a1, int a2, int a3)
+void CMoveAgent::F(Arg1_102cd0* a1, int a2, int a3)
 {
-    V3 A, B, C, D, F, G, H, J, E, w;
-    V3 junk;
-    Obj60* obj;
+    V3_102cd0 A, B, C, D, F, G, H, J, E, w;
+    V3_102cd0 junk;
+    Obj60_102cd0* obj;
     float len, t, thr;
     char ok;
 
     FUN_000fc550(a1, a2, a3);
-    Agent* ag = sub->v6();
+    Agent_102cd0* ag = sub->v6();
     A.x = 0; A.y = 0; A.z = 0;
     B.x = 0; B.y = 0; B.z = 0;
     C.x = 0; C.y = 0; C.z = 0;
@@ -120,7 +120,7 @@ void CMoveAgent::F(Arg1* a1, int a2, int a3)
     len = (float)sqrt(A.z * A.z + A.x * A.x + A.y * A.y);
     A.FUN_0022d110();
     ag->body->FUN_00059a50(&junk);
-    V3 v80;
+    V3_102cd0 v80;
     v80.z = A.z;
     v80.x = A.x;
     v80.y = A.y;
@@ -150,7 +150,7 @@ void CMoveAgent::F(Arg1* a1, int a2, int a3)
             F.FUN_0022d110();
             if (F.z * B.z + F.x * B.x + B.y * F.y < -0.7f && t < 0.99f) {
                 if (obj && obj->link && *(char**)(obj->link + 0x10c)) {
-                    V3* g = (V3*)(*(char**)(obj->link + 0x10c) + 0x5c);
+                    V3_102cd0* g = (V3_102cd0*)(*(char**)(obj->link + 0x10c) + 0x5c);
                     G = *g;
                     H.x = G.x - pos.x;
                     H.y = G.y - pos.y;
@@ -201,9 +201,9 @@ void CMoveAgent::F(Arg1* a1, int a2, int a3)
     if (D.FUN_0022d2b0(&J, 1.0e-5f)) {
         ag->FUN_00035550(&ag->aim);
     } else {
-        Item* item = sub->item;
+        Item_102cd0* item = sub->item;
         if (flag75 && item) {
-            V3 I;
+            V3_102cd0 I;
             I.x = item->x;
             I.y = 0;
             I.z = item->z;

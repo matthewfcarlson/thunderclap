@@ -1,25 +1,25 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 20/20)
 // hulkfight::motion::IntentionInputCondition::vfunc_6 @ 0x00166bc0
 // hulkfight::motion::IntentionInputCondition::vfunc_6 @ 0x00166bc0: checks the requested pad inputs against the controller state
-struct Slot {
+struct Slot_166bc0 {
     int state;
     int pad[2];
 };
-struct Controller {
+struct Controller_166bc0 {
     char pad00[0x1f58];
-    Slot slots[4];
+    Slot_166bc0 slots[4];
     char pad1f88[0x1ff4 - 0x1f88];
     int extra;
 };
-struct Holder {
-    Controller *FUN_00059a30();
+struct Holder_166bc0 {
+    Controller_166bc0 *FUN_00059a30();
 };
 
 namespace fight {
 class Params {
 public:
     virtual void v0();
-    Holder *FUN_000592a0();
+    Holder_166bc0 *FUN_000592a0();
 };
 }
 class CFightParams : public fight::Params {
@@ -51,7 +51,7 @@ bool hulkfight::motion::IntentionInputCondition::vfunc_6(int a, fight::Params *p
 {
     if (dynamic_cast<CFightParams *>(params) == 0)
         return false;
-    Controller *ctl = params->FUN_000592a0()->FUN_00059a30();
+    Controller_166bc0 *ctl = params->FUN_000592a0()->FUN_00059a30();
     bool hit = false;
     for (int i = 0; i <= 3; i++) {
         int state = ctl->slots[i].state;

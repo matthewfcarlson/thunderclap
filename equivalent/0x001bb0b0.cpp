@@ -36,7 +36,7 @@ struct Font {
     virtual float Width(const unsigned short *s);
 };
 
-struct Loader {
+struct Loader_1bb0b0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -56,7 +56,7 @@ struct TextObj {
     void FUN_0029b380(unsigned int color);
 };
 
-class Cam {
+class Cam_1bb0b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -82,13 +82,13 @@ public:
     virtual void v21(int a);
 };
 
-struct Renderer {
-    Cam *cam;
+struct Renderer_1bb0b0 {
+    Cam_1bb0b0 *cam;
     void FUN_00293da0(float a, float b, float c);
     void FUN_00293d40(float a, float b, float c);
 };
 
-class Clock {
+class Clock_1bb0b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -100,7 +100,7 @@ public:
     virtual int Width();
 };
 
-class Device {
+class Device_1bb0b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -169,38 +169,38 @@ struct Banner {
 };
 
 struct Res;
-struct Obj1 {
+struct Obj1_1bb0b0 {
     unsigned short *FUN_000f7d30(const char *name);
     unsigned short *FUN_000f7220(unsigned short *p);
 };
-Obj1 *__fastcall thunk_FUN_000fc1b0(Res *r);
+Obj1_1bb0b0 *__fastcall thunk_FUN_000fc1b0(Res *r);
 
-struct Ctl {
+struct Ctl_1bb0b0 {
     void FUN_000afe80();
 };
 
-struct Replay {
+struct Replay_1bb0b0 {
     Res *FUN_00086280();
-    Ctl *FUN_00086330();
+    Ctl_1bb0b0 *FUN_00086330();
 };
 
-struct Globals {
+struct Globals_1bb0b0 {
     char pad0[0x54];
-    Replay *replay;
+    Replay_1bb0b0 *replay;
 };
 
 extern unsigned int DAT_004d9968;
-extern Globals *DAT_004dd700;
-extern Loader *DAT_004dd9c8;
+extern Globals_1bb0b0 *DAT_004dd700;
+extern Loader_1bb0b0 *DAT_004dd9c8;
 extern TextObj *DAT_004e2268;
 extern int DAT_00528404;
 extern char DAT_004dd8e7;
-extern Clock *DAT_0052c2a4;
-extern Device *DAT_0052c2a8;
-extern Renderer *DAT_0052c2ac;
+extern Clock_1bb0b0 *DAT_0052c2a4;
+extern Device_1bb0b0 *DAT_0052c2a8;
+extern Renderer_1bb0b0 *DAT_0052c2ac;
 extern Banner *DAT_0052c2b4;
 
-struct Frame {
+struct Frame_1bb0b0 {
     union {
         float height;              // 0x00
         float x;
@@ -219,7 +219,7 @@ inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 void __cdecl FUN_001bb0b0(const char *code)
 {
-    Frame f;
+    Frame_1bb0b0 f;
     f.cookie = DAT_004d9968;
     if (DAT_004dd700 && DAT_004dd700->replay && DAT_004dd700->replay->FUN_00086330()) {
         DAT_004dd700->replay->FUN_00086330()->FUN_000afe80();
@@ -238,7 +238,7 @@ void __cdecl FUN_001bb0b0(const char *code)
         w = thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())
                 ->FUN_000f7220(thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())->FUN_000f7d30(code));
     }
-    Loader *inv = DAT_004dd9c8;
+    Loader_1bb0b0 *inv = DAT_004dd9c8;
     content::LoadInventory::DynamicCaster<pure3d::TextureFont> *caster =
         new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::TextureFont>();
     Font *font = inv->v3(caster, FUN_002672f0("font_serpentine_lt_med", 0));
@@ -289,7 +289,7 @@ void __cdecl FUN_001bb0b0(const char *code)
             } while (*q != 0);
         }
     } else {
-        Device *dev = DAT_0052c2a8;
+        Device_1bb0b0 *dev = DAT_0052c2a8;
         dev->v33(FUN_001b8b60(code), 100, 100, 0xffffffff);
     }
     if (DAT_004dd8e7) {

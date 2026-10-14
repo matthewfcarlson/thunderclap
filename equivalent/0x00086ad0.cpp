@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 36/38, incomplete)
 // FUN_00086ad0 @ 0x00086ad0
-struct Flags {
+struct Flags_86ad0 {
     char pad0[4];
     char started;       // +4
     char quit;          // +5
@@ -10,66 +10,66 @@ struct Flags {
     char paused;        // +9
 };
 
-struct PadState {
+struct PadState_86ad0 {
     char pad0[0x10];
     float value;
     char pad1[0x44 - 0x14];
 };
 
-struct Pad {
-    void FUN_000ada70(PadState *out);
+struct Pad_86ad0 {
+    void FUN_000ada70(PadState_86ad0 *out);
 };
 
-struct PadList {
-    Pad *FUN_000ae640(int index);
+struct PadList_86ad0 {
+    Pad_86ad0 *FUN_000ae640(int index);
     void FUN_000ae840();
 };
 
-struct Audio {
+struct Audio_86ad0 {
     void FUN_001eb870();
     void FUN_001eb890();
     void FUN_001eb2a0(float a, int b);
 };
 
-struct Fader {
+struct Fader_86ad0 {
     void FUN_001b8110(int ms);
 };
 
 struct Context {
     char pad[0x30];
-    Audio *audio;
-    Fader *fader;
+    Audio_86ad0 *audio;
+    Fader_86ad0 *fader;
 };
 
-struct Sim {
+struct Sim_86ad0 {
     char pad[0x54];
     Context *ctx;
 };
 
-struct Game {
+struct Game_86ad0 {
     void FUN_00086ad0();
     char pad0[0x10];
-    PadList *pads;
+    PadList_86ad0 *pads;
     char pad1[0x24 - 0x14];
-    struct Renderer *renderer;
+    struct Renderer_86ad0 *renderer;
 };
 
-struct Renderer {
+struct Renderer_86ad0 {
     void FUN_001bc040();
 };
 
 extern int DAT_0049c0dc;
-extern Sim *DAT_004dd700;
+extern Sim_86ad0 *DAT_004dd700;
 extern int DAT_004dda40;
 extern char DAT_004e222c;
 extern char DAT_004ddbe1;
 extern char DAT_004e222d;
 
-Flags *FUN_0008e090();
+Flags_86ad0 *FUN_0008e090();
 void FUN_002684c0();
 char FUN_0008db80();
 
-void Game::FUN_00086ad0()
+void Game_86ad0::FUN_00086ad0()
 {
     if (DAT_0049c0dc > 0) {
         DAT_0049c0dc--;
@@ -99,7 +99,7 @@ void Game::FUN_00086ad0()
 
     bool rising = false;
     bool settled = false;
-    PadState state;
+    PadState_86ad0 state;
     while (!(rising && settled) && FUN_0008e090()->quit) {
         int i = 0;
         do {

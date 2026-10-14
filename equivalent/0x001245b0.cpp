@@ -4,74 +4,74 @@ extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 
-struct Vec3 {
+struct Vec3_1245b0 {
     float x, y, z;
 };
 
-struct Unit {
+struct Unit_1245b0 {
     char pad0[0x1b0];
     int id;                  // 0x1b0
 };
 
-struct Weapon {
+struct Weapon_1245b0 {
     char pad0[0x1b0c];
     float charge;            // 0x1b0c
 };
 
-struct Target {
+struct Target_1245b0 {
     char pad0[8];
-    Weapon *weapon;          // 0x08
+    Weapon_1245b0 *weapon;          // 0x08
     int kind;                // 0x0c
 };
 
-struct Actor;
+struct Actor_1245b0;
 
-struct Player {
+struct Player_1245b0 {
     char pad0[0x11c];
-    Unit *unit;              // 0x11c
+    Unit_1245b0 *unit;              // 0x11c
     char pad120[0x12c - 0x120];
-    Actor *other;            // 0x12c
+    Actor_1245b0 *other;            // 0x12c
 };
 
-struct Actor {
+struct Actor_1245b0 {
     char pad0[0x11c];
-    Unit *unit;              // 0x11c
+    Unit_1245b0 *unit;              // 0x11c
     char pad120[0x328 - 0x120];
-    Target *target;          // 0x328
+    Target_1245b0 *target;          // 0x328
     char pad32c[0x1b48 - 0x32c];
     char active;             // 0x1b48
     char pad1b49[0x20a8 - 0x1b49];
     int state;               // 0x20a8
     void FUN_0003ffa0(void *a, void *b);
-    void FUN_00035dc0(Vec3 *out);
-    char FUN_000350c0(Vec3 *out);
-    void FUN_000400e0(Vec3 *a, Vec3 *b, int c, int d, unsigned int flags);
-    void FUN_0003a520(Vec3 *a, Vec3 *b, int c, int d);
+    void FUN_00035dc0(Vec3_1245b0 *out);
+    char FUN_000350c0(Vec3_1245b0 *out);
+    void FUN_000400e0(Vec3_1245b0 *a, Vec3_1245b0 *b, int c, int d, unsigned int flags);
+    void FUN_0003a520(Vec3_1245b0 *a, Vec3_1245b0 *b, int c, int d);
 };
 
-struct Chain {
-    Actor *FUN_00059a30();
+struct Chain_1245b0 {
+    Actor_1245b0 *FUN_00059a30();
 };
 
-struct Owner {
-    Chain *FUN_000592a0();
+struct Owner_1245b0 {
+    Chain_1245b0 *FUN_000592a0();
 };
 
-struct Globals {
+struct Globals_1245b0 {
     char pad0[0x20];
-    Actor *player;           // 0x20 (struct with +0x124 pointer actually)
+    Actor_1245b0 *player;           // 0x20 (struct with +0x124 pointer actually)
 };
 
-struct Holder {
+struct Holder_1245b0 {
     char pad0[0x124];
-    Actor *actor;            // 0x124
+    Actor_1245b0 *actor;            // 0x124
 };
 
-struct Root {
+struct Root_1245b0 {
     char pad0[0x20];
-    Holder *holder;          // 0x20
+    Holder_1245b0 *holder;          // 0x20
 };
-extern Root *DAT_004dd700;
+extern Root_1245b0 *DAT_004dd700;
 
 class AcquireTargetCondition {
 public:
@@ -81,34 +81,34 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual char vfunc_6(int unused1, Owner *owner, int unused3);
+    virtual char vfunc_6(int unused1, Owner_1245b0 *owner, int unused3);
     char pad4[8];
     int argA;                // 0x0c
     int argB;                // 0x10
     char flag;               // 0x14
 };
 
-char AcquireTargetCondition::vfunc_6(int unused1, Owner *owner, int unused3)
+char AcquireTargetCondition::vfunc_6(int unused1, Owner_1245b0 *owner, int unused3)
 {
     if (!FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0))
         return 0;
-    Actor *self = owner->FUN_000592a0()->FUN_00059a30();
-    Target *target = self->target;
-    Actor *other = DAT_004dd700->holder->actor;
+    Actor_1245b0 *self = owner->FUN_000592a0()->FUN_00059a30();
+    Target_1245b0 *target = self->target;
+    Actor_1245b0 *other = DAT_004dd700->holder->actor;
 
     if (!target && self->state < 0 && self->unit && other) {
-        Actor *otherTarget = *(Actor **)((char *)other + 0x12c);
-        Unit *otherUnit = other->unit;
+        Actor_1245b0 *otherTarget = *(Actor_1245b0 **)((char *)other + 0x12c);
+        Unit_1245b0 *otherUnit = other->unit;
         if (otherTarget && otherUnit && self->unit->id != otherUnit->id) {
             self->FUN_0003ffa0(otherTarget, 0);
             return 1;
         }
     }
 
-    Vec3 v1;
+    Vec3_1245b0 v1;
     v1.x = 0; v1.y = 0; v1.z = 0;
     self->FUN_00035dc0(&v1);
-    Vec3 v2;
+    Vec3_1245b0 v2;
     v2.x = 0; v2.y = 0; v2.z = 0;
     if (!self->FUN_000350c0(&v2))
         return 0;

@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 16/16)
 // FUN_00287a40 @ 0x00287a40
-struct Quat {
+struct Quat_287a40 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat* a, const Quat* b, float t);
+    void FUN_0022b750(const Quat_287a40* a, const Quat_287a40* b, float t);
 };
 
-struct Vec3 {
+struct Vec3_287a40 {
     float x, y, z;
 };
 
@@ -15,8 +15,8 @@ struct QuatChannel {
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void vfunc_5(float time, Quat* out);
-    void FUN_0028a8f0(float prev, float time, Quat* out);
+    virtual void vfunc_5(float time, Quat_287a40* out);
+    void FUN_0028a8f0(float prev, float time, Quat_287a40* out);
 };
 
 struct VecChannel {
@@ -24,8 +24,8 @@ struct VecChannel {
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual void vfunc_4(float time, Vec3* out);
-    virtual void vfunc_5(float prev, float time, Vec3* out);
+    virtual void vfunc_4(float time, Vec3_287a40* out);
+    virtual void vfunc_5(float prev, float time, Vec3_287a40* out);
 };
 
 struct ChannelPair {
@@ -34,24 +34,24 @@ struct ChannelPair {
     float last;
 };
 
-struct Record {
+struct Record_287a40 {
     char pad0[0x30];
-    Vec3 v30;
+    Vec3_287a40 v30;
     int pad3c;
 };
 
 struct Pose {
     char pad0[0x14];
-    Quat* quats;
-    Record* records;
+    Quat_287a40* quats;
+    Record_287a40* records;
 };
 
-struct PoseSet {
+struct PoseSet_287a40 {
     char pad0[8];
     Pose* pose;
     unsigned int count;
-    Quat* quats;
-    Record* records;
+    Quat_287a40* quats;
+    Record_287a40* records;
     char pad18[8];
     char f20;
     char f21;
@@ -59,37 +59,37 @@ struct PoseSet {
     char f23;
 };
 
-struct BitSet {
+struct BitSet_287a40 {
     int x0;
     unsigned int words[1];
 };
 
-struct Mask {
+struct Mask_287a40 {
     char pad0[0x10];
-    BitSet* bits;
+    BitSet_287a40* bits;
 };
 
-class Blender {
+class Blender_287a40 {
 public:
     char pad0[0x110];
-    PoseSet* set;
+    PoseSet_287a40* set;
     char pad114[0x131 - 0x114];
     char perItem;
     char pad132[2];
     float* items;
     char pad138[0x148 - 0x138];
     int selected;
-    Mask* mask;
+    Mask_287a40* mask;
     void FUN_00287a40(int unused, float v, float t, ChannelPair* pairs);
 };
 
-void Blender::FUN_00287a40(int unused, float v, float t, ChannelPair* pairs)
+void Blender_287a40::FUN_00287a40(int unused, float v, float t, ChannelPair* pairs)
 {
     t = 1.0f - t;
-    PoseSet* s0 = set;
+    PoseSet_287a40* s0 = set;
     Pose* base = s0->pose;
     unsigned int n = s0->count;
-    BitSet* bits = mask->bits;
+    BitSet_287a40* bits = mask->bits;
 
     for (unsigned int i = 0; i < n; i++) {
         if (!(bits->words[i >> 5] & (1u << (i & 0x1f))))
@@ -97,8 +97,8 @@ void Blender::FUN_00287a40(int unused, float v, float t, ChannelPair* pairs)
         if (perItem)
             v = items[i];
 
-        Quat qa;
-        Vec3 vb;
+        Quat_287a40 qa;
+        Vec3_287a40 vb;
         if (pairs[i].quat != 0) {
             if (selected != (int)i)
                 pairs[i].quat->vfunc_5(v, &qa);
@@ -114,7 +114,7 @@ void Blender::FUN_00287a40(int unused, float v, float t, ChannelPair* pairs)
                 pairs[i].vec->vfunc_5(pairs[i].last, v, &vb);
             else
                 pairs[i].vec->vfunc_4(v, &vb);
-            Vec3* r = &set->records[i].v30;
+            Vec3_287a40* r = &set->records[i].v30;
             vb.x = (r->x - vb.x) * t + vb.x;
             vb.y = (r->y - vb.y) * t + vb.y;
             vb.z = (r->z - vb.z) * t + vb.z;
@@ -126,7 +126,7 @@ void Blender::FUN_00287a40(int unused, float v, float t, ChannelPair* pairs)
         set->quats[i] = qa;
         set->records[i].v30 = vb;
     }
-    PoseSet* done = set;
+    PoseSet_287a40* done = set;
     done->f22 = 1;
     done->f23 = 1;
     done->f20 = 0;

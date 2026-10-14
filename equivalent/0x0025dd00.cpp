@@ -1,41 +1,41 @@
 // STATUS: equivalent (tools/equiv.py level 3: 160 inputs, branch coverage 64/71, incomplete)
 // FUN_0025dd00 @ 0x0025dd00
-class Controller;
+class Controller_25dd00;
 
-class Listener {
+class Listener_25dd00 {
 public:
-    virtual void Tick(Controller *c);
-    virtual void v1(Controller *c);
-    virtual void v2(Controller *c);
-    virtual void v3(Controller *c);
-    virtual void Stop(Controller *c);
-    virtual int Poll(Controller *c);
-    virtual void Release(Controller *c);
-    Listener *nextLink;    // intrusive link at +4
+    virtual void Tick(Controller_25dd00 *c);
+    virtual void v1(Controller_25dd00 *c);
+    virtual void v2(Controller_25dd00 *c);
+    virtual void v3(Controller_25dd00 *c);
+    virtual void Stop(Controller_25dd00 *c);
+    virtual int Poll(Controller_25dd00 *c);
+    virtual void Release(Controller_25dd00 *c);
+    Listener_25dd00 *nextLink;    // intrusive link at +4
 };
 
-struct Link {
-    Listener *item;
+struct Link_25dd00 {
+    Listener_25dd00 *item;
 };
 
-struct Handle {
+struct Handle_25dd00 {
     char pad0[0xc0];
     int state;
 };
 
-struct Pending {
+struct Pending_25dd00 {
     void FUN_0024a280(int arg);
 };
 
-int __cdecl FUN_0024afe0(Handle *h);
-void __cdecl FUN_0024c0c0(Handle *h);
+int __cdecl FUN_0024afe0(Handle_25dd00 *h);
+void __cdecl FUN_0024c0c0(Handle_25dd00 *h);
 
-class Controller {
+class Controller_25dd00 {
 public:
     char pad0[8];
-    Pending pending;       // 0x08
+    Pending_25dd00 pending;       // 0x08
     char pad09[0x34 - 9];
-    Handle *handle;        // 0x34
+    Handle_25dd00 *handle;        // 0x34
     char pad38[0x40 - 0x38];
     char *listeners;       // 0x40, link at +4 inside each Listener
     char pad44[4];
@@ -50,7 +50,7 @@ public:
     void FUN_0025dd00(int arg);
 };
 
-void Controller::FUN_0025dd00(int arg)
+void Controller_25dd00::FUN_0025dd00(int arg)
 {
     pending.FUN_0024a280(arg);
     switch (state) {
@@ -58,11 +58,11 @@ void Controller::FUN_0025dd00(int arg)
         FUN_0025d7c0();
         FUN_0025d7f0();
         FUN_0025da00();
-        Listener *l = listeners ? (Listener *)(listeners - 4) : 0;
+        Listener_25dd00 *l = listeners ? (Listener_25dd00 *)(listeners - 4) : 0;
         if (l != 0) {
             int r = l->Poll(this);
             if (r == 2 || r == 0) {
-                Handle *h = handle;
+                Handle_25dd00 *h = handle;
                 state = 2;
                 if (h != 0 && FUN_0024afe0(h) == 2)
                     state = 3;
@@ -79,7 +79,7 @@ void Controller::FUN_0025dd00(int arg)
         }
         break;
     case 4: {
-        Listener *l = listeners ? (Listener *)(listeners - 4) : 0;
+        Listener_25dd00 *l = listeners ? (Listener_25dd00 *)(listeners - 4) : 0;
         if (l != 0) {
             if (l->Poll(this) != 4)
                 state = 2;
@@ -97,7 +97,7 @@ void Controller::FUN_0025dd00(int arg)
                 FUN_0024c0c0(handle);
             active = 1;
         }
-        Listener *l = listeners ? (Listener *)(listeners - 4) : 0;
+        Listener_25dd00 *l = listeners ? (Listener_25dd00 *)(listeners - 4) : 0;
         while (l != 0) {
             int r = l->Poll(this);
             if (r != 5 && r != 0)
@@ -108,7 +108,7 @@ void Controller::FUN_0025dd00(int arg)
             char *next = (char *)l->nextLink;
             if (next == 0)
                 break;
-            l = (Listener *)(next - 4);
+            l = (Listener_25dd00 *)(next - 4);
         }
         if (active == 0)
             state = 0;
@@ -122,7 +122,7 @@ void Controller::FUN_0025dd00(int arg)
             do {
                 if (tickers == 0)
                     break;
-                Listener *l = (Listener *)(tickers - 4);
+                Listener_25dd00 *l = (Listener_25dd00 *)(tickers - 4);
                 if (l == 0 || busy == 0x1e)
                     break;
                 l->Tick(this);

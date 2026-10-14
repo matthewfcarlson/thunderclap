@@ -2,11 +2,11 @@
 // FUN_00123260 @ 0x00123260
 extern "C" char DAT_0040fc60[];
 
-struct RefObj {
+struct RefObj_123260 {
     virtual void addRef();
     virtual void release();
 };
-struct Name {
+struct Name_123260 {
     char data[8];
     void FUN_0027af00();
 };
@@ -23,7 +23,7 @@ struct PathAction {
     int f7c;
     char pad80[0x8c - 0x80];
     int f8c;
-    RefObj *f90;
+    RefObj_123260 *f90;
     int f94;
     char pad98[4];
     int f9c;
@@ -32,7 +32,7 @@ struct PathAction {
     char padA8[4];
     int fac;
     char padB0[0xd0 - 0xb0];
-    Name name;                  // 0xd0
+    Name_123260 name;                  // 0xd0
     char fd8;
     char padD9[3];
     int fdc;
@@ -40,10 +40,10 @@ struct PathAction {
     int fe8;
     int fec;
     void FUN_00232660();
-    PathAction *FUN_00123260(int a, RefObj *target);
+    PathAction *FUN_00123260(int a, RefObj_123260 *target);
 };
 
-PathAction *PathAction::FUN_00123260(int a, RefObj *target)
+PathAction *PathAction::FUN_00123260(int a, RefObj_123260 *target)
 {
     FUN_00232660();
     vptr = (int)DAT_0040fc60;

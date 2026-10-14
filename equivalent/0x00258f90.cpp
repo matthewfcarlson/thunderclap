@@ -8,12 +8,12 @@ namespace DSOUND {
 extern "C" int __stdcall IDirectSoundBuffer_SetMixBinVolumes_8(void* buf, void* vols);
 extern "C" int __stdcall IDirectSoundBuffer_SetFrequency(void* buf, int freq);
 }
-struct Global { char pad[0x98]; float volA; float volB; };
-extern Global* DAT_004e5ce0;
+struct Global_258f90 { char pad[0x98]; float volA; float volB; };
+extern Global_258f90* DAT_004e5ce0;
 extern void* DAT_004e6200;
 extern float DAT_003f32dc, DAT_003f32e0, DAT_003f32f4, DAT_003f3db0, DAT_003fef48;
 
-struct Emitter {
+struct Emitter_258f90 {
     char pad0[0x48];
     float att;      // 0x48
     float sec;      // 0x4c
@@ -23,7 +23,7 @@ struct Emitter {
     float fade;     // 0x5c
     float pitch;    // 0x60
 };
-struct Source {
+struct Source_258f90 {
     int kind[4];
     float amount[4];
     float base;           // 0x20
@@ -33,14 +33,14 @@ struct Source {
     char pad78[4];
     void* buffer;         // 0x7c
 };
-struct State {
+struct State_258f90 {
     char p0[0x10];
     float pitch;
     float scale;
     char p1[8];
-    Source* sources[16];
+    Source_258f90* sources[16];
     void* sample;
-    Emitter* handles[8];
+    Emitter_258f90* handles[8];
     void (__cdecl *callback)(void*, void*);
 };
 
@@ -53,7 +53,7 @@ static float ToDb(float v)
     return (float)(log10((double)v) * DAT_003fef48);
 }
 
-void __cdecl FUN_00258f90(State* s)
+void __cdecl FUN_00258f90(State_258f90* s)
 {
     for (int i = 0; i < 8; i++)
         if (s->handles[i])
@@ -68,7 +68,7 @@ void __cdecl FUN_00258f90(State* s)
     float scale4 = sc * sc * sc * sc;
 
     for (unsigned int n = 0; n < count; n++) {
-        Source* src = s->sources[n];
+        Source_258f90* src = s->sources[n];
         float b = src->base;
         float base4 = b * b * b * b;
         float v0 = 0, v1 = 0, v2 = 0, v3 = 0;
@@ -80,7 +80,7 @@ void __cdecl FUN_00258f90(State* s)
             float p = src->amount[j];
             float pp = p * p * p * p;
             if (type >= 8 && type <= 15) {
-                Emitter* e = s->handles[type - 8];
+                Emitter_258f90* e = s->handles[type - 8];
                 pitch = pitch * e->pitch;
                 float att = DAT_003f32dc - e->att;
                 float sec = DAT_003f32dc - e->sec;

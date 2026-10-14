@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00265190 @ 0x00265190
-class Releasable {
+class Releasable_265190 {
 public:
     virtual void v0();
     virtual void v1();
@@ -8,29 +8,29 @@ public:
     virtual void v3();
 };
 
-struct Entry {
+struct Entry_265190 {
     int tag;
-    Releasable* obj;
+    Releasable_265190* obj;
 };
 
-struct Ring {
-    Entry* head;
-    Entry* tail;
-    Entry* start;
-    Entry* end;
-    void FUN_00264e10(Entry* e);
+struct Ring_265190 {
+    Entry_265190* head;
+    Entry_265190* tail;
+    Entry_265190* start;
+    Entry_265190* end;
+    void FUN_00264e10(Entry_265190* e);
 };
 
-class Queue {
+class Queue_265190 {
 public:
     char pad0[8];
     int pending;
     char pad1[8];
-    Ring ring;
-    void FUN_00265190(Releasable* obj);
+    Ring_265190 ring;
+    void FUN_00265190(Releasable_265190* obj);
 };
 
-void Queue::FUN_00265190(Releasable* obj) {
+void Queue_265190::FUN_00265190(Releasable_265190* obj) {
     if (!obj)
         return;
     unsigned int count;
@@ -43,7 +43,7 @@ void Queue::FUN_00265190(Releasable* obj) {
         obj->v1();
         return;
     }
-    Entry e;
+    Entry_265190 e;
     obj->v0();
     e.tag = 0;
     e.obj = obj;

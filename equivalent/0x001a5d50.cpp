@@ -1,25 +1,25 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_001a5d50 @ 0x001a5d50
-struct Resource {
+struct Resource_1a5d50 {
  virtual void unused();
  virtual void release();
  void FUN_0003dd00(int);
  void FUN_00222b90(int);
- void FUN_00222970(Resource*, int);
+ void FUN_00222970(Resource_1a5d50*, int);
  void FUN_00298f90(int);
 };
-struct Manager {
- int FUN_00024230(Resource*);
+struct Manager_1a5d50 {
+ int FUN_00024230(Resource_1a5d50*);
  void FUN_0002a4b0(int,int);
 };
-struct Context { char pad[0x20]; Manager* manager; };
+struct Context { char pad[0x20]; Manager_1a5d50* manager; };
 extern Context* DAT_004dd700;
-struct Owner {
+struct Owner_1a5d50 {
  unsigned char active, attached, flag2, flag3;
- Resource *first, *second, *third, *fourth, *fifth;
+ Resource_1a5d50 *first, *second, *third, *fourth, *fifth;
  void FUN_001a5d50();
 };
-void Owner::FUN_001a5d50() {
+void Owner_1a5d50::FUN_001a5d50() {
  if (!active) return;
  if (third) {
   third->FUN_0003dd00(0);

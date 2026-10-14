@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001f4ba0 @ 0x001f4ba0
-struct State {
+struct State_1f4ba0 {
  unsigned int first, second, value, handle, limit, extra;
  unsigned char flag;
  char pad[7];
@@ -15,7 +15,7 @@ struct Object {
  unsigned int f88, f8c;
  char pad90[8];
  unsigned int f98, f9c;
- State state;
+ State_1f4ba0 state;
  unsigned int fc0, fc4, fc8, fcc, fd0;
  char padd4[0x324-0xd4];
  unsigned int f324, f328, f32c, f330;

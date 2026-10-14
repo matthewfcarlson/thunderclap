@@ -10,34 +10,34 @@ struct Node {
     Track *track;
 };
 
-struct Lookup {
+struct Lookup_cf4b0 {
     Node *FUN_001def30(const char *name);
 };
 
-struct Table {
+struct Table_cf4b0 {
     float *FUN_00024280(unsigned __int64 key);
 };
 
-struct Slot {
+struct Slot_cf4b0 {
     char name[0x40];
 };
 
-struct Owner {
+struct Owner_cf4b0 {
     char pad0[0x0c];
-    Lookup *lookup;
+    Lookup_cf4b0 *lookup;
     char pad1[0x20 - 0x10];
-    Table *table;
+    Table_cf4b0 *table;
 };
 
-struct Ctl {
+struct Ctl_cf4b0 {
     char pad0[0x0c];
-    Owner *owner;
+    Owner_cf4b0 *owner;
     char pad1[0xb8 - 0x10];
     unsigned flags;
     char pad2[0x250 - 0xbc];
     void *p250;
     char pad3[0x264 - 0x254];
-    Slot slots[8];
+    Slot_cf4b0 slots[8];
     char pad4[0x478 - 0x464];
     float f478;
     float f47c;
@@ -63,7 +63,7 @@ extern const float DAT_0049fcac;
 extern int DAT_0049fcb0;
 extern char DAT_004dde79;
 
-void Ctl::FUN_000cf4b0(float dt)
+void Ctl_cf4b0::FUN_000cf4b0(float dt)
 {
     if (!(flags & 2))
         return;
@@ -75,7 +75,7 @@ void Ctl::FUN_000cf4b0(float dt)
     for (int i = 0; i < 8; i++) {
         if (slots[i].name[0] == 0)
             continue;
-        Table *tbl = owner->table;
+        Table_cf4b0 *tbl = owner->table;
         float *e = tbl->FUN_00024280(FUN_002672f0(slots[i].name, 0, 0));
         if (e) {
             fx += e[0x1b0c / 4];

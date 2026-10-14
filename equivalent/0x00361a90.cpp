@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361a90 @ 0x00361a90
-typedef void (*Handler)();
+typedef void (*Handler_361a90)();
 void FUN_0032a4f0();
 void FUN_0032a510();
 void FUN_0032a530();
@@ -12,12 +12,12 @@ void FUN_003333f0();
 void FUN_00333400();
 void FUN_00333770();
 void FUN_003337d0();
-struct Entry {
-    Handler fn;
+struct Entry_361a90 {
+    Handler_361a90 fn;
     int a, b, c;
     int pad[2];
 };
-Entry DAT_004d7ab0[12];
+Entry_361a90 DAT_004d7ab0[12];
 void FUN_00361a90() {
     DAT_004d7ab0[0].fn = FUN_003333c0;
     DAT_004d7ab0[0].a = 0;

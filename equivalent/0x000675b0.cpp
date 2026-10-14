@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000675b0 @ 0x000675b0
-struct Slot {
+struct Slot_675b0 {
     char data[0x1c];
     void FUN_00230b60();
 };
 
-class Vehicle {
+class Vehicle_675b0 {
 public:
     char pad0[0x150];
     int f150;
@@ -20,9 +20,9 @@ public:
     int f2cc;
     int f2d0;
     int f2d4;
-    Slot s2d8;
-    Slot s2f4;
-    Slot s310;
+    Slot_675b0 s2d8;
+    Slot_675b0 s2f4;
+    Slot_675b0 s310;
     int f32c;
     int f330;
     int f334;
@@ -51,10 +51,10 @@ public:
     int f38c;
     int f390;
 
-    Vehicle *FUN_000675b0();
+    Vehicle_675b0 *FUN_000675b0();
 };
 
-Vehicle *Vehicle::FUN_000675b0()
+Vehicle_675b0 *Vehicle_675b0::FUN_000675b0()
 {
     f2b0 = 0;
     f2b4 = -1;

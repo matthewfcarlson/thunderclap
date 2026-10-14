@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 60 inputs, branch coverage 17/18, incomplete)
 // FUN_001de1f0 @ 0x001de1f0
-struct Elem {
+struct Elem_1de1f0 {
     int a;
     int b;
     int c;
@@ -10,7 +10,7 @@ struct Elem {
 };
 
 // std::rotate(first, middle, last) for 20-byte elements (gcd-cycle algorithm).
-void __cdecl FUN_001de1f0(Elem *first, Elem *middle, Elem *last)
+void __cdecl FUN_001de1f0(Elem_1de1f0 *first, Elem_1de1f0 *middle, Elem_1de1f0 *last)
 {
     int shift = (int)((char *)middle - (char *)first) / 20;
     int total = (int)((char *)last - (char *)first) / 20;
@@ -22,10 +22,10 @@ void __cdecl FUN_001de1f0(Elem *first, Elem *middle, Elem *last)
     }
     if (count < total && count > 0) {
         for (; count > 0; --count) {
-            Elem *hole = first + count;
-            Elem *next = hole;
-            Elem holeVal = *hole;
-            Elem *next1 = hole + shift;
+            Elem_1de1f0 *hole = first + count;
+            Elem_1de1f0 *next = hole;
+            Elem_1de1f0 holeVal = *hole;
+            Elem_1de1f0 *next1 = hole + shift;
             if (next1 == last)
                 next1 = first;
             while (next1 != hole) {

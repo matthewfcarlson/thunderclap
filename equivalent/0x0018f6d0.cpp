@@ -4,13 +4,13 @@ extern "C" double sqrt(double);
 extern "C" double atan(double);
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
-struct Vec3 {
+struct Vec3_18f6d0 {
     float x, y, z;
     float FUN_0022d110();
-    bool FUN_0022d2b0(const Vec3 *other, float eps);
+    bool FUN_0022d2b0(const Vec3_18f6d0 *other, float eps);
 };
 
-struct Pt {
+struct Pt_18f6d0 {
     float x, y, z;
 };
 extern char FUN_00011090;
@@ -23,25 +23,25 @@ struct Matrix {
     void FUN_0022ba30(float a);
     void FUN_0022ba70(float a);
     void FUN_0022ca90(const Matrix *a, const Matrix *b);
-    void FUN_0022c2b0(const Vec3 *in, Vec3 *out);
+    void FUN_0022c2b0(const Vec3_18f6d0 *in, Vec3_18f6d0 *out);
 };
 
-struct Xform {
+struct Xform_18f6d0 {
     Matrix *FUN_00221c40();
     void FUN_00221c60(Matrix *m);
 };
 
-struct Skel {
+struct Skel_18f6d0 {
     char pad00[0x10];
-    Xform xf;
+    Xform_18f6d0 xf;
 };
 
 struct Driver {
     char pad00[0x18];
-    Xform xf;
+    Xform_18f6d0 xf;
 };
 
-struct Part {
+struct Part_18f6d0 {
     char pad00[0xe8];
     char disabled;
 };
@@ -50,57 +50,57 @@ struct Entity {
     char pad000[0x140];
     int f140;
     char pad144[0x1d8 - 0x144];
-    Vec3 v1d8;
+    Vec3_18f6d0 v1d8;
     char pad1e4[0x1ac4 - 0x1e4];
-    Vec3 v1ac4;
+    Vec3_18f6d0 v1ac4;
     char pad1ad0[0x1ca0 - 0x1ad0];
-    Part *part;
+    Part_18f6d0 *part;
     char pad1ca4[0x2064 - 0x1ca4];
-    Vec3 v2064;
+    Vec3_18f6d0 v2064;
     float f2070;
-    Vec3 v2074;
-    Vec3 v2080;
-    void FUN_000356c0(Vec3 *out);
-    void FUN_00035550(Vec3 *out);
-    void FUN_00035230(Vec3 *out);
+    Vec3_18f6d0 v2074;
+    Vec3_18f6d0 v2080;
+    void FUN_000356c0(Vec3_18f6d0 *out);
+    void FUN_00035550(Vec3_18f6d0 *out);
+    void FUN_00035230(Vec3_18f6d0 *out);
     void FUN_000357e0();
     void FUN_000359c0(int a);
     void FUN_000368d0(int a);
     void FUN_00035fa0(int a);
 };
 
-struct Holder {
+struct Holder_18f6d0 {
     Entity *FUN_00059a30();
-    Skel *FUN_00059a40();
-    void FUN_00059a50(Vec3 *out);
+    Skel_18f6d0 *FUN_00059a40();
+    void FUN_00059a50(Vec3_18f6d0 *out);
 };
 
-struct HolderSource {
-    Holder *FUN_000592a0();
+struct HolderSource_18f6d0 {
+    Holder_18f6d0 *FUN_000592a0();
 };
 
 struct Zone;
-struct Mid {
+struct Mid_18f6d0 {
     Zone *FUN_00204200(float x, float y, float z);
     bool FUN_00204440(Zone *z);
 };
 
-struct Holder54 {
-    Mid *FUN_000862a0();
+struct Holder54_18f6d0 {
+    Mid_18f6d0 *FUN_000862a0();
 };
 
-struct Player {
+struct Player_18f6d0 {
     void FUN_00025260(int a, int b, int c);
 };
 
 struct World {
     char pad00[0x20];
-    Player *player;
+    Player_18f6d0 *player;
     char pad24[0x54 - 0x24];
-    Holder54 *holder;
+    Holder54_18f6d0 *holder;
 };
 
-struct Settings {
+struct Settings_18f6d0 {
     char pad00[0x14];
     float f14;
     float f18;
@@ -110,7 +110,7 @@ struct Settings {
     float f28;
     float f2c;
     float f30;
-    Vec3 v34;
+    Vec3_18f6d0 v34;
     float f40;
     float f44;
     float f48;
@@ -124,13 +124,13 @@ struct Settings {
 };
 
 extern World *DAT_004dd700;
-extern Vec3 DAT_004bfc24;
+extern Vec3_18f6d0 DAT_004bfc24;
 
-float __cdecl FUN_00224f10(Vec3 *v);
+float __cdecl FUN_00224f10(Vec3_18f6d0 *v);
 float __cdecl FUN_00224fc0(float a, float b);
 float __cdecl FUN_00083d90(float *v);
-void __cdecl FUN_00224d70(float angle, Vec3 *v);
-char __cdecl FUN_00202560(Vec3 *origin, float dist, int a, Vec3 *outB, Vec3 *outA, int b, int c, int d);
+void __cdecl FUN_00224d70(float angle, Vec3_18f6d0 *v);
+char __cdecl FUN_00202560(Vec3_18f6d0 *origin, float dist, int a, Vec3_18f6d0 *outB, Vec3_18f6d0 *outA, int b, int c, int d);
 
 static __forceinline float FAbs(float v)
 {
@@ -143,9 +143,9 @@ static __forceinline float FAbs(float v)
     return c.f;
 }
 
-static __forceinline bool NearZero(Vec3 *v)
+static __forceinline bool NearZero(Vec3_18f6d0 *v)
 {
-    Vec3 z;
+    Vec3_18f6d0 z;
     z.x = 0.0f;
     z.y = 0.0f;
     z.z = 0.0f;
@@ -164,13 +164,13 @@ public:
     virtual void vfunc_4();
     virtual bool vfunc_5(int a, float dt);
     char pad04[0x18];
-    Settings *volatile settings;
-    HolderSource *owner;
+    Settings_18f6d0 *volatile settings;
+    HolderSource_18f6d0 *owner;
     Driver *volatile driver;
     int cursor;
     char hit[4];
-    Vec3 cacheHit[4];
-    Vec3 cacheNrm[4];
+    Vec3_18f6d0 cacheHit[4];
+    Vec3_18f6d0 cacheNrm[4];
     float a90;
     float vel[4];
 };
@@ -181,34 +181,34 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
         return true;
     if (driver == 0)
         return false;
-    Holder *h = owner->FUN_000592a0();
+    Holder_18f6d0 *h = owner->FUN_000592a0();
     Entity *ent = h->FUN_00059a30();
-    Skel *sk = h->FUN_00059a40();
+    Skel_18f6d0 *sk = h->FUN_00059a40();
     if (FAbs(dt) <= 1e-5f) {
         driver->xf.FUN_00221c60(sk->xf.FUN_00221c40());
         return true;
     }
 
-    Vec3 pos;
+    Vec3_18f6d0 pos;
     h->FUN_00059a50(&pos);
-    Vec3 vA;
+    Vec3_18f6d0 vA;
     vA.x = 0.0f;
     vA.y = 0.0f;
     vA.z = 0.0f;
     ent->FUN_000356c0(&vA);
     vA.y = 0.0f;
-    Vec3 vB = vA;
+    Vec3_18f6d0 vB = vA;
     float lenB = vB.FUN_0022d110();
-    Vec3 vC;
+    Vec3_18f6d0 vC;
     vC.x = 0.0f;
     vC.y = 0.0f;
     vC.z = 0.0f;
     ent->FUN_00035550(&vC);
     float hC = FUN_00224f10(&vC);
-    Vec3 W = ent->v2064;
+    Vec3_18f6d0 W = ent->v2064;
     if (NearZero(&W))
         W = vC;
-    Vec3 U = ent->v2074;
+    Vec3_18f6d0 U = ent->v2074;
     if (NearZero(&U)) {
         U = ent->v2080;
         U.FUN_0022d110();
@@ -224,7 +224,7 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
     else
         kb4 = settings->f18;
 
-    Vec3 X = ent->v1ac4;
+    Vec3_18f6d0 X = ent->v1ac4;
     if (!NearZero(&X)) {
         float hX = FUN_00224f10(&X);
         float d = FUN_00224fc0(hU, hX);
@@ -246,7 +246,7 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
         r = r - (((FUN_00083d90(&a90) * mn) / k24) * k28);
     }
     a90 = r * dt + a90;
-    Vec3 vF8 = DAT_004bfc24;
+    Vec3_18f6d0 vF8 = DAT_004bfc24;
     float ang = (a90 * dt) + hC;
     FUN_00224d70(ang, &vF8);
     float spd = ((vB.z * vF8.z + vB.y * vF8.y) + vB.x * vF8.x) * lenB;
@@ -266,22 +266,22 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
         else
             V = spd - lim2;
     }
-    Vec3 vG;
+    Vec3_18f6d0 vG;
     vG.x = vF8.x * V;
     vG.y = vF8.y * V;
     vG.z = vF8.z * V;
-    Vec3 v48;
+    Vec3_18f6d0 v48;
     v48.x = vG.x - vA.x;
     v48.y = vG.y - vA.y;
     v48.z = vG.z - vA.z;
-    Vec3 vE = v48;
+    Vec3_18f6d0 vE = v48;
     float lenE = vE.FUN_0022d110();
     Matrix *M = sk->xf.FUN_00221c40();
     Matrix m2e0;
     memcpy(&m2e0, M, 0x40);
     float hz = settings->f2c * 0.5f;
     float hx = settings->f30 * 0.5f;
-    Vec3 c3 = settings->v34;
+    Vec3_18f6d0 c3 = settings->v34;
     volatile float k16c = settings->f44;
     volatile float k168 = settings->f4c;
     volatile float s98b = settings->f40;
@@ -294,7 +294,7 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
         s1c = settings->f5c;
         L14 = settings->f60;
     }
-    Vec3 vN = ent->v1d8;
+    Vec3_18f6d0 vN = ent->v1d8;
     float lenN = vN.FUN_0022d110();
 
     float inp[12];
@@ -310,13 +310,13 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
     inp[9] = c3.x - hx;
     inp[10] = c3.y;
     inp[11] = c3.z + hz;
-    Pt pts[4];
+    Pt_18f6d0 pts[4];
     FUN_00011520(pts, 12, 4, &FUN_00011090);
     for (int j = 0; j < 4; j++)
-        m2e0.FUN_0022c2b0((Vec3 *)(inp + j * 3), (Vec3 *)&pts[j]);
+        m2e0.FUN_0022c2b0((Vec3_18f6d0 *)(inp + j * 3), (Vec3_18f6d0 *)&pts[j]);
 
     float y0 = pos.y;
-    Vec3 v15c;
+    Vec3_18f6d0 v15c;
     v15c.x = 0.0f;
     v15c.y = 0.0f;
     v15c.z = 0.0f;
@@ -327,9 +327,9 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
     pos.y = 0.0f;
 
     int contacts = 0;
-    Vec3 hitp;
-    Vec3 vH;
-    Vec3 Q;
+    Vec3_18f6d0 hitp;
+    Vec3_18f6d0 vH;
+    Vec3_18f6d0 Q;
     for (int i = 0; i < 4; i++) {
         vH.x = 0.0f;
         vH.y = 1.0f;
@@ -358,7 +358,7 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
                 hitp.y = y0;
                 hitp.z = pos.z;
                 if (DAT_004dd700->holder->FUN_000862a0()->FUN_00204440(DAT_004dd700->holder->FUN_000862a0()->FUN_00204200(Q.x, Q.y, Q.z))) {
-                    Vec3 dd;
+                    Vec3_18f6d0 dd;
                     dd.x = pos.x - pts[i].x;
                     dd.y = 0.0f;
                     dd.z = pos.z - pts[i].z;
@@ -396,7 +396,7 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
                     float fct = 1.0f - vH.y;
                     if (s44 < s34 && slope < s34)
                         fct = ((slope - s44) / (s34 - s44)) * fct;
-                    Vec3 vS;
+                    Vec3_18f6d0 vS;
                     vS.x = vH.x;
                     vS.y = vH.y;
                     vS.z = vH.z;
@@ -445,7 +445,7 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
     }
     ent->FUN_000359c0(mode);
 
-    Vec3 D1;
+    Vec3_18f6d0 D1;
     D1.x = pts[1].x + pts[0].x;
     D1.y = pts[1].y + pts[0].y;
     D1.z = pts[0].z + pts[1].z;
@@ -471,7 +471,7 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
         pitch = s34;
     }
 
-    Vec3 D2;
+    Vec3_18f6d0 D2;
     D2.x = pts[0].x + pts[2].x;
     D2.y = pts[0].y + pts[2].y;
     D2.z = pts[0].z + pts[2].z;
@@ -497,7 +497,7 @@ bool TankLocomotionAction::vfunc_5(int a, float dt)
         roll = s34;
     }
 
-    Vec3 np;
+    Vec3_18f6d0 np;
     np.x = pos.x;
     np.y = pos.y;
     np.z = pos.z;

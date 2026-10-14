@@ -3,7 +3,7 @@
 extern "C" double sqrt(double);
 extern "C" double fabs(double);
 
-struct Vec3 {
+struct Vec3_de800 {
     float x, y, z;
     float FUN_0022d110();
 };
@@ -15,7 +15,7 @@ float FUN_000de800(float x, float z)
     if (fabs(x) <= 1e-5f && fabs(z) <= 1e-5f)
         return 0.0f;
 
-    Vec3 v;
+    Vec3_de800 v;
     v.x = x;
     v.y = 0.0f;
     v.z = z;

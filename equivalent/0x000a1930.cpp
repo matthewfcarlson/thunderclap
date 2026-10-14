@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 8/8)
 // FUN_000a1930 @ 0x000a1930
-struct V3 {
+struct V3_a1930 {
     float x, y, z;
 };
 
-struct Block {
-    V3 pos;                 // 0x170
+struct Block_a1930 {
+    V3_a1930 pos;                 // 0x170
     float f17c;
     float f180;
     float f184;
@@ -35,39 +35,39 @@ struct Block {
     float f22c;
     float f230;
     char pad234[0x248 - 0x234];
-    Block* FUN_000a06d0(const Block* src);
+    Block_a1930* FUN_000a06d0(const Block_a1930* src);
 };
 
 struct World;
 
-struct Target {
+struct Target_a1930 {
     void FUN_000fd8a0(World* world, void* mat, int scratch, float f8);
 };
 
-struct Inner {
-    Target* FUN_000fdc30();
+struct Inner_a1930 {
+    Target_a1930* FUN_000fdc30();
 };
 
-struct Holder {
+struct Holder_a1930 {
     char pad0[0x1ca0];
-    Inner* inner;
+    Inner_a1930* inner;
 };
 
-struct Game {
+struct Game_a1930 {
     char pad0[0x124];
-    Holder* holder;
+    Holder_a1930* holder;
 };
 
 struct World {
     char pad0[0x20];
-    Game* game;
+    Game_a1930* game;
 };
 
 extern World* DAT_004dd700;
 
-void __cdecl FUN_000a04c0(V3* dir, float* p1, float* p0, float* scratch);
+void __cdecl FUN_000a04c0(V3_a1930* dir, float* p1, float* p0, float* scratch);
 
-class Mover {
+class Mover_a1930 {
   public:
     virtual void v0();
     virtual void v1();
@@ -75,7 +75,7 @@ class Mover {
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual void v6(float* scratch, V3* pos);
+    virtual void v6(float* scratch, V3_a1930* pos);
     virtual void v7();
     virtual float v8();
     virtual void v9();
@@ -85,8 +85,8 @@ class Mover {
     virtual void v13();
     virtual void* v14();
     char pad4[0x170 - 4];
-    Block b;
-    Block f248;
+    Block_a1930 b;
+    Block_a1930 f248;
     int mode;
     int prevMode;
     int f328;
@@ -103,10 +103,10 @@ class Mover {
     char pad491[0x4ac - 0x491];
     int f4ac;
     int f4b0;
-    void FUN_000a1930(V3 pos, int newMode);
+    void FUN_000a1930(V3_a1930 pos, int newMode);
 };
 
-void Mover::FUN_000a1930(V3 pos, int newMode)
+void Mover_a1930::FUN_000a1930(V3_a1930 pos, int newMode)
 {
     int m = mode;
     if (m == 7)
@@ -149,9 +149,9 @@ void Mover::FUN_000a1930(V3 pos, int newMode)
     f490 = 0;
     f4ac = 0;
     f4b0 = 0;
-    Holder* holder = DAT_004dd700->game->holder;
+    Holder_a1930* holder = DAT_004dd700->game->holder;
     if (holder) {
-        Target* t = holder->inner->FUN_000fdc30();
+        Target_a1930* t = holder->inner->FUN_000fdc30();
         if (t) {
             v6(scratch, &pos);
             World* world = DAT_004dd700;

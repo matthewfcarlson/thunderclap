@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // core::FileWriteRequest::vfunc_1 @ 0x00274060
 namespace core {
-struct Backend {
+struct Backend_274060 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11(); virtual void slot12();
  virtual int write(unsigned handle, char* name, unsigned mode, unsigned position, void* buffer, unsigned size, unsigned* written, unsigned* state, unsigned flags);
  unsigned FUN_00272880();
 };
-struct Lock { virtual void lock(); virtual void unlock(); };
+struct Lock_274060 { virtual void lock(); virtual void unlock(); };
 struct File {
  unsigned unknown0;
- Lock lock;
+ Lock_274060 lock;
  unsigned unknown8;
- Backend* backend;
+ Backend_274060* backend;
  unsigned unknown10;
  unsigned status;
  char padding18[6];
@@ -34,7 +34,7 @@ struct FileWriteRequest {
 };
 int FileWriteRequest::vfunc_1() {
  unsigned written = (unsigned)this;
- Backend* backend = file->backend;
+ Backend_274060* backend = file->backend;
  int result = 1;
  if (size != 0) {
  result = backend->write(file->handle, file->name, file->mode, file->position, buffer, size, &written, &file->state, flags);

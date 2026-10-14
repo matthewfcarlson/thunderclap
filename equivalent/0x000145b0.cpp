@@ -2,26 +2,26 @@
 // FUN_000145b0 @ 0x000145b0
 void *FUN_0008d690(unsigned int size);
 
-struct Vec3 {
+struct Vec3_145b0 {
     float x, y, z;
 };
 
-class Ref {
+class Ref_145b0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
-    Ref *FUN_00059260(void *arg);
+    Ref_145b0 *FUN_00059260(void *arg);
 };
 
-struct Slot {
+struct Slot_145b0 {
     bool FUN_00231e80(struct Node *n);
 };
 
 struct Node {
-    void FUN_00231ad0(Slot *slot, Ref *ref, int flag);
+    void FUN_00231ad0(Slot_145b0 *slot, Ref_145b0 *ref, int flag);
 };
 
-class Source {
+class Source_145b0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -31,22 +31,22 @@ public:
     virtual void vfunc_5();
     virtual void vfunc_6();
     virtual void vfunc_7();
-    virtual Node *vfunc_8(Ref *ref, int flag);
+    virtual Node *vfunc_8(Ref_145b0 *ref, int flag);
 };
 
-struct Link {
-    Ref *first;
+struct Link_145b0 {
+    Ref_145b0 *first;
 };
 
-struct Pos {
-    void FUN_00059a50(Vec3 *out);
+struct Pos_145b0 {
+    void FUN_00059a50(Vec3_145b0 *out);
 };
 
-struct Actor {
+struct Actor_145b0 {
     char pad000[0x10];
-    Link *link;                 // 0x10
+    Link_145b0 *link;                 // 0x10
     char pad014[0xdc - 0x14];
-    Slot slot;                  // 0xdc
+    Slot_145b0 slot;                  // 0xdc
     char pad0dd[0x11c - 0xdd];
     void *f11c;
     char pad120[0x20b0 - 0x120];
@@ -55,73 +55,73 @@ struct Actor {
     bool FUN_00038f90(int a1, int f2c, int zero);
 };
 
-struct Body {
+struct Body_145b0 {
     char pad00[0x10];
-    Pos *pos;
+    Pos_145b0 *pos;
 };
 
-struct Handle {
-    Body *FUN_00059a30();
+struct Handle_145b0 {
+    Body_145b0 *FUN_00059a30();
     void FUN_00059a40();
 };
 
-struct Config {
+struct Config_145b0 {
     char pad00[0x2c];
     int f2c;
     int limit;                  // 0x30
-    Source *source34;           // 0x34
+    Source_145b0 *source34;           // 0x34
     char pad38[0x40 - 0x38];
-    Source *source40;           // 0x40
+    Source_145b0 *source40;           // 0x40
 };
 
-struct Roster {
+struct Roster_145b0 {
     char pad00[0x0c];
     int count;                  // 0x0c
-    Actor *FUN_00024190(int index);
+    Actor_145b0 *FUN_00024190(int index);
 };
 
-struct Game {
+struct Game_145b0 {
     char pad00[0x20];
-    Roster *roster;
+    Roster_145b0 *roster;
 };
 
-extern Game *DAT_004dd700;
+extern Game_145b0 *DAT_004dd700;
 
-struct Owner {
+struct Owner_145b0 {
     char pad00[8];
     void *f08;
-    Handle *FUN_000592a0();
+    Handle_145b0 *FUN_000592a0();
 };
 
-class Tracker {
+class Tracker_145b0 {
 public:
     char pad00[0x1c];
-    Owner *owner;               // 0x1c
-    Config *config;             // 0x20
+    Owner_145b0 *owner;               // 0x1c
+    Config_145b0 *config;             // 0x20
     char pad24[0x34 - 0x24];
-    Actor *seen[8];             // 0x34
+    Actor_145b0 *seen[8];             // 0x34
     int seenCount;              // 0x54
     int counter;                // 0x58
 
     void FUN_000145b0(int a1, int a2, int a3);
 };
 
-void Tracker::FUN_000145b0(int a1, int a2, int a3)
+void Tracker_145b0::FUN_000145b0(int a1, int a2, int a3)
 {
-    Handle *handle = owner->FUN_000592a0();
-    Body *self = handle->FUN_00059a30();
+    Handle_145b0 *handle = owner->FUN_000592a0();
+    Body_145b0 *self = handle->FUN_00059a30();
     handle->FUN_00059a40();
-    Vec3 v;
+    Vec3_145b0 v;
     v.x = 0.0f;
     v.y = 0.0f;
     v.z = 0.0f;
     self->pos->FUN_00059a50(&v);
 
-    Roster *roster = DAT_004dd700->roster;
+    Roster_145b0 *roster = DAT_004dd700->roster;
     int n = roster->count;
     for (int i = 0; i < n; i++) {
-        Actor *cand = roster->FUN_00024190(i);
-        if (cand == (Actor *)self || cand == 0)
+        Actor_145b0 *cand = roster->FUN_00024190(i);
+        if (cand == (Actor_145b0 *)self || cand == 0)
             continue;
         if (cand->f20b0 != 0)
             continue;
@@ -145,28 +145,28 @@ void Tracker::FUN_000145b0(int a1, int a2, int a3)
             continue;
 
         counter = counter + 1;
-        Source *s1 = config->source40;
+        Source_145b0 *s1 = config->source40;
         if (s1 != 0) {
             void *mem = FUN_0008d690(0x14);
-            Ref *r = 0;
+            Ref_145b0 *r = 0;
             if (mem)
-                r = ((Ref *)mem)->FUN_00059260(owner->f08);
+                r = ((Ref_145b0 *)mem)->FUN_00059260(owner->f08);
             r->vfunc_0();
             Node *node = s1->vfunc_8(r, 0);
             if (node != 0) {
-                Slot *selfSlot = (Slot *)((char *)self + 0xdc);
+                Slot_145b0 *selfSlot = (Slot_145b0 *)((char *)self + 0xdc);
                 if (!selfSlot->FUN_00231e80(node))
                     node->FUN_00231ad0(selfSlot, r, -1);
             }
             r->vfunc_1();
         }
 
-        Source *s2 = config->source34;
+        Source_145b0 *s2 = config->source34;
         if (s2 != 0) {
             void *mem = FUN_0008d690(0x14);
-            Ref *r = 0;
+            Ref_145b0 *r = 0;
             if (mem)
-                r = ((Ref *)mem)->FUN_00059260(cand->link->first);
+                r = ((Ref_145b0 *)mem)->FUN_00059260(cand->link->first);
             r->vfunc_0();
             Node *node = s2->vfunc_8(r, 0);
             if (node != 0)

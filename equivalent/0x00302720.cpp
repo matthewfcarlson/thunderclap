@@ -8,13 +8,13 @@ struct Weight {
     char pad[0x80];
     float w;
 };
-struct Link {
+struct Link_302720 {
     char pad[0x18];
     Weight* weight;
 };
-struct Obj {
-    Link* a;
-    Link* b;
+struct Obj_302720 {
+    Link_302720* a;
+    Link_302720* b;
     char pad[4];
     float blend;
 };
@@ -23,10 +23,10 @@ class Limit {
 public:
     char pad[0xc];
     float value;
-    bool FUN_00302720(Obj* o, float v);
+    bool FUN_00302720(Obj_302720* o, float v);
 };
 
-bool Limit::FUN_00302720(Obj* o, float v)
+bool Limit::FUN_00302720(Obj_302720* o, float v)
 {
     if (v > value) {
         if ((o->b->weight->w + o->a->weight->w) * DAT_004d2960 == 0.0f) {

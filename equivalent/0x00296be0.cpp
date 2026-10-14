@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // pure3d::scenegraph::Scenegraph::vfunc_13 @ 0x00296be0
-class RefCounted {
+class RefCounted_296be0 {
 public:
     virtual void AddRef() throw();
     virtual void Release() throw();
@@ -12,7 +12,7 @@ namespace pure3d {
 namespace scenegraph {
 class ShaderCallbackVisitor {
 public:
-    ShaderCallbackVisitor(RefCounted *p) throw() : shader(p) {
+    ShaderCallbackVisitor(RefCounted_296be0 *p) throw() : shader(p) {
         if (shader != 0)
             shader->AddRef();
     }
@@ -20,7 +20,7 @@ public:
         if (shader != 0)
             shader->Release();
     }
-    RefCounted *shader;
+    RefCounted_296be0 *shader;
 };
 }
 }
@@ -30,14 +30,14 @@ void __cdecl FUN_00296220(Scene *scene, pure3d::scenegraph::ShaderCallbackVisito
 class Scenegraph {
 public:
     virtual void v0();
-    virtual void vfunc_13(RefCounted *shader);
+    virtual void vfunc_13(RefCounted_296be0 *shader);
     char pad04[0x10 - 4];
-    RefCounted *shader;
+    RefCounted_296be0 *shader;
     char pad14[0x40 - 0x14];
     Scene *scene;
 };
 
-void Scenegraph::vfunc_13(RefCounted *newShader)
+void Scenegraph::vfunc_13(RefCounted_296be0 *newShader)
 {
     if (newShader != 0)
         newShader->AddRef();

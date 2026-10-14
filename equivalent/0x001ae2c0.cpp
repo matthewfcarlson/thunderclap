@@ -1,25 +1,25 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 12/12)
 // FUN_001ae2c0 @ 0x001ae2c0
-struct Vec3 {
+struct Vec3_1ae2c0 {
     float x, y, z;
 };
 
-struct Query {
+struct Query_1ae2c0 {
     void *obj;
     int kind;
     int size;
     int param;
 
-    unsigned FUN_001ad8c0(Vec3 *pos, int a3, unsigned region, int a4, int a5, int a6, int a7, int a8, int a9,
+    unsigned FUN_001ad8c0(Vec3_1ae2c0 *pos, int a3, unsigned region, int a4, int a5, int a6, int a7, int a8, int a9,
                           int a10, int a11, int a12, int a13);
 };
 
-struct Zone {
-    Vec3 *FUN_001b5a20(Query *q, unsigned id);
+struct Zone_1ae2c0 {
+    Vec3_1ae2c0 *FUN_001b5a20(Query_1ae2c0 *q, unsigned id);
 };
 
 struct Locator {
-    void FUN_001b6000(Vec3 *pos, Zone **zone, unsigned *region);
+    void FUN_001b6000(Vec3_1ae2c0 *pos, Zone_1ae2c0 **zone, unsigned *region);
 };
 
 struct World {
@@ -34,16 +34,16 @@ struct Recent {
     unsigned ids[2];
     int next;
 
-    bool FUN_001ae2c0(Vec3 *out, Vec3 *pos, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10,
+    bool FUN_001ae2c0(Vec3_1ae2c0 *out, Vec3_1ae2c0 *pos, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10,
                       int a11, int a12, int a13);
 };
 
-bool Recent::FUN_001ae2c0(Vec3 *out, Vec3 *pos, int a3, int a4, int a5, int a6, int a7, int a8, int a9,
+bool Recent::FUN_001ae2c0(Vec3_1ae2c0 *out, Vec3_1ae2c0 *pos, int a3, int a4, int a5, int a6, int a7, int a8, int a9,
                           int a10, int a11, int a12, int a13)
 {
-    Zone *zone = 0;
+    Zone_1ae2c0 *zone = 0;
     unsigned region = (unsigned)-1;
-    Vec3 p;
+    Vec3_1ae2c0 p;
     p.x = pos->x;
     p.y = pos->y;
     p.z = pos->z;
@@ -54,7 +54,7 @@ bool Recent::FUN_001ae2c0(Vec3 *out, Vec3 *pos, int a3, int a4, int a5, int a6, 
     if (region == 0)
         return false;
 
-    Query q;
+    Query_1ae2c0 q;
     q.obj = zone;
     q.kind = 2;
     q.size = 0x4c;
@@ -66,7 +66,7 @@ bool Recent::FUN_001ae2c0(Vec3 *out, Vec3 *pos, int a3, int a4, int a5, int a6, 
     if ((char)a11 == 0 && id == region)
         return false;
 
-    Vec3 *r = zone->FUN_001b5a20(&q, id);
+    Vec3_1ae2c0 *r = zone->FUN_001b5a20(&q, id);
     out->x = r->x;
     out->y = r->y;
     out->z = r->z;

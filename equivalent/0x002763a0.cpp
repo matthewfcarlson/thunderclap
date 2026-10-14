@@ -14,7 +14,7 @@ class IMutable {
     virtual void m1();
     int refCount;
 };
-class IDevice {
+class IDevice_2763a0 {
   public:
     virtual void d0();
     virtual void d1();
@@ -34,12 +34,12 @@ class SaveGameOpenRequest {
 };
 class File : public IFileBase, public IMutable {
   public:
-    File(IDevice* device, const char* name, int flag, int a4, int a5, int a6, void* userData);
+    File(IDevice_2763a0* device, const char* name, int flag, int a4, int a5, int a6, void* userData);
     virtual void f0();
     virtual void f1();
     virtual void m0();
     virtual void m1();
-    IDevice* device;
+    IDevice_2763a0* device;
     void* userData;
     int field_14;
     int field_18;
@@ -67,7 +67,7 @@ void* FUN_00273560(unsigned size);
 int thunk_FUN_00271cf0(char* dst, const char* src, unsigned n);
 char* strncpy(char* dst, const char* src, unsigned n);
 
-core::File::File(IDevice* dev, const char* nm, int fl, int a4, int a5, int a6, void* ud) {
+core::File::File(IDevice_2763a0* dev, const char* nm, int fl, int a4, int a5, int a6, void* ud) {
     refCount = 1;
     device = dev;
     userData = ud;

@@ -3,21 +3,21 @@
 extern "C" void* memset(void*, int, unsigned int);
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_312440 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Mat4 {
+struct Mat4_312440 {
     char pad00[0x30];
-    Vec3 pos;
+    Vec3_312440 pos;
     float w;
-    void FUN_0022c3b0(Vec3* in, Vec3* out);
+    void FUN_0022c3b0(Vec3_312440* in, Vec3_312440* out);
 };
 
-struct NameHolder {
+struct NameHolder_312440 {
     char pad[8];
-    void FUN_0027af70(NameHolder* src);
+    void FUN_0027af70(NameHolder_312440* src);
 };
 
 namespace pure3d {
@@ -25,25 +25,25 @@ class __declspec(novtable) Entity {
 public:
     virtual void v0();
     char pad04[4];
-    NameHolder nameHolder;
+    NameHolder_312440 nameHolder;
     void FUN_0027b070();
     Entity() { FUN_0027b070(); }
 };
 }
 
-struct Bone {
-    Vec3 pos;
-    Vec3 axis;
+struct Bone_312440 {
+    Vec3_312440 pos;
+    Vec3_312440 axis;
     float len;
 };
 
 struct SkeletonSrc {
     char pad00[8];
-    NameHolder nameHolder;
+    NameHolder_312440 nameHolder;
     int count;
     char pad14[0x1c - 0x14];
-    Mat4* local;
-    Mat4* world;
+    Mat4_312440* local;
+    Mat4_312440* world;
     char pad24[4];
     unsigned short* parent;
 };
@@ -56,7 +56,7 @@ namespace physics {
 
 class SkeletonInfo : public pure3d::Entity {
 public:
-    Bone* bones;
+    Bone_312440* bones;
     int count;
     virtual void vfunc_0();
     SkeletonInfo(SkeletonSrc* src);
@@ -66,11 +66,11 @@ SkeletonInfo::SkeletonInfo(SkeletonSrc* src)
 {
     int n = src->count;
     count = n;
-    Bone* arr = 0;
+    Bone_312440* arr = 0;
     int* mem = (int*)FUN_0008d6d0(n * 0x1c + 4);
     if (mem) {
         *mem = n;
-        arr = (Bone*)(mem + 1);
+        arr = (Bone_312440*)(mem + 1);
         for (int i = 0; i < n; i++) {
             arr[i].pos.x = 0;
             arr[i].pos.y = 0;
@@ -90,12 +90,12 @@ SkeletonInfo::SkeletonInfo(SkeletonSrc* src)
     for (int i = 1; i < count; i++) {
         int j = src->parent[i];
         if (counts[j] == 0) {
-            Vec3* p = &src->local[i].pos;
-            Bone* b = &bones[j];
+            Vec3_312440* p = &src->local[i].pos;
+            Bone_312440* b = &bones[j];
             b->pos.x = p->x + b->pos.x;
             b->pos.y = p->y + b->pos.y;
             b->pos.z = p->z + b->pos.z;
-            Vec3* q = &src->local[j].pos;
+            Vec3_312440* q = &src->local[j].pos;
             b = &bones[j];
             b->pos.x = b->pos.x - q->x;
             b->pos.y = b->pos.y - q->y;
@@ -110,8 +110,8 @@ SkeletonInfo::SkeletonInfo(SkeletonSrc* src)
     }
 
     for (int k = 0; k < count; k++) {
-        Bone* parent = &bones[src->parent[k]];
-        Bone* b = &bones[k];
+        Bone_312440* parent = &bones[src->parent[k]];
+        Bone_312440* b = &bones[k];
         b->axis.x = parent->pos.y * b->pos.z - parent->pos.z * b->pos.y;
         b->axis.y = parent->pos.z * b->pos.x - b->pos.z * parent->pos.x;
         b->axis.z = b->pos.y * parent->pos.x - parent->pos.y * b->pos.x;
@@ -130,12 +130,12 @@ SkeletonInfo::SkeletonInfo(SkeletonSrc* src)
 
     for (int k = 0; k < count; k++) {
         if (counts[k] > 0) {
-            Bone* b = &bones[k];
-            Vec3 v = b->pos;
+            Bone_312440* b = &bones[k];
+            Vec3_312440 v = b->pos;
             src->world[k].FUN_0022c3b0(&v, &b->pos);
         } else {
-            Bone* from = &bones[src->parent[k]];
-            Bone* to = &bones[k];
+            Bone_312440* from = &bones[src->parent[k]];
+            Bone_312440* to = &bones[k];
             *to = *from;
             to = &bones[k];
             to->axis.x = 1.0f;
@@ -145,9 +145,9 @@ SkeletonInfo::SkeletonInfo(SkeletonSrc* src)
     }
 
     for (int k = 1; k < count; k++) {
-        Bone* b = &bones[k];
+        Bone_312440* b = &bones[k];
         unsigned int j = src->parent[k];
-        Vec3 v = b->axis;
+        Vec3_312440 v = b->axis;
         src->world[j].FUN_0022c3b0(&v, &b->axis);
     }
 

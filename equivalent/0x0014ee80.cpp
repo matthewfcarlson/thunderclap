@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // hulkfight::motion::HitWaitAction::vfunc_5 @ 0x0014ee80
-struct Stats {
+struct Stats_14ee80 {
     char pad00[0x58];
     float primary;           // 0x58
     float secondary;         // 0x5c
@@ -8,7 +8,7 @@ struct Stats {
     float tertiary;          // 0x68
 };
 
-struct Settings {
+struct Settings_14ee80 {
     char pad00[0x10];
     int mode;                // 0x10
 };
@@ -20,7 +20,7 @@ struct Context {
 class Entity {
 public:
     virtual void v0(); virtual void v1(); virtual void v2();
-    virtual Stats *GetStats();       // slot 3
+    virtual Stats_14ee80 *GetStats();       // slot 3
     Context *FUN_000592a0();
 };
 
@@ -29,7 +29,7 @@ public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
     virtual bool vfunc_5(int a, float dt);
     char pad04[0x18];
-    Settings *settings;      // 0x1c
+    Settings_14ee80 *settings;      // 0x1c
     Entity *entity;          // 0x20
     float elapsed;           // 0x24
 };
@@ -38,7 +38,7 @@ bool HitWaitAction::vfunc_5(int a, float dt) {
     entity->FUN_000592a0()->FUN_00059a30();
     elapsed = dt + elapsed;
     float limit = 0.0f;
-    Stats *stats = entity->GetStats();
+    Stats_14ee80 *stats = entity->GetStats();
     if (stats != 0) {
         switch (settings->mode) {
         case 0:

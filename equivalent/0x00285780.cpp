@@ -5,7 +5,7 @@ extern char DAT_0042c5bc[];
 extern char DAT_0042c624[];
 extern char DAT_0042c694[];
 
-struct Ref {
+struct Ref_285780 {
     virtual void AddRef();
     virtual void Release();
 };
@@ -26,7 +26,7 @@ public:
     int field_34;
     char field_38;
     char pad39[3];
-    Ref* ref;
+    Ref_285780* ref;
     void FUN_0027b0b0(const FrameController* src);
     FrameController* FUN_00285780(const FrameController* src);
 };
@@ -47,7 +47,7 @@ FrameController* FrameController::FUN_00285780(const FrameController* src)
     field_34 = src->field_34;
     field_38 = src->field_38;
     ref = 0;
-    Ref* r = src->ref;
+    Ref_285780* r = src->ref;
     if (r != 0)
         r->AddRef();
     if (ref != 0)

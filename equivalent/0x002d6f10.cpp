@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 15/18, incomplete)
 // FUN_002d6f10 @ 0x002d6f10
-struct ZStream {
+struct ZStream_2d6f10 {
     void *next_in;
     unsigned int avail_in;
     unsigned int total_in;
@@ -15,9 +15,9 @@ struct ZStream {
     char pad2c[0x38 - 0x2c];
 };
 
-struct PngStruct {
+struct PngStruct_2d6f10 {
     char jmpbuf[0x6c];
-    ZStream zstream;
+    ZStream_2d6f10 zstream;
     void *zbuf;
     unsigned int zbufSize;
 };
@@ -26,22 +26,22 @@ extern char DAT_004d1020[];
 
 // the CRT setjmp helper (_setjmp3), named by address
 int FUN_00347250(void *jmpbuf, int count);
-PngStruct *FUN_002e6a50(int type, void *mallocFn);
-void FUN_002e6c40(PngStruct *png, void *ptr);
-void FUN_002e6bf0(PngStruct *png);
-void FUN_002e6ba0(PngStruct *png, void *memPtr, void *mallocFn, void *freeFn);
-void FUN_002e6970(PngStruct *png, void *errorPtr, void *errorFn, void *warnFn);
-void FUN_002e69a0(PngStruct *png, const char *message);
-void *FUN_002e6c00(PngStruct *png, unsigned int size);
-int FUN_002e6f50(ZStream *strm, const char *version, int streamSize);
-void FUN_002dd6f0(PngStruct *png, int a, int b);
+PngStruct_2d6f10 *FUN_002e6a50(int type, void *mallocFn);
+void FUN_002e6c40(PngStruct_2d6f10 *png, void *ptr);
+void FUN_002e6bf0(PngStruct_2d6f10 *png);
+void FUN_002e6ba0(PngStruct_2d6f10 *png, void *memPtr, void *mallocFn, void *freeFn);
+void FUN_002e6970(PngStruct_2d6f10 *png, void *errorPtr, void *errorFn, void *warnFn);
+void FUN_002e69a0(PngStruct_2d6f10 *png, const char *message);
+void *FUN_002e6c00(PngStruct_2d6f10 *png, unsigned int size);
+int FUN_002e6f50(ZStream_2d6f10 *strm, const char *version, int streamSize);
+void FUN_002dd6f0(PngStruct_2d6f10 *png, int a, int b);
 void FUN_002d6c20();
 void FUN_002d6c80();
 
-PngStruct *FUN_002d6f10(const char *userVersion, void *errorPtr, void *errorFn, void *warnFn,
+PngStruct_2d6f10 *FUN_002d6f10(const char *userVersion, void *errorPtr, void *errorFn, void *warnFn,
                         void *memPtr, void *mallocFn, void *freeFn)
 {
-    PngStruct *png = FUN_002e6a50(1, mallocFn);
+    PngStruct_2d6f10 *png = FUN_002e6a50(1, mallocFn);
     if (!png)
         return 0;
 

@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2720 inputs, branch coverage 12/12)
 // FUN_0021f640 @ 0x0021f640
 // FUN_0021f640 @ 0x0021f640: Lua 5.0 parser rule chunk(): { stat [';'] } with a nesting-depth guard
-struct FuncState {
+struct FuncState_21f640 {
     char pad00[0x24];
     int freereg;
     char pad28[0x34 - 0x28];
     unsigned char nactvar;
 };
 
-struct LexState {
+struct LexState_21f640 {
     char pad0[4];
     int linenumber;
     int lastline;
@@ -16,17 +16,17 @@ struct LexState {
     int seminfo;
     int lookaheadToken;
     int lookaheadSeminfo;
-    FuncState *fs;
+    FuncState_21f640 *fs;
     char pad20[0x30 - 0x20];
     int nestlevel;
 };
 
-int FUN_0021bbc0(LexState *ls, int *seminfo);
-void FUN_0021afd0(LexState *ls, const char *msg, int token);
+int FUN_0021bbc0(LexState_21f640 *ls, int *seminfo);
+void FUN_0021afd0(LexState_21f640 *ls, const char *msg, int token);
 // equiv-conv: FUN_0021f500 eax
-int FUN_0021f500(LexState *ls);
+int FUN_0021f500(LexState_21f640 *ls);
 
-static void next(LexState *ls)
+static void next(LexState_21f640 *ls)
 {
     ls->lastline = ls->linenumber;
     if (ls->lookaheadToken != 0x11f) {
@@ -53,7 +53,7 @@ static bool block_follow(int token)
     }
 }
 
-void FUN_0021f640(LexState *ls)
+void FUN_0021f640(LexState_21f640 *ls)
 {
     ls->nestlevel++;
     if (ls->nestlevel > 200)

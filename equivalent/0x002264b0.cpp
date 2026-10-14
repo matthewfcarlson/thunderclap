@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 17/18, incomplete)
 // FUN_002264b0 @ 0x002264b0
-struct Item { unsigned int x, y, z; };
-void __cdecl FUN_002264b0(Item* first, Item* middle, Item* last)
+struct Item_2264b0 { unsigned int x, y, z; };
+void __cdecl FUN_002264b0(Item_2264b0* first, Item_2264b0* middle, Item_2264b0* last)
 {
     int step = middle - first;
     int count = last - first;
     int a = count, b = step;
     while (b != 0) { int r = a % b; a = b; b = r; }
     if (a >= count || a <= 0) return;
-    Item* start = first + a;
+    Item_2264b0* start = first + a;
     for (int cycles = a; cycles != 0; --cycles, --start) {
-        Item saved = *start;
-        Item* destination = start;
-        Item* source = start + step;
+        Item_2264b0 saved = *start;
+        Item_2264b0* destination = start;
+        Item_2264b0* source = start + step;
         if (source == last) source = first;
         while (source != start) {
             destination->x = source->x;

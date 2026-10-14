@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 4/4)
 // FUN_0025d070 @ 0x0025d070
 // 0x0025d070: claim the global slot for obj, reporting the current owner state through the out parameters
-struct Slot {
+struct Slot_25d070 {
     char pad00[4];
     unsigned int limit;
     int field_08;
@@ -9,17 +9,17 @@ struct Slot {
     void* owner;
 };
 
-struct Obj {
+struct Obj_25d070 {
     char pad00[0x14];
     int link;
     int claimed;
 };
 
-extern Slot* DAT_004e5ce0;
+extern Slot_25d070* DAT_004e5ce0;
 int __cdecl FUN_0024c2f0();
 unsigned int __cdecl FUN_0026fd80(unsigned int a, int b, int* c);
 
-bool FUN_0025d070(Obj* obj, int arg2, unsigned int arg3, int unused, int* out5, int* out6, unsigned int* out7)
+bool FUN_0025d070(Obj_25d070* obj, int arg2, unsigned int arg3, int unused, int* out5, int* out6, unsigned int* out7)
 {
     if (DAT_004e5ce0->owner != 0)
         return false;

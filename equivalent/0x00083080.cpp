@@ -1,31 +1,31 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_00083080 @ 0x00083080
-struct Vec3 {
+struct Vec3_83080 {
     float x, y, z;
 };
 
-class Xform {
+class Xform_83080 {
 public:
-    void FUN_0022c3b0(Vec3 *in, Vec3 *out);
-    void FUN_0022cc90(Vec3 *v);
+    void FUN_0022c3b0(Vec3_83080 *in, Vec3_83080 *out);
+    void FUN_0022cc90(Vec3_83080 *v);
 };
 
-void __cdecl FUN_00224d70(float angle, Vec3 *axis);
+void __cdecl FUN_00224d70(float angle, Vec3_83080 *axis);
 
 class Aligner {
 public:
     char pad0[0x1d];
     bool useXform;
     char pad1e[0x0e];
-    Vec3 dir;
-    bool FUN_00083080(Xform *xf, Vec3 *target, float angle);
+    Vec3_83080 dir;
+    bool FUN_00083080(Xform_83080 *xf, Vec3_83080 *target, float angle);
 };
 
-bool Aligner::FUN_00083080(Xform *xf, Vec3 *target, float angle)
+bool Aligner::FUN_00083080(Xform_83080 *xf, Vec3_83080 *target, float angle)
 {
     if (useXform) {
-        Vec3 up;
-        Vec3 rotated;
+        Vec3_83080 up;
+        Vec3_83080 rotated;
         up.x = 0.0f;
         up.y = 0.0f;
         up.z = 1.0f;

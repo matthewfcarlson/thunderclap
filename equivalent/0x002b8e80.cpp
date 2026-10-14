@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002b8e80 @ 0x002b8e80
 struct Matrix { char data[64]; void FUN_0022b980(); };
-struct Base {
+struct Base_2b8e80 {
  virtual void slot0();
  int reserved04,reserved08,reserved0c;
  int x10,x14,x18,x1c,x20,x24,x28,x2c,x30,x34;
- Base();
+ Base_2b8e80();
 };
 namespace pure3d {
-struct BillboardQuad : Base {
+struct BillboardQuad : Base_2b8e80 {
  bool enabled; char pad39[3]; int index;
  Matrix matrix;
  float scaleX,scaleY; int zero88; bool flag; char pad8d[3]; int mode,zero94;

@@ -23,16 +23,16 @@ extern float DAT_004ddfe4;
 extern float DAT_004ddfe8;
 extern int DAT_004ddfec;
 
-struct V3 {
+struct V3_d40e0 {
     float x, y, z;
 };
 
-struct Source {
+struct Source_d40e0 {
     char pad0[0x34];
     int value;
 };
 
-struct Mode {
+struct Mode_d40e0 {
     char pad0[0x10c];
     int kind;
 };
@@ -43,9 +43,9 @@ struct Camera {
     float FUN_000d6d90(void *owner);
 };
 
-float __cdecl FUN_000f6a70(void *rig, V3 *v, Mode *mode);
+float __cdecl FUN_000f6a70(void *rig, V3_d40e0 *v, Mode_d40e0 *mode);
 
-struct Item {
+struct Item_d40e0 {
     short w0;
     char pad02[0xfe];
     int v100;
@@ -53,20 +53,20 @@ struct Item {
     int v108;
 };
 
-class Screen {
+class Screen_d40e0 {
 public:
     char pad0[4];
     bool f4;
     char pad5[3];
-    Source *source;
-    Mode *mode;
+    Source_d40e0 *source;
+    Mode_d40e0 *mode;
     int f10;
     char pad14[0x248 - 0x14];
     bool flagA;
     char pad249[0x484 - 0x249];
     bool flagB;
     char pad485[7];
-    Item items[3];
+    Item_d40e0 items[3];
     char pad7b0[4];
     float f7b4;
     int f7b8;
@@ -82,12 +82,12 @@ public:
     float f808;
     bool f80c;
 
-    void FUN_000d40e0(Source *src, Mode *m, Camera *cam);
+    void FUN_000d40e0(Source_d40e0 *src, Mode_d40e0 *m, Camera *cam);
 };
 
-void Screen::FUN_000d40e0(Source *src, Mode *m, Camera *cam)
+void Screen_d40e0::FUN_000d40e0(Source_d40e0 *src, Mode_d40e0 *m, Camera *cam)
 {
-    V3 v;
+    V3_d40e0 v;
     source = src;
     mode = m;
     v.x = DAT_004de600 * -0.5f;

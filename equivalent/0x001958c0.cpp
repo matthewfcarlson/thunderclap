@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 30/30)
 // FUN_001958c0 @ 0x001958c0
-struct V3 {
+struct V3_1958c0 {
     float x, y, z;
 };
 
-struct Tag {
+struct Tag_1958c0 {
     char pad00[0x1b0];
     int kind;
 };
@@ -26,34 +26,34 @@ struct Entity {
     void FUN_001d82d0();
     bool FUN_001d7300();
     void FUN_001d6ec0(int a, int b, int c);
-    void FUN_001d86d0(V3 *v, int a);
+    void FUN_001d86d0(V3_1958c0 *v, int a);
 };
 
-struct Info {
+struct Info_1958c0 {
     char pad00[0x11c];
-    Tag *tag;
+    Tag_1958c0 *tag;
     char pad120[0x128 - 0x120];
     Entity *f128;
     int f12c;
     Entity *FUN_00035ef0(int i);
 };
 
-struct Scale {
+struct Scale_1958c0 {
     float FUN_001dddf0();
 };
 
-struct Mgr {
-    Info *FUN_00059c10(int id);
+struct Mgr_1958c0 {
+    Info_1958c0 *FUN_00059c10(int id);
 };
 
 struct World {
     char pad00[0xc];
-    Scale *scale;
+    Scale_1958c0 *scale;
     char pad10[0x44 - 0x10];
-    Mgr *mgr;
+    Mgr_1958c0 *mgr;
 };
 
-struct Holder {
+struct Holder_1958c0 {
     char pad00[8];
     Entity *entity;
     char pad0c[0x70 - 0xc];
@@ -63,10 +63,10 @@ struct Holder {
 extern World *DAT_004dd700;
 
 // equiv-conv: FUN_00195560 eax ecx ebx stack stack stack stack stack stack stack stack stack stack stack
-extern bool FUN_00195560(int a0, V3 *a6, int a4, int id, int a2, int a3, int a5, float a7, float a8, int a9, int a10, int z0, float one, int z1);
+extern bool FUN_00195560(int a0, V3_1958c0 *a6, int a4, int id, int a2, int a3, int a5, float a7, float a8, int a9, int a10, int z0, float one, int z1);
 
 // equiv-conv: FUN_001958c0 eax stack stack stack stack stack stack stack stack stack stack
-bool FUN_001958c0(int id, Holder *h, int a2, int a3, int a4, int a5, V3 *a6, float a7, float a8, int a9, int a10)
+bool FUN_001958c0(int id, Holder_1958c0 *h, int a2, int a3, int a4, int a5, V3_1958c0 *a6, float a7, float a8, int a9, int a10)
 {
     Entity *e = h->entity;
     if (!e)
@@ -74,7 +74,7 @@ bool FUN_001958c0(int id, Holder *h, int a2, int a3, int a4, int a5, V3 *a6, flo
     if (e->f148)
         return FUN_00195560(e->f148->id, a6, a4, id, a2, a3, a5, a7, a8, a9, a10, 0, 1.0f, 0);
 
-    Info *p = DAT_004dd700->mgr->FUN_00059c10(id);
+    Info_1958c0 *p = DAT_004dd700->mgr->FUN_00059c10(id);
     if (p) {
         if (e == p->f128)
             return false;
@@ -92,12 +92,12 @@ bool FUN_001958c0(int id, Holder *h, int a2, int a3, int a4, int a5, V3 *a6, flo
         return false;
     e->FUN_001d82d0();
     if (a8 > 0.0f) {
-        Info *q = DAT_004dd700->mgr->FUN_00059c10(id);
+        Info_1958c0 *q = DAT_004dd700->mgr->FUN_00059c10(id);
         int v = q ? q->f12c : 0;
         e->FUN_001d6ec0((int)a8, v, 0);
     }
     if (e->FUN_001d7300() && e->f114 == 0 && h->f70 != 0 && a7 != 0.0f) {
-        V3 v = *a6;
+        V3_1958c0 v = *a6;
         v.x = v.x * a7;
         v.y = v.y * a7;
         v.z = v.z * a7;

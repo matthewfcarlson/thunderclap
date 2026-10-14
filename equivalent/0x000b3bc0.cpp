@@ -1,23 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000b3bc0 @ 0x000b3bc0
-struct Sample { unsigned int words[17]; };
-struct Vector3 { unsigned int x,y,z; };
-struct Block { Vector3 vectors[13]; char rest[112]; };
-struct Source {
- void FUN_000ada90(Sample*);
- void FUN_000adad0(Sample*);
+struct Sample_b3bc0 { unsigned int words[17]; };
+struct Vector3_b3bc0 { unsigned int x,y,z; };
+struct Block_b3bc0 { Vector3_b3bc0 vectors[13]; char rest[112]; };
+struct Source_b3bc0 {
+ void FUN_000ada90(Sample_b3bc0*);
+ void FUN_000adad0(Sample_b3bc0*);
 };
 extern unsigned char DAT_004e222c;
 struct Object {
  char pad[8];
- Source* source;
- Block first;
- Block second;
- void FUN_000b36d0(Block*, Sample, unsigned int);
+ Source_b3bc0* source;
+ Block_b3bc0 first;
+ Block_b3bc0 second;
+ void FUN_000b36d0(Block_b3bc0*, Sample_b3bc0, unsigned int);
  void FUN_000b3bc0(unsigned int arg);
 };
 void Object::FUN_000b3bc0(unsigned int arg) {
- Sample sample;
+ Sample_b3bc0 sample;
  source->FUN_000ada90(&sample);
  FUN_000b36d0(&first,sample,arg);
  source->FUN_000adad0(&sample);

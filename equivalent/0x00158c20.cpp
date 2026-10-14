@@ -28,11 +28,11 @@ template <class T> struct ConditionFactoryCasterTemplate {
     virtual void Create();
 };
 }
-struct Registry {
+struct Registry_158c20 {
     void FUN_00236760(void*);
 };
 extern void* __cdecl FUN_002343e0(const char*, void*);
-void __cdecl FUN_00158c20(Registry* registry) {
+void __cdecl FUN_00158c20(Registry_158c20* registry) {
     {
         fight::ConditionFactoryCasterTemplate<hulkfight::motion::InterruptAccumulatorCondition> caster;
         registry->FUN_00236760(FUN_002343e0("interruptAccumulator", &caster));

@@ -1,27 +1,27 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 16/16)
 // FUN_00036480 @ 0x00036480
-struct Vec3 { float x, y, z; };
+struct Vec3_36480 { float x, y, z; };
 
-struct Mat {
+struct Mat_36480 {
     float m[16];
 };
 
-struct Xform {
+struct Xform_36480 {
     char pad0[4];
-    const Mat *FUN_00221c40();
+    const Mat_36480 *FUN_00221c40();
 };
 
-struct Body {
+struct Body_36480 {
     char pad0[0x10];
-    Xform xform;
+    Xform_36480 xform;
 };
 
-struct Fighter { char pad[4]; };
-Body *__fastcall FUN_00059a40(Fighter *f);
+struct Fighter_36480 { char pad[4]; };
+Body_36480 *__fastcall FUN_00059a40(Fighter_36480 *f);
 
 class Drawable;
 
-struct Holder {
+struct Holder_36480 {
     char pad0[0x20];
     Drawable *target;
 };
@@ -34,16 +34,16 @@ public:
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual void Draw(const Mat *m, int arg);
+    virtual void Draw(const Mat_36480 *m, int arg);
     virtual void v7();
     virtual void v8();
     virtual void v9();
     virtual void v10();
     char pad04[0x74 - 4];
-    Holder *holder;
+    Holder_36480 *holder;
 };
 
-struct Props {
+struct Props_36480 {
     char pad0[0x30];
     float f30;
     float f34;
@@ -53,15 +53,15 @@ class Overlay {
 public:
     char pad0[1];
     Drawable *FUN_001d72e0();
-    void FUN_001d6b60(Mat m, int flag);
+    void FUN_001d6b60(Mat_36480 m, int flag);
 };
 
-class Actor {
+class Actor_36480 {
 public:
     char pad0[0x10];
-    Fighter *fighter;
+    Fighter_36480 *fighter;
     char pad14[0x11c - 0x14];
-    Props *props;
+    Props_36480 *props;
     char pad120[0x128 - 0x120];
     Overlay *overlay;
     Drawable *shadow;
@@ -70,21 +70,21 @@ public:
     int mode;
     char pad144[0x22e0 - 0x144];
     char overlayEnabled;
-    void FUN_00035550(Vec3 *out);
+    void FUN_00035550(Vec3_36480 *out);
     void FUN_00036480(int unused, int arg);
 };
 
-struct Frame {
-    Vec3 offset;
-    Mat shadowMat;
-    Mat bodyMat;
+struct Frame_36480 {
+    Vec3_36480 offset;
+    Mat_36480 shadowMat;
+    Mat_36480 bodyMat;
 };
 
-void Actor::FUN_00036480(int unused, int arg)
+void Actor_36480::FUN_00036480(int unused, int arg)
 {
-    Frame f;
+    Frame_36480 f;
     FUN_00059a40(fighter);
-    Body *body = FUN_00059a40(fighter);
+    Body_36480 *body = FUN_00059a40(fighter);
     if (body != 0)
         f.bodyMat = *body->xform.FUN_00221c40();
     if (shadow != 0) {

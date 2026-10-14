@@ -22,25 +22,25 @@ struct ScriptArgs {
     void FUN_001d1630();
 };
 
-struct Script {
+struct Script_b89e0 {
     int FUN_001d3b00(const char* name, ScriptArgs args);
     const char* FUN_001d27b0(const char* name);
 };
 
-extern Script* __cdecl FUN_001d4c90();
+extern Script_b89e0* __cdecl FUN_001d4c90();
 
-struct Label {
+struct Label_b89e0 {
     void FUN_000f8500(const char* text, int a, char flag);
 };
 
-class Panel {
+class Panel_b89e0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
     char pad04[0x18 - 4];
-    Label label;                // 0x18
+    Label_b89e0 label;                // 0x18
 };
 
 struct TitleText {
@@ -53,14 +53,14 @@ struct ContinueButton {
     void FUN_000e2a60(const char* text);
 };
 
-struct Progress {
+struct Progress_b89e0 {
     int FUN_00088fa0();
     int FUN_00088fb0();
 };
 
-struct Mission {
+struct Mission_b89e0 {
     char pad0[0x80];
-    Progress progress;          // 0x80
+    Progress_b89e0 progress;          // 0x80
     const char* FUN_0008a2d0();
     const char* FUN_0008a060(const char* id);
 };
@@ -68,7 +68,7 @@ struct Mission {
 class MissionFailMenu {
 public:
     char pad00[0x34];
-    Mission* mission;           // 0x34
+    Mission_b89e0* mission;           // 0x34
     char pad38[0x1bcc - 0x38];
     char hint[0x40];            // 0x1bcc
     void FUN_000b89e0();
@@ -86,7 +86,7 @@ void MissionFailMenu::FUN_000b89e0()
     const char* id = mission->FUN_0008a2d0();
     const char* state = mission->FUN_0008a060(id);
     if (memcmp(state, "complete", 9) != 0) {
-        Script* script = FUN_001d4c90();
+        Script_b89e0* script = FUN_001d4c90();
         if (script != 0) {
             f.args.FUN_001d1630();
             f.args.tag = 0;
@@ -97,7 +97,7 @@ void MissionFailMenu::FUN_000b89e0()
         }
     }
 
-    Panel* title = (Panel*)FUN_00344e74(FUN_000fc260("Mission_Failure"), 0, DAT_0049dba4, DAT_0049f470, 0);
+    Panel_b89e0* title = (Panel_b89e0*)FUN_00344e74(FUN_000fc260("Mission_Failure"), 0, DAT_0049dba4, DAT_0049f470, 0);
     if (title != 0) {
         title->label.FUN_000f8500(hint, FUN_000fc1b0(), 1);
         title->vfunc_3();

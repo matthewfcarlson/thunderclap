@@ -13,7 +13,7 @@ struct Pose {
     void FUN_00221ee0();
 };
 
-struct Target {
+struct Target_223fa0 {
     char pad0[0x20];
     char b20;
     char b21;
@@ -21,7 +21,7 @@ struct Target {
     char b23;
 };
 
-struct Layer {
+struct Layer_223fa0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -32,11 +32,11 @@ struct Layer {
     virtual void v7();
     virtual void v8();
     virtual void v9();
-    virtual void Apply(Pose *out, Pose *xform, Target *target, float weight);
+    virtual void Apply(Pose *out, Pose *xform, Target_223fa0 *target, float weight);
 };
 
-struct Elem {
-    Layer *layer;
+struct Elem_223fa0 {
+    Layer_223fa0 *layer;
     char pad4[0x10];
     int key;        // 0x14
     float factor;   // 0x18
@@ -44,26 +44,26 @@ struct Elem {
     float weight;   // 0x24
 };
 
-void __cdecl FUN_00223dc0(Elem *first, Elem *last, int depth);
+void __cdecl FUN_00223dc0(Elem_223fa0 *first, Elem_223fa0 *last, int depth);
 
-class Blender {
+class Blender_223fa0 {
 public:
     char pad0[0x10];
     Pose xform;         // 0x10
-    Target *target;     // 0x64
+    Target_223fa0 *target;     // 0x64
     unsigned int count; // 0x68
-    Elem elems[16];     // 0x6c
+    Elem_223fa0 elems[16];     // 0x6c
     bool dirty;         // 0x2ec
     void FUN_00223fa0();
 };
 
-void Blender::FUN_00223fa0()
+void Blender_223fa0::FUN_00223fa0()
 {
     if (count == 0)
         return;
     if (dirty) {
-        Elem *first = elems;
-        Elem *last = elems + count;
+        Elem_223fa0 *first = elems;
+        Elem_223fa0 *last = elems + count;
         dirty = false;
         FUN_00223dc0(first, last, (int)(last - first));
     }

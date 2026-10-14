@@ -10,14 +10,14 @@ extern int DAT_004e5cf4;
 void __cdecl FUN_00257df0(int*);
 void __cdecl FUN_0024c760();
 namespace DSOUND { void __stdcall IDirectSound_Release(void*); }
-struct Temp { char data[0x40]; int FUN_002584d0(int*, int*, int, int); void FUN_002580e0(); };
+struct Temp_240eb0 { char data[0x40]; int FUN_002584d0(int*, int*, int, int); void FUN_002580e0(); };
 void __cdecl FUN_00247550(int, AudioState*);
 void FUN_00240eb0() {
     FUN_00257df0(&DAT_004e5ce0->first);
     FUN_00257df0(&DAT_004e5ce0->second);
     FUN_0024c760();
     DSOUND::IDirectSound_Release(DAT_004e5ce0->sound);
-    struct Frame { int pair0[2]; int pair1[2]; Temp temp; } fr;
+    struct Frame { int pair0[2]; int pair1[2]; Temp_240eb0 temp; } fr;
     fr.pair0[0] = DAT_004e5ce8; fr.pair0[1] = DAT_004e5cec;
     fr.pair1[0] = DAT_004e5cf0; fr.pair1[1] = DAT_004e5cf4;
     AudioState* state = DAT_004e5ce0;

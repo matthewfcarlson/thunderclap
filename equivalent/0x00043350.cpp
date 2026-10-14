@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3042 inputs, branch coverage 64/76, incomplete)
 // FUN_00043350 @ 0x00043350
-struct Unit;
-struct Target;
+struct Unit_43350;
+struct Target_43350;
 
-union Arg2 {
-    Target *t;
+union Arg2_43350 {
+    Target_43350 *t;
     char result;
 };
 
@@ -13,7 +13,7 @@ union Arg6 {
     int neg;
 };
 
-struct Obj11c {
+struct Obj11c_43350 {
     char pad0[0x174];
     float f174;
     char pad178[0x188 - 0x178];
@@ -30,60 +30,60 @@ struct Timer {
     float FUN_00086080();
 };
 
-struct Next {
-    void FUN_00067870(Unit *u);
+struct Next_43350 {
+    void FUN_00067870(Unit_43350 *u);
 };
-Next *__cdecl FUN_000678d0();
+Next_43350 *__cdecl FUN_000678d0();
 
-struct Check {
+struct Check_43350 {
     char FUN_00092940(int v);
 };
 
-struct Holder54 {
-    Check *FUN_00086340();
+struct Holder54_43350 {
+    Check_43350 *FUN_00086340();
     struct W { void FUN_000d6e00(int v); } *FUN_000862b0();
 };
 
-struct Hook {
+struct Hook_43350 {
     void FUN_001cd5b0(float v);
 };
 
-struct Listener {
+struct Listener_43350 {
     void FUN_000fe4d0(void *target, int flag);
 };
 
-struct Mgr {
+struct Mgr_43350 {
     char pad0[0x20];
-    Unit *player;               // 0x20
+    Unit_43350 *player;               // 0x20
     char pad24[0x2c - 0x24];
-    Hook *hook;                 // 0x2c
+    Hook_43350 *hook;                 // 0x2c
     char pad30[0x54 - 0x30];
-    Holder54 *holder;           // 0x54
+    Holder54_43350 *holder;           // 0x54
     Timer *timer;               // 0x58
 };
 
-struct Target {
+struct Target_43350 {
     char pad0[8];
-    Unit *unit;                 // 0x08
+    Unit_43350 *unit;                 // 0x08
     int kind;                   // 0x0c
 };
 
 struct Link128 {
     char pad0[0x11c];
-    Obj11c *obj;
+    Obj11c_43350 *obj;
 };
 
-struct Out {
+struct Out_43350 {
     void FUN_001c4ac0(int *tmp, float f);
 };
 
-struct Unit {
+struct Unit_43350 {
     char pad0[0x10];
-    Unit *link10;               // 0x10
+    Unit_43350 *link10;               // 0x10
     char pad14[0x11c - 0x14];
-    Obj11c *obj;                // 0x11c
+    Obj11c_43350 *obj;                // 0x11c
     char pad120[4];
-    Unit *link124;              // 0x124
+    Unit_43350 *link124;              // 0x124
     Link128 *link128;           // 0x128
     void *f12c;                 // 0x12c
     char pad130[0x1b0c - 0x130];
@@ -93,7 +93,7 @@ struct Unit {
     float f1b2c;
     float f1b30;
     char pad1b34[0x1ca0 - 0x1b34];
-    Listener *listener;         // 0x1ca0
+    Listener_43350 *listener;         // 0x1ca0
     char pad1ca4[0x1cef - 0x1ca4];
     unsigned char b1cef;
     char pad1cf0[0x1d20 - 0x1cf0];
@@ -110,27 +110,27 @@ struct Unit {
     char b22e8;
     char pad22e9[3];
     void FUN_000403f0();
-    void FUN_000385a0(Target *t, int v);
+    void FUN_000385a0(Target_43350 *t, int v);
     char FUN_0003b1c0(float v, char flag);
     void FUN_00025720(int v);
-    Out *FUN_00036a80(int a);
-    char FUN_00043350(float dt, Arg2 p2, int a, float one, char c, Arg6 p6);
+    Out_43350 *FUN_00036a80(int a);
+    char FUN_00043350(float dt, Arg2_43350 p2, int a, float one, char c, Arg6 p6);
 };
 
-extern Mgr *DAT_004dd700;
+extern Mgr_43350 *DAT_004dd700;
 extern float DAT_004dc304;
 extern float DAT_004dc308;
 float __cdecl FUN_00045670();
 
-struct Frame {
-    Unit *player;               // R-8
-    Mgr *mgr;                   // R-4
+struct Frame_43350 {
+    Unit_43350 *player;               // R-8
+    Mgr_43350 *mgr;                   // R-4
 };
 
 
-char Unit::FUN_00043350(float dt, Arg2 p2, int a, float one, char c, Arg6 p6)
+char Unit_43350::FUN_00043350(float dt, Arg2_43350 p2, int a, float one, char c, Arg6 p6)
 {
-    Frame f;
+    Frame_43350 f;
     f.mgr = DAT_004dd700;
     f.player = f.mgr->player;
     Timer *timer = f.mgr->timer;
@@ -144,8 +144,8 @@ char Unit::FUN_00043350(float dt, Arg2 p2, int a, float one, char c, Arg6 p6)
     if (obj == 0)
         return 0;
 
-    Target *t = p2.t;
-    Unit *ptarget = 0;
+    Target_43350 *t = p2.t;
+    Unit_43350 *ptarget = 0;
     if (t != 0 && t->kind == 1) {
         ptarget = t->unit;
         if (ptarget != 0 && !c && !b2138) {
@@ -157,7 +157,7 @@ char Unit::FUN_00043350(float dt, Arg2 p2, int a, float one, char c, Arg6 p6)
         if (f.player->link124 == ptarget) {
             if (one < f213c)
                 dt = 0;
-            Check *chk = DAT_004dd700->holder->FUN_00086340();
+            Check_43350 *chk = DAT_004dd700->holder->FUN_00086340();
             if (chk->FUN_00092940(0x14))
                 dt = dt + dt;
         }
@@ -166,9 +166,9 @@ char Unit::FUN_00043350(float dt, Arg2 p2, int a, float one, char c, Arg6 p6)
     }
     FUN_000385a0(t, 0);
     double v;
-    Mgr *mgr = f.mgr;
+    Mgr_43350 *mgr = f.mgr;
     if (f.player->link124 == this) {
-        Check *chk = mgr->holder->FUN_00086340();
+        Check_43350 *chk = mgr->holder->FUN_00086340();
         if (chk->FUN_00092940(0x2e4))
             v = 0.0f;
         else
@@ -176,7 +176,7 @@ char Unit::FUN_00043350(float dt, Arg2 p2, int a, float one, char c, Arg6 p6)
     } else {
         v = dt;
     }
-    Obj11c *o = obj;
+    Obj11c_43350 *o = obj;
     if (f1b28 == 0) {
         dt = (float)(v * o->f310);
     } else {
@@ -200,10 +200,10 @@ char Unit::FUN_00043350(float dt, Arg2 p2, int a, float one, char c, Arg6 p6)
             b22e8 = 1;
     }
     if (this == mgr->player->link124) {
-        Holder54 *h = DAT_004dd700->holder;
+        Holder54_43350 *h = DAT_004dd700->holder;
         h->FUN_000862b0()->FUN_000d6e00(4);
     }
-    Unit *pl = f.player;
+    Unit_43350 *pl = f.player;
     if (pl->link124 != this) {
         if (listener != 0)
             listener->FUN_000fe4d0(pl->link124->f12c, 1);

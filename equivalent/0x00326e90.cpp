@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 28/28)
 // FUN_00326e90 @ 0x00326e90
-struct Format { char pad[8]; unsigned flags; unsigned unused; unsigned count; };
-struct Layout {
- char pad[8]; Format* format; char* base; unsigned zero; unsigned arg; unsigned count; unsigned texCount; unsigned blendCount; char* position; unsigned reserved; char* normal; char* blend; char* color; char* tex; char* extra1; char* extra2; char* extra3; char* extra4; char* weight; char* point;
- char* FUN_00326e90(char* data, Format* fmt, unsigned value, unsigned unused);
+struct Format_326e90 { char pad[8]; unsigned flags; unsigned unused; unsigned count; };
+struct Layout_326e90 {
+ char pad[8]; Format_326e90* format; char* base; unsigned zero; unsigned arg; unsigned count; unsigned texCount; unsigned blendCount; char* position; unsigned reserved; char* normal; char* blend; char* color; char* tex; char* extra1; char* extra2; char* extra3; char* extra4; char* weight; char* point;
+ char* FUN_00326e90(char* data, Format_326e90* fmt, unsigned value, unsigned unused);
 };
-char* Layout::FUN_00326e90(char* data, Format* fmt, unsigned value, unsigned unused) {
+char* Layout_326e90::FUN_00326e90(char* data, Format_326e90* fmt, unsigned value, unsigned unused) {
  base=data; zero=0; arg=value; reserved=0; blend=0; color=0; tex=0; extra1=0; extra2=0; extra3=0; extra4=0; point=0; weight=0; format=fmt;
  unsigned flags=fmt->flags;
  unsigned n=(flags&0x20)?1:((flags&0x4000)?((flags>>15)&7):0);

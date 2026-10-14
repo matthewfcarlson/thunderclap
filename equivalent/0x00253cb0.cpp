@@ -17,7 +17,7 @@ public:
     virtual void v12();
 };
 
-struct Owner {
+struct Owner_253cb0 {
     char pad00[0x84];
     int f84;
 };
@@ -26,7 +26,7 @@ struct Stream {
     char pad00[0x34];
     void *source;          // 0x34
     Reader *reader;        // 0x38
-    Owner *owner;          // 0x3c
+    Owner_253cb0 *owner;          // 0x3c
     char pad40[0x5c - 0x40];
     unsigned char done;    // 0x5c
     void FUN_0025d480(int *pos);

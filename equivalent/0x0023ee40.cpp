@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 10/10)
 // FUN_0023ee40 @ 0x0023ee40
-typedef void (__cdecl *Callback)();
+typedef void (__cdecl *Callback_23ee40)();
 void __cdecl FUN_0023ea20();
 void __cdecl FUN_0023ea30();
 void __cdecl FUN_0023ea40();
@@ -12,21 +12,21 @@ class SpawnTrack;
 template<class T> struct ParamFloatConstRange {
  virtual void slot0();
  char padding[12];
- Callback callback;
+ Callback_23ee40 callback;
  int tail;
  void FUN_00234960(const char*);
 };
 template<class T> struct ParamBranch {
  virtual void slot0();
  char padding[12];
- Callback callback;
+ Callback_23ee40 callback;
  int tail;
  void FUN_00235170(const char*);
 };
 template<class T> struct ParamConditionGroup {
  virtual void slot0();
  char padding[12];
- Callback callback;
+ Callback_23ee40 callback;
  int tail;
  void FUN_00235220(const char*);
 };

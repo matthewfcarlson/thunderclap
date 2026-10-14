@@ -9,7 +9,7 @@ public:
     virtual float GetWidth(const unsigned short *text);             // slot 10
 };
 
-struct Owner {
+struct Owner_f88a0 {
     char pad0[0x24];
     Font *fonts[1];         // 0x24
 };
@@ -19,22 +19,22 @@ struct StyleEntry {
     float pad[3];
 };
 
-class Label;
+class Label_f88a0;
 
-struct Run {
+struct Run_f88a0 {
     int fontIndex;          // 0x0
-    const unsigned short *FUN_000f83f0(Owner *owner, Label *label);
+    const unsigned short *FUN_000f83f0(Owner_f88a0 *owner, Label_f88a0 *label);
 };
 
-class Label {
+class Label_f88a0 {
 public:
-    Owner *owner;           // 0x0
+    Owner_f88a0 *owner;           // 0x0
     char pad4[4];
     StyleEntry styles[8];   // 0x8
     int style;              // 0x88
     float spacing;          // 0x8c
 
-    float FUN_000f88a0(Run *run);
+    float FUN_000f88a0(Run_f88a0 *run);
 };
 
 static __forceinline int CountBackspaces(const unsigned short *p)
@@ -49,7 +49,7 @@ static __forceinline int CountBackspaces(const unsigned short *p)
     return count;
 }
 
-float Label::FUN_000f88a0(Run *run)
+float Label_f88a0::FUN_000f88a0(Run_f88a0 *run)
 {
     const unsigned short *text = run->FUN_000f83f0(owner, this);
     Font *font = owner->fonts[run->fontIndex];

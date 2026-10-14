@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002fcf30 @ 0x002fcf30
 struct Vector { float x,y,z; };
-struct Tensor {
+struct Tensor_2fcf30 {
  char pad[4]; float a,b,c,d,e,f;
  void FUN_002fcf30(const Vector* v);
 };
-void Tensor::FUN_002fcf30(const Vector* v) {
+void Tensor_2fcf30::FUN_002fcf30(const Vector* v) {
  volatile float A=c*v->y-v->z*b;
  volatile float B=e*v->y-v->z*d;
  double C=(double)f*v->y-(double)v->z*e;

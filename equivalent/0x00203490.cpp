@@ -16,7 +16,7 @@ template <> struct TypeTag<float> { static const void* get() { return &DAT_0048e
 template <> struct TypeTag<const char*> { static const void* get() { return &DAT_0048e0f0; } };
 template <> struct TypeTag<math::Vector> { static const void* get() { return &DAT_0048e10c; } };
 
-class __declspec(novtable) MethodBase {
+class __declspec(novtable) MethodBase_203490 {
   public:
     virtual void m0();
     char pad_04[0xc];
@@ -25,14 +25,14 @@ class __declspec(novtable) MethodBase {
     char retType;
     char pad_19[3];
     void FUN_001d0480(const char*, int);
-    MethodBase(const char* n, int k) { FUN_001d0480(n, k); }
+    MethodBase_203490(const char* n, int k) { FUN_001d0480(n, k); }
 };
 
 template <class T, class R, class A>
-class Method1 : public MethodBase {
+class Method1 : public MethodBase_203490 {
   public:
     typedef R (T::*Fn)(A);
-    Method1(const char* name, Fn f) : MethodBase(name, 1) {
+    Method1(const char* name, Fn f) : MethodBase_203490(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argType = FUN_001d04d0(TypeTag<A>::get());
@@ -49,11 +49,11 @@ class Closure1 : public Method1<T, R, A> {
 
 class CWorldCollisionManager;
 
-struct Registry {
+struct Registry_203490 {
     void FUN_001d3b70(const char* name, void* closure);
     void FUN_002033d0(const char* name, CWorldCollisionManager* owner, float (CWorldCollisionManager::*fn)());
 };
-Registry* FUN_001d4c90();
+Registry_203490* FUN_001d4c90();
 
 class CWorldCollisionManager {
   public:
@@ -67,7 +67,7 @@ class CWorldCollisionManager {
 
 void CWorldCollisionManager::FUN_00203490()
 {
-    Registry* reg = FUN_001d4c90();
+    Registry_203490* reg = FUN_001d4c90();
     if (reg) {
         void* mem;
 

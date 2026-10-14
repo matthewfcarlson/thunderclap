@@ -1,68 +1,68 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 32/32)
 // FUN_001da350 @ 0x001da350
-class RefCounted {
+class RefCounted_1da350 {
 public:
     virtual void addRef();
     virtual void release();
 };
 
-struct Raw3 {
+struct Raw3_1da350 {
     unsigned a, b, c;
 };
 
-struct Xform {
+struct Xform_1da350 {
     char pad[0x30];
-    Raw3 pos;
+    Raw3_1da350 pos;
 };
 
-class PosSource {
+class PosSource_1da350 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual Raw3 *getPos();
+    virtual Raw3_1da350 *getPos();
 };
 
 struct Inner70 {
-    void FUN_002f5a20(Raw3 *p);
+    void FUN_002f5a20(Raw3_1da350 *p);
 };
 
-struct Mid10 {
+struct Mid10_1da350 {
     char pad[0x70];
     Inner70 *p70;
 };
 
 struct HolderA0 {
     char pad[0x10];
-    Mid10 *p10;
-    Xform *FUN_002fc6f0();
+    Mid10_1da350 *p10;
+    Xform_1da350 *FUN_002fc6f0();
 };
 
-struct Reg124 {
+struct Reg124_1da350 {
     char pad[0x12c];
-    RefCounted *key;
+    RefCounted_1da350 *key;
 };
 
-struct Reg20 {
+struct Reg20_1da350 {
     char pad[0x124];
-    Reg124 *p124;
+    Reg124_1da350 *p124;
     void FUN_00029b50(unsigned a, unsigned b, unsigned c);
 };
 
-struct Globals {
+struct Globals_1da350 {
     char pad[0x20];
-    Reg20 *p20;
+    Reg20_1da350 *p20;
 };
 
-extern Globals *DAT_004dd700;
+extern Globals_1da350 *DAT_004dd700;
 
-struct Sub240 {
+struct Sub240_1da350 {
     char pad[8];
     void FUN_0027af70(unsigned a);
 };
 
-struct Ready {
+struct Ready_1da350 {
     char FUN_001d4ef0();
 };
 
@@ -71,40 +71,40 @@ public:
     char pad00[0xa0];
     HolderA0 *holder;        // 0xa0
     char pada4[0xec - 0xa4];
-    Ready *ready;            // 0xec
+    Ready_1da350 *ready;            // 0xec
     char padf0[0x114 - 0xf0];
     int f114;
     char pad118[4];
-    PosSource *posSource;    // 0x11c
+    PosSource_1da350 *posSource;    // 0x11c
     char pad120[0x188 - 0x120];
-    Raw3 pos;                // 0x188
+    Raw3_1da350 pos;                // 0x188
     char pad194[0x1fc - 0x194];
-    RefCounted *rc1fc;
-    Raw3 v200;
-    Raw3 v20c;
+    RefCounted_1da350 *rc1fc;
+    Raw3_1da350 v200;
+    Raw3_1da350 v20c;
     unsigned f218;
-    RefCounted *rc21c;
-    Raw3 v220;
-    Raw3 v22c;
-    RefCounted *rc238;
+    RefCounted_1da350 *rc21c;
+    Raw3_1da350 v220;
+    Raw3_1da350 v22c;
+    RefCounted_1da350 *rc238;
     char pad23c[4];
-    Sub240 sub240;
+    Sub240_1da350 sub240;
     unsigned f248;
 
     void FUN_001d7ee0(int a);
-    void FUN_001d6e10(RefCounted *a);
+    void FUN_001d6e10(RefCounted_1da350 *a);
     void FUN_001d7510();
     void FUN_001d8d90(int a);
     unsigned FUN_001d72e0();
 
-    char FUN_001da350(RefCounted *a1, Raw3 *a2, Raw3 *a3, unsigned a4, RefCounted *a5,
+    char FUN_001da350(RefCounted_1da350 *a1, Raw3_1da350 *a2, Raw3_1da350 *a3, unsigned a4, RefCounted_1da350 *a5,
                       unsigned a6, unsigned a7, unsigned a8, unsigned a9, unsigned a10,
-                      unsigned a11, RefCounted *a12, unsigned a13);
+                      unsigned a11, RefCounted_1da350 *a12, unsigned a13);
 };
 
-char Entity::FUN_001da350(RefCounted *a1, Raw3 *a2, Raw3 *a3, unsigned a4, RefCounted *a5,
+char Entity::FUN_001da350(RefCounted_1da350 *a1, Raw3_1da350 *a2, Raw3_1da350 *a3, unsigned a4, RefCounted_1da350 *a5,
                           unsigned a6, unsigned a7, unsigned a8, unsigned a9, unsigned a10,
-                          unsigned a11, RefCounted *a12, unsigned a13)
+                          unsigned a11, RefCounted_1da350 *a12, unsigned a13)
 {
     char ok = ready->FUN_001d4ef0();
     if (!ok)
@@ -115,14 +115,14 @@ char Entity::FUN_001da350(RefCounted *a1, Raw3 *a2, Raw3 *a3, unsigned a4, RefCo
     FUN_001d6e10(a1);
     FUN_001d7510();
 
-    Raw3 *p;
+    Raw3_1da350 *p;
     if (holder != 0)
         p = &holder->FUN_002fc6f0()->pos;
     else
         p = posSource->getPos();
     pos = *p;
 
-    Mid10 *mid = holder ? holder->p10 : 0;
+    Mid10_1da350 *mid = holder ? holder->p10 : 0;
     Inner70 *in70 = mid->p70;
     if (in70 != 0)
         in70->FUN_002f5a20(a2);
@@ -156,9 +156,9 @@ char Entity::FUN_001da350(RefCounted *a1, Raw3 *a2, Raw3 *a3, unsigned a4, RefCo
     f248 = 0;
 
     if (rc21c != 0 && DAT_004dd700 != 0) {
-        Reg20 *r20 = DAT_004dd700->p20;
+        Reg20_1da350 *r20 = DAT_004dd700->p20;
         if (r20 != 0) {
-            Reg124 *r = r20->p124;
+            Reg124_1da350 *r = r20->p124;
             if (r != 0 && r->key == a1)
                 r20->FUN_00029b50(FUN_001d72e0(), (unsigned)rc21c, f218);
         }

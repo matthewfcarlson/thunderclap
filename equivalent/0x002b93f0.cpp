@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 8/8)
 // FUN_002b93f0 @ 0x002b93f0
-struct RandomState {
+struct RandomState_2b93f0 {
  unsigned int first;
  unsigned int second;
  void FUN_0022aba0(int);
 };
-extern RandomState DAT_00554bb8;
+extern RandomState_2b93f0 DAT_00554bb8;
 extern unsigned int DAT_00554bc0;
 struct Object {
  char padding[0xc4];

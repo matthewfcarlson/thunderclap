@@ -4,24 +4,24 @@ extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 
-struct Vec3 {
+struct Vec3_10e040 {
     float x, y, z;
 };
-struct Pair {
+struct Pair_10e040 {
     int a, b;
 };
 
-struct Body {
+struct Body_10e040 {
     char pad0[0x40];
-    Vec3 pos;
+    Vec3_10e040 pos;
 };
 
-struct Actor {
+struct Actor_10e040 {
     char pad0[8];
     int idA;                 // 0x08
     int idB;                 // 0x0c
     char pad10[0x328 - 0x10];
-    Body *body;              // 0x328
+    Body_10e040 *body;              // 0x328
     char pad32c[0x1b38 - 0x32c];
     float value;             // 0x1b38
     char pad1b3c[4];
@@ -30,24 +30,24 @@ struct Actor {
     void FUN_00023d30(const char *name);
 };
 
-struct Chain {
-    Actor *FUN_00059a30();
+struct Chain_10e040 {
+    Actor_10e040 *FUN_00059a30();
 };
 
-struct Owner {
-    Chain *FUN_000592a0();
+struct Owner_10e040 {
+    Chain_10e040 *FUN_000592a0();
 };
 
-struct Registry {
+struct Registry_10e040 {
     char pad0[0x150];
     int cur;                 // 0x150
     char pad154[0x2c8 - 0x154];
     int lo;                  // 0x2c8
     int hi;                  // 0x2cc
-    void FUN_00065dd0(Pair *key);
-    void FUN_000671b0(Vec3 *pos);
+    void FUN_00065dd0(Pair_10e040 *key);
+    void FUN_000671b0(Vec3_10e040 *pos);
 };
-Registry *__cdecl FUN_000678d0();
+Registry_10e040 *__cdecl FUN_000678d0();
 
 class FormationReadyCondition {
 public:
@@ -57,27 +57,27 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual char vfunc_6(int unused1, Owner *owner, int unused3);
+    virtual char vfunc_6(int unused1, Owner_10e040 *owner, int unused3);
     char pad4[8];
     unsigned int mode;
 };
 
-char FormationReadyCondition::vfunc_6(int unused1, Owner *owner, int unused3)
+char FormationReadyCondition::vfunc_6(int unused1, Owner_10e040 *owner, int unused3)
 {
     if (!FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0))
         return 0;
-    Actor *actor = owner->FUN_000592a0()->FUN_00059a30();
+    Actor_10e040 *actor = owner->FUN_000592a0()->FUN_00059a30();
     if (!actor)
         return 0;
-    Body *body = actor->body;
+    Body_10e040 *body = actor->body;
     if (!body)
         return 0;
 
-    Vec3 pos = body->pos;
+    Vec3_10e040 pos = body->pos;
     if ((actor->nameLo | actor->nameHi) == 0)
         actor->FUN_00023d30("default");
 
-    Pair key;
+    Pair_10e040 key;
     key.a = actor->idA;
     key.b = actor->idB;
     FUN_000678d0()->FUN_00065dd0(&key);

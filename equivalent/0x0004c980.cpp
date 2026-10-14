@@ -2,41 +2,41 @@
 // CSmartPropDistanceCondition::vfunc_7 @ 0x0004c980
 extern "C" double __cdecl sqrt(double);
 
-struct V3 { float x, y, z; };
+struct V3_4c980 { float x, y, z; };
 
 class Context { public: char pad[4]; };
 
-struct Tgt {
+struct Tgt_4c980 {
     char pad[0x40];
-    V3 pos;
+    V3_4c980 pos;
 };
 
-struct Ent {
-    Tgt* FUN_001d72e0();
+struct Ent_4c980 {
+    Tgt_4c980* FUN_001d72e0();
 };
 
-struct Elem {
+struct Elem_4c980 {
     char data[64];
-    void FUN_0022c2b0(const V3* in, V3* out);
+    void FUN_0022c2b0(const V3_4c980* in, V3_4c980* out);
 };
 
-struct Mgr {
+struct Mgr_4c980 {
     char pad[0x1c];
-    Elem* elems;
+    Elem_4c980* elems;
     unsigned int FUN_002843a0(int a, int b);
 };
 
-struct Owner {
+struct Owner_4c980 {
     char pad0[0x120];
-    Mgr* mgr;
+    Mgr_4c980* mgr;
     char pad1[0x3a4 - 0x124];
-    Tgt* fallback;
-    Ent* FUN_00035ef0(int a);
-    void FUN_00035630(const V3* in, V3* out);
+    Tgt_4c980* fallback;
+    Ent_4c980* FUN_00035ef0(int a);
+    void FUN_00035630(const V3_4c980* in, V3_4c980* out);
 };
 
 Context* __fastcall FUN_000592a0(void* obj);
-Owner* __fastcall FUN_00059a30(Context* ctx);
+Owner_4c980* __fastcall FUN_00059a30(Context* ctx);
 char __cdecl FUN_00018960(float a, float b, float c);
 
 class CSmartPropDistanceCondition {
@@ -55,21 +55,21 @@ public:
     char pad14[4];
     int f18;
     int f1c;
-    V3 offset;
+    V3_4c980 offset;
 };
 
 char CSmartPropDistanceCondition::vfunc_7(void* params)
 {
-    Owner* owner = FUN_00059a30(FUN_000592a0(params));
-    Tgt* tgt;
+    Owner_4c980* owner = FUN_00059a30(FUN_000592a0(params));
+    Tgt_4c980* tgt;
     if (owner->FUN_00035ef0(0) != 0 && (tgt = owner->FUN_00035ef0(0)->FUN_001d72e0()) != 0) {
     } else {
         tgt = owner->fallback;
         if (tgt == 0)
             return 0;
     }
-    V3 t = tgt->pos;
-    V3 out;
+    V3_4c980 t = tgt->pos;
+    V3_4c980 out;
     out.x = 0.0f;
     out.y = 0.0f;
     out.z = 0.0f;

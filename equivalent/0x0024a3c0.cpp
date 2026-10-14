@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 284 inputs, branch coverage 11/11)
 // FUN_0024a3c0 @ 0x0024a3c0
-struct Link {
+struct Link_24a3c0 {
     void FUN_0025dd00(int a);
 };
-struct Obj {
+struct Obj_24a3c0 {
     char pad0[8];
-    Link *link;
+    Link_24a3c0 *link;
     int state;
 };
 void __cdecl FUN_00249810(int x);
 // equiv-conv: FUN_002498d0 ebx
-void FUN_002498d0(Obj *o);
+void FUN_002498d0(Obj_24a3c0 *o);
 void __cdecl FUN_00248670(int a);
 void __cdecl FUN_00248780(int a);
 
 // equiv-conv: FUN_0024a3c0 eax ecx stack stack
-bool FUN_0024a3c0(Obj *o, int x, int unused, int a)
+bool FUN_0024a3c0(Obj_24a3c0 *o, int x, int unused, int a)
 {
     int s;
     do {

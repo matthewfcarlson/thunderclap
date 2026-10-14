@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 13/13)
 // FUN_00213ba0 @ 0x00213ba0
-struct Global {
+struct Global_213ba0 {
     char pad0[0x48];
     unsigned threshold;
     unsigned total;
 };
 
-struct lua_State {
+struct lua_State_213ba0 {
     char pad0[0x10];
-    Global *g;
+    Global_213ba0 *g;
 };
 
-void __cdecl FUN_00217490(lua_State *L);
-void __cdecl FUN_00217440(lua_State *L);
+void __cdecl FUN_00217490(lua_State_213ba0 *L);
+void __cdecl FUN_00217440(lua_State_213ba0 *L);
 
-int __cdecl FUN_00213ba0(lua_State *L, int what, int data)
+int __cdecl FUN_00213ba0(lua_State_213ba0 *L, int what, int data)
 {
-    Global *g = L->g;
+    Global_213ba0 *g = L->g;
     switch (what) {
     case 0:
         g->threshold = 0x7fffffff;

@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 118 inputs, branch coverage 41/50, incomplete)
 // FUN_002ec780 @ 0x002ec780
-struct inflate_huft {
+struct inflate_huft_2ec780 {
     unsigned char exop;
     unsigned char bits;
     unsigned short pad2;
     unsigned int base;
 };
 
-struct inflate_blocks_state {
+struct inflate_blocks_state_2ec780 {
     char pad00[0x1c];
     unsigned int bitk;
     unsigned int bitb;
@@ -18,7 +18,7 @@ struct inflate_blocks_state {
     unsigned char *write;
 };
 
-struct z_stream {
+struct z_stream_2ec780 {
     unsigned char *next_in;
     unsigned int avail_in;
     unsigned int total_in;
@@ -29,10 +29,10 @@ struct z_stream {
 extern unsigned int DAT_004d2838[17];
 
 // zlib inflate_fast
-int __cdecl inflate_fast(unsigned int bl, unsigned int bd, inflate_huft *tl, inflate_huft *td,
-                         inflate_blocks_state *s, z_stream *z)
+int __cdecl inflate_fast(unsigned int bl, unsigned int bd, inflate_huft_2ec780 *tl, inflate_huft_2ec780 *td,
+                         inflate_blocks_state_2ec780 *s, z_stream_2ec780 *z)
 {
-    inflate_huft *t;
+    inflate_huft_2ec780 *t;
     unsigned int e;
     unsigned int b;
     unsigned int k;

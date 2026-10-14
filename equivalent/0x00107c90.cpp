@@ -5,7 +5,7 @@
 #define FSW(a, b) ((((a) != (a)) || ((b) != (b))) ? 0x4500 : (((a) > (b)) ? 0 : (((a) < (b)) ? 0x100 : 0x4000)))
 extern "C" double sqrt(double);
 struct R64 { unsigned lo; unsigned hi; };
-struct Agent { void FUN_00107c90(void* a1, float a2, int a3); };
+struct Agent_107c90 { void FUN_00107c90(void* a1, float a2, int a3); };
 extern unsigned DAT_004a1e38;
 extern unsigned DAT_004a1e4c;
 extern unsigned DAT_004a1e50;
@@ -21,7 +21,7 @@ extern unsigned DAT_004e0ac0;
 extern unsigned DAT_00554c14;
 extern unsigned DAT_00554c18;
 extern unsigned DAT_00554c1c;
-struct O {
+struct O_107c90 {
     void FUN_000111b0(unsigned, unsigned);
     double FUN_000111f0();
     double FUN_00018990();
@@ -93,7 +93,7 @@ struct VC6 { virtual void vf0(); virtual void vf1(); virtual void vf2(); virtual
 struct VC7 { virtual void vf0(); virtual void vf1(); virtual void vf2(); virtual unsigned vcall(unsigned, unsigned, unsigned, unsigned, unsigned); };
 struct VC8 { virtual void vf0(); virtual void vf1(); virtual void vf2(); virtual void vcall(unsigned, unsigned, unsigned, unsigned, unsigned); };
 struct VC9 { virtual void vf0(); virtual void vf1(); virtual void vf2(); virtual void vcall(unsigned, unsigned, unsigned, unsigned, unsigned); };
-void Agent::FUN_00107c90(void* a1, float a2, int a3)
+void Agent_107c90::FUN_00107c90(void* a1, float a2, int a3)
 {
     unsigned S[107];
     unsigned eax = 0, ebx = 0, ecx = (unsigned)this, edx = 0, esi = 0, edi = 0, ebp = 0;
@@ -399,7 +399,7 @@ L_007c:
   /*0098 mov ecx, edi*/
     ecx = edi;
   /*009a call FUN_00060170*/
-    ((O*)ecx)->FUN_00060170();
+    ((O_107c90*)ecx)->FUN_00060170();
   /*009f mov ebp, dword ptr [esp + 0xd0]*/
     ebp = (*(unsigned*)((char*)S + 256));
   /*00a6 mov ecx, ebp*/
@@ -407,13 +407,13 @@ L_007c:
   /*00a8 mov byte ptr [esp + 0x11], 0*/
     *(unsigned char*)((char*)S + 65) = 0u;
   /*00ad call FUN_000fc800*/
-    eax = (unsigned)((O*)ecx)->FUN_000fc800();
+    eax = (unsigned)((O_107c90*)ecx)->FUN_000fc800();
   /*00b2 mov ecx, ebp*/
     ecx = ebp;
   /*00b4 mov byte ptr [esp + 0x3f], al*/
     *(unsigned char*)((char*)S + 111) = (eax & 0xff);
   /*00b8 call FUN_000fc850*/
-    eax = (unsigned)((O*)ecx)->FUN_000fc850();
+    eax = (unsigned)((O_107c90*)ecx)->FUN_000fc850();
   /*00bd mov ecx, dword ptr [0x4dd700]*/
     ecx = DAT_004dd700;
   /*00c3 mov byte ptr [esp + 0x12], al*/
@@ -430,28 +430,28 @@ L_007c:
   /*00d5 mov ecx, ebp*/
     ecx = ebp;
   /*00d7 call FUN_00099730*/
-    eax = (unsigned)((O*)ecx)->FUN_00099730();
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00099730();
   /*00dc test al, al*/
   /*00de jne 0101*/
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) != 0) goto L_0101;
   /*00e0 mov ecx, ebp*/
     ecx = ebp;
   /*00e2 call FUN_00099750*/
-    eax = (unsigned)((O*)ecx)->FUN_00099750();
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00099750();
   /*00e7 test al, al*/
   /*00e9 jne 0101*/
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) != 0) goto L_0101;
   /*00eb mov ecx, ebp*/
     ecx = ebp;
   /*00ed call FUN_00099760*/
-    eax = (unsigned)((O*)ecx)->FUN_00099760();
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00099760();
   /*00f2 test al, al*/
   /*00f4 jne 0101*/
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) != 0) goto L_0101;
   /*00f6 mov ecx, ebp*/
     ecx = ebp;
   /*00f8 call FUN_00099790*/
-    eax = (unsigned)((O*)ecx)->FUN_00099790();
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00099790();
   /*00fd test al, al*/
   /*00ff je 0106*/
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) == 0) goto L_0106;
@@ -472,7 +472,7 @@ L_0106:
   /*0126 mov dword ptr [esp + 0xb4], 0*/
     *(unsigned*)((char*)S + 224) = 0u;
   /*0131 call FUN_00036ac0*/
-    ((O*)ecx)->FUN_00036ac0(*(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_00036ac0(*(unsigned*)((char*)S + 44));
   /*0136 mov ebp, dword ptr [esp + 0xd0]*/
     ebp = (*(unsigned*)((char*)S + 256));
   /*013d mov ecx, ebp*/
@@ -484,7 +484,7 @@ L_0106:
   /*014f mov dword ptr [esp + 0x6c], 0*/
     *(unsigned*)((char*)S + 156) = 0u;
   /*0157 call FUN_000fc830*/
-    fretv = ((O*)ecx)->FUN_000fc830();
+    fretv = ((O_107c90*)ecx)->FUN_000fc830();
   /*015c fcomp dword ptr [0x40d6fc]*/
   /*0162 fnstsw ax*/
     eax = (eax & 0xffff0000u) | ((unsigned)(FSW(fretv, 3.0f)) & 0xffff);
@@ -512,7 +512,7 @@ L_0106:
   /*0194 mov dword ptr [esp + 0x88], edx*/
     *(unsigned*)((char*)S + 180) = edx;
   /*019b call FUN_000fde40*/
-    ((O*)ecx)->FUN_000fde40(*(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_000fde40(*(unsigned*)((char*)S + 44));
   /*01a0 fld dword ptr [esp + 0x24]*/
     fl1 = *(float*)((char*)S + 84);
   /*01a4 fsub dword ptr [esp + 0x7c]*/
@@ -581,7 +581,7 @@ L_0213:
   /*0218 mov ecx, ebp*/
     ecx = ebp;
   /*021a call FUN_000fde40*/
-    ((O*)ecx)->FUN_000fde40(*(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_000fde40(*(unsigned*)((char*)S + 44));
   /*021f lea eax, [esp + 0x24]*/
     eax = (unsigned)((char*)S + 84);
   /*0223 push eax*/
@@ -605,7 +605,7 @@ L_0213:
   /*024d mov ecx, ebp*/
     ecx = ebp;
   /*024f call FUN_000fc830*/
-    fretv = ((O*)ecx)->FUN_000fc830();
+    fretv = ((O_107c90*)ecx)->FUN_000fc830();
   /*0254 fcomp dword ptr [0x40d6f8]*/
   /*025a fnstsw ax*/
     eax = (eax & 0xffff0000u) | ((unsigned)(FSW(fretv, 7.0f)) & 0xffff);
@@ -630,7 +630,7 @@ L_0266:
   /*0284 mov dword ptr [esp + 0x34], 0*/
     *(unsigned*)((char*)S + 92) = 0u;
   /*028c call FUN_0022d2b0*/
-    eax = (unsigned)((O*)ecx)->FUN_0022d2b0(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_0022d2b0(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*0291 test al, al*/
   /*0293 je 02a1*/
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) == 0) goto L_02a1;
@@ -641,7 +641,7 @@ L_0266:
   /*029a mov ecx, ebp*/
     ecx = ebp;
   /*029c call FUN_000fde60*/
-    ((O*)ecx)->FUN_000fde60(*(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_000fde60(*(unsigned*)((char*)S + 44));
 L_02a1:
   /*02a1 push 0x3727c5ac*/
     *(unsigned*)((char*)S + 44) = 925353388u;
@@ -658,7 +658,7 @@ L_02a1:
   /*02bf mov dword ptr [esp + 0x34], 0*/
     *(unsigned*)((char*)S + 92) = 0u;
   /*02c7 call FUN_0022d2b0*/
-    eax = (unsigned)((O*)ecx)->FUN_0022d2b0(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_0022d2b0(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*02cc test al, al*/
   /*02ce je 02ec*/
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) == 0) goto L_02ec;
@@ -698,7 +698,7 @@ L_02ec:
   /*0322 fstp dword ptr [esp + 0xcc]*/
     *(float*)((char*)S + 252) = (float)(((fl17) - (fl18)));
   /*0329 call FUN_00018990*/
-    fretv = ((O*)ecx)->FUN_00018990();
+    fretv = ((O_107c90*)ecx)->FUN_00018990();
   /*032e mov ecx, dword ptr [esp + 0xcc]*/
     ecx = (*(unsigned*)((char*)S + 252));
   /*0335 fstp dword ptr [esp + 0x30]*/
@@ -714,18 +714,18 @@ L_02ec:
   /*034c mov dword ptr [esp + 0x54], 0*/
     *(unsigned*)((char*)S + 132) = 0u;
   /*0354 call FUN_00018990*/
-    fretv = ((O*)ecx)->FUN_00018990();
+    fretv = ((O_107c90*)ecx)->FUN_00018990();
   /*0359 fstp dword ptr [esp + 0xec]*/
     *(float*)((char*)S + 284) = (float)(fretv);
   /*0360 lea ecx, [esp + 0xc4]*/
     ecx = (unsigned)((char*)S + 244);
   /*0367 call FUN_0022d110*/
-    fretv = ((O*)ecx)->FUN_0022d110();
+    fretv = ((O_107c90*)ecx)->FUN_0022d110();
   /*036c fstp st(0)*/
   /*036e lea ecx, [esp + 0x50]*/
     ecx = (unsigned)((char*)S + 128);
   /*0372 call FUN_0022d110*/
-    fretv = ((O*)ecx)->FUN_0022d110();
+    fretv = ((O_107c90*)ecx)->FUN_0022d110();
   /*0377 fstp st(0)*/
   /*0379 mov ebp, dword ptr [esp + 0x4c]*/
     ebp = (*(unsigned*)((char*)S + 124));
@@ -734,7 +734,7 @@ L_02ec:
   /*037f mov ecx, ebp*/
     ecx = ebp;
   /*0381 call FUN_000446c0*/
-    eax = (unsigned)((O*)ecx)->FUN_000446c0(*(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_000446c0(*(unsigned*)((char*)S + 44));
   /*0386 test eax, eax*/
   /*0388 je 03cd*/
     if ((unsigned)((eax & eax)) == 0) goto L_03cd;
@@ -743,7 +743,7 @@ L_02ec:
   /*038c mov ecx, ebp*/
     ecx = ebp;
   /*038e call FUN_000446c0*/
-    eax = (unsigned)((O*)ecx)->FUN_000446c0(*(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_000446c0(*(unsigned*)((char*)S + 44));
   /*0393 mov edx, dword ptr [eax + 8]*/
     edx = (*(unsigned*)((char*)(eax + 8)));
   /*0396 mov eax, dword ptr [eax + 0xc]*/
@@ -778,7 +778,7 @@ L_03d2:
   /*03dc push ebx*/
     *(unsigned*)((char*)S + 44) = ebx;
   /*03dd call FUN_00024300*/
-    eax = (unsigned)((O*)ecx)->FUN_00024300(*(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00024300(*(unsigned*)((char*)S + 44));
   /*03e2 cmp dword ptr [ebp + 0x14], 5*/
   /*03e6 mov byte ptr [esp + 0x37], al*/
     *(unsigned char*)((char*)S + 103) = (eax & 0xff);
@@ -808,7 +808,7 @@ L_041d:
   /*041d mov ecx, ebp*/
     ecx = ebp;
   /*041f call FUN_000443c0*/
-    { unsigned __int64 r64 = ((O*)ecx)->FUN_000443c0(); eax = (unsigned)r64; edx = (unsigned)(r64 >> 32); }
+    { unsigned __int64 r64 = ((O_107c90*)ecx)->FUN_000443c0(); eax = (unsigned)r64; edx = (unsigned)(r64 >> 32); }
   /*0424 cmp eax, dword ptr [0x4e0ab8]*/
   /*042a jne 0439*/
     if ((unsigned)(eax) != (unsigned)(DAT_004e0ab8)) goto L_0439;
@@ -824,7 +824,7 @@ L_043e:
   /*043e lea ecx, [ebx + 0xdc]*/
     ecx = (unsigned)((char*)(ebx + 220));
   /*0444 call FUN_00231ee0*/
-    eax = (unsigned)((O*)ecx)->FUN_00231ee0();
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00231ee0();
   /*0449 fld dword ptr [esi + 0x70]*/
     fl19 = *(float*)((char*)(esi + 112));
   /*044c fsub dword ptr [esp + 0x164]*/
@@ -858,7 +858,7 @@ L_043e:
   /*0486 fstp dword ptr [esi + 0x78]*/
     *(float*)((char*)(esi + 120)) = (float)(((fl23) - (fl24)));
   /*0489 call FUN_00107410*/
-    eax = (unsigned)((O*)ecx)->FUN_00107410(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00107410(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*048e fld dword ptr [esi + 0xa0]*/
     fl25 = *(float*)((char*)(esi + 160));
   /*0494 fcomp dword ptr [0x3f32e0]*/
@@ -882,7 +882,7 @@ L_043e:
   /*04c0 lea ecx, [edi + 0x140]*/
     ecx = (unsigned)((char*)(edi + 320));
   /*04c6 call FUN_0027b040*/
-    ((O*)ecx)->FUN_0027b040(*(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_0027b040(*(unsigned*)((char*)S + 44));
   /*04cb mov byte ptr [edi + 0x148], 1*/
     *(unsigned char*)((char*)(edi + 328)) = 1u;
 L_04d2:
@@ -909,7 +909,7 @@ L_04d2:
   /*0505 mov ecx, ebx*/
     ecx = ebx;
   /*0507 call FUN_00035ef0*/
-    eax = (unsigned)((O*)ecx)->FUN_00035ef0(*(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00035ef0(*(unsigned*)((char*)S + 44));
   /*050c test eax, eax*/
   /*050e je 06d1*/
     if ((unsigned)((eax & eax)) == 0) goto L_06d1;
@@ -918,11 +918,11 @@ L_04d2:
   /*0516 mov ecx, ebx*/
     ecx = ebx;
   /*0518 call FUN_00035ef0*/
-    eax = (unsigned)((O*)ecx)->FUN_00035ef0(*(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00035ef0(*(unsigned*)((char*)S + 44));
   /*051d mov ecx, eax*/
     ecx = eax;
   /*051f call FUN_001d6b40*/
-    eax = (unsigned)((O*)ecx)->FUN_001d6b40();
+    eax = (unsigned)((O_107c90*)ecx)->FUN_001d6b40();
   /*0524 fld dword ptr [esp + 0x64]*/
     fl30 = *(float*)((char*)S + 148);
   /*0528 mov edx, dword ptr [eax]*/
@@ -957,7 +957,7 @@ L_04d2:
   /*056e fstp dword ptr [esp + 0x48]*/
     *(float*)((char*)S + 120) = (float)(((fl34) - (fl35)));
   /*0572 call FUN_0022d110*/
-    fretv = ((O*)ecx)->FUN_0022d110();
+    fretv = ((O_107c90*)ecx)->FUN_0022d110();
   /*0577 mov ecx, dword ptr [0x4e0ab0]*/
     ecx = DAT_004e0ab0;
   /*057d fstp st(0)*/
@@ -981,7 +981,7 @@ L_04d2:
   /*0595 mov ecx, dword ptr [0x4dd6e8]*/
     ecx = DAT_004dd6e8;
   /*059b call FUN_0023f820*/
-    ((O*)ecx)->FUN_0023f820(*(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_0023f820(*(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*05a0 mov edx, dword ptr [0x4e0ab0]*/
     edx = DAT_004e0ab0;
   /*05a6 push edx*/
@@ -1001,7 +1001,7 @@ L_04d2:
   /*05ba mov ecx, dword ptr [0x4dd6e8]*/
     ecx = DAT_004dd6e8;
   /*05c0 call FUN_0023f7b0*/
-    eax = (unsigned)((O*)ecx)->FUN_0023f7b0(*(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_0023f7b0(*(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
 L_05c5:
   /*05c5 mov al, byte ptr [esp + 0x10]*/
     eax = (eax & ~(0xffu << 0)) | (((unsigned)((*(unsigned char*)((char*)S + 64))) & 0xff) << 0);
@@ -1065,7 +1065,7 @@ L_062e:
   /*064f mov dword ptr [esp + 0x34], 0*/
     *(unsigned*)((char*)S + 92) = 0u;
   /*0657 call FUN_000111b0*/
-    ((O*)ecx)->FUN_000111b0(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_000111b0(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*065c mov edx, dword ptr [esp + 0x38]*/
     edx = (*(unsigned*)((char*)S + 104));
   /*0660 lea ecx, [esp + 0x7c]*/
@@ -1077,11 +1077,11 @@ L_062e:
   /*0666 lea ecx, [esp + 0x108]*/
     ecx = (unsigned)((char*)S + 304);
   /*066d call FUN_0022b170*/
-    ((O*)ecx)->FUN_0022b170(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_0022b170(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*0672 lea ecx, [esp + 0x11c]*/
     ecx = (unsigned)((char*)S + 332);
   /*0679 call FUN_0022b980*/
-    ((O*)ecx)->FUN_0022b980();
+    ((O_107c90*)ecx)->FUN_0022b980();
   /*067e lea eax, [esp + 0x11c]*/
     eax = (unsigned)((char*)S + 332);
   /*0685 push eax*/
@@ -1089,7 +1089,7 @@ L_062e:
   /*0686 lea ecx, [esp + 0x104]*/
     ecx = (unsigned)((char*)S + 304);
   /*068d call FUN_0022b650*/
-    ((O*)ecx)->FUN_0022b650(*(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_0022b650(*(unsigned*)((char*)S + 44));
   /*0692 mov ecx, dword ptr [esp + 0x40]*/
     ecx = (*(unsigned*)((char*)S + 112));
   /*0696 mov edx, dword ptr [esp + 0x44]*/
@@ -1113,7 +1113,7 @@ L_062e:
   /*06b7 mov dword ptr [esp + 0x34], eax*/
     *(unsigned*)((char*)S + 92) = eax;
   /*06bb call FUN_0022c3b0*/
-    ((O*)ecx)->FUN_0022c3b0(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_0022c3b0(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
 L_06c0:
   /*06c0 mov eax, dword ptr [esp + 0x30]*/
     eax = (*(unsigned*)((char*)S + 96));
@@ -1178,19 +1178,19 @@ L_06e3:
   /*0724 mov ebp, eax*/
     ebp = eax;
   /*0726 call FUN_0027b0e0*/
-    eax = (unsigned)((O*)ecx)->FUN_0027b0e0(*(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_0027b0e0(*(unsigned*)((char*)S + 44));
   /*072b push eax*/
     *(unsigned*)((char*)S + 44) = eax;
   /*072c lea ecx, [ebp + 0x1b50]*/
     ecx = (unsigned)((char*)(ebp + 6992));
   /*0732 call FUN_0027af90*/
-    eax = (unsigned)((O*)ecx)->FUN_0027af90(*(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_0027af90(*(unsigned*)((char*)S + 44));
   /*0737 lea ecx, [esp + 0x98]*/
     ecx = (unsigned)((char*)S + 200);
   /*073e mov byte ptr [esp + 0xa7], al*/
     *(unsigned char*)((char*)S + 215) = (eax & 0xff);
   /*0745 call FUN_0027af50*/
-    eax = (unsigned)((O*)ecx)->FUN_0027af50();
+    eax = (unsigned)((O_107c90*)ecx)->FUN_0027af50();
   /*074a mov al, byte ptr [esp + 0xa7]*/
     eax = (eax & ~(0xffu << 0)) | (((unsigned)((*(unsigned char*)((char*)S + 215))) & 0xff) << 0);
   /*0751 test al, al*/
@@ -1282,7 +1282,7 @@ L_0800:
   /*080a push ebx*/
     *(unsigned*)((char*)S + 44) = ebx;
   /*080b call FUN_00024190*/
-    eax = (unsigned)((O*)ecx)->FUN_00024190(*(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00024190(*(unsigned*)((char*)S + 44));
   /*0810 mov ebp, eax*/
     ebp = eax;
   /*0812 test ebp, ebp*/
@@ -1295,7 +1295,7 @@ L_0800:
   /*0824 push ebp*/
     *(unsigned*)((char*)S + 44) = ebp;
   /*0825 call FUN_00025d30*/
-    eax = (unsigned)((O*)ecx)->FUN_00025d30(*(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00025d30(*(unsigned*)((char*)S + 44));
   /*082a test al, al*/
   /*082c jne 08a1*/
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) != 0) goto L_08a1;
@@ -1320,7 +1320,7 @@ L_0800:
   /*0855 mov ecx, dword ptr [ebp + 0x10]*/
     ecx = (*(unsigned*)((char*)(ebp + 16)));
   /*0858 call FUN_00059a50*/
-    ((O*)ecx)->FUN_00059a50(*(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_00059a50(*(unsigned*)((char*)S + 44));
   /*085d fld dword ptr [esp + 0x24]*/
     fl50 = *(float*)((char*)S + 84);
   /*0861 fsub dword ptr [esp + 0x64]*/
@@ -1342,7 +1342,7 @@ L_0800:
   /*0884 fstp dword ptr [esp + 0x84]*/
     *(float*)((char*)S + 180) = (float)(((fl54) - (fl55)));
   /*088b call FUN_00018990*/
-    fretv = ((O*)ecx)->FUN_00018990();
+    fretv = ((O_107c90*)ecx)->FUN_00018990();
   /*0890 fcomp dword ptr [0x40d6fc]*/
   /*0896 fnstsw ax*/
     eax = (eax & 0xffff0000u) | ((unsigned)(FSW(fretv, 3.0f)) & 0xffff);
@@ -1374,7 +1374,7 @@ L_08b1:
   /*08d1 push edx*/
     *(unsigned*)((char*)S + 44) = edx;
   /*08d2 call FUN_00025d30*/
-    eax = (unsigned)((O*)ecx)->FUN_00025d30(*(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00025d30(*(unsigned*)((char*)S + 44));
   /*08d7 test al, al*/
   /*08d9 je 0b12*/
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) == 0) goto L_0b12;
@@ -1385,7 +1385,7 @@ L_08b1:
   /*08e5 mov ecx, ebp*/
     ecx = ebp;
   /*08e7 call FUN_00035ef0*/
-    eax = (unsigned)((O*)ecx)->FUN_00035ef0(*(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00035ef0(*(unsigned*)((char*)S + 44));
   /*08ec test eax, eax*/
   /*08ee je 0b12*/
     if ((unsigned)((eax & eax)) == 0) goto L_0b12;
@@ -1427,7 +1427,7 @@ L_08b1:
   /*0952 fstp dword ptr [esp + 0x44]*/
     *(float*)((char*)S + 116) = (float)(((fl58) - (fl59)));
   /*0956 call FUN_00018990*/
-    fretv = ((O*)ecx)->FUN_00018990();
+    fretv = ((O_107c90*)ecx)->FUN_00018990();
   /*095b mov ecx, dword ptr [esp + 0x40]*/
     ecx = (*(unsigned*)((char*)S + 112));
   /*095f fstp dword ptr [esp + 0x38]*/
@@ -1445,7 +1445,7 @@ L_08b1:
   /*0977 mov dword ptr [esp + 0x2c], eax*/
     *(unsigned*)((char*)S + 92) = eax;
   /*097b call FUN_0022d110*/
-    fretv = ((O*)ecx)->FUN_0022d110();
+    fretv = ((O_107c90*)ecx)->FUN_0022d110();
   /*0980 fstp st(0)*/
   /*0982 fld dword ptr [esp + 0x38]*/
     fl62 = *(float*)((char*)S + 104);
@@ -1555,7 +1555,7 @@ L_0a03:
   /*0a6a fstp dword ptr [esp + 0xb0]*/
     *(float*)((char*)S + 208) = (float)(((fl67) + (fl68)));
   /*0a71 call FUN_002ee140*/
-    eax = (unsigned)((O*)ecx)->FUN_002ee140(*(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_002ee140(*(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*0a76 test al, al*/
   /*0a78 je 0a7f*/
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) == 0) goto L_0a7f;
@@ -1632,7 +1632,7 @@ L_0a9f:
   /*0af2 mov dword ptr [esp + 0xd4], 0*/
     *(unsigned*)((char*)S + 228) = 0u;
   /*0afd call FUN_00202460*/
-    ((O*)ecx)->FUN_00202460(*(unsigned*)((char*)S + 16), *(unsigned*)((char*)S + 20), *(unsigned*)((char*)S + 24), *(unsigned*)((char*)S + 28), *(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_00202460(*(unsigned*)((char*)S + 16), *(unsigned*)((char*)S + 20), *(unsigned*)((char*)S + 24), *(unsigned*)((char*)S + 28), *(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*0b02 mov eax, dword ptr [esp + 0xb4]*/
     eax = (*(unsigned*)((char*)S + 228));
   /*0b09 test eax, eax*/
@@ -1711,7 +1711,7 @@ L_0b39:
   /*0bb2 je 0bcf*/
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) == 0) goto L_0bcf;
   /*0bb4 call FUN_000964e0*/
-    fretv = ((O*)ecx)->FUN_000964e0();
+    fretv = ((O_107c90*)ecx)->FUN_000964e0();
   /*0bb9 fcomp dword ptr [0x40d66c]*/
   /*0bbf fnstsw ax*/
     eax = (eax & 0xffff0000u) | ((unsigned)(FSW(fretv, 0.5f)) & 0xffff);
@@ -1758,7 +1758,7 @@ L_0bf0:
   /*0bff mov dword ptr [edi + 0x48], 2*/
     *(unsigned*)((char*)(edi + 72)) = 2u;
   /*0c06 call FUN_0003ffa0*/
-    ((O*)ecx)->FUN_0003ffa0(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_0003ffa0(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*0c0b jmp 0d11*/
     goto L_0d11;
 L_0c10:
@@ -1810,7 +1810,7 @@ L_0c10:
   /*0c87 mov ecx, dword ptr [esp + 0xf0]*/
     ecx = (*(unsigned*)((char*)S + 288));
   /*0c8e call FUN_00078780*/
-    fretv = ((O*)ecx)->FUN_00078780();
+    fretv = ((O_107c90*)ecx)->FUN_00078780();
   /*0c93 fmul dword ptr [0x40d66c]*/
   /*0c99 fadd dword ptr [0x3f32dc]*/
   /*0c9f fmul dword ptr [esi + 0x98]*/
@@ -1864,7 +1864,7 @@ L_0cd2:
   /*0cff mov ecx, dword ptr [edx + 0x20]*/
     ecx = (*(unsigned*)((char*)(edx + 32)));
   /*0d02 call FUN_00029250*/
-    ((O*)ecx)->FUN_00029250(*(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_00029250(*(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*0d07 jmp 0d11*/
     goto L_0d11;
 L_0d09:
@@ -1993,7 +1993,7 @@ L_0dfd:
   /*0e4a lea ecx, [esp + 0x70]*/
     ecx = (unsigned)((char*)S + 160);
   /*0e4e call FUN_0022d110*/
-    fretv = ((O*)ecx)->FUN_0022d110();
+    fretv = ((O_107c90*)ecx)->FUN_0022d110();
   /*0e53 fstp st(0)*/
   /*0e55 mov al, byte ptr [esp + 0x10]*/
     eax = (eax & ~(0xffu << 0)) | (((unsigned)((*(unsigned char*)((char*)S + 64))) & 0xff) << 0);
@@ -2072,7 +2072,7 @@ L_0ebd:
   /*0ef1 lea ecx, [esp + 0x74]*/
     ecx = (unsigned)((char*)S + 160);
   /*0ef5 call FUN_000344b0*/
-    ((O*)ecx)->FUN_000344b0(*(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_000344b0(*(unsigned*)((char*)S + 44));
   /*0efa mov byte ptr [esi + 0x6c], 0*/
     *(unsigned char*)((char*)(esi + 108)) = 0u;
   /*0efe jmp 0f22*/
@@ -2106,7 +2106,7 @@ L_0f22:
   /*0f42 fstp dword ptr [esi + 0x7c]*/
     *(float*)((char*)(esi + 124)) = (float)(((fl94) * (-1.0f)));
   /*0f45 call FUN_00078780*/
-    fretv = ((O*)ecx)->FUN_00078780();
+    fretv = ((O_107c90*)ecx)->FUN_00078780();
   /*0f4a fmul dword ptr [0x40d6fc]*/
   /*0f50 fadd dword ptr [0x3f3318]*/
   /*0f56 fstp dword ptr [esi + 0x78]*/
@@ -2129,7 +2129,7 @@ L_0f59:
   /*0f7a mov dword ptr [esp + 0x34], 0*/
     *(unsigned*)((char*)S + 92) = 0u;
   /*0f82 call FUN_000111b0*/
-    ((O*)ecx)->FUN_000111b0(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_000111b0(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*0f87 fld dword ptr [esi + 0x7c]*/
     fl95 = *(float*)((char*)(esi + 124));
   /*0f8a fld dword ptr [esp + 0xd4]*/
@@ -2149,7 +2149,7 @@ L_0f59:
   /*0fb8 fstp dword ptr [esp + 0xdc]*/
     *(float*)((char*)S + 268) = (float)(((fl95) * (fl98)));
   /*0fbf call FUN_0022d110*/
-    fretv = ((O*)ecx)->FUN_0022d110();
+    fretv = ((O_107c90*)ecx)->FUN_0022d110();
   /*0fc4 mov al, byte ptr [esp + 0x63]*/
     eax = (eax & ~(0xffu << 0)) | (((unsigned)((*(unsigned char*)((char*)S + 147))) & 0xff) << 0);
   /*0fc8 fstp st(0)*/
@@ -2186,7 +2186,7 @@ L_0f59:
   /*1016 mov ecx, esi*/
     ecx = esi;
   /*1018 call FUN_00107760*/
-    eax = (unsigned)((O*)ecx)->FUN_00107760(*(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00107760(*(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*101d test al, al*/
   /*101f je 13a7*/
     if ((unsigned char)(((eax & 0xff) & (eax & 0xff))) == 0) goto L_13a7;
@@ -2230,7 +2230,7 @@ L_0f59:
   /*108b fstp dword ptr [esp + 0x2c]*/
     *(float*)((char*)S + 92) = (float)(((fl105) - (fl106)));
   /*108f call FUN_00018990*/
-    fretv = ((O*)ecx)->FUN_00018990();
+    fretv = ((O_107c90*)ecx)->FUN_00018990();
   /*1094 push ecx*/
     *(unsigned*)((char*)S + 44) = ecx;
   /*1095 lea edx, [esp + 0xe4]*/
@@ -2301,7 +2301,7 @@ L_0f59:
   /*111a mov ecx, dword ptr [esi + 0x58]*/
     ecx = (*(unsigned*)((char*)(esi + 88)));
   /*111d call FUN_000fefc0*/
-    eax = (unsigned)((O*)ecx)->FUN_000fefc0();
+    eax = (unsigned)((O_107c90*)ecx)->FUN_000fefc0();
   /*1122 mov ebp, eax*/
     ebp = eax;
   /*1124 push esi*/
@@ -2309,7 +2309,7 @@ L_0f59:
   /*1125 mov ecx, ebp*/
     ecx = ebp;
   /*1127 call FUN_001048d0*/
-    ((O*)ecx)->FUN_001048d0(*(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_001048d0(*(unsigned*)((char*)S + 44));
   /*112c mov ecx, dword ptr [0x4dd700]*/
     ecx = DAT_004dd700;
   /*1132 push 0x3f800000*/
@@ -2333,7 +2333,7 @@ L_0f59:
   /*1151 mov ecx, ebp*/
     ecx = ebp;
   /*1153 call FUN_00104c60*/
-    ((O*)ecx)->FUN_00104c60(*(unsigned*)((char*)S + 20), *(unsigned*)((char*)S + 24), *(unsigned*)((char*)S + 28), *(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_00104c60(*(unsigned*)((char*)S + 20), *(unsigned*)((char*)S + 24), *(unsigned*)((char*)S + 28), *(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*1158 mov eax, dword ptr [esp + 0x164]*/
     eax = (*(unsigned*)((char*)S + 404));
   /*115f mov ecx, dword ptr [0x4dd700]*/
@@ -2538,7 +2538,7 @@ L_122c:
   /*12e8 mov ecx, eax*/
     ecx = eax;
   /*12ea call FUN_00078750*/
-    eax = (unsigned)((O*)ecx)->FUN_00078750(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00078750(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*12ef fld dword ptr [esp + 0xe0]*/
     fl117 = *(float*)((char*)S + 272);
   /*12f6 mov edx, dword ptr [eax]*/
@@ -2578,7 +2578,7 @@ L_122c:
   /*133c fstp dword ptr [esp + 0x1c]*/
     *(float*)((char*)S + 76) = (float)(((fl122) + (fl123)));
   /*1340 call FUN_0022d110*/
-    fretv = ((O*)ecx)->FUN_0022d110();
+    fretv = ((O_107c90*)ecx)->FUN_0022d110();
   /*1345 fcom dword ptr [0x3f32dc]*/
   /*134b fnstsw ax*/
     eax = (eax & 0xffff0000u) | ((unsigned)(FSW(fretv, 1.0f)) & 0xffff);
@@ -2627,7 +2627,7 @@ L_13a7:
   /*13a7 mov ecx, dword ptr [esp + 0xd0]*/
     ecx = (*(unsigned*)((char*)S + 256));
   /*13ae call FUN_000fc830*/
-    fretv = ((O*)ecx)->FUN_000fc830();
+    fretv = ((O_107c90*)ecx)->FUN_000fc830();
   /*13b3 fcomp qword ptr [0x40d6d0]*/
   /*13b9 fnstsw ax*/
     eax = (eax & 0xffff0000u) | ((unsigned)(FSW(fretv, 2.5)) & 0xffff);
@@ -2655,7 +2655,7 @@ L_13a7:
   /*13f0 push eax*/
     *(unsigned*)((char*)S + 44) = eax;
   /*13f1 call FUN_00059a50*/
-    ((O*)ecx)->FUN_00059a50(*(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_00059a50(*(unsigned*)((char*)S + 44));
   /*13f6 mov eax, dword ptr [esp + 0x94]*/
     eax = (*(unsigned*)((char*)S + 196));
   /*13fd mov ecx, dword ptr [eax + 0x40]*/
@@ -2673,7 +2673,7 @@ L_13a7:
   /*1411 mov dword ptr [esp + 0x2c], eax*/
     *(unsigned*)((char*)S + 92) = eax;
   /*1415 call FUN_000fefc0*/
-    eax = (unsigned)((O*)ecx)->FUN_000fefc0();
+    eax = (unsigned)((O_107c90*)ecx)->FUN_000fefc0();
   /*141a mov ebp, eax*/
     ebp = eax;
   /*141c push esi*/
@@ -2681,7 +2681,7 @@ L_13a7:
   /*141d mov ecx, ebp*/
     ecx = ebp;
   /*141f call FUN_001048d0*/
-    ((O*)ecx)->FUN_001048d0(*(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_001048d0(*(unsigned*)((char*)S + 44));
   /*1424 mov ebx, dword ptr [esp + 0x160]*/
     ebx = (*(unsigned*)((char*)S + 400));
   /*142b push 0x3f800000*/
@@ -2705,7 +2705,7 @@ L_13a7:
   /*144a mov ecx, ebp*/
     ecx = ebp;
   /*144c call FUN_00104c60*/
-    ((O*)ecx)->FUN_00104c60(*(unsigned*)((char*)S + 20), *(unsigned*)((char*)S + 24), *(unsigned*)((char*)S + 28), *(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_00104c60(*(unsigned*)((char*)S + 20), *(unsigned*)((char*)S + 24), *(unsigned*)((char*)S + 28), *(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*1451 mov ecx, dword ptr [esp + 0x168]*/
     ecx = (*(unsigned*)((char*)S + 408));
   /*1458 mov edx, dword ptr [esp + 0x164]*/
@@ -2822,7 +2822,7 @@ L_14d9:
   /*1536 mov ecx, dword ptr [esp + 0xf0]*/
     ecx = (*(unsigned*)((char*)S + 288));
   /*153d call FUN_00078780*/
-    fretv = ((O*)ecx)->FUN_00078780();
+    fretv = ((O_107c90*)ecx)->FUN_00078780();
   /*1542 fmul dword ptr [0x40d66c]*/
   /*1548 mov dword ptr [esi + 0x70], ebp*/
     *(unsigned*)((char*)(esi + 112)) = ebp;
@@ -2874,7 +2874,7 @@ L_14d9:
   /*15c6 mov ecx, dword ptr [edx + 0x20]*/
     ecx = (*(unsigned*)((char*)(edx + 32)));
   /*15c9 call FUN_00029250*/
-    ((O*)ecx)->FUN_00029250(*(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    ((O_107c90*)ecx)->FUN_00029250(*(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*15ce jmp 1173*/
     goto L_1173;
 L_15d3:
@@ -3029,7 +3029,7 @@ L_1697:
   /*16e0 mov ecx, eax*/
     ecx = eax;
   /*16e2 call FUN_00078750*/
-    eax = (unsigned)((O*)ecx)->FUN_00078750(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00078750(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*16e7 fld dword ptr [esp + 0x14]*/
     fl146 = *(float*)((char*)S + 68);
   /*16eb mov ecx, dword ptr [eax]*/
@@ -3086,7 +3086,7 @@ L_1697:
   /*1757 fstp dword ptr [esp + 0x1c]*/
     *(float*)((char*)S + 76) = (float)(((((fl154) + (fl155))) + (fl159)));
   /*175b call FUN_0022d110*/
-    fretv = ((O*)ecx)->FUN_0022d110();
+    fretv = ((O_107c90*)ecx)->FUN_0022d110();
   /*1760 mov ecx, dword ptr [esp + 0xc4]*/
     ecx = (*(unsigned*)((char*)S + 244));
   /*1767 fstp st(0)*/
@@ -3199,7 +3199,7 @@ L_1812:
   /*1868 fstp dword ptr [esp + 0x1c]*/
     *(float*)((char*)S + 76) = (float)(((fl175) + (fl176)));
   /*186c call FUN_0022d110*/
-    fretv = ((O*)ecx)->FUN_0022d110();
+    fretv = ((O_107c90*)ecx)->FUN_0022d110();
   /*1871 mov ecx, dword ptr [esp + 0xc4]*/
     ecx = (*(unsigned*)((char*)S + 244));
   /*1878 fstp st(0)*/
@@ -3341,7 +3341,7 @@ L_18c7:
   /*199a mov ecx, eax*/
     ecx = eax;
   /*199c call FUN_00078750*/
-    eax = (unsigned)((O*)ecx)->FUN_00078750(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00078750(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*19a1 fld dword ptr [esp + 0x14]*/
     fl184 = *(float*)((char*)S + 68);
   /*19a5 mov edx, dword ptr [eax]*/
@@ -3387,7 +3387,7 @@ L_18c7:
   /*19f2 fstp dword ptr [esp + 0x1c]*/
     *(float*)((char*)S + 76) = (float)(((fl192) + (fl193)));
   /*19f6 call FUN_0022d110*/
-    fretv = ((O*)ecx)->FUN_0022d110();
+    fretv = ((O_107c90*)ecx)->FUN_0022d110();
   /*19fb mov eax, dword ptr [esp + 0x50]*/
     eax = (*(unsigned*)((char*)S + 128));
   /*19ff fstp st(0)*/
@@ -3465,7 +3465,7 @@ L_1a51:
   /*1acb lea ecx, [esp + 0x70]*/
     ecx = (unsigned)((char*)S + 160);
   /*1acf call FUN_000111f0*/
-    fretv = ((O*)ecx)->FUN_000111f0();
+    fretv = ((O_107c90*)ecx)->FUN_000111f0();
   /*1ad4 fcomp dword ptr [0x3f3358]*/
   /*1ada fnstsw ax*/
     eax = (eax & 0xffff0000u) | ((unsigned)(FSW(fretv, 0.00999999978f)) & 0xffff);
@@ -3553,7 +3553,7 @@ L_1a51:
   /*1b69 mov ecx, eax*/
     ecx = eax;
   /*1b6b call FUN_00078750*/
-    eax = (unsigned)((O*)ecx)->FUN_00078750(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
+    eax = (unsigned)((O_107c90*)ecx)->FUN_00078750(*(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*1b70 fld dword ptr [esp + 0x14]*/
     fl195 = *(float*)((char*)S + 68);
   /*1b74 mov ecx, dword ptr [eax]*/
@@ -3601,7 +3601,7 @@ L_1a51:
   /*1bcc fstp dword ptr [esp + 0x1c]*/
     *(float*)((char*)S + 76) = (float)(((fl203) + (fl204)));
   /*1bd0 call FUN_00018990*/
-    fretv = ((O*)ecx)->FUN_00018990();
+    fretv = ((O_107c90*)ecx)->FUN_00018990();
   /*1bd5 lea ecx, [esp + 0x98]*/
     ecx = (unsigned)((char*)S + 200);
   /*1bdc fstp dword ptr [esp + 0x4c]*/
@@ -3620,7 +3620,7 @@ L_1a51:
   /*1bf4 lea ecx, [esp + 0x14]*/
     ecx = (unsigned)((char*)S + 68);
   /*1bf8 call FUN_0022d110*/
-    fretv = ((O*)ecx)->FUN_0022d110();
+    fretv = ((O_107c90*)ecx)->FUN_0022d110();
   /*1bfd fstp st(0)*/
   /*1bff mov eax, dword ptr [esp + 0x14]*/
     eax = (*(unsigned*)((char*)S + 68));
@@ -3673,7 +3673,7 @@ L_1c2a:
   /*1c7f fstp dword ptr [edi + 0x110]*/
     *(float*)((char*)(edi + 272)) = (float)(((((((80.0f) - (fl208))) * (0.0125000002f))) + (fl209)));
   /*1c85 call FUN_0022d110*/
-    fretv = ((O*)ecx)->FUN_0022d110();
+    fretv = ((O_107c90*)ecx)->FUN_0022d110();
   /*1c8a fstp st(0)*/
   /*1c8c fld dword ptr [edi + 0x118]*/
     fl210 = *(float*)((char*)(edi + 280));
@@ -3711,7 +3711,7 @@ L_1cb5:
   /*1ce5 fstp dword ptr [edi + 0x110]*/
     *(float*)((char*)(edi + 272)) = (float)(((fl214) - (((((80.0f) - (fl213))) * (0.0125000002f)))));
   /*1ceb call FUN_0022d110*/
-    fretv = ((O*)ecx)->FUN_0022d110();
+    fretv = ((O_107c90*)ecx)->FUN_0022d110();
   /*1cf0 fstp st(0)*/
   /*1cf2 fld dword ptr [edi + 0x118]*/
     fl215 = *(float*)((char*)(edi + 280));

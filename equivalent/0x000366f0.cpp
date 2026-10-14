@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 26/28, incomplete)
 // FUN_000366f0 @ 0x000366f0
-struct V3 { float x, y, z; };
-struct Matrix { float m[12]; V3 pos; float w; };
+struct V3_366f0 { float x, y, z; };
+struct Matrix { float m[12]; V3_366f0 pos; float w; };
 struct Sub2324b0 { void FUN_002324b0(int a); };
-struct Attach {
+struct Attach_366f0 {
     char pad[0x10];
-    Attach* inner;
+    Attach_366f0* inner;
     void FUN_001c5e40(Matrix* m);
-    void FUN_001c5e80(V3* p);
-    void FUN_001c5ed0(V3* p);
+    void FUN_001c5e80(V3_366f0* p);
+    void FUN_001c5ed0(V3_366f0* p);
     void FUN_001c5ef0(bool b);
 };
 struct Obj000366f0 {
@@ -19,7 +19,7 @@ struct Obj000366f0 {
     char pad2[0x118 - 0xdc - 1];
     char skip;
     char pad3[0x124 - 0x119];
-    Attach* attach;
+    Attach_366f0* attach;
     char pad4[0x140 - 0x128];
     int mode;
     char pad5[0x308 - 0x144];
@@ -28,7 +28,7 @@ struct Obj000366f0 {
     float f310;
     float f314;
     char pad6[0x1a84 - 0x318];
-    V3 vec1a84;
+    V3_366f0 vec1a84;
     char pad7[0x20b0 - 0x1a90];
     int flag20b0;
     void FUN_000366f0(int unused, float dt);
@@ -38,7 +38,7 @@ extern void __fastcall FUN_0022b980(Matrix* m);
 extern void* __fastcall FUN_00059a40(void* o);
 extern Matrix* __fastcall FUN_00221c40(void* p);
 // equiv-conv: FUN_001c5080 ecx stack stack
-extern void __stdcall FUN_001c5080(Attach* inner, float a, float b);
+extern void __stdcall FUN_001c5080(Attach_366f0* inner, float a, float b);
 
 void Obj000366f0::FUN_000366f0(int unused, float dt)
 {

@@ -2,26 +2,26 @@
 // FUN_00028400 @ 0x00028400
 unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 
-struct Vec3 {
+struct Vec3_28400 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Pawn {
+struct Pawn_28400 {
     char pad[0x1b68];
-    Vec3 aimDir;
+    Vec3_28400 aimDir;
 };
 
-struct Group {
-    Pawn *FUN_00024280(unsigned __int64 key);
+struct Group_28400 {
+    Pawn_28400 *FUN_00024280(unsigned __int64 key);
     void FUN_00028400(const char *name, float x, float y, float z);
 };
 
-void Group::FUN_00028400(const char *name, float x, float y, float z)
+void Group_28400::FUN_00028400(const char *name, float x, float y, float z)
 {
-    Pawn *pawn = FUN_00024280(FUN_002672f0(name, 0, 0));
+    Pawn_28400 *pawn = FUN_00024280(FUN_002672f0(name, 0, 0));
     if (pawn) {
-        Vec3 v;
+        Vec3_28400 v;
         v.x = x;
         v.y = y;
         v.z = z;

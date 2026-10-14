@@ -2,8 +2,8 @@
 // FUN_002845a0 @ 0x002845a0
 struct Vector { unsigned int x,y,z,w; };
 struct Matrix { unsigned int words[16]; void FUN_0022b980(); };
-struct Source { char pad[20]; Vector* vectors; Matrix* matrices; };
-struct Object { char pad[8]; Source* source; unsigned int count; Vector* vectors; Matrix* matrices; Vector* optionalVectors; Matrix* resetMatrices; char pad20[2]; unsigned char flag22,flag23; unsigned int generation; void target(); };
+struct Source_2845a0 { char pad[20]; Vector* vectors; Matrix* matrices; };
+struct Object { char pad[8]; Source_2845a0* source; unsigned int count; Vector* vectors; Matrix* matrices; Vector* optionalVectors; Matrix* resetMatrices; char pad20[2]; unsigned char flag22,flag23; unsigned int generation; void target(); };
 void Object::target() {
  for(unsigned int i=0;i<count;++i) {
   const volatile Vector* src=source->vectors+i;

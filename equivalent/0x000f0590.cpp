@@ -7,7 +7,7 @@ public:
     bool FUN_000f9e90();
 };
 
-class Args {
+class Args_f0590 {
 public:
     virtual void v0();
     virtual unsigned GetKey();
@@ -49,7 +49,7 @@ public:
     virtual void v31();
     virtual void v32();
     virtual void v33();
-    virtual bool vfunc_34(Param *p, Args *a, int c);
+    virtual bool vfunc_34(Param *p, Args_f0590 *a, int c);
     char pad04[0x1850 - 4];
     unsigned color;
     void FUN_000e0360(float x, float y, float z);
@@ -63,7 +63,7 @@ public:
     void FUN_000e7b90(Param *p, int c);
 };
 
-bool FEThingsBase::vfunc_34(Param *p, Args *a, int c)
+bool FEThingsBase::vfunc_34(Param *p, Args_f0590 *a, int c)
 {
     switch (a->GetKey()) {
     case 0x9cf1366a: {

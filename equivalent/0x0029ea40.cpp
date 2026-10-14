@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 32/32)
 // FUN_0029ea40 @ 0x0029ea40
-struct Vec3 {
+struct Vec3_29ea40 {
     float x, y, z;
 };
 
@@ -15,7 +15,7 @@ public:
     virtual void v4();
     virtual void v5();
     virtual void v6();
-    virtual void vfunc_7(Vec3 v);
+    virtual void vfunc_7(Vec3_29ea40 v);
     virtual void v8();
     virtual void v9();
     void FUN_002a0820(char flag);
@@ -25,34 +25,34 @@ public:
 class PointLight : public Light {
 public:
     PointLight* FUN_002c3e10();
-    void FUN_002c3f00(Vec3 v);
+    void FUN_002c3f00(Vec3_29ea40 v);
 };
 
 class SpotLight : public Light {
 public:
     SpotLight* FUN_002c4020();
-    void FUN_002c4130(Vec3 v);
-    void FUN_002c41a0(Vec3 v);
+    void FUN_002c4130(Vec3_29ea40 v);
+    void FUN_002c41a0(Vec3_29ea40 v);
 };
 
 class DirectionalLight : public Light {
 public:
     DirectionalLight* FUN_002a2e70();
-    void FUN_002a2ef0(Vec3 v);
+    void FUN_002a2ef0(Vec3_29ea40 v);
 };
 
-struct LightRec {
+struct LightRec_29ea40 {
     int f0;
     int kind;
     int value;
-    Vec3 v0c;
-    Vec3 v18;
-    Vec3 v24;
-    Vec3 v30;
+    Vec3_29ea40 v0c;
+    Vec3_29ea40 v18;
+    Vec3_29ea40 v24;
+    Vec3_29ea40 v30;
     int pad3c;
 };
 
-struct LightList {
+struct LightList_29ea40 {
     char pad0[0x10];
     int size;
     int count;
@@ -61,16 +61,16 @@ struct LightList {
     void FUN_002a1180(int n);
 };
 
-class LightSetup {
+class LightSetup_29ea40 {
 public:
     char pad0[0x14];
     int count;
     char pad18[0x24 - 0x18];
-    LightRec* recs;
-    void FUN_0029ea40(LightList* list);
+    LightRec_29ea40* recs;
+    void FUN_0029ea40(LightList_29ea40* list);
 };
 
-void LightSetup::FUN_0029ea40(LightList* list)
+void LightSetup_29ea40::FUN_0029ea40(LightList_29ea40* list)
 {
     for (int i = 0; i < list->count; i++) {
         Light* light = 0;

@@ -7,50 +7,50 @@ extern "C" int __cdecl _sprintf(char *buf, const char *fmt, ...);
 extern const char *DAT_004c8070[];
 extern const char *DAT_004c8098[];
 
-struct Vec3 { int x, y, z; };
+struct Vec3_1f6cd0 { int x, y, z; };
 
-struct Source {
+struct Source_1f6cd0 {
     char pad0[0x16];
     unsigned short bits;
 };
 
-struct HitInfo {
+struct HitInfo_1f6cd0 {
     int f0;
     char pad[0x2b8 - 4];
     void FUN_001d1630();
 };
 
-struct Library {
-    int FUN_001d3b00(const char *name, HitInfo info);
+struct Library_1f6cd0 {
+    int FUN_001d3b00(const char *name, HitInfo_1f6cd0 info);
 };
-Library *__cdecl FUN_001d4c90();
+Library_1f6cd0 *__cdecl FUN_001d4c90();
 
-struct Frame {
+struct Frame_1f6cd0 {
     char name[0x80];
-    HitInfo info;
+    HitInfo_1f6cd0 info;
     unsigned int cookie;
 };
 
-class Reaction {
+class Reaction_1f6cd0 {
 public:
     char pad0[0x1c];
-    Source *source;     // 0x1c
+    Source_1f6cd0 *source;     // 0x1c
     int arg20;          // 0x20
-    Vec3 v24;           // 0x24
-    Vec3 v30;           // 0x30
-    Vec3 v3c;           // 0x3c
+    Vec3_1f6cd0 v24;           // 0x24
+    Vec3_1f6cd0 v30;           // 0x30
+    Vec3_1f6cd0 v3c;           // 0x3c
     int arg48;          // 0x48
     char pad4c[0x58 - 0x4c];
     int arg58;
     int arg5c;
-    void FUN_001f6cd0(Source *src, int a1, const Vec3 *a2, const Vec3 *a3, const Vec3 *a4,
+    void FUN_001f6cd0(Source_1f6cd0 *src, int a1, const Vec3_1f6cd0 *a2, const Vec3_1f6cd0 *a3, const Vec3_1f6cd0 *a4,
                       int a5, int a6, int a7, const char **outName, int a9);
 };
 
-void Reaction::FUN_001f6cd0(Source *src, int a1, const Vec3 *a2, const Vec3 *a3, const Vec3 *a4,
+void Reaction_1f6cd0::FUN_001f6cd0(Source_1f6cd0 *src, int a1, const Vec3_1f6cd0 *a2, const Vec3_1f6cd0 *a3, const Vec3_1f6cd0 *a4,
                             int a5, int a6, int a7, const char **outName, int a9)
 {
-    Frame f;
+    Frame_1f6cd0 f;
     f.cookie = DAT_004d9968;
     unsigned short kind = (src->bits >> 5) & 0x1f;
     if (kind < 0x13) {

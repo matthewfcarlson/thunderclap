@@ -2,7 +2,7 @@
 // FUN_001ca730 @ 0x001ca730
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
-struct Reporter {
+struct Reporter_1ca730 {
  bool FUN_001d2e80();
  void FUN_001d1d50(const char*, const char*);
  void FUN_001d1dd0(const char*, unsigned int);
@@ -16,12 +16,12 @@ struct Object {
  unsigned int increase;
  unsigned int unused;
  unsigned int originLo, originHi;
- Reporter* FUN_001d4c90();
+ Reporter_1ca730* FUN_001d4c90();
  bool target();
 };
 bool Object::target() {
  unsigned int cookie = DAT_004d9968;
- Reporter* r = FUN_001d4c90();
+ Reporter_1ca730* r = FUN_001d4c90();
  if (!r || !r->FUN_001d2e80()) {
  __security_check_cookie(cookie);
  return false;

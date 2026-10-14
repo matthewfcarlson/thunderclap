@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2977 inputs, branch coverage 6/6)
 // physics::SimStateArticulated::vfunc_7 @ 0x002fd520
-struct Joint {
+struct Joint_2fd520 {
     char pad0[4];
     int f4, f8, fc, f10, f14, f18;
     unsigned char f1c;
     char pad1d[0x64 - 0x1d];
 };
 
-struct Chain {
+struct Chain_2fd520 {
     char pad0[8];
     int FUN_0030f450();
 };
@@ -28,8 +28,8 @@ public:
     char pad68[0x80 - 0x68];
     int f80;
     char pad84[4];
-    Chain *chain;
-    Joint *joints;
+    Chain_2fd520 *chain;
+    Joint_2fd520 *joints;
 };
 }
 
@@ -44,7 +44,7 @@ void physics::SimStateArticulated::vfunc_7()
     f80 = 0;
     if (chain != 0) {
         for (int i = 0; i < chain->FUN_0030f450(); i++) {
-            Joint *j = &joints[i];
+            Joint_2fd520 *j = &joints[i];
             j->f1c = 1;
             j->fc = 0;
             j->f8 = 0;

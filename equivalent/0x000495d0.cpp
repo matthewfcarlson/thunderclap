@@ -1,38 +1,38 @@
 // STATUS: equivalent (tools/equiv.py level 3: 164 inputs, branch coverage 51/52, incomplete)
 // CSmartPropNameCondition::vfunc_7 @ 0x000495d0
-struct Value {
+struct Value_495d0 {
     char pad00[0xc0];
     unsigned long long raw;
 };
-unsigned long long __fastcall FUN_001d4f70(Value* v);
+unsigned long long __fastcall FUN_001d4f70(Value_495d0* v);
 
-struct Key {
+struct Key_495d0 {
     char pad00[8];
     unsigned int lo;
     unsigned int hi;
 };
 
-struct Item {
+struct Item_495d0 {
     char pad00[0x9c];
-    Key* key;
+    Key_495d0* key;
     char padA0[0x4c];
-    Value* value;
+    Value_495d0* value;
 };
 
-struct Current {
+struct Current_495d0 {
     char pad00[8];
-    Item* item;
+    Item_495d0* item;
     int kind;
 };
 
-struct Fighter {
+struct Fighter_495d0 {
     char pad00[0x3a4];
-    Current* current;
-    Item* FUN_00035ef0(int index);
+    Current_495d0* current;
+    Item_495d0* FUN_00035ef0(int index);
 };
 
 void* __fastcall FUN_000592a0(void* owner);
-Fighter* __fastcall FUN_00059a30(void* holder);
+Fighter_495d0* __fastcall FUN_00059a30(void* holder);
 
 class CSmartPropNameCondition {
 public:
@@ -57,8 +57,8 @@ bool CSmartPropNameCondition::vfunc_7(void* params)
     if ((keyLo | keyHi) == 0)
         return false;
 
-    Fighter* fighter = FUN_00059a30(FUN_000592a0(params));
-    Item* item;
+    Fighter_495d0* fighter = FUN_00059a30(FUN_000592a0(params));
+    Item_495d0* item;
 
     if (slot == -1) {
         bool none = true;
@@ -68,7 +68,7 @@ bool CSmartPropNameCondition::vfunc_7(void* params)
                 continue;
             none = false;
             int m = mode;
-            Key* key = item->key;
+            Key_495d0* key = item->key;
             if (m == 0) {
                 unsigned int lo = keyLo;
                 unsigned int hi = keyHi;
@@ -89,14 +89,14 @@ bool CSmartPropNameCondition::vfunc_7(void* params)
         }
         if (!none)
             return false;
-        Current* cur = fighter->current;
+        Current_495d0* cur = fighter->current;
         if (!cur || cur->kind != 5)
             return false;
         item = cur->item;
     } else {
         item = fighter->FUN_00035ef0(slot);
         if (!item) {
-            Current* cur = fighter->current;
+            Current_495d0* cur = fighter->current;
             if (!cur || cur->kind != 5)
                 return false;
             item = cur->item;
@@ -104,7 +104,7 @@ bool CSmartPropNameCondition::vfunc_7(void* params)
     }
 
     int m = mode;
-    Key* key = item->key;
+    Key_495d0* key = item->key;
     if (m == 0) {
         unsigned int lo = keyLo;
         unsigned int hi = keyHi;

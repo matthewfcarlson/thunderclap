@@ -6,7 +6,7 @@ struct Column {
     int *kind;
 };
 
-struct Schema {
+struct Schema_335ef0 {
     Column *FUN_00337090(int index);
 
     char pad0[0x44];
@@ -15,17 +15,17 @@ struct Schema {
 
 int __cdecl FUN_00337f20(int kind);
 
-class Table {
+class Table_335ef0 {
 public:
     bool FUN_00335ef0(int index, int column, char *out);
 
     char pad0[4];
-    Schema *schema;
+    Schema_335ef0 *schema;
     char **rows;
 };
 
 // Copies the string stored in a string-typed cell of a row into `out`.
-bool Table::FUN_00335ef0(int index, int column, char *out) {
+bool Table_335ef0::FUN_00335ef0(int index, int column, char *out) {
     if (index < 0 || index >= schema->count) {
         return false;
     }

@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 38 inputs, branch coverage 25/32, incomplete)
 // FUN_00219a60 @ 0x00219a60
-struct TObject {
+struct TObject_219a60 {
     int tt;
     float n;
 };
 struct Node {
-    TObject key;
-    TObject val;
+    TObject_219a60 key;
+    TObject_219a60 val;
     Node* next;
 };
-struct Table {
+struct Table_219a60 {
     char pad0[7];
     unsigned char lsizenode;
     char pad8[4];
-    TObject* array;
+    TObject_219a60* array;
     Node* node;
     char pad14[8];
     int sizearray;
@@ -23,7 +23,7 @@ int FUN_00215f70(unsigned int x);
 // equiv-conv: FUN_002199d0 edx stack stack stack
 int FUN_002199d0(int* nums, int total, int* pna, int* out);
 
-int FUN_00219a60(Table* t, int* pna, int* out)
+int FUN_00219a60(Table_219a60* t, int* pna, int* out)
 {
     int nums[25];
     int total = 0;
@@ -39,7 +39,7 @@ int FUN_00219a60(Table* t, int* pna, int* out)
         }
         nums[lg] = 0;
         if (i < lim) {
-            TObject* p = t->array + i;
+            TObject_219a60* p = t->array + i;
             int cnt = lim - i;
             i += cnt;
             do {

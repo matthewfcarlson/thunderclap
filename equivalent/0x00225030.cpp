@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 6/6)
 // FUN_00225030 @ 0x00225030
 // FUN_00225030: bind to a skeleton and look up the rotation / translation channels of each bone
-struct Id {
+struct Id_225030 {
     int lo;
     int hi;
 };
 
-struct Table {
+struct Table_225030 {
     char pad00[0x10];
     unsigned int count;
     char pad14[0x10];
-    Id *ids;
+    Id_225030 *ids;
 };
 
-struct Pair {
+struct Pair_225030 {
     int trans;
     int rot;
 };
@@ -30,18 +30,18 @@ struct Channel {
     int FUN_00288960(int a, int b);
 };
 
-class Binder {
+class Binder_225030 {
 public:
     char pad00[0x10];
-    Table *table;
+    Table_225030 *table;
     char pad14[0xc];
     Skeleton *skel;
-    Pair pairs[1];
+    Pair_225030 pairs[1];
 
     void FUN_00225030(Skeleton *s);
 };
 
-void Binder::FUN_00225030(Skeleton *s)
+void Binder_225030::FUN_00225030(Skeleton *s)
 {
     skel = s;
     s->AddRef();

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_001c4580 @ 0x001c4580
-class Slider {
+class Slider_1c4580 {
 public:
     bool active;        // 0
     char pad01[3];
@@ -11,7 +11,7 @@ public:
 };
 
 // Moves toward the target; stops once the position has passed it.
-void Slider::FUN_001c4580(float dt)
+void Slider_1c4580::FUN_001c4580(float dt)
 {
     position += dt * rate;
     float diff = position - target;

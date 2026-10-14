@@ -21,32 +21,32 @@ public:
     void *FUN_00288a10(int index);
 };
 
-struct Elem {
+struct Elem_2abd90 {
     virtual void v0();
-    Elem *FUN_002d2570(void *channels);
+    Elem_2abd90 *FUN_002d2570(void *channels);
 };
 
-struct ElemArray {
-    Elem **data;
+struct ElemArray_2abd90 {
+    Elem_2abd90 **data;
     char pad[8];
     bool FUN_002ab9a0(unsigned int count, int *init);
 };
 
-class Generator {
+class Generator_2abd90 {
 public:
     virtual void v0();
     char pad04[0x1c - 4];
     int used;
     char pad20[0x28 - 0x20];
     AnimObj *anim;
-    ElemArray array;
+    ElemArray_2abd90 array;
     int f38;
     int f3c;
     int f40;
     int f44;
     int f48;
     char pad4c[0x60 - 0x4c];
-    Generator *FUN_002d3930();
+    Generator_2abd90 *FUN_002d3930();
 };
 
 namespace content {
@@ -69,16 +69,16 @@ public:
 };
 }
 
-struct Registry {
+struct Registry_2abd90 {
     content::ObjectLoader *FUN_00265310(int key);
 };
 
-extern Registry *DAT_00527c58;
+extern Registry_2abd90 *DAT_00527c58;
 
 void *FUN_00263ea0(unsigned int size);
 void *FUN_0008d690(unsigned int size);
 
-Generator * __stdcall FUN_002abd90(Reader *r, int flag)
+Generator_2abd90 * __stdcall FUN_002abd90(Reader *r, int flag)
 {
     struct Frame {
         AnimObj *obj;
@@ -90,9 +90,9 @@ Generator * __stdcall FUN_002abd90(Reader *r, int flag)
 
     r->stream->FUN_002647e0(&fr.a, 1, 4, 1);
     void *mem = FUN_00263ea0(0x60);
-    Generator *g = 0;
+    Generator_2abd90 *g = 0;
     if (mem)
-        g = ((Generator *)mem)->FUN_002d3930();
+        g = ((Generator_2abd90 *)mem)->FUN_002d3930();
     r->stream->FUN_002647e0(&fr.b, 1, 4, 1);
     g->f38 = fr.b;
     r->stream->FUN_002647e0(&fr.b, 1, 4, 1);
@@ -123,7 +123,7 @@ Generator * __stdcall FUN_002abd90(Reader *r, int flag)
                     fr.d = 0;
                     g->array.FUN_002ab9a0(fr.b, &fr.d);
                     for (int i = 0; i < fr.b; i++) {
-                        Elem *e = (Elem *)FUN_0008d690(0x1c);
+                        Elem_2abd90 *e = (Elem_2abd90 *)FUN_0008d690(0x1c);
                         if (e != 0)
                             e = e->FUN_002d2570(fr.obj->FUN_00288a10(i));
                         g->array.data[g->used] = e;

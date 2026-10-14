@@ -2,10 +2,10 @@
 // FUN_0010b1c0 @ 0x0010b1c0
 struct Item;
 struct Vector { float x,y,z; };
-struct Collection { char pad[12]; int count; Item* FUN_00024190(int index); bool FUN_00025d30(Item* item); };
-struct Owner { char pad[32]; Collection* collection; };
+struct Collection_10b1c0 { char pad[12]; int count; Item* FUN_00024190(int index); bool FUN_00025d30(Item* item); };
+struct Owner_10b1c0 { char pad[32]; Collection_10b1c0* collection; };
 float __cdecl FUN_0010ac60(Item*, Item*, int, Vector*);
-float __cdecl FUN_0010b1c0(Owner* owner, Item* subject, int flags, Vector* output)
+float __cdecl FUN_0010b1c0(Owner_10b1c0* owner, Item* subject, int flags, Vector* output)
 {
  int count = owner->collection->count;
  float best = -1.0f;

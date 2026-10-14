@@ -2,26 +2,26 @@
 // FUN_001c88f0 @ 0x001c88f0
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_1c88f0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Profiler {
+struct Profiler_1c88f0 {
     void FUN_0023f720(int *id, const char *name);
     char FUN_0023f760(const char *name, int a, int b);
     void FUN_0023f740();
 };
 
-struct Mode {
+struct Mode_1c88f0 {
     char *FUN_000897f0();
 };
 
 struct ModeSrc {
-    Mode *FUN_00086310();
+    Mode_1c88f0 *FUN_00086310();
 };
 
-class Gfx {
+class Gfx_1c88f0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -77,7 +77,7 @@ public:
 };
 
 struct GfxHolder {
-    void FUN_00293d00(Vec3 *v);
+    void FUN_00293d00(Vec3_1c88f0 *v);
 };
 
 struct Visible {
@@ -85,20 +85,20 @@ struct Visible {
     char FUN_001c2870(const void *id);
 };
 
-struct Ctx {
+struct Ctx_1c88f0 {
     char pad0[0xc];
     Visible vis;
-    Vec3 *FUN_001c1300();
-    Vec3 *FUN_001c12f0();
+    Vec3_1c88f0 *FUN_001c1300();
+    Vec3_1c88f0 *FUN_001c12f0();
     void FUN_001c1330(int a);
     void FUN_001c1340();
     void FUN_001c25c0(int a, int b, int c);
     void FUN_001c1370(int a);
 };
 
-struct Mgr;
+struct Mgr_1c88f0;
 
-struct Aim {
+struct Aim_1c88f0 {
     float x;
     char pad4[4];
     float z;
@@ -110,7 +110,7 @@ struct X27 {
 };
 X27 *FUN_0027f250();
 
-struct Mgr;
+struct Mgr_1c88f0;
 
 struct ItemA {
     char pad0[8];
@@ -118,39 +118,39 @@ struct ItemA {
     char b9;
     char pad0a[0x58 - 0x0a];
     float f58;
-    Vec3 *FUN_001c6af0();
-    Aim *FUN_001c63e0();
+    Vec3_1c88f0 *FUN_001c6af0();
+    Aim_1c88f0 *FUN_001c63e0();
     const void *FUN_001c6ac0();
     const void *FUN_001c6ab0();
     const void *FUN_001c6aa0();
-    void FUN_001c68c0(Ctx *ctx);
-    void FUN_001c6800(Ctx *ctx, Mgr *mgr, Visible *vis, float alpha);
+    void FUN_001c68c0(Ctx_1c88f0 *ctx);
+    void FUN_001c6800(Ctx_1c88f0 *ctx, Mgr_1c88f0 *mgr, Visible *vis, float alpha);
 };
 
 struct ItemB {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual void vfunc_3(Ctx *ctx, Mgr *mgr);
+    virtual void vfunc_3(Ctx_1c88f0 *ctx, Mgr_1c88f0 *mgr);
     char pad4[0x14 - 4];
     int f14;
     char pad18[0xa8 - 0x18];
     char bA8;
-    void FUN_001c4b50(Vec3 *out);
+    void FUN_001c4b50(Vec3_1c88f0 *out);
     void FUN_001c4b20();
 };
 
-struct SubObj {
+struct SubObj_1c88f0 {
     char pad0[0x10];
     void FUN_001c75e0(void *p);
 };
 
-struct Mgr {
+struct Mgr_1c88f0 {
     char pad0[8];
     int f08;
     int f0c;
     char f10[8];
-    SubObj sub18;
+    SubObj_1c88f0 sub18;
     int count28;
     ItemA **list2c;
     char pad30[0x138 - 0x30];
@@ -159,13 +159,13 @@ struct Mgr {
     ItemB *slots[4];
     int f54c;
     char pad550[0x5c - 0x50];
-    void FUN_001c84e0(Ctx *ctx, ItemB *it, Vec3 *pos);
-    void FUN_001c88f0(Ctx *ctx);
+    void FUN_001c84e0(Ctx_1c88f0 *ctx, ItemB *it, Vec3_1c88f0 *pos);
+    void FUN_001c88f0(Ctx_1c88f0 *ctx);
 };
 
-extern Profiler *DAT_004dd6e8;
+extern Profiler_1c88f0 *DAT_004dd6e8;
 extern ModeSrc *DAT_004dd6ec;
-extern Gfx **DAT_0052c2ac;
+extern Gfx_1c88f0 **DAT_0052c2ac;
 extern Gfx2 *DAT_0052c2a8;
 extern int DAT_004e2314;
 extern int DAT_004c5470;
@@ -177,7 +177,7 @@ extern float DAT_004c53c4;
 extern float DAT_004c546c;
 
 // The original's 0x5c-byte frame, field by field.
-struct Frame {
+struct Frame_1c88f0 {
     float dist;
     float alpha;
     float r150;
@@ -185,24 +185,24 @@ struct Frame {
     float dot;
     float r295;
     float r270;
-    Vec3 c;
-    Vec3 pos;
-    Vec3 dir;
-    Vec3 unit;
-    Vec3 v;
+    Vec3_1c88f0 c;
+    Vec3_1c88f0 pos;
+    Vec3_1c88f0 dir;
+    Vec3_1c88f0 unit;
+    Vec3_1c88f0 v;
     int pad58;
 };
 
-void Mgr::FUN_001c88f0(Ctx *ctx)
+void Mgr_1c88f0::FUN_001c88f0(Ctx_1c88f0 *ctx)
 {
-    Frame f;
+    Frame_1c88f0 f;
     f54c = 0;
     DAT_004dd6e8->FUN_0023f720(&DAT_004c5470, "Rendering");
     if (DAT_004dd6e8->FUN_0023f760("Draw Background", 0x62, 1)) {
         ctx->FUN_001c1330(0);
         if (f0c != 0) {
             (*DAT_0052c2ac)->vfunc_15(0);
-            Vec3 *cp = ctx->FUN_001c1300();
+            Vec3_1c88f0 *cp = ctx->FUN_001c1300();
             f.unit.x = cp->x;
             f.unit.y = cp->y;
             f.unit.z = cp->z;
@@ -222,11 +222,11 @@ void Mgr::FUN_001c88f0(Ctx *ctx)
     }
     DAT_004dd6e8->FUN_0023f740();
     sub18.FUN_001c75e0(&f10);
-    Vec3 *cam = ctx->FUN_001c1300();
+    Vec3_1c88f0 *cam = ctx->FUN_001c1300();
     f.pos.x = cam->x;
     f.pos.y = cam->y;
     f.pos.z = cam->z;
-    Vec3 *fwd = ctx->FUN_001c12f0();
+    Vec3_1c88f0 *fwd = ctx->FUN_001c12f0();
     f.dir.x = fwd->x;
     f.dir.y = fwd->y;
     f.dir.z = fwd->z;
@@ -260,7 +260,7 @@ void Mgr::FUN_001c88f0(Ctx *ctx)
             f.v.x = f.pos.x;
             f.v.y = f.pos.y;
             f.v.z = f.pos.z;
-            Vec3 *ip = it->FUN_001c6af0();
+            Vec3_1c88f0 *ip = it->FUN_001c6af0();
             float dx = f.v.x - ip->x;
             float dz = f.v.z - ip->z;
             bool show;
@@ -286,7 +286,7 @@ void Mgr::FUN_001c88f0(Ctx *ctx)
             skipNear = true;
         }
         if (!skipNear) {
-            Aim *q = it->FUN_001c63e0();
+            Aim_1c88f0 *q = it->FUN_001c63e0();
             if (q->f0c != 0.0f) {
                 if (!ctx->vis.FUN_001c2820(it->FUN_001c6ab0())) {
                     it->f58 = 0.0f;
@@ -301,7 +301,7 @@ void Mgr::FUN_001c88f0(Ctx *ctx)
         f.c.x = f.pos.x;
         f.c.y = f.pos.y;
         f.c.z = f.pos.z;
-        Aim *q2 = it->FUN_001c63e0();
+        Aim_1c88f0 *q2 = it->FUN_001c63e0();
         f.c.x = f.c.x - q2->x;
         f.c.y = 0.0f;
         f.c.z = f.c.z - q2->z;

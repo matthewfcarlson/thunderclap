@@ -1,38 +1,38 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_002fb190 @ 0x002fb190
-struct V3 { float x, y, z; };
+struct V3_2fb190 { float x, y, z; };
 
-struct Tri;
+struct Tri_2fb190;
 
-struct Mesh {
+struct Mesh_2fb190 {
     char pad0[8];
-    V3* verts;
+    V3_2fb190* verts;
     char pad1[0x18 - 0xc];
-    Tri* tris;
+    Tri_2fb190* tris;
 };
 
 struct Context {
     char pad[0x44];
-    Mesh* mesh;
+    Mesh_2fb190* mesh;
 };
 
-struct Query {
+struct Query_2fb190 {
     char data[0x84];
-    void FUN_00306ef0(const V3* origin, const V3* dir, unsigned int mask);
+    void FUN_00306ef0(const V3_2fb190* origin, const V3_2fb190* dir, unsigned int mask);
     void FUN_00306fb0();
 };
 
-struct Registry {
-    char FUN_00304530(Query* shape, unsigned int index, float depth, V3* o1, V3* o2, Context* ctx, int flags);
+struct Registry_2fb190 {
+    char FUN_00304530(Query_2fb190* shape, unsigned int index, float depth, V3_2fb190* o1, V3_2fb190* o2, Context* ctx, int flags);
 };
-struct Manager { char pad[0x1b0]; Registry reg; };
-extern Manager* DAT_00554c14;
+struct Manager_2fb190 { char pad[0x1b0]; Registry_2fb190 reg; };
+extern Manager_2fb190* DAT_00554c14;
 
-void FUN_002fa6b0(V3* a, V3* b, V3* c, V3* normal);
+void FUN_002fa6b0(V3_2fb190* a, V3_2fb190* b, V3_2fb190* c, V3_2fb190* normal);
 
-class Tri {
+class Tri_2fb190 {
 public:
-    char run(V3* p, Context* ctx, int flags);
+    char run(V3_2fb190* p, Context* ctx, int flags);
     char pad0[0x10];
     unsigned short i0;
     unsigned short i1;
@@ -49,19 +49,19 @@ static inline float absf(float f)
     return x.f;
 }
 
-char Tri::run(V3* p, Context* ctx, int flags)
+char Tri_2fb190::run(V3_2fb190* p, Context* ctx, int flags)
 {
     struct Frame {
         float diff;
-        V3 n;
-        V3 hit;
-        V3 dir;
-        Query obj;
+        V3_2fb190 n;
+        V3_2fb190 hit;
+        V3_2fb190 dir;
+        Query_2fb190 obj;
     } f;
-    V3* verts = ctx->mesh->verts;
-    V3* v0 = &verts[i0];
-    V3* v1 = &verts[i1];
-    V3* v2 = &verts[i2];
+    V3_2fb190* verts = ctx->mesh->verts;
+    V3_2fb190* v0 = &verts[i0];
+    V3_2fb190* v1 = &verts[i1];
+    V3_2fb190* v2 = &verts[i2];
 
     float t1 = (v2->z - v1->z) * (p->x - v1->x) - (v2->x - v1->x) * (p->z - v1->z);
     float t2 = (v1->z - v0->z) * (p->x - v0->x) - (p->z - v0->z) * (v1->x - v0->x);

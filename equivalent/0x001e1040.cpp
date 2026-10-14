@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1134 inputs, branch coverage 8/8)
 // FUN_001e1040 @ 0x001e1040
-struct Entry { unsigned int a,b,c; float priority; unsigned short d,e; };
-extern void __cdecl FUN_001de140(Entry*, int, int, Entry);
-void __cdecl FUN_001e1040(Entry* entries, int hole, int count, Entry value) {
+struct Entry_1e1040 { unsigned int a,b,c; float priority; unsigned short d,e; };
+extern void __cdecl FUN_001de140(Entry_1e1040*, int, int, Entry_1e1040);
+void __cdecl FUN_001e1040(Entry_1e1040* entries, int hole, int count, Entry_1e1040 value) {
  int start=hole;
  int child=2*hole+2;
  while(child<count) {

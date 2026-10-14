@@ -34,7 +34,7 @@ struct Font {
     virtual float Width(const unsigned short *s);
 };
 
-struct Loader {
+struct Loader_1baab0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -54,7 +54,7 @@ struct TextObj {
     void FUN_0029b380(unsigned int color);
 };
 
-class Cam {
+class Cam_1baab0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -80,13 +80,13 @@ public:
     virtual void v21(int a);
 };
 
-struct Renderer {
-    Cam *cam;
+struct Renderer_1baab0 {
+    Cam_1baab0 *cam;
     void FUN_00293da0(float a, float b, float c);
     void FUN_00293d40(float a, float b, float c);
 };
 
-class Clock {
+class Clock_1baab0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -98,7 +98,7 @@ public:
     virtual int Width();
 };
 
-class Device {
+class Device_1baab0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -167,36 +167,36 @@ struct Banner {
 };
 
 struct Res;
-struct Obj1 {
+struct Obj1_1baab0 {
     char pad000[0x10c];
     int f10c;
     unsigned short *FUN_000f7d30(const char *name);
     unsigned short *FUN_000f7220(unsigned short *p);
 };
-Obj1 *__fastcall thunk_FUN_000fc1b0(Res *r);
+Obj1_1baab0 *__fastcall thunk_FUN_000fc1b0(Res *r);
 
-struct Replay {
+struct Replay_1baab0 {
     Res *FUN_00086280();
     void *FUN_000862c0();
 };
 
-struct Globals {
+struct Globals_1baab0 {
     char pad0[0x54];
-    Replay *replay;
+    Replay_1baab0 *replay;
 };
 
 extern const char *DAT_004c3c18[];
 extern const char *DAT_004c466c[];
 extern unsigned int DAT_004d9968;
-extern Globals *DAT_004dd700;
-extern Loader *DAT_004dd9c8;
+extern Globals_1baab0 *DAT_004dd700;
+extern Loader_1baab0 *DAT_004dd9c8;
 extern TextObj *DAT_004e226c;
-extern Clock *DAT_0052c2a4;
-extern Device *DAT_0052c2a8;
-extern Renderer *DAT_0052c2ac;
+extern Clock_1baab0 *DAT_0052c2a4;
+extern Device_1baab0 *DAT_0052c2a8;
+extern Renderer_1baab0 *DAT_0052c2ac;
 extern Banner *DAT_0052c2b4;
 
-class Credits {
+class Credits_1baab0 {
 public:
     char pad00[0x1c];
     float scroll;
@@ -206,7 +206,7 @@ public:
     void FUN_001baab0(bool flag);
 };
 
-struct Frame {
+struct Frame_1baab0 {
     float y;                       // 0x10
     union {                        // 0x14
         int n;
@@ -219,7 +219,7 @@ struct Frame {
     unsigned int color;            // 0x24
     int saved;                     // 0x28
     float height;                  // 0x2c
-    Credits *self;                 // 0x30
+    Credits_1baab0 *self;                 // 0x30
     unsigned int casterSlot;       // 0x34
     float width;                   // 0x38
     Font *font;                    // 0x3c
@@ -230,9 +230,9 @@ struct Frame {
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
-void Credits::FUN_001baab0(bool flag)
+void Credits_1baab0::FUN_001baab0(bool flag)
 {
-    Frame f;
+    Frame_1baab0 f;
     f.cookie = DAT_004d9968;
     f.self = this;
     if (flag)
@@ -277,7 +277,7 @@ void Credits::FUN_001baab0(bool flag)
             } else {
                 if (f.height + 30.0f < f.y)
                     break;
-                Loader *inv = DAT_004dd9c8;
+                Loader_1baab0 *inv = DAT_004dd9c8;
                 content::LoadInventory::DynamicCaster<pure3d::TextureFont> *caster =
                     new (&f.casterSlot) content::LoadInventory::DynamicCaster<pure3d::TextureFont>();
                 f.font = inv->v3(caster, FUN_002672f0("font_serpentine_lt_med", 0));

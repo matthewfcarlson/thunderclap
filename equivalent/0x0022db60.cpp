@@ -2,18 +2,18 @@
 // FUN_0022db60 @ 0x0022db60
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_22db60 {
     float x, y, z;
 };
 
-union Slot {
-    V3 *v;
+union Slot_22db60 {
+    V3_22db60 *v;
     float *fp;
     float f;
     unsigned char b;
 };
 
-struct Frame {
+struct Frame_22db60 {
     float uu;
     float t[3];
     float R[3];
@@ -23,13 +23,13 @@ struct Frame {
     float Qz;
 };
 
-bool __cdecl FUN_0022db60(Slot a1, Slot a2, Slot a3, V3 *a4, float a5, Slot a6, float *a7)
+bool __cdecl FUN_0022db60(Slot_22db60 a1, Slot_22db60 a2, Slot_22db60 a3, V3_22db60 *a4, float a5, Slot_22db60 a6, float *a7)
 {
-    Frame f;
-    V3 *u = a2.v;
-    V3 *p3 = a3.v;
-    V3 *p1 = a1.v;
-    V3 *c = a4;
+    Frame_22db60 f;
+    V3_22db60 *u = a2.v;
+    V3_22db60 *p3 = a3.v;
+    V3_22db60 *p1 = a1.v;
+    V3_22db60 *c = a4;
 
     a1.b = 1;
     f.t[0] = p1->x - p3->x;

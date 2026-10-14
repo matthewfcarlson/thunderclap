@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FEScreenBase::vfunc_1 @ 0x000e5620
-class FEWidget {
+class FEWidget_e5620 {
 public:
     virtual void v0();
     virtual void Event(int a, int b);
@@ -27,7 +27,7 @@ public:
     char pad7c[0xab8 - 0xa7c];
     unsigned char active;
     char padb9[3];
-    FEWidget *kids[32];
+    FEWidget_e5620 *kids[32];
     int kidCount;
 };
 

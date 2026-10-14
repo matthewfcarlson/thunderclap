@@ -4,7 +4,7 @@
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
-struct Proto {
+struct Proto_214900 {
     char pad0[0xc];
     unsigned int *code;         // 0x0c
     char pad10[4];
@@ -13,45 +13,45 @@ struct Proto {
     char *source;               // 0x20
 };
 
-struct Closure {
+struct Closure_214900 {
     char pad0[6];
     unsigned char isC;          // 0x06
     char pad07[5];
-    Proto *p;                   // 0x0c
+    Proto_214900 *p;                   // 0x0c
 };
 
-struct TObject {
+struct TObject_214900 {
     int tt;
-    Closure *value;
+    Closure_214900 *value;
 };
 
-struct CallInfo {
-    TObject *base;              // 0x00
-    TObject *top;               // 0x04
+struct CallInfo_214900 {
+    TObject_214900 *base;              // 0x00
+    TObject_214900 *top;               // 0x04
     unsigned int *savedpc;      // 0x08
     int tailcalls;              // 0x0c
 };
 
-struct lua_State {
+struct lua_State_214900 {
     char pad0[0x14];
-    CallInfo *ci;               // 0x14
+    CallInfo_214900 *ci;               // 0x14
 };
 
 void __cdecl FUN_00216340(char *out, const char *source, int bufflen);
-const char *FUN_00216320(lua_State *L, const char *fmt, ...);
+const char *FUN_00216320(lua_State_214900 *L, const char *fmt, ...);
 
 // equiv-conv: FUN_00214900 ebx stack
-void FUN_00214900(lua_State *L, const char *msg)
+void FUN_00214900(lua_State_214900 *L, const char *msg)
 {
     struct Frame {
         char buff[60];
         unsigned int cookie;
     } fr;
     fr.cookie = DAT_004d9968;
-    CallInfo *ci = L->ci;
-    TObject *func = ci->base - 1;
+    CallInfo_214900 *ci = L->ci;
+    TObject_214900 *func = ci->base - 1;
     if (func->tt == 6 && func->value->isC == 0) {
-        Proto *p = func->value->p;
+        Proto_214900 *p = func->value->p;
         int pc = (int)(ci->savedpc - p->code) - 1;
         int line;
         if (pc < 0)

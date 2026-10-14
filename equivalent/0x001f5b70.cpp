@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_001f5b70 @ 0x001f5b70
-struct Source {
+struct Source_1f5b70 {
  unsigned __int64 FUN_001f57e0();
  bool FUN_001f3550();
 };
 struct Timer { void FUN_001e9b20(int); };
 struct Object {
  char pad0[0x8c];
- Source* source;
+ Source_1f5b70* source;
  int state;
  unsigned char active;
  char pad95[3];

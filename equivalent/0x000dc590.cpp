@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000dc590 @ 0x000dc590
-class FEBase {
+class FEBase_dc590 {
 public:
-    FEBase(int arg) throw();
+    FEBase_dc590(int arg) throw();
     virtual void v0();
     char pad04[0x44 - 4];
     int link;
     char pad48[0x118 - 0x48];
 };
 
-class FEControl : public FEBase {
+class FEControl : public FEBase_dc590 {
 public:
     FEControl(int arg) throw();
     virtual void c0();

@@ -14,47 +14,47 @@ class CompositeDrawable;
 class Locator;
 }
 
-class Res {
+class Res_d2c30 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-class Composite : public Res {
+class Composite_d2c30 : public Res_d2c30 {
 public:
     char pad04[0x44];
-    Res *child48;
+    Res_d2c30 *child48;
     void FUN_002998d0(int v);
 };
 
-class Inventory {
+class Inventory_d2c30 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Res *get(void *caster, unsigned int lo, unsigned int hi);
+    virtual Res_d2c30 *get(void *caster, unsigned int lo, unsigned int hi);
 };
 
-struct Flags {
+struct Flags_d2c30 {
     bool FUN_00092940(int id);
 };
 
-struct Holder {
-    Flags *FUN_00086340();
+struct Holder_d2c30 {
+    Flags_d2c30 *FUN_00086340();
 };
 
-struct Manager {
+struct Manager_d2c30 {
     char pad0[0x54];
-    Holder *holder;
+    Holder_d2c30 *holder;
 };
 
-extern Manager *DAT_004dd700;
-extern Inventory *DAT_004dd9cc;
+extern Manager_d2c30 *DAT_004dd700;
+extern Inventory_d2c30 *DAT_004dd9cc;
 extern "C" unsigned __int64 __cdecl FUN_0027b020(const char *s);
 
-static Res *GetLocator(const char *name)
+static Res_d2c30 *GetLocator(const char *name)
 {
-    Inventory *inv = DAT_004dd9cc;
+    Inventory_d2c30 *inv = DAT_004dd9cc;
     unsigned __int64 h = FUN_0027b020(name);
     content::LoadInventory::DynamicCaster<pure3d::Locator> c;
     return inv->get(&c, (unsigned int)h, (unsigned int)(h >> 32));
@@ -63,25 +63,25 @@ static Res *GetLocator(const char *name)
 class HealthBar {
 public:
     char pad0[0x164];
-    Res *r164;
-    Res *r168;
+    Res_d2c30 *r164;
+    Res_d2c30 *r168;
     char pad16c[0x1a4 - 0x16c];
-    Res *r1a4;
-    Res *r1a8;
-    Res *r1ac;
-    Res *r1b0;
-    Res *r1b4;
-    Res *r1b8;
+    Res_d2c30 *r1a4;
+    Res_d2c30 *r1a8;
+    Res_d2c30 *r1ac;
+    Res_d2c30 *r1b0;
+    Res_d2c30 *r1b4;
+    Res_d2c30 *r1b8;
     char pad1bc[0x1e0 - 0x1bc];
-    Res *r1e0;
-    Res *r1e4;
-    Res *r1e8;
+    Res_d2c30 *r1e0;
+    Res_d2c30 *r1e4;
+    Res_d2c30 *r1e8;
     void FUN_000d2c30();
 };
 
 void HealthBar::FUN_000d2c30()
 {
-    Flags *fl = DAT_004dd700->holder->FUN_00086340();
+    Flags_d2c30 *fl = DAT_004dd700->holder->FUN_00086340();
     const char *n1;
     const char *n2;
     const char *n3;
@@ -103,14 +103,14 @@ void HealthBar::FUN_000d2c30()
         n3 = "LOC_health_top_topdistance3Shape";
     }
 
-    Composite *comp;
+    Composite_d2c30 *comp;
     {
-        Inventory *inv = DAT_004dd9cc;
+        Inventory_d2c30 *inv = DAT_004dd9cc;
         unsigned __int64 h = FUN_0027b020(n1);
         content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> c;
-        comp = (Composite *)inv->get(&c, (unsigned int)h, (unsigned int)(h >> 32));
+        comp = (Composite_d2c30 *)inv->get(&c, (unsigned int)h, (unsigned int)(h >> 32));
     }
-    Res *r = GetLocator(n2);
+    Res_d2c30 *r = GetLocator(n2);
     if (r)
         r->AddRef();
     if (r1ac)
@@ -130,7 +130,7 @@ void HealthBar::FUN_000d2c30()
     if (r164)
         r164->Release();
     r164 = comp;
-    Res *ch = comp->child48;
+    Res_d2c30 *ch = comp->child48;
     if (ch)
         ch->AddRef();
     if (r168)

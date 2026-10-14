@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00263160 @ 0x00263160
-struct Text {
+struct Text_263160 {
     char data[12];
     void FUN_00240170(const char *s);
     void FUN_0023fac0();
@@ -12,8 +12,8 @@ class HalRsdFileStream {
 public:
     HalRsdFileStream(const char *name, const char *path, int a3, int a4, int a5, int *a6, int a7);
     virtual void v0();
-    Text name;
-    Text path;
+    Text_263160 name;
+    Text_263160 path;
     int f1c;
     int f20;
     int f24;

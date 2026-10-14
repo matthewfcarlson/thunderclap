@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001b8690 @ 0x001b8690
-struct Child {
+struct Child_1b8690 {
     virtual void vfn0();
-    Child *FUN_00294880();
+    Child_1b8690 *FUN_00294880();
     void FUN_00293e40(int a, int b, int c, int d);
     void FUN_00293e90(unsigned int c);
     char pad[0x20 - 4];
@@ -13,17 +13,17 @@ struct Child {
 };
 extern void *__cdecl FUN_0008d690(unsigned int n);
 
-class Owner {
+class Owner_1b8690 {
 public:
     void FUN_001b8690();
     int pad0;
-    Child *child;
+    Child_1b8690 *child;
     int v[4];
 };
 
-void Owner::FUN_001b8690()
+void Owner_1b8690::FUN_001b8690()
 {
-    Child *c = (Child *)FUN_0008d690(0x140);
+    Child_1b8690 *c = (Child_1b8690 *)FUN_0008d690(0x140);
     if (c)
         c = c->FUN_00294880();
     child = c;

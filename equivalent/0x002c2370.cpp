@@ -12,32 +12,32 @@ struct Reader {
     void FUN_00266be0();
 };
 
-struct Name {
+struct Name_2c2370 {
     void FUN_0027b040(const char* s);
 };
 
-struct Created {
+struct Created_2c2370 {
     char pad0[8];
-    Name name;
+    Name_2c2370 name;
 };
 
-struct Target {
+struct Target_2c2370 {
     char pad0[0x8c];
     int f8c;
     char pad90[4];
     void FUN_002ae950(int a, int b, int c, int d);
 };
 
-class Loader {
+class Loader_2c2370 {
   public:
     char pad0[0x14];
-    Target* target;
-    Created* FUN_002c1f80(Reader* rd, Target* t, Created* prev, int index, int count);
-    Created* FUN_002c1d70(Reader* rd, Target* t, Created* prev, int index);
-    Created* FUN_002c2370(Reader* rd);
+    Target_2c2370* target;
+    Created_2c2370* FUN_002c1f80(Reader* rd, Target_2c2370* t, Created_2c2370* prev, int index, int count);
+    Created_2c2370* FUN_002c1d70(Reader* rd, Target_2c2370* t, Created_2c2370* prev, int index);
+    Created_2c2370* FUN_002c2370(Reader* rd);
 };
 
-Created* Loader::FUN_002c2370(Reader* rd)
+Created_2c2370* Loader_2c2370::FUN_002c2370(Reader* rd)
 {
     struct Frame {
         char pad10[2];
@@ -72,7 +72,7 @@ Created* Loader::FUN_002c2370(Reader* rd)
     target->f8c = fr.vb;
     target->FUN_002ae950(fr.va, fr.count, fr.vd, fr.ve);
 
-    Created* made = 0;
+    Created_2c2370* made = 0;
     int index = 0;
     fr.flagB = 0;
     flagA = 0;

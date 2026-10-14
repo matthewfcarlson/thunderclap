@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 50/50)
 // FUN_0022d730 @ 0x0022d730
-struct V3 {
+struct V3_22d730 {
     float x, y, z;
 };
 
-bool FUN_0022d730(const V3 *p1, const V3 *d1, float smax, const V3 *p2, const V3 *d2,
+bool FUN_0022d730(const V3_22d730 *p1, const V3_22d730 *d1, float smax, const V3_22d730 *p2, const V3_22d730 *d2,
                   float tmax, float *sOut, float *tOut)
 {
     double x0 = p1->x - p2->x;

@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 42/42)
 // FUN_00224260 @ 0x00224260
-struct Sink;
-struct Target {
+struct Sink_224260;
+struct Target_224260 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10();
-    virtual bool v11(int a, int b, Sink *c, float amount);
+    virtual bool v11(int a, int b, Sink_224260 *c, float amount);
 };
 
-struct Sink {
+struct Sink_224260 {
     void FUN_00221ee0();
 };
 
-struct Entry {
-    Target *target;         // 0x00
+struct Entry_224260 {
+    Target_224260 *target;         // 0x00
     char pad04[0x14 - 0x4];
     int key;                // 0x14
     float f18;              // 0x18
@@ -21,24 +21,24 @@ struct Entry {
     float w;                // 0x24
 };
 
-extern void __cdecl FUN_00223dc0(Entry *first, Entry *last, int count);
+extern void __cdecl FUN_00223dc0(Entry_224260 *first, Entry_224260 *last, int count);
 
 struct Mixer {
     char pad0[0x68];
     unsigned count;                         // 0x68
-    Entry e[16];                            // 0x6c
+    Entry_224260 e[16];                            // 0x6c
     char dirty;                             // 0x2ec
-    bool FUN_00224260(int a, int b, Sink *sink);
+    bool FUN_00224260(int a, int b, Sink_224260 *sink);
 };
 
-bool Mixer::FUN_00224260(int a, int b, Sink *sink)
+bool Mixer::FUN_00224260(int a, int b, Sink_224260 *sink)
 {
     if (!(count > 0))
         return false;
     bool any = false;
     if (dirty != 0) {
-        Entry *begin = &e[0];
-        Entry *end = begin + count;
+        Entry_224260 *begin = &e[0];
+        Entry_224260 *end = begin + count;
         dirty = 0;
         FUN_00223dc0(begin, end, end - begin);
     }
@@ -63,13 +63,13 @@ bool Mixer::FUN_00224260(int a, int b, Sink *sink)
                 else
                     s = 1.0f;
                 double v = e[i].f18 * e[i].w;
-                Target *t0 = e[j].target;
+                Target_224260 *t0 = e[j].target;
                 P = (float)v;
                 if (t0->v11(a, b, sink, s))
                     any = true;
                 for (unsigned k = j + 1; k < i; k++) {
                     double c = e[k].w * e[k].f18;
-                    Target *tk = e[k].target;
+                    Target_224260 *tk = e[k].target;
                     double Q = P + c;
                     P = (float)Q;
                     float amt;
@@ -99,14 +99,14 @@ bool Mixer::FUN_00224260(int a, int b, Sink *sink)
         s = 1.0f;
     {
         double v = e[j].w * e[j].f18;
-        Target *tj = e[j].target;
+        Target_224260 *tj = e[j].target;
         P = (float)v;
         if (tj->v11(a, b, sink, s))
             any = true;
     }
     for (unsigned k = j + 1; k < count; k++) {
         double c = e[k].w * e[k].f18;
-        Target *tk = e[k].target;
+        Target_224260 *tk = e[k].target;
         double Q = P + c;
         P = (float)Q;
         float amt;

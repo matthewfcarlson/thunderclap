@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 147 inputs, branch coverage 4/4)
 // FUN_0027b270 @ 0x0027b270
 struct Matrix { unsigned int words[16]; void FUN_0022c120(); void FUN_0022ca90(Matrix*,Matrix*); };
-struct Local { unsigned int words[4]; void FUN_0022b370(Matrix*); };
-struct Object { char pad[16]; unsigned int count; Local* locals; Matrix* localMatrices; Matrix* worldMatrices; Matrix* inverseMatrices; unsigned int unknown24; unsigned short* parents; void update(); };
+struct Local_27b270 { unsigned int words[4]; void FUN_0022b370(Matrix*); };
+struct Object { char pad[16]; unsigned int count; Local_27b270* locals; Matrix* localMatrices; Matrix* worldMatrices; Matrix* inverseMatrices; unsigned int unknown24; unsigned short* parents; void update(); };
 void Object::update() {
  locals->FUN_0022b370(localMatrices);
  Matrix* src=localMatrices;

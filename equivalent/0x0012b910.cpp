@@ -1,25 +1,25 @@
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 17/18, incomplete)
 // hulkfight::ai::ThreatBallAction::vfunc_5 @ 0x0012b910
-struct Vec3 { float x, y, z; };
+struct Vec3_12b910 { float x, y, z; };
 
-struct Mat {
+struct Mat_12b910 {
     float m[16];
-    void FUN_0022ca90(Mat *src, int arg);
-    void FUN_0022c2b0(const Vec3 *in, Vec3 *out);
+    void FUN_0022ca90(Mat_12b910 *src, int arg);
+    void FUN_0022c2b0(const Vec3_12b910 *in, Vec3_12b910 *out);
 };
 
-struct JointFinder {
+struct JointFinder_12b910 {
     unsigned int FUN_0027b200(int a, int b);
 };
 
 struct Skeleton {
     char pad0[8];
-    JointFinder *finder;
+    JointFinder_12b910 *finder;
     char pad0c[0x1c - 0xc];
-    Mat *matrices;
+    Mat_12b910 *matrices;
 };
 
-class Attach {
+class Attach_12b910 {
 public:
     virtual void v0();
     virtual void v1();
@@ -40,53 +40,53 @@ public:
     Skeleton *FUN_001d68d0();
 };
 
-struct Stats {
+struct Stats_12b910 {
     char pad0[0x120];
     Skeleton *skeleton;
-    Attach *FUN_00035ef0(int slot);
+    Attach_12b910 *FUN_00035ef0(int slot);
 };
 
-struct Fighter { char pad[4]; };
-Fighter *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(Fighter *f);
+struct Fighter_12b910 { char pad[4]; };
+Fighter_12b910 *__fastcall FUN_000592a0(void *owner);
+Stats_12b910 *__fastcall FUN_00059a30(Fighter_12b910 *f);
 
-struct Sink;
+struct Sink_12b910;
 
 struct Request {
     void *source;
-    Vec3 pos;
+    Vec3_12b910 pos;
     float extra;
     char pad14[0x20 - 0x14];
     void FUN_00067e20();
     void FUN_000679c0();
 };
 
-struct Sink {
+struct Sink_12b910 {
     void FUN_00067c30(int arg, Request *req);
 };
 
-struct SinkHolder {
+struct SinkHolder_12b910 {
     char pad0[8];
-    Sink *sink;
+    Sink_12b910 *sink;
 };
 
 struct World {
     char pad0[0x20];
-    SinkHolder *holder;
+    SinkHolder_12b910 *holder;
 };
 extern World *DAT_004dd700;
 
-struct Owner {
+struct Owner_12b910 {
     char pad0[8];
     void *f08;
 };
 
-struct Data {
+struct Data_12b910 {
     char pad0[0x14];
     int slot;
     int f18;
     int f1c;
-    Vec3 offset;
+    Vec3_12b910 offset;
     float f2c;
 };
 
@@ -99,42 +99,42 @@ public:
     virtual void vfunc_4();
     virtual bool vfunc_5(int msg, int unused);
     char pad04[0x1c - 4];
-    Data *data;
-    Owner *owner;
+    Data_12b910 *data;
+    Owner_12b910 *owner;
     int arg;
 };
 
 bool ThreatBallAction::vfunc_5(int msg, int unused)
 {
     if (msg == 1) {
-        Sink *sink = DAT_004dd700->holder->sink;
-        Stats *stats = FUN_00059a30(FUN_000592a0(owner));
+        Sink_12b910 *sink = DAT_004dd700->holder->sink;
+        Stats_12b910 *stats = FUN_00059a30(FUN_000592a0(owner));
         int slot = data->slot;
         Skeleton *skel = stats->skeleton;
-        Attach *att = 0;
+        Attach_12b910 *att = 0;
         unsigned int joint = 0;
         if (slot >= 0 && slot < 8) {
             att = stats->FUN_00035ef0(slot);
             if (att != 0) skel = att->FUN_001d68d0();
         }
         if (skel != 0) {
-            JointFinder *finder = skel->finder;
+            JointFinder_12b910 *finder = skel->finder;
             if ((data->f18 | data->f1c) != 0) {
                 joint = finder->FUN_0027b200(data->f18, data->f1c);
                 if (joint == 0xffff) joint = 0;
             }
         }
-        Vec3 world;
-        Mat M;
+        Vec3_12b910 world;
+        Mat_12b910 M;
         world.x = 0; world.y = 0; world.z = 0;
         if (skel != 0) {
-            Mat *src = skel->matrices + joint;
+            Mat_12b910 *src = skel->matrices + joint;
             if (att != 0) {
                 M.FUN_0022ca90(src, att->v15());
             } else {
                 M = *src;
             }
-            Vec3 local = data->offset;
+            Vec3_12b910 local = data->offset;
             M.FUN_0022c2b0(&local, &world);
         }
         Request req;

@@ -8,7 +8,7 @@ extern float DAT_004a06ac;
 extern float DAT_004a06a8;
 extern float DAT_004a06d4;
 
-struct Slot {
+struct Slot_d5980 {
     float from[3];
     float to[3];
     float cur;
@@ -38,7 +38,7 @@ public:
     // fields are reached through typed accessors on the raw bytes.
     char raw[0x808 - 4];
 
-    Slot *slot(int i) { return (Slot *)(raw + (0x214 - 4) + i * 0x23c); }
+    Slot_d5980 *slot(int i) { return (Slot_d5980 *)(raw + (0x214 - 4) + i * 0x23c); }
     float *floatAt(int off) { return (float *)(raw + (off - 4)); }
     char *byteAt(int off) { return raw + (off - 4); }
 };
@@ -49,7 +49,7 @@ void MessageOverlay::vfunc_3(float dt)
     if (*byteAt(0x7bc))
         return;
     for (int i = 0; i < 2; i++) {
-        Slot *s = slot(i);
+        Slot_d5980 *s = slot(i);
         if (s->active) {
             FUN_000d49b0(s->to, s->from);
             float d = *floatAt(0x7cc) - DAT_004a06d4;

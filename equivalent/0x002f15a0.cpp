@@ -1,41 +1,41 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3037 inputs, branch coverage 59/68, incomplete)
 // FUN_002f15a0 @ 0x002f15a0
-union Bits {
+union Bits_2f15a0 {
     float f;
     unsigned int u;
 };
 
-struct V3 {
+struct V3_2f15a0 {
     float x, y, z;
-    void FUN_000110d0(V3 *v);
+    void FUN_000110d0(V3_2f15a0 *v);
     void FUN_00011160(unsigned int t, void *arg);
 };
 
-struct Obj;
+struct Obj_2f15a0;
 
-struct Q {
+struct Q_2f15a0 {
     char pad00[0x6c];
     int f6c;
 };
 
-struct Parent {
+struct Parent_2f15a0 {
     char pad00[0x18];
-    Q *q;                       // 0x18
+    Q_2f15a0 *q;                       // 0x18
     char pad1c[4];
-    Obj *root;                  // 0x20
+    Obj_2f15a0 *root;                  // 0x20
 };
 
-struct List {
-    Obj **begin;
-    Obj **end;
+struct List_2f15a0 {
+    Obj_2f15a0 **begin;
+    Obj_2f15a0 **end;
 };
 
-struct Obj {
+struct Obj_2f15a0 {
     virtual void s0();
     virtual void s1();
     virtual void s2();
     virtual void s3();
-    virtual V3 *getCenter();
+    virtual V3_2f15a0 *getCenter();
     virtual void s5();
     virtual int kind();
     virtual void s7();
@@ -43,57 +43,57 @@ struct Obj {
     virtual void s9();
     virtual void v10();
     char pad04[0xc];
-    Parent *parent;             // 0x10
-    List *children;             // 0x14
+    Parent_2f15a0 *parent;             // 0x10
+    List_2f15a0 *children;             // 0x14
     char enabled;               // 0x18
     char flag19;                // 0x19
     char pad1a[0xe];
-    V3 ext;                     // 0x28
+    V3_2f15a0 ext;                     // 0x28
     float radius;               // 0x34
     char pad38[0xc];
-    V3 box44;                   // 0x44
+    V3_2f15a0 box44;                   // 0x44
     float f50;                  // 0x50
     float f54;                  // 0x54
     char b58;                   // 0x58
 };
 
 union Arg5 {
-    Obj *obj;
+    Obj_2f15a0 *obj;
     unsigned char top;
-    Bits t;
+    Bits_2f15a0 t;
 };
 
-struct Hit {
+struct Hit_2f15a0 {
     int mode;                   // 0x00
-    Bits f4;                    // 0x04
-    Obj *obj;                   // 0x08
-    V3 pos;                     // 0x0c
+    Bits_2f15a0 f4;                    // 0x04
+    Obj_2f15a0 *obj;                   // 0x08
+    V3_2f15a0 pos;                     // 0x0c
     char b18;                   // 0x18
 };
 
-bool FUN_002f0080(V3 *q, V3 *r, V3 *s);
-bool FUN_002f04c0(V3 *q, V3 *dir, int a4, float rad, float *t);
-bool FUN_002f0730(V3 *q, V3 *r, V3 *a3, V3 *s, float *t);
-bool FUN_002f0e80(V3 *q, V3 *r, V3 *a3, unsigned int f4, Obj *obj, float *t);
-bool FUN_002f08d0(V3 *q, V3 *r, V3 *box, float a, float b, V3 *out);
+bool FUN_002f0080(V3_2f15a0 *q, V3_2f15a0 *r, V3_2f15a0 *s);
+bool FUN_002f04c0(V3_2f15a0 *q, V3_2f15a0 *dir, int a4, float rad, float *t);
+bool FUN_002f0730(V3_2f15a0 *q, V3_2f15a0 *r, V3_2f15a0 *a3, V3_2f15a0 *s, float *t);
+bool FUN_002f0e80(V3_2f15a0 *q, V3_2f15a0 *r, V3_2f15a0 *a3, unsigned int f4, Obj_2f15a0 *obj, float *t);
+bool FUN_002f08d0(V3_2f15a0 *q, V3_2f15a0 *r, V3_2f15a0 *box, float a, float b, V3_2f15a0 *out);
 
-bool FUN_002f15a0(V3 *p, V3 *dir, V3 *a3, int a4, Arg5 a5, Hit *st)
+bool FUN_002f15a0(V3_2f15a0 *p, V3_2f15a0 *dir, V3_2f15a0 *a3, int a4, Arg5 a5, Hit_2f15a0 *st)
 {
     struct Frame {
-        Bits t10;
-        V3 q;
-        V3 r;
-        V3 s;
+        Bits_2f15a0 t10;
+        V3_2f15a0 q;
+        V3_2f15a0 r;
+        V3_2f15a0 s;
         char gap[0x14];
     } fr;
-    Obj *obj = a5.obj;
+    Obj_2f15a0 *obj = a5.obj;
 
     if (!obj->enabled)
         return false;
     bool top = (obj->parent->root == obj);
     a5.top = top;
     fr.q = *p;
-    V3 *c = obj->getCenter();
+    V3_2f15a0 *c = obj->getCenter();
     fr.q.x = fr.q.x - c->x;
     fr.q.y = fr.q.y - c->y;
     fr.q.z = fr.q.z - c->z;
@@ -107,7 +107,7 @@ bool FUN_002f15a0(V3 *p, V3 *dir, V3 *a3, int a4, Arg5 a5, Hit *st)
             return false;
     }
 
-    Obj *root = obj->parent->root;
+    Obj_2f15a0 *root = obj->parent->root;
     if (!root->flag19) {
         if (st->mode == 2 || !st->b18 || !top || obj->parent->q->f6c == 1)
             obj->v10();
@@ -160,7 +160,7 @@ bool FUN_002f15a0(V3 *p, V3 *dir, V3 *a3, int a4, Arg5 a5, Hit *st)
             return false;
         unsigned int i = 0;
         while (i < (unsigned int)(obj->children->end - obj->children->begin)) {
-            Obj *child = obj->children->begin[i];
+            Obj_2f15a0 *child = obj->children->begin[i];
             Arg5 c;
             c.obj = child;
             if (FUN_002f15a0(p, dir, a3, a4, c, st))

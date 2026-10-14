@@ -1,24 +1,24 @@
 // STATUS: equivalent (tools/equiv.py level 3: 105 inputs, branch coverage 16/18, incomplete)
 // pure3d::ParticleSphereGenerator::vfunc_6 @ 0x002d2c40
-struct Vec3 {
+struct Vec3_2d2c40 {
     float x, y, z;
-    void FUN_0022d260(struct Mat4* m);
+    void FUN_0022d260(struct Mat4_2d2c40* m);
     float FUN_0022d110();
 };
 
-struct Mat4 {
+struct Mat4_2d2c40 {
     float m[12];
-    Vec3 pos;
+    Vec3_2d2c40 pos;
     float w;
 };
 
-struct Rng {
+struct Rng_2d2c40 {
     float FUN_00143100();
 };
 
-extern Rng DAT_00554bfc;
+extern Rng_2d2c40 DAT_00554bfc;
 
-class Emitter {
+class Emitter_2d2c40 {
 public:
     virtual void v0();
     virtual void v1();
@@ -34,19 +34,19 @@ public:
     virtual void v11();
     virtual void v12();
     virtual void v13();
-    virtual bool v14(Vec3* dir, Vec3* pos, float t);
+    virtual bool v14(Vec3_2d2c40* dir, Vec3_2d2c40* pos, float t);
 };
 
 void __cdecl FUN_00356bf0(float r, float az, float pol, float* x, float* y, float* z);
 
-struct Frame {
-    Vec3 tmp;
-    Vec3 p;
-    Vec3 q1;
-    Vec3 w;
+struct Frame_2d2c40 {
+    Vec3_2d2c40 tmp;
+    Vec3_2d2c40 p;
+    Vec3_2d2c40 q1;
+    Vec3_2d2c40 w;
     union {
-        Vec3 d;
-        Vec3 q0;
+        Vec3_2d2c40 d;
+        Vec3_2d2c40 q0;
     };
 };
 
@@ -55,16 +55,16 @@ public:
     char pad00[0x38];
     float f38, f3c, f40;
     float f44, f48, f4c;
-    unsigned int vfunc_6(unsigned int count, Mat4* from, Mat4* to, float step, Emitter* em);
+    unsigned int vfunc_6(unsigned int count, Mat4_2d2c40* from, Mat4_2d2c40* to, float step, Emitter_2d2c40* em);
 };
 
-unsigned int ParticleSphereGenerator::vfunc_6(unsigned int count, Mat4* from, Mat4* to, float step, Emitter* em)
+unsigned int ParticleSphereGenerator::vfunc_6(unsigned int count, Mat4_2d2c40* from, Mat4_2d2c40* to, float step, Emitter_2d2c40* em)
 {
     if (count == 0)
         return 0;
     float radius = f40 * f38;
     float jitter = f44 * f3c;
-    Frame fr;
+    Frame_2d2c40 fr;
     fr.p = from->pos;
     float dx = fr.p.x - to->pos.x;
     float dy = fr.p.y - to->pos.y;
@@ -81,11 +81,11 @@ unsigned int ParticleSphereGenerator::vfunc_6(unsigned int count, Mat4* from, Ma
             float ph = DAT_00554bfc.FUN_00143100() * 3.1415927f;
             float th = DAT_00554bfc.FUN_00143100() * 3.1415927f;
             float v = DAT_00554bfc.FUN_00143100() * jitter;
-            Vec3& w = fr.w;
+            Vec3_2d2c40& w = fr.w;
             FUN_00356bf0(radius, ph, th, &fr.tmp.x, &fr.tmp.y, &fr.tmp.z);
             w = fr.tmp;
             w.FUN_0022d260(from);
-            Vec3& q = fr.q1;
+            Vec3_2d2c40& q = fr.q1;
             q = w;
             w.FUN_0022d110();
             q.x = w.x * v + (q.x + fr.p.x);
@@ -104,11 +104,11 @@ unsigned int ParticleSphereGenerator::vfunc_6(unsigned int count, Mat4* from, Ma
             float ph = DAT_00554bfc.FUN_00143100() * 3.1415927f;
             float th = DAT_00554bfc.FUN_00143100() * 3.1415927f;
             float v = DAT_00554bfc.FUN_00143100() * jitter;
-            Vec3& w = fr.w;
+            Vec3_2d2c40& w = fr.w;
             FUN_00356bf0(1.0f, ph, th, &w.x, &w.y, &w.z);
             w.FUN_0022d260(from);
             w.FUN_0022d110();
-            Vec3& q = fr.q0;
+            Vec3_2d2c40& q = fr.q0;
             q.x = w.x * v + from->pos.x;
             q.y = w.y * v + from->pos.y;
             q.z = w.z * v + from->pos.z;

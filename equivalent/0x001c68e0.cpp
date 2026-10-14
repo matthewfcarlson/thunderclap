@@ -2,7 +2,7 @@
 // FUN_001c68e0 @ 0x001c68e0
 extern float DAT_004c5314;
 
-class Listener {
+class Listener_1c68e0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -13,17 +13,17 @@ public:
     virtual void v6(float value, int arg);
 };
 
-struct Fader {
+struct Fader_1c68e0 {
     char pad00[8];
     char active;             // 0x08
     char pad09[3];
-    Listener* listener;      // 0x0c
+    Listener_1c68e0* listener;      // 0x0c
     char pad10[0x58 - 0x10];
     float timeLeft;          // 0x58
     void Update(float dt);
 };
 
-void Fader::Update(float dt)
+void Fader_1c68e0::Update(float dt)
 {
     if (active == 0)
         return;

@@ -2,68 +2,68 @@
 // CHand2HandAgent::vfunc_23 @ 0x00101a30
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_101a30 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Name {
+struct Name_101a30 {
     void FUN_0027b040(const char *s);
 };
 
-struct Rng {
+struct Rng_101a30 {
     float FUN_00078780();
 };
-Rng *FUN_000964d0();
+Rng_101a30 *FUN_000964d0();
 
-struct Obj58 {
+struct Obj58_101a30 {
     char pad0[0x129];
     char b129;
 };
 
-struct Pos10 {
-    V3 v;
+struct Pos10_101a30 {
+    V3_101a30 v;
 };
 
-class P5c {
+class P5c_101a30 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual int v3(struct Hub *hub, struct Arg1 *a1, V3 *out, int a3, int z);
+    virtual int v3(struct Hub_101a30 *hub, struct Arg1_101a30 *a1, V3_101a30 *out, int a3, int z);
     char pad04[0xc];
-    V3 v10;
+    V3_101a30 v10;
 };
 
-struct Arg1 {
+struct Arg1_101a30 {
     char pad0[0x1cbc];
     int f1cbc;
 };
 
-struct Hub20 {
-    void FUN_00029250(int a, V3 *v, int b, int c);
+struct Hub20_101a30 {
+    void FUN_00029250(int a, V3_101a30 *v, int b, int c);
 };
-struct Hub {
+struct Hub_101a30 {
     char pad0[0x20];
-    Hub20 *p20;
+    Hub20_101a30 *p20;
 };
-extern Hub *DAT_004dd700;
+extern Hub_101a30 *DAT_004dd700;
 extern float DAT_004a1c00;
 extern float DAT_004a1c04;
 extern float DAT_004a1c08;
 extern float DAT_004a1c0c;
 extern char DAT_004e0a99;
 
-float FUN_0010ae50(Hub *h, Arg1 *a, float f, V3 *v1, V3 *v2, int z1, int z2);
+float FUN_0010ae50(Hub_101a30 *h, Arg1_101a30 *a, float f, V3_101a30 *v1, V3_101a30 *v2, int z1, int z2);
 
-struct Out {
+struct Out_101a30 {
     char pad0[0x10c];
-    V3 v10c;
+    V3_101a30 v10c;
     float f118;
-    V3 v11c;
-    V3 v128;
+    V3_101a30 v11c;
+    V3_101a30 v128;
     char pad134[0x140 - 0x134];
-    Name name;
+    Name_101a30 name;
     char pad141[7];
     char b148;
 };
@@ -81,7 +81,7 @@ public:
     virtual void v8();
     virtual void v9();
     virtual void v10();
-    virtual char v11(Arg1 *a, int b, float c);
+    virtual char v11(Arg1_101a30 *a, int b, float c);
     virtual void v12();
     virtual void v13();
     virtual void v14();
@@ -93,10 +93,10 @@ public:
     virtual void v20();
     virtual void v21();
     virtual void v22();
-    virtual void v23(Arg1 *a1, Out *out, int a3);
+    virtual void v23(Arg1_101a30 *a1, Out_101a30 *out, int a3);
     char pad04[0x58 - 4];
-    Obj58 *p58;
-    P5c *p5c;
+    Obj58_101a30 *p58;
+    P5c_101a30 *p5c;
     char pad60[4];
     float f64;
     char pad68[0x78 - 0x68];
@@ -108,12 +108,12 @@ public:
     char pad7d[3];
     float f80;
     char pad84[4];
-    V3 v88;
+    V3_101a30 v88;
     float f94, f98, f9c;
     int pa0;
     char pada4[0xb0 - 0xa4];
-    V3 vB0;
-    V3 vBC;
+    V3_101a30 vB0;
+    V3_101a30 vBC;
     int c8;
     char padcc[0xd1 - 0xcc];
     char d1;
@@ -122,19 +122,19 @@ public:
     char padd4[0x128 - 0xd4];
     int i128;
     char pad12c[0x138 - 0x12c];
-    V3 v138;
+    V3_101a30 v138;
     char pad144[0x150 - 0x144];
-    V3 v150;
-    V3 v15c;
-    V3 v168;
-    V3 v174;
+    V3_101a30 v150;
+    V3_101a30 v15c;
+    V3_101a30 v168;
+    V3_101a30 v174;
     char pad180[4];
-    V3 v184;
+    V3_101a30 v184;
 };
 
-void CHand2HandAgent::v23(Arg1 *a1, Out *out, int a3)
+void CHand2HandAgent::v23(Arg1_101a30 *a1, Out_101a30 *out, int a3)
 {
-    Rng *rng = FUN_000964d0();
+    Rng_101a30 *rng = FUN_000964d0();
     v168.z = 0;
     v168.y = 0;
     v168.x = 0;
@@ -187,7 +187,7 @@ void CHand2HandAgent::v23(Arg1 *a1, Out *out, int a3)
     v168.x = v15c.x + v168.x;
     v168.y = v15c.y + v168.y;
     v168.z = v15c.z + v168.z;
-    V3 W;
+    V3_101a30 W;
     double P0 = (double)vBC.y * 0.0f;
     W.x = (float)(P0 - vBC.z);
     W.y = (float)((double)vBC.z * 0.0f - (double)vBC.x * 0.0f);

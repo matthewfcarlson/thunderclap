@@ -12,7 +12,7 @@ struct PrimInfo {
     int mul;
     int add;
 };
-struct VertexFormat {
+struct VertexFormat_3272f0 {
     char pad[0x10];
     DWORD stride;
     DWORD shader;
@@ -34,7 +34,7 @@ struct MeshBatch {
     DWORD indexBuffer;
     DWORD vertexBuffer;
     char pad3[0x3c - 0x34];
-    VertexFormat* format;
+    VertexFormat_3272f0* format;
     void Draw();
 };
 void MeshBatch::Draw() {

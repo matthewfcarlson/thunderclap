@@ -2,9 +2,9 @@
 // FUN_001d1220 @ 0x001d1220
 extern "C" int __cdecl FUN_00096670(const char*, const char*, unsigned int);
 extern "C" int __cdecl FUN_00096600(const char*, const char*);
-struct Entry { char pad[8]; char* text; };
-struct Table { Entry* entries[1024]; int count; char* FUN_001d1220(const char* prefix, const char* previous); };
-char* Table::FUN_001d1220(const char* prefix, const char* previous) {
+struct Entry_1d1220 { char pad[8]; char* text; };
+struct Table_1d1220 { Entry_1d1220* entries[1024]; int count; char* FUN_001d1220(const char* prefix, const char* previous); };
+char* Table_1d1220::FUN_001d1220(const char* prefix, const char* previous) {
  if (!prefix || !*prefix || count <= 0) return 0;
  int i = 0;
  for (;;) {

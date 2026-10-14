@@ -2,7 +2,7 @@
 // FUN_00304cb0 @ 0x00304cb0
 // 0x00304cb0: depth-first search for the slot index of `target` below `node`; -1 when not found
 struct Node;
-struct ChildList {
+struct ChildList_304cb0 {
     Node** begin;
     Node** end;
 };
@@ -12,19 +12,19 @@ struct Node {
     int slot;
     Node* match;
     char pad10[4];
-    ChildList* children;
+    ChildList_304cb0* children;
 };
 
-class Finder {
+class Finder_304cb0 {
 public:
     int FUN_00304cb0(Node* node, Node* target);
 };
 
-int Finder::FUN_00304cb0(Node* node, Node* target)
+int Finder_304cb0::FUN_00304cb0(Node* node, Node* target)
 {
     if (node->match == target)
         return node->slot;
-    ChildList* list = node->children;
+    ChildList_304cb0* list = node->children;
     if (list == 0)
         return -1;
     if (((int)list->end - (int)list->begin & ~3) == 0)

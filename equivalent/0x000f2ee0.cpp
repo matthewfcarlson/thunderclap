@@ -17,38 +17,38 @@ public:
 
 namespace pure3d { class LightGroup; }
 
-class Ref {
+class Ref_f2ee0 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-class Loader {
+class Loader_f2ee0 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Ref *v3(content::LoadInventory::DynamicCaster<pure3d::LightGroup> *caster, unsigned int lo, unsigned int hi);
+    virtual Ref_f2ee0 *v3(content::LoadInventory::DynamicCaster<pure3d::LightGroup> *caster, unsigned int lo, unsigned int hi);
 };
 
-extern Loader *DAT_004dd9cc;
+extern Loader_f2ee0 *DAT_004dd9cc;
 
-struct Id64 {
+struct Id64_f2ee0 {
     unsigned int lo;
     unsigned int hi;
 };
 
-Id64 __cdecl FUN_0027b020(const char *name);
+Id64_f2ee0 __cdecl FUN_0027b020(const char *name);
 
-class Inventory {
+class Inventory_f2ee0 {
 public:
     char pad0[0x994];
-    Ref *items[4];
+    Ref_f2ee0 *items[4];
 
     void FUN_000f2ee0(const char *name);
 };
 
-void Inventory::FUN_000f2ee0(const char *name)
+void Inventory_f2ee0::FUN_000f2ee0(const char *name)
 {
     int i;
     for (i = 0; i < 4; i++) {
@@ -56,10 +56,10 @@ void Inventory::FUN_000f2ee0(const char *name)
             break;
     }
     if (i < 4) {
-        Loader *ld = DAT_004dd9cc;
-        Id64 id = FUN_0027b020(name);
+        Loader_f2ee0 *ld = DAT_004dd9cc;
+        Id64_f2ee0 id = FUN_0027b020(name);
         content::LoadInventory::DynamicCaster<pure3d::LightGroup> caster;
-        Ref *r = ld->v3(&caster, id.lo, id.hi);
+        Ref_f2ee0 *r = ld->v3(&caster, id.lo, id.hi);
         items[i] = r;
         if (r != 0)
             r->AddRef();

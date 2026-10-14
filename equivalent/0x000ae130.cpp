@@ -1,34 +1,34 @@
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 22/22)
 // FUN_000ae130 @ 0x000ae130
-struct Block {
+struct Block_ae130 {
     float v[17];
 };
 
-struct Item {
+struct Item_ae130 {
     char pad0[0xd];
     char flag;
-    void FUN_000b3510(Block *a, Block *b);
+    void FUN_000b3510(Block_ae130 *a, Block_ae130 *b);
 };
 
-void __cdecl FUN_000addd0(Block *dst, Block *src);
-void __cdecl FUN_000adf20(Block *dst, Block *src);
+void __cdecl FUN_000addd0(Block_ae130 *dst, Block_ae130 *src);
+void __cdecl FUN_000adf20(Block_ae130 *dst, Block_ae130 *src);
 
 extern char DAT_004e222c;
 
-class Accumulator {
+class Accumulator_ae130 {
 public:
     char pad0[0x10];
     int count;
-    Item **items;
-    Block blockA;
-    Block blockB;
+    Item_ae130 **items;
+    Block_ae130 blockA;
+    Block_ae130 blockB;
     int words[3];
-    Block blockC;
-    Block blockD;
+    Block_ae130 blockC;
+    Block_ae130 blockD;
     void FUN_000ae130();
 };
 
-void Accumulator::FUN_000ae130()
+void Accumulator_ae130::FUN_000ae130()
 {
     int k;
     for (k = 0; k < 17; k++)
@@ -42,8 +42,8 @@ void Accumulator::FUN_000ae130()
 
     for (int i = 0; i < count; i++) {
         if (items[i] != 0) {
-            Block first;
-            Block second;
+            Block_ae130 first;
+            Block_ae130 second;
             for (k = 0; k < 17; k++)
                 first.v[k] = 0;
             for (k = 0; k < 17; k++)

@@ -15,30 +15,30 @@ public:
     virtual void v1();
 };
 
-struct Marker {
+struct Marker_207080 {
     void FUN_00204f00();
 };
 
-struct Entry {
+struct Entry_207080 {
     char pad0[0x56];
     short id;               // 0x56
 };
 
-struct Index {
-    Entry *FUN_001c7f10(int key);
+struct Index_207080 {
+    Entry_207080 *FUN_001c7f10(int key);
 };
 
-struct Manager {
+struct Manager_207080 {
     char pad0[4];
-    Index *index;           // 0x04
+    Index_207080 *index;           // 0x04
 };
 
-Manager *FUN_001c3d90();
+Manager_207080 *FUN_001c3d90();
 
 class Region;
-extern class Services *DAT_0052c2a8;
+extern class Services_207080 *DAT_0052c2a8;
 
-class Services {
+class Services_207080 {
 public:
     virtual void v0();
     virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9();
@@ -54,19 +54,19 @@ public:
     virtual void v91();
 };
 
-class District {
+class District_207080 {
 public:
     char pad0[0x24];
     char name[0x570 - 0x24];    // 0x24
     int ids[2];                 // 0x570
     bool FUN_002046b0(int id);
     void FUN_00206a40(int id);
-    Marker *FUN_00204540(const char *label);
+    Marker_207080 *FUN_00204540(const char *label);
     void FUN_00205860(int id);
     void FUN_00207080(int id);
 };
 
-void District::FUN_00207080(int id)
+void District_207080::FUN_00207080(int id)
 {
     struct Frame {
         char label[0x100];

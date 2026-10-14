@@ -3,11 +3,11 @@
 inline void* operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
 void FUN_0016fa60(); void FUN_0016fa70(); void FUN_0016fa90();
-struct FloatBase { virtual void slot0(); char padding[12]; void (*callback)(); int tail; void FUN_00234960(const char*); };
+struct FloatBase_17ae00 { virtual void slot0(); char padding[12]; void (*callback)(); int tail; void FUN_00234960(const char*); };
 struct BoolBase { virtual void slot0(); char padding[12]; void (*callback)(); int tail; void FUN_00234860(const char*); };
 namespace hulkfight { namespace motion { class ChargeClearTrack; } }
 namespace fight {
- template<class T> struct ParamFloatConstRange : FloatBase { virtual void slot0(); };
+ template<class T> struct ParamFloatConstRange : FloatBase_17ae00 { virtual void slot0(); };
  template<class T> struct ParamBool : BoolBase { virtual void slot0(); };
 }
 extern unsigned int DAT_004e13ac;

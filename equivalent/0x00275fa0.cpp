@@ -5,7 +5,7 @@ namespace core { struct File; }
 struct Request {
  Request* FUN_00275430(core::File* file, unsigned int argument);
 };
-struct Manager {
+struct Manager_275fa0 {
  int FUN_00272b60(Request* request, unsigned int value, unsigned int zero);
 };
 namespace core {
@@ -18,7 +18,7 @@ struct File {
  virtual void vfunc_5();
  virtual int vfunc_6(unsigned int argument);
  char pad[8];
- Manager* manager;
+ Manager_275fa0* manager;
  unsigned int value;
 };
 int File::vfunc_6(unsigned int argument) {

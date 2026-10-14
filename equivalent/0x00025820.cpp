@@ -4,13 +4,13 @@ extern int DAT_003fa114;
 extern const char* DAT_0049548c[];
 extern int __cdecl FUN_00096600(const char*, const char*);
 extern void* __cdecl FUN_00267830(void* dst, const void* src, int n);
-class Table {
+class Table_25820 {
   public:
     char pad[0xc10];
     char names[9][32];
     void FUN_00025820(const char* name, const void* src);
 };
-void Table::FUN_00025820(const char* name, const void* src) {
+void Table_25820::FUN_00025820(const char* name, const void* src) {
     int i = 0;
     if (DAT_003fa114 > 0) {
         do {

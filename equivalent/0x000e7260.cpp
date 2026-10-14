@@ -47,7 +47,7 @@ public:
     virtual int Lookup(const char *name);
 };
 
-class Registry {
+class Registry_e7260 {
 public:
     int FUN_000e7260(const char *name);
     Node *FUN_000e6490(const char *name);
@@ -64,14 +64,14 @@ public:
     Node *defaultC;
 };
 
-struct Frame {
+struct Frame_e7260 {
     char buf[0x40];
     unsigned int cookie;
 };
 
-int Registry::FUN_000e7260(const char *name)
+int Registry_e7260::FUN_000e7260(const char *name)
 {
-    Frame f;
+    Frame_e7260 f;
     f.cookie = DAT_004d9968;
     int result;
     if (name == 0) {

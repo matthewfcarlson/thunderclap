@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000d4390 @ 0x000d4390
-struct Rec {
+struct Rec_d4390 {
     char pad0[0x218];
     float score;
     char pad21c[0x18];
     char active;
     char pad235[7];
 };
-class Pool {
+class Pool_d4390 {
 public:
     char pad0[0x14];
-    Rec recs[2];
-    Rec* FUN_000d4390();
+    Rec_d4390 recs[2];
+    Rec_d4390* FUN_000d4390();
 };
-Rec* Pool::FUN_000d4390() {
+Rec_d4390* Pool_d4390::FUN_000d4390() {
     int best = -1;
     float bestScore = 0.0f;
     for (int i = 0; i < 2; i++) {

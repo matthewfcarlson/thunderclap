@@ -7,13 +7,13 @@ struct ListNode {
     int count;
 };
 
-struct ListHead {
+struct ListHead_244d70 {
     ListNode *first;
     ListNode node;
 };
 
-extern ListHead *DAT_004cc084;
-extern ListHead *DAT_004cc088;
+extern ListHead_244d70 *DAT_004cc084;
+extern ListHead_244d70 *DAT_004cc088;
 extern int DAT_004e5f10;
 
 namespace om {
@@ -28,13 +28,13 @@ public:
 };
 }
 
-void FUN_00244230(ListHead *head, om::EntityType *type, void *block);
-void FUN_00244430(ListHead *head, om::EntityType *type, void *block);
+void FUN_00244230(ListHead_244d70 *head, om::EntityType *type, void *block);
+void FUN_00244430(ListHead_244d70 *head, om::EntityType *type, void *block);
 
 void om::EntityType::vfunc_0()
 {
-    ListHead *a = DAT_004cc084;
-    ListHead *b = DAT_004cc088;
+    ListHead_244d70 *a = DAT_004cc084;
+    ListHead_244d70 *b = DAT_004cc088;
 
     if (DAT_004e5f10 == 0) {
         if (a) {

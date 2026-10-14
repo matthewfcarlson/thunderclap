@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2769 inputs, branch coverage 32/32)
 // FUN_0001c430 @ 0x0001c430
-struct Vec3 {
+struct Vec3_1c430 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Sensor {
+struct Sensor_1c430 {
     char pad[4];
 };
 
@@ -15,88 +15,88 @@ struct Entity {
     char pad120[0xc];
     int f12c;
     char pad130[0x3a4 - 0x130];
-    Sensor* sensor;
+    Sensor_1c430* sensor;
     char pad3a8[0x20b0 - 0x3a8];
     int blocked;
     char FUN_000360f0();
-    int FUN_000390e0(Vec3* c, Vec3* aux, float radius, Vec3* hit);
+    int FUN_000390e0(Vec3_1c430* c, Vec3_1c430* aux, float radius, Vec3_1c430* hit);
 };
 
-struct EntityList {
+struct EntityList_1c430 {
     char pad0[0xc];
     int count;
     Entity* FUN_00024190(int index);
 };
 
-struct Globals {
+struct Globals_1c430 {
     char pad0[0x20];
-    EntityList* entities;
+    EntityList_1c430* entities;
 };
 
-struct Config {
+struct Config_1c430 {
     char pad0[0x18];
     float scale;
 };
 
-struct Xform {
-    void FUN_0022c2b0(Vec3* in, Vec3* out);
+struct Xform_1c430 {
+    void FUN_0022c2b0(Vec3_1c430* in, Vec3_1c430* out);
 };
 
-struct Source {
+struct Source_1c430 {
     char pad0[0x30];
-    Vec3 pos;
-    void FUN_0022c3b0(Vec3* in, Vec3* out);
-    void FUN_0022c2b0(Vec3* in, Vec3* out);
+    Vec3_1c430 pos;
+    void FUN_0022c3b0(Vec3_1c430* in, Vec3_1c430* out);
+    void FUN_0022c2b0(Vec3_1c430* in, Vec3_1c430* out);
 };
 
-extern Globals* DAT_004dd700;
+extern Globals_1c430* DAT_004dd700;
 
-struct Anchor { char pad[4]; };
-Anchor* __fastcall FUN_000592a0(void* owner);
-Entity* __fastcall FUN_00059a30(Anchor* a);
-char __cdecl FUN_00096ce0(Sensor* s, Vec3* hit, float* out);
+struct Anchor_1c430 { char pad[4]; };
+Anchor_1c430* __fastcall FUN_000592a0(void* owner);
+Entity* __fastcall FUN_00059a30(Anchor_1c430* a);
+char __cdecl FUN_00096ce0(Sensor_1c430* s, Vec3_1c430* hit, float* out);
 
 union SelfOrDist {
     Entity* self;
     float dist;
 };
 
-class Tracker {
+class Tracker_1c430 {
 public:
     char pad0[0x1c];
     void* owner;
-    Config* cfg;
+    Config_1c430* cfg;
     char pad24[0x34 - 0x24];
-    Xform xf;
-    void FUN_0001b510(int a, Vec3* pos, Vec3* dir, int kind);
-    void FUN_0001c430(Source* src);
+    Xform_1c430 xf;
+    void FUN_0001b510(int a, Vec3_1c430* pos, Vec3_1c430* dir, int kind);
+    void FUN_0001c430(Source_1c430* src);
 };
 
-void Tracker::FUN_0001c430(Source* src)
+void Tracker_1c430::FUN_0001c430(Source_1c430* src)
 {
     SelfOrDist slot;
     slot.self = FUN_00059a30(FUN_000592a0(owner));
-    Vec3 c = src->pos;
-    Vec3 t;
-    Vec3 aux;
-    Vec3 p;
-    Vec3 q;
+    Vec3_1c430 c = src->pos;
+    Vec3_1c430 t;
+    Vec3_1c430 aux;
+    Vec3_1c430 p;
+    Vec3_1c430 q;
     t.x = 0.0f; t.y = 3.5f; t.z = 0.0f;
     src->FUN_0022c3b0(&t, &aux);
     t.x = 0.0f; t.y = 3.5f; t.z = 0.0f;
     src->FUN_0022c2b0(&t, &p);
     t.x = 0.0f; t.y = 3.5f; t.z = 0.0f;
     xf.FUN_0022c2b0(&t, &q);
-    Vec3 d;
+    Vec3_1c430 d;
     d.x = p.x - q.x;
     d.y = p.y - q.y;
     d.z = p.z - q.z;
     d.FUN_0022d110();
 
     float radius = cfg->scale * 0.25f;
-    EntityList* list = DAT_004dd700->entities;
+    EntityList_1c430* list = DAT_004dd700->entities;
     int count = list->count;
-    Vec3 hit;
+    Vec3_1c430 hit;
     for (int i = 0; i < count; i++) {
         Entity* e = list->FUN_00024190(i);
         if (e != slot.self && e != 0 && e->blocked == 0 && !e->FUN_000360f0() && e->f11c != 0) {
@@ -106,7 +106,7 @@ void Tracker::FUN_0001c430(Source* src)
         }
     }
 
-    Sensor* sensor = slot.self->sensor;
+    Sensor_1c430* sensor = slot.self->sensor;
     if (sensor == 0)
         return;
     if (!FUN_00096ce0(sensor, &hit, &slot.dist))
@@ -129,8 +129,8 @@ void Tracker::FUN_0001c430(Source* src)
     bool nearP = sum2 <= s2;
     if (!nearC && !nearP)
         return;
-    Vec3* other = nearP ? &p : &c;
-    Vec3 mid;
+    Vec3_1c430* other = nearP ? &p : &c;
+    Vec3_1c430 mid;
     mid.x = (hit.x + other->x) * 0.5f;
     mid.y = (hit.y + other->y) * 0.5f;
     mid.z = (hit.z + other->z) * 0.5f;

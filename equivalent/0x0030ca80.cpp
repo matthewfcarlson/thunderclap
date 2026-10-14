@@ -2,11 +2,11 @@
 // FUN_0030ca80 @ 0x0030ca80
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_30ca80 {
     float x, y, z;
 };
 
-struct Mat4 {
+struct Mat4_30ca80 {
     float m[16];
     void FUN_0022b980();
 };
@@ -43,10 +43,10 @@ public:
     float field_44;
     SymMatrix sym48;
     SymMatrix sym64;
-    Vec3 vec80;
-    Vec3 vec8c;
+    Vec3_30ca80 vec80;
+    Vec3_30ca80 vec8c;
     char pad98[0xa4 - 0x98];
-    Mat4 mat_a4;
+    Mat4_30ca80 mat_a4;
     int field_e4;
     int field_e8;
     unsigned char fieldEC;
@@ -56,10 +56,10 @@ public:
     int field_f0;
     int field_f4;
 
-    PhysicsJoint(const Vec3 *axis, float mass, int id);
+    PhysicsJoint(const Vec3_30ca80 *axis, float mass, int id);
 };
 
-PhysicsJoint::PhysicsJoint(const Vec3 *axis, float mass, int id)
+PhysicsJoint::PhysicsJoint(const Vec3_30ca80 *axis, float mass, int id)
 {
     field_08 = id;
     flag4 = 1;

@@ -7,13 +7,13 @@ void FUN_0010c280(); void FUN_0010c2b0(); void FUN_0010ce60();
 extern int DAT_00427754; extern char DAT_0042773c[]; extern int DAT_004e0b38; extern int DAT_004e0b3c;
 void* __cdecl FUN_0008d690(unsigned);
 void __cdecl FUN_002347b0(void*,void*,int);
-struct BaseEnum { virtual void slot0(); char pad[12]; void FUN_00234cc0(const char*); };
+struct BaseEnum_1122b0 { virtual void slot0(); char pad[12]; void FUN_00234cc0(const char*); };
 struct BaseString { virtual void slot0(); char pad[12]; void FUN_002349e0(const char*); };
-struct BaseFloat { virtual void slot0(); char pad[12]; void FUN_00234960(const char*); };
+struct BaseFloat_1122b0 { virtual void slot0(); char pad[12]; void FUN_00234960(const char*); };
 namespace fight {
-template<class T> struct ParamEnumConstList : BaseEnum { const char* list; int count; void (*callback)(); int other; virtual void slot0(); };
+template<class T> struct ParamEnumConstList : BaseEnum_1122b0 { const char* list; int count; void (*callback)(); int other; virtual void slot0(); };
 template<class T> struct ParamString : BaseString { void (*callback)(); int other; virtual void slot0(); };
-template<class T> struct ParamFloatConstRange : BaseFloat { void (*callback)(); int other; virtual void slot0(); };
+template<class T> struct ParamFloatConstRange : BaseFloat_1122b0 { void (*callback)(); int other; virtual void slot0(); };
 }
 void FUN_001122b0() {
  if (!DAT_004e0b3c) {

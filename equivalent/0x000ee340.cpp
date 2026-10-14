@@ -8,7 +8,7 @@
 extern "C" float __cdecl fabsf(float);
 void *thunk_FUN_0008d690(unsigned int size);
 
-union Wd {
+union Wd_ee340 {
     float f;
     unsigned int u;
 };
@@ -18,7 +18,7 @@ struct Dev1 {
     virtual void v15(unsigned a);
     virtual void v16(unsigned a);
 };
-struct Ctx {
+struct Ctx_ee340 {
     Dev1 *dev;
     void FUN_00293d00(unsigned a);
     void FUN_00293da0(unsigned a, unsigned b, unsigned c);
@@ -28,7 +28,7 @@ struct G2 {
     virtual unsigned v30(unsigned a, unsigned b, unsigned c, unsigned d, unsigned e);
     virtual void v31(unsigned a);
 };
-struct Obj14 {
+struct Obj14_ee340 {
     virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13();
     virtual void v14(unsigned out, unsigned who);
     virtual void v15(unsigned out, unsigned who);
@@ -42,27 +42,27 @@ struct Objr {
     virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15(); virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19(); virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23(); virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27(); virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31(); virtual void s32(); virtual void s33(); virtual void s34(); virtual void s35(); virtual void s36(); virtual void s37(); virtual void s38(); virtual void s39(); virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43(); virtual void s44(); virtual void s45(); virtual void s46(); virtual void s47(); virtual void s48(); virtual void s49(); virtual void s50();
     virtual unsigned v51();
 };
-struct Objs {
+struct Objs_ee340 {
     virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15(); virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19(); virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23(); virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27(); virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31(); virtual void s32(); virtual void s33(); virtual void s34(); virtual void s35(); virtual void s36(); virtual void s37(); virtual void s38(); virtual void s39(); virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43();
     virtual unsigned v44();
 };
-struct Obj50 {
+struct Obj50_ee340 {
     virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
     virtual void v8(unsigned a, unsigned b);
 };
-struct Obj10 {
+struct Obj10_ee340 {
     virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4();
     virtual void v5(unsigned a, unsigned b);
     virtual void v6(unsigned a, unsigned b);
 };
-struct NewObj { virtual void v0(); virtual void v1(); };
+struct NewObj_ee340 { virtual void v0(); virtual void v1(); };
 struct Fmt { Fmt *FUN_0028edb0(); };
 struct Z { void FUN_0008ef00(); };
 struct Fmt7 { void FUN_000f7fe0(unsigned a); };
 struct Fmt8 { void FUN_000f80e0(unsigned a, unsigned b, unsigned c); };
 struct Fmt9 { void FUN_000f78e0(); };
 
-extern Ctx *DAT_0052c2ac;
+extern Ctx_ee340 *DAT_0052c2ac;
 extern G2 *DAT_0052c2a8;
 extern int DAT_00584554;
 extern int DAT_0040b0a0;
@@ -80,7 +80,7 @@ public:
 void ImageSelector::vfunc_5()
 {
     volatile float *T = (volatile float *)this;
-    volatile Wd L[74];
+    volatile Wd_ee340 L[74];
     float fa;
     int r10_eax;
     int r11_eax;
@@ -132,32 +132,32 @@ void ImageSelector::vfunc_5()
         return;
     if (*(volatile unsigned char *)((char *)this + 0x40) == 1) {
         DAT_0052c2ac->dev->v15(0);
-        ((Obj14 *)*(volatile unsigned *)((char *)this + 0x14))->v14((unsigned)&L[4].f, (unsigned)this);
+        ((Obj14_ee340 *)*(volatile unsigned *)((char *)this + 0x14))->v14((unsigned)&L[4].f, (unsigned)this);
         DAT_0052c2ac->FUN_00293d00((unsigned)&L[4].f);
-        ((Obj14 *)*(volatile unsigned *)((char *)this + 0x14))->v15((unsigned)&L[0].f, (unsigned)this);
+        ((Obj14_ee340 *)*(volatile unsigned *)((char *)this + 0x14))->v15((unsigned)&L[0].f, (unsigned)this);
         tmpi = *(volatile unsigned *)((char *)this + 0x148);
         FUN_000e11a0(L[0].f, L[1].f, L[2].f, tmpi, 2);
         DAT_0052c2ac->dev->v16(0);
     }
     if (*(volatile unsigned char *)((char *)this + 0x48) == 1) {
         DAT_0052c2ac->dev->v15(0);
-        ((Obj14 *)*(volatile unsigned *)((char *)this + 0x14))->v14((unsigned)&L[4].f, (unsigned)this);
+        ((Obj14_ee340 *)*(volatile unsigned *)((char *)this + 0x14))->v14((unsigned)&L[4].f, (unsigned)this);
         DAT_0052c2ac->FUN_00293d00((unsigned)&L[4].f);
-        ((Obj14 *)*(volatile unsigned *)((char *)this + 0x14))->v15((unsigned)&L[0].f, (unsigned)this);
+        ((Obj14_ee340 *)*(volatile unsigned *)((char *)this + 0x14))->v15((unsigned)&L[0].f, (unsigned)this);
         tmpi = *(volatile unsigned *)((char *)this + 0x4c);
         FUN_000e0cc0(L[0].f, L[1].f, L[2].f, tmpi, 0);
         DAT_0052c2ac->dev->v16(0);
     }
     if (*(volatile unsigned *)((char *)this + 0x50) != 0) {
         DAT_0052c2ac->dev->v15(0);
-        ((Obj14 *)*(volatile unsigned *)((char *)this + 0x14))->v14((unsigned)&L[4].f, (unsigned)this);
+        ((Obj14_ee340 *)*(volatile unsigned *)((char *)this + 0x14))->v14((unsigned)&L[4].f, (unsigned)this);
         DAT_0052c2ac->FUN_00293d00((unsigned)&L[4].f);
         DAT_0052c2ac->FUN_00293da0(*(volatile unsigned *)((char *)this + 0x54), *(volatile unsigned *)((char *)this + 0x58), *(volatile unsigned *)((char *)this + 0x5c));
-        ((Obj50 *)*(volatile unsigned *)((char *)this + 0x50))->v8(0, 0);
+        ((Obj50_ee340 *)*(volatile unsigned *)((char *)this + 0x50))->v8(0, 0);
         DAT_0052c2ac->dev->v16(0);
     }
     DAT_0052c2ac->dev->v15(0);
-    ((Obj14 *)*(volatile unsigned *)((char *)this + 0x14))->v14((unsigned)&L[4].f, (unsigned)this);
+    ((Obj14_ee340 *)*(volatile unsigned *)((char *)this + 0x14))->v14((unsigned)&L[4].f, (unsigned)this);
     DAT_0052c2ac->FUN_00293d00((unsigned)&L[4].f);
     DAT_0052c2ac->FUN_00293d00((unsigned)((volatile float *)this + 30));
     if ((int)*(volatile unsigned *)((char *)this + 0x294) > 0) {
@@ -175,13 +175,13 @@ void ImageSelector::vfunc_5()
                     if (*(volatile unsigned *)((char *)esiv + 0x0) != 0) {
                         mem = (unsigned)thunk_FUN_0008d690(0x20);
                         ebpv = mem != 0 ? (unsigned)((Fmt *)mem)->FUN_0028edb0() : 0;
-                        ((NewObj *)ebpv)->v0();
+                        ((NewObj_ee340 *)ebpv)->v0();
                         tmpi = *(volatile unsigned *)((char *)ebpv + 0x10);
-                        ((Obj10 *)tmpi)->v6(0x444d4c42, 1);
+                        ((Obj10_ee340 *)tmpi)->v6(0x444d4c42, 1);
                         tmp2 = *(volatile unsigned *)((char *)esiv + 0x0);
                         tmp2 = tmp2 != 0 ? *(volatile unsigned *)((char *)tmp2 + 0x10) : 0;
                         tmpi = *(volatile unsigned *)((char *)ebpv + 0x10);
-                        ((Obj10 *)tmpi)->v5((unsigned)&DAT_00584554, tmp2);
+                        ((Obj10_ee340 *)tmpi)->v5((unsigned)&DAT_00584554, tmp2);
     r1_eax = *(volatile unsigned*)&((volatile float *)ebpv)[4];
     r2_ecx = (unsigned)DAT_0052c2a8;
     r3_edx = *(volatile unsigned*)&((volatile float *)r2_ecx)[0];
@@ -291,20 +291,20 @@ void ImageSelector::vfunc_5()
                             ((Z *)zobj)->FUN_0008ef00();
                         }
                         DAT_0052c2a8->v31(zobj);
-                        ((NewObj *)ebpv)->v1();
+                        ((NewObj_ee340 *)ebpv)->v1();
                         colv = L[8].u;
                         if (*(volatile unsigned *)((char *)this + 0x2a8) == *(volatile unsigned *)((char *)this + 0x298) * L[7].u + colv) {
                             FUN_000e0a90(1, T[167] * 0.8f, T[168] * 0.8f, 1.0f, 0.02f, 0xff51c4ff);
                         }
                         if (*(volatile unsigned char *)(L[3].u + colv) != 0) {
                             tmpi = *(volatile unsigned *)((char *)this + 0x14);
-                            tmpi = ((Obj14 *)tmpi)->v20();
+                            tmpi = ((Obj14_ee340 *)tmpi)->v20();
                             tmpi = ((Objr *)tmpi)->v51();
-                            tmpi = ((Objs *)tmpi)->v44();
+                            tmpi = ((Objs_ee340 *)tmpi)->v44();
                             ((Fmt7 *)(unsigned)&L[38].f)->FUN_000f7fe0(tmpi);
-                            fa = ((Obj14 *)*(volatile unsigned *)((char *)this + 0x14))->v17((unsigned)this);
+                            fa = ((Obj14_ee340 *)*(volatile unsigned *)((char *)this + 0x14))->v17((unsigned)this);
                             L[20].f = fa;
-                            fa = ((Obj14 *)*(volatile unsigned *)((char *)this + 0x14))->v16((unsigned)this);
+                            fa = ((Obj14_ee340 *)*(volatile unsigned *)((char *)this + 0x14))->v16((unsigned)this);
                             *(volatile float *)((char *)&L[40].f + (L[72].u << 4)) = fa * L[20].f;
                             *(volatile unsigned *)((char *)&L[41].f + (L[72].u << 4)) = 1;
                             *(volatile unsigned *)((char *)&L[42].f + (L[72].u << 4)) = 2;

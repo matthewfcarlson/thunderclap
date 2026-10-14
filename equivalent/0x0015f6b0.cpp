@@ -4,87 +4,87 @@ extern "C" double sqrt(double);
 extern "C" int atexit(void (*)());
 void FUN_00363f60();
 
-struct Vec3 {
+struct Vec3_15f6b0 {
     float x, y, z;
     float FUN_0022d110();
-    bool FUN_0022d2b0(const Vec3 *other, float eps);
-    void FUN_0022d240(const Vec3 *in, struct Matrix *m);
-    void FUN_0022d290(const Vec3 *in, struct Matrix *m);
+    bool FUN_0022d2b0(const Vec3_15f6b0 *other, float eps);
+    void FUN_0022d240(const Vec3_15f6b0 *in, struct Matrix *m);
+    void FUN_0022d290(const Vec3_15f6b0 *in, struct Matrix *m);
 };
 
 struct Matrix {
     float m[16];
 };
 
-struct Quat {
+struct Quat_15f6b0 {
     float x, y, z, w;
-    void FUN_0022b170(float angle, Vec3 *axis);
+    void FUN_0022b170(float angle, Vec3_15f6b0 *axis);
     void FUN_0022b1c0(float angle);
 };
 
-struct Key {
+struct Key_15f6b0 {
     unsigned lo;
     unsigned hi;
     void FUN_0027af00();
     void FUN_0027b040(const char *name);
 };
 
-extern Key DAT_004e11c8;
+extern Key_15f6b0 DAT_004e11c8;
 extern unsigned DAT_004e11d0;
 
 float __cdecl FUN_00224ea0(float x, float z);
 float __cdecl FUN_00224fc0(float a, float b);
 float __cdecl FUN_00083d90(float *v);
-void __cdecl FUN_0022b080(Quat *out, Quat *a, Quat *b);
-char __cdecl FUN_002027c0(Vec3 *a, Vec3 *b, int c, int d, Vec3 *hitPos, Vec3 *hitNormal, int e, int f);
+void __cdecl FUN_0022b080(Quat_15f6b0 *out, Quat_15f6b0 *a, Quat_15f6b0 *b);
+char __cdecl FUN_002027c0(Vec3_15f6b0 *a, Vec3_15f6b0 *b, int c, int d, Vec3_15f6b0 *hitPos, Vec3_15f6b0 *hitNormal, int e, int f);
 
-struct Xform {
+struct Xform_15f6b0 {
     Matrix *FUN_00221c40();
-    void FUN_00221cf0(Quat *q);
-    void FUN_0022be40(Vec3 *pos);
+    void FUN_00221cf0(Quat_15f6b0 *q);
+    void FUN_0022be40(Vec3_15f6b0 *pos);
 };
 
 struct Driver {
     char pad00[0x18];
-    Xform xform;
+    Xform_15f6b0 xform;
 };
 
-struct Anchor {
-    void FUN_00059a50(Vec3 *out);
+struct Anchor_15f6b0 {
+    void FUN_00059a50(Vec3_15f6b0 *out);
 };
 
-struct Ctx {
+struct Ctx_15f6b0 {
     char pad00[0x10];
-    Anchor *anchor;
-    void FUN_001d69f0(Vec3 *out);
+    Anchor_15f6b0 *anchor;
+    void FUN_001d69f0(Vec3_15f6b0 *out);
 };
 
 struct Goal {
     char pad00[8];
-    Ctx *ctx;
+    Ctx_15f6b0 *ctx;
     int kind;
     char pad10[0x30];
-    Vec3 pos;
+    Vec3_15f6b0 pos;
 };
 
 struct Entity {
     char pad000[0x1cc];
-    Vec3 vel;
-    Vec3 push;
+    Vec3_15f6b0 vel;
+    Vec3_15f6b0 push;
     char pad1e4[0x328 - 0x1e4];
     Goal *goal;
     char goalActive;
     char pad32d[0x1ca0 - 0x32d];
-    struct Part *part;
+    struct Part_15f6b0 *part;
     char pad1ca4[0x1f6c - 0x1ca4];
     float hiA;
     char pad1f70[0x1f84 - 0x1f70];
     float hiB;
     char pad1f88[0x2064 - 0x1f88];
-    Vec3 up;
+    Vec3_15f6b0 up;
     float upLimit;
-    Vec3 alt1;
-    Vec3 alt2;
+    Vec3_15f6b0 alt1;
+    Vec3_15f6b0 alt2;
     char pad208c[0x20a8 - 0x208c];
     int mode;
     char pad20ac[0x2149 - 0x20ac];
@@ -93,27 +93,27 @@ struct Entity {
     char flagB;
 
     void FUN_000359c0(int v);
-    void FUN_00035660(Vec3 *out);
-    void FUN_00035550(Vec3 *out);
+    void FUN_00035660(Vec3_15f6b0 *out);
+    void FUN_00035550(Vec3_15f6b0 *out);
     void FUN_000357e0();
-    void FUN_00036e70(Key *key, int on);
+    void FUN_00036e70(Key_15f6b0 *key, int on);
 };
 
-struct Part {
+struct Part_15f6b0 {
     char pad00[0xe8];
     char disabled;
 };
 
-struct Holder {
+struct Holder_15f6b0 {
     Entity *FUN_00059a30();
-    void FUN_00059a50(Vec3 *out);
+    void FUN_00059a50(Vec3_15f6b0 *out);
 };
 
-struct HolderSource {
-    Holder *FUN_000592a0();
+struct HolderSource_15f6b0 {
+    Holder_15f6b0 *FUN_000592a0();
 };
 
-struct Settings {
+struct Settings_15f6b0 {
     char pad00[0x14];
     float f14;
     float f18;
@@ -126,7 +126,7 @@ struct Settings {
     float f34;
     float f38;
     float f3c;
-    Vec3 v40;
+    Vec3_15f6b0 v40;
     float f4c;
     float f50;
     float f54;
@@ -143,7 +143,7 @@ struct Settings {
     float fc0;
     float fc4;
     float fc8;
-    Vec3 vcc;
+    Vec3_15f6b0 vcc;
 };
 
 static __forceinline float FAbs(float v)
@@ -157,9 +157,9 @@ static __forceinline float FAbs(float v)
     return c.f;
 }
 
-static __forceinline bool NearZero(Vec3 *v)
+static __forceinline bool NearZero(Vec3_15f6b0 *v)
 {
-    Vec3 z;
+    Vec3_15f6b0 z;
     z.x = 0.0f;
     z.y = 0.0f;
     z.z = 0.0f;
@@ -178,14 +178,14 @@ public:
     virtual void vfunc_4();
     virtual bool vfunc_5(int a, float dt);
     char pad04[0x18];
-    Settings *volatile settings;
-    HolderSource *owner;
+    Settings_15f6b0 *volatile settings;
+    HolderSource_15f6b0 *owner;
     Driver *driver;
     float value;
     float angle;
-    Vec3 p30;
-    Vec3 lo;
-    Vec3 hi;
+    Vec3_15f6b0 p30;
+    Vec3_15f6b0 lo;
+    Vec3_15f6b0 hi;
     float f54;
     float f58;
     float f5c;
@@ -196,7 +196,7 @@ public:
 template <int K>
 static __forceinline void ClampSpeed(HeliLocomotionAction *h, float s30)
 {
-    Settings *S = h->settings;
+    Settings_15f6b0 *S = h->settings;
     if (h->f58 < S->f2c) {
         h->f58 = S->f2c;
         h->f5c = 0.0f;
@@ -211,14 +211,14 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
     if (driver == 0)
         return false;
     bool bl = false;
-    Holder *holder = owner->FUN_000592a0();
+    Holder_15f6b0 *holder = owner->FUN_000592a0();
     Entity *ent = holder->FUN_00059a30();
     ent->FUN_000359c0(3);
-    Vec3 pos;
+    Vec3_15f6b0 pos;
     holder->FUN_00059a50(&pos);
 
     if (!NearZero(&ent->push)) {
-        Vec3 v;
+        Vec3_15f6b0 v;
         ent->FUN_00035660(&v);
         v.x = v.x - p30.x;
         v.y = v.y - p30.y;
@@ -229,17 +229,17 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
         p30.x = v.x + p30.x;
         p30.y = v.y + p30.y;
         p30.z = v.z + p30.z;
-        Vec3 fwd;
+        Vec3_15f6b0 fwd;
         ent->FUN_00035550(&fwd);
         fwd.y = 0.0f;
         fwd.FUN_0022d110();
-        Vec3 d = v;
+        Vec3_15f6b0 d = v;
         d.y = 0.0f;
         float len = d.FUN_0022d110();
         float sign = -1.0f;
         if (!(d.z * fwd.z + d.y * fwd.y + d.x * fwd.x < 0.0f))
             sign = 1.0f;
-        Vec3 vel = ent->vel;
+        Vec3_15f6b0 vel = ent->vel;
         float spd = (float)sqrt(vel.x * vel.x + vel.z * vel.z);
         float t = 0.0f;
         if (spd > 0.0f)
@@ -261,10 +261,10 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
         ent->FUN_000357e0();
     }
 
-    Vec3 dir;
+    Vec3_15f6b0 dir;
     Goal *goal = ent->goal;
     if (goal != 0 && ent->goalActive != 0) {
-        Vec3 w;
+        Vec3_15f6b0 w;
         if (goal->kind == 1) {
             w.x = 0.0f;
             w.y = 0.0f;
@@ -302,7 +302,7 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
         r = r - ((((FUN_00083d90(&angle) * mn) / lim) * k1c));
     }
     angle = r * dt + angle;
-    Vec3 steer = ent->up;
+    Vec3_15f6b0 steer = ent->up;
     val = angle * dt + val;
     float up70 = ent->upLimit;
     if (ent->mode >= 0 && ent->mode < 4) {
@@ -313,20 +313,20 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
         steer.y = steer.y + diff;
         steer.FUN_0022d110();
     }
-    Vec3 v90;
+    Vec3_15f6b0 v90;
     float f98 = settings->f98;
     ent->FUN_00035550(&v90);
     if (f98 != 0.0f) {
-        Vec3 start = pos;
-        Vec3 n = v90;
-        Vec3 raw = v90;
+        Vec3_15f6b0 start = pos;
+        Vec3_15f6b0 n = v90;
+        Vec3_15f6b0 raw = v90;
         n.FUN_0022d110();
-        Vec3 end;
+        Vec3_15f6b0 end;
         end.x = start.x + raw.x * settings->fa8;
         end.y = start.y;
         end.z = start.z + raw.z * settings->fa8;
-        Vec3 hit;
-        Vec3 hitN;
+        Vec3_15f6b0 hit;
+        Vec3_15f6b0 hitN;
         if (FUN_002027c0(&start, &end, 0, 0, &hit, &hitN, 0, 0)) {
             float hx = hit.x - start.x;
             float hy = hit.y - start.y;
@@ -348,14 +348,14 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
     if (ent->flagA != 0 || ent->flagB == 0 || (ent->part != 0 && ent->part->disabled == 0)) {
         float au = FAbs(up70);
         if (!(au <= 1e-5f)) {
-            Vec3 n;
+            Vec3_15f6b0 n;
             n.x = p30.x;
             n.y = 0.0f;
             n.z = p30.z;
             float nl = n.FUN_0022d110();
             float anl = FAbs(nl);
             if (!(anl <= 0.0099999997764825821f)) {
-                Vec3 u;
+                Vec3_15f6b0 u;
                 u.x = 0.0f;
                 u.y = 0.0f;
                 u.z = 0.0f;
@@ -383,18 +383,18 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
         w = s18 * up70;
     else
         w = 0.0f;
-    Vec3 want;
+    Vec3_15f6b0 want;
     want.x = steer.x * w;
     want.y = steer.y * w;
     want.z = steer.z * w;
-    Vec3 nv = p30;
+    Vec3_15f6b0 nv = p30;
     float u14 = settings->f14;
     if (u14 <= 0.0f) {
         nv.x = want.x;
         nv.y = want.y;
         nv.z = want.z;
     } else {
-        Vec3 dd = want;
+        Vec3_15f6b0 dd = want;
         dd.x = dd.x - nv.x;
         dd.y = dd.y - nv.y;
         dd.z = dd.z - nv.z;
@@ -410,7 +410,7 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
             nv.z = dd.z * step + nv.z;
         }
     }
-    Vec3 w2;
+    Vec3_15f6b0 w2;
     w2.x = nv.x - p30.x;
     w2.y = nv.y;
     w2.z = nv.z - p30.z;
@@ -418,7 +418,7 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
     p30.y = nv.y;
     p30.z = nv.z;
 
-    Vec3 np;
+    Vec3_15f6b0 np;
     np.x = p30.x * dt;
     np.y = p30.y * dt;
     np.z = p30.z * dt;
@@ -439,24 +439,24 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
         np.z = hi.z;
 
     Matrix *T = driver->xform.FUN_00221c40();
-    Vec3 axis = settings->v40;
-    Vec3 pt;
+    Vec3_15f6b0 axis = settings->v40;
+    Vec3_15f6b0 pt;
     pt.FUN_0022d240(&axis, T);
-    Vec3 dv;
+    Vec3_15f6b0 dv;
     dv.x = pt.x - T->m[12];
     dv.y = pt.y - T->m[13];
     dv.z = pt.z - T->m[14];
     axis.x = 1.0f;
     axis.y = 0.0f;
     axis.z = 0.0f;
-    Vec3 c;
+    Vec3_15f6b0 c;
     c.x = 0.0f * dv.z - dv.y * w2.z;
     c.y = w2.z * dv.x - dv.z * w2.x;
     c.z = dv.y * w2.x - dv.x * 0.0f;
-    Vec3 ex;
+    Vec3_15f6b0 ex;
     ex.FUN_0022d290(&axis, T);
     float inv18 = 1.0f / s18;
-    Vec3 lim44 = settings->vcc;
+    Vec3_15f6b0 lim44 = settings->vcc;
     volatile float accel = ((((((((((sqrt(p30.x * p30.x + p30.y * p30.y + p30.z * p30.z) * (settings->f28 - settings->f24)) * inv18) + settings->f24) - f58) * settings->f38) + (-(settings->f3c * f5c))) / settings->f34) + (ex.x * c.x)) + (ex.z * c.z)) + (ex.y * c.y));
     float ax = v90.x - steer.x;
     float adx = FAbs(ax);
@@ -487,7 +487,7 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
             ClampSpeed<0>(this, s30);
         }
     }
-    Vec3 fwd2;
+    Vec3_15f6b0 fwd2;
     axis.x = 0.0f;
     axis.y = 0.0f;
     axis.z = 1.0f;
@@ -502,14 +502,14 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
         f60 = settings->f58;
         f64 = 0.0f;
     }
-    Quat qA;
+    Quat_15f6b0 qA;
     qA.FUN_0022b170(f58, &ex);
-    Quat qB;
+    Quat_15f6b0 qB;
     qB.FUN_0022b170(f60, &fwd2);
-    Quat qC;
+    Quat_15f6b0 qC;
     qC.FUN_0022b1c0(val);
     value = val;
-    Quat qOut;
+    Quat_15f6b0 qOut;
     FUN_0022b080(&qOut, &qA, &qB);
     FUN_0022b080(&qOut, &qOut, &qC);
     driver->xform.FUN_00221cf0(&qOut);

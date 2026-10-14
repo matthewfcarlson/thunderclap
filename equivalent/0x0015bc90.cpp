@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0015bc90 @ 0x0015bc90
 extern "C" char DAT_00415a40[];
-struct Vec2 {
+struct Vec2_15bc90 {
     int a, b;
     void FUN_0027af00();
 };
-struct Base {
+struct Base_15bc90 {
     void FUN_00236d40();
 };
-struct HeliLocomotionTrack : Base {
+struct HeliLocomotionTrack : Base_15bc90 {
     void *vptr_unused;
     char pad4[0x0c - 4];
     int f0c;
@@ -26,7 +26,7 @@ struct HeliLocomotionTrack : Base {
     float f90, f94;
     int f98;
     char pad9c[4];
-    Vec2 fa0;
+    Vec2_15bc90 fa0;
     float fa8;
     int fac, fb0, fb4;
     float fb8, fbc, fc0, fc4, fc8, fcc, fd0, fd4;

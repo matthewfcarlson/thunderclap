@@ -10,14 +10,14 @@ void __stdcall D3DResource_Release(int);
 }
 extern int __stdcall FUN_00382400(int, int, int, int);
 extern void __cdecl FUN_0031c230(int);
-class Display {
+class Display_31b230 {
 public:
     char pad[0x478];
     int height;
     int width;
     int Capture(unsigned char* dest, int unused, const RECT* r, int which);
 };
-int Display::Capture(unsigned char* dest, int unused, const RECT* r, int which) {
+int Display_31b230::Capture(unsigned char* dest, int unused, const RECT* r, int which) {
     int w = r->right - r->left;
     int h = r->bottom - r->top;
     int surf = FUN_00382400(w, h, 0, 0x12);

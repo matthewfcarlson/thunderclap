@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 212 inputs, branch coverage 22/22)
 // FUN_00310550 @ 0x00310550
-struct Vec3 {
+struct Vec3_310550 {
     float x, y, z;
 };
 
-struct Mat4 {
+struct Mat4_310550 {
     float m[16];
     void FUN_0022c0b0();
-    void FUN_0022c3b0(Vec3* in, Vec3* out);
+    void FUN_0022c3b0(Vec3_310550* in, Vec3_310550* out);
 };
 
 struct SymMatrix {
@@ -21,26 +21,26 @@ struct SymMatrix {
     void FUN_002fd0c0(SymMatrix* total);
 };
 
-struct Joint {
-    Joint* FUN_0030f100();
+struct Joint_310550 {
+    Joint_310550* FUN_0030f100();
 };
 
-struct Link {
-    Joint* FUN_0030edf0();
+struct Link_310550 {
+    Joint_310550* FUN_0030edf0();
 };
 
-struct Manager {
-    Link* FUN_0030f490(int index);
+struct Manager_310550 {
+    Link_310550* FUN_0030f490(int index);
 };
 
-struct Owner {
+struct Owner_310550 {
     char pad00[0x40];
-    Vec3 pos;
+    Vec3_310550 pos;
     char pad4c[0x94 - 0x4c];
     char frozen;
 };
 
-struct Body {
+struct Body_310550 {
     char pad00[4];
     char active;
     char pad05[0x38 - 5];
@@ -52,40 +52,40 @@ struct Body {
     float bx, by, bz;
 };
 
-void FUN_00305b00(SymMatrix* out, Vec3* offset, float mass);
+void FUN_00305b00(SymMatrix* out, Vec3_310550* offset, float mass);
 
-struct Frame {
-    Vec3 v;
+struct Frame_310550 {
+    Vec3_310550 v;
     SymMatrix s2;
-    Vec3 w;
+    Vec3_310550 w;
     SymMatrix s1;
-    Mat4 m;
+    Mat4_310550 m;
 };
 
 class Rigid {
 public:
     char pad00[0x10];
-    Owner* owner;
+    Owner_310550* owner;
     char pad14[0x40 - 0x14];
     float mass;
     float invMass;
     char pad48[0x58 - 0x48];
-    Mat4 mat;
+    Mat4_310550 mat;
     float cx, cy, cz;
     char flaga4;
     char pada5[3];
-    Vec3 localCenter;
-    Vec3 refPoint;
+    Vec3_310550 localCenter;
+    Vec3_310550 refPoint;
     char padc0[0xdc - 0xc0];
     SymMatrix inertiaBody;
     SymMatrix total;
     SymMatrix inertiaWorld;
     char pad130[0x1f8 - 0x130];
-    Body** bodies;
+    Body_310550** bodies;
     char pad1fc[4];
     int count;
     char pad204[4];
-    Manager* manager;
+    Manager_310550* manager;
     float time;
     float timeMax;
 
@@ -101,13 +101,13 @@ void Rigid::FUN_00310550()
     if (owner->frozen)
         return;
 
-    Frame f;
+    Frame_310550 f;
     time = 0;
     cz = 0;
     cy = 0;
     cx = 0;
     for (int i = 0; i < count; i++) {
-        Body* b = bodies[i];
+        Body_310550* b = bodies[i];
         if (b->mass > 0.0f && b->active) {
             f.v.x = b->bx + b->ax;
             f.v.y = b->by + b->ay;
@@ -121,7 +121,7 @@ void Rigid::FUN_00310550()
     cx = invMass * cx;
     cy = invMass * cy;
     cz = invMass * cz;
-    Vec3* op = &owner->pos;
+    Vec3_310550* op = &owner->pos;
     f.w.x = cx - op->x;
     f.w.y = cy - op->y;
     f.w.z = cz - op->z;
@@ -133,7 +133,7 @@ void Rigid::FUN_00310550()
     f.s2.FUN_002fca90();
     total.FUN_002fd0a0();
     for (int i = 0; i < count; i++) {
-        Body* b = bodies[i];
+        Body_310550* b = bodies[i];
         if (b->mass > 0.0f && b->active) {
             f.v.x = b->ax + b->bx;
             f.v.y = b->ay + b->by;
@@ -141,7 +141,7 @@ void Rigid::FUN_00310550()
             f.v.x = f.v.x - cx;
             f.v.y = f.v.y - cy;
             FUN_00305b00(&f.s1, &f.v, bodies[i]->mass);
-            Body* b2 = bodies[i];
+            Body_310550* b2 = bodies[i];
             f.s2.m[0] = b2->inertia[0];
             f.s2.m[1] = b2->inertia[1];
             f.s2.m[2] = b2->inertia[2];

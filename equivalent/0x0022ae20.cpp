@@ -2,16 +2,16 @@
 // FUN_0022ae20 @ 0x0022ae20
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_22ae20 {
     float x, y, z;
 };
 
-union FloatBits {
+union FloatBits_22ae20 {
     float f;
     unsigned int u;
 };
 
-struct Rng {
+struct Rng_22ae20 {
     unsigned int s0;
     unsigned int s1;
 
@@ -20,20 +20,20 @@ struct Rng {
         s0 = (s0 & 0xffff) * 0x9069 + (s0 >> 16);
         s1 = (s1 & 0xffff) * 0x4650 + (s1 >> 16);
         unsigned int r = (s0 << 16) + (s1 & 0xffff);
-        FloatBits m;
+        FloatBits_22ae20 m;
         m.u = (r & 0x7fffff) | 0x3f800000;
-        FloatBits v;
+        FloatBits_22ae20 v;
         v.f = m.f - 1.0f;
         v.u |= r & 0x80000000;
         return v.f;
     }
 
-    void FUN_0022ae20(V3 *out);
+    void FUN_0022ae20(V3_22ae20 *out);
 };
 
-void Rng::FUN_0022ae20(V3 *out)
+void Rng_22ae20::FUN_0022ae20(V3_22ae20 *out)
 {
-    V3 v;
+    V3_22ae20 v;
     float len2;
     do {
         v.x = Next();

@@ -4,7 +4,7 @@
 extern void* __cdecl FUN_0008d6d0(unsigned int size) throw();
 extern "C" void* __cdecl memset(void*, int, unsigned int) throw();
 
-class Owner {
+class Owner_28c2a0 {
 public:
     virtual void v0();
     void* FUN_002888c0(unsigned int size, int tag) throw();
@@ -14,22 +14,22 @@ namespace pure3d {
 
 class Channel {
 public:
-    Channel(int count, Owner* owner) throw();
+    Channel(int count, Owner_28c2a0* owner) throw();
     virtual ~Channel() throw();
     char pad04[8];
-    Owner* owner;          // 0x0c
+    Owner_28c2a0* owner;          // 0x0c
     int count;             // 0x10
     char pad14[4];
 };
 
 class EntityChannel : public Channel {
 public:
-    EntityChannel(int count, Owner* owner) throw();
+    EntityChannel(int count, Owner_28c2a0* owner) throw();
     virtual ~EntityChannel() throw();
     void* values;          // 0x18
 };
 
-EntityChannel::EntityChannel(int count_, Owner* owner_) throw() : Channel(count_, owner_)
+EntityChannel::EntityChannel(int count_, Owner_28c2a0* owner_) throw() : Channel(count_, owner_)
 {
     values = 0;
     if (owner == 0)

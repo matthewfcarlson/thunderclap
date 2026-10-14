@@ -6,16 +6,16 @@ namespace physics {
 struct SimCGSValue { virtual void slot0(); float a; float value; void FUN_002ecca0(); };
 struct SimLength : SimCGSValue { void FUN_002ecf20(int); void vfunc_1(float); };
 }
-struct Body { float FUN_002ef420(); };
-struct Properties { char pad[0x28]; float mass; float unused; float stiffness; };
-struct Owner { char pad[0x10]; Body* body; char pad2[8]; Properties* properties; };
-struct Target {
-char pad[0x40]; float damping; float rate; float length; float period; float periodScale; float dampingScale; float lengthScale; unsigned char dirty; char pad2[3]; Owner* owner;
+struct Body_308ba0 { float FUN_002ef420(); };
+struct Properties_308ba0 { char pad[0x28]; float mass; float unused; float stiffness; };
+struct Owner_308ba0 { char pad[0x10]; Body_308ba0* body; char pad2[8]; Properties_308ba0* properties; };
+struct Target_308ba0 {
+char pad[0x40]; float damping; float rate; float length; float period; float periodScale; float dampingScale; float lengthScale; unsigned char dirty; char pad2[3]; Owner_308ba0* owner;
 void FUN_00308b20(); bool update(float dt);
 };
-bool Target::update(float dt) {
+bool Target_308ba0::update(float dt) {
  if(dirty) {
-  Properties* p=owner->properties;
+  Properties_308ba0* p=owner->properties;
   if(p && p->mass>0.0f) {
    double ratio=(double)p->stiffness/p->mass;
    double t=(double)dt/sqrt(ratio+ratio);
@@ -25,7 +25,7 @@ bool Target::update(float dt) {
   physics::SimCGSValue storage;
   physics::SimLength& temp=static_cast<physics::SimLength&>(storage);
   temp.FUN_002ecf20(0);
-  Body* b=owner->body;
+  Body_308ba0* b=owner->body;
   temp.vfunc_1(b ? b->FUN_002ef420() : 100.0f);
   double v=(double)lengthScale/temp.value;
   length=temp.value;

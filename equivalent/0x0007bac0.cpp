@@ -11,14 +11,14 @@ struct Object {
     char pad40[28];
     int category;
 };
-struct Cell { int id; char pad04[8]; int count; char pad10[56]; };
-struct Group { Cell cells[14]; };
-struct Flags { unsigned char first, second; };
-struct Manager {
+struct Cell_7bac0 { int id; char pad04[8]; int count; char pad10[56]; };
+struct Group_7bac0 { Cell_7bac0 cells[14]; };
+struct Flags_7bac0 { unsigned char first, second; };
+struct Manager_7bac0 {
     char pad00[0x1920];
     union {
-        Group groups[7];
-        struct { char padToFlags[0x1b72]; Flags flags[8]; } flagView;
+        Group_7bac0 groups[7];
+        struct { char padToFlags[0x1b72]; Flags_7bac0 flags[8]; } flagView;
     };
     char pad34b0[0x268];
     union {
@@ -30,7 +30,7 @@ struct Manager {
     int FUN_00079800(int key);
     int remove(int key);
 };
-int Manager::remove(int key) {
+int Manager_7bac0::remove(int key) {
     int index = FUN_00079800(key);
     if (index == -1) return index;
     --categoryCounts[objects[index]->category];

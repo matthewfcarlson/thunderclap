@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_001cc9d0 @ 0x001cc9d0
 extern "C" void __cdecl FUN_00267830(char* destination, const char* source, int size);
-struct Entry { float time; char text[256]; int id; };
-struct Manager {
+struct Entry_1cc9d0 { float time; char text[256]; int id; };
+struct Manager_1cc9d0 {
  char padding[0x110];
- Entry entries[16];
+ Entry_1cc9d0 entries[16];
  int nextId;
  int FUN_001cc9d0(float time, const char* text);
 };
-int Manager::FUN_001cc9d0(float time, const char* text) {
+int Manager_1cc9d0::FUN_001cc9d0(float time, const char* text) {
  if (time < 0.0f) return -1;
  const char* end = text;
  while (*end) ++end;

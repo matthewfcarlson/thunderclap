@@ -1,31 +1,31 @@
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 12/12)
 // FUN_0030bf70 @ 0x0030bf70
-struct Vec3 {
+struct Vec3_30bf70 {
     float x, y, z;
 };
 
-struct Item {
+struct Item_30bf70 {
     char pad[0x10];
-    Vec3 pos;
+    Vec3_30bf70 pos;
     char pad2[0x64 - 0x1c];
     void FUN_002fd730();
 };
 
-struct ItemTable {
+struct ItemTable_30bf70 {
     char pad[0x8c];
-    Item *items;
+    Item_30bf70 *items;
 };
 
 struct Store {
     char pad[0x10];
-    ItemTable *table;
+    ItemTable_30bf70 *table;
 };
 
-struct Child {
-    void FUN_0030a7b0(Vec3 a, Vec3 b);
+struct Child_30bf70 {
+    void FUN_0030a7b0(Vec3_30bf70 a, Vec3_30bf70 b);
 };
 
-struct Mover {
+struct Mover_30bf70 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -48,7 +48,7 @@ struct Mover {
     virtual void v19();
     virtual void v20();
     virtual void v21();
-    virtual void getDelta(Vec3 *out);
+    virtual void getDelta(Vec3_30bf70 *out);
     virtual void afterDelta();
 
     char active;
@@ -57,8 +57,8 @@ struct Mover {
     char pad1[0x18 - 0xc];
     Store *store;
     char pad2[4];
-    Child **begin;
-    Child **end;
+    Child_30bf70 **begin;
+    Child_30bf70 **end;
     char pad3[0xe8 - 0x28];
     float pending;
     char hasPending;
@@ -66,13 +66,13 @@ struct Mover {
     void FUN_0030bf70();
 };
 
-void Mover::FUN_0030bf70()
+void Mover_30bf70::FUN_0030bf70()
 {
     if ((unsigned)(end - begin) == 0)
         return;
 
-    Vec3 v;
-    Vec3 w;
+    Vec3_30bf70 v;
+    Vec3_30bf70 w;
     w.x = 0.0f;
     w.y = 0.0f;
     w.z = 0.0f;
@@ -80,7 +80,7 @@ void Mover::FUN_0030bf70()
     if ((pending > 0.0f || hasPending) && active) {
         getDelta(&v);
         afterDelta();
-        Item *item = &store->table->items[index];
+        Item_30bf70 *item = &store->table->items[index];
         pending = 0.0f;
         item->FUN_002fd730();
         item->pos.x += v.x;

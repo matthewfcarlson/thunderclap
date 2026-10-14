@@ -8,17 +8,17 @@ struct Stream {
     void FUN_0008ef00();
 };
 struct Idx { unsigned short a, b, c; unsigned short pad[3]; };
-struct Vec3 { float x, y, z; };
+struct Vec3_2b4710 { float x, y, z; };
 struct MeshA { char pad0[0xc]; unsigned int count; Idx *indices; };
-struct MeshB { char pad0[0x10]; Vec3 *verts; Vec3 *offsets; };
-class Obj {
+struct MeshB { char pad0[0x10]; Vec3_2b4710 *verts; Vec3_2b4710 *offsets; };
+class Obj_2b4710 {
 public:
     char pad0[0x44];
     MeshA *a;
     MeshB *b;
     void FUN_002b4710();
 };
-class Device {
+class Device_2b4710 {
 public:
     virtual void v0();
     virtual void v1();
@@ -53,19 +53,19 @@ public:
     virtual Stream *v30(int a, int b, int c, int d, int e);
     virtual void v31(Stream *s);
 };
-extern Device *DAT_0052c2a8;
+extern Device_2b4710 *DAT_0052c2a8;
 
-void Obj::FUN_002b4710()
+void Obj_2b4710::FUN_002b4710()
 {
     unsigned int n = a->count;
     Stream *s = DAT_0052c2a8->v30(0, 2, 0x2020, n * 2, 0);
     Idx *idx = a->indices;
-    Vec3 *q = b->offsets;
-    Vec3 *v = b->verts;
+    Vec3_2b4710 *q = b->offsets;
+    Vec3_2b4710 *v = b->verts;
     for (unsigned int i = 0; i < n; i++) {
-        const Vec3 &p0 = v[idx[i].a];
-        const Vec3 &p1 = v[idx[i].b];
-        const Vec3 &p2 = v[idx[i].c];
+        const Vec3_2b4710 &p0 = v[idx[i].a];
+        const Vec3_2b4710 &p1 = v[idx[i].b];
+        const Vec3_2b4710 &p2 = v[idx[i].c];
         float mx = (p1.x - p0.x) * 0.5f + p0.x;
         float my = (p1.y - p0.y) * 0.5f + p0.y;
         float mz = (p1.z - p0.z) * 0.5f + p0.z;

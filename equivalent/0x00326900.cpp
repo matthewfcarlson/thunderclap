@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 78 inputs, branch coverage 10/10)
 // pure3d::d3dTexture::vfunc_13 @ 0x00326900
 namespace pure3d {
-struct ImageInfo {
+struct ImageInfo_326900 {
     int width;
     int height;
     int bitsPerPixel;
@@ -10,7 +10,7 @@ struct ImageInfo {
 }
 struct D3DTextureHandle;
 struct D3DVolumeTextureHandle;
-struct LockedRect {
+struct LockedRect_326900 {
     int pitch;
     void* bits;
 };
@@ -19,21 +19,21 @@ struct LockedBox {
     int slicePitch;
     void* bits;
 };
-struct SurfaceDesc {
+struct SurfaceDesc_326900 {
     char data[0x1c];
 };
 struct VolumeDesc {
     char data[0x24];
 };
 namespace D3D8 {
-void __stdcall Get2DSurfaceDesc(D3DTextureHandle* tex, unsigned int level, SurfaceDesc* desc);
-void __stdcall D3DTexture_LockRect(D3DTextureHandle* tex, unsigned int level, LockedRect* locked, const void* rect, unsigned int flags);
+void __stdcall Get2DSurfaceDesc(D3DTextureHandle* tex, unsigned int level, SurfaceDesc_326900* desc);
+void __stdcall D3DTexture_LockRect(D3DTextureHandle* tex, unsigned int level, LockedRect_326900* locked, const void* rect, unsigned int flags);
 void __stdcall D3DVolumeTexture_LockBox(D3DVolumeTextureHandle* tex, unsigned int level, LockedBox* locked, const void* box, unsigned int flags);
 }
 void __stdcall thunk_FUN_0038acb0(D3DVolumeTextureHandle* tex, unsigned int level, VolumeDesc* desc);
 void FUN_0031c230(int arg);
-void FUN_0031c570(SurfaceDesc* desc, LockedRect* locked, pure3d::ImageInfo* info, int flag);
-void FUN_0031c600(VolumeDesc* desc, LockedBox* locked, pure3d::ImageInfo* info, int flag);
+void FUN_0031c570(SurfaceDesc_326900* desc, LockedRect_326900* locked, pure3d::ImageInfo_326900* info, int flag);
+void FUN_0031c600(VolumeDesc* desc, LockedBox* locked, pure3d::ImageInfo_326900* info, int flag);
 void* FUN_0008d690(int size);
 
 namespace pure3d {
@@ -58,17 +58,17 @@ class d3dTexture {
     virtual void vfunc_10();
     virtual void vfunc_11();
     virtual void vfunc_12();
-    virtual ImageInfo* vfunc_13(unsigned int level, int unused);
+    virtual ImageInfo_326900* vfunc_13(unsigned int level, int unused);
 
     char pad_04[0xc];
     int locked;
     D3DTextureHandle* texture2D;
     D3DVolumeTextureHandle* texture3D;
-    LockedRect lockedRect;
+    LockedRect_326900 lockedRect;
     LockedBox lockedBox;
-    SurfaceDesc surfaceDesc;
+    SurfaceDesc_326900 surfaceDesc;
     VolumeDesc volumeDesc;
-    ImageInfo info;
+    ImageInfo_326900 info;
     char pad_80[0xb8 - 0x80];
     int rowStride;
     char pad_bc[4];
@@ -81,7 +81,7 @@ class d3dTexture {
 };
 }
 
-pure3d::ImageInfo* pure3d::d3dTexture::vfunc_13(unsigned int level, int unused) {
+pure3d::ImageInfo_326900* pure3d::d3dTexture::vfunc_13(unsigned int level, int unused) {
     if (locked == 0) {
         if (texture2D != 0) {
             D3D8::Get2DSurfaceDesc(texture2D, level, &surfaceDesc);

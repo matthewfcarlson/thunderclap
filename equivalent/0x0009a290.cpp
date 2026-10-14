@@ -14,7 +14,7 @@ struct Matrix {
     void FUN_0022b980();
 };
 
-class __declspec(novtable) Emitter {
+class __declspec(novtable) Emitter_9a290 {
 public:
     virtual void v00();
     virtual void v04();
@@ -46,42 +46,42 @@ public:
     virtual void v6c();
     virtual void v70();
     char FUN_000aa450(void* ctx, Matrix* m, void* pos, int a, void* b, int c, int d);
-    Emitter* FUN_000ac2c0();
+    Emitter_9a290* FUN_000ac2c0();
     char body[0x480 - 4];
 };
 
-struct Obj1 { void FUN_00085f50(char a); };
-struct Obj2 { void FUN_001bf860(char a); };
+struct Obj1_9a290 { void FUN_00085f50(char a); };
+struct Obj2_9a290 { void FUN_001bf860(char a); };
 struct Obj5 { void FUN_000afe80(); };
-struct Obj4 { Obj5* FUN_00086330(); };
-struct Obj6 { void FUN_000361c0(char a); void FUN_00036140(char a); };
-struct Obj3 { int FUN_000d6f50(); void FUN_000d7030(int a); };
-struct Owner {
-    Obj1* FUN_00086320();
-    Obj2* FUN_00086380();
+struct Obj4_9a290 { Obj5* FUN_00086330(); };
+struct Obj6_9a290 { void FUN_000361c0(char a); void FUN_00036140(char a); };
+struct Obj3_9a290 { int FUN_000d6f50(); void FUN_000d7030(int a); };
+struct Owner_9a290 {
+    Obj1_9a290* FUN_00086320();
+    Obj2_9a290* FUN_00086380();
 };
-struct Flag { char pad[8]; char value; };
-struct Ctx20 { char pad[0x124]; Obj6* obj; };
+struct Flag_9a290 { char pad[8]; char value; };
+struct Ctx20_9a290 { char pad[0x124]; Obj6_9a290* obj; };
 
-struct Ctx {
+struct Ctx_9a290 {
     char pad00[4];
-    Flag* flag;
+    Flag_9a290* flag;
     char pad08[0x18];
-    Ctx20* p20;
+    Ctx20_9a290* p20;
     char pad24[0x18];
-    Obj3* p3c;
+    Obj3_9a290* p3c;
     char pad40[0x14];
-    Obj4* p54;
+    Obj4_9a290* p54;
 };
 
-class Spawner {
+class Spawner_9a290 {
 public:
     char pad00[4];
     unsigned int flags;
     char pad08[4];
-    Owner* owner;
-    Emitter* slot10;
-    Emitter* slot14;
+    Owner_9a290* owner;
+    Emitter_9a290* slot10;
+    Emitter_9a290* slot14;
     char pad18[0x68];
     char vec80[0xc];
     float angle;
@@ -90,13 +90,13 @@ public:
     int f98;
     int f9c;
     char vecA0[0x14];
-    Emitter* emitter;
+    Emitter_9a290* emitter;
 
     void FUN_0009a220();
-    void FUN_0009a290(Ctx* ctx);
+    void FUN_0009a290(Ctx_9a290* ctx);
 };
 
-void Spawner::FUN_0009a290(Ctx* ctx)
+void Spawner_9a290::FUN_0009a290(Ctx_9a290* ctx)
 {
     Matrix m;
     if (angle != DAT_003f32e0)
@@ -104,14 +104,14 @@ void Spawner::FUN_0009a290(Ctx* ctx)
     m.FUN_0022be40(vec80);
     if (emitter == 0) {
         void* mem = FUN_00263ea0(0x480);
-        Emitter* e = 0;
+        Emitter_9a290* e = 0;
         if (mem)
-            e = ((Emitter*)mem)->FUN_000ac2c0();
+            e = ((Emitter_9a290*)mem)->FUN_000ac2c0();
         emitter = e;
         e->v00();
         emitter->v70();
     }
-    Obj6* obj6 = ctx->p20->obj;
+    Obj6_9a290* obj6 = ctx->p20->obj;
     if (emitter->FUN_000aa450(ctx, &m, vecA0, f9c, obj6, f94, f90)) {
         owner->FUN_00086320()->FUN_00085f50(1);
         f98 = ctx->p3c->FUN_000d6f50();
@@ -124,8 +124,8 @@ void Spawner::FUN_0009a290(Ctx* ctx)
             obj6->FUN_000361c0(1);
             obj6->FUN_00036140(1);
         }
-        Emitter* e = emitter;
-        Emitter* old = slot10;
+        Emitter_9a290* e = emitter;
+        Emitter_9a290* old = slot10;
         slot10 = e;
         slot14 = old;
         flags |= 4;

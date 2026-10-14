@@ -1,20 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0032fd40 @ 0x0032fd40
-struct Vec4 {
+struct Vec4_32fd40 {
     float x, y, z, w;
 };
 struct Matrix {
     float m[16];
     void FUN_0022ca90(Matrix*, Matrix*);
     void FUN_0022cdb0();
-    void FUN_0022c310(Vec4* in, Vec4* out);
+    void FUN_0022c310(Vec4_32fd40* in, Vec4_32fd40* out);
 };
 namespace D3D8 {
 void __stdcall D3DDevice_GetTransform(unsigned long type, Matrix* out);
 }
-void __stdcall FUN_0032fd40(Vec4* result) {
-    Vec4 origin;
-    Vec4 transformed;
+void __stdcall FUN_0032fd40(Vec4_32fd40* result) {
+    Vec4_32fd40 origin;
+    Vec4_32fd40 transformed;
     Matrix view;
     Matrix world;
     Matrix product;

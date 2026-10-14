@@ -1,31 +1,31 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 15/16, incomplete)
 // hulkfight::motion::MoveJointAction::vfunc_5 @ 0x00172290
-struct V3 {
+struct V3_172290 {
     float x, y, z;
     float FUN_0022d110();
 };
 
 struct Matrix {
     float m[12];
-    V3 pos;
+    V3_172290 pos;
     float w;
     void FUN_0022ba00();
-    void FUN_0022bec0(V3* dir, V3* up);
-    void FUN_0022be40(V3* p);
+    void FUN_0022bec0(V3_172290* dir, V3_172290* up);
+    void FUN_0022be40(V3_172290* p);
 };
 
-struct Fighter {
+struct Fighter_172290 {
     void FUN_000373e0(int v);
     float FUN_000354c0();
 };
 
-struct Anchor {
-    Fighter* FUN_00059a30();
+struct Anchor_172290 {
+    Fighter_172290* FUN_00059a30();
     void* FUN_00059a40();
 };
 
-struct Owner {
-    Anchor* FUN_000592a0();
+struct Owner_172290 {
+    Anchor_172290* FUN_000592a0();
 };
 
 class Params {
@@ -40,7 +40,7 @@ public:
     char pad04[0x10 - 4];
     float f10;
     char pad14[0x34 - 0x14];
-    V3 v34;
+    V3_172290 v34;
     float f40;
     float f44;
     char pad48[4];
@@ -49,19 +49,19 @@ public:
     unsigned char b54;
 };
 
-struct Holder {
+struct Holder_172290 {
     void FUN_001d6b60(Matrix m, int zero);
 };
 
-void __cdecl FUN_00224d70(float angle, V3* v);
+void __cdecl FUN_00224d70(float angle, V3_172290* v);
 
-struct Frame {
-    V3 b;
+struct Frame_172290 {
+    V3_172290 b;
     float w;
-    V3 a;
-    V3 v;
-    V3 r;
-    V3 d;
+    V3_172290 a;
+    V3_172290 v;
+    V3_172290 r;
+    V3_172290 d;
     float len;
     Matrix m;
 };
@@ -78,13 +78,13 @@ public:
     virtual bool vfunc_5(int skip, float dt);
     char pad04[0x1c - 4];
     Params* params;
-    Owner* owner;
-    Holder* holder;
+    Owner_172290* owner;
+    Holder_172290* holder;
     char pad28[4];
-    V3 start;
+    V3_172290 start;
     char pad38[0x40 - 0x38];
     float f40;
-    V3 cur;
+    V3_172290 cur;
     unsigned char dirty;
     char pad51[3];
     float f54;
@@ -92,11 +92,11 @@ public:
 
 bool MoveJointAction::vfunc_5(int skip, float dt)
 {
-    Frame f;
+    Frame_172290 f;
     if (skip != 0)
         return true;
-    Anchor* anchor = owner->FUN_000592a0();
-    Fighter* fighter = anchor->FUN_00059a30();
+    Anchor_172290* anchor = owner->FUN_000592a0();
+    Fighter_172290* fighter = anchor->FUN_00059a30();
     anchor->FUN_00059a40();
     fighter->FUN_000373e0(1);
     f.w = fighter->FUN_000354c0();

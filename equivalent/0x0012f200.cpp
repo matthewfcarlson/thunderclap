@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3096 inputs, branch coverage 36/48, incomplete)
 // hulkfight::ChapterMissionCondition::vfunc_6 @ 0x0012f200
 struct MissionState { int FUN_00088fa0(); int FUN_00088fb0(); };
-struct Mission { char pad[0x80]; MissionState state; };
-struct Manager { Mission* FUN_00086310(); };
-struct Root { char pad[0x54]; Manager* manager; };
-extern Root* DAT_004dd700;
+struct Mission_12f200 { char pad[0x80]; MissionState state; };
+struct Manager_12f200 { Mission_12f200* FUN_00086310(); };
+struct Root_12f200 { char pad[0x54]; Manager_12f200* manager; };
+extern Root_12f200* DAT_004dd700;
 namespace hulkfight {
 struct ChapterMissionCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual int vfunc_6(int,int,int);
@@ -12,7 +12,7 @@ struct ChapterMissionCondition {
 };
 int ChapterMissionCondition::vfunc_6(int,int,int) {
  bool a=true,b=true;
- Mission* current=DAT_004dd700->manager->FUN_00086310();
+ Mission_12f200* current=DAT_004dd700->manager->FUN_00086310();
  if(chapter>=0) {
  int value=current->state.FUN_00088fa0();
  switch(chapterOperator) {

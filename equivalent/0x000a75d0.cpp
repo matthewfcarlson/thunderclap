@@ -26,43 +26,43 @@ static float AbsF(float v)
     return c.f;
 }
 
-struct V3 {
+struct V3_a75d0 {
     float x, y, z;
-    void FUN_0022d210(struct Mat *m);
-    void FUN_000a06d0(V3 *src);
-    void FUN_00078710(V3 *a, V3 *b, float c);
+    void FUN_0022d210(struct Mat_a75d0 *m);
+    void FUN_000a06d0(V3_a75d0 *src);
+    void FUN_00078710(V3_a75d0 *a, V3_a75d0 *b, float c);
 };
 
-struct Mat {
+struct Mat_a75d0 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022b9f0();
     void FUN_0022bda0(float a, float b, float c);
-    void FUN_0022be40(V3 *pos);
-    void FUN_0022bec0(V3 *a, V3 *b);
+    void FUN_0022be40(V3_a75d0 *pos);
+    void FUN_0022bec0(V3_a75d0 *a, V3_a75d0 *b);
 };
 
 float __cdecl FUN_0009faa0(float cur, float target, float dt, float rate);
 float __cdecl FUN_0009fb20(float a, float b, float c, float d, float e);
 float __cdecl FUN_000a00e0(float a, float b, float c, float d, float e);
 float __cdecl FUN_000a02a0(float v);
-float __cdecl FUN_000a0450(V3 *v);
-void __cdecl FUN_000a04c0(V3 *dir, float *yaw, float *pitch, float *len);
+float __cdecl FUN_000a0450(V3_a75d0 *v);
+void __cdecl FUN_000a04c0(V3_a75d0 *dir, float *yaw, float *pitch, float *len);
 
-struct Target {
+struct Target_a75d0 {
     char pad0[0x140];
     int f140;
     char pad144[0x328 - 0x144];
     int f328;
     char pad32c[0x1a60 - 0x32c];
-    V3 f1a60;
-    void FUN_000382c0(V3 *out);
-    char FUN_00038e30(V3 *a, V3 *b, float c, int d, V3 *e, V3 *f);
-    char FUN_00035550(V3 *out);
+    V3_a75d0 f1a60;
+    void FUN_000382c0(V3_a75d0 *out);
+    char FUN_00038e30(V3_a75d0 *a, V3_a75d0 *b, float c, int d, V3_a75d0 *e, V3_a75d0 *f);
+    char FUN_00035550(V3_a75d0 *out);
     char FUN_00035d80();
 };
 
-struct Input32c {
+struct Input32c_a75d0 {
     int state;
     void FUN_000a2100(float a1, float a3, float dt, float f14, float f10);
 };
@@ -77,21 +77,21 @@ public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
     virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9();
     virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13();
-    virtual Mat *v14();
+    virtual Mat_a75d0 *v14();
     virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
     virtual void v20();
-    virtual void v21(Mat *m);
+    virtual void v21(Mat_a75d0 *m);
     char padf4[0xf1 - 4];
     char bf1;
     char padf2[0x170 - 0xf2];
-    V3 p170;
+    V3_a75d0 p170;
     char pad17c[0x194 - 0x17c];
-    V3 p194;
-    V3 p1a0;
-    V3 p1ac;
-    V3 p1b8;
-    V3 p1c4;
-    V3 p1d0;
+    V3_a75d0 p194;
+    V3_a75d0 p1a0;
+    V3_a75d0 p1ac;
+    V3_a75d0 p1b8;
+    V3_a75d0 p1c4;
+    V3_a75d0 p1d0;
     char pad1dc[0x20c - 0x1dc];
     float f20c;
     float f210;
@@ -109,11 +109,11 @@ public:
     float f240;
     char b244;
     char pad245[3];
-    V3 p248;
+    V3_a75d0 p248;
     char pad254[0x278 - 0x254];
-    V3 p278;
+    V3_a75d0 p278;
     char pad284[0x290 - 0x284];
-    V3 p290;
+    V3_a75d0 p290;
     char pad29c[0x2ec - 0x29c];
     float f2ec, f2f0, f2f4, f2f8, f2fc, f300, f304, f308;
     char pad30c[0x318 - 0x30c];
@@ -121,7 +121,7 @@ public:
     char pad31c[4];
     int state;
     char pad324[0x32c - 0x324];
-    Input32c in32c;
+    Input32c_a75d0 in32c;
     char pad330[0x334 - 0x330];
     float f334;
     char pad338[0x344 - 0x338];
@@ -133,7 +133,7 @@ public:
     char b349;
     char pad34a[2];
     float f34c;
-    Target *f350;
+    Target_a75d0 *f350;
     char pad354[0x3b4 - 0x354];
     int f3b4;
     char pad3b8[0x410 - 0x3b8];
@@ -169,28 +169,28 @@ public:
     void vfunc_35(float a1, float dt, float a3, float a4);
 };
 
-struct Frame {
+struct Frame_a75d0 {
     float F10;
     float F14;
-    V3 v1;
-    V3 v2;
-    V3 vA;
-    V3 vB;
-    V3 vC;
-    V3 vD;
+    V3_a75d0 v1;
+    V3_a75d0 v2;
+    V3_a75d0 vA;
+    V3_a75d0 vB;
+    V3_a75d0 vC;
+    V3_a75d0 vD;
     union {
-        Mat M;
-        struct { char p[0x40]; V3 vE; } x;
-        struct { char p[0x38]; Mat M3; } m3;
+        Mat_a75d0 M;
+        struct { char p[0x40]; V3_a75d0 vE; } x;
+        struct { char p[0x38]; Mat_a75d0 M3; } m3;
     } u;
     char pad[0x14];
-    Mat mat2;
+    Mat_a75d0 mat2;
     unsigned int cookie;
 };
 
 void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
 {
-    Frame f;
+    Frame_a75d0 f;
     f.cookie = DAT_004d9968;
     if (!bf1) {
         p248.FUN_000a06d0(&p170);

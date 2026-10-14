@@ -2,25 +2,25 @@
 // hulkfight::ai::StrafeCircleAction::vfunc_5 @ 0x0011d900
 extern "C" double pow(double, double);
 
-struct Vec3 {
+struct Vec3_11d900 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-class RefCounted {
+class RefCounted_11d900 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-struct Mount {
+struct Mount_11d900 {
     char pad0[0x18];
-    bool FUN_00059a50(Vec3 *out);
+    bool FUN_00059a50(Vec3_11d900 *out);
 };
 
-struct Target : RefCounted {
+struct Target_11d900 : RefCounted_11d900 {
     char pad04[0x3c];
-    Vec3 pos;
+    Vec3_11d900 pos;
 };
 
 class Waypoint {
@@ -33,10 +33,10 @@ public:
     virtual void w5();
     virtual void w6();
     virtual void w7();
-    virtual Vec3 *GetPos(Vec3 *scratch);
+    virtual Vec3_11d900 *GetPos(Vec3_11d900 *scratch);
 };
 
-struct Special {
+struct Special_11d900 {
     char pad00[0x9e];
     char active;
     char pad9f;
@@ -44,54 +44,54 @@ struct Special {
     int key1;
 };
 
-struct Registry {
+struct Registry_11d900 {
     Waypoint *FUN_001fc8c0(int a, int b);
 };
 
 
-struct Player {
+struct Player_11d900 {
     char pad0[0x10];
-    Mount *mount;
+    Mount_11d900 *mount;
 };
 
 
-struct Hub20 {
+struct Hub20_11d900 {
     char pad0[0x124];
-    Player *player;
+    Player_11d900 *player;
 };
 
 struct World {
     char pad0[0x20];
-    Hub20 *hub;
+    Hub20_11d900 *hub;
     char pad24[4];
-    Registry *registry;
+    Registry_11d900 *registry;
 };
 
-struct Stats {
+struct Stats_11d900 {
     char pad0[0x10];
-    Mount *mount;
+    Mount_11d900 *mount;
     char pad14[0x328 - 0x14];
-    Target *target;
+    Target_11d900 *target;
     char pad32c[0x1ca0 - 0x32c];
-    Special *special;
+    Special_11d900 *special;
     char pad1ca4[0x2064 - 0x1ca4];
-    Vec3 aim;
+    Vec3_11d900 aim;
     float f2070;
-    Vec3 dir;
-    bool FUN_00035660(Vec3 *out);
+    Vec3_11d900 dir;
+    bool FUN_00035660(Vec3_11d900 *out);
 };
 
 void *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(void *x);
-extern "C" float FUN_00224f10(Vec3 *v);
+Stats_11d900 *__fastcall FUN_00059a30(void *x);
+extern "C" float FUN_00224f10(Vec3_11d900 *v);
 extern "C" float FUN_00224fc0(float from, float to);
 extern "C" float FUN_00083d90(float *v);
-extern "C" void FUN_00224d70(float angle, Vec3 *v);
+extern "C" void FUN_00224d70(float angle, Vec3_11d900 *v);
 
-extern Vec3 DAT_004a6ac0;
+extern Vec3_11d900 DAT_004a6ac0;
 extern World *DAT_004dd700;
 
-struct Tuning {
+struct Tuning_11d900 {
     char pad0[0x14];
     float f14;
     float f18;
@@ -115,9 +115,9 @@ public:
     virtual void vfunc_4();
     virtual bool vfunc_5(int a1, int a2);
     char pad04[0x18];
-    Tuning *tuning;
+    Tuning_11d900 *tuning;
     void *owner;
-    RefCounted *held;
+    RefCounted_11d900 *held;
 };
 
 bool StrafeCircleAction::vfunc_5(int a1, int a2)
@@ -127,10 +127,10 @@ bool StrafeCircleAction::vfunc_5(int a1, int a2)
     if (owner == 0)
         return false;
 
-    Stats *stats = FUN_00059a30(FUN_000592a0(owner));
-    Target *target = stats->target;
+    Stats_11d900 *stats = FUN_00059a30(FUN_000592a0(owner));
+    Target_11d900 *target = stats->target;
     if (target == 0) {
-        target = (Target *)held;
+        target = (Target_11d900 *)held;
         if (target == 0)
             return true;
     }
@@ -146,19 +146,19 @@ bool StrafeCircleAction::vfunc_5(int a1, int a2)
         float side;
         float height;
         float f20;
-        Vec3 p;
-        Vec3 d;
-        Vec3 q;
-        Vec3 r;
-        Vec3 scratch;
+        Vec3_11d900 p;
+        Vec3_11d900 d;
+        Vec3_11d900 q;
+        Vec3_11d900 r;
+        Vec3_11d900 scratch;
     } fr;
 
-    Special *sp = stats->special;
+    Special_11d900 *sp = stats->special;
     Waypoint *wp = 0;
     if (sp != 0 && sp->active != 0)
         wp = DAT_004dd700->registry->FUN_001fc8c0(sp->key0, sp->key1);
     if (wp != 0) {
-        Vec3 *pp = wp->GetPos(&fr.scratch);
+        Vec3_11d900 *pp = wp->GetPos(&fr.scratch);
         fr.p = *pp;
     } else {
         fr.p = target->pos;
@@ -193,7 +193,7 @@ bool StrafeCircleAction::vfunc_5(int a1, int a2)
     else
         theta = angleD + 1.5707964f;
 
-    Tuning *tn = tuning;
+    Tuning_11d900 *tn = tuning;
     float f14 = tn->f14;
     float f18 = tn->f18;
     if (f14 > 0.0f && fr.dist < f14) {
@@ -220,11 +220,11 @@ bool StrafeCircleAction::vfunc_5(int a1, int a2)
     tn = tuning;
     fr.lo = tn->f1c;
     fr.f20 = tn->f20;
-    Hub20 *hub = DAT_004dd700->hub;
-    Player *pl = hub->player;
+    Hub20_11d900 *hub = DAT_004dd700->hub;
+    Player_11d900 *pl = hub->player;
     if (pl != 0) {
         pl->mount->FUN_00059a50(&fr.p);
-        Tuning *t3 = tuning;
+        Tuning_11d900 *t3 = tuning;
         float f24 = t3->f24;
         float f28 = t3->f28;
         if (t3->f2c != 0) {

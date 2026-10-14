@@ -7,13 +7,13 @@ public:
     bool FUN_000f9e90();
 };
 
-class Args {
+class Args_f07b0 {
 public:
     virtual void v0();
     virtual unsigned GetKey();
 };
 
-struct Target {
+struct Target_f07b0 {
     char pad0[0x141];
     char flag141;
     char flag142;
@@ -61,11 +61,11 @@ public:
     virtual void v33();
     virtual void v34();
     virtual void v35();
-    virtual bool FUN_000f07b0(Param *p, int b, Target *t, Args *a);
-    void FUN_000eff20(Param *p, int b, Target *t, int mode);
+    virtual bool FUN_000f07b0(Param *p, int b, Target_f07b0 *t, Args_f07b0 *a);
+    void FUN_000eff20(Param *p, int b, Target_f07b0 *t, int mode);
 };
 
-bool FEThingsBase::FUN_000f07b0(Param *p, int b, Target *t, Args *a)
+bool FEThingsBase::FUN_000f07b0(Param *p, int b, Target_f07b0 *t, Args_f07b0 *a)
 {
     switch (a->GetKey()) {
     case 0x800e8237:

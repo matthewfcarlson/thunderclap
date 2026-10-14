@@ -12,7 +12,7 @@ public:
     virtual void v1();
 };
 
-struct Blob {
+struct Blob_1a14f0 {
     char data[0xe0];
     void FUN_001cb170();
 };
@@ -22,7 +22,7 @@ public:
     virtual void v1();
     char pad[4];
     int f8;
-    Blob *FUN_001d03c0();
+    Blob_1a14f0 *FUN_001d03c0();
 };
 
 
@@ -67,7 +67,7 @@ bool LuaCondition::vfunc_6(int a, fight::Params *params, int c)
     struct Frame {
         char pad[0x18];
         char buf[0x100];
-        Blob copy;
+        Blob_1a14f0 copy;
         int pad1f8;
         unsigned int cookie;
     } fr;

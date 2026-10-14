@@ -2,27 +2,27 @@
 // FUN_002e0880 @ 0x002e0880
 void *FUN_0008d690(unsigned int size);
 
-struct Vec3 { float x, y, z; };
+struct Vec3_2e0880 { float x, y, z; };
 
-class RefObj {
+class RefObj_2e0880 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-class Sub : public RefObj {
+class Sub_2e0880 : public RefObj_2e0880 {
 public:
     char pad04[0x2c];
-    Sub *FUN_002c84a0(Sub *other);
+    Sub_2e0880 *FUN_002c84a0(Sub_2e0880 *other);
 };
 
-class Provider {
+class Provider_2e0880 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual RefObj *v4();
+    virtual RefObj_2e0880 *v4();
 };
 
 namespace pure3d {
@@ -32,18 +32,18 @@ public:
     virtual void v0();
     char pad04[0xc];
     void *f10;
-    Vec3 bmin;
-    Vec3 bmax;
+    Vec3_2e0880 bmin;
+    Vec3_2e0880 bmax;
     float plane[4];
     char pad3c[4];
-    RefObj *obj40;
+    RefObj_2e0880 *obj40;
     int f44;
     int f48;
     int f4c;
     int f50;
     char pad54[4];
-    Provider *prov58;
-    Sub *sub5c;
+    Provider_2e0880 *prov58;
+    Sub_2e0880 *sub5c;
     void FUN_002a5060();
     void *FUN_002a50b0();
     DrawablePrimitive(int a, int b)
@@ -68,7 +68,7 @@ public:
     virtual void v4();
     virtual void v5();
     virtual void v6();
-    virtual RefObj *v7();
+    virtual RefObj_2e0880 *v7();
 
 };
 
@@ -83,23 +83,23 @@ VertexAnimPrimGroup::VertexAnimPrimGroup(const VertexAnimPrimGroup &src) : Drawa
     plane[3] = src.plane[3];
     f44 = src.f44;
 
-    RefObj *o = ((VertexAnimPrimGroup &)src).v7();
+    RefObj_2e0880 *o = ((VertexAnimPrimGroup &)src).v7();
     if (o)
         o->AddRef();
     if (obj40)
         obj40->Release();
     obj40 = o;
 
-    RefObj *p = src.prov58->v4();
+    RefObj_2e0880 *p = src.prov58->v4();
     if (p)
         p->AddRef();
     if (prov58)
-        ((RefObj *)prov58)->Release();
-    prov58 = (Provider *)p;
+        ((RefObj_2e0880 *)prov58)->Release();
+    prov58 = (Provider_2e0880 *)p;
 
     if (src.sub5c) {
-        Sub *mem = (Sub *)FUN_0008d690(0x30);
-        Sub *s;
+        Sub_2e0880 *mem = (Sub_2e0880 *)FUN_0008d690(0x30);
+        Sub_2e0880 *s;
         if (mem)
             s = mem->FUN_002c84a0(src.sub5c);
         else

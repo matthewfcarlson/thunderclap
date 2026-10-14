@@ -1,60 +1,60 @@
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 24/24)
 // FUN_00217980 @ 0x00217980
-struct GCObject {
+struct GCObject_217980 {
     char pad0[5];
     unsigned char marked;
 };
 
-struct Table;
+struct Table_217980;
 
-struct TObject {
+struct TObject_217980 {
     int tt;
     union {
         void *p;
-        GCObject *gc;
-        Table *h;
+        GCObject_217980 *gc;
+        Table_217980 *h;
     } value;
 };
 
-struct Table {
+struct Table_217980 {
     char pad0[5];
     unsigned char marked;
     unsigned char flags;
     char pad07;
-    Table *metatable;
+    Table_217980 *metatable;
 };
 
-struct GlobalState {
+struct GlobalState_217980 {
     char pad0[0x78];
     void *tmname;
 };
 
-struct LState {
+struct LState_217980 {
     char pad0[8];
-    TObject *top;
+    TObject_217980 *top;
     char pad0c[4];
-    GlobalState *G;
+    GlobalState_217980 *G;
     char pad14[4];
-    TObject *stack_last;
+    TObject_217980 *stack_last;
 };
 
-TObject *__cdecl FUN_00219ef0(LState *L, Table *h, TObject *key);
-TObject *__cdecl FUN_00217580(Table *mt, int event, void *name);
-TObject *__cdecl FUN_002175b0(LState *L, TObject *t, int event);
-void __cdecl FUN_00217100(LState *L, Table *h, GCObject *v);
-void __cdecl FUN_00214c90(LState *L, TObject *t, const char *op);
-void __cdecl FUN_00214a90(LState *L, const char *msg);
-void __cdecl FUN_00215460(LState *L, int n);
-void __cdecl FUN_002159e0(LState *L, TObject *func, int nresults);
+TObject_217980 *__cdecl FUN_00219ef0(LState_217980 *L, Table_217980 *h, TObject_217980 *key);
+TObject_217980 *__cdecl FUN_00217580(Table_217980 *mt, int event, void *name);
+TObject_217980 *__cdecl FUN_002175b0(LState_217980 *L, TObject_217980 *t, int event);
+void __cdecl FUN_00217100(LState_217980 *L, Table_217980 *h, GCObject_217980 *v);
+void __cdecl FUN_00214c90(LState_217980 *L, TObject_217980 *t, const char *op);
+void __cdecl FUN_00214a90(LState_217980 *L, const char *msg);
+void __cdecl FUN_00215460(LState_217980 *L, int n);
+void __cdecl FUN_002159e0(LState_217980 *L, TObject_217980 *func, int nresults);
 
-void __cdecl FUN_00217980(LState *L, TObject *t, TObject *key, TObject *val)
+void __cdecl FUN_00217980(LState_217980 *L, TObject_217980 *t, TObject_217980 *key, TObject_217980 *val)
 {
     for (int loop = 0; loop < 100; loop++) {
-        TObject *tm;
+        TObject_217980 *tm;
         if (t->tt == 5) {
-            Table *h = t->value.h;
-            TObject *oldval = FUN_00219ef0(L, h, key);
-            Table *mt;
+            Table_217980 *h = t->value.h;
+            TObject_217980 *oldval = FUN_00219ef0(L, h, key);
+            Table_217980 *mt;
             tm = 0;
             if (oldval->tt != 0
                 || (mt = h->metatable) == 0
@@ -77,7 +77,7 @@ void __cdecl FUN_00217980(LState *L, TObject *t, TObject *key, TObject *val)
             L->top[3] = *val;
             if ((char *)L->stack_last - (char *)L->top <= 0x20)
                 FUN_00215460(L, 4);
-            TObject *func = L->top;
+            TObject_217980 *func = L->top;
             L->top = func + 4;
             FUN_002159e0(L, func, 0);
             return;

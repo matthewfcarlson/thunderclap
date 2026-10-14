@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00298530 @ 0x00298530
-struct Matrix3 { float r[3][4]; };
-struct Box { float min[3]; float max[3]; void FUN_00298530(const Matrix3* m, const Box* src); };
-struct Pt { float v[3]; void FUN_0022d210(const Matrix3* m); };
+struct Matrix3_298530 { float r[3][4]; };
+struct Box_298530 { float min[3]; float max[3]; void FUN_00298530(const Matrix3_298530* m, const Box_298530* src); };
+struct Pt_298530 { float v[3]; void FUN_0022d210(const Matrix3_298530* m); };
 
 static inline float fabsf_(float f)
 {
@@ -12,9 +12,9 @@ static inline float fabsf_(float f)
     return x.f;
 }
 
-void Box::FUN_00298530(const Matrix3* m, const Box* src)
+void Box_298530::FUN_00298530(const Matrix3_298530* m, const Box_298530* src)
 {
-    Pt c;
+    Pt_298530 c;
     float ext[3];
     float h[3];
     float p[3][3];

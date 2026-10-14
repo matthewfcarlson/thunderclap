@@ -13,14 +13,14 @@ struct DynamicCaster {
 }
 }
 
-struct Anim {
+struct Anim_18b4e0 {
     char pad00[0x10];
     float f10;
     char pad14[4];
     char flag18;
 };
 
-class Controller {
+class Controller_18b4e0 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -46,9 +46,9 @@ public:
     virtual void v21();
     virtual void v22();
     virtual void v23();
-    virtual void v24(Anim *anim, unsigned int g, float t);
+    virtual void v24(Anim_18b4e0 *anim, unsigned int g, float t);
     char pad[0x150 - 4];
-    Controller *FUN_00287860();
+    Controller_18b4e0 *FUN_00287860();
     void FUN_00288080(int a);
     void FUN_00284ad0(int a);
 };
@@ -58,36 +58,36 @@ public:
     virtual void AddRef();
     virtual void Release();
     int FUN_001d68d0();
-    void FUN_0027e650(Controller *c, unsigned int g, float t);
+    void FUN_0027e650(Controller_18b4e0 *c, unsigned int g, float t);
 };
 
-struct Loader {
+struct Loader_18b4e0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Anim *v3(content::LoadInventory::DynamicCaster<pure3d::Animation> *caster, unsigned int lo, unsigned int hi);
+    virtual Anim_18b4e0 *v3(content::LoadInventory::DynamicCaster<pure3d::Animation> *caster, unsigned int lo, unsigned int hi);
 };
 
-struct Mid {
-    Loader *FUN_00203d70();
+struct Mid_18b4e0 {
+    Loader_18b4e0 *FUN_00203d70();
 };
 
-struct Mgr54 {
-    Mid *FUN_000862a0();
+struct Mgr54_18b4e0 {
+    Mid_18b4e0 *FUN_000862a0();
 };
 
-struct Game {
+struct Game_18b4e0 {
     char pad0[0x54];
-    Mgr54 *f54;
+    Mgr54_18b4e0 *f54;
 };
 
-struct Stats {
+struct Stats_18b4e0 {
     char pad0[0x128];
     Entity *f128;
     Entity *FUN_00035ef0(int i);
 };
 
-struct Spec {
+struct Spec_18b4e0 {
     char pad00[0x14];
     int index;
     unsigned int keyLo;
@@ -100,9 +100,9 @@ struct Spec {
 
 struct Owner;
 Owner *__fastcall FUN_000592a0(void *p);
-Stats *__fastcall FUN_00059a30(Owner *o);
+Stats_18b4e0 *__fastcall FUN_00059a30(Owner *o);
 
-extern Game *DAT_004dd700;
+extern Game_18b4e0 *DAT_004dd700;
 
 class PropAnimationAction {
 public:
@@ -113,17 +113,17 @@ public:
     virtual void v4();
     virtual void v5();
     char pad04[0x1c - 4];
-    Spec *spec;
+    Spec_18b4e0 *spec;
     void *owner;
     Entity *entity;
-    Controller *ctrl;
+    Controller_18b4e0 *ctrl;
 };
 
 bool PropAnimationAction::vfunc_3(int a, int b)
 {
     if (!owner)
         return false;
-    Stats *stats = FUN_00059a30(FUN_000592a0(owner));
+    Stats_18b4e0 *stats = FUN_00059a30(FUN_000592a0(owner));
     int k = spec->index;
     Entity *e;
     if (stats) {
@@ -149,9 +149,9 @@ bool PropAnimationAction::vfunc_3(int a, int b)
         content::LoadInventory::DynamicCaster<pure3d::Animation> caster;
         unsigned int g;
     } f;
-    Loader *loader = DAT_004dd700->f54->FUN_000862a0()->FUN_00203d70();
+    Loader_18b4e0 *loader = DAT_004dd700->f54->FUN_000862a0()->FUN_00203d70();
     new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>;
-    Anim *anim = loader->v3(&f.caster, spec->keyLo, spec->keyHi);
+    Anim_18b4e0 *anim = loader->v3(&f.caster, spec->keyLo, spec->keyHi);
     if (!anim)
         return false;
     f.t = spec->f28;
@@ -160,7 +160,7 @@ bool PropAnimationAction::vfunc_3(int a, int b)
         f.t = anim->f10;
 
     void *mem = FUN_00263ea0(0x150);
-    Controller *c = mem ? ((Controller *)mem)->FUN_00287860() : 0;
+    Controller_18b4e0 *c = mem ? ((Controller_18b4e0 *)mem)->FUN_00287860() : 0;
     if (c)
         c->AddRef();
     if (ctrl)

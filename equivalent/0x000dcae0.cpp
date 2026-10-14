@@ -4,7 +4,7 @@ extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 
 class FETextInput;
-struct Cell {
+struct Cell_dcae0 {
     float v;
     int f4;
     int f8;
@@ -13,7 +13,7 @@ struct Cell {
     int f14;
 };
 
-struct Lay {
+struct Lay_dcae0 {
     void *p;
     int f04;
     __declspec(align(8)) char data[0x80];
@@ -24,7 +24,7 @@ struct Lay {
     void FUN_000f80e0(const char *buf, int z, const void *style) throw();
 };
 
-class Y {
+class Y_dcae0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -73,7 +73,7 @@ public:
     virtual void *v44();
 };
 
-class X {
+class X_dcae0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -124,7 +124,7 @@ public:
     virtual void v46();
     virtual void v47();
     virtual void v48(int a, void *b);
-    Y *f04;
+    Y_dcae0 *f04;
     char pad08[0x958 - 8];
     char s958[0x14];
     float f96c;
@@ -133,7 +133,7 @@ public:
     unsigned int f988;
 };
 
-class Owner {
+class Owner_dcae0 {
 public:
     int pad04;
     virtual void v0();
@@ -150,10 +150,10 @@ public:
     virtual void v11();
     virtual void v12();
     virtual char v13(FETextInput *t);
-    X *f08;
+    X_dcae0 *f08;
 };
 
-class Obj {
+class Obj_dcae0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -174,20 +174,20 @@ public:
     virtual void v16(int z);
 };
 
-struct P2 {
-    Obj *obj;
+struct P2_dcae0 {
+    Obj_dcae0 *obj;
     void FUN_00293d00(void *arg) throw();
 };
 
-struct Widget {
+struct Widget_dcae0 {
     void FUN_000e9100(void *a) throw();
     void FUN_000e9130(void *a) throw();
 };
 
 extern unsigned int DAT_004d9968;
-extern P2 *DAT_0052c2ac;
+extern P2_dcae0 *DAT_0052c2ac;
 extern signed char DAT_004a0d38[];
-Widget *__cdecl FUN_000fc260(const char *name) throw();
+Widget_dcae0 *__cdecl FUN_000fc260(const char *name) throw();
 
 class FETextInput {
 public:
@@ -198,7 +198,7 @@ public:
     virtual void v4();
     virtual void vfunc_5();
     char pad04[0x10];
-    Owner *f14;
+    Owner_dcae0 *f14;
     char pad18[0x3c - 0x18];
     union {
         int f3c;
@@ -236,8 +236,8 @@ public:
 void FETextInput::vfunc_5()
 {
     struct Frame {
-        Lay L1;
-        Lay L2;
+        Lay_dcae0 L1;
+        Lay_dcae0 L2;
         char buf2[8];
         char buf1[0x44];
         unsigned int cookie;
@@ -251,13 +251,13 @@ void FETextInput::vfunc_5()
         f.L1.FUN_000f7fe0(f14->f08->f04->v44());
         f.L2.FUN_000f7fe0(f14->f08->f04->v44());
         float s = FUN_000e2850();
-        ((Cell *)((char *)&f.L1 + 8 + f.L1.idx * 16))->v = FUN_000e2840() * s;
-        ((Cell *)((char *)&f.L1 + 8 + f.L1.idx * 16))->f8 = 2;
+        ((Cell_dcae0 *)((char *)&f.L1 + 8 + f.L1.idx * 16))->v = FUN_000e2840() * s;
+        ((Cell_dcae0 *)((char *)&f.L1 + 8 + f.L1.idx * 16))->f8 = 2;
         float s2 = FUN_000e2850();
-        ((Cell *)((char *)&f.L2 + 8 + f.L2.idx * 16))->v = FUN_000e2840() * s2;
-        ((Cell *)((char *)&f.L2 + 8 + f.L2.idx * 16))->f8 = 2;
+        ((Cell_dcae0 *)((char *)&f.L2 + 8 + f.L2.idx * 16))->v = FUN_000e2840() * s2;
+        ((Cell_dcae0 *)((char *)&f.L2 + 8 + f.L2.idx * 16))->f8 = 2;
         sprintf(f.buf1, "___");
-        Widget *w = FUN_000fc260("enter_code_text");
+        Widget_dcae0 *w = FUN_000fc260("enter_code_text");
         if (f178 == 1) {
             if (w != 0) {
                 if (f14->v13(this)) {
@@ -281,15 +281,15 @@ void FETextInput::vfunc_5()
                     DAT_0052c2ac->obj->v15(0);
                     f14->f08->v48(f168[i], f160 + off);
                     DAT_0052c2ac->FUN_00293d00(f160 + off);
-                    Cell *c = (Cell *)((char *)&f.L1 + 8 + f.L1.idx * 16);
+                    Cell_dcae0 *c = (Cell_dcae0 *)((char *)&f.L1 + 8 + f.L1.idx * 16);
                     c->f4 = 1;
-                    ((Cell *)((char *)&f.L1 + 8 + f.L1.idx * 16))->f0c = f3c;
+                    ((Cell_dcae0 *)((char *)&f.L1 + 8 + f.L1.idx * 16))->f0c = f3c;
                     f.L1.f04 = f3c;
                     if ((f178 == 2 && f154 == i) || f178 == 1) {
-                        X *x = f14->f08;
+                        X_dcae0 *x = f14->f08;
                         float fa = x->f96c * 255.0f;
-                        ((Cell *)((char *)&f.L1 + 8 + f.L1.idx * 16))->f0c = 0;
-                        X *x2 = f14->f08;
+                        ((Cell_dcae0 *)((char *)&f.L1 + 8 + f.L1.idx * 16))->f0c = 0;
+                        X_dcae0 *x2 = f14->f08;
                         tmp = x2->f988;
                         x2->f988 = (255 - (int)fa) << 24;
                         f.L1.FUN_000f80e0(f.buf1, 0, f14->f08->s978);
@@ -297,7 +297,7 @@ void FETextInput::vfunc_5()
                         tmp = b177 * (unsigned char)b3f;
                         int a = (int)((float)tmp * 0.003921569f);
                         unsigned int col = (((((a << 8) | b176) << 8) | b175) << 8) | (f174 & 0xff);
-                        ((Cell *)((char *)&f.L1 + 8 + f.L1.idx * 16))->f0c = col;
+                        ((Cell_dcae0 *)((char *)&f.L1 + 8 + f.L1.idx * 16))->f0c = col;
                         f.L1.FUN_000f80e0(f.buf1, 0, x->s958);
                     } else {
                         f.L1.FUN_000f80e0(f.buf1, 0, f14->f08->s978);
@@ -309,15 +309,15 @@ void FETextInput::vfunc_5()
                     DAT_0052c2ac->obj->v15(0);
                     f14->f08->v48(f164[i], f15c + off);
                     DAT_0052c2ac->FUN_00293d00(f15c + off);
-                    Cell *c = (Cell *)((char *)&f.L2 + 8 + f.L2.idx * 16);
+                    Cell_dcae0 *c = (Cell_dcae0 *)((char *)&f.L2 + 8 + f.L2.idx * 16);
                     c->f4 = 1;
-                    ((Cell *)((char *)&f.L2 + 8 + f.L2.idx * 16))->f0c = f3c;
+                    ((Cell_dcae0 *)((char *)&f.L2 + 8 + f.L2.idx * 16))->f0c = f3c;
                     f.L2.f04 = f3c;
                     if (f178 == 2 && f154 == i) {
-                        X *x = f14->f08;
+                        X_dcae0 *x = f14->f08;
                         float fa = x->f96c * 255.0f;
-                        ((Cell *)((char *)&f.L2 + 8 + f.L2.idx * 16))->f0c = 0;
-                        X *x2 = f14->f08;
+                        ((Cell_dcae0 *)((char *)&f.L2 + 8 + f.L2.idx * 16))->f0c = 0;
+                        X_dcae0 *x2 = f14->f08;
                         tmp = x2->f988;
                         x2->f988 = (255 - (int)fa) << 24;
                         f.L2.FUN_000f80e0(f.buf2, 0, f14->f08->s978);
@@ -325,7 +325,7 @@ void FETextInput::vfunc_5()
                         tmp = b177 * (unsigned char)b3f;
                         int a = (int)((float)tmp * 0.003921569f);
                         unsigned int col = (((((a << 8) | b176) << 8) | b175) << 8) | (f174 & 0xff);
-                        ((Cell *)((char *)&f.L2 + 8 + f.L2.idx * 16))->f0c = col;
+                        ((Cell_dcae0 *)((char *)&f.L2 + 8 + f.L2.idx * 16))->f0c = col;
                         f.L2.FUN_000f80e0(f.buf2, 0, x->s958);
                     } else {
                         f.L2.FUN_000f80e0(f.buf2, 0, f14->f08->s978);

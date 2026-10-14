@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 30/32, incomplete)
 // FUN_0029ce40 @ 0x0029ce40
-struct Vec3 {
+struct Vec3_29ce40 {
     float x, y, z;
     float FUN_0022d110();
 };
@@ -10,15 +10,15 @@ struct Light {
     char active;                // 0x11
     char pad12[2];
     unsigned int color;         // 0x14 (0x00RRGGBB)
-    Vec3 pos;                   // 0x18
+    Vec3_29ce40 pos;                   // 0x18
     char pad24[0x64 - 0x24];
     float strength;             // 0x64
 
-    float FUN_002a0d00(Vec3* p);
+    float FUN_002a0d00(Vec3_29ce40* p);
     void FUN_002c3d20(float* a, float* b, float* falloff);
 };
 
-struct LightList {
+struct LightList_29ce40 {
     char pad00[0x10];
     int count;                  // 0x10
     int size;                   // 0x14
@@ -31,28 +31,28 @@ struct LightDesc {
     char pad19[7];
 };
 
-struct LightSet {
-    LightList* list;            // 0x00
+struct LightSet_29ce40 {
+    LightList_29ce40* list;            // 0x00
     LightDesc* descs;           // 0x04
 };
 
 struct DynLightSet {
-    LightList* list;            // 0x00
+    LightList_29ce40* list;            // 0x00
 };
 
 class Lighting {
 public:
-    void FUN_0029ce40(Vec3* out, Vec3* p);
+    void FUN_0029ce40(Vec3_29ce40* out, Vec3_29ce40* p);
 
     char pad00[0x28];
     char frozen;                // 0x28
     char pad29[3];
-    LightSet* statics;          // 0x2c
+    LightSet_29ce40* statics;          // 0x2c
     char pad30[0x3c - 0x30];
     DynLightSet* dynamics;      // 0x3c
 };
 
-void Lighting::FUN_0029ce40(Vec3* out, Vec3* p)
+void Lighting::FUN_0029ce40(Vec3_29ce40* out, Vec3_29ce40* p)
 {
     if (!out)
         return;
@@ -91,7 +91,7 @@ void Lighting::FUN_0029ce40(Vec3* out, Vec3* p)
         if (item->FUN_002a0d00(p) == 0.0f)
             continue;
 
-        Vec3 d;
+        Vec3_29ce40 d;
         float a, b, falloff;
         d.x = p->x - item->pos.x;
         d.y = p->y - item->pos.y;

@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000fde80 @ 0x000fde80
-struct Vec3 {
+struct Vec3_fde80 {
     float x, y, z;
 };
 
-class Settings {
+class Settings_fde80 {
 public:
     char pad0[8];
     int f08;                // 0x08
@@ -12,32 +12,32 @@ public:
     unsigned char flags10[4];   // 0x10
     float f14;              // 0x14
     float f18;              // 0x18
-    Vec3 v1c;               // 0x1c
-    Vec3 v28;               // 0x28
+    Vec3_fde80 v1c;               // 0x1c
+    Vec3_fde80 v28;               // 0x28
     float f34;              // 0x34
-    Vec3 v38;               // 0x38
+    Vec3_fde80 v38;               // 0x38
     unsigned char b44;      // 0x44
     unsigned char b45;      // 0x45
     unsigned char b46;      // 0x46
     char pad47;
     int f48;                // 0x48
     int f4c;                // 0x4c
-    Vec3 v50;               // 0x50
-    Vec3 v5c;               // 0x5c
+    Vec3_fde80 v50;               // 0x50
+    Vec3_fde80 v5c;               // 0x5c
     int f68;                // 0x68
     int f6c;                // 0x6c
     unsigned char b70;      // 0x70
     unsigned char b71;      // 0x71
     char pad72[2];
     int f74;                // 0x74
-    Vec3 v78;               // 0x78
+    Vec3_fde80 v78;               // 0x78
     float f84;              // 0x84
     float f88;              // 0x88
 
     void FUN_000fde80();
 };
 
-void Settings::FUN_000fde80()
+void Settings_fde80::FUN_000fde80()
 {
     f08 = 0;
     f0c = 0;

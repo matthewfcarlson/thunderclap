@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 40/42, incomplete)
 // FUN_002ea010 @ 0x002ea010
-struct ZStream {
+struct ZStream_2ea010 {
     unsigned char *next_in;
     unsigned avail_in;
     unsigned total_in;
@@ -10,13 +10,13 @@ struct ZStream {
     const char *msg;
 };
 
-struct PngStruct {
+struct PngStruct_2ea010 {
     char pad0[0x60];
     unsigned mode;
     unsigned flags;
     unsigned transformations;
-    ZStream zstream;
-    char pad1[0xa4 - 0x6c - sizeof(ZStream)];
+    ZStream_2ea010 zstream;
+    char pad1[0xa4 - 0x6c - sizeof(ZStream_2ea010)];
     unsigned char *zbuf;
     unsigned zbuf_size;
     char pad2[0xc0 - 0xac];
@@ -46,17 +46,17 @@ extern unsigned DAT_004d10f4[7];
 extern unsigned DAT_004d1110[7];
 extern unsigned char DAT_004d103c[5];
 
-void __cdecl FUN_002e6b60(PngStruct *png, void *s, int c, unsigned n);
-void __cdecl FUN_002e81e0(PngStruct *png, unsigned n);
-void __cdecl FUN_002dd690(PngStruct *png, void *buf, unsigned n);
+void __cdecl FUN_002e6b60(PngStruct_2ea010 *png, void *s, int c, unsigned n);
+void __cdecl FUN_002e81e0(PngStruct_2ea010 *png, unsigned n);
+void __cdecl FUN_002dd690(PngStruct_2ea010 *png, void *buf, unsigned n);
 unsigned __cdecl FUN_002e7500(unsigned char *buf);
-void __cdecl FUN_002d6c90(PngStruct *png);
-void __cdecl FUN_002e7580(PngStruct *png, void *buf, unsigned n);
-void __cdecl FUN_002e69a0(PngStruct *png, const char *msg);
-int __cdecl FUN_002e6f70(ZStream *z, int flush);
-void __cdecl FUN_002e6db0(ZStream *z);
+void __cdecl FUN_002d6c90(PngStruct_2ea010 *png);
+void __cdecl FUN_002e7580(PngStruct_2ea010 *png, void *buf, unsigned n);
+void __cdecl FUN_002e69a0(PngStruct_2ea010 *png, const char *msg);
+int __cdecl FUN_002e6f70(ZStream_2ea010 *z, int flush);
+void __cdecl FUN_002e6db0(ZStream_2ea010 *z);
 
-void FUN_002ea010(PngStruct *png)
+void FUN_002ea010(PngStruct_2ea010 *png)
 {
     png->row_number = png->row_number + 1;
     if (png->row_number < png->num_rows)

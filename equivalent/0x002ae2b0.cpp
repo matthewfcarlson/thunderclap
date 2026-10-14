@@ -2,14 +2,14 @@
 // pure3d::TextureBuilder::vfunc_0 @ 0x002ae2b0
 void *FUN_00263ea0(unsigned int size);
 
-struct Surface {
+struct Surface_2ae2b0 {
     char pad00[0x48];
     int pitch;
     char pad4c[4];
     unsigned char *data;
 };
 
-class Resource {
+class Resource_2ae2b0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -24,7 +24,7 @@ public:
     virtual void vfunc_10();
     virtual void vfunc_11(int size, int arg);
     virtual void vfunc_12();
-    virtual Surface *vfunc_13(int a, int b);
+    virtual Surface_2ae2b0 *vfunc_13(int a, int b);
 };
 
 class Texture {
@@ -32,19 +32,19 @@ public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     char pad04[0xc];
-    Resource *res;
+    Resource_2ae2b0 *res;
     Texture *FUN_002c1c30();
     bool FUN_002c1c70(int a1, int a2, int a3, int a4, int a5, int a6, int a7);
 };
 
-class Device {
+class Device_2ae2b0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual int vfunc_2();
 };
 
-extern Device *DAT_0052c2a0;
+extern Device_2ae2b0 *DAT_0052c2a0;
 
 namespace pure3d {
 class TextureBuilder {
@@ -63,7 +63,7 @@ public:
 
     Texture *tex;           // 0x04
     int flags;              // 0x08
-    Surface *surface;       // 0x0c
+    Surface_2ae2b0 *surface;       // 0x0c
     int stride;             // 0x10
     unsigned char *dest;    // 0x14
     int rows;               // 0x18

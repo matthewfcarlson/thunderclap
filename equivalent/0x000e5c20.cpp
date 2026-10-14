@@ -2,7 +2,7 @@
 // FEDialog::vfunc_3 @ 0x000e5c20
 int __cdecl FUN_000f6660(int value, int modulus);
 
-class Element {
+class Element_e5c20 {
 public:
     virtual void e0();
     virtual void e1();
@@ -80,10 +80,10 @@ public:
     virtual void vfunc_49();
     virtual void vfunc_50();
     virtual void vfunc_51();
-    virtual void setFocus(Element *e, int direction);
+    virtual void setFocus(Element_e5c20 *e, int direction);
     char pad04[0x48 - 0x4];
-    Element *focus;          // 0x48
-    Element *children[0x80]; // 0x4c
+    Element_e5c20 *focus;          // 0x48
+    Element_e5c20 *children[0x80]; // 0x4c
     char pad24c[0x9a8 - 0x24c];
     char enabled;            // 0x9a8
 };
@@ -104,7 +104,7 @@ char FEDialog::vfunc_3(int key, int arg)
     int cur = 0;
     if (key == 0 || key == 4 || key == 2 || key == 6) {
         for (int i = 0; i < 0x80; i++) {
-            Element *c = children[i];
+            Element_e5c20 *c = children[i];
             if (c && c->canFocus() && children[i] == focus) {
                 cur = i;
                 break;
@@ -117,7 +117,7 @@ char FEDialog::vfunc_3(int key, int arg)
     case 6: {
         int i = FUN_000f6660(cur - 1, 0x80);
         while (i != cur) {
-            Element *c = children[i];
+            Element_e5c20 *c = children[i];
             if (c && c->canFocus()) {
                 setFocus(children[i], 1);
                 return 1;
@@ -131,7 +131,7 @@ char FEDialog::vfunc_3(int key, int arg)
     case 4: {
         int i = (cur + 1) % 0x80;
         while (i != cur) {
-            Element *c = children[i];
+            Element_e5c20 *c = children[i];
             if (c && c->canFocus()) {
                 setFocus(children[i], 2);
                 return 1;

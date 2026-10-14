@@ -2,7 +2,7 @@
 // FUN_000cad80 @ 0x000cad80
 extern "C" char *__cdecl strncpy(char *dst, const char *src, unsigned int n);
 
-struct Label {
+struct Label_cad80 {
     char pad0[0xbc];
     char text[0x80];
     int f13c;
@@ -12,7 +12,7 @@ struct Label {
     void FUN_000cad80(const char *src, int a, int b, float r, float g, float bl);
 };
 
-void Label::FUN_000cad80(const char *src, int a, int b, float r, float g, float bl)
+void Label_cad80::FUN_000cad80(const char *src, int a, int b, float r, float g, float bl)
 {
     strncpy(text, src, 0x80);
     f13c = a;

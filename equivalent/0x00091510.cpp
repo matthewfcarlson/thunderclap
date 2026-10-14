@@ -8,21 +8,21 @@ extern "C" const char DAT_0048e0e4[];
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 class CStatsManager { public: float FUN_dummy(); };
 
-class __declspec(novtable) MethodBase {
+class __declspec(novtable) MethodBase_91510 {
   public:
     virtual void m0();
     char pad_04[0x14];
     char enabled;
     char pad_19[3];
-    MethodBase(const char* n, int k) { FUN_001d0480(n, k); }
+    MethodBase_91510(const char* n, int k) { FUN_001d0480(n, k); }
     void FUN_001d0480(const char*, int);
 };
 
 template <class T, class R>
-class Method0 : public MethodBase {
+class Method0 : public MethodBase_91510 {
   public:
     typedef R (T::*Fn)();
-    Method0(const char* name, Fn f) : MethodBase(name, 0) {
+    Method0(const char* name, Fn f) : MethodBase_91510(name, 0) {
         fn = f;
         enabled = FUN_001d04d0(DAT_0048e0e4);
     }
@@ -36,12 +36,12 @@ class Closure0 : public Method0<T, R> {
     T* owner;
 };
 
-struct Registry {
+struct Registry_91510 {
     void FUN_001d3b70(const char*, void*);
     void FUN_00091510(const char* name, CStatsManager* owner, bool (CStatsManager::*fn)());
 };
 
-void Registry::FUN_00091510(const char* name, CStatsManager* owner, bool (CStatsManager::*fn)()) {
+void Registry_91510::FUN_00091510(const char* name, CStatsManager* owner, bool (CStatsManager::*fn)()) {
     void* mem = FUN_0008d690(0x24);
     Closure0<CStatsManager, bool>* c = 0;
     if (mem)

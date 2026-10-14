@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 21/22, incomplete)
 // physics::CollisionAABB::vfunc_8 @ 0x00312b10
-struct Vec3 { float x, y, z; };
+struct Vec3_312b10 { float x, y, z; };
 
 namespace physics {
 
@@ -17,7 +17,7 @@ public:
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
-    virtual Vec3 *GetCenter();
+    virtual Vec3_312b10 *GetCenter();
     virtual void vfunc_5();
     virtual void vfunc_6();
     virtual void vfunc_7();
@@ -36,9 +36,9 @@ public:
     char pad1a[6];
     CollisionAABB *owned;
     char pad24[4];
-    Vec3 halfExtent;
+    Vec3_312b10 halfExtent;
     float radius;
-    void FUN_003129e0(Vec3 *hi, Vec3 *lo, CollisionAABB *child);
+    void FUN_003129e0(Vec3_312b10 *hi, Vec3_312b10 *lo, CollisionAABB *child);
 };
 
 }
@@ -54,15 +54,15 @@ void physics::CollisionAABB::RecomputeBounds()
     if ((unsigned int)(children->end - children->begin) == 0)
         return;
 
-    Vec3 hi;
-    Vec3 lo;
+    Vec3_312b10 hi;
+    Vec3_312b10 lo;
     for (unsigned int i = 0; i < (unsigned int)(children->end - children->begin); i++) {
         CollisionAABB *child = children->begin[i];
         if (child->active) {
             child->RecomputeBounds();
             if (first) {
                 first = false;
-                Vec3 *c = child->GetCenter();
+                Vec3_312b10 *c = child->GetCenter();
                 hi.x = c->x + child->halfExtent.x;
                 hi.y = c->y + child->halfExtent.y;
                 hi.z = c->z + child->halfExtent.z;
@@ -76,7 +76,7 @@ void physics::CollisionAABB::RecomputeBounds()
         }
     }
 
-    Vec3 *c = GetCenter();
+    Vec3_312b10 *c = GetCenter();
     c->x = lo.x + hi.x;
     c->y = lo.y + hi.y;
     c->z = lo.z + hi.z;

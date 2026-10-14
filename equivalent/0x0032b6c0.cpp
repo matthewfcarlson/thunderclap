@@ -14,11 +14,11 @@ extern unsigned int DAT_0039deac;
 struct Texture {
     void FUN_00326b00(int stage);
 };
-struct RenderDevice {
+struct RenderDevice_32b6c0 {
     void FUN_003219c0();
 };
-struct TextureState {
-    RenderDevice* device;
+struct TextureState_32b6c0 {
+    RenderDevice_32b6c0* device;
     char pad4[4];
     Texture* tex[4];
     int texCoordIndex[4];
@@ -52,7 +52,7 @@ class d3dLightMapShader {
     virtual void f13();
     virtual void vfunc_14(int unused);
     char pad4[0x14 - 4];
-    TextureState* state;
+    TextureState_32b6c0* state;
     char pad18[4];
     int mode;
     char pad20[0x38 - 0x20];
@@ -143,7 +143,7 @@ void pure3d::d3dLightMapShader::vfunc_14(int unused) {
         }
     }
     state->FUN_00329bb0(n);
-    TextureState* s = state;
+    TextureState_32b6c0* s = state;
     unsigned char cull = cullFlag;
     if (s->twoSided != cull || s->dirty) {
         s->twoSided = cull;

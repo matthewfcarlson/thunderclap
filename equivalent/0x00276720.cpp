@@ -6,10 +6,10 @@ namespace core { struct InstanceDrive; }
 struct Request {
     Request* FUN_00275b40(core::InstanceDrive* file);
 };
-struct Queue {
+struct Queue_276720 {
     void FUN_00272b60(Request* request, unsigned int context, unsigned int zero);
 };
-struct Lock {
+struct Lock_276720 {
     virtual void lock();
     virtual void unlock();
 };
@@ -19,9 +19,9 @@ struct InstanceDrive {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(int flags);
-    Lock lock;
+    Lock_276720 lock;
     int refs;
-    Queue* queue;
+    Queue_276720* queue;
     unsigned int context;
     char pad14[12];
     char queued;
@@ -29,7 +29,7 @@ struct InstanceDrive {
 
 void InstanceDrive::vfunc_1()
 {
-    Lock* l = &lock;
+    Lock_276720* l = &lock;
     l->lock();
     if (--refs != 0) {
         l->unlock();

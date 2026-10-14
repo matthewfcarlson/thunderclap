@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 156 inputs, branch coverage 22/22)
 // pure3d::TextureBuilder::vfunc_2 @ 0x002ae6c0
-struct PixelFormat {
+struct PixelFormat_2ae6c0 {
     int count;
     char pad04[4];
     int bits;
@@ -33,7 +33,7 @@ public:
 
     int active;
     unsigned int *palette;
-    PixelFormat *format;
+    PixelFormat_2ae6c0 *format;
     int stride;
     unsigned char *dest;
     int rows;
@@ -49,7 +49,7 @@ void pure3d::TextureBuilder::vfunc_2(const unsigned char *src)
         unsigned short *out = (unsigned short *)dest;
         for (int i = 0; i < format->count; i++) {
             unsigned int px = palette[*src];
-            PixelFormat *f = format;
+            PixelFormat_2ae6c0 *f = format;
             unsigned int v = ((px & 0xff) >> f->shrB) << f->shlB;
             v |= ((px & 0xff0000) >> f->shrR) << f->shlR;
             v |= ((px & 0xff000000) >> f->shrA) << f->shlA;

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/14, incomplete)
 // FUN_0024b480 @ 0x0024b480
-struct Handler {
+struct Handler_24b480 {
     virtual void v0();
     virtual int State();
     virtual void v2();
@@ -14,13 +14,13 @@ struct Handler {
     virtual void v10();
     virtual void v11();
 };
-struct Slots {
-    Handler *handler;
+struct Slots_24b480 {
+    Handler_24b480 *handler;
     int pad4[2];
 };
 // equiv-conv: FUN_0024b270 ecx
-struct Ring {
-    Slots slots[10];
+struct Ring_24b480 {
+    Slots_24b480 slots[10];
     unsigned char current;
     unsigned char count;
     unsigned char size;
@@ -28,7 +28,7 @@ struct Ring {
 };
 struct Machine {
     char pad0[0x40];
-    Ring ring;
+    Ring_24b480 ring;
 };
 
 // equiv-conv: FUN_0024b480 eax
@@ -36,7 +36,7 @@ void FUN_0024b480(Machine *m)
 {
     if (m->ring.count == 0)
         return;
-    Handler *h = m->ring.slots[m->ring.current].handler;
+    Handler_24b480 *h = m->ring.slots[m->ring.current].handler;
     if (h == 0)
         return;
     if (h->State() == 0) {

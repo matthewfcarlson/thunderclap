@@ -1,54 +1,54 @@
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 18/22, incomplete)
 // FUN_000403f0 @ 0x000403f0
-struct Vec3 {
+struct Vec3_403f0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
 class Node {
 public:
-    char FUN_00059a50(Vec3 *out);
+    char FUN_00059a50(Vec3_403f0 *out);
 };
 
-class Ref {
+class Ref_403f0 {
 public:
     virtual void vf0();
     virtual void vf1();
 };
 
-class Team {
+class Team_403f0 {
 public:
     char pad0[0x1b0];
     int id;
 };
 
-class Actor {
+class Actor_403f0 {
 public:
     char pad0[0x10];
     Node *node;
     char pad1[0x11c - 0x14];
-    Team *team;
+    Team_403f0 *team;
     char pad2[0x12c - 0x120];
-    Ref *target;
+    Ref_403f0 *target;
     void FUN_000393c0();
 };
 
-class Roster {
+class Roster_403f0 {
 public:
     char pad0[0xc];
     int count;
-    Actor *FUN_00024190(int index);
-    char FUN_000242d0(Actor *a);
+    Actor_403f0 *FUN_00024190(int index);
+    char FUN_000242d0(Actor_403f0 *a);
 };
 
-class Owner {
+class Owner_403f0 {
 public:
     char pad0[0x10];
     Node *node;
     char pad1[0x11c - 0x14];
-    Team *team;
+    Team_403f0 *team;
     char pad2[0x328 - 0x120];
-    Ref *current;
+    Ref_403f0 *current;
     char pad3[0x1b48 - 0x32c];
     char flag;
     char pad4[0x1d40 - 0x1b49];
@@ -57,32 +57,32 @@ public:
     void FUN_000403f0();
 };
 
-struct Globals {
+struct Globals_403f0 {
     char pad0[0x20];
-    Roster *roster;
+    Roster_403f0 *roster;
 };
 
-extern Globals *DAT_004dd700;
+extern Globals_403f0 *DAT_004dd700;
 
-void Owner::FUN_000403f0()
+void Owner_403f0::FUN_000403f0()
 {
-    if (DAT_004dd700->roster->FUN_000242d0((Actor *)this))
+    if (DAT_004dd700->roster->FUN_000242d0((Actor_403f0 *)this))
         return;
     if (!enabled)
         return;
-    Vec3 me;
+    Vec3_403f0 me;
     node->FUN_00059a50(&me);
     int count = DAT_004dd700->roster->count;
-    Actor *best = 0;
+    Actor_403f0 *best = 0;
     float bestDist = 0;
     for (int i = 0; i < count; i++) {
-        Actor *other = DAT_004dd700->roster->FUN_00024190(i);
+        Actor_403f0 *other = DAT_004dd700->roster->FUN_00024190(i);
         me.x = 0;
         me.y = 0;
         me.z = 0;
         node->FUN_00059a50(&me);
         if (other && other->team->id != team->id) {
-            Vec3 op;
+            Vec3_403f0 op;
             other->node->FUN_00059a50(&op);
             me.x = me.x - op.x;
             me.y = me.y - op.y;
@@ -95,7 +95,7 @@ void Owner::FUN_000403f0()
         }
     }
     if (best) {
-        Ref *t = best->target;
+        Ref_403f0 *t = best->target;
         if (t == 0) {
             FUN_000393c0();
             return;

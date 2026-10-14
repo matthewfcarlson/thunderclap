@@ -2,27 +2,27 @@
 // FUN_001f3c00 @ 0x001f3c00
 extern float DAT_004c7df4;
 
-struct Id {
+struct Id_1f3c00 {
     int lo;
     int hi;
 };
 
-struct Voice {
+struct Voice_1f3c00 {
     void FUN_001e8ac0();
 };
 
-struct Sound {
+struct Sound_1f3c00 {
     char pad;
 };
 
-struct Notifier {
+struct Notifier_1f3c00 {
     void FUN_001e9a90(const char* name, int arg);
 };
 
 struct Channel {
     char pad00[4];
-    Sound* sound;               // 0x04
-    Voice* voice;               // 0x08
+    Sound_1f3c00* sound;               // 0x04
+    Voice_1f3c00* voice;               // 0x08
     char pad0c[4];
     int f10;                    // 0x10
     char b14;                   // 0x14
@@ -32,9 +32,9 @@ struct Channel {
     int FUN_001f3370(int* a);
 };
 
-struct Slot {
+struct Slot_1f3c00 {
     char pad00[8];
-    Voice* voice;               // 0x08
+    Voice_1f3c00* voice;               // 0x08
     int value;                  // 0x0c
     int qty;                    // 0x10
     const char* name;           // 0x14
@@ -42,31 +42,31 @@ struct Slot {
     char pad19[3];
 
     void FUN_0027af60(int lo, int hi);
-    void FUN_001f3720(Id* id, Voice* voice, int value, int qty, const char* name, int flag);
+    void FUN_001f3720(Id_1f3c00* id, Voice_1f3c00* voice, int value, int qty, const char* name, int flag);
 };
 
-bool __cdecl FUN_00249b40(Sound* s);
-void __cdecl FUN_0024af00(Sound* s);
-void __cdecl FUN_00247890(Sound* s, float volume);
-void __stdcall FUN_001f32b0(Voice* voice, bool active, int flag);
+bool __cdecl FUN_00249b40(Sound_1f3c00* s);
+void __cdecl FUN_0024af00(Sound_1f3c00* s);
+void __cdecl FUN_00247890(Sound_1f3c00* s, float volume);
+void __stdcall FUN_001f32b0(Voice_1f3c00* voice, bool active, int flag);
 
-class Player {
+class Player_1f3c00 {
 public:
-    bool FUN_001f3c00(Voice* voice, int* value, Id* id, const char* name, int qty, int flag);
-    int FUN_001f31a0(Id* id);
+    bool FUN_001f3c00(Voice_1f3c00* voice, int* value, Id_1f3c00* id, const char* name, int qty, int flag);
+    int FUN_001f31a0(Id_1f3c00* id);
 
     char pad00[0x8c];
     Channel* channel;           // 0x8c
     int limit;                  // 0x90
     char b94;                   // 0x94
     char pad95[0xa0 - 0x95];
-    Slot slot;                  // 0xa0
-    char pad_after_slot[0x334 - 0xa0 - sizeof(Slot)];
+    Slot_1f3c00 slot;                  // 0xa0
+    char pad_after_slot[0x334 - 0xa0 - sizeof(Slot_1f3c00)];
     float volume;               // 0x334
-    Notifier* notifier;         // 0x338
+    Notifier_1f3c00* notifier;         // 0x338
 };
 
-bool Player::FUN_001f3c00(Voice* voice, int* value, Id* id, const char* name, int qty, int flag)
+bool Player_1f3c00::FUN_001f3c00(Voice_1f3c00* voice, int* value, Id_1f3c00* id, const char* name, int qty, int flag)
 {
     int count = slot.qty;
     if (count < 99) {

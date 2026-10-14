@@ -6,7 +6,7 @@ extern float DAT_004ddbc8;
 float __cdecl FUN_00224ea0(float x, float y);
 float __cdecl FUN_00224fc0(float a, float b);
 
-union Bits {
+union Bits_b36d0 {
     float f;
     unsigned int u;
 };
@@ -17,7 +17,7 @@ struct Btn {
     float b;                    // 0x08
 };
 
-struct Stick {
+struct Stick_b36d0 {
     int state;                  // 0x00
     float a;                    // 0x04
     float x;                    // 0x08
@@ -34,26 +34,26 @@ struct Stick {
     float f30;                  // 0x34
 };
 
-struct Input {
+struct Input_b36d0 {
     Btn btn[13];                // 0x00
-    Stick stick[2];             // 0x9c
+    Stick_b36d0 stick[2];             // 0x9c
 };
 
-struct Meter {
+struct Meter_b36d0 {
     float FUN_000ad3c0();
     float FUN_000ad2b0();
 };
 
-class Ctrl {
+class Ctrl_b36d0 {
 public:
     char pad00[8];
-    Meter *meter;               // 0x08
-    void FUN_000b36d0(Input *s, float v0, float v1, float v2, float v3, float v4, float v5, float v6,
+    Meter_b36d0 *meter;               // 0x08
+    void FUN_000b36d0(Input_b36d0 *s, float v0, float v1, float v2, float v3, float v4, float v5, float v6,
                       float v7, float v8, float v9, float v10, float v11, float v12,
                       float x0, float y0, float x1, float y1, float dt);
 };
 
-void Ctrl::FUN_000b36d0(Input *s, float v0, float v1, float v2, float v3, float v4, float v5, float v6,
+void Ctrl_b36d0::FUN_000b36d0(Input_b36d0 *s, float v0, float v1, float v2, float v3, float v4, float v5, float v6,
                         float v7, float v8, float v9, float v10, float v11, float v12,
                         float x0, float y0, float x1, float y1, float dt)
 {
@@ -104,8 +104,8 @@ void Ctrl::FUN_000b36d0(Input *s, float v0, float v1, float v2, float v3, float 
     }
 
     for (int k = 0; k < 2; k++) {
-        Stick *st = &s->stick[k];
-        Bits bx, by, ax, ay;
+        Stick_b36d0 *st = &s->stick[k];
+        Bits_b36d0 bx, by, ax, ay;
         bx.f = xy[2 * k];
         by.f = xy[2 * k + 1];
         ax.u = bx.u & 0x7fffffff;
@@ -141,7 +141,7 @@ void Ctrl::FUN_000b36d0(Input *s, float v0, float v1, float v2, float v3, float 
             }
             if (diff) {
                 float d = FUN_00224fc0(st->ang, ang);
-                Bits ad;
+                Bits_b36d0 ad;
                 ad.f = d;
                 ad.u &= 0x7fffffff;
                 bool acc = false;
@@ -198,7 +198,7 @@ void Ctrl::FUN_000b36d0(Input *s, float v0, float v1, float v2, float v3, float 
                 float q = d2 / st->f24;
                 st->f20 = st->ang;
                 st->f24 = 0.0f;
-                Bits aq;
+                Bits_b36d0 aq;
                 aq.f = q;
                 aq.u &= 0x7fffffff;
                 st->f1c = aq.f;

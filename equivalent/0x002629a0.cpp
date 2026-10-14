@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 155 inputs, branch coverage 13/16, incomplete)
 // FUN_002629a0 @ 0x002629a0
 int __cdecl FUN_002628a0(int nibble, int *first, int *second);
-struct State { short first; short second; };
+struct State_2629a0 { short first; short second; };
 struct DecodeScratch { int first; int second; const unsigned char *end; unsigned int channels; };
 void __cdecl FUN_002629a0(short *output, const unsigned char *input, unsigned int blocks, unsigned int channels)
 {
-    State states[16];
+    State_2629a0 states[16];
     unsigned int blockBytes = channels * 20;
     DecodeScratch scratch;
     scratch.end = input + blockBytes * blocks;

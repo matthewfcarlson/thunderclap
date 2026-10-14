@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 10/10)
 // FUN_003006e0 @ 0x003006e0
 // FUN_003006e0: update every active object, then every object once more
-struct Obj {
+struct Obj_3006e0 {
     char data[0x6c];
     void FUN_002ff3f0(int arg);
 };
 
-class Group {
+class Group_3006e0 {
 public:
-    Obj *objs;
+    Obj_3006e0 *objs;
     char pad04[4];
     int *begin;
     int *end;
@@ -24,7 +24,7 @@ public:
     void FUN_003006e0(int arg);
 };
 
-void Group::FUN_003006e0(int arg)
+void Group_3006e0::FUN_003006e0(int arg)
 {
     unsigned int i;
     for (i = 0; i < (unsigned int)(end - begin); i++) {

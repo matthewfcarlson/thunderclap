@@ -3,7 +3,7 @@
 extern "C" double sqrt(double);
 void *FUN_00263ea0(unsigned int size);
 
-class Attr {
+class Attr_2beb20 {
 public:
     virtual void v0();
     virtual void v1();
@@ -14,16 +14,16 @@ public:
     virtual void v6(unsigned int tag, int value);
 };
 
-class Res {
+class Res_2beb20 {
 public:
     virtual void v0();
     char pad04[0xc];
-    Attr *attr;
+    Attr_2beb20 *attr;
     char pad14[0xc];
-    Res *FUN_0028edb0();
+    Res_2beb20 *FUN_0028edb0();
 };
 
-struct Desc {
+struct Desc_2beb20 {
     char pad0[0x10];
     int width;
     int height;
@@ -31,7 +31,7 @@ struct Desc {
     unsigned char flag;
 };
 
-class Device {
+class Device_2beb20 {
 public:
     virtual void v0();
     virtual void v1();
@@ -119,23 +119,23 @@ public:
     virtual void v83();
     virtual int v84();
 };
-extern Device *DAT_0052c2a8;
+extern Device_2beb20 *DAT_0052c2a8;
 extern char DAT_004d0894;
 extern int DAT_004d0898;
 
 namespace pure3d {
 
-class __declspec(novtable) SpriteBase {
+class __declspec(novtable) SpriteBase_2beb20 {
 public:
     virtual void v0();
     char pad04[0x48];
     void FUN_002a5060();
-    SpriteBase() { FUN_002a5060(); }
+    SpriteBase_2beb20() { FUN_002a5060(); }
 };
 
-class Sprite : public SpriteBase {
+class Sprite : public SpriteBase_2beb20 {
 public:
-    Res *res;
+    Res_2beb20 *res;
     int pad50;
     int height;
     int width;
@@ -159,12 +159,12 @@ public:
     char flagA0;
     virtual void v1();
     virtual void v2();
-    void FUN_002be720(Desc *d, int a);
+    void FUN_002be720(Desc_2beb20 *d, int a);
     void FUN_002bdd00(int a);
-    Sprite(Desc *d, Res *r, int s, int a4, int a5, int a6);
+    Sprite(Desc_2beb20 *d, Res_2beb20 *r, int s, int a4, int a5, int a6);
 };
 
-Sprite::Sprite(Desc *d, Res *r, int s, int a4, int a5, int a6)
+Sprite::Sprite(Desc_2beb20 *d, Res_2beb20 *r, int s, int a4, int a5, int a6)
 {
     flagA0 = DAT_004d0894;
     if (DAT_004d0894 != 0) {
@@ -197,7 +197,7 @@ Sprite::Sprite(Desc *d, Res *r, int s, int a4, int a5, int a6)
     if (r != 0) {
         res = r;
     } else {
-        Res *m = (Res *)FUN_00263ea0(0x20);
+        Res_2beb20 *m = (Res_2beb20 *)FUN_00263ea0(0x20);
         if (m)
             res = m->FUN_0028edb0();
         else

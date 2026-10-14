@@ -1,57 +1,57 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001ebd80 @ 0x001ebd80
-struct Id {
+struct Id_1ebd80 {
     unsigned __int64 key;
 };
 
-struct IdCopy {
+struct IdCopy_1ebd80 {
     unsigned __int64 key;
-    void FUN_0027af30(const Id *src);
-    IdCopy(const Id &o) { FUN_0027af30(&o); }
+    void FUN_0027af30(const Id_1ebd80 *src);
+    IdCopy_1ebd80(const Id_1ebd80 &o) { FUN_0027af30(&o); }
 };
 
-struct StringList {
+struct StringList_1ebd80 {
     char data[0x48];
     void FUN_001ef320();
     void FUN_001ef350();
     void FUN_001ef370(const char *s);
-    void FUN_001ef3c0(IdCopy id);
+    void FUN_001ef3c0(IdCopy_1ebd80 id);
 };
 
-struct EventSink {
+struct EventSink_1ebd80 {
     void *handler;
-    bool FUN_001efe20(StringList *args, const void *where, int name, float delay);
+    bool FUN_001efe20(StringList_1ebd80 *args, const void *where, int name, float delay);
 };
 
-struct EventConfig {
-    EventSink *sink;
+struct EventConfig_1ebd80 {
+    EventSink_1ebd80 *sink;
     char pad04[4];
     char enabled;
 };
 
-struct Descriptor {
+struct Descriptor_1ebd80 {
     char pad00[8];
-    Id id;                  // 0x08
+    Id_1ebd80 id;                  // 0x08
 };
 
-struct Prop {
+struct Prop_1ebd80 {
     char pad00[8];
     char where[1];          // 0x08
     char pad09[0xe3];
-    Descriptor *descriptor; // 0xec
+    Descriptor_1ebd80 *descriptor; // 0xec
 };
 
-extern EventConfig *DAT_004e36d8;
+extern EventConfig_1ebd80 *DAT_004e36d8;
 
 // Posts a "Objects/Props/<id>" event for a prop.
-void __stdcall FUN_001ebd80(Prop *prop, int name, float delay, int unused) {
+void __stdcall FUN_001ebd80(Prop_1ebd80 *prop, int name, float delay, int unused) {
     if (prop == 0 || prop->descriptor == 0)
         return;
-    StringList path;
+    StringList_1ebd80 path;
     path.FUN_001ef320();
     path.FUN_001ef370("Objects");
     path.FUN_001ef370("Props");
-    path.FUN_001ef3c0(IdCopy(prop->descriptor->id));
+    path.FUN_001ef3c0(IdCopy_1ebd80(prop->descriptor->id));
     if (DAT_004e36d8->enabled)
         DAT_004e36d8->sink->FUN_001efe20(&path, prop->where, name, delay);
     path.FUN_001ef350();

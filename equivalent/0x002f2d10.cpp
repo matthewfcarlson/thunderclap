@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_002f2d10 @ 0x002f2d10
-struct Entry {
+struct Entry_2f2d10 {
     float x, y, z, w;
     float scale, a, b, c;
 };
 struct Object {
-    Entry entries[64];
+    Entry_2f2d10 entries[64];
     void FUN_002f2cb0();
     Object* FUN_002f2d10();
 };

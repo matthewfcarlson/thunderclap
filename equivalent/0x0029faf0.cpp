@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 17/20, incomplete)
 // FUN_0029faf0 @ 0x0029faf0
-struct Vec { float x,y,z; };
-struct Pool { void* FUN_0029f280(); };
-struct Item { char pad0[0x18]; unsigned int value18; char pad1[0x18]; unsigned int color; void FUN_0029e7f0(void*,void*,unsigned int); };
+struct Vec_29faf0 { float x,y,z; };
+struct Pool_29faf0 { void* FUN_0029f280(); };
+struct Item_29faf0 { char pad0[0x18]; unsigned int value18; char pad1[0x18]; unsigned int color; void FUN_0029e7f0(void*,void*,unsigned int); };
 struct Object {
- char pad0[0x10]; unsigned int color; char pad1[4]; unsigned int value18; char pad2[8]; unsigned int value24; char pad3[0x1c]; Pool* pool;
- bool FUN_0029e5c0(void*,Item*);
- void FUN_0029ce40(Vec*,void*);
- void FUN_0029df90(void*,Vec*,void*);
- void target(void* arg, Item* item);
+ char pad0[0x10]; unsigned int color; char pad1[4]; unsigned int value18; char pad2[8]; unsigned int value24; char pad3[0x1c]; Pool_29faf0* pool;
+ bool FUN_0029e5c0(void*,Item_29faf0*);
+ void FUN_0029ce40(Vec_29faf0*,void*);
+ void FUN_0029df90(void*,Vec_29faf0*,void*);
+ void target(void* arg, Item_29faf0* item);
 };
-void Object::target(void* arg, Item* item) {
+void Object::target(void* arg, Item_29faf0* item) {
  if (FUN_0029e5c0(arg,item)) { color=item->color; return; }
  void* handle=pool->FUN_0029f280();
- Vec v;
+ Vec_29faf0 v;
  FUN_0029ce40(&v,arg);
  FUN_0029df90(handle,&v,arg);
  int b=(int)v.z;

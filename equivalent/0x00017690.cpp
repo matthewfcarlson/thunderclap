@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 6/6)
 // CHeadTrackerAction::vfunc_6 @ 0x00017690
-struct V3 {
+struct V3_17690 {
     float x, y, z;
     float FUN_0022d110();
 };
@@ -11,7 +11,7 @@ struct Matrix {
     void FUN_0022c0b0();
 };
 
-struct NameField {
+struct NameField_17690 {
     void FUN_0027b040(const char* s);
 };
 
@@ -19,7 +19,7 @@ class HeadTracker {
 public:
     virtual void v0();
     char pad4[4];
-    NameField name;
+    NameField_17690 name;
     char pad9[0x10 - 0x9];
     unsigned int index;
     int mode;
@@ -27,42 +27,42 @@ public:
     HeadTracker* FUN_002248a0();
 };
 
-struct Table {
+struct Table_17690 {
     unsigned int FUN_0027b200(int a, int b);
 };
 
-struct Pair {
+struct Pair_17690 {
     char pad[8];
-    Table* table;
+    Table_17690* table;
 };
 
-struct Mgr {
-    Pair* FUN_00059a40();
+struct Mgr_17690 {
+    Pair_17690* FUN_00059a40();
 };
 
-struct Cfg {
+struct Cfg_17690 {
     char pad0[0x18];
     int f18;
     int f1c;
-    V3 dirSrc;
-    V3 upSrc;
+    V3_17690 dirSrc;
+    V3_17690 upSrc;
 };
 
-struct Holder {
-    Mgr* FUN_000592a0();
+struct Holder_17690 {
+    Mgr_17690* FUN_000592a0();
 };
 
-struct Tracker {
+struct Tracker_17690 {
     char pad[0x64];
-    Pair* pair;
+    Pair_17690* pair;
 };
 
-struct Mgr2 {
-    Tracker* FUN_00059a40();
+struct Mgr2_17690 {
+    Tracker_17690* FUN_00059a40();
 };
 
-struct Holder2 {
-    Mgr2* FUN_000592a0();
+struct Holder2_17690 {
+    Mgr2_17690* FUN_000592a0();
 };
 
 void* FUN_00263ea0(unsigned int size);
@@ -80,10 +80,10 @@ public:
     virtual void vfunc_7();
     virtual void vfunc_8();
     char pad04[0x1c - 4];
-    Holder2* holder;
-    Cfg* cfg;
+    Holder2_17690* holder;
+    Cfg_17690* cfg;
     HeadTracker* tracker;
-    V3 dir;
+    V3_17690 dir;
     Matrix basis;
     char pad74[0x8c - 0x74];
     int rnd;
@@ -92,11 +92,11 @@ public:
 bool CHeadTrackerAction::vfunc_6(int arg)
 {
     struct Frame {
-        V3 b;
-        V3 c;
-        V3 d;
+        V3_17690 b;
+        V3_17690 c;
+        V3_17690 d;
     } fr;
-    Tracker* tr = holder->FUN_000592a0()->FUN_00059a40();
+    Tracker_17690* tr = holder->FUN_000592a0()->FUN_00059a40();
     if (tr == 0)
         return false;
     unsigned int idx = tr->pair->table->FUN_0027b200(cfg->f18, cfg->f1c);

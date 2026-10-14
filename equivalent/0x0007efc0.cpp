@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 216 inputs, branch coverage 58/60, incomplete)
 // FUN_0007efc0 @ 0x0007efc0
-struct V3 {
+struct V3_7efc0 {
     float x, y, z;
 };
 
-struct Mat4 {
+struct Mat4_7efc0 {
     float m[16];
 };
 
-class Ent {
+class Ent_7efc0 {
 public:
     virtual void addRef();
     virtual void release();
@@ -18,61 +18,61 @@ public:
     int f30;
     int f34;
     char pad38[0x60 - 0x38];
-    V3 pos;                // 0x60
+    V3_7efc0 pos;                // 0x60
     void FUN_00084c40(int arg);
     char FUN_00083d10();
 };
 
-struct Anchor {
-    char FUN_00059a50(V3 *out);
+struct Anchor_7efc0 {
+    char FUN_00059a50(V3_7efc0 *out);
 };
 
-struct Holder124 {
+struct Holder124_7efc0 {
     char pad0[0x10];
-    Anchor *f10;
+    Anchor_7efc0 *f10;
 };
 
-struct Holder20 {
+struct Holder20_7efc0 {
     char pad0[0x124];
-    Holder124 *f124;
+    Holder124_7efc0 *f124;
 };
 
-struct Probe {
-    char FUN_00201f20(V3 *p, int one, V3 *out1, V3 *out2, int a, int b);
+struct Probe_7efc0 {
+    char FUN_00201f20(V3_7efc0 *p, int one, V3_7efc0 *out1, V3_7efc0 *out2, int a, int b);
 };
 
-struct Target {
+struct Target_7efc0 {
     void FUN_001d7510();
 };
 
-struct WorldSys {
-    char FUN_001dd520(int id, Mat4 *out);
+struct WorldSys_7efc0 {
+    char FUN_001dd520(int id, Mat4_7efc0 *out);
     char FUN_001dda80(int id);
     char FUN_001dd9e0(int id);
-    Target *FUN_001dc0d0(int id);
+    Target_7efc0 *FUN_001dc0d0(int id);
 };
 
-struct Env {
+struct Env_7efc0 {
     char pad0[0xc];
-    WorldSys *f0c;
+    WorldSys_7efc0 *f0c;
     char pad10[0x20 - 0x10];
-    Holder20 *f20;
-    Probe *f24;
+    Holder20_7efc0 *f20;
+    Probe_7efc0 *f24;
 };
 
-class Mgr {
+class Mgr_7efc0 {
 public:
     char pad0[0x3740];
     int f3740;
     int f3744;
     int f3748;
-    Ent *list[20];         // 0x374c
+    Ent_7efc0 *list[20];         // 0x374c
     int count;             // 0x379c
     char pad37a0[0x37ac - 0x37a0];
-    Ent *ring[20];         // 0x37ac
+    Ent_7efc0 *ring[20];         // 0x37ac
     int head;              // 0x37fc
     char pad3800[0x382c - 0x3800];
-    Env *env;              // 0x382c
+    Env_7efc0 *env;              // 0x382c
 
     void FUN_0007b880(int i);
     void FUN_0007b4f0(int i);
@@ -82,26 +82,26 @@ public:
     void FUN_0007efc0(int arg);
 };
 
-struct Frame {
+struct Frame_7efc0 {
     int removed;           // 0x10
-    WorldSys *world;       // 0x14
+    WorldSys_7efc0 *world;       // 0x14
     int pad18;
     int k;                 // 0x1c
-    V3 q;                  // 0x20
-    V3 pos;                // 0x2c
-    V3 g1;                 // 0x38
-    V3 g2;                 // 0x44
-    Mat4 mat;              // 0x50
+    V3_7efc0 q;                  // 0x20
+    V3_7efc0 pos;                // 0x2c
+    V3_7efc0 g1;                 // 0x38
+    V3_7efc0 g2;                 // 0x44
+    Mat4_7efc0 mat;              // 0x50
 };
 
-void Mgr::FUN_0007efc0(int arg)
+void Mgr_7efc0::FUN_0007efc0(int arg)
 {
-    Frame f;
+    Frame_7efc0 f;
     env->f20->f124->f10->FUN_00059a50(&f.pos);
     f.world = env->f0c;
     f.removed = 0;
     for (int i = 0; i < count; i++) {
-        Ent *e = list[i];
+        Ent_7efc0 *e = list[i];
         if (e)
             e->addRef();
         if (e->f30 > 0x96) {
@@ -176,7 +176,7 @@ void Mgr::FUN_0007efc0(int arg)
     char done = 0;
     for (int n = 0; n < 0x14; n++) {
         int slot = (head + n) % 0x14;
-        Ent *e = ring[slot];
+        Ent_7efc0 *e = ring[slot];
         if (e) {
             if (done) {
                 head = slot;
@@ -194,7 +194,7 @@ void Mgr::FUN_0007efc0(int arg)
                 int i = 0;
                 for (; i < count; i++) {
                     if (list[i] == e) {
-                        Target *t = env->f0c->FUN_001dc0d0(e->f34);
+                        Target_7efc0 *t = env->f0c->FUN_001dc0d0(e->f34);
                         if (t)
                             t->FUN_001d7510();
                         FUN_0007ba60(i);

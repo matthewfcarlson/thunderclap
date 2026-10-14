@@ -8,7 +8,7 @@ extern "C" char DAT_0048e128[];
 extern "C" char DAT_0048e134[];
 extern "C" char __cdecl FUN_001d04d0(const void*);
 
-class Callback {
+class Callback_d5890 {
   public:
     int vptr;
     char pad4[12];
@@ -18,10 +18,10 @@ class Callback {
     char pad19[3];
     void* p1c;
     void FUN_001d0480(void*, int);
-    Callback* Init(void*, void*);
+    Callback_d5890* Init(void*, void*);
 };
 
-Callback* Callback::Init(void* arg, void* value) {
+Callback_d5890* Callback_d5890::Init(void* arg, void* value) {
     FUN_001d0480(arg, 5);
     vptr = (int)DAT_0040b1f8;
     p1c = value;

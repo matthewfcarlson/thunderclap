@@ -2,23 +2,23 @@
 // FUN_00230160 @ 0x00230160
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_230160 {
     float x, y, z;
 };
 
-union FloatBits {
+union FloatBits_230160 {
     float f;
     unsigned int u;
 };
 
-class Segment {
+class Segment_230160 {
 public:
-    Vec3 p0;
-    Vec3 p1;
-    float FUN_00230160(Segment* other);
+    Vec3_230160 p0;
+    Vec3_230160 p1;
+    float FUN_00230160(Segment_230160* other);
 };
 
-float Segment::FUN_00230160(Segment* other)
+float Segment_230160::FUN_00230160(Segment_230160* other)
 {
     volatile float ux = p1.x - p0.x;
     volatile float uy = p1.y - p0.y;
@@ -80,7 +80,7 @@ float Segment::FUN_00230160(Segment* other)
             sD = a;
         }
     }
-    FloatBits s;
+    FloatBits_230160 s;
     s.f = (float)sN;
     s.u &= 0x7fffffff;
     double sc;
@@ -88,7 +88,7 @@ float Segment::FUN_00230160(Segment* other)
         sc = 0.0;
     else
         sc = sN / sD;
-    FloatBits t;
+    FloatBits_230160 t;
     t.f = tN;
     t.u &= 0x7fffffff;
     double tc;

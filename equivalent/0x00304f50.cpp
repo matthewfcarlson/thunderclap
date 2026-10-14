@@ -2,7 +2,7 @@
 // FUN_00304f50 @ 0x00304f50
 extern char DAT_00431b08[];
 
-struct Name {
+struct Name_304f50 {
     char data[8];
     void FUN_0027af00();
 };
@@ -10,7 +10,7 @@ struct Name {
 struct CollisionObject {
     int vptr;
     char pad04[0xc];
-    Name name;
+    Name_304f50 name;
     int f18, f1c, f20, f24, f28, f2c, f30;
     char b34, b35;
     char pad36[2];

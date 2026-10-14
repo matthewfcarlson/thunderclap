@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0003dd00 @ 0x0003dd00
-struct Sub {
+struct Sub_3dd00 {
     void FUN_00232240();
 };
 
-struct Mgr {
+struct Mgr_3dd00 {
     void FUN_00222b90(bool flag);
 };
 
-struct Owner {
+struct Owner_3dd00 {
     char pad[0x18];
-    Mgr *mgr;
-    Mgr *FUN_00059a40();
+    Mgr_3dd00 *mgr;
+    Mgr_3dd00 *FUN_00059a40();
 };
 
-struct Widget {
+struct Widget_3dd00 {
     char pad00[0x10];
-    Owner *owner;
+    Owner_3dd00 *owner;
     char pad14[0xb4 - 0x14];
-    Sub subB4;
+    Sub_3dd00 subB4;
     char padB5[0xdc - 0xb5];
-    Sub subDC;
+    Sub_3dd00 subDC;
     char padDD[0x114 - 0xdd];
     int refs;
     char pad118[1];
@@ -31,7 +31,7 @@ struct Widget {
     void FUN_0003dd00(bool enable);
 };
 
-void Widget::FUN_0003dd00(bool enable)
+void Widget_3dd00::FUN_0003dd00(bool enable)
 {
     enabled = enable;
     if (enable) {

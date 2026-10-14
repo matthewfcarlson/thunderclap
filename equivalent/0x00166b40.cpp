@@ -3,20 +3,20 @@
 namespace fight { class Params; }
 class CFightParams;
 
-class Holder {
+class Holder_166b40 {
 public:
     char pad0[0x1f58];
     struct Slot { int state; int a; int b; } slots[11];
 };
-class Inner {
+class Inner_166b40 {
 public:
-    Holder* FUN_00059a30();
+    Holder_166b40* FUN_00059a30();
 };
 namespace fight {
 class Params {
 public:
     virtual void p0();
-    Inner* FUN_000592a0();
+    Inner_166b40* FUN_000592a0();
 };
 }
 class CFightParams : public fight::Params {
@@ -41,7 +41,7 @@ public:
 bool IntentionButtonDownAnyCondition::vfunc_6(int unused1, fight::Params* params, int unused2) {
     if (!dynamic_cast<CFightParams*>(params))
         return false;
-    Holder* h = params->FUN_000592a0()->FUN_00059a30();
+    Holder_166b40* h = params->FUN_000592a0()->FUN_00059a30();
     char down = 0;
     for (int i = 0; i < 11; i++) {
         if (h->slots[i].state == 2 || h->slots[i].state == 1) {

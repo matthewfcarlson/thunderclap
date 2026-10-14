@@ -1,41 +1,41 @@
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 11/12, incomplete)
 // FUN_001c17d0 @ 0x001c17d0
-struct Vec3 {
+struct Vec3_1c17d0 {
     float x, y, z;
     float FUN_0022d110() const;
 };
 
 struct Collider;
 
-struct Query {
+struct Query_1c17d0 {
     int kind;
     int f1, f2, f3, f4, f5;
     unsigned char flag;
 };
 
-struct Shape {
+struct Shape_1c17d0 {
     char pad0[0x20];
     Collider *collider;
 };
 
-struct Body {
+struct Body_1c17d0 {
     char pad0[0x74];
-    Shape *shape;
+    Shape_1c17d0 *shape;
 };
 
-struct Owner {
-    Body *FUN_001d72e0();
+struct Owner_1c17d0 {
+    Body_1c17d0 *FUN_001d72e0();
 };
 
-struct Source {
+struct Source_1c17d0 {
     char pad0[0xa0];
-    Owner *owner;
-    Owner *FUN_001d72e0();
+    Owner_1c17d0 *owner;
+    Owner_1c17d0 *FUN_001d72e0();
 };
 
 struct Entity {
     char pad0[0x30];
-    Vec3 pos;
+    Vec3_1c17d0 pos;
 };
 
 class World {
@@ -59,32 +59,32 @@ public:
 
 struct Request {
     char pad0[0x1c];
-    Source *source;
+    Source_1c17d0 *source;
 };
 
-bool FUN_002f15a0(Vec3 *from, Vec3 *delta, Vec3 *hit, float length, Collider *collider, Query *query);
+bool FUN_002f15a0(Vec3_1c17d0 *from, Vec3_1c17d0 *delta, Vec3_1c17d0 *hit, float length, Collider *collider, Query_1c17d0 *query);
 
-struct Probe {
+struct Probe_1c17d0 {
     char pad0[8];
     World *world;
     char padC[0xf4 - 0xc];
-    Vec3 points[2];
+    Vec3_1c17d0 points[2];
     bool FUN_001c17d0(Request *req);
 };
 
-bool Probe::FUN_001c17d0(Request *req)
+bool Probe_1c17d0::FUN_001c17d0(Request *req)
 {
-    Vec3 dir;
-    Vec3 from;
-    Vec3 delta;
-    Query query;
+    Vec3_1c17d0 dir;
+    Vec3_1c17d0 from;
+    Vec3_1c17d0 delta;
+    Query_1c17d0 query;
 
     if (req->source == 0)
         return false;
-    Body *body = (Body *)((Source *)req->source)->FUN_001d72e0();
+    Body_1c17d0 *body = (Body_1c17d0 *)((Source_1c17d0 *)req->source)->FUN_001d72e0();
     if (body == 0)
         return false;
-    Shape *shape = body->shape;
+    Shape_1c17d0 *shape = body->shape;
     if (shape == 0)
         return false;
     Collider *collider = shape->collider;

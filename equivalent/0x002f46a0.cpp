@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3030 inputs, branch coverage 12/14, incomplete)
 // FUN_002f46a0 @ 0x002f46a0
-struct Range { unsigned short* first; unsigned short* second; };
-void __cdecl FUN_002f43f0(Range* result, unsigned short* first, unsigned short* last);
+struct Range_2f46a0 { unsigned short* first; unsigned short* second; };
+void __cdecl FUN_002f43f0(Range_2f46a0* result, unsigned short* first, unsigned short* last);
 void __cdecl FUN_002f4590(unsigned short* first, unsigned short* last);
 void __cdecl FUN_002f4350(unsigned short* first, unsigned short* last, int, int);
 void __cdecl FUN_002f4650(unsigned short* first, unsigned short* last);
@@ -12,7 +12,7 @@ void __cdecl FUN_002f46a0(unsigned short* first, unsigned short* last, int depth
    FUN_002f4650(first,last);
    return;
   }
-  Range split;
+  Range_2f46a0 split;
   FUN_002f43f0(&split,first,last);
   depth = depth/2 + (depth/2)/2;
   if (split.first-first < last-split.second) {

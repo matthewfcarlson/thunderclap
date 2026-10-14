@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 42/42)
 // FUN_00195560 @ 0x00195560
-struct V3 {
+struct V3_195560 {
     float x, y, z;
 };
 
-class RefObj {
+class RefObj_195560 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -12,47 +12,47 @@ public:
 
 struct Request {
     char pad0[8];
-    V3 target;             // 0x08
+    V3_195560 target;             // 0x08
     char pad14[4];
-    V3 aim;                // 0x18
+    V3_195560 aim;                // 0x18
     char pad24[4];
-    V3 pos;                // 0x28
+    V3_195560 pos;                // 0x28
     char pad34[4];
     float xScaled;         // 0x38
     float yScaled;         // 0x3c
     float zScaled;         // 0x40
     char pad44[0x4c - 0x44];
-    RefObj *p4c;
-    RefObj *p50;
+    RefObj_195560 *p4c;
+    RefObj_195560 *p50;
     int r54;
     char pad58[0x78 - 0x58];
     float val;             // 0x78
     int a6;                // 0x7c
     float one;             // 0x80
-    RefObj *p84;
+    RefObj_195560 *p84;
     char pad88[8];
     char pad90[8];
     Request *FUN_00059820();
     void FUN_00059300();
 };
 
-class Effect : public RefObj {
+class Effect_195560 : public RefObj_195560 {
 public:
     char pad04[0xb0 - 4];
-    Effect *FUN_000598e0(int id, Request *r);
+    Effect_195560 *FUN_000598e0(int id, Request *r);
 };
 
-struct Sub {
+struct Sub_195560 {
     char data[0x40];
-    char FUN_00231e80(struct Res *r);
+    char FUN_00231e80(struct Res_195560 *r);
 };
 
-class Res {
+class Res_195560 {
 public:
-    void FUN_00231ad0(Sub *sub, Effect *e, int v);
+    void FUN_00231ad0(Sub_195560 *sub, Effect_195560 *e, int v);
 };
 
-class Mgr {
+class Mgr_195560 {
 public:
     virtual void v0();
     virtual void v1();
@@ -62,62 +62,62 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual Res *v8(Effect *e, int z);
+    virtual Res_195560 *v8(Effect_195560 *e, int z);
 };
 
-struct Inner {
+struct Inner_195560 {
     char pad0[0x1b0];
     int f1b0;
 };
 
-struct Obj {
+struct Obj_195560 {
     char pad0[0x10];
     int *f10;
     char pad14[0xdc - 0x14];
-    Sub sub;
-    Inner *f11c;
+    Sub_195560 sub;
+    Inner_195560 *f11c;
     char pad120[0x12c - 0x120];
-    RefObj *f12c;
+    RefObj_195560 *f12c;
     char FUN_000360f0();
-    void FUN_00043350(float v, RefObj *r, int a, float one, int b, int c);
-    void FUN_00043ae0(int a, V3 *b, float scale, int d, float val, int e, int f, int g, int h);
+    void FUN_00043350(float v, RefObj_195560 *r, int a, float one, int b, int c);
+    void FUN_00043ae0(int a, V3_195560 *b, float scale, int d, float val, int e, int f, int g, int h);
 };
 
-struct Src {
+struct Src_195560 {
     char pad0[8];
-    Obj *obj;
+    Obj_195560 *obj;
 };
 
-struct List {
-    Obj *FUN_00059c10(int id);
+struct List_195560 {
+    Obj_195560 *FUN_00059c10(int id);
 };
 
 struct World {
     char pad0[0x44];
-    List *list;
+    List_195560 *list;
 };
 extern World *DAT_004dd700;
 
 void *FUN_0008d690(unsigned int size);
 int __cdecl FUN_00266da0(int v);
-void __cdecl FUN_00018810(RefObj **slot, RefObj *ref);
+void __cdecl FUN_00018810(RefObj_195560 **slot, RefObj_195560 *ref);
 
-struct Frame {
+struct Frame_195560 {
     char pad0[3];
     char same;             // 0xf
     float val;             // 0x10
-    Obj *o;                // 0x14
+    Obj_195560 *o;                // 0x14
     int ctx;               // 0x18
     Request x;             // 0x1c
 };
 
 // equiv-conv: FUN_00195560 ecx eax ebx stack stack stack stack stack stack stack stack stack stack stack
-bool FUN_00195560(V3 *self, Src *src, V3 *b, int id, Mgr *m1, Mgr *m2, V3 *c, float scale, float f5,
+bool FUN_00195560(V3_195560 *self, Src_195560 *src, V3_195560 *b, int id, Mgr_195560 *m1, Mgr_195560 *m2, V3_195560 *c, float scale, float f5,
                   int a6, int a7, char a8, float f9, char a10)
 {
-    Frame f;
-    Obj *esi = src->obj;
-    Obj *o = DAT_004dd700->list->FUN_00059c10(id);
+    Frame_195560 f;
+    Obj_195560 *esi = src->obj;
+    Obj_195560 *o = DAT_004dd700->list->FUN_00059c10(id);
     f.o = o;
     f.same = 0;
     if (esi == 0)
@@ -154,7 +154,7 @@ bool FUN_00195560(V3 *self, Src *src, V3 *b, int id, Mgr *m1, Mgr *m2, V3 *c, fl
     f.x.one = 1.0f;
     if (f.o)
         FUN_00018810(&f.x.p4c, f.o->f12c);
-    RefObj *r = esi->f12c;
+    RefObj_195560 *r = esi->f12c;
     if (r)
         r->AddRef();
     if (f.x.p50)
@@ -163,11 +163,11 @@ bool FUN_00195560(V3 *self, Src *src, V3 *b, int id, Mgr *m1, Mgr *m2, V3 *c, fl
 
     if (m1) {
         void *mem = FUN_0008d690(0xb0);
-        Effect *e = 0;
+        Effect_195560 *e = 0;
         if (mem)
-            e = ((Effect *)mem)->FUN_000598e0(*esi->f10, &f.x);
+            e = ((Effect_195560 *)mem)->FUN_000598e0(*esi->f10, &f.x);
         e->AddRef();
-        Res *res = m1->v8(e, 0);
+        Res_195560 *res = m1->v8(e, 0);
         bool use;
         if (a10)
             use = res != 0 && f.same != 0;
@@ -183,14 +183,14 @@ bool FUN_00195560(V3 *self, Src *src, V3 *b, int id, Mgr *m1, Mgr *m2, V3 *c, fl
         esi->FUN_00043ae0(0, b, scale, a7, f.val, 0, 0, 0, 0);
     }
 
-    Obj *p = f.o;
+    Obj_195560 *p = f.o;
     if (p && m2) {
         void *mem = FUN_0008d690(0xb0);
-        Effect *e = 0;
+        Effect_195560 *e = 0;
         if (mem)
-            e = ((Effect *)mem)->FUN_000598e0(id, &f.x);
+            e = ((Effect_195560 *)mem)->FUN_000598e0(id, &f.x);
         e->AddRef();
-        Res *res = m2->v8(e, 0);
+        Res_195560 *res = m2->v8(e, 0);
         if (res) {
             if (!p->sub.FUN_00231e80(res))
                 res->FUN_00231ad0(&p->sub, e, -1);

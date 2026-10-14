@@ -19,13 +19,13 @@ struct DynamicCaster {
 }
 }
 
-struct Name {
+struct Name_2067d0 {
     unsigned int lo, hi;
     void FUN_0027b0e0(const char *s);
     void FUN_0027af50();
 };
 
-struct Factory {
+struct Factory_2067d0 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -33,7 +33,7 @@ struct Factory {
     void FUN_002660a0(int v);
 };
 
-struct Entry {
+struct Entry_2067d0 {
     char pad0[8];
     char loaded;            // 0x08
     char pad9[0x56 - 9];
@@ -44,49 +44,49 @@ struct Entry {
     void FUN_001c6950(void *lights);
 };
 
-struct Item {
+struct Item_2067d0 {
     char pad0[0x38];
-    Factory *factory;       // 0x38
+    Factory_2067d0 *factory;       // 0x38
 };
 
-struct SlotA { void FUN_001dd320(int idx); };
-struct SlotB { void FUN_001fd180(int idx); };
-struct SlotC { void FUN_001fb300(Factory *f); };
+struct SlotA_2067d0 { void FUN_001dd320(int idx); };
+struct SlotB_2067d0 { void FUN_001fd180(int idx); };
+struct SlotC { void FUN_001fb300(Factory_2067d0 *f); };
 struct SlotD { void FUN_0007da70(int idx); };
 struct SlotE { void FUN_001b5ec0(void *obj, int idx); };
 
 struct Bank {
     char pad0[0xc];
-    SlotA *a;               // 0x0c
+    SlotA_2067d0 *a;               // 0x0c
     SlotE *e;               // 0x10
     char pad14[0x28 - 0x14];
-    SlotB *b;               // 0x28
+    SlotB_2067d0 *b;               // 0x28
     char pad2c[0x48 - 0x2c];
     SlotC *c;               // 0x48
     SlotD *d;               // 0x4c
 };
 
-struct Mid {
+struct Mid_2067d0 {
     char pad0[0xc];
     Bank *bank;             // 0x0c
 };
 
-struct Event {
+struct Event_2067d0 {
     int f0, f4, f8, fc, f10, f14;
     void FUN_001cad10(int idx);
 };
 
-struct Queue {
-    void FUN_001cbc20(Event *e);
+struct Queue_2067d0 {
+    void FUN_001cbc20(Event_2067d0 *e);
 };
 
-struct Globals {
+struct Globals_2067d0 {
     char pad0[0x30];
-    Queue *queue;           // 0x30
+    Queue_2067d0 *queue;           // 0x30
 };
 
 struct Registry3 {
-    Entry *FUN_001c7f70(Name *n);
+    Entry_2067d0 *FUN_001c7f70(Name_2067d0 *n);
 };
 
 struct Registry2 {
@@ -99,41 +99,41 @@ ID __cdecl FUN_002672f0(const char *s, int a, int b);
 
 extern char DAT_004c91d8;
 extern char DAT_004e5a58;
-extern Globals *DAT_004dd700;
+extern Globals_2067d0 *DAT_004dd700;
 
-struct Loader {
+struct Loader_2067d0 {
     char pad0[0x24];
     char name[0x588 - 0x24];
-    Mid *mid;               // 0x588
+    Mid_2067d0 *mid;               // 0x588
     char pad58c[4];
     short *f590;            // 0x590
     char pad594[0x5a4 - 0x594];
     char flags[0x100];      // 0x5a4
-    Item *FUN_00204540(const char *name);
+    Item_2067d0 *FUN_00204540(const char *name);
     int FUN_00203db0(int v);
     void FUN_002067d0(int idx, char flag);
 };
 
-struct Frame {
+struct Frame_2067d0 {
     char casters[8];        // 0x00, 0x04
-    Name nm;                // 0x08
-    Event ev;               // 0x10
+    Name_2067d0 nm;                // 0x08
+    Event_2067d0 ev;               // 0x10
     char name[0x100];
     char buf[0x100];
     unsigned int cookie;
 };
 
-void Loader::FUN_002067d0(int idx, char flag)
+void Loader_2067d0::FUN_002067d0(int idx, char flag)
 {
-    Frame f;
+    Frame_2067d0 f;
     f.cookie = DAT_004d9968;
     sprintf(f.name, "%s_r%03d", this->name, idx);
-    Factory *fac = 0;
+    Factory_2067d0 *fac = 0;
     if (DAT_004c91d8)
         fac = FUN_00204540(f.name)->factory;
-    Name &nm = f.nm;
+    Name_2067d0 &nm = f.nm;
     nm.FUN_0027b0e0(f.name);
-    Entry *entry = FUN_001c3d90()->table->FUN_001c7f70(&nm);
+    Entry_2067d0 *entry = FUN_001c3d90()->table->FUN_001c7f70(&nm);
     nm.FUN_0027af50();
     fac->FUN_002660a0(FUN_00203db0(entry->f56));
     mid->bank->a->FUN_001dd320(idx);

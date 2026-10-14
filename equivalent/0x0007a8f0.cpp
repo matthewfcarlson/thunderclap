@@ -1,87 +1,87 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 33/34, incomplete)
 // FUN_0007a8f0 @ 0x0007a8f0
-struct Vec3 {
+struct Vec3_7a8f0 {
     float x, y, z;
 };
 
-struct Transform {
-    void FUN_00059a50(Vec3 *out);
+struct Transform_7a8f0 {
+    void FUN_00059a50(Vec3_7a8f0 *out);
 };
 
-struct Holder {
+struct Holder_7a8f0 {
     char pad0[0x10];
-    Transform *transform;
+    Transform_7a8f0 *transform;
 };
 
-struct Table {
+struct Table_7a8f0 {
     char pad0[0x124];
-    Holder *player;
+    Holder_7a8f0 *player;
 };
 
-struct Handle {
+struct Handle_7a8f0 {
     int a;
     int b;
-    Handle *FUN_0027af30(const Handle *src);
+    Handle_7a8f0 *FUN_0027af30(const Handle_7a8f0 *src);
     void FUN_0027af50();
 };
 
-struct Item {
+struct Item_7a8f0 {
     char pad0[0x14];
     int count;
-    Vec3 *FUN_00106160(int index);
+    Vec3_7a8f0 *FUN_00106160(int index);
 };
 
-struct Mgr {
+struct Mgr_7a8f0 {
     int FUN_00106290(int a, int b);
-    Item *FUN_00106210(int id);
+    Item_7a8f0 *FUN_00106210(int id);
 };
 
 struct World {
     char pad0[0x18];
-    Mgr *mgr;
+    Mgr_7a8f0 *mgr;
     char pad1c[4];
-    Table *table;
+    Table_7a8f0 *table;
 };
 
 int __cdecl FUN_000113e0(int lo, int hi);
 
-class Finder {
+class Finder_7a8f0 {
 public:
     int FUN_0007a8f0(int *outIndex, int *outSide);
 
     char pad0[0x35a0];
-    Handle handles[(0x3640 - 0x35a0) / 8];
+    Handle_7a8f0 handles[(0x3640 - 0x35a0) / 8];
     int count;
     char pad3644[0x382c - 0x3644];
     World *world;
 };
 
-int Finder::FUN_0007a8f0(int *outIndex, int *outSide)
+int Finder_7a8f0::FUN_0007a8f0(int *outIndex, int *outSide)
 {
     if (count < 1)
         return -1;
-    Mgr *mgr = world->mgr;
+    Mgr_7a8f0 *mgr = world->mgr;
     int start = FUN_000113e0(0, count - 1);
     for (int i = 0; i < count; i++) {
-        Handle key;
+        Handle_7a8f0 key;
         key.FUN_0027af30(&handles[(unsigned int)(start + i) % (unsigned int)count]);
         int id = mgr->FUN_00106290(key.a, key.b);
         if (id != -1) {
-            Item *item = mgr->FUN_00106210(id);
+            Item_7a8f0 *item = mgr->FUN_00106210(id);
             if (item != 0) {
-                Vec3 player;
+                Vec3_7a8f0 player;
                 world->table->player->transform->FUN_00059a50(&player);
                 int first = FUN_000113e0(0, item->count - 1);
                 for (int j = 0; j < item->count; j++) {
                     int cur = (first + j) % item->count;
-                    Vec3 p = *item->FUN_00106160(cur);
+                    Vec3_7a8f0 p = *item->FUN_00106160(cur);
                     double dx = p.x - player.x;
                     double dz = p.z - player.z;
                     double d2 = dz * dz + dx * dx;
                     bool inFar = d2 < 4900.0f;
                     bool inNear = d2 < 2500.0f;
 
-                    Vec3 *q = item->FUN_00106160((cur + 1) % item->count);
+                    Vec3_7a8f0 *q = item->FUN_00106160((cur + 1) % item->count);
                     p.x = q->x - player.x;
                     double dz2 = q->z - player.z;
                     double d3 = dz2 * dz2 + p.x * p.x;

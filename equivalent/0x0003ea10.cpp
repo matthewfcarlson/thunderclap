@@ -2,7 +2,7 @@
 // FUN_0003ea10 @ 0x0003ea10
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
-struct Actor {
+struct Actor_3ea10 {
     char pad0[0x328];
     void *target;            // 0x328
     char pad32c[0x1b48 - 0x32c];
@@ -10,33 +10,33 @@ struct Actor {
     void FUN_000393c0();
 };
 
-struct Group {
+struct Group_3ea10 {
     char pad0[0xc];
     int count;               // 0x0c
     char FUN_000242d0(void *owner);
-    Actor *FUN_00024190(int index);
+    Actor_3ea10 *FUN_00024190(int index);
 };
 
-struct Event {
+struct Event_3ea10 {
     char data[0xc0];
-    Event *FUN_001c9920(int a, void *b, int c, unsigned char d);
+    Event_3ea10 *FUN_001c9920(int a, void *b, int c, unsigned char d);
 };
 
-struct EventSink {
-    char FUN_001cbc20(Event *e);
+struct EventSink_3ea10 {
+    char FUN_001cbc20(Event_3ea10 *e);
 };
 
-struct Manager {
+struct Manager_3ea10 {
     char pad0[0x20];
-    Group *group;            // 0x20
+    Group_3ea10 *group;            // 0x20
     char pad24[0x30 - 0x24];
-    EventSink *sink;         // 0x30
+    EventSink_3ea10 *sink;         // 0x30
 };
-extern Manager *DAT_004dd700;
+extern Manager_3ea10 *DAT_004dd700;
 
 void *__cdecl FUN_001b46f0(void *key, int *out);
 
-class Controller {
+class Controller_3ea10 {
 public:
     char pad0[0x10];
     int *ref10;               // 0x10
@@ -53,20 +53,20 @@ public:
 
 extern unsigned int DAT_004d9968;
 
-struct Frame {
+struct Frame_3ea10 {
     int arg;
-    Event ev;
+    Event_3ea10 ev;
     unsigned int cookie;
 };
 
-void Controller::FUN_0003ea10(int newMode)
+void Controller_3ea10::FUN_0003ea10(int newMode)
 {
-    Frame f;
+    Frame_3ea10 f;
     f.cookie = DAT_004d9968;
     if (mode == 0) {
         if (newMode == 1) {
             FUN_0003b1c0(0, newMode);
-            EventSink *sink = DAT_004dd700->sink;
+            EventSink_3ea10 *sink = DAT_004dd700->sink;
             if (sink) {
                 f.arg = 0;
                 void *res = FUN_001b46f0(key, &f.arg);
@@ -76,7 +76,7 @@ void Controller::FUN_0003ea10(int newMode)
             if (!DAT_004dd700->group->FUN_000242d0(this)) {
                 int count = DAT_004dd700->group->count;
                 for (int i = 0; i < count; i++) {
-                    Actor *a = DAT_004dd700->group->FUN_00024190(i);
+                    Actor_3ea10 *a = DAT_004dd700->group->FUN_00024190(i);
                     if (a->target && a->target == activeTarget) {
                         if (a->active)
                             a->active = 0;

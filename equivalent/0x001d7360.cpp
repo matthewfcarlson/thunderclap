@@ -10,7 +10,7 @@ struct Vec4Bits {
     int x, y, z, w;
 };
 
-class Source {
+class Source_1d7360 {
 public:
     char pad0[0x2c];
     Vec4Bits value;
@@ -22,25 +22,25 @@ public:
     int weight;
 };
 
-class Mid {
+class Mid_1d7360 {
 public:
     char pad0[0x20];
     Leaf* leaf;
 };
 
-class Link {
+class Link_1d7360 {
 public:
     char pad0[0x74];
-    Mid* mid;
+    Mid_1d7360* mid;
 };
 
-class Parent {
+class Parent_1d7360 {
 public:
     char pad0[0x10];
-    Link* link;
+    Link_1d7360* link;
 };
 
-class Result {
+class Result_1d7360 {
 public:
     void FUN_0022c2b0();
 };
@@ -62,17 +62,17 @@ public:
     virtual void v12();
     virtual void v13();
     virtual void v14();
-    virtual Result* Transform(Vec3Bits* local, Vec4Bits* out);
+    virtual Result_1d7360* Transform(Vec3Bits* local, Vec4Bits* out);
     char pad4[0x9c - 4];
-    Source* source;
-    Parent* parent;
+    Source_1d7360* source;
+    Parent_1d7360* parent;
 
     bool FUN_001d7360(Vec4Bits* out);
 };
 
 bool Node::FUN_001d7360(Vec4Bits* out)
 {
-    Source* src = source;
+    Source_1d7360* src = source;
     if (src != 0) {
         out->x = src->value.x;
         out->y = src->value.y;
@@ -84,7 +84,7 @@ bool Node::FUN_001d7360(Vec4Bits* out)
         out->x = 0;
     }
 
-    Parent* p = parent;
+    Parent_1d7360* p = parent;
     if (p != 0 && p->link != 0 && p->link->mid != 0 && p->link->mid->leaf != 0) {
         out->w = p->link->mid->leaf->weight;
     }

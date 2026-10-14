@@ -5,30 +5,30 @@ extern char DAT_0049dba4, DAT_0049f48c, DAT_0049f470;
 struct Manager;
 extern Manager *__cdecl FUN_000fc1b0();
 extern void *__cdecl FUN_000fc260(const char *name);
-struct Value {
+struct Value_b47b0 {
     void FUN_000f8500(const char *text, Manager *manager, int flag);
 };
-struct Widget {
+struct Widget_b47b0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void update();
     char pad04[20];
-    Value value;
+    Value_b47b0 value;
 };
-extern Widget *__cdecl FUN_00344e74(void *, int, char *, char *, int);
-struct Screen {
+extern Widget_b47b0 *__cdecl FUN_00344e74(void *, int, char *, char *, int);
+struct Screen_b47b0 {
     void FUN_001cc620(int);
 };
-struct Root {
+struct Root_b47b0 {
     char pad00[44];
-    Screen *screen;
+    Screen_b47b0 *screen;
 };
-extern Root *DAT_004dd700;
+extern Root_b47b0 *DAT_004dd700;
 
 void __stdcall FUN_000b47b0(const char *title, const char *text)
 {
-    Widget *w = FUN_00344e74(FUN_000fc260("fullscreen_message_title"), 0, &DAT_0049dba4, &DAT_0049f48c, 0);
+    Widget_b47b0 *w = FUN_00344e74(FUN_000fc260("fullscreen_message_title"), 0, &DAT_0049dba4, &DAT_0049f48c, 0);
     if (w) {
         Manager *m = FUN_000fc1b0();
         w->value.FUN_000f8500(title, m, 1);

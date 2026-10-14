@@ -1,34 +1,34 @@
 // STATUS: equivalent (tools/equiv.py level 3: 118 inputs, branch coverage 20/20)
 // FUN_000bcf40 @ 0x000bcf40
-class Input {
+class Input_bcf40 {
   public:
     char FUN_00099740();
     char FUN_00099790();
     char FUN_00099750();
 };
-class Root {
+class Root_bcf40 {
   public:
     char head[8];
-    Input* input;
+    Input_bcf40* input;
 };
-class Widget {
+class Widget_bcf40 {
   public:
     char FUN_001b8b30();
 };
-struct State {
+struct State_bcf40 {
     int id;
 };
-extern Root* DAT_004dd700;
+extern Root_bcf40* DAT_004dd700;
 extern char DAT_004ddbe1;
 char __cdecl FUN_000c5ef0(int who, int a, int b, int c, int d, int e);
 char __cdecl FUN_000c5d60(int who, int a);
 
-class Menu {
+class Menu_bcf40 {
   public:
     char pad0[0x30];
-    State* current;
+    State_bcf40* current;
     char pad1[0x54 - 0x34];
-    Widget* widget;
+    Widget_bcf40* widget;
     void FUN_000b5a80();
     void FUN_000b5ad0();
     void FUN_000b5b50();
@@ -44,10 +44,10 @@ class Menu {
     void FUN_000bcf40(int who);
 };
 
-void Menu::FUN_000bcf40(int who) {
+void Menu_bcf40::FUN_000bcf40(int who) {
     if (current->id == 7)
         return;
-    Input* in = DAT_004dd700->input;
+    Input_bcf40* in = DAT_004dd700->input;
     if (in->FUN_00099740())
         return;
     if (in->FUN_00099790())

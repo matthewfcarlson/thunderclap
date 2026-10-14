@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 28/28)
 // FUN_00264590 @ 0x00264590
-struct Sink {
+struct Sink_264590 {
     virtual void vfn0();
     virtual void vfn1();
     virtual void vfn2();
@@ -24,17 +24,17 @@ struct Sink {
     virtual bool vfn20();
     virtual void vfn21();
 };
-struct Clock {
+struct Clock_264590 {
     void FUN_00264d20();
 };
-extern Clock *DAT_00527c58;
+extern Clock_264590 *DAT_00527c58;
 extern char DAT_004e7c28[0x40000];
 unsigned int FUN_00267f80();
 
 class Stream {
 public:
     char pad0[8];
-    Sink *sink;              // 0x8
+    Sink_264590 *sink;              // 0x8
     char pad1[1];
     char fd;                 // 0xd
     char pad2;

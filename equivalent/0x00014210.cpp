@@ -2,23 +2,23 @@
 // FUN_00014210 @ 0x00014210
 extern "C" double cos(double);
 
-struct Vec3 {
+struct Vec3_14210 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Frame {
-    void FUN_00035230(Vec3 *out);
-    void FUN_00035550(Vec3 *out);
+struct Frame_14210 {
+    void FUN_00035230(Vec3_14210 *out);
+    void FUN_00035550(Vec3_14210 *out);
 };
 
-struct Probe {
-    Vec3 *FUN_001c39c0();
-    Vec3 *FUN_001c39d0();
+struct Probe_14210 {
+    Vec3_14210 *FUN_001c39c0();
+    Vec3_14210 *FUN_001c39d0();
 };
 
-void __cdecl FUN_00096a90(void *obj, Vec3 *out);
-Probe *__cdecl FUN_001c3d90();
+void __cdecl FUN_00096a90(void *obj, Vec3_14210 *out);
+Probe_14210 *__cdecl FUN_001c3d90();
 
 static float QuarterPi()
 {
@@ -26,7 +26,7 @@ static float QuarterPi()
 }
 
 // equiv-conv: FUN_00014210 eax ecx edx esi
-void FUN_00014210(int mode, Frame *frame, void *obj, Vec3 *out)
+void FUN_00014210(int mode, Frame_14210 *frame, void *obj, Vec3_14210 *out)
 {
     if (mode == 2) {
         frame->FUN_00035550(out);
@@ -36,9 +36,9 @@ void FUN_00014210(int mode, Frame *frame, void *obj, Vec3 *out)
     }
 
     if (mode == 1) {
-        Vec3 w;
-        Vec3 a;
-        Vec3 b;
+        Vec3_14210 w;
+        Vec3_14210 a;
+        Vec3_14210 b;
         a.x = 0.0f;
         a.y = 0.0f;
         a.z = 0.0f;
@@ -52,11 +52,11 @@ void FUN_00014210(int mode, Frame *frame, void *obj, Vec3 *out)
         out->z = b.z - a.z;
         out->FUN_0022d110();
 
-        Probe *p = FUN_001c3d90();
+        Probe_14210 *p = FUN_001c3d90();
         if (!p)
             return;
 
-        Vec3 *src = p->FUN_001c39c0();
+        Vec3_14210 *src = p->FUN_001c39c0();
         w.x = src->x;
         w.y = src->y;
         w.z = src->z;
@@ -64,7 +64,7 @@ void FUN_00014210(int mode, Frame *frame, void *obj, Vec3 *out)
         w.x = w.x * 100.0f;
         w.y = w.y * 100.0f;
         w.z = w.z * 100.0f;
-        Vec3 *q = p->FUN_001c39d0();
+        Vec3_14210 *q = p->FUN_001c39d0();
         w.x = w.x + q->x;
         w.y = w.y + q->y;
         double z = w.z + q->z;
@@ -83,8 +83,8 @@ void FUN_00014210(int mode, Frame *frame, void *obj, Vec3 *out)
         return;
     }
 
-    Vec3 a;
-    Vec3 b;
+    Vec3_14210 a;
+    Vec3_14210 b;
     a.x = 0.0f;
     a.y = 0.0f;
     a.z = 0.0f;

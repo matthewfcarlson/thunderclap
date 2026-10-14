@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_002d4a20 @ 0x002d4a20
-struct RefObj {
+struct RefObj_2d4a20 {
     virtual void addRef();
     virtual void release();
     virtual void v2();
     virtual void v3();
-    virtual RefObj *clone();
+    virtual RefObj_2d4a20 *clone();
 };
 
-class __declspec(novtable) EmitterBase {
+class __declspec(novtable) EmitterBase_2d4a20 {
   public:
     virtual void f0();
     char pad_04[0x3c];
-    void FUN_002a5150(const EmitterBase &src);
-    EmitterBase(const EmitterBase &src) { FUN_002a5150(src); }
+    void FUN_002a5150(const EmitterBase_2d4a20 &src);
+    EmitterBase_2d4a20(const EmitterBase_2d4a20 &src) { FUN_002a5150(src); }
 };
 
-class ParticleEmitter : public EmitterBase {
+class ParticleEmitter : public EmitterBase_2d4a20 {
   public:
     ParticleEmitter(const ParticleEmitter &src);
     virtual void f0();
@@ -55,10 +55,10 @@ class ParticleEmitter : public EmitterBase {
 
     unsigned matrix[16];
     int field_80;
-    RefObj *ref_84;
-    RefObj *ref_88;
-    RefObj *ref_8c;
-    RefObj *ref_90;
+    RefObj_2d4a20 *ref_84;
+    RefObj_2d4a20 *ref_88;
+    RefObj_2d4a20 *ref_8c;
+    RefObj_2d4a20 *ref_90;
     int field_94;
     int field_98;
     int field_9c;
@@ -68,7 +68,7 @@ class ParticleEmitter : public EmitterBase {
     char flag_a6;
 };
 
-ParticleEmitter::ParticleEmitter(const ParticleEmitter &src) : EmitterBase(src)
+ParticleEmitter::ParticleEmitter(const ParticleEmitter &src) : EmitterBase_2d4a20(src)
 {
     field_80 = 0;
     ref_84 = 0;
@@ -83,16 +83,16 @@ ParticleEmitter::ParticleEmitter(const ParticleEmitter &src) : EmitterBase(src)
     flag_a5 = src.flag_a5;
     flag_a6 = src.flag_a6;
 
-    RefObj *p = src.ref_84;
+    RefObj_2d4a20 *p = src.ref_84;
     if (p)
         p->addRef();
     if (ref_84)
         ref_84->release();
     ref_84 = p;
 
-    RefObj *q = src.ref_88;
+    RefObj_2d4a20 *q = src.ref_88;
     if (q) {
-        RefObj *c = q->clone();
+        RefObj_2d4a20 *c = q->clone();
         ref_88 = c;
         c->addRef();
     }

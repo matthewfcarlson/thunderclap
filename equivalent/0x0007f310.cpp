@@ -9,7 +9,7 @@ struct Timer {
 };
 Timer *__cdecl FUN_0008ceb0();
 
-struct Entry {
+struct Entry_7f310 {
     int f0;
     int f4;
     int f8;
@@ -17,7 +17,7 @@ struct Entry {
     char padd[3];
 };
 
-class Resource {
+class Resource_7f310 {
 public:
     virtual void Destroy();
     virtual void Release();
@@ -28,36 +28,36 @@ public:
     virtual void v0();
     virtual void v1();
     char pad4[4];
-    Node *FUN_000810f0(int a, Resource *r, int b, int sum, float f, int flag);
+    Node *FUN_000810f0(int a, Resource_7f310 *r, int b, int sum, float f, int flag);
     void FUN_00080e70(void *p);
 };
 
-struct Clock {
+struct Clock_7f310 {
     float FUN_000787e0(int a, int b);
 };
-Clock *__cdecl FUN_000964d0();
+Clock_7f310 *__cdecl FUN_000964d0();
 
-struct Registry {
+struct Registry_7f310 {
     char pad0[0xc];
-    Registry *sub;
-    void FUN_001c3a40(void *a, Resource *b);
+    Registry_7f310 *sub;
+    void FUN_001c3a40(void *a, Resource_7f310 *b);
     void *FUN_001c59d0(void *a);
 };
-Registry *__cdecl FUN_001c3d90();
+Registry_7f310 *__cdecl FUN_001c3d90();
 
-class Manager {
+class Manager_7f310 {
 public:
     char pad0[0x34a8];
-    Entry tbl[25];
+    Entry_7f310 tbl[25];
     char pad3638[0xc];
     int f3644;
     int f3648;
 
-    Resource *FUN_0007e570(Entry *e, int v);
+    Resource_7f310 *FUN_0007e570(Entry_7f310 *e, int v);
     Node *FUN_0007f310(int a0, int a1, int count, int base);
 };
 
-Node *Manager::FUN_0007f310(int a0, int a1, int count, int base)
+Node *Manager_7f310::FUN_0007f310(int a0, int a1, int count, int base)
 {
     unsigned stamp;
     FUN_0008ceb0()->FUN_0008ced0(10, 0, &stamp, 0, 0, 0);
@@ -65,14 +65,14 @@ Node *Manager::FUN_0007f310(int a0, int a1, int count, int base)
         return 0;
 
     void *saved = FUN_00266da0(10);
-    Entry *e = &tbl[count];
+    Entry_7f310 *e = &tbl[count];
     Node *node = 0;
-    Resource *res = FUN_0007e570(e, base);
+    Resource_7f310 *res = FUN_0007e570(e, base);
     if (res != 0) {
         int sum = base;
         for (int i = 0; i < count; i++)
             sum += tbl[i].f8;
-        Clock *clock = FUN_000964d0();
+        Clock_7f310 *clock = FUN_000964d0();
         float f = clock->FUN_000787e0(f3644, f3648);
         void *mem = FUN_00263ea0(0x108);
         if (mem != 0)

@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 12/14, incomplete)
 // FUN_00227f90 @ 0x00227f90
-struct Item { char data[12]; };
-struct Partition { Item* first; Item* second; };
-extern void __cdecl FUN_00227a10(Partition*, Item*, Item*);
-extern void __cdecl FUN_00227e20(Item*, Item*);
-extern void __cdecl FUN_002277f0(Item*, Item*, int, int);
-extern void __cdecl FUN_00227ef0(Item*, Item*);
-void __cdecl FUN_00227f90(Item* first, Item* last, int budget) {
+struct Item_227f90 { char data[12]; };
+struct Partition { Item_227f90* first; Item_227f90* second; };
+extern void __cdecl FUN_00227a10(Partition*, Item_227f90*, Item_227f90*);
+extern void __cdecl FUN_00227e20(Item_227f90*, Item_227f90*);
+extern void __cdecl FUN_002277f0(Item_227f90*, Item_227f90*, int, int);
+extern void __cdecl FUN_00227ef0(Item_227f90*, Item_227f90*);
+void __cdecl FUN_00227f90(Item_227f90* first, Item_227f90* last, int budget) {
  int count = last-first;
  while (count > 32 && budget > 0) {
   Partition p;

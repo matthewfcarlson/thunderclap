@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 18/18)
 // FUN_003069d0 @ 0x003069d0
 struct Node;
-struct Children { Node** begin; Node** end; };
+struct Children_3069d0 { Node** begin; Node** end; };
 struct Node {
  virtual void slot0();
  virtual void slot1();
  char pad[16];
- Children* children;
+ Children_3069d0* children;
  bool FUN_003069d0(Node* target);
 };
 bool Node::FUN_003069d0(Node* target) {
- Children* list = children;
+ Children_3069d0* list = children;
  bool result = false;
  if (list) {
   unsigned count = (unsigned)(list->end - list->begin);

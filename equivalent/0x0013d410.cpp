@@ -20,33 +20,33 @@ public:
 
 namespace pure3d { class Animation; }
 
-struct V3 {
+struct V3_13d410 {
     float x, y, z;
 };
 
-struct Id64 {
+struct Id64_13d410 {
     unsigned int lo;
     unsigned int hi;
-    void FUN_0027af70(Id64 *src);
+    void FUN_0027af70(Id64_13d410 *src);
 };
 
 struct Animation {
     char pad0[8];
-    Id64 id;
+    Id64_13d410 id;
     float f10;
     float f14;
     char flag18;
 };
 
-class choreo2_Driver {
+class choreo2_Driver_13d410 {
 public:
     virtual void AddRef();
     virtual void Release();
     char pad04[4];
-    Id64 id;            // 8
+    Id64_13d410 id;            // 8
 };
 
-class choreo2_AnimationDriver : public choreo2_Driver {
+class choreo2_AnimationDriver_13d410 : public choreo2_Driver_13d410 {
 public:
     char pad10[0x10];
     Animation *anim;    // 0x20
@@ -60,31 +60,31 @@ public:
     char b235;
     char pad236[6];
     float f23c;
-    choreo2_AnimationDriver *FUN_00225950(void *rig, Animation *anim);
+    choreo2_AnimationDriver_13d410 *FUN_00225950(void *rig, Animation *anim);
     void FUN_002224a0(int v);
-    void FUN_00225e00(float t, V3 v);
+    void FUN_00225e00(float t, V3_13d410 v);
     void FUN_00225cf0(float v);
     float FUN_00225b30();
 };
 
-struct Rig {
+struct Rig_13d410 {
     int FUN_0027b670(unsigned int lo, unsigned int hi);
 };
 
 struct Context { char pad[4]; };
 Context *__fastcall FUN_000592a0(void *owner);
 
-struct LayerSet {
+struct LayerSet_13d410 {
     char pad0[0x64];
-    Rig **rigRef;
+    Rig_13d410 **rigRef;
     unsigned int count;
-    Rig *FUN_002226b0();
-    choreo2_Driver *FUN_00222e20(unsigned int index);
-    void FUN_00222890(choreo2_AnimationDriver *d, float r, float a, float b, float c, float e, float f);
+    Rig_13d410 *FUN_002226b0();
+    choreo2_Driver_13d410 *FUN_00222e20(unsigned int index);
+    void FUN_00222890(choreo2_AnimationDriver_13d410 *d, float r, float a, float b, float c, float e, float f);
 };
-LayerSet *__fastcall FUN_00059a40(Context *ctx);
+LayerSet_13d410 *__fastcall FUN_00059a40(Context *ctx);
 
-class Factory {
+class Factory_13d410 {
 public:
     virtual void f0();
     virtual void f1();
@@ -93,12 +93,12 @@ public:
                           unsigned int hi);
 };
 
-struct Holder44 { Factory *FUN_00203d70(); };
-struct Holder28 { Holder44 *FUN_000862a0(); };
-struct Manager { char pad0[0x54]; Holder28 *holder; };
-extern Manager *DAT_004dd700;
+struct Holder44_13d410 { Factory_13d410 *FUN_00203d70(); };
+struct Holder28_13d410 { Holder44_13d410 *FUN_000862a0(); };
+struct Manager_13d410 { char pad0[0x54]; Holder28_13d410 *holder; };
+extern Manager_13d410 *DAT_004dd700;
 
-class AnimData {
+class AnimData_13d410 {
 public:
     virtual void v0();
     virtual void v1();
@@ -138,16 +138,16 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     char pad04[0x18];
-    AnimData *data;                  // 0x1c
+    AnimData_13d410 *data;                  // 0x1c
     void *owner;                     // 0x20
-    choreo2_AnimationDriver *driver; // 0x24
+    choreo2_AnimationDriver_13d410 *driver; // 0x24
 };
 
 bool AnimationAction::vfunc_3(int a, int b)
 {
     if (owner == 0)
         return false;
-    LayerSet *layers = FUN_00059a40(FUN_000592a0(owner));
+    LayerSet_13d410 *layers = FUN_00059a40(FUN_000592a0(owner));
     if (layers == 0)
         return false;
 
@@ -156,10 +156,10 @@ bool AnimationAction::vfunc_3(int a, int b)
         char slot0[4];
     } u;
     float f24;
-    Rig *rig = layers->FUN_002226b0();
+    Rig_13d410 *rig = layers->FUN_002226b0();
     unsigned int lo = data->idLo;
     unsigned int hi = data->idHi;
-    Factory *factory = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+    Factory_13d410 *factory = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
     content::LoadInventory::DynamicCaster<pure3d::Animation> *caster =
         new (u.slot0) content::LoadInventory::DynamicCaster<pure3d::Animation>;
     Animation *anim = factory->f3(caster, lo, hi);
@@ -172,10 +172,10 @@ bool AnimationAction::vfunc_3(int a, int b)
     if (mode == 2 || (mode == 0 && anim->flag18)) {
         reuse = true;
         for (unsigned int i = 0; i < layers->count; i++) {
-            choreo2_Driver *d = layers->FUN_00222e20(i);
+            choreo2_Driver_13d410 *d = layers->FUN_00222e20(i);
             if (d->id.lo != lo || d->id.hi != hi)
                 continue;
-            choreo2_AnimationDriver *ad = dynamic_cast<choreo2_AnimationDriver *>(d);
+            choreo2_AnimationDriver_13d410 *ad = dynamic_cast<choreo2_AnimationDriver_13d410 *>(d);
             if (ad != 0 && ad->anim == anim) {
                 u.v = ad->f23c;
                 found = true;
@@ -187,7 +187,7 @@ bool AnimationAction::vfunc_3(int a, int b)
     }
 
     bool created;
-    choreo2_AnimationDriver *nd = (choreo2_AnimationDriver *)thunk_FUN_0008d690(0x240);
+    choreo2_AnimationDriver_13d410 *nd = (choreo2_AnimationDriver_13d410 *)thunk_FUN_0008d690(0x240);
     if (nd != 0)
         nd = nd->FUN_00225950(rig, anim);
     if (nd != 0)
@@ -215,7 +215,7 @@ bool AnimationAction::vfunc_3(int a, int b)
     driver->b224 = reuse;
     driver->b225 = data->mode == 3;
 
-    V3 dir;
+    V3_13d410 dir;
     float f28 = data->f28;
     float f2c = data->f2c;
     dir.x = data->f20;

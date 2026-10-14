@@ -6,28 +6,28 @@ extern void* __cdecl FUN_0008d690(unsigned int);
 extern void __cdecl FUN_00133470();
 extern void __cdecl FUN_00133480();
 extern void __cdecl FUN_001334a0();
-struct FloatBase {
+struct FloatBase_1382f0 {
  virtual void slot0();
  char data[12];
  void (__cdecl *callback)();
  int tail;
- FloatBase(const char*); // equiv-name: FUN_00234960
+ FloatBase_1382f0(const char*); // equiv-name: FUN_00234960
 };
-struct IntBase {
+struct IntBase_1382f0 {
  virtual void slot0();
  char data[12];
  void (__cdecl *callback)();
  int tail;
- IntBase(const char*); // equiv-name: FUN_002348e0
+ IntBase_1382f0(const char*); // equiv-name: FUN_002348e0
 };
 namespace hulkfight { namespace motion { class HoverTrack; } }
 namespace fight {
-template<class T> struct ParamFloatConstRange : FloatBase {
- ParamFloatConstRange(const char* s) : FloatBase(s) {}
+template<class T> struct ParamFloatConstRange : FloatBase_1382f0 {
+ ParamFloatConstRange(const char* s) : FloatBase_1382f0(s) {}
  virtual void slot0();
 };
-template<class T> struct ParamIntConstRange : IntBase {
- ParamIntConstRange(const char* s) : IntBase(s) {}
+template<class T> struct ParamIntConstRange : IntBase_1382f0 {
+ ParamIntConstRange(const char* s) : IntBase_1382f0(s) {}
  virtual void slot0();
 };
 }

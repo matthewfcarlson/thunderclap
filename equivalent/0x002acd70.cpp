@@ -4,14 +4,14 @@
 inline void *operator new(unsigned int, void *p) { return p; }
 
 
-class Ref {
+class Ref_2acd70 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
 namespace content {
-class ObjectLoader : public Ref {
+class ObjectLoader : public Ref_2acd70 {
 public:
     virtual void o2();
     virtual void o3();
@@ -51,7 +51,7 @@ public:
     void FUN_00266be0();
 };
 
-class Inv {
+class Inv_2acd70 {
 public:
     virtual void i0();
     virtual void i1();
@@ -59,24 +59,24 @@ public:
     virtual void *i3(void *caster, unsigned __int64 key);
 };
 
-struct NameHolder {
+struct NameHolder_2acd70 {
     char pad[8];
     void FUN_0027b040(const char *name);
 };
 
-struct Mat {
+struct Mat_2acd70 {
     float m[16];
     void FUN_0022b980();
 };
 
 
-class Child : public Ref {
+class Child_2acd70 : public Ref_2acd70 {
 public:
-    Child *FUN_002d4040(void *r);
+    Child_2acd70 *FUN_002d4040(void *r);
 };
 
-struct IntVec {
-    Child **data;
+struct IntVec_2acd70 {
+    Child_2acd70 **data;
     void FUN_002ab8e0(unsigned int n, int *fill);
 };
 
@@ -85,31 +85,31 @@ public:
     void *FUN_00288960(int a, int b);
 };
 
-class Xobj : public Ref {
+class Xobj : public Ref_2acd70 {
 public:
     char pad04[0x28 - 4];
     int f28;
     Yobj *FUN_00288a10(int i);
 };
 
-class Sink : public Ref {
+class Sink_2acd70 : public Ref_2acd70 {
 public:
     char pad04[0x24 - 4];
     int f24;
     int f28;
 };
 
-class Wrap : public Ref {
+class Wrap_2acd70 : public Ref_2acd70 {
 public:
-    Wrap *FUN_002d5640(Xobj *z, int a, float b);
+    Wrap_2acd70 *FUN_002d5640(Xobj *z, int a, float b);
 };
 
-class Tail : public Ref {
+class Tail_2acd70 : public Ref_2acd70 {
 public:
-    Tail *FUN_002d6760();
+    Tail_2acd70 *FUN_002d6760();
 };
 
-class Obj {
+class Obj_2acd70 {
 public:
     virtual void v0();
     virtual void v1();
@@ -121,11 +121,11 @@ public:
     virtual void v7();
     virtual void v8(void *shader);
     char pad04[4];
-    NameHolder name;
+    NameHolder_2acd70 name;
     char pad10[0x88 - 0x10];
-    Ref *f88;
-    Ref *f8c;
-    Ref *f90;
+    Ref_2acd70 *f88;
+    Ref_2acd70 *f8c;
+    Ref_2acd70 *f90;
     int f94;
     char pad98[0xa5 - 0x98];
     char ba5;
@@ -135,7 +135,7 @@ public:
     void *f134;
     char pad138[4];
     void *f13c;
-    Mat *f140;
+    Mat_2acd70 *f140;
     int f144;
     int f148;
     char pad14c[0x15c - 0x14c];
@@ -144,20 +144,20 @@ public:
     int f184;
     float f188;
     char pad18c[0x1bc - 0x18c];
-    Sink *f1bc;
-    Ref *f1c0;
-    Ref *f1c4;
+    Sink_2acd70 *f1bc;
+    Ref_2acd70 *f1c0;
+    Ref_2acd70 *f1c4;
     int *f1c8;
     int *f1cc;
     char pad1d0[4];
-    IntVec vec1d4;
-    Obj *FUN_002d63a0();
+    IntVec_2acd70 vec1d4;
+    Obj_2acd70 *FUN_002d63a0();
 };
 
-class Loader {
+class Loader_2acd70 {
 public:
-    Ref *FUN_002ac180(Reader *r, Inv *i, int tag);
-    Obj *FUN_002acd70(Reader *R, Inv *a1);
+    Ref_2acd70 *FUN_002ac180(Reader *r, Inv_2acd70 *i, int tag);
+    Obj_2acd70 *FUN_002acd70(Reader *R, Inv_2acd70 *a1);
 };
 
 class Node {
@@ -165,22 +165,22 @@ public:
     virtual void n0();
 };
 
-class Pool {
+class Pool_2acd70 {
 public:
     Node *FUN_00265310(int v);
 };
-extern Pool *DAT_00527c58;
+extern Pool_2acd70 *DAT_00527c58;
 
-struct Frame {
+struct Frame_2acd70 {
     char len;           // 0x00
     char b21;           // 0x01
     char b22;           // 0x02
     char b13;           // 0x03
     int x4;             // 0x04
-    Ref *x8;            // 0x08
+    Ref_2acd70 *x8;            // 0x08
     void *xc;           // 0x0c
     int x10;            // 0x10
-    Ref *x14;           // 0x14
+    Ref_2acd70 *x14;           // 0x14
     int x18;            // 0x18
     void *x1c;          // 0x1c
     int x20;            // 0x20
@@ -205,10 +205,10 @@ struct Frame {
     char name3[0x100];  // 0x26c
 };
 
-Obj *Loader::FUN_002acd70(Reader *R, Inv *a1)
+Obj_2acd70 *Loader_2acd70::FUN_002acd70(Reader *R, Inv_2acd70 *a1)
 {
-    Frame f;
-    Obj *obj = 0;
+    Frame_2acd70 f;
+    Obj_2acd70 *obj = 0;
     unsigned int n;
 
     f.x1c = this;
@@ -251,7 +251,7 @@ Obj *Loader::FUN_002acd70(Reader *R, Inv *a1)
 
             void *mem = thunk_FUN_0008d690(0x1e0);
             if (mem != 0)
-                obj = ((Obj *)mem)->FUN_002d63a0();
+                obj = ((Obj_2acd70 *)mem)->FUN_002d63a0();
             else
                 obj = 0;
             obj->name.FUN_0027b040(f.name1);
@@ -291,7 +291,7 @@ Obj *Loader::FUN_002acd70(Reader *R, Inv *a1)
                 }
             }
             if (*(float *)&f.x18 > 0.0f || *(float *)&f.x10 > 0.0f) {
-                Mat *m = (Mat *)FUN_0008d690(0x40);
+                Mat_2acd70 *m = (Mat_2acd70 *)FUN_0008d690(0x40);
                 obj->f140 = m;
                 m->FUN_0022b980();
             }
@@ -308,16 +308,16 @@ Obj *Loader::FUN_002acd70(Reader *R, Inv *a1)
                     f.x14 = 0;
                     ab->a5((int *)&f.x14, f.id5c, R, a1);
                     if (f.x14 != 0) {
-                        Ref *z = f.x14;
+                        Ref_2acd70 *z = f.x14;
                         z->AddRef();
                         if (obj->f1c4 != 0)
                             obj->f1c4->Release();
                         obj->f1c4 = z;
                         void *mem2 = FUN_0008d690(0x30);
-                        Wrap *w;
+                        Wrap_2acd70 *w;
                         if (mem2 != 0) {
                             unsigned int u = f.x34;
-                            w = ((Wrap *)mem2)->FUN_002d5640((Xobj *)f.x14, f.x3c, (float)u);
+                            w = ((Wrap_2acd70 *)mem2)->FUN_002d5640((Xobj *)f.x14, f.x3c, (float)u);
                         } else {
                             w = 0;
                         }
@@ -325,7 +325,7 @@ Obj *Loader::FUN_002acd70(Reader *R, Inv *a1)
                             w->AddRef();
                         if (obj->f1bc != 0)
                             obj->f1bc->Release();
-                        obj->f1bc = (Sink *)w;
+                        obj->f1bc = (Sink_2acd70 *)w;
                     }
                     R->FUN_00266be0();
                 } else if (k2 == 0x15809) {
@@ -345,9 +345,9 @@ Obj *Loader::FUN_002acd70(Reader *R, Inv *a1)
                         for (i = 0; i < (int)f.xc; i++) {
                             void *mem3 = FUN_0008d690(0x4c);
                             f.x4 = (int)mem3;
-                            Child *ch;
+                            Child_2acd70 *ch;
                             if (mem3 != 0)
-                                ch = ((Child *)f.x4)->FUN_002d4040(((Xobj *)f.x8)->FUN_00288a10(i));
+                                ch = ((Child_2acd70 *)f.x4)->FUN_002d4040(((Xobj *)f.x8)->FUN_00288a10(i));
                             else
                                 ch = 0;
                             obj->vec1d4.data[obj->f94] = ch;
@@ -372,7 +372,7 @@ Obj *Loader::FUN_002acd70(Reader *R, Inv *a1)
                     else
                         tag = 0;
                     if (tag != 0) {
-                        obj->f88 = ((Loader *)f.x1c)->FUN_002ac180(R, a1, tag);
+                        obj->f88 = ((Loader_2acd70 *)f.x1c)->FUN_002ac180(R, a1, tag);
                         obj->f88->AddRef();
                     }
                 }
@@ -382,15 +382,15 @@ Obj *Loader::FUN_002acd70(Reader *R, Inv *a1)
             ab->FUN_00288e80(f.x44);
             ab->Release();
             void *mem4 = FUN_0008d690(8);
-            Tail *tl;
+            Tail_2acd70 *tl;
             if (mem4 != 0)
-                tl = ((Tail *)mem4)->FUN_002d6760();
+                tl = ((Tail_2acd70 *)mem4)->FUN_002d6760();
             else
                 tl = 0;
             obj->f90 = tl;
             tl->AddRef();
             unsigned int tag = 0x454e4f4e;
-            Sink *sk = obj->f1bc;
+            Sink_2acd70 *sk = obj->f1bc;
             if (sk != 0) {
                 if (sk->f24 != 0) {
                     if (sk->f28 != 0)
@@ -401,7 +401,7 @@ Obj *Loader::FUN_002acd70(Reader *R, Inv *a1)
                     tag = 0x41;
                 }
             }
-            Ref *r = (Ref *)FUN_002aa300(f.x28, f.x24, tag, f.x18, f.x10);
+            Ref_2acd70 *r = (Ref_2acd70 *)FUN_002aa300(f.x28, f.x24, tag, f.x18, f.x10);
             if (r != 0)
                 r->AddRef();
             if (obj->f8c != 0)

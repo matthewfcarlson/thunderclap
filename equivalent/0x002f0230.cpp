@@ -1,27 +1,27 @@
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 36/36)
 // FUN_002f0230 @ 0x002f0230
-struct V3 {
+struct V3_2f0230 {
     float x, y, z;
 };
 
 extern const float DAT_003f5cf8;
 
-bool __cdecl FUN_002f01c0(const V3 *origin, const V3 *extent);
+bool __cdecl FUN_002f01c0(const V3_2f0230 *origin, const V3_2f0230 *extent);
 
-union FBits {
+union FBits_2f0230 {
     float f;
     unsigned int u;
 };
 
 static float absf(float v)
 {
-    FBits b;
+    FBits_2f0230 b;
     b.f = v;
     b.u &= 0x7fffffff;
     return b.f;
 }
 
-float FUN_002f0230(const V3 *origin, const V3 *dir, const V3 *extent)
+float FUN_002f0230(const V3_2f0230 *origin, const V3_2f0230 *dir, const V3_2f0230 *extent)
 {
     float tx = 2.0f;
     float ty = 2.0f;

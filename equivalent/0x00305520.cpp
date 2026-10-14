@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00305520 @ 0x00305520
-struct Vector3 { float x, y, z; };
-struct Row { float x, y, z, w; };
-struct Matrix { Row rows[4]; };
-void __cdecl FUN_00305520(const Vector3* rotation, Matrix* matrix)
+struct Vector3_305520 { float x, y, z; };
+struct Row_305520 { float x, y, z, w; };
+struct Matrix { Row_305520 rows[4]; };
+void __cdecl FUN_00305520(const Vector3_305520* rotation, Matrix* matrix)
 {
     Matrix original = *matrix;
     for (int i = 0; i < 3; ++i) {

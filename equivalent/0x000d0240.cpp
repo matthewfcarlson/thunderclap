@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 30/30)
 // HUDOverlay::vfunc_3 @ 0x000d0240
-class Ref {
+class Ref_d0240 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -13,39 +13,39 @@ public:
     float FUN_00036090();
 };
 
-struct Target {
+struct Target_d0240 {
     char pad00[0x124];
-    Ref* ref;
+    Ref_d0240* ref;
 };
 
-struct Holder {
+struct Holder_d0240 {
     char pad00[0x20];
-    Target* target;
+    Target_d0240* target;
 };
 
-struct Parent {
+struct Parent_d0240 {
     char pad00[0x20];
-    Target* target;
+    Target_d0240* target;
 };
 
-struct Clock {
+struct Clock_d0240 {
     int FUN_00090110();
 };
 
 struct Timer {
-    Clock* FUN_00086370();
+    Clock_d0240* FUN_00086370();
 };
 
-struct Globals {
+struct Globals_d0240 {
     char pad00[0x54];
     Timer* timer;
 };
 
-struct Updater {
+struct Updater_d0240 {
     void FUN_000c9810(float dt);
 };
 
-extern Globals* DAT_004dd700;
+extern Globals_d0240* DAT_004dd700;
 extern float DAT_004de600;
 extern float DAT_004de604;
 extern float DAT_0049fcf0;
@@ -72,11 +72,11 @@ extern float DAT_004ddf0c;
 extern float DAT_004ddf10;
 extern float DAT_004ddf14;
 
-void FUN_00025960(Ref** slot, Ref* value);
-void FUN_000a0d40(Ref** slot);
+void FUN_00025960(Ref_d0240** slot, Ref_d0240* value);
+void FUN_000a0d40(Ref_d0240** slot);
 float FUN_000186b0(float* v, float* lo, float* hi);
 
-struct Frame {
+struct Frame_d0240 {
     float hi;
     float lo;
     float v;
@@ -103,14 +103,14 @@ public:
     virtual void vfunc_3(float dt);
 
     char pad04[8];
-    Parent* parent;
+    Parent_d0240* parent;
     char pad10[4];
-    Ref* ref;
-    Ref* ref2;
+    Ref_d0240* ref;
+    Ref_d0240* ref2;
     char pad1c[0x50 - 0x1c];
     char hidden;
     char pad51[0x88 - 0x51];
-    Updater* updater;
+    Updater_d0240* updater;
     char pad8c[0xa8 - 0x8c];
     float a8;
     int lastValue;
@@ -139,7 +139,7 @@ void HUDOverlay::vfunc_3(float dt)
     if (hidden)
         return;
 
-    volatile Frame f;
+    volatile Frame_d0240 f;
     f.w = DAT_004de600;
     double x1 = DAT_004de600 * -0.5f;
     double hh = DAT_004de604 * 0.5f;
@@ -174,7 +174,7 @@ void HUDOverlay::vfunc_3(float dt)
     DAT_004ddea4 = f.hi + f.t2c;
     DAT_004ddea8 = f.t24 + hh;
 
-    Ref* want = parent->target->ref;
+    Ref_d0240* want = parent->target->ref;
     if (want != ref && want) {
         FUN_00025960(&ref, want);
         if (ref) {

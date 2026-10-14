@@ -170,15 +170,15 @@ struct ClosureInstallEffect {
     ClosureInstallEffect *FUN_001f2250(const char *name, CSoundSystem *owner, void (CSoundSystem::*fn)());
 };
 
-struct Registry {
+struct Registry_1f2730 {
     void FUN_001d3b70(const char *name, void *closure);
     void FUN_001f23f0(const char *name, CSoundSystem *owner, void (CSoundSystem::*fn)());
 };
-Registry *FUN_001d4c90();
+Registry_1f2730 *FUN_001d4c90();
 
 void CSoundSystem::FUN_001f2730()
 {
-    Registry *reg = FUN_001d4c90();
+    Registry_1f2730 *reg = FUN_001d4c90();
     void *mem;
 
     mem = FUN_0008d690(0x24);

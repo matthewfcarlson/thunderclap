@@ -1,24 +1,24 @@
 // STATUS: equivalent (tools/equiv.py level 3: 962 inputs, branch coverage 24/24)
 // TextButton::vfunc_5 @ 0x000e9370
-struct Vec3 {
+struct Vec3_e9370 {
     float x, y, z;
 };
 
-union Word {
+union Word_e9370 {
     float f;
     int i;
     unsigned int u;
 };
 
-struct Cell {
-    Word a, b, c, d;
+struct Cell_e9370 {
+    Word_e9370 a, b, c, d;
 };
 
 struct Source;
 
 struct Builder {
     unsigned int hdr[2];
-    Cell cells[8];
+    Cell_e9370 cells[8];
     int cursor;
     float scale;
     void FUN_000f7fe0(Source *src);
@@ -44,7 +44,7 @@ public:
 }
 
 
-struct Level2 {
+struct Level2_e9370 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -59,43 +59,43 @@ struct Level2 {
     virtual Source *v44();
 };
 
-struct Obj958 {
+struct Obj958_e9370 {
     char pad0[0x14];
     float f14;
     char pad18[8];
 };
 
-struct Obj978 {
+struct Obj978_e9370 {
     char pad0[0x10];
     unsigned int col10;
 };
 
-struct Hold {
+struct Hold_e9370 {
     char pad0[4];
-    Level2 *fonts;
+    Level2_e9370 *fonts;
     char pad8[0x958 - 8];
-    Obj958 o958;
-    Obj978 o978;
+    Obj958_e9370 o958;
+    Obj978_e9370 o978;
 };
 
 class TextButton;
 
-class Owner {
+class Owner_e9370 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
     virtual void v12();
     virtual bool v13(TextButton *obj);
-    virtual void v14(Vec3 *out, TextButton *obj);
-    virtual void v15(Vec3 *out, TextButton *obj);
+    virtual void v14(Vec3_e9370 *out, TextButton *obj);
+    virtual void v15(Vec3_e9370 *out, TextButton *obj);
     virtual float v16(TextButton *obj);
     virtual float v17(TextButton *obj);
     char pad04[4];
-    Hold *hold;
+    Hold_e9370 *hold;
 };
 
-struct Pass {
+struct Pass_e9370 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -104,13 +104,13 @@ struct Pass {
     virtual void v16(int a);
 };
 
-struct PassHolder {
-    Pass *pass;
-    void FUN_00293d00(const Vec3 *v);
+struct PassHolder_e9370 {
+    Pass_e9370 *pass;
+    void FUN_00293d00(const Vec3_e9370 *v);
     void FUN_00293da0(int a, int b, int c);
 };
 
-class Widget {
+class Widget_e9370 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -123,15 +123,15 @@ struct StrObj {
     int c;
 };
 
-union Quad {
+union Quad_e9370 {
     unsigned int u;
     unsigned char b[4];
 };
 
-extern PassHolder *DAT_0052c2ac;
+extern PassHolder_e9370 *DAT_0052c2ac;
 
-void __cdecl FUN_000e11a0(Vec3 v, int a, int b);
-void __cdecl FUN_000e0cc0(Vec3 v, int a, int b);
+void __cdecl FUN_000e11a0(Vec3_e9370 v, int a, int b);
+void __cdecl FUN_000e0cc0(Vec3_e9370 v, int a, int b);
 
 class TextButton {
 public:
@@ -143,7 +143,7 @@ public:
     virtual void vfunc_5();
 
     char pad04[0x10];
-    Owner *owner;
+    Owner_e9370 *owner;
     StrObj str18;
     char pad24[0x3f - 0x24];
     unsigned char alpha;
@@ -152,30 +152,30 @@ public:
     unsigned char flag48;
     char pad49[3];
     int val4c;
-    Widget *w50;
+    Widget_e9370 *w50;
     int v54, v58, v5c;
-    Widget *w60;
-    Widget *w64;
+    Widget_e9370 *w60;
+    Widget_e9370 *w64;
     char b68;
     char pad69[3];
     unsigned int v6c;
     unsigned int v70;
     unsigned char active;
     char pad75[3];
-    Vec3 anchor;
+    Vec3_e9370 anchor;
     char pad84[0x141 - 0x84];
     unsigned char b141;
     char pad142[6];
     int val148;
     char pad14c[4];
-    Quad c150;
-    Quad c154;
-    Quad c158;
+    Quad_e9370 c150;
+    Quad_e9370 c154;
+    Quad_e9370 c158;
 };
 
-struct Frame {
+struct Frame_e9370 {
     float f1;
-    Vec3 v1;
+    Vec3_e9370 v1;
     Builder x;
 };
 
@@ -184,7 +184,7 @@ void TextButton::vfunc_5()
     if (active == 0)
         return;
 
-    Frame f;
+    Frame_e9370 f;
 
     if (flag40 == 1) {
         DAT_0052c2ac->pass->v15(0);
@@ -231,11 +231,11 @@ void TextButton::vfunc_5()
             f.x.cells[f.x.cursor].d.u = (a << 24) | (c158.b[2] << 16) | (c158.b[1] << 8) | c158.b[0];
             f.x.FUN_000f87f0(&str18, 0);
         } else {
-            Hold *h1 = owner->hold;
+            Hold_e9370 *h1 = owner->hold;
             float t = h1->o958.f14 * 255.0f;
             f.x.cells[f.x.cursor].d.u = 0;
-            Hold *h2 = owner->hold;
-            Obj978 *o978 = &h2->o978;
+            Hold_e9370 *h2 = owner->hold;
+            Obj978_e9370 *o978 = &h2->o978;
             unsigned int saved = o978->col10;
             o978->col10 = (255 - (int)t) << 24;
             f.x.FUN_000f87f0(&str18, &owner->hold->o978);

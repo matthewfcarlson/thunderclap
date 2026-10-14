@@ -2,7 +2,7 @@
 // FUN_00217d80 @ 0x00217d80
 // Lua 5.0 luaV_lessequal
 struct TString;
-struct TObject {
+struct TObject_217d80 {
     int tt;
     union {
         float n;
@@ -12,14 +12,14 @@ struct TObject {
 
 struct LState;
 
-int __cdecl FUN_00214d80(LState *L, const TObject *a, const TObject *b);
+int __cdecl FUN_00214d80(LState *L, const TObject_217d80 *a, const TObject_217d80 *b);
 // equiv-conv: FUN_00217be0 eax stack stack ebx
-int __cdecl FUN_00217be0(LState *L, const TObject *a, int event, const TObject *b);
+int __cdecl FUN_00217be0(LState *L, const TObject_217d80 *a, int event, const TObject_217d80 *b);
 // equiv-conv: FUN_00217c80 ecx eax
 int FUN_00217c80(const TString *a, const TString *b);
 
 // equiv-conv: FUN_00217d80 edi esi stack
-int FUN_00217d80(const TObject *l, const TObject *r, LState *L)
+int FUN_00217d80(const TObject_217d80 *l, const TObject_217d80 *r, LState *L)
 {
     if (l->tt != r->tt)
         return FUN_00214d80(L, l, r);

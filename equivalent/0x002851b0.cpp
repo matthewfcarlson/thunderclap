@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 12/12)
 // pure3d::BlendFrameController::vfunc_16 @ 0x002851b0
-struct Entry {
+struct Entry_2851b0 {
     char pad0[0x14];
     float value;        // 0x14
     char pad18[4];
@@ -37,7 +37,7 @@ public:
     int f24;                // 0x24
     unsigned int count;     // 0x28
     char pad2c[4];
-    Entry entries[1];       // 0x30
+    Entry_2851b0 entries[1];       // 0x30
 };
 
 void BlendFrameController::vfunc_16(int newMode)
@@ -47,7 +47,7 @@ void BlendFrameController::vfunc_16(int newMode)
     mode = newMode;
     if (count == 0)
         return;
-    Entry* e = &entries[count - 1];
+    Entry_2851b0* e = &entries[count - 1];
     e->mode = newMode;
     e->value = GetEnd();
     if (e->mode == 0) {

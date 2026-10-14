@@ -3,16 +3,16 @@
 namespace XAPILIB { int __stdcall XInputGetState(unsigned int, void *); }
 extern unsigned int DAT_0042b2f0, DAT_0042b2f4, DAT_0042b2f8;
 extern char DAT_0042b2e4[], DAT_0042b2d8[];
-struct Triple { unsigned int a,b,c; };
-extern Triple DAT_004cd6a8[20];
-struct Input {
+struct Triple_2692c0 { unsigned int a,b,c; };
+extern Triple_2692c0 DAT_004cd6a8[20];
+struct Input_2692c0 {
     virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3();
     virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7();
     virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11();
     virtual void f12(void *);
 };
-struct Entry { Input input; char padding[0x1c]; Triple values; char rest[8]; };
-struct Device {
+struct Entry_2692c0 { Input_2692c0 input; char padding[0x1c]; Triple_2692c0 values; char rest[8]; };
+struct Device_2692c0 {
     virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3();
     virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7();
     virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11();
@@ -24,7 +24,7 @@ struct Device {
     unsigned int slot;
     unsigned int port;
     unsigned int count;
-    Entry entries[20];
+    Entry_2692c0 entries[20];
     char pad[0x430 - 0x18 - 20*0x34];
     char *leftName;
     char pad2[12];
@@ -36,7 +36,7 @@ struct Device {
     unsigned char active;
     void FUN_002692c0(unsigned int a,unsigned int b,unsigned int c,unsigned int d,unsigned int e,unsigned int f,unsigned int g);
 };
-void Device::FUN_002692c0(unsigned int a,unsigned int b,unsigned int c,unsigned int d,unsigned int e,unsigned int f,unsigned int g)
+void Device_2692c0::FUN_002692c0(unsigned int a,unsigned int b,unsigned int c,unsigned int d,unsigned int e,unsigned int f,unsigned int g)
 {
     handle=a; slot=b; port=c; count=0;
     active=0;

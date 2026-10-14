@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 124 inputs, branch coverage 43/44, incomplete)
 // movie::RenderStrategyBink::vfunc_6 @ 0x00334620
-struct Display { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual unsigned height(); virtual unsigned width(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15(); virtual float aspect(); }; extern Display* DAT_0052c2a4;
+struct Display_334620 { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual unsigned height(); virtual unsigned width(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15(); virtual float aspect(); }; extern Display_334620* DAT_0052c2a4;
 struct Texture { virtual void acquire(); virtual void release(); Texture* FUN_002c1c30(); void FUN_002c1c70(unsigned,unsigned,int,int,int,int,int); };
 extern void* __cdecl FUN_00263ea0(unsigned);
-struct Tile { Texture* texture; unsigned x,y,width,height; };
-namespace movie { struct RenderStrategyBink { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(unsigned,unsigned,int,float); virtual void vfunc_7(); char pad[16]; int left,top; unsigned width,height; float sx,sy; unsigned count; unsigned extra; Tile tiles[1]; }; }
+struct Tile_334620 { Texture* texture; unsigned x,y,width,height; };
+namespace movie { struct RenderStrategyBink { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(unsigned,unsigned,int,float); virtual void vfunc_7(); char pad[16]; int left,top; unsigned width,height; float sx,sy; unsigned count; unsigned extra; Tile_334620 tiles[1]; }; }
 void movie::RenderStrategyBink::vfunc_6(unsigned w,unsigned h,int mode,float ratio) {
  unsigned screenW=DAT_0052c2a4->width(); unsigned screenH=DAT_0052c2a4->height(); float aspect=DAT_0052c2a4->aspect();
  if(w==width && h==height) return;
@@ -24,7 +24,7 @@ void movie::RenderStrategyBink::vfunc_6(unsigned w,unsigned h,int mode,float rat
  int sw=(int)DAT_0052c2a4->width(); left=(int)(((double)sw-(double)width*sx)*0.5f);
  int sh=(int)DAT_0052c2a4->height(); top=(int)(((double)sh-(double)height*sy)*0.5f);
  unsigned rows=(h+1023)>>10, cols=(w+1023)>>10; count=rows*cols;
- Tile* t=tiles; unsigned yy=0;
+ Tile_334620* t=tiles; unsigned yy=0;
  for(unsigned row=0;row<rows;++row,yy+=1024) { unsigned xx=0; for(unsigned col=0;col<cols;++col,++t) {
  if(t->texture) { t->texture->release(); t->texture=0; }
  Texture* p=(Texture*)FUN_00263ea0(24); if(p) p=p->FUN_002c1c30(); t->texture=p; p->acquire();

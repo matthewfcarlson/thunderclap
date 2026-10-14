@@ -4,7 +4,7 @@
 void thunk_FUN_00267090(void *p);
 void *FUN_0008d6d0(unsigned int size);
 
-class Resource {
+class Resource_1d5730 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -13,15 +13,15 @@ public:
     int *end;
 };
 
-struct Holder {
+struct Holder_1d5730 {
     char pad[0x90];
-    Resource *resource;
+    Resource_1d5730 *resource;
     char pad94[0xb8 - 0x94];
     void *buffer;
-    void FUN_001d5730(Resource *r);
+    void FUN_001d5730(Resource_1d5730 *r);
 };
 
-void Holder::FUN_001d5730(Resource *r)
+void Holder_1d5730::FUN_001d5730(Resource_1d5730 *r)
 {
     if (r != 0)
         r->AddRef();

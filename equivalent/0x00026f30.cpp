@@ -2,37 +2,37 @@
 // FUN_00026f30 @ 0x00026f30
 unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 
-struct Name {
+struct Name_26f30 {
     unsigned int lo, hi;
-    Name *FUN_0027b0e0(const char *name);
+    Name_26f30 *FUN_0027b0e0(const char *name);
     void FUN_0027af50();
 };
 
-struct Link {
+struct Link_26f30 {
     char pad0[0x118];
     unsigned int nameLo;
     unsigned int nameHi;
 };
 
-struct Pawn {
+struct Pawn_26f30 {
     char pad0[0x1ca0];
-    Link *link;
+    Link_26f30 *link;
 };
 
-struct Group {
-    Pawn *FUN_00024280(unsigned __int64 key);
+struct Group_26f30 {
+    Pawn_26f30 *FUN_00024280(unsigned __int64 key);
     bool FUN_00026f30(const char *pawnName, const char *linkName);
 };
 
 // True when the pawn's link carries the given name.
-bool Group::FUN_00026f30(const char *pawnName, const char *linkName)
+bool Group_26f30::FUN_00026f30(const char *pawnName, const char *linkName)
 {
-    Pawn *pawn = FUN_00024280(FUN_002672f0(pawnName, 0, 0));
+    Pawn_26f30 *pawn = FUN_00024280(FUN_002672f0(pawnName, 0, 0));
     if (!pawn)
         return false;
-    Name key;
+    Name_26f30 key;
     key.FUN_0027b0e0(linkName);
-    Link *link = pawn->link;
+    Link_26f30 *link = pawn->link;
     if (link && key.lo == link->nameLo && key.hi == link->nameHi) {
         key.FUN_0027af50();
         return true;

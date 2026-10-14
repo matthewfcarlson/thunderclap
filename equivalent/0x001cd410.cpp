@@ -12,19 +12,19 @@ struct Part3c { char pad[8]; Part3cInner *inner; };
 struct Part38 { void FUN_001f6cb0(); };
 struct Part14 { void FUN_001b69c0(); };
 struct Part48 { void FUN_001faf70(char *buf); };
-struct Part30 { void FUN_001cc230(); };
+struct Part30_1cd410 { void FUN_001cc230(); };
 struct Part44 { void FUN_00059db0(); };
-struct Target {
+struct Target_1cd410 {
     char pad[0x32];
     char flag32;
     void FUN_001b9160(int v);
 };
-struct Part54 { Target *FUN_00086290(); };
-struct Session;
-struct Holder { void FUN_0009bc60(Session *s); };
-struct Session {
+struct Part54_1cd410 { Target_1cd410 *FUN_00086290(); };
+struct Session_1cd410;
+struct Holder_1cd410 { void FUN_0009bc60(Session_1cd410 *s); };
+struct Session_1cd410 {
     char pad0[8];
-    Holder *holder;
+    Holder_1cd410 *holder;
     Node *p0c;
     char pad10[4];
     Part14 *p14;
@@ -33,7 +33,7 @@ struct Session {
     char pad24[4];
     Part28 *p28;
     char pad2c[4];
-    Part30 *p30;
+    Part30_1cd410 *p30;
     char pad34[4];
     Part38 *p38;
     Part3c *p3c;
@@ -41,29 +41,29 @@ struct Session {
     Part44 *p44;
     Part48 *p48;
     char pad4c[8];
-    Part54 *p54;
+    Part54_1cd410 *p54;
 };
-struct Names { const char *FUN_0008a2d0(); };
-struct Singleton { void FUN_001d40b0(); };
-extern Singleton *FUN_001d4c90();
+struct Names_1cd410 { const char *FUN_0008a2d0(); };
+struct Singleton_1cd410 { void FUN_001d40b0(); };
+extern Singleton_1cd410 *FUN_001d4c90();
 
-struct Controller {
+struct Controller_1cd410 {
     char pad0[4];
-    Session *session;
-    Names *names;
+    Session_1cd410 *session;
+    Names_1cd410 *names;
     char pad0c[0x14a9 - 0xc];
     char busy;
     void FUN_001cd220(int a);
     void FUN_001cd410();
 };
 
-struct Frame {
+struct Frame_1cd410 {
     char buf[0x100];
     unsigned int cookie;
 };
 
-void Controller::FUN_001cd410() {
-    Frame f;
+void Controller_1cd410::FUN_001cd410() {
+    Frame_1cd410 f;
     char *buf = f.buf;
     f.cookie = DAT_004d9968;
     busy = 1;
@@ -89,7 +89,7 @@ void Controller::FUN_001cd410() {
         session->p54->FUN_00086290()->FUN_001b9160(0);
         session->p54->FUN_00086290()->flag32 = 0;
     }
-    Singleton *s = FUN_001d4c90();
+    Singleton_1cd410 *s = FUN_001d4c90();
     if (s != 0) {
         FUN_001cd220(0);
         s->FUN_001d40b0();

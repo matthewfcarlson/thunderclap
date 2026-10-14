@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_00357ea0 @ 0x00357ea0
-struct Vec3 { float x, y, z; };
-struct Frame {
+struct Vec3_357ea0 { float x, y, z; };
+struct Frame_357ea0 {
     float d0, d1, d2;
-    Vec3 t0, t1, t2;
+    Vec3_357ea0 t0, t1, t2;
 };
-void FUN_001fd640(const Vec3 *p, const Vec3 *a, const Vec3 *b, Vec3 *closest);
+void FUN_001fd640(const Vec3_357ea0 *p, const Vec3_357ea0 *a, const Vec3_357ea0 *b, Vec3_357ea0 *closest);
 
-void FUN_00357ea0(const Vec3 *p, const Vec3 *a, const Vec3 *b, const Vec3 *c, Vec3 *out,
+void FUN_00357ea0(const Vec3_357ea0 *p, const Vec3_357ea0 *a, const Vec3_357ea0 *b, const Vec3_357ea0 *c, Vec3_357ea0 *out,
                   bool testAB, bool testBC, bool testCA)
 {
-    Frame f;
+    Frame_357ea0 f;
     f.d0 = 3.4028235e38f;
     f.d1 = 3.4028235e38f;
     f.d2 = 3.4028235e38f;

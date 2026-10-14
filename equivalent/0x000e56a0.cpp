@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 655 inputs, branch coverage 8/8)
 // FEScreenBase::vfunc_2 @ 0x000e56a0
-class FEChild {
+class FEChild_e56a0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -27,7 +27,7 @@ public:
     FEFocus *focus;
     char pad4c[0xab8 - 0x4c];
     char active;
-    FEChild *children[32];
+    FEChild_e56a0 *children[32];
     int numChildren;
 };
 

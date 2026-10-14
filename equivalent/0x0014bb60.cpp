@@ -5,8 +5,8 @@ namespace fight {
 template<class T> struct ConditionFactoryCasterTemplate { virtual void create(); };
 }
 extern void* __cdecl FUN_002343e0(const char*, void*);
-struct Registry { void FUN_00236760(void*); };
-void __cdecl FUN_0014bb60(Registry* registry) {
+struct Registry_14bb60 { void FUN_00236760(void*); };
+void __cdecl FUN_0014bb60(Registry_14bb60* registry) {
  fight::ConditionFactoryCasterTemplate<hulkfight::motion::GrappleOrientationCondition> orientation;
  registry->FUN_00236760(FUN_002343e0("grappleOrientation", &orientation));
  fight::ConditionFactoryCasterTemplate<hulkfight::motion::GrappleAttachJointCondition> joint;

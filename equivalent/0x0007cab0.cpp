@@ -1,33 +1,33 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 25/26, incomplete)
 // FUN_0007cab0 @ 0x0007cab0
-struct Vec3 { float x, y, z; };
+struct Vec3_7cab0 { float x, y, z; };
 
 struct Matrix {
     float m[16];
 };
 
-struct Item {
+struct Item_7cab0 {
     char pad0[0x10];
     int type;
     char pad14[0x20];
     int id;
 };
 
-struct Position {
-    void FUN_00059a50(Vec3 *out);
+struct Position_7cab0 {
+    void FUN_00059a50(Vec3_7cab0 *out);
 };
 
 struct Entity {
     char pad0[0x10];
-    Position *position;
+    Position_7cab0 *position;
 };
 
-struct Holder {
+struct Holder_7cab0 {
     char pad0[0x124];
     Entity *entity;
 };
 
-struct Manager {
+struct Manager_7cab0 {
     bool FUN_001dd800(int id);
     void FUN_001dda30(int id, int flag);
     bool FUN_001df4c0(int id);
@@ -36,22 +36,22 @@ struct Manager {
 
 struct Context {
     char pad0[0xc];
-    Manager *manager;
+    Manager_7cab0 *manager;
     char pad10[0x10];
-    Holder *holder;
+    Holder_7cab0 *holder;
 };
 
-class Group {
+class Group_7cab0 {
 public:
     char pad0[0x374c];
-    Item *items[20];
+    Item_7cab0 *items[20];
     int count;
     char pad37a0[0x8c];
     Context *context;
     void FUN_0007cab0(int limit);
 };
 
-void Group::FUN_0007cab0(int limit)
+void Group_7cab0::FUN_0007cab0(int limit)
 {
     int found = 0;
     for (int i = 0; i < count; i++) {
@@ -65,7 +65,7 @@ void Group::FUN_0007cab0(int limit)
         }
     }
 
-    Vec3 vec;
+    Vec3_7cab0 vec;
     context->holder->entity->position->FUN_00059a50(&vec);
 
     if (found >= limit)

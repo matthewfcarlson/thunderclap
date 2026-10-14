@@ -2,7 +2,7 @@
 // HSlider::vfunc_5 @ 0x000e9af0
 extern "C" double floor(double);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
-struct V3 {
+struct V3_e9af0 {
     float x, y, z;
 };
 
@@ -28,7 +28,7 @@ public:
     virtual void v8(int a, int b);
 };
 
-class Dev {
+class Dev_e9af0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -49,22 +49,22 @@ public:
     virtual void v16(int a);
 };
 
-struct Wrapper {
-    Dev *dev;
-    void FUN_00293d00(const V3 *v);
+struct Wrapper_e9af0 {
+    Dev_e9af0 *dev;
+    void FUN_00293d00(const V3_e9af0 *v);
     void FUN_00293da0(float x, float y, float z);
 };
 
-extern Wrapper *DAT_0052c2ac;
+extern Wrapper_e9af0 *DAT_0052c2ac;
 
-class Metrics {
+class Metrics_e9af0 {
 public:
     virtual void v0();
 };
 
 struct Font {
     char pad0[0x24];
-    Metrics *metrics;
+    Metrics_e9af0 *metrics;
 };
 
 struct StrObj {
@@ -80,18 +80,18 @@ struct LayoutEntry {
     int f12;
 };
 
-struct Layout {
+struct Layout_e9af0 {
     Font *font;
     int f4;
     LayoutEntry entries[8];
     int index;
     float f8c;
-    Layout *FUN_000f7fe0(Font *font);
+    Layout_e9af0 *FUN_000f7fe0(Font *font);
     void FUN_000f87f0(const StrObj *s, void *draw);
     void FUN_000f78e0();
 };
 
-class Fonts {
+class Fonts_e9af0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -140,7 +140,7 @@ public:
     virtual Font *v44();
 };
 
-class Obj958 {
+class Obj958_e9af0 {
 public:
     virtual void v0(void *x);
     int f4;
@@ -150,22 +150,22 @@ public:
     char pad18[8];
 };
 
-struct Obj978 {
+struct Obj978_e9af0 {
     char pad0[0x10];
     unsigned col10;
 };
 
-struct Hold {
+struct Hold_e9af0 {
     char pad0[4];
-    Fonts *fonts;
+    Fonts_e9af0 *fonts;
     char pad8[0x958 - 8];
-    Obj958 o958;
-    Obj978 o978;
+    Obj958_e9af0 o958;
+    Obj978_e9af0 o978;
 };
 
 class HSlider;
 
-class Owner {
+class Owner_e9af0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -181,12 +181,12 @@ public:
     virtual void v11();
     virtual void v12();
     virtual bool v13(HSlider *s);
-    virtual void v14(V3 *out, HSlider *s);
+    virtual void v14(V3_e9af0 *out, HSlider *s);
     virtual void v15();
     virtual float v16(HSlider *s);
     virtual float v17(HSlider *s);
     char pad04[8 - 4];
-    Hold *hold;
+    Hold_e9af0 *hold;
 };
 
 class FEObject {
@@ -198,7 +198,7 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     char pad04[0x14 - 4];
-    Owner *owner;
+    Owner_e9af0 *owner;
     StrObj str18;
     char pad24[0x3c - 0x24];
     int f3c;
@@ -214,11 +214,11 @@ public:
     char pad69[0x74 - 0x69];
     char b74;
     char pad75[0x78 - 0x75];
-    V3 v78;
+    V3_e9af0 v78;
     char pad84[0x150 - 0x84];
     float f150;
     char pad154[0x184 - 0x154];
-    V3 v184;
+    V3_e9af0 v184;
     UIObj *a190[0x15];
     int f1e4;
     char pad1e8[4];
@@ -231,9 +231,9 @@ void HSlider::vfunc_5()
     if (!b74)
         return;
 
-    Layout layout;
+    Layout_e9af0 layout;
     union TK {
-        V3 t;
+        V3_e9af0 t;
         float k;
     } tk;
 
@@ -259,11 +259,11 @@ void HSlider::vfunc_5()
             layout.entries[layout.index].f12 = f1ec;
             layout.FUN_000f87f0(&str18, 0);
         } else {
-            Hold *h1 = owner->hold;
+            Hold_e9af0 *h1 = owner->hold;
             float a = h1->o958.f14 * 255.0f;
             layout.entries[layout.index].f12 = 0;
-            Hold *h2 = owner->hold;
-            Obj978 *o978 = &h2->o978;
+            Hold_e9af0 *h2 = owner->hold;
+            Obj978_e9af0 *o978 = &h2->o978;
             unsigned saved = o978->col10;
             o978->col10 = (255 - (int)a) << 24;
             layout.FUN_000f87f0(&str18, &owner->hold->o978);
@@ -296,7 +296,7 @@ void HSlider::vfunc_5()
                 if (a190[cnt + 10] == 0) {
                     // fall to the final device call
                 } else {
-                    Obj958 *o = &owner->hold->o958;
+                    Obj958_e9af0 *o = &owner->hold->o958;
                     CDisplayEffect::DrawableCompositeDrawable &d = *new ((void *)&tk) CDisplayEffect::DrawableCompositeDrawable(a190[cnt]);
                     int sv = o->f8;
                     o->f8 = 1;

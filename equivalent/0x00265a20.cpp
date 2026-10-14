@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_00265a20 @ 0x00265a20
-struct Table;
+struct Table_265a20;
 
 class Object {
 public:
@@ -8,30 +8,30 @@ public:
     virtual void v1();
 };
 
-struct Probe {
-    Table *table;           // 0x00
+struct Probe_265a20 {
+    Table_265a20 *table;           // 0x00
     char pad04[0x14];
-    void FUN_00231160(Table *t);
+    void FUN_00231160(Table_265a20 *t);
     Object *FUN_00231180(unsigned int first, unsigned int second);
 };
 
-struct Table {
+struct Table_265a20 {
     int FUN_00231770(Object *obj);
 };
 
 unsigned __int64 __cdecl FUN_00267340(const char *name, int a, int b);
 
-class Registry {
+class Registry_265a20 {
 public:
     char pad0[0xc];
-    Table *table;           // 0x0c
+    Table_265a20 *table;           // 0x0c
     void FUN_00265a20(const char *name);
 };
 
-void Registry::FUN_00265a20(const char *name)
+void Registry_265a20::FUN_00265a20(const char *name)
 {
-    Probe first;
-    Probe again;
+    Probe_265a20 first;
+    Probe_265a20 again;
     const char *key = name;
     if (*name == '.')
         key = name + 1;

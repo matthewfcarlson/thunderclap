@@ -1,42 +1,42 @@
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 60/62, incomplete)
 // FUN_003037f0 @ 0x003037f0
-struct Item {
+struct Item_3037f0 {
     unsigned int w[9];
     float key;
     unsigned int w2[7];
 };
 struct Partition {
-    Item *first;
-    Item *second;
+    Item_3037f0 *first;
+    Item_3037f0 *second;
 };
-void __cdecl FUN_00303700(Item *first, Item *mid, Item *last);
+void __cdecl FUN_00303700(Item_3037f0 *first, Item_3037f0 *mid, Item_3037f0 *last);
 
-static inline bool Pred(const Item &a, const Item &b)
+static inline bool Pred(const Item_3037f0 &a, const Item_3037f0 &b)
 {
     return a.key < b.key;
 }
 
-static inline void IterSwap(Item *a, Item *b)
+static inline void IterSwap(Item_3037f0 *a, Item_3037f0 *b)
 {
-    Item t = *a;
+    Item_3037f0 t = *a;
     *a = *b;
     *b = t;
 }
 
-void __cdecl FUN_003037f0(Partition *result, Item *first, Item *last)
+void __cdecl FUN_003037f0(Partition *result, Item_3037f0 *first, Item_3037f0 *last)
 {
-    Item *mid = first + (last - first) / 2;
+    Item_3037f0 *mid = first + (last - first) / 2;
     FUN_00303700(first, mid, last - 1);
-    Item *pfirst = mid;
-    Item *plast = pfirst + 1;
+    Item_3037f0 *pfirst = mid;
+    Item_3037f0 *plast = pfirst + 1;
 
     while (first < pfirst && !Pred(*(pfirst - 1), *pfirst) && !Pred(*pfirst, *(pfirst - 1)))
         --pfirst;
     while (plast < last && !Pred(*plast, *pfirst) && !Pred(*pfirst, *plast))
         ++plast;
 
-    Item *gfirst = plast;
-    Item *glast = pfirst;
+    Item_3037f0 *gfirst = plast;
+    Item_3037f0 *glast = pfirst;
 
     for (;;) {
         for (; gfirst < last; ++gfirst) {

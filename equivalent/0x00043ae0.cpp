@@ -2,13 +2,13 @@
 // FUN_00043ae0 @ 0x00043ae0
 extern "C" double __cdecl sqrt(double);
 
-class RefObj {
+class RefObj_43ae0 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-struct V3 {
+struct V3_43ae0 {
     float x, y, z;
     float FUN_00018990();
     float FUN_0022d110();
@@ -18,19 +18,19 @@ struct V3 {
 struct Request {
     int e0;                          // 0x00
     int e4;                          // 0x04
-    V3 target;                       // 0x08
+    V3_43ae0 target;                       // 0x08
     char pad14[4];
-    V3 aim;                          // 0x18
+    V3_43ae0 aim;                          // 0x18
     char b24;                        // 0x24
     char pad25[3];
-    V3 vec28;                        // 0x28
+    V3_43ae0 vec28;                        // 0x28
     char pad34[0x4c - 0x34];
-    RefObj *p4c;                     // 0x4c
-    RefObj *p50;                     // 0x50
+    RefObj_43ae0 *p4c;                     // 0x4c
+    RefObj_43ae0 *p50;                     // 0x50
     int r54;                         // 0x54
     float f58;                       // 0x58
     float f5c;                       // 0x5c
-    RefObj *p60;                     // 0x60
+    RefObj_43ae0 *p60;                     // 0x60
     float f64;                       // 0x64
     float f68;                       // 0x68
     char pad6c[8];
@@ -45,7 +45,7 @@ struct Request {
     void FUN_00059300();
 };
 
-struct Entry {
+struct Entry_43ae0 {
     float f0;
     float f4;
     float f8;
@@ -53,7 +53,7 @@ struct Entry {
     float f10;
     float f14;
 };
-extern Entry DAT_004dc360[];
+extern Entry_43ae0 DAT_004dc360[];
 
 struct Params {
     float g0[7];
@@ -68,13 +68,13 @@ extern int DAT_004dc0e4;
 extern unsigned int DAT_004dc080;
 extern unsigned int DAT_004dc084;
 
-struct Inner {
+struct Inner_43ae0 {
     char pad00[0x14];
     int f14;
     unsigned __int64 FUN_000443c0();
 };
 
-struct Obj {
+struct Obj_43ae0 {
     char pad00[8];
     int f8;
     int fc;
@@ -82,23 +82,23 @@ struct Obj {
     float f110;
     int f114;
     char pad118[4];
-    Inner *f11c;
+    Inner_43ae0 *f11c;
     char pad120[0x12c - 0x120];
-    RefObj *f12c;
-    char FUN_00043350(float dt, RefObj *r, int a, int b, int c, int d);
-    void FUN_000350c0(V3 *out);
-    void FUN_000352b0(V3 *out);
+    RefObj_43ae0 *f12c;
+    char FUN_00043350(float dt, RefObj_43ae0 *r, int a, int b, int c, int d);
+    void FUN_000350c0(V3_43ae0 *out);
+    void FUN_000352b0(V3_43ae0 *out);
     char FUN_000437a0(float dt, Request *r, int a, int b, int c);
-    void FUN_00043ae0(RefObj *a1, V3 *p, float dt, int a4, float a5, int a6, int a7, char a8, RefObj *a9);
+    void FUN_00043ae0(RefObj_43ae0 *a1, V3_43ae0 *p, float dt, int a4, float a5, int a6, int a7, char a8, RefObj_43ae0 *a9);
 };
 
-void Obj::FUN_00043ae0(RefObj *a1, V3 *p, float dt, int a4, float a5, int a6, int a7, char a8, RefObj *a9)
+void Obj_43ae0::FUN_00043ae0(RefObj_43ae0 *a1, V3_43ae0 *p, float dt, int a4, float a5, int a6, int a7, char a8, RefObj_43ae0 *a9)
 {
     struct Frame {
         float s;                     // 0x00
-        V3 d;                        // 0x04
-        V3 e;                        // 0x10
-        V3 a;                        // 0x1c
+        V3_43ae0 d;                        // 0x04
+        V3_43ae0 e;                        // 0x10
+        V3_43ae0 a;                        // 0x1c
         Request x;                   // 0x28
     } f;
 
@@ -127,7 +127,7 @@ void Obj::FUN_00043ae0(RefObj *a1, V3 *p, float dt, int a4, float a5, int a6, in
         f.e = f.d;
         f.e.FUN_0022d110();
 
-        Entry *t = &DAT_004dc360[idx];
+        Entry_43ae0 *t = &DAT_004dc360[idx];
         if (t->f0 <= 0.0f) {
             f.s = 0.0f;
         } else {
@@ -143,7 +143,7 @@ void Obj::FUN_00043ae0(RefObj *a1, V3 *p, float dt, int a4, float a5, int a6, in
         if (f.x.p4c != 0)
             f.x.p4c->Release();
         f.x.p4c = a1;
-        RefObj *owner = f12c;
+        RefObj_43ae0 *owner = f12c;
         if (owner != 0)
             owner->AddRef();
         if (f.x.p50 != 0)

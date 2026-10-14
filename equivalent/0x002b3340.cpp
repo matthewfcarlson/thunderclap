@@ -36,28 +36,28 @@ struct Stream {
     void FUN_00266be0();
 };
 
-struct ResourceName {
+struct ResourceName_2b3340 {
     char data[12];
     void FUN_0027b040(const char *name);
 };
 
-struct Controller {
+struct Controller_2b3340 {
     virtual void v0();
 };
 
-struct Factory {
+struct Factory_2b3340 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual Controller *f3(content::LoadInventory::DynamicCaster<pure3d::FrameController> *caster,
+    virtual Controller_2b3340 *f3(content::LoadInventory::DynamicCaster<pure3d::FrameController> *caster,
                            unsigned int lo, unsigned int hi);
 };
 
-struct Loaded {
+struct Loaded_2b3340 {
     char pad0[8];
-    ResourceName name;
-    Loaded *FUN_002b2710(int a, int b, int c);
-    void FUN_002b1eb0(Controller *c);
+    ResourceName_2b3340 name;
+    Loaded_2b3340 *FUN_002b2710(int a, int b, int c);
+    void FUN_002b1eb0(Controller_2b3340 *c);
 };
 
 namespace pure3d {
@@ -69,10 +69,10 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual unsigned __int64 vfunc_5(Loaded **out, unsigned __int64 *id, Stream *s, Factory *factory);
+    virtual unsigned __int64 vfunc_5(Loaded_2b3340 **out, unsigned __int64 *id, Stream *s, Factory_2b3340 *factory);
 };
 
-unsigned __int64 OldMultiControllerLoader::vfunc_5(Loaded **out, unsigned __int64 *id, Stream *s, Factory *factory)
+unsigned __int64 OldMultiControllerLoader::vfunc_5(Loaded_2b3340 **out, unsigned __int64 *id, Stream *s, Factory_2b3340 *factory)
 {
     struct Frame {
         char pad0[2];
@@ -100,7 +100,7 @@ unsigned __int64 OldMultiControllerLoader::vfunc_5(Loaded **out, unsigned __int6
     s->reader->FUN_002647e0(&f.v18, 1, 4, 1);
     s->reader->FUN_002647e0(&f.v14, 1, 4, 1);
     s->reader->FUN_002647e0(&f.v10, 1, 4, 1);
-    Loaded *loaded = (Loaded *)FUN_0008d690(0x58);
+    Loaded_2b3340 *loaded = (Loaded_2b3340 *)FUN_0008d690(0x58);
     if (loaded != 0)
         loaded = loaded->FUN_002b2710(f.v10, f.v18, f.v14);
     loaded->name.FUN_0027b040(f.name);
@@ -119,7 +119,7 @@ unsigned __int64 OldMultiControllerLoader::vfunc_5(Loaded **out, unsigned __int6
                         f.name3[l2] = 0;
                         unsigned __int64 h = FUN_0027b020(f.name3);
                         new ((void *)&f.v10) content::LoadInventory::DynamicCaster<pure3d::FrameController>;
-                        Controller *c = factory->f3(
+                        Controller_2b3340 *c = factory->f3(
                             (content::LoadInventory::DynamicCaster<pure3d::FrameController> *)&f.v10,
                             (unsigned int)h, (unsigned int)(h >> 32));
                         loaded->FUN_002b1eb0(c);
@@ -136,7 +136,7 @@ unsigned __int64 OldMultiControllerLoader::vfunc_5(Loaded **out, unsigned __int6
                 f.name2[l2] = 0;
                 unsigned __int64 h = FUN_0027b020(f.name2);
                 new ((void *)&f.v10) content::LoadInventory::DynamicCaster<pure3d::FrameController>;
-                Controller *c = factory->f3(
+                Controller_2b3340 *c = factory->f3(
                     (content::LoadInventory::DynamicCaster<pure3d::FrameController> *)&f.v10,
                     (unsigned int)h, (unsigned int)(h >> 32));
                 loaded->FUN_002b1eb0(c);

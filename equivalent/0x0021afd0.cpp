@@ -4,26 +4,26 @@ extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 struct lua_State;
-struct TString {
+struct TString_21afd0 {
     char pad00[0x10];
     char str[1];
 };
-struct LexState {
+struct LexState_21afd0 {
     char pad00[4];
     int linenumber;
     char pad08[0x18];
     lua_State *L;
     char pad24[8];
-    TString *source;
+    TString_21afd0 *source;
 };
 
 void __cdecl FUN_00216340(char *out, const char *source, int bufflen);
 const char *__cdecl FUN_00216320(lua_State *L, const char *fmt, ...);
 void __cdecl FUN_002152b0(lua_State *L, int errcode);
 // equiv-conv: FUN_0021af60 eax edi
-const char *FUN_0021af60(int token, LexState *ls);
+const char *FUN_0021af60(int token, LexState_21afd0 *ls);
 
-void FUN_0021afd0(LexState *ls, const char *msg, int token)
+void FUN_0021afd0(LexState_21afd0 *ls, const char *msg, int token)
 {
     unsigned int cookie = DAT_004d9968;
     char buff[0x50];

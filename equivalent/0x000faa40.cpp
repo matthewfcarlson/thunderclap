@@ -19,36 +19,36 @@ public:
     void FUN_000f9b40(Node *child);
 };
 
-struct Index {
+struct Index_faa40 {
     Node *FUN_000f9670(int lo, int hi);
     Node *FUN_000f96b0(int lo, int hi);
 };
 
-struct StateStack {
+struct StateStack_faa40 {
     int slot[4];
     int top;
     void FUN_000f9700(int state);
     void FUN_000f9720();
 };
 
-struct Current {
+struct Current_faa40 {
     Node *head;
 };
 
-class Handler {
+class Handler_faa40 {
 public:
     char pad0[8];
-    Index index;
-    char pad9[0x808 - 0x8 - sizeof(Index)];
-    StateStack stack;
-    Current *current;
+    Index_faa40 index;
+    char pad9[0x808 - 0x8 - sizeof(Index_faa40)];
+    StateStack_faa40 stack;
+    Current_faa40 *current;
     int depth;
 
     void FUN_000fa870(Node *n);
     bool FUN_000faa40(Node *a1);
 };
 
-bool Handler::FUN_000faa40(Node *a1)
+bool Handler_faa40::FUN_000faa40(Node *a1)
 {
     bool result = true;
     Node *b = (Node *)FUN_00344e74(a1, 0, DAT_004a13e4, DAT_004a1934, 0);
@@ -86,7 +86,7 @@ bool Handler::FUN_000faa40(Node *a1)
     }
     case 2: {
         __int64 id = b->Id();
-        current = (Current *)index.FUN_000f96b0((int)id, (int)(id >> 32));
+        current = (Current_faa40 *)index.FUN_000f96b0((int)id, (int)(id >> 32));
         if (stack.top > 0)
             stack.top--;
         if (stack.top < 4) {

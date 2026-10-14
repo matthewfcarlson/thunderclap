@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 52 inputs, branch coverage 42/42)
 // FUN_002a5fd0 @ 0x002a5fd0
-struct V2 {
+struct V2_2a5fd0 {
     float x, y;
 };
 
-struct V3 {
+struct V3_2a5fd0 {
     float x, y, z;
 };
 
 struct Noise {
-    float FUN_00356fa0(const V3 *v);
-    float FUN_00356e50(const V2 *v);
+    float FUN_00356fa0(const V3_2a5fd0 *v);
+    float FUN_00356e50(const V2_2a5fd0 *v);
 };
 
 Noise *FUN_003576d0();
@@ -20,17 +20,17 @@ struct SrcMesh {
     char pad0[0xc];
     int n;
     char pad10[0x18 - 0x10];
-    V3 *pos;
+    V3_2a5fd0 *pos;
     char pad1c[0x38 - 0x1c];
-    V2 *uv[4];
+    V2_2a5fd0 *uv[4];
     unsigned int *col;
 };
 
 struct DstMesh {
     char pad0[0x18];
-    V3 *pos;
+    V3_2a5fd0 *pos;
     char pad1c[0x38 - 0x1c];
-    V2 *uv[4];
+    V2_2a5fd0 *uv[4];
     unsigned int *col;
 };
 
@@ -51,7 +51,7 @@ static float Clamp01(float v)
     return 0.0f;
 }
 
-struct Frame {
+struct Frame_2a5fd0 {
     char pad0[0x10];
     int tmp10;                  // 10
     float tp;                   // 14
@@ -59,7 +59,7 @@ struct Frame {
     float v2;                   // 1c
     unsigned char *qptr;        // 20
     float g4;                   // 24 (also &uv.v)
-    V3 *dstcur;                 // 28
+    V3_2a5fd0 *dstcur;                 // 28
     unsigned int *Q;            // 2c
     float v1;                   // 30
     float v0;                   // 34
@@ -75,25 +75,25 @@ struct Frame {
     char pad5c[4];
     float g2;                   // 60
     float g1;                   // 64
-    V2 uvq;                     // 68
-    V2 uvp;                     // 70
-    V2 *bs[4];                  // 78
-    V2 w88;                     // 88
-    V3 w90;                     // 90
-    V3 w9c;                     // 9c
-    V3 wa8;                     // a8
-    V3 wb4;                     // b4
-    V3 wc0;                     // c0
-    V3 wcc;                     // cc
-    V2 *as_[4];                 // d8
+    V2_2a5fd0 uvq;                     // 68
+    V2_2a5fd0 uvp;                     // 70
+    V2_2a5fd0 *bs[4];                  // 78
+    V2_2a5fd0 w88;                     // 88
+    V3_2a5fd0 w90;                     // 90
+    V3_2a5fd0 w9c;                     // 9c
+    V3_2a5fd0 wa8;                     // a8
+    V3_2a5fd0 wb4;                     // b4
+    V3_2a5fd0 wc0;                     // c0
+    V3_2a5fd0 wcc;                     // cc
+    V2_2a5fd0 *as_[4];                 // d8
 };
 
 void FUN_002a5fd0(float t, SrcMesh *a, DstMesh *b, unsigned int flags, Params *c)
 {
-    Frame f;
+    Frame_2a5fd0 f;
     f.tp = t * c->tscale;
     f.dstcur = 0;
-    V3 *dst0 = b->pos;
+    V3_2a5fd0 *dst0 = b->pos;
     f.Q = a->col;
     f.R = b->col;
     f.as_[0] = a->uv[0];
@@ -105,7 +105,7 @@ void FUN_002a5fd0(float t, SrcMesh *a, DstMesh *b, unsigned int flags, Params *c
     f.as_[3] = a->uv[3];
     f.bs[3] = b->uv[3];
     int n = a->n;
-    V3 *src0 = a->pos;
+    V3_2a5fd0 *src0 = a->pos;
     f.noise = FUN_003576d0();
     if (n == 0)
         return;
@@ -113,7 +113,7 @@ void FUN_002a5fd0(float t, SrcMesh *a, DstMesh *b, unsigned int flags, Params *c
     f.flags10 = flags & 0x10;
     f.dstcur = dst0 + n;
     f.qptr = (unsigned char *)f.Q + n * 4 + 1;
-    V3 *s = src0 + n;
+    V3_2a5fd0 *s = src0 + n;
     int i = n;
     float s2 = 0.0f;
     do {

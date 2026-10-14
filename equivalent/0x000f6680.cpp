@@ -2,36 +2,36 @@
 // FUN_000f6680 @ 0x000f6680
 extern "C" double sqrt(double);
 
-struct Mat;
+struct Mat_f6680;
 
-struct V3 {
+struct V3_f6680 {
     float x, y, z;
     void FUN_0022d180();
-    void FUN_0022d260(const Mat *m);
+    void FUN_0022d260(const Mat_f6680 *m);
 };
 
-struct Mat {
+struct Mat_f6680 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022baf0(const V3 *axis, float angle);
+    void FUN_0022baf0(const V3_f6680 *axis, float angle);
 };
 
-struct Obj {
+struct Obj_f6680 {
     char pad0[0xdc];
-    V3 b;
-    V3 a;
-    void FUN_00293a90(const V3 *v);
+    V3_f6680 b;
+    V3_f6680 a;
+    void FUN_00293a90(const V3_f6680 *v);
 };
 
 float FUN_00018a20(float x);
 
-void FUN_000f6680(Obj *p, float angle, float k)
+void FUN_000f6680(Obj_f6680 *p, float angle, float k)
 {
     struct Frame {
-        V3 a;
-        V3 b;
-        V3 c;
-        Mat m;
+        V3_f6680 a;
+        V3_f6680 b;
+        V3_f6680 c;
+        Mat_f6680 m;
     } f;
     f.a = p->a;
     f.b = p->b;

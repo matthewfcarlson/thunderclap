@@ -2,33 +2,33 @@
 // hulkfight::motion::SyncToLocatorAction::vfunc_5 @ 0x00175e00
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_175e00 {
     float x, y, z;
 };
 
-struct Xform {
+struct Xform_175e00 {
     char pad00[0x30];
-    V3 pos;
+    V3_175e00 pos;
     char pad3c[0x54 - 0x3c];
     float FUN_002220d0();
     void FUN_00221d20(float angle);
-    void FUN_0022be40(const V3* p);
+    void FUN_0022be40(const V3_175e00* p);
 };
 
-struct Joint {
+struct Joint_175e00 {
     char pad00[0x18];
-    Xform xf;
+    Xform_175e00 xf;
 };
 
-struct Timing {
+struct Timing_175e00 {
 };
 
-struct Clock {
-    Timing* FUN_00059a30();
+struct Clock_175e00 {
+    Timing_175e00* FUN_00059a30();
 };
 
-struct Target {
-    Clock* FUN_000592a0();
+struct Target_175e00 {
+    Clock_175e00* FUN_000592a0();
 };
 
 float __cdecl FUN_00224fc0(float from, float to);
@@ -42,13 +42,13 @@ public:
     virtual void v4();
     virtual bool vfunc_5(int skip, float dt);
     char pad04[0x20 - 4];
-    Target* owner;
+    Target_175e00* owner;
     char pad24[0x30 - 0x24];
-    Joint* joint;
+    Joint_175e00* joint;
     float targetAngle;
-    V3 goal;
+    V3_175e00 goal;
     float rate;
-    V3 vel;
+    V3_175e00 vel;
 };
 
 bool SyncToLocatorAction::vfunc_5(int skip, float dt)
@@ -76,18 +76,18 @@ bool SyncToLocatorAction::vfunc_5(int skip, float dt)
     else
         cur = cur - step;
     joint->xf.FUN_00221d20(cur);
-    V3 v = vel;
+    V3_175e00 v = vel;
     double xv = (double)v.x * dt;
     float yv = v.y * dt;
     float zv = v.z * dt;
-    Joint* j = joint;
-    V3 p = j->xf.pos;
+    Joint_175e00* j = joint;
+    V3_175e00 p = j->xf.pos;
     double dx = goal.x - p.x;
     double dy = goal.y - p.y;
     double dz = goal.z - p.z;
     double distGoal = sqrt(dz * dz + dy * dy + dx * dx);
     double distStep = sqrt(zv * zv + yv * yv + xv * xv);
-    V3 np;
+    V3_175e00 np;
     if (!(distStep >= distGoal)) {
         np.x = (float)(xv + p.x);
         np.y = p.y + yv;

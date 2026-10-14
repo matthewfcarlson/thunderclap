@@ -2,39 +2,39 @@
 // hulkfight::ai::TargetDirectionCondition::vfunc_6 @ 0x001260a0
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_1260a0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Anchor {
-    char FUN_00059a50(V3 *out);
+struct Anchor_1260a0 {
+    char FUN_00059a50(V3_1260a0 *out);
 };
 
-struct Target {
+struct Target_1260a0 {
     char pad0[0x40];
-    V3 pos;
+    V3_1260a0 pos;
     char pad4c[4];
-    V3 dir;
+    V3_1260a0 dir;
 };
 
-struct Fighter {
+struct Fighter_1260a0 {
     char pad0[0x10];
-    Anchor *anchor;
+    Anchor_1260a0 *anchor;
     char pad14[0x328 - 0x14];
-    Target *target;
+    Target_1260a0 *target;
 };
 
 struct Owner;
-struct Chain {
-    Fighter *FUN_00059a30();
+struct Chain_1260a0 {
+    Fighter_1260a0 *FUN_00059a30();
 };
 
 namespace fight {
 class Params {
 public:
     virtual void v0();
-    Chain *FUN_000592a0();
+    Chain_1260a0 *FUN_000592a0();
 };
 }
 
@@ -75,21 +75,21 @@ bool hulkfight::ai::TargetDirectionCondition::vfunc_6(int a, fight::Params *para
     CFightParams *fp = dynamic_cast<CFightParams *>(params);
     if (fp == 0)
         return 0;
-    Fighter *fighter = params->FUN_000592a0()->FUN_00059a30();
-    Target *target = fighter->target;
+    Fighter_1260a0 *fighter = params->FUN_000592a0()->FUN_00059a30();
+    Target_1260a0 *target = fighter->target;
     if (target == 0)
         return 0;
-    V3 pos;
+    V3_1260a0 pos;
     pos.x = 0.0f;
     pos.y = 0.0f;
     pos.z = 0.0f;
     fighter->anchor->FUN_00059a50(&pos);
-    V3 d;
+    V3_1260a0 d;
     d.x = pos.x - target->pos.x;
     d.y = pos.y - target->pos.y;
     d.z = pos.z - target->pos.z;
     d.FUN_0022d110();
-    V3 e = target->dir;
+    V3_1260a0 e = target->dir;
     e.FUN_0022d110();
     float dot = e.z * d.z + e.y * d.y + e.x * d.x;
     switch (op) {

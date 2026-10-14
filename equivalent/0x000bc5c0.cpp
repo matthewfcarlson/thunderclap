@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // FUN_000bc5c0 @ 0x000bc5c0
-struct Listener { void FUN_00093c40(int); };
-struct Player { void FUN_000895e0(int); void FUN_00089810(int); void FUN_000895c0(int); void FUN_00089300(const char*); void FUN_00089a20(int); };
+struct Listener_bc5c0 { void FUN_00093c40(int); };
+struct Player_bc5c0 { void FUN_000895e0(int); void FUN_00089810(int); void FUN_000895c0(int); void FUN_00089300(const char*); void FUN_00089a20(int); };
 extern int DAT_0049cab4;
 struct Object {
- char pad0[0x30]; void* resource; Player* player; char pad38[0x14]; Listener* listener;
+ char pad0[0x30]; void* resource; Player_bc5c0* player; char pad38[0x14]; Listener_bc5c0* listener;
  bool FUN_000b4dc0(const char*);
  bool FUN_000b4c10(int);
  int FUN_000b4cf0(int);

@@ -2,44 +2,44 @@
 // FUN_00025a90 @ 0x00025a90
 void *FUN_0008d690(unsigned int size);
 
-struct Name {
+struct Name_25a90 {
     int lo;
     int hi;
     void FUN_0027af00();
 };
 
-struct Entry {              // 0x68 bytes
+struct Entry_25a90 {              // 0x68 bytes
     char pad0[0x40];
-    Name nameA;             // 0x40
-    Name nameB;             // 0x48
+    Name_25a90 nameA;             // 0x40
+    Name_25a90 nameB;             // 0x48
     char pad50[0x68 - 0x50];
 };
 
-struct Pair {
+struct Pair_25a90 {
     int a;
     int b;
 };
 
-struct Slot {
+struct Slot_25a90 {
     char flag;
     char pad[0x1f];
 };
 
-struct Thing;
+struct Thing_25a90;
 
-struct Obj14 {
-    Obj14 *FUN_00047890(Thing *owner, int n);
+struct Obj14_25a90 {
+    Obj14_25a90 *FUN_00047890(Thing_25a90 *owner, int n);
 };
 
 struct Obj908 {
     Obj908 *FUN_00067ea0();
 };
 
-struct Registry {
+struct Registry_25a90 {
     void *FUN_00232840(unsigned int lo, unsigned int hi);
 };
 
-extern Registry *DAT_004e5af8;
+extern Registry_25a90 *DAT_004e5af8;
 extern const char *DAT_0048e060;
 extern const char *DAT_0048e064;
 extern const char *DAT_0048e068;
@@ -55,11 +55,11 @@ void __cdecl FUN_00074790(void *p);
 void __cdecl FUN_00056460(void *p);
 void __cdecl FUN_000749e0(void *p);
 // equiv-conv: FUN_00031310 ecx eax edi
-void FUN_00031310(Thing *t, int n, void *p);
+void FUN_00031310(Thing_25a90 *t, int n, void *p);
 
-struct Thing {
+struct Thing_25a90 {
     int f00;
-    Obj14 *f04;
+    Obj14_25a90 *f04;
     Obj908 *f08;
     int f0c;
     char pad10[0x50 - 0x10];
@@ -74,7 +74,7 @@ struct Thing {
     int f124;
     char f128;
     char pad129[0x228 - 0x129];
-    Pair pairs[32];         // 0x228
+    Pair_25a90 pairs[32];         // 0x228
     int f328;
     int f32c;
     char pad330[0x33c - 0x330];
@@ -101,15 +101,15 @@ struct Thing {
     char pad37c[0x580 - 0x37c];
     int f580;
     char pad584[0x590 - 0x584];
-    Entry entries[16];      // 0x590
-    Slot slots[9];
+    Entry_25a90 entries[16];      // 0x590
+    Slot_25a90 slots[9];
     unsigned int fd30;
     unsigned int fd34;
     unsigned int fd38;
-    Thing *FUN_00025a90();
+    Thing_25a90 *FUN_00025a90();
 };
 
-Thing *Thing::FUN_00025a90()
+Thing_25a90 *Thing_25a90::FUN_00025a90()
 {
     f00 = 0;
     f0c = 0;
@@ -148,7 +148,7 @@ Thing *Thing::FUN_00025a90()
 
     void *mem = FUN_0008d690(0x14);
     if (mem)
-        f04 = ((Obj14 *)mem)->FUN_00047890(this, 0x20);
+        f04 = ((Obj14_25a90 *)mem)->FUN_00047890(this, 0x20);
     else
         f04 = 0;
     mem = FUN_0008d690(0x908);
@@ -163,7 +163,7 @@ Thing *Thing::FUN_00025a90()
     }
     FUN_00232d70(FUN_00024120, 0);
 
-    Registry *reg = DAT_004e5af8;
+    Registry_25a90 *reg = DAT_004e5af8;
     if (reg) {
         unsigned __int64 h = FUN_002672f0(DAT_0048e060, 0, 0);
         void *p = reg->FUN_00232840((unsigned int)h, (unsigned int)(h >> 32));

@@ -12,7 +12,7 @@ public:
     virtual void SetParent(Drawable *parent);
 };
 
-struct Elem {
+struct Elem_2a4e40 {
     Drawable *obj;
     Drawable **begin;
     Drawable **end;
@@ -20,41 +20,41 @@ struct Elem {
     void FUN_002a4890();
 };
 
-struct ElemVec {
-    Elem *begin;
-    Elem *end;
-    bool FUN_002a4d10(unsigned int count, Elem *fill);
+struct ElemVec_2a4e40 {
+    Elem_2a4e40 *begin;
+    Elem_2a4e40 *end;
+    bool FUN_002a4d10(unsigned int count, Elem_2a4e40 *fill);
 };
 
-class __declspec(novtable) DrawableBase {
+class __declspec(novtable) DrawableBase_2a4e40 {
 public:
     virtual void b0();
     char pad04[0x3c];
-    void FUN_002a3530(const DrawableBase *src);
-    DrawableBase(const DrawableBase &src) { FUN_002a3530(&src); }
+    void FUN_002a3530(const DrawableBase_2a4e40 *src);
+    DrawableBase_2a4e40(const DrawableBase_2a4e40 &src) { FUN_002a3530(&src); }
 };
 
 namespace pure3d {
-class DrawableContainer : public DrawableBase {
+class DrawableContainer : public DrawableBase_2a4e40 {
 public:
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
     int f40;
     DrawableContainer *self;   // 0x44
-    ElemVec elems;             // 0x48
+    ElemVec_2a4e40 elems;             // 0x48
     DrawableContainer(const DrawableContainer &src);
 };
 }
 
 pure3d::DrawableContainer::DrawableContainer(const DrawableContainer &src)
-    : DrawableBase(src)
+    : DrawableBase_2a4e40(src)
 {
     f40 = src.f40;
     elems.begin = 0;
     elems.end = 0;
 
-    Elem fill;
+    Elem_2a4e40 fill;
     fill.obj = 0;
     fill.begin = 0;
     fill.end = 0;
@@ -66,18 +66,18 @@ pure3d::DrawableContainer::DrawableContainer(const DrawableContainer &src)
     if (count != 0) {
         unsigned int offset = 0;
         do {
-            Drawable *clone = ((Elem *)((char *)src.elems.begin + offset))->obj->Clone();
-            Elem *dst = (Elem *)((char *)elems.begin + offset);
+            Drawable *clone = ((Elem_2a4e40 *)((char *)src.elems.begin + offset))->obj->Clone();
+            Elem_2a4e40 *dst = (Elem_2a4e40 *)((char *)elems.begin + offset);
             if (clone != 0)
                 clone->AddRef();
             if (dst->obj != 0)
                 dst->obj->Release();
             dst->obj = clone;
 
-            Elem *se = (Elem *)((char *)src.elems.begin + offset);
+            Elem_2a4e40 *se = (Elem_2a4e40 *)((char *)src.elems.begin + offset);
             unsigned int m = se->end - se->begin;
             if (m != 0) {
-                Elem *de = (Elem *)((char *)elems.begin + offset);
+                Elem_2a4e40 *de = (Elem_2a4e40 *)((char *)elems.begin + offset);
                 if (de->begin == 0) {
                     Drawable **p = (Drawable **)FUN_0008d6d0(m * 4);
                     de->begin = p;
@@ -91,9 +91,9 @@ pure3d::DrawableContainer::DrawableContainer(const DrawableContainer &src)
                     }
                 }
                 for (unsigned int j = 0; j < m; j++) {
-                    Drawable *c2 = ((Elem *)((char *)src.elems.begin + offset))->begin[j]->Clone();
+                    Drawable *c2 = ((Elem_2a4e40 *)((char *)src.elems.begin + offset))->begin[j]->Clone();
                     c2->SetParent(clone);
-                    Drawable **slot = &((Elem *)((char *)elems.begin + offset))->begin[j];
+                    Drawable **slot = &((Elem_2a4e40 *)((char *)elems.begin + offset))->begin[j];
                     c2->AddRef();
                     if (*slot != 0)
                         (*slot)->Release();

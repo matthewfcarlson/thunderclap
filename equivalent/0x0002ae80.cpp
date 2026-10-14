@@ -1,52 +1,52 @@
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 81/82, incomplete)
 // FUN_0002ae80 @ 0x0002ae80
-struct Vec { float x,y,z; };
-struct Position { bool FUN_00059a50(Vec*); };
-struct Bounds { char pad[8]; unsigned char type; char pad2[7]; Vec center; float radius; float distance; };
-struct Actor {
- char p0[16]; Position* position; char p1[0x20b0-20]; int state; float timer;
- char p2[0x2144-0x20b8]; int active; char p3[0x22b8-0x2148]; Bounds bounds;
+struct Vec_2ae80 { float x,y,z; };
+struct Position_2ae80 { bool FUN_00059a50(Vec_2ae80*); };
+struct Bounds_2ae80 { char pad[8]; unsigned char type; char pad2[7]; Vec_2ae80 center; float radius; float distance; };
+struct Actor_2ae80 {
+ char p0[16]; Position_2ae80* position; char p1[0x20b0-20]; int state; float timer;
+ char p2[0x2144-0x20b8]; int active; char p3[0x22b8-0x2148]; Bounds_2ae80 bounds;
  void FUN_00042960(int,int); void FUN_000366d0(int,int); void FUN_000366f0(int,int); bool FUN_00037410();
 };
-struct Lookup { Actor* FUN_00059c10(int); };
-struct Mode { int FUN_001cc840(); void FUN_001cc620(int); };
-struct Owner { char p0[0x2c]; Mode* mode; char p1[0x44-0x30]; Lookup* lookup; };
-struct Events { void FUN_001e53d0(Actor*); };
+struct Lookup_2ae80 { Actor_2ae80* FUN_00059c10(int); };
+struct Mode_2ae80 { int FUN_001cc840(); void FUN_001cc620(int); };
+struct Owner_2ae80 { char p0[0x2c]; Mode_2ae80* mode; char p1[0x44-0x30]; Lookup_2ae80* lookup; };
+struct Events_2ae80 { void FUN_001e53d0(Actor_2ae80*); };
 struct LevelData { int FUN_00088fa0(); int FUN_00088fb0(); };
-struct Level { char p[0x80]; LevelData data; };
-struct Levels { Level* FUN_00086310(); };
-struct Game { char p[12]; Events* events; char p2[0x54-16]; Levels* levels; };
-extern Game* DAT_004dd700;
-struct Debug { void FUN_0023f7b0(Vec*,Vec*,unsigned,int); void FUN_0023f7d0(Vec*,unsigned,float,int); };
-extern Debug* DAT_004dd6e8;
-struct Manager {
- Owner* owner; char p0[8]; int count; int ids[17]; int flags[16]; int values[19]; int blocked[17]; Actor* mainActor;
- char p1[0x353-0x128]; unsigned char debugLine; Vec start,end; unsigned char debugSphere; char p2[3]; Vec sphere;
+struct Level_2ae80 { char p[0x80]; LevelData data; };
+struct Levels { Level_2ae80* FUN_00086310(); };
+struct Game_2ae80 { char p[12]; Events_2ae80* events; char p2[0x54-16]; Levels* levels; };
+extern Game_2ae80* DAT_004dd700;
+struct Debug_2ae80 { void FUN_0023f7b0(Vec_2ae80*,Vec_2ae80*,unsigned,int); void FUN_0023f7d0(Vec_2ae80*,unsigned,float,int); };
+extern Debug_2ae80* DAT_004dd6e8;
+struct Manager_2ae80 {
+ Owner_2ae80* owner; char p0[8]; int count; int ids[17]; int flags[16]; int values[19]; int blocked[17]; Actor_2ae80* mainActor;
+ char p1[0x353-0x128]; unsigned char debugLine; Vec_2ae80 start,end; unsigned char debugSphere; char p2[3]; Vec_2ae80 sphere;
  void FUN_00025750(); void FUN_0002a4b0(int,int); void FUN_00025110(float); void FUN_000245b0(); void target(int arg,float dt);
 };
-void Manager::target(int arg,float dt) {
+void Manager_2ae80::target(int arg,float dt) {
  for(int i=0;i<count;++i) {
   if((flags[i]&1)&&blocked[i]==0) {
-   Actor* a=owner->lookup->FUN_00059c10(ids[i]);
+   Actor_2ae80* a=owner->lookup->FUN_00059c10(ids[i]);
    if(a) a->FUN_00042960(arg,values[i]);
   }
  }
  for(int i=0;i<count;++i) {
   if((flags[i]&1)&&blocked[i]==0) {
-   Actor* a=owner->lookup->FUN_00059c10(ids[i]);
+   Actor_2ae80* a=owner->lookup->FUN_00059c10(ids[i]);
    if(a) a->FUN_000366d0(arg,values[i]);
   }
  }
  for(int i=0;i<count;++i) {
   if((flags[i]&1)&&blocked[i]==0) {
-   Actor* a=owner->lookup->FUN_00059c10(ids[i]);
+   Actor_2ae80* a=owner->lookup->FUN_00059c10(ids[i]);
    if(a) a->FUN_000366f0(arg,values[i]);
   }
  }
  FUN_00025750();
- Actor* main=mainActor;
+ Actor_2ae80* main=mainActor;
  for(int i=count-1;i>=0;--i) {
-  Actor* a=owner->lookup->FUN_00059c10(ids[i]);
+  Actor_2ae80* a=owner->lookup->FUN_00059c10(ids[i]);
   if(a) {
    if(a->FUN_00037410()) { FUN_0002a4b0(i,1); continue; }
    if(a->state==1) {
@@ -57,7 +57,7 @@ void Manager::target(int arg,float dt) {
     continue;
    }
   }
-  Vec pos;
+  Vec_2ae80 pos;
   if(!a->position->FUN_00059a50(&pos)) continue;
   float limit=-50.0f;
   if(DAT_004dd700->levels->FUN_00086310()->data.FUN_00088fa0()==10 &&
@@ -65,15 +65,15 @@ void Manager::target(int arg,float dt) {
   if(pos.y<=limit) {
    if(a!=main) FUN_0002a4b0(i,1);
    else {
-    Mode* m=owner->mode;
+    Mode_2ae80* m=owner->mode;
     int mode=m->FUN_001cc840();
     if(mode!=2&&mode!=5) m->FUN_001cc620(2);
    }
    continue;
   }
   if(a==main) continue;
-  Vec player;
-  Bounds* b=&a->bounds;
+  Vec_2ae80 player;
+  Bounds_2ae80* b=&a->bounds;
   if(!main->position->FUN_00059a50(&player) || !b) continue;
   double x=(double)player.x-b->center.x;
   double y=(double)player.y-b->center.y;

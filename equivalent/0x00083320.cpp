@@ -1,24 +1,24 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 30/34, incomplete)
 // FUN_00083320 @ 0x00083320
-struct Vec3 {
+struct Vec3_83320 {
     float x, y, z;
-    void FUN_00011220(Vec3* delta);
+    void FUN_00011220(Vec3_83320* delta);
 };
 
 // 4x4 transform; the last row is the translation
-struct Xform {
+struct Xform_83320 {
     float rot[12];
-    Vec3 pos;
+    Vec3_83320 pos;
     float w;
 };
 
-struct Part {
+struct Part_83320 {
     char pad00[0x6c];
     int f6c;
     void FUN_002ef8b0(int a);
 };
 
-class Body {
+class Body_83320 {
 public:
     virtual void v0();
     virtual void v1();
@@ -35,29 +35,29 @@ public:
     virtual void v12();
     virtual void v13();
     virtual void v14();
-    virtual Xform* GetXform();      // slot 15
-    Part* FUN_001d72e0();
+    virtual Xform_83320* GetXform();      // slot 15
+    Part_83320* FUN_001d72e0();
     void FUN_001d7510();
-    void FUN_001d6b60(Xform pose, int flag);
+    void FUN_001d6b60(Xform_83320 pose, int flag);
 };
 
-struct Registry {
-    Body* FUN_001dc0d0(int id);
+struct Registry_83320 {
+    Body_83320* FUN_001dc0d0(int id);
 };
 
 struct World {
     char pad00[0xc];
-    Registry* registry;             // 0x0c
+    Registry_83320* registry;             // 0x0c
 };
 
 extern World* DAT_004dd700;
 
 // equiv-conv: FUN_00082d30 esi
-void FUN_00082d30(Xform* pose);
+void FUN_00082d30(Xform_83320* pose);
 
-class Mover {
+class Mover_83320 {
 public:
-    void FUN_00083320(Vec3* anchor, Vec3* dir, float scale, char airborne, int unused, char forced);
+    void FUN_00083320(Vec3_83320* anchor, Vec3_83320* dir, float scale, char airborne, int unused, char forced);
 
     char pad00[0x10];
     int id;                         // 0x10
@@ -68,15 +68,15 @@ public:
     float f20;
     float f24;
     int f28;
-    Vec3 vel;                       // 0x2c
+    Vec3_83320 vel;                       // 0x2c
 };
 
-void Mover::FUN_00083320(Vec3* anchor, Vec3* dir, float scale, char airborne, int unused, char forced)
+void Mover_83320::FUN_00083320(Vec3_83320* anchor, Vec3_83320* dir, float scale, char airborne, int unused, char forced)
 {
     b1c = 1;
     f28 = 0;
-    Body* body = DAT_004dd700->registry->FUN_001dc0d0(id);
-    Xform pose = *body->GetXform();
+    Body_83320* body = DAT_004dd700->registry->FUN_001dc0d0(id);
+    Xform_83320 pose = *body->GetXform();
 
     bool grounded = false;
     if (!forced) {
@@ -96,7 +96,7 @@ void Mover::FUN_00083320(Vec3* anchor, Vec3* dir, float scale, char airborne, in
         switch (state) {
         case 2:
             if (!grounded) {
-                Vec3 v;
+                Vec3_83320 v;
                 v.x = -(scale * dir->x);
                 v.y = 0.0f;
                 v.z = -(scale * dir->z);
@@ -107,7 +107,7 @@ void Mover::FUN_00083320(Vec3* anchor, Vec3* dir, float scale, char airborne, in
             break;
         case 3:
             if (!grounded) {
-                Vec3 v;
+                Vec3_83320 v;
                 v.x = -(scale * dir->x);
                 v.y = 0.0f;
                 v.z = -(scale * dir->z);
@@ -116,7 +116,7 @@ void Mover::FUN_00083320(Vec3* anchor, Vec3* dir, float scale, char airborne, in
             break;
         case 4:
             if (!grounded && vel.y * dir->y + vel.z * dir->z + dir->x * vel.x < 0.0f) {
-                Vec3 v;
+                Vec3_83320 v;
                 v.x = -(scale * dir->x);
                 v.y = 0.0f;
                 v.z = -(scale * dir->z);

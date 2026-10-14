@@ -2,7 +2,7 @@
 // FUN_001f4c50 @ 0x001f4c50
 typedef unsigned __int64 ID;
 
-struct Name {
+struct Name_1f4c50 {
     unsigned int lo, hi;
     void FUN_0027b0e0(const char *s);
     void FUN_0027af50();
@@ -15,7 +15,7 @@ extern float DAT_004c7df0;
 extern float DAT_004c7df4;
 extern float DAT_004c7df8;
 
-struct Voice {
+struct Voice_1f4c50 {
     char pad0[4];
     void *f4;               // 0x04
     char pad8[0x1d - 8];
@@ -27,51 +27,51 @@ struct Mixer {
     void *FUN_001e98b0(ID *id);
 };
 
-struct V3 {
+struct V3_1f4c50 {
     float x, y, z;
     void Set(float a, float b, float c) { x = a; y = b; z = c; }
 };
 
-struct Props {
+struct Props_1f4c50 {
     char pad0[0x30];
-    V3 v30;                 // 0x30
+    V3_1f4c50 v30;                 // 0x30
     float f3c;              // 0x3c
     int f40, f44;           // 0x40
-    V3 v48;                 // 0x48
+    V3_1f4c50 v48;                 // 0x48
     char pad54[0x74 - 0x54];
     int f74;                // 0x74
 };
 
-class Sound {
+class Sound_1f4c50 {
 public:
     char pad0[8];
-    Voice *v8;              // 0x08
-    Voice *vc;              // 0x0c
-    Voice *v10;             // 0x10
-    Voice *v14;             // 0x14
-    Voice *v18;             // 0x18
+    Voice_1f4c50 *v8;              // 0x08
+    Voice_1f4c50 *vc;              // 0x0c
+    Voice_1f4c50 *v10;             // 0x10
+    Voice_1f4c50 *v14;             // 0x14
+    Voice_1f4c50 *v18;             // 0x18
     char pad1c[0x88 - 0x1c];
     int f88;                // 0x88
-    Voice *v8c;             // 0x8c
+    Voice_1f4c50 *v8c;             // 0x8c
     int f90;                // 0x90
     char f94;               // 0x94
     char pad95[0xc0 - 0x95];
-    Voice *vc0;             // 0xc0
-    Voice *vc4;             // 0xc4
-    Voice *vc8;             // 0xc8
-    Voice *vcc;             // 0xcc
+    Voice_1f4c50 *vc0;             // 0xc0
+    Voice_1f4c50 *vc4;             // 0xc4
+    Voice_1f4c50 *vc8;             // 0xc8
+    Voice_1f4c50 *vcc;             // 0xcc
     char padd0[0x328 - 0xd0];
-    Props *props;           // 0x328
+    Props_1f4c50 *props;           // 0x328
     char pad32c[0x334 - 0x32c];
     float volume;           // 0x334
     Mixer *mixer;           // 0x338
-    Props *FUN_001f4010(Name *a, Name *b, int c);
+    Props_1f4c50 *FUN_001f4010(Name_1f4c50 *a, Name_1f4c50 *b, int c);
     void FUN_001f4c50();
 };
 
-void Sound::FUN_001f4c50()
+void Sound_1f4c50::FUN_001f4c50()
 {
-    Name nm;
+    Name_1f4c50 nm;
     nm.FUN_0027b0e0("vo_camera");
     props = FUN_001f4010(&nm, &nm, 0);
     if (props != 0) {

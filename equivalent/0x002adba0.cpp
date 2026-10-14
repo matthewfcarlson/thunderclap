@@ -3,7 +3,7 @@
 struct png_struct;
 struct png_info;
 
-class ImageSink {
+class ImageSink_2adba0 {
 public:
     virtual void begin(unsigned int width, unsigned int height, int bitDepth, int flags, unsigned int *palette);
     virtual void v1();
@@ -40,18 +40,18 @@ void __cdecl FUN_002d73f0(png_struct *png, png_info *info);
 void __cdecl FUN_002d6ed0(png_struct *png, png_info **info);
 
 // equiv-conv: FUN_002ad820 eax stack stack
-void FUN_002ad820(png_info *info, png_struct *png, ImageSink *sink);
+void FUN_002ad820(png_info *info, png_struct *png, ImageSink_2adba0 *sink);
 // equiv-conv: FUN_002ad9d0 esi eax ebx
-void FUN_002ad9d0(png_struct *png, png_info *info, ImageSink *sink);
+void FUN_002ad9d0(png_struct *png, png_info *info, ImageSink_2adba0 *sink);
 // equiv-conv: FUN_002adb10 esi eax edi
-void FUN_002adb10(png_struct *png, png_info *info, ImageSink *sink);
+void FUN_002adb10(png_struct *png, png_info *info, ImageSink_2adba0 *sink);
 
 class PNGHandler {
 public:
-    void FUN_002adba0(void *io, ImageSink *sink);
+    void FUN_002adba0(void *io, ImageSink_2adba0 *sink);
 };
 
-void PNGHandler::FUN_002adba0(void *io, ImageSink *sink)
+void PNGHandler::FUN_002adba0(void *io, ImageSink_2adba0 *sink)
 {
     struct Frame {
         png_struct *png;

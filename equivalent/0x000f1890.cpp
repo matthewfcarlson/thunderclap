@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_000f1890 @ 0x000f1890
-class Curve {
+class Curve_f1890 {
 public:
     virtual void v0();
     virtual float v1(int a, int b);
 };
 
-class Sink { public: void FUN_000f8b00(float v); };
+class Sink_f1890 { public: void FUN_000f8b00(float v); };
 
-class Mode {
+class Mode_f1890 {
 public:
     virtual void v0();
 };
 
-class C {
+class C_f1890 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -29,17 +29,17 @@ public:
     virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47();
     virtual void v48(int mode);
     char pad[0x182c - 4];
-    Curve *curve;
+    Curve_f1890 *curve;
 };
 
 
-class B { public: char pad[4]; C *c; };
-class A { public: char pad[8]; B *b; };
+class B_f1890 { public: char pad[4]; C_f1890 *c; };
+class A_f1890 { public: char pad[8]; B_f1890 *b; };
 
-class Slider {
+class Slider_f1890 {
 public:
     char pad0[0x14];
-    A *a;
+    A_f1890 *a;
     char pad18[0x150 - 0x18];
     float value;
     int state;
@@ -51,12 +51,12 @@ public:
     int curveArg1;
     float rate;
     char pad17c[4];
-    Sink *sink;
+    Sink_f1890 *sink;
     void FUN_000e9e60();
     void FUN_000f1890(float dt);
 };
 
-void Slider::FUN_000f1890(float dt)
+void Slider_f1890::FUN_000f1890(float dt)
 {
     state = 2;
     float x = a->b->c->curve->v1(curveArg0, curveArg1);

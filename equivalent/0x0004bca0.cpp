@@ -1,23 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 14/16, incomplete)
 // CGroundDistanceCondition::vfunc_7 @ 0x0004bca0
-struct Vec3 { float x, y, z; };
+struct Vec3_4bca0 { float x, y, z; };
 
-struct Fighter {
+struct Fighter_4bca0 {
     char pad0[0x18];
-    struct Body *body;
-    char FUN_00059a50(Vec3 *out);
+    struct Body_4bca0 *body;
+    char FUN_00059a50(Vec3_4bca0 *out);
 };
-struct Body { char pad[0x40]; Vec3 pos; };
+struct Body_4bca0 { char pad[0x40]; Vec3_4bca0 pos; };
 
-struct Actor {
+struct Actor_4bca0 {
     char pad[0x1a39];
     char grounded;
     char pad1a3a[0x1a48 - 0x1a3a];
-    Vec3 groundPos;
+    Vec3_4bca0 groundPos;
 };
 
-Fighter *__fastcall FUN_000592a0(void *owner);
-Actor *__fastcall FUN_00059a30(Fighter *f);
+Fighter_4bca0 *__fastcall FUN_000592a0(void *owner);
+Actor_4bca0 *__fastcall FUN_00059a30(Fighter_4bca0 *f);
 int __cdecl FUN_00018960(float a, float b, float c);
 
 class CGroundDistanceCondition {
@@ -37,14 +37,14 @@ public:
 
 char CGroundDistanceCondition::vfunc_7(void *owner)
 {
-    Fighter *fighter = FUN_000592a0(owner);
-    Actor *actor = FUN_00059a30(fighter);
-    Vec3 pos;
+    Fighter_4bca0 *fighter = FUN_000592a0(owner);
+    Actor_4bca0 *actor = FUN_00059a30(fighter);
+    Vec3_4bca0 pos;
     pos.x = 0.0f;
     pos.y = 0.0f;
     pos.z = 0.0f;
     fighter->FUN_00059a50(&pos);
-    Vec3 ground = actor->groundPos;
+    Vec3_4bca0 ground = actor->groundPos;
     float floorY;
     if (actor->grounded)
         floorY = ground.y;

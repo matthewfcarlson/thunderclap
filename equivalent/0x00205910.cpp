@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_00205910 @ 0x00205910
-struct Resource {
+struct Resource_205910 {
  virtual void init();
  virtual void release();
- Resource* FUN_00266480(int);
+ Resource_205910* FUN_00266480(int);
 };
 extern "C" void* __cdecl FUN_00263ea0(unsigned int);
 extern "C" int __cdecl FUN_00266da0(int);
@@ -18,7 +18,7 @@ struct Texture {
 };
 struct Object {
  char pad0[0x44];
- Resource* resource;
+ Resource_205910* resource;
  char pad1[0x4f8-0x48];
  Texture textures[2];
  char pad2[0xaf4-0x570];
@@ -27,8 +27,8 @@ struct Object {
  void target();
 };
 void Object::target() {
- Resource* memory = (Resource*)FUN_00263ea0(0x14);
- Resource* replacement = memory ? memory->FUN_00266480(0x400) : 0;
+ Resource_205910* memory = (Resource_205910*)FUN_00263ea0(0x14);
+ Resource_205910* replacement = memory ? memory->FUN_00266480(0x400) : 0;
  if (replacement) replacement->init();
  if (resource) resource->release();
  resource = replacement;

@@ -8,7 +8,7 @@ struct Matrix {
 struct Curve;
 struct Ctx;
 
-struct Key {
+struct Key_2d50c0 {
     const Curve *c[0x13];
 };
 
@@ -37,7 +37,7 @@ float __cdecl FUN_0028b150(const Curve *a, const Curve *b, int t, Ctx *ctx);
 unsigned int *__cdecl FUN_0028b2f0(unsigned int *out, const Curve *a, const Curve *b, int t, Ctx *ctx);
 unsigned char __cdecl FUN_0028b100(const Curve *a, const Curve *b, int t, Ctx *ctx);
 
-class Blend {
+class Blend_2d50c0 {
 public:
     char pad0[8];
     Matrix mat;             // 0x08
@@ -56,10 +56,10 @@ public:
     unsigned int f10c;
     unsigned char f110, f111;
 
-    void FUN_002d50c0(Ctx *ctx, const Key *a, const Key *b, int t, const void *xform);
+    void FUN_002d50c0(Ctx *ctx, const Key_2d50c0 *a, const Key_2d50c0 *b, int t, const void *xform);
 };
 
-void Blend::FUN_002d50c0(Ctx *ctx, const Key *a, const Key *b, int t, const void *xform)
+void Blend_2d50c0::FUN_002d50c0(Ctx *ctx, const Key_2d50c0 *a, const Key_2d50c0 *b, int t, const void *xform)
 {
     sink88->v4(ctx, f78);
     sink8c->v6(ctx, f48);

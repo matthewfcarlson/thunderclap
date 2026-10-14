@@ -3,33 +3,33 @@
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int DAT_004d9968;
 
-class Settings {
+class Settings_1b5da0 {
 public:
     unsigned char FUN_0023f760(const char *name, int a, int b);
 };
 
-class Input {
+class Input_1b5da0 {
 public:
     unsigned char FUN_00092940(int button);
 };
 
-class Display {
+class Display_1b5da0 {
 public:
     char pad0[0x54];
-    Input *input;
+    Input_1b5da0 *input;
 };
 
-class Pad {
+class Pad_1b5da0 {
 public:
-    Input *FUN_00086340();
+    Input_1b5da0 *FUN_00086340();
 };
 
-class Gravity {
+class Gravity_1b5da0 {
 public:
     void FUN_002ece90(float x, float y, float z);
 };
 
-class Anim {
+class Anim_1b5da0 {
 public:
     void FUN_002eea80();
     void FUN_002ed6e0(int t);
@@ -40,32 +40,32 @@ public:
     void FUN_002f9660();
 };
 
-struct Globals {
+struct Globals_1b5da0 {
     char pad0[0x54];
-    Pad *pad;
+    Pad_1b5da0 *pad;
 };
 
-extern Settings *DAT_004dd6e8;
-extern Globals *DAT_004dd700;
-extern Gravity *DAT_00554c10;
+extern Settings_1b5da0 *DAT_004dd6e8;
+extern Globals_1b5da0 *DAT_004dd700;
+extern Gravity_1b5da0 *DAT_00554c10;
 extern Timer DAT_0055545c;
 
-class Physics {
+class Physics_1b5da0 {
 public:
     void FUN_001b5da0(int a, int b);
     void FUN_001b4d00(int a, int b);
 
     char pad0[8];
-    Anim *anim;
+    Anim_1b5da0 *anim;
     char pad1[0x5a8 - 0xc];
     float gravityY;
 };
 
-void Physics::FUN_001b5da0(int a, int b)
+void Physics_1b5da0::FUN_001b5da0(int a, int b)
 {
     unsigned int cookie = DAT_004d9968;
     if (DAT_004dd6e8->FUN_0023f760("DoPhysics", 0x66, 1)) {
-        Input *input = DAT_004dd700->pad->FUN_00086340();
+        Input_1b5da0 *input = DAT_004dd700->pad->FUN_00086340();
         union { float f; unsigned int u; } d;
         bool set = false;
         if (input->FUN_00092940(0x13)) {

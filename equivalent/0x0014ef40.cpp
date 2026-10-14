@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 343 inputs, branch coverage 14/14)
 // hulkfight::motion::HitPauseAction::vfunc_3 @ 0x0014ef40
-struct Fighter {
+struct Fighter_14ef40 {
     char pad[4];
 };
-Fighter *__fastcall FUN_000592a0(void *owner);
+Fighter_14ef40 *__fastcall FUN_000592a0(void *owner);
 
-struct Key {
+struct Key_14ef40 {
     char pad00[0x10];
     unsigned int lo;
     unsigned int hi;
@@ -15,28 +15,28 @@ struct Pausable {
     void FUN_00035b70(int zero, unsigned int lo, unsigned int hi);
 };
 
-struct Attached {
+struct Attached_14ef40 {
     char pad00[0x148];
     Pausable *pausable148;
 };
 
-struct Slot {
+struct Slot_14ef40 {
     char pad00[8];
     Pausable *direct;
     int kind;
 };
 struct SlotHolder {
     char pad00[8];
-    Attached *attached;
+    Attached_14ef40 *attached;
     int kind;
 };
 
-struct Stats {
+struct Stats_14ef40 {
     char pad00[0x200];
     SlotHolder *slots[64];
     int slotCount;
 };
-Stats *__fastcall FUN_00059a30(Fighter *f);
+Stats_14ef40 *__fastcall FUN_00059a30(Fighter_14ef40 *f);
 
 class Action {
 public:
@@ -50,14 +50,14 @@ class HitPauseAction {
 public:
     virtual void vfunc_0();
     char pad04[0x18];
-    Key *key;
+    Key_14ef40 *key;
     void *owner;
     bool vfunc_3(int a, int b);
 };
 
 bool HitPauseAction::vfunc_3(int a, int b)
 {
-    Stats *stats = FUN_00059a30(FUN_000592a0(owner));
+    Stats_14ef40 *stats = FUN_00059a30(FUN_000592a0(owner));
     int count = stats->slotCount;
     if (count > 0) {
         unsigned int lo = key->lo;

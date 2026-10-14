@@ -16,7 +16,7 @@ struct Journal {
     bool FUN_00092860(const void* key);
 };
 
-struct Entry {
+struct Entry_b7860 {
     char pad0[0x34];
     char key[1];
 };
@@ -28,10 +28,10 @@ class FileLock {
 public:
     char pad0[0x4c];
     Journal* journal;
-    void FUN_000b7860(Entry* entry);
+    void FUN_000b7860(Entry_b7860* entry);
 };
 
-void FileLock::FUN_000b7860(Entry* entry) {
+void FileLock::FUN_000b7860(Entry_b7860* entry) {
     if (!journal)
         return;
     TextLabel* text = dynamic_cast<TextLabel*>(FUN_000fc260("blonsky_file_lock_label"));

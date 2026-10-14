@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 14/14)
 // FUN_00295520 @ 0x00295520
-struct Resource {
+struct Resource_295520 {
     virtual void unused();
     virtual void release();
 };
@@ -14,9 +14,9 @@ namespace pure3d {
 struct TextureFont {
     virtual ~TextureFont();
     char padding[0x24];
-    Resource* resource;
+    Resource_295520* resource;
     unsigned resourceCount;
-    Resource** resources;
+    Resource_295520** resources;
     char padding34[8];
     FontEntry* entries;
     void* allocation;
@@ -28,7 +28,7 @@ TextureFont::~TextureFont() {
         resource = 0;
     }
     for (unsigned i = 0; i < resourceCount; ++i) {
-        Resource** slot = resources + i;
+        Resource_295520** slot = resources + i;
         if (*slot) {
             (*slot)->release();
             *slot = 0;

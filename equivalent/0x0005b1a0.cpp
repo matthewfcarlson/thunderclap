@@ -10,19 +10,19 @@ public:
 class CFightParams : public fight::Params {
 public:
     virtual void v1();
-    struct Table *FUN_000592a0();
+    struct Table_5b1a0 *FUN_000592a0();
 };
 
 struct Skeleton {
     int FUN_0027b200();
 };
 
-struct Binding {
+struct Binding_5b1a0 {
     Skeleton *FUN_002226b0(int a, int b);
 };
 
-struct Table {
-    Binding *FUN_00059a40();
+struct Table_5b1a0 {
+    Binding_5b1a0 *FUN_00059a40();
 };
 
 class GrabAction;
@@ -57,8 +57,8 @@ GrabAction *CGrabTrack::vfunc_10(int a1, int a2, fight::Params *params)
     CFightParams *fp = dynamic_cast<CFightParams *>(params);
     if (fp == 0)
         return 0;
-    Table *table = fp->FUN_000592a0();
-    Binding *binding = table->FUN_00059a40();
+    Table_5b1a0 *table = fp->FUN_000592a0();
+    Binding_5b1a0 *binding = table->FUN_00059a40();
     if (binding == 0)
         return 0;
     int index = binding->FUN_002226b0(key0, key1)->FUN_0027b200();

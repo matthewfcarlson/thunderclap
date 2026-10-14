@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 41 inputs, branch coverage 24/24)
 // FUN_000dc810 @ 0x000dc810
-struct Vec3 {
+struct Vec3_dc810 {
     float x, y, z;
 };
 
@@ -13,8 +13,8 @@ public:
     int count;                // 0x150
     int used;                 // 0x154
     char *flags;              // 0x158
-    Vec3 *positions;          // 0x15c
-    Vec3 *velocities;         // 0x160
+    Vec3_dc810 *positions;          // 0x15c
+    Vec3_dc810 *velocities;         // 0x160
     void **links0;            // 0x164
     void **links1;            // 0x168
     int *ids;                 // 0x16c
@@ -64,8 +64,8 @@ void ParticleBuffers::FUN_000dc810(int newCount)
 
     flags = (char *)FUN_0008d6d0(count + 1);
     flags[0] = 0;
-    positions = (Vec3 *)FUN_0008d6d0(count * 12);
-    velocities = (Vec3 *)FUN_0008d6d0(count * 12);
+    positions = (Vec3_dc810 *)FUN_0008d6d0(count * 12);
+    velocities = (Vec3_dc810 *)FUN_0008d6d0(count * 12);
     links0 = (void **)FUN_0008d6d0(count * 4);
     links1 = (void **)FUN_0008d6d0(count * 4);
     ids = (int *)FUN_0008d6d0(count * 4);

@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 22/22)
 // FUN_00282a10 @ 0x00282a10
-union Word {
+union Word_282a10 {
     float f;
     unsigned int u;
 };
 
 // Both the destination (this) and the source are the same buffer type, so the compiler
 // must treat them as possibly overlapping, as the original does.
-struct VertexBuf {
-    Word w[0x31];          // 12 xyz triples at 0, copied words at 0x12 + 3*i, reference point at 0x24..0x26, color at 0x30
+struct VertexBuf_282a10 {
+    Word_282a10 w[0x31];          // 12 xyz triples at 0, copied words at 0x12 + 3*i, reference point at 0x24..0x26, color at 0x30
 
-    void Blend(VertexBuf *src, int count, float a3, float a4, float a5, float a6, float a7, float a8);
+    void Blend(VertexBuf_282a10 *src, int count, float a3, float a4, float a5, float a6, float a7, float a8);
 };
 
-void VertexBuf::Blend(VertexBuf *src, int count, float a3, float a4, float a5, float a6, float a7, float a8)
+void VertexBuf_282a10::Blend(VertexBuf_282a10 *src, int count, float a3, float a4, float a5, float a6, float a7, float a8)
 {
     double t = 1.0f - (double)a3 * a6;
     if (!(t > 0.0f))

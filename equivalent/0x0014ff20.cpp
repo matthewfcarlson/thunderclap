@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // hulkfight::motion::HealthAction::vfunc_3 @ 0x0014ff20
-struct Stats {
+struct Stats_14ff20 {
     char pad0[0x1b0c];
     float offset;       // 0x1b0c
     void FUN_0003b1c0(float value, int flag);
 };
 
-struct Info {
+struct Info_14ff20 {
     char pad0[0x10];
     float value;        // 0x10
     char negate;        // 0x14
@@ -16,7 +16,7 @@ struct Info {
 
 class Owner;
 Owner *__fastcall FUN_000592a0(Owner *owner);
-Stats *__fastcall FUN_00059a30(Owner *ctx);
+Stats_14ff20 *__fastcall FUN_00059a30(Owner *ctx);
 
 namespace hulkfight {
 namespace motion {
@@ -28,7 +28,7 @@ public:
     virtual void vfunc_2();
     virtual bool vfunc_3(int a, int b);
     char pad04[0x18];
-    Info *info;     // 0x1c
+    Info_14ff20 *info;     // 0x1c
     Owner *owner;   // 0x20
 };
 
@@ -36,7 +36,7 @@ bool HealthAction::vfunc_3(int a, int b)
 {
     if (owner == 0)
         return false;
-    Stats *stats = FUN_00059a30(FUN_000592a0(owner));
+    Stats_14ff20 *stats = FUN_00059a30(FUN_000592a0(owner));
     if (stats == 0)
         return false;
     int flag = info->negate != 0;

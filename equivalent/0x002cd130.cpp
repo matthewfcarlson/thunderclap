@@ -1,62 +1,62 @@
 // STATUS: equivalent (tools/equiv.py level 3: 562 inputs, branch coverage 322/376, incomplete)
 // FUN_002cd130 @ 0x002cd130
-struct Vec2 { float x, y; };
-struct Vec3 { float x, y, z; };
+struct Vec2_2cd130 { float x, y; };
+struct Vec3_2cd130 { float x, y, z; };
 
-struct Blend {
+struct Blend_2cd130 {
     char pad00[0x10];
-    Vec3* q0;
-    Vec3* q1;
-    Vec2* r0;
-    Vec2* r1;
-    Vec2* r2;
-    Vec2* r3;
+    Vec3_2cd130* q0;
+    Vec3_2cd130* q1;
+    Vec2_2cd130* r0;
+    Vec2_2cd130* r1;
+    Vec2_2cd130* r2;
+    Vec2_2cd130* r3;
     short* d0;
     short* d1;
 };
 
-struct Source {
+struct Source_2cd130 {
     char pad00[8];
     unsigned flags;
     char pad0c[4];
     unsigned count;
     unsigned short* index;
-    Vec3* p0;
-    Vec3* p1;
-    Vec3* p2;
-    Vec3* p3;
-    Vec3* t0;
-    Vec3* t1;
-    Vec3* t2;
-    Vec3* t3;
-    Vec2* s0;
-    Vec2* s1;
-    Vec2* s2;
-    Vec2* s3;
+    Vec3_2cd130* p0;
+    Vec3_2cd130* p1;
+    Vec3_2cd130* p2;
+    Vec3_2cd130* p3;
+    Vec3_2cd130* t0;
+    Vec3_2cd130* t1;
+    Vec3_2cd130* t2;
+    Vec3_2cd130* t3;
+    Vec2_2cd130* s0;
+    Vec2_2cd130* s1;
+    Vec2_2cd130* s2;
+    Vec2_2cd130* s3;
     unsigned* col0;
     unsigned* col1;
     char pad50[8];
-    Blend* blend;
+    Blend_2cd130* blend;
 };
 
-struct VertexSink {
-    virtual void SetPos(Vec3 v);
-    virtual void SetNormal(Vec3 v);
-    virtual void SetExtra0(Vec3 v);
-    virtual void SetExtra1(Vec3 v);
+struct VertexSink_2cd130 {
+    virtual void SetPos(Vec3_2cd130 v);
+    virtual void SetNormal(Vec3_2cd130 v);
+    virtual void SetExtra0(Vec3_2cd130 v);
+    virtual void SetExtra1(Vec3_2cd130 v);
     virtual void SetColor(unsigned c, int k);
     virtual void vf5();
-    virtual void SetUv(Vec2 uv, int k);
+    virtual void SetUv(Vec2_2cd130 uv, int k);
     virtual void vf7();
     virtual void vf8();
     virtual void vf9();
     virtual void vf10();
     virtual void vf11();
-    virtual void SetPosNormalUv(Vec3* pos, Vec3* normal, Vec2* uv);
-    virtual void SetPosColorUv(Vec3* pos, unsigned color, Vec2* uv);
-    virtual void SetPosUv(Vec3* pos, Vec2* uv);
-    virtual void SetPosNormal(Vec3* pos, Vec3* normal);
-    virtual void SetPosColor(Vec3* pos, unsigned color);
+    virtual void SetPosNormalUv(Vec3_2cd130* pos, Vec3_2cd130* normal, Vec2_2cd130* uv);
+    virtual void SetPosColorUv(Vec3_2cd130* pos, unsigned color, Vec2_2cd130* uv);
+    virtual void SetPosUv(Vec3_2cd130* pos, Vec2_2cd130* uv);
+    virtual void SetPosNormal(Vec3_2cd130* pos, Vec3_2cd130* normal);
+    virtual void SetPosColor(Vec3_2cd130* pos, unsigned color);
 };
 
 static __forceinline int Clamp255(int v)
@@ -77,32 +77,32 @@ static __forceinline unsigned AddColor(unsigned c, const short* d)
     return (((a << 8 | r) << 8 | g) << 8) | b;
 }
 
-static __forceinline Vec3 Add3(const Vec3& a, const Vec3& b)
+static __forceinline Vec3_2cd130 Add3(const Vec3_2cd130& a, const Vec3_2cd130& b)
 {
-    Vec3 v;
+    Vec3_2cd130 v;
     v.z = a.z + b.z;
     v.y = a.y + b.y;
     v.x = a.x + b.x;
     return v;
 }
 
-static __forceinline Vec2 Add2(const Vec2& a, const Vec2& b)
+static __forceinline Vec2_2cd130 Add2(const Vec2_2cd130& a, const Vec2_2cd130& b)
 {
-    Vec2 v;
+    Vec2_2cd130 v;
     v.y = a.y + b.y;
     v.x = a.x + b.x;
     return v;
 }
 
 // equiv-conv: FUN_002cd130 eax edx esi
-void FUN_002cd130(Source* src, unsigned char flag, VertexSink* out)
+void FUN_002cd130(Source_2cd130* src, unsigned char flag, VertexSink_2cd130* out)
 {
     unsigned count = src->count;
     unsigned short* index = src->index;
-    Vec3* p0;
-    Vec3* p1;
-    Vec3* t0;
-    Vec3* t1;
+    Vec3_2cd130* p0;
+    Vec3_2cd130* p1;
+    Vec3_2cd130* t0;
+    Vec3_2cd130* t1;
     if (flag == 1) {
         p0 = src->p2;
         p1 = src->p3;
@@ -116,24 +116,24 @@ void FUN_002cd130(Source* src, unsigned char flag, VertexSink* out)
     }
     unsigned* col0 = src->col0;
     unsigned* col1 = src->col1;
-    Vec2* s0 = src->s0;
-    Vec2* s1 = src->s1;
-    Vec2* s2 = src->s2;
-    Vec2* s3 = src->s3;
+    Vec2_2cd130* s0 = src->s0;
+    Vec2_2cd130* s1 = src->s1;
+    Vec2_2cd130* s2 = src->s2;
+    Vec2_2cd130* s3 = src->s3;
     unsigned flags = src->flags & 0xfffc7fff;
-    Blend* b = src->blend;
-    Vec3* q0 = 0;
-    Vec3* q1 = 0;
+    Blend_2cd130* b = src->blend;
+    Vec3_2cd130* q0 = 0;
+    Vec3_2cd130* q1 = 0;
     if (flag == 0) {
         q0 = b->q0;
         q1 = b->q1;
     }
     short* d0 = b->d0;
     short* d1 = b->d1;
-    Vec2* r0 = b->r0;
-    Vec2* r1 = b->r1;
-    Vec2* r2 = b->r2;
-    Vec2* r3 = b->r3;
+    Vec2_2cd130* r0 = b->r0;
+    Vec2_2cd130* r1 = b->r1;
+    Vec2_2cd130* r2 = b->r2;
+    Vec2_2cd130* r3 = b->r3;
     unsigned i;
 
     switch (flags) {

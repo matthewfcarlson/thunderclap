@@ -1,23 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 194 inputs, branch coverage 67/84, incomplete)
 // CSPHulkPropLoader::vfunc_5 @ 0x001d57d0
-struct NameKey {
+struct NameKey_1d57d0 {
     unsigned lo;
     unsigned hi;
-    NameKey *FUN_0027af10(unsigned a, unsigned b);
+    NameKey_1d57d0 *FUN_0027af10(unsigned a, unsigned b);
     void FUN_0027af50();
     void FUN_0027af60(unsigned a, unsigned b);
-    void FUN_0027af70(NameKey *k);
+    void FUN_0027af70(NameKey_1d57d0 *k);
     void FUN_0027b040(const char *s);
 };
 
-struct Item {
-    NameKey key;
+struct Item_1d57d0 {
+    NameKey_1d57d0 key;
     const char *val;
     int pad;
 };
 
-struct Entry {
-    NameKey key;
+struct Entry_1d57d0 {
+    NameKey_1d57d0 key;
     const char *val;
     int pad;
 };
@@ -25,18 +25,18 @@ struct Entry {
 struct Channel {
     char pad[0x3c];
     int count;
-    Entry *entries;
+    Entry_1d57d0 *entries;
 };
 
 struct PropData {
     char pad0[8];
-    NameKey name;
+    NameKey_1d57d0 name;
     char pad10[0x1c - 0x10];
     Channel **channels;
     Channel **channelsEnd;
     char pad24[4];
-    Item *items;
-    Item *itemsEnd;
+    Item_1d57d0 *items;
+    Item_1d57d0 *itemsEnd;
 };
 
 struct Reader;
@@ -66,32 +66,32 @@ struct P90 {
     P10 *p10;
 };
 
-struct Curves {
+struct Curves_1d57d0 {
     float FUN_001df3e0(const char *s);
 };
 
 struct World {
     char pad[0xc];
-    Curves *curves;
+    Curves_1d57d0 *curves;
 };
 extern World *DAT_004dd700;
-extern NameKey DAT_004e2430;
-extern NameKey DAT_004e2438;
-extern NameKey DAT_004e2448;
-extern NameKey DAT_004e2450;
-extern NameKey DAT_004e2458;
-extern NameKey DAT_004e2460;
-extern NameKey DAT_004e2468;
-extern NameKey DAT_004e2470;
-extern NameKey DAT_004e2478;
-extern NameKey DAT_004e2480;
-extern NameKey DAT_004e2488;
-extern NameKey DAT_004e2490;
-extern NameKey DAT_004e2498;
-extern NameKey DAT_004e24a0;
-extern NameKey DAT_004e24a8;
-extern NameKey DAT_004e24b0;
-extern NameKey DAT_004e24b8;
+extern NameKey_1d57d0 DAT_004e2430;
+extern NameKey_1d57d0 DAT_004e2438;
+extern NameKey_1d57d0 DAT_004e2448;
+extern NameKey_1d57d0 DAT_004e2450;
+extern NameKey_1d57d0 DAT_004e2458;
+extern NameKey_1d57d0 DAT_004e2460;
+extern NameKey_1d57d0 DAT_004e2468;
+extern NameKey_1d57d0 DAT_004e2470;
+extern NameKey_1d57d0 DAT_004e2478;
+extern NameKey_1d57d0 DAT_004e2480;
+extern NameKey_1d57d0 DAT_004e2488;
+extern NameKey_1d57d0 DAT_004e2490;
+extern NameKey_1d57d0 DAT_004e2498;
+extern NameKey_1d57d0 DAT_004e24a0;
+extern NameKey_1d57d0 DAT_004e24a8;
+extern NameKey_1d57d0 DAT_004e24b0;
+extern NameKey_1d57d0 DAT_004e24b8;
 
 int __cdecl FUN_001d5050(const char *s);
 int __cdecl FUN_001d50e0(const char *s);
@@ -104,7 +104,7 @@ void *__cdecl FUN_00263ea0(unsigned int size);
 
 struct PropObj {
     char pad0[8];
-    NameKey name;
+    NameKey_1d57d0 name;
     char pad10[0x90 - 0x10];
     P90 *p90;
     int f94;
@@ -124,25 +124,25 @@ struct PropObj {
     char padb7;
     float *weights;
     char padbc[4];
-    NameKey set;
+    NameKey_1d57d0 set;
     PropObj *FUN_001d4d50();
     void FUN_001d5730(PropData *d);
 };
 
 class StatePropDataLoader {
 public:
-    void FUN_00290bf0(PropData **out, NameKey *id, Reader *r, int unused);
+    void FUN_00290bf0(PropData **out, NameKey_1d57d0 *id, Reader *r, int unused);
 };
 
 class CSPHulkPropLoader : public StatePropDataLoader {
 public:
-    void vfunc_5(PropObj **out, NameKey *outId, Reader *r, int unused);
+    void vfunc_5(PropObj **out, NameKey_1d57d0 *outId, Reader *r, int unused);
 };
 
-void CSPHulkPropLoader::vfunc_5(PropObj **out, NameKey *outId, Reader *r, int unused)
+void CSPHulkPropLoader::vfunc_5(PropObj **out, NameKey_1d57d0 *outId, Reader *r, int unused)
 {
     PropData *data;
-    NameKey id;
+    NameKey_1d57d0 id;
     FUN_00290bf0(&data, &id, r, unused);
 
     PropObj *obj = (PropObj *)FUN_00263ea0(0xc8);
@@ -151,14 +151,14 @@ void CSPHulkPropLoader::vfunc_5(PropObj **out, NameKey *outId, Reader *r, int un
         n = obj->FUN_001d4d50();
     n->FUN_001d5730(data);
     n->name.FUN_0027af60(data->name.lo, data->name.hi);
-    NameKey key;
+    NameKey_1d57d0 key;
     key.FUN_0027af10(data->name.lo, data->name.hi);
     n->set.FUN_0027af70(&key);
 
     int count = data->itemsEnd - data->items;
     if (count > 0) {
         for (int i = 0; i < count; i++) {
-            Item *it = &data->items[i];
+            Item_1d57d0 *it = &data->items[i];
             if (it->key.lo == DAT_004e2448.lo && it->key.hi == DAT_004e2448.hi) {
                 n->f94 = FUN_001d5050(it->val);
             } else if (it->key.lo == DAT_004e2460.lo && it->key.hi == DAT_004e2460.hi) {
@@ -195,14 +195,14 @@ void CSPHulkPropLoader::vfunc_5(PropObj **out, NameKey *outId, Reader *r, int un
         }
     }
 
-    Curves *curves = DAT_004dd700->curves;
+    Curves_1d57d0 *curves = DAT_004dd700->curves;
     int nch = data->channelsEnd - data->channels;
     for (int i = 0; i < nch; i++) {
         int cnt = data->channels[i]->count;
         float a = -1.0f;
         float b = 1.0f;
         for (int j = 0; j < cnt; j++) {
-            Entry *e = &data->channels[i]->entries[j];
+            Entry_1d57d0 *e = &data->channels[i]->entries[j];
             if (e->key.lo == DAT_004e2430.lo && e->key.hi == DAT_004e2430.hi) {
                 a = curves->FUN_001df3e0(e->val);
             } else if (e->key.lo == DAT_004e2438.lo && e->key.hi == DAT_004e2438.hi) {

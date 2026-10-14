@@ -7,18 +7,18 @@ extern char DAT_004e60c8[];
 extern char DAT_004e6110[];
 extern char DAT_004e6158[];
 
-struct Link {
-    Link *next;
-    Link *prev;
+struct Link_24a9c0 {
+    Link_24a9c0 *next;
+    Link_24a9c0 *prev;
 };
 
-struct Inner {
+struct Inner_24a9c0 {
     char data[4];
 };
 
-struct Sub {
+struct Sub_24a9c0 {
     char pad[0x14];
-    Inner inner;
+    Inner_24a9c0 inner;
 };
 
 struct Node {
@@ -30,29 +30,29 @@ struct Node {
     void *poolA;
     void *poolB;
     char pad44[4];
-    Link *head;
-    Link *tail;
-    Sub sub;
+    Link_24a9c0 *head;
+    Link_24a9c0 *tail;
+    Sub_24a9c0 sub;
     Node *FUN_0024a510(unsigned int key);
 };
 
-struct Tree {
+struct Tree_24a9c0 {
     Node *root;
     char nilMarker[4];
 };
 
-struct Y;
+struct Y_24a9c0;
 
-struct Entry {
-    Entry *next;
-    Y *owner;
+struct Entry_24a9c0 {
+    Entry_24a9c0 *next;
+    Y_24a9c0 *owner;
     void *extra;
     int f0c;
     char pad10[0x24 - 0x10];
     int f24;
     char pad28[0x30 - 0x28];
     Node *node;
-    Link link;
+    Link_24a9c0 link;
     short f3c;
 };
 
@@ -62,39 +62,39 @@ struct Z {
     unsigned int limit;
 };
 
-struct Y {
+struct Y_24a9c0 {
     char pad[0x10];
-    Entry *head;
-    Entry *tail;
+    Entry_24a9c0 *head;
+    Entry_24a9c0 *tail;
     unsigned int count;
     Z *z;
 };
 
-struct Ctx {
+struct Ctx_24a9c0 {
     char pad[0x48];
-    Tree tree;
+    Tree_24a9c0 tree;
 };
 
-struct Extra {
-    Extra *FUN_0025df40(Node *node, Z *z, Ctx *ctx);
+struct Extra_24a9c0 {
+    Extra_24a9c0 *FUN_0025df40(Node *node, Z *z, Ctx_24a9c0 *ctx);
 };
 
 unsigned int __cdecl FUN_002673a0(const char *s, int flag);
 void *__cdecl FUN_00247530(void *pool);
 void __cdecl FUN_00247550(void *pool, void *p);
-Node *__cdecl FUN_00249fc0(Tree *tree, unsigned int *key);
-void __cdecl FUN_00249ff0(Tree *tree, Node *node, unsigned int *key);
-void __cdecl FUN_00249ec0(Tree *tree, Node *node);
-void __cdecl FUN_0024a450(Inner *inner);
-void __cdecl FUN_0024a4a0(Sub *sub);
+Node *__cdecl FUN_00249fc0(Tree_24a9c0 *tree, unsigned int *key);
+void __cdecl FUN_00249ff0(Tree_24a9c0 *tree, Node *node, unsigned int *key);
+void __cdecl FUN_00249ec0(Tree_24a9c0 *tree, Node *node);
+void __cdecl FUN_0024a450(Inner_24a9c0 *inner);
+void __cdecl FUN_0024a4a0(Sub_24a9c0 *sub);
 void *__cdecl FUN_0025d3d0();
 
-static Entry *EntryFromLink(Link *l)
+static Entry_24a9c0 *EntryFromLink(Link_24a9c0 *l)
 {
-    return (Entry *)((char *)l - 0x34);
+    return (Entry_24a9c0 *)((char *)l - 0x34);
 }
 
-Entry *FUN_0024a9c0(Ctx *ctx, Y *y)
+Entry_24a9c0 *FUN_0024a9c0(Ctx_24a9c0 *ctx, Y_24a9c0 *y)
 {
     struct Frame {
         unsigned int tmp;
@@ -106,7 +106,7 @@ Entry *FUN_0024a9c0(Ctx *ctx, Y *y)
         return 0;
 
     unsigned int emptyHash = FUN_002673a0("", 0);
-    Tree *tree = &ctx->tree;
+    Tree_24a9c0 *tree = &ctx->tree;
     if (y->z->name != emptyHash) {
         node = FUN_00249fc0(tree, &y->z->name);
         if (node == 0) {
@@ -140,9 +140,9 @@ Entry *FUN_0024a9c0(Ctx *ctx, Y *y)
             node = n;
             if (n == 0)
                 break;
-            Link *l = n->head;
+            Link_24a9c0 *l = n->head;
             if (l != 0 && EntryFromLink(l) != 0) {
-                Link *again = n->head;
+                Link_24a9c0 *again = n->head;
                 if (again == 0 || EntryFromLink(again) == 0) {
                     create = false;
                     break;
@@ -153,7 +153,7 @@ Entry *FUN_0024a9c0(Ctx *ctx, Y *y)
             FUN_00249ec0(tree, n);
             FUN_00247550(DAT_004e6158, n->poolB);
             FUN_00247550(DAT_004e6110, n->poolA);
-            Sub *s = &n->sub;
+            Sub_24a9c0 *s = &n->sub;
             FUN_0024a450(&s->inner);
             FUN_0024a4a0(s);
             FUN_00247550(DAT_004e60c8, n);
@@ -170,13 +170,13 @@ Entry *FUN_0024a9c0(Ctx *ctx, Y *y)
         }
     }
 
-    Entry *e = (Entry *)FUN_00247530(DAT_004e6038);
+    Entry_24a9c0 *e = (Entry_24a9c0 *)FUN_00247530(DAT_004e6038);
     if (e != 0) {
         int *w = (int *)e;
         for (int i = 0; i < 16; i++)
             w[i] = 0;
     }
-    Link *link = &e->link;
+    Link_24a9c0 *link = &e->link;
     if (node->head == 0) {
         node->head = link;
         link->prev = 0;
@@ -196,7 +196,7 @@ Entry *FUN_0024a9c0(Ctx *ctx, Y *y)
     e->node = node;
     void *pool = FUN_00247530(FUN_0025d3d0());
     if (pool != 0)
-        e->extra = ((Extra *)pool)->FUN_0025df40(node, y->z, ctx);
+        e->extra = ((Extra_24a9c0 *)pool)->FUN_0025df40(node, y->z, ctx);
     else
         e->extra = 0;
     y->count++;

@@ -19,30 +19,30 @@ public:
 }
 }
 
-struct Key {
+struct Key_1e3410 {
     unsigned int lo;
     unsigned int hi;
 };
 
-struct Container {
+struct Container_1e3410 {
     int FUN_001d5710();
     int FUN_001d5c70(int index);
 };
 
-struct Prop {
+struct Prop_1e3410 {
     char pad0[0x40];
     int startIndex;
     char pad44[0xec - 0x44];
-    Container *items;
+    Container_1e3410 *items;
     char padf0[0x108 - 0xf0];
     int baseCount;
 };
 
-struct Entry {
-    Key key;
-    Key resource;
+struct Entry_1e3410 {
+    Key_1e3410 key;
+    Key_1e3410 resource;
     char pad10[8];
-    Prop *prop;
+    Prop_1e3410 *prop;
     char pad1c[6];
     short slotIndex;
     short count;
@@ -50,42 +50,42 @@ struct Entry {
     char pad27;
 };
 
-struct Slot {
+struct Slot_1e3410 {
     unsigned char flags;
     char pad[0x13];
 };
 
-class Factory {
+class Factory_1e3410 {
 public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual Container *f3(content::LoadInventory::DynamicCaster<CSPHulkProp> *caster, unsigned int lo, unsigned int hi);
+    virtual Container_1e3410 *f3(content::LoadInventory::DynamicCaster<CSPHulkProp> *caster, unsigned int lo, unsigned int hi);
 };
 
-struct Holder44 {
-    Factory *FUN_00203d70();
+struct Holder44_1e3410 {
+    Factory_1e3410 *FUN_00203d70();
 };
 
-struct Holder28 {
-    Holder44 *FUN_000862a0();
+struct Holder28_1e3410 {
+    Holder44_1e3410 *FUN_000862a0();
 };
 
-struct Manager {
+struct Manager_1e3410 {
     char pad0[0x54];
-    Holder28 *holder;
+    Holder28_1e3410 *holder;
 };
 
-extern Manager *DAT_004dd700;
+extern Manager_1e3410 *DAT_004dd700;
 
-struct Inventory {
+struct Inventory_1e3410 {
     char pad0[0x608];
-    Entry entries[0x800];
+    Entry_1e3410 entries[0x800];
 
-    int FUN_001e3410(Key *key);
+    int FUN_001e3410(Key_1e3410 *key);
 };
 
-int Inventory::FUN_001e3410(Key *key)
+int Inventory_1e3410::FUN_001e3410(Key_1e3410 *key)
 {
     int i;
     for (i = 0; i < 0x800; i++) {
@@ -94,12 +94,12 @@ int Inventory::FUN_001e3410(Key *key)
     }
     if (i >= 0x800)
         return 0;
-    Entry *e = &entries[i];
+    Entry_1e3410 *e = &entries[i];
 
     // per-slot flag array, 0x14 bytes per slot, starting at the top of this object
-    Slot *slot = (Slot *)((char *)this + (e->slotIndex + 0x104e) * sizeof(Slot));
+    Slot_1e3410 *slot = (Slot_1e3410 *)((char *)this + (e->slotIndex + 0x104e) * sizeof(Slot_1e3410));
     if ((slot->flags & 1) && e->prop != 0) {
-        Prop *prop = e->prop;
+        Prop_1e3410 *prop = e->prop;
         int total = 0;
         if (prop->baseCount > 0)
             total = prop->baseCount;
@@ -115,11 +115,11 @@ int Inventory::FUN_001e3410(Key *key)
     if (e->count > 0)
         total = e->count;
     int n = e->first + 1;
-    Factory *factory = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+    Factory_1e3410 *factory = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
     // the original builds the caster in the (dead) key argument slot
     content::LoadInventory::DynamicCaster<CSPHulkProp> *caster =
         new ((void *)&key) content::LoadInventory::DynamicCaster<CSPHulkProp>;
-    Container *items = factory->f3(caster, e->resource.lo, e->resource.hi);
+    Container_1e3410 *items = factory->f3(caster, e->resource.lo, e->resource.hi);
     if (items != 0) {
         for (; n < items->FUN_001d5710(); n++) {
             int v = items->FUN_001d5c70(n);

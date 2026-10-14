@@ -4,14 +4,14 @@
 extern "C" double sqrt(double);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
-struct Tile {
+struct Tile_2be440 {
     virtual void t0(); virtual void t1(); virtual void t2(); virtual void t3();
     virtual void t4();
     virtual int v5();
     virtual int v6();
 };
 
-class Mode {
+class Mode_2be440 {
 public:
     virtual void m0();
     virtual void m1(); virtual void m2(); virtual void m3(); virtual void m4();
@@ -19,11 +19,11 @@ public:
     virtual void m6(int tag, int flag);
 };
 
-struct Holder {
+struct Holder_2be440 {
     virtual void h0();
     char pad04[0xc];
-    Mode *mode;             // 0x10
-    Holder *FUN_0028edb0();
+    Mode_2be440 *mode;             // 0x10
+    Holder_2be440 *FUN_0028edb0();
 };
 
 struct Disp {
@@ -31,9 +31,9 @@ struct Disp {
     virtual int v84();
 };
 
-struct Item {
+struct Item_2be440 {
     char pad0[0x10];
-    Tile *tile;             // 0x10
+    Tile_2be440 *tile;             // 0x10
 };
 
 extern Disp *DAT_0052c2a8;
@@ -43,28 +43,28 @@ extern void *__cdecl FUN_0008d6d0(unsigned int size);
 
 namespace pure3d {
 
-struct Rect {
+struct Rect_2be440 {
     int x0, y0, x1, y1, extra;
 };
 
-class __declspec(novtable) SpriteBase {
+class __declspec(novtable) SpriteBase_2be440 {
 public:
     virtual void b0();
     char pad04[0x3c];
     void FUN_002a5060();
-    SpriteBase() { FUN_002a5060(); }
+    SpriteBase_2be440() { FUN_002a5060(); }
 };
 
-class Sprite : public SpriteBase {
+class Sprite : public SpriteBase_2be440 {
 public:
-    Sprite(Item **items, int w, int h, int count, Holder *mgr, int margin, int a7, int a8, int a9);
+    Sprite(Item_2be440 **items, int w, int h, int count, Holder_2be440 *mgr, int margin, int a7, int a8, int a9);
     virtual void a1(); virtual void a2(); virtual void a3(); virtual void a4(); virtual void a5();
     virtual void a6(); virtual void a7(); virtual void a8(); virtual void a9(); virtual void a10();
     virtual void a11(); virtual void a12();
     int count;              // 0x40
     void *buf;              // 0x44
-    Item **items;           // 0x48
-    Holder *holder;         // 0x4c
+    Item_2be440 **items;           // 0x48
+    Holder_2be440 *holder;         // 0x4c
     char pad50[4];
     int h;                  // 0x54
     int w;                  // 0x58
@@ -78,13 +78,13 @@ public:
     int f98;
     float f9c;
     char fa0;
-    void FUN_002bdaf0(int index, Rect *r, int w, int h);
+    void FUN_002bdaf0(int index, Rect_2be440 *r, int w, int h);
     void FUN_002bdd00(int v);
 };
 
 }
 
-pure3d::Sprite::Sprite(Item **items_, int w_, int h_, int count_, Holder *mgr, int margin_, int a7, int a8, int a9)
+pure3d::Sprite::Sprite(Item_2be440 **items_, int w_, int h_, int count_, Holder_2be440 *mgr, int margin_, int a7, int a8, int a9)
 {
     fa0 = 0;
     DAT_004d0898 = 0x20;
@@ -114,11 +114,11 @@ pure3d::Sprite::Sprite(Item **items_, int w_, int h_, int count_, Holder *mgr, i
     f94 = (float)(u * 0.5f);
     f90 = tf * 0.5f;
     f9c = (float)sqrt(f84 * f84 + f88 * f88);
-    Holder *mm;
+    Holder_2be440 *mm;
     if (mgr == 0) {
         void *mem = thunk_FUN_0008d690(0x20);
         if (mem != 0)
-            mm = ((Holder *)mem)->FUN_0028edb0();
+            mm = ((Holder_2be440 *)mem)->FUN_0028edb0();
         else
             mm = 0;
     } else {
@@ -160,7 +160,7 @@ pure3d::Sprite::Sprite(Item **items_, int w_, int h_, int count_, Holder *mgr, i
                         q = h_;
                     else
                         q = hh - margin * 2;
-                    Rect rc;
+                    Rect_2be440 rc;
                     rc.x0 = a;
                     rc.y0 = b;
                     rc.x1 = q + a;

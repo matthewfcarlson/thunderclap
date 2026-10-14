@@ -6,7 +6,7 @@ extern void FUN_0010c140(); extern void FUN_0010c170(); extern void FUN_0010c8d0
 extern void* __cdecl FUN_0008d690(unsigned);
 extern void __cdecl FUN_002347b0(void*,void*,int);
 inline void* __cdecl operator new(unsigned,void* p) { return p; }
-struct Base {
+struct Base_111d00 {
  virtual void slot0();
  char pad[12];
  void FUN_00234cc0(const char*);
@@ -15,9 +15,9 @@ struct Base {
 };
 namespace hulkfight { namespace ai { class AIHistoryNameCondition; } }
 namespace fight {
-template<class T> struct ParamEnumConstList : Base { virtual void slot0(); char* values; int count; void (*callback)(); char tail[4]; };
-template<class T> struct ParamString : Base { virtual void slot0(); void (*callback)(); char tail[4]; };
-template<class T> struct ParamFloatConstRange : Base { virtual void slot0(); void (*callback)(); char tail[4]; };
+template<class T> struct ParamEnumConstList : Base_111d00 { virtual void slot0(); char* values; int count; void (*callback)(); char tail[4]; };
+template<class T> struct ParamString : Base_111d00 { virtual void slot0(); void (*callback)(); char tail[4]; };
+template<class T> struct ParamFloatConstRange : Base_111d00 { virtual void slot0(); void (*callback)(); char tail[4]; };
 }
 void FUN_00111d00() {
  if (!DAT_004e0afc) {

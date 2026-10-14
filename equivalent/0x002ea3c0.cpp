@@ -4,18 +4,18 @@ typedef unsigned char Byte;
 typedef unsigned int uInt;
 typedef unsigned long uLong;
 
-struct z_stream;
+struct z_stream_2ea3c0;
 typedef void *(__cdecl *alloc_func)(void *opaque, uInt items, uInt size);
 typedef void (__cdecl *free_func)(void *opaque, void *address);
 
-struct inflate_huft {
+struct inflate_huft_2ea3c0 {
     Byte exop;
     Byte bits;
     unsigned short pad;
     uInt base;
 };
 
-struct z_stream {
+struct z_stream_2ea3c0 {
     Byte *next_in;
     uInt avail_in;
     uLong total_in;
@@ -31,7 +31,7 @@ struct z_stream {
 
 struct inflate_codes_state;
 
-struct inflate_blocks_state {
+struct inflate_blocks_state_2ea3c0 {
     uInt mode;
     union {
         uInt left;
@@ -40,7 +40,7 @@ struct inflate_blocks_state {
             uInt index;
             uInt *blens;
             uInt bb;
-            inflate_huft *tb;
+            inflate_huft_2ea3c0 *tb;
         } trees;
         struct {
             inflate_codes_state *codes;
@@ -49,7 +49,7 @@ struct inflate_blocks_state {
     uInt last;
     uInt bitk;
     uLong bitb;
-    inflate_huft *hufts;
+    inflate_huft_2ea3c0 *hufts;
     Byte *window;
     Byte *end;
     Byte *read;
@@ -60,13 +60,13 @@ extern "C" void *memcpy(void *, const void *, unsigned int);
 extern unsigned int DAT_00430c58[];
 extern unsigned int DAT_004d2838[];
 
-extern int __cdecl FUN_002ec650(inflate_blocks_state *s, z_stream *z, int r);
-extern int __cdecl FUN_002ec620(uInt *bl, uInt *bd, inflate_huft **tl, inflate_huft **td, z_stream *z);
-extern inflate_codes_state *__cdecl FUN_002eb780(uInt bl, uInt bd, inflate_huft *tl, inflate_huft *td, z_stream *z);
-extern int __cdecl FUN_002ec3e0(uInt *c, uInt *bb, inflate_huft **tb, inflate_huft *hp, z_stream *z);
-extern int __cdecl FUN_002ec490(uInt nl, uInt nd, uInt *c, uInt *bl, uInt *bd, inflate_huft **tl, inflate_huft **td, inflate_huft *hp, z_stream *z);
-extern int __cdecl FUN_002eb7c0(inflate_blocks_state *s, z_stream *z, int r);
-extern void __cdecl FUN_002ebed0(inflate_codes_state *c, z_stream *z);
+extern int __cdecl FUN_002ec650(inflate_blocks_state_2ea3c0 *s, z_stream_2ea3c0 *z, int r);
+extern int __cdecl FUN_002ec620(uInt *bl, uInt *bd, inflate_huft_2ea3c0 **tl, inflate_huft_2ea3c0 **td, z_stream_2ea3c0 *z);
+extern inflate_codes_state *__cdecl FUN_002eb780(uInt bl, uInt bd, inflate_huft_2ea3c0 *tl, inflate_huft_2ea3c0 *td, z_stream_2ea3c0 *z);
+extern int __cdecl FUN_002ec3e0(uInt *c, uInt *bb, inflate_huft_2ea3c0 **tb, inflate_huft_2ea3c0 *hp, z_stream_2ea3c0 *z);
+extern int __cdecl FUN_002ec490(uInt nl, uInt nd, uInt *c, uInt *bl, uInt *bd, inflate_huft_2ea3c0 **tl, inflate_huft_2ea3c0 **td, inflate_huft_2ea3c0 *hp, z_stream_2ea3c0 *z);
+extern int __cdecl FUN_002eb7c0(inflate_blocks_state_2ea3c0 *s, z_stream_2ea3c0 *z, int r);
+extern void __cdecl FUN_002ebed0(inflate_codes_state *c, z_stream_2ea3c0 *z);
 
 #define LOADIN { p = z->next_in; n = z->avail_in; b = s->bitb; k = s->bitk; }
 #define WAVAIL ((uInt)(q < s->read ? s->read - q - 1 : s->end - q))
@@ -84,7 +84,7 @@ extern void __cdecl FUN_002ebed0(inflate_codes_state *c, z_stream *z);
 #define FLUSH { UPDATEOUT r = FUN_002ec650(s, z, r); LOADOUT }
 #define NEEDOUT { if (m == 0) { WRAP if (m == 0) { FLUSH WRAP if (m == 0) LEAVE } } r = 0; }
 
-int __cdecl FUN_002ea3c0(inflate_blocks_state *s, z_stream *z, int r)
+int __cdecl FUN_002ea3c0(inflate_blocks_state_2ea3c0 *s, z_stream_2ea3c0 *z, int r)
 {
     uInt t;
     uLong b;
@@ -110,7 +110,7 @@ int __cdecl FUN_002ea3c0(inflate_blocks_state *s, z_stream *z, int r)
             break;
         case 1: {
             uInt bl, bd;
-            inflate_huft *tl, *td;
+            inflate_huft_2ea3c0 *tl, *td;
             FUN_002ec620(&bl, &bd, &tl, &td, z);
             s->sub.decode.codes = FUN_002eb780(bl, bd, tl, td, z);
             if (s->sub.decode.codes == 0) {
@@ -201,7 +201,7 @@ int __cdecl FUN_002ea3c0(inflate_blocks_state *s, z_stream *z, int r)
         s->mode = 5;
     case 5:
         while (t = s->sub.trees.table, s->sub.trees.index < 258 + (t & 0x1f) + ((t >> 5) & 0x1f)) {
-            inflate_huft *h;
+            inflate_huft_2ea3c0 *h;
             uInt i, j, c;
 
             t = s->sub.trees.bb;
@@ -238,7 +238,7 @@ int __cdecl FUN_002ea3c0(inflate_blocks_state *s, z_stream *z, int r)
         s->sub.trees.tb = 0;
         {
             uInt bl, bd;
-            inflate_huft *tl, *td;
+            inflate_huft_2ea3c0 *tl, *td;
             inflate_codes_state *c;
 
             bl = 9;

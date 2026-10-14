@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 453 inputs, branch coverage 12/12)
 // FEThingsBase::vfunc_6 @ 0x000e8310
 // Releases every object held in the three widget tables.
-class FEWidget {
+class FEWidget_e8310 {
 public:
     virtual void v0();
     virtual void v1();
@@ -25,9 +25,9 @@ public:
     virtual void vfunc_5();
     virtual void vfunc_6();
     char pad04[8];
-    FEWidget *first[0x40];
-    FEWidget *second[0x40];
-    FEWidget *big[0x100];
+    FEWidget_e8310 *first[0x40];
+    FEWidget_e8310 *second[0x40];
+    FEWidget_e8310 *big[0x100];
 };
 
 void FEThingsBase::vfunc_6()

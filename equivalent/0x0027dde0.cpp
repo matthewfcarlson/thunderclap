@@ -1,29 +1,29 @@
 // STATUS: equivalent (tools/equiv.py level 3: 376 inputs, branch coverage 6/6)
 // FUN_0027dde0 @ 0x0027dde0
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
-struct Target {
+struct Target_27dde0 {
     void FUN_002f39e0(void* matrix);
 };
-struct Elem {
+struct Elem_27dde0 {
     char pad[0x10];
-    Target* target;
+    Target_27dde0* target;
 };
-struct Group {
+struct Group_27dde0 {
     char pad[0x1c];
     int begin;
     int end;
 };
-class Obj {
+class Obj_27dde0 {
   public:
     char pad00[0x48];
     char matrix[0x40];
     char pad88[0x98 - 0x88];
-    Group* group;
+    Group_27dde0* group;
     char pad9c[0xac - 0x9c];
-    Elem** elems;
+    Elem_27dde0** elems;
     int* FUN_0027dde0(const void* src);
 };
-int* Obj::FUN_0027dde0(const void* src) {
+int* Obj_27dde0::FUN_0027dde0(const void* src) {
     int* range = &group->begin;
     memcpy(matrix, src, 0x40);
     int i = 0;

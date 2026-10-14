@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 12061 inputs, branch coverage 30/30; run with --inputs 12000)
 // FUN_002dbc50 @ 0x002dbc50
-struct ImageInfo {
+struct ImageInfo_2dbc50 {
     unsigned int count;
     unsigned int byteSize;
     unsigned char format;
@@ -9,7 +9,7 @@ struct ImageInfo {
     unsigned char bitsCopy;
 };
 
-void FUN_002dbc50(ImageInfo *info, unsigned char *data, unsigned char *rgbToIndex, unsigned char *remap)
+void FUN_002dbc50(ImageInfo_2dbc50 *info, unsigned char *data, unsigned char *rgbToIndex, unsigned char *remap)
 {
     unsigned int count = info->count;
 

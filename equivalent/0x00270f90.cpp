@@ -2,13 +2,13 @@
 // FUN_00270f90 @ 0x00270f90
 extern char DAT_0052a0f0;
 extern char DAT_0052a10c[];
-struct Resource {
+struct Resource_270f90 {
     virtual void unused();
     virtual void release();
     char FUN_00272b80();
 };
-struct Entry { Resource *resource; char rest[0x118]; };
-extern Entry DAT_0052842c[];
+struct Entry_270f90 { Resource_270f90 *resource; char rest[0x118]; };
+extern Entry_270f90 DAT_0052842c[];
 void __cdecl FUN_0026d850(void *);
 void __cdecl FUN_0026d840(void *);
 void __cdecl FUN_0026d6d0(int);
@@ -38,7 +38,7 @@ bool __cdecl FUN_00270f90(const char *name) {
         FUN_0026d840(&DAT_0052a0f0);
         return false;
     }
-    Resource *resource = DAT_0052842c[index].resource;
+    Resource_270f90 *resource = DAT_0052842c[index].resource;
     if (!resource) {
         FUN_0026d840(&DAT_0052a0f0);
         return false;

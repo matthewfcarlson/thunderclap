@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0022c8e0 @ 0x0022c8e0
-struct Vec3 { float x, y, z; };
+struct Vec3_22c8e0 { float x, y, z; };
 
 struct Vec3N {
     float x, y, z;
     void FUN_0022d180();
 };
 
-struct Mat {
+struct Mat_22c8e0 {
     float m[16];
-    void LookAt(const Vec3 *center, const Vec3 *eye, const Vec3 *up);
+    void LookAt(const Vec3_22c8e0 *center, const Vec3_22c8e0 *eye, const Vec3_22c8e0 *up);
 };
 
-void Mat::LookAt(const Vec3 *center, const Vec3 *eye, const Vec3 *up)
+void Mat_22c8e0::LookAt(const Vec3_22c8e0 *center, const Vec3_22c8e0 *eye, const Vec3_22c8e0 *up)
 {
     Vec3N z;
     z.x = eye->x - center->x;
@@ -20,19 +20,19 @@ void Mat::LookAt(const Vec3 *center, const Vec3 *eye, const Vec3 *up)
     z.z = eye->z - center->z;
     z.FUN_0022d180();
 
-    Vec3 s;
+    Vec3_22c8e0 s;
     s.x = z.z * up->y - z.y * up->z;
     s.y = z.x * up->z - z.z * up->x;
     s.z = z.y * up->x - z.x * up->y;
 
-    Vec3 sc = s;
-    Vec3 t;
+    Vec3_22c8e0 sc = s;
+    Vec3_22c8e0 t;
     t.x = s.y * z.z - s.z * z.y;
     t.y = s.z * z.x - s.x * z.z;
     t.z = z.y * s.x - s.y * z.x;
 
-    Vec3 tc = t;
-    Vec3 zc;
+    Vec3_22c8e0 tc = t;
+    Vec3_22c8e0 zc;
     zc.x = z.x;
     zc.y = z.y;
     zc.z = z.z;

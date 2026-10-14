@@ -6,13 +6,13 @@ extern "C" int __cdecl FUN_00337dc0(const char *s);
 extern "C" char __cdecl FUN_00337e50(const char *s);
 extern "C" char __cdecl FUN_00337370(const char *s);
 
-class Pool {
+class Pool_338030 {
 public:
     void *FUN_00337d60(unsigned int size, int align);
 };
-extern Pool DAT_00565fc0;
+extern Pool_338030 DAT_00565fc0;
 
-class Loader {
+class Loader_338030 {
 public:
     char pad0[0x5108];
     int status;
@@ -21,14 +21,14 @@ public:
     void FUN_003375a0();
 };
 
-class AttrDef {
+class AttrDef_338030 {
 public:
     char pad0[4];
     char *name;
     int type;
     char *value;
     int FUN_00337ec0();
-    bool FUN_00338030(Loader *ld);
+    bool FUN_00338030(Loader_338030 *ld);
 };
 
 static void CopyString(char **slot, const char *src)
@@ -45,7 +45,7 @@ static void CopyString(char **slot, const char *src)
     } while (c != 0);
 }
 
-bool AttrDef::FUN_00338030(Loader *ld)
+bool AttrDef_338030::FUN_00338030(Loader_338030 *ld)
 {
     const char *tok = ld->FUN_00337460();
     if (tok == 0)

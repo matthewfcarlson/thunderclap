@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 101 inputs, branch coverage 4/4)
 // FUN_00223760 @ 0x00223760
-struct Elem {
+struct Elem_223760 {
     int w[10];
 };
 
-void __cdecl FUN_002234d0(Elem *first, int index, int count, Elem value);
+void __cdecl FUN_002234d0(Elem_223760 *first, int index, int count, Elem_223760 value);
 
-void FUN_00223760(Elem *first, Elem *last)
+void FUN_00223760(Elem_223760 *first, Elem_223760 *last)
 {
     int n = last - first;
     int i = n / 2;

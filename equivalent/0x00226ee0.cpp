@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 17/18, incomplete)
 // choreo2::LocomotionStrafeDriver::vfunc_11 @ 0x00226ee0
-struct Quat {
+struct Quat_226ee0 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat *a, const Quat *b, float t);
+    void FUN_0022b750(const Quat_226ee0 *a, const Quat_226ee0 *b, float t);
 };
 
-struct Vec3 {
+struct Vec3_226ee0 {
     float x, y, z;
 };
 
@@ -15,11 +15,11 @@ public:
     virtual void vf1();
     virtual void vf2();
     virtual void vf3();
-    virtual void vf4(float frame, Vec3 *out);
-    virtual void vf5(float frame, Quat *out);
+    virtual void vf4(float frame, Vec3_226ee0 *out);
+    virtual void vf5(float frame, Quat_226ee0 *out);
 };
 
-class ChannelSet {
+class ChannelSet_226ee0 {
 public:
     Channel *FUN_00288960(unsigned int tagLo, unsigned int tagHi);
 };
@@ -27,27 +27,27 @@ public:
 class Pose {
 public:
     char pad0[0x30];
-    Vec3 position;
-    Quat *FUN_00221cd0();
-    void FUN_00221cf0(Quat *q);
-    void FUN_0022be40(Vec3 *v);
+    Vec3_226ee0 position;
+    Quat_226ee0 *FUN_00221cd0();
+    void FUN_00221cf0(Quat_226ee0 *q);
+    void FUN_0022be40(Vec3_226ee0 *v);
 };
 
-class Source {
+class Source_226ee0 {
 public:
     char pad0[0x10];
     float length;
-    ChannelSet *FUN_00288ad0(unsigned int a, unsigned int b);
+    ChannelSet_226ee0 *FUN_00288ad0(unsigned int a, unsigned int b);
 };
 
-struct Slot {
+struct Slot_226ee0 {
     char pad0[0x34];
-    Source *source;
+    Source_226ee0 *source;
     char pad38[0x238 - 0x38];
     float bias;
 };
 
-struct Blend {
+struct Blend_226ee0 {
     unsigned int index;
     float weight;
     int pad;
@@ -74,7 +74,7 @@ public:
     float rate;
     char pad28[0x12ec - 0x28];
     unsigned int blendCount;
-    Blend blends[1];
+    Blend_226ee0 blends[1];
 };
 }
 
@@ -84,24 +84,24 @@ char choreo2::LocomotionStrafeDriver::vfunc_11(unsigned int a, unsigned int b, P
         return 0;
 
     struct Frame {
-        Quat rot;
-        Vec3 target;
-        Vec3 cur;
-        Quat q;
+        Quat_226ee0 rot;
+        Vec3_226ee0 target;
+        Vec3_226ee0 cur;
+        Quat_226ee0 q;
     } fr;
     char result = 0;
     float w = 0.0f;
     volatile float acc = 1.0f - t;
     for (unsigned int i = 0; i < blendCount; i++) {
-        Blend *bl = &blends[i];
+        Blend_226ee0 *bl = &blends[i];
         double tw = t * bl->weight;
-        Slot *slot = (Slot *)((char *)this + bl->index * 0x208);
+        Slot_226ee0 *slot = (Slot_226ee0 *)((char *)this + bl->index * 0x208);
         acc = (float)(acc + tw);
         w = (float)(tw / acc);
-        Source *src = slot->source;
+        Source_226ee0 *src = slot->source;
         if (src == 0)
             continue;
-        ChannelSet *set = src->FUN_00288ad0(a, b);
+        ChannelSet_226ee0 *set = src->FUN_00288ad0(a, b);
         if (set == 0)
             continue;
         double d = src->length - 1.0f;

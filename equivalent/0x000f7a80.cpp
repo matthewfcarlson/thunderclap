@@ -18,7 +18,7 @@ public:
     void FUN_002647e0(void *out, int a, int b, int c);
 };
 
-class StringTable {
+class StringTable_f7a80 {
 public:
     unsigned short *pool;
     int poolCapacity;
@@ -36,7 +36,7 @@ public:
     bool FUN_000f7a80(const char *filename);
 };
 
-bool StringTable::FUN_000f7a80(const char *filename)
+bool StringTable_f7a80::FUN_000f7a80(const char *filename)
 {
     unsigned int cookie = DAT_004d9968;
     unsigned short line[0x1000];

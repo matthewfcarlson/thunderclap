@@ -12,23 +12,23 @@ struct Node {
     String key;
 };
 
-struct Elem {
+struct Elem_2601d0 {
     char pad00[0x48];
     Node node;
 };
 
-struct Tree {
+struct Tree_2601d0 {
     Node* root;
     Node nil;
 };
 
-int FUN_0025fca0(String* key, Elem* elem);
-void FUN_0025fdd0(Tree* tree, Node* x);
-void FUN_0025fe20(Tree* tree, Node* x);
+int FUN_0025fca0(String* key, Elem_2601d0* elem);
+void FUN_0025fdd0(Tree_2601d0* tree, Node* x);
+void FUN_0025fe20(Tree_2601d0* tree, Node* x);
 
 // Unique-key insertion into a red-black tree keyed by string. Returns whether
 // the element was inserted.
-char FUN_002601d0(Tree* tree, Elem* elem, String* key)
+char FUN_002601d0(Tree_2601d0* tree, Elem_2601d0* elem, String* key)
 {
     Node* x = &elem->node;
     Node* nil = &tree->nil;
@@ -62,7 +62,7 @@ char FUN_002601d0(Tree* tree, Elem* elem, String* key)
     x->parent = parent;
     if (parent == nil) {
         tree->root = x;
-    } else if (FUN_0025fca0(key, (Elem*)((char*)parent - 0x48)) < 0) {
+    } else if (FUN_0025fca0(key, (Elem_2601d0*)((char*)parent - 0x48)) < 0) {
         parent->left = x;
     } else {
         parent->right = x;

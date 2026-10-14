@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CMotionHitCondition::vfunc_7 @ 0x0004a380
-struct Fighter {
+struct Fighter_4a380 {
     char pad0[0x144];
     unsigned int hits;
 };
 
-struct Anchor {
-    Fighter *FUN_00059a30();
+struct Anchor_4a380 {
+    Fighter_4a380 *FUN_00059a30();
 };
 
-struct FightHandle {
-    Anchor *FUN_000592a0();
+struct FightHandle_4a380 {
+    Anchor_4a380 *FUN_000592a0();
 };
 
 class CMotionHitCondition {
@@ -22,15 +22,15 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     virtual void vfunc_6();
-    virtual bool vfunc_7(FightHandle *h);
+    virtual bool vfunc_7(FightHandle_4a380 *h);
     char pad04[0xc - 4];
     int mode;
     unsigned int index;
 };
 
-bool CMotionHitCondition::vfunc_7(FightHandle *h)
+bool CMotionHitCondition::vfunc_7(FightHandle_4a380 *h)
 {
-    Fighter *f = h->FUN_000592a0()->FUN_00059a30();
+    Fighter_4a380 *f = h->FUN_000592a0()->FUN_00059a30();
     unsigned int mask = 0;
     if (index != 0)
         mask = 1u << (index - 1);

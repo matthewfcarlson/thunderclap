@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // FUN_000a2430 @ 0x000a2430
-struct ResourceName {
+struct ResourceName_a2430 {
     int word;
     void FUN_0027b040(const char *name);
 };
 
-class __declspec(novtable) CCameraBase {
+class __declspec(novtable) CCameraBase_a2430 {
 public:
     virtual void v0();
     char pad04[4];
-    ResourceName name;
+    ResourceName_a2430 name;
     char pad0c[0xd0 - 0xc];
     int mode;
     float f0d4;
     char padd8[0x170 - 0xd8];
-    CCameraBase *FUN_000a9400();
-    CCameraBase() { FUN_000a9400(); }
+    CCameraBase_a2430 *FUN_000a9400();
+    CCameraBase_a2430() { FUN_000a9400(); }
 };
 
 extern const char *DAT_0049ec40;
@@ -26,28 +26,28 @@ struct Sub248 {
     void FUN_000a06d0(const void *p);
 };
 
-struct Stage {
+struct Stage_a2430 {
     int FUN_00088fa0();
     int FUN_00088fb0();
 };
 
-struct Level {
+struct Level_a2430 {
     char pad[0x80];
-    Stage stage;
+    Stage_a2430 stage;
 };
 
-struct Window {
-    Level *FUN_00086310();
+struct Window_a2430 {
+    Level_a2430 *FUN_00086310();
 };
 
-struct Game {
+struct Game_a2430 {
     char pad[0x54];
-    Window *window;
+    Window_a2430 *window;
 };
 
-extern Game *DAT_004dd700;
+extern Game_a2430 *DAT_004dd700;
 
-class CChaseCamera : public CCameraBase {
+class CChaseCamera : public CCameraBase_a2430 {
 public:
     virtual void v0();
     int f170;
@@ -302,11 +302,11 @@ CChaseCamera::CChaseCamera()
     f430 = 0;
     f434 = 0;
     f438 = 0;
-    Game *g = DAT_004dd700;
+    Game_a2430 *g = DAT_004dd700;
     if (g != 0) {
-        Level *lv = g->window->FUN_00086310();
+        Level_a2430 *lv = g->window->FUN_00086310();
         if (lv != 0) {
-            Stage *st = &lv->stage;
+            Stage_a2430 *st = &lv->stage;
             if (st->FUN_00088fa0() == 10) {
                 if (st->FUN_00088fb0() == 0x2a)
                     f44c = 20.0f;

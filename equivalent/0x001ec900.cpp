@@ -8,20 +8,20 @@ struct Name {
     ~Name() throw();
 };
 
-struct V3 {
+struct V3_1ec900 {
     float x, y, z;
 };
 
 class Camera {
 public:
-    void FUN_001eb7e0(Name *a, Name *b, V3 *p, V3 *q, V3 *r, V3 zero, int z) throw();
-    void FUN_001ec900(V3 a, V3 b, V3 c);
+    void FUN_001eb7e0(Name *a, Name *b, V3_1ec900 *p, V3_1ec900 *q, V3_1ec900 *r, V3_1ec900 zero, int z) throw();
+    void FUN_001ec900(V3_1ec900 a, V3_1ec900 b, V3_1ec900 c);
 };
 
-void Camera::FUN_001ec900(V3 a, V3 b, V3 c)
+void Camera::FUN_001ec900(V3_1ec900 a, V3_1ec900 b, V3_1ec900 c)
 {
     Name name("vo_camera");
-    V3 zero;
+    V3_1ec900 zero;
     zero.x = 0.0f;
     zero.y = 0.0f;
     zero.z = 0.0f;

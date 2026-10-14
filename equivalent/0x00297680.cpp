@@ -3,7 +3,7 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 void *thunk_FUN_0008d690(unsigned int size);
 
-struct Name {
+struct Name_297680 {
     char data[8];
     void FUN_0027b040(const char *s);
 };
@@ -80,29 +80,29 @@ public:
     virtual void v17();
     virtual void AddChild(Node *child);
     char pad04[4];
-    Name name;
+    Name_297680 name;
 };
 
-class NodeA : public Node {
+class NodeA_297680 : public Node {
 public:
     char pad[0x28 - 0x10];
-    NodeA *FUN_002972e0(int v);
+    NodeA_297680 *FUN_002972e0(int v);
 };
 
-class NodeB : public Node {
+class NodeB_297680 : public Node {
 public:
     char pad[0xb0 - 0x10];
-    NodeB *FUN_00297460(int v);
+    NodeB_297680 *FUN_00297460(int v);
     int FUN_001a4990();
     void FUN_00296970(SceneGraphTransformAnimationController *c);
 };
 
-class NodeC : public Node {
+class NodeC_297680 : public Node {
 public:
     char pad[0x28 - 0x10];
     bool flag28;
     char pad29[0x30 - 0x29];
-    NodeC *FUN_00297560(int v);
+    NodeC_297680 *FUN_00297560(int v);
     void FUN_00296ae0(SceneGraphVisibilityAnimationController *c);
 };
 
@@ -115,45 +115,45 @@ public:
     virtual DrawableHierarchy *h4();
 };
 
-struct Holder {
+struct Holder_297680 {
     char pad00[0x18];
     void *child18;
-    Holder *FUN_00295fd0();
+    Holder_297680 *FUN_00295fd0();
     char pad1c[4];
     void FUN_00296b80(DrawableHierarchy *h);
 };
 
-struct HolderName {
+struct HolderName_297680 {
     char pad[8];
-    Name name;
+    Name_297680 name;
 };
 
-struct Registry {
+struct Registry_297680 {
     ObjectLoader *FUN_00265310(int id);
 };
-extern Registry *DAT_00527c58;
+extern Registry_297680 *DAT_00527c58;
 
 DrawableHierarchy *FUN_000c0de0(void *ctx, char *name);
 
-class SceneLoader;
-struct Frame {
+class SceneLoader_297680;
+struct Frame_297680 {
     union {
         int x;
         FrameController *fc;
     };
-    SceneLoader *self;
+    SceneLoader_297680 *self;
     unsigned __int64 id;
     char name[0x100];
 };
 
-class SceneLoader {
+class SceneLoader_297680 {
 public:
     Node *FUN_00297680(Stream *s, void *ctx);
 };
 
-Node *SceneLoader::FUN_00297680(Stream *s, void *ctx)
+Node *SceneLoader_297680::FUN_00297680(Stream *s, void *ctx)
 {
-    Frame f;
+    Frame_297680 f;
     f.self = this;
     Node *node = 0;
     int id = s->FUN_00266c30();
@@ -171,9 +171,9 @@ Node *SceneLoader::FUN_00297680(Stream *s, void *ctx)
         s->FUN_000f9600(f.name);
         s->reader->FUN_002647e0(&f.x, 1, 4, 1);
         void *mem = thunk_FUN_0008d690(0x28);
-        NodeA *a = 0;
+        NodeA_297680 *a = 0;
         if (mem)
-            a = ((NodeA *)mem)->FUN_002972e0(f.x);
+            a = ((NodeA_297680 *)mem)->FUN_002972e0(f.x);
         a->name.FUN_0027b040(f.name);
         node = a;
         while (s->FUN_002669f0()) {
@@ -188,9 +188,9 @@ Node *SceneLoader::FUN_00297680(Stream *s, void *ctx)
         s->FUN_000f9600(f.name);
         s->reader->FUN_002647e0(&f.x, 1, 4, 1);
         void *mem = thunk_FUN_0008d690(0xb0);
-        NodeB *b = 0;
+        NodeB_297680 *b = 0;
         if (mem)
-            b = ((NodeB *)mem)->FUN_00297460(f.x);
+            b = ((NodeB_297680 *)mem)->FUN_00297460(f.x);
         b->name.FUN_0027b040(f.name);
         s->reader->FUN_002647e0((void *)b->FUN_001a4990(), 0x10, 4, 1);
         while (s->FUN_002669f0()) {
@@ -224,9 +224,9 @@ Node *SceneLoader::FUN_00297680(Stream *s, void *ctx)
         s->FUN_000f9600(f.name);
         s->reader->FUN_002647e0(&f.x, 1, 4, 1);
         void *mem = thunk_FUN_0008d690(0x30);
-        NodeC *c = 0;
+        NodeC_297680 *c = 0;
         if (mem)
-            c = ((NodeC *)mem)->FUN_00297560(f.x);
+            c = ((NodeC_297680 *)mem)->FUN_00297560(f.x);
         c->name.FUN_0027b040(f.name);
         s->reader->FUN_002647e0(&f.x, 1, 4, 1);
         c->flag28 = (f.x != 0);
@@ -262,10 +262,10 @@ Node *SceneLoader::FUN_00297680(Stream *s, void *ctx)
         bool flag = ((int)f.self != 0);
         s->FUN_000f9600(f.name);
         void *mem = thunk_FUN_0008d690(0x20);
-        Holder *h = 0;
+        Holder_297680 *h = 0;
         if (mem)
-            h = ((Holder *)mem)->FUN_00295fd0();
-        ((HolderName *)h)->name.FUN_0027b040(f.name);
+            h = ((Holder_297680 *)mem)->FUN_00295fd0();
+        ((HolderName_297680 *)h)->name.FUN_0027b040(f.name);
         s->FUN_000f9600(f.name);
         DrawableHierarchy *dh = FUN_000c0de0(ctx, f.name);
         if (dh && flag == 1)

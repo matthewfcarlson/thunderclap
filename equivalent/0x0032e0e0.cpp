@@ -4,16 +4,16 @@ typedef unsigned long DWORD;
 struct Color4 {
     float r, g, b, a;
 };
-struct Vec3 {
+struct Vec3_32e0e0 {
     float x, y, z;
 };
-struct Light8 {
+struct Light8_32e0e0 {
     int Type;
     Color4 Diffuse;
     Color4 Specular;
     Color4 Ambient;
-    Vec3 Position;
-    Vec3 Direction;
+    Vec3_32e0e0 Position;
+    Vec3_32e0e0 Direction;
     float Range;
     float Falloff;
     float Attenuation0;
@@ -28,16 +28,16 @@ struct LightConsts {
     float color[4];
     unsigned char used;
 };
-struct LightList {
+struct LightList_32e0e0 {
     void FUN_00321dc0(int* indices, int count);
 };
 namespace D3D8 {
-void __stdcall D3DDevice_GetLight(DWORD index, Light8* light);
+void __stdcall D3DDevice_GetLight(DWORD index, Light8_32e0e0* light);
 void __fastcall D3DDevice_SetVertexShaderConstant1(int reg, const void* data);
 }
 struct LightShader {
     char pad0[0x10];
-    LightList* lights;
+    LightList_32e0e0* lights;
     char pad14[0x90 - 0x14];
     unsigned char directional;
     unsigned char useLights;
@@ -61,7 +61,7 @@ void LightShader::FUN_0032e0e0() {
         for (int i = 0; i < 4; i++) {
             if (idx[i] == -1)
                 continue;
-            Light8 light;
+            Light8_32e0e0 light;
             D3D8::D3DDevice_GetLight(idx[i], &light);
             c[i].position[0] = light.Position.x;
             c[i].position[1] = light.Position.y;

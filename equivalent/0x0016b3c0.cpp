@@ -22,26 +22,26 @@ template<class T> struct ParamEnumConstList {
  void FUN_00234cc0(const char*);
 };
 }
-typedef fight::ParamEnumConstList<hulkfight::motion::LocomotionMotionStateCondition> List;
-extern void __cdecl FUN_002347b0(int*, List**, int);
+typedef fight::ParamEnumConstList<hulkfight::motion::LocomotionMotionStateCondition> List_16b3c0;
+extern void __cdecl FUN_002347b0(int*, List_16b3c0**, int);
 void initialize() {
  if (!DAT_004e1224) {
-  List* lists[2];
-  List* a = (List*)FUN_0008d690(32);
+  List_16b3c0* lists[2];
+  List_16b3c0* a = (List_16b3c0*)FUN_0008d690(32);
   if (a) {
    int count = DAT_00427760;
    a->FUN_00234cc0("compare");
-   new(a) List;
+   new(a) List_16b3c0;
    a->values = &DAT_00427758;
    a->count = count;
    a->callback = FUN_00165580;
   }
   lists[0] = a;
-  List* b = (List*)FUN_0008d690(32);
+  List_16b3c0* b = (List_16b3c0*)FUN_0008d690(32);
   if (b) {
    int count = DAT_003f5bbc;
    b->FUN_00234cc0("locomotionMotionState");
-   new(b) List;
+   new(b) List_16b3c0;
    b->values = &DAT_0048f590;
    b->count = count;
    b->callback = FUN_00165590;

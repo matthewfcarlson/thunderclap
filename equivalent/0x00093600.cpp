@@ -28,17 +28,17 @@ public:
     char hidden;
 };
 
-struct Sound {
+struct Sound_93600 {
     void FUN_000900a0(int id);
 };
 
 struct Env {
     char pad0[0x50];
-    Sound *sound;
+    Sound_93600 *sound;
     void FUN_000c21b0(int id);
 };
 
-struct Menu {
+struct Menu_93600 {
     CUnlockable *slots[0x266];
     char pad998[0xd88 - 0x998];
     Env *env;
@@ -47,7 +47,7 @@ struct Menu {
     void FUN_00092870(int index, int v);
 };
 
-void Menu::FUN_00093600(int index, char on)
+void Menu_93600::FUN_00093600(int index, char on)
 {
     int id = index;
     if (id == 0x2de || id == 0x2df || id == 0x2e0) {

@@ -18,20 +18,20 @@ struct Node {
     virtual unsigned __int64 vfunc_1();
 };
 
-struct Handle {
+struct Handle_dc230 {
     virtual void vfunc_0();
 };
 
-struct Pool {
-    Handle *FUN_000c6b20(const char *name);
+struct Pool_dc230 {
+    Handle_dc230 *FUN_000c6b20(const char *name);
 };
-extern Pool *DAT_004dd9cc;
+extern Pool_dc230 *DAT_004dd9cc;
 
-struct Slot {
+struct Slot_dc230 {
     int a, b, c;
 };
 
-class Parser {
+class Parser_dc230 {
 public:
     bool FUN_000f9ef0();
     void FUN_000f9f30();
@@ -44,7 +44,7 @@ public:
     void FUN_000f9fb0();
 };
 
-class Sink {
+class Sink_dc230 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -61,7 +61,7 @@ public:
     virtual void Store(const char *name, void *dest);
 };
 
-class Handler {
+class Handler_dc230 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -72,21 +72,21 @@ public:
     virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
     virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
     virtual void v32(); virtual void v33();
-    virtual bool Handle34(Parser *p, Node *node, int flag);
-    virtual bool Handle35(Parser *p, Sink *sink, void *owner, Node *node);
-    virtual bool Handle36(Parser *p, Sink *sink, void *owner, Node *node);
+    virtual bool Handle34(Parser_dc230 *p, Node *node, int flag);
+    virtual bool Handle35(Parser_dc230 *p, Sink_dc230 *sink, void *owner, Node *node);
+    virtual bool Handle36(Parser_dc230 *p, Sink_dc230 *sink, void *owner, Node *node);
 };
 
 void FUN_000964a0(char *buf, int size, const char *fmt, ...);
 
-class Config {
+class Config_dc230 {
 public:
     char pad0[0x154];
     char f154[0x24];
-    Slot slots[5];
+    Slot_dc230 slots[5];
     char f1b4[0xc];
     char f1c0[0xc];
-    Handle *f1cc;
+    Handle_dc230 *f1cc;
     char pad1d0[0x3a8 - 0x1d0];
     char b3a8;
     char pad3a9[0x3e8 - 0x3a9];
@@ -94,10 +94,10 @@ public:
     char pad3e9;
     char b3ea;
 
-    bool FUN_000dc230(Parser *parser, Handler *handler, Sink *sink);
+    bool FUN_000dc230(Parser_dc230 *parser, Handler_dc230 *handler, Sink_dc230 *sink);
 };
 
-bool Config::FUN_000dc230(Parser *parser, Handler *handler, Sink *sink)
+bool Config_dc230::FUN_000dc230(Parser_dc230 *parser, Handler_dc230 *handler, Sink_dc230 *sink)
 {
     unsigned int cookie = DAT_004d9968;
     char bufA[0x40];
@@ -127,7 +127,7 @@ bool Config::FUN_000dc230(Parser *parser, Handler *handler, Sink *sink)
                 }
             } else if (key == DAT_004de678) {
                 FUN_000964a0(bufA, 0x40, "%s%d", parser->FUN_000fad90(), 1);
-                Handle *h = DAT_004dd9cc->FUN_000c6b20(bufA);
+                Handle_dc230 *h = DAT_004dd9cc->FUN_000c6b20(bufA);
                 if (h)
                     h->vfunc_0();
                 f1cc = h;

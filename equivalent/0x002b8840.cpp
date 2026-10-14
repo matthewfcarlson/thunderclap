@@ -1,31 +1,31 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_002b8840 @ 0x002b8840
-struct Mat4 {
+struct Mat4_2b8840 {
     float m[16];
 };
 
-struct Range {
+struct Range_2b8840 {
     float lo;
     float hi;
 };
 
-struct Vec3 {
+struct Vec3_2b8840 {
     float x, y, z;
-    void FUN_0022d260(Mat4 *m);
-    bool FUN_0022d2b0(Vec3 *other, float eps);
+    void FUN_0022d260(Mat4_2b8840 *m);
+    bool FUN_0022d2b0(Vec3_2b8840 *other, float eps);
     void FUN_0022d180();
 };
 
 // Cone falloff of the two local axes (bits 0 and 1 of flags) relative to the direction `axis`.
-void FUN_002b8840(float *out1, float *out2, int flags, Range *range1, Range *range2, Mat4 *m, Vec3 *axis)
+void FUN_002b8840(float *out1, float *out2, int flags, Range_2b8840 *range1, Range_2b8840 *range2, Mat4_2b8840 *m, Vec3_2b8840 *axis)
 {
     *out1 = 1.0f;
     *out2 = 1.0f;
     if (flags == 0)
         return;
 
-    struct Frame { Vec3 v; Vec3 w; Vec3 u; Vec3 x; float pad[12]; } fr;
-    Vec3 &v = fr.v;
+    struct Frame { Vec3_2b8840 v; Vec3_2b8840 w; Vec3_2b8840 u; Vec3_2b8840 x; float pad[12]; } fr;
+    Vec3_2b8840 &v = fr.v;
     v.x = 0.0f;
     v.y = 0.0f;
     v.z = 1.0f;
@@ -36,7 +36,7 @@ void FUN_002b8840(float *out1, float *out2, int flags, Range *range1, Range *ran
     double dot = (double)v.y * axis->y + (double)v.x * axis->x + (double)v.z * axis->z;
     double len2 = (double)v.z * v.z + (double)v.y * v.y + (double)v.x * v.x;
     double k = dot / len2;
-    Vec3 &w = fr.w;
+    Vec3_2b8840 &w = fr.w;
     w.x = (float)(v.x * k);
     w.y = (float)(v.y * k);
     w.z = (float)(v.z * k);
@@ -45,7 +45,7 @@ void FUN_002b8840(float *out1, float *out2, int flags, Range *range1, Range *ran
         if (!(flags & (1 << i)))
             continue;
 
-        Vec3 &u = fr.u;
+        Vec3_2b8840 &u = fr.u;
         u.x = (float)i;
         u.y = (float)(1 - i);
         u.z = 0.0f;
@@ -54,7 +54,7 @@ void FUN_002b8840(float *out1, float *out2, int flags, Range *range1, Range *ran
         double dotU = (double)u.y * axis->y + (double)u.x * axis->x + (double)u.z * axis->z;
         double lenU = (double)u.z * u.z + (double)u.y * u.y + (double)u.x * u.x;
         double kU = dotU / lenU;
-        Vec3 &x = fr.x;
+        Vec3_2b8840 &x = fr.x;
         float y1 = (float)(u.y * kU);
         float z1 = (float)(u.z * kU);
         x.x = (float)(u.x * kU + w.x);
@@ -64,7 +64,7 @@ void FUN_002b8840(float *out1, float *out2, int flags, Range *range1, Range *ran
 
         double t = (double)x.z * v.z + (double)x.y * v.y + (double)x.x * v.x;
         float tf = (float)t;
-        Range *range = i == 0 ? range1 : range2;
+        Range_2b8840 *range = i == 0 ? range1 : range2;
         float *out = i == 0 ? out1 : out2;
         if (t > range->lo)
             *out = 1.0f;

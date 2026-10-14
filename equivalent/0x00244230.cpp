@@ -7,33 +7,33 @@ struct Node {
     int color;  // 0 = black, 1 = red
 };
 
-struct Key {
+struct Key_244230 {
     unsigned lo;
     unsigned hi;
 };
 
-struct Item {
+struct Item_244230 {
     char pad0[0x30];
-    Key key;
+    Key_244230 key;
     char pad38[0x48 - 0x38];
     Node node;
 };
 
-struct Tree {
+struct Tree_244230 {
     Node* root;
     Node nil;
 };
 
-void __cdecl FUN_002435a0(Tree* tree, Node* n);  // rotate left
-void __cdecl FUN_002435f0(Tree* tree, Node* n);  // rotate right
+void __cdecl FUN_002435a0(Tree_244230* tree, Node* n);  // rotate left
+void __cdecl FUN_002435f0(Tree_244230* tree, Node* n);  // rotate right
 
-static inline const Key* KeyOf(const Node* n)
+static inline const Key_244230* KeyOf(const Node* n)
 {
-    return (const Key*)((const char*)n - 0x18);
+    return (const Key_244230*)((const char*)n - 0x18);
 }
 
 // Unique insert of item (keyed by a 64-bit key) into an intrusive red-black tree.
-bool __cdecl FUN_00244230(Tree* tree, Item* item, const Key* key)
+bool __cdecl FUN_00244230(Tree_244230* tree, Item_244230* item, const Key_244230* key)
 {
     Node* nil = &tree->nil;
     Node* added = &item->node;
@@ -44,7 +44,7 @@ bool __cdecl FUN_00244230(Tree* tree, Item* item, const Key* key)
         unsigned klo = key->lo;
         unsigned khi = key->hi;
         do {
-            const Key* nk = KeyOf(x);
+            const Key_244230* nk = KeyOf(x);
             y = x;
             if (khi < nk->hi || (khi == nk->hi && klo < nk->lo)) {
                 x = x->left;
@@ -60,7 +60,7 @@ bool __cdecl FUN_00244230(Tree* tree, Item* item, const Key* key)
     if (y == nil) {
         tree->root = added;
     } else {
-        const Key* yk = KeyOf(y);
+        const Key_244230* yk = KeyOf(y);
         if (key->hi > yk->hi || (key->hi == yk->hi && key->lo >= yk->lo))
             y->right = added;
         else

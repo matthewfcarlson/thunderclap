@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0001b080 @ 0x0001b080
 // FUN_0001b080: CWeaponCollisionAction constructor
-struct RefObj {
+struct RefObj_1b080 {
     virtual void AddRef();
     virtual void Release();
 };
@@ -10,7 +10,7 @@ struct V3i {
     int x, y, z;
 };
 
-struct Owner {
+struct Owner_1b080 {
     char pad00[0xb8];
     V3i pos;
 };
@@ -21,8 +21,8 @@ extern "C" char DAT_003f34c8[];
 struct CWeaponCollisionAction {
     int vptr;
     char pad04[0x18];
-    RefObj *f1c;
-    Owner *owner;
+    RefObj_1b080 *f1c;
+    Owner_1b080 *owner;
     int f24;
     char b28;
     char pad29[3];
@@ -31,13 +31,13 @@ struct CWeaponCollisionAction {
     char pad34[0x40];
     int f74;
     int f78;
-    RefObj *f7c;
+    RefObj_1b080 *f7c;
 
     void FUN_00232660();
-    CWeaponCollisionAction *FUN_0001b080(RefObj *a, Owner *b, RefObj *c);
+    CWeaponCollisionAction *FUN_0001b080(RefObj_1b080 *a, Owner_1b080 *b, RefObj_1b080 *c);
 };
 
-CWeaponCollisionAction *CWeaponCollisionAction::FUN_0001b080(RefObj *a, Owner *b, RefObj *c)
+CWeaponCollisionAction *CWeaponCollisionAction::FUN_0001b080(RefObj_1b080 *a, Owner_1b080 *b, RefObj_1b080 *c)
 {
     FUN_00232660();
     vptr = (int)DAT_003f3390;

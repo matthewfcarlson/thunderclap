@@ -4,14 +4,14 @@ extern "C" char DAT_00494b44[];
 extern "C" char DAT_00494b60[];
 extern void* __cdecl FUN_00344e74(void*, int, const char*, const char*, int);
 
-struct Kind {
+struct Kind_124750 {
     char pad0[0xc];
     int kind;               // 0x0c
 };
 
 struct Mixer {
     char pad0[0x328];
-    Kind* target;           // 0x328
+    Kind_124750* target;           // 0x328
 };
 
 struct Context {
@@ -44,7 +44,7 @@ bool hulkfight::ai::TargetTypeCondition::vfunc_6(int unused1, Entity* entity, in
 {
     if (!FUN_00344e74(entity, 0, DAT_00494b44, DAT_00494b60, 0))
         return false;
-    Kind* target = entity->FUN_000592a0()->FUN_00059a30()->target;
+    Kind_124750* target = entity->FUN_000592a0()->FUN_00059a30()->target;
     if (!target)
         return false;
     int want;

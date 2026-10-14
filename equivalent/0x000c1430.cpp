@@ -8,17 +8,17 @@ extern "C" const char DAT_0048e0f0[];
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void __cdecl FUN_0008d340(void *p);
 
-struct Id64 {
+struct Id64_c1430 {
     unsigned int lo, hi;
     void FUN_0027af50() throw();
 };
 
 struct Id40 {
-    Id64 a, b, c, d;
+    Id64_c1430 a, b, c, d;
     char pad20[8];
 };
 
-class Releasable {
+class Releasable_c1430 {
 public:
     virtual void v0();
     virtual void release();
@@ -50,20 +50,20 @@ struct Done {
     void FUN_00092be0();
 };
 
-class __declspec(novtable) MethodBase {
+class __declspec(novtable) MethodBase_c1430 {
 public:
     virtual void m0();
     char pad_04[0xc];
-    MethodBase(const char *n, int k) { FUN_001d0480(n, k); }
+    MethodBase_c1430(const char *n, int k) { FUN_001d0480(n, k); }
     void FUN_001d0480(const char *, int);
     void FUN_001d04a0();
 };
 
 template <class T, class R, class A, class B>
-class Method2 : public MethodBase {
+class Method2 : public MethodBase_c1430 {
 public:
     typedef R (T::*Fn)(A, B);
-    Method2(const char *name, Fn f) : MethodBase(name, 2) {
+    Method2(const char *name, Fn f) : MethodBase_c1430(name, 2) {
         fn = f;
         c18 = FUN_001d04d0(DAT_0048e100);
         c10 = FUN_001d04d0(DAT_0048e0f0);
@@ -87,22 +87,22 @@ public:
 void FUN_000b45a0(const char *);
 void FUN_000b45b0(const char *);
 void FUN_000b45d0(const char *);
-struct Registry;
+struct Registry_c1430;
 
 class CFEManager {
 public:
     virtual void v0();
     char pad04[0x1c - 4];
-    Releasable *f1c;
-    Releasable *f20;
-    Releasable *f24;
+    Releasable_c1430 *f1c;
+    Releasable_c1430 *f20;
+    Releasable_c1430 *f24;
     char pad28[0x48 - 0x28];
     int f48;
     Done *f4c;
     char pad50[0x60 - 0x50];
     Owned0b *f60;
     Owned1 *f64;
-    Releasable *f68;
+    Releasable_c1430 *f68;
     void *list6c[0x80];
     void *list26c[0x80];
     char pad46c[0x470 - 0x46c];
@@ -128,7 +128,7 @@ public:
     void FUN_000c1430();
 };
 
-struct Registry {
+struct Registry_c1430 {
     void FUN_000c0a20(const char *, CFEManager *, void (CFEManager::*)());
     void FUN_000c0aa0(const char *, CFEManager *, void (CFEManager::*)());
     void FUN_000c0b80(const char *, CFEManager *, void (CFEManager::*)());
@@ -137,17 +137,17 @@ struct Registry {
     void FUN_000c0cc0(const char *, CFEManager *, void (CFEManager::*)());
     void FUN_000bfd20(const char *, void (*)(const char *));
     void FUN_000bfda0(const char *, void (*)(const char *));
-    void FUN_001d26d0(const char *, MethodBase *);
+    void FUN_001d26d0(const char *, MethodBase_c1430 *);
 };
 
-Registry *FUN_001d4c90();
+Registry_c1430 *FUN_001d4c90();
 void FUN_000fc3e0();
 
 void CFEManager::FUN_000c1430()
 {
     unsigned int cookie = DAT_004d9968;
     new (this) CFEManager;
-    Registry *reg = FUN_001d4c90();
+    Registry_c1430 *reg = FUN_001d4c90();
     if (reg) {
         reg->FUN_000c0a20("fe_StartNextMission", this, &CFEManager::FUN_000bc750);
         reg->FUN_000bfd20("fe_changeScreen", FUN_000b45a0);

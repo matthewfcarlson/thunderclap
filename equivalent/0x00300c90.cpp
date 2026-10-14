@@ -2,13 +2,13 @@
 // FUN_00300c90 @ 0x00300c90
 extern int DAT_004d2eec;
 extern void* __cdecl FUN_0008d6d0(unsigned int size);
-struct A { char data[16]; void FUN_00304300(); };
-struct B { char data[64]; void FUN_00301290(); };
-struct C { char data[256]; void FUN_002f7ee0(); };
+struct A_300c90 { char data[16]; void FUN_00304300(); };
+struct B_300c90 { char data[64]; void FUN_00301290(); };
+struct C_300c90 { char data[256]; void FUN_002f7ee0(); };
 struct D { char data[0x2030]; void FUN_00312d50(); };
-struct Entry { char pad[0x50]; unsigned char active; char rest[0x1b]; void FUN_00300a00(); };
+struct Entry_300c90 { char pad[0x50]; unsigned char active; char rest[0x1b]; void FUN_00300a00(); };
 struct Object {
- Entry* entries; int count; unsigned int* begin; unsigned int* end; unsigned int* limit; char pad14[4]; A a; B b; C c; D d; unsigned char flag; char pad2199[3]; int mode;
+ Entry_300c90* entries; int count; unsigned int* begin; unsigned int* end; unsigned int* limit; char pad14[4]; A_300c90 a; B_300c90 b; C_300c90 c; D d; unsigned char flag; char pad2199[3]; int mode;
  Object* FUN_00300c90();
 };
 Object* Object::FUN_00300c90() {
@@ -17,8 +17,8 @@ Object* Object::FUN_00300c90() {
  flag=0; mode=18;
  int n=DAT_004d2eec; count=n;
  unsigned int* allocation=(unsigned int*)FUN_0008d6d0((unsigned int)n*0x6c+4);
- Entry* list=0;
- if(allocation) { *allocation=(unsigned int)n; list=(Entry*)(allocation+1); if(n-1>=0) { Entry* item=list; unsigned int remaining=(unsigned int)n; do { item->FUN_00300a00(); ++item; } while(--remaining); } }
+ Entry_300c90* list=0;
+ if(allocation) { *allocation=(unsigned int)n; list=(Entry_300c90*)(allocation+1); if(n-1>=0) { Entry_300c90* item=list; unsigned int remaining=(unsigned int)n; do { item->FUN_00300a00(); ++item; } while(--remaining); } }
  entries=list;
  if(count!=0) { unsigned int bytes=(unsigned int)count*4; unsigned int* p=(unsigned int*)FUN_0008d6d0(bytes); begin=p; if(p) {end=p; limit=(unsigned int*)((char*)p+bytes);} else {end=0; limit=0;} }
  else {begin=0;end=0;limit=0;}

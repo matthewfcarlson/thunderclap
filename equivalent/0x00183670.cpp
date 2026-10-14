@@ -1,51 +1,51 @@
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 38/40, incomplete)
 // hulkfight::motion::SmartPropGrabbableCondition::vfunc_6 @ 0x00183670
-struct Entry {
+struct Entry_183670 {
     int pad0[2];
     int id;
     int pad0c;
 };
 
-struct Group {
+struct Group_183670 {
     char pad0[0x24];
     int count;
-    Entry *entries;
+    Entry_183670 *entries;
 };
 
-struct Table {
+struct Table_183670 {
     char pad0[0x1c];
-    Group **groups;
+    Group_183670 **groups;
 };
 
-class Listener {
+class Listener_183670 {
 public:
     int FUN_001d4de0();
     char FUN_001d4e20();
     int FUN_001d5e80(int x);
     int FUN_001d5dd0(int x);
-    Table *FUN_001d4fc0();
+    Table_183670 *FUN_001d4fc0();
 };
 
-struct Info {
+struct Info_183670 {
     char pad0[0x40];
     int index;
     char pad44[0xec - 0x44];
-    Listener *listener;
+    Listener_183670 *listener;
 };
 
-struct Target {
+struct Target_183670 {
     char pad0[8];
-    Info *info;
+    Info_183670 *info;
 };
 
-struct Stats {
+struct Stats_183670 {
     char pad0[0x3a4];
-    Target *target;
+    Target_183670 *target;
 };
 
-struct Fighter { char pad[4]; };
-Fighter *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(Fighter *f);
+struct Fighter_183670 { char pad[4]; };
+Fighter_183670 *__fastcall FUN_000592a0(void *owner);
+Stats_183670 *__fastcall FUN_00059a30(Fighter_183670 *f);
 
 namespace fight {
 class Params {
@@ -53,7 +53,7 @@ public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    void FUN_00059790(Target *t);
+    void FUN_00059790(Target_183670 *t);
 };
 }
 
@@ -94,16 +94,16 @@ bool SmartPropGrabbableCondition::vfunc_6(int arg1, fight::Params *params, int a
     if (dynamic_cast<CFightParams *>(params) == 0)
         return false;
 
-    Stats *stats = FUN_00059a30(FUN_000592a0(params));
-    Target *target = stats->target;
+    Stats_183670 *stats = FUN_00059a30(FUN_000592a0(params));
+    Target_183670 *target = stats->target;
     if (target == 0)
         return false;
 
     bool ok = true;
     char useId = this->useId;
     if (useId || this->useFlag || this->useValue || this->useOther) {
-        Info *info = target->info;
-        Listener *listener = info->listener;
+        Info_183670 *info = target->info;
+        Listener_183670 *listener = info->listener;
         if (useId) {
             int want = this->id;
             ok = listener->FUN_001d4de0() == want;
@@ -124,10 +124,10 @@ bool SmartPropGrabbableCondition::vfunc_6(int arg1, fight::Params *params, int a
             int idx = info->index;
             bool found = false;
             if (idx >= 0) {
-                Group *g = listener->FUN_001d4fc0()->groups[idx];
+                Group_183670 *g = listener->FUN_001d4fc0()->groups[idx];
                 int n = g->count;
                 if (n > 0) {
-                    Entry *e = g->entries;
+                    Entry_183670 *e = g->entries;
                     int want = this->wanted;
                     for (int i = 0; i < n; i++) {
                         if (e[i].id == want) {

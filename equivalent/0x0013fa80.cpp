@@ -3,36 +3,36 @@
 extern "C" double cos(double);
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_13fa80 {
     float x, y, z;
     float FUN_0022d110() throw();
-    char FUN_0022d2b0(const Vec3 *z, float eps) throw();
-    void FUN_000111b0(const Vec3 *a, const Vec3 *b) throw();
+    char FUN_0022d2b0(const Vec3_13fa80 *z, float eps) throw();
+    void FUN_000111b0(const Vec3_13fa80 *a, const Vec3_13fa80 *b) throw();
 };
 
-struct Quat {
+struct Quat_13fa80 {
     float q[4];
-    void FUN_0022b170(float angle, Vec3 *axis) throw();
-    void FUN_0022b4d0(Vec3 *in, Vec3 *out) throw();
+    void FUN_0022b170(float angle, Vec3_13fa80 *axis) throw();
+    void FUN_0022b4d0(Vec3_13fa80 *in, Vec3_13fa80 *out) throw();
 };
 
-struct Fighter {
-    void FUN_00059a50(Vec3 *out) throw();
+struct Fighter_13fa80 {
+    void FUN_00059a50(Vec3_13fa80 *out) throw();
 };
 
-struct Stats2 {
+struct Stats2_13fa80 {
     char pad0000[0x1ae0];
-    Vec3 v1ae0;
+    Vec3_13fa80 v1ae0;
     char pad1aec[0x1af8 - 0x1aec];
-    Vec3 v1af8;
+    Vec3_13fa80 v1af8;
     char pad1b04[0x2008 - 0x1b04];
     float f2008;
     char pad200c[0x2064 - 0x200c];
-    Vec3 v2064;
+    Vec3_13fa80 v2064;
     void FUN_000359c0(int a) throw();
 };
 
-struct Obj24 {
+struct Obj24_13fa80 {
     char pad000[0x8a0];
     float f8a0;
     float f8a4;
@@ -40,17 +40,17 @@ struct Obj24 {
     float f8b0;
 };
 
-struct Sub18 {
-    void FUN_0022be40(Vec3 *p) throw();
-    void FUN_00222180(Vec3 *p) throw();
+struct Sub18_13fa80 {
+    void FUN_0022be40(Vec3_13fa80 *p) throw();
+    void FUN_00222180(Vec3_13fa80 *p) throw();
 };
 
-struct Obj28 {
+struct Obj28_13fa80 {
     char pad00[0x18];
-    Sub18 sub;
+    Sub18_13fa80 sub;
 };
 
-struct Cfg {
+struct Cfg_13fa80 {
     char pad00[0x1c];
     float f1c;
     float f20;
@@ -64,19 +64,19 @@ struct Cfg {
 extern float DAT_004e0f78;
 extern unsigned int DAT_004e0f7c;
 
-Fighter *__fastcall FUN_000592a0(void *owner) throw();
-Stats2 *__fastcall FUN_00059a30(Fighter *f) throw();
+Fighter_13fa80 *__fastcall FUN_000592a0(void *owner) throw();
+Stats2_13fa80 *__fastcall FUN_00059a30(Fighter_13fa80 *f) throw();
 float __cdecl FUN_00224fc0(float a, float b) throw();
 float __cdecl FUN_00018a20(float x) throw();
 float __cdecl FUN_000186b0(float *v, float *lo, float *hi) throw();
 
-union Arg1 {
+union Arg1_13fa80 {
     int i;
     float f;
     unsigned int u;
 };
 
-union Arg2 {
+union Arg2_13fa80 {
     float f;
     unsigned int u;
 };
@@ -88,40 +88,40 @@ public:
     virtual void vfunc_2() throw();
     virtual void vfunc_3() throw();
     virtual void vfunc_4() throw();
-    virtual char vfunc_5(Arg1 a1, Arg2 a2);
+    virtual char vfunc_5(Arg1_13fa80 a1, Arg2_13fa80 a2);
     char pad04[0x18];
-    Cfg *f1c;
+    Cfg_13fa80 *f1c;
     void *f20;
-    Obj24 *f24;
-    Obj28 *f28;
-    Vec3 v2c;
-    Vec3 v38;
-    Vec3 v44;
+    Obj24_13fa80 *f24;
+    Obj28_13fa80 *f28;
+    Vec3_13fa80 v2c;
+    Vec3_13fa80 v38;
+    Vec3_13fa80 v44;
     char b50;
     char pad51[3];
     float f54;
 };
 
-char WallRunAction::vfunc_5(Arg1 a1, Arg2 a2)
+char WallRunAction::vfunc_5(Arg1_13fa80 a1, Arg2_13fa80 a2)
 {
     struct Frame {
         float s0;
-        Vec3 U;
-        Vec3 W;
-        Vec3 X;
-        Vec3 Y2;
-        Vec3 V;
-        Vec3 P;
-        Vec3 Y;
-        Quat M;
+        Vec3_13fa80 U;
+        Vec3_13fa80 W;
+        Vec3_13fa80 X;
+        Vec3_13fa80 Y2;
+        Vec3_13fa80 V;
+        Vec3_13fa80 P;
+        Vec3_13fa80 Y;
+        Quat_13fa80 M;
     } f;
 
     if (a1.i != 0)
         return 1;
     if (f24 == 0 || f28 == 0)
         return 0;
-    Fighter *fighter = FUN_000592a0(f20);
-    Stats2 *stats = FUN_00059a30(fighter);
+    Fighter_13fa80 *fighter = FUN_000592a0(f20);
+    Stats2_13fa80 *stats = FUN_00059a30(fighter);
     f.P.x = 0.0f;
     f.P.y = 0.0f;
     f.P.z = 0.0f;

@@ -44,7 +44,7 @@ class Function2 : public Function {
     Fn fn;
 };
 
-struct Registry { void FUN_001d3b70(const char*, void*); };
+struct Registry_1b3c50 { void FUN_001d3b70(const char*, void*); };
 
 struct FunctionB { FunctionB* FUN_001b3810(const char*, void (*)()); };
 struct FunctionC { FunctionC* FUN_001b38b0(const char*, void (*)()); };
@@ -84,7 +84,7 @@ void FUN_001b3c50()
         e = (ProfileTail*)((char*)e + 0xb4);
     } while ((char*)e < DAT_004e2194);
 
-    Registry* reg = (Registry*)FUN_001d4c90();
+    Registry_1b3c50* reg = (Registry_1b3c50*)FUN_001d4c90();
     if (reg) {
         void* mem = FUN_0008d690(0x20);
         Function2<void, int, math::Vector>* trigger = 0;

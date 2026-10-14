@@ -92,17 +92,17 @@ public:
     T *owner;
 };
 
-struct Registry {
+struct Registry_1f6990 {
     void FUN_001d3b70(const char *name, void *closure);
     void FUN_001d3600(const char *path, int flag);
 };
-Registry *FUN_001d4c90();
+Registry_1f6990 *FUN_001d4c90();
 
-struct Buffer {
+struct Buffer_1f6990 {
     char pad00[0x70];
     char flag;
     char pad71[0x128 - 0x71];
-    Buffer *FUN_001f3780();
+    Buffer_1f6990 *FUN_001f3780();
     void FUN_0027b040(const char *s);
 };
 
@@ -129,7 +129,7 @@ public:
     char pad00[8];
     CSoundSequenceVoice *voices[0x20];
     char pad88[0xd4 - 0x88];
-    Buffer *buffers[0x94];
+    Buffer_1f6990 *buffers[0x94];
 
     void FUN_001f4610(bool a, bool b, bool c);
     void FUN_001f46a0();
@@ -141,9 +141,9 @@ void CSoundVoiceManager::FUN_001f6990()
 {
     for (int i = 0; i < 0x94; i++) {
         void *mem = FUN_0008d710(0x128, 6);
-        Buffer *b = 0;
+        Buffer_1f6990 *b = 0;
         if (mem)
-            b = ((Buffer *)mem)->FUN_001f3780();
+            b = ((Buffer_1f6990 *)mem)->FUN_001f3780();
         buffers[i] = b;
         b->FUN_0027b040(0);
         buffers[i]->flag = 0;
@@ -157,7 +157,7 @@ void CSoundVoiceManager::FUN_001f6990()
         v->f10 = 0;
     }
 
-    Registry *reg = FUN_001d4c90();
+    Registry_1f6990 *reg = FUN_001d4c90();
     void *mem = FUN_0008d690(0x24);
     Closure3<CSoundVoiceManager, void, bool, bool, bool> *pause = 0;
     if (mem)

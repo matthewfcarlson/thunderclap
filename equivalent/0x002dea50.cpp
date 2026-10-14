@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 20/20)
 // pure3d::ImageConverter::vfunc_8 @ 0x002dea50
-struct PixelFormat {
+struct PixelFormat_2dea50 {
     char pad0[8];
     int bits;                   // 0x08
     char pad0c[0x18 - 0x0c];
@@ -32,10 +32,10 @@ struct Image {
 class ImageConverter {
 public:
     void *vptr;
-    void FUN_002dea50(PixelFormat *fmt, Image *img);
+    void FUN_002dea50(PixelFormat_2dea50 *fmt, Image *img);
 };
 
-void ImageConverter::FUN_002dea50(PixelFormat *fmt, Image *img)
+void ImageConverter::FUN_002dea50(PixelFormat_2dea50 *fmt, Image *img)
 {
     int sA = fmt->rShift + (4 - fmt->rDst) * 2;
     int sB = fmt->gShift + (4 - fmt->gDst) * 2;

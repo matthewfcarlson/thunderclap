@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_000fb4b0 @ 0x000fb4b0
-struct Vec3 { float x, y, z; };
-struct Target {
+struct Vec3_fb4b0 { float x, y, z; };
+struct Target_fb4b0 {
     char pad0[0x3c];
     unsigned int color;      // 0x3c
     char pad1[0x78 - 0x40];
-    Vec3 offset;             // 0x78
+    Vec3_fb4b0 offset;             // 0x78
 };
-union FloatBits {
+union FloatBits_fb4b0 {
     float f;
     unsigned int u;
 };
 
-class Fade {
+class Fade_fb4b0 {
 public:
     int state;               // 0x0
-    Target *target;          // 0x4
+    Target_fb4b0 *target;          // 0x4
     float start;             // 0x8
     float duration;          // 0xc
     float time;              // 0x10
     float scale[3];          // 0x14
-    Vec3 base;               // 0x20
+    Vec3_fb4b0 base;               // 0x20
     float floor;             // 0x2c
     unsigned char b0;        // 0x30
     unsigned char b1;        // 0x31
@@ -30,7 +30,7 @@ public:
     bool FUN_000fb4b0(float dt);
 };
 
-bool Fade::FUN_000fb4b0(float dt)
+bool Fade_fb4b0::FUN_000fb4b0(float dt)
 {
     double end = start + duration;
     double t = dt + time;
@@ -42,7 +42,7 @@ bool Fade::FUN_000fb4b0(float dt)
     else
         cur = 0.0;
     time = (float)cur;
-    FloatBits d;
+    FloatBits_fb4b0 d;
     d.f = (float)(cur - end);
     d.u &= 0x7fffffff;
     if (d.f <= 1e-5f)
@@ -66,7 +66,7 @@ bool Fade::FUN_000fb4b0(float dt)
     target->offset.x = w0 + base.x;
     target->offset.y = w1 + base.y;
     target->offset.z = w2 + base.z;
-    FloatBits e;
+    FloatBits_fb4b0 e;
     e.f = (float)(time - end);
     e.u &= 0x7fffffff;
     if (e.f <= 1e-5f) {

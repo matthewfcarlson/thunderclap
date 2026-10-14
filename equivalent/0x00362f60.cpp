@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362f60 @ 0x00362f60
-typedef void (*Handler)();
-struct Entry {
-    Handler fn;
+typedef void (*Handler_362f60)();
+struct Entry_362f60 {
+    Handler_362f60 fn;
     int a;
     int b;
     int c;
@@ -21,18 +21,18 @@ void FUN_003333f0();
 void FUN_00333400();
 void FUN_00333770();
 void FUN_003337d0();
-extern Entry DAT_004d8d70;
-extern Entry DAT_004d8d88;
-extern Entry DAT_004d8da0;
-extern Entry DAT_004d8db8;
-extern Entry DAT_004d8dd0;
-extern Entry DAT_004d8de8;
-extern Entry DAT_004d8e00;
-extern Entry DAT_004d8e18;
-extern Entry DAT_004d8e30;
-extern Entry DAT_004d8e48;
-extern Entry DAT_004d8e60;
-extern Entry DAT_004d8e78;
+extern Entry_362f60 DAT_004d8d70;
+extern Entry_362f60 DAT_004d8d88;
+extern Entry_362f60 DAT_004d8da0;
+extern Entry_362f60 DAT_004d8db8;
+extern Entry_362f60 DAT_004d8dd0;
+extern Entry_362f60 DAT_004d8de8;
+extern Entry_362f60 DAT_004d8e00;
+extern Entry_362f60 DAT_004d8e18;
+extern Entry_362f60 DAT_004d8e30;
+extern Entry_362f60 DAT_004d8e48;
+extern Entry_362f60 DAT_004d8e60;
+extern Entry_362f60 DAT_004d8e78;
 extern LastEntry DAT_004d8e90;
 
 void FUN_00362f60()

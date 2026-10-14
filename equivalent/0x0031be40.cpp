@@ -5,7 +5,7 @@ extern "C" void* memcpy(void*, const void*, unsigned int);
 namespace D3D8 {
 char* __stdcall D3DVertexBuffer_Lock2(void*, DWORD);
 }
-struct ShaderInfo {
+struct ShaderInfo_31be40 {
     char pad[8];
     DWORD flags;
 };
@@ -33,7 +33,7 @@ class d3dPrimStream : public d3dBasePrimStream {
     int colorCount;
     int uvCount;
     char pad150[0x158 - 0x150];
-    ShaderInfo* shader;
+    ShaderInfo_31be40* shader;
     int total;
     virtual void vfunc_0(bool copyPending);
     virtual void vfunc_1();

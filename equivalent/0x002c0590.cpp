@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 10/12, incomplete)
 // FUN_002c0590 @ 0x002c0590
-struct Name {
+struct Name_2c0590 {
     unsigned int lo, hi;
     void FUN_0027b040(const char *s);
 };
 
 struct Sprite {
     char pad0[8];
-    Name name;
+    Name_2c0590 name;
     char pad10[0x28 - 0x10];
     char flag;
 };
@@ -26,14 +26,14 @@ struct Reader {
     void FUN_00266ca0(int v);
 };
 
-struct Factory {
+struct Factory_2c0590 {
     char pad0[0x8c];
     int f8c;
     Sprite *FUN_002aecb0(char *name);
     Sprite *FUN_002aed60(int a, int b);
 };
 
-struct Frame {
+struct Frame_2c0590 {
     short unk10;
     unsigned char len;
     char flag;
@@ -43,16 +43,16 @@ struct Frame {
     char buf2[0x100];
 };
 
-class Loader {
+class Loader_2c0590 {
 public:
     char pad0[0x14];
-    Factory *factory;
+    Factory_2c0590 *factory;
     Sprite *FUN_002c0590(Reader *r, int unused);
 };
 
-Sprite *Loader::FUN_002c0590(Reader *r, int unused)
+Sprite *Loader_2c0590::FUN_002c0590(Reader *r, int unused)
 {
-    Frame f;
+    Frame_2c0590 f;
     Sprite *result = 0;
     r->stream->FUN_002647e0(&f.len, 1, 1, 1);
     int len = f.len;

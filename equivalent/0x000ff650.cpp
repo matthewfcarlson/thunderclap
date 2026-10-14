@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // CHand2HandAgent::vfunc_12 @ 0x000ff650
-struct NameHolder {
+struct NameHolder_ff650 {
     void FUN_0027b040(const char *name);
 };
 
-struct Clock {
+struct Clock_ff650 {
     float FUN_00078780();
 };
-Clock *__cdecl FUN_000964d0();
+Clock_ff650 *__cdecl FUN_000964d0();
 
-struct Player {
+struct Player_ff650 {
     char pad0[0x1ccc];
     float limit;
     char pad1cd0[0x2098 - 0x1cd0];
-    NameHolder evadeName;
+    NameHolder_ff650 evadeName;
     char pad2099[0x20a0 - 0x2099];
     unsigned char evading;
 };
@@ -36,7 +36,7 @@ public:
     virtual void v9();
     virtual void v10();
     virtual void v11();
-    virtual char vfunc_12(Player *player);
+    virtual char vfunc_12(Player_ff650 *player);
     char pad04[0x84 - 4];
     float timer;
     char pad88[0x94 - 0x88];
@@ -50,12 +50,12 @@ public:
     float speed;
 };
 
-char CHand2HandAgent::vfunc_12(Player *player)
+char CHand2HandAgent::vfunc_12(Player_ff650 *player)
 {
     char result = 0;
     if (timer < 1.0f)
         return 0;
-    Clock *clock = FUN_000964d0();
+    Clock_ff650 *clock = FUN_000964d0();
     if (speed < 5.5f) {
         float limit = player->limit;
         if (clock->FUN_00078780() < limit) {

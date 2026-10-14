@@ -15,7 +15,7 @@ struct Reader {
     void FUN_00266be0();
 };
 
-struct NameField {
+struct NameField_29a190 {
     void FUN_0027b040(const char *s);
 };
 
@@ -38,16 +38,16 @@ struct DynamicCaster {
 }
 }
 
-struct RefObj {
+struct RefObj_29a190 {
     virtual void v0();
     virtual void v1();
 };
 
-struct Handle {
-    RefObj *FUN_0027b240();
+struct Handle_29a190 {
+    RefObj_29a190 *FUN_0027b240();
 };
 
-struct Inventory {
+struct Inventory_29a190 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -64,7 +64,7 @@ public:
 class CompositeDrawable;
 class PoseAnimationController : public FrameController {
 public:
-    void FUN_00288080(RefObj *skel);
+    void FUN_00288080(RefObj_29a190 *skel);
 };
 class CompDrawVisibilityAnimationController : public FrameController {
 public:
@@ -76,7 +76,7 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void v5(FrameController **out, unsigned __int64 *id, Reader *r, Inventory *inv);
+    virtual void v5(FrameController **out, unsigned __int64 *id, Reader *r, Inventory_29a190 *inv);
 };
 
 class DrawableContainer {
@@ -91,7 +91,7 @@ public:
     virtual void v7();
     virtual void v8();
     virtual void v9();
-    virtual void v10(RefObj *skel);
+    virtual void v10(RefObj_29a190 *skel);
     virtual void v11();
     virtual void v12();
     virtual void v13();
@@ -118,17 +118,17 @@ public:
     virtual void v11();
     virtual void v12();
     char pad4[4];
-    NameField name;
+    NameField_29a190 name;
     char pad9[0x40 - 9];
 };
 
-struct Rec {
+struct Rec_29a190 {
     int f0;
     int f4;
     DrawableContainer *f8;
 };
 
-class Table {
+class Table_29a190 {
 public:
     virtual void v0();
     char pad4[4];
@@ -136,8 +136,8 @@ public:
     char pad0c[0x14 - 0xc];
     unsigned char *counts;
     char pad18[0x3c - 0x18];
-    Rec *recs;
-    Table *FUN_00299cd0(unsigned int n);
+    Rec_29a190 *recs;
+    Table_29a190 *FUN_00299cd0(unsigned int n);
     void FUN_00298870();
 };
 
@@ -150,34 +150,34 @@ public:
         f4c = 0;
         f50 = 0;
     }
-    RefObj *skel;
-    Table *table;
+    RefObj_29a190 *skel;
+    Table_29a190 *table;
     int f48;
-    RefObj *f4c;
-    RefObj *f50;
+    RefObj_29a190 *f4c;
+    RefObj_29a190 *f50;
     char pad54[4];
 };
 
 }
 
-struct Registry {
+struct Registry_29a190 {
     content::ObjectLoader *FUN_00265310(int id);
 };
-extern Registry *DAT_00527c58;
+extern Registry_29a190 *DAT_00527c58;
 
 void *FUN_00263ea0(unsigned int size);
 void *FUN_0008d690(unsigned int size);
 unsigned __int64 __cdecl FUN_0027b020(const char *s);
 unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
-void __cdecl FUN_0028fd70(Inventory *inv);
+void __cdecl FUN_0028fd70(Inventory_29a190 *inv);
 int __cdecl FUN_00298180(void *p);
 
 class CompositeDrawableLoader {
 public:
-    void vfunc_5(pure3d::CompositeDrawable **out, unsigned __int64 *outId, Reader *r, Inventory *inv);
+    void vfunc_5(pure3d::CompositeDrawable **out, unsigned __int64 *outId, Reader *r, Inventory_29a190 *inv);
 };
 
-struct Frame {
+struct Frame_29a190 {
     char pad00[2];
     unsigned char len;
     bool flag;
@@ -196,9 +196,9 @@ struct Frame {
     char name3[0x100];
 };
 
-void CompositeDrawableLoader::vfunc_5(pure3d::CompositeDrawable **out, unsigned __int64 *outId, Reader *r, Inventory *inv)
+void CompositeDrawableLoader::vfunc_5(pure3d::CompositeDrawable **out, unsigned __int64 *outId, Reader *r, Inventory_29a190 *inv)
 {
-    Frame f;
+    Frame_29a190 f;
 
     r->stream->FUN_002647e0(&f.d, 1, 4, 1);
     r->stream->FUN_002647e0(&f.len, 1, 1, 1);
@@ -222,9 +222,9 @@ void CompositeDrawableLoader::vfunc_5(pure3d::CompositeDrawable **out, unsigned 
         unsigned __int64 key = FUN_0027b020(f.name2);
         content::LoadInventory::DynamicCaster<pure3d::Skeleton> *caster =
             new (f.c1) content::LoadInventory::DynamicCaster<pure3d::Skeleton>;
-        Handle *h = (Handle *)inv->v3(caster, key);
+        Handle_29a190 *h = (Handle_29a190 *)inv->v3(caster, key);
         if (h) {
-            RefObj *s = h->FUN_0027b240();
+            RefObj_29a190 *s = h->FUN_0027b240();
             if (s)
                 s->v0();
             if (cd->skel)
@@ -234,9 +234,9 @@ void CompositeDrawableLoader::vfunc_5(pure3d::CompositeDrawable **out, unsigned 
     }
 
     void *tmem = FUN_0008d690(0x48);
-    pure3d::Table *t = 0;
+    pure3d::Table_29a190 *t = 0;
     if (tmem)
-        t = ((pure3d::Table *)tmem)->FUN_00299cd0(f.n);
+        t = ((pure3d::Table_29a190 *)tmem)->FUN_00299cd0(f.n);
     cd->table = t;
     t->v0();
 
@@ -258,14 +258,14 @@ void CompositeDrawableLoader::vfunc_5(pure3d::CompositeDrawable **out, unsigned 
                         pc->v0();
                         if (cd->f4c)
                             cd->f4c->v1();
-                        cd->f4c = (RefObj *)pc;
+                        cd->f4c = (RefObj_29a190 *)pc;
                         if (pc)
                             pc->FUN_00288080(cd->skel);
                     } else if (vc) {
                         vc->v0();
                         if (cd->f50)
                             cd->f50->v1();
-                        cd->f50 = (RefObj *)vc;
+                        cd->f50 = (RefObj_29a190 *)vc;
                         if (vc)
                             vc->FUN_002a8310(cd);
                     } else {
@@ -292,7 +292,7 @@ void CompositeDrawableLoader::vfunc_5(pure3d::CompositeDrawable **out, unsigned 
                 if (f.flag == 1)
                     dc = dc->v4();
                 unsigned int idx = (unsigned char)f.k;
-                pure3d::Rec *slot = &cd->table->recs[idx];
+                pure3d::Rec_29a190 *slot = &cd->table->recs[idx];
                 if (dc)
                     dc->v0();
                 if (slot->f8)

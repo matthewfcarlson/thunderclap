@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 12/12)
 // FUN_002e96a0 @ 0x002e96a0
-struct Png { char pad[0x60]; unsigned flags; };
-struct Info { char pad[8]; signed char flags; };
+struct Png_2e96a0 { char pad[0x60]; unsigned flags; };
+struct Info_2e96a0 { char pad[8]; signed char flags; };
 struct PhysData { unsigned char x[4]; unsigned char y[4]; unsigned char unit; };
-extern "C" void __cdecl FUN_002e69a0(Png*, const char*);
-extern "C" void __cdecl FUN_002e69d0(Png*, const char*);
-extern "C" int __cdecl FUN_002e81e0(Png*, unsigned);
-extern "C" void __cdecl FUN_002e7580(Png*, void*, unsigned);
+extern "C" void __cdecl FUN_002e69a0(Png_2e96a0*, const char*);
+extern "C" void __cdecl FUN_002e69d0(Png_2e96a0*, const char*);
+extern "C" int __cdecl FUN_002e81e0(Png_2e96a0*, unsigned);
+extern "C" void __cdecl FUN_002e7580(Png_2e96a0*, void*, unsigned);
 extern "C" unsigned __cdecl FUN_002e7500(unsigned char*);
-extern "C" int __cdecl FUN_002eb480(Png*, Info*, unsigned, unsigned, unsigned);
-int __cdecl FUN_002e96a0(Png* png, Info* info, unsigned length) {
+extern "C" int __cdecl FUN_002eb480(Png_2e96a0*, Info_2e96a0*, unsigned, unsigned, unsigned);
+int __cdecl FUN_002e96a0(Png_2e96a0* png, Info_2e96a0* info, unsigned length) {
     unsigned flags = png->flags;
     if (!(flags & 1)) {
         FUN_002e69a0(png, "Missing IHDR before pHYS");

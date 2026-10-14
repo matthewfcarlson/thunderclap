@@ -3,13 +3,13 @@
 // FUN_00336dd0 @ 0x00336dd0
 extern unsigned int DAT_0055dbb4;
 struct ElementType { int type; };
-struct Descriptor { char pad[8]; int type; ElementType* element; };
-struct Schema { char pad[0x44]; int count; Descriptor* FUN_00337090(int index); };
-struct Data { int unused; Schema* schema; unsigned int* values; void FUN_00336dd0(); };
-void Data::FUN_00336dd0() {
+struct Descriptor_336dd0 { char pad[8]; int type; ElementType* element; };
+struct Schema_336dd0 { char pad[0x44]; int count; Descriptor_336dd0* FUN_00337090(int index); };
+struct Data_336dd0 { int unused; Schema_336dd0* schema; unsigned int* values; void FUN_00336dd0(); };
+void Data_336dd0::FUN_00336dd0() {
  int count = schema->count;
  for(int i=0;i<count;++i) {
-  Descriptor* d = schema->FUN_00337090(i);
+  Descriptor_336dd0* d = schema->FUN_00337090(i);
   switch(d->type) {
   case 4: case 5: case 6: case 7: case 8: case 10:     // jump table 0x336ea8: types 4-8 and 10 relocate
    values[i] = values[i] ? values[i]+DAT_0055dbb4 : 0;

@@ -25,7 +25,7 @@ public:
     AnimationFrameController(const AnimationFrameController& src) throw() : FrameController(src) { f18 = src.f18; }
 };
 
-class RefObj {
+class RefObj_285d70 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -43,7 +43,7 @@ struct Track {
     int a20;
     char f24;
     char pad25[3];
-    RefObj* owner;
+    RefObj_285d70* owner;
 };
 
 class BlendFrameController : public AnimationFrameController {
@@ -80,7 +80,7 @@ BlendFrameController::BlendFrameController(const BlendFrameController& src) thro
     count = 0;
     while (count < src.count) {
         unsigned int idx = count;
-        RefObj* o = src.tracks[idx].owner;
+        RefObj_285d70* o = src.tracks[idx].owner;
         if (o != 0)
             o->AddRef();
         if (tracks[idx].owner != 0)

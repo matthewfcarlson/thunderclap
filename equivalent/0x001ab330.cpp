@@ -7,7 +7,7 @@ public:
 };
 }
 
-struct Id64 {
+struct Id64_1ab330 {
     unsigned int lo;
     unsigned int hi;
     void FUN_0027af00();
@@ -48,7 +48,7 @@ public:
 
 bool hulkfight::scenario::Event_TriggerVolumeNameCondition::vfunc_6(int a, fight::Params *params, int c)
 {
-    Id64 name;
+    Id64_1ab330 name;
     name.FUN_0027af00();
 
     CScenarioParams *sp = dynamic_cast<CScenarioParams *>(params);

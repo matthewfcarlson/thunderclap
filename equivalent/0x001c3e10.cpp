@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 26/28, incomplete)
 // FUN_001c3e10 @ 0x001c3e10
-struct Console {
+struct Console_1c3e10 {
     void FUN_0023f730(const char *section);
     void FUN_0023f740();
     char FUN_0023f770(const char *label, int key);
     void FUN_0023f8f0();
 };
 
-struct Target {
+struct Target_1c3e10 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -20,24 +20,24 @@ struct DebugView {
     int FUN_001b4420(int id);
 };
 
-struct Hub {
+struct Hub_1c3e10 {
     char pad0[8];
-    struct Sink *sink;
+    struct Sink_1c3e10 *sink;
     char pad0c[4];
     DebugView *debug;
 };
 
-struct Sink {
+struct Sink_1c3e10 {
     void FUN_00099310();
 };
 
-struct Level {
+struct Level_1c3e10 {
     char pad0[0x59c];
     int id;
 };
 
 struct World {
-    Level *FUN_000862a0();
+    Level_1c3e10 *FUN_000862a0();
     int *FUN_00086270();
 };
 
@@ -45,18 +45,18 @@ struct Gpu {
     void FUN_0027ff40(int a, int b);
 };
 
-struct Part {
+struct Part_1c3e10 {
     void FUN_001c46a0();
 };
 
-struct Frame {
+struct Frame_1c3e10 {
     char pad0[0x10];
-    struct Target *target;
+    struct Target_1c3e10 *target;
 };
 
 struct Viewport;
 
-struct Renderer {
+struct Renderer_1c3e10 {
     char pad0[0xbc];
     int fBc;
     int fC0;
@@ -73,16 +73,16 @@ struct Renderer {
 };
 
 struct Linker {
-    void FUN_001c88f0(Renderer *r);
+    void FUN_001c88f0(Renderer_1c3e10 *r);
 };
 
-struct Child {
+struct Child_1c3e10 {
     virtual void v0();
 };
 
-extern Console *DAT_004dd6e8;
+extern Console_1c3e10 *DAT_004dd6e8;
 extern World *DAT_004dd6ec;
-extern Hub *DAT_004dd700;
+extern Hub_1c3e10 *DAT_004dd700;
 extern char DAT_004e2320;
 extern char DAT_004e2321;
 extern int DAT_00554c14;
@@ -92,12 +92,12 @@ void __cdecl FUN_002fa5b0(int v);
 
 class DebugRender {
 public:
-    Renderer *renderer;
+    Renderer_1c3e10 *renderer;
     Linker *linker;
     char pad08[8];
-    Child *child;
-    Part *partA;
-    Part *partB;
+    Child_1c3e10 *child;
+    Part_1c3e10 *partA;
+    Part_1c3e10 *partB;
     char area[0x40];
     int f5c;
     int f60;
@@ -147,10 +147,10 @@ void DebugRender::FUN_001c3e10()
     if (DAT_004e2321)
         FUN_002fa5b0(DAT_00554c14);
     if (DAT_004e2320 && DAT_004dd6ec) {
-        Level *level = DAT_004dd6ec->FUN_000862a0();
+        Level_1c3e10 *level = DAT_004dd6ec->FUN_000862a0();
         if (level) {
             int id = level->id;
-            Frame *f = (Frame *)DAT_004dd700->debug->FUN_001b4420(id);
+            Frame_1c3e10 *f = (Frame_1c3e10 *)DAT_004dd700->debug->FUN_001b4420(id);
             if (f)
                 f->target->SetColor(0xff000000, 0);
         }

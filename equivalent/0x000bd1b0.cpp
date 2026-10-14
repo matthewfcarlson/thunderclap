@@ -5,51 +5,51 @@ extern "C" int strcmp(const char *, const char *);
 extern "C" int memcmp(const void *, const void *, unsigned int);
 extern unsigned int DAT_004d9968;
 
-struct Measurer {
+struct Measurer_bd1b0 {
     int dummy;
 };
 
-struct Metrics {
+struct Metrics_bd1b0 {
     char pad0[0x24];
     void *f24;
     void *f28;
 };
 
-struct Mgr {
+struct Mgr_bd1b0 {
     char pad0[0x24];
-    Measurer *measurers[1];
+    Measurer_bd1b0 *measurers[1];
     unsigned short *FUN_00088ea0(const char *s);
 };
 
-struct Slot {
+struct Slot_bd1b0 {
     float weight;
     int a;
     int b;
     int value;
 };
 
-struct SlotStack {
-    Slot slots[8];
+struct SlotStack_bd1b0 {
+    Slot_bd1b0 slots[8];
     int index;
     float scale;
     void FUN_000f78f0();
 };
 
-struct Label {
+struct Label_bd1b0 {
     int f0;
     char rest[0x20];
     void FUN_000f7930();
     void FUN_000f7960();
-    void FUN_000f8500(const void *name, Mgr *mgr, int flag);
-    void FUN_000f79a0(const unsigned short *s, Mgr *mgr);
+    void FUN_000f8500(const void *name, Mgr_bd1b0 *mgr, int flag);
+    void FUN_000f79a0(const unsigned short *s, Mgr_bd1b0 *mgr);
 };
 
-struct Layout {
-    Metrics *font;
+struct Layout_bd1b0 {
+    Metrics_bd1b0 *font;
     int current;
-    SlotStack stack;
-    Layout *FUN_000f7fe0(Metrics *font);
-    void FUN_000f87f0(Label *e, void *arg);
+    SlotStack_bd1b0 stack;
+    Layout_bd1b0 *FUN_000f7fe0(Metrics_bd1b0 *font);
+    void FUN_000f87f0(Label_bd1b0 *e, void *arg);
     void FUN_000f78e0();
 };
 
@@ -61,7 +61,7 @@ struct Style {
     void FUN_000dee10();
 };
 
-class Screen {
+class Screen_bd1b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -93,8 +93,8 @@ public:
     virtual void v27();
     virtual void v28(float a, float b, float c, float d);
     virtual void v29();
-    virtual struct Mesh *v30(int handle, int a, int b, int c, int d);
-    virtual void v31(struct Mesh *m);
+    virtual struct Mesh_bd1b0 *v30(int handle, int a, int b, int c, int d);
+    virtual void v31(struct Mesh_bd1b0 *m);
     virtual void v32();
     virtual void v33();
     virtual void v34();
@@ -127,19 +127,19 @@ public:
     virtual int v61();
 };
 
-struct Vertex {
+struct Vertex_bd1b0 {
     float x, y, z;
 };
 
-struct Mesh {
+struct Mesh_bd1b0 {
     char pad0[8];
-    Vertex *verts;
+    Vertex_bd1b0 *verts;
     char pad0c[4];
     unsigned int *colors;
     void FUN_0008ef00();
 };
 
-class Layer {
+class Layer_bd1b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -161,12 +161,12 @@ public:
 };
 
 struct Canvas {
-    Layer *layer;
+    Layer_bd1b0 *layer;
     void FUN_00293da0(float a, float b, float c);
     void FUN_00293d40(float a, float b, float c);
 };
 
-class Viewport {
+class Viewport_bd1b0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -192,12 +192,12 @@ struct Overlay20 {
     void FUN_00294080();
 };
 
-struct Missions {
+struct Missions_bd1b0 {
     char *FUN_0008a2d0();
     char *FUN_0008a060(const char *id);
 };
 
-struct Sound {
+struct Sound_bd1b0 {
     void FUN_001ec480(const char *a, const char *b);
     void FUN_001eb2a0(float a, int b);
 };
@@ -212,24 +212,24 @@ struct Dev10 {
     virtual void v6(int a, int b);
 };
 
-struct Obj68 {
+struct Obj68_bd1b0 {
     char pad0[0x10];
     Dev10 *f10;
     int pad14;
     int f18;
 };
 
-struct Probe {
+struct Probe_bd1b0 {
     int FUN_000d3f10(const void *key);
 };
-struct Sink {
+struct Sink_bd1b0 {
     void FUN_000afe80();
 };
 struct Obj86 {
-    Probe *FUN_00086350();
-    Sink *FUN_00086330();
+    Probe_bd1b0 *FUN_00086350();
+    Sink_bd1b0 *FUN_00086330();
 };
-struct Game {
+struct Game_bd1b0 {
     char pad0[0x54];
     Obj86 *f54;
 };
@@ -247,10 +247,10 @@ struct TblEntry {
 };
 
 extern TblEntry DAT_004061e8[];
-extern Game *DAT_004dd700;
-extern Screen *DAT_0052c2a8;
+extern Game_bd1b0 *DAT_004dd700;
+extern Screen_bd1b0 *DAT_0052c2a8;
 extern Canvas *DAT_0052c2ac;
-extern Viewport *DAT_0052c2a4;
+extern Viewport_bd1b0 *DAT_0052c2a4;
 extern Sys52 *DAT_0052c2b4;
 extern float DAT_004dde18;
 extern char DAT_004dde1c;
@@ -259,16 +259,16 @@ extern float DAT_004dde24;
 extern unsigned int DAT_00409030;
 extern float DAT_0049f5e0;
 
-extern Mgr *__cdecl FUN_000fc1b0();
+extern Mgr_bd1b0 *__cdecl FUN_000fc1b0();
 extern unsigned int __cdecl FUN_00267f80();
 extern char __cdecl FUN_0008db80();
 extern void __cdecl FUN_002684c0();
 extern int __cdecl FUN_001eb200();
-extern int __cdecl FUN_000fb830(unsigned short *out, int size, const unsigned short *in, float maxWidth, Measurer *m);
+extern int __cdecl FUN_000fb830(unsigned short *out, int size, const unsigned short *in, float maxWidth, Measurer_bd1b0 *m);
 extern float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
 extern float __cdecl FUN_000186f0(float *a, float *b);
 
-struct Frame {
+struct Frame_bd1b0 {
     union {
         float f;
         int i;
@@ -284,38 +284,38 @@ struct Frame {
     int saved25;                // 0x18
     float hi;                   // 0x1c
     int saved61;                // 0x20
-    Label e1;                   // 0x24
+    Label_bd1b0 e1;                   // 0x24
     int saved55;                // 0x48
-    Layout layout;              // 0x4c
+    Layout_bd1b0 layout;              // 0x4c
     Style style;                // 0xdc
     unsigned short buf[0x80];   // 0xf8
     char padHigh[0x2f8 - 0x1f8];
     unsigned int cookie;        // 0x2f8
 };
 
-class Menu {
+class Menu_bd1b0 {
 public:
     char pad0[0x20];
     Overlay20 *p20;
     char pad24[8];
     unsigned int t2c;
     int *p30;
-    Missions *p34;
+    Missions_bd1b0 *p34;
     char pad38[4];
-    Sound *p3c;
+    Sound_bd1b0 *p3c;
     char pad40[0x68 - 0x40];
-    Obj68 *p68;
+    Obj68_bd1b0 *p68;
     void FUN_000bd1b0(unsigned char flag);
 };
 
-void Menu::FUN_000bd1b0(unsigned char flag)
+void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
 {
-    Frame f;
+    Frame_bd1b0 f;
     f.cookie = DAT_004d9968;
     f.self = this;
-    f.layout.FUN_000f7fe0((Metrics *)FUN_000fc1b0());
-    SlotStack *st = &f.layout.stack;
-    Menu *me = this;
+    f.layout.FUN_000f7fe0((Metrics_bd1b0 *)FUN_000fc1b0());
+    SlotStack_bd1b0 *st = &f.layout.stack;
+    Menu_bd1b0 *me = this;
     if (f.layout.font->f24 != 0 && f.layout.font->f28 != 0) {
         unsigned int now = FUN_00267f80();
         f.dt = now - t2c;
@@ -427,7 +427,7 @@ void Menu::FUN_000bd1b0(unsigned char flag)
                         if (st->index > 0)
                             st->index--;
                         f.e1.FUN_000f7960();
-                        me = (Menu *)f.self;
+                        me = (Menu_bd1b0 *)f.self;
                     }
                 }
             }
@@ -509,12 +509,12 @@ void Menu::FUN_000bd1b0(unsigned char flag)
                 DAT_0052c2ac->layer->v13(0);
                 DAT_0052c2ac->FUN_00293da0(aspect, aspect, 1.0f);
                 DAT_0052c2ac->FUN_00293d40(0.0f, 0.0f, 10.0f);
-                Obj68 *o68 = me->p68;
+                Obj68_bd1b0 *o68 = me->p68;
                 o68->f10->v6(0x444d4c42, 1);
                 o68->f18 = 1;
-                Mesh *mesh = DAT_0052c2a8->v30((int)me->p68->f10, 1, 0x2020, 4, 0);
+                Mesh_bd1b0 *mesh = DAT_0052c2a8->v30((int)me->p68->f10, 1, 0x2020, 4, 0);
                 {
-                    Vertex *vv = mesh->verts;
+                    Vertex_bd1b0 *vv = mesh->verts;
                     vv->x = -8.0f;
                     vv->y = -4.0f;
                     vv->z = 0.0f;
@@ -522,7 +522,7 @@ void Menu::FUN_000bd1b0(unsigned char flag)
                 *mesh->colors = col;
                 mesh->FUN_0008ef00();
                 {
-                    Vertex *vv = mesh->verts;
+                    Vertex_bd1b0 *vv = mesh->verts;
                     vv->x = 8.0f;
                     vv->y = -4.0f;
                     vv->z = 0.0f;
@@ -530,7 +530,7 @@ void Menu::FUN_000bd1b0(unsigned char flag)
                 *mesh->colors = col;
                 mesh->FUN_0008ef00();
                 {
-                    Vertex *vv = mesh->verts;
+                    Vertex_bd1b0 *vv = mesh->verts;
                     vv->x = -8.0f;
                     vv->y = 4.0f;
                     vv->z = 0.0f;
@@ -538,7 +538,7 @@ void Menu::FUN_000bd1b0(unsigned char flag)
                 *mesh->colors = col;
                 mesh->FUN_0008ef00();
                 {
-                    Vertex *vv = mesh->verts;
+                    Vertex_bd1b0 *vv = mesh->verts;
                     vv->x = 8.0f;
                     vv->y = 4.0f;
                     vv->z = 0.0f;

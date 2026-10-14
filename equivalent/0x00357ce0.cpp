@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_00357ce0 @ 0x00357ce0
-struct Vec3 {
+struct Vec3_357ce0 {
     float x, y, z;
 };
 
-void __cdecl FUN_001fd640(const Vec3 *p, const Vec3 *a, const Vec3 *b, Vec3 *closest);
+void __cdecl FUN_001fd640(const Vec3_357ce0 *p, const Vec3_357ce0 *a, const Vec3_357ce0 *b, Vec3_357ce0 *closest);
 
 static const float FLT_MAX_ = 3.4028235e+38f;
 
-static float DistSq(const Vec3 &q, const Vec3 *p)
+static float DistSq(const Vec3_357ce0 &q, const Vec3_357ce0 *p)
 {
     float dx = q.x - p->x;
     float dy = q.y - p->y;
@@ -16,16 +16,16 @@ static float DistSq(const Vec3 &q, const Vec3 *p)
     return dz * dz + dy * dy + dx * dx;
 }
 
-void FUN_00357ce0(const Vec3 *p, const Vec3 *a, const Vec3 *b, const Vec3 *c,
-                  Vec3 *outFrom, Vec3 *outTo, bool testAB, bool testBC, bool testCA)
+void FUN_00357ce0(const Vec3_357ce0 *p, const Vec3_357ce0 *a, const Vec3_357ce0 *b, const Vec3_357ce0 *c,
+                  Vec3_357ce0 *outFrom, Vec3_357ce0 *outTo, bool testAB, bool testBC, bool testCA)
 {
     struct Frame {
         float dist0;
         float pad;
         float dist1;
-        Vec3 qAB;
-        Vec3 qBC;
-        Vec3 qCA;
+        Vec3_357ce0 qAB;
+        Vec3_357ce0 qBC;
+        Vec3_357ce0 qCA;
     } f;
     f.dist0 = FLT_MAX_;
     f.dist1 = FLT_MAX_;

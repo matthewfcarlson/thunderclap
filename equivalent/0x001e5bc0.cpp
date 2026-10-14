@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 34/34)
 // FUN_001e5bc0 @ 0x001e5bc0
-struct Item {
+struct Item_1e5bc0 {
     char pad00[0x16];
     short s16;
     char pad18[0x22 - 0x18];
@@ -19,10 +19,10 @@ struct Node {
     short item;
 };
 
-class Pool {
+class Pool_1e5bc0 {
 public:
     char pad000[0x608];
-    Item items[0x800];
+    Item_1e5bc0 items[0x800];
     Node nodes[0x800];
     int pad1e608;
     int a;
@@ -34,11 +34,11 @@ public:
     void FUN_001e5bc0(int idx);
 };
 
-void Pool::FUN_001e5bc0(int idx)
+void Pool_1e5bc0::FUN_001e5bc0(int idx)
 {
     if (idx < 0 || idx >= 0x800)
         return;
-    Item* it = &items[idx];
+    Item_1e5bc0* it = &items[idx];
     if (it->s16 == 0)
         return;
     int ni = it->s22;

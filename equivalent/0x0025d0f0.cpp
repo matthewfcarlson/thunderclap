@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 26 inputs, branch coverage 15/18, incomplete)
 // FUN_0025d0f0 @ 0x0025d0f0
-struct Source {
+struct Source_25d0f0 {
     char pad00[8];
     unsigned f08;
     unsigned char *base;
 };
 
-extern Source *DAT_004e5ce0;
+extern Source_25d0f0 *DAT_004e5ce0;
 
 struct Texture {
     char pad00[0xc];
@@ -22,7 +22,7 @@ void FUN_0025d0f0(Texture *t, int length)
     unsigned h = t->height;
     unsigned n = (flags >> 4) & 0x1f;
     unsigned rowStep = h / n;
-    Source *g = DAT_004e5ce0;
+    Source_25d0f0 *g = DAT_004e5ce0;
     unsigned char *end = g->base + length;
     unsigned bpp = (flags >> 0x1d) & 3;
     unsigned colStep = g->f08 / n;

@@ -2,8 +2,8 @@
 // core::FileWriteRequest::vfunc_0 @ 0x00275320
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* p) { return p; }
-struct Lock { virtual void lock(); virtual void unlock(); };
-struct File { virtual void slot0(); virtual void slot1(); Lock guard; char pad[16]; int count; };
+struct Lock_275320 { virtual void lock(); virtual void unlock(); };
+struct File { virtual void slot0(); virtual void slot1(); Lock_275320 guard; char pad[16]; int count; };
 extern char DAT_0052a1c8;
 struct Allocator { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void free(void*); };
 extern Allocator* DAT_0052a1e4;

@@ -10,7 +10,7 @@ extern int DAT_00428b30;
 extern void FUN_0023d450();
 extern void FUN_0023d460();
 extern void* __cdecl FUN_0008d690(unsigned int);
-struct Base { char pad[16]; void FUN_00234cc0(const char*); };
+struct Base_23d630 { char pad[16]; void FUN_00234cc0(const char*); };
 namespace fight {
 class DebugCondition;
 template<class T> struct ParamEnumConstList {
@@ -29,7 +29,7 @@ void FUN_0023d630() {
   void* p = FUN_0008d690(32);
   if(p) {
    int n = DAT_00427760;
-   ((Base*)p)->FUN_00234cc0("compare");
+   ((Base_23d630*)p)->FUN_00234cc0("compare");
    ((fight::ParamEnumConstList<fight::DebugCondition>*)p)->count=n;
    items[0] = new(p) fight::ParamEnumConstList<fight::DebugCondition>;
    items[0]->entries=&DAT_00427758;
@@ -37,7 +37,7 @@ void FUN_0023d630() {
   } else items[0]=0;
   p=FUN_0008d690(32);
   if(p) {
-   ((Base*)p)->FUN_00234cc0("mode");
+   ((Base_23d630*)p)->FUN_00234cc0("mode");
    items[1]=new(p) fight::ParamEnumConstList<fight::DebugCondition>;
    items[1]->entries=&DAT_00428b30;
    items[1]->count=3;

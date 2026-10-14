@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // choreo2::AnimationDriver::vfunc_12 @ 0x00225800
-struct Query { char pad[8]; int first; int second; };
+struct Query_225800 { char pad[8]; int first; int second; };
 struct Tracks {
  bool FUN_00288d10(int, int, int, int*, int*);
  float FUN_00288de0(int, int, int, int);
@@ -9,11 +9,11 @@ namespace choreo2 {
 struct AnimationDriver {
  char pad0[0x20]; Tracks* tracks;
  char pad1[0x218]; float time;
- bool FUN_00222330(Query*);
- bool vfunc_12(Query*, float*);
+ bool FUN_00222330(Query_225800*);
+ bool vfunc_12(Query_225800*, float*);
 };
 }
-bool choreo2::AnimationDriver::vfunc_12(Query* query, float* result) {
+bool choreo2::AnimationDriver::vfunc_12(Query_225800* query, float* result) {
  int a,b;
  int first=query->first, second=query->second;
  if (!tracks->FUN_00288d10(0,first,second,&b,&a)) return false;

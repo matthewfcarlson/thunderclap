@@ -1,23 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 31/34, incomplete)
 // FUN_001eaea0 @ 0x001eaea0
-struct Ref {
+struct Ref_1eaea0 {
     char pad0[0xc];
     int refs;
 };
 
-struct Slot {
+struct Slot_1eaea0 {
     virtual void v0();
     virtual void v1();
     virtual void Destroy(int flag);
     char pad04[0x24 - 4];
     int users;
     char pad28[0x2c - 0x28];
-    Ref *refs[64];
+    Ref_1eaea0 *refs[64];
     int refCount;
     void FUN_001eadf0();
 };
 
-struct Handle {
+struct Handle_1eaea0 {
     int state;
     void FUN_001ea700();
 };
@@ -27,7 +27,7 @@ struct Timer {
     int pending;
 };
 
-struct Job {
+struct Job_1eaea0 {
     virtual void v0();
     virtual void v1();
     virtual void Destroy(int flag);
@@ -40,7 +40,7 @@ struct Sync {
     void FUN_00263e90();
 };
 
-struct Pool {
+struct Pool_1eaea0 {
     void FUN_002665a0();
 };
 
@@ -55,29 +55,29 @@ void FUN_00243090(void *a, float step);
 void FUN_00242ca0(void *a, Timer **t);
 void FUN_0008d330(void *p);
 
-class Manager {
+class Manager_1eaea0 {
 public:
     char pad0[8];
-    Slot *slots[100];
+    Slot_1eaea0 *slots[100];
     int slotCount;
-    Handle *handles[200];
+    Handle_1eaea0 *handles[200];
     int handleCount;
-    Job *jobs[20];
+    Job_1eaea0 *jobs[20];
     int jobCount;
     int f514;
-    Pool *pool;
+    Pool_1eaea0 *pool;
     char pad51c[4];
     char f520;
 
     void FUN_001eaea0();
 };
 
-void Manager::FUN_001eaea0()
+void Manager_1eaea0::FUN_001eaea0()
 {
     FUN_00241280(0, 0, 0);
 
     for (int i = 0; i < slotCount; i++) {
-        Slot *s = slots[i];
+        Slot_1eaea0 *s = slots[i];
         if (s->users > 0) {
             if (s->refCount > 0) {
                 int j = 0;
@@ -100,7 +100,7 @@ void Manager::FUN_001eaea0()
     for (int i = 0; i < n; i++) {
         if (handles[i]) {
             handles[i]->FUN_001ea700();
-            Handle *h = handles[i];
+            Handle_1eaea0 *h = handles[i];
             if (h->state == 1) {
                 if (DAT_004e3694->FUN_00266750()) {
                     h->state = 3;
@@ -117,7 +117,7 @@ void Manager::FUN_001eaea0()
     n = jobCount;
     handleCount = 0;
     for (int i = 0; i < n; i++) {
-        Job *job = jobs[i];
+        Job_1eaea0 *job = jobs[i];
         void *mgr = FUN_00240750();
         FUN_002416c0(mgr, job->timer, 0);
         while (job->timer->pending != 0)

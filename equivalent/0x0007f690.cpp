@@ -4,77 +4,77 @@ extern float DAT_0049b8a0;
 extern float DAT_004218c0;
 extern float DAT_00421898;
 
-struct V3 {
+struct V3_7f690 {
     float x, y, z;
 };
 
-struct Rng {
+struct Rng_7f690 {
     unsigned int s0;
     unsigned int s1;
 };
-Rng *FUN_000964d0();
+Rng_7f690 *FUN_000964d0();
 
-struct Path {
+struct Path_7f690 {
     char pad0[0x14];
     int count;
-    V3 *FUN_00106160(int index);
+    V3_7f690 *FUN_00106160(int index);
 };
 
-struct Library {
-    Path *FUN_00106210(int id);
+struct Library_7f690 {
+    Path_7f690 *FUN_00106210(int id);
 };
 
-struct Manager {
+struct Manager_7f690 {
     char pad0[0x18];
-    Library *library;
+    Library_7f690 *library;
 };
 
-struct Handle {
+struct Handle_7f690 {
     void FUN_001c5080(float a, float b);
 };
 
-struct Part {
+struct Part_7f690 {
     virtual void AddRef();
     virtual void Release();
     char pad4[0x4];
     int key0;
     int key1;
     char pad10[0x54];
-    V3 pos;
+    V3_7f690 pos;
     char pad70[0x7c];
-    Handle *handle;
-    void FUN_00080ea0(V3 *a, V3 *b);
+    Handle_7f690 *handle;
+    void FUN_00080ea0(V3_7f690 *a, V3_7f690 *b);
     void FUN_00080ef0(int v);
     void FUN_00080f00(int v);
     void FUN_00080f20(int v);
     void FUN_00080f30(int v);
-    void FUN_00080e30(V3 *a);
+    void FUN_00080e30(V3_7f690 *a);
     void FUN_00081b20(int v);
 };
 
-struct Slot16 {
+struct Slot16_7f690 {
     unsigned int limit;
     char pad4[12];
 };
 
-class Spawner {
+class Spawner_7f690 {
 public:
     char pad0[0x34b0];
-    Slot16 slots[9];
+    Slot16_7f690 slots[9];
     char pad3540[8];
     unsigned int slotCount;
-    Part *parts[20];
+    Part_7f690 *parts[20];
     int partCount;
     char pad35a0[0x28c];
-    Manager *mgr;
-    void FUN_00078ee0(V3 *a, V3 *b);
-    Part *FUN_0007f310(int a, int b, int c, int d);
+    Manager_7f690 *mgr;
+    void FUN_00078ee0(V3_7f690 *a, V3_7f690 *b);
+    Part_7f690 *FUN_0007f310(int a, int b, int c, int d);
     void FUN_0007f690(int a1, int a2, int a3, int a4);
 };
 
-void Spawner::FUN_0007f690(int a1, int a2, int a3, int a4)
+void Spawner_7f690::FUN_0007f690(int a1, int a2, int a3, int a4)
 {
-    Path *path = mgr->library->FUN_00106210(a2);
+    Path_7f690 *path = mgr->library->FUN_00106210(a2);
     int i0;
     int i1;
     if (a4 == 0) {
@@ -84,11 +84,11 @@ void Spawner::FUN_0007f690(int a1, int a2, int a3, int a4)
         i1 = a3;
         i0 = (a3 + 1) % path->count;
     }
-    V3 a = *path->FUN_00106160(i0);
-    V3 b = *path->FUN_00106160(i1);
+    V3_7f690 a = *path->FUN_00106160(i0);
+    V3_7f690 b = *path->FUN_00106160(i1);
     FUN_00078ee0(&a, &b);
     for (int i = partCount - 1; i >= 0; i--) {
-        V3 p = parts[i]->pos;
+        V3_7f690 p = parts[i]->pos;
         float dx = p.x - a.x;
         float dy = p.y - a.y;
         float dz = p.z - a.z;
@@ -96,7 +96,7 @@ void Spawner::FUN_0007f690(int a1, int a2, int a3, int a4)
             return;
     }
     unsigned int n1 = slotCount;
-    Rng *r = FUN_000964d0();
+    Rng_7f690 *r = FUN_000964d0();
     r->s0 = (r->s0 & 0xffff) * 0x9069 + (r->s0 >> 16);
     r->s1 = (r->s1 & 0xffff) * 0x4650 + (r->s1 >> 16);
     unsigned int v1 = (r->s0 << 16) + (r->s1 & 0xffff);
@@ -106,7 +106,7 @@ void Spawner::FUN_0007f690(int a1, int a2, int a3, int a4)
     r->s0 = (r->s0 & 0xffff) * 0x9069 + (r->s0 >> 16);
     r->s1 = (r->s1 & 0xffff) * 0x4650 + (r->s1 >> 16);
     unsigned int v2 = (r->s0 << 16) + (r->s1 & 0xffff);
-    Part *p = FUN_0007f310(a1, 1, pick, v2 % n2);
+    Part_7f690 *p = FUN_0007f310(a1, 1, pick, v2 % n2);
     if (p == 0)
         return;
     p->AddRef();
@@ -123,7 +123,7 @@ void Spawner::FUN_0007f690(int a1, int a2, int a3, int a4)
     if (cnt > 0) {
         int idx = 0;
         do {
-            Part *q = parts[idx];
+            Part_7f690 *q = parts[idx];
             if (q->key0 == k0 && q->key1 == p->key1) {
                 have = parts[idx] != 0;
                 break;

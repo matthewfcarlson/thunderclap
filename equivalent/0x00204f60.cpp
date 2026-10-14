@@ -14,12 +14,12 @@ struct Stream {
     void FUN_00266be0();
 };
 
-union StreamArg {
+union StreamArg_204f60 {
     Stream *stream;
     unsigned int value;
 };
 
-struct Handler {
+struct Handler_204f60 {
     void FUN_00204180(unsigned int v);
 };
 
@@ -30,13 +30,13 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual int *vfunc_5(int *out1, int *out2, StreamArg arg, int arg4);
+    virtual int *vfunc_5(int *out1, int *out2, StreamArg_204f60 arg, int arg4);
     char pad04[0x10];
-    Handler *handler;        // 0x14
+    Handler_204f60 *handler;        // 0x14
     void FUN_00204880(Stream *s, int arg4);
 };
 
-int *TransitionsLoader::vfunc_5(int *out1, int *out2, StreamArg arg, int arg4)
+int *TransitionsLoader::vfunc_5(int *out1, int *out2, StreamArg_204f60 arg, int arg4)
 {
     Stream *stream = arg.stream;
     stream->reader->FUN_002647e0(&arg.value, 1, 4, 1);

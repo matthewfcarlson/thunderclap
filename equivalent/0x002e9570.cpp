@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 12019 inputs, branch coverage 18/18; run with --inputs 12000)
 // FUN_002e9570 @ 0x002e9570
-struct png_info {
+struct png_info_2e9570 {
     char pad0[8];
     unsigned int valid;
 };
 
-struct png_struct {
+struct png_struct_2e9570 {
     char pad0[0x60];
     unsigned int mode;
     unsigned int flags;
@@ -15,15 +15,15 @@ struct png_struct {
     unsigned short *hist;
 };
 
-void FUN_002e69a0(png_struct *png, const char *msg);
-void FUN_002e69d0(png_struct *png, const char *msg);
-int FUN_002e81e0(png_struct *png, unsigned int skip);
-unsigned short *FUN_002e6c00(png_struct *png, unsigned int size);
-void FUN_002e7580(png_struct *png, unsigned char *buf, unsigned int length);
+void FUN_002e69a0(png_struct_2e9570 *png, const char *msg);
+void FUN_002e69d0(png_struct_2e9570 *png, const char *msg);
+int FUN_002e81e0(png_struct_2e9570 *png, unsigned int skip);
+unsigned short *FUN_002e6c00(png_struct_2e9570 *png, unsigned int size);
+void FUN_002e7580(png_struct_2e9570 *png, unsigned char *buf, unsigned int length);
 unsigned short FUN_002e7560(unsigned char *buf);
-void FUN_002eb220(png_struct *png, png_info *info, unsigned short *hist);
+void FUN_002eb220(png_struct_2e9570 *png, png_info_2e9570 *info, unsigned short *hist);
 
-void FUN_002e9570(png_struct *png, png_info *info, int length)
+void FUN_002e9570(png_struct_2e9570 *png, png_info_2e9570 *info, int length)
 {
     unsigned char buf[2];
     int num;

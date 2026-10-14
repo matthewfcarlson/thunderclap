@@ -2,20 +2,20 @@
 // FUN_0029fe60 @ 0x0029fe60
 extern unsigned int DAT_004cf730;
 
-struct Vec3 { float x, y, z; };
+struct Vec3_29fe60 { float x, y, z; };
 
-struct Item {
+struct Item_29fe60 {
     char pad0[0x14];
     int link;
 };
 
-class Target {
+class Target_29fe60 {
 public:
     char pad0[0x18];
     int f18;
     char pad1c[0x34 - 0x1c];
     unsigned int color;
-    void FUN_0029e7f0(Item *item, void *ctx, int arg);
+    void FUN_0029e7f0(Item_29fe60 *item, void *ctx, int arg);
 };
 
 class Brush {
@@ -26,12 +26,12 @@ public:
     int f18;
     char pad1c[0x24 - 0x1c];
     int f24;
-    bool FUN_0029fc00(Item *item, void *ctx, Target *target);
-    void FUN_0029e640(Item *item);
-    void FUN_0029e680(Item *item);
+    bool FUN_0029fc00(Item_29fe60 *item, void *ctx, Target_29fe60 *target);
+    void FUN_0029e640(Item_29fe60 *item);
+    void FUN_0029e680(Item_29fe60 *item);
     void FUN_0029ce40(void *out, void *ctx);
-    void FUN_0029df90(Item *item, void *out, void *ctx);
-    void FUN_0029fe60(Item *item, void *ctx, Target *target);
+    void FUN_0029df90(Item_29fe60 *item, void *out, void *ctx);
+    void FUN_0029fe60(Item_29fe60 *item, void *ctx, Target_29fe60 *target);
 };
 
 static int Clamp255(int v)
@@ -41,7 +41,7 @@ static int Clamp255(int v)
     return v;
 }
 
-void Brush::FUN_0029fe60(Item *item, void *ctx, Target *target)
+void Brush::FUN_0029fe60(Item_29fe60 *item, void *ctx, Target_29fe60 *target)
 {
     if (item->link == 0) {
         color = DAT_004cf730;
@@ -58,7 +58,7 @@ void Brush::FUN_0029fe60(Item *item, void *ctx, Target *target)
         FUN_0029e680(item);
         return;
     }
-    Vec3 v;
+    Vec3_29fe60 v;
     FUN_0029ce40(&v, ctx);
     FUN_0029df90(item, &v, ctx);
     int b = (int)v.z;

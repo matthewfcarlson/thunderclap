@@ -10,24 +10,24 @@ struct Key {
     unsigned int FUN_0023fb00() throw();
 };
 
-struct Event;
+struct Event_24e870;
 
-struct Handler {
+struct Handler_24e870 {
     virtual void v0();
     virtual void v1();
-    virtual void v2(Event *e);
+    virtual void v2(Event_24e870 *e);
 };
 
 struct Node {
     Node *left;
     Node *right;
     char pad08[0x10];
-    Handler handler;
+    Handler_24e870 handler;
     char pad1c[0x34 - 0x1c];
     unsigned int key;
 };
 
-struct Index {
+struct Index_24e870 {
     char pad00[0x28];
     Node *root;
     char nil[1];
@@ -38,13 +38,13 @@ struct Context {
     char tree[1];
 };
 
-struct Event {
+struct Event_24e870 {
     char pad00[0x3c];
     Context *ctx;
 };
 
 void __cdecl FUN_002613b0(void *tree, Key *key, void *name) throw();
-Index *__cdecl FUN_00247810(Context *c) throw();
+Index_24e870 *__cdecl FUN_00247810(Context *c) throw();
 unsigned int __cdecl FUN_002673a0(unsigned int v, int flags) throw();
 
 class SeqEventNestTrack {
@@ -52,14 +52,14 @@ public:
     char pad00[8];
     char name[1];
 
-    void FUN_0024e870(Event *e) throw();
+    void FUN_0024e870(Event_24e870 *e) throw();
 };
 
-void SeqEventNestTrack::FUN_0024e870(Event *e) throw()
+void SeqEventNestTrack::FUN_0024e870(Event_24e870 *e) throw()
 {
     Key key;
     FUN_002613b0(e->ctx->tree, &key, name);
-    Index *index = FUN_00247810(e->ctx);
+    Index_24e870 *index = FUN_00247810(e->ctx);
     unsigned int id = FUN_002673a0(key.FUN_0023fb00(), 0);
     Node *node = index->root;
     while (node != (Node *)index->nil) {

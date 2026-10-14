@@ -27,7 +27,7 @@ public:
 
 namespace pure3d { class Shader; }
 
-struct Name {
+struct Name_295620 {
     char data[8];
     void FUN_0027b040(const char *s);
 };
@@ -61,10 +61,10 @@ public:
     Texture *FUN_002c2370(Stream *s);
 };
 
-struct Registry {
+struct Registry_295620 {
     ObjectLoader *FUN_00265310(int id);
 };
-extern Registry *DAT_00527c58;
+extern Registry_295620 *DAT_00527c58;
 extern unsigned short DAT_00554be0;
 
 struct ShaderSlots {
@@ -87,7 +87,7 @@ public:
 };
 }
 
-class Factory {
+class Factory_295620 {
 public:
     virtual void f0();
     virtual void f1();
@@ -96,7 +96,7 @@ public:
                                unsigned int hi);
 };
 
-struct Glyph {
+struct Glyph_295620 {
     float f0, f4, f8, fc;
     unsigned short w10;
     short pad12;
@@ -111,7 +111,7 @@ class __declspec(novtable) Entity {
 public:
     virtual void e0();
     char pad4[4];
-    Name name;
+    Name_295620 name;
     void FUN_0027b070();
     Entity() throw() { FUN_0027b070(); }
 };
@@ -140,7 +140,7 @@ public:
     Texture **pages;
     int defIdx;
     unsigned int glyphCount;
-    Glyph *glyphs;
+    Glyph_295620 *glyphs;
     unsigned short *codes;
     TextureFont() throw()
     {
@@ -163,10 +163,10 @@ public:
 
 class TextureFontLoader {
 public:
-    void F(pure3d::TextureFont **out, unsigned __int64 *outId, Stream *s, Factory *fac);
+    void F(pure3d::TextureFont **out, unsigned __int64 *outId, Stream *s, Factory_295620 *fac);
 };
 
-void TextureFontLoader::F(pure3d::TextureFont **out, unsigned __int64 *outId, Stream *s, Factory *fac)
+void TextureFontLoader::F(pure3d::TextureFont **out, unsigned __int64 *outId, Stream *s, Factory_295620 *fac)
 {
     struct Frame {
         char pad10[3];
@@ -238,7 +238,7 @@ void TextureFontLoader::F(pure3d::TextureFont **out, unsigned __int64 *outId, St
                 if (font->glyphs) {
                     int *raw = (int *)font->glyphs - 1;
                     int gc = *raw;
-                    Glyph *end = font->glyphs + gc;
+                    Glyph_295620 *end = font->glyphs + gc;
                     for (int i = gc; i > 0; i--) {
                         end--;
                         end->FUN_002c3ac0();
@@ -250,10 +250,10 @@ void TextureFontLoader::F(pure3d::TextureFont **out, unsigned __int64 *outId, St
                 unsigned int g = fr.v4c;
                 font->glyphCount = g;
                 int *blk = (int *)FUN_0008d6d0(g * 40 + 4);
-                Glyph *arr = 0;
+                Glyph_295620 *arr = 0;
                 if (blk) {
                     *blk = g;
-                    arr = (Glyph *)(blk + 1);
+                    arr = (Glyph_295620 *)(blk + 1);
                     for (int i = 0; i < (int)g; i++) {
                         arr[i].FUN_002c3aa0();
                         arr[i].f14 = 0;
@@ -289,10 +289,10 @@ void TextureFontLoader::F(pure3d::TextureFont **out, unsigned __int64 *outId, St
                         *(float *)((char *)font->glyphs + off + 0xc) = *(float *)&fr.v3c;
                         s->reader->FUN_002647e0(&fr.v20, 1, 4, 1);
                         *(unsigned short *)((char *)font->glyphs + off + 0x10) = (unsigned short)fr.v20;
-                        Glyph *gl = (Glyph *)((char *)font->glyphs + off);
+                        Glyph_295620 *gl = (Glyph_295620 *)((char *)font->glyphs + off);
                         if (gl->w10 == 0x76)
                             gl->fc = gl->fc - 2.0f;
-                        Glyph *gl2 = (Glyph *)((char *)font->glyphs + off);
+                        Glyph_295620 *gl2 = (Glyph_295620 *)((char *)font->glyphs + off);
                         unsigned short wc = gl2->w10;
                         if (wc == 0x6f || wc == 0x72)
                             gl2->fc = gl2->fc - 1.0f;

@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_002d4e80 @ 0x002d4e80
-struct RefObj {
+struct RefObj_2d4e80 {
     virtual void FUN_vf0();
     virtual void FUN_vf1();
 };
 
-struct Extra {
-    Extra *FUN_0022b980();
+struct Extra_2d4e80 {
+    Extra_2d4e80 *FUN_0022b980();
 };
 
 void *FUN_0008d690(unsigned int size);
 
-struct Config {
-    RefObj *ref;
+struct Config_2d4e80 {
+    RefObj_2d4e80 *ref;
     char pad04[4];
     char blockA[0x40];
     char blockB[0x40];
@@ -20,7 +20,7 @@ struct Config {
     int f8c;
     char f90;
     int f94;
-    Extra *extra;
+    Extra_2d4e80 *extra;
     int f9c;
     int fa0;
     int fa4;
@@ -32,10 +32,10 @@ struct Config {
     char f110;
     char f111;
 
-    Config *FUN_002d4e80(const Config *src);
+    Config_2d4e80 *FUN_002d4e80(const Config_2d4e80 *src);
 };
 
-Config *Config::FUN_002d4e80(const Config *src)
+Config_2d4e80 *Config_2d4e80::FUN_002d4e80(const Config_2d4e80 *src)
 {
     ref = 0;
     f88 = src->f88;
@@ -55,7 +55,7 @@ Config *Config::FUN_002d4e80(const Config *src)
     f110 = src->f110;
     f111 = src->f111;
 
-    RefObj *r = src->ref;
+    RefObj_2d4e80 *r = src->ref;
     if (r != 0) {
         r->FUN_vf0();
         if (ref != 0)
@@ -65,7 +65,7 @@ Config *Config::FUN_002d4e80(const Config *src)
     for (int i = 0; i < 0x40; i++) blockA[i] = src->blockA[i];
     for (int i = 0; i < 0x40; i++) blockB[i] = src->blockB[i];
     if (src->extra != 0) {
-        Extra *e = (Extra *)FUN_0008d690(0x40);
+        Extra_2d4e80 *e = (Extra_2d4e80 *)FUN_0008d690(0x40);
         extra = e;
         e->FUN_0022b980();
     }

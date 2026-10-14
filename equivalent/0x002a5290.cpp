@@ -4,22 +4,22 @@ extern "C" double fmod(double x, double y);
 
 extern unsigned int DAT_0042d9c0[4];
 
-struct Vec3 { float x, y, z; };
-struct Vec2 { float x, y; };
+struct Vec3_2a5290 { float x, y, z; };
+struct Vec2_2a5290 { float x, y; };
 
 struct Track {
     char pad0[0xc];
     int count;
     char pad10[8];
-    Vec3 *pos;
+    Vec3_2a5290 *pos;
     char pad1c[0x1c];
-    Vec2 *uv[4];
+    Vec2_2a5290 *uv[4];
 };
 
 void FUN_002a5290(float t, Track *a, Track *b, unsigned int flags, float *c)
 {
-    Vec2 *srcUv[4];
-    Vec2 *dstUv[4];
+    Vec2_2a5290 *srcUv[4];
+    Vec2_2a5290 *dstUv[4];
     srcUv[0] = a->uv[0];
     dstUv[0] = b->uv[0];
     srcUv[1] = a->uv[1];
@@ -28,8 +28,8 @@ void FUN_002a5290(float t, Track *a, Track *b, unsigned int flags, float *c)
     dstUv[2] = b->uv[2];
     srcUv[3] = a->uv[3];
     dstUv[3] = b->uv[3];
-    Vec3 *srcPos = a->pos;
-    Vec3 *dstPos = b->pos;
+    Vec3_2a5290 *srcPos = a->pos;
+    Vec3_2a5290 *dstPos = b->pos;
     int n = a->count;
     if (n == 0)
         return;

@@ -3,11 +3,11 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ??_R0?AVDriver@choreo2@@@8 = 0x0048d534
 // equiv-map: ??_R0?AVLocomotionStrafeDriver@choreo2@@@8 = 0x0048d554
-struct V3 {
+struct V3_15ed10 {
     float x, y, z;
 };
 
-struct Name {
+struct Name_15ed10 {
     unsigned int lo, hi;
     void FUN_0027b040(const char *s);
 };
@@ -16,7 +16,7 @@ class JointDriver {
 public:
     virtual void AddRef();
     char pad4[4];
-    Name name;
+    Name_15ed10 name;
     char pad10[4];
     int f14;
     JointDriver *FUN_002248f0(int a);
@@ -45,8 +45,8 @@ struct SubSkel {
     float FUN_002220d0();
 };
 
-struct Timing {
-    void FUN_00035660(V3 *out);
+struct Timing_15ed10 {
+    void FUN_00035660(V3_15ed10 *out);
     void FUN_00035980(int v);
 };
 
@@ -61,16 +61,16 @@ struct Skeleton {
     void FUN_00222890(void *driver, float a, int b, float c, float d, float e, float f);
 };
 
-struct Clock {
-    Timing *FUN_00059a30();
+struct Clock_15ed10 {
+    Timing_15ed10 *FUN_00059a30();
     Skeleton *FUN_00059a40();
 };
 
-struct Target {
-    Clock *FUN_000592a0();
+struct Target_15ed10 {
+    Clock_15ed10 *FUN_000592a0();
 };
 
-struct Frame {
+struct Frame_15ed10 {
     char pad0[3];
     char padx;
     float a;               // 0x10
@@ -86,7 +86,7 @@ struct Frame {
     int i50;               // 0x50
     char pad54[4];
     unsigned int hi;       // 0x58
-    V3 q;                  // 0x5c
+    V3_15ed10 q;                  // 0x5c
 };
 
 class Climb;
@@ -115,7 +115,7 @@ public:
     float f12e0;
     float f12e4;
     float f12e8;
-    void FUN_002268f0(V3 *v);
+    void FUN_002268f0(V3_15ed10 *v);
 };
 
 class ClimbLocomotionAction {
@@ -131,7 +131,7 @@ public:
                         float *p28, float *pa, int *p4c, int *p24, float *p20, float *p1c);
     virtual void f8();
     char pad04[0x1c - 4];
-    Target *target;        // 0x1c
+    Target_15ed10 *target;        // 0x1c
     Climb *climb;          // 0x20
     JointDriver *driver;   // 0x24
 
@@ -141,9 +141,9 @@ public:
 
 bool ClimbLocomotionAction::vfunc_3(int a, int b)
 {
-    Frame f;
-    Clock *clock = target->FUN_000592a0();
-    Timing *timing = clock->FUN_00059a30();
+    Frame_15ed10 f;
+    Clock_15ed10 *clock = target->FUN_000592a0();
+    Timing_15ed10 *timing = clock->FUN_00059a30();
     Skeleton *skel = clock->FUN_00059a40();
     if (skel == 0)
         return false;
@@ -192,7 +192,7 @@ bool ClimbLocomotionAction::vfunc_3(int a, int b)
     climb->f24 = f.a;
     float ft = ((SubSkel *)skel->sub10)->FUN_002220d0();
     climb->f12e0 = ft;
-    Timing *tm = (Timing *)f.t48;
+    Timing_15ed10 *tm = (Timing_15ed10 *)f.t48;
     f.q.x = 0.0f;
     f.q.y = 0.0f;
     f.q.z = 0.0f;

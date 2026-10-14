@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 22/26, incomplete)
 // FUN_00321dc0 @ 0x00321dc0
-struct Entry {
+struct Entry_321dc0 {
     char padding[0x70];
     int key;
     char padding2[4];
     unsigned char active;
     char padding3[3];
 };
-struct Entries { int header; Entry entries[8]; };
+struct Entries_321dc0 { int header; Entry_321dc0 entries[8]; };
 struct Object {
     char padding[0x50];
-    Entries *data;
+    Entries_321dc0 *data;
     unsigned int FUN_00321dc0(int *output, int key);
 };
 unsigned int Object::FUN_00321dc0(int *output, int key) {

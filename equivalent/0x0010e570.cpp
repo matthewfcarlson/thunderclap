@@ -8,12 +8,12 @@ struct Timer {
 
 struct Mixer;
 
-struct Handle {
+struct Handle_10e570 {
     Mixer* FUN_00059a30();
 };
 
-struct Mgr {
-    Handle* FUN_000592a0();
+struct Mgr_10e570 {
+    Handle_10e570* FUN_000592a0();
 };
 
 struct Mixer {
@@ -32,7 +32,7 @@ public:
     virtual bool vfunc_5(int skip, float dt);
     char pad04[0x1c - 4];
     Timer* timer;           // 0x1c
-    Mgr* manager;           // 0x20
+    Mgr_10e570* manager;           // 0x20
     float wait;             // 0x24
     float elapsed;          // 0x28
 };

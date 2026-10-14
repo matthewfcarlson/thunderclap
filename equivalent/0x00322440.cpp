@@ -5,8 +5,8 @@ struct VertexSource {
  char padding[0x79];
  unsigned char temporary;
 };
-struct Device { void FUN_003290e0(unsigned int, unsigned int, unsigned int, unsigned int); };
-struct Context { char padding[0x208]; Device* device; };
+struct Device_322440 { void FUN_003290e0(unsigned int, unsigned int, unsigned int, unsigned int); };
+struct Context { char padding[0x208]; Device_322440* device; };
 namespace pure3d {
 struct d3dExtVertexProgram {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(VertexSource*,unsigned int,unsigned int,unsigned int,unsigned char); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8();

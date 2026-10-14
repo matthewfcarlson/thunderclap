@@ -7,12 +7,12 @@
 // FPU-resident values are recomputed inline from volatile reads so the compiler keeps the original rounding.
 extern "C" float __cdecl fabsf(float);
 
-union Wd {
+union Wd_195bb0 {
     float f;
     unsigned int u;
 };
 
-struct Releasable {
+struct Releasable_195bb0 {
     virtual void v0();
     virtual void Release();
 };
@@ -24,17 +24,17 @@ struct V3x {
     void FUN_00011160(float s, unsigned v);
 };
 
-struct Thing { unsigned FUN_001d72e0(); };
+struct Thing_195bb0 { unsigned FUN_001d72e0(); };
 struct Reg59 { unsigned FUN_00059c10(unsigned id); };
 struct Cls1d5 { unsigned FUN_001d5e80(unsigned a); };
-struct Mat { void FUN_0022c3b0(unsigned in, unsigned out); };
-struct VObj {
+struct Mat_195bb0 { void FUN_0022c3b0(unsigned in, unsigned out); };
+struct VObj_195bb0 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
     virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9();
     virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14();
-    virtual Mat *v15();
+    virtual Mat_195bb0 *v15();
 };
-struct Spawn { void FUN_0027ffc0(unsigned a, unsigned b); void FUN_0027ffb0(unsigned a); };
+struct Spawn_195bb0 { void FUN_0027ffc0(unsigned a, unsigned b); void FUN_0027ffb0(unsigned a); };
 struct Cls283 { void FUN_00283a40(unsigned a, unsigned b, unsigned c, unsigned d); };
 struct Cls1f6 { void FUN_001f6cd0(unsigned a, unsigned b, unsigned c, unsigned d, unsigned e, unsigned f, unsigned g, unsigned h, unsigned i, unsigned j); };
 
@@ -62,7 +62,7 @@ public:
 void ProjectileEffect::vfunc_4(float dt)
 {
     volatile float *T = (volatile float *)this;
-    volatile Wd L[35];
+    volatile Wd_195bb0 L[35];
     float L8c1;
     int r12_eax;
     int r13_edx;
@@ -118,7 +118,7 @@ void ProjectileEffect::vfunc_4(float dt)
         if (FUN_00098190(dt, *(volatile unsigned *)&T[19], L[9].u, 0, r4_ecx, 0, (unsigned)(T + 13), (unsigned)(T + 16), 0, 0, 0, 1) == 0) {
             tmpi = *(volatile unsigned *)&T[9];
             if (tmpi != 0)
-                ((Releasable *)tmpi)->Release();
+                ((Releasable_195bb0 *)tmpi)->Release();
             *(volatile unsigned *)&T[9] = 0;
         }
     }
@@ -178,7 +178,7 @@ void ProjectileEffect::vfunc_4(float dt)
     r18_ecx = *(volatile unsigned*)&(T + 13)[2];
     *(volatile unsigned*)&T[12] = r18_ecx;
     if (r17_eax != 0 && *(volatile unsigned *)((char *)r17_eax + 0x38) == 5)
-        ediv = ((Thing *)*(volatile unsigned *)((char *)r17_eax + 0x3c))->FUN_001d72e0();
+        ediv = ((Thing_195bb0 *)*(volatile unsigned *)((char *)r17_eax + 0x3c))->FUN_001d72e0();
     else
         ediv = L[8].u;
     do {
@@ -219,8 +219,8 @@ void ProjectileEffect::vfunc_4(float dt)
         L[16].u = 0;
         L[17].u = 0x3f800000;
         L[18].u = 0;
-        tmpi = (unsigned)((VObj *)ediv)->v15();
-        ((Mat *)tmpi)->FUN_0022c3b0((unsigned)&L[16].f, (unsigned)&L[5].f);
+        tmpi = (unsigned)((VObj_195bb0 *)ediv)->v15();
+        ((Mat_195bb0 *)tmpi)->FUN_0022c3b0((unsigned)&L[16].f, (unsigned)&L[5].f);
         if ((((L[7].f * (T + 16)[2]) + (L[6].f * (T + 16)[1])) + (L[5].f * (T + 16)[0])) > 0.0f) {
     f19 = L[5].f;
     L[5].f = (f19 * -1.0f);
@@ -289,10 +289,10 @@ void ProjectileEffect::vfunc_4(float dt)
         L[31].u = ecxv;
         L[32].u = edxv;
         L[33].u = eaxv;
-        ((Spawn *)ediv)->FUN_0027ffc0(*(volatile unsigned *)((char *)T + 0x1c), (unsigned)&L[19].f);
+        ((Spawn_195bb0 *)ediv)->FUN_0027ffc0(*(volatile unsigned *)((char *)T + 0x1c), (unsigned)&L[19].f);
         return;
     }
-    ((Spawn *)ediv)->FUN_0027ffb0(*(volatile unsigned *)((char *)T + 0x1c));
+    ((Spawn_195bb0 *)ediv)->FUN_0027ffb0(*(volatile unsigned *)((char *)T + 0x1c));
     *(volatile unsigned *)((char *)T + 0x1c) = 0;
     ((V3x *)&L[19].f)->FUN_0022b980();
     eaxv = *(volatile unsigned *)&T[6] + 0x90;

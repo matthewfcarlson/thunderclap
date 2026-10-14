@@ -9,7 +9,7 @@ struct Context {
     Mixer* FUN_00059a30();
 };
 
-struct Manager {
+struct Manager_13b220 {
     Context* FUN_000592a0();
 };
 
@@ -31,7 +31,7 @@ public:
     virtual void vfunc_4();
     virtual bool vfunc_5(int skip, int unused);
     char pad04[0x20 - 4];
-    Manager* manager;       // 0x20
+    Manager_13b220* manager;       // 0x20
     Dial* dial;             // 0x24
 };
 }

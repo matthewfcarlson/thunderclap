@@ -2,10 +2,10 @@
 // FUN_001076f0 @ 0x001076f0
 void *__cdecl FUN_0008d690(unsigned int size);
 
-class Weapon {
+class Weapon_1076f0 {
 public:
     virtual void AddRef();
-    Weapon *FUN_00109ba0();
+    Weapon_1076f0 *FUN_00109ba0();
 };
 
 class AgentBase {
@@ -29,7 +29,7 @@ class CRangedAgent : public AgentBase {
 public:
     CRangedAgent(int arg);
     virtual void vfunc_9();
-    Weapon *f5c;
+    Weapon_1076f0 *f5c;
     int f60;
     int f64;
     int f68;
@@ -40,10 +40,10 @@ public:
 
 CRangedAgent::CRangedAgent(int arg) : AgentBase(arg)
 {
-    Weapon *w = 0;
+    Weapon_1076f0 *w = 0;
     void *mem = FUN_0008d690(0x38);
     if (mem != 0)
-        w = ((Weapon *)mem)->FUN_00109ba0();
+        w = ((Weapon_1076f0 *)mem)->FUN_00109ba0();
     f5c = w;
     w->AddRef();
     b80 = 1;

@@ -11,13 +11,13 @@ struct Request {
     void FUN_001d1630();
 };
 extern "C" int __cdecl FUN_000964a0(char*, int, const char*, ...);
-struct Owner {
+struct Owner_1d4460 {
     char reserved[8];
     int context;
     void FUN_001d2190(int, Request, int);
     void target(int id, const char* a, const char* b, const char* c);
 };
-void Owner::target(int id, const char* a, const char* b, const char* c) {
+void Owner_1d4460::target(int id, const char* a, const char* b, const char* c) {
     unsigned int cookie = DAT_004d9968;
     Request request;
     request.FUN_001d1630();

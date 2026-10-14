@@ -2,22 +2,22 @@
 // FUN_002a5a20 @ 0x002a5a20
 extern "C" double __cdecl sin(double);
 
-struct Vec3 {
+struct Vec3_2a5a20 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Vec2 {
+struct Vec2_2a5a20 {
     float u, v;
 };
 
-struct Mesh {
+struct Mesh_2a5a20 {
     char pad00[0xc];
     int count;
     char pad10[8];
-    Vec3 *pos;
+    Vec3_2a5a20 *pos;
     char pad1c[0x38 - 0x1c];
-    Vec2 *uv[4];
+    Vec2_2a5a20 *uv[4];
     unsigned char *color;
 };
 
@@ -36,7 +36,7 @@ struct WaveParams {
 
 extern unsigned int DAT_0042d9c0[4];
 
-union FloatBits {
+union FloatBits_2a5a20 {
     float f;
     unsigned int u;
 };
@@ -52,14 +52,14 @@ static inline int Clamp255(int v)
     return v;
 }
 
-void FUN_002a5a20(float time, Mesh *a, Mesh *b, unsigned int flags, WaveParams *p)
+void FUN_002a5a20(float time, Mesh_2a5a20 *a, Mesh_2a5a20 *b, unsigned int flags, WaveParams *p)
 {
     unsigned char *srcColor = a->color;
     unsigned char *dstColor = b->color;
-    Vec3 *srcPos = a->pos;
-    Vec3 *dstPos = b->pos;
-    Vec2 *src[4];
-    Vec2 *dst[4];
+    Vec3_2a5a20 *srcPos = a->pos;
+    Vec3_2a5a20 *dstPos = b->pos;
+    Vec2_2a5a20 *src[4];
+    Vec2_2a5a20 *dst[4];
     int c;
     for (c = 0; c < 4; c++) {
         src[c] = a->uv[c];
@@ -69,7 +69,7 @@ void FUN_002a5a20(float time, Mesh *a, Mesh *b, unsigned int flags, WaveParams *
     }
     int i = a->count;
 
-    Vec3 axis;
+    Vec3_2a5a20 axis;
     axis.x = p->dirx;
     axis.y = p->diry;
     axis.z = 0.0f;
@@ -77,7 +77,7 @@ void FUN_002a5a20(float time, Mesh *a, Mesh *b, unsigned int flags, WaveParams *
 
     while (i != 0) {
         i--;
-        Vec3 *v = &srcPos[i];
+        Vec3_2a5a20 *v = &srcPos[i];
         float dx = v->x - p->cx;
         float dy = v->y - p->cy;
         float dz = v->z - p->cz;
@@ -91,7 +91,7 @@ void FUN_002a5a20(float time, Mesh *a, Mesh *b, unsigned int flags, WaveParams *
         volatile float u = time * p->speed + t;
         float falloff = 1.0f;
         if (p->falloff > 0.0) {
-            FloatBits ab;
+            FloatBits_2a5a20 ab;
             ab.f = dot;
             ab.u &= 0x7fffffff;
             float x = p->falloff - ab.f;
@@ -131,7 +131,7 @@ void FUN_002a5a20(float time, Mesh *a, Mesh *b, unsigned int flags, WaveParams *
                 volatile float u2 = time * p->speed + t2;
                 float falloff2 = 1.0f;
                 if (p->falloff > 0.0) {
-                    FloatBits ab2;
+                    FloatBits_2a5a20 ab2;
                     ab2.f = dot2;
                     ab2.u &= 0x7fffffff;
                     float x2 = p->falloff - ab2.f;

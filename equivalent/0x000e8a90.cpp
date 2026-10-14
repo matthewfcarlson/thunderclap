@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000e8a90 @ 0x000e8a90
 // FEDoAnimation constructor: reset the animation state and look the named entry up in the owning screen.
-struct Entry {
+struct Entry_e8a90 {
     int f0;
     const char* name;
 };
 
-class Table {
+class Table_e8a90 {
 public:
-    Entry* FUN_000e1dd0(const char* key);
+    Entry_e8a90* FUN_000e1dd0(const char* key);
 };
 
 class FEContainer {
@@ -19,14 +19,14 @@ public:
 class SharedTables {
 public:
     char pad0[0x2078];
-    Table table;
+    Table_e8a90 table;
 };
 
 class FEScreenBase : public FEContainer {
 public:
     SharedTables* shared;
     char pad8[0x9dc - 8];
-    Table localTable;
+    Table_e8a90 localTable;
 };
 
 class FEDoAnimation {
@@ -39,7 +39,7 @@ public:
     FEContainer* container;
     char flag14;
     char pad15[0x34 - 0x15];
-    Entry* entry;
+    Entry_e8a90* entry;
     int field38;
     int field3c;
     int field40;
@@ -66,7 +66,7 @@ FEDoAnimation::FEDoAnimation(FEContainer* c, const char* name)
 
     FEScreenBase* screen = dynamic_cast<FEScreenBase*>(c);
     if (screen != 0) {
-        Entry* found = screen->localTable.FUN_000e1dd0(name);
+        Entry_e8a90* found = screen->localTable.FUN_000e1dd0(name);
         if (found == 0) {
             found = screen->shared->table.FUN_000e1dd0(name);
         }

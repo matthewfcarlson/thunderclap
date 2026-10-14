@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 18/18)
 // FUN_000810f0 @ 0x000810f0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
-struct Vec3 {
+struct Vec3_810f0 {
     float x, y, z;
 };
 
-struct NameHolder {
+struct NameHolder_810f0 {
     char pad[8];
     void FUN_0027b040(const char* name);
 };
@@ -20,14 +20,14 @@ class __declspec(novtable) Entity {
 public:
     virtual void v0();
     char pad04[4];
-    NameHolder nameHolder;
+    NameHolder_810f0 nameHolder;
     void FUN_0027b070();
     Entity() { FUN_0027b070(); }
 };
 }
 
 // ref-counted object: slot 0 = AddRef, slot 1 = Release
-class Device {
+class Device_810f0 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -54,13 +54,13 @@ public:
     void FUN_00284ad0(int a);
 };
 
-class Controller {
+class Controller_810f0 {
 public:
     virtual void AddRef();
     virtual void Release();
     char pad04[0x70];
     char* f74;
-    Controller* FUN_002efe50(Vec3* v, float f);
+    Controller_810f0* FUN_002efe50(Vec3_810f0* v, float f);
 };
 
 struct Camera {
@@ -76,11 +76,11 @@ extern World* DAT_004dd700;
 
 void* FUN_0008d690(unsigned int size);
 void* thunk_FUN_0008d690(unsigned int size);
-Controller* FUN_002efca0(void* mem, int arg);
+Controller_810f0* FUN_002efca0(void* mem, int arg);
 
 class CCivilian : public pure3d::Entity {
 public:
-    CCivilian(int a1, Device* dev, int a3, int a4, int a5, char flag);
+    CCivilian(int a1, Device_810f0* dev, int a3, int a4, int a5, char flag);
     virtual void v1();
     virtual void v2();
 
@@ -100,14 +100,14 @@ public:
     int f80[15];  // 0x80 .. 0xbc
     int fbc[4];   // 0xbc .. 0xcc
     int fcc[7];   // 0xcc .. 0xe8
-    Device* fe8;
+    Device_810f0* fe8;
     int fec;
     Skeleton* ff0;
     char padf4[0x100 - 0xf4];
-    Controller* f100;
+    Controller_810f0* f100;
 };
 
-CCivilian::CCivilian(int a1, Device* dev, int a3, int a4, int a5, char flag)
+CCivilian::CCivilian(int a1, Device_810f0* dev, int a3, int a4, int a5, char flag)
 {
     int i;
     f18 = a4;
@@ -156,14 +156,14 @@ CCivilian::CCivilian(int a1, Device* dev, int a3, int a4, int a5, char flag)
     ff0->FUN_00284ad0(0);
     *(int*)((char*)ff0 + 0x148) = 0;
 
-    Vec3 v;
+    Vec3_810f0 v;
     v.x = 0.0f;
     v.y = 0.8f;
     v.z = 0.0f;
     mem = FUN_0008d690(0x48);
-    Controller* ctl = 0;
+    Controller_810f0* ctl = 0;
     if (mem)
-        ctl = ((Controller*)mem)->FUN_002efe50(&v, 0.801f);
+        ctl = ((Controller_810f0*)mem)->FUN_002efe50(&v, 0.801f);
     ctl = FUN_002efca0(ctl, a1);
     if (ctl)
         ctl->AddRef();

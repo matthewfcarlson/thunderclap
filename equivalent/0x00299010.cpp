@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 8/8)
 // pure3d::CompositeDrawable::vfunc_13 @ 0x00299010
-class Ref {
+class Ref_299010 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
-class Child {
+class Child_299010 {
 public:
     virtual void v0();
     virtual void v1();
@@ -20,10 +20,10 @@ public:
     virtual void v10();
     virtual void v11();
     virtual void v12();
-    virtual void v13(Ref *r);
+    virtual void v13(Ref_299010 *r);
 };
-struct Elem { int a; int b; Child *c; };
-struct Impl { char pad[0x3c]; Elem *begin; Elem *end; };
+struct Elem_299010 { int a; int b; Child_299010 *c; };
+struct Impl_299010 { char pad[0x3c]; Elem_299010 *begin; Elem_299010 *end; };
 
 class CompositeDrawable {
 public:
@@ -40,15 +40,15 @@ public:
     virtual void vfunc_10();
     virtual void vfunc_11();
     virtual void vfunc_12();
-    virtual void vfunc_13(Ref *r);
+    virtual void vfunc_13(Ref_299010 *r);
     virtual void vfunc_14();
     char pad04[0xc];
-    Ref *ref10;
+    Ref_299010 *ref10;
     char pad14[0x44 - 0x14];
-    Impl *impl;
+    Impl_299010 *impl;
 };
 
-void CompositeDrawable::vfunc_13(Ref *r)
+void CompositeDrawable::vfunc_13(Ref_299010 *r)
 {
     if (r != 0)
         r->AddRef();

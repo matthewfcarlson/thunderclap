@@ -4,18 +4,18 @@
 void* FUN_0008d690(unsigned int);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 class CWorldStreamManager;
-class Registry { public:
+class Registry_206cf0 { public:
     void FUN_001d3b70(const char*, void*);
     void FUN_00206cf0(const char* a1, CWorldStreamManager* a2, void (*a3)());
 };
 template<class C, class R, class A1, class A2, class A3> class Closure3;
 template<> class Closure3<CWorldStreamManager, int, float, float, float> { public: virtual void v(); char pad[0x1c]; CWorldStreamManager* owner; Closure3(CWorldStreamManager* o) { owner = o; } };
-class Raw { public: void FUN_002051b0(const char*, void (*)()); };
-void Registry::FUN_00206cf0(const char* a1, CWorldStreamManager* a2, void (*a3)()) {
+class Raw_206cf0 { public: void FUN_002051b0(const char*, void (*)()); };
+void Registry_206cf0::FUN_00206cf0(const char* a1, CWorldStreamManager* a2, void (*a3)()) {
     void* m = FUN_0008d690(0x24);
     void* x = 0;
     if (m) {
-        ((Raw*)m)->FUN_002051b0(a1, a3);
+        ((Raw_206cf0*)m)->FUN_002051b0(a1, a3);
         x = new (m) Closure3<CWorldStreamManager, int, float, float, float>(a2);
     }
     FUN_001d3b70(a1, x);

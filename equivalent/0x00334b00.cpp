@@ -4,7 +4,7 @@ extern unsigned int __cdecl FUN_00368660();
 extern unsigned int __cdecl FUN_0026fd50(unsigned int, unsigned int);
 struct GlobalData { char pad[8]; char data; };
 extern GlobalData *DAT_00555ba8;
-struct Owner;
+struct Owner_334b00;
 struct Stream {
  virtual void slot0(); virtual void slot1(); virtual void slot2();
  virtual void slot3(unsigned int, unsigned int, unsigned int);
@@ -14,9 +14,9 @@ struct Stream {
  virtual void slot10(); virtual void slot11(); virtual void slot12();
  virtual void slot13(); virtual void slot14(); virtual void slot15();
  virtual unsigned int slot16(); virtual void slot17();
- virtual void slot18(void *, Owner *);
+ virtual void slot18(void *, Owner_334b00 *);
 };
-struct Owner {
+struct Owner_334b00 {
  char pad0[0x20]; unsigned int busy;
  char pad24[4]; unsigned int id;
  char pad2c[0x18]; unsigned int previous;
@@ -30,7 +30,7 @@ struct Owner {
  void FUN_00334b00();
 };
 // equiv-conv: FUN_00334b00 esi
-void Owner::FUN_00334b00() {
+void Owner_334b00::FUN_00334b00() {
  if (flag == 1 || busy != 0) return;
  unsigned int remaining = offset < total ? total - offset : 0;
  unsigned int size = 0x4000;

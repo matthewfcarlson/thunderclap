@@ -2,33 +2,33 @@
 // FUN_00025ff0 @ 0x00025ff0
 extern "C" double __cdecl sqrt(double);
 
-struct V3 {
+struct V3_25ff0 {
     float x, y, z;
     float FUN_000111f0();
 };
-struct V4 { float x, y, z, w; };
+struct V4_25ff0 { float x, y, z, w; };
 
-struct Mat {
+struct Mat_25ff0 {
     float m[16];
-    void FUN_0022c2b0(const V4 *in, V3 *out);
+    void FUN_0022c2b0(const V4_25ff0 *in, V3_25ff0 *out);
 };
 
-struct Query {
+struct Query_25ff0 {
     float f[5];
 };
 
-struct Pos10 {
-    void FUN_00059a50(V3 *out);
+struct Pos10_25ff0 {
+    void FUN_00059a50(V3_25ff0 *out);
 };
 
-struct Sink {
-    char FUN_001c4010(Query *q);
-    V3 *FUN_001c39d0();
-    Mat *FUN_001c3990();
+struct Sink_25ff0 {
+    char FUN_001c4010(Query_25ff0 *q);
+    V3_25ff0 *FUN_001c39d0();
+    Mat_25ff0 *FUN_001c3990();
 };
-Sink *FUN_001c3d90();
+Sink_25ff0 *FUN_001c3d90();
 
-class Selector;
+class Selector_25ff0;
 struct Gadget11c {
     char pad00[0x10];
     char b10;
@@ -42,7 +42,7 @@ struct Entity;
 
 struct Entity {
     char pad00[0x10];
-    Pos10 *f10;
+    Pos10_25ff0 *f10;
     char pad14[0x11c - 0x14];
     Gadget11c *f11c;
     char pad120[0x12c - 0x120];
@@ -60,42 +60,42 @@ struct Entity {
     char b1f50;
     char pad1f51[0x20b0 - 0x1f51];
     int f20b0;
-    void FUN_000359e0(Query *q);
+    void FUN_000359e0(Query_25ff0 *q);
 };
 
 struct EntityTable {
     char pad00[0x44];
-    struct Lookup *f44;
+    struct Lookup_25ff0 *f44;
 };
-struct Lookup {
+struct Lookup_25ff0 {
     Entity *FUN_00059c10(int id);
 };
 
-struct Frame {
+struct Frame_25ff0 {
     int k;                  // 0x00
     int i;                  // 0x04
     int q;                  // 0x08
     int m;                  // 0x0c
     float s;                // 0x10
-    V3 d;                   // 0x14
+    V3_25ff0 d;                   // 0x14
     union {
-        V4 vt;              // 0x20
-        Query qe;           // 0x20..0x33
+        V4_25ff0 vt;              // 0x20
+        Query_25ff0 qe;           // 0x20..0x33
     };
     float pY, pZ;           // 0x34, 0x38 (P.x is qe.f[4])
     int u;                  // 0x3c
-    Selector *savedThis;    // 0x40
-    V3 zeroV;               // 0x44
+    Selector_25ff0 *savedThis;    // 0x40
+    V3_25ff0 zeroV;               // 0x44
     int t50, t54, t58;      // 0x50
-    Sink *sink;             // 0x5c
+    Sink_25ff0 *sink;             // 0x5c
     float S1[16];           // 0x60
-    Query q0;               // 0xa0..0xb3, q0.f[4] is the first word of mat / L2
+    Query_25ff0 q0;               // 0xa0..0xb3, q0.f[4] is the first word of mat / L2
     char matRest[0xf0 - 0xb4];
     int L1[12];             // 0xf0
     char tail[0x130 - 0x120];
 };
 
-class Selector {
+class Selector_25ff0 {
 public:
     EntityTable *tbl;
     char pad04[8];
@@ -115,7 +115,7 @@ public:
     void Update(float unusedA, float dt);
 };
 
-void Selector::Update(float unusedA, float dt)
+void Selector_25ff0::Update(float unusedA, float dt)
 {
     if (!enabled) {
         for (int i = 0; i < count; i++) {
@@ -125,8 +125,8 @@ void Selector::Update(float unusedA, float dt)
         return;
     }
 
-    Frame f;
-    Mat *mat = (Mat *)&f.q0.f[4];
+    Frame_25ff0 f;
+    Mat_25ff0 *mat = (Mat_25ff0 *)&f.q0.f[4];
     int *L2 = (int *)&f.q0.f[4];
     f.savedThis = this;
     f.zeroV.x = 0;
@@ -138,12 +138,12 @@ void Selector::Update(float unusedA, float dt)
         me->FUN_000359e0(&f.q0);
         f.q0.f[3] = f.q0.f[3] * 0.5f;
         if (f.sink->FUN_001c4010(&f.q0)) {
-            V3 pos;
+            V3_25ff0 pos;
             pos.x = 0;
             pos.y = 0;
             pos.z = 0;
             me->f10->FUN_00059a50(&pos);
-            V3 *c = f.sink->FUN_001c39d0();
+            V3_25ff0 *c = f.sink->FUN_001c39d0();
             f.d.x = pos.x - c->x;
             f.d.y = pos.y - c->y;
             f.d.z = pos.z - c->z;
@@ -234,7 +234,7 @@ void Selector::Update(float unusedA, float dt)
             f.m++;
             continue;
         }
-        V3 *P = (V3 *)&f.qe.f[4];
+        V3_25ff0 *P = (V3_25ff0 *)&f.qe.f[4];
         P->x = 0;
         P->y = 0;
         P->z = 0;

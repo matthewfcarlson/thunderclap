@@ -2,21 +2,21 @@
 // FUN_00027b50 @ 0x00027b50
 extern unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
 extern unsigned __int64 __cdecl FUN_0027b020(const char *s);
-extern void __cdecl FUN_00224d70(float angle, struct V3 *v);
+extern void __cdecl FUN_00224d70(float angle, struct V3_27b50 *v);
 
-struct V3 {
+struct V3_27b50 {
     float x, y, z;
 };
 
-struct Sub {
-    char FUN_00059a50(V3 *out);
+struct Sub_27b50 {
+    char FUN_00059a50(V3_27b50 *out);
 };
 
-struct Desc {
+struct Desc_27b50 {
     unsigned int idLo, idHi;
-    V3 pos;
+    V3_27b50 pos;
     int pad14;
-    V3 dir;
+    V3_27b50 dir;
     char f24;
     char pad25[0x54 - 0x25];
     int f54;
@@ -26,32 +26,32 @@ struct Desc {
     char pad6c[0x74 - 0x6c];
     int f74;
     char pad78[0x98 - 0x78];
-    Desc *FUN_00059820();
-    void FUN_000595f0(V3 *v, int a, float b, int c);
+    Desc_27b50 *FUN_00059820();
+    void FUN_000595f0(V3_27b50 *v, int a, float b, int c);
     void FUN_00059300();
 };
 
-struct Obj {
+struct Obj_27b50 {
     char pad0[0x10];
-    Sub *sub;
-    char FUN_00035550(V3 *out);
-    char FUN_000437a0(int a, Desc *d, int b, int c, int e);
+    Sub_27b50 *sub;
+    char FUN_00035550(V3_27b50 *out);
+    char FUN_000437a0(int a, Desc_27b50 *d, int b, int c, int e);
 };
 
-struct Table {
-    Obj *FUN_00024280(unsigned __int64 key);
+struct Table_27b50 {
+    Obj_27b50 *FUN_00024280(unsigned __int64 key);
     void FUN_00027b50(const char *name, float a1, int a2, float a3, int a4, int a5, const char *s);
 };
 
-struct Frame {
-    V3 v;
-    Desc d;
+struct Frame_27b50 {
+    V3_27b50 v;
+    Desc_27b50 d;
 };
 
-void Table::FUN_00027b50(const char *name, float a1, int a2, float a3, int a4, int a5, const char *s) {
-    Obj *o = FUN_00024280(FUN_002672f0(name, 0, 0));
+void Table_27b50::FUN_00027b50(const char *name, float a1, int a2, float a3, int a4, int a5, const char *s) {
+    Obj_27b50 *o = FUN_00024280(FUN_002672f0(name, 0, 0));
     if (o) {
-        Frame f;
+        Frame_27b50 f;
         o->FUN_00035550(&f.v);
         f.v.y = 0.0f;
         FUN_00224d70(3.1415927f, &f.v);

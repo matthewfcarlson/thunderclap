@@ -2,25 +2,25 @@
 // CHand2HandAgent::vfunc_15 @ 0x00101fe0
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_101fe0 {
     float x, y, z;
     float FUN_0022d110() throw();
-    char FUN_0022d2b0(const Vec3 *z, float eps) throw();
+    char FUN_0022d2b0(const Vec3_101fe0 *z, float eps) throw();
 };
 
-struct V2 {
+struct V2_101fe0 {
     float a, b;
 };
 
 struct World;
 struct Ctx;
 
-union FloatBits {
+union FloatBits_101fe0 {
     float f;
     unsigned int u;
 };
 
-float __cdecl FUN_0010ae50(World *w, Ctx *c, float thr, Vec3 *a, Vec3 *b, int p, int q) throw();
+float __cdecl FUN_0010ae50(World *w, Ctx *c, float thr, Vec3_101fe0 *a, Vec3_101fe0 *b, int p, int q) throw();
 
 class CHand2HandAgent {
 public:
@@ -45,24 +45,24 @@ public:
     char pad61[3];
     float f64;
     char pad68[0x88 - 0x68];
-    Vec3 v88;
+    Vec3_101fe0 v88;
     char pad94[0xa4 - 0x94];
-    Vec3 va4;
+    Vec3_101fe0 va4;
     char padb0[0xc8 - 0xb0];
     float fc8;
     char padcc[0xd4 - 0xcc];
-    V2 vd4;
-    V2 vdc;
+    V2_101fe0 vd4;
+    V2_101fe0 vdc;
     float fe4;
     float fe8;
-    Vec3 vec;
-    Vec3 vf8;
-    Vec3 v104;
-    Vec3 v110;
+    Vec3_101fe0 vec;
+    Vec3_101fe0 vf8;
+    Vec3_101fe0 v104;
+    Vec3_101fe0 v110;
     float f11c;
     float f120;
     char pad124[0x144 - 0x124];
-    Vec3 v144;
+    Vec3_101fe0 v144;
     char pad150[0x180 - 0x150];
     float f180;
 };
@@ -75,12 +75,12 @@ char CHand2HandAgent::vfunc_15(World *a1, Ctx *a2)
         float L2;
         float Lb;
         float absTmp;
-        Vec3 C;
-        Vec3 B;
-        Vec3 E;
-        Vec3 A;
-        Vec3 D;
-        Vec3 O;
+        Vec3_101fe0 C;
+        Vec3_101fe0 B;
+        Vec3_101fe0 E;
+        Vec3_101fe0 A;
+        Vec3_101fe0 D;
+        Vec3_101fe0 O;
     } f;
 
     f.res = 1;
@@ -134,10 +134,10 @@ char CHand2HandAgent::vfunc_15(World *a1, Ctx *a2)
     f.D.x = v104.x - va4.x;
     f.D.z = v104.z - va4.z;
     f.D.FUN_0022d110();
-    FloatBits dp;
+    FloatBits_101fe0 dp;
     dp.f = f.E.z * v110.z + f.E.x * v110.x + v110.y * 0.0f;
     dp.u &= 0x7fffffff;
-    Vec3 *edi;
+    Vec3_101fe0 *edi;
     if (dp.f < 0.97 && f.L2 > 2.0f) {
         edi = &v144;
         v144 = v110;
@@ -162,7 +162,7 @@ char CHand2HandAgent::vfunc_15(World *a1, Ctx *a2)
             FUN_0010ae50(a1, a2, 1.875f, edi, &f.O, 0, 0);
         }
     } else {
-        FloatBits d3;
+        FloatBits_101fe0 d3;
         d3.f = f.A.z * f.C.z + f.A.x * f.C.x + f.C.y * f.A.y;
         d3.u &= 0x7fffffff;
         if (d3.f < 0.97f) {

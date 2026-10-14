@@ -1,29 +1,29 @@
 // STATUS: equivalent (tools/equiv.py level 3: 292 inputs, branch coverage 16/16)
 // FUN_00256150 @ 0x00256150
-struct Pair {
+struct Pair_256150 {
     float value;
     int index;
 };
 
-struct Entry {
+struct Entry_256150 {
     float f[4];
     int index;
 };
 
-struct Frame {
-    Pair pairs[16];
-    Entry entries[14];
+struct Frame_256150 {
+    Pair_256150 pairs[16];
+    Entry_256150 entries[14];
     char tail[0x28];
 };
 
 int __cdecl FUN_00258b70(int handle);
 int __cdecl FUN_0025d060(int v);
 int __cdecl FUN_0024c2d0(int v);
-void __cdecl FUN_00258bf0(int handle, Pair *pairs, int count);
-void __cdecl FUN_00258ba0(int handle, Entry *entries, int count);
+void __cdecl FUN_00258bf0(int handle, Pair_256150 *pairs, int count);
+void __cdecl FUN_00258ba0(int handle, Entry_256150 *entries, int count);
 void __cdecl FUN_00258b80(int handle, float v);
 
-struct Info {
+struct Info_256150 {
     char pad0[0x14];
     float scale;
     float *factor;
@@ -32,28 +32,28 @@ struct Info {
     float *vectors;
 };
 
-struct Extra {
+struct Extra_256150 {
     char pad0[0x10];
     float amount;
 };
 
-struct Arg {
+struct Arg_256150 {
     float base;
-    Info *info;
+    Info_256150 *info;
     char pad08[0x3c - 8];
-    Extra *extra;
+    Extra_256150 *extra;
 };
 
-class Blender {
+class Blender_256150 {
 public:
     char pad0[0x14];
     int handle;
-    void FUN_00256150(Arg *arg);
+    void FUN_00256150(Arg_256150 *arg);
 };
 
-void Blender::FUN_00256150(Arg *arg)
+void Blender_256150::FUN_00256150(Arg_256150 *arg)
 {
-    Frame f;
+    Frame_256150 f;
     int count = FUN_0024c2d0(FUN_0025d060(FUN_00258b70(handle)));
     float *weights = arg->info->weights;
     if (weights != 0) {

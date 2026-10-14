@@ -1,24 +1,24 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 24/24)
 // FUN_002efa90 @ 0x002efa90
-struct Object; struct Source; struct Parent;
-struct Service {
+struct Object; struct Source_2efa90; struct Parent_2efa90;
+struct Service_2efa90 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10();
 };
-struct Parent {
- virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual Parent* v28(Object*); virtual void v29(Object*);
+struct Parent_2efa90 {
+ virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual Parent_2efa90* v28(Object*); virtual void v29(Object*);
  char pad[12]; int attached; char pad2[4]; void* data;
 };
-struct Source {
- virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual Source* v5(Object*);
- char pad[20]; Object* owner; char pad2[4]; Service* service; char pad3[68]; unsigned char flag1; unsigned char flag2;
+struct Source_2efa90 {
+ virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual Source_2efa90* v5(Object*);
+ char pad[20]; Object* owner; char pad2[4]; Service_2efa90* service; char pad3[68]; unsigned char flag1; unsigned char flag2;
  void FUN_00304740(void*);
 };
 struct Object {
- virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(Parent*); virtual void v14(Source*);
+ virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(Parent_2efa90*); virtual void v14(Source_2efa90*);
  Object* FUN_002ef7f0(int);
 };
 void* __cdecl FUN_0008d690(unsigned int);
-Object* __cdecl FUN_002efa90(Source* source, Parent* parent, Object* storage) {
+Object* __cdecl FUN_002efa90(Source_2efa90* source, Parent_2efa90* parent, Object* storage) {
  if (!storage) storage = (Object*)FUN_0008d690(0x88);
  if (!storage) return 0;
  Object* result = storage->FUN_002ef7f0(0);

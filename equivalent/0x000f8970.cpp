@@ -17,48 +17,48 @@ public:
 
 namespace pure3d { class Font; }
 
-class Ref {
+class Ref_f8970 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-class Loader {
+class Loader_f8970 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Ref *v3(content::LoadInventory::DynamicCaster<pure3d::Font> *caster, unsigned int lo, unsigned int hi);
+    virtual Ref_f8970 *v3(content::LoadInventory::DynamicCaster<pure3d::Font> *caster, unsigned int lo, unsigned int hi);
 };
 
-extern Loader *DAT_004dd9c8;
+extern Loader_f8970 *DAT_004dd9c8;
 
-struct Id64 {
+struct Id64_f8970 {
     unsigned int lo;
     unsigned int hi;
 };
 
-Id64 __cdecl FUN_0027b020(const char *name);
+Id64_f8970 __cdecl FUN_0027b020(const char *name);
 
-class FontSet {
+class FontSet_f8970 {
 public:
     char pad0[0x24];
-    Ref *fonts[0x24 / 4];
-    Id64 ids[(0x88 - 0x48) / 8];
+    Ref_f8970 *fonts[0x24 / 4];
+    Id64_f8970 ids[(0x88 - 0x48) / 8];
     int count;
 
     void FUN_000f8970(const char *name);
 };
 
-void FontSet::FUN_000f8970(const char *name)
+void FontSet_f8970::FUN_000f8970(const char *name)
 {
     int i = count;
     if (fonts[i] != 0)
         fonts[i]->Release();
-    Id64 id = FUN_0027b020(name);
+    Id64_f8970 id = FUN_0027b020(name);
     ids[i] = id;
     content::LoadInventory::DynamicCaster<pure3d::Font> caster;
-    Ref *r = DAT_004dd9c8->v3(&caster, id.lo, id.hi);
+    Ref_f8970 *r = DAT_004dd9c8->v3(&caster, id.lo, id.hi);
     fonts[i] = r;
     r->AddRef();
     count = count + 1;

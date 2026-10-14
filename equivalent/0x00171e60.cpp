@@ -1,25 +1,25 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 32/32)
 // hulkfight::motion::SyncToLocatorAction::vfunc_3 @ 0x00171e60
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
-struct V3 {
+struct V3_171e60 {
     float x, y, z;
-    void FUN_00011220(V3 *v);
+    void FUN_00011220(V3_171e60 *v);
     void FUN_00011140(float s);
 };
 
-struct Id64 {
+struct Id64_171e60 {
     unsigned int lo, hi;
-    void FUN_0027af70(Id64 *src);
+    void FUN_0027af70(Id64_171e60 *src);
     void FUN_0027b040(const char *name);
 };
 
-struct Xform {
+struct Xform_171e60 {
     char data[0x54];
     void FUN_00221d20(float a);
-    void FUN_0022be40(const V3 *pos);
+    void FUN_0022be40(const V3_171e60 *pos);
 };
 
-struct Name {
+struct Name_171e60 {
     unsigned int lo, hi;
     void FUN_0027b040(const char *s);
 };
@@ -28,9 +28,9 @@ class JointDriver {
 public:
     virtual void AddRef();
     char pad4[4];
-    Name name;
+    Name_171e60 name;
     char pad10[8];
-    Xform xform;
+    Xform_171e60 xform;
     JointDriver *FUN_002248f0(int a);
 };
 
@@ -44,23 +44,23 @@ struct SubSkel {
     float FUN_002220d0();
 };
 
-struct Anchor {
-    char FUN_00059a50(V3 *out);
+struct Anchor_171e60 {
+    char FUN_00059a50(V3_171e60 *out);
 };
 
-struct Timing {
+struct Timing_171e60 {
     char pad0[0x10];
-    Anchor *anchor;
+    Anchor_171e60 *anchor;
     float FUN_000354c0();
 };
 
-struct Clock {
+struct Clock_171e60 {
     Skeleton *FUN_00059a40();
-    Timing *FUN_00059a30();
+    Timing_171e60 *FUN_00059a30();
 };
 
-struct Target {
-    Clock *FUN_000592a0();
+struct Target_171e60 {
+    Clock_171e60 *FUN_000592a0();
 };
 
 class Located {
@@ -73,11 +73,11 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual V3 *v8(V3 *out);
+    virtual V3_171e60 *v8(V3_171e60 *out);
     virtual float v9();
 };
 
-class Cfg {
+class Cfg_171e60 {
 public:
     virtual void v0();
     virtual void v1();
@@ -91,29 +91,29 @@ public:
     float f14;
     float f18;
     char pad1c[4];
-    Id64 id20;
+    Id64_171e60 id20;
     const char *name28;
     int f2c;
     int mode30;
     float f34;
-    V3 v38;
+    V3_171e60 v38;
     float f44;
     float f48;
     float f4c;
 };
 
-struct Registry {
+struct Registry_171e60 {
     int FUN_001d35a0(const char *name, const char *tag, int v);
     char FUN_001d19f0(char *buf, int size, int flag);
 };
-Registry *FUN_001d4c90();
+Registry_171e60 *FUN_001d4c90();
 
-struct Finder {
+struct Finder_171e60 {
     Located *FUN_001fc8c0(unsigned int lo, unsigned int hi);
 };
 struct World {
     char pad0[0x28];
-    Finder *f28;
+    Finder_171e60 *f28;
 };
 extern World *DAT_004dd700;
 
@@ -131,42 +131,42 @@ public:
     virtual void f4();
     virtual void f5();
     char pad04[0x1c - 4];
-    Cfg *cfg;              // 0x1c
-    Target *target;        // 0x20
+    Cfg_171e60 *cfg;              // 0x1c
+    Target_171e60 *target;        // 0x20
     char pad24[4];
-    Id64 id;               // 0x28
+    Id64_171e60 id;               // 0x28
     JointDriver *driver;   // 0x30
     float f34;
-    V3 v38;                // 0x38
+    V3_171e60 v38;                // 0x38
     float f44;
-    V3 v48;                // 0x48
+    V3_171e60 v48;                // 0x48
 };
 
-struct Frame {
+struct Frame_171e60 {
     float d;               // 0x10
     float t14;             // 0x14
     int t18;               // 0x18
-    V3 tmp;                // 0x1c
+    V3_171e60 tmp;                // 0x1c
     int t28;               // 0x28
-    V3 p;                  // 0x2c
+    V3_171e60 p;                  // 0x2c
     char buf[0x400];       // 0x38
 };
 
 bool SyncToLocatorAction::vfunc_3(int a, int b)
 {
     unsigned int cookie = DAT_004d9968;
-    Frame f;
+    Frame_171e60 f;
     if (target == 0 || cfg->v7() <= 0.0f) {
         __security_check_cookie(cookie);
         return false;
     }
-    Clock *clock = target->FUN_000592a0();
+    Clock_171e60 *clock = target->FUN_000592a0();
     Skeleton *skel = clock->FUN_00059a40();
     if (skel == 0) {
         __security_check_cookie(cookie);
         return false;
     }
-    Timing *timing = clock->FUN_00059a30();
+    Timing_171e60 *timing = clock->FUN_00059a30();
     float c4c = cfg->f4c;
     float c48 = cfg->f48;
     float c44 = cfg->f44;
@@ -179,7 +179,7 @@ bool SyncToLocatorAction::vfunc_3(int a, int b)
     driver->AddRef();
     f.d = ((SubSkel *)skel->sub10)->FUN_002220d0();
     driver->xform.FUN_00221d20(f.d);
-    driver->xform.FUN_0022be40((V3 *)((char *)skel + 0x40));
+    driver->xform.FUN_0022be40((V3_171e60 *)((char *)skel + 0x40));
     skel->FUN_00222890(driver, -1.0f, c44, 1.0f, c48, c4c, -1.0f);
 
     id.FUN_0027af70(&cfg->id20);
@@ -190,7 +190,7 @@ bool SyncToLocatorAction::vfunc_3(int a, int b)
             __security_check_cookie(cookie);
             return false;
         }
-        Registry *reg = FUN_001d4c90();
+        Registry_171e60 *reg = FUN_001d4c90();
         if (reg->FUN_001d35a0(name, "syncToLocator", tag) != 3 || !reg->FUN_001d19f0(f.buf, 0x400, 1)) {
             __security_check_cookie(cookie);
             return false;
@@ -222,7 +222,7 @@ bool SyncToLocatorAction::vfunc_3(int a, int b)
     else
         f44 = f.d / cfg->v7();
 
-    V3 *pos = obj->v8(&f.tmp);
+    V3_171e60 *pos = obj->v8(&f.tmp);
     v38.x = pos->x;
     v38.y = pos->y;
     v38.z = pos->z;

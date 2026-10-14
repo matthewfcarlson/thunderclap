@@ -2,7 +2,7 @@
 // FUN_0008f0b0 @ 0x0008f0b0
 void* __cdecl FUN_0008d6d0(int size);
 
-class IntArray {
+class IntArray_8f0b0 {
 public:
     int mA;
     int mOne;
@@ -13,10 +13,10 @@ public:
     int pad18;
     int pad1c;
     int* mData;
-    IntArray(int count, int b, int a);
+    IntArray_8f0b0(int count, int b, int a);
 };
 
-IntArray::IntArray(int count, int b, int a)
+IntArray_8f0b0::IntArray_8f0b0(int count, int b, int a)
 {
     mCount = count;
     mB = b;

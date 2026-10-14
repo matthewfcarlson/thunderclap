@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 16/16)
 // FUN_002c1d70 @ 0x002c1d70
-struct StrField {
+struct StrField_2c1d70 {
     int a, b;
     void FUN_0027b040(const char *s);
 };
 
 struct Sprite {
     char pad0[8];
-    StrField name;
+    StrField_2c1d70 name;
 };
 
-struct SpriteData {
+struct SpriteData_2c1d70 {
     Sprite *FUN_002aedd0(const char *name);
     Sprite *FUN_002aeec0(int h, int a, int b);
     void FUN_002aef60(const char *name, Sprite *existing, int arg);
@@ -31,14 +31,14 @@ struct Reader {
     void FUN_00266ca0(int v);
 };
 
-class Loader {
+class Loader_2c1d70 {
 public:
     char pad00[0x14];
-    SpriteData *data;
-    Sprite *FUN_002c1d70(Reader *r, SpriteData *sd, Sprite *existing, int arg);
+    SpriteData_2c1d70 *data;
+    Sprite *FUN_002c1d70(Reader *r, SpriteData_2c1d70 *sd, Sprite *existing, int arg);
 };
 
-Sprite *Loader::FUN_002c1d70(Reader *r, SpriteData *sd, Sprite *existing, int arg)
+Sprite *Loader_2c1d70::FUN_002c1d70(Reader *r, SpriteData_2c1d70 *sd, Sprite *existing, int arg)
 {
     struct Frame {
         char pad[3];

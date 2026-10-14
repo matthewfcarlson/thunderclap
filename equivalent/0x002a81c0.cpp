@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 212 inputs, branch coverage 16/16)
 // FUN_002a81c0 @ 0x002a81c0
-struct Key { unsigned a,b; };
-struct Item { char pad[8]; Key key; unsigned FUN_00288960(unsigned, unsigned); };
-struct Source { char pad[0x28]; int count; Item* FUN_00288a10(int); };
-struct Lookup { unsigned char FUN_00298960(Key*); };
-struct Context { char pad[0x44]; Lookup* lookup; };
+struct Key_2a81c0 { unsigned a,b; };
+struct Item_2a81c0 { char pad[8]; Key_2a81c0 key; unsigned FUN_00288960(unsigned, unsigned); };
+struct Source_2a81c0 { char pad[0x28]; int count; Item_2a81c0* FUN_00288a10(int); };
+struct Lookup_2a81c0 { unsigned char FUN_00298960(Key_2a81c0*); };
+struct Context { char pad[0x44]; Lookup_2a81c0* lookup; };
 void __cdecl FUN_0008d340(void*);
 struct ByteArray { unsigned char* data; unsigned size; void FUN_002a8060(int, unsigned char*); };
 struct WordArray { unsigned* data; unsigned size; void FUN_002a8000(int, unsigned*); };
-struct Object { char pad[0x3c]; Source* source; Context* context; WordArray words; unsigned unused; ByteArray bytes; void target(); };
+struct Object { char pad[0x3c]; Source_2a81c0* source; Context* context; WordArray words; unsigned unused; ByteArray bytes; void target(); };
 void Object::target() {
  if (source && context) {
   int count=source->count;
@@ -21,8 +21,8 @@ void Object::target() {
   unsigned zeroWord=0;
   words.FUN_002a8000(count,&zeroWord);
   for(int i=0;i<count;++i) {
-   Item* item=source->FUN_00288a10(i);
-   Key key=item->key;
+   Item_2a81c0* item=source->FUN_00288a10(i);
+   Key_2a81c0 key=item->key;
    unsigned char* dest=bytes.data+i;
    unsigned char result=context->lookup->FUN_00298960(&key);
    *dest=result;

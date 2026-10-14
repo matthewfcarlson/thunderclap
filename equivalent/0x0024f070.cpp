@@ -5,15 +5,15 @@ struct Stream {
     int indent;
 };
 
-struct Writer {
+struct Writer_24f070 {
     Stream *out;
 };
 
 char FUN_00246f50(Stream *s, const char *fmt, ...);
-char FUN_0024ebe0(Writer *w, float *value);
+char FUN_0024ebe0(Writer_24f070 *w, float *value);
 
 // Writes a 16-float matrix as "[ v v ... ]" lines to a text stream.
-bool FUN_0024f070(Writer *w, float *values)
+bool FUN_0024f070(Writer_24f070 *w, float *values)
 {
     if (!FUN_00246f50(w->out, "\n[\n"))
         return false;

@@ -2,13 +2,13 @@
 // FUN_000bf2b0 @ 0x000bf2b0
 extern "C" char *__cdecl strncpy(char *dst, const char *src, unsigned int n);
 
-struct Counter {
+struct Counter_bf2b0 {
     int FUN_00088fa0();
 };
 
-struct Panel {
+struct Panel_bf2b0 {
     char pad0[0x80];
-    Counter counter;         // 0x80
+    Counter_bf2b0 counter;         // 0x80
     char pad84[0x108 - 0x84];
     int field108;
     void FUN_00089390();
@@ -20,52 +20,52 @@ struct Panel {
     void FUN_00089810(const char *name);
 };
 
-struct Widget {
+struct Widget_bf2b0 {
     void FUN_001cc620(int state);
 };
 
-struct Listener {
+struct Listener_bf2b0 {
     void FUN_00093c40(const char *name);
 };
 
-struct Hud {
+struct Hud_bf2b0 {
     void FUN_000d6fb0(int flag);
 };
 
-struct Player {
+struct Player_bf2b0 {
     char pad0[0x1b0c];
     float health;            // 0x1b0c
 };
 
 struct Party {
     char pad0[0x124];
-    Player *leader;          // 0x124
+    Player_bf2b0 *leader;          // 0x124
 };
 
-struct Group {
+struct Group_bf2b0 {
     char pad0[0x20];
     Party *party;            // 0x20
     char pad24[0x3c - 0x24];
-    Hud *hud;                // 0x3c
+    Hud_bf2b0 *hud;                // 0x3c
 };
-extern Group *DAT_004dd700;
+extern Group_bf2b0 *DAT_004dd700;
 
-struct Game {
+struct Game_bf2b0 {
     char FUN_000be230(const char *cls, const char *msg, const char *title, const char *ok,
                       const char *cancel, int buttons, int a, int b);
 };
-Game *__cdecl FUN_000fc3d0();
+Game_bf2b0 *__cdecl FUN_000fc3d0();
 void __cdecl FUN_000fc300();
 
-class Menu {
+class Menu_bf2b0 {
 public:
     char pad0[0x10];
     int state;               // 0x10
     char pad14[0x34 - 0x14];
-    Panel *panel;            // 0x34
-    Widget *widget;          // 0x38
+    Panel_bf2b0 *panel;            // 0x34
+    Widget_bf2b0 *widget;          // 0x38
     char pad3c[0x4c - 0x3c];
-    Listener *listener;      // 0x4c
+    Listener_bf2b0 *listener;      // 0x4c
     char pad50[0x1c8c - 0x50];
     char sideName[0x20];     // 0x1c8c
     void FUN_000b9830();
@@ -73,7 +73,7 @@ public:
     void FUN_000bf2b0(int confirmed);
 };
 
-void Menu::FUN_000bf2b0(int confirmed)
+void Menu_bf2b0::FUN_000bf2b0(int confirmed)
 {
     if (!confirmed) {
         FUN_000fc3d0()->FUN_000be230("FEGenericDialog", "TBS_MENU_ITEM_ABORT_NO_SAVE_1", "",
@@ -109,7 +109,7 @@ void Menu::FUN_000bf2b0(int confirmed)
         }
     }
 
-    Player *leader = DAT_004dd700->party->leader;
+    Player_bf2b0 *leader = DAT_004dd700->party->leader;
     bool alive = leader && leader->health > 0.0f;
 
     if (same && alive) {

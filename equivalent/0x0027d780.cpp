@@ -42,7 +42,7 @@ public:
     virtual void vfunc_23();
 };
 
-class Child {
+class Child_27d780 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -63,7 +63,7 @@ public:
     void FUN_002a3b60();
 };
 
-struct Elem {
+struct Elem_27d780 {
     char pad00[0xc];
     int f0c;
     char flag;
@@ -79,26 +79,26 @@ struct Flag16 {
     char pad09[7];
 };
 
-struct Entry {
+struct Entry_27d780 {
     char pad00[0x18];
     Flag16* flags;
     char pad1c[4];
-    Elem* elems;
+    Elem_27d780* elems;
 };
 
-struct Table {
+struct Table_27d780 {
     char pad00[0x1c];
-    Entry** begin;
-    Entry** end;
+    Entry_27d780** begin;
+    Entry_27d780** end;
 };
 
 struct Item12 {
     int f0;
     int f4;
-    Child* child;
+    Child_27d780* child;
 };
 
-struct Group {
+struct Group_27d780 {
     char pad00[0x3c];
     Item12* begin;
     Item12* end;
@@ -106,7 +106,7 @@ struct Group {
     void FUN_002987d0(unsigned int i);
 };
 
-struct Nodes {
+struct Nodes_27d780 {
     char pad00[0x24];
     Node** begin;
     Node** end;
@@ -116,11 +116,11 @@ struct Nodes {
 
 struct Board {
     char pad00[0x44];
-    Group* group;
-    Nodes* nodes;
+    Group_27d780* group;
+    Nodes_27d780* nodes;
 };
 
-class Marker {
+class Marker_27d780 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -135,12 +135,12 @@ public:
 
 struct Marks {
     char pad00[0x1f8];
-    Marker** items;
+    Marker_27d780** items;
     char pad1fc[4];
     int count;
 };
 
-struct Gadget {
+struct Gadget_27d780 {
     char pad00[0x70];
     Marks* marks;
     char pad74[0x84 - 0x74];
@@ -154,13 +154,13 @@ struct Gadget {
     void FUN_002fe2e0();
 };
 
-struct Holder {
+struct Holder_27d780 {
     char pad00[0x10];
-    Gadget* gadget;
+    Gadget_27d780* gadget;
     void FUN_002fc670(int v);
 };
 
-struct Frame {
+struct Frame_27d780 {
     float lo;
     float hi;
     float cur;
@@ -174,32 +174,32 @@ struct Frame {
         unsigned char b;
         unsigned int w;
     } j;
-    Entry* x;
-    Group* d;
+    Entry_27d780* x;
+    Group_27d780* d;
     void* self;
 };
 
-class Scene {
+class Scene_27d780 {
 public:
     virtual void vfunc_0();
     char pad04[0x40 - 4];
     int current;
     char pad44[0x98 - 0x44];
-    Table* table;
+    Table_27d780* table;
     Board* board;
-    Holder* holder;
+    Holder_27d780* holder;
     char pada4[0xac - 0xa4];
     Choice** choices;
     void FUN_0027d780();
 };
 
-void Scene::FUN_0027d780()
+void Scene_27d780::FUN_0027d780()
 {
-    Frame f;
-    Entry* x = table->begin[current];
+    Frame_27d780 f;
+    Entry_27d780* x = table->begin[current];
     Board* b = board;
-    Nodes* nodes = b->nodes;
-    Group* group = b->group;
+    Nodes_27d780* nodes = b->nodes;
+    Group_27d780* group = b->group;
     int total = nodes->end - nodes->begin;
     f.x = x;
     f.d = group;
@@ -210,7 +210,7 @@ void Scene::FUN_0027d780()
         f.off20 = 0;
         f.j.off4 = 0;
         do {
-            Elem* e = (Elem*)((char*)f.x->elems + f.off20);
+            Elem_27d780* e = (Elem_27d780*)((char*)f.x->elems + f.off20);
             Node* node = *(Node**)((char*)nodes->begin + f.j.off4);
             f.lo = e->lo;
             f.hi = e->hi;
@@ -259,7 +259,7 @@ void Scene::FUN_0027d780()
             if (fl->flag == 1) {
                 group->FUN_002987d0(f.j.w);
             } else {
-                Child* child = *(Child**)((char*)group->begin + off12 + 8);
+                Child_27d780* child = *(Child_27d780**)((char*)group->begin + off12 + 8);
                 if (child) {
                     if (child->vfunc_15() == 4)
                         child->FUN_002a3b60();
@@ -271,8 +271,8 @@ void Scene::FUN_0027d780()
         } while (f.j.b < n2);
     }
 
-    Scene* self = (Scene*)f.self;
-    Table* t = self->table;
+    Scene_27d780* self = (Scene_27d780*)f.self;
+    Table_27d780* t = self->table;
     for (int k = 0; k < (int)(t->end - t->begin); k++) {
         Choice* ch = self->choices[k];
         if (ch)
@@ -285,7 +285,7 @@ void Scene::FUN_0027d780()
 
     if (!self->holder)
         return;
-    Gadget* g = self->holder->gadget;
+    Gadget_27d780* g = self->holder->gadget;
     if (g->flag84) {
         g->FUN_002fd4a0();
         for (unsigned int k = 0; k < n2; k++)
@@ -294,7 +294,7 @@ void Scene::FUN_0027d780()
         bool found = false;
         if (m) {
             for (int k = 0; k < m->count; k++) {
-                Marker* mk = m->items[k];
+                Marker_27d780* mk = m->items[k];
                 if (mk->active) {
                     if (mk->vfunc_7() > 0.0f) {
                         found = true;

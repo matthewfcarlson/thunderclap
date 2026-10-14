@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3041 inputs, branch coverage 76/82, incomplete)
 // FUN_00338a10 @ 0x00338a10
-class Source {
+class Source_338a10 {
 public:
     virtual void v0();
     virtual void v1();
@@ -12,7 +12,7 @@ public:
 class Tokenizer {
 public:
     char pad00[4];
-    Source *source;
+    Source_338a10 *source;
     int bufSize;
     int pos;
     int len;

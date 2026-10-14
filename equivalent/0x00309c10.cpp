@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // physics::PhysicsJoint1D::vfunc_17 @ 0x00309c10
-struct V3 {
+struct V3_309c10 {
     float x, y, z;
 };
 
@@ -23,14 +23,14 @@ public:
     virtual void v12();
     virtual void v13();
     virtual void v14();
-    virtual void GetAxis(V3 *out);
+    virtual void GetAxis(V3_309c10 *out);
     virtual void v16();
-    virtual void vfunc_17(V3 *a, float s, V3 *out);
+    virtual void vfunc_17(V3_309c10 *a, float s, V3_309c10 *out);
 };
 
-void PhysicsJoint1D::vfunc_17(V3 *a, float s, V3 *out)
+void PhysicsJoint1D::vfunc_17(V3_309c10 *a, float s, V3_309c10 *out)
 {
-    V3 l;
+    V3_309c10 l;
     GetAxis(&l);
     float cx = l.y * a->z - l.z * a->y;
     float cy = l.z * a->x - l.x * a->z;

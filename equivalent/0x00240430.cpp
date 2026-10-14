@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 7/8, incomplete)
 // FUN_00240430 @ 0x00240430
 extern "C" int __cdecl sprintf(char *, const char *, ...);
-struct Text { char *data; unsigned int flags; unsigned short length; unsigned short spare; };
+struct Text_240430 { char *data; unsigned int flags; unsigned short length; unsigned short spare; };
 extern char *DAT_004cc02c;
 extern "C" void __cdecl FUN_0023fa40(char **, const char *, int, int);
 extern "C" void __cdecl FUN_00247570(void *);
-struct Object { Object *format(float); void FUN_0023ff50(Text *); };
+struct Object { Object *format(float); void FUN_0023ff50(Text_240430 *); };
 Object *Object::format(float value) {
  char buffer[64];
  int count=sprintf(buffer,"%f",value);
- Text text;
+ Text_240430 text;
  text.flags=(text.flags & 0xffff0002U)|2;
  text.length=(unsigned short)count;
  char *data;

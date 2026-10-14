@@ -2,8 +2,8 @@
 // core::FileGetPositionRequest::vfunc_0 @ 0x00275460
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) throw() { return p; }
-struct Lock { virtual void acquire(); virtual void release(); };
-struct File { virtual void slot0(); virtual void release(); Lock lock; char padding[16]; int count; };
+struct Lock_275460 { virtual void acquire(); virtual void release(); };
+struct File { virtual void slot0(); virtual void release(); Lock_275460 lock; char padding[16]; int count; };
 struct Allocator { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void free(void*); };
 extern char DAT_0052a1c8;
 extern Allocator* DAT_0052a1e4;

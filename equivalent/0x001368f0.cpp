@@ -1,44 +1,44 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 43/44, incomplete)
 // hulkfight::motion::AirToGroundTargetAction::vfunc_5 @ 0x001368f0
-struct V3 {
+struct V3_1368f0 {
     float x, y, z;
 };
-extern V3 DAT_004abf64;
+extern V3_1368f0 DAT_004abf64;
 extern "C" double sqrt(double);
 
-class Prop {
+class Prop_1368f0 {
   public:
     virtual void addRef();
     virtual void release();
 };
 
-struct Sub18 {
+struct Sub18_1368f0 {
     void FUN_00221d20(float v);
-    void FUN_0022be40(V3 *p);
+    void FUN_0022be40(V3_1368f0 *p);
 };
-struct Target {
+struct Target_1368f0 {
     char pad[0x18];
-    Sub18 sub;
+    Sub18_1368f0 sub;
 };
 
-struct Mover {
+struct Mover_1368f0 {
     char pad0[0x328];
-    Prop *prop;
+    Prop_1368f0 *prop;
     void FUN_000359c0(int n);
     float FUN_000354c0();
 };
 
-struct Pos {
-    void FUN_00059a50(V3 *out);
+struct Pos_1368f0 {
+    void FUN_00059a50(V3_1368f0 *out);
 };
-struct Inner {
-    Mover *FUN_00059a30();
+struct Inner_1368f0 {
+    Mover_1368f0 *FUN_00059a30();
 };
-struct Source {
-    Inner *FUN_000592a0();
+struct Source_1368f0 {
+    Inner_1368f0 *FUN_000592a0();
 };
 
-struct Info {
+struct Info_1368f0 {
     char pad0[0x14];
     float lo;
     float hi;
@@ -48,23 +48,23 @@ struct Info {
     float f28;
 };
 
-void FUN_00096a90(Prop *p, V3 *out);
-float FUN_00224f10(V3 *v);
+void FUN_00096a90(Prop_1368f0 *p, V3_1368f0 *out);
+float FUN_00224f10(V3_1368f0 *v);
 float FUN_00224fc0(float a, float b);
-void FUN_00224d70(float a, V3 *v);
+void FUN_00224d70(float a, V3_1368f0 *v);
 
-struct Frame {
+struct Frame_1368f0 {
     float g;
     float t1;
     float t2;
-    V3 d;
-    V3 pos;
-    V3 w;
-    V3 pn;
-    V3 q;
+    V3_1368f0 d;
+    V3_1368f0 pos;
+    V3_1368f0 w;
+    V3_1368f0 pn;
+    V3_1368f0 q;
 };
 
-union Arg1 {
+union Arg1_1368f0 {
     int flag;
     float v;
 };
@@ -76,32 +76,32 @@ class AirToGroundTargetAction {
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual char v5(Arg1 a1, float dt);
+    virtual char v5(Arg1_1368f0 a1, float dt);
     char pad04[0x1c - 4];
-    Info *info;
-    Source *source;
-    Target *target;
-    Prop *prop;
+    Info_1368f0 *info;
+    Source_1368f0 *source;
+    Target_1368f0 *target;
+    Prop_1368f0 *prop;
     float speed;
     float vy;
 };
 
-char AirToGroundTargetAction::v5(Arg1 a1, float dt)
+char AirToGroundTargetAction::v5(Arg1_1368f0 a1, float dt)
 {
     if (a1.flag)
         return 1;
     if (!target)
         return 0;
-    Frame f;
-    Inner *inner = source->FUN_000592a0();
-    Mover *mover = inner->FUN_00059a30();
+    Frame_1368f0 f;
+    Inner_1368f0 *inner = source->FUN_000592a0();
+    Mover_1368f0 *mover = inner->FUN_00059a30();
     mover->FUN_000359c0(3);
     f.pos.x = 0;
     f.pos.y = 0;
     f.pos.z = 0;
-    ((Pos *)inner)->FUN_00059a50(&f.pos);
+    ((Pos_1368f0 *)inner)->FUN_00059a50(&f.pos);
     if (!prop) {
-        Prop *np = mover->prop;
+        Prop_1368f0 *np = mover->prop;
         if (np)
             np->addRef();
         if (prop)
@@ -177,7 +177,7 @@ char AirToGroundTargetAction::v5(Arg1 a1, float dt)
             }
         }
     }
-    Info *inf = info;
+    Info_1368f0 *inf = info;
     f.t2 = inf->rate;
     if (f.t2 <= 0.0f) {
         speed = a1.v;

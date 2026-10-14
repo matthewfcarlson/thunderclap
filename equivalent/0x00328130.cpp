@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00328130 @ 0x00328130
-typedef void (__cdecl *Callback)();
+typedef void (__cdecl *Callback_328130)();
 void __cdecl FUN_00327e60();
 void __cdecl FUN_00327e90();
 void __cdecl FUN_00327ec0();
@@ -16,7 +16,7 @@ void __cdecl FUN_00328070();
 void __cdecl FUN_003280a0();
 void __cdecl FUN_003280d0();
 void __cdecl FUN_00328100();
-void __cdecl FUN_00327c20(const char*, Callback, int);
+void __cdecl FUN_00327c20(const char*, Callback_328130, int);
 void __cdecl FUN_00328130() {
  FUN_00327c20("error", FUN_00327e60, 0);
  FUN_00327c20("simple", FUN_00327e90, 0);

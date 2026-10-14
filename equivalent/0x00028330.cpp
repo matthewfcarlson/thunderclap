@@ -5,9 +5,9 @@ unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 float __cdecl FUN_00224ea0(float x, float z);
 float __cdecl FUN_00224fc0(float a, float b);
 
-struct Vec3 {
+struct Vec3_28330 {
     float x, y, z;
-    bool FUN_0022d2b0(const Vec3 *other, float epsilon);
+    bool FUN_0022d2b0(const Vec3_28330 *other, float epsilon);
 };
 
 union AbsFloat {
@@ -15,23 +15,23 @@ union AbsFloat {
     unsigned int bits;
 };
 
-struct Pawn {
+struct Pawn_28330 {
     char pad[0x2064];
-    Vec3 pos;                       // 0x2064
+    Vec3_28330 pos;                       // 0x2064
 };
 
-struct Group {
-    Pawn *FUN_00024280(unsigned __int64 key);
+struct Group_28330 {
+    Pawn_28330 *FUN_00024280(unsigned __int64 key);
     bool FUN_00028330(const char *name, float heading, float arc);
 };
 
-bool Group::FUN_00028330(const char *name, float heading, float arc)
+bool Group_28330::FUN_00028330(const char *name, float heading, float arc)
 {
-    Pawn *pawn = FUN_00024280(FUN_002672f0(name, 0, 0));
+    Pawn_28330 *pawn = FUN_00024280(FUN_002672f0(name, 0, 0));
     if (!pawn)
         return false;
-    Vec3 p = pawn->pos;
-    Vec3 zero;
+    Vec3_28330 p = pawn->pos;
+    Vec3_28330 zero;
     zero.x = 0.0f;
     zero.y = 0.0f;
     zero.z = 0.0f;

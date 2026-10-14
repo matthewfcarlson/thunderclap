@@ -2,19 +2,19 @@
 // FUN_0025a0b0 @ 0x0025a0b0
 struct Ctrl;
 
-struct Actor {
+struct Actor_25a0b0 {
     char pad00[0x24];
     Ctrl *ctrl;             // 0x24
     char pad28[0xc];
     int state;              // 0x34
 };
 
-extern "C" int __cdecl FUN_002416f0(Ctrl *ctrl, Actor *actor);
-extern "C" void __cdecl FUN_002416c0(Ctrl *ctrl, Actor *actor, int arg);
+extern "C" int __cdecl FUN_002416f0(Ctrl *ctrl, Actor_25a0b0 *actor);
+extern "C" void __cdecl FUN_002416c0(Ctrl *ctrl, Actor_25a0b0 *actor, int arg);
 extern "C" int __cdecl FUN_00267f80();
 extern "C" void __cdecl FUN_00243090(Ctrl *ctrl, float dt);
 
-void FUN_0025a0b0(Actor *actor)
+void FUN_0025a0b0(Actor_25a0b0 *actor)
 {
     int status = FUN_002416f0(actor->ctrl, actor);
     bool finishing = (status == 1 || status == 2);

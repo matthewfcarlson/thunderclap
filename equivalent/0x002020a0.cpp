@@ -2,22 +2,22 @@
 // FUN_002020a0 @ 0x002020a0
 extern "C" double sqrt(double);
 
-struct Thing {
+struct Thing_2020a0 {
     bool FUN_00035a90();
 };
 
-struct Actor {
+struct Actor_2020a0 {
     char pad0[0x114];
     int busy;           // 0x114
     char pad118[0x148 - 0x118];
-    Thing *thing;       // 0x148
+    Thing_2020a0 *thing;       // 0x148
     bool FUN_001d6980();
     int FUN_001d64a0();
 };
 
-struct Target {
+struct Target_2020a0 {
     char pad0[8];
-    Actor *actor;       // 0x8
+    Actor_2020a0 *actor;       // 0x8
     int kind;           // 0xc
     char pad10[0x40];
     float x;            // 0x50
@@ -25,7 +25,7 @@ struct Target {
     float z;            // 0x58
 };
 
-bool FUN_002020a0(Target *t)
+bool FUN_002020a0(Target_2020a0 *t)
 {
     if (t == 0)
         return false;
@@ -33,7 +33,7 @@ bool FUN_002020a0(Target *t)
         return false;
     if (t->kind != 5)
         return false;
-    Actor *a = t->actor;
+    Actor_2020a0 *a = t->actor;
     if (a == 0)
         return false;
     if (a->FUN_001d6980())

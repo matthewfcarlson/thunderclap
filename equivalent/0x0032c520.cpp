@@ -23,7 +23,7 @@ extern unsigned int DAT_0039dc5c;
 extern unsigned int DAT_0039de18;
 extern unsigned int DAT_004d4efc[];
 extern unsigned int DAT_004d4f24[];
-struct StageCache {
+struct StageCache_32c520 {
     void FUN_00329e50(int a, int b, int c, int d);
     void FUN_00329c90(int stage, int value);
     void FUN_0032a920(int a, int b, int c, int d, int e);
@@ -57,7 +57,7 @@ class ReflShader {
     void FUN_0032a320(int a, int b);
     void FUN_0032a260();
     char pad0[0x14];
-    StageCache* cache;
+    StageCache_32c520* cache;
     char pad18[0x38 - 0x18];
     int alpha;
     char pad3c[0x44 - 0x3c];

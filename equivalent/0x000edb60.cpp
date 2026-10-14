@@ -1,38 +1,38 @@
 // STATUS: equivalent (tools/equiv.py level 3: 515 inputs, branch coverage 32/32)
 // TextTable::vfunc_5 @ 0x000edb60
-struct Vec3 {
+struct Vec3_edb60 {
     float x, y, z;
 };
 
-union Word {
+union Word_edb60 {
     float f;
     int i;
     unsigned int u;
 };
 
-struct BCell {
-    Word a, b, c, d;
+struct BCell_edb60 {
+    Word_edb60 a, b, c, d;
 };
 
-struct Source;
+struct Source_edb60;
 
 struct Builder {
     unsigned int hdr[2];
-    BCell cells[8];
+    BCell_edb60 cells[8];
     int cursor;
     float scale;
-    void FUN_000f7fe0(Source *src);
+    void FUN_000f7fe0(Source_edb60 *src);
     void FUN_000f78e0();
     void FUN_000f87f0(void *a, void *b);
     float FUN_000f8840(void *cell);
 };
 
-class Source {
+class Source_edb60 {
 public:
     virtual void v0();
 };
 
-class Level2 {
+class Level2_edb60 {
 public:
     virtual void v0();
     virtual void v1();
@@ -78,17 +78,17 @@ public:
     virtual void v41();
     virtual void v42();
     virtual void v43();
-    virtual Source* v44();
+    virtual Source_edb60* v44();
 };
 
-struct Level1 {
+struct Level1_edb60 {
     char pad0[4];
-    Level2 *level2;
+    Level2_edb60 *level2;
 };
 
 class TextTable;
 
-class Owner {
+class Owner_edb60 {
 public:
     virtual void v0();
     virtual void v1();
@@ -104,16 +104,16 @@ public:
     virtual void v11();
     virtual void v12();
     virtual char v13(TextTable *obj);
-    virtual void v14(Vec3 *out, TextTable *obj);
-    virtual void v15(Vec3 *out, TextTable *obj);
+    virtual void v14(Vec3_edb60 *out, TextTable *obj);
+    virtual void v15(Vec3_edb60 *out, TextTable *obj);
     virtual float v16(TextTable *obj);
     virtual float v17(TextTable *obj);
     char pad04[4];
-    Level1 *p8;
+    Level1_edb60 *p8;
 };
 
 
-class Pass {
+class Pass_edb60 {
 public:
     virtual void v0();
     virtual void v1();
@@ -134,13 +134,13 @@ public:
     virtual void v16(int a);
 };
 
-struct PassHolder {
-    Pass *pass;
-    void FUN_00293d00(const Vec3 *v);
+struct PassHolder_edb60 {
+    Pass_edb60 *pass;
+    void FUN_00293d00(const Vec3_edb60 *v);
     void FUN_00293da0(int a, int b, int c);
 };
 
-class Widget {
+class Widget_edb60 {
 public:
     virtual void v0();
     virtual void v1();
@@ -158,7 +158,7 @@ struct Flag118 {
     float f118;
 };
 
-struct Cell {
+struct Cell_edb60 {
     char pad00[0x10];
     int f10;
     int f14;
@@ -168,10 +168,10 @@ struct Cell {
     int f20;
 };
 
-extern PassHolder *DAT_0052c2ac;
+extern PassHolder_edb60 *DAT_0052c2ac;
 
-void __cdecl FUN_000e11a0(Vec3 v, int a, int b);
-void __cdecl FUN_000e0cc0(Vec3 v, int a, int b);
+void __cdecl FUN_000e11a0(Vec3_edb60 v, int a, int b);
+void __cdecl FUN_000e0cc0(Vec3_edb60 v, int a, int b);
 
 class TextTable {
 public:
@@ -182,7 +182,7 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     char pad04[0x10];
-    Owner *owner;
+    Owner_edb60 *owner;
     char pad18[0x3c - 0x18];
     unsigned int color;
     unsigned char flag40;
@@ -190,18 +190,18 @@ public:
     unsigned char flag48;
     char pad49[3];
     int val4c;
-    Widget *child;
+    Widget_edb60 *child;
     int v54, v58, v5c;
     char pad60[0x74 - 0x60];
     unsigned char active;
     char pad75[3];
-    Vec3 anchor;
+    Vec3_edb60 anchor;
     char pad84[0x148 - 0x84];
     int val148;
     char pad14c[0x154 - 0x14c];
     Flag118 *obj154;
     Flag118 *obj158;
-    Cell cells[64][8];
+    Cell_edb60 cells[64][8];
     int rowCount;
     int colCount;
     int rowFirst;
@@ -221,9 +221,9 @@ void TextTable::vfunc_5()
             int r;
         } u10;
         float m;
-        Vec3 v2;
-        Vec3 v1;
-        Cell *rowptr;
+        Vec3_edb60 v2;
+        Vec3_edb60 v1;
+        Cell_edb60 *rowptr;
         int j;
         Builder x;
     } f;
@@ -273,7 +273,7 @@ void TextTable::vfunc_5()
             f.m = 0.0f;
             f.j = 0;
             if (colCount > 0) {
-                Cell *c = f.rowptr;
+                Cell_edb60 *c = f.rowptr;
                 float *cx = colX;
                 do {
                     if (c->f10 != 0 || c->f14 != -1) {

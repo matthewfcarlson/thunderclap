@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0028b2f0 @ 0x0028b2f0
-struct Source { void FUN_0028ad20(int index, unsigned int* result); };
-unsigned int* __cdecl FUN_0028b2f0(unsigned int* output, Source* first, Source* second, float factor, int index) {
+struct Source_28b2f0 { void FUN_0028ad20(int index, unsigned int* result); };
+unsigned int* __cdecl FUN_0028b2f0(unsigned int* output, Source_28b2f0* first, Source_28b2f0* second, float factor, int index) {
  unsigned int a,b;
  first->FUN_0028ad20(index, &a);
  second->FUN_0028ad20(index, &b);

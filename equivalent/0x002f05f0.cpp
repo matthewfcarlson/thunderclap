@@ -1,25 +1,25 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 6/6)
 // FUN_002f05f0 @ 0x002f05f0
-struct Vec3 {
+struct Vec3_2f05f0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-union Slot {
-    const Vec3 *ptr;
+union Slot_2f05f0 {
+    const Vec3_2f05f0 *ptr;
     float f;
 };
 
-char FUN_002f0080(Vec3 *p, Vec3 *q, Vec3 *extent);
-char FUN_002f04c0(Vec3 *p, Vec3 *dir, float len, float radius, float *t);
+char FUN_002f0080(Vec3_2f05f0 *p, Vec3_2f05f0 *q, Vec3_2f05f0 *extent);
+char FUN_002f04c0(Vec3_2f05f0 *p, Vec3_2f05f0 *dir, float len, float radius, float *t);
 
 // Segment p -> q (both relative to origin) swept with a margin of (r0 + r1);
 // on a hit writes the world-space hit point to out.  The origin slot is reused
 // as scratch for the hit parameter, and r0/r1 as scratch for radius/length.
-bool FUN_002f05f0(Vec3 p, Vec3 q, Slot origin, float r0, float r1, Vec3 *out)
+bool FUN_002f05f0(Vec3_2f05f0 p, Vec3_2f05f0 q, Slot_2f05f0 origin, float r0, float r1, Vec3_2f05f0 *out)
 {
-    const Vec3 *o = origin.ptr;
-    Vec3 dir;
+    const Vec3_2f05f0 *o = origin.ptr;
+    Vec3_2f05f0 dir;
 
     p.x = p.x - o->x;
     p.y = p.y - o->y;

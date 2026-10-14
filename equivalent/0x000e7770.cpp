@@ -13,17 +13,17 @@ public:
     void FUN_000fa0a0();
 };
 
-class Args {
+class Args_e7770 {
 public:
     virtual void v0();
     virtual int GetType();
 };
 
-struct Vec3 {
+struct Vec3_e7770 {
     float x, y, z;
 };
 
-class Source {
+class Source_e7770 {
 public:
     virtual void v0();
     virtual void v1();
@@ -73,13 +73,13 @@ public:
     virtual void v45();
     virtual void v46();
     virtual void v47();
-    virtual void GetVec3(int key, Vec3* out);
+    virtual void GetVec3(int key, Vec3_e7770* out);
     virtual void v49();
     virtual void GetFloat(int key, float* out);
 };
 
 
-struct Sink {
+struct Sink_e7770 {
     char pad00[0x150];
     int color150;
     char pad154[4];
@@ -92,8 +92,8 @@ public:
     public:
         virtual void vfunc_0(int a, int b);
         FEThingsBase* mObj;
-        void (FEThingsBase::*mFn)(Param* param, Source* c, void* d, Args* args);
-        Source* mC;
+        void (FEThingsBase::*mFn)(Param* param, Source_e7770* c, void* d, Args_e7770* args);
+        Source_e7770* mC;
         void* mD;
     };
 
@@ -131,14 +131,14 @@ public:
     virtual void v31();
     virtual void v32();
     virtual void v33();
-    virtual char v34(Param* p, Args* a, ParseFunctor* f);
-    virtual char v35(Param* p, Source* c, void* d, Args* a);
-    virtual char v36(Param* p, Source* c, void* d, Args* a);
+    virtual char v34(Param* p, Args_e7770* a, ParseFunctor* f);
+    virtual char v35(Param* p, Source_e7770* c, void* d, Args_e7770* a);
+    virtual char v36(Param* p, Source_e7770* c, void* d, Args_e7770* a);
 
-    void FUN_000e7770(Param* param, Source* c, void* d, Args* args);
+    void FUN_000e7770(Param* param, Source_e7770* c, void* d, Args_e7770* args);
 };
 
-struct Frame {
+struct Frame_e7770 {
     FEThingsBase::ParseFunctor f;
 };
 
@@ -153,10 +153,10 @@ static int ParseColor(Param *param)
     return (((a << 8 | r) << 8 | g) << 8) | b;
 }
 
-void FEThingsBase::FUN_000e7770(Param* param, Source* c, void* d, Args* args)
+void FEThingsBase::FUN_000e7770(Param* param, Source_e7770* c, void* d, Args_e7770* args)
 {
-    Frame fr;
-    Sink* sink = (Sink*)FUN_00344e74(d, 0, DAT_0049f4f0, DAT_0049f4a4, 0);
+    Frame_e7770 fr;
+    Sink_e7770* sink = (Sink_e7770*)FUN_00344e74(d, 0, DAT_0049f4f0, DAT_0049f4a4, 0);
     int type = args->GetType();
     if (type == 0x8ebfb676) {
         sink->color158 = ParseColor(param);

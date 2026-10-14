@@ -1,27 +1,27 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 24/26, incomplete)
 // FUN_0003e640 @ 0x0003e640
-struct Region {
+struct Region_3e640 {
     char data[1];
 };
 
-struct Target {
+struct Target_3e640 {
     int FUN_000243d0();
 };
 
 struct Detector;
 
-struct Probe {
+struct Probe_3e640 {
     bool FUN_000242d0(Detector *d);
     int FUN_000243d0();
-    float FUN_00029f20(Region *r, int target);
+    float FUN_00029f20(Region_3e640 *r, int target);
 };
 
-struct Globals {
+struct Globals_3e640 {
     char pad0[0x20];
-    Probe *probe;
+    Probe_3e640 *probe;
 };
 
-extern Globals *DAT_004dd700;
+extern Globals_3e640 *DAT_004dd700;
 extern float DAT_0048f5b0[];
 
 struct Detector {
@@ -32,7 +32,7 @@ struct Detector {
     int mode;
     int result;
     char pad1d84[0x20b8 - 0x1d84];
-    Region region;
+    Region_3e640 region;
     void FUN_0003e640();
 };
 
@@ -42,7 +42,7 @@ void Detector::FUN_0003e640()
         flag = 0;
         return;
     }
-    Probe *p = DAT_004dd700->probe;
+    Probe_3e640 *p = DAT_004dd700->probe;
     if (!p)
         return;
     if (p->FUN_000242d0(this)) {

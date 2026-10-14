@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 30/30)
 // FUN_00315860 @ 0x00315860
-union Bits {
+union Bits_315860 {
     float f;
     unsigned int u;
 };
 
-struct V3 {
+struct V3_315860 {
     float x, y, z;
     float FUN_0022d110();
 };
@@ -15,35 +15,35 @@ struct BoxData {
     int f38;                    // 0x38
     char pad3c[0xc];
     float ext[3];               // 0x48
-    V3 axis[3];                 // 0x54
+    V3_315860 axis[3];                 // 0x54
 };
 
-class Shape {
+class Shape_315860 {
 public:
     virtual void s0();
     virtual void s1();
     virtual void s2();
     virtual void s3();
-    virtual V3 *getCenter();
+    virtual V3_315860 *getCenter();
     char pad04[0x30];
     float radius;               // 0x34
     char pad38[0xc];
-    V3 v44;                     // 0x44
+    V3_315860 v44;                     // 0x44
     float f50;                  // 0x50
     float f54;                  // 0x54
 };
 
-class Tester {
+class Tester_315860 {
 public:
     char pad00[0xc];
     float f0c;                  // 0x0c
     char pad10[4];
-    V3 v14;                     // 0x14
-    void FUN_00314be0(BoxData *box, V3 *q, Shape *shape, V3 *p, float d, V3 *out);
-    void FUN_00315860(BoxData *box, Shape *shape);
+    V3_315860 v14;                     // 0x14
+    void FUN_00314be0(BoxData *box, V3_315860 *q, Shape_315860 *shape, V3_315860 *p, float d, V3_315860 *out);
+    void FUN_00315860(BoxData *box, Shape_315860 *shape);
 };
 
-void Tester::FUN_00315860(BoxData *box, Shape *shape)
+void Tester_315860::FUN_00315860(BoxData *box, Shape_315860 *shape)
 {
     struct Frame {
         float sgn;
@@ -54,13 +54,13 @@ void Tester::FUN_00315860(BoxData *box, Shape *shape)
         float sgn2;
         float f;
         float absf;
-        V3 P;
-        V3 c;
-        V3 q48;
-        V3 w;
-        V3 out;
+        V3_315860 P;
+        V3_315860 c;
+        V3_315860 q48;
+        V3_315860 w;
+        V3_315860 out;
     } fr;
-    Bits ab;
+    Bits_315860 ab;
     float *cv = &fr.c.x;
 
     if (box->f38 == 0) {
@@ -88,7 +88,7 @@ void Tester::FUN_00315860(BoxData *box, Shape *shape)
         else
             fr.sgn = 0.0f;
         fr.sgn2 = fr.sgn;
-        V3 *row = &box->axis[i];
+        V3_315860 *row = &box->axis[i];
         fr.e = row->z * shape->v44.z + row->y * shape->v44.y + row->x * shape->v44.x;
 
         for (;;) {
@@ -122,18 +122,18 @@ void Tester::FUN_00315860(BoxData *box, Shape *shape)
             d = dd;
             if (dd <= f0c) {
                 int j = (i >= 2) ? 0 : i + 1;
-                V3 *rj = &box->axis[j];
+                V3_315860 *rj = &box->axis[j];
                 fr.r1 = cv[j] - (fr.P.z * rj->z + fr.P.y * rj->y + fr.P.x * rj->x);
                 ab.f = fr.r1;
                 ab.u &= 0x7fffffff;
                 if (ab.f - box->ext[j] <= 0.0f) {
                     int k2 = (j >= 2) ? 0 : j + 1;
-                    V3 *rk = &box->axis[k2];
+                    V3_315860 *rk = &box->axis[k2];
                     fr.r2 = cv[k2] - (fr.P.z * rk->z + fr.P.y * rk->y + fr.P.x * rk->x);
                     ab.f = fr.r2;
                     ab.u &= 0x7fffffff;
                     if (ab.f - box->ext[k2] <= 0.0f) {
-                        V3 *cc = shape->getCenter();
+                        V3_315860 *cc = shape->getCenter();
                         fr.P.x = fr.P.x + cc->x;
                         fr.P.y = fr.P.y + cc->y;
                         fr.P.z = fr.P.z + cc->z;

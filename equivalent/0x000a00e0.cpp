@@ -3,11 +3,11 @@
 float FUN_000186b0(float *p0, float *p1, float *p2);
 float FUN_0009f760(float x);
 
-struct Frame { float L0, t, q, vc; };
+struct Frame_a00e0 { float L0, t, q, vc; };
 
 float FUN_000a00e0(float a, float b, float c, float d, float e)
 {
-    Frame f;
+    Frame_a00e0 f;
     f.L0 = b - a;
     if (f.L0 == 0.0f || c == 0.0f || d == 0.0f)
         return a;

@@ -16,19 +16,19 @@ struct StreamLoader {
     bool FUN_00337a30(MyBufferStream* stream, const char* name, int owner, void* self, int flag);
 };
 
-class Resource {
+class Resource_1faa80 {
 public:
     void FUN_003375a0();
 };
 
-class Loader {
+class Loader_1faa80 {
 public:
     char pad0[4];
-    Resource* res;
+    Resource_1faa80* res;
     bool FUN_001faa80(int a, int b);
 };
 
-bool Loader::FUN_001faa80(int a, int b) {
+bool Loader_1faa80::FUN_001faa80(int a, int b) {
     MyBufferStream stream(a, b);
     StreamLoader loader;
     loader.FUN_00337870();

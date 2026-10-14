@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0030c690 @ 0x0030c690
-struct IntVec {
+struct IntVec_30c690 {
     char data[0x10];
-    void FUN_0030c580(const IntVec *other);
+    void FUN_0030c580(const IntVec_30c690 *other);
 };
 
-struct State {
+struct State_30c690 {
     int word00;              // 0x00 (not copied)
     char byte04;
     char byte05;             // not copied
@@ -17,7 +17,7 @@ struct State {
     int f14;  // 0x14
     int f18;  // 0x18
     int f1c;  // 0x1c
-    IntVec vec20;            // 0x20
+    IntVec_30c690 vec20;            // 0x20
     int f30;  // 0x30
     int f34;  // 0x34
     int f38;  // 0x38
@@ -56,9 +56,9 @@ struct State {
     char bef;  // 0xef
     int ff0;  // 0xf0
     int ff4;  // 0xf4
-    State *FUN_0030c690(const State *other);
+    State_30c690 *FUN_0030c690(const State_30c690 *other);
 };
-State *State::FUN_0030c690(const State *other)
+State_30c690 *State_30c690::FUN_0030c690(const State_30c690 *other)
 {
     byte04 = other->byte04;
     word06 = other->word06;

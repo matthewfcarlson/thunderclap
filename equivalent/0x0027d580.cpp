@@ -9,22 +9,22 @@ struct ChildLink {
     char pad9[3];
 };
 
-struct Record {
+struct Record_27d580 {
     int keyA;               // 0x0
     int keyB;               // 0x4
     int pad8;
     int value;              // 0xc
 };
 
-struct Group {
+struct Group_27d580 {
     char pad0[0x24];
     int recordCount;        // 0x24
-    Record *records;        // 0x28
+    Record_27d580 *records;        // 0x28
 };
 
-struct Table {
+struct Table_27d580 {
     char pad0[0x1c];
-    Group **groups;         // 0x1c
+    Group_27d580 **groups;         // 0x1c
 };
 
 class Node {
@@ -50,7 +50,7 @@ public:
     char pad4[0x40 - 4];
     int groupIndex;         // 0x40
     char pad44[0x98 - 0x44];
-    Table *table;           // 0x98
+    Table_27d580 *table;           // 0x98
     char pad9c[0xb4 - 0x9c];
     int childCount;         // 0xb4
     ChildLink children[1];  // 0xb8
@@ -65,10 +65,10 @@ void Node::FUN_0027d580(int keyA, int keyB)
             children[i].node->FUN_0027d580(keyA, keyB);
     }
 
-    Group *g = table->groups[groupIndex];
+    Group_27d580 *g = table->groups[groupIndex];
     int recordCount = g->recordCount;
     for (int i = 0; i < recordCount; i++) {
-        Record *r = &g->records[i];
+        Record_27d580 *r = &g->records[i];
         if (r->keyA == keyA && r->keyB == keyB)
             Trigger(r->value, 1);
     }

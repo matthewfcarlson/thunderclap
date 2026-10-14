@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 10/10)
 // FUN_001c0650 @ 0x001c0650
 // Shake::FUN_001c0650 @ 0x001c0650: reset and start the shake for a looked-up entry
-struct Entry {
+struct Entry_1c0650 {
     int a;
     float b;
     int c;
     int d;
 };
 
-struct Child {
+struct Child_1c0650 {
     char pad0[0xc];
     char flag0c;
 };
@@ -21,18 +21,18 @@ struct Track {
     int f14;
 };
 
-class Shake {
+class Shake_1c0650 {
 public:
     float value;            // 0x00
     int count;              // 0x04
-    Entry *volatile entries; // 0x08 (re-read between the stores: it can alias this)
+    Entry_1c0650 *volatile entries; // 0x08 (re-read between the stores: it can alias this)
     char pad0c;
     char flag0d;
     char pad0e[0x12];
     int mode;               // 0x20
     char flag24;
     char pad25[7];
-    Child *child;           // 0x2c
+    Child_1c0650 *child;           // 0x2c
     char pad30[0xc];
     Track *tracks;          // 0x3c
     char pad40[0x14];
@@ -43,7 +43,7 @@ public:
     void FUN_001c0650(int unused, int a, int b);
 };
 
-void Shake::FUN_001c0650(int unused, int a, int b)
+void Shake_1c0650::FUN_001c0650(int unused, int a, int b)
 {
     int idx = FUN_001be0e0(a, b);
     if (idx == -1)
@@ -65,7 +65,7 @@ void Shake::FUN_001c0650(int unused, int a, int b)
     int f0c = t->f0c;
     if (count > 0) {
         entries->a = 0;
-        Entry *e = entries;
+        Entry_1c0650 *e = entries;
         e->c = f08;
         e->d = f0c;
         entries->b = f10;

@@ -3,51 +3,51 @@
 // Distance from a named pawn to an object found by id (-1 when either is missing).
 unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 
-struct Vec3 {
+struct Vec3_2b4f0 {
     float x, y, z;
 };
 
-struct Body {
-    bool FUN_00059a50(Vec3 *out);
+struct Body_2b4f0 {
+    bool FUN_00059a50(Vec3_2b4f0 *out);
 };
 
-struct Pawn {
+struct Pawn_2b4f0 {
     char pad[0x10];
-    Body *body;
+    Body_2b4f0 *body;
 };
 
 class Object {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-    virtual Vec3 *GetPos(Vec3 *out);
+    virtual Vec3_2b4f0 *GetPos(Vec3_2b4f0 *out);
 };
 
-struct Finder {
+struct Finder_2b4f0 {
     Object *FUN_001fd780(int key);
 };
 
-struct Env {
+struct Env_2b4f0 {
     char pad[0x28];
-    Finder *finder;
+    Finder_2b4f0 *finder;
 };
 
-float __cdecl FUN_0002a380(Vec3 *a, Vec3 *b);
+float __cdecl FUN_0002a380(Vec3_2b4f0 *a, Vec3_2b4f0 *b);
 
-struct Group {
-    Env *env;
-    Pawn *FUN_00024280(unsigned __int64 key);
+struct Group_2b4f0 {
+    Env_2b4f0 *env;
+    Pawn_2b4f0 *FUN_00024280(unsigned __int64 key);
     float FUN_0002b4f0(const char *name, int objectKey);
 };
 
-float Group::FUN_0002b4f0(const char *name, int objectKey)
+float Group_2b4f0::FUN_0002b4f0(const char *name, int objectKey)
 {
     struct Frame {
-        Vec3 copy;
-        Vec3 pawnPos;
-        Vec3 objPos;
+        Vec3_2b4f0 copy;
+        Vec3_2b4f0 pawnPos;
+        Vec3_2b4f0 objPos;
     } fr;
-    Pawn *pawn = FUN_00024280(FUN_002672f0(name, 0, 0));
+    Pawn_2b4f0 *pawn = FUN_00024280(FUN_002672f0(name, 0, 0));
     if (pawn && env->finder) {
         Object *obj = env->finder->FUN_001fd780(objectKey);
         if (obj && pawn->body->FUN_00059a50(&fr.pawnPos)) {

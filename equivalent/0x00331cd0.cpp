@@ -2,7 +2,7 @@
 // pure3d::d3dSpheremapVertexShader::vfunc_12 @ 0x00331cd0
 // pure3d::d3dSpheremapVertexShader::vfunc_12 @ 0x00331cd0
 namespace pure3d {
-struct Vec4 {
+struct Vec4_331cd0 {
     float x;
     float y;
     float z;
@@ -12,7 +12,7 @@ struct Vec4 {
     };
 };
 // equiv-conv: FUN_00331620 ecx stack
-void FUN_00331620(Vec4* self, unsigned int packed);
+void FUN_00331620(Vec4_331cd0* self, unsigned int packed);
 struct ShaderColors {
     unsigned int c0;
     unsigned int c1;
@@ -22,17 +22,17 @@ struct ShaderColors {
 };
 struct Light {
     int type;
-    Vec4 diffuse;
-    Vec4 specular;
-    Vec4 ambient;
+    Vec4_331cd0 diffuse;
+    Vec4_331cd0 specular;
+    Vec4_331cd0 ambient;
     float position[3];
-    Vec4 directionRange;
+    Vec4_331cd0 directionRange;
     float falloff;
     float attenuation[3];
     float theta;
     float phi;
 };
-class LightManager {
+class LightManager_331cd0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -101,17 +101,17 @@ class d3dSpheremapVertexShader {
     virtual void vfunc_23();
     virtual void vfunc_24();
     char pad_04[0xc];
-    LightManager* lightManager;
+    LightManager_331cd0* lightManager;
 };
 }
 namespace D3D8 {
 void __stdcall D3DDevice_GetLight(int index, pure3d::Light* out);
-void __fastcall D3DDevice_SetVertexShaderConstant1(int reg, const pure3d::Vec4* data);
+void __fastcall D3DDevice_SetVertexShaderConstant1(int reg, const pure3d::Vec4_331cd0* data);
 }
 
 void pure3d::d3dSpheremapVertexShader::vfunc_12() {
     int ids[4];
-    Vec4 constA, constB, zero, out1, out2, out3, out4, out5;
+    Vec4_331cd0 constA, constB, zero, out1, out2, out3, out4, out5;
     ShaderColors colors;
     unsigned int scratch;
     Light light0, light1, light2;

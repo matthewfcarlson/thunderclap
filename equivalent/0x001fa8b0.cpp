@@ -10,7 +10,7 @@ struct Name {
     ~Name() throw();
 };
 
-class Child {
+class Child_1fa8b0 {
 public:
     virtual void v0() throw();
     virtual void Release() throw();
@@ -18,10 +18,10 @@ public:
 
 void FUN_001f9f80(void *p) throw();
 
-struct Task {
+struct Task_1fa8b0 {
     char pad[0x18];
-    Child *child;
-    void FUN_00230f50(void (*callback)(void *), Task *self) throw();
+    Child_1fa8b0 *child;
+    void FUN_00230f50(void (*callback)(void *), Task_1fa8b0 *self) throw();
 };
 
 namespace core {
@@ -45,12 +45,12 @@ public:
     char pad04[0x6e8 - 4];
     char encounterSlots[16][0x58];  // CEncounter objects, destroyed by hand below
     char pad_c68[4];
-    Task *task;
+    Task_1fa8b0 *task;
 };
 
 CEncounterGenerator::~CEncounterGenerator() throw()
 {
-    Task *t = task;
+    Task_1fa8b0 *t = task;
     if (t != 0) {
         t->FUN_00230f50(FUN_001f9f80, t);
         t->child->Release();

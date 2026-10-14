@@ -36,7 +36,7 @@ public:
     void FUN_002bcf30(BillboardBase* obj, Chunk* chunk, int arg);
 };
 
-struct IdPair {
+struct IdPair_2bd300 {
     int lo, hi;
 };
 
@@ -44,13 +44,13 @@ class OldBillboardObjectLoader {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4();
-    virtual void vfunc_5(BillboardBase** out, IdPair* id, Chunk* chunk, int arg);
+    virtual void vfunc_5(BillboardBase** out, IdPair_2bd300* id, Chunk* chunk, int arg);
     char pad04[0x14 - 4];
     Builder* builder;       // 0x14
 };
 
 // equiv-map: ??0BillboardBase@@QAE@H@Z = 0x002a4e10
-void OldBillboardObjectLoader::vfunc_5(BillboardBase** out, IdPair* id, Chunk* chunk, int arg)
+void OldBillboardObjectLoader::vfunc_5(BillboardBase** out, IdPair_2bd300* id, Chunk* chunk, int arg)
 {
     if (chunk->FUN_00266c30() != 0x17002)
         return;

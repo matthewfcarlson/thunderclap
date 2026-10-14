@@ -4,7 +4,7 @@ struct Stream {
     void* slot0;
     char (__cdecl *write)(Stream* s, const void* data, unsigned int count);
 };
-class Writer {
+class Writer_246cc0 {
 public:
     char pad0[0x1c];
     Stream* stream;
@@ -14,7 +14,7 @@ public:
     char FUN_00246c80();
     char Write(const void* data, unsigned int count);
 };
-char Writer::Write(const void* data, unsigned int count) {
+char Writer_246cc0::Write(const void* data, unsigned int count) {
     if (count == 0)
         return 1;
     if (pendingSpace) {

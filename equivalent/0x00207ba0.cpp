@@ -6,17 +6,17 @@ struct Entity {
     char pad1[0x58 - 0xa];
     int f58;
 };
-struct Registry {
+struct Registry_207ba0 {
     Entity* FUN_001c7f10(int id);
 };
-struct Manager {
+struct Manager_207ba0 {
     char pad0[4];
-    Registry* reg;
+    Registry_207ba0* reg;
 };
-extern Manager* FUN_001c3d90();
+extern Manager_207ba0* FUN_001c3d90();
 extern int FUN_00267f80();
 
-struct Handler {
+struct Handler_207ba0 {
     char pad0[0x5a4];
     char kind[0x400];
     char pad1[0x9a8 - 0x9a4];
@@ -44,7 +44,7 @@ struct Handler {
     void FUN_00207ba0();
 };
 
-void Handler::FUN_00207ba0()
+void Handler_207ba0::FUN_00207ba0()
 {
     stamp = FUN_00267f80();
     flagF5 = 1;

@@ -2,7 +2,7 @@
 // FUN_000ac6f0 @ 0x000ac6f0
 float __stdcall FUN_000ac6a0(float t);
 
-class Curve {
+class Curve_ac6f0 {
 public:
     char mode;
     char pad01[3];
@@ -17,7 +17,7 @@ public:
     float Evaluate(float t, float end);
 };
 
-float Curve::Evaluate(float t, float end)
+float Curve_ac6f0::Evaluate(float t, float end)
 {
     if (mode == 0)
         return constant;

@@ -7,7 +7,7 @@ struct Pool;
 
 void *FUN_002e6c00(Pool *pool, unsigned int size);
 
-struct Entry {
+struct Entry_2eb330 {
     char pad0[8];
     unsigned int flags;
     char padc[0xa0 - 0xc];
@@ -20,7 +20,7 @@ struct Entry {
     unsigned char count;
 };
 
-void FUN_002eb330(Pool *pool, Entry *e, const char *name, int a4, int a8,
+void FUN_002eb330(Pool *pool, Entry_2eb330 *e, const char *name, int a4, int a8,
                   char flagA, int count, const char *text, const char **list)
 {
     if (pool == 0)

@@ -4,31 +4,31 @@ namespace D3D8 {
 int __stdcall D3DDevice_GetBackBuffer2(int);
 void __stdcall D3DResource_Release(int);
 }
-struct Surface {
+struct Surface_3226d0 {
     unsigned int common;
 };
-struct Ctx;
+struct Ctx_3226d0;
 struct HeapObj {
     static void* operator new(unsigned size) throw();
 };
-class TexRef : public HeapObj {
+class TexRef_3226d0 : public HeapObj {
   public:
-    TexRef(Ctx* ctx, int arg) throw();
+    TexRef_3226d0(Ctx_3226d0* ctx, int arg) throw();
     virtual void v0();
-    void FUN_00326300(Surface* s);
+    void FUN_00326300(Surface_3226d0* s);
     char pad4[0xf8 - 4];
 };
-class ShaderObj {
+class ShaderObj_3226d0 {
   public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void SetTexture(int slot, TexRef* tex);
+    virtual void SetTexture(int slot, TexRef_3226d0* tex);
     virtual void SetMode(int mode, int on);
 };
-class Factory {
+class Factory_3226d0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -41,9 +41,9 @@ class Factory {
     virtual void v8();
     virtual void v9();
     virtual void v10();
-    virtual ShaderObj* CreateShader(const char* name, int arg);
+    virtual ShaderObj_3226d0* CreateShader(const char* name, int arg);
 };
-class Viewport {
+class Viewport_3226d0 {
   public:
     virtual void s0();
     virtual void s1();
@@ -54,7 +54,7 @@ class Viewport {
     virtual int GetHeight();
     virtual int GetWidth();
 };
-struct Prim {
+struct Prim_3226d0 {
     char pad0[8];
     float* pos;
     char padc[4];
@@ -62,7 +62,7 @@ struct Prim {
     float* uv;
     void FUN_0008ef00();
 };
-struct Ctx {
+struct Ctx_3226d0 {
     virtual void f0();
     virtual void f1();
     virtual void f2();
@@ -93,8 +93,8 @@ struct Ctx {
     virtual void f27();
     virtual void f28();
     virtual void f29(float*, float*, float*, float*);
-    virtual Prim* f30(ShaderObj*, int, int, int, int);
-    virtual void f31(Prim*);
+    virtual Prim_3226d0* f30(ShaderObj_3226d0*, int, int, int, int);
+    virtual void f31(Prim_3226d0*);
     virtual void f32();
     virtual void f33();
     virtual void f34();
@@ -123,15 +123,15 @@ struct Ctx {
     virtual void f57();
     virtual void f58(int);
     char pad4[0x154 - 4];
-    Viewport* viewport;
-    Factory* factory;
+    Viewport_3226d0* viewport;
+    Factory_3226d0* factory;
 };
 class Overlay {
   public:
     char pad0[4];
-    Ctx* ctx;
-    ShaderObj* shader;
-    TexRef* tex;
+    Ctx_3226d0* ctx;
+    ShaderObj_3226d0* shader;
+    TexRef_3226d0* tex;
     unsigned char enabled;
     char pad11[3];
     float alpha;
@@ -143,7 +143,7 @@ void Overlay::Draw() {
         return;
     if (shader == 0) {
         shader = ctx->factory->CreateShader("simple", 0);
-        tex = new TexRef(ctx, 0);
+        tex = new TexRef_3226d0(ctx, 0);
         shader->v0();
         tex->v0();
         shader->SetTexture(0x584554, tex);
@@ -156,11 +156,11 @@ void Overlay::Draw() {
     ctx->f58(0);
     ctx->f13(0);
     shader->SetMode(0x444d4c42, 1);
-    Surface* bb = (Surface*)D3D8::D3DDevice_GetBackBuffer2(-1);
+    Surface_3226d0* bb = (Surface_3226d0*)D3D8::D3DDevice_GetBackBuffer2(-1);
     unsigned int saved = bb->common;
     bb->common = (bb->common & 0xfffcffffu) | 0x40000;
     tex->FUN_00326300(bb);
-    Prim* p = ctx->f30(shader, 1, 0x2021, 4, 0);
+    Prim_3226d0* p = ctx->f30(shader, 1, 0x2021, 4, 0);
     float h = (float)ctx->viewport->GetHeight();
     float w = (float)ctx->viewport->GetWidth();
     float v = farv * scale;

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 28/28)
 // physics::PhysicsJoint3D::vfunc_20 @ 0x0030bac0
-struct Vec3 {
+struct Vec3_30bac0 {
     float x, y, z;
 };
 
@@ -36,7 +36,7 @@ public:
     virtual void vfunc_17();
     virtual void vfunc_18();
     virtual void vfunc_19();
-    virtual float vfunc_20(Vec3 *dir);
+    virtual float vfunc_20(Vec3_30bac0 *dir);
     virtual void vfunc_21();
     virtual void vfunc_22();
     virtual void vfunc_23();
@@ -52,18 +52,18 @@ public:
     float hi;
     World *world;
     char pad1c[0x98 - 0x1c];
-    Vec3 a;
+    Vec3_30bac0 a;
     char pada4[0xfc - 0xa4];
-    Vec3 b;
-    volatile Vec3 c;
+    Vec3_30bac0 b;
+    volatile Vec3_30bac0 c;
     char pad114[0x120 - 0x114];
-    Vec3 d;
+    Vec3_30bac0 d;
     char pad12c[0x154 - 0x12c];
     float f154;
     float f158;
 };
 
-float PhysicsJoint3D::vfunc_20(Vec3 *dir)
+float PhysicsJoint3D::vfunc_20(Vec3_30bac0 *dir)
 {
     float cap = DAT_004d3198;
     float r1 = 1.0f;

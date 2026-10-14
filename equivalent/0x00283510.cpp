@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00283510 @ 0x00283510
-struct RefObj { virtual void AddRef(); virtual void Release(); };
+struct RefObj_283510 { virtual void AddRef(); virtual void Release(); };
 // 0x60-byte records; record i holds the id/flag of slot i and the object of slot i-1 (same array, offset by one)
-struct Rec {
-    RefObj* obj;
+struct Rec_283510 {
+    RefObj_283510* obj;
     int f4, f8, fc, f10;
     int f14;
     int id;
     char flag;
     char pad[0x60 - 0x1d];
 };
-class Table {
+class Table_283510 {
 public:
-    Rec rec[102];
+    Rec_283510 rec[102];
     int FUN_002804f0(int id, int a, int b, int c);
-    int Add(RefObj* o, int a, int b, int c);
+    int Add(RefObj_283510* o, int a, int b, int c);
 };
-int Table::Add(RefObj* o, int a, int b, int c) {
+int Table_283510::Add(RefObj_283510* o, int a, int b, int c) {
     int i = 0;
     while (i < 100) {
         if (!rec[i + 1].obj) break;
@@ -27,7 +27,7 @@ int Table::Add(RefObj* o, int a, int b, int c) {
     rec[i].id = id;
     rec[i].flag = 0;
     if (o) o->AddRef();
-    RefObj* old = rec[i + 1].obj;
+    RefObj_283510* old = rec[i + 1].obj;
     if (old) old->Release();
     rec[i + 1].obj = o;
     rec[i + 1].f4 = 0; rec[i + 1].f8 = 0; rec[i + 1].fc = 0;

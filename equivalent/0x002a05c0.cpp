@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002a05c0 @ 0x002a05c0
 // 0x002a05c0: add a sample to the track, rebuilding keys unless it is already covered
-struct Vec3 {
+struct Vec3_2a05c0 {
     float x, y, z;
 };
 
-class Other {
+class Other_2a05c0 {
 public:
     char pad00[0x18];
     int field_18;
@@ -18,23 +18,23 @@ public:
     int field_18;
     char pad1c[8];
     int field_24;
-    char FUN_0029fca0(struct Obj* a, void* b, Other* c);
-    void FUN_0029ce40(Vec3* out, void* b);
-    void FUN_0029e320(struct Obj* a, Vec3* v, void* b);
-    void FUN_0029ccb0(struct Obj* a, int d);
-    void FUN_0029e640(struct Obj* a);
-    void FUN_0029e680(struct Obj* a);
-    void FUN_002a05c0(struct Obj* a, void* b, Other* c, int d);
+    char FUN_0029fca0(struct Obj_2a05c0* a, void* b, Other_2a05c0* c);
+    void FUN_0029ce40(Vec3_2a05c0* out, void* b);
+    void FUN_0029e320(struct Obj_2a05c0* a, Vec3_2a05c0* v, void* b);
+    void FUN_0029ccb0(struct Obj_2a05c0* a, int d);
+    void FUN_0029e640(struct Obj_2a05c0* a);
+    void FUN_0029e680(struct Obj_2a05c0* a);
+    void FUN_002a05c0(struct Obj_2a05c0* a, void* b, Other_2a05c0* c, int d);
 };
 
-struct Obj {
+struct Obj_2a05c0 {
     char pad00[0x14];
     int field_14;
 };
 
-void Track::FUN_002a05c0(Obj* a, void* b, Other* c, int d)
+void Track::FUN_002a05c0(Obj_2a05c0* a, void* b, Other_2a05c0* c, int d)
 {
-    Vec3 v;
+    Vec3_2a05c0 v;
     if (a->field_14 == 0)
         return;
     if (!FUN_0029fca0(a, b, c)) {

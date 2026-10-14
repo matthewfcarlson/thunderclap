@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 117 inputs, branch coverage 26/28, incomplete)
 // hulkfight::motion::GrappleStruggleAction::vfunc_5 @ 0x00147bb0
-struct Source {
+struct Source_147bb0 {
     char pad[0x334];
-    Source* a334;
-    Source* b338;
+    Source_147bb0* a334;
+    Source_147bb0* b338;
     char pad2[0x1e58 - 0x33c];
     float value;
     int valueSet;
@@ -15,10 +15,10 @@ struct Source {
     int limitIndex;
 };
 
-struct Node { Source* FUN_00059a30(); };
-struct Owner { Node* FUN_000592a0(); };
+struct Node { Source_147bb0* FUN_00059a30(); };
+struct Owner_147bb0 { Node* FUN_000592a0(); };
 
-class Config {
+class Config_147bb0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -38,18 +38,18 @@ class GrappleStruggleAction {
 public:
     bool run(int mode, float dt);
     char p0[0x1c];
-    Config* cfg;
-    Owner* owner;
+    Config_147bb0* cfg;
+    Owner_147bb0* owner;
     float elapsed;
 };
 
 bool GrappleStruggleAction::run(int mode, float dt)
 {
-    Source* s = owner->FUN_000592a0()->FUN_00059a30();
+    Source_147bb0* s = owner->FUN_000592a0()->FUN_00059a30();
 
     if (mode == 1) {
         if (s->a334 != 0) {
-            Source* from = s->b338;
+            Source_147bb0* from = s->b338;
             if (from == 0)
                 from = s->a334;
             s->value = from->value;

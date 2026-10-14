@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 18/18)
 // FUN_00221280 @ 0x00221280
-struct Token { int type; unsigned int value; unsigned int extra; };
-struct ContextData { char pad[8]; unsigned int value; };
-struct Context { char pad0[12]; ContextData* data; char pad1[20]; int count; char pad2[12]; unsigned char threshold; };
+struct Token_221280 { int type; unsigned int value; unsigned int extra; };
+struct ContextData_221280 { char pad[8]; unsigned int value; };
+struct Context { char pad0[12]; ContextData_221280* data; char pad1[20]; int count; char pad2[12]; unsigned char threshold; };
 // equiv-conv: FUN_00220fe0 eax stack stack
-extern void __cdecl FUN_00220fe0(Context*, Token*, unsigned int);
-extern unsigned int __cdecl FUN_00221190(Context*, Token*);
-extern unsigned int __cdecl FUN_00221200(Context*, Token*);
+extern void __cdecl FUN_00220fe0(Context*, Token_221280*, unsigned int);
+extern unsigned int __cdecl FUN_00221190(Context*, Token_221280*);
+extern unsigned int __cdecl FUN_00221200(Context*, Token_221280*);
 extern void __cdecl FUN_00220b20(Context*, unsigned int, unsigned int);
 extern void __cdecl FUN_00220bd0(Context*, unsigned int, unsigned int, unsigned int, unsigned int);
-void __cdecl FUN_00221280(Context* context, Token* operation, Token* operand) {
+void __cdecl FUN_00221280(Context* context, Token_221280* operation, Token_221280* operand) {
  unsigned int result;
  switch(operation->type) {
  case 5:

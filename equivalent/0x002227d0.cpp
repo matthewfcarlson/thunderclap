@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002227d0 @ 0x002227d0
-struct Resource {
+struct Resource_2227d0 {
  virtual void AddRef();
  virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6();
  virtual unsigned GetFirst();
  virtual unsigned GetSecond();
 };
-struct Entry {
- Resource* resource;
+struct Entry_2227d0 {
+ Resource_2227d0* resource;
  float value;
  bool negative;
  char padding[3];
@@ -15,16 +15,16 @@ struct Entry {
  float clamped;
  unsigned arg5, arg6, zero;
 };
-struct Owner {
+struct Owner_2227d0 {
  char padding[0x68];
  unsigned count;
- Entry entries[16];
+ Entry_2227d0 entries[16];
  bool changed;
- bool FUN_002227d0(Resource* resource, float value, unsigned parameter, float clamped, unsigned arg5, unsigned arg6);
+ bool FUN_002227d0(Resource_2227d0* resource, float value, unsigned parameter, float clamped, unsigned arg5, unsigned arg6);
 };
-bool Owner::FUN_002227d0(Resource* resource, float value, unsigned parameter, float clamped, unsigned arg5, unsigned arg6) {
+bool Owner_2227d0::FUN_002227d0(Resource_2227d0* resource, float value, unsigned parameter, float clamped, unsigned arg5, unsigned arg6) {
  if(count >= 16) return false;
- Entry& entry = entries[count];
+ Entry_2227d0& entry = entries[count];
  entry.resource = resource;
  resource->AddRef();
  entry.value = value;

@@ -32,7 +32,7 @@ public:
     virtual void v27(int a);
 };
 
-struct Entry {
+struct Entry_2801b0 {
     unsigned char active;  // 0x00
     char pad01[7];
     Node *part;            // 0x08
@@ -40,11 +40,11 @@ struct Entry {
 
 struct Mixer {
     char pad00[0x3c];
-    Entry *begin;          // 0x3c
-    Entry *end;            // 0x40
+    Entry_2801b0 *begin;          // 0x3c
+    Entry_2801b0 *end;            // 0x40
 };
 
-class Part : public Node {
+class Part_2801b0 : public Node {
 public:
     char pad04[0x48 - 4];
     char **items;          // 0x48 (16-byte records, first word is a Node*)
@@ -53,7 +53,7 @@ public:
     Node *sink;            // 0xa4
 };
 
-class Voice : public Node {
+class Voice_2801b0 : public Node {
 public:
     char pad04[0x44 - 4];
     Mixer *mixer;          // 0x44
@@ -62,20 +62,20 @@ public:
     Node *fx2;             // 0x50
 };
 
-struct Slot {
+struct Slot_2801b0 {
     unsigned char retired; // 0x00
     char pad01[0x44 - 1];
-    Voice *voice;          // 0x44
+    Voice_2801b0 *voice;          // 0x44
     Node *aux;             // 0x48
     char pad4c[0x58 - 0x4c];
     float timer;           // 0x58
     char pad5c[4];
 };
 
-class VoicePool {
+class VoicePool_2801b0 {
 public:
     char pad00[0x1c];
-    Slot slots[100];       // 0x1c
+    Slot_2801b0 slots[100];       // 0x1c
     void FUN_002801b0(float dt);
 };
 
@@ -85,11 +85,11 @@ static void StopFx(Node *&fx)
     fx->v18(1);   // the original reloads the member after the first call
 }
 
-void VoicePool::FUN_002801b0(float dt)
+void VoicePool_2801b0::FUN_002801b0(float dt)
 {
     for (int i = 0; i < 100; i++) {
-        Slot *s = &slots[i];
-        Voice *v = s->voice;
+        Slot_2801b0 *s = &slots[i];
+        Voice_2801b0 *v = s->voice;
         if (v == 0)
             continue;
         v->v6(dt * 1000.0f, 0);
@@ -121,11 +121,11 @@ void VoicePool::FUN_002801b0(float dt)
             continue;
         }
         if (s->voice->v5() == 4) {
-            Voice *cur = s->voice;
+            Voice_2801b0 *cur = s->voice;
             Mixer *m = cur->mixer;
             unsigned char n = (unsigned char)(m->end - m->begin);
             for (int k = 0; k < (int)n; k++) {
-                Part *p = (Part *)m->begin[(unsigned char)k].part;
+                Part_2801b0 *p = (Part_2801b0 *)m->begin[(unsigned char)k].part;
                 if (p->v15() == 4) {
                     int count = ((char *)p->itemsEnd - (char *)p->items) >> 4;
                     for (int j = 0; j < count; j++) {

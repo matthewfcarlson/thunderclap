@@ -20,23 +20,23 @@ public:
     StreamChunk* FUN_0023b320(int a, int b);
 };
 
-class Model {
+class Model_232870 {
 public:
     virtual void v0();
     virtual void v1();
 };
 
-class ModelFig : public Model {
+class ModelFig : public Model_232870 {
 public:
     ModelFig* FUN_0023c260(Stream* s);
 };
 
-class ModelChunk : public Model {
+class ModelChunk : public Model_232870 {
 public:
     ModelChunk* FUN_0023b470(Stream* s, int flag);
 };
 
-class Dest {
+class Dest_232870 {
 public:
     virtual void v0();
     virtual void v1();
@@ -47,15 +47,15 @@ public:
     virtual void v6();
     virtual void v7();
     virtual void v8();
-    virtual void v9(int a, Model* m, int b);
-    Dest* FUN_0023b540();
+    virtual void v9(int a, Model_232870* m, int b);
+    Dest_232870* FUN_0023b540();
 };
 
-Dest* __stdcall FUN_00232870(const char* data, int a1, unsigned int size, int a3)
+Dest_232870* __stdcall FUN_00232870(const char* data, int a1, unsigned int size, int a3)
 {
     void* guard = FUN_00266da0(FUN_00238190(1));
     Stream* stream;
-    Model* model;
+    Model_232870* model;
 
     if (size > 4 && *(const int*)data == *(const int*)"fig0") {
         void* mem = FUN_00263ea0(0x10);
@@ -88,9 +88,9 @@ Dest* __stdcall FUN_00232870(const char* data, int a1, unsigned int size, int a3
     model->v0();
     void* inner = FUN_00266da0(FUN_00238190(2));
     void* mem = FUN_00263ea0(0x30);
-    Dest* dest = 0;
+    Dest_232870* dest = 0;
     if (mem)
-        dest = ((Dest*)mem)->FUN_0023b540();
+        dest = ((Dest_232870*)mem)->FUN_0023b540();
     dest->v9(0, model, -1);
     FUN_00266da0((int)inner);
     model->v1();

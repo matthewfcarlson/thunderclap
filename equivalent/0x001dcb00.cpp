@@ -1,30 +1,30 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 19/20, incomplete)
 // FUN_001dcb00 @ 0x001dcb00
-struct V3 {
+struct V3_1dcb00 {
     float x, y, z;
 };
 
-struct Finder {
-    int FUN_001c8060(V3* box, int flag);
+struct Finder_1dcb00 {
+    int FUN_001c8060(V3_1dcb00* box, int flag);
 };
 
-struct Holder {
+struct Holder_1dcb00 {
     int pad;
-    Finder* finder;
+    Finder_1dcb00* finder;
 };
 
-Holder* FUN_001c3d90();
+Holder_1dcb00* FUN_001c3d90();
 
-struct Frame {
-    V3 pos;
-    V3 boxMin;
-    V3 boxMax;
+struct Frame_1dcb00 {
+    V3_1dcb00 pos;
+    V3_1dcb00 boxMin;
+    V3_1dcb00 boxMax;
 };
 
 // Nudges a half-unit box around a position in +-x / +-z steps until both corners test clear.
-void __stdcall FUN_001dcb00(V3* out, const V3* in)
+void __stdcall FUN_001dcb00(V3_1dcb00* out, const V3_1dcb00* in)
 {
-    Frame f;
+    Frame_1dcb00 f;
     float y1 = in->y + 1.0f;
     f.pos.x = in->x;
     f.pos.y = y1;
@@ -39,7 +39,7 @@ void __stdcall FUN_001dcb00(V3* out, const V3* in)
     int i = 0;
     bool found = false;
     do {
-        Holder* h = FUN_001c3d90();
+        Holder_1dcb00* h = FUN_001c3d90();
         if (h->finder != 0 && h->finder->FUN_001c8060(&f.boxMin, 0) != 0) {
             h = FUN_001c3d90();
             if (h->finder != 0 && h->finder->FUN_001c8060(&f.boxMax, 0) != 0) {

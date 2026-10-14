@@ -2,15 +2,15 @@
 // FUN_00204ad0 @ 0x00204ad0
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_204ad0 {
     float x, y, z;
 };
 
-struct Item {
+struct Item_204ad0 {
     char pad00[9];
     char skip;
     char pad0a[0x20 - 0xa];
-    Vec3 pos;
+    Vec3_204ad0 pos;
     char pad2c[0x54 - 0x2c];
     short id;
 };
@@ -19,44 +19,44 @@ struct ItemSub {
     int FUN_001c7520();
 };
 
-struct ItemList {
+struct ItemList_204ad0 {
     char pad00[0x18];
     ItemSub sub;
-    Item *FUN_001c7f80(unsigned int index);
+    Item_204ad0 *FUN_001c7f80(unsigned int index);
 };
 
-struct Manager {
+struct Manager_204ad0 {
     char pad00[4];
-    ItemList *items;
+    ItemList_204ad0 *items;
 };
 
-struct Position {
-    void FUN_00059a50(Vec3 *out);
+struct Position_204ad0 {
+    void FUN_00059a50(Vec3_204ad0 *out);
 };
 
-struct Anchor {
+struct Anchor_204ad0 {
     char pad00[0x10];
-    Position *position;
+    Position_204ad0 *position;
 };
 
 struct Node3 {
     char pad00[0x124];
-    Anchor *anchor;
+    Anchor_204ad0 *anchor;
 };
 
-struct Node2 {
+struct Node2_204ad0 {
     char pad00[0x20];
     Node3 *c;
 };
 
-struct Mid {
+struct Mid_204ad0 {
     char pad00[0xc];
-    Node2 *b;
+    Node2_204ad0 *b;
 };
 
-struct Owner {
+struct Owner_204ad0 {
     char pad00[0x588];
-    Mid *mid;
+    Mid_204ad0 *mid;
     char pad58c[0x59c - 0x58c];
     int excludedId;
     char pad5a0[4];
@@ -64,22 +64,22 @@ struct Owner {
     int FUN_00204ad0(int count, int *ignore);
 };
 
-Manager *FUN_001c3d90();
+Manager_204ad0 *FUN_001c3d90();
 
-int Owner::FUN_00204ad0(int count, int *ignore)
+int Owner_204ad0::FUN_00204ad0(int count, int *ignore)
 {
     Node3 *c = mid->b->c;
-    Anchor *anchor = c->anchor;
+    Anchor_204ad0 *anchor = c->anchor;
     if (anchor == 0)
         return -1;
-    Vec3 origin;
+    Vec3_204ad0 origin;
     anchor->position->FUN_00059a50(&origin);
-    ItemList *items = FUN_001c3d90()->items;
+    ItemList_204ad0 *items = FUN_001c3d90()->items;
     int total = items->sub.FUN_001c7520();
     int bestId = -1;
     float bestDist = -999999.0f;
     for (int i = 0; i < total; i++) {
-        Item *it = items->FUN_001c7f80(i);
+        Item_204ad0 *it = items->FUN_001c7f80(i);
         if (it->skip != 0)
             continue;
         int id = it->id;

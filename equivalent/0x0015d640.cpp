@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/28, incomplete)
 // hulkfight::motion::LocomotionStrafeAction::vfunc_3 @ 0x0015d640
-struct V3 {
+struct V3_15d640 {
     float x, y, z;
 };
 
@@ -25,17 +25,17 @@ public:
     float f12e4;
     float f12e8;
     void FUN_00222550(float v, int z);
-    void FUN_002268f0(V3 *v);
+    void FUN_002268f0(V3_15d640 *v);
 };
 }
 
-struct Sub10 {
+struct Sub10_15d640 {
     float FUN_002220d0();
 };
 
-struct Skel {
+struct Skel_15d640 {
     char pad0[0x10];
-    Sub10 sub;              // 0x10
+    Sub10_15d640 sub;              // 0x10
     char pad_[0x68 - 0x10 - 1];
     unsigned int count;     // 0x68
     choreo2::Driver *FUN_00222e20(unsigned int i);
@@ -43,18 +43,18 @@ struct Skel {
     void FUN_00222890(choreo2::LocomotionStrafeDriver *d, float a, float b, float c, float e, float f, float g);
 };
 
-struct Player {
-    void FUN_00035660(V3 *out);
+struct Player_15d640 {
+    void FUN_00035660(V3_15d640 *out);
     void FUN_00035980(int v);
 };
 
-struct Owner {
-    Player *FUN_00059a30();
-    Skel *FUN_00059a40();
+struct Owner_15d640 {
+    Player_15d640 *FUN_00059a30();
+    Skel_15d640 *FUN_00059a40();
 };
 
-struct Link {
-    Owner *FUN_000592a0();
+struct Link_15d640 {
+    Owner_15d640 *FUN_000592a0();
 };
 
 extern void __cdecl FUN_0015cfd0(WObj *w, choreo2::LocomotionStrafeDriver *d);
@@ -76,34 +76,34 @@ public:
                          float *a8, float *a9, float *a10, float *a11, float *a12, float *a13);
     virtual void vfunc_8();
     char pad04[0x18];
-    Link *link;             // 0x1c
+    Link_15d640 *link;             // 0x1c
     choreo2::LocomotionStrafeDriver *driver;    // 0x20
     void FUN_0015c2a0(float a, float b, float c, float d, float e, float f);
     float FUN_0015d4f0(float a, float b, float c);
 };
 
-struct Frame {
+struct Frame_15d640 {
     float l58;
     float res;
     choreo2::LocomotionStrafeDriver *found;
     float l4c, l48, l44, l40, l3c, l38;
     float l34, l30, l2c, l28;
     WObj *w1;
-    Player *player;
+    Player_15d640 *player;
     float l1c;
     int z18;
     int pad14;
     int idhi;
-    V3 vv;
+    V3_15d640 vv;
 };
 
 bool LocomotionStrafeAction::vfunc_3(int a, int b)
 {
-    Frame fr;
-    Owner *o = link->FUN_000592a0();
-    Player *p = o->FUN_00059a30();
+    Frame_15d640 fr;
+    Owner_15d640 *o = link->FUN_000592a0();
+    Player_15d640 *p = o->FUN_00059a30();
     fr.player = p;
-    Skel *q = o->FUN_00059a40();
+    Skel_15d640 *q = o->FUN_00059a40();
     if (q == 0)
         return false;
     fr.w1 = q->FUN_002226b0();
@@ -161,7 +161,7 @@ bool LocomotionStrafeAction::vfunc_3(int a, int b)
     driver->f24 = fr.l58;
     float t = q->sub.FUN_002220d0();
     driver->f12e0 = t;
-    Player *p2 = fr.player;
+    Player_15d640 *p2 = fr.player;
     fr.vv.x = 0.0f;
     fr.vv.y = 0.0f;
     fr.vv.z = 0.0f;

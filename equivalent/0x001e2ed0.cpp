@@ -17,23 +17,23 @@ public:
 }
 }
 
-struct Item {
+struct Item_1e2ed0 {
     char pad0[8];
     int keyLo;
     int keyHi;
 };
 
-struct ItemList {
+struct ItemList_1e2ed0 {
     char pad0[0x1c];
-    Item **begin;
-    Item **end;
+    Item_1e2ed0 **begin;
+    Item_1e2ed0 **end;
 };
 
 class Skeleton;
 
-struct Indexer {
+struct Indexer_1e2ed0 {
     int FUN_001d5c70(int index);
-    ItemList *FUN_001d4fc0();
+    ItemList_1e2ed0 *FUN_001d4fc0();
 };
 
 class Skeleton {
@@ -44,32 +44,32 @@ public:
     virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
     virtual void v16(int index, int flag);
     char pad04[0xec - 4];
-    Indexer *indexer;
+    Indexer_1e2ed0 *indexer;
     void FUN_001d63b0(int count);
 };
 
-class Factory {
+class Factory_1e2ed0 {
 public:
     virtual void f0();
     virtual void f1();
     virtual void f2();
-    virtual Indexer *f3(content::LoadInventory::DynamicCaster<CSPHulkProp> *caster, int lo, int hi);
+    virtual Indexer_1e2ed0 *f3(content::LoadInventory::DynamicCaster<CSPHulkProp> *caster, int lo, int hi);
 };
 
-struct Holder44 {
-    Factory *FUN_00203d70();
+struct Holder44_1e2ed0 {
+    Factory_1e2ed0 *FUN_00203d70();
 };
 
-struct Holder28 {
-    Holder44 *FUN_000862a0();
+struct Holder28_1e2ed0 {
+    Holder44_1e2ed0 *FUN_000862a0();
 };
 
-struct Manager {
+struct Manager_1e2ed0 {
     char pad0[0x54];
-    Holder28 *holder;
+    Holder28_1e2ed0 *holder;
 };
 
-struct Entry {
+struct Entry_1e2ed0 {
     char pad0[8];
     int resLo;
     int resHi;
@@ -83,29 +83,29 @@ struct Entry {
     char pad27;
 };
 
-struct Slot {
+struct Slot_1e2ed0 {
     char pad0[0x10];
     unsigned char flags;
     char pad11[3];
 };
 
-class Inventory {
+class Inventory_1e2ed0 {
 public:
     char pad0[0x608];
-    Entry entries[0x800];
-    Slot slots[1];
+    Entry_1e2ed0 entries[0x800];
+    Slot_1e2ed0 slots[1];
     char pad_rest[0x1e830 - 0x14608 - 0x14];
-    Manager *mgr;
+    Manager_1e2ed0 *mgr;
     int FUN_001e2ed0(int idx, int lo, int hi);
 };
 
-int Inventory::FUN_001e2ed0(int idx, int lo, int hi)
+int Inventory_1e2ed0::FUN_001e2ed0(int idx, int lo, int hi)
 {
     if (idx < 0)
         return -1;
-    Entry *e = &entries[idx];
-    Slot *s = &slots[e->slot];
-    Indexer *indexer;
+    Entry_1e2ed0 *e = &entries[idx];
+    Slot_1e2ed0 *s = &slots[e->slot];
+    Indexer_1e2ed0 *indexer;
     bool direct;
     if ((s->flags & 1) && e->skel) {
         indexer = e->skel->indexer;
@@ -114,19 +114,19 @@ int Inventory::FUN_001e2ed0(int idx, int lo, int hi)
         int rlo = e->resLo;
         int rhi = e->resHi;
         direct = false;
-        Factory *factory = mgr->holder->FUN_000862a0()->FUN_00203d70();
+        Factory_1e2ed0 *factory = mgr->holder->FUN_000862a0()->FUN_00203d70();
         content::LoadInventory::DynamicCaster<CSPHulkProp> caster;
         indexer = factory->f3(&caster, rlo, rhi);
         if (!indexer)
             return -1;
     }
-    ItemList *list = indexer->FUN_001d4fc0();
+    ItemList_1e2ed0 *list = indexer->FUN_001d4fc0();
     if (!list)
         return -1;
     int count = list->end - list->begin;
     int n;
     for (n = 0; n < count; n++) {
-        Item *it = list->begin[n];
+        Item_1e2ed0 *it = list->begin[n];
         if (it->keyLo == lo && it->keyHi == hi)
             break;
     }

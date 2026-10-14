@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 190 inputs, branch coverage 12/12)
 // FUN_002312b0 @ 0x002312b0
-struct Key { unsigned low, high; };
-struct Table { unsigned capacity; char pad[20]; void **entries; Key *keys; unsigned sentinel; };
-struct Probe { Table *table; unsigned unused; unsigned low, high, index, step; void * FUN_002312b0(unsigned lo, unsigned hi); };
-void * Probe::FUN_002312b0(unsigned lo, unsigned hi) {
- Table *t = table;
+struct Key_2312b0 { unsigned low, high; };
+struct Table_2312b0 { unsigned capacity; char pad[20]; void **entries; Key_2312b0 *keys; unsigned sentinel; };
+struct Probe_2312b0 { Table_2312b0 *table; unsigned unused; unsigned low, high, index, step; void * FUN_002312b0(unsigned lo, unsigned hi); };
+void * Probe_2312b0::FUN_002312b0(unsigned lo, unsigned hi) {
+ Table_2312b0 *t = table;
  low = lo; high = hi;
  index = (t->capacity - 1) & lo;
  unsigned stride = (((lo >> 9) | (hi << 23)) & 0xfe) | 1;

@@ -2,13 +2,13 @@
 // FUN_0025ac30 @ 0x0025ac30
 struct Stream;
 
-struct Writer {
+struct Writer_25ac30 {
     Stream *stream;
 };
 
 char __cdecl FUN_00246f50(Stream *s, const char *format, ...);
 
-void FUN_0025ac30(Writer *w, unsigned __int64 value)
+void FUN_0025ac30(Writer_25ac30 *w, unsigned __int64 value)
 {
     char out[0x100];
     char digits[0x100];

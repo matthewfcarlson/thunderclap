@@ -2,10 +2,10 @@
 // hulkfight::motion::MotionBlurAction::vfunc_5 @ 0x00144360
 extern "C" double __cdecl sin(double);
 
-struct Holder {
+struct Holder_144360 {
     void FUN_001c3830(float a, float b);
 };
-Holder *FUN_001c3d90();
+Holder_144360 *FUN_001c3d90();
 
 class BlurState {
 public:

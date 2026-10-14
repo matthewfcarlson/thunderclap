@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 17/18, incomplete)
 // hulkfight::motion::WallVelocityCondition::vfunc_6 @ 0x0013f7f0
-struct Vec3 {
+struct Vec3_13f7f0 {
     float x, y, z;
-    bool FUN_0022d2b0(const Vec3 *other, float epsilon);
+    bool FUN_0022d2b0(const Vec3_13f7f0 *other, float epsilon);
 };
 
 namespace fight {
@@ -17,16 +17,16 @@ public:
     virtual void vfunc_0();
 };
 
-struct Stats {
+struct Stats_13f7f0 {
     char pad0[0x1ae0];
-    Vec3 aimB;
+    Vec3_13f7f0 aimB;
     char pad1aec[0x1af8 - 0x1aec];
-    Vec3 aimA;
-    void FUN_000356c0(Vec3 *out);
+    Vec3_13f7f0 aimA;
+    void FUN_000356c0(Vec3_13f7f0 *out);
 };
 
 void *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(void *x);
+Stats_13f7f0 *__fastcall FUN_00059a30(void *x);
 extern "C" char FUN_00018960(float a, float b, float epsilon);
 
 namespace hulkfight { namespace motion {
@@ -50,17 +50,17 @@ char WallVelocityCondition::vfunc_6(int a0, fight::Params *params, int a2)
     if (dynamic_cast<CFightParams *>(params) == 0)
         return 0;
 
-    Stats *stats = FUN_00059a30(FUN_000592a0(params));
+    Stats_13f7f0 *stats = FUN_00059a30(FUN_000592a0(params));
 
-    Vec3 dir = stats->aimA;
-    Vec3 zero;
+    Vec3_13f7f0 dir = stats->aimA;
+    Vec3_13f7f0 zero;
     zero.x = 0.0f;
     zero.y = 0.0f;
     zero.z = 0.0f;
     if (dir.FUN_0022d2b0(&zero, 1e-5f))
         dir = stats->aimB;
 
-    Vec3 vel;
+    Vec3_13f7f0 vel;
     vel.x = 0.0f;
     vel.y = 0.0f;
     vel.z = 0.0f;

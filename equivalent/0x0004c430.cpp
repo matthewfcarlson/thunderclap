@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CCollisionPushbackYAngleCondition::vfunc_7 @ 0x0004c430
-struct Vec { float x,y,z; float FUN_0022d110(); };
-struct State { char pad[0x28]; Vec direction; };
-struct Context { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual State* slot3(); };
+struct Vec_4c430 { float x,y,z; float FUN_0022d110(); };
+struct State_4c430 { char pad[0x28]; Vec_4c430 direction; };
+struct Context { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual State_4c430* slot3(); };
 float __cdecl FUN_000189c0(float);
 bool __cdecl FUN_00018960(float,float,float);
 class CCollisionPushbackYAngleCondition {
@@ -11,8 +11,8 @@ public:
  char pad[8]; unsigned operation; float threshold;
 };
 bool CCollisionPushbackYAngleCondition::vfunc_7(Context* c) {
- State* s=c->slot3(); if(!s) return false;
- Vec v=s->direction; v.FUN_0022d110();
+ State_4c430* s=c->slot3(); if(!s) return false;
+ Vec_4c430 v=s->direction; v.FUN_0022d110();
  float angle=FUN_000189c0(v.y);
  switch(operation) {
  case 0: return angle < threshold;

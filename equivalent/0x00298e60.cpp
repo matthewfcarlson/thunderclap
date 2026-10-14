@@ -28,17 +28,17 @@ struct Node {
     virtual void v23();
 };
 
-struct Group {
+struct Group_298e60 {
     char pad00[0x20];
     unsigned char count;
     char pad21[0xf];
     unsigned char *order;
     char pad34[8];
-    struct Slot *slots;
+    struct Slot_298e60 *slots;
     void FUN_00298870();
 };
 
-struct Slot {
+struct Slot_298e60 {
     char pad00[8];
     Node *node;
 };
@@ -55,7 +55,7 @@ struct Alt {
 class CompositeDrawable {
 public:
     char pad00[0x44];
-    Group *group;
+    Group_298e60 *group;
     Alt *alt;
     Node *extraA;
     Node *extraB;

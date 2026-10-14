@@ -19,43 +19,43 @@ public:
     int geometryHandle;
 };
 
-struct Entry {
+struct Entry_2a6a20 {
     pure3d_PrimGroup *group;
     int pad[3];
 };
 
-struct Source {
+struct Source_2a6a20 {
     char pad0[0x48];
-    Entry *begin;
-    Entry *end;
+    Entry_2a6a20 *begin;
+    Entry_2a6a20 *end;
 };
 
-class RefCounted {
+class RefCounted_2a6a20 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-class Skinner : public RefCounted {
+class Skinner : public RefCounted_2a6a20 {
 public:
-    RefCounted *FUN_002c8730(int handle);
+    RefCounted_2a6a20 *FUN_002c8730(int handle);
 };
 
 void *__cdecl FUN_0008d690(unsigned int size);
 void *__cdecl FUN_0008d6d0(unsigned int size);
 
-class Binder {
+class Binder_2a6a20 {
 public:
     char pad0[0x44];
-    Source *source;
+    Source_2a6a20 *source;
     unsigned int count;
-    RefCounted **items;
+    RefCounted_2a6a20 **items;
 
     void FUN_002a68b0();
-    void FUN_002a6a20(Source *src);
+    void FUN_002a6a20(Source_2a6a20 *src);
 };
 
-void Binder::FUN_002a6a20(Source *src)
+void Binder_2a6a20::FUN_002a6a20(Source_2a6a20 *src)
 {
     FUN_002a68b0();
     source = src;
@@ -63,12 +63,12 @@ void Binder::FUN_002a6a20(Source *src)
         return;
 
     count = src->end - src->begin;
-    items = (RefCounted **)FUN_0008d6d0(count * 4);
+    items = (RefCounted_2a6a20 **)FUN_0008d6d0(count * 4);
     for (unsigned int i = 0; i < count; i++) {
         items[i] = 0;
         pure3d_PrimGroupSkinnedPC *pc = dynamic_cast<pure3d_PrimGroupSkinnedPC *>(source->begin[i].group);
-        RefCounted *res;
-        RefCounted **slot;
+        RefCounted_2a6a20 *res;
+        RefCounted_2a6a20 **slot;
         if (pc != 0) {
             Skinner *mem = (Skinner *)FUN_0008d690(0x5c);
             if (mem != 0)

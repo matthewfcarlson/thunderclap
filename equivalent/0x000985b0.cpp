@@ -3,17 +3,17 @@
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int DAT_004d9968;
 
-struct Vec3 {
+struct Vec3_985b0 {
     float x, y, z;
 };
 
 struct Matrix {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022bec0(Vec3 *pos, Vec3 *up);
+    void FUN_0022bec0(Vec3_985b0 *pos, Vec3_985b0 *up);
     void FUN_0022bab0(float angle);
     void FUN_0022ca90(Matrix *a, Matrix *b);
-    void FUN_0022be40(Vec3 *pos);
+    void FUN_0022be40(Vec3_985b0 *pos);
 };
 
 struct CamState {
@@ -21,7 +21,7 @@ struct CamState {
 };
 
 float FUN_000a02a0(float angle);
-void FUN_0009f8c0(Vec3 *out, float a, float b, float c);
+void FUN_0009f8c0(Vec3_985b0 *out, float a, float b, float c);
 
 class CGameCamera {
 public:
@@ -127,15 +127,15 @@ void CBlendCamera::vfunc_35(int a1, float a2, int a3, int a4)
     r.f[8] = (b.f[8] - stateA.f[8]) * k + stateA.f[8];
     r.f[9] = (b.f[9] - stateA.f[9]) * k + stateA.f[9];
 
-    Vec3 p;
+    Vec3_985b0 p;
     FUN_0009f8c0(&p, r.f[3], r.f[4], r.f[5]);
     Matrix m1;
     m1.FUN_0022b980();
-    Vec3 up;
+    Vec3_985b0 up;
     up.x = 0.0f;
     up.y = 1.0f;
     up.z = 0.0f;
-    Vec3 negP;
+    Vec3_985b0 negP;
     negP.x = -p.x;
     negP.y = -p.y;
     negP.z = -p.z;
@@ -148,7 +148,7 @@ void CBlendCamera::vfunc_35(int a1, float a2, int a3, int a4)
         m3.FUN_0022ca90(&m2, &m1);
         m1 = m3;
     }
-    Vec3 q;
+    Vec3_985b0 q;
     q.x = p.x + r.f[0];
     q.y = p.y + r.f[1];
     q.z = p.z + r.f[2];

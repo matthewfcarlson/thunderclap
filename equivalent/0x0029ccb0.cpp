@@ -2,27 +2,27 @@
 // FUN_0029ccb0 @ 0x0029ccb0
 extern unsigned int DAT_004cf734;
 
-struct Item {
+struct Item_29ccb0 {
     char pad0[0x14];
     unsigned int packed;
     void FUN_002a07a0(unsigned int color);
 };
 
-struct ItemList {
+struct ItemList_29ccb0 {
     char pad0[0x10];
     int capacity;
     int count;
-    Item **items;
+    Item_29ccb0 **items;
 };
 
 class Shader {
 public:
     char pad0[0x14];
     float scale;
-    void FUN_0029ccb0(ItemList *list, float amount);
+    void FUN_0029ccb0(ItemList_29ccb0 *list, float amount);
 };
 
-void Shader::FUN_0029ccb0(ItemList *list, float amount)
+void Shader::FUN_0029ccb0(ItemList_29ccb0 *list, float amount)
 {
     int sum = 0;
     int n = list->count;
@@ -30,7 +30,7 @@ void Shader::FUN_0029ccb0(ItemList *list, float amount)
     if (n > 0) {
         for (i = 0; i < n; i++) {
             if (i < list->capacity) {
-                Item *it = list->items[i];
+                Item_29ccb0 *it = list->items[i];
                 if (it) {
                     int m = it->packed & 0xff;
                     int g = (it->packed >> 8) & 0xff;
@@ -46,7 +46,7 @@ void Shader::FUN_0029ccb0(ItemList *list, float amount)
         i = 0;
         do {
             if (i < list->capacity) {
-                Item *it = list->items[i];
+                Item_29ccb0 *it = list->items[i];
                 if (it) {
                     unsigned int color;
                     if (sum != 0) {

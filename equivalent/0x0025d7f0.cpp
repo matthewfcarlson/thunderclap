@@ -19,40 +19,40 @@ extern "C" int __cdecl FUN_0024afe0(Handle *h);
 extern "C" Handle *__cdecl FUN_0024b030(Handle *h);
 extern "C" int __cdecl FUN_0024c2d0(Handle *h);
 struct SortKey { unsigned value; int index; };
-struct Block4 { unsigned a, b, c, d; int index; };
+struct Block4_25d7f0 { unsigned a, b, c, d; int index; };
 extern "C" void __cdecl FUN_0024b060(Handle *h, SortKey *keys, int count);
-extern "C" void __cdecl FUN_0024b050(Handle *h, Block4 *blocks, int count);
+extern "C" void __cdecl FUN_0024b050(Handle *h, Block4_25d7f0 *blocks, int count);
 
-struct Sink {
+struct Sink_25d7f0 {
     virtual void vfunc_0();
     virtual void vfunc_1(void *owner, Handle *h);
 };
-struct Mgr {
+struct Mgr_25d7f0 {
     char pad[0xac];
-    Sink *sink;
+    Sink_25d7f0 *sink;
 };
-struct Owner {
+struct Owner_25d7f0 {
     char pad[0x3c];
     unsigned *keys;
     unsigned *blocks;
 };
 
-struct Frame {
+struct Frame_25d7f0 {
     char pad0[2];
     char count;
     char missing;
     int savedThis;
     SortKey keys[16];
-    Block4 blocks[16];
+    Block4_25d7f0 blocks[16];
 };
 
-struct Self {
+struct Self_25d7f0 {
     char pad0[4];
-    Owner *owner;
+    Owner_25d7f0 *owner;
     char pad08[0x34 - 8];
     Handle *handle;
     char pad38[4];
-    Mgr *mgr;
+    Mgr_25d7f0 *mgr;
     char *streams;
     char pad44[0x54 - 0x44];
     char first;
@@ -63,9 +63,9 @@ struct Self {
     void FUN_0025d7f0();
 };
 
-void Self::FUN_0025d7f0()
+void Self_25d7f0::FUN_0025d7f0()
 {
-    Frame fr;
+    Frame_25d7f0 fr;
     first = (char)0xff;
     char *head = streams;
     audio::SeqAction *obj = head ? (audio::SeqAction *)(head - 4) : 0;
@@ -95,7 +95,7 @@ void Self::FUN_0025d7f0()
         if (handle != 0) {
             other = false;
             if (FUN_0024afe0(handle) == 0) {
-                Mgr *m = mgr;
+                Mgr_25d7f0 *m = mgr;
                 m->sink->vfunc_1(m, handle);
                 handle = 0;
             }

@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001dc810 @ 0x001dc810
 struct Vector { unsigned int x, y, z; };
-struct Attached { char pad[0x188]; Vector position; };
-struct Entry { char pad[0x18]; Attached* attached; char unknown[6]; short index; char tail[4]; };
-struct Position { Vector value; unsigned int unknown; unsigned int flags; };
+struct Attached_1dc810 { char pad[0x188]; Vector position; };
+struct Entry_1dc810 { char pad[0x18]; Attached_1dc810* attached; char unknown[6]; short index; char tail[4]; };
+struct Position_1dc810 { Vector value; unsigned int unknown; unsigned int flags; };
 extern float DAT_004e26bc;
 extern float DAT_004e26c0;
 extern float DAT_004e26c4;
 extern unsigned int DAT_004e26c8;
 struct Object {
  char pad[0x608];
- Entry entries[2048];
- Position positions[1];
+ Entry_1dc810 entries[2048];
+ Position_1dc810 positions[1];
  int FUN_001dbfe0(unsigned int key);
  Vector* FUN_001dc810(Vector* output, unsigned int key);
 };
@@ -27,8 +27,8 @@ Vector* Object::FUN_001dc810(Vector* output, unsigned int key) {
  DAT_004e26c0 = 3.402823466e+38f;
  DAT_004e26c4 = 3.402823466e+38f;
  }
- Entry& entry = entries[index];
- Position& position = positions[entry.index];
+ Entry_1dc810& entry = entries[index];
+ Position_1dc810& position = positions[entry.index];
  Vector* source = &position.value;
  if ((position.flags & 1) && entry.attached) source = &entry.attached->position;
  output->x = source->x;

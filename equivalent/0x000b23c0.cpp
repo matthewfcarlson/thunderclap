@@ -4,25 +4,25 @@ extern "C" int __cdecl _sprintf(char *, const char *, ...);
 void __cdecl FUN_00267830(char *dst, const char *src, int n);
 void *__cdecl FUN_0008d750(int size, int align);
 
-struct Cell {
+struct Cell_b23c0 {
     int a;
     int b;
     void FUN_000b06e0();
 };
 
-void __stdcall FUN_00011520(void *arr, unsigned int size, int count, void (Cell::*ctor)());
+void __stdcall FUN_00011520(void *arr, unsigned int size, int count, void (Cell_b23c0::*ctor)());
 
 struct Node {
     int a, b, c, d;
 };
 
-struct Str {
+struct Str_b23c0 {
     int cap;
     char *text;
     void FUN_000b1020(int n);
 };
 
-struct Words6 {
+struct Words6_b23c0 {
     int v[6];
     int rest[6];
 };
@@ -39,19 +39,19 @@ public:
     char name[0x40];
     int field54;
     int zeroA[22];
-    Cell cellsA[2][6];
+    Cell_b23c0 cellsA[2][6];
     int zeroB[22];
-    Cell cellsB[2][6];
+    Cell_b23c0 cellsB[2][6];
     int zeroC[26];
-    Cell cellsC[2][6];
+    Cell_b23c0 cellsC[2][6];
     int zeroD[26];
-    Cell cellsD[2][6];
+    Cell_b23c0 cellsD[2][6];
     Node *nodesA[11];
-    Words6 blocksA[2];
+    Words6_b23c0 blocksA[2];
     Node *nodesB[13];
-    Words6 blocksB[2];
-    Str str478;
-    Str str480;
+    Words6_b23c0 blocksB[2];
+    Str_b23c0 str478;
+    Str_b23c0 str480;
     int field488;
     int field48c;
     int pad490[6];
@@ -74,19 +74,19 @@ CPhysicalController::CPhysicalController(int arg)
     for (i = 0; i < 22; i++)
         zeroA[i] = 0;
     for (j = 0; j < 2; j++)
-        FUN_00011520(cellsA[j], 8, 6, &Cell::FUN_000b06e0);
+        FUN_00011520(cellsA[j], 8, 6, &Cell_b23c0::FUN_000b06e0);
     for (i = 0; i < 22; i++)
         zeroB[i] = 0;
     for (j = 0; j < 2; j++)
-        FUN_00011520(cellsB[j], 8, 6, &Cell::FUN_000b06e0);
+        FUN_00011520(cellsB[j], 8, 6, &Cell_b23c0::FUN_000b06e0);
     for (i = 0; i < 26; i++)
         zeroC[i] = 0;
     for (j = 0; j < 2; j++)
-        FUN_00011520(cellsC[j], 8, 6, &Cell::FUN_000b06e0);
+        FUN_00011520(cellsC[j], 8, 6, &Cell_b23c0::FUN_000b06e0);
     for (i = 0; i < 26; i++)
         zeroD[i] = 0;
     for (j = 0; j < 2; j++)
-        FUN_00011520(cellsD[j], 8, 6, &Cell::FUN_000b06e0);
+        FUN_00011520(cellsD[j], 8, 6, &Cell_b23c0::FUN_000b06e0);
     str478.cap = 0;
     str478.text = 0;
     str480.cap = 0;

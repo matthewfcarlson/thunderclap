@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_0033a880 @ 0x0033a880
 struct State;
-typedef void (__cdecl *Hook)();
+typedef void (__cdecl *Hook_33a880)();
 extern unsigned int DAT_004d9968;
 extern "C" {
 int __cdecl FUN_00212f00(State*, int);
 State* __cdecl FUN_00213290(State*, int);
 int __cdecl FUN_00213fa0(State*);
-Hook __cdecl FUN_00213f90(State*);
+Hook_33a880 __cdecl FUN_00213f90(State*);
 void __cdecl FUN_0033a620();
 void __cdecl FUN_00213380(State*, const char*, int);
 void __cdecl FUN_0033a740();
@@ -25,7 +25,7 @@ unsigned int cookie=DAT_004d9968;
 State* source = state;
 if (FUN_00212f00(state,1)==8) source=FUN_00213290(state,1);
 int flags=FUN_00213fa0(source);
-Hook hook=FUN_00213f90(source);
+Hook_33a880 hook=FUN_00213f90(source);
 if(hook && hook != FUN_0033a620) {
 FUN_00213380(state,"external hook",13);
 } else {

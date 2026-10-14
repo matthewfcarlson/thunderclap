@@ -10,12 +10,12 @@ struct StrTable {
     void FUN_0027b040(const char *name);
 };
 
-struct Pool {
+struct Pool_1efa40 {
     int a, b, c, d;
     StrTable table;
 };
 
-struct Slot {
+struct Slot_1efa40 {
     char pad0[8];
     int f8;
     int fc;
@@ -28,21 +28,21 @@ struct Slot {
     int f24;
 };
 
-struct Loader {
+struct Loader_1efa40 {
     void FUN_001d3600(const char *path, int flag);
 };
-Loader *FUN_001d4c90();
+Loader_1efa40 *FUN_001d4c90();
 
-struct Registry {
+struct Registry_1efa40 {
     void FUN_001f4c50();
 };
 
 class SoundObjects {
 public:
-    Registry *registry;
+    Registry_1efa40 *registry;
     char pad4[4];
-    Pool *pool;
-    Slot *slots;
+    Pool_1efa40 *pool;
+    Slot_1efa40 *slots;
     void FUN_001efa40(char load, int id1, int id2);
 };
 
@@ -50,7 +50,7 @@ void SoundObjects::FUN_001efa40(char load, int id1, int id2)
 {
     unsigned int cookie = DAT_004d9968;
     if (load) {
-        Pool *p = (Pool *)FUN_0008d710(0x18, 6);
+        Pool_1efa40 *p = (Pool_1efa40 *)FUN_0008d710(0x18, 6);
         if (p) {
             p->a = 0;
             p->b = 0;
@@ -71,7 +71,7 @@ void SoundObjects::FUN_001efa40(char load, int id1, int id2)
     }
     registry->FUN_001f4c50();
     for (int off = 0; off < 0xfa0; off += 0x28) {
-        Slot *s = (Slot *)((char *)slots + off);
+        Slot_1efa40 *s = (Slot_1efa40 *)((char *)slots + off);
         s->f8 = 0;
         s->fc = 0;
         s->f10 = 0;

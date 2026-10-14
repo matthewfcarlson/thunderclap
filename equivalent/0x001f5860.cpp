@@ -7,15 +7,15 @@ int __cdecl FUN_00247930(void *voice, void *sound);
 void __cdecl FUN_00247a90(void *voice, void *sound, int flag);
 void __cdecl FUN_002497e0(void *sound);
 
-class Emitter {
+class Emitter_1f5860 {
 public:
     virtual void start(unsigned __int64 id);
     virtual void stop(unsigned __int64 id);
 };
 
-struct Owner {
+struct Owner_1f5860 {
     char padd0[0xd0];
-    Emitter *emitter;        // 0xd0
+    Emitter_1f5860 *emitter;        // 0xd0
 };
 
 class SoundSlot {
@@ -23,7 +23,7 @@ public:
     char pad0[4];
     void *voice;             // 0x04
     char pad08[4];
-    Owner *owner;            // 0x0c
+    Owner_1f5860 *owner;            // 0x0c
     char *params;            // 0x10
     char pad14[4];
     void *sound;             // 0x18

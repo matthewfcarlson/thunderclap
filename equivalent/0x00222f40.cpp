@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 20/20)
 // FUN_00222f40 @ 0x00222f40
 extern "C" void* __cdecl memmove(void*, const void*, unsigned int);
-struct Effect {
+struct Effect_222f40 {
  virtual void slot0();
  virtual void release();
  virtual void slot2();
@@ -17,8 +17,8 @@ struct Effect {
  virtual void slot12();
  virtual bool finished();
 };
-struct Entry {
- Effect* effect;
+struct Entry_222f40 {
+ Effect_222f40* effect;
  float delay;
  unsigned char flag;
  char padding[19];
@@ -26,24 +26,24 @@ struct Entry {
  float fadeOut;
  float weight;
 };
-struct Manager {
+struct Manager_222f40 {
  char padding[0x68];
  unsigned int count;
- Entry entries[1];
+ Entry_222f40 entries[1];
  void FUN_00222f40(float dt);
 };
-void Manager::FUN_00222f40(float dt) {
+void Manager_222f40::FUN_00222f40(float dt) {
  unsigned int i=0;
  while(i<count) {
-  Entry& e=entries[i];
-  Effect* effect=e.effect;
+  Entry_222f40& e=entries[i];
+  Effect_222f40* effect=e.effect;
   if ((e.delay<0.0f && !e.flag) || effect->finished()) {
    if(e.fadeOut<=0.0f) e.weight=0.0f;
    else e.weight=e.weight-dt/e.fadeOut;
    if(e.weight<=0.0f) {
     effect->release();
     --count;
-    memmove(&e,&entries[i+1],(count-i)*sizeof(Entry));
+    memmove(&e,&entries[i+1],(count-i)*sizeof(Entry_222f40));
     continue;
    }
   } else {

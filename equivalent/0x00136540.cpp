@@ -1,57 +1,57 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 12/16, incomplete)
 // hulkfight::motion::BounceAction::vfunc_5 @ 0x00136540
-struct Vec3 {
+struct Vec3_136540 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-union Word {
+union Word_136540 {
     float f;
     unsigned int u;
     int i;
 };
 
-struct Stats {
+struct Stats_136540 {
     char pad0[0x2064];
-    Vec3 dir;           // 0x2064
+    Vec3_136540 dir;           // 0x2064
     float f2070;        // 0x2070
     void FUN_000359c0(int v);
     float FUN_000354c0();
-    void FUN_000357a0(Vec3 *v);
+    void FUN_000357a0(Vec3_136540 *v);
 };
 
-struct Holder {
-    Stats *FUN_00059a30();
-    void FUN_00059a50(Vec3 *out);
+struct Holder_136540 {
+    Stats_136540 *FUN_00059a30();
+    void FUN_00059a50(Vec3_136540 *out);
 };
 
-struct Owner {
-    Holder *FUN_000592a0();
+struct Owner_136540 {
+    Holder_136540 *FUN_000592a0();
 };
 
-struct Joint {
+struct Joint_136540 {
     char pad0[0x18];
     struct Rot {
         void FUN_00221d20(float angle);
-        void FUN_0022be40(Vec3 *pos);
+        void FUN_0022be40(Vec3_136540 *pos);
     } rot;
 };
 
-struct BounceData {
+struct BounceData_136540 {
     char pad0[0x1c];
     float f1c;
     char pad20[4];
     float f24;
 };
 
-extern "C" float FUN_00224f10(Vec3 *v);
+extern "C" float FUN_00224f10(Vec3_136540 *v);
 float __cdecl FUN_00224fc0(float from, float to);
-void __cdecl FUN_00224d70(float angle, Vec3 *v);
+void __cdecl FUN_00224d70(float angle, Vec3_136540 *v);
 extern float DAT_004abf64;
 extern float DAT_004abf68;
 extern float DAT_004abf6c;
 
-union Slot {
+union Slot_136540 {
     int i;
     float f;
 };
@@ -66,11 +66,11 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual bool vfunc_5(Slot a1, float dt);
+    virtual bool vfunc_5(Slot_136540 a1, float dt);
     char pad04[0x18];
-    BounceData *data;   // 0x1c
-    Owner *owner;       // 0x20
-    Joint *joint;       // 0x24
+    BounceData_136540 *data;   // 0x1c
+    Owner_136540 *owner;       // 0x20
+    Joint_136540 *joint;       // 0x24
     float f28;
     float f2c;
     float f30;
@@ -79,28 +79,28 @@ public:
 }
 }
 
-struct Frame {
-    Word absr;
+struct Frame_136540 {
+    Word_136540 absr;
     float ang1;
     float lim;
-    Vec3 Wc;
-    Vec3 Wb;
-    Vec3 R;
-    Vec3 D;
-    Vec3 W;
-    Vec3 P;
+    Vec3_136540 Wc;
+    Vec3_136540 Wb;
+    Vec3_136540 R;
+    Vec3_136540 D;
+    Vec3_136540 W;
+    Vec3_136540 P;
 };
 
-bool hulkfight::motion::BounceAction::vfunc_5(Slot a1, float dt)
+bool hulkfight::motion::BounceAction::vfunc_5(Slot_136540 a1, float dt)
 {
     if (a1.i != 0)
         return true;
     if (joint == 0)
         return false;
 
-    Frame f;
-    Holder *holder = owner->FUN_000592a0();
-    Stats *stats = holder->FUN_00059a30();
+    Frame_136540 f;
+    Holder_136540 *holder = owner->FUN_000592a0();
+    Stats_136540 *stats = holder->FUN_00059a30();
     stats->FUN_000359c0(3);
     f.P.x = 0.0f;
     f.P.y = 0.0f;

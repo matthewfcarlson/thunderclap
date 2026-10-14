@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 11/12, incomplete)
 // FUN_00217cf0 @ 0x00217cf0
 struct TString;
-struct TObject {
+struct TObject_217cf0 {
     int tt;
     union {
         float n;
@@ -11,13 +11,13 @@ struct TObject {
 
 struct LState;
 
-int __cdecl FUN_00214d80(LState *L, const TObject *a, const TObject *b);
+int __cdecl FUN_00214d80(LState *L, const TObject_217cf0 *a, const TObject_217cf0 *b);
 // equiv-conv: FUN_00217be0 eax stack stack ebx
-int __cdecl FUN_00217be0(LState *L, const TObject *a, int event, const TObject *b);
+int __cdecl FUN_00217be0(LState *L, const TObject_217cf0 *a, int event, const TObject_217cf0 *b);
 // equiv-conv: FUN_00217c80 ecx eax
 int FUN_00217c80(const TString *a, const TString *b);
 
-int FUN_00217cf0(LState *L, const TObject *l, const TObject *r)
+int FUN_00217cf0(LState *L, const TObject_217cf0 *l, const TObject_217cf0 *r)
 {
     if (l->tt != r->tt)
         return FUN_00214d80(L, l, r);

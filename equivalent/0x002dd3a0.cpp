@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1951 inputs, branch coverage 43/48, incomplete)
 // FUN_002dd3a0 @ 0x002dd3a0
-struct RowInfo {
+struct RowInfo_2dd3a0 {
     unsigned int width;
     unsigned int rowbytes;
     unsigned char color_type;
@@ -9,7 +9,7 @@ struct RowInfo {
     unsigned char pixel_depth;
 };
 
-void FUN_002dd3a0(RowInfo *row_info, unsigned char *row, unsigned int flags)
+void FUN_002dd3a0(RowInfo_2dd3a0 *row_info, unsigned char *row, unsigned int flags)
 {
     unsigned char *sp = row;
     unsigned char *dp = row;

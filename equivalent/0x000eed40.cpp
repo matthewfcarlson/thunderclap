@@ -4,11 +4,11 @@ extern char DAT_0049dba4[];
 extern char DAT_0049f48c[];
 void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 
-struct Item {
+struct Item_eed40 {
     void FUN_000e2940(void* other);
 };
 
-class Owner {
+class Owner_eed40 {
 public:
     virtual void v0();
     virtual void v1();
@@ -66,7 +66,7 @@ public:
     virtual void v53();
     virtual void v54();
     virtual void v55();
-    virtual Item* v56(const char* name);
+    virtual Item_eed40* v56(const char* name);
     void* FUN_000e7260(const char* name);
 };
 
@@ -95,13 +95,13 @@ public:
     virtual void v20();
     virtual void v21();
     virtual void v22();
-    virtual void v23(Item* item, const char* name);
+    virtual void v23(Item_eed40* item, const char* name);
     virtual void v24();
     virtual void v25();
     virtual void v26();
     virtual void v27();
     virtual void v28();
-    virtual Item* v29(const char* a1, const char* a2);
+    virtual Item_eed40* v29(const char* a1, const char* a2);
     virtual void v30();
     virtual void v31();
     virtual void v32();
@@ -125,12 +125,12 @@ public:
     virtual void v50();
     virtual void v51();
     virtual void v52();
-    Owner* owner;
+    Owner_eed40* owner;
 };
 
-Item* FEContainer::v29(const char* a1, const char* a2)
+Item_eed40* FEContainer::v29(const char* a1, const char* a2)
 {
-    Item* item = owner->v56(a1);
+    Item_eed40* item = owner->v56(a1);
     v23(item, a1);
     if (a2) {
         void* found = v38(a2);

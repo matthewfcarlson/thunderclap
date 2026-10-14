@@ -5,22 +5,22 @@ extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl _sprintf(char *buf, const char *fmt, ...);
 extern char DAT_004c91d9;
 
-struct Marker {
+struct Marker_205860 {
     void FUN_00204f00();
 };
 
-class District {
+class District_205860 {
 public:
     char pad0[0x24];
     char name[0x570 - 0x24];    // 0x24
     int ids[2];                 // 0x570
     bool FUN_002046b0(int id);
     void FUN_00204760(int id);
-    Marker *FUN_00204540(const char *label);
+    Marker_205860 *FUN_00204540(const char *label);
     void FUN_00205860(int id);
 };
 
-void District::FUN_00205860(int id)
+void District_205860::FUN_00205860(int id)
 {
     struct Frame {
         char label[0x100];

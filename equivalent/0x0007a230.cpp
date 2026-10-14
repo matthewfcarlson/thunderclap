@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 47/48, incomplete)
 // FUN_0007a230 @ 0x0007a230
-struct Cell {
+struct Cell_7a230 {
     int id;
     int pad04;
     int row;
@@ -11,24 +11,24 @@ struct Cell {
     char pad2d[0x48 - 0x2d];
 };
 
-struct Rng {
+struct Rng_7a230 {
     unsigned int a;
     unsigned int b;
 };
-extern Rng* DAT_004e5acc;
+extern Rng_7a230* DAT_004e5acc;
 
-struct Grid {
+struct Grid_7a230 {
     char pad0[0x191c];
-    Cell cells[0x400];
+    Cell_7a230 cells[0x400];
     int FUN_0007a230(int idA, int idB, int rowIdx, int span);
 };
 
-int Grid::FUN_0007a230(int idA, int idB, int rowIdx, int span)
+int Grid_7a230::FUN_0007a230(int idA, int idB, int rowIdx, int span)
 {
     int list[14];
     int n = 0;
     int lim = span - span % 2;
-    Cell* c = &cells[rowIdx * 14];
+    Cell_7a230* c = &cells[rowIdx * 14];
     for (int i = 0; i < 14; i += 2) {
         if (!c[0].active)
             break;

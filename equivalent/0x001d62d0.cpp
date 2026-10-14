@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 518 inputs, branch coverage 20/22, incomplete)
 // FUN_001d62d0 @ 0x001d62d0
-struct Entry { int a,b,type,next; };
-struct Node { char pad[0x24]; int count; Entry* entries; };
-struct Manager { Node* FUN_001d56f0(int); int FUN_001d5c70(int); };
-struct Object { char pad0[0x40]; int start; char pad1[0xa8]; Manager* manager; char pad2[0x18]; int value; int FUN_001d62d0(); };
+struct Entry_1d62d0 { int a,b,type,next; };
+struct Node { char pad[0x24]; int count; Entry_1d62d0* entries; };
+struct Manager_1d62d0 { Node* FUN_001d56f0(int); int FUN_001d5c70(int); };
+struct Object { char pad0[0x40]; int start; char pad1[0xa8]; Manager_1d62d0* manager; char pad2[0x18]; int value; int FUN_001d62d0(); };
 int Object::FUN_001d62d0() {
  int total=value>0?value:0;
  int current=start;
@@ -14,7 +14,7 @@ int Object::FUN_001d62d0() {
   history[slot]=current; slot=(slot+1)%8;
   Node* node=manager->FUN_001d56f0(current);
   for(int j=0;j<node->count;++j) {
-   Entry* e=&node->entries[j];
+   Entry_1d62d0* e=&node->entries[j];
    if(e->type==13) {
     current=e->next; found=true;
     if(current==start) return 1000;

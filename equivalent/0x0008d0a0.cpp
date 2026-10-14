@@ -5,7 +5,7 @@ extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 extern unsigned int DAT_004dd77c;
 
-class Heap {
+class Heap_8d0a0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -20,7 +20,7 @@ class Heap {
     virtual void v10();
     virtual int v11();
 };
-class Screen {
+class Screen_8d0a0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -57,7 +57,7 @@ class Screen {
     virtual void v32();
     virtual void v33(const char* text, int x, int y, unsigned int color);
 };
-struct HeapEntry {
+struct HeapEntry_8d0a0 {
     const char* name;
     int pad_04;
     int baseline;
@@ -66,10 +66,10 @@ class MemoryDisplay {
   public:
     void FUN_0008d0a0(bool dim);
     int pad_00;
-    Heap* heaps[19];
+    Heap_8d0a0* heaps[19];
 };
-extern Screen* DAT_0052c2a8;
-extern HeapEntry DAT_00400520[];
+extern Screen_8d0a0* DAT_0052c2a8;
+extern HeapEntry_8d0a0 DAT_00400520[];
 extern char DAT_00400604[];
 
 void MemoryDisplay::FUN_0008d0a0(bool dim) {
@@ -83,8 +83,8 @@ void MemoryDisplay::FUN_0008d0a0(bool dim) {
     unsigned int gray = ((((toggle | 0xffffff00) << 8) | toggle) << 8) | toggle;
     DAT_004dd77c = toggle;
     int y = 0x41;
-    Heap** heap = heaps;
-    for (HeapEntry* entry = DAT_00400520; entry < (HeapEntry*)DAT_00400604; ++entry, ++heap, y += 0xf) {
+    Heap_8d0a0** heap = heaps;
+    for (HeapEntry_8d0a0* entry = DAT_00400520; entry < (HeapEntry_8d0a0*)DAT_00400604; ++entry, ++heap, y += 0xf) {
         if (*heap == 0)
             continue;
         int total = (*heap)->v11();

@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 10/12, incomplete)
 // pure3d::SpriteLoader::vfunc_8 @ 0x002bdfc0
-struct Name {
+struct Name_2bdfc0 {
     unsigned int lo, hi;
     void FUN_0027b040(const char *s);
 };
 
 struct Sprite {
     char pad0[8];
-    Name name;
+    Name_2bdfc0 name;
     char pad10[0x28 - 0x10];
     char flag;
 };
@@ -26,14 +26,14 @@ struct Reader {
     void FUN_00266ca0(int v);
 };
 
-struct Factory {
+struct Factory_2bdfc0 {
     char pad0[0x8c];
     int f8c;
     Sprite *FUN_002aecb0(char *name);
     Sprite *FUN_002aed60(int a, int b);
 };
 
-struct Frame {
+struct Frame_2bdfc0 {
     short unk10;
     unsigned char len;
     char flag;
@@ -56,12 +56,12 @@ public:
     virtual Sprite *vfunc_8(Reader *r, int unused);
     virtual void v9();
     char pad4[0x18];
-    Factory *factory;
+    Factory_2bdfc0 *factory;
 };
 
 Sprite *SpriteLoader::vfunc_8(Reader *r, int unused)
 {
-    Frame f;
+    Frame_2bdfc0 f;
     Sprite *result = 0;
     r->stream->FUN_002647e0(&f.len, 1, 1, 1);
     int len = f.len;

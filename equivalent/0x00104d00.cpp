@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 21/22, incomplete)
 // CPathGraphAgent::vfunc_4 @ 0x00104d00
-struct V3 {
+struct V3_104d00 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Mode {
+struct Mode_104d00 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -18,31 +18,31 @@ struct Mode {
     virtual int vfunc_9();
 };
 
-struct Agent {
+struct Agent_104d00 {
     char pad0[0x1a60];
-    V3 pos;                 // 0x1a60
+    V3_104d00 pos;                 // 0x1a60
     char pad1a6c[0x1ca0 - 0x1a6c];
-    Mode *mode;             // 0x1ca0
+    Mode_104d00 *mode;             // 0x1ca0
     char pad1ca4[0x2064 - 0x1ca4];
-    V3 out1;                // 0x2064
+    V3_104d00 out1;                // 0x2064
     float outK;             // 0x2070
-    V3 out2;                // 0x2074
-    void FUN_00035550(V3 *out);
+    V3_104d00 out2;                // 0x2074
+    void FUN_00035550(V3_104d00 *out);
 };
 
-struct Target;
+struct Target_104d00;
 
-struct Sub58 {
+struct Sub58_104d00 {
     char pad0[8];
-    Target *tgt;            // 0x8
+    Target_104d00 *tgt;            // 0x8
 };
 
-struct Target {
+struct Target_104d00 {
     char pad0[8];
-    Agent *agent;           // 0x8
+    Agent_104d00 *agent;           // 0x8
     int kind;               // 0xc
     char pad10[0x40 - 0x10];
-    V3 pos40;
+    V3_104d00 pos40;
 };
 
 class Owner58 {
@@ -53,9 +53,9 @@ public:
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual Agent *vfunc_6();
+    virtual Agent_104d00 *vfunc_6();
     char pad04[0x58 - 4];
-    Sub58 sub58;
+    Sub58_104d00 sub58;
 };
 
 extern float DAT_0040d4d8;  // 4.0
@@ -75,24 +75,24 @@ public:
     char flag5c;
     char flag5d;
     char pad5e[2];
-    V3 from;                // 0x60
-    V3 to;                  // 0x6c
+    V3_104d00 from;                // 0x60
+    V3_104d00 to;                  // 0x6c
     char pad78[0xa4 - 0x78];
-    V3 goal;                // 0xa4
+    V3_104d00 goal;                // 0xa4
     char padb0[4];
     int state;              // 0xb4
 };
 
 void CPathGraphAgent::vfunc_4(int a, int b, int c)
 {
-    V3 u;
-    V3 d;
-    V3 w;
+    V3_104d00 u;
+    V3_104d00 d;
+    V3_104d00 w;
     float k;
 
     if (!owner)
         return;
-    Agent *ag = owner->vfunc_6();
+    Agent_104d00 *ag = owner->vfunc_6();
     if (!ag)
         return;
     if (ag->mode->vfunc_9() == 4)
@@ -106,13 +106,13 @@ void CPathGraphAgent::vfunc_4(int a, int b, int c)
     d.y = 0.0f;
     d.z = 0.0f;
     ag->FUN_00035550(&u);
-    V3 v1 = u;
-    V3 v2 = u;
+    V3_104d00 v1 = u;
+    V3_104d00 v2 = u;
     from = ag->pos;
 
-    Sub58 *s = &owner->sub58;
+    Sub58_104d00 *s = &owner->sub58;
     if (s) {
-        Target *t = s->tgt;
+        Target_104d00 *t = s->tgt;
         if (t) {
             if (t->kind == 1)
                 to = t->agent->pos;

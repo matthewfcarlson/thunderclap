@@ -12,13 +12,13 @@ struct PadDevice {
     void FUN_000ad9f0();
 };
 
-struct Audio {
+struct Audio_ae660 {
     void FUN_00086180(int a, int b, int c, int d);
 };
 
 struct AudioHolder {
     char pad00[0x54];
-    Audio* audio;
+    Audio_ae660* audio;
 };
 
 struct InputHub {

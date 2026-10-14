@@ -1,41 +1,41 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 13/14, incomplete)
 // FUN_0007c930 @ 0x0007c930
-struct V3 {
+struct V3_7c930 {
     float x, y, z;
     void FUN_0022d180();
 };
-struct Mat {
+struct Mat_7c930 {
     float m[16];
-    void FUN_0022c3b0(V3* in, V3* out);
+    void FUN_0022c3b0(V3_7c930* in, V3_7c930* out);
 };
-struct Body {
+struct Body_7c930 {
     char pad0[0x34];
     int id;
 };
-struct Lookup {
-    void FUN_001dd520(int id, Mat* out);
+struct Lookup_7c930 {
+    void FUN_001dd520(int id, Mat_7c930* out);
 };
-struct Env {
+struct Env_7c930 {
     char pad0[0xc];
-    Lookup* lookup;
+    Lookup_7c930* lookup;
 };
-class Group {
+class Group_7c930 {
 public:
     char pad0[0x374c];
-    Body* bodies[20];
+    Body_7c930* bodies[20];
     int count;
     char pad37a0[0x382c - 0x37a0];
-    Env* env;
-    bool FUN_0007c930(V3 pos, int skip);
+    Env_7c930* env;
+    bool FUN_0007c930(V3_7c930 pos, int skip);
 };
 
-bool Group::FUN_0007c930(V3 pos, int skip)
+bool Group_7c930::FUN_0007c930(V3_7c930 pos, int skip)
 {
-    V3 ref;
+    V3_7c930 ref;
     if (skip != -1) {
-        Mat basis;
+        Mat_7c930 basis;
         env->lookup->FUN_001dd520(bodies[skip]->id, &basis);
-        V3 axis;
+        V3_7c930 axis;
         axis.x = -1.0f;
         axis.y = 0.0f;
         axis.z = 0.0f;
@@ -44,9 +44,9 @@ bool Group::FUN_0007c930(V3 pos, int skip)
     for (int i = 0; i < count; i++) {
         if (i == skip)
             continue;
-        Mat m;
+        Mat_7c930 m;
         env->lookup->FUN_001dd520(bodies[i]->id, &m);
-        V3 d;
+        V3_7c930 d;
         float dx = m.m[12] - pos.x;
         float dy = m.m[13] - pos.y;
         float dz = m.m[14] - pos.z;

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 56/56)
 // FUN_000cc7e0 @ 0x000cc7e0
 // FUN_000cc7e0: debug/HUD gauge drawer (builds quads through the vertex-handle API)
-struct Vec3 {
+struct Vec3_cc7e0 {
     float x, y, z;
 };
 
@@ -12,16 +12,16 @@ struct Node {
     float z;
 };
 
-struct Handle {
+struct Handle_cc7e0 {
     char pad0[8];
-    Vec3 *pos;      // 0x08
+    Vec3_cc7e0 *pos;      // 0x08
     char pad1[4];
     unsigned int *col;  // 0x10
     void FUN_0008ef00();
-    void FUN_0008ef90(const Vec3 *p, unsigned int color);
+    void FUN_0008ef90(const Vec3_cc7e0 *p, unsigned int color);
 };
 
-struct Device {
+struct Device_cc7e0 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -30,11 +30,11 @@ struct Device {
     virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
     virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
     virtual void v28(); virtual void v29();
-    virtual Handle *v30(int a, int b, int c, int d, int e);
-    virtual void v31(Handle *h);
+    virtual Handle_cc7e0 *v30(int a, int b, int c, int d, int e);
+    virtual void v31(Handle_cc7e0 *h);
 };
 
-struct Pass {
+struct Pass_cc7e0 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -43,39 +43,39 @@ struct Pass {
     virtual void v16(int a);
 };
 
-struct PassHolder {
-    Pass *pass;
-    void FUN_00293d00(const Vec3 *color);
+struct PassHolder_cc7e0 {
+    Pass_cc7e0 *pass;
+    void FUN_00293d00(const Vec3_cc7e0 *color);
     void FUN_00293bf0(float a);
     void FUN_00293da0(float a, float b, float c);
 };
 
-struct Widget {
+struct Widget_cc7e0 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(int a, int b);
 };
 
-struct Sub {
+struct Sub_cc7e0 {
     char pad0[0x144];
     float f144;
     float f148;
     float f14c;
 };
 
-struct Owner {
+struct Owner_cc7e0 {
     char pad0[0x11c];
-    Sub *sub;
+    Sub_cc7e0 *sub;
     float FUN_00036090();
     float FUN_000360b0();
 };
 
-struct Tex {
+struct Tex_cc7e0 {
     char pad0[0x10];
     int id;
 };
 
-union Word {
+union Word_cc7e0 {
     float f;
     unsigned int u;
 };
@@ -84,9 +84,9 @@ extern float FUN_000186b0(const float &v, const float &lo, const float &hi);
 extern float FUN_000186f0(const float &a, const float &b);
 extern float FUN_00018710(const float &a, const float &b);
 
-extern Device *DAT_0052c2a8;
-extern PassHolder *DAT_0052c2ac;
-extern Vec3 DAT_004ddf0c;
+extern Device_cc7e0 *DAT_0052c2a8;
+extern PassHolder_cc7e0 *DAT_0052c2ac;
+extern Vec3_cc7e0 DAT_004ddf0c;
 
 static __forceinline float Lerp(float a, float b, float t)
 {
@@ -94,9 +94,9 @@ static __forceinline float Lerp(float a, float b, float t)
 }
 
 // inlined body of Handle::FUN_0008ef90 at the call sites that don't call it
-static __forceinline void EmitV(Handle *h, float x, float z, unsigned int color)
+static __forceinline void EmitV(Handle_cc7e0 *h, float x, float z, unsigned int color)
 {
-    Vec3 *p = h->pos;
+    Vec3_cc7e0 *p = h->pos;
     p->x = x;
     p->y = 0.0f;
     p->z = z;
@@ -105,7 +105,7 @@ static __forceinline void EmitV(Handle *h, float x, float z, unsigned int color)
 }
 
 // vertex built in a stack Vec3 and passed to Handle::FUN_0008ef90
-static __forceinline void EmitP(Handle *h, Vec3 &v, float x, float z, unsigned int color)
+static __forceinline void EmitP(Handle_cc7e0 *h, Vec3_cc7e0 &v, float x, float z, unsigned int color)
 {
     v.x = x;
     v.y = 0.0f;
@@ -127,32 +127,32 @@ static __forceinline float Clamp01(float v)
 
 // The original keeps these in fixed stack words and hands pointers to them to callees; the
 // callees see (and the checker compares) their neighbours, so the slot order is kept.
-struct Frame {
-    Word s0;        // A (clamped progress 1)
-    Word s1;        // B (clamped progress 2)
-    Word s2;        // N1 (x extent of 1ac - 1a4); scratch in mode 1
-    Word s3;
-    Word s4;        // colC
-    Word s5;
-    Word s6;
-    Word s7;
-    Word s8;
-    Word s9;        // N2
-    Vec3 v;         // vertex passed to FUN_0008ef90 / f144, f148, f14c in mode 1
-    Word s13;
-    Word s14;
-    Word s15;
-    Word s16;
-    Word s17;
-    Word s18;
+struct Frame_cc7e0 {
+    Word_cc7e0 s0;        // A (clamped progress 1)
+    Word_cc7e0 s1;        // B (clamped progress 2)
+    Word_cc7e0 s2;        // N1 (x extent of 1ac - 1a4); scratch in mode 1
+    Word_cc7e0 s3;
+    Word_cc7e0 s4;        // colC
+    Word_cc7e0 s5;
+    Word_cc7e0 s6;
+    Word_cc7e0 s7;
+    Word_cc7e0 s8;
+    Word_cc7e0 s9;        // N2
+    Vec3_cc7e0 v;         // vertex passed to FUN_0008ef90 / f144, f148, f14c in mode 1
+    Word_cc7e0 s13;
+    Word_cc7e0 s14;
+    Word_cc7e0 s15;
+    Word_cc7e0 s16;
+    Word_cc7e0 s17;
+    Word_cc7e0 s18;
 };
 
 class ProgressGauge {
 public:
     char pad0[0x14];
-    Owner *owner;           // 0x14
+    Owner_cc7e0 *owner;           // 0x14
     char pad18[0x90 - 0x18];
-    Tex *tex;               // 0x90
+    Tex_cc7e0 *tex;               // 0x90
     char pad94[0xb8 - 0x94];
     unsigned char flags;    // 0xb8
     char padb9[0x154 - 0xb9];
@@ -160,7 +160,7 @@ public:
     float f158;
     char pad15c[4];
     int alpha;              // 0x160
-    Widget *w164;
+    Widget_cc7e0 *w164;
     char pad168[0x174 - 0x168];
     float f174;
     float f178;
@@ -169,7 +169,7 @@ public:
     float f18c;
     float f190;
     char pad194[4];
-    Widget *w198;
+    Widget_cc7e0 *w198;
     char pad19c[4];
     int mode;               // 0x1a0
     Node *p1a4;
@@ -194,7 +194,7 @@ void ProgressGauge::FUN_000cc7e0()
     if (!(flags & 1))
         return;
 
-    Frame F;
+    Frame_cc7e0 F;
 
     DAT_0052c2ac->pass->v15(0);
     DAT_0052c2ac->FUN_00293d00(&DAT_004ddf0c);
@@ -222,7 +222,7 @@ void ProgressGauge::FUN_000cc7e0()
         float zB = p1a8->z;
         float mn = F.s0.f < F.s1.f ? F.s0.f : F.s1.f;
         float X1 = mn * F.s2.f + p1a4->x;
-        Handle *h = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
+        Handle_cc7e0 *h = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
         EmitV(h, xa, zA, colA);
         EmitV(h, X1, zA, colA);
         EmitV(h, xa, zB, colA);
@@ -233,14 +233,14 @@ void ProgressGauge::FUN_000cc7e0()
         float X1b = mn2 * F.s2.f + p1a4->x;
         float mx = F.s0.f < F.s1.f ? F.s1.f : F.s0.f;
         float X2 = mx * F.s2.f + p1a4->x;
-        Handle *h2 = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
+        Handle_cc7e0 *h2 = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
         EmitV(h2, X1b, zA, colB);
         EmitV(h2, X2, zA, colB);
         EmitV(h2, X1b, zB, colB);
         EmitV(h2, X2, zB, colB);
         DAT_0052c2a8->v31(h2);
     } else if (mode == 1) {
-        Sub *s = owner->sub;
+        Sub_cc7e0 *s = owner->sub;
         F.v.x = s->f144;        // a
         F.v.y = s->f148;        // b
         F.v.z = s->f14c;        // c
@@ -288,14 +288,14 @@ void ProgressGauge::FUN_000cc7e0()
                 float z1 = p1[i]->z;
                 float mn = cx[i] < cy[i] ? cx[i] : cy[i];
                 float q1 = mn * w[i] + p0[i]->x;
-                Handle *h = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
+                Handle_cc7e0 *h = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
                 EmitV(h, x0, z0, colA);
                 EmitV(h, q1, z0, colA);
                 EmitV(h, x0, z1, colA);
                 EmitV(h, q1, z1, colA);
                 DAT_0052c2a8->v31(h);
 
-                Word dd;
+                Word_cc7e0 dd;
                 dd.f = cx[i] - cy[i];
                 dd.u &= 0x7fffffff;
                 if (!(dd.f <= 1e-05f)) {
@@ -309,7 +309,7 @@ void ProgressGauge::FUN_000cc7e0()
                         lo = qy;
                         hi = qx;
                     }
-                    Handle *h2 = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
+                    Handle_cc7e0 *h2 = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
                     EmitV(h2, lo, z0b, F.s4.u);
                     EmitV(h2, hi, z0b, F.s4.u);
                     EmitV(h2, lo, z1b, F.s4.u);
@@ -319,7 +319,7 @@ void ProgressGauge::FUN_000cc7e0()
             }
         }
 
-        Handle *h3 = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
+        Handle_cc7e0 *h3 = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
         EmitV(h3, p1b0->x, p1b0->z, 0x8000ff00);
         float t = F.s0.f * F.s9.f;
         EmitV(h3, t + p1b0->x, p1b0->z, 0x8000ff00);
@@ -339,7 +339,7 @@ void ProgressGauge::FUN_000cc7e0()
         float z1 = p1e4->z;
         float mn = u < v ? u : v;
         float q = mn * N3 + p1e0->x;
-        Handle *h = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
+        Handle_cc7e0 *h = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
         EmitP(h, F.v, x0, z0, colA);
         EmitP(h, F.v, q, z0, colA);
         EmitP(h, F.v, x0, z1, colA);
@@ -350,7 +350,7 @@ void ProgressGauge::FUN_000cc7e0()
         float X1 = mn2 * N3 + p1e0->x;
         float mx = u < v ? v : u;
         float X2 = mx * N3 + p1e0->x;
-        Handle *h2 = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
+        Handle_cc7e0 *h2 = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
         EmitP(h2, F.v, X1, z0, F.s4.u);
         EmitP(h2, F.v, X2, z0, F.s4.u);
         EmitP(h2, F.v, X1, z1, F.s4.u);
@@ -364,7 +364,7 @@ void ProgressGauge::FUN_000cc7e0()
         float xB1 = (mn * F.s2.f + p1b0->x) * (1.0f - f17c);
         float mn2 = FUN_000186f0(F.s0.f, F.s1.f);
         F.s4.f = (mn2 * F.s2.f + p1a4->x) * f17c + xB1;  // xB
-        Handle *h = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
+        Handle_cc7e0 *h = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
         EmitP(h, F.v, F.s5.f, F.s7.f, colA);
         EmitP(h, F.v, F.s4.f, F.s7.f, colA);
         EmitP(h, F.v, F.s5.f, F.s6.f, colA);
@@ -381,7 +381,7 @@ void ProgressGauge::FUN_000cc7e0()
         F.s9.f = (mxA * F.s2.f + b0c->x) * F.s3.f;      // xE
         float mxB = FUN_00018710(F.s0.f, F.s1.f);
         F.s4.f = (mxB * F.s2.f + p1a4->x) * f17c + F.s9.f;      // xF
-        Handle *h2 = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
+        Handle_cc7e0 *h2 = DAT_0052c2a8->v30(tex->id, 1, 0x2020, 4, 0);
         EmitP(h2, F.v, F.s5.f, F.s7.f, colB);
         EmitP(h2, F.v, F.s4.f, F.s7.f, colB);
         EmitP(h2, F.v, F.s5.f, F.s6.f, colB);

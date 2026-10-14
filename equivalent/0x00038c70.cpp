@@ -1,31 +1,31 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 14/14)
 // FUN_00038c70 @ 0x00038c70
-struct V3 { float x, y, z; };
+struct V3_38c70 { float x, y, z; };
 
-struct Target {
+struct Target_38c70 {
     char pad00[0x3c];
 };
 
-struct Anchor {
+struct Anchor_38c70 {
     int FUN_00059a40();
-    void FUN_00059a50(V3* out);
+    void FUN_00059a50(V3_38c70* out);
 };
 
-struct Holder {
+struct Holder_38c70 {
     char pad00[0x34];
     float scale;
 };
 
-class Probe {
+class Probe_38c70 {
 public:
     char pad00[0x10];
-    Anchor* anchor;
+    Anchor_38c70* anchor;
     char pad14[0x30];
     float min44;
     float min48;
     float min4c;
     char pad50[0xcc];
-    Holder* holder;
+    Holder_38c70* holder;
     char pad120[0x20];
     int mode;
     char pad144[4];
@@ -35,11 +35,11 @@ public:
     float offsetY;
     float offsetZ;
 
-    char FUN_00038660(const V3* p, float h, int a0, int a1, int a2, int a3, int a4, int a5, const V3* q);
+    char FUN_00038660(const V3_38c70* p, float h, int a0, int a1, int a2, int a3, int a4, int a5, const V3_38c70* q);
     bool FUN_00038c70(int a0, int a1, int a2, int a3, int a4, int a5);
 };
 
-bool Probe::FUN_00038c70(int a0, int a1, int a2, int a3, int a4, int a5)
+bool Probe_38c70::FUN_00038c70(int a0, int a1, int a2, int a3, int a4, int a5)
 {
     if (holder == 0)
         return false;
@@ -48,18 +48,18 @@ bool Probe::FUN_00038c70(int a0, int a1, int a2, int a3, int a4, int a5)
     if (!anchor->FUN_00059a40())
         return false;
 
-    V3 base;
+    V3_38c70 base;
     base.x = 0.0f;
     base.y = 0.0f;
     base.z = 0.0f;
     anchor->FUN_00059a50(&base);
 
-    V3 lo;
+    V3_38c70 lo;
     lo.x = min44;
     lo.y = min48;
     lo.z = min4c;
 
-    V3 p;
+    V3_38c70 p;
     p.x = base.x;
     p.y = base.y;
     p.z = base.z;

@@ -2,16 +2,16 @@
 // FUN_002406a0 @ 0x002406a0
 extern const char* DAT_004cc02c;
 void __cdecl FUN_00247570(void* p);
-struct Str {
+struct Str_2406a0 {
     char* p;
     unsigned short kind;
     char pad6[6];
-    void FUN_00240090(const Str* other);
+    void FUN_00240090(const Str_2406a0* other);
     void FUN_0023ff50(const void* rhs);
-    Str* FUN_002406a0(Str* ret, const void* rhs);
+    Str_2406a0* FUN_002406a0(Str_2406a0* ret, const void* rhs);
 };
-Str* Str::FUN_002406a0(Str* ret, const void* rhs) {
-    Str tmp;
+Str_2406a0* Str_2406a0::FUN_002406a0(Str_2406a0* ret, const void* rhs) {
+    Str_2406a0 tmp;
     tmp.FUN_00240090(this);
     tmp.FUN_0023ff50(rhs);
     ret->FUN_00240090(&tmp);

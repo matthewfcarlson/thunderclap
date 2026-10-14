@@ -2,9 +2,9 @@
 // FUN_0012d450 @ 0x0012d450
 namespace hulkfight { namespace ai { class ThreatCondition; class ThreatDistanceCondition; class ThreatAngleCondition; class ShotFailCountCondition; } }
 namespace fight { template<class T> struct ConditionFactoryCasterTemplate { virtual void create(); }; }
-struct Registry { void FUN_00236760(void*); };
+struct Registry_12d450 { void FUN_00236760(void*); };
 void* __cdecl FUN_002343e0(const char*, void*);
-void __cdecl FUN_0012d450(Registry* r)
+void __cdecl FUN_0012d450(Registry_12d450* r)
 {
     {
         fight::ConditionFactoryCasterTemplate<hulkfight::ai::ThreatCondition> caster;

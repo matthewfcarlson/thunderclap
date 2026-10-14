@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 174 inputs, branch coverage 21/22, incomplete)
 // FUN_00239f10 @ 0x00239f10
 struct Reader;
-struct Factory;
+struct Factory_239f10;
 struct Node {
  virtual void v0(); virtual void v1(); virtual void v2();
- virtual bool initialize(unsigned __int64 id, Factory* factory, Reader* reader);
+ virtual bool initialize(unsigned __int64 id, Factory_239f10* factory, Reader* reader);
  virtual void v4(); virtual Node* clone();
  Node* next;
  void FUN_00236b70(Node* nextNode);
@@ -16,12 +16,12 @@ struct Reader {
  virtual bool more(); virtual unsigned __int64 readId();
  void FUN_00232c90();
 };
-struct Factory { Node* FUN_002367f0(unsigned __int64 id); };
+struct Factory_239f10 { Node* FUN_002367f0(unsigned __int64 id); };
 extern void __cdecl FUN_00232cc0(Reader*, const char*);
 extern unsigned int __cdecl FUN_00238190(int);
 extern unsigned int __cdecl FUN_00266da0(unsigned int);
-struct List { Node* head; bool FUN_00239f10(Factory*, Reader*, int); };
-bool List::FUN_00239f10(Factory* factory, Reader* reader, int index) {
+struct List_239f10 { Node* head; bool FUN_00239f10(Factory_239f10*, Reader*, int); };
+bool List_239f10::FUN_00239f10(Factory_239f10* factory, Reader* reader, int index) {
  Node* current = head;
  Node* previous = 0;
  int position = 0;

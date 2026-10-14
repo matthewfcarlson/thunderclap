@@ -4,52 +4,52 @@
 int __cdecl FUN_00096600(const char* a, const char* b);
 unsigned __int64 __cdecl FUN_002672f0(const char* name, int a, int b);
 
-struct Pawn {
+struct Pawn_25f10 {
     char pad[0x1ca0];
-    struct Ctl* ctl;
+    struct Ctl_25f10* ctl;
     char pad2[0];
     char FUN_00035ab0();
 };
-struct Ctl {
+struct Ctl_25f10 {
     char pad[0xf4];
     char flag;
 };
 struct Pawns {
-    Pawn* FUN_00059c10(int id);
+    Pawn_25f10* FUN_00059c10(int id);
 };
 struct World {
     char pad[0x44];
     Pawns* pawns;
 };
 
-class Group {
+class Group_25f10 {
 public:
     World* world;
     int pad04[2];
     int count;
     int ids[16];
-    Pawn* FUN_00024280(unsigned __int64 key);
+    Pawn_25f10* FUN_00024280(unsigned __int64 key);
     void SetFlag(const char* name, char flag);
 };
 
-void Group::SetFlag(const char* name, char flag)
+void Group_25f10::SetFlag(const char* name, char flag)
 {
     if (name == 0 || *name == 0)
         return;
 
     if (FUN_00096600(name, "all") == 0) {
         for (int i = 0; i < count; i++) {
-            Pawn* p = world->pawns->FUN_00059c10(ids[i]);
+            Pawn_25f10* p = world->pawns->FUN_00059c10(ids[i]);
             if (p == 0 || p->FUN_00035ab0() == 0) {
-                Ctl* c = p->ctl;
+                Ctl_25f10* c = p->ctl;
                 if (c != 0)
                     c->flag = flag;
             }
         }
     } else {
-        Pawn* p = FUN_00024280(FUN_002672f0(name, 0, 0));
+        Pawn_25f10* p = FUN_00024280(FUN_002672f0(name, 0, 0));
         if (p != 0) {
-            Ctl* c = p->ctl;
+            Ctl_25f10* c = p->ctl;
             if (c != 0)
                 c->flag = flag;
         }

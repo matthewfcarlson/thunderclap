@@ -32,7 +32,7 @@ public:
     virtual void vfunc_10();
 };
 
-struct Frame {
+struct Frame_2ad820 {
     int pad0c;
     int width;
     int height;
@@ -46,7 +46,7 @@ struct Frame {
 // equiv-conv: FUN_002ad820 eax stack stack
 void FUN_002ad820(PngInfo *info, PngRead *png, TextureSink *sink)
 {
-    Frame f;
+    Frame_2ad820 f;
     f.width = FUN_002d7ed0(png, info);
     f.height = FUN_002d7ef0(png, info);
     f.paletteCount = 0;

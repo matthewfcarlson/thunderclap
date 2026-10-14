@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // CActorGolem::vfunc_3 @ 0x000fe460
 struct IVec3 { int x, y, z; };
-struct Inner { char pad[0x40]; IVec3 v40; };
-struct Sub {
+struct Inner_fe460 { char pad[0x40]; IVec3 v40; };
+struct Sub_fe460 {
     char pad0[8];
-    Inner *p8;
+    Inner_fe460 *p8;
     char pad1[0x14 - 0xc];
     float f14;
     char pad2[0x34 - 0x18];
@@ -19,11 +19,11 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3(int a1, float t);
     char pad04[0x58 - 4];
-    Sub sub;
+    Sub_fe460 sub;
 };
 void CActorGolem::vfunc_3(int a1, float t)
 {
-    Sub *s = &sub;
+    Sub_fe460 *s = &sub;
     if (sub.p8 != 0) {
         IVec3 v = sub.p8->v40;
         s->FUN_000fe300(&v, 1, 0, 0, t);

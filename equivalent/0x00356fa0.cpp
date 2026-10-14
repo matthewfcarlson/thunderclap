@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00356fa0 @ 0x00356fa0
-struct Grad {
+struct Grad_356fa0 {
     float x, y, z;
 };
 
 extern int DAT_0056bfc8[];
-extern Grad DAT_0056c7d0[];
+extern Grad_356fa0 DAT_0056c7d0[];
 
 float __stdcall FUN_00356fa0(float *p)
 {
@@ -40,14 +40,14 @@ float __stdcall FUN_00356fa0(float *p)
     float u = (float)((3.0f - (fx + fx)) * fx * fx);
     float v = (float)((3.0f - (fy + fy)) * fy * fy);
 
-    const Grad &g000 = DAT_0056c7d0[zi + aa];
-    const Grad &g100 = DAT_0056c7d0[zi + ba];
-    const Grad &g010 = DAT_0056c7d0[zi + ab];
-    const Grad &g110 = DAT_0056c7d0[zi + bb];
-    const Grad &g001 = DAT_0056c7d0[zi1 + aa];
-    const Grad &g101 = DAT_0056c7d0[zi1 + ba];
-    const Grad &g011 = DAT_0056c7d0[zi1 + ab];
-    const Grad &g111 = DAT_0056c7d0[zi1 + bb];
+    const Grad_356fa0 &g000 = DAT_0056c7d0[zi + aa];
+    const Grad_356fa0 &g100 = DAT_0056c7d0[zi + ba];
+    const Grad_356fa0 &g010 = DAT_0056c7d0[zi + ab];
+    const Grad_356fa0 &g110 = DAT_0056c7d0[zi + bb];
+    const Grad_356fa0 &g001 = DAT_0056c7d0[zi1 + aa];
+    const Grad_356fa0 &g101 = DAT_0056c7d0[zi1 + ba];
+    const Grad_356fa0 &g011 = DAT_0056c7d0[zi1 + ab];
+    const Grad_356fa0 &g111 = DAT_0056c7d0[zi1 + bb];
 
     double d000 = fz * g000.z + fy * g000.y + fx * g000.x;
     double d100 = fz * g100.z + fy * g100.y + fx1 * g100.x;

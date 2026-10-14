@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 24/24)
 // CSmartPropUpdateAttachmentAction::vfunc_4 @ 0x0001ed60
-struct Vec3 {
+struct Vec3_1ed60 {
     float x, y, z;
     float FUN_0022d110();
 };
 
 struct Matrix {
     float m[12];
-    Vec3 trans;
+    Vec3_1ed60 trans;
     float w;
     void FUN_0022b980();
     void FUN_0022bc20(float x, float y, float z);
@@ -22,7 +22,7 @@ public:
     Matrix mat;
 };
 
-class Prop {
+class Prop_1ed60 {
 public:
     virtual void v0();
     virtual void v1();
@@ -45,36 +45,36 @@ public:
     Entity *FUN_001d72e0();
 };
 
-struct Finder {
+struct Finder_1ed60 {
     int FUN_0027b200(unsigned __int64 key);
 };
 
-struct Table {
+struct Table_1ed60 {
     char pad0[8];
-    Finder *finder;
+    Finder_1ed60 *finder;
     char pad1[0x1c - 0x0c];
     Matrix *mats;
 };
 
-struct Scene {
+struct Scene_1ed60 {
     char pad[0x64];
-    Table *table;
+    Table_1ed60 *table;
 };
 
-struct Stats {
-    void FUN_0003acf0(int a, Prop *b, int c, int d, int e, Matrix *f);
+struct Stats_1ed60 {
+    void FUN_0003acf0(int a, Prop_1ed60 *b, int c, int d, int e, Matrix *f);
 };
 
-struct Fighter {
-    Stats *FUN_00059a30();
-    Scene *FUN_00059a40();
+struct Fighter_1ed60 {
+    Stats_1ed60 *FUN_00059a30();
+    Scene_1ed60 *FUN_00059a40();
 };
 
-struct Owner {
-    Fighter *FUN_000592a0();
+struct Owner_1ed60 {
+    Fighter_1ed60 *FUN_000592a0();
 };
 
-struct Config {
+struct Config_1ed60 {
     char pad0[0x14];
     int f14;
     unsigned __int64 key;
@@ -82,18 +82,18 @@ struct Config {
     int f24;
     char flag28;
     char pad29[0x2c - 0x29];
-    Vec3 pos2;
-    Vec3 pos3;
+    Vec3_1ed60 pos2;
+    Vec3_1ed60 pos3;
     float f44;
 };
 
-struct Frame {
-    Vec3 L;
+struct Frame_1ed60 {
+    Vec3_1ed60 L;
     float s;
-    Vec3 T2;
+    Vec3_1ed60 T2;
     int c20;
     int c24;
-    Stats *stats;
+    Stats_1ed60 *stats;
     Matrix M;
     Matrix N;
     Matrix Q;
@@ -107,9 +107,9 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     char pad04[0x1c - 4];
-    Owner *owner;
-    Config *cfg;
-    Prop *prop;
+    Owner_1ed60 *owner;
+    Config_1ed60 *cfg;
+    Prop_1ed60 *prop;
 };
 
 void CSmartPropUpdateAttachmentAction::vfunc_4()
@@ -123,12 +123,12 @@ void CSmartPropUpdateAttachmentAction::vfunc_4()
     if (prop->state == 2 || prop->state == 3)
         return;
 
-    Frame fr;
+    Frame_1ed60 fr;
     int idx = 0xffff;
-    Table *tbl = 0;
-    Fighter *fighter = owner->FUN_000592a0();
+    Table_1ed60 *tbl = 0;
+    Fighter_1ed60 *fighter = owner->FUN_000592a0();
     fr.stats = fighter->FUN_00059a30();
-    Scene *sc = fighter->FUN_00059a40();
+    Scene_1ed60 *sc = fighter->FUN_00059a40();
     if (sc) {
         tbl = sc->table;
         if (tbl)
@@ -138,9 +138,9 @@ void CSmartPropUpdateAttachmentAction::vfunc_4()
     fr.c20 = cfg->f20;
     if (cfg->flag28) {
         fr.M.FUN_0022b980();
-        Vec3 *v = &cfg->pos3;
+        Vec3_1ed60 *v = &cfg->pos3;
         fr.M.FUN_0022bc20(v->x, v->y, v->z);
-        Vec3 *p = &cfg->pos2;
+        Vec3_1ed60 *p = &cfg->pos2;
         fr.L = *p;
         fr.M.trans = *p;
     } else {

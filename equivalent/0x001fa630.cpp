@@ -4,7 +4,7 @@ inline void *operator new(unsigned int, void *p) { return p; }
 void *FUN_0008d690(unsigned int size);
 extern const char DAT_003f335c[];
 
-class Pool {
+class Pool_1fa630 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -12,23 +12,23 @@ public:
 
 struct EncObj {
     char pad0[0x18];
-    Pool *pool;
+    Pool_1fa630 *pool;
     void FUN_00230b60();
 };
 
-struct Tracker {
+struct Tracker_1fa630 {
     void FUN_001d1900(int id);
 };
 
-struct NameHolder {
+struct NameHolder_1fa630 {
     char pad[8];
     void FUN_0027af00();
     void FUN_0027b040(const char *name);
 };
 
-Tracker *__cdecl FUN_001d4c90();
+Tracker_1fa630 *__cdecl FUN_001d4c90();
 void __cdecl FUN_00267760(char *dst, int size, const char *src);
-void __cdecl FUN_002702a0(Pool **out, int a, int b, int c, int d, const char *name, int e);
+void __cdecl FUN_002702a0(Pool_1fa630 **out, int a, int b, int c, int d, const char *name, int e);
 
 struct ElemA {
     int f0, f4, f8, fc, f10, f14, f18, f1c, f20;
@@ -56,7 +56,7 @@ public:
         int f8;
         char name[0x20];
         char pad2c[4];
-        NameHolder holder;
+        NameHolder_1fa630 holder;
         char b38;
         char b39;
         char pad3a[6];
@@ -118,19 +118,19 @@ CEncounterGenerator::CEncounterGenerator()
         e->f18 = 0;
         e->f1c = 0;
         e->b24 = 0;
-        Tracker *t = FUN_001d4c90();
+        Tracker_1fa630 *t = FUN_001d4c90();
         t->FUN_001d1900(*(volatile int *)&e->f20);
         e->f20 = -1;
     }
     for (i = 0; i < 16; i++)
         new (elemsB + i * 0x58) CEncounter();
 
-    Pool *pool;
+    Pool_1fa630 *pool;
     bool held = false;
     FUN_002702a0(&pool, 0x28, 0x100, 0, 0, "encounterGenerator: Memory Map Pool", 4);
     EncObj *obj = (EncObj *)FUN_0008d690(0x1c);
     if (obj) {
-        Pool *p = pool;
+        Pool_1fa630 *p = pool;
         held = true;
         p->AddRef();
         obj->pool = p;

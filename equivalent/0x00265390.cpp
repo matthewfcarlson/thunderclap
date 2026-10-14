@@ -2,43 +2,43 @@
 // FUN_00265390 @ 0x00265390
 extern "C" char *strrchr(const char *s, int c);
 
-struct Sink {
+struct Sink_265390 {
     virtual void vfn0();
     virtual void vfn1();
     virtual void vfn2();
-    virtual void vfn3(const char *name, struct Job *job);
+    virtual void vfn3(const char *name, struct Job_265390 *job);
 };
-struct Local {
+struct Local_265390 {
     char data[0x18];
     void FUN_00231160(int v);
-    Sink *FUN_00231180(long long v);
+    Sink_265390 *FUN_00231180(long long v);
 };
-struct Job {
+struct Job_265390 {
     virtual void vfn0();
     virtual void vfn1();
     int FUN_00266710();
     void FUN_00266950(int v);
     const char *FUN_002666d0();
 };
-struct Entry {
-    Job *job;
+struct Entry_265390 {
+    Job_265390 *job;
     int arg;
 };
 long long FUN_00267340(const char *s, int a, int b);
 void FUN_00266da0(int v);
 
-class Queue {
+class Queue_265390 {
 public:
     char pad0;
     char stop;                // 0x1
     char pad1[6];
-    Job *current;             // 0x8
+    Job_265390 *current;             // 0x8
     int fc;
     char pad2[4];
-    Entry *head;              // 0x14
-    Entry *tail;              // 0x18
-    Entry *begin;             // 0x1c
-    Entry *end;               // 0x20
+    Entry_265390 *head;              // 0x14
+    Entry_265390 *tail;              // 0x18
+    Entry_265390 *begin;             // 0x1c
+    Entry_265390 *end;               // 0x20
     char pad3[4];
     int *ringHead;            // 0x28
     int *ringTail;            // 0x2c
@@ -48,7 +48,7 @@ public:
     void FUN_00265390();
 };
 
-void Queue::FUN_00265390()
+void Queue_265390::FUN_00265390()
 {
     while (!stop) {
         int count;
@@ -59,7 +59,7 @@ void Queue::FUN_00265390()
         if (count == 0) {
             FUN_00264d20();
         } else {
-            Job *job = head->job;
+            Job_265390 *job = head->job;
             int arg = head->arg;
             if (tail >= end)
                 tail = head;
@@ -83,9 +83,9 @@ void Queue::FUN_00265390()
                     current->FUN_00266950(2);
                     const char *ext = strrchr(job->FUN_002666d0(), '.');
                     long long key = FUN_00267340(ext + 1, 0, 0);
-                    Local local;
+                    Local_265390 local;
                     local.FUN_00231160(fc);
-                    Sink *sink = local.FUN_00231180(key);
+                    Sink_265390 *sink = local.FUN_00231180(key);
                     FUN_00266da0(*(int *)((const char *)job->FUN_002666d0() + 0x108));
                     sink->vfn3(job->FUN_002666d0(), job);
                     if (current->FUN_00266710() == 2)

@@ -1,24 +1,24 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001ebbc0 @ 0x001ebbc0
-struct Path {
+struct Path_1ebbc0 {
  char storage[72];
  void FUN_001ef320();
  void FUN_001ef370(const char*);
  void FUN_001ef350();
 };
-struct Actor { char pad[8]; char position[32]; unsigned flags; };
+struct Actor_1ebbc0 { char pad[8]; char position[32]; unsigned flags; };
 struct Context { void* FUN_00086310(); };
-struct Audio { void FUN_001efe20(Path*, void*, const char*, float); };
-struct Manager { Audio* audio; char pad[4]; unsigned char enabled; };
-extern Manager* DAT_004e36d8;
-extern void __cdecl FUN_001eb440(void*, Path*);
-struct Owner {
+struct Audio_1ebbc0 { void FUN_001efe20(Path_1ebbc0*, void*, const char*, float); };
+struct Manager_1ebbc0 { Audio_1ebbc0* audio; char pad[4]; unsigned char enabled; };
+extern Manager_1ebbc0* DAT_004e36d8;
+extern void __cdecl FUN_001eb440(void*, Path_1ebbc0*);
+struct Owner_1ebbc0 {
  char pad[4]; Context* context;
- void target(Actor*, const char*);
+ void target(Actor_1ebbc0*, const char*);
 };
-void Owner::target(Actor* actor, const char* text) {
+void Owner_1ebbc0::target(Actor_1ebbc0* actor, const char* text) {
  if (!actor || !text || !*text) return;
- Path path;
+ Path_1ebbc0 path;
  path.FUN_001ef320();
  path.FUN_001ef370("Objects");
  path.FUN_001ef370("Dialogue");

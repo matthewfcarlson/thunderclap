@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 167 inputs, branch coverage 35/36, incomplete)
 // FUN_0030a9d0 @ 0x0030a9d0
-struct Vec3 {
+struct Vec3_30a9d0 {
     float x, y, z;
-    void FUN_000111b0(Vec3* a, Vec3* b);
+    void FUN_000111b0(Vec3_30a9d0* a, Vec3_30a9d0* b);
 };
 
-struct Elem {
+struct Elem_30a9d0 {
     char pad00[4];
-    Vec3 p4;
-    Vec3 p10;
+    Vec3_30a9d0 p4;
+    Vec3_30a9d0 p10;
     char pad1c[0x64 - 0x1c];
     void FUN_002fd730();
 };
 
-struct Table {
+struct Table_30a9d0 {
     char pad00[0x8c];
-    Elem* elems;
+    Elem_30a9d0* elems;
 };
 
 struct Node {
@@ -25,27 +25,27 @@ struct Node {
     Node* next;
 };
 
-struct Owner {
+struct Owner_30a9d0 {
     char pad00[0x10];
-    Table* table;
+    Table_30a9d0* table;
     char pad14[0x98 - 0x14];
-    Vec3 pos98;
+    Vec3_30a9d0 pos98;
     char padA4[0x214 - 0xa4];
     Node* list;
     char pad218[0x224 - 0x218];
     float f224;
 };
 
-struct Link {
+struct Link_30a9d0 {
     char pad00[0xd4];
-    Vec3 pos;
+    Vec3_30a9d0 pos;
 };
 
 extern float DAT_004d3180;
 
-class Body;
+class Body_30a9d0;
 
-class Body {
+class Body_30a9d0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -69,35 +69,35 @@ public:
     virtual void v19();
     virtual void v20();
     virtual void v21();
-    virtual void v22(Vec3* out);
+    virtual void v22(Vec3_30a9d0* out);
     virtual void v23();
-    virtual void v24(Vec3* v);
+    virtual void v24(Vec3_30a9d0* v);
     virtual void v25();
-    virtual char v26(Vec3* c, Vec3* v);
+    virtual char v26(Vec3_30a9d0* c, Vec3_30a9d0* v);
     char b4;
     char pad05;
     short w6;
     int f8;
     char pad0c[0x18 - 0xc];
-    Owner* owner;
-    Link* link;
-    Body** childBegin;
-    Body** childEnd;
+    Owner_30a9d0* owner;
+    Link_30a9d0* link;
+    Body_30a9d0** childBegin;
+    Body_30a9d0** childEnd;
     char pad28[0x80 - 0x28];
-    Vec3 v80;
+    Vec3_30a9d0 v80;
     char pad8c[0xd4 - 0x8c];
-    Vec3 pos;
+    Vec3_30a9d0 pos;
     char pade0[0xe8 - 0xe0];
     float fe8;
     char bec;
-    void FUN_0030a9d0(Vec3 a, Vec3 b, char flag);
+    void FUN_0030a9d0(Vec3_30a9d0 a, Vec3_30a9d0 b, char flag);
 };
 
-void Body::FUN_0030a9d0(Vec3 a, Vec3 b, char flag)
+void Body_30a9d0::FUN_0030a9d0(Vec3_30a9d0 a, Vec3_30a9d0 b, char flag)
 {
     struct Frame {
-        Vec3 c;
-        Vec3 v;
+        Vec3_30a9d0 c;
+        Vec3_30a9d0 v;
         float dx;
         float spare[2];
     } f;
@@ -115,11 +115,11 @@ void Body::FUN_0030a9d0(Vec3 a, Vec3 b, char flag)
     double dy = pos.y - py;
     double dz = pos.z - f.v.z;
     float dx = f.dx;
-    Vec3& c = f.c;
+    Vec3_30a9d0& c = f.c;
     c.x = b.y * dz - b.z * dy;
     c.y = b.z * dx - dz * b.x;
     c.z = dy * b.x - b.y * dx;
-    Elem* e = owner->table->elems + f8;
+    Elem_30a9d0* e = owner->table->elems + f8;
     a.x = c.x + a.x;
     a.y = a.y + c.y;
     a.z = a.z + c.z;
@@ -145,14 +145,14 @@ void Body::FUN_0030a9d0(Vec3 a, Vec3 b, char flag)
     }
     if (b4) {
         if (!bec && !flag && w6 > 0 && (void*)this != (void*)owner->list) {
-            Owner* o = owner;
+            Owner_30a9d0* o = owner;
             c.FUN_000111b0(&b, &v80);
             c.x = c.x + a.x;
             c.y = a.y + c.y;
             c.z = a.z + c.z;
             float k = DAT_004d3180 * o->f224;
             if (c.z * c.z + c.y * c.y + c.x * c.x > k * k) {
-                Vec3& v = f.v;
+                Vec3_30a9d0& v = f.v;
                 if (v26(&c, &v)) {
                     b.x = v.x + b.x;
                     b.y = v.y + b.y;
@@ -162,7 +162,7 @@ void Body::FUN_0030a9d0(Vec3 a, Vec3 b, char flag)
             }
         }
         if (fe8 > 0.0f || bec) {
-            Vec3& v = f.v;
+            Vec3_30a9d0& v = f.v;
             v22(&v);
             v23();
             fe8 = 0.0f;
@@ -171,7 +171,7 @@ void Body::FUN_0030a9d0(Vec3 a, Vec3 b, char flag)
             b.z = v.z + b.z;
         }
     }
-    Elem* e2 = owner->table->elems + f8;
+    Elem_30a9d0* e2 = owner->table->elems + f8;
     e2->FUN_002fd730();
     e2->p10.x = b.x + e2->p10.x;
     e2->p10.y = b.y + e2->p10.y;

@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 19/22, incomplete)
 // hulkfight::motion::TargetHealthPercentCondition::vfunc_6 @ 0x00168b30
 struct Health { char pad[0x1b0c]; float current; float maximum; };
-struct Target { char pad[8]; Health* health; int kind; };
-struct Actor { char pad[0x328]; Target* target; };
-struct ContextActor { Actor* FUN_00059a30(); };
+struct Target_168b30 { char pad[8]; Health* health; int kind; };
+struct Actor_168b30 { char pad[0x328]; Target_168b30* target; };
+struct ContextActor { Actor_168b30* FUN_00059a30(); };
 struct Context { ContextActor* FUN_000592a0(); };
 extern bool __cdecl FUN_00018960(float, float, float);
 namespace hulkfight { namespace motion {
@@ -13,7 +13,7 @@ struct TargetHealthPercentCondition {
  char pad[8]; unsigned comparison; float threshold;
 };
 bool TargetHealthPercentCondition::vfunc_6(void*, Context* context, void*) {
- Target* target = context->FUN_000592a0()->FUN_00059a30()->target;
+ Target_168b30* target = context->FUN_000592a0()->FUN_00059a30()->target;
  if (!target || !target->health || target->kind != 1) return false;
  float maximum = target->health->maximum;
  union { float f; unsigned u; } magnitude;

@@ -1,47 +1,47 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1443 inputs, branch coverage 77/92, incomplete)
 // FUN_00038660 @ 0x00038660
-struct V3 {
+struct V3_38660 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Rng {
+struct Rng_38660 {
     int FUN_00011380(int a, int b);
 };
-Rng *FUN_000964d0();
+Rng_38660 *FUN_000964d0();
 
 struct Rc {
     char pad0[0xc];
     int f0c;
 };
 
-struct Sub74 {
+struct Sub74_38660 {
     char pad0[0x72];
     char b72;
 };
-struct Sub {
+struct Sub_38660 {
     char pad0[0x74];
-    Sub74 *p74;
+    Sub74_38660 *p74;
 };
-struct Link {
+struct Link_38660 {
     char pad0[0x74];
-    Sub74 *p74;
+    Sub74_38660 *p74;
 };
-struct Ent {
-    Sub *FUN_001d72e0();
+struct Ent_38660 {
+    Sub_38660 *FUN_001d72e0();
 };
 
-struct Player {
+struct Player_38660 {
     char pad0[0x124];
     void *f124;
 };
-struct Hub {
+struct Hub_38660 {
     char pad0[0x20];
-    Player *p20;
+    Player_38660 *p20;
 };
-extern Hub *DAT_004dd700;
+extern Hub_38660 *DAT_004dd700;
 
-struct Slot {
+struct Slot_38660 {
     float x0, y0, z0;
     float x1, y1, z1;
     float x2, y2, z2;
@@ -51,7 +51,7 @@ struct Slot {
     char pad35[3];
 };
 
-struct Opts {
+struct Opts_38660 {
     float a;
     int flag;
     float c;
@@ -60,55 +60,55 @@ struct Opts {
 void FUN_000187d0(Rc **slot);
 void FUN_00018810(Rc **slot, int z);
 char FUN_00018960(float a, float b, float eps);
-void FUN_00224d70(float angle, V3 *v);
-float FUN_00224f10(V3 *v);
-char FUN_00202560(V3 *from, int a2, int flag, V3 *a3, V3 *a4, V3 *o38, V3 *o48, Opts *opts);
+void FUN_00224d70(float angle, V3_38660 *v);
+float FUN_00224f10(V3_38660 *v);
+char FUN_00202560(V3_38660 *from, int a2, int flag, V3_38660 *a3, V3_38660 *a4, V3_38660 *o38, V3_38660 *o48, Opts_38660 *opts);
 extern "C" int __cdecl FUN_0034483c();
 
-class Mover {
+class Mover_38660 {
 public:
     char pad0[0x128];
-    Ent *p128;
-    Link *p12c;
+    Ent_38660 *p128;
+    Link_38660 *p12c;
     char pad130[0x334 - 0x130];
     void *f334;
     void *f338;
     char pad33c[0x1ea8 - 0x33c];
-    Slot slots[3];
+    Slot_38660 slots[3];
     void FUN_00035fa0(int z);
-    char F(V3 *a1, int a2, V3 *a3, V3 *a4, V3 *a5, int *a6, int idx, char *a8, V3 *a9);
+    char F(V3_38660 *a1, int a2, V3_38660 *a3, V3_38660 *a4, V3_38660 *a5, int *a6, int idx, char *a8, V3_38660 *a9);
 };
 
-char Mover::F(V3 *a1, int a2, V3 *a3, V3 *a4, V3 *a5, int *a6, int idx, char *a8, V3 *a9)
+char Mover_38660::F(V3_38660 *a1, int a2, V3_38660 *a3, V3_38660 *a4, V3_38660 *a5, int *a6, int idx, char *a8, V3_38660 *a9)
 {
     struct Frame {
-        Opts opts;
-        V3 D;
-        V3 Fp;
-        V3 o38;
+        Opts_38660 opts;
+        V3_38660 D;
+        V3_38660 Fp;
+        V3_38660 o38;
         int pad44;
-        V3 o48;
+        V3_38660 o48;
     } fr;
     char result;
     char isPlayer;
     char *flagOut;
 
     if (p12c) {
-        Sub74 *x = p12c->p74;
+        Sub74_38660 *x = p12c->p74;
         if (x)
             x->b72 = 0;
     }
     if (p128) {
-        Sub *r = p128->FUN_001d72e0();
+        Sub_38660 *r = p128->FUN_001d72e0();
         if (r) {
-            Sub74 *y = r->p74;
+            Sub74_38660 *y = r->p74;
             if (y)
                 y->b72 = 0;
         }
     }
     FUN_00035fa0(0);
     if (idx >= 0 && idx < 3) {
-        Slot *s = &slots[idx];
+        Slot_38660 *s = &slots[idx];
         if (s->flag != 0) {
             Rc *rc = s->ptr;
             if (rc != 0 && rc->f0c == 0) {
@@ -130,7 +130,7 @@ char Mover::F(V3 *a1, int a2, V3 *a3, V3 *a4, V3 *a5, int *a6, int idx, char *a8
     }
     fr.opts.c = tol2;
     if (idx >= 0 && idx < 3 && slots[idx].flag) {
-        Slot *s = &slots[idx];
+        Slot_38660 *s = &slots[idx];
         union { float f; unsigned int u; } t;
         t.f = a1->x - s->x0;
         t.u &= 0x7fffffff;
@@ -219,7 +219,7 @@ char Mover::F(V3 *a1, int a2, V3 *a3, V3 *a4, V3 *a5, int *a6, int idx, char *a8
         }
     success:
         if (*(int *)&fr.o48.x == 0 && idx >= 0 && idx < 3) {
-            Slot *s = &slots[idx];
+            Slot_38660 *s = &slots[idx];
             s->flag = 1;
             s->x0 = a1->x;
             s->y0 = a1->y;
@@ -246,14 +246,14 @@ char Mover::F(V3 *a1, int a2, V3 *a3, V3 *a4, V3 *a5, int *a6, int idx, char *a8
 epilogue:
     FUN_00035fa0(1);
     if (p12c) {
-        Sub74 *x = p12c->p74;
+        Sub74_38660 *x = p12c->p74;
         if (x)
             x->b72 = 1;
     }
     if (p128) {
-        Sub *r = p128->FUN_001d72e0();
+        Sub_38660 *r = p128->FUN_001d72e0();
         if (r) {
-            Sub74 *y = r->p74;
+            Sub74_38660 *y = r->p74;
             if (y)
                 y->b72 = 1;
         }

@@ -2,25 +2,25 @@
 // FUN_001d1360 @ 0x001d1360
 int __cdecl FUN_00096600(const char *a, const char *b);
 
-struct Item {
-    virtual ~Item() throw();
+struct Item_1d1360 {
+    virtual ~Item_1d1360() throw();
     char pad[4];
     const char *name;          // 0x8
 };
 
-struct Key {
+struct Key_1d1360 {
     char pad[8];
     const char *name;          // 0x8
 };
 
-class ItemList {
+class ItemList_1d1360 {
 public:
-    Item *items[0x400];
+    Item_1d1360 *items[0x400];
     int count;                 // 0x1000
-    bool FUN_001d1360(Key *key);
+    bool FUN_001d1360(Key_1d1360 *key);
 };
 
-bool ItemList::FUN_001d1360(Key *key)
+bool ItemList_1d1360::FUN_001d1360(Key_1d1360 *key)
 {
     const char *want = key->name;
     if (want == 0 || *want == 0)

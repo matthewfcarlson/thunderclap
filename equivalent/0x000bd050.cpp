@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000bd050 @ 0x000bd050
-class Screen {
+class Screen_bd050 {
   public:
     virtual void v0();
     virtual void v1();
@@ -62,7 +62,7 @@ class Screen {
     virtual void v57();
     virtual void v58(int on);
 };
-class Layer {
+class Layer_bd050 {
   public:
     virtual void v0();
     virtual void v1();
@@ -87,7 +87,7 @@ class Layer {
     virtual void v20();
     virtual void v21(int arg);
 };
-class Viewport {
+class Viewport_bd050 {
   public:
     virtual void v0();
     virtual void v1();
@@ -98,11 +98,11 @@ class Viewport {
     virtual int v6();
     virtual int v7();
 };
-class Label {
+class Label_bd050 {
   public:
     void FUN_000f7d60(char* text, int a, float b, int c, int d, int e);
 };
-class TextManager {
+class TextManager_bd050 {
   public:
     virtual void v0();
     virtual void v1();
@@ -148,26 +148,26 @@ class TextManager {
     virtual void v41();
     virtual void v42();
     virtual void v43();
-    virtual Label* v44();
+    virtual Label_bd050* v44();
 };
 struct Canvas {
-    Layer* layer;
+    Layer_bd050* layer;
     void FUN_00293d40(float x, float y, float z);
     void FUN_00293da0(float x, float y, float z);
 };
-class MenuScreen {
+class MenuScreen_bd050 {
   public:
     void FUN_000bc900(char* out, int a, const char* name, int b);
     void FUN_000bd050();
 };
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
-extern Screen* DAT_0052c2a8;
+extern Screen_bd050* DAT_0052c2a8;
 extern Canvas* DAT_0052c2ac;
-extern Viewport* DAT_0052c2a4;
-TextManager* FUN_000fc3d0();
+extern Viewport_bd050* DAT_0052c2a4;
+TextManager_bd050* FUN_000fc3d0();
 
-void MenuScreen::FUN_000bd050() {
+void MenuScreen_bd050::FUN_000bd050() {
     volatile unsigned int cookie = DAT_004d9968;
     char text[0x200];
     int saved = DAT_0052c2a8->v25();

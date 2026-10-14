@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002d1b00 @ 0x002d1b00
-struct Particle {
+struct Particle_2d1b00 {
  float x,y,z;
  char pad0[0x20-12];
  float vx,vy,vz;
@@ -9,7 +9,7 @@ struct Particle {
  short factor;
  void FUN_0022d260(void* transform);
 };
-struct Emitter {
+struct Emitter_2d1b00 {
  char pad0[0xe0];
  float x,y,z;
  char pad1[0x140-0xec];
@@ -19,7 +19,7 @@ struct Emitter {
  char pad3[4];
  float speed;
 };
-void __cdecl FUN_002d1b00(float dt, Emitter* emitter, Particle* particle) {
+void __cdecl FUN_002d1b00(float dt, Emitter_2d1b00* emitter, Particle_2d1b00* particle) {
  float speed = emitter->speed;
  particle->acceleration = (float)particle->factor * emitter->accelerationScale * 0.00390625f * dt + particle->acceleration;
  float x = speed * particle->vx * dt + particle->x;

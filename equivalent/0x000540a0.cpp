@@ -21,25 +21,25 @@ template<class T> struct ParamEnumConstList {
 };
 }
 class CMotionHitCondition;
-typedef fight::ParamEnumConstList<CMotionHitCondition> Entry;
-void __cdecl FUN_002347b0(void*,Entry**,int);
+typedef fight::ParamEnumConstList<CMotionHitCondition> Entry_540a0;
+void __cdecl FUN_002347b0(void*,Entry_540a0**,int);
 void __cdecl target() {
  if (DAT_004dc52c == 0) {
-  Entry* entries[2];
-  Entry* p = (Entry*)FUN_0008d690(32);
+  Entry_540a0* entries[2];
+  Entry_540a0* p = (Entry_540a0*)FUN_0008d690(32);
   if (p) {
    int n = DAT_00427760;
    p->FUN_00234cc0("compare");
-   new (p) Entry;
+   new (p) Entry_540a0;
    p->count=n;
    p->values=&DAT_00427758;
    p->callback=FUN_00048060;
   }
   entries[0]=p;
-  p=(Entry*)FUN_0008d690(32);
+  p=(Entry_540a0*)FUN_0008d690(32);
   if (p) {
    p->FUN_00234cc0("motionHit");
-   new (p) Entry;
+   new (p) Entry_540a0;
    p->values=&DAT_0048f9c0;
    p->count=5;
    p->callback=FUN_00048070;

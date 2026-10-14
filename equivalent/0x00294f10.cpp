@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00294f10 @ 0x00294f10
-struct Rect {
+struct Rect_294f10 {
     float l, t, r, b;
 };
 
-struct Source {
+struct Source_294f10 {
     char pad0[0x18];
-    Rect uv;
+    Rect_294f10 uv;
 };
 
-struct VertexSink {
+struct VertexSink_294f10 {
     char pad0[8];
     float *pos;
     char pad0c[4];
@@ -18,16 +18,16 @@ struct VertexSink {
     void FUN_0008ef00();
 };
 
-class Quad {
+class Quad_294f10 {
 public:
     char pad0[0x18];
     float height;
     char pad1c[0x24 - 0x1c];
     unsigned int color;
-    void Emit(VertexSink *out, Source *src, float x, float w);
+    void Emit(VertexSink_294f10 *out, Source_294f10 *src, float x, float w);
 };
 
-void Quad::Emit(VertexSink *out, Source *src, float x, float w)
+void Quad_294f10::Emit(VertexSink_294f10 *out, Source_294f10 *src, float x, float w)
 {
     float h = height;
     float uv0 = src->uv.l;

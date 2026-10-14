@@ -1,20 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 8/8)
 // FUN_00335cc0 @ 0x00335cc0
 // 0x00335cc0: read three words of element `stride`-th record from a type-9 entry with a type-6 layout
-struct Layout {
+struct Layout_335cc0 {
     int kind;
 };
 
-struct Info {
+struct Info_335cc0 {
     char pad00[8];
     int type;
-    Layout* layout;
+    Layout_335cc0* layout;
 };
 
-struct Table {
+struct Table_335cc0 {
     char pad00[0x44];
     int count;
-    Info* FUN_00337090(int index);
+    Info_335cc0* FUN_00337090(int index);
 };
 
 int __cdecl FUN_00337f20(int kind);
@@ -22,7 +22,7 @@ int __cdecl FUN_00337f20(int kind);
 class Reader {
 public:
     char pad00[4];
-    Table* table;
+    Table_335cc0* table;
     int* records;
     bool FUN_00335cc0(int index, int stride, int* out0, int* out1, int* out2);
 };

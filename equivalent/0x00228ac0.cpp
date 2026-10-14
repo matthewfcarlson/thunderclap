@@ -2,26 +2,26 @@
 // FUN_00228ac0 @ 0x00228ac0
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_228ac0 {
     float x, y, z;
 };
 
-class Anim {
+class Anim_228ac0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual void vfunc_5(int a, float t, Vec3 *out);
+    virtual void vfunc_5(int a, float t, Vec3_228ac0 *out);
 };
 
 class Channel {
 public:
-    Anim *FUN_00288960(int tagA, int tagB);
+    Anim_228ac0 *FUN_00288960(int tagA, int tagB);
 };
 
-class Obj {
+class Obj_228ac0 {
 public:
     virtual void vfunc_0();
     char pad04[0xc];
@@ -32,45 +32,45 @@ public:
     Channel *FUN_00288ad0(int lo, int hi);
 };
 
-struct Key {
+struct Key_228ac0 {
     int lo;
     int hi;
 };
 
-struct Info {
+struct Info_228ac0 {
     char pad0[0x10];
     unsigned int count;
     char pad14[0x24 - 0x14];
-    Key *keys;
+    Key_228ac0 *keys;
 };
 
-struct Entry {
-    Anim *trans;
+struct Entry_228ac0 {
+    Anim_228ac0 *trans;
     Channel *rot;
 };
 
-struct Slot {
-    Obj *obj;
-    Entry entries[0x40];
+struct Slot_228ac0 {
+    Obj_228ac0 *obj;
+    Entry_228ac0 entries[0x40];
     int f204;
 };
 
-class Blender {
+class Blender_228ac0 {
 public:
     char pad00[0x10];
-    Info *info;
+    Info_228ac0 *info;
     char pad14[0x28 - 0x14];
     unsigned int stride;
     unsigned int maxIndex;
     unsigned int slotCount;
-    Slot slots[4];
+    Slot_228ac0 slots[4];
     float weights[3];
     int rows[1];
 
-    void FUN_00228ac0(unsigned int index, Obj **objs, float weight);
+    void FUN_00228ac0(unsigned int index, Obj_228ac0 **objs, float weight);
 };
 
-void Blender::FUN_00228ac0(unsigned int index, Obj **objs, float weight)
+void Blender_228ac0::FUN_00228ac0(unsigned int index, Obj_228ac0 **objs, float weight)
 {
     if (index >= maxIndex)
         return;
@@ -86,7 +86,7 @@ void Blender::FUN_00228ac0(unsigned int index, Obj **objs, float weight)
         return;
 
     for (unsigned int k = 0; k < n; k++) {
-        Obj *obj = objs[k];
+        Obj_228ac0 *obj = objs[k];
         if (obj == 0) {
             row[k] = 4;
             continue;
@@ -120,10 +120,10 @@ void Blender::FUN_00228ac0(unsigned int index, Obj **objs, float weight)
         row[k] = sel;
 
         if (weights[index] < 0.0f) {
-            Anim *anim = slots[sel].entries[0].trans;
+            Anim_228ac0 *anim = slots[sel].entries[0].trans;
             if (anim != 0) {
-                Obj *o = slots[sel].obj;
-                Vec3 out;
+                Obj_228ac0 *o = slots[sel].obj;
+                Vec3_228ac0 out;
                 out.x = 0;
                 out.y = 0;
                 out.z = 0;

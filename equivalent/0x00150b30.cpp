@@ -7,8 +7,8 @@ void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 bool __cdecl FUN_00018960(float, float, float);
 }
 struct VelocityData { char padding[0x1f4]; float velocity; };
-struct ActorState { VelocityData* FUN_00059a30(); };
-struct Actor { ActorState* FUN_000592a0(); };
+struct ActorState_150b30 { VelocityData* FUN_00059a30(); };
+struct Actor_150b30 { ActorState_150b30* FUN_000592a0(); };
 namespace hulkfight { namespace motion {
 struct HitPushbackVelocityCondition {
 virtual void vfunc_0();
@@ -17,12 +17,12 @@ virtual void vfunc_2();
 virtual void vfunc_3();
 virtual void vfunc_4();
 virtual void vfunc_5();
-virtual bool vfunc_6(void*, Actor*, void*);
+virtual bool vfunc_6(void*, Actor_150b30*, void*);
 char padding[8];
 unsigned operation;
 float threshold;
 };
-bool HitPushbackVelocityCondition::vfunc_6(void*, Actor* actor, void*) {
+bool HitPushbackVelocityCondition::vfunc_6(void*, Actor_150b30* actor, void*) {
 if (!FUN_00344e74(actor, 0, &DAT_00494b44, &DAT_00494b60, 0)) return false;
 float value = actor->FUN_000592a0()->FUN_00059a30()->velocity;
 switch (operation) {

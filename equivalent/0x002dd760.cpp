@@ -4,7 +4,7 @@ struct Stream {
     void FUN_002647e0(void *dest, unsigned count, unsigned size, int flag);
 };
 
-struct Header {
+struct Header_2dd760 {
     unsigned char b0;
     unsigned char b1;
     unsigned char b2;
@@ -22,7 +22,7 @@ struct Header {
 };
 
 // equiv-conv: FUN_002dd760 esi edi
-void FUN_002dd760(Header *out, Stream *s)
+void FUN_002dd760(Header_2dd760 *out, Stream *s)
 {
     unsigned int tmp;
 

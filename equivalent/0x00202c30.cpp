@@ -6,96 +6,96 @@ extern char DAT_004d2a40;
 extern char DAT_00554c1c;
 extern int DAT_00554c18;
 
-struct V3 {
+struct V3_202c30 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Info {
+struct Info_202c30 {
     char pad0[0xa9];
     char flagA9;
 };
 
-struct Ent {
+struct Ent_202c30 {
     char pad0[0x11c];
-    Info *info;
+    Info_202c30 *info;
 };
 
-struct Shape {
+struct Shape_202c30 {
     char pad0[8];
-    Ent *ent;           // 8
+    Ent_202c30 *ent;           // 8
     int kind;           // 0xc
     char pad10[0x62];
     char b72;
     char pad73;
-    Shape *f74;
+    Shape_202c30 *f74;
 };
 
 struct Node {
     char pad0[0x18];
-    Shape *shape;
+    Shape_202c30 *shape;
 };
 
-struct Rec {
+struct Rec_202c30 {
     float t;
     Node *node;
     float c;
 };
 
-struct HitList {
+struct HitList_202c30 {
     int count;
     char pad4[4];
-    Rec *recs;          // 8
+    Rec_202c30 *recs;          // 8
 };
 
-struct Caster {
+struct Caster_202c30 {
     char pad0[8];
-    HitList list;       // 8
-    bool FUN_00201e00(V3 *origin, V3 *end, int mask, V3 *hit, V3 *normal, void **out1, void **out2);
+    HitList_202c30 list;       // 8
+    bool FUN_00201e00(V3_202c30 *origin, V3_202c30 *end, int mask, V3_202c30 *hit, V3_202c30 *normal, void **out1, void **out2);
 };
 
-struct Holder {
+struct Holder_202c30 {
     char pad0[0x1b0];
     int f1b0;
 };
 
-struct Probe {
+struct Probe_202c30 {
     char pad0[0x11c];
-    Holder *holder;
+    Holder_202c30 *holder;
     void FUN_000368d0(int v);
 };
 
-struct World20 {
+struct World20_202c30 {
     void FUN_00025260(int a, int b, int c);
     void FUN_00025310(int a, int b);
 };
 
-struct Scene {
-    bool FUN_002ee140(HitList *list, V3 *origin, V3 *end, int z);
+struct Scene_202c30 {
+    bool FUN_002ee140(HitList_202c30 *list, V3_202c30 *origin, V3_202c30 *end, int z);
 };
 
-struct Sub10 {
+struct Sub10_202c30 {
     char pad0[8];
-    Scene *scene;
+    Scene_202c30 *scene;
 };
 
 struct World {
     char pad0[0x10];
-    Sub10 *sub10;
+    Sub10_202c30 *sub10;
     char pad14[0xc];
-    World20 *w20;       // 0x20
-    Caster *caster;     // 0x24
+    World20_202c30 *w20;       // 0x20
+    Caster_202c30 *caster;     // 0x24
 };
 extern World *DAT_004dd700;
 
-void __cdecl FUN_002f1ce0(V3 *origin, float c, V3 *normal, int *slot);
+void __cdecl FUN_002f1ce0(V3_202c30 *origin, float c, V3_202c30 *normal, int *slot);
 
-bool FUN_00202c30(V3 *origin, V3 *end, int a3, int mask, V3 *hit, V3 *normal, Shape **shapeOut, Shape *skip,
-                  char flag, Probe *probe)
+bool FUN_00202c30(V3_202c30 *origin, V3_202c30 *end, int a3, int mask, V3_202c30 *hit, V3_202c30 *normal, Shape_202c30 **shapeOut, Shape_202c30 *skip,
+                  char flag, Probe_202c30 *probe)
 {
-    Shape *saved[8];
+    Shape_202c30 *saved[8];
     World *w = DAT_004dd700;
-    Caster *caster = w->caster;
+    Caster_202c30 *caster = w->caster;
     if (shapeOut != 0)
         *shapeOut = 0;
     bool result = caster->FUN_00201e00(origin, end, mask, hit, normal, 0, 0);
@@ -110,7 +110,7 @@ bool FUN_00202c30(V3 *origin, V3 *end, int a3, int mask, V3 *hit, V3 *normal, Sh
         dist = (float)sqrt(dz * dz + dy * dy + dx * dx);
     }
     caster->list.count = 0;
-    HitList *list = &caster->list;
+    HitList_202c30 *list = &caster->list;
     DAT_004d2a3c = 2;
     DAT_004d2a40 = 0;
     DAT_00554c1c = 1;
@@ -120,11 +120,11 @@ bool FUN_00202c30(V3 *origin, V3 *end, int a3, int mask, V3 *hit, V3 *normal, Sh
         w->w20->FUN_00025310(probe->holder->f1b0, 1);
         probe->FUN_000368d0(0);
     }
-    Scene *scene = w->sub10->scene;
+    Scene_202c30 *scene = w->sub10->scene;
     int count = 0;
     if (scene->FUN_002ee140(list, origin, end, 0)) {
         for (;;) {
-            Rec *r = list->recs;
+            Rec_202c30 *r = list->recs;
             float t = r->t;
             Node *node = r->node;
             float c = r->c;
@@ -132,7 +132,7 @@ bool FUN_00202c30(V3 *origin, V3 *end, int a3, int mask, V3 *hit, V3 *normal, Sh
                 break;
             if (!(t < dist))
                 break;
-            Shape *shape = node->shape;
+            Shape_202c30 *shape = node->shape;
             if (shape != skip) {
                 bool requery = false;
                 int kind = shape->kind;
@@ -141,7 +141,7 @@ bool FUN_00202c30(V3 *origin, V3 *end, int a3, int mask, V3 *hit, V3 *normal, Sh
                 else if (kind == 7)
                     requery = true;
                 if (requery && count < 8) {
-                    Shape *s2 = shape->f74;
+                    Shape_202c30 *s2 = shape->f74;
                     saved[count] = s2;
                     count++;
                     s2->b72 = 0;
@@ -174,7 +174,7 @@ bool FUN_00202c30(V3 *origin, V3 *end, int a3, int mask, V3 *hit, V3 *normal, Sh
         }
     }
     while (count > 0) {
-        Shape *s = saved[count - 1];
+        Shape_202c30 *s = saved[count - 1];
         count--;
         s->b72 = 1;
     }

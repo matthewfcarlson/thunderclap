@@ -3,14 +3,14 @@
 extern "C" double sin(double);
 extern "C" double cos(double);
 
-struct V3 {
+struct V3_9fd50 {
     float x, y, z;
     float FUN_0022d110();
 };
 
 float __cdecl FUN_00018a20(float x);
 
-V3 *FUN_0009fd50(V3 *out, V3 *a, V3 *b, float t)
+V3_9fd50 *FUN_0009fd50(V3_9fd50 *out, V3_9fd50 *a, V3_9fd50 *b, float t)
 {
     float dot = a->x * b->x + b->z * a->z;
     dot = dot + b->y * a->y;
@@ -38,7 +38,7 @@ V3 *FUN_0009fd50(V3 *out, V3 *a, V3 *b, float t)
 
     float py = dot * a->y;
     float pz = dot * a->z;
-    V3 perp;
+    V3_9fd50 perp;
     perp.x = b->x - dot * a->x;
     perp.y = b->y - py;
     perp.z = b->z - pz;

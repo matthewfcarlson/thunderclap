@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 20/20)
 // FUN_001d1180 @ 0x001d1180
-struct Entry {
+struct Entry_1d1180 {
     char pad0[8];
     const char *name;
 };
@@ -9,12 +9,12 @@ int __cdecl FUN_00096600(const char *a, const char *b);
 
 class SortedList {
 public:
-    Entry *items[0x400];
+    Entry_1d1180 *items[0x400];
     int count;      // 0x1000
-    bool FUN_001d1180(Entry *e);
+    bool FUN_001d1180(Entry_1d1180 *e);
 };
 
-bool SortedList::FUN_001d1180(Entry *e)
+bool SortedList::FUN_001d1180(Entry_1d1180 *e)
 {
     const char *name = e->name;
     if (count >= 0x400)

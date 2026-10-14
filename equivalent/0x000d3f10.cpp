@@ -14,16 +14,16 @@ class LoadInventory {
     virtual void* Find(const DynamicCaster<pure3d::DrawableHierarchy>& c, __int64 uid);
 };
 }
-struct Lookup {
+struct Lookup_d3f10 {
     int idx;
     int kind;
 };
-struct Provider {
+struct Provider_d3f10 {
     int FUN_000ad7b0(int a, int b, int c);
     int FUN_000ad580(int a, int b, int c);
 };
 extern const char* DAT_0040b020[];
-extern Lookup DAT_004a0560[];
+extern Lookup_d3f10 DAT_004a0560[];
 extern const char* DAT_004a0658[];
 extern const char* DAT_004a06a0;
 extern const char* DAT_004a06a4;
@@ -38,14 +38,14 @@ const char* __cdecl FUN_000b09c0(int a, int b);
 const char* __cdecl FUN_000b08a0(int a, int b);
 __int64 __cdecl FUN_0027b020(const char* s);
 
-struct Finder {
+struct Finder_d3f10 {
     char pad[4];
-    Finder* sub;
-    Provider* FUN_000ae640(int i);
+    Finder_d3f10* sub;
+    Provider_d3f10* FUN_000ae640(int i);
     void* FUN_000d3f10(const char* name);
 };
 
-void* Finder::FUN_000d3f10(const char* name) {
+void* Finder_d3f10::FUN_000d3f10(const char* name) {
     unsigned int cookie = DAT_004d9968;
     char buf[64];
     int i = 0;
@@ -65,7 +65,7 @@ void* Finder::FUN_000d3f10(const char* name) {
     if (kind == 3) {
         text = DAT_004a0658[idx];
     } else {
-        Provider* p;
+        Provider_d3f10* p;
         int n = 0;
         do {
             p = sub->FUN_000ae640(n);

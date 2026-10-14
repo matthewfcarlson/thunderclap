@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3063 inputs, branch coverage 30/30)
 // FUN_002dd5c0 @ 0x002dd5c0
 // libpng png_do_bgr: swap the red and blue samples of RGB / RGBA rows in place.
-struct png_row_info {
+struct png_row_info_2dd5c0 {
     unsigned int width;
     unsigned int rowbytes;
     unsigned char color_type;
@@ -10,7 +10,7 @@ struct png_row_info {
     unsigned char pixel_depth;
 };
 
-void __cdecl FUN_002dd5c0(png_row_info *row_info, unsigned char *row)
+void __cdecl FUN_002dd5c0(png_row_info_2dd5c0 *row_info, unsigned char *row)
 {
     if (row_info->color_type & 2) {
         unsigned int row_width = row_info->width;

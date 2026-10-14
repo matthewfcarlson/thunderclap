@@ -6,7 +6,7 @@ struct Base12 {
     char data[12];
     void FUN_00236d40();
 };
-struct Name8 {
+struct Name8_181020 {
     int lo, hi;
     void FUN_0027af00();
 };
@@ -28,10 +28,10 @@ public:
     float f38;
     int f3c, f40;
     char pad44[4];
-    Name8 n48;
+    Name8_181020 n48;
     int f50, f54, f58;
     char pad5c[4];
-    Name8 n60;
+    Name8_181020 n60;
     int f68, f6c, f70;
 
     BallAndChainReturnTrack() {}

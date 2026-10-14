@@ -13,7 +13,7 @@ struct RawVec {
     char *end;
 };
 
-class Pool {
+class Pool_2eee10 {
 public:
     RawVec ids;              // 0x00: DAT_004d293c * 4 bytes
     unsigned int *used;      // 0x0c unused
@@ -29,10 +29,10 @@ public:
     RawVec edges;            // 0x4c: DAT_004d2948 * 20 bytes
     char pad58[4];
     RawVec flags;            // 0x5c: DAT_004d293c * 4 bytes
-    Pool *FUN_002eee10();
+    Pool_2eee10 *FUN_002eee10();
 };
 
-Pool *Pool::FUN_002eee10()
+Pool_2eee10 *Pool_2eee10::FUN_002eee10()
 {
     ids.first = 0; ids.last = 0; ids.end = 0;
     records.first = 0; records.last = 0; records.end = 0;

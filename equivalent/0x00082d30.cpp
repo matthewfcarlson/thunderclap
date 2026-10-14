@@ -2,23 +2,23 @@
 // FUN_00082d30 @ 0x00082d30
 // The matrix is passed in esi.
 // equiv-conv: FUN_00082d30 esi
-struct Vec3 {
+struct Vec3_82d30 {
     float x, y, z;
 };
 
 class Matrix {
 public:
-    void FUN_0022c3b0(const Vec3* in, Vec3* out);
-    void FUN_0022bec0(const Vec3* a, const Vec3* b);
+    void FUN_0022c3b0(const Vec3_82d30* in, Vec3_82d30* out);
+    void FUN_0022bec0(const Vec3_82d30* a, const Vec3_82d30* b);
 };
 
-struct Frame {
-    Vec3 axis;
-    Vec3 input;
+struct Frame_82d30 {
+    Vec3_82d30 axis;
+    Vec3_82d30 input;
 };
 
 void FUN_00082d30(Matrix* m) {
-    Frame f;
+    Frame_82d30 f;
     f.input.x = 0.0f;
     f.input.y = 0.0f;
     f.input.z = 1.0f;

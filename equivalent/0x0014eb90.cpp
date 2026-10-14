@@ -4,7 +4,7 @@ extern "C" char DAT_00494b44[];
 extern "C" char DAT_00494b60[];
 extern void* __cdecl FUN_00344e74(void*, int, const char*, const char*, int);
 
-struct Body {
+struct Body_14eb90 {
     char pad0[0x11c];
     struct Sized* sized;    // 0x11c
 };
@@ -14,15 +14,15 @@ struct Sized {
     int size;               // 0x14
 };
 
-struct Link {
+struct Link_14eb90 {
     char pad0[8];
-    Body* body;             // 0x08
+    Body_14eb90* body;             // 0x08
     int kind;               // 0x0c
 };
 
-struct Holder {
+struct Holder_14eb90 {
     char pad0[0x50];
-    Link* link;             // 0x50
+    Link_14eb90* link;             // 0x50
 };
 
 class Entity {
@@ -30,7 +30,7 @@ public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual Holder* vfunc_3();
+    virtual Holder_14eb90* vfunc_3();
 };
 
 namespace hulkfight {
@@ -55,10 +55,10 @@ bool hulkfight::motion::CollisionTargetSizeCondition::vfunc_6(int unused1, Entit
 {
     if (!FUN_00344e74(entity, 0, DAT_00494b44, DAT_00494b60, 0))
         return false;
-    Holder* holder = entity->vfunc_3();
+    Holder_14eb90* holder = entity->vfunc_3();
     if (!holder || !holder->link)
         return false;
-    Link* link = holder->link;
+    Link_14eb90* link = holder->link;
     if (link->kind != 1 || !link->body || !link->body->sized)
         return false;
     int size = link->body->sized->size;

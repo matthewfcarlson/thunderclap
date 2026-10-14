@@ -24,7 +24,7 @@ public:
     void FUN_001d3f60();
 };
 
-struct Frame {
+struct Frame_1d3f60 {
     int top;
     char buf[0x100];
     unsigned int pad[1];
@@ -33,7 +33,7 @@ struct Frame {
 
 void ScriptHandler::FUN_001d3f60()
 {
-    Frame f;
+    Frame_1d3f60 f;
     f.cookie = DAT_004d9968;
     for (int i = 0; i < count; i++) {
         char *buf = f.buf;

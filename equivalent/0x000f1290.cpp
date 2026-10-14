@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 6/6)
 // FEDoPushDialog::vfunc_1 @ 0x000f1290
-struct DialogManager { void FUN_000be230(const char*,const char*,const char*,const char*,const char*,int,int,int); };
-struct Owner { char pad[4]; DialogManager* manager; };
+struct DialogManager_f1290 { void FUN_000be230(const char*,const char*,const char*,const char*,const char*,int,int,int); };
+struct Owner_f1290 { char pad[4]; DialogManager_f1290* manager; };
 struct FEDoAction { virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); };
-struct FEDoPushDialog : FEDoAction { char pad04[12]; Owner* owner; char pad14[32]; char name[32]; char text[256]; char a[32]; char b[32]; char c[32]; int flags; virtual void vfunc_1(); };
+struct FEDoPushDialog : FEDoAction { char pad04[12]; Owner_f1290* owner; char pad14[32]; char name[32]; char text[256]; char a[32]; char b[32]; char c[32]; int flags; virtual void vfunc_1(); };
 void FEDoPushDialog::vfunc_1() {
  const char* sources[4] = {text,a,b,c};
  const char* values[4];

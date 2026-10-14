@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 159 inputs, branch coverage 8/8)
 // FUN_00284460 @ 0x00284460
-struct Mat {
+struct Mat_284460 {
     float m[16];
-    void FUN_0022ca90(const Mat *a, const Mat *b);
+    void FUN_0022ca90(const Mat_284460 *a, const Mat_284460 *b);
 };
 
 struct Skeleton {
@@ -16,15 +16,15 @@ public:
     Skeleton *skeleton;
     unsigned int count;
     char pad10[4];
-    Mat *local;
+    Mat_284460 *local;
     char pad18[4];
-    Mat *world;
+    Mat_284460 *world;
     char pad20[3];
     char dirty;
-    void Update(const Mat *root);
+    void Update(const Mat_284460 *root);
 };
 
-void Pose::Update(const Mat *root)
+void Pose::Update(const Mat_284460 *root)
 {
     if (root != 0) {
         world->FUN_0022ca90(local, root);
@@ -33,8 +33,8 @@ void Pose::Update(const Mat *root)
             return;
         *world = *local;
     }
-    Mat *out = world + 1;
-    Mat *in = local + 1;
+    Mat_284460 *out = world + 1;
+    Mat_284460 *in = local + 1;
     for (unsigned int i = 1; i < count; i++) {
         out->FUN_0022ca90(in, world + skeleton->parent[i]);
         out++;

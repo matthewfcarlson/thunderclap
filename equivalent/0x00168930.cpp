@@ -5,14 +5,14 @@ extern char DAT_00494b60;
 extern void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern bool __cdecl FUN_00018960(float, float, float);
 struct Health { char pad[0x1b0c]; float current; float maximum; };
-struct Component { Health* FUN_00059a30(); };
-struct Actor { Component* FUN_000592a0(); };
+struct Component_168930 { Health* FUN_00059a30(); };
+struct Actor_168930 { Component_168930* FUN_000592a0(); };
 namespace hulkfight { namespace motion {
 struct HealthPercentCondition {
-virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual bool vfunc_6(void*, Actor*, void*);
+virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual bool vfunc_6(void*, Actor_168930*, void*);
 char pad[8]; unsigned comparison; float threshold;
 };
-bool HealthPercentCondition::vfunc_6(void*, Actor* actor, void*) {
+bool HealthPercentCondition::vfunc_6(void*, Actor_168930* actor, void*) {
  if (!FUN_00344e74(actor,0,&DAT_00494b44,&DAT_00494b60,0)) return false;
  Health* health = actor->FUN_000592a0()->FUN_00059a30();
  union { float f; unsigned bits; } magnitude;

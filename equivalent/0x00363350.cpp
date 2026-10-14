@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00363350 @ 0x00363350
 // Static initialiser for a global table of 8 handler slots followed by a terminator.
-struct Slot {
+struct Slot_363350 {
     void (*fn)();
     int a, b, c;
     int unused[2];
@@ -10,11 +10,11 @@ struct Terminator {
     int a, b, c;
     int last;
 };
-struct HandlerTable {
-    Slot slot[8];
+struct HandlerTable_363350 {
+    Slot_363350 slot[8];
     Terminator end;
 };
-extern HandlerTable DAT_004d90a8;
+extern HandlerTable_363350 DAT_004d90a8;
 void FUN_003333c0();
 void FUN_003333e0();
 void FUN_003333f0();

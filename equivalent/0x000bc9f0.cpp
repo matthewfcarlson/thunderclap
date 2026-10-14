@@ -3,31 +3,31 @@
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 
-struct Label {
+struct Label_bc9f0 {
     char pad0[0x10];
     void FUN_000f79a0(const unsigned short* text, int flag);
 };
 
-struct Owner {
+struct Owner_bc9f0 {
     char pad0[0x18];
-    Label label;
+    Label_bc9f0 label;
 };
 
-Owner* FUN_000fc260(int id);
+Owner_bc9f0* FUN_000fc260(int id);
 
-class MenuScreen {
+class MenuScreen_bc9f0 {
   public:
     int FUN_000bc900(unsigned short* out, int pos, const char* name, int flag);
     void FUN_000bc9f0(int id, int code);
 };
 
-void MenuScreen::FUN_000bc9f0(int id, int code)
+void MenuScreen_bc9f0::FUN_000bc9f0(int id, int code)
 {
     volatile unsigned int cookie = DAT_004d9968;
     unsigned short text[0x100];
-    Owner* owner = FUN_000fc260(id);
+    Owner_bc9f0* owner = FUN_000fc260(id);
     if (owner) {
-        Label* label = &owner->label;
+        Label_bc9f0* label = &owner->label;
         if (label) {
             int pos = 0;
             if (code == 0) {

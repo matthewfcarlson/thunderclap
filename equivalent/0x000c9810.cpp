@@ -1,49 +1,49 @@
 // STATUS: equivalent (tools/equiv.py level 3: 351 inputs, branch coverage 46/50, incomplete)
 // FUN_000c9810 @ 0x000c9810
-struct V3 {
+struct V3_c9810 {
     float x, y, z;
 };
 
-struct V2 {
+struct V2_c9810 {
     float x, y;
 };
 
-struct Mat4 {
+struct Mat4_c9810 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022be40(const V3 *pos);
+    void FUN_0022be40(const V3_c9810 *pos);
     void FUN_0022bc20(float x, float y, float z);
     void FUN_0022bab0(float angle);
 };
 
 struct Planar {
     float x, y, z;
-    void FUN_0022d260(const Mat4 *m);
+    void FUN_0022d260(const Mat4_c9810 *m);
 };
 
-struct Body {
+struct Body_c9810 {
     char pad0[0x10];
     void *f10;
     char FUN_00035550_dummy;
 };
 
-struct Probe {
-    void FUN_00035550(V3 *out);
+struct Probe_c9810 {
+    void FUN_00035550(V3_c9810 *out);
     float FUN_00035690();
 };
 
 struct WorldSub {
-    Probe *FUN_00024280(int a, int b);
+    Probe_c9810 *FUN_00024280(int a, int b);
 };
 
-struct Slots {
+struct Slots_c9810 {
     void FUN_001e5bc0(int handle);
-    void FUN_001dd470(int handle, Mat4 *m, int z);
+    void FUN_001dd470(int handle, Mat4_c9810 *m, int z);
 };
 
 struct World {
     char pad0[0xc];
-    Slots *f0c;
+    Slots_c9810 *f0c;
     char pad10[0x20 - 0x10];
     WorldSub *f20;
 };
@@ -54,10 +54,10 @@ extern float DAT_0049fbcc;
 extern float DAT_0049fbd0;
 extern float DAT_0049fbd4;
 
-struct Shot {
+struct Shot_c9810 {
     int id;                // 0
-    V3 pos;                // 4
-    V2 v10;                // 0x10
+    V3_c9810 pos;                // 4
+    V2_c9810 v10;                // 0x10
     Planar w;              // 0x18
     char pad24[0x28 - 0x24];
     int a28;
@@ -67,16 +67,16 @@ struct Shot {
     char pad3d[3];
 };
 
-struct Fx {
+struct Fx_c9810 {
     int active;            // 0
     char pad4[0x18 - 4];
     float f18, f1c, f20;
-    V3 euler;              // 0x24
+    V3_c9810 euler;              // 0x24
     int handle;            // 0x30
     char pad34[4];
 };
 
-class Tracker {
+class Tracker_c9810 {
 public:
     char pad0[0x10];
     void *f10;
@@ -87,36 +87,36 @@ public:
     float f220;
     char b224;
     char pad225[0x258 - 0x225];
-    Shot shots[0x80];
-    Fx fx[0x20];
+    Shot_c9810 shots[0x80];
+    Fx_c9810 fx[0x20];
     char b2958;
     char b2959;
 
-    char FUN_000c8550(int idx, V3 *out);
-    char FUN_000c8630(int idx, V3 *out);
-    void FUN_000c9720(V3 v);
-    V2 *FUN_000c9460(V2 *out, V3 v);
+    char FUN_000c8550(int idx, V3_c9810 *out);
+    char FUN_000c8630(int idx, V3_c9810 *out);
+    void FUN_000c9720(V3_c9810 v);
+    V2_c9810 *FUN_000c9460(V2_c9810 *out, V3_c9810 v);
     void FUN_000c9100(int idx);
     void FUN_000c8f50(float v);
     void FUN_000c9810(float dt);
 };
 
-struct Frame {
+struct Frame_c9810 {
     union {
-        V3 out;
-        V2 ret;
-        V3 euler;
+        V3_c9810 out;
+        V2_c9810 ret;
+        V3_c9810 euler;
     } u;                   // 0x10
-    V3 tmp;                // 0x1c
-    V3 p;                  // 0x28
-    Mat4 mat;              // 0x34
+    V3_c9810 tmp;                // 0x1c
+    V3_c9810 p;                  // 0x28
+    Mat4_c9810 mat;              // 0x34
 };
 
-void Tracker::FUN_000c9810(float dt)
+void Tracker_c9810::FUN_000c9810(float dt)
 {
     if (f10 == 0)
         return;
-    Frame f;
+    Frame_c9810 f;
     int i;
     if (f20 == 1) {
         int idx = 0;
@@ -132,7 +132,7 @@ void Tracker::FUN_000c9810(float dt)
 
     f220 = dt + f220;
     for (i = 0; i < 0x80; i++) {
-        Shot *s = &shots[i];
+        Shot_c9810 *s = &shots[i];
         if (s->id == -1)
             continue;
         if (!FUN_000c8550(i, &f.tmp)) {
@@ -140,12 +140,12 @@ void Tracker::FUN_000c9810(float dt)
             continue;
         }
         s->pos = f.tmp;
-        V2 *r = FUN_000c9460(&f.u.ret, f.tmp);
+        V2_c9810 *r = FUN_000c9460(&f.u.ret, f.tmp);
         s->v10.x = r->x;
         s->v10.y = r->y;
         if (s->id != 0)
             continue;
-        Probe *probe = DAT_004dd700->f20->FUN_00024280(s->a28, s->b2c);
+        Probe_c9810 *probe = DAT_004dd700->f20->FUN_00024280(s->a28, s->b2c);
         probe->FUN_00035550(&f.p);
         f.mat.FUN_0022b980();
         f.mat.FUN_0022bab0(4.712389f);
@@ -175,7 +175,7 @@ void Tracker::FUN_000c9810(float dt)
     }
 
     for (i = 0; i < 0x20; i++) {
-        Fx *e = &fx[i];
+        Fx_c9810 *e = &fx[i];
         if (e->active == 0)
             continue;
         if (!FUN_000c8630(i, &f.tmp)) {

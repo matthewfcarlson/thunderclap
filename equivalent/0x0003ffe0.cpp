@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_0003ffe0 @ 0x0003ffe0
 struct Vector { float x,y,z; };
-struct Parent { char pad[0x12c]; int value; };
+struct Parent_3ffe0 { char pad[0x12c]; int value; };
 struct Object {
- char pad[0x328]; int current; unsigned char disabled; char pad2[7]; Parent* parent;
+ char pad[0x328]; int current; unsigned char disabled; char pad2[7]; Parent_3ffe0* parent;
  void FUN_000350c0(Vector*);
  void FUN_00035dc0(int);
  bool FUN_0003a440(Vector*,int,int,int,int);

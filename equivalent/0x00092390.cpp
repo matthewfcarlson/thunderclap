@@ -5,12 +5,12 @@ extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 int __cdecl FUN_00345475(int c);
 
-class Sink {
+class Sink_92390 {
 public:
     void FUN_001d1dd0(char *text, int arg);
 };
 
-void __stdcall FUN_00092390(Sink *sink, const char *src, int arg)
+void __stdcall FUN_00092390(Sink_92390 *sink, const char *src, int arg)
 {
     struct Frame {
         char buf[0x40];

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FEThingsBase::vfunc_15 @ 0x000e6ab0
-struct Thing {
+struct Thing_e6ab0 {
     void FUN_000e5440(int mode);
 };
 
@@ -22,7 +22,7 @@ public:
     virtual void vfunc_12();
     virtual void vfunc_13();
     virtual void vfunc_14();
-    virtual void vfunc_15(Thing *thing);
+    virtual void vfunc_15(Thing_e6ab0 *thing);
     virtual void vfunc_16();
     virtual void vfunc_17();
     virtual void vfunc_18();
@@ -32,7 +32,7 @@ public:
     virtual void vfunc_22();
     virtual void vfunc_23();
     virtual void vfunc_24();
-    virtual void vfunc_25(Thing *thing);
+    virtual void vfunc_25(Thing_e6ab0 *thing);
     virtual void vfunc_26();
     virtual void vfunc_27();
     virtual void vfunc_28();
@@ -58,9 +58,9 @@ public:
     virtual void vfunc_48(int mode);
 
     char pad04[0x175c - 4];
-    Thing *current;        // +0x175c
+    Thing_e6ab0 *current;        // +0x175c
     char pad1760[8];
-    Thing *pending;        // +0x1768
+    Thing_e6ab0 *pending;        // +0x1768
     int mode;              // +0x176c
     char pad1770[0x17b0 - 0x1770];
     int state;             // +0x17b0
@@ -68,7 +68,7 @@ public:
     int f17f8;
 };
 
-void FEThingsBase::vfunc_15(Thing *thing) {
+void FEThingsBase::vfunc_15(Thing_e6ab0 *thing) {
     if (thing == current) {
         return;
     }
@@ -84,7 +84,7 @@ void FEThingsBase::vfunc_15(Thing *thing) {
     if (state > 0) {
         vfunc_48(4);
     }
-    Thing *old = current;
+    Thing_e6ab0 *old = current;
     f17f8 = 0;
     mode = 2;
     if (old != 0) {

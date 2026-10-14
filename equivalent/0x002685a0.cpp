@@ -11,7 +11,7 @@ struct InputState {
 extern "C" unsigned long __stdcall XInputGetState(void* handle, InputState* state);
 extern "C" unsigned long __stdcall XInputSetState(void* handle, void* feedback);
 
-class Receiver {
+class Receiver_2685a0 {
   public:
     virtual void r0();
     virtual void r1();
@@ -56,7 +56,7 @@ class ControllerXBox {
     char pad_42c[0x438 - 0x42c];
     Motor rightMotor;
     char pad_43c[0x454 - 0x43c];
-    Receiver* receiver;
+    Receiver_2685a0* receiver;
     unsigned long feedbackStatus;
     int feedbackField;
     char pad_460[0x49a - 0x460];

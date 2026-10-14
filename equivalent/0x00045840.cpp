@@ -2,14 +2,14 @@
 // FUN_00045840 @ 0x00045840
 extern "C" int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 
-struct V3 {
+struct V3_45840 {
     float x;
     float y;
     float z;
     void FUN_00233dd0();
 };
 
-struct Slot20 {
+struct Slot20_45840 {
     char flag;
     char pad[0x1f];
 };
@@ -53,11 +53,11 @@ public:
     int f38;
     int f3c;
     int f40;
-    Slot20 slots[3];
+    Slot20_45840 slots[3];
     int a[3];
-    V3 v[3];
+    V3_45840 v[3];
     int c[3];
-    V3 objs[6];
+    V3_45840 objs[6];
     int f128;
     float f12c;
     int f130;

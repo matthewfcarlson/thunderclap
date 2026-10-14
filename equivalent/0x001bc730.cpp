@@ -14,11 +14,11 @@ struct CameraSet {
     Camera *FUN_001c12b0();
 };
 
-struct CameraManager {
+struct CameraManager_1bc730 {
     CameraSet *set;
 };
 
-struct Renderer {
+struct Renderer_1bc730 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -39,13 +39,13 @@ struct Renderer {
     virtual void SetOrientation(int zero, Matrix *m);
 };
 
-CameraManager *__cdecl FUN_001c3d90();
+CameraManager_1bc730 *__cdecl FUN_001c3d90();
 struct RendererHolder {
-    Renderer *renderer;
+    Renderer_1bc730 *renderer;
 };
 extern RendererHolder *DAT_0052c2ac;
 
-struct Frame {
+struct Frame_1bc730 {
     Matrix out;
     int pad[2];
     volatile float tmp;
@@ -54,7 +54,7 @@ struct Frame {
 
 void FUN_001bc730()
 {
-    Frame f;
+    Frame_1bc730 f;
     f.view = FUN_001c3d90()->set->FUN_001c12b0()->view;
     f.out.FUN_0022b980();
     float *v = f.view.m;

@@ -24,7 +24,7 @@ public:
     void FUN_002326d0(Node *n);
 };
 
-class NodeList {
+class NodeList_2324b0 {
 public:
     int f0;
     char pad4[0x1c];
@@ -35,7 +35,7 @@ public:
     bool FUN_002324b0(char flush);
 };
 
-bool NodeList::FUN_002324b0(char flush)
+bool NodeList_2324b0::FUN_002324b0(char flush)
 {
     void *saved = FUN_00266da0(FUN_00238190(3));
     bool keep = false;

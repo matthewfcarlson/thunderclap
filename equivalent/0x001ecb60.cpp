@@ -4,15 +4,15 @@ extern unsigned int DAT_004d9968;
 // equiv-conv: __security_check_cookie ecx
 void __security_check_cookie(unsigned int);
 struct ImpactInfo { char pad[0x14]; int type; };
-struct Source { char pad[0x11c]; ImpactInfo* info; };
-struct State { int FUN_001d5040(); };
-struct Recipient { char pad[0xec]; State* state; };
-struct Effects {
- void FUN_001ec980(Source*, const char*);
- void FUN_001ebd80(Recipient*, const char*, float, int);
- void FUN_001ecb60(Source*, Recipient*, const char*);
+struct Source_1ecb60 { char pad[0x11c]; ImpactInfo* info; };
+struct State_1ecb60 { int FUN_001d5040(); };
+struct Recipient_1ecb60 { char pad[0xec]; State_1ecb60* state; };
+struct Effects_1ecb60 {
+ void FUN_001ec980(Source_1ecb60*, const char*);
+ void FUN_001ebd80(Recipient_1ecb60*, const char*, float, int);
+ void FUN_001ecb60(Source_1ecb60*, Recipient_1ecb60*, const char*);
 };
-void Effects::FUN_001ecb60(Source* source, Recipient* recipient, const char* name) {
+void Effects_1ecb60::FUN_001ecb60(Source_1ecb60* source, Recipient_1ecb60* recipient, const char* name) {
  unsigned int cookie = DAT_004d9968;
  if (source && source->info && recipient && recipient->state && recipient->state->FUN_001d5040()) {
  FUN_001ec980(source, name);

@@ -9,17 +9,17 @@ struct Node {
  Node* next;
  int depth;
 };
-struct List { Node* first; };
+struct List_f9d70 { Node* first; };
 extern void* __cdecl FUN_00344e74(Node*, int, const void*, const void*, int);
-struct Cursor {
+struct Cursor_f9d70 {
  char pad0[4];
- List* list;
+ List_f9d70* list;
  Node* current;
  char pad1[9];
  unsigned char disabled;
  void* FUN_000f9d70();
 };
-void* Cursor::FUN_000f9d70() {
+void* Cursor_f9d70::FUN_000f9d70() {
  if (disabled == 1) return 0;
  Node* node = current ? current->next : list->first;
  int nesting = 0;

@@ -4,7 +4,7 @@
 // ground/water level crossings, StateProp event keys.
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_1d8fc0 {
     float x, y, z;
     float FUN_0022d110();          // normalize in place, returns the old length
     void FUN_00011140(float s);
@@ -14,13 +14,13 @@ struct Matrix {
     float m0, m1, m2, m3;
     float m4, m5, m6, m7;
     float m8, m9, m10, m11;
-    Vec3 t;
+    Vec3_1d8fc0 t;
     float m15;
     void FUN_0022b980();           // identity
     void FUN_0022ba70(float ang);
     void FUN_0022ca90(const Matrix *a, const Matrix *b);
-    void FUN_0022c3b0(const Vec3 *in, Vec3 *out);
-    void FUN_0022be40(const Vec3 *v);
+    void FUN_0022c3b0(const Vec3_1d8fc0 *in, Vec3_1d8fc0 *out);
+    void FUN_0022be40(const Vec3_1d8fc0 *v);
 };
 
 struct Key64 {
@@ -28,32 +28,32 @@ struct Key64 {
     unsigned int hi;
 };
 
-struct Bounds {
+struct Bounds_1d8fc0 {
     float x, y, z, w;
 };
 
-struct Descriptor {
+struct Descriptor_1d8fc0 {
     unsigned int kind;
-    Bounds bounds;
+    Bounds_1d8fc0 bounds;
     char rest[12];
     struct Desc0;
     void FUN_00067e60(const void *src);
     void FUN_000679c0();
 };
 
-struct Mgr {
+struct Mgr_1d8fc0 {
     void *FUN_00067ad0(int h);
-    void FUN_00067c30(int h, Descriptor *d);
+    void FUN_00067c30(int h, Descriptor_1d8fc0 *d);
     void FUN_00067c80(int h);
 };
 
-struct Sink {
+struct Sink_1d8fc0 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-    virtual void v8(const Vec3 *from, Vec3 *out, int mode);
+    virtual void v8(const Vec3_1d8fc0 *from, Vec3_1d8fc0 *out, int mode);
 };
 
-struct Ctl {
+struct Ctl_1d8fc0 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5();
     virtual void v6(int a);
@@ -63,13 +63,13 @@ struct Ctl {
     virtual void v12();
     virtual void v13();
     char pad4[0x10 - 4];
-    Sink *p10;
+    Sink_1d8fc0 *p10;
     char pad14[0x72 - 0x14];
     unsigned char b72;
     char pad73[0x98 - 0x73];
-    Vec3 v98;
-    void FUN_002f5a20(const Vec3 *v);
-    void FUN_0016fc90(Vec3 *out);
+    Vec3_1d8fc0 v98;
+    void FUN_002f5a20(const Vec3_1d8fc0 *v);
+    void FUN_0016fc90(Vec3_1d8fc0 *out);
 };
 
 struct P20 {
@@ -77,7 +77,7 @@ struct P20 {
     float f34;
 };
 
-struct Sub74 {
+struct Sub74_1d8fc0 {
     char pad0[0x20];
     P20 *p20;
     char pad24[0x50 - 0x24];
@@ -91,15 +91,15 @@ struct Entity {
     virtual void v4(); virtual void v5(); virtual void v6();
     virtual void v7();
     char pad4[0x50 - 4];
-    Vec3 v50;
-    Vec3 v5c;
+    Vec3_1d8fc0 v50;
+    Vec3_1d8fc0 v5c;
     char pad68[0x70 - 0x68];
-    Ctl *p70;
-    Sub74 *p74;
+    Ctl_1d8fc0 *p70;
+    Sub74_1d8fc0 *p74;
     void FUN_002ef8b0(int a);
 };
 
-struct Holder {
+struct Holder_1d8fc0 {
     char pad0[0x10];
     Entity *p10;
     Matrix *FUN_002fc6f0();
@@ -110,38 +110,38 @@ struct Hit8 {
     int i148;
 };
 
-struct Hit {
+struct Hit_1d8fc0 {
     char pad0[8];
     Hit8 *p8;
     int type;
     char pad10[0x74 - 0x10];
-    Sub74 *p74;
+    Sub74_1d8fc0 *p74;
 };
 
 struct PosProvider {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-    virtual Vec3 *v4();
+    virtual Vec3_1d8fc0 *v4();
 };
 
-struct StateObj {
+struct StateObj_1d8fc0 {
     bool FUN_001d4e50();
     int FUN_001d4de0();
     int FUN_001d5e80(int a);
     bool FUN_001d4e40();
 };
 
-struct Rng {
+struct Rng_1d8fc0 {
     float FUN_00078780();
 };
 
-struct Singleton {
+struct Singleton_1d8fc0 {
     bool FUN_001c3c90();
-    Vec3 *FUN_001c39d0();
+    Vec3_1d8fc0 *FUN_001c39d0();
     void FUN_001c3ca0(int on);
 };
 
-struct Elem {
-    Vec3 v0;
+struct Elem_1d8fc0 {
+    Vec3_1d8fc0 v0;
     char pad0c[0x28 - 0x0c];
     unsigned int lo28;
     unsigned int hi2c;
@@ -153,19 +153,19 @@ struct Elem {
     char pad54[0x58 - 0x54];
 };
 
-struct ObjList {
+struct ObjList_1d8fc0 {
     char pad0[0x44];
     int count;
-    Elem *elems;
+    Elem_1d8fc0 *elems;
 };
 
 struct ObjArr {
     char pad0[0x1c];
-    ObjList **arr;
+    ObjList_1d8fc0 **arr;
 };
 
 struct Item24 {
-    Vec3 v;
+    Vec3_1d8fc0 v;
     int i0c;
     char pad10[0x24 - 0x10];
 };
@@ -199,11 +199,11 @@ struct Mid54 {
     Layer54 *FUN_000862a0();
 };
 
-struct Fx {
+struct Fx_1d8fc0 {
     void FUN_00283a40(const unsigned int *key, const Matrix *m, float a, float b);
 };
 
-struct Fx34 {
+struct Fx34_1d8fc0 {
     void FUN_001ec060(void *inst, const char *s);
 };
 
@@ -220,21 +220,21 @@ struct Root24 {
 
 struct Q20 {
     char pad0[8];
-    Mgr *p8;
+    Mgr_1d8fc0 *p8;
     void FUN_00029bb0(Entity *e, Obj21c *o, float f);
 };
 
 struct Root10 {
-    void FUN_001b4620(Vec3 v, int idx, Entity *e, Obj24c *o);
+    void FUN_001b4620(Vec3_1d8fc0 v, int idx, Entity *e, Obj24c *o);
 };
 
 class CSPHulkPropInstance;
 
 struct Root0c {
-    CSPHulkPropInstance *FUN_001e47e0(CSPHulkPropInstance *inst, Elem *el);
+    CSPHulkPropInstance *FUN_001e47e0(CSPHulkPropInstance *inst, Elem_1d8fc0 *el);
 };
 
-struct Root {
+struct Root_1d8fc0 {
     char pad0[0xc];
     Root0c *p0c;
     Root10 *p10;
@@ -242,12 +242,12 @@ struct Root {
     Q20 *p20;
     Root24 *p24;
     char pad28[0x34 - 0x28];
-    Fx34 *p34;
+    Fx34_1d8fc0 *p34;
     char pad38[0x54 - 0x38];
     Mid54 *p54;
 };
 
-struct Key2 {
+struct Key2_1d8fc0 {
     unsigned int lo;
     unsigned int hi;
 };
@@ -271,37 +271,37 @@ struct Obj72e0 {
     virtual void v4(); virtual void v5();
     virtual void v6(const Matrix *m, int a);
     char pad4[0x40 - 4];
-    Vec3 v40;
+    Vec3_1d8fc0 v40;
 };
 
-extern float FUN_00224f10(const Vec3 *v);
+extern float FUN_00224f10(const Vec3_1d8fc0 *v);
 extern float FUN_00224fc0(float a, float b);
 extern float FUN_00083d90(const float *p);
-extern void FUN_00224d70(float ang, Vec3 *v);
-extern void FUN_00224db0(Matrix *out, const Vec3 *from, const Vec3 *to);
+extern void FUN_00224d70(float ang, Vec3_1d8fc0 *v);
+extern void FUN_00224db0(Matrix *out, const Vec3_1d8fc0 *from, const Vec3_1d8fc0 *to);
 extern bool FUN_00018960(float a, float b, float eps);
 extern Key64 FUN_0027b020(const char *s);
-extern Rng *FUN_000964d0();
-extern Singleton *FUN_001c3d90();
-extern Fx *FUN_0027f250();
-extern int FUN_00098190(float a, float b, int c, int d, Obj21c *e, float f, Vec3 *g, Vec3 *h, int i,
+extern Rng_1d8fc0 *FUN_000964d0();
+extern Singleton_1d8fc0 *FUN_001c3d90();
+extern Fx_1d8fc0 *FUN_0027f250();
+extern int FUN_00098190(float a, float b, int c, int d, Obj21c *e, float f, Vec3_1d8fc0 *g, Vec3_1d8fc0 *h, int i,
                         int j, int k, int l);
-extern bool FUN_00202560(const Vec3 *a, float b, int c, Vec3 *d, Bounds *e, Vec3 *f, Hit **g, int h);
+extern bool FUN_00202560(const Vec3_1d8fc0 *a, float b, int c, Vec3_1d8fc0 *d, Bounds_1d8fc0 *e, Vec3_1d8fc0 *f, Hit_1d8fc0 **g, int h);
 
 
-extern Root *DAT_004dd700;
+extern Root_1d8fc0 *DAT_004dd700;
 extern unsigned int DAT_004e263c;
-extern Vec3 DAT_004e2630;
+extern Vec3_1d8fc0 DAT_004e2630;
 extern unsigned int DAT_004e2628;
 extern unsigned int DAT_004e262c;
 extern unsigned int DAT_004e2620;
 extern unsigned int DAT_004e2624;
-extern Key2 DAT_004e25a0[6];
-extern Vec3 DAT_004c6068;
+extern Key2_1d8fc0 DAT_004e25a0[6];
+extern Vec3_1d8fc0 DAT_004c6068;
 
 // The original keeps these in fixed stack words and hands pointers to them to callees (the checker
 // compares what lies around them), and re-uses the same words for different values over time.
-struct Frame {
+struct Frame_1d8fc0 {
     float f140;             // E-0x140: sec, later the heading a1, later the water level wl
     union {
         float f13c;         // E-0x13c: flag / ff / l / a3
@@ -310,33 +310,33 @@ struct Frame {
     char p138[3];
     bool A3;                // E-0x135
     float f134;             // E-0x134: l2, secCopy, sc
-    Vec3 v130;              // E-0x130: scratch vector
-    Vec3 dir;               // E-0x124
+    Vec3_1d8fc0 v130;              // E-0x130: scratch vector
+    Vec3_1d8fc0 dir;               // E-0x124
     union {
         float f118;         // E-0x118
-        Sub74 *s74;
+        Sub74_1d8fc0 *s74;
     };
     char p114[3];
     unsigned char sv;       // E-0x111
     union {
         float f110;         // E-0x110
-        Hit *hitObj;
+        Hit_1d8fc0 *hitObj;
         int count;
     };
-    Vec3 v10c;              // E-0x10c
+    Vec3_1d8fc0 v10c;              // E-0x10c
     union {
         float f100;         // E-0x100
-        ObjList *o;
+        ObjList_1d8fc0 *o;
         Root24 *r24;
     };
     char pfc[3];
     bool A5;                // E-0xf9
-    Vec3 v0f8;              // E-0xf8
-    Bounds b0ec;            // E-0xec
+    Vec3_1d8fc0 v0f8;              // E-0xf8
+    Bounds_1d8fc0 b0ec;            // E-0xec
     float f0dc;             // E-0xdc
-    Vec3 v0d8;              // E-0xd8
+    Vec3_1d8fc0 v0d8;              // E-0xd8
     Matrix mcc;             // E-0xcc
-    Vec3 v08c;              // E-0x8c
+    Vec3_1d8fc0 v08c;              // E-0x8c
     Matrix m80;             // E-0x80
     Matrix m40;             // E-0x40
 };
@@ -349,9 +349,9 @@ public:
     char pad48[0x98 - 0x48];
     ObjArr *p98;
     char pad9c[0xa0 - 0x9c];
-    Holder *pa0;
+    Holder_1d8fc0 *pa0;
     char pada4[0xec - 0xa4];
-    StateObj *pec;
+    StateObj_1d8fc0 *pec;
     char padf0[0x111 - 0xf0];
     unsigned char b111;
     char pad112[0x114 - 0x112];
@@ -364,15 +364,15 @@ public:
     unsigned char b12c;
     char pad12d[0x154 - 0x12d];
     float f154;
-    Vec3 v158;
+    Vec3_1d8fc0 v158;
     char pad164[0x1c8 - 0x164];
     unsigned char b1c8;
     unsigned char b1c9;
     char pad1ca[0x1cc - 0x1ca];
     int h1cc;
     char pad1d0[0x200 - 0x1d0];
-    Vec3 v200;
-    Vec3 v20c;
+    Vec3_1d8fc0 v200;
+    Vec3_1d8fc0 v20c;
     float f218;
     Obj21c *p21c;
     int i220;
@@ -388,19 +388,19 @@ public:
 
     void FUN_001d8fc0(float dt);
 
-    void FUN_001d69f0(Vec3 *out);
+    void FUN_001d69f0(Vec3_1d8fc0 *out);
     void FUN_001d82a0();
     void FUN_001d8cd0();
     void FUN_001d8d90(int on);
     void FUN_001d71e0(int a);
-    bool FUN_001d7360(Bounds *b);
+    bool FUN_001d7360(Bounds_1d8fc0 *b);
     Obj72e0 *FUN_001d72e0();
     void FUN_001d7d50();
     float FUN_001d8160();
     void FUN_001d6b60(Matrix m, float s);
 
     Entity *GetEntity() { return pa0 ? pa0->p10 : 0; }
-    const Vec3 *GetPos()
+    const Vec3_1d8fc0 *GetPos()
     {
         if (pa0)
             return &pa0->FUN_002fc6f0()->t;
@@ -410,7 +410,7 @@ public:
 
 void CSPHulkPropInstance::FUN_001d8fc0(float dt)
 {
-    Frame F;
+    Frame_1d8fc0 F;
     float &sec = F.f140;
 
     sec = dt * 0.001f;
@@ -420,7 +420,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
         if (pa0) {
             Entity *e = pa0->p10;
             if (e) {
-                Ctl *c = e->p70;
+                Ctl_1d8fc0 *c = e->p70;
                 if (c) {
                     if (c->v11())
                         GetEntity()->p70->v13();
@@ -434,7 +434,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
     if (pa0) {
         Entity *e = pa0->p10;
         if (e) {
-            Ctl *c = e->p70;
+            Ctl_1d8fc0 *c = e->p70;
             if (c) {
                 if (!c->v11()) {
                     if (FUN_000964d0()->FUN_00078780() < 0.005f)
@@ -448,7 +448,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
         bool b = FUN_001c3d90()->FUN_001c3c90();
         if (!b || b26c) {
             F.v130 = *FUN_001c3d90()->FUN_001c39d0();
-            const Vec3 *p = GetPos();
+            const Vec3_1d8fc0 *p = GetPos();
             float dx = F.v130.x - p->x;
             float dy = F.v130.y - p->y;
             float dz = F.v130.z - p->z;
@@ -469,7 +469,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
         F.A5 = pec->FUN_001d4de0() == 5;
         F.A3 = pec->FUN_001d5e80(i40) == 3;
         bool A2 = pec->FUN_001d5e80(i40) == 2;
-        Ctl *ctl = GetEntity()->p70;
+        Ctl_1d8fc0 *ctl = GetEntity()->p70;
 
         if (f218 > 0.0f) {
             F.dir = v200;
@@ -622,7 +622,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
                     v200.y = F.f13c * v200.y;
                     v200.z = F.f13c * v200.z;
 
-                    Vec3 *s = &v20c;
+                    Vec3_1d8fc0 *s = &v20c;
                     F.f13c = (float)sqrt(s->x * s->x + s->y * s->y + s->z * s->z);
                     Entity *e = GetEntity();
                     s->x = e->v5c.x;
@@ -650,11 +650,11 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
     }
 
     if (h1cc != 0) {
-        Mgr *mgr = DAT_004dd700->p20->p8;
+        Mgr_1d8fc0 *mgr = DAT_004dd700->p20->p8;
         void *d0 = mgr->FUN_00067ad0(h1cc);
         if (d0) {
             if (FUN_001d7360(&F.b0ec)) {
-                Descriptor &desc = (Descriptor &)F.mcc;
+                Descriptor_1d8fc0 &desc = (Descriptor_1d8fc0 &)F.mcc;
                 desc.FUN_00067e60(d0);
                 Entity *e = GetEntity();
                 if (e) {
@@ -760,7 +760,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
         if (F.count > 0) {
             int off = 0;
             do {
-                Elem *el = (Elem *)((char *)F.o->elems + off);
+                Elem_1d8fc0 *el = (Elem_1d8fc0 *)((char *)F.o->elems + off);
                 if (!(DAT_004e263c & 2)) {
                     DAT_004e263c |= 2;
                     Key64 k = FUN_0027b020("StateProp");
@@ -775,7 +775,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
                 }
                 if (!(el->f50 < F.f118) && el->f50 < F.f0dc) {
                     if (el->lo40 == DAT_004e2628 && el->hi44 == DAT_004e262c) {
-                        Root *g = DAT_004dd700;
+                        Root_1d8fc0 *g = DAT_004dd700;
                         if (g) {
                             Root0c *m = g->p0c;
                             if (m) {
@@ -787,7 +787,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
                     } else if (el->lo40 == DAT_004e2620 && el->hi44 == DAT_004e2624) {
                         F.dir = el->v0;
                         vfunc_15()->FUN_0022c3b0(&F.dir, &F.dir);
-                        const Vec3 *pp = GetPos();
+                        const Vec3_1d8fc0 *pp = GetPos();
                         F.dir.x = F.dir.x + pp->x;
                         F.dir.y = F.dir.y + pp->y;
                         F.dir.z = F.dir.z + pp->z;
@@ -810,11 +810,11 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
     }
 
     // water level crossing
-    const Vec3 *ppos = GetPos();
+    const Vec3_1d8fc0 *ppos = GetPos();
     F.v10c.z = ppos->z;
     F.v10c.y = ppos->y;
     float posX = ppos->x;
-    Root *g = DAT_004dd700;
+    Root_1d8fc0 *g = DAT_004dd700;
     F.f140 = g->p24->f18;                    // water level wl
     F.r24 = g->p24;
     bool cross;
@@ -828,9 +828,9 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
         if (r < 0 || lay->FUN_00204440(r)) {
             Root24 *r24 = F.r24;
             if ((r24->lo20 | r24->hi24) != 0) {
-                Fx *fx = FUN_0027f250();
+                Fx_1d8fc0 *fx = FUN_0027f250();
                 F.mcc.FUN_0022b980();
-                const Vec3 *p2 = GetPos();
+                const Vec3_1d8fc0 *p2 = GetPos();
                 F.mcc.t.x = p2->x;
                 F.mcc.t.y = p2->y;
                 F.mcc.t.z = p2->z;
@@ -848,7 +848,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
                 g->p34->FUN_001ec060(this, r24->c28);
             if (F.v10c.y <= F.f140) {
                 if (i114 == 0) {
-                    Ctl *c2 = GetEntity()->p70;
+                    Ctl_1d8fc0 *c2 = GetEntity()->p70;
                     if (c2) {
                         c2->v6(0);
                         c2->p10->v8(&c2->v98, &F.v130, -1);
@@ -878,7 +878,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
     if (F.v10c.y < F.f140) {
         if (pa0 && pa0->p10) {
             if (!pec->FUN_001d4e40()) {
-                Ctl *c3 = GetEntity()->p70;
+                Ctl_1d8fc0 *c3 = GetEntity()->p70;
                 if (c3) {
                     c3->v6(0);
                     c3->p10->v8(&c3->v98, &F.v0f8, -1);
@@ -891,7 +891,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
         }
     }
 
-    const Vec3 *pf = GetPos();
+    const Vec3_1d8fc0 *pf = GetPos();
     v158.x = pf->x;
     v158.y = pf->y;
     v158.z = pf->z;

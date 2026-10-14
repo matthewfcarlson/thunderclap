@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00280460 @ 0x00280460
 // Claim a free slot (of 100) for a ref-counted object and return the slot's new id (0 when none is free).
-class Transform {
+class Transform_280460 {
 public:
     char data[0x40];
     void FUN_0022b980();
@@ -22,11 +22,11 @@ public:
     virtual void Attach(int arg);
 };
 
-struct Item {
+struct Item_280460 {
     int id;
     char flag;
     char pad5[3];
-    Transform transform;
+    Transform_280460 transform;
     Object* held;
     int field4c;
     int field50;
@@ -35,19 +35,19 @@ struct Item {
     int field5c;
 };
 
-class SlotTable {
+class SlotTable_280460 {
 public:
     char pad0[0x10];
     int nextId;
     char pad14[4];
-    Item items[100];
+    Item_280460 items[100];
 
     int FUN_00280460(Object* object, int arg, int value);
 };
 
-int SlotTable::FUN_00280460(Object* object, int arg, int value)
+int SlotTable_280460::FUN_00280460(Object* object, int arg, int value)
 {
-    Item* item = items;
+    Item_280460* item = items;
     for (int i = 0; ; ++i, ++item) {
         if (item->held == 0) {
             break;

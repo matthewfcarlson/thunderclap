@@ -7,21 +7,21 @@ union DtArg {
     unsigned int word;
 };
 
-struct Link {
+struct Link_152a0 {
     char pad00[0x12c];
     int id;                  // 0x12c
 };
 
-struct Fighter {
+struct Fighter_152a0 {
     char pad00[0x12c];
     int id;                  // 0x12c
     char pad130[0x204];
-    Link *link334;           // 0x334
-    Link *link338;           // 0x338
+    Link_152a0 *link334;           // 0x334
+    Link_152a0 *link338;           // 0x338
     void FUN_00043350(float amount, int source, int zero0, float one, int zero1, unsigned int flagWord);
 };
 
-struct Attacker {
+struct Attacker_152a0 {
     char pad00[0x4c];
     int sourceId;            // 0x4c
     char pad50[0x41];
@@ -29,13 +29,13 @@ struct Attacker {
 };
 
 struct Context {
-    Fighter *FUN_00059a30();
+    Fighter_152a0 *FUN_00059a30();
 };
 
 class Combatant {
 public:
     virtual void v0(); virtual void v1(); virtual void v2();
-    virtual Attacker *GetAttacker();     // slot 3
+    virtual Attacker_152a0 *GetAttacker();     // slot 3
     Context *FUN_000592a0();
 };
 
@@ -51,16 +51,16 @@ public:
 
 bool CDrainHealthAction::vfunc_7(DtArg dt) {
     float amount = dt.f * rate;
-    Fighter *fighter = combatant->FUN_000592a0()->FUN_00059a30();
+    Fighter_152a0 *fighter = combatant->FUN_000592a0()->FUN_00059a30();
     int source = 0;
     dt.flag = 0;
-    Link *link = fighter->link338;
+    Link_152a0 *link = fighter->link338;
     if (link == 0)
         link = fighter->link334;
     if (link != 0) {
         source = link->id;
     } else {
-        Attacker *attacker = combatant->GetAttacker();
+        Attacker_152a0 *attacker = combatant->GetAttacker();
         if (attacker != 0) {
             source = attacker->sourceId;
             if (source == fighter->id)

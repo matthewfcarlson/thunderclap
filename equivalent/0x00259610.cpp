@@ -1,35 +1,35 @@
 // STATUS: equivalent (tools/equiv.py level 3: 49 inputs, branch coverage 61/68, incomplete)
 // FUN_00259610 @ 0x00259610
-typedef unsigned int uint;
+typedef unsigned int uint_259610;
 extern char DAT_004e76e8, DAT_004e7730, DAT_004e76d8;
 extern void* DAT_004cd1bc;
-struct Device { char pad[0x1c]; char list[0x18]; void* sound; };
-extern Device* DAT_004e5ce0;
+struct Device_259610 { char pad[0x1c]; char list[0x18]; void* sound; };
+extern Device_259610* DAT_004e5ce0;
 extern void* __cdecl FUN_00247530(void*);
-extern uint __cdecl FUN_0024c740();
+extern uint_259610 __cdecl FUN_0024c740();
 extern void __cdecl FUN_0024c810(void*);
 extern void __cdecl FUN_00257e80(void*,void*);
-extern uint __cdecl FUN_0024c2f0(void*);
+extern uint_259610 __cdecl FUN_0024c2f0(void*);
 extern void FUN_0024d140();
-extern int __stdcall FUN_003c6b86(void*,uint);
-namespace DSOUND { extern int __stdcall IDirectSound_CreateSoundBuffer(void*,void*,void*,void*); extern int __stdcall IDirectSoundBuffer_SetBufferData(void*,void*,uint); extern int __stdcall IDirectSoundBuffer_SetCurrentPosition(void*,uint); }
-struct Audio { char pad0[12]; uint bytes; void* samples; uint flags; };
-struct Binding { uint index; uint other; };
-struct Channel { uint types[4]; float volumes[4]; float volume; uint count; Binding* bindings; Binding entries[6]; void* mapping[7]; void* context; void* buffer; };
-struct Player { char pad0[8]; uint field8; uint fieldc; float gain[2]; uint state; char enabled; char pad1[3]; Channel* channels[16]; Audio* audio; void* cache[8]; void (*callback)(); };
-struct WaveFormat { unsigned short tag, channels; uint samplesPerSec, averageBytes; unsigned short blockAlign, bits; unsigned short extra, unknown; };
-struct BufferDesc { uint size, flags, reserved; WaveFormat* format; uint* count; uint trailing; };
-Player* __cdecl FUN_00259610(uint* types, void* context, Audio* audio)
+extern int __stdcall FUN_003c6b86(void*,uint_259610);
+namespace DSOUND { extern int __stdcall IDirectSound_CreateSoundBuffer(void*,void*,void*,void*); extern int __stdcall IDirectSoundBuffer_SetBufferData(void*,void*,uint_259610); extern int __stdcall IDirectSoundBuffer_SetCurrentPosition(void*,uint_259610); }
+struct Audio_259610 { char pad0[12]; uint_259610 bytes; void* samples; uint_259610 flags; };
+struct Binding_259610 { uint_259610 index; uint_259610 other; };
+struct Channel { uint_259610 types[4]; float volumes[4]; float volume; uint_259610 count; Binding_259610* bindings; Binding_259610 entries[6]; void* mapping[7]; void* context; void* buffer; };
+struct Player_259610 { char pad0[8]; uint_259610 field8; uint_259610 fieldc; float gain[2]; uint_259610 state; char enabled; char pad1[3]; Channel* channels[16]; Audio_259610* audio; void* cache[8]; void (*callback)(); };
+struct WaveFormat { unsigned short tag, channels; uint_259610 samplesPerSec, averageBytes; unsigned short blockAlign, bits; unsigned short extra, unknown; };
+struct BufferDesc { uint_259610 size, flags, reserved; WaveFormat* format; uint_259610* count; uint_259610 trailing; };
+Player_259610* __cdecl FUN_00259610(uint_259610* types, void* context, Audio_259610* audio)
 {
- Player* player=(Player*)FUN_00247530(&DAT_004e76e8);
- if(player) { uint* p=(uint*)player; for(int i=0;i<34;i++) p[i]=0; }
+ Player_259610* player=(Player_259610*)FUN_00247530(&DAT_004e76e8);
+ if(player) { uint_259610* p=(uint_259610*)player; for(int i=0;i<34;i++) p[i]=0; }
  player->field8=0; player->fieldc=5; player->state=0; player->enabled=0;
  player->callback=FUN_0024d140; player->gain[0]=1.0f; player->gain[1]=1.0f;
  player->audio=audio; for(int i=0;i<8;i++) player->cache[i]=0;
- uint channelCount=(audio->flags>>4)&31;
- for(uint j=0;j<channelCount;j++) {
+ uint_259610 channelCount=(audio->flags>>4)&31;
+ for(uint_259610 j=0;j<channelCount;j++) {
   Channel* ch=(Channel*)FUN_00247530(&DAT_004e7730);
-  if(ch) { uint* p=(uint*)ch; for(int z=0;z<32;z++) p[z]=0; }
+  if(ch) { uint_259610* p=(uint_259610*)ch; for(int z=0;z<32;z++) p[z]=0; }
   player->channels[j]=ch;
   ch->context=context;
   for(int z=0;z<7;z++) ch->mapping[z]=&DAT_004e76d8;
@@ -37,7 +37,7 @@ Player* __cdecl FUN_00259610(uint* types, void* context, Audio* audio)
   int n=0;
   for(int k=0;k<4;k++) {
    ch->volumes[k]=1.0f;
-   uint type=*types++;
+   uint_259610 type=*types++;
    ch->types[k]=type;
    if(!type) continue;
    if(type>=8 && type<=15) {
@@ -64,26 +64,26 @@ Player* __cdecl FUN_00259610(uint* types, void* context, Audio* audio)
   }
   ch->bindings=ch->entries; ch->count=n;
  }
- for(uint j=channelCount;j<16;j++) player->channels[j]=0;
+ for(uint_259610 j=channelCount;j<16;j++) player->channels[j]=0;
  FUN_00257e80(DAT_004e5ce0->list,player);
  BufferDesc desc; desc.size=24; desc.flags=0x400a0; desc.reserved=0; desc.trailing=0;
  WaveFormat fmt;
  int mode=(int)(player->audio->flags<<28)>>28;
  if(mode==0) {
   fmt.tag=1; fmt.bits=(player->audio->flags>>26)&31; fmt.channels=1;
-  uint total=FUN_0024c2f0(&player->audio->flags);
+  uint_259610 total=FUN_0024c2f0(&player->audio->flags);
   fmt.blockAlign=(unsigned short)(total/((player->audio->flags>>4)&31));
   fmt.samplesPerSec=(player->audio->flags>>9)&0x1ffff;
   fmt.averageBytes=fmt.blockAlign*fmt.samplesPerSec;
  } else if(mode==3) {
-  uint rate=(player->audio->flags>>9)&0x1ffff;
+  uint_259610 rate=(player->audio->flags>>9)&0x1ffff;
   fmt.tag=0x69; fmt.channels=1; fmt.samplesPerSec=rate; fmt.averageBytes=(rate*36)>>6;
   fmt.blockAlign=36; fmt.bits=4; fmt.extra=2; fmt.unknown=64;
  }
  desc.format=&fmt;
- uint len=player->audio->bytes/((player->audio->flags>>4)&31);
- uint offset=0;
- for(uint j=0;j<channelCount;j++) {
+ uint_259610 len=player->audio->bytes/((player->audio->flags>>4)&31);
+ uint_259610 offset=0;
+ for(uint_259610 j=0;j<channelCount;j++) {
   Channel* ch=player->channels[j];
   desc.count=&ch->count;
   DSOUND::IDirectSound_CreateSoundBuffer(DAT_004e5ce0->sound,&desc,&ch->buffer,0);
@@ -91,10 +91,10 @@ Player* __cdecl FUN_00259610(uint* types, void* context, Audio* audio)
   FUN_003c6b86(ch->buffer,0);
   offset+=len;
  }
- uint finalCount=(player->audio->flags>>4)&31;
- volatile uint zero=0;
- uint position=zero/finalCount;
- for(uint j=0;j<finalCount;j++) DSOUND::IDirectSoundBuffer_SetCurrentPosition(player->channels[j]->buffer,position);
+ uint_259610 finalCount=(player->audio->flags>>4)&31;
+ volatile uint_259610 zero=0;
+ uint_259610 position=zero/finalCount;
+ for(uint_259610 j=0;j<finalCount;j++) DSOUND::IDirectSoundBuffer_SetCurrentPosition(player->channels[j]->buffer,position);
  player->state=0;
  return player;
 }

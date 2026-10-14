@@ -30,11 +30,11 @@ struct LoadArgs {
     char flag;              // 0x10c
 };
 
-struct Handle {
+struct Handle_1bc0c0 {
     virtual void v0();
     virtual void Release();
     bool FUN_00266750();
-    struct Resource *FUN_00266700();
+    struct Resource_1bc0c0 *FUN_00266700();
 };
 
 struct Drawable {
@@ -49,20 +49,20 @@ struct Drawable {
     virtual void Draw(int a, int b);
 };
 
-struct Resource {
+struct Resource_1bc0c0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual Drawable *Load(void *caster, unsigned int lo, unsigned int hi);
 };
 
-struct Loader {
-    void FUN_00265810(LoadArgs *args, Handle **out);
+struct Loader_1bc0c0 {
+    void FUN_00265810(LoadArgs *args, Handle_1bc0c0 **out);
     int FUN_00264870();
     void FUN_00264860(int v);
 };
 
-struct Display {
+struct Display_1bc0c0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -82,7 +82,7 @@ struct Display {
     virtual float Aspect();
 };
 
-struct Renderer {
+struct Renderer_1bc0c0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -178,21 +178,21 @@ struct Pipe {
     void FUN_0028faf0(int v);
 };
 
-extern Loader *DAT_00527c58;
-extern Display *DAT_0052c2a4;
-extern Renderer *DAT_0052c2a8;
+extern Loader_1bc0c0 *DAT_00527c58;
+extern Display_1bc0c0 *DAT_0052c2a4;
+extern Renderer_1bc0c0 *DAT_0052c2a8;
 extern View *DAT_0052c2ac;
 extern Pipe *DAT_0052c2b4;
 
-union Slot {
+union Slot_1bc0c0 {
     float f;
     unsigned char b;
     unsigned int w;
 };
 
-struct Frame {
-    Slot slot;              // 0x00
-    Handle *handle;         // 0x04
+struct Frame_1bc0c0 {
+    Slot_1bc0c0 slot;              // 0x00
+    Handle_1bc0c0 *handle;         // 0x04
     char caster[4];         // 0x08
     LoadArgs args;          // 0x0c
     char buf1[0x100];       // 0x11c
@@ -202,7 +202,7 @@ struct Frame {
 
 void FUN_001bc0c0(const char *name, int count, const char *dir)
 {
-    Frame f;
+    Frame_1bc0c0 f;
     f.cookie = DAT_004d9968;
     if (dir == 0)
         FUN_000964a0(f.buf1, 0x100, "art/%s.p3d", name);
@@ -222,7 +222,7 @@ void FUN_001bc0c0(const char *name, int count, const char *dir)
         FUN_00087990();
     DAT_00527c58->FUN_00264860(old);
     FUN_000964a0(f.buf2, 0x100, "%s.png", name);
-    Resource *res = f.handle->FUN_00266700();
+    Resource_1bc0c0 *res = f.handle->FUN_00266700();
     ID id = FUN_0027b020(f.buf2);
     content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> *caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>;
     Drawable *dr = res->Load(caster, (unsigned int)id, (unsigned int)(id >> 32));

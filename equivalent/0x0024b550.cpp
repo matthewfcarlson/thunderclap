@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3034 inputs, branch coverage 64/66, incomplete)
 // FUN_0024b550 @ 0x0024b550
-class Sink {
+class Sink_24b550 {
 public:
     virtual void v0();
     virtual int state();
@@ -21,13 +21,13 @@ public:
     virtual char done();
 };
 
-struct Slot {
-    Sink *sink;
+struct Slot_24b550 {
+    Sink_24b550 *sink;
     char rest[8];
 };
 
-struct Queue {
-    Slot slots[10];
+struct Queue_24b550 {
+    Slot_24b550 slots[10];
     unsigned char current;
     unsigned char enabled;
     void FUN_0024b270();
@@ -42,7 +42,7 @@ struct Chunk {
     void *f14;
 };
 
-struct Region {
+struct Region_24b550 {
     unsigned int pos;
     char pad4[4];
     unsigned int len;
@@ -50,7 +50,7 @@ struct Region {
     unsigned int extra;
 };
 
-struct Frame {
+struct Frame_24b550 {
     unsigned int x;
     unsigned int y;
     unsigned int z;
@@ -59,21 +59,21 @@ struct Frame {
 unsigned int FUN_0025e2b0(Chunk *c);
 unsigned int FUN_0025e090(Chunk *c);
 unsigned int FUN_0026fd80(unsigned int a, unsigned int n);
-unsigned int FUN_0025e310(Region *r);
+unsigned int FUN_0025e310(Region_24b550 *r);
 char FUN_0025cf70(int a, void *b, unsigned int c, unsigned int *out);
 char FUN_0025d070(int a, void *b, unsigned int c, int d, unsigned int *z, unsigned int *y, unsigned int *x);
 unsigned int FUN_00267f80();
 Stream *FUN_002703c0(unsigned int y, unsigned int z, unsigned int w, unsigned int v, unsigned int x);
 void FUN_0025d0f0(int a, unsigned int b);
-void FUN_0025e350(Region *r, unsigned int v);
+void FUN_0025e350(Region_24b550 *r, unsigned int v);
 char FUN_0025d010(int a);
 void FUN_0025e0b0(Chunk *c, unsigned int v, int flag);
 
-struct Player {
+struct Player_24b550 {
     char pad00[0xc];
     int h0c;
     Chunk *chunk;
-    Region *region;
+    Region_24b550 *region;
     unsigned int t18;
     int n1c;
     unsigned int t20;
@@ -84,7 +84,7 @@ struct Player {
     unsigned int t34;
     unsigned int t38;
     unsigned int t3c;
-    Queue queue;
+    Queue_24b550 queue;
     char pad_bc[4];
     int mode;
     int state;
@@ -95,15 +95,15 @@ struct Player {
 };
 
 // equiv-conv: FUN_0024b550 esi
-void FUN_0024b550(Player *p)
+void FUN_0024b550(Player_24b550 *p)
 {
-    Frame f;
-    Queue *q = &p->queue;
-    Slot *slot = 0;
+    Frame_24b550 f;
+    Queue_24b550 *q = &p->queue;
+    Slot_24b550 *slot = 0;
     if (q->enabled) {
         slot = &q->slots[q->current];
     }
-    Sink *sink = 0;
+    Sink_24b550 *sink = 0;
     bool ok;
     if (slot == 0) {
         ok = false;
@@ -169,7 +169,7 @@ void FUN_0024b550(Player *p)
             return;
         }
         p->t34 = FUN_00267f80();
-        Region *r = p->region;
+        Region_24b550 *r = p->region;
         p->stream = FUN_002703c0(f.y, f.z, r->extra + r->pos, r->len, f.x);
         p->stream->start();
         p->mark28 = f.x;
@@ -178,11 +178,11 @@ void FUN_0024b550(Player *p)
         return;
     }
     if (state == 2) {
-        Slot *s2 = 0;
+        Slot_24b550 *s2 = 0;
         if (q->enabled) {
             s2 = &q->slots[q->current];
         }
-        Sink *sk = s2->sink;
+        Sink_24b550 *sk = s2->sink;
         if (!sk->poll(&f.x)) {
             return;
         }

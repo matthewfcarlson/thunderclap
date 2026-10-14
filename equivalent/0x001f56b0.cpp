@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // FUN_001f56b0 @ 0x001f56b0
-struct Resource {
+struct Resource_1f56b0 {
  char pad0[4]; void* handle; void* owner; char pad12[12]; int active;
  void FUN_001f3400(int);
  void FUN_001f4940();
@@ -16,7 +16,7 @@ extern void __cdecl thunk_FUN_00270a50();
 extern void __cdecl FUN_002656a0();
 extern void __cdecl FUN_0024a800(void*,int);
 struct Object {
- char pad0[0xc8]; Resource* resource; char padcc[0x334-0xcc]; float scale;
+ char pad0[0xc8]; Resource_1f56b0* resource; char padcc[0x334-0xcc]; float scale;
  bool FUN_001f56b0(void* owner,int value);
 };
 bool Object::FUN_001f56b0(void* owner,int value) {

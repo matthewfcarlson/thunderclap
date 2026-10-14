@@ -9,21 +9,21 @@ inline void* operator new(unsigned int, void* p) { return p; }
 namespace om { struct DynBehaviour { virtual void v0(); }; }
 namespace audio {
 struct ChannelSendVolumeFadeBehaviour : om::DynBehaviour { virtual void v0(); char pad[16]; uint key; uint value; void* owner; float* volumes; };
-struct TreeNode { TreeNode* left; TreeNode* right; char pad[8]; uint key; };
-struct Tree { TreeNode* root; char sentinel[20]; };
-struct Channel { char pad[0x40]; float* volumes; char pad2[0x20]; Tree tree; };
+struct TreeNode_24f6a0 { TreeNode_24f6a0* left; TreeNode_24f6a0* right; char pad[8]; uint key; };
+struct Tree_24f6a0 { TreeNode_24f6a0* root; char sentinel[20]; };
+struct Channel { char pad[0x40]; float* volumes; char pad2[0x20]; Tree_24f6a0 tree; };
 struct Context { char pad[0x3c]; void* value; };
-struct Settings { char pad[8]; char owner[0x40]; uint value; char lookup[4]; };
-struct SeqAction { virtual void vfunc_0(); virtual void vfunc_1(Context*); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); uint unknown; Settings* settings; uint active; };
+struct Settings_24f6a0 { char pad[8]; char owner[0x40]; uint value; char lookup[4]; };
+struct SeqAction { virtual void vfunc_0(); virtual void vfunc_1(Context*); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); uint unknown; Settings_24f6a0* settings; uint active; };
 struct SeqActionChannelSendVolumes : SeqAction { virtual void vfunc_1(Context*); };
 }
 audio::Channel* __cdecl FUN_0024a940(void*,void*);
-void __cdecl FUN_0024f280(audio::Tree*,audio::ChannelSendVolumeFadeBehaviour*,uint*);
+void __cdecl FUN_0024f280(audio::Tree_24f6a0*,audio::ChannelSendVolumeFadeBehaviour*,uint*);
 void audio::SeqActionChannelSendVolumes::vfunc_1(Context* ctx) {
  Channel* ch=FUN_0024a940(ctx->value,settings->lookup);
- Tree* tree=&ch->tree;
- TreeNode* node=tree->root;
- TreeNode* end=(TreeNode*)tree->sentinel;
+ Tree_24f6a0* tree=&ch->tree;
+ TreeNode_24f6a0* node=tree->root;
+ TreeNode_24f6a0* end=(TreeNode_24f6a0*)tree->sentinel;
  if(node!=end) {
  uint key=DAT_004e6748;
  while(node!=end) {

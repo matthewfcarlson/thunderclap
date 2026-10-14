@@ -2,54 +2,54 @@
 // CWallSlideAction::vfunc_6 @ 0x00020de0
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_20de0 {
     float x, y, z;
     float FUN_0022d110();
-    bool FUN_0022d2b0(const Vec3 *other, float eps);
+    bool FUN_0022d2b0(const Vec3_20de0 *other, float eps);
 };
 
-struct Transform {
-    void FUN_00222180(const Vec3 *dir);
+struct Transform_20de0 {
+    void FUN_00222180(const Vec3_20de0 *dir);
 };
 
-struct ResourceName {
+struct ResourceName_20de0 {
     char data[12];
     void FUN_0027b040(const char *name);
 };
 
-class JointObject {
+class JointObject_20de0 {
 public:
     virtual void vfunc_0();
     char pad04[4];
-    ResourceName name;
+    ResourceName_20de0 name;
     char pad14[0x18 - 0x14];
-    Transform transform;
-    char rest[0x70 - 0x18 - sizeof(Transform)];
-    JointObject *FUN_002248f0(unsigned int id);
+    Transform_20de0 transform;
+    char rest[0x70 - 0x18 - sizeof(Transform_20de0)];
+    JointObject_20de0 *FUN_002248f0(unsigned int id);
 };
 
-struct Scene {
-    void FUN_00222890(JointObject *obj, float a, int b, float c, float d, float e, float f);
+struct Scene_20de0 {
+    void FUN_00222890(JointObject_20de0 *obj, float a, int b, float c, float d, float e, float f);
 };
 
-struct Tracker {
+struct Tracker_20de0 {
     char pad[0x1ae0];
-    Vec3 alt;
+    Vec3_20de0 alt;
     char pad2[0x1af8 - 0x1aec];
-    Vec3 main;
-    bool FUN_000356c0(Vec3 *out);
+    Vec3_20de0 main;
+    bool FUN_000356c0(Vec3_20de0 *out);
 };
 
-struct Fighter {
-    Tracker *FUN_00059a30();
-    Scene *FUN_00059a40();
+struct Fighter_20de0 {
+    Tracker_20de0 *FUN_00059a30();
+    Scene_20de0 *FUN_00059a40();
 };
 
-struct Owner {
-    Fighter *FUN_000592a0();
+struct Owner_20de0 {
+    Fighter_20de0 *FUN_000592a0();
 };
 
-class Shape {
+class Shape_20de0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -81,30 +81,30 @@ public:
     virtual void vfunc_7();
     virtual void vfunc_8();
     char pad04[0x1c - 4 - 0x0];
-    Owner *owner;
-    Shape *shape;
-    JointObject *joint;
+    Owner_20de0 *owner;
+    Shape_20de0 *shape;
+    JointObject_20de0 *joint;
     float k;
-    Vec3 slide;
+    Vec3_20de0 slide;
 };
 
-struct Frame {
+struct Frame_20de0 {
     float r;
     float g28;
-    Vec3 V;
-    Vec3 W;
-    Vec3 T;
+    Vec3_20de0 V;
+    Vec3_20de0 W;
+    Vec3_20de0 T;
 };
 
 bool CWallSlideAction::vfunc_6(int arg)
 {
-    Fighter *fighter = owner->FUN_000592a0();
-    Tracker *trk = fighter->FUN_00059a30();
-    Scene *scene = fighter->FUN_00059a40();
+    Fighter_20de0 *fighter = owner->FUN_000592a0();
+    Tracker_20de0 *trk = fighter->FUN_00059a30();
+    Scene_20de0 *scene = fighter->FUN_00059a40();
     if (scene == 0)
         return false;
 
-    Frame fr;
+    Frame_20de0 fr;
     fr.V = trk->main;
     fr.W.x = 0.0f;
     fr.W.y = 0.0f;
@@ -145,14 +145,14 @@ bool CWallSlideAction::vfunc_6(int arg)
             k = (float)(len / fr.r);
     }
 
-    Shape *sh = shape;
+    Shape_20de0 *sh = shape;
     float g28 = sh->f28;
     float g2c = sh->f2c;
     int g24 = sh->f24;
     void *mem = FUN_00263ea0(0x70);
-    JointObject *obj = 0;
+    JointObject_20de0 *obj = 0;
     if (mem)
-        obj = ((JointObject *)mem)->FUN_002248f0(0);
+        obj = ((JointObject_20de0 *)mem)->FUN_002248f0(0);
     joint = obj;
     obj->name.FUN_0027b040("wallSlide");
     joint->vfunc_0();

@@ -2,18 +2,18 @@
 // hulkfight::motion::SlowMotionAction::vfunc_5 @ 0x001441a0
 extern "C" double __cdecl sin(double);
 
-class Clock {
+class Clock_1441a0 {
 public:
     void FUN_00086100(float v);
 };
 
-struct Manager {
+struct Manager_1441a0 {
     char pad0[0x58];
-    Clock *clock;
+    Clock_1441a0 *clock;
 };
-extern Manager *DAT_004dd700;
+extern Manager_1441a0 *DAT_004dd700;
 
-class Curve {
+class Curve_1441a0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -40,7 +40,7 @@ public:
     virtual char vfunc_5(int mode, float dt);
 
     char pad04[0x18];
-    Curve *curve;
+    Curve_1441a0 *curve;
     float base;
     float elapsed;
 };
@@ -52,7 +52,7 @@ char SlowMotionAction::vfunc_5(int mode, float dt)
 
     float t = dt + elapsed;
     elapsed = t;
-    Curve *c = curve;
+    Curve_1441a0 *c = curve;
     float val = c->target;
 
     if (t < c->fadeInEnd) {

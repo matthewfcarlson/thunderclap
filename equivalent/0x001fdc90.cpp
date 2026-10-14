@@ -13,16 +13,16 @@ struct Reader {
  void FUN_001d1900(int);
 };
 Reader* __cdecl FUN_001d4c90();
-struct Entry {
+struct Entry_1fdc90 {
  char pad[0x6e0]; int count; char tail[0xc70-0x6e4];
  int FUN_001f93e0(const char*,int,int,int,int,float,float,float,int,int);
 };
-struct Manager {
- char pad[0x234]; Entry* entries;
+struct Manager_1fdc90 {
+ char pad[0x234]; Entry_1fdc90* entries;
  int FUN_001fcff0(int);
  bool FUN_001fdc90(int,const char*);
 };
-bool Manager::FUN_001fdc90(int id,const char* file) {
+bool Manager_1fdc90::FUN_001fdc90(int id,const char* file) {
  struct Parameters {
  int script; float kill; int locator,total; float deactivate; int maximum; float radius; int minimum,reset; char name[256]; unsigned int cookie;
  } p;

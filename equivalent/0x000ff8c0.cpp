@@ -1,42 +1,42 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 43/44, incomplete)
 // CHand2HandAgent::vfunc_17 @ 0x000ff8c0
-struct Id64 {
+struct Id64_ff8c0 {
     unsigned int lo;
     unsigned int hi;
-    void FUN_0027af30(Id64 *src);
-    Id64 *FUN_0027b0e0(const char *s);
-    char FUN_0027af90(Id64 *other);
+    void FUN_0027af30(Id64_ff8c0 *src);
+    Id64_ff8c0 *FUN_0027b0e0(const char *s);
+    char FUN_0027af90(Id64_ff8c0 *other);
     void FUN_0027af50();
     void FUN_0027b040(const char *s);
 };
 
-struct Clock {
+struct Clock_ff8c0 {
     float FUN_00078780();
 };
-Clock *__cdecl FUN_000964d0();
+Clock_ff8c0 *__cdecl FUN_000964d0();
 
-struct Owner {
+struct Owner_ff8c0 {
     char pad0[8];
     char *base;
 };
 
-struct Target {
+struct Target_ff8c0 {
     char pad0[0x140];
-    Id64 id;                // 0x140
+    Id64_ff8c0 id;                // 0x140
     char b148;
 };
 
-struct Frame {
+struct Frame_ff8c0 {
     char pad0c;
     char flag3;             // 0xd
     char result;            // 0xe
     char matched;           // 0xf
-    Id64 a;                 // 0x10
-    Id64 t1;                // 0x18
-    Id64 t2;                // 0x20
-    Id64 t3;                // 0x28
-    Id64 t4;                // 0x30
-    Id64 t5;                // 0x38
+    Id64_ff8c0 a;                 // 0x10
+    Id64_ff8c0 t1;                // 0x18
+    Id64_ff8c0 t2;                // 0x20
+    Id64_ff8c0 t3;                // 0x28
+    Id64_ff8c0 t4;                // 0x30
+    Id64_ff8c0 t5;                // 0x38
 };
 
 class CAgentBase {
@@ -62,7 +62,7 @@ public:
     virtual void v14();
     virtual void v15();
     virtual void v16();
-    virtual char vfunc_17(Target *target, float dt);
+    virtual char vfunc_17(Target_ff8c0 *target, float dt);
     virtual void v18();
     virtual void v19();
     virtual void v20();
@@ -78,7 +78,7 @@ public:
     float dirX;
     float dirY;
     float dirZ;
-    Owner *owner;           // 0xa0
+    Owner_ff8c0 *owner;           // 0xa0
     char pada4[0xb0 - 0xa4];
     float velX;
     float velY;
@@ -89,17 +89,17 @@ public:
     char bd3;
 };
 
-char CHand2HandAgent::vfunc_17(Target *target, float dt)
+char CHand2HandAgent::vfunc_17(Target_ff8c0 *target, float dt)
 {
-    Frame f;
+    Frame_ff8c0 f;
     f.a.lo = 0;
     f.result = 0;
-    Clock *clock = FUN_000964d0();
+    Clock_ff8c0 *clock = FUN_000964d0();
     if (bd3 != 0 || bcf == 0) {
         timer = 0.0f;
         return f.result;
     }
-    f.a.FUN_0027af30((Id64 *)(owner->base + 0x1b50));
+    f.a.FUN_0027af30((Id64_ff8c0 *)(owner->base + 0x1b50));
     char same = f.a.FUN_0027af90(f.t1.FUN_0027b0e0(""));
     f.t1.FUN_0027af50();
     if (same) {

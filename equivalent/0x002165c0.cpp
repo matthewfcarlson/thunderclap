@@ -6,8 +6,8 @@ struct LuaTable {
     unsigned char flags;    // 0x06
 };
 
-struct Udata {
-    Udata *next;            // 0x00
+struct Udata_2165c0 {
+    Udata_2165c0 *next;            // 0x00
     unsigned char tt;       // 0x04
     unsigned char marked;   // 0x05
     char pad06[2];
@@ -15,29 +15,29 @@ struct Udata {
     unsigned int len;       // 0x0c
 };
 
-struct GlobalState {
+struct GlobalState_2165c0 {
     char pad0[0x1c];
-    Udata *rootudata;       // 0x1c
+    Udata_2165c0 *rootudata;       // 0x1c
     char pad20[0x34 - 0x20];
-    Udata *tmudata;         // 0x34
+    Udata_2165c0 *tmudata;         // 0x34
     char pad38[0x7c - 0x38];
     void *tmname_gc;        // 0x7c
 };
 
-struct LuaState {
+struct LuaState_2165c0 {
     char pad0[0x10];
-    GlobalState *g;         // 0x10
+    GlobalState_2165c0 *g;         // 0x10
 };
 
 void *FUN_00217580(LuaTable *mt, int event, void *name);
 
-unsigned int FUN_002165c0(LuaState *L, int all)
+unsigned int FUN_002165c0(LuaState_2165c0 *L, int all)
 {
     unsigned int deadmem = 0;
-    Udata **p = &L->g->rootudata;
-    Udata *curr = *p;
-    Udata *collected = 0;
-    Udata **lastcollected = &collected;
+    Udata_2165c0 **p = &L->g->rootudata;
+    Udata_2165c0 *curr = *p;
+    Udata_2165c0 *collected = 0;
+    Udata_2165c0 **lastcollected = &collected;
     while (curr->tt == 7) {
         unsigned char m = curr->marked;
         if (((m & 3) == 0 && all == 0) || (m & 8)) {
@@ -49,7 +49,7 @@ unsigned int FUN_002165c0(LuaState *L, int all)
                 p = &curr->next;
             } else {
                 deadmem += curr->len + 0x10;
-                Udata *next = curr->next;
+                Udata_2165c0 *next = curr->next;
                 curr->marked |= 8;
                 *p = next;
                 curr->next = 0;

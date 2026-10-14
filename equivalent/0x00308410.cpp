@@ -15,11 +15,11 @@ struct Reader {
     int FUN_00266c30();
 };
 
-struct NameField {
+struct NameField_308410 {
     void FUN_0027b040(const char *s);
 };
 
-struct NameKey {
+struct NameKey_308410 {
     unsigned int lo;
     unsigned int hi;
 };
@@ -32,25 +32,25 @@ struct HashList {
     void FUN_00304a10(int newCap);
 };
 
-struct Sub38 {
+struct Sub38_308410 {
     void FUN_00307f30(int n);
 };
 
-struct Target {
+struct Target_308410 {
     void FUN_00306300();
 };
 
 class CollisionObject {
 public:
     char pad0[8];
-    NameField name;
+    NameField_308410 name;
     char pad9[7];
-    NameField name2;
+    NameField_308410 name2;
     char pad11[0x20 - 0x11];
-    Target *f20;
+    Target_308410 *f20;
     int f24;
     char pad28[0x38 - 0x28];
-    Sub38 sub;
+    Sub38_308410 sub;
     char pad39[0x3c - 0x39];
     HashList *lists;
     char pad40[0x50 - 0x40];
@@ -79,10 +79,10 @@ int __cdecl FUN_002f2750(unsigned int lo, unsigned int hi);
 
 class CollisionObjectLoader {
 public:
-    void vfunc_5(CollisionObject **out, NameKey *outId, Reader *r, int unused);
+    void vfunc_5(CollisionObject **out, NameKey_308410 *outId, Reader *r, int unused);
 };
 
-struct Frame {
+struct Frame_308410 {
     char pad10[3];
     unsigned char len;
     int tmp;
@@ -107,7 +107,7 @@ struct Frame {
     int v1;
     int v3;
     int v2;
-    NameKey *savedName;
+    NameKey_308410 *savedName;
     int i1;
     int i2;
     int i3;
@@ -116,9 +116,9 @@ struct Frame {
     char name3[0x100];
 };
 
-void CollisionObjectLoader::vfunc_5(CollisionObject **out, NameKey *outId, Reader *r, int unused)
+void CollisionObjectLoader::vfunc_5(CollisionObject **out, NameKey_308410 *outId, Reader *r, int unused)
 {
-    Frame f;
+    Frame_308410 f;
     void *mem = thunk_FUN_0008d690(0x80);
     CollisionObject *obj = 0;
     if (mem)
@@ -128,7 +128,7 @@ void CollisionObjectLoader::vfunc_5(CollisionObject **out, NameKey *outId, Reade
     unsigned int l1 = f.len;
     r->stream->FUN_002647e0(f.name1, l1, 1, 1);
     f.name1[l1] = 0;
-    f.savedName = (NameKey *)&obj->name;
+    f.savedName = (NameKey_308410 *)&obj->name;
     obj->name.FUN_0027b040(f.name1);
 
     r->stream->FUN_002647e0(&f.tmp, 1, 4, 1);

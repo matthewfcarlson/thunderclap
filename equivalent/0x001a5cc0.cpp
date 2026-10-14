@@ -7,7 +7,7 @@ public:
 };
 }
 
-struct PropInfo {
+struct PropInfo_1a5cc0 {
     char pad0[4];
     int type;
     char pad8[0x18 - 8];
@@ -18,45 +18,45 @@ struct PropInfo {
 class CScenarioParams : public fight::Params {
 public:
     virtual void v1();
-    PropInfo *FUN_001d03c0();
+    PropInfo_1a5cc0 *FUN_001d03c0();
 };
 
-struct NameEntry {
+struct NameEntry_1a5cc0 {
     char pad0[8];
     int idLo;
     int idHi;
 };
 
-class NameList {
+class NameList_1a5cc0 {
 public:
     char pad0[0x1c];
-    NameEntry **entries;
+    NameEntry_1a5cc0 **entries;
 };
 
-class NameTable {
+class NameTable_1a5cc0 {
 public:
-    NameList *FUN_001d4fc0();
+    NameList_1a5cc0 *FUN_001d4fc0();
 };
 
-class Prop {
+class Prop_1a5cc0 {
 public:
     char pad0[0x40];
     int stateIndex;
     char pad44[0xec - 0x44];
-    NameTable *names;
+    NameTable_1a5cc0 *names;
 };
 
 class PropRegistry {
 public:
-    Prop *FUN_001dee40(int lo, int hi);
+    Prop_1a5cc0 *FUN_001dee40(int lo, int hi);
 };
 
-class Game {
+class Game_1a5cc0 {
 public:
     char pad0[0xc];
     PropRegistry *props;
 };
-extern Game *DAT_004dd700;
+extern Game_1a5cc0 *DAT_004dd700;
 
 namespace hulkfight {
 namespace scenario {
@@ -82,14 +82,14 @@ bool hulkfight::scenario::Event_PropStateNameCondition::vfunc_6(int a, fight::Pa
     if (sp == 0)
         return false;
     bool result = false;
-    PropInfo *info = sp->FUN_001d03c0();
+    PropInfo_1a5cc0 *info = sp->FUN_001d03c0();
     if (info->type != 0x17)
         return false;
-    Prop *prop = DAT_004dd700->props->FUN_001dee40(info->nameLo, info->nameHi);
+    Prop_1a5cc0 *prop = DAT_004dd700->props->FUN_001dee40(info->nameLo, info->nameHi);
     if (prop != 0) {
         int index = prop->stateIndex;
         if (index != -1) {
-            NameEntry *entry = prop->names->FUN_001d4fc0()->entries[index];
+            NameEntry_1a5cc0 *entry = prop->names->FUN_001d4fc0()->entries[index];
             if (entry->idLo == wantLo && entry->idHi == wantHi) {
                 result = true;
             }

@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0022c6c0 @ 0x0022c6c0
-struct V3 {
+struct V3_22c6c0 {
     float x, y, z;
     void FUN_0022d180();
 };
 
 struct Matrix {
     float m[16];
-    void LookAt(const V3* at, const V3* eye, const V3* up);
+    void LookAt(const V3_22c6c0* at, const V3_22c6c0* eye, const V3_22c6c0* up);
 };
 
-void Matrix::LookAt(const V3* at, const V3* eye, const V3* up)
+void Matrix::LookAt(const V3_22c6c0* at, const V3_22c6c0* eye, const V3_22c6c0* up)
 {
-    V3 f;
+    V3_22c6c0 f;
     f.x = at->x - eye->x;
     f.y = at->y - eye->y;
     f.z = at->z - eye->z;

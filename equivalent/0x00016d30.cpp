@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // CCameraShakeAction::vfunc_6 @ 0x00016d30
-class Shake {
+class Shake_16d30 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -16,16 +16,16 @@ public:
     float frequency;    // +0x18
 };
 
-struct CameraManager {
+struct CameraManager_16d30 {
     void FUN_00099320(int mode, float remaining, float amplitude, float frequency);
 };
 
-struct Game {
+struct Game_16d30 {
     char pad0[8];
-    CameraManager *camera;
+    CameraManager_16d30 *camera;
 };
 
-extern Game *DAT_004dd700;
+extern Game_16d30 *DAT_004dd700;
 
 class CCameraShakeAction {
 public:
@@ -38,14 +38,14 @@ public:
     virtual bool vfunc_6(int unused);
 
     char pad04[0x1c];
-    Shake *shake;       // +0x20
+    Shake_16d30 *shake;       // +0x20
 };
 
 bool CCameraShakeAction::vfunc_6(int unused) {
     float end = shake->endTime;
     float remaining = end - shake->GetTime();
     if (!(remaining <= 0.0f)) {
-        Shake *s = shake;
+        Shake_16d30 *s = shake;
         float amplitude = s->amplitude;
         if (!(amplitude <= 0.0f)) {
             float frequency = s->frequency;

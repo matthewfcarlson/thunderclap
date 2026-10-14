@@ -5,7 +5,7 @@ public:
     virtual void o0();
 };
 
-class Widget {
+class Widget_e8cf0 {
 public:
     virtual void w0();
     virtual void w1();
@@ -33,10 +33,10 @@ public:
     char pad0[0xa8 - 4];
     int value;
     char pad1[0x118 - 0xac];
-    Widget *widgets[10];
+    Widget_e8cf0 *widgets[10];
 };
 
-class Engine {
+class Engine_e8cf0 {
 public:
     virtual void e0();
     virtual void e1();
@@ -89,13 +89,13 @@ public:
     virtual void vfn48(int mode);
 };
 
-class Manager {
+class Manager_e8cf0 {
 public:
     virtual void m0();
-    Engine *engine;
+    Engine_e8cf0 *engine;
 };
 
-struct Item {
+struct Item_e8cf0 {
     FEObject *obj;
     int pad[2];
     char flag;
@@ -106,9 +106,9 @@ class VScroll {
 public:
     virtual void v0();
     char pad04[4];
-    Manager *manager;
+    Manager_e8cf0 *manager;
     char padC[0x40 - 0xc];
-    Item items[32];
+    Item_e8cf0 items[32];
     char pad240[4];
     FEControl *selected;    // 0x244
     int index;
@@ -126,7 +126,7 @@ void VScroll::FUN_000e8cf0(int idx, int mode)
     FEControl *cur = selected;
     if (cur != 0) {
         for (i = 0; i < 10; i++) {
-            Widget *w = cur->widgets[i];
+            Widget_e8cf0 *w = cur->widgets[i];
             if (w == 0) break;
             if (w->w4(3, cur->value, -1, -1))
                 cur->widgets[i]->w1();
@@ -135,7 +135,7 @@ void VScroll::FUN_000e8cf0(int idx, int mode)
     }
     index = idx;
     FEControl *cast = dynamic_cast<FEControl *>(items[idx].obj);
-    Manager *mgr = manager;
+    Manager_e8cf0 *mgr = manager;
     selected = cast;
     mgr->engine->vfn48(2);
     if (items[index].flag == 0) {
@@ -159,7 +159,7 @@ void VScroll::FUN_000e8cf0(int idx, int mode)
         selected->vfn13(forward ? 2 : 1);
         FEControl *s = selected;
         for (i = 0; i < 10; i++) {
-            Widget *w = s->widgets[i];
+            Widget_e8cf0 *w = s->widgets[i];
             if (w == 0) break;
             if (w->w4(2, s->value, -1, -1))
                 s->widgets[i]->w1();

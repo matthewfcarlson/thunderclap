@@ -3,10 +3,10 @@
 extern char DAT_00494b44, DAT_00494b60;
 extern void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern bool __cdecl FUN_00018960(float,float,float);
-struct Accumulator { char pad[0x1a8]; float maximum; };
-struct State { char pad[0x11c]; Accumulator* accumulator; char pad2[0x200]; float current; };
-struct Actor { State* FUN_00059a30(); };
-struct Context { Actor* FUN_000592a0(); };
+struct Accumulator_1508d0 { char pad[0x1a8]; float maximum; };
+struct State_1508d0 { char pad[0x11c]; Accumulator_1508d0* accumulator; char pad2[0x200]; float current; };
+struct Actor_1508d0 { State_1508d0* FUN_00059a30(); };
+struct Context { Actor_1508d0* FUN_000592a0(); };
 namespace hulkfight { namespace motion {
 struct InterruptAccumulatorCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual bool vfunc_6(void*,Context*,void*);
@@ -14,7 +14,7 @@ struct InterruptAccumulatorCondition {
 };
 bool InterruptAccumulatorCondition::vfunc_6(void*, Context* context, void*) {
  if (!FUN_00344e74(context,0,&DAT_00494b44,&DAT_00494b60,0)) return false;
- State* state = context->FUN_000592a0()->FUN_00059a30();
+ State_1508d0* state = context->FUN_000592a0()->FUN_00059a30();
  if (!state->accumulator) return false;
  float value = 0.0f;
  if (state->accumulator->maximum > 0.0f) value = state->current / state->accumulator->maximum * 100.0f;

@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 12/12)
 // FUN_002e4d70 @ 0x002e4d70
-class Releasable {
+class Releasable_2e4d70 {
 public:
     virtual void v0();
     virtual void Release();      // slot 1
 };
 
-class Dispatcher {
+class Dispatcher_2e4d70 {
 public:
     char pad00[8];
-    Releasable *pending;     // 0x08
+    Releasable_2e4d70 *pending;     // 0x08
     char pad0c[5];
     char enabled;            // 0x11
     unsigned short mode;     // 0x12
@@ -19,7 +19,7 @@ public:
     void FUN_002e4d70(int a, int b, int c, int d, char direct, int e);
 };
 
-void Dispatcher::FUN_002e4d70(int a, int b, int c, int d, char direct, int e) {
+void Dispatcher_2e4d70::FUN_002e4d70(int a, int b, int c, int d, char direct, int e) {
     if (!FUN_002e49a0(b, c))
         return;
     if (enabled && direct && mode == 0)

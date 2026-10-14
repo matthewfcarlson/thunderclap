@@ -9,11 +9,11 @@ void __stdcall XcSHAUpdate(void* ctx, const void* data, unsigned int len);
 void __stdcall XcSHAFinal(void* ctx, void* digest);
 }
 
-struct ImageInfo {
+struct ImageInfo_211745 {
     char pad00[8];
     void* field8;
 };
-extern ImageInfo* DAT_00010118;
+extern ImageInfo_211745* DAT_00010118;
 
 struct SectionHeader {
     char pad00[0x20];
@@ -25,7 +25,7 @@ struct SectionHeader {
     char pad6c[0x88 - 0x6c];
 };
 
-struct Control {
+struct Control_211745 {
     unsigned int f0;
     unsigned int f4;
     unsigned int f8;
@@ -33,7 +33,7 @@ struct Control {
     unsigned int f10;
 };
 
-struct Section {
+struct Section_211745 {
     unsigned int magic;
     char* start;
     char* end;
@@ -44,26 +44,26 @@ struct Section {
     unsigned int f28;
 };
 
-struct Frame {
+struct Frame_211745 {
     char sha[0x74];
     SectionHeader header;
     unsigned int digest[5];
-    Control ctl;
+    Control_211745 ctl;
 };
 
 unsigned int __stdcall FUN_002109f1(unsigned int name, unsigned int access, unsigned int share, unsigned int a3,
                                     unsigned int disposition, unsigned int flags, unsigned int tmpl);
 int __stdcall FUN_00210fbf(unsigned int file, void* a0, int one, SectionHeader* out);
-int __stdcall FUN_002110a0(unsigned int file, SectionHeader* header, Section* section);
-int __stdcall FUN_0020ff8d(unsigned int file, char* buffer, unsigned int size, unsigned int* got, Control* ctl);
+int __stdcall FUN_002110a0(unsigned int file, SectionHeader* header, Section_211745* section);
+int __stdcall FUN_0020ff8d(unsigned int file, char* buffer, unsigned int size, unsigned int* got, Control_211745* ctl);
 int __stdcall FUN_0020bbc2(unsigned int file);
-Section* __stdcall FUN_0020a2b5(unsigned int size, unsigned int tag);
+Section_211745* __stdcall FUN_0020a2b5(unsigned int size, unsigned int tag);
 void __stdcall FUN_0020a355(void* p, unsigned int tag);
 
-Section* __stdcall FUN_00211745(void* a0, unsigned int a1)
+Section_211745* __stdcall FUN_00211745(void* a0, unsigned int a1)
 {
-    Frame f;
-    Section* sec = 0;
+    Frame_211745 f;
+    Section_211745* sec = 0;
     bool closed = false;
 
     unsigned int file = FUN_002109f1(a1, 0x80000000, 1, 0, 3, 0, 0);

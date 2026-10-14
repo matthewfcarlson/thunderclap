@@ -7,7 +7,7 @@ struct Vertices {
     char pad1[4];
     unsigned int *color;
 };
-struct Surface {
+struct Surface_e0a90 {
     virtual void vfn0();
     virtual void vfn1();
     virtual void vfn2();
@@ -16,7 +16,7 @@ struct Surface {
     virtual void vfn5();
     virtual void vfn6(unsigned int tag, int flag);
 };
-struct Device {
+struct Device_e0a90 {
     virtual void vfn0();
     virtual void vfn1();
     virtual void vfn2();
@@ -47,12 +47,12 @@ struct Device {
     virtual void vfn27();
     virtual void vfn28();
     virtual void vfn29();
-    virtual Vertices *vfn30(Surface *s, int a, int b, int c, int d);
+    virtual Vertices *vfn30(Surface_e0a90 *s, int a, int b, int c, int d);
     virtual void vfn31(Vertices *v);
 };
 
-extern Device *DAT_0052c2a8;
-extern Surface *DAT_004de954;
+extern Device_e0a90 *DAT_0052c2a8;
+extern Surface_e0a90 *DAT_004de954;
 
 // equiv-conv: FUN_000e0a90 edx stack stack stack stack stack
 void FUN_000e0a90(int a4, float w, float h, int unused, float d, unsigned int color)

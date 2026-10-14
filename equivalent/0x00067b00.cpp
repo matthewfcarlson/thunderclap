@@ -1,20 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2756 inputs, branch coverage 9/10, incomplete)
 // FUN_00067b00 @ 0x00067b00
 // FUN_00067b00 @ 0x00067b00: allocate a handle (serial << 8 | slot) in a ring of 64 slots
-struct Name {
+struct Name_67b00 {
     char data[8];
     void FUN_0027b040(const char *s);
     void FUN_0027af70(int v);
 };
 
-struct Record {
+struct Record_67b00 {
     int f0;
     int f4;
     int f8;
     int fc;
     int f10;
     int pad14;
-    Name name;              // 0x18
+    Name_67b00 name;              // 0x18
 };
 
 extern const char DAT_003f335c[];
@@ -24,7 +24,7 @@ public:
     unsigned int serial;    // 0x00
     int head;               // 0x04
     unsigned int ids[64];   // 0x08
-    Record records[64];     // 0x108
+    Record_67b00 records[64];     // 0x108
     unsigned int FUN_00067b00(int arg);
 };
 
@@ -38,7 +38,7 @@ unsigned int HandlePool::FUN_00067b00(int arg)
         slot = (slot + 1) % 64;
     } while (slot != start);
 
-    Record *r = &records[slot];
+    Record_67b00 *r = &records[slot];
     r->f0 = 0;
     r->fc = 0;
     r->f8 = 0;

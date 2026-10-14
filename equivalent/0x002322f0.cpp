@@ -6,29 +6,29 @@ int __cdecl FUN_00266da0(int heap);
 extern int DAT_004e5ae8;
 extern int DAT_004e5aec;
 
-class Ref {
+class Ref_2322f0 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-class Item : public Ref {
+class Item_2322f0 : public Ref_2322f0 {
 public:
     virtual void v2();
     virtual bool Update(int arg, float dt);
     char pad04[4];
-    Item *next;            // 0x08
+    Item_2322f0 *next;            // 0x08
     unsigned int flags;    // 0x0c
     float time;            // 0x10
     char pad14[4];
     float elapsed;         // 0x18
     void FUN_00232600(unsigned int mask, char set);
-    void FUN_002326d0(Item *item);
+    void FUN_002326d0(Item_2322f0 *item);
 };
 
 class Sequence;
 
-class Child {
+class Child_2322f0 {
 public:
     virtual void c0();
     virtual void c1();
@@ -38,29 +38,29 @@ public:
     virtual void c5();
     virtual void c6();
     virtual void c7();
-    virtual Sequence *Match(int a, Ref *b);
-    Child *next;           // 0x04
-    void FUN_00236bc0(Ref *ctx, Sequence *seq, Ref *b);
+    virtual Sequence *Match(int a, Ref_2322f0 *b);
+    Child_2322f0 *next;           // 0x04
+    void FUN_00236bc0(Ref_2322f0 *ctx, Sequence *seq, Ref_2322f0 *b);
 };
 
-class Context : public Ref {
+class Context : public Ref_2322f0 {
 public:
     char pad04[0x28 - 4];
-    Child *children;       // 0x28
+    Child_2322f0 *children;       // 0x28
 };
 
 class Sequence {
 public:
-    Ref *owner;            // 0x00
+    Ref_2322f0 *owner;            // 0x00
     Context *ctx;          // 0x04
     int f8;
-    Ref *fc;               // 0x0c
+    Ref_2322f0 *fc;               // 0x0c
     char pad10[4];
-    Item *pending;         // 0x14
-    Ref *f18;
+    Item_2322f0 *pending;         // 0x14
+    Ref_2322f0 *f18;
     float time;            // 0x1c
-    Item *active;          // 0x20
-    Item *tail;            // 0x24
+    Item_2322f0 *active;          // 0x20
+    Item_2322f0 *tail;            // 0x24
     void FUN_002321b0();
     void FUN_002322f0(int arg, float dt);
 };
@@ -71,7 +71,7 @@ void Sequence::FUN_002322f0(int arg, float dt)
 
     if (ctx != 0) {
         FUN_002321b0();
-        Child *c = ctx->children;
+        Child_2322f0 *c = ctx->children;
         while (c != 0) {
             if (c->Match(f8, fc) == this)
                 c->FUN_00236bc0(ctx, this, fc);
@@ -94,7 +94,7 @@ void Sequence::FUN_002322f0(int arg, float dt)
         }
     }
 
-    Item *it = pending;
+    Item_2322f0 *it = pending;
     while (it != 0) {
         it->time = time + it->time;
         if (tail == 0) {
@@ -123,7 +123,7 @@ void Sequence::FUN_002322f0(int arg, float dt)
 
     float now = dt + time;
     time = now;
-    Item *cur = active;
+    Item_2322f0 *cur = active;
     if (cur != 0) {
         do {
             float t = cur->time;

@@ -5,7 +5,7 @@ struct Matrix {
  void FUN_0022b980();
  void FUN_0022ca90(const Matrix*, const Matrix*);
 };
-struct MatrixStack { char pad[8]; unsigned int index; Matrix* matrices; };
+struct MatrixStack_31d630 { char pad[8]; unsigned int index; Matrix* matrices; };
 namespace pure3d {
 struct pddiBaseContext {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual void vfunc_9();
@@ -19,12 +19,12 @@ struct pddiBaseContext {
  virtual void vfunc_80(); virtual void vfunc_81(); virtual void vfunc_82(); virtual void vfunc_83(); virtual void vfunc_84(); virtual void vfunc_85(); virtual void vfunc_86(); virtual void vfunc_87(); virtual void vfunc_88(); virtual void vfunc_89();
  virtual void vfunc_90(); virtual void vfunc_91(); virtual void vfunc_92(); virtual void vfunc_93(int, unsigned int, unsigned int, unsigned int); virtual void vfunc_94(); virtual void vfunc_95(); virtual void vfunc_96(); virtual void vfunc_97(); virtual void vfunc_98(); virtual void vfunc_99();
  virtual void vfunc_100(); virtual void vfunc_101(); virtual void vfunc_102(); virtual void vfunc_103(); virtual void vfunc_104(); virtual void vfunc_105(); virtual void vfunc_106(); virtual void vfunc_107(); virtual void vfunc_108(int);
- char padding[28]; MatrixStack* stacks[1];
+ char padding[28]; MatrixStack_31d630* stacks[1];
 };
 void pddiBaseContext::vfunc_93(int mode, unsigned int x, unsigned int y, unsigned int z) {
  Matrix scale, result;
  scale.FUN_0022b980();
- MatrixStack* stack = stacks[mode];
+ MatrixStack_31d630* stack = stacks[mode];
  scale.elements[0] = x;
  scale.elements[5] = y;
  scale.elements[10] = z;

@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 47 inputs, branch coverage 24/24)
 // FUN_00078d20 @ 0x00078d20
-struct Rng {
+struct Rng_78d20 {
     unsigned int s0;
     unsigned int s1;
 };
-Rng *__cdecl FUN_000964d0();
+Rng_78d20 *__cdecl FUN_000964d0();
 
-struct Rec {
+struct Rec_78d20 {
     int count;
     int pad[3];
 };
 
-struct Slot {
+struct Slot_78d20 {
     char pad0[0x18];
     int f18;
     char pad1c[0xbc - 0x1c];
@@ -19,21 +19,21 @@ struct Slot {
     int keyB;
 };
 
-class Pool {
+class Pool_78d20 {
 public:
     char pad0[0x34b0];
-    Rec recs[9];
+    Rec_78d20 recs[9];
     char pad3540[8];
     int count;
-    Slot *slots[20];
+    Slot_78d20 *slots[20];
     int slotCount;
 
     bool FUN_00078d20(int a, int b, int *pIdx, int *pSub);
 };
 
-bool Pool::FUN_00078d20(int a, int b, int *pIdx, int *pSub)
+bool Pool_78d20::FUN_00078d20(int a, int b, int *pIdx, int *pSub)
 {
-    Rng *r = FUN_000964d0();
+    Rng_78d20 *r = FUN_000964d0();
     r->s0 = 36969 * (r->s0 & 0xffff) + (r->s0 >> 16);
     r->s1 = 18000 * (r->s1 & 0xffff) + (r->s1 >> 16);
     *pIdx = ((r->s0 << 16) + (r->s1 & 0xffff)) % count;
@@ -53,7 +53,7 @@ bool Pool::FUN_00078d20(int a, int b, int *pIdx, int *pSub)
         for (int j = 0; j < m; j++) {
             int k = 0;
             for (; k < slotCount; k++) {
-                Slot *s = slots[k];
+                Slot_78d20 *s = slots[k];
                 if (s->keyA == a && s->keyB == b && s->f18 == *pSub + sum)
                     break;
             }

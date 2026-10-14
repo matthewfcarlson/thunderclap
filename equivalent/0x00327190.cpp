@@ -2,13 +2,13 @@
 // pure3d::d3dPrimBuffer::vfunc_4 @ 0x00327190
 namespace D3D8 { int __stdcall D3DVertexBuffer_Lock2(void* buffer, int flags); }
 void __cdecl FUN_0031c230(int);
-struct Record {
+struct Record_327190 {
     int header;
     unsigned char active;
     char remaining[0x4f];
     void FUN_00326e90(int data, int value, int count, int flags);
 };
-extern Record DAT_004d3ed0[4];
+extern Record_327190 DAT_004d3ed0[4];
 namespace pure3d {
 struct d3dPrimBuffer {
     char padding0[0x1c];
@@ -18,13 +18,13 @@ struct d3dPrimBuffer {
     unsigned char locked;
     char padding35[7];
     int value;
-    Record* vfunc_4();
+    Record_327190* vfunc_4();
 };
-Record* d3dPrimBuffer::vfunc_4() {
+Record_327190* d3dPrimBuffer::vfunc_4() {
     int data = D3D8::D3DVertexBuffer_Lock2(buffer, 0);
     FUN_0031c230(0);
     locked = 1;
-    Record* available = 0;
+    Record_327190* available = 0;
     for (int i = 0; i < 4; ++i) {
         if (!DAT_004d3ed0[i].active) {
             available = &DAT_004d3ed0[i];

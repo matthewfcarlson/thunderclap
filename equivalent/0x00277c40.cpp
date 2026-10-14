@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00277c40 @ 0x00277c40
-struct Resource {
+struct Resource_277c40 {
  virtual void slot0();
  virtual void slot1();
  virtual void slot2();
@@ -19,12 +19,12 @@ struct Resource {
  virtual void slot15();
  virtual unsigned int slot16();
 };
-struct State {
- Resource* resource;
+struct State_277c40 {
+ Resource_277c40* resource;
  unsigned int field04, field08, field0c, field10, field14, field18, field1c, field20, field24, field28;
- void FUN_00277c40(Resource*, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int);
+ void FUN_00277c40(Resource_277c40*, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int);
 };
-void State::FUN_00277c40(Resource* object, unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e, unsigned int f, unsigned int g) {
+void State_277c40::FUN_00277c40(Resource_277c40* object, unsigned int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e, unsigned int f, unsigned int g) {
  object->slot0();
  field04 = a;
  field08 = 0;

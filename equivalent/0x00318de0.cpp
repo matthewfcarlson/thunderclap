@@ -2,46 +2,46 @@
 // FUN_00318de0 @ 0x00318de0
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_318de0 {
     float x;
     float y;
     float z;
 };
 
-class Box {
+class Box_318de0 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual V3 *v4();
+    virtual V3_318de0 *v4();
     char pad04[0x48 - 4];
     float ext[3];
-    V3 axes[3];
-    void FUN_002fb990(V3 *out, int axis, int side);
+    V3_318de0 axes[3];
+    void FUN_002fb990(V3_318de0 *out, int axis, int side);
 };
 
-class Collider {
+class Collider_318de0 {
 public:
     char pad0[0xc];
     float thr;
     char pad10[4];
-    V3 d;
+    V3_318de0 d;
     char pad20[0x30 - 0x20];
     int count;
     void FUN_00313650(int *order, float *gap);
-    void FUN_00315620(V3 *p, V3 *aAxis, float aExt, V3 *q, V3 *bAxis, float bExt, V3 *n, float len, float gap, Box *a0, Box *a1);
-    void FUN_00318de0(Box *a0, Box *a1);
+    void FUN_00315620(V3_318de0 *p, V3_318de0 *aAxis, float aExt, V3_318de0 *q, V3_318de0 *bAxis, float bExt, V3_318de0 *n, float len, float gap, Box_318de0 *a0, Box_318de0 *a1);
+    void FUN_00318de0(Box_318de0 *a0, Box_318de0 *a1);
 };
 
-struct Frame {
+struct Frame_318de0 {
     int k;
     float t14;
-    V3 n;
+    V3_318de0 n;
     float *aExtPtr;
     float *bAxisPtr;
     float *aAxisPtr;
-    Collider *self;
+    Collider_318de0 *self;
     float inv;
     float t38;
     int j;
@@ -56,20 +56,20 @@ struct Frame {
     float pa[4];
     float pb[4];
     float gap[4];
-    V3 q[4];
+    V3_318de0 q[4];
     int order[4];
-    V3 p[4];
+    V3_318de0 p[4];
 };
 
 #define BITS(x) (*(unsigned int *)&(x))
 #define FL(x) (*(float *)&(x))
 
-void Collider::FUN_00318de0(Box *a0, Box *a1)
+void Collider_318de0::FUN_00318de0(Box_318de0 *a0, Box_318de0 *a1)
 {
-    Frame f;
+    Frame_318de0 f;
 
-    V3 *posA = a0->v4();
-    V3 *posB = a1->v4();
+    V3_318de0 *posA = a0->v4();
+    V3_318de0 *posB = a1->v4();
     f.self = this;
     f.self->d.x = posB->x - posA->x;
     f.self->d.y = posB->y - posA->y;
@@ -77,8 +77,8 @@ void Collider::FUN_00318de0(Box *a0, Box *a1)
 
     for (f.i = 0; f.i < 3; f.i++) {
         for (f.j = 0; f.j < 3; f.j++) {
-            V3 *ax = &a0->axes[f.i];
-            V3 *bx = &a1->axes[f.j];
+            V3_318de0 *ax = &a0->axes[f.i];
+            V3_318de0 *bx = &a1->axes[f.j];
             double cx = ax->y * bx->z - ax->z * bx->y;
             double cy = ax->z * bx->x - ax->x * bx->z;
             f.n.z = bx->y * ax->x - ax->y * bx->x;

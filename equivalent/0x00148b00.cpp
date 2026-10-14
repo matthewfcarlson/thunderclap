@@ -1,36 +1,36 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 24/24)
 // hulkfight::motion::GrappleThrowAction::vfunc_3 @ 0x00148b00
-struct Vec3 {
+struct Vec3_148b00 {
     float x, y, z;
-    char FUN_0022d2b0(Vec3* other, float eps);
+    char FUN_0022d2b0(Vec3_148b00* other, float eps);
     double FUN_0022d110();
 };
 
-struct Mat4 {
-    void FUN_0022c3b0(Vec3* in, Vec3* out);
+struct Mat4_148b00 {
+    void FUN_0022c3b0(Vec3_148b00* in, Vec3_148b00* out);
 };
 
-struct Part {
-    Mat4* FUN_00221c40();
+struct Part_148b00 {
+    Mat4_148b00* FUN_00221c40();
 };
 
-struct Body {
+struct Body_148b00 {
     char pad00[0x10];
-    Part part;
+    Part_148b00 part;
 };
 
-class Ref {
+class Ref_148b00 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
 struct Entity {
-    void FUN_00059a50(Vec3* out);
-    Body* FUN_00059a40();
+    void FUN_00059a50(Vec3_148b00* out);
+    Body_148b00* FUN_00059a40();
 };
 
-struct Link {
+struct Link_148b00 {
     char pad00[0x14];
     int f14;
 };
@@ -39,38 +39,38 @@ struct Throwable {
     char pad00[0x10];
     Entity* entity;
     char pad14[0x12c - 0x14];
-    Ref* ref;
+    Ref_148b00* ref;
     char pad130[0x328 - 0x130];
-    Ref* ref328;
+    Ref_148b00* ref328;
     char pad32c[0x334 - 0x32c];
     int f334;
     float FUN_0003ec00(int mode);
 };
 
-struct Owner {
+struct Owner_148b00 {
     char pad00[0x10];
     Entity* entity;
     char pad14[0x11c - 0x14];
-    Link* link;
+    Link_148b00* link;
     char pad120[0x12c - 0x120];
-    Ref* ref;
+    Ref_148b00* ref;
     char pad130[0x338 - 0x130];
     Throwable* held;
     void FUN_0003a680(int a1, int a2, int a3, int a4, int a5, int a6, float a7, int a8);
-    void FUN_000437a0(int a1, struct Desc* desc, struct Sub* sub, int a4, int a5);
+    void FUN_000437a0(int a1, struct Desc_148b00* desc, struct Sub_148b00* sub, int a4, int a5);
 };
 
-struct Handle {
-    Owner* FUN_00059a30();
+struct Handle_148b00 {
+    Owner_148b00* FUN_00059a30();
 };
 
-struct Source {
-    Handle* FUN_000592a0();
+struct Source_148b00 {
+    Handle_148b00* FUN_000592a0();
 };
 
-struct Config {
+struct Config_148b00 {
     char pad00[0x10];
-    Vec3 target;
+    Vec3_148b00 target;
     float a0, a1;
     float b0, b1;
     float c0, c1;
@@ -78,19 +78,19 @@ struct Config {
     float d0, d1;
 };
 
-struct Desc {
+struct Desc_148b00 {
     int f00, f04, f08, f0c, f10;
     int pad14;
-    Vec3 dir;
+    Vec3_148b00 dir;
     char f24;
     char pad25[3];
-    Vec3 vel;
+    Vec3_148b00 vel;
     char f34;
     char pad35[3];
     char pad38[0x48 - 0x38];
     int id;
-    Ref* ref1;
-    Ref* ref2;
+    Ref_148b00* ref1;
+    Ref_148b00* ref2;
     int pad54;
     int f58;
     int f5c;
@@ -103,7 +103,7 @@ struct Desc {
     int pad78;
     float f7c;
     float f80;
-    Ref* ref3;
+    Ref_148b00* ref3;
     float f88;
     float f8c;
     char pad90[8];
@@ -111,7 +111,7 @@ struct Desc {
     void FUN_00059300();
 };
 
-struct Sub {
+struct Sub_148b00 {
     char pad00[4];
     int f04;
     char pad08[0x20 - 8];
@@ -120,19 +120,19 @@ struct Sub {
     char FUN_00231ee0();
 };
 
-void __cdecl FUN_00097a30(float b, float c, float k, Ref* ref, int z, Vec3* pos, float p34, Vec3* dir, int a9, int a10, int a11, int a12);
+void __cdecl FUN_00097a30(float b, float c, float k, Ref_148b00* ref, int z, Vec3_148b00* pos, float p34, Vec3_148b00* dir, int a9, int a10, int a11, int a12);
 
-struct Frame {
+struct Frame_148b00 {
     union {
         float b;
-        Ref* ref;
+        Ref_148b00* ref;
     } t;
     float speed;
-    Vec3 dir;
-    Vec3 v2;
-    Vec3 v1;
-    Vec3 v3;
-    Desc desc;
+    Vec3_148b00 dir;
+    Vec3_148b00 v2;
+    Vec3_148b00 v1;
+    Vec3_148b00 v3;
+    Desc_148b00 desc;
 };
 
 namespace hulkfight {
@@ -146,19 +146,19 @@ public:
     virtual char vfunc_3(int a, int b);
 
     char pad04[0x1c - 4];
-    Config* config;
-    Source* source;
-    Sub sub;
-    char pad_sub[0x4c - 0x24 - sizeof(Sub)];
+    Config_148b00* config;
+    Source_148b00* source;
+    Sub_148b00 sub;
+    char pad_sub[0x4c - 0x24 - sizeof(Sub_148b00)];
     int saved;
     char flag50;
 };
 
 char GrappleThrowAction::vfunc_3(int a, int b)
 {
-    Frame f;
+    Frame_148b00 f;
     saved = a;
-    Owner* owner = source->FUN_000592a0()->FUN_00059a30();
+    Owner_148b00* owner = source->FUN_000592a0()->FUN_00059a30();
     if (!owner)
         return false;
     Throwable* th = owner->held;
@@ -176,7 +176,7 @@ char GrappleThrowAction::vfunc_3(int a, int b)
     f.v3.y = config->target.y;
     f.v3.z = config->target.z;
     if (!f.v3.FUN_0022d2b0(&f.v2, 0.00001f)) {
-        Body* body = th->entity->FUN_00059a40();
+        Body_148b00* body = th->entity->FUN_00059a40();
         if (body) {
             f.v3.x = config->target.x;
             f.v3.y = config->target.y;
@@ -194,7 +194,7 @@ char GrappleThrowAction::vfunc_3(int a, int b)
     }
     f.dir.FUN_0022d110();
 
-    Ref* grabRef = th->ref328;
+    Ref_148b00* grabRef = th->ref328;
     if (grabRef == owner->ref)
         grabRef = 0;
     owner->FUN_0003a680(0, -1, 0, 0, 0, 0, 1.0f, 0);

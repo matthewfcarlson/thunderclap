@@ -2,7 +2,7 @@
 // FUN_001caa10 @ 0x001caa10
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int cookie);
-struct Properties {
+struct Properties_1caa10 {
  bool FUN_001d2e80();
  void FUN_001d1d50(const char* name, const char* value);
  void FUN_001d1d10();
@@ -12,12 +12,12 @@ struct Object {
  char padding[0x18];
  unsigned int propLow, propHigh;
  unsigned int typeLow, typeHigh;
- Properties* FUN_001d4c90();
+ Properties_1caa10* FUN_001d4c90();
  bool target();
 };
 bool Object::target() {
  unsigned int cookie = DAT_004d9968;
- Properties* properties = FUN_001d4c90();
+ Properties_1caa10* properties = FUN_001d4c90();
  if (!properties || !properties->FUN_001d2e80()) {
  __security_check_cookie(cookie);
  return false;

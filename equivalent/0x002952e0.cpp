@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 43/46, incomplete)
 // pure3d::TextureFont::vfunc_19 @ 0x002952e0
-struct Glyph {
+struct Glyph_2952e0 {
     float x;
     int f4;
     int f8;
@@ -10,7 +10,7 @@ struct Glyph {
     char pad18[0x10];
 };
 
-struct Slot {
+struct Slot_2952e0 {
     virtual void s0();
     virtual void s1();
     virtual void s2();
@@ -19,9 +19,9 @@ struct Slot {
     virtual void set(int what, int value);
 };
 
-struct Material {
+struct Material_2952e0 {
     char pad[0x10];
-    Slot* slot;
+    Slot_2952e0* slot;
 };
 
 struct Texture {
@@ -29,7 +29,7 @@ struct Texture {
     int handle;
 };
 
-struct Device {
+struct Device_2952e0 {
     virtual void d0();
     virtual void d1();
     virtual void d2();
@@ -50,11 +50,11 @@ struct Device {
 };
 
 struct Context {
-    Device* device;
+    Device_2952e0* device;
     void FUN_00293d40(float a, float b, int c);
 };
 
-struct Renderer {
+struct Renderer_2952e0 {
     virtual void r0();
     virtual void r1();
     virtual void r2();
@@ -85,14 +85,14 @@ struct Renderer {
     virtual void r27();
     virtual void r28();
     virtual void r29();
-    virtual int create(Slot* slot, int a, int kind, int count, int b);
+    virtual int create(Slot_2952e0* slot, int a, int kind, int count, int b);
     virtual void destroy(int handle);
 };
 
 extern Context* DAT_0052c2ac;
-extern Renderer* DAT_0052c2a8;
+extern Renderer_2952e0* DAT_0052c2a8;
 extern int DAT_0052c318[32];
-extern Glyph* DAT_0052c398[];
+extern Glyph_2952e0* DAT_0052c398[];
 
 class TextureFont {
 public:
@@ -120,14 +120,14 @@ public:
     float top;
     float bottom;
     char pad20[8];
-    Material* material;
+    Material_2952e0* material;
     unsigned int pageCount;
     Texture** pages;
     int defaultGlyph;
     int glyphCount;
-    Glyph* glyphs;
+    Glyph_2952e0* glyphs;
     unsigned short* codes;
-    void FUN_00294f10(int handle, Glyph* g, float x, int f8);
+    void FUN_00294f10(int handle, Glyph_2952e0* g, float x, int f8);
 };
 
 void TextureFont::vfunc_19(const unsigned short* text, char flags)
@@ -169,7 +169,7 @@ void TextureFont::vfunc_19(const unsigned short* text, char flags)
                     hi = mid - 1;
             } while (lo <= hi);
         }
-        Glyph* g = &glyphs[idx];
+        Glyph_2952e0* g = &glyphs[idx];
         DAT_0052c398[k] = g;
         DAT_0052c318[g->page & 0x1f]++;
         k++;
@@ -184,7 +184,7 @@ void TextureFont::vfunc_19(const unsigned short* text, char flags)
             material->slot->set(0x584554, tex ? tex->handle : 0);
             int handle = DAT_0052c2a8->create(material->slot, 0, 0x2021, DAT_0052c318[i] * 6, 0);
             for (int j = 0; j < k; j++) {
-                Glyph* g = DAT_0052c398[j];
+                Glyph_2952e0* g = DAT_0052c398[j];
                 if (g->page == (int)i)
                     FUN_00294f10(handle, g, x + g->x, g->f8);
                 x = x + g->advance;

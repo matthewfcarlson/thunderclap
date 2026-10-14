@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // COutlineDisplayEffect::vfunc_0 @ 0x000def60
-struct Target {
+struct Target_def60 {
     virtual void vfunc_0();
     virtual void vfunc_1(int v);
     virtual void vfunc_2(int *out);
@@ -9,12 +9,12 @@ struct Target {
 
 struct Union0;
 
-union Slot {
-    Target *obj;
+union Slot_def60 {
+    Target_def60 *obj;
     int value;
 };
 
-struct Pen {
+struct Pen_def60 {
     virtual void s0();
     virtual void s1();
     virtual void s2();
@@ -34,25 +34,25 @@ struct Pen {
     virtual void vfunc_16(int a);
 };
 
-struct Renderer {
-    Pen *pen;
+struct Renderer_def60 {
+    Pen_def60 *pen;
     void FUN_00293d40(float x, float y, float z);
 };
 
-extern Renderer *DAT_0052c2ac;
+extern Renderer_def60 *DAT_0052c2ac;
 
 class COutlineDisplayEffect {
 public:
-    virtual void vfunc_0(Slot arg);
+    virtual void vfunc_0(Slot_def60 arg);
     int mode;
     char pad8[4];
     float scale;
     int colour;
 };
 
-void COutlineDisplayEffect::vfunc_0(Slot arg)
+void COutlineDisplayEffect::vfunc_0(Slot_def60 arg)
 {
-    Target *t = arg.obj;
+    Target_def60 *t = arg.obj;
     float f;
     float pts[8][2];
     int i;

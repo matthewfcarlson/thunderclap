@@ -3,7 +3,7 @@
 extern "C" double cos(double);
 extern "C" double sin(double);
 
-struct Vec3 {
+struct Vec3_2d6790 {
     float x, y, z;
 };
 
@@ -28,17 +28,17 @@ struct MatrixProvider {
     virtual Matrix *v13();
 };
 
-struct Inner {
+struct Inner_2d6790 {
     char pad00[0x18];
     MatrixProvider *provider;
 };
 
-struct Holder {
+struct Holder_2d6790 {
     char pad00[8];
-    Inner *inner;
+    Inner_2d6790 *inner;
 };
 
-class Device2 {
+class Device2_2d6790 {
 public:
     virtual void v0();
     virtual void v1();
@@ -64,13 +64,13 @@ public:
     virtual void v21(int a);
 };
 
-struct Owner2 {
-    Device2 *device;
+struct Owner2_2d6790 {
+    Device2_2d6790 *device;
 };
 
-class VertexBuffer;
+class VertexBuffer_2d6790;
 
-class Device {
+class Device_2d6790 {
 public:
     virtual void v0();
     virtual void v1();
@@ -102,27 +102,27 @@ public:
     virtual void v27();
     virtual void v28();
     virtual void v29();
-    virtual VertexBuffer *v30(void *handle, int a, int flags, int size, int b);
-    virtual void v31(VertexBuffer *vb);
+    virtual VertexBuffer_2d6790 *v30(void *handle, int a, int flags, int size, int b);
+    virtual void v31(VertexBuffer_2d6790 *vb);
 };
 
-class VertexBuffer {
+class VertexBuffer_2d6790 {
 public:
     char pad00[8];
-    Vec3 *pos;
+    Vec3_2d6790 *pos;
     char padc[4];
     unsigned int *color;
     float *uv;
     void FUN_0008ef00();
 };
 
-struct Handle {
+struct Handle_2d6790 {
     char pad00[0x10];
     void *handle;
 };
 
-struct Particle {
-    Vec3 pos;
+struct Particle_2d6790 {
+    Vec3_2d6790 pos;
     unsigned int color;
     float size;
     float angle;
@@ -135,7 +135,7 @@ struct Atlas {
     float *cols;
 };
 
-class Emitter {
+class Emitter_2d6790 {
 public:
     virtual void v0();
     virtual void v1();
@@ -144,7 +144,7 @@ public:
     virtual void v4();
     virtual void v5();
     virtual void v6();
-    virtual Handle *v7();
+    virtual Handle_2d6790 *v7();
     virtual void v8();
     virtual void v9();
     virtual void v10();
@@ -154,15 +154,15 @@ public:
     char pad04[0x1bc - 4];
     Atlas *atlas;
     char pad1c0[0x1c8 - 0x1c0];
-    Particle **particles;
+    Particle_2d6790 **particles;
 };
 
-extern Device *DAT_0052c2a8;
-extern Owner2 *DAT_0052c2ac;
-extern Holder *DAT_0052c2b4;
+extern Device_2d6790 *DAT_0052c2a8;
+extern Owner2_2d6790 *DAT_0052c2ac;
+extern Holder_2d6790 *DAT_0052c2b4;
 extern "C" int FUN_0034483c();
 
-static inline void Emit(VertexBuffer *vb, unsigned int color, float u, float v, float x, float y, float z)
+static inline void Emit(VertexBuffer_2d6790 *vb, unsigned int color, float u, float v, float x, float y, float z)
 {
     *vb->color = color;
     vb->uv[0] = u;
@@ -179,10 +179,10 @@ public:
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
-    virtual void vfunc_4(Emitter *e);
+    virtual void vfunc_4(Emitter_2d6790 *e);
 };
 
-void SpriteParticleRenderer::vfunc_4(Emitter *e)
+void SpriteParticleRenderer::vfunc_4(Emitter_2d6790 *e)
 {
     unsigned int count = e->v13();
     Atlas *atlas = e->atlas;
@@ -192,9 +192,9 @@ void SpriteParticleRenderer::vfunc_4(Emitter *e)
     Matrix m = *DAT_0052c2b4->inner->provider->v13();
     DAT_0052c2ac->device->v21(0);
     void *handle = e->v7()->handle;
-    VertexBuffer *vb = DAT_0052c2a8->v30(handle, 0, 0x2021, count * 6, 0);
+    VertexBuffer_2d6790 *vb = DAT_0052c2a8->v30(handle, 0, 0x2021, count * 6, 0);
     for (unsigned int i = 0; i < count; i++) {
-        Particle *p = e->particles[i];
+        Particle_2d6790 *p = e->particles[i];
         float a = p->angle + 0.7853982f;
         float c = (float)cos(a) * p->size;
         float s = (float)sin(a) * p->size;

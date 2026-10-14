@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 31/32, incomplete)
 // FUN_001e5980 @ 0x001e5980
-struct V3 {
+struct V3_1e5980 {
     float x, y, z;
 };
 
 struct Matrix {
     char pad0[0x30];
-    V3 pos;                         // 0x30
+    V3_1e5980 pos;                         // 0x30
 };
 
-struct Item {
+struct Item_1e5980 {
     char pad0[8];
     int type;                       // 0x8
     char padc[4];
 };
 
-struct Parent {
+struct Parent_1e5980 {
     unsigned char valid;            // 0x0
     char pad1[3];
     int next;                       // 0x4
@@ -23,10 +23,10 @@ struct Parent {
 
 struct Node {
     char pad0[0x10];
-    Parent *parent;                 // 0x10
+    Parent_1e5980 *parent;                 // 0x10
     char pad14[0x34 - 0x14];
     int itemCount;                  // 0x34
-    Item *items;                    // 0x38
+    Item_1e5980 *items;                    // 0x38
 };
 
 struct NodeTable {
@@ -34,7 +34,7 @@ struct NodeTable {
     Node **nodes;                   // 0x1c
 };
 
-struct Holder {
+struct Holder_1e5980 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -49,17 +49,17 @@ struct Holder {
     virtual char check();           // 0x2c
 };
 
-struct Link {
+struct Link_1e5980 {
     char pad0[0x70];
-    Holder *holder;                 // 0x70
+    Holder_1e5980 *holder;                 // 0x70
 };
 
-struct Quat {
+struct Quat_1e5980 {
     float v[4];
     void FUN_0022b370(Matrix *m);
 };
 
-struct Slot {
+struct Slot_1e5980 {
     virtual void v0();
     virtual void release();         // 0x4
 };
@@ -96,7 +96,7 @@ struct Entity {
     int FUN_001d62c0();
     void FUN_0027cf40(int a);
     char FUN_001d7300();
-    Link *FUN_001d72e0();
+    Link_1e5980 *FUN_001d72e0();
     float FUN_001d6cd0();
     void FUN_001d6770();
     int FUN_001d6c70();
@@ -104,13 +104,13 @@ struct Entity {
 
 struct Pose {
     char data[8];
-    void FUN_001db780(Quat *q);
+    void FUN_001db780(Quat_1e5980 *q);
 };
 
 struct Entry40 {
     char pad0[0x10];
     Pose pose;                      // 0x10
-    Slot *slot;                     // 0x18
+    Slot_1e5980 *slot;                     // 0x18
     char pad1c[4];
     short field20;                  // 0x20
     char pad22[2];
@@ -120,7 +120,7 @@ struct Entry40 {
 };
 
 struct Entry20 {
-    V3 pos;                         // 0x00
+    V3_1e5980 pos;                         // 0x00
     char padc[4];
     union {
         unsigned short flags;       // 0x10
@@ -132,27 +132,27 @@ struct Entry20 {
     short slotIndex;                // 0x12
 };
 
-struct Pool {
+struct Pool_1e5980 {
     void FUN_001c3b80(int *p);
 };
-Pool *__cdecl FUN_001c3d90();
+Pool_1e5980 *__cdecl FUN_001c3d90();
 
-struct Registry {
+struct Registry_1e5980 {
     void FUN_001b4540(Entity *e);
 };
-Registry *__cdecl FUN_001b6580();
+Registry_1e5980 *__cdecl FUN_001b6580();
 
-struct Limits {
+struct Limits_1e5980 {
     char pad0[0x18];
     float maxY;                     // 0x18
 };
-struct Globals {
+struct Globals_1e5980 {
     char pad0[0x24];
-    Limits *limits;                 // 0x24
+    Limits_1e5980 *limits;                 // 0x24
 };
-extern Globals *DAT_004dd700;
+extern Globals_1e5980 *DAT_004dd700;
 
-class Manager {
+class Manager_1e5980 {
 public:
     char pad0[0x608];
     Entry40 slots[0x800];           // 0x608
@@ -164,12 +164,12 @@ public:
     void FUN_001e5980(int idx);
 };
 
-void Manager::FUN_001e5980(int idx)
+void Manager_1e5980::FUN_001e5980(int idx)
 {
     struct Frame {
         bool found;
-        V3 pos;
-        Quat rot;
+        V3_1e5980 pos;
+        Quat_1e5980 rot;
     } fr;
 
     Entry20 *ent = &entries[idx];
@@ -201,7 +201,7 @@ void Manager::FUN_001e5980(int idx)
             }
             if (!first)
                 break;
-            Parent *parent = node->parent;
+            Parent_1e5980 *parent = node->parent;
             if (parent->valid == 0)
                 break;
             n = parent->next;

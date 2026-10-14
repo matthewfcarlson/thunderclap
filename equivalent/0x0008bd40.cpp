@@ -11,21 +11,21 @@ namespace math {
 class Vector { public: float FUN_dummy(); };
 }
 
-class __declspec(novtable) MethodBase {
+class __declspec(novtable) MethodBase_8bd40 {
   public:
     virtual void m0();
     char pad_04[0x14];
     char enabled;
     char pad_19[3];
-    MethodBase(const char* n, int k) { FUN_001d0480(n, k); }
+    MethodBase_8bd40(const char* n, int k) { FUN_001d0480(n, k); }
     void FUN_001d0480(const char*, int);
 };
 
 template <class T, class R>
-class Method0 : public MethodBase {
+class Method0 : public MethodBase_8bd40 {
   public:
     typedef R (T::*Fn)();
-    Method0(const char* name, Fn f) : MethodBase(name, 0) {
+    Method0(const char* name, Fn f) : MethodBase_8bd40(name, 0) {
         fn = f;
         enabled = FUN_001d04d0(DAT_0048e10c);
     }
@@ -39,12 +39,12 @@ class Closure0 : public Method0<T, R> {
     T* owner;
 };
 
-struct Registry {
+struct Registry_8bd40 {
     void FUN_001d3b70(const char*, void*);
     void FUN_0008bd40(const char* name, CGameFlowManager* owner, math::Vector (CGameFlowManager::*fn)());
 };
 
-void Registry::FUN_0008bd40(const char* name, CGameFlowManager* owner, math::Vector (CGameFlowManager::*fn)()) {
+void Registry_8bd40::FUN_0008bd40(const char* name, CGameFlowManager* owner, math::Vector (CGameFlowManager::*fn)()) {
     void* mem = FUN_0008d690(0x24);
     Closure0<CGameFlowManager, math::Vector>* c = 0;
     if (mem)

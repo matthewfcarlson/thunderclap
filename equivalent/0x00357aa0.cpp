@@ -1,24 +1,24 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_00357aa0 @ 0x00357aa0
-struct Vec3 {
+struct Vec3_357aa0 {
     float x, y, z;
 };
 
-struct Mat4 {
+struct Mat4_357aa0 {
     float m[4][4];
-    void FUN_0022c2b0(Vec3 *in, Vec3 *out);
+    void FUN_0022c2b0(Vec3_357aa0 *in, Vec3_357aa0 *out);
 };
 
-struct Frame {
-    Vec3 d;
-    Vec3 out;
-    Mat4 mat;
+struct Frame_357aa0 {
+    Vec3_357aa0 d;
+    Vec3_357aa0 out;
+    Mat4_357aa0 mat;
 };
 
 // Is point `pt` (relative to `origin`), expressed in the basis (ax, ay, az), inside the box `half`?
-bool FUN_00357aa0(Vec3 *origin, Vec3 *half, Vec3 *ax, Vec3 *ay, Vec3 *az, Vec3 *pt)
+bool FUN_00357aa0(Vec3_357aa0 *origin, Vec3_357aa0 *half, Vec3_357aa0 *ax, Vec3_357aa0 *ay, Vec3_357aa0 *az, Vec3_357aa0 *pt)
 {
-    Frame f;
+    Frame_357aa0 f;
     f.d.x = pt->x - origin->x;
     f.d.y = pt->y - origin->y;
     f.d.z = pt->z - origin->z;

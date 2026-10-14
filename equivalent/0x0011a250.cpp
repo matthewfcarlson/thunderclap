@@ -2,13 +2,13 @@
 // hulkfight::ai::MotionClosestWaypointAction::vfunc_5 @ 0x0011a250
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_11a250 {
     float x, y, z;
     float FUN_0022d110() throw();
 };
 
-struct Fighter {
-    void FUN_00059a50(Vec3 *out) throw();
+struct Fighter_11a250 {
+    void FUN_00059a50(Vec3_11a250 *out) throw();
 };
 
 struct Cfg2 {
@@ -24,47 +24,47 @@ struct Cfg2 {
     float f30;
 };
 
-struct Ent {
+struct Ent_11a250 {
     char pad00[0x10];
-    Fighter *f10;
+    Fighter_11a250 *f10;
 };
 
-struct Hand {
+struct Hand_11a250 {
     char pad00[0x129];
     char b129;
 };
 
-class Sink {
+class Sink_11a250 {
 public:
     virtual void v0() throw();
     virtual void v1() throw();
     virtual void v2() throw();
     virtual void v3() throw();
-    virtual void v4(Vec3 *a, Vec3 *b, struct Stats *s, struct World *w, float dt, Vec3 *c, Vec3 *d) throw();
+    virtual void v4(Vec3_11a250 *a, Vec3_11a250 *b, struct Stats_11a250 *s, struct World *w, float dt, Vec3_11a250 *c, Vec3_11a250 *d) throw();
 };
 
-struct Stats {
+struct Stats_11a250 {
     char pad000[0x10];
-    Ent *f10dummy;
+    Ent_11a250 *f10dummy;
 };
 
 struct Agent;
 struct World;
 
-struct Stats2 {
+struct Stats2_11a250 {
     char pad000[0x10];
-    Fighter *f10;
+    Fighter_11a250 *f10;
     char pad014[0x1ca0 - 0x14];
-    Hand *f1ca0;
-    Sink *f1ca4;
+    Hand_11a250 *f1ca0;
+    Sink_11a250 *f1ca4;
     char pad1ca8[0x2064 - 0x1ca8];
     float f2064, f2068, f206c, f2070;
-    void FUN_00036e70(Vec3 *p, int flag) throw();
+    void FUN_00036e70(Vec3_11a250 *p, int flag) throw();
 };
 
-Ent *__fastcall FUN_000592a0(void *owner) throw();
-Stats2 *__fastcall FUN_00059a30(Ent *e) throw();
-float __cdecl FUN_0010b1c0(World *w, Stats2 *s, float thr, Vec3 *out) throw();
+Ent_11a250 *__fastcall FUN_000592a0(void *owner) throw();
+Stats2_11a250 *__fastcall FUN_00059a30(Ent_11a250 *e) throw();
+float __cdecl FUN_0010b1c0(World *w, Stats2_11a250 *s, float thr, Vec3_11a250 *out) throw();
 float __cdecl FUN_000186f0(float *a, float *b) throw();
 extern World *DAT_004dd700;
 
@@ -72,7 +72,7 @@ struct Misc {
     void FUN_000344b0(float x) throw();
 };
 
-union Arg1 {
+union Arg1_11a250 {
     int i;
     float f;
 };
@@ -84,42 +84,42 @@ public:
     virtual void vfunc_2() throw();
     virtual void vfunc_3() throw();
     virtual void vfunc_4() throw();
-    virtual bool vfunc_5(Arg1 a1, float dt);
+    virtual bool vfunc_5(Arg1_11a250 a1, float dt);
     char pad04[0x18];
     Cfg2 *f1c;
     void *f20;
-    Vec3 v24;
+    Vec3_11a250 v24;
     float f30;
     float f34;
     float f38;
-    Vec3 v3c;
+    Vec3_11a250 v3c;
     char pad48[4];
-    Vec3 v4c;
+    Vec3_11a250 v4c;
     char pad58[4];
     float f5c;
     float v60[2];
     char FUN_00117da0() throw();
 };
 
-bool MotionClosestWaypointAction::vfunc_5(Arg1 a1, float dt)
+bool MotionClosestWaypointAction::vfunc_5(Arg1_11a250 a1, float dt)
 {
     struct Frame {
         float rmin;
         float w;
         float rmax;
         float N;
-        Vec3 U;
-        Vec3 P;
-        Vec3 Dv;
-        Vec3 W;
-        Vec3 Q;
+        Vec3_11a250 U;
+        Vec3_11a250 P;
+        Vec3_11a250 Dv;
+        Vec3_11a250 W;
+        Vec3_11a250 Q;
     } f;
 
     if (a1.i != 0)
         return true;
     if (f20 == 0)
         return false;
-    Stats2 *edi = FUN_00059a30(FUN_000592a0(f20));
+    Stats2_11a250 *edi = FUN_00059a30(FUN_000592a0(f20));
     f.P.x = 0.0f;
     f.P.y = 0.0f;
     f.P.z = 0.0f;
@@ -209,7 +209,7 @@ bool MotionClosestWaypointAction::vfunc_5(Arg1 a1, float dt)
             float r = FUN_000186f0(&f.N, &a1.f);
             ((Misc *)&f.W.y)->FUN_000344b0(r);
         }
-        edi->f1ca4->v4(&v3c, &f.Q, (Stats *)edi, DAT_004dd700, dt, &v4c, &f.W);
+        edi->f1ca4->v4(&v3c, &f.Q, (Stats_11a250 *)edi, DAT_004dd700, dt, &v4c, &f.W);
     }
     f30 = f.w;
     double dx = f.P.x - v24.x;
@@ -222,7 +222,7 @@ bool MotionClosestWaypointAction::vfunc_5(Arg1 a1, float dt)
         f5c = dt + f5c;
     else
         f5c = 0.0f;
-    edi->FUN_00036e70((Vec3 *)v60, f5c > c2->f2c);
+    edi->FUN_00036e70((Vec3_11a250 *)v60, f5c > c2->f2c);
     v24 = f.P;
     return !FUN_00117da0();
 }

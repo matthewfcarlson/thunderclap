@@ -2,17 +2,17 @@
 // FUN_00318910 @ 0x00318910
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_318910 {
     float x, y, z;
 };
 
-class Probe {
+class Probe_318910 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual Vec3 *v4();
+    virtual Vec3_318910 *v4();
     char pad04[0x44 - 4];
     float dirX;
     float dirY;
@@ -33,21 +33,21 @@ struct ElemList {
     Elem44 *end;
 };
 
-struct Frame {
+struct Frame_318910 {
     float t;
     float tmp;
     float sq;
     int n;
     int counter;
-    Vec3 d;
-    Vec3 p;
-    Vec3 out1;
-    Vec3 out2;
+    Vec3_318910 d;
+    Vec3_318910 p;
+    Vec3_318910 out1;
+    Vec3_318910 out2;
 };
 
 void __cdecl FUN_002f7a90(Elem44 *e);
 
-class Solver {
+class Solver_318910 {
 public:
     char pad0[8];
     ElemList *list;
@@ -59,24 +59,24 @@ public:
     float lenSq;
     int count;
 
-    char FUN_00314430(Probe *y, Vec3 *p, int ref, Vec3 *d, float *lenSq, Vec3 *out2, Vec3 *out1, int one);
-    void FUN_00314be0(Probe *y, Vec3 *out2, Probe *x, Vec3 *out1, float lenSq, Vec3 *d);
+    char FUN_00314430(Probe_318910 *y, Vec3_318910 *p, int ref, Vec3_318910 *d, float *lenSq, Vec3_318910 *out2, Vec3_318910 *out1, int one);
+    void FUN_00314be0(Probe_318910 *y, Vec3_318910 *out2, Probe_318910 *x, Vec3_318910 *out1, float lenSq, Vec3_318910 *d);
     char FUN_003188d0(float lenSq);
-    void FUN_00318910(Probe *a1, Probe *a2);
+    void FUN_00318910(Probe_318910 *a1, Probe_318910 *a2);
 };
 
-void Solver::FUN_00318910(Probe *a1, Probe *a2)
+void Solver_318910::FUN_00318910(Probe_318910 *a1, Probe_318910 *a2)
 {
-    Frame fr;
+    Frame_318910 fr;
     fr.n = count;
     for (fr.counter = 2; fr.counter != 0; fr.counter--) {
-        Probe *x = (fr.counter == 2) ? a2 : a1;
-        Probe *y = (fr.counter == 2) ? a1 : a2;
+        Probe_318910 *x = (fr.counter == 2) ? a2 : a1;
+        Probe_318910 *y = (fr.counter == 2) ? a1 : a2;
         if (x->done)
             continue;
 
-        Vec3 *q0;
-        Vec3 *p0;
+        Vec3_318910 *q0;
+        Vec3_318910 *p0;
         fr.t = x->time;
         p0 = x->v4();
         fr.p.x = fr.t * x->dirX + p0->x;

@@ -1,23 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 2/2)
 // FUN_000f9530 @ 0x000f9530
-struct Entry {
+struct Entry_f9530 {
     int a;
     int b;
     int nextSlot;
     int pad;
 };
 
-struct Map {
+struct Map_f9530 {
     int count;
     int pad04;
-    Entry entries[1];
+    Entry_f9530 entries[1];
     int FUN_000f9140(int a, int b);
 };
 
 struct Store {
     char pad[0x1248];
-    Map map;
-    char padMap[0x1650 - 0x1248 - sizeof(Map)];
+    Map_f9530 map;
+    char padMap[0x1650 - 0x1248 - sizeof(Map_f9530)];
     int numValues;
     float values[1];
     void FUN_000f9530(int a, int b, float value);

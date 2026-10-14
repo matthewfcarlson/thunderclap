@@ -2,74 +2,74 @@
 // FUN_002f1ce0 @ 0x002f1ce0
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_2f1ce0 {
     float x, y, z;
     float FUN_0022d110();
     float FUN_00018990();
-    void FUN_0022d260(const struct Mat4 *m);
-    void FUN_0022d210(const struct Mat4 *m);
+    void FUN_0022d260(const struct Mat4_2f1ce0 *m);
+    void FUN_0022d210(const struct Mat4_2f1ce0 *m);
 };
 
-struct Mat4 {
+struct Mat4_2f1ce0 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022baf0(const V3 *axis, float angle);
+    void FUN_0022baf0(const V3_2f1ce0 *axis, float angle);
     void FUN_0022c120();
     void FUN_0022cdb0();
 };
 
-union Bits {
+union Bits_2f1ce0 {
     int i;
     float f;
 };
 
-struct Vec {
-    class Shape **begin;
-    class Shape **end;
+struct Vec_2f1ce0 {
+    class Shape_2f1ce0 **begin;
+    class Shape_2f1ce0 **end;
 };
 
-class Shape {
+class Shape_2f1ce0 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
-    virtual V3 *v4();
+    virtual V3_2f1ce0 *v4();
     virtual void v5();
     virtual int v6();
     char pad04[0x14 - 0x4];
-    Vec *f14;
+    Vec_2f1ce0 *f14;
     char pad18[0x34 - 0x18];
     float f34;
-    Bits f38;
-    Bits f3c;
-    Bits f40;
+    Bits_2f1ce0 f38;
+    Bits_2f1ce0 f3c;
+    Bits_2f1ce0 f40;
     union {
-        V3 v;
+        V3_2f1ce0 v;
         struct {
-            Bits f44;
-            Bits f48;
-            Bits f4c;
+            Bits_2f1ce0 f44;
+            Bits_2f1ce0 f48;
+            Bits_2f1ce0 f4c;
         } b;
     } u44;
-    Bits f50;
-    Bits f54;
-    Bits f58;
-    Bits f5c;
-    Bits f60;
-    Bits f64;
-    Bits f68;
-    Bits f6c;
-    Bits f70;
-    Bits f74;
+    Bits_2f1ce0 f50;
+    Bits_2f1ce0 f54;
+    Bits_2f1ce0 f58;
+    Bits_2f1ce0 f5c;
+    Bits_2f1ce0 f60;
+    Bits_2f1ce0 f64;
+    Bits_2f1ce0 f68;
+    Bits_2f1ce0 f6c;
+    Bits_2f1ce0 f70;
+    Bits_2f1ce0 f74;
 };
 
-extern V3 DAT_00554c20;
+extern V3_2f1ce0 DAT_00554c20;
 extern unsigned int DAT_00554c2c;
-void __cdecl FUN_00305f00(const V3 *a, const V3 *b, V3 *axis, float *angle);
+void __cdecl FUN_00305f00(const V3_2f1ce0 *a, const V3_2f1ce0 *b, V3_2f1ce0 *axis, float *angle);
 void __cdecl FUN_002f0120(float q, float ext, float *w, char *flag);
 float __cdecl FUN_00083d90(float *p);
 
-struct Frame {
-    V3 q;                            // S+0x10
-    Bits x1c;                        // 0x1c
+struct Frame_2f1ce0 {
+    V3_2f1ce0 q;                            // S+0x10
+    Bits_2f1ce0 x1c;                        // 0x1c
     union {
         float f20;
         struct {
@@ -78,8 +78,8 @@ struct Frame {
             char flagB;
         } b;
     } u20;                           // 0x20
-    Bits f24;                        // 0x24
-    V3 w;                            // 0x28
+    Bits_2f1ce0 f24;                        // 0x24
+    V3_2f1ce0 w;                            // 0x28
     union {
         float f34;
         struct {
@@ -87,24 +87,24 @@ struct Frame {
             char flagA;
         } b;
     } u34;                           // 0x34
-    Bits f38;                        // 0x38
-    Bits f3c;                        // 0x3c
-    Shape *ret;                      // 0x40
-    Bits f44;                        // 0x44
-    Mat4 M;                          // 0x48
-    Mat4 M2;                         // 0x88
+    Bits_2f1ce0 f38;                        // 0x38
+    Bits_2f1ce0 f3c;                        // 0x3c
+    Shape_2f1ce0 *ret;                      // 0x40
+    Bits_2f1ce0 f44;                        // 0x44
+    Mat4_2f1ce0 M;                          // 0x48
+    Mat4_2f1ce0 M2;                         // 0x88
 };
 
-Shape *__cdecl FUN_002f1ce0(const V3 *p, Shape *shape, V3 *out, float *dist)
+Shape_2f1ce0 *__cdecl FUN_002f1ce0(const V3_2f1ce0 *p, Shape_2f1ce0 *shape, V3_2f1ce0 *out, float *dist)
 {
-    Frame f;
+    Frame_2f1ce0 f;
     f.ret = shape;
     int kind = shape->v6() - 1;
     if (kind > 7)
         return shape;
 
     if (kind == 6) {
-        const V3 *c = shape->v4();
+        const V3_2f1ce0 *c = shape->v4();
         out->x = p->x - c->x;
         out->y = p->y - c->y;
         out->z = p->z - c->z;
@@ -122,7 +122,7 @@ Shape *__cdecl FUN_002f1ce0(const V3 *p, Shape *shape, V3 *out, float *dist)
     }
 
     if (kind == 7) {
-        const V3 *c = shape->v4();
+        const V3_2f1ce0 *c = shape->v4();
         out->x = p->x - c->x;
         out->y = p->y - c->y;
         out->z = p->z - c->z;
@@ -138,8 +138,8 @@ Shape *__cdecl FUN_002f1ce0(const V3 *p, Shape *shape, V3 *out, float *dist)
         bool first = true;
         unsigned int i;
         for (i = 0; i < (unsigned int)(shape->f14->end - shape->f14->begin); i++) {
-            V3 tmp;
-            Shape *r = FUN_002f1ce0(p, shape->f14->begin[i], &tmp, &best);
+            V3_2f1ce0 tmp;
+            Shape_2f1ce0 *r = FUN_002f1ce0(p, shape->f14->begin[i], &tmp, &best);
             if (first) {
                 first = false;
                 *dist = best + 1.0f;
@@ -167,7 +167,7 @@ Shape *__cdecl FUN_002f1ce0(const V3 *p, Shape *shape, V3 *out, float *dist)
             float ang;
             FUN_00305f00(&shape->u44.v, &DAT_00554c20, &f.w, &ang);
             f.M.FUN_0022baf0(&f.w, -ang);
-            const V3 *c = shape->v4();
+            const V3_2f1ce0 *c = shape->v4();
             f.M.m[12] = c->x;
             f.M.m[13] = c->y;
             f.M.m[14] = c->z;
@@ -175,7 +175,7 @@ Shape *__cdecl FUN_002f1ce0(const V3 *p, Shape *shape, V3 *out, float *dist)
             f.M2.FUN_0022c120();
             f.q.FUN_0022d210(&f.M2);
         } else {
-            const V3 *c;
+            const V3_2f1ce0 *c;
             if (shape->f60.i == 3) {
                 c = shape->v4();
             } else if (shape->f60.i == 2) {
@@ -246,7 +246,7 @@ Shape *__cdecl FUN_002f1ce0(const V3 *p, Shape *shape, V3 *out, float *dist)
             f.M.m[8] = shape->f6c.f;
             f.M.m[9] = shape->f70.f;
             f.M.m[10] = shape->f74.f;
-            const V3 *c = shape->v4();
+            const V3_2f1ce0 *c = shape->v4();
             f.M.m[12] = c->x;
             f.M.m[13] = c->y;
             f.M.m[14] = c->z;
@@ -254,7 +254,7 @@ Shape *__cdecl FUN_002f1ce0(const V3 *p, Shape *shape, V3 *out, float *dist)
             f.M2.FUN_0022cdb0();
             f.q.FUN_0022d210(&f.M2);
         } else {
-            const V3 *c = shape->v4();
+            const V3_2f1ce0 *c = shape->v4();
             f.q.x = f.q.x - c->x;
             f.q.y = f.q.y - c->y;
             f.q.z = f.q.z - c->z;

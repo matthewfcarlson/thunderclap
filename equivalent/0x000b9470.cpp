@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000b9470 @ 0x000b9470
-struct Vertex {
+struct Vertex_b9470 {
     float x;
     float y;
     float z;
 };
-class Mesh {
+class Mesh_b9470 {
   public:
     char pad0[8];
-    Vertex* verts;
+    Vertex_b9470* verts;
     char pad1[4];
     unsigned int* colors;
     void FUN_0008ef00();
@@ -18,7 +18,7 @@ class Texture {
     char pad[0x10];
     int handle;
 };
-class Screen {
+class Screen_b9470 {
   public:
     virtual void v0();
     virtual void v1();
@@ -50,8 +50,8 @@ class Screen {
     virtual void v27();
     virtual void v28();
     virtual void v29();
-    virtual Mesh* v30(int handle, int a, int b, int c, int d);
-    virtual void v31(Mesh* m);
+    virtual Mesh_b9470* v30(int handle, int a, int b, int c, int d);
+    virtual void v31(Mesh_b9470* m);
     virtual void v32();
     virtual void v33();
     virtual void v34();
@@ -80,7 +80,7 @@ class Screen {
     virtual void v57();
     virtual void v58(int on);
 };
-class Layer {
+class Layer_b9470 {
   public:
     virtual void v0();
     virtual void v1();
@@ -100,7 +100,7 @@ class Layer {
     virtual void v15(int a);
     virtual void v16(int a);
 };
-class Viewport {
+class Viewport_b9470 {
   public:
     virtual void v0();
     virtual void v1();
@@ -112,11 +112,11 @@ class Viewport {
     virtual int v7();
 };
 struct Canvas {
-    Layer* layer;
+    Layer_b9470* layer;
 };
-extern Screen* DAT_0052c2a8;
+extern Screen_b9470* DAT_0052c2a8;
 extern Canvas* DAT_0052c2ac;
-extern Viewport* DAT_0052c2a4;
+extern Viewport_b9470* DAT_0052c2a4;
 
 void __stdcall FUN_000b9470(unsigned int alpha, Texture* texture) {
     float width = (float)DAT_0052c2a4->v7();
@@ -130,7 +130,7 @@ void __stdcall FUN_000b9470(unsigned int alpha, Texture* texture) {
     DAT_0052c2ac->layer->v15(0);
     DAT_0052c2ac->layer->v13(0);
     unsigned int color = alpha << 24;
-    Mesh* mesh = DAT_0052c2a8->v30(texture->handle, 1, 0x2020, 4, 0);
+    Mesh_b9470* mesh = DAT_0052c2a8->v30(texture->handle, 1, 0x2020, 4, 0);
     *mesh->colors = color;
     mesh->verts->x = 0.0f;
     mesh->verts->y = height;

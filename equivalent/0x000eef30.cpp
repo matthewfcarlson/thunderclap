@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 62 inputs, branch coverage 14/14)
 // FEContainer::vfunc_10 @ 0x000eef30
 extern "C" double __cdecl sin(double);
-struct Item {
+struct Item_eef30 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -21,9 +21,9 @@ class FEContainer {
     virtual void vfunc_9();
     virtual void vfunc_10();
     char pad[0x4c - 4];
-    Item* groupA[0x80];
+    Item_eef30* groupA[0x80];
     char gap[0x64c - 0x24c];
-    Item* groupB[0x80];
+    Item_eef30* groupB[0x80];
     char pad2[0x96c - 0x84c];
     float pulse;
     float pad3;

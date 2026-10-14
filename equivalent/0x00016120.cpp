@@ -1,72 +1,72 @@
 // STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 24/24)
 // CSmartPropThrowAction::vfunc_6 @ 0x00016120
-struct V3 {
+struct V3_16120 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Aimed {
-    void FUN_0022c3b0(V3* from, V3* to);
+struct Aimed_16120 {
+    void FUN_0022c3b0(V3_16120* from, V3_16120* to);
 };
 
-struct TrackerSub {
-    Aimed* FUN_00221c40();
+struct TrackerSub_16120 {
+    Aimed_16120* FUN_00221c40();
 };
 
-struct Tracker {
+struct Tracker_16120 {
     char pad0[0x10];
-    TrackerSub sub;
+    TrackerSub_16120 sub;
 };
 
-struct Anchor;
+struct Anchor_16120;
 
-struct Body {
+struct Body_16120 {
     char pad00[0x40];
-    V3 pos;
+    V3_16120 pos;
 };
 
-struct Part {
+struct Part_16120 {
     int FUN_001d4e80();
 };
 
 struct Object {
     char pad00[0xec];
-    Part* partEc;
+    Part_16120* partEc;
     char padf0[0x1ec - 0xf0];
     unsigned char flag1ec;
     char pad1ed[3];
-    Body* FUN_001d72e0();
+    Body_16120* FUN_001d72e0();
     void FUN_001d8c70(void* body);
     int FUN_001d64a0();
     void FUN_001d8d90(int flag);
-    void FUN_001d81b0(V3* v, int w);
+    void FUN_001d81b0(V3_16120* v, int w);
     void FUN_001d63b0(int v);
 };
 
-struct Fighter {
+struct Fighter_16120 {
     char pad00[0x140];
     int f140;
     char pad144[0x328 - 0x144];
-    Body* body328;
+    Body_16120* body328;
     Object* FUN_00035ef0(int index);
     void FUN_0003acf0(int a, int b, int c, int d, int e, int f);
-    void FUN_00036c20(Body* b);
-    bool FUN_00038de0(V3* a, V3* b, int c, int d, V3* e, V3* f, int* g, int h);
+    void FUN_00036c20(Body_16120* b);
+    bool FUN_00038de0(V3_16120* a, V3_16120* b, int c, int d, V3_16120* e, V3_16120* f, int* g, int h);
 };
 
-struct Anchor {
-    Fighter* FUN_00059a30();
-    Tracker* FUN_00059a40();
-    void FUN_00059a50(V3* out);
+struct Anchor_16120 {
+    Fighter_16120* FUN_00059a30();
+    Tracker_16120* FUN_00059a40();
+    void FUN_00059a50(V3_16120* out);
 };
 
-struct Owner {
-    Anchor* FUN_000592a0();
+struct Owner_16120 {
+    Anchor_16120* FUN_000592a0();
 };
 
 struct Params {
     char pad00[0x10];
-    V3 vec10;
+    V3_16120 vec10;
     char pad1c[0x34 - 0x1c];
     int f34;
     char pad38[4];
@@ -75,39 +75,39 @@ struct Params {
     int f40;
 };
 
-struct Globals {
+struct Globals_16120 {
     char pad00[0x10];
-    V3 vec10;
+    V3_16120 vec10;
 };
 
-extern Globals* DAT_00554c10;
+extern Globals_16120* DAT_00554c10;
 
-void __cdecl FUN_00097540(Fighter* f, V3* a, V3* b, int c, float d, Body* e, V3* g, V3* h, int i);
+void __cdecl FUN_00097540(Fighter_16120* f, V3_16120* a, V3_16120* b, int c, float d, Body_16120* e, V3_16120* g, V3_16120* h, int i);
 
-struct Frame {
+struct Frame_16120 {
     union {
-        Body* x;
+        Body_16120* x;
         unsigned char flag;
         int word;
     } u0;
     union {
-        Tracker* tracker;
+        Tracker_16120* tracker;
         int f34;
     } u4;
     union {
-        Anchor* anchor;
+        Anchor_16120* anchor;
         unsigned char eq5;
         int zero;
         int word;
     } u8;
-    V3 w;
-    V3 l;
-    V3 out1;
-    V3 g;
-    V3 pc;
-    V3 out2;
-    V3 out3;
-    V3 out4;
+    V3_16120 w;
+    V3_16120 l;
+    V3_16120 out1;
+    V3_16120 g;
+    V3_16120 pc;
+    V3_16120 out2;
+    V3_16120 out3;
+    V3_16120 out4;
 };
 
 class CSmartPropThrowAction {
@@ -120,16 +120,16 @@ public:
     virtual void vfunc_5();
     virtual bool vfunc_6(int arg);
     char pad04[0x1c - 4];
-    Owner* owner;
+    Owner_16120* owner;
     Params* params;
 };
 
 bool CSmartPropThrowAction::vfunc_6(int arg)
 {
-    Frame f;
+    Frame_16120 f;
     f.u8.anchor = owner->FUN_000592a0();
-    Fighter* fighter = f.u8.anchor->FUN_00059a30();
-    Tracker* tracker = f.u8.anchor->FUN_00059a40();
+    Fighter_16120* fighter = f.u8.anchor->FUN_00059a30();
+    Tracker_16120* tracker = f.u8.anchor->FUN_00059a40();
     f.u4.tracker = tracker;
     Object* o = fighter->FUN_00035ef0(params->f40);
     if (o == 0)
@@ -139,7 +139,7 @@ bool CSmartPropThrowAction::vfunc_6(int arg)
         return false;
     if (tracker == 0)
         return false;
-    Body* b = fighter->body328;
+    Body_16120* b = fighter->body328;
     if (o->flag1ec) {
         if (b == 0)
             return false;

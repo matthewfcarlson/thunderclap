@@ -1,37 +1,37 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 83/84, incomplete)
 // CAvoidBehaviour::vfunc_3 @ 0x0010a040
-struct V3 {
+struct V3_10a040 {
     float x, y, z;
     float FUN_0022d110();
     float FUN_00018990();
     float FUN_000111f0();
-    char FUN_0022d2b0(const V3 *other, float eps);
+    char FUN_0022d2b0(const V3_10a040 *other, float eps);
     void FUN_000344b0(float s);
 };
 
-struct Rng {
+struct Rng_10a040 {
     float FUN_00078780();
 };
-Rng *__cdecl FUN_000964d0();
+Rng_10a040 *__cdecl FUN_000964d0();
 
-struct Pos {
-    void FUN_00059a50(V3 *out);
+struct Pos_10a040 {
+    void FUN_00059a50(V3_10a040 *out);
 };
 
 struct Ent1fc {
-    V3 *FUN_001fc150(V3 *a, V3 *b, V3 *c);
+    V3_10a040 *FUN_001fc150(V3_10a040 *a, V3_10a040 *b, V3_10a040 *c);
 };
-struct Sub58 {
-    Ent1fc *FUN_000fde20(V3 *out);
+struct Sub58_10a040 {
+    Ent1fc *FUN_000fde20(V3_10a040 *out);
 };
 struct Sub1ca0 {
     char pad00[0x58];
-    Sub58 f58;
+    Sub58_10a040 f58;
 };
 
 struct Node1 {
     char pad00[0x10];
-    Pos *f10;
+    Pos_10a040 *f10;
     void FUN_000368d0(int a);
 };
 
@@ -43,15 +43,15 @@ struct Ent128 {
     char pad00[0x74];
     Ent74 *f74;
 };
-struct Fighter128 {
+struct Fighter128_10a040 {
     Ent128 *FUN_001d72e0();
 };
 
-struct Stats {
+struct Stats_10a040 {
     char pad00[0x10];
-    Pos *f10;
+    Pos_10a040 *f10;
     char pad14[0x128 - 0x14];
-    Fighter128 *f128;
+    Fighter128_10a040 *f128;
     char pad12c[0x328 - 0x12c];
     int f328;
     char pad32c[0x1ca0 - 0x32c];
@@ -60,21 +60,21 @@ struct Stats {
     float f1cf8;
     float f1cfc;
     float f1d00;
-    void FUN_00035550(V3 *out);
+    void FUN_00035550(V3_10a040 *out);
     void FUN_000368d0(int a);
     void FUN_00035fa0(int a);
 };
 
 
-struct Owner20 {
+struct Owner20_10a040 {
     char pad00[0x124];
     Node1 *f124;
     void FUN_00025260(int a, int b, int c);
     void FUN_000253c0(int a);
 };
-struct Owner {
+struct Owner_10a040 {
     char pad00[0x20];
-    Owner20 *f20;
+    Owner20_10a040 *f20;
 };
 
 struct WorldC {
@@ -87,40 +87,40 @@ struct World {
 extern World *DAT_004dd700;
 extern float DAT_004a1eac[4];
 
-V3 *__cdecl FUN_00083e00(V3 *out, V3 *dir, float t);
+V3_10a040 *__cdecl FUN_00083e00(V3_10a040 *out, V3_10a040 *dir, float t);
 float __cdecl FUN_00018710(float *a, float *b);
-void __cdecl FUN_00224d70(float angle, V3 *axis);
+void __cdecl FUN_00224d70(float angle, V3_10a040 *axis);
 
-struct Frame {
+struct Frame_10a040 {
     char pad0[3];
     char flagA;             // 3
     float f4;
     float f8;
     char pad12[3];
     char flag2;             // 15
-    V3 v16;
-    V3 P;                   // 28
-    V3 v40;
-    V3 v52;
-    V3 v64;
+    V3_10a040 v16;
+    V3_10a040 P;                   // 28
+    V3_10a040 v40;
+    V3_10a040 v52;
+    V3_10a040 v64;
     float A;                // 76
     float M;                // 80
     float f84;
-    V3 v88;
-    V3 v100;
+    V3_10a040 v88;
+    V3_10a040 v100;
     float f112;
     char pad116[3];
     char b119;
-    V3 v120;
-    V3 v132;
-    V3 v144;
-    V3 v156;
-    V3 v168;
-    V3 v180;
-    V3 v192;
-    V3 v204;
-    V3 v216;
-    V3 v228;
+    V3_10a040 v120;
+    V3_10a040 v132;
+    V3_10a040 v144;
+    V3_10a040 v156;
+    V3_10a040 v168;
+    V3_10a040 v180;
+    V3_10a040 v192;
+    V3_10a040 v204;
+    V3_10a040 v216;
+    V3_10a040 v228;
 };
 
 class CAvoidBehaviour {
@@ -128,23 +128,23 @@ public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual char vfunc_3(Owner *owner, Stats *st, V3 *out, float dt, char flag);
+    virtual char vfunc_3(Owner_10a040 *owner, Stats_10a040 *st, V3_10a040 *out, float dt, char flag);
     virtual void vfunc_4();
     char pad04[0x10 - 4];
-    V3 v10;
-    V3 v1c;
+    V3_10a040 v10;
+    V3_10a040 v1c;
     char pad28[4];
     float f2c;
     float f30;
     char b34;
     char pad35[3];
-    char FUN_00109df0(Owner *o, V3 *p, V3 *q, float a, V3 *r, V3 *s, V3 *t, int u);
+    char FUN_00109df0(Owner_10a040 *o, V3_10a040 *p, V3_10a040 *q, float a, V3_10a040 *r, V3_10a040 *s, V3_10a040 *t, int u);
 };
 
 
-char CAvoidBehaviour::vfunc_3(Owner *owner, Stats *st, V3 *out, float dt, char flag)
+char CAvoidBehaviour::vfunc_3(Owner_10a040 *owner, Stats_10a040 *st, V3_10a040 *out, float dt, char flag)
 {
-    Frame f;
+    Frame_10a040 f;
     out->x = 0;
     out->y = 0;
     out->z = 0;
@@ -189,7 +189,7 @@ char CAvoidBehaviour::vfunc_3(Owner *owner, Stats *st, V3 *out, float dt, char f
         return b34;
     }
     st->f10->FUN_00059a50(&f.P);
-    Owner *ow = owner;
+    Owner_10a040 *ow = owner;
     Node1 *nd = ow->f20->f124;
     if (nd) {
         nd->f10->FUN_00059a50(&f.v192);
@@ -202,11 +202,11 @@ char CAvoidBehaviour::vfunc_3(Owner *owner, Stats *st, V3 *out, float dt, char f
     f.P.y = f.P.y + 0.5f;
     f.flag2 = 0;
     if (st->f1ca0) {
-        Sub58 *s58 = (Sub58 *)(st->f1ca0 + 0x58);
+        Sub58_10a040 *s58 = (Sub58_10a040 *)(st->f1ca0 + 0x58);
         if (s58) {
             Ent1fc *e = s58->FUN_000fde20(&f.v16);
             if (e) {
-                V3 *r = e->FUN_001fc150(&f.v204, &f.v16, &f.P);
+                V3_10a040 *r = e->FUN_001fc150(&f.v204, &f.v16, &f.P);
                 f.v40.x = r->x;
                 f.v40.y = r->y;
                 f.v40.z = r->z;
@@ -223,7 +223,7 @@ char CAvoidBehaviour::vfunc_3(Owner *owner, Stats *st, V3 *out, float dt, char f
     ow->f20->FUN_000253c0(1);
     DAT_004dd700->fc->FUN_001dcf60(1);
     st->FUN_00035fa0(0);
-    Fighter128 *f128 = st->f128;
+    Fighter128_10a040 *f128 = st->f128;
     if (f128) {
         if (f128->FUN_001d72e0()) {
             Ent128 *e128 = f128->FUN_001d72e0();
@@ -247,7 +247,7 @@ char CAvoidBehaviour::vfunc_3(Owner *owner, Stats *st, V3 *out, float dt, char f
     if (!r1) {
         success = true;
     } else if (f.flagA) {
-        V3 *r = FUN_00083e00(&f.v204, &v10, st->f1d00);
+        V3_10a040 *r = FUN_00083e00(&f.v204, &v10, st->f1d00);
         f.v88.x = r->x;
         f.v88.y = r->y;
         f.v88.z = r->z;
@@ -264,7 +264,7 @@ char CAvoidBehaviour::vfunc_3(Owner *owner, Stats *st, V3 *out, float dt, char f
     if (!success) {
         st->FUN_000368d0(1);
         st->FUN_00035fa0(1);
-        Rng *rng = FUN_000964d0();
+        Rng_10a040 *rng = FUN_000964d0();
         f30 = (rng->FUN_00078780() * 0.5f + 1.0f) * DAT_004a1eac[0];
         b34 = f.flag2;
         v1c = *out;
@@ -282,7 +282,7 @@ char CAvoidBehaviour::vfunc_3(Owner *owner, Stats *st, V3 *out, float dt, char f
             f2c = f.f8 / f.f4;
         st->FUN_000368d0(1);
         st->FUN_00035fa0(1);
-        Rng *rng = FUN_000964d0();
+        Rng_10a040 *rng = FUN_000964d0();
         f30 = (rng->FUN_00078780() * 0.5f + 1.0f) * DAT_004a1eac[1];
         b34 = 1;
         return true;
@@ -321,7 +321,7 @@ char CAvoidBehaviour::vfunc_3(Owner *owner, Stats *st, V3 *out, float dt, char f
         idx = 2;
     if (f.flagA)
         idx++;
-    Rng *rng2 = FUN_000964d0();
+    Rng_10a040 *rng2 = FUN_000964d0();
     f30 = (rng2->FUN_00078780() * 0.5f + 1.0f) * DAT_004a1eac[idx];
     if (bl) {
         if (!f.flagA) {

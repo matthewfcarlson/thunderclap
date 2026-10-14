@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 28/28)
 // FUN_001f4420 @ 0x001f4420
-struct Name {
+struct Name_1f4420 {
     unsigned int lo, hi;
     void FUN_0027b040(const char *s);
 };
 
-struct Ptr {
+struct Ptr_1f4420 {
     char pad0[4];
 };
 
-struct Item {
+struct Item_1f4420 {
     char pad0[4];
 };
 
@@ -18,14 +18,14 @@ struct Params {
     int b;
 };
 
-struct Linked {
+struct Linked_1f4420 {
     void FUN_001e8ac0();
 };
 
-struct Slot {
+struct Slot_1f4420 {
     char pad0[4];
-    Ptr *p;
-    Linked *linked;
+    Ptr_1f4420 *p;
+    Linked_1f4420 *linked;
     char padc[4];
     int f10;
     char f14;
@@ -33,18 +33,18 @@ struct Slot {
     void *buf;
 };
 
-struct Entry {
+struct Entry_1f4420 {
     unsigned int lo;
     unsigned int hi;
     void *value;
     char pad0c[0x28 - 0xc];
 };
 
-struct Obj {
-    Name nameA;
-    Name nameB;
+struct Obj_1f4420 {
+    Name_1f4420 nameA;
+    Name_1f4420 nameB;
     int active[4];
-    Slot *slots[4];
+    Slot_1f4420 *slots[4];
     char pad30[0x60 - 0x30];
     int f60;
     int f64;
@@ -53,34 +53,34 @@ struct Obj {
     int f74;
     int f78;
     char pad7c[0x80 - 0x7c];
-    Entry entries[4];
+    Entry_1f4420 entries[4];
 };
 
 unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned int lo, unsigned int hi);
 void *__cdecl FUN_002673a0(int a, int b);
-Item *__cdecl FUN_0024a370(Ptr *p, void *key);
-void __cdecl FUN_00249bd0(Ptr *p, Item *item, Params *params);
+Item_1f4420 *__cdecl FUN_0024a370(Ptr_1f4420 *p, void *key);
+void __cdecl FUN_00249bd0(Ptr_1f4420 *p, Item_1f4420 *item, Params *params);
 void __cdecl FUN_002497e0(void *buf);
-void __cdecl FUN_00249a90(Ptr *p, int x);
-void __cdecl FUN_0024a800(Ptr *p, int x);
-void __cdecl FUN_0024af00(Ptr *p);
-Obj *__stdcall FUN_001f31a0(int arg);
+void __cdecl FUN_00249a90(Ptr_1f4420 *p, int x);
+void __cdecl FUN_0024a800(Ptr_1f4420 *p, int x);
+void __cdecl FUN_0024af00(Ptr_1f4420 *p);
+Obj_1f4420 *__stdcall FUN_001f31a0(int arg);
 
 void __stdcall FUN_001f4420(int arg)
 {
-    Obj *obj = FUN_001f31a0(arg);
+    Obj_1f4420 *obj = FUN_001f31a0(arg);
     if (!obj)
         return;
 
     for (int i = 0; i < 4; i++) {
-        Entry *e = &obj->entries[i];
+        Entry_1f4420 *e = &obj->entries[i];
         unsigned __int64 h = FUN_002672f0(0, 0, 0);
         if (e->lo == (unsigned int)h && e->hi == (unsigned int)(h >> 32))
             continue;
         for (int j = 0; j < 4; j++) {
-            Slot *s = obj->slots[j];
+            Slot_1f4420 *s = obj->slots[j];
             if (obj->active[j] && s) {
-                Item *item = FUN_0024a370(s->p, &e->value);
+                Item_1f4420 *item = FUN_0024a370(s->p, &e->value);
                 if (item) {
                     Params params;
                     params.a = 0;
@@ -96,7 +96,7 @@ void __stdcall FUN_001f4420(int arg)
     }
 
     for (int j = 0; j < 4; j++) {
-        Slot *s = obj->slots[j];
+        Slot_1f4420 *s = obj->slots[j];
         if (s) {
             if (s->linked)
                 s->linked->FUN_001e8ac0();

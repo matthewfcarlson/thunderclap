@@ -12,7 +12,7 @@ struct Col {
     unsigned short gray;
 };
 
-struct Pal {
+struct Pal_2dc3e0 {
     char pad00[0x68];
     unsigned int flags;             // 0x68
     char pad6c[0x10c - 0x6c];
@@ -42,9 +42,9 @@ struct Pal {
     unsigned char *alpha;           // 0x180
 };
 
-void __cdecl FUN_002dbd90(Pal *p);
+void __cdecl FUN_002dbd90(Pal_2dc3e0 *p);
 
-void FUN_002dc3e0(Pal *p)
+void FUN_002dc3e0(Pal_2dc3e0 *p)
 {
     unsigned int mode = p->mode;
     unsigned int flags = p->flags;

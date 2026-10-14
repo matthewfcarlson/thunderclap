@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 46 inputs, branch coverage 16/16)
 // pure3d::TranslucentTraversal::vfunc_4 @ 0x002a1b60
-class Device {
+class Device_2a1b60 {
 public:
     virtual void v0();
     virtual void v1();
@@ -21,7 +21,7 @@ public:
     virtual void v16(int a);
 };
 
-class Device2 {
+class Device2_2a1b60 {
 public:
     virtual void v0();
     virtual void v1();
@@ -114,8 +114,8 @@ public:
     virtual void v88(int a);
 };
 
-class Sub;
-class Sub {
+class Sub_2a1b60;
+class Sub_2a1b60 {
 public:
     virtual void v0();
     virtual void v1();
@@ -123,12 +123,12 @@ public:
     virtual int v3(int a);
     virtual int v4(int a);
     char pad[0x10 - 4];
-    Sub* next;
+    Sub_2a1b60* next;
     char pad2[0x44 - 0x14];
     int link;
 };
 
-class Obj {
+class Obj_2a1b60 {
 public:
     virtual void v0();
     virtual void v1();
@@ -143,24 +143,24 @@ public:
 };
 
 struct ObjHandle {
-    Obj* obj;
+    Obj_2a1b60* obj;
     void FUN_002a4060();
 };
 
-struct Item {
+struct Item_2a1b60 {
     char pad[8];
     int n;
     ObjHandle* handle;
-    Sub* sub;
+    Sub_2a1b60* sub;
     int tag;
 };
 
-struct Helper {
+struct Helper_2a1b60 {
     void FUN_002a06d0(int link);
 };
 
-extern Device** DAT_0052c2ac;
-extern Device2* DAT_0052c2a8;
+extern Device_2a1b60** DAT_0052c2ac;
+extern Device2_2a1b60* DAT_0052c2a8;
 extern int DAT_004e2314;
 
 class TranslucentTraversal {
@@ -168,10 +168,10 @@ public:
     void run();
     char p0[4];
     char p1[0x10];
-    Helper* helper;
+    Helper_2a1b60* helper;
     unsigned int count;
     char p2[0x28 - 0x18 - 4];
-    Item** items;
+    Item_2a1b60** items;
 };
 
 void TranslucentTraversal::run()
@@ -179,7 +179,7 @@ void TranslucentTraversal::run()
     (*DAT_0052c2ac)->v15(0);
     for (unsigned int i = 0; i < count; i++) {
         ObjHandle* handle = items[i]->handle;
-        Sub* sub = items[i]->sub;
+        Sub_2a1b60* sub = items[i]->sub;
         (*DAT_0052c2ac)->v14(0, items[i]->n);
         if (handle->obj->v9() == 1 && helper != 0 && sub->link != 0)
             helper->FUN_002a06d0(sub->link);
@@ -187,9 +187,9 @@ void TranslucentTraversal::run()
             DAT_0052c2a8->v87(8);
             DAT_0052c2a8->v78(0);
         }
-        Sub* inner = sub->next;
+        Sub_2a1b60* inner = sub->next;
         if (inner != 0) {
-            Obj* obj = handle->obj;
+            Obj_2a1b60* obj = handle->obj;
             obj->v8(inner->v3(obj->v7()));
             handle->FUN_002a4060();
             obj->v8(inner->v4(obj->v7()));

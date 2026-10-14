@@ -42,7 +42,7 @@ template <> struct TypeTag<bool> { static const void* get() { return &DAT_0048e0
 template <> struct TypeTag<float> { static const void* get() { return &DAT_0048e128; } };
 template <> struct TypeTag<unsigned int> { static const void* get() { return &DAT_0049b95c; } };
 
-class __declspec(novtable) MethodBase {
+class __declspec(novtable) MethodBase_1bb990 {
   public:
     virtual void m0();
     char pad_04[0xc];
@@ -51,15 +51,15 @@ class __declspec(novtable) MethodBase {
     char retType;
     char pad_19[3];
     void FUN_001d0480(const char*, int);
-    MethodBase() {}
-    MethodBase(const char* n, int k) { FUN_001d0480(n, k); }
+    MethodBase_1bb990() {}
+    MethodBase_1bb990(const char* n, int k) { FUN_001d0480(n, k); }
 };
 
 template <class T, class R, class A>
-class Method1 : public MethodBase {
+class Method1 : public MethodBase_1bb990 {
   public:
     typedef R (T::*Fn)(A);
-    Method1(const char* name, Fn f) : MethodBase(name, 1) {
+    Method1(const char* name, Fn f) : MethodBase_1bb990(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argType = FUN_001d04d0(TypeTag<A>::get());
@@ -76,10 +76,10 @@ class Closure1 : public Method1<T, R, A> {
 
 // Methods whose base constructors are out of line.
 template <class T, class R, class A, class B, class C>
-class __declspec(novtable) Method3 : public MethodBase {
+class __declspec(novtable) Method3 : public MethodBase_1bb990 {
   public:
     typedef R (T::*Fn)(A, B, C);
-    Method3(const char* name, Fn f) : MethodBase() { FUN_001b9c50(name, f); }
+    Method3(const char* name, Fn f) : MethodBase_1bb990() { FUN_001b9c50(name, f); }
     void FUN_001b9c50(const char* name, Fn f);
     Fn fn;
 };
@@ -92,10 +92,10 @@ class Closure3 : public Method3<T, R, A, B, C> {
 };
 
 template <class T, class R, class A, class B, class C, class D, class E, class F>
-class __declspec(novtable) Method6 : public MethodBase {
+class __declspec(novtable) Method6 : public MethodBase_1bb990 {
   public:
     typedef R (T::*Fn)(A, B, C, D, E, F);
-    Method6(const char* name, Fn f) : MethodBase() { FUN_001b9d80(name, f); }
+    Method6(const char* name, Fn f) : MethodBase_1bb990() { FUN_001b9d80(name, f); }
     void FUN_001b9d80(const char* name, Fn f);
     Fn fn;
 };
@@ -158,19 +158,19 @@ class CRenderManager {
 };
 
 template <>
-class __declspec(novtable) Method4<CRenderManager, unsigned int, const char*, float, float, float> : public MethodBase {
+class __declspec(novtable) Method4<CRenderManager, unsigned int, const char*, float, float, float> : public MethodBase_1bb990 {
   public:
     typedef unsigned int (CRenderManager::*Fn)(const char*, float, float, float);
-    Method4(const char* name, Fn f) : MethodBase() { FUN_001b9f90(name, f); }
+    Method4(const char* name, Fn f) : MethodBase_1bb990() { FUN_001b9f90(name, f); }
     void FUN_001b9f90(const char* name, Fn f);
     Fn fn;
 };
 
 template <>
-class __declspec(novtable) Method4<CRenderManager, unsigned int, const char*, math::Vector, math::Vector, float> : public MethodBase {
+class __declspec(novtable) Method4<CRenderManager, unsigned int, const char*, math::Vector, math::Vector, float> : public MethodBase_1bb990 {
   public:
     typedef unsigned int (CRenderManager::*Fn)(const char*, math::Vector, math::Vector, float);
-    Method4(const char* name, Fn f) : MethodBase() { FUN_001ba090(name, f); }
+    Method4(const char* name, Fn f) : MethodBase_1bb990() { FUN_001ba090(name, f); }
     void FUN_001ba090(const char* name, Fn f);
     Fn fn;
 };
@@ -189,13 +189,13 @@ struct ClosureShaderLight {
     ClosureShaderLight* FUN_001ba980(const char* name, CRenderManager* owner, void (CRenderManager::*fn)(int));
 };
 
-struct Registry {
+struct Registry_1bb990 {
     void FUN_001d3b70(const char* name, void* closure);
     void FUN_001bb690(const char* name, CRenderManager* owner, void (CRenderManager::*fn)());
     void FUN_001bb700(const char* name, CRenderManager* owner, bool (CRenderManager::*fn)());
     void FUN_001bb880(const char* name, CRenderManager* owner, void (CRenderManager::*fn)(math::Vector*));
 };
-Registry* FUN_001d4c90();
+Registry_1bb990* FUN_001d4c90();
 void FUN_001c3d90();
 
 CRenderManager::CRenderManager()
@@ -227,7 +227,7 @@ CRenderManager::CRenderManager()
     f5c = 0;
     f60 = 0;
 
-    Registry* reg = FUN_001d4c90();
+    Registry_1bb990* reg = FUN_001d4c90();
     void* mem;
 
     mem = FUN_0008d690(0x24);

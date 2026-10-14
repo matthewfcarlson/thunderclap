@@ -4,19 +4,19 @@ unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
 void *__cdecl FUN_00263ea0(unsigned int size);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
-struct Name {
+struct Name_2c1970 {
     char data[8];
     void FUN_0027b040(const char *s);
 };
 
-struct Vec3 { float x, y, z; };
+struct Vec3_2c1970 { float x, y, z; };
 
 namespace pure3d {
 class __declspec(novtable) Camera {
 public:
     virtual void c0();
     char pad4[4];
-    Name name;
+    Name_2c1970 name;
     char pad10[0xf8 - 0x10];
     virtual void c1();
     virtual void c2();
@@ -28,9 +28,9 @@ public:
     virtual void c8();
     virtual void setAspect(float a);
     Camera *FUN_002939a0();
-    void FUN_00293a90(Vec3 *v);
-    void FUN_00293ac0(Vec3 *v);
-    void FUN_00293af0(Vec3 *v);
+    void FUN_00293a90(Vec3_2c1970 *v);
+    void FUN_00293ac0(Vec3_2c1970 *v);
+    void FUN_00293af0(Vec3_2c1970 *v);
 };
 }
 
@@ -43,7 +43,7 @@ struct Stream {
     Reader *reader;
 };
 
-struct Frame {
+struct Frame_2c1970 {
     char pad0[8];
     char pad8[3];
     unsigned char len;       // 0x0b
@@ -52,9 +52,9 @@ struct Frame {
     int version;             // 0x14
     float nearClip;          // 0x18
     float farClip;           // 0x1c
-    Vec3 position;           // 0x20
-    Vec3 target;             // 0x2c
-    Vec3 up;                 // 0x38
+    Vec3_2c1970 position;           // 0x20
+    Vec3_2c1970 target;             // 0x2c
+    Vec3_2c1970 up;                 // 0x38
     char name[0x100];        // 0x44
 };
 
@@ -70,7 +70,7 @@ public:
 
 void CameraLoader::vfunc_5(pure3d::Camera **out, unsigned __int64 *outId, Stream *s, void *ctx)
 {
-    Frame f;
+    Frame_2c1970 f;
     s->reader->FUN_002647e0(&f.len, 1, 1, 1);
     s->reader->FUN_002647e0(f.name, f.len, 1, 1);
     f.name[f.len] = 0;

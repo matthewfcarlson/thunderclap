@@ -1,52 +1,52 @@
 // STATUS: equivalent (tools/equiv.py level 3: 55 inputs, branch coverage 8/8)
 // FUN_00281fd0 @ 0x00281fd0
-struct V3 { float x, y, z; };
-struct V2 { float x, y; };
-struct Tri {
+struct V3_281fd0 { float x, y, z; };
+struct V2_281fd0 { float x, y; };
+struct Tri_281fd0 {
     char pad0[0x10];
     unsigned short idx[3];
     char pad16[2];
 };
-struct Vtx {
+struct Vtx_281fd0 {
     float x, y, z;
     unsigned int color;
     float u, v;
 };
-struct Palette {
+struct Palette_281fd0 {
     char pad0[0xc];
     unsigned int* colors;
     unsigned char* indices;
     int pad14;
-    Tri* tris;
+    Tri_281fd0* tris;
 };
-struct Xform {
-    void FUN_0022c2b0(V3* in, V3* out);
+struct Xform_281fd0 {
+    void FUN_0022c2b0(V3_281fd0* in, V3_281fd0* out);
 };
-struct Ctx {
+struct Ctx_281fd0 {
     char pad0[0x44];
-    Palette* pal;
-    V3* FUN_002f3830(V3* out, Tri* item);
-    void FUN_001af890(V3* out, unsigned int idx);
+    Palette_281fd0* pal;
+    V3_281fd0* FUN_002f3830(V3_281fd0* out, Tri_281fd0* item);
+    void FUN_001af890(V3_281fd0* out, unsigned int idx);
 };
 
-void FUN_00281fd0(Ctx* ctx, V2* scale, Xform* xf, int n, Tri** items, Vtx* out)
+void FUN_00281fd0(Ctx_281fd0* ctx, V2_281fd0* scale, Xform_281fd0* xf, int n, Tri_281fd0** items, Vtx_281fd0* out)
 {
     for (; n > 0; n--, items++) {
-        V3 tmp;
-        V3* r = ctx->FUN_002f3830(&tmp, *items);
-        V3 off;
+        V3_281fd0 tmp;
+        V3_281fd0* r = ctx->FUN_002f3830(&tmp, *items);
+        V3_281fd0 off;
         off.x = r->x * 0.1f;
         off.y = r->y * 0.1f;
         off.z = r->z * 0.1f;
         for (int j = 0; j < 3; j++) {
-            V3 p;
-            V3 q;
+            V3_281fd0 p;
+            V3_281fd0 q;
             ctx->FUN_001af890(&p, (*items)->idx[j]);
             xf->FUN_0022c2b0(&p, &q);
             out->x = p.x + off.x;
             out->y = p.y + off.y;
             out->z = p.z + off.z;
-            Palette* pal = ctx->pal;
+            Palette_281fd0* pal = ctx->pal;
             unsigned int color;
             if (pal->indices != 0) {
                 int tri = (int)(*items - pal->tris);

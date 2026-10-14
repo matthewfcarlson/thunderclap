@@ -3,7 +3,7 @@
 extern float DAT_004dd048;
 extern float DAT_004dd04c;
 
-struct Entry {
+struct Entry_79990 {
     float f0;
     float f4;
     float f8;
@@ -12,7 +12,7 @@ struct Entry {
     char pad11[3];
 };
 
-struct Rec {
+struct Rec_79990 {
     float f0;
     float f4;
     float f8;
@@ -29,17 +29,17 @@ struct Rec {
     char pad45[3];
 };
 
-class Stage {
+class Stage_79990 {
 public:
     char pad0[0x1904];
-    Rec recs[256];
+    Rec_79990 recs[256];
 
-    void FUN_00079990(Entry *tab, int a2, int a3, int a4, int a5, int a6, int a7, int *counter, int a9, int a10);
+    void FUN_00079990(Entry_79990 *tab, int a2, int a3, int a4, int a5, int a6, int a7, int *counter, int a9, int a10);
 };
 
-void Stage::FUN_00079990(Entry *tab, int a2, int a3, int a4, int a5, int a6, int a7, int *counter, int a9, int a10)
+void Stage_79990::FUN_00079990(Entry_79990 *tab, int a2, int a3, int a4, int a5, int a6, int a7, int *counter, int a9, int a10)
 {
-    Entry *a = &tab[a2];
+    Entry_79990 *a = &tab[a2];
     if (!a->active)
         return;
 
@@ -48,7 +48,7 @@ void Stage::FUN_00079990(Entry *tab, int a2, int a3, int a4, int a5, int a6, int
     float l2 = (float)((double)DAT_004dd04c * a6);
     float l3 = (float)((double)DAT_004dd04c * a6 * 90.0f);
 
-    Entry *x = &tab[a3];
+    Entry_79990 *x = &tab[a3];
     if (!x->active) {
         x = &tab[a4];
         if (!x->active)
@@ -68,7 +68,7 @@ void Stage::FUN_00079990(Entry *tab, int a2, int a3, int a4, int a5, int a6, int
     float q = (float)(na * m + l1);
     float r = (float)((double)p + l3);
 
-    Rec *r1 = &recs[*counter + a7 * 14];
+    Rec_79990 *r1 = &recs[*counter + a7 * 14];
     r1->f4 = 0;
     r1->f0 = q;
     r1->f8 = r;
@@ -91,7 +91,7 @@ void Stage::FUN_00079990(Entry *tab, int a2, int a3, int a4, int a5, int a6, int
     ++*counter;
 
     int prod = a5 * a6;
-    Rec *r2 = &recs[*counter + a7 * 14];
+    Rec_79990 *r2 = &recs[*counter + a7 * 14];
     double t2 = (double)a->f4 + a->f8 + 3.0f;
     r2->f10 = 0;
     double d = m - t2 * prod;

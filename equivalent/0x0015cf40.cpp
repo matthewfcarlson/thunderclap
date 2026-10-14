@@ -2,7 +2,7 @@
 // FUN_0015cf40 @ 0x0015cf40
 extern "C" double __cdecl floor(double);
 
-union FloatBits {
+union FloatBits_15cf40 {
     float f;
     unsigned int u;
 };
@@ -13,7 +13,7 @@ float __cdecl FUN_0015cf40(float x)
     if (!(x < 0.0f) && !(x >= 1.0f))
         return x;
     double frac = -floor(x) + x;
-    FloatBits d;
+    FloatBits_15cf40 d;
     d.f = (float)(frac - 1.0f);
     d.u &= 0x7fffffff;
     if (d.f <= 1e-5f)

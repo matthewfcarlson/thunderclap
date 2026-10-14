@@ -2,7 +2,7 @@
 // FUN_002ec3e0 @ 0x002ec3e0
 struct Huft;
 
-struct ZStream {
+struct ZStream_2ec3e0 {
     char pad0[0x18];
     const char *msg;
     char pad1c[4];
@@ -16,7 +16,7 @@ int FUN_002ebef0(unsigned int *c, unsigned int *bits, unsigned int n, unsigned i
                  unsigned int *base, unsigned int *extra, Huft **t, Huft *hp,
                  unsigned int *hn, unsigned int *v);
 
-int FUN_002ec3e0(unsigned int *c, unsigned int *bb, Huft **tb, Huft *hp, ZStream *z)
+int FUN_002ec3e0(unsigned int *c, unsigned int *bb, Huft **tb, Huft *hp, ZStream_2ec3e0 *z)
 {
     int r;
     unsigned int hn = 0;

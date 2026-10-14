@@ -4,20 +4,20 @@
 extern "C" double __cdecl sqrt(double);
 extern "C" double __cdecl sin(double);
 
-struct V3 {
+struct V3_140650 {
     float x, y, z;
     float FUN_0022d110();
-    char FUN_0022d2b0(const V3 *other, float eps);
+    char FUN_0022d2b0(const V3_140650 *other, float eps);
 };
 
-struct Mat4 {
+struct Mat4_140650 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022baf0(V3 *axis, float angle);
-    void FUN_0022c3b0(V3 *in, V3 *out);
+    void FUN_0022baf0(V3_140650 *axis, float angle);
+    void FUN_0022c3b0(V3_140650 *in, V3_140650 *out);
 };
 
-struct NameHolder {
+struct NameHolder_140650 {
     char pad[8];
     void FUN_0027b040(const char *name);
 };
@@ -26,62 +26,62 @@ class JointDriver {
 public:
     virtual void AddRef();
     char pad04[4];
-    NameHolder name;
+    NameHolder_140650 name;
     char pad10[0x70 - 0x10];
     JointDriver *FUN_002248f0(int a);
 };
 
-struct Rig {
+struct Rig_140650 {
     void FUN_00222890(JointDriver *d, float a, int b, float c, int e, int f, float g);
 };
 
-struct Gear {
+struct Gear_140650 {
     char pad00[0x34];
     float f34;
 };
 
-struct Pos {
-    void FUN_00059a50(V3 *out);
+struct Pos_140650 {
+    void FUN_00059a50(V3_140650 *out);
 };
 
-struct Stats {
+struct Stats_140650 {
     char pad00[0x10];
-    Pos *f10;
+    Pos_140650 *f10;
     char pad14[0x11c - 0x14];
-    Gear *f11c;
+    Gear_140650 *f11c;
     char pad120[0x140 - 0x120];
     int f140;
     char pad144[0x1ad4 - 0x144];
-    V3 v1ad4;
-    V3 v1ae0;
-    V3 v1aec;
-    V3 v1af8;
+    V3_140650 v1ad4;
+    V3_140650 v1ae0;
+    V3_140650 v1aec;
+    V3_140650 v1af8;
     char pad1b04[0x2064 - 0x1b04];
-    V3 v2064;
-    void FUN_00035550(V3 *out);
+    V3_140650 v2064;
+    void FUN_00035550(V3_140650 *out);
     float FUN_000354c0();
-    char FUN_000356c0(V3 *out);
+    char FUN_000356c0(V3_140650 *out);
     float FUN_0003ec00(int a);
 };
 
-struct Anchor {
-    void FUN_00059a50(V3 *out);
+struct Anchor_140650 {
+    void FUN_00059a50(V3_140650 *out);
 };
-Anchor *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(Anchor *f);
-Rig *__fastcall FUN_00059a40(Anchor *f);
+Anchor_140650 *__fastcall FUN_000592a0(void *owner);
+Stats_140650 *__fastcall FUN_00059a30(Anchor_140650 *f);
+Rig_140650 *__fastcall FUN_00059a40(Anchor_140650 *f);
 
-struct Fx34 {
-    void FUN_001ec980(Stats *st, const char *name);
+struct Fx34_140650 {
+    void FUN_001ec980(Stats_140650 *st, const char *name);
 };
 struct World8 {
-    void FUN_00099d20(struct World *w, Stats *st, float len, float y, int z);
+    void FUN_00099d20(struct World *w, Stats_140650 *st, float len, float y, int z);
 };
 struct World {
     char pad00[8];
     World8 *f8;
     char pad0c[0x34 - 0xc];
-    Fx34 *f34;
+    Fx34_140650 *f34;
 };
 extern World *DAT_004dd700;
 extern float DAT_004ad77c;
@@ -90,9 +90,9 @@ extern float DAT_004ad784;
 
 void *thunk_FUN_0008d690(unsigned int size);
 float __cdecl FUN_00018a20(float v);
-void __cdecl FUN_00224d70(float angle, V3 *axis);
+void __cdecl FUN_00224d70(float angle, V3_140650 *axis);
 
-struct Data {
+struct Data_140650 {
     char pad00[0x14];
     float f14;
     float f18;
@@ -113,21 +113,21 @@ struct Data {
     int f50;
 };
 
-struct Frame {
-    V3 t10;                 // 0x10
+struct Frame_140650 {
+    V3_140650 t10;                 // 0x10
     float f1c;              // 0x1c
-    V3 w;                   // 0x20
-    V3 bq;                  // 0x2c
+    V3_140650 w;                   // 0x20
+    V3_140650 bq;                  // 0x2c
     float s38;              // 0x38
-    V3 av;                  // 0x3c
-    V3 rv;                  // 0x48
-    V3 pv;                  // 0x54
+    V3_140650 av;                  // 0x3c
+    V3_140650 rv;                  // 0x48
+    V3_140650 pv;                  // 0x54
     float ang;              // 0x60
     float spd;              // 0x64
-    Anchor *saved;          // 0x68
-    V3 qv;                  // 0x6c
-    Mat4 m;                 // 0x78
-    V3 out;                 // 0xb8
+    Anchor_140650 *saved;          // 0x68
+    V3_140650 qv;                  // 0x6c
+    Mat4_140650 m;                 // 0x78
+    V3_140650 out;                 // 0xb8
 };
 
 class WallJumpAction {
@@ -139,22 +139,22 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     char pad04[0x1c - 4];
-    Data *data;
+    Data_140650 *data;
     void *owner;
     JointDriver *driver;
-    V3 v28;
-    V3 dir;                 // 0x34
+    V3_140650 v28;
+    V3_140650 dir;                 // 0x34
     char b40;
     char pad41[3];
-    V3 v44;
+    V3_140650 v44;
 };
 
 bool WallJumpAction::vfunc_3(int a, int b)
 {
-    Frame f;
-    Anchor *fighter = FUN_000592a0(owner);
+    Frame_140650 f;
+    Anchor_140650 *fighter = FUN_000592a0(owner);
     f.saved = fighter;
-    Stats *st = FUN_00059a30(fighter);
+    Stats_140650 *st = FUN_00059a30(fighter);
     bool cond = (st->f140 == 4);
     b40 = cond;
     if (cond) {
@@ -298,7 +298,7 @@ bool WallJumpAction::vfunc_3(int a, int b)
         }
     }
 
-    Data *d = data;
+    Data_140650 *d = data;
     if (FUN_00018a20(f.rv.y) < d->f30 * 0.5f) {
         f.rv.x = 0;
         f.rv.y = 1.0f;
@@ -314,7 +314,7 @@ bool WallJumpAction::vfunc_3(int a, int b)
     f.t10 = f.rv;
     f.m.FUN_0022c3b0(&f.t10, &f.rv);
     f.ang = st->FUN_0003ec00(0);
-    Data *d2 = data;
+    Data_140650 *d2 = data;
     float lo = d2->f14;
     if (lo < f.s38)
         lo = f.s38;
@@ -344,10 +344,10 @@ bool WallJumpAction::vfunc_3(int a, int b)
         }
     }
 
-    Rig *rig = FUN_00059a40(f.saved);
+    Rig_140650 *rig = FUN_00059a40(f.saved);
     if (!rig)
         return false;
-    Data *dd = data;
+    Data_140650 *dd = data;
     int e4c = dd->f4c;
     int e50 = dd->f50;
     int e48 = dd->f48;

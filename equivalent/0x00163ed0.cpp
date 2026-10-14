@@ -20,11 +20,11 @@ public:
 
 namespace pure3d { class Animation; }
 
-struct V3 {
+struct V3_163ed0 {
     float x, y, z;
 };
 
-struct Id64 {
+struct Id64_163ed0 {
     unsigned int lo;
     unsigned int hi;
     void FUN_0027af70(unsigned int *src);
@@ -41,7 +41,7 @@ public:
     virtual void AddRef();
     virtual void Release();
     char pad04[4];
-    Id64 id;                // 0x08
+    Id64_163ed0 id;                // 0x08
 };
 
 class LocomotionSteerDriver : public Driver {
@@ -54,18 +54,18 @@ public:
     float f8b0;
     LocomotionSteerDriver *FUN_00229760(void *rig, int a, int b, void *desc, int c);
     void FUN_00222550(unsigned int lo, unsigned int hi);
-    void FUN_00228700(V3 *v);
+    void FUN_00228700(V3_163ed0 *v);
     float FUN_002287a0(int v);
 };
 }
 
-struct SubObj {
-    void FUN_00222120(V3 *out);
+struct SubObj_163ed0 {
+    void FUN_00222120(V3_163ed0 *out);
 };
 
-struct LayerSet {
+struct LayerSet_163ed0 {
     char pad0[0x10];
-    SubObj sub;
+    SubObj_163ed0 sub;
     char pad11[0x68 - 0x11];
     unsigned int count;     // 0x68
     void *FUN_002226b0();
@@ -73,21 +73,21 @@ struct LayerSet {
     void FUN_00222890(choreo2::LocomotionSteerDriver *d, float r, float a, float b, float c, float e, float f);
 };
 
-struct Stats {
-    bool FUN_000356c0(V3 *out);
+struct Stats_163ed0 {
+    bool FUN_000356c0(V3_163ed0 *out);
     void FUN_00035980(int v);
 };
 
-struct Ctx {
-    Stats *FUN_00059a30();
-    LayerSet *FUN_00059a40();
+struct Ctx_163ed0 {
+    Stats_163ed0 *FUN_00059a30();
+    LayerSet_163ed0 *FUN_00059a40();
 };
 
-struct Owner {
-    Ctx *FUN_000592a0();
+struct Owner_163ed0 {
+    Ctx_163ed0 *FUN_000592a0();
 };
 
-class Factory {
+class Factory_163ed0 {
 public:
     virtual void f0();
     virtual void f1();
@@ -95,12 +95,12 @@ public:
     virtual Animation *f3(void *caster, unsigned int lo, unsigned int hi);
 };
 
-struct Holder44 { Factory *FUN_00203d70(); };
-struct Holder28 { Holder44 *FUN_000862a0(); };
-struct Manager { char pad0[0x54]; Holder28 *holder; };
-extern Manager *DAT_004dd700;
+struct Holder44_163ed0 { Factory_163ed0 *FUN_00203d70(); };
+struct Holder28_163ed0 { Holder44_163ed0 *FUN_000862a0(); };
+struct Manager_163ed0 { char pad0[0x54]; Holder28_163ed0 *holder; };
+extern Manager_163ed0 *DAT_004dd700;
 
-struct Config {
+struct Config_163ed0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -126,28 +126,28 @@ void *thunk_FUN_0008d690(unsigned int size);
 float FUN_000964e0();
 void __cdecl FUN_0015cfd0(void *rig, choreo2::LocomotionSteerDriver *d);
 
-union Slot14 {
+union Slot14_163ed0 {
     char caster[4];
     choreo2::LocomotionSteerDriver *found;
     Animation *anim;
 };
 
 union Slot2c {
-    Stats *stats;
+    Stats_163ed0 *stats;
     float f;
 };
 
-struct Frame {
+struct Frame_163ed0 {
     float best;                 // 0x10
-    Slot14 s14;                 // 0x14
+    Slot14_163ed0 s14;                 // 0x14
     void *rig;                  // 0x18
     char casterC[4];            // 0x1c
     unsigned int *keyptr;       // 0x20
     unsigned int keyhi;         // 0x24
-    LayerSet *layers;           // 0x28
+    LayerSet_163ed0 *layers;           // 0x28
     Slot2c s2c;                 // 0x2c
-    V3 w;                       // 0x30
-    V3 out;                     // 0x3c
+    V3_163ed0 w;                       // 0x30
+    V3_163ed0 out;                     // 0x3c
     unsigned int desc[10];      // 0x48
 };
 
@@ -162,8 +162,8 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     char pad04[0x18];
-    Config *cfg;                            // 0x1c
-    Owner *owner;                           // 0x20
+    Config_163ed0 *cfg;                            // 0x1c
+    Owner_163ed0 *owner;                           // 0x20
     choreo2::LocomotionSteerDriver *driver; // 0x24
     float f28;
 };
@@ -172,8 +172,8 @@ public:
 
 bool hulkfight::motion::LocomotionSprintAction::vfunc_3(int a, int b)
 {
-    Frame f;
-    Ctx *ctx = owner->FUN_000592a0();
+    Frame_163ed0 f;
+    Ctx_163ed0 *ctx = owner->FUN_000592a0();
     f.s2c.stats = ctx->FUN_00059a30();
     f.layers = ctx->FUN_00059a40();
     if (f.layers == 0)
@@ -205,7 +205,7 @@ bool hulkfight::motion::LocomotionSprintAction::vfunc_3(int a, int b)
         driver->Release();
     driver = f.s14.found;
     if (f.s14.found == 0) {
-        Config *c = cfg;
+        Config_163ed0 *c = cfg;
         unsigned int lo = c->key38[0];
         unsigned int hi = c->key38[1];
         f.keyptr = c->key30;
@@ -213,7 +213,7 @@ bool hulkfight::motion::LocomotionSprintAction::vfunc_3(int a, int b)
         if ((lo | hi) == 0) {
             animA = 0;
         } else {
-            Factory *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+            Factory_163ed0 *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
             content::LoadInventory::DynamicCaster<pure3d::Animation> *caster =
                 new (f.s14.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>;
             animA = fac->f3(caster, lo, hi);
@@ -223,7 +223,7 @@ bool hulkfight::motion::LocomotionSprintAction::vfunc_3(int a, int b)
         if ((lo | hi) == 0) {
             f.s14.anim = 0;
         } else {
-            Factory *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+            Factory_163ed0 *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
             content::LoadInventory::DynamicCaster<pure3d::Animation> *caster =
                 new (f.s14.caster) content::LoadInventory::DynamicCaster<pure3d::Animation>;
             f.s14.anim = fac->f3(caster, lo, hi);
@@ -234,7 +234,7 @@ bool hulkfight::motion::LocomotionSprintAction::vfunc_3(int a, int b)
         if ((lo | hi) == 0) {
             animC = 0;
         } else {
-            Factory *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+            Factory_163ed0 *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
             content::LoadInventory::DynamicCaster<pure3d::Animation> *caster =
                 new (f.casterC) content::LoadInventory::DynamicCaster<pure3d::Animation>;
             animC = fac->f3(caster, lo, hi);
@@ -280,7 +280,7 @@ bool hulkfight::motion::LocomotionSprintAction::vfunc_3(int a, int b)
     }
     f.layers->sub.FUN_00222120(&f.out);
     driver->FUN_00228700(&f.out);
-    Stats *stats = f.s2c.stats;
+    Stats_163ed0 *stats = f.s2c.stats;
     f.w.x = 0;
     f.w.y = 0;
     f.w.z = 0;

@@ -19,7 +19,7 @@ struct Joints {
     int FUN_00306190(int index, int mode);
 };
 
-struct Body {
+struct Body_2fd360 {
     char pad00[0x20];
     Joints* joints;
     int count;
@@ -37,7 +37,7 @@ public:
 class SimStateArticulated : public SimState {
 public:
     char pad04[0x70];
-    Body* body;
+    Body_2fd360* body;
     char pad78[0x18];
     int activeJoint;
     void vfunc_14(int arg);
@@ -47,7 +47,7 @@ void SimStateArticulated::vfunc_14(int arg)
 {
     SimState::vfunc_14(arg);
 
-    Body* b = body;
+    Body_2fd360* b = body;
     if (b->enabled) {
         b->FUN_003046f0(0);
         body->joints->Reset();

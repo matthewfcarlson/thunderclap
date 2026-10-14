@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CCollisionPushbackYCondition::vfunc_7 @ 0x0004c320
-struct Obj {
+struct Obj_4c320 {
     char pad00[0x2c];
     float pushbackY;                // 0x2c
 };
@@ -9,7 +9,7 @@ struct Params {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual Obj *GetObject();       // slot 3
+    virtual Obj_4c320 *GetObject();       // slot 3
 };
 
 bool FUN_00018960(float a, float b, float eps);
@@ -31,7 +31,7 @@ public:
 
 bool CCollisionPushbackYCondition::vfunc_7(Params *params)
 {
-    Obj *obj = params->GetObject();
+    Obj_4c320 *obj = params->GetObject();
     if (!obj)
         return false;
     float value = obj->pushbackY;

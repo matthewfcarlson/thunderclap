@@ -17,7 +17,7 @@ public:
     void FUN_001c7870(void *a, Node *b);
 };
 
-class Mgr {
+class Mgr_1c5960 {
 public:
     char pad0[8];
     SubList list;
@@ -26,7 +26,7 @@ public:
     Node *FUN_001c5960(int a, int b);
 };
 
-Node *Mgr::FUN_001c5960(int a, int b)
+Node *Mgr_1c5960::FUN_001c5960(int a, int b)
 {
     void *mem = FUN_0008d690(0xb0);
     if (mem == 0)

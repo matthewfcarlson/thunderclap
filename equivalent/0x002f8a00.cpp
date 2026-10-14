@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 48/48)
 // physics::ImpulseBasedCollisionSolver::vfunc_1 @ 0x002f8a00
-struct V3 {
+struct V3_2f8a00 {
     float x;
     float y;
     float z;
 };
 
-class Collider {
+class Collider_2f8a00 {
 public:
     virtual void v0();
     virtual void v1();
@@ -32,10 +32,10 @@ public:
     virtual void v21();
     virtual void v22();
     virtual void v23();
-    virtual char v24(V3* a, V3* b, int id);
+    virtual char v24(V3_2f8a00* a, V3_2f8a00* b, int id);
 };
 
-class Body {
+class Body_2f8a00 {
 public:
     char pad00[0x6c];
     int state;
@@ -51,50 +51,50 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual int v8(Body* body, int id);
+    virtual int v8(Body_2f8a00* body, int id);
 };
 
 class ImpulseBasedCollisionSolver {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
-    virtual char vfunc_2(Collider* a, Collider* b, V3* p, V3* q, int ia, int ib);
-    virtual void vfunc_3(Collider* c, int a, int b, unsigned char f);
+    virtual char vfunc_2(Collider_2f8a00* a, Collider_2f8a00* b, V3_2f8a00* p, V3_2f8a00* q, int ia, int ib);
+    virtual void vfunc_3(Collider_2f8a00* c, int a, int b, unsigned char f);
     virtual void vfunc_4();
     World* world;               // 0x04
     char pad08[0x1c - 8];
     int idA;                    // 0x1c
     int idB;                    // 0x20
-    V3 normal;                  // 0x24
+    V3_2f8a00 normal;                  // 0x24
     char pad30[4];
     unsigned int flags;         // 0x34
-    V3 p38;
-    V3 p44;
-    V3 p50;
-    V3 p5c;
-    V3 p68;
-    V3 p74;
+    V3_2f8a00 p38;
+    V3_2f8a00 p44;
+    V3_2f8a00 p50;
+    V3_2f8a00 p5c;
+    V3_2f8a00 p68;
+    V3_2f8a00 p74;
     float t;                    // 0x80
-    Body* bodyA;                // 0x84
-    Body* bodyB;                // 0x88
-    Collider* collA;            // 0x8c
-    Collider* collB;            // 0x90
-    V3 p94;
+    Body_2f8a00* bodyA;                // 0x84
+    Body_2f8a00* bodyB;                // 0x88
+    Collider_2f8a00* collA;            // 0x8c
+    Collider_2f8a00* collB;            // 0x90
+    V3_2f8a00 p94;
     char pad_a0[0xb0 - 0xa0];
-    V3 pb0;
+    V3_2f8a00 pb0;
     char pad_bc[0xf0 - 0xbc];
     char f0;
     char f1;
     char f2;
     char sameObject;
     int FUN_002f8300();
-    void FUN_002f7b70(Collider* a, Collider* b, V3* p, V3* q, int ia, int ib);
+    void FUN_002f7b70(Collider_2f8a00* a, Collider_2f8a00* b, V3_2f8a00* p, V3_2f8a00* q, int ia, int ib);
 };
 
 void ImpulseBasedCollisionSolver::vfunc_1()
 {
-    Collider* a = collA;
-    Collider* b = collB;
+    Collider_2f8a00* a = collA;
+    Collider_2f8a00* b = collB;
     sameObject = (a == b);
     if (t >= -1.0e-6f)
         return;

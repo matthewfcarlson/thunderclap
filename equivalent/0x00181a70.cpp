@@ -4,27 +4,27 @@ extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 
-struct Stats;
+struct Stats_181a70;
 
-struct Ctx {
-    Stats *FUN_00059a30();
+struct Ctx_181a70 {
+    Stats_181a70 *FUN_00059a30();
 };
 
-class Owner {
+class Owner_181a70 {
 public:
-    Ctx *FUN_000592a0();
+    Ctx_181a70 *FUN_000592a0();
 };
 
-struct Target {
+struct Target_181a70 {
     char pad0[0x148];
     int f148;
 };
 
-struct Stats {
+struct Stats_181a70 {
     char pad0[0x3a4];
     struct Slot {
         char pad0[8];
-        Target *f8;
+        Target_181a70 *f8;
         int fc;
     } *f3a4;
 };
@@ -37,16 +37,16 @@ public:
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual bool vfunc_6(int a1, Owner *owner, int a3);
+    virtual bool vfunc_6(int a1, Owner_181a70 *owner, int a3);
     char pad4[8];
     unsigned char fc_flag;
 };
 
-bool CSMPropIsCharacterCondition::vfunc_6(int a1, Owner *owner, int a3)
+bool CSMPropIsCharacterCondition::vfunc_6(int a1, Owner_181a70 *owner, int a3)
 {
     if (FUN_00344e74(owner, 0, DAT_00494b44, DAT_00494b60, 0) == 0)
         return false;
-    Stats::Slot *slot = owner->FUN_000592a0()->FUN_00059a30()->f3a4;
+    Stats_181a70::Slot *slot = owner->FUN_000592a0()->FUN_00059a30()->f3a4;
     if (slot == 0 || slot->fc != 5)
         return false;
     return (slot->f8->f148 != 0) == (int)fc_flag;

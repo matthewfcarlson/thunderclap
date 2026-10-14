@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 15/16, incomplete)
 // FUN_00313940 @ 0x00313940
-struct Vec3 {
+struct Vec3_313940 {
     float x, y, z;
     void FUN_0022d180();
 };
 
-union FloatBits {
+union FloatBits_313940 {
     float f;
     unsigned int u;
 };
 
-struct Box {
+struct Box_313940 {
     char pad00[0x48];
-    Vec3 ext;
-    Vec3 row[3];
-    float FUN_002fbcd0(const Vec3 *axis);
-    float FUN_002fbdc0(const Vec3 *axis, int skip);
+    Vec3_313940 ext;
+    Vec3_313940 row[3];
+    float FUN_002fbcd0(const Vec3_313940 *axis);
+    float FUN_002fbdc0(const Vec3_313940 *axis, int skip);
 };
 
 class BoxTest {
@@ -23,19 +23,19 @@ public:
     char pad00[0x0c];
     float margin;
     char pad10[4];
-    Vec3 d;
-    bool Separated(Box *a, Box *b);
+    Vec3_313940 d;
+    bool Separated(Box_313940 *a, Box_313940 *b);
 };
 
 static inline float AbsBits(float v)
 {
-    FloatBits bits;
+    FloatBits_313940 bits;
     bits.f = v;
     bits.u &= 0x7fffffff;
     return bits.f;
 }
 
-bool BoxTest::Separated(Box *a, Box *b)
+bool BoxTest::Separated(Box_313940 *a, Box_313940 *b)
 {
     int i;
     int j;
@@ -63,7 +63,7 @@ bool BoxTest::Separated(Box *a, Box *b)
             if (diff <= 1e-5f) {
                 continue;
             }
-            Vec3 cross;
+            Vec3_313940 cross;
             cross.x = a->row[i].y * b->row[j].z - b->row[j].y * a->row[i].z;
             cross.y = a->row[i].z * b->row[j].x - a->row[i].x * b->row[j].z;
             cross.z = b->row[j].y * a->row[i].x - a->row[i].y * b->row[j].x;

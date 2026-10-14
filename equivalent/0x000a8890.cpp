@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000a8890 @ 0x000a8890
 extern "C" double __cdecl sqrt(double);
-struct Sphere { float x,y,z,radius; };
-struct Box { float minX,minY,minZ,maxX,maxY,maxZ; void FUN_000a8890(Sphere* out); };
-void Box::FUN_000a8890(Sphere* out) {
+struct Sphere_a8890 { float x,y,z,radius; };
+struct Box_a8890 { float minX,minY,minZ,maxX,maxY,maxZ; void FUN_000a8890(Sphere_a8890* out); };
+void Box_a8890::FUN_000a8890(Sphere_a8890* out) {
  float x,y,z,r;
  if (!(minX > maxX) && !(minY > maxY) && !(minZ > maxZ)) {
   float hx = (maxX-minX)*0.5f;

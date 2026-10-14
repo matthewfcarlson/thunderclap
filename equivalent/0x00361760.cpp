@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00361760 @ 0x00361760
-struct Slot {
+struct Slot_361760 {
     void* p;
     int a;
     int b;
@@ -10,7 +10,7 @@ extern void* DAT_004cd698;
 extern void* DAT_004cd69c;
 extern void* DAT_004cd6a0;
 extern void* DAT_004cd6a4;
-extern Slot DAT_004cd6a8[20];
+extern Slot_361760 DAT_004cd6a8[20];
 
 void FUN_00361760()
 {

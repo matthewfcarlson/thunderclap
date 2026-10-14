@@ -1,69 +1,69 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 20/20)
 // FUN_00202560 @ 0x00202560
-struct Vec3 {
+struct Vec3_202560 {
     float x, y, z;
 };
 
-struct Quad;
+struct Quad_202560;
 
-struct Hit {
+struct Hit_202560 {
     float dist;
-    Quad *quad;
+    Quad_202560 *quad;
     int tri;
 };
 
-struct Quad {
+struct Quad_202560 {
     char pad0[0x18];
     int material;
 };
 
-struct Probe {
+struct Probe_202560 {
     int f0;
     int f4;
-    Hit *hit;
+    Hit_202560 *hit;
 };
 
 struct Trace {
     char pad0[8];
-    Probe probe;
-    char FUN_00201f20(Vec3 *from, int a, Vec3 *out, Vec3 *normal, int *c, int zero);
+    Probe_202560 probe;
+    char FUN_00201f20(Vec3_202560 *from, int a, Vec3_202560 *out, Vec3_202560 *normal, int *c, int zero);
 };
 
-struct Collider {
-    char FUN_002ee140(Probe *probe, Vec3 *from, Vec3 *to, int zero);
+struct Collider_202560 {
+    char FUN_002ee140(Probe_202560 *probe, Vec3_202560 *from, Vec3_202560 *to, int zero);
 };
 
 struct Bridge {
     char pad0[8];
-    Collider *collider;
+    Collider_202560 *collider;
 };
 
-struct Hud {
+struct Hud_202560 {
     void FUN_00025370(int a);
     void FUN_00025260(int a, int b, int c);
 };
 
-struct Globals {
+struct Globals_202560 {
     char pad0[0x10];
     Bridge *bridge;
     char pad14[0xc];
-    Hud *hud;
+    Hud_202560 *hud;
     Trace *trace;
 };
 
-extern Globals *DAT_004dd700;
+extern Globals_202560 *DAT_004dd700;
 extern int DAT_004d2a3c;
 extern char DAT_004d2a40;
 extern char DAT_00554c1c;
 extern float DAT_00554c18;
 
 char FUN_002020a0(int material);
-void FUN_002f1ce0(Vec3 *from, int tri, Vec3 *normal, float *out);
+void FUN_002f1ce0(Vec3_202560 *from, int tri, Vec3_202560 *normal, float *out);
 
-char FUN_00202560(Vec3 *start, float depth, int a3, Vec3 *result, Vec3 *normalOut,
-                  Vec3 *fallback, int *materialOut, int *c)
+char FUN_00202560(Vec3_202560 *start, float depth, int a3, Vec3_202560 *result, Vec3_202560 *normalOut,
+                  Vec3_202560 *fallback, int *materialOut, int *c)
 {
-    Globals *g = DAT_004dd700;
+    Globals_202560 *g = DAT_004dd700;
     Trace *trace = g->trace;
     if (materialOut != 0)
         *materialOut = 0;
@@ -95,7 +95,7 @@ char FUN_00202560(Vec3 *start, float depth, int a3, Vec3 *result, Vec3 *normalOu
     g->hud->FUN_00025370(0);
 
     float zero = depth * 0.0f;
-    Vec3 to;
+    Vec3_202560 to;
     to.y = -depth;
     to.z = zero;
     to.x = zero + start->x;
@@ -103,12 +103,12 @@ char FUN_00202560(Vec3 *start, float depth, int a3, Vec3 *result, Vec3 *normalOu
     to.z = to.z + start->z;
 
     if (g->bridge->collider->FUN_002ee140(&trace->probe, start, &to, 0)) {
-        Hit *hit = trace->probe.hit;
+        Hit_202560 *hit = trace->probe.hit;
         float dist = hit->dist;
-        Quad *quad = hit->quad;
+        Quad_202560 *quad = hit->quad;
         int tri = hit->tri;
         if (dist > 0.0f && FUN_002020a0(quad->material)) {
-            Vec3 n;
+            Vec3_202560 n;
             float out = 0.0f;
             FUN_002f1ce0(start, tri, &n, &out);
             if ((n.z * 0.0f + n.x * 0.0f) + n.y > 0.5f) {

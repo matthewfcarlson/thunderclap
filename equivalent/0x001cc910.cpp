@@ -1,43 +1,43 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_001cc910 @ 0x001cc910
-struct Part {
+struct Part_1cc910 {
     void FUN_001dcab0();
     void FUN_001fc790();
     void FUN_00025410();
 };
 
-struct Mgr {
+struct Mgr_1cc910 {
     void FUN_001d1710();
 };
 
-struct Link;
+struct Link_1cc910;
 
-struct Sub {
-    void FUN_00098ed0(Link *l);
+struct Sub_1cc910 {
+    void FUN_00098ed0(Link_1cc910 *l);
 };
 
-struct Link {
+struct Link_1cc910 {
     char pad0[8];
-    Sub *f8;
-    Part *fc;
+    Sub_1cc910 *f8;
+    Part_1cc910 *fc;
     char pad10[0x20 - 0x10];
-    Part *f20;
+    Part_1cc910 *f20;
     char pad24[4];
-    Part *f28;
+    Part_1cc910 *f28;
 };
 
-class Screen {
+class Screen_1cc910 {
 public:
     char pad0[4];
-    Link *link;
+    Link_1cc910 *link;
     char pad8[0x1194 - 8];
     int mode;
     void FUN_001cc910(int m);
 };
 
-Mgr *FUN_001d4c90();
+Mgr_1cc910 *FUN_001d4c90();
 
-void Screen::FUN_001cc910(int m)
+void Screen_1cc910::FUN_001cc910(int m)
 {
     mode = m;
     if (link != 0 && link->fc != 0)
@@ -46,10 +46,10 @@ void Screen::FUN_001cc910(int m)
         link->f28->FUN_001fc790();
     if (link != 0 && link->f20 != 0)
         link->f20->FUN_00025410();
-    Link *l = link;
+    Link_1cc910 *l = link;
     if (l != 0 && l->f8 != 0)
         l->f8->FUN_00098ed0(l);
-    Mgr *mgr = FUN_001d4c90();
+    Mgr_1cc910 *mgr = FUN_001d4c90();
     if (mgr != 0)
         mgr->FUN_001d1710();
 }

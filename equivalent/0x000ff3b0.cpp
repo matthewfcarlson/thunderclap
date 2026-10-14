@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3032 inputs, branch coverage 36/36)
 // CHand2HandAgent::vfunc_11 @ 0x000ff3b0
-struct NameKey {
+struct NameKey_ff3b0 {
     unsigned lo;
     unsigned hi;
-    void FUN_0027af30(const NameKey *src);
+    void FUN_0027af30(const NameKey_ff3b0 *src);
     void FUN_0027af50();
     void FUN_0027af60(unsigned long long key);
 };
 
-struct Gate {
+struct Gate_ff3b0 {
     char FUN_00099730();
     char FUN_00099750();
     char FUN_00099760();
@@ -17,38 +17,38 @@ struct Gate {
 
 struct World {
     char pad[8];
-    Gate *gate;
+    Gate_ff3b0 *gate;
 };
 extern World *DAT_004dd700;
 
-struct RandState {
+struct RandState_ff3b0 {
     unsigned s0;
     unsigned s1;
     float FUN_00078780();
 };
-RandState *__cdecl FUN_000964d0();
+RandState_ff3b0 *__cdecl FUN_000964d0();
 
-struct Check {
+struct Check_ff3b0 {
     char FUN_00231ee0();
 };
 
-struct Zone {
+struct Zone_ff3b0 {
     char pad[0x3a0];
     float level;
 };
 
-struct Player {
+struct Player_ff3b0 {
     char pad0[0xdc];
-    Check check;
+    Check_ff3b0 check;
     char pad1[0x11c - 0xdd];
-    Zone *zone;
+    Zone_ff3b0 *zone;
     char pad2[0x1cac - 0x120];
     float limitA;
     char pad3[0x1cd0 - 0x1cb0];
     float scale;
     float chance;
     char pad4[0x1d68 - 0x1cd8];
-    NameKey key;
+    NameKey_ff3b0 key;
     char pad5[0x1f58 - 0x1d70];
     int flagA;
     char pad6[0x1f64 - 0x1f5c];
@@ -56,7 +56,7 @@ struct Player {
     char pad7[0x1f7c - 0x1f68];
     int flagC;
     char pad8[0x2098 - 0x1f80];
-    NameKey lastKey;
+    NameKey_ff3b0 lastKey;
     unsigned char active;
 
     void FUN_00035140(int a);
@@ -80,7 +80,7 @@ public:
     virtual void v8();
     virtual void v9();
     virtual void v10();
-    virtual char vfunc_11(Player *player, float a, float b);
+    virtual char vfunc_11(Player_ff3b0 *player, float a, float b);
     char pad04[0x64 - 4];
     float rv;
     int f68;
@@ -92,10 +92,10 @@ public:
     char blocked;
 };
 
-char CHand2HandAgent::vfunc_11(Player *player, float a, float b)
+char CHand2HandAgent::vfunc_11(Player_ff3b0 *player, float a, float b)
 {
     char result = 0;
-    RandState *rng = FUN_000964d0();
+    RandState_ff3b0 *rng = FUN_000964d0();
     float scale = player->scale;
     float limitA = player->limitA;
     rng->s0 = (rng->s0 & 0xffff) * 0x9069 + (rng->s0 >> 16);
@@ -108,13 +108,13 @@ char CHand2HandAgent::vfunc_11(Player *player, float a, float b)
     float rv0 = (bits.f - 1.0f + 1.0f) * scale;
     char ready = player->check.FUN_00231ee0();
     float chance = player->chance;
-    Gate *gate = DAT_004dd700->gate;
+    Gate_ff3b0 *gate = DAT_004dd700->gate;
     if (gate) {
         if (gate->FUN_00099730() || gate->FUN_00099750() || gate->FUN_00099760() || gate->FUN_00099790())
             return 0;
     }
     if (b > 0.7f && a <= limitA && rv <= 0.0f && !ready && !blocked) {
-        NameKey q;
+        NameKey_ff3b0 q;
         q.FUN_0027af30(&player->key);
         if (player->key.lo != 0 || player->key.hi != 0) {
             player->lastKey.FUN_0027af60(*(unsigned long long *)&player->key);

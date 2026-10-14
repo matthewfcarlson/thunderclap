@@ -2,13 +2,13 @@
 // FUN_002d53d0 @ 0x002d53d0
 struct Stream;
 
-struct Vec3 {
+struct Vec3_2d53d0 {
     float x, y, z;
 };
 
 struct Matrix {
     float m[12];
-    Vec3 pos;
+    Vec3_2d53d0 pos;
     float w;
     void FUN_0022ca90(Matrix* a, Matrix* b);
 };
@@ -19,7 +19,7 @@ public:
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual void ReadPosition(Stream* s, Vec3* out);        // slot 4
+    virtual void ReadPosition(Stream* s, Vec3_2d53d0* out);        // slot 4
 };
 
 class RotationReader {
@@ -33,7 +33,7 @@ public:
     virtual void ReadRotation(Stream* s, Matrix* out);      // slot 6
 };
 
-struct Curve {
+struct Curve_2d53d0 {
     void FUN_0028a1c0(Stream* s, float* out);
 };
 
@@ -45,28 +45,28 @@ struct ByteCurve {
     void FUN_0028a0b0(Stream* s, unsigned char* out);
 };
 
-struct Desc {
+struct Desc_2d53d0 {
     char pad00[8];
-    Curve* c08;
-    Curve* c0c;
-    Curve* c10;
-    Curve* c14;
-    Curve* c18;
-    Curve* c1c;
-    Curve* c20;
-    Curve* c24;
-    Curve* c28;
-    Curve* c2c;
-    Curve* c30;
-    Curve* c34;
-    Curve* c38;
+    Curve_2d53d0* c08;
+    Curve_2d53d0* c0c;
+    Curve_2d53d0* c10;
+    Curve_2d53d0* c14;
+    Curve_2d53d0* c18;
+    Curve_2d53d0* c1c;
+    Curve_2d53d0* c20;
+    Curve_2d53d0* c24;
+    Curve_2d53d0* c28;
+    Curve_2d53d0* c2c;
+    Curve_2d53d0* c30;
+    Curve_2d53d0* c34;
+    Curve_2d53d0* c38;
     ColorCurve* c3c;
     ByteCurve* b40;
     ByteCurve* b44;
     ByteCurve* b48;
 };
 
-struct Extra {
+struct Extra_2d53d0 {
     void FUN_0028ac90(Stream* s, int* out);
 };
 
@@ -80,9 +80,9 @@ struct CameraHolder {
 
 extern CameraHolder* DAT_0052c2b0;
 
-class Emitter {
+class Emitter_2d53d0 {
 public:
-    void FUN_002d53d0(Stream* s, Desc* d, Matrix* parent);
+    void FUN_002d53d0(Stream* s, Desc_2d53d0* d, Matrix* parent);
 
     char pad0[0x8];
     Matrix local;  // 0x8
@@ -90,7 +90,7 @@ public:
     PositionReader* positionReader;  // 0x88
     RotationReader* rotationReader;  // 0x8c
     int f90;  // 0x90
-    Extra* extra;  // 0x94
+    Extra_2d53d0* extra;  // 0x94
     char pad98[0x14];
     float fac;  // 0xac
     float fb0;  // 0xb0
@@ -120,7 +120,7 @@ public:
     unsigned char b111;  // 0x111
 };
 
-void Emitter::FUN_002d53d0(Stream* s, Desc* d, Matrix* parent)
+void Emitter_2d53d0::FUN_002d53d0(Stream* s, Desc_2d53d0* d, Matrix* parent)
 {
     positionReader->ReadPosition(s, &orient.pos);
     rotationReader->ReadRotation(s, &orient);

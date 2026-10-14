@@ -1,20 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 12/12)
 // FUN_00335ac0 @ 0x00335ac0
-struct TypeInfo {
+struct TypeInfo_335ac0 {
     int kind;
 };
 
-struct Value {
+struct Value_335ac0 {
     char pad00[8];
     int type;                // 0x08
-    TypeInfo *info;          // 0x0c
+    TypeInfo_335ac0 *info;          // 0x0c
 };
 
-class Table {
+class Table_335ac0 {
 public:
     char pad00[0x44];
     int count;               // 0x44
-    Value *FUN_00337090(int index);
+    Value_335ac0 *FUN_00337090(int index);
 };
 
 int __cdecl FUN_00337f20(int kind);
@@ -22,7 +22,7 @@ int __cdecl FUN_00337f20(int kind);
 class Reader {
 public:
     char pad00[4];
-    Table *table;            // 0x04
+    Table_335ac0 *table;            // 0x04
     char **rows;             // 0x08
     bool FUN_00335ac0(int column, int row, unsigned int *outLength);
 };

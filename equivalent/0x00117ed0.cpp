@@ -2,13 +2,13 @@
 // hulkfight::ai::LocatorDistanceCondition::vfunc_6 @ 0x00117ed0
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_117ed0 {
     float x, y, z;
 };
 
-struct Frame {
-    Vec3 origin;
-    Vec3 target;
+struct Frame_117ed0 {
+    Vec3_117ed0 origin;
+    Vec3_117ed0 target;
 };
 
 namespace fight {
@@ -36,36 +36,36 @@ public:
     virtual void v5();
     virtual void v6();
     virtual void v7();
-    virtual void v8(Vec3 *out);
+    virtual void v8(Vec3_117ed0 *out);
 };
 
-struct Finder {
+struct Finder_117ed0 {
     Locator *FUN_001fc8c0(int lo, int hi);
 };
 
-struct Anchor {
-    void FUN_00059a50(Vec3 *out);
+struct Anchor_117ed0 {
+    void FUN_00059a50(Vec3_117ed0 *out);
 };
 
-struct Registry {
+struct Registry_117ed0 {
     char pad0[0x10];
-    Anchor *anchor;
+    Anchor_117ed0 *anchor;
     char pad14[0x1d70 - 0x14];
     int handleLo;
     int handleHi;
 };
 
-struct Owner { char pad[4]; };
+struct Owner_117ed0 { char pad[4]; };
 
-struct Manager {
+struct Manager_117ed0 {
     char pad0[0x28];
-    Finder *finder;
+    Finder_117ed0 *finder;
 };
 
-extern Manager *DAT_004dd700;
+extern Manager_117ed0 *DAT_004dd700;
 
-Owner *__fastcall FUN_000592a0(void *x);
-Registry *__fastcall FUN_00059a30(Owner *o);
+Owner_117ed0 *__fastcall FUN_000592a0(void *x);
+Registry_117ed0 *__fastcall FUN_00059a30(Owner_117ed0 *o);
 bool __cdecl FUN_00018960(float a, float b, float eps);
 
 struct LocatorDistanceCondition {
@@ -77,12 +77,12 @@ struct LocatorDistanceCondition {
 
 bool LocatorDistanceCondition::FUN_00117ed0(int a1, fight::Params *params, int a3)
 {
-    Frame f;
+    Frame_117ed0 f;
 
     if (!dynamic_cast<CFightParams *>(params))
         return false;
 
-    Registry *reg = FUN_00059a30(FUN_000592a0(params));
+    Registry_117ed0 *reg = FUN_00059a30(FUN_000592a0(params));
     f.origin.x = 0.0f;
     f.origin.y = 0.0f;
     f.origin.z = 0.0f;

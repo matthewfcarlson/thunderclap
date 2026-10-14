@@ -3,7 +3,7 @@
 extern float DAT_004dd048;
 extern float DAT_004dd04c;
 
-struct Item {
+struct Item_79c80 {
     float f0;
     float f4;
     float f8;
@@ -12,7 +12,7 @@ struct Item {
     char pad11[3];
 };
 
-struct Rec {
+struct Rec_79c80 {
     float f00;
     int f04;
     float f08;
@@ -32,16 +32,16 @@ struct Rec {
     char pad45[3];
 };
 
-class Mesh {
+class Mesh_79c80 {
 public:
     char pad0[0x1904];
-    Rec recs[1];
-    void FUN_00079c80(Item *p, int i2, int i3, int i4, int a5, int a6, int a7, int *cnt, int v9, int v10);
+    Rec_79c80 recs[1];
+    void FUN_00079c80(Item_79c80 *p, int i2, int i3, int i4, int a5, int a6, int a7, int *cnt, int v9, int v10);
 };
 
-void Mesh::FUN_00079c80(Item *p, int i2, int i3, int i4, int a5, int a6, int a7, int *cnt, int v9, int v10)
+void Mesh_79c80::FUN_00079c80(Item_79c80 *p, int i2, int i3, int i4, int a5, int a6, int a7, int *cnt, int v9, int v10)
 {
-    Item *it2 = &p[i2];
+    Item_79c80 *it2 = &p[i2];
     if (it2->flag == 0)
         return;
     volatile float f5 = (float)a5;
@@ -49,11 +49,11 @@ void Mesh::FUN_00079c80(Item *p, int i2, int i3, int i4, int a5, int a6, int a7,
     volatile float l18 = a6 * DAT_004dd04c * 90.0f;
     float x = it2->f0;
     float w = 35.0f;
-    Item *it3 = &p[i3];
+    Item_79c80 *it3 = &p[i3];
     if (it3->flag != 0) {
         w = 35.0f - (it3->f8 + it3->f8 + it3->f4 * 0.5f + it3->fc);
     } else {
-        Item *it4 = &p[i4];
+        Item_79c80 *it4 = &p[i4];
         if (it4->flag != 0)
             w = 35.0f - (it4->f8 + it4->f8 + it4->f4 * 0.5f + it4->fc);
     }

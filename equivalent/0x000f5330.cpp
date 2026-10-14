@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3136 inputs, branch coverage 134/134)
 // FEThingsBase::vfunc_37 @ 0x000f5330
 
-class Item {
+class Item_f5330 {
 public:
     virtual int v0();
     virtual int type();
@@ -19,7 +19,7 @@ public:
     void FUN_000e3750(Node *v);
 };
 
-class Args {
+class Args_f5330 {
 public:
     virtual int v0();
     virtual int type();
@@ -31,13 +31,13 @@ public:
     char FUN_000f9ef0();
     void FUN_000f9f30();
     char FUN_000f9e50();
-    Item *FUN_000fb110();
+    Item_f5330 *FUN_000fb110();
     void FUN_000f9fb0();
     void FUN_000fa0a0();
     char FUN_000f9e90();
 };
 
-class Factory {
+class Factory_f5330 {
 public:
     virtual Node *v0(int a, int b);
     virtual Node *v1(int a, int b);
@@ -125,26 +125,26 @@ public:
     virtual void v34();
     virtual void v35();
     virtual void v36();
-    virtual char v37(Param *a0, Factory *a1, Args *a2);
+    virtual char v37(Param *a0, Factory_f5330 *a1, Args_f5330 *a2);
     virtual void v38();
     virtual void v39();
     char pad04[0x1804 - 4];
     int f1804;
     int f1808;
 
-    void FUN_000eff20(Param *a, Factory *b, int z, int k);
-    void FUN_000e7ad0(Param *p, Factory *f, Node *n, Item *i);
-    void FUN_000e7930(Param *p, Factory *f, Node *n, Item *i);
-    void FUN_000f3940(Param *p, Factory *f, Node *n, Item *i);
-    void FUN_000f3f00(Param *p, Factory *f, Node *n, Item *i);
-    void FUN_000e7770(Param *p, Factory *f, Node *n, Item *i);
-    void FUN_000f3dc0(Param *p, Factory *f, Node *n, Item *i);
-    void FUN_000f3b20(Param *p, Factory *f, Node *n, Item *i);
-    void FUN_000f42c0(Param *p, Factory *f, Node *n, Item *i);
-    void FUN_000f1e50(Param *p, Factory *f, Node *n, Item *i);
+    void FUN_000eff20(Param *a, Factory_f5330 *b, int z, int k);
+    void FUN_000e7ad0(Param *p, Factory_f5330 *f, Node *n, Item_f5330 *i);
+    void FUN_000e7930(Param *p, Factory_f5330 *f, Node *n, Item_f5330 *i);
+    void FUN_000f3940(Param *p, Factory_f5330 *f, Node *n, Item_f5330 *i);
+    void FUN_000f3f00(Param *p, Factory_f5330 *f, Node *n, Item_f5330 *i);
+    void FUN_000e7770(Param *p, Factory_f5330 *f, Node *n, Item_f5330 *i);
+    void FUN_000f3dc0(Param *p, Factory_f5330 *f, Node *n, Item_f5330 *i);
+    void FUN_000f3b20(Param *p, Factory_f5330 *f, Node *n, Item_f5330 *i);
+    void FUN_000f42c0(Param *p, Factory_f5330 *f, Node *n, Item_f5330 *i);
+    void FUN_000f1e50(Param *p, Factory_f5330 *f, Node *n, Item_f5330 *i);
 };
 
-char FEThingsBase::v37(Param *a0, Factory *a1, Args *a2)
+char FEThingsBase::v37(Param *a0, Factory_f5330 *a1, Args_f5330 *a2)
 {
     Node *n;
     int t;

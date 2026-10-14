@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 22/22)
 // CGrappleTimerCondition::vfunc_7 @ 0x0004d710
 struct TimerSource { float FUN_0003eca0(void*); };
-struct Fighter { char pad[0x330]; TimerSource* primary; TimerSource* secondary; char pad2[0x54]; float timer; };
-struct Intermediate { Fighter* FUN_00059a30(); };
-struct Context { Intermediate* FUN_000592a0(); };
+struct Fighter_4d710 { char pad[0x330]; TimerSource* primary; TimerSource* secondary; char pad2[0x54]; float timer; };
+struct Intermediate_4d710 { Fighter_4d710* FUN_00059a30(); };
+struct Context { Intermediate_4d710* FUN_000592a0(); };
 extern void* DAT_0048f9d4[];
 extern bool __cdecl FUN_00018960(float,float,float);
 struct CGrappleTimerCondition {
@@ -11,7 +11,7 @@ struct CGrappleTimerCondition {
  char pad[8]; unsigned operation; float threshold; unsigned char dynamic; char pad2[3]; unsigned index;
 };
 bool CGrappleTimerCondition::vfunc_7(Context* context) {
- Fighter* fighter=context->FUN_000592a0()->FUN_00059a30();
+ Fighter_4d710* fighter=context->FUN_000592a0()->FUN_00059a30();
  float value=threshold;
  if(dynamic) {
  TimerSource* source=fighter->secondary;

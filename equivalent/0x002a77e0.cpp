@@ -9,10 +9,10 @@ struct Channel {
 };
 struct Track { Channel* FUN_00288960(unsigned,unsigned); };
 struct Animation { Track* FUN_00288a10(int); };
-struct State { Animation* FUN_00284f50(); float FUN_00284f70(); };
+struct State_2a77e0 { Animation* FUN_00284f50(); float FUN_00284f70(); };
 namespace pure3d {
 struct SceneGraphTransformAnimationController {
- char pad0[44]; State state; char pad2d[227]; Node* node;
+ char pad0[44]; State_2a77e0 state; char pad2d[227]; Node* node;
  void vfunc_27();
 };
 }

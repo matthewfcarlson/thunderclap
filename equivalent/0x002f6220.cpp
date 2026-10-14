@@ -14,11 +14,11 @@ extern float DAT_00555450;
 extern float DAT_00555454;
 extern float DAT_00555458;
 
-struct V3 {
+struct V3_2f6220 {
     float x, y, z;
 };
 
-struct Id64 {
+struct Id64_2f6220 {
     int lo, hi;
     void FUN_0027af00() throw();
 };
@@ -29,7 +29,7 @@ struct Matrix {
 };
 
 
-struct Filter {
+struct Filter_2f6220 {
     char data[0x64];
     void FUN_00308cc0() throw();
     void FUN_00308a70(void *owner) throw();
@@ -126,7 +126,7 @@ public:
     virtual void vfunc_37() throw();
     virtual void vfunc_38() throw();
     virtual void vfunc_39() throw();
-    Id64 id30;
+    Id64_2f6220 id30;
     int f38;
     int f3c;
     int f40;
@@ -136,25 +136,25 @@ public:
     int f50;
     int f54;
     Matrix m58;
-    V3 v98;
+    V3_2f6220 v98;
     char pada4;
     char pada5[3];
-    V3 va8;
-    V3 vb4;
-    V3 vc0;
-    V3 vcc;
+    V3_2f6220 va8;
+    V3_2f6220 vb4;
+    V3_2f6220 vc0;
+    V3_2f6220 vcc;
     float fd8;
     char symdc[0x1c];
     char symf8[0x1c];
     char sym114[0x1c];
-    V3 v130;
-    V3 v13c;
+    V3_2f6220 v130;
+    V3_2f6220 v13c;
     char b148;
     char pad149[3];
-    V3 v14c;
-    V3 v158;
+    V3_2f6220 v14c;
+    V3_2f6220 v158;
     float f164;
-    Filter filt168;
+    Filter_2f6220 filt168;
     int f1cc;
     char b1d0;
     char pad1d1[3];
@@ -171,10 +171,10 @@ public:
     } w1f0;
     unsigned char b1f4;
 
-    PhysicsObject(int arg, V3 *pos, SymMatrix *inertia, int owner);
+    PhysicsObject(int arg, V3_2f6220 *pos, SymMatrix *inertia, int owner);
 };
 
-PhysicsObject::PhysicsObject(int arg, V3 *pos, SymMatrix *inertia, int owner) : SimulatedObject(arg)
+PhysicsObject::PhysicsObject(int arg, V3_2f6220 *pos, SymMatrix *inertia, int owner) : SimulatedObject(arg)
 {
     id30.FUN_0027af00();
     f38 = owner;

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 30/30)
 // FUN_001f4140 @ 0x001f4140
 struct Sound;
-struct Voice {
+struct Voice_1f4140 {
     char pad0[4];
     Sound *sound;           // 0x4
     int handle;             // 0x8
@@ -11,11 +11,11 @@ struct Voice {
     void FUN_001f32b0(int id, bool flag, int vol);
     int FUN_001f3370(void *state);
 };
-struct Names {
+struct Names_1f4140 {
     void FUN_001e9a90(const char *name, int len);
     int FUN_001ea010(const char *group);
 };
-struct State {
+struct State_1f4140 {
     char pad[8];
     void FUN_001f36e0();
 };
@@ -25,14 +25,14 @@ bool FUN_00249b40(Sound *s);
 void FUN_0024af00(Sound *s);
 void FUN_00247890(Sound *s, float volume);
 
-class Player {
+class Player_1f4140 {
 public:
     char pad0[0x8c];
-    Voice *voice;           // 0x8c
+    Voice_1f4140 *voice;           // 0x8c
     int f90;
     char f94;
     char pad1[0xa0 - 0x95];
-    State state;            // 0xa0
+    State_1f4140 state;            // 0xa0
     int id;                 // 0xa8
     int fac;
     int count;              // 0xb0
@@ -40,12 +40,12 @@ public:
     char vol;               // 0xb8
     char pad4[0x334 - 0xb9];
     float gain;             // 0x334
-    Names *names;           // 0x338
-    int FUN_001f31a0(State *s);
+    Names_1f4140 *names;           // 0x338
+    int FUN_001f31a0(State_1f4140 *s);
     void FUN_001f4140(bool force);
 };
 
-void Player::FUN_001f4140(bool force)
+void Player_1f4140::FUN_001f4140(bool force)
 {
     if (voice == 0) return;
     if (voice->sound != 0) {

@@ -11,7 +11,7 @@ struct AxisEntry {
     float hi;
 };
 
-class Device {
+class Device_de590 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -38,12 +38,12 @@ public:
     virtual void vfunc_0();
     virtual float vfunc_1(unsigned int cmd, int index);
     char pad04[0xc];
-    Device *devices[4];
+    Device_de590 *devices[4];
 };
 
 float ControllerPollerBase::vfunc_1(unsigned int cmd, int index)
 {
-    Device *dev = devices[index];
+    Device_de590 *dev = devices[index];
     float best = 0.0f;
 
     switch (cmd) {

@@ -3,14 +3,14 @@
 extern "C" double cos(double);
 extern float DAT_004dd940;
 
-struct V3 {
+struct V3_135760 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_000111b0(const V3 *a, const V3 *b);
+    void FUN_000111b0(const V3_135760 *a, const V3_135760 *b);
     float FUN_000111f0();
 };
 
-union Bits {
+union Bits_135760 {
     float f;
     unsigned int u;
 };
@@ -18,56 +18,56 @@ union Bits {
 struct Matrix {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022baf0(V3 *axis, float angle);
-    void FUN_0022c3b0(const V3 *in, V3 *out);
+    void FUN_0022baf0(V3_135760 *axis, float angle);
+    void FUN_0022c3b0(const V3_135760 *in, V3_135760 *out);
 };
 
-struct Xform {
+struct Xform_135760 {
     char data[0x54];
-    void FUN_0022be40(V3 *v);
-    void FUN_00222180(V3 *v);
+    void FUN_0022be40(V3_135760 *v);
+    void FUN_00222180(V3_135760 *v);
     void FUN_00221d20(float v);
 };
 
-class FlyDriver {
+class FlyDriver_135760 {
 public:
     virtual void AddRef();
     char pad4[0x14];
-    Xform xform;                // 0x18
+    Xform_135760 xform;                // 0x18
 };
 
-struct Stats {
+struct Stats_135760 {
     char pad0[0x1a88];
     float f1a88;
     char pad1a8c[0x2064 - 0x1a8c];
-    V3 v2064;
+    V3_135760 v2064;
     float f2070;
     void FUN_000359c0(int n);
 };
 
-struct Fighter {
-    Stats *FUN_00059a30();
-    void FUN_00059a50(V3 *out);
+struct Fighter_135760 {
+    Stats_135760 *FUN_00059a30();
+    void FUN_00059a50(V3_135760 *out);
 };
 
-struct Holder {
-    Fighter *FUN_000592a0();
+struct Holder_135760 {
+    Fighter_135760 *FUN_000592a0();
 };
 
-struct Config {
+struct Config_135760 {
     char pad0[0x14];
-    V3 vec14;
+    V3_135760 vec14;
     int f20;
     float f24;
     float f28;
-    Bits f2c;
+    Bits_135760 f2c;
     char flag30;
 };
 
-float __cdecl FUN_00224f10(V3 *v);
-void __cdecl FUN_00224d70(float angle, V3 *v);
+float __cdecl FUN_00224f10(V3_135760 *v);
+void __cdecl FUN_00224d70(float angle, V3_135760 *v);
 int __cdecl FUN_00098190(unsigned int dt, unsigned int acc, unsigned int mag, int a, void *ref, int b,
-                         V3 *vel, V3 *dir, int c, int d, int e, int f);
+                         V3_135760 *vel, V3_135760 *dir, int c, int d, int e, int f);
 
 class FlyingAttackAction {
 public:
@@ -78,25 +78,25 @@ public:
     virtual void vfunc_4();
     virtual bool vfunc_5(int a, float dt);
     char pad04[0x1c - 4];
-    Config *cfg;                // 0x1c
-    Holder *holder;             // 0x20
-    FlyDriver *driver;          // 0x24
+    Config_135760 *cfg;                // 0x1c
+    Holder_135760 *holder;             // 0x20
+    FlyDriver_135760 *driver;          // 0x24
     void *ref;                  // 0x28
     float f2c;                  // 0x2c
-    V3 dir;                     // 0x30
+    V3_135760 dir;                     // 0x30
     void FUN_00135700();
 };
 
 bool FlyingAttackAction::vfunc_5(int a, float dt)
 {
     struct Frame {
-        Bits mag;
+        Bits_135760 mag;
         float acc;
         float d;
-        V3 t18;
-        V3 vel;
-        V3 w;
-        V3 w2;
+        V3_135760 t18;
+        V3_135760 vel;
+        V3_135760 w;
+        V3_135760 w2;
         Matrix m;
     } fr;
 
@@ -105,15 +105,15 @@ bool FlyingAttackAction::vfunc_5(int a, float dt)
     if (driver == 0)
         return false;
 
-    Fighter *fighter = holder->FUN_000592a0();
-    Stats *stats = fighter->FUN_00059a30();
+    Fighter_135760 *fighter = holder->FUN_000592a0();
+    Stats_135760 *stats = fighter->FUN_00059a30();
     stats->FUN_000359c0(3);
     fr.vel.x = 0.0f;
     fr.vel.y = 0.0f;
     fr.vel.z = 0.0f;
     fighter->FUN_00059a50(&fr.vel);
 
-    Config *c = cfg;
+    Config_135760 *c = cfg;
     void *r = ref;
     double accd = dt * c->f24 + f2c;
     fr.acc = accd;
@@ -121,18 +121,18 @@ bool FlyingAttackAction::vfunc_5(int a, float dt)
     fr.mag = c->f2c;
 
     if (r != 0) {
-        Bits dtb;
+        Bits_135760 dtb;
         dtb.f = dt;
-        Bits accb;
+        Bits_135760 accb;
         accb.f = fr.acc;
         if (!FUN_00098190(dtb.u, accb.u, fr.mag.u, 0, r, 0, &fr.vel, &dir, 0, 0, 0, 1))
             FUN_00135700();
     } else {
         float f2070 = stats->f2070;
-        V3 *vc = &c->vec14;
+        V3_135760 *vc = &c->vec14;
         fr.t18 = *vc;
         fr.w = *vc;
-        V3 *sel = (f2070 <= 0.0f) ? &dir : &stats->v2064;
+        V3_135760 *sel = (f2070 <= 0.0f) ? &dir : &stats->v2064;
         FUN_00224d70(FUN_00224f10(sel), &fr.t18);
         fr.t18.FUN_0022d110();
         if (fr.mag.f < 0.0f) {

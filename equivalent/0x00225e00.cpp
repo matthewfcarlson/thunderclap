@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00225e00 @ 0x00225e00
-struct V3 {
+struct V3_225e00 {
     float x, y, z;
 };
 
@@ -20,10 +20,10 @@ public:
     void FUN_002250e0(float v);
     void FUN_00225140(float v);
     float FUN_00225ab0();
-    void FUN_00225e00(float t, V3 v);
+    void FUN_00225e00(float t, V3_225e00 v);
 };
 
-void AnimationDriver::FUN_00225e00(float t, V3 v)
+void AnimationDriver::FUN_00225e00(float t, V3_225e00 v)
 {
     FUN_002250e0(v.y);
     if (v.z < 0.0f)

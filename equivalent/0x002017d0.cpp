@@ -3,10 +3,10 @@
 // Looks a property name up in the global key table; outputs its two table values.
 unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 
-struct Key {
+struct Key_2017d0 {
     unsigned int lo, hi;
 };
-extern Key DAT_004e5928[];
+extern Key_2017d0 DAT_004e5928[];
 extern int DAT_004c8fb8;
 extern int DAT_004c8f90[];
 extern int DAT_004c8fa4[];

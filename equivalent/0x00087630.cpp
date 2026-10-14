@@ -1,30 +1,30 @@
 // STATUS: equivalent (tools/equiv.py level 3: 287 inputs, branch coverage 36/36)
 // FUN_00087630 @ 0x00087630
-struct Target;
-struct Queue { void FUN_0008db00(); bool FUN_0008db20(Target*); };
+struct Target_87630;
+struct Queue_87630 { void FUN_0008db00(); bool FUN_0008db20(Target_87630*); };
 bool __cdecl FUN_0008db80(); void __cdecl FUN_0008db90();
-struct State { int mode; int unused; int saved; };
-struct Clock { char pad[32]; unsigned __int64 ticks; void FUN_00086450(); float FUN_000860c0(); };
-struct Sim { char pad[44]; void* item; void FUN_00088c30(State*,float); int FUN_00088e40(); };
-struct Notify { void FUN_000afe80(); };
-struct Sub { char pad[24]; Notify* notify; };
-struct Root { char pad[84]; Sub* sub; }; extern Root* DAT_004dd700;
-struct Stop { void FUN_001b7970(); };
-struct Update { void FUN_001eb2a0(float,int); };
-struct Check { bool FUN_00089e80(void*,unsigned int); };
-struct UI { void FUN_0023f6b0(); void FUN_0023f720(int*,int); bool FUN_0023f760(const char*,int,int); void FUN_0023f740(); void FUN_0023f6c0(); }; extern UI* DAT_004dd6e8; extern int DAT_0049c218;
-struct Gate { unsigned int FUN_000b4f20(); }; struct GateRoot { char pad[32]; Gate* gate; }; extern GateRoot* DAT_004dd6ec;
-struct Audio { void FUN_001d1160(float); void FUN_001d15d0(int); }; Audio* __cdecl FUN_001d4c90();
+struct State_87630 { int mode; int unused; int saved; };
+struct Clock_87630 { char pad[32]; unsigned __int64 ticks; void FUN_00086450(); float FUN_000860c0(); };
+struct Sim_87630 { char pad[44]; void* item; void FUN_00088c30(State_87630*,float); int FUN_00088e40(); };
+struct Notify_87630 { void FUN_000afe80(); };
+struct Sub_87630 { char pad[24]; Notify_87630* notify; };
+struct Root_87630 { char pad[84]; Sub_87630* sub; }; extern Root_87630* DAT_004dd700;
+struct Stop_87630 { void FUN_001b7970(); };
+struct Update_87630 { void FUN_001eb2a0(float,int); };
+struct Check_87630 { bool FUN_00089e80(void*,unsigned int); };
+struct UI_87630 { void FUN_0023f6b0(); void FUN_0023f720(int*,int); bool FUN_0023f760(const char*,int,int); void FUN_0023f740(); void FUN_0023f6c0(); }; extern UI_87630* DAT_004dd6e8; extern int DAT_0049c218;
+struct Gate_87630 { unsigned int FUN_000b4f20(); }; struct GateRoot { char pad[32]; Gate_87630* gate; }; extern GateRoot* DAT_004dd6ec;
+struct Audio_87630 { void FUN_001d1160(float); void FUN_001d15d0(int); }; Audio_87630* __cdecl FUN_001d4c90();
 unsigned int __cdecl FUN_00267f80(); unsigned int __cdecl FUN_00267f00(); float __cdecl FUN_00085e60(unsigned int,int); void __cdecl FUN_00240bb0();
 extern unsigned char DAT_004dd8e4, DAT_0049caa0; extern float DAT_004dd914;
-struct Target { char pad0[4]; State* state; Clock* clock; Sim* sim; char pad10[12]; Queue* queue; char pad20[16]; Update* update; Stop* stop; Check* check; void FUN_00086ad0(); void FUN_00086790(); void FUN_000873a0(); void FUN_00086a40(float); void run(); };
-void Target::run() {
+struct Target_87630 { char pad0[4]; State_87630* state; Clock_87630* clock; Sim_87630* sim; char pad10[12]; Queue_87630* queue; char pad20[16]; Update_87630* update; Stop_87630* stop; Check_87630* check; void FUN_00086ad0(); void FUN_00086790(); void FUN_000873a0(); void FUN_00086a40(float); void run(); };
+void Target_87630::run() {
  queue->FUN_0008db00();
  if (!queue->FUN_0008db20(this)) { if(state->mode==7) stop->FUN_001b7970(); else if(state->mode==6) { state->mode=state->saved; state->saved=0; DAT_004dd700->sub->notify->FUN_000afe80(); } state->mode=8; DAT_004dd700->sub->notify->FUN_000afe80(); }
  if(queue && FUN_0008db80()) { do { FUN_0008db90(); queue->FUN_0008db00(); } while(FUN_0008db80()); }
  FUN_00086ad0(); if(state->mode==3) { FUN_00086790(); return; }
  clock->FUN_00086450(); FUN_000873a0();
- if(state->mode!=7) { Audio* a=FUN_001d4c90(); a->FUN_001d1160(clock->ticks * 0.000001f); a->FUN_001d15d0(0); }
+ if(state->mode!=7) { Audio_87630* a=FUN_001d4c90(); a->FUN_001d1160(clock->ticks * 0.000001f); a->FUN_001d15d0(0); }
  unsigned int start=FUN_00267f80(); FUN_00086a40(clock->ticks * 0.000001f);
  if(state->mode==8) return;
  unsigned int start2=0; if(DAT_004dd8e4) start2=FUN_00267f00();

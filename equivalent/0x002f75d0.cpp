@@ -1,29 +1,29 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_002f75d0 @ 0x002f75d0
-struct Name {
+struct Name_2f75d0 {
     char data[8];
-    void FUN_0027af70(Name *other);
+    void FUN_0027af70(Name_2f75d0 *other);
 };
 
-struct Block16 {
+struct Block16_2f75d0 {
     int w[16];
 };
 
-struct Block4 {
+struct Block4_2f75d0 {
     int w[4];
 };
 
-class Obj;
+class Obj_2f75d0;
 
-struct Sub {
+struct Sub_2f75d0 {
     char data[0x64];
-    void FUN_002f7530(Sub *other);
-    void FUN_00308a70(Obj *owner);
+    void FUN_002f7530(Sub_2f75d0 *other);
+    void FUN_00308a70(Obj_2f75d0 *owner);
 };
 
 extern unsigned int DAT_004d2b74;
 
-class Obj {
+class Obj_2f75d0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -64,7 +64,7 @@ public:
     virtual void v36();
     virtual void Reset();
     char pad04[0x2c];
-    Name name;
+    Name_2f75d0 name;
     int f38;
     int f3c;
     int f40;
@@ -73,7 +73,7 @@ public:
     int f4c;
     int f50;
     int f54;
-    Block16 blk58;
+    Block16_2f75d0 blk58;
     int f98;
     int f9c;
     int fa0;
@@ -88,7 +88,7 @@ public:
     int fc0;
     int fc4;
     int fc8;
-    Block4 blkcc;
+    Block4_2f75d0 blkcc;
     char paddc[0x4];
     int fe0;
     int fe4;
@@ -114,7 +114,7 @@ public:
     char b148;
     char pad149[0x1b];
     int f164;
-    Sub sub;
+    Sub_2f75d0 sub;
     int f1cc;
     char b1d0;
     char pad1d1[0x3];
@@ -131,11 +131,11 @@ public:
     };
     char b1f4;
 
-    void FUN_002fe6f0(Obj *dst, int arg);
-    void FUN_002f75d0(Obj *dst, int arg);
+    void FUN_002fe6f0(Obj_2f75d0 *dst, int arg);
+    void FUN_002f75d0(Obj_2f75d0 *dst, int arg);
 };
 
-void Obj::FUN_002f75d0(Obj *dst, int arg)
+void Obj_2f75d0::FUN_002f75d0(Obj_2f75d0 *dst, int arg)
 {
     FUN_002fe6f0(dst, arg);
     dst->name.FUN_0027af70(&name);

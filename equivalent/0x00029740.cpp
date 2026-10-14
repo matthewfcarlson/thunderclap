@@ -5,7 +5,7 @@
 unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
 unsigned __int64 __cdecl FUN_0027b020(const char *name);
 
-struct Vec3 {
+struct Vec3_29740 {
     float x, y, z;
 };
 
@@ -13,59 +13,59 @@ class Object {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-    virtual Vec3 *GetPos(Vec3 *out);            // slot 8
+    virtual Vec3_29740 *GetPos(Vec3_29740 *out);            // slot 8
     virtual void v9();
-    virtual void GetTarget(Vec3 *out);          // slot 10
+    virtual void GetTarget(Vec3_29740 *out);          // slot 10
 };
 
-struct Path {
-    void FUN_00025a20(unsigned __int64 key, Vec3 *from, Vec3 *to, float a, float b);
+struct Path_29740 {
+    void FUN_00025a20(unsigned __int64 key, Vec3_29740 *from, Vec3_29740 *to, float a, float b);
 };
 
-class Controller {
+class Controller_29740 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void SetMode(int mode);             // slot 8
     virtual int GetMode();                      // slot 9
     char pad04[0x54];
-    Path path;                                  // 0x58
-    char pad5c[0x9e - 0x58 - sizeof(Path)];
+    Path_29740 path;                                  // 0x58
+    char pad5c[0x9e - 0x58 - sizeof(Path_29740)];
     char dirty;                                 // 0x9e
 };
 
-struct Pawn {
+struct Pawn_29740 {
     char pad[0x1ca0];
-    Controller *controller;                     // 0x1ca0
+    Controller_29740 *controller;                     // 0x1ca0
 };
 
-struct Finder {
+struct Finder_29740 {
     Object *FUN_001fd780(const char *name);
 };
 
-struct Env {
+struct Env_29740 {
     char pad[0x28];
-    Finder *finder;
+    Finder_29740 *finder;
 };
 
-struct Group {
-    Env *env;
-    Pawn *FUN_00024280(unsigned __int64 key);
+struct Group_29740 {
+    Env_29740 *env;
+    Pawn_29740 *FUN_00024280(unsigned __int64 key);
     void FUN_00029740(const char *pawnName, const char *objectName, float a, float b);
 };
 
-void Group::FUN_00029740(const char *pawnName, const char *objectName, float a, float b)
+void Group_29740::FUN_00029740(const char *pawnName, const char *objectName, float a, float b)
 {
     struct Frame {
-        Vec3 target;
-        Vec3 pos;
+        Vec3_29740 target;
+        Vec3_29740 pos;
     } fr;
-    Pawn *pawn = FUN_00024280(FUN_002672f0(pawnName, 0, 0));
+    Pawn_29740 *pawn = FUN_00024280(FUN_002672f0(pawnName, 0, 0));
     if (!pawn)
         return;
     if (!env->finder)
         return;
-    Controller *c = pawn->controller;
+    Controller_29740 *c = pawn->controller;
     if (!c)
         return;
     if (!objectName || !*objectName) {

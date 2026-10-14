@@ -6,14 +6,14 @@ extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 extern "C" void *__cdecl memset(void *, int, unsigned int);
 extern unsigned int DAT_004d9968;
 
-union Word {
+union Word_ecf10 {
     float f;
     int i;
     unsigned int u;
 };
 
-struct Cell {
-    Word a, b, c, d;
+struct Cell_ecf10 {
+    Word_ecf10 a, b, c, d;
 };
 
 // The font object a Builder is set up with: slot 7 = line height, slot 10 = width of a string.
@@ -32,7 +32,7 @@ public:
     virtual float v10(const unsigned short *text);
 };
 
-struct Source;
+struct Source_ecf10;
 
 struct FontRef {
     char pad00[0x24];
@@ -42,19 +42,19 @@ struct FontRef {
 struct Builder {
     FontRef *face;                   // 0x00
     unsigned int hdr1;
-    Cell cells[8];
+    Cell_ecf10 cells[8];
     int cursor;                      // 0x88
     float scale;
-    void FUN_000f7fe0(Source *src);
+    void FUN_000f7fe0(Source_ecf10 *src);
     void FUN_000f78e0();
 };
 
-class Source {
+class Source_ecf10 {
 public:
     virtual void v0();
 };
 
-class Level2 {
+class Level2_ecf10 {
 public:
     virtual void v0();
     virtual void v1();
@@ -100,17 +100,17 @@ public:
     virtual void v41();
     virtual void v42();
     virtual void v43();
-    virtual Source *v44();
+    virtual Source_ecf10 *v44();
 };
 
-struct Level1 {
+struct Level1_ecf10 {
     char pad0[4];
-    Level2 *level2;
+    Level2_ecf10 *level2;
 };
 
-class TextBox;
+class TextBox_ecf10;
 
-class Owner {
+class Owner_ecf10 {
 public:
     virtual void v0();
     virtual void v1();
@@ -128,24 +128,24 @@ public:
     virtual void v13();
     virtual void v14();
     virtual void v15();
-    virtual float v16(TextBox *obj);
-    virtual float v17(TextBox *obj);
+    virtual float v16(TextBox_ecf10 *obj);
+    virtual float v17(TextBox_ecf10 *obj);
     char pad04[4];
-    Level1 *p8;
+    Level1_ecf10 *p8;
 };
 
-struct StringTable {
+struct StringTable_ecf10 {
     unsigned short *FUN_000f83f0(FontRef *face, int zero);
 };
 
 void __cdecl thunk_FUN_00267090(void *p);
 void *__cdecl FUN_0008d6d0(unsigned int size);
 
-class TextBox {
+class TextBox_ecf10 {
 public:
     char pad00[0x14];
-    Owner *owner;                    // 0x14
-    StringTable strings;             // 0x18
+    Owner_ecf10 *owner;                    // 0x14
+    StringTable_ecf10 strings;             // 0x18
     char pad19[0x15c - 0x19];
     unsigned short *buf;                    // 0x15c
     int cap;                         // 0x160
@@ -159,7 +159,7 @@ public:
     void FUN_000ecf10(float maxWidth);
 };
 
-void TextBox::FUN_000ecf10(float maxWidth)
+void TextBox_ecf10::FUN_000ecf10(float maxWidth)
 {
     struct Frame {
         unsigned short *out;                // 0x04

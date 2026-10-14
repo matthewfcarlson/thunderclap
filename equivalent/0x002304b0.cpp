@@ -3,14 +3,14 @@
 extern "C" double sqrt(double);
 
 // Distance between two 3D line segments.
-struct Segment {
+struct Segment_2304b0 {
     float p0x, p0y, p0z;
     float p1x, p1y, p1z;
 
-    float FUN_002304b0(const Segment* o);
+    float FUN_002304b0(const Segment_2304b0* o);
 };
 
-float Segment::FUN_002304b0(const Segment* o)
+float Segment_2304b0::FUN_002304b0(const Segment_2304b0* o)
 {
     float d1x = p1x - p0x;
     float d1y = p1y - p0y;

@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 218 inputs, branch coverage 36/36)
 // FUN_00066d50 @ 0x00066d50
-struct Vec3 {
+struct Vec3_66d50 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Anchor {
-    void FUN_00059a50(Vec3* out);
+struct Anchor_66d50 {
+    void FUN_00059a50(Vec3_66d50* out);
 };
 
 struct Entity {
     char pad00[0x10];
-    Anchor* anchor;
+    Anchor_66d50* anchor;
     char pad14[0x1b0c - 0x14];
     float f1b0c;
     char pad1b10[0x1b38 - 0x1b10];
@@ -21,65 +21,65 @@ struct Entity {
     int f1b44;
 };
 
-struct Registry {
+struct Registry_66d50 {
     Entity* FUN_00024280(unsigned int lo, unsigned int hi);
 };
 
-struct Globals {
+struct Globals_66d50 {
     char pad00[0x20];
-    Registry* registry;
+    Registry_66d50* registry;
 };
 
-extern Globals* DAT_004dd700;
+extern Globals_66d50* DAT_004dd700;
 
-struct Handle {
+struct Handle_66d50 {
     int a, b;
 };
 
-struct Query {
+struct Query_66d50 {
     int out;
     int pad;
     unsigned int lo;
     unsigned int hi;
 };
 
-struct Sub {
-    void FUN_00230f50(void (*fn)(), Sub* self);
-    void FUN_00066a90(Handle* h, Query* q);
+struct Sub_66d50 {
+    void FUN_00230f50(void (*fn)(), Sub_66d50* self);
+    void FUN_00066a90(Handle_66d50* h, Query_66d50* q);
 };
 
-struct Id {
+struct Id_66d50 {
     unsigned int lo;
     unsigned int hi;
 };
 
 void FUN_00066930();
-void __cdecl FUN_000658d0(Vec3* a, Vec3* b, Vec3* c, int* out);
+void __cdecl FUN_000658d0(Vec3_66d50* a, Vec3_66d50* b, Vec3_66d50* c, int* out);
 
-class Tracker {
+class Tracker_66d50 {
 public:
     char pad00[0x10];
-    Id ids[1];
+    Id_66d50 ids[1];
     char pad18[0x150 - 0x18];
     int count;
-    Vec3 center;
-    Vec3 v160;
+    Vec3_66d50 center;
+    Vec3_66d50 v160;
     char pad16c[0x2d8 - 0x16c];
-    Sub sub;
+    Sub_66d50 sub;
     char pad2dc[0x370 - 0x2dc];
     float f370;
     float f374;
     void FUN_00066d50();
 };
 
-void Tracker::FUN_00066d50()
+void Tracker_66d50::FUN_00066d50()
 {
     struct Frame {
         int out;
-        Handle h;
-        Vec3 pos;
-        Vec3 w;
-        Query q;
+        Handle_66d50 h;
+        Vec3_66d50 pos;
+        Vec3_66d50 w;
+        Query_66d50 q;
     } f;
     f.w.x = 0.0f;
     f.w.y = 0.0f;

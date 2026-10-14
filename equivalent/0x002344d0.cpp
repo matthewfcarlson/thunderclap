@@ -27,7 +27,7 @@ public:
 };
 
 // The incoming argument slot doubles as an output byte.
-union ParamArg {
+union ParamArg_2344d0 {
     Param *param;
     char flag;
 };
@@ -37,11 +37,11 @@ public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual bool vfunc_3(unsigned __int64 id, int extra, ParamArg arg);
+    virtual bool vfunc_3(unsigned __int64 id, int extra, ParamArg_2344d0 arg);
     virtual void vfunc_4(int extra, Param *param);
 };
 
-bool Condition::vfunc_3(unsigned __int64 id, int extra, ParamArg arg)
+bool Condition::vfunc_3(unsigned __int64 id, int extra, ParamArg_2344d0 arg)
 {
     Param *param = arg.param;
 

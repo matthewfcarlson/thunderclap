@@ -2,13 +2,13 @@
 // FUN_00207410 @ 0x00207410
 extern unsigned char DAT_004c91d8[];
 
-struct Slot {
+struct Slot_207410 {
     void FUN_00266220(int v);
 };
 
 struct Node {
     char pad0[0x38];
-    Slot *slot;
+    Slot_207410 *slot;
     void FUN_00204f00();
 };
 
@@ -18,10 +18,10 @@ struct Stream {
     void FUN_00263e90();
 };
 
-class Player {
+class Player_207410 {
 public:
     char pad0[0x578];
-    Slot *slots[3];
+    Slot_207410 *slots[3];
     int curSlot;
     char pad588[0xaec - 0x588];
     Stream *stream;
@@ -39,7 +39,7 @@ public:
     char FUN_00207410();
 };
 
-char Player::FUN_00207410()
+char Player_207410::FUN_00207410()
 {
     if (!stream)
         return 0;

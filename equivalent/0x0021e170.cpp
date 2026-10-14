@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 14/14)
 // FUN_0021e170 @ 0x0021e170
-struct ExpDesc {
+struct ExpDesc_21e170 {
     int k;
     int info;
     int aux;
@@ -9,13 +9,13 @@ struct ExpDesc {
 };
 struct LHSAssign {
     LHSAssign *prev;
-    ExpDesc v;
+    ExpDesc_21e170 v;
 };
-struct FuncState {
+struct FuncState_21e170 {
     char pad0[0x24];
     int freereg;
 };
-struct LexState {
+struct LexState_21e170 {
     char pad0[4];
     int linenumber;
     int lastline;
@@ -23,32 +23,32 @@ struct LexState {
     int seminfo;
     int lookaheadToken;
     int lookaheadSeminfo;
-    FuncState *fs;
+    FuncState_21e170 *fs;
 };
-struct Frame {
-    ExpDesc e;
+struct Frame_21e170 {
+    ExpDesc_21e170 e;
     LHSAssign nv;
 };
 
-void __cdecl FUN_0021b060(LexState *ls, const char *msg);
-int __cdecl FUN_0021bbc0(LexState *ls, int *seminfo);
+void __cdecl FUN_0021b060(LexState_21e170 *ls, const char *msg);
+int __cdecl FUN_0021bbc0(LexState_21e170 *ls, int *seminfo);
 // equiv-conv: FUN_0021d830 eax esi
-void FUN_0021d830(ExpDesc *v, LexState *ls);
+void FUN_0021d830(ExpDesc_21e170 *v, LexState_21e170 *ls);
 // equiv-conv: FUN_0021e110 ecx eax edi
-void FUN_0021e110(LexState *ls, LHSAssign *lh, ExpDesc *v);
+void FUN_0021e110(LexState_21e170 *ls, LHSAssign *lh, ExpDesc_21e170 *v);
 // equiv-conv: FUN_0021c2e0 eax esi
-void FUN_0021c2e0(int token, LexState *ls);
+void FUN_0021c2e0(int token, LexState_21e170 *ls);
 // equiv-conv: FUN_0021d5c0 esi edi
-int FUN_0021d5c0(LexState *ls, ExpDesc *e);
+int FUN_0021d5c0(LexState_21e170 *ls, ExpDesc_21e170 *e);
 // equiv-conv: FUN_0021c8b0 eax stack edx ecx
-void FUN_0021c8b0(LexState *ls, int nvars, int nexps, ExpDesc *e);
-void __cdecl FUN_00220a50(FuncState *fs, ExpDesc *e, int nresults);
-void __cdecl FUN_00221280(FuncState *fs, ExpDesc *var, ExpDesc *e);
+void FUN_0021c8b0(LexState_21e170 *ls, int nvars, int nexps, ExpDesc_21e170 *e);
+void __cdecl FUN_00220a50(FuncState_21e170 *fs, ExpDesc_21e170 *e, int nresults);
+void __cdecl FUN_00221280(FuncState_21e170 *fs, ExpDesc_21e170 *var, ExpDesc_21e170 *e);
 
 // Lua 5.0 restassign(ls, lh, nvars)
-void __cdecl FUN_0021e170(LexState *ls, LHSAssign *lh, int nvars)
+void __cdecl FUN_0021e170(LexState_21e170 *ls, LHSAssign *lh, int nvars)
 {
-    Frame f;
+    Frame_21e170 f;
     if (lh->v.k < 5 || lh->v.k > 8)
         FUN_0021b060(ls, "syntax error");
     if (ls->token == ',') {
@@ -77,7 +77,7 @@ void __cdecl FUN_0021e170(LexState *ls, LHSAssign *lh, int nvars)
         if (nexps > nvars)
             ls->fs->freereg += nvars - nexps;
     }
-    FuncState *fs = ls->fs;
+    FuncState_21e170 *fs = ls->fs;
     f.e.info = fs->freereg - 1;
     f.e.t = -1;
     f.e.f = -1;

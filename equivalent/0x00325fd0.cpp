@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 158 inputs, branch coverage 33/33)
 // FUN_00325fd0 @ 0x00325fd0
 // equiv-conv: FUN_00325fd0 ecx edx eax stack
-class Device {
+class Device_325fd0 {
   public:
     bool Supports(int d3dFormat);
 };
 extern int g_formatTable[];      // 0x4d3e14
 // equiv-map: ?g_formatTable@@3PAHA = 0x004d3e14
-int FUN_00325fd0(int fmt, int depth, int bits, Device* dev) {
+int FUN_00325fd0(int fmt, int depth, int bits, Device_325fd0* dev) {
     int idx = -1;
     switch (fmt) {
     case 0:

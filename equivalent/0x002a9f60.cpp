@@ -9,19 +9,19 @@ struct Chunk {
     Channel *FUN_00288960(int tagA, int tagB);
 };
 
-struct Chunks {
+struct Chunks_2a9f60 {
     char pad00[0x28];
     int count;
     Chunk *FUN_00288a10(int index);
 };
 
-struct Index {
+struct Index_2a9f60 {
     int FUN_002afe80(void *name);
 };
 
-struct Output {
+struct Output_2a9f60 {
     char pad00[0x10];
-    Index *index;
+    Index_2a9f60 *index;
     float *values;
     void FUN_002b0cd0(int arg);
 };
@@ -31,8 +31,8 @@ public:
     char pad00[0x34];
     int f34;
     char pad38[4];
-    Chunks *chunks;
-    Output *output;
+    Chunks_2a9f60 *chunks;
+    Output_2a9f60 *output;
     int f44;
     int count;
     int *zeros;

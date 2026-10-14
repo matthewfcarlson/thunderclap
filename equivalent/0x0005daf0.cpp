@@ -4,11 +4,11 @@ extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 void* __cdecl FUN_0008d690(unsigned size);
-struct Index { int FUN_0027b200(); };
-struct Lookup { Index* FUN_002226b0(unsigned lo, unsigned hi); };
-struct Owner { Lookup* FUN_00059a40(); };
-struct Holder { Owner* FUN_000592a0(); };
-struct CollisionItem { CollisionItem* FUN_00019380(void* a, void* self, Holder* h, int index); };
+struct Index_5daf0 { int FUN_0027b200(); };
+struct Lookup_5daf0 { Index_5daf0* FUN_002226b0(unsigned lo, unsigned hi); };
+struct Owner_5daf0 { Lookup_5daf0* FUN_00059a40(); };
+struct Holder_5daf0 { Owner_5daf0* FUN_000592a0(); };
+struct CollisionItem { CollisionItem* FUN_00019380(void* a, void* self, Holder_5daf0* h, int index); };
 class CCollisionTrack {
 public:
     virtual void vfunc_0();
@@ -27,8 +27,8 @@ public:
     unsigned idLo, idHi;
 };
 CollisionItem* CCollisionTrack::vfunc_10(void* a, void*, void* c) {
-    Holder* h = (Holder*)FUN_00344e74(c, 0, DAT_00494b44, DAT_00494b60, 0);
-    Lookup* lk = h ? h->FUN_000592a0()->FUN_00059a40() : 0;
+    Holder_5daf0* h = (Holder_5daf0*)FUN_00344e74(c, 0, DAT_00494b44, DAT_00494b60, 0);
+    Lookup_5daf0* lk = h ? h->FUN_000592a0()->FUN_00059a40() : 0;
     if (!lk) return 0;
     int index = lk->FUN_002226b0(idLo, idHi)->FUN_0027b200();
     if (index == 0xffff) return 0;

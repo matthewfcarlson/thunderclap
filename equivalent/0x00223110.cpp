@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 625 inputs, branch coverage 14/14)
 // FUN_00223110 @ 0x00223110
-struct Entry {
+struct Entry_223110 {
     int f0, f4, f8;
     unsigned int f0c;
     unsigned int f10;
@@ -9,10 +9,10 @@ struct Entry {
 };
 
 // Sift-up of one element into a binary heap.
-void FUN_00223110(Entry* heap, int index, int top, Entry item) {
+void FUN_00223110(Entry_223110* heap, int index, int top, Entry_223110 item) {
     int parent = (index - 1) / 2;
     while (top < index) {
-        Entry* p = &heap[parent];
+        Entry_223110* p = &heap[parent];
         if (p->f14 < item.f14)
             break;
         if (p->f14 == item.f14) {

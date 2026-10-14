@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 51 inputs, branch coverage 12/12)
 // FUN_002d1090 @ 0x002d1090
 struct Object { virtual void AddRef(); virtual void Release(); virtual void v2(); virtual void v3(); virtual void v4(); virtual unsigned Type(); };
-struct Entry { Object* object; char pad[12]; };
-struct Source { char pad[0x48]; Entry* begin; Entry* end; char gap[8]; Object* animation; };
+struct Entry_2d1090 { Object* object; char pad[12]; };
+struct Source_2d1090 { char pad[0x48]; Entry_2d1090* begin; Entry_2d1090* end; char gap[8]; Object* animation; };
 namespace pure3d { class VertexAnimObject; }
 struct InitContext { unsigned offset; pure3d::VertexAnimObject* owner; };
-struct Storage { Object** data; unsigned other; void FUN_002d0eb0(unsigned count, InitContext* context); };
+struct Storage_2d1090 { Object** data; unsigned other; void FUN_002d0eb0(unsigned count, InitContext* context); };
 namespace pure3d {
-class VertexAnimObject { public: virtual void v0(); unsigned field4; Object* animation; Storage storage; VertexAnimObject* Initialize(Source* source); };
-VertexAnimObject* VertexAnimObject::Initialize(Source* source) {
+class VertexAnimObject { public: virtual void v0(); unsigned field4; Object* animation; Storage_2d1090 storage; VertexAnimObject* Initialize(Source_2d1090* source); };
+VertexAnimObject* VertexAnimObject::Initialize(Source_2d1090* source) {
  this->VertexAnimObject::VertexAnimObject();
  field4=0; animation=0; storage.data=0; storage.other=0;
  unsigned count=(unsigned)(((int)((char*)source->end-(char*)source->begin)) >> 4);

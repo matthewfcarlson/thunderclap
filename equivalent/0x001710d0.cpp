@@ -1,23 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 6/6)
 // hulkfight::motion::JointTrackerAction::vfunc_3 @ 0x001710d0
-struct V3 {
+struct V3_1710d0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Mat4 {
-    V3 r0;
+struct Mat4_1710d0 {
+    V3_1710d0 r0;
     float w0;
-    V3 r1;
+    V3_1710d0 r1;
     float w1;
-    V3 r2;
+    V3_1710d0 r2;
     float w2;
     float t[4];
     void FUN_0022b980();
     void FUN_0022c0b0();
 };
 
-struct Name {
+struct Name_1710d0 {
     char data[8];
     void FUN_0027b040(const char *s);
 };
@@ -26,7 +26,7 @@ class JointDriver {
 public:
     virtual void v0();
     char pad04[4];
-    Name name;
+    Name_1710d0 name;
     int f10;
     int f14;
     char pad18[0x70 - 0x18];
@@ -35,30 +35,30 @@ public:
 
 void *__cdecl FUN_00263ea0(unsigned int size);
 
-struct JointFinder {
+struct JointFinder_1710d0 {
     unsigned int FUN_0027b200(int a, int b);
 };
 
-struct SceneCtl {
+struct SceneCtl_1710d0 {
     char pad0[8];
-    JointFinder *finder;
+    JointFinder_1710d0 *finder;
 };
 
-struct Stats {
+struct Stats_1710d0 {
     char pad0[0x120];
-    SceneCtl *scene;
+    SceneCtl_1710d0 *scene;
 };
 
-struct Fighter { char pad[4]; };
-Fighter *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(Fighter *f);
+struct Fighter_1710d0 { char pad[4]; };
+Fighter_1710d0 *__fastcall FUN_000592a0(void *owner);
+Stats_1710d0 *__fastcall FUN_00059a30(Fighter_1710d0 *f);
 
-struct TrackerData {
+struct TrackerData_1710d0 {
     char pad0[0x18];
     int jointA;
     int jointB;
-    V3 axisSrc;
-    V3 refSrc;
+    V3_1710d0 axisSrc;
+    V3_1710d0 refSrc;
 };
 
 class JointTrackerAction {
@@ -68,17 +68,17 @@ public:
     virtual void vfunc_2();
     virtual bool vfunc_3(int a, int b);
     char pad04[0x1c - 4];
-    TrackerData *data;
+    TrackerData_1710d0 *data;
     void *owner;
     JointDriver *driver;
-    V3 axis;
-    Mat4 mat;
+    V3_1710d0 axis;
+    Mat4_1710d0 mat;
 };
 
 bool JointTrackerAction::vfunc_3(int a, int b)
 {
-    Stats *stats = FUN_00059a30(FUN_000592a0(owner));
-    SceneCtl *scene = stats->scene;
+    Stats_1710d0 *stats = FUN_00059a30(FUN_000592a0(owner));
+    SceneCtl_1710d0 *scene = stats->scene;
     int ja = data->jointA;
     int jb = data->jointB;
     unsigned int id = 0;
@@ -97,20 +97,20 @@ bool JointTrackerAction::vfunc_3(int a, int b)
     driver->f14 = 2;
     driver->f10 = id;
 
-    V3 src = data->axisSrc;
+    V3_1710d0 src = data->axisSrc;
     axis = src;
     axis.FUN_0022d110();
 
-    V3 ref = data->refSrc;
+    V3_1710d0 ref = data->refSrc;
     ref.FUN_0022d110();
 
-    V3 c;
+    V3_1710d0 c;
     c.x = ref.z * axis.y - ref.y * axis.z;
     c.y = ref.x * axis.z - ref.z * axis.x;
     c.z = ref.y * axis.x - ref.x * axis.y;
     c.FUN_0022d110();
 
-    V3 e;
+    V3_1710d0 e;
     e.x = c.y * axis.z - c.z * axis.y;
     e.y = c.z * axis.x - c.x * axis.z;
     e.z = c.x * axis.y - c.y * axis.x;

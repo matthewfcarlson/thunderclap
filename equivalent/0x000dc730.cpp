@@ -1,31 +1,31 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000dc730 @ 0x000dc730
-struct Settings {
+struct Settings_dc730 {
     char pad00[0xbc0];
     char flag;              // 0xbc0
 };
 
-struct Session {
+struct Session_dc730 {
     char pad00[0x175c];
-    Settings *settings;     // 0x175c
+    Settings_dc730 *settings;     // 0x175c
 };
 
-struct Inner {
+struct Inner_dc730 {
     char pad00[4];
-    Session *session;       // 0x4
+    Session_dc730 *session;       // 0x4
 };
 
 struct Middle {
     char pad00[8];
-    Inner *inner;           // 0x8
+    Inner_dc730 *inner;           // 0x8
 };
 
-struct Label {
+struct Label_dc730 {
     void FUN_000bc9f0(const char *name, int id);
 };
 
 struct LabelTable {
-    Label *FUN_00086280();
+    Label_dc730 *FUN_00086280();
 };
 
 extern LabelTable *DAT_004dd6ec;

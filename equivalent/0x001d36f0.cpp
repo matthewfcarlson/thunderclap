@@ -15,8 +15,8 @@ extern void __cdecl FUN_00213600(void*,int);
 extern void __cdecl FUN_002133d0(void*,const char*);
 extern const char* __cdecl FUN_00213190(void*,int);
 extern void __cdecl FUN_00213ba0(void*,int,int);
-struct Handler { int unused; int state; void* lua; int FUN_001d2810(void*,char*,int,void*); bool FUN_001d1080(const char*,void*); void FUN_001d10e0(const char*,void*); int run(void*,int); };
-int Handler::run(void* name,int unusedArg) {
+struct Handler_1d36f0 { int unused; int state; void* lua; int FUN_001d2810(void*,char*,int,void*); bool FUN_001d1080(const char*,void*); void FUN_001d10e0(const char*,void*); int run(void*,int); };
+int Handler_1d36f0::run(void* name,int unusedArg) {
  unsigned int cookie=DAT_004d9968;
  Stream* stream; thunk_FUN_002710d0(&stream,name,0,0,1,0,1,1);
  stream->reset();

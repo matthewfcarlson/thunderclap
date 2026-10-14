@@ -21,7 +21,7 @@ public:
     virtual void vfn0();
 };
 
-class MethodBase {
+class MethodBase_1cecc0 {
 public:
     virtual void m0();
     char pad_04[0xc];
@@ -29,15 +29,15 @@ public:
     char pad_11[7];
     char retType;
     char pad_19[3];
-    MethodBase(const char *n, int k) throw();
+    MethodBase_1cecc0(const char *n, int k) throw();
     void FUN_001d04a0();
 };
 
 template <class T, class R, class A>
-class Method1 : public MethodBase {
+class Method1 : public MethodBase_1cecc0 {
 public:
     typedef R (T::*Fn)(A);
-    Method1(const char *name, Fn f) throw() : MethodBase(name, 1) {
+    Method1(const char *name, Fn f) throw() : MethodBase_1cecc0(name, 1) {
         fn = f;
         retType = FUN_001d04d0(TypeTag<R>::get());
         argType = FUN_001d04d0(TypeTag<A>::get());
@@ -54,24 +54,24 @@ public:
     T *owner;
 };
 
-typedef Closure1<CScenarioManager, float, int> Closure;
+typedef Closure1<CScenarioManager, float, int> Closure_1cecc0;
 
-struct Frame {
-    Closure closure;
+struct Frame_1cecc0 {
+    Closure_1cecc0 closure;
     unsigned int cookie;
-    Frame(const char *n, CScenarioManager *o, Closure::Fn f) throw() : closure(n, o, f) {
+    Frame_1cecc0(const char *n, CScenarioManager *o, Closure_1cecc0::Fn f) throw() : closure(n, o, f) {
         cookie = DAT_004d9968;
     }
 };
 
-class Registry {
+class Registry_1cecc0 {
 public:
-    void FUN_001d26d0(const char *name, MethodBase *m);
-    void FUN_001cecc0(const char *name, CScenarioManager *owner, Closure::Fn f);
+    void FUN_001d26d0(const char *name, MethodBase_1cecc0 *m);
+    void FUN_001cecc0(const char *name, CScenarioManager *owner, Closure_1cecc0::Fn f);
 };
 
-void Registry::FUN_001cecc0(const char *name, CScenarioManager *owner, Closure::Fn f) {
-    Frame fr(name, owner, f);
+void Registry_1cecc0::FUN_001cecc0(const char *name, CScenarioManager *owner, Closure_1cecc0::Fn f) {
+    Frame_1cecc0 fr(name, owner, f);
     FUN_001d26d0(name, &fr.closure);
     fr.closure.FUN_001d04a0();
     __security_check_cookie(fr.cookie);

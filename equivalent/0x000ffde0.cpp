@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // CHand2HandAgent::vfunc_7 @ 0x000ffde0
-struct Display {
+struct Display_ffde0 {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5();
  virtual int vfunc_6(const char*, unsigned int);
  virtual void vfunc_7(); virtual void vfunc_8(); virtual int vfunc_9();
 };
 struct CHand2HandAgent {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(unsigned char enabled); virtual void vfunc_8(int);
- char pad04[0x54]; Display* display; char pad5c[0x134]; unsigned int state;
+ char pad04[0x54]; Display_ffde0* display; char pad5c[0x134]; unsigned int state;
 };
 void CHand2HandAgent::vfunc_7(unsigned char enabled) {
  if (!enabled) return;

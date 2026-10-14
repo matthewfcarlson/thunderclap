@@ -4,30 +4,30 @@ extern char DAT_0048e090[];
 extern char DAT_0048e0ac[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 
-struct V3 {
+struct V3_3b7d0 {
     float x, y, z;
-    bool FUN_0022d2b0(const V3 *other, float eps);
+    bool FUN_0022d2b0(const V3_3b7d0 *other, float eps);
 };
 
-class RefObj {
+class RefObj_3b7d0 {
 public:
     virtual void AddRef();
     virtual void Release();
 };
 
-struct Handle;
+struct Handle_3b7d0;
 
-class Link {
+class Link_3b7d0 {
 public:
     void FUN_00231ad0(void *h, int v, int flag);
 };
 
-struct Handle {
-    RefObj *obj;
+struct Handle_3b7d0 {
+    RefObj_3b7d0 *obj;
     bool FUN_00231ee0();
 };
 
-struct Anim {
+struct Anim_3b7d0 {
     void FUN_002322f0(int a, float dt);
     void FUN_00231f20(int a);
     void FUN_002324b0(int a);
@@ -35,58 +35,58 @@ struct Anim {
     bool FUN_00231ee0();
 };
 
-class Finder {
+class Finder_3b7d0 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
-    virtual Link *Make(int v, int flag);
-    Link *FUN_00233320(int lo, int hi);
+    virtual Link_3b7d0 *Make(int v, int flag);
+    Link_3b7d0 *FUN_00233320(int lo, int hi);
 };
 
-class Listener {
+class Listener_3b7d0 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4();
     virtual void Update(int a, float dt);
 };
 
-class Host {
+class Host_3b7d0 {
 public:
     char pad0[0xec];
-    Finder *finder;
+    Finder_3b7d0 *finder;
     char padf0[0x11c - 0xf0];
-    Finder *activeFinder;
+    Finder_3b7d0 *activeFinder;
 };
 
-struct Prop {
+struct Prop_3b7d0 {
     char pad[0xfc];
     int state;
 };
 
 struct PropSlot {
-    Prop *prop;
+    Prop_3b7d0 *prop;
     char pad[0x4c];
 };
 
-struct Pool {
+struct Pool_3b7d0 {
     void FUN_00060170();
 };
 
-class Actor {
+class Actor_3b7d0 {
 public:
     char pad0[0xb4];
-    Anim anim;  // 0xb4
+    Anim_3b7d0 anim;  // 0xb4
     char padb5[0x27];
-    Handle current;  // 0xdc
+    Handle_3b7d0 current;  // 0xdc
     char pade0[0x24];
     int key;  // 0x104
-    RefObj *previous;  // 0x108
-    RefObj *previous2;  // 0x10c
+    RefObj_3b7d0 *previous;  // 0x108
+    RefObj_3b7d0 *previous2;  // 0x10c
     char pad110[0x8];
     bool dead;  // 0x118
     bool frozen;  // 0x119
     char pad11a[0x2];
-    Host *host;  // 0x11c
+    Host_3b7d0 *host;  // 0x11c
     char pad120[0x1f4];
     float timeScale;  // 0x314
     char pad318[0x20];
@@ -94,13 +94,13 @@ public:
     char pad33c[0x6c];
     PropSlot slots[8];  // 0x3a8
     char pad628[0x1540];
-    V3 dir;  // 0x1b68
+    V3_3b7d0 dir;  // 0x1b68
     char pad1b74[0x12c];
-    Listener *listener;  // 0x1ca0
+    Listener_3b7d0 *listener;  // 0x1ca0
     char pad1ca4[0x2b4];
-    Pool pool;  // 0x1f58
+    Pool_3b7d0 pool;  // 0x1f58
     char pad1f59[0x11b];
-    V3 savedDir;  // 0x2074
+    V3_3b7d0 savedDir;  // 0x2074
     char pad2080[0x18];
     int idLo;  // 0x2098
     int idHi;  // 0x209c
@@ -119,9 +119,9 @@ public:
     void FUN_0003b7d0(int a, float dt);
 };
 
-void Actor::FUN_0003b7d0(int a, float dt)
+void Actor_3b7d0::FUN_0003b7d0(int a, float dt)
 {
-    V3 zero;
+    V3_3b7d0 zero;
     if (dead)
         return;
     if (frozen)
@@ -137,9 +137,9 @@ void Actor::FUN_0003b7d0(int a, float dt)
     if (listener != 0)
         listener->Update(a, dt);
     if (phase < 0) {
-        Finder *f = host->activeFinder;
+        Finder_3b7d0 *f = host->activeFinder;
         if (f != 0 && !anim.FUN_00231ee0()) {
-            Link *l = f->Make(key, 0);
+            Link_3b7d0 *l = f->Make(key, 0);
             if (l != 0)
                 l->FUN_00231ad0(&anim, key, 0);
         }
@@ -163,26 +163,26 @@ void Actor::FUN_0003b7d0(int a, float dt)
         savedDir = dir;
     if (poolCount > 0)
         pool.FUN_00060170();
-    RefObj *cur = current.obj;
+    RefObj_3b7d0 *cur = current.obj;
     if (cur != 0)
         cur->AddRef();
     if (previous != 0)
         previous->Release();
     previous = cur;
-    Finder *f2 = host->finder;
+    Finder_3b7d0 *f2 = host->finder;
     if (f2 != 0 && !current.FUN_00231ee0() && lock == 0) {
-        Link *l = 0;
+        Link_3b7d0 *l = 0;
         if (hasId && (idLo | idHi) != 0) {
-            Link *r = f2->FUN_00233320(idLo, idHi);
+            Link_3b7d0 *r = f2->FUN_00233320(idLo, idHi);
             if (r != 0)
-                l = (Link *)FUN_00344e74(r, 0, DAT_0048e090, DAT_0048e0ac, 0);
+                l = (Link_3b7d0 *)FUN_00344e74(r, 0, DAT_0048e090, DAT_0048e0ac, 0);
         }
         if (l == 0)
             l = f2->Make(key, 0);
         if (l != 0)
             l->FUN_00231ad0(&current, key, 0);
     }
-    RefObj *p = previous;
+    RefObj_3b7d0 *p = previous;
     if (current.obj != p) {
         if (p != 0)
             p->AddRef();

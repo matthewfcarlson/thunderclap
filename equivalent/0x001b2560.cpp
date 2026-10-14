@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3191 inputs, branch coverage 113/118, incomplete)
 // AICollisionSolverAgent::vfunc_5 @ 0x001b2560
-struct V3 {
+struct V3_1b2560 {
     float x, y, z;
 };
 
-struct Body;
-struct Sub {
+struct Body_1b2560;
+struct Sub_1b2560 {
     char pad0[0x104];
     int f104;
     char FUN_001d6980();
     void FUN_001d8350(void *shape);
     void FUN_001d7590();
-    void FUN_0003aaf0(Body *b);
+    void FUN_0003aaf0(Body_1b2560 *b);
 };
 
 struct F74 {
@@ -19,62 +19,62 @@ struct F74 {
     char b72;
 };
 
-struct Body {
+struct Body_1b2560 {
     char pad0[8];
-    Sub *f8;
+    Sub_1b2560 *f8;
     int fc;
     char pad10[0x74 - 0x10];
     F74 *f74;
 };
 
-struct Ref {
+struct Ref_1b2560 {
     char pad0[8];
     unsigned int f8;
     unsigned int fc;
     char pad10[8];
-    Body *f18;
+    Body_1b2560 *f18;
 };
 
-struct Hold {
+struct Hold_1b2560 {
     char pad0[0x34];
     float f34;
 };
 
-struct Contact {
-    Hold *f0;
-    Hold *f4;
-    Ref *f8;
-    Ref *fc;
+struct Contact_1b2560 {
+    Hold_1b2560 *f0;
+    Hold_1b2560 *f4;
+    Ref_1b2560 *f8;
+    Ref_1b2560 *fc;
     char pad10[8];
-    V3 v18;
+    V3_1b2560 v18;
     float f24;
     char pad28[4];
-    V3 v2c;
-    V3 v38;
+    V3_1b2560 v2c;
+    V3_1b2560 v38;
 };
 
-struct Pool {
+struct Pool_1b2560 {
     char FUN_000242d0(void *shape);
 };
-struct Hub {
+struct Hub_1b2560 {
     char pad0[0x20];
-    Pool *f20;
+    Pool_1b2560 *f20;
 };
-extern Hub *DAT_004dd700;
+extern Hub_1b2560 *DAT_004dd700;
 extern unsigned int DAT_004e2198;
 extern unsigned int DAT_004e219c;
 extern float DAT_004c3738;
 extern int DAT_004c373c;
 
-class Listener {
+class Listener_1b2560 {
 public:
     virtual void l0();
     virtual void l1();
     virtual void l2();
-    virtual void notify(Contact *c, int a1);
+    virtual void notify(Contact_1b2560 *c, int a1);
 };
 
-union FU {
+union FU_1b2560 {
     float f;
     unsigned int u;
 };
@@ -86,7 +86,7 @@ public:
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual int v5(Contact *c, int a1);
+    virtual int v5(Contact_1b2560 *c, int a1);
     virtual void v6();
     virtual void v7();
     virtual void v8();
@@ -94,32 +94,32 @@ public:
     virtual void v10();
     virtual void v11();
     char pad04[4];
-    Listener *f8;
+    Listener_1b2560 *f8;
 
-    int FUN_001afb80(Body *b, Body *a);
-    int FUN_001afba0(Body *a, Body *b, V3 *p, V3 *q, float f);
-    int FUN_001afdc0(Body *a, Body *b, V3 *p, V3 *q, float f);
-    int FUN_001afe70(Body *a, Hold *h, Body *b, V3 *p, V3 *q, float f);
-    void FUN_001b0090(Sub *s, Body *a, Body *b);
-    int FUN_001b05a0(Sub *s, Body *b, Contact *c);
-    int FUN_001b0e30(Body *a, Body *b, V3 *p, V3 *q, unsigned int fabsBits);
-    int FUN_001afea0(Contact *c, Body *b0, Body *b1, Body *b2, V3 *p, V3 *q, float f);
-    int FUN_001b1e90(Body *a, Body *b, V3 *p, V3 *q, V3 *r, float f);
-    int FUN_001b1710(Body *x, Body *b, Body *a, V3 *p, V3 *q, float f);
-    int FUN_001aff50(Body *a0, Body *a, Body *b0, Body *b, V3 *p, V3 *q, V3 *r, float f);
+    int FUN_001afb80(Body_1b2560 *b, Body_1b2560 *a);
+    int FUN_001afba0(Body_1b2560 *a, Body_1b2560 *b, V3_1b2560 *p, V3_1b2560 *q, float f);
+    int FUN_001afdc0(Body_1b2560 *a, Body_1b2560 *b, V3_1b2560 *p, V3_1b2560 *q, float f);
+    int FUN_001afe70(Body_1b2560 *a, Hold_1b2560 *h, Body_1b2560 *b, V3_1b2560 *p, V3_1b2560 *q, float f);
+    void FUN_001b0090(Sub_1b2560 *s, Body_1b2560 *a, Body_1b2560 *b);
+    int FUN_001b05a0(Sub_1b2560 *s, Body_1b2560 *b, Contact_1b2560 *c);
+    int FUN_001b0e30(Body_1b2560 *a, Body_1b2560 *b, V3_1b2560 *p, V3_1b2560 *q, unsigned int fabsBits);
+    int FUN_001afea0(Contact_1b2560 *c, Body_1b2560 *b0, Body_1b2560 *b1, Body_1b2560 *b2, V3_1b2560 *p, V3_1b2560 *q, float f);
+    int FUN_001b1e90(Body_1b2560 *a, Body_1b2560 *b, V3_1b2560 *p, V3_1b2560 *q, V3_1b2560 *r, float f);
+    int FUN_001b1710(Body_1b2560 *x, Body_1b2560 *b, Body_1b2560 *a, V3_1b2560 *p, V3_1b2560 *q, float f);
+    int FUN_001aff50(Body_1b2560 *a0, Body_1b2560 *a, Body_1b2560 *b0, Body_1b2560 *b, V3_1b2560 *p, V3_1b2560 *q, V3_1b2560 *r, float f);
 };
 
-int AICollisionSolverAgent::v5(Contact *C, int a1)
+int AICollisionSolverAgent::v5(Contact_1b2560 *C, int a1)
 {
-    Body *A = C->f8->f18;
-    Body *B = C->fc->f18;
+    Body_1b2560 *A = C->f8->f18;
+    Body_1b2560 *B = C->fc->f18;
     int typeA;
     int typeB;
     int res;
-    V3 neg;
-    Ref *s8;
-    Ref *sc;
-    Sub *sub;
+    V3_1b2560 neg;
+    Ref_1b2560 *s8;
+    Ref_1b2560 *sc;
+    Sub_1b2560 *sub;
     float v34;
     char flag;
     int lim;
@@ -178,14 +178,14 @@ int AICollisionSolverAgent::v5(Contact *C, int a1)
             v34 = C->f0->f34;
             flag = 1;
             if (B->fc == 1) {
-                Sub *bs = B->f8;
+                Sub_1b2560 *bs = B->f8;
                 if (!DAT_004dd700->f20->FUN_000242d0(bs))
                     return 1;
                 A->f74->b72 = 0;
                 sub->FUN_001d8350(bs);
                 return 1;
             }
-            Ref *r = C->fc;
+            Ref_1b2560 *r = C->fc;
             if (r->f8 != DAT_004e2198)
                 return 1;
             if (r->fc != DAT_004e219c)
@@ -203,7 +203,7 @@ int AICollisionSolverAgent::v5(Contact *C, int a1)
                 return 1;
         }
         FUN_001b0090(sub, A, B);
-        Ref *r2 = C->fc;
+        Ref_1b2560 *r2 = C->fc;
         if (r2->f8 == DAT_004e2198 && r2->fc == DAT_004e219c) {
             res = FUN_001b05a0(sub, B, C);
             if (res == 1)
@@ -216,14 +216,14 @@ int AICollisionSolverAgent::v5(Contact *C, int a1)
             v34 = C->f4->f34;
             flag = 1;
             if (A->fc == 1) {
-                Sub *as = A->f8;
+                Sub_1b2560 *as = A->f8;
                 if (!DAT_004dd700->f20->FUN_000242d0(as))
                     return 1;
                 B->f74->b72 = 0;
                 sub->FUN_001d8350(as);
                 return 1;
             }
-            Ref *r = C->f8;
+            Ref_1b2560 *r = C->f8;
             if (r->f8 != DAT_004e2198)
                 return 1;
             if (r->fc != DAT_004e219c)
@@ -241,7 +241,7 @@ int AICollisionSolverAgent::v5(Contact *C, int a1)
                 return 1;
         }
         FUN_001b0090(sub, B, A);
-        Ref *r2 = C->f8;
+        Ref_1b2560 *r2 = C->f8;
         if (r2->f8 == DAT_004e2198 && r2->fc == DAT_004e219c) {
             res = FUN_001b05a0(sub, A, C);
             if (res == 1)
@@ -250,7 +250,7 @@ int AICollisionSolverAgent::v5(Contact *C, int a1)
     }
 
     if (A->fc == 7) {
-        FU u;
+        FU_1b2560 u;
         u.f = C->f24;
         u.u &= 0x7fffffff;
         return FUN_001b0e30(A, B, &C->v38, &C->v18, u.u);
@@ -260,7 +260,7 @@ int AICollisionSolverAgent::v5(Contact *C, int a1)
         neg.x = C->v18.x * -1.0f;
         neg.y = C->v18.y * -1.0f;
         neg.z = C->v18.z * -1.0f;
-        FU u;
+        FU_1b2560 u;
         u.f = C->f24;
         u.u &= 0x7fffffff;
         return FUN_001b0e30(B, A, &C->v2c, &neg, u.u);

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000d4ae0 @ 0x000d4ae0
-struct Clock {
+struct Clock_d4ae0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -13,10 +13,10 @@ struct Clock {
 
 struct Timer {
     char pad0[0x24];
-    Clock *clock;
+    Clock_d4ae0 *clock;
 };
 
-struct Profile {
+struct Profile_d4ae0 {
     char pad0[0x88];
     int cur;
 };
@@ -27,14 +27,14 @@ void __cdecl FUN_00294b80(char *text);
 int __cdecl FUN_000fb830(char *buf, int size, char *text, float value, int extra);
 void __cdecl FUN_000fb690(char *dst, char *src, int size);
 
-class Formatter {
+class Formatter_d4ae0 {
 public:
     char pad0[0xc];
     Timer *timer;
-    int FUN_000d4ae0(char *text, Profile *prof, int extra);
+    int FUN_000d4ae0(char *text, Profile_d4ae0 *prof, int extra);
 };
 
-int Formatter::FUN_000d4ae0(char *text, Profile *prof, int extra)
+int Formatter_d4ae0::FUN_000d4ae0(char *text, Profile_d4ae0 *prof, int extra)
 {
     FUN_00294b80(text);
     int r = FUN_000fb830(DAT_004de100, 0x100, text,

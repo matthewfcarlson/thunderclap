@@ -3,27 +3,27 @@
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
-struct Msg {
+struct Msg_3b1c0 {
     char data[0xb0];
-    Msg *FUN_001c9a40(int id);
+    Msg_3b1c0 *FUN_001c9a40(int id);
 };
 
-struct Dispatcher {
-    void FUN_001cbc20(Msg *m);
+struct Dispatcher_3b1c0 {
+    void FUN_001cbc20(Msg_3b1c0 *m);
 };
 
-struct System {
+struct System_3b1c0 {
     char pad0[0x30];
-    Dispatcher *dispatcher;
+    Dispatcher_3b1c0 *dispatcher;
 };
 
-extern System *DAT_004dd700;
+extern System_3b1c0 *DAT_004dd700;
 
-struct Source {
+struct Source_3b1c0 {
     int id;
 };
 
-struct Info {
+struct Info_3b1c0 {
     char pad0[0x134];
     float limit;
 };
@@ -31,9 +31,9 @@ struct Info {
 class Timer {
 public:
     char pad0[0x10];
-    Source *source;
+    Source_3b1c0 *source;
     char pad14[0x11c - 0x14];
-    Info *info;
+    Info_3b1c0 *info;
     char pad120[0x1b0c - 0x120];
     float value;
     float maxValue;
@@ -48,7 +48,7 @@ public:
 bool Timer::FUN_0003b1c0(float dt, bool force)
 {
     unsigned int cookie = DAT_004d9968;
-    Msg msg;
+    Msg_3b1c0 msg;
 
     if (!force) {
         if (trigger > 0.0f || count > 0) {
@@ -60,12 +60,12 @@ bool Timer::FUN_0003b1c0(float dt, bool force)
     }
 
     bool wasZero = (value <= 0.0f);
-    System *sys = DAT_004dd700;
+    System_3b1c0 *sys = DAT_004dd700;
     value = dt;
     if (dt < 0.0f)
         value = 0.0f;
 
-    Info *inf = info;
+    Info_3b1c0 *inf = info;
     if (inf) {
         if (maxValue < value)
             value = maxValue;
@@ -75,7 +75,7 @@ bool Timer::FUN_0003b1c0(float dt, bool force)
                 value = lim;
         }
         if (value <= 0.0f && !wasZero) {
-            Dispatcher *d = sys->dispatcher;
+            Dispatcher_3b1c0 *d = sys->dispatcher;
             if (d) {
                 msg.FUN_001c9a40(source->id);
                 d->FUN_001cbc20(&msg);

@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 9/9)
 // FUN_003353e0 @ 0x003353e0
-struct Value {
+struct Value_3353e0 {
     int f0;
     int f4;
     int type;
     void* data;     // 0xc
 };
 
-class Slots {
+class Slots_3353e0 {
 public:
     int f0;
     int f4;
     int* base;      // 0x8
-    void FUN_003353e0(int index, Value* v);
+    void FUN_003353e0(int index, Value_3353e0* v);
 };
 
 // Copies the value's payload into slot `index`, according to its type.
-void Slots::FUN_003353e0(int index, Value* v)
+void Slots_3353e0::FUN_003353e0(int index, Value_3353e0* v)
 {
     int* slot = base + index;
     switch (v->type) {

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // pure3d::Camera::vfunc_19 @ 0x00292a90
-struct Vec3 {
+struct Vec3_292a90 {
     float x, y, z;
 };
 
@@ -11,7 +11,7 @@ public:
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
     virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
     virtual void v16(); virtual void v17(); virtual void v18();
-    virtual unsigned int vfunc_19(const Vec3 *p);
+    virtual unsigned int vfunc_19(const Vec3_292a90 *p);
     char pad04[0x14];
     float yScale;            // 0x18
     float nearDist;          // 0x1c
@@ -21,7 +21,7 @@ public:
 };
 
 // Frustum outcode of a point: bit 0/1 near/far, 2/3 top/bottom, 4/5 left/right.
-unsigned int Camera::vfunc_19(const Vec3 *p) {
+unsigned int Camera::vfunc_19(const Vec3_292a90 *p) {
     unsigned int code = 0;
     float z = p->z;
     float x = xFactor * p->x;

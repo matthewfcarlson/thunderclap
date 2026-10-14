@@ -7,7 +7,7 @@ struct Stream {
     char FUN_002647e0(void* dst, int a, int size, int b);
 };
 
-class Field {
+class Field_289070 {
 public:
     virtual void v0();
     virtual void v1();
@@ -17,12 +17,12 @@ public:
     virtual void Measure(int* outA, int* outB, int key, int value);
 };
 
-struct Table {
-    Field* FUN_0028b020(int key);
+struct Table_289070 {
+    Field_289070* FUN_0028b020(int key);
 };
 
-struct Result {
-    Result* FUN_00288820(unsigned int total, unsigned int extra);
+struct Result_289070 {
+    Result_289070* FUN_00288820(unsigned int total, unsigned int extra);
 };
 
 struct Reader {
@@ -34,15 +34,15 @@ struct Reader {
     void FUN_00266be0();
 };
 
-struct Layout {
+struct Layout_289070 {
     char pad00[0x14];
-    Table* table;
+    Table_289070* table;
     char pad18[8];
     int count;
-    Result* FUN_00289070(Reader* r);
+    Result_289070* FUN_00289070(Reader* r);
 };
 
-struct Frame {
+struct Frame_289070 {
     unsigned int x2;
     unsigned int n;
     unsigned int key;
@@ -55,9 +55,9 @@ struct Frame {
     unsigned int total;
 };
 
-Result* Layout::FUN_00289070(Reader* r)
+Result_289070* Layout_289070::FUN_00289070(Reader* r)
 {
-    Frame f;
+    Frame_289070 f;
     r->stream->FUN_002647e0(&f.total, 1, 4, 1);
     r->stream->FUN_002647e0(&f.total, 1, 4, 1);
     if (f.total == 0)
@@ -76,7 +76,7 @@ Result* Layout::FUN_00289070(Reader* r)
             r->stream->FUN_002647e0(&f.n, 1, 4, 1);
             extra += f.n * 4;
             for (unsigned int i = f.n; i != 0; i--) {
-                Field* fld = table->FUN_0028b020(f.key);
+                Field_289070* fld = table->FUN_0028b020(f.key);
                 if (fld != 0) {
                     r->stream->FUN_002647e0(&f.value, 1, 2, 1);
                     fld->Measure(&f.outA, &f.outB, f.key, f.value);
@@ -92,7 +92,7 @@ Result* Layout::FUN_00289070(Reader* r)
         }
         r->FUN_00266be0();
     }
-    Result* res = (Result*)FUN_0008d690(0x20);
+    Result_289070* res = (Result_289070*)FUN_0008d690(0x20);
     if (res == 0)
         return 0;
     return res->FUN_00288820(f.total, extra);

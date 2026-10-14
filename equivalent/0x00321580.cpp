@@ -6,7 +6,7 @@ void __stdcall D3DDevice_Clear(int, int, int, int, int, int);
 }
 extern void __cdecl FUN_0031c230(int);
 extern void __fastcall FUN_0022b980(Matrix*);
-struct Prim {
+struct Prim_321580 {
     char pad0[8];
     float* pos;
     char padc[4];
@@ -70,8 +70,8 @@ class pddiBaseContext {
     virtual void f27();
     virtual void f28();
     virtual void f29();
-    virtual Prim* f30(int, int, int, int, int);
-    virtual void f31(Prim*);
+    virtual Prim_321580* f30(int, int, int, int, int);
+    virtual void f31(Prim_321580*);
     virtual void f32();
     virtual void f33();
     virtual void f34();
@@ -154,7 +154,7 @@ void d3dContext::vfunc_12(unsigned int flags) {
         f87(0x10);
         f24(2);
         f60(1);
-        Prim* p = f30(0, 1, 0x2020, 4, 0);
+        Prim_321580* p = f30(0, 1, 0x2020, 4, 0);
         *p->color = clear->color;
         p->pos[0] = (float)x;
         p->pos[1] = (float)y;

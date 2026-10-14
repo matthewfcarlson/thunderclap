@@ -2,16 +2,16 @@
 // FUN_000aa450 @ 0x000aa450
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_aa450 {
     float x, y, z;
 };
 
-struct Entry {
-    V3 pos;
+struct Entry_aa450 {
+    V3_aa450 pos;
     int rest[9];
 };
 
-struct Probe {
+struct Probe_aa450 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -24,7 +24,7 @@ struct Probe {
     virtual void reset();                           // 0x24
 };
 
-struct Sink {
+struct Sink_aa450 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -52,44 +52,44 @@ struct Sink {
     virtual void hit(int target, int a, int b);     // 0x60
 };
 
-struct Source {
-    bool FUN_00035350(V3 *out);
+struct Source_aa450 {
+    bool FUN_00035350(V3_aa450 *out);
 };
 
-class Tracer {
+class Tracer_aa450 {
 public:
     char pad0[0x170];
-    Source *source;                 // 0x170
+    Source_aa450 *source;                 // 0x170
     int field174;                   // 0x174
-    V3 origin;                      // 0x178
+    V3_aa450 origin;                      // 0x178
     char pad184[0x190 - 0x184];
-    Entry best;                     // 0x190
+    Entry_aa450 best;                     // 0x190
     int field1c0;                   // 0x1c0
     char pad1c4[0x424 - 0x1c4];
-    Sink *sink;                     // 0x424
+    Sink_aa450 *sink;                     // 0x424
     char pad428[4];
     float matrix[16];               // 0x42c
     char pad46c[0x478 - 0x46c];
-    Probe *probe;                   // 0x478
+    Probe_aa450 *probe;                   // 0x478
     unsigned char flag47c;          // 0x47c
     unsigned char flag47d;          // 0x47d
 
-    V3 *FUN_000a92c0(V3 *out, int a, Source *s);
-    char FUN_000aa130(int target, float *m, Entry *out);
-    char FUN_000aa450(int a1, float *m, int *targets, int count, Source *src, int a6, int a7);
+    V3_aa450 *FUN_000a92c0(V3_aa450 *out, int a, Source_aa450 *s);
+    char FUN_000aa130(int target, float *m, Entry_aa450 *out);
+    char FUN_000aa450(int a1, float *m, int *targets, int count, Source_aa450 *src, int a6, int a7);
 };
 
-char Tracer::FUN_000aa450(int a1, float *m, int *targets, int count, Source *src, int a6, int a7)
+char Tracer_aa450::FUN_000aa450(int a1, float *m, int *targets, int count, Source_aa450 *src, int a6, int a7)
 {
     struct Frame {
         float bestDist;
-        V3 tmp;
-        Entry e[4];
+        V3_aa450 tmp;
+        Entry_aa450 e[4];
     } f;
 
     source = src;
     if (!src->FUN_00035350(&origin)) {
-        V3 *p = FUN_000a92c0(&f.tmp, a1, source);
+        V3_aa450 *p = FUN_000a92c0(&f.tmp, a1, source);
         origin = *p;
     }
 

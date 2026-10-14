@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0031a440 @ 0x0031a440
-struct Sub {
+struct Sub_31a440 {
     char pad0[0x20];
     float w0;                  // sub+0x20 (obj+0x30)
     float w1;                  // sub+0x24 (obj+0x34)
@@ -10,21 +10,21 @@ struct Sub {
 
 void *__cdecl FUN_0008d6d0(unsigned int size);
 
-class Buffer {
+class Buffer_31a440 {
 public:
     char *begin;               // 0x00
     char *cur;                 // 0x04
     char *end;                 // 0x08
     char pad0c[4];
-    Sub sub;                   // 0x10
+    Sub_31a440 sub;                   // 0x10
     int f70, f74, f78, f7c;    // 0x70
     unsigned int flags;        // 0x80
     char pad84[4];
     int f88, f8c, f90, f94, f98, f9c, fa0;
-    Buffer *FUN_0031a440();
+    Buffer_31a440 *FUN_0031a440();
 };
 
-Buffer *Buffer::FUN_0031a440()
+Buffer_31a440 *Buffer_31a440::FUN_0031a440()
 {
     begin = 0;
     cur = 0;

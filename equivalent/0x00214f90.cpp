@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 0/0)
 // FUN_00214f90 @ 0x00214f90
 // Lua 5.0 close_state tail: frees the stacks and the state itself
-struct lua_State;
+struct lua_State_214f90;
 
-struct global_State {
+struct global_State_214f90 {
     char pad0[0xc];
     void* (__cdecl *realloc)(void* ud, void* block, unsigned int osize, unsigned int nsize);    // 0xc
     void* ud;           // 0x10
@@ -13,9 +13,9 @@ struct global_State {
     unsigned int strsize;   // 0x44
 };
 
-struct lua_State {
+struct lua_State_214f90 {
     char pad0[0x10];
-    global_State* l_G;      // 0x10
+    global_State_214f90* l_G;      // 0x10
     char pad14[0x1c - 0x14];
     void* stack;            // 0x1c
     unsigned int stacksize; // 0x20
@@ -24,15 +24,15 @@ struct lua_State {
     unsigned short size_ci; // 0x2c
 };
 
-void __cdecl FUN_00219660(lua_State* L, void* stack);               // luaF_close
-void __cdecl FUN_002172c0(lua_State* L);                            // luaC_sweep(L, 1)
-void __cdecl FUN_002192c0(lua_State* L);                            // luaS_freeall
-void* __cdecl FUN_0021add0(lua_State* L, void* block, unsigned int osize, unsigned int nsize);  // luaM_realloc
+void __cdecl FUN_00219660(lua_State_214f90* L, void* stack);               // luaF_close
+void __cdecl FUN_002172c0(lua_State_214f90* L);                            // luaC_sweep(L, 1)
+void __cdecl FUN_002192c0(lua_State_214f90* L);                            // luaS_freeall
+void* __cdecl FUN_0021add0(lua_State_214f90* L, void* block, unsigned int osize, unsigned int nsize);  // luaM_realloc
 
 // equiv-conv: FUN_00214f90 esi
-void FUN_00214f90(lua_State* L)
+void FUN_00214f90(lua_State_214f90* L)
 {
-    global_State* g = L->l_G;
+    global_State_214f90* g = L->l_G;
     FUN_00219660(L, L->stack);
     FUN_002172c0(L);
     FUN_002192c0(L);

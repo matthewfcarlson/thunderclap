@@ -1,55 +1,55 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3172 inputs, branch coverage 94/94)
 // FEThingsBase::vfunc_35 @ 0x000f3270
-typedef unsigned __int64 u64;
+typedef unsigned __int64 u64_f3270;
 void *FUN_0008d690(unsigned int size);
-u64 __cdecl FUN_0027b020(const char *s);
+u64_f3270 __cdecl FUN_0027b020(const char *s);
 
 namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
 namespace pure3d { class CompositeDrawable; }
 
-struct Loaded {
+struct Loaded_f3270 {
     virtual void l0();
 };
 
-struct Inventory {
+struct Inventory_f3270 {
     virtual void i0();
     virtual void i1();
     virtual void i2();
-    virtual Loaded *find(void *caster, u64 key);
+    virtual Loaded_f3270 *find(void *caster, u64_f3270 key);
 };
-extern Inventory *DAT_004dd9cc;
-Loaded *__cdecl FUN_000c0d80(Inventory *inv, const char *name);
+extern Inventory_f3270 *DAT_004dd9cc;
+Loaded_f3270 *__cdecl FUN_000c0d80(Inventory_f3270 *inv, const char *name);
 
-struct Color {
+struct Color_f3270 {
     unsigned int v;
-    Color *FUN_000115c0(int r, int g, int b, int a);
+    Color_f3270 *FUN_000115c0(int r, int g, int b, int a);
 };
 
 struct Reader {
     const char *FUN_000fad90();
     float FUN_000fad30();
-    u64 FUN_000faeb0();
+    u64_f3270 FUN_000faeb0();
     char FUN_000f9e90();
     void FUN_000fa0a0();
     int FUN_000fb150();
 };
 
-struct Item {
+struct Item_f3270 {
     char pad0[0x10];
     unsigned int color;              // 0x10
     float f14;                       // 0x14
     char pad18[4];
-    Item *FUN_000dee10();
+    Item_f3270 *FUN_000dee10();
 };
 
-struct Sub {
+struct Sub_f3270 {
     char pad0[0x38];
     float f38;
 };
 
-struct Dest {
+struct Dest_f3270 {
     char pad0[0x14];
-    Sub *f14;
+    Sub_f3270 *f14;
     unsigned int f18;
     char pad1c[0x30 - 0x1c];
     unsigned char b30;
@@ -69,7 +69,7 @@ struct Dest {
     int f6c;
     int f70;
     char pad74[0x90 - 0x74];
-    u64 f90;
+    u64_f3270 f90;
     char pad98[0xa4 - 0x98];
     int fa4;
     char pada8[0xc0 - 0xa8];
@@ -79,15 +79,15 @@ struct Dest {
     int fd0;
     int fd4;
 
-    void FUN_000e2ac0(Item *it);
-    void FUN_000e9090(Loaded *l);
-    void FUN_000e9130(Loaded *l);
-    void FUN_000e9100(Loaded *l);
+    void FUN_000e2ac0(Item_f3270 *it);
+    void FUN_000e9090(Loaded_f3270 *l);
+    void FUN_000e9130(Loaded_f3270 *l);
+    void FUN_000e9100(Loaded_f3270 *l);
     void FUN_000e04f0(const char *s);
     float *FUN_000e2820(float *tmp);
 };
 
-struct Key {
+struct Key_f3270 {
     virtual void k0();
     virtual int v1();
 };
@@ -97,14 +97,14 @@ public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31(); virtual void v32();
     virtual void v33(int a, unsigned int *dstp);
     virtual void v34();
-    virtual bool vfunc_35(Reader *r, int unused, Dest *dst, Key *key);
+    virtual bool vfunc_35(Reader *r, int unused, Dest_f3270 *dst, Key_f3270 *key);
 
     int FUN_000e6530(const char *name);
-    int FUN_000e7ec0(u64 id, Reader *r);
-    int FUN_000e7f10(u64 id, Reader *r);
+    int FUN_000e7ec0(u64_f3270 id, Reader *r);
+    int FUN_000e7f10(u64_f3270 id, Reader *r);
 };
 
-bool FEThingsBase::vfunc_35(Reader *r, int unused, Dest *dst, Key *key)
+bool FEThingsBase::vfunc_35(Reader *r, int unused, Dest_f3270 *dst, Key_f3270 *key)
 {
     int hash = key->v1();
     switch (hash) {
@@ -165,13 +165,13 @@ bool FEThingsBase::vfunc_35(Reader *r, int unused, Dest *dst, Key *key)
         return true;
     }
     case 0x8b025b6b: {
-        u64 id = r->FUN_000faeb0();
+        u64_f3270 id = r->FUN_000faeb0();
         if ((unsigned int)id != 0xa6dce4eb)
             return false;
         void *mem = FUN_0008d690(0x1c);
-        Item *it = 0;
+        Item_f3270 *it = 0;
         if (mem != 0)
-            it = ((Item *)mem)->FUN_000dee10();
+            it = ((Item_f3270 *)mem)->FUN_000dee10();
         if (r->FUN_000f9e90())
             it->f14 = r->FUN_000fad30();
         unsigned int col = it->color;
@@ -199,7 +199,7 @@ bool FEThingsBase::vfunc_35(Reader *r, int unused, Dest *dst, Key *key)
         int ca = 0xff;
         if (r->FUN_000f9e90())
             ca = (int)r->FUN_000fad30();
-        Color c;
+        Color_f3270 c;
         dst->b48 = 1;
         dst->f4c = c.FUN_000115c0(cr, cg, cb, ca)->v;
         return true;
@@ -211,7 +211,7 @@ bool FEThingsBase::vfunc_35(Reader *r, int unused, Dest *dst, Key *key)
         int ca = 0xff;
         if (r->FUN_000f9e90())
             ca = (int)r->FUN_000fad30();
-        Color c;
+        Color_f3270 c;
         dst->f3c = c.FUN_000115c0(cr, cg, cb, ca)->v;
         return true;
     }
@@ -228,10 +228,10 @@ bool FEThingsBase::vfunc_35(Reader *r, int unused, Dest *dst, Key *key)
     }
     case 0xf7d14590: {
         const char *nm = r->FUN_000fad90();
-        Inventory *inv = DAT_004dd9cc;
-        u64 key2 = FUN_0027b020(nm);
+        Inventory_f3270 *inv = DAT_004dd9cc;
+        u64_f3270 key2 = FUN_0027b020(nm);
         content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> caster;
-        Loaded *l = inv->find(&caster, key2);
+        Loaded_f3270 *l = inv->find(&caster, key2);
         dst->FUN_000e9090(l);
         return true;
     }

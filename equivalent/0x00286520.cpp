@@ -5,14 +5,14 @@ extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 
 namespace pure3d {
 
-class Handler {
+class Handler_286520 {
 public:
     virtual void AddRef();
     virtual void Release();
     int f4;
 };
 
-class DefaultFrameControllerHandler : public Handler {
+class DefaultFrameControllerHandler : public Handler_286520 {
 public:
     DefaultFrameControllerHandler() { f4 = 0; }
     virtual void AddRef();
@@ -28,7 +28,7 @@ public:
     int fc;
     int f10;
     unsigned int handlerCount;
-    Handler* handlers[4];
+    Handler_286520* handlers[4];
 };
 
 FrameControllerLoader::FrameControllerLoader() {

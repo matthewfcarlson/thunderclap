@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000a1760 @ 0x000a1760
-struct Vec3 { float x, y, z; };
+struct Vec3_a1760 { float x, y, z; };
 
 extern float DAT_0049ec78;
 extern float DAT_0049ec7c;
 extern float DAT_0049ec80;
 float FUN_000a02a0(float v);
-Vec3* FUN_0009f8c0(Vec3* out, float x, float y, float z);
-void FUN_000a04c0(Vec3* d, float* a, float* b, float* c);
+Vec3_a1760* FUN_0009f8c0(Vec3_a1760* out, float x, float y, float z);
+void FUN_000a04c0(Vec3_a1760* d, float* a, float* b, float* c);
 
-class Mover {
+class Mover_a1760 {
 public:
     char pad000[0x194];
     float f194, f198, f19c;
@@ -36,7 +36,7 @@ public:
     void Update(float a1, float a2);
 };
 
-void Mover::Update(float a1, float a2) {
+void Mover_a1760::Update(float a1, float a2) {
     float px, py, pz;
     if (f394 <= 0.0f) {
         px = f3a0;
@@ -56,14 +56,14 @@ void Mover::Update(float a1, float a2) {
         pz = (f3b0 - f3ac) * w + f3ac;
         f394 = f394 - a2;
     }
-    Vec3 t;
-    Vec3* r = FUN_0009f8c0(&t, px, py, pz);
+    Vec3_a1760 t;
+    Vec3_a1760* r = FUN_0009f8c0(&t, px, py, pz);
     f194 = r->x + f1c4;
     f198 = r->y + f1c8;
     f19c = r->z + f1cc;
     FUN_000a0dc0(DAT_0049ec78, DAT_0049ec7c, a2);
     FUN_000a0940(DAT_0049ec80);
-    Vec3 d;
+    Vec3_a1760 d;
     d.x = f1e8 - f194;
     d.y = f1ec - f198;
     d.z = f1f0 - f19c;

@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_003130a0 @ 0x003130a0
-struct V3 {
+struct V3_3130a0 {
     float x, y, z;
 };
 
 struct V3Pair {
-    V3 a;
-    V3 b;
+    V3_3130a0 a;
+    V3_3130a0 b;
 };
 
-class Scaler {
+class Scaler_3130a0 {
 public:
     char pad0[0x2008];
-    V3 scale;               // 0x2008
+    V3_3130a0 scale;               // 0x2008
     void FUN_003130a0(V3Pair *pairs, int count);
 };
 
-void Scaler::FUN_003130a0(V3Pair *pairs, int count)
+void Scaler_3130a0::FUN_003130a0(V3Pair *pairs, int count)
 {
     for (int i = 0; i < count; ++i) {
         V3Pair *p = &pairs[i];

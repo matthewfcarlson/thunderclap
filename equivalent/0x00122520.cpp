@@ -3,87 +3,87 @@
 extern "C" int atexit(void (*)());
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_122520 {
     float x, y, z;
     float FUN_000111f0() throw();
     float FUN_0022d110() throw();
     float FUN_00018990() throw();
 };
 
-struct Key {
+struct Key_122520 {
     unsigned int lo, hi;
     void FUN_0027af00() throw();
 };
 
-struct Mat {
+struct Mat_122520 {
     float m[16];
-    void FUN_0022c3b0(Vec3 *in, Vec3 *out) throw();
+    void FUN_0022c3b0(Vec3_122520 *in, Vec3_122520 *out) throw();
 };
 
 struct World;
 
-struct Fighter {
-    void FUN_00059a50(Vec3 *out) throw();
+struct Fighter_122520 {
+    void FUN_00059a50(Vec3_122520 *out) throw();
 };
 
-struct Ent {
+struct Ent_122520 {
     char pad00[0x10];
-    Fighter *f10;
-    void FUN_00035660(Vec3 *out) throw();
+    Fighter_122520 *f10;
+    void FUN_00035660(Vec3_122520 *out) throw();
 };
 
 struct Misc {
     void FUN_000344b0(float x) throw();
 };
 
-class RefObj {
+class RefObj_122520 {
 public:
     virtual void AddRef() throw();
     virtual void Release() throw();
     char pad04[4];
-    Ent *f08;
+    Ent_122520 *f08;
     int f0c;
 };
 
-struct Hand {
+struct Hand_122520 {
     char pad[0x129];
     char b129;
 };
 
-struct Sub {
+struct Sub_122520 {
     char pad000[0x10c];
-    Vec3 v10c;
+    Vec3_122520 v10c;
     float f118;
-    Vec3 v11c;
+    Vec3_122520 v11c;
     void FUN_00060170() throw();
 };
 
-struct Stats;
+struct Stats_122520;
 
-class Sink {
+class Sink_122520 {
 public:
     virtual void v0() throw();
     virtual void v1() throw();
     virtual void v2() throw();
     virtual void v3() throw();
-    virtual char v4(Vec3 *a, Vec3 *b, Stats *s, World *w, float dt, void *c, Vec3 *d) throw();
-    char FUN_0010aa90(World *w, Vec3 *b, Vec3 *a, float k, Vec3 *o1, Vec3 *o2, Vec3 *r, Stats *s, RefObj *obj, int p, int q) throw();
+    virtual char v4(Vec3_122520 *a, Vec3_122520 *b, Stats_122520 *s, World *w, float dt, void *c, Vec3_122520 *d) throw();
+    char FUN_0010aa90(World *w, Vec3_122520 *b, Vec3_122520 *a, float k, Vec3_122520 *o1, Vec3_122520 *o2, Vec3_122520 *r, Stats_122520 *s, RefObj_122520 *obj, int p, int q) throw();
 };
 
-struct Stats {
+struct Stats_122520 {
     char pad000[0x10];
-    Fighter *f10;
+    Fighter_122520 *f10;
     char pad014[0x328 - 0x14];
-    RefObj *f328;
+    RefObj_122520 *f328;
     char pad32c[0x1ca0 - 0x32c];
-    Hand *f1ca0;
-    Sink *f1ca4;
+    Hand_122520 *f1ca0;
+    Sink_122520 *f1ca4;
     char pad1ca8[0x1f58 - 0x1ca8];
-    Sub sub1f58;
-    void FUN_00035160(Mat *m) throw();
+    Sub_122520 sub1f58;
+    void FUN_00035160(Mat_122520 *m) throw();
 };
 
-struct Cfg {
+struct Cfg_122520 {
     char pad00[0x18];
     float f18;
     char pad1c[4];
@@ -98,15 +98,15 @@ struct Cfg {
 
 extern World *DAT_004dd700;
 extern unsigned int DAT_004e0d60;
-extern Key DAT_004e0d58;
+extern Key_122520 DAT_004e0d58;
 void FUN_00363f20();
-float __cdecl FUN_0010b1c0(World *w, Stats *s, float thr, Vec3 *out) throw();
+float __cdecl FUN_0010b1c0(World *w, Stats_122520 *s, float thr, Vec3_122520 *out) throw();
 float __cdecl FUN_000186f0(float *a, float *b) throw();
-Vec3 *__cdecl FUN_00083e00(Vec3 *out, Vec3 *a, float c) throw();
-void __cdecl FUN_00224d70(float angle, Vec3 *v) throw();
-Ent *__fastcall FUN_000592a0(void *owner) throw();
+Vec3_122520 *__cdecl FUN_00083e00(Vec3_122520 *out, Vec3_122520 *a, float c) throw();
+void __cdecl FUN_00224d70(float angle, Vec3_122520 *v) throw();
+Ent_122520 *__fastcall FUN_000592a0(void *owner) throw();
 
-union Arg1 {
+union Arg1_122520 {
     int i;
     float f;
 };
@@ -118,28 +118,28 @@ public:
     virtual void vfunc_2() throw();
     virtual void vfunc_3() throw();
     virtual void vfunc_4() throw();
-    virtual bool vfunc_5(Arg1 a1, float dt);
+    virtual bool vfunc_5(Arg1_122520 a1, float dt);
     char pad04[0x18];
-    Vec3 v1c;
-    Vec3 v28;
-    Cfg *f34;
-    RefObj *f38;
-    RefObj *f3c;
+    Vec3_122520 v1c;
+    Vec3_122520 v28;
+    Cfg_122520 *f34;
+    RefObj_122520 *f38;
+    RefObj_122520 *f3c;
     char pad40[0x58 - 0x40];
     float f58;
-    Stats *f5c;
+    Stats_122520 *f5c;
     char pad60[0x6c - 0x60];
     float f6c;
     float f70;
-    Mat m74;
+    Mat_122520 m74;
 };
 
-bool RoutAction::vfunc_5(Arg1 a1, float dt)
+bool RoutAction::vfunc_5(Arg1_122520 a1, float dt)
 {
     struct Frame {
         float thr;
         union {
-            Hand *h;
+            Hand_122520 *h;
             float r;
             float one;
             float pz;
@@ -150,15 +150,15 @@ bool RoutAction::vfunc_5(Arg1 a1, float dt)
             float c34;
             float q;
         } u8;
-        Vec3 D;
-        Vec3 P;
-        Vec3 Out;
-        Vec3 W;
-        Vec3 B;
-        Vec3 A;
-        Vec3 R;
-        Vec3 X60;
-        Vec3 Y6c;
+        Vec3_122520 D;
+        Vec3_122520 P;
+        Vec3_122520 Out;
+        Vec3_122520 W;
+        Vec3_122520 B;
+        Vec3_122520 A;
+        Vec3_122520 R;
+        Vec3_122520 X60;
+        Vec3_122520 Y6c;
     } f;
 
     f.u8.world = DAT_004dd700;
@@ -172,11 +172,11 @@ bool RoutAction::vfunc_5(Arg1 a1, float dt)
         return true;
     if (f38 == 0)
         return false;
-    Stats *stats = f5c;
+    Stats_122520 *stats = f5c;
     if (stats == 0)
         return false;
     f.u4.h = stats->f1ca0;
-    RefObj *obj = stats->f328;
+    RefObj_122520 *obj = stats->f328;
     if (obj == 0) {
         obj = f3c;
         if (obj == 0)
@@ -190,11 +190,11 @@ bool RoutAction::vfunc_5(Arg1 a1, float dt)
         return false;
     if (obj->f0c != 1)
         return false;
-    Ent *tgt = obj->f08;
+    Ent_122520 *tgt = obj->f08;
     if (tgt == 0)
         return false;
     stats = f5c;
-    Sub *edi = (Sub *)((char *)stats + 0x1f58);
+    Sub_122520 *edi = (Sub_122520 *)((char *)stats + 0x1f58);
     if (edi == 0)
         return false;
     stats->FUN_00035160(&m74);
@@ -228,7 +228,7 @@ bool RoutAction::vfunc_5(Arg1 a1, float dt)
     } else {
         edi->FUN_00060170();
     }
-    Hand *h = f.u4.h;
+    Hand_122520 *h = f.u4.h;
     f.W.x = 0.0f;
     f.W.y = 0.0f;
     f.W.z = 0.0f;
@@ -252,9 +252,9 @@ bool RoutAction::vfunc_5(Arg1 a1, float dt)
             ((Misc *)&f.W.y)->FUN_000344b0(rr);
         }
     }
-    Cfg *cfg = f34;
+    Cfg_122520 *cfg = f34;
     f.u8.c34 = cfg->f34;
-    Vec3 *res = FUN_00083e00(&f.R, &edi->v10c, cfg->f34);
+    Vec3_122520 *res = FUN_00083e00(&f.R, &edi->v10c, cfg->f34);
     float pzr = f.P.z + res->z;
     f.u4.pz = pzr;
     float pyr = f.P.y + res->y;
@@ -282,7 +282,7 @@ bool RoutAction::vfunc_5(Arg1 a1, float dt)
     f.R.z = f.P.z - v28.z;
     f.u8.q = f.R.FUN_00018990();
     *(unsigned int *)&f.u8.q &= 0x7fffffff;
-    Cfg *c = f34;
+    Cfg_122520 *c = f34;
     if (f.u8.q / dt <= c->f24)
         f58 = dt + f58;
     else

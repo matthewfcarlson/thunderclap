@@ -1,29 +1,29 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 18/18)
 // hulkfight::motion::VarAssignAction::vfunc_3 @ 0x0018d1c0
-struct Name {
+struct Name_18d1c0 {
     int lo, hi;
 };
 
 struct VarAssign {
     char pad0[0x10];
-    Name name;              // 0x10
+    Name_18d1c0 name;              // 0x10
     unsigned int op;        // 0x18
     int operand;            // 0x1c
     char pad20[4];
     char result;            // 0x24
 };
 
-struct Character {
-    int FUN_00036e40(const Name *name);
-    void FUN_00036e70(const Name *name, int value);
+struct Character_18d1c0 {
+    int FUN_00036e40(const Name_18d1c0 *name);
+    void FUN_00036e70(const Name_18d1c0 *name, int value);
 };
 
-struct Slot {
-    Character *FUN_00059a30();
+struct Slot_18d1c0 {
+    Character_18d1c0 *FUN_00059a30();
 };
 
-struct Owner {
-    Slot *FUN_000592a0();
+struct Owner_18d1c0 {
+    Slot_18d1c0 *FUN_000592a0();
 };
 
 namespace hulkfight { namespace motion {
@@ -36,7 +36,7 @@ public:
 
     char pad4[0x1c - 4];
     VarAssign *assign;      // 0x1c
-    Owner *owner;           // 0x20
+    Owner_18d1c0 *owner;           // 0x20
 };
 
 char VarAssignAction::vfunc_3(int a, int b)
@@ -44,7 +44,7 @@ char VarAssignAction::vfunc_3(int a, int b)
     if (owner == 0)
         return 0;
 
-    Character *c = owner->FUN_000592a0()->FUN_00059a30();
+    Character_18d1c0 *c = owner->FUN_000592a0()->FUN_00059a30();
     int value = c->FUN_00036e40(&assign->name);
     VarAssign *va = assign;
     int operand = va->operand;

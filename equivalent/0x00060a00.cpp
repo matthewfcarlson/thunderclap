@@ -7,13 +7,13 @@ struct Base12 {
     void FUN_00236d40();
 };
 
-struct Name8 {
+struct Name8_60a00 {
     int lo, hi;
     void FUN_0027af00();
     void FUN_0027b040(const char *s);
 };
 
-struct Trio {
+struct Trio_60a00 {
     int a, b, c;
 };
 
@@ -27,12 +27,12 @@ public:
     int f14;
     int f18;
     char pad1c[4];
-    Name8 n20;
+    Name8_60a00 n20;
     int f28;
     char pad2c[4];
-    Name8 names[6];
-    Trio trios[6];
-    Name8 nA8;
+    Name8_60a00 names[6];
+    Trio_60a00 trios[6];
+    Name8_60a00 nA8;
     int fB0, fB4, fB8, fBC, fC0, fC4;
     char bC8, bC9;
     char padCA[2];

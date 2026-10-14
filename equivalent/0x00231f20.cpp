@@ -16,12 +16,12 @@ struct Node {
     int f18;
     void FUN_00232600(int a, int b);
 };
-struct Target {
+struct Target_231f20 {
     char pad0[0x20];
     Node *head;
     void FUN_00231f20(int arg);
 };
-void Target::FUN_00231f20(int arg)
+void Target_231f20::FUN_00231f20(int arg)
 {
     int h = FUN_00266da0(FUN_00238190(3));
     for (Node *n = head; n != 0; n = n->next) {

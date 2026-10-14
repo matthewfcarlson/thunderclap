@@ -4,18 +4,18 @@
 void* FUN_0008d690(unsigned int);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 class CCameraManager;
-class Registry { public:
+class Registry_9d610 { public:
     void FUN_001d3b70(const char*, void*);
     void FUN_0009d610(const char* a1, CCameraManager* a2, void (*a3)());
 };
 template<class C, class R, class A1, class A2, class A3, class A4> class Closure4;
 template<> class Closure4<CCameraManager, void, bool, bool, bool, bool> { public: virtual void v(); char pad[0x1c]; CCameraManager* owner; Closure4(CCameraManager* o) { owner = o; } };
-class Raw { public: void FUN_0009ac70(const char*, void (*)()); };
-void Registry::FUN_0009d610(const char* a1, CCameraManager* a2, void (*a3)()) {
+class Raw_9d610 { public: void FUN_0009ac70(const char*, void (*)()); };
+void Registry_9d610::FUN_0009d610(const char* a1, CCameraManager* a2, void (*a3)()) {
     void* m = FUN_0008d690(0x24);
     void* x = 0;
     if (m) {
-        ((Raw*)m)->FUN_0009ac70(a1, a3);
+        ((Raw_9d610*)m)->FUN_0009ac70(a1, a3);
         x = new (m) Closure4<CCameraManager, void, bool, bool, bool, bool>(a2);
     }
     FUN_001d3b70(a1, x);

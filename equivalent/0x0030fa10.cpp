@@ -2,16 +2,16 @@
 // FUN_0030fa10 @ 0x0030fa10
 struct Mat;
 
-struct Elem {
+struct Elem_30fa10 {
     int index;
-    Elem *parent;
+    Elem_30fa10 *parent;
     char pad8[4];
     int depth;
     char pad10[0xc0 - 0x10];
     void FUN_0030ebd0();
     void FUN_0030edc0(void *m);
     void FUN_0030ec20(int depth);
-    void FUN_0030ec70(Elem *child);
+    void FUN_0030ec70(Elem_30fa10 *child);
 };
 
 class Skeleton {
@@ -24,7 +24,7 @@ public:
     unsigned short *parents;
 };
 
-struct Source {
+struct Source_30fa10 {
     char pad0[8];
     Skeleton *skeleton;
     char pad0c[8];
@@ -37,28 +37,28 @@ void __cdecl FUN_0008d340(void *p);
 void __fastcall FUN_0030eba0(void *self);
 void __stdcall FUN_00011520(void *base, unsigned int size, int count, void *ctor);
 
-struct Tmp {
+struct Tmp_30fa10 {
     char data[0x54];
     void *FUN_0030f070(const char *src);
 };
 
-struct Frame {
+struct Frame_30fa10 {
     int off;
-    Tmp tmp;
+    Tmp_30fa10 tmp;
 };
 
 class Pose {
 public:
     char pad0[8];
     Skeleton *skeleton;
-    Elem *elems;
+    Elem_30fa10 *elems;
 
-    void FUN_0030fa10(Source *src);
+    void FUN_0030fa10(Source_30fa10 *src);
 };
 
-void Pose::FUN_0030fa10(Source *src)
+void Pose::FUN_0030fa10(Source_30fa10 *src)
 {
-    Frame f;
+    Frame_30fa10 f;
     src->FUN_00284820(0);
     Skeleton *sk = src->skeleton;
     if (sk == skeleton) {
@@ -77,10 +77,10 @@ void Pose::FUN_0030fa10(Source *src)
         skeleton->Release();
     skeleton = sk;
     if (elems) {
-        Elem *base = elems;
+        Elem_30fa10 *base = elems;
         int *cookie = (int *)base - 1;
         int n = *cookie;
-        Elem *p = base + n;
+        Elem_30fa10 *p = base + n;
         for (int i = n - 1; i >= 0; i--) {
             p--;
             p->FUN_0030ebd0();
@@ -88,7 +88,7 @@ void Pose::FUN_0030fa10(Source *src)
         FUN_0008d340(cookie);
     }
     int count = skeleton->count;
-    Elem *arr = 0;
+    Elem_30fa10 *arr = 0;
     if (count <= 0) {
         elems = arr;
         return;
@@ -96,7 +96,7 @@ void Pose::FUN_0030fa10(Source *src)
     int *mem = (int *)FUN_0008d6d0(count * 0xc0 + 4);
     if (mem) {
         *mem = count;
-        arr = (Elem *)(mem + 1);
+        arr = (Elem_30fa10 *)(mem + 1);
         FUN_00011520(arr, 0xc0, count, (void *)FUN_0030eba0);
     }
     elems = arr;
@@ -104,7 +104,7 @@ void Pose::FUN_0030fa10(Source *src)
     f.off = 0x40;
     for (int i = 1; i < count; i++) {
         elems[i].index = i;
-        Elem *parent = &elems[skeleton->parents[i]];
+        Elem_30fa10 *parent = &elems[skeleton->parents[i]];
         elems[i].parent = parent;
         parent->FUN_0030ec20(parent->depth + 1);
         elems[i].FUN_0030edc0(f.tmp.FUN_0030f070(src->data + f.off));

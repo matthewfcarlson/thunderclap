@@ -5,14 +5,14 @@ struct Stat {
     char pad[0x3c];
 };
 
-struct Stats {
+struct Stats_900a0 {
     char pad[0x38];
     Stat stats[1];
     int FUN_00090050(const char *name);
     void FUN_000900a0(int amount);
 };
 
-void Stats::FUN_000900a0(int amount)
+void Stats_900a0::FUN_000900a0(int amount)
 {
     int idx = FUN_00090050("xp");
     if (idx == -1)

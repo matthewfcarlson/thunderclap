@@ -9,16 +9,16 @@ struct CellB {
     CellB* FUN_002c3c10();
 };
 
-class Grid {
+class Grid_29ef40 {
 public:
     virtual void v0();
-    Grid* FUN_002a1140(int size);
+    Grid_29ef40* FUN_002a1140(int size);
     void FUN_002a0fc0(int index, void* cell);
 };
 
 class GridSet {
 public:
-    Grid* grids[4];
+    Grid_29ef40* grids[4];
     int width;
     int height;
     GridSet* FUN_0029ef40(int w, int h);
@@ -32,17 +32,17 @@ GridSet* GridSet::FUN_0029ef40(int w, int h)
     height = h > 1 ? h : 1;
 
     mem = FUN_00263ea0(0x28);
-    grids[0] = mem ? ((Grid*)mem)->FUN_002a1140(width) : 0;
+    grids[0] = mem ? ((Grid_29ef40*)mem)->FUN_002a1140(width) : 0;
     mem = FUN_00263ea0(0x28);
-    grids[1] = mem ? ((Grid*)mem)->FUN_002a1140(width) : 0;
+    grids[1] = mem ? ((Grid_29ef40*)mem)->FUN_002a1140(width) : 0;
     mem = FUN_00263ea0(0x28);
-    grids[2] = mem ? ((Grid*)mem)->FUN_002a1140(width) : 0;
+    grids[2] = mem ? ((Grid_29ef40*)mem)->FUN_002a1140(width) : 0;
     mem = FUN_00263ea0(0x28);
     if (mem) {
         int n = width;
         if (!(width >= height))
             n = height;
-        grids[3] = ((Grid*)mem)->FUN_002a1140(n);
+        grids[3] = ((Grid_29ef40*)mem)->FUN_002a1140(n);
     } else {
         grids[3] = 0;
     }

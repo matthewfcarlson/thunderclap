@@ -6,7 +6,7 @@ struct Base12 {
     char data[12];
     void FUN_00236d40();
 };
-struct Name8 {
+struct Name8_62010 {
     int lo, hi;
     void FUN_0027af00();
 };
@@ -32,7 +32,7 @@ public:
     Name12 n2c;
     Name12 n38;
     char pad44[4];
-    Name8 n48;
+    Name8_62010 n48;
     char b50;
     char pad51[63];
     int f90;

@@ -5,7 +5,7 @@ extern char DAT_0049dbbc[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 extern void *__cdecl FUN_000fc260(const char *name);
 
-struct Label {
+struct Label_b8240 {
     int f00;
     char f04;
     char pad05[3];
@@ -22,7 +22,7 @@ struct Label {
     void FUN_000f7960();
 };
 
-class Anim {
+class Anim_b8240 {
 public:
     virtual void v0();
     virtual void v1();
@@ -70,7 +70,7 @@ public:
     virtual void v43();
     virtual void v44();
 };
-Anim *__cdecl FUN_000fc3d0();
+Anim_b8240 *__cdecl FUN_000fc3d0();
 
 class HintList {
 public:
@@ -93,26 +93,26 @@ public:
     virtual void vfunc_16();
     virtual void vfunc_17();
     virtual void vfunc_18();
-    virtual void vfunc_19(Label *label, int a, int b);
+    virtual void vfunc_19(Label_b8240 *label, int a, int b);
     void FUN_000e36c0();
 };
 
-struct CodeTable {
+struct CodeTable_b8240 {
     char FUN_00092860(int index);
 };
 
-class HintMenu {
+class HintMenu_b8240 {
 public:
     char pad00[0x4c];
-    CodeTable *codes;        // 0x4c
+    CodeTable_b8240 *codes;        // 0x4c
     char pad50[0x1b50 - 0x50];
     int shown[32];           // 0x1b50
     void FUN_000b8240();
 };
 
-void HintMenu::FUN_000b8240()
+void HintMenu_b8240::FUN_000b8240()
 {
-    Label label;
+    Label_b8240 label;
     HintList *list = (HintList *)FUN_00344e74(FUN_000fc260("smart_hint_selector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
     if (list) {
         list->FUN_000e36c0();

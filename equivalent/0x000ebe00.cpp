@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 749 inputs, branch coverage 4/4)
 // FUN_000ebe00 @ 0x000ebe00
-struct Entry {
+struct Entry_ebe00 {
  char base[0x24];
  int a,b,c,d;
  unsigned char flag;
  char pad[3];
- void FUN_000f83c0(Entry*);
+ void FUN_000f83c0(Entry_ebe00*);
 };
 struct Object {
  char pad0[0x118];
  unsigned int block[10];
  char pad1[0x10];
  int x150,x154;
- Entry entries[128];
+ Entry_ebe00 entries[128];
  int count;
  int x1d5c;
  char pad2[8];

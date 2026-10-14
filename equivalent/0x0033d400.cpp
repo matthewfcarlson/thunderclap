@@ -7,7 +7,7 @@ extern unsigned int DAT_004d9968;
 
 struct lua_State;
 
-struct luaL_Buffer {
+struct luaL_Buffer_33d400 {
     char *p;
     int lvl;
     lua_State *L;
@@ -15,21 +15,21 @@ struct luaL_Buffer {
 };
 
 const char *FUN_00339df0(lua_State *L, int arg, unsigned int *len);
-void FUN_00339630(lua_State *L, luaL_Buffer *b);
-char *FUN_00339470(luaL_Buffer *b);
+void FUN_00339630(lua_State *L, luaL_Buffer_33d400 *b);
+char *FUN_00339470(luaL_Buffer_33d400 *b);
 // equiv-conv: FUN_0033d310 ebx stack stack stack
 const char *FUN_0033d310(const char *fmt, lua_State *L, char *form, int *hasprecision);
 double FUN_00339ec0(lua_State *L, int arg);
 int FUN_00339f70(lua_State *L, int arg);
 // equiv-conv: FUN_0033d1c0 ecx esi edx
-void FUN_0033d1c0(int arg, luaL_Buffer *b, lua_State *L);
+void FUN_0033d1c0(int arg, luaL_Buffer_33d400 *b, lua_State *L);
 void FUN_00212ed0(lua_State *L, int arg);
-void FUN_00339590(luaL_Buffer *b);
-void FUN_003394b0(luaL_Buffer *b, const char *s, unsigned int len);
-void FUN_00339540(luaL_Buffer *b);
+void FUN_00339590(luaL_Buffer_33d400 *b);
+void FUN_003394b0(luaL_Buffer_33d400 *b, const char *s, unsigned int len);
+void FUN_00339540(luaL_Buffer_33d400 *b);
 int FUN_00338e20(lua_State *L, const char *fmt, ...);
 
-struct Frame {
+struct Frame_33d400 {
     int unused;
     int hasprecision;
     const char *strfrmt_end;
@@ -37,7 +37,7 @@ struct Frame {
     unsigned int sfl;
     unsigned int l;
     char form[20];
-    luaL_Buffer b;
+    luaL_Buffer_33d400 b;
     int gap;
     char buff[120];
 };
@@ -45,7 +45,7 @@ struct Frame {
 int FUN_0033d400(lua_State *L)
 {
     unsigned int cookie = DAT_004d9968;
-    Frame f;
+    Frame_33d400 f;
     f.arg = 1;
     const char *strfrmt = FUN_00339df0(L, f.arg, &f.sfl);
     f.strfrmt_end = strfrmt + f.sfl;

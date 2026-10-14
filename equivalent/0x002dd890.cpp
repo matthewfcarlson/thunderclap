@@ -4,7 +4,7 @@ struct Reader {
     void FUN_002647e0(void *dst, int size, int count, int flag);
 };
 
-struct Device {
+struct Device_2dd890 {
     virtual void FUN_slot0(int w, int h, int bpp, int flag, unsigned int *palette);
     virtual void FUN_slot1();
     virtual void FUN_slot2(void *p);
@@ -18,7 +18,7 @@ struct Device {
     virtual void FUN_slot10();
 };
 
-struct ImageInfo {
+struct ImageInfo_2dd890 {
     char pad0[6];
     unsigned short numColors;
     unsigned char bpp;
@@ -33,7 +33,7 @@ void *FUN_00266e00(int a, int b);
 void FUN_00267090(void *p);
 
 // equiv-conv: FUN_002dd890 esi ebx stack
-void FUN_002dd890(ImageInfo *info, Reader *r, Device *dev)
+void FUN_002dd890(ImageInfo_2dd890 *info, Reader *r, Device_2dd890 *dev)
 {
     struct Frame {
         char pad0[9];

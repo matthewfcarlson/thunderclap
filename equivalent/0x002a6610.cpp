@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1194 inputs, branch coverage 16/16)
 // FUN_002a6610 @ 0x002a6610
 class Overlay;
-struct Vec3 {
+struct Vec3_2a6610 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Vec2 {
+struct Vec2_2a6610 {
     float x, y;
     float FUN_002a54e0();
 };
@@ -17,13 +17,13 @@ public:
     virtual void s1();
     virtual int type();
     virtual void s3();
-    virtual void direction(float v, Vec3 *out);
+    virtual void direction(float v, Vec3_2a6610 *out);
     char pad4[8 - 4];
     int subtype;
     void FUN_0028a1c0(float v, float *target);
 };
 
-class List {
+class List_2a6610 {
 public:
     char pad0[0x14];
     int count;
@@ -32,10 +32,10 @@ public:
 
 class Overlay {
 public:
-    List *FUN_00288a10(int flag);
+    List_2a6610 *FUN_00288a10(int flag);
 };
 
-class Controller {
+class Controller_2a6610 {
 public:
     virtual void s0();
     virtual void s1();
@@ -65,27 +65,27 @@ public:
     virtual Overlay *f25();
 };
 
-struct Settings {
+struct Settings_2a6610 {
     float sp;
     float su;
-    Vec3 dir;
-    Vec2 d;
+    Vec3_2a6610 dir;
+    Vec2_2a6610 d;
 };
 
-void FUN_002a5290(float v, unsigned int a, unsigned int b, unsigned int c, Settings *s);
+void FUN_002a5290(float v, unsigned int a, unsigned int b, unsigned int c, Settings_2a6610 *s);
 
-void FUN_002a6610(Controller *c, unsigned int a2, unsigned int a3, unsigned int a4)
+void FUN_002a6610(Controller_2a6610 *c, unsigned int a2, unsigned int a3, unsigned int a4)
 {
     struct Frame {
         float timeA;
         float timeB;
-        Settings s;
+        Settings_2a6610 s;
     } fr;
 
     float t = c->f13();
     fr.timeB = t;
     fr.timeA = t;
-    List *list = c->f25()->FUN_00288a10(0);
+    List_2a6610 *list = c->f25()->FUN_00288a10(0);
     fr.s.sp = 0.1f;
     fr.s.su = 0.1f;
     fr.s.dir.x = 1.0f;

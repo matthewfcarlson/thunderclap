@@ -2,24 +2,24 @@
 // FUN_00214ac0 @ 0x00214ac0
 // Lua 5.0 auxgetinfo: fills a lua_Debug according to the option letters in `what`.
 // what arrives in eax, ar in esi and ci in edi; L and f are on the stack.
-struct TObject {
+struct TObject_214ac0 {
     int tt;
     int value;
 };
 
-struct Closure {
+struct Closure_214ac0 {
     char pad0[7];
     unsigned char nupvalues;        // 7
 };
 
-struct lua_State {
+struct lua_State_214ac0 {
     char pad0[8];
-    TObject *top;                   // 8
+    TObject_214ac0 *top;                   // 8
 };
 
 struct CallInfo;
 
-struct lua_Debug {
+struct lua_Debug_214ac0 {
     int event;
     const char *name;               // 4
     const char *namewhat;           // 8
@@ -30,14 +30,14 @@ struct lua_Debug {
 };
 
 // equiv-conv: FUN_00214160 ecx eax
-void FUN_00214160(lua_Debug *ar, const TObject *f);
+void FUN_00214160(lua_Debug_214ac0 *ar, const TObject_214ac0 *f);
 // equiv-conv: FUN_00213f20 edx
 int FUN_00213f20(CallInfo *ci);
 // equiv-conv: FUN_00214840 ecx stack
 const char *__cdecl FUN_00214840(CallInfo *ci, const char **name);
 
 // equiv-conv: FUN_00214ac0 eax esi edi stack stack
-int __cdecl FUN_00214ac0(const char *what, lua_Debug *ar, CallInfo *ci, lua_State *L, const TObject *f)
+int __cdecl FUN_00214ac0(const char *what, lua_Debug_214ac0 *ar, CallInfo *ci, lua_State_214ac0 *L, const TObject_214ac0 *f)
 {
     int status = 1;
     for (; *what; what++) {
@@ -49,7 +49,7 @@ int __cdecl FUN_00214ac0(const char *what, lua_Debug *ar, CallInfo *ci, lua_Stat
             ar->currentline = ci ? FUN_00213f20(ci) : -1;
             break;
         case 'u':
-            ar->nups = ((Closure *)f->value)->nupvalues;
+            ar->nups = ((Closure_214ac0 *)f->value)->nupvalues;
             break;
         case 'n':
             ar->namewhat = ci ? FUN_00214840(ci, &ar->name) : 0;

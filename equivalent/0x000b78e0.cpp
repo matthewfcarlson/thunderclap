@@ -10,7 +10,7 @@ public:
     virtual void f0();
 };
 
-class Target {
+class Target_b78e0 {
 public:
     virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void f15(); virtual void f16(); virtual void f17(); virtual void f18(); virtual void f19(); virtual void f20(); virtual void f21(); virtual void f22(); virtual void f23(); virtual void f24(); virtual void f25(); virtual void f26(); virtual void f27(); virtual void f28(); virtual void f29(); virtual void f30(); virtual void f31(); virtual void f32(); virtual void f33(); virtual void f34(); virtual void f35(); virtual void f36(); virtual void f37(); virtual void f38(); virtual void f39(); virtual void f40(); virtual void f41(); virtual void f42(); virtual void f43(); virtual void f44(); virtual void f45(); virtual void f46(); virtual void f47(); virtual void f48();
     virtual void f49(int v);
@@ -27,14 +27,14 @@ public:
     virtual void u1();
 };
 
-struct Link8 {
+struct Link8_b78e0 {
     char pad0[4];
-    Target *target;          // 0x04
+    Target_b78e0 *target;          // 0x04
 };
 
 struct Link14 {
     char pad0[8];
-    Link8 *next;             // 0x08
+    Link8_b78e0 *next;             // 0x08
 };
 
 class TextSelector : public FEObject {
@@ -51,22 +51,22 @@ struct Store {
     CUnlockable *FUN_00092ad0(char *name);
 };
 
-struct Cursor {
+struct Cursor_b78e0 {
     void FUN_001be060();
 };
 
 FEObject *__cdecl FUN_000fc260(const char *name);
 
-class Screen {
+class Screen_b78e0 {
 public:
     char pad0[0x4c];
     Store *store;            // 0x4c
     char pad50[0x5c - 0x50];
-    Cursor *cursor;          // 0x5c
+    Cursor_b78e0 *cursor;          // 0x5c
     void FUN_000b78e0(const char *name);
 };
 
-void Screen::FUN_000b78e0(const char *name)
+void Screen_b78e0::FUN_000b78e0(const char *name)
 {
     if (store == 0)
         return;

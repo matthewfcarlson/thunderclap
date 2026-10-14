@@ -4,12 +4,12 @@ extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 
-struct V3 {
+struct V3_10ee40 {
     float x, y, z;
     float FUN_00018990();
 };
 
-class Gauge {
+class Gauge_10ee40 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -20,56 +20,56 @@ public:
     virtual float Value();
 };
 
-struct Level1 {
+struct Level1_10ee40 {
     char pad[0x70];
-    Gauge *gauge;
+    Gauge_10ee40 *gauge;
 };
 
-struct Level2 {
+struct Level2_10ee40 {
     char pad[0x10];
-    Level1 *next;
+    Level1_10ee40 *next;
 };
 
-class Unit {
+class Unit_10ee40 {
 public:
     char pad0[0xa0];
-    Level2 *state;
+    Level2_10ee40 *state;
     char pad4[0x1a1 - 0xa4];
     bool ready;
 
-    V3 *FUN_001d6b40();
+    V3_10ee40 *FUN_001d6b40();
 };
 
-struct Roster {
+struct Roster_10ee40 {
     int FUN_001dcf50();
-    Unit *FUN_001dc0b0(int index);
+    Unit_10ee40 *FUN_001dc0b0(int index);
 };
 
-struct Game {
+struct Game_10ee40 {
     char pad0[0xc];
-    Roster *roster;
+    Roster_10ee40 *roster;
 };
 
-struct Ref {
-    void FUN_00059a50(V3 *out);
+struct Ref_10ee40 {
+    void FUN_00059a50(V3_10ee40 *out);
 };
 
-struct Stats {
+struct Stats_10ee40 {
     char pad0[0x10];
-    Ref *ref;
+    Ref_10ee40 *ref;
     int FUN_00035f40();
 };
 
-struct Body {
-    Stats *FUN_00059a30();
+struct Body_10ee40 {
+    Stats_10ee40 *FUN_00059a30();
 };
 
-class Target {
+class Target_10ee40 {
 public:
-    Body *FUN_000592a0();
+    Body_10ee40 *FUN_000592a0();
 };
 
-extern Game *DAT_004dd700;
+extern Game_10ee40 *DAT_004dd700;
 
 namespace hulkfight {
 namespace ai {
@@ -82,7 +82,7 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual bool vfunc_6(void *a1, Target *target, void *a3);
+    virtual bool vfunc_6(void *a1, Target_10ee40 *target, void *a3);
 
     char pad04[8];
     int op;
@@ -95,15 +95,15 @@ public:
 }
 }
 
-bool hulkfight::ai::PropsToSuckCondition::vfunc_6(void *a1, Target *target, void *a3)
+bool hulkfight::ai::PropsToSuckCondition::vfunc_6(void *a1, Target_10ee40 *target, void *a3)
 {
     if (FUN_00344e74(target, 0, DAT_00494b44, DAT_00494b60, 0) == 0)
         return false;
-    Body *body = target->FUN_000592a0();
-    Stats *stats = body->FUN_00059a30();
+    Body_10ee40 *body = target->FUN_000592a0();
+    Stats_10ee40 *stats = body->FUN_00059a30();
     if (body == 0 || stats == 0)
         return false;
-    V3 pos;
+    V3_10ee40 pos;
     stats->ref->FUN_00059a50(&pos);
     if (byCount) {
         int n = stats->FUN_00035f40();
@@ -120,7 +120,7 @@ bool hulkfight::ai::PropsToSuckCondition::vfunc_6(void *a1, Target *target, void
     int i = 0;
     if (DAT_004dd700->roster->FUN_001dcf50() <= 0)
         return false;
-    Unit *u;
+    Unit_10ee40 *u;
     for (;;) {
         u = DAT_004dd700->roster->FUN_001dc0b0(i);
         if (u != 0 && u->state != 0 && u->state->next != 0 && u->state->next->gauge != 0 &&
@@ -130,8 +130,8 @@ bool hulkfight::ai::PropsToSuckCondition::vfunc_6(void *a1, Target *target, void
         if (!(i < DAT_004dd700->roster->FUN_001dcf50()))
             return false;
     }
-    V3 at = *u->FUN_001d6b40();
-    V3 d;
+    V3_10ee40 at = *u->FUN_001d6b40();
+    V3_10ee40 d;
     d.x = at.x - pos.x;
     d.y = at.y - pos.y;
     d.z = at.z - pos.z;

@@ -2,11 +2,11 @@
 // physics::PhysicsJoint1D::vfunc_12 @ 0x0030c110
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_30c110 {
     float x, y, z;
 };
 
-struct Part {
+struct Part_30c110 {
     char pad0[0x10];
     float h0;
     float h1;
@@ -14,19 +14,19 @@ struct Part {
     void FUN_002fd730();
 };
 
-struct Mid {
+struct Mid_30c110 {
     char pad0[0x8c];
-    Part *part;
+    Part_30c110 *part;
 };
 
 struct Gp {
     char pad0[0x1c];
-    V3 vec;
+    V3_30c110 vec;
 };
 
-struct Owner {
+struct Owner_30c110 {
     char pad0[0x10];
-    Mid *mid;
+    Mid_30c110 *mid;
     char pad14[8];
     Gp *gp;
 };
@@ -45,35 +45,35 @@ public:
     virtual void v9();
     virtual void v10();
     virtual void v11();
-    virtual void vfunc_12(float a1, float a2, float a3, float a4, V3 *e, V3 *f, float a7);
+    virtual void vfunc_12(float a1, float a2, float a3, float a4, V3_30c110 *e, V3_30c110 *f, float a7);
 
     char pad4[0x14];
-    Owner *owner;
+    Owner_30c110 *owner;
     char pad1c[0x80 - 0x1c];
-    V3 bAxis;
+    V3_30c110 bAxis;
     char pad8c[0xe4 - 0x8c];
     float k;
     char padE8[0xfc - 0xe8];
-    V3 aAxis;
+    V3_30c110 aAxis;
     char pad108[0x10c - 0x108];
     float accum;
 
     float FUN_0030b2c0(float x);
 };
 
-void PhysicsJoint1D::vfunc_12(float a1, float a2, float a3, float a4, V3 *e, V3 *f, float a7)
+void PhysicsJoint1D::vfunc_12(float a1, float a2, float a3, float a4, V3_30c110 *e, V3_30c110 *f, float a7)
 {
     float cx = aAxis.y * bAxis.z - aAxis.z * bAxis.y;
     float cy = aAxis.z * bAxis.x - aAxis.x * bAxis.z;
     float cz = aAxis.x * bAxis.y - aAxis.y * bAxis.x;
     float len = (float)sqrt(cz * cz + cy * cy + cx * cx);
-    Owner *o = owner;
+    Owner_30c110 *o = owner;
     float t5 = -((cz * e->z + cx * e->x + cy * e->y) * a1);
     float t6 = -((cz * f->z + cy * f->y + cx * f->x) * a2);
-    V3 *g = &o->gp->vec;
+    V3_30c110 *g = &o->gp->vec;
     float t1 = (cz * g->z + cy * g->y + cx * g->x) * a3;
     if (a4 != 0.0f) {
-        Part *p = o->mid->part;
+        Part_30c110 *p = o->mid->part;
         p->FUN_002fd730();
         if (p->h0 * p->h0 + p->h1 * p->h1 + p->h2 * p->h2 > 0.00001f) {
             p = owner->mid->part;

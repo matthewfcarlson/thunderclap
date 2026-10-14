@@ -2,7 +2,7 @@
 // FUN_000b77c0 @ 0x000b77c0
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
-class Settings {
+class Settings_b77c0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -51,7 +51,7 @@ public:
     virtual int GetLanguage();
 };
 
-struct Lookup {
+struct Lookup_b77c0 {
     char data[0x24];
     void FUN_000f7930();
     void FUN_000f7960();
@@ -59,13 +59,13 @@ struct Lookup {
     const unsigned short *FUN_000f83f0(int language, int flag);
 };
 
-Settings *__cdecl FUN_000fc3d0();
+Settings_b77c0 *__cdecl FUN_000fc3d0();
 int __cdecl FUN_00294b80(const unsigned short *s);
 
 // Looks the key up in the string table and copies the localised text into buf if it fits.
 bool __stdcall FUN_000b77c0(int key, unsigned short *buf, int maxLength, int unused)
 {
-    Lookup lookup;
+    Lookup_b77c0 lookup;
     lookup.FUN_000f7930();
     lookup.FUN_000f8500(key, FUN_000fc3d0()->GetLanguage(), 1);
     const unsigned short *text = lookup.FUN_000f83f0(FUN_000fc3d0()->GetLanguage(), 0);

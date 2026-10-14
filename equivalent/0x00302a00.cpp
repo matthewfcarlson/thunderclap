@@ -2,7 +2,7 @@
 // FUN_00302a00 @ 0x00302a00
 struct Node;
 
-struct NodeList {
+struct NodeList_302a00 {
     Node **begin;
     Node **end;
 };
@@ -17,15 +17,15 @@ public:
     virtual void v5();
     virtual int type();
     char pad4[0x14 - 4];
-    NodeList *children;
+    NodeList_302a00 *children;
 };
 
-struct Query {
+struct Query_302a00 {
     char pad0[0xc];
     float limit;
 };
 
-union Slot {
+union Slot_302a00 {
     Node *node;
     float best;
 };
@@ -37,23 +37,23 @@ float FUN_00302480(Node *node, int a3);
 
 extern float DAT_004d2f14;
 
-class Solver {
+class Solver_302a00 {
 public:
-    char FUN_00302720(Query *q, float v);
-    char FUN_00302a00(Query *q, Slot arg, int a3);
+    char FUN_00302720(Query_302a00 *q, float v);
+    char FUN_00302a00(Query_302a00 *q, Slot_302a00 arg, int a3);
 };
 
-char Solver::FUN_00302a00(Query *q, Slot arg, int a3)
+char Solver_302a00::FUN_00302a00(Query_302a00 *q, Slot_302a00 arg, int a3)
 {
     Node *node = arg.node;
-    NodeList *list = node->children;
+    NodeList_302a00 *list = node->children;
 
     if (list != 0 && (((int)list->end - (int)list->begin) & ~3) != 0) {
         arg.best = DAT_004d2f14;
         unsigned int n = (unsigned int)(((int)list->end - (int)list->begin) >> 2);
         unsigned int i = 0;
         while (i < n) {
-            Slot child;
+            Slot_302a00 child;
             child.node = node->children->begin[i];
             if (FUN_00302a00(q, child, a3) == 1)
                 return 1;

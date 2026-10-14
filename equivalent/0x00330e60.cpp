@@ -7,9 +7,9 @@ extern unsigned int DAT_0039db08, DAT_0039db90, DAT_0039db94, DAT_0039db98, DAT_
 struct Light { char pad0[4]; float color[4]; char pad1[44]; float direction[4]; char pad2[24]; };
 namespace D3D8 { void __stdcall D3DDevice_GetLight(int,Light*); void __fastcall D3DDevice_SetVertexShaderConstant1(int,const float*); void __stdcall D3DDevice_SetRenderState_CullMode(int); void __stdcall D3DDevice_SetRenderState_ZEnable(int); }
 namespace pure3d {
-struct LightManager { void FUN_00321dc0(int*,int); };
+struct LightManager_330e60 { void FUN_00321dc0(int*,int); };
 struct ShaderContext { char pad[44]; int mode; void FUN_0032a920(int,unsigned int,unsigned int,int,int); void FUN_00329e50(int,int,int,int); void FUN_00329c90(int,int); };
-struct d3dToonVertexShader { char pad0[16]; LightManager* lightManager; ShaderContext* context; char pad18[32]; int fade; char pad3c[20]; unsigned int color; char pad54[41]; unsigned char alternate; char pad7e[22]; unsigned int vertexShader; unsigned int pixelShader; unsigned int backColor; char pad_a0[64]; int toonMode; char pad_e4[4]; unsigned int edgeValue;
+struct d3dToonVertexShader { char pad0[16]; LightManager_330e60* lightManager; ShaderContext* context; char pad18[32]; int fade; char pad3c[20]; unsigned int color; char pad54[41]; unsigned char alternate; char pad7e[22]; unsigned int vertexShader; unsigned int pixelShader; unsigned int backColor; char pad_a0[64]; int toonMode; char pad_e4[4]; unsigned int edgeValue;
  void FUN_00330de0(); void FUN_00333770(int); void FUN_0032a320(int,int); void FUN_0032a2d0(); void FUN_0032a260(); void vfunc_14(int edge);
 };
 void d3dToonVertexShader::vfunc_14(int edge) {

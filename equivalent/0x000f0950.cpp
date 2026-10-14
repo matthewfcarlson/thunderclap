@@ -4,7 +4,7 @@
 extern int __cdecl FUN_0034483c();
 extern "C" int __cdecl memcmp(const void *a, const void *b, unsigned n);
 
-class Args {
+class Args_f0950 {
 public:
     virtual void v0();
     virtual int GetType();
@@ -23,7 +23,7 @@ public:
     int FUN_000fb110();
 };
 
-class Obj {
+class Obj_f0950 {
 public:
     char pad0[0xab8];
     char flag;
@@ -92,10 +92,10 @@ public:
     int result;
     char pad858[0x9dc - 0x858];
     char field9dc[4];
-    void FUN_000e55e0(Obj *o);
+    void FUN_000e55e0(Obj_f0950 *o);
 };
 
-class Dummy {};
+class Dummy_f0950 {};
 
 class FEThingsBase {
 public:
@@ -103,7 +103,7 @@ public:
     public:
         virtual void vfunc_0(int a, int b);
         FEThingsBase *mObj;
-        void (FEThingsBase::*mFn)(Param *, int, Entity *, Args *);
+        void (FEThingsBase::*mFn)(Param *, int, Entity *, Args_f0950 *);
         int mC;
         Entity *mD;
     };
@@ -142,26 +142,26 @@ public:
     virtual void v31();
     virtual void v32();
     virtual void v33();
-    virtual char v34(Param *p, Args *a, ParseFunctor *f);
+    virtual char v34(Param *p, Args_f0950 *a, ParseFunctor *f);
     virtual void v35();
     virtual void v36();
-    virtual char v37(Param *p, Entity *d, Args *a);
+    virtual char v37(Param *p, Entity *d, Args_f0950 *a);
     virtual void v38();
-    virtual char v39(Param *p, char *q, Args *a);
+    virtual char v39(Param *p, char *q, Args_f0950 *a);
     char pad[0x2105 - 4];
     char buf2105[1];
 
-    Obj *FUN_000efca0(char *s, int v);
-    void FUN_000e8070(Param *p, int z, Obj *o, int v);
-    void FUN_000f0950(Param *param, int c, Entity *d, Args *args);
+    Obj_f0950 *FUN_000efca0(char *s, int v);
+    void FUN_000e8070(Param *p, int z, Obj_f0950 *o, int v);
+    void FUN_000f0950(Param *param, int c, Entity *d, Args_f0950 *args);
 };
 
-void FEThingsBase::FUN_000f0950(Param *param, int c, Entity *d, Args *args)
+void FEThingsBase::FUN_000f0950(Param *param, int c, Entity *d, Args_f0950 *args)
 {
     int type = args->GetType();
     if (type == 0x16082730) {
         char *name = param->FUN_000fad90();
-        Obj *o = FUN_000efca0(name, d->v35());
+        Obj_f0950 *o = FUN_000efca0(name, d->v35());
         o->FUN_000e4610(buf2105);
         if (param->FUN_000f9e90()) {
             if (memcmp(param->FUN_000fad90(), "hide", 5) == 0)

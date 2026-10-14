@@ -2,10 +2,10 @@
 // FUN_002171c0 @ 0x002171c0
 struct Node { Node* next; unsigned char type; unsigned char flags; char pad[0x42]; Node* child; };
 struct Context { char pad[0x14]; unsigned int flags; Node* tail; };
-struct Owner { char pad[0x10]; Context* context; };
+struct Owner_2171c0 { char pad[0x10]; Context* context; };
 // equiv-conv: FUN_00216d30 eax ecx
-void FUN_00216d30(Node* node, Owner* owner);
-Node** __cdecl FUN_002171c0(Owner* owner, Node** link, int mode, int* budget, int* count) {
+void FUN_00216d30(Node* node, Owner_2171c0* owner);
+Node** __cdecl FUN_002171c0(Owner_2171c0* owner, Node** link, int mode, int* budget, int* count) {
  Context* context=owner->context;
  unsigned int mask=context->flags ^ 3;
  int remaining=*budget;

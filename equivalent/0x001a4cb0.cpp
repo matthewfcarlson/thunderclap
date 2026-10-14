@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 124 inputs, branch coverage 28/28)
 // FUN_001a4cb0 @ 0x001a4cb0
 extern "C" unsigned int strlen(const char *);
-struct Entry {
+struct Entry_1a4cb0 {
     const char *name;
     char pad[12];
 };
-struct Table {
+struct Table_1a4cb0 {
     char pad0[0x60];
-    Entry entries[20];
+    Entry_1a4cb0 entries[20];
 };
-const char *FUN_001a4cb0(Table *t, unsigned int idx)
+const char *FUN_001a4cb0(Table_1a4cb0 *t, unsigned int idx)
 {
     const char *s = 0;
     if (idx < 20)

@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 17/18, incomplete)
 // FUN_0033c590 @ 0x0033c590
 // Lua 5.0 lstrlib max_expand
-struct MatchState {
+struct MatchState_33c590 {
     const char *src_init;
     const char *src_end;
     void *L;
     int level;
 };
 
-const char *FUN_0033c7e0(MatchState *ms, const char *s, const char *p);
+const char *FUN_0033c7e0(MatchState_33c590 *ms, const char *s, const char *p);
 // equiv-conv: FUN_0033c430 ebx eax stack
 int FUN_0033c430(int c, const char *p, const char *ec);
 // equiv-conv: FUN_0033c320 eax edi
 int FUN_0033c320(int c, int cl);
 
 // equiv-conv: FUN_0033c590 eax stack stack stack
-const char *FUN_0033c590(const char *p, MatchState *ms, const char *s, const char *ep)
+const char *FUN_0033c590(const char *p, MatchState_33c590 *ms, const char *s, const char *ep)
 {
     int i = 0;
     while (s + i < ms->src_end) {

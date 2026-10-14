@@ -3,22 +3,22 @@
 extern "C" void __cdecl qsort(void *base, unsigned int count, unsigned int size,
                               int (__cdecl *cmp)(const void *, const void *));
 
-struct Item {
+struct Item_1cbfe0 {
     int pad0;
     int type;
     char pad1[0xe0 - 8];
 };
 
-struct Event {
+struct Event_1cbfe0 {
     int words[6];
     void FUN_001caf10(float dt);
 };
 
-class Task {
+class Task_1cbfe0 {
 public:
     virtual void vf0();
     virtual void vf1();
-    Task *FUN_001d0360(const Item *item);
+    Task_1cbfe0 *FUN_001d0360(const Item_1cbfe0 *item);
     char pad[0xf0 - 4];
 };
 
@@ -32,12 +32,12 @@ public:
     virtual void vf5();
     virtual void vf6();
     virtual void vf7();
-    virtual Node *vf8(Task *task, int arg);
+    virtual Node *vf8(Task_1cbfe0 *task, int arg);
     char FUN_00232ed0(Node *other);
-    Node *FUN_00231a00(Task *task);
+    Node *FUN_00231a00(Task_1cbfe0 *task);
 };
 
-class Slot {
+class Slot_1cbfe0 {
 public:
     void FUN_002322f0(int a, float dt);
     void FUN_00231f20(int a);
@@ -45,7 +45,7 @@ public:
     char pad[0x28];
 };
 
-class Notifier {
+class Notifier_1cbfe0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -141,32 +141,32 @@ public:
     virtual void v91();
 };
 
-extern Notifier *DAT_0052c2a8;
+extern Notifier_1cbfe0 *DAT_0052c2a8;
 int __cdecl FUN_00266da0(int value);
 void *__cdecl FUN_0008d690(unsigned int size);
-int __cdecl FUN_001cb3a0(const Item *a, const Item *b);
+int __cdecl FUN_001cb3a0(const Item_1cbfe0 *a, const Item_1cbfe0 *b);
 
-struct ItemVec {
-    Item *begin;
-    Item *end;
-    void FUN_001cbd40(Item *first, Item *last);
+struct ItemVec_1cbfe0 {
+    Item_1cbfe0 *begin;
+    Item_1cbfe0 *end;
+    void FUN_001cbd40(Item_1cbfe0 *first, Item_1cbfe0 *last);
 };
 
 class ItemQueue {
 public:
     void FUN_001cbfe0(float dt);
-    bool FUN_001cbc20(Event *ev);
-    char FUN_001cb400(Item *item);
-    unsigned int FUN_001cb7c0(Node *node, Task *task);
+    bool FUN_001cbc20(Event_1cbfe0 *ev);
+    char FUN_001cb400(Item_1cbfe0 *item);
+    unsigned int FUN_001cb7c0(Node *node, Task_1cbfe0 *task);
     char FUN_001cbcb0(float dt);
 
     char pad0[0xc];
-    ItemVec vec;
+    ItemVec_1cbfe0 vec;
     char pad1[8];
     char sorted;
     char pad2[3];
     Node *owner;
-    Slot slots[24];
+    Slot_1cbfe0 slots[24];
     char free[24];
     char active;
     char pad3[3];
@@ -177,24 +177,24 @@ void ItemQueue::FUN_001cbfe0(float dt)
 {
     int old = FUN_00266da0(0xd);
     if (active && dt > 0.0f) {
-        Event ev;
+        Event_1cbfe0 ev;
         ev.FUN_001caf10(dt);
         FUN_001cbc20(&ev);
     }
     for (int i = 0; i < 24; i++)
         free[i] = 1;
     qsort(vec.begin, vec.end - vec.begin, 0xe0, (int (__cdecl *)(const void *, const void *))FUN_001cb3a0);
-    Item *last = vec.end;
+    Item_1cbfe0 *last = vec.end;
     if (last != vec.begin) {
         if (sorted) {
-            Item *item = last;
+            Item_1cbfe0 *item = last;
             do {
                 item = item - 1;
                 if (!FUN_001cb400(item)) {
                     void *mem = FUN_0008d690(0xf0);
-                    Task *task;
+                    Task_1cbfe0 *task;
                     if (mem)
-                        task = ((Task *)mem)->FUN_001d0360(item);
+                        task = ((Task_1cbfe0 *)mem)->FUN_001d0360(item);
                     else
                         task = 0;
                     task->vf0();
@@ -226,7 +226,7 @@ void ItemQueue::FUN_001cbfe0(float dt)
                 }
             } while (item != vec.begin);
         }
-        Item *p = last;
+        Item_1cbfe0 *p = last;
         do {
             p = p - 1;
             if (p->type == 2)

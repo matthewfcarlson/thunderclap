@@ -1,33 +1,33 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CMotionClimbAngleCondition::vfunc_7 @ 0x0004dc60
-struct Vec3 {
+struct Vec3_4dc60 {
     float x, y, z;
-    bool FUN_0022d2b0(const Vec3* other, float epsilon);
+    bool FUN_0022d2b0(const Vec3_4dc60* other, float epsilon);
     float FUN_0022d110();
-    void FUN_000111b0(const Vec3* a, const Vec3* b);
+    void FUN_000111b0(const Vec3_4dc60* a, const Vec3_4dc60* b);
 };
 
-struct Stats {
+struct Stats_4dc60 {
     char pad0[0x1ae0];
-    Vec3 aimB;
+    Vec3_4dc60 aimB;
     char pad1aec[0x1af8 - 0x1aec];
-    Vec3 aimA;
-    bool FUN_000356c0(Vec3* out);
+    Vec3_4dc60 aimA;
+    bool FUN_000356c0(Vec3_4dc60* out);
 };
 
 void* __fastcall FUN_000592a0(void* params);
-Stats* __fastcall FUN_00059a30(void* owner);
+Stats_4dc60* __fastcall FUN_00059a30(void* owner);
 extern "C" float FUN_00018a20(float v);
 extern "C" float FUN_00224fc0(float a, float b);
 
-union FloatBits {
+union FloatBits_4dc60 {
     float f;
     unsigned int u;
 };
 
 static float AbsF(float v)
 {
-    FloatBits b;
+    FloatBits_4dc60 b;
     b.f = v;
     b.u &= 0x7fffffff;
     return b.f;
@@ -49,18 +49,18 @@ public:
     float minLength;
 };
 
-struct Frame {
+struct Frame_4dc60 {
     float a;
-    Vec3 dir;
-    Vec3 vel;
-    Vec3 tmp; // zero / up / scaled-correction temp share one slot
-    Vec3 cross;
+    Vec3_4dc60 dir;
+    Vec3_4dc60 vel;
+    Vec3_4dc60 tmp; // zero / up / scaled-correction temp share one slot
+    Vec3_4dc60 cross;
 };
 
 bool CMotionClimbAngleCondition::vfunc_7(void* params)
 {
-    Stats* stats = FUN_00059a30(FUN_000592a0(params));
-    Frame f;
+    Stats_4dc60* stats = FUN_00059a30(FUN_000592a0(params));
+    Frame_4dc60 f;
 
     f.dir = stats->aimA;
     f.tmp.x = 0.0f;

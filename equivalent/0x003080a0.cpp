@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 129 inputs, branch coverage 28/29, incomplete)
 // FUN_003080a0 @ 0x003080a0
-struct V3 {
+struct V3_3080a0 {
     float x, y, z;
 };
 
@@ -17,7 +17,7 @@ struct Reader {
     unsigned short FUN_00201750();
 };
 
-struct Vec {
+struct Vec_3080a0 {
     int a;
     int b;
     int c;
@@ -29,29 +29,29 @@ struct Node {
     int f08;
     int f0c;
     char pad10[4];
-    Vec* children;
+    Vec_3080a0* children;
     void FUN_00306600(int a);
     void FUN_00306930(Node* child);
 };
 
-struct NodeA : Node {
+struct NodeA_3080a0 : Node {
     char pad18[0x48 - 0x18];
-    Node* FUN_002efe50(V3* pos, int d);
+    Node* FUN_002efe50(V3_3080a0* pos, int d);
 };
 
-struct NodeB : Node {
+struct NodeB_3080a0 : Node {
     char pad18[0x8c - 0x18];
-    Node* FUN_002f3070(V3* a, V3* b, int r2, int r1, int flag);
+    Node* FUN_002f3070(V3_3080a0* a, V3_3080a0* b, int r2, int r1, int flag);
 };
 
-struct NodeC : Node {
+struct NodeC_3080a0 : Node {
     char pad18[0xbc - 0x18];
-    Node* FUN_002fbed0(V3* a, int* tri, V3* b, V3* c, V3* d);
+    Node* FUN_002fbed0(V3_3080a0* a, int* tri, V3_3080a0* b, V3_3080a0* c, V3_3080a0* d);
 };
 
 struct NodeD : Node {
     char pad18[0x60 - 0x18];
-    Node* FUN_0030e630(V3* a, V3* b);
+    Node* FUN_0030e630(V3_3080a0* a, V3_3080a0* b);
 };
 
 struct NodeE : Node {
@@ -61,9 +61,9 @@ struct NodeE : Node {
 
 void* FUN_0008d690(unsigned int size);
 Node* __cdecl FUN_003078a0(Reader* r);
-void __cdecl FUN_00307810(Reader* r, V3* out);
+void __cdecl FUN_00307810(Reader* r, V3_3080a0* out);
 
-struct Frame {
+struct Frame_3080a0 {
     int scratch;
     union {
         int d;
@@ -72,18 +72,18 @@ struct Frame {
     } u4;
     union {
         int a;
-        Vec* vec;
+        Vec_3080a0* vec;
     } u8;
     int b;
     int c;
     int r1;
     int tri[3];
-    V3 v[9];
+    V3_3080a0 v[9];
 };
 
 Node* __cdecl FUN_003080a0(Reader* r)
 {
-    Frame f;
+    Frame_3080a0 f;
     r->stream->FUN_002647e0(&f.u8.a, 1, 4, 1);
     r->stream->FUN_002647e0(&f.b, 1, 4, 1);
     r->stream->FUN_002647e0(&f.c, 1, 4, 1);
@@ -99,7 +99,7 @@ Node* __cdecl FUN_003080a0(Reader* r)
             obj = 0;
             break;
         }
-        obj = ((NodeA*)mem)->FUN_002efe50(&f.v[0], f.u4.d);
+        obj = ((NodeA_3080a0*)mem)->FUN_002efe50(&f.v[0], f.u4.d);
         break;
     }
     case 0x07010003: {
@@ -113,7 +113,7 @@ Node* __cdecl FUN_003080a0(Reader* r)
             obj = 0;
             break;
         }
-        obj = ((NodeB*)mem)->FUN_002f3070(&f.v[3], &f.v[5], f.scratch, f.r1, f.u4.word);
+        obj = ((NodeB_3080a0*)mem)->FUN_002f3070(&f.v[3], &f.v[5], f.scratch, f.r1, f.u4.word);
         break;
     }
     case 0x07010004: {
@@ -132,7 +132,7 @@ Node* __cdecl FUN_003080a0(Reader* r)
             obj = 0;
             break;
         }
-        obj = ((NodeC*)mem)->FUN_002fbed0(&f.v[4], f.tri, &f.v[2], &f.v[1], &f.v[7]);
+        obj = ((NodeC_3080a0*)mem)->FUN_002fbed0(&f.v[4], f.tri, &f.v[2], &f.v[1], &f.v[7]);
         break;
     }
     case 0x07010005: {
@@ -167,7 +167,7 @@ Node* __cdecl FUN_003080a0(Reader* r)
     obj->f0c = f.b;
     if (count > 0) {
         void* mem = FUN_0008d690(0x10);
-        Vec* vec = (Vec*)mem;
+        Vec_3080a0* vec = (Vec_3080a0*)mem;
         f.u8.vec = vec;
         if (mem != 0) {
             vec->a = 0;

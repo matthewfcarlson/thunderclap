@@ -7,7 +7,7 @@ struct Node {
     unsigned char red;
 };
 
-struct Tree {
+struct Tree_230c30 {
     Node *root;
     Node nil;
     int count;
@@ -15,7 +15,7 @@ struct Tree {
     void Insert(Node *node, int (__cdecl *cmp)(Node *, Node *), Node *parent);
 };
 
-void Tree::Insert(Node *node, int (__cdecl *cmp)(Node *, Node *), Node *parent)
+void Tree_230c30::Insert(Node *node, int (__cdecl *cmp)(Node *, Node *), Node *parent)
 {
     Node *nil = &this->nil;
     node->parent = parent;

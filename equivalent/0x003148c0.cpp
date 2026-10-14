@@ -2,13 +2,13 @@
 // FUN_003148c0 @ 0x003148c0
 extern "C" double sqrt(double);
 
-struct V3 { float v[3]; };
+struct V3_3148c0 { float v[3]; };
 
-int __cdecl FUN_00305a40(V3 *dir, int mode);
+int __cdecl FUN_00305a40(V3_3148c0 *dir, int mode);
 
 // Solves for the point where two planes' constraints meet along the plane
 // orthogonal to the dominant axis of the cross product of a3 and a4.
-bool __stdcall FUN_003148c0(V3 *a1, V3 *a2, V3 *a3, V3 *a4, V3 *result, V3 *axisDir, bool computeAxis)
+bool __stdcall FUN_003148c0(V3_3148c0 *a1, V3_3148c0 *a2, V3_3148c0 *a3, V3_3148c0 *a4, V3_3148c0 *result, V3_3148c0 *axisDir, bool computeAxis)
 {
     if (computeAxis) {
         // all three components are computed before any is stored (the output may alias the inputs)

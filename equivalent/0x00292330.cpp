@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00292330 @ 0x00292330
-struct Settings {
+struct Settings_292330 {
     unsigned width;
     unsigned height;
     unsigned depth;
@@ -19,7 +19,7 @@ struct Settings {
     unsigned char option4;
     void FUN_00292330();
 };
-void Settings::FUN_00292330() {
+void Settings_292330::FUN_00292330() {
     width = 640;
     height = 480;
     depth = 32;

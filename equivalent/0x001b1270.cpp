@@ -1,60 +1,60 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3064 inputs, branch coverage 50/56, incomplete)
 // FUN_001b1270 @ 0x001b1270
-struct Vec3 {
+struct Vec3_1b1270 {
     float x, y, z;
 };
 
-struct Body {
+struct Body_1b1270 {
     char pad00[0x50];
-    Vec3 vel;
+    Vec3_1b1270 vel;
 };
 
-struct Contact {
+struct Contact_1b1270 {
     char pad00[0x18];
-    Vec3 f18;
+    Vec3_1b1270 f18;
     char pad24[0x2c - 0x24];
-    Vec3 f2c;
-    Vec3 f38;
+    Vec3_1b1270 f2c;
+    Vec3_1b1270 f38;
 };
 
-struct Slot {
+struct Slot_1b1270 {
     unsigned __int64 FUN_001d4f70();
     int FUN_001d5e80(int id);
 };
 
-struct Joint {
-    char FUN_001b6e90(Body* other);
-    void FUN_001b6e60(Body* other);
+struct Joint_1b1270 {
+    char FUN_001b6e90(Body_1b1270* other);
+    void FUN_001b6e60(Body_1b1270* other);
 };
 
-struct Sink {
+struct Sink_1b1270 {
     void FUN_001cbd10(const char* name);
 };
 
-struct Game {
+struct Game_1b1270 {
     char pad00[0x30];
-    Sink* sink;
+    Sink_1b1270* sink;
 };
 
-extern Game* DAT_004dd700;
+extern Game_1b1270* DAT_004dd700;
 extern unsigned __int64 DAT_004e1828;
 
-struct Actor {
+struct Actor_1b1270 {
     char pad00[0x40];
     int id;
     char pad44[0xec - 0x44];
-    Slot* slot;
+    Slot_1b1270* slot;
     char padf0[0x118 - 0xf0];
     int f118;
     char pad11c[0x1a4 - 0x11c];
-    Joint joint;
-    char pad1a4[0x1c9 - 0x1a4 - sizeof(Joint)];
+    Joint_1b1270 joint;
+    char pad1a4[0x1c9 - 0x1a4 - sizeof(Joint_1b1270)];
     char flag;
     int FUN_001d72e0();
     int FUN_001d73f0();
     float FUN_001d6670();
     float FUN_001afb00();
-    void FUN_001d66b0(Vec3* a, Vec3* b);
+    void FUN_001d66b0(Vec3_1b1270* a, Vec3_1b1270* b);
     void FUN_001d6ec0(int a, int b, int c);
     void FUN_001d8d90(int v);
     void FUN_001d71e0(int v);
@@ -62,7 +62,7 @@ struct Actor {
 
 extern "C" int __cdecl FUN_0034483c();
 
-int __stdcall FUN_001b1270(Actor* a, Actor* b, Vec3* v, Contact* c, Body* bodyA, Body* bodyB)
+int __stdcall FUN_001b1270(Actor_1b1270* a, Actor_1b1270* b, Vec3_1b1270* v, Contact_1b1270* c, Body_1b1270* bodyA, Body_1b1270* bodyB)
 {
     if (!(v->x * v->x + v->y * v->y + v->z * v->z > 25.0f))
         return 0;
@@ -81,7 +81,7 @@ int __stdcall FUN_001b1270(Actor* a, Actor* b, Vec3* v, Contact* c, Body* bodyA,
     }
     if (a->slot->FUN_001d4f70() == DAT_004e1828 || b->slot->FUN_001d4f70() == DAT_004e1828)
         DAT_004dd700->sink->FUN_001cbd10("golf_stroke");
-    Actor* heavy = sqA > sqB ? a : b;
+    Actor_1b1270* heavy = sqA > sqB ? a : b;
     float mult = heavy->FUN_001afb00();
     int aN = a->FUN_001d73f0();
     int bN = b->FUN_001d73f0();
@@ -104,7 +104,7 @@ int __stdcall FUN_001b1270(Actor* a, Actor* b, Vec3* v, Contact* c, Body* bodyA,
     bool is2B = kB == 2;
     b->FUN_001d6ec0((int)(fB * mult), a->f118, 0);
     if (a->flag) {
-        Vec3 neg = c->f18;
+        Vec3_1b1270 neg = c->f18;
         neg.x = neg.x * -1.0f;
         neg.y = neg.y * -1.0f;
         neg.z = neg.z * -1.0f;

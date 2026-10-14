@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000b5030 @ 0x000b5030
-struct Slot { void FUN_00086420(); };
-struct Holder { Slot *FUN_00086270(int a); };
-struct Globals {
+struct Slot_b5030 { void FUN_00086420(); };
+struct Holder_b5030 { Slot_b5030 *FUN_00086270(int a); };
+struct Globals_b5030 {
     char pad00[0x54];
-    Holder *holder;
+    Holder_b5030 *holder;
 };
-extern Globals *DAT_004dd700;
+extern Globals_b5030 *DAT_004dd700;
 
-struct Target { void FUN_0008ffe0(); };
+struct Target_b5030 { void FUN_0008ffe0(); };
 
-struct Panel {
+struct Panel_b5030 {
     void FUN_000895c0(int a);
     void FUN_00089830(const char *name);
     bool FUN_000893c0();
@@ -19,17 +19,17 @@ struct Panel {
     void FUN_00089300(const char *name);
 };
 
-class Screen {
+class Screen_b5030 {
 public:
     char pad00[0x34];
-    Panel *panel;
+    Panel_b5030 *panel;
     char pad38[0x50 - 0x38];
-    Target *target;
+    Target_b5030 *target;
     void *FUN_000b4cf0(const char *name);
     void FUN_000b5030(int a);
 };
 
-void Screen::FUN_000b5030(int a)
+void Screen_b5030::FUN_000b5030(int a)
 {
     if (!panel)
         return;

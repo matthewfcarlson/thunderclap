@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00019380 @ 0x00019380
 // CCollisionAction::CCollisionAction @ 0x00019380
-struct Ref {
+struct Ref_19380 {
     virtual void AddRef();
     virtual void Release();
 };
 
-struct Owner {
+struct Owner_19380 {
     char pad00[0xe0];
     float x;
     float y;
@@ -21,11 +21,11 @@ struct FUN_00232660 {
 
 class CAction : public FUN_00232660 {
 public:
-    Ref *target;
-    Owner *owner;
+    Ref_19380 *target;
+    Owner_19380 *owner;
     int param;
     char pad28[0x34 - 0x28];
-    CAction(Owner *o, Ref *t, int p) {
+    CAction(Owner_19380 *o, Ref_19380 *t, int p) {
         target = 0;
         if (t)
             t->AddRef();
@@ -45,12 +45,12 @@ public:
     int f3c;
     float y;
     float z;
-    Ref *source;
-    CCollisionAction(Ref *s, Owner *o, Ref *t, int p);
+    Ref_19380 *source;
+    CCollisionAction(Ref_19380 *s, Owner_19380 *o, Ref_19380 *t, int p);
     virtual void v1();
 };
 
-CCollisionAction::CCollisionAction(Ref *s, Owner *o, Ref *t, int p) : CAction(o, t, p)
+CCollisionAction::CCollisionAction(Ref_19380 *s, Owner_19380 *o, Ref_19380 *t, int p) : CAction(o, t, p)
 {
     f34 = 0;
     f38 = 0;

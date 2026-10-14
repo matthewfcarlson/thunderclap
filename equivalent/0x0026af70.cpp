@@ -2,14 +2,14 @@
 // FUN_0026af70 @ 0x0026af70
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 // equiv-conv: FUN_0026af70 eax stack stack
-typedef unsigned int uint;
-extern "C" unsigned char __cdecl FUN_00271820(const char* text, uint* bytes, uint* other, int mode);
+typedef unsigned int uint_26af70;
+extern "C" unsigned char __cdecl FUN_00271820(const char* text, uint_26af70* bytes, uint_26af70* other, int mode);
 
-int __cdecl FUN_0026af70(const char* source, char* destination, uint capacity)
+int __cdecl FUN_0026af70(const char* source, char* destination, uint_26af70 capacity)
 {
-    uint copied = 0;
-    uint bytes;
-    uint other;
+    uint_26af70 copied = 0;
+    uint_26af70 bytes;
+    uint_26af70 other;
     while (*source) {
         if (!FUN_00271820(source, &bytes, &other, 0))
             return -1;

@@ -7,10 +7,10 @@ struct Node {
  virtual int count();
  virtual Node* child(int index);
 };
-struct Frame { Node* node; int index; };
+struct Frame_f6460 { Node* node; int index; };
 struct Traversal {
  int reserved;
- Frame frames[128];
+ Frame_f6460 frames[128];
  int depth;
  Node* current;
  int index;

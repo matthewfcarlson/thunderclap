@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 376 inputs, branch coverage 14/14)
 // FUN_000662b0 @ 0x000662b0
 struct Entity { char pad[0x1b0c]; float value; char pad2[0x94]; unsigned char active; };
-struct Manager { Entity* FUN_00024280(unsigned int a, unsigned int b); };
-struct Global { char pad[0x20]; Manager* manager; };
-extern Global* DAT_004dd700;
-struct Entry { unsigned int a,b; };
-struct Object { char pad[0x170]; Entry entries[40]; int count; bool FUN_000662b0(); };
+struct Manager_662b0 { Entity* FUN_00024280(unsigned int a, unsigned int b); };
+struct Global_662b0 { char pad[0x20]; Manager_662b0* manager; };
+extern Global_662b0* DAT_004dd700;
+struct Entry_662b0 { unsigned int a,b; };
+struct Object { char pad[0x170]; Entry_662b0 entries[40]; int count; bool FUN_000662b0(); };
 bool Object::FUN_000662b0() {
  for (int i=0; i<count; ++i) {
   Entity* e=DAT_004dd700->manager->FUN_00024280(entries[i].a,entries[i].b);

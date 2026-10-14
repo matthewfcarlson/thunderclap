@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 706 inputs, branch coverage 9/10, incomplete)
 // pure3d::ParticlePlaneGenerator::vfunc_6 @ 0x002d2630
-struct Vec3 {
+struct Vec3_2d2630 {
     float x, y, z;
-    void FUN_0022d260(struct Mat4 *m);
+    void FUN_0022d260(struct Mat4_2d2630 *m);
     float FUN_0022d110();
 };
 
-struct Mat4 {
+struct Mat4_2d2630 {
     float m[12];
-    Vec3 pos;
+    Vec3_2d2630 pos;
     float w;
-    void FUN_0022c3b0(const Vec3 *in, Vec3 *out);
+    void FUN_0022c3b0(const Vec3_2d2630 *in, Vec3_2d2630 *out);
 };
 
-struct RandState {
+struct RandState_2d2630 {
     unsigned int s0;
     unsigned int s1;
 };
 
-extern RandState DAT_00554bfc;
+extern RandState_2d2630 DAT_00554bfc;
 
-class Emitter {
+class Emitter_2d2630 {
 public:
     virtual void v0();
     virtual void v1();
@@ -36,48 +36,48 @@ public:
     virtual void v11();
     virtual void v12();
     virtual void v13();
-    virtual bool v14(Vec3 *dir, Vec3 *pos, float t);
+    virtual bool v14(Vec3_2d2630 *dir, Vec3_2d2630 *pos, float t);
 };
 
 void __cdecl FUN_00356bf0(float r, float az, float pol, float *x, float *y, float *z);
 
-union FloatBits {
+union FloatBits_2d2630 {
     float f;
     unsigned int u;
 };
 
 union MatArg {
-    Mat4 *mat;
+    Mat4_2d2630 *mat;
     float f;
     unsigned int u;
 };
 
 union EmArg {
-    Emitter *em;
+    Emitter_2d2630 *em;
     float f;
 };
 
-static __forceinline unsigned int NextBits(RandState *r)
+static __forceinline unsigned int NextBits(RandState_2d2630 *r)
 {
     r->s0 = (r->s0 & 0xffff) * 0x9069 + (r->s0 >> 16);
     r->s1 = (r->s1 & 0xffff) * 0x4650 + (r->s1 >> 16);
     return (r->s0 << 16) + (r->s1 & 0xffff);
 }
 
-static __forceinline float NextSigned(RandState *r)
+static __forceinline float NextSigned(RandState_2d2630 *r)
 {
     unsigned int x = NextBits(r);
-    FloatBits b;
+    FloatBits_2d2630 b;
     b.u = (x & 0x7fffff) | 0x3f800000;
     b.f = b.f - 1.0f;
     b.u |= x & 0x80000000;
     return b.f;
 }
 
-static __forceinline float NextRaw(RandState *r)
+static __forceinline float NextRaw(RandState_2d2630 *r)
 {
     unsigned int x = NextBits(r);
-    FloatBits b;
+    FloatBits_2d2630 b;
     b.u = (x & 0x7fffff) | 0x3f800000;
     return b.f;
 }
@@ -106,14 +106,14 @@ unsigned int ParticlePlaneGenerator::vfunc_6(unsigned int count, MatArg from, Ma
         float v1;
         float u5;
         float u4;
-        Vec3 p;
-        Vec3 r;
-        Vec3 w;
-        Vec3 d;
+        Vec3_2d2630 p;
+        Vec3_2d2630 r;
+        Vec3_2d2630 w;
+        Vec3_2d2630 d;
         float c60;
         float pad64;
         float c68;
-        Vec3 q;
+        Vec3_2d2630 q;
     } f;
 
     f.p = from.mat->pos;
@@ -134,8 +134,8 @@ unsigned int ParticlePlaneGenerator::vfunc_6(unsigned int count, MatArg from, Ma
     f.v3 = f5c * f48;
     f.c60 = f4c * f38 * -0.5f;
     f.c68 = f50 * f3c * -0.5f;
-    Mat4 *fromMat = from.mat;
-    Emitter *emitter = em.em;
+    Mat4_2d2630 *fromMat = from.mat;
+    Emitter_2d2630 *emitter = em.em;
     do {
         float r1 = NextSigned(&DAT_00554bfc);
         float r2 = NextSigned(&DAT_00554bfc);

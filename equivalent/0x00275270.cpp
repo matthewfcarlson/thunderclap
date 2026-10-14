@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // core::FileReadRequest::vfunc_0 @ 0x00275270
 inline void* operator new(unsigned int, void* p) { return p; }
-struct Lock { virtual void lock(); virtual void unlock(); };
-struct File { virtual void slot0(); virtual void release(); Lock guard; char pad[16]; unsigned count; };
+struct Lock_275270 { virtual void lock(); virtual void unlock(); };
+struct File { virtual void slot0(); virtual void release(); Lock_275270 guard; char pad[16]; unsigned count; };
 struct Allocator { virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void free(void*); };
 extern char DAT_0052a1c8;
 extern Allocator* DAT_0052a1e4;

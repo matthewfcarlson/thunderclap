@@ -6,7 +6,7 @@ extern "C" char DAT_0048e128[];
 extern "C" char DAT_0048e134[];
 extern "C" void __stdcall FUN_001d0480(void*, int);
 extern "C" char __cdecl FUN_001d04d0(const void*);
-class MethodCtor7 {
+class MethodCtor7_3eea0 {
   public:
     int vptr;
     char pad4[12];
@@ -15,9 +15,9 @@ class MethodCtor7 {
     char result;
     char pad19[3];
     void* func;
-    MethodCtor7* Init(void* name, void* fn);
+    MethodCtor7_3eea0* Init(void* name, void* fn);
 };
-MethodCtor7* MethodCtor7::Init(void* name, void* fn) {
+MethodCtor7_3eea0* MethodCtor7_3eea0::Init(void* name, void* fn) {
     FUN_001d0480(name, 7);
     vptr = (int)DAT_003f5d3c;
     func = fn;

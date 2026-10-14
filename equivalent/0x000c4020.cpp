@@ -3,7 +3,7 @@
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 
-struct Label {
+struct Label_c4020 {
     int f00;
     char f04;
     char pad05[3];
@@ -20,7 +20,7 @@ struct Label {
     void FUN_000f7960();
 };
 
-class TextManager {
+class TextManager_c4020 {
   public:
     virtual void v0();
     virtual void v1();
@@ -116,25 +116,25 @@ class TextSelector : public FEObject {
     virtual void v16();
     virtual void v17();
     virtual void v18();
-    virtual void vfunc_19(Label* label, int a, int b);
+    virtual void vfunc_19(Label_c4020* label, int a, int b);
 };
 
-class Manager {
+class Manager_c4020 {
   public:
     char pad[4];
 };
 
-class Ref {
+class Ref_c4020 {
   public:
     virtual void v0();
     virtual void v1();
 };
 
-struct Handle {
-    void FUN_00294980(Ref* r);
+struct Handle_c4020 {
+    void FUN_00294980(Ref_c4020* r);
 };
 
-struct FrontEnd {
+struct FrontEnd_c4020 {
     void FUN_001c0ab0(const char* name);
 };
 
@@ -155,9 +155,9 @@ extern char DAT_0049fb3c;
 extern Timer* DAT_004dd9cc;
 
 int __cdecl FUN_00266da0(int mode);
-TextManager* __cdecl FUN_000fc3d0();
+TextManager_c4020* __cdecl FUN_000fc3d0();
 FEObject* __cdecl FUN_000fc260(const char* name);
-Manager* __cdecl FUN_000fc1b0();
+Manager_c4020* __cdecl FUN_000fc1b0();
 void __cdecl FUN_000fc100(int a, int b);
 int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, ...);
 int FUN_00345804(const char* str, const char* fmt, ...);
@@ -169,11 +169,11 @@ class MissionMenu {
     char pad09[7];
     int f10;
     char pad14[0xc];
-    Handle* f20;
-    Ref* f24;
+    Handle_c4020* f20;
+    Ref_c4020* f24;
     char f28;
     char pad29[0x5c - 0x29];
-    FrontEnd* f5c;
+    FrontEnd_c4020* f5c;
     char pad60[0x26c - 0x60];
     const char* names[0x80];
     char pad46c[0x1880 - 0x46c];
@@ -192,12 +192,12 @@ void MissionMenu::FUN_000c4020(int a, int b)
         int mission;
         int chapter;
         int prev;
-        Label entry;
+        Label_c4020 entry;
         char buf[0x20];
     } fr;
     fr.prev = FUN_00266da0(0xb);
     if (!f28) {
-        TextManager* tm = FUN_000fc3d0();
+        TextManager_c4020* tm = FUN_000fc3d0();
         if (tm)
             tm->v66();
         if (f5c)

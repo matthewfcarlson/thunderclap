@@ -2,7 +2,7 @@
 // hulkfight::ai::HulkActionCountCondition::vfunc_6 @ 0x0010ec90
 extern "C" int atexit(void (*)());
 
-struct Key {
+struct Key_10ec90 {
     unsigned lo;
     unsigned hi;
     void FUN_0027af00();
@@ -10,30 +10,30 @@ struct Key {
 };
 
 extern unsigned DAT_004e0bb8;
-extern Key DAT_004e0bb0;
+extern Key_10ec90 DAT_004e0bb0;
 void FUN_00363e70();
 bool __cdecl FUN_00018960(float a, float b, float eps);
 
-struct Fighter {
+struct Fighter_10ec90 {
 };
 
-struct Holder {
-    Fighter *FUN_00059a30();
+struct Holder_10ec90 {
+    Fighter_10ec90 *FUN_00059a30();
 };
 
-struct Stats {
+struct Stats_10ec90 {
     void FUN_00067730();
-    float FUN_00067110(Key *k);
+    float FUN_00067110(Key_10ec90 *k);
 };
 
-Stats *FUN_000678d0();
+Stats_10ec90 *FUN_000678d0();
 
 namespace fight {
 class Params {
   public:
     virtual void v0();
     virtual void v1();
-    Holder *FUN_000592a0();
+    Holder_10ec90 *FUN_000592a0();
 };
 }
 
@@ -63,7 +63,7 @@ bool HulkActionCountCondition::FUN_0010ec90(int a1, fight::Params *params, int a
     if (dynamic_cast<CFightParams *>(params) == 0)
         return false;
 
-    Fighter *fighter = params->FUN_000592a0()->FUN_00059a30();
+    Fighter_10ec90 *fighter = params->FUN_000592a0()->FUN_00059a30();
     if (fighter == 0)
         return false;
 
@@ -71,7 +71,7 @@ bool HulkActionCountCondition::FUN_0010ec90(int a1, fight::Params *params, int a
 
     DAT_004e0bb0.FUN_0027b040(keyword);
 
-    Key k;
+    Key_10ec90 k;
     k.lo = DAT_004e0bb0.lo;
     k.hi = DAT_004e0bb0.hi;
     float value = FUN_000678d0()->FUN_00067110(&k);

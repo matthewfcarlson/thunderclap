@@ -1,27 +1,27 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_002b8f60 @ 0x002b8f60
-struct Mat4;
+struct Mat4_2b8f60;
 
-struct Vec3 {
+struct Vec3_2b8f60 {
     float x, y, z;
-    void FUN_0022d210(Mat4* m);
-    void FUN_0022d260(Mat4* m);
+    void FUN_0022d210(Mat4_2b8f60* m);
+    void FUN_0022d260(Mat4_2b8f60* m);
 };
 
-struct Mat4 {
+struct Mat4_2b8f60 {
     float m[16];
 };
 
-class Box {
+class Box_2b8f60 {
 public:
     char pad00[0x80];
     float halfX;
     float halfY;
     float depth;
-    void FUN_002b8f60(Vec3* corners, Mat4* local, Mat4* world, int unused, float scale);
+    void FUN_002b8f60(Vec3_2b8f60* corners, Mat4_2b8f60* local, Mat4_2b8f60* world, int unused, float scale);
 };
 
-void Box::FUN_002b8f60(Vec3* corners, Mat4* local, Mat4* world, int unused, float scale)
+void Box_2b8f60::FUN_002b8f60(Vec3_2b8f60* corners, Mat4_2b8f60* local, Mat4_2b8f60* world, int unused, float scale)
 {
     float x = scale * halfX;
     float y = scale * halfY;
@@ -40,7 +40,7 @@ void Box::FUN_002b8f60(Vec3* corners, Mat4* local, Mat4* world, int unused, floa
     for (int i = 0; i < 4; i++)
         corners[i].FUN_0022d210(local);
     if (depth != 0.0f) {
-        Vec3 u;
+        Vec3_2b8f60 u;
         u.x = 0.0f;
         u.y = 0.0f;
         u.z = -depth;

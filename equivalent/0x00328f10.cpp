@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00328f10 @ 0x00328f10
-struct State {
+struct State_328f10 {
  char reserved0[8];
  unsigned values08[4];
  unsigned indices18[4];
@@ -37,7 +37,7 @@ struct State {
  void FUN_00328bf0();
  void FUN_00328f10();
 };
-void State::FUN_00328f10() {
+void State_328f10::FUN_00328f10() {
  for (unsigned i = 0; i < 4; ++i) {
   indices18[i] = i;
   values08[i] = 0;

@@ -3,19 +3,19 @@
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
-struct Text {
+struct Text_1ea630 {
     char data[0x2c];
     void FUN_00247270(const char *s, int len, int flags);
 };
-struct Handle {
+struct Handle_1ea630 {
     char data[0xa0];
-    void FUN_002458f0(Text *src);
+    void FUN_002458f0(Text_1ea630 *src);
 };
-int __cdecl FUN_00246100(Handle *h);
+int __cdecl FUN_00246100(Handle_1ea630 *h);
 
-struct Frame {
-    Text text;
-    Handle handle;
+struct Frame_1ea630 {
+    Text_1ea630 text;
+    Handle_1ea630 handle;
     unsigned int cookie;
 };
 
@@ -30,7 +30,7 @@ public:
 
 void CSoundResourceManager::vfunc_3(const char *name, int unused)
 {
-    Frame f;
+    Frame_1ea630 f;
     f.cookie = DAT_004d9968;
     int len = 0;
     while (name[len] != 0)

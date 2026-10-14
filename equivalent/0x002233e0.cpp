@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 30/30)
 // FUN_002233e0 @ 0x002233e0
-struct Item {
+struct Item_2233e0 {
  unsigned int data[3];
  unsigned int key;
  unsigned int secondary;
  int priority;
  unsigned int tail[4];
 };
-Item* __cdecl FUN_002233e0(Item* first, Item* second, Item* third) {
- Item temp;
+Item_2233e0* __cdecl FUN_002233e0(Item_2233e0* first, Item_2233e0* second, Item_2233e0* third) {
+ Item_2233e0 temp;
  if(second->priority > first->priority || (second->priority == first->priority && (second->key < first->key || (second->key == first->key && second->secondary > first->secondary)))) {
  temp = *second; *second = *first; *first = temp;
  }

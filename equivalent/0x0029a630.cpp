@@ -5,10 +5,10 @@ inline void* operator new(unsigned int,void* p) { return p; }
 struct Reader { void FUN_002647e0(void*,int,int,int); }; struct Chunk { char pad[0x284]; Reader* reader; bool FUN_002669f0(); int FUN_00266a30(); void FUN_00266be0(); };
 namespace pure3d { class Geometry; class BillboardObject; class ParticleSystem; class Skeleton; class PolySkin; }
 namespace content { struct LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; virtual void s0(); virtual void s1(); virtual void s2(); virtual void* find(void*,unsigned int,unsigned int); }; }
-struct Name { void FUN_0027b040(char*); char bytes[0x38]; };
+struct Name_29a630 { void FUN_0027b040(char*); char bytes[0x38]; };
 struct Object { virtual void add(); virtual void release(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void attach(Object*); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual int kind(); char pad[0x3c]; float visibility; void* owner; Object* FUN_0027b240(); };
-struct Entry { int unused; int joint; Object* object; }; struct Group { virtual void add(); char p4[4]; unsigned char* starts; char pc[8]; unsigned char* counts; char p18[0x24]; Entry* entries; Group* FUN_00299cd0(int); void FUN_00298870(); };
-namespace pure3d { struct CompositeDrawable { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void done(); char p4[4]; Name name; Object* skeleton; Group* group; int a,b,c; void FUN_002a3480(); }; struct OldCompositeDrawableLoader { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void vfunc_5(CompositeDrawable**,UID*,Chunk*,content::LoadInventory*); }; }
+struct Entry_29a630 { int unused; int joint; Object* object; }; struct Group_29a630 { virtual void add(); char p4[4]; unsigned char* starts; char pc[8]; unsigned char* counts; char p18[0x24]; Entry_29a630* entries; Group_29a630* FUN_00299cd0(int); void FUN_00298870(); };
+namespace pure3d { struct CompositeDrawable { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void done(); char p4[4]; Name_29a630 name; Object* skeleton; Group_29a630* group; int a,b,c; void FUN_002a3480(); }; struct OldCompositeDrawableLoader { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void vfunc_5(CompositeDrawable**,UID*,Chunk*,content::LoadInventory*); }; }
 void* __cdecl FUN_00263ea0(int); void* __cdecl FUN_0008d690(int); void* __cdecl FUN_0008d6d0(int); void __cdecl FUN_0008d340(void*); UID __cdecl FUN_002672f0(char*,int,int); UID __cdecl FUN_0027b020(char*);
 void pure3d::OldCompositeDrawableLoader::vfunc_5(CompositeDrawable** result,UID* uid,Chunk* chunk,content::LoadInventory* inventory) {
  struct Workspace {
@@ -58,7 +58,7 @@ void pure3d::OldCompositeDrawableLoader::vfunc_5(CompositeDrawable** result,UID*
  unsigned int total=w.ng+w.ns+w.np+w.nb; w.geometryJoint=0;
  UID id=FUN_0027b020(w.skeleton); void* caster=new(&w.skinVisibility) content::LoadInventory::DynamicCaster<Skeleton>; Object* skeleton=(Object*)inventory->find(caster,(unsigned)id,(unsigned)(id>>32));
  if(skeleton) { Object* replacement=skeleton->FUN_0027b240(); if(replacement) replacement->add(); if(composite->skeleton) composite->skeleton->release(); composite->skeleton=replacement; }
- Group* group=(Group*)FUN_0008d690(0x48); if(group) group=group->FUN_00299cd0(total); composite->group=group; group->add();
+ Group_29a630* group=(Group_29a630*)FUN_0008d690(0x48); if(group) group=group->FUN_00299cd0(total); composite->group=group; group->add();
  unsigned int index=0;
  for(int category=0;category<4;++category) {
  unsigned int count=category==0?w.ng:category==1?w.ns:category==2?w.np:w.nb;

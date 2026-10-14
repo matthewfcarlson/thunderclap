@@ -3,17 +3,17 @@
 extern "C" double sqrt(double);
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
-struct V3 {
+struct V3_1c9b0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Mat {
+struct Mat_1c9b0 {
     char pad0[0x30];
-    V3 pos;
+    V3_1c9b0 pos;
     float w;
     void FUN_0022b980();
-    void FUN_0022c2b0(const V3 *in, V3 *out);
+    void FUN_0022c2b0(const V3_1c9b0 *in, V3_1c9b0 *out);
 };
 
 struct EntA {
@@ -24,10 +24,10 @@ struct SrcEnt {
     char pad0[8];
     EntA *f8;
     int kind;
-    Mat mat;
+    Mat_1c9b0 mat;
 };
 
-struct Config {
+struct Config_1c9b0 {
     char pad0[0x18];
     float scale;
     int f1c;
@@ -35,9 +35,9 @@ struct Config {
 };
 
 extern float DAT_003f2ecc;
-void __cdecl FUN_00224ce0(Mat *a, Mat *b, float t, Mat *out);
+void __cdecl FUN_00224ce0(Mat_1c9b0 *a, Mat_1c9b0 *b, float t, Mat_1c9b0 *out);
 float __cdecl FUN_000186f0(float *a, float *b);
-char __cdecl FUN_00096ce0(SrcEnt *src, V3 *hit, float *out);
+char __cdecl FUN_00096ce0(SrcEnt *src, V3_1c9b0 *hit, float *out);
 
 class CWeaponCollisionAction {
 public:
@@ -52,15 +52,15 @@ public:
     virtual bool vfunc_8(int a1);
     char pad04[0x18];
     void *owner;
-    Config *cfg;
+    Config_1c9b0 *cfg;
     SrcEnt *src;
     char b28;
     char pad29[3];
     int f2c;
     int f30;
-    Mat xf;
-    void FUN_0001c430(Mat *m);
-    void FUN_0001c770(Mat *m, float radius);
+    Mat_1c9b0 xf;
+    void FUN_0001c430(Mat_1c9b0 *m);
+    void FUN_0001c770(Mat_1c9b0 *m, float radius);
 };
 
 bool CWeaponCollisionAction::vfunc_8(int a1)
@@ -69,14 +69,14 @@ bool CWeaponCollisionAction::vfunc_8(int a1)
         float s0;
         float s4;
         float s8;
-        V3 d0;
-        V3 tc;
-        V3 q;
+        V3_1c9b0 d0;
+        V3_1c9b0 tc;
+        V3_1c9b0 q;
         int s30;
-        V3 tin;
-        V3 pp;
-        Mat M;
-        Mat M2;
+        V3_1c9b0 tin;
+        V3_1c9b0 pp;
+        Mat_1c9b0 M;
+        Mat_1c9b0 M2;
     } f;
 
     if (src == 0)
@@ -86,7 +86,7 @@ bool CWeaponCollisionAction::vfunc_8(int a1)
         type = src->f8->FUN_001d64a0();
 
     if (b28) {
-        Mat *sm = &src->mat;
+        Mat_1c9b0 *sm = &src->mat;
         float r25 = cfg->scale * 0.25f;
         f.tc.x = xf.pos.x;
         f.tc.y = xf.pos.y;
@@ -130,7 +130,7 @@ bool CWeaponCollisionAction::vfunc_8(int a1)
                     f.s4 = (float)next;
                     FUN_00224ce0(&xf, sm, (float)((double)f.s4 / f.s0), &f.M);
                     FUN_0001c430(&f.M);
-                    Config *c = cfg;
+                    Config_1c9b0 *c = cfg;
                     if (c->f1c > 0 && f2c >= c->f1c && c->f20 > 0 && f30 >= c->f20) {
                         done = true;
                         break;
@@ -139,12 +139,12 @@ bool CWeaponCollisionAction::vfunc_8(int a1)
                 } while (i < last);
             }
             if (!done) {
-                Config *c = cfg;
+                Config_1c9b0 *c = cfg;
                 if (!(c->f1c > 0 && f2c >= c->f1c && c->f20 > 0 && f30 >= c->f20))
                     FUN_0001c430(sm);
             }
         }
-        memcpy(&xf, sm, sizeof(Mat));
+        memcpy(&xf, sm, sizeof(Mat_1c9b0));
     } else if (type != 0) {
         SrcEnt *s = src;
         f.s8 = 1.0f;
@@ -154,7 +154,7 @@ bool CWeaponCollisionAction::vfunc_8(int a1)
             f.s8 = f.s8 * 0.75f;
             f.M.pos = f.q;
         } else {
-            memcpy(&f.M, &src->mat, sizeof(Mat));
+            memcpy(&f.M, &src->mat, sizeof(Mat_1c9b0));
             f.s8 = 1.0f;
         }
         int ebp = type;
@@ -200,7 +200,7 @@ bool CWeaponCollisionAction::vfunc_8(int a1)
                     f.s4 = (float)next;
                     FUN_00224ce0(&xf, &f.M, (float)((double)f.s4 / f.s0), &f.M2);
                     FUN_0001c770(&f.M2, m);
-                    Config *c = cfg;
+                    Config_1c9b0 *c = cfg;
                     if (c->f1c > 0 && f2c >= c->f1c && c->f20 > 0 && f30 >= c->f20) {
                         done = true;
                         break;
@@ -209,15 +209,15 @@ bool CWeaponCollisionAction::vfunc_8(int a1)
                 } while (i < last);
             }
             if (!done) {
-                Config *c = cfg;
+                Config_1c9b0 *c = cfg;
                 if (!(c->f1c > 0 && f2c >= c->f1c && c->f20 > 0 && f30 >= c->f20))
                     FUN_0001c770(&f.M, m);
             }
         }
-        memcpy(&xf, &f.M, sizeof(Mat));
+        memcpy(&xf, &f.M, sizeof(Mat_1c9b0));
     }
 
-    Config *ce = cfg;
+    Config_1c9b0 *ce = cfg;
     bool reached = ce->f1c > 0 && f2c >= ce->f1c && ce->f20 > 0 && f30 >= ce->f20;
     return !reached;
 }

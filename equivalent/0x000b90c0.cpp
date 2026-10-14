@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000b90c0 @ 0x000b90c0
-class Renderer {
+class Renderer_b90c0 {
   public:
     void FUN_001b8820(int* a, int* b, int* c);
     void FUN_001b8840(int* a, int* b, int* c);
@@ -11,10 +11,10 @@ class Renderer {
     void FUN_001b98e0(float a, float b, float c, float d, float e, float f);
     void FUN_001b8780(int flag);
 };
-class Menu {
+class Menu_b90c0 {
   public:
     char pad0[0x54];
-    Renderer* renderer;
+    Renderer_b90c0* renderer;
     char pad1[0x1d00 - 0x58];
     unsigned char savedFlag;
     char pad2[3];
@@ -24,7 +24,7 @@ class Menu {
     void FUN_000b90c0(bool save);
 };
 
-void Menu::FUN_000b90c0(bool save) {
+void Menu_b90c0::FUN_000b90c0(bool save) {
     if (save) {
         renderer->FUN_001b8820(&saved0[0], &saved0[1], &saved0[2]);
         renderer->FUN_001b8840(&saved1[0], &saved1[1], &saved1[2]);

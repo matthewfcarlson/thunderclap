@@ -2,13 +2,13 @@
 // FUN_0022b370 @ 0x0022b370
 extern "C" double sqrt(double);
 
-struct Quat {
+struct Quat_22b370 {
     float x, y, z, w;
     void FUN_0022b370(const float *m);
 };
 
 // Rotation matrix (row-major 4x4) to quaternion; the result has its w negated.
-void Quat::FUN_0022b370(const float *m)
+void Quat_22b370::FUN_0022b370(const float *m)
 {
     int next[3];
     float q[4];

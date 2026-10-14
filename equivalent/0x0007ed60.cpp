@@ -4,18 +4,18 @@
 void* FUN_0008d690(unsigned int);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 class CAmbientsManager;
-class Registry { public:
+class Registry_7ed60 { public:
     void FUN_001d3b70(const char*, void*);
     void FUN_0007ed60(const char* a1, CAmbientsManager* a2, void (*a3)());
 };
 template<class C, class R, class A1, class A2, class A3> class Closure3;
 template<> class Closure3<CAmbientsManager, void, const char*, unsigned int, float> { public: virtual void v(); char pad[0x1c]; CAmbientsManager* owner; Closure3(CAmbientsManager* o) { owner = o; } };
-class Raw { public: void FUN_0007d480(const char*, void (*)()); };
-void Registry::FUN_0007ed60(const char* a1, CAmbientsManager* a2, void (*a3)()) {
+class Raw_7ed60 { public: void FUN_0007d480(const char*, void (*)()); };
+void Registry_7ed60::FUN_0007ed60(const char* a1, CAmbientsManager* a2, void (*a3)()) {
     void* m = FUN_0008d690(0x24);
     void* x = 0;
     if (m) {
-        ((Raw*)m)->FUN_0007d480(a1, a3);
+        ((Raw_7ed60*)m)->FUN_0007d480(a1, a3);
         x = new (m) Closure3<CAmbientsManager, void, const char*, unsigned int, float>(a2);
     }
     FUN_001d3b70(a1, x);

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 31/32, incomplete)
 // FUN_00249a90 @ 0x00249a90
-struct Item {
-    Item* next;
+struct Item_249a90 {
+    Item_249a90* next;
     char pad04[8];
     unsigned state;
     char pad10[8];
@@ -16,21 +16,21 @@ struct Node {
     Node* right;
     Node* parent;
     unsigned field0c;
-    Item* items;
+    Item_249a90* items;
 };
-struct Tree {
+struct Tree_249a90 {
     char pad00[0x18];
     Node* root;
     Node sentinel;
 };
-struct Values { unsigned first; unsigned second; };
-void __cdecl FUN_00249a90(Tree* tree, const Values* values) {
+struct Values_249a90 { unsigned first; unsigned second; };
+void __cdecl FUN_00249a90(Tree_249a90* tree, const Values_249a90* values) {
     Node* end = &tree->sentinel;
     Node* node = tree->root;
     if (node == end) return;
     while (node->left != end) node = node->left;
     for (;;) {
-        for (Item* item = node->items; item != 0; item = item->next) {
+        for (Item_249a90* item = node->items; item != 0; item = item->next) {
             if (item->state != 0 && item->state != 5) {
                 item->state = 5;
                 if (values) {

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00215de0 @ 0x00215de0
-struct State {
+struct State_215de0 {
  char pad0[12];
  unsigned int value;
  char pad10[4];
@@ -17,12 +17,12 @@ struct State {
  char pad32[34];
  unsigned int context;
 };
-extern "C" unsigned int __cdecl FUN_002152f0(State*, unsigned int, unsigned int);
-extern "C" void __cdecl FUN_00219660(State*, char*);
+extern "C" unsigned int __cdecl FUN_002152f0(State_215de0*, unsigned int, unsigned int);
+extern "C" void __cdecl FUN_00219660(State_215de0*, char*);
 // equiv-conv: FUN_00215240 eax ecx
 extern "C" void __cdecl FUN_00215240(unsigned int, char*);
-extern "C" void __cdecl FUN_00215410(State*, unsigned int);
-unsigned int __cdecl FUN_00215de0(State* s, unsigned int a, unsigned int b, unsigned int offset, unsigned int context) {
+extern "C" void __cdecl FUN_00215410(State_215de0*, unsigned int);
+unsigned int __cdecl FUN_00215de0(State_215de0* s, unsigned int a, unsigned int b, unsigned int offset, unsigned int context) {
  unsigned short oldWord = s->savedWord;
  unsigned char oldByte = s->savedByte;
  unsigned int displacement = (unsigned int)s->current - (unsigned int)s->base;

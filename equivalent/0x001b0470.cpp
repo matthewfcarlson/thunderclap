@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 11/11)
 // FUN_001b0470 @ 0x001b0470
-struct Item {
+struct Item_1b0470 {
     int FUN_001d72e0();
     int FUN_001d64a0();
 };
-struct State {
+struct State_1b0470 {
     char reserved[0x14];
     int value;
 };
-struct Actor {
+struct Actor_1b0470 {
     char reserved[0x11c];
-    State* state;
+    State_1b0470* state;
     float FUN_001b0310();
     void FUN_00043ae0(int, int, float, int, float, int, int, int, int);
 };
@@ -24,7 +24,7 @@ struct DispatchData {
 };
 
 // equiv-conv: FUN_001b0470 eax ecx stack
-float __cdecl FUN_001b0470(Item* item, Actor* self, int argument)
+float __cdecl FUN_001b0470(Item_1b0470* item, Actor_1b0470* self, int argument)
 {
     float result = self->FUN_001b0310();
     int identifier = item->FUN_001d72e0();

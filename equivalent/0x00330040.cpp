@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // pure3d::d3dToon2VertexShader::vfunc_24 @ 0x00330040
 typedef unsigned int uint;
-struct Four {
+struct Four_330040 {
     float x, y, z, w;
 };
 struct Matrix {
@@ -13,14 +13,14 @@ struct Matrix {
 struct Light {
     char data[0x68];
 };
-void __stdcall FUN_0032fd40(Four* out);
+void __stdcall FUN_0032fd40(Four_330040* out);
 namespace D3D8 {
 void __stdcall D3DDevice_GetTransform(uint type, Matrix* out);
 void __stdcall D3DDevice_GetLight(uint index, Light* out);
 void __fastcall D3DDevice_SetVertexShaderConstant1(uint reg, const void* data);
 void __fastcall D3DDevice_SetVertexShaderConstant4(uint reg, const void* data);
 }
-struct LightManager {
+struct LightManager_330040 {
     void FUN_00321dc0(int* indices, int flags);
 };
 namespace pure3d {
@@ -47,12 +47,12 @@ class d3dToon2VertexShader {
     virtual void vfunc_18();
     virtual void vfunc_19();
     virtual void vfunc_20();
-    virtual void vfunc_21(Four* out);
+    virtual void vfunc_21(Four_330040* out);
     virtual void vfunc_22();
     virtual void vfunc_23();
     virtual void vfunc_24();
     char pad04[0x10 - 4];
-    LightManager* manager;
+    LightManager_330040* manager;
     char pad14[0x50 - 0x14];
     uint color;
     char pad54[0xd0 - 0x54];
@@ -64,14 +64,14 @@ void pure3d::d3dToon2VertexShader::vfunc_24() {
     // Locals are kept in one block so their relative stack layout matches the original.
     struct Frame {
         int indices[4];
-        Four zero;
-        Four tint;
-        Four settings;
-        Four other;
-        Four base;
+        Four_330040 zero;
+        Four_330040 tint;
+        Four_330040 settings;
+        Four_330040 other;
+        Four_330040 base;
         Matrix inv6Copy;
         Matrix transform6;
-        Four ambient;
+        Four_330040 ambient;
         int pad;
         Matrix r1;
         Matrix inv2;

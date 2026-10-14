@@ -1,41 +1,41 @@
 // STATUS: equivalent (tools/equiv.py level 3: 47 inputs, branch coverage 12/12)
 // choreo2::RestPoseDriver::vfunc_10 @ 0x0022a640
-struct Quat {
+struct Quat_22a640 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat *a, const Quat *b, float t);
+    void FUN_0022b750(const Quat_22a640 *a, const Quat_22a640 *b, float t);
 };
 
-struct Mat {
+struct Mat_22a640 {
     char pad00[0x30];
     float px, py, pz;
     char pad3c[4];
 };
 
-struct Mask {
+struct Mask_22a640 {
     int pad00;
     unsigned bits[1];
 };
 
 struct Pose {
     char pad00[0x10];
-    Quat *quats;
-    Mat *mats;
+    Quat_22a640 *quats;
+    Mat_22a640 *mats;
 };
 
 struct RestPose {
     char pad00[0x14];
-    Quat *quats;
-    Mat *mats;
+    Quat_22a640 *quats;
+    Mat_22a640 *mats;
 };
 
-struct MaskHolder {
+struct MaskHolder_22a640 {
     char pad00[0x10];
-    Mask *mask;
+    Mask_22a640 *mask;
 };
 
-struct Blend {
+struct Blend_22a640 {
     char pad00[0x30];
-    void FUN_00221d60(Blend *other, float t);
+    void FUN_00221d60(Blend_22a640 *other, float t);
 };
 
 class RestPoseDriver {
@@ -50,17 +50,17 @@ public:
     virtual void vfunc_7();
     virtual void vfunc_8();
     virtual void vfunc_9();
-    virtual void vfunc_10(Blend *a, Blend *b, Pose *pose, float t);
+    virtual void vfunc_10(Blend_22a640 *a, Blend_22a640 *b, Pose *pose, float t);
     char pad04[0x10 - 4];
     RestPose *rest;
-    MaskHolder *holder;
+    MaskHolder_22a640 *holder;
     unsigned first;
     unsigned last;
 };
 
-void RestPoseDriver::vfunc_10(Blend *a, Blend *b, Pose *pose, float t)
+void RestPoseDriver::vfunc_10(Blend_22a640 *a, Blend_22a640 *b, Pose *pose, float t)
 {
-    Mask *mask = holder ? holder->mask : 0;
+    Mask_22a640 *mask = holder ? holder->mask : 0;
     unsigned i = first;
     unsigned end = last;
     if (i == 0) {
@@ -70,13 +70,13 @@ void RestPoseDriver::vfunc_10(Blend *a, Blend *b, Pose *pose, float t)
     for (; i <= end; i++) {
         if (mask && !(mask->bits[i >> 5] & (1u << (i & 31))))
             continue;
-        Quat qa = pose->quats[i];
-        Quat qb = rest->quats[i];
+        Quat_22a640 qa = pose->quats[i];
+        Quat_22a640 qb = rest->quats[i];
         qa.FUN_0022b750(&qa, &qb, t);
         pose->quats[i] = qa;
 
-        Mat *pm = &pose->mats[i];
-        Mat *rm = &rest->mats[i];
+        Mat_22a640 *pm = &pose->mats[i];
+        Mat_22a640 *rm = &rest->mats[i];
         float ax = pm->px, ay = pm->py, az = pm->pz;
         float bx = rm->px, by = rm->py, bz = rm->pz;
         float rx = (bx - ax) * t + ax;

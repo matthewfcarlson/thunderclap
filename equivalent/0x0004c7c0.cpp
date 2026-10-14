@@ -2,47 +2,47 @@
 // CSmartPropAngleCondition::vfunc_7 @ 0x0004c7c0
 extern "C" double fabs(double);
 
-struct Vec3 {
+struct Vec3_4c7c0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
 struct Mat3 {
-    void FUN_0022c3b0(float* in, Vec3* out);
+    void FUN_0022c3b0(float* in, Vec3_4c7c0* out);
 };
 
-struct Sub {
+struct Sub_4c7c0 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
     virtual void v12(); virtual void v13(); virtual void v14();
     virtual Mat3* v15();
-    Vec3* FUN_001d6b40();
+    Vec3_4c7c0* FUN_001d6b40();
 };
 
 struct Entity {
     int f00;
     int f04;
-    Sub* sub;
+    Sub_4c7c0* sub;
     int kind;
 };
 
-struct Holder {
+struct Holder_4c7c0 {
     Entity* FUN_001d72e0();
 };
 
-struct Fighter {
-    bool FUN_00059a50(Vec3* out);
+struct Fighter_4c7c0 {
+    bool FUN_00059a50(Vec3_4c7c0* out);
 };
 
-struct Stats {
+struct Stats_4c7c0 {
     char pad00[0x3a4];
     Entity* defaultEntity;
-    Holder* FUN_00035ef0(int index);
+    Holder_4c7c0* FUN_00035ef0(int index);
 };
 
-Fighter* __fastcall FUN_000592a0(void* owner);
-Stats* __fastcall FUN_00059a30(Fighter* f);
+Fighter_4c7c0* __fastcall FUN_000592a0(void* owner);
+Stats_4c7c0* __fastcall FUN_00059a30(Fighter_4c7c0* f);
 float FUN_00224ea0(float x, float z);
 float FUN_00224fc0(float a, float b);
 extern float DAT_0048fa24[3];
@@ -64,8 +64,8 @@ public:
 
 bool CSmartPropAngleCondition::vfunc_7(void* owner)
 {
-    Fighter* fighter = FUN_000592a0(owner);
-    Stats* stats = FUN_00059a30(fighter);
+    Fighter_4c7c0* fighter = FUN_000592a0(owner);
+    Stats_4c7c0* stats = FUN_00059a30(fighter);
     Entity* e = 0;
     if (stats->FUN_00035ef0(0)) {
         e = stats->FUN_00035ef0(0)->FUN_001d72e0();
@@ -77,13 +77,13 @@ bool CSmartPropAngleCondition::vfunc_7(void* owner)
     }
     if (e->kind != 5)
         return false;
-    Sub* sub = e->sub;
-    struct Frame { Vec3 d; Vec3 v; Vec3 q; Vec3 w; } f;
+    Sub_4c7c0* sub = e->sub;
+    struct Frame { Vec3_4c7c0 d; Vec3_4c7c0 v; Vec3_4c7c0 q; Vec3_4c7c0 w; } f;
     f.v.x = 0.0f;
     f.v.y = 0.0f;
     f.v.z = 0.0f;
     fighter->FUN_00059a50(&f.v);
-    Vec3* p = sub->FUN_001d6b40();
+    Vec3_4c7c0* p = sub->FUN_001d6b40();
     f.q = *p;
     f.d.x = f.v.x - f.q.x;
     f.d.y = f.v.y - f.q.y;

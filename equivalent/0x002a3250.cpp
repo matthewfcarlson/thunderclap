@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_002a3250 @ 0x002a3250
-struct VBuf {
+struct VBuf_2a3250 {
     char pad00[8];
     float *pos;              // 0x08
     char pad0c[4];
@@ -8,7 +8,7 @@ struct VBuf {
     void FUN_0008ef00();
 };
 
-class Device {
+class Device_2a3250 {
 public:
     virtual void v0();
     virtual void v1();
@@ -40,8 +40,8 @@ public:
     virtual void v27();
     virtual void v28();
     virtual void v29();
-    virtual VBuf *v30(int a, int b, int c, int d, int e);
-    virtual void v31(VBuf *b);
+    virtual VBuf_2a3250 *v30(int a, int b, int c, int d, int e);
+    virtual void v31(VBuf_2a3250 *b);
     virtual void v32();
     virtual void v33();
     virtual void v34();
@@ -87,7 +87,7 @@ public:
     virtual void v74(int a, int b, int c);
 };
 
-class Obj3 {
+class Obj3_2a3250 {
 public:
     virtual void v0();
     virtual void v1();
@@ -99,7 +99,7 @@ public:
     virtual int v7();
 };
 
-class Obj2 {
+class Obj2_2a3250 {
 public:
     virtual void v0();
     virtual void v1();
@@ -125,12 +125,12 @@ public:
     virtual void v21(int a);
 };
 
-struct Holder {
-    Obj2 *obj;
+struct Holder_2a3250 {
+    Obj2_2a3250 *obj;
     void FUN_00293da0(float a, float b, float c);
 };
 
-class Probe {
+class Probe_2a3250 {
 public:
     virtual void v0();
     virtual void v1();
@@ -145,7 +145,7 @@ public:
 
 struct ProbeHolder {
     char pad00[0x18];
-    Probe *probe;            // 0x18
+    Probe_2a3250 *probe;            // 0x18
 };
 
 struct ProbeOwner {
@@ -153,27 +153,27 @@ struct ProbeOwner {
     ProbeHolder *holder;     // 0x08
 };
 
-struct Target {
+struct Target_2a3250 {
     char pad00[0x10];
     int handle;              // 0x10
 };
 
-extern Device *DAT_0052c2a8;
-extern Obj3 *DAT_0052c2a4;
-extern Holder *DAT_0052c2ac;
+extern Device_2a3250 *DAT_0052c2a8;
+extern Obj3_2a3250 *DAT_0052c2a4;
+extern Holder_2a3250 *DAT_0052c2ac;
 extern ProbeOwner *DAT_0052c2b4;
 
-class Quad {
+class Quad_2a3250 {
 public:
-    Target *target;          // 0x00
+    Target_2a3250 *target;          // 0x00
     int tag;                 // 0x04
     int mode;                // 0x08
     void FUN_002a3250();
 };
 
-void Quad::FUN_002a3250()
+void Quad_2a3250::FUN_002a3250()
 {
-    Device *dev = DAT_0052c2a8;
+    Device_2a3250 *dev = DAT_0052c2a8;
     dev->v54(mode);
     dev->v56(1, 1, 1, 1);
     dev->v58(0);
@@ -186,7 +186,7 @@ void Quad::FUN_002a3250()
     int h = DAT_0052c2a4->v7();
     DAT_0052c2ac->FUN_00293da0((float)h, (float)w, 1.0f);
     dev->v24(2);
-    VBuf *vb = dev->v30(target->handle, 1, 0x2020, 4, 0);
+    VBuf_2a3250 *vb = dev->v30(target->handle, 1, 0x2020, 4, 0);
     float f = DAT_0052c2b4->holder->probe->v8() + 0.001f;
     *vb->tag = tag;
     vb->pos[0] = 0.0f;

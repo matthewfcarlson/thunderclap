@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 23/24, incomplete)
 // FUN_00148580 @ 0x00148580
-struct Vec3 { float x, y, z; };
+struct Vec3_148580 { float x, y, z; };
 
-class RefCounted {
+class RefCounted_148580 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
 };
 
-struct Stats {
+struct Stats_148580 {
     char pad0[0x12c];
-    RefCounted *ref;
+    RefCounted_148580 *ref;
     char pad130[0x334 - 0x130];
-    Stats *altTarget;
-    Stats *target;
+    Stats_148580 *altTarget;
+    Stats_148580 *target;
     char pad33c[0x1e58 - 0x33c];
     float blend;
     float FUN_000354c0();
@@ -44,18 +44,18 @@ struct Params {
     int f50;
 };
 
-struct Effect {
+struct Effect_148580 {
     int f0;
     int f4;
     int f8;
     int fc;
     int f10;
     char pad14[4];
-    Vec3 dir;
+    Vec3_148580 dir;
     unsigned char f24;
     char pad25[0x4c - 0x25];
-    RefCounted *ref4c;
-    RefCounted *ref50;
+    RefCounted_148580 *ref4c;
+    RefCounted_148580 *ref50;
     int f54;
     int f58;
     char pad5c[0x68 - 0x5c];
@@ -63,31 +63,31 @@ struct Effect {
     char pad6c[0x74 - 0x6c];
     int f74;
     float f78;
-    void FUN_000595f0(Vec3 *dir, int a, float b, int c);
+    void FUN_000595f0(Vec3_148580 *dir, int a, float b, int c);
 };
 
 void *__fastcall FUN_000592a0(void *owner);
-Stats *__fastcall FUN_00059a30(void *x);
-extern "C" void FUN_00224d70(float v, Vec3 *dir);
-extern Vec3 DAT_004ae358;
+Stats_148580 *__fastcall FUN_00059a30(void *x);
+extern "C" void FUN_00224d70(float v, Vec3_148580 *dir);
+extern Vec3_148580 DAT_004ae358;
 
 // equiv-conv: FUN_00148580 ecx esi edi
-bool FUN_00148580(void *owner, Effect *fx, Params *p)
+bool FUN_00148580(void *owner, Effect_148580 *fx, Params *p)
 {
     if (owner == 0)
         return false;
-    Stats *s = FUN_00059a30(FUN_000592a0(owner));
+    Stats_148580 *s = FUN_00059a30(FUN_000592a0(owner));
     if (s == 0)
         return false;
 
-    Stats *t = s->target;
+    Stats_148580 *t = s->target;
     if (t == 0) {
         t = s->altTarget;
         if (t == 0)
             return false;
     }
 
-    RefCounted *r = t->ref;
+    RefCounted_148580 *r = t->ref;
     if (r)
         r->vfunc_0();
     if (fx->ref4c)
@@ -130,7 +130,7 @@ bool FUN_00148580(void *owner, Effect *fx, Params *p)
     v = s->FUN_000354c0();
     if (p->f3c == 0)
         v = t->FUN_000354c0();
-    Vec3 dir2 = DAT_004ae358;
+    Vec3_148580 dir2 = DAT_004ae358;
     FUN_00224d70(v + p->f40, &dir2);
     fx->FUN_000595f0(&dir2, p->f44, w, p->f4c);
     return true;

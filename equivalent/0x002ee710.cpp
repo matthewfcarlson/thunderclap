@@ -1,29 +1,29 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 65/66, incomplete)
 // FUN_002ee710 @ 0x002ee710
-struct Info {
+struct Info_2ee710 {
     char pad[0x34];
     float value;
 };
 
-struct Item {
+struct Item_2ee710 {
     virtual void FUN_slot0();
     virtual void FUN_slot1();
     char pad0[0x20 - 4];
-    Info *info;
+    Info_2ee710 *info;
     char pad1[0x50 - 0x24];
     char flag;
 };
 
-struct Rec20 {
-    Item *a;
-    Item *b;
+struct Rec20_2ee710 {
+    Item_2ee710 *a;
+    Item_2ee710 *b;
     int c;
     int d;
     int e;
 };
 
 struct Rec14 {
-    Item *key;
+    Item_2ee710 *key;
     int a;
     int b;
     int c;
@@ -33,21 +33,21 @@ struct Rec14 {
 struct Rec44 {
     int w0;
     int w1;
-    Item *k0;
-    Item *k1;
+    Item_2ee710 *k0;
+    Item_2ee710 *k1;
     char pad[0x44 - 0x10];
 };
 
-union ArgSlot {
-    Item *obj;
+union ArgSlot_2ee710 {
+    Item_2ee710 *obj;
     float f;
 };
 
-struct Registry {
-    Item **list_begin;
-    Item **list_end;
+struct Registry_2ee710 {
+    Item_2ee710 **list_begin;
+    Item_2ee710 **list_end;
     char pad0[0x14 - 8];
-    Item **inf_begin;
+    Item_2ee710 **inf_begin;
     unsigned inf_count;
     float maxA;
     float maxB;
@@ -56,24 +56,24 @@ struct Registry {
     Rec44 *big_begin;
     Rec44 *big_end;
     char pad1[0x4c - 0x34];
-    Rec20 *pair_begin;
-    Rec20 *pair_end;
+    Rec20_2ee710 *pair_begin;
+    Rec20_2ee710 *pair_end;
 
-    void FUN_002ee710(Item *obj);
+    void FUN_002ee710(Item_2ee710 *obj);
 };
 
 extern const float DAT_003f32e0;
 
-void Registry::FUN_002ee710(Item *obj)
+void Registry_2ee710::FUN_002ee710(Item_2ee710 *obj)
 {
     float f;
     bool removed = false;
 
     for (unsigned i = 0; i < (unsigned)(list_end - list_begin); i++) {
         if (list_begin[i] == obj) {
-            Item **last = list_end - 1;
+            Item_2ee710 **last = list_end - 1;
             removed = true;
-            Item **slot = list_begin + i;
+            Item_2ee710 **slot = list_begin + i;
             list_end = last;
             if (slot < last)
                 *slot = *last;
@@ -82,9 +82,9 @@ void Registry::FUN_002ee710(Item *obj)
     }
 
     for (unsigned i = 0; i < (unsigned)(pair_end - pair_begin); i++) {
-        Rec20 *e = pair_begin + i;
+        Rec20_2ee710 *e = pair_begin + i;
         if (e->a == obj || e->b == obj) {
-            Rec20 *last = pair_end - 1;
+            Rec20_2ee710 *last = pair_end - 1;
             pair_end = last;
             if (e < last)
                 *e = *last;
@@ -136,9 +136,9 @@ void Registry::FUN_002ee710(Item *obj)
         if (f >= maxA) {
             float m = DAT_003f32e0;
             unsigned c = inf_count;
-            Item **q = inf_begin;
+            Item_2ee710 **q = inf_begin;
             for (; c != 0; c--, q++) {
-                Info *in = (*q)->info;
+                Info_2ee710 *in = (*q)->info;
                 if (m < in->value)
                     m = in->value;
             }
@@ -147,9 +147,9 @@ void Registry::FUN_002ee710(Item *obj)
         if (f >= maxB) {
             float m = DAT_003f32e0;
             unsigned c = inf_count;
-            Item **q = inf_begin;
+            Item_2ee710 **q = inf_begin;
             for (; c != 0; c--, q++) {
-                Info *in = (*q)->info;
+                Info_2ee710 *in = (*q)->info;
                 if (m < in->value)
                     m = in->value;
             }

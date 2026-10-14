@@ -2,7 +2,7 @@
 // FUN_000d7db0 @ 0x000d7db0
 // equiv-map: ??1FEControl@@UAE@XZ = 0x000e92b0
 // equiv-map: ??1StringPair@@QAE@XZ = 0x000f7960
-class RefCounted {
+class RefCounted_d7db0 {
 public:
     virtual void v0() throw();
     virtual void Release() throw();
@@ -31,7 +31,7 @@ public:
 class FEMemCardControl : public FEControl {
 public:
     virtual ~FEMemCardControl() throw();
-    RefCounted *handle;
+    RefCounted_d7db0 *handle;
     char pad1d0[0x220 - 0x1d0];
     CellRow cells;
     char pad34c[0x35c - 0x34c];

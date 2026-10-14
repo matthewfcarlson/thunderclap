@@ -3,37 +3,37 @@
 extern float DAT_004c4c10;
 extern float DAT_004c4c14;
 
-struct Owner {
+struct Owner_1bf9b0 {
     int FUN_000f7240(int a, int b);
     int FUN_000f7220(int index);
 };
 
-struct SubObj {
+struct SubObj_1bf9b0 {
     char data[4];
 };
 
-struct Sink {
+struct Sink_1bf9b0 {
     char pad0[8];
-    Owner *owner;
+    Owner_1bf9b0 *owner;
     bool flag;
     char padd[0x1c - 0xd];
-    SubObj sub;
+    SubObj_1bf9b0 sub;
 };
 
-struct Key {
+struct Key_1bf9b0 {
     float t;
     float dur;
     int a;
     int b;
 };
 
-void __cdecl FUN_000fb690(SubObj *sub, int value, int n);
+void __cdecl FUN_000fb690(SubObj_1bf9b0 *sub, int value, int n);
 
 class Track {
 public:
     float time;
     int count;
-    Key *keys;
+    Key_1bf9b0 *keys;
     char pad0c;
     bool active;
     char pad0e[2];
@@ -45,12 +45,12 @@ public:
     char pad24;
     char pad25[3];
     int *handles;
-    Sink *sink;
+    Sink_1bf9b0 *sink;
     char pad30[4];
-    Owner *ownerA;
-    Owner *ownerB;
+    Owner_1bf9b0 *ownerA;
+    Owner_1bf9b0 *ownerB;
     char pad3c[8];
-    Owner *current;
+    Owner_1bf9b0 *current;
     char pad48[8];
     int busy;
     char pad54;
@@ -67,7 +67,7 @@ void Track::FUN_001bf9b0()
     if (count <= 0)
         return;
     do {
-        Key *k = &keys[i];
+        Key_1bf9b0 *k = &keys[i];
         float t0 = k->t;
         float t1 = DAT_004c4c10 + t0;
         if (k->dur > 0.0f) {

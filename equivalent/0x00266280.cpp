@@ -16,7 +16,7 @@ struct NodeIter {
     Node *FUN_00231230();
 };
 
-class Resolver {
+class Resolver_266280 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2();
     virtual Node *Resolve(Matcher *m, int a, int b);     // slot 3
@@ -28,7 +28,7 @@ public:
     virtual Node *vfunc_3(Matcher *matcher, int a, int b);
     char pad04[8];
     Container *container;    // 0x0c
-    Resolver *fallback;      // 0x10
+    Resolver_266280 *fallback;      // 0x10
 };
 
 Node *LoadInventory::vfunc_3(Matcher *matcher, int a, int b) {

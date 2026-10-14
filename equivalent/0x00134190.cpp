@@ -1,16 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // hulkfight::motion::FlyingBrakeAction::vfunc_3 @ 0x00134190
-struct V3 {
+struct V3_134190 {
     float x, y, z;
     float FUN_0022d110();
 };
-struct Name {
+struct Name_134190 {
     unsigned int lo, hi;
     void FUN_0027b040(const char* s);
 };
-struct Xform {
+struct Xform_134190 {
     char data[0x54];
-    void FUN_00221be0(const Xform* src);
+    void FUN_00221be0(const Xform_134190* src);
 };
 void* FUN_00263ea0(unsigned int size);
 
@@ -18,29 +18,29 @@ class JointDriver {
 public:
     virtual void AddRef();
     char pad4[4];
-    Name name;
+    Name_134190 name;
     char pad10[4];
     int enabled;
-    Xform xform;
+    Xform_134190 xform;
     JointDriver* FUN_002248f0(int a);
 };
 
-struct Timing {
-    bool FUN_000356c0(V3* out);
+struct Timing_134190 {
+    bool FUN_000356c0(V3_134190* out);
 };
 struct Skeleton {
     char pad0[0x10];
-    Xform xform;
+    Xform_134190 xform;
     void FUN_00222890(JointDriver* d, float a, float b, float c, float e, float f, float g);
 };
-struct Clock {
-    Timing* FUN_00059a30();
+struct Clock_134190 {
+    Timing_134190* FUN_00059a30();
     Skeleton* FUN_00059a40();
 };
-struct Target {
-    Clock* FUN_000592a0();
+struct Target_134190 {
+    Clock_134190* FUN_000592a0();
 };
-class Config {
+class Config_134190 {
 public:
     virtual void f0();
     virtual void f1();
@@ -65,21 +65,21 @@ public:
     virtual void f2();
     virtual bool vfunc_3(int a, int b);
     char pad04[0x1c - 4];
-    Config* cfg;
-    Target* target;
+    Config_134190* cfg;
+    Target_134190* target;
     JointDriver* driver;
-    V3 pos;
-    V3 vel;
+    V3_134190 pos;
+    V3_134190 vel;
 };
 
 bool FlyingBrakeAction::vfunc_3(int a, int b)
 {
-    Clock* clock = target->FUN_000592a0();
-    Timing* timing = clock->FUN_00059a30();
+    Clock_134190* clock = target->FUN_000592a0();
+    Timing_134190* timing = clock->FUN_00059a30();
     Skeleton* skel = clock->FUN_00059a40();
     if (skel == 0)
         return false;
-    Config* c = cfg;
+    Config_134190* c = cfg;
     float c28 = c->f28;
     float c2c = c->f2c;
     float c24 = c->f24;
@@ -98,7 +98,7 @@ bool FlyingBrakeAction::vfunc_3(int a, int b)
     timing->FUN_000356c0(&pos);
     float f = cfg->GetSpeed();
     if (f > 0.0f) {
-        V3 dir;
+        V3_134190 dir;
         dir.x = pos.x;
         dir.y = 0.0f;
         dir.z = pos.z;

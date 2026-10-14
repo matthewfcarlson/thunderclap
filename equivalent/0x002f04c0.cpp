@@ -2,11 +2,11 @@
 // FUN_002f04c0 @ 0x002f04c0
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_2f04c0 {
     float x, y, z;
 };
 
-bool FUN_002f04c0(const Vec3 *c, const Vec3 *d, float maxDist, float radius, float *out)
+bool FUN_002f04c0(const Vec3_2f04c0 *c, const Vec3_2f04c0 *d, float maxDist, float radius, float *out)
 {
     radius = radius * radius;
 

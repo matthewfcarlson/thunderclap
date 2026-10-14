@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0031a4f0 @ 0x0031a4f0
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int);
-struct State {
+struct State_31a4f0 {
  char pad0[0x20];
  float weightA, weightB;
  char pad1[0x38];
- void FUN_0031a8b0(const State*);
+ void FUN_0031a8b0(const State_31a4f0*);
 };
 struct Object {
  void* begin;
  void* current;
  void* end;
  unsigned int reserved;
- State state;
+ State_31a4f0 state;
  unsigned int field70, field74, field78, field7c, flags, field84;
  unsigned int field88, field8c, field90, field94, field98, field9c, fielda0;
  Object* copy(const Object* src);

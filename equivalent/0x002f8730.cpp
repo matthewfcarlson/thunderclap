@@ -4,11 +4,11 @@ extern float __cdecl FUN_002f2900(unsigned int, unsigned int);
 extern unsigned char DAT_004d2c52;
 extern float DAT_004d2c54;
 extern "C" double __cdecl sqrt(double);
-struct Body { char pad[0x1c]; unsigned int value; };
+struct Body_2f8730 { char pad[0x1c]; unsigned int value; };
 namespace physics {
 struct ImpulseBasedCollisionSolver {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual float vfunc_4();
- char pad04[0x10]; Body* first; Body* second; char pad1c[0x14]; float threshold; char pad34[0x4c]; float velocity; char pad84[0x64]; float energy; float scale; char padf0[2]; unsigned char flag;
+ char pad04[0x10]; Body_2f8730* first; Body_2f8730* second; char pad1c[0x14]; float threshold; char pad34[0x4c]; float velocity; char pad84[0x64]; float energy; float scale; char padf0[2]; unsigned char flag;
 };
 float ImpulseBasedCollisionSolver::vfunc_4() {
  float saved = threshold;

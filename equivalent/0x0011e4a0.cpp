@@ -2,45 +2,45 @@
 // hulkfight::ai::PathAction::vfunc_5 @ 0x0011e4a0
 extern "C" int atexit(void (*)());
 
-struct V3 {
+struct V3_11e4a0 {
     float x, y, z;
     float FUN_0022d110() throw();
     float FUN_00018990() throw();
 };
 
-struct V2 {
+struct V2_11e4a0 {
     float y, z;
     void FUN_000344b0(float s) throw();
 };
 
-struct Key {
+struct Key_11e4a0 {
     unsigned int lo, hi;
     void FUN_0027af00() throw();
     void FUN_0027b040(const char *s) throw();
 };
 
-class RefObj {
+class RefObj_11e4a0 {
 public:
     virtual void AddRef() throw();
     virtual void Release() throw();
     char pad04[4];
-    struct Stats *f08;
+    struct Stats_11e4a0 *f08;
     int f0c;
     char pad10[0x40 - 0x10];
-    V3 v40;
+    V3_11e4a0 v40;
 };
 
-struct Info {
+struct Info_11e4a0 {
     char pad[0x140];
     int f140;
 };
 
-struct Fighter {
-    Info *FUN_00059a30() throw();
-    void FUN_00059a50(V3 *out) throw();
+struct Fighter_11e4a0 {
+    Info_11e4a0 *FUN_00059a30() throw();
+    void FUN_00059a50(V3_11e4a0 *out) throw();
 };
 
-struct Sub11c {
+struct Sub11c_11e4a0 {
     char pad[0x1b0];
     int f1b0;
     char pad1b4[0x380 - 0x1b4];
@@ -49,9 +49,9 @@ struct Sub11c {
 
 struct HubMid {
     char pad[0x11c];
-    Sub11c *f11c;
+    Sub11c_11e4a0 *f11c;
     char pad120[0x12c - 0x120];
-    RefObj *f12c;
+    RefObj_11e4a0 *f12c;
 };
 
 struct HubSub20 {
@@ -60,14 +60,14 @@ struct HubSub20 {
     void FUN_00025260(int a, int b, int c) throw();
 };
 
-struct List {
+struct List_11e4a0 {
     char pad[0x14];
     int count;
-    V3 *FUN_00106160(int i) throw();
+    V3_11e4a0 *FUN_00106160(int i) throw();
 };
 
 struct Reg18 {
-    List *FUN_00106230(int key) throw();
+    List_11e4a0 *FUN_00106230(int key) throw();
 };
 
 struct Locator {
@@ -80,40 +80,40 @@ public:
     virtual void v5() throw();
     virtual void v6() throw();
     virtual void v7() throw();
-    virtual V3 *v8(V3 *out) throw();
+    virtual V3_11e4a0 *v8(V3_11e4a0 *out) throw();
 };
 
 struct Reg28 {
-    const char *FUN_001ff950(V3 pos, int a, int b, float lo, float hi) throw();
+    const char *FUN_001ff950(V3_11e4a0 pos, int a, int b, float lo, float hi) throw();
     Locator *FUN_001fc8c0(unsigned __int64 id) throw();
 };
 
-struct Mgr {
+struct Mgr_11e4a0 {
     void FUN_001dcf60(int a) throw();
 };
 
-struct Hub1c {
-    char FUN_001ae2c0(V3 *a, V3 *b, V3 *c, float f1, float f2, float f3, int i1, int i2, int i3, int i4, int i5, float t, float u) throw();
+struct Hub1c_11e4a0 {
+    char FUN_001ae2c0(V3_11e4a0 *a, V3_11e4a0 *b, V3_11e4a0 *c, float f1, float f2, float f3, int i1, int i2, int i3, int i4, int i5, float t, float u) throw();
 };
 
-struct Bounds {
+struct Bounds_11e4a0 {
     int FUN_00088fa0() throw();
     int FUN_00088fb0() throw();
 };
-struct Viewport {
+struct Viewport_11e4a0 {
     char pad[0x80];
-    Bounds bounds;
+    Bounds_11e4a0 bounds;
 };
 struct Hub54 {
-    Viewport *FUN_00086310() throw();
+    Viewport_11e4a0 *FUN_00086310() throw();
 };
 
-struct Hub {
+struct Hub_11e4a0 {
     char pad0[0xc];
-    Mgr *f0c;
+    Mgr_11e4a0 *f0c;
     char pad10[8];
     Reg18 *f18;
-    Hub1c *f1c;
+    Hub1c_11e4a0 *f1c;
     HubSub20 *f20;
     char pad24[4];
     Reg28 *f28;
@@ -121,64 +121,64 @@ struct Hub {
     Hub54 *f54;
 };
 
-struct Stats;
+struct Stats_11e4a0;
 
-class Sink {
+class Sink_11e4a0 {
 public:
     virtual void v0() throw();
     virtual void v1() throw();
     virtual void v2() throw();
     virtual void v3() throw();
-    virtual char v4(V3 *a, V3 *b, Stats *s, Hub *w, float dt, void *c, V3 *d) throw();
-    char FUN_0010aa90(Hub *w, V3 *b, V3 *a, float k, V3 *o1, V3 *o2, V3 *r, Stats *s, RefObj *obj, int p, int q) throw();
+    virtual char v4(V3_11e4a0 *a, V3_11e4a0 *b, Stats_11e4a0 *s, Hub_11e4a0 *w, float dt, void *c, V3_11e4a0 *d) throw();
+    char FUN_0010aa90(Hub_11e4a0 *w, V3_11e4a0 *b, V3_11e4a0 *a, float k, V3_11e4a0 *o1, V3_11e4a0 *o2, V3_11e4a0 *r, Stats_11e4a0 *s, RefObj_11e4a0 *obj, int p, int q) throw();
 };
 
-struct SpecialSub {
+struct SpecialSub_11e4a0 {
     char pad[0x46];
     char b9e;
     char pad9f;
     unsigned __int64 id;
 };
 
-struct Special {
+struct Special_11e4a0 {
     char pad0[0x58];
-    SpecialSub sub;
+    SpecialSub_11e4a0 sub;
     char padA8[0x129 - 0xa8];
     char b129;
 };
 
-struct Stats {
+struct Stats_11e4a0 {
     char pad0[0x10];
-    Fighter *f10;
+    Fighter_11e4a0 *f10;
     char pad14[0x11c - 0x14];
-    Sub11c *f11c;
+    Sub11c_11e4a0 *f11c;
     char pad120[0x328 - 0x120];
-    RefObj *f328;
+    RefObj_11e4a0 *f328;
     char pad32c[0x1a60 - 0x32c];
-    V3 v1a60;
+    V3_11e4a0 v1a60;
     char pad1a6c[0x1ca0 - 0x1a6c];
-    Special *f1ca0;
-    Sink *f1ca4;
+    Special_11e4a0 *f1ca0;
+    Sink_11e4a0 *f1ca4;
     char pad1ca8[0x1d44 - 0x1ca8];
     float f1d44;
     float f1d48;
     char pad1d4c[0x1d70 - 0x1d4c];
     unsigned __int64 id1d70;
     char pad1d78[0x2064 - 0x1d78];
-    V3 outB;
+    V3_11e4a0 outB;
     float speed;
-    V3 outA;
+    V3_11e4a0 outA;
     char pad2080[0x20a8 - 0x2080];
     int f20a8;
     char pad20ac[0x2149 - 0x20ac];
     char b2149;
-    void FUN_00035550(V3 *out) throw();
+    void FUN_00035550(V3_11e4a0 *out) throw();
     int FUN_00036d30() throw();
-    void FUN_00036e70(Key *k, int v) throw();
-    void FUN_0003ffa0(RefObj *t, int z) throw();
+    void FUN_00036e70(Key_11e4a0 *k, int v) throw();
+    void FUN_0003ffa0(RefObj_11e4a0 *t, int z) throw();
 };
 
-class Cfg {
+class Cfg_11e4a0 {
 public:
     virtual void v0() throw();
     virtual void v1() throw();
@@ -208,16 +208,16 @@ public:
     float f5c;
 };
 
-struct Clock {
+struct Clock_11e4a0 {
     float FUN_00066280() throw();
 };
 
-extern Hub *DAT_004dd700;
+extern Hub_11e4a0 *DAT_004dd700;
 extern int DAT_004d2a3c;
 extern char DAT_00554c1c;
 extern float DAT_00554c18;
 extern int DAT_004e0d30;
-extern Key DAT_004e0d38;
+extern Key_11e4a0 DAT_004e0d38;
 extern unsigned int DAT_004e0d40;
 extern int DAT_004e0ce8;
 extern int DAT_004e0cec;
@@ -242,11 +242,11 @@ void FUN_00363f00();
 unsigned __int64 __cdecl FUN_0027b020(const char *s) throw();
 char __cdecl FUN_00018960(float a, float b, float eps) throw();
 float __cdecl FUN_000186f0(float *a, float *b) throw();
-float __cdecl FUN_0010b1c0(Hub *w, Stats *s, float thr, V3 *out) throw();
-char __cdecl FUN_00036b10(Hub *w, V3 *a, V3 *b, V3 *c, V3 *d, char *e, char *f) throw();
-Clock *FUN_000678d0() throw();
+float __cdecl FUN_0010b1c0(Hub_11e4a0 *w, Stats_11e4a0 *s, float thr, V3_11e4a0 *out) throw();
+char __cdecl FUN_00036b10(Hub_11e4a0 *w, V3_11e4a0 *a, V3_11e4a0 *b, V3_11e4a0 *c, V3_11e4a0 *d, char *e, char *f) throw();
+Clock_11e4a0 *FUN_000678d0() throw();
 
-union FloatBits {
+union FloatBits_11e4a0 {
     float f;
     unsigned int u;
 };
@@ -265,20 +265,20 @@ public:
     char b1c;
     char b1d;
     char pad1e[2];
-    V3 v20;
-    V3 v2c;
+    V3_11e4a0 v20;
+    V3_11e4a0 v2c;
     char pad38[0x64 - 0x38];
-    V3 v64;
+    V3_11e4a0 v64;
     char pad70[4];
     int mode;
     char pad78[4];
     int f7c;
-    V3 f80;
-    Cfg *p8c;
+    V3_11e4a0 f80;
+    Cfg_11e4a0 *p8c;
     void *p90;
-    RefObj *p94;
+    RefObj_11e4a0 *p94;
     char pad98[0xc8 - 0x98];
-    Stats *owner;
+    Stats_11e4a0 *owner;
     char padcc[4];
     int idLo;
     int idHi;
@@ -294,34 +294,34 @@ public:
 char PathAction::vfunc_5(int a, float dt)
 {
     struct Frame {
-        V3 V10;
+        V3_11e4a0 V10;
         union {
-            V3 *p;
+            V3_11e4a0 *p;
             float f;
             int i;
         } u1c;
         char pad20[3];
         char B23;
-        V3 V24;
-        V3 A30;
+        V3_11e4a0 V24;
+        V3_11e4a0 A30;
         union {
             Locator *loc;
             float f;
         } u3c;
-        V3 B40;
+        V3_11e4a0 B40;
         union {
-            Hub *hub;
+            Hub_11e4a0 *hub;
             float s;
         } u4c;
         union {
             float f;
             int i;
         } u50;
-        V3 V54;
-        V3 W;
-        RefObj *th;
+        V3_11e4a0 V54;
+        V3_11e4a0 W;
+        RefObj_11e4a0 *th;
         float A;
-        Special *sp;
+        Special_11e4a0 *sp;
         union {
             int i;
             float f;
@@ -329,15 +329,15 @@ char PathAction::vfunc_5(int a, float dt)
         char pad7c[2];
         char b7e;
         char b7f;
-        V3 Vec80;
-        V3 V8c;
-        V3 V98;
+        V3_11e4a0 Vec80;
+        V3_11e4a0 V8c;
+        V3_11e4a0 V98;
         int g88fa0;
-        V3 Va8;
-        V3 Vb4;
-        V3 Vc0;
-        V3 Vcc;
-        V3 Vd8;
+        V3_11e4a0 Va8;
+        V3_11e4a0 Vb4;
+        V3_11e4a0 Vc0;
+        V3_11e4a0 Vcc;
+        V3_11e4a0 Vd8;
     } f;
 
     f.u4c.hub = DAT_004dd700;
@@ -374,7 +374,7 @@ char PathAction::vfunc_5(int a, float dt)
     f.B40 = f.A30;
     v20 = owner->v1a60;
 
-    RefObj *th = owner->f328;
+    RefObj_11e4a0 *th = owner->f328;
     f.th = th;
     if (th == 0) {
         th = p94;
@@ -382,16 +382,16 @@ char PathAction::vfunc_5(int a, float dt)
         if (th == 0) {
             if (owner->f20a8 >= 0)
                 return 1;
-            Sub11c *s1 = owner->f11c;
+            Sub11c_11e4a0 *s1 = owner->f11c;
             if (s1 == 0)
                 return 1;
             HubMid *mid = f.u4c.hub->f20->f124;
             if (mid == 0)
                 return 1;
-            RefObj *cand = mid->f12c;
+            RefObj_11e4a0 *cand = mid->f12c;
             if (cand == 0)
                 return 1;
-            Sub11c *s2 = mid->f11c;
+            Sub11c_11e4a0 *s2 = mid->f11c;
             if (s2 == 0)
                 return 1;
             if (s1->f1b0 == s2->f1b0)
@@ -433,13 +433,13 @@ char PathAction::vfunc_5(int a, float dt)
         owner->f10->FUN_00059a50(&f.V54);
         owner->b2149 = 1;
         Reg18 *r18 = f.u4c.hub->f18;
-        List *list = r18->FUN_00106230(owner->FUN_00036d30());
+        List_11e4a0 *list = r18->FUN_00106230(owner->FUN_00036d30());
         if (list == 0) {
             DAT_004e0d38.FUN_0027b040("waypoint_failed");
             owner->FUN_00036e70(&DAT_004e0d38, 1);
             return 0;
         }
-        V3 *first = list->FUN_00106160(fec);
+        V3_11e4a0 *first = list->FUN_00106160(fec);
         f.V10.x = first->x;
         f.V10.y = first->y;
         f.V10.z = first->z;
@@ -451,7 +451,7 @@ char PathAction::vfunc_5(int a, float dt)
         f.u3c.f = f.V10.FUN_00018990();
         f.u50.i = list->count;
         for (int i = 1; i < f.u50.i; i++) {
-            V3 *p = list->FUN_00106160(i);
+            V3_11e4a0 *p = list->FUN_00106160(i);
             float px = p->x;
             float py = p->y;
             f.V10.z = p->z;
@@ -464,7 +464,7 @@ char PathAction::vfunc_5(int a, float dt)
                 fec = i;
             }
         }
-        V3 *pick;
+        V3_11e4a0 *pick;
         if (fec != 0)
             pick = list->FUN_00106160(fec);
         else
@@ -489,7 +489,7 @@ char PathAction::vfunc_5(int a, float dt)
             if (pt != 0)
                 loc = e0->FUN_001fc8c0(FUN_0027b020(pt));
             if (loc != 0) {
-                V3 *q = loc->v8(&f.V54);
+                V3_11e4a0 *q = loc->v8(&f.V54);
                 v2c = *q;
             } else {
                 f.u50.f = -1.0f;
@@ -504,7 +504,7 @@ char PathAction::vfunc_5(int a, float dt)
                         if (p2 != 0) {
                             Locator *l2 = DAT_004dd700->f28->FUN_001fc8c0(FUN_0027b020(p2));
                             if (l2 != 0) {
-                                V3 *q = l2->v8(&f.Va8);
+                                V3_11e4a0 *q = l2->v8(&f.Va8);
                                 float qx = q->x;
                                 float qy = q->y;
                                 f.V54.z = q->z;
@@ -525,7 +525,7 @@ char PathAction::vfunc_5(int a, float dt)
                     owner->FUN_00036e70(&DAT_004e0d38, 1);
                     ok = false;
                 } else {
-                    V3 *q = f.u3c.loc->v8(&f.Va8);
+                    V3_11e4a0 *q = f.u3c.loc->v8(&f.Va8);
                     v2c = *q;
                 }
             }
@@ -539,7 +539,7 @@ char PathAction::vfunc_5(int a, float dt)
                 owner->FUN_00036e70(&DAT_004e0d38, 1);
                 ok = false;
             } else {
-                V3 *q = loc->v8(&f.Va8);
+                V3_11e4a0 *q = loc->v8(&f.Va8);
                 v2c = *q;
             }
         } else if (lo == DAT_004e0d20 && hi == DAT_004e0d24) {
@@ -550,12 +550,12 @@ char PathAction::vfunc_5(int a, float dt)
             if (loc == 0) {
                 ok = false;
             } else {
-                V3 *q = loc->v8(&f.Va8);
+                V3_11e4a0 *q = loc->v8(&f.Va8);
                 v2c = *q;
             }
         } else if (lo == DAT_004e0cf0 && hi == DAT_004e0cf4) {
             Locator *loc;
-            Cfg *c = p8c;
+            Cfg_11e4a0 *c = p8c;
             if (c->b3d != 0)
                 loc = e0->FUN_001fc8c0(owner->id1d70);
             else if (c->b3c != 0 && f.sp != 0 && &f.sp->sub != 0)
@@ -567,7 +567,7 @@ char PathAction::vfunc_5(int a, float dt)
                 owner->FUN_00036e70(&DAT_004e0d38, 1);
                 ok = false;
             } else {
-                V3 *q = loc->v8(&f.Va8);
+                V3_11e4a0 *q = loc->v8(&f.Va8);
                 v2c = *q;
             }
         } else if (lo == DAT_004e0d10 && hi == DAT_004e0d14) {
@@ -659,7 +659,7 @@ char PathAction::vfunc_5(int a, float dt)
     f.W.y = 0.0f;
     f.W.z = v2c.z - v20.z;
     f.u50.f = f.W.FUN_0022d110();
-    Hub *hub = f.u4c.hub;
+    Hub_11e4a0 *hub = f.u4c.hub;
     DAT_004d2a3c = 2;
     DAT_00554c1c = 1;
     DAT_00554c18 = 0.0f;
@@ -712,12 +712,12 @@ char PathAction::vfunc_5(int a, float dt)
             f.Vec80.FUN_0022d110();
             f.u1c.f = (f.u4c.s - f.u3c.f) / f.u4c.s;
             f.u3c.f = 1.0f;
-            ((V2 *)&f.Vec80.y)->FUN_000344b0(FUN_000186f0(&f.u3c.f, &f.u1c.f));
+            ((V2_11e4a0 *)&f.Vec80.y)->FUN_000344b0(FUN_000186f0(&f.u3c.f, &f.u1c.f));
         }
     }
 
     if (f.B23 != 0) {
-        Stats *o = owner;
+        Stats_11e4a0 *o = owner;
         f.V10 = v2c;
         f.V24 = v20;
         if (o->f1ca4 != 0 && p8c->b48 != 0) {
@@ -747,7 +747,7 @@ char PathAction::vfunc_5(int a, float dt)
             f.V24 = v64;
             f.V54 = v20;
             fe8 = 0;
-            Stats *o = owner;
+            Stats_11e4a0 *o = owner;
             if (o->f1ca4 != 0 && p8c->b48 != 0) {
                 if (o->f1ca4->v4(&f.V24, &f.V54, o, DAT_004dd700, dt, &f80, &f.Vec80) != 0)
                     return 1;
@@ -817,7 +817,7 @@ char PathAction::vfunc_5(int a, float dt)
                 DAT_004e0d38.FUN_0027b040("path_failed");
                 owner->FUN_00036e70(&DAT_004e0d38, 1);
                 if (!(f.g88fa0 == 4 && f.u78.i == 1)) {
-                    Special *sp2 = owner->f1ca0;
+                    Special_11e4a0 *sp2 = owner->f1ca0;
                     if (sp2->sub.b9e != 0) {
                         sp2->sub.b9e = 0;
                         float now = FUN_000678d0()->FUN_00066280();
@@ -835,7 +835,7 @@ char PathAction::vfunc_5(int a, float dt)
 
     f.A30.FUN_0022d110();
     f.B40.FUN_0022d110();
-    Stats *o2 = owner;
+    Stats_11e4a0 *o2 = owner;
     o2->speed = f.A;
     o2->outA = f.A30;
     o2->outB = f.B40;

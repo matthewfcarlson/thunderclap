@@ -19,20 +19,20 @@ public:
     virtual void v14();
 };
 
-struct Lookup {
+struct Lookup_ce5c0 {
     Node* FUN_000d3f10(int key);
 };
 
-struct Parent {
+struct Parent_ce5c0 {
     char pad[0x114];
-    Lookup* lookup;
+    Lookup_ce5c0* lookup;
 };
 
-class Obj {
+class Obj_ce5c0 {
 public:
     int run(int key, int lo, int hi, int arg4);
     char p0[0x7c];
-    Parent* parent;
+    Parent_ce5c0* parent;
     char p1[0x214 - 0x80];
     int counter;
     Node* node;
@@ -48,7 +48,7 @@ public:
     int n240;
 };
 
-int Obj::run(int key, int lo_, int hi_, int arg4)
+int Obj_ce5c0::run(int key, int lo_, int hi_, int arg4)
 {
     counter = (counter + 1) % 10000;
     if (counter == 0)

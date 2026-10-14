@@ -1,21 +1,21 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 16/16)
 // hulkfight::motion::HitThrowAction::vfunc_5 @ 0x00152210
-struct Vec3 {
+struct Vec3_152210 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Transform {
+struct Transform_152210 {
     void FUN_00221d20(float angle);
-    void FUN_0022be40(Vec3* pos);
+    void FUN_0022be40(Vec3_152210* pos);
 };
 
-struct Target {
+struct Target_152210 {
     char pad00[0x18];
-    Transform xform;
+    Transform_152210 xform;
 };
 
-struct Config {
+struct Config_152210 {
     char pad00[0x14];
     char flag14;
     char pad15[3];
@@ -23,86 +23,86 @@ struct Config {
     float f1c;
 };
 
-struct Fighter {
+struct Fighter_152210 {
     char pad00[0x11c];
-    struct Inner* inner;
+    struct Inner_152210* inner;
     char pad120[0xc];
     int f12c;
     void FUN_000359c0(int mode);
 };
 
-struct Inner {
+struct Inner_152210 {
     char pad00[0x2c];
     int f2c;
 };
 
-struct Anchor {
-    Fighter* FUN_00059a30();
-    void FUN_00059a50(Vec3* out);
+struct Anchor_152210 {
+    Fighter_152210* FUN_00059a30();
+    void FUN_00059a50(Vec3_152210* out);
 };
 
-struct Pool {
+struct Pool_152210 {
     void FUN_00029bb0(int a, int b, float c);
 };
 
-struct Manager {
+struct Manager_152210 {
     char pad0[0x20];
-    Pool* pool;
+    Pool_152210* pool;
 };
 
-struct Probe {
+struct Probe_152210 {
     char pad00[0x8c];
     int f8c;
 };
 
-struct Holder {
+struct Holder_152210 {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual Probe* vfunc_3();
+    virtual Probe_152210* vfunc_3();
 };
 
-extern Manager* DAT_004dd700;
+extern Manager_152210* DAT_004dd700;
 
-Anchor* __fastcall FUN_000592a0(Holder* h);
-Fighter* __fastcall FUN_00059a30(Anchor* a);
-float FUN_00224f10(Vec3* v);
-int FUN_00098190(float dt, float speed, int probe, int zero0, int f28, int x, Vec3* out, Vec3* io, int z1, int z2, int z3, int one);
+Anchor_152210* __fastcall FUN_000592a0(Holder_152210* h);
+Fighter_152210* __fastcall FUN_00059a30(Anchor_152210* a);
+float FUN_00224f10(Vec3_152210* v);
+int FUN_00098190(float dt, float speed, int probe, int zero0, int f28, int x, Vec3_152210* out, Vec3_152210* io, int z1, int z2, int z3, int one);
 
-struct Frame {
-    Vec3 s;
-    Vec3 t;
-    Vec3 v;
+struct Frame_152210 {
+    Vec3_152210 s;
+    Vec3_152210 t;
+    Vec3_152210 v;
 };
 
 class HitThrowAction {
 public:
     char pad00[0x1c];
-    Config* cfg;
-    Holder* holder;
-    Target* target;
+    Config_152210* cfg;
+    Holder_152210* holder;
+    Target_152210* target;
     int f28;
     float f2c;
     float f30;
-    Vec3 vel;
+    Vec3_152210 vel;
     void FUN_001521b0();
     bool vfunc_5(int skip, float dt);
 };
 
 bool HitThrowAction::vfunc_5(int skip, float dt)
 {
-    Frame fr;
+    Frame_152210 fr;
 
     if (skip)
         return true;
     if (target == 0)
         return false;
-    Probe* probe = holder->vfunc_3();
+    Probe_152210* probe = holder->vfunc_3();
     if (probe == 0)
         return false;
 
-    Anchor* anchor = FUN_000592a0(holder);
-    Fighter* fighter = FUN_00059a30(anchor);
+    Anchor_152210* anchor = FUN_000592a0(holder);
+    Fighter_152210* fighter = FUN_00059a30(anchor);
     fr.v.x = 0.0f;
     fr.v.y = 0.0f;
     fr.v.z = 0.0f;

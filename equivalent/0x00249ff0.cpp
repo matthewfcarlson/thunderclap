@@ -8,16 +8,16 @@ struct Node {
     unsigned key;
 };
 
-struct Tree {
+struct Tree_249ff0 {
     Node* root;
     Node nil;
 };
 
-extern "C" void FUN_002482a0(Tree* tree, Node* node);
-extern "C" void FUN_002482f0(Tree* tree, Node* node);
+extern "C" void FUN_002482a0(Tree_249ff0* tree, Node* node);
+extern "C" void FUN_002482f0(Tree_249ff0* tree, Node* node);
 
 // Red-black tree unique-key insert with rebalance. color: 1 = red, 0 = black.
-char FUN_00249ff0(Tree* tree, Node* nodeArg, const unsigned* keyPtr)
+char FUN_00249ff0(Tree_249ff0* tree, Node* nodeArg, const unsigned* keyPtr)
 {
     Node* nil = &tree->nil;
     Node* node = nodeArg;

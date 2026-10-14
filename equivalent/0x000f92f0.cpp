@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 2/2)
 // FUN_000f92f0 @ 0x000f92f0
-struct Record {
+struct Record_f92f0 {
     int a;
     int b;
     int index;
     int pad;
 };
-struct List {
+struct List_f92f0 {
     int count;
     int pad4;
-    Record recs[64];
+    Record_f92f0 recs[64];
     int FUN_000f9140(int a, int b);
 };
-struct Owner {
+struct Owner_f92f0 {
     char pad0[0x458];
-    List list;
+    List_f92f0 list;
     int size;
     char flags[1];
     int FUN_000f92f0(int a, int b, char value);
 };
 
-int Owner::FUN_000f92f0(int a, int b, char value)
+int Owner_f92f0::FUN_000f92f0(int a, int b, char value)
 {
     int found = list.FUN_000f9140(a, b);
     if (found != -1) {

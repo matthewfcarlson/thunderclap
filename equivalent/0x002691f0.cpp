@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_002691f0 @ 0x002691f0
-struct Device {
+struct Device_2691f0 {
     virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
     virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7();
     virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11();
@@ -12,13 +12,13 @@ struct Device {
     char endpad;
     void FUN_002692c0(void*, unsigned, unsigned, unsigned, unsigned, unsigned, unsigned);
 };
-struct Observer { virtual void slot0(Device*); };
-struct Manager {
+struct Observer_2691f0 { virtual void slot0(Device_2691f0*); };
+struct Manager_2691f0 {
     char pad[0x14];
     unsigned base;
     unsigned param;
-    Observer* observer;
-    Device devices[4];
+    Observer_2691f0* observer;
+    Device_2691f0 devices[4];
     unsigned extra;
     void FUN_002691f0();
 };
@@ -29,12 +29,12 @@ namespace XAPILIB {
     void* __stdcall XInputOpen(int*, unsigned, unsigned, unsigned);
 }
 extern unsigned FUN_00267f80();
-void Manager::FUN_002691f0() {
+void Manager_2691f0::FUN_002691f0() {
     unsigned inserted = 0, removed = 0;
     if (!XAPILIB::XGetDeviceChanges(&DAT_003ea774, &inserted, &removed)) return;
     for (unsigned i = 0; i < 4; ++i) {
         if (((inserted | removed) & (1u << i)) == 0) continue;
-        Device& device = devices[i];
+        Device_2691f0& device = devices[i];
         void* handle = XAPILIB::XInputOpen(&DAT_003ea774, i, 0, 0);
         if (handle) {
             if (device.active) device.slot21(handle);

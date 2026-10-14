@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001c4390 @ 0x001c4390
-struct State {
+struct State_1c4390 {
  char pad[0x14];
  unsigned char firstActive; char pad15[3];
  float firstValue, firstTarget, firstRate;
@@ -9,7 +9,7 @@ struct State {
  unsigned char dirty;
  void FUN_001c4390(float target, unsigned char secondEnabled, float secondDuration, unsigned char firstEnabled, float firstDuration);
 };
-void State::FUN_001c4390(float target, unsigned char secondEnabled, float secondDuration, unsigned char firstEnabled, float firstDuration) {
+void State_1c4390::FUN_001c4390(float target, unsigned char secondEnabled, float secondDuration, unsigned char firstEnabled, float firstDuration) {
  float duration = firstEnabled ? firstDuration : 0.0f;
  if (duration == 0.0f) {
   firstTarget = 1.0f;

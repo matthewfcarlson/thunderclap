@@ -2,26 +2,26 @@
 // CCollisionPushbackDirectionCondition::vfunc_7 @ 0x0004bf70
 struct Fighter;
 
-struct Actor {
+struct Actor_4bf70 {
     float FUN_000354c0();
 };
 
-struct Target {
+struct Target_4bf70 {
     char pad0[0x28];
     float x;                  // 0x28
     char pad2c[4];
     float y;                  // 0x30
 };
 
-struct Owner {
+struct Owner_4bf70 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Target *v3();
+    virtual Target_4bf70 *v3();
 };
 
-Fighter *__fastcall FUN_000592a0(Owner *owner);
-Actor *__fastcall FUN_00059a30(Fighter *f);
+Fighter *__fastcall FUN_000592a0(Owner_4bf70 *owner);
+Actor_4bf70 *__fastcall FUN_00059a30(Fighter *f);
 extern "C" float __cdecl FUN_00224ea0(float a, float b);
 extern "C" float __cdecl FUN_00224fc0(float a, float b);
 
@@ -34,16 +34,16 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     virtual void vfunc_6();
-    virtual bool vfunc_7(Owner *owner);
+    virtual bool vfunc_7(Owner_4bf70 *owner);
     char pad04[8];
     float offset;             // 0xc
     float tolerance;          // 0x10
 };
 
-bool CCollisionPushbackDirectionCondition::vfunc_7(Owner *owner)
+bool CCollisionPushbackDirectionCondition::vfunc_7(Owner_4bf70 *owner)
 {
-    Actor *actor = FUN_00059a30(FUN_000592a0(owner));
-    Target *target = owner->v3();
+    Actor_4bf70 *actor = FUN_00059a30(FUN_000592a0(owner));
+    Target_4bf70 *target = owner->v3();
     if (target == 0)
         return false;
     actor->FUN_000354c0();

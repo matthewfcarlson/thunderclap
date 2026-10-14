@@ -2,7 +2,7 @@
 // FUN_001a3240 @ 0x001a3240
 namespace hulkfight { namespace scenario {
 
-struct Slot {
+struct Slot_1a3240 {
     int a;
     int b;
     int c;
@@ -44,7 +44,7 @@ public:
     char f58;
     char f59;
     char pad5a[2];
-    Slot slots[19];     // 0x5c
+    Slot_1a3240 slots[19];     // 0x5c
     int f18c;
     int f190;
     int f194;

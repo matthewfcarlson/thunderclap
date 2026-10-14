@@ -2,20 +2,20 @@
 // physics::SimState::vfunc_6 @ 0x002ef900
 extern "C" double sqrt(double);
 
-struct Mat {
+struct Mat_2ef900 {
     float m[16];
 };
 
-struct Vec3 {
+struct Vec3_2ef900 {
     float x, y, z;
 };
 
-struct Flags {
+struct Flags_2ef900 {
     char pad0[0x19];
     unsigned char b19;
 };
 
-class Controller {
+class Controller_2ef900 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -30,9 +30,9 @@ public:
     virtual void vfunc_10();
 };
 
-struct Target {
+struct Target_2ef900 {
     char pad0[0x20];
-    Flags *flags;
+    Flags_2ef900 *flags;
     char pad24[0x68 - 0x24];
     unsigned char on;
     unsigned char dirty;
@@ -40,8 +40,8 @@ struct Target {
 
 class Sim;
 
-char __cdecl FUN_00306060(Mat *a, Mat *b, float eps);
-void __cdecl FUN_002ef760(Mat *cur, Mat *next, int mode, float dt, Vec3 *out);
+char __cdecl FUN_00306060(Mat_2ef900 *a, Mat_2ef900 *b, float eps);
+void __cdecl FUN_002ef760(Mat_2ef900 *cur, Mat_2ef900 *next, int mode, float dt, Vec3_2ef900 *out);
 
 class SimState {
 public:
@@ -51,27 +51,27 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual void vfunc_6(Mat *mat, float dt);
+    virtual void vfunc_6(Mat_2ef900 *mat, float dt);
     virtual void vfunc_7();
     char pad04[0xc];
-    Mat current;
-    Vec3 delta;
+    Mat_2ef900 current;
+    Vec3_2ef900 delta;
     char pad5c[0x68 - 0x5c];
     int mode;
     int f6c;
     char pad70[4];
-    Target *target;
+    Target_2ef900 *target;
     unsigned char changed;
     char pad79[0x80 - 0x79];
     float radius;
     unsigned char locked;
 
-    void FUN_002ef5b0(Mat *cur, Mat *next);
+    void FUN_002ef5b0(Mat_2ef900 *cur, Mat_2ef900 *next);
 };
 
-void SimState::vfunc_6(Mat *mat, float dt)
+void SimState::vfunc_6(Mat_2ef900 *mat, float dt)
 {
-    Mat *cur = &current;
+    Mat_2ef900 *cur = &current;
     changed = (FUN_00306060(cur, mat, 1e-6f) == 0);
     if (f6c == 0) {
         if (changed) {
@@ -83,9 +83,9 @@ void SimState::vfunc_6(Mat *mat, float dt)
                     target->flags->b19 = 0;
                     target->on = 1;
                     target->dirty = 1;
-                    Target *t = target;
+                    Target_2ef900 *t = target;
                     if (t->on != 0 || t->dirty != 0)
-                        ((Controller *)t->flags)->vfunc_10();
+                        ((Controller_2ef900 *)t->flags)->vfunc_10();
                 }
             }
         } else {
@@ -104,7 +104,7 @@ void SimState::vfunc_6(Mat *mat, float dt)
     float limit = 2.0f * radius;
     if (lenSq > limit * limit) {
         radius = (float)sqrt((double)lenSq);
-        Target *t = target;
+        Target_2ef900 *t = target;
         if (t != 0) {
             t->flags->b19 = 0;
             t->on = 1;

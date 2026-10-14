@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1169 inputs, branch coverage 12/12)
 // FUN_00093150 @ 0x00093150
-struct Name {
+struct Name_93150 {
     char data[8];
     void FUN_0027b040(const char *s);
 };
@@ -12,16 +12,16 @@ public:
 class CUnlockableGallery : public CUnlockable {
 public:
     char pad04[0xc];
-    Name title;
+    Name_93150 title;
     char pad18[8];
     int flags;
     char caption[0x40];
     char path[0x40];
     char pada4[4];
-    Name subtitle;
+    Name_93150 subtitle;
 };
 
-class UnlockableList {
+class UnlockableList_93150 {
 public:
     CUnlockable *items[1];
     void FUN_00092c80(const char *s, int idx);
@@ -29,7 +29,7 @@ public:
                       const char *caption, const char *path, int flags);
 };
 
-void UnlockableList::FUN_00093150(const char *id, int idx, const char *title, const char *subtitle,
+void UnlockableList_93150::FUN_00093150(const char *id, int idx, const char *title, const char *subtitle,
                                   const char *caption, const char *path, int flags)
 {
     CUnlockableGallery *g = dynamic_cast<CUnlockableGallery *>(items[idx]);

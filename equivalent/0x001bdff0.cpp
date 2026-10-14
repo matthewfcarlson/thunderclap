@@ -5,7 +5,7 @@ extern unsigned int DAT_004d9968;
 extern const char* DAT_004c4c68;
 void* __cdecl FUN_000f7120(int key);
 int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, int a, void* b);
-class Console {
+class Console_1bdff0 {
 public:
     void FUN_000f7110();
     void FUN_000f7a80(const char* text);
@@ -13,7 +13,7 @@ public:
 class Subtitle {
 public:
     char pad0[0x38];
-    Console* console;
+    Console_1bdff0* console;
     char pad3c[0xc];
     int key;
     void FUN_001bdff0(int arg);

@@ -6,7 +6,7 @@ extern float DAT_004c7df0;
 extern float DAT_004c7df4;
 extern float DAT_004c7df8;
 
-struct Voice {
+struct Voice_1f6650 {
     int pad0;
     void* handle;
 };
@@ -20,13 +20,13 @@ public:
 class Mixer {
 public:
     char pad0[8];
-    Voice* items[32];
+    Voice_1f6650* items[32];
     int count;
-    Voice* ref8c;
+    Voice_1f6650* ref8c;
     char pad90[0xc0 - 0x90];
-    Voice* refc0;
-    Voice* refc4;
-    Voice* refc8;
+    Voice_1f6650* refc0;
+    Voice_1f6650* refc4;
+    Voice_1f6650* refc8;
     char padcc[0x32c - 0xcc];
     int countdown;
     int pad330;
@@ -44,7 +44,7 @@ void Mixer::FUN_001f6650()
         countdown = 0;
         gain = 1.0f;
         for (int i = 0; i < count; i++) {
-            Voice* v = items[i];
+            Voice_1f6650* v = items[i];
             float base;
             if (v == ref8c)
                 base = DAT_004c7df4;

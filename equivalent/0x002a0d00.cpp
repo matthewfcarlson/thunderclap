@@ -2,11 +2,11 @@
 // FUN_002a0d00 @ 0x002a0d00
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_2a0d00 {
     float x, y, z;
 };
 
-union FBits {
+union FBits_2a0d00 {
     float f;
     unsigned int u;
 };
@@ -16,7 +16,7 @@ float FUN_00284a10(float t);
 class Falloff {
 public:
     char pad0[0x18];
-    Vec3 center;
+    Vec3_2a0d00 center;
     int pad24;
     int pad28;
     int mode;
@@ -28,10 +28,10 @@ public:
     float outerZ;
     float sinA;
     float cosA;
-    float FUN_002a0d00(const Vec3* p);
+    float FUN_002a0d00(const Vec3_2a0d00* p);
 };
 
-float Falloff::FUN_002a0d00(const Vec3* p)
+float Falloff::FUN_002a0d00(const Vec3_2a0d00* p)
 {
     if (mode == 0)
         return 1.0f;
@@ -51,7 +51,7 @@ float Falloff::FUN_002a0d00(const Vec3* p)
     }
 
     if (mode == 2 || mode == 3) {
-        FBits b;
+        FBits_2a0d00 b;
         float dx = p->x - center.x;
         float dy = p->y - center.y;
         float dz = p->z - center.z;

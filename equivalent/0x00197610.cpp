@@ -2,20 +2,20 @@
 // FUN_00197610 @ 0x00197610
 extern "C" double __cdecl sqrt(double);
 
-struct V3 {
+struct V3_197610 {
     float x, y, z;
     float FUN_0022d110();
-    char FUN_0022d2b0(const V3 *other, float eps);
+    char FUN_0022d2b0(const V3_197610 *other, float eps);
 };
 
-struct Rng {
+struct Rng_197610 {
     unsigned int lo;
     unsigned int hi;
     float FUN_00078780();
 };
-Rng *__cdecl FUN_000964d0();
+Rng_197610 *__cdecl FUN_000964d0();
 
-static float RandBits(Rng *r)
+static float RandBits(Rng_197610 *r)
 {
     unsigned int a = r->lo;
     a = (a & 0xffff) * 0x9069 + (a >> 16);
@@ -27,18 +27,18 @@ static float RandBits(Rng *r)
     return *(float *)&bits;
 }
 
-struct Pos10 {
-    void FUN_00059a50(V3 *out);
+struct Pos10_197610 {
+    void FUN_00059a50(V3_197610 *out);
 };
 
-struct Target {
+struct Target_197610 {
     char pad00[0x10];
-    Pos10 *f10;
-    void FUN_000356c0(V3 *out);
-    void FUN_00035550(V3 *out);
+    Pos10_197610 *f10;
+    void FUN_000356c0(V3_197610 *out);
+    void FUN_00035550(V3_197610 *out);
 };
 
-class Cfg {
+class Cfg_197610 {
 public:
     virtual void c0();
     virtual void c1();
@@ -54,58 +54,58 @@ public:
     char bfd;
     char bfe;
     char padff[0x100 - 0xff];
-    V3 v100;
-    V3 v10c;
+    V3_197610 v100;
+    V3_197610 v10c;
     float f118;
-    V3 v11c;
+    V3_197610 v11c;
     float f128;
     char b12c;
     char pad12d[3];
     float f130;
     float f134;
-    void FUN_00192ea0(V3 *out);
+    void FUN_00192ea0(V3_197610 *out);
 };
 
-struct Fighter {
+struct Fighter_197610 {
     int x;
 };
-struct Anchor {
-    Fighter *FUN_00059a30();
+struct Anchor_197610 {
+    Fighter_197610 *FUN_00059a30();
 };
-struct Ref20 {
-    Anchor *FUN_000592a0();
+struct Ref20_197610 {
+    Anchor_197610 *FUN_000592a0();
 };
 
 struct Sink64 {
     void FUN_001d7590();
-    V3 *FUN_001d6b40();
-    void FUN_001d7810(V3 v);
+    V3_197610 *FUN_001d6b40();
+    void FUN_001d7810(V3_197610 v);
 };
 
-struct World20 {
-    Target *FUN_00024280(int a, int b);
+struct World20_197610 {
+    Target_197610 *FUN_00024280(int a, int b);
 };
 struct World {
     char pad00[0x20];
-    World20 *f20;
+    World20_197610 *f20;
 };
 extern World *DAT_004dd700;
 
-class Proj {
+class Proj_197610 {
 public:
     char pad00[0x1c];
-    Cfg *cfg;
-    Ref20 *f20;
-    V3 f24;
+    Cfg_197610 *cfg;
+    Ref20_197610 *f20;
+    V3_197610 f24;
     char pad30[0x50 - 0x30];
-    Target *f50;
+    Target_197610 *f50;
     char pad54[4];
     int f58;
     int f5c;
     char pad60[4];
     Sink64 *f64;
     char pad68[4];
-    V3 f6c;
+    V3_197610 f6c;
     char pad78[0x84 - 0x78];
     float f84;
     float f88;
@@ -113,27 +113,27 @@ public:
     void FUN_00197610(float dt);
 };
 
-void Proj::FUN_00197610(float dt)
+void Proj_197610::FUN_00197610(float dt)
 {
     if (f20 == 0)
         return;
-    Fighter *owner = f20->FUN_000592a0()->FUN_00059a30();
+    Fighter_197610 *owner = f20->FUN_000592a0()->FUN_00059a30();
     if (!owner)
         return;
     f64->FUN_001d7590();
-    World20 *w = DAT_004dd700->f20;
+    World20_197610 *w = DAT_004dd700->f20;
     f50 = 0;
     if (w)
         f50 = w->FUN_00024280(f58, f5c);
-    Target *tg = f50;
+    Target_197610 *tg = f50;
     if (!tg)
         return;
-    Cfg *c = cfg;
+    Cfg_197610 *c = cfg;
     if (c->bfd) {
         if (c->bfe) {
-            V3 P;
+            V3_197610 P;
             tg->f10->FUN_00059a50(&P);
-            V3 d;
+            V3_197610 d;
             d.x = 0;
             d.y = 0;
             d.z = 0;
@@ -148,7 +148,7 @@ void Proj::FUN_00197610(float dt)
             } else {
                 sc = len;
             }
-            V3 e = d;
+            V3_197610 e = d;
             sc = sc * cfg->f118;
             e.x = e.x * sc;
             e.y = e.y * sc;
@@ -160,8 +160,8 @@ void Proj::FUN_00197610(float dt)
             tg->f10->FUN_00059a50(&f6c);
         }
     }
-    V3 *p = f64->FUN_001d6b40();
-    V3 D;
+    V3_197610 *p = f64->FUN_001d6b40();
+    V3_197610 D;
     D.x = f6c.x - p->x;
     D.y = f6c.y - p->y;
     D.z = f6c.z - p->z;
@@ -182,9 +182,9 @@ void Proj::FUN_00197610(float dt)
     }
     if (v > dt)
         k = dt / v;
-    V3 E = D;
+    V3_197610 E = D;
     E.FUN_0022d110();
-    Rng *rnd = FUN_000964d0();
+    Rng_197610 *rnd = FUN_000964d0();
     double m;
     if (cfg->b12c)
         m = k * cfg->f130 * L;
@@ -193,16 +193,16 @@ void Proj::FUN_00197610(float dt)
     E.x = E.x * m;
     E.y = E.y * m;
     E.z = E.z * m;
-    V3 q = cfg->v100;
+    V3_197610 q = cfg->v100;
     if (!q.FUN_0022d2b0(&f24, 1e-05f)) {
-        V3 q5 = cfg->v100;
+        V3_197610 q5 = cfg->v100;
         E.x = q5.x + E.x;
         E.y = q5.y + E.y;
         E.z = q5.z + E.z;
     }
-    V3 q2 = cfg->v10c;
+    V3_197610 q2 = cfg->v10c;
     if (!q2.FUN_0022d2b0(&f24, 1e-05f)) {
-        V3 q3;
+        V3_197610 q3;
         float vals[4];
         for (int i = 0; i < 4; i++) {
             q3 = cfg->v10c;
@@ -221,13 +221,13 @@ void Proj::FUN_00197610(float dt)
         E.y = my + E.y;
         E.z = mz + E.z;
     } else {
-        V3 q4 = cfg->v11c;
+        V3_197610 q4 = cfg->v11c;
         if (!q4.FUN_0022d2b0(&f24, 1e-05f)) {
-            Target *t5 = f50;
+            Target_197610 *t5 = f50;
             if (t5 && f64) {
-                V3 G;
+                V3_197610 G;
                 cfg->FUN_00192ea0(&G);
-                V3 &H = D;
+                V3_197610 &H = D;
                 t5->f10->FUN_00059a50(&H);
                 if (G.x > 0.0f) {
                     if (E.x > H.x)
@@ -265,8 +265,8 @@ void Proj::FUN_00197610(float dt)
             }
         }
     }
-    V3 *pp = f64->FUN_001d6b40();
-    V3 X;
+    V3_197610 *pp = f64->FUN_001d6b40();
+    V3_197610 X;
     X.x = E.x + pp->x;
     X.y = E.y + pp->y;
     X.z = E.z + pp->z;

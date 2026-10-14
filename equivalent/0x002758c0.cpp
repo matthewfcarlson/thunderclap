@@ -2,8 +2,8 @@
 // core::DriveCreateDirectoryRequest::vfunc_0 @ 0x002758c0
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) { return p; }
-struct Lock { virtual void lock(); virtual void unlock(); };
-struct Drive { virtual void slot0(); virtual void release(); Lock lockObject; char pad[12]; int references; };
+struct Lock_2758c0 { virtual void lock(); virtual void unlock(); };
+struct Drive { virtual void slot0(); virtual void release(); Lock_2758c0 lockObject; char pad[12]; int references; };
 struct Allocator { virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void free(void*); };
 extern char DAT_0052a1c8;
 extern Allocator* DAT_0052a1e4;

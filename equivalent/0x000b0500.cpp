@@ -18,9 +18,9 @@ struct HeapObj {
     static void* operator new(unsigned size) throw();
 };
 
-class MethodBase : public HeapObj {
+class MethodBase_b0500 : public HeapObj {
   public:
-    MethodBase(const char* name, int argCount) throw();
+    MethodBase_b0500(const char* name, int argCount) throw();
     virtual void m0();
     char pad_04[0x10 - 4];
     char argType[4];
@@ -30,20 +30,20 @@ class MethodBase : public HeapObj {
 };
 
 template <class T, class R>
-class Method0 : public MethodBase {
+class Method0 : public MethodBase_b0500 {
   public:
     typedef R (T::*Fn)();
-    Method0(const char* name, Fn f) throw() : MethodBase(name, 0), fn(f) {
+    Method0(const char* name, Fn f) throw() : MethodBase_b0500(name, 0), fn(f) {
         retType = FUN_001d04d0(TypeTag<R>::get());
     }
     Fn fn;
 };
 
 template <class T, class R, class A>
-class Method1 : public MethodBase {
+class Method1 : public MethodBase_b0500 {
   public:
     typedef R (T::*Fn)(A);
-    Method1(const char* name, Fn f) throw() : MethodBase(name, 1), fn(f) {
+    Method1(const char* name, Fn f) throw() : MethodBase_b0500(name, 1), fn(f) {
         retType = FUN_001d04d0(TypeTag<R>::get());
         argType[0] = FUN_001d04d0(TypeTag<A>::get());
     }
@@ -51,10 +51,10 @@ class Method1 : public MethodBase {
 };
 
 template <class T, class R, class A, class B, class C, class D>
-class Method4 : public MethodBase {
+class Method4 : public MethodBase_b0500 {
   public:
     typedef R (T::*Fn)(A, B, C, D);
-    Method4(const char* name, Fn f) throw() : MethodBase(name, 4), fn(f) {
+    Method4(const char* name, Fn f) throw() : MethodBase_b0500(name, 4), fn(f) {
         retType = FUN_001d04d0(TypeTag<R>::get());
         argType[0] = FUN_001d04d0(TypeTag<A>::get());
         argType[1] = FUN_001d04d0(TypeTag<B>::get());
@@ -86,24 +86,24 @@ class Closure4 : public Method4<T, R, A, B, C, D> {
     T* owner;
 };
 
-struct Registry {
+struct Registry_b0500 {
     void FUN_001d3b70(const char* name, void* closure);
 };
-Registry* FUN_001d4c90();
+Registry_b0500* FUN_001d4c90();
 void* FUN_0008d690(unsigned size);
 
-class Source {
+class Source_b0500 {
   public:
     void* FUN_000ae640(int index);
 };
 
-class IDevice {
+class IDevice_b0500 {
   public:
     virtual void init();
     virtual void release();
 };
 
-class DeviceImpl : public IDevice {
+class DeviceImpl : public IDevice_b0500 {
   public:
     DeviceImpl* FUN_000afbf0(void* source);
     void FUN_000afb80(int flag);
@@ -111,19 +111,19 @@ class DeviceImpl : public IDevice {
 
 class CHapticControllerManager {
   public:
-    CHapticControllerManager(Source* source);
+    CHapticControllerManager(Source_b0500* source);
     virtual void v0();
     char field_04;
     unsigned char field_05;
     char pad_06[2];
-    IDevice* device;
+    IDevice_b0500* device;
 
     void FUN_000afea0(int, float, float, float);
     void FUN_000afe80();
     void FUN_000afe10(bool);
 };
 
-CHapticControllerManager::CHapticControllerManager(Source* source) {
+CHapticControllerManager::CHapticControllerManager(Source_b0500* source) {
     field_04 = 0;
     field_05 = 1;
     device = 0;
@@ -138,7 +138,7 @@ CHapticControllerManager::CHapticControllerManager(Source* source) {
     device = dev;
     dev->FUN_000afb80(field_05);
 
-    Registry* reg = FUN_001d4c90();
+    Registry_b0500* reg = FUN_001d4c90();
 
     Closure4<CHapticControllerManager, void, int, float, float, float>* playRumble =
         new Closure4<CHapticControllerManager, void, int, float, float, float>("hcm_PlayRumble", this, &CHapticControllerManager::FUN_000afea0);

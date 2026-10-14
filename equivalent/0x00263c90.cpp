@@ -5,7 +5,7 @@ struct Stamp {
     unsigned char b[7];
 };
 
-struct Id {
+struct Id_263c90 {
     unsigned int lo;
     unsigned int hi;
 };
@@ -13,12 +13,12 @@ struct Id {
 extern int DAT_004cd4cc;                        // set of ids in use
 void __cdecl FUN_00267ad0(Stamp *out);          // current date/time
 unsigned int __cdecl FUN_00267f00();            // tick count
-int __cdecl FUN_00263970(void *set, Id *id);    // find
+int __cdecl FUN_00263970(void *set, Id_263c90 *id);    // find
 
 unsigned __int64 __cdecl FUN_00263c90()
 {
     Stamp now;
-    Id id;
+    Id_263c90 id;
 
     FUN_00267ad0(&now);
     unsigned int hi = ((unsigned int)now.b[2] << 28) | ((unsigned int)now.b[3] << 23) |

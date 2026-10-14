@@ -133,17 +133,17 @@ struct ClosureSetPos {
 extern "C" void thunk_FUN_001b8750();
 void FUN_001f7120(float, float);
 
-struct Registry {
+struct Registry_1f81c0 {
     void FUN_001d3b70(const char *name, void *closure);
     void FUN_001e12b0(const char *name, void (*fn)());
     void FUN_001f80b0(const char *name, CEffectManager *owner,
                       unsigned int (CEffectManager::*fn)(const char *));
 };
-Registry *FUN_001d4c90();
+Registry_1f81c0 *FUN_001d4c90();
 
 void CEffectManager::FUN_001f81c0()
 {
-    Registry *reg = FUN_001d4c90();
+    Registry_1f81c0 *reg = FUN_001d4c90();
     reg->FUN_001e12b0("SetXBoxGamma", thunk_FUN_001b8750);
 
     void *mem = FUN_0008d690(0x20);

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001ebe10 @ 0x001ebe10
-struct StringList {
+struct StringList_1ebe10 {
     char data[0x48];
     void FUN_001ef320();
     void FUN_001ef350();
@@ -8,44 +8,44 @@ struct StringList {
     void FUN_001ef390(unsigned __int64 id);
 };
 
-struct EventSink {
+struct EventSink_1ebe10 {
     void *handler;
-    bool FUN_001efe20(StringList *args, const void *where, int name, float delay);
+    bool FUN_001efe20(StringList_1ebe10 *args, const void *where, int name, float delay);
 };
 
-struct EventConfig {
-    EventSink *sink;
+struct EventConfig_1ebe10 {
+    EventSink_1ebe10 *sink;
     char pad04[4];
     char enabled;
 };
 
-struct Registry {
+struct Registry_1ebe10 {
     unsigned __int64 FUN_00079530(int key);
 };
 
-struct Source {
+struct Source_1ebe10 {
     char pad00[0x5c];
     int key;
 };
 
-struct Owner {
+struct Owner_1ebe10 {
     char pad00[0x4c];
-    Registry *registry;
+    Registry_1ebe10 *registry;
 };
 
-class Emitter {
+class Emitter_1ebe10 {
 public:
-    Owner *owner;
-    void Emit(Source *source, const void *where, int name);
+    Owner_1ebe10 *owner;
+    void Emit(Source_1ebe10 *source, const void *where, int name);
 };
 
-extern EventConfig *DAT_004e36d8;
+extern EventConfig_1ebe10 *DAT_004e36d8;
 
-void Emitter::Emit(Source *source, const void *where, int name)
+void Emitter_1ebe10::Emit(Source_1ebe10 *source, const void *where, int name)
 {
     if (source == 0)
         return;
-    StringList path;
+    StringList_1ebe10 path;
     path.FUN_001ef320();
     path.FUN_001ef370("Objects");
     path.FUN_001ef370("Props");

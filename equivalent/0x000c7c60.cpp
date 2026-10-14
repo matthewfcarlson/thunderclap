@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_000c7c60 @ 0x000c7c60
-struct Value { unsigned int low, high; bool FUN_0027af90(const void* other); void FUN_0027af50(); };
-void __cdecl FUN_00096e50(Value* result, const void* input);
-struct Lookup { int FUN_00024280(unsigned int low, unsigned int high); };
-struct Checker { bool FUN_001dd7b0(Value* value); };
-struct Globals { char pad[12]; Checker* checker; char pad2[16]; Lookup* lookup; };
-extern Globals* DAT_004dd700;
-struct Slot { unsigned int key; char padding[36]; char value[24]; };
-struct Owner { char padding[0x258]; Slot slots[128]; int FUN_000c7c60(unsigned int key, const void* input); };
-int Owner::FUN_000c7c60(unsigned int key, const void* input) {
- Value value;
+struct Value_c7c60 { unsigned int low, high; bool FUN_0027af90(const void* other); void FUN_0027af50(); };
+void __cdecl FUN_00096e50(Value_c7c60* result, const void* input);
+struct Lookup_c7c60 { int FUN_00024280(unsigned int low, unsigned int high); };
+struct Checker_c7c60 { bool FUN_001dd7b0(Value_c7c60* value); };
+struct Globals_c7c60 { char pad[12]; Checker_c7c60* checker; char pad2[16]; Lookup_c7c60* lookup; };
+extern Globals_c7c60* DAT_004dd700;
+struct Slot_c7c60 { unsigned int key; char padding[36]; char value[24]; };
+struct Owner_c7c60 { char padding[0x258]; Slot_c7c60 slots[128]; int FUN_000c7c60(unsigned int key, const void* input); };
+int Owner_c7c60::FUN_000c7c60(unsigned int key, const void* input) {
+ Value_c7c60 value;
  FUN_00096e50(&value, input);
  if (DAT_004dd700->lookup->FUN_00024280(value.low, value.high) || DAT_004dd700->checker->FUN_001dd7b0(&value)) {
   for (int i=0;i<128;++i) {

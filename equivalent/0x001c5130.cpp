@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_001c5130 @ 0x001c5130
-struct Fade {
+struct Fade_1c5130 {
   char pad0[0x8c]; unsigned char dirty;
   char pad1[3];
   float rate;
@@ -8,7 +8,7 @@ struct Fade {
   float invDuration;
   void FUN_001c5130(float target, float duration);
 };
-void Fade::FUN_001c5130(float target, float duration) {
+void Fade_1c5130::FUN_001c5130(float target, float duration) {
   dirty = 1;
   float v;
   if (0.0f <= target && target <= 1.0f) v = target;

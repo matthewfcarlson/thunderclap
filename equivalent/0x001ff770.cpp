@@ -6,14 +6,14 @@ void *__cdecl FUN_00263ea0(unsigned int size);
 unsigned __int64 __cdecl FUN_0027b020(const char *name);
 extern int DAT_00425168[];
 
-struct Tag {
+struct Tag_1ff770 {
     char pad0[4];
     char name[1];
 };
 
-struct Elem {
+struct Elem_1ff770 {
     char pad0[4];
-    Tag *tag;
+    Tag_1ff770 *tag;
     char pad8[4];
     const char *name;
     void FUN_003364c0(const char *attr, int *out);
@@ -21,38 +21,38 @@ struct Elem {
     const char *FUN_003365b0(const char *attr);
 };
 
-struct Item {
+struct Item_1ff770 {
     virtual void v0();
-    Item *FUN_001fbb30();
-    void FUN_001fbd00(Elem *e);
-    void FUN_001fc3c0(Elem *e);
+    Item_1ff770 *FUN_001fbb30();
+    void FUN_001fbd00(Elem_1ff770 *e);
+    void FUN_001fc3c0(Elem_1ff770 *e);
 };
 
-struct Inner {
+struct Inner_1ff770 {
     bool FUN_001cd010();
 };
 
-struct Parent {
+struct Parent_1ff770 {
     char pad0[0x2c];
-    Inner *inner;
+    Inner_1ff770 *inner;
 };
 
-struct Unlocks {
+struct Unlocks_1ff770 {
     bool FUN_00092860(int index);
 };
 
-struct Table {
-    Unlocks *FUN_00086340();
+struct Table_1ff770 {
+    Unlocks_1ff770 *FUN_00086340();
 };
 
-struct Globals {
+struct Globals_1ff770 {
     char pad0[0x54];
-    Table *table;
+    Table_1ff770 *table;
 };
 
-extern Globals *DAT_004dd700;
+extern Globals_1ff770 *DAT_004dd700;
 
-struct Bucket {
+struct Bucket_1ff770 {
     int count;
     char *buf;
 };
@@ -60,25 +60,25 @@ struct Bucket {
 class CTriggerVolumeManager {
 public:
     virtual void v0();
-    virtual bool v1(Elem *e);
+    virtual bool v1(Elem_1ff770 *e);
     virtual void v2();
     virtual void v3();
 
-    Parent *parent;
+    Parent_1ff770 *parent;
     int itemCount;
-    Item *items[0x80];
+    Item_1ff770 *items[0x80];
     char pad20c[8];
-    Bucket *buckets[8];
+    Bucket_1ff770 *buckets[8];
     int curBucket;
 
-    Item *FUN_001fc7f0(const char *name);
+    Item_1ff770 *FUN_001fc7f0(const char *name);
     int FUN_001fd390(const char *type);
     void FUN_001fd130(char *slot, int idx);
-    Item *FUN_001fc8c0(int lo, int hi);
-    Item *FUN_001fcf40();
+    Item_1ff770 *FUN_001fc8c0(int lo, int hi);
+    Item_1ff770 *FUN_001fcf40();
 };
 
-bool CTriggerVolumeManager::v1(Elem *e)
+bool CTriggerVolumeManager::v1(Elem_1ff770 *e)
 {
     if (parent && parent->inner && parent->inner->FUN_001cd010())
         return true;
@@ -93,13 +93,13 @@ bool CTriggerVolumeManager::v1(Elem *e)
                     return false;
             }
         }
-        Item *item = FUN_001fc7f0(name);
+        Item_1ff770 *item = FUN_001fc7f0(name);
         if (itemCount >= 0x80)
             return false;
         if (!item) {
             void *mem = FUN_00263ea0(0xd8);
             if (mem)
-                item = ((Item *)mem)->FUN_001fbb30();
+                item = ((Item_1ff770 *)mem)->FUN_001fbb30();
             else
                 item = 0;
             item->v0();
@@ -111,7 +111,7 @@ bool CTriggerVolumeManager::v1(Elem *e)
     }
     if (strcmp(e->tag->name, "Locator") == 0) {
         char streamed = 0;
-        Item *item;
+        Item_1ff770 *item;
         e->FUN_00336490("IsStreamed", &streamed);
         if (streamed) {
             if (curBucket == -1)
@@ -119,10 +119,10 @@ bool CTriggerVolumeManager::v1(Elem *e)
             int idx = FUN_001fd390(e->FUN_003365b0("Type"));
             if (idx == -1)
                 idx = 0;
-            Bucket *b = &buckets[idx][curBucket];
+            Bucket_1ff770 *b = &buckets[idx][curBucket];
             if (b->count >= DAT_00425168[idx])
                 return true;
-            item = (Item *)(b->buf + b->count * 64);
+            item = (Item_1ff770 *)(b->buf + b->count * 64);
             b->count++;
             FUN_001fd130((char *)item, idx);
         } else {

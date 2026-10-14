@@ -1,25 +1,25 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3108 inputs, branch coverage 76/76)
 // hulkfight::motion::ProjectileGroundShockwave::vfunc_6 @ 0x00199060
 // equiv-conv: FUN_00195560 ecx eax stack stack stack stack stack stack stack stack stack stack stack
-struct V3 {
+struct V3_199060 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Name {
+struct Name_199060 {
     unsigned int lo, hi;
 };
 
-struct Mat4 {
+struct Mat4_199060 {
     float m[16];
     void FUN_0022b980();
 };
 
-struct HitInfo {
+struct HitInfo_199060 {
     char pad0[8];
-    V3 pos;
+    V3_199060 pos;
     char pad14[0x28 - 0x14];
-    V3 ref;
+    V3_199060 ref;
     char pad34[0x64 - 0x34];
     float f64;
     char pad68[0x78 - 0x68];
@@ -31,45 +31,45 @@ struct HitInfo {
     void FUN_00059300();
 };
 
-class Ref {
+class Ref_199060 {
 public:
     virtual void v0();
     virtual void v1();
 };
 
-struct Req {
-    void FUN_00083320(V3 *a, int b, int c, int d, V3 *e, int f);
+struct Req_199060 {
+    void FUN_00083320(V3_199060 *a, int b, int c, int d, V3_199060 *e, int f);
 };
-struct Hub4c {
-    Req *FUN_0007ad00(void *p);
+struct Hub4c_199060 {
+    Req_199060 *FUN_0007ad00(void *p);
 };
 
-struct Fx {
-    int FUN_00283a40(Name *id, Mat4 *m, float a, float b);
+struct Fx_199060 {
+    int FUN_00283a40(Name_199060 *id, Mat4_199060 *m, float a, float b);
 };
-Fx *FUN_0027f250();
+Fx_199060 *FUN_0027f250();
 
-struct Holder {
+struct Holder_199060 {
     float FUN_001dddf0();
 };
 
-struct Obj18 {
+struct Obj18_199060 {
     char pad0[0x38];
     float f38;
     char pad3c[0x74 - 0x3c];
     int f74;
     float f78;
     float f7c;
-    V3 v80;
-    V3 v8c;
+    V3_199060 v80;
+    V3_199060 v8c;
     int f98;
     char pad9c[0xa8 - 0x9c];
-    Name ida8;
+    Name_199060 ida8;
 };
 
 struct Pad24 {
     char pad0[0x40];
-    V3 v40;
+    V3_199060 v40;
 };
 
 struct Info11c {
@@ -77,7 +77,7 @@ struct Info11c {
     int f1b0;
 };
 
-class Ent {
+class Ent_199060 {
 public:
     char pad0[0x108];
     int f108;
@@ -92,66 +92,66 @@ public:
     void FUN_001d82d0();
     char FUN_001d6ec0(int dmg, void *a, int b);
     void FUN_0027d4f0(int a);
-    void FUN_001d86d0(V3 *v, V3 *hit);
+    void FUN_001d86d0(V3_199060 *v, V3_199060 *hit);
 };
 struct Sub6c {
     char pad0[0x6c];
     void *f6c;
 };
 
-struct Own {
+struct Own_199060 {
     char pad0[0x11c];
     Info11c *p11c;
     char pad120[0x12c - 0x120];
     void *f12c;
-    Ent *FUN_00035ef0(int i);
+    Ent_199060 *FUN_00035ef0(int i);
 };
 
 struct Pool44 {
-    Own *FUN_00059c10(int id);
+    Own_199060 *FUN_00059c10(int id);
 };
-struct Hub {
+struct Hub_199060 {
     char pad0[0xc];
-    Holder *pc;
+    Holder_199060 *pc;
     char pad10[0x44 - 0x10];
     Pool44 *p44;
     char pad48[4];
-    Hub4c *p4c;
+    Hub4c_199060 *p4c;
 };
-extern Hub *DAT_004dd700;
+extern Hub_199060 *DAT_004dd700;
 extern unsigned int DAT_004e2198;
 extern unsigned int DAT_004e219c;
 
-struct IdHolder {
+struct IdHolder_199060 {
     char pad0[8];
     unsigned int lo;
     unsigned int hi;
 };
 
-class Thing {
+class Thing_199060 {
 public:
     char pad0[8];
     void *owner;
     int type;
     char pad10[0x74 - 0x10];
-    IdHolder *p74;
+    IdHolder_199060 *p74;
 };
 
 struct Carried {
     char pad0[0x12c];
-    Own *f12c;
+    Own_199060 *f12c;
 };
 
-struct OwnerObj {
+struct OwnerObj_199060 {
     char pad0[0x10];
     int f10;
-    struct Obj8 *FUN_00081420x();
+    struct Obj8_199060 *FUN_00081420x();
 };
-struct Obj8 {
-    void FUN_00081420(HitInfo *h);
+struct Obj8_199060 {
+    void FUN_00081420(HitInfo_199060 *h);
 };
 
-class Other {
+class Other_199060 {
 public:
     virtual void v0();
     virtual void v1();
@@ -162,13 +162,13 @@ public:
     virtual int v6();
     char pad04[0x38 - 4];
     int f38;
-    Ent *f3c;
+    Ent_199060 *f3c;
 };
 
 int FUN_00266da0(int mode);
-void FUN_00224d70(float angle, V3 *v);
-float FUN_00224f10(V3 *v);
-char FUN_00195560(V3 *pn, void *own, int f1c, int f98, int z0, int a4, int Tbits, int f78, int f20, int f74,
+void FUN_00224d70(float angle, V3_199060 *v);
+float FUN_00224f10(V3_199060 *v);
+char FUN_00195560(V3_199060 *pn, void *own, int f1c, int f98, int z0, int a4, int Tbits, int f78, int f20, int f74,
                   int z1, float one, int z2);
 extern "C" int __cdecl FUN_0034483c();
 
@@ -177,54 +177,54 @@ public:
     char pad0[0xc];
     float f0c;
     char pad10[8];
-    Obj18 *p18;
+    Obj18_199060 *p18;
     int f1c;
     float f20;
     Pad24 *p24;
-    V3 v28;
+    V3_199060 v28;
     char pad34[0x3c - 0x34];
-    Ref *objs[32];
+    Ref_199060 *objs[32];
     int idx;
-    char F(Thing *a1, Other *a2, V3 *a3, int a4, int a5);
+    char F(Thing_199060 *a1, Other_199060 *a2, V3_199060 *a3, int a4, int a5);
 };
 
-static void PlayEffect(ProjectileGroundShockwave *self, Mat4 &M, V3 *a3)
+static void PlayEffect(ProjectileGroundShockwave *self, Mat4_199060 &M, V3_199060 *a3)
 {
     if (self->p18->ida8.lo | self->p18->ida8.hi) {
         M.FUN_0022b980();
         float *t = &M.m[12];
-        V3 hit = *a3;
+        V3_199060 hit = *a3;
         t[0] = hit.x;
         t[1] = hit.y;
         t[2] = hit.z;
-        Fx *fx = FUN_0027f250();
+        Fx_199060 *fx = FUN_0027f250();
         fx->FUN_00283a40(&self->p18->ida8, &M, -1.0f, 1.0f);
     }
 }
 
-char ProjectileGroundShockwave::F(Thing *a1, Other *a2, V3 *a3, int a4, int a5)
+char ProjectileGroundShockwave::F(Thing_199060 *a1, Other_199060 *a2, V3_199060 *a3, int a4, int a5)
 {
     struct Frame {
         float T;
         float f14;
-        V3 Q;
+        V3_199060 Q;
         int old;
-        V3 P;
-        Mat4 M;
-        HitInfo X;
+        V3_199060 P;
+        Mat4_199060 M;
+        HitInfo_199060 X;
     } fr;
     int old = FUN_00266da0(0xd);
     fr.old = old;
     do {
         if (f0c < 0.0f)
             break;
-        V3 W0 = p24->v40;
+        V3_199060 W0 = p24->v40;
         if (a3->y < W0.y)
             break;
         if (a3->y - W0.y > p18->f38)
             break;
         void *ebx = a1;
-        Ent *edi = 0;
+        Ent_199060 *edi = 0;
         if (a1->p74->lo == DAT_004e2198 && a1->p74->hi == DAT_004e219c) {
             if (a2->v6() == 4) {
                 if (a2->f38 != 5)
@@ -235,24 +235,24 @@ char ProjectileGroundShockwave::F(Thing *a1, Other *a2, V3 *a3, int a4, int a5)
         }
         bool found = false;
         for (int i = 0; i < 32; i++) {
-            if (objs[i] == (Ref *)ebx) {
+            if (objs[i] == (Ref_199060 *)ebx) {
                 found = true;
                 break;
             }
         }
         if (found)
             break;
-        Ref **slot = &objs[idx];
+        Ref_199060 **slot = &objs[idx];
         if (ebx)
-            ((Ref *)ebx)->v0();
+            ((Ref_199060 *)ebx)->v0();
         if (*slot)
             (*slot)->v1();
-        *slot = (Ref *)ebx;
+        *slot = (Ref_199060 *)ebx;
         idx = (idx + 1) % 32;
-        Own *own = DAT_004dd700->p44->FUN_00059c10(f1c);
+        Own_199060 *own = DAT_004dd700->p44->FUN_00059c10(f1c);
         if (own && own->f12c == ebx)
             break;
-        Obj18 *o18 = p18;
+        Obj18_199060 *o18 = p18;
         fr.T = o18->f78;
         if (o18->f7c > 0.0f)
             fr.T = (o18->f7c - fr.T) * f20 + fr.T;
@@ -270,21 +270,21 @@ char ProjectileGroundShockwave::F(Thing *a1, Other *a2, V3 *a3, int a4, int a5)
         bool carried = false;
         void *carriedObj = 0;
         if (edi == 0) {
-            int ty = ((Thing *)ebx)->type;
+            int ty = ((Thing_199060 *)ebx)->type;
             bool toEdi = false;
             if (ty == 5) {
-                edi = (Ent *)((Thing *)ebx)->owner;
+                edi = (Ent_199060 *)((Thing_199060 *)ebx)->owner;
                 if (edi)
                     toEdi = true;
             }
             if (!toEdi) {
                 if (ty == 1) {
-                    carriedObj = ((Thing *)ebx)->owner;
+                    carriedObj = ((Thing_199060 *)ebx)->owner;
                     if (!carriedObj)
                         break;
                     carried = true;
                 } else if (ty == 7) {
-                    OwnerObj *oo = (OwnerObj *)((Thing *)ebx)->owner;
+                    OwnerObj_199060 *oo = (OwnerObj_199060 *)((Thing_199060 *)ebx)->owner;
                     if (oo->f10 == 5)
                         break;
                     fr.X.FUN_00059820();
@@ -297,7 +297,7 @@ char ProjectileGroundShockwave::F(Thing *a1, Other *a2, V3 *a3, int a4, int a5)
                     fr.X.f78 = 1.0f;
                     fr.X.f64 = 30.0f;
                     fr.X.b90 = 1;
-                    ((Obj8 *)oo)->FUN_00081420(&fr.X);
+                    ((Obj8_199060 *)oo)->FUN_00081420(&fr.X);
                     fr.X.FUN_00059300();
                     break;
                 } else {
@@ -317,7 +317,7 @@ char ProjectileGroundShockwave::F(Thing *a1, Other *a2, V3 *a3, int a4, int a5)
             fr.T = fr.Q.FUN_0022d110();
             float ang = FUN_00224f10(&v28);
             FUN_00224d70(ang, &fr.Q);
-            Obj18 *o = p18;
+            Obj18_199060 *o = p18;
             char r = FUN_00195560(&fr.Q, ((Carried *)carriedObj)->f12c, f1c, o->f98, 0, a4, *(int *)&fr.T,
                                   *(int *)&o->f78, *(int *)&f20, o->f74, 0, 1.0f, 0);
             if (r)
@@ -354,10 +354,10 @@ char ProjectileGroundShockwave::F(Thing *a1, Other *a2, V3 *a3, int a4, int a5)
         if (edi->b14d) {
             Sub6c *ev = edi->FUN_001d72e0();
             if (ev->f6c == 0) {
-                Req *r = DAT_004dd700->p4c->FUN_0007ad00((char *)edi + 8);
+                Req_199060 *r = DAT_004dd700->p4c->FUN_0007ad00((char *)edi + 8);
                 if (!r)
                     break;
-                V3 V = p18->v80;
+                V3_199060 V = p18->v80;
                 r->FUN_00083320(a3, a4, a5, 1, &V, 0);
                 break;
             }

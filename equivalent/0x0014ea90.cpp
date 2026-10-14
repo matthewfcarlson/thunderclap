@@ -3,13 +3,13 @@
 namespace fight { class Params; }
 class CFightParams;
 
-struct Stats {
+struct Stats_14ea90 {
     char pad0[0xc];
     int value;
 };
-struct Info {
+struct Info_14ea90 {
     char pad0[0x50];
-    Stats* stats;
+    Stats_14ea90* stats;
 };
 
 namespace fight {
@@ -18,7 +18,7 @@ public:
     virtual void p0();
     virtual void p1();
     virtual void p2();
-    virtual Info* GetInfo();
+    virtual Info_14ea90* GetInfo();
 };
 }
 class CFightParams : public fight::Params {
@@ -44,10 +44,10 @@ public:
 bool CollisionTargetTypeCondition::vfunc_6(int unused1, fight::Params* params, int unused2) {
     if (!dynamic_cast<CFightParams*>(params))
         return false;
-    Info* info = params->GetInfo();
+    Info_14ea90* info = params->GetInfo();
     if (!info)
         return false;
-    Stats* stats = info->stats;
+    Stats_14ea90* stats = info->stats;
     if (!stats)
         return false;
     int actual = stats->value;

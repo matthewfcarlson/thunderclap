@@ -4,17 +4,17 @@ extern char DAT_00494b44;
 extern char DAT_00494b60;
 extern "C" void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern "C" bool __cdecl FUN_00018960(float, float, float);
-struct Velocity { char pad[0x54]; float y; };
-struct Entity { char pad[0x328]; Velocity* velocity; };
-struct Controller { Entity* FUN_00059a30(); };
-struct Actor { Controller* FUN_000592a0(); };
+struct Velocity_125f90 { char pad[0x54]; float y; };
+struct Entity { char pad[0x328]; Velocity_125f90* velocity; };
+struct Controller_125f90 { Entity* FUN_00059a30(); };
+struct Actor_125f90 { Controller_125f90* FUN_000592a0(); };
 namespace hulkfight { namespace ai {
 struct TargetVelocityYCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5();
- virtual bool vfunc_6(void*, Actor*, void*);
+ virtual bool vfunc_6(void*, Actor_125f90*, void*);
  char pad[8]; unsigned comparison; float threshold;
 };
-bool TargetVelocityYCondition::vfunc_6(void*, Actor* actor, void*) {
+bool TargetVelocityYCondition::vfunc_6(void*, Actor_125f90* actor, void*) {
  if (!FUN_00344e74(actor,0,&DAT_00494b44,&DAT_00494b60,0)) return false;
  Entity* entity = actor->FUN_000592a0()->FUN_00059a30();
  if (!entity->velocity) return false;

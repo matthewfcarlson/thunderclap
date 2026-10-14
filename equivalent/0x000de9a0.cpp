@@ -24,14 +24,14 @@ extern Sector DAT_004de8d0[9];
 
 float __cdecl FUN_000de800(float x, float y);
 
-class Sink {
+class Sink_de9a0 {
 public:
     virtual void vfunc_0(int key, int pad);
     virtual void vfunc_1(int key, int pad);
     virtual void vfunc_2(int key, int pad);
 };
 
-class Pad {
+class Pad_de9a0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -46,13 +46,13 @@ public:
     virtual float vfunc_10(int axis);
 };
 
-struct Frame {
+struct Frame_de9a0 {
     float ang;
     int p;
-    Pad* pad;
+    Pad_de9a0* pad;
     float x;
     float y;
-    Pad** padSlot;
+    Pad_de9a0** padSlot;
     int axis;
     int spill;
     unsigned char flags[8];
@@ -62,9 +62,9 @@ struct Frame {
 class InputMapper {
 public:
     char pad00[8];
-    Sink* sink;
+    Sink_de9a0* sink;
     char pad0c[4];
-    Pad* pads[1];
+    Pad_de9a0* pads[1];
     unsigned char prev[3][8];
     float f2c;
     int lastKey;
@@ -76,7 +76,7 @@ public:
 
 void InputMapper::FUN_000de9a0(char skip)
 {
-    Frame f;
+    Frame_de9a0 f;
     f.cookie = DAT_004d9968;
     unsigned char (*prevRow)[8] = prev;
     f.padSlot = &pads[0];
@@ -108,7 +108,7 @@ void InputMapper::FUN_000de9a0(char skip)
             FUN_000de1f0(1);
 
         for (f.axis = 0; f.axis < 3; f.axis++) {
-            Pad* pad = f.pad;
+            Pad_de9a0* pad = f.pad;
             f.x = 0;
             f.y = 0;
             int axis = f.axis;

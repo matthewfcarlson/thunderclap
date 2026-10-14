@@ -3,33 +3,33 @@
 extern "C" int __cdecl _isnan(double d);
 extern "C" double fabs(double);
 
-struct V3 {
+struct V3_1734b0 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_000111b0(const V3 *a, const V3 *b);
+    void FUN_000111b0(const V3_1734b0 *a, const V3_1734b0 *b);
 };
 
-struct Mat {
+struct Mat_1734b0 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022baf0(const V3 *axis, float angle);
-    void FUN_0022c3b0(const V3 *in, V3 *out);
-    void FUN_0022ca90(Mat *a, Mat *b);
-    void FUN_0022bec0(const V3 *a, const V3 *b);
+    void FUN_0022baf0(const V3_1734b0 *axis, float angle);
+    void FUN_0022c3b0(const V3_1734b0 *in, V3_1734b0 *out);
+    void FUN_0022ca90(Mat_1734b0 *a, Mat_1734b0 *b);
+    void FUN_0022bec0(const V3_1734b0 *a, const V3_1734b0 *b);
     void FUN_0022c0b0();
 };
 
 struct A24;
 struct Part8 {
-    void FUN_000350c0(V3 *out);
-    void FUN_00035020(V3 *out);
+    void FUN_000350c0(V3_1734b0 *out);
+    void FUN_00035020(V3_1734b0 *out);
 };
 
 struct Obj2c {
-    void FUN_0022c2b0(float *w, V3 *t);
+    void FUN_0022c2b0(float *w, V3_1734b0 *t);
 };
 
-struct Obj11c {
+struct Obj11c_1734b0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -59,7 +59,7 @@ struct Body5 {
     virtual void v14();
     virtual Obj2c *v15();
     char pad04[0x11c - 4];
-    Obj11c *f11c;
+    Obj11c_1734b0 *f11c;
     char pad120[0x148 - 0x120];
     Part8 *f148;
 };
@@ -82,11 +82,11 @@ struct Q64 {
     char pad0[8];
     R8 *f8;
     char pad0c[0x1c - 0xc];
-    Mat *f1c;
+    Mat_1734b0 *f1c;
 };
 
-struct YObj {
-    Obj74 *FUN_0003ffe0(float a, float b, int flag, Obj74 *old, V3 *out);
+struct YObj_1734b0 {
+    Obj74 *FUN_0003ffe0(float a, float b, int flag, Obj74 *old, V3_1734b0 *out);
     float FUN_000354c0();
 };
 
@@ -97,27 +97,27 @@ struct ZObj {
     void FUN_00222890(struct A24 *a, float b, float c, float d, float e, float f, float g);
 };
 
-struct XObj {
-    YObj *FUN_00059a30();
+struct XObj_1734b0 {
+    YObj_1734b0 *FUN_00059a30();
     ZObj *FUN_00059a40();
 };
 
-struct F20 {
-    XObj *FUN_000592a0();
+struct F20_1734b0 {
+    XObj_1734b0 *FUN_000592a0();
 };
 
-struct Sub18 {
-    void FUN_00221c60(Mat *m);
+struct Sub18_1734b0 {
+    void FUN_00221c60(Mat_1734b0 *m);
 };
 
 struct A24 {
     char pad0[0x10];
     int f10;
     char pad14[4];
-    Sub18 sub18;
+    Sub18_1734b0 sub18;
 };
 
-struct P1c {
+struct P1c_1734b0 {
     char pad0[0x38];
     float f38;
     float f3c;
@@ -141,33 +141,33 @@ float __cdecl FUN_00018a20(float v);
 float __cdecl FUN_000189c0(float v);
 float __cdecl FUN_00224ea0(float a, float b);
 float __cdecl FUN_00224fc0(float a, float b);
-void __cdecl FUN_00224d70(float angle, V3 *v);
+void __cdecl FUN_00224d70(float angle, V3_1734b0 *v);
 
-struct Frame {
+struct Frame_1734b0 {
     float s0;           // 0x00
     float s4;           // 0x04
-    V3 V;               // 0x08
+    V3_1734b0 V;               // 0x08
     union {
         char b;
         int i;
         float f;
     } fl;               // 0x14
-    V3 T;               // 0x18
+    V3_1734b0 T;               // 0x18
     ZObj *Zs;           // 0x24
-    V3 U;               // 0x28
-    V3 W;               // 0x34
+    V3_1734b0 U;               // 0x28
+    V3_1734b0 W;               // 0x34
     float W3;           // 0x40
-    V3 R;               // 0x44
-    V3 Q;               // 0x50
+    V3_1734b0 R;               // 0x44
+    V3_1734b0 Q;               // 0x50
     int idx;            // 0x5c
-    YObj *Ys;           // 0x60
+    YObj_1734b0 *Ys;           // 0x60
     Q64 *Qs;            // 0x64
-    Mat A;              // 0x68
-    Mat B;              // 0xa8
-    Mat C;              // 0xe8
-    Mat D;              // 0x128
-    Mat F;              // 0x168
-    Mat G;              // 0x1a8
+    Mat_1734b0 A;              // 0x68
+    Mat_1734b0 B;              // 0xa8
+    Mat_1734b0 C;              // 0xe8
+    Mat_1734b0 D;              // 0x128
+    Mat_1734b0 F;              // 0x168
+    Mat_1734b0 G;              // 0x1a8
 };
 
 class JointTrackerAction {
@@ -179,24 +179,24 @@ public:
     virtual void v4();
     virtual bool v5(int a0, float dt);
     char pad04[0x1c - 4];
-    P1c *p1c;
-    F20 *p20;
+    P1c_1734b0 *p1c;
+    F20_1734b0 *p20;
     A24 *p24;
-    V3 v28;
-    Mat m34;
+    V3_1734b0 v28;
+    Mat_1734b0 m34;
     Obj74 *f74;
 };
 
 bool JointTrackerAction::v5(int a0, float dt)
 {
-    Frame f;
+    Frame_1734b0 f;
     Obj74 *obj;
     float pitch;
 
     if (a0)
         return true;
-    XObj *X = p20->FUN_000592a0();
-    YObj *Y = X->FUN_00059a30();
+    XObj_1734b0 *X = p20->FUN_000592a0();
+    YObj_1734b0 *Y = X->FUN_00059a30();
     f.Ys = Y;
     ZObj *Z = X->FUN_00059a40();
     Q64 *edi = Z->f64;
@@ -255,7 +255,7 @@ bool JointTrackerAction::v5(int a0, float dt)
                     else if (mode == 2)
                         o148->FUN_00035020(&f.T);
                 } else if (mode == 2 || mode == 1) {
-                    Obj11c *o11c = b->f11c;
+                    Obj11c_1734b0 *o11c = b->f11c;
                     if (o11c != 0) {
                         char *r = o11c->v8();
                         if (r != 0) {

@@ -6,12 +6,12 @@ extern "C" double atan(double);
 extern "C" double cos(double);
 extern "C" double sin(double);
 
-struct Table {
+struct Table_33eef0 {
     int pad;
     int n;
 };
 
-void FUN_0033eef0(Table* t, int n, float* out)
+void FUN_0033eef0(Table_33eef0* t, int n, float* out)
 {
     t->n = n;
     if (n <= 1)

@@ -4,11 +4,11 @@ extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern __int64 DAT_004dc0e0;
 
-struct Tuning {
+struct Tuning_401a0 {
     bool FUN_00092940(int id);
 };
 
-struct Rig {
+struct Rig_401a0 {
     char pad0[0x128];
     float f128;  // 0x128
     float f12c;  // 0x12c
@@ -22,7 +22,7 @@ struct Rig {
     __int64 FUN_000443c0();
 };
 
-struct Hud {
+struct Hud_401a0 {
     char pad00[8];
     void* panel;
 };
@@ -36,25 +36,25 @@ struct PauseHolder {
     Pause* pause;           // 0x08
 };
 
-struct Hub {
+struct Hub_401a0 {
     char pad00[0x3c];
     PauseHolder* holder;    // 0x3c
     char pad40[0x54 - 0x40];
-    struct Registry* registry;  // 0x54
+    struct Registry_401a0* registry;  // 0x54
 };
 
-struct Registry {
-    Tuning* FUN_00086340();
+struct Registry_401a0 {
+    Tuning_401a0* FUN_00086340();
 };
 
-extern Hub* DAT_004dd700;
+extern Hub_401a0* DAT_004dd700;
 
-class Character {
+class Character_401a0 {
 public:
     void FUN_000401a0();
 
     char pad0[0x11c];
-    Rig* rig;  // 0x11c
+    Rig_401a0* rig;  // 0x11c
     char pad120[0x19ec];
     float f1b0c;  // 0x1b0c
     float f1b10;  // 0x1b10
@@ -65,15 +65,15 @@ public:
     int f20b0;  // 0x20b0
 };
 
-void Character::FUN_000401a0()
+void Character_401a0::FUN_000401a0()
 {
     unsigned int cookie = DAT_004d9968;
     if (rig == 0) {
         f20b0 = 0;
     } else {
         f20b0 = 0;
-        Tuning* tuning = DAT_004dd700->registry->FUN_00086340();
-        Rig* r = rig;
+        Tuning_401a0* tuning = DAT_004dd700->registry->FUN_00086340();
+        Rig_401a0* r = rig;
         // the load of f128 happens before the null test (hidden from the compiler)
         f1b10 = r->f128;
         if (rig && rig->FUN_000443c0() == DAT_004dc0e0) {

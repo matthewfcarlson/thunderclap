@@ -2,31 +2,31 @@
 // FUN_00220050 @ 0x00220050
 struct Str;
 
-struct Zio {
+struct Zio_220050 {
     unsigned int n;
     unsigned char *p;
 };
 
-struct TValue {
+struct TValue_220050 {
     int tt;
     void *val;
 };
 
-struct State {
+struct State_220050 {
     char pad0[8];
-    TValue *top;
+    TValue_220050 *top;
     char pad1[0x18 - 0xc];
-    TValue *stack_last;
+    TValue_220050 *stack_last;
 };
 
 struct Reader {
-    State *L;
-    Zio *zio;
+    State_220050 *L;
+    Zio_220050 *zio;
     int unused8;
     int swap;
 };
 
-struct Proto {
+struct Proto_220050 {
     char pad0[0x20];
     Str *source;
     char pad1[0x3c - 0x24];
@@ -35,30 +35,30 @@ struct Proto {
     unsigned char b44, b45, b46, b47;
 };
 
-Proto *FUN_002196d0(State *L);
-void FUN_00215460(State *L, int n);
+Proto_220050 *FUN_002196d0(State_220050 *L);
+void FUN_00215460(State_220050 *L, int n);
 // equiv-conv: FUN_0021fa80 eax
 Str *FUN_0021fa80(Reader *S);
 // equiv-conv: FUN_0021f8c0 eax ecx edx
 void FUN_0021f8c0(int size, void *dst, Reader *r);
 // equiv-conv: FUN_0021f800 stack esi
 void FUN_0021f800(const char *msg, Reader *r);
-int FUN_0021a550(Zio *z);
+int FUN_0021a550(Zio_220050 *z);
 // equiv-conv: FUN_0021fcb0 eax ebx
-void FUN_0021fcb0(Reader *S, Proto *f);
+void FUN_0021fcb0(Reader *S, Proto_220050 *f);
 // equiv-conv: FUN_0021faf0 eax ebx
-void FUN_0021faf0(Reader *S, Proto *f);
+void FUN_0021faf0(Reader *S, Proto_220050 *f);
 // equiv-conv: FUN_0021fb50 eax stack
-void FUN_0021fb50(Reader *S, Proto *f);
+void FUN_0021fb50(Reader *S, Proto_220050 *f);
 // equiv-conv: FUN_0021fd10 eax stack
-void FUN_0021fd10(Reader *S, Proto *f);
+void FUN_0021fd10(Reader *S, Proto_220050 *f);
 // equiv-conv: FUN_0021fe20 eax stack
-void FUN_0021fe20(Reader *S, Proto *f);
-int FUN_002146a0(Proto *f);
+void FUN_0021fe20(Reader *S, Proto_220050 *f);
+int FUN_002146a0(Proto_220050 *f);
 
 static int LoadByte(Reader *S)
 {
-    Zio *z = S->zio;
+    Zio_220050 *z = S->zio;
     unsigned int n = z->n;
     z->n = n - 1;
     z = S->zio;
@@ -75,12 +75,12 @@ static int LoadByte(Reader *S)
     return ch;
 }
 
-Proto *FUN_00220050(Reader *S, Str *parent)
+Proto_220050 *FUN_00220050(Reader *S, Str *parent)
 {
     int v;
-    Proto *f = FUN_002196d0(S->L);
-    State *L = S->L;
-    TValue *t = L->top;
+    Proto_220050 *f = FUN_002196d0(S->L);
+    State_220050 *L = S->L;
+    TValue_220050 *t = L->top;
     t->val = f;
     t->tt = 9;
     L = S->L;

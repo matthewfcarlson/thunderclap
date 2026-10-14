@@ -3,7 +3,7 @@
 extern float DAT_003f32e0;
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_1adeb0 {
     float x, y, z;
 };
 
@@ -13,31 +13,31 @@ struct Node {
     unsigned char kind;              // 0x0f
 };
 
-struct Mgr {
+struct Mgr_1adeb0 {
     Node *FUN_001b5800(int id);
-    Vec3 *FUN_001b5a20(Vec3 *out, int id);
+    Vec3_1adeb0 *FUN_001b5a20(Vec3_1adeb0 *out, int id);
     char FUN_001b65f0(int id, int slot);
 };
 
-struct Frame {
+struct Frame_1adeb0 {
     Node *node;
     float best;
     int bestId;
-    Mgr *mgr;
-    Vec3 tmp;
+    Mgr_1adeb0 *mgr;
+    Vec3_1adeb0 tmp;
 };
 
-struct Finder {
-    Mgr *mgr;                        // 0x00
+struct Finder_1adeb0 {
+    Mgr_1adeb0 *mgr;                        // 0x00
     unsigned minLevel;               // 0x04
     unsigned maxKind;                // 0x08
 
-    int FUN_001adeb0(Vec3 *pos, int id, char recurse, int unused);
+    int FUN_001adeb0(Vec3_1adeb0 *pos, int id, char recurse, int unused);
 };
 
-int Finder::FUN_001adeb0(Vec3 *pos, int id, char recurse, int unused)
+int Finder_1adeb0::FUN_001adeb0(Vec3_1adeb0 *pos, int id, char recurse, int unused)
 {
-    Frame f;
+    Frame_1adeb0 f;
     f.node = mgr->FUN_001b5800(id);
     f.bestId = 0;
     f.best = 0;
@@ -45,7 +45,7 @@ int Finder::FUN_001adeb0(Vec3 *pos, int id, char recurse, int unused)
         return 0;
     f.mgr = mgr;
 
-    Vec3 *p = f.mgr->FUN_001b5a20(&f.tmp, id);
+    Vec3_1adeb0 *p = f.mgr->FUN_001b5a20(&f.tmp, id);
     float dx = p->x - pos->x;
     float dy = p->y - pos->y;
     float dz = p->z - pos->z;
@@ -70,7 +70,7 @@ int Finder::FUN_001adeb0(Vec3 *pos, int id, char recurse, int unused)
         if (f.node->level[slot] < minLevel)
             continue;
 
-        Vec3 *q = f.mgr->FUN_001b5a20(&f.tmp, cid);
+        Vec3_1adeb0 *q = f.mgr->FUN_001b5a20(&f.tmp, cid);
         float ex = q->x - pos->x;
         float ey = q->y - pos->y;
         float ez = q->z - pos->z;

@@ -3,21 +3,21 @@
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int DAT_004d9968;
 
-struct Item {
+struct Item_faf80 {
     char pad0[4];
-    Item *next;
-    void FUN_000f9b40(Item *other);
+    Item_faf80 *next;
+    void FUN_000f9b40(Item_faf80 *other);
 };
 
-class Script;
+class Script_faf80;
 struct TokState {
     char *tok;
-    Script *owner;
+    Script_faf80 *owner;
 };
 
-struct Head {
-    Item *first;
-    Item *last;
+struct Head_faf80 {
+    Item_faf80 *first;
+    Item_faf80 *last;
 };
 
 class Lines {
@@ -29,18 +29,18 @@ public:
     int mark18;
 };
 
-class Script {
+class Script_faf80 {
 public:
-    Head *head;
-    Item *FUN_000fa5a0(TokState *state, char *line, int index, int lineNo, char *copy);
-    bool FUN_000faa40(Item *it);
-    Head *FUN_000faf80(Lines *lines);
+    Head_faf80 *head;
+    Item_faf80 *FUN_000fa5a0(TokState *state, char *line, int index, int lineNo, char *copy);
+    bool FUN_000faa40(Item_faf80 *it);
+    Head_faf80 *FUN_000faf80(Lines *lines);
 };
 
 void *__cdecl FUN_0008d690(unsigned int size);
 char *__cdecl FUN_003465c6(char *s, const char *delims);
 
-struct Frame {
+struct Frame_faf80 {
     int lineNo;
     TokState ts;
     char line[0x100];
@@ -48,13 +48,13 @@ struct Frame {
     unsigned int cookie;
 };
 
-Head *Script::FUN_000faf80(Lines *lines)
+Head_faf80 *Script_faf80::FUN_000faf80(Lines *lines)
 {
-    Frame f;
+    Frame_faf80 f;
     f.cookie = DAT_004d9968;
     f.ts.owner = this;
     lines->mark18 = lines->mark10;
-    Head *h = (Head *)FUN_0008d690(8);
+    Head_faf80 *h = (Head_faf80 *)FUN_0008d690(8);
     if (h) {
         h->first = 0;
         h->last = 0;
@@ -76,12 +76,12 @@ Head *Script::FUN_000faf80(Lines *lines)
             int index = 1;
             f.ts.tok = FUN_003465c6(f.line, " \t\n\r");
             while (f.ts.tok) {
-                Item *it = FUN_000fa5a0(&f.ts, f.line, index, f.lineNo, f.copy);
+                Item_faf80 *it = FUN_000fa5a0(&f.ts, f.line, index, f.lineNo, f.copy);
                 if (!it)
                     break;
                 if (!FUN_000faa40(it)) {
-                    static Item *last = it;
-                    Head *hd = head;
+                    static Item_faf80 *last = it;
+                    Head_faf80 *hd = head;
                     if (hd->first == 0) {
                         hd->first = it;
                     } else if (last != it) {
@@ -107,7 +107,7 @@ Head *Script::FUN_000faf80(Lines *lines)
             f.lineNo++;
         } while (ok);
     }
-    Head *result = head;
+    Head_faf80 *result = head;
     __security_check_cookie(f.cookie);
     return result;
 }

@@ -2,13 +2,13 @@
 // FUN_00226a70 @ 0x00226a70
 extern float __cdecl FUN_0004af40(float low, float high, float value);
 extern double __cdecl __floor_default(double value);
-struct Curve {
+struct Curve_226a70 {
  char pad[0x2c];
  unsigned int count;
  float FUN_00226960(unsigned int index, float angle);
  float FUN_00226a70(float position, float angle);
 };
-float Curve::FUN_00226a70(float position, float angle) {
+float Curve_226a70::FUN_00226a70(float position, float angle) {
  angle = FUN_0004af40(0.0f, 6.283185307179586f, angle);
  double base = __floor_default(position);
  if (base < 0.0f) return 0.0f;

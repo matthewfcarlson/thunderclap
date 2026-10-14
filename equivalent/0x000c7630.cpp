@@ -24,13 +24,13 @@ public:
 }
 }
 
-struct Key {
+struct Key_c7630 {
     unsigned int lo;
     unsigned int hi;
     void FUN_0027af00();
 };
 
-struct NameHolder {
+struct NameHolder_c7630 {
     char pad[8];
 };
 
@@ -39,7 +39,7 @@ class __declspec(novtable) Entity {
 public:
     virtual void v0();
     char pad04[4];
-    NameHolder nameHolder;
+    NameHolder_c7630 nameHolder;
     void FUN_0027b070();
     Entity() { FUN_0027b070(); }
 };
@@ -50,12 +50,12 @@ struct IconSlot {
     int f4;
     int f8;
     int fc;
-    Key key;
+    Key_c7630 key;
     int f18;
     int pad1c;
 };
 
-class Factory {
+class Factory_c7630 {
 public:
     virtual void f0();
     virtual void f1();
@@ -64,10 +64,10 @@ public:
                                           unsigned int lo, unsigned int hi);
 };
 
-struct Holder44 { Factory *FUN_00203d70(); };
-struct Holder28 { Holder44 *FUN_000862a0(); };
-struct Manager { char pad0[0x54]; Holder28 *holder; };
-extern Manager *DAT_004dd700;
+struct Holder44_c7630 { Factory_c7630 *FUN_00203d70(); };
+struct Holder28_c7630 { Holder44_c7630 *FUN_000862a0(); };
+struct Manager_c7630 { char pad0[0x54]; Holder28_c7630 *holder; };
+extern Manager_c7630 *DAT_004dd700;
 
 unsigned __int64 __cdecl FUN_0027b020(const char *name);
 
@@ -113,7 +113,7 @@ CHudIcons::CHudIcons()
         slots[i].key.FUN_0027af00();
         slots[i].f18 = 0;
     }
-    Factory *factory = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+    Factory_c7630 *factory = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
     f14 = 0;
     f18 = 0;
     enemyShape = 0;

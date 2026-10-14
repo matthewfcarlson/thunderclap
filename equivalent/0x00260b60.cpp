@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 145 inputs, branch coverage 20/22, incomplete)
 // FUN_00260b60 @ 0x00260b60
-struct Parser {
+struct Parser_260b60 {
     char pad0[0x2008];
     const char* cur;    // 0x2008
     const char* end;    // 0x200c
@@ -8,7 +8,7 @@ struct Parser {
 
 // Skips leading spaces, then advances past one space-delimited token; a parenthesised group
 // counts as part of the token and is consumed through its closing parenthesis.
-void FUN_00260b60(Parser* p)
+void FUN_00260b60(Parser_260b60* p)
 {
     while (p->cur < p->end && *p->cur == ' ')
         p->cur++;

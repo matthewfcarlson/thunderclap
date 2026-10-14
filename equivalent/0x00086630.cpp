@@ -1,32 +1,32 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00086630 @ 0x00086630
-struct Target;
-struct Audio { void FUN_000ae9a0(int); void FUN_000ae980(); };
-struct Stop { void FUN_000afe80(); };
-struct Panel { void FUN_001b8780(int); void FUN_001b8900(int); };
+struct Target_86630;
+struct Audio_86630 { void FUN_000ae9a0(int); void FUN_000ae980(); };
+struct Stop_86630 { void FUN_000afe80(); };
+struct Panel_86630 { void FUN_001b8780(int); void FUN_001b8900(int); };
 struct View { void FUN_001b7590(); };
-struct Resource;
-struct Renderer { void FUN_00208820(); void FUN_00206320(Resource*); };
-struct State { int value; };
-struct Controller { void FUN_000bd1b0(int); void FUN_000bc100(); void FUN_000bf0e0(Target*,State*); void FUN_000bb600(); };
-struct Service { void FUN_0022aba0(); };
+struct Resource_86630;
+struct Renderer_86630 { void FUN_00208820(); void FUN_00206320(Resource_86630*); };
+struct State_86630 { int value; };
+struct Controller_86630 { void FUN_000bd1b0(int); void FUN_000bc100(); void FUN_000bf0e0(Target_86630*,State_86630*); void FUN_000bb600(); };
+struct Service_86630 { void FUN_0022aba0(); };
 extern int __cdecl FUN_00267f00();
-extern Service* __stdcall FUN_000964d0(int);
-struct Manager { void FUN_001d2760(); void FUN_001d4530(); void FUN_001d15d0(int); void FUN_001d3c50(); };
-extern Manager* __cdecl FUN_001d4c90();
-struct Sub { void FUN_001e11d0(); };
-struct Scene { void FUN_001ee020(); void FUN_001ec310(int); };
-struct Handler { void FUN_0008dba0(Target*); };
-struct Item { void FUN_001bc4e0(); };
-struct Loader { void FUN_000d6b20(Target*); };
-struct Resource { void FUN_00089980(); };
-struct Flag { char pad[8]; unsigned char enabled; };
-struct Context { char pad0[4]; Flag* flag; char pad8[4]; Sub* sub; char pad10[48]; Item* item; void FUN_00088940(Target*,Resource*); };
-struct GlobalSub { char pad[16]; Audio* audio; char pad14[4]; Stop* stop; };
-struct Global { char pad[84]; GlobalSub* sub; };
-extern Global* DAT_004dd700;
-struct Target { char pad0[4]; State* state; char pad8[4]; Context* context; Audio* audio; char pad14[4]; Stop* stop; Handler* handler; Controller* controller; Panel* panel; Renderer* renderer; Loader* loader; Scene* scene; View* view; Resource* resource; char pad3c[20]; unsigned char enabled; void FUN_00086630(); };
-void Target::FUN_00086630() {
+extern Service_86630* __stdcall FUN_000964d0(int);
+struct Manager_86630 { void FUN_001d2760(); void FUN_001d4530(); void FUN_001d15d0(int); void FUN_001d3c50(); };
+extern Manager_86630* __cdecl FUN_001d4c90();
+struct Sub_86630 { void FUN_001e11d0(); };
+struct Scene_86630 { void FUN_001ee020(); void FUN_001ec310(int); };
+struct Handler_86630 { void FUN_0008dba0(Target_86630*); };
+struct Item_86630 { void FUN_001bc4e0(); };
+struct Loader_86630 { void FUN_000d6b20(Target_86630*); };
+struct Resource_86630 { void FUN_00089980(); };
+struct Flag_86630 { char pad[8]; unsigned char enabled; };
+struct Context { char pad0[4]; Flag_86630* flag; char pad8[4]; Sub_86630* sub; char pad10[48]; Item_86630* item; void FUN_00088940(Target_86630*,Resource_86630*); };
+struct GlobalSub { char pad[16]; Audio_86630* audio; char pad14[4]; Stop_86630* stop; };
+struct Global_86630 { char pad[84]; GlobalSub* sub; };
+extern Global_86630* DAT_004dd700;
+struct Target_86630 { char pad0[4]; State_86630* state; char pad8[4]; Context* context; Audio_86630* audio; char pad14[4]; Stop_86630* stop; Handler_86630* handler; Controller_86630* controller; Panel_86630* panel; Renderer_86630* renderer; Loader_86630* loader; Scene_86630* scene; View* view; Resource_86630* resource; char pad3c[20]; unsigned char enabled; void FUN_00086630(); };
+void Target_86630::FUN_00086630() {
  audio->FUN_000ae9a0(0);
  panel->FUN_001b8780(0);
  panel->FUN_001b8900(0);
@@ -37,7 +37,7 @@ void Target::FUN_00086630() {
  renderer->FUN_00208820();
  controller->FUN_000bd1b0(0);
  FUN_000964d0(FUN_00267f00())->FUN_0022aba0();
- Manager* manager=FUN_001d4c90();
+ Manager_86630* manager=FUN_001d4c90();
  manager->FUN_001d2760();
  controller->FUN_000bc100();
  context->sub->FUN_001e11d0();
@@ -58,7 +58,7 @@ void Target::FUN_00086630() {
  context->FUN_00088940(this,resource);
  resource->FUN_00089980();
  controller->FUN_000bd1b0(0);
- Controller* lastController=controller;
+ Controller_86630* lastController=controller;
  enabled=1;
  lastController->FUN_000bb600();
  state->value=3;

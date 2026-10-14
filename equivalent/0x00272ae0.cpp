@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00272ae0 @ 0x00272ae0
-struct Guard {
+struct Guard_272ae0 {
     virtual void begin();
     virtual void end();
 };
-struct Provider {
+struct Provider_272ae0 {
     virtual void slot0();
     virtual void slot1();
     virtual void slot2();
@@ -15,11 +15,11 @@ struct Provider {
 };
 struct Object {
     char reserved[12];
-    Guard guard;
+    Guard_272ae0 guard;
     char unused[0x54 - 0x10];
     unsigned char available;
     char padding[3];
-    Provider *provider;
+    Provider_272ae0 *provider;
     bool FUN_00272ae0(unsigned int *first, unsigned int *second);
 };
 bool Object::FUN_00272ae0(unsigned int *first, unsigned int *second) {

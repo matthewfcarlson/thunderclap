@@ -1,29 +1,29 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_001be7f0 @ 0x001be7f0
-struct Vec3 { float x, y, z; };
+struct Vec3_1be7f0 { float x, y, z; };
 
 struct Owner;
 
-struct Slot {
+struct Slot_1be7f0 {
     float weight;
     int a;
     int b;
     int value;
 };
 
-struct Blender {
+struct Blender_1be7f0 {
     Owner* owner;
     int current;
-    Slot slots[8];
+    Slot_1be7f0 slots[8];
     int index;
     float scale;
-    Blender* FUN_000f7fe0(Owner* o);
+    Blender_1be7f0* FUN_000f7fe0(Owner* o);
     void FUN_000f81b0(int v, int font, int flag);
     void FUN_000f87c0(int v, int font, int flag);
     void FUN_000f78e0();
 };
 
-class Screen {
+class Screen_1be7f0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -87,7 +87,7 @@ class Screen {
     virtual char v59();
 };
 
-class Viewport {
+class Viewport_1be7f0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -99,7 +99,7 @@ class Viewport {
     virtual int v7();
 };
 
-class Layer {
+class Layer_1be7f0 {
   public:
     virtual void v0();
     virtual void v1();
@@ -126,13 +126,13 @@ class Layer {
 };
 
 struct Canvas {
-    Layer* layer;
-    void FUN_00293d00(Vec3* v);
+    Layer_1be7f0* layer;
+    void FUN_00293d00(Vec3_1be7f0* v);
     void FUN_00293da0(float x, float y, float z);
 };
 
-extern Screen* DAT_0052c2a8;
-extern Viewport* DAT_0052c2a4;
+extern Screen_1be7f0* DAT_0052c2a8;
+extern Viewport_1be7f0* DAT_0052c2a4;
 extern Canvas* DAT_0052c2ac;
 extern float DAT_004c4c18;
 extern float DAT_004c4c1c;
@@ -164,8 +164,8 @@ void Overlay::FUN_001be7f0(int index)
             int i;
         } mode;
         float width;
-        Vec3 v;
-        Blender b;
+        Vec3_1be7f0 v;
+        Blender_1be7f0 b;
     } f;
     if (owner == 0)
         return;

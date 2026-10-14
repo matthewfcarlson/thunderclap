@@ -5,18 +5,18 @@ namespace math { class Vector { public: float x, y, z; }; }
 void* FUN_0008d690(unsigned int);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 class MessageOverlay;
-class Registry { public:
+class Registry_d6470 { public:
     void FUN_001d3b70(const char*, void*);
     void FUN_000d6470(const char* a1, MessageOverlay* a2, void (*a3)());
 };
 template<class C, class R, class A1, class A2, class A3> class Closure3;
 template<> class Closure3<MessageOverlay, void, const char*, int, math::Vector> { public: virtual void v(); char pad[0x1c]; MessageOverlay* owner; Closure3(MessageOverlay* o) { owner = o; } };
-class Raw { public: void FUN_000d5660(const char*, void (*)()); };
-void Registry::FUN_000d6470(const char* a1, MessageOverlay* a2, void (*a3)()) {
+class Raw_d6470 { public: void FUN_000d5660(const char*, void (*)()); };
+void Registry_d6470::FUN_000d6470(const char* a1, MessageOverlay* a2, void (*a3)()) {
     void* m = FUN_0008d690(0x24);
     void* x = 0;
     if (m) {
-        ((Raw*)m)->FUN_000d5660(a1, a3);
+        ((Raw_d6470*)m)->FUN_000d5660(a1, a3);
         x = new (m) Closure3<MessageOverlay, void, const char*, int, math::Vector>(a2);
     }
     FUN_001d3b70(a1, x);

@@ -15,7 +15,7 @@ struct Reader {
     void FUN_00266be0();
 };
 
-struct Obj {
+struct Obj_28c910 {
     int pad0;
     int field4;
     int field8;
@@ -23,27 +23,27 @@ struct Obj {
     short *data14;
     void *FUN_002888c0(int size, int tag);
 };
-struct ObjC : public Obj {
+struct ObjC_28c910 : public Obj_28c910 {
     int *data18;
-    ObjC *FUN_0028bf20(int id, Obj *existing);
+    ObjC_28c910 *FUN_0028bf20(int id, Obj_28c910 *existing);
 };
-struct ObjA : public Obj {
+struct ObjA_28c910 : public Obj_28c910 {
     int field18;
     int field1c, field20, field24;
     int *data28;
-    ObjA *FUN_0028bd40(int id, Obj *existing);
+    ObjA_28c910 *FUN_0028bd40(int id, Obj_28c910 *existing);
 };
-struct ObjB : public ObjA {
-    ObjB *FUN_0028be20(int id, Obj *existing);
+struct ObjB_28c910 : public ObjA_28c910 {
+    ObjB_28c910 *FUN_0028be20(int id, Obj_28c910 *existing);
 };
 
-union Arg1 { Reader *reader; int id; short count16; };
-union Arg3 { Obj *obj; int value; };
+union Arg1_28c910 { Reader *reader; int id; short count16; };
+union Arg3_28c910 { Obj_28c910 *obj; int value; };
 
-Obj *__stdcall FUN_0028c910(Arg1 a1, int a2, Arg3 a3) {
+Obj_28c910 *__stdcall FUN_0028c910(Arg1_28c910 a1, int a2, Arg3_28c910 a3) {
     Reader *r = a1.reader;
     struct { int l10, l14, l18, l1c, l20, l24, l28; } f;
-    Obj *obj;
+    Obj_28c910 *obj;
     int id;
     switch (r->FUN_00266c30()) {
     case 0x121102:
@@ -55,14 +55,14 @@ Obj *__stdcall FUN_0028c910(Arg1 a1, int a2, Arg3 a3) {
             r->stream->FUN_002647e0(&f.l20, 3, 4, 1);
             r->stream->FUN_002647e0(&a1.id, 1, 4, 1);
             id = a1.id;
-            ObjA *o;
+            ObjA_28c910 *o;
             if (a3.obj == 0) {
                 void *mem = FUN_0008d690(0x2c);
                 o = 0;
                 if (mem)
-                    o = ((ObjA *)mem)->FUN_0028bd40(id, 0);
+                    o = ((ObjA_28c910 *)mem)->FUN_0028bd40(id, 0);
             } else {
-                o = (ObjA *)a3.obj->FUN_002888c0(0x2c, 7);
+                o = (ObjA_28c910 *)a3.obj->FUN_002888c0(0x2c, 7);
                 if (o)
                     o = o->FUN_0028bd40(id, a3.obj);
             }
@@ -87,14 +87,14 @@ Obj *__stdcall FUN_0028c910(Arg1 a1, int a2, Arg3 a3) {
             r->stream->FUN_002647e0(&f.l1c, 1, 4, 1);
             r->stream->FUN_002647e0(&a1.id, 1, 4, 1);
             id = a1.id;
-            ObjB *o;
+            ObjB_28c910 *o;
             if (a3.obj == 0) {
                 void *mem = FUN_0008d690(0x2c);
                 o = 0;
                 if (mem)
-                    o = ((ObjB *)mem)->FUN_0028be20(id, 0);
+                    o = ((ObjB_28c910 *)mem)->FUN_0028be20(id, 0);
             } else {
-                o = (ObjB *)a3.obj->FUN_002888c0(0x2c, 7);
+                o = (ObjB_28c910 *)a3.obj->FUN_002888c0(0x2c, 7);
                 if (o)
                     o = o->FUN_0028be20(id, a3.obj);
             }
@@ -114,14 +114,14 @@ Obj *__stdcall FUN_0028c910(Arg1 a1, int a2, Arg3 a3) {
         r->stream->FUN_002647e0(&a1.id, 1, 4, 1);
         {
             id = a1.id;
-            ObjC *o;
+            ObjC_28c910 *o;
             if (a3.obj == 0) {
                 void *mem = FUN_0008d690(0x1c);
                 o = 0;
                 if (mem)
-                    o = ((ObjC *)mem)->FUN_0028bf20(id, 0);
+                    o = ((ObjC_28c910 *)mem)->FUN_0028bf20(id, 0);
             } else {
-                o = (ObjC *)a3.obj->FUN_002888c0(0x1c, 7);
+                o = (ObjC_28c910 *)a3.obj->FUN_002888c0(0x1c, 7);
                 if (o)
                     o = o->FUN_0028bf20(id, a3.obj);
             }

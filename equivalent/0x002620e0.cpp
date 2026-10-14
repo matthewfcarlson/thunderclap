@@ -4,7 +4,7 @@ typedef unsigned int uint;
 extern bool __cdecl FUN_0024f010(void*, uint*);
 extern bool __cdecl FUN_0025abd0(void*, uint*);
 extern bool __cdecl FUN_0025aa80(void*, unsigned char*);
-struct Embedded {
+struct Embedded_2620e0 {
  virtual bool read(void*);
  char data[0x18];
 };
@@ -13,7 +13,7 @@ struct SeqTrack {
  virtual void vfunc_0();
  virtual bool vfunc_1(void* stream);
  char padding[0x18];
- Embedded embedded;
+ Embedded_2620e0 embedded;
  uint first;
  uint second;
  uint flags;

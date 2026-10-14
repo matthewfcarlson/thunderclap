@@ -4,7 +4,7 @@ extern "C" int __cdecl isdigit(int c);
 
 struct lua_State;
 
-struct Zio {
+struct Zio_21b230 {
     unsigned int n;             // bytes left
     const unsigned char* p;     // next byte
 };
@@ -15,26 +15,26 @@ struct Mbuffer {
     unsigned int buffsize;      // 0x08
 };
 
-struct LexState {
+struct LexState_21b230 {
     int current;                // 0x00
     char pad04[0x1c];
     lua_State* L;               // 0x20
-    Zio* z;                     // 0x24
+    Zio_21b230* z;                     // 0x24
     Mbuffer* buff;              // 0x28
 };
 
-union SemInfo {
+union SemInfo_21b230 {
     double r;
 };
 
 char* FUN_0021add0(lua_State* L, void* block, unsigned int oldsize, unsigned int newsize);
-int FUN_0021a550(Zio* z);
+int FUN_0021a550(Zio_21b230* z);
 int FUN_00215ff0(const char* s, double* result);
-void FUN_0021afd0(LexState* LS, const char* msg, int token);
+void FUN_0021afd0(LexState_21b230* LS, const char* msg, int token);
 
 // save_and_next out of line: the lexer state arrives in edi
 // equiv-conv: FUN_0021b1c0 edi
-void __stdcall FUN_0021b1c0(LexState* LS);
+void __stdcall FUN_0021b1c0(LexState_21b230* LS);
 
 // grow the token buffer when full, then append one character
 #define SAVE(LS, c)                                                                          \
@@ -52,7 +52,7 @@ void __stdcall FUN_0021b1c0(LexState* LS);
 
 // Lex the digits of a number into the token buffer and convert it.
 // equiv-conv: FUN_0021b230 eax stack
-void FUN_0021b230(LexState* LS, SemInfo* seminfo)
+void FUN_0021b230(LexState_21b230* LS, SemInfo_21b230* seminfo)
 {
     while (isdigit(LS->current)) {
         SAVE(LS, LS->current);

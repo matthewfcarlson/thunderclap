@@ -5,7 +5,7 @@ struct WordBuf {
     unsigned int* words;
 };
 
-struct Ctx {
+struct Ctx_220650 {
     WordBuf* buf;
     char pad[8];
     void* errCtx;
@@ -15,7 +15,7 @@ extern char DAT_00426ba4[64];
 void FUN_0021b060(void* errCtx, const char* msg);
 
 // equiv-conv: FUN_00220650 edx ebx stack stack stack stack stack
-void FUN_00220650(int idx, Ctx* ctx, int a1, int a2, int a3, int a4, int a5)
+void FUN_00220650(int idx, Ctx_220650* ctx, int a1, int a2, int a3, int a4, int a5)
 {
     while (idx != -1) {
         unsigned int* words = ctx->buf->words;

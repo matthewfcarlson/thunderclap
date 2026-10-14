@@ -7,77 +7,77 @@ extern char DAT_00494b60[];
 void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 char __cdecl FUN_00018960(float a, float b, float eps);
 
-struct V3 {
+struct V3_1251f0 {
     float x, y, z;
-    bool FUN_0022d2b0(const V3 *other, float eps);
+    bool FUN_0022d2b0(const V3_1251f0 *other, float eps);
 };
 
-struct Mgr10 {
-    bool FUN_00059a50(V3 *out);
+struct Mgr10_1251f0 {
+    bool FUN_00059a50(V3_1251f0 *out);
 };
 
-struct Obj10 {
+struct Obj10_1251f0 {
     char pad0[0x10];
-    Mgr10 *f10;
+    Mgr10_1251f0 *f10;
 };
 
-struct Target;
+struct Target_1251f0;
 
-struct Agent {
+struct Agent_1251f0 {
     char pad0[0x1a60];
-    V3 pos;                 // 0x1a60
+    V3_1251f0 pos;                 // 0x1a60
 };
 
-struct Target {
+struct Target_1251f0 {
     char pad0[8];
-    Agent *p8;              // 0x8
+    Agent_1251f0 *p8;              // 0x8
     int kind;               // 0xc
     char pad10[0x40 - 0x10];
-    V3 v40;
+    V3_1251f0 v40;
 };
 
-struct Player {
+struct Player_1251f0 {
     char pad0[0x10];
-    Mgr10 *f10;
+    Mgr10_1251f0 *f10;
     char pad14[0x328 - 0x14];
-    Target *f328;
+    Target_1251f0 *f328;
     char pad32c[0x1d54 - 0x32c];
-    V3 v1d54;
+    V3_1251f0 v1d54;
     int lo1d60;
     int hi1d64;
 };
 
-struct Mgr {
-    Player *FUN_00059a30();
+struct Mgr_1251f0 {
+    Player_1251f0 *FUN_00059a30();
 };
 
-struct Source {
-    Mgr *FUN_000592a0();
+struct Source_1251f0 {
+    Mgr_1251f0 *FUN_000592a0();
 };
 
-struct Mid {
+struct Mid_1251f0 {
     char pad0[0x40];
-    V3 v40;                 // 0x40
+    V3_1251f0 v40;                 // 0x40
 };
 
-struct Hero {
+struct Hero_1251f0 {
     char pad0[0x12c];
-    Mid *f12c;
+    Mid_1251f0 *f12c;
     char pad130[0x1a60 - 0x130];
-    V3 pos;                 // 0x1a60
+    V3_1251f0 pos;                 // 0x1a60
 };
 
-struct Reg {
+struct Reg_1251f0 {
     char pad0[0x124];
-    Hero *f124;
-    Obj10 *FUN_00024280(int lo, int hi);
+    Hero_1251f0 *f124;
+    Obj10_1251f0 *FUN_00024280(int lo, int hi);
 };
 
-struct Globals {
+struct Globals_1251f0 {
     char pad0[0x20];
-    Reg *f20;
+    Reg_1251f0 *f20;
 };
-extern Globals *DAT_004dd700;
+extern Globals_1251f0 *DAT_004dd700;
 
 class TargetDistanceCondition {
 public:
@@ -87,7 +87,7 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual char vfunc_6(int a, Source *source, int c);
+    virtual char vfunc_6(int a, Source_1251f0 *source, int c);
     char pad04[8];
     int mode;               // 0xc
     float threshold;        // 0x10
@@ -95,17 +95,17 @@ public:
     char flag15;
 };
 
-char TargetDistanceCondition::vfunc_6(int a, Source *source, int c)
+char TargetDistanceCondition::vfunc_6(int a, Source_1251f0 *source, int c)
 {
-    V3 A;
-    V3 B;
-    V3 T;
-    V3 C;
+    V3_1251f0 A;
+    V3_1251f0 B;
+    V3_1251f0 T;
+    V3_1251f0 C;
 
     if (!FUN_00344e74(source, 0, DAT_00494b44, DAT_00494b60, 0))
         return false;
 
-    Player *pl = source->FUN_000592a0()->FUN_00059a30();
+    Player_1251f0 *pl = source->FUN_000592a0()->FUN_00059a30();
     A.x = 0.0f;
     A.y = 0.0f;
     A.z = 0.0f;
@@ -113,12 +113,12 @@ char TargetDistanceCondition::vfunc_6(int a, Source *source, int c)
     B.y = 0.0f;
     B.z = 0.0f;
     pl->f10->FUN_00059a50(&A);
-    Target *tgt = pl->f328;
+    Target_1251f0 *tgt = pl->f328;
 
     if (flag14) {
-        Hero *x = DAT_004dd700->f20->f124;
+        Hero_1251f0 *x = DAT_004dd700->f20->f124;
         if (x) {
-            Mid *y = x->f12c;
+            Mid_1251f0 *y = x->f12c;
             if (flag15 == 0)
                 T = y->v40;
             else
@@ -130,9 +130,9 @@ char TargetDistanceCondition::vfunc_6(int a, Source *source, int c)
         C = pl->v1d54;
         bool done = false;
         if (!C.FUN_0022d2b0(&B, 0.00001f)) {
-            Reg *reg = DAT_004dd700->f20;
+            Reg_1251f0 *reg = DAT_004dd700->f20;
             if (reg) {
-                Obj10 *o = reg->FUN_00024280(pl->lo1d60, pl->hi1d64);
+                Obj10_1251f0 *o = reg->FUN_00024280(pl->lo1d60, pl->hi1d64);
                 if (o) {
                     o->f10->FUN_00059a50(&T);
                     done = true;

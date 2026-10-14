@@ -23,7 +23,7 @@ public:
 }
 }
 
-struct Name {
+struct Name_2b16a0 {
     char data[8];
     void FUN_0027b040(const char *s);
 };
@@ -32,21 +32,21 @@ struct ExprGroup;
 
 struct ExprMixer {
     char pad0[8];
-    Name name;
+    Name_2b16a0 name;
     char pad10[0x38 - 0x10];
     ExprMixer *FUN_002b15d0(ExprGroup *group);
 };
 
-struct SkinHolder {
+struct SkinHolder_2b16a0 {
     void FUN_002a9ea0(ExprMixer *mixer);
 };
 
-struct Skin {
+struct Skin_2b16a0 {
     char pad0[0x6c];
-    SkinHolder *holder;
+    SkinHolder_2b16a0 *holder;
 };
 
-class LoadContext {
+class LoadContext_2b16a0 {
 public:
     virtual void f0();
     virtual void f1();
@@ -63,7 +63,7 @@ struct Stream {
     Reader *reader;
 };
 
-struct Frame {
+struct Frame_2b16a0 {
     char pad[3];
     unsigned char len;       // 0x0f
     int cell;                // 0x10, reused as the caster object
@@ -79,12 +79,12 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual void vfunc_5(ExprMixer **out, unsigned __int64 *outId, Stream *s, LoadContext *ctx);
+    virtual void vfunc_5(ExprMixer **out, unsigned __int64 *outId, Stream *s, LoadContext_2b16a0 *ctx);
 };
 
-void VertexOffsetExpressionMixerLoader::vfunc_5(ExprMixer **out, unsigned __int64 *outId, Stream *s, LoadContext *ctx)
+void VertexOffsetExpressionMixerLoader::vfunc_5(ExprMixer **out, unsigned __int64 *outId, Stream *s, LoadContext_2b16a0 *ctx)
 {
-    Frame f;
+    Frame_2b16a0 f;
     s->reader->FUN_002647e0(&f.cell, 1, 4, 1);
     s->reader->FUN_002647e0(&f.len, 1, 1, 1);
     s->reader->FUN_002647e0(f.mixerName, f.len, 1, 1);
@@ -115,7 +115,7 @@ void VertexOffsetExpressionMixerLoader::vfunc_5(ExprMixer **out, unsigned __int6
     unsigned __int64 skinId = FUN_0027b020(f.skinName);
     content::LoadInventory::DynamicCaster<pure3d::PolySkin> *skinCaster =
         new (&f.cell) content::LoadInventory::DynamicCaster<pure3d::PolySkin>();
-    Skin *skin = (Skin *)ctx->lookup(skinCaster, skinId);
+    Skin_2b16a0 *skin = (Skin_2b16a0 *)ctx->lookup(skinCaster, skinId);
     if (skin && skin->holder)
         skin->holder->FUN_002a9ea0(mixer);
 

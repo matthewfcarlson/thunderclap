@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_00284660 @ 0x00284660
-struct Quat {
+struct Quat_284660 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat* a, const Quat* b, float t);
+    void FUN_0022b750(const Quat_284660* a, const Quat_284660* b, float t);
 };
 
 struct Vec3Pad {
@@ -15,9 +15,9 @@ struct Matrix {
     float pad3c;
 };
 
-void __cdecl FUN_0022b080(Quat* out, const Quat* a, const Quat* b);
+void __cdecl FUN_0022b080(Quat_284660* out, const Quat_284660* a, const Quat_284660* b);
 
-struct Info {
+struct Info_284660 {
     char pad00[0x10];
     unsigned int count;
 };
@@ -25,9 +25,9 @@ struct Info {
 class Pose {
 public:
     char pad00[8];
-    Info* info;
+    Info_284660* info;
     char pad0c[4];
-    Quat* quats;
+    Quat_284660* quats;
     Matrix* mats;
     char pad18[8];
     char f20;
@@ -49,7 +49,7 @@ bool Pose::FUN_00284660(Pose* other, float t, unsigned int only)
             d->y = (s->y - d->y) * t + d->y;
             d->z = (s->z - d->z) * t + d->z;
         } else {
-            Quat q;
+            Quat_284660 q;
             q.x = 0.0f;
             q.y = 0.0f;
             q.z = 0.0f;

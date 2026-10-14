@@ -2,27 +2,27 @@
 // hulkfight::motion::FallAction::vfunc_5 @ 0x00134ee0
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_134ee0 {
     float x, y, z;
     float FUN_0022d110();
-    bool FUN_0022d2b0(V3 *other, float limit);
+    bool FUN_0022d2b0(V3_134ee0 *other, float limit);
 };
 
-struct Mat4 {
+struct Mat4_134ee0 {
     float m[16];
-    void FUN_0022be40(const V3 *pos);
+    void FUN_0022be40(const V3_134ee0 *pos);
     void FUN_00221d20(float angle);
 };
 
-struct Stats {
+struct Stats_134ee0 {
     char pad0[0x11c];
-    struct Sub11c *f11c;
+    struct Sub11c_134ee0 *f11c;
     char pad120[0x140 - 0x120];
     int f140;
     char pad144[0x1ae0 - 0x144];
-    V3 v1ae0;
+    V3_134ee0 v1ae0;
     char pad1aec[0x1af8 - 0x1aec];
-    V3 v1af8;
+    V3_134ee0 v1af8;
     char pad1b04[0x2064 - 0x1b04];
     float f2064;
     char pad2068[4];
@@ -30,30 +30,30 @@ struct Stats {
     float f2070;
     void FUN_000359c0(int v);
     float FUN_000354c0();
-    char FUN_00035550(V3 *out);
-    void FUN_000357a0(V3 *v);
+    char FUN_00035550(V3_134ee0 *out);
+    void FUN_000357a0(V3_134ee0 *v);
 };
 
-struct Sub11c {
+struct Sub11c_134ee0 {
     char pad0[0x34];
     float f34;
 };
 
-struct Clock {
-    Stats *FUN_00059a30();
-    char FUN_00059a50(V3 *out);
+struct Clock_134ee0 {
+    Stats_134ee0 *FUN_00059a30();
+    char FUN_00059a50(V3_134ee0 *out);
 };
 
-struct OwnerObj {
-    Clock *FUN_000592a0();
+struct OwnerObj_134ee0 {
+    Clock_134ee0 *FUN_000592a0();
 };
 
 struct Driver {
     char pad0[0x18];
-    Mat4 xform;
+    Mat4_134ee0 xform;
 };
 
-struct Cfg {
+struct Cfg_134ee0 {
     char pad0[0x14];
     float f14;
     float f18;
@@ -67,18 +67,18 @@ struct Cfg {
 
 double __cdecl FUN_00224ea0(int x, int z);
 double __cdecl FUN_00224fc0(int a, int b);
-double __cdecl FUN_00224f10(V3 *v);
+double __cdecl FUN_00224f10(V3_134ee0 *v);
 double __cdecl FUN_000963c0(int a, int b, int c, int d, int e);
-void __cdecl FUN_00224d70(int angle, V3 *v);
-extern V3 DAT_004abf64;
+void __cdecl FUN_00224d70(int angle, V3_134ee0 *v);
+extern V3_134ee0 DAT_004abf64;
 
-union Slot {
+union Slot_134ee0 {
     int i;
     float f;
     unsigned int u;
 };
 
-union Bits {
+union Bits_134ee0 {
     float f;
     unsigned int u;
     int i;
@@ -91,17 +91,17 @@ public:
     virtual void vf2();
     virtual void vf3();
     virtual void vf4();
-    virtual bool vfunc_5(Slot a1, Slot a2);
+    virtual bool vfunc_5(Slot_134ee0 a1, Slot_134ee0 a2);
     char pad04[0x1c - 4];
-    Cfg *cfg;
-    OwnerObj *owner;
+    Cfg_134ee0 *cfg;
+    OwnerObj_134ee0 *owner;
     Driver *target;
     float f28;
     float f2c;
     float f30;
 };
 
-bool FallAction::vfunc_5(Slot a1, Slot a2)
+bool FallAction::vfunc_5(Slot_134ee0 a1, Slot_134ee0 a2)
 {
     struct Frame {
         float s0;
@@ -111,11 +111,11 @@ bool FallAction::vfunc_5(Slot a1, Slot a2)
         float s10;
         float s14;
         float s18;
-        Clock *clk;
-        V3 v0;
-        V3 d;
-        V3 p;
-        V3 vc;
+        Clock_134ee0 *clk;
+        V3_134ee0 v0;
+        V3_134ee0 d;
+        V3_134ee0 p;
+        V3_134ee0 vc;
     } f;
 
     if (a1.i != 0)
@@ -124,11 +124,11 @@ bool FallAction::vfunc_5(Slot a1, Slot a2)
         return false;
 
     f.clk = owner->FUN_000592a0();
-    Stats *st = f.clk->FUN_00059a30();
+    Stats_134ee0 *st = f.clk->FUN_00059a30();
     st->FUN_000359c0(3);
     a1.f = st->FUN_000354c0();
 
-    V3 *vel = (V3 *)&f28;
+    V3_134ee0 *vel = (V3_134ee0 *)&f28;
     if (st->f2070 > 0.0f) {
         double L = sqrt(vel->x * vel->x + vel->z * vel->z);
         f.s10 = (float)L;
@@ -136,7 +136,7 @@ bool FallAction::vfunc_5(Slot a1, Slot a2)
         f.v0 = DAT_004abf64;
         FUN_00224d70(a1.i, &f.v0);
         f.vc = *vel;
-        Cfg *c = cfg;
+        Cfg_134ee0 *c = cfg;
         f.sC = c->f1c;
         f.s14 = c->f18;
         double dot2 = f.v0.z * f.vc.z + f.v0.x * f.vc.x + f.v0.y * 0.0f;
@@ -144,7 +144,7 @@ bool FallAction::vfunc_5(Slot a1, Slot a2)
         f.s8 = (float)FUN_000963c0(*(int *)&c->f18, *(int *)&c->f14, *(int *)&c->f20, *(int *)&f.sC,
                                    *(int *)&f.s10);
         f.s0 = (float)FUN_00224fc0(a1.i, *(int *)&f.s4);
-        Bits ab;
+        Bits_134ee0 ab;
         ab.f = f.s0;
         ab.u &= 0x7fffffff;
         f.s0 = ab.f;
@@ -166,7 +166,7 @@ bool FallAction::vfunc_5(Slot a1, Slot a2)
                 double stepd = (double)f.s8 * a2.f;
                 f.sC = (float)stepd;
                 f.s0 = (float)diff2;
-                Bits ad;
+                Bits_134ee0 ad;
                 ad.f = f.s0;
                 ad.u &= 0x7fffffff;
                 f.s0 = ad.f;
@@ -182,7 +182,7 @@ bool FallAction::vfunc_5(Slot a1, Slot a2)
             double res = FUN_00224fc0(*(int *)&f.s0, *(int *)&f.s4);
             f.s14 = (float)res;
             f.s18 = (float)res;
-            Bits ar;
+            Bits_134ee0 ar;
             ar.f = f.s18;
             ar.u &= 0x7fffffff;
             f.s18 = ar.f;
@@ -206,7 +206,7 @@ bool FallAction::vfunc_5(Slot a1, Slot a2)
     }
 
     target->xform.FUN_00221d20(a1.f);
-    Cfg *c3 = cfg;
+    Cfg_134ee0 *c3 = cfg;
     double nf = (double)f2c - a2.f * c3->f34;
     f2c = (float)nf;
     float m;
@@ -220,7 +220,7 @@ bool FallAction::vfunc_5(Slot a1, Slot a2)
     if (nf < a1.f)
         f2c = a1.f;
 
-    V3 tv = *vel;
+    V3_134ee0 tv = *vel;
     f.d.x = tv.x * a2.f;
     f.d.y = tv.y * a2.f;
     f.d.z = tv.z * a2.f;

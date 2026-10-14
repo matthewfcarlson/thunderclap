@@ -20,9 +20,9 @@ public:
     void FUN_00232c90();
 };
 
-class Parser;
+class Parser_2337c0;
 
-class Handler {
+class Handler_2337c0 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -35,13 +35,13 @@ public:
     virtual void vfunc_8();
     virtual void Parse(int a0, Lexer *lexer, int index);
     char pad04[0x10];
-    Parser *parent;
+    Parser_2337c0 *parent;
 };
 
-struct NodeCtorA { Handler *FUN_0023c620(); };
-struct NodeCtorB { Handler *FUN_00231940(); };
-struct NodeCtorC { Handler *FUN_0023c500(); };
-struct NodeCtorD { Handler *FUN_0023c2c0(); };
+struct NodeCtorA { Handler_2337c0 *FUN_0023c620(); };
+struct NodeCtorB { Handler_2337c0 *FUN_00231940(); };
+struct NodeCtorC { Handler_2337c0 *FUN_0023c500(); };
+struct NodeCtorD { Handler_2337c0 *FUN_0023c2c0(); };
 
 struct ScopeNode {
     char pad0[0x20];
@@ -57,14 +57,14 @@ extern __int64 DAT_004e5b70;
 extern __int64 DAT_004e5ba8;
 extern __int64 DAT_004e5b10;
 
-class Parser {
+class Parser_2337c0 {
 public:
     char pad0[0x1c];
     ScopeNode *scopes;
     char ParseBlock(int a0, Lexer *lexer, int index);
 };
 
-char Parser::ParseBlock(int a0, Lexer *lexer, int index)
+char Parser_2337c0::ParseBlock(int a0, Lexer *lexer, int index)
 {
     int saved = FUN_00266da0(FUN_00238190(2));
 
@@ -73,7 +73,7 @@ char Parser::ParseBlock(int a0, Lexer *lexer, int index)
         for (ScopeNode *n = scopes; n != 0; n = n->next)
             depth++;
 
-        Handler *h = 0;
+        Handler_2337c0 *h = 0;
         void *mem;
         bool known = true;
         if (lexer->TokenType() == DAT_004e5b30) {

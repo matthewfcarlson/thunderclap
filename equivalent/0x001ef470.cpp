@@ -4,7 +4,7 @@ struct SoundHandle {
     void FUN_001f3370(void *params);
 };
 
-struct SoundBank {
+struct SoundBank_1ef470 {
     void FUN_001f47b0(int arg);
     SoundHandle *FUN_001f2f30(void *event, int arg);
 };
@@ -13,12 +13,12 @@ struct EventTable {
     void *FUN_001e98b0(void *key);
 };
 
-struct SoundSystem {
-    SoundBank *bank;
+struct SoundSystem_1ef470 {
+    SoundBank_1ef470 *bank;
     EventTable *events;
 };
 
-extern SoundSystem *DAT_004e370c;
+extern SoundSystem_1ef470 *DAT_004e370c;
 extern int DAT_004e371c;
 extern int DAT_004e3720;
 extern int DAT_004e3724;

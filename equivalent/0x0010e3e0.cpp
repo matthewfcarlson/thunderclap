@@ -1,39 +1,39 @@
 // STATUS: equivalent (tools/equiv.py level 3: 125 inputs, branch coverage 30/30)
 // hulkfight::ai::InActiveCondition::vfunc_6 @ 0x0010e3e0
-class fight_Params {
+class fight_Params_10e3e0 {
 public:
     virtual void vfunc_0();
 };
 
-class CFightParams : public fight_Params {
+class CFightParams : public fight_Params_10e3e0 {
 public:
     virtual void vfunc_0();
 };
 
-struct StateInfo {
+struct StateInfo_10e3e0 {
     int FUN_00088fa0();
     int FUN_00088fb0();
 };
 
-struct Anim {
+struct Anim_10e3e0 {
     char pad0[0x80];
-    StateInfo state;
+    StateInfo_10e3e0 state;
 };
 
-struct Holder {
-    Anim *FUN_00086310();
+struct Holder_10e3e0 {
+    Anim_10e3e0 *FUN_00086310();
 };
 
-struct Manager {
+struct Manager_10e3e0 {
     char pad0[0x54];
-    Holder *holder;
+    Holder_10e3e0 *holder;
 };
-extern Manager *DAT_004dd700;
+extern Manager_10e3e0 *DAT_004dd700;
 
 struct Context { char pad[4]; };
 Context *__fastcall FUN_000592a0(void *obj);
 
-struct Fighter {
+struct Fighter_10e3e0 {
     char pad0[0x1ba4];
     char flag1ba4;
     char pad1ba5[0x1cee - 0x1ba5];
@@ -41,15 +41,15 @@ struct Fighter {
     char pad1cef[0x1d40 - 0x1cef];
     char flag1d40;
 };
-Fighter *__fastcall FUN_00059a30(Context *ctx);
+Fighter_10e3e0 *__fastcall FUN_00059a30(Context *ctx);
 
-struct Clock {
+struct Clock_10e3e0 {
     char pad0[0x2b0];
     int now;
     char pad2b4[0x2d0 - 0x2b4];
     int limit;
 };
-Clock *__cdecl FUN_000678d0();
+Clock_10e3e0 *__cdecl FUN_000678d0();
 
 class InActiveCondition {
 public:
@@ -59,22 +59,22 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5();
-    virtual char vfunc_6(int a, fight_Params *params, int c);
+    virtual char vfunc_6(int a, fight_Params_10e3e0 *params, int c);
     char pad04[0xc];
     char invert;
 };
 
-char InActiveCondition::vfunc_6(int a, fight_Params *params, int c)
+char InActiveCondition::vfunc_6(int a, fight_Params_10e3e0 *params, int c)
 {
     if (dynamic_cast<CFightParams *>(params) == 0)
         return 0;
-    Fighter *f = FUN_00059a30(FUN_000592a0(params));
+    Fighter_10e3e0 *f = FUN_00059a30(FUN_000592a0(params));
     if (f == 0)
         return 0;
 
     int kind = -1;
     int sub = -1;
-    Anim *anim = DAT_004dd700->holder->FUN_00086310();
+    Anim_10e3e0 *anim = DAT_004dd700->holder->FUN_00086310();
     if (anim) {
         kind = anim->state.FUN_00088fa0();
         sub = anim->state.FUN_00088fb0();

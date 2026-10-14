@@ -1,38 +1,38 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 28/28)
 // TextWindow::vfunc_5 @ 0x000ed400
-struct Vec3 {
+struct Vec3_ed400 {
     float x, y, z;
 };
 
-union Word {
+union Word_ed400 {
     float f;
     int i;
     unsigned int u;
 };
 
-struct BCell {
-    Word a, b, c, d;
+struct BCell_ed400 {
+    Word_ed400 a, b, c, d;
 };
 
-struct Source;
+struct Source_ed400;
 
 struct Builder {
     unsigned int hdr[2];
-    BCell cells[8];
+    BCell_ed400 cells[8];
     int cursor;
     float scale;
-    void FUN_000f7fe0(Source *src);
+    void FUN_000f7fe0(Source_ed400 *src);
     void FUN_000f78e0();
     void FUN_000f87f0(void *a, void *b);
     void FUN_000f81b0(int v, int font, void *flags);
 };
 
-class Source {
+class Source_ed400 {
 public:
     virtual void v0();
 };
 
-class Level2 {
+class Level2_ed400 {
 public:
     virtual void v0();
     virtual void v1();
@@ -78,17 +78,17 @@ public:
     virtual void v41();
     virtual void v42();
     virtual void v43();
-    virtual Source* v44();
+    virtual Source_ed400* v44();
 };
 
-struct Level1 {
+struct Level1_ed400 {
     char pad0[4];
-    Level2 *level2;
+    Level2_ed400 *level2;
 };
 
 class TextWindow;
 
-class Owner {
+class Owner_ed400 {
 public:
     virtual void v0();
     virtual void v1();
@@ -104,16 +104,16 @@ public:
     virtual void v11();
     virtual void v12();
     virtual char v13(TextWindow *obj);
-    virtual void v14(Vec3 *out, TextWindow *obj);
-    virtual void v15(Vec3 *out, TextWindow *obj);
+    virtual void v14(Vec3_ed400 *out, TextWindow *obj);
+    virtual void v15(Vec3_ed400 *out, TextWindow *obj);
     virtual float v16(TextWindow *obj);
     virtual float v17(TextWindow *obj);
     char pad04[4];
-    Level1 *p8;
+    Level1_ed400 *p8;
 };
 
 
-class Pass {
+class Pass_ed400 {
 public:
     virtual void v0();
     virtual void v1();
@@ -134,13 +134,13 @@ public:
     virtual void v16(int a);
 };
 
-struct PassHolder {
-    Pass *pass;
-    void FUN_00293d00(const Vec3 *v);
+struct PassHolder_ed400 {
+    Pass_ed400 *pass;
+    void FUN_00293d00(const Vec3_ed400 *v);
     void FUN_00293da0(int a, int b, int c);
 };
 
-class Widget {
+class Widget_ed400 {
 public:
     virtual void v0();
     virtual void v1();
@@ -154,10 +154,10 @@ public:
 };
 
 
-extern PassHolder *DAT_0052c2ac;
+extern PassHolder_ed400 *DAT_0052c2ac;
 
-void __cdecl FUN_000e11a0(Vec3 v, int a, int b);
-void __cdecl FUN_000e0cc0(Vec3 v, int a, int b);
+void __cdecl FUN_000e11a0(Vec3_ed400 v, int a, int b);
+void __cdecl FUN_000e0cc0(Vec3_ed400 v, int a, int b);
 
 class TextWindow {
 public:
@@ -168,7 +168,7 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     char pad04[0x10];
-    Owner *owner;               // 0x14
+    Owner_ed400 *owner;               // 0x14
     char pad18[0x3c - 0x18];
     unsigned int color;         // 0x3c
     unsigned char flag40;
@@ -176,21 +176,21 @@ public:
     unsigned char flag48;       // 0x48
     char pad49[3];
     int val4c;
-    Widget *child;              // 0x50
+    Widget_ed400 *child;              // 0x50
     int v54, v58, v5c;
     char pad60[0x6c - 0x60];
     unsigned int v6c;           // 0x6c
     unsigned int v70;           // 0x70
     unsigned char active;       // 0x74
     char pad75[3];
-    Vec3 anchor;                // 0x78
+    Vec3_ed400 anchor;                // 0x78
     char pad84[0xa4 - 0x84];
     int fa4;
     char pada8[0x148 - 0xa8];
     int val148;
     char pad14c[0x154 - 0x14c];
-    Widget *obj154;
-    Widget *obj158;
+    Widget_ed400 *obj154;
+    Widget_ed400 *obj158;
     char pad15c[0x164 - 0x15c];
     int items[0x200];
     int count;                  // 0x964
@@ -199,13 +199,13 @@ public:
     int last;                   // 0x970
 };
 
-struct Frame {
-    Vec3 b;                     // 0
+struct Frame_ed400 {
+    Vec3_ed400 b;                     // 0
     float m;                    // 0xc
     float mc;                   // 0x10
-    Vec3 a;                     // 0x14
+    Vec3_ed400 a;                     // 0x14
     float e0;                   // 0x20
-    Vec3 c;                     // 0x24
+    Vec3_ed400 c;                     // 0x24
     Builder x;                  // 0x30
 };
 
@@ -214,7 +214,7 @@ void TextWindow::vfunc_5()
     if (active == 0)
         return;
 
-    Frame f;
+    Frame_ed400 f;
 
     if (flag40 == 1) {
         DAT_0052c2ac->pass->v15(0);

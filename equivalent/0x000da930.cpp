@@ -10,35 +10,35 @@ extern void* DAT_004a0c88;
 static const char kLabel[] = "DynamicControlButtonLabel";
 
 class FEMemCardControl;
-struct Fn1 {
+struct Fn1_da930 {
     void (FEMemCardControl::*fn)(int);
 };
-struct Fn2 {
+struct Fn2_da930 {
     void (FEMemCardControl::*fn)(int, int);
 };
 
-struct Item {
+struct Item_da930 {
     char data[0x24];
     void FUN_000f79a0(int a, int b);
     void FUN_000f8500(void* a, int b, int c);
-    void FUN_000f83c0(Item* other);
+    void FUN_000f83c0(Item_da930* other);
 };
 
-struct Manager {
+struct Manager_da930 {
     void FUN_00086310();
 };
-extern Manager* DAT_004dd6ec;
+extern Manager_da930* DAT_004dd6ec;
 
-struct Stage2 {
+struct Stage2_da930 {
     void FUN_0008ca30(int a);
     void FUN_0008c920();
     void FUN_0008c680(int a);
 };
 
-struct Stage1 {
-    Stage2* FUN_00089a50();
+struct Stage1_da930 {
+    Stage2_da930* FUN_00089a50();
     char FUN_0008b4b0(int idx, unsigned char* active, char* buf, int len, char* extra, int* out);
-    void FUN_0008a8f0(int a, Manager* m);
+    void FUN_0008a8f0(int a, Manager_da930* m);
     void FUN_00089830(const char* s);
     void FUN_000895e0(void* p);
     void FUN_00089810(const char* s);
@@ -47,37 +47,37 @@ struct Stage1 {
     int FUN_000891e0();
 };
 
-struct Obj50 {
+struct Obj50_da930 {
     void FUN_0008ffe0();
 };
 
-struct Label {
+struct Label_da930 {
     char pad0[0x50];
-    Obj50* obj50;
+    Obj50_da930* obj50;
     char pad54[0x1bc8 - 0x54];
     unsigned char f1bc8;
-    Stage1* FUN_000b5000();
+    Stage1_da930* FUN_000b5000();
     void FUN_000bc9f0(const char* name, int mode);
     void* FUN_000b4cf0(const char* name);
 };
 
-struct Delegate {
+struct Delegate_da930 {
     FEMemCardControl* self;
     int pad4;
     char fnA[16];
     char fnB[16];
     int arg0;
     int arg1;
-    void FUN_000d7be0(Fn1 f, int a);
-    void FUN_000d7c30(Fn2 f, int a, int b);
+    void FUN_000d7be0(Fn1_da930 f, int a);
+    void FUN_000d7c30(Fn2_da930 f, int a, int b);
     void FUN_000d7c80();
     void FUN_000d7d10();
 };
 
-struct Child { char pad[0xab9]; unsigned char flag; };
-struct Parent { char pad[0x175c]; Child* child; };
+struct Child_da930 { char pad[0xab9]; unsigned char flag; };
+struct Parent_da930 { char pad[0x175c]; Child_da930* child; };
 
-class Sink {
+class Sink_da930 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9();
     virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
@@ -86,11 +86,11 @@ public:
     virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43(); virtual void v44(); virtual void v45(); virtual void v46(); virtual void v47();
     virtual void v48(int mode);
 };
-struct Hub { char pad0[4]; Sink* sink; };
-struct Holder { char pad0[8]; Hub* hub; };
+struct Hub_da930 { char pad0[4]; Sink_da930* sink; };
+struct Holder_da930 { char pad0[8]; Hub_da930* hub; };
 
-struct Player { char pad0[0x9a8]; unsigned char busy; };
-class UI {
+struct Player_da930 { char pad0[0x9a8]; unsigned char busy; };
+class UI_da930 {
 public:
     virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9();
     virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15(); virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
@@ -98,15 +98,15 @@ public:
     virtual void s30(); virtual void s31(); virtual void s32(); virtual void s33(); virtual void s34(); virtual void s35(); virtual void s36(); virtual void s37(); virtual void s38(); virtual void s39();
     virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43(); virtual int s44();
     char pad[0x2218 - 4];
-    Player* player;
+    Player_da930* player;
     int status;
     void FUN_000e63a0();
 };
-UI* __cdecl FUN_000fc3d0();
+UI_da930* __cdecl FUN_000fc3d0();
 void __cdecl FUN_000fc2f0();
 void __cdecl FUN_000fc300();
 
-struct Frame {
+struct Frame_da930 {
     char pad0[2];
     char gotA, gotB;
     int outv;
@@ -116,8 +116,8 @@ struct Frame {
     unsigned int cookie;
 };
 
-struct Entry {
-    Item item;
+struct Entry_da930 {
+    Item_da930 item;
     char pad24[12];
     unsigned char active;
     char pad31[7];
@@ -125,12 +125,12 @@ struct Entry {
     char pad39[3];
 };
 
-struct Slot {
+struct Slot_da930 {
     int f0;
     int f4;
     int kind;
     int count;
-    Item item;
+    Item_da930 item;
     unsigned char flag;
     char pad35[3];
 };
@@ -142,18 +142,18 @@ public:
     virtual void vfunc_10(); virtual void vfunc_11();
     virtual char vfunc_12(int cmd, int unused);
     char pad04[0x10];
-    Holder* holder;
+    Holder_da930* holder;
     char pad18[0xa8 - 0x18];
-    Parent* parent;
+    Parent_da930* parent;
     char pada8[0x150 - 0xac];
-    Label* label;
+    Label_da930* label;
     char pad154[0x1d0 - 0x154];
     int sel;
     int sel2;
     char pad1d8[0x21c - 0x1d8];
     float f21c;
-    Entry entries[5];
-    Slot slots[1];
+    Entry_da930 entries[5];
+    Slot_da930 slots[1];
     char pad384[0x3a8 - 0x34c - 0x38];
     unsigned char f3a8;
     char pad3a9[3];
@@ -165,12 +165,12 @@ public:
     unsigned char f3e8, f3e9, f3ea, f3eb, f3ec;
     char pad3ed[3];
     const char* name;
-    Item item3;
+    Item_da930 item3;
     int f418;
     int f41c;
     int f420;
     char pad424[4];
-    Delegate cb;
+    Delegate_da930 cb;
 
     void FUN_000d8410();
     void FUN_000d7ec0(int a);
@@ -212,7 +212,7 @@ public:
 
 void FEMemCardControl::vfunc_4()
 {
-    Frame fr;
+    Frame_da930 fr;
     fr.cookie = DAT_004d9968;
     char& gotA = fr.gotA;
     char& gotB = fr.gotB;
@@ -294,7 +294,7 @@ void FEMemCardControl::vfunc_4()
         }
         break;
     case 1: {
-        Player* p = FUN_000fc3d0()->player;
+        Player_da930* p = FUN_000fc3d0()->player;
         if (p && p->busy)
             break;
         int r = FUN_000fc3d0()->status;
@@ -325,7 +325,7 @@ void FEMemCardControl::vfunc_4()
     case 3: {
         if (!f3a8 && sel2 >= 0 && !entries[sel2].active)
             FUN_000d7f60();
-        Player* p = FUN_000fc3d0()->player;
+        Player_da930* p = FUN_000fc3d0()->player;
         if (p && p->busy)
             break;
         if (sel2 < 0) {
@@ -351,7 +351,7 @@ void FEMemCardControl::vfunc_4()
             state = 0x1d;
             if (r == 4 || r == 3) {
                 *(volatile int*)&f418 = 0xa;
-                { Fn1 x = { &FEMemCardControl::FUN_000da480 }; cb.FUN_000d7be0(x, sel); }
+                { Fn1_da930 x = { &FEMemCardControl::FUN_000da480 }; cb.FUN_000d7be0(x, sel); }
                 break;
             }
             if (r == 7) {
@@ -365,11 +365,11 @@ void FEMemCardControl::vfunc_4()
             }
             if (r != 0) {
                 *(volatile int*)&f418 = 0xa;
-                { Fn2 x = { &FEMemCardControl::FUN_000d8ec0 }; cb.FUN_000d7c30(x, sel, sel2); }
+                { Fn2_da930 x = { &FEMemCardControl::FUN_000d8ec0 }; cb.FUN_000d7c30(x, sel, sel2); }
                 break;
             }
             *(volatile int*)&f418 = 0x1f;
-            { Fn2 x = { &FEMemCardControl::FUN_000d9080 }; cb.FUN_000d7c30(x, sel, sel2); }
+            { Fn2_da930 x = { &FEMemCardControl::FUN_000d9080 }; cb.FUN_000d7c30(x, sel, sel2); }
             f3e9 = 1;
             if (label->f1bc8) {
                 f3ec = 1;
@@ -386,17 +386,17 @@ void FEMemCardControl::vfunc_4()
             int r = FUN_000d8170(sel, sel2);
             state = 0x1d;
             if (r == 4 || r == 3) {
-                { Fn1 x = { &FEMemCardControl::FUN_000da570 }; cb.FUN_000d7be0(x, sel); }
+                { Fn1_da930 x = { &FEMemCardControl::FUN_000da570 }; cb.FUN_000d7be0(x, sel); }
                 f418 = 0xa;
                 break;
             }
             if (r != 0) {
-                { Fn2 x = { &FEMemCardControl::FUN_000d8fa0 }; cb.FUN_000d7c30(x, sel, sel2); }
+                { Fn2_da930 x = { &FEMemCardControl::FUN_000d8fa0 }; cb.FUN_000d7c30(x, sel, sel2); }
                 f418 = 0xa;
                 break;
             }
             label->FUN_000b5000()->FUN_0008a8f0(sel2, DAT_004dd6ec);
-            { Fn2 x = { &FEMemCardControl::FUN_000d9100 }; cb.FUN_000d7c30(x, sel, sel2); }
+            { Fn2_da930 x = { &FEMemCardControl::FUN_000d9100 }; cb.FUN_000d7c30(x, sel, sel2); }
             f418 = 0x1f;
             f3e9 = 1;
         }
@@ -409,15 +409,15 @@ void FEMemCardControl::vfunc_4()
             int r = FUN_000d8220(sel);
             state = 0x1d;
             if (r == 0) {
-                { Fn1 x = { &FEMemCardControl::FUN_000d95a0 }; cb.FUN_000d7be0(x, sel); }
+                { Fn1_da930 x = { &FEMemCardControl::FUN_000d95a0 }; cb.FUN_000d7be0(x, sel); }
                 f418 = 0x1f;
                 break;
             }
             if (r != 4 && f3eb) {
-                { Fn1 x = { &FEMemCardControl::FUN_000da230 }; cb.FUN_000d7be0(x, sel); }
+                { Fn1_da930 x = { &FEMemCardControl::FUN_000da230 }; cb.FUN_000d7be0(x, sel); }
                 f418 = 0x1a;
             } else {
-                { Fn1 x = { &FEMemCardControl::FUN_000d9680 }; cb.FUN_000d7be0(x, sel); }
+                { Fn1_da930 x = { &FEMemCardControl::FUN_000d9680 }; cb.FUN_000d7be0(x, sel); }
                 f418 = 0x10;
             }
             label->FUN_000b5000()->FUN_00089a50()->FUN_0008c920();
@@ -454,18 +454,18 @@ void FEMemCardControl::vfunc_4()
             int r = FUN_000d81c0(sel, sel2);
             state = 0x1d;
             if (r == 4 || r == 3) {
-                { Fn1 x = { &FEMemCardControl::FUN_000da660 }; cb.FUN_000d7be0(x, sel); }
+                { Fn1_da930 x = { &FEMemCardControl::FUN_000da660 }; cb.FUN_000d7be0(x, sel); }
                 f418 = 0xa;
                 break;
             }
             if (r != 0) {
-                { Fn1 x = { &FEMemCardControl::FUN_000d9a80 }; cb.FUN_000d7be0(x, sel); }
+                { Fn1_da930 x = { &FEMemCardControl::FUN_000d9a80 }; cb.FUN_000d7be0(x, sel); }
                 f418 = 3;
                 break;
             }
             entries[sel2].active = 0;
             slots[sel].count -= 1;
-            { Fn1 x = { &FEMemCardControl::FUN_000d99a0 }; cb.FUN_000d7be0(x, sel); }
+            { Fn1_da930 x = { &FEMemCardControl::FUN_000d99a0 }; cb.FUN_000d7be0(x, sel); }
             if (!f3a8) {
                 FUN_000d7f60();
                 if (sel2 < 0) {
@@ -706,10 +706,10 @@ void FEMemCardControl::vfunc_4()
         {
             int r = FUN_000d81c0(sel, sel2);
             if (r != 0) {
-                { Fn1 x = { &FEMemCardControl::FUN_000d9a80 }; cb.FUN_000d7be0(x, sel); }
+                { Fn1_da930 x = { &FEMemCardControl::FUN_000d9a80 }; cb.FUN_000d7be0(x, sel); }
                 state = 0x1d;
             } else {
-                { Fn1 x = { &FEMemCardControl::FUN_000d99a0 }; cb.FUN_000d7be0(x, sel); }
+                { Fn1_da930 x = { &FEMemCardControl::FUN_000d99a0 }; cb.FUN_000d7be0(x, sel); }
                 state = 0x1d;
             }
             f418 = f3eb ? 0xf : 0;

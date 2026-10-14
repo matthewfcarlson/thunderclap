@@ -3,8 +3,8 @@
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) { return p; }
 namespace core {
-struct Lock { virtual void lock(); virtual void unlock(); };
-struct Drive { virtual void s0(); virtual void release(); Lock mutex; char pad[12]; int count; };
+struct Lock_275b60 { virtual void lock(); virtual void unlock(); };
+struct Drive { virtual void s0(); virtual void release(); Lock_275b60 mutex; char pad[12]; int count; };
 struct Request { virtual void* vfunc_0(unsigned int); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); };
 struct DriveRequest : Request { virtual void* vfunc_0(unsigned int); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); int field4; Drive* drive; };
 struct DriveFindCloseRequest : DriveRequest { virtual void* vfunc_0(unsigned int); virtual void vfunc_1(); virtual void vfunc_4(); virtual void vfunc_6(); };

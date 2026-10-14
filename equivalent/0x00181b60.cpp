@@ -4,21 +4,21 @@ extern "C" void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, cha
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 
-struct Part {
+struct Part_181b60 {
     bool FUN_001d6ab0();
 };
 
-struct Fighter {
+struct Fighter_181b60 {
     char pad[0x128];
-    Part* part;     // 0x128
-    Part* FUN_00035ef0(int index);
+    Part_181b60* part;     // 0x128
+    Part_181b60* FUN_00035ef0(int index);
 };
 
-struct Owner {
+struct Owner_181b60 {
     char pad[1];
 };
-Owner* __fastcall FUN_000592a0(void* obj);
-Fighter* __fastcall FUN_00059a30(Owner* o);
+Owner_181b60* __fastcall FUN_000592a0(void* obj);
+Fighter_181b60* __fastcall FUN_00059a30(Owner_181b60* o);
 
 class PropCollidedWithWorldCondition {
 public:
@@ -34,9 +34,9 @@ bool PropCollidedWithWorldCondition::vfunc_6(int a1, void* subject, int a3)
     if (FUN_00344e74(subject, 0, DAT_00494b44, DAT_00494b60, 0) == 0)
         return false;
     bool result = false;
-    Fighter* f = FUN_00059a30(FUN_000592a0(subject));
+    Fighter_181b60* f = FUN_00059a30(FUN_000592a0(subject));
     if (f != 0) {
-        Part* part;
+        Part_181b60* part;
         if (index < 0) {
             part = f->part;
         } else if (index < 8) {

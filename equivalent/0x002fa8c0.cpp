@@ -2,7 +2,7 @@
 // FUN_002fa8c0 @ 0x002fa8c0
 extern float DAT_004d2cb4;
 
-struct V3 {
+struct V3_2fa8c0 {
     float x, y, z;
 };
 
@@ -11,19 +11,19 @@ union BoolWord {
     int w;
 };
 
-struct MeshData {
+struct MeshData_2fa8c0 {
     char pad00[8];
-    V3* verts;
+    V3_2fa8c0* verts;
     char pad0c[0xc];
     char* tris;
 };
 
-struct Mesh {
+struct Mesh_2fa8c0 {
     char pad00[0x44];
-    MeshData* data;
+    MeshData_2fa8c0* data;
 };
 
-struct Hit {
+struct Hit_2fa8c0 {
     char pad00[0x38];
     char part38[0xc];
     char part44[0xc];
@@ -32,7 +32,7 @@ struct Hit {
     char useAlt;
 };
 
-struct Tri {
+struct Tri_2fa8c0 {
     char pad00[0x10];
     unsigned short i0;
     unsigned short i1;
@@ -41,18 +41,18 @@ struct Tri {
     char pad18[0];
 };
 
-struct Tracker {
-    void FUN_00304530(Hit* hit, unsigned int index, float f, V3* a, V3* b, Mesh* mesh, int flags);
+struct Tracker_2fa8c0 {
+    void FUN_00304530(Hit_2fa8c0* hit, unsigned int index, float f, V3_2fa8c0* a, V3_2fa8c0* b, Mesh_2fa8c0* mesh, int flags);
 };
-struct Scene {
+struct Scene_2fa8c0 {
     char pad00[0x1b0];
-    Tracker tracker;
+    Tracker_2fa8c0 tracker;
 };
-extern Scene* DAT_00554c14;
+extern Scene_2fa8c0* DAT_00554c14;
 
-void FUN_002fa6b0(V3* a, V3* b, V3* c, V3* out);
-char FUN_00358b10(void* p38, void* p44, float v1, float v0, V3* a0, V3* a1, V3* a2, V3* normal, float* out, V3* l0c, V3* l18, int b1, int b2, int b4);
-char FUN_00358700(void* p38, void* p44, float v1, float v0, V3* a0, V3* a1, V3* a2, V3* normal, float* out, V3* l0c, V3* l18, int b1, int b2, int b4);
+void FUN_002fa6b0(V3_2fa8c0* a, V3_2fa8c0* b, V3_2fa8c0* c, V3_2fa8c0* out);
+char FUN_00358b10(void* p38, void* p44, float v1, float v0, V3_2fa8c0* a0, V3_2fa8c0* a1, V3_2fa8c0* a2, V3_2fa8c0* normal, float* out, V3_2fa8c0* l0c, V3_2fa8c0* l18, int b1, int b2, int b4);
+char FUN_00358700(void* p38, void* p44, float v1, float v0, V3_2fa8c0* a0, V3_2fa8c0* a1, V3_2fa8c0* a2, V3_2fa8c0* normal, float* out, V3_2fa8c0* l0c, V3_2fa8c0* l18, int b1, int b2, int b4);
 
 struct TriRef {
     char pad00[0x10];
@@ -61,10 +61,10 @@ struct TriRef {
     unsigned short i2;
     unsigned short flags;
     char pad18[8];
-    char FUN_002fa8c0(Hit* hit, Mesh* mesh, int flags);
+    char FUN_002fa8c0(Hit_2fa8c0* hit, Mesh_2fa8c0* mesh, int flags);
 };
 
-char TriRef::FUN_002fa8c0(Hit* hit, Mesh* mesh, int flags2)
+char TriRef::FUN_002fa8c0(Hit_2fa8c0* hit, Mesh_2fa8c0* mesh, int flags2)
 {
     struct Frame {
         float v1;
@@ -73,15 +73,15 @@ char TriRef::FUN_002fa8c0(Hit* hit, Mesh* mesh, int flags2)
         BoolWord b2;
         BoolWord b1;
         int flag;
-        V3 normal;
+        V3_2fa8c0 normal;
         char pad24[8];
-        V3* a2;
-        V3 l18;
-        V3 l0c;
+        V3_2fa8c0* a2;
+        V3_2fa8c0 l18;
+        V3_2fa8c0 l0c;
     } f;
-    V3* verts = mesh->data->verts;
-    V3* a0 = &verts[i0];
-    V3* a1 = &verts[i1];
+    V3_2fa8c0* verts = mesh->data->verts;
+    V3_2fa8c0* a0 = &verts[i0];
+    V3_2fa8c0* a1 = &verts[i1];
     f.a2 = &verts[i2];
     FUN_002fa6b0(a0, a1, f.a2, &f.normal);
     f.b1.b = (flags & 1) != 0;

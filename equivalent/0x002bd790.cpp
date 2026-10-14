@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 138 inputs, branch coverage 73/80, incomplete)
 // FUN_002bd790 @ 0x002bd790
-struct Rect {
+struct Rect_2bd790 {
     int left;      // 0
     int top;       // 4
     int right;     // 8
     int bottom;    // 0xc
 };
 
-class Surface {
+class Surface_2bd790 {
 public:
     virtual void v0();
     virtual void v1();
@@ -39,10 +39,10 @@ public:
     virtual void AddRef();
 };
 
-class Factory {
+class Factory_2bd790 {
 public:
     virtual void v0();
-    virtual Image *create(Surface *s, int flag);
+    virtual Image *create(Surface_2bd790 *s, int flag);
 };
 
 class Frame9 {
@@ -55,10 +55,10 @@ public:
     int border;            // 0x5c
     char pad60[0xa0 - 0x60];
     unsigned char flagA0;
-    void FUN_002bd790(int index, Rect *r, int a2, int a3, int src, Surface *s, Factory *f);
+    void FUN_002bd790(int index, Rect_2bd790 *r, int a2, int a3, int src, Surface_2bd790 *s, Factory_2bd790 *f);
 };
 
-void Frame9::FUN_002bd790(int index, Rect *r, int a2, int a3, int src, Surface *s, Factory *f)
+void Frame9::FUN_002bd790(int index, Rect_2bd790 *r, int a2, int a3, int src, Surface_2bd790 *s, Factory_2bd790 *f)
 {
     s->setSize(a2, a3);
     s->begin(0);

@@ -2,7 +2,7 @@
 // FUN_002b0870 @ 0x002b0870
 extern "C" double fabs(double);
 
-struct KeyTable {
+struct KeyTable_2b0870 {
     char pad0[0x10];
     int count;           // 0x10
     char pad14[4];
@@ -11,10 +11,10 @@ struct KeyTable {
 
 struct TableSet {
     char pad0[0x10];
-    KeyTable **tables;   // 0x10
+    KeyTable_2b0870 **tables;   // 0x10
 };
 
-struct Segment {
+struct Segment_2b0870 {
     char kind;           // 0x00: 1 = interpolate between two keys
     char pad1[3];
     int index;           // 0x04
@@ -24,18 +24,18 @@ struct Segment {
     float scale;         // 0x14
 };
 
-class Curves {
+class Curves_2b0870 {
 public:
     char pad0[0x10];
     TableSet *set;       // 0x10
     float *values;       // 0x14
     char pad18[8];
-    Segment *segments;   // 0x20
-    Segment *segmentsEnd; // 0x24
+    Segment_2b0870 *segments;   // 0x20
+    Segment_2b0870 *segmentsEnd; // 0x24
     void FUN_002b0870();
 };
 
-void Curves::FUN_002b0870()
+void Curves_2b0870::FUN_002b0870()
 {
     if ((segmentsEnd - segments) == 0)
         return;
@@ -43,8 +43,8 @@ void Curves::FUN_002b0870()
     unsigned int i = 0;
     int byteOffset = 0;
     do {
-        KeyTable *tbl = set->tables[i];
-        Segment *seg = (Segment *)((char *)segments + byteOffset);
+        KeyTable_2b0870 *tbl = set->tables[i];
+        Segment_2b0870 *seg = (Segment_2b0870 *)((char *)segments + byteOffset);
         float x = values[i];
         int last = tbl->count - 1;
 

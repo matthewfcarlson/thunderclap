@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 42 inputs, branch coverage 14/14)
 // FUN_002b0a70 @ 0x002b0a70
-struct Item { unsigned char mode; char pad[3]; unsigned first; unsigned second; float x; float y; float z; };
+struct Item_2b0a70 { unsigned char mode; char pad[3]; unsigned first; unsigned second; float x; float y; float z; };
 struct Mapping { char pad[20]; unsigned* values; };
-struct Entry { Item* item; Mapping* mapping; };
-struct List { Entry* begin; Entry* end; unsigned capacity; float scale; bool FUN_002b07d0(); };
-struct Output { void FUN_002d0e20(unsigned id, float value); };
-union FloatBits { float f; unsigned bits; };
-void __cdecl target(List* list, Output* output) {
+struct Entry_2b0a70 { Item_2b0a70* item; Mapping* mapping; };
+struct List_2b0a70 { Entry_2b0a70* begin; Entry_2b0a70* end; unsigned capacity; float scale; bool FUN_002b07d0(); };
+struct Output_2b0a70 { void FUN_002d0e20(unsigned id, float value); };
+union FloatBits_2b0a70 { float f; unsigned bits; };
+void __cdecl target(List_2b0a70* list, Output_2b0a70* output) {
  if (!list->FUN_002b07d0()) return;
- Entry* entries = list->begin;
+ Entry_2b0a70* entries = list->begin;
  unsigned count = (unsigned)(list->end - entries);
  for (unsigned i=0; i<count; ++i) {
-  Item* item = entries[i].item;
-  FloatBits value, magnitude;
+  Item_2b0a70* item = entries[i].item;
+  FloatBits_2b0a70 value, magnitude;
   if (item->mode) {
    value.f = item->x * list->scale;
    magnitude.f = value.f; magnitude.bits &= 0x7fffffff;

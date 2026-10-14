@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 8/8)
 // FUN_000e23f0 @ 0x000e23f0
-struct Cell {
+struct Cell_e23f0 {
     float out;
     float in;
     unsigned char on;
@@ -13,8 +13,8 @@ public:
     char pad0[0x30];
     float limit;
     char pad34[0x44 - 0x34];
-    Cell cells[1];
-    char pad_cells[0x240 - 0x44 - sizeof(Cell)];
+    Cell_e23f0 cells[1];
+    char pad_cells[0x240 - 0x44 - sizeof(Cell_e23f0)];
     int count;
     char pad244[0x24c - 0x244];
     int skip;

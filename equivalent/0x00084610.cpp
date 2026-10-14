@@ -1,38 +1,38 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 23/24, incomplete)
 // FUN_00084610 @ 0x00084610
-struct Vec3 {
+struct Vec3_84610 {
     float x, y, z;
     void FUN_0022d180();
 };
 
-struct Hit {
+struct Hit_84610 {
     char pad00[8];
-    Vec3 *pos;
+    Vec3_84610 *pos;
 };
 
-struct Tracker {
+struct Tracker_84610 {
     bool FUN_001dd800(int handle);
     void FUN_001dd840(int handle, int flag);
 };
 
-struct Level {
-    bool FUN_002ee140(Hit *hit, Vec3 *from, Vec3 *to, int flags);
+struct Level_84610 {
+    bool FUN_002ee140(Hit_84610 *hit, Vec3_84610 *from, Vec3_84610 *to, int flags);
 };
 
-struct Cursor {
+struct Cursor_84610 {
     int FUN_000797b0(int a, int b);
-    bool FUN_0007c930(Vec3 v, int c);
+    bool FUN_0007c930(Vec3_84610 v, int c);
 };
 
 struct Systems {
     char pad00[0x0c];
-    Tracker *tracker;       // 0x0c
+    Tracker_84610 *tracker;       // 0x0c
     struct {
         char pad00[8];
-        Level *level;       // 0x08
+        Level_84610 *level;       // 0x08
     } *world;               // 0x10
     char pad14[0x4c - 0x14];
-    Cursor *cursor;         // 0x4c
+    Cursor_84610 *cursor;         // 0x4c
 };
 
 extern Systems *DAT_004dd700;
@@ -41,7 +41,7 @@ extern char DAT_004d2a40;
 extern char DAT_00554c1c;
 extern float DAT_00554c18;
 
-Hit *FUN_00202f00();
+Hit_84610 *FUN_00202f00();
 
 class Pointer {
 public:
@@ -55,8 +55,8 @@ public:
     char pad20[0x34 - 0x20];
     int handle;         // 0x34
     char pad38[0x60 - 0x38];
-    Vec3 pos;           // 0x60
-    Vec3 dir;           // 0x6c
+    Vec3_84610 pos;           // 0x60
+    Vec3_84610 dir;           // 0x6c
 
     void FUN_00084610(float dt);
 };
@@ -64,14 +64,14 @@ public:
 void Pointer::FUN_00084610(float dt)
 {
     struct Frame {
-        Vec3 hit;
-        Vec3 to;
-        Vec3 from;
+        Vec3_84610 hit;
+        Vec3_84610 to;
+        Vec3_84610 from;
     } fr;
 
     if (DAT_004dd700->tracker->FUN_001dd800(handle)) {
         DAT_004dd700->tracker->FUN_001dd840(handle, 0);
-        Hit *h = FUN_00202f00();
+        Hit_84610 *h = FUN_00202f00();
         DAT_004d2a3c = 2;
         DAT_004d2a40 = 0;
         DAT_00554c1c = 1;
@@ -106,7 +106,7 @@ void Pointer::FUN_00084610(float dt)
         }
         DAT_004dd700->tracker->FUN_001dd840(handle, 1);
     } else {
-        Cursor *c = DAT_004dd700->cursor;
+        Cursor_84610 *c = DAT_004dd700->cursor;
         int r = c->FUN_000797b0(f08, f0c);
         if (c->FUN_0007c930(pos, r)) {
             value = 0;

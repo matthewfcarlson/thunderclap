@@ -4,15 +4,15 @@ extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 
-struct Vec3 {
+struct Vec3_1679c0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
 struct Matrix {
     float m[16];
-    void FUN_0022c2b0(const Vec3* in, Vec3* out);
-    void FUN_0022c3b0(const Vec3* in, Vec3* out);
+    void FUN_0022c2b0(const Vec3_1679c0* in, Vec3_1679c0* out);
+    void FUN_0022c3b0(const Vec3_1679c0* in, Vec3_1679c0* out);
 };
 
 struct Skeleton {
@@ -29,11 +29,11 @@ struct Entity {
     Entity* ignoreA;
 };
 
-struct Fader {
+struct Fader_1679c0 {
     void FUN_001dcf60(int on);
 };
 
-struct Player {
+struct Player_1679c0 {
     char pad00[0x124];
     Entity* current;
     void FUN_00025260(int a, int b, int c);
@@ -41,22 +41,22 @@ struct Player {
 
 struct World {
     char pad00[0xc];
-    Fader* fader;
+    Fader_1679c0* fader;
     char pad10[0x10];
-    Player* player;
+    Player_1679c0* player;
 };
 
-struct Obj2 {
+struct Obj2_1679c0 {
     Entity* FUN_00059a30();
 };
 
-struct Obj1 {
-    Obj2* FUN_000592a0();
+struct Obj1_1679c0 {
+    Obj2_1679c0* FUN_000592a0();
 };
 
 extern World* DAT_004dd700;
-char FUN_002027c0(Vec3* a, Vec3* b, int c, int d, Vec3* hitPos, Vec3* hitNormal, int e, int f);
-char __cdecl FUN_00202560(Vec3* origin, float dist, int a, Vec3* outB, Vec3* outA, int b, int c, float* d);
+char FUN_002027c0(Vec3_1679c0* a, Vec3_1679c0* b, int c, int d, Vec3_1679c0* hitPos, Vec3_1679c0* hitNormal, int e, int f);
+char __cdecl FUN_00202560(Vec3_1679c0* origin, float dist, int a, Vec3_1679c0* outB, Vec3_1679c0* outA, int b, int c, float* d);
 
 namespace hulkfight {
 namespace motion {
@@ -68,12 +68,12 @@ public:
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual char vfunc_6(int arg0, Obj1* target, int arg2);
+    virtual char vfunc_6(int arg0, Obj1_1679c0* target, int arg2);
     char pad04[0xc];
     unsigned int boneLo;    // 0x10
     unsigned int boneHi;    // 0x14
-    Vec3 offset;            // 0x18
-    Vec3 direction;         // 0x24
+    Vec3_1679c0 offset;            // 0x18
+    Vec3_1679c0 direction;         // 0x24
     float length;           // 0x30
     char invert;            // 0x34
     char groundCheck;       // 0x35
@@ -81,7 +81,7 @@ public:
     float groundTolerance;  // 0x38
 };
 
-char RayCastCondition::vfunc_6(int arg0, Obj1* target, int arg2)
+char RayCastCondition::vfunc_6(int arg0, Obj1_1679c0* target, int arg2)
 {
     if (FUN_00344e74(target, 0, DAT_00494b44, DAT_00494b60, 0) == 0)
         return 0;
@@ -90,12 +90,12 @@ char RayCastCondition::vfunc_6(int arg0, Obj1* target, int arg2)
     // One contiguous frame: the stubs fill through the pointers handed to callees.
     struct {
         float ground;
-        Vec3 res;
-        Vec3 tmp;
-        Vec3 from;
-        Vec3 dir;
-        Vec3 hitNormal;
-        Vec3 hitPos;
+        Vec3_1679c0 res;
+        Vec3_1679c0 tmp;
+        Vec3_1679c0 from;
+        Vec3_1679c0 dir;
+        Vec3_1679c0 hitNormal;
+        Vec3_1679c0 hitPos;
         Matrix mtx;
     } f;
 

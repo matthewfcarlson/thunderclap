@@ -5,16 +5,16 @@ struct Node {
  virtual int count();
  virtual Node* child(int index);
 };
-struct Entry { Node* node; int index; };
-struct Walker {
+struct Entry_c5b80 { Node* node; int index; };
+struct Walker_c5b80 {
  int reserved;
- Entry stack[128];
+ Entry_c5b80 stack[128];
  int depth;
  Node* current;
  int index;
  Node* FUN_000c5b80();
 };
-Node* Walker::FUN_000c5b80() {
+Node* Walker_c5b80::FUN_000c5b80() {
  while (current) {
   int size = current->count();
   if (index < size) {

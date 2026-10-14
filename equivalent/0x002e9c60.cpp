@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1068 inputs, branch coverage 36/38, incomplete)
 // FUN_002e9c60 @ 0x002e9c60
-struct ZStream {
+struct ZStream_2e9c60 {
     unsigned char *next_in;
     unsigned avail_in;
     unsigned total_in;
@@ -10,12 +10,12 @@ struct ZStream {
     const char *msg;
 };
 
-struct PngStruct {
+struct PngStruct_2e9c60 {
     char pad0[0x60];
     unsigned mode;
     char pad1[8];
-    ZStream zstream;
-    char pad2[0xa4 - 0x6c - sizeof(ZStream)];
+    ZStream_2e9c60 zstream;
+    char pad2[0xa4 - 0x6c - sizeof(ZStream_2e9c60)];
     unsigned char *zbuf;
     unsigned zbuf_size;
 };
@@ -30,18 +30,18 @@ struct PngText {
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
 extern "C" int __cdecl _sprintf(char *buf, const char *fmt, ...);
 
-void __cdecl FUN_002e69a0(PngStruct *png, const char *msg);
-void __cdecl FUN_002e69d0(PngStruct *png, const char *msg);
-int __cdecl FUN_002e81e0(PngStruct *png, unsigned skip);
-void *__cdecl FUN_002e6c00(PngStruct *png, unsigned size);
-void __cdecl FUN_002e6c40(PngStruct *png, void *ptr);
-void __cdecl FUN_002e7580(PngStruct *png, void *buf, unsigned length);
-int __cdecl FUN_002e6f70(ZStream *z, int flush);
-void __cdecl FUN_002e6db0(ZStream *z);
-void __cdecl FUN_002eb5e0(PngStruct *png, void *info, PngText *text, int n);
+void __cdecl FUN_002e69a0(PngStruct_2e9c60 *png, const char *msg);
+void __cdecl FUN_002e69d0(PngStruct_2e9c60 *png, const char *msg);
+int __cdecl FUN_002e81e0(PngStruct_2e9c60 *png, unsigned skip);
+void *__cdecl FUN_002e6c00(PngStruct_2e9c60 *png, unsigned size);
+void __cdecl FUN_002e6c40(PngStruct_2e9c60 *png, void *ptr);
+void __cdecl FUN_002e7580(PngStruct_2e9c60 *png, void *buf, unsigned length);
+int __cdecl FUN_002e6f70(ZStream_2e9c60 *z, int flush);
+void __cdecl FUN_002e6db0(ZStream_2e9c60 *z);
+void __cdecl FUN_002eb5e0(PngStruct_2e9c60 *png, void *info, PngText *text, int n);
 
 // libpng png_handle_zTXt (with png_decompress_chunk inlined)
-void png_handle_zTXt(PngStruct *png, void *info, unsigned length)
+void png_handle_zTXt(PngStruct_2e9c60 *png, void *info, unsigned length)
 {
     char *chunkdata;
     char *text;

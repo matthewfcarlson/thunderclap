@@ -2,14 +2,14 @@
 // FUN_003374c0 @ 0x003374c0
 extern char DAT_0055dbc0[1024];
 extern "C" int __cdecl sprintf(char *, const char *, ...);
-struct Token { const char * FUN_00338a10(); };
-struct Parser {
+struct Token_3374c0 { const char * FUN_00338a10(); };
+struct Parser_3374c0 {
  char pad[0x5108];
  unsigned error;
- Token *token;
+ Token_3374c0 *token;
  const char * FUN_003374c0();
 };
-const char * Parser::FUN_003374c0() {
+const char * Parser_3374c0::FUN_003374c0() {
  DAT_0055dbc0[0] = 0;
  const char *name = token ? token->FUN_00338a10() : 0;
  if (!name) name = "<?>";

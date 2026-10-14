@@ -9,7 +9,7 @@ extern unsigned int DAT_00427758;
 extern unsigned int DAT_004af9f0;
 extern unsigned int DAT_004e10b8;
 extern unsigned int DAT_004e10bc;
-struct ParamBase {
+struct ParamBase_155af0 {
  virtual void slot0();
  char pad[12];
  void* values;
@@ -19,7 +19,7 @@ struct ParamBase {
  void FUN_00234cc0(const char*);
 };
 namespace hulkfight { namespace motion { class CollisionTargetTypeCondition; } }
-namespace fight { template<class T> struct ParamEnumConstList : ParamBase { virtual void slot0(); }; }
+namespace fight { template<class T> struct ParamEnumConstList : ParamBase_155af0 { virtual void slot0(); }; }
 typedef fight::ParamEnumConstList<hulkfight::motion::CollisionTargetTypeCondition> Param;
 extern "C" void __cdecl FUN_002347b0(void*, Param**, int);
 void FUN_00155af0() {

@@ -1,20 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000d7c80 @ 0x000d7c80
 class Target;
-typedef void (Target::*Fn1)(int);
-typedef void (Target::*Fn2)(int, int);
+typedef void (Target::*Fn1_d7c80)(int);
+typedef void (Target::*Fn2_d7c80)(int, int);
 
-class Closure {
+class Closure_d7c80 {
 public:
     Target *object;
-    Fn1 fn1;
-    Fn2 fn2;
+    Fn1_d7c80 fn1;
+    Fn2_d7c80 fn2;
     int arg1;
     int arg2;
     void Invoke();
 };
 
-void Closure::Invoke()
+void Closure_d7c80::Invoke()
 {
     if (fn1) {
         (object->*fn1)(arg1);

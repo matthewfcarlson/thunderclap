@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 178 inputs, branch coverage 35/40, incomplete)
 // FUN_00249ce0 @ 0x00249ce0
-struct Payload {
+struct Payload_249ce0 {
     char pad[0x38];
     unsigned key;
 };
@@ -11,19 +11,19 @@ struct Node {
     Node* parent;
     int color;
     char pad10[0x1c - 0x10];
-    Payload* payload;
+    Payload_249ce0* payload;
 };
 
-struct Tree {
+struct Tree_249ce0 {
     Node* root;
     Node nil;
 };
 
-extern "C" void FUN_00247eb0(Tree* tree, Node* node);
-extern "C" void FUN_00247f00(Tree* tree, Node* node);
+extern "C" void FUN_00247eb0(Tree_249ce0* tree, Node* node);
+extern "C" void FUN_00247f00(Tree_249ce0* tree, Node* node);
 
 // Red-black tree unique-key insert with rebalance. color: 1 = red, 0 = black.
-char FUN_00249ce0(Tree* tree, Node* nodeArg, const unsigned* keyPtr)
+char FUN_00249ce0(Tree_249ce0* tree, Node* nodeArg, const unsigned* keyPtr)
 {
     Node* nil = &tree->nil;
     Node* node = nodeArg;

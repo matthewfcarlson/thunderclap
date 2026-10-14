@@ -2,40 +2,40 @@
 // FUN_00358700 @ 0x00358700
 extern "C" double __cdecl sqrt(double);
 
-struct Vec3 {
+struct Vec3_358700 {
     float x, y, z;
 };
 
-union FS {
+union FS_358700 {
     float f;
     unsigned int u;
 };
 
 // stack-argument slots that the callees also use as float out-parameters
 union VecSlot {
-    Vec3 *v;
+    Vec3_358700 *v;
     float f;
 };
 
-bool FUN_00358630(Vec3 *a, Vec3 *dir, float radius, float len, int zero, float planeD, Vec3 *n, VecSlot *out);
-bool FUN_003577c0(Vec3 *p, Vec3 *a, Vec3 *b, void *c, Vec3 *n);
-bool FUN_00357960(Vec3 *a, Vec3 *dir, float reach, Vec3 *p5, Vec3 *p6, void *p7, Vec3 *n, float *dist, Vec3 *hit, Vec3 *outN);
-bool FUN_00358030(Vec3 *a, Vec3 *dir, int f1, Vec3 *p5, Vec3 *p6, void *p7, float *s, Vec3 *pt, Vec3 *q, float *w, float *t, int f2, int f3, int f4);
+bool FUN_00358630(Vec3_358700 *a, Vec3_358700 *dir, float radius, float len, int zero, float planeD, Vec3_358700 *n, VecSlot *out);
+bool FUN_003577c0(Vec3_358700 *p, Vec3_358700 *a, Vec3_358700 *b, void *c, Vec3_358700 *n);
+bool FUN_00357960(Vec3_358700 *a, Vec3_358700 *dir, float reach, Vec3_358700 *p5, Vec3_358700 *p6, void *p7, Vec3_358700 *n, float *dist, Vec3_358700 *hit, Vec3_358700 *outN);
+bool FUN_00358030(Vec3_358700 *a, Vec3_358700 *dir, int f1, Vec3_358700 *p5, Vec3_358700 *p6, void *p7, float *s, Vec3_358700 *pt, Vec3_358700 *q, float *w, float *t, int f2, int f3, int f4);
 
 // Swept sphere (segment start a, direction dir, half length len, radius) against a triangle plane.
-bool FUN_00358700(Vec3 *a, Vec3 *dir, float radius, float len, VecSlot p5, Vec3 *p6, void *p7, VecSlot n8,
-                  float *dist, Vec3 *hit, Vec3 *outN)
+bool FUN_00358700(Vec3_358700 *a, Vec3_358700 *dir, float radius, float len, VecSlot p5, Vec3_358700 *p6, void *p7, VecSlot n8,
+                  float *dist, Vec3_358700 *hit, Vec3_358700 *outN)
 {
     struct Frame {
-        FS ad;          // 0x00
+        FS_358700 ad;          // 0x00
         float w;        // 0x04
-        Vec3 lo;        // 0x08
-        Vec3 hi;        // 0x14
-        Vec3 v;         // 0x20
-        Vec3 pt;        // 0x2c
+        Vec3_358700 lo;        // 0x08
+        Vec3_358700 hi;        // 0x14
+        Vec3_358700 v;         // 0x20
+        Vec3_358700 pt;        // 0x2c
         float spare[3]; // 0x38
     } f;
-    Vec3 *n = n8.v;
+    Vec3_358700 *n = n8.v;
     if (!FUN_00358630(a, dir, radius, len, 0, -(p5.v->z * n->z + p5.v->y * n->y + n->x * p5.v->x), n, &n8))
         return false;
 

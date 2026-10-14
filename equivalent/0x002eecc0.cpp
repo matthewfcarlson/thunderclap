@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 27 inputs, branch coverage 18/18)
 // FUN_002eecc0 @ 0x002eecc0
-struct Item { virtual void slot0(); virtual void clear(); };
-struct Record { unsigned value; char rest[16]; };
-struct Bits { unsigned count; unsigned words[1]; };
-struct State {
- Item** begin; Item** end; char pad08[8]; Bits* bits;
+struct Item_2eecc0 { virtual void slot0(); virtual void clear(); };
+struct Record_2eecc0 { unsigned value; char rest[16]; };
+struct Bits_2eecc0 { unsigned count; unsigned words[1]; };
+struct State_2eecc0 {
+ Item_2eecc0** begin; Item_2eecc0** end; char pad08[8]; Bits_2eecc0* bits;
  unsigned* values; unsigned valueCount; char pad1c[8];
- Record* records; unsigned recordCount;
+ Record_2eecc0* records; unsigned recordCount;
  void* begin2; void* end2; char pad34[8];
- Item** begin3; Item** end3; char pad44[8];
+ Item_2eecc0** begin3; Item_2eecc0** end3; char pad44[8];
  void* begin4; void* end4;
  void reset();
 };
-void State::reset() {
+void State_2eecc0::reset() {
  unsigned i;
  for (i=0; i<(unsigned)(end-begin); ++i) begin[i]->clear();
  end=begin;

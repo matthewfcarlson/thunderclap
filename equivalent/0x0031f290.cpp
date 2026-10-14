@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // pure3d::pddiBaseContext::vfunc_87 @ 0x0031f290
 namespace pure3d {
-struct StateA {
+struct StateA_31f290 {
     int a0;
     int a4;
     char c8;
@@ -13,9 +13,9 @@ struct StateA {
     char c1a;
     char c1b;
 };
-struct StateB {
+struct StateB_31f290 {
     char data[0x34];
-    void FUN_0031eab0(const StateB* prev);
+    void FUN_0031eab0(const StateB_31f290* prev);
 };
 struct StateC {
     char data[0x3ec];
@@ -40,7 +40,7 @@ struct StateE {
     int a20;
 };
 template <class T>
-struct StateStack {
+struct StateStack_31f290 {
     int field_00;
     int field_04;
     int top;
@@ -138,13 +138,13 @@ class pddiBaseContext {
     virtual void vfunc_87(unsigned char flags);
 
     char pad_04[0x34 - 4];
-    StateStack<StateB>* stackB;
-    StateStack<StateA>* stackA;
-    StateStack<StateC>* stackC;
-    StateStack<StateD>* stackD;
-    StateStack<StateE>* stackE;
-    StateB* currentB;
-    StateA* currentA;
+    StateStack_31f290<StateB_31f290>* stackB;
+    StateStack_31f290<StateA_31f290>* stackA;
+    StateStack_31f290<StateC>* stackC;
+    StateStack_31f290<StateD>* stackD;
+    StateStack_31f290<StateE>* stackE;
+    StateB_31f290* currentB;
+    StateA_31f290* currentA;
     StateC* currentC;
     StateD* currentD;
     StateE* currentE;
@@ -154,8 +154,8 @@ class pddiBaseContext {
 void pure3d::pddiBaseContext::vfunc_87(unsigned char flags) {
     if (flags & 1) {
         stackA->top++;
-        StateA* cur = &stackA->items[stackA->top];
-        const StateA* prev = cur - 1;
+        StateA_31f290* cur = &stackA->items[stackA->top];
+        const StateA_31f290* prev = cur - 1;
         cur->a4 = prev->a4;
         cur->c8 = prev->c8;
         cur->ac = prev->ac;
@@ -169,7 +169,7 @@ void pure3d::pddiBaseContext::vfunc_87(unsigned char flags) {
     }
     if (flags & 2) {
         stackB->top++;
-        StateB* cur = &stackB->items[stackB->top];
+        StateB_31f290* cur = &stackB->items[stackB->top];
         cur->FUN_0031eab0(cur - 1);
         currentB = &stackB->items[stackB->top];
     }

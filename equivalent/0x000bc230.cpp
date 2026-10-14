@@ -2,11 +2,11 @@
 // FUN_000bc230 @ 0x000bc230
 extern "C" char *__cdecl strncpy(char *dst, const char *src, unsigned n);
 
-class Manager { public: char pad[4]; };
-extern "C" Manager *__cdecl FUN_000fc1b0();
+class Manager_bc230 { public: char pad[4]; };
+extern "C" Manager_bc230 *__cdecl FUN_000fc1b0();
 
-struct TextEntry {
-    void FUN_000f8500(const char *name, Manager *manager, char flag);
+struct TextEntry_bc230 {
+    void FUN_000f8500(const char *name, Manager_bc230 *manager, char flag);
 };
 
 class FEObject {
@@ -17,7 +17,7 @@ public:
     virtual void vfunc_3();
     char pad04[0x10];
     int f14;
-    TextEntry entry;
+    TextEntry_bc230 entry;
 };
 
 class TextLabel : public FEObject {
@@ -35,7 +35,7 @@ public:
 
 extern "C" FEObject *__cdecl FUN_000fc260(const char *name);
 
-class Widget {
+class Widget_bc230 {
 public:
     virtual void v0();
     virtual void v1();
@@ -59,26 +59,26 @@ public:
     virtual void vfunc_19(int a);
 };
 
-class Hook {
+class Hook_bc230 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual Widget *vfunc_3(const char *name);
+    virtual Widget_bc230 *vfunc_3(const char *name);
 };
 
-extern "C" Hook *__cdecl FUN_000fc3d0();
+extern "C" Hook_bc230 *__cdecl FUN_000fc3d0();
 
-struct Sys {
+struct Sys_bc230 {
     void FUN_001cc620(int a);
 };
 
-struct Globals {
+struct Globals_bc230 {
     char pad[0x2c];
-    Sys *sys;
+    Sys_bc230 *sys;
 };
 
-extern Globals *DAT_004dd700;
+extern Globals_bc230 *DAT_004dd700;
 
 class QuestionScreen {
 public:
@@ -114,7 +114,7 @@ void QuestionScreen::FUN_000bc230(const char *title, const char *text, const cha
     strncpy(answer1, buf1, 0x40);
     strncpy(answer2, buf2, 0x40);
 
-    Widget *w = FUN_000fc3d0()->vfunc_3("fullscreen_question");
+    Widget_bc230 *w = FUN_000fc3d0()->vfunc_3("fullscreen_question");
     if (w) {
         FEObject *a = FUN_000fc260("fullscreen_question_answer1");
         if (a)

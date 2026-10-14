@@ -4,7 +4,7 @@ extern "C" void __cdecl FUN_0026b800(char *, int, const char *, int, int, int, i
 extern "C" void __stdcall FUN_00356611(int);
 extern "C" int __stdcall FUN_003564c0(const char *, char *);
 extern "C" void * __cdecl thunk_FUN_00271f20(void *, const void *, unsigned int);
-struct Slot { char path[0x204]; int handle; };
+struct Slot_279220 { char path[0x204]; int handle; };
 struct XboxSaveDrive {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3();
  virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7();
@@ -13,7 +13,7 @@ struct XboxSaveDrive {
  virtual void vfunc_16(); virtual void vfunc_17();
  virtual int vfunc_18(const char *, const char *, int *, unsigned char);
  virtual int vfunc_19(int *, const char *);
- char pad[0xda]; unsigned char driveLetter; char pad2[0x11]; Slot slots[4];
+ char pad[0xda]; unsigned char driveLetter; char pad2[0x11]; Slot_279220 slots[4];
  bool FUN_002788c0();
  int FUN_00278d30(const char *, char *, int, char *);
 };
@@ -29,7 +29,7 @@ int XboxSaveDrive::vfunc_18(const char *name, const char *source, int *index, un
  } else {
   for (unsigned i=0;i<4;i++) if (slots[i].handle==-1) { slot=i; break; }
  }
- Slot *s=&slots[slot];
+ Slot_279220 *s=&slots[slot];
  s->handle=FUN_003564c0(path,output);
  thunk_FUN_00271f20(s->path,path+4,0x202);
  *index=slot;

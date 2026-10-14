@@ -6,10 +6,10 @@ namespace core { struct File; }
 struct Request {
     Request* FUN_00275110(core::File* file);
 };
-struct Queue {
+struct Queue_275dd0 {
     void FUN_00272b60(Request* request, unsigned int context, unsigned int zero);
 };
-struct Lock {
+struct Lock_275dd0 {
     virtual void lock();
     virtual void unlock();
 };
@@ -19,9 +19,9 @@ struct File {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2(int flags);
-    Lock lock;
+    Lock_275dd0 lock;
     int refs;
-    Queue* queue;
+    Queue_275dd0* queue;
     unsigned int context;
     char pad14[8];
     char queued;
@@ -29,7 +29,7 @@ struct File {
 
 void File::vfunc_1()
 {
-    Lock* l = &lock;
+    Lock_275dd0* l = &lock;
     l->lock();
     if (--refs != 0) {
         l->unlock();

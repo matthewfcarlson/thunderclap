@@ -2,14 +2,14 @@
 // FUN_002e68a0 @ 0x002e68a0
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 extern const char DAT_0042fdd4[];   // "0123456789ABCDEF"
-struct png_struct {
+struct png_struct_2e68a0 {
     char pad[0x114];
     unsigned char chunk_name[4];
 };
 
 // libpng png_format_buffer: "chunk: message" with unprintable chunk-name bytes written as [XX].
 // equiv-conv: FUN_002e68a0 eax ecx edx
-void FUN_002e68a0(char* buffer, png_struct* png_ptr, const char* message) {
+void FUN_002e68a0(char* buffer, png_struct_2e68a0* png_ptr, const char* message) {
     int pos = 0;
     for (int i = 0; i < 4; i++) {
         int c = png_ptr->chunk_name[i];

@@ -4,19 +4,19 @@ struct Stream {
     void FUN_002647e0(void *dest, int a, int b, int c);
 };
 
-struct Entry {
+struct Entry_204880 {
     char data[0x56];
     void FUN_00208ac0(unsigned int a, unsigned int b);
     void FUN_00208b40(unsigned int v);
     void FUN_00208b60(unsigned int v);
 };
 
-struct Table {
+struct Table_204880 {
     char pad0[0x58c];
-    Entry *entries;
+    Entry_204880 *entries;
     char pad590[4];
     int count;
-    Entry *FUN_00204060(unsigned int a, unsigned int b);
+    Entry_204880 *FUN_00204060(unsigned int a, unsigned int b);
 };
 
 struct Reader {
@@ -28,19 +28,19 @@ struct Reader {
     void FUN_00266be0();
 };
 
-union Slot {
+union Slot_204880 {
     Reader *reader;
     unsigned int value;
 };
 
-class Loader {
+class Loader_204880 {
 public:
     char pad0[0x14];
-    Table *table;
-    void FUN_00204880(Slot arg, int unused);
+    Table_204880 *table;
+    void FUN_00204880(Slot_204880 arg, int unused);
 };
 
-void Loader::FUN_00204880(Slot arg, int unused)
+void Loader_204880::FUN_00204880(Slot_204880 arg, int unused)
 {
     Reader *rd = arg.reader;
     struct Frame {
@@ -54,8 +54,8 @@ void Loader::FUN_00204880(Slot arg, int unused)
     rd->stream->FUN_002647e0(&fr.junk, 1, 4, 1);
 
     unsigned int second = fr.second;
-    Table *t = table;
-    Entry *e = t->FUN_00204060(arg.value, second);
+    Table_204880 *t = table;
+    Entry_204880 *e = t->FUN_00204060(arg.value, second);
     if (e == 0) {
         t->entries[t->count].FUN_00208ac0(arg.value, second);
         e = t->entries + t->count;

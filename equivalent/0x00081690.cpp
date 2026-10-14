@@ -1,48 +1,48 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 38/40, incomplete)
 // FUN_00081690 @ 0x00081690
-struct V3 {
+struct V3_81690 {
     float x, y, z;
-    void FUN_00023750(const V3* other);
-    void FUN_00011160(float scale, const V3* dir);
+    void FUN_00023750(const V3_81690* other);
+    void FUN_00011160(float scale, const V3_81690* dir);
 };
 
-union FloatBits {
+union FloatBits_81690 {
     float f;
     unsigned int u;
 };
 
 struct Matrix {
     float m[12];
-    V3 pos;
+    V3_81690 pos;
     float w;
     void FUN_0022ba70(float angle);
-    void FUN_0022cc90(const V3* dir);
+    void FUN_0022cc90(const V3_81690* dir);
 };
 
-struct Anchor {
-    void FUN_00059a50(V3* out);
+struct Anchor_81690 {
+    void FUN_00059a50(V3_81690* out);
 };
 
-struct Node124 {
+struct Node124_81690 {
     char pad00[0x10];
-    Anchor* anchor;
+    Anchor_81690* anchor;
 };
 
-struct Game20 {
+struct Game20_81690 {
     char pad00[0x124];
-    Node124* f124;
+    Node124_81690* f124;
 };
 
-struct Game {
+struct Game_81690 {
     char pad00[0x20];
-    Game20* f20;
+    Game20_81690* f20;
 };
 
-extern Game* DAT_004dd700;
+extern Game_81690* DAT_004dd700;
 
-float __cdecl FUN_00224f10(V3* dir);
+float __cdecl FUN_00224f10(V3_81690* dir);
 
-class Body {
+class Body_81690 {
 public:
     virtual void v0();
     virtual void v1();
@@ -53,16 +53,16 @@ public:
     virtual void v6(Matrix* m, int zero);
 };
 
-struct Sink {
+struct Sink_81690 {
     void FUN_001c4d60(Matrix* m);
 };
 
-struct Slot {
+struct Slot_81690 {
     char pad00[0x1c];
     Matrix* mat;
 };
 
-class Registry {
+class Registry_81690 {
 public:
     virtual void v0();
     virtual void v1();
@@ -75,13 +75,13 @@ public:
     virtual void v8();
     virtual void v9();
     virtual void v10();
-    virtual Slot* v11();
+    virtual Slot_81690* v11();
 };
 
-struct Frame {
-    V3 w;
-    V3 pos;
-    V3 nd;
+struct Frame_81690 {
+    V3_81690 w;
+    V3_81690 pos;
+    V3_81690 nd;
 };
 
 class Entity {
@@ -104,18 +104,18 @@ public:
     float f98;
     int f9c;
     char pada0[0xdc - 0xa0];
-    V3 fdc;
-    Registry* fe8;
-    Sink* fec;
+    V3_81690 fdc;
+    Registry_81690* fe8;
+    Sink_81690* fec;
     char padf0[0x100 - 0xf0];
-    Body* f100;
-    void FUN_00081690(int a0, V3* dir, float step, bool lock, int a4);
+    Body_81690* f100;
+    void FUN_00081690(int a0, V3_81690* dir, float step, bool lock, int a4);
 };
 
-void Entity::FUN_00081690(int a0, V3* dir, float step, bool lock, int a4)
+void Entity::FUN_00081690(int a0, V3_81690* dir, float step, bool lock, int a4)
 {
-    Frame f;
-    FloatBits fb;
+    Frame_81690 f;
+    FloatBits_81690 fb;
     fb.f = dir->y;
     fb.u &= 0x7fffffff;
     fb.f = fb.f - 1.0f;
@@ -138,7 +138,7 @@ void Entity::FUN_00081690(int a0, V3* dir, float step, bool lock, int a4)
         case 2:
         case 3:
             if (!nearY) {
-                Anchor* anchor = DAT_004dd700->f20->f124->anchor;
+                Anchor_81690* anchor = DAT_004dd700->f20->f124->anchor;
                 f.w.y = 0.0f;
                 anchor->FUN_00059a50(&f.pos);
                 f.pos.FUN_00023750(&m34.pos);

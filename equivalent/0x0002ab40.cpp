@@ -2,12 +2,12 @@
 // FUN_0002ab40 @ 0x0002ab40
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_2ab40 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-class Selector {
+class Selector_2ab40 {
 public:
     int FUN_000fdc80();
     int FUN_000fdc40();
@@ -15,18 +15,18 @@ public:
     char armed;
 };
 
-class Agent {
+class Agent_2ab40 {
 public:
     void FUN_000363f0(int a0, float v);
     void FUN_00036430(int a0, float v);
     void FUN_0003b7d0(int a0, float v);
     void FUN_00040970(int a0, float v);
-    void FUN_0003e2a0(int a0, Vec3 dir, int a1, float v, unsigned int flags);
+    void FUN_0003e2a0(int a0, Vec3_2ab40 dir, int a1, float v, unsigned int flags);
     void FUN_00042930(int a0, float v);
-    int FUN_00035660(Vec3 *out);
+    int FUN_00035660(Vec3_2ab40 *out);
 
     char pad0[0x1ca0];
-    Selector *selector;
+    Selector_2ab40 *selector;
     char pad1[0x1cf0 - 0x1ca4];
     float gain;
     char pad2[0x2064 - 0x1cf4];
@@ -38,14 +38,14 @@ public:
     char forced;
 };
 
-class Lookup {
+class Lookup_2ab40 {
 public:
-    Agent *FUN_00059c10(int id);
+    Agent_2ab40 *FUN_00059c10(int id);
 };
 
-struct Registry {
+struct Registry_2ab40 {
     char pad0[0x44];
-    Lookup *lookup;
+    Lookup_2ab40 *lookup;
 };
 
 class AgentSet {
@@ -54,7 +54,7 @@ public:
     void FUN_0002a960(int a0);
     void FUN_00025ff0(int a0, int a1);
 
-    Registry *registry;
+    Registry_2ab40 *registry;
     char pad0[8];
     int count;
     int ids[16];
@@ -71,32 +71,32 @@ void AgentSet::FUN_0002ab40(int a0, int a1)
     FUN_00025ff0(a0, a1);
     for (int i = 0; i < count; i++) {
         if ((flags[i] & 1) || modes[i] != 0) {
-            Agent *agent = registry->lookup->FUN_00059c10(ids[i]);
+            Agent_2ab40 *agent = registry->lookup->FUN_00059c10(ids[i]);
             if (agent)
                 agent->FUN_000363f0(a0, args[i]);
         }
     }
     for (int i = 0; i < count; i++) {
         if ((flags[i] & 1) || modes[i] != 0) {
-            Agent *agent = registry->lookup->FUN_00059c10(ids[i]);
+            Agent_2ab40 *agent = registry->lookup->FUN_00059c10(ids[i]);
             if (agent)
                 agent->FUN_00036430(a0, args[i]);
         }
     }
     for (int i = 0; i < count; i++) {
         if ((flags[i] & 1) || modes[i] != 0) {
-            Agent *agent = registry->lookup->FUN_00059c10(ids[i]);
+            Agent_2ab40 *agent = registry->lookup->FUN_00059c10(ids[i]);
             if (agent)
                 agent->FUN_0003b7d0(a0, args[i]);
         }
     }
     for (int i = 0; i < count; i++) {
-        Agent *agent = registry->lookup->FUN_00059c10(ids[i]);
+        Agent_2ab40 *agent = registry->lookup->FUN_00059c10(ids[i]);
         if ((flags[i] & 1) && modes[i] == 0) {
             if (agent)
                 agent->FUN_00040970(a0, args[i]);
         } else if (agent) {
-            Vec3 dir;
+            Vec3_2ab40 dir;
             dir.x = 0;
             dir.y = 0;
             dir.z = 0;
@@ -109,7 +109,7 @@ void AgentSet::FUN_0002ab40(int a0, int a1)
                     dir.z = dir.z * 50.0f;
                 }
             } else if (modes[i] == 1) {
-                Selector *sel = agent->selector;
+                Selector_2ab40 *sel = agent->selector;
                 if (sel) {
                     char armed = sel->armed;
                     int current = sel->FUN_000fdc80();
@@ -127,7 +127,7 @@ void AgentSet::FUN_0002ab40(int a0, int a1)
     }
     for (int i = 0; i < count; i++) {
         if ((flags[i] & 1) && modes[i] == 0) {
-            Agent *agent = registry->lookup->FUN_00059c10(ids[i]);
+            Agent_2ab40 *agent = registry->lookup->FUN_00059c10(ids[i]);
             if (agent)
                 agent->FUN_00042930(a0, args[i]);
         }

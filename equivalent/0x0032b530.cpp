@@ -12,7 +12,7 @@ struct TexSlot {
 extern unsigned int DAT_0039db08;
 extern TexSlot DAT_0039db10[];
 extern unsigned int DAT_004d4efc[];
-struct StageCache {
+struct StageCache_32b530 {
     void FUN_00329c90(int stage, int value);
     char pad0[0x18];
     int texCoordIndex[4];
@@ -23,7 +23,7 @@ struct StageCache {
 class TextureStage {
   public:
     char pad0[0x14];
-    StageCache* cache;
+    StageCache_32b530* cache;
     char pad18[0x40 - 0x18];
     int mode;
     int arg;

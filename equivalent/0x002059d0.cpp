@@ -2,33 +2,33 @@
 // FUN_002059d0 @ 0x002059d0
 extern unsigned char DAT_004c91d8;
 extern unsigned char DAT_004c91d9;
-struct Resource { virtual void unused(); virtual void release(); void FUN_002665a0(); };
-struct Handle { void FUN_00263e90(); };
+struct Resource_2059d0 { virtual void unused(); virtual void release(); void FUN_002665a0(); };
+struct Handle_2059d0 { void FUN_00263e90(); };
 extern void __cdecl FUN_00267110(int);
 extern void __cdecl FUN_00267090(void*);
-struct Entry {
+struct Entry_2059d0 {
  unsigned char active, flag;
  char pad0[32];
  short id;
  char pad1[4];
  void* allocation;
- Resource* resource;
+ Resource_2059d0* resource;
  char pad2[4];
- Handle* handle;
+ Handle_2059d0* handle;
  char pad3[4];
 };
 struct Object {
  char pad[0x44];
- Resource* mainResource;
+ Resource_2059d0* mainResource;
  char pad1[4];
- Entry entries[20];
- union { Entry extra[2]; struct {char padding[116]; int values[2];} tail; };
+ Entry_2059d0 entries[20];
+ union { Entry_2059d0 extra[2]; struct {char padding[116]; int values[2];} tail; };
  void cleanup();
 };
 void Object::cleanup() {
  if (DAT_004c91d8) {
   for (int i=0;i<20;++i) {
-   Entry& e=entries[i];
+   Entry_2059d0& e=entries[i];
    if(e.handle) {e.handle->FUN_00263e90(); e.handle=0;}
    if(e.resource) FUN_00267110(e.id);
    if(e.resource) {e.resource->release(); e.resource=0;}
@@ -42,7 +42,7 @@ void Object::cleanup() {
  }
  for(int j=0;j<2;++j) {
   if(DAT_004c91d9) {
-   Entry& e=extra[j];
+   Entry_2059d0& e=extra[j];
    if(e.handle) {e.handle->FUN_00263e90();e.handle=0;}
    if(e.resource) FUN_00267110(e.id);
    if(e.resource) {e.resource->release();e.resource=0;}

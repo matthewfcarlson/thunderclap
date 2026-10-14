@@ -3,23 +3,23 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 extern "C" int atexit(void (*)());
 
-struct Rec {
+struct Rec_2be720 {
     char pad0[0x10];
     int lo;
     int hi;
 };
 
-struct Row {
-    Rec recs[1];
+struct Row_2be720 {
+    Rec_2be720 recs[1];
 };
 
-struct Aux {
+struct Aux_2be720 {
     int pad[2];
-    Aux();
+    Aux_2be720();
     void FUN_002de230();
 };
 
-class Source {
+class Source_2be720 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -36,7 +36,7 @@ public:
     char f29;
 };
 
-class Obj {
+class Obj_2be720 {
 public:
     virtual void v0();
     virtual void v1();
@@ -52,13 +52,13 @@ public:
     char f29;
 };
 
-class ObjSmall : public Obj {
+class ObjSmall : public Obj_2be720 {
 public:
     ObjSmall *FUN_002bffc0();
     char pad2a[0x6];
 };
 
-class ObjBig : public Obj {
+class ObjBig : public Obj_2be720 {
 public:
     ObjBig *FUN_002bfcb0();
     char pad2a[0x40e];
@@ -70,10 +70,10 @@ void *FUN_0008d6d0(unsigned int size);
 void FUN_00267090(void *p);
 void FUN_003647b0();
 int DAT_004d0898;
-extern Aux DAT_00554bd0;
+extern Aux_2be720 DAT_00554bd0;
 extern unsigned int DAT_00554bd4;
 
-class Loader {
+class Loader_2be720 {
 public:
     char pad0[0x40];
     int count;
@@ -86,23 +86,23 @@ public:
     char pad70[0x30];
     char useSmall;
 
-    int FUN_002bd570(Row **rows, int *rowCount, int *recCount);
-    void FUN_002bd790(int idx, Rec *rec, int lo, int hi, Source *src, Obj *obj, Aux *aux);
-    void FUN_002bdaf0(int idx, Rec *rec, int lo, int hi);
+    int FUN_002bd570(Row_2be720 **rows, int *rowCount, int *recCount);
+    void FUN_002bd790(int idx, Rec_2be720 *rec, int lo, int hi, Source_2be720 *src, Obj_2be720 *obj, Aux_2be720 *aux);
+    void FUN_002bdaf0(int idx, Rec_2be720 *rec, int lo, int hi);
 
-    void Load(Source *src, Aux *aux);
+    void Load(Source_2be720 *src, Aux_2be720 *aux);
 };
 
-void Loader::Load(Source *src, Aux *aux)
+void Loader_2be720::Load(Source_2be720 *src, Aux_2be720 *aux)
 {
     int rowCount;
     int recCount;
-    Row **rows = 0;
+    Row_2be720 **rows = 0;
 
     count = FUN_002bd570(0, &rowCount, &recCount);
-    rows = (Row **)FUN_00266e00(1, rowCount * 4);
+    rows = (Row_2be720 **)FUN_00266e00(1, rowCount * 4);
     for (int i = 0; i < rowCount; i++)
-        rows[i] = (Row *)FUN_00266e00(1, recCount * 24);
+        rows[i] = (Row_2be720 *)FUN_00266e00(1, recCount * 24);
     FUN_002bd570(rows, &rowCount, &recCount);
 
     f48 = FUN_0008d6d0(count * 4);
@@ -117,7 +117,7 @@ void Loader::Load(Source *src, Aux *aux)
         aux = &DAT_00554bd0;
     }
 
-    Obj *obj = 0;
+    Obj_2be720 *obj = 0;
     if (useSmall) {
         ObjSmall *mem = (ObjSmall *)thunk_FUN_0008d690(0x30);
         if (mem)
@@ -127,8 +127,8 @@ void Loader::Load(Source *src, Aux *aux)
         ObjBig *mem = (ObjBig *)thunk_FUN_0008d690(0x438);
         if (mem)
             obj = mem->FUN_002bfcb0();
-        Source *s = src;
-        Obj *o = obj;
+        Source_2be720 *s = src;
+        Obj_2be720 *o = obj;
         o->v16(s->v18(0x100));
     } else if (src->kind == 0x20) {
         ObjSmall *mem = (ObjSmall *)thunk_FUN_0008d690(0x30);
@@ -143,11 +143,11 @@ void Loader::Load(Source *src, Aux *aux)
 
     int step = f5c * 2;
     int index = 0;
-    Row **row = rows;
+    Row_2be720 **row = rows;
     for (int r = rowCount; r > 0; r--) {
         int off = 0;
         for (int c = recCount; c > 0; c--) {
-            Rec *rec = (Rec *)((char *)*row + off);
+            Rec_2be720 *rec = (Rec_2be720 *)((char *)*row + off);
             int lo = rec->hi;
             int limit = f6c;
             if (lo > limit)
@@ -160,7 +160,7 @@ void Loader::Load(Source *src, Aux *aux)
             else
                 hi = DAT_004d0898;
             FUN_002bd790(index, rec, lo, hi, src, obj, aux);
-            FUN_002bdaf0(index, (Rec *)((char *)*row + off), lo, hi);
+            FUN_002bdaf0(index, (Rec_2be720 *)((char *)*row + off), lo, hi);
             index++;
             off += 0x18;
         }

@@ -25,16 +25,16 @@ struct Npc {
     char b1d40;
 };
 
-struct ModeB {
+struct ModeB_452e0 {
     Npc *FUN_000259f0(const char *name);
 };
 
-struct Globals {
+struct Globals_452e0 {
     char pad0[0x20];
-    ModeB *modeB;
+    ModeB_452e0 *modeB;
 };
 
-extern Globals *DAT_004dd700;
+extern Globals_452e0 *DAT_004dd700;
 int FUN_00096600(const char *a, const char *b);
 
 int FUN_000452e0(const char *id, const char *name, int value)

@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 7/8, incomplete)
 // FUN_00324660 @ 0x00324660
-struct Vec3 {
+struct Vec3_324660 {
     float x, y, z;
 };
-struct Vec4 {
+struct Vec4_324660 {
     float x, y, z, w;
 };
-struct Vertex {
+struct Vertex_324660 {
     float x, y, z, rhw, u, v;
 };
 namespace D3D8 {
@@ -18,31 +18,31 @@ void __stdcall D3DDevice_DrawVerticesUP(int, int, const void*, int);
 }
 extern float __cdecl FUN_003209f0(float);
 extern int __cdecl FUN_00356c30(int);
-struct Locals {
+struct Locals_324660 {
     char pad0[12];
     float dot;
-    Vec4 c2;
+    Vec4_324660 c2;
     float base;
     float scale;
-    Vec4 c4;
+    Vec4_324660 c4;
     float inv;
-    Vec4 c1;
-    Vec4 c0;
-    Vertex verts[4];
+    Vec4_324660 c1;
+    Vec4_324660 c0;
+    Vertex_324660 verts[4];
 };
 class FilterPass {
   public:
     char pad0[0x20];
     int texture;
     int shaders[17];
-    void Draw(const Vec3* a, float f1, float f2, const Vec3* b, float f3, float f4, int w, int h, float u, float v);
+    void Draw(const Vec3_324660* a, float f1, float f2, const Vec3_324660* b, float f3, float f4, int w, int h, float u, float v);
 };
-void FilterPass::Draw(const Vec3* a, float f1, float f2, const Vec3* b, float f3, float f4, int w, int h, float u, float v) {
-    Locals L;
+void FilterPass::Draw(const Vec3_324660* a, float f1, float f2, const Vec3_324660* b, float f3, float f4, int w, int h, float u, float v) {
+    Locals_324660 L;
     D3D8::D3DDevice_SetVertexShader(0x104);
     float fw = (float)w - 0.5f;
     float fh = (float)h - 0.5f;
-    Vertex* verts = L.verts;
+    Vertex_324660* verts = L.verts;
     verts[0].x = -0.5f;
     verts[0].y = -0.5f;
     verts[0].z = 1.0f;

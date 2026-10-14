@@ -8,13 +8,13 @@ extern float DAT_004c375c;
 extern float DAT_004c372c;
 extern float DAT_004c3734;
 
-struct V3 {
+struct V3_1b05a0 {
     float x, y, z;
     float FUN_0022d180();
 };
 
 float __cdecl FUN_000186b0(float *v, float *lo, float *hi);
-void __cdecl FUN_00224d70(float angle, V3 *axis);
+void __cdecl FUN_00224d70(float angle, V3_1b05a0 *axis);
 
 static float AbsF(float v)
 {
@@ -24,7 +24,7 @@ static float AbsF(float v)
     return c.f;
 }
 
-struct Tri {
+struct Tri_1b05a0 {
     char pad00[0x16];
     unsigned char b16;
     char pad17[0x18 - 0x17];
@@ -32,31 +32,31 @@ struct Tri {
 
 struct Mesh44 {
     char pad00[0x18];
-    Tri *tris;
+    Tri_1b05a0 *tris;
 };
 
 struct Geo {
     char pad00[0x44];
     Mesh44 *f44;
-    void FUN_001af890(V3 *out, int idx);
+    void FUN_001af890(V3_1b05a0 *out, int idx);
 };
 
 struct Entity;
-struct Info {
+struct Info_1b05a0 {
     char pad00[0x18];
     void *f18;
 };
 
-struct Contact {
+struct Contact_1b05a0 {
     char pad00[0xc];
-    Info *info;
+    Info_1b05a0 *info;
     char pad10[4];
     int f14;
-    V3 n;
+    V3_1b05a0 n;
     int f24;
     char pad28[4];
-    V3 p;
-    V3 q;
+    V3_1b05a0 p;
+    V3_1b05a0 q;
     char FUN_002f8e10(Geo **geo, unsigned int *idx);
 };
 
@@ -68,7 +68,7 @@ struct Ent114Body {
     int f12c;
     char pad130[0x138 - 0x130];
     int f138;
-    void FUN_00038e80(int a, void *hit, int b, V3 *p, V3 *n, int c);
+    void FUN_00038e80(int a, void *hit, int b, V3_1b05a0 *p, V3_1b05a0 *n, int c);
 };
 
 struct Ent114 {
@@ -86,11 +86,11 @@ struct Reg4c {
 };
 
 struct Sparks {
-    void FUN_00083320(V3 *q, V3 *n, int c, int d, V3 *z, int e);
+    void FUN_00083320(V3_1b05a0 *q, V3_1b05a0 *n, int c, int d, V3_1b05a0 *z, int e);
 };
 
 struct Grid38 {
-    void FUN_001f6cd0(Tri *tri, void *hit, V3 *q, V3 *n, V3 *dir, int mode, float r1, float r2, int *out, int z);
+    void FUN_001f6cd0(Tri_1b05a0 *tri, void *hit, V3_1b05a0 *q, V3_1b05a0 *n, V3_1b05a0 *dir, int mode, float r1, float r2, int *out, int z);
 };
 struct Grid34 {
     void FUN_001ebea0(int a, Entity *e);
@@ -98,7 +98,7 @@ struct Grid34 {
 
 struct World {
     char pad00[0x20];
-    struct Holder *f20;
+    struct Holder_1b05a0 *f20;
     char pad24[0x34 - 0x24];
     Grid34 *f34;
     Grid38 *f38;
@@ -106,12 +106,12 @@ struct World {
     Reg4c *f4c;
 };
 
-struct Holder {
+struct Holder_1b05a0 {
     char pad00[0x124];
     Entity *cur;
 };
 
-struct HitObj {
+struct HitObj_1b05a0 {
     char pad00[0xc];
     int kind;
 };
@@ -123,9 +123,9 @@ struct Body72 {
     float f34;
 };
 
-struct Obj1d72 {
+struct Obj1d72_1b05a0 {
     char pad00[0x50];
-    V3 v50;
+    V3_1b05a0 v50;
     char pad5c[0x6c - 0x5c];
     int f6c;
     struct Ob70 *f70;
@@ -136,7 +136,7 @@ struct Ob74 {
     Body72 *f20;
 };
 struct Ob70 {
-    void FUN_0016fc60(V3 *out);
+    void FUN_0016fc60(V3_1b05a0 *out);
 };
 
 struct Chk {
@@ -182,22 +182,22 @@ struct Entity {
     char FUN_001d6a80();
     int FUN_001d64a0();
     char FUN_001d6980();
-    V3 *FUN_001d6b40();
-    V3 *FUN_001d6b30();
-    void FUN_00035660(V3 *out);
+    V3_1b05a0 *FUN_001d6b40();
+    V3_1b05a0 *FUN_001d6b30();
+    void FUN_00035660(V3_1b05a0 *out);
     char FUN_000373d0();
-    Obj1d72 *FUN_001d72e0();
-    void FUN_001d6ad0(V3 *p);
+    Obj1d72_1b05a0 *FUN_001d72e0();
+    void FUN_001d6ad0(V3_1b05a0 *p);
     float FUN_001d8160();
     void FUN_0027d4f0(int a);
-    void FUN_001d69f0(V3 *out);
+    void FUN_001d69f0(V3_1b05a0 *out);
     void FUN_001d8cd0();
     void FUN_001d7510();
     void FUN_001d6ec0(int a, int b, int c);
-    void FUN_00038e80(int a, HitObj *hit, int b, V3 *p, V3 *n, int c);
+    void FUN_00038e80(int a, HitObj_1b05a0 *hit, int b, V3_1b05a0 *p, V3_1b05a0 *n, int c);
 };
 
-char __stdcall FUN_001b05a0(Entity *self, HitObj *hit, Contact *c)
+char __stdcall FUN_001b05a0(Entity *self, HitObj_1b05a0 *hit, Contact_1b05a0 *c)
 {
 #define world DAT_004dd700
     float tmpf;
@@ -208,12 +208,12 @@ char __stdcall FUN_001b05a0(Entity *self, HitObj *hit, Contact *c)
             unsigned int A = 0;
             if (!c->FUN_002f8e10(&B, &A))
                 return 1;
-            Tri *tri = &B->f44->tris[(unsigned short)A];
+            Tri_1b05a0 *tri = &B->f44->tris[(unsigned short)A];
             float minV = 1000.0f;
             float maxV = -1000.0f;
             unsigned short *idx = (unsigned short *)((char *)tri + 0x10);
             for (int k = 0; k < 3; k++) {
-                V3 out;
+                V3_1b05a0 out;
                 B->FUN_001af890(&out, idx[k]);
                 if (out.y < minV)
                     minV = out.y;
@@ -245,13 +245,13 @@ char __stdcall FUN_001b05a0(Entity *self, HitObj *hit, Contact *c)
         Geo *B = 0;
         unsigned int A = 0;
         if (c->FUN_002f8e10(&B, &A)) {
-            Tri *tri = &B->f44->tris[(unsigned short)A];
+            Tri_1b05a0 *tri = &B->f44->tris[(unsigned short)A];
             if (tri->b16 & 8)
                 return 1;
         }
     }
     if (other != 0 && other->FUN_000373d0()) {
-        V3 p, n;
+        V3_1b05a0 p, n;
         if (hit != c->info->f18) {
             n.x = c->n.x * -1.0f;
             n.y = c->n.y * -1.0f;
@@ -295,22 +295,22 @@ char __stdcall FUN_001b05a0(Entity *self, HitObj *hit, Contact *c)
         if (ebx == 0 && al != 0)
             goto L5cb;
 
-        V3 *edi = self->FUN_001d6b40();
-        V3 *eax = self->FUN_001d6b30();
-        V3 v;
+        V3_1b05a0 *edi = self->FUN_001d6b40();
+        V3_1b05a0 *eax = self->FUN_001d6b30();
+        V3_1b05a0 v;
         v.x = eax->x - edi->x;
         v.y = eax->y - edi->y;
         v.z = eax->z - edi->z;
         float thr = 15.0f;
         double lenSq;
         if (ebx != 0) {
-            V3 t;
+            V3_1b05a0 t;
             ((Entity *)ebx)->FUN_00035660(&t);
             lenSq = t.z * t.z + t.y * t.y + t.x * t.x;
             thr = 64.0f;
         } else {
-            Obj1d72 *o = self->FUN_001d72e0();
-            V3 *q = &o->v50;
+            Obj1d72_1b05a0 *o = self->FUN_001d72e0();
+            V3_1b05a0 *q = &o->v50;
             lenSq = q->z * q->z + q->y * q->y + q->x * q->x;
         }
         if (!(lenSq > thr))
@@ -322,7 +322,7 @@ char __stdcall FUN_001b05a0(Entity *self, HitObj *hit, Contact *c)
             unsigned int A = 0;
             if (!c->FUN_002f8e10(&B, &A))
                 goto L5cb;
-            Tri *tri = &B->f44->tris[(unsigned short)A];
+            Tri_1b05a0 *tri = &B->f44->tris[(unsigned short)A];
             if (tri == 0)
                 goto L5cb;
             if (tri->b16 & 8)
@@ -332,9 +332,9 @@ char __stdcall FUN_001b05a0(Entity *self, HitObj *hit, Contact *c)
             float hi = 0.5f;
             float rr = self->FUN_001d8160() * 0.01f;
             rr = FUN_000186b0(&rr, &hi, &lo);
-            V3 qv = c->q;
-            V3 nv = c->n;
-            V3 dir;
+            V3_1b05a0 qv = c->q;
+            V3_1b05a0 nv = c->n;
+            V3_1b05a0 dir;
             if (self->fec->FUN_001d5e80(self->f40) == 3) {
                 float ang = FUN_000964d0()->FUN_000787e0(0, 180.0f);
                 dir.x = DAT_004c3754;
@@ -345,7 +345,7 @@ char __stdcall FUN_001b05a0(Entity *self, HitObj *hit, Contact *c)
                 if (ebx != 0) {
                     ((Entity *)ebx)->FUN_00035660(&dir);
                 } else {
-                    Obj1d72 *o = self->FUN_001d72e0();
+                    Obj1d72_1b05a0 *o = self->FUN_001d72e0();
                     dir = o->v50;
                 }
                 dir.FUN_0022d180();
@@ -364,15 +364,15 @@ L5cb:
         }
     }
     if (hit->kind != 5 && self->b1c9) {
-        Obj1d72 *o = self->FUN_001d72e0();
-        V3 *q = &o->v50;
+        Obj1d72_1b05a0 *o = self->FUN_001d72e0();
+        V3_1b05a0 *q = &o->v50;
         if (q->z * q->z + q->y * q->y + q->x * q->x > 25.0f) {
             bool doIt = false;
             if (self->fec->FUN_001d5e80(self->f40) != 3) {
                 doIt = true;
             } else {
-                Obj1d72 *edi = self->FUN_001d72e0();
-                V3 tv;
+                Obj1d72_1b05a0 *edi = self->FUN_001d72e0();
+                V3_1b05a0 tv;
                 tv.x = 0;
                 tv.y = 0;
                 tv.z = 0;
@@ -418,14 +418,14 @@ L5cb:
 
     if (self->b14d) {
         void *edi = c->info->f18;
-        V3 qq;
+        V3_1b05a0 qq;
         if ((void *)self->FUN_001d72e0() == edi)
             qq = c->q;
         else
             qq = c->p;
         Sparks *sp = world->f4c->FUN_0007ad00(&self->pos8);
         if (sp) {
-            V3 z;
+            V3_1b05a0 z;
             z.x = 0;
             z.y = 0;
             z.z = 0;

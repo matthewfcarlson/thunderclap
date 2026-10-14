@@ -9,7 +9,7 @@ extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *d
 // equiv-conv: FUN_000cb7d0 ecx edx stack
 extern void __cdecl FUN_000cb7d0(float *cur, float *target, float step);
 
-class UiObj {
+class UiObj_cbc40 {
 public:
     virtual void v0();
     virtual void v1();
@@ -36,17 +36,17 @@ public:
     virtual char v22();
 };
 
-struct UiVec {
+struct UiVec_cbc40 {
     char pad0[0x24];
-    UiObj **begin;
-    UiObj **end;
+    UiObj_cbc40 **begin;
+    UiObj_cbc40 **end;
 };
 
-struct Probe {
+struct Probe_cbc40 {
     char FUN_00092940(int id);
 };
 
-struct Pawn {
+struct Pawn_cbc40 {
     char pad0[0x1b0c];
     float f1b0c;
     float f1b10;
@@ -56,19 +56,19 @@ struct Pawn {
     float FUN_00036090();
 };
 
-struct Obj54 {
-    Probe *FUN_00086340();
+struct Obj54_cbc40 {
+    Probe_cbc40 *FUN_00086340();
 };
-struct Game {
+struct Game_cbc40 {
     char pad0[0x54];
-    Obj54 *f54;
+    Obj54_cbc40 *f54;
 };
-extern Game *DAT_004dd700;
+extern Game_cbc40 *DAT_004dd700;
 
-class Panel {
+class Panel_cbc40 {
 public:
     char pad0[0x14];
-    Pawn *p14;
+    Pawn_cbc40 *p14;
     char pad18[0x14c - 0x18];
     float f14c;
     float f150;
@@ -77,7 +77,7 @@ public:
     float f15c;
     int f160;
     char pad164[4];
-    UiVec *p168;
+    UiVec_cbc40 *p168;
     float f16c;
     float f170;
     float f174;
@@ -90,13 +90,13 @@ public:
     float f190;
     float f194;
     char pad198[4];
-    UiVec *p19c;
+    UiVec_cbc40 *p19c;
     int state;
     void FUN_000caa60(const char *a, int *b);
     void FUN_000cbc40(float dt);
 };
 
-void Panel::FUN_000cbc40(float dt)
+void Panel_cbc40::FUN_000cbc40(float dt)
 {
     if (p14 == 0)
         return;
@@ -182,7 +182,7 @@ void Panel::FUN_000cbc40(float dt)
         union {
             float f;
             int i;
-            Probe *p;
+            Probe_cbc40 *p;
         } w[8];                 // w[1] = base+0x14 ... w[8] = base+0x30 (indexes 1..7 used)
     };
     Frame f;
@@ -257,7 +257,7 @@ void Panel::FUN_000cbc40(float dt)
             *hi = 1.0f;
             *lo = 0.0f;
             for (int i = 0; i < *n; i++) {
-                UiObj *o = p19c->begin[(unsigned char)i];
+                UiObj_cbc40 *o = p19c->begin[(unsigned char)i];
                 o->v6(*ms, 1);
                 *val = (o->v13() - 120.0f) * 0.0666667f;
                 f17c = FUN_000186b0(val, lo, hi);
@@ -268,7 +268,7 @@ void Panel::FUN_000cbc40(float dt)
         int n2 = (unsigned char)(p168->end - p168->begin);
         int cB = 0;
         for (int i = 0; i < n2; i++) {
-            UiObj *o = p168->begin[(unsigned char)i];
+            UiObj_cbc40 *o = p168->begin[(unsigned char)i];
             o->v6(*ms, 1);
             if (o->v22() || FUN_00344e74(o, 0, DAT_0049fd74, DAT_0049fd9c, 0) != 0)
                 cB++;
@@ -294,7 +294,7 @@ void Panel::FUN_000cbc40(float dt)
             *hi = 1.0f;
             *lo = 0.0f;
             for (int i = 0; i < *n; i++) {
-                UiObj *o = p19c->begin[(unsigned char)i];
+                UiObj_cbc40 *o = p19c->begin[(unsigned char)i];
                 o->v6(*ms, 1);
                 *val = o->v13() * 0.0666667f;
                 f17c = 1.0f - FUN_000186b0(val, lo, hi);
@@ -305,7 +305,7 @@ void Panel::FUN_000cbc40(float dt)
         int n2 = (unsigned char)(p168->end - p168->begin);
         int cB = 0;
         for (int i = 0; i < n2; i++) {
-            UiObj *o = p168->begin[(unsigned char)i];
+            UiObj_cbc40 *o = p168->begin[(unsigned char)i];
             o->v6(*ms, 1);
             if (o->v22())
                 cB++;
@@ -339,7 +339,7 @@ void Panel::FUN_000cbc40(float dt)
             *hi = 1.0f;
             *lo = 0.0f;
             for (int i = 0; i < *n; i++) {
-                UiObj *o = p19c->begin[(unsigned char)i];
+                UiObj_cbc40 *o = p19c->begin[(unsigned char)i];
                 o->v6(*ms, 1);
                 if (st == 5) {
                     *val = (o->v13() - 120.0f) * 0.0666667f;
@@ -357,7 +357,7 @@ void Panel::FUN_000cbc40(float dt)
         int n2 = (unsigned char)(p168->end - p168->begin);
         f.w[4].i = 0;
         for (int i = 0; i < n2; i++) {
-            UiObj *o = p168->begin[(unsigned char)i];
+            UiObj_cbc40 *o = p168->begin[(unsigned char)i];
             o->v6(*ms, 1);
             if (st == 5) {
                 if (o->v22() || FUN_00344e74(o, 0, DAT_0049fd74, DAT_0049fd9c, 0) != 0)
@@ -384,7 +384,7 @@ void Panel::FUN_000cbc40(float dt)
     if (doLists) {
         int n = (unsigned char)(p19c->end - p19c->begin);
         for (int i = 0; i < n; i = i) {
-            UiObj *o = p19c->begin[(unsigned char)i];
+            UiObj_cbc40 *o = p19c->begin[(unsigned char)i];
             o->v14(f.w[2].f, f.w[1].f);
             o->v12(f.w[2].f);
             n = (unsigned char)(p19c->end - p19c->begin);
@@ -392,7 +392,7 @@ void Panel::FUN_000cbc40(float dt)
         }
         n = (unsigned char)(p168->end - p168->begin);
         for (int i = 0; i < n; i = i) {
-            UiObj *o = p168->begin[(unsigned char)i];
+            UiObj_cbc40 *o = p168->begin[(unsigned char)i];
             o->v14(f.w[2].f, f.w[1].f);
             o->v12(f.w[2].f);
             n = (unsigned char)(p168->end - p168->begin);

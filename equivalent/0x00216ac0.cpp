@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 93 inputs, branch coverage 15/17, incomplete)
 // FUN_00216ac0 @ 0x00216ac0
 struct Node { unsigned int h; unsigned char type, flags, mode, shift; Node* next8; char p0[12]; Node* next18; unsigned int count1c, count20, count24, count28, count2c, count30, count34, count38; char p1[4]; Node* next40; char p2[8]; Node* next4c; };
-struct State { char pad[40]; Node* head; Node* list; };
+struct State_216ac0 { char pad[40]; Node* head; Node* list; };
 // equiv-conv: FUN_00216670 edi stack
-int FUN_00216670(Node*, State*);
-void __cdecl FUN_002168d0(State*);
+int FUN_00216670(Node*, State_216ac0*);
+void __cdecl FUN_002168d0(State_216ac0*);
 // equiv-conv: FUN_002169e0 edi stack
-void FUN_002169e0(Node*, State*);
-void __cdecl FUN_00216810(State*);
+void FUN_002169e0(Node*, State_216ac0*);
+void __cdecl FUN_00216810(State_216ac0*);
 // equiv-conv: FUN_00216ac0 eax stack
-int FUN_00216ac0(int budget, State* state) {
+int FUN_00216ac0(int budget, State_216ac0* state) {
  Node* n=state->head;
  if (!n) return budget;
  do {

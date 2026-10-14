@@ -5,21 +5,21 @@ struct ItemNode {
     unsigned char selected;     // 0xab8
 };
 
-struct Registry {
+struct Registry_ebf40 {
     ItemNode *FUN_000e6410(const char *name);
 };
 
-struct Inner {
+struct Inner_ebf40 {
     char pad0[4];
-    Registry *registry;
+    Registry_ebf40 *registry;
 };
 
-struct Outer {
+struct Outer_ebf40 {
     char pad0[8];
-    Inner *inner;
+    Inner_ebf40 *inner;
 };
 
-class Listener {
+class Listener_ebf40 {
 public:
     virtual void v0();
     virtual void notifyChanged();
@@ -49,11 +49,11 @@ public:
     virtual bool vfunc_12(int msg, int arg);
 
     char pad04[0x10];
-    Outer *outer;               // 0x14
+    Outer_ebf40 *outer;               // 0x14
     char pad18[0xa8 - 0x18];
     int id;                     // 0xa8
     char padac[0x118 - 0xac];
-    Listener *listeners[10];    // 0x118
+    Listener_ebf40 *listeners[10];    // 0x118
     char pad140[0x154 - 0x140];
     int sel;                    // 0x154
     char pad158[0x1d58 - 0x158];
@@ -73,7 +73,7 @@ bool MenuSelector::vfunc_12(int msg, int arg)
     if (msg == 2) {
         int cur = sel;
         if (cur != 0x7f && items[cur + 1][0] != 0) {
-            Registry *reg = outer->inner->registry;
+            Registry_ebf40 *reg = outer->inner->registry;
             reg->FUN_000e6410(items[cur])->selected = 0;
             reg = outer->inner->registry;
             reg->FUN_000e6410(items[sel + 1])->selected = 1;
@@ -88,7 +88,7 @@ bool MenuSelector::vfunc_12(int msg, int arg)
         }
         if (!wrap)
             return true;
-        Registry *reg = outer->inner->registry;
+        Registry_ebf40 *reg = outer->inner->registry;
         reg->FUN_000e6410(items[cur])->selected = 0;
         reg = outer->inner->registry;
         reg->FUN_000e6410(items[0])->selected = 1;
@@ -110,7 +110,7 @@ bool MenuSelector::vfunc_12(int msg, int arg)
     if (cur == 0) {
         if (!wrap)
             return true;
-        Registry *reg = outer->inner->registry;
+        Registry_ebf40 *reg = outer->inner->registry;
         reg->FUN_000e6410(items[0])->selected = 0;
         reg = outer->inner->registry;
         reg->FUN_000e6410(items[count - 1])->selected = 1;
@@ -124,7 +124,7 @@ bool MenuSelector::vfunc_12(int msg, int arg)
         FUN_000e30a0();
         return true;
     }
-    Registry *reg = outer->inner->registry;
+    Registry_ebf40 *reg = outer->inner->registry;
     reg->FUN_000e6410(items[cur])->selected = 0;
     reg = outer->inner->registry;
     reg->FUN_000e6410(items[sel - 1])->selected = 1;

@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 211 inputs, branch coverage 18/18)
 // FUN_00308fe0 @ 0x00308fe0
-struct V3 {
+struct V3_308fe0 {
     float x, y, z;
 };
 
-struct Matrix4 {
+struct Matrix4_308fe0 {
     float m[16];
     void FUN_0022c0b0();
-    void FUN_0022c2b0(const V3 *in, V3 *out);
-    void FUN_0022c3b0(const V3 *in, V3 *out);
+    void FUN_0022c2b0(const V3_308fe0 *in, V3_308fe0 *out);
+    void FUN_0022c3b0(const V3_308fe0 *in, V3_308fe0 *out);
 };
 
 struct SymMatrix {
@@ -17,53 +17,53 @@ struct SymMatrix {
     void FUN_002fca90();
     void FUN_002fcaa0();
     void FUN_002fcaf0(const SymMatrix *src);
-    void FUN_002fcd60(const Matrix4 *rot);
+    void FUN_002fcd60(const Matrix4_308fe0 *rot);
     void FUN_002fd0a0();
     void FUN_002fd0c0(const SymMatrix *src);
 };
 
-struct Part {
+struct Part_308fe0 {
     SymMatrix inertia;
-    V3 pos;
+    V3_308fe0 pos;
     float mass;
     float massBits;
     unsigned char active;
     char pad31[3];
 };
 
-class Body {
+class Body_308fe0 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual const Matrix4 *GetRotation(int i);
+    virtual const Matrix4_308fe0 *GetRotation(int i);
     char pad04[0xc];
-    Matrix4 mat;
+    Matrix4_308fe0 mat;
 };
 
-void __cdecl FUN_00305b00(SymMatrix *out, const V3 *p, float mass);
+void __cdecl FUN_00305b00(SymMatrix *out, const V3_308fe0 *p, float mass);
 
 class Hairclub {
 public:
     char pad00[0x10];
-    Body *body;
+    Body_308fe0 *body;
     char pad14[0x2c];
     float f40;
     float f44;
     char pad48[0x10];
-    Matrix4 mat;
-    V3 center;
+    Matrix4_308fe0 mat;
+    V3_308fe0 center;
     unsigned char flagA4;
     char padA5[3];
-    V3 va8;
-    V3 vb4;
+    V3_308fe0 va8;
+    V3_308fe0 vb4;
     char padC0[0x1c];
     SymMatrix symDC;
     SymMatrix symF8;
     SymMatrix sym114;
     char pad130[0x1f8 - 0x130];
-    Part *parts;
+    Part_308fe0 *parts;
     int count;
     void FUN_00308fe0();
 };
@@ -73,7 +73,7 @@ void Hairclub::FUN_00308fe0()
     if (!(f40 > 0.0f))
         return;
 
-    V3 a;
+    V3_308fe0 a;
     center.z = 0;
     center.y = 0;
     center.x = 0;
@@ -93,8 +93,8 @@ void Hairclub::FUN_00308fe0()
     center.z = s * center.z;
 
     const float *t = &body->mat.m[12];
-    V3 b;
-    Matrix4 mt = mat;
+    V3_308fe0 b;
+    Matrix4_308fe0 mt = mat;
     b.x = center.x - t[0];
     b.y = center.y - t[1];
     b.z = center.z - t[2];
@@ -132,7 +132,7 @@ void Hairclub::FUN_00308fe0()
     symDC.m[3] = symF8.m[3];
     symDC.m[4] = symF8.m[4];
     symDC.m[5] = symF8.m[5];
-    Matrix4 mt2 = mat;
+    Matrix4_308fe0 mt2 = mat;
     mt2.FUN_0022c0b0();
     symDC.FUN_002fcd60(&mt2);
     sym114.FUN_002fd0c0(&symF8);

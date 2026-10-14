@@ -2,31 +2,31 @@
 // FUN_0015c9c0 @ 0x0015c9c0
 extern char DAT_00415b00[];
 
-struct Vec3 { float x, y, z; };
-struct RefObj {
+struct Vec3_15c9c0 { float x, y, z; };
+struct RefObj_15c9c0 {
     virtual void addRef();
     virtual void release();
 };
-struct Source {
+struct Source_15c9c0 {
     char pad[0x74];
-    Vec3 pos;
-    Vec3 vel;
+    Vec3_15c9c0 pos;
+    Vec3_15c9c0 vel;
 };
 
 struct HeliLocomotionAction {
     int vptr;
     char pad04[0x18];
-    Source *f1c;
-    RefObj *f20;
+    Source_15c9c0 *f1c;
+    RefObj_15c9c0 *f20;
     int f24, f28, f2c, f30, f34, f38;
-    Vec3 pos;
-    Vec3 vel;
+    Vec3_15c9c0 pos;
+    Vec3_15c9c0 vel;
     int f54, f58, f5c, f60, f64;
     void FUN_00232660();
-    HeliLocomotionAction *FUN_0015c9c0(Source *src, RefObj *target);
+    HeliLocomotionAction *FUN_0015c9c0(Source_15c9c0 *src, RefObj_15c9c0 *target);
 };
 
-HeliLocomotionAction *HeliLocomotionAction::FUN_0015c9c0(Source *src, RefObj *target)
+HeliLocomotionAction *HeliLocomotionAction::FUN_0015c9c0(Source_15c9c0 *src, RefObj_15c9c0 *target)
 {
     FUN_00232660();
     f1c = src;

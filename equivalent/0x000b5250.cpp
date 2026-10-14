@@ -8,7 +8,7 @@ struct Locale {
     const char *FUN_000f7220(int id);
 };
 
-struct TextEntry {
+struct TextEntry_b5250 {
     void FUN_000f79a0(const char *text, int flag);
 };
 
@@ -16,7 +16,7 @@ Locale *__cdecl FUN_000fc1b0();
 void __cdecl FUN_000fc020(char *buf, int size, const char *fmt, ...);
 void __cdecl FUN_000fc000(char *buf, int size, const char *fmt, ...);
 
-void __stdcall FUN_000b5250(TextEntry *entry, const char *key, const char *k2, const char *k3,
+void __stdcall FUN_000b5250(TextEntry_b5250 *entry, const char *key, const char *k2, const char *k3,
                             const char *k4, const char *k5, const char *k6, const char *k7)
 {
     unsigned int cookie = DAT_004d9968;

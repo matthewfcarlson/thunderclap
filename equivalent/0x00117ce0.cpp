@@ -2,11 +2,11 @@
 // FUN_00117ce0 @ 0x00117ce0
 extern "C" char DAT_0040ed74[];
 
-struct RefObj {
+struct RefObj_117ce0 {
     virtual void addRef();
     virtual void release();
 };
-struct Name {
+struct Name_117ce0 {
     char data[8];
     void FUN_0027af00();
     void FUN_0027b040(const char *s);
@@ -16,7 +16,7 @@ struct MotionClosestWaypointAction {
     int vptr;
     char pad04[0x18];
     int f1c;
-    RefObj *f20;
+    RefObj_117ce0 *f20;
     char pad24[0xc];
     int f30;
     int f34;
@@ -27,12 +27,12 @@ struct MotionClosestWaypointAction {
     char f58;
     char pad59[3];
     int f5c;
-    Name name;
+    Name_117ce0 name;
     void FUN_00232660();
-    MotionClosestWaypointAction *FUN_00117ce0(int a, RefObj *target);
+    MotionClosestWaypointAction *FUN_00117ce0(int a, RefObj_117ce0 *target);
 };
 
-MotionClosestWaypointAction *MotionClosestWaypointAction::FUN_00117ce0(int a, RefObj *target)
+MotionClosestWaypointAction *MotionClosestWaypointAction::FUN_00117ce0(int a, RefObj_117ce0 *target)
 {
     FUN_00232660();
     vptr = (int)DAT_0040ed74;

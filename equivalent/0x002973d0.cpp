@@ -4,7 +4,7 @@ struct Matrix {
     float m[16];
 };
 
-class Child;
+class Child_2973d0;
 namespace pure3d {
 namespace scenegraph {
 
@@ -19,13 +19,13 @@ public:
     char pad04[0x24];
 };
 
-class Child {
+class Child_2973d0 {
 public:
     virtual void AddRef();
     virtual void Release();
     virtual void v2();
     virtual void v3();
-    virtual Child *Clone();
+    virtual Child_2973d0 *Clone();
     void FUN_002a77c0(TransformNode *parent);
 };
 
@@ -33,7 +33,7 @@ class TransformNode : public BranchNode {
 public:
     Matrix local;
     Matrix world;
-    Child *child;
+    Child_2973d0 *child;
     TransformNode(const TransformNode &source) throw();
     virtual void v0();
 };
@@ -44,7 +44,7 @@ TransformNode::TransformNode(const TransformNode &source) throw() : BranchNode(s
     local = source.local;
     world = source.world;
     if (source.child != 0) {
-        Child *clone = source.child->Clone();
+        Child_2973d0 *clone = source.child->Clone();
         if (clone != 0)
             clone->AddRef();
         if (child != 0)

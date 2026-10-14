@@ -4,16 +4,16 @@ extern char DAT_00494b44;
 extern char DAT_00494b60;
 extern void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 extern bool __cdecl FUN_00018960(float, float, float);
-struct Velocity { char pad[0x8c]; float turning; };
-struct State { Velocity* FUN_00059a30(); };
-struct Actor { State* FUN_000592a0(); };
+struct Velocity_1686a0 { char pad[0x8c]; float turning; };
+struct State_1686a0 { Velocity_1686a0* FUN_00059a30(); };
+struct Actor_1686a0 { State_1686a0* FUN_000592a0(); };
 namespace hulkfight { namespace motion {
 struct TurningVelocityCondition {
  virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5();
- virtual bool vfunc_6(void*, Actor*, void*);
+ virtual bool vfunc_6(void*, Actor_1686a0*, void*);
  char pad[8]; unsigned operation; float threshold;
 };
-bool TurningVelocityCondition::vfunc_6(void*, Actor* actor, void*) {
+bool TurningVelocityCondition::vfunc_6(void*, Actor_1686a0* actor, void*) {
  if (!FUN_00344e74(actor,0,&DAT_00494b44,&DAT_00494b60,0)) return false;
  float value = actor->FUN_000592a0()->FUN_00059a30()->turning;
  switch(operation) {

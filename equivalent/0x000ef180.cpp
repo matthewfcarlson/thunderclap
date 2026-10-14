@@ -10,14 +10,14 @@ struct ScreenSource {
     int f1850;
 };
 
-union Quad {
+union Quad_ef180 {
     int w[4];
     char bytes[16];
 };
 
-class __declspec(novtable) FEWidget {
+class __declspec(novtable) FEWidget_ef180 {
 public:
-    FEWidget(ScreenSource* src, int arg) { FUN_000e4510(src, arg); }
+    FEWidget_ef180(ScreenSource* src, int arg) { FUN_000e4510(src, arg); }
     virtual void v0();
     int f04;
     char pad08[0x990 - 8];
@@ -30,7 +30,7 @@ public:
     virtual void v0();
 };
 
-class FEScreenBase : public FEWidget {
+class FEScreenBase : public FEWidget_ef180 {
 public:
     FEScreenBase(ScreenSource* src, int arg);
     virtual void v1();
@@ -60,7 +60,7 @@ public:
     int fa98;  // 0xa98
     int fa9c;  // 0xa9c
     int faa0;  // 0xaa0
-    Quad quad;  // 0xaa4
+    Quad_ef180 quad;  // 0xaa4
     int fab4;  // 0xab4
     char fab8;  // 0xab8
     char fab9;  // 0xab9
@@ -76,7 +76,7 @@ public:
     char fbc2;  // 0xbc2
 };
 
-FEScreenBase::FEScreenBase(ScreenSource* src, int arg) : FEWidget(src, arg)
+FEScreenBase::FEScreenBase(ScreenSource* src, int arg) : FEWidget_ef180(src, arg)
 {
     int i;
     for (i = 0; i < 0x20; i++)

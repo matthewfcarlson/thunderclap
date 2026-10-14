@@ -1,34 +1,34 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_0014efd0 @ 0x0014efd0
-struct Vec3 {
+struct Vec3_14efd0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-extern Vec3 DAT_004afa08;
+extern Vec3_14efd0 DAT_004afa08;
 extern float DAT_003f32e0;
 
-void __cdecl FUN_00224d70(float angle, Vec3 *axis);
+void __cdecl FUN_00224d70(float angle, Vec3_14efd0 *axis);
 
 struct Marker;
 
-struct Timing {
+struct Timing_14efd0 {
     float FUN_000354c0();
 };
-struct Clock {
-    Timing *FUN_00059a30();
+struct Clock_14efd0 {
+    Timing_14efd0 *FUN_00059a30();
 };
 
-class Owner {
+class Owner_14efd0 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual Marker *GetMarker();
-    Clock *FUN_000592a0();
+    Clock_14efd0 *FUN_000592a0();
 };
 
-struct Config {
+struct Config_14efd0 {
     char pad0[0x10];
     int f10;
     float f14;
@@ -47,11 +47,11 @@ struct Config {
     char f44;
 };
 
-struct State {
+struct State_14efd0 {
     float f0;
     float f4;
     char pad8[0x10];
-    Vec3 axis;
+    Vec3_14efd0 axis;
     char f24;
     char pad25[3];
     float f28;
@@ -67,18 +67,18 @@ struct State {
     float f78;
     void FUN_00059370(Marker *m);
     // equiv-conv: FUN_000595f0 ecx stack stack stack stack
-    void FUN_000595f0(Vec3 *v, float a, float b, float c);
+    void FUN_000595f0(Vec3_14efd0 *v, float a, float b, float c);
 };
 
-struct Frame {
+struct Frame_14efd0 {
     float t;
-    Vec3 tmp;
+    Vec3_14efd0 tmp;
 };
 
 // equiv-conv: FUN_0014efd0 ebx esi edi
-void FUN_0014efd0(Owner *owner, Config *cfg, State *st)
+void FUN_0014efd0(Owner_14efd0 *owner, Config_14efd0 *cfg, State_14efd0 *st)
 {
-    Frame f;
+    Frame_14efd0 f;
     f.t = owner->FUN_000592a0()->FUN_00059a30()->FUN_000354c0();
     Marker *m = owner->GetMarker();
     if (m != 0 && cfg->f44 == 0) {

@@ -2,7 +2,7 @@
 // FUN_002b90e0 @ 0x002b90e0
 struct Matrix;
 
-struct V3 {
+struct V3_2b90e0 {
     float x, y, z;
     float FUN_0022d110();
     void FUN_0022d210(Matrix *m);
@@ -10,29 +10,29 @@ struct V3 {
 
 struct Node {
     char pad0[0x30];
-    V3 pos;
+    V3_2b90e0 pos;
 };
 
-struct Quad {
-    V3 corner[4];
+struct Quad_2b90e0 {
+    V3_2b90e0 corner[4];
 };
 
-class Billboard {
+class Billboard_2b90e0 {
 public:
     char pad0[0x80];
     float halfWidth;
     float halfHeight;
     float pull;
     unsigned char fixedSize;
-    void FUN_002b90e0(Quad *out, Node *from, Matrix *m, Node *target, float size);
+    void FUN_002b90e0(Quad_2b90e0 *out, Node *from, Matrix *m, Node *target, float size);
 };
 
-void Billboard::FUN_002b90e0(Quad *out, Node *from, Matrix *m, Node *target, float size)
+void Billboard_2b90e0::FUN_002b90e0(Quad_2b90e0 *out, Node *from, Matrix *m, Node *target, float size)
 {
-    V3 goal = target->pos;
-    V3 p = from->pos;
+    V3_2b90e0 goal = target->pos;
+    V3_2b90e0 p = from->pos;
     if (pull != 0.0f) {
-        V3 d;
+        V3_2b90e0 d;
         d.x = goal.x - p.x;
         d.y = goal.y - p.y;
         d.z = goal.z - p.z;

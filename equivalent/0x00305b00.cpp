@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00305b00 @ 0x00305b00
-struct V3 {
+struct V3_305b00 {
     float x, y, z;
 };
 
-struct Tensor {
+struct Tensor_305b00 {
     float f0;
     float yz2;
     float nxy;
@@ -15,7 +15,7 @@ struct Tensor {
     void FUN_002fcb80(int a);
 };
 
-void __cdecl FUN_00305b00(Tensor *out, const V3 *v, int a)
+void __cdecl FUN_00305b00(Tensor_305b00 *out, const V3_305b00 *v, int a)
 {
     out->yz2 = v->y * v->y + v->z * v->z;
     out->nxy = -(v->x * v->y);

@@ -1,30 +1,30 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00028530 @ 0x00028530
-typedef unsigned __int64 Key;
+typedef unsigned __int64 Key_28530;
 extern "C" int atexit(void (*)());
 void FUN_00363b40();
-extern Key __cdecl FUN_002672f0(const char*, int, int);
+extern Key_28530 __cdecl FUN_002672f0(const char*, int, int);
 
-struct NameKey {
+struct NameKey_28530 {
     int lo, hi;
     void FUN_0027af00();
     void FUN_0027b040(const char* s);
 };
-extern NameKey DAT_004dc128;
+extern NameKey_28530 DAT_004dc128;
 extern unsigned int DAT_004dc130;
 
-struct Entry {
-    int FUN_00036e70(NameKey* key, int value);
+struct Entry_28530 {
+    int FUN_00036e70(NameKey_28530* key, int value);
 };
 
-struct Owner {
-    Entry* FUN_00024280(Key key);
+struct Owner_28530 {
+    Entry_28530* FUN_00024280(Key_28530 key);
     int FUN_00028530(const char* name, const char* attr, float value);
 };
 
-int Owner::FUN_00028530(const char* name, const char* attr, float value)
+int Owner_28530::FUN_00028530(const char* name, const char* attr, float value)
 {
-    Entry* entry = FUN_00024280(FUN_002672f0(name, 0, 0));
+    Entry_28530* entry = FUN_00024280(FUN_002672f0(name, 0, 0));
     if (!entry) {
         return 0;
     }

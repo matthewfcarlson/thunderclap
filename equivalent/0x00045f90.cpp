@@ -3,29 +3,29 @@
 extern "C" int atexit(void (*)());
 void FUN_00363bd0();
 
-struct NameKey {
+struct NameKey_45f90 {
     unsigned lo, hi;
     void FUN_0027af00();
     void FUN_0027b040(const char *s);
 };
-extern NameKey DAT_004dc330;
+extern NameKey_45f90 DAT_004dc330;
 extern unsigned int DAT_004dc338;
 
-struct Entry {
+struct Entry_45f90 {
     unsigned lo, hi;
     float value;
     int pad;
 };
 
-class Table {
+class Table_45f90 {
 public:
     char pad0[0x480];
-    Entry entries[14];
+    Entry_45f90 entries[14];
     int count;
     float FUN_00045f90(const char *name);
 };
 
-float Table::FUN_00045f90(const char *name)
+float Table_45f90::FUN_00045f90(const char *name)
 {
     if ((DAT_004dc338 & 1) == 0) {
         DAT_004dc338 |= 1;

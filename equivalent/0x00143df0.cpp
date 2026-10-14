@@ -1,49 +1,49 @@
 // STATUS: equivalent (tools/equiv.py level 3: 968 inputs, branch coverage 12/12)
 // hulkfight::motion::WorldConeDamageAction::vfunc_5 @ 0x00143df0
-struct V3 {
+struct V3_143df0 {
     float x, y, z;
 };
 
-struct Mat4 {
+struct Mat4_143df0 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022bec0(const V3 *a, const V3 *b);
-    void FUN_0022be40(const V3 *pos);
+    void FUN_0022bec0(const V3_143df0 *a, const V3_143df0 *b);
+    void FUN_0022be40(const V3_143df0 *pos);
     void FUN_0022bc20(float x, float y, float z);
-    void FUN_0022ca90(const Mat4 *a, const Mat4 *b);
-    void FUN_0022c2b0(V3 *in, V3 *out);
-    void FUN_0022c3b0(V3 *in, V3 *out);
+    void FUN_0022ca90(const Mat4_143df0 *a, const Mat4_143df0 *b);
+    void FUN_0022c2b0(V3_143df0 *in, V3_143df0 *out);
+    void FUN_0022c3b0(V3_143df0 *in, V3_143df0 *out);
 };
 
 struct SkelXf {
-    Mat4 *FUN_00221c40();
+    Mat4_143df0 *FUN_00221c40();
 };
 
-struct Skel {
+struct Skel_143df0 {
     char pad0[0x10];
     SkelXf xf;
 };
 
-struct Clock {
-    Skel *FUN_00059a40();
+struct Clock_143df0 {
+    Skel_143df0 *FUN_00059a40();
 };
 
-struct Target {
-    Clock *FUN_000592a0();
+struct Target_143df0 {
+    Clock_143df0 *FUN_000592a0();
 };
 
-struct Rng {
+struct Rng_143df0 {
     int FUN_00011380(int lo, int hi);
     float FUN_000787e0(float lo, float hi);
     float FUN_00143100();
 };
-Rng *FUN_000964d0();
+Rng_143df0 *FUN_000964d0();
 
 struct Cone {
     char pad0[0x10];
-    V3 c10;
-    V3 c1c;
-    V3 c28;
+    V3_143df0 c10;
+    V3_143df0 c1c;
+    V3_143df0 c28;
     float f34;
     float f38;
     float f3c;
@@ -58,11 +58,11 @@ struct Cone {
 struct HitObj;
 
 struct RayCaster {
-    char FUN_00202460(V3 *pos, V3 *dir, float range, int one, V3 *out1, V3 *out2, HitObj **obj, int *id);
+    char FUN_00202460(V3_143df0 *pos, V3_143df0 *dir, float range, int one, V3_143df0 *out1, V3_143df0 *out2, HitObj **obj, int *id);
 };
 
 struct DamageSys {
-    void FUN_001f6cd0(HitObj *obj, int id, V3 *p1, V3 *p2, V3 *dir, int n, float r1, float r2, float *z, int zero);
+    void FUN_001f6cd0(HitObj *obj, int id, V3_143df0 *p1, V3_143df0 *p2, V3_143df0 *dir, int n, float r1, float r2, float *z, int zero);
 };
 
 struct World {
@@ -83,12 +83,12 @@ public:
     virtual bool vfunc_5(int mode, int unused);
     char pad04[0x1c - 4];
     Cone *cone;            // 0x1c
-    Target *target;        // 0x20
+    Target_143df0 *target;        // 0x20
 };
 
-struct Frame {
+struct Frame_143df0 {
     int i;                 // 0x10
-    V3 tmp;                // 0x14
+    V3_143df0 tmp;                // 0x14
     float elev;            // 0x20
     int hitId;             // 0x24
     HitObj *hitObj;        // 0x28
@@ -101,29 +101,29 @@ struct Frame {
     float a0;              // 0x4c
     float step;            // 0x50
     float f50Copy;         // 0x54
-    V3 dir;                // 0x58
-    V3 up;                 // 0x64
-    V3 w4;                 // 0x70
-    V3 out2;               // 0x7c
-    V3 out1;               // 0x88
-    V3 w1;                 // 0x94
-    V3 w3;                 // 0xa0
-    V3 w2;                 // 0xac
-    Mat4 a4;               // 0xb8
-    Mat4 t;                // 0xf8
-    Mat4 rot;              // 0x138
-    Mat4 m0;               // 0x178
+    V3_143df0 dir;                // 0x58
+    V3_143df0 up;                 // 0x64
+    V3_143df0 w4;                 // 0x70
+    V3_143df0 out2;               // 0x7c
+    V3_143df0 out1;               // 0x88
+    V3_143df0 w1;                 // 0x94
+    V3_143df0 w3;                 // 0xa0
+    V3_143df0 w2;                 // 0xac
+    Mat4_143df0 a4;               // 0xb8
+    Mat4_143df0 t;                // 0xf8
+    Mat4_143df0 rot;              // 0x138
+    Mat4_143df0 m0;               // 0x178
 };
 
 bool WorldConeDamageAction::vfunc_5(int mode, int unused)
 {
     if (mode != 1)
         return true;
-    Frame f;
+    Frame_143df0 f;
     f.n = cone->n54;
     if (f.n <= 0)
         return false;
-    Mat4 *src = target->FUN_000592a0()->FUN_00059a40()->xf.FUN_00221c40();
+    Mat4_143df0 *src = target->FUN_000592a0()->FUN_00059a40()->xf.FUN_00221c40();
     f.m0 = *src;
     f.hitId = 0;
     f.hitObj = 0;
@@ -135,7 +135,7 @@ bool WorldConeDamageAction::vfunc_5(int mode, int unused)
     f.a4.FUN_0022bec0(&f.tmp, &f.up);
     f.tmp = cone->c10;
     f.a4.FUN_0022be40(&f.tmp);
-    Rng *rng = FUN_000964d0();
+    Rng_143df0 *rng = FUN_000964d0();
     int count = rng->FUN_00011380(cone->i44, cone->i48);
     f.i = count;
     f.step = 0.017453292f / count * 360.0f;

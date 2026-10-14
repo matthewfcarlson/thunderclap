@@ -1,20 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 339 inputs, branch coverage 30/32, incomplete)
 // FUN_0007bbd0 @ 0x0007bbd0
-struct Mat4;
+struct Mat4_7bbd0;
 
-struct Vec3 {
+struct Vec3_7bbd0 {
     float x, y, z;
-    void FUN_0022d210(Mat4* m);
+    void FUN_0022d210(Mat4_7bbd0* m);
 };
 
-struct Mat4 {
+struct Mat4_7bbd0 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022baf0(Vec3* axis, float angle);
-    void FUN_0022be40(Vec3* t);
+    void FUN_0022baf0(Vec3_7bbd0* axis, float angle);
+    void FUN_0022be40(Vec3_7bbd0* t);
 };
 
-struct Tile {
+struct Tile_7bbd0 {
     short id;
     char active;
     char pad03;
@@ -22,7 +22,7 @@ struct Tile {
 };
 
 struct EntryTail {
-    Vec3 b;
+    Vec3_7bbd0 b;
     int pad18;
     int owner;
     int p;
@@ -32,45 +32,45 @@ struct EntryTail {
     char pad45[3];
 };
 
-struct Entry {
-    Vec3 a;
+struct Entry_7bbd0 {
+    Vec3_7bbd0 a;
     EntryTail t;
 };
 
-struct Flags {
+struct Flags_7bbd0 {
     char a;
     char b;
 };
 
-struct Cfg {
+struct Cfg_7bbd0 {
     float a, b, c, d;
     char on;
     char pad[3];
 };
 
-struct Frame {
+struct Frame_7bbd0 {
     int count;
     int l14;
     EntryTail* cur;
     int l1c;
     int tmp20;
     int slotBase;
-    Vec3 pos;
-    Vec3 axis;
-    Mat4 mat;
-    Cfg cfg[7];
+    Vec3_7bbd0 pos;
+    Vec3_7bbd0 axis;
+    Mat4_7bbd0 mat;
+    Cfg_7bbd0 cfg[7];
 };
 
 class HexBoard {
 public:
-    Tile tiles[800];
+    Tile_7bbd0 tiles[800];
     char pad1900[4];
-    Entry entries[98];
-    Flags flags[7];
+    Entry_7bbd0 entries[98];
+    Flags_7bbd0 flags[7];
 
-    void FUN_00079990(Cfg* cfg, int a2, int a3, int a4, int a5, int a6, int slot, int* out, int a9, int a10);
-    void FUN_00079c80(Cfg* cfg, int a2, int a3, int a4, int a5, int a6, int slot, int* out, int a9, int a10);
-    void FUN_00079f40(Cfg* cfg, int a2, int a3, int a4, int a5, int a6, int slot, int* out, int a9, int a10);
+    void FUN_00079990(Cfg_7bbd0* cfg, int a2, int a3, int a4, int a5, int a6, int slot, int* out, int a9, int a10);
+    void FUN_00079c80(Cfg_7bbd0* cfg, int a2, int a3, int a4, int a5, int a6, int slot, int* out, int a9, int a10);
+    void FUN_00079f40(Cfg_7bbd0* cfg, int a2, int a3, int a4, int a5, int a6, int slot, int* out, int a9, int a10);
     void FUN_0007a840(int slot, int k, int* a, int* b);
     void FUN_0007bbd0(int idx);
 };
@@ -87,14 +87,14 @@ void HexBoard::FUN_0007bbd0(int idx)
             return;
     }
 
-    Frame f;
+    Frame_7bbd0 f;
     entries[slot * 14].t.owner = idx;
     flags[slot].a = 0;
     flags[slot].b = 0;
     int bits = tiles[idx - 1].bits;
     for (int shift = 0; shift < 0x1c; shift += 4) {
         int n = (bits >> shift) & 0xf;
-        Cfg* c = &f.cfg[shift >> 2];
+        Cfg_7bbd0* c = &f.cfg[shift >> 2];
         if (!(n & 1)) {
             c->on = 0;
         } else {
@@ -139,7 +139,7 @@ void HexBoard::FUN_0007bbd0(int idx)
     f.mat.FUN_0022be40(&f.pos);
 
     if (f.count > 0) {
-        Entry* e = &entries[slot * 14];
+        Entry_7bbd0* e = &entries[slot * 14];
         f.slotBase = slot * 14;
         for (int k = 0; k < f.count; k++) {
             f.cur = &e->t;
@@ -152,13 +152,13 @@ void HexBoard::FUN_0007bbd0(int idx)
             if (f.l14 != -1 && f.l1c != -1) {
                 int sgn2 = ((f.l1c % 2) != 0) ? -1 : 1;
                 f.tmp20 = f.l14 * 14;
-                Entry* a = &entries[f.tmp20 + sgn2 + f.l1c];
+                Entry_7bbd0* a = &entries[f.tmp20 + sgn2 + f.l1c];
                 a->t.p = slot;
                 a->t.q = k + sgn;
-                Entry* b = &entries[f.tmp20 + f.l1c];
+                Entry_7bbd0* b = &entries[f.tmp20 + f.l1c];
                 b->t.p = slot;
                 b->t.q = k;
-                Entry* c = &entries[f.slotBase + sgn + k];
+                Entry_7bbd0* c = &entries[f.slotBase + sgn + k];
                 c->t.p = f.l14;
                 c->t.q = sgn2 + f.l1c;
             }

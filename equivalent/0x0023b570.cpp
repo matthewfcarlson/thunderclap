@@ -15,13 +15,13 @@ extern unsigned __int64 DAT_004e5b20;
 
 namespace fight { class Chunk; }
 
-struct Name {
+struct Name_23b570 {
     unsigned int lo, hi;
     void FUN_0027af00();
     void FUN_0027af50();
 };
 
-struct Writer {
+struct Writer_23b570 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -29,7 +29,7 @@ struct Writer {
     virtual void v4();
     virtual void v5();
     virtual void v6();
-    virtual void v7(unsigned __int64 key, Name *out);
+    virtual void v7(unsigned __int64 key, Name_23b570 *out);
     virtual void v8(unsigned __int64 key, char *buf, int size);
     virtual void v9();
     virtual void v10(unsigned __int64 key, int *out);
@@ -43,36 +43,36 @@ struct Writer {
     void FUN_00232c40(unsigned __int64 key, fight::Chunk *c);
 };
 
-extern void __cdecl FUN_00232cc0(Writer *w, const char *msg);
+extern void __cdecl FUN_00232cc0(Writer_23b570 *w, const char *msg);
 
-struct Holder {
+struct Holder_23b570 {
     int FUN_00233050();
     int FUN_00233b30(int index, fight::Chunk *c);
     int FUN_00233160(fight::Chunk *c);
-    Holder *FUN_00233580(char *name);
+    Holder_23b570 *FUN_00233580(char *name);
 };
 
-struct Scope {
+struct Scope_23b570 {
     char pad0[0x5c];
-    Holder *holder;         // 0x5c
+    Holder_23b570 *holder;         // 0x5c
 };
 
-struct Registry {
-    Scope *FUN_00232840(unsigned __int64 key);
+struct Registry_23b570 {
+    Scope_23b570 *FUN_00232840(unsigned __int64 key);
 };
-extern Registry *DAT_004e5af8;
+extern Registry_23b570 *DAT_004e5af8;
 
-struct ListA {
+struct ListA_23b570 {
     char pad[16];
     void FUN_00236ec0();
-    void FUN_00237160(unsigned int lo, unsigned int hi, Scope *s, Writer *w);
+    void FUN_00237160(unsigned int lo, unsigned int hi, Scope_23b570 *s, Writer_23b570 *w);
 };
 
-struct Frame {
+struct Frame_23b570 {
     char pad0[7];
     char flag;              // 0x07
     int count;              // 0x08
-    Name id;                // 0x0c
+    Name_23b570 id;                // 0x0c
     int gap;                // 0x14
     int out1;               // 0x18
     char buf[0x400];        // 0x1c
@@ -91,17 +91,17 @@ public:
     virtual void vfunc_6();
     virtual void vfunc_7();
     virtual void vfunc_8();
-    virtual char vfunc_9(void *a1, Writer *w, int a3);
+    virtual char vfunc_9(void *a1, Writer_23b570 *w, int a3);
     char pad04[0x14];
-    ListA list;             // 0x18
-    Scope *scope;           // 0x28
-    char FUN_002337c0(int a0, Writer *w, int index);
+    ListA_23b570 list;             // 0x18
+    Scope_23b570 *scope;           // 0x28
+    char FUN_002337c0(int a0, Writer_23b570 *w, int index);
 };
 }
 
-char fight::Chunk::vfunc_9(void *a1, Writer *w, int a3)
+char fight::Chunk::vfunc_9(void *a1, Writer_23b570 *w, int a3)
 {
-    Frame f;
+    Frame_23b570 f;
     f.cookie = DAT_004d9968;
     if (!w->HasToken() || w->TokenType() != DAT_004e5b18) {
         __security_check_cookie(f.cookie);
@@ -125,7 +125,7 @@ char fight::Chunk::vfunc_9(void *a1, Writer *w, int a3)
     w->v10(FUN_002672f0(DAT_004ca278, 0, 0), &f.count);
     bool ok = false;
     if (scope != 0) {
-        Holder *h = scope->holder->FUN_00233580(f.buf);
+        Holder_23b570 *h = scope->holder->FUN_00233580(f.buf);
         if (h == 0)
             h = scope->holder;
         if (h != 0) {

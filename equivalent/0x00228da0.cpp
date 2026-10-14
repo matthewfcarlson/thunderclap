@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 26/26)
 // choreo2::LocomotionSteerDriver::vfunc_10 @ 0x00228da0
-struct Quat {
+struct Quat_228da0 {
     float x, y, z, w;
-    void FUN_0022b750(const Quat *a, const Quat *b, float t);
+    void FUN_0022b750(const Quat_228da0 *a, const Quat_228da0 *b, float t);
     void FUN_0022b1c0(float angle);
 };
 
-struct Vec3 {
+struct Vec3_228da0 {
     float x, y, z;
 };
 
@@ -16,8 +16,8 @@ public:
     virtual void vf1();
     virtual void vf2();
     virtual void vf3();
-    virtual void vf4(float frame, Vec3 *out);
-    virtual void vf5(float frame, Quat *out);
+    virtual void vf4(float frame, Vec3_228da0 *out);
+    virtual void vf5(float frame, Quat_228da0 *out);
 };
 
 class ChannelSet;
@@ -25,50 +25,50 @@ class ChannelSet;
 class Pose {
 public:
     char pad0[0x30];
-    Vec3 position;
-    Quat *FUN_00221cd0();
-    void FUN_00221cf0(Quat *q);
-    void FUN_0022be40(Vec3 *v);
+    Vec3_228da0 position;
+    Quat_228da0 *FUN_00221cd0();
+    void FUN_00221cf0(Quat_228da0 *q);
+    void FUN_0022be40(Vec3_228da0 *v);
 };
 
-struct Base {
+struct Base_228da0 {
     char pad0[0x30];
-    Vec3 v;
+    Vec3_228da0 v;
 };
 
-struct Rig {
+struct Rig_228da0 {
     char pad0[0x10];
-    Quat *quats;            // 0x10
+    Quat_228da0 *quats;            // 0x10
     char *mats;             // 0x14 stride 0x40, position at +0x30
 };
 
-struct Rest {
+struct Rest_228da0 {
     char pad0[0x14];
-    Quat *quats;            // 0x14
+    Quat_228da0 *quats;            // 0x14
     char *mats;             // 0x18
 };
 
-struct Mask {
+struct Mask_228da0 {
     unsigned int pad0;
     unsigned int bits[1];
 };
 
-struct MaskHolder {
+struct MaskHolder_228da0 {
     char pad0[0x10];
-    Mask *mask;
+    Mask_228da0 *mask;
 };
 
-struct Source {
+struct Source_228da0 {
     char pad0[0x10];
     float length;
 };
 
-struct Chans {
+struct Chans_228da0 {
     Channel *pos;
     Channel *rot;
 };
 
-struct Blend {
+struct Blend_228da0 {
     unsigned int index;
     float weight;
     int pad;
@@ -76,12 +76,12 @@ struct Blend {
 
 float __cdecl FUN_0004af40(int mode, float a, float b);
 
-union ArgBase {
-    Base *base;
+union ArgBase_228da0 {
+    Base_228da0 *base;
     float acc;
 };
 
-union ArgPose {
+union ArgPose_228da0 {
     Pose *pose;
     float w;
 };
@@ -99,11 +99,11 @@ public:
     virtual void vfunc_7();
     virtual void vfunc_8();
     virtual void vfunc_9();
-    virtual void vfunc_10(ArgBase a, ArgPose p, Rig *rig, float t);
+    virtual void vfunc_10(ArgBase_228da0 a, ArgPose_228da0 p, Rig_228da0 *rig, float t);
     virtual void vfunc_11();
     char pad04[0xc];
-    Rest *rest;             // 0x10
-    MaskHolder *maskHolder; // 0x14
+    Rest_228da0 *rest;             // 0x10
+    MaskHolder_228da0 *maskHolder; // 0x14
     unsigned int first;     // 0x18
     unsigned int last;      // 0x1c
     char pad20[4];
@@ -116,29 +116,29 @@ public:
     float angle;            // 0x8a8
     char pad8ac[8];
     unsigned int blendCount;    // 0x8b4
-    Blend blends[1];            // 0x8b8
+    Blend_228da0 blends[1];            // 0x8b8
     char pad8c4[0x900 - 0x8c4];
-    Vec3 acc;                   // 0x900
+    Vec3_228da0 acc;                   // 0x900
 };
 }
 
-struct Frame {
+struct Frame_228da0 {
     choreo2::LocomotionSteerDriver *self;      // 0x10
     unsigned int first;                         // 0x14
     float frame;                                // 0x18
-    Mask *mask;                                 // 0x1c
+    Mask_228da0 *mask;                                 // 0x1c
     unsigned int last;                          // 0x20
     unsigned int k;                             // 0x24
-    Blend *bl;                                  // 0x28
-    Vec3 c;                                     // 0x2c
-    Vec3 v;                                     // 0x38
-    Quat q2;                                    // 0x44
-    Quat q;                                     // 0x54
+    Blend_228da0 *bl;                                  // 0x28
+    Vec3_228da0 c;                                     // 0x2c
+    Vec3_228da0 v;                                     // 0x38
+    Quat_228da0 q2;                                    // 0x44
+    Quat_228da0 q;                                     // 0x54
 };
 
-void choreo2::LocomotionSteerDriver::vfunc_10(ArgBase a, ArgPose p, Rig *rig, float t)
+void choreo2::LocomotionSteerDriver::vfunc_10(ArgBase_228da0 a, ArgPose_228da0 p, Rig_228da0 *rig, float t)
 {
-    Frame f;
+    Frame_228da0 f;
     f.self = this;
     if (maskHolder != 0)
         f.mask = maskHolder->mask;
@@ -151,7 +151,7 @@ void choreo2::LocomotionSteerDriver::vfunc_10(ArgBase a, ArgPose p, Rig *rig, fl
     if (first == 0) {
         Pose *pose = p.pose;
         if (b89c) {
-            Vec3 *acc = &this->acc;
+            Vec3_228da0 *acc = &this->acc;
             f.c = *acc;
             float s0 = f.c.x + a.base->v.x;
             float s1 = f.c.y + a.base->v.y;
@@ -186,14 +186,14 @@ void choreo2::LocomotionSteerDriver::vfunc_10(ArgBase a, ArgPose p, Rig *rig, fl
             char *slot = (char *)this + f.bl->index * 0x208;
             a.acc = a.acc + t * f.bl->weight;
             p.w = t * f.bl->weight / a.acc;
-            Source *src = *(Source **)(slot + 0x34);
+            Source_228da0 *src = *(Source_228da0 **)(slot + 0x34);
             if (src != 0) {
                 double d = src->length - 1.0f;
                 float dd = (float)d;
                 f.frame = dd;
                 f.frame = FUN_0004af40(0, dd, (float)(d * rate + *(float *)(slot + 0x238)));
                 if (first <= last) {
-                    Chans *ch = (Chans *)(slot + 0x38);
+                    Chans_228da0 *ch = (Chans_228da0 *)(slot + 0x38);
                     unsigned int i = first;
                     do {
                         if (f.mask == 0 || (f.mask->bits[i >> 5] & (1u << (i & 0x1f)))) {
@@ -207,8 +207,8 @@ void choreo2::LocomotionSteerDriver::vfunc_10(ArgBase a, ArgPose p, Rig *rig, fl
                             if (ch[i].pos != 0)
                                 ch[i].pos->vf4(f.frame, &f.v);
                             else
-                                f.v = *(Vec3 *)(rest->mats + i * 0x40 + 0x30);
-                            Vec3 *c = (Vec3 *)(rig->mats + i * 0x40 + 0x30);
+                                f.v = *(Vec3_228da0 *)(rest->mats + i * 0x40 + 0x30);
+                            Vec3_228da0 *c = (Vec3_228da0 *)(rig->mats + i * 0x40 + 0x30);
                             f.c = *c;
                             c->z = (f.v.z - f.c.z) * p.w + f.c.z;
                             c->x = (f.v.x - f.c.x) * p.w + f.c.x;

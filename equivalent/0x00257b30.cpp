@@ -1,23 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 373 inputs, branch coverage 11/12, incomplete)
 // FUN_00257b30 @ 0x00257b30
-struct Text { char data[12]; void FUN_0023fac0(); const char* FUN_0023fb00(); void FUN_00240060(); };
-struct Entry { char pad[16]; void* name; };
-struct List { char opaque; };
+struct Text_257b30 { char data[12]; void FUN_0023fac0(); const char* FUN_0023fb00(); void FUN_00240060(); };
+struct Entry_257b30 { char pad[16]; void* name; };
+struct List_257b30 { char opaque; };
 extern char DAT_004e7690;
 extern bool __cdecl FUN_0025abd0(void*, unsigned*);
-extern Entry* __cdecl FUN_00247530(void*);
+extern Entry_257b30* __cdecl FUN_00247530(void*);
 extern void* __cdecl FUN_002673a0(const char*, int);
-extern bool __cdecl FUN_0025bce0(void*, Text*);
-extern void __cdecl FUN_00257780(List*, Entry*, void**);
-extern void __cdecl FUN_00247550(void*, Entry*);
-struct Owner { char pad[0x44]; List list; bool target(void*); };
-bool Owner::target(void* input) {
+extern bool __cdecl FUN_0025bce0(void*, Text_257b30*);
+extern void __cdecl FUN_00257780(List_257b30*, Entry_257b30*, void**);
+extern void __cdecl FUN_00247550(void*, Entry_257b30*);
+struct Owner_257b30 { char pad[0x44]; List_257b30 list; bool target(void*); };
+bool Owner_257b30::target(void* input) {
  unsigned count;
  if (!FUN_0025abd0(input, &count)) return false;
  for (unsigned i=0; i<count; ++i) {
-  Entry* item = FUN_00247530(&DAT_004e7690);
+  Entry_257b30* item = FUN_00247530(&DAT_004e7690);
   if (item) item->name = FUN_002673a0("MyBuss",0);
-  Text text;
+  Text_257b30 text;
   text.FUN_0023fac0();
   bool ok = FUN_0025bce0(input,&text);
   void** slot = &item->name;

@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 4/4)
 // FUN_0021cb80 @ 0x0021cb80
-struct lua_State {
+struct lua_State_21cb80 {
     char pad[8];
     char *top;
 };
 
-struct Proto {
+struct Proto_21cb80 {
     char pad0[8];
     void *k;
     void *code;
@@ -24,10 +24,10 @@ struct Proto {
     unsigned char nups;
 };
 
-struct FuncState {
-    Proto *f;
+struct FuncState_21cb80 {
+    Proto_21cb80 *f;
     char pad0[4];
-    FuncState *prev;
+    FuncState_21cb80 *prev;
     char pad1[0x18 - 0xc];
     int pc;
     char pad2[0x28 - 0x1c];
@@ -41,26 +41,26 @@ struct TokenInfo {
     int length;
 };
 
-struct LexState {
+struct LexState_21cb80 {
     char pad0[0xc];
     int token;
     TokenInfo *seminfo;
     char pad1[0x1c - 0x14];
-    FuncState *fs;
-    lua_State *L;
+    FuncState_21cb80 *fs;
+    lua_State_21cb80 *L;
 };
 
 // equiv-conv: FUN_0021c5b0 eax edx
-void FUN_0021c5b0(LexState *ls, int level);
-void FUN_00220bd0(FuncState *fs, unsigned op, int a, unsigned b, unsigned c);
-void *FUN_0021add0(lua_State *L, void *block, unsigned oldsize, unsigned newsize);
-void FUN_0021b080(LexState *ls, void *str, int len);
+void FUN_0021c5b0(LexState_21cb80 *ls, int level);
+void FUN_00220bd0(FuncState_21cb80 *fs, unsigned op, int a, unsigned b, unsigned c);
+void *FUN_0021add0(lua_State_21cb80 *L, void *block, unsigned oldsize, unsigned newsize);
+void FUN_0021b080(LexState_21cb80 *ls, void *str, int len);
 
-void FUN_0021cb80(LexState *ls)
+void FUN_0021cb80(LexState_21cb80 *ls)
 {
-    lua_State *L = ls->L;
-    FuncState *fs = ls->fs;
-    Proto *f = fs->f;
+    lua_State_21cb80 *L = ls->L;
+    FuncState_21cb80 *fs = ls->fs;
+    Proto_21cb80 *f = fs->f;
 
     FUN_0021c5b0(ls, 0);
     FUN_00220bd0(fs, 0x1b, 0, 1, 0);

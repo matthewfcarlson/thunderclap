@@ -3,10 +3,10 @@
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
-class Manager { public: char pad[4]; };
+class Manager_b7ff0 { public: char pad[4]; };
 
-struct TextEntry {
-    void FUN_000f8500(const char* name, Manager* manager, char flag);
+struct TextEntry_b7ff0 {
+    void FUN_000f8500(const char* name, Manager_b7ff0* manager, char flag);
 };
 
 class FEObject {
@@ -17,7 +17,7 @@ public:
     virtual void vfunc_3();
     char pad04[0x10];
     int f14;
-    TextEntry entry;
+    TextEntry_b7ff0 entry;
 };
 
 class TextWindow : public FEObject {
@@ -35,7 +35,7 @@ public:
 int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, ...);
 FEObject* __cdecl FUN_000fc260(const char* name);
 
-class HintMenu {
+class HintMenu_b7ff0 {
 public:
     void FUN_000b7ff0();
 
@@ -43,7 +43,7 @@ public:
     int hintIds[1];             // 0x1a0c
 };
 
-void HintMenu::FUN_000b7ff0()
+void HintMenu_b7ff0::FUN_000b7ff0()
 {
     unsigned int cookie = DAT_004d9968;
     char buf[0x40];

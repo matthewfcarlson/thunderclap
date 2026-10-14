@@ -4,18 +4,18 @@
 void* FUN_0008d690(unsigned int);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 class CActorManager;
-class Registry { public:
+class Registry_30d30 { public:
     void FUN_001d3b70(const char*, void*);
     void FUN_00030d30(const char* a1, CActorManager* a2, void (*a3)());
 };
 template<class C, class R, class A1, class A2, class A3, class A4, class A5> class Closure5;
 template<> class Closure5<CActorManager, void, const char*, const char*, float, float, float> { public: virtual void v(); char pad[0x1c]; CActorManager* owner; Closure5(CActorManager* o) { owner = o; } };
-class Raw { public: void FUN_0002d960(const char*, void (*)()); };
-void Registry::FUN_00030d30(const char* a1, CActorManager* a2, void (*a3)()) {
+class Raw_30d30 { public: void FUN_0002d960(const char*, void (*)()); };
+void Registry_30d30::FUN_00030d30(const char* a1, CActorManager* a2, void (*a3)()) {
     void* m = FUN_0008d690(0x24);
     void* x = 0;
     if (m) {
-        ((Raw*)m)->FUN_0002d960(a1, a3);
+        ((Raw_30d30*)m)->FUN_0002d960(a1, a3);
         x = new (m) Closure5<CActorManager, void, const char*, const char*, float, float, float>(a2);
     }
     FUN_001d3b70(a1, x);

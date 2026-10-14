@@ -2,15 +2,15 @@
 // FUN_001b1080 @ 0x001b1080
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_1b1080 {
     float x, y, z;
 };
 
-struct Mover {
-    void FUN_00035660(V3 *out);
+struct Mover_1b1080 {
+    void FUN_00035660(V3_1b1080 *out);
 };
 
-struct Core {
+struct Core_1b1080 {
     unsigned __int64 FUN_001d4f70();
 };
 
@@ -18,23 +18,23 @@ extern unsigned __int64 DAT_004e1828;
 float __cdecl FUN_00018a20(float x);
 float __cdecl FUN_000186b0(float *value, float *lo, float *hi);
 
-struct Slots {
+struct Slots_1b1080 {
     float hi;
     float lo;
     float d;
 };
 
-struct Obj {
+struct Obj_1b1080 {
     char pad0[0xe8];
     char clampFlag;
     char pade9[3];
-    Core *core;
+    Core_1b1080 *core;
     char padf0[0x148 - 0xf0];
     int blocked;
     float FUN_001d8160();
 };
 
-int __stdcall FUN_001b1080(Obj *obj, Mover *mover, V3 *out, int a4)
+int __stdcall FUN_001b1080(Obj_1b1080 *obj, Mover_1b1080 *mover, V3_1b1080 *out, int a4)
 {
     if (obj->core->FUN_001d4f70() == DAT_004e1828) {
         out->x = 0.0f;
@@ -42,11 +42,11 @@ int __stdcall FUN_001b1080(Obj *obj, Mover *mover, V3 *out, int a4)
         out->z = 0.0f;
         return 0;
     }
-    V3 v;
+    V3_1b1080 v;
     mover->FUN_00035660(&v);
     float vlen2 = v.z * v.z + v.y * v.y + v.x * v.x;
-    V3 w = *out;
-    Slots s;
+    V3_1b1080 w = *out;
+    Slots_1b1080 s;
     s.d = (float)sqrt(vlen2);
     if (!(s.d >= 0.01f))
         return 0;

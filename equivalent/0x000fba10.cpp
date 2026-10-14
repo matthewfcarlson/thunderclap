@@ -2,7 +2,7 @@
 // FUN_000fba10 @ 0x000fba10
 typedef unsigned short wc;
 
-class Measurer {
+class Measurer_fba10 {
 public:
     virtual void v0();
     virtual void v1();
@@ -17,16 +17,16 @@ public:
     virtual float measure(const wc *text);
 };
 
-struct Manager {
+struct Manager_fba10 {
     char pad[0x10c];
     int language;
 };
-Manager *__cdecl FUN_000fc1b0();
+Manager_fba10 *__cdecl FUN_000fc1b0();
 extern const wc DAT_0040cf10[];
 extern const wc DAT_0040cf14[];
 
 int __cdecl FUN_000fba10(wc **lines, int maxLines, int maxChars, const wc *src, float maxWidth,
-                         Measurer *m)
+                         Measurer_fba10 *m)
 {
     if (maxChars == 2)
         return 1;

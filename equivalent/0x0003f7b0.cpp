@@ -3,16 +3,16 @@
 extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
 
-struct V3 {
+struct V3_3f7b0 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_000111b0(const V3 *a, const V3 *b);
+    void FUN_000111b0(const V3_3f7b0 *a, const V3_3f7b0 *b);
     void FUN_00011090();
 };
 
-void __stdcall FUN_00011520(void *arr, unsigned int size, int count, void (V3::*ctor)());
+void __stdcall FUN_00011520(void *arr, unsigned int size, int count, void (V3_3f7b0::*ctor)());
 
-struct Info {
+struct Info_3f7b0 {
     char pad00[0x16];
     unsigned char flags16;
 };
@@ -21,33 +21,33 @@ struct Holder5 {
     char pad00[0x40];
     int f40;
     char pad44[0xec - 0x44];
-    struct Checker *chk;
+    struct Checker_3f7b0 *chk;
 };
 
-struct HitObj {
+struct HitObj_3f7b0 {
     char pad00[8];
     Holder5 *sub;
     int kind;
 };
 
-struct Checker {
+struct Checker_3f7b0 {
     char FUN_001d6000(int a);
 };
 
-struct Cfg {
+struct Cfg_3f7b0 {
     char pad00[0x30];
     float f30;
     float radius;
 };
 
-struct Player {
+struct Player_3f7b0 {
     char pad00[0x124];
-    struct Chara *current;
+    struct Chara_3f7b0 *current;
 };
 
 struct World {
     char pad00[0x20];
-    Player *player;
+    Player_3f7b0 *player;
 };
 
 extern World *DAT_004dd700;
@@ -56,24 +56,24 @@ extern float DAT_0048f694;
 extern unsigned int DAT_004dc2e8;
 extern float DAT_004dc2e4;
 
-char FUN_002027c0(V3 *from, V3 *to, int a, int b, V3 *hitPos, V3 *hitNormal, HitObj **hitObj, Info **info);
+char FUN_002027c0(V3_3f7b0 *from, V3_3f7b0 *to, int a, int b, V3_3f7b0 *hitPos, V3_3f7b0 *hitNormal, HitObj_3f7b0 **hitObj, Info_3f7b0 **info);
 
-struct Chara {
+struct Chara_3f7b0 {
     char pad00[0x11c];
-    Cfg *cfg;
+    Cfg_3f7b0 *cfg;
     char pad120[0x140 - 0x120];
     int mode;
     char pad144[0x334 - 0x144];
-    Chara *ignoreA;
-    Chara *ignoreB;
+    Chara_3f7b0 *ignoreA;
+    Chara_3f7b0 *ignoreB;
     char pad33c[0x1b08 - 0x33c];
     char allowMiss;
     void FUN_00035fa0(int a);
-    char Probe(V3 *p1, V3 *p2, V3 *out1, V3 *out2, V3 *d, V3 *n2, unsigned int *flags);
+    char Probe(V3_3f7b0 *p1, V3_3f7b0 *p2, V3_3f7b0 *out1, V3_3f7b0 *out2, V3_3f7b0 *d, V3_3f7b0 *n2, unsigned int *flags);
 };
 
-struct Frame {
-    V3 n;               // 0x00
+struct Frame_3f7b0 {
+    V3_3f7b0 n;               // 0x00
     char pad0c[3];
     char found;         // 0x0f
     int i;              // 0x10
@@ -83,21 +83,21 @@ struct Frame {
         struct { float tmp18; float w1c; };
     };
     float radius;       // 0x20
-    Info *info;         // 0x24
-    V3 w;               // 0x28
-    V3 c;               // 0x34
+    Info_3f7b0 *info;         // 0x24
+    V3_3f7b0 w;               // 0x28
+    V3_3f7b0 c;               // 0x34
     int flagArg;        // 0x40
     int k;              // 0x44
-    V3 hn;              // 0x48 (up vector, then hit normal)
-    V3 s;               // 0x54
-    V3 nn;              // 0x60
+    V3_3f7b0 hn;              // 0x48 (up vector, then hit normal)
+    V3_3f7b0 s;               // 0x54
+    V3_3f7b0 nn;              // 0x60
     float dd;           // 0x6c
-    HitObj *hitObj;     // 0x70
-    V3 t;               // 0x74
-    V3 hp;              // 0x80
-    V3 arr2[3];         // 0x8c
-    V3 hp2;             // 0xb0
-    V3 arr[5];          // 0xbc
+    HitObj_3f7b0 *hitObj;     // 0x70
+    V3_3f7b0 t;               // 0x74
+    V3_3f7b0 hp;              // 0x80
+    V3_3f7b0 arr2[3];         // 0x8c
+    V3_3f7b0 hp2;             // 0xb0
+    V3_3f7b0 arr[5];          // 0xbc
 };
 
 static float AbsF(float v)
@@ -108,13 +108,13 @@ static float AbsF(float v)
     return c.f;
 }
 
-char Chara::Probe(V3 *p1, V3 *p2, V3 *out1, V3 *out2, V3 *d, V3 *n2, unsigned int *flags)
+char Chara_3f7b0::Probe(V3_3f7b0 *p1, V3_3f7b0 *p2, V3_3f7b0 *out1, V3_3f7b0 *out2, V3_3f7b0 *d, V3_3f7b0 *n2, unsigned int *flags)
 {
     if (cfg == 0)
         return 0;
 
-    Chara *cur = DAT_004dd700->player->current;
-    Frame f;
+    Chara_3f7b0 *cur = DAT_004dd700->player->current;
+    Frame_3f7b0 f;
     f.flagArg = 0;
     if (this != cur && ignoreB != cur && ignoreA != cur)
         f.flagArg = 1;
@@ -155,7 +155,7 @@ char Chara::Probe(V3 *p1, V3 *p2, V3 *out1, V3 *out2, V3 *d, V3 *n2, unsigned in
         DAT_004dc2e4 = (float)cos(1.1344640453656516);
     }
 
-    FUN_00011520(f.arr, 12, 5, &V3::FUN_00011090);
+    FUN_00011520(f.arr, 12, 5, &V3_3f7b0::FUN_00011090);
     f.count = 0;
     f.k = 0;
     if (d && (f.n.z * d->z + f.n.y * d->y + f.n.x * d->x) <= DAT_004dc2e4) {
@@ -172,7 +172,7 @@ char Chara::Probe(V3 *p1, V3 *p2, V3 *out1, V3 *out2, V3 *d, V3 *n2, unsigned in
     f.w.z = p2->z - p1->z;
     f.w.FUN_0022d110();
 
-    FUN_00011520(f.arr2, 12, 3, &V3::FUN_00011090);
+    FUN_00011520(f.arr2, 12, 3, &V3_3f7b0::FUN_00011090);
     float hy = DAT_0048f690 * f.w1c;
     f.arr2[0].x = 0;
     f.arr2[0].y = hy;

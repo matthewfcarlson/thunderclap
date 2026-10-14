@@ -4,17 +4,17 @@ __declspec(nothrow) void __cdecl FUN_0008d330(void*);
 __declspec(nothrow) void __stdcall FUN_000b0ff0(void*);
 __declspec(nothrow) void __stdcall FUN_00013420(void*, int, int, void (__stdcall *)(void*));
 namespace core { struct IRefCount { virtual void slot0(); ~IRefCount() {} }; }
-struct Buffer { unsigned count; void* data; };
-struct Block { Buffer entries[6]; };
+struct Buffer_b2640 { unsigned count; void* data; };
+struct Block_b2640 { Buffer_b2640 entries[6]; };
 struct CPhysicalController : core::IRefCount {
  virtual void slot0();
  char pad[0x58-4];
- Buffer first[11]; Block firstBlocks[2];
- Buffer second[11]; Block secondBlocks[2];
- Buffer third[13]; Block thirdBlocks[2];
- Buffer fourth[13]; Block fourthBlocks[2];
+ Buffer_b2640 first[11]; Block_b2640 firstBlocks[2];
+ Buffer_b2640 second[11]; Block_b2640 secondBlocks[2];
+ Buffer_b2640 third[13]; Block_b2640 thirdBlocks[2];
+ Buffer_b2640 fourth[13]; Block_b2640 fourthBlocks[2];
  void* fifth[11]; char gap[0x60]; void* sixth[13];
- char tail[0x60]; Buffer extraA, extraB;
+ char tail[0x60]; Buffer_b2640 extraA, extraB;
  __declspec(nothrow) void FUN_000b0db0(); ~CPhysicalController();
 };
 CPhysicalController::~CPhysicalController() {

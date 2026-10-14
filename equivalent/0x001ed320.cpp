@@ -2,34 +2,34 @@
 // FUN_001ed320 @ 0x001ed320
 typedef unsigned __int64 ID;
 struct V { float x,y,z; float FUN_000259c0(); };
-struct Name { unsigned a,b; void FUN_0027b0e0(const char*); void FUN_0027af50(); };
-struct Named { char header[8]; Name name; };
-struct Info { char p[20]; int flag; ID FUN_000443c0(); const char* FUN_000443b0(); };
-struct Position { bool FUN_00059a50(V*); };
-struct Entity { char p0[8]; ID id; Position* pos; char p14[0x108]; Info* info; char p120[8]; int excluded; char p12c[20]; int state; char p144[0x1f4]; Entity* link; char p33c[0x1724]; V origin; char p1a6c[0x221]; unsigned char screaming; char p1c8e[2]; float timer; bool FUN_00035660(V*); };
-struct Actor { char p0[8]; ID id; char p10[0xdc]; Named* name; char pf0[12]; int state; char p100[20]; void* flag; char p118[48]; Entity* entity; char p14c[125]; unsigned char flag2; V* FUN_001d6b40(); V* FUN_001d77c0(); };
-struct Item { char p0[8]; ID id; char p10[84]; V location; };
-struct Extra { char p[8]; ID id; V* FUN_00082cf0(); };
-struct List { char p[12]; int count; Entity* FUN_00024190(int); bool FUN_00024540(Entity*); };
-struct Items { char p[0x3800]; Extra* extras[10]; int count; int FUN_00079270(); Item* FUN_00079280(int); };
-struct Actors { int FUN_001dcf50(); Actor* FUN_001dc0b0(int); };
-struct Slot { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual Actor* v5(); };
-struct Slots { Slot* FUN_001b68e0(int); };
-struct World { char p[12]; Actors* actors; char p10[4]; Slots* slots; char p18[8]; List* list; char p24[40]; Items* items; };
-struct Renderer { void FUN_001f42d0(ID*,Name*,V,V,V,V,int); };
-struct Indirect { Renderer* renderer; };
-struct Manager { Indirect* indirect; void FUN_001eb7e0(ID*,Name*,V*,V*,V*,V,int); void FUN_001eb560(const char*); void FUN_001eb6c0(const char*); };
+struct Name_1ed320 { unsigned a,b; void FUN_0027b0e0(const char*); void FUN_0027af50(); };
+struct Named_1ed320 { char header[8]; Name_1ed320 name; };
+struct Info_1ed320 { char p[20]; int flag; ID FUN_000443c0(); const char* FUN_000443b0(); };
+struct Position_1ed320 { bool FUN_00059a50(V*); };
+struct Entity { char p0[8]; ID id; Position_1ed320* pos; char p14[0x108]; Info_1ed320* info; char p120[8]; int excluded; char p12c[20]; int state; char p144[0x1f4]; Entity* link; char p33c[0x1724]; V origin; char p1a6c[0x221]; unsigned char screaming; char p1c8e[2]; float timer; bool FUN_00035660(V*); };
+struct Actor_1ed320 { char p0[8]; ID id; char p10[0xdc]; Named_1ed320* name; char pf0[12]; int state; char p100[20]; void* flag; char p118[48]; Entity* entity; char p14c[125]; unsigned char flag2; V* FUN_001d6b40(); V* FUN_001d77c0(); };
+struct Item_1ed320 { char p0[8]; ID id; char p10[84]; V location; };
+struct Extra_1ed320 { char p[8]; ID id; V* FUN_00082cf0(); };
+struct List_1ed320 { char p[12]; int count; Entity* FUN_00024190(int); bool FUN_00024540(Entity*); };
+struct Items_1ed320 { char p[0x3800]; Extra_1ed320* extras[10]; int count; int FUN_00079270(); Item_1ed320* FUN_00079280(int); };
+struct Actors { int FUN_001dcf50(); Actor_1ed320* FUN_001dc0b0(int); };
+struct Slot_1ed320 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual Actor_1ed320* v5(); };
+struct Slots_1ed320 { Slot_1ed320* FUN_001b68e0(int); };
+struct World { char p[12]; Actors* actors; char p10[4]; Slots_1ed320* slots; char p18[8]; List_1ed320* list; char p24[40]; Items_1ed320* items; };
+struct Renderer_1ed320 { void FUN_001f42d0(ID*,Name_1ed320*,V,V,V,V,int); };
+struct Indirect { Renderer_1ed320* renderer; };
+struct Manager_1ed320 { Indirect* indirect; void FUN_001eb7e0(ID*,Name_1ed320*,V*,V*,V*,V,int); void FUN_001eb560(const char*); void FUN_001eb6c0(const char*); };
 extern unsigned char DAT_0049caa0,DAT_004e3708;
 extern ID DAT_004dc0e0,DAT_004dc068,DAT_004dc0a8,DAT_004dc0b8,DAT_004dc0c8;
 extern V DAT_004c7614,DAT_004e36e4;
-extern Manager* DAT_004e36d8;
-struct Target { World* world; void FUN_001ed0b0(Entity*); void FUN_001ec100(Entity*,const char*); void run(World*,float); };
-void Target::run(World* w,float dt) {
+extern Manager_1ed320* DAT_004e36d8;
+struct Target_1ed320 { World* world; void FUN_001ed0b0(Entity*); void FUN_001ec100(Entity*,const char*); void run(World*,float); };
+void Target_1ed320::run(World* w,float dt) {
  if(!DAT_0049caa0) return;
  world=w;
  if(!w) return;
  V velocity,position,delta,origin;
- Name name;
+ Name_1ed320 name;
  int count=world->list->count;
  for(int i=0;i<count;++i) {
   Entity* e=world->list->FUN_00024190(i);
@@ -79,7 +79,7 @@ void Target::run(World* w,float dt) {
  }
  count=world->items->FUN_00079270();
  for(int i=0;i<count;++i) {
-  Item* e=world->items->FUN_00079280(i);
+  Item_1ed320* e=world->items->FUN_00079280(i);
   if(e) {
    origin=e->location;
    name.FUN_0027b0e0("civilians");
@@ -90,7 +90,7 @@ void Target::run(World* w,float dt) {
  if(world->actors) {
   count=world->actors->FUN_001dcf50();
   for(int i=0;i<count;++i) {
-   Actor* a=world->actors->FUN_001dc0b0(i);
+   Actor_1ed320* a=world->actors->FUN_001dc0b0(i);
    if(!a || a->state==2 || a->state==3) continue;
    Entity* e=a->entity;
    bool valid=false;
@@ -103,9 +103,9 @@ void Target::run(World* w,float dt) {
  }
  if(world->slots) {
   for(int i=0;i<32;++i) {
-   Slot* slot=world->slots->FUN_001b68e0(i);
+   Slot_1ed320* slot=world->slots->FUN_001b68e0(i);
    if(!slot) continue;
-   Actor* a=slot->v5();
+   Actor_1ed320* a=slot->v5();
    if(!a) continue;
    position=*a->FUN_001d6b40();
    velocity=*a->FUN_001d77c0();
@@ -114,7 +114,7 @@ void Target::run(World* w,float dt) {
  }
  count=world->items->count;
  for(int i=0;i<count;++i) {
-  Extra* e=world->items->extras[i];
+  Extra_1ed320* e=world->items->extras[i];
   if(e) {
    V location=*e->FUN_00082cf0();
    name.FUN_0027b0e0("civilians");

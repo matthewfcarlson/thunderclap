@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // core::DriveFormatRequest::vfunc_0 @ 0x00275810
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-struct Lock { virtual void FUN_0(); virtual void FUN_1(); };
-struct Drive { virtual void FUN_2(); virtual void FUN_3(); Lock lock; char pad[12]; int count; };
+struct Lock_275810 { virtual void FUN_0(); virtual void FUN_1(); };
+struct Drive { virtual void FUN_2(); virtual void FUN_3(); Lock_275810 lock; char pad[12]; int count; };
 struct Allocator { virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void free(void*); };
 extern char DAT_0052a1c8;
 extern Allocator* DAT_0052a1e4;

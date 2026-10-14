@@ -3,20 +3,20 @@
 // Lua 5.0 style: discharge an expression and store it into the slot of the destination expdesc.
 struct FuncState;
 
-struct expdesc {
+struct expdesc_221560 {
     int k;
     int info;
     int aux;
     int dst;
 };
 
-void __cdecl FUN_00220d90(FuncState* fs, expdesc* e);
+void __cdecl FUN_00220d90(FuncState* fs, expdesc_221560* e);
 int __cdecl FUN_00220cd0(FuncState* fs);
 // equiv-conv: FUN_00221430 eax edi ebx
-int FUN_00221430(FuncState* fs, expdesc* e, int flag);
+int FUN_00221430(FuncState* fs, expdesc_221560* e, int flag);
 void __cdecl FUN_002207c0(FuncState* fs, int* dst, int value);
 
-void FUN_00221560(FuncState* fs, expdesc* e)
+void FUN_00221560(FuncState* fs, expdesc_221560* e)
 {
     FUN_00220d90(fs, e);
     int value;

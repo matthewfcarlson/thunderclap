@@ -4,17 +4,17 @@ extern unsigned char DAT_004c518c;
 
 float __cdecl FUN_00018710(float *out, float *value);
 
-class Gate {
+class Gate_1c5460 {
 public:
     char FUN_001d4e70();
 };
 
-struct Owner {
+struct Owner_1c5460 {
     char pad00[0xec];
-    Gate *gate;
+    Gate_1c5460 *gate;
 };
 
-class Renderer;
+class Renderer_1c5460;
 
 namespace Render {
 class Object {
@@ -22,11 +22,11 @@ public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual void vfunc_3(Renderer *r, int unused);
+    virtual void vfunc_3(Renderer_1c5460 *r, int unused);
     char pad04[0xc];
     void *drawable;
     char pad14[8];
-    Owner *owner;
+    Owner_1c5460 *owner;
     char pad20[2];
     unsigned char hasOwner;
     char pad23[0x80 - 0x23];
@@ -44,11 +44,11 @@ public:
     unsigned char active;
     unsigned char flagA9;
     void FUN_001c5130(float a, float b);
-    void FUN_001c51b0(Renderer *r);
+    void FUN_001c51b0(Renderer_1c5460 *r);
 };
 }
 
-class Renderer {
+class Renderer_1c5460 {
 public:
     char pad00[0xc0];
     int state;
@@ -59,7 +59,7 @@ public:
     void FUN_001c1330(int v);
 };
 
-void Render::Object::vfunc_3(Renderer *r, int unused)
+void Render::Object::vfunc_3(Renderer_1c5460 *r, int unused)
 {
     if (!active)
         return;

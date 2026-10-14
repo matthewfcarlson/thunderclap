@@ -1,37 +1,37 @@
 // STATUS: equivalent (tools/equiv.py level 3: 44 inputs, branch coverage 12/12)
 // FUN_002232d0 @ 0x002232d0
-struct Ref {
+struct Ref_2232d0 {
  virtual void AddRef();
  virtual void Release();
  virtual void Slot2();
  virtual void Slot3();
  virtual void Slot4();
- virtual Ref* Clone();
+ virtual Ref_2232d0* Clone();
 };
-struct BasePart { char data[0x54]; void FUN_00221be0(BasePart*); };
-struct Entry { Ref* object; unsigned value; unsigned char flag; char pad[3]; unsigned a,b,c,d,e,f,g; };
-struct Container {
- char prefix[0x10]; BasePart base; Ref* ref; unsigned count; Entry entries[1];
- Container* assign(Container* source);
+struct BasePart_2232d0 { char data[0x54]; void FUN_00221be0(BasePart_2232d0*); };
+struct Entry_2232d0 { Ref_2232d0* object; unsigned value; unsigned char flag; char pad[3]; unsigned a,b,c,d,e,f,g; };
+struct Container_2232d0 {
+ char prefix[0x10]; BasePart_2232d0 base; Ref_2232d0* ref; unsigned count; Entry_2232d0 entries[1];
+ Container_2232d0* assign(Container_2232d0* source);
 };
-Container* Container::assign(Container* source) {
+Container_2232d0* Container_2232d0::assign(Container_2232d0* source) {
  base.FUN_00221be0(&source->base);
- Ref* incoming=source->ref;
+ Ref_2232d0* incoming=source->ref;
  if(incoming) incoming->AddRef();
  if(ref) ref->Release();
  ref=incoming;
  int last=(int)(count-1);
  if(last>=0) {
- Entry* current=&entries[last];
+ Entry_2232d0* current=&entries[last];
  unsigned remaining=(unsigned)last+1;
  do { current->object->Release(); --current; } while(--remaining);
  }
  count=0;
  count=source->count;
  for(unsigned i=0;i<count;++i) {
- Entry* from=&source->entries[i];
- Entry* to=&entries[i];
- Ref* cloned=from->object->Clone();
+ Entry_2232d0* from=&source->entries[i];
+ Entry_2232d0* to=&entries[i];
+ Ref_2232d0* cloned=from->object->Clone();
  to->object=cloned;
  cloned->AddRef();
  to->value=from->value;

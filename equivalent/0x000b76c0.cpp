@@ -12,13 +12,13 @@ public:
     char complete;
 };
 
-struct Counter {
+struct Counter_b76c0 {
     int FUN_00088fa0();
     int FUN_00088fb0();
 };
-struct Stats {
+struct Stats_b76c0 {
     char pad0[0x80];
-    Counter counter;
+    Counter_b76c0 counter;
     int FUN_0008a2d0();
     const char *FUN_0008a060(int x);
 };
@@ -28,7 +28,7 @@ FEObject *__cdecl FUN_000fc260(const char *name);
 class PauseScreen {
 public:
     char pad0[0x34];
-    Stats *stats;
+    Stats_b76c0 *stats;
     void FUN_000b76c0();
 };
 

@@ -1,23 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 16/16)
 // FUN_002efca0 @ 0x002efca0
 struct BaseInput { void FUN_00306380(); };
-struct Text { void FUN_0027b040(const char*); };
-struct Observer { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); };
+struct Text_2efca0 { void FUN_0027b040(const char*); };
+struct Observer_2efca0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); };
 struct Node;
-struct Result { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void attach(Node*); Result* FUN_002ef7f0(int); };
-struct Node { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual Node* attach(Result*); char pad4[4]; Text text; char pad9[15]; Result* child; char pad1c[4]; Observer* observer; char pad24[44]; unsigned char flag50; char pad51[23]; unsigned char flag68; unsigned char flag69; char pad6a[2]; int field6c; char pad70[16]; Node* FUN_00304f50(BaseInput*); void FUN_00304740(int); };
+struct Result_2efca0 { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void attach(Node*); Result_2efca0* FUN_002ef7f0(int); };
+struct Node { virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual Node* attach(Result_2efca0*); char pad4[4]; Text_2efca0 text; char pad9[15]; Result_2efca0* child; char pad1c[4]; Observer_2efca0* observer; char pad24[44]; unsigned char flag50; char pad51[23]; unsigned char flag68; unsigned char flag69; char pad6a[2]; int field6c; char pad70[16]; Node* FUN_00304f50(BaseInput*); void FUN_00304740(int); };
 extern void* __cdecl FUN_00263ea0(unsigned int);
 extern void* __cdecl FUN_0008d690(unsigned int);
 extern __int64 __cdecl FUN_0027b020(const char*);
 extern int __cdecl FUN_002f2750(__int64);
-Result* __cdecl target(BaseInput* input, const char* name) {
+Result_2efca0* __cdecl target(BaseInput* input, const char* name) {
  input->FUN_00306380();
  Node* n = (Node*)FUN_00263ea0(128);
  if(n) n=n->FUN_00304f50(input);
  n->field6c=0; n->flag50=0;
  n->text.FUN_0027b040(name ? name : "Not baptized yet");
  n->FUN_00304740(FUN_002f2750(FUN_0027b020("")));
- Result* r=(Result*)FUN_0008d690(136);
+ Result_2efca0* r=(Result_2efca0*)FUN_0008d690(136);
  if(r) r=r->FUN_002ef7f0(0);
  if(!r) return 0;
  bool replaced=false;

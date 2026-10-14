@@ -2,16 +2,16 @@
 // hulkfight::motion::VelocityAnimatedCondition::vfunc_6 @ 0x00168120
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_168120 {
     float x, y, z;
 };
 
-struct Fighter {
-    void FUN_000356c0(Vec3 *out);
+struct Fighter_168120 {
+    void FUN_000356c0(Vec3_168120 *out);
 };
 
-struct Holder {
-    Fighter *FUN_00059a30();
+struct Holder_168120 {
+    Fighter_168120 *FUN_00059a30();
 };
 
 bool FUN_00018960(float a, float b, float eps);
@@ -21,7 +21,7 @@ class Params {
 public:
     virtual void v0();
     virtual void v1();
-    Holder *FUN_000592a0();
+    Holder_168120 *FUN_000592a0();
 };
 }
 
@@ -44,8 +44,8 @@ bool VelocityAnimatedCondition::FUN_00168120(int a1, fight::Params *params, int 
     if (dynamic_cast<CFightParams *>(params) == 0)
         return false;
 
-    Fighter *fighter = params->FUN_000592a0()->FUN_00059a30();
-    Vec3 v;
+    Fighter_168120 *fighter = params->FUN_000592a0()->FUN_00059a30();
+    Vec3_168120 v;
     v.x = 0;
     v.y = 0;
     v.z = 0;

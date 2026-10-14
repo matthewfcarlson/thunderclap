@@ -2,20 +2,20 @@
 // FUN_002d63f0 @ 0x002d63f0
 void *__cdecl FUN_0008d6d0(unsigned int size);
 
-class RefCounted {
+class RefCounted_2d63f0 {
 public:
     virtual void addRef();
     virtual void release();
 };
 
-class __declspec(novtable) EmitterBase {
+class __declspec(novtable) EmitterBase_2d63f0 {
 public:
     virtual void b0();
     char pad04[0x94 - 4];
     unsigned int count;      // 0x94
     char pad98[0xa8 - 0x98];
-    void FUN_002d4a20(const EmitterBase *other);
-    EmitterBase(const EmitterBase &other) { FUN_002d4a20(&other); }
+    void FUN_002d4a20(const EmitterBase_2d63f0 *other);
+    EmitterBase_2d63f0(const EmitterBase_2d63f0 &other) { FUN_002d4a20(&other); }
 };
 
 class EmitterState {
@@ -25,23 +25,23 @@ public:
     EmitterState(const EmitterState &other) { FUN_002d4e80(&other); }
 };
 
-class SpriteParticleEmitter : public EmitterBase {
+class SpriteParticleEmitter : public EmitterBase_2d63f0 {
 public:
     virtual void f1();
     EmitterState state;      // 0xa8
-    RefCounted *ref1bc;
-    RefCounted *ref1c0;
-    RefCounted *ref1c4;
+    RefCounted_2d63f0 *ref1bc;
+    RefCounted_2d63f0 *ref1c0;
+    RefCounted_2d63f0 *ref1c4;
     int *vec1c8;
     int *vec1cc;
     char pad1d0[4];
-    RefCounted **vec1d4;
-    RefCounted **vec1d8;
+    RefCounted_2d63f0 **vec1d4;
+    RefCounted_2d63f0 **vec1d8;
 
-    static void Assign(RefCounted **slot, RefCounted *p) {
+    static void Assign(RefCounted_2d63f0 **slot, RefCounted_2d63f0 *p) {
         if (p)
             p->addRef();
-        RefCounted *old = *slot;
+        RefCounted_2d63f0 *old = *slot;
         if (old)
             old->release();
         *slot = p;
@@ -51,7 +51,7 @@ public:
 };
 
 SpriteParticleEmitter::SpriteParticleEmitter(const SpriteParticleEmitter &other)
-    : EmitterBase(other), state(other.state)
+    : EmitterBase_2d63f0(other), state(other.state)
 {
     ref1bc = 0;
     ref1c0 = 0;
@@ -74,10 +74,10 @@ SpriteParticleEmitter::SpriteParticleEmitter(const SpriteParticleEmitter &other)
 
     unsigned int m = other.vec1d8 - other.vec1d4;
     if (m != 0) {
-        RefCounted **p = (RefCounted **)FUN_0008d6d0(m * 4);
+        RefCounted_2d63f0 **p = (RefCounted_2d63f0 **)FUN_0008d6d0(m * 4);
         vec1d4 = p;
         if (p) {
-            vec1d8 = (RefCounted **)((char *)p + m * 4);
+            vec1d8 = (RefCounted_2d63f0 **)((char *)p + m * 4);
         } else {
             vec1d4 = 0;
             vec1d8 = 0;

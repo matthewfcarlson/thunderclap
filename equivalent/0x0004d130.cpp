@@ -2,55 +2,55 @@
 // CClimbableCondition::vfunc_7 @ 0x0004d130
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_4d130 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-union Bits {
+union Bits_4d130 {
     float f;
     unsigned int u;
 };
 
-union Arg {
+union Arg_4d130 {
     void *owner;
     float f;
     unsigned int u;
 };
 
-struct Link {
+struct Link_4d130 {
     char pad00[0x30];
-    Bits f30;
-    Bits f34;
+    Bits_4d130 f30;
+    Bits_4d130 f34;
 };
 
-struct Stats {
+struct Stats_4d130 {
     char pad000[0x11c];
-    Link *link;
+    Link_4d130 *link;
     char pad120[0x140 - 0x120];
     int mode;
     char pad144[0x1af8 - 0x144];
-    Vec3 v1af8;
+    Vec3_4d130 v1af8;
     char pad1b04[4];
     char flag1b08;
     char pad1b09[0x2064 - 0x1b09];
-    Vec3 v2064;
-    void FUN_00035230(Vec3 *out);
+    Vec3_4d130 v2064;
+    void FUN_00035230(Vec3_4d130 *out);
     float FUN_000354c0();
-    void FUN_00035550(Vec3 *out);
-    bool FUN_0003f7b0(Vec3 *from, Vec3 *to, Vec3 *pt, Vec3 *n, int a, int b, int c);
-    void FUN_000479e0(Vec3 *pt, Vec3 *n);
+    void FUN_00035550(Vec3_4d130 *out);
+    bool FUN_0003f7b0(Vec3_4d130 *from, Vec3_4d130 *to, Vec3_4d130 *pt, Vec3_4d130 *n, int a, int b, int c);
+    void FUN_000479e0(Vec3_4d130 *pt, Vec3_4d130 *n);
 };
 
-struct Fighter {
-    Stats *FUN_00059a30();
-    void FUN_00059a50(Vec3 *out);
+struct Fighter_4d130 {
+    Stats_4d130 *FUN_00059a30();
+    void FUN_00059a50(Vec3_4d130 *out);
 };
 
-Fighter *__fastcall FUN_000592a0(void *owner);
-void __cdecl FUN_00224d70(float angle, Vec3 *v);
+Fighter_4d130 *__fastcall FUN_000592a0(void *owner);
+void __cdecl FUN_00224d70(float angle, Vec3_4d130 *v);
 float __cdecl FUN_00224ea0(float x, float z);
-float __cdecl FUN_00224f10(Vec3 *v);
+float __cdecl FUN_00224f10(Vec3_4d130 *v);
 float __cdecl FUN_00224fc0(float from, float to);
 
 class CClimbableCondition {
@@ -62,7 +62,7 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     virtual void vfunc_6();
-    virtual char vfunc_7(Arg a);
+    virtual char vfunc_7(Arg_4d130 a);
     char pad04[8];
     union {
         float f0c;
@@ -72,33 +72,33 @@ public:
     char b14;
 };
 
-char CClimbableCondition::vfunc_7(Arg a)
+char CClimbableCondition::vfunc_7(Arg_4d130 a)
 {
     struct Frame {
-        Bits d;
+        Bits_4d130 d;
         float L;
         float t14;
-        Vec3 G;
-        Vec3 W;
+        Vec3_4d130 G;
+        Vec3_4d130 W;
         union {
-            Vec3 Q;
-            Vec3 C;
-            Vec3 H;
+            Vec3_4d130 Q;
+            Vec3_4d130 C;
+            Vec3_4d130 H;
         };
-        Vec3 A;
-        Vec3 B;
-        Vec3 n;
-        Vec3 pt;
+        Vec3_4d130 A;
+        Vec3_4d130 B;
+        Vec3_4d130 n;
+        Vec3_4d130 pt;
     } f;
 
-    Fighter *fighter = FUN_000592a0(a.owner);
-    Stats *st = fighter->FUN_00059a30();
+    Fighter_4d130 *fighter = FUN_000592a0(a.owner);
+    Stats_4d130 *st = fighter->FUN_00059a30();
     a.u = u0c & 0x7fffffff;
     if (a.f <= 1e-05f) {
         if (st->mode == 4)
             return st->flag1b08;
     }
-    Link *p = st->link;
+    Link_4d130 *p = st->link;
     if (p == 0)
         return false;
     a.u = p->f34.u;

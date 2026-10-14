@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 8/8)
 // FUN_0021ee70 @ 0x0021ee70
-struct State { int unknown; int position; int previous; int token; int value; int savedToken; int savedValue; void* context; };
+struct State_21ee70 { int unknown; int position; int previous; int token; int value; int savedToken; int savedValue; void* context; };
 // equiv-conv: FUN_0021ede0 eax
-int FUN_0021ede0(State* state);
+int FUN_0021ede0(State_21ee70* state);
 int __cdecl FUN_00220cd0(void* context);
 void __cdecl FUN_002207c0(void* context, int* result, int value);
 void __cdecl FUN_00220d70(void* context, int value);
 // equiv-conv: FUN_0021e080 eax
-void FUN_0021e080(State* state);
-int __cdecl FUN_0021bbc0(State* state, int* value);
+void FUN_0021e080(State_21ee70* state);
+int __cdecl FUN_0021bbc0(State_21ee70* state, int* value);
 // equiv-conv: FUN_0021c340 eax edi stack
 int FUN_0021c340(int argument, int token, int mode);
 // equiv-conv: FUN_0021ee70 eax stack
-int __cdecl FUN_0021ee70(State* state, int argument) {
+int __cdecl FUN_0021ee70(State_21ee70* state, int argument) {
  void* context = state->context;
  int result = -1;
  int value = FUN_0021ede0(state);

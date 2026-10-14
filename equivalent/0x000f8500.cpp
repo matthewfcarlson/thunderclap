@@ -5,13 +5,13 @@ extern "C" unsigned int strlen(const char*);
 extern unsigned int DAT_004d9968;
 extern char DAT_004dd8e8;
 
-class Manager {
+class Manager_f8500 {
   public:
     int FUN_000f7240(unsigned long long key);
 };
-class Entry {
+class Entry_f8500 {
   public:
-    void FUN_000f8500(const char* name, Manager* manager, char flag);
+    void FUN_000f8500(const char* name, Manager_f8500* manager, char flag);
     char pad_00[0x10];
     short* text;
     int id;
@@ -19,14 +19,14 @@ class Entry {
     int field_20;
 };
 
-Manager* FUN_000fc1b0();
+Manager_f8500* FUN_000fc1b0();
 unsigned long long FUN_0027b020(const char* name);
 int FUN_000dfcc0(char* dst, int size, const char* fmt, ...);
 void* FUN_0008d6d0(unsigned int size);
 void FUN_000fb740(short* dst, const char* src, int count);
 void FUN_0008d340(void* p);
 
-void Entry::FUN_000f8500(const char* name, Manager* manager, char flag) {
+void Entry_f8500::FUN_000f8500(const char* name, Manager_f8500* manager, char flag) {
     volatile unsigned int cookie = DAT_004d9968;
     char prefix[0x20];
     char full[0x100];

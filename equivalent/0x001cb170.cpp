@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 160 inputs, branch coverage 27/33, incomplete)
 // FUN_001cb170 @ 0x001cb170
-class Dispatcher;
+class Dispatcher_1cb170;
 class Context {
 public:
     bool FUN_001d1cb0();
@@ -9,7 +9,7 @@ public:
 };
 Context *FUN_001d4c90();
 
-class Dispatcher {
+class Dispatcher_1cb170 {
 public:
     int pad0;
     int type;               // 0x4
@@ -42,7 +42,7 @@ public:
     bool FUN_001cb170();
 };
 
-bool Dispatcher::FUN_001cb170()
+bool Dispatcher_1cb170::FUN_001cb170()
 {
     Context *ctx = FUN_001d4c90();
     if (ctx == 0) return false;

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 7827 inputs, branch coverage 17/20, incomplete; run with --inputs 12000)
 // FUN_003287a0 @ 0x003287a0
-struct Item { virtual void s0(); virtual void s1(); virtual void s2(); virtual void enable(int); virtual void update(float,float,float,float,unsigned); };
-struct Manager {
+struct Item_3287a0 { virtual void s0(); virtual void s1(); virtual void s2(); virtual void enable(int); virtual void update(float,float,float,float,unsigned); };
+struct Manager_3287a0 {
 virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9();
 virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15(); virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
 virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23(); virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27(); virtual void s28(); virtual void s29();
@@ -10,13 +10,13 @@ virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43(); 
 virtual void s50(); virtual void s51(); virtual void s52(); virtual void s53(); virtual void s54(); virtual void s55(); virtual void s56(); virtual void s57(); virtual void s58(); virtual void s59();
 virtual void s60(); virtual void s61(); virtual void s62(); virtual void s63(); virtual void s64(); virtual void s65(); virtual void s66(); virtual void s67(); virtual void s68(); virtual void s69();
 virtual void s70(); virtual void s71(); virtual void s72(); virtual void s73(); virtual void s74(); virtual void s75(); virtual void s76(); virtual void s77(); virtual void s78(); virtual void s79();
-virtual void s80(); virtual void s81(); virtual void s82(); virtual void s83(); virtual void s84(); virtual void s85(); virtual void s86(); virtual void s87(); virtual void s88(); virtual Item* get(int);
+virtual void s80(); virtual void s81(); virtual void s82(); virtual void s83(); virtual void s84(); virtual void s85(); virtual void s86(); virtual void s87(); virtual void s88(); virtual Item_3287a0* get(int);
 };
-extern Manager* DAT_00555b88;
+extern Manager_3287a0* DAT_00555b88;
 extern int DAT_00555b84;
 extern float DAT_00555b68,DAT_00555b6c,DAT_00555b70,DAT_00555b74,DAT_00555b78,DAT_00555b7c,DAT_00555b80;
 void __cdecl FUN_003287a0() {
- Item* item=DAT_00555b88->get(0x103);
+ Item_3287a0* item=DAT_00555b88->get(0x103);
  if (!DAT_00555b84) item->enable(0);
  else {
  float scale=1.0f / DAT_00555b84;

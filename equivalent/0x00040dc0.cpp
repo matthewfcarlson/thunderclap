@@ -1,58 +1,58 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 78/78)
 // FUN_00040dc0 @ 0x00040dc0
-struct V3 {
+struct V3_40dc0 {
     float x, y, z;
     float FUN_0022d110();
-    char FUN_0022d2b0(const V3 *other, float eps);
+    char FUN_0022d2b0(const V3_40dc0 *other, float eps);
 };
 
-struct Mat4 {
+struct Mat4_40dc0 {
     float m[12];
-    V3 trans;
+    V3_40dc0 trans;
     float w;
     void FUN_0022c120();
-    void FUN_0022ca90(const Mat4 *a, const Mat4 *b);
-    void FUN_0022c2b0(const V3 *in, V3 *out);
-    void FUN_0022c3b0(const V3 *in, V3 *out);
+    void FUN_0022ca90(const Mat4_40dc0 *a, const Mat4_40dc0 *b);
+    void FUN_0022c2b0(const V3_40dc0 *in, V3_40dc0 *out);
+    void FUN_0022c3b0(const V3_40dc0 *in, V3_40dc0 *out);
 };
 
-struct Xform {
-    Mat4 mat;
+struct Xform_40dc0 {
+    Mat4_40dc0 mat;
     float q[4];
     int type;
-    void FUN_00221b70(const Mat4 *m);
-    void FUN_00221be0(const Xform *other);
-    void FUN_00221e60(const Mat4 *m);
-    void FUN_00221c60(const Mat4 *m);
-    Mat4 *FUN_00221c40();
-    void FUN_00222120(V3 *out);
+    void FUN_00221b70(const Mat4_40dc0 *m);
+    void FUN_00221be0(const Xform_40dc0 *other);
+    void FUN_00221e60(const Mat4_40dc0 *m);
+    void FUN_00221c60(const Mat4_40dc0 *m);
+    Mat4_40dc0 *FUN_00221c40();
+    void FUN_00222120(V3_40dc0 *out);
     float FUN_002220d0();
 };
 
-struct Bones {
+struct Bones_40dc0 {
     char pad0[0x1c];
     char *mats;
 };
 
-struct Scene {
+struct Scene_40dc0 {
     char pad0[0x10];
-    Xform xf;
-    Bones *bones;
-    void FUN_00224260(unsigned int lo, unsigned int hi, Xform *x);
+    Xform_40dc0 xf;
+    Bones_40dc0 *bones;
+    void FUN_00224260(unsigned int lo, unsigned int hi, Xform_40dc0 *x);
     void FUN_00222f40(float dt);
     void FUN_00223fa0();
     void FUN_00223060();
-    void FUN_002226e0(const Mat4 *m);
-    void FUN_002226f0(const V3 *v);
-    void FUN_00222710(const V3 *v);
+    void FUN_002226e0(const Mat4_40dc0 *m);
+    void FUN_002226f0(const V3_40dc0 *v);
+    void FUN_00222710(const V3_40dc0 *v);
     float FUN_00222da0(void *key);
 };
 
-struct Holder10 {
-    Scene *FUN_00059a40();
+struct Holder10_40dc0 {
+    Scene_40dc0 *FUN_00059a40();
 };
 
-struct Prop {
+struct Prop_40dc0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -68,15 +68,15 @@ struct Prop {
     virtual void v12();
     virtual void v13();
     virtual void v14();
-    virtual Mat4 *v15();
+    virtual Mat4_40dc0 *v15();
 };
 
-struct Releasable {
+struct Releasable_40dc0 {
     virtual void v0();
     virtual void v1();
 };
 
-struct Cfg {
+struct Cfg_40dc0 {
     char pad0[0x30];
     float f30;
     float f34;
@@ -84,50 +84,50 @@ struct Cfg {
 
 struct Obj338 {
     char pad0[0x10];
-    Holder10 *holder;
+    Holder10_40dc0 *holder;
 };
 
 struct Obj388 {
     char pad0[0x18];
-    Xform xf;
+    Xform_40dc0 xf;
 };
 
-struct Fighter;
-struct Sink {
-    void FUN_00099d00(struct Args *a, Fighter *f, int z);
+struct Fighter_40dc0;
+struct Sink_40dc0 {
+    void FUN_00099d00(struct Args_40dc0 *a, Fighter_40dc0 *f, int z);
 };
-struct Args {
+struct Args_40dc0 {
     char pad0[8];
-    Sink *f8;
+    Sink_40dc0 *f8;
 };
 
 extern float __cdecl FUN_00224fc0(float a, float b);
 
-struct Frame {
+struct Frame_40dc0 {
     float ang0;     // 0x00
     float inv;      // 0x04
-    V3 vA;          // 0x08
-    V3 vB;          // 0x14
-    V3 vC;          // 0x20
-    V3 vD;          // 0x2c
-    V3 P0;          // 0x38
+    V3_40dc0 vA;          // 0x08
+    V3_40dc0 vB;          // 0x14
+    V3_40dc0 vC;          // 0x20
+    V3_40dc0 vD;          // 0x2c
+    V3_40dc0 P0;          // 0x38
     float S0;       // 0x44
-    Mat4 M58;       // 0x48
-    Mat4 M98;       // 0x88
-    V3 od8, oe4, of0, ofc;
-    Xform x;        // 0xf8
-    Mat4 M15c;      // 0x14c
-    Mat4 M19c;      // 0x18c
+    Mat4_40dc0 M58;       // 0x48
+    Mat4_40dc0 M98;       // 0x88
+    V3_40dc0 od8, oe4, of0, ofc;
+    Xform_40dc0 x;        // 0xf8
+    Mat4_40dc0 M15c;      // 0x14c
+    Mat4_40dc0 M19c;      // 0x18c
 };
 
-class Fighter {
+class Fighter_40dc0 {
 public:
     char pad0[0x10];
-    Holder10 *holder;
-    Xform x14;
-    V3 v68;
-    V3 v74;
-    V3 v80;
+    Holder10_40dc0 *holder;
+    Xform_40dc0 x14;
+    V3_40dc0 v68;
+    V3_40dc0 v74;
+    V3_40dc0 v80;
     float f8c;
     char pad90[0x110 - 0x90];
     float f110;
@@ -135,23 +135,23 @@ public:
     char pad118;
     char b119;
     char pad11a[2];
-    Cfg *cfg;
+    Cfg_40dc0 *cfg;
     char pad120[0x128 - 0x120];
-    Prop *p128;
+    Prop_40dc0 *p128;
     char pad12c[0x13c - 0x12c];
     int i13c;
     int mode;
     char pad144[0x14c - 0x144];
     char *p14c;
-    Mat4 m150;
-    V3 v190;
-    V3 v19c;
-    V3 v1a8;
-    V3 v1b4;
-    V3 v1c0;
+    Mat4_40dc0 m150;
+    V3_40dc0 v190;
+    V3_40dc0 v19c;
+    V3_40dc0 v1a8;
+    V3_40dc0 v1b4;
+    V3_40dc0 v1c0;
     char pad1cc[0x1e4 - 0x1cc];
     float f1e4;
-    V3 v1e8;
+    V3_40dc0 v1e8;
     float f1f4;
     float f1f8;
     int i1fc;
@@ -160,29 +160,29 @@ public:
     unsigned int u33c;
     unsigned int lo340;
     unsigned int hi344;
-    Mat4 m348;
+    Mat4_40dc0 m348;
     Obj388 *p388;
     char pad38c[4];
     int i390;
     char pad394[0x3a4 - 0x394];
-    Releasable *p3a4;
+    Releasable_40dc0 *p3a4;
     char pad3a8[0x1b20 - 0x3a8];
     int i1b20;
     char pad1b24[0x22e0 - 0x1b24];
     char b22e0;
-    char FUN_00035550(V3 *out);
-    void FUN_00036480(Args *a, float dt);
-    void FUN_000365f0(Args *a, float dt);
+    char FUN_00035550(V3_40dc0 *out);
+    void FUN_00036480(Args_40dc0 *a, float dt);
+    void FUN_000365f0(Args_40dc0 *a, float dt);
     void FUN_00038c40();
-    void FUN_0003ba60(Args *a, float dt);
+    void FUN_0003ba60(Args_40dc0 *a, float dt);
     void FUN_0003be00();
-    void FUN_00040dc0(Args *a1, float a2);
+    void FUN_00040dc0(Args_40dc0 *a1, float a2);
 };
 
-void Fighter::FUN_00040dc0(Args *a1, float a2)
+void Fighter_40dc0::FUN_00040dc0(Args_40dc0 *a1, float a2)
 {
-    Scene *scene = holder->FUN_00059a40();
-    Frame f;
+    Scene_40dc0 *scene = holder->FUN_00059a40();
+    Frame_40dc0 f;
     f.P0 = x14.mat.trans;
     f.S0 = scene->xf.mat.trans.y;
     float absA2 = a2;
@@ -192,11 +192,11 @@ void Fighter::FUN_00040dc0(Args *a1, float a2)
         return;
 
     if (p338 != 0 && p388 != 0) {
-        Scene *s2 = p338->holder->FUN_00059a40();
+        Scene_40dc0 *s2 = p338->holder->FUN_00059a40();
         if (s2 != 0) {
-            Mat4 *src;
+            Mat4_40dc0 *src;
             if (u33c != 0xffff)
-                src = (Mat4 *)(s2->bones->mats + (u33c << 6));
+                src = (Mat4_40dc0 *)(s2->bones->mats + (u33c << 6));
             else
                 src = s2->xf.FUN_00221c40();
             f.M98 = *src;
@@ -220,7 +220,7 @@ void Fighter::FUN_00040dc0(Args *a1, float a2)
     if (mode == 1 || mode == 2) {
         v68.y = cfg->f30 * 0.5f + v68.y;
     } else if (mode == 4) {
-        V3 &t = f.vA;
+        V3_40dc0 &t = f.vA;
         t.x = 0.0f;
         t.y = 0.0f;
         t.z = 0.0f;
@@ -239,12 +239,12 @@ void Fighter::FUN_00040dc0(Args *a1, float a2)
     scene->FUN_00223060();
 
     if (p338 != 0 && p388 != 0) {
-        Scene *s2 = p338->holder->FUN_00059a40();
+        Scene_40dc0 *s2 = p338->holder->FUN_00059a40();
         if (s2 != 0) {
             if (scene->FUN_00222da0(p388) >= 1.0f) {
-                Mat4 *src;
+                Mat4_40dc0 *src;
                 if (u33c != 0xffff)
-                    src = (Mat4 *)(s2->bones->mats + (u33c << 6));
+                    src = (Mat4_40dc0 *)(s2->bones->mats + (u33c << 6));
                 else
                     src = s2->xf.FUN_00221c40();
                 f.M58 = *src;
@@ -266,9 +266,9 @@ void Fighter::FUN_00040dc0(Args *a1, float a2)
         }
     }
 
-    V3 *sp = &scene->xf.mat.trans;
-    V3 cp = *sp;
-    V3 &w = f.vB;
+    V3_40dc0 *sp = &scene->xf.mat.trans;
+    V3_40dc0 cp = *sp;
+    V3_40dc0 &w = f.vB;
     w.x = cp.x + v19c.x;
     w.y = cp.y + v19c.y;
     w.z = cp.z + v19c.z;
@@ -295,14 +295,14 @@ void Fighter::FUN_00040dc0(Args *a1, float a2)
         v80.z = (1.0f / a2) * v80.z;
     }
 
-    V3 &w2 = f.vC;
+    V3_40dc0 &w2 = f.vC;
     w2 = *sp;
     w2.x = w2.x + v1b4.x;
     w2.y = w2.y + v1b4.y;
     w2.z = w2.z + v1b4.z;
     if (f1e4 > 0.0f) {
         if (!(i1fc > 0) && !(f110 > 0.0f) && !(i114 > 0) && !(i1b20 > 0)) {
-            V3 &d = f.vB;
+            V3_40dc0 &d = f.vB;
             d.x = w2.x - x14.mat.trans.x;
             d.y = w2.y - x14.mat.trans.y;
             d.z = w2.z - x14.mat.trans.z;
@@ -312,7 +312,7 @@ void Fighter::FUN_00040dc0(Args *a1, float a2)
             if (dot > 0.0f)
                 t = 1.0f - dot;
             float s = t * f1f4 * a2;
-            V3 &p = f.vA;
+            V3_40dc0 &p = f.vA;
             p.x = v1e8.x;
             p.y = v1e8.y;
             p.z = v1e8.z;
@@ -332,7 +332,7 @@ void Fighter::FUN_00040dc0(Args *a1, float a2)
     v1b4.y = 0.0f;
     v1b4.x = 0.0f;
 
-    V3 &w3 = f.vA;
+    V3_40dc0 &w3 = f.vA;
     w3 = *sp;
     w3.x = w3.x + v1c0.x;
     w3.y = w3.y + v1c0.y;
@@ -364,17 +364,17 @@ void Fighter::FUN_00040dc0(Args *a1, float a2)
     if (p14c != 0) {
         f.M98 = m150;
         f.M98.FUN_0022c120();
-        f.M58 = *(Mat4 *)(p14c + 0x10);
-        V3 &w4 = f.vB;
+        f.M58 = *(Mat4_40dc0 *)(p14c + 0x10);
+        V3_40dc0 &w4 = f.vB;
         w4 = *sp;
-        V3 &od8 = f.od8;
+        V3_40dc0 &od8 = f.od8;
         f.M98.FUN_0022c2b0(&w4, &od8);
-        V3 &o18 = f.vA;
+        V3_40dc0 &o18 = f.vA;
         f.M58.FUN_0022c2b0(&od8, &o18);
         if (!(absA2 <= 1e-05f)) {
             v190 = *sp;
             v190.x = v190.x - o18.x;
-            V3 &z3 = f.vC;
+            V3_40dc0 &z3 = f.vC;
             z3.x = 0.0f;
             v190.y = v190.y - o18.y;
             z3.y = 0.0f;
@@ -387,11 +387,11 @@ void Fighter::FUN_00040dc0(Args *a1, float a2)
                 FUN_00038c40();
         }
         scene->FUN_002226f0(&o18);
-        V3 &oe4 = f.oe4;
+        V3_40dc0 &oe4 = f.oe4;
         scene->xf.FUN_00222120(&oe4);
-        V3 &ofc = f.ofc;
+        V3_40dc0 &ofc = f.ofc;
         f.M98.FUN_0022c3b0(&oe4, &ofc);
-        V3 &of0 = f.of0;
+        V3_40dc0 &of0 = f.of0;
         f.M58.FUN_0022c3b0(&ofc, &of0);
         scene->FUN_00222710(&of0);
     } else {
@@ -401,7 +401,7 @@ void Fighter::FUN_00040dc0(Args *a1, float a2)
     }
 
     FUN_00036480(a1, a2);
-    V3 &w5 = f.vD;
+    V3_40dc0 &w5 = f.vD;
     w5 = *sp;
     if (!w5.FUN_0022d2b0(&f.P0, 1e-05f)) {
         if (p3a4 != 0)
@@ -420,7 +420,7 @@ void Fighter::FUN_00040dc0(Args *a1, float a2)
         v74.x = inv * v74.x;
         v74.y = inv * v74.y;
         v74.z = inv * v74.z;
-        Scene *s3 = holder->FUN_00059a40();
+        Scene_40dc0 *s3 = holder->FUN_00059a40();
         float &ang0 = f.ang0;
         if (s3 == 0)
             ang0 = 0.0f;

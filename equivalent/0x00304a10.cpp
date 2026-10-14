@@ -5,7 +5,7 @@ extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 void* __cdecl FUN_0008d6d0(int size);
 void __cdecl thunk_FUN_00267090(void *p);
 
-struct Pair {
+struct Pair_304a10 {
     int a;
     int b;
 };
@@ -14,7 +14,7 @@ class PairArray {
 public:
     int count;
     int capacity;
-    Pair *data;
+    Pair_304a10 *data;
     char pad0c;
     char deep;
     void Reserve(int wanted);
@@ -26,7 +26,7 @@ void PairArray::Reserve(int wanted)
         wanted = 2;
     if (capacity >= wanted)
         return;
-    Pair *fresh = (Pair *)FUN_0008d6d0(wanted * 8);
+    Pair_304a10 *fresh = (Pair_304a10 *)FUN_0008d6d0(wanted * 8);
     if (count > 0) {
         if (deep) {
             for (int i = 0; i < count; i++) {

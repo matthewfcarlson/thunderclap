@@ -3,35 +3,35 @@
 extern "C" char *__cdecl strchr(const char *, int);
 extern "C" unsigned int __cdecl strlen(const char *);
 
-struct TString {
+struct TString_2160c0 {
     char hdr[0x10];
     char str[1];
 };
 
-struct TValue {
+struct TValue_2160c0 {
     int tt;
     union {
-        TString *ts;
+        TString_2160c0 *ts;
         float n;
     } value;
 };
 
-struct lua_State {
+struct lua_State_2160c0 {
     char pad0[8];
-    TValue *top;
-    TValue *base;
+    TValue_2160c0 *top;
+    TValue_2160c0 *base;
     char pad10[8];
-    TValue *stack_last;
+    TValue_2160c0 *stack_last;
 };
 
-TString *__cdecl FUN_00219430(lua_State *L, const char *s, unsigned int len);
-void __cdecl FUN_00215460(lua_State *L, int n);
-void __cdecl FUN_00217f20(lua_State *L, int total, int last);
+TString_2160c0 *__cdecl FUN_00219430(lua_State_2160c0 *L, const char *s, unsigned int len);
+void __cdecl FUN_00215460(lua_State_2160c0 *L, int n);
+void __cdecl FUN_00217f20(lua_State_2160c0 *L, int total, int last);
 // equiv-conv: FUN_00216060 esi edx
-void FUN_00216060(lua_State *L, const char *s);
+void FUN_00216060(lua_State_2160c0 *L, const char *s);
 
 // Lua 5.0 luaO_pushvfstring: fmt supports %s %c %d %f %%, arguments come from the va_list pointer.
-const char *FUN_002160c0(lua_State *L, const char *fmt, char *argp)
+const char *FUN_002160c0(lua_State_2160c0 *L, const char *fmt, char *argp)
 {
     struct Frame {
         char buff[4];
@@ -46,14 +46,14 @@ const char *FUN_002160c0(lua_State *L, const char *fmt, char *argp)
     if (f.e != 0) {
         f.ap2 = argp - 8;
         while (f.e != 0) {
-            TValue *o = L->top;
-            TString *ts = FUN_00219430(L, fmt, f.e - fmt);
+            TValue_2160c0 *o = L->top;
+            TString_2160c0 *ts = FUN_00219430(L, fmt, f.e - fmt);
             o->value.ts = ts;
             o->tt = 4;
             if ((char *)L->stack_last - (char *)L->top <= 8)
                 FUN_00215460(L, 1);
             L->top++;
-            TValue *slot = L->top;
+            TValue_2160c0 *slot = L->top;
             switch (f.e[1]) {
             case 's': {
                 const char *s = *(const char **)argp;
@@ -98,7 +98,7 @@ const char *FUN_002160c0(lua_State *L, const char *fmt, char *argp)
                 f.buff[0] = '%';
                 f.buff[1] = f.e[1];
                 f.buff[2] = 0;
-                TString *ds = FUN_00219430(L, f.buff, strlen(f.buff));
+                TString_2160c0 *ds = FUN_00219430(L, f.buff, strlen(f.buff));
                 slot->value.ts = ds;
                 slot->tt = 4;
                 if ((char *)L->stack_last - (char *)L->top <= 8)

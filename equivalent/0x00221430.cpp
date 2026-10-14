@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 12/12)
 // FUN_00221430 @ 0x00221430
-struct Proto {
+struct Proto_221430 {
     char pad0[0xc];
     unsigned int* code;     // 0x0c
 };
 
-struct FuncState {
-    Proto* f;               // 0x00
+struct FuncState_221430 {
+    Proto_221430* f;               // 0x00
     char pad4[0x14];
     int pc;                 // 0x18
     char pad1c[8];
@@ -15,7 +15,7 @@ struct FuncState {
     unsigned char nactvar;  // 0x34
 };
 
-struct ExpDesc {
+struct ExpDesc_221430 {
     int k;
     int info;
 };
@@ -23,11 +23,11 @@ struct ExpDesc {
 // equiv-conv: FUN_00220d10 eax stack stack stack
 int FUN_00220d10(int a, int op, int b, int c);
 // equiv-conv: FUN_00220f80 eax stack
-void FUN_00220f80(FuncState* fs, ExpDesc* e);
+void FUN_00220f80(FuncState_221430* fs, ExpDesc_221430* e);
 
 // Emits a TEST on an expression: folds a preceding NOT, otherwise discharges the expression first.
 // equiv-conv: FUN_00221430 eax edi ebx
-int FUN_00221430(FuncState* fs, ExpDesc* e, int cond)
+int FUN_00221430(FuncState_221430* fs, ExpDesc_221430* e, int cond)
 {
     if (e->k == 10) {
         unsigned int i = fs->f->code[e->info];

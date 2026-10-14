@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 18/18)
 // FUN_00306650 @ 0x00306650
-struct Vec3 {
+struct Vec3_306650 {
     float x, y, z;
 };
 
 extern float DAT_003f32e0;
 
-class Box {
+class Box_306650 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual Vec3 *GetPos();
+    virtual Vec3_306650 *GetPos();
     char pad4[0x24];
     float ex;
     float ey;
@@ -24,10 +24,10 @@ public:
 };
 
 // equiv-conv: FUN_00306650 esi edi stack
-bool FUN_00306650(Box *a, Box *b, float margin)
+bool FUN_00306650(Box_306650 *a, Box_306650 *b, float margin)
 {
-    Vec3 *pb = b->GetPos();
-    Vec3 *pa = a->GetPos();
+    Vec3_306650 *pb = b->GetPos();
+    Vec3_306650 *pa = a->GetPos();
     float d = pb->y - pa->y;
     if (a->ey == DAT_003f32e0) {
         if (margin + b->ey < d * a->sy)

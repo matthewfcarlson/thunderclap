@@ -1,68 +1,68 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 26/26)
 // FUN_002ffa00 @ 0x002ffa00
-struct Vec3 {
+struct Vec3_2ffa00 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Aux {
+struct Aux_2ffa00 {
     char pad0[0x10];
     int field10;
 };
 
 struct Node {
     char pad0[0x20];
-    Aux *aux;
+    Aux_2ffa00 *aux;
     char pad24[0x2c];
     char flag50;
     char pad51[0x21];
     char flag72;
 };
 
-struct Group {
+struct Group_2ffa00 {
     char pad0[4];
     Node *node;
 };
 
-struct Rec {
+struct Rec_2ffa00 {
     int zero;
     Node *node;
-    Aux *aux;
+    Aux_2ffa00 *aux;
 };
 
 struct World {
     int count;
     char pad4[4];
-    Group *group;
+    Group_2ffa00 *group;
 };
 
 extern char DAT_00554c1c;
 
-bool __cdecl FUN_002f1160(Vec3 *from, Vec3 *v, Vec3 *d, float dist, Rec *r);
-void __cdecl FUN_002f24f0(World *w, Rec *r, Vec3 *v, Vec3 *d, float *dist);
+bool __cdecl FUN_002f1160(Vec3_2ffa00 *from, Vec3_2ffa00 *v, Vec3_2ffa00 *d, float dist, Rec_2ffa00 *r);
+void __cdecl FUN_002f24f0(World *w, Rec_2ffa00 *r, Vec3_2ffa00 *v, Vec3_2ffa00 *d, float *dist);
 
-struct Item {
+struct Item_2ffa00 {
     char pad0[0x6c];
-    void FUN_002ff530(World *w, Vec3 *from, Vec3 *v, Vec3 *d, float *dist, char flag);
+    void FUN_002ff530(World *w, Vec3_2ffa00 *from, Vec3_2ffa00 *v, Vec3_2ffa00 *d, float *dist, char flag);
 };
 
-class Probe {
+class Probe_2ffa00 {
 public:
-    Item *items;
+    Item_2ffa00 *items;
     int count;
-    bool FUN_002ffa00(World *w, Vec3 *from, Vec3 *to, char flag, int index);
+    bool FUN_002ffa00(World *w, Vec3_2ffa00 *from, Vec3_2ffa00 *to, char flag, int index);
 };
 
-bool Probe::FUN_002ffa00(World *w, Vec3 *from, Vec3 *to, char flag, int index)
+bool Probe_2ffa00::FUN_002ffa00(World *w, Vec3_2ffa00 *from, Vec3_2ffa00 *to, char flag, int index)
 {
-    Vec3 d;
+    Vec3_2ffa00 d;
     d.x = to->x - from->x;
     d.y = to->y - from->y;
     d.z = to->z - from->z;
-    Vec3 v = d;
+    Vec3_2ffa00 v = d;
     float dist = v.FUN_0022d110();
     if (DAT_00554c1c && w->count > 0) {
-        Rec r;
+        Rec_2ffa00 r;
         r.aux = 0;
         r.node = 0;
         r.zero = 0;

@@ -10,7 +10,7 @@ public:
 
 extern unsigned __int64 DAT_004e0a08;
 
-struct Chain {
+struct Chain_f9f30 {
     char pad0[8];
     Node* head;
     int pad0c;
@@ -18,7 +18,7 @@ struct Chain {
     void FUN_000f9f30();
 };
 
-void Chain::FUN_000f9f30() {
+void Chain_f9f30::FUN_000f9f30() {
     if (head == 0)
         return;
     Node* n = head->next;

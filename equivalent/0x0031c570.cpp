@@ -1,19 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_0031c570 @ 0x0031c570
 // Fills a 2D texture-level description from a format descriptor and an optional locked surface.
-struct FormatDesc {
+struct FormatDesc_31c570 {
     int format;
     char pad04[0x10];
     int width;
     int height;
 };
 
-struct Surface {
+struct Surface_31c570 {
     int pitch;
     int bits;
 };
 
-struct LevelDesc {
+struct LevelDesc_31c570 {
     int width;
     int height;
     int bytesPerPixel;
@@ -26,9 +26,9 @@ struct LevelDesc {
 
 // equiv-conv: FUN_0031c180 eax
 int FUN_0031c180(int format);
-void __cdecl FUN_0031c290(int format, LevelDesc *out);
+void __cdecl FUN_0031c290(int format, LevelDesc_31c570 *out);
 
-void FUN_0031c570(const FormatDesc *desc, const Surface *surf, LevelDesc *out, char flipped)
+void FUN_0031c570(const FormatDesc_31c570 *desc, const Surface_31c570 *surf, LevelDesc_31c570 *out, char flipped)
 {
     out->width = desc->width;
     out->height = desc->height;

@@ -1,35 +1,35 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_002b98d0 @ 0x002b98d0
-struct Mat4 {
+struct Mat4_2b98d0 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022ba30(float angle);
-    void FUN_0022ca90(Mat4 *a, Mat4 *b);
+    void FUN_0022ca90(Mat4_2b98d0 *a, Mat4_2b98d0 *b);
 };
 
-struct Vec3 {
+struct Vec3_2b98d0 {
     float x, y, z;
     void FUN_0022d180();
-    void FUN_0022d260(Mat4 *m);
+    void FUN_0022d260(Mat4_2b98d0 *m);
 };
 
 float FUN_00018a20(float x);
 
-class Box {
+class Box_2b98d0 {
 public:
-    void FUN_002b8f60(Mat4 *a, Mat4 *b, Mat4 *c, Mat4 *d, float scale);
-    void FUN_002b98d0(Mat4 *a, Mat4 *c, Mat4 *b, Mat4 *d, float scale);
+    void FUN_002b8f60(Mat4_2b98d0 *a, Mat4_2b98d0 *b, Mat4_2b98d0 *c, Mat4_2b98d0 *d, float scale);
+    void FUN_002b98d0(Mat4_2b98d0 *a, Mat4_2b98d0 *c, Mat4_2b98d0 *b, Mat4_2b98d0 *d, float scale);
 };
 
-void Box::FUN_002b98d0(Mat4 *a, Mat4 *c, Mat4 *b, Mat4 *d, float scale)
+void Box_2b98d0::FUN_002b98d0(Mat4_2b98d0 *a, Mat4_2b98d0 *c, Mat4_2b98d0 *b, Mat4_2b98d0 *d, float scale)
 {
-    Vec3 pa;
-    Vec3 pb;
-    Vec3 up;
-    Vec3 fwd;
-    Vec3 w;
-    Mat4 rot;
-    Mat4 comb;
+    Vec3_2b98d0 pa;
+    Vec3_2b98d0 pb;
+    Vec3_2b98d0 up;
+    Vec3_2b98d0 fwd;
+    Vec3_2b98d0 w;
+    Mat4_2b98d0 rot;
+    Mat4_2b98d0 comb;
 
     pb.x = d->m[12];
     pb.y = d->m[13];

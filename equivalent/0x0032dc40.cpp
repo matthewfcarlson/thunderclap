@@ -13,7 +13,7 @@ struct Texture {
     void FUN_00326b00(int stage);
 };
 
-struct DeviceState {
+struct DeviceState_32dc40 {
     char pad0[8];
     Texture* tex[5];
     int coordIndex;
@@ -51,7 +51,7 @@ class d3dLayeredShader {
     virtual void vfunc_13();
     virtual void vfunc_14(int unused);
     char pad4[0x14 - 4];
-    DeviceState* state;
+    DeviceState_32dc40* state;
     char pad18[4];
     int kind;
     char pad20[0x38 - 0x20];

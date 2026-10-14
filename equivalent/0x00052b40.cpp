@@ -12,22 +12,22 @@ extern int DAT_004dc418;
 extern unsigned DAT_004dc41c;
 extern "C" void __cdecl FUN_002347b0(void*,void**,int);
 class CAxisSpeedCondition;
-struct EnumBase {
+struct EnumBase_52b40 {
  virtual void slot0();
  char pad[12];
  void FUN_00234cc0(const char*);
 };
-struct FloatBase {
+struct FloatBase_52b40 {
  virtual void slot0();
  char pad[12];
  void FUN_00234960(const char*);
 };
 namespace fight {
-template<class T> struct ParamEnumConstList: EnumBase {
+template<class T> struct ParamEnumConstList: EnumBase_52b40 {
  const char* values; int count; void (*callback)(); int tail;
  virtual void slot0();
 };
-template<class T> struct ParamFloatConstRange: FloatBase {
+template<class T> struct ParamFloatConstRange: FloatBase_52b40 {
  void (*callback)(); int tail;
  virtual void slot0();
 };

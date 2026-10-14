@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 680 inputs, branch coverage 12/12)
 // FUN_00306380 @ 0x00306380
 struct Node;
-struct Children { Node** begin; Node** end; };
+struct Children_306380 { Node** begin; Node** end; };
 struct Node {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual int slot6();
- char pad04[0x10]; Children* children;
+ char pad04[0x10]; Children_306380* children;
  char pad18[0x20];
  unsigned int f38;
  char pad3c[8];

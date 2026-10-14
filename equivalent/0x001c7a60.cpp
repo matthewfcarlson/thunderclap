@@ -3,9 +3,9 @@
 extern "C" double sin(double);
 extern "C" double cos(double);
 
-struct Vec3 { float x, y, z; };
+struct Vec3_1c7a60 { float x, y, z; };
 
-struct VertexSink {
+struct VertexSink_1c7a60 {
     char pad0[8];
     float *pos;
     char pad0c[4];
@@ -37,10 +37,10 @@ public:
 
 struct Wrapper1 {
     Device1 *dev;
-    void FUN_00293d00(Vec3 *origin);
+    void FUN_00293d00(Vec3_1c7a60 *origin);
 };
 
-class Device2 {
+class Device2_1c7a60 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -72,8 +72,8 @@ public:
     virtual void vfunc_27();
     virtual void vfunc_28();
     virtual void vfunc_29();
-    virtual VertexSink *vfunc_30(int buffer, int a, int flags, int stride, int b);
-    virtual void vfunc_31(VertexSink *sink);
+    virtual VertexSink_1c7a60 *vfunc_30(int buffer, int a, int flags, int stride, int b);
+    virtual void vfunc_31(VertexSink_1c7a60 *sink);
     virtual void vfunc_32();
     virtual void vfunc_33();
     virtual void vfunc_34();
@@ -108,35 +108,35 @@ public:
 };
 
 extern Wrapper1 *DAT_0052c2ac;
-extern Device2 *DAT_0052c2a8;
+extern Device2_1c7a60 *DAT_0052c2a8;
 
-struct Target {
+struct Target_1c7a60 {
     char pad0[0x24];
-    Vec3 pos;
+    Vec3_1c7a60 pos;
 };
 
-struct Buffer {
+struct Buffer_1c7a60 {
     char pad0[0x10];
     int handle;
 };
 
-class Marker {
+class Marker_1c7a60 {
 public:
     char pad0[0x750];
-    Buffer *buffer;
-    void Draw(Target *target, float radius, unsigned int gray, unsigned int alpha, unsigned int edgeByte);
+    Buffer_1c7a60 *buffer;
+    void Draw(Target_1c7a60 *target, float radius, unsigned int gray, unsigned int alpha, unsigned int edgeByte);
 };
 
-void Marker::Draw(Target *target, float radius, unsigned int gray, unsigned int alpha, unsigned int edgeByte)
+void Marker_1c7a60::Draw(Target_1c7a60 *target, float radius, unsigned int gray, unsigned int alpha, unsigned int edgeByte)
 {
     unsigned int edge = ((((edgeByte | 0xffffff00) << 8) | edgeByte) << 8) | edgeByte;
     unsigned int fill = ((((alpha << 8) | gray) << 8 | gray) << 8) | gray;
 
-    Vec3 origin = target->pos;
+    Vec3_1c7a60 origin = target->pos;
     DAT_0052c2ac->dev->vfunc_15(0);
     DAT_0052c2ac->FUN_00293d00(&origin);
     DAT_0052c2a8->vfunc_62(0);
-    VertexSink *sink = DAT_0052c2a8->vfunc_30(buffer->handle, 0, 0x2020, 0x24, 0);
+    VertexSink_1c7a60 *sink = DAT_0052c2a8->vfunc_30(buffer->handle, 0, 0x2020, 0x24, 0);
 
     float angle = 0.0f;
     float x = (float)(sin(0.0) * radius);

@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 131 inputs, branch coverage 18/18)
 // FUN_000be100 @ 0x000be100
-class Player {
+class Player_be100 {
   public:
     char pad[0x9a8];
     char busy;
 };
-class Game {
+class Game_be100 {
   public:
     char pad[0x2218];
-    Player* player;
+    Player_be100* player;
     int mode;
 };
 class Singleton;
-Game* __cdecl FUN_000fc3d0();
+Game_be100* __cdecl FUN_000fc3d0();
 Singleton* __cdecl FUN_001d4c90();
 extern int DAT_0049cab4;
 
-class Menu {
+class Menu_be100 {
   public:
     char pad0[0x10];
     int state;
@@ -27,10 +27,10 @@ class Menu {
     void FUN_000be100();
 };
 
-void Menu::FUN_000be100() {
+void Menu_be100::FUN_000be100() {
     if (state != 0x17)
         return;
-    Player* p = FUN_000fc3d0()->player;
+    Player_be100* p = FUN_000fc3d0()->player;
     if (p != 0 && p->busy != 0)
         return;
     state = 0;

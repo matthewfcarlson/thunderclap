@@ -1,68 +1,68 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3037 inputs, branch coverage 26/26)
 // hulkfight::motion::DriftToHulkAction::vfunc_5 @ 0x00175670
-struct Vec3 {
+struct Vec3_175670 {
     float x, y, z;
     float FUN_0022d110();
     float FUN_00018990();
 };
 
-struct Marker {
+struct Marker_175670 {
     char pad00[0x14];
-    Vec3 offset;
+    Vec3_175670 offset;
 };
 
-struct Item {
+struct Item_175670 {
     char pad00[0x1b0];
     int kind;
 };
 
-struct Target {
+struct Target_175670 {
     char pad00[0x40];
-    Vec3 pos;
+    Vec3_175670 pos;
 };
 
-struct Actor {
+struct Actor_175670 {
     char pad000[0x11c];
-    Item *item;
+    Item_175670 *item;
     char pad120[0x328 - 0x120];
-    Target *target;
+    Target_175670 *target;
     char pad32c[0x2064 - 0x32c];
-    Vec3 direction;
+    Vec3_175670 direction;
     float strength;
     char pad2074[0x20a8 - 0x2074];
     int priority;
 
-    void FUN_0003ffa0(Target *t, int flag);
-    void FUN_00035720(Vec3 *v);
+    void FUN_0003ffa0(Target_175670 *t, int flag);
+    void FUN_00035720(Vec3_175670 *v);
 };
 
-struct Body {
-    Actor *FUN_00059a30();
-    void FUN_00059a50(Vec3 *out);
+struct Body_175670 {
+    Actor_175670 *FUN_00059a30();
+    void FUN_00059a50(Vec3_175670 *out);
 };
 
-struct Owner {
-    Body *FUN_000592a0();
+struct Owner_175670 {
+    Body_175670 *FUN_000592a0();
 };
 
 struct Rival {
     char pad000[0x11c];
-    Item *item;
+    Item_175670 *item;
     char pad120[0x12c - 0x120];
-    Target *target;
+    Target_175670 *target;
 };
 
-struct Scene {
+struct Scene_175670 {
     char pad00[0x124];
     Rival *rival;
 };
 
-struct Game {
+struct Game_175670 {
     char pad00[0x20];
-    Scene *scene;
+    Scene_175670 *scene;
 };
 
-extern Game *DAT_004dd700;
+extern Game_175670 *DAT_004dd700;
 
 namespace hulkfight {
 namespace motion {
@@ -77,8 +77,8 @@ public:
     virtual bool vfunc_5(int mode, float dt);
 
     char pad04[0x18];
-    Marker *marker;         // 0x1c
-    Owner *owner;           // 0x20
+    Marker_175670 *marker;         // 0x1c
+    Owner_175670 *owner;           // 0x20
     char pad24[0x30 - 0x24];
     float timer;            // 0x30
 };
@@ -89,31 +89,31 @@ public:
 bool hulkfight::motion::DriftToHulkAction::vfunc_5(int mode, float dt)
 {
     struct Frame {
-        Vec3 e;
-        Vec3 d;
+        Vec3_175670 e;
+        Vec3_175670 d;
         float ax;
         float spill1c;
         float spill20;
-        Vec3 v;
+        Vec3_175670 v;
     } fr;
 
     if (mode != 0 || dt == 0.0f)
         return true;
 
-    Game *game = DAT_004dd700;
-    Body *body = owner->FUN_000592a0();
+    Game_175670 *game = DAT_004dd700;
+    Body_175670 *body = owner->FUN_000592a0();
     if (body == 0)
         return false;
-    Actor *actor = body->FUN_00059a30();
+    Actor_175670 *actor = body->FUN_00059a30();
     if (actor == 0)
         return false;
     body->FUN_00059a50(&fr.v);
 
-    Target *t = actor->target;
+    Target_175670 *t = actor->target;
     if (t == 0) {
         if (actor->priority >= 0)
             return true;
-        Item *mine = actor->item;
+        Item_175670 *mine = actor->item;
         if (mine == 0)
             return true;
         Rival *rival = game->scene->rival;
@@ -122,7 +122,7 @@ bool hulkfight::motion::DriftToHulkAction::vfunc_5(int mode, float dt)
         t = rival->target;
         if (t == 0)
             return true;
-        Item *theirs = rival->item;
+        Item_175670 *theirs = rival->item;
         if (theirs == 0)
             return true;
         if (mine->kind == theirs->kind)
@@ -130,7 +130,7 @@ bool hulkfight::motion::DriftToHulkAction::vfunc_5(int mode, float dt)
         actor->FUN_0003ffa0(t, 0);
     }
 
-    Vec3 *w = &marker->offset;
+    Vec3_175670 *w = &marker->offset;
     fr.ax = w->x + t->pos.x;
     fr.d.x = fr.ax - fr.v.x;
     fr.d.y = (w->y + t->pos.y) - fr.v.y;

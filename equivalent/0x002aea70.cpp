@@ -16,28 +16,28 @@ struct Request {
     int allocTag;
 };
 
-struct Loader;
+struct Loader_2aea70;
 
 struct Context {
     char pad0[0x18];
-    Loader* loader;
+    Loader_2aea70* loader;
     File* file;
     File* FUN_00266880();
     void FUN_00266850(File* f);
-    void FUN_00266820(Loader* l);
+    void FUN_00266820(Loader_2aea70* l);
 };
 
-struct NameField {
+struct NameField_2aea70 {
     unsigned int keyLo;
     unsigned int keyHi;
     void FUN_0027b040(const char* name);
 };
 
-struct Resource {
+struct Resource_2aea70 {
     virtual void AddRef();
     virtual void Release();
     char pad04[4];
-    NameField name;
+    NameField_2aea70 name;
 };
 
 struct SpriteObject {
@@ -65,28 +65,28 @@ struct SpriteObject {
     virtual void v21();
     virtual void setSprite(struct Sprite* s);
     char pad04[4];
-    NameField name;
+    NameField_2aea70 name;
     SpriteObject* FUN_002bdee0();
 };
 
 struct Sprite {
-    Sprite* FUN_002beb20(Resource* image, int zero, int one, int a, int b, int c);
+    Sprite* FUN_002beb20(Resource_2aea70* image, int zero, int one, int a, int b, int c);
 };
 
-struct Loader {
+struct Loader_2aea70 {
     virtual void v0();
     virtual void Release();
     virtual void v2();
     virtual void v3();
     virtual void add(unsigned int keyLo, unsigned int keyHi, void* obj);
-    Loader* FUN_00266480(int size);
+    Loader_2aea70* FUN_00266480(int size);
 };
 
 namespace pure3d {
 class TextureBuilder {
 public:
     virtual void vfunc_0();
-    Resource* tex;
+    Resource_2aea70* tex;
     int flags;
     void* surface;
     int stride;
@@ -104,7 +104,7 @@ public:
 class ImageBuilder {
 public:
     virtual void vfunc_0();
-    Resource* image;
+    Resource_2aea70* image;
     int f08;
     int f0c;
     int f10;
@@ -175,14 +175,14 @@ void ImageHandler::vfunc_3(Request* req, Context* ctx)
     }
 
     void* lmem = FUN_00263ed0(0x14, req->allocTag);
-    Loader* loader = 0;
+    Loader_2aea70* loader = 0;
     if (lmem)
-        loader = ((Loader*)lmem)->FUN_00266480(0x400);
+        loader = ((Loader_2aea70*)lmem)->FUN_00266480(0x400);
 
     if (mode == 1) {
         pure3d::TextureBuilder builder;
         load(file, &builder);
-        Resource* tex = builder.tex;
+        Resource_2aea70* tex = builder.tex;
         if (tex != 0) {
             tex->name.FUN_0027b040(name);
             loader->add(tex->name.keyLo, tex->name.keyHi, tex);
@@ -190,7 +190,7 @@ void ImageHandler::vfunc_3(Request* req, Context* ctx)
     } else if (mode == 0) {
         pure3d::ImageBuilder builder;
         load(file, &builder);
-        Resource* image = builder.image;
+        Resource_2aea70* image = builder.image;
         if (image != 0) {
             image->name.FUN_0027b040(name);
             loader->add(image->name.keyLo, image->name.keyHi, image);
@@ -198,7 +198,7 @@ void ImageHandler::vfunc_3(Request* req, Context* ctx)
     } else if (mode == 2) {
         pure3d::ImageBuilder builder;
         load(file, &builder);
-        Resource* image = builder.image;
+        Resource_2aea70* image = builder.image;
         if (image != 0) {
             void* smem = FUN_00263ea0(0xa8);
             Sprite* sprite = 0;

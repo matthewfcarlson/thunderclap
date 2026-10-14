@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0022aca0 @ 0x0022aca0
-struct Vector3 { float x,y,z; };
-struct Random {
+struct Vector3_22aca0 { float x,y,z; };
+struct Random_22aca0 {
  unsigned int seed1,seed2;
- Vector3* FUN_0022aca0(Vector3* result);
+ Vector3_22aca0* FUN_0022aca0(Vector3_22aca0* result);
 };
-Vector3* Random::FUN_0022aca0(Vector3* result) {
+Vector3_22aca0* Random_22aca0::FUN_0022aca0(Vector3_22aca0* result) {
  float values[3];
  for(int i=0;i<3;++i) {
   seed1 = (seed1 & 65535u)*36969u + (seed1 >> 16);

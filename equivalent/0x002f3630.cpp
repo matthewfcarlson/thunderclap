@@ -2,7 +2,7 @@
 // FUN_002f3630 @ 0x002f3630
 // equiv-map: ??0MeshBase@@QAE@XZ = 0x003060a0
 
-class Ref {
+class Ref_2f3630 {
 public:
     virtual void vfunc_0();
 };
@@ -18,7 +18,7 @@ namespace physics {
 class CollisionMesh : public MeshBase {
 public:
     int f38, f3c, f40;
-    Ref* ref;               // 0x44
+    Ref_2f3630* ref;               // 0x44
     int f48;
     int block4c[16];        // 0x4c
     int block8c[16];        // 0x8c

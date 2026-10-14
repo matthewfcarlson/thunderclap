@@ -1,26 +1,26 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001945b0 @ 0x001945b0
-struct Name {
+struct Name_1945b0 {
     unsigned int a, b;
     void FUN_0027af00();
 };
 
-struct Handle {
+struct Handle_1945b0 {
     char pad[16];
     void FUN_00233dd0();
 };
 
-class __declspec(novtable) TrackBase {
+class __declspec(novtable) TrackBase_1945b0 {
 public:
     virtual void b0();
     int pad04;
     int mode;
     void FUN_00236d40();
-    TrackBase() { FUN_00236d40(); }
+    TrackBase_1945b0() { FUN_00236d40(); }
 };
 
 namespace hulkfight { namespace motion {
-class FireGroundShockwaveTrack : public TrackBase {
+class FireGroundShockwaveTrack : public TrackBase_1945b0 {
 public:
     virtual void v1();
     virtual void v2();
@@ -31,7 +31,7 @@ public:
     float f24, f28, f2c;
     int f30;
     float f34, f38, f3c;
-    Name name40;                    // 0x40
+    Name_1945b0 name40;                    // 0x40
     int f48, f4c;
     float f50;
     int f54;
@@ -41,8 +41,8 @@ public:
     int f6c;
     float f70;
     int f74, f78, f7c, f80, f84, f88, f8c, f90, f94;
-    Handle handle98;                // 0x98
-    Name nameA8;                    // 0xa8
+    Handle_1945b0 handle98;                // 0x98
+    Name_1945b0 nameA8;                    // 0xa8
 
     FireGroundShockwaveTrack();
 };

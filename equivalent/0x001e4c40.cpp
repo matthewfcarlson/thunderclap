@@ -2,14 +2,14 @@
 // FUN_001e4c40 @ 0x001e4c40
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
-struct Vec3 {
+struct Vec3_1e4c40 {
     float x, y, z;
 };
 
-struct Mat4 {
+struct Mat4_1e4c40 {
     float m[16];
     void FUN_0022b980();
-    void FUN_0022be40(Vec3 *pos);
+    void FUN_0022be40(Vec3_1e4c40 *pos);
 };
 
 class CSPHulkProp;
@@ -23,36 +23,36 @@ struct DynamicCaster {
 }
 }
 
-struct Prop {
+struct Prop_1e4c40 {
     char pad[4];
 };
 
-struct Inventory {
+struct Inventory_1e4c40 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
-    virtual Prop *v3(content::LoadInventory::DynamicCaster<CSPHulkProp> *caster, unsigned __int64 key);
+    virtual Prop_1e4c40 *v3(content::LoadInventory::DynamicCaster<CSPHulkProp> *caster, unsigned __int64 key);
 };
 
-struct Counter {
+struct Counter_1e4c40 {
     int FUN_00088fa0();
     int FUN_00088fb0();
 };
 
-struct Stats {
+struct Stats_1e4c40 {
     char pad0[0x80];
-    Counter counter;
+    Counter_1e4c40 counter;
 };
 
-struct Holder44 { Inventory *FUN_00203d70(); };
-struct Holder28 {
-    Stats *FUN_00086310();
-    Holder44 *FUN_000862a0();
+struct Holder44_1e4c40 { Inventory_1e4c40 *FUN_00203d70(); };
+struct Holder28_1e4c40 {
+    Stats_1e4c40 *FUN_00086310();
+    Holder44_1e4c40 *FUN_000862a0();
 };
 
 struct World {
     char pad0[0x54];
-    Holder28 *holder;
+    Holder28_1e4c40 *holder;
 };
 
 struct Node {
@@ -64,12 +64,12 @@ struct Node {
     char b194;
     char pad195[0x1c4 - 0x195];
     float f1c4;
-    void FUN_001d86d0(Vec3 *dir, Vec3 *pos);
+    void FUN_001d86d0(Vec3_1e4c40 *dir, Vec3_1e4c40 *pos);
 };
 
-struct Factory {
-    Node *FUN_001e4760(Prop *prop, char *name, int a, Mat4 *m, int b, int c, int d);
-    Node *FUN_001e4c40(const char *key, Vec3 *pos, int type, char *name, Vec3 *dir, int c);
+struct Factory_1e4c40 {
+    Node *FUN_001e4760(Prop_1e4c40 *prop, char *name, int a, Mat4_1e4c40 *m, int b, int c, int d);
+    Node *FUN_001e4c40(const char *key, Vec3_1e4c40 *pos, int type, char *name, Vec3_1e4c40 *dir, int c);
 };
 
 extern World *DAT_004dd700;
@@ -83,12 +83,12 @@ unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 
-Node *Factory::FUN_001e4c40(const char *key, Vec3 *pos, int type, char *name, Vec3 *dir, int c)
+Node *Factory_1e4c40::FUN_001e4c40(const char *key, Vec3_1e4c40 *pos, int type, char *name, Vec3_1e4c40 *dir, int c)
 {
     struct Frame {
         char caster[4];
-        Factory *self;
-        Mat4 m;
+        Factory_1e4c40 *self;
+        Mat4_1e4c40 m;
         char buf[0x80];
     } f;
     unsigned int cookie = DAT_004d9968;
@@ -105,9 +105,9 @@ Node *Factory::FUN_001e4c40(const char *key, Vec3 *pos, int type, char *name, Ve
 
     f.m.FUN_0022b980();
     f.m.FUN_0022be40(pos);
-    Inventory *inv = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
+    Inventory_1e4c40 *inv = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
     unsigned __int64 id = FUN_002672f0(key, 0, 0);
-    Prop *prop = inv->v3(new (f.caster) content::LoadInventory::DynamicCaster<CSPHulkProp>, id);
+    Prop_1e4c40 *prop = inv->v3(new (f.caster) content::LoadInventory::DynamicCaster<CSPHulkProp>, id);
     if (prop == 0) {
         FUN_000964a0(f.buf, 0x80, "%s_%s", key, key);
         id = FUN_002672f0(f.buf, 0, 0);

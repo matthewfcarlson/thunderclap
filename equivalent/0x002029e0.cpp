@@ -2,32 +2,32 @@
 // FUN_002029e0 @ 0x002029e0
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_2029e0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Flagged {
+struct Flagged_2029e0 {
     char pad00[0x72];
     char hidden;            // 0x72
 };
 
-struct Actor {
+struct Actor_2029e0 {
     char pad00[0xa9];
     char ghost;             // 0xa9
 };
 
-struct Fighter {
+struct Fighter_2029e0 {
     char pad00[0x11c];
-    Actor* actor;           // 0x11c
+    Actor_2029e0* actor;           // 0x11c
 };
 
 struct Node {
     char pad00[8];
-    Fighter* fighter;       // 0x08
+    Fighter_2029e0* fighter;       // 0x08
     int kind;               // 0x0c
     char pad10[0x74 - 0x10];
-    Flagged* blocker;       // 0x74
+    Flagged_2029e0* blocker;       // 0x74
 };
 
 struct Entity {
@@ -35,56 +35,56 @@ struct Entity {
     Node* node;             // 0x18
 };
 
-struct Body {
+struct Body_2029e0 {
     int dummy;
 };
 
-struct SweepEntry {
+struct SweepEntry_2029e0 {
     float t;                // 0x00
     Entity* entity;         // 0x04
-    Body* body;             // 0x08
+    Body_2029e0* body;             // 0x08
 };
 
-struct SweepList {
+struct SweepList_2029e0 {
     int count;              // 0x00
     char pad04[4];
-    SweepEntry* entries;    // 0x08
+    SweepEntry_2029e0* entries;    // 0x08
 };
 
-struct Sweeper {
-    bool FUN_002ee140(SweepList* list, Vec3* from, Vec3* to, int flags);
+struct Sweeper_2029e0 {
+    bool FUN_002ee140(SweepList_2029e0* list, Vec3_2029e0* from, Vec3_2029e0* to, int flags);
 };
 
-struct Space {
+struct Space_2029e0 {
     char pad00[8];
-    SweepList list;         // 0x08
-    bool FUN_00201e00(Vec3* from, Vec3* to, int mode, Vec3* outPoint, Vec3* outNormal,
+    SweepList_2029e0 list;         // 0x08
+    bool FUN_00201e00(Vec3_2029e0* from, Vec3_2029e0* to, int mode, Vec3_2029e0* outPoint, Vec3_2029e0* outNormal,
                       void* out1, void* out2);
 };
 
-struct Hub {
+struct Hub_2029e0 {
     char pad00[8];
-    Sweeper* sweeper;       // 0x08
+    Sweeper_2029e0* sweeper;       // 0x08
 };
 
-struct Notifier {
+struct Notifier_2029e0 {
     void FUN_00025260(int a, int b, int c);
 };
 
 struct World {
     char pad00[0x10];
-    Hub* hub;               // 0x10
+    Hub_2029e0* hub;               // 0x10
     char pad14[0x20 - 0x14];
-    Notifier* notifier;     // 0x20
-    Space* space;           // 0x24
+    Notifier_2029e0* notifier;     // 0x20
+    Space_2029e0* space;           // 0x24
 };
 
 // the callee's out-parameter block: its contents are visible to the callee
-struct Contact {
+struct Contact_2029e0 {
     int zero;
     float t;
     float py;
-    Body* body;
+    Body_2029e0* body;
 };
 
 extern World* DAT_004dd700;
@@ -93,14 +93,14 @@ extern char DAT_004d2a40;
 extern char DAT_00554c1c;
 extern int DAT_00554c18;
 
-void FUN_002f1ce0(Vec3* from, Body* body, Vec3* outNormal, Contact* contact);
+void FUN_002f1ce0(Vec3_2029e0* from, Body_2029e0* body, Vec3_2029e0* outNormal, Contact_2029e0* contact);
 
-bool FUN_002029e0(Vec3* from, Vec3* to, int tag, int mode, Vec3* outPoint, Vec3* outNormal)
+bool FUN_002029e0(Vec3_2029e0* from, Vec3_2029e0* to, int tag, int mode, Vec3_2029e0* outPoint, Vec3_2029e0* outNormal)
 {
     World* world = DAT_004dd700;
-    Space* space = world->space;
-    Flagged* hidden[8];
-    Contact contact;
+    Space_2029e0* space = world->space;
+    Flagged_2029e0* hidden[8];
+    Contact_2029e0 contact;
     int hiddenCount;
     float dist;
 
@@ -115,21 +115,21 @@ bool FUN_002029e0(Vec3* from, Vec3* to, int tag, int mode, Vec3* outPoint, Vec3*
     }
 
     space->list.count = 0;
-    SweepList* list = &space->list;
+    SweepList_2029e0* list = &space->list;
     DAT_004d2a3c = 2;
     DAT_004d2a40 = 0;
     DAT_00554c1c = 1;
     DAT_00554c18 = tag;
     world->notifier->FUN_00025260(0, 0, 0);
 
-    Sweeper* sweeper = world->hub->sweeper;
+    Sweeper_2029e0* sweeper = world->hub->sweeper;
     hiddenCount = 0;
     if (sweeper->FUN_002ee140(list, from, to, 0)) {
         for (;;) {
-            SweepEntry* e = list->entries;
+            SweepEntry_2029e0* e = list->entries;
             float t = e->t;
             Entity* entity = e->entity;
-            Body* body = e->body;
+            Body_2029e0* body = e->body;
             if (!(t > 0.0f))
                 break;
             if (!(t < dist))
@@ -143,7 +143,7 @@ bool FUN_002029e0(Vec3* from, Vec3* to, int tag, int mode, Vec3* outPoint, Vec3*
                 passThrough = node->kind == 7;
 
             if (passThrough && hiddenCount < 8) {
-                Flagged* f = node->blocker;
+                Flagged_2029e0* f = node->blocker;
                 hidden[hiddenCount] = f;
                 hiddenCount++;
                 f->hidden = 0;
@@ -179,7 +179,7 @@ bool FUN_002029e0(Vec3* from, Vec3* to, int tag, int mode, Vec3* outPoint, Vec3*
     }
 
     while (hiddenCount > 0) {
-        Flagged* f = hidden[hiddenCount - 1];
+        Flagged_2029e0* f = hidden[hiddenCount - 1];
         hiddenCount--;
         f->hidden = 1;
     }

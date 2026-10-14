@@ -6,7 +6,7 @@ struct QuadVertex {
     float u, v;
 };
 
-struct Quad {
+struct Quad_2bdaf0 {
     QuadVertex v[4];
 };
 
@@ -23,7 +23,7 @@ struct RectInts {
 class QuadBatch {
 public:
     char pad00[0x44];
-    Quad *quads;          // 0x44
+    Quad_2bdaf0 *quads;          // 0x44
     char pad48[0x54 - 0x48];
     int height;           // 0x54
     char pad58[0x5c - 0x58];

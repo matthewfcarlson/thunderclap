@@ -1,42 +1,42 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 13/14, incomplete)
 // FUN_00203190 @ 0x00203190
-struct V3 {
+struct V3_203190 {
     float x, y, z;
 };
 
-struct Hit {
+struct Hit_203190 {
     int kind;
     int pad4[5];
     char flag;
 };
 
-struct Target {
+struct Target_203190 {
     char pad0[0xc];
     int kind;
 };
 
-struct Weapon {
+struct Weapon_203190 {
     char pad0[0x1b0];
     int f1b0;
 };
 
-struct Actor {
+struct Actor_203190 {
     char pad0[0x11c];
-    Weapon *weapon;
+    Weapon_203190 *weapon;
     char pad120[0x1ca4 - 0x120];
-    struct Tracer *tracer;
+    struct Tracer_203190 *tracer;
     void FUN_000368d0(int a);
 };
 
-struct Game;
+struct Game_203190;
 
-struct Tracer {
-    bool FUN_0010aa90(Game *g, V3 *a, V3 *b, float scale, V3 *o3, V3 *o2, V3 *o1,
-                      Actor *actor, Target *t, int zero0, int zero1);
+struct Tracer_203190 {
+    bool FUN_0010aa90(Game_203190 *g, V3_203190 *a, V3_203190 *b, float scale, V3_203190 *o3, V3_203190 *o2, V3_203190 *o1,
+                      Actor_203190 *actor, Target_203190 *t, int zero0, int zero1);
 };
 
-struct Probe {
-    bool FUN_00201e00(V3 *a, V3 *b, int one, V3 *o1, V3 *o2, int zero0, int zero1);
+struct Probe_203190 {
+    bool FUN_00201e00(V3_203190 *a, V3_203190 *b, int one, V3_203190 *o1, V3_203190 *o2, int zero0, int zero1);
 };
 
 struct Camera {
@@ -46,37 +46,37 @@ struct Camera {
 };
 
 struct Exec {
-    bool FUN_002edce0(Hit *h, V3 *a, V3 *b, int zero);
+    bool FUN_002edce0(Hit_203190 *h, V3_203190 *a, V3_203190 *b, int zero);
 };
 
-struct Holder10 {
+struct Holder10_203190 {
     char pad0[8];
     Exec *exec;
 };
 
-struct Game {
+struct Game_203190 {
     char pad0[0x10];
-    Holder10 *holder;
+    Holder10_203190 *holder;
     char pad14[0x20 - 0x14];
     Camera *camera;
-    Probe *probe;
+    Probe_203190 *probe;
 };
 
-extern Game *DAT_004dd700;
+extern Game_203190 *DAT_004dd700;
 
-bool __cdecl FUN_00202c30(V3 *a, V3 *b, float c, int one, V3 *o3, V3 *o2, int p3, Target *t, int p5, Actor *actor);
+bool __cdecl FUN_00202c30(V3_203190 *a, V3_203190 *b, float c, int one, V3_203190 *o3, V3_203190 *o2, int p3, Target_203190 *t, int p5, Actor_203190 *actor);
 
-struct Frame {
-    V3 diff;
-    V3 o2;
-    V3 o3;
-    Hit hit;
+struct Frame_203190 {
+    V3_203190 diff;
+    V3_203190 o2;
+    V3_203190 o3;
+    Hit_203190 hit;
 };
 
-bool FUN_00203190(V3 *a1, V3 *a2, int a3, Target *a4, int a5, Actor *a6)
+bool FUN_00203190(V3_203190 *a1, V3_203190 *a2, int a3, Target_203190 *a4, int a5, Actor_203190 *a6)
 {
-    Frame f;
-    Game *game = DAT_004dd700;
+    Frame_203190 f;
+    Game_203190 *game = DAT_004dd700;
 
     if (a4 && a4->kind != 1) {
         f.diff.x = a2->x - a1->x;

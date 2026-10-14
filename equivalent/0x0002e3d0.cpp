@@ -9,8 +9,8 @@ class CActorManager {
 public:
     bool Dummy(const char* name, math::Vector a, math::Vector b);
 };
-typedef bool (CActorManager::*ActorFn)(const char* name, math::Vector a, math::Vector b);
-struct Args {
+typedef bool (CActorManager::*ActorFn_2e3d0)(const char* name, math::Vector a, math::Vector b);
+struct Args_2e3d0 {
     const char* name;
     math::Vector a;
     math::Vector b;
@@ -23,10 +23,10 @@ public:
 class Method3 : public Function {
 public:
     char pad04[0x18];
-    ActorFn fn;
-    virtual void vfunc_2(CActorManager* owner, Args* args, bool* result);
+    ActorFn_2e3d0 fn;
+    virtual void vfunc_2(CActorManager* owner, Args_2e3d0* args, bool* result);
 };
-void Method3::vfunc_2(CActorManager* owner, Args* args, bool* result) {
+void Method3::vfunc_2(CActorManager* owner, Args_2e3d0* args, bool* result) {
     bool r = (owner->*fn)(args->name, args->a, args->b);
     if (result)
         *result = r;

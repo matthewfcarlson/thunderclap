@@ -11,17 +11,17 @@ struct Node {
     void FUN_0028a1c0(float t, float *value);
 };
 
-struct NodeList {
+struct NodeList_2a58e0 {
     char pad0[0x14];
     int count;
     Node *FUN_00288950(int index);
 };
 
-struct Source {
-    NodeList *FUN_00288a10(int index);
+struct Source_2a58e0 {
+    NodeList_2a58e0 *FUN_00288a10(int index);
 };
 
-class Target {
+class Target_2a58e0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -48,12 +48,12 @@ public:
     virtual void v22();
     virtual void v23();
     virtual void v24();
-    virtual Source *GetSource();
+    virtual Source_2a58e0 *GetSource();
 };
 
-void FUN_002a5570(float t, Target *self, int a, int b, float *params);
+void FUN_002a5570(float t, Target_2a58e0 *self, int a, int b, float *params);
 
-struct Frame {
+struct Frame_2a58e0 {
     float time;
     float timeCopy;
     float one;
@@ -63,9 +63,9 @@ struct Frame {
     float fifth;
 };
 
-void FUN_002a58e0(Target *self, Target *obj, int a, int b)
+void FUN_002a58e0(Target_2a58e0 *self, Target_2a58e0 *obj, int a, int b)
 {
-    Frame f;
+    Frame_2a58e0 f;
     f.one = 1.0f;
     f.vec[0] = 0;
     f.vec[1] = 0;
@@ -76,7 +76,7 @@ void FUN_002a58e0(Target *self, Target *obj, int a, int b)
     f.time = self->GetTime();
     f.timeCopy = f.time;
 
-    NodeList *list = self->GetSource()->FUN_00288a10(0);
+    NodeList_2a58e0 *list = self->GetSource()->FUN_00288a10(0);
     for (int i = 0; i < list->count; i++) {
         Node *n = list->FUN_00288950(i);
         unsigned id = n->GetId();

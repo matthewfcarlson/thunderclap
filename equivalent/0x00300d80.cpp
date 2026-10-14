@@ -2,7 +2,7 @@
 // FUN_00300d80 @ 0x00300d80
 void __cdecl FUN_0008d330(void*);
 void __cdecl FUN_0008d340(void*);
-struct Item {
+struct Item_300d80 {
  void* a; void* aEnd; char pad0[8];
  void* b; void* bEnd; char pad1[8];
  void* c; void* cEnd; char pad2[8];
@@ -12,11 +12,11 @@ struct Item {
  void FUN_00300b50();
  void* destroy(unsigned char flags);
 };
-void* Item::destroy(unsigned char flags) {
+void* Item_300d80::destroy(unsigned char flags) {
  if(flags & 2) {
   int* header = reinterpret_cast<int*>(this)-1;
   int count = *header;
-  Item* p = this + count;
+  Item_300d80* p = this + count;
   if(count > 0) {
    do {
     --p;

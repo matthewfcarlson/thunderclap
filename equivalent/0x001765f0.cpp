@@ -3,9 +3,9 @@
 extern "C" double sqrt(double);
 void* FUN_00263ea0(unsigned int size);
 
-struct Vec3 { float x, y, z; };
+struct Vec3_1765f0 { float x, y, z; };
 
-struct Name {
+struct Name_1765f0 {
     char data[8];
     void FUN_0027b040(const char* s);
 };
@@ -14,27 +14,27 @@ class JointDriver {
 public:
     virtual void v0();
     char pad04[4];
-    Name name;
+    Name_1765f0 name;
     int f10;
     JointDriver* FUN_002248a0();
 };
 
-struct Fighter { char pad[4]; };
+struct Fighter_1765f0 { char pad[4]; };
 
-struct Controller {
+struct Controller_1765f0 {
     void FUN_00222890(JointDriver* d, float a, int b, float c, int e, int f, float g);
 };
 
-struct Stats {
+struct Stats_1765f0 {
     char pad00[4];
-    bool FUN_000356c0(Vec3* out);
-    bool FUN_00035550(Vec3* out);
+    bool FUN_000356c0(Vec3_1765f0* out);
+    bool FUN_00035550(Vec3_1765f0* out);
     float FUN_000354c0();
 };
 
-Fighter* __fastcall FUN_000592a0(void* owner);
-Stats* __fastcall FUN_00059a30(Fighter* f);
-Controller* __fastcall FUN_00059a40(Fighter* f);
+Fighter_1765f0* __fastcall FUN_000592a0(void* owner);
+Stats_1765f0* __fastcall FUN_00059a30(Fighter_1765f0* f);
+Controller_1765f0* __fastcall FUN_00059a40(Fighter_1765f0* f);
 
 struct Params {
     char pad00[0x14];
@@ -64,13 +64,13 @@ bool SurfAction::vfunc_3(int a, int b)
 {
     if (owner == 0)
         return false;
-    Fighter* fighter = FUN_000592a0(owner);
+    Fighter_1765f0* fighter = FUN_000592a0(owner);
     if (fighter == 0)
         return false;
-    Stats* stats = FUN_00059a30(fighter);
+    Stats_1765f0* stats = FUN_00059a30(fighter);
     if (stats == 0)
         return false;
-    Controller* ctl = FUN_00059a40(fighter);
+    Controller_1765f0* ctl = FUN_00059a40(fighter);
     if (ctl == 0)
         return false;
     JointDriver* d = (JointDriver*)FUN_00263ea0(0x70);
@@ -81,7 +81,7 @@ bool SurfAction::vfunc_3(int a, int b)
     driver->v0();
     driver->f10 = 0;
     ctl->FUN_00222890(driver, -1.0f, params->p3c, 1.0f, params->p40, params->p44, -1.0f);
-    Vec3 v;
+    Vec3_1765f0 v;
     v.x = 0.0f;
     v.y = 0.0f;
     v.z = 0.0f;

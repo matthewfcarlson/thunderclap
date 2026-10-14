@@ -1,63 +1,63 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 16/16)
 // FUN_001b4ab0 @ 0x001b4ab0
-struct V3 {
+struct V3_1b4ab0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Kind {
+struct Kind_1b4ab0 {
     char pad0[0xc];
     int kind;
 };
 
 struct Node {
     char pad0[0x18];
-    Kind *info;
+    Kind_1b4ab0 *info;
 };
 
-struct Hit {
+struct Hit_1b4ab0 {
     float scale;
     Node *node;
     int value;
 };
 
-struct HitList {
+struct HitList_1b4ab0 {
     int count;
     int pad4;
-    Hit *hits;
+    Hit_1b4ab0 *hits;
 };
 
-struct Probe {
-    bool FUN_00201e00(V3 *a, V3 *b, int c, V3 *d, V3 *e, int f, int g);
+struct Probe_1b4ab0 {
+    bool FUN_00201e00(V3_1b4ab0 *a, V3_1b4ab0 *b, int c, V3_1b4ab0 *d, V3_1b4ab0 *e, int f, int g);
 };
 
 struct World {
-    bool FUN_002ee140(HitList *list, V3 *a, V3 *b, int c);
+    bool FUN_002ee140(HitList_1b4ab0 *list, V3_1b4ab0 *a, V3_1b4ab0 *b, int c);
 };
 
 extern int DAT_004d2a3c;
 extern char DAT_00554c1c;
 extern int DAT_00554c18;
 
-HitList *FUN_00202f00();
-void FUN_002f1ce0(V3 *a, int value, V3 *b, int *outv);
+HitList_1b4ab0 *FUN_00202f00();
+void FUN_002f1ce0(V3_1b4ab0 *a, int value, V3_1b4ab0 *b, int *outv);
 
-class Caster {
+class Caster_1b4ab0 {
 public:
     char pad0[8];
     World *world;
     char pad0c[0x4f4 - 0xc];
-    Probe *probe;
-    bool FUN_001b4ab0(V3 *from, V3 *to, V3 *outA, V3 *outB, char *flag, char *done);
+    Probe_1b4ab0 *probe;
+    bool FUN_001b4ab0(V3_1b4ab0 *from, V3_1b4ab0 *to, V3_1b4ab0 *outA, V3_1b4ab0 *outB, char *flag, char *done);
 };
 
-bool Caster::FUN_001b4ab0(V3 *from, V3 *to, V3 *outA, V3 *outB, char *flag, char *done)
+bool Caster_1b4ab0::FUN_001b4ab0(V3_1b4ab0 *from, V3_1b4ab0 *to, V3_1b4ab0 *outA, V3_1b4ab0 *outB, char *flag, char *done)
 {
     outA->x = 0.0f; outA->y = 0.0f; outA->z = 0.0f;
     outB->x = 0.0f; outB->y = 0.0f; outB->z = 0.0f;
     *flag = 1;
     *done = 0;
-    HitList *list = FUN_00202f00();
+    HitList_1b4ab0 *list = FUN_00202f00();
     DAT_004d2a3c = 2;
     DAT_00554c1c = 0;
     DAT_00554c18 = 0;
@@ -76,7 +76,7 @@ bool Caster::FUN_001b4ab0(V3 *from, V3 *to, V3 *outA, V3 *outB, char *flag, char
             } else if (k == 5) {
                 int tmpv = 0;
                 FUN_002f1ce0(from, list->hits[i].value, outB, &tmpv);
-                V3 d;
+                V3_1b4ab0 d;
                 d.x = to->x - from->x;
                 d.y = to->y - from->y;
                 d.z = to->z - from->z;

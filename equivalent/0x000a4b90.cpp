@@ -6,25 +6,25 @@ extern float DAT_0049ec80;
 extern float DAT_0049ec98;
 extern float DAT_0049ed30;
 
-struct V3 {
+struct V3_a4b90 {
     float x, y, z;
     float FUN_0022d110();
-    void FUN_000111b0(const V3 *a, const V3 *b);
+    void FUN_000111b0(const V3_a4b90 *a, const V3_a4b90 *b);
 };
 
-V3 *__cdecl FUN_0009f8c0(V3 *out, float yaw, float pitch, float scale);
-V3 *__cdecl FUN_0009fef0(V3 *out, V3 *from, V3 *to, float maxAngle);
-void __cdecl FUN_000a04c0(V3 *dir, float *yaw, float *pitch, float *len);
+V3_a4b90 *__cdecl FUN_0009f8c0(V3_a4b90 *out, float yaw, float pitch, float scale);
+V3_a4b90 *__cdecl FUN_0009fef0(V3_a4b90 *out, V3_a4b90 *from, V3_a4b90 *to, float maxAngle);
+void __cdecl FUN_000a04c0(V3_a4b90 *dir, float *yaw, float *pitch, float *len);
 float __cdecl FUN_00018a20(float v);
-float __cdecl FUN_000a0450(V3 *v);
+float __cdecl FUN_000a0450(V3_a4b90 *v);
 float __cdecl FUN_000a02a0(float a);
 float __cdecl FUN_000a00e0(float a, float b, float c, float d, float e);
 
-struct Obj350 {
-    void FUN_00035550(V3 *out);
+struct Obj350_a4b90 {
+    void FUN_00035550(V3_a4b90 *out);
 };
 
-struct Input32c {
+struct Input32c_a4b90 {
     char pad00[8];
     float f8;
     float fc;
@@ -33,30 +33,30 @@ struct Input32c {
     char FUN_000a2370(float dt, float *outA, float *outB, char *outC);
 };
 
-struct Frame {
+struct Frame_a4b90 {
     char pad0[3];
     char b13;           // 0x03
     float f14;          // 0x04 (clamp temp / angle)
     float f18;          // 0x08
     float f1c;          // 0x0c
     float f20;          // 0x10
-    V3 vB;              // 0x14
-    V3 dirV;            // 0x20
-    V3 w;               // 0x2c
-    V3 d2;              // 0x38
-    V3 c;               // 0x44
-    V3 tmp;             // 0x50 (out / up vector)
+    V3_a4b90 vB;              // 0x14
+    V3_a4b90 dirV;            // 0x20
+    V3_a4b90 w;               // 0x2c
+    V3_a4b90 d2;              // 0x38
+    V3_a4b90 c;               // 0x44
+    V3_a4b90 tmp;             // 0x50 (out / up vector)
 };
 
-class Cam {
+class Cam_a4b90 {
 public:
     char pad000[0x194];
-    V3 p194;
+    V3_a4b90 p194;
     char pad1a0[0x1b8 - 0x1a0];
-    V3 p1b8;
-    V3 p1c4;
+    V3_a4b90 p1b8;
+    V3_a4b90 p1c4;
     char pad1d0[0x1e8 - 0x1d0];
-    V3 p1e8;
+    V3_a4b90 p1e8;
     char pad1f4[0x20c - 0x1f4];
     float f20c;
     float f210;
@@ -65,9 +65,9 @@ public:
     char pad230[0x23c - 0x230];
     float f23c;
     char pad240[0x248 - 0x240];
-    V3 p248;
+    V3_a4b90 p248;
     char pad254[0x290 - 0x254];
-    V3 p290;
+    V3_a4b90 p290;
     char pad29c[0x308 - 0x29c];
     float f308;
     char pad30c[0x314 - 0x30c];
@@ -76,9 +76,9 @@ public:
     int f320;
     int f324;
     int f328;
-    Input32c in32c;
+    Input32c_a4b90 in32c;
     char pad344[0x350 - 0x344];
-    Obj350 *f350;
+    Obj350_a4b90 *f350;
     char pad354[0x394 - 0x354];
     int f394;
     char pad398[0x3b4 - 0x398];
@@ -88,9 +88,9 @@ public:
     float f3c0;
     float f3c4;
     char pad3c8[0x3d0 - 0x3c8];
-    V3 p3d0;
+    V3_a4b90 p3d0;
     char pad3dc[0x3e8 - 0x3dc];
-    V3 p3e8;
+    V3_a4b90 p3e8;
     char pad3f4[0x40c - 0x3f4];
     float f40c;
     char pad410[0x444 - 0x410];
@@ -108,14 +108,14 @@ public:
     void Update(float unused, float dt);
 };
 
-void Cam::Update(float unused, float dt)
+void Cam_a4b90::Update(float unused, float dt)
 {
     FUN_000a0dc0(DAT_0049ec74, DAT_0049ec7c * 0.5f, dt);
 
-    Frame f;
+    Frame_a4b90 f;
 
     if (f488 > 0.0f) {
-        V3 *r = FUN_0009f8c0(&f.tmp, f478, f47c, 1.0f);
+        V3_a4b90 *r = FUN_0009f8c0(&f.tmp, f478, f47c, 1.0f);
         f.dirV = *r;
     } else {
         f.dirV.x = p248.x - p1c4.x;
@@ -143,7 +143,7 @@ void Cam::Update(float unused, float dt)
         f.f14 = (dot > 1.0f) ? 1.0f : -1.0f;
     f.f14 = FUN_00018a20(f.f14) * 57.2957764f;
     if (f.f14 > 76.0f) {
-        V3 *r = FUN_0009fef0(&f.tmp, &f.w, &f.dirV, 75.0f);
+        V3_a4b90 *r = FUN_0009fef0(&f.tmp, &f.w, &f.dirV, 75.0f);
         f.vB = *r;
         f.f18 = 600.0f;
         f488 = 0.0f;
@@ -154,7 +154,7 @@ void Cam::Update(float unused, float dt)
             f478 = f.f14;
             f.f20 = f.f1c + f47c;
             f47c = f.f20;
-            V3 *r = FUN_0009f8c0(&f.tmp, f478, f47c, 1.0f);
+            V3_a4b90 *r = FUN_0009f8c0(&f.tmp, f478, f47c, 1.0f);
             f.vB = *r;
             float d2 = f.vB.z * f.w.z + f.vB.y * f.w.y + f.vB.x * f.w.x;
             if (d2 >= -1.0f && d2 <= 1.0f)
@@ -162,7 +162,7 @@ void Cam::Update(float unused, float dt)
             else
                 f.f14 = (d2 > 1.0f) ? 1.0f : -1.0f;
             if (FUN_00018a20(f.f14) * 57.2957764f > 75.0f) {
-                V3 *r2 = FUN_0009fef0(&f.tmp, &f.w, &f.vB, 75.0f);
+                V3_a4b90 *r2 = FUN_0009fef0(&f.tmp, &f.w, &f.vB, 75.0f);
                 f.vB = *r2;
                 FUN_000a04c0(&f.vB, &f478, &f47c, &f.f20);
             }
@@ -170,12 +170,12 @@ void Cam::Update(float unused, float dt)
             if (f.b13)
                 f488 = DAT_0049ec98;
         } else if (f488 > 0.0f) {
-            V3 *r = FUN_0009f8c0(&f.tmp, f478, f47c, 1.0f);
+            V3_a4b90 *r = FUN_0009f8c0(&f.tmp, f478, f47c, 1.0f);
             f.vB = *r;
             f.dirV = f.vB;
         } else {
             if (f.f14 > 60.0f) {
-                V3 *r = FUN_0009fef0(&f.tmp, &f.w, &f.dirV, 60.0f);
+                V3_a4b90 *r = FUN_0009fef0(&f.tmp, &f.w, &f.dirV, 60.0f);
                 f.vB = *r;
             }
             f.d2.x = p1b8.x - p290.x;
@@ -223,7 +223,7 @@ void Cam::Update(float unused, float dt)
             double Rv = (f.f14 < S) ? S : (double)f.f14;
             if (Rv > f.f20)
                 f.f14 = (float)(f.f14 / Rv * f.f20);
-            V3 *r = FUN_0009fef0(&f.tmp, &f.dirV, &f.vB, f.f14);
+            V3_a4b90 *r = FUN_0009fef0(&f.tmp, &f.dirV, &f.vB, f.f14);
             f.vB = *r;
         }
     }
@@ -247,7 +247,7 @@ void Cam::Update(float unused, float dt)
             f3b8 = 0;
             p3d0 = p1b8;
             p3e8 = p194;
-            V3 t;
+            V3_a4b90 t;
             t.x = p194.x - p1c4.x;
             t.y = p194.y - p1c4.y;
             t.z = p194.z - p1c4.z;
@@ -258,7 +258,7 @@ void Cam::Update(float unused, float dt)
     }
 
     FUN_000a0940(DAT_0049ec80);
-    V3 t2;
+    V3_a4b90 t2;
     t2.x = p1e8.x - p194.x;
     t2.y = p1e8.y - p194.y;
     t2.z = p1e8.z - p194.z;

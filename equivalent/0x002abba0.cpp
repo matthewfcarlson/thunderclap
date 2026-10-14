@@ -13,7 +13,7 @@ public:
     Node *FUN_002d2130(void *src);
 };
 
-class Item {
+class Item_2abba0 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -36,46 +36,46 @@ public:
     void FUN_00266be0();
 };
 
-class Parser {
+class Parser_2abba0 {
 public:
     virtual void AddRef();
     virtual void Release();
     virtual void v2();
     virtual void v3();
     virtual void v4();
-    virtual void v5(Item **out, int *flag, Reader *r, int arg);
+    virtual void v5(Item_2abba0 **out, int *flag, Reader *r, int arg);
     int FUN_00288e90();
     void FUN_00288e80(int state);
 };
 
-struct NodeVec {
+struct NodeVec_2abba0 {
     Node **data;
     char pad4[8];
     void FUN_002ab940(int count, int *fill);
 };
 
-class Factory {
+class Factory_2abba0 {
 public:
     void *FUN_00265310(int id);
 };
-extern Factory *DAT_00527c58;
+extern Factory_2abba0 *DAT_00527c58;
 
-class Result {
+class Result_2abba0 {
 public:
     char pad0[0x1c];
     int used;
     char pad20[8];
-    Item *item;
-    NodeVec nodes;
+    Item_2abba0 *item;
+    NodeVec_2abba0 nodes;
     int a38;
     int a3c;
     int a40;
     char pad44[0x50 - 0x44];
-    Result *FUN_002d3740();
+    Result_2abba0 *FUN_002d3740();
 };
 
-struct Frame {
-    Item *it;
+struct Frame_2abba0 {
+    Item_2abba0 *it;
     int count;
     int fill;
     int state;
@@ -83,14 +83,14 @@ struct Frame {
     int unused;
 };
 
-Result *__stdcall FUN_002abba0(Reader *r, int arg)
+Result_2abba0 *__stdcall FUN_002abba0(Reader *r, int arg)
 {
-    Frame f;
+    Frame_2abba0 f;
     r->stream->FUN_002647e0(&f.state, 1, 4, 1);
     void *mem = FUN_00263ea0(0x50);
-    Result *res;
+    Result_2abba0 *res;
     if (mem)
-        res = ((Result *)mem)->FUN_002d3740();
+        res = ((Result_2abba0 *)mem)->FUN_002d3740();
     else
         res = 0;
     r->stream->FUN_002647e0(&f.count, 1, 4, 1);
@@ -103,12 +103,12 @@ Result *__stdcall FUN_002abba0(Reader *r, int arg)
     while (r->FUN_002669f0()) {
         int id = r->FUN_00266a30();
         if (id == 0x121000) {
-            Parser *p = (Parser *)FUN_00344e74(DAT_00527c58->FUN_00265310(id), 0, DAT_0049c7dc, DAT_004ce974, 0);
+            Parser_2abba0 *p = (Parser_2abba0 *)FUN_00344e74(DAT_00527c58->FUN_00265310(id), 0, DAT_0049c7dc, DAT_004ce974, 0);
             p->AddRef();
             f.state = p->FUN_00288e90();
             p->FUN_00288e80(1);
             p->v5(&f.it, &f.flag, r, arg);
-            Item *it = f.it;
+            Item_2abba0 *it = f.it;
             if (it) {
                 it->AddRef();
                 if (res->item)

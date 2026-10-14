@@ -2,36 +2,36 @@
 // CJumpAction::vfunc_7 @ 0x00018d40
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_18d40 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Mat4 {
+struct Mat4_18d40 {
     float m[16];
-    void FUN_0022be40(const V3 *pos);
+    void FUN_0022be40(const V3_18d40 *pos);
     void FUN_00221d20(float angle);
 };
 
-struct Timing {
+struct Timing_18d40 {
     char pad0[0x2064];
-    V3 fp2064;
+    V3_18d40 fp2064;
     float f2070;
     void FUN_000359c0(int v);
     float FUN_000354c0();
-    void FUN_000357a0(V3 *v);
+    void FUN_000357a0(V3_18d40 *v);
 };
 
-struct Clock {
-    Timing *FUN_00059a30();
-    char FUN_00059a50(V3 *out);
+struct Clock_18d40 {
+    Timing_18d40 *FUN_00059a30();
+    char FUN_00059a50(V3_18d40 *out);
 };
 
-struct Target {
-    Clock *FUN_000592a0();
+struct Target_18d40 {
+    Clock_18d40 *FUN_000592a0();
 };
 
-class Character {
+class Character_18d40 {
 public:
     virtual void v0();
     virtual void v1();
@@ -69,17 +69,17 @@ public:
 
 struct Driver {
     char pad0[0x18];
-    Mat4 xform;
+    Mat4_18d40 xform;
 };
 
 extern float DAT_0048e054;
 extern float DAT_0048e058;
 extern float DAT_0048e05c;
-float __cdecl FUN_00224f10(V3 *v);
+float __cdecl FUN_00224f10(V3_18d40 *v);
 float __cdecl FUN_00224fc0(float a, float b);
-void __cdecl FUN_00224d70(float angle, V3 *v);
+void __cdecl FUN_00224d70(float angle, V3_18d40 *v);
 
-union Bits {
+union Bits_18d40 {
     float f;
     unsigned int u;
 };
@@ -96,8 +96,8 @@ public:
     virtual bool vfunc_7(float dt);
     virtual void f8();
     char pad04[0x1c - 4];
-    Target *target;        // 0x1c
-    Character *chara;      // 0x20
+    Target_18d40 *target;        // 0x1c
+    Character_18d40 *chara;      // 0x20
     Driver *driver;        // 0x24
     float f28;
     float f2c;
@@ -106,27 +106,27 @@ public:
     float f38;
 };
 
-struct Frame {
+struct Frame_18d40 {
     char pad0[4];
     float ang;             // 0xc
-    Bits ad;               // 0x10
+    Bits_18d40 ad;               // 0x10
     float ang2;            // 0x14
     float tmp;             // 0x18
-    V3 r;                  // 0x1c
-    V3 q;                  // 0x28
-    V3 p;                  // 0x34
-    V3 w;                  // 0x40
-    V3 fwd;                // 0x4c
-    V3 pos0;               // 0x58
+    V3_18d40 r;                  // 0x1c
+    V3_18d40 q;                  // 0x28
+    V3_18d40 p;                  // 0x34
+    V3_18d40 w;                  // 0x40
+    V3_18d40 fwd;                // 0x4c
+    V3_18d40 pos0;               // 0x58
 };
 
 bool CJumpAction::vfunc_7(float dt)
 {
     if (driver == 0)
         return false;
-    Frame f;
-    Clock *clock = target->FUN_000592a0();
-    Timing *timing = clock->FUN_00059a30();
+    Frame_18d40 f;
+    Clock_18d40 *clock = target->FUN_000592a0();
+    Timing_18d40 *timing = clock->FUN_00059a30();
     timing->FUN_000359c0(3);
     f.pos0.x = 0.0f;
     f.pos0.y = 0.0f;

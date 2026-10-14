@@ -1,35 +1,35 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // physics::PhysicsJoint3D::vfunc_10 @ 0x0030c440
-struct Vec3 {
+struct Vec3_30c440 {
     float x, y, z;
     void FUN_0022d110();
 };
 
 extern float DAT_003f3388;
 extern unsigned DAT_00555490;
-extern Vec3 DAT_00555484;
+extern Vec3_30c440 DAT_00555484;
 
-struct Matrix3 {
+struct Matrix3_30c440 {
     // equiv-conv: FUN_0022c3b0 ecx stack stack
-    void FUN_0022c3b0(Vec3 *in, Vec3 *out);
+    void FUN_0022c3b0(Vec3_30c440 *in, Vec3_30c440 *out);
 };
 
-struct Chain3 {
-    Matrix3 *FUN_0030f100();
+struct Chain3_30c440 {
+    Matrix3_30c440 *FUN_0030f100();
 };
 
-struct Chain2 {
-    Chain3 *FUN_0030edf0();
+struct Chain2_30c440 {
+    Chain3_30c440 *FUN_0030edf0();
 };
 
 struct Skeleton {
-    Chain2 *FUN_0030f490(int index);
+    Chain2_30c440 *FUN_0030f490(int index);
 };
 
-struct Manager {
+struct Manager_30c440 {
     char pad0[0x208];
     Skeleton *skeleton;
-    void FUN_00310490(int index, Vec3 *out, char flag);
+    void FUN_00310490(int index, Vec3_30c440 *out, char flag);
 };
 
 namespace physics {
@@ -81,23 +81,23 @@ public:
     char pad04[8];
     int index;
     char pad10[8];
-    Manager *manager;
+    Manager_30c440 *manager;
     char pad1c[0x7c];
-    Vec3 axis;
+    Vec3_30c440 axis;
     char pada4[0x58];
-    Vec3 normal;
+    Vec3_30c440 normal;
 
     void FUN_0030be90();
 };
 
-struct Frame {
-    Vec3 v;
-    Vec3 w;
+struct Frame_30c440 {
+    Vec3_30c440 v;
+    Vec3_30c440 w;
 };
 
 void PhysicsJoint3D::vfunc_10(void *arg)
 {
-    Frame f;
+    Frame_30c440 f;
 
     PhysicsJoint::vfunc_10(arg);
     manager->FUN_00310490(index, &f.v, 0);

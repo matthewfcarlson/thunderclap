@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000dde50 @ 0x000dde50
 // FUN_000dde50: run two virtual hooks while the device's state is saved and restored
-struct Handle {
+struct Handle_dde50 {
     void FUN_00293ef0();
     void FUN_00294080();
 };
 
-struct Device {
+struct Device_dde50 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -71,9 +71,9 @@ struct Device {
     virtual int v61();
 };
 
-extern Device *DAT_0052c2a8;
+extern Device_dde50 *DAT_0052c2a8;
 
-class Pass {
+class Pass_dde50 {
 public:
     virtual void v0();
     virtual void v1();
@@ -87,7 +87,7 @@ public:
     virtual void v9();
     virtual void v10();
     char pad04[0x2220];
-    Handle *handle;
+    Handle_dde50 *handle;
     char hasHandle;
     char pad2229[3];
     int param;
@@ -95,7 +95,7 @@ public:
     void FUN_000dde50();
 };
 
-void Pass::FUN_000dde50()
+void Pass_dde50::FUN_000dde50()
 {
     if (hasHandle)
         handle->FUN_00293ef0();

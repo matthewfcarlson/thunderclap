@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001fc3c0 @ 0x001fc3c0
-struct Name {
+struct Name_1fc3c0 {
     int word;
     void FUN_0027b040(const char *name);
 };
@@ -14,10 +14,10 @@ public:
 
 void __cdecl FUN_000964a0(char *dst, int size, const char *fmt, ...);
 
-class Transform {
+class Transform_1fc3c0 {
 public:
     char pad0[8];
-    Name name;              // 8
+    Name_1fc3c0 name;              // 8
     char padc[4];
     float tx;               // 0x10
     float ty;               // 0x14
@@ -27,7 +27,7 @@ public:
     void FUN_001fc3c0(XmlNode *node);
 };
 
-void Transform::FUN_001fc3c0(XmlNode *node)
+void Transform_1fc3c0::FUN_001fc3c0(XmlNode *node)
 {
     const char *nodeName = node->name;
     FUN_000964a0(label, 0x20, "%s", nodeName);

@@ -5,22 +5,22 @@ unsigned __int64 __cdecl FUN_0027b020(const char* s) throw();
 
 extern const char* DAT_003ffde0[];
 
-struct Entry {
+struct Entry_8abc0 {
     unsigned __int64 id;
     char name[0x10];
 };
 
-class Profile {
+class Profile_8abc0 {
 public:
     char pad00[0xd0];
     int curLo;
     int curHi;
     char curName[0x80];
-    Entry entries[100];
+    Entry_8abc0 entries[100];
     const char* FUN_0008abc0();
 };
 
-const char* Profile::FUN_0008abc0()
+const char* Profile_8abc0::FUN_0008abc0()
 {
     static unsigned __int64 hashComplete = FUN_0027b020("complete");
     static unsigned __int64 hashLocked = FUN_0027b020("locked");

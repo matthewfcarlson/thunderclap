@@ -11,20 +11,20 @@ struct Node {
     const char *key;
 };
 
-struct Item {
+struct Item_25f170 {
     void *vptr;
     Node node;
 };
 
-struct Tree {
+struct Tree_25f170 {
     Node *root;
     Node nil;
 };
 
-void __cdecl FUN_0025e900(Tree *t, Node *n);
-void __cdecl FUN_0025e950(Tree *t, Node *n);
+void __cdecl FUN_0025e900(Tree_25f170 *t, Node *n);
+void __cdecl FUN_0025e950(Tree_25f170 *t, Node *n);
 
-bool FUN_0025f170(Tree *t, Item *item, const char **pkey)
+bool FUN_0025f170(Tree_25f170 *t, Item_25f170 *item, const char **pkey)
 {
     Node *z = &item->node;
     Node *y = &t->nil;

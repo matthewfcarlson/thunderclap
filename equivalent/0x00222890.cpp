@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 12/12)
 // FUN_00222890 @ 0x00222890
-struct Item {
+struct Item_222890 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6();
  virtual unsigned int v7(); virtual unsigned int v8();
 };
-struct Entry {
- Item* item;
+struct Entry_222890 {
+ Item_222890* item;
  float value;
  bool negative;
  char pad[3];
@@ -17,17 +17,17 @@ struct Entry {
  unsigned int arg6;
  float arg7;
 };
-struct Owner {
+struct Owner_222890 {
  char pad[0x68];
  unsigned int count;
- Entry entries[16];
+ Entry_222890 entries[16];
  bool dirty;
- bool FUN_002227d0(Item*, float, unsigned int, float, unsigned int, unsigned int);
- bool FUN_00222890(Item*, float, unsigned int, float, unsigned int, unsigned int, float);
+ bool FUN_002227d0(Item_222890*, float, unsigned int, float, unsigned int, unsigned int);
+ bool FUN_00222890(Item_222890*, float, unsigned int, float, unsigned int, unsigned int, float);
 };
-bool Owner::FUN_00222890(Item* item, float value, unsigned int a3, float a4, unsigned int a5, unsigned int a6, float a7) {
+bool Owner_222890::FUN_00222890(Item_222890* item, float value, unsigned int a3, float a4, unsigned int a5, unsigned int a6, float a7) {
  for (unsigned int i=0; i<count; ++i) {
-  Entry& entry=entries[i];
+  Entry_222890& entry=entries[i];
   if (entry.item != item) continue;
   entry.value=value;
   entry.negative=value < 0.0f;

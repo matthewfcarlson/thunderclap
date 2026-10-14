@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 15/15)
 // FUN_000382c0 @ 0x000382c0
-struct Vec3 {
+struct Vec3_382c0 {
     float x, y, z;
 };
 
@@ -10,19 +10,19 @@ struct Bias {
     float p8;
 };
 
-struct Limits {
+struct Limits_382c0 {
     char pad0[0x18];
     float minY;
 };
 
 struct World {
     char pad0[0x24];
-    Limits *limits;
+    Limits_382c0 *limits;
 };
 
-struct Anchor {
+struct Anchor_382c0 {
     // equiv-conv: FUN_00059a50 ecx stack
-    bool FUN_00059a50(Vec3 *out);
+    bool FUN_00059a50(Vec3_382c0 *out);
 };
 
 extern unsigned int DAT_004d9968;
@@ -38,20 +38,20 @@ public:
     char pad0[8];
     int f8;
     int fc;
-    Anchor *anchor;
+    Anchor_382c0 *anchor;
     char pad14[0x12c];
     int mode;
 
-    bool FUN_000352b0(Vec3 *out);
-    bool FUN_00035550(Vec3 *out);
-    bool FUN_000382c0(Vec3 *out);
+    bool FUN_000352b0(Vec3_382c0 *out);
+    bool FUN_00035550(Vec3_382c0 *out);
+    bool FUN_000382c0(Vec3_382c0 *out);
 };
 
-bool Camera::FUN_000382c0(Vec3 *out)
+bool Camera::FUN_000382c0(Vec3_382c0 *out)
 {
     unsigned int cookie = DAT_004d9968;
-    Vec3 pos;
-    Vec3 off;
+    Vec3_382c0 pos;
+    Vec3_382c0 off;
 
     if (!anchor->FUN_00059a50(&pos)) {
         __security_check_cookie(cookie);

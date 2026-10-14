@@ -2,24 +2,24 @@
 // COccupationAgent::vfunc_3 @ 0x00103830
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_103830 {
     float x, y, z;
 };
 
 struct Locator {
-    bool FUN_00059a50(Vec3 *out);
+    bool FUN_00059a50(Vec3_103830 *out);
 };
 
-struct Target {
+struct Target_103830 {
     char pad0[0x40];
-    Vec3 pos;
+    Vec3_103830 pos;
 };
 
-struct Body {
+struct Body_103830 {
     char pad0[0x10];
     Locator *locator;
     char pad14[0x328 - 0x14];
-    Target *target;
+    Target_103830 *target;
     char pad32c[0x1b0c - 0x32c];
     float f1b0c;
     float f1b10;
@@ -32,7 +32,7 @@ struct Body {
     char f2149;
 };
 
-struct Part {
+struct Part_103830 {
 public:
     virtual void v0();
     virtual void v1();
@@ -40,54 +40,54 @@ public:
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual Body *v6();
+    virtual Body_103830 *v6();
     char pad04[0xe8 - 4];
     char flagE8;
 };
 
-struct Registry {
+struct Registry_103830 {
     void *FUN_00106230(char *flag);
 };
 
-struct Ctx {
+struct Ctx_103830 {
     char pad0[0x18];
-    Registry *registry;
+    Registry_103830 *registry;
 };
 
-struct Clock {
+struct Clock_103830 {
     float FUN_00086040();
 };
 
-struct Game {
+struct Game_103830 {
     char pad0[0x58];
-    Clock *clock;
+    Clock_103830 *clock;
 };
 
-extern Game *DAT_004dd700;
+extern Game_103830 *DAT_004dd700;
 
 class COccupationAgent {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
-    virtual float vfunc_3(Ctx *ctx, int arg);
+    virtual float vfunc_3(Ctx_103830 *ctx, int arg);
     char pad04[8 - 4];
     float limit;
     char pad0c[0x58 - 0xc];
-    Part *part;
+    Part_103830 *part;
     char pad5c[4];
     void *handle;
     char hasHandle;
     char pad65[0xa4 - 0x65];
     char fa4;
     char fa5;
-    float FUN_000fc4e0(Ctx *ctx, int arg);
+    float FUN_000fc4e0(Ctx_103830 *ctx, int arg);
 };
 
-float COccupationAgent::vfunc_3(Ctx *ctx, int arg)
+float COccupationAgent::vfunc_3(Ctx_103830 *ctx, int arg)
 {
     FUN_000fc4e0(ctx, arg);
-    Body *body = part->v6();
+    Body_103830 *body = part->v6();
     bool hit = false;
 
     if (body->f2149) {
@@ -117,9 +117,9 @@ float COccupationAgent::vfunc_3(Ctx *ctx, int arg)
 
     if (!(limit == 0.0f)) {
         if (body->f1d34 >= 0.0f || body->f1d30 >= 0.0f) {
-            Target *tgt = body->target;
+            Target_103830 *tgt = body->target;
             if (tgt != 0) {
-                Vec3 d;
+                Vec3_103830 d;
                 body->locator->FUN_00059a50(&d);
                 double dx = d.x - tgt->pos.x;
                 double dy = d.y - tgt->pos.y;

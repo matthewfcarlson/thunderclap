@@ -7,7 +7,7 @@ extern char DAT_004dd83b;
 extern void* __cdecl FUN_000fc260(const char* name);
 extern void* __cdecl FUN_00344e74(void*, int, const char*, const char*, int);
 
-class Selector {
+class Selector_b5ad0 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -40,10 +40,10 @@ public:
 // Syncs the two camera-invert selectors with the stored flags.
 void FUN_000b5ad0()
 {
-    Selector* x = (Selector*)FUN_00344e74(FUN_000fc260("camera_invert_x_selector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
+    Selector_b5ad0* x = (Selector_b5ad0*)FUN_00344e74(FUN_000fc260("camera_invert_x_selector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
     if (x)
         x->vfunc_25(DAT_004dd83a == 0);
-    Selector* y = (Selector*)FUN_00344e74(FUN_000fc260("camera_invert_y_selector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
+    Selector_b5ad0* y = (Selector_b5ad0*)FUN_00344e74(FUN_000fc260("camera_invert_y_selector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
     if (y)
         y->vfunc_25(DAT_004dd83b == 0);
 }

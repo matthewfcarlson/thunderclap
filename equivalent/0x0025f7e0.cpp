@@ -1,22 +1,22 @@
 // STATUS: equivalent (tools/equiv.py level 3: 51 inputs, branch coverage 30/34, incomplete)
 // om::MetaType::vfunc_1 @ 0x0025f7e0
-struct Output { char pad[0x24]; unsigned depth; };
-bool __cdecl FUN_00246f50(Output*, const char*, ...);
+struct Output_25f7e0 { char pad[0x24]; unsigned depth; };
+bool __cdecl FUN_00246f50(Output_25f7e0*, const char*, ...);
 namespace om {
-struct Link { Link* left; Link* right; Link* parent; };
+struct Link_25f7e0 { Link_25f7e0* left; Link_25f7e0* right; Link_25f7e0* parent; };
 struct MetaType {
  virtual void vfunc_0();
- virtual bool vfunc_1(Output** out, void* context);
+ virtual bool vfunc_1(Output_25f7e0** out, void* context);
  virtual void vfunc_2();
- Link links;
+ Link_25f7e0 links;
  char pad10[4];
- Link* root;
- Link sentinel;
+ Link_25f7e0* root;
+ Link_25f7e0 sentinel;
 };
 }
-bool om::MetaType::vfunc_1(Output** out, void* context) {
- Link* end = &sentinel;
- Link* node = root;
+bool om::MetaType::vfunc_1(Output_25f7e0** out, void* context) {
+ Link_25f7e0* end = &sentinel;
+ Link_25f7e0* node = root;
  MetaType* item = 0;
  if (node != end) {
   while (node->left != end) node = node->left;
@@ -28,8 +28,8 @@ bool om::MetaType::vfunc_1(Output** out, void* context) {
   if (!FUN_00246f50(*out, "%s ", item->sentinel.left)) return false;
   if (!item->vfunc_1(out, context)) return false;
   if (!FUN_00246f50(*out, "\n")) return false;
-  Link* current = &item->links;
-  Link* next = current->right;
+  Link_25f7e0* current = &item->links;
+  Link_25f7e0* next = current->right;
   if (next != end) {
    while (next->left != end) next = next->left;
   } else {

@@ -2,66 +2,66 @@
 // FUN_00097540 @ 0x00097540
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_97540 {
     float x, y, z;
     float FUN_0022d110();
     float FUN_00018990();
-    void FUN_00095e80(float s, const V3 *v);
+    void FUN_00095e80(float s, const V3_97540 *v);
 };
 
-struct Stats {
+struct Stats_97540 {
     char pad0[0x148];
-    Stats *f148;
-    char FUN_00035660(V3 *out);
+    Stats_97540 *f148;
+    char FUN_00035660(V3_97540 *out);
 };
 
-struct Ent {
+struct Ent_97540 {
     char pad0[8];
-    Stats *f8;
+    Stats_97540 *f8;
     int kind;
     char pad10[0x50 - 0x10];
-    V3 pos;
+    V3_97540 pos;
 };
 
 
-class Level {
+class Level_97540 {
 public:
-    char FUN_00039440(Ent *e, V3 *h, float *o, int z);
+    char FUN_00039440(Ent_97540 *e, V3_97540 *h, float *o, int z);
 };
 
-double __cdecl FUN_00097290(V3 a, V3 b);
+double __cdecl FUN_00097290(V3_97540 a, V3_97540 b);
 
 union PtrOrFloat3 {
-    V3 *p;
+    V3_97540 *p;
     float f;
 };
 
 union EntOrFloat {
-    Ent *e;
+    Ent_97540 *e;
     float f;
 };
 
-char FUN_00097540(Level *a1, V3 *a2, V3 *a3, float a4, float a5, Ent *a6, V3 *a7, V3 *a8, char a9)
+char FUN_00097540(Level_97540 *a1, V3_97540 *a2, V3_97540 *a3, float a4, float a5, Ent_97540 *a6, V3_97540 *a7, V3_97540 *a8, char a9)
 {
     struct Frame {
         float s0;
-        V3 w;
-        V3 d;
-        V3 hpos;
-        V3 q3;
-        V3 c34;
-        V3 c40;
-        V3 c4c;
-        V3 u;
+        V3_97540 w;
+        V3_97540 d;
+        V3_97540 hpos;
+        V3_97540 q3;
+        V3_97540 c34;
+        V3_97540 c40;
+        V3_97540 c4c;
+        V3_97540 u;
     } f;
 
-    V3 *dir = a3;
+    V3_97540 *dir = a3;
     float hd;
     float hdist;
     a7->x = a4 * dir->x;
     a7->y = a4 * dir->y;
     a7->z = a4 * dir->z;
-    Ent *ent = a6;
+    Ent_97540 *ent = a6;
     if (ent == 0)
         return 0;
     if (!a1->FUN_00039440(ent, &f.hpos, &f.s0, 0))
@@ -71,7 +71,7 @@ char FUN_00097540(Level *a1, V3 *a2, V3 *a3, float a4, float a5, Ent *a6, V3 *a7
         a8->y = f.hpos.y;
         a8->z = f.hpos.z;
     }
-    V3 *org = a2;
+    V3_97540 *org = a2;
     f.d.x = f.hpos.x - org->x;
     f.c40.x = f.d.x;
     f.d.y = f.hpos.y - org->y;
@@ -95,7 +95,7 @@ char FUN_00097540(Level *a1, V3 *a2, V3 *a3, float a4, float a5, Ent *a6, V3 *a7
     if (ent->kind == 1) {
         ent->f8->FUN_00035660(&f.w);
     } else if (ent->kind == 5) {
-        Stats *s = ent->f8->f148;
+        Stats_97540 *s = ent->f8->f148;
         if (s != 0)
             s->FUN_00035660(&f.w);
     }

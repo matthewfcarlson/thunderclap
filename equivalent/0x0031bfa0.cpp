@@ -11,20 +11,20 @@ struct OwnerInner {
     char pad[0x10];
     int value;
 };
-struct Owner {
+struct Owner_31bfa0 {
     char pad[0x154];
     OwnerInner* inner;
 };
 namespace pure3d {
 class d3dPrimStream {
   public:
-    d3dPrimStream(Owner* owner) throw();
+    d3dPrimStream(Owner_31bfa0* owner) throw();
     virtual void v0();
     int f4, f8, fc, f10, f14;
     char pad18[4];
     int f1c;
     char pad20[0x124 - 0x20];
-    Owner* owner;
+    Owner_31bfa0* owner;
     int f128;
     int* buffers;
     int current;
@@ -35,7 +35,7 @@ class d3dPrimStream {
     char pad148[0x154 - 0x148];
     int f154;
 };
-d3dPrimStream::d3dPrimStream(Owner* o) throw() {
+d3dPrimStream::d3dPrimStream(Owner_31bfa0* o) throw() {
     owner = o;
     f128 = 0;
     f134 = 0;

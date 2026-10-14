@@ -3,13 +3,13 @@
 extern float DAT_0049eca4;
 extern float DAT_0049ec8c;
 
-struct Counter {
+struct Counter_a1b30 {
     int FUN_00026e30(float radius, void *list, int max);
 };
 
-struct Owner {
+struct Owner_a1b30 {
     char pad0[0x20];
-    Counter *counter;
+    Counter_a1b30 *counter;
 };
 
 float __cdecl FUN_0009faa0(float cur, float target, float dt, float rate);
@@ -30,10 +30,10 @@ public:
     float base;
     float value;
     float ratio;
-    void FUN_000a1b30(Owner *owner, float dt, bool snap);
+    void FUN_000a1b30(Owner_a1b30 *owner, float dt, bool snap);
 };
 
-void Smoother::FUN_000a1b30(Owner *owner, float dt, bool snap)
+void Smoother::FUN_000a1b30(Owner_a1b30 *owner, float dt, bool snap)
 {
     if (snap)
         timer = 0.0f;

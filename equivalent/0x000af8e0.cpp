@@ -2,7 +2,7 @@
 // FUN_000af8e0 @ 0x000af8e0
 extern bool DAT_004dda3d;
 
-class Voice {
+class Voice_af8e0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -13,7 +13,7 @@ public:
     virtual void v6(float value);
 };
 
-class Emitter {
+class Emitter_af8e0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -31,28 +31,28 @@ public:
     virtual void v13();
     virtual void v14();
     virtual void v15();
-    virtual Voice *v16(int slot);
+    virtual Voice_af8e0 *v16(int slot);
 };
 
-struct Entry {
+struct Entry_af8e0 {
     char pad00[0x0d];
     char skip;          // 0x0d
     char pad0e[2];
     int value;          // 0x10
 };
 
-struct EntryList {
-    Entry *FUN_000ace20(int index);
+struct EntryList_af8e0 {
+    Entry_af8e0 *FUN_000ace20(int index);
 };
 
-struct Group {
+struct Group_af8e0 {
     unsigned int count;     // 0x00
     char pad04[8];
     float timer[2];         // 0x0c
     float level[2];         // 0x14
     float decay[2];         // 0x1c
     float limit[2];         // 0x24
-    Emitter *emitter;       // 0x2c
+    Emitter_af8e0 *emitter;       // 0x2c
 };
 
 class Mixer {
@@ -60,9 +60,9 @@ public:
     char pad00[8];
     bool enabled;           // 0x08
     char pad09[3];
-    EntryList *entries;     // 0x0c
+    EntryList_af8e0 *entries;     // 0x0c
     int groupCount;         // 0x10
-    Group *groups;          // 0x14
+    Group_af8e0 *groups;          // 0x14
     int ticks;              // 0x18
 
     void FUN_000af700(int index, int value);
@@ -84,7 +84,7 @@ void Mixer::FUN_000af8e0(float dt)
         FUN_000af700(i, entries->FUN_000ace20(i)->value);
 
         for (unsigned int j = 0; j < groups[i].count; j++) {
-            Group *g = groups;
+            Group_af8e0 *g = groups;
             if (g[i].timer[j] > 0.0f) {
                 g[i].timer[j] = g[i].timer[j] - dt;
                 if (DAT_004dda3d) {
@@ -92,7 +92,7 @@ void Mixer::FUN_000af8e0(float dt)
                     float *level = &g[i].level[j];
                     float *limit = &g[i].limit[j];
                     float *decay = &g[i].decay[j];
-                    Voice *v = g[i].emitter->v16(j);
+                    Voice_af8e0 *v = g[i].emitter->v16(j);
                     if (v->v5() > 0.0f) {
                         float d = dt + *decay;
                         *decay = d;

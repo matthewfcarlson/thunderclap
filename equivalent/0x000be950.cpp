@@ -11,7 +11,7 @@ extern char DAT_0048e0f0[];
 extern char DAT_0048e0f0[];
 extern char __cdecl FUN_001d04d0(const void*);
 
-class Callback {
+class Callback_be950 {
 public:
     int vptr;
     char pad04[12];
@@ -21,10 +21,10 @@ public:
     char pad19[3];
     void* p1c;
     void FUN_001d0480(void*, int);
-    Callback* Init(void* arg, void* value);
+    Callback_be950* Init(void* arg, void* value);
 };
 
-Callback* Callback::Init(void* arg, void* value)
+Callback_be950* Callback_be950::Init(void* arg, void* value)
 {
     FUN_001d0480(arg, 6);
     vptr = (int)DAT_00409108;

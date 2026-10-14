@@ -5,7 +5,7 @@ extern unsigned int DAT_004d9968;
 
 struct lua_State;
 
-struct lua_Debug {
+struct lua_Debug_33a080 {
     int event;
     const char *name;
     const char *namewhat;
@@ -23,13 +23,13 @@ lua_State *FUN_00213290(lua_State *L, int idx);
 const char *FUN_00339e60(lua_State *L, int narg, const char *def, unsigned int *len);
 int FUN_00212f70(lua_State *L, int idx);
 int FUN_00213120(lua_State *L, int idx);
-int FUN_00213fc0(lua_State *L, int level, lua_Debug *ar);
+int FUN_00213fc0(lua_State *L, int level, lua_Debug_33a080 *ar);
 void FUN_00213320(lua_State *L);
 const char *FUN_00213470(lua_State *L, const char *fmt, ...);
 const char *FUN_00213190(lua_State *L, int idx);
 void FUN_00212ed0(lua_State *L, int idx);
 void FUN_00212cb0(lua_State *from, lua_State *to, int n);
-int FUN_00214bd0(lua_State *L, const char *what, lua_Debug *ar);
+int FUN_00214bd0(lua_State *L, const char *what, lua_Debug_33a080 *ar);
 int FUN_00339c30(lua_State *L, int narg, const char *msg);
 void FUN_00213680(lua_State *L, int narr, int nrec);
 void FUN_002133d0(lua_State *L, const char *s);
@@ -39,7 +39,7 @@ void FUN_00213790(lua_State *L, int idx, const char *k);
 int FUN_0033a080(lua_State *L)
 {
     unsigned int cookie = DAT_004d9968;
-    lua_Debug ar;
+    lua_Debug_33a080 ar;
     lua_State *L1;
     int arg;
     if (FUN_00212f00(L, 1) == 8) {

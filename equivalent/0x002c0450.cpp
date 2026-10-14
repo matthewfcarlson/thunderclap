@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 39 inputs, branch coverage 16/16)
 // FUN_002c0450 @ 0x002c0450
-class Surface {
+class Surface_2c0450 {
 public:
     virtual void v0();
     virtual void v1();
@@ -16,7 +16,7 @@ public:
 
 // Blits a source surface into a 32-bit ARGB buffer, alpha-blending each pixel.
 // equiv-conv: FUN_002c0450 eax ecx edx stack stack stack stack stack
-void FUN_002c0450(int y0, int width, int height, Surface *src, unsigned *dst, int x0, int stride, unsigned key)
+void FUN_002c0450(int y0, int width, int height, Surface_2c0450 *src, unsigned *dst, int x0, int stride, unsigned key)
 {
     int yEnd = y0 + height;
     int xEnd = x0 + width;

@@ -3,16 +3,16 @@
 extern "C" char* strncat(char* dst, const char* src, unsigned int n);
 extern "C" long atol(const char* s);
 
-struct StringList {
+struct StringList_1eb440 {
     char data[0x48];
     void FUN_001ef370(const char *s);
 };
 
-struct NameSource {
+struct NameSource_1eb440 {
     const char *FUN_0008a2d0();
 };
 
-void FUN_001eb440(NameSource *source, StringList *list)
+void FUN_001eb440(NameSource_1eb440 *source, StringList_1eb440 *list)
 {
     const char *name = source->FUN_0008a2d0();
     char field1[4];

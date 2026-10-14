@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 7536 inputs, branch coverage 33/37, incomplete; run with --inputs 12000)
 // FUN_002d93f0 @ 0x002d93f0
-struct RowInfo {
+struct RowInfo_2d93f0 {
     unsigned width;
     unsigned rowbytes;
     unsigned char color_type;
@@ -17,7 +17,7 @@ struct SigBits {
     unsigned char alpha;
 };
 
-void FUN_002d93f0(RowInfo *row_info, unsigned char *row, SigBits *sig_bits)
+void FUN_002d93f0(RowInfo_2d93f0 *row_info, unsigned char *row, SigBits *sig_bits)
 {
     if (row_info->color_type == 3)
         return;

@@ -4,27 +4,27 @@ extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 
-struct Status {
+struct Status_181880 {
     char FUN_001d4e40();
 };
 
-struct Part {
+struct Part_181880 {
     char pad0[0xec];
-    Status *status;
+    Status_181880 *status;
 };
 
-struct Res {
+struct Res_181880 {
     char pad00[0x128];
-    Part *mainPart;
-    Part *FUN_00035ef0(int index);
+    Part_181880 *mainPart;
+    Part_181880 *FUN_00035ef0(int index);
 };
 
-struct Resolver {
-    Res *FUN_00059a30();
+struct Resolver_181880 {
+    Res_181880 *FUN_00059a30();
 };
 
-struct Target {
-    Resolver *FUN_000592a0();
+struct Target_181880 {
+    Resolver_181880 *FUN_000592a0();
 };
 
 class PropMissionCriticalCondition {
@@ -46,9 +46,9 @@ bool PropMissionCriticalCondition::vfunc_6(int a, void *obj, int c) {
         return false;
     }
     bool result = false;
-    Res *res = ((Target *)obj)->FUN_000592a0()->FUN_00059a30();
+    Res_181880 *res = ((Target_181880 *)obj)->FUN_000592a0()->FUN_00059a30();
     if (res != 0) {
-        Part *part;
+        Part_181880 *part;
         if (partIndex < 0) {
             part = res->mainPart;
         } else if (partIndex < 8) {

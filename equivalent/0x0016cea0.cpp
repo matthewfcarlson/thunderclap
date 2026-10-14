@@ -2,9 +2,9 @@
 // FUN_0016cea0 @ 0x0016cea0
 namespace hulkfight { namespace motion { class RayCastCondition; class RayCastConeCondition; class RayCastTargetCondition; class TargetCharacterTemplateCondition; class CharacterPropStatusCondition; class TargetHealthPercentCondition; class VelocityCondition; class VelocityYCondition; class VelocityXZCondition; class VelocityXZAngleCondition; class VelocityAnimatedCondition; class VelocityAnimatedYCondition; class VelocityAnimatedXZCondition; class VelocityAnimatedXZAngleCondition; class ChargeCondition; class TurningVelocityCondition; class IntentionButtonDownAnyCondition; class IntentionInputCondition; class TargetingCondition; class TargetMotionStateCondition; class LocomotionMotionStateCondition; class TargetLocomotionMotionStateCondition; class ThinkingCondition; class HealthCondition; class GrappleHealthCondition; class GrappleReactionTypeCondition; class HealthPercentCondition; class InLoadedRoomCondition; class ShoreNearCondition; class RageModeStateCondition; } }
 namespace fight { template<class T> struct ConditionFactoryCasterTemplate { virtual void create(); }; }
-struct Registry { void FUN_00236760(void*); };
+struct Registry_16cea0 { void FUN_00236760(void*); };
 void* __cdecl FUN_002343e0(const char*, void*);
-void __cdecl FUN_0016cea0(Registry* r)
+void __cdecl FUN_0016cea0(Registry_16cea0* r)
 {
     {
         fight::ConditionFactoryCasterTemplate<hulkfight::motion::RayCastCondition> caster;

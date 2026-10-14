@@ -3,24 +3,24 @@
 // FUN_00090790 @ 0x00090790: measures the player's distance or height from a start point and keeps the best value
 extern "C" double sqrt(double);
 
-struct Vec3 {
+struct Vec3_90790 {
     float x, y, z;
 };
 
-struct Body {
-    void FUN_00059a50(Vec3 *out);
+struct Body_90790 {
+    void FUN_00059a50(Vec3_90790 *out);
 };
-struct Player {
+struct Player_90790 {
     char pad00[0x10];
-    Body *body;
+    Body_90790 *body;
 };
-struct Actor {
+struct Actor_90790 {
     char pad00[0x124];
-    Player *player;
+    Player_90790 *player;
 };
 struct World {
     char pad00[0x20];
-    Actor *actor;
+    Actor_90790 *actor;
 };
 extern World *DAT_004dd700;
 
@@ -47,12 +47,12 @@ void Measure::FUN_00090790()
     int m = mode;
     active = 0;
     if (m == 1) {
-        Vec3 p;
+        Vec3_90790 p;
         DAT_004dd700->actor->player->body->FUN_00059a50(&p);
         if (kind == 1)
             value = (int)(p.y - startY);
     } else if (m == 2) {
-        Vec3 p;
+        Vec3_90790 p;
         DAT_004dd700->actor->player->body->FUN_00059a50(&p);
         if (kind == 1)
             value = (int)sqrt((p.x - startX) * (p.x - startX) + (p.z - startZ) * (p.z - startZ));

@@ -9,7 +9,7 @@ void __stdcall D3DDevice_SetTransform(int, const Matrix*);
 }
 extern "C" double __cdecl tan(double);
 extern void __fastcall FUN_0022b980(Matrix*);
-class Viewport {
+class Viewport_323ee0 {
   public:
     virtual void s0();
     virtual void s1();
@@ -26,16 +26,16 @@ struct ViewInfo {
     float x0, y0, x1, y1;
     float nearZ, farZ, fov, aspect;
 };
-class Ctx {
+class Ctx_323ee0 {
   public:
     void FUN_00323ee0();
     void FUN_00321520(float x, float y, float w, float h);
     char pad0[0x48];
     ViewInfo* view;
     char pad4c[0x154 - 0x4c];
-    Viewport* viewport;
+    Viewport_323ee0* viewport;
 };
-void Ctx::FUN_00323ee0() {
+void Ctx_323ee0::FUN_00323ee0() {
     ViewInfo* k0 = view;
     Matrix mat;
     FUN_0022b980(&mat);

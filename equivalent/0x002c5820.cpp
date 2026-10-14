@@ -1,18 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_002c5820 @ 0x002c5820
-struct Vec3 {
+struct Vec3_2c5820 {
     float x, y, z;
 };
 
-struct Prim {
+struct Prim_2c5820 {
     char pad0[8];
-    Vec3 *pos;
+    Vec3_2c5820 *pos;
     char pad0c[4];
     int *tag;
     void FUN_0008ef00();
 };
 
-class Renderer {
+class Renderer_2c5820 {
 public:
     virtual void v0();
     virtual void v1();
@@ -44,23 +44,23 @@ public:
     virtual void v27();
     virtual void v28();
     virtual void v29();
-    virtual Prim *Begin(int shape, int a, int flags, int b, int c);
-    virtual void End(Prim *p);
+    virtual Prim_2c5820 *Begin(int shape, int a, int flags, int b, int c);
+    virtual void End(Prim_2c5820 *p);
 };
 
-extern Renderer *DAT_0052c2a8;
+extern Renderer_2c5820 *DAT_0052c2a8;
 
 class CubeDrawer {
 public:
     int f0;
     int f4;
-    void FUN_002c5820(Vec3 *c, float s);
+    void FUN_002c5820(Vec3_2c5820 *c, float s);
 };
 
-void CubeDrawer::FUN_002c5820(Vec3 *c, float s)
+void CubeDrawer::FUN_002c5820(Vec3_2c5820 *c, float s)
 {
-    Prim *p = DAT_0052c2a8->Begin(f0, 2, 0x2020, 6, 0);
-    Vec3 t;
+    Prim_2c5820 *p = DAT_0052c2a8->Begin(f0, 2, 0x2020, 6, 0);
+    Vec3_2c5820 t;
 
     *p->tag = f4;
     t = *c;

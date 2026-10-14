@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_0022b650 @ 0x0022b650
 struct Matrix { float m[12]; void FUN_0022b9c0(); };
-struct Quaternion { float x,y,z,w; void convert(Matrix* out); };
-void Quaternion::convert(Matrix* out) {
+struct Quaternion_22b650 { float x,y,z,w; void convert(Matrix* out); };
+void Quaternion_22b650::convert(Matrix* out) {
  float delta=w-1.0f;
  if (delta<0) delta=-delta;
  if (delta<=1e-05f) { out->FUN_0022b9c0(); return; }

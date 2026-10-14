@@ -1,23 +1,23 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_000a74c0 @ 0x000a74c0
-typedef unsigned __int64 Key;
-extern Key __cdecl FUN_002672f0(const char*, int, int);
+typedef unsigned __int64 Key_a74c0;
+extern Key_a74c0 __cdecl FUN_002672f0(const char*, int, int);
 extern void __cdecl FUN_00267830(char*, const char*, int);
-struct Data { void FUN_00059a50(void*); };
-struct Item { virtual void add(); virtual void release(); char pad[12]; Data* data; const char* FUN_00036d00(); };
-struct Manager { char pad[0x124]; Item* fallback; Item* FUN_00024280(Key); };
-struct Context { char pad[0x20]; Manager* manager; };
-struct Object { char pad0[0x1b8]; char value[0x18c]; unsigned char dirty; unsigned char isDefault; char pad1[10]; Item* item; char name[64]; void FUN_000a62c0(Context*,Item*); void target(Context*,const char*); };
+struct Data_a74c0 { void FUN_00059a50(void*); };
+struct Item_a74c0 { virtual void add(); virtual void release(); char pad[12]; Data_a74c0* data; const char* FUN_00036d00(); };
+struct Manager_a74c0 { char pad[0x124]; Item_a74c0* fallback; Item_a74c0* FUN_00024280(Key_a74c0); };
+struct Context { char pad[0x20]; Manager_a74c0* manager; };
+struct Object { char pad0[0x1b8]; char value[0x18c]; unsigned char dirty; unsigned char isDefault; char pad1[10]; Item_a74c0* item; char name[64]; void FUN_000a62c0(Context*,Item_a74c0*); void target(Context*,const char*); };
 void Object::target(Context* context,const char* requested) {
- Item* selected=0;
+ Item_a74c0* selected=0;
  if(requested) {
-  Manager* manager=context->manager;
-  Key key=FUN_002672f0(requested,0,0);
+  Manager_a74c0* manager=context->manager;
+  Key_a74c0 key=FUN_002672f0(requested,0,0);
   selected=manager->FUN_00024280(key);
  } else if(!item) {
-  Manager* manager=context->manager;
+  Manager_a74c0* manager=context->manager;
   if(!name[0]) selected=manager->fallback;
-  else { Key key=FUN_002672f0(name,0,0); selected=manager->FUN_00024280(key); }
+  else { Key_a74c0 key=FUN_002672f0(name,0,0); selected=manager->FUN_00024280(key); }
   if(!selected) selected=manager->fallback;
  }
  if(selected) {

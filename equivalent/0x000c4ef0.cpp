@@ -10,7 +10,7 @@ extern char DAT_00409f04;
 extern char DAT_00409f00;
 extern char DAT_00409efc;
 
-struct Vec3 {
+struct Vec3_c4ef0 {
     float x, y, z;
 };
 
@@ -35,11 +35,11 @@ class Camera {
     virtual void setFar(float f);
 
     Camera *FUN_002939a0();
-    void FUN_00293af0(Vec3 *v);
-    void FUN_00293a90(Vec3 *v);
+    void FUN_00293af0(Vec3_c4ef0 *v);
+    void FUN_00293a90(Vec3_c4ef0 *v);
 };
 
-class Renderer {
+class Renderer_c4ef0 {
   public:
     virtual void v0();
     char pad[0x20 - 4];
@@ -48,7 +48,7 @@ class Renderer {
     int field_28;
     int field_2c;
 
-    Renderer *FUN_00294880();
+    Renderer_c4ef0 *FUN_00294880();
     void FUN_00293e90(unsigned color);
     void FUN_00294980(Camera *cam);
 };
@@ -69,16 +69,16 @@ class CFESoundManager {
     CFESoundManager() : field_04(0) {}
 };
 
-struct Obj68 {
+struct Obj68_c4ef0 {
     virtual void v0();
-    Obj68 *FUN_0028edb0();
+    Obj68_c4ef0 *FUN_0028edb0();
 };
 
-struct Obj64 {
-    Obj64 *FUN_000c43a0(void *owner);
+struct Obj64_c4ef0 {
+    Obj64_c4ef0 *FUN_000c43a0(void *owner);
 };
 
-struct Singleton {
+struct Singleton_c4ef0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -147,15 +147,15 @@ struct Singleton {
     char flag;
 };
 
-struct Input {
+struct Input_c4ef0 {
     char pad[0xd88];
     void *owner;
     void FUN_00092bd0(void *owner);
 };
 
-struct Frontend {
+struct Frontend_c4ef0 {
     char pad0[0x20];
-    Renderer *renderer;
+    Renderer_c4ef0 *renderer;
     Camera *camera;
     char pad1[0x34 - 0x28];
     void *field_34;
@@ -163,14 +163,14 @@ struct Frontend {
     CFESoundManager *sound;
     void *field_44;
     void *field_48;
-    Input *input;
+    Input_c4ef0 *input;
     void *field_50;
     char pad3[0x58 - 0x54];
     void *field_58;
     void *field_5c;
     FEControllerSystem *controllers;
-    Obj64 *field_64;
-    Obj68 *field_68;
+    Obj64_c4ef0 *field_64;
+    Obj68_c4ef0 *field_68;
     char pad4[0x1880 - 0x6c];
     int field_1880;
     char text1[0x80];
@@ -180,18 +180,18 @@ struct Frontend {
     int field_1a08;
 
     void FUN_000c1790(char *lang);
-    void FUN_000c4ef0(void *a1, void *a2, void *a3, Input *a4, void *a5, void *a6, void *a7);
+    void FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4, void *a5, void *a6, void *a7);
 };
 
-Singleton *FUN_000fc3d0();
-void FUN_000fc060(const char *file, FEControllerSystem *ctl, CFESoundManager *snd, Renderer *r);
+Singleton_c4ef0 *FUN_000fc3d0();
+void FUN_000fc060(const char *file, FEControllerSystem *ctl, CFESoundManager *snd, Renderer_c4ef0 *r);
 void FUN_00294c70(void *src, void *dst, int n);
 void FUN_000d3d80();
 
-void Frontend::FUN_000c4ef0(void *a1, void *a2, void *a3, Input *a4, void *a5, void *a6, void *a7)
+void Frontend_c4ef0::FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4, void *a5, void *a6, void *a7)
 {
     void *p = FUN_0008d690(0x140);
-    renderer = p ? ((Renderer *)p)->FUN_00294880() : 0;
+    renderer = p ? ((Renderer_c4ef0 *)p)->FUN_00294880() : 0;
     renderer->v0();
     renderer->field_28 = 0;
     renderer->field_2c = 6;
@@ -203,7 +203,7 @@ void Frontend::FUN_000c4ef0(void *a1, void *a2, void *a3, Input *a4, void *a5, v
     camera->v0();
     camera->setNear(0.1f);
     camera->setFar(100.0f);
-    Vec3 v;
+    Vec3_c4ef0 v;
     v.x = 0.0f;
     v.y = 0.0f;
     v.z = -13.0f;
@@ -244,10 +244,10 @@ void Frontend::FUN_000c4ef0(void *a1, void *a2, void *a3, Input *a4, void *a5, v
     FUN_000fc3d0()->registerCallback(FUN_000d3d80, this);
 
     p = FUN_0008d690(8);
-    field_64 = p ? ((Obj64 *)p)->FUN_000c43a0(this) : 0;
+    field_64 = p ? ((Obj64_c4ef0 *)p)->FUN_000c43a0(this) : 0;
 
     p = FUN_00263ea0(0x20);
-    field_68 = p ? ((Obj68 *)p)->FUN_0028edb0() : 0;
+    field_68 = p ? ((Obj68_c4ef0 *)p)->FUN_0028edb0() : 0;
     field_68->v0();
 
     field_48 = a3;

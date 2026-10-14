@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_002fae50 @ 0x002fae50
-struct Vec3 { float x, y, z; };
+struct Vec3_2fae50 { float x, y, z; };
 
-struct Triangle {
-    Vec3 a;
-    Vec3 b;
-    Vec3 c;
+struct Triangle_2fae50 {
+    Vec3_2fae50 a;
+    Vec3_2fae50 b;
+    Vec3_2fae50 c;
 };
 
 // Moeller-Trumbore ray / triangle test; *outT receives the hit distance.
 // volatile floats are values the original spills to the stack (rounded to 32 bits); doubles are values it
 // keeps in x87 registers.
-bool FUN_002fae50(const Triangle *tri, const Vec3 *origin, const Vec3 *dir, float *outT)
+bool FUN_002fae50(const Triangle_2fae50 *tri, const Vec3_2fae50 *origin, const Vec3_2fae50 *dir, float *outT)
 {
     volatile float e1x = tri->b.x - tri->a.x;
     volatile float e1y = tri->b.y - tri->a.y;

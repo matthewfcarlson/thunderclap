@@ -3,7 +3,7 @@
 extern float DAT_004dd048;
 extern float DAT_004dd04c;
 
-struct V3 {
+struct V3_7afb0 {
     float x, y, z;
 };
 
@@ -11,12 +11,12 @@ struct Matrix {
     float m[16];
     void FUN_0022b980();
     void FUN_0022ba70(float angle);
-    void FUN_0022c3b0(const V3* in, V3* out);
+    void FUN_0022c3b0(const V3_7afb0* in, V3_7afb0* out);
 };
 
-struct Cell {
-    V3 b2;
-    V3 b1;
+struct Cell_7afb0 {
+    V3_7afb0 b2;
+    V3_7afb0 b1;
     int z;
     int key;
     char pad20[8];
@@ -28,7 +28,7 @@ struct Cell {
     int f44;
 };
 
-struct Frame {
+struct Frame_7afb0 {
     float fu;
     int turn;
     float fx;
@@ -39,18 +39,18 @@ struct Frame {
     Matrix m2;
 };
 
-class Grid {
+class Grid_7afb0 {
 public:
     int tbl[0x1904 / 4];
-    Cell cells[98];
+    Cell_7afb0 cells[98];
 
     int FUN_00079190(int a, int b);
-    void FUN_0007afb0(int row, int col, int n, int swap, V3* p1, V3* p2);
+    void FUN_0007afb0(int row, int col, int n, int swap, V3_7afb0* p1, V3_7afb0* p2);
 };
 
-void Grid::FUN_0007afb0(int row, int col, int n, int swap, V3* p1, V3* p2)
+void Grid_7afb0::FUN_0007afb0(int row, int col, int n, int swap, V3_7afb0* p1, V3_7afb0* p2)
 {
-    Frame f;
+    Frame_7afb0 f;
     int key = cells[row * 14].key;
     int q = (key - 1) / 30;
     int rem = (key - 1) % 30;
@@ -64,7 +64,7 @@ void Grid::FUN_0007afb0(int row, int col, int n, int swap, V3* p1, V3* p2)
     f.turn = 6 - (short)tbl[key * 2];
     f.m2.FUN_0022ba70((float)f.turn * 1.0471975803375244f);
 
-    Cell& c = cells[row * 14 + col];
+    Cell_7afb0& c = cells[row * 14 + col];
     *p1 = c.b2;
     *p2 = c.b1;
     f.dir = c.f40;
@@ -126,7 +126,7 @@ void Grid::FUN_0007afb0(int row, int col, int n, int swap, V3* p1, V3* p2)
     p2->x = f.fx + p2->x;
     p2->z = f.fz + p2->z;
     if (swap == 1) {
-        V3 t = *p1;
+        V3_7afb0 t = *p1;
         *p1 = *p2;
         *p2 = t;
     }

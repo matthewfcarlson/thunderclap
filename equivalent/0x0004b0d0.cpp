@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 16/16)
 // CButtonCondition::vfunc_9 @ 0x0004b0d0
-struct Input { unsigned int unknown; float value; };
+struct Input_4b0d0 { unsigned int unknown; float value; };
 extern bool __cdecl FUN_00018960(float a, float b, float tolerance);
 struct CButtonCondition {
     virtual void vfunc_0();
@@ -12,13 +12,13 @@ struct CButtonCondition {
     virtual void vfunc_6();
     virtual void vfunc_7();
     virtual void vfunc_8();
-    virtual bool vfunc_9(Input* input);
-    virtual bool FUN_00344f51(Input* input, float* value);
+    virtual bool vfunc_9(Input_4b0d0* input);
+    virtual bool FUN_00344f51(Input_4b0d0* input, float* value);
     char padding[12];
     unsigned int operation;
     float threshold;
 };
-bool CButtonCondition::vfunc_9(Input* input) {
+bool CButtonCondition::vfunc_9(Input_4b0d0* input) {
     float value = input->value;
     if (!FUN_00344f51(input, &value)) return false;
     switch (operation) {

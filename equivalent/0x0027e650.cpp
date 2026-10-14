@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 13/14, incomplete)
 // FUN_0027e650 @ 0x0027e650
-struct Resource {
+struct Resource_27e650 {
  virtual void AddRef();
  virtual void Release();
  virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11();
@@ -12,18 +12,18 @@ struct Resource {
  virtual void slot17();
  virtual void Enable(int);
 };
-struct Controller {
+struct Controller_27e650 {
  char pad0[0x40];
  int state;
  int secondary;
  char pad48[0x40];
- Resource* resource;
+ Resource_27e650* resource;
  unsigned char flag;
  void FUN_0027d780();
  void FUN_0027dca0();
- void FUN_0027e650(Resource*, float, float);
+ void FUN_0027e650(Resource_27e650*, float, float);
 };
-void Controller::FUN_0027e650(Resource* incoming, float start, float end) {
+void Controller_27e650::FUN_0027e650(Resource_27e650* incoming, float start, float end) {
  if (resource) {
   if (!incoming) {
    resource->Release();

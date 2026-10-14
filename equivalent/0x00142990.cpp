@@ -5,20 +5,20 @@
 extern "C" double sqrt(double);
 void *thunk_FUN_0008d690(unsigned int size);
 
-union FloatBits {
+union FloatBits_142990 {
     float f;
     unsigned int u;
 };
 
 static float AbsF(float v)
 {
-    FloatBits b;
+    FloatBits_142990 b;
     b.f = v;
     b.u &= 0x7fffffff;
     return b.f;
 }
 
-struct V3 {
+struct V3_142990 {
     union {
         float x;
         int ix;
@@ -32,63 +32,63 @@ struct V3 {
         int iz;
     };
     float FUN_0022d110();
-    bool FUN_0022d2b0(const V3 *other, float epsilon);
+    bool FUN_0022d2b0(const V3_142990 *other, float epsilon);
 };
 
 int FUN_00142940(const void *id);
 
-struct Name {
+struct Name_142990 {
     char data[8];
     void FUN_0027b040(const char *s);
 };
 
-struct Rig {
+struct Rig_142990 {
     virtual void v0();
     virtual void v1();
     char pad04[4];
-    Name name;
+    Name_142990 name;
     char pad10[0x89c - 0x10];
     bool b89c;
     bool b89d;
-    Rig *FUN_00229760(int a, int b, int c, int *desc, int d);
+    Rig_142990 *FUN_00229760(int a, int b, int c, int *desc, int d);
 };
 
-struct Root {
+struct Root_142990 {
     virtual void v0();
     virtual void v1();
     char pad04[4];
-    Name name;
-    Root *FUN_002248f0(unsigned int id);
+    Name_142990 name;
+    Root_142990 *FUN_002248f0(unsigned int id);
 };
 
-struct Stats {
+struct Stats_142990 {
     char pad0[0x1ae0];
-    V3 vB;
+    V3_142990 vB;
     char pad1aec[0x1af8 - 0x1aec];
-    V3 vA;
+    V3_142990 vA;
     char pad1b04[0x2008 - 0x1b04];
     int i2008;
     char pad200c[0x2064 - 0x200c];
-    V3 vec2064;
+    V3_142990 vec2064;
     float FUN_0003ec00(int z);
-    char FUN_000356c0(V3 *out);
+    char FUN_000356c0(V3_142990 *out);
 };
 
-struct Scene {
+struct Scene_142990 {
     int FUN_002226b0();
-    void FUN_00222890(Rig *r, float a, int b, float c, int d, int e, float f);
+    void FUN_00222890(Rig_142990 *r, float a, int b, float c, int d, int e, float f);
 };
 
-struct Pool {
-    Stats *FUN_00059a30();
-    Scene *FUN_00059a40();
+struct Pool_142990 {
+    Stats_142990 *FUN_00059a30();
+    Scene_142990 *FUN_00059a40();
 };
 
-struct Owner {
-    Pool *FUN_000592a0();
+struct Owner_142990 {
+    Pool_142990 *FUN_000592a0();
 };
 
-struct Config {
+struct Config_142990 {
     char pad0[0x14];
     float f14;
     float f18;
@@ -104,7 +104,7 @@ struct Config {
     int i58;
 };
 
-extern "C" void __cdecl FUN_0015cfd0(int h, Rig *r);
+extern "C" void __cdecl FUN_0015cfd0(int h, Rig_142990 *r);
 
 namespace hulkfight { namespace motion {
 
@@ -117,13 +117,13 @@ public:
     virtual void vfunc_4();
     virtual void vfunc_5();
     char pad04[0x18];
-    Config *cfg;    // 0x1c
-    Owner *owner;   // 0x20
-    Rig *rig;       // 0x24
-    Root *root;     // 0x28
-    V3 w;           // 0x2c
-    V3 a;           // 0x38
-    V3 b;           // 0x44
+    Config_142990 *cfg;    // 0x1c
+    Owner_142990 *owner;   // 0x20
+    Rig_142990 *rig;       // 0x24
+    Root_142990 *root;     // 0x28
+    V3_142990 w;           // 0x2c
+    V3_142990 a;           // 0x38
+    V3_142990 b;           // 0x44
     bool flag50;    // 0x50
     char pad51[3];
     int i54;        // 0x54
@@ -131,11 +131,11 @@ public:
 
 char WallRunAction::vfunc_3(int a0, int a1)
 {
-    Pool *pool = owner->FUN_000592a0();
-    Stats *stats = pool->FUN_00059a30();
+    Pool_142990 *pool = owner->FUN_000592a0();
+    Stats_142990 *stats = pool->FUN_00059a30();
 
-    V3 v = stats->vA;
-    V3 z;
+    V3_142990 v = stats->vA;
+    V3_142990 z;
     z.x = 0.0f;
     z.y = 0.0f;
     z.z = 0.0f;
@@ -168,7 +168,7 @@ char WallRunAction::vfunc_3(int a0, int a1)
         float dot = v.z * w.z + v.y * w.y + v.x * w.x;
         if (dot < 0.0f) {
             float nd = -dot;
-            V3 t;
+            V3_142990 t;
             t.ix = v.ix;
             t.iy = v.iy;
             t.iz = v.iz;
@@ -206,7 +206,7 @@ char WallRunAction::vfunc_3(int a0, int a1)
         float dot = v.z * w.z + v.y * w.y + v.x * w.x;
         if (dot < 0.0f) {
             float nd = -dot;
-            V3 t;
+            V3_142990 t;
             t.ix = v.ix;
             t.iy = v.iy;
             t.iz = v.iz;
@@ -216,7 +216,7 @@ char WallRunAction::vfunc_3(int a0, int a1)
             w.y = t.y + w.y;
             w.z = t.z + w.z;
         }
-        Config *c = cfg;
+        Config_142990 *c = cfg;
         float c18 = c->f18;
         if (c18 > 0.0f && c18 > w.y)
             w.y = c18;
@@ -238,7 +238,7 @@ char WallRunAction::vfunc_3(int a0, int a1)
         }
     }
 
-    Scene *scene = pool->FUN_00059a40();
+    Scene_142990 *scene = pool->FUN_00059a40();
     if (scene == 0)
         return 0;
     int h = scene->FUN_002226b0();
@@ -257,9 +257,9 @@ char WallRunAction::vfunc_3(int a0, int a1)
     desc[8] = 0;
     desc[9] = id3;
     void *mem = thunk_FUN_0008d690(0x910);
-    Rig *obj = 0;
+    Rig_142990 *obj = 0;
     if (mem)
-        obj = ((Rig *)mem)->FUN_00229760(h, 4, 2, desc, 0);
+        obj = ((Rig_142990 *)mem)->FUN_00229760(h, 4, 2, desc, 0);
     if (obj)
         obj->v0();
     if (rig)
@@ -275,13 +275,13 @@ char WallRunAction::vfunc_3(int a0, int a1)
     scene->FUN_00222890(rig, -1.0f, c50, 1.0f, c54, c58, -1.0f);
 
     void *mem2 = thunk_FUN_0008d690(0x70);
-    Root *r2 = 0;
+    Root_142990 *r2 = 0;
     if (mem2)
-        r2 = ((Root *)mem2)->FUN_002248f0(0);
+        r2 = ((Root_142990 *)mem2)->FUN_002248f0(0);
     root = r2;
     r2->name.FUN_0027b040("wallRunRoot");
     root->v0();
-    scene->FUN_00222890((Rig *)root, -1.0f, c50 - 1, 1.0f, c54, c58, -1.0f);
+    scene->FUN_00222890((Rig_142990 *)root, -1.0f, c50 - 1, 1.0f, c54, c58, -1.0f);
     return 1;
 }
 

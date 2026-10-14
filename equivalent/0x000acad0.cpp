@@ -3,32 +3,32 @@
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
-struct Vec3 {
+struct Vec3_acad0 {
     float x, y, z;
 };
 
-struct Mat {
+struct Mat_acad0 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022bc20(float x, float y, float z);
-    void FUN_0022be40(Vec3* pos);
+    void FUN_0022be40(Vec3_acad0* pos);
 };
 
-struct Curve {
+struct Curve_acad0 {
     char data[0x38];
     float FUN_000ac6f0(float time, float duration);
 };
 
 struct CameraArgs;
 
-struct Receiver {
+struct Receiver_acad0 {
     void FUN_00099470(CameraArgs* args);
 };
 
 struct CameraArgs {
     int f0;
     int f4;
-    Receiver* f8;
+    Receiver_acad0* f8;
 };
 
 class CGameCamera {
@@ -54,7 +54,7 @@ public:
     virtual void v18();
     virtual void v19();
     virtual void v20();
-    virtual void vfunc_21(Mat* m);
+    virtual void vfunc_21(Mat_acad0* m);
     virtual void v22();
     virtual void v23();
     virtual void v24();
@@ -78,14 +78,14 @@ public:
     char pad04[0xf1 - 4];
     char frozen;
     char padf2[0x170 - 0xf2];
-    Curve c170;
-    Curve c1a8;
-    Curve c1e0;
-    Curve c218;
-    Curve c250;
-    Vec3 v288;
-    Vec3 v294;
-    Vec3 v2a0;
+    Curve_acad0 c170;
+    Curve_acad0 c1a8;
+    Curve_acad0 c1e0;
+    Curve_acad0 c218;
+    Curve_acad0 c250;
+    Vec3_acad0 v288;
+    Vec3_acad0 v294;
+    Vec3_acad0 v2a0;
     char pending;
     char pad2ad[3];
     float f2b0;
@@ -119,7 +119,7 @@ void CScriptCamera::vfunc_35(CameraArgs* args, float dt, int flag, int extra)
             pending = 0;
         }
 
-        Mat m;
+        Mat_acad0 m;
         m.FUN_0022b980();
         m.FUN_0022bc20(a2 * 0.017453292f, a1 * 0.017453292f, 0.0f);
 
@@ -128,11 +128,11 @@ void CScriptCamera::vfunc_35(CameraArgs* args, float dt, int flag, int extra)
         v2a0.y = (v294.y - v288.y) * t + v288.y;
         v2a0.z = (v294.z - v288.z) * t + v288.z;
 
-        Vec3 fwd;
+        Vec3_acad0 fwd;
         fwd.x = m.m[8] * a0;
         fwd.y = m.m[9] * a0;
         fwd.z = m.m[10] * a0;
-        Vec3 d;
+        Vec3_acad0 d;
         d.x = v2a0.x - fwd.x;
         d.y = v2a0.y - fwd.y;
         d.z = v2a0.z - fwd.z;

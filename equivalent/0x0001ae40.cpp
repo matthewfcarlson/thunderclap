@@ -1,74 +1,74 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 22/24, incomplete)
 // COpportunityBallAction::vfunc_8 @ 0x0001ae40
 extern "C" float fabsf(float);
-struct Vec3 {
+struct Vec3_1ae40 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Mat {
+struct Mat_1ae40 {
     float m[16];
-    void FUN_0022c2b0(const Vec3* in, Vec3* out);
+    void FUN_0022c2b0(const Vec3_1ae40* in, Vec3_1ae40* out);
 };
 
 struct Skeleton {
     char pad0[0x1c];
-    Mat* matrices;
+    Mat_1ae40* matrices;
 };
 
-struct Body {
+struct Body_1ae40 {
     char pad0[0x64];
     Skeleton* skeleton;
 };
 
-struct Handle {
+struct Handle_1ae40 {
     char pad[4];
 };
 
-struct Config {
+struct Config_1ae40 {
     char pad0[0x20];
-    Vec3 target;
+    Vec3_1ae40 target;
     float range;
     int maxSteps;
 };
 
-Handle* __fastcall FUN_000592a0(void* owner);
-Body* __fastcall FUN_00059a40(Handle* h);
+Handle_1ae40* __fastcall FUN_000592a0(void* owner);
+Body_1ae40* __fastcall FUN_00059a40(Handle_1ae40* h);
 
-union Scratch {
+union Scratch_1ae40 {
     float f;
     unsigned int bits;
     int i;
 };
 
-struct Frame {
-    Scratch s;
+struct Frame_1ae40 {
+    Scratch_1ae40 s;
     float len;
     float lim;
-    Vec3 dir;
-    Vec3 delta;
-    Vec3 cursor;
-    Vec3 out;
+    Vec3_1ae40 dir;
+    Vec3_1ae40 delta;
+    Vec3_1ae40 cursor;
+    Vec3_1ae40 out;
 };
 
 class COpportunityBallAction {
 public:
     char pad0[0x1c];
     void* owner;
-    Config* cfg;
+    Config_1ae40* cfg;
     int matIndex;
-    Vec3 pos;
+    Vec3_1ae40 pos;
     char pad1[0x58 - 0x34];
     int stepCount;
     bool vfunc_8(int arg);
-    void FUN_000145b0(Vec3* a, Vec3* b, float c);
+    void FUN_000145b0(Vec3_1ae40* a, Vec3_1ae40* b, float c);
 };
 
 bool COpportunityBallAction::vfunc_8(int arg)
 {
-    Frame f;
+    Frame_1ae40 f;
 
-    Body* body = FUN_00059a40(FUN_000592a0(owner));
+    Body_1ae40* body = FUN_00059a40(FUN_000592a0(owner));
     f.cursor = cfg->target;
     body->skeleton->matrices[matIndex].FUN_0022c2b0(&f.cursor, &f.out);
 

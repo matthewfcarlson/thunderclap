@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_001edf60 @ 0x001edf60
-class Volume {
+class Volume_1edf60 {
   public:
     void FUN_001f3950(float v);
 };
-class Loader {
+class Loader_1edf60 {
   public:
     void FUN_001eb060(int a, int b);
 };
-class Engine {
+class Engine_1edf60 {
   public:
-    Volume* volume;
-    Loader* loader;
+    Volume_1edf60* volume;
+    Loader_1edf60* loader;
     void FUN_001efa40(int a, const char* name, int b);
     void FUN_001f22f0(float dt, int flag);
 };
@@ -19,7 +19,7 @@ extern unsigned char DAT_004e36e0;
 
 class Boot {
   public:
-    Engine* engine;
+    Engine_1edf60* engine;
     char pad0[4];
     char active;
     char pad1[3];

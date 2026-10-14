@@ -1,148 +1,148 @@
 // STATUS: equivalent (tools/equiv.py level 3: 113 inputs, branch coverage 40/42, incomplete)
 // FUN_001afba0 @ 0x001afba0
-struct Vec3 {
+struct Vec3_1afba0 {
     float x, y, z;
 };
 
-struct Probe {
+struct Probe_1afba0 {
     float FUN_000111f0();
 };
 
-struct Stats {
+struct Stats_1afba0 {
     char pad0[0x3a];
     char flag3a;
     char pad3b[0xb8 - 0x3b];
     float f_b8;
-    Probe *FUN_00012f50(Vec3 *out);
+    Probe_1afba0 *FUN_00012f50(Vec3_1afba0 *out);
 };
 
-struct Region {
+struct Region_1afba0 {
     char pad0[0x1b0];
     int id;
 };
 
-struct Anchor {
+struct Anchor_1afba0 {
     char pad0[0x1b0];
     int id;
 };
 
-struct Holder {
+struct Holder_1afba0 {
     char pad0[0x11c];
-    Anchor *anchor;
+    Anchor_1afba0 *anchor;
     char pad120[0x1b88 - 0x120];
     float stamp;
 };
 
-struct Gadget {
+struct Gadget_1afba0 {
     char FUN_001d4e30();
 };
 
-struct Hit;
+struct Hit_1afba0;
 
-struct Target {
+struct Target_1afba0 {
     char pad0[8];
     int f8;
     char pad0c[0xec - 0xc];
-    Gadget *gadget;
+    Gadget_1afba0 *gadget;
     char pad0f0[0x114 - 0xf0];
     int f114;
     char pad118[0x148 - 0x118];
-    Holder *holder;
+    Holder_1afba0 *holder;
     char pad14c;
     char f14d;
     char pad14e[0x1c9 - 0x14e];
     char f1c9;
-    Hit *FUN_001d72e0();
+    Hit_1afba0 *FUN_001d72e0();
     char FUN_001d6a80();
     void FUN_001d82d0();
     void FUN_001d74c0(int a, int b, float c, int d);
     void FUN_001d7510();
 };
 
-struct Hit {
+struct Hit_1afba0 {
     char pad0[8];
-    Target *target;
+    Target_1afba0 *target;
     int type;
     char pad10[0x6c - 0x10];
     int f6c;
 };
 
-struct Fx {
-    void FUN_00083320(int a, int b, float t, int one, Probe *p, int zero);
+struct Fx_1afba0 {
+    void FUN_00083320(int a, int b, float t, int one, Probe_1afba0 *p, int zero);
 };
 
 struct Sys4c {
-    Fx *FUN_0007ad00(int *key);
+    Fx_1afba0 *FUN_0007ad00(int *key);
 };
 
-struct Clock {
+struct Clock_1afba0 {
     float FUN_00086080();
 };
 
-struct Cue {
+struct Cue_1afba0 {
     void FUN_001ec980(int id, const char *name);
 };
 
-struct Slot20 {
+struct Slot20_1afba0 {
     char pad0[0x124];
     int id;
 };
 
-struct Game {
+struct Game_1afba0 {
     char pad0[0x20];
-    Slot20 *slot20;
+    Slot20_1afba0 *slot20;
     char pad24[0x34 - 0x24];
-    Cue *cue;
+    Cue_1afba0 *cue;
     char pad38[0x4c - 0x38];
     Sys4c *sys;
     char pad50[0x58 - 0x50];
-    Clock *clock;
+    Clock_1afba0 *clock;
 };
 
-extern Game *DAT_004dd700;
+extern Game_1afba0 *DAT_004dd700;
 
-struct Body {
+struct Body_1afba0 {
     char pad0[0x11c];
-    Anchor *anchor;
+    Anchor_1afba0 *anchor;
     char pad120[0x128 - 0x120];
-    Target *owner;
+    Target_1afba0 *owner;
     int f12c;
     char pad130[0x334 - 0x130];
-    Body *other;
+    Body_1afba0 *other;
 };
 
-struct Fighter {
+struct Fighter_1afba0 {
     char pad0[0x20];
-    Stats *stats;
+    Stats_1afba0 *stats;
     float FUN_00014580();
-    Body *FUN_00013ec0();
-    void FUN_0001a710(Hit *hit, int a, int b);
+    Body_1afba0 *FUN_00013ec0();
+    void FUN_0001a710(Hit_1afba0 *hit, int a, int b);
 };
 
-struct Controller {
+struct Controller_1afba0 {
     char pad0[8];
-    Fighter *fighter;
+    Fighter_1afba0 *fighter;
 };
 
-int __stdcall FUN_001afba0(Controller *ctl, Hit *hit, int a, int b, float t)
+int __stdcall FUN_001afba0(Controller_1afba0 *ctl, Hit_1afba0 *hit, int a, int b, float t)
 {
-    Vec3 tmp;
+    Vec3_1afba0 tmp;
 
     if (hit->type != 5)
         return 1;
 
-    Fighter *f = ctl->fighter;
+    Fighter_1afba0 *f = ctl->fighter;
     if (f->FUN_00014580() < t)
         return 1;
 
-    Body *body = f->FUN_00013ec0();
+    Body_1afba0 *body = f->FUN_00013ec0();
     if (body->owner != 0) {
         if (body->owner->FUN_001d72e0() == hit)
             return 1;
     }
 
-    Target *tgt = hit->target;
-    Holder *h = tgt->holder;
+    Target_1afba0 *tgt = hit->target;
+    Holder_1afba0 *h = tgt->holder;
     if (h != 0) {
         if (DAT_004dd700 != 0)
             h->stamp = DAT_004dd700->clock->FUN_00086080();
@@ -165,15 +165,15 @@ int __stdcall FUN_001afba0(Controller *ctl, Hit *hit, int a, int b, float t)
             return 1;
     }
 
-    Stats *st = f->stats;
+    Stats_1afba0 *st = f->stats;
     if (st->f_b8 > 0.0f || st->FUN_00012f50(&tmp)->FUN_000111f0() > 0.0f)
         tgt->FUN_001d82d0();
 
     if (tgt->f14d) {
         if (tgt->FUN_001d72e0()->f6c == 0) {
-            Fx *fx = DAT_004dd700->sys->FUN_0007ad00(&tgt->f8);
+            Fx_1afba0 *fx = DAT_004dd700->sys->FUN_0007ad00(&tgt->f8);
             if (fx != 0) {
-                Probe *p = f->stats->FUN_00012f50(&tmp);
+                Probe_1afba0 *p = f->stats->FUN_00012f50(&tmp);
                 fx->FUN_00083320(a, b, t, 1, p, 0);
                 DAT_004dd700->cue->FUN_001ec980(DAT_004dd700->slot20->id, "punch");
             }
@@ -181,7 +181,7 @@ int __stdcall FUN_001afba0(Controller *ctl, Hit *hit, int a, int b, float t)
     }
 
     if (tgt->FUN_001d6a80()) {
-        Stats *st2 = f->stats;
+        Stats_1afba0 *st2 = f->stats;
         if (st2->f_b8 > 0.0f || st2->FUN_00012f50(&tmp)->FUN_000111f0() > 0.0f) {
             tgt->FUN_001d74c0(0, 0, 10.0f, 1);
             tgt->FUN_001d7510();

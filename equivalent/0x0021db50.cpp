@@ -1,20 +1,20 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 10/10)
 // FUN_0021db50 @ 0x0021db50
-struct Input { char pad0[4]; unsigned int value; char pad8[4]; unsigned int kind; unsigned int data; char pad14[8]; unsigned int context; };
-struct Output { unsigned int type; unsigned int value; unsigned int reserved; int a; int b; };
+struct Input_21db50 { char pad0[4]; unsigned int value; char pad8[4]; unsigned int kind; unsigned int data; char pad14[8]; unsigned int context; };
+struct Output_21db50 { unsigned int type; unsigned int value; unsigned int reserved; int a; int b; };
 extern unsigned char DAT_0021dc68[164];
 extern unsigned int __cdecl FUN_002209e0(unsigned int, unsigned int);
 // equiv-conv: FUN_0021c190 esi
-extern void FUN_0021c190(Input*);
+extern void FUN_0021c190(Input_21db50*);
 // equiv-conv: FUN_0021c440 ecx eax esi
-extern void FUN_0021c440(Input*, unsigned int, Output*);
+extern void FUN_0021c440(Input_21db50*, unsigned int, Output_21db50*);
 // equiv-conv: FUN_0021cf70 ecx eax
-extern void FUN_0021cf70(Input*, Output*);
-extern void __cdecl FUN_0021d4b0(Output*, int, unsigned int);
+extern void FUN_0021cf70(Input_21db50*, Output_21db50*);
+extern void __cdecl FUN_0021d4b0(Output_21db50*, int, unsigned int);
 // equiv-conv: FUN_0021d830 eax esi
-extern void FUN_0021d830(Output*, Input*);
+extern void FUN_0021d830(Output_21db50*, Input_21db50*);
 // equiv-conv: FUN_0021db50 eax edi
-void FUN_0021db50(Input* input, Output* output) {
+void FUN_0021db50(Input_21db50* input, Output_21db50* output) {
  unsigned int k=input->kind-0x7b;
  unsigned int branch=k<=0xa3 ? DAT_0021dc68[k] : 7;
  switch(branch) {

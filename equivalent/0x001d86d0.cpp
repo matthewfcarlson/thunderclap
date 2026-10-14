@@ -2,7 +2,7 @@
 // FUN_001d86d0 @ 0x001d86d0
 extern "C" double sqrt(double);
 
-struct V3 {
+struct V3_1d86d0 {
     float x, y, z;
     float FUN_0022d110();
     float FUN_000111f0();
@@ -15,22 +15,22 @@ struct SymMatrix {
     void FUN_002fcaa0();
 };
 
-struct Mat4 {
+struct Mat4_1d86d0 {
     float m[16];
     void FUN_0022cdb0();
-    void FUN_0022c3b0(V3 *in, V3 *out);
+    void FUN_0022c3b0(V3_1d86d0 *in, V3_1d86d0 *out);
 };
 
-struct Obj70;
+struct Obj70_1d86d0;
 
-struct ObjC {
+struct ObjC_1d86d0 {
     char pad0[0x5c];
-    V3 v5c;
+    V3_1d86d0 v5c;
     char pad68[0x84 - 0x68];
     char b84;
 };
 
-struct Obj70 {
+struct Obj70_1d86d0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -48,46 +48,46 @@ struct Obj70 {
     virtual void v14();
     virtual void v15();
     virtual void v16();
-    virtual void v17(void *a, V3 *v, int i, int j, int k);
-    virtual void v18(void *a, V3 *v, SymMatrix *g, int i, int j, int k);
+    virtual void v17(void *a, V3_1d86d0 *v, int i, int j, int k);
+    virtual void v18(void *a, V3_1d86d0 *v, SymMatrix *g, int i, int j, int k);
     virtual void v19(int i, int j, int k);
     virtual void v20(void *a, SymMatrix *g, int i, int j, int k);
     char pad04[0x10 - 4];
-    ObjC *p10;
+    ObjC_1d86d0 *p10;
     char pad14[0x98 - 0x14];
     float f98, f9c, fa0;
-    void FUN_0016fc60(V3 *out);
+    void FUN_0016fc60(V3_1d86d0 *out);
 };
 
-struct ObjB {
+struct ObjB_1d86d0 {
     char pad0[0x50];
-    V3 v50;
-    V3 v5c;
+    V3_1d86d0 v50;
+    V3_1d86d0 v5c;
     char pad68[0x70 - 0x68];
-    Obj70 *p70;
+    Obj70_1d86d0 *p70;
 };
 
-struct ObjA {
+struct ObjA_1d86d0 {
     char pad0[0x10];
-    ObjB *p10;
+    ObjB_1d86d0 *p10;
 };
 
-struct Link {
+struct Link_1d86d0 {
     unsigned __int64 FUN_001d4f70();
     char FUN_001d4e40();
 };
 
-struct Req {
-    void FUN_00083320(V3 *a, V3 *b, int c, int d, V3 *e, int f);
+struct Req_1d86d0 {
+    void FUN_00083320(V3_1d86d0 *a, V3_1d86d0 *b, int c, int d, V3_1d86d0 *e, int f);
 };
-struct Hub4c {
-    Req *FUN_0007ad00(void *p);
+struct Hub4c_1d86d0 {
+    Req_1d86d0 *FUN_0007ad00(void *p);
 };
-struct Hub {
+struct Hub_1d86d0 {
     char pad0[0x4c];
-    Hub4c *p4c;
+    Hub4c_1d86d0 *p4c;
 };
-extern Hub *DAT_004dd700;
+extern Hub_1d86d0 *DAT_004dd700;
 
 extern unsigned __int64 DAT_004dc0c0;
 extern unsigned __int64 DAT_004dc098;
@@ -96,7 +96,7 @@ extern unsigned __int64 DAT_004e2548;
 
 float FUN_00083d90(float *p);
 
-class Thing {
+class Thing_1d86d0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -113,47 +113,47 @@ public:
     virtual void v12();
     virtual void v13();
     virtual void v14();
-    virtual Mat4 *v15();
+    virtual Mat4_1d86d0 *v15();
     char pad04[4];
     char sub8[1];
     char pad9[0xa0 - 9];
-    ObjA *pA0;
+    ObjA_1d86d0 *pA0;
     char pada4[0xec - 0xa4];
-    Link *link;
+    Link_1d86d0 *link;
     char padf0[0x14d - 0xf0];
     char b14d;
     char pad14e[0x188 - 0x14e];
-    V3 v188;
+    V3_1d86d0 v188;
     char pad194[0x25c - 0x194];
-    V3 v25c;
+    V3_1d86d0 v25c;
     float f268;
     void FUN_001d7510();
-    V3 *FUN_001d6b40();
-    void F(V3 *v, void *arg2);
+    V3_1d86d0 *FUN_001d6b40();
+    void F(V3_1d86d0 *v, void *arg2);
 };
 
-void Thing::F(V3 *vin, void *arg2)
+void Thing_1d86d0::F(V3_1d86d0 *vin, void *arg2)
 {
     struct Frame {
         float N;
-        V3 V;
-        V3 R;
-        V3 P1;
-        V3 SV1;
-        V3 SV2;
-        V3 S48;
+        V3_1d86d0 V;
+        V3_1d86d0 R;
+        V3_1d86d0 P1;
+        V3_1d86d0 SV1;
+        V3_1d86d0 SV2;
+        V3_1d86d0 S48;
         SymMatrix G2;
         SymMatrix G1;
-        Mat4 M;
+        Mat4_1d86d0 M;
     } fr;
     SymMatrix &G1 = fr.G1;
-    V3 &V = fr.V;
+    V3_1d86d0 &V = fr.V;
     v25c.x = vin->x;
     v25c.y = vin->y;
     v25c.z = vin->z;
     f268 = 0;
     if (b14d) {
-        Req *r = DAT_004dd700->p4c->FUN_0007ad00(sub8);
+        Req_1d86d0 *r = DAT_004dd700->p4c->FUN_0007ad00(sub8);
         if (r) {
             fr.R.x = 0; fr.R.y = 0; fr.R.z = 0;
             r->FUN_00083320(&fr.R, &fr.R, 0, 1, &fr.R, 0);
@@ -169,7 +169,7 @@ void Thing::F(V3 *vin, void *arg2)
     if (N < 0.01f)
         return;
     FUN_001d7510();
-    V3 *pos = FUN_001d6b40();
+    V3_1d86d0 *pos = FUN_001d6b40();
     v188.x = pos->x;
     v188.y = pos->y;
     v188.z = pos->z;
@@ -192,11 +192,11 @@ void Thing::F(V3 *vin, void *arg2)
             N = N * 0.7f;
         }
     }
-    ObjB *B = pA0->p10;
-    Obj70 *o70 = B->p70;
+    ObjB_1d86d0 *B = pA0->p10;
+    Obj70_1d86d0 *o70 = B->p70;
     void *a2 = arg2;
-    V3 &SV1 = fr.SV1;
-    V3 &SV2 = fr.SV2;
+    V3_1d86d0 &SV1 = fr.SV1;
+    V3_1d86d0 &SV2 = fr.SV2;
     SV1 = B->v50;
     SV2 = B->v5c;
     o70->v17(a2, &V, 0, -1, -1);
@@ -210,16 +210,16 @@ void Thing::F(V3 *vin, void *arg2)
     v25c.x = V.x;
     v25c.y = V.y;
     v25c.z = V.z;
-    V3 &TV = fr.R;
+    V3_1d86d0 &TV = fr.R;
     TV = o70->p10->v5c;
     if (!o70->p10->b84) {
-        V3 &S48 = fr.S48;
+        V3_1d86d0 &S48 = fr.S48;
         o70->FUN_0016fc60(&S48);
-        ObjB *b2 = pA0->p10;
+        ObjB_1d86d0 *b2 = pA0->p10;
         b2->v50.x = SV1.x;
         b2->v50.z = SV1.z;
         b2->v50.y = SV1.y;
-        ObjB *b3 = pA0->p10;
+        ObjB_1d86d0 *b3 = pA0->p10;
         b3->v5c.x = SV2.x;
         b3->v5c.z = SV2.z;
         b3->v5c.y = SV2.y;
@@ -231,10 +231,10 @@ void Thing::F(V3 *vin, void *arg2)
         o70->v19(1, -1, -1);
         match = id == DAT_004dc0c0 || id == DAT_004dc098 || id == DAT_004dc078;
         if (match && TV.FUN_000111f0() > 0.1f) {
-            Mat4 &M = fr.M;
+            Mat4_1d86d0 &M = fr.M;
             M = *v15();
             M.FUN_0022cdb0();
-            V3 &P1 = fr.P1;
+            V3_1d86d0 &P1 = fr.P1;
             M.FUN_0022c3b0(&TV, &P1);
             union { float f; unsigned int u; } t;
             t.f = P1.x;
@@ -256,7 +256,7 @@ void Thing::F(V3 *vin, void *arg2)
             P1.y = P1.y * 3.0f;
             v15()->FUN_0022c3b0(&P1, &TV);
         }
-        ObjB *b4 = pA0->p10;
+        ObjB_1d86d0 *b4 = pA0->p10;
         b4->v5c.x = TV.x;
         b4->v5c.y = TV.y;
         b4->v5c.z = TV.z;
@@ -265,7 +265,7 @@ void Thing::F(V3 *vin, void *arg2)
     if (link->FUN_001d4e40()) {
         unsigned __int64 id2 = link->FUN_001d4f70();
         if (id2 != DAT_004e2548) {
-            V3 *bv = &pA0->p10->v50;
+            V3_1d86d0 *bv = &pA0->p10->v50;
             if (bv->FUN_00018990() > 50.0f) {
                 bv->FUN_0022d110();
                 bv->x = bv->x * 50.0f;

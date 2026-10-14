@@ -23,13 +23,13 @@ struct Node {
     virtual void AddRef();
 };
 
-struct Loader {
+struct Loader_d7af0 {
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual Node *v3(content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> *caster, unsigned __int64 key);
 };
-extern Loader *DAT_004dd9cc;
+extern Loader_d7af0 *DAT_004dd9cc;
 
 struct FUN_000e9240 {
     virtual void slot0();
@@ -50,7 +50,7 @@ public:
 FEBackground::FEBackground(int arg, const char *name) : FUN_000e9240(arg)
 {
     drawable = 0;
-    Loader *loader = DAT_004dd9cc;
+    Loader_d7af0 *loader = DAT_004dd9cc;
     content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> *caster =
         new (&arg) content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>;
     drawable = loader->v3(caster, FUN_002672f0(name, 0, 0));

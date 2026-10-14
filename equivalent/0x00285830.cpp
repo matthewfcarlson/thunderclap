@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // pure3d::SimpleFrameController::vfunc_24 @ 0x00285830
-struct Source {
+struct Source_285830 {
     virtual void AddRef();
     virtual void Release();
     char pad4[0xc];
@@ -19,13 +19,13 @@ public:
     virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18();
     virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22();
     virtual void v23();
-    virtual void vfunc_24(Source *source, int start, int unused);
+    virtual void vfunc_24(Source_285830 *source, int start, int unused);
 
     char pad4[0x38];
-    Source *source;         // 0x3c
+    Source_285830 *source;         // 0x3c
 };
 
-void SimpleFrameController::vfunc_24(Source *src, int start, int unused)
+void SimpleFrameController::vfunc_24(Source_285830 *src, int start, int unused)
 {
     if (src == 0) {
         if (source != 0)

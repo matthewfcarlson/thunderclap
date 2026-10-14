@@ -6,7 +6,7 @@ struct Node {
     Node *parent;
 };
 
-class Item {
+class Item_25f8f0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -26,22 +26,22 @@ public:
     Node nil;           // 0x18
 };
 
-static Item *ItemOf(Node *n, Node *nil)
+static Item_25f8f0 *ItemOf(Node *n, Node *nil)
 {
-    return n == nil ? 0 : (Item *)((char *)n - 4);
+    return n == nil ? 0 : (Item_25f8f0 *)((char *)n - 4);
 }
 
 bool MetaType::vfunc_2(int a, int b)
 {
     // in-order walk over the item tree
     Node *n = root;
-    Item *it;
+    Item_25f8f0 *it;
     if (n == &nil) {
         it = 0;
     } else {
         while (n->left != &nil)
             n = n->left;
-        it = (Item *)((char *)n - 4);
+        it = (Item_25f8f0 *)((char *)n - 4);
     }
     while (it != 0) {
         if (!it->Visit(a, b))

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 873 inputs, branch coverage 22/22)
 // FUN_00042680 @ 0x00042680
-struct Vec3 {
+struct Vec3_42680 {
     float x, y, z;
 };
 
@@ -8,29 +8,29 @@ struct Matrix {
     float m[16];
 };
 
-struct Xform {
+struct Xform_42680 {
     float FUN_002220d0();
 };
 
-struct Tracker {
+struct Tracker_42680 {
     char pad00[0x10];
-    Xform xf;
+    Xform_42680 xf;
     void FUN_002226e0(int v);
     void FUN_00223060();
 };
 
-struct Mgr {
-    Tracker* FUN_00059a40();
-    bool FUN_00059a50(Vec3* out);
+struct Mgr_42680 {
+    Tracker_42680* FUN_00059a40();
+    bool FUN_00059a50(Vec3_42680* out);
 };
 
-class Releasable {
+class Releasable_42680 {
 public:
     virtual void v0();
     virtual void Release();
 };
 
-class Provider {
+class Provider_42680 {
 public:
     virtual void v0();
     virtual void v1();
@@ -50,40 +50,40 @@ public:
     virtual int GetHandle();
 };
 
-struct Source {
+struct Source_42680 {
     char pad00[0x10];
     Matrix matrix;
 };
 
-struct Slot {
-    Releasable* first;
-    Releasable* second;
+struct Slot_42680 {
+    Releasable_42680* first;
+    Releasable_42680* second;
     char pad08[0x28 - 8];
 };
 
 float __cdecl FUN_00224fc0(float from, float to);
 
-class Mover {
+class Mover_42680 {
 public:
     char pad00[0x10];
-    Mgr* mgr;
-    Xform xf14;
+    Mgr_42680* mgr;
+    Xform_42680 xf14;
     char pad15[0x44 - 0x15];
-    Vec3 prevPos;
+    Vec3_42680 prevPos;
     char pad50[0x74 - 0x50];
-    Vec3 vel;
+    Vec3_42680 vel;
     char pad80[0x8c - 0x80];
     float angVel;
     char pad90[0x119 - 0x90];
     char disabled;
     char pad11a[0x128 - 0x11a];
-    Provider* provider;
+    Provider_42680* provider;
     char pad12c[0x14c - 0x12c];
-    Source* source;
+    Source_42680* source;
     Matrix matrix;
     char pad190[0x634 - 0x190];
     int slotCount;
-    Slot slots[183];
+    Slot_42680 slots[183];
     char pad22d0[0x10];
     char flag22e0;
 
@@ -96,7 +96,7 @@ public:
     void FUN_00042680(float a, float dt);
 };
 
-void Mover::FUN_00042680(float a, float dt)
+void Mover_42680::FUN_00042680(float a, float dt)
 {
     if (disabled)
         return;
@@ -119,7 +119,7 @@ void Mover::FUN_00042680(float a, float dt)
     FUN_0003d350(a, dt);
     FUN_000418f0(a, dt);
 
-    Tracker* tracker = mgr->FUN_00059a40();
+    Tracker_42680* tracker = mgr->FUN_00059a40();
     if (!flag22e0 && provider)
         tracker->FUN_002226e0(provider->GetHandle());
     tracker->FUN_00223060();
@@ -136,8 +136,8 @@ void Mover::FUN_00042680(float a, float dt)
     mag.f = dt;
     mag.u &= 0x7fffffff;
     if (!(mag.f <= 1e-5f)) {
-        Vec3 prev = prevPos;
-        Vec3 pos;
+        Vec3_42680 prev = prevPos;
+        Vec3_42680 pos;
         pos.x = 0.0f;
         pos.y = 0.0f;
         pos.z = 0.0f;
@@ -151,7 +151,7 @@ void Mover::FUN_00042680(float a, float dt)
         vel.y = invDt * vel.y;
         vel.z = invDt * vel.z;
 
-        Tracker* t = mgr->FUN_00059a40();
+        Tracker_42680* t = mgr->FUN_00059a40();
         float target;
         if (t == 0)
             target = 0.0f;

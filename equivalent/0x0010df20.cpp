@@ -1,28 +1,28 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // hulkfight::ai::TokenSupressAction::vfunc_4 @ 0x0010df20
-struct Ctx {
+struct Ctx_10df20 {
     void *FUN_00059a30();
 };
 
-class Owner {
+class Owner_10df20 {
 public:
-    Ctx *FUN_000592a0();
+    Ctx_10df20 *FUN_000592a0();
 };
 
-struct Player {
+struct Player_10df20 {
     char pad0[0x368];
     int f368;
     void FUN_00065aa0();
 };
 
-struct Tracker {
+struct Tracker_10df20 {
     char pad0[0x18];
     float f18;
     char b1c;
     char b1d;
 };
 
-Player *FUN_000678d0();
+Player_10df20 *FUN_000678d0();
 
 class TokenSupressAction {
 public:
@@ -33,8 +33,8 @@ public:
     virtual void vfunc_4();
     virtual void v5();
     char pad4[0x18];
-    Tracker *f1c;
-    Owner *f20;
+    Tracker_10df20 *f1c;
+    Owner_10df20 *f20;
     int f24;
 };
 

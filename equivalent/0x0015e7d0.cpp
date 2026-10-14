@@ -3,35 +3,35 @@
 extern float DAT_003f32e0;  // 0.0
 extern float DAT_003f32f4;  // 0.5
 
-struct V3 {
+struct V3_15e7d0 {
     float x, y, z;
-    bool FUN_0022d2b0(const V3 *other, float eps);
+    bool FUN_0022d2b0(const V3_15e7d0 *other, float eps);
 };
 
-struct Mgr10 {
-    bool FUN_00059a50(V3 *out);
+struct Mgr10_15e7d0 {
+    bool FUN_00059a50(V3_15e7d0 *out);
 };
 
-struct Player {
+struct Player_15e7d0 {
     char pad0[0x10];
-    Mgr10 *mgr10;
+    Mgr10_15e7d0 *mgr10;
     char pad14[0x144 - 0x14];
     int flags144;
     char pad148[0x2064 - 0x148];
-    V3 v2064;
+    V3_15e7d0 v2064;
     float f2070;
     char pad2074[0x20a8 - 0x2074];
     int i20a8;
     float FUN_000354c0();
-    void FUN_00035550(V3 *out);
+    void FUN_00035550(V3_15e7d0 *out);
 };
 
-struct Mgr {
-    Player *FUN_00059a30();
+struct Mgr_15e7d0 {
+    Player_15e7d0 *FUN_00059a30();
 };
 
-struct Holder {
-    Mgr *FUN_000592a0();
+struct Holder_15e7d0 {
+    Mgr_15e7d0 *FUN_000592a0();
 };
 
 struct CurObj {
@@ -41,7 +41,7 @@ struct CurObj {
     float f8b0;
 };
 
-struct Cfg {
+struct Cfg_15e7d0 {
     char pad0[0x14];
     float f14;
     float f18;
@@ -61,7 +61,7 @@ static inline float Abs(float v)
     return b.f;
 }
 
-union Arg1 {
+union Arg1_15e7d0 {
     int skip;
     float f;
 };
@@ -73,27 +73,27 @@ public:
     virtual void vfunc_2();
     virtual void vfunc_3();
     virtual void vfunc_4();
-    virtual bool vfunc_5(Arg1 a, float dt);
+    virtual bool vfunc_5(Arg1_15e7d0 a, float dt);
     char pad04[0x1c - 4];
-    Cfg *cfg;
-    Holder *owner;
+    Cfg_15e7d0 *cfg;
+    Holder_15e7d0 *owner;
     CurObj *cur;
     float FUN_0015c590(float t);
 };
 
-bool LocomotionSteerAction::vfunc_5(Arg1 a, float dt)
+bool LocomotionSteerAction::vfunc_5(Arg1_15e7d0 a, float dt)
 {
-    V3 vecA;
-    V3 pos;
-    V3 vecB;
+    V3_15e7d0 vecA;
+    V3_15e7d0 pos;
+    V3_15e7d0 vecB;
 
     if (a.skip)
         return true;
     if (!cur)
         return false;
 
-    Mgr *mgr = owner->FUN_000592a0();
-    Player *pl = mgr->FUN_00059a30();
+    Mgr_15e7d0 *mgr = owner->FUN_000592a0();
+    Player_15e7d0 *pl = mgr->FUN_00059a30();
     float f = pl->FUN_000354c0();
     cur->f8a8 = f;
     cur->f8ac = f;

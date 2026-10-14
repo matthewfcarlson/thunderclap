@@ -2,25 +2,25 @@
 // TextSelector::vfunc_5 @ 0x000ea7c0
 // TextSelector::vfunc_5 (FUN_000ea7c0): draws a list selector - the labels, the per-entry sub
 // element, the scroll arrows - through the shared glyph Builder.
-struct Vec3 {
+struct Vec3_ea7c0 {
     float x, y, z;
 };
 
-union Word {
+union Word_ea7c0 {
     float f;
     int i;
     unsigned int u;
 };
 
-struct Cell {
-    Word a, b, c, d;
+struct Cell_ea7c0 {
+    Word_ea7c0 a, b, c, d;
 };
 
 struct Source;
 
 struct Builder {
     unsigned int hdr[2];
-    Cell cells[8];
+    Cell_ea7c0 cells[8];
     int cursor;
     float scale;
     void FUN_000f7fe0(Source *src);
@@ -49,7 +49,7 @@ public:
 };
 }
 
-struct Level2 {
+struct Level2_ea7c0 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -64,43 +64,43 @@ struct Level2 {
     virtual Source *v44();
 };
 
-struct Obj958 {
+struct Obj958_ea7c0 {
     char pad0[0x14];
     float f14;
     char pad18[8];
 };
 
-struct Obj978 {
+struct Obj978_ea7c0 {
     char pad0[0x10];
     unsigned int col10;
 };
 
-struct Hold {
+struct Hold_ea7c0 {
     char pad0[4];
-    Level2 *fonts;
+    Level2_ea7c0 *fonts;
     char pad8[0x958 - 8];
-    Obj958 o958;
-    Obj978 o978;
+    Obj958_ea7c0 o958;
+    Obj978_ea7c0 o978;
 };
 
 class TextSelector;
 
-class Owner {
+class Owner_ea7c0 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
     virtual void v12();
     virtual bool v13(void *obj);
-    virtual void v14(Vec3 *out, void *obj);
-    virtual void v15(Vec3 *out, void *obj);
+    virtual void v14(Vec3_ea7c0 *out, void *obj);
+    virtual void v15(Vec3_ea7c0 *out, void *obj);
     virtual float v16(void *obj);
     virtual float v17(void *obj);
     char pad04[4];
-    Hold *hold;
+    Hold_ea7c0 *hold;
 };
 
-struct Pass {
+struct Pass_ea7c0 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -109,21 +109,21 @@ struct Pass {
     virtual void v16(int a);
 };
 
-struct PassHolder {
-    Pass *pass;
-    void FUN_00293d00(const Vec3 *v);
+struct PassHolder_ea7c0 {
+    Pass_ea7c0 *pass;
+    void FUN_00293d00(const Vec3_ea7c0 *v);
     void FUN_00293da0(int a, int b, int c);
     void FUN_00293d40(float x, int y, int z);
 };
 
-class Widget {
+class Widget_ea7c0 {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(int a, int b);
 };
 
-struct Obj8 {
+struct Obj8_ea7c0 {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -132,23 +132,23 @@ struct Obj8 {
     virtual pure3d::FrameController *v18(int a);
 };
 
-struct Obj3c {
+struct Obj3c_ea7c0 {
     char pad0[8];
-    Obj8 *p8;
+    Obj8_ea7c0 *p8;
 };
 
 struct Obj44 {
     char pad0[0x3c];
-    Obj3c *p3c;
+    Obj3c_ea7c0 *p3c;
 };
 
-class Ctl28 : public Widget {
+class Ctl28 : public Widget_ea7c0 {
 public:
     char pad04[0x44 - 4];
     Obj44 *p44;
 };
 
-struct Elem {
+struct Elem_ea7c0 {
     char data[0x24];
 };
 
@@ -159,9 +159,9 @@ struct Str24 {
     char pad18[0x24 - 0x18];
 };
 
-struct Entry {
+struct Entry_ea7c0 {
     Str24 str;
-    Elem *elems;
+    Elem_ea7c0 *elems;
     Ctl28 *ctl;
     int count;
     int cur;
@@ -174,18 +174,18 @@ struct ColorPack {
     ColorPack *FUN_000115c0(int a, int b, int c, int d);
 };
 
-union Quad {
+union Quad_ea7c0 {
     unsigned int u;
     unsigned char b[4];
 };
 
-extern PassHolder *DAT_0052c2ac;
+extern PassHolder_ea7c0 *DAT_0052c2ac;
 extern unsigned int DAT_004a1004;
 extern unsigned int DAT_004a1008;
 extern unsigned int DAT_004de94c;
 
-void __cdecl FUN_000e11a0(Vec3 v, int a, int b);
-void __cdecl FUN_000e0cc0(Vec3 v, int a, int b);
+void __cdecl FUN_000e11a0(Vec3_ea7c0 v, int a, int b);
+void __cdecl FUN_000e0cc0(Vec3_ea7c0 v, int a, int b);
 
 // The original keeps its temporaries in fixed stack words and hands pointers to them to callees;
 // the checker compares what lies around those words, so the slot order is kept.
@@ -195,7 +195,7 @@ union IntFloat {
     unsigned int u;
 };
 
-struct Frame {
+struct Frame_ea7c0 {
     unsigned int u13c;      // E-0x13c: scratch
     union {
         ColorPack cp138;    // E-0x138: colour packer result / int temp
@@ -203,22 +203,22 @@ struct Frame {
     };
     int i134;               // E-0x134: loop index
     IntFloat t130;          // E-0x130
-    Vec3 p;                 // E-0x12c
-    Obj978 *style;          // E-0x120
-    Obj958 *o958;           // E-0x11c
-    Vec3 c;                 // E-0x118
+    Vec3_ea7c0 p;                 // E-0x12c
+    Obj978_ea7c0 *style;          // E-0x120
+    Obj958_ea7c0 *o958;           // E-0x11c
+    Vec3_ea7c0 c;                 // E-0x118
     Builder b;              // E-0x10c
-    Vec3 vA;                // E-0x7c
-    Vec3 vB;                // E-0x70
+    Vec3_ea7c0 vA;                // E-0x7c
+    Vec3_ea7c0 vB;                // E-0x70
     ColorPack cpk;          // E-0x64
-    Vec3 vC;                // E-0x60
-    Vec3 vD;                // E-0x54
-    Vec3 vE;                // E-0x48
-    Vec3 vF;                // E-0x3c
-    Vec3 vG;                // E-0x30
-    Vec3 vT1;               // E-0x24
-    Vec3 vT2;               // E-0x18
-    Vec3 vT3;               // E-0xc
+    Vec3_ea7c0 vC;                // E-0x60
+    Vec3_ea7c0 vD;                // E-0x54
+    Vec3_ea7c0 vE;                // E-0x48
+    Vec3_ea7c0 vF;                // E-0x3c
+    Vec3_ea7c0 vG;                // E-0x30
+    Vec3_ea7c0 vT1;               // E-0x24
+    Vec3_ea7c0 vT2;               // E-0x18
+    Vec3_ea7c0 vT3;               // E-0xc
 };
 
 class TextSelector {
@@ -235,7 +235,7 @@ public:
     virtual void vfunc_18();
 
     char pad04[0x10];
-    Owner *owner;                   // 0x14
+    Owner_ea7c0 *owner;                   // 0x14
     char str18[0x3c - 0x18];
     union {
         unsigned int w;
@@ -246,14 +246,14 @@ public:
     unsigned char flag48;
     char pad49[3];
     int val4c;
-    Widget *w50;
+    Widget_ea7c0 *w50;
     int v54, v58, v5c;
-    Widget *w60;
-    Widget *w64;
+    Widget_ea7c0 *w60;
+    Widget_ea7c0 *w64;
     char pad68[0x74 - 0x68];
     unsigned char active;           // 0x74
     char pad75[3];
-    Vec3 anchor;                    // 0x78
+    Vec3_ea7c0 anchor;                    // 0x78
     char pad84[0xa4 - 0x84];
     void *pa4;
     char pada8[0x148 - 0xa8];
@@ -261,7 +261,7 @@ public:
     char pad14c[4];
     int count;
     int index;
-    Entry items[128];               // 0x158
+    Entry_ea7c0 items[128];               // 0x158
     int i1d58;
     int i1d5c;
     char pad1d60[8];
@@ -273,15 +273,15 @@ public:
     int i1d7c;
     int i1d80;
     char pad1d84[8];
-    Widget *p1d8c;
-    Widget *p1d90;
+    Widget_ea7c0 *p1d8c;
+    Widget_ea7c0 *p1d90;
     char pad1d94[4];
     TextSelector *p1d98;
-    Quad c1d9c;
-    Quad c1da0;
+    Quad_ea7c0 c1d9c;
+    Quad_ea7c0 c1da0;
     unsigned int i1da4;
 
-    Vec3 *FUN_000e2820(Vec3 *out);
+    Vec3_ea7c0 *FUN_000e2820(Vec3_ea7c0 *out);
 };
 
 void TextSelector::vfunc_5()
@@ -289,7 +289,7 @@ void TextSelector::vfunc_5()
     if (active == 0)
         return;
 
-    Frame F;
+    Frame_ea7c0 F;
     Builder &b = F.b;
 
     if (flag40) {
@@ -386,7 +386,7 @@ void TextSelector::vfunc_5()
     }
 
     if (i1d5c == 0) {
-        Entry *cur = &items[index];
+        Entry_ea7c0 *cur = &items[index];
         pure3d::TextureAnimationController *tac = 0;
         if (cur->ctl)
             tac = dynamic_cast<pure3d::TextureAnimationController *>(cur->ctl->p44->p3c->p8->v18(0));
@@ -399,7 +399,7 @@ void TextSelector::vfunc_5()
                 } else {
                     float t = F.o958->f14 * 255.0f;
                     b.cells[b.cursor].d.u = 0;
-                    Obj978 *o978 = &owner->hold->o978;
+                    Obj978_ea7c0 *o978 = &owner->hold->o978;
                     F.u13c = o978->col10;
                     o978->col10 = (255 - (int)t) << 24;
                     b.FUN_000f87f0(&items[index], o978);
@@ -455,14 +455,14 @@ void TextSelector::vfunc_5()
         F.i134 = i1d7c;
         if (mode == 2) {
             for (; F.i134 <= i1d80; F.i134++) {
-                Entry *e = &items[F.i134];
+                Entry_ea7c0 *e = &items[F.i134];
                 if (e->str.w10 == 0 && e->str.i14 == -1)
                     continue;
                 b.cells[b.cursor].c.i = 2;
                 pure3d::TextureAnimationController *tac = 0;
                 if (e->ctl)
                     tac = dynamic_cast<pure3d::TextureAnimationController *>(e->ctl->p44->p3c->p8->v18(0));
-                Obj958 *op = F.o958;
+                Obj958_ea7c0 *op = F.o958;
                 if (op != 0) {
                     if (F.i134 == index) {
                         if (owner->v13(this)) {
@@ -471,8 +471,8 @@ void TextSelector::vfunc_5()
                                 w60->v8(0, 0);
                             float t = F.t130.f * 255.0f;
                             b.cells[b.cursor].d.u = 0;
-                            Hold *h = owner->hold;
-                            Obj978 *o978 = &h->o978;
+                            Hold_ea7c0 *h = owner->hold;
+                            Obj978_ea7c0 *o978 = &h->o978;
                             F.u13c = o978->col10;
                             o978->col10 = (255 - (int)t) << 24;
                             b.FUN_000f87f0(&items[index], o978);
@@ -487,7 +487,7 @@ void TextSelector::vfunc_5()
                             }
                             b.FUN_000f87f0(&items[index], w60 != 0 ? 0 : (void *)op);
                             if (items[index].elems) {
-                                Elem *el = items[index].elems + items[index].cur;
+                                Elem_ea7c0 *el = items[index].elems + items[index].cur;
                                 float *pw = &FUN_000e2820(&F.vT1)->x;
                                 float wdt = b.FUN_000f88a0(el);
                                 float ff = *pw - wdt;
@@ -505,7 +505,7 @@ void TextSelector::vfunc_5()
                             b.cells[b.cursor].d.u = c3c.w;
                             b.FUN_000f87f0(e, F.style);
                             if (e->elems) {
-                                Elem *el = e->elems + e->cur;
+                                Elem_ea7c0 *el = e->elems + e->cur;
                                 float *pw = &FUN_000e2820(&F.vT3)->x;
                                 float wdt = b.FUN_000f88a0(el);
                                 float ff = *pw - wdt;
@@ -531,9 +531,9 @@ void TextSelector::vfunc_5()
                             b.cells[b.cursor].d.u = (a2 << 24) | 0xc0c000;
                         }
                         b.FUN_000f87f0(e, F.style);
-                        Elem *ep = e->elems;
+                        Elem_ea7c0 *ep = e->elems;
                         if (ep) {
-                            Elem *el = ep + e->cur;
+                            Elem_ea7c0 *el = ep + e->cur;
                             float *pw = &FUN_000e2820(&F.vT2)->x;
                             float wdt = b.FUN_000f88a0(el);
                             float ff = *pw - wdt;
@@ -569,9 +569,9 @@ void TextSelector::vfunc_5()
                             b.cells[b.cursor].d.u = c3c.w;
                     }
                     b.FUN_000f87f0(e, 0);
-                    Elem *ep = e->elems;
+                    Elem_ea7c0 *ep = e->elems;
                     if (ep) {
-                        Elem *el = ep + e->cur;
+                        Elem_ea7c0 *el = ep + e->cur;
                         owner->v15(&F.vE, this);
                         float ff = F.vE.x - b.FUN_000f88a0(el);
                         DAT_0052c2ac->pass->v15(0);
@@ -603,20 +603,20 @@ void TextSelector::vfunc_5()
             }
         } else {
             for (; F.i134 <= i1d80; F.i134++) {
-                Entry *e = &items[F.i134];
+                Entry_ea7c0 *e = &items[F.i134];
                 if (e->str.w10 == 0 && e->str.i14 == -1)
                     continue;
                 pure3d::TextureAnimationController *tac = 0;
                 if (e->ctl)
                     tac = dynamic_cast<pure3d::TextureAnimationController *>(e->ctl->p44->p3c->p8->v18(0));
-                Obj958 *op = F.o958;
+                Obj958_ea7c0 *op = F.o958;
                 float flag;
                 if (op != 0) {
                     if (F.i134 == index) {
                         if (owner->v13(this)) {
                             float t = op->f14 * 255.0f;
                             b.cells[b.cursor].d.u = 0;
-                            Obj978 *o978 = &owner->hold->o978;
+                            Obj978_ea7c0 *o978 = &owner->hold->o978;
                             F.u13c = o978->col10;
                             o978->col10 = (255 - (int)t) << 24;
                             b.FUN_000f87f0(&items[index], o978);

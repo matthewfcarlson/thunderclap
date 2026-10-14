@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2473 inputs, branch coverage 16/16)
 // FUN_00306300 @ 0x00306300
 // 0x00306300: if the owner is active, run the handler for this node's kind, then do the same for every child
-struct Owner {
+struct Owner_306300 {
     char pad00[0x50];
     char active;
 };
 
 class Node;
-struct ChildList {
+struct ChildList_306300 {
     Node** begin;
     Node** end;
 };
@@ -22,8 +22,8 @@ public:
     virtual void v5();
     virtual int Kind();
     char pad04[0xc];
-    Owner* owner;
-    ChildList* children;
+    Owner_306300* owner;
+    ChildList_306300* children;
     char pad18;
     char started;
     void FUN_002f32b0();

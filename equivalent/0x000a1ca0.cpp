@@ -6,51 +6,51 @@ extern unsigned __int64 DAT_004dd9f0;
 unsigned __int64 __cdecl FUN_0027b020(const char *s) throw();
 float __cdecl FUN_000a0450(void *v) throw();
 
-union Bits {
+union Bits_a1ca0 {
     float f;
     unsigned int u;
 };
 
-struct V3 {
+struct V3_a1ca0 {
     float x, y, z;
 };
 
-struct Fighter {
-    void FUN_00059a50(V3 *out);
+struct Fighter_a1ca0 {
+    void FUN_00059a50(V3_a1ca0 *out);
 };
 
-struct Info {
+struct Info_a1ca0 {
     char pad0[8];
     unsigned __int64 id;        // 0x08
 };
 
 struct Node {
     char pad0[0xec];
-    Info *info;                 // 0xec
+    Info_a1ca0 *info;                 // 0xec
 };
 
-struct Stats {
+struct Stats_a1ca0 {
     char pad0[0x10];
-    Fighter *fighter;           // 0x10
+    Fighter_a1ca0 *fighter;           // 0x10
     char pad14[0x338 - 0x14];
     int f338;
     char pad33c[0x1a64 - 0x33c];
-    Bits f1a64;
+    Bits_a1ca0 f1a64;
     Node *FUN_00035ef0(int index);
-    char FUN_00035550(V3 *out);
+    char FUN_00035550(V3_a1ca0 *out);
 };
 
-struct Holder124 {
+struct Holder124_a1ca0 {
     char pad0[0x124];
-    Stats *stats;
+    Stats_a1ca0 *stats;
 };
 
-struct Owner {
+struct Owner_a1ca0 {
     char pad0[0x20];
-    Holder124 *f20;
+    Holder124_a1ca0 *f20;
 };
 
-class Cam {
+class Cam_a1ca0 {
 public:
     virtual void s0();
     virtual void s1();
@@ -68,15 +68,15 @@ public:
     virtual void s13();
     virtual char *getTarget();
     char pad04[0x190];
-    V3 v194;                    // 0x194
+    V3_a1ca0 v194;                    // 0x194
     char pad1a0[0x18];
-    V3 v1b8;                    // 0x1b8
-    V3 v1c4;                    // 0x1c4
-    V3 v1d0;                    // 0x1d0
-    V3 v1dc;                    // 0x1dc
-    V3 v1e8;                    // 0x1e8
+    V3_a1ca0 v1b8;                    // 0x1b8
+    V3_a1ca0 v1c4;                    // 0x1c4
+    V3_a1ca0 v1d0;                    // 0x1d0
+    V3_a1ca0 v1dc;                    // 0x1dc
+    V3_a1ca0 v1e8;                    // 0x1e8
     char pad1f4[0xc];
-    V3 v200;                    // 0x200
+    V3_a1ca0 v200;                    // 0x200
     char pad20c[8];
     int f214;
     char pad218[4];
@@ -86,12 +86,12 @@ public:
     char pad228[4];
     int f22c;
     char pad230[4];
-    Bits dt234;                 // 0x234
+    Bits_a1ca0 dt234;                 // 0x234
     float f238;
-    Bits f23c;                  // 0x23c
+    Bits_a1ca0 f23c;                  // 0x23c
     char pad240[0x5c];
-    V3 v29c;                    // 0x29c
-    V3 v2a8;                    // 0x2a8
+    V3_a1ca0 v29c;                    // 0x29c
+    V3_a1ca0 v2a8;                    // 0x2a8
     char pad2b4[0x345 - 0x2b4];
     char b345;
     char pad346;
@@ -99,7 +99,7 @@ public:
     char b348;
     char pad349[3];
     float f34c;
-    Stats *stats;               // 0x350
+    Stats_a1ca0 *stats;               // 0x350
     char pad354[0x448 - 0x354];
     int f448;
     char pad44c[4];
@@ -108,17 +108,17 @@ public:
     float f458;
     char pad45c[0x488 - 0x45c];
     float f488;
-    V3 *FUN_000a92c0(V3 *out, Owner *owner, Stats *st);
-    void FUN_000a1b30(Owner *owner, float dt, bool snap);
+    V3_a1ca0 *FUN_000a92c0(V3_a1ca0 *out, Owner_a1ca0 *owner, Stats_a1ca0 *st);
+    void FUN_000a1b30(Owner_a1ca0 *owner, float dt, bool snap);
     void FUN_000a0fe0(float v);
-    void FUN_000a1ca0(Owner *owner, float dt);
+    void FUN_000a1ca0(Owner_a1ca0 *owner, float dt);
 };
 
-void Cam::FUN_000a1ca0(Owner *owner, float dt)
+void Cam_a1ca0::FUN_000a1ca0(Owner_a1ca0 *owner, float dt)
 {
     struct Frame {
-        V3 tmp1;
-        V3 tmp2;
+        V3_a1ca0 tmp1;
+        V3_a1ca0 tmp2;
     } fr;
 
     dt234.f = dt;
@@ -126,16 +126,16 @@ void Cam::FUN_000a1ca0(Owner *owner, float dt)
     f23c = stats->f1a64;
     f23c.f = (f23c.f < -1000.0f) ? -1000.0f : f23c.f;
 
-    Stats *st = stats;
+    Stats_a1ca0 *st = stats;
     v1c4 = *FUN_000a92c0(&fr.tmp1, owner, st);
 
-    Bits ab;
+    Bits_a1ca0 ab;
     ab.f = dt;
     ab.u &= 0x7fffffff;
     if (!(ab.f <= 0.00001f)) {
         double inv = 1.0f / dt;
-        volatile V3 *d0 = &v1d0;
-        volatile V3 *d1 = &v1dc;
+        volatile V3_a1ca0 *d0 = &v1d0;
+        volatile V3_a1ca0 *d1 = &v1dc;
         d0->x = v1c4.x - v29c.x;
         d0->y = v1c4.y - v29c.y;
         d0->z = v1c4.z - v29c.z;
@@ -177,7 +177,7 @@ void Cam::FUN_000a1ca0(Owner *owner, float dt)
     f224 = 0;
     f214 = 0;
     f22c = 0;
-    v194 = *(V3 *)(getTarget() + 0x30);
+    v194 = *(V3_a1ca0 *)(getTarget() + 0x30);
     f238 = 0.0f;
     if (stats->FUN_00035550(&fr.tmp2))
         f238 = FUN_000a0450(&fr.tmp2);

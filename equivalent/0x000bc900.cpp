@@ -4,9 +4,9 @@ typedef unsigned short WideChar;
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int cookie);
 extern "C" unsigned int __cdecl FUN_00294b80(const WideChar* text);
-struct Entry { WideChar text[64]; };
+struct Entry_bc900 { WideChar text[64]; };
 struct Object {
- char padding[0x1884]; Entry entries[1];
+ char padding[0x1884]; Entry_bc900 entries[1];
  bool FUN_000b77c0(int key, WideChar* output, int capacity, int mode);
  int FUN_000bc900(WideChar* output, int position, int key, int entryIndex);
 };

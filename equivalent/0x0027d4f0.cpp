@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 177 inputs, branch coverage 14/14)
 // FUN_0027d4f0 @ 0x0027d4f0
 struct Group;
-struct Item { int f0, f4; int key; int target; };
-struct Entry { char pad[0x24]; int count; Item* items; };
-struct Table { char pad[0x1c]; Entry** entries; };
+struct Item_27d4f0 { int f0, f4; int key; int target; };
+struct Entry_27d4f0 { char pad[0x24]; int count; Item_27d4f0* items; };
+struct Table_27d4f0 { char pad[0x1c]; Entry_27d4f0** entries; };
 class Node {
 public:
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
@@ -14,7 +14,7 @@ public:
     char pad4[0x40 - 4];
     int index;
     char pad44[0x98 - 0x44];
-    Table* table;
+    Table_27d4f0* table;
     char pad9c[0xb4 - 0x9c];
     int childCount;
     struct Child { Node* node; int f4; unsigned flags; } child[1];
@@ -26,10 +26,10 @@ void Node::FUN_0027d4f0(int key) {
         if (child[i].flags & 8)
             child[i].node->FUN_0027d4f0(key);
     }
-    Entry* e = table->entries[index];
+    Entry_27d4f0* e = table->entries[index];
     int n = e->count;
     for (int k = 0; k < n; k++) {
-        Item* it = (Item*)((char*)e->items + k * 0x10);
+        Item_27d4f0* it = (Item_27d4f0*)((char*)e->items + k * 0x10);
         if (it->key == key)
             Fire(it->target, 1);
     }

@@ -14,7 +14,7 @@ void *FUN_00266e00(int tag, unsigned int size);
 void FUN_002d7440(png_struct *png, void *row, int zero);
 void FUN_00267090(void *p);
 
-class ImageSink {
+class ImageSink_2ad9d0 {
 public:
     virtual void begin(unsigned int width, unsigned int height, int bitDepth, int flags, unsigned int *palette);
     virtual void v1();
@@ -29,7 +29,7 @@ public:
     virtual void finish();
 };
 
-struct Frame {
+struct Frame_2ad9d0 {
     union {
         unsigned int height;
         int numTrans;
@@ -42,9 +42,9 @@ struct Frame {
 };
 
 // equiv-conv: FUN_002ad9d0 esi eax ebx
-void FUN_002ad9d0(png_struct *png, png_info *info, ImageSink *sink)
+void FUN_002ad9d0(png_struct *png, png_info *info, ImageSink_2ad9d0 *sink)
 {
-    Frame f;
+    Frame_2ad9d0 f;
     int i;
 
     f.width = FUN_002d7ed0(png, info);

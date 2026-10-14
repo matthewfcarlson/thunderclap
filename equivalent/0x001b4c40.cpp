@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // FUN_001b4c40 @ 0x001b4c40
-class Ref {
+class Ref_1b4c40 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -9,18 +9,18 @@ public:
 class RefHolder {
 public:
     char pad00[0xc];
-    Ref *target;
-    void FUN_001b4140(Ref *r);
-    void FUN_001b4060(Ref *r);
-    void FUN_001b4c40(Ref *newTarget);
+    Ref_1b4c40 *target;
+    void FUN_001b4140(Ref_1b4c40 *r);
+    void FUN_001b4060(Ref_1b4c40 *r);
+    void FUN_001b4c40(Ref_1b4c40 *newTarget);
 };
 
-void RefHolder::FUN_001b4c40(Ref *newTarget)
+void RefHolder::FUN_001b4c40(Ref_1b4c40 *newTarget)
 {
-    Ref *old = target;
+    Ref_1b4c40 *old = target;
     if (newTarget == old)
         return;
-    Ref *detached = 0;
+    Ref_1b4c40 *detached = 0;
     if (old) {
         old->AddRef();
         FUN_001b4140(old);

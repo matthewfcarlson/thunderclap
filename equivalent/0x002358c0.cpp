@@ -23,14 +23,14 @@ public:
     unsigned int idHi;
 };
 
-class Loader {
+class Loader_2358c0 {
 public:
     virtual void v0();
     virtual void v1();
     virtual void v2();
     virtual Entity *v3(content::LoadInventory::DynamicCaster<pure3d::Entity> *caster, unsigned int lo, unsigned int hi);
 };
-extern Loader *DAT_004e5bb8;
+extern Loader_2358c0 *DAT_004e5bb8;
 
 class ParamValueInventoryEntity {
 public:

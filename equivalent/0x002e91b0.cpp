@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 130 inputs, branch coverage 26/26)
 // FUN_002e91b0 @ 0x002e91b0
-struct png_color_16 {
+struct png_color_16_2e91b0 {
     unsigned char index;
     unsigned char pad1;
     unsigned short red;
@@ -9,12 +9,12 @@ struct png_color_16 {
     unsigned short gray;
 };
 
-struct png_info {
+struct png_info_2e91b0 {
     char pad0[8];
     unsigned int valid;
 };
 
-struct png_struct {
+struct png_struct_2e91b0 {
     char pad0[0x60];
     unsigned int mode;
     unsigned int flags;
@@ -25,20 +25,20 @@ struct png_struct {
     unsigned char color_type;
     char pad11f[0x180 - 0x11f];
     unsigned char *trans;
-    png_color_16 trans_values;
+    png_color_16_2e91b0 trans_values;
 };
 
-void __cdecl FUN_002e69a0(png_struct *png_ptr, const char *msg);
-void __cdecl FUN_002e69d0(png_struct *png_ptr, const char *msg);
-int __cdecl FUN_002e81e0(png_struct *png_ptr, unsigned int skip);
-unsigned char *__cdecl FUN_002e6c00(png_struct *png_ptr, unsigned int size);
-void __cdecl FUN_002e7580(png_struct *png_ptr, unsigned char *buf, unsigned int length);
+void __cdecl FUN_002e69a0(png_struct_2e91b0 *png_ptr, const char *msg);
+void __cdecl FUN_002e69d0(png_struct_2e91b0 *png_ptr, const char *msg);
+int __cdecl FUN_002e81e0(png_struct_2e91b0 *png_ptr, unsigned int skip);
+unsigned char *__cdecl FUN_002e6c00(png_struct_2e91b0 *png_ptr, unsigned int size);
+void __cdecl FUN_002e7580(png_struct_2e91b0 *png_ptr, unsigned char *buf, unsigned int length);
 unsigned short __cdecl FUN_002e7560(const unsigned char *buf);
-void __cdecl FUN_002eb720(png_struct *png_ptr, png_info *info_ptr, unsigned char *trans, int num_trans,
-                          png_color_16 *trans_values);
+void __cdecl FUN_002eb720(png_struct_2e91b0 *png_ptr, png_info_2e91b0 *info_ptr, unsigned char *trans, int num_trans,
+                          png_color_16_2e91b0 *trans_values);
 
 // libpng png_handle_tRNS
-void png_handle_tRNS(png_struct *png_ptr, png_info *info_ptr, unsigned int length)
+void png_handle_tRNS(png_struct_2e91b0 *png_ptr, png_info_2e91b0 *info_ptr, unsigned int length)
 {
     unsigned char buf[6];
 

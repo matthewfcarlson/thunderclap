@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00302620 @ 0x00302620
 extern "C" double __cdecl sqrt(double);
-struct Vec3 { float x,y,z; };
-struct Shape {
- virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual Vec3* position();
- char pad04[0x30]; float radius; char pad38[0xc]; Vec3 normal; float extent; float thickness; unsigned char flag;
+struct Vec3_302620 { float x,y,z; };
+struct Shape_302620 {
+ virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual Vec3_302620* position();
+ char pad04[0x30]; float radius; char pad38[0xc]; Vec3_302620 normal; float extent; float thickness; unsigned char flag;
 };
-float __cdecl FUN_00302620(Shape* a, Shape* b) {
+float __cdecl FUN_00302620(Shape_302620* a, Shape_302620* b) {
  float limit = a->flag ? a->extent : a->thickness + a->extent;
- Vec3* pa=a->position(); Vec3* pb=b->position();
+ Vec3_302620* pa=a->position(); Vec3_302620* pb=b->position();
  float dx=pb->x-pa->x, dy=pb->y-pa->y;
  double dzWide=(double)pb->z-pa->z;
  float dz=(float)dzWide;

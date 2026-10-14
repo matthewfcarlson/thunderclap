@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 28/28)
 // FUN_00257320 @ 0x00257320
-struct Output { char pad[0x24]; volatile int depth; };
-extern int __cdecl FUN_00246f50(Output*, const char*, ...);
-struct Text { const char* FUN_0023fb00(); };
-struct Node { Node* volatile left; Node* volatile right; Node* volatile parent; Text* FUN_0024c710(); };
-struct Owner { char pad[0x44]; Node* volatile root; Node sentinel; bool FUN_00257320(Output* volatile* output); };
-bool Owner::FUN_00257320(Output* volatile* output) {
+struct Output_257320 { char pad[0x24]; volatile int depth; };
+extern int __cdecl FUN_00246f50(Output_257320*, const char*, ...);
+struct Text_257320 { const char* FUN_0023fb00(); };
+struct Node { Node* volatile left; Node* volatile right; Node* volatile parent; Text_257320* FUN_0024c710(); };
+struct Owner_257320 { char pad[0x44]; Node* volatile root; Node sentinel; bool FUN_00257320(Output_257320* volatile* output); };
+bool Owner_257320::FUN_00257320(Output_257320* volatile* output) {
  if (!(unsigned char)FUN_00246f50(*output, "mBussList\n[\n")) return false;
  ++(*output)->depth;
  Node* end = &sentinel;
@@ -13,8 +13,8 @@ bool Owner::FUN_00257320(Output* volatile* output) {
  if (node == end) node = 0;
  else { Node* left = node->left; while (left != end) { node = left; left = node->left; } }
  while (node) {
-  Output* stream = *output;
-  Text* text = node->FUN_0024c710();
+  Output_257320* stream = *output;
+  Text_257320* text = node->FUN_0024c710();
   const char* name = text->FUN_0023fb00();
   if (!(unsigned char)FUN_00246f50(stream, "\"%s\"\n", name)) return false;
   Node* next = node->right;

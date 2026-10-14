@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002fa6b0 @ 0x002fa6b0
-struct V3 {
+struct V3_2fa6b0 {
     float x, y, z;
     void FUN_0022d180();
 };
 
 // out = normalised cross product (a - b) x (a - c)
-void FUN_002fa6b0(const V3* a, const V3* b, const V3* c, V3* out)
+void FUN_002fa6b0(const V3_2fa6b0* a, const V3_2fa6b0* b, const V3_2fa6b0* c, V3_2fa6b0* out)
 {
     float dx = a->x - c->x;
     float dy = a->y - c->y;

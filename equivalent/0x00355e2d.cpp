@@ -9,7 +9,7 @@ extern "C" void *memmove(void *dst, const void *src, unsigned int n);
 int __stdcall FUN_0020ff8d(void *file, void *buf, unsigned int bytes, unsigned int *bytesRead, int overlapped);
 int __stdcall FUN_002101d4(void *file, int distance, int highPart, int method);
 
-struct Frame {
+struct Frame_355e2d {
     wchar_t buf[0x8c];
     short unused;
     int keyLen;
@@ -23,7 +23,7 @@ struct Frame {
 // Reads "key=value" from a UTF-16 text file read in chunks; copies the value into out.
 int __stdcall FUN_00355e2d(void *file, const wchar_t *key, wchar_t *out, int outMax)
 {
-    Frame f;
+    Frame_355e2d f;
     wchar_t *p;
     int skipLine = 0;
     f.result = 0;

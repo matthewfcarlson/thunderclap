@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 769 inputs, branch coverage 6/6)
 // CAmbientsManager::vfunc_1 @ 0x00078c70
-struct Parser {
+struct Parser_78c70 {
     void FUN_00336690(const char *name, int *out);
     void FUN_003366f0(const char *name, int index, int *out);
 };
 
-union Arg {
-    Parser *parser;
+union Arg_78c70 {
+    Parser_78c70 *parser;
     int count;
 };
 
@@ -21,12 +21,12 @@ class CAmbientsManager {
 public:
     virtual void vfunc_0();
     OrientSlot slots[0x320];
-    bool vfunc_1(Arg arg);
+    bool vfunc_1(Arg_78c70 arg);
 };
 
-bool CAmbientsManager::vfunc_1(Arg arg)
+bool CAmbientsManager::vfunc_1(Arg_78c70 arg)
 {
-    Parser *parser = arg.parser;
+    Parser_78c70 *parser = arg.parser;
     int orientCount;
     int tmp;
     parser->FUN_00336690("Orients", &arg.count);

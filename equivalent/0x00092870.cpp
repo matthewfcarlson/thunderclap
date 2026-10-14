@@ -10,12 +10,12 @@ struct Env {
     void FUN_000c21b0(int id);
 };
 
-struct Flagged {
+struct Flagged_92870 {
     char pad0[0x20];
     char flag;      // 0x20
 };
 
-class Container {
+class Container_92870 {
 public:
     void* items[0x362];     // 0x000
     Env* env;               // 0xd88
@@ -23,15 +23,15 @@ public:
 };
 
 // Sets the flag byte on the two kinds of object held at items[index] and notifies the env on change.
-void Container::FUN_00092870(int index, char flag)
+void Container_92870::FUN_00092870(int index, char flag)
 {
     bool changed = false;
-    Flagged* a = (Flagged*)FUN_00344e74(items[index], 0, DAT_0049dab8, DAT_0049dafc, 0);
+    Flagged_92870* a = (Flagged_92870*)FUN_00344e74(items[index], 0, DAT_0049dab8, DAT_0049dafc, 0);
     if (a && a->flag != flag) {
         a->flag = flag;
         changed = true;
     }
-    Flagged* b = (Flagged*)FUN_00344e74(items[index], 0, DAT_0049dab8, DAT_0049db1c, 0);
+    Flagged_92870* b = (Flagged_92870*)FUN_00344e74(items[index], 0, DAT_0049dab8, DAT_0049db1c, 0);
     if (b && b->flag != flag) {
         b->flag = flag;
         changed = true;

@@ -3,7 +3,7 @@
 extern "C" int __cdecl FUN_00266da0(int pool);
 extern "C" void* __cdecl FUN_0008d6d0(unsigned int size);
 
-struct Item {
+struct Item_204180 {
     char data[0x56];
     void FUN_00208a90();
 };
@@ -11,7 +11,7 @@ struct Item {
 class ItemSet {
 public:
     char pad0[0x58c];
-    Item* items;
+    Item_204180* items;
     char pad1[8];
     int count;
     void FUN_00204180(int n);
@@ -19,12 +19,12 @@ public:
 
 void ItemSet::FUN_00204180(int n) {
     int savedPool = FUN_00266da0(0xb);
-    int* block = (int*)FUN_0008d6d0(n * sizeof(Item) + 4);
-    Item* arr;
+    int* block = (int*)FUN_0008d6d0(n * sizeof(Item_204180) + 4);
+    Item_204180* arr;
     if (block) {
         *block = n;
-        arr = (Item*)(block + 1);
-        Item* p = arr;
+        arr = (Item_204180*)(block + 1);
+        Item_204180* p = arr;
         for (int i = n; i > 0; i--) {
             p->FUN_00208a90();
             p++;

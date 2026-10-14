@@ -4,26 +4,26 @@ struct Pose {
     int FUN_00221c40();
 };
 
-struct Transform {
+struct Transform_3a680 {
     void FUN_00221c60(int v);
 };
 
-class JointObject {
+class JointObject_3a680 {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     char pad04[0x14];
-    Transform transform;
-    char rest[0x70 - 0x18 - sizeof(Transform)];
-    JointObject *FUN_002248f0(unsigned int id);
+    Transform_3a680 transform;
+    char rest[0x70 - 0x18 - sizeof(Transform_3a680)];
+    JointObject_3a680 *FUN_002248f0(unsigned int id);
 };
 
-struct Scene {
+struct Scene_3a680 {
     char pad0[0x10];
     Pose pose;
-    void FUN_00222970(JointObject *obj, int flag);
-    void FUN_00222d70(JointObject *obj, float v);
-    void FUN_00222890(JointObject *obj, float a, float b, float c, float d, float e, float f);
+    void FUN_00222970(JointObject_3a680 *obj, int flag);
+    void FUN_00222d70(JointObject_3a680 *obj, float v);
+    void FUN_00222890(JointObject_3a680 *obj, float a, float b, float c, float d, float e, float f);
 };
 
 struct Matrix {
@@ -31,11 +31,11 @@ struct Matrix {
     void FUN_0022b980();
 };
 
-struct SubObject {
+struct SubObject_3a680 {
     void FUN_00232240();
 };
 
-Scene *__fastcall FUN_00059a40(void *x);
+Scene_3a680 *__fastcall FUN_00059a40(void *x);
 void *__cdecl FUN_00263ea0(unsigned int size);
 
 class Entity {
@@ -43,14 +43,14 @@ public:
     char pad00[0x10];
     void *owner;
     char pad14[0xb4 - 0x14];
-    SubObject sub;
+    SubObject_3a680 sub;
     char padb5[0x338 - 0xb5];
     Entity *target;
     int id;
     int idB;
     int idC;
     Matrix matrix;
-    JointObject *joint;
+    JointObject_3a680 *joint;
     int f38c;
     Entity *prevTarget;
     void FUN_00037000();
@@ -62,7 +62,7 @@ char Entity::SetTarget(Entity *t, int a, int b, int c, const Matrix *m, float e5
     Entity *old = target;
     target = t;
     prevTarget = old;
-    Scene *scene = FUN_00059a40(owner);
+    Scene_3a680 *scene = FUN_00059a40(owner);
     FUN_00037000();
     sub.FUN_00232240();
 
@@ -78,9 +78,9 @@ char Entity::SetTarget(Entity *t, int a, int b, int c, const Matrix *m, float e5
         if (scene != 0) {
             scene->FUN_00222970(joint, 0);
             void *mem = FUN_00263ea0(0x70);
-            JointObject *obj = 0;
+            JointObject_3a680 *obj = 0;
             if (mem)
-                obj = ((JointObject *)mem)->FUN_002248f0(0);
+                obj = ((JointObject_3a680 *)mem)->FUN_002248f0(0);
             if (obj)
                 obj->vfunc_0();
             if (joint)

@@ -20,7 +20,7 @@ public:
     void FUN_00266be0();
 };
 
-struct IntVec {
+struct IntVec_2e22c0 {
     int *begin;
     int fc;
     void FUN_002e16f0(unsigned int n, int *fill);
@@ -46,10 +46,10 @@ public:
     int f50;
     char pad54[4];
     int f58;
-    struct Dest *f5c;
+    struct Dest_2e22c0 *f5c;
 };
 
-class RefObj {
+class RefObj_2e22c0 {
 public:
     virtual void AddRef();
     virtual void Release();
@@ -62,11 +62,11 @@ public:
         f60 = 0;
         f64 = 0;
     }
-    RefObj *f60;
-    RefObj *f64;
+    RefObj_2e22c0 *f60;
+    RefObj_2e22c0 *f64;
 };
 
-class MatrixPaletteList : public RefObj {
+class MatrixPaletteList : public RefObj_2e22c0 {
 public:
     MatrixPaletteList()
     {
@@ -75,13 +75,13 @@ public:
         arr.fc = 0;
     }
     int f4;
-    IntVec arr;
+    IntVec_2e22c0 arr;
     int f10;
 };
 
 }
 
-struct Dest {
+struct Dest_2e22c0 {
     char pad0[0xc];
     int fc;
     char pad10[4];
@@ -103,17 +103,17 @@ struct Dest {
     void FUN_002c7240(int i);
     void FUN_002c72e0(int i);
     void FUN_002c7070();
-    Dest *FUN_002c8460(int a);
+    Dest_2e22c0 *FUN_002c8460(int a);
     virtual void v0();
     virtual void v1();
 };
 
-struct Obj60 {
+struct Obj60_2e22c0 {
     char pad0[0x50];
     int f50;
     char pad54[8];
-    Dest *f5c;
-    Obj60 *FUN_002e0760(pure3d::PrimGroup *b);
+    Dest_2e22c0 *f5c;
+    Obj60_2e22c0 *FUN_002e0760(pure3d::PrimGroup *b);
 };
 
 class Hub89 {
@@ -121,7 +121,7 @@ public:
     virtual void v0();
 };
 
-struct Aux {
+struct Aux_2e22c0 {
     virtual void a0();
     virtual void a1();
     virtual int a2(int a, int b, int c, int d, int e);
@@ -129,7 +129,7 @@ struct Aux {
     virtual char a4(int a, int b);
 };
 
-class Hub {
+class Hub_2e22c0 {
 public:
     virtual void h0();
     virtual void h1();
@@ -220,10 +220,10 @@ public:
     virtual void h86();
     virtual void h87();
     virtual void h88();
-    virtual Aux *h89(int a);
+    virtual Aux_2e22c0 *h89(int a);
 };
 
-struct Holder10 {
+struct Holder10_2e22c0 {
     char pad0[0x10];
     int f10;
 };
@@ -236,9 +236,9 @@ struct VecObj {
     int fc;
 };
 
-extern Hub *DAT_0052c2a8;
+extern Hub_2e22c0 *DAT_0052c2a8;
 
-struct Frame {
+struct Frame_2e22c0 {
     void *self;                                 // 0x00
     pure3d::PrimGroup *B;                       // 0x04
     int x8;                                     // 0x08
@@ -250,10 +250,10 @@ struct Frame {
     int x34, x38, x3c, x40, x44, x48, x4c, x50, x54, x58;
 };
 
-class Loader {
+class Loader_2e22c0 {
 public:
     char pad0[8];
-    Holder10 *f8;
+    Holder10_2e22c0 *f8;
     int fc;
     char pad10[2];
     unsigned short w12;
@@ -267,11 +267,11 @@ public:
     void FUN_002e22c0(void *a0, Reader *rd, int a2, VecObj *a3, int a4);
 };
 
-void Loader::FUN_002e22c0(void *a0, Reader *rd, int a2, VecObj *a3, int a4)
+void Loader_2e22c0::FUN_002e22c0(void *a0, Reader *rd, int a2, VecObj *a3, int a4)
 {
-    Frame fr;
+    Frame_2e22c0 fr;
     unsigned int flags = f1c;
-    Dest *D;
+    Dest_2e22c0 *D;
     fr.self = this;
     fr.psk = 0;
 
@@ -303,14 +303,14 @@ void Loader::FUN_002e22c0(void *a0, Reader *rd, int a2, VecObj *a3, int a4)
     fr.B->f44 = fc;
 
     if (w12 == 1) {
-        Obj60 *N = 0;
+        Obj60_2e22c0 *N = 0;
         void *mem = thunk_FUN_0008d690(0x60);
         if (mem != 0)
-            N = ((Obj60 *)mem)->FUN_002e0760(fr.B);
+            N = ((Obj60_2e22c0 *)mem)->FUN_002e0760(fr.B);
         void *m30 = FUN_0008d690(0x30);
-        Dest *d30;
+        Dest_2e22c0 *d30;
         if (m30 != 0)
-            d30 = ((Dest *)m30)->FUN_002c8460(f20);
+            d30 = ((Dest_2e22c0 *)m30)->FUN_002c8460(f20);
         else
             d30 = 0;
         N->f5c = d30;
@@ -332,20 +332,20 @@ void Loader::FUN_002e22c0(void *a0, Reader *rd, int a2, VecObj *a3, int a4)
         N->f5c->FUN_002c7070();
         FUN_002a46d0(a0, N);
     } else if (w12 == 2) {
-        ((Obj60 *)fr.B)->f50 = f14;
+        ((Obj60_2e22c0 *)fr.B)->f50 = f14;
         FUN_002a46d0(a0, fr.B);
     } else {
         FUN_002a46d0(a0, fr.B);
     }
     {
-        Aux *aux = DAT_0052c2a8->h89(0x106);
+        Aux_2e22c0 *aux = DAT_0052c2a8->h89(0x106);
         if (aux != 0) {
             if (aux->a4(f8->f10, 0))
                 fr.B->f58 = aux->a2(f8->f10, fc, f1c & 0xfffffe7f, 0, 0);
         }
     }
     Reader *ebp = rd;
-    D = ((Obj60 *)fr.B)->f5c;
+    D = ((Obj60_2e22c0 *)fr.B)->f5c;
     if (!ebp->FUN_002669f0())
         return;
     do {
@@ -464,7 +464,7 @@ void Loader::FUN_002e22c0(void *a0, Reader *rd, int a2, VecObj *a3, int a4)
                         a3->AddRef();
                     if (fr.psk->f60 != 0)
                         fr.psk->f60->Release();
-                    fr.psk->f60 = (pure3d::RefObj *)a3;
+                    fr.psk->f60 = (pure3d::RefObj_2e22c0 *)a3;
                     if (fr.mpl != 0)
                         fr.mpl->AddRef();
                     if (fr.psk->f64 != 0)

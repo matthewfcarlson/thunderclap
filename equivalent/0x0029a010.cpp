@@ -6,7 +6,7 @@ namespace pure3d {
 class CompositeDrawable;
 }
 
-struct Peer {
+struct Peer_29a010 {
     char pad00[0x44];
     pure3d::CompositeDrawable *owner;
 };
@@ -14,19 +14,19 @@ struct Peer {
 struct ChildEntry {
     int a;
     int b;
-    Peer *item;
+    Peer_29a010 *item;
 };
 
-struct Children {
+struct Children_29a010 {
     virtual void c0();
     char pad04[0x3c - 4];
     ChildEntry *begin;
     ChildEntry *end;
-    Children *FUN_00299da0(Children *src);
+    Children_29a010 *FUN_00299da0(Children_29a010 *src);
     void FUN_00298870();
 };
 
-struct Clock {
+struct Clock_29a010 {
     void *FUN_002842f0();
 };
 
@@ -36,7 +36,7 @@ struct Sink4c {
     virtual void s2();
     virtual void s3();
     virtual Sink4c *s4();
-    void FUN_00288080(Clock *clock);
+    void FUN_00288080(Clock_29a010 *clock);
 };
 
 struct Sink50 {
@@ -48,16 +48,16 @@ struct Sink50 {
     void FUN_002a8310(pure3d::CompositeDrawable *cd);
 };
 
-class __declspec(novtable) DrawableBase {
+class __declspec(novtable) DrawableBase_29a010 {
 public:
     virtual void b0();
     char pad04[0x3c];
-    void FUN_002a3530(const DrawableBase *src);
-    DrawableBase(const DrawableBase &src) { FUN_002a3530(&src); }
+    void FUN_002a3530(const DrawableBase_29a010 *src);
+    DrawableBase_29a010(const DrawableBase_29a010 &src) { FUN_002a3530(&src); }
 };
 
 namespace pure3d {
-class CompositeDrawable : public DrawableBase {
+class CompositeDrawable : public DrawableBase_29a010 {
 public:
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -71,8 +71,8 @@ public:
     virtual void vfunc_10(void *clock);
     virtual void vfunc_11();
     virtual void vfunc_12();
-    Clock *clock;
-    Children *children;
+    Clock_29a010 *clock;
+    Children_29a010 *children;
     void *f48;
     Sink4c *sink4c;
     Sink50 *sink50;
@@ -82,7 +82,7 @@ public:
 }
 
 pure3d::CompositeDrawable::CompositeDrawable(const CompositeDrawable &src)
-    : DrawableBase(src)
+    : DrawableBase_29a010(src)
 {
     clock = 0;
     children = 0;
@@ -92,9 +92,9 @@ pure3d::CompositeDrawable::CompositeDrawable(const CompositeDrawable &src)
 
     if (src.children != 0) {
         void *mem = FUN_0008d690(0x48);
-        Children *c = 0;
+        Children_29a010 *c = 0;
         if (mem)
-            c = ((Children *)mem)->FUN_00299da0(src.children);
+            c = ((Children_29a010 *)mem)->FUN_00299da0(src.children);
         children = c;
         children->c0();
         children->FUN_00298870();
@@ -102,7 +102,7 @@ pure3d::CompositeDrawable::CompositeDrawable(const CompositeDrawable &src)
         if (n != 0) {
             unsigned char i = 0;
             do {
-                Peer *p = children->begin[i].item;
+                Peer_29a010 *p = children->begin[i].item;
                 if (p != 0)
                     p->owner = this;
                 i++;

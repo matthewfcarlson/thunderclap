@@ -1,17 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_002e5850 @ 0x002e5850
-struct Segment {
+struct Segment_2e5850 {
     int *begin;
     int *end;
     int cap;
 };
 
-class Source {
+class Source_2e5850 {
 public:
     virtual void AddRef();
     virtual void Release();
     char pad04[0x10];
-    Segment *segments;
+    Segment_2e5850 *segments;
     char FUN_002e5330(unsigned int key, unsigned int *outIndex);
 };
 
@@ -20,11 +20,11 @@ public:
     unsigned int key;
     unsigned int index;
     int last;
-    Source *source;
-    SegmentCursor(Source *src, unsigned int k);
+    Source_2e5850 *source;
+    SegmentCursor(Source_2e5850 *src, unsigned int k);
 };
 
-SegmentCursor::SegmentCursor(Source *src, unsigned int k)
+SegmentCursor::SegmentCursor(Source_2e5850 *src, unsigned int k)
 {
     key = 0;
     index = 0;
@@ -39,7 +39,7 @@ SegmentCursor::SegmentCursor(Source *src, unsigned int k)
     index = 0;
     last = -1;
     if (source->FUN_002e5330(k, &index) == 1) {
-        Segment *s = &source->segments[index];
+        Segment_2e5850 *s = &source->segments[index];
         last = (int)(s->end - s->begin) - 1;
     }
 }

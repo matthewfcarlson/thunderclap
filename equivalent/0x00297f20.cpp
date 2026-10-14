@@ -4,12 +4,12 @@ extern "C" void *__cdecl FUN_00263ea0(unsigned int size);
 unsigned __int64 __cdecl FUN_002672f0(const char *s, unsigned __int64 seed);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
-struct RefObject {
+struct RefObject_297f20 {
     virtual void AddRef();
     virtual void Release();
 };
 
-struct Name {
+struct Name_297f20 {
     char data[8];
     void FUN_0027b040(const char *s);
 };
@@ -19,7 +19,7 @@ class __declspec(novtable) DrawableHierarchy {
 public:
     virtual void d0();
     char pad4[4];
-    Name name;
+    Name_297f20 name;
     char pad10[0x30];
     void FUN_002a3480();
     DrawableHierarchy() throw() { FUN_002a3480(); }
@@ -40,7 +40,7 @@ public:
     virtual void s10();
     virtual void s11();
     virtual void Finish();
-    RefObject *child;
+    RefObject_297f20 *child;
     Scenegraph() throw() { child = 0; }
 };
 }
@@ -59,7 +59,7 @@ struct Stream {
     void FUN_00266be0();
 };
 
-struct Frame {
+struct Frame_297f20 {
     char pad[3];
     unsigned char len;
     int version;
@@ -74,13 +74,13 @@ public:
     virtual void vfunc_3();
     virtual void vfunc_4();
     virtual void vfunc_5(Scenegraph **outSg, unsigned __int64 *outId, Stream *s, void *ctx);
-    RefObject *FUN_00297680(Stream *s, void *ctx);
-    RefObject *FUN_00297ba0(Stream *s, void *ctx);
+    RefObject_297f20 *FUN_00297680(Stream *s, void *ctx);
+    RefObject_297f20 *FUN_00297ba0(Stream *s, void *ctx);
 };
 
 void ScenegraphLoader::vfunc_5(Scenegraph **outSg, unsigned __int64 *outId, Stream *s, void *ctx)
 {
-    Frame f;
+    Frame_297f20 f;
     s->reader->FUN_002647e0(&f.len, 1, 1, 1);
     s->reader->FUN_002647e0(f.name, f.len, 1, 1);
     s->reader->FUN_002647e0(&f.version, 1, 4, 1);
@@ -95,7 +95,7 @@ void ScenegraphLoader::vfunc_5(Scenegraph **outSg, unsigned __int64 *outId, Stre
     while (s->FUN_002669f0()) {
         int id = s->FUN_00266a30();
         if (id == 0x120101 || id == 0x12010b) {
-            RefObject *child;
+            RefObject_297f20 *child;
             if (id == 0x120101) {
                 s->FUN_00266a30();
                 child = FUN_00297ba0(s, ctx);

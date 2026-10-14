@@ -4,7 +4,7 @@ inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *FUN_0008d690(unsigned int size);
 void *FUN_00263ea0(unsigned int size);
 
-class Manager {
+class Manager_2af2d0 {
 public:
     virtual void v0();
     virtual void v1();
@@ -15,7 +15,7 @@ public:
     virtual int getA();
     virtual int getB();
 };
-extern Manager *DAT_0052c2a4;
+extern Manager_2af2d0 *DAT_0052c2a4;
 
 struct ImageConverter {
     ImageConverter *FUN_002de230();
@@ -80,7 +80,7 @@ public:
 
 }
 
-class ImageRegistry {
+class ImageRegistry_2af2d0 {
 public:
     int count;
     pure3d::ImageHandler *handlers[0x20];
@@ -96,10 +96,10 @@ public:
     int f9c;
     int fa0;
 
-    ImageRegistry *FUN_002af2d0();
+    ImageRegistry_2af2d0 *FUN_002af2d0();
 };
 
-ImageRegistry *ImageRegistry::FUN_002af2d0()
+ImageRegistry_2af2d0 *ImageRegistry_2af2d0::FUN_002af2d0()
 {
     count = 0;
     flag88 = 0;

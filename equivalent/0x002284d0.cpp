@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // choreo2::LocomotionStrafeDriver::vfunc_9 @ 0x002284d0
-struct Vec3 {
+struct Vec3_2284d0 {
     float x, y, z;
 };
 
@@ -21,15 +21,15 @@ public:
     char pad1c[0x12dc - 0x1c];
     char applyMotion;
     char pad12dd[0x1320 - 0x12dd];
-    Vec3 offset;
+    Vec3_2284d0 offset;
     void FUN_00228120(float dt);
 };
 
-void __stdcall FUN_00226250(Vec3* out);
+void __stdcall FUN_00226250(Vec3_2284d0* out);
 
 void LocomotionStrafeDriver::vfunc_9(float dt) {
     if (applyMotion && blocked == 0) {
-        Vec3 d;
+        Vec3_2284d0 d;
         FUN_00226250(&d);
         volatile float* scaledZ = &d.z;
         float x = d.x * dt;

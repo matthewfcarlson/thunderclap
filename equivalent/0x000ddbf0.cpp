@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 8/8)
 // FUN_000ddbf0 @ 0x000ddbf0
-struct V3 { float x, y, z; };
+struct V3_ddbf0 { float x, y, z; };
 
 void* FUN_0008d690(unsigned int size);
 void* FUN_00263ea0(unsigned int size);
@@ -20,14 +20,14 @@ public:
     virtual void v8();
     virtual void SetFar(float f);
     Camera* FUN_002939a0();
-    void FUN_00293af0(V3* v);
-    void FUN_00293a90(V3* v);
+    void FUN_00293af0(V3_ddbf0* v);
+    void FUN_00293a90(V3_ddbf0* v);
 };
 
-class Screen {
+class Screen_ddbf0 {
 public:
     virtual void AddRef();
-    Screen* FUN_00294880();
+    Screen_ddbf0* FUN_00294880();
     void FUN_00293e90(unsigned int color);
     void FUN_00294980(Camera* cam);
     char pad4[0x1c - 4];
@@ -38,9 +38,9 @@ public:
     int f2c;
 };
 
-class Widget {
+class Widget_ddbf0 {
 public:
-    Widget* FUN_000f6ef0();
+    Widget_ddbf0* FUN_000f6ef0();
 };
 
 class __declspec(novtable) FEThingsBase {
@@ -55,24 +55,24 @@ public:
 
 class FEThings : public FEThingsBase {
 public:
-    FEThings(Screen* existing);
+    FEThings(Screen_ddbf0* existing);
     virtual void vfunc_0();
-    Screen* screen;
+    Screen_ddbf0* screen;
     char ownsScreen;
     char pad2229[3];
     int f222c;
-    Widget* widget;
+    Widget_ddbf0* widget;
 };
 
-FEThings::FEThings(Screen* existing)
+FEThings::FEThings(Screen_ddbf0* existing)
 {
-    Screen* s = existing;
+    Screen_ddbf0* s = existing;
     if (existing != 0) {
         ownsScreen = 0;
     } else {
         void* mem = FUN_0008d690(0x140);
         if (mem != 0)
-            s = ((Screen*)mem)->FUN_00294880();
+            s = ((Screen_ddbf0*)mem)->FUN_00294880();
         else
             s = 0;
         ownsScreen = 1;
@@ -94,12 +94,12 @@ FEThings::FEThings(Screen* existing)
     cam->AddRef();
     camera->SetNear(0.1f);
     camera->SetFar(100.0f);
-    V3 pos;
+    V3_ddbf0 pos;
     pos.x = 0.0f;
     pos.y = 0.0f;
     pos.z = -10.0f;
     camera->FUN_00293af0(&pos);
-    V3 dir;
+    V3_ddbf0 dir;
     dir.x = 0.0f;
     dir.y = 0.0f;
     dir.z = 1.0f;
@@ -107,7 +107,7 @@ FEThings::FEThings(Screen* existing)
     screen->FUN_00294980(camera);
     void* wmem = FUN_0008d690(0x120);
     if (wmem != 0)
-        widget = ((Widget*)wmem)->FUN_000f6ef0();
+        widget = ((Widget_ddbf0*)wmem)->FUN_000f6ef0();
     else
         widget = 0;
     DAT_004de948 = FUN_000ddbe0;

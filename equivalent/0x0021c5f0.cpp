@@ -2,16 +2,16 @@
 // FUN_0021c5f0 @ 0x0021c5f0
 struct LuaState;
 
-struct TString {
+struct TString_21c5f0 {
     char pad0[5];
     unsigned char marked;
 };
 
-struct Proto {
+struct Proto_21c5f0 {
     char pad0[5];
     unsigned char marked;
     char pad6[0x1c - 6];
-    TString **upvalues;
+    TString_21c5f0 **upvalues;
     char pad20[4];
     int sizeupvalues;
     char pad28[0x3c - 0x28];
@@ -25,8 +25,8 @@ struct UpvalDesc {
     unsigned char info;
 };
 
-struct FuncState {
-    Proto *f;
+struct FuncState_21c5f0 {
+    Proto_21c5f0 *f;
     char pad4[0xc - 4];
     void *ls;
     LuaState *L;
@@ -34,21 +34,21 @@ struct FuncState {
     UpvalDesc upvalues[32];
 };
 
-struct ExpDesc {
+struct ExpDesc_21c5f0 {
     int k;
     int info;
 };
 
 const char *FUN_00216320(LuaState *L, const char *fmt, ...);
 void FUN_0021afd0(void *ls, const char *msg, int token);
-TString **FUN_0021ae40(LuaState *L, TString **block, int *size, int elemSize, int limit, const char *what);
-void FUN_00217100(LuaState *L, Proto *f, TString *name);
+TString_21c5f0 **FUN_0021ae40(LuaState *L, TString_21c5f0 **block, int *size, int elemSize, int limit, const char *what);
+void FUN_00217100(LuaState *L, Proto_21c5f0 *f, TString_21c5f0 *name);
 
 // Lua 5.1 indexupvalue(fs, name, v): fs arrives in edi, name and v on the stack.
 // equiv-conv: FUN_0021c5f0 edi stack stack
-int FUN_0021c5f0(FuncState *fs, TString *name, ExpDesc *v)
+int FUN_0021c5f0(FuncState_21c5f0 *fs, TString_21c5f0 *name, ExpDesc_21c5f0 *v)
 {
-    Proto *f = fs->f;
+    Proto_21c5f0 *f = fs->f;
     int i;
     int oldsize;
 

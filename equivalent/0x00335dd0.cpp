@@ -1,31 +1,31 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 8/8)
 // FUN_00335dd0 @ 0x00335dd0
-struct TypeDesc {
+struct TypeDesc_335dd0 {
     int kind;
 };
 
-struct Entry {
+struct Entry_335dd0 {
     char pad0[8];
     int type;               // 0x8
-    TypeDesc *desc;         // 0xc
+    TypeDesc_335dd0 *desc;         // 0xc
 };
 
-struct Registry {
+struct Registry_335dd0 {
     char pad0[0x44];
     int count;              // 0x44
-    Entry *FUN_00337090(int index);
+    Entry_335dd0 *FUN_00337090(int index);
 };
 
 extern "C" int __cdecl FUN_00337f20(int type);
 
-struct Table {
+struct Table_335dd0 {
     char pad0[4];
-    Registry *registry;     // 4
+    Registry_335dd0 *registry;     // 4
     char **columns;         // 8
     bool FUN_00335dd0(int index, int row, int *out0, int *out1, int *out2);
 };
 
-bool Table::FUN_00335dd0(int index, int row, int *out0, int *out1, int *out2)
+bool Table_335dd0::FUN_00335dd0(int index, int row, int *out0, int *out1, int *out2)
 {
     if (index < 0 || index >= registry->count)
         return false;

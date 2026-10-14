@@ -34,9 +34,9 @@ class FrameBufferEffects : public HeapObj {
     FrameBufferEffects(d3dContext* ctx) throw();
     char pad[0x190];
 };
-class ShaderCache : public HeapObj {
+class ShaderCache_324e00 : public HeapObj {
   public:
-    ShaderCache(d3dContext* ctx) throw();
+    ShaderCache_324e00(d3dContext* ctx) throw();
     virtual void f0();
     char pad[0x94 - 4];
 };
@@ -114,7 +114,7 @@ class d3dContext : public pddiBaseContext {
     AssetSource* src;
     Allocator* alloc;
     char pad15c[4];
-    ShaderCache* shaders;
+    ShaderCache_324e00* shaders;
     int handle;
     int f168;
     int f16c;
@@ -186,6 +186,6 @@ d3dContext::d3dContext(AssetSource* a, Allocator* b) throw() : pddiBaseContext(a
     vertexProgram = new d3dExtVertexProgram(this);
     fbEffects = new FrameBufferEffects(this);
     fbTexture = new d3dExtFrameBufferTexture(this);
-    shaders = new ShaderCache(this);
+    shaders = new ShaderCache_324e00(this);
     shaders->f0();
 }
