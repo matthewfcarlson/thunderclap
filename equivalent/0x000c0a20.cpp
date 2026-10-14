@@ -1,0 +1,54 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
+// FUN_000c0a20 @ 0x000c0a20
+extern "C" void __fastcall __security_check_cookie(unsigned int);
+extern unsigned int DAT_004d9968;
+extern char DAT_0048e100;
+char FUN_001d04d0(const void*) throw();
+class CFEManager { public: float FUN_dummy(); };
+
+class Base {
+public:
+    virtual void v();
+    char p[12];
+    char a[8];
+    char result;
+    char z[3];
+    Base(const char*, int) throw();
+    void FUN_001d04a0();
+};
+template <class T, class R>
+class Method0 : public Base {
+public:
+    typedef R (T::*Fn)();
+    Method0(const char* name, Fn f) : Base(name, 0) {
+        fn = f;
+        result = FUN_001d04d0(&DAT_0048e100);
+    }
+    virtual void v();
+    Fn fn;
+};
+template <class T, class R>
+class Closure0 : public Method0<T, R> {
+public:
+    Closure0(const char* name, T* o, Fn f) : Method0<T, R>(name, f), owner(o) {}
+    virtual void v();
+    T* owner;
+};
+class Registry {
+public:
+    void FUN_001d26d0(const char* name, Base* fn);
+    void FUN_000c0a20(const char* name, CFEManager* owner, void (CFEManager::*fn)());
+};
+struct Frame {
+    Closure0<CFEManager, void> closure;
+    unsigned int cookie;
+    Frame(const char* n, CFEManager* o, void (CFEManager::*f)()) : closure(n, o, f) {
+        cookie = DAT_004d9968;
+    }
+};
+void Registry::FUN_000c0a20(const char* name, CFEManager* owner, void (CFEManager::*fn)()) {
+    Frame fr(name, owner, fn);
+    FUN_001d26d0(name, &fr.closure);
+    fr.closure.FUN_001d04a0();
+    __security_check_cookie(fr.cookie);
+}
