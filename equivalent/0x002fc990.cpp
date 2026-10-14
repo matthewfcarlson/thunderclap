@@ -1,0 +1,52 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
+// FUN_002fc990 @ 0x002fc990
+namespace content {
+namespace LoadInventory {
+template <class T>
+struct DynamicCaster {
+    virtual void v0();
+};
+}
+}
+
+namespace physics {
+class CollisionObject;
+class PhysicsObject;
+class ArticulatedPhysicsObject;
+}
+
+class Inventory {
+public:
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void *get(void *caster, unsigned int lo, unsigned int hi);
+};
+
+void *__cdecl FUN_0008d690(unsigned int size);
+
+struct Body {
+    char data[0x18];
+    Body *FUN_002fc740(void *collision, void *physics, unsigned int a, unsigned int b);
+};
+
+Body *__cdecl FUN_002fc990(unsigned int lo, unsigned int hi, Inventory *inv, unsigned int extra)
+{
+    content::LoadInventory::DynamicCaster<physics::CollisionObject> collisionCaster;
+    void *collision = inv->get(&collisionCaster, lo, hi);
+    if (collision == 0)
+        return 0;
+
+    content::LoadInventory::DynamicCaster<physics::PhysicsObject> physicsCaster;
+    void *physics = inv->get(&physicsCaster, lo, hi);
+    if (physics == 0) {
+        // the original asks again for an articulated object and drops the answer
+        content::LoadInventory::DynamicCaster<physics::ArticulatedPhysicsObject> articulatedCaster;
+        inv->get(&articulatedCaster, lo, hi);
+    }
+
+    Body *body = (Body *)FUN_0008d690(sizeof(Body));
+    if (body == 0)
+        return 0;
+    return body->FUN_002fc740(collision, physics, extra, 0);
+}
