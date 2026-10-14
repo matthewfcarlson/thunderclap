@@ -8,7 +8,7 @@ equivalent/).
 | Flag | Meaning | Files |
 |---|---|---|
 | lift | machine-generated from the asm (frame array, register variables) | 6 |
-| goto | control flow copied from the asm with goto | 41 |
+| goto | control flow copied from the asm with goto | 42 |
 | volatile | 20+ volatile declarations pinning x87 rounding | 9 |
 
 | Source | Size | Name | Flags | gotos | volatiles |
@@ -33,6 +33,7 @@ equivalent/).
 | `equivalent/0x000d4b60.cpp` | 1412 |  | goto | 1 | 0 |
 | `equivalent/0x000835a0.cpp` | 1388 |  | goto | 11 | 0 |
 | `equivalent/0x00341660.cpp` | 1379 |  | volatile | 0 | 39 |
+| `equivalent/0x0026c040.cpp` | 1152 |  | goto | 1 | 0 |
 | `equivalent/0x00301e10.cpp` | 998 |  | goto | 2 | 7 |
 | `equivalent/0x0003ba60.cpp` | 916 |  | goto | 1 | 0 |
 | `equivalent/0x003369c0.cpp` | 896 |  | goto | 2 | 0 |
