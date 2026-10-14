@@ -1,0 +1,27 @@
+// STATUS: equivalent (tools/equiv.py level 3: 353 inputs, branch coverage 14/14)
+// FUN_001d5e80 @ 0x001d5e80
+extern unsigned int DAT_004e2400;
+extern unsigned int DAT_004e2404;
+extern unsigned int DAT_004e2408;
+extern unsigned __int64 __cdecl FUN_0027b020(const char*);
+extern int __cdecl FUN_001d5140(void*);
+struct Property { unsigned int keyLow; unsigned int keyHigh; void* value; unsigned int reserved; };
+struct Entry { char pad[0x3c]; int count; Property* properties; };
+struct Entries { char pad[0x1c]; Entry** begin; Entry** end; };
+struct Object { char pad[0x90]; Entries* entries; int FUN_001d5e80(int index); };
+int Object::FUN_001d5e80(int index) {
+ unsigned int low, high;
+ if (!(DAT_004e2408 & 1)) {
+  DAT_004e2408 |= 1;
+  unsigned __int64 key = FUN_0027b020("weapon_type");
+  low = (unsigned int)key; high = (unsigned int)(key >> 32);
+  DAT_004e2400 = low; DAT_004e2404 = high;
+ } else { low = DAT_004e2400; high = DAT_004e2404; }
+ if (index < 0 || index >= entries->end - entries->begin) index = 0;
+ Entry* entry = entries->begin[index];
+ for (int i=0; i<entry->count; ++i) {
+  Property* p = &entry->properties[i];
+  if (p->keyLow == low && p->keyHigh == high) return FUN_001d5140(p->value);
+ }
+ return 0;
+}
