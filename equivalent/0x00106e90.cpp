@@ -8,22 +8,22 @@ void* FUN_0008d690(unsigned int);
 char FUN_001d04d0(const void*) throw();
 class CPatrolPathManager;
 namespace math { class Vector { public: float x, y, z; }; }
-typedef float Float_106e90; typedef bool Bool_106e90; typedef int Int; typedef void Void;
+typedef float Float; typedef bool Bool; typedef int Int; typedef void Void;
 typedef const char* String; typedef char* CharPtr; typedef math::Vector Vector;
 extern char DAT_0048e0e4, DAT_0048e0f0;
 #define tBool DAT_0048e0e4
 #define tString DAT_0048e0f0
-class Base_106e90 { public: virtual void v(); char p[12]; char a[8]; char result; char z[3]; Base_106e90(const char*, int) throw(); };
-template<class C, class R, class A1> class Method1 : public Base_106e90 { public: void (*f)(); Method1(const char* n, void (*x)(), const void* r, const void* a1) : Base_106e90(n, 1) { f = x; result = FUN_001d04d0(r); a[0] = FUN_001d04d0(a1); } virtual void v(); };
+class Base { public: virtual void v(); char p[12]; char a[8]; char result; char z[3]; Base(const char*, int) throw(); };
+template<class C, class R, class A1> class Method1 : public Base { public: void (*f)(); Method1(const char* n, void (*x)(), const void* r, const void* a1) : Base(n, 1) { f = x; result = FUN_001d04d0(r); a[0] = FUN_001d04d0(a1); } virtual void v(); };
 template<class C, class R, class A1> class Closure1 : public Method1<C, R, A1> { public: C* owner; Closure1(const char* n, C* o, void (*f)(), const void* r, const void* a1) : Method1<C, R, A1>(n, f, r, a1) { owner = o; } virtual void v(); };
-class Registry_106e90 { public:
+class Registry { public:
     void FUN_001d3b70(const char*, void*);
     void FUN_00106d80(const char*, CPatrolPathManager*, void (*)());
     void FUN_00106e30(const char*, CPatrolPathManager*, void (*)());
 };
-class Entry_106e90 { public:
+class Entry { public:
 };
-Registry_106e90* FUN_001d4c90();
+Registry* FUN_001d4c90();
 #define FN(b) extern void FUN_##b();
 #define G1(n, b, R, A1) { FN(b) r->FUN_001d3b70(n, new Closure1<CPatrolPathManager, R, A1>(n, this, FUN_##b, &t##R, &t##A1)); }
 #define O(n, c, b) { FN(b) r->FUN_##c(n, this, FUN_##b); }
@@ -41,10 +41,10 @@ CPatrolPathManager::CPatrolPathManager(int a) {
     f4 = a;
     f8 = 0;
     fc = FUN_0008d6d0(a * 4);
-    Registry_106e90* r = FUN_001d4c90();
+    Registry* r = FUN_001d4c90();
     if (r) {
 O("path_Add", 00106d80, 00106900)
-G1("path_Remove", 00106980, Bool_106e90, String)
+G1("path_Remove", 00106980, Bool, String)
 O("path_SetPoint", 00106e30, 00106440)
     }
 }

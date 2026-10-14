@@ -14,7 +14,7 @@ struct Reader {
     void FUN_00266be0();
 };
 
-struct NameField_2b2ea0 {
+struct NameField {
     void FUN_0027b040(const char *s);
 };
 
@@ -42,7 +42,7 @@ struct DynamicCaster {
 }
 }
 
-struct Inventory_2b2ea0 {
+struct Inventory {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -73,7 +73,7 @@ public:
     virtual void v17();
     virtual void v18(int value);
     char pad4[4];
-    NameField_2b2ea0 name;
+    NameField name;
     MultiController *FUN_002b2710(int a, int b, int c);
     void FUN_002b1eb0(void *ctrl);
 };
@@ -83,15 +83,15 @@ public:
 void *FUN_00263ea0(unsigned int size);
 unsigned __int64 __cdecl FUN_0027b020(const char *s);
 unsigned __int64 __cdecl FUN_002672f0(const char *s, int a, int b);
-void *__cdecl FUN_002b2c00(Inventory_2b2ea0 *inv, const char *name);
-void *__cdecl FUN_002b2c30(Inventory_2b2ea0 *inv, const char *name);
+void *__cdecl FUN_002b2c00(Inventory *inv, const char *name);
+void *__cdecl FUN_002b2c30(Inventory *inv, const char *name);
 
 class MultiControllerLoader {
 public:
-    void vfunc_5(pure3d::MultiController **out, unsigned __int64 *outId, Reader *r, Inventory_2b2ea0 *inv);
+    void vfunc_5(pure3d::MultiController **out, unsigned __int64 *outId, Reader *r, Inventory *inv);
 };
 
-struct Frame_2b2ea0 {
+struct Frame {
     int c;
     char pad[3];
     unsigned char len;
@@ -113,9 +113,9 @@ struct Frame_2b2ea0 {
         ctrl = inv->v3(caster, key); \
     }
 
-void MultiControllerLoader::vfunc_5(pure3d::MultiController **out, unsigned __int64 *outId, Reader *r, Inventory_2b2ea0 *inv)
+void MultiControllerLoader::vfunc_5(pure3d::MultiController **out, unsigned __int64 *outId, Reader *r, Inventory *inv)
 {
-    Frame_2b2ea0 f;
+    Frame f;
 
     r->stream->FUN_002647e0(&f.v1.i, 1, 4, 1);
     r->stream->FUN_002647e0(&f.len, 1, 1, 1);

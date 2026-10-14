@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2394 inputs, branch coverage 99/112, incomplete)
 // FUN_001de4f0 @ 0x001de4f0
-typedef unsigned __int64 u64_1de4f0;
+typedef unsigned __int64 u64;
 
-struct V3_1de4f0 { float x, y, z; };
-struct Mat4_1de4f0 { float m[16]; };
+struct V3 { float x, y, z; };
+struct Mat4 { float m[16]; };
 
 struct ResName {
     char data[12];
@@ -12,14 +12,14 @@ struct ResName {
     void FUN_0027af70(const ResName *other);
 };
 
-struct Sub_1de4f0 {
+struct Sub {
     char pad0[8];
-    u64_1de4f0 id;                                  // 8
+    u64 id;                                  // 8
     int FUN_001d5e80(int a);
     int FUN_001d5dd0(int a);
-    u64_1de4f0 FUN_001d4f40();
+    u64 FUN_001d4f40();
     float FUN_001d4ea0(int a);
-    u64_1de4f0 FUN_001d4f70();
+    u64 FUN_001d4f70();
 };
 
 struct Dyn {
@@ -33,91 +33,91 @@ struct Dyn {
     float f1e8;
     char pad1ec[0x1f1 - 0x1ec];
     unsigned char b1f1;
-    void FUN_002f57d0(const V3_1de4f0 *v);
+    void FUN_002f57d0(const V3 *v);
 };
 
-struct Q_1de4f0 {
+struct Q {
     char pad0[0x70];
     Dyn *f70;
     void FUN_002ef440(void *what);
 };
 
-struct Obj_1de4f0 {
+struct Obj {
     char pad0[8];
     ResName name;                            // 8
     char padc[0x40 - 0x14];
     int f40;
     char pad44[0xec - 0x44];
-    Sub_1de4f0 *fec;
+    Sub *fec;
     char padf0[0x148 - 0xf0];
     void *f148;
     char pad14c[0x198 - 0x14c];
     int f198;
     int f19c;
 
-    void FUN_001d6b60(Mat4_1de4f0 m, int z);
+    void FUN_001d6b60(Mat4 m, int z);
     void FUN_001d6270();
     void FUN_0027cb80(int v);
     void FUN_001d7b80(int a, int b);
     void *FUN_001d6b40();
-    Q_1de4f0 *FUN_001d72e0();
+    Q *FUN_001d72e0();
 };
 
-struct Hook_1de4f0 {
-    void FUN_001b4540(Obj_1de4f0 *o);
+struct Hook {
+    void FUN_001b4540(Obj *o);
 };
-Hook_1de4f0 *FUN_001b6580();
+Hook *FUN_001b6580();
 
-struct Sink_1de4f0 {
-    void FUN_001eb7e0(ResName *name, u64_1de4f0 *id, void *r, const V3_1de4f0 *a, const V3_1de4f0 *b, V3_1de4f0 zero, int flag);
-};
-
-struct Holder_1de4f0 {
-    Sink_1de4f0 *FUN_000862e0();
+struct Sink {
+    void FUN_001eb7e0(ResName *name, u64 *id, void *r, const V3 *a, const V3 *b, V3 zero, int flag);
 };
 
-struct World2_1de4f0 {
+struct Holder {
+    Sink *FUN_000862e0();
+};
+
+struct World2 {
     char pad0[0x54];
-    Holder_1de4f0 *f54;
+    Holder *f54;
 };
-extern World2_1de4f0 *DAT_004dd700;
+extern World2 *DAT_004dd700;
 
-struct Registry_1de4f0 {
+struct Registry {
     char pad0[8];
-    u64_1de4f0 id;                                  // 8
-    Obj_1de4f0 *FUN_001d5630(ResName *name, int v);
+    u64 id;                                  // 8
+    Obj *FUN_001d5630(ResName *name, int v);
 };
 
-u64_1de4f0 FUN_0027b020(const char *s);
-void *FUN_002f2750(u64_1de4f0 id);
+u64 FUN_0027b020(const char *s);
+void *FUN_002f2750(u64 id);
 void FUN_002f28d0(const char *s, float a, float b, float c, float d);
 
-extern u64_1de4f0 DAT_004e2770;
-extern u64_1de4f0 DAT_004dc0c0;
-extern u64_1de4f0 DAT_004dc098;
-extern u64_1de4f0 DAT_004dc078;
+extern u64 DAT_004e2770;
+extern u64 DAT_004dc0c0;
+extern u64 DAT_004dc098;
+extern u64 DAT_004dc078;
 extern unsigned int DAT_004e2720;
-extern u64_1de4f0 DAT_004e2718;                     // "car"
-extern u64_1de4f0 DAT_004e2710;                     // "bus"
-extern u64_1de4f0 DAT_004e2708;                     // "small_object"
-extern u64_1de4f0 DAT_004e2700;                     // "large_vehicle"
-extern u64_1de4f0 DAT_004e26d0;                     // "dumpster1_dumpster1"
-extern u64_1de4f0 DAT_004e26f8;                     // "van_van"
-extern u64_1de4f0 DAT_004e26f0;                     // "bus1_bus1"
-extern u64_1de4f0 DAT_004e26e8;                     // "suv1_suv1"
-extern u64_1de4f0 DAT_004e26e0;                     // "cubeVan_cubeVan"
-extern u64_1de4f0 DAT_004e26d8;                     // "ambulance_ambulance"
+extern u64 DAT_004e2718;                     // "car"
+extern u64 DAT_004e2710;                     // "bus"
+extern u64 DAT_004e2708;                     // "small_object"
+extern u64 DAT_004e2700;                     // "large_vehicle"
+extern u64 DAT_004e26d0;                     // "dumpster1_dumpster1"
+extern u64 DAT_004e26f8;                     // "van_van"
+extern u64 DAT_004e26f0;                     // "bus1_bus1"
+extern u64 DAT_004e26e8;                     // "suv1_suv1"
+extern u64 DAT_004e26e0;                     // "cubeVan_cubeVan"
+extern u64 DAT_004e26d8;                     // "ambulance_ambulance"
 
 #define INIT(bit, var, str) if (!(DAT_004e2720 & (bit))) { DAT_004e2720 = DAT_004e2720 | (bit); var = FUN_0027b020(str); }
 
 struct TblA {
-    u64_1de4f0 key;
+    u64 key;
     float f8;
     float fc;
 };
 
 struct TblB {
-    u64_1de4f0 key;
+    u64 key;
     float a;
     float b;
     int c;
@@ -132,12 +132,12 @@ public:
     TblA tblA[16];                           // 0x1ec60
     TblB tblB[16];                           // 0x1ed60
 
-    Obj_1de4f0 *FUN_001de4f0(Registry_1de4f0 *reg, ResName *rn, int v, const Mat4_1de4f0 *m);
+    Obj *FUN_001de4f0(Registry *reg, ResName *rn, int v, const Mat4 *m);
 };
 
-Obj_1de4f0 *World::FUN_001de4f0(Registry_1de4f0 *reg, ResName *rn, int v, const Mat4_1de4f0 *m)
+Obj *World::FUN_001de4f0(Registry *reg, ResName *rn, int v, const Mat4 *m)
 {
-    Obj_1de4f0 *o = reg->FUN_001d5630(rn, v);
+    Obj *o = reg->FUN_001d5630(rn, v);
     if (o == 0)
         return o;
 
@@ -156,14 +156,14 @@ Obj_1de4f0 *World::FUN_001de4f0(Registry_1de4f0 *reg, ResName *rn, int v, const 
     int flag = 5;
     if (o->f148 != 0)
         flag = 2;
-    World2_1de4f0 *w2 = DAT_004dd700;
-    Sub_1de4f0 *s0 = o->fec;
-    Holder_1de4f0 *h = w2->f54;
-    V3_1de4f0 up;
+    World2 *w2 = DAT_004dd700;
+    Sub *s0 = o->fec;
+    Holder *h = w2->f54;
+    V3 up;
     up.x = 0.0f; up.y = 1.0f; up.z = 0.0f;
-    V3_1de4f0 zero;
+    V3 zero;
     zero.x = 0.0f; zero.y = 0.0f; zero.z = 0.0f;
-    V3_1de4f0 zv;
+    V3 zv;
     zv.x = 0.0f; zv.y = 0.0f; zv.z = 0.0f;
     void *r = o->FUN_001d6b40();
     h->FUN_000862e0()->FUN_001eb7e0(&o->name, &s0->id, r, &zero, &up, zv, flag);
@@ -178,8 +178,8 @@ Obj_1de4f0 *World::FUN_001de4f0(Registry_1de4f0 *reg, ResName *rn, int v, const 
         d->f1c0 = 5.0f;
         d->b1c4 = 1;
     } else if (o->FUN_001d72e0() != 0) {
-        Sub_1de4f0 *s = o->fec;
-        u64_1de4f0 none = FUN_0027b020("NONE");
+        Sub *s = o->fec;
+        u64 none = FUN_0027b020("NONE");
         if (s->FUN_001d4f40() != none) {
             void *w = FUN_002f2750(o->fec->FUN_001d4f40());
             if (w != 0)
@@ -194,7 +194,7 @@ Obj_1de4f0 *World::FUN_001de4f0(Registry_1de4f0 *reg, ResName *rn, int v, const 
     Dyn *p = o->FUN_001d72e0()->f70;
     p->f164 = 1.0f;
 
-    u64_1de4f0 key = reg->id;
+    u64 key = reg->id;
     int idx = -1;
     int i;
     for (i = 0; i < 16; i++) {
@@ -229,7 +229,7 @@ Obj_1de4f0 *World::FUN_001de4f0(Registry_1de4f0 *reg, ResName *rn, int v, const 
                 }
             }
             if (j >= 0) {
-                u64_1de4f0 k = tblA[j].key;
+                u64 k = tblA[j].key;
                 float val = 0.0f;
                 bool store = true;
                 if (k == DAT_004e2718) {
@@ -260,7 +260,7 @@ Obj_1de4f0 *World::FUN_001de4f0(Registry_1de4f0 *reg, ResName *rn, int v, const 
                 INIT(0x80, DAT_004e26e8, "suv1_suv1");
                 INIT(0x100, DAT_004e26e0, "cubeVan_cubeVan");
                 INIT(0x200, DAT_004e26d8, "ambulance_ambulance");
-                u64_1de4f0 k2 = reg->id;
+                u64 k2 = reg->id;
                 float val = 0.0f;
                 bool store = true;
                 if (k2 == DAT_004e26f8) {
@@ -286,9 +286,9 @@ Obj_1de4f0 *World::FUN_001de4f0(Registry_1de4f0 *reg, ResName *rn, int v, const 
         }
     }
 
-    u64_1de4f0 st = o->fec->FUN_001d4f70();
+    u64 st = o->fec->FUN_001d4f70();
     if (st == DAT_004dc0c0 || st == DAT_004dc098 || st == DAT_004dc078) {
-        V3_1de4f0 dir;
+        V3 dir;
         dir.x = 0.0f; dir.y = -0.5f; dir.z = 0.0f;
         o->FUN_001d72e0()->f70->FUN_002f57d0(&dir);
     }

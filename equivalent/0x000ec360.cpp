@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 321 inputs, branch coverage 46/48, incomplete)
 // MapThing::vfunc_5 @ 0x000ec360
-typedef unsigned __int64 u64_ec360;
+typedef unsigned __int64 u64;
 extern "C" double sin(double);
 extern "C" double atan2(double y, double x);
 
@@ -10,7 +10,7 @@ struct V3 { float x, y, z; };
 class MapThing;
 
 struct KHold;
-struct Parent_ec360 {
+struct Parent {
     virtual void p0(); virtual void p1(); virtual void p2(); virtual void p3(); virtual void p4(); virtual void p5(); virtual void p6(); virtual void p7(); virtual void p8(); virtual void p9(); virtual void p10(); virtual void p11(); virtual void p12(); virtual void p13();
     virtual void v14(V3 *out, MapThing *who);
     virtual void v15(V2 *out, MapThing *who);
@@ -30,7 +30,7 @@ struct KHold {
     KObj *f4;
 };
 
-struct VBuf_ec360 {
+struct VBuf {
     char pad0[8];
     V3 *pos;
     char padc[4];
@@ -39,21 +39,21 @@ struct VBuf_ec360 {
     void FUN_0008ef00();
 };
 
-struct Gfx_ec360 {
+struct Gfx {
     virtual void g0(); virtual void g1(); virtual void g2(); virtual void g3(); virtual void g4(); virtual void g5(); virtual void g6(); virtual void g7(); virtual void g8(); virtual void g9(); virtual void g10(); virtual void g11(); virtual void g12(); virtual void g13(); virtual void g14(); virtual void g15(); virtual void g16(); virtual void g17(); virtual void g18(); virtual void g19(); virtual void g20(); virtual void g21(); virtual void g22(); virtual void g23(); virtual void g24(); virtual void g25(); virtual void g26(); virtual void g27(); virtual void g28(); virtual void g29();
-    virtual VBuf_ec360 *v30(void *a, int b, int c, int d, int e);
-    virtual void v31(VBuf_ec360 *vb);
+    virtual VBuf *v30(void *a, int b, int c, int d, int e);
+    virtual void v31(VBuf *vb);
 };
-extern Gfx_ec360 *DAT_0052c2a8;
+extern Gfx *DAT_0052c2a8;
 
-struct Dev_ec360 {
+struct Dev {
     virtual void d0(); virtual void d1(); virtual void d2(); virtual void d3(); virtual void d4(); virtual void d5(); virtual void d6(); virtual void d7(); virtual void d8(); virtual void d9(); virtual void d10(); virtual void d11(); virtual void d12(); virtual void d13(); virtual void d14();
     virtual void v15(int a);
     virtual void v16(int a);
 };
 
 struct Render {
-    Dev_ec360 *dev;
+    Dev *dev;
     void FUN_00293d00(const V3 *v);
     void FUN_00293d40(float a, float b, float c);
     void FUN_00293da0(float a, float b, float c);
@@ -66,19 +66,19 @@ struct Sprite {
     virtual void v8(int a, int b);
 };
 
-struct Item_ec360 {
+struct Item {
     int id;
     float x;
     float f8;
     float z;
 };
 
-struct Surf_ec360 {
+struct Surf {
     char pad0[0x10];
     void *f10;
 };
 
-struct Map_ec360 {
+struct Map {
     char pad0[0x24];
     float xlo;                       // 0x24
     float zhi;                       // 0x28
@@ -87,10 +87,10 @@ struct Map_ec360 {
     float scale;                     // 0x34
     char pad38[0x22c - 0x38];
     Sprite *tbl[10];                 // 0x22c
-    Surf_ec360 *FUN_000c7b60();
+    Surf *FUN_000c7b60();
     int *FUN_000c8540();
     int FUN_000c8180();
-    Item_ec360 *FUN_000c8190(int i);
+    Item *FUN_000c8190(int i);
 };
 
 struct Pick {
@@ -100,11 +100,11 @@ struct Pick {
 
 struct Pickers {
     char pad0[0x20];
-    Pick *FUN_00024280(u64_ec360 name);
+    Pick *FUN_00024280(u64 name);
 };
 
 struct MapSrc {
-    Map_ec360 *FUN_000cae70();
+    Map *FUN_000cae70();
 };
 
 struct MapHolder {
@@ -112,7 +112,7 @@ struct MapHolder {
     MapSrc *f8;
 };
 
-struct Clock_ec360 {
+struct Clock {
     float FUN_00085f80();
 };
 
@@ -122,14 +122,14 @@ struct World {
     char pad24[0x3c - 0x24];
     MapHolder *f3c;
     char pad40[0x58 - 0x40];
-    Clock_ec360 *f58;
+    Clock *f58;
 };
 extern World *DAT_004dd700;
 extern float DAT_004de988;
 extern float DAT_004de98c;
-u64_ec360 __cdecl FUN_0027b020(const char *s);
+u64 __cdecl FUN_0027b020(const char *s);
 
-struct Ent_ec360 {
+struct Ent {
     int e0;
     float val;
     int zero;
@@ -138,7 +138,7 @@ struct Ent_ec360 {
 
 struct Loc1 {
     int hdr;
-    Ent_ec360 e[8];
+    Ent e[8];
     int pad84;
     int cur;
     int pad8c;
@@ -146,7 +146,7 @@ struct Loc1 {
     void FUN_000f78e0();
 };
 
-struct Loc2_ec360 {
+struct Loc2 {
     int c0;
     char pad4[0x20];
     void FUN_000f7930();
@@ -154,7 +154,7 @@ struct Loc2_ec360 {
     void FUN_000f7960();
 };
 
-struct Frame_ec360 {
+struct Frame {
     int s10;                         // S+0x10
     int s14;
     float s18;
@@ -171,7 +171,7 @@ struct Frame_ec360 {
     V3 l48;                          // 0x48
     V3 l54;                          // 0x54
     V3 l60;                          // 0x60
-    Loc2_ec360 loc2;                       // 0x6c
+    Loc2 loc2;                       // 0x6c
     Loc1 loc1;                       // 0x90
 };
 
@@ -182,7 +182,7 @@ public:
     virtual void m0(); virtual void m1(); virtual void m2(); virtual void m3(); virtual void m4();
     virtual void vfunc_5();
     char pad4[0x14 - 0x4];
-    Parent_ec360 *f14;
+    Parent *f14;
     char pad18[0x74 - 0x18];
     unsigned char b74;
     char pad75[0xa4 - 0x75];
@@ -195,18 +195,18 @@ void MapThing::vfunc_5()
 {
     if (b74 == 0)
         return;
-    Frame_ec360 f;
+    Frame f;
     int k = f14->f8->f4->v44();
-    Map_ec360 *map = DAT_004dd700->f3c->f8->FUN_000cae70();
+    Map *map = DAT_004dd700->f3c->f8->FUN_000cae70();
     f.s18 = map->scale;
     f14->v15(&f.wh, this);
     f.wh.x = f.wh.y * f.s18;
-    Surf_ec360 *s = map->FUN_000c7b60();
+    Surf *s = map->FUN_000c7b60();
     if (s != 0) {
         DAT_0052c2ac->dev->v15(0);
         f14->v14(&f.l48, this);
         DAT_0052c2ac->FUN_00293d00(&f.l48);
-        VBuf_ec360 *vb = DAT_0052c2a8->v30(s->f10, 1, 0x2021, 4, 0);
+        VBuf *vb = DAT_0052c2a8->v30(s->f10, 1, 0x2021, 4, 0);
         EMIT(f.wh.x * -0.5f, f.wh.y * -0.5f, 0.0f, 0.0f, 0.0f);
         EMIT(f.wh.x * -0.5f, f.wh.y * 0.5f, 0.0f, 0.0f, 1.0f);
         EMIT(f.wh.x * 0.5f, f.wh.y * -0.5f, 0.0f, 1.0f, 0.0f);
@@ -254,7 +254,7 @@ void MapThing::vfunc_5()
             do {
                 int idx;
                 for (idx = 0; idx < map->FUN_000c8180(); idx++) {
-                    Item_ec360 *it = map->FUN_000c8190(idx);
+                    Item *it = map->FUN_000c8190(idx);
                     if (it == 0)
                         continue;
                     if (it->id != *ids)

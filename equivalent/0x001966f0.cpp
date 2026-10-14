@@ -9,7 +9,7 @@ void FUN_00363fa0();
 
 extern unsigned int DAT_004d9968;
 
-struct Key_1966f0 {
+struct Key {
     unsigned int lo, hi;
     void FUN_0027af00();
     void FUN_0027af50();
@@ -17,7 +17,7 @@ struct Key_1966f0 {
     void FUN_0027b040(const char *name);
     void FUN_0027b0e0(const char *name);
 };
-extern Key_1966f0 DAT_004e16d8;
+extern Key DAT_004e16d8;
 extern unsigned int DAT_004e16e0;
 extern int DAT_004e16e4;
 
@@ -29,20 +29,20 @@ struct V3_1966f0 {
     void FUN_00011220(V3_1966f0 *v);
 };
 
-struct Mat_1966f0 {
+struct Mat {
     float m[16];
     void FUN_0022b980();
     void FUN_0022be40(V3_1966f0 *pos);
 };
 
-struct RefObj_1966f0 {
+struct RefObj {
     virtual void AddRef();
     virtual void Release();
 };
-struct Other_1966f0;
-struct Ref4c : RefObj_1966f0 {
+struct Other;
+struct Ref4c : RefObj {
     char pad4[4];
-    Other_1966f0 *f08;
+    Other *f08;
     int f0c;
 };
 
@@ -57,25 +57,25 @@ struct Locator {
     void FUN_00059a50(V3_1966f0 *out);
 };
 
-struct Sub74_1966f0 {
+struct Sub74 {
     char pad[0x74];
     int f74;
 };
 
-struct Ent_1966f0 {
-    Sub74_1966f0 *FUN_001d72e0();
+struct Ent {
+    Sub74 *FUN_001d72e0();
     int FUN_001d68d0();
 };
 
-struct Obj64 : RefObj_1966f0 {
-    Sub74_1966f0 *FUN_001d72e0();
-    void thunk_FUN_0027d410(Key_1966f0 *k);
+struct Obj64 : RefObj {
+    Sub74 *FUN_001d72e0();
+    void thunk_FUN_0027d410(Key *k);
     void FUN_001d7590();
     void FUN_001d7810(V3_1966f0 v);
 };
 
 struct Mgr_1966f0 {
-    void FUN_001e43b0(Key_1966f0 *k, void *src, Mat_1966f0 *m, int flag);
+    void FUN_001e43b0(Key *k, void *src, Mat *m, int flag);
     Obj64 *FUN_001def30(char *name);
 };
 
@@ -83,11 +83,11 @@ struct World {
     char pad0[0xc];
     Mgr_1966f0 *f0c;
     char pad10[0x20 - 0x10];
-    struct Obj20_1966f0 *f20;
+    struct Obj20 *f20;
 };
 extern World *DAT_004dd700;
 
-struct Other_1966f0 {
+struct Other {
     char pad0[0x8];
     unsigned int f08;
     unsigned int f0c;
@@ -99,19 +99,19 @@ struct Other_1966f0 {
     void FUN_000356c0(V3_1966f0 *out);
     void FUN_00035550(V3_1966f0 *out);
 };
-struct Obj20_1966f0 {
+struct Obj20 {
     char pad0[0x124];
-    Other_1966f0 *f124;
+    Other *f124;
 };
 
 
-struct IdObj_1966f0 {
+struct IdObj {
     char pad0[8];
     int FUN_0027b200(unsigned int lo, unsigned int hi);
 };
-struct Slot38 : RefObj_1966f0 {
+struct Slot38 : RefObj {
     char pad4[4];
-    IdObj_1966f0 *f08;
+    IdObj *f08;
 };
 
 struct Pad_1966f0 {
@@ -120,19 +120,19 @@ struct Pad_1966f0 {
     char pad14[0x120 - 0x14];
     Slot38 *f120;
     char pad124[0x328 - 0x124];
-    RefObj_1966f0 *f328;
+    RefObj *f328;
     char pad32c[0x1d54 - 0x32c];
     V3_1966f0 f1d54;
     unsigned int f1d60;
     unsigned int f1d64;
-    Ent_1966f0 *FUN_00035ef0(int i);
-    void FUN_0003ffa0(Sub74_1966f0 *s, int z);
+    Ent *FUN_00035ef0(int i);
+    void FUN_0003ffa0(Sub74 *s, int z);
     void FUN_00035550(V3_1966f0 *out);
     void FUN_00035660(V3_1966f0 *out);
     void FUN_00124500(V3_1966f0 *out);
 };
 
-struct Beam_1966f0 {
+struct Beam {
     virtual void b0(); virtual void b1(); virtual void b2(); virtual void b3(); virtual void b4();
     virtual void b5(); virtual void b6();
     virtual float v7();
@@ -167,9 +167,9 @@ struct Pad2 {
 
 extern Pad_1966f0 *__fastcall FUN_00059a30(void *o);
 extern void *__fastcall FUN_000592a0(void *owner);
-void __cdecl FUN_000188e0(void *slot, Ent_1966f0 *e);
+void __cdecl FUN_000188e0(void *slot, Ent *e);
 void __cdecl FUN_00037510(void *slot, int v);
-void __cdecl FUN_00018810(Ref4c **slot, RefObj_1966f0 *obj);
+void __cdecl FUN_00018810(Ref4c **slot, RefObj *obj);
 char __cdecl FUN_00065870(V3_1966f0 *a, V3_1966f0 *b);
 V3_1966f0 *__cdecl FUN_00083e00(V3_1966f0 *out, V3_1966f0 *in, float s);
 void __cdecl FUN_00224d70(float ang, V3_1966f0 *v);
@@ -178,7 +178,7 @@ struct Frame_1966f0 {
     V3_1966f0 delta;
     V3_1966f0 w;
     union RandBits { unsigned int u; float f; } rb;
-    union { float len; Key_1966f0 key; V3_1966f0 c; } u1c;
+    union { float len; Key key; V3_1966f0 c; } u1c;
     V3_1966f0 t;
     float m44;
     V3_1966f0 u;
@@ -190,7 +190,7 @@ struct Frame_1966f0 {
     V3_1966f0 va;
     V3_1966f0 vb;
     V3_1966f0 p3;
-    Mat_1966f0 M;
+    Mat M;
     char buf[0x80];
     unsigned int cookie;
 };
@@ -226,20 +226,20 @@ static __forceinline float Rand1(Rng_1966f0 *r, T &slot)
 class FireBeamAction {
 public:
     char pad00[0x1c];
-    Beam_1966f0 *f1c;
+    Beam *f1c;
     void *f20;
     V3_1966f0 f24;
     char pad30[0x34 - 0x30];
     char f34[4];
-    RefObj_1966f0 *f38;
+    RefObj *f38;
     int f3c;
     char pad40[0x4c - 0x40];
     Ref4c *f4c;
-    Other_1966f0 *f50;
+    Other *f50;
     char pad54[4];
     unsigned int f58;
     unsigned int f5c;
-    Sub74_1966f0 *f60;
+    Sub74 *f60;
     Obj64 *f64;
     char pad68[0x6c - 0x68];
     V3_1966f0 f6c;
@@ -275,7 +275,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
     if (f20 != 0) {
         a = FUN_00059a30(FUN_000592a0(f20));
         Slot38 *s = a->f120;
-        RefObj_1966f0 **pf38 = &f38;
+        RefObj **pf38 = &f38;
         if (s)
             s->AddRef();
         if (*pf38)
@@ -285,7 +285,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
         f84 = f1c->v7();
         if (!(f84 <= 0.0f)) {
             if (idx >= 0 && idx < 8) {
-                Ent_1966f0 *e = a->FUN_00035ef0(idx);
+                Ent *e = a->FUN_00035ef0(idx);
                 if (e) {
                     if (!e->FUN_001d72e0() || e->FUN_001d72e0()->f74 == 0)
                         FUN_000188e0(f34, e);
@@ -296,7 +296,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
             if (sl) {
                 unsigned int lo = f1c->f30;
                 unsigned int hi = f1c->f34;
-                IdObj_1966f0 *io = sl->f08;
+                IdObj *io = sl->f08;
                 if (lo | hi) {
                     f3c = io->FUN_0027b200(lo, hi);
                     if (f3c == 0xffff)
@@ -326,14 +326,14 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
                 }
                 DAT_004e16d8.FUN_0027b040("invisible");
                 f64->thunk_FUN_0027d410(&DAT_004e16d8);
-                Sub74_1966f0 *sub = f64->FUN_001d72e0();
+                Sub74 *sub = f64->FUN_001d72e0();
                 if (sub) {
                     FUN_00018810(&f4c, a->f328);
                     Ref4c *r4 = f4c;
                     if (r4->f0c == 1)
                         f50 = r4->f08;
                     if (f50 == 0) {
-                        Other_1966f0 *w = DAT_004dd700->f20->f124;
+                        Other *w = DAT_004dd700->f20->f124;
                         if (w && w->f12c)
                             f50 = w;
                     }
@@ -365,7 +365,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
                         f.d.y = f.vd.y - f.p0.y;
                         f.d.z = f.vd.z - f.p0.z;
                         f.u1c.len = f.d.FUN_00018990();
-                        Beam_1966f0 *bm = f1c;
+                        Beam *bm = f1c;
                         V3_1966f0 *src;
                         if (bm->bf0) {
                             f.m44 = bm->ff4;
@@ -393,7 +393,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
                         f.arr[2] = f.p0.z + step->z;
                         f.w.z = f.arr[2];
                         char onPath = FUN_00065870(bm->FUN_00192bb0((V3_1966f0 *)f.arr), &f24);
-                        Beam_1966f0 *cur = f1c;
+                        Beam *cur = f1c;
                         if (onPath) {
                             f.w.FUN_00011220(cur->FUN_00192bb0((V3_1966f0 *)f.arr));
                         } else if (FUN_00065870(cur->FUN_00192c70((V3_1966f0 *)f.arr), &f24)) {
@@ -482,7 +482,7 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
                                 f6c = f.delta;
                             }
                         } else if (f1c->bfe) {
-                            Other_1966f0 *tg = f50;
+                            Other *tg = f50;
                             if (tg) {
                                 tg->f10->FUN_00059a50(&f.u);
                                 f.delta.x = 0.0f;

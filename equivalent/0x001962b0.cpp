@@ -6,19 +6,19 @@ struct V3_1962b0 {
     float x, y, z;
 };
 
-struct Mat4_1962b0 {
+struct Mat4 {
     float m[16];
     void FUN_0022b980();
 };
 
-struct Id64_1962b0 {
+struct Id64 {
     int lo;
     int hi;
 };
 
-struct MissileCfg_1962b0 {
+struct MissileCfg {
     char pad0[0x18];
-    Id64_1962b0 id;            // 0x18
+    Id64 id;            // 0x18
     char pad20[0x60 - 0x20];
     int f60;
     int f64;
@@ -64,13 +64,13 @@ struct Node {
     char b1d8;
     int FUN_001d6c70();
     int FUN_001d6b40();
-    void thunk_FUN_0027d410(Id64_1962b0 *id);
+    void thunk_FUN_0027d410(Id64 *id);
 };
 
 struct Mgr;
 
 struct Factory_1962b0 {
-    Node *FUN_001e4760(int name, char *buf, int a, Mat4_1962b0 *m, int b, int c, int d);
+    Node *FUN_001e4760(int name, char *buf, int a, Mat4 *m, int b, int c, int d);
     int FUN_001dbfe0(char *buf);
     void FUN_001e3200(char *buf, int lo, int hi);
     void FUN_001dc230(int h, int mode);
@@ -130,7 +130,7 @@ public:
     int f34;
     char b38;
     char pad39[3];
-    MissileCfg_1962b0 *cfg;        // 0x3c
+    MissileCfg *cfg;        // 0x3c
     int h40;
     int f44;
     int f48;
@@ -169,13 +169,13 @@ public:
     float fd0;
     int fd4;
     float fd8;
-    ProjectileMissile(MissileCfg_1962b0 *src, int name);
+    ProjectileMissile(MissileCfg *src, int name);
 };
 
 }
 }
 
-hulkfight::motion::ProjectileMissile::ProjectileMissile(MissileCfg_1962b0 *src, int name)
+hulkfight::motion::ProjectileMissile::ProjectileMissile(MissileCfg *src, int name)
 {
     h40 = -1;
     f44 = 0;
@@ -239,7 +239,7 @@ hulkfight::motion::ProjectileMissile::ProjectileMissile(MissileCfg_1962b0 *src, 
     Factory_1962b0 *factory = DAT_004dd700->factory;
     FUN_00267760(DAT_004e15d0, 0x100, "projectile_missile_%d", DAT_004e16d0);
     DAT_004e16d0 = DAT_004e16d0 + 1;
-    Mat4_1962b0 m;
+    Mat4 m;
     m.FUN_0022b980();
     Node *node = factory->FUN_001e4760(name, DAT_004e15d0, 0, &m, 0, 0, 0);
     if (node == 0) {

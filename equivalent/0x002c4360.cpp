@@ -2,7 +2,7 @@
 // FUN_002c4360 @ 0x002c4360
 struct V3 { float x, y, z; };
 
-struct VBuf_2c4360 {
+struct VBuf {
     char pad0[8];
     V3 *pos;
     char padc[4];
@@ -10,7 +10,7 @@ struct VBuf_2c4360 {
     void FUN_0008ef00();
 };
 
-struct Gfx_2c4360 {
+struct Gfx {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -19,12 +19,12 @@ struct Gfx_2c4360 {
     virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
     virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
     virtual void v28(); virtual void v29();
-    virtual VBuf_2c4360 *v30(void *tex, int prim, int fmt, int count, int z);
-    virtual void v31(VBuf_2c4360 *vb);
+    virtual VBuf *v30(void *tex, int prim, int fmt, int count, int z);
+    virtual void v31(VBuf *vb);
 };
-extern Gfx_2c4360 *DAT_0052c2a8;
+extern Gfx *DAT_0052c2a8;
 
-struct Frame_2c4360 {
+struct Frame {
     V3 P;                            // S+0x10
     V3 Q;                            // S+0x1c
 };
@@ -34,10 +34,10 @@ struct Frame_2c4360 {
 
 void __cdecl FUN_002c4360(V3 *a, V3 *b, void *tex, unsigned int color, char wire2)
 {
-    Frame_2c4360 f;
+    Frame f;
     f.Q = *a;
     f.P = *a;
-    VBuf_2c4360 *vb = DAT_0052c2a8->v30(tex, 2, 0x2020, wire2 ? 0x24 : 0x18, 0);
+    VBuf *vb = DAT_0052c2a8->v30(tex, 2, 0x2020, wire2 ? 0x24 : 0x18, 0);
 
     f.P.x = b->x;
     EMIT(f.Q.x, f.Q.y, f.Q.z);

@@ -3,28 +3,28 @@
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) { return p; }
 struct CStatsManager;
-typedef void (*Callback_91630)();
+typedef void (*Callback)();
 extern void FUN_00090630(); extern void FUN_00090720(); extern void FUN_000906f0(); extern void FUN_00090df0(); extern void FUN_000900a0(); extern void FUN_00090110(); extern void FUN_00090130(); extern void FUN_0008ffb0(); extern void FUN_000901a0(); extern void FUN_00090200(); extern void FUN_0008ffc0(); extern void FUN_00090270(); extern void FUN_00090310(); extern void FUN_000903a0(); extern void FUN_00090430(); extern void FUN_00090440();
 extern int DAT_0048e100, DAT_0048e0f0, DAT_0048e134;
 extern unsigned char __cdecl FUN_001d04d0(void*);
 extern void* __cdecl FUN_0008d690(int);
 struct Binding {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
- char pad[12]; unsigned char resultType; char pad2[7]; unsigned char argumentType; char pad3[3]; Callback_91630 callback;
+ char pad[12]; unsigned char resultType; char pad2[7]; unsigned char argumentType; char pad3[3]; Callback callback;
  void FUN_001d0480(const char*,int);
- void FUN_00090840(const char*,Callback_91630);
- Binding* FUN_00090eb0(const char*,CStatsManager*,Callback_91630);
- void FUN_00090c50(const char*,Callback_91630);
+ void FUN_00090840(const char*,Callback);
+ Binding* FUN_00090eb0(const char*,CStatsManager*,Callback);
+ void FUN_00090c50(const char*,Callback);
 };
 template<class C,class R,class A> struct Method1: Binding { virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); };
 template<class C,class R,class A> struct Closure1: Method1<C,R,A> { C* owner; virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); };
 template<class C,class R,class A,class B,class D> struct Closure3: Binding { C* owner; virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); };
 template<class C,class R,class A,class B,class D,class E,class F,class G> struct Closure6: Binding { C* owner; virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); };
-struct Registry_91630 { void FUN_001d3b70(const char*,void*); void FUN_00091450(const char*,CStatsManager*,Callback_91630); void FUN_00091510(const char*,CStatsManager*,Callback_91630); };
-extern Registry_91630* FUN_001d4c90();
-struct Small_91630 { unsigned int data[2]; void FUN_0027af00(); };
-struct Entry_91630 { Small_91630 first,second; unsigned int rest[12]; };
-struct CStatsManager { union { Entry_91630 entries[50]; unsigned int words[800]; }; unsigned int count; unsigned int untouched; unsigned int xp; unsigned int tail[272]; unsigned int secrets; CStatsManager* initialize(); };
+struct Registry { void FUN_001d3b70(const char*,void*); void FUN_00091450(const char*,CStatsManager*,Callback); void FUN_00091510(const char*,CStatsManager*,Callback); };
+extern Registry* FUN_001d4c90();
+struct Small { unsigned int data[2]; void FUN_0027af00(); };
+struct Entry { Small first,second; unsigned int rest[12]; };
+struct CStatsManager { union { Entry entries[50]; unsigned int words[800]; }; unsigned int count; unsigned int untouched; unsigned int xp; unsigned int tail[272]; unsigned int secrets; CStatsManager* initialize(); };
 #define MAKE(NAME,RET,ARG,FUNC,AT,RT) \
  p=(Binding*)FUN_0008d690(36); \
  if(p) { p->FUN_001d0480(NAME,1); new(p) Method1<CStatsManager,RET,ARG>; p->callback=FUNC; p->argumentType=FUN_001d04d0(&AT); p->resultType=FUN_001d04d0(&RT); Closure1<CStatsManager,RET,ARG>* c=new(p) Closure1<CStatsManager,RET,ARG>; c->owner=this; } \
@@ -32,7 +32,7 @@ struct CStatsManager { union { Entry_91630 entries[50]; unsigned int words[800];
 CStatsManager* CStatsManager::initialize() {
  for(int i=0;i<50;++i) { entries[i].first.FUN_0027af00(); entries[i].second.FUN_0027af00(); }
  count=0; for(int j=0;j<800;++j) words[j]=0;
- Registry_91630* r=FUN_001d4c90(); Binding* p=(Binding*)FUN_0008d690(36);
+ Registry* r=FUN_001d4c90(); Binding* p=(Binding*)FUN_0008d690(36);
  if(p) { p->FUN_00090840("sta_PrepareStat",FUN_00090630); Closure6<CStatsManager,void,const char*,const char*,int,int,int,int>* c=new(p) Closure6<CStatsManager,void,const char*,const char*,int,int,int,int>; c->owner=this; }
  r->FUN_001d3b70("sta_PrepareStat",p);
  p=(Binding*)FUN_0008d690(36); if(p) p=p->FUN_00090eb0("sta_Tally",this,FUN_00090720); r->FUN_001d3b70("sta_Tally",p);

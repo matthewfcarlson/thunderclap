@@ -5,7 +5,7 @@ typedef Byte Bytef;
 typedef unsigned int uInt;
 typedef unsigned long uLong;
 
-struct inflate_huft_2eb7c0 {
+struct inflate_huft {
     Byte exop;
     Byte bits;
     unsigned short pad;
@@ -17,7 +17,7 @@ struct inflate_codes_state {
     uInt len;                        // 4
     union {
         struct {
-            inflate_huft_2eb7c0 *tree;      // 8
+            inflate_huft *tree;      // 8
             uInt need;               // 0xc
         } code;
         uInt lit;
@@ -28,11 +28,11 @@ struct inflate_codes_state {
     } sub;
     Byte lbits;                      // 0x10
     Byte dbits;                      // 0x11
-    inflate_huft_2eb7c0 *ltree;             // 0x14
-    inflate_huft_2eb7c0 *dtree;             // 0x18
+    inflate_huft *ltree;             // 0x14
+    inflate_huft *dtree;             // 0x18
 };
 
-struct z_stream_2eb7c0 {
+struct z_stream {
     Bytef *next_in;                  // 0
     uInt avail_in;                   // 4
     uLong total_in;                  // 8
@@ -40,7 +40,7 @@ struct z_stream_2eb7c0 {
     char *msg;                       // 0x18
 };
 
-struct inflate_blocks_state_2eb7c0 {
+struct inflate_blocks_state {
     int mode;                        // 0
     inflate_codes_state *codes;      // 4
     char pad8[0x1c - 8];
@@ -54,8 +54,8 @@ struct inflate_blocks_state_2eb7c0 {
 };
 
 extern uInt DAT_004d2838[17];        // inflate_mask
-int __cdecl FUN_002ec780(uInt bl, uInt bd, inflate_huft_2eb7c0 *tl, inflate_huft_2eb7c0 *td, inflate_blocks_state_2eb7c0 *s, z_stream_2eb7c0 *z);
-int __cdecl FUN_002ec650(inflate_blocks_state_2eb7c0 *s, z_stream_2eb7c0 *z, int r);
+int __cdecl FUN_002ec780(uInt bl, uInt bd, inflate_huft *tl, inflate_huft *td, inflate_blocks_state *s, z_stream *z);
+int __cdecl FUN_002ec650(inflate_blocks_state *s, z_stream *z, int r);
 
 #define LOAD { p = z->next_in; n = z->avail_in; b = s->bitb; k = s->bitk; q = s->write; m = (uInt)(q < s->read ? s->read - q - 1 : s->end - q); }
 #define UPDATE { s->bitb = b; s->bitk = k; z->avail_in = n; z->total_in += p - z->next_in; z->next_in = p; s->write = q; }
@@ -67,10 +67,10 @@ int __cdecl FUN_002ec650(inflate_blocks_state_2eb7c0 *s, z_stream_2eb7c0 *z, int
 #define NEEDOUT { if (m == 0) { WRAP if (m == 0) { FLUSH WRAP if (m == 0) LEAVE } } r = 0; }
 #define OUTBYTE(a) { *q++ = (Byte)(a); m--; }
 
-int __cdecl FUN_002eb7c0(inflate_blocks_state_2eb7c0 *s, z_stream_2eb7c0 *z, int r)
+int __cdecl FUN_002eb7c0(inflate_blocks_state *s, z_stream *z, int r)
 {
     uInt j;
-    inflate_huft_2eb7c0 *t;
+    inflate_huft *t;
     uInt e;
     uLong b;
     uInt k;

@@ -15,53 +15,53 @@ struct Mbuffer {
     unsigned int buffsize;
 };
 
-struct TString_21b720 {
+struct TString {
     char pad0[0x10];
     char str[1];
 };
 
 struct Table;
 
-struct FuncState_21b720 {
+struct FuncState {
     char pad0[4];
     Table *h;
 };
 
-struct TValue_21b720 {
+struct TValue {
     int tt;
     int value;
 };
 
-struct SemInfo_21b720 {
-    TString_21b720 *ts;
+struct SemInfo {
+    TString *ts;
 };
 
-struct LexState_21b720 {
+struct LexState {
     int current;            // 0x00
     int linenumber;         // 0x04
     char pad08[0x1c - 8];
-    FuncState_21b720 *fs;          // 0x1c
+    FuncState *fs;          // 0x1c
     void *L;                // 0x20
     ZIO *z;                 // 0x24
     Mbuffer *buff;          // 0x28
-    TString_21b720 *source;        // 0x2c
+    TString *source;        // 0x2c
 };
 
 int __cdecl FUN_0021a550(ZIO *z);
 char *__cdecl FUN_0021add0(void *L, char *p, unsigned int oldsize, unsigned int newsize);
-void __cdecl FUN_0021afd0(LexState_21b720 *ls, const char *msg, int token);
+void __cdecl FUN_0021afd0(LexState *ls, const char *msg, int token);
 void __cdecl FUN_00216340(char *out, const char *source, unsigned int len);
 const char *__cdecl FUN_00216320(void *L, const char *fmt, ...);
 void __cdecl FUN_002152b0(void *L, int code);
-TString_21b720 *__cdecl FUN_00219430(void *L, const char *s, unsigned int len);
-TValue_21b720 *__cdecl FUN_0021a500(void *L, Table *t, TString_21b720 *key);
+TString *__cdecl FUN_00219430(void *L, const char *s, unsigned int len);
+TValue *__cdecl FUN_0021a500(void *L, Table *t, TString *key);
 
 // save_and_next with the lexer state in edi
 // equiv-conv: FUN_0021b1c0 edi
-void FUN_0021b1c0(LexState_21b720 *ls);
+void FUN_0021b1c0(LexState *ls);
 // inclinenumber with the lexer state in esi
 // equiv-conv: FUN_0021b0d0 esi
-void FUN_0021b0d0(LexState_21b720 *ls);
+void FUN_0021b0d0(LexState *ls);
 
 #define SAVE(c)                                                                           \
     do {                                                                                  \
@@ -86,7 +86,7 @@ void FUN_0021b0d0(LexState_21b720 *ls);
 
 // Lexer: read a quoted string up to the delimiter del, handling escapes; the lexer state arrives in ecx.
 // equiv-conv: FUN_0021b720 ecx stack stack
-void FUN_0021b720(LexState_21b720 *ls, int del, SemInfo_21b720 *seminfo)
+void FUN_0021b720(LexState *ls, int del, SemInfo *seminfo)
 {
     unsigned int cookie = DAT_004d9968;
     char buf[80];
@@ -151,8 +151,8 @@ void FUN_0021b720(LexState_21b720 *ls, int del, SemInfo_21b720 *seminfo)
     }
     FUN_0021b1c0(ls);
     void *L = ls->L;
-    TString_21b720 *ts = FUN_00219430(L, ls->buff->buffer + 1, ls->buff->n - 2);
-    TValue_21b720 *o = FUN_0021a500(L, ls->fs->h, ts);
+    TString *ts = FUN_00219430(L, ls->buff->buffer + 1, ls->buff->n - 2);
+    TValue *o = FUN_0021a500(L, ls->fs->h, ts);
     if (o->tt == 0) {
         o->value = 1;
         o->tt = 1;

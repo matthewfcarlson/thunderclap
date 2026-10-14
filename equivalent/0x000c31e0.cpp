@@ -16,33 +16,33 @@ extern "C" void __fastcall __security_check_cookie(unsigned int cookie);
 namespace pure3d { class CompositeDrawable; }
 namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
 
-struct Inner_c31e0 {
+struct Inner {
     virtual void a0(); virtual void a1(); virtual void a2(); virtual void a3(); virtual void a4(); virtual void a5(); virtual void a6(); virtual void a7(); virtual void a8(); virtual void a9(); virtual void a10(); virtual void a11(); virtual void a12(); virtual void a13(); virtual void a14(); virtual void a15();
     virtual void v16(int a);
     virtual void v17();
     virtual void v18(int a);
 };
 
-struct Loaded_c31e0 {
+struct Loaded {
     virtual void l0();
     char pad4[0x50 - 4];
-    Inner_c31e0 *f50;
+    Inner *f50;
 };
 
-struct Inventory_c31e0 {
+struct Inventory {
     virtual void i0();
     virtual void i1();
     virtual void i2();
-    virtual Loaded_c31e0 *find(void *caster, unsigned __int64 key);
+    virtual Loaded *find(void *caster, unsigned __int64 key);
 };
-extern Inventory_c31e0 *DAT_004dd9cc;
+extern Inventory *DAT_004dd9cc;
 
-struct Loc_c31e0 {
+struct Loc {
     const wchar_t *FUN_00088ea0(const char *key);
 };
 
 struct Lab {
-    void FUN_000f8500(const char *key, Loc_c31e0 *loc, int one);
+    void FUN_000f8500(const char *key, Loc *loc, int one);
 };
 
 class FEObject {
@@ -91,7 +91,7 @@ public:
     unsigned char b20;
 };
 
-struct Menu_c31e0 {
+struct Menu {
     const char *FUN_00092bc0(int i);
     int FUN_000932a0(int i);
     char FUN_00092860(int i);
@@ -102,7 +102,7 @@ struct Menu_c31e0 {
     void FUN_00093600(int i, char on);
 };
 
-struct Sound_c31e0 {
+struct Sound {
     int FUN_00090110();
     void FUN_000900a0(int v);
 };
@@ -111,31 +111,31 @@ struct Flagger {
     char FUN_000893c0();
 };
 
-struct Hook_c31e0 {
+struct Hook {
     void FUN_001b8af0();
 };
 
-struct Credits_c31e0 {
+struct Credits {
     virtual void c0();
     virtual void c1(const char *a, const char *b);
 };
 
-struct Dlg_c31e0 {
+struct Dlg {
     void FUN_000be230(const char *cls, const char *msg, const char *s3, const char *s4, const char *s5, int a, int b, int c);
     void FUN_000be310(const char *cls, const wchar_t *msg, const char *s3, const char *s4, const char *s5, int a, int b, int c);
 };
 
 FEObject *__cdecl FUN_000fc260(const char *name);
 void __cdecl FUN_000fc280(const char *s);
-Loc_c31e0 *__cdecl FUN_000fc1b0();
-Dlg_c31e0 *__cdecl FUN_000fc3d0();
+Loc *__cdecl FUN_000fc1b0();
+Dlg *__cdecl FUN_000fc3d0();
 int __cdecl FUN_000fb720(const wchar_t *s);
 void __cdecl FUN_000fb690(wchar_t *dst, const wchar_t *src, int n);
 void __cdecl FUN_000964a0(char *dst, int n, const char *fmt, int v);
 unsigned __int64 __cdecl FUN_0027b020(const char *s);
 extern "C" int strcmp(const char *a, const char *b);
 
-struct Frame_c31e0 {
+struct Frame {
     unsigned char pad0[3];
     unsigned char flag;              // E-0x14d
     int pad4;
@@ -148,18 +148,18 @@ struct Frame_c31e0 {
 #define DIALOG_OK(KEY) FUN_000fc3d0()->FUN_000be230("FEGenericDialog", KEY, "", "", "TBS_MENU_ITEM_OK", 2, 0, 0)
 #define DIALOG_YN(KEY) FUN_000fc3d0()->FUN_000be230("FEGenericDialog", KEY, "", "TBS_MENU_ITEM_YES", "TBS_MENU_ITEM_NO", 2, 0, 0)
 
-class Env_c31e0 {
+class Env {
 public:
     char pad0[0x10];
     int f10;
     char pad14[0x34 - 0x14];
     Flagger *f34;
     char pad38[0x40 - 0x38];
-    Credits_c31e0 *f40;
+    Credits *f40;
     char pad44[0x4c - 0x44];
-    Menu_c31e0 *f4c;
-    Sound_c31e0 *f50;
-    Hook_c31e0 *f54;
+    Menu *f4c;
+    Sound *f50;
+    Hook *f54;
     char pad58[0x1244 - 0x58];
     int tblBase;                     // 0x1244: int table indexed by id
     char pad1248[0x1874 - 0x1248];
@@ -184,9 +184,9 @@ public:
     void FUN_000c31e0(const char *name);
 };
 
-void Env_c31e0::FUN_000c31e0(const char *name)
+void Env::FUN_000c31e0(const char *name)
 {
-    Frame_c31e0 f;
+    Frame f;
     f.cookie = DAT_004d9968;
     TextSelector *ts = dynamic_cast<TextSelector *>(FUN_000fc260(name));
     ImageSelector *is = dynamic_cast<ImageSelector *>(FUN_000fc260(name));
@@ -238,12 +238,12 @@ void Env_c31e0::FUN_000c31e0(const char *name)
                     TextLabel *tl = dynamic_cast<TextLabel *>(FUN_000fc260("dycrypting_sequence_text"));
                     if (tl != 0)
                         tl->lab.FUN_000f8500("TBS_MENU_ITEM_DECRYPTING_SEQUENCE", FUN_000fc1b0(), 1);
-                    Inventory_c31e0 *inv = DAT_004dd9cc;
+                    Inventory *inv = DAT_004dd9cc;
                     unsigned __int64 key = FUN_0027b020("decryptingProgressBar");
                     new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>();
-                    Loaded_c31e0 *ld = inv->find(&f.caster, key);
+                    Loaded *ld = inv->find(&f.caster, key);
                     if (ld != 0) {
-                        Inner_c31e0 *in = ld->f50;
+                        Inner *in = ld->f50;
                         if (in != 0) {
                             in->v16(2);
                             in->v18(1);
@@ -270,7 +270,7 @@ void Env_c31e0::FUN_000c31e0(const char *name)
                     if (f54 == 0)
                         break;
                     f54->FUN_001b8af0();
-                    Credits_c31e0 *c = f40;
+                    Credits *c = f40;
                     f10 = 0xe;
                     c->c1("Credits", "Enter");
                     break;
@@ -326,7 +326,7 @@ void Env_c31e0::FUN_000c31e0(const char *name)
                 CUnlockableMove *m2 = dynamic_cast<CUnlockableMove *>(f4c->FUN_00092ad0(c));
                 if (m2 != 0 && !m2->FUN_00091f40()) {
                     FUN_000964a0(f.buf, 0x40, "TBS_UNLOCKABLE_MOVE_%d", c - 0x265);
-                    Loc_c31e0 *loc = FUN_000fc1b0();
+                    Loc *loc = FUN_000fc1b0();
                     int len = FUN_000fb720(loc->FUN_00088ea0("TBS_NEED_TO_BUY"));
                     wchar_t *dst2 = f.wide + len;
                     FUN_000fb690(f.wide, loc->FUN_00088ea0("TBS_NEED_TO_BUY"), len + 1);

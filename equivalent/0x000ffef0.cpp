@@ -3,22 +3,22 @@
 typedef unsigned __int64 u64;
 extern "C" double sqrt(double);
 
-struct V3_ffef0 {
+struct V3 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-struct Src_ffef0 {
-    void FUN_00059a50(V3_ffef0 *out);
+struct Src {
+    void FUN_00059a50(V3 *out);
 };
 
-struct Ev_ffef0 {
+struct Ev {
     char pad0[8];
     u64 id;                        // 8
 };
 
 struct Sub231 {
-    Ev_ffef0 *ev;
+    Ev *ev;
     char FUN_00231ee0();
 };
 
@@ -27,10 +27,10 @@ struct Sec {
     int f14;
 };
 
-struct Fighter_ffef0 {
+struct Fighter {
     char pad0[8];
     u64 id;                        // 8
-    Src_ffef0 *f10;                      // 0x10
+    Src *f10;                      // 0x10
     char pad14[0xdc - 0x14];
     Sub231 sub;                    // 0xdc
     char pade0[0x11c - 0xe0];
@@ -40,22 +40,22 @@ struct Fighter_ffef0 {
     float f1cac;
     int f1cb0;
     int f1cb4;
-    void FUN_00035550(V3_ffef0 *out);
+    void FUN_00035550(V3 *out);
 };
 
-struct Mid_ffef0 {
+struct Mid {
     char pad0[8];
-    Fighter_ffef0 *f08;
+    Fighter *f08;
     int f0c;
     char pad10[0x40 - 0x10];
     float f40, f44, f48;
 };
 
-struct Ctrl_ffef0 {
+struct Ctrl {
     virtual void c0(); virtual void c1(); virtual void c2(); virtual void c3(); virtual void c4(); virtual void c5();
-    virtual Fighter_ffef0 *v6();
+    virtual Fighter *v6();
     char pad4[0x60 - 0x4];
-    Mid_ffef0 *f60;
+    Mid *f60;
     char pad64[0x9c - 0x64];
     unsigned char b9c;
     char pad9d;
@@ -64,46 +64,46 @@ struct Ctrl_ffef0 {
     int fa8, fac, fb0, fb4, fb8, fbc, fc0, fc4;
 };
 
-struct Reg_ffef0 {
+struct Reg {
     char pad0[0xc];
     int f0c;
-    char FUN_000242d0(Fighter_ffef0 *t);
-    char FUN_000242f0(Fighter_ffef0 *t);
-    Fighter_ffef0 *FUN_00024190(int i);
+    char FUN_000242d0(Fighter *t);
+    char FUN_000242f0(Fighter *t);
+    Fighter *FUN_00024190(int i);
 };
 
-struct Env_ffef0 {
+struct Env {
     char pad0[0x20];
-    Reg_ffef0 *f20;
+    Reg *f20;
 };
 
-extern V3_ffef0 DAT_004a1c24;
+extern V3 DAT_004a1c24;
 extern u64 DAT_004dc0e0;
 u64 __cdecl FUN_0027b020(const char *s);
 
 #define NAMEHIT(var, str) if (!var) { u64 k_ = ev->id; var = (k_ == FUN_0027b020(str)); }
 
-struct Frame_ffef0 {
-    Ctrl_ffef0 *c2;                      // S+0x10
+struct Frame {
+    Ctrl *c2;                      // S+0x10
     int count;                     // 0x14
-    V3_ffef0 v;                          // 0x18
+    V3 v;                          // 0x18
 };
 
 class CHand2HandAgent {
 public:
     virtual void a0(); virtual void a1(); virtual void a2(); virtual void a3(); virtual void a4(); virtual void a5(); virtual void a6(); virtual void a7(); virtual void a8(); virtual void a9(); virtual void a10(); virtual void a11(); virtual void a12(); virtual void a13();
-    virtual void vfunc_14(Env_ffef0 *env, int unused);
+    virtual void vfunc_14(Env *env, int unused);
     char pad04[0x58 - 0x4];
-    Ctrl_ffef0 *f58;
+    Ctrl *f58;
     char pad5c[0x70 - 0x5c];
     float f70;
     char pad74[0x88 - 0x74];
-    V3_ffef0 f88;
-    V3_ffef0 f94;
-    Mid_ffef0 *fa0;
-    V3_ffef0 fa4;
-    V3_ffef0 fb0;
-    V3_ffef0 fbc;
+    V3 f88;
+    V3 f94;
+    Mid *fa0;
+    V3 fa4;
+    V3 fb0;
+    V3 fbc;
     float fc8;
     unsigned char bcc, bcd, bce, bcf, bd0, bd1, bd2, bd3;
     int fd4, fd8, fdc;
@@ -116,23 +116,23 @@ public:
     unsigned char b12c;
     char pad12d[3];
     float f130;
-    Ev_ffef0 *f134;
+    Ev *f134;
 };
 
-void CHand2HandAgent::vfunc_14(Env_ffef0 *env, int unused)
+void CHand2HandAgent::vfunc_14(Env *env, int unused)
 {
-    Frame_ffef0 f;
-    Fighter_ffef0 *P = f58->v6();
+    Frame f;
+    Fighter *P = f58->v6();
     P->f10->FUN_00059a50(&f88);
     P->FUN_00035550(&f94);
     f94.y = 0.0f;
     f94.FUN_0022d110();
-    Ctrl_ffef0 *c2 = f58;
+    Ctrl *c2 = f58;
     f.c2 = c2;
-    Mid_ffef0 *q = c2->f60;
+    Mid *q = c2->f60;
     fa0 = q;
     if (q->f0c == 1) {
-        Fighter_ffef0 *t = q->f08;
+        Fighter *t = q->f08;
         t->f10->FUN_00059a50(&fa4);
         t->FUN_00035550(&fb0);
         fb0.y = 0.0f;
@@ -165,7 +165,7 @@ void CHand2HandAgent::vfunc_14(Env_ffef0 *env, int unused)
     bcd = 0;
     bce = 0;
     if (bcf != 0) {
-        Ev_ffef0 *ev = fa0->f08->sub.ev;
+        Ev *ev = fa0->f08->sub.ev;
         if (ev != 0) {
             bool a = false;
             NAMEHIT(a, "idle");
@@ -221,7 +221,7 @@ void CHand2HandAgent::vfunc_14(Env_ffef0 *env, int unused)
     if (f.count > 0) {
         int i;
         for (i = 0; i < f.count; i++) {
-            Fighter_ffef0 *it = env->f20->FUN_00024190(i);
+            Fighter *it = env->f20->FUN_00024190(i);
             if (it == 0)
                 continue;
             if (it->id == DAT_004dc0e0)

@@ -4,11 +4,11 @@ extern "C" double atan2(double y, double x);
 
 struct V3 {
     float x, y, z;
-    void FUN_0022d260(const struct Mat4_c8850 *m);
+    void FUN_0022d260(const struct Mat4 *m);
     void FUN_0022d180();
 };
 
-struct Mat4_c8850 {
+struct Mat4 {
     float m[16];
     void FUN_0022b980();
     void FUN_0022bab0(float angle);
@@ -17,12 +17,12 @@ struct Mat4_c8850 {
 
 struct V2 { float x, y; };
 
-struct Cam_c8850 {
+struct Cam {
     V3 *FUN_001c39c0();
 };
-Cam_c8850 *FUN_001c3d90();
+Cam *FUN_001c3d90();
 
-struct VBuf_c8850 {
+struct VBuf {
     char pad0[8];
     V3 *pos;
     char padc[4];
@@ -31,7 +31,7 @@ struct VBuf_c8850 {
     void FUN_0008ef00();
 };
 
-struct Gfx_c8850 {
+struct Gfx {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
@@ -40,23 +40,23 @@ struct Gfx_c8850 {
     virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
     virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
     virtual void v28(); virtual void v29();
-    virtual VBuf_c8850 *v30(void *a, int b, int c, int d, int e);
-    virtual void v31(VBuf_c8850 *vb);
+    virtual VBuf *v30(void *a, int b, int c, int d, int e);
+    virtual void v31(VBuf *vb);
 };
-extern Gfx_c8850 *DAT_0052c2a8;
+extern Gfx *DAT_0052c2a8;
 
-struct Dev_c8850 {
+struct Dev {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
     virtual void v12(); virtual void v13(); virtual void v14();
     virtual void v15(int a);
     virtual void v16(int a);
-    virtual void v17(int a, Mat4_c8850 *m);
+    virtual void v17(int a, Mat4 *m);
 };
 
 struct Render {
-    Dev_c8850 *dev;
+    Dev *dev;
     void FUN_00293d00(const V3 *v);
     void FUN_00293bf0(float a);
     void FUN_00293da0(float a, float b, float c);
@@ -64,34 +64,34 @@ struct Render {
 };
 extern Render *DAT_0052c2ac;
 
-struct Handler_c8850 {
+struct Handler {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(int a, int b);
 };
 
-struct Sink_c8850 {
+struct Sink {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6();
     virtual void v7(int a, int b);
 };
 
-struct SinkHolder_c8850 {
+struct SinkHolder {
     char pad0[0x10];
-    Sink_c8850 *sink;
+    Sink *sink;
 };
 
 struct Node {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6();
-    virtual SinkHolder_c8850 *v7();
+    virtual SinkHolder *v7();
 };
 
 struct NodeOwner {
     Node *node;
 };
 
-struct Item_c8850 {
+struct Item {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
     virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
     virtual void v8(int a, int b);
@@ -99,7 +99,7 @@ struct Item_c8850 {
     Node **f48;
 };
 
-struct Shot_c8850 {
+struct Shot {
     int id;                 // 0
     char pad4[0xc];
     float x;                // 0x10
@@ -112,7 +112,7 @@ struct Shot_c8850 {
     char pad3e[2];
 };
 
-struct Src_c8850 {
+struct Src {
     char pad0[0x10];
     void *f10;
 };
@@ -126,13 +126,13 @@ extern int DAT_0049fbf4[];
 
 #define EMIT(PV, UU, UV) { V3 *pp_ = vb->pos; *pp_ = (PV); unsigned int *cp_ = vb->color; *cp_ = color; V2 *up_ = vb->uv; up_->x = (UU); up_->y = (UV); vb->FUN_0008ef00(); }
 
-class Marker_c8850 {
+class Marker {
 public:
     char pad0[0x10];
     void *f10;
-    Src_c8850 *f14;
-    Handler_c8850 *f18;
-    Handler_c8850 *f1c;
+    Src *f14;
+    Handler *f18;
+    Handler *f1c;
     char pad20[0x38 - 0x20];
     float f38;
     float f3c;
@@ -143,30 +143,30 @@ public:
     float f214;
     char pad218[0x228 - 0x218];
     int f228;
-    Item_c8850 *tbl[11];
-    Shot_c8850 shots[0x80];
+    Item *tbl[11];
+    Shot shots[0x80];
 
     void FUN_000c8850();
 };
 
-struct Frame_c8850 {
+struct Frame {
     V3 base;                // x0,y0,z0
     V3 p;
     V3 q;
 };
 
-void Marker_c8850::FUN_000c8850()
+void Marker::FUN_000c8850()
 {
     if (f10 == 0)
         return;
     V3 *dir = FUN_001c3d90()->FUN_001c39c0();
     V3 d0 = *dir;
     float ang = (float)atan2(d0.z, d0.x) + 4.712389f;
-    Mat4_c8850 m1;
+    Mat4 m1;
     m1.FUN_0022b980();
     m1.FUN_0022bab0(ang);
     unsigned int color = ((unsigned int)f228 << 24) | 0xffffff;
-    VBuf_c8850 *vb = DAT_0052c2a8->v30(f14->f10, 0, 0x2021, 0x54, 0);
+    VBuf *vb = DAT_0052c2a8->v30(f14->f10, 0, 0x2021, 0x54, 0);
 
     volatile float tenth = DAT_004de600 * DAT_0049fbd8;
     V3 base;
@@ -244,7 +244,7 @@ void Marker_c8850::FUN_000c8850()
     d.z = 0.0f;
     for (const int *kp = DAT_0049fbf4; *kp != -1; kp++) {
         for (int i = 0; i < 0x80; i++) {
-            Shot_c8850 *sh = &shots[i];
+            Shot *sh = &shots[i];
             if (sh->id != *kp)
                 continue;
             float inv = 1.0f / f210;
@@ -256,7 +256,7 @@ void Marker_c8850::FUN_000c8850()
                     continue;
                 d.FUN_0022d180();
             }
-            Mat4_c8850 m2;
+            Mat4 m2;
             m2.FUN_0022b980();
             m2.FUN_0022bab0(rot);
             d.FUN_0022d260(&m2);
@@ -270,14 +270,14 @@ void Marker_c8850::FUN_000c8850()
             w.x = wx;
             w.y = wy;
             w.z = wz;
-            Mat4_c8850 m3;
+            Mat4 m3;
             m3.FUN_0022b980();
             if (sh->id == 0) {
                 V3 v = sh->w;
                 v.FUN_0022d260(&m2);
                 m3.FUN_0022cd50(&v);
             }
-            Item_c8850 *it = tbl[sh->id];
+            Item *it = tbl[sh->id];
             if (it == 0)
                 continue;
             DAT_0052c2ac->dev->v15(0);

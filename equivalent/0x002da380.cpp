@@ -8,7 +8,7 @@ typedef png_uint_16 **png_uint_16pp;
 
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
-struct png_color_16_2da380 {
+struct png_color_16 {
     png_byte index;
     png_uint_16 red;
     png_uint_16 green;
@@ -16,7 +16,7 @@ struct png_color_16_2da380 {
     png_uint_16 gray;
 };
 
-struct png_row_info_2da380 {
+struct png_row_info {
     png_uint_32 width;
     png_uint_32 rowbytes;
     png_byte color_type;
@@ -48,8 +48,8 @@ struct png_row_info_2da380 {
         (composite) = (png_uint_16)((temp + (temp >> 16)) >> 16); \
     }
 
-void __cdecl FUN_002da380(png_row_info_2da380 *row_info, png_bytep row, png_color_16_2da380 *trans_values,
-                          png_color_16_2da380 *background, png_color_16_2da380 *background_1, png_bytep gamma_table,
+void __cdecl FUN_002da380(png_row_info *row_info, png_bytep row, png_color_16 *trans_values,
+                          png_color_16 *background, png_color_16 *background_1, png_bytep gamma_table,
                           png_bytep gamma_from_1, png_bytep gamma_to_1, png_uint_16pp gamma_16,
                           png_uint_16pp gamma_16_from_1, png_uint_16pp gamma_16_to_1, int gamma_shift)
 {

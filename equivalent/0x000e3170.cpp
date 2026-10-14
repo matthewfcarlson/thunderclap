@@ -9,7 +9,7 @@ public:
     virtual char v4(int kind, int snd, int from, int to);
 };
 
-class Obj4_e3170 {
+class Obj4 {
 public:
     virtual void w0();
     virtual void w1();
@@ -62,17 +62,17 @@ public:
     virtual void v48(int n);
 };
 
-struct Obj8_e3170 {
+struct Obj8 {
     char pad0[4];
-    Obj4_e3170 *f4;
+    Obj4 *f4;
 };
 
-struct Obj14_e3170 {
+struct Obj14 {
     char pad0[8];
-    Obj8_e3170 *f8;
+    Obj8 *f8;
 };
 
-struct Entry_e3170 {
+struct Entry {
     void *items;
     int f4;
     int count;
@@ -96,7 +96,7 @@ public:
     virtual void f11();
     virtual char vfunc_12(unsigned int action, int a2);
     char pad04[0x14 - 4];
-    Obj14_e3170 *f14;
+    Obj14 *f14;
     char pad18[0xa8 - 0x18];
     int snd;
     char padac[0x118 - 0xac];
@@ -104,7 +104,7 @@ public:
     char pad140[0x154 - 0x140];
     int sel;
     char pad158[0x17c - 0x158];
-    Entry_e3170 entries[127];
+    Entry entries[127];
     char pad2[0x14];
     int total;
     int mode;
@@ -136,7 +136,7 @@ char TextSelector::vfunc_12(unsigned int action, int a2)
     switch (action) {
     case 2:
         if (mode == 2) {
-            Entry_e3170 *e = &entries[sel];
+            Entry *e = &entries[sel];
             int count = e->count;
             if (count > 1) {
                 int cur = e->cur;
@@ -169,7 +169,7 @@ char TextSelector::vfunc_12(unsigned int action, int a2)
         }
     case 6:
         if (mode == 2) {
-            Entry_e3170 *e = &entries[sel];
+            Entry *e = &entries[sel];
             if (e->count > 1) {
                 int cur = e->cur;
                 if (cur > 0) {

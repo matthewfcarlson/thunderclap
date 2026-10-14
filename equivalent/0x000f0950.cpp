@@ -4,7 +4,7 @@
 extern int __cdecl FUN_0034483c();
 extern "C" int __cdecl memcmp(const void *a, const void *b, unsigned n);
 
-class Args_f0950 {
+class Args {
 public:
     virtual void v0();
     virtual int GetType();
@@ -95,7 +95,7 @@ public:
     void FUN_000e55e0(Obj_f0950 *o);
 };
 
-class Dummy_f0950 {};
+class Dummy {};
 
 class FEThingsBase {
 public:
@@ -103,7 +103,7 @@ public:
     public:
         virtual void vfunc_0(int a, int b);
         FEThingsBase *mObj;
-        void (FEThingsBase::*mFn)(Param *, int, Entity *, Args_f0950 *);
+        void (FEThingsBase::*mFn)(Param *, int, Entity *, Args *);
         int mC;
         Entity *mD;
     };
@@ -142,21 +142,21 @@ public:
     virtual void v31();
     virtual void v32();
     virtual void v33();
-    virtual char v34(Param *p, Args_f0950 *a, ParseFunctor *f);
+    virtual char v34(Param *p, Args *a, ParseFunctor *f);
     virtual void v35();
     virtual void v36();
-    virtual char v37(Param *p, Entity *d, Args_f0950 *a);
+    virtual char v37(Param *p, Entity *d, Args *a);
     virtual void v38();
-    virtual char v39(Param *p, char *q, Args_f0950 *a);
+    virtual char v39(Param *p, char *q, Args *a);
     char pad[0x2105 - 4];
     char buf2105[1];
 
     Obj_f0950 *FUN_000efca0(char *s, int v);
     void FUN_000e8070(Param *p, int z, Obj_f0950 *o, int v);
-    void FUN_000f0950(Param *param, int c, Entity *d, Args_f0950 *args);
+    void FUN_000f0950(Param *param, int c, Entity *d, Args *args);
 };
 
-void FEThingsBase::FUN_000f0950(Param *param, int c, Entity *d, Args_f0950 *args)
+void FEThingsBase::FUN_000f0950(Param *param, int c, Entity *d, Args *args)
 {
     int type = args->GetType();
     if (type == 0x16082730) {

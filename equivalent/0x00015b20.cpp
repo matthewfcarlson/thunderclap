@@ -15,12 +15,12 @@ struct Matrix {
     void FUN_0022ca90(Matrix* a, Matrix* b);
 };
 
-struct Key_15b20 {
+struct Key {
     unsigned int lo;
     unsigned int hi;
 };
 
-struct Fighter_15b20 {
+struct Fighter {
     char pad00[0x328];
     void* f328;
     char pad32c[0x20a8 - 0x32c];
@@ -30,32 +30,32 @@ struct Fighter_15b20 {
     void FUN_0003acf0(int a, void* target, unsigned int joint, int d, int e, Matrix* m);
 };
 
-struct JointFinder_15b20 {
+struct JointFinder {
     unsigned int FUN_0027b200(unsigned int lo, unsigned int hi);
 };
 
 struct Skeleton {
     char pad00[8];
-    JointFinder_15b20* finder;
+    JointFinder* finder;
     char pad0c[0x1c - 0xc];
     char* table;
 };
 
-struct Rig_15b20 {
+struct Rig {
     char pad00[0x64];
     Skeleton* skel;
 };
 
 struct Anchor_15b20 {
-    Fighter_15b20* FUN_00059a30();
-    Rig_15b20* FUN_00059a40();
+    Fighter* FUN_00059a30();
+    Rig* FUN_00059a40();
 };
 
 struct Owner_15b20 {
     Anchor_15b20* FUN_000592a0();
 };
 
-struct Link_15b20 {
+struct Link {
     void* link;
     char pad04[8];
     int kind;
@@ -83,13 +83,13 @@ struct Target {
     Handle_15b20* FUN_001d6c90();
     void FUN_001d6ca0(int v);
     bool FUN_001d7300();
-    void thunk_FUN_0027d410(const Key_15b20* k);
+    void thunk_FUN_0027d410(const Key* k);
 };
 
-struct Attach_15b20 {
+struct Attach {
     char pad00[0x14];
     int f14;
-    Key_15b20 joint;
+    Key joint;
     int f20;
     int f24;
     unsigned char hasLocal;
@@ -98,7 +98,7 @@ struct Attach_15b20 {
     V3_15b20 localPos;
     float dist;
     char pad48[0x58 - 0x48];
-    Key_15b20 key;
+    Key key;
 };
 
 struct Holder_15b20 {
@@ -113,7 +113,7 @@ struct Frame_15b20 {
     float dist;
     Target* target;
     V3_15b20 q;
-    Fighter_15b20* fighter;
+    Fighter* fighter;
     int p20;
     int p24;
     Matrix m;
@@ -132,7 +132,7 @@ public:
     virtual void vfunc_4();
     char pad04[0x1c - 4];
     Owner_15b20* owner;
-    Attach_15b20* attach;
+    Attach* attach;
     Holder_15b20* holder;
 };
 
@@ -169,7 +169,7 @@ void CSmartPropAttachAction::vfunc_4()
     unsigned int joint = 0xffff;
     Anchor_15b20* anchor = owner->FUN_000592a0();
     f.fighter = anchor->FUN_00059a30();
-    Rig_15b20* rig = anchor->FUN_00059a40();
+    Rig* rig = anchor->FUN_00059a40();
     Skeleton* skel = 0;
     if (rig != 0) {
         skel = rig->skel;
@@ -209,12 +209,12 @@ void CSmartPropAttachAction::vfunc_4()
             }
         }
     }
-    Fighter_15b20* fighter = f.fighter;
+    Fighter* fighter = f.fighter;
     fighter->FUN_0003acf0(attach->f14, f.target, joint, f.p20, f.p24, &f.m);
     if (fighter->f20a8 >= 0 && fighter->f328 == (void*)holder)
         fighter->FUN_000393c0();
-    Attach_15b20* a = attach;
-    const Key_15b20* k = &a->key;
+    Attach* a = attach;
+    const Key* k = &a->key;
     if (k != 0 && (k->lo | k->hi) != 0)
         f.target->thunk_FUN_0027d410(k);
 }

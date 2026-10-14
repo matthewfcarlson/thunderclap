@@ -5,7 +5,7 @@ extern unsigned DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned);
 extern unsigned char DAT_004dd6f0, DAT_004dd8d0;
 extern char DAT_004dd890[64];
-struct Service_873a0 {
+struct Service {
 #define V(n) virtual void v##n();
 V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
 V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
@@ -18,15 +18,15 @@ V(70) V(71) V(72) V(73) V(74) V(75) V(76) V(77) V(78) V(79)
 V(80) V(81) V(82) V(83) V(84) V(85) V(86) V(87) V(88) V(89) V(90) V(91)
 #undef V
 };
-extern Service_873a0 *DAT_0052c2a8;
-struct State_873a0 { unsigned current, previous; };
+extern Service *DAT_0052c2a8;
+struct State { unsigned current, previous; };
 struct GameData { char pad0[16]; unsigned a,b,c,d; char pad1[24]; unsigned mode, extra; char pad2[8]; unsigned char active; };
-struct Subsystem_873a0 { void FUN_0008db60(int); void *FUN_000b4cf0(const char*); void FUN_00093c40(const char*); void FUN_00089810(const char*); void FUN_000895e0(void*); void FUN_00089300(const char*); void FUN_001ec3d0(); void FUN_000afe80(); void FUN_001eb4e0(); void FUN_001eb4d0(); void FUN_001b83c0(); };
-struct Main_873a0 {
-unsigned unknown; State_873a0 *state; GameData *data; char pad[12]; Subsystem_873a0 *s18,*s1c,*s20; char pad2[12]; Subsystem_873a0 *s30,*s34,*s38,*s3c;
+struct Subsystem { void FUN_0008db60(int); void *FUN_000b4cf0(const char*); void FUN_00093c40(const char*); void FUN_00089810(const char*); void FUN_000895e0(void*); void FUN_00089300(const char*); void FUN_001ec3d0(); void FUN_000afe80(); void FUN_001eb4e0(); void FUN_001eb4d0(); void FUN_001b83c0(); };
+struct Main {
+unsigned unknown; State *state; GameData *data; char pad[12]; Subsystem *s18,*s1c,*s20; char pad2[12]; Subsystem *s30,*s34,*s38,*s3c;
 void FUN_000865d0(); void FUN_00086630(); void FUN_00086790(); void FUN_000872a0(); void update();
 };
-void Main_873a0::update() {
+void Main::update() {
 unsigned cookie=DAT_004d9968;
 char text[9][64];
 while(state->current != state->previous) {

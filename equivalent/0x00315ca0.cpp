@@ -3,12 +3,12 @@
 // equiv-map: ?thunk_FUN_002fb860@Body@@QAEXPAUVec3@@H@Z = 0x002fb940
 extern "C" double __cdecl sqrt(double);
 
-struct Vec3_315ca0 {
+struct Vec3 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-union FloatBits_315ca0 {
+union FloatBits {
     float f;
     unsigned int u;
 };
@@ -19,13 +19,13 @@ public:
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
-    virtual Vec3_315ca0 *vfunc_4();
+    virtual Vec3 *vfunc_4();
     char pad04[0x44 - 4];
-    Vec3_315ca0 n;                          // 0x44
+    Vec3 n;                          // 0x44
     float f50;                       // 0x50
     float f54;                       // 0x54
     char b58;                        // 0x58
-    void thunk_FUN_002fb860(Vec3_315ca0 *out, int i);
+    void thunk_FUN_002fb860(Vec3 *out, int i);
 };
 
 float __cdecl FUN_00083d90(float *v);
@@ -36,18 +36,18 @@ static double Reciprocal(float r, float f54)
     return -1.0f / (r + f54);
 }
 
-class Resolver_315ca0 {
+class Resolver {
 public:
     char pad00[0x0c];
     float threshold;                 // 0x0c
     char pad10[4];
-    Vec3_315ca0 offset;                     // 0x14
-    Vec3_315ca0 dir;                        // 0x20
-    void FUN_00314be0(Body *a, Vec3_315ca0 *pa, Body *b, Vec3_315ca0 *pb, float depth, Vec3_315ca0 *dir);
+    Vec3 offset;                     // 0x14
+    Vec3 dir;                        // 0x20
+    void FUN_00314be0(Body *a, Vec3 *pa, Body *b, Vec3 *pb, float depth, Vec3 *dir);
     void FUN_00315ca0(Body *a1, Body *a2);
 };
 
-void Resolver_315ca0::FUN_00315ca0(Body *a1, Body *a2)
+void Resolver::FUN_00315ca0(Body *a1, Body *a2)
 {
     float skip;
     if (a2->b58)
@@ -56,15 +56,15 @@ void Resolver_315ca0::FUN_00315ca0(Body *a1, Body *a2)
         skip = a2->f54;
 
     for (int i = 0; i < 4; i++) {
-        Vec3_315ca0 v;
-        Vec3_315ca0 c;
-        Vec3_315ca0 w;
+        Vec3 v;
+        Vec3 c;
+        Vec3 w;
         struct {
             float t;
             float r;
         } tr;
-        FloatBits_315ca0 ad;
-        FloatBits_315ca0 at;
+        FloatBits ad;
+        FloatBits at;
         a1->thunk_FUN_002fb860(&v, i);
 
         float dot = v.z * offset.z + v.y * offset.y + v.x * offset.x;
@@ -111,7 +111,7 @@ void Resolver_315ca0::FUN_00315ca0(Body *a1, Body *a2)
             tr.r = dir.FUN_0022d110() - a2->f54;
             if (!(tr.r <= threshold))
                 continue;
-            Vec3_315ca0 *p = a1->vfunc_4();
+            Vec3 *p = a1->vfunc_4();
             v.x = v.x + p->x;
             v.y = v.y + p->y;
             v.z = v.z + p->z;
@@ -122,7 +122,7 @@ void Resolver_315ca0::FUN_00315ca0(Body *a1, Body *a2)
             c.y = yp + v.y;
             c.z = zp + v.z;
         } else {
-            Vec3_315ca0 *p = a1->vfunc_4();
+            Vec3 *p = a1->vfunc_4();
             v.x = v.x + p->x;
             v.y = v.y + p->y;
             v.z = v.z + p->z;

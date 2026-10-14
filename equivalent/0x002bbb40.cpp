@@ -4,11 +4,11 @@ extern "C" void __fastcall FUN_00011090(void *p);
 extern "C" void __fastcall FUN_000c7920(void *p);
 void __stdcall FUN_00011520(void *p, unsigned int size, int count, void(__fastcall *ctor)(void *));
 
-struct Rng_2bbb40 {
-    Rng_2bbb40 *FUN_0022aba0(int seed);
+struct Rng {
+    Rng *FUN_0022aba0(int seed);
     float FUN_00078780();
 };
-extern Rng_2bbb40 DAT_00554bc4;
+extern Rng DAT_00554bc4;
 extern unsigned char DAT_00554bcc;
 
 #define ENSURE_RNG                      \
@@ -17,7 +17,7 @@ extern unsigned char DAT_00554bcc;
         DAT_00554bc4.FUN_0022aba0(0);     \
     }
 
-struct Quad_2bbb40 {
+struct Quad {
     char pad00[8];
     unsigned int *pos;
     char pad0c[4];
@@ -26,12 +26,12 @@ struct Quad_2bbb40 {
     void FUN_0008ef00();
 };
 
-struct Mat_2bbb40 {
+struct Mat {
     char d[0x40];
     void FUN_0022ca90(const void *t, int a);
 };
 
-class Emitter_2bbb40 {
+class Emitter {
 public:
     virtual void v0();
     virtual void v1();
@@ -39,7 +39,7 @@ public:
     virtual void v3();
     virtual void v4();
     virtual void v5();
-    virtual void v6(unsigned int *a, unsigned int *b, Mat_2bbb40 *m, unsigned int c);
+    virtual void v6(unsigned int *a, unsigned int *b, Mat *m, unsigned int c);
     char pad04[0x34];
     unsigned char on;
     unsigned char pad39[3];
@@ -52,14 +52,14 @@ public:
     float dv;
     unsigned int c0;
     unsigned int c4;
-    void FUN_002b8f60(void *verts, Mat_2bbb40 *m, unsigned int a4, unsigned int a3, unsigned int s);
-    void FUN_002b90e0(void *verts, Mat_2bbb40 *m, unsigned int a4, unsigned int a3, unsigned int s);
-    void FUN_002b9230(void *verts, Mat_2bbb40 *m, unsigned int a4, unsigned int a3, unsigned int s);
-    void FUN_002b9310(void *verts, Mat_2bbb40 *m, unsigned int a4, unsigned int a3, unsigned int s);
-    void FUN_002b98d0(void *verts, Mat_2bbb40 *m, unsigned int a4, unsigned int a3, unsigned int s);
-    void FUN_002b9ac0(void *verts, Mat_2bbb40 *m, unsigned int a4, unsigned int a3, unsigned int s);
+    void FUN_002b8f60(void *verts, Mat *m, unsigned int a4, unsigned int a3, unsigned int s);
+    void FUN_002b90e0(void *verts, Mat *m, unsigned int a4, unsigned int a3, unsigned int s);
+    void FUN_002b9230(void *verts, Mat *m, unsigned int a4, unsigned int a3, unsigned int s);
+    void FUN_002b9310(void *verts, Mat *m, unsigned int a4, unsigned int a3, unsigned int s);
+    void FUN_002b98d0(void *verts, Mat *m, unsigned int a4, unsigned int a3, unsigned int s);
+    void FUN_002b9ac0(void *verts, Mat *m, unsigned int a4, unsigned int a3, unsigned int s);
     void FUN_002b93f0(float *a, unsigned int *b, unsigned int c, int d);
-    void FUN_002bbb40(Quad_2bbb40 *q, int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6);
+    void FUN_002bbb40(Quad *q, int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6);
 };
 
 #define EmitVert(mq, mc, muv, mvert)                                 \
@@ -84,23 +84,23 @@ public:
         (mq)->FUN_0008ef00();      \
     } while (0)
 
-union FI_2bbb40 {
+union FI {
     float f;
     unsigned int u;
 };
 
-struct Frame_2bbb40 {
-    FI_2bbb40 tmp0c;
-    FI_2bbb40 s10;
-    FI_2bbb40 s14;
+struct Frame {
+    FI tmp0c;
+    FI s10;
+    FI s14;
     float uv[8];
     float vert[12];
-    Mat_2bbb40 mat;
+    Mat mat;
 };
 
-void Emitter_2bbb40::FUN_002bbb40(Quad_2bbb40 *q, int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6)
+void Emitter::FUN_002bbb40(Quad *q, int a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6)
 {
-    Frame_2bbb40 f;
+    Frame f;
     f.mat.FUN_0022ca90(xform, a2);
     f.s10.u = a6;
     f.s14.u = a5;
@@ -179,7 +179,7 @@ void Emitter_2bbb40::FUN_002bbb40(Quad_2bbb40 *q, int a2, unsigned int a3, unsig
             c |= (unsigned int)(int)((float)(int)f.tmp0c.u * f.s14.f) & 0xff;
             col = c;
         }
-        Quad_2bbb40 *b = q;
+        Quad *b = q;
         EmitVert(b, col, &f.uv[2], &f.vert[3]);
         EmitVert(b, col, &f.uv[0], &f.vert[0]);
         EmitVert(b, col, &f.uv[4], &f.vert[6]);
@@ -187,7 +187,7 @@ void Emitter_2bbb40::FUN_002bbb40(Quad_2bbb40 *q, int a2, unsigned int a3, unsig
         EmitVert(b, col, &f.uv[0], &f.vert[0]);
         EmitVert(b, col, &f.uv[6], &f.vert[9]);
     } else {
-        Quad_2bbb40 *b = q;
+        Quad *b = q;
         EmitZero(b);
         EmitZero(b);
         EmitZero(b);

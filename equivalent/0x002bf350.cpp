@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 18/18)
 // FUN_002bf350 @ 0x002bf350
-class KeyTable_2bf350 {
+class KeyTable {
 public:
     char pad00[0x30];
     int count;               // 0x30
@@ -9,7 +9,7 @@ public:
 };
 
 // Binary search of the entry with the given key; -1 when absent.
-int KeyTable_2bf350::FUN_002bf350(unsigned short key) {
+int KeyTable::FUN_002bf350(unsigned short key) {
     char *base = entries;
     int hi = count - 1;
     int lo = 0;

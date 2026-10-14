@@ -15,7 +15,7 @@ struct Reader {
     void FUN_00266be0();
 };
 
-struct NameField_290bf0 {
+struct NameField {
     unsigned int lo, hi;
     void FUN_0027b040(const char *s);
     void FUN_0028fe80(const char *s);
@@ -39,7 +39,7 @@ struct DynamicCaster {
 }
 }
 
-struct RefObj_290bf0 {
+struct RefObj {
     virtual void v0();
     virtual void v1();
 };
@@ -52,7 +52,7 @@ struct ResObj {
     unsigned int idHi;
 };
 
-struct Inventory_290bf0 {
+struct Inventory {
     virtual void v0();
     virtual void v1();
     virtual void v2();
@@ -60,11 +60,11 @@ struct Inventory_290bf0 {
 };
 
 struct Rec10a {
-    NameField_290bf0 name;
+    NameField name;
     char b8;
 };
-struct Rec20_290bf0 {
-    NameField_290bf0 name;
+struct Rec20 {
+    NameField name;
     char b8;
     char pad9[3];
     int fc;
@@ -75,12 +75,12 @@ struct Rec20_290bf0 {
     int f1c;
 };
 struct Rec10b {
-    NameField_290bf0 name;
+    NameField name;
     int f8;
     int fc;
 };
 struct Rec30 {
-    NameField_290bf0 name;
+    NameField name;
     unsigned int idLo;
     unsigned int idHi;
     int f10;
@@ -96,30 +96,30 @@ struct Rec58 {
     int f0, f4, f8, fc, f10, f14;
     int f18, f1c, f20;
     char pad24[4];
-    NameField_290bf0 n28;
-    NameField_290bf0 n30;
-    NameField_290bf0 n38;
-    NameField_290bf0 n40;
+    NameField n28;
+    NameField n30;
+    NameField n38;
+    NameField n40;
     int f48;
     int f4c;
     int f50;
     char pad54[4];
 };
-struct Sub_290bf0 {
+struct Sub {
     char b0;
     char pad1[3];
     int f4;
     int f8;
 };
 
-struct StateObj_290bf0 : RefObj_290bf0 {
+struct StateObj : RefObj {
     char pad04[4];
-    NameField_290bf0 name;
-    Sub_290bf0 *f10;
+    NameField name;
+    Sub *f10;
     char pad14[4];
     Rec10a *a18;
     char pad1c[4];
-    Rec20_290bf0 *a20;
+    Rec20 *a20;
     char pad24[4];
     Rec10b *a28;
     char pad2c[4];
@@ -127,23 +127,23 @@ struct StateObj_290bf0 : RefObj_290bf0 {
     char pad34[4];
     Rec10b *a38;
     char pad3c[4];
-    NameField_290bf0 *a40;
+    NameField *a40;
     char pad44[4];
     Rec58 *a48;
-    RefObj_290bf0 *f4c;
+    RefObj *f4c;
     char pad50[8];
-    StateObj_290bf0 *FUN_0028ff00(int a, int b, int c, int d, int e, int f, int g);
+    StateObj *FUN_0028ff00(int a, int b, int c, int d, int e, int f, int g);
 };
 
-struct Prop_290bf0 {
+struct Prop {
     char pad00[8];
-    NameField_290bf0 name;
+    NameField name;
     char pad10[0x1c - 0x10];
-    StateObj_290bf0 **arr1c;
+    StateObj **arr1c;
     char pad20[0x28 - 0x20];
-    NameField_290bf0 *arr28;
+    NameField *arr28;
     char pad2c[0x38 - 0x2c];
-    Prop_290bf0 *FUN_00290b30(ResObj *res, void *obj2, void *obj3, int x2, int x3);
+    Prop *FUN_00290b30(ResObj *res, void *obj2, void *obj3, int x2, int x3);
 };
 
 int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
@@ -161,10 +161,10 @@ typedef content::LoadInventory::DynamicCaster<physics::WorldCollisionObject> Cas
 
 class StatePropDataLoader {
 public:
-    void vfunc_5(Prop_290bf0 **out, unsigned __int64 *outId, Reader *r, Inventory_290bf0 *inv);
+    void vfunc_5(Prop **out, unsigned __int64 *outId, Reader *r, Inventory *inv);
 };
 
-struct Frame_290bf0 {
+struct Frame {
     char b[0x3ec];
 };
 
@@ -172,9 +172,9 @@ struct Frame_290bf0 {
 #define U8(o) (*(volatile unsigned char *)((char *)&f + (o)))
 #define PT(o) ((char *)&f + (o))
 
-void StatePropDataLoader::vfunc_5(Prop_290bf0 **out, unsigned __int64 *outId, Reader *r, Inventory_290bf0 *inv)
+void StatePropDataLoader::vfunc_5(Prop **out, unsigned __int64 *outId, Reader *r, Inventory *inv)
 {
-    Frame_290bf0 f;
+    Frame f;
 
     r->stream->FUN_002647e0(PT(0x24), 1, 4, 1);
     r->stream->FUN_002647e0(PT(0x01), 1, 1, 1);
@@ -210,13 +210,13 @@ void StatePropDataLoader::vfunc_5(Prop_290bf0 **out, unsigned __int64 *outId, Re
         x3 = W(0x0c);
     }
     void *mem = FUN_00263ea0(0x38);
-    Prop_290bf0 *prop;
+    Prop *prop;
     if (mem)
-        prop = ((Prop_290bf0 *)mem)->FUN_00290b30(res, (void *)W(0x28), (void *)W(0x10), W(0x1c), x3);
+        prop = ((Prop *)mem)->FUN_00290b30(res, (void *)W(0x28), (void *)W(0x10), W(0x1c), x3);
     else
         prop = 0;
     W(0x20) = (int)prop;
-    NameField_290bf0 *pname = &prop->name;
+    NameField *pname = &prop->name;
     W(0xdc) = (int)pname;
     pname->FUN_0027b040(PT(0x1ec));
 
@@ -226,7 +226,7 @@ void StatePropDataLoader::vfunc_5(Prop_290bf0 **out, unsigned __int64 *outId, Re
         do {
             unsigned int sub = (unsigned int)r->FUN_00266a30() - 0x8020001;
             if (sub == 7) {
-                NameField_290bf0 *rec = (NameField_290bf0 *)((char *)((Prop_290bf0 *)W(0x20))->arr28 + W(0x30));
+                NameField *rec = (NameField *)((char *)((Prop *)W(0x20))->arr28 + W(0x30));
                 r->stream->FUN_002647e0(PT(0x18), 1, 1, 1);
                 len = U8(0x18);
                 r->stream->FUN_002647e0(PT(0xec), len, 1, 1);
@@ -267,9 +267,9 @@ void StatePropDataLoader::vfunc_5(Prop_290bf0 **out, unsigned __int64 *outId, Re
                     edi = W(0x50);
                 }
                 void *m2 = FUN_00263ea0(0x58);
-                StateObj_290bf0 *so;
+                StateObj *so;
                 if (m2)
-                    so = ((StateObj_290bf0 *)m2)->FUN_0028ff00(W(0x60), W(0x0c), W(0xa8), W(0x58), W(0xe0), ebp, edi);
+                    so = ((StateObj *)m2)->FUN_0028ff00(W(0x60), W(0x0c), W(0xa8), W(0x58), W(0xe0), ebp, edi);
                 else
                     so = 0;
                 so->name.FUN_0027b040(PT(0xec));
@@ -297,7 +297,7 @@ void StatePropDataLoader::vfunc_5(Prop_290bf0 **out, unsigned __int64 *outId, Re
                             rec->b8 = (W(0xb0) != 0);
                             W(0x38) += 0x10;
                         } else if (csub == 1) {
-                            Rec20_290bf0 *rec = (Rec20_290bf0 *)((char *)so->a20 + W(0x2c));
+                            Rec20 *rec = (Rec20 *)((char *)so->a20 + W(0x2c));
                             r->stream->FUN_002647e0(PT(0x0b), 1, 1, 1);
                             len = U8(0x0b);
                             r->stream->FUN_002647e0(PT(0xec), len, 1, 1);
@@ -425,7 +425,7 @@ void StatePropDataLoader::vfunc_5(Prop_290bf0 **out, unsigned __int64 *outId, Re
                             }
                             W(0x1c) += 0x58;
                         } else if (csub == 6) {
-                            NameField_290bf0 *rec = (NameField_290bf0 *)((char *)so->a40 + W(0x0c));
+                            NameField *rec = (NameField *)((char *)so->a40 + W(0x0c));
                             r->stream->FUN_002647e0(PT(0x07), 1, 1, 1);
                             len = U8(0x07);
                             r->stream->FUN_002647e0(PT(0xec), len, 1, 1);
@@ -444,7 +444,7 @@ void StatePropDataLoader::vfunc_5(Prop_290bf0 **out, unsigned __int64 *outId, Re
                             *(PT(0xec) + len) = 0;
                             unsigned __int64 wk = FUN_0027b020(PT(0xec));
                             CasterWorld *cw = new (PT(0xd4)) CasterWorld;
-                            RefObj_290bf0 *wo = (RefObj_290bf0 *)inv->v3(cw, wk);
+                            RefObj *wo = (RefObj *)inv->v3(cw, wk);
                             if (wo != 0) {
                                 wo->v0();
                                 if (so->f4c != 0)
@@ -455,7 +455,7 @@ void StatePropDataLoader::vfunc_5(Prop_290bf0 **out, unsigned __int64 *outId, Re
                         r->FUN_00266be0();
                     } while (r->FUN_002669f0());
                 }
-                StateObj_290bf0 **slot = (StateObj_290bf0 **)((char *)((Prop_290bf0 *)W(0x20))->arr1c + W(0x10));
+                StateObj **slot = (StateObj **)((char *)((Prop *)W(0x20))->arr1c + W(0x10));
                 so->v0();
                 if (*slot != 0)
                     (*slot)->v1();
@@ -465,8 +465,8 @@ void StatePropDataLoader::vfunc_5(Prop_290bf0 **out, unsigned __int64 *outId, Re
             r->FUN_00266be0();
         } while (r->FUN_002669f0());
     }
-    *out = (Prop_290bf0 *)W(0x20);
-    NameField_290bf0 *pn = (NameField_290bf0 *)W(0xdc);
+    *out = (Prop *)W(0x20);
+    NameField *pn = (NameField *)W(0xdc);
     ((unsigned int *)outId)[0] = pn->lo;
     ((unsigned int *)outId)[1] = pn->hi;
 }

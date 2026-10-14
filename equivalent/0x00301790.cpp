@@ -1,29 +1,29 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 40/40)
 // FUN_00301790 @ 0x00301790
 // equiv-map: ?thunk_FUN_002fb860@Shape@@QAEXPAUVec3@@H@Z = 0x002fb940
-struct Vec3_301790 {
+struct Vec3 {
     float x, y, z;
     void FUN_0022d180();
-    void FUN_000111b0(const Vec3_301790 *a, const Vec3_301790 *b);
-    void FUN_001f6bc0(const Vec3_301790 *a, float s, const Vec3_301790 *b);
+    void FUN_000111b0(const Vec3 *a, const Vec3 *b);
+    void FUN_001f6bc0(const Vec3 *a, float s, const Vec3 *b);
 };
 
 float FUN_00083d90(float *v);
 
-struct Span_301790 {
+struct Span {
     int begin;
     int end;
 };
 
-class Plane_301790 {
+class Plane {
 public:
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
-    virtual Vec3_301790 *vfunc_4();
+    virtual Vec3 *vfunc_4();
     char pad04[0x38 - 4];
-    Vec3_301790 normal;
+    Vec3 normal;
 };
 
 class Shape {
@@ -32,19 +32,19 @@ public:
     virtual void vfunc_1();
     virtual void vfunc_2();
     virtual void vfunc_3();
-    virtual Vec3_301790 *vfunc_4();
+    virtual Vec3 *vfunc_4();
     virtual void vfunc_5();
     virtual int vfunc_6();
     char pad08[0x14 - 4];
-    Span_301790 *span;
+    Span *span;
     char pad18[0x34 - 0x18];
     float radius;
     char pad38[0x44 - 0x38];
-    Vec3_301790 axis;
+    Vec3 axis;
     float f50;
     float f54;
     char b58;
-    void thunk_FUN_002fb860(Vec3_301790 *out, int i);
+    void thunk_FUN_002fb860(Vec3 *out, int i);
 };
 
 // Locals of the original's 0x40-byte frame.
@@ -53,32 +53,32 @@ struct Frame_301790 {
     float f4;
     float f8;
     float f12;
-    Vec3_301790 v16;
-    Vec3_301790 v28;
-    Vec3_301790 v40;
-    Vec3_301790 v52;
+    Vec3 v16;
+    Vec3 v28;
+    Vec3 v40;
+    Vec3 v52;
 };
 
-class Solver_301790 {
+class Solver {
 public:
     char pad0[0xc];
     float margin;
     char pad10[4];
-    Vec3_301790 rel;
-    void FUN_00314be0(Shape *s, Vec3_301790 *a, Plane_301790 *p, Vec3_301790 *b, float d, const Vec3_301790 *n);
-    void FUN_00302c20(Shape *s, Plane_301790 *p);
-    void FUN_00301790(Plane_301790 *a0, Shape *shape);
+    Vec3 rel;
+    void FUN_00314be0(Shape *s, Vec3 *a, Plane *p, Vec3 *b, float d, const Vec3 *n);
+    void FUN_00302c20(Shape *s, Plane *p);
+    void FUN_00301790(Plane *a0, Shape *shape);
 };
 
-void Solver_301790::FUN_00301790(Plane_301790 *a0, Shape *shape)
+void Solver::FUN_00301790(Plane *a0, Shape *shape)
 {
     Frame_301790 f;
-    Vec3_301790 *pc = a0->vfunc_4();
-    Vec3_301790 *sc = shape->vfunc_4();
+    Vec3 *pc = a0->vfunc_4();
+    Vec3 *sc = shape->vfunc_4();
     rel.x = sc->x - pc->x;
     rel.y = sc->y - pc->y;
     rel.z = sc->z - pc->z;
-    const Vec3_301790 *n = &a0->normal;
+    const Vec3 *n = &a0->normal;
     f.d0 = n->z * rel.z + n->y * rel.y + n->x * rel.x;
     if (f.d0 > shape->radius + margin)
         return;
@@ -119,7 +119,7 @@ void Solver_301790::FUN_00301790(Plane_301790 *a0, Shape *shape)
     case 7: {
         float res = f.d0 - shape->radius;
         float k = -shape->radius;
-        Vec3_301790 *c = shape->vfunc_4();
+        Vec3 *c = shape->vfunc_4();
         f.v16.FUN_001f6bc0(c, k, n);
         if (!(res < margin))
             return;
@@ -128,7 +128,7 @@ void Solver_301790::FUN_00301790(Plane_301790 *a0, Shape *shape)
         return;
     }
     case 2: {
-        const Vec3_301790 *ax = &shape->axis;
+        const Vec3 *ax = &shape->axis;
         if (!shape->b58) {
             f.f12 = n->z * ax->z + n->y * ax->y + n->x * ax->x;
             float a = f.f12;
@@ -137,7 +137,7 @@ void Solver_301790::FUN_00301790(Plane_301790 *a0, Shape *shape)
             if (!(res <= margin))
                 return;
             float k = -(FUN_00083d90(&f.f12) * shape->f50);
-            Vec3_301790 *c = shape->vfunc_4();
+            Vec3 *c = shape->vfunc_4();
             f.v16.FUN_001f6bc0(c, k, ax);
             f.v16.FUN_001f6bc0(&f.v16, -shape->f54, n);
             f.v28.FUN_001f6bc0(&f.v16, -res, n);
@@ -149,7 +149,7 @@ void Solver_301790::FUN_00301790(Plane_301790 *a0, Shape *shape)
             if (!(res2 <= margin))
                 return;
             float k2 = -(FUN_00083d90(&f.f12) * shape->f50);
-            Vec3_301790 *c2 = shape->vfunc_4();
+            Vec3 *c2 = shape->vfunc_4();
             f.v16.FUN_001f6bc0(c2, k2, ax);
             f.v16.FUN_001f6bc0(&f.v16, -shape->f54, n);
             f.v28.FUN_001f6bc0(&f.v16, -res2, n);
@@ -168,7 +168,7 @@ void Solver_301790::FUN_00301790(Plane_301790 *a0, Shape *shape)
         float res1 = f.d0 - absS - f.f12;
         if (res1 < margin) {
             float k1 = -(FUN_00083d90(&f.f4) * shape->f54);
-            Vec3_301790 *c = shape->vfunc_4();
+            Vec3 *c = shape->vfunc_4();
             f.v40.FUN_001f6bc0(c, k1, &f.v16);
             float k2 = -(FUN_00083d90(&f.f8) * shape->f50);
             f.v40.FUN_001f6bc0(&f.v40, k2, ax);
@@ -183,7 +183,7 @@ void Solver_301790::FUN_00301790(Plane_301790 *a0, Shape *shape)
         if (!(res2 < margin))
             return;
         float k1 = -(FUN_00083d90(&f.f4) * shape->f54);
-        Vec3_301790 *c = shape->vfunc_4();
+        Vec3 *c = shape->vfunc_4();
         f.v40.FUN_001f6bc0(c, k1, &f.v16);
         float k2 = FUN_00083d90(&f.f8) * shape->f50;
         f.v40.FUN_001f6bc0(&f.v40, k2, ax);
@@ -201,7 +201,7 @@ void Solver_301790::FUN_00301790(Plane_301790 *a0, Shape *shape)
             if (!(res < margin))
                 continue;
             f.f8 = -FUN_00083d90(&f.f12);
-            Vec3_301790 *c = shape->vfunc_4();
+            Vec3 *c = shape->vfunc_4();
             f.v16.x = f.f8 * f.v28.x + c->x;
             f.v16.y = f.v28.y * f.f8 + c->y;
             f.v16.z = f.v28.z * f.f8 + c->z;

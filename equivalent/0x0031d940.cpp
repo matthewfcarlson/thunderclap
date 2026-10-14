@@ -2,8 +2,8 @@
 // pure3d::pddiBaseContext::vfunc_37 @ 0x0031d940
 namespace pure3d {
 struct LightInput { unsigned char enabled; char pad[3]; unsigned type; unsigned color; unsigned position[3]; unsigned direction[3]; unsigned parameters[6]; unsigned last; };
-struct LightState_31d940 { unsigned position[4]; char gap0[16]; unsigned direction[4]; char gap1[16]; float red,green,blue; unsigned gap2; float average; unsigned last; unsigned parameters[6]; unsigned type,color; unsigned char enabled; char pad[3]; };
-struct LightTable { unsigned header; LightState_31d940 lights[8]; };
+struct LightState { unsigned position[4]; char gap0[16]; unsigned direction[4]; char gap1[16]; float red,green,blue; unsigned gap2; float average; unsigned last; unsigned parameters[6]; unsigned type,color; unsigned char enabled; char pad[3]; };
+struct LightTable { unsigned header; LightState lights[8]; };
 struct pddiBaseContext {
 #define V(n) virtual void vfunc_##n();
 V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31) V(32) V(33) V(34) V(35) V(36)
@@ -14,7 +14,7 @@ char padding[0x4c]; LightTable* table;
 };
 void pddiBaseContext::vfunc_37(int index, const LightInput* input, unsigned flags) {
 if(index >= 8) return;
-LightState_31d940& s = table->lights[index];
+LightState& s = table->lights[index];
 s.enabled=input->enabled; s.type=input->type; s.color=input->color;
 s.red=float((s.color>>16)&255); s.green=float((s.color>>8)&255); s.blue=float(s.color&255);
 s.average=float((((s.color>>16)&255)+((s.color>>8)&255)+(s.color&255))/3);

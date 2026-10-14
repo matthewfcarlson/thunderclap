@@ -66,22 +66,22 @@ struct Costume {
     const char *FUN_00203860();
 };
 
-struct Player_b64f0 {
+struct Player {
     Costume *FUN_000862a0();
 };
 
-struct Game_b64f0 {
+struct Game {
     char pad0[0x54];
-    Player_b64f0 *f54;
+    Player *f54;
 };
 
-extern Game_b64f0 *DAT_004dd700;
+extern Game *DAT_004dd700;
 
 FEObject *__cdecl FUN_000fc260(const char *name);
 Language *__cdecl FUN_000fc1b0();
 void __cdecl FUN_000fc020(char *buf, int size, const char *fmt, int value);
 
-struct Frame_b64f0 {
+struct Frame {
     String s;
     char pad156[24];
     char buf[0x40];
@@ -89,7 +89,7 @@ struct Frame_b64f0 {
     unsigned int cookie;
 };
 
-class CheatMenu_b64f0 {
+class CheatMenu {
 public:
     char pad0[0x4c];
     CUnlockablesManager *um;
@@ -130,9 +130,9 @@ public:
             item++; \
     }
 
-void CheatMenu_b64f0::FUN_000b64f0()
+void CheatMenu::FUN_000b64f0()
 {
-    Frame_b64f0 f;
+    Frame f;
     f.cookie = DAT_004d9968;
     TextSelector *menu = dynamic_cast<TextSelector *>(FUN_000fc260("unlocked_cheats"));
     if (menu) {

@@ -2,7 +2,7 @@
 // FUN_0030d030 @ 0x0030d030
 // equiv-map: ??0PhysicsJoint@physics@@QAE@PBUVec3@@MH@Z = 0x0030ca80
 
-struct Vec3_30d030 {
+struct Vec3 {
     float x, y, z;
 };
 
@@ -15,7 +15,7 @@ public:
     char pad04[2];
     unsigned short word6;
     char pad08[0xf0];
-    PhysicsJoint(const Vec3_30d030 *axis, float mass, int id);
+    PhysicsJoint(const Vec3 *axis, float mass, int id);
 };
 
 class PhysicsJoint3D : public PhysicsJoint {
@@ -31,12 +31,12 @@ public:
     unsigned char enabled;      // 0x150
     char pad151[3];
     int f154, f158;
-    PhysicsJoint3D(const Vec3_30d030 *axis, float mass, int id);
+    PhysicsJoint3D(const Vec3 *axis, float mass, int id);
     virtual void vfunc_0();
     virtual void vfunc_1();
 };
 
-PhysicsJoint3D::PhysicsJoint3D(const Vec3_30d030 *axis, float mass, int id) : PhysicsJoint(axis, mass, id)
+PhysicsJoint3D::PhysicsJoint3D(const Vec3 *axis, float mass, int id) : PhysicsJoint(axis, mass, id)
 {
     flagF8 = 0;
     f154 = 0;
