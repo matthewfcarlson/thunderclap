@@ -1,5 +1,12 @@
 # hulk-ultimate-recomp
 
+> **Disclaimer.** This is an unofficial, non-commercial fan project. It is not affiliated with, endorsed by or
+> sponsored by Marvel, The Walt Disney Company, Radical Entertainment, Vivendi Universal Games, Activision or
+> Microsoft. "The Incredible Hulk", "Hulk", "Marvel" and all related names, characters and marks are trademarks
+> of their respective owners and are used here only to identify the game this project is compatible with. The
+> repository contains no executables, data or assets from the original release; to use it you need your own
+> legally obtained copy of the game. Nothing here is offered for sale.
+
 A decompilation of **The Incredible Hulk: Ultimate Destruction** (Xbox, 2005, Radical Entertainment), built with LLM help.
 
 The goal is a **native port**: C++ source we can build for SteamOS, arm64 macOS and Windows, with quality-of-life improvements. Functions are byte-matched against the original compiler (MSVC 7.1, `cl` 13.10.3077) where that's cheap, since a match proves correctness for free. Large functions only need to be proven *equivalent*, by differential execution against the original.
