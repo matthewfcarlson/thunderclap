@@ -198,6 +198,69 @@ CASES = {
     # a callee whose only "write" to ecx is alignment padding (`lea ecx, [ecx]`) keeps ecx: the original calls
     # the next method with the leftover `this`
     "0x00205860_padding_keeps_ecx": ("equivalent", None),
+    # round 7. A float compare whose directed patch (|y| * 1.5) is past float range: skipped, not an
+    # OverflowError (two equivalent/ functions crashed)
+    "0x0004c1f0_float_range": ("equivalent", None, 0.9),
+    # `jmp _ftol` (a tail jump to a CRT helper) from an equiv-conv function: runs for real, so its st0 operand
+    # is compared through the return value (it was stubbed: our cdecl's 3 incoming words counted as its
+    # arguments, against the original's 1, and a wrong float went unnoticed)
+    "0x002208e0_tail_ftol": ("equivalent", None, 0.9),
+    "0x002208e0_tail_ftol_wrong": ("fail", "returned 0x00000064"),
+    # merged source-tree objects (tools/build_tree.py) wrap a function in `namespace fn_<addr>`: sizeof probes
+    # of callee parameter types, equiv-map lines and vftables (by RTTI name) must see through it
+    "0x00040550_tree_probe_sizes": ("equivalent", None, 0.9),
+    "0x0002b970_tree_explicit_map": ("equivalent", None),
+    "0x000306e0_tree_vftable": ("equivalent", None),
+    # `lea ecx, [esi + 4]; add esp, 0xc; test ecx, ecx; ...; je` (`if (&tag)`): this == -4 never happens, so
+    # the zero side is dead, and so is the code only it reaches (7/20 -> 7/7)
+    "0x00203bb0_lea_null": ("equivalent", None, 0.95),
+    # a void virtual whose original leaves eax == 0 from a switch's `dec eax; jne` chain: a value tested
+    # through the flags is read, so it doesn't count as a result left in eax (0x26ce10_void_eax still fails)
+    # four calls through a cdecl writer callback share one `add esp, 0x40` 31 instructions later: it was out
+    # of cleanup_after's 24-instruction window, the first call was taken to pop its words, and every input
+    # went wild at the final ret (the log blamed stub writes through &byte)
+    "0x0021acc0_shared_cleanup": ("equivalent", None),
+    "0x0021acc0_shared_cleanup_wrong": ("fail", "differs at +0x0 (0x5a5a5a50, expected 0x5a5a5a51)"),
+    # a constructor making 100 objects with 66 stub calls each runs past 50k steps on every input, and the
+    # thousands of calls kept the 1M budget away (that rule is for loops a stubbed callee keeps going): one
+    # input run with 8M steps shows the code ends, and later inputs get twice its steps
+    "0x00280690_step_probe": ("equivalent", None, 0.9, {"n_inputs": 12, "max_inputs": 12}),
+    # `mov ax, [buf]; cmp al, 0x42; jne; cmp ah, 0x4d` on a 'BM' magic a stubbed read filled: ah is the
+    # loaded word shifted right by 8, so a directed input can plant 'M' after 'B' (3/20 -> 20/20)
+    "0x002afa60_ah_magic": ("equivalent", None, 0.95),
+    # `v.z == 0` on a vector FUN_0022d240 fills by passing its ecx on to FUN_0022c2b0, which writes it with
+    # fstp: capstone marks x87 store operands read-only, so the extent was empty and the word never filled;
+    # now filled, a directed input can fill in an exact 0.0 (1/2 -> 2/2)
+    "0x00292cc0_fstp_extent": ("equivalent", None, 0.9),
+    # `fld [g]; fadd [k]; fst [g]; fcomp [0.95]` on a .data float: the fadd is inverted to steer g (1/2 -> 2/2)
+    "0x000fee10_fadd_global": ("equivalent", None, 0.9),
+    # an atof-style parser (`cmp al, '.'`, `cmp al, '0'; jl`, `cmp al, '9'; jg` per char): strings made of the
+    # chars the loop compares with are planted where it read its first byte (16/22 -> 20/22)
+    "0x00260d00_alpha_digits": ("equivalent", None, 0.85),
+    # a 0x2c0-byte struct passed by value: the input had only 4 words of it, the rest was STACK_FILL on both
+    # sides. Now the input has as many words as the function's `ret 0x2c0` pops, and the source's lua_State
+    # field turns out to be at +0x2b8 where the original reads +0x2bc (it passed under round 6, 14/20)
+    "0x001d2190_bigstruct_arg": ("fail", "call #1 to 0x002133d0: argument 1 is"),
+    # a tail call (`jmp [edx+0x28]`) out of an equiv-conv function (eax esi edi): ours passes on its 3 cdecl
+    # stack words, the original none; the original's count is compared (round 6 blamed prologue pushes)
+    "0x002adb10_conv_tail_vcall": ("equivalent", None, 0.9),
+    # a byte flag passed in cl/dl (equiv-conv) over whatever the caller left in the high bytes: the real
+    # callees read only cl/dl, so only the low byte is compared (a wrong flag still fails)
+    "0x002d0a50_byte_flag_reg": ("equivalent", None, 0.9),
+    "0x002d0a50_byte_flag_reg_wrong": ("fail", "argument 2 is 0x00000002"),
+    # `and eax, 0x7fffffff` (fabs) on an argument, stored to a slot, then `fld; fucompp` against pi/2: the
+    # mask is exact, so the tie is planted through the argument (1/2 -> 2/2)
+    "0x000f1bd0_fabs_tie": ("equivalent", None, 0.9),
+    # `p[0] == 'c' && p[1] == 'l' && p[2] == 'a' ...` on a stack copy of a string a stub returned: the
+    # keyword spelled by the compares is planted in the string the copy loop read (18/36 -> 29/36)
+    "0x0028fbc0_copied_keyword": ("equivalent", None, 0.78),
+    # `// equiv-dead: +0x63 taken: ...`: a hand-reviewed dead branch side (here also found by the lea rule),
+    # and the code only it reaches, are left out of the coverage count and listed in the report
+    "0x00203a80_declared_dead": ("equivalent", None, 0.95),
+    # a 16-byte struct passed by value whose 6 uncopied pad bytes hold the previous call's return address on
+    # each side (0x001f977a vs 0x600000aa): the same earlier call's return address is equal
+    "0x001f9710_stale_retaddr": ("equivalent", None, 0.9),
+    "0x0009d1b0_void_dec_chain": ("equivalent", None, 0.75, {"seeds": list(range(32)) + [524, 1598, 1862]}),
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)
@@ -208,7 +271,16 @@ def job(name):
     equiv = __import__(os.environ.get("EQUIV_MODULE", "equiv"))
     addr = int(name.split("_")[0], 16)
     kw = CASES[name][3] if len(CASES[name]) > 3 else {}
-    r = equiv.verify(os.path.join(CASES_DIR, name + ".cpp"), addr, **kw)
+    tree = os.path.join(CASES_DIR, name + ".tree.cpp")
+    if os.path.exists(tree):
+        # NAME.tree.cpp: the same source wrapped in `namespace fn_<addr>` as tools/build_tree.py merges it; its
+        # object is checked with the unwrapped source's equiv-map / equiv-conv lines and sizeof probes
+        import tempfile
+        with tempfile.TemporaryDirectory(dir=os.path.join(ROOT, "build")) as d:
+            obj = equiv.compile_obj(tree, equiv.DEFAULT_FLAGS, d)
+            r = equiv.verify(os.path.join(CASES_DIR, name + ".cpp"), addr, obj_path=obj, **kw)
+    else:
+        r = equiv.verify(os.path.join(CASES_DIR, name + ".cpp"), addr, **kw)
     diffs = [d for m in (r.get("level3") or {}).get("mismatches", []) for d in m["diffs"]]
     cov = (r.get("level3") or {}).get("coverage") or {}
     ratio = cov["edges_covered"] / cov["edges_total"] if cov.get("edges_total") else 1.0

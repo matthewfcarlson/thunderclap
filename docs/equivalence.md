@@ -73,6 +73,11 @@ order. The report's `level2.mapping` says which rule fired.
 Rules 4 and 5 trust the original. With invented names, level 2 checks shape and consistency, and level 3
 checks the resulting behaviour. Names that carry addresses make level 2 a real check.
 
+A function from a merged source-tree object (`tools/build_tree.py`, `verify(..., obj_path=...)`) is wrapped in
+`namespace fn_<addr>`, so its mangled names differ from its standalone source's. The `equiv-map`/`equiv-conv`
+names of the source, the `sizeof` probes of callee parameter types and the vftable and RTTI lookups by class
+name all see through that namespace.
+
 Two kinds of symbol are never paired:
 
 - **Functions defined in our own object.** These are code the original inlined, for example an inline
@@ -141,8 +146,9 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
 
 **Inputs**
 - `this`, the arguments and the registers come from the mangled signature: pointers, ints, floats, doubles,
-  and the hidden struct-return pointer. 16 extra stack words follow, and callee-saved registers get unique
-  values.
+  and the hidden struct-return pointer. A struct passed by value gets as many words as the function's own
+  `ret N` pops or its code reads (not just 4). 16 extra stack words follow, and callee-saved registers get
+  unique values.
 - Seeds rotate between several modes:
   - wide or near/ascending pointers;
   - iterator ranges: a later pointer argument a few elements past the first one, in a step the code
@@ -169,13 +175,22 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   epoch on (the loop runs once: `while (t->first != head) erase(t->first)`).
   A run that then hangs in the next loop is repaired again (4 loops deep, 64 runs). A loop that ran away
   once is cut off after 256 rounds on later inputs (those count as timed out, and are repaired too).
-  Directed inputs that run away are repaired the same way, from a budget of their own. A `rep` string
+  Directed inputs that run away are repaired the same way, from a budget of their own.
+- **Walk sentinels.** An input whose original runs away in a list or tree walk (`while (n->left != nil)`,
+  where `nil` is `&tree.nil`, a fixed pointer, and the links come from fuzzed memory) is run again with the
+  pointers its hottest compares held fixed planted in half the words of every data page, in every epoch.
+  Walks then end within a few links. A run that hangs in a walk toward another sentinel (a second tree)
+  goes again with both. After 4 such runs without a completion the function stops getting them. A `rep` string
   instruction with a count over 0x2000 (`rep stosd` over a fuzzed `count*4` bytes) is repaired like a loop
   bound: the count's source is patched to about 8.
 - With `--inputs` over 256, the random inputs hand over to the directed ones once half the time budget is
   gone (and 50 inputs completed); the rest of the random inputs run afterwards, then directed ones again.
   When the random phase stops at 32 inconclusive inputs, the directed phase runs, then more random inputs
   while fewer than 50 have completed, or while at most 20% of them were inconclusive.
+- **Alphabet strings.** A char loop that compares each byte with constants (an atof-style parser: `'-'`,
+  `'.'`, `'0'`..`'9'`) gets short strings made of those chars (and keywords spelled by compares at
+  consecutive offsets, `p[0] == 'c' && p[1] == 'l' && ...`) planted where it read its first byte. A stack
+  copy of a heap string (`do *d++ = c = *s++; while (c)`) is planted through its source.
 - Then up to 96 **directed** inputs (input-to-state; each one that finds a new edge earns 4 more, up to 4x).
   Compares are worked breadth first: one observation per compare per pass, on to its next ones while they
   find new edges, until both sides were taken 4 times. String-literal plants take at most half the
@@ -185,13 +200,17 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   (or `setcc` outcome, or jump-table case) was never taken, or was taken by fewer than 4 inputs, the input
   that reached it is re-run with that memory, stack argument, stub result or out-parameter word patched to
   a value on the other side (alternating between the two operands). Followed through:
+  - the high byte of a loaded word (`mov ax, [buf]; cmp al, 'B'; jne; cmp ah, 'M'`), and bytes of a stack
+    argument word;
   - comparisons done by `sub`/`add`/`dec`/`inc`/`and`/`or r, r` (`dec ecx; sub ecx, 4; je`: a type switch);
   - arithmetic on the loaded value: `add`/`sub` of constants or other registers (`end - begin`), shifts,
     `and`, `neg`/`not`, magic-number divisions (`imul` by a constant, `idiv`), `movzx` of a low byte, a
     byte-table switch index (`movzx ecx, byte [eax + table]`), all inverted to find the value to plant;
   - a register stored to a stack local and compared there later (`movsx eax, byte [edx]; mov [esp+4], eax`);
   - x87 compares (`fcom`/`fcomp` + `fnstsw`/`test ah`, `fcomi`), against memory or a stubbed callee's
-    float result. When the compared value is computed (`sqrt` of the difference of two stub-filled vectors,
+    float result, a float a stub filled in through a pointer, a loaded value plus, minus or times a
+    constant (`fld [g]; fadd [k]; fcomp [0.95]`: inverted), or a masked argument word (`and eax,
+    0x7fffffff`: fabs, ties planted). When the compared value is computed (`sqrt` of the difference of two stub-filled vectors,
     a scaled and clamped result) there is no single word to invert: the input is re-run with every stub
     float (float results and out-parameter fills) set alike, to 0, 1000 and 1 (equal vectors give distance
     0);
@@ -234,7 +253,8 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   - fills each local passed by pointer (an out-parameter), with the same values on both sides. A class
     parameter is filled over its whole `sizeof`. Any other parameter gets at least 16 bytes, skipping
     words the function has already written itself;
-  - models how far the real callee writes through each pointer argument (`ecx` or a stack argument). A
+  - models how far the real callee writes through each pointer argument (x87 stores count: capstone marks
+    `fstp [eax]`'s operand as read-only) (`ecx` or a stack argument). A
     static scan of the callee (`Program.callee_writes`) follows stores through the incoming pointer, copies
     and constant offsets of it, and callees it is passed on to (a base or member constructor). In the
     original's run that extent, capped at the room the original's frame has there, is filled; ours fills
@@ -257,7 +277,8 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   `lea esi, [esi]`) doesn't count as a write.
 - The pop count comes from the callee's own `ret N` (following tail jumps) when the call site names a real
   function. For cdecl, it comes from the caller's `add esp, N` or `pop ecx` cleanup, including one
-  deferred over several calls. An `add esp, N` in an epilogue (followed by `ret` or a callee-saved `pop`)
+  deferred over several calls (looked for up to 48 instructions on: four writer-callback calls share one
+  `add esp, 0x40` 31 instructions later). An `add esp, N` in an epilogue (followed by `ret` or a callee-saved `pop`)
   counts only beyond the frame the prologue reserved with `sub esp`. A caller-cleaned callee takes only the words it reads; pushes above them
   are pending for a later call.
 - A call of unknown arity (virtual, a `jmp [vtable]` thunk) is decided first by a branch taken before its
@@ -292,7 +313,9 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   `esp`) end the run on both sides; it is compared up to and including that call, without return value or
   registers.
 - A jump through a pointer read from memory is a tail call (unless it lands in the function's own body),
-  in both runs.
+  in both runs. A tail jump to a CRT helper (`jmp _ftol`) runs the helper for real, so its operand shows in
+  the return value. A tail call out of an `equiv-conv` function compares as many words as the original
+  passes on (each side passes on its own incoming stack words).
 - Callee side effects: after each stub the memory epoch advances, and every non-code page is remapped with
   fresh deterministic contents. That models "the callee may change anything", and it catches code that
   caches a value across a call when the original re-reads it.
@@ -313,13 +336,16 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
 - The return value by type: `al`, `ax`, `eax`, `edx:eax` or `st0`. A function we declare `void` that is
   reached only through a vtable or a pointer (no direct call sites) still has `eax` compared when the
   original leaves a meaningful value there: a callee's result nothing overwrote, or a write to `eax` the
-  function never reads back (`left 0x7 in eax, expected 0xa8: ours is void, but the original returns a
+  function never reads back (a `dec eax; jne` of a switch's dec chain is read, through the flags) (`left 0x7 in eax, expected 0xa8: ours is void, but the original returns a
   value there`).
 - Bytes of `eax` that last came from `fnstsw ax` (a float branch's status word, `fnstsw ax; test ah, 0x41;
   ...; mov al, 1; ret`) aren't compared: no source produces them. What was written after them (`al`) is.
 - The x87 stack depth, `ebx/esi/edi/ebp` and `esp` after return.
 - An argument pushed from a register whose last write set only its low byte(s) (`setcc al; push eax`, a
-  `bool`) compares on those bytes only.
+  `bool`) compares on those bytes only. A register argument of an `equiv-conv` callee compares on the bits
+  the real callee reads before overwriting it (a byte flag in `cl` over leftover high bytes: `test cl, cl`).
+- An argument word that holds, on each side, the return address of the same earlier call (stale padding of
+  a struct passed by value) is equal: each image has its own addresses.
 - Values that point into the stack compare as "a stack address". Floats stored by `fst`/`fstp` (on either
   side) and float arguments (stored by `fstp` on either side, a word copied with `push` on the other)
   compare with relative tolerance 1e-5; a word that is the same normal float
@@ -348,15 +374,19 @@ takes over (rb-tree inserts on fuzzed, cyclic trees: 3 completed inputs became 8
 not counted as a pass, and its branches don't count as covered. While fewer than 8 inputs have completed,
 faulting inputs don't stop the search (up to 192 of them). The step budget isn't raised when the early
 timeouts come from a `rep` string instruction with an absurd (fuzzed) count or from a loop that a stubbed
-callee keeps going (hundreds of calls); and an input where such a fill or copy got through in the original
+callee keeps going (hundreds of calls). Then input 0 is run once with 8M steps: if it returns, the code is long but finite (100 objects with 66 stub calls each, a 2048-slot scan)
+and the rest get twice the steps it took (at least 1M) and 3x the time budget; and an input where such a fill or copy got through in the original
 but our semantic copy hit the page limit is inconclusive.
 
 **Return type** comes from our mangled name. For a C name it is inferred from the original's call sites.
 If ours returns `void` but the original's direct callers read `eax` (or `st0`) after the call, the return
 value is compared anyway, and `return_note` says so.
 
-**Coverage** counts taken/not-taken for every conditional branch (except the dead side of a jcc right
-after `cmp r, r`/`sub r, r`/`xor r, r` that nothing else jumps to), 0/1 for every `setcc`, and every
+**Coverage** counts taken/not-taken for every conditional branch (except dead sides: a jcc right
+after `cmp r, r`/`sub r, r`/`xor r, r` that nothing else jumps to; the zero side of `lea ecx, [esi + 4]; ...;
+test ecx, ecx` where esi is a pointer, the null check of `&this->member`; sides a source declares with
+`// equiv-dead: +0x63 taken, +0x70 not taken: why` after hand review, listed in `coverage.declared_dead`;
+and everything only a dead side reaches), 0/1 for every `setcc`, and every
 jump-table case of the original (a table is read up to its first non-code word, and ends where the
 next table of the function starts, so two back-to-back switches keep their own cases). It comes only from inputs that ran to completion (not from faults).
 Directed inputs can also patch a word a stub filled through an out-parameter, when the original compares
@@ -391,7 +421,13 @@ Mismatch strings are written for a model to act on. Examples:
 
 ## Validation
 
-Latest run (2026-10-14, checker round 6; details in [tasks/equiv-round6.md](tasks/equiv-round6.md)):
+Latest run (2026-10-14, checker round 7; details in [tasks/equiv-round7.md](tasks/equiv-round7.md)):
+`regress.py` 99/99; selftest 300/300; mutation suite identical to round 6 on the same 120 functions; merged
+source tree, first 300 `equivalent/` functions on their tree objects: 300/300 (round 6: 281); `equivalent/`
+random 200 at 3000 inputs: 199, the other (0x00215790) a newly reached seed round 6 fails too (`ecx` at an
+indirect cdecl call). 20 logged sources newly promotable (21 with a one-line fix to 0x001d2190).
+
+Previous run (2026-10-14, checker round 6; details in [tasks/equiv-round6.md](tasks/equiv-round6.md)):
 `regress.py` 76/76; selftest 300/300; mutation suite identical to round 5 on the same 120 functions (362
 caught, 10 false passes, 0 false failures). `equivalent/` in random order, 824 of 3,348 files: the first 200
 are all equivalent. Four newly fail. Two show real differences on seeds round 5 never ran (0x0022f960,
@@ -612,8 +648,8 @@ without re-running whole sessions. Results live in `build/traces/` (never commit
 ## Limits
 
 - **Loops kept going by callees.** A loop that ends only through a callee's side effect (a teardown
-  `while (head) remove(head)` over a global, a fixed 2048-slot loop with several calls per slot) still
-  runs out of steps: 0x0024ad20 and 0x001dec10 stay unsupported.
+  `while (head) remove(head)` over a global) still runs out of steps: 0x0024ad20 stays unsupported. (A
+  fixed 2048-slot loop with several calls per slot now gets the long step budget: 0x001dec10 completes.)
 
 - **Coverage, not proof.** A pass means no difference on the inputs run, so check `coverage.complete`.
   Code behind conditions the fuzzer can't satisfy (deep pointer chains, specific global state, values
