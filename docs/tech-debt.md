@@ -7,12 +7,13 @@ equivalent/).
 
 | Flag | Meaning | Files |
 |---|---|---|
-| lift | machine-generated from the asm (frame array, register variables) | 5 |
-| goto | control flow copied from the asm with goto | 39 |
+| lift | machine-generated from the asm (frame array, register variables) | 6 |
+| goto | control flow copied from the asm with goto | 40 |
 | volatile | 20+ volatile declarations pinning x87 rounding | 9 |
 
 | Source | Size | Name | Flags | gotos | volatiles |
 |---|---|---|---|---|---|
+| `equivalent/0x00107c90.cpp` | 7501 | CRangedAgent::vfunc_4 | lift, goto | 150 | 0 |
 | `equivalent/0x00358b10.cpp` | 1869 |  | lift, volatile | 0 | 81 |
 | `equivalent/0x00314f50.cpp` | 1739 |  | lift, volatile | 0 | 48 |
 | `equivalent/0x00342180.cpp` | 1657 |  | lift, volatile | 0 | 124 |
