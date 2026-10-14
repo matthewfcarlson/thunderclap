@@ -1,46 +1,33 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 22/22)
 // hulkfight::motion::VarCompareCondition::vfunc_6 @ 0x0018cf60
-// hulkfight::motion::VarCompareCondition::vfunc_6 @ 0x0018cf60
-extern char DAT_00494b44[];
-extern char DAT_00494b60[];
-extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
-
+extern char DAT_00494b44;
+extern char DAT_00494b60;
+extern void* __cdecl FUN_00344e74(void*, int, void*, void*, int);
 struct Key { char data[8]; };
-struct Vars { int FUN_00036e40(Key *key); };
-struct Context { Vars *FUN_00059a30(); };
-struct Owner { Context *FUN_000592a0(); };
-
+struct Values { int FUN_00036e40(Key*); };
+struct State { Values* FUN_00059a30(); };
+struct Params { State* FUN_000592a0(); };
 namespace hulkfight { namespace motion {
-class VarCompareCondition {
-public:
-    virtual void vfunc_0();
-    virtual void vfunc_1();
-    virtual void vfunc_2();
-    virtual void vfunc_3();
-    virtual void vfunc_4();
-    virtual void vfunc_5();
-    virtual bool vfunc_6(int a, void *obj, int c);
-    char pad04[12];
-    Key key;
-    unsigned op;
-    int value;
+struct VarCompareCondition {
+ char padding[16];
+ Key key;
+ unsigned comparison;
+ int threshold;
+ bool vfunc_6(void*, Params*, void*);
 };
-
-bool VarCompareCondition::vfunc_6(int a, void *obj, int c)
-{
-    if (!FUN_00344e74(obj, 0, DAT_00494b44, DAT_00494b60, 0))
-        return false;
-    Vars *vars = ((Owner *)obj)->FUN_000592a0()->FUN_00059a30();
-    int cur = vars->FUN_00036e40(&key);
-    int v = value;
-    switch (op) {
-    case 0: return cur < v;
-    case 1: return cur <= v;
-    case 2: return cur == v;
-    case 3: return cur != v;
-    case 4: return cur >= v;
-    case 5: return cur > v;
-    }
-    return false;
+bool VarCompareCondition::vfunc_6(void*, Params* params, void*) {
+ if (!FUN_00344e74(params,0,&DAT_00494b44,&DAT_00494b60,0)) return false;
+ State* state = params->FUN_000592a0();
+ Values* values = state->FUN_00059a30();
+ int value = values->FUN_00036e40(&key);
+ switch(comparison) {
+ case 0: return value < threshold;
+ case 1: return value <= threshold;
+ case 2: return value == threshold;
+ case 3: return value != threshold;
+ case 4: return value >= threshold;
+ case 5: return value > threshold;
+ }
+ return false;
 }
 }}
