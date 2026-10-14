@@ -11,9 +11,11 @@ build/venv/bin/python tools/equiv.py SRC 0xADDR -- /Oy-         # extra cl flags
 ```
 
 Library: `equiv.verify(src, addr, symbol=None, flags=(), n_inputs=64, mapping=None, use_names=True, ...)`
-returns the report dict. The exit status is 0 only for `equivalent`. A typical function takes 1–5 s
+returns the report dict. `seeds=[...]` (or `EQUIV_SEEDS=1,2` in the environment) runs only those random
+inputs: a regression case for the one input in thousands that showed a bug. The exit status is 0 only for `equivalent`. A typical function takes 1–5 s
 (compile included); loops that run long on fuzzed inputs can take up to the 120 s level-3 budget. The
-budget is CPU time, so a loaded machine takes longer but gets the same result. `--inputs N` raises the
+budget is CPU time, so a loaded machine takes longer but gets the same result. `--time-budget S` changes it (slow
+functions need more to reach the 50 completed inputs `promotable` asks for). `--inputs N` raises the
 input cap to at least N.
 
 ## Levels
@@ -29,6 +31,13 @@ ran to completion or branch coverage is under 25%; byte-identical code is exempt
 could not run any input to completion), `compile_error` or `no_function`. `level` is the highest level
 passed.
 
+`equivalent` says no difference was seen with *some* coverage. Promotion to `equivalent/` needs more, and
+`promotable` says whether this run meets that bar: `equivalent`, no level-2 conflicts, at least 75% branch
+coverage, at least 50 completed inputs (run with `--inputs 3000`), and at most 10% of the completed count set
+aside as wild (below). When an `equivalent` run falls short, `promotable_note` says why and the text report
+prints it (`not promotable (thin evidence): branch coverage 21/46 is under 75%`). `status` keeps its meaning,
+so tools that parse it are unaffected.
+
 Level 2 also lists **warnings**: differences that equivalent code can legitimately have. Examples are an
 immediate that only looks like an address, a float constant loaded another way (`fld1`, or a double
 instead of a float), a string or global read in pieces, another element of a global the original
@@ -42,8 +51,11 @@ order. The report's `level2.mapping` says which rule fired.
 
 1. **explicit**: `--map` JSON, or a `// equiv-map: ?Foo@@YAXXZ = 0x00123456` comment in the source.
 2. **content**: string literals (same bytes as a string the original references), `__real@` float
-   constants (same bits, in read-only data: a writable global that holds 0.0 is a variable), and vftables
-   (`??_7Class@@6B@` by RTTI class name).
+   constants (same bits, in read-only data: a writable global that holds 0.0 is a variable), vftables
+   (`??_7Class@@6B@` by RTTI class name) and RTTI type descriptors (`??_R0?AVClass@@@8`, the operands of
+   `dynamic_cast`, by class name: with two casts in one function, pairing by position could swap them).
+   A string the original stores without its terminator (`L"()"` among packed pairs `"()[]{}"`) binds by
+   its characters.
 3. **name**:
    - an exact `build/functions.csv` name (`Class::vfunc_3`, `thunk_FUN_…`, or a mangled name it keeps
      as is, like the CRT's `?getBasicDataType@UnDecorator@@…`);
@@ -65,7 +77,8 @@ Two kinds of symbol are never paired:
 
 - **Functions defined in our own object.** These are code the original inlined, for example an inline
   constructor that this compile didn't inline. They run in place, as if inlined, and their references count
-  at level 2.
+  at level 2. MSVC's own helpers `vector constructor iterator` and its kin (`??_H`, `??_I`, `??_L`,
+  `??_M`) are the exception: the original calls the XBE's copy (FUN_00011520), so ours pairs with it.
 - **CRT routines** (`memcpy`, `strcmp`, `sin`, …). The XBE's own copies are found once by behaviour. Every
   function in the CRT region is probed against memcpy/strcmp/floor/… test vectors, and the results are
   cached in `build/equiv/crt.json`. The routines found run for real on both sides. A routine the XBE
@@ -143,6 +156,8 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
 - **Loop repair.** An input on which the original runs out of steps in a loop (a count, a `begin`/`end`
   pair or a list walk read from fuzzed memory) is re-run with the loop's bound patched so that the loop
   ends after a round or two; the induction variable's step comes from the comparison's first two rounds.
+  The compare behind the loop's back edge (`cmp esi, [count]; jb top`) is tried first, then the hottest
+  ones (often clamps inside the body, whose patching never ends the loop).
   A run that then hangs in the next loop is repaired again (4 loops deep, 64 runs). A loop that ran away
   once is cut off after 256 rounds on later inputs (those count as timed out, and are repaired too).
 - Then up to 96 **directed** inputs (input-to-state; each one that finds a new edge earns 4 more, up to 4x).
@@ -156,7 +171,10 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     byte-table switch index (`movzx ecx, byte [eax + table]`), all inverted to find the value to plant;
   - a register stored to a stack local and compared there later (`movsx eax, byte [edx]; mov [esp+4], eax`);
   - x87 compares (`fcom`/`fcomp` + `fnstsw`/`test ah`, `fcomi`), against memory or a stubbed callee's
-    float result;
+    float result. When the compared value is computed (`sqrt` of the difference of two stub-filled vectors,
+    a scaled and clamped result) there is no single word to invert: the input is re-run with every stub
+    float (float results and out-parameter fills) set alike, to 0, 1000 and 1 (equal vectors give distance
+    0);
   - a loop's bound (patched for one or two more rounds, in every memory epoch when it is re-read after a
     call).
 
@@ -195,7 +213,10 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     static scan of the callee (`Program.callee_writes`) follows stores through the incoming pointer, copies
     and constant offsets of it, and callees it is passed on to (a base or member constructor). In the
     original's run that extent, capped at the room the original's frame has there, is filled; ours fills
-    the same offsets. If ours has less room before a saved register, the return address or the caller's
+    the same offsets. Through a register that includes offset 0, and a partly written last word is filled
+    whole: a by-value argument built in place by a copy constructor (`sub esp, 8; mov ecx, esp; push src;
+    call ctor`) otherwise kept each side's own dead return address in it. A return address or saved
+    register below `esp` is dead, so it no longer bounds the room either. If ours has less room before a saved register, the return address or the caller's
     frame, the call fails (`writes 0x40 bytes through ecx ... but ours has only 0x20 bytes there`): our
     local is smaller than the callee's object;
   - leaves `ecx`/`edx`/`eax` alone when the callee never writes them (callers may rely on that);
@@ -203,7 +224,8 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
 - A `push` of an untouched callee-saved register counts as a save (not an argument) only if the function
   pops that register somewhere; otherwise it passes on a register argument (LTCG `esi`). A register the
   function wrote itself is never a save, even when it holds its entry value again (`xor edi, edi; push edi`
-  with `edi` 0 on entry, as recorded game states often have it).
+  with `edi` 0 on entry, as recorded game states often have it). Alignment padding (`mov edi, edi`,
+  `lea esi, [esi]`) doesn't count as a write.
 - The pop count comes from the callee's own `ret N` (following tail jumps) when the call site names a real
   function. For cdecl, it comes from the caller's `add esp, N` or `pop ecx` cleanup, including one
   deferred over several calls. An `add esp, N` in an epilogue (followed by `ret` or a callee-saved `pop`)
@@ -213,7 +235,10 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   pushed words afterwards: released by a later `add esp` (the callee leaves its arguments:
   caller-cleaned), popped by a later call with a known `ret N` (pushed early for that call: `push 1; call
   thunk; push eax; push esi; call f(ret 4); push eax; call g(ret 12)`), or read by a later caller-cleaned
-  call (`push &t; call [vt+0x40]; push eax; ...; call f; add esp, 0x10`). A deferred `add esp` after later
+  call (`push &t; call [vt+0x40]; push eax; ...; call f; add esp, 0x10`). When a later `ret N` call pops some
+  of them and a later `add esp` releases exactly the rest, the callee popped none (`push eax; push K; call
+  thunk; mov ecx, eax; call f(ret 4); push ...; call g; add esp, 0x10`: f takes K, g's cleanup the `eax`;
+  taking it for a `ret 4` thunk left the stack a word off, and callee-saved registers came back shifted). A deferred `add esp` after later
   calls that releases fewer than the pending words, with nothing after it taking the rest before the
   epilogue, means the callee popped the rest (`push 0; push 0x103; call [vt+0x164]` (ret 4)`; push eax;
   call __RTDynamicCast; push 8; call new; add esp, 0x18`). Otherwise the tracked pushes
@@ -257,6 +282,8 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   original leaves a meaningful value there: a callee's result nothing overwrote, or a write to `eax` the
   function never reads back (`left 0x7 in eax, expected 0xa8: ours is void, but the original returns a
   value there`).
+- Bytes of `eax` that last came from `fnstsw ax` (a float branch's status word, `fnstsw ax; test ah, 0x41;
+  ...; mov al, 1; ret`) aren't compared: no source produces them. What was written after them (`al`) is.
 - The x87 stack depth, `ebx/esi/edi/ebp` and `esp` after return.
 - An argument pushed from a register whose last write set only its low byte(s) (`setcc al; push eax`, a
   `bool`) compares on those bytes only.
@@ -266,9 +293,24 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
 
 An input on which either side stores into code (our object at `0x60000000`, or the original's `.text`,
 through a fuzzed pointer) is inconclusive: the store rewrites one side's instructions only (`statuses`
-counts them as `code_write`). An input on which the original doesn't return (step limit 50k, or the 1000-page limit) is inconclusive. If
+counts them as `code_write`).
+
+**Wild control flow** (`statuses`: `wild`). A run stops (`fault:wild_jump`) where control leaves the
+function's own code: a return through a return address that a fuzzed pointer or an overflowed stack buffer
+overwrote, or a call through a fuzzed function pointer into junk. Before, the junk ran on, with effects that
+depended on each side's frame layout. An indirect call through a fuzzed pointer that lands *inside* the
+function under test (`fault:wild_call`) is caught too: an unaligned read across a heap pointer and a small
+int spells `0x0013400c`, and the original ran its own code from there while ours, whose code is elsewhere,
+stubbed a call (or the other way round, for a pointer into our object). An input is inconclusive when the
+original goes wild, or ours makes such a call; ours going wild where the original returns is still a
+failure. An input on which both sides fault, with the same calls and writes up to there and only the fault
+kinds differing (`statuses`: `both_fault`), is inconclusive too. When more than 10% of the completed count
+is set aside this way, the run isn't `promotable`: a model of some call is probably off (a stack that
+drifts until the final `ret`), and that hides the code. A call through `[0xffffffff]` reads its target
+wrapping around to address 0, as the CPU does. An input on which the original doesn't return (step limit 50k, or the 1000-page limit) is inconclusive. If
 the first 4 inputs all run out of steps, the rest get 1M steps (and 3x the time budget): long but
-deterministic code such as string building. One where the original faults is compared up to the fault, but
+deterministic code such as string building. If 6 of the first 8 still run out, the budget goes back down and loop repair
+takes over (rb-tree inserts on fuzzed, cyclic trees: 3 completed inputs became 84). One where the original faults is compared up to the fault, but
 not counted as a pass, and its branches don't count as covered. While fewer than 8 inputs have completed,
 faulting inputs don't stop the search (up to 192 of them). The step budget isn't raised when the early
 timeouts come from a `rep` string instruction with an absurd (fuzzed) count or from a loop that a stubbed
@@ -314,7 +356,12 @@ Mismatch strings are written for a model to act on. Examples:
 
 ## Validation
 
-Latest run (2026-10-12, checker round 3; samples drawn from the current `matches/`):
+Latest run (2026-10-13, checker round 5; details in [tasks/equiv-round5.md](tasks/equiv-round5.md)):
+`regress.py` 60/60; selftest 300/300 (both standing failures fixed); mutation suite 363 caught, 5 false passes
+(also false under round 4), 0 false failures; `equivalent/` random 200 all equivalent, and of ~1,200 files the
+changes could touch, one newly fails (0x00195560: its local is 4 bytes smaller than the callee's object).
+
+Previous run (2026-10-12, checker round 3; samples drawn from the current `matches/`):
 
 - Selftest: 298/300 equivalent; with `/O1` 296/300 and with `/Oy-` 297/300. Every failure (0x003388d0,
   0x00312db0, and under other flags 0x0029b3a0, 0x00327c70) fails the same way with the previous checker

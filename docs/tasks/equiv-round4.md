@@ -60,7 +60,12 @@ indirect transfer to a non-function address or after the run overwrote its own r
 cookie. Repros: 0x000f8280 (`call [DAT_004de948]` runs junk: int3 vs invalid opcode), 0x0012f750, 0x0026f290 and
 0x001a9f10 (unbounded `strcpy` into a stack buffer), 0x0021ab30, 0x001c1a40, and 0x000c21b0 (all 3 failing inputs are
 original faults). 0x00282d00 and 0x0028a630 index stack arrays with fuzzed counts (UB). For those, detect an indexed
-store or load that crosses into another address-taken local, and drop the input.
+store or load that crosses into another address-taken local, and drop the input. **Done (round 5, see
+equiv-round5.md):** a run stops where control leaves the function's code (`wild_jump`), and an indirect call
+through a fuzzed pointer into the function's own body (`wild_call`) stops it too; such an input of the
+original, and one where both sides fault with only the fault kinds differing, is inconclusive. Most of the
+"pointer aliases the stack" notes (0x00017a80, 0x000f3f00, 0x00133fc0, 0x001d2ee0, 0x001b7f40) were really
+`wild_call`. The fuzzed-index cases (0x00282d00, 0x0028a630) are not handled.
 
 **P4. Valid data structures for loops (pile 7, plus the timeouts).** rb-tree insert/rebalance (0x002448b0,
 0x00258530, 0x0025f450, 0x002639c0) reaches 13–32 of 52–64 edges, because fuzzed trees are cyclic. Plant a small
@@ -73,7 +78,8 @@ through two or more loads.
 Directed inputs can't invert `sqrt`, `fabs` or `x*k+0.5`, or a difference of two stub-filled vectors (0x00107410
 `dist < 15`, 0x0010b5b0, 0x0029d090 `ftol` clamps, 0x002e8f80, 0x0022cf90 needs unit rows). Cheap version: for a
 compare whose operand comes from x87 arithmetic over stub results, retry with each contributing stub float set to 0,
-±1, the compared constant and small/large magnitudes, and keep what flips the branch.
+±1, the compared constant and small/large magnitudes, and keep what flips the branch. **Done (round 5, cheap
+version):** every stub float set alike (0, +1/-1 by turns, 1000); 0x00107410 11→51/52 edges.
 
 **P6. Callee-written words in stack temporaries (pile 5, outside about 47).** Two precise bugs in
 `_callee_extent`/out-parameter filling:
@@ -88,7 +94,9 @@ compare whose operand comes from x87 arithmetic over stub results, retry with ea
    frame held a dead spill there and ours held `-1`. Fill every word inside a statically known extent, and keep the
    skip for words beyond it.
 
-Repro shape count: 47 unproven functions contain `mov ecx, esp`.
+Repro shape count: 47 unproven functions contain `mov ecx, esp`. **Done (round 5): bug 1** (offset 0
+through a register, partly written last words, dead `save_slots`); 0x001db230, 0x001ecda0 (at 3000 inputs)
+and 0x001d8350 (after its `Event` local grew to the callee's 0x28 bytes) get past it. Bug 2 is not done.
 
 **P7. Trace replay as a coverage source.** For the thin-coverage and callee-driven-loop clusters (about 25 functions:
 teardown loops 0x0024ad20, 0x001dec10, 0x000b1db0 and 0x0024a800; A* 0x001aedb0; Lua 0x002142d0), recorded game states

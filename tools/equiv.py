@@ -69,6 +69,9 @@ POINTEE_WINDOW = 4096        # most bytes of a stack local passed by pointer tha
 LONG_STEPS = 1000000        # step budget once every early input of the original ran out of 50k steps
 MIN_CONCLUSIVE = 8          # fewer completed inputs than this (or less coverage than MIN_COVERAGE): inconclusive
 MIN_COVERAGE = 0.25
+ACCEPT_COVERAGE = 0.75      # the bar for promotion to equivalent/ (promote-remote.sh, farm.ts, clone_equivalent.py):
+ACCEPT_INPUTS = 50          # `promotable` in the report; `status` keeps its looser meaning
+ONLY_SEEDS = {int(x) for x in os.environ.get("EQUIV_SEEDS", "").split(",") if x.strip()}
 DEFAULT_POINTEE = 4         # ... when the callee's parameter type is unknown (e.g. virtual calls)
 
 REL32, DIR32 = 0x14, 0x06
@@ -120,9 +123,13 @@ class Program:
         self.rtti = {}
         # functions reached through a vtable: their callers can't be found by scanning for `call`
         self.virtual_funcs = {a for a, (_, n) in self.funcs.items() if "vfunc_" in n}
+        self.typedescs = {}         # '.?AVNode@scenegraph@pure3d@@' -> its RTTI type descriptor (??_R0)
         if os.path.exists(RTTI_JSON):
             for c in json.load(open(RTTI_JSON))["classes"]:
                 self.rtti[c["mangled"]] = c
+                self.typedescs.setdefault(c["mangled"], c.get("td"))
+                for b in c.get("bases", []):
+                    self.typedescs.setdefault(b["name"], b.get("td"))
                 for v in c["vtables"]:
                     self.vftables[v["address"]] = c["mangled"]
                     self.virtual_funcs.update(v.get("slots") or ())
@@ -1081,19 +1088,24 @@ class CodeView:
         caller does with the stack afterwards: ("caller", n) when a later `add esp` releases them (the
         callee leaves its arguments: a plain ret), ("callee", k) when a later call with a known `ret N`
         pops npending - k of them (they were pushed early for that call: `push 1; call thunk; push eax;
-        push esi; call f(ret 4); push eax; call g(ret 12)`), None when it can't tell."""
+        push esi; call f(ret 4); push eax; call g(ret 12)`), ("reader", k) when such a call pops k and a
+        later `add esp` releases exactly the rest (the callee pops nothing: `push eax; push K; call thunk;
+        mov ecx, eax; call f(ret 4); push ...; call g; add esp, 0x10`), None when it can't tell."""
         i = self.decode(call_addr)
         a = call_addr + i.size
         depth = 0                   # bytes pushed after the call that are still on the stack
         calls = 0                   # calls between ours and the cleanup
+        taken = 0                   # pending words a later call with a known `ret N` popped
         seen = set()
+        # once a later call took some pending words, anything unclear means the callee popped the rest
+        unsure = lambda: ("callee", npending - taken) if taken else None
         for _ in range(64):
             if a in seen:
-                return None
+                return unsure()
             seen.add(a)
             j = self.decode(a)
             if j is None:
-                return None
+                return unsure()
             m = j.mnemonic
             if m == "push":
                 depth += 4
@@ -1101,13 +1113,16 @@ class CodeView:
                 if depth >= 4:
                     depth -= 4
                 else:
-                    return None
+                    return unsure()
             elif m in ("add", "sub") and j.ops and j.ops[0] == ("reg", "esp") and j.imms:
                 depth += -j.imms[0] if m == "add" else j.imms[0]
                 if depth < 0:
+                    released = -depth // 4
+                    if taken:
+                        # the rest of the pending words released by the caller: the callee popped none
+                        return ("reader", taken) if released == npending - taken else unsure()
                     if -depth > 4 * npending:
                         return None     # releases more than the pending words: the frame (an epilogue)
-                    released = -depth // 4
                     if calls and released < npending and _depth == 0 and \
                             self._pending_unclaimed(a, npending - released):
                         # a deferred cleanup after later cdecl calls that leaves some pending words on the
@@ -1117,17 +1132,17 @@ class CodeView:
                     return ("caller", npending)
             elif j.kind == "call":
                 if j.target in IGNORED_CALLS:
-                    return None
+                    return unsure()
                 calls += 1
                 pop = self.prog.callee_pop(j.target) if j.target is not None else None
                 if pop is None:
                     if j.target is not None or (j.mem is not None and not j.mem[1] and not j.mem[2]):
-                        return None     # (a thunk, or an import through its IAT slot: stdcall, likely)
+                        return unsure()     # (a thunk, or an import through its IAT slot: stdcall, likely)
                     # another virtual call: what its own pushed words become decides its pop (the same
                     # question, one call later); otherwise it pops what was pushed for it (thiscall)
                     sub = self.pending_use(a, depth // 4, _depth + 1) if depth and _depth < 3 else None
                     pop = depth if sub is None else (4 * sub[1] if sub[0] == "callee" else 0)
-                if pop == 0 and j.target is not None:
+                if pop == 0 and j.target is not None and not taken:
                     reads = self.prog.callee_stack_args(j.target)
                     if reads is not None and 4 * reads > depth:
                         # a caller-cleaned call that also reads words pushed before ours: they are its
@@ -1136,18 +1151,22 @@ class CodeView:
                         return ("reader", npending - used)
                 depth -= pop
                 if depth < 0:
-                    used = min(npending, -depth // 4)
-                    return ("callee", npending - used)
+                    used = min(npending - taken, -depth // 4)
+                    if _depth or taken + used >= npending:
+                        return ("callee", npending - taken - used)
+                    # some pending words remain: see whether the caller releases them later
+                    taken += used
+                    depth = 0
             elif j.kind == "jmp":
                 if j.target is not None and self.internal_target(j.target):
                     a = j.target
                     continue
-                return None
+                return unsure()
             elif j.kind in ("ret", "stop") or m in ("leave", "pushal", "popal", "pushfd", "popfd") or \
                     (j.ops and j.ops[0] == ("reg", "esp")):
-                return None
+                return unsure()
             a += j.size
-        return None
+        return unsure()
 
     def _pending_unclaimed(self, addr, nleft):
         """After the cleanup at addr, nleft argument words are still on the stack: True when the code
@@ -1558,6 +1577,9 @@ MATH1 = {"sin": math.sin, "cos": math.cos, "tan": math.tan, "sqrt": math.sqrt, "
          "asin": math.asin, "acos": math.acos, "sinh": math.sinh, "cosh": math.cosh, "tanh": math.tanh}
 MATH2 = {"atan2": math.atan2, "pow": math.pow, "fmod": math.fmod}
 X87_NAN = struct.unpack("<d", bytes.fromhex("000000000000f8ff"))[0]     # the x87 "indefinite" NaN
+# MSVC's `vector constructor iterator` & co: our compile emits its own copy (a COMDAT), the original calls the
+# XBE's one out of line (FUN_00011520), so they pair like any callee instead of running in place
+VECTOR_ITERATORS = ("??_H@", "??_I@", "??_L@", "??_M@")
 INTRINSIC_NAMES = {"_memcpy", "_memmove", "_memset", "_strlen", "_strcmp", "_stricmp", "__stricmp", "_strncmp",
                    "__strnicmp", "_strcpy", "_strcat", "__ReadWriteBarrier"} | {"_" + k for k in MATH1} | \
     {"_" + k for k in MATH2}
@@ -1895,6 +1917,7 @@ class Run:
         self.reg_dirty = set()      # registers some instruction other than a pop has written
         self.push_width = {}        # stack slot -> bits of the register pushed there
         self.array_written = set()  # stack bytes stored like array elements (indexed, via a pointer, rep)
+        self.fill_byte = {}         # stack byte -> (call, argument, -1, start) of a byte out-parameter fill
         self.fill_src = {}          # stack word -> (call, argument, offset) of the stub fill that wrote it
         self.fill_owner = {}        # stack word -> the out-parameter pointer whose fill wrote it  # ... by the function itself (not by a stub's out-param write)
         self.helper_ret = None
@@ -1943,6 +1966,8 @@ class Run:
         self.cookie_bad = None      # the cookie check got something else in ecx (before call #n)
         self.decls = {}             # callee address -> our declaration's signature (our run only)
         self.caller_cleans = set()  # callees with a plain ret whose original callers pop the arguments
+        self.ax_status = False      # ax's upper bytes last came from fnstsw (a float branch's status word)
+        self.wild_check = False     # stop at control flow that leaves known code (fault:wild_jump/wild_call)
 
     # -- setup ---------------------------------------------------------------------------------
     def _setup(self):
@@ -2033,6 +2058,8 @@ class Run:
                     self.array_written.update(range(addr, addr + size))     # indexed/pointer/string store
                 for x in range(addr & ~3, addr + size, 4):
                     self.fill_src.pop(x, None)
+                for x in range(addr, addr + size):
+                    self.fill_byte.pop(x, None)
             if self.cur_insn is not None and self.cur_insn.is_fpu_store:
                 self.stack_fpu[addr] = size
             else:
@@ -2065,6 +2092,10 @@ class Run:
         return a & M32
 
     def _read_u32(self, a):
+        if a > M32 - 3:
+            # wraps around like the CPU's own access (Unicorn's mem_read doesn't: `call [ebx]` with ebx -1
+            # read a different word than ours' `mov ebx, [ebx]`)
+            return struct.unpack("<I", self._mem(a, 4))[0]
         try:
             return struct.unpack("<I", self.uc.mem_read(a, 4))[0]
         except Exception:
@@ -2393,6 +2424,8 @@ class Run:
             eax = d[(h >> 8) % len(d)] if d and h & 1 else fuzz_value(h)
         edx = fuzz_value(mix(self.inp["seed"], 0xCA12, k))
         fv = FLOATS[mix(self.inp["seed"], 0xCA13, k) % len(FLOATS)]
+        if self.inp.get("stub_floats") is not None:
+            fv = _stub_float(self.inp["stub_floats"], k)
         if k in self.inp.get("fret_override", {}):
             fv = self.inp["fret_override"][k]        # a directed input's float result for this call
         self.calls.append({"target": target, "args": args, "regs": {r: self.reg(r) for r in Program._REGS},
@@ -2424,6 +2457,11 @@ class Run:
             def put(w, j, off, owner):
                 h = mix(self.inp["seed"], 0x0B7, k, j) if off == 0 else mix(self.inp["seed"], 0x0B7, k, j, off)
                 word = bytearray(struct.pack("<I", fuzz_value(h)))
+                if self.inp.get("stub_floats") is not None:      # (directed: every stub float alike)
+                    # (+v/-v by turns per filled object: two vectors filled one after the other point
+                    # opposite ways)
+                    order = self.__dict__.setdefault("_fill_order", {}).setdefault((k, j), len(self._fill_order))
+                    word = bytearray(struct.pack("<f", _stub_float(self.inp["stub_floats"], order)))
                 for (k_, j_, off_, bi, sz), val in self.inp.get("fill_override", {}).items():
                     if (k_, j_, off_) == (k, j, off):           # a directed input's value for this word
                         word[bi:bi + sz] = (val & ((1 << (8 * sz)) - 1)).to_bytes(sz, "little")[:4 - bi]
@@ -2434,6 +2472,20 @@ class Run:
             for j, v, hi, exact_size in outs:
                 put(v, j, 0, v)
             firsts = {v for _, v, _, _ in outs}
+            for j, (v, _) in enumerate(args):
+                if in_frame(v) and v % 4 and not any(x in self.func_stack_written for x in range(v, v + 1)):
+                    # a byte out-parameter at an odd offset (`char found, flagA, flagB` passed by pointer):
+                    # the callee writes its byte, nothing more (its neighbours are other out-parameters)
+                    sz = declared.get(j, 1)
+                    sz = 1 if isinstance(sz, tuple) or not 0 < sz < 4 else sz
+                    b = bytearray(struct.pack("<I", fuzz_value(mix(self.inp["seed"], 0x0B7, k, j))))
+                    for (k_, j_, off_, bi, n_), val in self.inp.get("fill_override", {}).items():
+                        if (k_, j_, off_) == (k, j, -1):          # (-1: a byte fill, bi counts from v)
+                            b[bi:bi + n_] = (val & ((1 << (8 * n_)) - 1)).to_bytes(n_, "little")[:4 - bi]
+                    uc.mem_write(v, bytes(b[:sz]))
+                    self.stack_written.update(range(v, v + sz))
+                    for x in range(v, v + sz):
+                        self.fill_byte[x] = (k, j, -1, v)
             for j, v, hi, exact_size in outs:
                 for w in range(v + 4, hi - 3, 4):
                     if w >= ENTRY_ESP:
@@ -2458,6 +2510,7 @@ class Run:
         if "eax" in clobbers:
             uc.reg_write(u.UC_X86_REG_EAX, eax)
             self.eax_def, self.eax_read = ("call", 32), False
+            self.ax_status = False
             if self.coverage:
                 self.loads["eax"] = (("ret", k), 4, self.epoch, "eax", (), eax)     # for directed inputs
         if "edx" in clobbers:
@@ -2514,11 +2567,17 @@ class Run:
                 if not in_frame(v):
                     continue
                 room, _ = self._frame_room(v)
-                cap = min([w, room] + [x - v for x in firsts if x > v])
+                # (a partly written last word, `Key` copying 10 bytes of a 12-byte slot: its padding is stale
+                # on both sides, a dead return address that differs, so the whole word is filled)
+                cap = min([(w + 3) & ~3, room] + [x - v for x in firsts if x > v])
                 cap &= ~3
-                if cap <= 4:
+                # offset 0 of a stack argument was filled with the other out-parameters; through a register
+                # (`sub esp, 8; mov ecx, esp; push src; call copy_ctor`: a by-value argument built in place)
+                # nothing filled it, and it still holds a dead return address that differs between the sides
+                lo = 4 if not isinstance(loc, str) or v in firsts else 0
+                if cap <= lo:
                     continue
-                offs = [o for o in range(4, cap, 4)
+                offs = [o for o in range(lo, cap, 4)
                         if not any(x in self.func_stack_written for x in range(v + o, v + o + 4))]
                 rec[loc] = (cap, offs)
             learned[k] = rec
@@ -2557,6 +2616,11 @@ class Run:
             val = int.from_bytes(self.uc.mem_read(ea, v[5]), "little")
         except Exception:
             val = 0
+        fb = self.fill_byte.get(ea)
+        if fb is not None and fb[3] + 4 >= ea + v[5]:
+            # a byte out-parameter a stub filled (see _stub)
+            return {"val": val, "src": (("fill",) + fb[:3] + (ea - fb[3], v[5]), v[5], self.epoch), "xf": (),
+                    "raw": val}
         fs = self.fill_src.get(ea & ~3)
         if fs is not None and (ea & 3) + v[5] <= 4:
             # an out-parameter word a stub filled: a directed input can fill in another value
@@ -2873,6 +2937,14 @@ class Run:
                 if addr != self.helper_ret:
                     return
                 self.helper_ret = None
+            if self.wild_check and not self.view.in_body(addr) and addr not in self.view.insns and \
+                    not (self.local_code and self.local_code[0] <= addr < self.local_code[1]):
+                # control left the function's code: a return address, saved register or function pointer
+                # the run overwrote through a wild pointer, or a fuzzed code pointer. The real game never
+                # gets here; stop before running junk (whose effects depend on each side's layout)
+                self.fault = self.fault or ("wild_jump", addr)
+                uc.emu_stop()
+                return
             insn = self.view.decode(addr)
             # Unicorn sometimes restarts an instruction (the code hook fires again for the same address)
             # and loses lazily computed flags on the way (a cmp; mov [m], r; jb then branches differently
@@ -2899,6 +2971,10 @@ class Run:
                     self.eax_read = True
                 if wr:
                     self.eax_def, self.eax_read = ("insn", wr, addr), False
+                    if insn is not None and insn.mnemonic in ("fnstsw", "fstsw"):
+                        self.ax_status = True       # ax holds the x87 status word (no source form)
+                    elif wr > 8:
+                        self.ax_status = False
             if insn is not None and insn.mem is not None and insn.mnemonic not in ("lea", "nop"):
                 # Map the operand's page before the instruction runs. A lazy map from the fault hook
                 # restarts the instruction, and Unicorn can lose lazily computed flags across that restart
@@ -2945,6 +3021,10 @@ class Run:
                     self.stack_written.discard(x)
                     self.func_stack_written.discard(x)
                     self.array_written.discard(x)
+            if esp != self.prev_esp and self.save_slots:
+                # a return address or saved register below esp is dead: once `sub esp` reuses the slot (a
+                # by-value argument built in place) it is free space, not a frame boundary
+                self.save_slots = {x for x in self.save_slots if x >= esp}
             self.prev_esp = esp
             if insn.mnemonic == "lea" and insn.mem is not None and insn.mem[1] in ("esp", "ebp") \
                     and not insn.mem[2] and addr not in self.prologue:
@@ -2958,9 +3038,14 @@ class Run:
                 # an argument pushed from a register only partly written (`setcc al; push eax`): a bool or char
                 # whose upper bytes are garbage
                 self.push_width[esp - 4] = self.reg_width.get(insn.regs[0], 32)
+            # (`mov edi, edi` / `lea esi, [esi]`: alignment padding, not a write; a lazy `push edi` after it
+            # is still a register save)
+            nop_move = insn.mem is None and m in ("mov", "xchg") and len(insn.regs) == 2 and \
+                insn.regs[0] == insn.regs[1] or m == "lea" and len(insn.regs) == 1 and insn.mem is not None and \
+                insn.mem[1] == insn.regs[0] and not insn.mem[2] and not insn.mem[4]
             for r_, b_ in self.view.write_widths(addr).items():
                 self.reg_width[r_] = b_
-                if m != "pop":
+                if m != "pop" and not nop_move:
                     self.reg_dirty.add(r_)
             if m == "push":
                 # (not a register the function set itself that happens to hold its entry value: `xor edi, edi;
@@ -2991,8 +3076,15 @@ class Run:
                         self._note_str(addr, a0, a1, n)
                     self.helper_ret = addr + size
                     self.eax_def, self.eax_read = ("helper", 32), False      # CRT helper: not ours to return
+                    self.ax_status = False
                     return
                 if self.view.in_body(target) and target != self.view.entry:
+                    if insn.target is None and self.wild_check:
+                        # a function pointer read from fuzzed memory that lands inside the function itself
+                        # (an unaligned read of a heap pointer and a small int spells 0x0013400c): one side
+                        # runs its own code from there, the other (whose code is elsewhere) stubs a call
+                        self.fault = self.fault or ("wild_call", target)
+                        uc.emu_stop()
                     return
                 direct = insn.target is not None      # a relocated call, not a pointer from fuzzed memory
                 if direct and target in IGNORED_CALLS:
@@ -3100,6 +3192,13 @@ class Run:
         # return value explains a dead write). A callee's result left unread is ambiguous (`g();` and
         # `return g();` compile alike), so it doesn't count.
         d = self.eax_def
+        # an x87 status word left in ax by a float branch (`fnstsw ax; test ah, 0x41; ...; mov al, 1; ret`):
+        # bytes no source can produce, so only what was written after it (al) is a result
+        out["eax_fnstsw"] = None
+        if self.ax_status and d and d[0] == "insn":
+            out["eax_fnstsw"] = 8 if d[1] == 8 else 0
+            if d[1] != 8:
+                d = None
         out["eax_defined"] = d[1] if d and ((d[0] == "call" and self.eax_read) or (d[0] == "insn" and not self.eax_read and
                                                                 self.view.eax_dead_after(d[2]))) else None
         out["segments"] = self.segments
@@ -3451,6 +3550,14 @@ def resolve_symbols(prog, ours, oview, orefs, explicit=None, use_names=True):
             hits = sorted((t for t in oaddrs if lit and prog.read(t, len(lit)) == lit),
                           key=lambda t: (t not in pair_votes.get(name, {}), prog.section_name(t) != ".rdata", t))
             cand = (hits[0], "string") if hits else None
+            if cand is None and lit and lit.rstrip(b"\0") and len(lit.rstrip(b"\0")) < len(lit):
+                # a char array without its terminator in the original (`L"()"` packed among other pairs:
+                # "()[]{}"): the bytes the code reads still match
+                body = lit.rstrip(b"\0")
+                body += b"\0" * (len(body) % 2 if name.startswith("??_C@_1") else 0)
+                hits = sorted((t for t in oaddrs if prog.read(t, len(body)) == body),
+                              key=lambda t: (t not in pair_votes.get(name, {}), prog.section_name(t) != ".rdata", t))
+                cand = (hits[0], "string") if hits else None
             if cand is None:
                 cand = (None, "string_not_in_original")
         elif name.startswith("__real@"):
@@ -3464,12 +3571,18 @@ def resolve_symbols(prog, ours, oview, orefs, explicit=None, use_names=True):
             v = vftable_by_name(prog, name)
             if v is not None:
                 cand = (v, "vftable")
+        elif name.startswith("??_R0?") and name.endswith("@8"):
+            # an RTTI type descriptor (dynamic_cast's source/target type), by class name: with two casts in
+            # one function, pairing by position can swap them
+            v = prog.typedescs.get("." + name[5:-2])
+            if v:
+                cand = (v, "rtti")
         if cand is None and use_names:
             na = name_address(prog, name)
             if na:
                 cand = na
         votes = pair_votes.get(name)
-        if cand is None and sym[2] > 0 and sym[3] == 0x20:
+        if cand is None and sym[2] > 0 and sym[3] == 0x20 and not name.startswith(VECTOR_ITERATORS):
             votes = None      # a function defined in our object (e.g. not inlined here): it runs in place
         if name in INTRINSIC_NAMES and cand is None:
             votes = None      # a CRT routine the XBE doesn't have out of line: runs semantically
@@ -3883,6 +3996,8 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
             if o["fdepth"] != r["fdepth"]:
                 out.append("x87 stack depth at return %d, expected %d" % (r["fdepth"], o["fdepth"]))
             mask = {"i8": 0xFF, "b8": 0xFF, "i16": 0xFFFF}.get(rk, M32)
+            if o.get("eax_fnstsw") is not None:
+                mask &= (1 << o["eax_fnstsw"]) - 1      # (status-word bytes of the original's eax: not compared)
             if rk != "void":
                 ov, rv = _norm(o["eax"] & mask), _norm(r["eax"] & mask)
                 if ov != rv:
@@ -4039,12 +4154,15 @@ def clang_check(src):
 
 def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mapping=None, max_level=3,
            max_steps=50000, use_names=True, clang=False, obj_path=None, keep_runs=False, time_budget=120,
-           conventions=None, level3_fn=None):
+           conventions=None, level3_fn=None, seeds=None):
     """Run levels 1-3 for SRC against the original function at ADDR. Returns the report dict.
 
+    seeds: run only these random seeds (a regression case for one input out of thousands); EQUIV_SEEDS=1,2 too.
     level3_fn: run this instead of the fuzzing level 3 (tools/equiv_replay.py replays recorded game states);
     it gets the same setup as level3() as keyword arguments and its result is returned as rep["replay"]."""
     t0 = time.time()
+    if seeds:
+        n_inputs = max(n_inputs, max(seeds) + 1)
     max_inputs = max(max_inputs, n_inputs)      # (--inputs 3000 asks for at least that many)
     prog = Program.get()
     size, tname = prog.funcs[addr]
@@ -4163,7 +4281,7 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
         rep["time"] = round(time.time() - t0, 2)
         return rep
     l3 = level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs,
-                time_budget, psizes=psizes, convs=convs, decls=decls, void_eax=void_eax)
+                time_budget, psizes=psizes, convs=convs, decls=decls, void_eax=void_eax, seeds=seeds)
     rep["level3"] = l3
     if l3["ok"] and rep["level"] == 2:
         rep["level"] = 3
@@ -4180,6 +4298,28 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
                 l3["inputs_run"], cov["edges_covered"], cov["edges_total"])
     else:
         rep["status"] = "fail"
+    # `equivalent` only says no difference was seen with some coverage; promotion needs more (an added
+    # field, so consumers parsing `status` keep working)
+    cov = l3.get("coverage") or {}
+    short = []
+    if cov.get("edges_total") and cov["edges_covered"] < ACCEPT_COVERAGE * cov["edges_total"]:
+        short.append("branch coverage %d/%d is under %d%%" % (cov["edges_covered"], cov["edges_total"],
+                                                              100 * ACCEPT_COVERAGE))
+    if l3.get("inputs_run", 0) < ACCEPT_INPUTS:
+        short.append("only %d inputs completed (%d needed; try --inputs 3000%s)" % (
+            l3.get("inputs_run", 0), ACCEPT_INPUTS,
+            ", and a bigger --time-budget: the %gs budget ran out" % time_budget if l3.get("time_budget_hit") else ""))
+    if rep["level2"].get("conflicts"):
+        short.append("level-2 name conflicts")
+    st = l3.get("statuses") or {}
+    wild = st.get("wild", 0) + st.get("both_fault", 0)
+    if wild > 0.1 * max(l3.get("inputs_run", 0), 1):
+        # inputs set aside because control flow went wild: a few are fuzzing accidents, many mean the
+        # model of some call is off (a stack that drifts until the final ret), which hides that code
+        short.append("%d inputs went wild (control left the function) or crashed on both sides" % wild)
+    rep["promotable"] = rep["status"] == "equivalent" and not short
+    if rep["status"] == "equivalent" and short:
+        rep["promotable_note"] = "; ".join(short)
     rep["time"] = round(time.time() - t0, 2)
     return rep
 
@@ -4248,7 +4388,8 @@ def caller_cleaned(prog, oview):
 
 
 def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs=False,
-           time_budget=120, directed=96, psizes=None, convs=None, decls=None, void_eax=False):
+           time_budget=120, directed=96, psizes=None, convs=None, decls=None, void_eax=False, seeds=None):
+    only_seeds = set(seeds) if seeds else ONLY_SEEDS
     globals_ = sorted({t for _, k, t in orefs if k in ("data", "imm") and prog.section_name(t) in (".data", "BINKDATA", "DOLBY")})
     own_float = ret_kind in ("f32", "f64")
     varargs = {a for a, d in (decls or {}).items() if d and d.get("varargs")}
@@ -4339,6 +4480,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 if isinstance(k, tuple) and k[0] == "fret":    # a stub's float result
                     inp.setdefault("fret_override", {})[k[1]] = v
                     continue
+                if isinstance(k, tuple) and k[0] == "stubfloats":    # every stub float result and fill word
+                    inp["stub_floats"] = v
+                    continue
                 if isinstance(k, tuple) and k[0] == "fill":    # a word a stub filled through a pointer
                     inp.setdefault("fill_override", {})[k[1:]] = v
                     continue
@@ -4402,6 +4546,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         orun.slot_arity = slot_arity
         orun.loop_limits = loop_limits
         orun.varargs = varargs
+        orun.wild_check = True
         o = orun.run(oview.entry)
         # only a run that returned proves anything about the edges it took (a fault both sides share, e.g.
         # a stub that can't model the call, leaves the code after it unverified)
@@ -4425,7 +4570,11 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     lst.append((seed, ob, overlay, stack_patch))
         elif o["status"] in ("timeout", "fault:too_many_pages") and not o["huge_rep"]:
             # a loop that ran too long: remember its hottest comparisons, to end it early (repair below)
-            hot = [(j, obs_run[j]) for j, _ in orun.jcc_count.most_common(6) if j in obs_run][:3]
+            # (a loop's back edge first: `cmp esi, [count]; jb top` bounds the loop, while the hottest compares
+            # are often clamps inside its body, whose patching never ends it)
+            cand = [j for j, _ in orun.jcc_count.most_common(12) if j in obs_run]
+            back = [j for j in cand if oview.insns[j].target is not None and oview.insns[j].target <= j]
+            hot = [(j, obs_run[j]) for j in (back[:2] + [j for j in cand if j not in back[:2]])][:3]
             if hot and len(stuck) < 256:
                 stuck.append((seed, overlay, stack_patch, hot))
             for j, c in orun.jcc_count.most_common(1):
@@ -4440,6 +4589,12 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         if o["status"] in ("timeout", "fault:too_many_pages") or o["status"].startswith("fault:hook_error"):
             res["inputs_inconclusive"] += 1
             return None
+        if o["status"] in ("fault:wild_jump", "fault:wild_call"):
+            # the original's control flow went wild (a fuzzed pointer overwrote its return address or a
+            # saved register, or a fuzzed code pointer lands inside the function): no real input does that
+            res["inputs_inconclusive"] += 1
+            res["statuses"]["wild"] += 1
+            return None
         rrun = Run(prog, rview, mach, inp, ours_image=(OURS, ours.image), sig=sig, max_steps=steps[0] * 2,
                    own_float_ret=own_float, helpers=helpers)
         rrun.pointee_sizes = psizes or {}
@@ -4451,6 +4606,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         rrun.varargs = varargs
         rrun.caller_cleans = caller_cleans
         rrun.slot_arity = slot_arity
+        rrun.wild_check = True
         r = rrun.run(rview.entry)
         if orun.code_write is not None or rrun.code_write is not None:
             # a store through a fuzzed pointer that lands on code (ours at OURS, or the original's .text)
@@ -4464,8 +4620,19 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             res["inputs_inconclusive"] += 1
             res["statuses"]["ours_too_many_pages"] += 1
             return None
+        if r["status"] == "fault:wild_call":
+            res["inputs_inconclusive"] += 1         # a fuzzed code pointer into our own function (see above)
+            res["statuses"]["wild"] += 1
+            return None
         diffs = compare_runs(o, r, ret_kind, mach, Namer(inp, sig, prog), prog, esp_adjust=esp_adjust,
                              skip_saved=set(target_conv or ()), void_eax=void_eax)
+        if diffs and o["status"].startswith("fault:") and r["status"].startswith("fault:") and \
+                all(d == "original %s but ours %s" % (o["status"], r["status"]) for d in diffs):
+            # both sides crash, with the same calls and writes up to there, only differently (an overflowed
+            # stack buffer hits the cookie check in one, a smashed saved register in the other)
+            res["inputs_inconclusive"] += 1
+            res["statuses"]["both_fault"] += 1
+            return None
         if o["status"] == "ret":
             res["inputs_run"] += 1
         else:
@@ -4496,7 +4663,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             # stubbed callee says stop (thousands of calls). Give the remaining inputs a much bigger budget (and 3x the time).
             steps[0] = LONG_STEPS
             res["long_steps"] = LONG_STEPS
-        if seed == 8 and steps[0] >= LONG_STEPS and res["statuses"].get("timeout") == 8:
+        if seed == 8 and steps[0] >= LONG_STEPS and res["statuses"].get("timeout", 0) >= 6:
             steps[0] = max_steps          # the bigger budget didn't help: fuzzed loop bounds after all
             res.pop("long_steps", None)
         if not repair_on[0] and steps[0] < LONG_STEPS and (seed == 4 or seed == 8):
@@ -4509,6 +4676,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             if coverage_of(oview, edges)["complete"] or stale >= 16:
                 break
         n0 = len(stuck)
+        if only_seeds and seed not in only_seeds:      # (EQUIV_SEEDS=7913,9556: debugging one input)
+            seed += 1
+            continue
         new = run_input(seed)
         seed += 1
         if new is None:
@@ -4601,6 +4771,13 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     else:
         res["ok"] = res["inputs_failed"] == 0
     return res
+
+
+def _stub_float(mode, k):
+    """The float every stub returns or fills in under a directed input's `stubfloats` patch (call k)."""
+    if isinstance(mode, tuple):           # ("alt", v): +v and -v by turns
+        return mode[1] if k % 2 == 0 else -mode[1]
+    return mode
 
 
 def _apply_xf(op, v):
@@ -4762,6 +4939,14 @@ def _patches(ob, overlay0, patch0, nstack):
                         continue
                     ov[(x["src"][2], ea_)] = struct.pack("<f" if x["src"][1] == 4 else "<d", fv)
                     out.append((ov, dict(patch0 or {})))
+        if not out and any(o.get("src") is None for o in ops):
+            # a value computed from stub results (sqrt of a difference of two stub-filled vectors, a scaled
+            # and clamped result): no single word to invert. Make every stub float alike instead: all 0
+            # (equal vectors: distance 0), +1/-1 by call (opposite vectors: a negative dot product), all large
+            for fv in (0.0, ("alt", 1.0), 1000.0, 1.0):
+                patch = dict(patch0 or {})
+                patch[("stubfloats",)] = fv
+                out.append((dict(overlay0 or {}), patch))
         return out[:6]
     if ob["mnemonic"] == "table":
         a = ob["ops"][0]
@@ -4772,7 +4957,8 @@ def _patches(ob, overlay0, patch0, nstack):
         a = ops[0]
         b = ops[1] if len(ops) > 1 else ops[0]
         if a["src"] and (b["src"] == a["src"] or b.get("same")):
-            targets.append((a, [0, 1, a["val"] ^ 1]))
+            # (-1 too: `test eax, eax; jge` / `js` branch on the sign, which 0 and 1 never flip)
+            targets.append((a, [0, M32, a["val"] ^ 1, 1]))
         elif a["src"] and b.get("imm") is not None:
             targets.append((a, [0, b["val"]]))
     else:
@@ -4849,6 +5035,8 @@ def render(rep):
             lines.append("  L3 unsupported: " + l3["unsupported"])
         if rep.get("inconclusive"):
             lines.append("  L3 inconclusive: " + rep["inconclusive"])
+        if rep.get("promotable_note"):
+            lines.append("  not promotable (thin evidence): " + rep["promotable_note"])
         for m in l3["mismatches"][:3]:
             for d in m["diffs"]:
                 lines.append("  L3 input %s: %s" % (m["input"], d))
@@ -4870,6 +5058,8 @@ def main(argv):
     p.add_argument("--inputs", type=int, default=64)
     p.add_argument("--max-inputs", type=int, default=256)
     p.add_argument("--steps", type=int, default=50000)
+    p.add_argument("--time-budget", type=float, default=120,
+                   help="level-3 CPU seconds (x3 under long step budgets); slow functions need more to reach 50 inputs")
     p.add_argument("--level", type=int, default=3)
     p.add_argument("--map", help="JSON {symbol: '0xaddr'} binding our symbols to original addresses")
     p.add_argument("--no-names", action="store_true", help="ignore addresses encoded in symbol names")
@@ -4880,7 +5070,8 @@ def main(argv):
     if a.map:
         mapping = {k: int(v, 16) if isinstance(v, str) else v for k, v in json.load(open(a.map)).items()}
     rep = verify(a.src, int(a.addr, 16), symbol=a.symbol, flags=extra, n_inputs=a.inputs, max_inputs=a.max_inputs,
-                 mapping=mapping, max_level=a.level, max_steps=a.steps, use_names=not a.no_names, clang=a.clang)
+                 mapping=mapping, max_level=a.level, max_steps=a.steps, use_names=not a.no_names, clang=a.clang,
+                 time_budget=a.time_budget)
     print(json.dumps(rep, default=str) if a.json else render(rep))
     return 0 if rep["status"] == "equivalent" else 1
 

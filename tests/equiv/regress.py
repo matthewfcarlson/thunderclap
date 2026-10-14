@@ -16,7 +16,8 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 sys.path.insert(0, os.path.join(ROOT, "tools"))
 CASES_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "cases")
 
-# name: (expected status, text one of the mismatches must contain or None[, minimum branch coverage])
+# name: (expected status, text one of the mismatches must contain or None[, minimum branch coverage[, verify()
+# keyword arguments, e.g. the seeds of the one input in thousands that showed the bug]])
 CASES = {
     # a stack local smaller than what the (stubbed) callee writes through the pointer
     "0x00241390_small_local": ("fail", "writes 0x40 bytes through ecx"),
@@ -103,13 +104,57 @@ CASES = {
     "0x0003a680_base_null_check": ("equivalent", None),
     "0x0008e880_cookie_prologue": ("equivalent", None),
     "0x000d3f10_string_table": ("equivalent", None, 0.75),
+    # round 5. A fuzzed function pointer that lands inside the function itself (an unaligned read of a heap
+    # pointer and a small int spells 0x000f4004): the original ran its own code from there, ours stubbed a
+    # call; and the same in our run (a string read as a vtable gives 0x60000001)
+    "0x000f3f00_wild_call": ("equivalent", None, 0.9, {"seeds": list(range(32)) + [7913]}),
+    "0x001b7f40_wild_call_ours": ("equivalent", None, 0.9, {"seeds": list(range(32)) + [2726]}),
+    # a call through [0xffffffff]: the stub read the target without wrapping around to address 0
+    "0x00272df0_wrapped_read": ("equivalent", None, 0.9, {"seeds": list(range(32)) + [1568]}),
+    # an unbounded copy into a 4-byte stack buffer overwrites the return address: the original returns into
+    # junk (fault kinds differ by frame layout); the run stops where control leaves the function
+    "0x0026f290_both_fault": ("equivalent", None, 0.9, {"seeds": list(range(32)) + [203, 335, 543]}),
+    # a by-value argument built in place by a stubbed copy constructor (`sub esp, 8; mov ecx, esp; push src;
+    # call ctor`): its first word held each side's own dead return address
+    "0x001db230_copy_ctor_temp": ("equivalent", None, 0.9, {"seeds": list(range(32)) + [142, 190, 214]}),
+    # ... and that dead return-address slot no longer bounds the room the original has there: the local
+    # passed to the Event constructor (0x28 bytes) is too small in this source
+    "0x001d8350_dead_ret_slot": ("fail", "writes 0x28 bytes through ecx"),
+    # `mov edi, edi` (alignment padding) before a lazy `push edi` register save: not an argument word
+    "0x00087630_nop_move": ("equivalent", None, 0.9),
+    # `dist < 15` on the sqrt of the difference of two stub-filled vectors, a dot product of two others
+    # `< -0.9`: directed inputs set every stub float alike (0, +1/-1 by turns, 1000)
+    "0x00107410_stub_floats": ("equivalent", None, 0.9, {"n_inputs": 3000}),
+    # `push eax; push K; call <jmp [vtable] thunk>; mov ecx, eax; call f (ret 4); push x3; call g; add esp,
+    # 0x10`: f pops K and the caller releases eax, so the thunk pops nothing (it popped K, and the stack
+    # drifted by a word)
+    "0x000c2c20_thunk_shared_push": ("equivalent", None, 0.9),
+    # `test eax, eax; jge` on a word behind a stubbed pointer: directed inputs plant -1, not just 0 and 1
+    "0x00117150_sign_test": ("equivalent", None, 0.9, {"n_inputs": 3000}),
+    # byte out-parameters at odd frame offsets (`char found, flagA, flagB`): filled (and steered) too
+    "0x000bfa10_byte_outparams": ("equivalent", None, 0.9, {"n_inputs": 3000}),
+    # a float branch leaves the x87 status word in ax and sets only al (`fnstsw ax; ...; mov al, 1; ret`):
+    # only al is a result; a wrong al still fails
+    "0x000452e0_status_word": ("equivalent", None, 0.9),
+    "0x000452e0_status_word_wrong_al": ("fail", "returned 0x00000002"),
+    # loop repair patches the loop's back-edge compare first, not the hottest compare (colour clamps inside
+    # the loop): a 7 KB vertex emitter went from 182 to about 300 of 382 edges
+    "0x002c96e0_loop_back_edge": ("equivalent", None, 0.6, {"n_inputs": 3000}),
+    # the two selftest failures of rounds 3-4: `L"()"` stored without its terminator in the original
+    # ("()[]{}" packed pairs), and MSVC's `vector constructor iterator` (our COMDAT copy vs the XBE's
+    # FUN_00011520)
+    "0x003388d0_unterminated_literal": ("equivalent", None),
+    "0x00312db0_vector_ctor_iterator": ("equivalent", None),
+    # an RTTI type descriptor (??_R0, a dynamic_cast operand) binds by class name (level 2)
+    "0x002867b0_rtti_by_name": ("draft", None, 0, {"max_level": 2}),
 }
 
 
 def job(name):
     equiv = __import__(os.environ.get("EQUIV_MODULE", "equiv"))
     addr = int(name.split("_")[0], 16)
-    r = equiv.verify(os.path.join(CASES_DIR, name + ".cpp"), addr)
+    kw = CASES[name][3] if len(CASES[name]) > 3 else {}
+    r = equiv.verify(os.path.join(CASES_DIR, name + ".cpp"), addr, **kw)
     diffs = [d for m in (r.get("level3") or {}).get("mismatches", []) for d in m["diffs"]]
     cov = (r.get("level3") or {}).get("coverage") or {}
     ratio = cov["edges_covered"] / cov["edges_total"] if cov.get("edges_total") else 1.0
