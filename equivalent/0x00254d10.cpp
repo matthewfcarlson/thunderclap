@@ -1,0 +1,59 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
+// audio::SeqCommandLogicRepeat::vfunc_0 @ 0x00254d10
+struct Link {
+    Link* next;
+};
+
+class Command {
+public:
+    virtual void v0();
+    virtual void v1();
+    virtual void Update(void* context);
+    Link link;             // 0x04
+};
+
+struct CommandList {
+    char pad00[0xc];
+    Link* first;           // 0x0c
+};
+
+namespace audio { class SeqCommandLogicRepeat; }
+
+struct Context {
+    void FUN_0025dbd0(audio::SeqCommandLogicRepeat* self);
+};
+
+namespace audio {
+
+class SeqCommandLogicRepeat {
+public:
+    virtual void vfunc_0(Context* context);
+    virtual void vfunc_1();
+    char pad04[4];
+    CommandList* list;     // 0x08
+    unsigned int count;    // 0x0c
+    unsigned int limit;    // 0x10
+    Command* current;      // 0x14
+};
+
+}
+
+void audio::SeqCommandLogicRepeat::vfunc_0(Context* context)
+{
+    if (current == 0) {
+        context->FUN_0025dbd0(this);
+        return;
+    }
+    current->Update(context);
+    Link* next = current->link.next;
+    current = next ? reinterpret_cast<Command*>(reinterpret_cast<char*>(next) - 4) : 0;
+    if (current == 0) {
+        unsigned int n = limit;
+        if (n != 0xffffffff)
+            count++;
+        if (count < n) {
+            Link* head = list->first;
+            current = head ? reinterpret_cast<Command*>(reinterpret_cast<char*>(head) - 4) : 0;
+        }
+    }
+}
