@@ -1,0 +1,36 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3013 inputs, branch coverage 12/12)
+// fight::Reference::vfunc_9 @ 0x0023c410
+typedef unsigned __int64 Key;
+extern unsigned long DAT_004e5b10, DAT_004e5b14, DAT_004e5b20, DAT_004e5b24, DAT_004e5b98, DAT_004e5b9c;
+struct Object {
+ virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11(); virtual void slot12();
+ virtual bool slot13(); virtual Key slot14(); virtual void slot15(); virtual void slot16(unsigned long low,unsigned long high); virtual void slot17();
+};
+struct Context { char pad[0x28]; unsigned long value; };
+struct Links { void FUN_00236ec0(); void FUN_00237160(unsigned long low,unsigned long high,unsigned long value,Object* obj); };
+struct Binding { void FUN_002340b0(unsigned long low,unsigned long high,Object* obj); };
+namespace fight {
+struct Reference {
+ virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(); virtual void vfunc_5(); virtual void vfunc_6(); virtual void vfunc_7(); virtual void vfunc_8(); virtual bool vfunc_9(Context*,Object*,unsigned long);
+ char pad[0x14]; Links links; char pad2[0xf]; Binding binding;
+ void FUN_00233c50(Context*,Object*,unsigned long);
+ void FUN_002337c0(Context*,Object*,int);
+};
+bool Reference::vfunc_9(Context* context,Object* object,unsigned long arg) {
+ if (!object->slot13()) return false;
+ Key key=object->slot14();
+ if ((unsigned long)key != DAT_004e5b10 || (unsigned long)(key>>32)!=DAT_004e5b14) return false;
+ object->slot16(DAT_004e5b10,DAT_004e5b14);
+ FUN_00233c50(context,object,arg);
+ binding.FUN_002340b0(DAT_004e5b98,DAT_004e5b9c,object);
+ links.FUN_00236ec0();
+ if (object->slot13()) {
+  key=object->slot14();
+  if ((unsigned long)key==DAT_004e5b20 && (unsigned long)(key>>32)==DAT_004e5b24)
+   links.FUN_00237160(DAT_004e5b20,DAT_004e5b24,context->value,object);
+ }
+ FUN_002337c0(context,object,-1);
+ object->slot17();
+ return true;
+}
+}
