@@ -45,18 +45,18 @@ struct Sub20 {
     int f124;
 };
 
-struct Game {
+struct Game_9d1b0 {
     char pad0[0x20];
     Sub20 *f20;
     char pad1[0x54 - 0x24];
     Mgr54 *f54;
 };
 
-struct Tail {
-    void FUN_00098480(Game *g);
+struct Tail_9d1b0 {
+    void FUN_00098480(Game_9d1b0 *g);
 };
 
-extern Game *DAT_004dd700;
+extern Game_9d1b0 *DAT_004dd700;
 
 class Node {
 public:
@@ -69,17 +69,17 @@ public:
     int count;
     Anim *slots[4];
     char pad3[0xbc - 0xb0];
-    Tail *tail;
+    Tail_9d1b0 *tail;
 
-    void FUN_0009a1e0(Game *g);
+    void FUN_0009a1e0(Game_9d1b0 *g);
     void FUN_0009a220();
-    void FUN_0009a290(Game *g);
+    void FUN_0009a290(Game_9d1b0 *g);
     void FUN_0009d1b0(const char *n0, const char *n1, const char *n2, const char *n3);
 };
 
 void Node::FUN_0009d1b0(const char *n0, const char *n1, const char *n2, const char *n3)
 {
-    Game *g = DAT_004dd700;
+    Game_9d1b0 *g = DAT_004dd700;
     if (busy)
         return;
     if (g->f20->f124 == 0)

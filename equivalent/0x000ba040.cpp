@@ -9,14 +9,14 @@ class CUnlockable {
 public:
     virtual void vfunc_0();
 };
-struct Id64 {
+struct Id64_ba040 {
     unsigned int lo;
     unsigned int hi;
 };
 class CUnlockableMove : public CUnlockable {
 public:
     virtual void vfunc_1();
-    Id64* FUN_00092070();
+    Id64_ba040* FUN_00092070();
 };
 
 struct Unlocks {
@@ -52,7 +52,7 @@ public:
     int count;
 };
 
-struct TextStore {
+struct TextStore_ba040 {
     int FUN_000f7d30(const char* id);
     const char* FUN_000f7220(int id);
 };
@@ -73,13 +73,13 @@ struct Script {
 
 extern "C" Script* __cdecl FUN_001d4c90();
 extern "C" FEObject* __cdecl FUN_000fc260(const char* name);
-extern "C" TextStore* __cdecl FUN_000fc1b0();
+extern "C" TextStore_ba040* __cdecl FUN_000fc1b0();
 extern "C" int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
 extern "C" int __cdecl FUN_000964a0(char* buf, int size, const char* fmt, ...);
 extern "C" char* __cdecl FUN_000fb690(char* dst, const char* src, int n);
 extern "C" char* __cdecl FUN_000fb790(char* dst, const char* src, int n);
 
-struct Frame {
+struct Frame_ba040 {
     // per-category counts: have = items the player has, total = items that exist
     int total4, total2, total1, have3, have7, have1, have8;
     int total5, total7, total3, total8;
@@ -107,7 +107,7 @@ public:
 #define SET_ENABLED(b, v) (*(volatile char*)&(b)->enabled = (v))
 #define FIND_BUTTON(name) dynamic_cast<TextButton*>(FUN_000fc260(name))
 
-static __forceinline void SetupLabel(Frame& f, TextStore* texts, TextButton* button, const char* labelId, int total)
+static __forceinline void SetupLabel(Frame_ba040& f, TextStore_ba040* texts, TextButton* button, const char* labelId, int total)
 {
     FUN_000fb690(f.textBuf, texts->FUN_000f7220(texts->FUN_000f7d30(labelId)), 0x80);
     if (total > 0)
@@ -116,7 +116,7 @@ static __forceinline void SetupLabel(Frame& f, TextStore* texts, TextButton* but
     button->vfunc_3();
 }
 
-static __forceinline void SetupGalleryButton(Frame& f, TextStore* texts, const char* nameFmt, int n, int have, int total)
+static __forceinline void SetupGalleryButton(Frame_ba040& f, TextStore_ba040* texts, const char* nameFmt, int n, int have, int total)
 {
     FUN_000964a0(f.nameBuf, 0x80, nameFmt, n);
     TextButton* button = dynamic_cast<TextButton*>(FUN_000fc260(f.nameBuf));
@@ -130,7 +130,7 @@ static __forceinline void SetupGalleryButton(Frame& f, TextStore* texts, const c
 
 void CollectionScreen::FUN_000ba040()
 {
-    Frame f;
+    Frame_ba040 f;
     f.cookie = DAT_004d9968;
     f.total4 = f.total2 = f.total1 = 0;
     f.have3 = f.have7 = f.have1 = f.have8 = 0;
@@ -202,7 +202,7 @@ void CollectionScreen::FUN_000ba040()
         } else if (i >= 0x266 && i < 0x2c9) {
             CUnlockableMove* move = dynamic_cast<CUnlockableMove*>(unlocks->FUN_00092ad0(i));
             if (move) {
-                Id64* id = move->FUN_00092070();
+                Id64_ba040* id = move->FUN_00092070();
                 if (id->lo | id->hi) {
                     f.haveBuy += f.locked;
                     f.totalBuy += got;
@@ -228,7 +228,7 @@ void CollectionScreen::FUN_000ba040()
         }
     }
 
-    TextStore* texts = FUN_000fc1b0();
+    TextStore_ba040* texts = FUN_000fc1b0();
     for (int n = 1; n <= 6; ++n)
         SetupGalleryButton(f, texts, "comic_book_gallery_%d_button", n, f.have1a[n - 1], f.total1a[n - 1]);
     for (int n = 1; n <= 5; ++n)

@@ -6,38 +6,38 @@ struct Node {
     Node *parent;
 };
 
-struct Tree {
+struct Tree_24a280 {
     Node *root;
     Node nil;
 };
 
-class Owner;
+class Owner_24a280;
 
 // An entry is an object whose tree node sits at offset 4, right after the vptr.
-class Entry {
+class Entry_24a280 {
 public:
-    virtual ~Entry() throw();
-    virtual bool vfunc_1(Owner *owner, int arg);
+    virtual ~Entry_24a280() throw();
+    virtual bool vfunc_1(Owner_24a280 *owner, int arg);
     Node node;
 };
 
-extern void __cdecl FUN_00249c20(Tree *tree, Entry *entry);
+extern void __cdecl FUN_00249c20(Tree_24a280 *tree, Entry_24a280 *entry);
 
-static Entry *EntryOf(Node *n)
+static Entry_24a280 *EntryOf(Node *n)
 {
-    return (Entry *)((char *)n - 4);
+    return (Entry_24a280 *)((char *)n - 4);
 }
 
-class Owner {
+class Owner_24a280 {
 public:
     char pad00[0x14];
-    Tree tree;
+    Tree_24a280 tree;
 
     void FUN_0024a280(int arg);
 };
 
 // Calls every entry's callback in tree order and removes and deletes the ones that return true.
-void Owner::FUN_0024a280(int arg)
+void Owner_24a280::FUN_0024a280(int arg)
 {
     Node *nil = &tree.nil;
     Node *n = tree.root;
@@ -45,7 +45,7 @@ void Owner::FUN_0024a280(int arg)
         return;
     while (n->left != nil)
         n = n->left;
-    Entry *e = EntryOf(n);
+    Entry_24a280 *e = EntryOf(n);
     if (!e)
         return;
     do {
@@ -64,7 +64,7 @@ void Owner::FUN_0024a280(int arg)
             while (next->left != nil)
                 next = next->left;
         }
-        Entry *following = next == nil ? 0 : EntryOf(next);
+        Entry_24a280 *following = next == nil ? 0 : EntryOf(next);
 
         if (remove) {
             FUN_00249c20(&tree, e);

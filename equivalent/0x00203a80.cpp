@@ -7,7 +7,7 @@ extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern char DAT_004e5a68[0x100];
 
-struct Source {
+struct Source_203a80 {
     char *FUN_002666f0();
 };
 
@@ -15,13 +15,13 @@ struct Tag {
     int unused;
 };
 
-class Holder {
+class Holder_203a80 {
 public:
     char pad00[4];
     Tag tag;
     char pad08[0x1c];
     char name[0xac8];
-    Source *source;
+    Source_203a80 *source;
     char pad_af0[2];
     char shortForm;
     char disabled;
@@ -29,7 +29,7 @@ public:
     char *FUN_00203a80();
 };
 
-char *Holder::FUN_00203a80()
+char *Holder_203a80::FUN_00203a80()
 {
     struct Frame {
         char buf[0x100];

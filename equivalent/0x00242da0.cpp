@@ -8,30 +8,30 @@ struct Node {
     Node *parent;
 };
 
-struct Tree {
+struct Tree_242da0 {
     Node *root;
     Node nil;
 };
 
-struct Link {
-    Link *next;
-    Link *prev;
+struct Link_242da0 {
+    Link_242da0 *next;
+    Link_242da0 *prev;
 };
 
-struct Target;
+struct Target_242da0;
 struct Group;
 
-struct Entry;
+struct Entry_242da0;
 
 // One binding of an entry to a target, kept in both the target's and the group's list.
-struct Binding {
-    Link groupLink;
-    Link targetLink;
-    Entry *entry;
+struct Binding_242da0 {
+    Link_242da0 groupLink;
+    Link_242da0 targetLink;
+    Entry_242da0 *entry;
     Group *group;
-    Target *target;
+    Target_242da0 *target;
 
-    Binding() throw()
+    Binding_242da0() throw()
     {
         groupLink.next = 0;
         groupLink.prev = 0;
@@ -43,47 +43,47 @@ struct Binding {
     }
 };
 
-struct Target {
+struct Target_242da0 {
     char pad00[0x10];
-    Link *head;
-    Link *tail;
+    Link_242da0 *head;
+    Link_242da0 *tail;
 };
 
-struct Entry {
+struct Entry_242da0 {
     int vptr;
     Node node;
     char pad10[4];
     int key;
 };
 
-struct Owner {
+struct Owner_242da0 {
     char pad00[0x38];
-    Tree tree;
+    Tree_242da0 tree;
 };
 
 struct Group {
     char pad00[0x18];
-    Link *head;
-    Link *tail;
-    Owner *owner;
+    Link_242da0 *head;
+    Link_242da0 *tail;
+    Owner_242da0 *owner;
 };
 
 struct Context;
 
-extern Target *__cdecl FUN_00242ce0(Context *ctx, int *key);
+extern Target_242da0 *__cdecl FUN_00242ce0(Context *ctx, int *key);
 extern void *__cdecl FUN_00247530(void *pool);
 extern char DAT_004e5e40[];
 
-static Entry *EntryOf(Node *n)
+static Entry_242da0 *EntryOf(Node *n)
 {
-    return (Entry *)((char *)n - 4);
+    return (Entry_242da0 *)((char *)n - 4);
 }
 
 void FUN_00242da0(Context *ctx, Group *group)
 {
-    Owner *owner = group->owner;
+    Owner_242da0 *owner = group->owner;
     Node *nil = &owner->tree.nil;
-    Entry *e;
+    Entry_242da0 *e;
     if (owner->tree.root == nil) {
         e = 0;
     } else {
@@ -95,15 +95,15 @@ void FUN_00242da0(Context *ctx, Group *group)
     if (!e)
         return;
     do {
-        Target *target = FUN_00242ce0(ctx, &e->key);
-        Binding *b = (Binding *)FUN_00247530(DAT_004e5e40);
+        Target_242da0 *target = FUN_00242ce0(ctx, &e->key);
+        Binding_242da0 *b = (Binding_242da0 *)FUN_00247530(DAT_004e5e40);
         if (b)
-            new (b) Binding;
+            new (b) Binding_242da0;
         b->target = target;
         b->group = group;
         b->entry = e;
 
-        Link *tl = &b->targetLink;
+        Link_242da0 *tl = &b->targetLink;
         if (target->head == 0) {
             target->head = tl;
             tl->prev = 0;
@@ -114,7 +114,7 @@ void FUN_00242da0(Context *ctx, Group *group)
         target->tail = tl;
         tl->next = 0;
 
-        Link *gl = &b->groupLink;
+        Link_242da0 *gl = &b->groupLink;
         if (group->head == 0) {
             group->head = gl;
             gl->prev = 0;

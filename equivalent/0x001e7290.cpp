@@ -25,7 +25,7 @@ struct Asset {
     int FUN_001d5000();
 };
 
-class Factory {
+class Factory_1e7290 {
 public:
     virtual void f0();
     virtual void f1();
@@ -33,10 +33,10 @@ public:
     virtual Asset *f3(content::LoadInventory::DynamicCaster<CSPHulkProp> *caster, unsigned int lo, unsigned int hi);
 };
 
-struct Holder44 { Factory *FUN_00203d70(); };
+struct Holder44 { Factory_1e7290 *FUN_00203d70(); };
 struct Holder28 { Holder44 *FUN_000862a0(); };
-struct Manager { char pad0[0x54]; Holder28 *holder; };
-extern Manager *DAT_004dd700;
+struct Manager_1e7290 { char pad0[0x54]; Holder28 *holder; };
+extern Manager_1e7290 *DAT_004dd700;
 
 struct Prop {
     char pad00[0x114];
@@ -57,13 +57,13 @@ public:
     virtual bool v8(Vec3 pos);
 };
 
-struct Entry {
+struct Entry_1e7290 {
     Vec3 pos;
     int unused0c;
     int flags;
 };
 
-struct Slot {
+struct Slot_1e7290 {
     unsigned int keyLo;
     unsigned int keyHi;
     char pad08[6];
@@ -77,9 +77,9 @@ struct Slot {
 class World {
 public:
     char pad0000[0x610];
-    Slot slots[0x800];
+    Slot_1e7290 slots[0x800];
     // the entry table (stride 0x14) starts at +0x14608, just inside the end of the slot array
-    Entry *entryAt(int index) { return (Entry *)((char *)this + 0x14608) + index; }
+    Entry_1e7290 *entryAt(int index) { return (Entry_1e7290 *)((char *)this + 0x14608) + index; }
 
     void FUN_001e5bc0(int index);
     void FUN_001e7290(Probe *probe, bool mustBeReady);
@@ -88,10 +88,10 @@ public:
 void World::FUN_001e7290(Probe *probe, bool mustBeReady)
 {
     for (int i = 0; i < 0x800; i++) {
-        Slot *slot = &slots[i];
+        Slot_1e7290 *slot = &slots[i];
         if (slot->used == 0)
             continue;
-        Entry *e = entryAt(slot->index);
+        Entry_1e7290 *e = entryAt(slot->index);
         Vec3 pos = e->pos;
         char ready;
         if ((e->flags & 1) && slot->prop) {

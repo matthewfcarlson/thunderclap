@@ -7,7 +7,7 @@ struct Name8 {
     void FUN_0027af00();
 };
 
-struct AgentBase {
+struct AgentBase_fee10 {
     void FUN_000fed00();
 };
 
@@ -42,7 +42,7 @@ public:
 
 CCharacterGolem *CCharacterGolem::FUN_000fee10(int arg)
 {
-    ((AgentBase *)this)->FUN_000fed00();
+    ((AgentBase_fee10 *)this)->FUN_000fed00();
     f0f8 = arg;
     new (this) CCharacterGolem;
     f100 = 0;

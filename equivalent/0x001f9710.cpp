@@ -23,40 +23,40 @@ struct NameEntry {
     }
 };
 
-struct Item {
+struct Item_1f9710 {
     int key;
     char pad04[0x24];
 };
 
-struct Sub {
+struct Sub_1f9710 {
     char pad[0x50];
 };
 
 class Table {
 public:
     char pad00[0x41c];
-    Sub sub;
-    Item items[15];
+    Sub_1f9710 sub;
+    Item_1f9710 items[15];
     char pad6c4[0x1c];
     int count;
 
     void FUN_001f96b0(NameEntry entry, int id) throw();
 };
 
-class Factory {
+class Factory_1f9710 {
 public:
-    char FUN_001fcff0(Sub *sub);
+    char FUN_001fcff0(Sub_1f9710 *sub);
 };
 
-struct Game {
+struct Game_1f9710 {
     char pad[0x28];
-    Factory *factory;
+    Factory_1f9710 *factory;
 };
-extern Game *DAT_004dd700;
+extern Game_1f9710 *DAT_004dd700;
 
 extern int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 
-class Slot {
+class Slot_1f9710 {
 public:
     char pad00[8];
     Table *table;
@@ -72,7 +72,7 @@ public:
 };
 
 // equiv-map: ??0Key@@QAE@ABU0@@Z = 0x0027af30
-void Slot::FUN_001f9710(Table *owner, const char *label, int a, int b)
+void Slot_1f9710::FUN_001f9710(Table *owner, const char *label, int a, int b)
 {
     table = owner;
     FUN_00267760(name, 0x20, "%s", label);
@@ -85,7 +85,7 @@ void Slot::FUN_001f9710(Table *owner, const char *label, int a, int b)
     entry.key.FUN_0027af70(tmp.FUN_0027b0e0(label));
     tmp.FUN_0027af50();
     for (int i = 0; i < table->count; i++) {
-        Item *item = &table->items[i];
+        Item_1f9710 *item = &table->items[i];
         if (item->key == -1 || item->key == -2)
             continue;
         entry.flagB = (char)i;

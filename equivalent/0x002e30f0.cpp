@@ -76,7 +76,7 @@ public:
     virtual void b13(int id, unsigned int v);
 };
 
-class Factory {
+class Factory_2e30f0 {
 public:
     virtual void f0();
     virtual void f1();
@@ -101,7 +101,7 @@ public:
     virtual void m5(Builder *b, int r);
 };
 
-class Factory2 {
+class Factory2_2e30f0 {
 public:
     virtual void g0();
     virtual void g1();
@@ -209,7 +209,7 @@ struct Desc2 {
     int f20;
 };
 
-class PalList : public Ref {
+class PalList_2e30f0 : public Ref {
 public:
     char pad04[4];
     char *begin;
@@ -231,7 +231,7 @@ struct Hdr {
     int f1c;
     int f20;
     void FUN_002a46d0(int a1, void *obj);
-    void Load(int a1, Reader *R, int a3, PalList *a4);
+    void Load(int a1, Reader *R, int a3, PalList_2e30f0 *a4);
 };
 
 class __declspec(novtable) PrimGroupBase {
@@ -275,12 +275,12 @@ public:
 };
 }
 
-class PrimGroupPalette : public PrimGroup {
+class PrimGroupPalette_2e30f0 : public PrimGroup {
 public:
     char pad5c[4];
     Ref *f60;
     Ref *f64;
-    PrimGroupPalette *FUN_002dffe0(int a, int b);
+    PrimGroupPalette_2e30f0 *FUN_002dffe0(int a, int b);
 };
 
 struct IntVec {
@@ -305,7 +305,7 @@ public:
 
 
 
-struct Frame {
+struct Frame_2e30f0 {
     unsigned int s0;                // 0
     union { unsigned int cnt; pure3d::MatrixPaletteList *mp; } u4;  // 4
     Hdr *self;                      // 8
@@ -313,7 +313,7 @@ struct Frame {
     unsigned int n16;               // 16
     unsigned int v20;               // 20
     unsigned int local20;           // 24
-    PrimGroupPalette *pal;          // 28
+    PrimGroupPalette_2e30f0 *pal;          // 28
     unsigned int y32;               // 32
     unsigned int v36;               // 36
     unsigned int n40;               // 40
@@ -349,12 +349,12 @@ struct Frame {
     unsigned int c236;              // 236
 };
 
-extern Factory *DAT_0052c2a0;
-extern Factory2 *DAT_0052c2a8;
+extern Factory_2e30f0 *DAT_0052c2a0;
+extern Factory2_2e30f0 *DAT_0052c2a8;
 
-void Hdr::Load(int a1, Reader *R, int a3, PalList *a4)
+void Hdr::Load(int a1, Reader *R, int a3, PalList_2e30f0 *a4)
 {
-    Frame f;
+    Frame_2e30f0 f;
     f.self = this;
     unsigned int flags_ = flags;
     if (flags_ & 0x20)
@@ -369,7 +369,7 @@ void Hdr::Load(int a1, Reader *R, int a3, PalList *a4)
     if (a4 != 0 && ((a4->end - a4->begin) >> 6) != 0) {
         void *m = thunk_FUN_0008d690(0x68);
         if (m) {
-            f.pal = ((PrimGroupPalette *)m)->FUN_002dffe0(flags, f18);
+            f.pal = ((PrimGroupPalette_2e30f0 *)m)->FUN_002dffe0(flags, f18);
             obj = f.pal;
         } else {
             f.pal = 0;

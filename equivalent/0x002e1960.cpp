@@ -101,7 +101,7 @@ public:
     virtual void m5(Builder *b, int r);
 };
 
-class Factory2 {
+class Factory2_2e1960 {
 public:
     virtual void g0();
     virtual void g1();
@@ -209,7 +209,7 @@ struct Desc_2e1960 {
     int f60;
 };
 
-class PalList : public Ref_2e1960 {
+class PalList_2e1960 : public Ref_2e1960 {
 public:
     char pad04[4];
     char *begin;
@@ -233,7 +233,7 @@ struct Hdr_2e1960 {
     int f28;
     void FUN_002a46d0(int a1, void *obj);
     void FUN_002a4b00(int a1, Reader *r, int a3);
-    void Load(int a1, Reader *R, int a3, PalList *a4, unsigned int *a5);
+    void Load(int a1, Reader *R, int a3, PalList_2e1960 *a4, unsigned int *a5);
 };
 
 class __declspec(novtable) PrimGroupBase {
@@ -277,12 +277,12 @@ public:
 };
 }
 
-class PrimGroupPalette : public PrimGroup {
+class PrimGroupPalette_2e1960 : public PrimGroup {
 public:
     char pad5c[4];
     Ref_2e1960 *f60;
     Ref_2e1960 *f64;
-    PrimGroupPalette *FUN_002dffe0(int a, int b);
+    PrimGroupPalette_2e1960 *FUN_002dffe0(int a, int b);
 };
 
 struct IntVec_2e1960 {
@@ -311,7 +311,7 @@ struct Frame_2e1960 {
     PrimGroup *obj;                 // 8
     unsigned int u12;               // 12
     unsigned int local20;           // 16
-    PrimGroupPalette *pal;          // 20
+    PrimGroupPalette_2e1960 *pal;          // 20
     unsigned int n24;               // 24
     unsigned int u28;               // 28
     unsigned int u32;               // 32
@@ -329,9 +329,9 @@ struct Frame_2e1960 {
 };
 
 extern Factory_2e1960 *DAT_0052c2a0;
-extern Factory2 *DAT_0052c2a8;
+extern Factory2_2e1960 *DAT_0052c2a8;
 
-void Hdr_2e1960::Load(int a1, Reader *R, int a3, PalList *a4, unsigned int *a5)
+void Hdr_2e1960::Load(int a1, Reader *R, int a3, PalList_2e1960 *a4, unsigned int *a5)
 {
     Frame_2e1960 f;
     f.self = this;
@@ -348,7 +348,7 @@ void Hdr_2e1960::Load(int a1, Reader *R, int a3, PalList *a4, unsigned int *a5)
     if (a4 != 0 && ((a4->end - a4->begin) >> 6) != 0) {
         void *m = thunk_FUN_0008d690(0x68);
         if (m) {
-            f.pal = ((PrimGroupPalette *)m)->FUN_002dffe0(f1c, f20);
+            f.pal = ((PrimGroupPalette_2e1960 *)m)->FUN_002dffe0(f1c, f20);
             obj = f.pal;
         } else {
             f.pal = 0;

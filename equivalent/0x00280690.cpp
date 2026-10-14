@@ -28,7 +28,7 @@ struct Params {
     int f20;
 };
 
-class Part {
+class Part_280690 {
 public:
     virtual void v0(int a, int b, int c);
 };
@@ -39,12 +39,12 @@ public:
     virtual void v1();
     virtual void v2();
     virtual void v3();
-    virtual Part *v4();
-    virtual void v5(Part *part);
+    virtual Part_280690 *v4();
+    virtual void v5(Part_280690 *part);
     virtual void v6();
 };
 
-class Factory {
+class Factory_280690 {
 public:
     virtual void v0();
     virtual void v1();
@@ -58,9 +58,9 @@ public:
     virtual void v9();
     virtual Instance *v10(Params *params);
 };
-extern Factory *DAT_0052c2a0;
+extern Factory_280690 *DAT_0052c2a0;
 
-struct Entry {
+struct Entry_280690 {
     int count;
     char pad04[0xc];
     Instance *instance;
@@ -77,7 +77,7 @@ public:
     int f18;
     int f1c;
     char pad20[8];
-    Entry entries[100];
+    Entry_280690 entries[100];
 
     CDecalQueue(int heap);
 };
@@ -110,7 +110,7 @@ pure3d::prop::CDecalQueue::CDecalQueue(int heap)
         entries[i].count = 0;
         entries[i].instance = DAT_0052c2a0->v10(&p);
         entries[i].instance->v0();
-        Part *part = entries[i].instance->v4();
+        Part_280690 *part = entries[i].instance->v4();
         for (int n = 0x42; n != 0; n--)
             part->v0(0, 0, 0);
         entries[i].instance->v5(part);
