@@ -44,8 +44,8 @@ layouts checked against the XBE. Migrating matches onto it is roadmap step 2.
 
 - **Ship code only, never game data.** `Hulk.app` contains our arm64 executable and renderer.
 - **Bring your own game.** On first launch the app asks for an ISO or extracted folder and checks the
-  XBE hash against the supported release. It then extracts the data to
-  `~/Library/Application Support/<app>/`. The pieces exist: xISO extraction, and `tools/rcf.py`, which
+  XBE hash against the supported release. It then extracts the data, with every RCF unpacked into
+  folders (see §4), to `~/Library/Application Support/<app>/`. The pieces exist: xISO extraction, and `tools/rcf.py`, which
   reads and rebuilds all 13 RCF archives byte-for-byte.
 - **Gatekeeper.** Opening without warnings needs a Developer ID signature and notarization (Apple
   Developer Program). Unsigned builds work with right-click → Open the first time.
@@ -74,6 +74,17 @@ all 1,436 `.p3d` files parse, with Hulk and a downtown room exported correctly (
 
 The hash scheme is the best route for HD texture packs: modders never need to understand `.p3d`, and
 it keeps working as the renderer changes.
+
+**Extracted data, not RCFs (decided 2026-10-14).** The native port's first run unpacks every RCF into a
+plain folder tree (`data/art/…`, `data/misc/…`), and the radcore file shim reads files from that folder;
+RCFs aren't read at runtime. Adding content is then adding files: a new mission is
+`art/missions/<id>/<id>_init.lua` and `<id>.lua` (plain-text Lua loads, since `DoFile` 0x001d3600 compiles
+text and bytecode alike), and a new area is a new `art/locations/<dir>/`. `mods/` stays as an overlay on top
+of `data/`, so mods never edit the player's extracted copy. Open points from [lua-scripts.md](lua-scripts.md):
+missions are registered in `misc/init.lua` (`AddValidMission`/`SetMissionInfo`, 128-entry tables), which a mod
+shouldn't have to replace, so the port should run each `mods/*/init.lua` after the game's own; whether the
+hard-coded mission tables in `.rdata` also gate a new id; and the `.fig` container format, which scenario
+logic lives in.
 
 ## The legal line
 
