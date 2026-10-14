@@ -1,0 +1,36 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// FUN_00026cc0 @ 0x00026cc0
+unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
+
+struct Vec3 {
+    float x, y, z;
+};
+
+struct Pawn {
+    void FUN_00035660(Vec3 *out);
+};
+
+struct Group {
+    Pawn *FUN_00024280(unsigned __int64 key);
+    Vec3 *FUN_00026cc0(Vec3 *out, const char *name);
+};
+
+Vec3 *Group::FUN_00026cc0(Vec3 *out, const char *name)
+{
+    Pawn *pawn = FUN_00024280(FUN_002672f0(name, 0, 0));
+    if (!pawn) {
+        out->x = 0;
+        out->y = 0;
+        out->z = 0;
+        return out;
+    }
+    Vec3 v;
+    v.x = 0;
+    v.y = 0;
+    v.z = 0;
+    pawn->FUN_00035660(&v);
+    out->x = v.x;
+    out->y = v.y;
+    out->z = v.z;
+    return out;
+}
