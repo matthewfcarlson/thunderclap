@@ -1,0 +1,17 @@
+class CSmartPropEventTrackBase {
+  public:
+    CSmartPropEventTrackBase();
+    virtual void BaseFn();
+};
+
+class CSmartPropEventTrack : public CSmartPropEventTrackBase {
+  public:
+    CSmartPropEventTrack();
+    virtual void Fn();
+    char pad0[8];
+    int m_c;
+    int m_10;
+    int m_14;
+};
+
+CSmartPropEventTrack::CSmartPropEventTrack() : m_c(0), m_10(0), m_14(0) {}
