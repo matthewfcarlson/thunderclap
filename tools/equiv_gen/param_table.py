@@ -2,7 +2,7 @@ import sys,json
 # usage: gen.py spec.json   spec: {fn, cls, ns:[...], items:[[ty,name,setter]], reg, cnt, enumsym, enumcount}
 sp=json.load(open(sys.argv[1]))
 cls=sp['cls']; ns=sp['ns']; items=sp['items']; fn=sp['fn']
-addr={'Name':'00234a90','Script':'00234c00','IntConstRange':'002348e0','Vector':'00234e50','FloatConstRange':'00234960','EnumConstList':'00234cc0','Bool':'00234860','String':'002349e0','Branch':'00235170','NameConstList':'00234ba0'}
+addr={'Name':'00234a90','Script':'00234c00','IntConstRange':'002348e0','Vector':'00234e50','FloatConstRange':'00234960','EnumConstList':'00234cc0','Bool':'00234860','String':'002349e0','Branch':'00235170','ConditionGroup':'00235220','NameConstList':'00234ba0'}
 full="::".join(["hulkfight"]+ns) if sp.get('prefix','hulkfight') else "::".join(ns)
 nsopen="".join(f"namespace {n} {{\n" for n in (["hulkfight"]+ns if sp.get('prefix','hulkfight') else ns))
 nsclose="}\n"*len(["hulkfight"]+ns if sp.get('prefix','hulkfight') else ns)

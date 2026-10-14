@@ -1,7 +1,7 @@
 import sys,re,subprocess,json
 a=sys.argv[1]
 t=subprocess.run(['build/venv/bin/python','tools/packet.py','show',a],capture_output=True,text=True).stdout
-ctor={'00234a90':'Name','00234c00':'Script','002348e0':'IntConstRange','00234e50':'Vector','00234960':'FloatConstRange','00234cc0':'EnumConstList','00234860':'Bool','002349e0':'String','00235170':'Branch','00234ba0':'NameConstList'}
+ctor={'00234a90':'Name','00234c00':'Script','002348e0':'IntConstRange','00234e50':'Vector','00234960':'FloatConstRange','00234cc0':'EnumConstList','00234860':'Bool','002349e0':'String','00235170':'Branch','00235220':'ConditionGroup','00234ba0':'NameConstList'}
 data=dict(re.findall(r'^\s+(0x[0-9a-f]+) = (.*)$',t,re.M))
 asm=re.findall(r'^\s+[0-9a-f]{4}  (.*)$',t,re.M)
 items=[];cur=None;vf=None
