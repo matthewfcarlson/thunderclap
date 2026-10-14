@@ -1,0 +1,46 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// FUN_00338d90 @ 0x00338d90
+struct lua_State;
+
+struct lua_Debug {
+    int event;
+    const char *name;
+    const char *namewhat;
+    const char *what;
+    const char *source;
+    int currentline;
+    int nups;
+    int linedefined;
+    char short_src[60];
+    int i_ci;
+};
+
+extern unsigned int DAT_004d9968;
+extern "C" void __fastcall __security_check_cookie(unsigned int);
+extern char DAT_003f335c;
+
+int __cdecl FUN_00213fc0(lua_State *L, int level, lua_Debug *ar);
+void __cdecl FUN_00213380(lua_State *L, const char *s, unsigned int len);
+const char *__cdecl FUN_00213470(lua_State *L, const char *fmt, ...);
+int __cdecl FUN_00214bd0(lua_State *L, const char *what, lua_Debug *ar);
+
+// Lua 5.0 luaL_where: pushes "source:line: " for the given call level, or "".
+void luaL_where(lua_State *L, int level)
+{
+    struct Frame {
+        lua_Debug ar;
+        unsigned int cookie;
+    } f;
+    f.cookie = DAT_004d9968;
+
+    if (FUN_00213fc0(L, level, &f.ar)) {
+        FUN_00214bd0(L, "Sl", &f.ar);
+        if (f.ar.currentline > 0) {
+            FUN_00213470(L, "%s:%d: ", f.ar.short_src, f.ar.currentline);
+            __security_check_cookie(f.cookie);
+            return;
+        }
+    }
+    FUN_00213380(L, &DAT_003f335c, 0);
+    __security_check_cookie(f.cookie);
+}
