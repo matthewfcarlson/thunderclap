@@ -1,0 +1,31 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
+// FUN_0030be90 @ 0x0030be90
+extern float DAT_003f32e0;   // 0.0f
+
+class Contact {
+public:
+    char pad00[0x98];
+    float a98, a9c, aa0;     // 0x98
+    char pada4[0x54];
+    unsigned char flagF8;    // 0xf8
+    char padf9[3];
+    float b0fc, b100, b104;  // 0xfc
+    char pad108[0x30];
+    float n138, n13c, n140;  // 0x138
+    char pad144[0x10];
+    float f154;              // 0x154
+    float f158;              // 0x158
+    void FUN_0030be90();
+};
+
+void __stdcall FUN_0030ad10(int mode, float *out);
+
+void Contact::FUN_0030be90() {
+    FUN_0030ad10(flagF8, &f154);
+    f158 = aa0 * n140 + a9c * n13c + a98 * n138;
+    if (flagF8) {
+        float d = b104 * n140 + b100 * n13c + b0fc * n138;
+        if (d < 0.0f)
+            f154 = -f154;
+    }
+}

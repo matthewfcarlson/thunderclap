@@ -1,0 +1,34 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
+// FUN_002ef760 @ 0x002ef760
+struct Vec3 {
+    float x, y, z;
+};
+
+struct Pose {
+    char pad00[0x30];
+    Vec3 pos;                // 0x30
+};
+
+struct Motion {
+    Vec3 delta;              // 0x00
+    Vec3 aux;                // 0x0c
+};
+
+void __cdecl FUN_00305630(Vec3 *out, Pose *a, Pose *b, float dt);
+
+void __cdecl FUN_002ef760(Pose *from, Pose *to, float scale, float dt, Motion *out) {
+    out->delta.x = to->pos.x - from->pos.x;
+    out->delta.y = to->pos.y - from->pos.y;
+    out->delta.z = to->pos.z - from->pos.z;
+    float inv = 1.0f / dt;
+    out->delta.x = inv * out->delta.x;
+    out->delta.y = inv * out->delta.y;
+    out->delta.z = inv * out->delta.z;
+    FUN_00305630(&out->aux, from, to, dt);
+    if (scale != 1.0f) {
+        float k = 1.0f / (scale * scale);
+        out->aux.x = k * out->aux.x;
+        out->aux.y = k * out->aux.y;
+        out->aux.z = k * out->aux.z;
+    }
+}

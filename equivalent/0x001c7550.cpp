@@ -1,0 +1,53 @@
+// STATUS: equivalent (tools/equiv.py level 3: 143 inputs, branch coverage 14/14)
+// FUN_001c7550 @ 0x001c7550
+struct Key {
+    int lo, hi;
+};
+
+struct Pending {
+    int lo, hi;
+    int w8, wc;
+};
+
+class Result {
+public:
+    char FUN_0027af90();
+};
+
+class Registry {
+public:
+    virtual void v0();
+    virtual Result *Lookup(void *entry, const Key *key);     // slot 1
+    char pad04[8];
+    int removed;             // 0x0c
+    int last;                // 0x10
+    void **entries;          // 0x14
+    Pending pending[16];     // 0x18
+    void FUN_001c7550(const Key *key);
+};
+
+// Cancels a pending request for the key, then drops the first entry that resolves it.
+void Registry::FUN_001c7550(const Key *key) {
+    int lo = key->lo;
+    int hi = key->hi;
+    for (int i = 0; i < 16; i++) {
+        if (pending[i].lo == lo && pending[i].hi == hi) {
+            pending[i].lo = 0;
+            pending[i].hi = 0;
+            pending[i].w8 = 0;
+            break;
+        }
+    }
+    if (last < 0)
+        return;
+    int i = 0;
+    do {
+        void *entry = entries[i];
+        if (entry != 0 && Lookup(entry, key)->FUN_0027af90()) {
+            entries[i] = 0;
+            removed++;
+            return;
+        }
+        i++;
+    } while (i <= last);
+}
