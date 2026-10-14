@@ -1,0 +1,10 @@
+extern "C" unsigned long long __cdecl FUN_0027b020(unsigned int seed);
+
+unsigned int g_hash_low;
+unsigned int g_hash_high;
+
+void FUN_0035de60() {
+    unsigned long long h = FUN_0027b020(0x400488);
+    g_hash_low = (unsigned int)h;
+    g_hash_high = (unsigned int)(h >> 32);
+}
