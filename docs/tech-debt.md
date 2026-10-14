@@ -7,13 +7,22 @@ equivalent/).
 
 | Flag | Meaning | Files |
 |---|---|---|
-| lift | machine-generated from the asm (frame array, register variables) | 0 |
-| goto | control flow copied from the asm with goto | 36 |
-| volatile | 20+ volatile declarations pinning x87 rounding | 3 |
+| lift | machine-generated from the asm (frame array, register variables) | 5 |
+| goto | control flow copied from the asm with goto | 39 |
+| volatile | 20+ volatile declarations pinning x87 rounding | 9 |
 
 | Source | Size | Name | Flags | gotos | volatiles |
 |---|---|---|---|---|---|
+| `equivalent/0x00358b10.cpp` | 1869 |  | lift, volatile | 0 | 81 |
+| `equivalent/0x00314f50.cpp` | 1739 |  | lift, volatile | 0 | 48 |
+| `equivalent/0x00342180.cpp` | 1657 |  | lift, volatile | 0 | 124 |
+| `equivalent/0x000ee340.cpp` | 1644 | ImageSelector::vfunc_5 | lift, volatile | 0 | 153 |
+| `equivalent/0x00195bb0.cpp` | 1639 | hulkfight::motion::ProjectileEffect::vfunc_4 | lift, volatile | 0 | 112 |
+| `equivalent/0x002b57d0.cpp` | 2418 |  | goto | 1 | 8 |
+| `equivalent/0x002e1960.cpp` | 2315 |  | goto | 1 | 0 |
+| `equivalent/0x00019470.cpp` | 2227 |  | goto | 1 | 0 |
 | `equivalent/0x001b05a0.cpp` | 2190 |  | goto | 8 | 0 |
+| `equivalent/0x003401b0.cpp` | 2138 |  | volatile | 0 | 151 |
 | `equivalent/0x00101270.cpp` | 1977 | CHand2HandAgent::vfunc_22 | goto | 1 | 6 |
 | `equivalent/0x001b1710.cpp` | 1917 |  | goto | 13 | 0 |
 | `equivalent/0x001734b0.cpp` | 1859 | hulkfight::motion::JointTrackerAction::vfunc_5 | goto | 1 | 0 |
