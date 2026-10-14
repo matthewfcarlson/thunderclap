@@ -40,7 +40,7 @@ so tools that parse it are unaffected.
 
 Level 2 also lists **warnings**: differences that equivalent code can legitimately have. Examples are an
 immediate that only looks like an address, a float constant loaded another way (`fld1`, or a double
-instead of a float), a string or global read in pieces, another element of a global the original
+instead of a float; the 2^32 bias of an unsigned-to-float conversion isn't even warned about), a string or global read in pieces, another element of a global the original
 references too (a loop's induction base at a different field of the same object), and CRT calls the
 original inlined. Level 3 still checks the behaviour behind them.
 
@@ -77,7 +77,9 @@ Two kinds of symbol are never paired:
 
 - **Functions defined in our own object.** These are code the original inlined, for example an inline
   constructor that this compile didn't inline. They run in place, as if inlined, and their references count
-  at level 2. MSVC's own helpers `vector constructor iterator` and its kin (`??_H`, `??_I`, `??_L`,
+  at level 2. That includes a tail jump into one (`~Derived` ending in `jmp ~Base`, where the original
+  inlined `~Base`); the function under test is picked by comparing each candidate with the original, with
+  the bytes of the functions it tail-jumps to appended. MSVC's own helpers `vector constructor iterator` and its kin (`??_H`, `??_I`, `??_L`,
   `??_M`) are the exception: the original calls the XBE's copy (FUN_00011520), so ours pairs with it.
 - **CRT routines** (`memcpy`, `strcmp`, `sin`, …). The XBE's own copies are found once by behaviour. Every
   function in the CRT region is probed against memcpy/strcmp/floor/… test vectors, and the results are
@@ -143,6 +145,8 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   values.
 - Seeds rotate between several modes:
   - wide or near/ascending pointers;
+  - iterator ranges: a later pointer argument a few elements past the first one, in a step the code
+    advances pointers by (`add esi, 0x44`), so `[first, last)` isn't millions of elements;
   - "tame" small-number memory;
   - dictionary memory: planted copies of the input's pointers, `this+4/8/12` (object graphs) and the
     constants the original compares against;
@@ -156,11 +160,27 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
 - **Loop repair.** An input on which the original runs out of steps in a loop (a count, a `begin`/`end`
   pair or a list walk read from fuzzed memory) is re-run with the loop's bound patched so that the loop
   ends after a round or two; the induction variable's step comes from the comparison's first two rounds.
-  The compare behind the loop's back edge (`cmp esi, [count]; jb top`) is tried first, then the hottest
-  ones (often clamps inside the body, whose patching never ends the loop).
+  The compares tried first are those that can end a loop: back edges (`cmp esi, [count]; jb top`) and
+  jumps out of one (a top-tested loop's `cmp; jae out`, but not a jump to a block that goes straight back
+  in), that ran at least 1/64 as often as the hottest compare and have a patch, hottest first. An inner loop
+  over a constant bound (`cmp edx, 8; jb`) has no patch, so the outer loop's bound is found even when it is
+  far down the list. Then the hottest other compares (often clamps inside the body, whose patching never
+  ends the loop). A bound re-read after each call is patched in every epoch, and also only from the next
+  epoch on (the loop runs once: `while (t->first != head) erase(t->first)`).
   A run that then hangs in the next loop is repaired again (4 loops deep, 64 runs). A loop that ran away
   once is cut off after 256 rounds on later inputs (those count as timed out, and are repaired too).
+  Directed inputs that run away are repaired the same way, from a budget of their own. A `rep` string
+  instruction with a count over 0x2000 (`rep stosd` over a fuzzed `count*4` bytes) is repaired like a loop
+  bound: the count's source is patched to about 8.
+- With `--inputs` over 256, the random inputs hand over to the directed ones once half the time budget is
+  gone (and 50 inputs completed); the rest of the random inputs run afterwards, then directed ones again.
+  When the random phase stops at 32 inconclusive inputs, the directed phase runs, then more random inputs
+  while fewer than 50 have completed, or while at most 20% of them were inconclusive.
 - Then up to 96 **directed** inputs (input-to-state; each one that finds a new edge earns 4 more, up to 4x).
+  Compares are worked breadth first: one observation per compare per pass, on to its next ones while they
+  find new edges, until both sides were taken 4 times. String-literal plants take at most half the
+  remaining budget per pass. A stub result can be planted for that call and every later call to the same
+  callee (a loop that runs through only when each element's getter says so).
   Every comparison the original executes is recorded, with where each operand came from. When a branch side
   (or `setcc` outcome, or jump-table case) was never taken, or was taken by fewer than 4 inputs, the input
   that reached it is re-run with that memory, stack argument, stub result or out-parameter word patched to
@@ -205,7 +225,12 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   a `jmp` that leaves the function (a tail call), a stub:
   - records the target, the argument words, the registers, and every stack local passed by pointer;
   - returns a deterministic `eax`/`edx`, plus a float on the x87 stack if the code after the call consumes
-    `st0` (the same value on both sides; directed inputs can steer it);
+    `st0` (the same value on both sides; directed inputs can steer it). Values the caller already keeps on
+    the x87 stack across the call count (`fld [k]; call f; fadd [m]` adds to a running sum, it doesn't
+    consume a result), and the `/GS` cookie check after the call is looked through;
+  - returns `this` (its `ecx`) from a constructor: a callee that writes through `ecx` and returns its
+    incoming `ecx` on every path (`Cue *c = new (buf) Cue(...); f(c)` uses the result where the original
+    recomputes `lea ecx, [buf]`);
   - fills each local passed by pointer (an out-parameter), with the same values on both sides. A class
     parameter is filled over its whole `sizeof`. Any other parameter gets at least 16 bytes, skipping
     words the function has already written itself;
@@ -213,7 +238,11 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     static scan of the callee (`Program.callee_writes`) follows stores through the incoming pointer, copies
     and constant offsets of it, and callees it is passed on to (a base or member constructor). In the
     original's run that extent, capped at the room the original's frame has there, is filled; ours fills
-    the same offsets. Through a register that includes offset 0, and a partly written last word is filled
+    the same offsets, including words the function wrote itself before the call (a dead spill slot inside
+    the object in one frame layout). Where a side had written such a word, its old value is kept aside: an
+    input on which the two sides' old values differ, one of them reads the word back before rewriting it,
+    and no difference shows, is inconclusive (`fill_readback`). The extent is a range, so it can cover a
+    word the real callee leaves alone. Through a register that includes offset 0, and a partly written last word is filled
     whole: a by-value argument built in place by a copy constructor (`sub esp, 8; mov ecx, esp; push src;
     call ctor`) otherwise kept each side's own dead return address in it. A return address or saved
     register below `esp` is dead, so it no longer bounds the room either. If ours has less room before a saved register, the return address or the caller's
@@ -231,7 +260,11 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   deferred over several calls. An `add esp, N` in an epilogue (followed by `ret` or a callee-saved `pop`)
   counts only beyond the frame the prologue reserved with `sub esp`. A caller-cleaned callee takes only the words it reads; pushes above them
   are pending for a later call.
-- A call of unknown arity (virtual, a `jmp [vtable]` thunk) is decided by what the caller does with the
+- A call of unknown arity (virtual, a `jmp [vtable]` thunk) is decided first by a branch taken before its
+  pushes that joins the code after it: both paths reach the join with the same stack depth (`je L; push x5;
+  call [vt+0x48]; push eax; call __RTDynamicCast; add esp, 0x14; L:` pops one word). An epilogue `add
+  esp, N` that releases exactly the prologue's frame doesn't release pending words: the callee popped them.
+  Otherwise it is decided by what the caller does with the
   pushed words afterwards: released by a later `add esp` (the callee leaves its arguments:
   caller-cleaned), popped by a later call with a known `ret N` (pushed early for that call: `push 1; call
   thunk; push eax; push esi; call f(ret 4); push eax; call g(ret 12)`), or read by a later caller-cleaned
@@ -288,7 +321,8 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
 - An argument pushed from a register whose last write set only its low byte(s) (`setcc al; push eax`, a
   `bool`) compares on those bytes only.
 - Values that point into the stack compare as "a stack address". Floats stored by `fst`/`fstp` (on either
-  side) and float arguments compare with relative tolerance 1e-5; a word that is the same normal float
+  side) and float arguments (stored by `fstp` on either side, a word copied with `push` on the other)
+  compare with relative tolerance 1e-5; a word that is the same normal float
   but for its last bit (rounded once more on one side, then copied through a register) is equal too.
 
 An input on which either side stores into code (our object at `0x60000000`, or the original's `.text`,
@@ -321,7 +355,8 @@ but our semantic copy hit the page limit is inconclusive.
 If ours returns `void` but the original's direct callers read `eax` (or `st0`) after the call, the return
 value is compared anyway, and `return_note` says so.
 
-**Coverage** counts taken/not-taken for every conditional branch, 0/1 for every `setcc`, and every
+**Coverage** counts taken/not-taken for every conditional branch (except the dead side of a jcc right
+after `cmp r, r`/`sub r, r`/`xor r, r` that nothing else jumps to), 0/1 for every `setcc`, and every
 jump-table case of the original (a table is read up to its first non-code word, and ends where the
 next table of the function starts, so two back-to-back switches keep their own cases). It comes only from inputs that ran to completion (not from faults).
 Directed inputs can also patch a word a stub filled through an out-parameter, when the original compares
@@ -356,7 +391,14 @@ Mismatch strings are written for a model to act on. Examples:
 
 ## Validation
 
-Latest run (2026-10-13, checker round 5; details in [tasks/equiv-round5.md](tasks/equiv-round5.md)):
+Latest run (2026-10-14, checker round 6; details in [tasks/equiv-round6.md](tasks/equiv-round6.md)):
+`regress.py` 76/76; selftest 300/300; mutation suite identical to round 5 on the same 120 functions (362
+caught, 10 false passes, 0 false failures). `equivalent/` in random order, 824 of 3,348 files: the first 200
+are all equivalent. Four newly fail. Two show real differences on seeds round 5 never ran (0x0022f960,
+0x0001c430). 0x0028e160 is a compiler temporary in a reused argument slot. 0x00336dd0 fails under round 5
+too.
+
+Previous run (2026-10-13, checker round 5; details in [tasks/equiv-round5.md](tasks/equiv-round5.md)):
 `regress.py` 60/60; selftest 300/300 (both standing failures fixed); mutation suite 363 caught, 5 false passes
 (also false under round 4), 0 false failures; `equivalent/` random 200 all equivalent, and of ~1,200 files the
 changes could touch, one newly fails (0x00195560: its local is 4 bytes smaller than the callee's object).

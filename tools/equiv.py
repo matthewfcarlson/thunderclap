@@ -71,6 +71,7 @@ MIN_CONCLUSIVE = 8          # fewer completed inputs than this (or less coverage
 MIN_COVERAGE = 0.25
 ACCEPT_COVERAGE = 0.75      # the bar for promotion to equivalent/ (promote-remote.sh, farm.ts, clone_equivalent.py):
 ACCEPT_INPUTS = 50          # `promotable` in the report; `status` keeps its looser meaning
+EQUIV_OFF = set(os.environ.get("EQUIV_OFF", "").split(","))   # A/B experiments: switch named round-6 changes off
 ONLY_SEEDS = {int(x) for x in os.environ.get("EQUIV_SEEDS", "").split(",") if x.strip()}
 DEFAULT_POINTEE = 4         # ... when the callee's parameter type is unknown (e.g. virtual calls)
 
@@ -373,7 +374,12 @@ class Program:
             ci = next(self.md.disasm(self.read(a, 16), a, 1), None)
             if ci is None:
                 return None
-            out |= self._regs_rw(ci)[1] & {"eax", "ecx", "edx"}
+            nop = (i.mnemonic in ("mov", "xchg") and i.mem is None and len(i.regs) == 2 and i.regs[0] == i.regs[1]) or \
+                (i.mnemonic == "lea" and len(i.regs) == 1 and i.mem is not None and i.mem[1] == i.regs[0]
+                 and not i.mem[2] and not i.mem[4])
+            if not nop or "nopwrite" in EQUIV_OFF:
+                # (alignment padding, `lea ecx, [ecx]`, writes nothing: a callee that only has it keeps ecx)
+                out |= self._regs_rw(ci)[1] & {"eax", "ecx", "edx"}
             if a in view.tables:
                 continue                                  # a jump table inside the function
             if i.kind == "call" or (i.kind == "jmp" and not (i.target is not None and view.internal_target(i.target))):
@@ -395,6 +401,9 @@ class Program:
         if not self.is_code(target) or depth > 4:
             return {}
         cache[target] = {}              # recursion guard
+        rthis = self.__dict__.setdefault("_ret_this", {})
+        rthis[target] = False
+        rets = []                       # what eax holds at each ret (("ecx", 0): the incoming this)
         body = (target, target + self.funcs[target][0]) if target in self.funcs else None
         view = CodeView(self.read, target, body, self)
         out = {}
@@ -501,10 +510,18 @@ class Program:
                     if r in regs or r in new:
                         regs.pop(r, None)
                 regs.update(new)
+                if i.kind == "ret":
+                    rets.append(regs.get("eax"))
                 if i.kind in ("ret", "stop"):
                     break
                 if i.kind == "call" or (i.kind == "jmp" and not (i.target is not None and view.internal_target(i.target))):
                     tail = i.kind == "jmp"
+                    this_in = regs.get("ecx")
+                    sub_this = i.target is not None and self.is_code(i.target) and \
+                        (self.callee_writes(i.target, depth + 1) is not None) and \
+                        self.__dict__.get("_ret_this", {}).get(i.target, False)
+                    if tail:
+                        rets.append(this_in if sub_this else None)
                     if i.target is not None and d is not None:
                         sub = self.callee_writes(i.target, depth + 1)
                         for loc2, ext2 in sub.items():
@@ -528,6 +545,8 @@ class Program:
                         slots = {k_: v_ for k_, v_ in slots.items() if k_ <= d}
                     for r in ("eax", "ecx", "edx"):
                         regs.pop(r, None)
+                    if sub_this and this_in is not None:
+                        regs["eax"] = this_in       # a base or member constructor returns its this
                     a += i.size
                     continue
                 if i.kind == "jcc":
@@ -545,7 +564,13 @@ class Program:
                     work.append((a, (frozenset(regs.items()), d, fb, frozenset(slots.items()))))
                     break
         cache[target] = out if steps < 4000 else {}
+        rthis[target] = steps < 4000 and bool(rets) and all(x == ("ecx", 0) for x in rets)
         return cache[target]
+
+    def returns_this(self, target):
+        """Does the function return its incoming ecx in eax on every path (a constructor, `return *this`)?"""
+        self.callee_writes(target)
+        return self.__dict__.get("_ret_this", {}).get(target, False)
 
     def reg_inputs_all(self, target):
         """Every register (callee-saved ones included) a function reads before writing it."""
@@ -1011,15 +1036,18 @@ class CodeView:
             self.table_ranges.append((base, base + 4 * len(out)))
         return out
 
-    def float_ret_after(self, call_addr, own_float_ret):
-        """Does the code after this call consume st0 (i.e. the callee returns a float)?"""
-        if call_addr in self._fret:
-            return self._fret[call_addr]
+    def float_ret_after(self, call_addr, own_float_ret, depth0=0):
+        """Does the code after this call consume st0 (i.e. the callee returns a float)? depth0: values the
+        caller already keeps on the x87 stack across the call (a running sum: `fld [k]; push eax; call f;
+        fadd [m]` adds to the sum, it doesn't consume a float result)."""
+        key = call_addr if not depth0 else (call_addr, depth0)
+        if key in self._fret:
+            return self._fret[key]
         i0 = self.decode(call_addr)
         start = call_addr + i0.size
         res = False
         seen = set()
-        stack = [(start, 0)]
+        stack = [(start, depth0)]
         steps = 0
         if i0.kind == "jmp":           # tail call: the result is ours
             res = own_float_ret
@@ -1041,6 +1069,9 @@ class CodeView:
                     if own_float_ret and d == 0:
                         res = True
                     break
+                if i.kind == "call" and i.target in IGNORED_CALLS and "cookie" not in EQUIV_OFF:
+                    a = a + i.size          # the /GS check before the epilogue: st0 stays live across it
+                    continue
                 if i.kind in ("call", "stop"):
                     break
                 if i.kind == "jcc":
@@ -1054,7 +1085,7 @@ class CodeView:
                         res = True
                     break
                 a = a + i.size
-        self._fret[call_addr] = res
+        self._fret[key] = res
         return res
 
     def next_call_pop(self, call_addr):
@@ -1115,7 +1146,16 @@ class CodeView:
                 else:
                     return unsure()
             elif m in ("add", "sub") and j.ops and j.ops[0] == ("reg", "esp") and j.imms:
-                depth += -j.imms[0] if m == "add" else j.imms[0]
+                imm = j.imms[0]
+                nx = self.decode(a + j.size)
+                if m == "add" and depth == 0 and _depth == 0 and nx is not None and "epilogue" not in EQUIV_OFF and \
+                        (nx.kind == "ret" or (nx.mnemonic == "pop" and nx.regs and nx.regs[0] in CALLEE_SAVED)) and \
+                        imm == self.frame_alloc() and imm:
+                    # the epilogue releases exactly the frame the prologue reserved: nothing released the
+                    # pending words, so our callee popped them (`sub esp, 0x14; ...; push x6; call [esp+0x3c];
+                    # ...; add esp, 0x14; ret`)
+                    return ("callee", npending - taken)
+                depth += -imm if m == "add" else imm
                 if depth < 0:
                     released = -depth // 4
                     if taken:
@@ -1148,6 +1188,12 @@ class CodeView:
                         # a caller-cleaned call that also reads words pushed before ours: they are its
                         # arguments, pushed early (`push &t; call [vt+0x40]; push eax; ...; call f; add esp`)
                         used = min(npending, (4 * reads - depth + 3) // 4)
+                        cl = self.cleanup_after(j.addr)
+                        if cl is not None and used < npending and cl == depth + 4 * used:
+                            # its cleanup releases only the words it reads: the rest were ours, and our
+                            # callee popped them (`push 0; push T; push S; push 0; push 0; call [vt+0x48]
+                            # (ret 4); push eax; call __RTDynamicCast; add esp, 0x14`)
+                            return ("callee", npending - used)
                         return ("reader", npending - used)
                 depth -= pop
                 if depth < 0:
@@ -1167,6 +1213,89 @@ class CodeView:
                 return unsure()
             a += j.size
         return unsure()
+
+    def join_balance(self, call_addr, npending):
+        """Who pops the npending words pushed before a call of unknown arity, from the stack depth where a
+        branch taken before the pushes joins the code after the call (`test eax, eax; je L; push 0; push T;
+        push S; push 0; push 0; call [vt+0x48]; push eax; call __RTDynamicCast; add esp, 0x14; L:`): both
+        paths reach L with the same depth, which leaves one way for the words to go. ("callee", k) when our
+        callee pops k of them, or None."""
+        if npending <= 0 or call_addr not in self.insns:
+            return None
+        prev = self.__dict__.get("_prev")
+        if prev is None:
+            prev = self._prev = {a + i.size: a for a, i in self.insns.items()}
+
+        def plain(j):
+            return j.kind == "other" and j.mnemonic not in ("pop", "push", "leave", "pushal", "popal", "pushfd",
+                                                              "popfd", "enter") and \
+                not (j.ops and j.ops[0] == ("reg", "esp")) and "esp" not in (j.regs[:1] if j.mnemonic in
+                                                                              ("xchg", "lea", "mov") else [])
+        a, n = call_addr, 0
+        while n < npending:
+            a = prev.get(a)
+            if a is None:
+                return None
+            j = self.insns[a]
+            if j.mnemonic == "push":
+                n += 1
+            elif not plain(j):
+                return None
+        jcc = None
+        b = a
+        for _ in range(16):
+            b = prev.get(b)
+            if b is None:
+                break
+            j = self.insns[b]
+            if j.kind == "jcc" and j.target is not None and j.target > call_addr:
+                jcc = j
+                break
+            if not plain(j):
+                break
+        if jcc is None:
+            return None
+        depth = 4 * npending              # (our callee taken to pop nothing)
+        a = call_addr + self.insns[call_addr].size
+        seen = set()
+        for _ in range(64):
+            if a == jcc.target:
+                if depth % 4 or not 0 <= depth <= 4 * npending:
+                    return None
+                k = depth // 4
+                # (k == 0: our callee pops nothing, but the words may still be a later call's, popped by its
+                # `ret N`: pending_use decides how many are ours to read)
+                return ("callee", k) if k else None
+            if a in seen:
+                return None
+            seen.add(a)
+            j = self.decode(a)
+            if j is None:
+                return None
+            m = j.mnemonic
+            if m == "push":
+                depth += 4
+            elif m == "pop":
+                depth -= 4
+            elif m in ("add", "sub") and j.ops and j.ops[0] == ("reg", "esp") and j.imms:
+                depth += -j.imms[0] if m == "add" else j.imms[0]
+            elif j.kind == "call":
+                if j.target is None or j.target in IGNORED_CALLS:
+                    return None
+                pop = self.prog.callee_pop(j.target)
+                if pop is None:
+                    return None
+                depth -= pop
+            elif j.kind == "jmp":
+                if j.target is not None and self.internal_target(j.target):
+                    a = j.target
+                    continue
+                return None
+            elif j.kind in ("ret", "stop") or m in ("leave", "pushal", "popal", "pushfd", "popfd", "enter") or \
+                    (j.ops and j.ops[0] == ("reg", "esp")):
+                return None
+            a += j.size
+        return None
 
     def _pending_unclaimed(self, addr, nleft):
         """After the cleanup at addr, nleft argument words are still on the stack: True when the code
@@ -1851,7 +1980,8 @@ class Machine:
                         struct.pack_into("<I", buf, 4 * i, v)
                 b = bytes(buf)
         if self.overlay:
-            hits = [(a, v) for (e, a), v in self.overlay.items() if (e == epoch or e == "*") and page <= a < page + PAGE]
+            hits = [(a, v) for (e, a), v in self.overlay.items()
+                    if (e == epoch or e == "*" or (isinstance(e, tuple) and epoch > e[1])) and page <= a < page + PAGE]
             if hits:
                 buf = bytearray(b)
                 for a, v in hits:
@@ -1968,6 +2098,10 @@ class Run:
         self.caller_cleans = set()  # callees with a plain ret whose original callers pop the arguments
         self.ax_status = False      # ax's upper bytes last came from fnstsw (a float branch's status word)
         self.wild_check = False     # stop at control flow that leaves known code (fault:wild_jump/wild_call)
+        self.rep_obs = None         # the first rep string instruction with a huge count: where ecx came from
+        self.fill_pre = {}          # (call, arg, offset) -> the function's own word a callee-extent fill replaced
+        self.fill_watch = {}        # stack byte -> such a fill, until the function rewrites it
+        self.fill_readback = set()  # fills whose replaced word the function read back before rewriting it
 
     # -- setup ---------------------------------------------------------------------------------
     def _setup(self):
@@ -2060,6 +2194,9 @@ class Run:
                     self.fill_src.pop(x, None)
                 for x in range(addr, addr + size):
                     self.fill_byte.pop(x, None)
+                if self.fill_watch:
+                    for x in range(addr, addr + size):
+                        self.fill_watch.pop(x, None)
             if self.cur_insn is not None and self.cur_insn.is_fpu_store:
                 self.stack_fpu[addr] = size
             else:
@@ -2267,7 +2404,10 @@ class Run:
             semantic = self.prog.callee_stack_args(target) if known else None
             # unknown arity: what the caller does with the pushed words afterwards decides (released by a
             # later `add esp`: caller-cleaned; popped or read by a later call they were pushed for)
-            pu = self.view.pending_use(insn.addr, len(tracked)) if p is None and tracked else None
+            pu = None
+            if p is None and tracked:
+                pu = (self.view.join_balance(insn.addr, len(tracked)) if "join" not in EQUIV_OFF else None) or \
+                    self.view.pending_use(insn.addr, len(tracked))
             if p is not None and p > 0:
                 nargs = p // 4
             elif p == 0 or (cleanup and pu is None):
@@ -2410,7 +2550,10 @@ class Run:
             size = declared.get(argidx.get(v), DEFAULT_POINTEE)
             is_class = isinstance(size, tuple)
             pointees[v] = snap(v, size[0] if is_class else size, is_class)
-        fret = self.view.float_ret_after(insn.addr, self.own_float_ret)
+        fdepth = 0
+        if "fdepth" not in EQUIV_OFF:
+            fdepth = (8 - ((uc.reg_read(u.UC_X86_REG_FPSW) >> 11) & 7)) % 8
+        fret = self.view.float_ret_after(insn.addr, self.own_float_ret, fdepth)
         h = mix(self.inp["seed"], 0xCA11, k)
         d = self.inp.get("dictionary")
         mode = self.inp.get("stub_mode")
@@ -2422,6 +2565,15 @@ class Run:
             eax = 1
         else:
             eax = d[(h >> 8) % len(d)] if d and h & 1 else fuzz_value(h)
+        # a constructor (or any callee that returns its incoming ecx on every path) gives back `this`:
+        # `Cue *c = new (buf) Cue(...); use(c)` uses eax where the original recomputes `lea ecx, [buf]`
+        # (only callees that also write through ecx: constructors. A stubbed accessor that returns its this,
+        # `mov eax, ecx; ret`, keeps a stub result: a fuzzed or zero pointer lets the code after it reach
+        # its empty-container paths, and both sides see the same value either way)
+        ret_this = insn.target is not None and not tail and "this" not in EQUIV_OFF and \
+            self.prog.returns_this(target) and self.prog.callee_writes(target).get("ecx", 0) > 0
+        if ret_this:
+            eax = self.reg("ecx")
         edx = fuzz_value(mix(self.inp["seed"], 0xCA12, k))
         fv = FLOATS[mix(self.inp["seed"], 0xCA13, k) % len(FLOATS)]
         if self.inp.get("stub_floats") is not None:
@@ -2430,7 +2582,7 @@ class Run:
             fv = self.inp["fret_override"][k]        # a directed input's float result for this call
         self.calls.append({"target": target, "args": args, "regs": {r: self.reg(r) for r in Program._REGS},
                            "float_ret": fret, "at": insn.addr, "tail": tail, "pointees": pointees, "known": known,
-                           "conv": bool(conv), "argw": argw,
+                           "conv": bool(conv), "argw": argw, "esp": esp,
                            "via_object": self._is_virtual_on_ecx(insn)})
         self._close_segment()
         self._perturb()
@@ -2511,7 +2663,7 @@ class Run:
             uc.reg_write(u.UC_X86_REG_EAX, eax)
             self.eax_def, self.eax_read = ("call", 32), False
             self.ax_status = False
-            if self.coverage:
+            if self.coverage and not ret_this:
                 self.loads["eax"] = (("ret", k), 4, self.epoch, "eax", (), eax)     # for directed inputs
         if "edx" in clobbers:
             uc.reg_write(u.UC_X86_REG_EDX, edx)
@@ -2539,6 +2691,34 @@ class Run:
             uc.reg_write(u.UC_X86_REG_ESP, esp + p)
             p = 0
         uc.reg_write(u.UC_X86_REG_EIP, TRAMP + (0x800 if fret else 0) + (p // 4) * 16)
+
+    def _check_readback(self, insn):
+        """A read of a stack word whose own earlier value a callee-extent fill replaced (fill_watch)."""
+        m = insn.mnemonic
+        rngs = []
+        if m.startswith(("rep", "movs", "lods", "cmps", "scas")) or m in ("movsb", "movsw", "movsd"):
+            sz = {"b": 1, "w": 2, "d": 4}.get(m[-1], 4)
+            n = self.reg("ecx") if m.startswith("rep") else 1
+            n = min(n, 0x1000)
+            if "movs" in m or "lods" in m or "cmps" in m:
+                rngs.append((self.reg("esi"), sz * n))
+            if "cmps" in m or "scas" in m:
+                rngs.append((self.reg("edi"), sz * n))
+        elif insn.mem is not None and m not in ("lea", "nop"):
+            write_only = insn.ops and insn.ops[0][0] == "mem" and (
+                m in ("mov", "fst", "fstp", "fist", "fistp", "fisttp", "fnstcw", "fnstsw", "fstcw", "fnsave",
+                      "pop") or m.startswith("set"))
+            if not write_only:
+                rngs.append((self._ea(insn.mem), insn.mem[5] or 4))
+            if m == "push" and insn.ops and insn.ops[0][0] == "mem":
+                pass
+        if m == "pop" and not (insn.ops and insn.ops[0][0] == "mem"):
+            rngs.append((self.reg("esp"), 4))
+        for a, n in rngs:
+            for x in range(a, a + n):
+                f = self.fill_watch.get(x)
+                if f is not None:
+                    self.fill_readback.add(f)
 
     def _frame_room(self, v):
         """Bytes from stack address v up to the next thing that isn't free frame space (a saved register,
@@ -2577,7 +2757,12 @@ class Run:
                 lo = 4 if not isinstance(loc, str) or v in firsts else 0
                 if cap <= lo:
                     continue
-                offs = [o for o in range(lo, cap, 4)
+                # every word of the extent, including words the function wrote itself before the call (a dead
+                # spill slot that overlaps the object in one frame layout: the real callee overwrites it).
+                # Such a word's earlier value is recorded on each side (fill_pre); an input on which the two
+                # sides held different values there and either one reads the word back before rewriting it
+                # is inconclusive (the static extent may cover a word the real callee doesn't write)
+                offs = list(range(lo, cap, 4)) if "fill" not in EQUIV_OFF else [o for o in range(lo, cap, 4)
                         if not any(x in self.func_stack_written for x in range(v + o, v + o + 4))]
                 rec[loc] = (cap, offs)
             learned[k] = rec
@@ -2594,7 +2779,12 @@ class Run:
             j = 100 + loc if isinstance(loc, int) else 200 + ("eax", "ecx", "edx").index(loc)
             for o in offs:
                 if o + 4 <= room:
-                    put(v + o, j, o, v)
+                    w = v + o
+                    if any(x in self.func_stack_written for x in range(w, w + 4)):
+                        self.fill_pre[(k, j, o)] = self._read_u32(w)
+                        for x in range(w, w + 4):
+                            self.fill_watch[x] = (k, j, o)
+                    put(w, j, o, v)
 
     def _reg_info(self, v):
         """{val, src, xf, raw, reg} of a register operand (for directed inputs)."""
@@ -2851,7 +3041,9 @@ class Run:
                 raw = inf["val"]
                 if m == "movsx" and raw >> (8 * size - 1):
                     raw = (raw - (1 << (8 * size))) & M32
-                self.loads[r32] = (inf["src"][0], size, self.epoch, r, (), raw)
+                # (the epoch the value was loaded from memory in: a loop counter kept in a local, `mov eax,
+                # [esp+0x40]; dec eax; mov [esp+0x40], eax; jne`, was loaded before the body's calls)
+                self.loads[r32] = (inf["src"][0], size, inf["src"][2] if "epoch" not in EQUIV_OFF else self.epoch, r, (), raw)
                 return
             if m in ("movzx", "movsx") and len(ops) == 2 and ops[1][0] == "reg" and r in Program._REGS:
                 sr = ops[1][1]
@@ -2991,8 +3183,18 @@ class Run:
                         self.mapped.add(pg)
             if insn is None:
                 raise Fault("undecodable")
+            if self.fill_watch:
+                self._check_readback(insn)
             if insn.mnemonic.startswith("rep") and self.reg("ecx") > 0x100000:
                 self.huge_rep = True
+            if insn.mnemonic.startswith("rep") and self.reg("ecx") > 0x2000 and "rep" not in EQUIV_OFF:
+                if self.coverage is not None and self.rep_obs is None:
+                    # a fill or copy of a fuzzed, absurd size (`rep stosd` over count*4 bytes): loop repair
+                    # patches the count's source down to a few elements, as for a loop bound
+                    info = self._reg_info("ecx")
+                    if info["src"]:
+                        self.rep_obs = {"addr": addr, "mnemonic": "cmp",
+                                        "ops": [info, {"val": 8, "src": None, "imm": 8}]}
             if self.coverage is not None:
                 self.executed.add(addr)
                 if self.prev_jcc is not None:
@@ -3021,6 +3223,7 @@ class Run:
                     self.stack_written.discard(x)
                     self.func_stack_written.discard(x)
                     self.array_written.discard(x)
+                    self.fill_watch.pop(x, None)
             if esp != self.prev_esp and self.save_slots:
                 # a return address or saved register below esp is dead: once `sub esp` reuses the slot (a
                 # by-value argument built in place) it is free space, not a frame boundary
@@ -3136,6 +3339,11 @@ class Run:
                     self._stub(insn, self.self_alias, tail=True)
                     return
                 if direct and self.local_code and self.local_code[0] <= target < self.local_code[1]:
+                    # a tail jump into another function of our object (`jmp ??1SimpleChannel` ending a derived
+                    # destructor): it runs in place, and its prologue's register saves aren't arguments
+                    if target not in self.local_entries and "localjmp" not in EQUIV_OFF:
+                        self.local_entries.add(target)
+                        self.prologue |= CodeView(self.view.read, target, None, self.prog, is_ours=True).prologue()
                     return
                 if direct and target in self.intrinsics:
                     self._intrinsic(insn, self.intrinsics[target], tail=True)
@@ -3677,7 +3885,15 @@ def level2(prog, orefs, oview, ours, resolved, how, rview):
 
     def near_ours(t):        # the middle of something we reference (a string read in pieces, a struct field)
         return any(0 < abs(t - x) < 16 for x in r_data)
+    # 2^32, the bias of an unsigned-to-float conversion (`fild; test; jge; fadd [2^32]`): the original's
+    # float and our build's double are the same constant
+    two32 = {"__real@41f0000000000000", "__real@4f800000"}
+    two32_ours = any(t is None and n in two32 for k, t, n in refs)
+    two32_orig = {t for t in o_float if prog.read(t, 4) == struct.pack("<f", 4294967296.0) or
+                  prog.read(t, 8) == struct.pack("<d", 4294967296.0)}
     for k, t, n in refs:
+        if t is None and n in two32 and two32_orig:
+            continue
         if t is None:
             if n in INTRINSIC_NAMES:
                 issues.append({"kind": "intrinsic_call", "symbol": n})       # executed semantically in level 3
@@ -3694,6 +3910,8 @@ def level2(prog, orefs, oview, ours, resolved, how, rview):
         kind = "missing_data_ref_interior" if near_ours(t) else "missing_data_ref"
         issues.append({"kind": kind, "target": "0x%08x" % t, "section": prog.section_name(t)})
     for t in sorted(o_float - r_data):
+        if t in two32_orig and two32_ours:
+            continue
         issues.append({"kind": "missing_float_constant", "target": "0x%08x" % t})
     for t in sorted(r_data - o_data - o_float - o_imm - {oview.entry}):     # (&self: the original's too)
         n = [x for k, tt, x in refs if tt == t]
@@ -3710,7 +3928,7 @@ def level2(prog, orefs, oview, ours, resolved, how, rview):
 
 # ---------------------------------------------------------------------------------------------
 # Level 3 driver.
-def make_input(seed, sig, prog_globals, ptr_pool=(), int_pool=()):
+def make_input(seed, sig, prog_globals, ptr_pool=(), int_pool=(), strides=()):
     kinds = []
     cc = sig.get("cc") if sig else None
     params = (sig or {}).get("params")
@@ -3737,6 +3955,13 @@ def make_input(seed, sig, prog_globals, ptr_pool=(), int_pool=()):
             words_kind.append(k)
         elif k == "ptr" and ptr_pool and seed % 3 == 2 and h & 0x100:
             words.append(ptr_pool[(h >> 9) % len(ptr_pool)])         # e.g. a string the code compares with
+            words_kind.append(k)
+        elif k == "ptr" and seed % 8 == 5 and strides and i > 0 and "ptr" in words_kind:
+            # an iterator range: a later pointer a few elements past the first one, in a step the code
+            # advances by (`add esi, 0x44`): `[first, last)` over fuzzed pointers is millions of elements
+            first = words[words_kind.index("ptr")]
+            st_ = strides[(h >> 8) % len(strides)]
+            words.append((first + st_ * ((h >> 12) % 9)) & M32)
             words_kind.append(k)
         elif k == "ptr" and seed % 4 == 1:
             words.append(HEAP + 0x20000 + 0x40 * i + 4 * (h % 8))     # nearby, ascending pointers
@@ -3846,6 +4071,14 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
                 j += 1
                 continue
             if of == 4 and rf == 4 and _feq(*struct.unpack("<ff", struct.pack("<II", ov, rv))):
+                j += 1
+                continue
+            if (of == 4 or rf == 4) and _feq(*struct.unpack("<ff", struct.pack("<II", ov, rv))) \
+                    and not any(HEAP <= x < HEAP + HEAP_SIZE or OURS <= x < OURS + OURS_SIZE for x in (ov, rv)) \
+                    and "argbit" not in EQUIV_OFF:
+                # a float argument stored by fstp on one side and copied as a word on the other (`push ecx` of a
+                # float local): a float, compared with the float tolerance, as documented for float arguments
+                # (the x87 rounds the other side's value once more, or keeps 80 bits a step longer)
                 j += 1
                 continue
             if of == 8 and rf == 8 and j + 1 < len(oa):
@@ -4091,11 +4324,43 @@ def _callee_is_thiscall(prog, target):
     return _TC[target]
 
 
+_SELF_FLAGS = {"je": 1, "jz": 1, "jne": 0, "jnz": 0, "jb": 0, "jc": 0, "jnae": 0, "jae": 1, "jnb": 1, "jnc": 1,
+               "jbe": 1, "jna": 1, "ja": 0, "jnbe": 0, "jl": 0, "jnge": 0, "jge": 1, "jnl": 1, "jle": 1, "jng": 1,
+               "jg": 0, "jnle": 0, "js": 0, "jns": 1, "jp": 1, "jpe": 1, "jnp": 0, "jpo": 0, "jo": 0, "jno": 1}
+
+
+def infeasible_edges(view):
+    """Branch sides that can't be taken: a jcc right after `cmp r, r` / `sub r, r` / `xor r, r` (a compiler
+    artefact, `cmp eax, eax; je` after a loop), when nothing else jumps to the jcc. The flags are fixed (ZF=1,
+    CF=SF=OF=0), so one side is dead; it isn't counted as uncovered."""
+    cache = view.__dict__.get("_infeasible")
+    if cache is not None:
+        return cache
+    out = set()
+    if "selfcmp" not in EQUIV_OFF:
+        prev = {a + i.size: a for a, i in view.insns.items()}
+        targets = {i.target for i in view.insns.values() if i.target is not None} | \
+            {t for tg in view.tables.values() for t in tg}
+        for j in view.jcc:
+            i = view.insns[j]
+            p = view.insns.get(prev.get(j))
+            if p is None or j in targets or i.mnemonic not in _SELF_FLAGS:
+                continue
+            if p.mnemonic in ("cmp", "sub", "xor") and len(p.ops) == 2 and p.ops[0][0] == "reg" and p.ops[0] == p.ops[1]:
+                taken = _SELF_FLAGS[i.mnemonic]
+                out.add((j, j + i.size) if taken else (j, i.target))
+    view._infeasible = out
+    return out
+
+
 def coverage_of(view, edges):
     total, covered, missing = 0, 0, []
+    dead = infeasible_edges(view)
     for j in view.jcc:
         i = view.insns[j]
         for t, label in ((i.target, "taken"), (j + i.size, "not taken")):
+            if (j, t) in dead:
+                continue
             total += 1
             if (j, t) in edges:
                 covered += 1
@@ -4130,11 +4395,25 @@ def pick_symbol(obj, addr, target_bytes, symbol=None):
     c = [s for s in funcs if hexa in s[0].lower()]
     if len(c) == 1:
         return c[0]
+    by_name = {f[0]: f for f in funcs}
+
+    def flat(f, depth=0):
+        """The function's bytes, followed by those of a function of our object it tail-jumps to at its end
+        (`~Derived` ending in `jmp ~Base`: the original inlined ~Base, and ~Base alone can look closer to it
+        than ~Derived does)."""
+        secnum, value, end = obj.func_extent(f)
+        sec = obj.sections[secnum - 1]
+        raw = sec["raw"] or b""
+        body = strip_padding(raw[value:end])
+        if depth < 2 and len(body) >= 5 and body[-5] == 0xE9 and "flat" not in EQUIV_OFF:
+            for va, si, typ in sec["relocs"]:
+                sym = obj.syms.get(si)
+                if va == value + len(body) - 4 and sym is not None and sym[0] in by_name and sym[0] != f[0]:
+                    return body[:-5] + flat(by_name[sym[0]], depth + 1)
+        return body
     best = None
     for s in funcs:
-        secnum, value, end = obj.func_extent(s)
-        raw = obj.sections[secnum - 1]["raw"] or b""
-        d = asm_diff(target_bytes, strip_padding(raw[value:end]), set())
+        d = asm_diff(target_bytes, flat(s), set())
         key = (d["matched"] / d["total"], -abs(d["target_bytes"] - d["our_bytes"]))
         if best is None or key > best[0]:
             best = (key, s)
@@ -4419,6 +4698,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     ptr_offsets = {0, 4, 8, 12} | set(sorted({i.mem[4] for i in oview.insns.values() if i.mnemonic == "lea"
                                               and i.mem and i.mem[1] not in (None, "esp", "ebp")
                                               and not i.mem[2] and 0 < i.mem[4] <= 0x200})[:12])
+    # element sizes the code steps pointers by (`add esi, 0x44`, `lea edx, [edx + 0xc]`): iterator ranges
+    strides = sorted({i.imms[0] for i in oview.insns.values() if i.mnemonic in ("add", "sub") and len(i.ops) == 2
+                      and i.ops[0][0] == "reg" and i.ops[0][1] not in ("esp", "ebp") and i.ops[1][0] == "imm"
+                      and 4 <= i.imms[0] <= 0x400 and i.imms[0] % 4 == 0})[:8] if "stride" not in EQUIV_OFF else ()
     hits = Counter()           # edge -> number of inputs that took it
     slot_arity = {}
     observations = {}          # jcc addr -> [(seed, cmp observation, ...)] from the original's runs
@@ -4433,6 +4716,33 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     repair_on = [False]        # (not before the step budget is settled: long-running code isn't a runaway)
     repair_left = [64]
     tried_repair = set()
+
+    # loop structure: back edges (jcc or jmp to an address at or before itself) and the forward jccs that
+    # leave such a loop (target past its back edge)
+    back_edges = [(a, i.target) for a, i in oview.insns.items() if i.kind in ("jcc", "jmp") and
+                  i.target is not None and i.target <= a and oview.internal_target(i.target)]
+    loop_exits = set()
+
+    def reenters(t, lo, b):
+        """Does the code at t go straight back into the loop [lo, b] (a body block placed after the loop,
+        `jb L ... L: mov eax, [eax]; jmp next`)?"""
+        a = t
+        for _ in range(16):
+            i = oview.insns.get(a)
+            if i is None or i.kind in ("ret", "stop", "jcc"):
+                return False
+            if i.kind == "jmp":
+                return i.target is not None and lo <= i.target <= b
+            a += i.size
+        return False
+    for j in oview.jcc:
+        t = oview.insns[j].target
+        if t is None:
+            continue
+        if t <= j:
+            loop_exits.add(j)
+        elif any(lo <= j < b < t and not reenters(t, lo, b) for b, lo in back_edges):
+            loop_exits.add(j)
 
     def repair(entry):
         """Re-run an input whose original ran away in a loop with that loop's bound patched (it then ends
@@ -4469,7 +4779,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         return False
 
     def build(seed, overlay=None, stack_patch=None):
-        inp = make_input(seed, sig, globals_, rdata_ptrs, consts if seed % 3 == 2 else ())
+        inp = make_input(seed, sig, globals_, rdata_ptrs, consts if seed % 3 == 2 else (), strides)
         inp["arity_by_call"] = {}
         inp["ret_override"] = {}
         if stack_patch:
@@ -4568,12 +4878,28 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 lst = observations.setdefault(j, [])
                 if len(lst) < 6 and all(x[0] != seed for x in lst):
                     lst.append((seed, ob, overlay, stack_patch))
+        elif o["status"] in ("timeout", "fault:too_many_pages") and orun.rep_obs is not None:
+            if len(stuck) < 256:
+                stuck.append((seed, overlay, stack_patch, [(orun.rep_obs["addr"], orun.rep_obs)]))
         elif o["status"] in ("timeout", "fault:too_many_pages") and not o["huge_rep"]:
             # a loop that ran too long: remember its hottest comparisons, to end it early (repair below)
             # (a loop's back edge first: `cmp esi, [count]; jb top` bounds the loop, while the hottest compares
             # are often clamps inside its body, whose patching never ends it)
             cand = [j for j, _ in orun.jcc_count.most_common(12) if j in obs_run]
-            back = [j for j in cand if oview.insns[j].target is not None and oview.insns[j].target <= j]
+            if "exits" in EQUIV_OFF:
+                back = [j for j in cand if oview.insns[j].target is not None and oview.insns[j].target <= j]
+            else:
+                # the compares that can end a loop: its back edge (`cmp esi, [count]; jb top`) or a jump out
+                # of it (a top-tested loop's `cmp; jae out` before the body and the `jmp top`), as opposed to
+                # clamps inside the body, whose patching never ends it. Every such compare that ran often
+                # counts, hottest first, but only if a patch can move it (an inner loop over a constant
+                # bound, `cmp edx, 8; jb`, is the hottest back edge and can't): the outer loop's bound can
+                # be far down the list when the body has many branches
+                nst = len(make_input(seed, sig, globals_)["stack"])
+                top = max(orun.jcc_count.values())
+                back = [j for j, c in orun.jcc_count.most_common() if c >= max(16, top // 64) and j in obs_run
+                        and j in loop_exits and _patches(obs_run[j], overlay, stack_patch, nst)]
+                cand = [j for j in cand if j not in back]
             hot = [(j, obs_run[j]) for j in (back[:2] + [j for j in cand if j not in back[:2]])][:3]
             if hot and len(stuck) < 256:
                 stuck.append((seed, overlay, stack_patch, hot))
@@ -4614,6 +4940,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             res["inputs_inconclusive"] += 1
             res["statuses"]["code_write"] += 1
             return None
+        readback = any(orun.fill_pre.get(f) != rrun.fill_pre.get(f) for f in orun.fill_readback | rrun.fill_readback)
         if r["status"] == "fault:too_many_pages" and o["status"] == "ret" and o["huge_rep"]:
             # a fill or copy of a fuzzed, absurd size (over 4 MB): Unicorn's rep string op got through it
             # in the original, our inlined/semantic copy hit the page limit. An emulator artefact.
@@ -4626,6 +4953,14 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             return None
         diffs = compare_runs(o, r, ret_kind, mach, Namer(inp, sig, prog), prog, esp_adjust=esp_adjust,
                              skip_saved=set(target_conv or ()), void_eax=void_eax)
+        if readback and not diffs:
+            # a callee-extent fill replaced a word the function had written, the two sides held different
+            # values there, and one of them read it back: if the real callee doesn't write that word (the
+            # static extent is a range, not a set of stores), the fill may have hidden a difference. (A
+            # difference seen anyway still fails: the same fill on both sides can't create one.)
+            res["inputs_inconclusive"] += 1
+            res["statuses"]["fill_readback"] += 1
+            return None
         if diffs and o["status"].startswith("fault:") and r["status"].startswith("fault:") and \
                 all(d == "original %s but ours %s" % (o["status"], r["status"]) for d in diffs):
             # both sides crash, with the same calls and writes up to there, only differently (an overflowed
@@ -4652,118 +4987,220 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             return True
         return False
 
+    def time_frac():
+        el = time.process_time() - t_start
+        return el / (time_budget * (3 if steps[0] >= LONG_STEPS else 1))
+
     # 1. random inputs; then more while coverage keeps growing
-    seed, stale = 0, 0
-    rand_inconclusive = 0
-    while seed < max_inputs and res["inputs_failed"] < 3 and not out_of_time():
-        if seed == 4 and steps[0] < LONG_STEPS and res["statuses"].get("timeout") == 4 and not res.get("huge_rep") \
-                and timeout_calls[0] < 500:
-            # every input so far ran out of steps: long-running code (string building, big loops), not
-            # fuzzed sizes (no rep string instruction with an absurd count) or a loop that runs until a
-            # stubbed callee says stop (thousands of calls). Give the remaining inputs a much bigger budget (and 3x the time).
-            steps[0] = LONG_STEPS
-            res["long_steps"] = LONG_STEPS
-        if seed == 8 and steps[0] >= LONG_STEPS and res["statuses"].get("timeout", 0) >= 6:
-            steps[0] = max_steps          # the bigger budget didn't help: fuzzed loop bounds after all
-            res.pop("long_steps", None)
-        if not repair_on[0] and steps[0] < LONG_STEPS and (seed == 4 or seed == 8):
-            # the step budget is settled (it isn't long-running code): repair the runaway inputs so far
-            repair_on[0] = True
-            for st_ in list(stuck):
-                if not out_of_time():
-                    repair(st_)
-        if seed >= n_inputs:
-            if coverage_of(oview, edges)["complete"] or stale >= 16:
-                break
-        n0 = len(stuck)
-        if only_seeds and seed not in only_seeds:      # (EQUIV_SEEDS=7913,9556: debugging one input)
-            seed += 1
-            continue
-        new = run_input(seed)
-        seed += 1
-        if new is None:
-            rand_inconclusive += 1          # (repair runs that time out don't count here)
-            if repair_on[0] and len(stuck) > n0:
-                repair(stuck[n0])
-            if rand_inconclusive >= 32 and res["inputs_run"] >= 8:
-                res["inconclusive_cap_hit"] = True
-                break
-            continue
-        if res["statuses"].get("ret", 0) < 8 and res["inputs_faulted"] < 192 and not new:
-            continue        # the original mostly faults (e.g. a divisor from memory): keep looking for inputs it completes
-        stale = 0 if new else stale + 1
+    rs = {"seed": 0, "stale": 0, "rinc": 0, "done": False}
+
+    def random_phase(soft, until_run=None, nocap=False):
+        """soft: hand over to the directed phase once half the time budget is gone and 50 inputs completed
+        (with --inputs 3000 the random inputs alone would use all of it); the rest of the random inputs
+        run after the directed ones."""
+        while rs["seed"] < max_inputs and res["inputs_failed"] < 3 and not out_of_time():
+            seed = rs["seed"]
+            if until_run is not None and res["inputs_run"] >= until_run:
+                return
+            if soft and res["inputs_run"] >= 50 and seed >= 256 and time_frac() > 0.5 and \
+                    "soft" not in EQUIV_OFF:
+                return
+            if seed == 4 and steps[0] < LONG_STEPS and res["statuses"].get("timeout") == 4 and not res.get("huge_rep") \
+                    and timeout_calls[0] < 500:
+                # every input so far ran out of steps: long-running code (string building, big loops), not
+                # fuzzed sizes (no rep string instruction with an absurd count) or a loop that runs until a
+                # stubbed callee says stop (thousands of calls). Give the remaining inputs a much bigger budget (and 3x the time).
+                steps[0] = LONG_STEPS
+                res["long_steps"] = LONG_STEPS
+            if seed == 8 and steps[0] >= LONG_STEPS and res["statuses"].get("timeout", 0) >= 6:
+                steps[0] = max_steps          # the bigger budget didn't help: fuzzed loop bounds after all
+                res.pop("long_steps", None)
+            if not repair_on[0] and steps[0] < LONG_STEPS and (seed == 4 or seed == 8):
+                # the step budget is settled (it isn't long-running code): repair the runaway inputs so far
+                repair_on[0] = True
+                for st_ in list(stuck):
+                    if not out_of_time():
+                        repair(st_)
+            if seed >= n_inputs:
+                if coverage_of(oview, edges)["complete"] or rs["stale"] >= 16:
+                    break
+            n0 = len(stuck)
+            if only_seeds and seed not in only_seeds:      # (EQUIV_SEEDS=7913,9556: debugging one input)
+                rs["seed"] += 1
+                continue
+            new = run_input(seed)
+            rs["seed"] += 1
+            if new is None:
+                rs["rinc"] += 1          # (repair runs that time out don't count here)
+                if repair_on[0] and len(stuck) > n0:
+                    repair(stuck[n0])
+                if rs["rinc"] >= 32 and res["inputs_run"] >= 8 and until_run is None and not nocap:
+                    res["inconclusive_cap_hit"] = True
+                    break
+                continue
+            if res["statuses"].get("ret", 0) < 8 and res["inputs_faulted"] < 192 and not new:
+                continue        # the original mostly faults (e.g. a divisor from memory): keep looking for inputs it completes
+            rs["stale"] = 0 if new else rs["stale"] + 1
+        rs["done"] = True
+
     # 3. directed inputs: for a branch side never taken, re-run the input that reached its comparison
     #    with the compared memory (or argument) patched to the value on the other side
     tried = set()
-    budget = directed
+    dstate = {"budget": directed}
     refund = [0]
-    progress = True
-    while progress and budget > 0 and res["inputs_failed"] < 3 and not out_of_time():
-        progress = False
-        missing = {j for j in oview.jcc for t in (oview.insns[j].target, j + oview.insns[j].size)
-                   if (j, t) not in edges} | {j for j in oview.setcc for v in ("set0", "set1") if (j, v) not in edges}
-        table_cases = {}
-        for j, tg in oview.tables.items():
-            miss = [i for i, t in enumerate(tg) if (j, t) not in edges]
-            if miss:
-                table_cases[j] = miss
-                missing.add(j)
-        # string compares against literals: plant the literal in the buffer compared (fuzzed bytes never
-        # spell "Millimeters"); planted runs queue the compares they reach next (chains of keywords)
-        while missing and str_queue and budget > 0 and res["inputs_failed"] < 3 and not out_of_time():
-            seed0, sob, ov0, sp0 = str_queue.pop(0)
-            for overlay, patch in _plants(sob, ov0, sp0):
-                key = (sob["site"], seed0, tuple(sorted(map(repr, overlay.items()))),
-                       tuple(sorted(map(repr, patch.items()))))
-                if key in tried:
-                    continue
-                tried.add(key)
-                budget -= 1
-                res["inputs_directed"] += 1
-                res["inputs_planted"] = res.get("inputs_planted", 0) + 1
-                if run_input(seed0, overlay, patch, label="%d+str" % seed0):
-                    progress = True
-                    if refund[0] < 3 * directed:
-                        budget += 4
-                        refund[0] += 4
-        if not missing:
-            # everything reached: spend what is left on sides that few inputs took (path diversity)
-            rare = [j for j in oview.jcc for t in (oview.insns[j].target, j + oview.insns[j].size)
-                    if hits[(j, t)] < RARE_HITS] + \
-                   [j for j in oview.setcc for v in ("set0", "set1") if hits[(j, v)] < RARE_HITS]
-            missing = set(rare)
-        for j in sorted(missing):
-            if j not in observations or budget <= 0 or out_of_time():
-                continue
-            done = False
-            for seed0, ob, ov0, sp0 in observations[j]:
-                if ob["mnemonic"] == "table":
-                    ob = dict(ob, want_cases=table_cases.get(j, [])[:3])
-                for overlay, patch in _patches(ob, ov0, sp0, len(make_input(seed0, sig, globals_)["stack"]))[:3]:
-                    key = (j, seed0, tuple(sorted(map(repr, overlay.items()))), tuple(sorted(map(repr, patch.items()))))
+
+    def directed_run(seed0, overlay, patch, label):
+        """A directed input; one whose original runs away in a loop (a switch case's loop over a fuzzed
+        count) is repaired like a random one (with its own budget)."""
+        n0 = len(stuck)
+        e0 = len(edges)
+        new = run_input(seed0, overlay, patch, label=label)
+        if new is None and len(stuck) > n0 and repair_on[0] and "drepair" not in EQUIV_OFF and \
+                directed_repair[0] > 0:
+            left = repair_left[0]
+            repair_left[0] = min(directed_repair[0], 8)
+            repair(stuck[n0])
+            directed_repair[0] -= min(directed_repair[0], 8) - repair_left[0]
+            repair_left[0] = left
+            if len(edges) > e0:
+                return True
+        return new
+
+    jcur = {}           # compare -> its next observation to patch (breadth first)
+    active = set()      # compares being driven
+    more = [False]      # some compare still has untried observations
+
+    def directed_phase():
+        progress = True
+        while (progress or more[0]) and dstate["budget"] > 0 and res["inputs_failed"] < 3 and not out_of_time():
+            progress = False
+            more[0] = False
+            dead = infeasible_edges(oview)
+            missing = {j for j in oview.jcc for t in (oview.insns[j].target, j + oview.insns[j].size)
+                       if (j, t) not in edges and (j, t) not in dead} | \
+                {j for j in oview.setcc for v in ("set0", "set1") if (j, v) not in edges}
+            table_cases = {}
+            for j, tg in oview.tables.items():
+                miss = [i for i, t in enumerate(tg) if (j, t) not in edges]
+                if miss:
+                    table_cases[j] = miss
+                    missing.add(j)
+            # string compares against literals: plant the literal in the buffer compared (fuzzed bytes never
+            # spell "Millimeters"); planted runs queue the compares they reach next (chains of keywords)
+            # (at most half the budget left per pass: the compares' own patches need their turn too, a chain
+            # of keyword tests through a stubbed compare wrapper behind an inline name compare)
+            str_cap = dstate["budget"] - max(8, dstate["budget"] // 2) if "strcap" not in EQUIV_OFF else -1 << 30
+            while missing and str_queue and dstate["budget"] > max(0, str_cap) and res["inputs_failed"] < 3 \
+                    and not out_of_time():
+                seed0, sob, ov0, sp0 = str_queue.pop(0)
+                for overlay, patch in _plants(sob, ov0, sp0):
+                    key = (sob["site"], seed0, tuple(sorted(map(repr, overlay.items()))),
+                           tuple(sorted(map(repr, patch.items()))))
                     if key in tried:
                         continue
                     tried.add(key)
-                    budget -= 1
+                    dstate["budget"] -= 1
                     res["inputs_directed"] += 1
-                    new = run_input(seed0, overlay, patch, label="%d+patch" % seed0)
-                    if new:
+                    res["inputs_planted"] = res.get("inputs_planted", 0) + 1
+                    if directed_run(seed0, overlay, patch, "%d+str" % seed0):
                         progress = True
                         if refund[0] < 3 * directed:
-                            budget += 4         # still finding new edges: keep going (up to 4x the budget)
+                            dstate["budget"] += 4
                             refund[0] += 4
-                    if j in oview.tables:
-                        sides = [(j, t) for t in set(oview.tables[j])]
-                    elif oview.insns[j].kind == "jcc":
-                        sides = [(j, oview.insns[j].target), (j, j + oview.insns[j].size)]
-                    else:
-                        sides = [(j, "set0"), (j, "set1")]
-                    if all(hits[e] >= RARE_HITS for e in sides):
-                        done = True
-                    if done or budget <= 0 or res["inputs_failed"] >= 3:
+            if not missing:
+                # everything reached: spend what is left on sides that few inputs took (path diversity)
+                rare = [j for j in oview.jcc for t in (oview.insns[j].target, j + oview.insns[j].size)
+                        if hits[(j, t)] < RARE_HITS] + \
+                       [j for j in oview.setcc for v in ("set0", "set1") if hits[(j, v)] < RARE_HITS]
+                missing = set(rare)
+            if "breadth" not in EQUIV_OFF and "active" not in EQUIV_OFF:
+                # (a compare stays active until both its sides were taken RARE_HITS times, as when all its
+                # observations were tried in one go: driving it on reaches the compares behind it)
+                active.update(missing)
+                missing = missing | active
+            for j in sorted(missing):
+                if j not in observations or dstate["budget"] <= 0 or out_of_time():
+                    continue
+                done = False
+                obs_j = observations[j]
+                if "breadth" not in EQUIV_OFF:
+                    # one observation per compare per pass (breadth first, round robin over those with patches
+                    # not tried yet): a compare that no patch flips (a value computed from several loads) no
+                    # longer spends the whole budget on its six observations before the compares after it get
+                    # a turn (a chain of 33 keyword tests)
+                    n_ = len(obs_j)
+                    c = jcur.get(j, 0)
+                    pick = None
+                    for step_ in range(n_):
+                        idx = (c + step_) % n_
+                        seed0, ob, ov0, sp0 = obs_j[idx]
+                        if ob["mnemonic"] == "table":
+                            ob = dict(ob, want_cases=table_cases.get(j, [])[:3])
+                        if any((j, seed0, tuple(sorted(map(repr, ov_.items()))), tuple(sorted(map(repr, pt_.items()))))
+                               not in tried for ov_, pt_ in
+                               _patches(ob, ov0, sp0, len(make_input(seed0, sig, globals_)["stack"]))[:3]):
+                            pick = idx
+                            break
+                    if pick is None:
+                        continue
+                    jcur[j] = pick + 1
+                    obs_j = obs_j[pick:] + obs_j[:pick]     # (on to the next ones while they find edges)
+                    more[0] = True
+                breadth = "breadth" not in EQUIV_OFF
+                for oi, (seed0, ob, ov0, sp0) in enumerate(obs_j):
+                    found = False
+                    if ob["mnemonic"] == "table":
+                        ob = dict(ob, want_cases=table_cases.get(j, [])[:3])
+                    for overlay, patch in _patches(ob, ov0, sp0, len(make_input(seed0, sig, globals_)["stack"]))[:3]:
+                        key = (j, seed0, tuple(sorted(map(repr, overlay.items()))), tuple(sorted(map(repr, patch.items()))))
+                        if key in tried:
+                            continue
+                        tried.add(key)
+                        dstate["budget"] -= 1
+                        res["inputs_directed"] += 1
+                        new = directed_run(seed0, overlay, patch, "%d+patch" % seed0)
+                        if new:
+                            progress = True
+                            found = True
+                            if refund[0] < 3 * directed:
+                                dstate["budget"] += 4         # still finding new edges: keep going (up to 4x the budget)
+                                refund[0] += 4
+                        if j in oview.tables:
+                            sides = [(j, t) for t in set(oview.tables[j])]
+                        elif oview.insns[j].kind == "jcc":
+                            sides = [(j, oview.insns[j].target), (j, j + oview.insns[j].size)]
+                        else:
+                            sides = [(j, "set0"), (j, "set1")]
+                        if all(hits[e] >= RARE_HITS for e in sides):
+                            done = True
+                            active.discard(j)
+                        if done or dstate["budget"] <= 0 or res["inputs_failed"] >= 3:
+                            break
+                    if done or dstate["budget"] <= 0 or res["inputs_failed"] >= 3:
                         break
-                if done or budget <= 0 or res["inputs_failed"] >= 3:
-                    break
+                    if breadth:
+                        jcur[j] = (pick + oi + 1) % max(1, len(observations[j]))
+                        if not found:
+                            break
+
+    directed_repair = [64]
+    random_phase(soft=True)
+    directed_phase()
+    if not rs["done"] and not out_of_time() and res["inputs_failed"] < 3:
+        random_phase(soft=False)
+        directed_phase()        # (new observations from the later random inputs)
+    if res.get("inconclusive_cap_hit") and 5 * rs["rinc"] <= res["inputs_run"] and rs["seed"] < max_inputs and \
+            not out_of_time() and res["inputs_failed"] < 3 and "rate" not in EQUIV_OFF:
+        # the random phase stopped at 32 inconclusive inputs though most complete (a few fuzzed counts run
+        # away): with the directed inputs done, the time left goes to more random ones, then directed again
+        random_phase(soft=False, nocap=True)
+        directed_phase()
+    if res.get("inconclusive_cap_hit") and res["inputs_run"] < 50 and rs["seed"] < max_inputs and \
+            not out_of_time() and res["inputs_failed"] < 3 and "capfix" not in EQUIV_OFF:
+        # the random phase stopped at 32 inconclusive inputs (fuzzed counts that run away) short of the 50
+        # completed inputs `promotable` asks for: with the directed inputs done, spend the time left on more
+        # random ones (each runaway is repaired, as before)
+        random_phase(soft=False, until_run=50)
     res["coverage"] = coverage_of(oview, edges)
     res["statuses"] = dict(res["statuses"])
     if res["inputs_run"] == 0:
@@ -5001,6 +5438,12 @@ def _patches(ob, overlay0, patch0, nstack):
                 ov = dict(overlay0 or {})
                 ov[("*" if anyep else epoch, ea)] = (v & ((1 << (8 * size)) - 1)).to_bytes(size, "little")
                 out.append((ov, dict(patch0 or {})))
+                if anyep and "after" not in EQUIV_OFF:
+                    # (and only from the next epoch on: the loop runs once, a teardown `while (t->first !=
+                    # head) erase(t->first)` whose stubbed erase never unlinks)
+                    ov = dict(overlay0 or {})
+                    ov[(("after", epoch), ea)] = (v & ((1 << (8 * size)) - 1)).to_bytes(size, "little")
+                    out.insert(len(out) - 1, (ov, dict(patch0 or {})))
     # distinct patches only, alternating between the operands (one of them may be memory the function
     # wrote itself, where a patch does nothing)
     out = [x for grp in itertools.zip_longest(*per_target) for x in grp if x is not None]
