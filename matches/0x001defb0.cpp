@@ -1,0 +1,16 @@
+class Item {
+  public:
+    int Find();
+};
+class Obj {
+  public:
+    unsigned char Go(Item*, int);
+    unsigned char Run(int, int);
+};
+unsigned char Obj::Run(int a, int b) {
+    unsigned char result = 0;
+    int n = ((Item*)a)->Find();
+    if (n >= 0)
+        result = Go((Item*)n, b);
+    return result;
+}
