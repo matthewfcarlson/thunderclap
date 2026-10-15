@@ -1,0 +1,35 @@
+class CSubtitleManager;
+void __stdcall FUN_001d0480(void*, int);
+unsigned char __cdecl FUN_001d04d0(const char*);
+class Base {
+  public:
+    Base(void*);
+};
+Base::Base(void* p) {
+    FUN_001d0480(p, 1);
+}
+class Method1 : public Base {
+  public:
+    virtual void call(int);
+    char pad[0x0c];
+    unsigned char a;
+    char pad2[7];
+    unsigned char b;
+    char pad3[3];
+    CSubtitleManager* owner;
+    Method1(void*, CSubtitleManager*);
+};
+class Closure1 : public Method1 {
+  public:
+    virtual void call(int);
+    void* fn;
+    Closure1(void*, void*, CSubtitleManager*);
+};
+Method1::Method1(void* p, CSubtitleManager* o) : Base(p) {
+    owner = o;
+    b = FUN_001d04d0((const char*)0x48e100);
+    a = FUN_001d04d0((const char*)0x48e134);
+}
+Closure1::Closure1(void* p, void* f, CSubtitleManager* o) : Method1(p, o) {
+    fn = f;
+}
