@@ -64,7 +64,7 @@ Mostly ordinary code changes once step 6 lands; many can ship earlier as hybrid-
 - Unlocked frame rate: needs the game loop and timestep code (physics and animation are usually tied to frame time).
 - Native high resolution, MSAA, anisotropic filtering, draw distance and LOD bias.
 - Skip intros, faster loading, controller remapping, rumble options.
-- Assets: `.rcf` and `.p3d` tools are done ([task 03](tasks/03-rcf-tool.md), [task 04](tasks/04-p3d-reader.md)). HD texture packs go through texture replacement by hash in the renderer (`mods/textures/<hash>.png`, as in Dolphin); models need a `.p3d` writer and a Blender export path. See [shipping.md §4](shipping.md#4-modding-textures-models-levels-roadmap-steps-6-and-7).
+- Assets: `.rcf` and `.p3d` tools are done ([task 03](tasks/03-rcf-tool.md), [task 04](tasks/04-p3d-reader.md)). HD texture packs go through texture replacement by hash in the renderer (`mods/textures/<hash>.png`, as in Dolphin); models need a `.p3d` writer and a Blender export path. See [shipping.md §5](shipping.md#5-modding-textures-models-levels-roadmap-steps-6-and-7).
 
 ### 8. Ship
 - Code only, never game data. On first run the app asks for the player's ISO or folder, checks the XBE hash, and extracts the data locally.

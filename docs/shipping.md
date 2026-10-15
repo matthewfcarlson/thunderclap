@@ -1,7 +1,7 @@
 # From verified functions to a shipped port
 
-How the per-function sources become a source tree, how the port reaches players on macOS and the Steam
-Deck, and how modding works. Each section names the roadmap step it belongs to ([roadmap.md](roadmap.md)).
+How the per-function sources become a source tree, how the port reaches players on macOS, the Steam
+Deck and Windows, and how modding works. Each section names the roadmap step it belongs to ([roadmap.md](roadmap.md)).
 Written 2026-10-12; nothing here is built yet unless it says so.
 
 ## 1. The source tree (roadmap steps 2 and 4)
@@ -68,7 +68,7 @@ include/seams/        the seam interfaces both platform directories implement
 - **Ship code only, never game data.** `Thunderclap.app` contains our arm64 executable and renderer.
 - **Bring your own game.** On first launch the app asks for an ISO or extracted folder and checks the
   XBE hash against the supported release. It then extracts the data, with every RCF unpacked into
-  folders (see §4), to `~/Library/Application Support/Thunderclap/`. The pieces exist: xISO extraction, and `tools/rcf.py`, which
+  folders (see §5), to `~/Library/Application Support/Thunderclap/`. The pieces exist: xISO extraction, and `tools/rcf.py`, which
   reads and rebuilds all 13 RCF archives byte-for-byte.
 - **Gatekeeper.** Opening without warnings needs a Developer ID signature and notarization (Apple
   Developer Program). Unsigned builds work with right-click → Open the first time.
@@ -83,7 +83,19 @@ so an xemu-based release adds nothing. The hybrid ISO stays an internal test veh
   for Game Mode. Input goes through SDL, so Steam Input works with no extra setup. If the repo goes
   public, a Decky/Flathub listing can make it one click, still with bring-your-own ISO.
 
-## 4. Modding: textures, models, levels (roadmap steps 6 and 7)
+## 4. Windows (roadmap step 8)
+
+- **Same native port, same first-run flow.** `game` + `engine` + `platform/sdl`, built with clang-cl or MSVC.
+  On first launch it asks for the ISO or extracted folder, checks the XBE hash and extracts the data,
+  with RCFs unpacked into folders (§5), to `%LOCALAPPDATA%\Thunderclap\`.
+- **Packaging:** a zip with the executable and SDL3 DLL; an installer is optional. Renderer backend is D3D12
+  (or Vulkan) through the same pddi layer as macOS and Linux.
+- **SmartScreen.** Unsigned executables get an "unknown publisher" warning on first run ("More info" →
+  "Run anyway"). Removing it needs an Authenticode code-signing certificate; not needed for testing.
+- **32-bit first.** The first native build is x86-32 (§1, pointer size), which Windows runs natively; the
+  x86-64 build follows with the widening loaders.
+
+## 5. Modding: textures, models, levels (roadmap steps 6 and 7)
 
 Both data formats are mapped already: RCF archives are fully verified ([rcf.md](formats/rcf.md)), and
 all 1,436 `.p3d` files parse, with Hulk and a downtown room exported correctly ([p3d.md](formats/p3d.md)).
