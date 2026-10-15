@@ -13,7 +13,7 @@ class Child_e5600 {
     virtual void f9(int);
     virtual void f10(int);
 };
-class FEContainer {
+class FEScreenBase {
   public:
     virtual void v0();
     virtual void v1();
@@ -34,7 +34,7 @@ class FEContainer {
     char pad[0x44];
     Child_e5600* child;
 };
-void FEContainer::vfunc_15() {
+void FEScreenBase::vfunc_15() {
     if (child) {
         child->f10(3);
         child->f9(0);

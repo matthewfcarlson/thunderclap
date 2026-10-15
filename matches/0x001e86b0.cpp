@@ -6,10 +6,10 @@ class IRefCount {
     virtual void vfunc_2();
     int mRefCount;
 };
-class NonCopyable : public IRefCount {
+class CSoundMix : public IRefCount {
   public:
     virtual void vfunc_0();
 };
-void NonCopyable::vfunc_0() {
+void CSoundMix::vfunc_0() {
     ++mRefCount;
 }

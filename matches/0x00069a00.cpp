@@ -1,5 +1,5 @@
 // Same code shape as 0x00069920 (propagated; names are from that function)
-class CMoveTrack {
+class CMoveAddTrack {
   public:
     char pad[0xc];
     float a;
@@ -7,7 +7,7 @@ class CMoveTrack {
     float vfunc_7();
 };
 float zero_69a00 = 0.0f;
-float CMoveTrack::vfunc_7() {
+float CMoveAddTrack::vfunc_7() {
     float d = b - a;
     if (d < zero_69a00)
         d = zero_69a00;

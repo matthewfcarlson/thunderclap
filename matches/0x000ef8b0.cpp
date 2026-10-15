@@ -55,12 +55,12 @@ class FEContainer {
     virtual void f51();
     virtual void f52();
 };
-class FEScreenBase : public FEContainer {
+class FEMenuBase : public FEContainer {
     char pad[0x98c];
 
   public:
     int vfunc_35();
 };
-int FEScreenBase::vfunc_35() {
+int FEMenuBase::vfunc_35() {
     return *(int*)((char*)this + 0x990);
 }

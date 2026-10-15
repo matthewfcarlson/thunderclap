@@ -1,5 +1,5 @@
 // Same code shape as 0x00062300 (propagated; names are from that function)
-class CSmartPropAttachTrack {
+class CSmartPropUpdateAttachmentTrack {
   public:
     virtual void f0();
     virtual void f1();
@@ -16,10 +16,10 @@ class CSmartPropAttachTrack {
     virtual int vfunc_12(int);
 };
 struct Helper_624b0 {
-    int f(CSmartPropAttachTrack*, int);
+    int f(CSmartPropUpdateAttachmentTrack*, int);
 };
 extern "C" Helper_624b0* __cdecl FUN_0008d690(int);
-int CSmartPropAttachTrack::vfunc_12(int a) {
+int CSmartPropUpdateAttachmentTrack::vfunc_12(int a) {
     Helper_624b0* p = FUN_0008d690(0x2c);
     if (p)
         return p->f(this, a);

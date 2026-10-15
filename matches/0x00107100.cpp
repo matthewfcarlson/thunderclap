@@ -8,11 +8,11 @@ struct Helper_107100 {
     void run();
 };
 void __cdecl thunk_FUN_00267090(void*);
-class CHand2HandAgent {
+class CRangedAgent {
   public:
     virtual void v0();
     virtual void v1();
-    virtual CHand2HandAgent* vfunc_2(unsigned char);
+    virtual CRangedAgent* vfunc_2(unsigned char);
     virtual void v3();
     virtual void v4();
     virtual void v5();
@@ -37,7 +37,7 @@ class CHand2HandAgent {
     char pad[0x58];
     Thing_107100* thing;
 };
-CHand2HandAgent* CHand2HandAgent::vfunc_2(unsigned char param) {
+CRangedAgent* CRangedAgent::vfunc_2(unsigned char param) {
     Thing_107100* t = thing;
     *(int*)this = (int)&handVtable;
     t->b();

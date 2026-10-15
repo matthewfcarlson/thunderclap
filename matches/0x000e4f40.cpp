@@ -1,5 +1,5 @@
 // Same code shape as 0x000e49c0 (propagated; names are from that function)
-class FEContainer {
+class FEScreenBase {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -59,7 +59,7 @@ class FEContainer {
     char pad2[0x604];
     int count;
 };
-void FEContainer::vfunc_21(int param) {
+void FEScreenBase::vfunc_21(int param) {
     if (param != 0 && count < 0x80) {
         entries[count] = param;
         ++count;

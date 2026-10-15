@@ -1,5 +1,5 @@
 // Same code shape as 0x00048590 (propagated; names are from that function)
-class CButtonDownCondition {
+class CAxisDownCondition {
   public:
     virtual void f0();
     virtual void f1();
@@ -13,7 +13,7 @@ class CButtonDownCondition {
     virtual void f9();
     virtual bool vfunc_10(int* p, int* out);
 };
-bool CButtonDownCondition::vfunc_10(int* p, int* out) {
+bool CAxisDownCondition::vfunc_10(int* p, int* out) {
     switch (*p) {
     case 1:
         *out = 0;

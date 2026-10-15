@@ -24,14 +24,14 @@ class FEControl {
 class FEObject {};
 class IValueChangedReceiver {};
 class IValueChangedSender {};
-class TextTable : public FEControl,
+class TextWindow : public FEControl,
                   public FEObject,
                   public IValueChangedReceiver,
                   public IValueChangedSender {
   public:
     virtual char vfunc_10(int, int);
 };
-char TextTable::vfunc_10(int x, int y) {
+char TextWindow::vfunc_10(int x, int y) {
     if (x)
         return x == 4;
     return 1;

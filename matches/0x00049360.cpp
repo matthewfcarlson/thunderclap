@@ -4,11 +4,11 @@ class CCondition {
   public:
     virtual int vfunc_0(int);
 };
-class CStageCondition : public CCondition {
+class CSmartPropWeaponTypeCondition : public CCondition {
   public:
     int vfunc_0(int);
 };
-int CStageCondition::vfunc_0(int index) {
+int CSmartPropWeaponTypeCondition::vfunc_0(int index) {
     int* p = gTable_49360;
     return p[index];
 }

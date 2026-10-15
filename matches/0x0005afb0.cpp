@@ -8,7 +8,7 @@ struct Context {
     Obj_5afb0* first();
     Obj_5afb0* second();
 };
-class CGrappleOpportunityTrack {
+class CGrappleSequenceTrack {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -23,7 +23,7 @@ class CGrappleOpportunityTrack {
     virtual void vfunc_10();
     virtual void vfunc_11();
 };
-int* CGrappleOpportunityTrack::vfunc_8(void*, void* p) {
+int* CGrappleSequenceTrack::vfunc_8(void*, void* p) {
     if (!p)
         return 0;
     Obj_5afb0* a = ((Context*)p)->first();

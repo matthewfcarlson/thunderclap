@@ -1,5 +1,5 @@
 // Same code shape as 0x0005b140 (propagated; names are from that function)
-class CGrabTrack {
+class CWeaponCollisionTrack {
   public:
     virtual void v0();
     virtual void v1();
@@ -14,6 +14,6 @@ class CGrabTrack {
     virtual void v10();
     virtual void vfunc_11(int* out);
 };
-void CGrabTrack::vfunc_11(int* out) {
+void CWeaponCollisionTrack::vfunc_11(int* out) {
     *out = 0xffffff00;
 }

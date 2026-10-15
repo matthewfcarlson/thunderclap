@@ -6,7 +6,7 @@ struct Node {
 };
 void* FUN_00256900(void*, void*);
 void FUN_00256940(void*, void*);
-void FUN_0025b5b0(Node* tree, Node* node) {
+void FUN_00256da0(Node* tree, Node* node) {
     Node* nil = (Node*)((char*)tree + 4);
     Node* x;
     if (node->left == nil || node->right == nil)

@@ -1,7 +1,7 @@
 // Same code shape as 0x000695a0 (propagated; names are from that function)
 float gNegOne = -1.0f;
 
-class CKeyPoseTrack {
+class CEffectStopTrack {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -19,6 +19,6 @@ class CKeyPoseTrack {
     virtual void vfunc_13();
 };
 
-float CKeyPoseTrack::vfunc_7() {
+float CEffectStopTrack::vfunc_7() {
     return gNegOne;
 }

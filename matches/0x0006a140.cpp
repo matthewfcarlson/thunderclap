@@ -4,11 +4,11 @@ class CCondition {
   public:
     virtual int vfunc_0(int);
 };
-class CStageCondition : public CCondition {
+class CIntangibleTrack : public CCondition {
   public:
     int vfunc_0(int);
 };
-int CStageCondition::vfunc_0(int index) {
+int CIntangibleTrack::vfunc_0(int index) {
     int* p = gTable_6a140;
     return p[index];
 }

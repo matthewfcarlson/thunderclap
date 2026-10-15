@@ -4,11 +4,11 @@ class Singleton_1ef720 {
     void Run();
 };
 extern Singleton_1ef720** gSingleton_1ef720;
-class CSoundCommand_PlayCuedNISEvent {
+class CSoundCommand_StopNISEvent {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1(int, int);
 };
-void CSoundCommand_PlayCuedNISEvent::vfunc_1(int, int) {
+void CSoundCommand_StopNISEvent::vfunc_1(int, int) {
     (*gSingleton_1ef720)->Run();
 }

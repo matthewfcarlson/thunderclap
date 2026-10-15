@@ -1,5 +1,5 @@
 // Same code shape as 0x0005dd10 (propagated; names are from that function)
-class CProceduralDurationAnimationTrack {
+class CSmartPropEventTrack {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -16,6 +16,6 @@ class CProceduralDurationAnimationTrack {
     virtual void vfunc_12();
     virtual void vfunc_13(unsigned int*);
 };
-void CProceduralDurationAnimationTrack::vfunc_13(unsigned int* p) {
+void CSmartPropEventTrack::vfunc_13(unsigned int* p) {
     *p = 0xffff0000;
 }

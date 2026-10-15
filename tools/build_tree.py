@@ -283,22 +283,95 @@ def block_names(gen):
     return out
 
 
-def standalone(src, addr, verifier):
-    """Compile a verified source on its own (cached) and compare: is it a match by itself?"""
+def standalone_obj(src):
+    """Object of a verified source compiled on its own (cached by content), or None if it doesn't compile."""
     text = open(os.path.join(ROOT, src), "rb").read()
     flags = compare.DEFAULT_FLAGS + compare.file_flags(os.path.join(ROOT, src))
     h = hashlib.sha1(text + repr(flags).encode()).hexdigest()[:20]
     obj = os.path.join(OBJ_CACHE, "sa-" + h + ".obj")
-    if not os.path.exists(obj):
-        import tempfile
-        with tempfile.TemporaryDirectory() as tmp:
-            try:
-                o = compare.compile_obj(os.path.join(ROOT, src), compare.DEFAULT_FLAGS, tmp)
-            except compare.CompileError as e:
-                return {"status": "compile_error", "error": str(e)[:200]}
-            os.replace(o, obj)
+    err = os.path.join(OBJ_CACHE, "sa-" + h + ".err")
+    if os.path.exists(obj):
+        return obj
+    if os.path.exists(err):
+        return None
+    import tempfile
+    os.makedirs(OBJ_CACHE, exist_ok=True)
+    with tempfile.TemporaryDirectory() as tmp:
+        try:
+            o = compare.compile_obj(os.path.join(ROOT, src), compare.DEFAULT_FLAGS, tmp)
+        except compare.CompileError as e:
+            with open(err, "w") as f:
+                f.write(str(e))
+            return None
+        os.replace(o, obj)
+    return obj
+
+
+def standalone(src, addr, verifier):
+    """Compile a verified source on its own (cached) and compare: is it a match by itself?"""
+    obj = standalone_obj(src)
+    if obj is None:
+        return {"status": "compile_error"}
     blk = {"addr": "0x%08x" % addr, "mode": "isolated"}
     return verifier.check(obj, blk, set())
+
+
+ADDR_IN_NAME = re.compile(r"(?<![0-9A-Fa-f])([0-9A-Fa-f]{8})(?![0-9A-Fa-f])")
+
+
+def code_of(coff, sym):
+    """(bytes without padding, relocation offsets, relocation types, comparable relocation targets)."""
+    _, raw, mask = coff.function(sym)
+    raw = compare.strip_padding(raw)
+    rel = []
+    for off, tsym, typ, _ in coff.function_relocs(sym):
+        if off >= len(raw):
+            continue
+        n = tsym[0] if tsym else ""
+        m = ADDR_IN_NAME.search(n)
+        key = ("addr", m.group(1).lower()) if m else ("const", n) if n.startswith(("__real@", "??_C@")) else ("sym", "")
+        rel.append((off, typ, key))
+    return raw, sorted(rel)
+
+
+def same_code(c1, s1, c2, s2):
+    """Do two compiled functions have the same code (bytes and relocation positions/kinds; relocation
+    targets compared where they carry an address or are constants)?"""
+    b1, r1 = code_of(c1, s1)
+    b2, r2 = code_of(c2, s2)
+    if b1 != b2 or len(r1) != len(r2):
+        return False
+    for (o1, t1, k1), (o2, t2, k2) in zip(r1, r2):
+        if o1 != o2 or t1 != t2:
+            return False
+        if k1[0] == k2[0] and k1[0] in ("addr", "const") and k1 != k2:
+            return False
+    return True
+
+
+def standalone_symbol(coff, tree_name, addr, prefixes, cnames):
+    syms = coff.function_symbols()
+    plain = tree_name.replace("fn_%08x@" % addr, "") if tree_name else None
+    for s in syms:
+        if s[0] == plain:
+            return s
+    c = [s for s in syms if any(s[0].startswith(p) for p in prefixes) or s[0] in cnames
+         or re.sub(r"@\d+$", "", s[0]) in cnames]
+    return c[0] if len(c) == 1 else None
+
+
+def compare_with_standalone(verifier, tree_obj, tree_sym, block, addr):
+    """'same' if the function compiled in the tree is the code its own source compiles to, 'differs',
+    or why it can't tell."""
+    sa = standalone_obj(block["src"])
+    if sa is None:
+        return "standalone_compile_error"
+    tc, sc = verifier.coff(tree_obj), verifier.coff(sa)
+    tsym = next((s for s in tc.function_symbols() if s[0] == tree_sym), None)
+    ssym = standalone_symbol(sc, tree_sym, addr, block.get("prefixes", []), block.get("cnames", []))
+    if tsym is None or ssym is None:
+        return "no_symbol"
+    return "same" if same_code(tc, tsym, sc, ssym) else "differs"
 
 
 def diff_reason(tree_rows, sa_rows):
@@ -345,7 +418,27 @@ def run(jobs=4, rounds=8, fresh=True):
     return gen, manifest, results, history, state
 
 
+def precompile_standalone(manifest, jobs):
+    """Standalone objects of every equivalent/ source in the tree (they are compared with the tree's code)."""
+    srcs = sorted({b["src"] for rec in manifest["tus"] for b in rec["blocks"] if b["kind"] == "equivalent"})
+    with ThreadPoolExecutor(jobs) as ex:
+        list(ex.map(standalone_obj, srcs))
+
+
+def regressions(checks):
+    """Functions whose code in the tree differs from their verified source's: a match that stopped matching
+    (and matches standalone), or an equivalent/ function whose bytes differ from its standalone build."""
+    out = {}
+    for c in checks:
+        if c["kind"] == "matches" and c["status"] != "match" and c.get("standalone") == "match":
+            out[int(c["addr"], 16)] = (c["mode"], "lost its match in the tree (%s)" % c.get("why", c["status"]))
+        elif c["kind"] == "equivalent" and c.get("vs_standalone") == "differs":
+            out[int(c["addr"], 16)] = (c["mode"], "code differs from its standalone build")
+    return out
+
+
 def verify(gen, manifest, results, jobs=4):
+    precompile_standalone(manifest, jobs)
     v = Verifier()
     names = block_names(gen)
     out = []
@@ -367,6 +460,7 @@ def verify(gen, manifest, results, jobs=4):
                 r["how"] = c.get("how")
                 if c.get("symbol"):
                     claimed.add(c["symbol"])
+                    r["vs_standalone"] = compare_with_standalone(v, obj, c["symbol"], b, a)
             else:
                 c = v.check(obj, b, claimed)
                 r.update({k: c[k] for k in ("status", "symbol", "how", "score") if k in c})
@@ -412,6 +506,9 @@ def summarize(manifest, results, checks, history, gen, state):
         "matches_lost": len(lost),
         "matches_lost_why": dict(lost_why.most_common()),
         "symbol_lookup": dict(collections.Counter(c.get("how") for c in checks if c.get("how"))),
+        "equivalent_vs_standalone": dict(collections.Counter(
+            "%s/%s" % (c["mode"], c.get("vs_standalone")) for c in checks if c["kind"] == "equivalent")),
+        "regressions_left": len(regressions(checks)),
         "fallbacks": {"wrapped_by_build": len(state["wrap"]), "isolated_by_build": len(state["isolate"]),
                       "header_symbols_kept_local": len(state["local_only"])},
         "generator": gen_tree.summary(gen),
@@ -448,6 +545,8 @@ def main(argv=None):
     ap.add_argument("--jobs", type=int, default=4)
     ap.add_argument("--rounds", type=int, default=8)
     ap.add_argument("--resume", action="store_true", help="start from build/tree/state.json instead of empty")
+    ap.add_argument("--regression-rounds", type=int, default=2, metavar="N",
+                    help="rebuild up to N times, falling back functions whose code changed in the tree (default 2)")
     ap.add_argument("--only", help="compile one TU of the current tree and print its errors")
     ap.add_argument("--equiv", type=int, metavar="N", help="also run tools/equiv.py (64 inputs) on the merged "
                     "object for the first N equivalent/ functions (0 = all; slow: 1-5 s each)")
@@ -458,6 +557,24 @@ def main(argv=None):
         return 0 if obj else 1
     gen, manifest, results, history, state = run(a.jobs, a.rounds, fresh=not a.resume)
     checks = verify(gen, manifest, results, a.jobs)
+    for _ in range(a.regression_rounds):
+        # a function whose code changed in the tree falls back: merged -> wrapped -> isolated
+        reg = regressions(checks)
+        new = 0
+        for addr, (mode, why) in reg.items():
+            if mode == "merged" and addr not in state["wrap"]:
+                state["wrap"][addr] = why
+                new += 1
+            elif mode == "wrapped" and addr not in state["isolate"]:
+                state["isolate"][addr] = why
+                new += 1
+        print("regressions: %d (%d new fallbacks)" % (len(reg), new), flush=True)
+        if not new:
+            break
+        gen_tree.save_state(state)
+        gen, manifest, results, h2, state = run(a.jobs, a.rounds, fresh=False)
+        history += h2
+        checks = verify(gen, manifest, results, a.jobs)
     rep = summarize(manifest, results, checks, history, gen, state)
     if a.equiv is not None:
         rep["equiv_on_merged_objects"] = run_equiv(checks, results, a.equiv)

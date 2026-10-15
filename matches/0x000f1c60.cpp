@@ -11,13 +11,13 @@ class CAction {
     virtual void g();
     virtual void h();
 };
-class CCollisionAction : public CAction {
+class TextWindow : public CAction {
   public:
-    CCollisionAction* vfunc_2(unsigned char);
+    TextWindow* vfunc_2(unsigned char);
 };
 extern void FUN_00019420();
-extern void thunk_FUN_00267090(CCollisionAction*);
-CCollisionAction* CCollisionAction::vfunc_2(unsigned char param_2) {
+extern void thunk_FUN_00267090(TextWindow*);
+TextWindow* TextWindow::vfunc_2(unsigned char param_2) {
     FUN_00019420();
     if ((param_2 & 1) != 0)
         thunk_FUN_00267090(this);

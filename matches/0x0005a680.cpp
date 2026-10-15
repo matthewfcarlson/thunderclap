@@ -10,7 +10,7 @@ struct Data_5a680 {
     void* p330;
     void* p334;
 };
-class CGrappleDamageTrack {
+class CGrappleKeyPoseTrack {
   public:
     virtual void f0();
     virtual void f1();
@@ -25,7 +25,7 @@ class CGrappleDamageTrack {
     virtual void f10();
     virtual int* vfunc_11(int);
 };
-int* CGrappleDamageTrack::vfunc_11(int param) {
+int* CGrappleKeyPoseTrack::vfunc_11(int param) {
     if (param) {
         void* a = ((A_5a680*)param)->first();
         if (a) {

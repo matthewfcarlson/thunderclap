@@ -4,7 +4,7 @@ class Thing_334940 {
     virtual void F(int);
 };
 extern Thing_334940* gThing_334940;
-void FUN_0029c3b0() {
+void FUN_00334940() {
     if (gThing_334940)
         gThing_334940->F(1);
     gThing_334940 = 0;

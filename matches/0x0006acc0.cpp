@@ -1,5 +1,5 @@
 // Same code shape as 0x00068d10 (propagated; names are from that function)
-class CTrack {
+class CHeadTrackerTrack {
   public:
     virtual void a();
     virtual void b();
@@ -16,6 +16,6 @@ class CTrack {
     virtual void m();
     virtual void vfunc_13(unsigned int*);
 };
-void CTrack::vfunc_13(unsigned int* out) {
+void CHeadTrackerTrack::vfunc_13(unsigned int* out) {
     *out = 0xffff7f7f;
 }

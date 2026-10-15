@@ -4,7 +4,7 @@ class Helper_e4f70 {
   public:
     int make(void*, unsigned int);
 };
-class FEContainer {
+class FEScreenBase {
   public:
     virtual void f0();
     virtual void f1();
@@ -30,7 +30,7 @@ class FEContainer {
     virtual int vfunc_21(int);
     virtual int vfunc_22(int);
 };
-int FEContainer::vfunc_22(int param) {
+int FEScreenBase::vfunc_22(int param) {
     void* p = FUN_0008d690(0x270);
     int r;
     if (p)

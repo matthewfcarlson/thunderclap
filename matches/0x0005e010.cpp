@@ -1,4 +1,4 @@
-class CTrack {
+class CClearHitRecordsTrack {
   public:
     virtual void f0();
     virtual void f1();
@@ -15,6 +15,6 @@ class CTrack {
     virtual void f12();
     virtual void vfunc_13(int*);
 };
-void CTrack::vfunc_13(int* p) {
+void CClearHitRecordsTrack::vfunc_13(int* p) {
     *p = -1;
 }

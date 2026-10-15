@@ -22,12 +22,12 @@ struct X_ed8c0 {
     virtual void o();
     virtual void p(Vec3_ed8c0*, void*);
 };
-struct TextWindow {
+struct TextTable {
     char pad[20];
     X_ed8c0* obj;
     float vfunc_8();
 };
-float TextWindow::vfunc_8() {
+float TextTable::vfunc_8() {
     Vec3_ed8c0 v;
     obj->p(&v, this);
     return v.x * 1.05f;

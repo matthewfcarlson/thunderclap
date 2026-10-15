@@ -8,7 +8,7 @@ struct Obj_fc200 {
 };
 extern Obj_fc200* g_obj_fc200;
 extern unsigned char g_flag_fc200;
-void FUN_000fc1e0(unsigned int a, unsigned int b) {
+void FUN_000fc200(unsigned int a, unsigned int b) {
     g_obj_fc200->field->run(a, b);
     g_flag_fc200 = 1;
 }

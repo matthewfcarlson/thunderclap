@@ -1,4 +1,4 @@
-class CTrack {
+class CMotionHitGroundHeightTrack {
   public:
     virtual void v0();
     virtual void v1();
@@ -15,6 +15,6 @@ class CTrack {
     virtual void v12();
     virtual void vfunc_13(unsigned int*);
 };
-void CTrack::vfunc_13(unsigned int* p) {
+void CMotionHitGroundHeightTrack::vfunc_13(unsigned int* p) {
     *p = 0xff00ff7f;
 }

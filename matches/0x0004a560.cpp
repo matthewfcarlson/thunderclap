@@ -11,10 +11,10 @@ struct Helper_4a560 {
 struct ObjHelper_4a560 {
     Obj_4a560* Second();
 };
-struct CGrappleMotionStateCondition {
+struct CGrappleAlertStatusCondition {
     int vfunc_8(int);
 };
-int CGrappleMotionStateCondition::vfunc_8(int p) {
+int CGrappleAlertStatusCondition::vfunc_8(int p) {
     if (!p)
         return 0;
     Helper_4a560* h = (Helper_4a560*)p;

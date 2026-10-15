@@ -3,6 +3,6 @@ struct Obj_2656a0 {
     void Target();
 };
 extern Obj_2656a0* g_object_2656a0;
-extern "C" void __cdecl FUN_000fc1a0(void) {
+extern "C" void __cdecl FUN_002656a0(void) {
     g_object_2656a0->Target();
 }

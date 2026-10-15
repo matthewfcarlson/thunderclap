@@ -4,6 +4,6 @@ class Obj_2f2750 {
     void method(unsigned int, unsigned int);
 };
 extern Obj_2f2750* gObject_2f2750;
-extern "C" void FUN_00080ba0(unsigned int param_1, unsigned int param_2) {
+extern "C" void FUN_002f2750(unsigned int param_1, unsigned int param_2) {
     gObject_2f2750->method(param_1, param_2);
 }

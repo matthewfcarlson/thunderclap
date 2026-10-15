@@ -4,11 +4,11 @@ class CCondition {
   public:
     virtual int vfunc_0(int);
 };
-class CStageCondition : public CCondition {
+class CCollisionDirectionCondition : public CCondition {
   public:
     int vfunc_0(int);
 };
-int CStageCondition::vfunc_0(int index) {
+int CCollisionDirectionCondition::vfunc_0(int index) {
     int* p = gTable_48c70;
     return p[index];
 }

@@ -30,6 +30,23 @@ Declarations. Each source declares its own callees, globals and stub classes. Th
     another function in the TU also defines, or a compile error blamed on it by build_tree.py.
   * **Isolated** functions (compile errors even when wrapped) get their own TU, `<File>.iso_<addr>.cpp`.
 
+Stub reconciliation inside a TU (docs/source-tree.md "Stub reconciliation"):
+
+  * Spellings: declarations that differ only in spelling that doesn't change code (`unsigned` / `unsigned int`,
+    `char const*`, default `__cdecl`, top-level const on parameters, `f(void)`; C vs C++ linkage for address
+    names and a few CRT names; parameter names of inline definitions) count as one variant
+    (canonical_variant); the TU emits the most-used spelling.
+  * Classes: variants of one class name that can't coexist are merged into one definition with the union of
+    the members the TU's functions use, when tools/stub_layout.py proves every user sees the same layout,
+    vftable and special members (merge_name); the result is checked again against the TU's final
+    declarations (validate_tu). Global-scope stubs of namespaced RTTI classes count as `rtti_stub` in
+    conflicts.json.
+  * Placement `operator new` with and without `throw()`: the object's less used form goes to a sibling TU
+    `<File>.new_<form>.cpp` (each form changes the code of `new (p) T`, and both must be global).
+
+build_tree.py checks the result: a match must still match, an equivalent/ function must compile to the same
+bytes as its standalone source; otherwise it falls back (merged -> wrapped -> isolated).
+
 Headers: a declaration that two or more TUs of one directory use identically, and that no TU of that
 directory declares differently, goes to `build/tree/include/<dir>.h`; one used identically by two or more
 directories and declared the same way everywhere goes to `build/tree/include/common.h`. A declaration is
@@ -50,6 +67,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import cxx_items  # noqa: E402
+import stub_layout  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 SPLITS = os.path.join(ROOT, "config/splits.json")
@@ -228,6 +246,183 @@ def block_variants(b):
     return out
 
 
+def block_variants_of(decls):
+    return [item_variant(it, k, norm) for k, norm, it in decls]
+
+
+ADDR_NAME = re.compile(r"(?:^|_)(?:FUN|DAT|LAB|PTR|thunk_FUN)_[0-9a-fA-F]{6,8}$")
+# CRT functions sources declare by hand, some with C++ linkage: one declaration per name, the C one when the
+# TU's functions use it (the most-used spelling is the representative)
+CRT_NAMES = {"__security_check_cookie", "atexit", "_atexit", "_purecall", "memset", "memcpy", "memcmp", "strlen",
+             "strcmp", "strcpy", "_ftol", "_ftol2", "_CIfmod", "_CIsqrt", "sqrtf", "fabs", "_chkstk", "_alloca_probe"}
+
+
+def block_cvariants(b):
+    """[(name, variant, canonical variant, item or None)] of a block's declarations and own definitions."""
+    c = b.__dict__.get("_cvars")
+    if c is None:
+        c = []
+        for k, norm, it in b.orig_decls:
+            nk, var = item_variant(it, k, norm)
+            c.append((nk, var, canonical_variant(nk, var, it), it))
+        for nk, var in block_variants(b)[len(b.orig_decls):]:
+            c.append((nk, var, var, None))
+        b._cvars = c
+    return c
+
+
+def _norm_sig_parts(it):
+    """(return type, [parameter types], qualifiers) of a function item, spelled canonically."""
+    sig, params = it.sig or "", it.params or ""
+    i = sig.rfind("(" + params + ")")
+    if i < 0:
+        return None
+    ret = sig[:i].split()
+    quals = sig[i + len(params) + 2:].split()
+    ret = [w for w in ret if w not in ("__cdecl", "_cdecl")]
+    ps = []
+    if params not in ("", "void"):
+        for p in stub_layout.split_commas(params):
+            ws = [w for w in p.split() if w not in ("__cdecl", "_cdecl")]
+            t = stub_layout.norm_type(ws).replace("( void )", "( )")    # f(void) = f() in C++
+            if "*" not in t and "&" not in t and "(" not in t:
+                t = " ".join(w for w in t.split() if w not in ("const", "volatile"))     # by-value cv
+            elif t.endswith(" const") or t.endswith(" volatile"):
+                t = t.rsplit(" ", 1)[0]                     # T * const: top-level cv
+            ps.append(t)
+    return stub_layout.norm_type(ret), ps, " ".join(quals)
+
+
+def canonical_variant(nk, var, it):
+    """The variant with spelling differences that don't change code removed: `unsigned` = `unsigned int`,
+    `char const*` = `const char*`, default `__cdecl`, top-level const on parameters; for functions and
+    variables named by an address also C vs C++ linkage (equiv.py binds them by the address either way);
+    inline definitions up to their parameter names."""
+    kind = var[0]
+    try:
+        if kind in ("func", "cfunc") and it is not None and not it.scope:
+            parts = _norm_sig_parts(it)
+            if parts is None:
+                return var
+            ret, ps, quals = parts
+            sig = "%s(%s)%s" % (ret, ",".join(ps), quals)
+            if ADDR_NAME.search(nk) or nk in CRT_NAMES:
+                return ("func", "|" + sig, ",".join(ps), sig)
+            return (kind, ("C:" if kind == "cfunc" else "") + "|" + sig, ",".join(ps), sig)
+        if kind == "var" and it is not None and not it.scope and ADDR_NAME.search(nk):
+            vs = [t.v for t in it.toks if t.v not in ("extern", '"C"')]
+            out = []
+            for i, v in enumerate(vs):
+                out.append(v)
+                if v == "unsigned" and (i + 1 >= len(vs) or vs[i + 1] not in ("char", "short", "int", "long", "__int64")):
+                    out.append("int")
+            return ("var", " ".join(out), None, None)
+        if kind == "def" and it is not None and it.is_inline and it.kind == "funcdef":
+            return ("def", inline_canon(it), var[2], var[3])
+    except (ValueError, IndexError):
+        return var
+    return var
+
+
+def inline_canon(it):
+    """Tokens of an inline function definition with parameter names replaced by position, no __cdecl."""
+    vs = [t.v for t in it.toks]
+    if "(" not in vs:
+        return it.norm
+    if "operator" in vs:
+        oi = vs.index("operator")
+        p = vs.index("(", oi + 2) if vs[oi + 1] == "(" else vs.index("(", oi)
+    else:
+        p = vs.index("(")
+    close = cxx_items._match(it.toks, p, "(", ")")
+    names = {}
+    depth = 0
+    cur = []
+    for t in it.toks[p + 1:close] + [None]:
+        if t is None or (t.v == "," and depth == 0):
+            ids = [x for x in cur if x.t == "id" and x.v not in cxx_items.KEYWORDS]
+            if len(cur) > 1 and ids and cur[-1] is ids[-1] and cur[-2].v not in ("::", "struct", "class", "enum", "union"):
+                names[ids[-1].v] = "_p%d" % len(names)
+            cur = []
+            continue
+        if t.v in ("(", "[", "<"):
+            depth += 1
+        elif t.v in (")", "]", ">"):
+            depth -= 1
+        cur.append(t)
+    return " ".join(names.get(v, v) for v in vs if v not in ("__cdecl", "_cdecl"))
+
+
+def block_ctx(b):
+    c = getattr(b, "_ctx", None)
+    if c is None:
+        c = b._ctx = stub_layout.Context(b.items)
+        c.items = b.items
+    return c
+
+
+def block_refs(b, q):
+    """(identifiers b's code mentions outside class q's definition, members of q that b defines out of line)."""
+    cache = b.__dict__.setdefault("_refs", {})
+    r = cache.get(q)
+    if r is None:
+        refs, defined = set(), set()
+        for it in b.items:
+            if it.kind == "class" and it.key and it.key[1] == q:
+                continue
+            if it.kind in ("class", "enum") or it.kind == "typedef" and "{" in it.norm:
+                # another class's own member declarations don't use q's members; its inline bodies may
+                refs |= inline_body_ids(it)
+                refs |= base_ids(it)
+                continue
+            refs |= it.ids
+            if it.kind == "funcdef" and it.key[1].startswith(q + "::"):
+                defined.add(it.key[1][len(q) + 2:].split("::")[-1])
+        r = cache[q] = (refs, defined)
+    return r
+
+
+def inline_body_ids(it):
+    """Identifiers inside the braces nested in a class definition (inline member bodies, nested types)."""
+    out = set()
+    depth = 0
+    for t in it.toks:
+        if t.v == "{":
+            depth += 1
+        elif t.v == "}":
+            depth -= 1
+        elif depth >= 2 and t.t == "id":
+            out.add(t.v)
+    return out
+
+
+def base_ids(it):
+    vs = [t.v for t in it.toks]
+    if "{" not in vs:
+        return set()
+    head = vs[:vs.index("{")]
+    if ":" not in head:
+        return set()
+    return {v for v in head[head.index(":") + 1:] if re.match(r"[A-Za-z_]\w*$", v)}
+
+
+def uses_by_value(b, name):
+    """Does b's code use class `name` where its size matters (a local, `new`, `sizeof`, an array)?"""
+    toks = [t for it in b.items if it.kind == "funcdef" for t in it.toks]
+    if any(t.v == "delete" for t in toks):
+        return True
+    for i, t in enumerate(toks):
+        if t.v != name:
+            continue
+        p = toks[i - 1].v if i else ""
+        n = toks[i + 1].v if i + 1 < len(toks) else ""
+        if p in ("new", "sizeof") or (p == "(" and i >= 2 and toks[i - 2].v == "sizeof"):
+            return True
+        if n not in ("*", "&", "::", ")", ",", ">") and p not in ("::", "~", "class", "struct"):
+            return True
+    return False
+
+
 def compatible(a, b):
     """Can two variants of one name coexist in one scope?"""
     if a == b:
@@ -285,6 +480,8 @@ class Generator:
         self.sources = load_sources()
         self.state = state if state is not None else load_state()
         self.tus = []
+        self.merge_classes = True
+        self.refusals = collections.Counter()
         self.stats = collections.Counter()
         self.notes = collections.defaultdict(list)
 
@@ -313,6 +510,7 @@ class Generator:
             base = os.path.join("src", o["file"])
             stem = base[:-4]
             tus = {"": TU(o, base, "")}
+            blocks = []
             for addr in addrs:
                 size, name = self.funcs[addr]
                 src = self.sources.get(addr)
@@ -320,7 +518,19 @@ class Generator:
                     tus[""].placeholders.append((addr, size, name))
                     continue
                 kind, path, text = src
-                b = Block(addr, size, name, kind, path, text)
+                blocks.append(Block(addr, size, name, kind, path, text))
+            # placement `operator new` with and without throw() can't share a TU (a throw() new gets a null
+            # check, so neither can stand in for the other) and must be global: the less used one of an
+            # object goes to a sibling TU
+            votes = collections.Counter((b.tag, placement_new(b)) for b in blocks if b.addr not in self.state["isolate"])
+            for b in blocks:
+                pn = placement_new(b)
+                if pn and votes[(b.tag, pn)] < votes[(b.tag, "plain" if pn == "throw" else "throw")] or (
+                        pn == "throw" and votes[(b.tag, pn)] == votes[(b.tag, "plain")]):
+                    b.tag = (b.tag + "_" if b.tag else "") + "new_" + pn
+                    self.stats["functions in a placement-new sibling TU"] += 1
+            for b in blocks:
+                addr = b.addr
                 if addr in self.state["isolate"]:
                     b.mode = "isolated"
                     b.reasons.append(self.state["isolate"][addr])
@@ -345,26 +555,36 @@ class Generator:
 
     # -- per TU --------------------------------------------------------------------------------
     def merge_tu(self, tu):
-        """Decide which blocks of a TU can share one set of declarations; collect those declarations."""
-        cand = [b for b in tu.blocks if b.mode == "merged"]
-        users = collections.defaultdict(lambda: collections.defaultdict(set))   # name -> variant -> addrs
-        for b in cand:
-            for nk, var in block_variants(b):
-                users[nk][var].add(b.addr)
-        accepted = {nk: accept_variants(vs) for nk, vs in users.items()}
-        defined = {}
-        for b in cand:
-            bad = sorted({name_str(nk) for nk, var in block_variants(b) if var not in accepted[nk]})
-            if bad:
-                b.wrap("conflict: " + "; ".join(bad[:4]) + (" (+%d)" % (len(bad) - 4) if len(bad) > 4 else ""))
-                continue
-            dk = key_of(b.defs[0])
-            if dk in defined:
-                b.wrap("same definition as 0x%08x in this TU" % defined[dk])
-                continue
-            defined[dk] = b.addr
+        """Decide which blocks of a TU can share one set of declarations; collect those declarations.
+
+        For each name, the variants the TU's functions use are taken most-used first while they can coexist.
+        Variants of a class that can't coexist are merged into one definition when every user's code compiles
+        the same against it (tools/stub_layout.py); a merge is checked again against the whole TU (layouts
+        of every class each function declares, in the TU's final declarations) and a function that would see
+        a different layout is wrapped instead."""
+        for b in tu.blocks:
+            if not hasattr(b, "orig_decls"):
+                b.orig_decls = list(b.decls)
+        for _ in range(12):
+            for b in tu.blocks:
+                b.decls = list(b.orig_decls)
+            absorbed = self.choose_variants(tu)
+            for b in tu.blocks:
+                if b.mode != "merged":
+                    continue
+                subst = absorbed
+                if subst:
+                    nd = []
+                    for (k, norm, it), (nk, var) in zip(b.orig_decls, block_variants_of(b.orig_decls)):
+                        m = subst.get(nk, {}).get(var)
+                        nd.append((key_of(m), m.norm, m) if m is not None else (k, norm, it))
+                    b.decls = nd
+            if not absorbed or not self.validate_tu(tu, absorbed):
+                break
         seen = set()
         tu.variants = collections.defaultdict(set)       # name -> variants used by merged blocks (incl. defs)
+        tu.local = []
+        tu.merged_names = sorted(absorbed) if absorbed else []
         for b in tu.blocks:
             if b.mode != "merged":
                 continue
@@ -374,6 +594,177 @@ class Generator:
                 if (k, norm) not in seen:
                     seen.add((k, norm))
                     tu.local.append((k, norm, it, b.addr))
+
+    def choose_variants(self, tu):
+        """Wrap the TU's blocks whose declarations can't share the TU's scope. Returns the substitutions
+        {name: {variant: item}} the remaining blocks rely on: merged class definitions, and one
+        representative for declarations that differ only in spelling (canonical_variant)."""
+        while True:
+            cand = [b for b in tu.blocks if b.mode == "merged"]
+            users = collections.defaultdict(lambda: collections.defaultdict(set))   # name -> variant -> addrs
+            raw = collections.defaultdict(lambda: collections.defaultdict(lambda: collections.defaultdict(set)))
+            items = {}
+            for b in cand:
+                for nk, var, cvar, it in block_cvariants(b):
+                    users[nk][cvar].add(b.addr)
+                    raw[nk][cvar][var].add(b.addr)
+                    if it is not None:
+                        items.setdefault((nk, var), it)
+            accepted = {nk: accept_variants(vs) for nk, vs in users.items()}
+            absorbed = {}
+            for nk, vs in users.items():
+                # spellings of one declaration: everyone uses the most-used spelling's item
+                for cvar, rv in raw[nk].items():
+                    if len(rv) > 1:
+                        best = max(rv, key=lambda v: (len(rv[v]), -min(rv[v])))
+                        rep = items.get((nk, best))
+                        if rep is not None:
+                            for v in rv:
+                                if v != best:
+                                    absorbed.setdefault(nk, {})[v] = rep
+                if len(accepted[nk]) == len(vs) or not self.merge_classes:
+                    continue
+                m = self.merge_name(tu, nk, vs, cand)
+                if m:
+                    absorbed.setdefault(nk, {}).update(m)
+            defined = {}
+            new_bad = 0
+            for b in cand:
+                bad = sorted({name_str(nk) for nk, var, cvar, it in block_cvariants(b)
+                              if cvar not in accepted[nk] and var not in absorbed.get(nk, {})})
+                if bad:
+                    b.wrap("conflict: " + "; ".join(bad[:4]) + (" (+%d)" % (len(bad) - 4) if len(bad) > 4 else ""))
+                    new_bad += 1
+                    continue
+                dk = key_of(b.defs[0])
+                if dk in defined:
+                    b.wrap("same definition as 0x%08x in this TU" % defined[dk])
+                    new_bad += 1
+                    continue
+                defined[dk] = b.addr
+            if not new_bad:
+                return absorbed
+
+    def merge_name(self, tu, nk, vs, cand):
+        """{variant: merged item} for the class variants of name nk that one merged definition can serve
+        (the most-used variants first), or None."""
+        cls_vars = [v for v in vs if v[0] == "class"]
+        if len(cls_vars) < 2 or any(v[0] not in ("class", "fwd") for v in vs):
+            return None
+        by_addr = {b.addr: b for b in cand}
+        infos = []
+        for var in sorted(cls_vars, key=lambda v: (-len(vs[v]), min(vs[v]))):
+            bs = [by_addr[a] for a in sorted(vs[var])]
+            try:
+                infos.append((var, self.variant_of(bs, nk, var)))
+            except stub_layout.Unsupported:
+                continue
+        if len(infos) < 2:
+            return None
+        chosen, merged = [], None
+        for var, info in infos:
+            trial = chosen + [(var, info)]
+            if len(trial) < 2:
+                chosen = trial
+                continue
+            r = self.try_merge([i for _, i in trial])
+            if r is not None:
+                chosen, merged = trial, r
+        if merged is None:
+            return None
+        item = merged
+        return {var: item for var, _ in chosen}
+
+    def variant_of(self, blocks, nk, var):
+        it = next(it for k, norm, it in blocks[0].orig_decls if it.kind == "class" and item_variant(it, k, norm) == (nk, var))
+        refs, defined = set(), set()
+        for b in blocks:
+            r, d = block_refs(b, it.key[1])
+            refs |= r
+            defined |= d
+        bv = any(uses_by_value(b, it.name) for b in blocks)
+        return stub_layout.Variant(it, block_ctx(blocks[0]), refs, defined, len(blocks), bv)
+
+    def try_merge(self, infos):
+        try:
+            text, fwd = stub_layout.merge_variants(infos)
+        except (stub_layout.Unsupported, ValueError, KeyError, IndexError) as e:
+            self.stats["class merges refused"] += 1
+            self.refusals[re.sub(r"\b\w+_[0-9a-f]{5,6}\b|\d+|\+0x[0-9a-f]+", "N", str(e))[:70]] += 1
+            return None
+        v0 = infos[0]
+        try:
+            it = cxx_items.parse(text)[0]
+        except ValueError:
+            return None
+        it.scope = v0.item.scope
+        it.key = ("class", v0.item.key[1])
+        it.lead = ""
+        it.merged_fwd = fwd
+        it.merged_from = len(infos)
+        for v in infos:
+            # the variant's own declarations first; the others' for what only they declare (a base)
+            items = list(v.ctx.items) + [x for w in infos if w is not v for x in w.ctx.items]
+            try:
+                ctx = stub_layout.Context(items, replace={it.key[1]: it})
+                M = ctx.layout(it.key[1])
+            except stub_layout.Unsupported as e:
+                self.refusals["merged layout: " + re.sub(r"\b\w+_[0-9a-f]{5,6}\b|\d+", "N", str(e))[:60]] += 1
+                return None
+            why = stub_layout.check_variant(M, fwd, v)
+            if why is not None:
+                self.refusals["check: " + re.sub(r"\b\w+_[0-9a-f]{5,6}\b|\d+|\+0x[0-9a-f]+", "N", why)[:70]] += 1
+                return None
+        self.stats["class merges"] += 1
+        return it
+
+    def validate_tu(self, tu, absorbed):
+        """Wrap merged blocks that would see a different layout of one of their classes in the TU's final
+        declarations. Returns True if anything was wrapped (the TU's choices must be redone)."""
+        items = []
+        seen = set()
+        for b in tu.blocks:
+            if b.mode == "merged":
+                for k, norm, it in b.decls:
+                    if (k, norm) not in seen:
+                        seen.add((k, norm))
+                        items.append(it)
+        tctx = stub_layout.Context(items)
+        changed = False
+        for b in tu.blocks:
+            if b.mode != "merged":
+                continue
+            bad = None
+            for k, norm, it in b.orig_decls:
+                if it.kind != "class" or it.key[0] != "class":
+                    continue
+                q = it.key[1]
+                own = block_ctx(b)
+                try:
+                    L = own.layout(q)
+                except stub_layout.Unsupported:
+                    L = None
+                if L is None:
+                    continue
+                try:
+                    M = tctx.layout(q)
+                except stub_layout.Unsupported as e:
+                    bad = "%s: %s" % (it.name, e)
+                    break
+                refs, defined = block_refs(b, q)
+                v = stub_layout.Variant.__new__(stub_layout.Variant)
+                v.item, v.ctx, v.refs, v.defined, v.layout, v.cls = it, own, refs, defined, L, L.cls
+                v.by_value = uses_by_value(b, it.name)
+                fwd = getattr(tctx.classes.get(q), "merged_fwd", {}) or {}
+                why = stub_layout.check_variant(M, fwd, v, size_matters=uses_by_value(b, it.name))
+                if why:
+                    bad = "%s: %s" % (it.name, why)
+                    break
+            if bad:
+                b.wrap("merged class would differ: " + bad)
+                self.stats["blocks wrapped by the merged-layout check"] += 1
+                changed = True
+        return changed
 
     # -- across TUs -----------------------------------------------------------------------------
     def hoist(self):
@@ -606,10 +997,12 @@ class Generator:
         rtti = rtti_names()
         simple = lambda n: re.sub(r"<.*", "", n).split("::")[-1]
         rtti_simple = {simple(n) for n in rtti if "<" in n}      # template families (fight::ParamBool<X>)
+        # global-scope stubs of namespaced RTTI classes (`ParamValue` for fight::ParamValue)
+        rtti_short = {simple(n) for n in rtti if "::" in re.sub(r"<.*", "", n)}
         variants = collections.defaultdict(lambda: collections.defaultdict(list))
         for tu in self.tus:
             for b in tu.blocks:
-                for (k, norm, it), (nk, var) in zip(b.decls, block_variants(b)):
+                for nk, var in block_variants_of(getattr(b, "orig_decls", b.decls)):
                     variants[nk][var].append((b.path, tu.path))
         blocked = collections.Counter()
         for tu in self.tus:
@@ -627,6 +1020,7 @@ class Generator:
                 continue                       # all variants can coexist (overloads, fwd + definition)
             cls = ("address" if re.search(r"(?:^|_)(?:FUN|DAT|LAB|PTR|thunk_FUN)_[0-9a-fA-F]{6,8}\b|_[0-9a-f]{8}\b", nk)
                    else "rtti" if nk in rtti or nk.rsplit("::", 1)[0] in rtti or simple(nk) in rtti_simple
+                   else "rtti_stub" if "::" not in nk and nk in rtti_short
                    else "invented")
             tus = len({t for x in vs.values() for _, t in x})
             out.append({"symbol": nk, "class": cls, "variants": len(vs), "sources": sum(len(v) for v in vs.values()),
@@ -644,6 +1038,17 @@ def rtti_names():
         return {re.sub(r"\b(class|struct|enum|union) ", "", c["name"]) for c in json.load(open(p))["classes"] if c.get("name")}
     except (OSError, ValueError):
         return set()
+
+
+def placement_new(b):
+    """'throw' / 'plain' for a block that declares the placement `operator new(unsigned int, void*)` with or
+    without an exception specification, else None."""
+    for it in b.items:
+        if it.kind in ("func", "funcdef") and not it.scope and it.name == "operatornew" and it.params:
+            ps = [p.strip() for p in stub_layout.split_commas(it.params)]
+            if len(ps) == 2 and ps[1].replace(" ", "") == "void*":
+                return "throw" if "throw" in (it.sig or "") else "plain"
+    return None
 
 
 def global_operators(b):

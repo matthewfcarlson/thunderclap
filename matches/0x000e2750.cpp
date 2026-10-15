@@ -7,7 +7,7 @@ class FELayout {
     virtual void f3();
     virtual void f4();
 };
-class SingleLayout : public FELayout {
+class VScroll : public FELayout {
   public:
     virtual void g5();
     virtual void g6();
@@ -27,6 +27,6 @@ class SingleLayout : public FELayout {
     char pad[0x34];
     float value;
 };
-float SingleLayout::vfunc_17(int) {
+float VScroll::vfunc_17(int) {
     return value;
 }

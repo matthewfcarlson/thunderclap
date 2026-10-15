@@ -11,15 +11,15 @@ class Base_5b840 {
     void* vptr;
     void Fin();
 };
-class Obj_5b840 : public Base_5b840 {
+class CGrappleOpportunityTrack : public Base_5b840 {
   public:
     char pad4[0x14];
     T2 a18;
     char pad19[0x28 - 0x19];
     T1 a28;
-    Obj_5b840* vfunc_5(unsigned char flags);
+    CGrappleOpportunityTrack* vfunc_5(unsigned char flags);
 };
-Obj_5b840* Obj_5b840::vfunc_5(unsigned char flags) {
+CGrappleOpportunityTrack* CGrappleOpportunityTrack::vfunc_5(unsigned char flags) {
     vptr = g_vftable_5b840;
     a28.Fini();
     a18.Fini();

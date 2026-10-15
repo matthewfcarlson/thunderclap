@@ -4,7 +4,7 @@ class A_27af00 {
     int a;
     int b;
 };
-A_27af00* __fastcall FUN_0023f670(A_27af00* self) {
+A_27af00* __fastcall FUN_0027af00(A_27af00* self) {
     self->a = 0;
     self->b = 0;
     return self;

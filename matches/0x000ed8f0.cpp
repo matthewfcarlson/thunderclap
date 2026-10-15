@@ -1,5 +1,5 @@
 // Same code shape as 0x000ece20 (propagated; names are from that function)
-struct TextWindow;
+struct TextTable;
 struct Sub_ed8f0 {
     virtual void f0();
     virtual void f1();
@@ -16,14 +16,14 @@ struct Sub_ed8f0 {
     virtual void f12();
     virtual void f13();
     virtual void f14();
-    virtual void f15(float*, TextWindow*);
+    virtual void f15(float*, TextTable*);
 };
-struct TextWindow {
+struct TextTable {
     char pad[0x14];
     Sub_ed8f0* sub;
     float vfunc_9();
 };
-float TextWindow::vfunc_9() {
+float TextTable::vfunc_9() {
     char local[12];
     sub->f15((float*)local, this);
     return *(float*)local * 1.05f;

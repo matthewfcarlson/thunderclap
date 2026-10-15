@@ -1,4 +1,4 @@
-class CTrack {
+class CJointTrack {
   public:
     virtual void a();
     virtual void b();
@@ -15,6 +15,6 @@ class CTrack {
     virtual void m();
     virtual void vfunc_13(unsigned int*);
 };
-void CTrack::vfunc_13(unsigned int* out) {
+void CJointTrack::vfunc_13(unsigned int* out) {
     *out = 0xffff7f7f;
 }

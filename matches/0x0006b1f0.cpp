@@ -1,4 +1,4 @@
-class CTrack {
+class CWallSlideTrack {
   public:
     virtual void f0();
     virtual void f1();
@@ -16,10 +16,10 @@ class CTrack {
 };
 class Alloc_6b1f0 {
   public:
-    int method(CTrack*, int);
+    int method(CWallSlideTrack*, int);
 };
 extern void* __cdecl FUN_0008d690(unsigned int);
-int CTrack::vfunc_12(int param) {
+int CWallSlideTrack::vfunc_12(int param) {
     Alloc_6b1f0* p = (Alloc_6b1f0*)FUN_0008d690(0x38);
     if (p)
         return p->method(this, param);

@@ -1,5 +1,5 @@
 // Same code shape as 0x00060570 (propagated; names are from that function)
-class CTrack {
+class CEffectStopTrack {
   public:
     virtual void f0();
     virtual void f1();
@@ -16,6 +16,6 @@ class CTrack {
     virtual void f12();
     virtual void vfunc_13(unsigned int*);
 };
-void CTrack::vfunc_13(unsigned int* p) {
+void CEffectStopTrack::vfunc_13(unsigned int* p) {
     *p = 0xffbf00bf;
 }

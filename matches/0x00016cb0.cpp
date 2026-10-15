@@ -1,5 +1,5 @@
 // Same code shape as 0x00013980 (propagated; names are from that function)
-class CAction {
+class CEffectStopAction {
   public:
     virtual void a0();
     virtual void a1();
@@ -11,6 +11,6 @@ class CAction {
     virtual void a7();
     virtual void a8();
 };
-bool CAction::vfunc_6(void*) {
+bool CEffectStopAction::vfunc_6(void*) {
     return true;
 }

@@ -4,7 +4,7 @@ typedef void (Obj_d5620::*Fn_d5620)(int, int, int, int, int, int, int);
 struct Obj_d5620 {
     int x;
 };
-void __cdecl FUN_00094490(Obj_d5620* a, int* p, int b, Fn_d5620 fn) {
+void __cdecl FUN_000d5620(Obj_d5620* a, int* p, int b, Fn_d5620 fn) {
     int* q = p;
     int v0 = *q;
     q++;

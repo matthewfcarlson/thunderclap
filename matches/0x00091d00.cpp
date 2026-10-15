@@ -2,6 +2,6 @@
 struct Obj_91d00 {
     char pad[0x20];
 };
-void* __fastcall FUN_000897e0(Obj_91d00* p) {
+void* __fastcall FUN_00091d00(Obj_91d00* p) {
     return (char*)p + 0x20;
 }

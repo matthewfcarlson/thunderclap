@@ -4,6 +4,6 @@ class A_31bf50 {
     virtual void f();
     virtual void g();
 };
-void __fastcall FUN_00263e90(A_31bf50* p) {
+void __fastcall FUN_0031bf50(A_31bf50* p) {
     p->g();
 }

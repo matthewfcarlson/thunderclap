@@ -1,5 +1,5 @@
 // Same code shape as 0x00013b40 (propagated; names are from that function)
-class CJointAction {
+class CSweepAction {
   public:
     char pad[0x1c];
     void* member1c;
@@ -12,7 +12,7 @@ struct R_15170 {
 };
 extern void* __fastcall FUN_000592a0(void*);
 extern R_15170* __fastcall FUN_00059a40(void*);
-void CJointAction::vfunc_4() {
+void CSweepAction::vfunc_4() {
     void* a = FUN_000592a0(member1c);
     R_15170* b = FUN_00059a40(a);
     if (b)

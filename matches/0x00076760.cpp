@@ -8,14 +8,14 @@ class CTrack {
     void Destroy(); // FUN_00236d60, __thiscall, this in ecx
 };
 
-class CSweepTrack : public CTrack {
+class CGrappleDrainHealthTrack : public CTrack {
   public:
-    CSweepTrack* vfunc_5(signed char flags);
+    CGrappleDrainHealthTrack* vfunc_5(signed char flags);
 };
 
 void __cdecl SweepTrack_DeleteThis(void* p); // thunk_FUN_00267090
 
-CSweepTrack* CSweepTrack::vfunc_5(signed char flags) {
+CGrappleDrainHealthTrack* CGrappleDrainHealthTrack::vfunc_5(signed char flags) {
     *(void***)this = CTrack_vftable;
     Destroy();
     if (flags & 1) {

@@ -1,5 +1,5 @@
 // Same code shape as 0x000d7a40 (propagated; names are from that function)
-class FEControl {
+class FETextInput {
   public:
     virtual void f0();
     virtual void f1();
@@ -21,6 +21,6 @@ class FEControl {
     virtual void f17();
     virtual void f18();
 };
-bool FEControl::vfunc_10(int, int) {
+bool FETextInput::vfunc_10(int, int) {
     return false;
 }

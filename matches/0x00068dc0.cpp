@@ -1,13 +1,13 @@
 // Same code shape as 0x0005dd70 (propagated; names are from that function)
-class CHitAnimationTrack {
+class CJointTrack {
   public:
     int vfunc_12(int);
 };
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 struct Helper_68dc0 {
-    int FUN_0001cfd0(CHitAnimationTrack*, int);
+    int FUN_0001cfd0(CJointTrack*, int);
 };
-int CHitAnimationTrack::vfunc_12(int param) {
+int CJointTrack::vfunc_12(int param) {
     Helper_68dc0* p = (Helper_68dc0*)FUN_0008d690(0x28);
     if (p)
         return p->FUN_0001cfd0(this, param);

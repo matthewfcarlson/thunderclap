@@ -1,4 +1,4 @@
-class CTrack {
+class CJumpTrack {
   public:
     virtual void a0();
     virtual void a1();
@@ -23,6 +23,6 @@ class CTrack {
     virtual float vfunc_21();
     char pad[0x28];
 };
-float CTrack::vfunc_21() {
+float CJumpTrack::vfunc_21() {
     return *(float*)((char*)this + 0x2c);
 }

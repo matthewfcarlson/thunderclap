@@ -10,13 +10,13 @@ struct Resolver_1ef660 {
 struct Player_1ef660 {
     void Run(int, void*);
 };
-class CSoundCommand_PlayMusicEvent {
+class CSoundCommand_CueNISEvent {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1(int, int);
     char pad[12];
 };
-void CSoundCommand_PlayMusicEvent::vfunc_1(int, int) {
+void CSoundCommand_CueNISEvent::vfunc_1(int, int) {
     Resolver_1ef660* r = (Resolver_1ef660*)gSound_1ef660->b;
     int x = r->Run((char*)this + 0x10);
     if (x) {

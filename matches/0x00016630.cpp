@@ -8,14 +8,14 @@ class Inner1_16630 {
   public:
     Inner2_16630* Step1();
 };
-class CIntangibleAction {
+class CIntangibleToActorsAction {
     char pad[0x1c];
     Inner1_16630* member;
 
   public:
     void vfunc_4();
 };
-void CIntangibleAction::vfunc_4() {
+void CIntangibleToActorsAction::vfunc_4() {
     Inner2_16630* p = member->Step1()->Step2();
     p->Step3(0);
 }

@@ -1,5 +1,5 @@
 // Same code shape as 0x000fc4c0 (propagated; names are from that function)
-class CAgent {
+class FEObject {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -14,6 +14,6 @@ class CAgent {
     virtual void vfunc_10();
 };
 
-void CAgent::vfunc_7(int a) {
+void FEObject::vfunc_7(int a) {
     (void)a;
 }

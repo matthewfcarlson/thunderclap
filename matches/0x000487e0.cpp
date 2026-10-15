@@ -1,5 +1,5 @@
 // Same code shape as 0x00048570 (propagated; names are from that function)
-class CButtonPressCondition {
+class CAxisPressCondition {
   public:
     virtual void f0();
     virtual void f1();
@@ -13,6 +13,6 @@ class CButtonPressCondition {
     virtual void f9();
     virtual bool vfunc_10(int* param, int unused);
 };
-bool CButtonPressCondition::vfunc_10(int* param, int unused) {
+bool CAxisPressCondition::vfunc_10(int* param, int unused) {
     return *param == 1;
 }

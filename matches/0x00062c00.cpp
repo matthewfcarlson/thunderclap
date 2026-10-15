@@ -4,11 +4,11 @@ class CCondition {
   public:
     virtual int vfunc_0(int);
 };
-class CStageCondition : public CCondition {
+class CSmartPropRemoveInstanceTrack : public CCondition {
   public:
     int vfunc_0(int);
 };
-int CStageCondition::vfunc_0(int index) {
+int CSmartPropRemoveInstanceTrack::vfunc_0(int index) {
     int* p = gTable_62c00;
     return p[index];
 }

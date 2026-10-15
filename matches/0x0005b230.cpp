@@ -10,7 +10,7 @@ struct Data_5b230 {
     void* p330;
     void* p334;
 };
-class CGrappleDamageTrack {
+class CGrappleInvincibleTrack {
   public:
     virtual void f0();
     virtual void f1();
@@ -25,7 +25,7 @@ class CGrappleDamageTrack {
     virtual void f10();
     virtual int* vfunc_11(int);
 };
-int* CGrappleDamageTrack::vfunc_11(int param) {
+int* CGrappleInvincibleTrack::vfunc_11(int param) {
     if (param) {
         void* a = ((A_5b230*)param)->first();
         if (a) {

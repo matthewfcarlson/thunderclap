@@ -1,5 +1,5 @@
 // Same code shape as 0x00052010 (propagated; names are from that function)
-class CFightNodeCondition {
+class CFightNodeTimeCondition {
   public:
     virtual void f0();
     virtual void f1();
@@ -15,7 +15,7 @@ class Helper_521d0 {
     int first();
     int second();
 };
-int CFightNodeCondition::vfunc_7(void* arg) {
+int CFightNodeTimeCondition::vfunc_7(void* arg) {
     int x = ((Helper_521d0*)arg)->first();
     return ((Helper_521d0*)x)->second() + 0xdc;
 }

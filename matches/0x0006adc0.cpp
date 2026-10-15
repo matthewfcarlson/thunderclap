@@ -1,5 +1,5 @@
 // Same code shape as 0x0005e010 (propagated; names are from that function)
-class CTrack {
+class CAlertStatusTrack {
   public:
     virtual void f0();
     virtual void f1();
@@ -16,6 +16,6 @@ class CTrack {
     virtual void f12();
     virtual void vfunc_13(int*);
 };
-void CTrack::vfunc_13(int* p) {
+void CAlertStatusTrack::vfunc_13(int* p) {
     *p = -1;
 }

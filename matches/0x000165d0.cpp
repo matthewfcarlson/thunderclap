@@ -8,14 +8,14 @@ struct ObjB_165d0 {
 struct ObjC_165d0 {
     void h(int);
 };
-class CInvincibleAction {
+class CIntangibleAction {
     char pad[0x1c];
     ObjA_165d0* member;
 
   public:
     bool vfunc_6(int);
 };
-bool CInvincibleAction::vfunc_6(int) {
+bool CIntangibleAction::vfunc_6(int) {
     ObjA_165d0* a = member->f();
     ObjB_165d0* b = ((ObjB_165d0*)a)->g();
     ((ObjC_165d0*)b)->h(1);

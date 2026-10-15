@@ -1,5 +1,5 @@
 // Same code shape as 0x0005aa70 (propagated; names are from that function)
-class CTrack {
+class CRageModeTrack {
   public:
     virtual void v0();
     virtual void v1();
@@ -16,6 +16,6 @@ class CTrack {
     virtual void v12();
     virtual void vfunc_13(int*);
 };
-void CTrack::vfunc_13(int* p) {
+void CRageModeTrack::vfunc_13(int* p) {
     *p = 0xffff7f00;
 }

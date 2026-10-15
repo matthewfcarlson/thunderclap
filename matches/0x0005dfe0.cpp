@@ -4,11 +4,11 @@ class CCondition {
   public:
     virtual int vfunc_0(int);
 };
-class CStageCondition : public CCondition {
+class CClearHitRecordsTrack : public CCondition {
   public:
     int vfunc_0(int);
 };
-int CStageCondition::vfunc_0(int index) {
+int CClearHitRecordsTrack::vfunc_0(int index) {
     int* p = gTable_5dfe0;
     return p[index];
 }

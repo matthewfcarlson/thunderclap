@@ -4,7 +4,7 @@ struct Obj_1f6c90 {
     void Finish();
 };
 Obj_1f6c90* __cdecl GetObj();
-extern "C" void FUN_001bc510(void) {
+extern "C" void FUN_001f6c90(void) {
     Obj_1f6c90* p = GetObj();
     p->DoThing();
     p = GetObj();

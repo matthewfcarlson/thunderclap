@@ -1,5 +1,5 @@
 // Same code shape as 0x0005aad0 (propagated; names are from that function)
-class CGrappleAttachTrack {
+class CCameraShakeTrack {
   public:
     virtual void v0();
     virtual void v1();
@@ -18,10 +18,10 @@ class CGrappleAttachTrack {
 };
 class R_6a340 {
   public:
-    int invoke(CGrappleAttachTrack*, int);
+    int invoke(CCameraShakeTrack*, int);
 };
 extern R_6a340* FUN_0008d690(int);
-int CGrappleAttachTrack::vfunc_12(int param) {
+int CCameraShakeTrack::vfunc_12(int param) {
     R_6a340* p = FUN_0008d690(0x24);
     if (p)
         return p->invoke(this, param);

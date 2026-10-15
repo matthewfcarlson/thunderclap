@@ -3,13 +3,13 @@ extern "C" void* __cdecl FUN_0008d690(int);
 struct Worker_6b110 {
     int go(unsigned int, unsigned int);
 };
-class CComboTimerTrack {
+class CMotionHitGroundHeightTrack {
   public:
     char pad[0x14];
     unsigned int field14;
     int vfunc_12(unsigned int);
 };
-int CComboTimerTrack::vfunc_12(unsigned int param) {
+int CMotionHitGroundHeightTrack::vfunc_12(unsigned int param) {
     void* p = FUN_0008d690(0x24);
     if (p)
         return ((Worker_6b110*)p)->go(param, field14);

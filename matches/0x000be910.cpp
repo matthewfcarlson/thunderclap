@@ -4,7 +4,7 @@ typedef void (Obj_be910::*Fn_be910)(int, int, int, int, int, int, int);
 struct Obj_be910 {
     int x;
 };
-void __cdecl FUN_00094490(Obj_be910* a, int* p, int b, Fn_be910 fn) {
+void __cdecl FUN_000be910(Obj_be910* a, int* p, int b, Fn_be910 fn) {
     int* q = p;
     int v0 = *q;
     q++;

@@ -1,5 +1,5 @@
 // Same code shape as 0x00306fc0 (propagated; names are from that function)
-struct physics_CollisionRay_fc4a0 {
+struct CAgent {
     virtual void vfunc_0();
     virtual void vfunc_1();
     virtual void vfunc_2();
@@ -9,4 +9,4 @@ struct physics_CollisionRay_fc4a0 {
     virtual void vfunc_6();
 };
 
-void physics_CollisionRay_fc4a0::vfunc_5(int a, int b) {}
+void CAgent::vfunc_5(int a, int b) {}

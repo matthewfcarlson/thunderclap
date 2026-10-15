@@ -2,7 +2,7 @@
 typedef unsigned int uint;
 extern "C" void __fastcall __security_check_cookie(uint);
 extern "C" uint g_cookie_1fc460;
-class CLocator {
+class CTriggerVolume {
   public:
     virtual void f0();
     virtual void f1();
@@ -16,7 +16,7 @@ class CLocator {
     virtual void f9();
     virtual void f10();
 };
-void CLocator::vfunc_7(int) {
+void CTriggerVolume::vfunc_7(int) {
     volatile uint t = g_cookie_1fc460;
     __security_check_cookie(t);
 }

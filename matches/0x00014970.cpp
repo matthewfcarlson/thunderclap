@@ -12,7 +12,7 @@ class H3_14970 {
     bool f3(void*);
 };
 
-class CProceduralDurationAnimationAction {
+class CStunAnimationAction {
   public:
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -29,7 +29,7 @@ class CProceduralDurationAnimationAction {
     void* mAt24;
 };
 
-bool CProceduralDurationAnimationAction::vfunc_8(int) {
+bool CStunAnimationAction::vfunc_8(int) {
     void* x = ((H1*)mAt1c)->f1();
     void* y = ((H2_14970*)x)->f2();
     bool r;

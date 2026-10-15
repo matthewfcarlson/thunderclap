@@ -10,10 +10,10 @@ class CCondition {
     virtual void f6();
     virtual void f7();
 };
-class CNameFlagConditionBase : public CCondition {
+class CCharacterTemplateVariationCondition : public CCondition {
   public:
     char pad[12];
-    CNameFlagConditionBase* vfunc_5(int);
+    CCharacterTemplateVariationCondition* vfunc_5(int);
 };
 class H {
   public:
@@ -23,8 +23,8 @@ class H {
 extern void vt_name();
 extern void vt_cond();
 void thunk_FUN_00267090(void*);
-CNameFlagConditionBase* CNameFlagConditionBase::vfunc_5(int p) {
-    CNameFlagConditionBase* s = this;
+CCharacterTemplateVariationCondition* CCharacterTemplateVariationCondition::vfunc_5(int p) {
+    CCharacterTemplateVariationCondition* s = this;
     *(void (**)())s = &vt_name;
     ((H*)((char*)s + 0x10))->a();
     *(void (**)())s = &vt_cond;

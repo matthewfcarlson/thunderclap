@@ -3,6 +3,6 @@ struct X_264870 {
     int pad;
     unsigned int value;
 };
-unsigned int __fastcall FUN_00086270(X_264870* p) {
+unsigned int __fastcall FUN_00264870(X_264870* p) {
     return p->value;
 }

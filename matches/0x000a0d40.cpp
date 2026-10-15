@@ -4,7 +4,7 @@ class A_a0d40 {
     virtual void f();
     virtual void g();
 };
-void FUN_000187d0(A_a0d40** p) {
+void FUN_000a0d40(A_a0d40** p) {
     if (*p) {
         (*p)->g();
         *p = 0;

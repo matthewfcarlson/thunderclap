@@ -1,4 +1,4 @@
-class CTrack {
+class CWallSlideTrack {
   public:
     virtual void a0();
     virtual void a1();
@@ -15,6 +15,6 @@ class CTrack {
     virtual void a12();
     virtual void vfunc_13(unsigned int*);
 };
-void CTrack::vfunc_13(unsigned int* out) {
+void CWallSlideTrack::vfunc_13(unsigned int* out) {
     *out = 0xff7f1f1f;
 }

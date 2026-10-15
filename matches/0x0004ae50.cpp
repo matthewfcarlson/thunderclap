@@ -15,10 +15,10 @@ class Param {
     virtual int vfunc_4();
 };
 } // namespace fight
-class CIsInvincibleCondition : public CCondition, public fight::Condition, public fight::Param {
+class CIsHelicopterCondition : public CCondition, public fight::Condition, public fight::Param {
   public:
     virtual int vfunc_0(int);
 };
-int CIsInvincibleCondition::vfunc_0(int) {
+int CIsHelicopterCondition::vfunc_0(int) {
     return 0;
 }

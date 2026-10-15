@@ -16,7 +16,7 @@ class Temp_266440 {
     Item_266440* First();
     Item_266440* Next();
 };
-void __fastcall FUN_002366e0(Owner_266440* self) {
+void __fastcall FUN_00266440(Owner_266440* self) {
     Temp_266440 t;
     t.Init(self);
     Item_266440* item = t.First();

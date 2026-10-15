@@ -1,4 +1,4 @@
-class CTrack {
+class CJumpTrack {
   public:
     virtual void f0();
     virtual void f1();
@@ -15,6 +15,6 @@ class CTrack {
     virtual void f12();
     virtual void vfunc_13(unsigned int*);
 };
-void CTrack::vfunc_13(unsigned int* p) {
+void CJumpTrack::vfunc_13(unsigned int* p) {
     *p = 0xff0000ff;
 }
