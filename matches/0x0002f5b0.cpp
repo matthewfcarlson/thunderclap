@@ -1,0 +1,32 @@
+class CActorManager;
+class Base {
+  public:
+    virtual void v();
+    char pad[12];
+    Base(CActorManager*, int);
+};
+extern unsigned char __cdecl FUN_001d04d0(const void*);
+extern char g1, g2;
+class Method1 : public Base {
+  public:
+    virtual void v();
+    char flag1;
+    char pad1[7];
+    char flag2;
+    char pad2[3];
+    int n;
+    __forceinline Method1(CActorManager* m, int x) : Base(m, 1) {
+        n = x;
+        flag2 = FUN_001d04d0(&g1);
+        flag1 = FUN_001d04d0(&g2);
+    }
+};
+class Closure1 : public Method1 {
+  public:
+    virtual void v();
+    int extra;
+    Closure1(CActorManager*, int, int);
+};
+Closure1::Closure1(CActorManager* mgr, int n, int x) : Method1(mgr, x) {
+    extra = n;
+}
