@@ -21,6 +21,13 @@ Method (docs/splits.md has the long version):
    address-taken references, propagated through the gap). Long runs that have no affinity to either side
    become their own objects, cut where no call edge crosses.
 6. Each object is named after its dominant class (most bytes) with one directory per namespace.
+7. Layers (docs/shipping.md §1 "Platform layers"): every object gets a `layer` (`game`, `engine`,
+   `platform/xbox`, `library`) with `layer_evidence`. Link order puts the game first (.text up to the XAPILIB
+   span) and Radical's portable libraries after it (Lua, choreo, fight, radsound, radcore, Pure3D, sim, pddi,
+   radmovie). Inside the four seam address ranges (tools/platform_map.py SEAMS) objects are first cut at the
+   range edges and where the functions switch from platform classes / platform calls to portable classes;
+   then an engine-region object is `platform/xbox` when it is mostly Xbox implementation (platform classes,
+   or direct XDK/kernel calls from build/port/platform_calls.json), or only serves such objects.
 
 Only addresses and names are written; no game bytes.
 """
@@ -64,6 +71,23 @@ MID_MIN_FUNCS = 8                 # an unattached run at least this long becomes
 MID_MIN_SEG = 6                   # pieces of an unattached run are at least this long
 PROPAGATE_ROUNDS = 4              # affinity propagation through gap-internal call edges
 PROPAGATE_DECAY = 0.5
+
+# Layers (docs/shipping.md §1, docs/platform-boundary.md "The seams").
+PLATFORM_CALLS = os.path.join(ROOT, "build/port/platform_calls.json")
+ENGINE_START = 0x212BB0           # first library after XAPILIB (the Lua 5.1 core); game code is below 0x208b9c
+try:
+    from platform_map import SEAMS  # noqa: E402  (name, description, [(start, end)])
+except Exception:                 # platform_map needs capstone; the ranges are documented in platform-boundary.md
+    SEAMS = [("render", "", [(0x31AC80, 0x3338E0)]), ("core-platform", "", [(0x267000, 0x27AB50)]),
+             ("audio-hal", "", [(0x240C00, 0x241400), (0x258E00, 0x259C80)]), ("movie", "", [(0x3338E0, 0x335200)])]
+# Xbox implementation classes: the pddi D3D8 backend, radcore's *XBox controller / Xbox drive classes,
+# radmovie's Bink player. Their engine-side bases (pddi*, core::Drive, movie::Player, ...) are portable.
+PLATFORM_CLASS_RE = re.compile(r"^(pure3d::d3d\w+|core::\w*(XBox|Xbox)\w*|movie::(PlayerBink|RenderStrategyBink|BinkCallback))$")
+LAYER_CUT_MIN = 3                 # each side of a cut inside a seam range keeps at least this many functions
+LAYER_CUT_MAX_DISAGREE = 0.1      # a class/platform-call cut may misplace at most this share of the votes (bytes)
+LAYER_CUT_MIN_BYTES = 512         # ... and each side's own layer must hold at least this many bytes of votes
+PLATFORM_MIN_BYTES = 0.2          # an engine object is platform/xbox when its platform-calling functions hold
+                                  # at least this share of its bytes (and outvote its portable classes)
 
 
 # ---------------------------------------------------------------------------------------------
@@ -137,6 +161,17 @@ def load_vtables():
         name = re.sub(r"\b(class|struct|enum|union) ", "", c["name"])
         out[name] = sorted(v["address"] for v in c.get("vtables", []))
     return out
+
+
+def load_platform_calls():
+    """{function address: [platform APIs it calls or D3D/DSOUND state it touches]} from
+    build/port/platform_calls.json (tools/platform_map.py; portable CRT calls are not in the list). Empty
+    when the file is missing: layers then come from link order and class names only."""
+    try:
+        callers = json.load(open(PLATFORM_CALLS))["callers"]
+    except (OSError, ValueError, KeyError):
+        return {}
+    return {int(a, 16): c["platform_calls"] for a, c in callers.items() if c.get("platform_calls")}
 
 
 def call_graph(funcs):
@@ -220,6 +255,8 @@ class Inferrer:
         self.objects = []
         self.stats = collections.Counter()
         self.strays = []          # (addr, name, class, home object start) for the report
+        self.platform_calls = load_platform_calls()
+        self.seam_ranges = sorted((s, e, name) for name, _, rs in SEAMS for s, e in rs)
 
     # -- regions -------------------------------------------------------------------------------
     def library_objects(self):
@@ -355,9 +392,76 @@ class Inferrer:
         res = []
         for piece in out:
             o = objects[piece["oid"]]
-            idx = piece["idx"]
-            res.append(self.describe(fs, idx, o, labels, tmpl, stray_of, hi))
+            parts = self.layer_cuts(fs, piece["idx"])
+            for idx, why in parts:
+                d = self.describe(fs, idx, o, labels, tmpl, stray_of, hi)
+                if why:
+                    d["evidence"].append(why)
+                    self.stats["layer_cuts"] += 1
+                res.append(d)
         return res
+
+    # -- layer cuts inside the seam ranges -------------------------------------------------------
+    def layer_vote(self, addr, name):
+        """'platform' (calls the XDK/kernel/Bink directly, or a method of an Xbox implementation class),
+        'portable' (a method of another non-template class) or None (unnamed, no platform call)."""
+        if self.platform_calls.get(addr):
+            return "platform"
+        c = owner_class(name)
+        if c is None or is_template(c):
+            return None
+        return "platform" if PLATFORM_CLASS_RE.match(c) else "portable"
+
+    def in_seam(self, lo, hi):
+        return any(s < hi and lo < e for s, e, _ in self.seam_ranges)
+
+    def layer_cuts(self, fs, idx):
+        """Split one inferred object where it straddles a seam range edge, or where its functions switch
+        from Xbox implementation to portable code (or back) inside a seam range. Returns [(idx, why)]."""
+        if not idx or not self.in_seam(fs[idx[0]][0], fs[idx[-1]][0] + fs[idx[-1]][1]):
+            return [(idx, None)]
+        parts = [(idx, None)]
+        # 1. seam range edges
+        for s, e, seam in self.seam_ranges:
+            for b in (s, e):
+                nxt = []
+                for p, why in parts:
+                    addrs = [fs[k][0] for k in p]
+                    j = bisect.bisect_left(addrs, b)
+                    if LAYER_CUT_MIN <= j <= len(p) - LAYER_CUT_MIN:
+                        msg = "cut at the %s seam range edge 0x%x (layer boundary)" % (seam, b)
+                        nxt += [(p[:j], why), (p[j:], msg)]
+                    else:
+                        nxt.append((p, why))
+                parts = nxt
+        # 2. inside a seam range: one cut where platform votes give way to portable ones (or back)
+        out = []
+        for p, why in parts:
+            lo, hi = fs[p[0]][0], fs[p[-1]][0] + fs[p[-1]][1]
+            votes = [self.layer_vote(fs[k][0], fs[k][2]) for k in p]
+            if not self.in_seam(lo, hi) or "platform" not in votes or "portable" not in votes:
+                out.append((p, why))
+                continue
+            size = [fs[k][1] for k in p]
+            total = sum(w for v, w in zip(votes, size) if v)
+            weight = lambda lo_, hi_, layer: sum(w for v, w in zip(votes[lo_:hi_], size[lo_:hi_]) if v == layer)
+            best = None
+            for left, right in (("platform", "portable"), ("portable", "platform")):
+                for j in range(LAYER_CUT_MIN, len(p) - LAYER_CUT_MIN + 1):
+                    if votes[j - 1] != left:
+                        continue        # cut right after the prefix's last vote: helpers open the next file
+                    if weight(0, j, left) < LAYER_CUT_MIN_BYTES or weight(j, len(p), right) < LAYER_CUT_MIN_BYTES:
+                        continue
+                    cost = weight(0, j, right) + weight(j, len(p), left)
+                    if best is None or cost < best[0]:
+                        best = (cost, j, left, right)
+            if best is None or best[0] > LAYER_CUT_MAX_DISAGREE * total:
+                out.append((p, why))
+                continue
+            cost, j, left, right = best
+            out += [(p[:j], why), (p[j:], "cut at 0x%x: %s functions before, %s after (%d of %d bytes of class/"
+                                             "platform-call votes disagree)" % (fs[p[j]][0], left, right, cost, total))]
+        return out
 
     def affinity(self, fs, g0, g1, owner, side_obj, stray_of):
         """Affinity of each gap function to object side_obj, propagated through gap-internal edges."""
@@ -564,8 +668,110 @@ class Inferrer:
                     o["file"] = "%s_%d%s" % (stem, dup[f], ext)
                     o["evidence"].append("same dominant class as an earlier object (class split across files)")
         self.vtable_order_check(objs)
+        self.assign_layers(objs)
         self.objects = objs
         return objs
+
+    # -- layers ----------------------------------------------------------------------------------
+    def assign_layers(self, objs):
+        """layer + layer_evidence per object (method step 7). `borderline` lists why a call was close."""
+        starts = [o["start"] for o in objs]
+        obj_of = {}
+        for a, _, _, _ in self.funcs:
+            i = bisect.bisect_right(starts, a) - 1
+            if i >= 0 and a < objs[i]["end"]:
+                obj_of[a] = i
+        # namespaces whose named code is mostly in the engine region (the split is clean: pure3d, core, audio, ...)
+        ns_bytes = collections.defaultdict(collections.Counter)
+        for a, size, name, _ in self.funcs:
+            c = owner_class(name)
+            if c and not is_template(c) and a < INIT_START:
+                ns_bytes[namespace_of(c)][a >= ENGINE_START] += size
+        engine_ns = {ns for ns, b in ns_bytes.items() if b[True] > b[False]}
+        for o in objs:
+            o["borderline"] = []
+            fs = [f for f in self.funcs[bisect.bisect_left(self.funcs, (o["start"],)):] if f[0] < o["end"]] \
+                if o["kind"] != "library" else []
+            pcalls = collections.Counter()
+            pbytes = 0
+            votes = collections.Counter()
+            pclasses, eclasses = collections.Counter(), collections.Counter()
+            ebytes = 0
+            for a, size, name, _ in fs:
+                v = self.layer_vote(a, name)
+                if v:
+                    votes[v] += 1
+                c = owner_class(name)
+                if c and not is_template(c):
+                    (pclasses if PLATFORM_CLASS_RE.match(c) else eclasses)[c] += 1
+                    if not PLATFORM_CLASS_RE.match(c):
+                        ebytes += size
+                if self.platform_calls.get(a):
+                    pbytes += size
+                    for api in self.platform_calls[a]:
+                        pcalls[api] += 1
+            o["_pcalls"] = pcalls
+            api_list = ", ".join(a for a, _ in pcalls.most_common(6)) + (" +%d more" % (len(pcalls) - 6) if len(pcalls) > 6 else "")
+            n_pfun = sum(1 for f in fs if self.platform_calls.get(f[0]))
+            if o["kind"] == "library":
+                o["layer"], ev = "library", ["XDK/CRT/Bink code, replaced and never decompiled"]
+            elif o["kind"] == "game-init":
+                o["layer"], ev = "game", [".text$yc/.text$yd initializers; owners not recovered (they include "
+                                          "engine TUs' initializers)"]
+                o["borderline"].append("dynamic initializers of game and engine TUs in one pseudo-object")
+            elif o["start"] < ENGINE_START:
+                o["layer"], ev = "game", ["link order: game code (.text before the XAPILIB span at 0x208b9c)"]
+                if pcalls:
+                    ev.append("calls the platform directly: %s (layer leak, docs/platform-boundary.md \"Leaks\")" % api_list)
+                if o.get("dominant") and namespace_of(o["dominant"]) in engine_ns and o["bytes"] >= 1024:
+                    o["borderline"].append("dominant class %s is from an engine namespace, but link order puts the "
+                                           "object in game code (COMDATs or game-side code)" % o["dominant"])
+            else:
+                ev = ["link order: Radical library code (after the XAPILIB span)"]
+                plat = False
+                npc = sum(pclasses.values())
+                if npc > votes["portable"] and 4 * npc >= len(fs):
+                    plat = True
+                    ev.append("Xbox implementation classes: " + ", ".join(
+                        "%s (%d fn)" % (c, n) for c, n in pclasses.most_common(4)))
+                elif n_pfun and votes["platform"] >= votes["portable"] and pbytes >= PLATFORM_MIN_BYTES * o["bytes"]:
+                    plat = True
+                if pcalls:
+                    ev.append("%d of %d functions (%d%% of bytes) call the platform: %s" % (
+                        n_pfun, len(fs), 100 * pbytes // max(o["bytes"], 1), api_list))
+                if plat:
+                    o["layer"] = "platform/xbox"
+                    if ebytes >= 256:
+                        o["borderline"].append("also holds portable classes: " + ", ".join(
+                            "%s (%d fn)" % (c, n) for c, n in eclasses.most_common(4)))
+                else:
+                    o["layer"] = "engine"
+                    if pcalls:
+                        ev.append("kept portable: the platform calls are a minority (layer leak to shim)")
+                        o["borderline"].append("engine object calling the platform directly (%d fn)" % n_pfun)
+            o["layer_evidence"] = ev
+        # engine objects inside a seam range with no class or platform-call vote, called only from platform/xbox
+        # objects: helpers of the platform layer
+        changed = True
+        while changed:
+            changed = False
+            for o in objs:
+                if o.get("layer") != "engine" or not self.in_seam(o["start"], o["end"]) or o["_pcalls"]:
+                    continue
+                fs = [f for f in self.funcs[bisect.bisect_left(self.funcs, (o["start"],)):] if f[0] < o["end"]]
+                if any(self.layer_vote(a, n) for a, _, n, _ in fs):
+                    continue
+                mine = {f[0] for f in fs}
+                callers = {obj_of.get(c) for a in mine for c in self.undirected.get(a, ()) if c not in mine}
+                callers.discard(None)
+                if callers and all(objs[i]["layer"] == "platform/xbox" for i in callers):
+                    o["layer"] = "platform/xbox"
+                    o["layer_evidence"].append("no class or platform call of its own; every call partner is in "
+                                               "platform/xbox: " + ", ".join(sorted({objs[i]["file"] for i in callers})[:4]))
+                    o["borderline"].append("platform/xbox only by its call partners")
+                    changed = True
+        for o in objs:
+            del o["_pcalls"]
 
     def vtable_order_check(self, objs):
         """Evidence only: .rdata vtables should follow .text object order (both are in link order)."""
@@ -590,7 +796,10 @@ def to_json(objs):
     out = []
     for o in objs:
         r = {"start": "0x%08x" % o["start"], "end": "0x%08x" % o["end"], "file": o["file"], "kind": o["kind"],
-             "confidence": o["confidence"], "evidence": o["evidence"]}
+             "layer": o["layer"], "confidence": o["confidence"], "evidence": o["evidence"],
+             "layer_evidence": o["layer_evidence"]}
+        if o.get("borderline"):
+            r["borderline"] = o["borderline"]
         for k in ("dominant", "functions", "named"):
             if k in o and o[k] is not None:
                 r[k] = o[k]
@@ -629,6 +838,42 @@ def write_md(inf, objs):
         L.append("| functions per game object | median %d, max %d |" % (fn_counts[len(fn_counts) // 2], fn_counts[-1]))
     L.append("")
     L.append("Objects per directory: " + ", ".join("`%s/` %d" % (d, c) for d, c in dirs.most_common()) + ".\n")
+    L.append("## Layers\n")
+    L.append("Each object has a `layer` ([shipping.md §1](shipping.md#1-the-source-tree-roadmap-steps-2-and-4)); "
+             "`tools/gen_tree.py` writes it to `src/<layer>/<dir>/<File>.cpp`. Seam interface: [seams.md](seams.md).\n")
+    L.append("| layer | objects | functions | bytes |\n|---|---|---|---|")
+    by_layer = collections.defaultdict(list)
+    for o in objs:
+        by_layer[o["layer"]].append(o)
+    for layer in ("game", "engine", "platform/xbox", "library"):
+        os_ = by_layer.get(layer, [])
+        L.append("| `%s` | %d | %d | %d (%d KB) |" % (layer, len(os_), sum(o.get("functions", 0) for o in os_),
+                                                    sum(o["end"] - o["start"] for o in os_),
+                                                    sum(o["end"] - o["start"] for o in os_) // 1024))
+    L.append("")
+    L.append("""How (method step 7 in `tools/infer_splits.py`):
+
+- **game / engine by link order.** The game's objects come first in `.text` (up to the XAPILIB span at `0x208b9c`);
+  Radical's portable libraries follow it (from `0x212bb0`: the Lua 5.1 core, choreo2, fight, radsound/`om`, radcore,
+  Pure3D, `physics` (sim), pddi, radmovie, the Lua libraries) and the math/collision library after LIBCMT
+  (`0x356bf0`). The split is clean by namespace: no namespace has more than a few COMDAT bytes on the other side.
+- **platform/xbox inside the four seam ranges** (`tools/platform_map.py` `SEAMS`). Objects are first cut at the
+  range edges and where the functions switch from Xbox implementation to portable code (votes: a method of
+  `pure3d::d3d*`, `core::*XBox*`/`Xbox*`, `movie::PlayerBink`/`RenderStrategyBink`/`BinkCallback`, or a direct
+  XDK/kernel/Bink call from `build/port/platform_calls.json`, against methods of other classes, weighted by bytes).
+  An object is `platform/xbox` when its Xbox classes outvote its portable ones (and are at least a quarter of its
+  functions), or when its platform-calling functions outvote its portable classes and hold at least %d%% of its
+  bytes; an object without votes in a seam range that only talks to platform/xbox objects follows them.
+  Everything else in the engine region is `engine`; its remaining platform calls are layer leaks
+  ([seams.md](seams.md#layer-leaks)).
+- **library**: the XDK/CRT/Bink spans, as before. `.text$yc` initializers (`game-init`) are `game`.
+""" % int(PLATFORM_MIN_BYTES * 100))
+    bl = [o for o in objs if o.get("borderline")]
+    L.append("Borderline objects (%d):\n" % len(bl))
+    L.append("| object | layer | why |\n|---|---|---|")
+    for o in bl:
+        L.append("| `%s` | %s | %s |" % (o["file"], o["layer"], "; ".join(o["borderline"])))
+    L.append("")
     L.append("## Method\n")
     L.append("""1. **Library regions** are fixed, not inferred: the three XDK/CRT spans inside `.text`
    ([platform-boundary.md](platform-boundary.md#where-library-code-lives)) and every executable section after
@@ -702,8 +947,9 @@ def write_md(inf, objs):
   so a class with one virtual and many non-virtual methods can swallow a long `FUN_` run
   (`global/CCharacter.cpp`: 116 functions, 1 named). That is often right (non-virtual methods are
   `FUN_`), but nothing bounds it.
-- **`unknown/unk_212bb0.cpp`** (368 functions right after the XAPILIB span) has no named function and no
-  majority of game callers; it may be more library code. Check it before decompiling it.
+- **`unknown/unk_212bb0.cpp`** (368 functions right after the XAPILIB span) is the Lua 5.1 core (parser and VM
+  error strings such as `"<name> expected"`, `"C stack overflow"`), and `unknown/unk_338d90.cpp` the Lua libraries
+  (`"Lua 5.1 (work)"`, `LUA_PATH`). Both are `engine`; they can be replaced by a stock Lua build (lua-scripts.md).
 - `.rdata`/`.data` splits are not inferred yet.
 """)
     os.makedirs(os.path.dirname(OUT_MD), exist_ok=True)

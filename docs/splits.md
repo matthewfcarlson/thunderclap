@@ -8,16 +8,58 @@ is cheap: codegen doesn't depend on the file a function sits in.
 
 | | |
 |---|---|
-| objects | 1803 (1779 game, 1 game-init, 23 library) |
-| game objects by confidence | high 1096, medium 486, low 197 |
+| objects | 1806 (1782 game, 1 game-init, 23 library) |
+| game objects by confidence | high 1097, medium 485, low 200 |
 | game objects with a dominant class (RTTI or template argument) | 1582 |
 | COMDAT strays (named functions far from their class's home) | 1536 |
 | template-instantiation functions (COMDAT, labelled by template argument) | 6533 |
 | gaps with interleaved affinity (best single cut) | 16 |
-| adjacent objects with vtables in the same order in .rdata | 1365 of 1570 |
-| functions per game object | median 5, max 526 |
+| adjacent objects with vtables in the same order in .rdata | 1364 of 1570 |
+| functions per game object | median 5, max 528 |
 
-Objects per directory: `hulkfight/` 610, `global/` 587, `pure3d/` 180, `unknown/` 125, `core/` 67, `audio/` 56, `fight/` 55, `physics/` 41, `om/` 20, `choreo2/` 10, `content/` 9, `Render/` 8, `movie/` 5, `DollyScript/` 3, `DataHandler/` 1, `Tokenizer/` 1, `math/` 1.
+Objects per directory: `hulkfight/` 610, `global/` 586, `pure3d/` 181, `unknown/` 127, `core/` 67, `audio/` 58, `fight/` 54, `physics/` 41, `om/` 19, `choreo2/` 10, `content/` 9, `Render/` 8, `movie/` 6, `DollyScript/` 3, `DataHandler/` 1, `Tokenizer/` 1, `math/` 1.
+
+## Layers
+
+Each object has a `layer` ([shipping.md §1](shipping.md#1-the-source-tree-roadmap-steps-2-and-4)); `tools/gen_tree.py` writes it to `src/<layer>/<dir>/<File>.cpp`. Seam interface: [seams.md](seams.md).
+
+| layer | objects | functions | bytes |
+|---|---|---|---|
+| `game` | 1318 | 19615 | 2098516 (2049 KB) |
+| `engine` | 433 | 7342 | 1149952 (1123 KB) |
+| `platform/xbox` | 32 | 824 | 115952 (113 KB) |
+| `library` | 23 | 0 | 705702 (689 KB) |
+
+How (method step 7 in `tools/infer_splits.py`):
+
+- **game / engine by link order.** The game's objects come first in `.text` (up to the XAPILIB span at `0x208b9c`);
+  Radical's portable libraries follow it (from `0x212bb0`: the Lua 5.1 core, choreo2, fight, radsound/`om`, radcore,
+  Pure3D, `physics` (sim), pddi, radmovie, the Lua libraries) and the math/collision library after LIBCMT
+  (`0x356bf0`). The split is clean by namespace: no namespace has more than a few COMDAT bytes on the other side.
+- **platform/xbox inside the four seam ranges** (`tools/platform_map.py` `SEAMS`). Objects are first cut at the
+  range edges and where the functions switch from Xbox implementation to portable code (votes: a method of
+  `pure3d::d3d*`, `core::*XBox*`/`Xbox*`, `movie::PlayerBink`/`RenderStrategyBink`/`BinkCallback`, or a direct
+  XDK/kernel/Bink call from `build/port/platform_calls.json`, against methods of other classes, weighted by bytes).
+  An object is `platform/xbox` when its Xbox classes outvote its portable ones (and are at least a quarter of its
+  functions), or when its platform-calling functions outvote its portable classes and hold at least 20% of its
+  bytes; an object without votes in a seam range that only talks to platform/xbox objects follows them.
+  Everything else in the engine region is `engine`; its remaining platform calls are layer leaks
+  ([seams.md](seams.md#layer-leaks)).
+- **library**: the XDK/CRT/Bink spans, as before. `.text$yc` initializers (`game-init`) are `game`.
+
+Borderline objects (9):
+
+| object | layer | why |
+|---|---|---|
+| `pure3d/NonCopyable.cpp` | game | dominant class pure3d::NonCopyable is from an engine namespace, but link order puts the object in game code (COMDATs or game-side code) |
+| `om/Stream.cpp` | game | dominant class om::Stream is from an engine namespace, but link order puts the object in game code (COMDATs or game-side code) |
+| `unknown/unk_267280.cpp` | engine | engine object calling the platform directly (3 fn) |
+| `core/TimerList.cpp` | engine | engine object calling the platform directly (4 fn) |
+| `core/Platform.cpp` | engine | engine object calling the platform directly (1 fn) |
+| `core/MemorySpaceAsyncRequest_Copy.cpp` | engine | engine object calling the platform directly (1 fn) |
+| `core/unk_2719a0.cpp` | engine | engine object calling the platform directly (1 fn) |
+| `unknown/unk_291dc0.cpp` | engine | engine object calling the platform directly (2 fn) |
+| `init/dynamic_initializers.cpp` | game | dynamic initializers of game and engine TUs in one pseudo-object |
 
 ## Method
 
@@ -65,39 +107,39 @@ Confidence: `high` = a core with at least 3 named functions, `medium` = a core w
 |---|---|---|---|---|
 | `unknown/unk_212bb0.cpp` | `0x212bb0`..`0x2222f0` (61 KB) | 368 | 0 | - |
 | `global/CCharacter.cpp` | `0x0382c0`..`0x044910` (49 KB) | 116 | 1 | CCharacter |
-| `global/CSPManager.cpp` | `0x1db770`..`0x1e5f10` (41 KB) | 371 | 143 | CSPManager |
-| `hulkfight/scenario/EffectAction.cpp` | `0x1a1ed0`..`0x1aace0` (35 KB) | 379 | 150 | hulkfight::scenario::EffectAction |
+| `global/CSPManager.cpp` | `0x1db770`..`0x1e5f10` (41 KB) | 372 | 143 | CSPManager |
+| `hulkfight/scenario/EffectAction.cpp` | `0x1a1ed0`..`0x1aace0` (35 KB) | 380 | 150 | hulkfight::scenario::EffectAction |
 | `global/CAmbientsManager.cpp` | `0x0788e0`..`0x081340` (34 KB) | 188 | 54 | CAmbientsManager |
-| `global/unk_0240b0.cpp` | `0x0240b0`..`0x02c4f0` (33 KB) | 291 | 0 | - |
+| `unknown/unk_0240b0.cpp` | `0x0240b0`..`0x02c4f0` (33 KB) | 291 | 0 | - |
 | `pure3d/VertexList.cpp` | `0x2c89b0`..`0x2d0930` (31 KB) | 9 | 1 | pure3d::VertexList |
 | `global/CActorManager.cpp` | `0x02c4f0`..`0x034400` (31 KB) | 289 | 200 | CActorManager |
+| `global/CChaseCamera.cpp` | `0x09f760`..`0x0a75d0` (31 KB) | 72 | 9 | CChaseCamera |
 | `global/HUDOverlay_2.cpp` | `0x0cc7e0`..`0x0d40e0` (30 KB) | 116 | 75 | HUDOverlay |
 | `global/FEThingsBase_3.cpp` | `0x0f1570`..`0x0f8690` (28 KB) | 129 | 14 | FEThingsBase |
-| `global/CWeaponCollisionTrack.cpp` | `0x061e30`..`0x068c80` (27 KB) | 526 | 203 | CWeaponCollisionTrack |
+| `global/CWeaponCollisionTrack.cpp` | `0x061e30`..`0x068c80` (27 KB) | 528 | 203 | CWeaponCollisionTrack |
 | `global/CCameraManager.cpp` | `0x0989d0`..`0x09f760` (27 KB) | 248 | 105 | CCameraManager |
-| `global/unk_0b4cf0.cpp` | `0x0b4cf0`..`0x0bba40` (27 KB) | 81 | 0 | - |
-| `global/CFEManager.cpp` | `0x0be230`..`0x0c4ec0` (27 KB) | 128 | 42 | CFEManager |
+| `global/unk_0b4cf0.cpp` | `0x0b4cf0`..`0x0bba40` (27 KB) | 84 | 0 | - |
+| `global/CFEManager.cpp` | `0x0be230`..`0x0c4ec0` (27 KB) | 127 | 42 | CFEManager |
 | `pure3d/unk_2d6bb0.cpp` | `0x2d6bb0`..`0x2dd760` (26 KB) | 57 | 0 | - |
 | `physics/unk_2e6780.cpp` | `0x2e6780`..`0x2ecd50` (25 KB) | 92 | 0 | - |
-| `global/CChaseCamera.cpp` | `0x09f760`..`0x0a5d0a` (25 KB) | 70 | 9 | CChaseCamera |
 | `unknown/unk_338d90.cpp` | `0x338d90`..`0x33ed90` (24 KB) | 167 | 0 | - |
 | `unknown/unk_3137f0.cpp` | `0x3137f0`..`0x319580` (23 KB) | 23 | 0 | - |
 | `pure3d/d3dExtFramebufferEffects.cpp` | `0x320160`..`0x325ee0` (23 KB) | 114 | 87 | pure3d::d3dExtFramebufferEffects |
 
 ## Uncertain regions
 
-197 low-confidence objects (6202 functions, 783 KB). The biggest:
+200 low-confidence objects (6210 functions, 783 KB). The biggest:
 
 | object | range | functions | directory from |
 |---|---|---|---|
 | `unknown/unk_212bb0.cpp` | `0x212bb0`..`0x2222f0` | 368 | none (no majority) |
-| `global/unk_0240b0.cpp` | `0x0240b0`..`0x02c4f0` | 291 | call partners |
-| `global/unk_0b4cf0.cpp` | `0x0b4cf0`..`0x0bba40` | 81 | call partners |
+| `unknown/unk_0240b0.cpp` | `0x0240b0`..`0x02c4f0` | 291 | none (no majority) |
+| `global/unk_0b4cf0.cpp` | `0x0b4cf0`..`0x0bba40` | 84 | call partners |
 | `pure3d/unk_2d6bb0.cpp` | `0x2d6bb0`..`0x2dd760` | 57 | call partners |
 | `physics/unk_2e6780.cpp` | `0x2e6780`..`0x2ecd50` | 92 | call partners |
 | `unknown/unk_338d90.cpp` | `0x338d90`..`0x33ed90` | 167 | none (no majority) |
 | `unknown/unk_3137f0.cpp` | `0x3137f0`..`0x319580` | 23 | none (no majority) |
-| `unknown/unk_33ed90.cpp` | `0x33ed90`..`0x3440e0` | 24 | none (no majority) |
+| `unknown/unk_33ed90.cpp` | `0x33ed90`..`0x3440e0` | 30 | none (no majority) |
 | `unknown/unk_22baf0.cpp` | `0x22baf0`..`0x230800` | 71 | none (no majority) |
 | `pure3d/unk_2e1960.cpp` | `0x2e1960`..`0x2e5330` | 14 | call partners |
 | `hulkfight/unk_034ca0.cpp` | `0x034ca0`..`0x038290` | 140 | call partners |
@@ -124,6 +166,7 @@ Confidence: `high` = a core with at least 3 named functions, `medium` = a core w
   so a class with one virtual and many non-virtual methods can swallow a long `FUN_` run
   (`global/CCharacter.cpp`: 116 functions, 1 named). That is often right (non-virtual methods are
   `FUN_`), but nothing bounds it.
-- **`unknown/unk_212bb0.cpp`** (368 functions right after the XAPILIB span) has no named function and no
-  majority of game callers; it may be more library code. Check it before decompiling it.
+- **`unknown/unk_212bb0.cpp`** (368 functions right after the XAPILIB span) is the Lua 5.1 core (parser and VM
+  error strings such as `"<name> expected"`, `"C stack overflow"`), and `unknown/unk_338d90.cpp` the Lua libraries
+  (`"Lua 5.1 (work)"`, `LUA_PATH`). Both are `engine`; they can be replaced by a stock Lua build (lua-scripts.md).
 - `.rdata`/`.data` splits are not inferred yet.

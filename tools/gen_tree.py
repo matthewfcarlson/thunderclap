@@ -9,7 +9,8 @@ them. tools/build_tree.py compiles and re-verifies it (and drives the fallback r
 build/tree/state.json).
 
 Per object in config/splits.json (kind game / game-init) the generator writes one translation unit,
-`build/tree/src/<dir>/<File>.cpp`, with every function of the object in address order:
+`build/tree/src/<layer>/<dir>/<File>.cpp` (layer = the object's `layer`: game, engine, platform/xbox; see
+docs/shipping.md §1), with every function of the object in address order:
 
   * a verified function (matches/ wins over equivalent/) as its definition;
   * an unverified one as `// 0xADDR NAME (size B): not yet verified`.
@@ -48,7 +49,7 @@ build_tree.py checks the result: a match must still match, an equivalent/ functi
 bytes as its standalone source; otherwise it falls back (merged -> wrapped -> isolated).
 
 Headers: a declaration that two or more TUs of one directory use identically, and that no TU of that
-directory declares differently, goes to `build/tree/include/<dir>.h`; one used identically by two or more
+directory declares differently, goes to `build/tree/include/<layer>/<dir>.h`; one used identically by two or more
 directories and declared the same way everywhere goes to `build/tree/include/common.h`. A declaration is
 only hoisted together with the declarations it depends on.
 
@@ -103,6 +104,11 @@ def load_splits():
         o["start_i"] = int(o["start"], 16)
         o["end_i"] = int(o["end"], 16)
     return sorted(objs, key=lambda o: o["start_i"])
+
+
+def layer_of(obj):
+    """The object's layer from config/splits.json (tools/infer_splits.py); `game` for splits written before layers."""
+    return obj.get("layer") or "game"
 
 
 def file_flags(text):
@@ -507,7 +513,7 @@ class Generator:
                 v = [a for a in addrs if a in self.sources]
                 self.stats["verified functions in library objects (not in the tree)"] += len(v)
                 continue
-            base = os.path.join("src", o["file"])
+            base = os.path.join("src", layer_of(o), o["file"])
             stem = base[:-4]
             tus = {"": TU(o, base, "")}
             blocks = []
@@ -923,9 +929,10 @@ class Generator:
         if tu.flags:
             lines.append("// cl-flags: " + " ".join(tu.flags))
         lines.append(HEADER)
-        lines.append("// object %s..%s (%s, confidence %s)%s" % (o["start"], o["end"], o["kind"], o["confidence"],
+        lines.append("// object %s..%s (kind %s, layer %s, confidence %s)%s" % (o["start"], o["end"], o["kind"], layer_of(o),
+                                                                             o["confidence"],
                                                                    ", dominant class " + o["dominant"] if o.get("dominant") else ""))
-        rec = {"path": tu.path, "object": o["file"], "start": o["start"], "tag": tu.tag,
+        rec = {"path": tu.path, "object": o["file"], "layer": layer_of(o), "start": o["start"], "tag": tu.tag,
                "flags": tu.flags or [], "blocks": [], "locals": [], "placeholders": len(tu.placeholders)}
         merged = [b for b in tu.blocks if b.mode == "merged"]
         if merged:
@@ -1107,6 +1114,11 @@ def summary(g):
         "placeholders": sum(len(t.placeholders) for t in g.tus),
         "headers": {h: len(v) for h, v in sorted(g.headers.items())} if hasattr(g, "headers") else {},
         "local_declarations": sum(len(t.local) for t in g.tus),
+        "layers": {layer: {"tu_files": sum(1 for t in g.tus if layer_of(t.obj) == layer),
+                           "functions": sum(len(t.blocks) + len(t.placeholders) for t in g.tus if layer_of(t.obj) == layer),
+                           "verified": dict(collections.Counter(b.mode for t in g.tus if layer_of(t.obj) == layer
+                                                                for b in t.blocks))}
+                   for layer in sorted({layer_of(t.obj) for t in g.tus})},
         "stats": dict(g.stats),
     }
 

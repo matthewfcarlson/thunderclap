@@ -37,8 +37,8 @@ was a multi-platform engine and every platform call goes through four seams ([pl
 so the tree is split by layer, not only by namespace:
 
 ```
-src/game/…            portable game code (hulkfight, fight, physics, game-side audio logic, Lua bindings, …)
-src/engine/…          portable Pure3D / radcore / radsound / Lua code
+src/game/…            portable game code (global C* classes, hulkfight, game-side sound logic, Lua bindings, front end, …)
+src/engine/…          portable Pure3D / radcore / radsound / Lua / choreo2 / fight / physics (sim) code
 src/platform/xbox/    our decomp of the Xbox seam implementations: pddi D3D8, radcore Xbox layer, radsound HAL, Bink player
 src/platform/sdl/     native backends: SDL3 input, audio and files; pddi on Metal / Vulkan / D3D12 (SDL_gpu or bgfx)
 include/seams/        the seam interfaces both platform directories implement
@@ -53,7 +53,10 @@ include/seams/        the seam interfaces both platform directories implement
   bytecode and saves bake in 32-bit pointers and sizes. 64-bit (Apple Silicon, modern Windows) comes later
   with widening loaders.
 - Each recovered object in `config/splits.json` carries a `layer` (`game`, `engine`, `platform/xbox`,
-  `library`); `tools/gen_tree.py` places files by layer.
+  `library`); `tools/gen_tree.py` places files by layer. Done 2026-10-15: link order splits game from engine
+  cleanly (`fight` and `physics` are linked with Radical's libraries, so they are `engine`), and
+  `platform/xbox` is 32 objects, 824 functions ([splits.md](splits.md#layers)). What the portable layers call
+  in it, per seam: [seams.md](seams.md).
 
 **First scaffold** (a good one-agent task):
 1. `tools/infer_splits.py` → function-to-file map, committed.

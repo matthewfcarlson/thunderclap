@@ -4,15 +4,16 @@ The per-function sources in `matches/` and `equivalent/` stay the source of trut
 into a source tree with one translation unit per recovered object file, and check that every function
 survives the merge. Plan: [shipping.md §1](shipping.md#1-the-source-tree-roadmap-steps-2-and-4). Splits:
 [splits.md](splits.md). Numbers below are from 2026-10-15, after the placeholder rename
-([below](#placeholder-names-toolsrename_placeholderspy)) and the stub reconciliation
-([below](#stub-reconciliation-2026-10-15)).
+([below](#placeholder-names-toolsrename_placeholderspy)), the stub reconciliation
+([below](#stub-reconciliation-2026-10-15)) and the [platform layer split](#platform-layers-2026-10-15).
 
 ```sh
 build/venv/bin/python tools/infer_splits.py      # config/splits.json + docs/splits.md      (~7 s)
 build/venv/bin/python tools/gen_tree.py          # build/tree/{src,include}/ from the splits (~8 s)
 build/venv/bin/python tools/build_tree.py --rounds 16  # generate, compile, fall back, re-verify (~25 min warm, ~45 min cold)
 build/venv/bin/python tools/build_tree.py --equiv 300   # also run equiv.py on 300 equivalent/ functions
-build/venv/bin/python tools/build_tree.py --only src/global/CAction.cpp  # one TU, current tree
+build/venv/bin/python tools/build_tree.py --only src/game/global/CAction.cpp  # one TU, current tree
+build/venv/bin/python tools/seam_inventory.py    # docs/seams.md: what game/engine call in platform/xbox (~30 s)
 build/venv/bin/python tools/reconcile_stubs.py [--apply]   # clone names in matches/ + equivalent/ (re-verify what it changes)
 ```
 
@@ -22,8 +23,8 @@ run. Everything under `build/` is regenerated; nothing in it is edited by hand.
 | Output | What |
 |---|---|
 | `config/splits.json` | object ranges in `.text` (committed) |
-| `build/tree/src/<dir>/<File>.cpp` | one TU per game object; `<File>.O1.cpp` for functions with other `cl-flags`; `<File>.iso_<addr>.cpp` for isolated functions |
-| `build/tree/include/<dir>.h`, `common.h` | hoisted shared declarations |
+| `build/tree/src/<layer>/<dir>/<File>.cpp` | one TU per game object, under its layer (`game`, `engine`, `platform/xbox`; [below](#platform-layers-2026-10-15)); `<File>.O1.cpp` for functions with other `cl-flags`; `<File>.iso_<addr>.cpp` for isolated functions |
+| `build/tree/include/<layer>/<dir>.h`, `common.h` | hoisted shared declarations |
 | `build/tree/manifest.json` | every TU: its functions, how each was emitted, line ranges |
 | `build/tree/state.json` | fallback decisions from the last build (wrap / isolate / keep out of headers) |
 | `build/tree/conflicts.json` | every symbol declared incompatibly by different sources |
@@ -106,6 +107,55 @@ passed as argument differs" at calls. Most likely equiv.py takes callee prototyp
 mangled name, and the `fn_<addr>` namespace changes those names; it needs a namespace-aware lookup before
 it can re-verify wrapped functions. Another difference from a standalone run: functions defined in the same
 object run as our code, like inlined helpers, instead of being bound to the original's addresses.
+
+## Platform layers (2026-10-15)
+
+The tree is split by layer, as decided in [shipping.md §1](shipping.md#1-the-source-tree-roadmap-steps-2-and-4):
+every object in `config/splits.json` has a `layer` (with `layer_evidence`, and `borderline` where the call was
+close), and `gen_tree.py` writes `build/tree/src/<layer>/<dir>/<File>.cpp` and `build/tree/include/<layer>/<dir>.h`
+(`common.h` stays shared). The verification build still compiles all three layers with MSVC 7.1.
+
+| layer | objects | functions | bytes | TUs | verified merged / wrapped / isolated |
+|---|---|---|---|---|---|
+| `game` | 1,318 (incl. the `.text$yc` initializers) | 19,615 | 2,049 KB | 1,494 | 10,418 / 6,727 / 119 |
+| `engine` | 433 | 7,342 | 1,123 KB | 470 | 4,831 / 1,704 / 17 |
+| `platform/xbox` | 32 | 824 | 113 KB | 33 | 471 / 290 / 1 |
+| `library` | 23 | — | 689 KB | not in the tree | |
+
+How (`tools/infer_splits.py` step 7, details in [splits.md](splits.md#layers)):
+
+- **game vs engine is link order.** The game's objects come first (up to XAPILIB at `0x208b9c`), Radical's
+  libraries after it: Lua 5.1 core (`unk_212bb0`, identified by its error strings), choreo2, fight, radsound/`om`,
+  radcore, Pure3D, sim (`physics`), pddi, radmovie, the Lua libraries (`unk_338d90`, `"Lua 5.1 (work)"`) and the
+  math library after LIBCMT. By namespace the split is clean: no namespace has more than a few hundred COMDAT
+  bytes on the other side. So `fight` and `physics` are `engine`, not `game` as the first sketch had it.
+- **platform/xbox inside the four seam ranges.** Objects are cut at the seam range edges and where functions
+  switch from Xbox classes / XDK calls to portable classes (5 cuts: the radsound HAL out of `unk_23fa40` and
+  `unk_258b40`, `d3dDevice` out of `pddiBaseContext`, the Maya-ASCII parser after `BinkCallback`), then an object
+  is `platform/xbox` when Xbox classes (`pure3d::d3d*`, `core::*XBox`/`Xbox*`, `movie::PlayerBink`/
+  `RenderStrategyBink`/`BinkCallback`) or XDK-calling functions dominate it. The rest of the seam ranges
+  (pddi base classes, radcore drives/files/requests/memory, radsound mixing) is portable `engine` code.
+- **Borderline (9)**: two game-region objects whose dominant class is from an engine namespace
+  (`pure3d/NonCopyable`, `om/Stream`), the `.text$yc` initializers (engine TUs' initializers too), and six engine
+  objects that call the platform directly but are mostly portable (`core/TimerList` and the radcore time
+  helpers in `unk_267280`: QPC; `core/Platform`: `XInitDevices`; `MemorySpaceAsyncRequest_Copy`:
+  `GlobalMemoryStatus`; `unk_2719a0`: `OutputDebugStringA`; the Pure3D timer in `unk_291dc0`). Those 12 functions
+  plus the 6 game leaks of platform-boundary.md are the layer leaks: shim functions before `game` + `engine`
+  can build without the XDK.
+
+**Seam interface**: [seams.md](seams.md) (`tools/seam_inventory.py`). Portable code reaches platform/xbox through
+53 virtual slots (453 typed call sites; mostly `pddiRenderContext` 24 slots / 302 sites, `pddiDisplay`,
+`pddiDevice`, `core::IControllerSystem`), 74 direct entry points (radcore thread/critical-section functions,
+controller and Bink helpers, the radsound HAL's plain functions, `d3dCreateDevice`) and 18 leak functions.
+No virtual slot exists only on an Xbox class. Of the 824 platform/xbox functions 597 are matched, 165
+equivalent, 62 not yet.
+
+**Tree after the layer split** (`build_tree.py --rounds 16`, log `build/layers-build.log`): **1,997 / 1,997 TUs
+compile; 20,024 / 20,024 matches still match; 4,554 / 4,554 equivalent/ functions compile, 4,508 with code
+identical to their standalone build, 46 wrapped ones can't be told, 0 differ.** Merged / wrapped / isolated
+15,720 / 8,721 / 137 (64.0% merged; before: 15,699 / 8,686 / 142, with a few dozen fewer sources). Splits were
+regenerated against the current `build/functions.csv` too (1,806 objects, was 1,803), which accounts for part of
+the TU count change. 26 headers (was 20): the directory headers now exist per layer.
 
 ## Placeholder names (`tools/rename_placeholders.py`)
 

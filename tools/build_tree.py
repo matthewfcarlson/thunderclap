@@ -4,7 +4,7 @@
   build/venv/bin/python tools/build_tree.py              # generate, compile, fall back, re-verify, report
   build/venv/bin/python tools/build_tree.py --jobs 4     # compiler processes (default 4; the box is shared)
   build/venv/bin/python tools/build_tree.py --rounds 8   # max fallback rounds
-  build/venv/bin/python tools/build_tree.py --only src/global/CAction.cpp   # one TU, current state
+  build/venv/bin/python tools/build_tree.py --only src/game/global/CAction.cpp   # one TU, current state
 
 Steps:
   1. Generate the tree from an empty fallback state (build/tree/state.json).
@@ -509,10 +509,29 @@ def summarize(manifest, results, checks, history, gen, state):
         "equivalent_vs_standalone": dict(collections.Counter(
             "%s/%s" % (c["mode"], c.get("vs_standalone")) for c in checks if c["kind"] == "equivalent")),
         "regressions_left": len(regressions(checks)),
+        "by_layer": by_layer(tus, results, checks),
         "fallbacks": {"wrapped_by_build": len(state["wrap"]), "isolated_by_build": len(state["isolate"]),
                       "header_symbols_kept_local": len(state["local_only"])},
         "generator": gen_tree.summary(gen),
     }
+
+
+def by_layer(tus, results, checks):
+    """TUs compiled and functions per layer (src/<layer>/...; docs/shipping.md §1)."""
+    layer_of = {t["path"]: t.get("layer", "game") for t in tus}
+    out = collections.defaultdict(collections.Counter)
+    for t in tus:
+        d = out[layer_of[t["path"]]]
+        d["tu_files"] += 1
+        d["tu_compiled"] += results[t["path"]][0] is not None
+    for c in checks:
+        d = out[layer_of.get(c["tu"], "game")]
+        d["%s/%s" % (c["kind"], c["mode"])] += 1
+        if c["kind"] == "matches":
+            d["matches_still_matching"] += c["status"] == "match"
+        else:
+            d["equivalent_compiled"] += c["status"] == "compiled"
+    return {k: dict(sorted(v.items())) for k, v in sorted(out.items())}
 
 
 def run_equiv(checks, results, limit):
