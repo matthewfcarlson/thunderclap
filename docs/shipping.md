@@ -32,6 +32,29 @@ layouts checked against the XBE. Migrating matches onto it is roadmap step 2.
 - *Native build:* the same tree under clang. Unverified functions are holes. The hybrid build covers them
   with the original code; a native build can't, so it needs step 3 finished.
 
+**Platform layers (decided 2026-10-14).** One tree builds the Xbox game and the native ports. Pure3D/radcore
+was a multi-platform engine and every platform call goes through four seams ([platform-boundary.md](platform-boundary.md)),
+so the tree is split by layer, not only by namespace:
+
+```
+src/game/…            portable game code (hulkfight, fight, physics, game-side audio logic, Lua bindings, …)
+src/engine/…          portable Pure3D / radcore / radsound / Lua code
+src/platform/xbox/    our decomp of the Xbox seam implementations: pddi D3D8, radcore Xbox layer, radsound HAL, Bink player
+src/platform/sdl/     native backends: SDL3 input, audio and files; pddi on Metal / Vulkan / D3D12 (SDL_gpu or bgfx)
+include/seams/        the seam interfaces both platform directories implement
+```
+
+- **Xbox:** `game` + `engine` + `platform/xbox` under MSVC 7.1. The working-game route is the hybrid build:
+  our objects patched into the player's own XBE, so Microsoft's XDK libraries and Bink come from their disc
+  and are never shipped. A full relink would need the XDK, which isn't ours to distribute. Running
+  identically on Xbox is the test that `game` and `engine` are right before any native backend exists.
+- **macOS, Windows, Linux:** `game` + `engine` + `platform/sdl` under clang (MSVC also works on Windows).
+- **Pointer size:** the first native build is 32-bit x86 (roadmap step 4), because `.p3d` chunks, Lua
+  bytecode and saves bake in 32-bit pointers and sizes. 64-bit (Apple Silicon, modern Windows) comes later
+  with widening loaders.
+- Each recovered object in `config/splits.json` carries a `layer` (`game`, `engine`, `platform/xbox`,
+  `library`); `tools/gen_tree.py` places files by layer.
+
 **First scaffold** (a good one-agent task):
 1. `tools/infer_splits.py` → function-to-file map, committed.
 2. Generate `src/<namespace>/<File>.cpp`: verified functions in address order, with a placeholder comment
