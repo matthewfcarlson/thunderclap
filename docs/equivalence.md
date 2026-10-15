@@ -11,7 +11,7 @@ build/venv/bin/python tools/equiv.py SRC 0xADDR -- /Oy-         # extra cl flags
 ```
 
 Library: `equiv.verify(src, addr, symbol=None, flags=(), n_inputs=64, mapping=None, use_names=True, ...)`
-returns the report dict. `seeds=[...]` (or `EQUIV_SEEDS=1,2` in the environment) runs only those random
+returns the report dict. `seeds=[...]` (or `EQUIV_SEEDS=1,2` in the environment, whatever `--inputs` says) runs only those random
 inputs: a regression case for the one input in thousands that showed a bug. The exit status is 0 only for `equivalent`. A typical function takes 1–5 s
 (compile included); loops that run long on fuzzed inputs can take up to the 120 s level-3 budget. The
 budget is CPU time, so a loaded machine takes longer but gets the same result. `--time-budget S` changes it (slow
@@ -186,7 +186,8 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
 - With `--inputs` over 256, the random inputs hand over to the directed ones once half the time budget is
   gone (and 50 inputs completed); the rest of the random inputs run afterwards, then directed ones again.
   When the random phase stops at 32 inconclusive inputs, the directed phase runs, then more random inputs
-  while fewer than 50 have completed, or while at most 20% of them were inconclusive.
+  while fewer than 50 have completed, or while at most 20% of them were inconclusive, or while branch
+  coverage is under the 75% promotion bar (then directed ones again).
 - **Alphabet strings.** A char loop that compares each byte with constants (an atof-style parser: `'-'`,
   `'.'`, `'0'`..`'9'`) gets short strings made of those chars (and keywords spelled by compares at
   consecutive offsets, `p[0] == 'c' && p[1] == 'l' && ...`) planted where it read its first byte. A stack
@@ -323,7 +324,11 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
 **Compared per input**
 - The call trace: targets in order; the argument words; and the callee's register inputs, i.e.
   `ecx`/`edx`/`eax` when the callee reads them before writing (so `this`, and `ecx` for every virtual
-  call).
+  call). `ecx` isn't compared at a call through a pointer that the original proves cdecl: its caller
+  releases every word pushed for the call right after it (`push esi; call [ecx+0xc]; add esp, 4`), which
+  only a cdecl callee allows (thiscall, stdcall and fastcall pop their own words), or a later call through the
+  same field (the same operand at the same non-stack address, `call [esi+4]`) whose cleanup is shared with
+  the next call's.
 - Locals passed by pointer, on the stack or in a register: exactly `sizeof(*param)` bytes for a class
   type, taken from our callee declaration (a `sizeof` probe compile). A scalar or unknown pointer may
   point at an array, so it is compared over the words the function filled in, up to the next local whose
@@ -335,8 +340,9 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   The stack is excluded.
 - The return value by type: `al`, `ax`, `eax`, `edx:eax` or `st0`. A function we declare `void` that is
   reached only through a vtable or a pointer (no direct call sites) still has `eax` compared when the
-  original leaves a meaningful value there: a callee's result nothing overwrote, or a write to `eax` the
-  function never reads back (a `dec eax; jne` of a switch's dec chain is read, through the flags) (`left 0x7 in eax, expected 0xa8: ours is void, but the original returns a
+  original leaves a meaningful value there: a callee's result nothing overwrote and that the function used
+  as a value (only dereferencing it, `cmp [eax+0x221c], ebx`, isn't evidence: `use(f()->x)` and `p = f();
+  use(p->x); return p` compile alike), or a write to `eax` the function never reads back (a `dec eax; jne` of a switch's dec chain is read, through the flags) (`left 0x7 in eax, expected 0xa8: ours is void, but the original returns a
   value there`).
 - Bytes of `eax` that last came from `fnstsw ax` (a float branch's status word, `fnstsw ax; test ah, 0x41;
   ...; mov al, 1; ret`) aren't compared: no source produces them. What was written after them (`al`) is.
@@ -354,6 +360,16 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
 An input on which either side stores into code (our object at `0x60000000`, or the original's `.text`,
 through a fuzzed pointer) is inconclusive: the store rewrites one side's instructions only (`statuses`
 counts them as `code_write`).
+
+Inputs that are undefined behaviour in the original are inconclusive too when they show a difference (one
+that agrees counts as usual), when the input proves the undefined behaviour:
+- the original overruns a buffer into its return address or a live saved-register slot with an array-style
+  store (indexed, through a pointer, or a string instruction: `buf[len] = 0` with a fuzzed `len`)
+  (`stack_smash`; one that then goes wild is set aside as `stack_smash`, not `wild`). Plain `mov [esp+k]` stores don't count (an argument word rewritten for the next call
+  can look like a register save);
+- a CRT copy routine under test (`strncat`, `strcat`, `strncpy`, `strcpy` and the wide versions; not
+  `memcpy`, which is `memmove` in this XBE) gets a source that overlaps the destination over the bytes it
+  certainly touches (`overlap_ub`).
 
 **Wild control flow** (`statuses`: `wild`). A run stops (`fault:wild_jump`) where control leaves the
 function's own code: a return through a return address that a fuzzed pointer or an overflowed stack buffer
@@ -384,9 +400,14 @@ value is compared anyway, and `return_note` says so.
 
 **Coverage** counts taken/not-taken for every conditional branch (except dead sides: a jcc right
 after `cmp r, r`/`sub r, r`/`xor r, r` that nothing else jumps to; the zero side of `lea ecx, [esi + 4]; ...;
-test ecx, ecx` where esi is a pointer, the null check of `&this->member`; sides a source declares with
+test ecx, ecx` where esi is a pointer, the null check of `&this->member`; the wraparound side of `lea ecx,
+[ebp + 3]; cmp ebp, ecx; jae` when either register is used as a pointer; a jcc whose flags come from
+registers that hold the same constant on every path (`xor eax, eax` before a loop, `test eax, eax; jne`
+after it); sides a source declares with
 `// equiv-dead: +0x63 taken, +0x70 not taken: why` after hand review, listed in `coverage.declared_dead`;
-and everything only a dead side reaches), 0/1 for every `setcc`, and every
+and everything only a dead side reaches; a side a rule calls dead that a run takes anyway counts normally
+and is listed in `coverage.dead_taken`, a checker bug to report), 0/1 for every `setcc` (also one that
+stores to memory, `sete byte ptr [esp+0x1c]`), and every
 jump-table case of the original (a table is read up to its first non-code word, and ends where the
 next table of the function starts, so two back-to-back switches keep their own cases). It comes only from inputs that ran to completion (not from faults).
 Directed inputs can also patch a word a stub filled through an out-parameter, when the original compares

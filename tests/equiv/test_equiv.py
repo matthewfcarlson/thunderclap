@@ -64,6 +64,24 @@ class Logic(unittest.TestCase):
         self.assertTrue(any("return 4;" in v for v in m["const"]))
         self.assertTrue(any("int mut_pad_" in v for v in m["field"]))
 
+    @unittest.skipUnless(hasattr(equiv, "_copy_overlap"), "round 8")
+    def test_copy_overlap(self):
+        # (round 8, overlap) memory: "abc\0" at 0x40000000, "xy\0" at 0x40000100, zeros elsewhere
+        mem = {0x40000000: b"abc\0", 0x40000100: b"xy\0"}
+
+        def byte(a):
+            for base, b in mem.items():
+                if base <= a < base + len(b):
+                    return b[a - base]
+            return 0x41
+        d, s = 0x40000000, 0x40000100
+        self.assertFalse(equiv._copy_overlap("ncat", 1, [d, s, 10], byte))      # disjoint
+        self.assertTrue(equiv._copy_overlap("ncat", 1, [d, d, 10], byte))       # strncat(d, d, n)
+        self.assertTrue(equiv._copy_overlap("ncat", 1, [d, d + 2, 10], byte))   # src inside dest's string
+        self.assertFalse(equiv._copy_overlap("ncat", 1, [d, d, 0], byte))       # count 0: nothing touched
+        self.assertTrue(equiv._copy_overlap("ncpy", 1, [s - 1, s, 2], byte))    # dest runs into src
+        self.assertFalse(equiv._copy_overlap("ncpy", 1, [s - 2, s, 2], byte))   # ends right before src
+
 
 @unittest.skipUnless(HAVE_GAME, "needs isos/extracted and the MSVC toolchain")
 class EndToEnd(unittest.TestCase):
@@ -80,6 +98,18 @@ class EndToEnd(unittest.TestCase):
             r = equiv.verify(p, 0x110F0, n_inputs=32, max_inputs=32)
         self.assertEqual(r["status"], "fail")
         self.assertTrue(r["level3"]["mismatches"])
+
+    def test_env_seed_past_inputs(self):
+        # (round 8) EQUIV_SEEDS=N runs seed N even when --inputs is smaller (it reported unsupported)
+        old = set(equiv.ONLY_SEEDS)
+        equiv.ONLY_SEEDS.clear()
+        equiv.ONLY_SEEDS.add(300)
+        try:
+            r = equiv.verify(os.path.join(ROOT, "matches/0x000110d0.cpp"), 0x110D0, n_inputs=16, max_inputs=16)
+        finally:
+            equiv.ONLY_SEEDS.clear()
+            equiv.ONLY_SEEDS.update(old)
+        self.assertGreaterEqual(r["level3"]["inputs_run"], 1, r)
 
     def test_other_flags_still_equivalent(self):
         r = equiv.verify(os.path.join(ROOT, "matches/0x000110d0.cpp"), 0x110D0, flags=["/Oy-"], n_inputs=16,

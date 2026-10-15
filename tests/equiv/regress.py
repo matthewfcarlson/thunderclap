@@ -261,6 +261,39 @@ CASES = {
     # each side (0x001f977a vs 0x600000aa): the same earlier call's return address is equal
     "0x001f9710_stale_retaddr": ("equivalent", None, 0.9),
     "0x0009d1b0_void_dec_chain": ("equivalent", None, 0.75, {"seeds": list(range(32)) + [524, 1598, 1862]}),
+    # round 8. `c->u.f(L)` through a fuzzed lua_CFunction (`push esi; call [ecx+0xc]; add esp, 4`): the caller
+    # pops the call's words right after it, so the callee is cdecl and ecx isn't its argument (it was compared
+    # because ecx == [ecx] on the null page made it look like a virtual call)
+    "0x00215790_cdecl_ecx": ("equivalent", None, 0.9, {"seeds": list(range(32)) + [79]}),
+    # ... and a later call through the same field ([esi+4], Lua's writer callback) whose cleanup is shared
+    # with the next call's (`call [esi+4]; ...; push x4; call [esi+4]; add esp, 0x20`)
+    "0x0021a830_cdecl_field": ("equivalent", None, 0.9, {"seeds": list(range(32)) + [50, 99]}),
+    # a void virtual whose original leaves a callee's result in eax after only dereferencing it
+    # (`cmp [eax+0x221c], ebx`): not evidence that it returns it
+    "0x000da930_deref_result": ("equivalent", None, 0, {"seeds": [9]}),
+    # an input that times out inside a CRT helper run for real (no jcc of the function counted): the loop
+    # repair's candidate list crashed with `max()` of an empty sequence
+    "0x0028ff00_helper_timeout": ("equivalent", None, 0.9, {"seeds": list(range(32)) + [105]}),
+    # strncat(d, d, n) and strncat(d, d + 12, n): overlapping copies are undefined behaviour (the original
+    # reads the source a word at a time, a byte loop sees its own writes): inconclusive; a missing
+    # terminator still fails
+    "0x003468c0_overlap_ub": ("equivalent", None, 0.75, {"seeds": list(range(32)) + [1101, 1197, 1205]}),
+    "0x003468c0_overlap_ub_wrong": ("fail", "missing write to arg0", 0, {"seeds": list(range(32)) + [1101, 1197, 1205]}),
+    # `buf[len] = 0` with a fuzzed len lands on the original's saved ebx: a buffer overrun into saved
+    # registers or the return address is undefined behaviour, so the input is inconclusive; a wrong bound
+    # still fails
+    "0x001f0090_buf_overrun": ("equivalent", None, 0.9),
+    "0x001f0090_buf_overrun_wrong": ("fail", "missing call"),
+    # `sete byte ptr [esp+0x1c]` (a setcc into memory) was never counted, and `lea ecx, [ebp+3]; cmp ebp, ecx;
+    # jae` is taken only when the pointer wraps past 2^32 (15/22 -> 17/19)
+    "0x0023c040_wrap_setmem": ("equivalent", None, 0.85, {"n_inputs": 400}),
+    # `xor eax, eax` before a list walk, then `test eax, eax; jne`: eax is 0 on every path (constant
+    # propagation, with `test r, r; je L` making r 0 at L), so the taken side is dead (22/30 -> 22/28)
+    "0x00233990_const_flags": ("equivalent", None, 0.75, {"n_inputs": 3000}),
+    # a polygon clipper: 21% of the random inputs run away (fuzzed vertex counts), the 32-inconclusive cap
+    # stopped them at 121 completed with 46/72 edges; under 75% the time left goes to more random inputs
+    # (~100 s: 66/72)
+    "0x00359a80_cov_cap": ("equivalent", None, 0.75, {"n_inputs": 3000}),
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)

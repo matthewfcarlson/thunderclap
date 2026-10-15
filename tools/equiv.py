@@ -972,6 +972,28 @@ class CodeView:
             c[addr] = (rd, wr)
         return c[addr]
 
+    def eax_base_only(self, addr):
+        """(round 8) The instruction reads eax only as the base or index of a memory operand (`cmp [eax +
+        0x221c], ebx`): it dereferences the value without using it as a value."""
+        i = self.decode(addr)
+        if i is None or i.mem is None or not (i.mem[1] == "eax" or i.mem[2] == "eax"):
+            return False
+        fam = ("eax", "ax", "al", "ah")
+        for k, op in enumerate(i.ops):
+            if op[0] == "reg" and op[1] in fam:
+                if k > 0 or i.mnemonic not in ("mov", "movzx", "movsx", "lea", "pop") and \
+                        not i.mnemonic.startswith("set"):
+                    return False
+        ci = next(self.prog.md.disasm(self.read(addr, 16), addr, 1), None)
+        try:
+            r, _ = ci.regs_access()
+        except Exception:
+            return False
+        explicit = {ci.reg_name(x) for op in ci.operands if op.type == cx.X86_OP_REG for x in (op.reg,)} | \
+            {ci.reg_name(x) for op in ci.operands if op.type == cx.X86_OP_MEM for x in (op.mem.base, op.mem.index) if x}
+        # an implicit read (cdq, stosd, mul, xchg's other side) uses the value
+        return not ({ci.reg_name(x) for x in r} - explicit) & set(fam)
+
     def popped_regs(self):
         """Registers some `pop` (or `leave`, for ebp) of this function restores."""
         if "_popped" not in self.__dict__:
@@ -1469,6 +1491,32 @@ class CodeView:
             elif j.kind != "other" or j.mnemonic in ("pop", "sub", "leave", "pushal", "popal", "pushfd",
                                                     "popfd") or (j.ops and j.ops[0] == ("reg", "esp")):
                 return None             # (a store into an argument slot, [esp+n], is fine)
+            a += j.size
+        return None
+
+    def immediate_cleanup(self, call_addr):
+        """(round 8) Bytes an `add esp, N` releases right after a call, with only plain instructions in
+        between (no push, pop, call, jump or other esp change), when it isn't part of an epilogue (the next
+        instruction isn't ret, jmp, pop, leave or `mov esp, ebp`). None otherwise. The strict form of
+        cleanup_after: no deferred cleanups shared with later calls are guessed."""
+        i = self.decode(call_addr)
+        if i is None:
+            return None
+        a = call_addr + i.size
+        for _ in range(16):
+            j = self.decode(a)
+            if j is None or j.kind != "other":
+                return None
+            if j.mnemonic == "add" and j.op_str.startswith("esp,") and j.imms:
+                nx = self.decode(a + j.size)
+                if nx is None or nx.kind in ("ret", "jmp", "stop") or nx.mnemonic in ("pop", "leave", "popal") or \
+                        (nx.mnemonic == "mov" and nx.op_str == "esp, ebp"):
+                    return None
+                return j.imms[0]
+            if j.mnemonic in ("push", "pop", "pushal", "popal", "pushfd", "popfd", "leave", "enter") or \
+                    (j.ops and j.ops[0] == ("reg", "esp")) or "esp" in j.regs and j.mnemonic not in ("mov", "lea") or \
+                    (j.mnemonic in ("mov", "lea") and j.ops and j.ops[0] == ("reg", "esp")):
+                return None
             a += j.size
         return None
 
@@ -2240,8 +2288,12 @@ class Run:
         self.max_mapped = 0         # most pages mapped at once (memory-hungry runs)
         self.abi_mismatch = None    # (call index, callee, bytes our declaration pops, bytes it really pops)
         self.cookies = set()        # values read from the /GS cookie global
+        self.cdecl_site = False     # (round 8) the current call is proven cdecl by the caller's cleanup
+        self.smashed = None         # (round 8) where a store overran into the return address or a saved register
+        self.cdecl_slots = set()    # (operand, address) of the fields indirect calls proven cdecl went through
         self.eax_def = None         # what last set eax: ("call" | "insn", bits), and whether code read it since
         self.eax_read = False
+        self.eax_vread = False      # (round 8) ... read as a value, not only dereferenced
         self.cookie_bad = None      # the cookie check got something else in ecx (before call #n)
         self.decls = {}             # callee address -> our declaration's signature (our run only)
         self.caller_cleans = set()  # callees with a plain ret whose original callers pop the arguments
@@ -2328,6 +2380,17 @@ class Run:
     def _on_write(self, uc, access, addr, size, value, _):
         if STACK_LO <= addr < STACK_HI:
             ci = self.cur_insn
+            if self.smashed is None and ci is not None and ci.mnemonic not in ("push", "call", "pushal", "pushfd") \
+                    and "smash" not in EQUIV_OFF and addr < ENTRY_ESP + 4 and \
+                    (ci.mnemonic.startswith(("rep", "stos", "movs")) or
+                     (ci.mem is not None and (ci.mem[2] or ci.mem[1] not in ("esp", "ebp")))):
+                # (round 8, smash) an array-style store (indexed, through a pointer, a string instruction) over
+                # the return address or a live saved-register slot: a buffer overrun (`buf[len] = 0` with a
+                # fuzzed len), undefined behaviour no real input causes. (Plain `mov [esp+k]` stores are left
+                # alone: an argument word pushed once and rewritten for the next call can look like a save.)
+                hit = range(addr & ~3, addr + size, 4)
+                if any(x == ENTRY_ESP or (x in self.save_slots and x >= self.reg("esp")) for x in hit):
+                    self.smashed = ci.addr
             if ci is not None and ci.kind == "call" and self.helper_ret is None:
                 self.save_slots.update(range(addr & ~3, addr + size, 4))   # a return address: never data
             elif self.helper_ret is not None:
@@ -2537,6 +2600,7 @@ class Run:
         uc = self.uc
         esp = self.reg("esp")
         self.save_slots = {x for x in self.save_slots if x >= esp}     # slots below esp are dead
+        self.cdecl_site = False
         # Callee facts only for real call sites: a target read from fuzzed memory is just a number.
         known = insn.target is not None or (insn.mem is not None and insn.mem[1] is None and insn.mem[2] is None)
         p = self.prog.callee_pop(target) if known else None
@@ -2559,6 +2623,31 @@ class Run:
             argbase = esp
             cleanup = self.view.cleanup_after(insn.addr)
             tracked = sorted(s for s in self.tracked if s >= esp)
+            if not known and tracked and "ccall" not in EQUIV_OFF:
+                # (round 8) an indirect call whose caller releases every word pushed for it right after the
+                # call (`push esi; call [ecx+0xc]; add esp, 4`): the callee left its arguments on the stack.
+                # Only cdecl does that (thiscall, stdcall and fastcall pop theirs; a member function with
+                # `...` is cdecl with `this` pushed), so the callee doesn't take ecx. Were it callee-popped,
+                # the `add esp` would release words below the frame's pending pushes, which MSVC never emits.
+                ic = self.view.immediate_cleanup(insn.addr)
+                self.cdecl_site = ic is not None and ic == 4 * len(tracked)
+                # A call through the same field (the same operand, `call [esi+4]` again, at the same address,
+                # not on the stack, whose slots are reused) has the same pointer type, whatever value it
+                # holds now (memory is re-read after each call): the proof carries over to a call through it
+                # whose cleanup is shared with the next call's (Lua's DumpFunction: `call [esi+4]; ...;
+                # push x4; call [esi+4]; add esp, 0x20`).
+                slot = None
+                if insn.mem is not None and insn.mem[1] not in ("esp", "ebp") and insn.mem[0] is None:
+                    ea_ = self._ea(insn.mem)
+                    if not STACK_LO <= ea_ < STACK_HI:
+                        slot = (insn.mem[1:5], ea_)
+                if slot is not None:
+                    if self.cdecl_site:
+                        self.cdecl_slots.add(slot)
+                    elif slot in self.cdecl_slots:
+                        self.cdecl_site = True
+            else:
+                self.cdecl_site = False
             semantic = self.prog.callee_stack_args(target) if known else None
             # unknown arity: what the caller does with the pushed words afterwards decides (released by a
             # later `add esp`: caller-cleaned; popped or read by a later call they were pushed for)
@@ -2749,7 +2838,7 @@ class Run:
                            "float_ret": fret, "at": insn.addr, "tail": tail, "pointees": pointees, "known": known,
                            "ret_to": insn.addr + insn.size,
                            "conv": bool(conv), "argw": argw, "esp": esp,
-                           "via_object": self._is_virtual_on_ecx(insn)})
+                           "via_object": self._is_virtual_on_ecx(insn), "cdecl_site": self.cdecl_site})
         self._close_segment()
         self._perturb()
         if not tail:
@@ -2827,7 +2916,7 @@ class Run:
             clobbers = {"eax", "ecx", "edx"}
         if "eax" in clobbers:
             uc.reg_write(u.UC_X86_REG_EAX, eax)
-            self.eax_def, self.eax_read = ("call", 32), False
+            self.eax_def, self.eax_read, self.eax_vread = ("call", 32), False, False
             self.ax_status = False
             if self.coverage and not ret_this:
                 self.loads["eax"] = (("ret", k), 4, self.epoch, "eax", (), eax)     # for directed inputs
@@ -3393,6 +3482,8 @@ class Run:
                 rd, wr = self.view.eax_rw(addr)
                 if rd:
                     self.eax_read = True
+                    if "derefonly" in EQUIV_OFF or not self.view.eax_base_only(addr):
+                        self.eax_vread = True
                 if wr:
                     self.eax_def, self.eax_read = ("insn", wr, addr), False
                     if insn is not None and insn.mnemonic in ("fnstsw", "fstsw"):
@@ -3435,12 +3526,20 @@ class Run:
                 if self.prev_set is not None:
                     pa, pr = self.prev_set
                     try:
-                        self.edges.add((pa, "set%d" % (self.reg(pr) & 1)))
+                        v_ = self.uc.mem_read(pr[1], 1)[0] if isinstance(pr, tuple) else self.reg(pr)
+                        self.edges.add((pa, "set%d" % (v_ & 1)))
                     except Exception:
                         pass
                     self.prev_set = None
                 if insn.mnemonic.startswith("set") and insn.regs:
                     self.prev_set = (addr, insn.regs[0])
+                elif insn.mnemonic.startswith("set") and insn.mem is not None and "setmem" not in EQUIV_OFF:
+                    # (round 8) `sete byte ptr [esp + 0x1c]`: the outcome is the byte it stores (it was never
+                    # counted, so both sides of such a setcc stayed uncovered)
+                    try:
+                        self.prev_set = (addr, ("mem", self._ea(insn.mem)))
+                    except Exception:
+                        pass
                 if insn.mnemonic.startswith(("repe cmps", "repz cmps")):
                     self._note_rep_cmps(insn)
                 self._observe(insn)
@@ -3648,7 +3747,9 @@ class Run:
             out["eax_fnstsw"] = 8 if d[1] == 8 else 0
             if d[1] != 8:
                 d = None
-        out["eax_defined"] = d[1] if d and ((d[0] == "call" and self.eax_read) or (d[0] == "insn" and not self.eax_read and
+        # (round 8, derefonly) A callee's result that was only dereferenced (`f()->state == 1`, `cmp [eax +
+        # 0x221c], ebx`) is as ambiguous: `use(f()->x)` and `p = f(); use(p->x); return p` compile alike
+        out["eax_defined"] = d[1] if d and ((d[0] == "call" and self.eax_read and self.eax_vread) or (d[0] == "insn" and not self.eax_read and
                                                                 self.view.eax_dead_after(d[2]))) else None
         out["segments"] = self.segments
         out["seg_fpu"] = self.seg_fpu
@@ -4403,6 +4504,10 @@ def compare_runs(o, r, ret_kind, machine, namer, prog, max_report=4, esp_adjust=
         want = prog.reg_inputs(a["target"]) if a["target"] in prog.funcs and a.get("known") else None
         if want is None:
             want = {"ecx"} if a.get("via_object") and b.get("via_object") else set()
+            if a.get("cdecl_site"):
+                # (round 8, ccall) the original's caller released the call's pushed words right after it:
+                # the target is cdecl, which doesn't take ecx (only the original's code is evidence here)
+                want = set()
         bad_reg = None
         for reg in sorted(want):
             if _norm(a["regs"][reg]) != _norm(b["regs"][reg]):
@@ -4636,6 +4741,10 @@ def infeasible_edges(view):
                 out.add((j, j + i.size) if taken else (j, i.target))
     if "leanull" not in EQUIV_OFF:
         out |= _lea_null_edges(view)
+    if "wrapcmp" not in EQUIV_OFF:
+        out |= _wrap_edges(view)
+    if "constflags" not in EQUIV_OFF:
+        out |= _const_flag_edges(view)
     out |= getattr(view, "declared_dead", set())
     if out and "unreach" not in EQUIV_OFF:
         # (round 7) code reachable only through a dead side is dead too: all its branch sides, setcc
@@ -4725,6 +4834,199 @@ def _lea_null_edges(view):
     return out
 
 
+# (round 8) unsigned jcc -> (dead side when the compare's first operand is the lea's base, when it is the lea's
+# result): True = taken, False = not taken
+_WRAP_DEAD = {"jae": (True, False), "jnb": (True, False), "jnc": (True, False), "ja": (True, False),
+              "jnbe": (True, False), "jb": (False, True), "jnae": (False, True), "jc": (False, True),
+              "jbe": (False, True), "jna": (False, True)}
+
+
+def _wrap_edges(view):
+    """(round 8) `lea ecx, [ebp + 3]; cmp ebp, ecx; jae L` (`hi = p + 3; while (lo < hi)`, reverse4): ebp >= ecx
+    only when p + 3 wraps past 2^32, which no object allows (computing p + 3 is undefined unless it stays
+    inside p's object). That side is dead when one of the two registers is used as a memory base in the
+    function (a pointer, not an integer overflow check). Straight-line code only, neither register rewritten
+    between the lea and the cmp, nothing jumps in between."""
+    out = set()
+    prev = {a + i.size: a for a, i in view.insns.items()}
+    targets = {i.target for i in view.insns.values() if i.target is not None} | \
+        {t for tg in view.tables.values() for t in tg}
+    bases = {i.mem[1] for i in view.insns.values() if i.mem is not None and i.mnemonic != "lea" and i.mem[1]}
+    for j in view.jcc:
+        i = view.insns[j]
+        if i.mnemonic not in _WRAP_DEAD or j in targets:
+            continue
+        a, cmp_ = prev.get(j), None
+        for _ in range(8):
+            p = view.insns.get(a)
+            if p is None or p.kind != "other":
+                break
+            if p.mnemonic == "cmp":
+                cmp_ = p
+                break
+            if p.mnemonic not in _FLAGS_KEPT or a in targets:
+                break
+            a = prev.get(a)
+        if cmp_ is None or len(cmp_.ops) != 2 or cmp_.ops[0][0] != "reg" or cmp_.ops[1][0] != "reg" or a in targets:
+            continue
+        ra, rb = cmp_.ops[0][1], cmp_.ops[1][1]
+        if ra == rb or ra not in Program._REGS or rb not in Program._REGS:
+            continue
+        a = prev.get(a)
+        for _ in range(12):
+            p = view.insns.get(a)
+            if p is None or p.kind != "other":
+                break
+            if p.mnemonic == "lea" and p.ops and p.ops[0][0] == "reg" and p.ops[0][1] in (ra, rb) and p.mem is not None:
+                _, b, ix, _, disp, _ = p.mem
+                res = p.ops[0][1]
+                other = rb if res == ra else ra
+                if b == other and ix is None and 0 < disp < 0x10000 and (ra in bases or rb in bases):
+                    first_is_base = (ra == other)
+                    dead_taken = _WRAP_DEAD[i.mnemonic][0 if first_is_base else 1]
+                    out.add((j, i.target) if dead_taken else (j, j + i.size))
+                break
+            if p.ops and p.ops[0][0] == "reg" and p.ops[0][1] in (ra, rb) or a in targets or \
+                    p.mnemonic in ("xchg", "cmpxchg", "xadd", "pop") or \
+                    p.mnemonic.startswith(("rep", "stos", "lods", "movs", "cmps", "scas", "div", "idiv", "mul", "cdq")):
+                break
+            a = prev.get(a)
+    return out
+
+
+def _jcc_taken(mn, zf, cf, sf, of, pf):
+    return {"je": zf, "jz": zf, "jne": not zf, "jnz": not zf, "jb": cf, "jc": cf, "jnae": cf, "jae": not cf,
+            "jnb": not cf, "jnc": not cf, "jbe": cf or zf, "jna": cf or zf, "ja": not (cf or zf),
+            "jnbe": not (cf or zf), "jl": sf != of, "jnge": sf != of, "jge": sf == of, "jnl": sf == of,
+            "jle": zf or sf != of, "jng": zf or sf != of, "jg": not zf and sf == of, "jnle": not zf and sf == of,
+            "js": sf, "jns": not sf, "jo": of, "jno": not of, "jp": pf, "jpe": pf, "jnp": not pf,
+            "jpo": not pf}.get(mn)
+
+
+def _const_flag_edges(view):
+    """(round 8) A jcc whose flags come from `test r, r` / `cmp r, imm` / `cmp r, r2` on registers that hold
+    the same constant on every path reaching it (`xor eax, eax` before a loop whose `test eax, eax; jne`
+    re-reads it): one side is dead. A forward constant propagation over the function's registers (writes
+    other than `xor r, r`, `sub r, r`, `mov r, imm`, `mov r, r2` make a register unknown, and so does every
+    call), skipping edges it has shown dead; `test r, r; je L` makes r 0 at L."""
+    regs = ("eax", "ecx", "edx", "ebx", "esi", "edi", "ebp")
+    prev = {a + i.size: a for a, i in view.insns.items()}
+    targets = {i.target for i in view.insns.values() if i.target is not None} | \
+        {t for tg in view.tables.values() for t in tg}
+    state = {view.entry: {}}
+    work = [view.entry]
+    dead = set()
+    steps = 0
+
+    def transfer(a, i, st):
+        st = dict(st)
+        if i.kind == "call":
+            return {}           # (a callee may not keep the convention's saved registers: nothing survives)
+        w = view.write_widths(a)
+        if i.mnemonic in ("xor", "sub") and len(i.ops) == 2 and i.ops[0] == i.ops[1] and i.ops[0][0] == "reg" \
+                and i.ops[0][1] in regs:
+            for r in w:
+                st.pop(r, None)
+            st[i.ops[0][1]] = 0
+            return st
+        if i.mnemonic == "mov" and len(i.ops) == 2 and i.ops[0][0] == "reg" and i.ops[0][1] in regs:
+            src = i.ops[1]
+            for r in w:
+                st.pop(r, None)
+            if src[0] == "imm":
+                st[i.ops[0][1]] = src[1] & M32
+            elif src[0] == "reg" and src[1] in regs and src[1] in st:
+                st[i.ops[0][1]] = st[src[1]]
+            return st
+        for r in w:
+            st.pop(r, None)
+        return st
+
+    def flags_of(j):
+        """(zf, cf, sf, of, pf) the jcc at j sees, or None."""
+        if j in targets:
+            return None
+        a = prev.get(j)
+        for _ in range(8):
+            p = view.insns.get(a)
+            if p is None or p.kind != "other" or a in targets and p.mnemonic in _FLAGS_KEPT:
+                return None
+            if p.mnemonic in _FLAGS_KEPT:
+                a = prev.get(a)
+                continue
+            st = state.get(a)
+            if st is None or len(p.ops) != 2 or p.ops[0][0] != "reg" or p.ops[0][1] not in st:
+                return None
+            x = st[p.ops[0][1]]
+            if p.ops[1][0] == "imm":
+                y = p.ops[1][1] & M32
+            elif p.ops[1][0] == "reg" and p.ops[1][1] in st:
+                y = st[p.ops[1][1]]
+            else:
+                return None
+            if p.mnemonic in ("test", "and") or (p.mnemonic == "or" and p.ops[0] == p.ops[1]):
+                v = (x & y) if p.mnemonic != "or" else x
+                return v == 0, False, bool(v >> 31), False, bin(v & 0xFF).count("1") % 2 == 0
+            if p.mnemonic == "cmp":
+                v = (x - y) & M32
+                sx, sy, sv = x >> 31, y >> 31, v >> 31
+                return v == 0, x < y, bool(sv), sx != sy and sv != sx, bin(v & 0xFF).count("1") % 2 == 0
+            return None
+        return None
+
+    while work and steps < 200000:
+        steps += 1
+        a = work.pop()
+        i = view.insns.get(a)
+        if i is None:
+            continue
+        out_st = transfer(a, i, state[a])
+        succ = []
+        if i.kind in ("ret", "stop"):
+            pass
+        elif i.kind == "jcc":
+            f = flags_of(a)
+            t = _jcc_taken(i.mnemonic, *f) if f is not None else None
+            if t is None:
+                succ = [i.target, a + i.size]
+            else:
+                succ = [i.target if t else a + i.size]
+        elif i.kind == "jmp":
+            succ = ([i.target] if i.target is not None else []) + list(view.tables.get(a, ()))
+        else:
+            succ = [a + i.size]
+        zero_on = None          # (successor, register) known to be 0 along that edge: `test r, r; je b`
+        if i.kind == "jcc" and i.mnemonic in ("je", "jz", "jne", "jnz"):
+            p = view.insns.get(prev.get(a))
+            if p is not None and a not in targets and len(p.ops) == 2 and p.ops[0][0] == "reg" and \
+                    p.ops[0][1] in regs and (p.mnemonic in ("test", "or") and p.ops[0] == p.ops[1] or
+                                             p.mnemonic == "cmp" and p.ops[1] == ("imm", 0)):
+                zero_on = (i.target if i.mnemonic in ("je", "jz") else a + i.size, p.ops[0][1])
+        for b in succ:
+            if b not in view.insns:
+                continue
+            o_st = out_st
+            if zero_on is not None and zero_on[0] == b:
+                o_st = dict(out_st)
+                o_st[zero_on[1]] = 0
+            old = state.get(b)
+            new = o_st if old is None else {r: v for r, v in old.items() if o_st.get(r) == v}
+            if old is None or new != old:
+                state[b] = new
+                work.append(b)
+    if work:
+        return set()            # (too big to settle: claim nothing)
+    for j in view.jcc:
+        if j not in state:
+            continue
+        f = flags_of(j)
+        t = _jcc_taken(view.insns[j].mnemonic, *f) if f is not None else None
+        if t is not None:
+            i = view.insns[j]
+            dead.add((j, j + i.size) if t else (j, i.target))
+    return dead
+
+
 def _declared_dead(view, lines):
     """(round 7) Branch sides a source declares dead after hand review (`// equiv-dead: +0x52 taken, +0x61 not
     taken: why`), in the labels the coverage report uses. They are left out of the coverage count and
@@ -4748,6 +5050,10 @@ def _declared_dead(view, lines):
 def coverage_of(view, edges):
     total, covered, missing = 0, 0, []
     dead = infeasible_edges(view)
+    # (round 8) an edge a rule calls dead that a run took anyway is a checker bug: it counts as a normal edge
+    # and is reported (`dead_taken`); hand-declared ones stay out of the count
+    taken_dead = {e for e in dead & set(edges) if e not in getattr(view, "declared_dead", set())}
+    dead = dead - taken_dead
     for j in view.jcc:
         i = view.insns[j]
         for t, label in ((i.target, "taken"), (j + i.size, "not taken")):
@@ -4777,6 +5083,9 @@ def coverage_of(view, edges):
             else:
                 missing.append("+0x%x case ->+0x%x" % (j - view.entry, t - view.entry))
     out = {"edges_total": total, "edges_covered": covered, "uncovered": missing[:20], "complete": covered == total}
+    if taken_dead:
+        out["dead_taken"] = sorted("+0x%x -> %s" % (j - view.entry, t if isinstance(t, str) else "+0x%x" % (t - view.entry))
+                                   for j, t in taken_dead)
     if getattr(view, "declared_dead", None):
         out["declared_dead"] = sorted("+0x%x %s" % (j - view.entry, "taken" if t == view.insns[j].target else
                                                      "not taken" if j in view.insns and view.insns[j].kind == "jcc"
@@ -4841,6 +5150,8 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
     level3_fn: run this instead of the fuzzing level 3 (tools/equiv_replay.py replays recorded game states);
     it gets the same setup as level3() as keyword arguments and its result is returned as rep["replay"]."""
     t0 = time.time()
+    if not seeds and ONLY_SEEDS:
+        seeds = sorted(ONLY_SEEDS)      # (round 8) EQUIV_SEEDS=5102 runs seed 5102 whatever --inputs says
     if seeds:
         n_inputs = max(n_inputs, max(seeds) + 1)
     max_inputs = max(max_inputs, n_inputs)      # (--inputs 3000 asks for at least that many)
@@ -5145,6 +5456,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                         or (i.ops[0][0] == "mem" and i.ops[0][1][5] == 1))
                        for c in (i.imms[0] & 0xFF, (i.imms[0] + 1) & 0xFF) if 0x20 <= c < 0x7f})[:24]
     slot_arity = {}
+    ub_copy = UB_COPY.get(prog.funcs[oview.entry][1]) if oview.entry in prog.funcs and "overlap" not in EQUIV_OFF \
+        and not target_conv else None
     observations = {}          # jcc addr -> [(seed, cmp observation, ...)] from the original's runs
     str_queue = []             # [(seed, string-compare observation, overlay, patch)] to plant (directed)
     str_seen = Counter()       # (site, literal) -> times queued
@@ -5305,6 +5618,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     def run_input(seed, overlay=None, stack_patch=None, label=None):
         """Run one input on both sides; returns the set of new original edges (None if inconclusive)."""
         inp, inp_o, mach = build(seed, overlay, stack_patch)
+        # (round 8, overlap) strncat(d, d + 12, n): overlapping copies are undefined behaviour, and the
+        # original's word-at-a-time reads and a byte loop see each other's writes differently
+        ub = "overlap_ub" if ub_copy is not None and len(inp_o["stack"]) >= 3 and \
+            _copy_overlap(ub_copy[1], ub_copy[0], inp_o["stack"][:3], lambda a_: mach.byte(a_, 0)) else None
         # our image is mapped in both runs, so a wild pointer reads the same bytes either way
         orun = Run(prog, oview, mach, inp_o, ours_image=(OURS, ours.image), sig=sig, max_steps=steps[0],
                    own_float_ret=own_float, coverage=True, helpers=helpers)
@@ -5392,7 +5709,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 # bound, `cmp edx, 8; jb`, is the hottest back edge and can't): the outer loop's bound can
                 # be far down the list when the body has many branches
                 nst = len(make_input(seed, sig, globals_, min_words=own_words)["stack"])
-                top = max(orun.jcc_count.values())
+                top = max(orun.jcc_count.values(), default=0)      # (round 8: none when it timed out in a helper)
                 back = [j for j, c in orun.jcc_count.most_common() if c >= max(16, top // 64) and j in obs_run
                         and j in loop_exits and _patches(obs_run[j], overlay, stack_patch, nst)]
                 cand = [j for j in cand if j not in back]
@@ -5414,6 +5731,13 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         if o["status"] in ("timeout", "fault:too_many_pages") or o["status"].startswith("fault:hook_error"):
             res["inputs_inconclusive"] += 1
             return None
+        if orun.smashed is not None:
+            ub = "stack_smash"   # (round 8, smash) the original overran a buffer into its return address or saved registers
+            if o["status"] in ("fault:wild_jump", "fault:wild_call"):
+                # (it went wild because of the overrun: not a sign of a call modelled wrong, the 10% wild bar)
+                res["inputs_inconclusive"] += 1
+                res["statuses"][ub] += 1
+                return None
         if o["status"] in ("fault:wild_jump", "fault:wild_call"):
             # the original's control flow went wild (a fuzzed pointer overwrote its return address or a
             # saved register, or a fuzzed code pointer lands inside the function): no real input does that
@@ -5453,6 +5777,12 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             return None
         diffs = compare_runs(o, r, ret_kind, mach, Namer(inp, sig, prog), prog, esp_adjust=esp_adjust,
                              skip_saved=set(target_conv or ()), void_eax=void_eax)
+        if ub and diffs:
+            # (round 8) an input that is undefined behaviour in the original (above) and shows a difference
+            # is inconclusive: no real input does that. One that agrees counts as before.
+            res["inputs_inconclusive"] += 1
+            res["statuses"][ub] += 1
+            return None
         if readback and not diffs:
             # a callee-extent fill replaced a word the function had written, the two sides held different
             # values there, and one of them read it back: if the real callee doesn't write that word (the
@@ -5757,6 +6087,16 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         # completed inputs `promotable` asks for: with the directed inputs done, spend the time left on more
         # random ones (each runaway is repaired, as before)
         random_phase(soft=False, until_run=50)
+    if res.get("inconclusive_cap_hit") and rs["seed"] < max_inputs and not out_of_time() and \
+            res["inputs_failed"] < 3 and "covcap" not in EQUIV_OFF:
+        cov_ = coverage_of(oview, edges)
+        if cov_["edges_total"] and cov_["edges_covered"] < 0.75 * cov_["edges_total"]:
+            # (round 8) the cap stopped the random inputs while branch coverage is under the promotion bar
+            # (a polygon clipper whose re-entry arms need rare vertex patterns, 21% of its inputs running
+            # away): the time left goes to more random inputs, then directed ones again
+            res["covcap"] = True
+            random_phase(soft=False, nocap=True)
+            directed_phase()
     res["coverage"] = coverage_of(oview, edges)
     res["statuses"] = dict(res["statuses"])
     if res["inputs_run"] == 0:
@@ -5764,6 +6104,47 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     else:
         res["ok"] = res["inputs_failed"] == 0
     return res
+
+
+# (round 8) CRT copy routines for which overlapping source and destination is undefined behaviour (C99 7.21.2-3,
+# 7.24.4.2): name -> (character size, kind). memcpy is left out: in this XBE it is memmove's code.
+UB_COPY = {"_strncat": (1, "ncat"), "_strcat": (1, "cat"), "_strncpy": (1, "ncpy"), "_strcpy": (1, "cpy"),
+           "_wcsncpy": (2, "ncpy"), "_wcscpy": (2, "cpy"), "_wcsncat": (2, "ncat"), "_wcscat": (2, "cat")}
+
+
+def _copy_overlap(kind, cs, args, byte, cap=1 << 16):
+    """True when the input provably makes a CRT copy routine read source characters it also writes or reads as
+    the destination string (undefined behaviour, so no real caller does it). `byte(a)` reads the input's
+    memory. Only bytes the routine certainly touches count: a string whose terminator isn't found within
+    `cap` characters is taken to be `cap` long, a subset of what the routine reads."""
+    d, s_ = args[0], args[1]
+    n = args[2] if kind in ("ncat", "ncpy") else None
+    if n == 0:
+        return False
+    for p in (d, s_):
+        if p < NULL_HI or STACK_LO <= p < STACK_HI or p + cap * cs + 8 > M32:
+            return False         # (the stack isn't part of the input's memory model: no proof)
+
+    def slen(p):
+        for k in range(cap):
+            if all(byte(p + k * cs + i) == 0 for i in range(cs)):
+                return k, True
+        return cap, False
+    ls, s_found = slen(s_)
+    if kind in ("ncat", "cat"):
+        ld, d_found = slen(d)
+        if not d_found:
+            return False         # the scan for the end of the destination may never finish: nothing certain
+    else:
+        ld = 0
+    k = ls if n is None else min(n, ls)
+    rd = k + (1 if s_found and (n is None or n > ls) else 0)        # source characters read
+    wr = k + 1 if kind in ("ncat", "cat", "cpy") else n             # characters written at d + ld
+    if kind == "cpy" and not s_found:
+        wr = k
+    lo_s, hi_s = s_, s_ + rd * cs
+    lo_d, hi_d = d, d + (ld + min(wr, cap)) * cs        # the destination string read, then the part written
+    return rd > 0 and lo_s < hi_d and lo_d < hi_s
 
 
 def _stub_float(mode, k):
