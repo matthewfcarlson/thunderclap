@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3039 inputs, branch coverage 31/38, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20046 inputs, branch coverage 38/38)
 // CTriggerVolumeManager::vfunc_1 @ 0x001ff770
 extern "C" int __cdecl strcmp(const char *a, const char *b);
 extern "C" int __cdecl strncmp(const char *a, const char *b, unsigned n);
@@ -68,8 +68,8 @@ public:
     int itemCount;
     Item_1ff770 *items[0x80];
     char pad20c[8];
-    Bucket_1ff770 *buckets[8];
-    int curBucket;
+    Bucket_1ff770 *buckets[7];        // 0x214
+    int curBucket;                    // 0x230
 
     Item_1ff770 *FUN_001fc7f0(const char *name);
     int FUN_001fd390(const char *type);

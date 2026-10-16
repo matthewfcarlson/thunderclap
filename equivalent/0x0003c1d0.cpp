@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2865 inputs, branch coverage 193/224, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 17827 inputs, branch coverage 208/224, incomplete)
 // FUN_0003c1d0 @ 0x0003c1d0
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -357,17 +357,17 @@ void Character_3c1d0::FUN_0003c1d0(int unused, float dt)
                 }
             }
             V3_3c1d0 *nn = &e->n;
-            if ((fr.disp.y * nn->y + fr.disp.z * nn->z) + fr.disp.x * nn->x < 0.0f) {
+            double dot = (fr.disp.y * nn->y + fr.disp.z * nn->z) + fr.disp.x * nn->x;
+            if (dot < 0.0f) {
                 fr.flags[fr.k] = 1;
                 if (fr.k > -1) {
-                    if (e->d > 0.0f && -((fr.disp.y * nn->y + fr.disp.z * nn->z) + fr.disp.x * nn->x) > e->d)
-                        fr.t10.f = e->d;
-                    else
-                        fr.t10.f = -((fr.disp.y * nn->y + fr.disp.z * nn->z) + fr.disp.x * nn->x);
+                    // push-out distance: kept unrounded on the FPU stack for the products, stored rounded in t10
+                    double push = (e->d > 0.0f && -dot > e->d) ? e->d : -dot;
+                    fr.t10.f = (float)push;
                     fr.s = *nn;
-                    fr.s.y = fr.s.y * fr.t10.f;
-                    fr.s.z = fr.s.z * fr.t10.f;
-                    fr.disp.x = fr.s.x * fr.t10.f + fr.disp.x;
+                    fr.s.y = (float)(fr.s.y * push);
+                    fr.s.z = (float)(fr.s.z * push);
+                    fr.disp.x = (float)(fr.s.x * push + fr.disp.x);
                     fr.disp.y = fr.s.y + fr.disp.y;
                     fr.disp.z = fr.s.z + fr.disp.z;
                     if (e->d < 0.0f) {

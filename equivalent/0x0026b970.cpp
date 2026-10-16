@@ -1,5 +1,6 @@
-// STATUS: equivalent (tools/equiv.py level 3: 22 inputs, branch coverage 16/16)
+// STATUS: equivalent (tools/equiv.py level 3: 50 inputs, branch coverage 14/14)
 // FUN_0026b970 @ 0x0026b970
+// equiv-conv: FUN_0026b910 eax
 typedef unsigned int U_26b970;
 struct Node { U_26b970 previousSize; U_26b970 size; Node* next; Node* previous; };
 struct Heap_26b970 {
@@ -17,21 +18,11 @@ struct Heap_26b970 {
  U_26b970 maxMmapCount;
  U_26b970 pageSize;
 };
+void FUN_0026b910(Heap_26b970* heap);
 void __cdecl FUN_0026b970(Heap_26b970* heap) {
  U_26b970 count = heap->flags;
  if (!count) {
-  for (U_26b970 i = 0; i < 127; ++i) {
-   Node* bin = (Node*)&heap->binStorage[i * 2];
-   bin->next = bin;
-   bin->previous = bin;
-  }
-  heap->top = (Node*)heap->binStorage;
-  heap->flags = 9;
-  heap->trimThreshold = 0x20000;
-  heap->topPad = 0;
-  heap->mmapThreshold = 0x20000;
-  heap->mmapLimit = 0;
-  heap->pageSize = 4096;
+  FUN_0026b910(heap); // malloc_init_state: heap arrives in eax
   return;
  }
  heap->flags = count | 1;

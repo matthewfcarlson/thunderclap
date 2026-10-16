@@ -1,10 +1,11 @@
-// STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 54/56, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20016 inputs, branch coverage 54/56, incomplete)
 // hulkfight::ai::MotionClosestWaypointAction::vfunc_5 @ 0x0011a250
 extern "C" double sqrt(double);
 
 struct Vec3_11a250 {
     float x, y, z;
     float FUN_0022d110() throw();
+    void FUN_000344b0(float s) throw();   // scale in place
 };
 
 struct Fighter_11a250 {
@@ -67,10 +68,6 @@ Stats2_11a250 *__fastcall FUN_00059a30(Ent_11a250 *e) throw();
 float __cdecl FUN_0010b1c0(World *w, Stats2_11a250 *s, float thr, Vec3_11a250 *out) throw();
 float __cdecl FUN_000186f0(float *a, float *b) throw();
 extern World *DAT_004dd700;
-
-struct Misc {
-    void FUN_000344b0(float x) throw();
-};
 
 union Arg1_11a250 {
     int i;
@@ -157,12 +154,17 @@ bool MotionClosestWaypointAction::vfunc_5(Arg1_11a250 a1, float dt)
             f.U.y = 1.0f - (f.rmin - a1.f) / f.rmin;
             f.U.FUN_0022d110();
             f.w = f1c->f14;
-        } else if (a1.f > f.rmax && a1.f < f.rmax + f.rmax && f.rmax > 0.0f) {
-            f.U.y = (f.rmax + f.rmax - a1.f) / (f.rmax + f.rmax);
-            f.U.FUN_0022d110();
-            f.w = f1c->f14;
-        } else {
+        } else if (!(a1.f > f.rmax)) {
             f.U.y = 0.0f;
+        } else {
+            double r2 = f.rmax + f.rmax;   // kept on the FPU stack unrounded, like the original
+            if (a1.f < r2 && f.rmax > 0.0f) {
+                f.U.y = (r2 - a1.f) / r2;
+                f.U.FUN_0022d110();
+                f.w = f1c->f14;
+            } else {
+                f.U.y = 0.0f;
+            }
         }
     } else if (f.N > c->f24) {
         if (a1.f >= f.rmin && a1.f <= f.rmax) {
@@ -173,12 +175,17 @@ bool MotionClosestWaypointAction::vfunc_5(Arg1_11a250 a1, float dt)
             f.U.y = (f.rmin - a1.f) / f.rmin - 1.0f;
             f.U.FUN_0022d110();
             f.w = f1c->f14;
-        } else if (a1.f > f.rmax && a1.f < f.rmax + f.rmax && f.rmax > 0.0f) {
-            f.U.y = -((f.rmax + f.rmax - a1.f) / (f.rmax + f.rmax));
-            f.U.FUN_0022d110();
-            f.w = f1c->f14;
-        } else {
+        } else if (!(a1.f > f.rmax)) {
             f.U.y = 0.0f;
+        } else {
+            double r2 = f.rmax + f.rmax;   // kept on the FPU stack unrounded, like the original
+            if (a1.f < r2 && f.rmax > 0.0f) {
+                f.U.y = -((r2 - a1.f) / r2);
+                f.U.FUN_0022d110();
+                f.w = f1c->f14;
+            } else {
+                f.U.y = 0.0f;
+            }
         }
     }
     edi->f2064 = f.U.x;
@@ -206,8 +213,7 @@ bool MotionClosestWaypointAction::vfunc_5(Arg1_11a250 a1, float dt)
             f.W.FUN_0022d110();
             a1.f = (a1.f - f.N) / a1.f;
             f.N = 1.0f;
-            float r = FUN_000186f0(&f.N, &a1.f);
-            ((Misc *)&f.W.y)->FUN_000344b0(r);
+            f.W.FUN_000344b0(FUN_000186f0(&f.N, &a1.f));
         }
         edi->f1ca4->v4(&v3c, &f.Q, (Stats_11a250 *)edi, DAT_004dd700, dt, &v4c, &f.W);
     }

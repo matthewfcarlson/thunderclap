@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3180 inputs, branch coverage 84/84)
+// STATUS: equivalent (tools/equiv.py level 3: 20158 inputs, branch coverage 84/84)
 // FUN_0028e160 @ 0x0028e160
 void *__cdecl FUN_0008d690(unsigned int size);
 
@@ -71,6 +71,12 @@ Prim_28e160 *__stdcall FUN_0028e160(Reader *R, int unused, Parent_28e160 *parent
         Rr->stream->FUN_002647e0(obj->f14, count, 2, 1);
         Rr->stream->FUN_002647e0(obj->f18, count * 4, 4, 1);
         if (f.l10 != 1) {
+            // The original unrolls this loop 4x and keeps the unrolled part's
+            // bound in the dead `parent` slot, which the chunk loop below
+            // later uses as its read buffer (a read from a closed stream
+            // leaves it unwritten, and obj->f4 then gets this bound).
+            if (count >= 4)
+                *pval = (int)(((unsigned int)(count - 4) >> 2) + 1) * 4;
             for (unsigned int i = 0; i < (unsigned int)count; i++) {
                 int *p = (int *)((char *)obj->f18 + i * 16);
                 f.l10 = p[0];

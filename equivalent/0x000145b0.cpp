@@ -1,6 +1,5 @@
-// STATUS: equivalent (tools/equiv.py level 3: 134 inputs, branch coverage 43/44, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 18665 inputs, branch coverage 43/44, incomplete)
 // FUN_000145b0 @ 0x000145b0
-#include "decls/address.h"
 void *FUN_0008d690(unsigned int size);
 
 struct Vec3_145b0 {
@@ -53,7 +52,7 @@ struct Actor_145b0 {
     char pad120[0x20b0 - 0x120];
     int f20b0;
     bool FUN_000360f0();
-    bool FUN_00038f90(int a1, int f2c, int zero);
+    int FUN_00038f90(int a1, int f2c, int zero);   // tested as a full int (test eax,eax)
 };
 
 struct Body_145b0 {
@@ -81,11 +80,12 @@ struct Roster_145b0 {
     Actor_145b0 *FUN_00024190(int index);
 };
 
-struct World {
+struct Game_145b0 {
     char pad00[0x20];
     Roster_145b0 *roster;
 };
 
+extern Game_145b0 *DAT_004dd700;
 
 struct Owner_145b0 {
     char pad00[8];

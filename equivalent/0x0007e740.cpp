@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 20/20)
+// STATUS: equivalent (tools/equiv.py level 3: 20000 inputs, branch coverage 20/20)
 // FUN_0007e740 @ 0x0007e740
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" double sin(double);
@@ -104,9 +104,11 @@ void Game_7e740::FUN_0007e740()
     f.ang = FUN_000964d0()->FUN_000787e0(-1.5707964f, 1.5707964f);
     FUN_00224d70(f.ang, &f.q);
 
-    f.q.x = f.p.x + f.q.x * DAT_003feed8;
-    f.q.y = f.p.y + f.q.y * DAT_003feed8;
+    f.q.x = f.q.x * DAT_003feed8;
+    f.q.y = f.q.y * DAT_003feed8;
     f.q.z = f.q.z * DAT_003feed8;
+    f.q.x = f.p.x + f.q.x;
+    f.q.y = f.p.y + f.q.y;
     f.q.z = f.p.z + f.q.z;
 
     Cells *grid = mgr->grid->FUN_000862a0();

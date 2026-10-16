@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 3230 inputs, branch coverage 221/260, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 20188 inputs, branch coverage 240/259, incomplete)
 // hulkfight::ai::PathAction::vfunc_5 @ 0x0011e4a0
 extern "C" int atexit(void (*)());
 
@@ -6,11 +6,7 @@ struct V3_11e4a0 {
     float x, y, z;
     float FUN_0022d110() throw();
     float FUN_00018990() throw();
-};
-
-struct V2_11e4a0 {
-    float y, z;
-    void FUN_000344b0(float s) throw();
+    void FUN_000344b0(float s) throw();   // scale in place
 };
 
 struct Key_11e4a0 {
@@ -712,7 +708,7 @@ char PathAction::vfunc_5(int a, float dt)
             f.Vec80.FUN_0022d110();
             f.u1c.f = (f.u4c.s - f.u3c.f) / f.u4c.s;
             f.u3c.f = 1.0f;
-            ((V2_11e4a0 *)&f.Vec80.y)->FUN_000344b0(FUN_000186f0(&f.u3c.f, &f.u1c.f));
+            f.Vec80.FUN_000344b0(FUN_000186f0(&f.u3c.f, &f.u1c.f));
         }
     }
 

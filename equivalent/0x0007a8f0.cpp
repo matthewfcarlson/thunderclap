@@ -1,4 +1,4 @@
-// STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 33/34, incomplete)
+// STATUS: equivalent (tools/equiv.py level 3: 18606 inputs, branch coverage 34/34)
 // FUN_0007a8f0 @ 0x0007a8f0
 struct Vec3_7a8f0 {
     float x, y, z;
@@ -44,6 +44,8 @@ struct World {
 };
 
 int __cdecl FUN_000113e0(int lo, int hi);
+extern float DAT_0049b8e4;  // 2500 (50^2)
+extern float DAT_0049b8e8;  // 4900 (70^2)
 
 class Finder_7a8f0 {
 public:
@@ -78,15 +80,16 @@ int Finder_7a8f0::FUN_0007a8f0(int *outIndex, int *outSide)
                     double dx = p.x - player.x;
                     double dz = p.z - player.z;
                     double d2 = dz * dz + dx * dx;
-                    bool inFar = d2 < 4900.0f;
-                    bool inNear = d2 < 2500.0f;
+                    bool inFar = d2 < DAT_0049b8e8;
+                    bool inNear = d2 < DAT_0049b8e4;
 
                     Vec3_7a8f0 *q = item->FUN_00106160((cur + 1) % item->count);
+                    // the original rounds the x difference to float (stored in p.x) but keeps z on the FPU stack
+                    float dz2 = q->z;
                     p.x = q->x - player.x;
-                    double dz2 = q->z - player.z;
-                    double d3 = dz2 * dz2 + p.x * p.x;
-                    bool inFar2 = d3 < 4900.0f;
-                    bool inNear2 = d3 < 2500.0f;
+                    double d3 = (dz2 - player.z) * (dz2 - player.z) + p.x * p.x;
+                    bool inFar2 = d3 < DAT_0049b8e8;
+                    bool inNear2 = d3 < DAT_0049b8e4;
 
                     if (inFar && !inNear && inNear2) {
                         *outSide = 0;
