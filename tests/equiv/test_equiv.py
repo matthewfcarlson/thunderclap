@@ -82,6 +82,23 @@ class Logic(unittest.TestCase):
         self.assertTrue(equiv._copy_overlap("ncpy", 1, [s - 1, s, 2], byte))    # dest runs into src
         self.assertFalse(equiv._copy_overlap("ncpy", 1, [s - 2, s, 2], byte))   # ends right before src
 
+    @unittest.skipUnless(hasattr(equiv, "_char_adjust"), "round 9")
+    def test_float_inversions(self):
+        # (round 9, fprov) |x - c| < eps through fsub and fabs; c / x; a char minus a constant
+        self.assertAlmostEqual(equiv._invert_fxf((("fsub", 1.5707964), ("fabs", None)), 0.5e-5), 1.5707964 + 0.5e-5)
+        self.assertIsNone(equiv._invert_fxf((("fabs", None),), -1.0))
+        self.assertAlmostEqual(equiv._invert_fxf((("fdivr", 2.0),), 4.0), 0.5)
+        self.assertAlmostEqual(equiv._invert_fxf((("fdiv", 4.0),), 2.0), 8.0)
+        self.assertEqual(equiv._char_adjust((("add", 0xFFFFFFAA),)), 0xFFFFFFAA)
+        self.assertIsNone(equiv._char_adjust((("shr", 2),)))
+
+    @unittest.skipUnless(hasattr(equiv, "_char_adjust"), "round 9")
+    def test_fail_header_names_level(self):
+        # (round 9) `level` is the highest level passed; a level-3 failure says so in the header
+        rep = {"status": "fail", "symbol": "?f@@YAXXZ", "target": "FUN_00010000", "addr": "0x00010000", "level": 2,
+               "failed_levels": [3], "time": 0}
+        self.assertIn("fails level 3 (passes level 2)", equiv.render(rep).splitlines()[0])
+
 
 @unittest.skipUnless(HAVE_GAME, "needs isos/extracted and the MSVC toolchain")
 class EndToEnd(unittest.TestCase):

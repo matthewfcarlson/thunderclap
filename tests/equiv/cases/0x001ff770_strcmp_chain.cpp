@@ -66,7 +66,7 @@ public:
     int itemCount;
     Item *items[0x80];
     char pad20c[8];
-    Bucket *buckets[8];
+    Bucket *buckets[7];         // (round 9: curBucket is at +0x230; the stub now sets `streamed`)
     int curBucket;
 
     Item *FUN_001fc7f0(const char *name);

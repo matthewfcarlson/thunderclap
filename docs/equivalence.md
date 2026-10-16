@@ -188,6 +188,14 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   When the random phase stops at 32 inconclusive inputs, the directed phase runs, then more random inputs
   while fewer than 50 have completed, or while at most 20% of them were inconclusive, or while branch
   coverage is under the 75% promotion bar (then directed ones again).
+- **Small loop counts.** The loads that fed a runaway loop's bound (`mov ecx, [eax-4]` ... `dec ebx; jne`, also
+  through a stack copy) are remembered. A later input that runs away gets a discovery run of the original in
+  which those loads read small counts (1-4, where the word was larger), then runs again with those counts in
+  its memory on both sides; a run that hangs in the next loop learns that one too (56 copy loops in a row).
+  Once small counts get inputs through and most inputs run away, three in four inputs (seven in eight when
+  nine in ten run away) start that way; the 8M-step probe is skipped when small counts already got input 0
+  through. It stops when it costs a quarter of the time budget without a completed input. Directed inputs
+  that run away behind the side they opened get small counts first too.
 - **Alphabet strings.** A char loop that compares each byte with constants (an atof-style parser: `'-'`,
   `'.'`, `'0'`..`'9'`) gets short strings made of those chars (and keywords spelled by compares at
   consecutive offsets, `p[0] == 'c' && p[1] == 'l' && ...`) planted where it read its first byte. A stack
@@ -208,13 +216,42 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
     `and`, `neg`/`not`, magic-number divisions (`imul` by a constant, `idiv`), `movzx` of a low byte, a
     byte-table switch index (`movzx ecx, byte [eax + table]`), all inverted to find the value to plant;
   - a register stored to a stack local and compared there later (`movsx eax, byte [edx]; mov [esp+4], eax`);
+  - a char minus a constant (`movsx eax, sig[i]; add eax, -0x56; cmp eax, 0x20`) and a switch through a byte
+    table on a loaded char (one char per case) join the alphabet of planted strings; strings are planted in
+    the epoch the char was read and every later one (a loop that calls something per char), and string
+    plants go round robin over the buffers and literal sites queued;
+  - a register set to a constant right at the start of a branch side (`cmp eax, [g]; jne L; mov bl, 1; ...;
+    L: xor bl, bl`) or by a setcc, tested later with no source of its own (`test bl, bl; je`): steered
+    through the compare that decided it, after the direct patches are used up (a few tries per deciding
+    compare unless one helps). A directed input that reaches a compare with a missing side in a new way
+    (another source, another deciding compare) keeps its observation even past the first six, so a flag two
+    conditions feed (`eax == [g]` then `edx == [g+4]`) is steered one condition after the other;
+  - two inputs a run found equal (`cmp eax, [ebx+0xc]; jne` on a stub result) are moved together when a later
+    compare of one of them is patched (`add eax, -8; cmp eax, 4; ja`: a switch on the same value);
+  - a byte out-parameter the function set itself (`char hit = 0; vt->query(&hit)`), which random inputs
+    leave alone, and a word nobody wrote behind a local passed by pointer past the 16 bytes filled by default
+    (`read(&hdr, 0x1f, 4, 1)`; the fourCC at +0x48): a directed input has the stub write it, on both sides;
+  - the first round of a compare that compared constants (a default, `mov al, 0x76` past a string's end) is
+    replaced by a later round that compared input data;
   - x87 compares (`fcom`/`fcomp` + `fnstsw`/`test ah`, `fcomi`), against memory or a stubbed callee's
     float result, a float a stub filled in through a pointer, a loaded value plus, minus or times a
     constant (`fld [g]; fadd [k]; fcomp [0.95]`: inverted), or a masked argument word (`and eax,
     0x7fffffff`: fabs, ties planted). When the compared value is computed (`sqrt` of the difference of two stub-filled vectors,
     a scaled and clamped result) there is no single word to invert: the input is re-run with every stub
     float (float results and out-parameter fills) set alike, to 0, 1000 and 1 (equal vectors give distance
-    0);
+    0); when it is computed from floats in memory only (`|sqrt(x*x + y*y + z*z) - 1| < eps` on a matrix's
+    rows), with those floats planted as an identity matrix, all 1 and all 0. A computed operand's value is
+    read from the x87 registers, so the other side can still be steered past it (a stub's float against
+    `fld [k]; fmul [4.0]`);
+  - a float's source survives `fst`/`fstp` to memory and the reload, register-form arithmetic with a value
+    known at that point (`fld [pi/2]; fsubr st(1)`; decided by opcode bytes), `fabs`, a fabs mask applied in
+    memory (`and dword [esp+4], 0x7fffffff`, also with the mask in a register), a computed value plus or
+    times a float in memory (`fmul st(1); fadd [ecx+0x218]`: steered through the memory word) and `fld st(i)`.
+    The transforms are inverted, with halfway and one-and-a-half-times targets for `|x - c| < eps`. A float
+    converted by `__ftol2` gives the integer compares after it (`cmp eax, 8; jge`) that float's source, and a
+    stub whose result goes straight into `__ftol2` returns a float (it converted an empty x87 stack);
+  - a fixed-address word in the image is planted only when our code reads it too (a float constant the
+    original keeps in `.data` is a literal in ours: planting it changed the original alone);
   - a loop's bound (patched for one or two more rounds, in every memory epoch when it is re-read after a
     call).
 
@@ -400,7 +437,10 @@ value is compared anyway, and `return_note` says so.
 
 **Coverage** counts taken/not-taken for every conditional branch (except dead sides: a jcc right
 after `cmp r, r`/`sub r, r`/`xor r, r` that nothing else jumps to; the zero side of `lea ecx, [esi + 4]; ...;
-test ecx, ecx` where esi is a pointer, the null check of `&this->member`; the wraparound side of `lea ecx,
+test ecx, ecx` where esi is a pointer, the null check of `&this->member`, also when the lea's result is kept in
+a register across calls and branches (`lea edi, [esi+0x1f58]; call f; ...; test edi, edi; je`: a forward data
+flow; a call ends it for eax/ecx/edx only, since the original keeping it in ebx/esi/edi/ebp relies on the callee
+preserving it); the wraparound side of `lea ecx,
 [ebp + 3]; cmp ebp, ecx; jae` when either register is used as a pointer; a jcc whose flags come from
 registers that hold the same constant on every path (`xor eax, eax` before a loop, `test eax, eax; jne`
 after it); sides a source declares with
@@ -432,6 +472,9 @@ uncovered edges are listed.
 }
 ```
 
+`level` is the highest level passed. A `fail` also has `failed_levels` (`[3]` for a level-3 mismatch, `[2]` or
+`[2, 3]` with level-2 issues), and the text header says `fails level 3 (passes level 2)`.
+
 Mismatch strings are written for a model to act on. Examples:
 
 - `write to this+0x40 before call #2 was 0x3f000000 (0.5f), expected 0x3f800000 (1f)`
@@ -442,7 +485,12 @@ Mismatch strings are written for a model to act on. Examples:
 
 ## Validation
 
-Latest run (2026-10-14, checker round 7; details in [tasks/equiv-round7.md](tasks/equiv-round7.md)):
+Latest run (2026-10-15, checker round 9; details in [tasks/equiv-round9.md](tasks/equiv-round9.md)):
+`regress.py` 125/125; selftest 298/300 (the 2 fail identically under round 8); mutation suite identical to
+round 8 on the pinned 120; `equivalent/` random 300 at 3000 inputs: 299 (0x0028e160 as under round 8). 12 of
+26 work-list sources newly promotable.
+
+Previous run (2026-10-14, checker round 7; details in [tasks/equiv-round7.md](tasks/equiv-round7.md)):
 `regress.py` 99/99; selftest 300/300; mutation suite identical to round 6 on the same 120 functions; merged
 source tree, first 300 `equivalent/` functions on their tree objects: 300/300 (round 6: 281); `equivalent/`
 random 200 at 3000 inputs: 199, the other (0x00215790) a newly reached seed round 6 fails too (`ecx` at an

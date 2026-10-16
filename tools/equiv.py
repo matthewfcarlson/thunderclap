@@ -1170,6 +1170,9 @@ class CodeView:
                 if i.kind == "call" and i.target in IGNORED_CALLS and "cookie" not in EQUIV_OFF:
                     a = a + i.size          # the /GS check before the epilogue: st0 stays live across it
                     continue
+                if i.kind == "call" and HELPERS.get(i.target) == "__ftol2" and d < 1 and "ftolret" not in EQUIV_OFF:
+                    res = True      # (round 9) `call f; call __ftol2`: the helper converts f's float result
+                    break
                 if i.kind in ("call", "stop"):
                     break
                 if i.kind == "jcc":
@@ -2209,6 +2212,7 @@ X87_STORES = ("fst", "fstp", "fist", "fistp", "fisttp", "fbstp", "fnstcw", "fstc
               "fstenv", "fnsave", "fsave")
 HIGH_BYTE = {"ah": ("eax", "ax"), "ch": ("ecx", "cx"), "dh": ("edx", "dx"), "bh": ("ebx", "bx")}
 LOW_PART = {"eax": ("al", "ax"), "ecx": ("cl", "cx"), "edx": ("dl", "dx"), "ebx": ("bl", "bx")}
+FARITH = ("fadd", "faddp", "fsub", "fsubp", "fsubr", "fsubrp", "fmul", "fmulp", "fdiv", "fdivp", "fdivr", "fdivrp")
 FCMP = ("fcom", "fcomp", "fucom", "fucomp", "fcompp", "fucompp", "fcomi", "fcomip", "fucomi", "fucomip", "ftst")
 
 
@@ -2272,6 +2276,21 @@ class Run:
         self.stack_src = {}         # stack word -> source of the register stored there (directed inputs)
         self.fstack = []            # x87 stack: where each value was loaded from (None: computed)
         self.fpu_cmp = None         # the last float comparison (read back by fnstsw/sahf or fcomi)
+        self.fmem = {}              # (round 9) address -> (x87 stack entry, size, store insn) of a steerable float stored there
+        self.fmem_keep = None       # (insn address, address) of a store that keeps the fmem entry (fabs in memory)
+        self.ftol_pending = None    # (round 9) the steerable float a running __ftol2 converts
+        self.float_loads = []       # (round 9) (epoch, address, size) of floats the x87 read from memory
+        self.eq_links = {}          # (round 9) input source -> another one this run found equal to it
+        self.prefill_src = {}       # (round 9) stack byte -> (call, argument) of a byte out-parameter the function had set
+        self.load_pc = {}           # (round 9) register -> (instruction, address) of its last load from memory
+        self.stack_pc = {}          # (round 9) stack word -> the load of the value stored there (stack_src)
+        self.addr_pc = {}           # (round 9) address -> the instruction that loaded a register from it
+        self.out_ptrs = []          # (round 9) (call, argument, frame address) of each local passed by pointer
+        self.count_pcs = None       # (round 9) loads of loop counts: a discovery run plants small values there
+        self.count_plants = {}      # (round 9) (epoch, address) -> bytes planted by those loads
+        self.const_src = {}         # (round 9) register -> the compare that decided the constant it holds (`mov bl, 1` after a jne)
+        self.last_jcc_obs = None    # (round 9) the compare the latest jcc branched on
+        self.since_jcc = 99         # (round 9) instructions since the latest jcc
         self.prologue = view.prologue()
         self.pointee_sizes = {}     # callee address -> {arg index: bytes}
         self.intrinsics = {}        # unresolved CRT symbol address -> name, executed semantically
@@ -2378,6 +2397,14 @@ class Run:
         return True
 
     def _on_write(self, uc, access, addr, size, value, _):
+        if self.fmem:
+            # (round 9, fprov) a stored steerable float overwritten by anything but its own store (or a fabs
+            # mask applied in memory, `and dword [esp+4], 0x7fffffff`) is no longer that value
+            ci = self.cur_insn
+            for x in [x for x, e in self.fmem.items() if x < addr + size and addr < x + e[1]]:
+                if ci is not None and (ci.addr == self.fmem[x][2] or self.fmem_keep == (ci.addr, x)):
+                    continue
+                self.fmem.pop(x, None)
         if STACK_LO <= addr < STACK_HI:
             ci = self.cur_insn
             if self.smashed is None and ci is not None and ci.mnemonic not in ("push", "call", "pushal", "pushfd") \
@@ -2406,6 +2433,8 @@ class Run:
                     self.fill_src.pop(x, None)
                 for x in range(addr, addr + size):
                     self.fill_byte.pop(x, None)
+                    if self.prefill_src:
+                        self.prefill_src.pop(x, None)
                 if self.fill_watch:
                     for x in range(addr, addr + size):
                         self.fill_watch.pop(x, None)
@@ -2489,6 +2518,8 @@ class Run:
         if self.m.stable:
             return
         self.epoch += 1
+        if self.fmem:       # (round 9) floats stored outside the stack are fresh memory now
+            self.fmem = {x: e for x, e in self.fmem.items() if STACK_LO <= x < STACK_HI}
         keep = set()
         for p in self.mapped:
             if self.prog.text[0] <= p < self.prog.text[1]:
@@ -2873,6 +2904,8 @@ class Run:
                     if (k_, j_, off_) == (k, j, off):           # a directed input's value for this word
                         word[bi:bi + sz] = (val & ((1 << (8 * sz)) - 1)).to_bytes(sz, "little")[:4 - bi]
                 uc.mem_write(w, bytes(word))
+                self.fmem.pop(w, None)
+                self.fmem.pop(w - 4, None)
                 self.stack_written.update(range(w, w + 4))
                 self.fill_owner[w] = owner
                 self.fill_src[w] = (k, j, off)
@@ -2893,6 +2926,11 @@ class Run:
                     self.stack_written.update(range(v, v + sz))
                     for x in range(v, v + sz):
                         self.fill_byte[x] = (k, j, -1, v)
+                elif in_frame(v) and v % 4 and "pfill" not in EQUIV_OFF and self.coverage is not None:
+                    # (round 9, pfill) a byte out-parameter the function set itself before the call (`char hit =
+                    # 0; vt->query(&a, &b, &hit)`): random inputs keep its value (the callee may leave it alone),
+                    # a directed input can have the callee write it, on both sides alike (below)
+                    self.prefill_src[v] = (k, j)
             for j, v, hi, exact_size in outs:
                 for w in range(v + 4, hi - 3, 4):
                     if w >= ENTRY_ESP:
@@ -2904,6 +2942,34 @@ class Run:
                     if exact_size or free:
                         put(w, j, w - v, v)
             self._callee_extent(insn, target, known, conv, k, argbase, put, in_frame, firsts)
+            for (k_, j_), val in self.inp.get("pfill_override", {}).items():
+                # (round 9, pfill) the byte the directed input has the callee write, whatever the pointer's
+                # alignment on this side (ours may keep the flag in an aligned slot)
+                if k_ == k and j_ < len(args) and in_frame(args[j_][0]):
+                    uc.mem_write(args[j_][0], bytes([val & 0xFF]))
+                    self.stack_written.add(args[j_][0])
+            if "xfill" not in EQUIV_OFF:
+                for j, (v, _) in enumerate(args):
+                    if in_frame(v) and v % 4 == 0 and v < ENTRY_ESP and len(self.out_ptrs) < 256:
+                        self.out_ptrs.append((k, j, v))
+                for (k_, j_, off_, bi, sz), val in self.inp.get("fill_override", {}).items():
+                    # (round 9, xfill) a directed input has the callee write a word past the window filled for
+                    # every call (`read(&hdr, 0x1f, 4, 1)` fills 124 bytes; the fourCC at +0x48 decides a switch)
+                    if k_ != k or j_ >= len(args) or off_ < ARRAY_WINDOW:
+                        continue
+                    v = args[j_][0]
+                    if not in_frame(v) or v >= ENTRY_ESP:
+                        continue
+                    w = v + off_
+                    room, _ = self._frame_room(v)
+                    if off_ + 4 > room or self.fill_src.get(w, (None,))[0] == k:
+                        continue
+                    word = bytearray(self.uc.mem_read(w, 4))
+                    word[bi:bi + sz] = (val & ((1 << (8 * sz)) - 1)).to_bytes(sz, "little")[:4 - bi]
+                    uc.mem_write(w, bytes(word))
+                    self.fmem.pop(w, None)
+                    self.stack_written.update(range(w, w + 4))
+                    self.fill_src[w] = (k, j_, off_)
         if conv and self.view.is_ours:
             # the callee receives its register arguments where the annotation says (as an adapter would put
             # them), so a register it preserves holds that argument afterwards, as in the original
@@ -3055,8 +3121,20 @@ class Run:
             # a 'BM' magic a stubbed read filled): its source shifted right by 8 (the low byte kept from raw)
             return {"val": val, "src": src[:3], "xf": tuple(src[4]) + (("shr", 8),), "raw": src[5], "reg": v,
                     "abs": src[0] in self.abs_loads}
-        return {"val": val, "src": src[:3] if ok else None, "xf": src[4] if ok else (),
-                "raw": src[5] if ok else None, "reg": v, "abs": bool(ok) and src[0] in self.abs_loads}
+        out = {"val": val, "src": src[:3] if ok else None, "xf": src[4] if ok else (),
+               "raw": src[5] if ok else None, "reg": v, "abs": bool(ok) and src[0] in self.abs_loads}
+        if not ok and self.const_src:
+            via = self.const_src.get(Program._ALIAS.get(v, v))
+            if via is not None:
+                out["via"] = via        # (round 9) a constant a compare decided: steer that compare
+        if ok and self.eq_links and out["src"] in self.eq_links:
+            out["eq"] = self.eq_links[out["src"]]
+        lp = self.load_pc.get(Program._ALIAS.get(v, v))
+        if ok and lp is not None and out["src"] and lp[1] == out["src"][0]:
+            out["pc"] = lp[0]           # (round 9) the instruction that loaded it (small-count steering)
+        elif ok and out["src"] and isinstance(out["src"][0], int) and out["src"][0] in self.addr_pc:
+            out["pc"] = self.addr_pc[out["src"][0]]     # (derived through lea/dec/copies: `lea ebx, [eax+1]`)
+        return out
 
     def _mem_info(self, v):
         ea = self._ea(v)
@@ -3071,6 +3149,21 @@ class Run:
             # a byte out-parameter a stub filled (see _stub)
             return {"val": val, "src": (("fill",) + fb[:3] + (ea - fb[3], v[5]), v[5], self.epoch), "xf": (),
                     "raw": val}
+        if self.out_ptrs and STACK_LO <= ea < ENTRY_ESP and (ea & 3) + v[5] <= 4 and \
+                (ea & ~3) not in self.fill_src and ea not in self.stack_src and ea not in self.fill_byte and \
+                not any(x in self.stack_written for x in range(ea, ea + v[5])) and "xfill" not in EQUIV_OFF:
+            # (round 9, xfill) a word nobody wrote, behind a local passed to a callee by pointer: the callee
+            # filled it (the original reads it back), so a directed input can have the stub fill it
+            cand = [(pv, pk, pj) for pk, pj, pv in self.out_ptrs if pv <= ea < pv + POINTEE_WINDOW]
+            if cand:
+                pv, pk, pj = max(cand)
+                off = (ea & ~3) - pv
+                if off >= ARRAY_WINDOW:
+                    return {"val": val, "src": (("fill", pk, pj, off, ea & 3, v[5]), v[5], self.epoch), "xf": (),
+                            "raw": val}
+        pf = self.prefill_src.get(ea) if self.prefill_src else None
+        if pf is not None and v[5] == 1:
+            return {"val": val, "src": (("pfill",) + pf, 1, self.epoch), "xf": (), "raw": val}
         fs = self.fill_src.get(ea & ~3)
         if fs is not None and (ea & 3) + v[5] <= 4:
             # an out-parameter word a stub filled: a directed input can fill in another value
@@ -3078,8 +3171,16 @@ class Run:
         st = self.stack_src.get(ea)
         if st is not None and v[5] == 4:
             # a local holding a value loaded from elsewhere (`movsx eax, byte [edx]; mov [esp+4], eax`)
-            return {"val": val, "src": st[:3], "xf": st[4], "raw": st[5]}
-        return {"val": val, "src": (ea, v[5], self.epoch), "xf": (), "raw": val, "abs": ea in self.abs_loads}
+            out = {"val": val, "src": st[:3], "xf": st[4], "raw": st[5]}
+            if self.stack_pc.get(ea) is not None:
+                out["pc"] = self.stack_pc[ea]
+            return out
+        out = {"val": val, "src": (ea, v[5], self.epoch), "xf": (), "raw": val, "abs": ea in self.abs_loads}
+        if self.cur_insn is not None:
+            out["pc"] = self.cur_insn.addr
+        if self.eq_links and out["src"] in self.eq_links:
+            out["eq"] = self.eq_links[out["src"]]
+        return out
 
     def _note_str(self, site, lit, buf, n=None):
         """Record a compare of the buffer at `buf` with a literal in read-only data at `lit` (n bytes, or
@@ -3134,6 +3235,18 @@ class Run:
         fs = self.fstack
         if m in ("fnstsw", "fstsw"):
             self.loads.pop("eax", None)
+        if insn.mem is not None and "memfloats" not in EQUIV_OFF and len(self.float_loads) < 64 and \
+                m not in X87_STORES and m not in ("fild", "fiadd", "fisub", "fisubr", "fimul", "fidiv", "fidivr",
+                                                  "ficom", "ficomp", "fldcw", "fnldcw", "fbld", "frstor", "fldenv") \
+                and insn.mem[5] in (4, 8):
+            try:
+                ea = self._ea(insn.mem)
+                if not STACK_LO <= ea < STACK_HI and not _reserved(ea) and \
+                        _patchable(ea, not insn.mem[1] and not insn.mem[2]) and \
+                        all(x[1] != ea for x in self.float_loads):
+                    self.float_loads.append((self.epoch, ea, insn.mem[5]))
+            except Exception:   # noqa: BLE001
+                pass
         if m in FCMP:
             a = fs[0] if fs else None
             sts = [_st_index(r) for r in insn.regs if _st_index(r) is not None]
@@ -3153,9 +3266,56 @@ class Run:
                     a = dict(a, val=_x87_value(self.uc.reg_read(u.UC_X86_REG_FP0 + top)))
                 except Exception:   # noqa: BLE001
                     a = {"val": None, "src": None, "float": True}
+            if "fprov" not in EQUIV_OFF:
+                # (round 9) a computed operand's value (`fld [k]; fmul [4.0]; fcompp` against a stub's float):
+                # the other side can still be steered to just above or below it
+                try:
+                    if a.get("val") is None:
+                        a = dict(a, val=self._st_val(0))
+                    if b.get("val") is None and insn.mem is None and m != "ftst":
+                        kk = max([x for x in sts if x] or [1])
+                        b = dict(b, val=self._st_val(kk))
+                except Exception:   # noqa: BLE001
+                    pass
+                for o_ in (a, b):
+                    if isinstance(o_.get("val"), float) and (math.isnan(o_["val"]) or math.isinf(o_["val"])) and \
+                            o_.get("src") is None:
+                        o_["val"] = None
             self.fpu_cmp = {"addr": insn.addr, "mnemonic": "fcmp", "ops": [a, b]}
+            if self.float_loads:
+                self.fpu_cmp["floads"] = tuple(self.float_loads)
+                if self.calls:
+                    self.fpu_cmp["stubs"] = True     # (stub floats may be what decides it: they go first)
             if m in ("fcomi", "fcomip", "fucomi", "fucomip"):
                 self.last_cmp = self.fpu_cmp
+        fprov = "fprov" not in EQUIV_OFF
+        if fprov and m in X87_STORES and insn.mem is not None and self.stack_src:
+            # (round 9) an x87 store ends what a stack word held before (`mov [esp+0x8c], eax` ... `fstp [esp+0x8c]`:
+            # the integer copy's source no longer explains the word)
+            try:
+                ea = self._ea(insn.mem)
+                for x in range(ea - 3, ea + max(insn.mem[5] or 4, 1)):
+                    self.stack_src.pop(x, None)
+            except Exception:   # noqa: BLE001
+                pass
+        if fprov and m in ("fst", "fstp") and insn.mem is not None and insn.mem[5] in (4, 8):
+            # (round 9, fprov) a steerable float stored to memory (`call f; fstp [esp+0x40]` ... `fld
+            # [esp+0x40]; fucompp`): the reload keeps its source and transforms
+            try:
+                ea = self._ea(insn.mem)
+            except Exception:   # noqa: BLE001
+                ea = None
+            if ea is not None:
+                for x in [x for x in self.fmem if ea - 7 <= x < ea + insn.mem[5]]:
+                    self.fmem.pop(x, None)
+                if fs and fs[0] is not None and fs[0].get("src") is not None:
+                    self.fmem[ea] = (dict(fs[0]), insn.mem[5], insn.addr)
+        if fprov and m == "fabs" and fs and fs[0] is not None and fs[0].get("src") is not None:
+            fs[0] = dict(fs[0], val=None, fxf=tuple(fs[0].get("fxf", ())) + (("fabs", None),))
+            return
+        if fprov and insn.mem is None and m in FARITH:
+            if self._fprov_arith(insn):
+                return
         if m in ("fld",) and insn.mem is not None:
             fs.insert(0, self._float_info(insn.mem))
         elif m == "fxch":
@@ -3164,18 +3324,41 @@ class Run:
             while len(fs) <= k:
                 fs.append(None)
             fs[0], fs[k] = fs[k], fs[0]
-        elif fs and fs[0] is not None and fs[0].get("src") is not None and not isinstance(fs[0]["src"][0], tuple) \
-                and "fxf" not in EQUIV_OFF and (m == "fchs" or (m in ("fadd", "fsub", "fsubr", "fmul") and
-                                                                insn.mem is not None and len(insn.ops) == 1)):
+        elif fs and fs[0] is not None and fs[0].get("src") is not None and \
+                (fprov or not isinstance(fs[0]["src"][0], tuple)) and "fxf" not in EQUIV_OFF and \
+                (m == "fchs" or (m in ("fadd", "fsub", "fsubr", "fmul") + (("fdiv", "fdivr") if fprov else ()) and
+                                 insn.mem is not None and len(insn.ops) == 1)):
             # (round 7) a loaded float plus/minus/times a constant from memory (`fld [g]; fadd [k]; fcomp [0.95]`):
             # the compare can still be steered through g, the transform inverted
             c = None
             if m != "fchs":
                 c = self._float_info(insn.mem)["val"]
-            if m == "fchs" or (c is not None and not math.isnan(c) and not math.isinf(c) and (m != "fmul" or c)):
+            if m == "fchs" or (c is not None and not math.isnan(c) and not math.isinf(c) and (m not in ("fmul", "fdivr") or c)):
                 fs[0] = dict(fs[0], val=None, fxf=tuple(fs[0].get("fxf", ())) + ((m, c),))
             else:
                 fs[0] = None
+        elif fprov and fs and (fs[0] is None or fs[0].get("src") is None) and insn.mem is not None and \
+                len(insn.ops) == 1 and m in ("fadd", "fsub", "fsubr", "fmul", "fdiv", "fdivr"):
+            # (round 9) a value computed from constants, plus/minus/times a steerable float in memory (`fmul st(1);
+            # fadd [ecx+0x218]; fst [ecx+0x218]`): the result is steered through that float, the computed part
+            # taken as the constant it is now
+            mi = self._float_info(insn.mem)
+            try:
+                c = self._st_val(0)
+            except Exception:   # noqa: BLE001
+                c = None
+            t = None
+            if mi.get("src") is not None and c is not None and not (math.isnan(c) or math.isinf(c)) and \
+                    (not isinstance(mi["src"][0], int) or _patchable(mi["src"][0], mi.get("abs", True))):
+                t = {"fadd": ("fadd", c), "fmul": ("fmul", c), "fsub": ("fsubr", c), "fsubr": ("fsub", c),
+                     "fdiv": ("fdivr", c), "fdivr": ("fdiv", c)}[m]
+                if t[0] in ("fmul", "fdiv") and not c:
+                    t = None
+            fs[0] = dict(mi, val=None, fxf=tuple(mi.get("fxf", ())) + (t,)) if t is not None else None
+        elif fprov and m == "fld" and insn.mem is None:
+            sts = [_st_index(r) for r in insn.regs if _st_index(r) is not None]
+            k = sts[0] if sts else 0
+            fs.insert(0, dict(fs[k]) if k < len(fs) and fs[k] is not None else None)     # (`fld st(0)`: a copy)
         else:
             req, delta = insn.x87
             if delta < 0:
@@ -3188,6 +3371,74 @@ class Run:
                     fs[0] = None          # st0 computed: no longer a plain load
         del fs[8:]
 
+    def _st_val(self, i):
+        """The value of st(i) now (Unicorn's FP0..7 are the physical registers)."""
+        u = self.u
+        top = (self.uc.reg_read(u.UC_X86_REG_FPSW) >> 11) & 7
+        return _x87_value(self.uc.reg_read(u.UC_X86_REG_FP0 + ((top + i) & 7)))
+
+    def _fprov_arith(self, insn):
+        """(round 9, fprov) `fsubr st(1)`, `fmulp st(1)`, `fadd st(0), st(2)`: a register-form x87 operation
+        between a steerable value and another whose value is known now (a constant, or anything a patch of
+        the steerable one's source leaves alone) keeps the steerable one's source, with the operation as a
+        transform (inverted by directed inputs). Decided by the opcode bytes (assemblers disagree on the
+        names of the reversed forms). True when handled."""
+        try:
+            b0, b1 = self.view.read(insn.addr, 2)
+        except Exception:   # noqa: BLE001
+            return False
+        if b0 not in (0xD8, 0xDC, 0xDE) or b1 < 0xC0:
+            return False
+        i = b1 & 7
+        grp = (b1 >> 3) & 7         # 0 add, 1 mul, 4/5 sub/subr, 6/7 div/divr (D8: st0 = st0 op sti)
+        if grp in (2, 3):
+            return False            # (fcom forms: handled as compares)
+        fs = self.fstack
+        while len(fs) <= i:
+            fs.append(None)
+        d, s = (0, i) if b0 == 0xD8 else (i, 0)     # destination, other operand
+        if d == s:
+            fs[0] = None            # (st0 with itself: no constant operand)
+            return True
+        # D8: dst = st0, sub: st0 - sti, subr: sti - st0. DC/DE: dst = sti, grp 4 (E0+i) is subr: st0 - sti,
+        # grp 5 (E8+i) is sub: sti - st0; grp 6 (F0+i) divr: st0 / sti, grp 7 (F8+i) div: sti / st0
+        if b0 == 0xD8:
+            op = {0: "add", 1: "mul", 4: "dst-src", 5: "src-dst", 6: "dst/src", 7: "src/dst"}[grp]
+        else:
+            op = {0: "add", 1: "mul", 4: "src-dst", 5: "dst-src", 6: "src/dst", 7: "dst/src"}[grp]
+        ed, es = fs[d], fs[s]
+
+        def steer(e):
+            # (a constant at a fixed address in read-only data is no input: `fld [pi/2]; fsubr st(1)`)
+            return e is not None and e.get("src") is not None and len(e.get("fxf", ())) < 6 and \
+                (not isinstance(e["src"][0], int) or _patchable(e["src"][0], e.get("abs", True)))
+
+        try:
+            vd, vs = self._st_val(d), self._st_val(s)
+        except Exception:   # noqa: BLE001
+            return False
+        res = None
+        if steer(ed) or steer(es):
+            mine, c, mine_is_dst = (ed, vs, True) if steer(ed) else (es, vd, False)
+            if not (math.isnan(c) or math.isinf(c)):
+                if op in ("add", "mul"):
+                    t = ("fadd" if op == "add" else "fmul", c)
+                elif op == "dst-src":
+                    t = ("fsub", c) if mine_is_dst else ("fsubr", c)
+                elif op == "src-dst":
+                    t = ("fsubr", c) if mine_is_dst else ("fsub", c)
+                elif op == "dst/src":
+                    t = ("fdiv", c) if mine_is_dst else ("fdivr", c)
+                else:
+                    t = ("fdivr", c) if mine_is_dst else ("fdiv", c)
+                if t[0] not in ("fmul", "fdiv") or c:
+                    res = dict(mine, val=None, fxf=tuple(mine.get("fxf", ())) + (t,))
+        fs[d] = res
+        if b0 == 0xDE:
+            del fs[0]
+        del fs[8:]
+        return True
+
     def _float_info(self, mem):
         ea = self._ea(mem)
         size = mem[5]
@@ -3196,6 +3447,10 @@ class Run:
             val = struct.unpack("<f" if size == 4 else "<d", b)[0] if size in (4, 8) else None
         except Exception:
             val = None
+        fm = self.fmem.get(ea)
+        if fm is not None and fm[1] == size and val is not None and "fprov" not in EQUIV_OFF:
+            # (round 9) a steerable float stored here (fst/fstp) and not overwritten since
+            return dict(fm[0], val=val)
         st = self.stack_src.get(ea)
         if val is not None and size == 4 and st is not None and st[1] == 4 and isinstance(st[0], int) and \
                 "fabs" not in EQUIV_OFF and all(op[0] == "and" for op in st[4]):
@@ -3209,7 +3464,50 @@ class Run:
             return {"val": val, "src": (("fill",) + fs + (0, 4), 4, self.epoch), "float": True}
         if val is None or STACK_LO <= ea < STACK_HI and not ENTRY_ESP < ea < ENTRY_ESP + 0x100:
             return {"val": val, "src": None, "float": True}
-        return {"val": val, "src": (ea, size, self.epoch), "float": True}
+        out = {"val": val, "src": (ea, size, self.epoch), "float": True}
+        if "fprov" not in EQUIV_OFF:
+            out["abs"] = not mem[1] and not mem[2]
+        return out
+
+    def _track_const(self, insn):
+        """(round 9, via) A register set to a constant on one side of a branch (`cmp eax, [g]; jne L; mov bl, 1;
+        jmp M; L: xor bl, bl`) or by a setcc holds what that compare decided: a later `test bl, bl; je` that has
+        no source of its own is steered through it (bl == 1 needs eax == [g])."""
+        m, ops = insn.mnemonic, insn.ops
+        A = Program._ALIAS
+        cs = self.const_src
+        self.since_jcc += 1
+        if insn.kind == "jcc":
+            self.last_jcc_obs = self.last_cmp
+            self.since_jcc = 0
+            return
+        if insn.kind == "call":
+            for r in ("eax", "ecx", "edx"):
+                cs.pop(r, None)
+            return
+        if insn.kind != "other":
+            return
+        dst = ops[0] if ops else None
+        if dst is not None and dst[0] == "reg":
+            r32 = A.get(dst[1], dst[1])
+            via = None
+            if m.startswith("set"):
+                via = self.last_cmp
+            elif (m == "mov" and len(ops) == 2 and ops[1][0] == "imm" or
+                  m in ("xor", "sub") and len(ops) == 2 and ops[0] == ops[1]) and self.since_jcc <= 3:
+                # (right at the start of a branch side: what the branch decided, not an initialisation)
+                via = self.last_jcc_obs
+            elif m in ("mov", "movzx", "movsx") and len(ops) == 2 and ops[1][0] == "reg":
+                via = cs.get(A.get(ops[1][1], ops[1][1]))
+            elif m in ("test", "cmp"):
+                return
+            if via is not None:
+                for r in self.view.write_widths(insn.addr):
+                    cs.pop(r, None)
+                cs[r32] = via
+                return
+        for r in self.view.write_widths(insn.addr):
+            cs.pop(r, None)
 
     def _observe(self, insn):
         """Track where registers were loaded from and what each cmp/test compared (for directed inputs).
@@ -3224,6 +3522,19 @@ class Run:
         if m.startswith("f"):
             self._observe_x87(insn)
             return
+        if "via" not in EQUIV_OFF:
+            self._track_const(insn)
+        if self.fmem and m == "and" and len(ops) == 2 and ops[0][0] == "mem" and "fprov" not in EQUIV_OFF and \
+                (ops[1] == ("imm", 0x7FFFFFFF) or ops[1][0] == "reg" and self.reg(ops[1][1]) == 0x7FFFFFFF):
+            # (round 9, fprov) `fstp [esp+4]; and dword [esp+4], 0x7fffffff; fld [esp+4]`: fabs in memory (the
+            # high word of a double, or a float)
+            ea_ = self._ea(ops[0][1])
+            for key_, sz_ in ((ea_, 4), (ea_ - 4, 8)):
+                fm_ = self.fmem.get(key_)
+                if fm_ is not None and fm_[1] == sz_:
+                    self.fmem[key_] = (dict(fm_[0], val=None, fxf=tuple(fm_[0].get("fxf", ())) + (("fabs", None),)),
+                                       sz_, fm_[2])
+                    self.fmem_keep = (insn.addr, key_)
         if m == "test" and ops and ops[0] == ("reg", "ah") and self.fpu_cmp is not None:
             self.last_cmp = self.fpu_cmp          # fnstsw ax; test ah, 0x41: the float comparison decides
             return
@@ -3233,14 +3544,39 @@ class Run:
         if insn.kind == "jmp" and insn.addr in self.view.tables and insn.mem is not None and insn.mem[2]:
             idx = insn.mem[2]
             info = self._reg_info(idx)
-            if info["src"] and insn.addr not in self.cmp_obs:
+            if self.coverage is not None and info["src"] and isinstance(info["src"][0], int) and \
+                    info["src"][1] == 1 and info.get("xf") and info["xf"][-1][0] == "btab" and \
+                    "alphaxf" not in EQUIV_OFF:
+                # (round 9) a switch through a byte table on a loaded char (`movzx edx, byte [eax + map]; jmp
+                # [edx*4 + tab]`, a Lua binding's signature letters): one char per case joins the alphabet of
+                # planted strings, and the buffer is where they go
+                adj = _char_adjust(info["xf"][:-1])
+                if adj is not None:
+                    tab = Program.get().read(info["xf"][-1][1], 256)
+                    ncase = len(self.view.tables[insn.addr])
+                    for ci in sorted(set(tab[:256])):
+                        if ci < ncase and len(self.byte_seq) < 64:
+                            self.byte_seq.append((tab.index(ci) - adj) & 0xFF)
+                    ea_ = info["src"][0]
+                    if not STACK_LO <= ea_ < STACK_HI and insn.addr not in self.byte_bufs:
+                        self.byte_bufs[insn.addr] = (ea_, info["src"][2])
+            old_ = self.cmp_obs.get(insn.addr)
+            if info["src"] and (old_ is None or ("obslater" not in EQUIV_OFF and not _obs_steerable(old_, via=False) and
+                                                 _obs_steerable({"ops": [info]}, via=False))):
                 # the jump-table index came straight from memory or an input: cases can be patched in
+                # (round 9, obslater: a later round's index from fuzzed data replaces a first one read from the
+                # byte table itself, `mov al, 0x76` past the end of a signature string)
                 self.cmp_obs[insn.addr] = {"addr": insn.addr, "mnemonic": "table", "ops": [info],
                                            "cases": list(self.view.tables[insn.addr])}
             return
         if insn.kind == "jcc" or (m.startswith("set") and insn.kind == "other"):
             if self.last_cmp is not None:
                 if insn.addr not in self.cmp_obs:
+                    self.cmp_obs[insn.addr] = self.last_cmp
+                elif "obslater" not in EQUIV_OFF and insn.addr not in self.cmp_obs2 and \
+                        not _obs_steerable(self.cmp_obs[insn.addr], via=False) and _obs_steerable(self.last_cmp, via=False):
+                    # (round 9, obslater) the first round compared constants (a loop's first element, a default),
+                    # a later one data an input can change: keep that one
                     self.cmp_obs[insn.addr] = self.last_cmp
                 elif insn.addr not in self.cmp_obs2 and self.last_cmp is not self.cmp_obs[insn.addr]:
                     self.cmp_obs2[insn.addr] = self.last_cmp      # the second time round (a loop's step)
@@ -3262,6 +3598,14 @@ class Run:
                     info.append({"val": v, "src": None, "imm": v})
             if len(info) == 2 and info[0].get("reg") and info[0].get("reg") == info[1].get("reg"):
                 info[1]["same"] = True
+            if m == "cmp" and len(info) == 2 and "eqlink" not in EQUIV_OFF and info[0]["src"] and info[1]["src"] and \
+                    not info[0].get("xf") and not info[1].get("xf") and info[0]["src"] != info[1]["src"] and \
+                    info[0]["val"] == info[1]["val"] and len(self.eq_links) < 64:
+                # (round 9, eqlink) two inputs found equal (`cmp eax, [ebx+0xc]; jne` after a stub returned eax):
+                # a later compare of one of them (`add eax, -8; cmp eax, 4; ja`) moves both, or the first compare
+                # no longer holds
+                self.eq_links[info[0]["src"]] = info[1]["src"]
+                self.eq_links[info[1]["src"]] = info[0]["src"]
             if m == "cmp" and len(info) == 2 and self.coverage is not None:
                 # an inline string compare (`mov al, [ecx]; cmp al, [edx]`) with one side in .rdata
                 sa, sb = info[0]["src"], info[1]["src"]
@@ -3272,13 +3616,16 @@ class Run:
             if m == "cmp" and len(info) == 2 and self.coverage is not None and "alpha" not in EQUIV_OFF:
                 for x_, y_ in ((info[0], info[1]), (info[1], info[0])):
                     sa = x_["src"]
-                    if not (sa and isinstance(sa[0], int) and sa[1] == 1 and not x_.get("xf")) or \
-                            y_.get("src") is not None or y_.get("val") is None or y_["val"] > 0xFF:
+                    adj = _char_adjust(x_.get("xf")) if "alphaxf" not in EQUIV_OFF else (0 if not x_.get("xf") else None)
+                    if not (sa and isinstance(sa[0], int) and sa[1] == 1 and adj is not None) or \
+                            y_.get("src") is not None or y_.get("val") is None or \
+                            (y_["val"] > 0xFF if not x_.get("xf") else not -0x100 < _sx(y_["val"]) < 0x100):
                         continue
                     # a char compared with a constant (an immediate, or `mov al, 's'; cmp cl, al`): the
                     # constants make up the alphabet planted strings use, in the order compared ("class")
+                    # (round 9: also a char minus a constant, `movsx eax, al; add eax, -0x56; cmp eax, 0x20`)
                     if len(self.byte_seq) < 64:
-                        self.byte_seq.append(y_["val"])
+                        self.byte_seq.append((y_["val"] - adj) & 0xFF)
                     ea = sa[0]
                     if STACK_LO <= ea < STACK_HI:
                         ea = self.copy_src.get(ea)       # a stack copy of a heap string: plant the original
@@ -3308,6 +3655,11 @@ class Run:
                 ops[1][0] == "reg" else None
             if src is not None and src[3] == ops[1][1] and dst[1][5] == 4:
                 self.stack_src[ea] = src
+                lp_ = self.load_pc.get(A.get(ops[1][1], ops[1][1]))
+                if lp_ is not None and lp_[1] == src[0]:
+                    self.stack_pc[ea] = lp_[0]      # (round 9) where the value was loaded from memory
+                else:
+                    self.stack_pc.pop(ea, None)
             else:
                 for x in range(ea - 3, ea + (dst[1][5] or 4)):
                     self.stack_src.pop(x, None)
@@ -3357,6 +3709,7 @@ class Run:
                 inf = self._mem_info(mem)
                 if inf["xf"]:
                     self.loads[r32] = (inf["src"][0], inf["src"][1], inf["src"][2], r, inf["xf"], inf["raw"])
+                    self.load_pc[r32] = (inf.get("pc", insn.addr), inf["src"][0])
                     return
                 raw = inf["val"]
                 if m == "movsx" and raw >> (8 * size - 1):
@@ -3364,6 +3717,9 @@ class Run:
                 # (the epoch the value was loaded from memory in: a loop counter kept in a local, `mov eax,
                 # [esp+0x40]; dec eax; mov [esp+0x40], eax; jne`, was loaded before the body's calls)
                 self.loads[r32] = (inf["src"][0], size, inf["src"][2] if "epoch" not in EQUIV_OFF else self.epoch, r, (), raw)
+                self.load_pc[r32] = (inf.get("pc", insn.addr), inf["src"][0])
+                if isinstance(inf["src"][0], int) and inf.get("pc", insn.addr) == insn.addr and len(self.addr_pc) < 4096:
+                    self.addr_pc[inf["src"][0]] = insn.addr
                 return
             if m in ("movzx", "movsx") and len(ops) == 2 and ops[1][0] == "reg" and r in Program._REGS:
                 sr = ops[1][1]
@@ -3450,6 +3806,17 @@ class Run:
                 if addr != self.helper_ret:
                     return
                 self.helper_ret = None
+                if self.ftol_pending is not None:
+                    # (round 9, ftolsrc) `call __ftol2` on a steerable float: eax is that float truncated, and an
+                    # integer compare on it (`cmp eax, 8; jge`) is steered through the float's source
+                    e_ = self.ftol_pending
+                    self.ftol_pending = None
+                    v_ = self.reg("eax")
+                    key_ = ("ftol", e_["src"], tuple(e_.get("fxf") or ()), tuple(e_.get("ixf") or ()), e_.get("raw"),
+                            e_.get("abs", True))
+                    self.loads["eax"] = (key_, 4, self.epoch, "eax", (), v_)
+                    if self.fstack:
+                        del self.fstack[0]      # (the helper popped it)
             if self.wild_check and not self.view.in_body(addr) and addr not in self.view.insns and \
                     not (self.local_code and self.local_code[0] <= addr < self.local_code[1]):
                 # control left the function's code: a return address, saved register or function pointer
@@ -3506,6 +3873,20 @@ class Run:
                         self.mapped.add(pg)
             if insn is None:
                 raise Fault("undecodable")
+            if self.count_pcs and addr in self.count_pcs and insn.mem is not None and insn.mnemonic != "lea":
+                # (round 9, smallcount) a discovery run: a load that fed a runaway loop's bound reads a small count
+                ea = self._ea(insn.mem)
+                sz = insn.mem[5] or 4
+                if sz in (1, 2, 4) and not STACK_LO <= ea < STACK_HI and not _reserved(ea) and \
+                        not self.prog.is_code(ea) and _patchable(ea, False):
+                    try:
+                        cur = int.from_bytes(uc.mem_read(ea, sz), "little")
+                    except Exception:   # noqa: BLE001
+                        cur = None
+                    if cur is not None and 16 < cur < (1 << (8 * sz)) - 16:
+                        b_ = (1 + mix(self.inp["seed"], ea, 0x5C0) % 4).to_bytes(sz, "little")
+                        uc.mem_write(ea, b_)
+                        self.count_plants[(self.epoch, ea)] = b_
             if self.fill_watch:
                 self._check_readback(insn)
             if insn.mnemonic.startswith("rep") and self.reg("ecx") > 0x100000:
@@ -3603,6 +3984,10 @@ class Run:
                 else:
                     target = self.reg(insn.regs[0])
                 if target in self.helpers:
+                    if self.coverage is not None and self.helpers[target] == "__ftol2" and self.fstack and \
+                            self.fstack[0] is not None and self.fstack[0].get("src") is not None and \
+                            "ftolsrc" not in EQUIV_OFF:
+                        self.ftol_pending = dict(self.fstack[0])
                     if self.coverage is not None and self.helpers[target] in STRCMP_HELPERS:
                         a0, a1, a2 = (self._read_u32(esp + 4 * i) for i in range(3))
                         n = a2 if self.helpers[target] == "_strncmp" else None
@@ -4741,6 +5126,8 @@ def infeasible_edges(view):
                 out.add((j, j + i.size) if taken else (j, i.target))
     if "leanull" not in EQUIV_OFF:
         out |= _lea_null_edges(view)
+    if "leaflow" not in EQUIV_OFF:
+        out |= _lea_null_flow(view)
     if "wrapcmp" not in EQUIV_OFF:
         out |= _wrap_edges(view)
     if "constflags" not in EQUIV_OFF:
@@ -4831,6 +5218,94 @@ def _lea_null_edges(view):
             a = prev.get(a)
         if ok:
             out.add((j, i.target) if i.mnemonic in ("je", "jz") else (j, j + i.size))
+    return out
+
+
+def _lea_null_flow(view):
+    """(round 9, leaflow) The `&this->member` null check of _lea_null_edges across calls and branches: `lea edi,
+    [esi + 0x1f58]; call f; ...; jne L; ...; test edi, edi; je` (FaceTargetAction: `Sub *sub = &p->sub; ...;
+    if (sub != 0 && ...)`). A forward data flow keeps, per register, the lea that last set it on every path
+    (copies follow it). A call ends it for eax/ecx/edx only: the original keeping the value in ebx/esi/edi/ebp
+    across a call is its compiler relying on the callee preserving it."""
+    regs = ("eax", "ecx", "edx", "ebx", "esi", "edi", "ebp")
+    prev = {a + i.size: a for a, i in view.insns.items()}
+    targets = {i.target for i in view.insns.values() if i.target is not None} | \
+        {t for tg in view.tables.values() for t in tg}
+    bases = {i.mem[1] for i in view.insns.values() if i.mem is not None and i.mnemonic != "lea" and i.mem[1]}
+    state = {view.entry: {}}
+    work = [view.entry]
+    steps = 0
+
+    def transfer(a, i, st):
+        if i.kind == "call":
+            return {r: v for r, v in st.items() if r not in ("eax", "ecx", "edx")}
+        w = view.write_widths(a)
+        if not w:
+            return st
+        st = dict(st)
+        if i.mnemonic == "lea" and len(i.ops) == 2 and i.ops[0][0] == "reg" and i.ops[0][1] in regs and i.mem is not None:
+            _, b, ix, _, disp, _ = i.mem
+            for r in w:
+                st.pop(r, None)
+            if b is not None and ix is None and 0 < disp < 0x10000 and b != i.ops[0][1] and (b in bases or b == "esp"):
+                st[i.ops[0][1]] = a
+            return st
+        if i.mnemonic == "mov" and len(i.ops) == 2 and i.ops[0][0] == "reg" and i.ops[1][0] == "reg" and \
+                i.ops[0][1] in regs and i.ops[1][1] in regs:
+            v = st.get(i.ops[1][1])
+            for r in w:
+                st.pop(r, None)
+            if v is not None:
+                st[i.ops[0][1]] = v
+            return st
+        for r in w:
+            st.pop(r, None)
+        return st
+
+    while work and steps < 200000:
+        steps += 1
+        a = work.pop()
+        i = view.insns.get(a)
+        if i is None:
+            continue
+        out_st = transfer(a, i, state[a])
+        if i.kind in ("ret", "stop"):
+            succ = []
+        elif i.kind == "jcc":
+            succ = [i.target, a + i.size]
+        elif i.kind == "jmp":
+            succ = ([i.target] if i.target is not None else []) + list(view.tables.get(a, ()))
+        else:
+            succ = [a + i.size]
+        for b in succ:
+            if b not in view.insns:
+                continue
+            old = state.get(b)
+            new = out_st if old is None else {r: v for r, v in old.items() if out_st.get(r) == v}
+            if old is None or new != old:
+                state[b] = new
+                work.append(b)
+    if work:
+        return set()
+    out = set()
+    for j in view.jcc:
+        i = view.insns[j]
+        if i.mnemonic not in ("je", "jz", "jne", "jnz") or j in targets:
+            continue
+        a = prev.get(j)
+        for _ in range(8):
+            p = view.insns.get(a)
+            if p is None or p.kind != "other":
+                break
+            if p.mnemonic in _FLAGS_KEPT:
+                if a in targets:
+                    break
+                a = prev.get(a)
+                continue
+            if p.mnemonic in ("test", "or") and len(p.ops) == 2 and p.ops[0] == p.ops[1] and p.ops[0][0] == "reg" \
+                    and p.ops[0][1] in regs and p.ops[0][1] in state.get(a, {}):
+                out.add((j, i.target) if i.mnemonic in ("je", "jz") else (j, j + i.size))
+            break
     return out
 
 
@@ -5281,6 +5756,10 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
                                   issues=issues)
         rep["time"] = round(time.time() - t0, 2)
         return rep
+    # (round 9, ourglobal) the original's image words our code also reads (bound data symbols): a directed input
+    # plants a fixed-address word only there (a float constant the original keeps in .data, `fld [0x49fbc4]`,
+    # is a literal in ours: planting it changed the original alone)
+    prog.ours_data = {t for k_, t, _ in our_refs(ours, resolved, rview)[0] if k_ == "data" and t is not None}
     l3 = level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs, max_steps, keep_runs,
                 time_budget, psizes=psizes, convs=convs, decls=decls, void_eax=void_eax, seeds=seeds)
     rep["level3"] = l3
@@ -5299,6 +5778,8 @@ def verify(src, addr, symbol=None, flags=(), n_inputs=64, max_inputs=256, mappin
                 l3["inputs_run"], cov["edges_covered"], cov["edges_total"])
     else:
         rep["status"] = "fail"
+        # (round 9) which levels failed (`level` is the highest one passed)
+        rep["failed_levels"] = ([2] if issues else []) + ([3] if l3.get("inputs_failed") or not issues else [])
     # `equivalent` only says no difference was seen with some coverage; promotion needs more (an added
     # field, so consumers parsing `status` keep working)
     cov = l3.get("coverage") or {}
@@ -5459,14 +5940,18 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     ub_copy = UB_COPY.get(prog.funcs[oview.entry][1]) if oview.entry in prog.funcs and "overlap" not in EQUIV_OFF \
         and not target_conv else None
     observations = {}          # jcc addr -> [(seed, cmp observation, ...)] from the original's runs
+    missing_now = [set()]      # (round 9) compares with a side still missing (as of the directed pass)
     str_queue = []             # [(seed, string-compare observation, overlay, patch)] to plant (directed)
     str_seen = Counter()       # (site, literal) -> times queued
+    str_popped = Counter()     # (round 9) site -> plants run
     t_start = time.process_time()      # CPU time: a loaded machine doesn't change the result
     steps = [max_steps]
     timeout_calls = [0]        # most stub calls a timed-out run of the original made
     last_steps = [0]           # instructions the last original run executed
     last_sentinels = [()]      # what the last timed-out run's walk compared its links against
     sent_left = [512, 0, 0]    # sentinel retries: budget, tried, completed
+    count_pcs = set()          # (round 9) loads that read a runaway loop's count
+    small_left = [512, 0, 0, 0, 0.0]   # (round 9) small-count rounds: budget, tried, completed, (unused), CPU seconds
     probed = [None]            # the step-budget probe: None (not run), or the budget it settled on (0: no help)
     stuck = []                 # inputs whose original ran too long: (seed, overlay, patch, hot comparisons)
     last_status = [None]
@@ -5561,6 +6046,9 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     inp["stack"][wi] = (inp["stack"][wi] & ~msk & M32) | ((v << (8 * bo)) & msk)
                     if wi < len(inp["own_args"]):
                         inp["own_args"][wi] = inp["stack"][wi]
+                    continue
+                if isinstance(k, tuple) and k[0] == "pfill":   # (round 9) a byte out-parameter the function had set
+                    inp.setdefault("pfill_override", {})[k[1:]] = v
                     continue
                 if isinstance(k, tuple) and k[0] == "fill":    # a word a stub filled through a pointer
                     inp.setdefault("fill_override", {})[k[1:]] = v
@@ -5658,14 +6146,18 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             # (round 7) a byte loop that compares each char with constants (an atof-style parser: '-', '.',
             # '0'..'9'): plant short strings made of those chars where it read its first byte
             bufs = {}
+            bsite = {}
             for site, (ea, ep) in orun.byte_bufs.items():      # one buffer per distinct region: its lowest byte
                 if not any(abs(ea - b) < 64 for b in bufs) or any(ea < b and b - ea < 64 for b in bufs):
                     for b in [b for b in bufs if 0 < b - ea < 64]:
                         bufs.pop(b)
                     bufs[ea] = ep
+                    bsite[ea] = site
             for ea, ep in sorted(bufs.items())[:2]:
                 # (twice, and again whenever the alphabet or the keywords grew: a planted "cla" shows the 's')
-                ak = ("alpha", len(alphabet), len(alpha_words))
+                # (round 9, alphasite: per compare site that read the buffer, so a second char loop gets its
+                # turn too, a binding's signature loop after its result loop)
+                ak = ("alpha", len(alphabet), len(alpha_words)) + ((bsite[ea],) if "alphasite" not in EQUIV_OFF else ())
                 if str_seen[ak] >= 2 or str_seen[("alpha",)] >= 16 or len(str_queue) >= 512 or _reserved(ea) or \
                         prog.is_code(ea) or ea < NULL_HI or (IMAGE_LO <= ea < IMAGE_HI and prog.section_name(ea) == ".rdata"):
                     continue
@@ -5682,14 +6174,26 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                             continue
                         txt.append(txt[-1] if txt and rnd.random() < 0.4 and txt[-1] not in b".-+" else rnd.choice(alphabet))
                     txt = txt[:24]
+                    # (round 9, alphaep: in that memory epoch and every later one: a loop that calls something
+                    # per char, `lua_type(L, i)` before reading sig[i], reads each char in a new epoch)
                     str_queue.append((seed, {"site": ("alpha", ea, k_), "lit": bytes(txt) + b"\0", "buf": ea,
-                                             "epoch": ep, "fills": {}}, overlay, stack_patch))
+                                             "epoch": ep if "alphaep" in EQUIV_OFF or not isinstance(ep, int)
+                                             else ("after", ep - 1), "fills": {}}, overlay, stack_patch))
         obs_run = {j: (dict(ob, next=orun.cmp_obs2[j]) if j in orun.cmp_obs2 else ob)
                    for j, ob in orun.cmp_obs.items()}
         if o["status"] == "ret":
+            directed_ = bool(overlay) or bool(stack_patch)
             for j, ob in obs_run.items():
                 lst = observations.setdefault(j, [])
                 if len(lst) < 6 and all(x[0] != seed for x in lst):
+                    lst.append((seed, ob, overlay, stack_patch))
+                elif directed_ and len(lst) < 12 and "chain" not in EQUIV_OFF and j in missing_now[0] and \
+                        all(x[0] != seed or x[2] != overlay or x[3] != stack_patch for x in lst) and \
+                        all(_obs_shape(x[1]) != _obs_shape(ob) for x in lst):
+                    # (round 9, chain) a directed input that reached a compare with a side still missing in a new
+                    # way (another source, or another compare deciding it): its patches carry on from there (a
+                    # second condition behind the first one it satisfied, `eax == [g]` then `edx == [g+4]`), so
+                    # it is kept even when the first six came earlier
                     lst.append((seed, ob, overlay, stack_patch))
         elif o["status"] in ("timeout", "fault:too_many_pages") and orun.rep_obs is not None:
             if len(stuck) < 256:
@@ -5716,6 +6220,16 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             hot = [(j, obs_run[j]) for j in (back[:2] + [j for j in cand if j not in back[:2]])][:3]
             if hot and len(stuck) < 256:
                 stuck.append((seed, overlay, stack_patch, hot))
+            if "smallcount" not in EQUIV_OFF and len(count_pcs) < 64:
+                # (round 9, smallcount) the loads of a runaway loop's bound (`mov ecx, [eax+0xc]` ... `cmp esi,
+                # ecx; jb top`): later timed-out inputs get small counts there in one go (56 loops in a row
+                # need 56 repairs one at a time)
+                for j, ob in hot:
+                    if j in loop_exits:
+                        for o_ in ob.get("ops") or ():
+                            sr_ = o_.get("src")
+                            if sr_ and isinstance(sr_[0], int) and not STACK_LO <= sr_[0] < STACK_HI and o_.get("pc"):
+                                count_pcs.add(o_["pc"])
             for j, c in orun.jcc_count.most_common(1):
                 if c > 1000 and o["status"] == "timeout" and not orun.loop_abort and repair_on[0]:
                     loop_limits[j] = 256
@@ -5859,6 +6373,62 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             res["inputs_sentinel"] = res.get("inputs_sentinel", 0) + 1
         return new
 
+    def small_retry(seed, overlay0=None, patch0=None):
+        """(round 9, smallcount) An input whose original ran away in loops whose counts known loads read: a
+        discovery run of the original with small counts planted where those loads read, then the input again
+        with those counts in its memory (both sides alike). New edges, or None."""
+        # (stops when it costs a quarter of the time budget without getting an input through, a tenth of it
+        # while fewer than 1 in 4 rounds do, or 35% of it in all: the directed inputs need their share)
+        budget_ = time_budget * (3 if steps[0] >= LONG_STEPS else 1)
+        if not count_pcs or small_left[0] <= 0 or (not small_left[2] and small_left[4] > 0.25 * budget_) or \
+                (small_left[1] >= 16 and small_left[2] * 4 < small_left[1] and small_left[4] > 0.1 * budget_) or \
+                small_left[4] > 0.35 * budget_:
+            return None
+        plants = {}
+        new = None
+        t0_ = time.process_time()
+        try:
+            return _small_rounds(seed, overlay0, patch0, plants)
+        finally:
+            small_left[4] += time.process_time() - t0_
+
+    def _small_rounds(seed, overlay0, patch0, plants):
+        new = None
+        # (each round plants the counts of the loops the last one ran away in; 8 rounds until it got 2 inputs
+        # through, then up to 64: 56 copy loops in a row)
+        for _ in range(64 if small_left[2] >= 2 else 8):
+            if small_left[0] <= 0 or out_of_time():
+                break
+            small_left[0] -= 1
+            small_left[1] += 1
+            inp_, inp_o_, mach_ = build(seed, _merge_ov(overlay0, plants), patch0)
+            drun = Run(prog, oview, mach_, inp_o_, ours_image=(OURS, ours.image), sig=sig, max_steps=steps[0],
+                       own_float_ret=own_float, coverage=True, helpers=helpers)
+            drun.pointee_sizes = psizes or {}
+            drun.convs = convs or {}
+            drun.orig_entry = oview.entry
+            drun.slot_arity = slot_arity
+            drun.varargs = varargs
+            drun.wild_check = True
+            drun.count_pcs = set(count_pcs)
+            drun.loop_limits = loop_limits
+            drun.run(oview.entry)
+            more_ = {k_: v_ for k_, v_ in drun.count_plants.items() if k_ not in plants}
+            if not more_:
+                break
+            plants.update(more_)
+            n0 = len(stuck)
+            npc = len(count_pcs)
+            new = run_input(seed, _merge_ov(overlay0, plants), patch0, label="%d+small" % seed)
+            res["inputs_small"] = res.get("inputs_small", 0) + 1
+            if new is not None:
+                small_left[2] += 1
+                return new
+            if last_status[0] != "timeout" or len(count_pcs) == npc:
+                break           # (another round only when this one learned the count of another loop)
+            del stuck[n0:]
+        return None
+
     def probe_steps():
         """Re-run input 0 with PROBE_STEPS. If its original returns, the code is long but finite: every
         later input gets twice the steps it took (at least LONG_STEPS) and 3x the time budget."""
@@ -5872,7 +6442,7 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             steps[0] = old
             probed[0] = 0
 
-    def random_phase(soft, until_run=None, nocap=False):
+    def random_phase(soft, until_run=None, nocap=False, stop_frac=None):
         """soft: hand over to the directed phase once half the time budget is gone and 50 inputs completed
         (with --inputs 3000 the random inputs alone would use all of it); the rest of the random inputs
         run after the directed ones."""
@@ -5883,6 +6453,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             if soft and res["inputs_run"] >= 50 and seed >= 256 and time_frac() > 0.5 and \
                     "soft" not in EQUIV_OFF:
                 return
+            if stop_frac is not None and seed >= 3000 and time_frac() > stop_frac:
+                return      # (round 9, morein) past what --inputs 3000 runs: leave time for the directed inputs
             if seed == 4 and steps[0] < LONG_STEPS and res["statuses"].get("timeout") == 4 and not res.get("huge_rep") \
                     and timeout_calls[0] < 500:
                 # every input so far ran out of steps: long-running code (string building, big loops), not
@@ -5895,7 +6467,13 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                 # (round 7) thousands of stub calls or a big rep: a fixed loop with many calls per round (100
                 # objects x 66 calls) runs long but ends; a loop a stubbed callee keeps going never does.
                 # One input (the pristine one) with a huge budget tells them apart
-                probe_steps()
+                if count_pcs and "smallcount" not in EQUIV_OFF and small_retry(0) is not None:
+                    # (round 9) ... unless small counts at the loads that fed the runaway loops already got an input
+                    # through: fuzzed counts, not long code (the 8M-step probe took 100 s of the 120 s budget)
+                    probed[0] = 0
+                    res["probe_skipped"] = True
+                else:
+                    probe_steps()
             if seed == 8 and steps[0] >= LONG_STEPS and res["statuses"].get("timeout", 0) >= 6 and not probed[0]:
                 steps[0] = max_steps          # the bigger budget didn't help: fuzzed loop bounds after all
                 res.pop("long_steps", None)
@@ -5912,13 +6490,41 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             if only_seeds and seed not in only_seeds:      # (EQUIV_SEEDS=7913,9556: debugging one input)
                 rs["seed"] += 1
                 continue
-            new = run_input(seed)
+            new = None
+            tried_small = False
+            nst_ = sum(res["statuses"].values())
+            if count_pcs and repair_on[0] and small_left[2] >= 2 and small_left[2] * 2 >= small_left[1] and \
+                    "smallcount" not in EQUIV_OFF and \
+                    2 * res["statuses"].get("timeout", 0) >= nst_ and \
+                    (seed % 4 or (seed % 8 and 10 * res["statuses"].get("timeout", 0) >= 9 * nst_)):
+                # (round 9, smallcount) most inputs run away and small counts got some through: three in four
+                # inputs start with their loop counts small (the fourth stays as drawn)
+                n1 = len(stuck)
+                new = small_retry(seed)
+                tried_small = True
+                if new is None:
+                    del stuck[n1:]
+            if new is None and not (tried_small and last_status[0] == "timeout"):
+                new = run_input(seed)
             rs["seed"] += 1
+            if new is None and last_status[0] == "timeout" and count_pcs and repair_on[0] and not tried_small and \
+                    "smallcount" not in EQUIV_OFF:
+                n1 = len(stuck)
+                new = small_retry(seed)
+                tried_small = True
+                if new is None:
+                    del stuck[n1:]          # (the plain run's stuck entry stays for the repair below)
+                else:
+                    # (the input as drawn ran away: it still counts toward the 32-inconclusive cap of the random
+                    # phase, which hands the time to the directed inputs as before; else a function where half
+                    # the inputs run away spent the whole budget on random ones)
+                    rs["rinc"] += 1
             if new is None and last_sentinels[0] and last_status[0] == "timeout":
                 new = sentinel_retry(seed, None, None, n0)
             if new is None:
                 rs["rinc"] += 1          # (repair runs that time out don't count here)
-                if repair_on[0] and len(stuck) > n0:
+                if repair_on[0] and len(stuck) > n0 and not (small_left[2] >= 2 and tried_small):
+                    # (round 9: not after small counts got some inputs through and failed on this one)
                     repair(stuck[n0])
                 if rs["rinc"] >= 32 and res["inputs_run"] >= 8 and until_run is None and not nocap:
                     res["inconclusive_cap_hit"] = True
@@ -5941,6 +6547,14 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         n0 = len(stuck)
         e0 = len(edges)
         new = run_input(seed0, overlay, patch, label=label)
+        if new is None and last_status[0] == "timeout" and count_pcs and repair_on[0] and \
+                "smallcount" not in EQUIV_OFF:
+            # (round 9) a directed input that runs away behind the side it opened: small counts first
+            n1 = len(stuck)
+            new_ = small_retry(seed0, overlay, patch)
+            if new_ is not None:
+                return new_ or len(edges) > e0
+            del stuck[n1:]
         if new is None and len(stuck) > n0 and repair_on[0] and "drepair" not in EQUIV_OFF and \
                 directed_repair[0] > 0:
             left = repair_left[0]
@@ -5953,18 +6567,36 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
         return new
 
     jcur = {}           # compare -> its next observation to patch (breadth first)
+    via_tries = Counter()   # (round 9) compare -> directed inputs steered through the compare that decided a constant
+    via_found = set()       # (round 9) ... that found new edges that way
+
+    via_mode = [False]
+
+    def via_ok(j, ob):
+        # (a few tries per compare and deciding compare, unless one of them helped: a constant a branch decided is
+        # often a flag several conditions feed, and the budget is shared; a try that moves the decision to the
+        # next condition, `edx == [g+4]` after `eax == [g]`, starts afresh)
+        return via_mode[0] and (via_tries[_via_key(j, ob)] < 3 or j in via_found)
     active = set()      # compares being driven
     more = [False]      # some compare still has untried observations
 
     def directed_phase():
         progress = True
-        while (progress or more[0]) and dstate["budget"] > 0 and res["inputs_failed"] < 3 and not out_of_time():
+        via_mode[0] = False
+        while dstate["budget"] > 0 and res["inputs_failed"] < 3 and not out_of_time():
+            if not (progress or more[0]):
+                if via_mode[0] or "via" in EQUIV_OFF:
+                    break
+                # (round 9, via) the direct patches are used up: now through the compares that decided the
+                # constants other compares test (a flag set on one side of a branch)
+                via_mode[0] = True
             progress = False
             more[0] = False
             dead = infeasible_edges(oview)
             missing = {j for j in oview.jcc for t in (oview.insns[j].target, j + oview.insns[j].size)
                        if (j, t) not in edges and (j, t) not in dead} | \
                 {j for j in oview.setcc for v in ("set0", "set1") if (j, v) not in edges and (j, v) not in dead}
+            missing_now[0] = set(missing)
             table_cases = {}
             for j, tg in oview.tables.items():
                 miss = [i for i, t in enumerate(tg) if (j, t) not in edges and (j, t) not in dead]
@@ -5978,7 +6610,16 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
             str_cap = dstate["budget"] - max(8, dstate["budget"] // 2) if "strcap" not in EQUIV_OFF else -1 << 30
             while missing and str_queue and dstate["budget"] > max(0, str_cap) and res["inputs_failed"] < 3 \
                     and not out_of_time():
-                seed0, sob, ov0, sp0 = str_queue.pop(0)
+                qi = 0
+                if "strrr" not in EQUIV_OFF:
+                    # (round 9, strrr) round robin over the buffers and literal sites queued: a second char loop's
+                    # strings no longer wait behind 24 of the first one's
+                    def skey(e_):
+                        st_ = e_[1]["site"]
+                        return ("alpha", st_[1]) if isinstance(st_, tuple) and st_ and st_[0] == "alpha" else st_
+                    qi = min(range(min(len(str_queue), 256)), key=lambda i_: (str_popped[skey(str_queue[i_])], i_))
+                    str_popped[skey(str_queue[qi])] += 1
+                seed0, sob, ov0, sp0 = str_queue.pop(qi)
                 for overlay, patch in _plants(sob, ov0, sp0):
                     key = (sob["site"], seed0, tuple(sorted(map(repr, overlay.items()))),
                            tuple(sorted(map(repr, patch.items()))))
@@ -6024,7 +6665,8 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                             ob = dict(ob, want_cases=table_cases.get(j, [])[:3])
                         if any((j, seed0, tuple(sorted(map(repr, ov_.items()))), tuple(sorted(map(repr, pt_.items()))))
                                not in tried for ov_, pt_ in
-                               _patches(ob, ov0, sp0, len(make_input(seed0, sig, globals_, min_words=own_words)["stack"]))[:3]):
+                               _patches(ob, ov0, sp0, len(make_input(seed0, sig, globals_, min_words=own_words)["stack"]),
+                                        via=via_ok(j, ob))[:3]):
                             pick = idx
                             break
                     if pick is None:
@@ -6037,7 +6679,11 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                     found = False
                     if ob["mnemonic"] == "table":
                         ob = dict(ob, want_cases=table_cases.get(j, [])[:3])
-                    for overlay, patch in _patches(ob, ov0, sp0, len(make_input(seed0, sig, globals_, min_words=own_words)["stack"]))[:3]:
+                    # (round 9: through the compare that decided a constant too; loop repair doesn't, an inner loop
+                    # over a constant bound must stay unpatchable there)
+                    via_only = not _obs_steerable(ob, via=False)
+                    for overlay, patch in _patches(ob, ov0, sp0, len(make_input(seed0, sig, globals_, min_words=own_words)["stack"]),
+                                                   via=via_ok(j, ob))[:3]:
                         key = (j, seed0, tuple(sorted(map(repr, overlay.items()))), tuple(sorted(map(repr, patch.items()))))
                         if key in tried:
                             continue
@@ -6045,6 +6691,10 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
                         dstate["budget"] -= 1
                         res["inputs_directed"] += 1
                         new = directed_run(seed0, overlay, patch, "%d+patch" % seed0)
+                        if via_only:
+                            via_tries[_via_key(j, ob)] += 1
+                            if new:
+                                via_found.add(j)
                         if new:
                             progress = True
                             found = True
@@ -6073,8 +6723,13 @@ def level3(prog, oview, rview, ours, orefs, sig, ret_kind, n_inputs, max_inputs,
     random_phase(soft=True)
     directed_phase()
     if not rs["done"] and not out_of_time() and res["inputs_failed"] < 3:
-        random_phase(soft=False)
+        # (round 9, morein) with --inputs over 3000, the random inputs past 3000 stop at 80% of the time, so the
+        # directed inputs after them still run (they ran out of time before: 12000 inputs covered less than 3000)
+        random_phase(soft=False, stop_frac=0.8 if n_inputs > 3000 and "morein" not in EQUIV_OFF else None)
         directed_phase()        # (new observations from the later random inputs)
+        if not rs["done"] and not out_of_time() and res["inputs_failed"] < 3 and n_inputs > 3000:
+            random_phase(soft=False)
+            directed_phase()
     if res.get("inconclusive_cap_hit") and 5 * rs["rinc"] <= res["inputs_run"] and rs["seed"] < max_inputs and \
             not out_of_time() and res["inputs_failed"] < 3 and "rate" not in EQUIV_OFF:
         # the random phase stopped at 32 inconclusive inputs though most complete (a few fuzzed counts run
@@ -6201,6 +6856,13 @@ def _invert_fxf(fxf, want):
             w = w / c
         elif m == "fchs":
             w = -w
+        elif m == "fdiv" and c:
+            w = w * c
+        elif m == "fdivr" and w:
+            w = c / w
+        elif m == "fabs":
+            if w < 0:
+                return None
         else:
             return None
     return w if not (math.isnan(w) or math.isinf(w)) else None
@@ -6299,15 +6961,199 @@ def _walk_sentinels(obs_run, jcc_count):
     return tuple(out[:4])
 
 
+def _int_plant_into(src, v, ov, pt, nstack):
+    """(round 9) Make the integer input src = (where, size, epoch) hold v, in place in a directed input's overlay
+    and patch. False if it can't be planted."""
+    ea, size, epoch = src
+    if isinstance(ea, tuple):
+        if ea[0] in ("ret", "fill", "pfill"):
+            pt[ea] = v & M32
+            return True
+        return False
+    if ENTRY_ESP + 4 <= ea < ENTRY_ESP + 4 + 4 * nstack and size == 4 and (ea - ENTRY_ESP - 4) % 4 == 0:
+        pt[(ea - ENTRY_ESP - 4) // 4] = v & M32
+        return True
+    if not (STACK_LO <= ea < STACK_HI) and not _reserved(ea) and _patchable(ea, False):
+        ov[(epoch, ea)] = (v & ((1 << (8 * size)) - 1)).to_bytes(size, "little")
+        return True
+    return False
+
+
+def _via_key(j, ob):
+    """(round 9) A compare and the compares that decided the constants it tests."""
+    return (j,) + tuple(o["via"].get("addr") for o in ob.get("ops") or () if o and isinstance(o.get("via"), dict))
+
+
+def _obs_shape(ob):
+    """(round 9) What a compare observation steers through, without the addresses: per operand the kind of
+    source, its transforms and the compare a constant came from."""
+    out = []
+    for o in ob.get("ops") or ():
+        if not o:
+            out.append(None)
+            continue
+        src = o.get("src")
+        kind = None if src is None else (src[0][0] if isinstance(src[0], tuple) else
+                                         "stack" if STACK_LO <= src[0] < STACK_HI else "mem")
+        via = o.get("via")
+        out.append((kind, tuple(x[0] for x in (o.get("xf") or ())), tuple(x[0] for x in (o.get("fxf") or ())),
+                    via.get("addr") if isinstance(via, dict) else None, o.get("eq") is not None))
+    return tuple(out)
+
+
+def _merge_ov(a, b):
+    """Two directed overlays, the second one's words winning."""
+    out = dict(a or {})
+    out.update(b or {})
+    return out
+
+
+def _char_adjust(xf):
+    """(round 9) The constant a loaded char's transforms add (only adds and byte masks), or None."""
+    adj = 0
+    for op in xf or ():
+        if op[0] == "add":
+            adj += op[1]
+        elif op[0] == "and" and op[1] in (0xFF, 0xFFFF):
+            continue
+        else:
+            return None
+    return adj & M32
+
+
+def _obs_steerable(ob, via=True):
+    """(round 9) Does a compare observation have an operand with an input source (not code, not a constant)?"""
+    for o in ob.get("ops") or ():
+        src = o.get("src") if o else None
+        if src is None:
+            if via and o and o.get("via") is not None:
+                return True
+            continue
+        if not isinstance(src[0], int) or (_patchable(src[0], o.get("abs", True)) and not _reserved(src[0])):
+            return True
+    return False
+
+
 def _patchable(ea, absolute=True):
     """May a directed input change this memory? Never code (a switch's byte table: ours has its own), nor
     a float constant read at a fixed address in read-only data (ours may load the same value from its own
     constant, or as fld1/fldz). Data reached through a pointer is fine."""
     prog = Program.get()
+    if absolute and IMAGE_LO <= ea < IMAGE_HI and getattr(prog, "ours_data", None) is not None and \
+            "ourglobal" not in EQUIV_OFF and not any(g <= ea < g + 0x100 for g in prog.ours_data):
+        return False
     return not prog.is_code(ea) and not (absolute and prog.section_name(ea) == ".rdata")
 
 
-def _patches(ob, overlay0, patch0, nstack):
+def _float_plant(x, fv, overlay0, patch0, nstack):
+    """(round 9) The input that makes the float source of x hold fv: a stub's float result, a word a stub
+    filled, or a float in memory or a stack argument (through a masked integer copy, ixf). None if there
+    is no such input."""
+    src = x["src"]
+    if isinstance(src[0], tuple) and src[0][0] == "fret":
+        patch = dict(patch0 or {})
+        patch[src[0]] = fv
+        return dict(overlay0 or {}), patch
+    if not abs(fv) <= 3.4028234663852886e38 and src[1] != 8:
+        return None             # (no 4-byte form)
+    if isinstance(src[0], tuple) and src[0][0] == "fill":
+        patch = dict(patch0 or {})
+        patch[src[0]] = f32bits(fv)
+        return dict(overlay0 or {}), patch
+    ea_ = src[0]
+    if not isinstance(ea_, int) or src[1] not in (4, 8) or not _patchable(ea_, x.get("abs", True)):
+        return None
+    bits = f32bits(fv) if src[1] == 4 else None
+    if x.get("ixf") and bits is not None:
+        bits = _invert_xf(x["ixf"], x.get("raw"), bits)     # (`and eax, 0x7fffffff`: fabs)
+        if bits is None:
+            return None
+    ov = dict(overlay0 or {})
+    if STACK_LO <= ea_ < STACK_HI:
+        if not (ENTRY_ESP + 4 <= ea_ < ENTRY_ESP + 4 + 4 * nstack and src[1] == 4):
+            return None
+        patch = dict(patch0 or {})
+        patch[(ea_ - ENTRY_ESP - 4) // 4] = bits
+        return ov, patch
+    ov[(src[2], ea_)] = struct.pack("<I", bits) if bits is not None else struct.pack("<d", fv)
+    return ov, dict(patch0 or {})
+
+
+def _patches_fcmp_r8(ob, overlay0, patch0, nstack):
+    """Round 8's float-compare patches (EQUIV_OFF=fprov)."""
+    ops = ob["ops"]
+    out = []
+    # a float comparison: move one side to just above, equal to, or just below the other
+    for x, y in ((ops[0], ops[1]), (ops[1], ops[0])):
+        if x.get("src") and y.get("val") is not None and isinstance(x["src"][0], tuple) \
+                and x["src"][0][0] == "fill":
+            # a float word a stub filled (round 7)
+            yv = y["val"]
+            if math.isnan(yv) or math.isinf(yv):
+                continue
+            d = max(1.0, abs(yv) * 0.5)
+            for fv in ((yv + d, yv, yv - d) if y.get("src") else (yv + d, yv - d)):
+                if not abs(fv) <= 3.4028234663852886e38:
+                    continue
+                patch = dict(patch0 or {})
+                patch[x["src"][0]] = f32bits(fv)
+                out.append((dict(overlay0 or {}), patch))
+            continue
+        if x.get("src") and y.get("val") is not None and isinstance(x["src"][0], tuple) \
+                and x["src"][0][0] == "fret":
+            yv = y["val"]
+            if math.isnan(yv) or math.isinf(yv):
+                continue
+            d = max(1.0, abs(yv) * 0.5)
+            # (exactly equal only to a plain loaded value: against a computed one, a tie depends on
+            # the x87 precision each side computes it in)
+            for fv in ((yv + d, yv, yv - d) if y.get("src") else (yv + d, yv - d)):
+                patch = dict(patch0 or {})
+                patch[x["src"][0]] = fv
+                out.append((dict(overlay0 or {}), patch))
+            continue
+        if x.get("src") and y.get("val") is not None and isinstance(ea_ := x["src"][0], int) \
+                and x["src"][1] in (4, 8) and _patchable(ea_, x.get("abs", True)):
+            yv = y["val"]
+            if math.isnan(yv) or math.isinf(yv):
+                continue
+            d = max(1.0, abs(yv) * 0.5)
+            # (exactly equal only to a plain loaded value: against a computed one, a tie depends on
+            # the x87 precision each side computes it in)
+            for fv in ((yv + d, yv, yv - d) if y.get("src") and not x.get("fxf") else (yv + d, yv - d)):
+                if x.get("fxf"):
+                    fv = _invert_fxf(x["fxf"], fv)
+                    if fv is None:
+                        continue
+                if x["src"][1] == 4 and not abs(fv) <= 3.4028234663852886e38:
+                    continue    # (round 7: a value past float range has no 4-byte form: skip, don't crash)
+                bits = f32bits(fv) if x["src"][1] == 4 else None
+                if x.get("ixf") and bits is not None:
+                    bits = _invert_xf(x["ixf"], x.get("raw"), bits)     # (`and eax, 0x7fffffff`: fabs)
+                    if bits is None:
+                        continue
+                ov = dict(overlay0 or {})
+                if STACK_LO <= ea_ < STACK_HI:
+                    if not (ENTRY_ESP + 4 <= ea_ < ENTRY_ESP + 4 + 4 * nstack and x["src"][1] == 4):
+                        continue
+                    patch = dict(patch0 or {})
+                    patch[(ea_ - ENTRY_ESP - 4) // 4] = bits
+                    out.append((ov, patch))
+                    continue
+                ov[(x["src"][2], ea_)] = struct.pack("<I", bits) if bits is not None else struct.pack("<d", fv)
+                out.append((ov, dict(patch0 or {})))
+    if not out and any(o.get("src") is None for o in ops):
+        # a value computed from stub results (sqrt of a difference of two stub-filled vectors, a scaled
+        # and clamped result): no single word to invert. Make every stub float alike instead: all 0
+        # (equal vectors: distance 0), +1/-1 by call (opposite vectors: a negative dot product), all large
+        for fv in (0.0, ("alt", 1.0), 1000.0, 1.0):
+            patch = dict(patch0 or {})
+            patch[("stubfloats",)] = fv
+            out.append((dict(overlay0 or {}), patch))
+    return out[:6]
+
+
+def _patches(ob, overlay0, patch0, nstack, depth=0, via=False):
     """Memory/argument patches that would send a comparison the other way (input-to-state).
 
     With a second observation of the same comparison (a loop's next iteration), the operand that moved
@@ -6322,65 +7168,32 @@ def _patches(ob, overlay0, patch0, nstack):
 
     targets = []
     if ob["mnemonic"] == "fcmp":
+        if "fprov" in EQUIV_OFF:
+            return _patches_fcmp_r8(ob, overlay0, patch0, nstack)
         # a float comparison: move one side to just above, equal to, or just below the other
         for x, y in ((ops[0], ops[1]), (ops[1], ops[0])):
-            if x.get("src") and y.get("val") is not None and isinstance(x["src"][0], tuple) \
-                    and x["src"][0][0] == "fill":
-                # a float word a stub filled (round 7)
-                yv = y["val"]
-                if math.isnan(yv) or math.isinf(yv):
-                    continue
-                d = max(1.0, abs(yv) * 0.5)
-                for fv in ((yv + d, yv, yv - d) if y.get("src") else (yv + d, yv - d)):
-                    if not abs(fv) <= 3.4028234663852886e38:
-                        continue
-                    patch = dict(patch0 or {})
-                    patch[x["src"][0]] = f32bits(fv)
-                    out.append((dict(overlay0 or {}), patch))
+            src = x.get("src")
+            yv = y.get("val")
+            if not src or yv is None or math.isnan(yv) or math.isinf(yv):
                 continue
-            if x.get("src") and y.get("val") is not None and isinstance(x["src"][0], tuple) \
-                    and x["src"][0][0] == "fret":
-                yv = y["val"]
-                if math.isnan(yv) or math.isinf(yv):
+            fxf = tuple(x.get("fxf") or ())
+            d = max(1.0, abs(yv) * 0.5)
+            # (exactly equal only to a plain loaded value: against a computed one, a tie depends on the x87
+            # precision each side computes it in)
+            tie = bool(y.get("src")) and not fxf
+            fvs = [yv + d, yv, yv - d] if tie else [yv + d, yv - d]
+            if yv:
+                # (round 9) |x - c| < eps against a small eps: +-1 lands on the far side both times; halfway and
+                # one and a half times the other value don't (first when a fabs makes negatives unreachable)
+                sc = [yv * 0.5, yv * 1.5]
+                fvs = (sc + fvs) if any(t[0] == "fabs" for t in fxf) else (fvs + sc)
+            for fv in fvs:
+                bv = _invert_fxf(fxf, fv) if fxf else fv
+                if bv is None:
                     continue
-                d = max(1.0, abs(yv) * 0.5)
-                # (exactly equal only to a plain loaded value: against a computed one, a tie depends on
-                # the x87 precision each side computes it in)
-                for fv in ((yv + d, yv, yv - d) if y.get("src") else (yv + d, yv - d)):
-                    patch = dict(patch0 or {})
-                    patch[x["src"][0]] = fv
-                    out.append((dict(overlay0 or {}), patch))
-                continue
-            if x.get("src") and y.get("val") is not None and isinstance(ea_ := x["src"][0], int) \
-                    and x["src"][1] in (4, 8) and _patchable(ea_, x.get("abs", True)):
-                yv = y["val"]
-                if math.isnan(yv) or math.isinf(yv):
-                    continue
-                d = max(1.0, abs(yv) * 0.5)
-                # (exactly equal only to a plain loaded value: against a computed one, a tie depends on
-                # the x87 precision each side computes it in)
-                for fv in ((yv + d, yv, yv - d) if y.get("src") and not x.get("fxf") else (yv + d, yv - d)):
-                    if x.get("fxf"):
-                        fv = _invert_fxf(x["fxf"], fv)
-                        if fv is None:
-                            continue
-                    if x["src"][1] == 4 and not abs(fv) <= 3.4028234663852886e38:
-                        continue    # (round 7: a value past float range has no 4-byte form: skip, don't crash)
-                    bits = f32bits(fv) if x["src"][1] == 4 else None
-                    if x.get("ixf") and bits is not None:
-                        bits = _invert_xf(x["ixf"], x.get("raw"), bits)     # (`and eax, 0x7fffffff`: fabs)
-                        if bits is None:
-                            continue
-                    ov = dict(overlay0 or {})
-                    if STACK_LO <= ea_ < STACK_HI:
-                        if not (ENTRY_ESP + 4 <= ea_ < ENTRY_ESP + 4 + 4 * nstack and x["src"][1] == 4):
-                            continue
-                        patch = dict(patch0 or {})
-                        patch[(ea_ - ENTRY_ESP - 4) // 4] = bits
-                        out.append((ov, patch))
-                        continue
-                    ov[(x["src"][2], ea_)] = struct.pack("<I", bits) if bits is not None else struct.pack("<d", fv)
-                    out.append((ov, dict(patch0 or {})))
+                pl = _float_plant(x, bv, overlay0, patch0, nstack)
+                if pl is not None:
+                    out.append(pl)
         if not out and any(o.get("src") is None for o in ops):
             # a value computed from stub results (sqrt of a difference of two stub-filled vectors, a scaled
             # and clamped result): no single word to invert. Make every stub float alike instead: all 0
@@ -6389,6 +7202,22 @@ def _patches(ob, overlay0, patch0, nstack):
                 patch = dict(patch0 or {})
                 patch[("stubfloats",)] = fv
                 out.append((dict(overlay0 or {}), patch))
+            fl = ob.get("floads")
+            if fl:
+                # (round 9, memfloats) ... or computed from floats in memory (`|sqrt(x*x + y*y + z*z) - 1| < eps`
+                # on a matrix's rows): plant them all alike, as an identity matrix (1 every fifth word from the
+                # lowest of a cluster: unit, orthogonal rows), all 1 and all 0
+                mem = []
+                for mode in ("ident", 1.0, 0.0):
+                    ov = dict(overlay0 or {})
+                    base = None
+                    for ep, ea, sz in sorted(fl, key=lambda x: x[1]):
+                        if base is None or ea - base >= 0x40:
+                            base = ea
+                        v = (1.0 if (ea - base) // 4 % 5 == 0 else 0.0) if mode == "ident" else mode
+                        ov[(ep, ea)] = struct.pack("<f" if sz == 4 else "<d", v)
+                    mem.append((ov, dict(patch0 or {})))
+                out = out + mem if ob.get("stubs") else mem
         return out[:6]
     if ob["mnemonic"] == "table":
         a = ob["ops"][0]
@@ -6430,7 +7259,25 @@ def _patches(ob, overlay0, patch0, nstack):
                 v = _invert_xf(xf, x.get("raw"), v)
                 if v is None:
                     continue
-            if isinstance(ea, tuple):            # the value a stubbed callee returned: return another
+            n_before = len(out)
+            if x.get("eq") is not None and "eqlink" not in EQUIV_OFF:
+                # (round 9, eqlink) this input was found equal to another one earlier in the run: move both
+                eqp = (x["eq"], v)
+            else:
+                eqp = None
+            if isinstance(ea, tuple) and ea[0] == "ftol":
+                # (round 9) an integer converted from a steerable float by __ftol2 (truncation): plant a float
+                # half a unit past the wanted integer, through the float's own source and transforms
+                _, fsrc, fxf, ixf, fraw, fabs_ = ea
+                w_ = _sx(v)
+                fv = w_ + 0.5 if w_ >= 0 else w_ - 0.5
+                if fxf:
+                    fv = _invert_fxf(fxf, fv)
+                if fv is not None:
+                    pl = _float_plant({"src": fsrc, "ixf": ixf, "raw": fraw, "abs": fabs_}, fv, overlay0, patch0, nstack)
+                    if pl is not None:
+                        out.append(pl)
+            elif isinstance(ea, tuple):            # the value a stubbed callee returned: return another
                 patch = dict(patch0 or {})
                 patch[ea] = v & M32
                 out.append((dict(overlay0 or {}), patch))
@@ -6456,6 +7303,18 @@ def _patches(ob, overlay0, patch0, nstack):
                     ov = dict(overlay0 or {})
                     ov[(("after", epoch), ea)] = (v & ((1 << (8 * size)) - 1)).to_bytes(size, "little")
                     out.insert(len(out) - 1, (ov, dict(patch0 or {})))
+            if eqp is not None:
+                for k_ in range(n_before, len(out)):
+                    ov_, pt_ = dict(out[k_][0]), dict(out[k_][1])
+                    if _int_plant_into(eqp[0], eqp[1], ov_, pt_, nstack):
+                        out.append((ov_, pt_))      # (both moved; the single one stays too)
+    if via and not any(per_target) and depth < 4 and "via" not in EQUIV_OFF:
+        # (round 9, via) an operand with no source of its own that holds a constant a compare decided (`mov bl,
+        # 1` after `cmp eax, [g]; jne`, a setcc's result): the patches of that compare, from the same run
+        for o in ops:
+            if not o.get("src") and o.get("via") is not None and o.get("imm") is None:
+                per_target.append(_patches(o["via"], overlay0, patch0, nstack, depth + 1, via=True))
+                break
     # distinct patches only, alternating between the operands (one of them may be memory the function
     # wrote itself, where a patch does nothing)
     out = [x for grp in itertools.zip_longest(*per_target) for x in grp if x is not None]
@@ -6470,8 +7329,13 @@ def _patches(ob, overlay0, patch0, nstack):
 
 # ---------------------------------------------------------------------------------------------
 def render(rep):
-    lines = ["%s  %s vs %s (%s)  level %d" % (rep["status"].upper(), rep.get("symbol", "?"), rep["target"],
-                                              rep["addr"], rep["level"])]
+    lvl = "level %d" % rep["level"]
+    if rep["status"] == "fail" and rep.get("failed_levels"):
+        # (round 9) `level` is the highest level passed: say which level failed (a level-3 mismatch read as
+        # "FAIL ... level 2" looked like a level-2 problem)
+        lvl = "fails level %s (passes level %d)" % (" and ".join(map(str, rep["failed_levels"])), rep["level"])
+    lines = ["%s  %s vs %s (%s)  %s" % (rep["status"].upper(), rep.get("symbol", "?"), rep["target"],
+                                        rep["addr"], lvl)]
     if rep.get("error"):
         lines.append(rep["error"])
     l2 = rep.get("level2")
