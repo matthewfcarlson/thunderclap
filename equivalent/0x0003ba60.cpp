@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 38/38)
 // FUN_0003ba60 @ 0x0003ba60
+#include "decls/data/game/global.h"
+
 struct V3_3ba60 {
     float x, y, z;
 };
@@ -133,8 +135,6 @@ struct Holder10_3ba60 {
     Scene_3ba60 *FUN_00059a40();
 };
 
-extern unsigned __int64 DAT_004dc0c0;
-extern unsigned __int64 DAT_004dc098;
 
 struct Frame_3ba60 {
     class Fighter_3ba60 *self;        // 0x10
@@ -199,7 +199,7 @@ void Fighter_3ba60::FUN_0003ba60(Args_3ba60 *args, int arg2)
             if (f.ev != 0)
                 f.ev->FUN_002ef8b0(0);
             if (prop->link->FUN_001d5e80(prop->f40) == 4) {
-                if (prop->link->FUN_001d4f70() == DAT_004dc0c0 || prop->link->FUN_001d4f70() == DAT_004dc098) {
+                if (prop->link->FUN_001d4f70() == (*(unsigned __int64*)&DAT_004dc0c0) || prop->link->FUN_001d4f70() == (*(unsigned __int64*)&DAT_004dc098)) {
                     Effect_3ba60 *e = prop->holder->effect;
                     e->FUN_002845a0();
                     e->b22 = 0;

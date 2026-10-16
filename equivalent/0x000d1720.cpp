@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 92/92)
 // FUN_000d1720 @ 0x000d1720
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 typedef unsigned int size_t;
 inline void* operator new(size_t,void* p){return p;}
 struct HUDOverlay; namespace math {struct Vector{float x,y,z;};}
@@ -20,7 +22,7 @@ struct Base{virtual void v0();virtual void v1();virtual void v2();virtual void v
 #define U5 U4,F
 TYPES(0,P0,U0) TYPES(1,P1,U1) TYPES(2,P2,U2) TYPES(3,P3,U3) TYPES(4,P4,U4) TYPES(5,P5,U5)
 struct Sub54{char data[48];void FUN_000f7930();};struct Sub94{char data[36];void FUN_000dee40();};struct Registry{void FUN_001d3b70(const char*,Base*);};Registry* FUN_001d4c90();void* FUN_0008d690(int);
-extern int DAT_0048e100,DAT_0048e0f0,DAT_0048e134,DAT_0048e128,DAT_0048e10c,DAT_0048e0e4;
+extern int DAT_0048e10c;
 #define CB(n) void FUN_##n();
 CB(000ca850) CB(000ca860) CB(000ce590) CB(000cabf0) CB(000cac30) CB(000cac40) CB(000cac50) CB(000cac60) CB(000cacc0) CB(000cacd0) CB(000cad40) CB(000cad80) CB(000ce700) CB(000cad60) CB(000cad70) CB(000cae80) CB(000caea0) CB(000caee0) CB(000caf10) CB(000caf30) CB(000caf40) CB(000caf60) CB(000cafa0) CB(000cafd0) CB(000caff0) CB(000cb010) CB(000cb030) CB(000cb050) CB(000cb060) CB(000cb080) CB(000cb090) CB(000cb0f0) CB(000cb130) CB(000cb170) CB(000cb190) CB(000cb200) CB(000cb230) CB(000cb260) CB(000cb280) CB(000cb2a0) CB(000cb2e0) CB(000cb310) CB(000cb330) CB(000ce750)
 struct HUDOverlay{virtual void v0();unsigned char active;char p5[7];int f0c,f10,f14,f18;char p1c[12];int slots[10],f50;Sub54 sub54;int f84,f88,f8c,f90;Sub94 sub94;int fb8;unsigned char fbc;char pbd[127];int f13c;float f140;int f144,f148,zeros14c[5],f160,zeros164[6],f17c,zeros180[16],zeros1c0[24];float f220;unsigned char f224,f225;char p226[2];int zeros228[5],f23c,f240,zeros244[8];struct Entry{unsigned char used;char rest[63];}entries[8];int zeros464[12],f494,f498;float f49c;int zeros4a0[6];char p4b8[12];unsigned char f4c4;char p4c5[63];int f504,f508;HUDOverlay();};

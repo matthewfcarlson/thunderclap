@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 14/14)
 // FUN_001127d0 @ 0x001127d0
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -47,8 +49,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0b68;
-extern int DAT_004e0b6c;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_001127d0()
@@ -81,7 +81,7 @@ void FUN_001127d0()
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamBool<TokenSupressTrack>("floatDelayEndOnTrackFinish", &TokenSupressTrack::FUN_0010c4b0);
-        FUN_002347b0(&DAT_004e0b68, params, 6);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0b68), params, 6);
     }
     DAT_004e0b6c++;
 }

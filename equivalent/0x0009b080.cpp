@@ -2,14 +2,9 @@
 // FUN_0009b080 @ 0x0009b080
 // 0x0009b080: Method6 callback object constructor (bool/byte flags from the per-type descriptor words)
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 extern char DAT_00404cc0[];
-extern char DAT_0048e100[];
-extern char DAT_0048e134[];
-extern char DAT_0048e134[];
-extern char DAT_0048e128[];
-extern char DAT_0048e134[];
-extern char DAT_0048e134[];
-extern char DAT_0048e128[];
 
 class Callback_9b080 {
 public:
@@ -29,12 +24,12 @@ Callback_9b080* Callback_9b080::Init(void* arg, void* value)
     FUN_001d0480(arg, 6);
     vptr = (int)DAT_00404cc0;
     p1c = value;
-    b18 = FUN_001d04d0(DAT_0048e100);
-    b10 = FUN_001d04d0(DAT_0048e134);
-    b11 = FUN_001d04d0(DAT_0048e134);
-    b12 = FUN_001d04d0(DAT_0048e128);
-    b13 = FUN_001d04d0(DAT_0048e134);
-    b14 = FUN_001d04d0(DAT_0048e134);
-    b15 = FUN_001d04d0(DAT_0048e128);
+    b18 = FUN_001d04d0(((char*)&DAT_0048e100));
+    b10 = FUN_001d04d0(((char*)&DAT_0048e134));
+    b11 = FUN_001d04d0(((char*)&DAT_0048e134));
+    b12 = FUN_001d04d0(((char*)&DAT_0048e128));
+    b13 = FUN_001d04d0(((char*)&DAT_0048e134));
+    b14 = FUN_001d04d0(((char*)&DAT_0048e134));
+    b15 = FUN_001d04d0(((char*)&DAT_0048e128));
     return this;
 }

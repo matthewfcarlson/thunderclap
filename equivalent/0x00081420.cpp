@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 30/30)
 // FUN_00081420 @ 0x00081420
 #include "decls/address.h"
+#include "decls/data/game/unknown.h"
 extern "C" double sqrt(double);
 struct Vec3_81420 {
     float x, y, z;
@@ -93,7 +94,6 @@ public:
     int f100;
 };
 
-extern Clock_81420* DAT_004e5acc;
 
 float FUN_00224f10(Vec3_81420* v);
 int FUN_000113e0(int lo, int hi);
@@ -112,11 +112,11 @@ void Fx_81420::FUN_00081420(Source_81420* src)
     f8c = FUN_00224f10(&src->vel);
     f98 = src->f64;
     if (src->flag90) {
-        f94 = DAT_004e5acc->FUN_000787e0(8.0f, 10.0f);
-        f90 = DAT_004e5acc->FUN_000787e0(15.0f, 27.0f);
+        f94 = (*(Clock_81420**)&DAT_004e5acc)->FUN_000787e0(8.0f, 10.0f);
+        f90 = (*(Clock_81420**)&DAT_004e5acc)->FUN_000787e0(15.0f, 27.0f);
     } else if (src->flag14) {
-        f94 = DAT_004e5acc->FUN_000787e0(10.0f, 20.0f);
-        f90 = DAT_004e5acc->FUN_000787e0(8.0f, 10.0f);
+        f94 = (*(Clock_81420**)&DAT_004e5acc)->FUN_000787e0(10.0f, 20.0f);
+        f90 = (*(Clock_81420**)&DAT_004e5acc)->FUN_000787e0(8.0f, 10.0f);
     } else {
         f94 = (float)sqrt(src->vel.x * src->vel.x + src->vel.z * src->vel.z);
         *(int*)&f90 = *(int*)&src->vel.y;

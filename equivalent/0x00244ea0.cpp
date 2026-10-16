@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 4/4)
 // FUN_00244ea0 @ 0x00244ea0
 #include "decls/address.h"
+#include "decls/data/engine/om.h"
 struct Region_244ea0 {
     char pad0[0x30];
     int boundsLo;           // 0x30
@@ -23,8 +24,6 @@ struct Index_244ea0 {
     int color;
 };
 
-extern Index_244ea0 *DAT_004cc08c;
-extern int DAT_004e5f0c;
 void __cdecl FUN_002448b0(Index_244ea0 *idx, void *item, Query_244ea0 *q);
 
 namespace om {
@@ -57,7 +56,7 @@ om::Entity::Entity(Region_244ea0 *region)
     s20 = 0;
     s22 = 0;
     int count = DAT_004e5f0c;
-    Index_244ea0 *n = DAT_004cc08c;
+    Index_244ea0 *n = (*(Index_244ea0**)&DAT_004cc08c);
     if (count == 0 && n) {
         Index_244ea0 *sentinel = (Index_244ea0 *)&n->left;
         n->left = sentinel;

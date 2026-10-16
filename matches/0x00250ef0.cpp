@@ -1,5 +1,6 @@
-extern "C" char DAT_00422518[];
-extern "C" char DAT_004298a8[];
+#include "decls/data/engine/audio.h"
+#include "decls/data/game/global.h"
+
 extern "C" bool Check(const char*, const char*, int);
 extern "C" bool CheckByte(void*, unsigned char);
 extern "C" bool EndCheck(const char*, const char*);
@@ -11,10 +12,10 @@ struct Obj_250ef0 {
 extern "C" bool FUN_00250ef0(Obj_250ef0* p, int arg, unsigned char* ch) {
     int a = arg;
     const char* s = p->mName;
-    if (Check(s, (const char*)((int)DAT_004298a8), a)) {
+    if (Check(s, (const char*)((int)((char*)&DAT_004298a8)), a)) {
         if (CheckByte(p, *ch)) {
             p = (Obj_250ef0*)p->mName;
-            return EndCheck((const char*)p, (const char*)((int)DAT_00422518));
+            return EndCheck((const char*)p, (const char*)((int)((char*)&DAT_00422518)));
         }
     }
     return false;

@@ -3,6 +3,7 @@
 // equiv-map: ?thunk_FUN_0027d410@Node@@QAEXPAUId64@@@Z = 0x001d6630
 // equiv-map: ??0CProjectile@@QAE@XZ = 0x001b6800
 #include "decls/address.h"
+#include "decls/data/game/hulkfight/motion.h"
 struct V3_1962b0 {
     float x, y, z;
 };
@@ -103,8 +104,6 @@ public:
     virtual void v5();
 };
 
-extern char DAT_004e15d0[];
-extern int DAT_004e16d0;
 Rng_1962b0 *__cdecl FUN_000964d0();
 extern int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 
@@ -237,8 +236,8 @@ hulkfight::motion::ProjectileMissile::ProjectileMissile(MissileCfg *src, int nam
     }
     fc0 = pick;
     Factory_1962b0 *factory = DAT_004dd700->factory;
-    FUN_00267760(DAT_004e15d0, 0x100, "projectile_missile_%d", DAT_004e16d0);
-    DAT_004e16d0 = DAT_004e16d0 + 1;
+    FUN_00267760(DAT_004e15d0, 0x100, "projectile_missile_%d", (*(int*)&DAT_004e16d0));
+    (*(int*)&DAT_004e16d0) = (*(int*)&DAT_004e16d0) + 1;
     Mat4_1962b0 m;
     m.FUN_0022b980();
     Node *node = factory->FUN_001e4760(name, DAT_004e15d0, 0, &m, 0, 0, 0);

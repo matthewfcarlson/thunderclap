@@ -2,12 +2,13 @@
 // FUN_00027d60 @ 0x00027d60
 // Group method: look up a named pawn and a bank/node by path, then register the pawn's slot with it.
 #include "decls/address.h"
+#include "decls/data/engine/fight.h"
+#include "decls/data/game/unknown.h"
 typedef unsigned __int64 Key_27d60;
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, const void *srcType, const void *dstType, int isRef);
 extern char DAT_0048e090;
 extern char DAT_0048e0ac;
 extern char DAT_0048e0c8;
-extern const char *DAT_0048e064;
 
 struct Node {
     void FUN_00231ad0(void *slot, int arg, unsigned int flags);
@@ -39,7 +40,6 @@ struct Registry_27d60 {
     Entry_27d60 *FUN_00232840(Key_27d60 key);
 };
 
-extern Registry_27d60 *DAT_004e5af8;
 
 struct Group_27d60 {
     Pawn_27d60 *FUN_00024280(Key_27d60 key);
@@ -53,8 +53,8 @@ void Group_27d60::FUN_00027d60(const char *name, const char *path)
         return;
     if (!path)
         return;
-    const char *keyName = DAT_0048e064;
-    Registry_27d60 *registry = DAT_004e5af8;
+    const char *keyName = (*(const char**)&DAT_0048e064);
+    Registry_27d60 *registry = (*(Registry_27d60**)&DAT_004e5af8);
     Found_27d60 *found = registry->FUN_00232840(FUN_002672f0(keyName, 0, 0))->tree->FUN_00233580(path);
     if (!found)
         return;

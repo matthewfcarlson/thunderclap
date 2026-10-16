@@ -1,17 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 157 inputs, branch coverage 51/52, incomplete)
 // FUN_000dc230 @ 0x000dc230
+#include "decls/data/game/global.h"
+
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 
-extern unsigned __int64 DAT_004de670;
-extern unsigned __int64 DAT_004de678;
-extern unsigned __int64 DAT_004de680;
-extern unsigned __int64 DAT_004de688;
-extern unsigned __int64 DAT_004de690;
-extern unsigned __int64 DAT_004de698;
-extern unsigned __int64 DAT_004de6a0;
-extern unsigned __int64 DAT_004de6c0;
-extern unsigned __int64 DAT_004de6c8;
 
 struct Node {
     virtual void vfunc_0();
@@ -25,7 +18,6 @@ struct Handle_dc230 {
 struct Pool_dc230 {
     Handle_dc230 *FUN_000c6b20(const char *name);
 };
-extern Pool_dc230 *DAT_004dd9cc;
 
 struct Slot_dc230 {
     int a, b, c;
@@ -110,34 +102,34 @@ bool Config_dc230::FUN_000dc230(Parser_dc230 *parser, Handler_dc230 *handler, Si
         while (parser->FUN_000f9e50()) {
             Node *node = parser->FUN_000fb110();
             unsigned __int64 key = node->vfunc_1();
-            if (key == DAT_004de670) {
+            if (key == (*(unsigned __int64*)&DAT_004de670)) {
                 const char *name = parser->FUN_000fad90();
                 sink->Store(name, f154);
-            } else if (key == DAT_004de680) {
+            } else if (key == (*(unsigned __int64*)&DAT_004de680)) {
                 b3e8 = (int)parser->FUN_000fad30() != 0;
-            } else if (key == DAT_004de6c0) {
+            } else if (key == (*(unsigned __int64*)&DAT_004de6c0)) {
                 unsigned __int64 v = parser->FUN_000faeb0();
-                if (v == DAT_004de688) {
+                if (v == (*(unsigned __int64*)&DAT_004de688)) {
                     b3a8 = 0;
-                } else if (v == DAT_004de690) {
+                } else if (v == (*(unsigned __int64*)&DAT_004de690)) {
                     b3a8 = 0;
                     b3ea = 1;
                 } else {
                     b3a8 = 1;
                 }
-            } else if (key == DAT_004de678) {
+            } else if (key == (*(unsigned __int64*)&DAT_004de678)) {
                 FUN_000964a0(bufA, 0x40, "%s%d", parser->FUN_000fad90(), 1);
-                Handle_dc230 *h = DAT_004dd9cc->FUN_000c6b20(bufA);
+                Handle_dc230 *h = (*(Pool_dc230**)&DAT_004dd9cc)->FUN_000c6b20(bufA);
                 if (h)
                     h->vfunc_0();
                 f1cc = h;
-            } else if (key == DAT_004de6c8) {
+            } else if (key == (*(unsigned __int64*)&DAT_004de6c8)) {
                 FUN_000964a0(bufB, 0x40, "%s%d", parser->FUN_000fad90(), 1);
                 sink->Store(bufB, f1b4);
-            } else if (key == DAT_004de6a0) {
+            } else if (key == (*(unsigned __int64*)&DAT_004de6a0)) {
                 FUN_000964a0(bufC, 0x40, "%s%d", parser->FUN_000fad90(), 1);
                 sink->Store(bufC, f1c0);
-            } else if (key == DAT_004de698) {
+            } else if (key == (*(unsigned __int64*)&DAT_004de698)) {
                 const char *name = parser->FUN_000fad90();
                 for (int i = 1; i <= 5; i++) {
                     FUN_000964a0(bufD, 0x40, "%s%d", name, i);

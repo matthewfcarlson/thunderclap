@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 18/18)
 // FUN_000d3d80 @ 0x000d3d80
+#include "decls/data/game/global.h"
+
 void *__cdecl FUN_0008d690(unsigned int size);
 
-extern unsigned long long DAT_004ddf30;
-extern unsigned long long DAT_004ddf50;
-extern unsigned long long DAT_004ddf58;
 
 class Typed {
 public:
@@ -65,7 +64,7 @@ public:
 
 char __cdecl FUN_000d3d80(void *p1, void *p2, Owner_d3d80 *owner, Arg_d3d80 *arg, Typed *typed)
 {
-    if (typed->GetTypeId() == DAT_004ddf30) {
+    if (typed->GetTypeId() == (*(unsigned long long*)&DAT_004ddf30)) {
         int a = arg->FUN_000fad90();
         int b = arg->FUN_000fad90();
         ObjA_d3d80 *mem = (ObjA_d3d80 *)FUN_0008d690(0x158);
@@ -75,7 +74,7 @@ char __cdecl FUN_000d3d80(void *p1, void *p2, Owner_d3d80 *owner, Arg_d3d80 *arg
         owner->vfunc_23(obj, a);
         return obj->FUN_000d7890(arg, p2, owner);
     }
-    if (typed->GetTypeId() == DAT_004ddf50) {
+    if (typed->GetTypeId() == (*(unsigned long long*)&DAT_004ddf50)) {
         int a = arg->FUN_000fad90();
         ObjB_d3d80 *mem = (ObjB_d3d80 *)FUN_0008d690(0x458);
         ObjB_d3d80 *obj = 0;
@@ -85,7 +84,7 @@ char __cdecl FUN_000d3d80(void *p1, void *p2, Owner_d3d80 *owner, Arg_d3d80 *arg
         owner->dirty = 1;
         return obj->FUN_000dc230(arg, p2, owner);
     }
-    if (typed->GetTypeId() == DAT_004ddf58) {
+    if (typed->GetTypeId() == (*(unsigned long long*)&DAT_004ddf58)) {
         int a = arg->FUN_000fad90();
         ObjC_d3d80 *mem = (ObjC_d3d80 *)FUN_0008d690(0x180);
         ObjC_d3d80 *obj = 0;

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 28/28)
 // FUN_0019a8d0 @ 0x0019a8d0
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -76,8 +78,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e1560;
-extern int DAT_004e1564;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0019a8d0()
@@ -137,7 +137,7 @@ void FUN_0019a8d0()
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamFloatConstRange<MissileThrowTrack>("reigniteCharge", &MissileThrowTrack::FUN_00192760);
-        FUN_002347b0(&DAT_004e1560, params, 13);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1560), params, 13);
     }
     DAT_004e1564++;
 }

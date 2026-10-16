@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2345 inputs, branch coverage 44/44)
 // CHand2HandAgent::vfunc_23 @ 0x00101a30
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" double sqrt(double);
 
 struct V3_101a30 {
@@ -48,11 +49,6 @@ struct World {
     char pad0[0x20];
     Hub20_101a30 *p20;
 };
-extern float DAT_004a1c00;
-extern float DAT_004a1c04;
-extern float DAT_004a1c08;
-extern float DAT_004a1c0c;
-extern char DAT_004e0a99;
 
 float FUN_0010ae50(World *h, Arg1_101a30 *a, float f, V3_101a30 *v1, V3_101a30 *v2, int z1, int z2);
 
@@ -261,11 +257,11 @@ void CHand2HandAgent::v23(Arg1_101a30 *a1, Out_101a30 *out, int a3)
             return;
         }
     }
-    if (!DAT_004e0a99 && !d1v && !d3) {
+    if (!(*(char*)&DAT_004e0a99) && !d1v && !d3) {
         if (v18(1.5f)) {
             if (v11(a1, c8, D1))
                 DAT_004dd700->p20->FUN_00029250(pa0, &v88, a1->f1cbc, 1);
         }
     }
-    *(int *)&f80 = *(int *)&DAT_004a1c00;
+    *(int *)&f80 = *(int *)&(*(float*)&DAT_004a1c00);
 }

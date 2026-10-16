@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00356e50 @ 0x00356e50
+#include "decls/data/engine/pure3d.h"
+
 struct Grad_356e50 {
     float x, y;
 };
 
-extern int DAT_0056bfc8[];
-extern Grad_356e50 DAT_0056dfe8[];
 
 // 2D gradient (Perlin) noise at point p[0], p[1].
 float __stdcall FUN_00356e50(const float *p)
@@ -28,10 +28,10 @@ float __stdcall FUN_00356e50(const float *p)
 
     float u = (3.0f - (fx + fx)) * fx * fx;
 
-    const Grad_356e50 *g00 = &DAT_0056dfe8[DAT_0056bfc8[a + iy]];
-    const Grad_356e50 *g10 = &DAT_0056dfe8[DAT_0056bfc8[iy + b]];
-    const Grad_356e50 *g11 = &DAT_0056dfe8[DAT_0056bfc8[b + iy1]];
-    const Grad_356e50 *g01 = &DAT_0056dfe8[DAT_0056bfc8[a + iy1]];
+    const Grad_356e50 *g00 = &((Grad_356e50*)&DAT_0056dfe8)[DAT_0056bfc8[a + iy]];
+    const Grad_356e50 *g10 = &((Grad_356e50*)&DAT_0056dfe8)[DAT_0056bfc8[iy + b]];
+    const Grad_356e50 *g11 = &((Grad_356e50*)&DAT_0056dfe8)[DAT_0056bfc8[b + iy1]];
+    const Grad_356e50 *g01 = &((Grad_356e50*)&DAT_0056dfe8)[DAT_0056bfc8[a + iy1]];
 
     float d00 = fy * g00->y + fx * g00->x;
     float d10 = fy * g10->y + fx1 * g10->x;

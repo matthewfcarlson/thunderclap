@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 12/12)
 // FUN_00242ce0 @ 0x00242ce0
+#include "decls/data/engine/unknown.h"
+
 struct Node {
     Node* left;
     Node* right;
@@ -10,7 +12,6 @@ struct Node {
     float v20, v24;
 };
 struct Map_242ce0 { Node* root; };
-extern char DAT_004e5e88[];
 Node* __cdecl FUN_00247530(void* heap);
 void __cdecl FUN_00242a00(Map_242ce0* map, Node* node, unsigned* key);
 Node* FindOrInsert(Map_242ce0* map, const unsigned* key) {

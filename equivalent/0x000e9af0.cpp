@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2955 inputs, branch coverage 34/34)
 // HSlider::vfunc_5 @ 0x000e9af0
+#include "decls/data/engine/pure3d/prop.h"
+
 extern "C" double floor(double);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 struct V3_e9af0 {
@@ -55,7 +57,6 @@ struct Wrapper_e9af0 {
     void FUN_00293da0(float x, float y, float z);
 };
 
-extern Wrapper_e9af0 *DAT_0052c2ac;
 
 class Metrics_e9af0 {
 public:
@@ -244,13 +245,13 @@ void HSlider::vfunc_5()
     layout.entries[layout.index].scale = owner->v16(this) * tk.k;
     layout.entries[layout.index].f12 = f3c;
     layout.f4 = f3c;
-    DAT_0052c2ac->dev->v15(0);
+    (*(Wrapper_e9af0**)&DAT_0052c2ac)->dev->v15(0);
     if (owner->v13(this) && p60 != 0 && b68)
         p60->v8(0, 0);
 
     owner->v14(&tk.t, this);
-    DAT_0052c2ac->FUN_00293d00(&tk.t);
-    DAT_0052c2ac->FUN_00293d00(&v78);
+    (*(Wrapper_e9af0**)&DAT_0052c2ac)->FUN_00293d00(&tk.t);
+    (*(Wrapper_e9af0**)&DAT_0052c2ac)->FUN_00293d00(&v78);
 
     if (owner->v13(this)) {
         if (p60 != 0) {
@@ -278,12 +279,12 @@ void HSlider::vfunc_5()
         layout.FUN_000f87f0(&str18, &owner->hold->o978);
     }
 
-    DAT_0052c2ac->dev->v16(0);
+    (*(Wrapper_e9af0**)&DAT_0052c2ac)->dev->v16(0);
     if (a190[0] != 0) {
-        DAT_0052c2ac->dev->v15(0);
-        DAT_0052c2ac->FUN_00293d00(&v184);
+        (*(Wrapper_e9af0**)&DAT_0052c2ac)->dev->v15(0);
+        (*(Wrapper_e9af0**)&DAT_0052c2ac)->FUN_00293d00(&v184);
         float s = f1f0;
-        DAT_0052c2ac->FUN_00293da0(s, s, s);
+        (*(Wrapper_e9af0**)&DAT_0052c2ac)->FUN_00293da0(s, s, s);
         a190[0]->v8(0, 0);
         int n = (int)floor((double)f150);
         int cnt = (n + 5) / 10;
@@ -309,7 +310,7 @@ void HSlider::vfunc_5()
                     a190[cnt]->v8(0, 0);
             }
         }
-        DAT_0052c2ac->dev->v16(0);
+        (*(Wrapper_e9af0**)&DAT_0052c2ac)->dev->v16(0);
     }
     layout.FUN_000f78e0();
 }

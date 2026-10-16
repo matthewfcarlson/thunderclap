@@ -2,6 +2,7 @@
 // hulkfight::motion::PropSpawnAction::vfunc_3 @ 0x001820d0
 #include "gen/hulkfight.h"
 #include "decls/address.h"
+#include "decls/data/game/hulkfight/motion.h"
 
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
@@ -75,7 +76,6 @@ struct World {
     Spawner_1820d0* spawner;
 };
 
-extern int DAT_004e1504;
 
 int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
 

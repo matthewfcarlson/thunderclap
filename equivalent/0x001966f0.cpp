@@ -2,6 +2,7 @@
 // hulkfight::motion::FireBeamAction::vfunc_3 @ 0x001966f0
 // equiv-map: ?thunk_FUN_0027d410@Obj64@@QAEXPAUKey@@@Z = 0x001d6630
 #include "decls/address.h"
+#include "decls/data/game/hulkfight/motion.h"
 extern "C" int atexit(void (*)());
 int __cdecl FUN_00267760(char *buf, int n, const char *fmt, ...);
 extern "C" int __cdecl FUN_0034483c();
@@ -18,9 +19,6 @@ struct Key {
     void FUN_0027b040(const char *name);
     void FUN_0027b0e0(const char *name);
 };
-extern Key DAT_004e16d8;
-extern unsigned int DAT_004e16e0;
-extern int DAT_004e16e4;
 
 struct V3_1966f0 {
     float x, y, z;
@@ -321,11 +319,11 @@ __forceinline char FireBeamAction::Body(Frame_1966f0 &f)
             if (o) {
                 if (!(DAT_004e16e0 & 1)) {
                     DAT_004e16e0 |= 1;
-                    DAT_004e16d8.FUN_0027af00();
+                    (*(Key*)&DAT_004e16d8).FUN_0027af00();
                     atexit(FUN_00363fa0);
                 }
-                DAT_004e16d8.FUN_0027b040("invisible");
-                f64->thunk_FUN_0027d410(&DAT_004e16d8);
+                (*(Key*)&DAT_004e16d8).FUN_0027b040("invisible");
+                f64->thunk_FUN_0027d410(((Key*)&DAT_004e16d8));
                 Sub74 *sub = f64->FUN_001d72e0();
                 if (sub) {
                     FUN_00018810(&f4c, a->f328);

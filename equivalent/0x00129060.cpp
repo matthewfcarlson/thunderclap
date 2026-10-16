@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 6/6)
 // FUN_00129060 @ 0x00129060
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/hulkfight/ai.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -51,12 +54,8 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0ddc;
-extern int DAT_004e0de0;
 
-extern const char* DAT_0042773c[1];
 
-extern int DAT_00427754;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -68,12 +67,12 @@ void FUN_00129060()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::TargetDirectionXZCondition>("compare", DAT_0042773c, DAT_00427754, &hulkfight::ai::TargetDirectionXZCondition::FUN_001238f0);
+            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::TargetDirectionXZCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::TargetDirectionXZCondition::FUN_001238f0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange<hulkfight::ai::TargetDirectionXZCondition>("direction", &hulkfight::ai::TargetDirectionXZCondition::FUN_00123900);
-        FUN_002347b0(&DAT_004e0ddc, params, 2);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0ddc), params, 2);
     }
     DAT_004e0de0++;
 }

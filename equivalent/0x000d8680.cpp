@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 34/34)
 // FEMemCardControl::vfunc_5 @ 0x000d8680
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
+
 struct Metrics_d8680 { int dummy; };
 
 class Fonts_d8680 {
@@ -144,13 +147,6 @@ struct Rec_d8680 {
     char pad39[3];
 };
 
-extern ProviderRef_d8680 *DAT_0052c2ac;
-extern unsigned int DAT_004a0cfc;
-extern unsigned int DAT_004a0d00;
-extern unsigned int DAT_004a0d08;
-extern unsigned int DAT_004a0d0c;
-extern unsigned int DAT_004a0d10;
-extern unsigned int DAT_004a0d14;
 
 class FEMemCardControl {
 public:
@@ -192,7 +188,7 @@ void FEMemCardControl::vfunc_5()
     SlotStack_d8680 *st = &layout.stack;
 
     layout.FUN_000f7fe0(owner->hold->fonts->v44());
-    st->slots[st->index].value = DAT_004a0cfc;
+    st->slots[st->index].value = (*(unsigned int*)&DAT_004a0cfc);
     {
         float k = FUN_000e2850();
         st->slots[st->index].weight = FUN_000e2840() * k;
@@ -202,10 +198,10 @@ void FEMemCardControl::vfunc_5()
     Player_d8680 *pl = FUN_000fc3d0()->player;
     if ((pl == 0 || !pl->busy) && mode != 0x20 && (mode == 3 || mode == 5 || mode == 4 || mode == 7)) {
         st->slots[st->index].a = 1;
-        DAT_0052c2ac->provider->v15(0);
-        DAT_0052c2ac->FUN_00293d00(state154);
+        (*(ProviderRef_d8680**)&DAT_0052c2ac)->provider->v15(0);
+        (*(ProviderRef_d8680**)&DAT_0052c2ac)->FUN_00293d00(state154);
         layout.FUN_000f87f0(&items[sel].entry, 0);
-        DAT_0052c2ac->provider->v16(0);
+        (*(ProviderRef_d8680**)&DAT_0052c2ac)->provider->v16(0);
         st->slots[st->index].a = 1;
 
         char *cell = cells[0];
@@ -215,31 +211,31 @@ void FEMemCardControl::vfunc_5()
             void *arg = 0;
             st->FUN_000f78f0();
             if (recs[i].selected) {
-                st->slots[st->index].value = DAT_004a0d08;
+                st->slots[st->index].value = (*(unsigned int*)&DAT_004a0d08);
                 if (i == sel2) {
                     arg = block3b4;
-                    color3c4 = DAT_004a0d14;
+                    color3c4 = (*(unsigned int*)&DAT_004a0d14);
                 }
             } else if (i == sel2) {
-                st->slots[st->index].value = DAT_004a0cfc;
+                st->slots[st->index].value = (*(unsigned int*)&DAT_004a0cfc);
                 arg = block3b4;
-                color3c4 = DAT_004a0d10;
+                color3c4 = (*(unsigned int*)&DAT_004a0d10);
             } else {
-                st->slots[st->index].value = DAT_004a0d00;
+                st->slots[st->index].value = (*(unsigned int*)&DAT_004a0d00);
                 arg = block3d0;
             }
-            DAT_0052c2ac->provider->v15(0);
-            DAT_0052c2ac->FUN_00293d00(cell);
+            (*(ProviderRef_d8680**)&DAT_0052c2ac)->provider->v15(0);
+            (*(ProviderRef_d8680**)&DAT_0052c2ac)->FUN_00293d00(cell);
             Entry_d8680 *e;
             if (!recs[i].hasEntry) {
                 if (!flag3a8)
-                    st->slots[st->index].value = DAT_004a0d0c;
+                    st->slots[st->index].value = (*(unsigned int*)&DAT_004a0d0c);
                 e = (Entry_d8680 *)((char *)items + 0x28);
             } else {
                 e = &recs[i].entry;
             }
             layout.FUN_000f87f0(e, arg);
-            DAT_0052c2ac->provider->v16(0);
+            (*(ProviderRef_d8680**)&DAT_0052c2ac)->provider->v16(0);
             if (st->index > 0)
                 st->index--;
             cell += 12;

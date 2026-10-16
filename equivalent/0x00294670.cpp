@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00294670 @ 0x00294670
+#include "decls/data/game/global.h"
+
 struct Vec3_294670 { float x, y, z; };
 struct Matrix { float m[16]; };
 
@@ -29,7 +31,6 @@ public:
     virtual Matrix* v13();
 };
 
-extern Camera** DAT_0052c2b0;
 
 struct View {
     char pad00[0x18];
@@ -44,7 +45,7 @@ void View::Project(Vec3_294670 pos, float* out)
     if (target == 0)
         return;
     Vec3Ops_294670 local;
-    local.FUN_0022d240(&pos, (*DAT_0052c2b0)->FUN_0028faa0());
+    local.FUN_0022d240(&pos, (*(*(Camera***)&DAT_0052c2b0))->FUN_0028faa0());
     if (target != 0)
         local.FUN_0022d240(&local, target->v13());
     FUN_002940f0(&local, &local);

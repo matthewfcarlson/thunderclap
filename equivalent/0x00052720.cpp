@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 6/6)
 // FUN_00052720 @ 0x00052720
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/hulkfight.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -47,29 +50,25 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc3f8;
-extern int DAT_004dc3fc;
 
-extern const char* DAT_0042773c[1];
 
-extern int DAT_00427754;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_00052720()
 {
-    if (DAT_004dc3fc == 0) {
+    if ((*(int*)&DAT_004dc3fc) == 0) {
         void* params[2];
         void* mem;
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<::CStageCondition>("compare", DAT_0042773c, DAT_00427754, &::CStageCondition::FUN_00047a90);
+            params[0] = new (mem) fight::ParamEnumConstList<::CStageCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &::CStageCondition::FUN_00047a90);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamIntConstRange<::CStageCondition>("stage", &::CStageCondition::FUN_00047aa0);
-        FUN_002347b0(&DAT_004dc3f8, params, 2);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc3f8), params, 2);
     }
-    DAT_004dc3fc++;
+    (*(int*)&DAT_004dc3fc)++;
 }

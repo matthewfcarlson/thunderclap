@@ -1,8 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 22/22)
 // FUN_001b0e30 @ 0x001b0e30
 #include "decls/address.h"
-extern int DAT_004e2198;
-extern int DAT_004e219c;
+#include "decls/data/game/global.h"
 
 struct Target_1b0e30 {
     void FUN_00081690(const float *a, const float *b, int c, int flag, float *outPos);
@@ -61,7 +60,7 @@ int __stdcall FUN_001b0e30(Ctx_1b0e30 *ctx, Entity *ent, const float *a3, const 
     Frame_1b0e30 f;
     f.v[0] = 0; f.v[1] = 0; f.v[2] = 0;
     f.flag.b = 0;
-    if (info->key1 == DAT_004e2198 && info->key2 == DAT_004e219c) {
+    if (info->key1 == (*(int*)&DAT_004e2198) && info->key2 == DAT_004e219c) {
         unsigned int bits = ((const unsigned int *)a4)[1] & 0x7fffffff;
         float absY = *(float *)&bits;
         if (absY <= 1e-5f && a3[1] <= 0.2f)

@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
 // FUN_001ee820 @ 0x001ee820
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 typedef unsigned int size_t;
 void* __cdecl operator new(size_t, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned);
-extern int DAT_0048e100, DAT_0048e0f0, DAT_0048e128, DAT_0048e0e4, DAT_0049cad8;
 struct Owner { void FUN_001f2c00(unsigned); };
 class CSoundRealTimeManager { public:
  Owner* owner; unsigned id;
@@ -25,7 +26,7 @@ template<class C,class R,class A> class Method1: public Command { public:
  void (C::*method)(A);
  virtual void slot0();
  Method1(const char* name,void(C::*fn)(A),const void* type):Command(name) {
- method=fn; returnType=FUN_001d04d0(&DAT_0048e100); argumentType=FUN_001d04d0(type);
+ method=fn; returnType=FUN_001d04d0(((int*)&DAT_0048e100)); argumentType=FUN_001d04d0(type);
  }
 };
 template<class C,class R,class A> class Closure1: public Method1<C,R,A> { public:
@@ -45,16 +46,16 @@ Registry* __cdecl FUN_001d4c90();
 void CSoundRealTimeManager::FUN_001ee820() {
  owner->FUN_001f2c00(id);
  Registry* registry=FUN_001d4c90();
- ADD1("snd_TriggerMusic",const char*,FUN_001eb560,DAT_0048e0f0)
+ ADD1("snd_TriggerMusic",const char*,FUN_001eb560,(*(int*)&DAT_0048e0f0))
  registry->FUN_001ee5b0("snd_StopMusic",this,&CSoundRealTimeManager::FUN_001eb550);
- ADD1("snd_TriggerAmbience",const char*,FUN_001eb6c0,DAT_0048e0f0)
- ADD1("snd_SetMusicVolume",float,FUN_001eb130,DAT_0048e128)
- ADD1("snd_LockTransitions",bool,FUN_001eb140,DAT_0048e0e4)
+ ADD1("snd_TriggerAmbience",const char*,FUN_001eb6c0,(*(int*)&DAT_0048e0f0))
+ ADD1("snd_SetMusicVolume",float,FUN_001eb130,(*(int*)&DAT_0048e128))
+ ADD1("snd_LockTransitions",bool,FUN_001eb140,(*(int*)&DAT_0048e0e4))
  {void* mem=FUN_0008d690(36); Command* cmd=0; if(mem) cmd=new(mem) Closure3<CSoundRealTimeManager,void,char*,char*,char*>("snd_PlayDialogue",this,&CSoundRealTimeManager::FUN_001eb740); registry->FUN_001d3b70("snd_PlayDialogue",cmd);}
- ADD1("snd_InstallMix",char*,FUN_001eb8d0,DAT_0049cad8)
- ADD1("snd_InstallEffect",char*,FUN_001eb950,DAT_0049cad8)
- ADD1("snd_Set_UserHealthDown",float,FUN_001eb150,DAT_0048e128)
- ADD1("snd_Set_UserHealthNearDeath",float,FUN_001eb160,DAT_0048e128)
+ ADD1("snd_InstallMix",char*,FUN_001eb8d0,(*(int*)&DAT_0049cad8))
+ ADD1("snd_InstallEffect",char*,FUN_001eb950,(*(int*)&DAT_0049cad8))
+ ADD1("snd_Set_UserHealthDown",float,FUN_001eb150,(*(int*)&DAT_0048e128))
+ ADD1("snd_Set_UserHealthNearDeath",float,FUN_001eb160,(*(int*)&DAT_0048e128))
  registry->FUN_001ee5b0("snd_Mute",this,&CSoundRealTimeManager::FUN_001eb870);
  registry->FUN_001ee5b0("snd_UnMute",this,&CSoundRealTimeManager::FUN_001eb890);
 }

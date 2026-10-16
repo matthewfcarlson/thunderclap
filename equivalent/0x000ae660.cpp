@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 46/46)
 // FUN_000ae660 @ 0x000ae660
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct Snapshot {
     float f[17];
 };
@@ -30,7 +31,6 @@ struct InputHub {
     char FUN_0023f710();
 };
 
-extern InputHub* DAT_004dd6e8;
 
 struct Controls {
     char pad00[4];
@@ -74,7 +74,7 @@ void Controls::FUN_000ae660()
     }
     if (g1d == 0) {
         if (a.f[2] > 0.2f) {
-            DAT_004dd6e8->FUN_0023f6e0();
+            (*(InputHub**)&DAT_004dd6e8)->FUN_0023f6e0();
             g1d = 1;
         }
     } else if (a.f[2] < 0.2f) {
@@ -82,7 +82,7 @@ void Controls::FUN_000ae660()
     }
     if (g1e == 0) {
         if (a.f[1] > 0.2f) {
-            DAT_004dd6e8->FUN_0023f6d0();
+            (*(InputHub**)&DAT_004dd6e8)->FUN_0023f6d0();
             g1e = 1;
         }
     } else if (a.f[1] < 0.2f) {
@@ -90,7 +90,7 @@ void Controls::FUN_000ae660()
     }
     if (g20 == 0) {
         if (a.f[7] > 0.2f) {
-            DAT_004dd6e8->FUN_0023f700();
+            (*(InputHub**)&DAT_004dd6e8)->FUN_0023f700();
             g20 = 1;
         }
     } else if (a.f[7] < 0.2f) {
@@ -98,12 +98,12 @@ void Controls::FUN_000ae660()
     }
     if (g21 == 0) {
         if (a.f[8] > 0.2f) {
-            DAT_004dd6e8->FUN_0023f6f0();
+            (*(InputHub**)&DAT_004dd6e8)->FUN_0023f6f0();
             g21 = 1;
         }
     } else if (a.f[8] < 0.2f) {
         g21 = 0;
     }
-    if (DAT_004dd6e8->FUN_0023f710() != 0)
+    if ((*(InputHub**)&DAT_004dd6e8)->FUN_0023f710() != 0)
         device->FUN_000ad9f0();
 }

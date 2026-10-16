@@ -1,4 +1,5 @@
-extern unsigned char DAT_004e5ae4;
+#include "decls/data/engine/unknown.h"
+
 void FUN_0022e340(void) {
-    DAT_004e5ae4 = 1;
+    (*(unsigned char*)&DAT_004e5ae4) = 1;
 }

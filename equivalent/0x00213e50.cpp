@@ -2,6 +2,8 @@
 // FUN_00213e50 @ 0x00213e50
 // FUN_00213e50 @ 0x00213e50
 // Lua 5.0 lua_setupvalue: aux_upvalue inlined, then pops the stack top into the upvalue
+#include "decls/data/game/global.h"
+
 struct GCObject_213e50 {
     char pad[5];
     unsigned char marked;
@@ -53,7 +55,6 @@ struct lua_State_213e50 {
     TObject_213e50 *top;
 };
 
-extern char DAT_003f335c;
 
 // index2adr
 // equiv-conv: FUN_00212bb0 edx ecx
@@ -73,7 +74,7 @@ const char *__cdecl FUN_00213e50(lua_State_213e50 *L, int funcindex, int n)
         if (n > f->nupvalues)
             return 0;
         val = &f->c.upvalue[n - 1];
-        name = &DAT_003f335c;
+        name = ((char*)&DAT_003f335c);
     } else {
         Proto_213e50 *p = f->l.p;
         if (n > p->sizeupvalues)

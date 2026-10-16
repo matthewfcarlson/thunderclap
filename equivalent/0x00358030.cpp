@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // FUN_00358030 @ 0x00358030
+#include "decls/data/game/global.h"
+
 extern "C" double sqrt(double);
-extern const float DAT_003f32dc;
 
 struct V3_358030 {
     float x, y, z;

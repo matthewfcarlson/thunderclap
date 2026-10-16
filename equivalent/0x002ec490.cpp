@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 22/22)
 // FUN_002ec490 @ 0x002ec490
+#include "decls/data/engine/physics.h"
+
 struct Huft;
 
 struct ZStream_2ec490 {
@@ -11,10 +13,6 @@ struct ZStream_2ec490 {
     void *opaque;
 };
 
-extern unsigned int DAT_00430e78[];
-extern unsigned int DAT_00430ef8[];
-extern unsigned int DAT_00430f78[];
-extern unsigned int DAT_00430ff0[];
 
 // equiv-conv: FUN_002ebef0 ecx eax stack stack stack stack stack stack stack stack
 int FUN_002ebef0(unsigned int *c, unsigned int *bits, unsigned int n, unsigned int s,
@@ -30,7 +28,7 @@ int FUN_002ec490(unsigned int nl, unsigned int nd, unsigned int *c, unsigned int
     if (v == 0)
         return -4;
 
-    r = FUN_002ebef0(c, bl, nl, 257, DAT_00430e78, DAT_00430ef8, tl, hp, &hn, v);
+    r = FUN_002ebef0(c, bl, nl, 257, ((unsigned int*)&DAT_00430e78), ((unsigned int*)&DAT_00430ef8), tl, hp, &hn, v);
     if (r != 0 || *bl == 0) {
         if (r == -3) {
             z->msg = "oversubscribed literal/length tree";
@@ -42,7 +40,7 @@ int FUN_002ec490(unsigned int nl, unsigned int nd, unsigned int *c, unsigned int
         return r;
     }
 
-    r = FUN_002ebef0(c + nl, bd, nd, 0, DAT_00430f78, DAT_00430ff0, td, hp, &hn, v);
+    r = FUN_002ebef0(c + nl, bd, nd, 0, ((unsigned int*)&DAT_00430f78), ((unsigned int*)&DAT_00430ff0), td, hp, &hn, v);
     if (r != 0 || (*bd == 0 && nl > 257)) {
         if (r == -3) {
             z->msg = "oversubscribed distance tree";

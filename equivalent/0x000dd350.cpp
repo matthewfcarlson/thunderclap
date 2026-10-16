@@ -1,13 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 242 inputs, branch coverage 52/52)
 // FUN_000dd350 @ 0x000dd350
+#include "decls/data/game/global.h"
+
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" long __cdecl atol(const char* s);
 extern unsigned int DAT_004d9968;
 
-extern unsigned __int64 DAT_004de6e0;
-extern unsigned __int64 DAT_004de700;
-extern unsigned __int64 DAT_004de708;
-extern unsigned __int64 DAT_004de6d8;
 
 struct Node {
     virtual void vfunc_0();
@@ -155,14 +153,14 @@ bool Config_dd350::FUN_000dd350(Parser_dd350* parser, Handler_dd350* handler, Si
         while (parser->FUN_000f9e50()) {
             Node* node = parser->FUN_000fb110();
             unsigned __int64 key = node->vfunc_1();
-            if (key == DAT_004de6e0) {
+            if (key == (*(unsigned __int64*)&DAT_004de6e0)) {
                 const char* name = parser->FUN_000fad90();
                 if (name == 0) {
                     parser->FUN_000fa0a0();
                     break;
                 }
                 FUN_000dc810(atol(name));
-            } else if (key == DAT_004de700) {
+            } else if (key == (*(unsigned __int64*)&DAT_004de700)) {
                 const char* name = parser->FUN_000fad90();
                 for (int i = 0; i < count; i++) {
                     FUN_000964a0(f.bufA, 0x40, "%s_%02d", name, i + 1);
@@ -182,7 +180,7 @@ bool Config_dd350::FUN_000dd350(Parser_dd350* parser, Handler_dd350* handler, Si
                     } while (*src++ != 0);
                     sink->Store(f.bufA, (char*)slotsA + i * 12);
                 }
-            } else if (key == DAT_004de708) {
+            } else if (key == (*(unsigned __int64*)&DAT_004de708)) {
                 const char* name = parser->FUN_000fad90();
                 for (int i = 0; i < count; i++) {
                     FUN_000964a0(f.bufB, 0x40, "%s_%02d", name, i + 1);
@@ -202,7 +200,7 @@ bool Config_dd350::FUN_000dd350(Parser_dd350* parser, Handler_dd350* handler, Si
                     } while (*src++ != 0);
                     sink->Store(f.bufB, (char*)slotsB + i * 12);
                 }
-            } else if (key == DAT_004de6d8) {
+            } else if (key == (*(unsigned __int64*)&DAT_004de6d8)) {
                 b17c = parser->FUN_000faeb0() == 0x4dae9aac;
             } else {
                 if (handler->Handle35(parser, sink, this, node))

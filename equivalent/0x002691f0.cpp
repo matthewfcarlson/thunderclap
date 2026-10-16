@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_002691f0 @ 0x002691f0
+#include "decls/data/platform/xbox/core.h"
+
 struct Device_2691f0 {
     virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
     virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7();
@@ -23,7 +25,6 @@ struct Manager_2691f0 {
     void FUN_002691f0();
 };
 extern int DAT_003ea774;
-extern unsigned DAT_00528388[4];
 namespace XAPILIB {
     int __stdcall XGetDeviceChanges(int*, unsigned*, unsigned*);
     void* __stdcall XInputOpen(int*, unsigned, unsigned, unsigned);
@@ -40,7 +41,7 @@ void Manager_2691f0::FUN_002691f0() {
             if (device.active) device.slot21(handle);
             else {
                 unsigned time = FUN_00267f80();
-                device.FUN_002692c0(handle, i, 0, time + base, param, extra, DAT_00528388[i]);
+                device.FUN_002692c0(handle, i, 0, time + base, param, extra, ((unsigned*)&DAT_00528388)[i]);
             }
         } else if (device.active) {
             device.slot21(0);

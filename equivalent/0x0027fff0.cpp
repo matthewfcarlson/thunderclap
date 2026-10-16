@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 20/20)
 // FUN_0027fff0 @ 0x0027fff0
-extern const float DAT_003f32dc;
-extern const float DAT_0042c46c;
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
+
 struct Object;
 struct Entry_27fff0 { unsigned a,b; Object* object; };
 struct Container_27fff0 { char pad[0x3c]; Entry_27fff0* begin; Entry_27fff0* end; };

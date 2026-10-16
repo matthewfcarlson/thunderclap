@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 116 inputs, branch coverage 38/42, incomplete)
 // hulkfight::motion::DriftToPositionAction::vfunc_3 @ 0x00175060
 #include "decls/address.h"
+#include "decls/data/game/hulkfight/motion.h"
 extern "C" double sqrt(double);
 
 struct Vec3_175060 {
@@ -76,9 +77,6 @@ struct World {
     Registry_175060 *registry;
 };
 
-extern __int64 DAT_004e13c0;
-extern __int64 DAT_004e13d0;
-extern __int64 DAT_004e13e0;
 
 static bool IdIs(const Id_175060 &id, __int64 v)
 {

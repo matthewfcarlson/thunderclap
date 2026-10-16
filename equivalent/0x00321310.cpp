@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_00321310 @ 0x00321310
+#include "decls/data/platform/xbox/pure3d.h"
+
 typedef unsigned long DWORD;
 struct Vec3_321310 {
     float x, y, z;
@@ -54,7 +56,6 @@ namespace D3D8 {
 void __stdcall D3DDevice_SetLight(DWORD index, Light8_321310* light);
 void __stdcall D3DDevice_LightEnable(DWORD index, int enable);
 }
-extern int DAT_004d3a10[];
 struct LightingState {
     char pad0[0x50];
     LightSet_321310* set;

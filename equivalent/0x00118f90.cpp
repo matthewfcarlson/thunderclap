@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 14/14)
 // FUN_00118f90 @ 0x00118f90
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -47,8 +49,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0c34;
-extern int DAT_004e0c38;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_00118f90()
@@ -81,7 +81,7 @@ void FUN_00118f90()
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamFloatConstRange<ComputeDropZoneCondition>("offset", &ComputeDropZoneCondition::FUN_00114fa0);
-        FUN_002347b0(&DAT_004e0c34, params, 6);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0c34), params, 6);
     }
     DAT_004e0c38++;
 }

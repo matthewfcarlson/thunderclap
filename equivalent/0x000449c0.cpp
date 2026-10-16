@@ -2,6 +2,8 @@
 // FUN_000449c0 @ 0x000449c0
 // Look up two named entries in the global registry and seed the six handles (reverse order of FUN_00044910).
 #include "decls/address.h"
+#include "decls/data/engine/fight.h"
+#include "decls/data/game/global.h"
 
 struct Entry_449c0 {
     char pad[0x5c];
@@ -19,9 +21,6 @@ struct Handle_449c0 {
     void FUN_00234090(int v);
 };
 
-extern const char *DAT_0048f698;
-extern const char *DAT_0048f69c;
-extern Registry_449c0 *DAT_004e5af8;
 
 struct Obj_449c0 {
     char pad[0xe0];
@@ -31,11 +30,11 @@ struct Obj_449c0 {
 
 bool Obj_449c0::FUN_000449c0()
 {
-    const char *name = DAT_0048f69c;
-    Registry_449c0 *reg = DAT_004e5af8;
+    const char *name = (*(const char**)&DAT_0048f69c);
+    Registry_449c0 *reg = (*(Registry_449c0**)&DAT_004e5af8);
     h[5].FUN_00234090(reg->FUN_00232840(FUN_002672f0(name, 0, 0))->value);
-    name = DAT_0048f698;
-    reg = DAT_004e5af8;
+    name = (*(const char**)&DAT_0048f698);
+    reg = (*(Registry_449c0**)&DAT_004e5af8);
     Entry_449c0 *entry = reg->FUN_00232840(FUN_002672f0(name, 0, 0));
     h[4].FUN_00234090(h[0].first);
     h[3].FUN_00234090(h[0].first);

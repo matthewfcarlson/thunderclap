@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 18/18)
 // FUN_002abd90 @ 0x002abd90
+#include "decls/data/engine/content.h"
+
 struct Stream {
     bool FUN_002647e0(void *dst, int a, int b, int c);
 };
@@ -73,7 +75,6 @@ struct Registry_2abd90 {
     content::ObjectLoader *FUN_00265310(int key);
 };
 
-extern Registry_2abd90 *DAT_00527c58;
 
 void *FUN_00263ea0(unsigned int size);
 void *FUN_0008d690(unsigned int size);
@@ -108,7 +109,7 @@ Generator_2abd90 * __stdcall FUN_002abd90(Reader *r, int flag)
         do {
             int id = r->FUN_00266a30();
             if (id == 0x121000) {
-                pure3d::AnimationLoader *al = dynamic_cast<pure3d::AnimationLoader *>(DAT_00527c58->FUN_00265310(id));
+                pure3d::AnimationLoader *al = dynamic_cast<pure3d::AnimationLoader *>((*(Registry_2abd90**)&DAT_00527c58)->FUN_00265310(id));
                 al->v0();
                 fr.a = al->FUN_00288e90();
                 al->FUN_00288e80(1);

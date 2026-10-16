@@ -1,6 +1,6 @@
+#include "decls/data/game/global.h"
+
 extern "C" char DAT_00424398[];
-extern "C" char DAT_0048e100[];
-extern "C" char DAT_0049cad8[];
 extern "C" char Read(int*);
 class Obj_1edcf0 {
   public:
@@ -21,9 +21,9 @@ Obj_1edcf0* Obj_1edcf0::Fn(char* p, int x) {
     Init(p, 3);
     s->v = (void*)((int)DAT_00424398);
     s->m1c = x;
-    s->b18 = Read((int*)((int)DAT_0048e100));
-    s->b10 = Read((int*)((int)DAT_0049cad8));
-    s->b11 = Read((int*)((int)DAT_0049cad8));
-    s->b12 = Read((int*)((int)DAT_0049cad8));
+    s->b18 = Read((int*)((int)((char*)&DAT_0048e100)));
+    s->b10 = Read((int*)((int)((char*)&DAT_0049cad8)));
+    s->b11 = Read((int*)((int)((char*)&DAT_0049cad8)));
+    s->b12 = Read((int*)((int)((char*)&DAT_0049cad8)));
     return this;
 }

@@ -4,8 +4,7 @@
 // Stick/axis tracker: samples a 0x43-dword input record, keeps two axis values (a dead zone resets them to the
 // defaults passed in), and ramps a charge value `c` towards 1 / -1 / 0 depending on whether the axis keeps its
 // direction.
-extern char DAT_004dd83a;
-extern char DAT_004dd83b;
+#include "decls/data/game/unknown.h"
 
 struct Sample_a2100 {
     unsigned pad0[0x1e];

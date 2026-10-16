@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 122 inputs, branch coverage 57/60, incomplete)
 // FUN_002e7990 @ 0x002e7990
+#include "decls/data/engine/physics.h"
+
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
 struct Image {
@@ -9,7 +11,6 @@ struct Image {
     unsigned char bitsPerPixel;      // 0x0b
 };
 
-extern int DAT_004d10d8[];
 
 // Stretches a row-major pixel run in place, replicating every pixel DAT_004d10d8[sel] times (from the end, so
 // the source is never overwritten before it is read), then updates the image width and pitch.

@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000d50f0 @ 0x000d50f0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 struct V3_d50f0 {
     float x, y, z;
 };
@@ -107,8 +109,6 @@ struct Overlay {
     int f10;
 };
 
-extern ProviderRef_d50f0 *DAT_0052c2ac;
-extern char DAT_004ddfc0[];
 
 class FadeQuad {
 public:
@@ -128,8 +128,8 @@ void FadeQuad::FUN_000d50f0()
         return;
 
     DAT_0052c2a8->setState(0);
-    DAT_0052c2ac->provider->v15(0);
-    DAT_0052c2ac->FUN_00293d00(DAT_004ddfc0);
+    (*(ProviderRef_d50f0**)&DAT_0052c2ac)->provider->v15(0);
+    (*(ProviderRef_d50f0**)&DAT_0052c2ac)->FUN_00293d00(((char*)&DAT_004ddfc0));
 
     VertexBuf_d50f0 *buf = DAT_0052c2a8->beginQuad(overlay->f10, 1, 0x2020, 4, 0);
 
@@ -171,6 +171,6 @@ void FadeQuad::FUN_000d50f0()
     buf->FUN_0008ef00();
 
     DAT_0052c2a8->endQuad(buf);
-    DAT_0052c2ac->provider->v16(0);
+    (*(ProviderRef_d50f0**)&DAT_0052c2ac)->provider->v16(0);
     DAT_0052c2a8->setState(1);
 }

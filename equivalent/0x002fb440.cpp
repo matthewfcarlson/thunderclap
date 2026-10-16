@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_002fb440 @ 0x002fb440
+#include "decls/data/game/global.h"
+
 struct V3_2fb440 { float x, y, z; };
 class Ray_2fb440 {
 public:
@@ -45,7 +47,6 @@ struct Globals_2fb440 {
     char pad0[0x1b0];
     Hitter hitter;
 };
-extern Globals_2fb440* DAT_00554c14;
 bool FUN_002fae50(V3_2fb440* tri, V3_2fb440* origin, V3_2fb440* dir, float* t);
 void FUN_002fa6b0(V3_2fb440* a, V3_2fb440* b, V3_2fb440* c, V3_2fb440* out);
 
@@ -75,6 +76,6 @@ bool Tri_2fb440::FUN_002fb440(Ray_2fb440* ray, Mesh_2fb440* mesh, int flags)
     point.y = t * d2->y + o2->y;
     point.z = t * d2->z + o2->z;
     unsigned int index = ((unsigned int)this - (unsigned int)mesh->data->tris) / 0x18;
-    DAT_00554c14->hitter.FUN_00304530(ray, index, t, &point, &normal, mesh, flags);
+    (*(Globals_2fb440**)&DAT_00554c14)->hitter.FUN_00304530(ray, index, t, &point, &normal, mesh, flags);
     return hit;
 }

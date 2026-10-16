@@ -1,10 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 14/14)
 // FUN_0027dd30 @ 0x0027dd30
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
 
-extern unsigned int DAT_0052c290;
-extern unsigned int DAT_0052c294;
-extern unsigned int DAT_0052c298;
 
 struct Effect_27dd30 {
     char pad0[0x40];

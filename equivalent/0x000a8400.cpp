@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000a8400 @ 0x000a8400
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/data/game/global.h"
 
 void *thunk_FUN_0008d690(unsigned int size);
 
@@ -36,7 +37,6 @@ public:
     CCameraBase_a8400() { FUN_000a9400(); }
 };
 
-extern const char *DAT_0049ed3c;
 
 class CDramaticCamera : public CCameraBase_a8400 {
 public:
@@ -50,7 +50,7 @@ public:
 CDramaticCamera::CDramaticCamera()
 {
     mode = 1;
-    name.FUN_0027b040(DAT_0049ed3c);
+    name.FUN_0027b040((*(const char**)&DAT_0049ed3c));
     void *mem = thunk_FUN_0008d690(0x118);
     Controller_a8400 *c = 0;
     if (mem != 0)

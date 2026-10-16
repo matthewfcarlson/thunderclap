@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 241 inputs, branch coverage 51/61, incomplete)
 // physics::CollisionMesh::vfunc_15 @ 0x002f47b0
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
+
 struct Vec3_2f47b0 {
     float x, y, z;
 };
@@ -92,10 +95,6 @@ struct Root_2f47b0 {
     Sys_2f47b0 sys;
 };
 
-extern Root_2f47b0 *DAT_00554c14;
-extern unsigned short *DAT_0055543c;
-extern unsigned short *DAT_00555440;
-extern Hash_2f47b0 DAT_0055545c;
 
 class CollisionMesh {
 public:
@@ -147,7 +146,7 @@ char CollisionMesh::FUN_002f47b0(Body_2f47b0 *o, int flags)
     Frame_2f47b0 f;
     char bl;
     if (flags & 0x10)
-        DAT_00554c14->sys.FUN_003037e0();
+        (*(Root_2f47b0**)&DAT_00554c14)->sys.FUN_003037e0();
     Vec3_2f47b0 *c = o->vfunc_4();
     f.A.x = o->pos.x + c->x;
     f.A.y = o->pos.y + c->y;
@@ -204,11 +203,11 @@ char CollisionMesh::FUN_002f47b0(Body_2f47b0 *o, int flags)
     } else if (!o->b19) {
         o->vfunc_8();
     }
-    *DAT_0055543c = 0;
+    *(*(unsigned short**)&DAT_0055543c) = 0;
     f.iter1.FUN_002f91e0();
     bl = 0;
     if (o->vfunc_6() != 6) {
-        HashHit *r = DAT_0055545c.FUN_002f9690(o->key);
+        HashHit *r = (*(Hash_2f47b0*)&DAT_0055545c).FUN_002f9690(o->key);
         if (r) {
             r->FUN_002fa290(f.u32.box, this, &f.iter1);
         } else {
@@ -256,13 +255,13 @@ char CollisionMesh::FUN_002f47b0(Body_2f47b0 *o, int flags)
         f.u32.iter2.FUN_002f91e0();
         f.u32.iter2.owner = this;
         f.u32.iter2.id = fd0;
-        f.u32.iter2.begin = DAT_00555440;
-        f.u32.iter2.end = DAT_00555440;
+        f.u32.iter2.begin = (*(unsigned short**)&DAT_00555440);
+        f.u32.iter2.end = (*(unsigned short**)&DAT_00555440);
         FUN_002f3e40(&f.q, &f.u72.q72);
         f.q.iter = &f.u32.iter2;
         tris->grid->FUN_00307240(&f.q);
-        unsigned short *b = DAT_00555440;
-        unsigned short *e = DAT_00555440 + *DAT_0055543c;
+        unsigned short *b = (*(unsigned short**)&DAT_00555440);
+        unsigned short *e = (*(unsigned short**)&DAT_00555440) + *(*(unsigned short**)&DAT_0055543c);
         FUN_002f4790(b, e);
         f.u24.cur = b;
         f.u28.end = e;

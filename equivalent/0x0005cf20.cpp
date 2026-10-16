@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 20/20)
 // FUN_0005cf20 @ 0x0005cf20
+#include "decls/data/game/global.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -114,8 +116,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc5c0;
-extern int DAT_004dc5c4;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0005cf20()
@@ -159,7 +159,7 @@ void FUN_0005cf20()
         params[8] = 0;
         if (mem)
             params[8] = new (mem) ParamBranch<CGrabTrack>("giver", &CGrabTrack::FUN_00012be0);
-        FUN_002347b0(&DAT_004dc5c0, params, 9);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc5c0), params, 9);
     }
     DAT_004dc5c4++;
 }

@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_001ea0c0 @ 0x001ea0c0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct Key_1ea0c0 { unsigned int low, high; };
 extern "C" int __cdecl sprintf(char*, const char*, ...);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
-extern unsigned char DAT_0049caa0;
 struct Item_1ea0c0 { void FUN_001e9bf0(); };
 struct Owner_1ea0c0 {
  Item_1ea0c0* FUN_001e98b0(Key_1ea0c0*);

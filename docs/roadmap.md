@@ -44,7 +44,7 @@ Every game function gets compilable C++ at one of three levels:
 - Order by subsystem, not size: the seams in the table above, then the step-1 priority list, then everything else.
 
 ### 4. Data and the source tree
-- Globals, constant tables, float pools, vtables and strings (`.rdata`/`.data`/`.bss`) as source. *Started 2026-10-16:* every byte inventoried in `config/data.json`, 18,832 items emitted as per-object data TUs and byte-verified, vtables/RTTI left to the compiler; the source rewrite onto the names is the follow-up. See [data.md](data.md).
+- Globals, constant tables, float pools, vtables and strings (`.rdata`/`.data`/`.bss`) as source. *Started 2026-10-16:* every byte inventoried in `config/data.json`, 18,832 items emitted as per-object data TUs and byte-verified, vtables/RTTI left to the compiler; *Wired 2026-10-16:* 2,417 sources (861 matches/, 1,556 equivalent/) include `include/decls/data/` instead of declaring `DAT_` globals, each rewrite verified; 4,028 tree references to data resolve by name (was 260). See [data.md](data.md).
 - Translation-unit recovery ([task 05](tasks/05-split-recovery.md)) turns per-function files into a real source tree. Link order survives: the classes RTTI names form only 1.74 contiguous runs each in address order. Files are named after their dominant class, with one directory per namespace. The tree gets two builds: MSVC under wibo re-verifying every function, and clang for the port. See [shipping.md §1](shipping.md#1-the-source-tree-roadmap-steps-2-and-4) for the scaffold.
 
 ### 5. Hybrid build in xemu: the integration test

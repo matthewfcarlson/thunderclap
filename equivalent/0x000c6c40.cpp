@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000c6c40 @ 0x000c6c40
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 
 namespace content {
 namespace LoadInventory {
@@ -62,13 +63,12 @@ struct Loader_c6c40 {
     virtual void v2();
     virtual Resource_c6c40 *v3(content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> *caster, unsigned __int64 key);
 };
-extern Loader_c6c40 *DAT_004dd9cc;
 
 extern void __cdecl FUN_000c6a90(int found, int value);
 
 void FUN_000c6c40(const char *name, const char *key, int value)
 {
-    Loader_c6c40 *loader = DAT_004dd9cc;
+    Loader_c6c40 *loader = (*(Loader_c6c40**)&DAT_004dd9cc);
     content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> caster;
     Resource_c6c40 *res = loader->v3(&caster, FUN_002672f0(name, 0, 0));
     if (res) {

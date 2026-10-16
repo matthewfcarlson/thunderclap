@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 2/2)
 // FEBackground::vfunc_5 @ 0x000d7950
+#include "decls/data/engine/pure3d/prop.h"
+
 struct Vec3_d7950 {
     float x, y, z;
 };
@@ -40,7 +42,6 @@ struct Display_d7950 {
     void FUN_00293d00(Vec3_d7950* v);
     void FUN_00293bf0(float angle);
 };
-extern Display_d7950* DAT_0052c2ac;
 class FEBackground {
 public:
     virtual void v0();
@@ -57,9 +58,9 @@ void FEBackground::vfunc_5() {
     if (overlay == 0)
         return;
     Vec3_d7950 pos;
-    DAT_0052c2ac->renderer->v15(0);
-    DAT_0052c2ac->FUN_00293d00(FUN_000e2800(&pos));
-    DAT_0052c2ac->FUN_00293bf0(-1.5707964f);
+    (*(Display_d7950**)&DAT_0052c2ac)->renderer->v15(0);
+    (*(Display_d7950**)&DAT_0052c2ac)->FUN_00293d00(FUN_000e2800(&pos));
+    (*(Display_d7950**)&DAT_0052c2ac)->FUN_00293bf0(-1.5707964f);
     overlay->v8(0, 0);
-    DAT_0052c2ac->renderer->v16(0);
+    (*(Display_d7950**)&DAT_0052c2ac)->renderer->v16(0);
 }

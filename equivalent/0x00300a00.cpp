@@ -1,12 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 20/20)
 // FUN_00300a00 @ 0x00300a00
+#include "decls/data/engine/unknown.h"
+
 void *FUN_0008d6d0(unsigned int size);
 
-extern unsigned int DAT_004d2ef0;
-extern unsigned int DAT_004d2ef4;
-extern unsigned int DAT_004d2ef8;
-extern unsigned int DAT_004d2efc;
-extern unsigned int DAT_004d2f00;
 
 struct Buffer_300a00 {
     char *begin;
@@ -48,8 +45,8 @@ Pools *Pools::FUN_00300a00()
     e.cap = 0;
     flag = 0;
 
-    if (DAT_004d2ef0 != 0) {
-        unsigned int bytes = DAT_004d2ef0 * 4;
+    if ((*(unsigned int*)&DAT_004d2ef0) != 0) {
+        unsigned int bytes = (*(unsigned int*)&DAT_004d2ef0) * 4;
         char *p = (char *)FUN_0008d6d0(bytes);
         a.begin = p;
         if (p != 0) {
@@ -65,8 +62,8 @@ Pools *Pools::FUN_00300a00()
         a.cap = 0;
     }
 
-    if (DAT_004d2efc != 0) {
-        unsigned int bytes = DAT_004d2efc * 20;
+    if ((*(unsigned int*)&DAT_004d2efc) != 0) {
+        unsigned int bytes = (*(unsigned int*)&DAT_004d2efc) * 20;
         char *p = (char *)FUN_0008d6d0(bytes);
         b.begin = p;
         if (p != 0) {
@@ -82,8 +79,8 @@ Pools *Pools::FUN_00300a00()
         b.cap = 0;
     }
 
-    if (DAT_004d2ef4 != 0) {
-        unsigned int bytes = DAT_004d2ef4 * 4;
+    if ((*(unsigned int*)&DAT_004d2ef4) != 0) {
+        unsigned int bytes = (*(unsigned int*)&DAT_004d2ef4) * 4;
         char *p = (char *)FUN_0008d6d0(bytes);
         c.begin = p;
         if (p != 0) {
@@ -99,8 +96,8 @@ Pools *Pools::FUN_00300a00()
         c.cap = 0;
     }
 
-    if (DAT_004d2ef8 != 0) {
-        unsigned int bytes = DAT_004d2ef8 * 4;
+    if ((*(unsigned int*)&DAT_004d2ef8) != 0) {
+        unsigned int bytes = (*(unsigned int*)&DAT_004d2ef8) * 4;
         char *p = (char *)FUN_0008d6d0(bytes);
         d.begin = p;
         if (p != 0) {
@@ -116,8 +113,8 @@ Pools *Pools::FUN_00300a00()
         d.cap = 0;
     }
 
-    if (DAT_004d2f00 != 0) {
-        unsigned int bytes = DAT_004d2f00 * 0x44;
+    if ((*(unsigned int*)&DAT_004d2f00) != 0) {
+        unsigned int bytes = (*(unsigned int*)&DAT_004d2f00) * 0x44;
         char *p = (char *)FUN_0008d6d0(bytes);
         e.begin = p;
         if (p != 0) {

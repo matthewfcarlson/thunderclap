@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3006 inputs, branch coverage 10/10)
 // FUN_001c68e0 @ 0x001c68e0
-extern float DAT_004c5314;
+#include "decls/data/game/unknown.h"
 
 class Listener_1c68e0 {
 public:

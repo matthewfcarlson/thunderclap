@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 200 inputs, branch coverage 16/16)
 // FUN_003392c0 @ 0x003392c0
+#include "decls/data/engine/unknown.h"
+
 struct State;
-extern char DAT_00426788[];
 int __cdecl FUN_00212d70(State*);
 void __cdecl FUN_003391f0();
 void __cdecl FUN_00212ed0(State*,int);
@@ -20,7 +21,7 @@ int __cdecl FUN_003392c0(State* state,int index) {
  if(FUN_00212f00(state,-1)==3) length=FUN_00213120(state,-1);
  FUN_00212d80(state,-3);
  if(length>=0) return length;
- FUN_002135a0(state,index,DAT_00426788);
+ FUN_002135a0(state,index,((char*)&DAT_00426788));
  length=-1;
  if(FUN_00212f00(state,-1)==3) length=FUN_00213120(state,-1);
  FUN_00212d80(state,-2);

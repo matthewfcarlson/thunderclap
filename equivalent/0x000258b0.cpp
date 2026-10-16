@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/8, incomplete)
 // FUN_000258b0 @ 0x000258b0
-extern const char *DAT_00496f8c[4];
+#include "decls/data/game/unknown.h"
+
 int __cdecl FUN_00096600(const char *a, const char *b);
 
 class Palette_258b0 {
@@ -14,7 +15,7 @@ void Palette_258b0::FUN_000258b0(const char *name, float r, float g, float b)
 {
     int i;
     for (i = 0; i < 4; i++) {
-        if (FUN_00096600(name, DAT_00496f8c[i]) == 0)
+        if (FUN_00096600(name, ((const char**)&DAT_00496f8c)[i]) == 0)
             break;
     }
     if (i >= 4)

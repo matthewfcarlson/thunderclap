@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20 inputs, branch coverage 4/4)
 // FUN_0007f560 @ 0x0007f560
-extern float DAT_00421898;
-extern float DAT_004218c0;
+#include "decls/data/game/global.h"
 
 struct Vec3_7f560 {
     float x, y, z;
@@ -64,7 +63,7 @@ void Mgr_7f560::FUN_0007f560(int a1, int a2, int a3, int a4, int a5)
     if (o == 0)
         return;
     o->v0();
-    o->emitter->FUN_001c5080(DAT_00421898, DAT_004218c0);
+    o->emitter->FUN_001c5080((*(float*)&DAT_00421898), (*(float*)&DAT_004218c0));
     FUN_0007afb0(a2orig, a3, a4, a5, &lc, &lb);
     FUN_00078ee0(&lc, &lb);
     o->FUN_00080ea0(&lc, &lb);

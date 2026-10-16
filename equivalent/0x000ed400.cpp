@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 28/28)
 // TextWindow::vfunc_5 @ 0x000ed400
+#include "decls/data/engine/pure3d/prop.h"
+
 struct Vec3_ed400 {
     float x, y, z;
 };
@@ -154,7 +156,6 @@ public:
 };
 
 
-extern PassHolder_ed400 *DAT_0052c2ac;
 
 void __cdecl FUN_000e11a0(Vec3_ed400 v, int a, int b);
 void __cdecl FUN_000e0cc0(Vec3_ed400 v, int a, int b);
@@ -217,28 +218,28 @@ void TextWindow::vfunc_5()
     Frame_ed400 f;
 
     if (flag40 == 1) {
-        DAT_0052c2ac->pass->v15(0);
+        (*(PassHolder_ed400**)&DAT_0052c2ac)->pass->v15(0);
         owner->v14(&f.b, this);
-        DAT_0052c2ac->FUN_00293d00(&f.b);
+        (*(PassHolder_ed400**)&DAT_0052c2ac)->FUN_00293d00(&f.b);
         owner->v15(&f.b, this);
         FUN_000e11a0(f.b, val148, 2);
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_ed400**)&DAT_0052c2ac)->pass->v16(0);
     }
     if (flag48 == 1) {
-        DAT_0052c2ac->pass->v15(0);
+        (*(PassHolder_ed400**)&DAT_0052c2ac)->pass->v15(0);
         owner->v14(&f.b, this);
-        DAT_0052c2ac->FUN_00293d00(&f.b);
+        (*(PassHolder_ed400**)&DAT_0052c2ac)->FUN_00293d00(&f.b);
         owner->v15(&f.b, this);
         FUN_000e0cc0(f.b, val4c, 0);
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_ed400**)&DAT_0052c2ac)->pass->v16(0);
     }
     if (child != 0) {
-        DAT_0052c2ac->pass->v15(0);
+        (*(PassHolder_ed400**)&DAT_0052c2ac)->pass->v15(0);
         owner->v14(&f.b, this);
-        DAT_0052c2ac->FUN_00293d00(&f.b);
-        DAT_0052c2ac->FUN_00293da0(v54, v58, v5c);
+        (*(PassHolder_ed400**)&DAT_0052c2ac)->FUN_00293d00(&f.b);
+        (*(PassHolder_ed400**)&DAT_0052c2ac)->FUN_00293da0(v54, v58, v5c);
         child->v8(0, 0);
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_ed400**)&DAT_0052c2ac)->pass->v16(0);
     }
 
     f.x.FUN_000f7fe0(owner->p8->level2->v44());
@@ -247,8 +248,8 @@ void TextWindow::vfunc_5()
     f.mc = owner->v17(this);
     f.x.cells[f.x.cursor].a.f = owner->v16(this) * f.mc;
     f.x.cells[f.x.cursor].d.u = color;
-    DAT_0052c2ac->pass->v15(0);
-    DAT_0052c2ac->FUN_00293d00(&anchor);
+    (*(PassHolder_ed400**)&DAT_0052c2ac)->pass->v15(0);
+    (*(PassHolder_ed400**)&DAT_0052c2ac)->FUN_00293d00(&anchor);
     last = count - 1;
     owner->v14(&f.a, this);
     owner->v15(&f.b, this);
@@ -265,7 +266,7 @@ void TextWindow::vfunc_5()
     f.b.x = f.a.x * 1.05f;
     f.b.y = f.m;
     f.b.z = f.c.z;
-    DAT_0052c2ac->FUN_00293d00(&f.b);
+    (*(PassHolder_ed400**)&DAT_0052c2ac)->FUN_00293d00(&f.b);
 
     int i = first;
     if (i < count) {
@@ -275,7 +276,7 @@ void TextWindow::vfunc_5()
             f.b.x = 0.0f;
             f.b.y = spacing * -1.05f;
             f.b.z = 0.0f;
-            DAT_0052c2ac->FUN_00293d00(&f.b);
+            (*(PassHolder_ed400**)&DAT_0052c2ac)->FUN_00293d00(&f.b);
             f.mc = f.mc - spacing * 1.05f;
             f.e0 = f.m - f.mc + spacing;
             owner->v15(&f.c, this);
@@ -287,7 +288,7 @@ void TextWindow::vfunc_5()
             p++;
         } while (i < count);
     }
-    DAT_0052c2ac->pass->v16(0);
+    (*(PassHolder_ed400**)&DAT_0052c2ac)->pass->v16(0);
     if (owner->v13(this)) {
         if (obj154 != 0 && first != 0)
             obj154->v8(0, 0);

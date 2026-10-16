@@ -1,11 +1,11 @@
+#include "decls/data/engine/unknown.h"
+
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 int __cdecl FUN_00345b90(int);
 void __cdecl FUN_0026d850(void*);
 void __cdecl FUN_0026d840(void*);
 int __cdecl FUN_00270c10(const char*);
 unsigned char __cdecl FUN_002771b0(const char*);
-extern char DAT_0052a0f0;
-extern unsigned int DAT_0052a128;
 struct Receiver_270d40 {
     virtual void slot0();
     virtual void slot1();
@@ -37,29 +37,28 @@ struct Entry_270d40 {
     char path[256];
     char tail[4];
 };
-extern Entry_270d40 DAT_00528418[];
 void __cdecl FUN_00270d40(const char* name, const char* path) {
     char lower[20];
     strncpy(lower, name, 16);
     lower[16] = 0;
     for (char* p = lower; *p; ++p)
         *p = (char)FUN_00345b90((signed char)*p);
-    FUN_0026d850(&DAT_0052a0f0);
+    FUN_0026d850(((char*)((char*)&DAT_0052842c + 7364)));
     int index = FUN_00270c10(lower);
     if (index == -1) {
-        if (FUN_002771b0(lower) && DAT_0052a128 < 26) {
-            Entry_270d40& entry = DAT_00528418[DAT_0052a128];
+        if (FUN_002771b0(lower) && (*(unsigned int*)&DAT_0052a128) < 26) {
+            Entry_270d40& entry = ((Entry_270d40*)&DAT_00528418)[(*(unsigned int*)&DAT_0052a128)];
             strncpy(entry.name, lower, 16);
             entry.name[16] = 0;
             strncpy(entry.path, path, 256);
-            ++DAT_0052a128;
-            FUN_0026d840(&DAT_0052a0f0);
+            ++(*(unsigned int*)&DAT_0052a128);
+            FUN_0026d840(((char*)((char*)&DAT_0052842c + 7364)));
         }
     } else {
-        Entry_270d40& entry = DAT_00528418[index];
+        Entry_270d40& entry = ((Entry_270d40*)&DAT_00528418)[index];
         strncpy(entry.path, path, 256);
         Receiver_270d40* receiver = entry.receiver;
-        FUN_0026d840(&DAT_0052a0f0);
+        FUN_0026d840(((char*)((char*)&DAT_0052842c + 7364)));
         receiver->slot21(path);
     }
 }

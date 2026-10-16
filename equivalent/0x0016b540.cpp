@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0016b540 @ 0x0016b540
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -32,8 +34,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e1238;
-extern int DAT_004e123c;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -46,7 +46,7 @@ void FUN_0016b540()
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamBool<hulkfight::motion::TargetingCondition>("isTargeting", &hulkfight::motion::TargetingCondition::FUN_00165690);
-        FUN_002347b0(&DAT_004e1238, params, 1);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1238), params, 1);
     }
     DAT_004e123c++;
 }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 36/40, incomplete)
 // FUN_000cf4b0 @ 0x000cf4b0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct Track {
     int FUN_001d60c0();
 };
@@ -54,14 +55,6 @@ struct Ctl_cf4b0 {
 
 // equiv-conv: FUN_000cb7d0 ecx stack
 void __cdecl FUN_000cb7d0(float *obj, float v);
-extern const float DAT_003f32dc;
-extern const float DAT_003f3318;
-extern const float DAT_003f75a4;
-extern const float DAT_0040a464;
-extern const float DAT_0040a5e4;
-extern const float DAT_0049fcac;
-extern int DAT_0049fcb0;
-extern char DAT_004dde79;
 
 void Ctl_cf4b0::FUN_000cf4b0(float dt)
 {
@@ -110,17 +103,17 @@ void Ctl_cf4b0::FUN_000cf4b0(float dt)
         if (!(f490 <= 0.5f))
             FUN_000cb7d0(&f484, dt * f48c);
         int *p = &i494;
-        if (DAT_004dde79 == 0) {
+        if ((*(char*)&DAT_004dde79) == 0) {
             *p += DAT_0049fcb0;
             if (*p > 0xff) {
                 *p = 0xff;
-                DAT_004dde79 = 1;
+                (*(char*)&DAT_004dde79) = 1;
             }
         } else {
             *p -= DAT_0049fcb0;
             if (*p < 0) {
                 *p = 0;
-                DAT_004dde79 = 0;
+                (*(char*)&DAT_004dde79) = 0;
             }
         }
     } else {

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1835 inputs, branch coverage 56/56)
 // FUN_00075230 @ 0x00075230
+#include "decls/data/game/global.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -117,11 +119,7 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dcfa8;
-extern int DAT_004dcfac;
 
-extern const char* DAT_00496f9c[2];
-extern const char* DAT_00496fa4[4];
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -217,11 +215,11 @@ void FUN_00075230()
         mem = FUN_0008d690(0x20);
         params[21] = 0;
         if (mem)
-            params[21] = new (mem) fight::ParamEnumConstList<::CCameraDramaticTrack>("blendInTransition", DAT_00496f9c, 2, &::CCameraDramaticTrack::FUN_00068710);
+            params[21] = new (mem) fight::ParamEnumConstList<::CCameraDramaticTrack>("blendInTransition", ((const char**)&DAT_00496f9c), 2, &::CCameraDramaticTrack::FUN_00068710);
         mem = FUN_0008d690(0x20);
         params[22] = 0;
         if (mem)
-            params[22] = new (mem) fight::ParamEnumConstList<::CCameraDramaticTrack>("blendInBlend", DAT_00496fa4, 4, &::CCameraDramaticTrack::FUN_00068720);
+            params[22] = new (mem) fight::ParamEnumConstList<::CCameraDramaticTrack>("blendInBlend", ((const char**)&DAT_00496fa4), 4, &::CCameraDramaticTrack::FUN_00068720);
         mem = FUN_0008d690(0x18);
         params[23] = 0;
         if (mem)
@@ -229,16 +227,16 @@ void FUN_00075230()
         mem = FUN_0008d690(0x20);
         params[24] = 0;
         if (mem)
-            params[24] = new (mem) fight::ParamEnumConstList<::CCameraDramaticTrack>("blendOutTransition", DAT_00496f9c, 2, &::CCameraDramaticTrack::FUN_00068740);
+            params[24] = new (mem) fight::ParamEnumConstList<::CCameraDramaticTrack>("blendOutTransition", ((const char**)&DAT_00496f9c), 2, &::CCameraDramaticTrack::FUN_00068740);
         mem = FUN_0008d690(0x20);
         params[25] = 0;
         if (mem)
-            params[25] = new (mem) fight::ParamEnumConstList<::CCameraDramaticTrack>("blendOutBlend", DAT_00496fa4, 4, &::CCameraDramaticTrack::FUN_00068750);
+            params[25] = new (mem) fight::ParamEnumConstList<::CCameraDramaticTrack>("blendOutBlend", ((const char**)&DAT_00496fa4), 4, &::CCameraDramaticTrack::FUN_00068750);
         mem = FUN_0008d690(0x18);
         params[26] = 0;
         if (mem)
             params[26] = new (mem) fight::ParamFloatConstRange<::CCameraDramaticTrack>("blendOutDuration", &::CCameraDramaticTrack::FUN_00068760);
-        FUN_002347b0(&DAT_004dcfa8, params, 27);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dcfa8), params, 27);
     }
     DAT_004dcfac++;
 }

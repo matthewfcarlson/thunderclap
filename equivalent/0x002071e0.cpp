@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 48/48)
 // FUN_002071e0 @ 0x002071e0
 #include "decls/address.h"
-extern unsigned char DAT_004c91d8;
+#include "decls/data/game/global.h"
 
 void *__cdecl FUN_00263ea0(unsigned int size);
 int __cdecl FUN_00266da0(int tag);
@@ -110,7 +110,7 @@ void Mixer::FUN_002071e0(int n)
         } while (k != 0);
     }
 
-    if (DAT_004c91d8) {
+    if ((*(unsigned char*)&DAT_004c91d8)) {
         for (int i = 0; i < 20; ++i) {
             Slot_2071e0 *s = &slots[i];
             if (s->used)

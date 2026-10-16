@@ -1,4 +1,5 @@
-extern "C" char DAT_004e5fa8[];
+#include "decls/data/engine/audio.h"
+
 struct Obj_24ae50 {
     int x;
     void Helper();

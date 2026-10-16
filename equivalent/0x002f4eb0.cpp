@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 275 inputs, branch coverage 30/30)
 // physics::ExportInfoLoader::vfunc_5 @ 0x002f4eb0
 #include "gen/physics.h"
+#include "decls/data/engine/physics.h"
 
 extern "C" int sprintf(char* dst, const char* fmt, ...);
 extern "C" int memcmp(const void* a, const void* b, unsigned int n);
@@ -21,9 +22,6 @@ struct Reader_2f4eb0 {
     void FUN_00266be0();
 };
 
-extern char DAT_00554c0c;
-extern char DAT_00554c0d;
-extern int DAT_004d2880;
 void FUN_002ecb70();
 void FUN_002ecb90(int units);
 
@@ -85,7 +83,7 @@ void physics::ExportInfoLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int 
     if (DAT_00554c0c == 1) {
         if (DAT_004d2880 == units)
             return;
-        if (!DAT_00554c0d) {
+        if (!(*(char*)&DAT_00554c0d)) {
             sprintf(f.msg, "UI Units used in p3d file, %s, conflict with current settings", f.unitsName);
             return;
         }

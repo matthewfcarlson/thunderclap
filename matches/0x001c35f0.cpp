@@ -1,3 +1,5 @@
+#include "decls/data/engine/content.h"
+
 extern int __cdecl FUN_00266da0(int);
 extern void __cdecl FUN_0023f8c0(const char*);
 extern void* __cdecl FUN_0008d690(unsigned int);
@@ -23,7 +25,6 @@ struct Item_1c35f0 {
 struct Manager_1c35f0 {
     void FUN_00265210(Registration_1c35f0*, unsigned int);
 };
-extern Manager_1c35f0* DAT_00527c58;
 struct Owner_1c35f0 {
     void* context;
     Engine_1c35f0* engine;
@@ -52,7 +53,7 @@ void Owner_1c35f0::FUN_001c35f0() {
     medium = m ? m->FUN_001c5840() : 0;
     Registration_1c35f0* r = (Registration_1c35f0*)thunk_FUN_0008d690(0x20);
     r = r ? r->FUN_001c8f60(engine, (Owner_1c35f0*)context) : 0;
-    DAT_00527c58->FUN_00265210(r, 0x60000700);
+    (*(Manager_1c35f0**)&DAT_00527c58)->FUN_00265210(r, 0x60000700);
     FUN_0023f8c0("Render engine setup complete\n");
     Item_1c35f0* i = (Item_1c35f0*)FUN_0008d690(0x38);
     item18 = i ? i->FUN_001c49c0() : 0;

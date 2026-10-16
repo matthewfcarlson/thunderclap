@@ -1,5 +1,6 @@
+#include "decls/data/engine/audio.h"
+
 extern "C" char DAT_004298fc[];
-extern "C" char DAT_004e70a0[];
 class SeqAction {
   public:
     int mVptr;

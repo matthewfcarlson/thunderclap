@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 295 inputs, branch coverage 10/10)
 // FUN_002b4210 @ 0x002b4210
 #include "decls/address.h"
+#include "decls/data/engine/pure3d.h"
 union FI_2b4210 {
     float f;
     int i;
@@ -73,10 +74,6 @@ struct Holder_2b4210 {
     char pad00[0x10];
     Layer_2b4210 *layer;
 };
-extern Holder_2b4210 *DAT_00554bb4;
-extern unsigned int DAT_0052cba8;
-extern Edge16_2b4210 DAT_00544bb0[];
-extern int DAT_004d06dc;
 
 struct Geom_2b4210 {
     char pad00[0x10];
@@ -96,8 +93,8 @@ public:
 
 void Shadow::FUN_002b4210()
 {
-    Builder *b = DAT_0052c2a8->v78(DAT_00554bb4->layer, 0, 0x2020, DAT_0052cba8 * 6, 0);
-    DAT_00554bb4->layer->v20(0x46464944, DAT_004d06dc);
+    Builder *b = DAT_0052c2a8->v78((*(Holder_2b4210**)&DAT_00554bb4)->layer, 0, 0x2020, (*(unsigned int*)&DAT_0052cba8) * 6, 0);
+    (*(Holder_2b4210**)&DAT_00554bb4)->layer->v20(0x46464944, DAT_004d06dc);
     V3_2b4210 *verts = geom->verts;
     if (!pointLight) {
         V3_2b4210 O;
@@ -105,9 +102,9 @@ void Shadow::FUN_002b4210()
         O.x = s * light.x;
         O.y = s * light.y;
         O.z = s * light.z;
-        for (unsigned short i = 0; i < DAT_0052cba8; i++) {
-            V3_2b4210 *A = &verts[DAT_00544bb0[i].a];
-            V3_2b4210 *B = &verts[DAT_00544bb0[i].b];
+        for (unsigned short i = 0; i < (*(unsigned int*)&DAT_0052cba8); i++) {
+            V3_2b4210 *A = &verts[((Edge16_2b4210*)&DAT_00544bb0)[i].a];
+            V3_2b4210 *B = &verts[((Edge16_2b4210*)&DAT_00544bb0)[i].b];
             int Az = ((Vi *)A)->z;
             float Ax = A->x;
             float Ay = A->y;
@@ -177,9 +174,9 @@ void Shadow::FUN_002b4210()
         }
     } else {
         V3_2b4210 L = light;
-        for (unsigned short i = 0; i < DAT_0052cba8; i++) {
-            V3_2b4210 *A = &verts[DAT_00544bb0[i].a];
-            V3_2b4210 *B = &verts[DAT_00544bb0[i].b];
+        for (unsigned short i = 0; i < (*(unsigned int*)&DAT_0052cba8); i++) {
+            V3_2b4210 *A = &verts[((Edge16_2b4210*)&DAT_00544bb0)[i].a];
+            V3_2b4210 *B = &verts[((Edge16_2b4210*)&DAT_00544bb0)[i].b];
             Vi Ac = *(Vi *)A;
             Vi Bc = *(Vi *)B;
             V3_2b4210 D1, D2;

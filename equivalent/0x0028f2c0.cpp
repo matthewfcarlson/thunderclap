@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 226 inputs, branch coverage 31/31)
 // pure3d::ShaderLoader::vfunc_5 @ 0x0028f2c0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/data/engine/pure3d/prop.h"
+
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
 void *FUN_00266e00(int count, int size);
@@ -74,7 +76,6 @@ public:
     virtual void v10();
     virtual Impl_28f2c0 *v11(const char *name, void *data);
 };
-extern Dev_28f2c0 *DAT_0052c2a0;
 
 class TexRes {
 public:
@@ -168,7 +169,7 @@ void ShaderLoader::vfunc_5(Shader **out, Pair_28f2c0 *outId, Reader *r, Factory_
     Shader *obj = 0;
     if (mem) {
         obj = new (mem) Shader();
-        obj->f10 = DAT_0052c2a0->v11(fr.buf2, 0);
+        obj->f10 = (*(Dev_28f2c0**)&DAT_0052c2a0)->v11(fr.buf2, 0);
         obj->f10->AddRef();
     }
 
@@ -190,7 +191,7 @@ void ShaderLoader::vfunc_5(Shader **out, Pair_28f2c0 *outId, Reader *r, Factory_
                 void *mem2 = thunk_FUN_0008d690(0x20);
                 if (mem2) {
                     obj = new (mem2) Shader();
-                    obj->f10 = DAT_0052c2a0->v11(fr.buf2, data);
+                    obj->f10 = (*(Dev_28f2c0**)&DAT_0052c2a0)->v11(fr.buf2, data);
                     obj->f10->AddRef();
                     FUN_00267090(data);
                 } else {

@@ -1,14 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 8/8)
 // FUN_00111b50 @ 0x00111b50
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_0010c0d0();
 void __cdecl FUN_0010c0f0();
 void __cdecl FUN_0010c110();
-extern int DAT_00427754;
-extern char DAT_0042773c[];
-extern int DAT_004e0ae4;
-extern int DAT_004e0ae0;
 void __cdecl FUN_002347b0(void*, void*, int);
 namespace hulkfight { namespace ai { class OnBlockedTriangleCondition; } }
 namespace fight {
@@ -43,7 +42,7 @@ void target() {
  typedef fight::ParamBool<hulkfight::ai::OnBlockedTriangleCondition> B;
  typedef fight::ParamIntConstRange<hulkfight::ai::OnBlockedTriangleCondition> I;
  E* e=(E*)FUN_0008d690(32);
- if(e) { int count=DAT_00427754; e->FUN_00234cc0("compare"); new (e) E; e->count=count; e->names=DAT_0042773c; e->callback=FUN_0010c0d0; }
+ if(e) { int count=(*(int*)&DAT_00427754); e->FUN_00234cc0("compare"); new (e) E; e->count=count; e->names=((char*)&DAT_0042773c); e->callback=FUN_0010c0d0; }
  params[0]=e;
  B* b=(B*)FUN_0008d690(24);
  if(b) { b->FUN_00234860("target"); new (b) B; b->callback=FUN_0010c0f0; }

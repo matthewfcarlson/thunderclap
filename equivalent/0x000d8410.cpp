@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 282 inputs, branch coverage 77/78, incomplete)
 // FUN_000d8410 @ 0x000d8410
+#include "decls/data/game/global.h"
+
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
@@ -74,7 +76,6 @@ public:
 };
 
 Game_d8410 *FUN_000fc3d0();
-extern const char *DAT_004a0c64;
 
 struct Timer {
     int value;
@@ -121,7 +122,7 @@ void MemCardControl::FUN_000d8410()
 
     int handle = FUN_000fc3d0()->v44();
     timer.value = 0;
-    timer.FUN_000f8500(DAT_004a0c64, handle, 1);
+    timer.FUN_000f8500((*(const char**)&DAT_004a0c64), handle, 1);
 
     int old = prevState;
     int next = state;

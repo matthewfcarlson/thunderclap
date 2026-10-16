@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_00328bf0 @ 0x00328bf0
+#include "decls/data/platform/xbox/pure3d.h"
+
 typedef unsigned long DWORD;
 namespace D3D8 {
 void __stdcall D3DDevice_SetTexture(DWORD, DWORD);
@@ -36,13 +38,6 @@ extern unsigned int DAT_0039de0c;
 extern unsigned int DAT_0039de00;
 extern unsigned int DAT_0039ddf8;
 extern unsigned int DAT_0039de04;
-extern TexModeEntry DAT_004d4e10[];
-extern TexModeEntry DAT_004d4e14[];
-extern TexModeEntry DAT_004d4e18[];
-extern unsigned int DAT_004d4efc[];
-extern unsigned int DAT_004d4ed0[];
-extern unsigned int DAT_004d4f04[];
-extern unsigned int DAT_004d4f24[];
 struct Material_328bf0 {
     char pad0[8];
     Texture* tex[4];
@@ -88,18 +83,18 @@ void Material_328bf0::FUN_00328bf0() {
             D3D8::D3DDevice_SetPalette(i, 0);
         }
         unsigned int bit = 1 << i;
-        regs[i].mode1 = DAT_004d4e10[texMode[i]].v;
+        regs[i].mode1 = ((TexModeEntry*)&DAT_004d4e10)[texMode[i]].v;
         DAT_0039db08 |= bit;
-        regs[i].mode0 = DAT_004d4e14[texMode[i]].v;
+        regs[i].mode0 = ((TexModeEntry*)((char*)&DAT_004d4e10 + 4))[texMode[i]].v;
         DAT_0039db08 |= bit;
-        regs[i].mode2 = DAT_004d4e18[texMode[i]].v;
+        regs[i].mode2 = ((TexModeEntry*)((char*)&DAT_004d4e10 + 8))[texMode[i]].v;
         DAT_0039db08 |= bit;
         D3D8::D3DDevice_SetTextureState_TexCoordIndex(i, i);
-        regs[i].addr0 = DAT_004d4efc[addrMode[i]];
+        regs[i].addr0 = ((unsigned int*)&DAT_004d4efc)[addrMode[i]];
         DAT_0039db08 |= bit;
-        regs[i].addr1 = DAT_004d4efc[addrMode[i]];
+        regs[i].addr1 = ((unsigned int*)&DAT_004d4efc)[addrMode[i]];
         DAT_0039db08 |= bit;
-        regs[i].addr2 = DAT_004d4efc[addrMode[i]];
+        regs[i].addr2 = ((unsigned int*)&DAT_004d4efc)[addrMode[i]];
         DAT_0039db08 |= bit;
         regs[i].c84 = a84[i];
         DAT_0039db08 |= 0x800;
@@ -126,22 +121,22 @@ void Material_328bf0::FUN_00328bf0() {
     DAT_0039dea8 = f104;
     DAT_0039db08 |= 0x3000;
     DAT_0039deac = f104;
-    unsigned int v = DAT_004d4f24[f48];
+    unsigned int v = ((unsigned int*)&DAT_004d4f24)[f48];
     D3D8::D3DDevice_SetRenderState_Simple(0x4037c, v);
     DAT_0039de18 = v;
     v = f4c;
     D3D8::D3DDevice_SetRenderState_Simple(0x40304, v);
     DAT_0039ddfc = v;
-    v = DAT_004d4ed0[f54];
+    v = ((unsigned int*)&DAT_004d4ed0)[f54];
     D3D8::D3DDevice_SetRenderState_Simple(0x40344, v);
     DAT_0039de08 = v;
-    v = DAT_004d4ed0[f58];
+    v = ((unsigned int*)&DAT_004d4ed0)[f58];
     D3D8::D3DDevice_SetRenderState_Simple(0x40348, v);
     DAT_0039de0c = v;
     v = f5c;
     D3D8::D3DDevice_SetRenderState_Simple(0x40300, v);
     DAT_0039de00 = v;
-    v = DAT_004d4f04[f60];
+    v = ((unsigned int*)&DAT_004d4f04)[f60];
     D3D8::D3DDevice_SetRenderState_Simple(0x4033c, v);
     DAT_0039ddf8 = v;
     D3D8::D3DDevice_SetRenderState_TextureFactor(f108);

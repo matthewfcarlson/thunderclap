@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 9/10, incomplete)
 // pure3d::SpriteParticleUpdater::vfunc_4 @ 0x002d1db0
-extern float DAT_004d0ed4;
+#include "decls/data/engine/pure3d.h"
 
 struct Vec3_2d1db0 {
     float x, y, z;

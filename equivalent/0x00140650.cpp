@@ -2,6 +2,7 @@
 // hulkfight::motion::WallJumpAction::vfunc_3 @ 0x00140650
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
+#include "decls/data/game/hulkfight/motion.h"
 extern "C" double __cdecl sqrt(double);
 extern "C" double __cdecl sin(double);
 
@@ -84,9 +85,6 @@ struct World {
     char pad0c[0x34 - 0xc];
     Fx34_140650 *f34;
 };
-extern float DAT_004ad77c;
-extern float DAT_004ad780;
-extern float DAT_004ad784;
 
 void *thunk_FUN_0008d690(unsigned int size);
 float __cdecl FUN_00018a20(float v);
@@ -194,9 +192,9 @@ bool WallJumpAction::vfunc_3(int a, int b)
         dir.y = 0;
         dir.FUN_0022d110();
     } else {
-        dir.x = DAT_004ad77c;
-        dir.y = DAT_004ad780;
-        dir.z = DAT_004ad784;
+        dir.x = (*(float*)&DAT_004ad77c);
+        dir.y = (*(float*)((char*)&DAT_004ad77c + 4));
+        dir.z = (*(float*)((char*)&DAT_004ad77c + 8));
         FUN_00224d70(st->FUN_000354c0() + 3.14159274f, &dir);
     }
 

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000f6b50 @ 0x000f6b50
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 typedef unsigned __int64 Key_f6b50;
 
 namespace content { namespace LoadInventory { template<class T> struct DynamicCaster { virtual void cast(); }; } }
@@ -34,11 +35,10 @@ struct Inventory_f6b50 {
     virtual void i2();
     virtual Loaded_f6b50* find(void* caster, Key_f6b50 key);
 };
-extern Inventory_f6b50* DAT_004dd9cc;
 
 void FUN_000f6b50(const char* nameA, const char* nameB, int value)
 {
-    Inventory_f6b50* inv = DAT_004dd9cc;
+    Inventory_f6b50* inv = (*(Inventory_f6b50**)&DAT_004dd9cc);
     content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> caster;
     Loaded_f6b50* loaded = inv->find(&caster, FUN_002672f0(nameA, 0, 0));
     loaded->l0();

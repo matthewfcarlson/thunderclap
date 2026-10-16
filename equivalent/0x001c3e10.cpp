@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 26/28, incomplete)
 // FUN_001c3e10 @ 0x001c3e10
+#include "decls/data/game/Render/Canvas.h"
+#include "decls/data/game/global.h"
+
 struct Console_1c3e10 {
     void FUN_0023f730(const char *section);
     void FUN_0023f740();
@@ -80,12 +83,8 @@ struct Child_1c3e10 {
     virtual void v0();
 };
 
-extern Console_1c3e10 *DAT_004dd6e8;
 extern World *DAT_004dd6ec;
 extern Hub_1c3e10 *DAT_004dd700;
-extern char DAT_004e2320;
-extern char DAT_004e2321;
-extern int DAT_00554c14;
 
 Gpu *__cdecl FUN_0027f250();
 void __cdecl FUN_002fa5b0(int v);
@@ -114,7 +113,7 @@ public:
 
 void DebugRender::FUN_001c3e10()
 {
-    DAT_004dd6e8->FUN_0023f730("Rendering");
+    (*(Console_1c3e10**)&DAT_004dd6e8)->FUN_0023f730("Rendering");
     if (!ready) {
         renderer->FUN_001c1f30(area, f5c, f60, f64, f68);
         ready = 1;
@@ -139,13 +138,13 @@ void DebugRender::FUN_001c3e10()
     renderer->FUN_001c1400();
     partB->FUN_001c46a0();
     partA->FUN_001c46a0();
-    DAT_004dd6e8->FUN_0023f740();
-    if (DAT_004dd6e8->FUN_0023f770("Toggle Collision Volumes", 0x76))
-        DAT_004e2321 = !DAT_004e2321;
-    if (DAT_004dd6e8->FUN_0023f770("Toggle Collision Meshes", 0x6d))
+    (*(Console_1c3e10**)&DAT_004dd6e8)->FUN_0023f740();
+    if ((*(Console_1c3e10**)&DAT_004dd6e8)->FUN_0023f770("Toggle Collision Volumes", 0x76))
+        (*(char*)&DAT_004e2321) = !(*(char*)&DAT_004e2321);
+    if ((*(Console_1c3e10**)&DAT_004dd6e8)->FUN_0023f770("Toggle Collision Meshes", 0x6d))
         DAT_004e2320 = !DAT_004e2320;
-    if (DAT_004e2321)
-        FUN_002fa5b0(DAT_00554c14);
+    if ((*(char*)&DAT_004e2321))
+        FUN_002fa5b0((*(int*)&DAT_00554c14));
     if (DAT_004e2320 && DAT_004dd6ec) {
         Level_1c3e10 *level = DAT_004dd6ec->FUN_000862a0();
         if (level) {
@@ -155,7 +154,7 @@ void DebugRender::FUN_001c3e10()
                 f->target->SetColor(0xff000000, 0);
         }
     }
-    DAT_004dd6e8->FUN_0023f8f0();
+    (*(Console_1c3e10**)&DAT_004dd6e8)->FUN_0023f8f0();
     renderer->FUN_001c1410();
     renderer->FUN_001c22f0();
     if (child)

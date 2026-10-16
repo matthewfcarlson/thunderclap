@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001f3a50 @ 0x001f3a50
+#include "decls/data/game/global.h"
+
 class Anim_1f3a50 {
 public:
     char pad0[4];
@@ -10,7 +12,6 @@ public:
     void FUN_001f3370(int a);
 };
 
-extern float DAT_004c7df8;
 extern "C" void __cdecl FUN_00247890(int next, float speed);
 
 class Player_1f3a50 {

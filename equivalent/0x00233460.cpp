@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00233460 @ 0x00233460
+#include "decls/data/engine/fight.h"
+
 extern "C" int __cdecl FUN_00267760(char*, int, const char*, ...);
-extern const char* DAT_004ca248;
 extern unsigned DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 struct Node {
@@ -16,13 +17,13 @@ bool Node::FUN_00233460(char* output, int capacity) {
  Node* current = next;
  while (current) {
   if ((current->low | current->high) == 0)
-   FUN_00267760(temporary, 1024, "%s%s", DAT_004ca248, output);
+   FUN_00267760(temporary, 1024, "%s%s", (*(const char**)&DAT_004ca248), output);
   else
-   FUN_00267760(temporary, 1024, "%08x%08x%s%s", current->high, current->low, DAT_004ca248, output);
+   FUN_00267760(temporary, 1024, "%08x%08x%s%s", current->high, current->low, (*(const char**)&DAT_004ca248), output);
   FUN_00267760(output, capacity, "%s", temporary);
   current = current->next;
  }
- FUN_00267760(temporary, 1024, "%s%s", DAT_004ca248, output);
+ FUN_00267760(temporary, 1024, "%s%s", (*(const char**)&DAT_004ca248), output);
  FUN_00267760(output, capacity, "%s", temporary);
  __security_check_cookie(cookie);
  return true;

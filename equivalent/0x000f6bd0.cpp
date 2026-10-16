@@ -3,6 +3,7 @@
 // Look up a drawable in the inventory by name, find the entry named `joint` in its table
 // and hand the entry's value to FUN_000f69e0.
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 void __cdecl FUN_000f69e0(int value, int arg);
@@ -53,7 +54,6 @@ public:
     virtual void i2();
     virtual Loaded_f6bd0 *find(void *caster, unsigned __int64 key);   // slot 3
 };
-extern Inventory_f6bd0 *DAT_004dd9cc;
 
 void FUN_000f6bd0(const char *name, const char *joint, int arg)
 {
@@ -63,7 +63,7 @@ void FUN_000f6bd0(const char *name, const char *joint, int arg)
     } fr;
     fr.result = 0;
     new (&fr.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>();
-    Inventory_f6bd0 *inv = DAT_004dd9cc;
+    Inventory_f6bd0 *inv = (*(Inventory_f6bd0**)&DAT_004dd9cc);
     Loaded_f6bd0 *loaded = inv->find(&fr.caster, FUN_002672f0(name, 0, 0));
     loaded->v0();
     Finder_f6bd0 *finder = loaded->GetInfo()->finder;

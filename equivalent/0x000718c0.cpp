@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 8/8)
 // FUN_000718c0 @ 0x000718c0
+#include "decls/data/game/global.h"
+
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) { return p; }
 class CComboTimerTrack;
@@ -18,8 +20,6 @@ namespace fight {
  virtual void slot0();
  };
 }
-extern unsigned int DAT_004dcf84;
-extern unsigned int DAT_004dcf80;
 void* __cdecl FUN_0008d690(unsigned int size);
 void __cdecl FUN_002347b0(void* registry, ParamBase_718c0** params, int count);
 void __cdecl FUN_000718c0() {

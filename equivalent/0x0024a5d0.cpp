@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 20/20)
 // FUN_0024a5d0 @ 0x0024a5d0
+#include "decls/data/engine/audio.h"
+
 struct IntrusiveList {
     void *head;
     void *next;
@@ -61,9 +63,6 @@ public:
 };
 }
 
-extern char DAT_004e5f98;
-extern Pool_24a5d0 DAT_004e5ff0;
-extern Pool_24a5d0 DAT_004e6080;
 void FUN_00257e80(void *list, void *item);
 void *FUN_00247530(Pool_24a5d0 *pool);
 void FUN_00249ce0(IntrusiveList *list, SrcNode *node, int *attr);
@@ -107,7 +106,7 @@ StreamVoice::StreamVoice(int a0, int a1, Source_24a5d0 *a2, void *a3, int a4, au
     list48.Init();
     list5c.Init();
     list70.Init();
-    FUN_00257e80(&DAT_004e5f98, this);
+    FUN_00257e80(((char*)&DAT_004e5f98), this);
     owner = a3;
     source = a2;
     a2->refCount++;
@@ -139,7 +138,7 @@ StreamVoice::StreamVoice(int a0, int a1, Source_24a5d0 *a2, void *a3, int a4, au
     if (l)
         item = (Item_24a5d0 *)((char *)l - 0x14);
     while (item) {
-        SrcNode *node = (SrcNode *)FUN_00247530(&DAT_004e5ff0);
+        SrcNode *node = (SrcNode *)FUN_00247530(((Pool_24a5d0*)&DAT_004e5ff0));
         if (node) {
             node->f10 = 0;
             node->f14 = 0;
@@ -158,7 +157,7 @@ StreamVoice::StreamVoice(int a0, int a1, Source_24a5d0 *a2, void *a3, int a4, au
         Entry_24a5d0 *e = a2->FUN_00257250();
         while (e) {
             void *h = FUN_00242ce0(a3, &e->key);
-            KeyNode *kn = (KeyNode *)FUN_00247530(&DAT_004e6080);
+            KeyNode *kn = (KeyNode *)FUN_00247530(((Pool_24a5d0*)&DAT_004e6080));
             kn->key = h;
             kn->next = 0;
             if (keyTail == 0)

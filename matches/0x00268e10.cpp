@@ -1,5 +1,5 @@
-extern const float DAT_003f32e0;
-extern const float DAT_003f32dc;
+#include "decls/data/game/global.h"
+
 namespace core {
 struct ControllerInputPointXBox {
     char pad[0x14];

@@ -1,11 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 32/36, incomplete)
 // FUN_0024a9c0 @ 0x0024a9c0
+#include "decls/data/engine/audio.h"
+
 extern "C" int __cdecl _sprintf(char *buf, const char *fmt, ...);
 
-extern char DAT_004e6038[];
-extern char DAT_004e60c8[];
-extern char DAT_004e6110[];
-extern char DAT_004e6158[];
 
 struct Link_24a9c0 {
     Link_24a9c0 *next;
@@ -151,7 +149,7 @@ Entry_24a9c0 *FUN_0024a9c0(Ctx_24a9c0 *ctx, Y_24a9c0 *y)
                 continue;
             }
             FUN_00249ec0(tree, n);
-            FUN_00247550(DAT_004e6158, n->poolB);
+            FUN_00247550(((char*)((char*)&DAT_004e6110 + 72)), n->poolB);
             FUN_00247550(DAT_004e6110, n->poolA);
             Sub_24a9c0 *s = &n->sub;
             FUN_0024a450(&s->inner);
@@ -170,7 +168,7 @@ Entry_24a9c0 *FUN_0024a9c0(Ctx_24a9c0 *ctx, Y_24a9c0 *y)
         }
     }
 
-    Entry_24a9c0 *e = (Entry_24a9c0 *)FUN_00247530(DAT_004e6038);
+    Entry_24a9c0 *e = (Entry_24a9c0 *)FUN_00247530(((char*)((char*)&DAT_004e5ff0 + 72)));
     if (e != 0) {
         int *w = (int *)e;
         for (int i = 0; i < 16; i++)

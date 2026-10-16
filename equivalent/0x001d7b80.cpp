@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 38/38)
 // FUN_001d7b80 @ 0x001d7b80
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct Vec3_1d7b80 {
     float x, y, z;
 };
@@ -65,11 +66,6 @@ struct Listener_1d7b80 {
     void FUN_001dc170(Actor_1d7b80 *a, int flag);
 };
 
-extern Key_1d7b80 DAT_004e2520;
-extern Key_1d7b80 DAT_004e2528;
-extern Key_1d7b80 DAT_004e2530;
-extern Key_1d7b80 DAT_004e2550;
-extern Key_1d7b80 DAT_004e2558;
 
 Recorder *__stdcall FUN_000678d0(Key_1d7b80 *key);
 
@@ -145,14 +141,14 @@ void Actor_1d7b80::FUN_001d7b80(int a, int b)
     fF4 = 0;
     fF8 = 0;
     if (m) {
-        if (m->lo == DAT_004e2530.lo && m->hi == DAT_004e2530.hi) {
-            if (key.lo == DAT_004e2528.lo && key.hi == DAT_004e2528.hi)
+        if (m->lo == (*(Key_1d7b80*)&DAT_004e2530).lo && m->hi == (*(Key_1d7b80*)&DAT_004e2530).hi) {
+            if (key.lo == (*(Key_1d7b80*)&DAT_004e2528).lo && key.hi == (*(Key_1d7b80*)&DAT_004e2528).hi)
                 return;
-            if (key.lo == DAT_004e2550.lo && key.hi == DAT_004e2550.hi)
+            if (key.lo == (*(Key_1d7b80*)&DAT_004e2550).lo && key.hi == (*(Key_1d7b80*)&DAT_004e2550).hi)
                 return;
-            if (key.lo == DAT_004e2558.lo && key.hi == DAT_004e2558.hi)
+            if (key.lo == (*(Key_1d7b80*)&DAT_004e2558).lo && key.hi == (*(Key_1d7b80*)&DAT_004e2558).hi)
                 return;
-            if (key.lo == DAT_004e2520.lo && key.hi == DAT_004e2520.hi)
+            if (key.lo == (*(Key_1d7b80*)&DAT_004e2520).lo && key.hi == (*(Key_1d7b80*)&DAT_004e2520).hi)
                 return;
             Key_1d7b80 k;
             k.lo = key.lo;

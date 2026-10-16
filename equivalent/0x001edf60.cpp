@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_001edf60 @ 0x001edf60
+#include "decls/data/game/global.h"
+
 class Volume_1edf60 {
   public:
     void FUN_001f3950(float v);
@@ -15,7 +17,6 @@ class Engine_1edf60 {
     void FUN_001efa40(int a, const char* name, int b);
     void FUN_001f22f0(float dt, int flag);
 };
-extern unsigned char DAT_004e36e0;
 
 class Boot {
   public:
@@ -29,7 +30,7 @@ class Boot {
 };
 
 void Boot::FUN_001edf60() {
-    if (DAT_004e36e0)
+    if ((*(unsigned char*)&DAT_004e36e0))
         return;
     engine->loader->FUN_001eb060(0, 0);
     engine->FUN_001efa40(1, "frontend", 0);
@@ -42,5 +43,5 @@ void Boot::FUN_001edf60() {
         if (active)
             engine->FUN_001f22f0(0.001f, 0);
     }
-    DAT_004e36e0 = 1;
+    (*(unsigned char*)&DAT_004e36e0) = 1;
 }

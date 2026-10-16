@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 222 inputs, branch coverage 20/20)
 // pure3d::ImageConverter::vfunc_2 @ 0x002de3f0
+#include "decls/data/engine/pure3d/prop.h"
+
 struct Name_2de3f0 { void FUN_0027af70(Name_2de3f0*); };
 struct Texture { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(int,int); virtual void s12(); virtual void* s13(int,int); virtual void s14(int); };
 struct Image { virtual void s0(); virtual void s1(); char pad4[4]; Name_2de3f0 name; char pad12[4]; int width,height,depth; char pad28[4]; int format; };
 struct Result_2de3f0 { virtual void s0(); virtual void s1(); char pad4[4]; Name_2de3f0 name; char pad12[4]; Texture* texture; char pad20[4]; Result_2de3f0* FUN_002c1c30(); bool FUN_002c1cf0(int,int,int,int,int,int,int,int); };
 struct Service_2de3f0 { virtual void s0(); virtual void s1(); virtual int s2(); };
 struct Extra_2de3f0 { virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15(); virtual void s16(); virtual void s17(); virtual int s18(); };
-extern Service_2de3f0* DAT_0052c2a0;
 extern char DAT_004d098c[],DAT_004d09a8[];
 void* __cdecl FUN_00263ea0(int);
 Extra_2de3f0* __cdecl FUN_00344e74(Image*,int,void*,void*,int);
@@ -18,7 +19,7 @@ Result_2de3f0* pure3d::ImageConverter::vfunc_2(Image** images,int count,int a,in
  Image* image=images[0];
  int bits=image->depth==8?8:32; int indexed=image->depth==8?1:0;
  if(!result->FUN_002c1cf0(image->width,image->height,count,bits,image->format,a,indexed,b)) {
- int kind=DAT_0052c2a0->s2();
+ int kind=(*(Service_2de3f0**)&DAT_0052c2a0)->s2();
  if(kind!=1){result->s1();result=0;}
  }
  Texture* texture=result->texture;

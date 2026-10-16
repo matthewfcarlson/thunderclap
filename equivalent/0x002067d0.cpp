@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2143 inputs, branch coverage 12/12)
 // FUN_002067d0 @ 0x002067d0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -97,8 +98,6 @@ struct Registry2 {
 
 Registry2 *FUN_001c3d90();
 
-extern char DAT_004c91d8;
-extern char DAT_004e5a58;
 
 struct Loader_2067d0 {
     char pad0[0x24];
@@ -128,7 +127,7 @@ void Loader_2067d0::FUN_002067d0(int idx, char flag)
     f.cookie = DAT_004d9968;
     sprintf(f.name, "%s_r%03d", this->name, idx);
     Factory_2067d0 *fac = 0;
-    if (DAT_004c91d8)
+    if ((*(char*)&DAT_004c91d8))
         fac = FUN_00204540(f.name)->factory;
     Name_2067d0 &nm = f.nm;
     nm.FUN_0027b0e0(f.name);
@@ -168,7 +167,7 @@ void Loader_2067d0::FUN_002067d0(int idx, char flag)
         if (wc)
             mid->bank->e->FUN_001b5ec0(wc, idx);
     }
-    if (!DAT_004e5a58) {
+    if (!(*(char*)&DAT_004e5a58)) {
         f.ev.FUN_001cad10(idx);
         DAT_004dd700->queue->FUN_001cbc20(&f.ev);
     }

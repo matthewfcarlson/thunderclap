@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2986 inputs, branch coverage 10/10)
 // FEThingsBase::vfunc_20 @ 0x000e6cc0
+#include "decls/data/game/global.h"
+
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
-extern int DAT_004de94c;
 struct Thing_e6cc0 {
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7(); virtual const char* v8(); virtual void v9(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
  char pad[0xa74-4]; int state; void* resource; char pad2[0xa90-0xa7c]; float value; char pad3[12]; float result;

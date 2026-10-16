@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0030be90 @ 0x0030be90
-extern float DAT_003f32e0;   // 0.0f
+   // 0.0f
+#include "decls/data/game/global.h"
 
 class Contact_30be90 {
 public:

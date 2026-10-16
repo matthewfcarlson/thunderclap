@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2981 inputs, branch coverage 8/8)
 // FUN_001ea5a0 @ 0x001ea5a0
+#include "decls/data/game/global.h"
+
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 namespace audio { class Clip; }
@@ -43,7 +45,6 @@ struct Request {
     ClipRef_1ea5a0 *ref;
 };
 
-extern char DAT_004e36bc;
 bool __cdecl FUN_00245720(Clip **out, void *source, const char *name, void *option);
 void FUN_001e8a60();
 
@@ -68,7 +69,7 @@ void ClipUser::Acquire(Arg_1ea5a0 arg)
     content::LoadInventory::DynamicCaster<audio::Clip> caster;
     arg.clip = clips->lookup(&caster, ref->idLo, ref->idHi);
     if (arg.clip == 0) {
-        if (FUN_00245720(&arg.clip, &DAT_004e36bc, (const char *)req->ref, (void *)&FUN_001e8a60)) {
+        if (FUN_00245720(&arg.clip, ((char*)&DAT_004e36bc), (const char *)req->ref, (void *)&FUN_001e8a60)) {
             if (arg.clip != 0)
                 clips->store(req->ref->idLo, req->ref->idHi, arg.clip);
         }

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 671 inputs, branch coverage 6/6)
 // pure3d::prop::StateProp::vfunc_8 @ 0x0027caa0
+#include "decls/data/engine/pure3d/prop.h"
+
 class Child_27caa0 {
 public:
     virtual void vfunc_0();
@@ -50,7 +52,6 @@ public:
 struct Context {
     Device_27caa0* device;
 };
-extern Context* DAT_0052c2ac;
 
 class StateProp {
 public:
@@ -85,7 +86,7 @@ void StateProp::vfunc_8(int a, int b)
             entries[i].child->vfunc_8(a, b);
     }
     int v = vfunc_15();
-    DAT_0052c2ac->device->vfunc_23(0, v);
+    (*(Context**)&DAT_0052c2ac)->device->vfunc_23(0, v);
     drawable->vfunc_8(a, b);
-    DAT_0052c2ac->device->vfunc_16(0);
+    (*(Context**)&DAT_0052c2ac)->device->vfunc_16(0);
 }

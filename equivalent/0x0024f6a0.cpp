@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 15/16, incomplete)
 // audio::SeqActionChannelSendVolumes::vfunc_1 @ 0x0024f6a0
+#include "decls/data/engine/audio.h"
+
 typedef unsigned int uint;
 void* __cdecl FUN_00247800();
 void* __cdecl FUN_00247530(void*);
-extern uint DAT_004e6748;
-extern char DAT_004e67b8;
 inline void* operator new(unsigned int, void* p) { return p; }
 namespace om { struct DynBehaviour { virtual void v0(); }; }
 namespace audio {
@@ -25,7 +25,7 @@ void audio::SeqActionChannelSendVolumes::vfunc_1(Context* ctx) {
  TreeNode_24f6a0* node=tree->root;
  TreeNode_24f6a0* end=(TreeNode_24f6a0*)tree->sentinel;
  if(node!=end) {
- uint key=DAT_004e6748;
+ uint key=(*(uint*)&DAT_004e6748);
  while(node!=end) {
  if(key<node->key) node=node->left;
  else if(key>node->key) node=node->right;
@@ -43,12 +43,12 @@ void audio::SeqActionChannelSendVolumes::vfunc_1(Context* ctx) {
  if(volumes) for(int i=0;i<64;++i) volumes[i]=1.0f;
  ch->volumes=volumes;
  }
- void* memory=FUN_00247530(&DAT_004e67b8);
+ void* memory=FUN_00247530(((char*)&DAT_004e67b8));
  ChannelSendVolumeFadeBehaviour* b=0;
  if(memory) {
  new(memory) om::DynBehaviour;
  b=new(memory) ChannelSendVolumeFadeBehaviour;
- b->key=DAT_004e6748;
+ b->key=(*(uint*)&DAT_004e6748);
  b->value=settings->value;
  b->owner=settings->owner;
  b->volumes=volumes;

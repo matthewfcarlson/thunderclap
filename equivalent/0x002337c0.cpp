@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 106 inputs, branch coverage 40/40)
 // FUN_002337c0 @ 0x002337c0
+#include "decls/data/engine/fight.h"
+
 class Lexer {
 public:
     virtual void vfunc_0();
@@ -52,10 +54,6 @@ extern "C" int FUN_00238190(int mode);
 extern "C" int FUN_00266da0(int v);
 extern "C" void FUN_00232cc0(Lexer *lexer, const char *msg);
 void *__cdecl FUN_00263ea0(unsigned int size);
-extern __int64 DAT_004e5b30;
-extern __int64 DAT_004e5b70;
-extern __int64 DAT_004e5ba8;
-extern __int64 DAT_004e5b10;
 
 class Parser_2337c0 {
 public:
@@ -84,11 +82,11 @@ char Parser_2337c0::ParseBlock(int a0, Lexer *lexer, int index)
             mem = FUN_00263ea0(0x30);
             if (mem)
                 h = ((NodeCtorB *)mem)->FUN_00231940();
-        } else if (lexer->TokenType() == DAT_004e5ba8) {
+        } else if (lexer->TokenType() == (*(__int64*)&DAT_004e5ba8)) {
             mem = FUN_00263ea0(0x28);
             if (mem)
                 h = ((NodeCtorC *)mem)->FUN_0023c500();
-        } else if (lexer->TokenType() == DAT_004e5b10) {
+        } else if (lexer->TokenType() == (*(__int64*)&DAT_004e5b10)) {
             mem = FUN_00263ea0(0x38);
             if (mem)
                 h = ((NodeCtorD *)mem)->FUN_0023c2c0();

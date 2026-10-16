@@ -1,3 +1,6 @@
+#include "decls/data/engine/core.h"
+#include "decls/data/platform/xbox/movie.h"
+
 namespace core {
 struct IRefCount {
     virtual void unused();
@@ -15,8 +18,6 @@ struct Resource_333fa0 {
     virtual void release() throw();
 };
 extern "C" void __stdcall FUN_00368530(void*) throw();
-extern "C" int DAT_00555ba4;
-extern "C" int DAT_004cdbb0;
 namespace movie {
 struct PlayerBink : core::IRefCount, core::BaseObject {
     int id;

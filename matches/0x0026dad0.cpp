@@ -1,3 +1,5 @@
+#include "decls/data/platform/xbox/core.h"
+
 struct Job_26dad0 {
     char pad0[8];
     char inner[0x30];
@@ -14,25 +16,24 @@ extern "C" void __stdcall FUN_0020c6f7(int, int);
 namespace XAPILIB {
 void __stdcall ExitThread(int);
 }
-extern "C" char DAT_0052a188;
 extern "C" void(__stdcall* DAT_003f2c8c)(void*);
 extern "C" void(__stdcall* DAT_003f2c88)(void*);
 void __cdecl FUN_0026dad0(Job_26dad0* job) {
     FUN_0026d940(job);
-    DAT_003f2c8c(&DAT_0052a188);
+    DAT_003f2c8c(((char*)&DAT_0052a188));
     if (job->active) {
         if (job->threadId == FUN_0020c14b()) {
             FUN_0026d7a0(job->inner);
-            DAT_003f2c88(&DAT_0052a188);
+            DAT_003f2c88(((char*)&DAT_0052a188));
             FUN_0020bbc2(job->handle);
             XAPILIB::ExitThread(0);
         }
         FUN_0026d7a0(job->inner);
-        DAT_003f2c88(&DAT_0052a188);
+        DAT_003f2c88(((char*)&DAT_0052a188));
         return;
     }
     FUN_0026d7a0(job->inner);
-    DAT_003f2c88(&DAT_0052a188);
+    DAT_003f2c88(((char*)&DAT_0052a188));
     FUN_0020c6f7(job->handle, -1);
     FUN_0020bbc2(job->handle);
 }

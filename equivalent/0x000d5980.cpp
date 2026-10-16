@@ -1,12 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 13/16, incomplete)
 // MessageOverlay::vfunc_3 @ 0x000d5980
+#include "decls/data/game/global.h"
+
 extern "C" double sin(double);
 extern "C" double fabs(double);
 
-extern float DAT_004a06b8;
-extern float DAT_004a06ac;
-extern float DAT_004a06a8;
-extern float DAT_004a06d4;
 
 struct Slot_d5980 {
     float from[3];

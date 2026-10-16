@@ -1,6 +1,7 @@
+#include "decls/data/engine/core.h"
+
 extern "C" double __cdecl fabs(double);
 extern int __cdecl _fwprintf(void* stream, const char* format, ...);
-extern char DAT_004d9a30;
 
 struct PngStruct_2e8940 {
     char pad00[0x60];
@@ -92,8 +93,8 @@ void FUN_002e8940(PngStruct_2e8940* png_ptr, PngInfo_2e8940* info_ptr, unsigned 
             fabs(red_x - 0.64f) > 0.001 || fabs(red_y - 0.33f) > 0.001 || fabs(green_x - 0.3f) > 0.001 ||
             fabs(green_y - 0.6f) > 0.001 || fabs(blue_x - 0.15f) > 0.001 || fabs(blue_y - 0.06f) > 0.001) {
             FUN_002e69d0(png_ptr, "Ignoring incorrect cHRM value when sRGB is also present");
-            _fwprintf(&DAT_004d9a30, "wx=%f, wy=%f, rx=%f, ry=%f\n", white_x, white_y, red_x, red_y);
-            _fwprintf(&DAT_004d9a30, "gx=%f, gy=%f, bx=%f, by=%f\n", green_x, green_y, blue_x, blue_y);
+            _fwprintf(((char*)&DAT_004d9a30), "wx=%f, wy=%f, rx=%f, ry=%f\n", white_x, white_y, red_x, red_y);
+            _fwprintf(((char*)&DAT_004d9a30), "gx=%f, gy=%f, bx=%f, by=%f\n", green_x, green_y, blue_x, blue_y);
         }
         return;
     }

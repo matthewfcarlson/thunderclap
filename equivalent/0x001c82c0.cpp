@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 19/22, incomplete)
 // FUN_001c82c0 @ 0x001c82c0
+#include "decls/data/game/global.h"
+
 struct Vec3_1c82c0 {
     float x, y, z;
 };
@@ -7,7 +9,6 @@ struct Vec3_1c82c0 {
 struct Profiler_1c82c0 {
     char FUN_0023f760(const char *name, int id, int flag);
 };
-extern Profiler_1c82c0 *DAT_004dd6e8;
 
 struct Viewer {
     void FUN_002a05c0(void *p, Vec3_1c82c0 *pos, int zero, float one);
@@ -109,7 +110,7 @@ void Renderer_1c82c0::FUN_001c82c0(Scene_1c82c0 *scene, View *view, int unused)
     Vec3_1c82c0 pos;
     view->FUN_001c4d30(&pos);
     LightSet_1c82c0 *set = scene->set;
-    if (DAT_004dd6e8->FUN_0023f760("Compute Lights", 0x6c, 1)) {
+    if ((*(Profiler_1c82c0**)&DAT_004dd6e8)->FUN_0023f760("Compute Lights", 0x6c, 1)) {
         set->FUN_002a1180(2);
         viewer->FUN_002a05c0(set, &pos, 0, 1.0f);
     }

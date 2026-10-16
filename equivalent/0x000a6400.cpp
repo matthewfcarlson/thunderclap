@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2706 inputs, branch coverage 142/148, incomplete)
 // FUN_000a6400 @ 0x000a6400
+#include "decls/data/game/global.h"
+
 extern "C" double sqrt(double);
 
 struct V3 {
@@ -7,15 +9,6 @@ struct V3 {
     float FUN_0022d110();
 };
 
-extern float DAT_0049ec48;
-extern float DAT_0049ec4c;
-extern float DAT_0049ec50;
-extern float DAT_0049ec74;
-extern float DAT_0049ec7c;
-extern float DAT_0049ec80;
-extern float DAT_0049eca8;
-extern float DAT_0049ed34;
-extern float DAT_0049ed38;
 
 struct V3v {
     volatile float x, y, z;
@@ -255,7 +248,7 @@ void Camera::FUN_000a6400(float a1, float a2)
         if (f.q == f.q20) {
             f.q = f.s2;
         } else {
-            float s3 = FUN_000a00e0(f.q, f.q20, DAT_0049ec48, a2, 2.0f);
+            float s3 = FUN_000a00e0(f.q, f.q20, (*(float*)&DAT_0049ec48), a2, 2.0f);
             float e3 = s3 - f.q;
             float e2 = f.s2 - f.q;
             f.b3f = e3;
@@ -348,8 +341,8 @@ void Camera::FUN_000a6400(float a1, float a2)
         f346 = 1;
     }
 
-    f478 = FUN_000a05b0(f478, f.p1c, DAT_0049ec4c, a2, 10.0f);
-    f47c = FUN_000a00e0(f47c, f.q, DAT_0049ec50, a2, 10.0f);
+    f478 = FUN_000a05b0(f478, f.p1c, (*(float*)&DAT_0049ec4c), a2, 10.0f);
+    f47c = FUN_000a00e0(f47c, f.q, (*(float*)&DAT_0049ec50), a2, 10.0f);
     f.r2 = FUN_000a00e0(f480, f.dist, 20.0f, a2, 0.5f);
     f480 = f.r2;
     V3 *pp = FUN_0009f8c0(&f.dd, f478, f47c, f.r2);
@@ -359,7 +352,7 @@ void Camera::FUN_000a6400(float a1, float a2)
     v194.z = nz;
     v194.x = nx;
     v194.y = ny;
-    FUN_000a0940(DAT_0049ec80);
+    FUN_000a0940((*(float*)&DAT_0049ec80));
 
     f.afl = a2;
     f.abits &= 0x7fffffff;
@@ -414,7 +407,7 @@ void Camera::FUN_000a6400(float a1, float a2)
     f.d2.z = cp->z - v194.z;
     f.k4 = FUN_000a02a0(FUN_000a0450(&f.d2) - f210) * 0.5f + f210;
     if (f.b17)
-        f.k4 = FUN_000a00e0(f2fc + f2e8, f.k4, DAT_0049eca8, a2, 10.0f);
+        f.k4 = FUN_000a00e0(f2fc + f2e8, f.k4, (*(float*)&DAT_0049eca8), a2, 10.0f);
 
     f.k5 = f46c;
     if (f350->FUN_00035910() == 2 || f350->FUN_00035910() == 3)
@@ -457,7 +450,7 @@ void Camera::FUN_000a6400(float a1, float a2)
     f.k6 = (FUN_000189c0(f.mm) + f.f60) * 28.64788818359375f + f448;
     float X6 = f.k6;
     if (f.b17)
-        X6 = FUN_000a00e0(f2f4 + f2ec + f2e4, f.k6, DAT_0049eca8, a2, 10.0f);
+        X6 = FUN_000a00e0(f2f4 + f2ec + f2e4, f.k6, (*(float*)&DAT_0049eca8), a2, 10.0f);
 
     float h2 = f470 * 0.5f;
     f.hi3 = (float)(f.oa2 + h2);

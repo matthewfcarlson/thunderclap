@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 8/8)
 // FUN_00129480 @ 0x00129480
+#include "decls/data/game/hulkfight/ai.h"
+
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_00123a60();
 void __cdecl FUN_00123a70();
 void __cdecl FUN_00123a90();
-extern int DAT_004e0e10;
-extern int DAT_004e0e0c;
 namespace hulkfight { namespace ai { class ClearProjectileDistanceTrack; } }
 namespace fight {
 class Base_129480 { public: virtual void slot0(); char pad[12]; void (__cdecl *callback)(); int tail; void FUN_00234960(const char*); void FUN_00234860(const char*); };

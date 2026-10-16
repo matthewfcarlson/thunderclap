@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 13/13)
 // FUN_003378c0 @ 0x003378c0
+#include "decls/data/engine/movie.h"
+
 extern "C" int __cdecl sprintf(char* buf, const char* fmt, ...);
-extern char DAT_0055ddc0[];
 
 struct Context {
     char* FUN_00338a10();

@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 struct Matrix {
     unsigned int data[16];
     void FUN_0022c3b0(unsigned int, unsigned int);
@@ -29,7 +31,6 @@ struct Global_304530 {
     char pad[0x70];
     Renderer_304530 renderer;
 };
-extern Global_304530* DAT_00554c14;
 struct Queue_304530 {
     unsigned int field0;
     Record_304530* next;
@@ -48,7 +49,7 @@ void Queue_304530::target(unsigned int a, unsigned int b, unsigned int c, unsign
     }
     if (flags & 1) {
         object->FUN_00306600(b);
-        DAT_00554c14->renderer.FUN_00314be0(a, d, object, d, c, e);
+        (*(Global_304530**)&DAT_00554c14)->renderer.FUN_00314be0(a, d, object, d, c, e);
     } else if (flags & 2) {
         object->FUN_00306600(b);
         temp.FUN_002f8ec0(a, d, object, d, c, e);

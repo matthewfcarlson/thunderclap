@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 29/38, incomplete)
 // FUN_0008a120 @ 0x0008a120
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" int memcmp(const void *a, const void *b, unsigned n);
 
 struct NameEntry_8a120 {
@@ -8,8 +9,6 @@ struct NameEntry_8a120 {
     char name[16];
 };
 
-extern const char *DAT_003ffde0[35];
-extern const char DAT_003f335c[16];
 
 
 class LevelRegistry {
@@ -27,9 +26,9 @@ void LevelRegistry::FUN_0008a120()
     int i;
     int k;
     for (i = 34; i >= 0; i--) {
-        const char *s = DAT_003ffde0[i];
+        const char *s = ((const char**)&DAT_003ffde0)[i];
         unsigned __int64 h = FUN_0027b020(s);
-        const char *name = DAT_003f335c;
+        const char *name = ((const char*)&DAT_003f335c);
         for (k = 0; k < 100; k++) {
             if (entries[k].key == 0)
                 break;
@@ -48,7 +47,7 @@ void LevelRegistry::FUN_0008a120()
     }
 
     unsigned __int64 h = FUN_0027b020("c06m03");
-    const char *name = DAT_003f335c;
+    const char *name = ((const char*)&DAT_003f335c);
     for (k = 0; k < 100; k++) {
         if (entries[k].key == 0)
             break;
@@ -59,7 +58,7 @@ void LevelRegistry::FUN_0008a120()
     }
     if (name[0] == 0) {
         int idx = FUN_00089400("c06m02");
-        const char *n2 = DAT_003f335c;
+        const char *n2 = ((const char*)&DAT_003f335c);
         if (idx != -1)
             n2 = entries[idx].name;
         if (n2[0] != 0)

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1326 inputs, branch coverage 16/16)
 // FUN_00206a40 @ 0x00206a40
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int sprintf(char *buf, const char *fmt, ...);
@@ -109,8 +110,6 @@ struct World {
 Single *FUN_001c3d90();
 
 extern unsigned int DAT_004d9968;
-extern char DAT_004c91d8;
-extern char DAT_004e5a58;
 
 class Scene_206a40 {
 public:
@@ -141,7 +140,7 @@ void Scene_206a40::Load(int idx)
 
     sprintf(f.buf1, "%s_r%03d", name, idx);
     Loader_206a40 *loader = 0;
-    if (DAT_004c91d8)
+    if ((*(char*)&DAT_004c91d8))
         loader = FUN_00204540(f.buf1)->loader;
     Mgr_206a40 *mgr = FUN_001c3d90()->f4;
     f.lists = FUN_001c3d90()->f0;
@@ -172,7 +171,7 @@ void Scene_206a40::Load(int idx)
     f588->f0c->b0c->FUN_001e73b0(idx);
     f588->f0c->c28->FUN_001fd220(idx);
     f588->f0c->d4c->FUN_00079980(idx);
-    if (!DAT_004e5a58) {
+    if (!(*(char*)&DAT_004e5a58)) {
         f.tmp.FUN_001cad80(idx);
         DAT_004dd700->f30->FUN_001cbc20(&f.tmp);
     }

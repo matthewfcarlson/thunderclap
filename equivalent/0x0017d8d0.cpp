@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 32/32)
 // FUN_0017d8d0 @ 0x0017d8d0
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -124,10 +126,7 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e1368;
-extern int DAT_004e136c;
 
-extern const char* DAT_004b7cf0[3];
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -183,7 +182,7 @@ void FUN_0017d8d0()
         mem = FUN_0008d690(0x20);
         params[11] = 0;
         if (mem)
-            params[11] = new (mem) fight::ParamEnumConstList<hulkfight::motion::JointPivotTrackerTrack>("targetLocation", DAT_004b7cf0, 3, &hulkfight::motion::JointPivotTrackerTrack::FUN_0016f570);
+            params[11] = new (mem) fight::ParamEnumConstList<hulkfight::motion::JointPivotTrackerTrack>("targetLocation", ((const char**)&DAT_004b7cf0), 3, &hulkfight::motion::JointPivotTrackerTrack::FUN_0016f570);
         mem = FUN_0008d690(0x18);
         params[12] = 0;
         if (mem)
@@ -196,7 +195,7 @@ void FUN_0017d8d0()
         params[14] = 0;
         if (mem)
             params[14] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::JointPivotTrackerTrack>("blendOutTime", &hulkfight::motion::JointPivotTrackerTrack::FUN_0016f5d0);
-        FUN_002347b0(&DAT_004e1368, params, 15);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1368), params, 15);
     }
     DAT_004e136c++;
 }

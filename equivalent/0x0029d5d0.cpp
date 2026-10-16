@@ -1,8 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 10453 inputs, branch coverage 34/42, incomplete)
 // FUN_0029d5d0 @ 0x0029d5d0
-extern unsigned int DAT_004cf730;
-extern float DAT_0042d618;
-extern float DAT_003f32e0;
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/global.h"
 
 struct V3 {
     float x, y, z;
@@ -70,13 +69,13 @@ float Mixer::FUN_0029d5d0(const V3 *pos, unsigned int mask)
                 float unusedA, unusedB, factor;
                 src->FUN_002c3d20(&unusedA, &unusedB, &factor);
                 float len = d.FUN_0022d110();
-                unsigned int color = DAT_004cf730;
+                unsigned int color = (*(unsigned int*)&DAT_004cf730);
                 volatile float t = len * len * factor;
-                volatile float z = src->falloff * src->falloff * factor * DAT_0042d618;
+                volatile float z = src->falloff * src->falloff * factor * (*(float*)&DAT_0042d618);
                 if (z > 1.0f)
                     z = 1.0f;
-                double v = DAT_003f32e0;
-                if (t > DAT_003f32e0) {
+                double v = (*(float*)&DAT_003f32e0);
+                if (t > (*(float*)&DAT_003f32e0)) {
                     unsigned int c = src->color;
                     int b0 = c & 0xff;
                     int b1 = (c >> 8) & 0xff;
@@ -97,7 +96,7 @@ float Mixer::FUN_0029d5d0(const V3 *pos, unsigned int mask)
                 set->slots[i].color = color;
                 set->slots[i].value = (float)v;
                 set->slots[i].dir = d;
-                if (v > DAT_003f32e0)
+                if (v > (*(float*)&DAT_003f32e0))
                     hits++;
                 sum += v;
             } else {

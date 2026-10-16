@@ -1,6 +1,7 @@
+#include "decls/data/engine/unknown.h"
+
 extern "C" char DAT_003f7d48[];
 extern "C" char DAT_003f7d70[];
-extern "C" char DAT_0042773c[];
 extern "C" void* __cdecl Alloc(unsigned int);
 extern int gGuard;
 extern int gTable_53d80;
@@ -29,7 +30,7 @@ void FUN_00053d80() {
         a->Init("compare");
         a->field14 = k;
         a->pad[0] = ((int)DAT_003f7d48);
-        a->pad[4] = ((int)DAT_0042773c);
+        a->pad[4] = ((int)((char*)&DAT_0042773c));
         a->field18 = 0x47f80;
         slots[0] = a;
     } else

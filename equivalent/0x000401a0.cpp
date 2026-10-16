@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 124 inputs, branch coverage 38/38)
 // FUN_000401a0 @ 0x000401a0
 #include "decls/address.h"
+#include "decls/data/game/unknown.h"
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern __int64 DAT_004dc0e0;
 
 struct Tuning_401a0 {
     bool FUN_00092940(int id);
@@ -76,7 +76,7 @@ void Character_401a0::FUN_000401a0()
         Rig_401a0* r = rig;
         // the load of f128 happens before the null test (hidden from the compiler)
         f1b10 = r->f128;
-        if (rig && rig->FUN_000443c0() == DAT_004dc0e0) {
+        if (rig && rig->FUN_000443c0() == (*(__int64*)&DAT_004dc0e0)) {
             if (tuning->FUN_00092940(0x27b)) {
                 f1b10 = rig->f138 + f1b10;
                 if (tuning->FUN_00092940(0x298)) {
@@ -95,7 +95,7 @@ void Character_401a0::FUN_000401a0()
         }
 
         r = rig;
-        if (r && r->FUN_000443c0() == DAT_004dc0e0) {
+        if (r && r->FUN_000443c0() == (*(__int64*)&DAT_004dc0e0)) {
             if (tuning->FUN_00092940(0x2e5)) {
                 f1b10 = f1b10 + f1b10;
                 f1b14 = f1b14 + f1b14;
@@ -111,7 +111,7 @@ void Character_401a0::FUN_000401a0()
         r = rig;
         f1b28 = 0;
         f1b0c = r->f12c * f1b14;
-        if (rig && rig->FUN_000443c0() == DAT_004dc0e0) {
+        if (rig && rig->FUN_000443c0() == (*(__int64*)&DAT_004dc0e0)) {
             Pause* pause = DAT_004dd700->holder->pause;
             if (pause)
                 pause->FUN_000d2c30();

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // physics::PhysicsJoint3D::vfunc_12 @ 0x00309d00
-extern float DAT_004218f0;
+#include "decls/data/game/Render.h"
 
 struct V3_309d00 {
     float x, y, z;
@@ -105,7 +105,7 @@ void PhysicsJoint3D::vfunc_12(float a1, float a2, float a3, float a4, V3_309d00 
     if (a4 != 0.0f) {
         Frame_309d00 *q = body->mid->frame;
         q->FUN_002fd730();
-        if (q->v.x * q->v.x + q->v.y * q->v.y + q->v.z * q->v.z > DAT_004218f0) {
+        if (q->v.x * q->v.x + q->v.y * q->v.y + q->v.z * q->v.z > (*(float*)&DAT_004218f0)) {
             q = body->mid->frame;
             q->FUN_002fd730();
             double r1 = q->v.z * p5->y - q->v.y * p5->z;

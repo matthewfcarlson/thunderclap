@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_000e5440 @ 0x000e5440
-extern float DAT_003f32e0;
+#include "decls/data/game/global.h"
 
 class Fader_e5440 {
 public:

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 16/16)
 // FUN_0029f8c0 @ 0x0029f8c0
-extern int DAT_004cf730;
+#include "decls/data/engine/unknown.h"
 
 struct Rec_29f8c0 {
     int field_00;

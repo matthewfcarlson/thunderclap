@@ -1,4 +1,5 @@
-extern "C" char DAT_00417da4[];
+#include "decls/data/game/hulkfight/motion.h"
+
 class Obj_175920 {
   public:
     virtual void V0();
@@ -34,5 +35,5 @@ Action::Action(int arg, Obj_175920* obj) {
     if (field20)
         field20->V1();
     field20 = obj;
-    inner.SetName((const char*)((int)DAT_00417da4));
+    inner.SetName((const char*)((int)((char*)&DAT_00417da4)));
 }

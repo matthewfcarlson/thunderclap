@@ -1,8 +1,7 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 extern "C" char DAT_00420e74[];
-extern "C" char DAT_0048e0f0[];
-extern "C" char DAT_0048e128[];
-extern "C" char DAT_0049b95c[];
 extern "C" void __stdcall FUN_001d0480(unsigned int, unsigned int);
 class CRenderManager {
   public:
@@ -17,9 +16,9 @@ CRenderManager::CRenderManager(unsigned int a, unsigned int b) {
     FUN_001d0480(a, 4);
     vptr = ((int)DAT_00420e74);
     field1c = b;
-    b18 = FUN_001d04d0((const char*)((int)DAT_0049b95c));
-    b10 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
-    b11 = FUN_001d04d0((const char*)((int)DAT_0048e128));
-    b12 = FUN_001d04d0((const char*)((int)DAT_0048e128));
-    b13 = FUN_001d04d0((const char*)((int)DAT_0048e128));
+    b18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0049b95c)));
+    b10 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0f0)));
+    b11 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
+    b12 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
+    b13 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
 }

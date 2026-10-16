@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 26/26)
 // FUN_0007ee10 @ 0x0007ee10
+#include "decls/data/game/global.h"
+
 extern "C" double floor(double);
-extern int DAT_004dd044;
-extern float DAT_0049b8ec;
-extern float DAT_0049b8b8;
 
 struct Vec3_7ee10 {
     float x, y, z;

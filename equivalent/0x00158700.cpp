@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 30/30)
 // FUN_00158700 @ 0x00158700
+#include "decls/data/game/hulkfight/motion.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -108,12 +111,8 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e10f0;
-extern int DAT_004e10f4;
 
-extern const char* DAT_0048f6cc[4];
 
-extern int DAT_003f5ed0;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -129,7 +128,7 @@ void FUN_00158700()
         mem = FUN_0008d690(0x20);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamEnumConstList<hulkfight::motion::HitReactionTrack>("hitLocation", DAT_0048f6cc, DAT_003f5ed0, &hulkfight::motion::HitReactionTrack::FUN_0014cb10);
+            params[1] = new (mem) fight::ParamEnumConstList<hulkfight::motion::HitReactionTrack>("hitLocation", ((const char**)&DAT_0048f6cc), (*(int*)&DAT_003f5ed0), &hulkfight::motion::HitReactionTrack::FUN_0014cb10);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
@@ -178,7 +177,7 @@ void FUN_00158700()
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamBool<hulkfight::motion::HitReactionTrack>("ignoreHitRecord", &hulkfight::motion::HitReactionTrack::FUN_0014cca0);
-        FUN_002347b0(&DAT_004e10f0, params, 14);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e10f0), params, 14);
     }
     DAT_004e10f4++;
 }

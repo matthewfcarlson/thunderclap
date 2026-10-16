@@ -9,6 +9,7 @@
 // equiv-map: ??_R0?AVCUnlockableMove@@@8 = 0x0049db1c
 // equiv-map: ??_R0?AVCUnlockableCheat@@@8 = 0x0049dafc
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 typedef unsigned short wchar_t;
 
@@ -37,7 +38,6 @@ struct Inventory {
     virtual void i2();
     virtual Loaded *find(void *caster, unsigned __int64 key);
 };
-extern Inventory *DAT_004dd9cc;
 
 struct Loc {
     const wchar_t *FUN_00088ea0(const char *key);
@@ -239,7 +239,7 @@ void Env::FUN_000c31e0(const char *name)
                     TextLabel *tl = dynamic_cast<TextLabel *>(FUN_000fc260("dycrypting_sequence_text"));
                     if (tl != 0)
                         tl->lab.FUN_000f8500("TBS_MENU_ITEM_DECRYPTING_SEQUENCE", FUN_000fc1b0(), 1);
-                    Inventory *inv = DAT_004dd9cc;
+                    Inventory *inv = (*(Inventory**)&DAT_004dd9cc);
                     unsigned __int64 key = FUN_0027b020("decryptingProgressBar");
                     new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>();
                     Loaded *ld = inv->find(&f.caster, key);

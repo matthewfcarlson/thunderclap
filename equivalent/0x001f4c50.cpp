@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2972 inputs, branch coverage 12/12)
 // FUN_001f4c50 @ 0x001f4c50
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 typedef unsigned __int64 ID;
 
 struct Name_1f4c50 {
@@ -11,9 +12,6 @@ struct Name_1f4c50 {
 
 void __cdecl FUN_00247890(void *p, float v);
 
-extern float DAT_004c7df0;
-extern float DAT_004c7df4;
-extern float DAT_004c7df8;
 
 struct Voice_1f4c50 {
     char pad0[4];

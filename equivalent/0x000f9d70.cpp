@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 33/34, incomplete)
 // FUN_000f9d70 @ 0x000f9d70
+#include "decls/data/game/DollyScript.h"
+
 typedef unsigned __int64 TypeId;
-extern unsigned long DAT_004e0a08, DAT_004e0a0c, DAT_004e0a10, DAT_004e0a14;
 extern char DAT_004a1934, DAT_004a13e4;
 struct Node {
  virtual void unused();
@@ -25,24 +26,24 @@ void* Cursor_f9d70::FUN_000f9d70() {
  int nesting = 0;
  if (node) {
   TypeId t = node->type();
-  if ((unsigned long)t == DAT_004e0a08 && (unsigned long)(t >> 32) == DAT_004e0a0c) nesting = 1;
+  if ((unsigned long)t == (*(unsigned long*)&DAT_004e0a08) && (unsigned long)(t >> 32) == (*(unsigned long*)((char*)&DAT_004e0a08 + 4))) nesting = 1;
   else {
    t = node->type();
-   if ((unsigned long)t == DAT_004e0a10 && (unsigned long)(t >> 32) == DAT_004e0a14) nesting = -1;
+   if ((unsigned long)t == (*(unsigned long*)&DAT_004e0a10) && (unsigned long)(t >> 32) == (*(unsigned long*)((char*)&DAT_004e0a10 + 4))) nesting = -1;
   }
   while (node->depth > 1 || nesting > 0) {
    node = node->next;
    if (!node) break;
    t = node->type();
-   if ((unsigned long)t == DAT_004e0a08 && (unsigned long)(t >> 32) == DAT_004e0a0c) ++nesting;
+   if ((unsigned long)t == (*(unsigned long*)&DAT_004e0a08) && (unsigned long)(t >> 32) == (*(unsigned long*)((char*)&DAT_004e0a08 + 4))) ++nesting;
    else {
     t = node->type();
-    if ((unsigned long)t == DAT_004e0a10 && (unsigned long)(t >> 32) == DAT_004e0a14) --nesting;
+    if ((unsigned long)t == (*(unsigned long*)&DAT_004e0a10) && (unsigned long)(t >> 32) == (*(unsigned long*)((char*)&DAT_004e0a10 + 4))) --nesting;
    }
   }
   if (node) {
    t = node->type();
-   if ((unsigned long)t == DAT_004e0a10 && (unsigned long)(t >> 32) == DAT_004e0a14 && nesting == 0) node = node->next;
+   if ((unsigned long)t == (*(unsigned long*)&DAT_004e0a10) && (unsigned long)(t >> 32) == (*(unsigned long*)((char*)&DAT_004e0a10 + 4)) && nesting == 0) node = node->next;
   }
  }
  return FUN_00344e74(node, 0, &DAT_004a13e4, &DAT_004a1934, 0);

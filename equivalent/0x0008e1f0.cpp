@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3088 inputs, branch coverage 96/97, incomplete)
 // MyDriveErrorCallback::vfunc_0 @ 0x0008e1f0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 struct Ctl_8e1f0 {
@@ -87,11 +89,6 @@ public:
     char b9;
 };
 
-extern MyControllerCallback *DAT_004dd7e0;
-extern char DAT_004dd8e6;
-extern int DAT_004dda40;
-extern char DAT_004e222c;
-extern char DAT_004e222d;
 
 void __cdecl FUN_001bb0b0(const char *key);
 char __cdecl FUN_0008d910(int a3);
@@ -250,12 +247,12 @@ char MyDriveErrorCallback::vfunc_0(unsigned int code, int a1, int a2, int a3, in
                 i++;
             } while (i < FUN_002684b0()->v3());
         }
-        DAT_004dda40++;
+        (*(int*)&DAT_004dda40)++;
         FUN_002684c0();
     } while (!found);
 
-    MyControllerCallback *c = DAT_004dd7e0;
-    DAT_004e222d = 1;
+    MyControllerCallback *c = (*(MyControllerCallback**)&DAT_004dd7e0);
+    (*(char*)&DAT_004e222d) = 1;
     DAT_004e222c = 1;
     if (!c) {
         void *m = FUN_0008d690(0xc);
@@ -263,7 +260,7 @@ char MyDriveErrorCallback::vfunc_0(unsigned int code, int a1, int a2, int a3, in
             c = new (m) MyControllerCallback;
         else
             c = 0;
-        DAT_004dd7e0 = c;
+        (*(MyControllerCallback**)&DAT_004dd7e0) = c;
     }
     if (c->b5) {
         World *g = DAT_004dd700;

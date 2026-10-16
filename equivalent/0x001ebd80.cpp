@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001ebd80 @ 0x001ebd80
+#include "decls/data/game/global.h"
+
 struct Id_1ebd80 {
     unsigned __int64 key;
 };
@@ -41,7 +43,6 @@ struct Prop_1ebd80 {
     Descriptor_1ebd80 *descriptor; // 0xec
 };
 
-extern EventConfig_1ebd80 *DAT_004e36d8;
 
 // Posts a "Objects/Props/<id>" event for a prop.
 void __stdcall FUN_001ebd80(Prop_1ebd80 *prop, int name, float delay, int unused) {
@@ -52,7 +53,7 @@ void __stdcall FUN_001ebd80(Prop_1ebd80 *prop, int name, float delay, int unused
     path.FUN_001ef370("Objects");
     path.FUN_001ef370("Props");
     path.FUN_001ef3c0(IdCopy_1ebd80(prop->descriptor->id));
-    if (DAT_004e36d8->enabled)
-        DAT_004e36d8->sink->FUN_001efe20(&path, prop->where, name, delay);
+    if ((*(EventConfig_1ebd80**)&DAT_004e36d8)->enabled)
+        (*(EventConfig_1ebd80**)&DAT_004e36d8)->sink->FUN_001efe20(&path, prop->where, name, delay);
     path.FUN_001ef350();
 }

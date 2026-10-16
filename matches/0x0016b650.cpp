@@ -1,10 +1,9 @@
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight/motion.h"
+#include "decls/data/game/unknown.h"
+
 typedef unsigned int uint;
-extern uint DAT_004e124c;
-extern uint DAT_004e1248;
-extern uint DAT_00427760;
-extern uint DAT_003f5bbc;
-extern uint DAT_00427758;
-extern uint DAT_0048f590;
 void __cdecl FUN_001656c0();
 void __cdecl FUN_001656d0();
 void* __cdecl FUN_0008d690(uint);
@@ -30,14 +29,14 @@ template <class T> struct ParamEnumConstList {
 } // namespace fight
 typedef fight::ParamEnumConstList<hulkfight::motion::TargetLocomotionMotionStateCondition> List_16b650;
 void __cdecl FUN_0016b650() {
-    if (!DAT_004e124c) {
+    if (!(*(uint*)&DAT_004e124c)) {
         List_16b650* lists[2];
         void* p = FUN_0008d690(32);
         if (p) {
-            uint n = DAT_00427760;
+            uint n = (*(uint*)&DAT_00427760);
             ((List_16b650*)p)->FUN_00234cc0("compare");
             List_16b650* x = new (p) List_16b650;
-            x->values = &DAT_00427758;
+            x->values = ((uint*)&DAT_00427758);
             x->count = n;
             x->callback = FUN_001656c0;
             lists[0] = x;
@@ -45,16 +44,16 @@ void __cdecl FUN_0016b650() {
             lists[0] = 0;
         p = FUN_0008d690(32);
         if (p) {
-            uint n = DAT_003f5bbc;
+            uint n = (*(uint*)&DAT_003f5bbc);
             ((List_16b650*)p)->FUN_00234cc0("locomotionMotionState");
             List_16b650* x = new (p) List_16b650;
-            x->values = &DAT_0048f590;
+            x->values = ((uint*)&DAT_0048f590);
             x->count = n;
             x->callback = FUN_001656d0;
             lists[1] = x;
         } else
             lists[1] = 0;
-        FUN_002347b0(&DAT_004e1248, lists, 2);
+        FUN_002347b0(((uint*)&DAT_004e1248), lists, 2);
     }
-    ++DAT_004e124c;
+    ++(*(uint*)&DAT_004e124c);
 }

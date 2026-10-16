@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00334540 @ 0x00334540
+#include "decls/data/engine/core.h"
+
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* p) { return p; }
-extern int DAT_004cdbb0;
 void __cdecl FUN_002705f0();
 void* __cdecl FUN_00263ea0(unsigned int);
 struct Resource_334540 { virtual void slot0(); Resource_334540* FUN_0028edb0(); };

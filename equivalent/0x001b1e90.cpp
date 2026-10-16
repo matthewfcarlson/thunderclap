@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3063 inputs, branch coverage 96/96)
 // FUN_001b1e90 @ 0x001b1e90
 #include "decls/address.h"
+#include "decls/data/game/unknown.h"
 typedef unsigned __int64 u64_1b1e90;
 
 struct V3_1b1e90 {
@@ -98,7 +99,6 @@ struct World {
     char pad38[0x4c - 0x38];
     Mon *f4c;
 };
-extern u64_1b1e90 DAT_004dc0e0;
 
 union Slot5_1b1e90 {
     V3_1b1e90 *dir;
@@ -253,7 +253,7 @@ int Self_1b1e90::FUN_001b1e90(Holder_1b1e90 *h1, Holder_1b1e90 *h2, int arg3, in
         f.n1.z = dir->z * -1.0f;
         B->f134->FUN_0001b510(h1, arg3, &f.n1, 2);
     }
-    u64_1b1e90 want = DAT_004dc0e0;
+    u64_1b1e90 want = (*(u64_1b1e90*)&DAT_004dc0e0);
     if (A->f114 != 0 && A->f114->f0c == 1 && A->f114->f08->id == want)
         return 1;
     if (B->f114 != 0 && B->f114->f0c == 1 && B->f114->f08->id == want)

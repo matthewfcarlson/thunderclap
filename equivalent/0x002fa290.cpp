@@ -1,11 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 26/26)
 // FUN_002fa290 @ 0x002fa290
-extern float DAT_004d2c84;
-extern float DAT_004d2c88;
-extern float DAT_004d2c8c;
-extern float DAT_004d2c90;
-extern float DAT_004d2c94;
-extern float DAT_004d2c98;
+#include "decls/data/engine/physics.h"
 
 struct Vec3_2fa290 {
     float x, y, z;

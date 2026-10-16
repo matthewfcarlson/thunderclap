@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 42/42)
 // FUN_002322f0 @ 0x002322f0
+#include "decls/data/engine/fight.h"
+
 int __cdecl FUN_00238190(int id);
 int __cdecl FUN_00266da0(int heap);
 
-extern int DAT_004e5ae8;
-extern int DAT_004e5aec;
 
 class Ref_2322f0 {
 public:

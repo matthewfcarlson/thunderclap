@@ -1,12 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 22 inputs, branch coverage 4/4)
 // FUN_00047890 @ 0x00047890
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 typedef unsigned int uint_47890;
 inline void* __cdecl operator new(unsigned int,void* p) { return p; }
 void* __cdecl FUN_0008d6d0(uint_47890);
 void* __cdecl FUN_0008d690(uint_47890);
-extern void* DAT_0048e100;
-extern void* DAT_0048e0f0;
 struct Registry_47890 { void FUN_001d3b70(const char*,void*); };
 Registry_47890* __cdecl FUN_001d4c90();
 class CCharacterTemplateManager {
@@ -46,8 +45,8 @@ CCharacterTemplateManager::CCharacterTemplateManager(uint_47890 arg,uint_47890 n
    ((CallbackBase*)mem)->FUN_001d0480("ctm_UnloadCharacterTemplate",1);
    Method1<CCharacterTemplateManager,void,const char*>* m=new(mem) Method1<CCharacterTemplateManager,void,const char*>;
    m->method=&CCharacterTemplateManager::FUN_00046140;
-   m->result=FUN_001d04d0(&DAT_0048e100);
-   m->type=FUN_001d04d0(&DAT_0048e0f0);
+   m->result=FUN_001d04d0(((void**)&DAT_0048e100));
+   m->type=FUN_001d04d0(((void**)&DAT_0048e0f0));
    cb=new(mem) Closure1<CCharacterTemplateManager,void,const char*>;
    cb->object=this;
   }

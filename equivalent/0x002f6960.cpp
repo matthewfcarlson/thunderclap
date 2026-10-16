@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 102 inputs, branch coverage 21/24, incomplete)
 // physics::PhysicsObject::vfunc_5 @ 0x002f6960
-extern float DAT_004d2bc8;
-extern float DAT_003f32e0;
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
 
 struct Vec3_2f6960 {
     float x, y, z;
@@ -141,7 +141,7 @@ void PhysicsObject::vfunc_5(float dt)
         return;
     if (v11())
         return;
-    if (!(dt > DAT_003f32e0))
+    if (!(dt > (*(float*)&DAT_003f32e0)))
         return;
 
     if (contact != 0) {

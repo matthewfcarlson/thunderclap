@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 20/20)
 // FUN_00202560 @ 0x00202560
 #include "decls/address.h"
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
 struct Vec3_202560 {
     float x, y, z;
 };
@@ -52,10 +54,6 @@ struct World {
     Trace *trace;
 };
 
-extern int DAT_004d2a3c;
-extern char DAT_004d2a40;
-extern char DAT_00554c1c;
-extern float DAT_00554c18;
 
 char FUN_002020a0(int material);
 void FUN_002f1ce0(Vec3_202560 *from, int tri, Vec3_202560 *normal, float *out);
@@ -89,9 +87,9 @@ char FUN_00202560(Vec3_202560 *start, float depth, int a3, Vec3_202560 *result, 
 
     trace->probe.f0 = 0;
     DAT_004d2a3c = 2;
-    DAT_004d2a40 = 0;
-    DAT_00554c1c = 1;
-    DAT_00554c18 = 0.2f;
+    (*(char*)&DAT_004d2a40) = 0;
+    (*(char*)&DAT_00554c1c) = 1;
+    (*(float*)&DAT_00554c18) = 0.2f;
     g->hud->FUN_00025370(0);
 
     float zero = depth * 0.0f;

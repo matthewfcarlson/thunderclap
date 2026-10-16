@@ -1,3 +1,6 @@
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
+
 struct Context {
     virtual void v0();
     virtual void v1();
@@ -35,11 +38,7 @@ extern void __cdecl FUN_0031ba60(int, int, Device_292560**);
 extern void __cdecl FUN_002c3230(Device_292560*);
 extern void* __cdecl FUN_0008d690(unsigned);
 extern void __cdecl FUN_002c31b0();
-extern Object* DAT_0052c2b4;
-extern void* DAT_0052c2ac;
 extern void* DAT_0052c2a8;
-extern void* DAT_0052c2a0;
-extern void* DAT_0052c2a4;
 struct Owner_292560 {
     Object* object;
     Object* FUN_00292560(void*);
@@ -60,11 +59,11 @@ Object* Owner_292560::FUN_00292560(void* window) {
     object = allocated ? allocated->FUN_0028f800(device, context, info) : 0;
     object->FUN_0028f980();
     Object* current = object;
-    DAT_0052c2b4 = current;
-    DAT_0052c2ac = current->FUN_0028fa30(0);
+    (*(Object**)&DAT_0052c2b4) = current;
+    (*(void**)&DAT_0052c2ac) = current->FUN_0028fa30(0);
     DAT_0052c2a8 = current->b;
-    DAT_0052c2a0 = current->a;
-    DAT_0052c2a4 = current->c;
+    (*(void**)&DAT_0052c2a0) = current->a;
+    (*(void**)&DAT_0052c2a4) = current->c;
     FUN_002c31b0();
     return object;
 }

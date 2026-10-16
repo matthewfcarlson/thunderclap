@@ -1,8 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 38/38)
 // FUN_000a1ca0 @ 0x000a1ca0
 #include "decls/address.h"
-extern unsigned int DAT_004dd9f8;
-extern unsigned __int64 DAT_004dd9f0;
+#include "decls/data/game/global.h"
 
 float __cdecl FUN_000a0450(void *v) throw();
 
@@ -160,12 +159,12 @@ void Cam_a1ca0::FUN_000a1ca0(Owner_a1ca0 *owner, float dt)
         v200.z = v1c4.z - v29c.z;
         if (stats->f338 != 0)
             b347 = 1;
-        if ((DAT_004dd9f8 & 1) == 0) {
-            DAT_004dd9f8 |= 1;
-            DAT_004dd9f0 = FUN_0027b020("gorilla_gorilla");
+        if (((*(unsigned int*)&DAT_004dd9f8) & 1) == 0) {
+            (*(unsigned int*)&DAT_004dd9f8) |= 1;
+            (*(unsigned __int64*)&DAT_004dd9f0) = FUN_0027b020("gorilla_gorilla");
         }
         Node *n = stats->FUN_00035ef0(0);
-        if (n != 0 && n->info->id == DAT_004dd9f0)
+        if (n != 0 && n->info->id == (*(unsigned __int64*)&DAT_004dd9f0))
             b348 = 1;
     } else {
         v200.z = 0.0f;

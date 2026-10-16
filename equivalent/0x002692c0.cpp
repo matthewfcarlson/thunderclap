@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_002692c0 @ 0x002692c0
+#include "decls/data/platform/xbox/core.h"
+
 namespace XAPILIB { int __stdcall XInputGetState(unsigned int, void *); }
-extern unsigned int DAT_0042b2f0, DAT_0042b2f4, DAT_0042b2f8;
-extern char DAT_0042b2e4[], DAT_0042b2d8[];
 struct Triple_2692c0 { unsigned int a,b,c; };
-extern Triple_2692c0 DAT_004cd6a8[20];
 struct Input_2692c0 {
     virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3();
     virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7();
@@ -42,12 +41,12 @@ void Device_2692c0::FUN_002692c0(unsigned int a,unsigned int b,unsigned int c,un
     active=0;
     for(int i=0;i<0x46;i++) zeros[i]=0;
     other=g;
-    name0=DAT_0042b2f0; name1=DAT_0042b2f4; name2=DAT_0042b2f8;
+    name0=(*(unsigned int*)&DAT_0042b2f0); name1=(*(unsigned int*)((char*)&DAT_0042b2f0 + 4)); name2=(*(unsigned int*)((char*)&DAT_0042b2f0 + 8));
     ((unsigned char*)&name2)[2]=(unsigned char)(c+0x30);
     ((unsigned char*)&name1)[0]=(unsigned char)(b+0x30);
     count=20;
     for(unsigned int j=0;j<count;j++) {
-        entries[j].values=DAT_004cd6a8[j];
+        entries[j].values=((Triple_2692c0*)&DAT_004cd6a8)[j];
         if(handle) {
             unsigned char state[22];
             for(int k=0;k<22;k++) state[k]=0;
@@ -55,8 +54,8 @@ void Device_2692c0::FUN_002692c0(unsigned int a,unsigned int b,unsigned int c,un
             entries[j].input.f12(state+4);
         }
     }
-    leftName=DAT_0042b2e4;
-    rightName=DAT_0042b2d8;
+    leftName=((char*)&DAT_0042b2e4);
+    rightName=((char*)&DAT_0042b2d8);
     active=1;
     f20(e,f);
     f18(d);

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3027 inputs, branch coverage 138/142, incomplete)
 // FUN_00084c40 @ 0x00084c40
 #include "decls/address.h"
+#include "decls/data/game/unknown.h"
 struct V3_84c40 {
     float x, y, z;
     float FUN_0022d110();
@@ -91,10 +92,6 @@ struct World {
     Holder_84c40 *holder;         // 0x54
 };
 
-extern float DAT_003ff9ac;
-extern float DAT_003ff9b0;
-extern float DAT_0049bf80;
-extern float DAT_0049bf88;
 
 Rng_84c40 *FUN_000964d0();
 Volume_84c40 *FUN_001c3d90();
@@ -265,7 +262,7 @@ void Mover_84c40::FUN_00084c40(float dt)
     case 0xf: {
         fr.s14.lo = 0;
         f18 = dt * f20 + f18;
-        f18 = FUN_000186b0(&f18, &fr.s14.lo, &DAT_003ff9ac);
+        f18 = FUN_000186b0(&f18, &fr.s14.lo, ((float*)&DAT_003ff9ac));
         if (FUN_000843c0(f78, dt))
             break;
         f6c = fr.dir;
@@ -275,7 +272,7 @@ void Mover_84c40::FUN_00084c40(float dt)
     case 0x10: {
         fr.s28.lo2 = 0;
         f18 = f18 - dt * 10.0f;
-        f18 = FUN_000186b0(&f18, &fr.s28.lo2, &DAT_003ff9ac);
+        f18 = FUN_000186b0(&f18, &fr.s28.lo2, ((float*)&DAT_003ff9ac));
         fr.s28.t28 = f18 * dt;
         double cr = (double)f78.z * f84.x - (double)f84.z * f78.x;
         if (cr == 0.0)
@@ -307,7 +304,7 @@ void Mover_84c40::FUN_00084c40(float dt)
     case 0x11: {
         fr.s14.lo = 0;
         f18 = f18 - dt * 20.0f;
-        f18 = FUN_000186b0(&f18, &fr.s14.lo, &DAT_003ff9ac);
+        f18 = FUN_000186b0(&f18, &fr.s14.lo, ((float*)&DAT_003ff9ac));
         f6c = fr.dir;
         if (fr.b13)
             f18 = f1c;
@@ -321,7 +318,7 @@ void Mover_84c40::FUN_00084c40(float dt)
     case 0x12: {
         fr.s14.lo = 0;
         f18 = dt * 10.0f + f18;
-        f18 = FUN_000186b0(&f18, &fr.s14.lo, &DAT_003ff9b0);
+        f18 = FUN_000186b0(&f18, &fr.s14.lo, ((float*)&DAT_003ff9b0));
         fr.tmp.z = -fr.d.z;
         f78.x = -fr.d.x;
         f78.y = -fr.d.y;
@@ -344,7 +341,7 @@ void Mover_84c40::FUN_00084c40(float dt)
             if (sg == 0.0f)
                 sg = 1.0f;
             f84.z = DAT_0049bf88;
-            f84.x = DAT_0049bf80;
+            f84.x = (*(float*)&DAT_0049bf80);
             f84.y = 0;
             FUN_00224d70(sg * 0.17453293f + fr.s14.lo, &f84);
             fr.tmp.z = -f84.z;
@@ -358,7 +355,7 @@ void Mover_84c40::FUN_00084c40(float dt)
             fr.s28.t28 = FUN_00224fc0(fr.s18.B, fr.s38.A);
         }
         f6c.z = DAT_0049bf88;
-        f6c.x = DAT_0049bf80;
+        f6c.x = (*(float*)&DAT_0049bf80);
         f6c.y = 0;
         FUN_00224d70(fr.s38.A - (FUN_00083d90(&fr.s28.t28) * dt) * 0.69813174f, &f6c);
         fr.tmp.z = -f6c.z;

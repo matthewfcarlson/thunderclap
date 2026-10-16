@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 41/46, incomplete)
 // FUN_000c1790 @ 0x000c1790
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
 extern "C" int strncmp(const char* a, const char* b, unsigned int n);
@@ -8,8 +9,6 @@ extern "C" int strcmp(const char* a, const char* b);
 extern "C" char* strncpy(char* d, const char* s, unsigned int n);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
-extern const char* DAT_0049f3b8;
-extern char DAT_004dd839;
 
 namespace pure3d { class TextureFont; }
 
@@ -55,7 +54,6 @@ struct Panel_c1790 {
     void FUN_001bdeb0();
 };
 
-extern Loader_c1790* DAT_004dd9c8;
 
 int __cdecl FUN_00266da0(int mode);
 Ui_c1790* __cdecl FUN_000fc1b0();
@@ -103,12 +101,12 @@ bool FrontEnd_c1790::FUN_000c1790(const char* code)
     }
     if (idx == -1)
         idx = 0;
-    FUN_000964a0(f.path, 0x40, DAT_0049f3b8, code);
+    FUN_000964a0(f.path, 0x40, (*(const char**)&DAT_0049f3b8), code);
     if (FUN_000fc1c0(f.path)) {
         strncpy(lang, code, 3);
     } else {
         for (int i = 0; i < 6; i++) {
-            FUN_000964a0(f.path, 0x40, DAT_0049f3b8, FUN_000f7120(i));
+            FUN_000964a0(f.path, 0x40, (*(const char**)&DAT_0049f3b8), FUN_000f7120(i));
             if (FUN_000fc1c0(f.path)) {
                 strncpy(lang, FUN_000f7120(i), 3);
                 break;
@@ -117,14 +115,14 @@ bool FrontEnd_c1790::FUN_000c1790(const char* code)
     }
     if (panel)
         panel->FUN_001bde50(idx);
-    DAT_004dd9c8->FUN_002665a0();
+    (*(Loader_c1790**)&DAT_004dd9c8)->FUN_002665a0();
     if (f.ui)
         f.ui->FUN_000f7850();
     if (panel)
         panel->FUN_001bde90();
-    DAT_004dd9c8->FUN_002665a0();
+    (*(Loader_c1790**)&DAT_004dd9c8)->FUN_002665a0();
     FUN_000964a0(f.path, 0x40, "art/fonts_%s.p3d", lang);
-    this->FUN_000bc3c0(f.path, DAT_004dd9c8, 0);
+    this->FUN_000bc3c0(f.path, (*(Loader_c1790**)&DAT_004dd9c8), 0);
     const char* first;
     const char* second;
     if (strncmp("jp", lang, 2) == 0) {
@@ -135,13 +133,13 @@ bool FrontEnd_c1790::FUN_000c1790(const char* code)
         second = "font_serpentine_lt_med";
     }
     {
-        Loader_c1790* ld = DAT_004dd9c8;
+        Loader_c1790* ld = (*(Loader_c1790**)&DAT_004dd9c8);
         unsigned __int64 h = FUN_0027b020(first);
         new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::TextureFont>;
         ld->v3(&f.caster, h)->FUN_00295250(0xfa0);
     }
     {
-        Loader_c1790* ld = DAT_004dd9c8;
+        Loader_c1790* ld = (*(Loader_c1790**)&DAT_004dd9c8);
         unsigned __int64 h = FUN_0027b020(second);
         new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::TextureFont>;
         ld->v3(&f.caster, h)->FUN_00295250(0xfa0);

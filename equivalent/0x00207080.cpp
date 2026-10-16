@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00207080 @ 0x00207080
+#include "decls/data/game/global.h"
+
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl _sprintf(char *buf, const char *fmt, ...);
-extern char DAT_004c91d8;
 
 class Locator {
 public:
@@ -76,7 +77,7 @@ void District_207080::FUN_00207080(int id)
     DAT_0052c2a8->v91();
     _sprintf(fr.label, "%s_r%03d", name, id);
     FUN_00206a40(id);
-    if (DAT_004c91d8 != 0)
+    if ((*(char*)&DAT_004c91d8) != 0)
         FUN_00204540(fr.label)->FUN_00204f00();
     int room = FUN_001c3d90()->index->FUN_001c7f10(id)->id;
     if (!FUN_002046b0(room))

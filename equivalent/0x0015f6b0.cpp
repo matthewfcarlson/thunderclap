@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 121/122, incomplete)
 // hulkfight::motion::HeliLocomotionAction::vfunc_5 @ 0x0015f6b0
+#include "decls/data/game/hulkfight/motion.h"
+
 extern "C" double sqrt(double);
 extern "C" int atexit(void (*)());
 void FUN_00363f60();
@@ -29,8 +31,6 @@ struct Key_15f6b0 {
     void FUN_0027b040(const char *name);
 };
 
-extern Key_15f6b0 DAT_004e11c8;
-extern unsigned DAT_004e11d0;
 
 float __cdecl FUN_00224ea0(float x, float z);
 float __cdecl FUN_00224fc0(float a, float b);
@@ -337,13 +337,13 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
         }
     }
 
-    if ((DAT_004e11d0 & 1) == 0) {
-        DAT_004e11d0 |= 1;
-        DAT_004e11c8.FUN_0027af00();
+    if (((*(unsigned*)&DAT_004e11d0) & 1) == 0) {
+        (*(unsigned*)&DAT_004e11d0) |= 1;
+        (*(Key_15f6b0*)&DAT_004e11c8).FUN_0027af00();
         atexit(FUN_00363f60);
     }
-    DAT_004e11c8.FUN_0027b040("flying_avoiding_wall");
-    ent->FUN_00036e70(&DAT_004e11c8, 0);
+    (*(Key_15f6b0*)&DAT_004e11c8).FUN_0027b040("flying_avoiding_wall");
+    ent->FUN_00036e70(((Key_15f6b0*)&DAT_004e11c8), 0);
 
     if (ent->flagA != 0 || ent->flagB == 0 || (ent->part != 0 && ent->part->disabled == 0)) {
         float au = FAbs(up70);
@@ -366,7 +366,7 @@ bool HeliLocomotionAction::vfunc_5(int a, float dt)
                 u.z = u.z * inv;
                 steer.y = (1.0f - (u.x * n.x + u.y * n.y + n.z * u.z)) + steer.y;
                 steer.FUN_0022d110();
-                ent->FUN_00036e70(&DAT_004e11c8, 1);
+                ent->FUN_00036e70(((Key_15f6b0*)&DAT_004e11c8), 1);
             }
         }
     }

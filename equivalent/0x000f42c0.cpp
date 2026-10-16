@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3077 inputs, branch coverage 72/72)
 // FUN_000f42c0 @ 0x000f42c0
+#include "decls/data/game/global.h"
+
 struct Pair64 {
     unsigned int lo, hi;
 };
@@ -34,7 +36,6 @@ public:
     virtual void v2();
     virtual void *v3(content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> *caster, unsigned int lo, unsigned int hi);
 };
-extern Reg_f42c0 *DAT_004dd9cc;
 int __cdecl FUN_000c0d80(Reg_f42c0 *g, const char *s);
 
 struct ParseState {
@@ -261,8 +262,8 @@ void FEThingsBase::FUN_000f42c0(Param *p, Factory_f42c0 *c, Slot3 d3, Args_f42c0
         return;
     }
     case 0xcc74e7a7: {
-        d->FUN_000ebda0(FUN_000c0d80(DAT_004dd9cc, p->FUN_000fad90()));
-        d->FUN_000ebdd0(FUN_000c0d80(DAT_004dd9cc, p->FUN_000fad90()));
+        d->FUN_000ebda0(FUN_000c0d80((*(Reg_f42c0**)&DAT_004dd9cc), p->FUN_000fad90()));
+        d->FUN_000ebdd0(FUN_000c0d80((*(Reg_f42c0**)&DAT_004dd9cc), p->FUN_000fad90()));
         return;
     }
     case 0xe10f2442:
@@ -281,7 +282,7 @@ void FEThingsBase::FUN_000f42c0(Param *p, Factory_f42c0 *c, Slot3 d3, Args_f42c0
             (*(ParseState *)fr.raw).FUN_000f7930();
             (*(ParseState *)fr.raw).FUN_000f8500("", v44(), 1);
             const char *tag = p->FUN_000fad90();
-            Reg_f42c0 *g = DAT_004dd9cc;
+            Reg_f42c0 *g = (*(Reg_f42c0**)&DAT_004dd9cc);
             Pair64 h = FUN_0027b020(tag);
             content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> *caster =
                 new ((void *)&d3) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>;

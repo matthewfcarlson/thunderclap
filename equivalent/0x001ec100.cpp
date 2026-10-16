@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 20/20)
 // FUN_001ec100 @ 0x001ec100
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 extern "C" int strcmp(const char *a, const char *b);
 extern "C" char *strcpy(char *dst, const char *src);
 extern unsigned int DAT_004d9968;
@@ -49,9 +51,6 @@ struct SpawnGlobals_1ec100 {
 };
 void FUN_001eb440(void *target, Query_1ec100 *q);
 
-extern int DAT_004dc0e0;
-extern int DAT_004dc0e4;
-extern SpawnGlobals_1ec100 *DAT_004e36d8;
 
 class Handler_1ec100 {
 public:
@@ -77,7 +76,7 @@ void Handler_1ec100::FUN_001ec100(Entity *entity, const char *name)
         for (i = 0; i < 0x40; i++) f.buf[i] = 0;
         bool flag = DAT_004dd6ec->FUN_00086340()->FUN_00092de0(2);
         long long id = entity->info->FUN_000443c0();
-        if ((int)id == DAT_004dc0e0 && (int)(id >> 32) == DAT_004dc0e4) {
+        if ((int)id == (*(int*)&DAT_004dc0e0) && (int)(id >> 32) == (*(int*)((char*)&DAT_004dc0e0 + 4))) {
             if (!flag) {
                 __security_check_cookie(f.cookie);
                 return;
@@ -99,8 +98,8 @@ void Handler_1ec100::FUN_001ec100(Entity *entity, const char *name)
         void *target = lookup->FUN_00086310();
         if (target != 0)
             FUN_001eb440(target, &f.q);
-        if (DAT_004e36d8->enabled)
-            DAT_004e36d8->spawner->FUN_001efe20(&f.q, &entity->pos, name, 100.0f);
+        if ((*(SpawnGlobals_1ec100**)&DAT_004e36d8)->enabled)
+            (*(SpawnGlobals_1ec100**)&DAT_004e36d8)->spawner->FUN_001efe20(&f.q, &entity->pos, name, 100.0f);
         f.q.FUN_001ef350();
     }
     __security_check_cookie(f.cookie);

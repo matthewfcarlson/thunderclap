@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 6/6)
 // pure3d::SpriteParticleEmitter::vfunc_14 @ 0x002d5a70
+#include "decls/data/engine/pure3d.h"
+
 struct Vec3_2d5a70 {
     float x, y, z;
 };
@@ -39,7 +41,6 @@ struct Rng_2d5a70 {
     char FUN_00011380(int lo, int hi);
 };
 
-extern Rng_2d5a70 DAT_00554c04;
 
 unsigned int* FUN_002e6780(unsigned int* out, int a, unsigned int b);
 unsigned int* FUN_002e6840(unsigned int* out, unsigned int v, unsigned int b);
@@ -106,44 +107,44 @@ bool SpriteParticleEmitter::vfunc_14(Vec3_2d5a70* dir, Vec3_2d5a70* pos, int arg
 
     float lo4 = f16c;
     *hi = f170;
-    float speed = DAT_00554c04.FUN_00143100() * *hi + lo4;
+    float speed = (*(Rng_2d5a70*)&DAT_00554c04).FUN_00143100() * *hi + lo4;
     p->vel.x = speed * dir->x;
     p->vel.y = speed * dir->y;
     p->vel.z = speed * dir->z;
 
     *hi = f19c;
     *lo = f198;
-    float a = DAT_00554c04.FUN_00143100() * *hi + *lo;
+    float a = (*(Rng_2d5a70*)&DAT_00554c04).FUN_00143100() * *hi + *lo;
     p->s3c = (short)(int)(a * 256.0f);
 
     *hi = f17c;
     *lo = f178;
-    float b = DAT_00554c04.FUN_00143100() * *hi + *lo;
+    float b = (*(Rng_2d5a70*)&DAT_00554c04).FUN_00143100() * *hi + *lo;
     p->f10 = b;
     p->s1a = (short)(int)(b * 256.0f);
 
     *hi = f190;
     *lo = f18c;
-    p->f1c = DAT_00554c04.FUN_00143100() * *hi + *lo;
+    p->f1c = (*(Rng_2d5a70*)&DAT_00554c04).FUN_00143100() * *hi + *lo;
 
     *hi = f188;
-    p->f14 = DAT_00554c04.FUN_00143100() * *hi + f184;
+    p->f14 = (*(Rng_2d5a70*)&DAT_00554c04).FUN_00143100() * *hi + f184;
 
     *hi = f164;
     *lo = f160;
-    p->f30 = DAT_00554c04.FUN_00143100() * *hi + *lo;
+    p->f30 = (*(Rng_2d5a70*)&DAT_00554c04).FUN_00143100() * *hi + *lo;
 
     p->f2c = arg2;
     p->f34 = 0;
 
-    p->b3e = DAT_00554c04.FUN_002d49c0(0, c1b8);
-    p->b18 = DAT_00554c04.FUN_002d49c0(0, c1b9);
+    p->b3e = (*(Rng_2d5a70*)&DAT_00554c04).FUN_002d49c0(0, c1b8);
+    p->b18 = (*(Rng_2d5a70*)&DAT_00554c04).FUN_002d49c0(0, c1b9);
 
     unsigned int* tmp = (unsigned int*)&pos;
     p->color = *FUN_002e6780(tmp, f1b4, p->b3e);
     p->color = *FUN_002e6840(tmp, p->color, p->b18);
 
-    p->b19 = DAT_00554c04.FUN_00011380(0, palette->count - 1);
+    p->b19 = (*(Rng_2d5a70*)&DAT_00554c04).FUN_00011380(0, palette->count - 1);
 
     begin[count] = p;
     count++;

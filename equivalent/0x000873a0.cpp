@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 21/21)
 // FUN_000873a0 @ 0x000873a0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 extern "C" int __cdecl sprintf(char *,const char *,...);
 extern unsigned DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned);
-extern unsigned char DAT_004dd6f0, DAT_004dd8d0;
-extern char DAT_004dd890[64];
 struct Gfx {
 #define V(n) virtual void v##n();
 V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
@@ -35,13 +35,13 @@ DAT_0052c2a8->v91();
 switch(state->current) {
 case 0: sprintf(text[0],"Entering %s state\n","GS_NONE"); break;
 case 1:
-if(DAT_004dd8d0) {
-if(DAT_004dd890[0]) {
+if((*(unsigned char*)&DAT_004dd8d0)) {
+if(((char*)&DAT_004dd890)[0]) {
 FUN_000865d0();
-void *item=s20->FUN_000b4cf0(DAT_004dd890);
+void *item=s20->FUN_000b4cf0(((char*)&DAT_004dd890));
 if(!item) { __security_check_cookie(cookie); return; }
-s3c->FUN_00093c40(DAT_004dd890);
-s38->FUN_00089810(DAT_004dd890);
+s3c->FUN_00093c40(((char*)&DAT_004dd890));
+s38->FUN_00089810(((char*)&DAT_004dd890));
 s38->FUN_000895e0(item);
 s38->FUN_00089300("oneshot");
 } else { FUN_000865d0(); s38->FUN_00089810("C00M01"); s38->FUN_00089300("story"); }
@@ -49,10 +49,10 @@ s38->FUN_00089300("oneshot");
 break;
 case 2: sprintf(text[2],"Entering %s state\n","GS_PREGAME"); FUN_00086630(); break;
 case 3: sprintf(text[3],"Entering %s state\n","GS_PRESSSTART"); FUN_00086790(); break;
-case 4: sprintf(text[4],"Entering %s state\n","GS_GAME"); s1c->FUN_0008db60(0); DAT_004dd6f0=0; data->active=0; data->mode=0x10000; data->extra=0; data->a=0; data->b=0; data->c=0; data->d=0; s30->FUN_001ec3d0(); break;
+case 4: sprintf(text[4],"Entering %s state\n","GS_GAME"); s1c->FUN_0008db60(0); (*(unsigned char*)&DAT_004dd6f0)=0; data->active=0; data->mode=0x10000; data->extra=0; data->a=0; data->b=0; data->c=0; data->d=0; s30->FUN_001ec3d0(); break;
 case 5: sprintf(text[5],"Entering %s state\n","GS_POSTGAME"); FUN_000872a0(); break;
 case 6: sprintf(text[6],"Entering %s state\n","GS_PAUSE"); s18->FUN_000afe80(); s30->FUN_001eb4e0(); break;
-case 7: sprintf(text[7],"Entering %s state\n","GS_FMV"); DAT_004dd6f0=1; s30->FUN_001eb4d0(); s34->FUN_001b83c0(); break;
+case 7: sprintf(text[7],"Entering %s state\n","GS_FMV"); (*(unsigned char*)&DAT_004dd6f0)=1; s30->FUN_001eb4d0(); s34->FUN_001b83c0(); break;
 case 8: sprintf(text[8],"Entering %s state\n","GS_QUIT"); break;
 }
 }

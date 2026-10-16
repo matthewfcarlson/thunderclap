@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 18441 inputs, branch coverage 22/22)
 // FUN_00233580 @ 0x00233580
 // FUN_00233580 @ 0x00233580
+#include "decls/data/engine/fight.h"
+
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 extern unsigned int DAT_004d9968;
-extern char* DAT_004ca248;
 
 struct HashKey {
     int lo, hi;
@@ -32,7 +33,7 @@ PathNode* PathNode::FUN_00233580(const char* path)
     } f;
     char* buf = f.buf;
     f.cookie = DAT_004d9968;
-    char delim = *DAT_004ca248;
+    char delim = *(*(char**)&DAT_004ca248);
     if (*path == delim)
         path++;
     const char* end = path;

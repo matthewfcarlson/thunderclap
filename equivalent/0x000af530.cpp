@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 14/14)
 // FUN_000af530 @ 0x000af530
-extern unsigned char DAT_004dda3d;
+#include "decls/data/game/global.h"
+
 extern float __cdecl FUN_000af420(float);
 struct Value_af530 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5();
@@ -26,7 +27,7 @@ void Object::target(unsigned group,unsigned index,float value) {
   Value_af530* dest=records[group].provider->get(index);
   dest->set(value);
  } else if(type==1) {
-  if(DAT_004dda3d) {
+  if((*(unsigned char*)&DAT_004dda3d)) {
    float result=FUN_000af420(value);
    record->values[index]=result;
   } else {

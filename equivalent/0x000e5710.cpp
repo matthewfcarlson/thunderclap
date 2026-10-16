@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3148 inputs, branch coverage 120/133, incomplete)
 // FEScreenBase::vfunc_3 @ 0x000e5710
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" int memcmp(const void *, const void *, unsigned int);
 int __cdecl FUN_000f6660(int value, int modulus);
-extern char DAT_004de950;
 
 class FELayout {
   public:
@@ -229,13 +229,13 @@ char FEScreenBase::vfunc_3(int key, Arg2_e5710 a2)
             return 1;
         }
     }
-    if (DAT_004de950) {
+    if ((*(char*)&DAT_004de950)) {
         if (key == 8 && focus) {
             focus->v10(0);
             return 1;
         }
     } else if (key == 0xb || key == 8) {
-        DAT_004de950 = 1;
+        (*(char*)&DAT_004de950) = 1;
         if (focus) {
             focus->v10(0);
             return 1;

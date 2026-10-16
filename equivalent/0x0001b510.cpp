@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 23251 inputs, branch coverage 184/187, incomplete)
 // FUN_0001b510 @ 0x0001b510
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 typedef unsigned __int64 u64;
 
 struct V3 {
@@ -277,7 +278,6 @@ struct World {
     Runner *f34;
 };
 
-extern u64 DAT_004dc030;
 
 int __cdecl FUN_00266da0(int v);
 Job *__cdecl FUN_0008d690(unsigned int size);
@@ -648,7 +648,7 @@ void SpawnAction::FUN_0001b510(Item *e, V3 *a8, V3 *a12, void *a16)
                 break;
             }
             if (run == 1) {
-                if (p->fec->FUN_001d4f70() == DAT_004dc030)
+                if (p->fec->FUN_001d4f70() == (*(u64*)&DAT_004dc030))
                     DAT_004dd700->f30->FUN_001cbd10("golf_stroke");
                 Player *Yp = f.Y;
                 int k = Yp->f11c->f1b0;

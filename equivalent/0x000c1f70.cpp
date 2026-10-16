@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 18/18)
 // FUN_000c1f70 @ 0x000c1f70
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
@@ -100,7 +101,6 @@ struct Inventory_c1f70 {
     virtual ShaderHolder* find(content::LoadInventory::DynamicCaster<pure3d::Shader>* caster, unsigned __int64 key);
 };
 
-extern Inventory_c1f70* DAT_004dd9cc;
 
 void* __cdecl FUN_00263ea0(int size);
 int __cdecl FUN_000964a0(char* dst, int size, const char* fmt, ...);
@@ -164,7 +164,7 @@ void BlonskyScreen::FUN_000c1f70(int index)
             content::LoadInventory::DynamicCaster<pure3d::Texture> textureCaster;
             Resource_c1f70* tex = loader->find(&textureCaster, key);
             if (tex != 0) {
-                Inventory_c1f70* inv = DAT_004dd9cc;
+                Inventory_c1f70* inv = (*(Inventory_c1f70**)&DAT_004dd9cc);
                 unsigned __int64 key2 = FUN_0027b020("blonksy_image_shader");
                 content::LoadInventory::DynamicCaster<pure3d::Shader> shaderCaster;
                 ShaderHolder* shader = inv->find(&shaderCaster, key2);

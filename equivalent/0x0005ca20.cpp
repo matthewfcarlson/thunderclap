@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 30/30)
 // FUN_0005ca20 @ 0x0005ca20
+#include "decls/data/game/global.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -113,8 +115,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc598;
-extern int DAT_004dc59c;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0005ca20()
@@ -178,7 +178,7 @@ void FUN_0005ca20()
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamFloatConstRange<CGrappleAttachTrack>("rootBlendInTime", &CGrappleAttachTrack::FUN_0005a210);
-        FUN_002347b0(&DAT_004dc598, params, 14);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc598), params, 14);
     }
     DAT_004dc59c++;
 }

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2959 inputs, branch coverage 28/28)
 // CHand2HandAgent::vfunc_20 @ 0x001005c0
+#include "decls/data/game/global.h"
+
 extern "C" double sqrt(double);
 
 struct Vec3_1005c0 {
@@ -66,10 +68,6 @@ public:
 };
 
 extern World2_1005c0 *DAT_004dd700;
-extern char DAT_004e0a99;
-extern float DAT_004a1c04;
-extern float DAT_004a1c08;
-extern float DAT_004a1c0c;
 
 char __cdecl FUN_00036b10(World2_1005c0 *w, Vec3_1005c0 *a, Vec3_1005c0 *b, Vec3_1005c0 *c, Vec3_1005c0 *d, char *e, char *f) throw();
 float __cdecl FUN_0010ae50(World2_1005c0 *w, Ctx1_1005c0 *c, float thr, Vec3_1005c0 *out, Vec3_1005c0 *v138, int a, int b) throw();
@@ -266,7 +264,7 @@ void CHand2HandAgent::vfunc_20(Ctx1_1005c0 *a1, Out_1005c0 *a2, Arg3_1005c0 a3)
     v184.x = (float)ax;
     v184.y = (float)ay;
     a3.f = v94.z * vbc.z + v94.y * vbc.y + vbc.x * v94.x;
-    if (DAT_004e0a99 != 0)
+    if ((*(char*)&DAT_004e0a99) != 0)
         return;
     if (bd1)
         return;

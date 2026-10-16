@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2926 inputs, branch coverage 39/40, incomplete)
 // FUN_000cda90 @ 0x000cda90
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 struct Batch_cda90 {
     char pad00[8];
     unsigned int *pos;
@@ -73,9 +75,6 @@ struct Renderer_cda90 {
     void FUN_00293bf0(float a);
     void FUN_00293da0(float a, float b, float c);
 };
-extern Renderer_cda90 *DAT_0052c2ac;
-extern Vec3f DAT_004ddef4;
-extern float DAT_0049fd28;
 
 class Widget_cda90 {
 public:
@@ -185,10 +184,10 @@ void Obj_cda90::FUN_000cda90()
     f.g1 = (float)f.s2c.i * f.s1c.f;
     f.s2c.i = (int)f484 % D;
     f.s2c.f = (float)f.s2c.i * f.s1c.f;
-    DAT_0052c2ac->cam->Push(0);
-    DAT_0052c2ac->FUN_00293d00(&DAT_004ddef4);
-    DAT_0052c2ac->FUN_00293bf0(-1.5707964f);
-    DAT_0052c2ac->FUN_00293da0(DAT_0049fd28, DAT_0049fd28, DAT_0049fd28);
+    (*(Renderer_cda90**)&DAT_0052c2ac)->cam->Push(0);
+    (*(Renderer_cda90**)&DAT_0052c2ac)->FUN_00293d00(((Vec3f*)&DAT_004ddef4));
+    (*(Renderer_cda90**)&DAT_0052c2ac)->FUN_00293bf0(-1.5707964f);
+    (*(Renderer_cda90**)&DAT_0052c2ac)->FUN_00293da0((*(float*)&DAT_0049fd28), (*(float*)&DAT_0049fd28), (*(float*)&DAT_0049fd28));
     p250->Flush(0, 0);
     unsigned int alpha = (unsigned int)f494 << 24;
     unsigned int col1 = alpha | 0xff0000;
@@ -372,5 +371,5 @@ void Obj_cda90::FUN_000cda90()
         DAT_0052c2a8->End(b);
         edi = 0;
     }
-    DAT_0052c2ac->cam->Pop(edi);
+    (*(Renderer_cda90**)&DAT_0052c2ac)->cam->Pop(edi);
 }

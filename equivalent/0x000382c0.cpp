@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 15/15)
 // FUN_000382c0 @ 0x000382c0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 struct Vec3_382c0 {
     float x, y, z;
 };
@@ -27,10 +29,6 @@ struct Anchor_382c0 {
 };
 
 extern unsigned int DAT_004d9968;
-extern int DAT_004dc0e0;
-extern int DAT_004dc0e4;
-extern Bias DAT_0048f5d4;
-extern Bias DAT_0048f5e0;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 class Camera {
@@ -57,7 +55,7 @@ bool Camera::FUN_000382c0(Vec3_382c0 *out)
         __security_check_cookie(cookie);
         return false;
     }
-    if (f8 != DAT_004dc0e0 || fc != DAT_004dc0e4) {
+    if (f8 != (*(int*)&DAT_004dc0e0) || fc != (*(int*)((char*)&DAT_004dc0e0 + 4))) {
         if (!FUN_000352b0(out))
             *out = pos;
         __security_check_cookie(cookie);
@@ -68,13 +66,13 @@ bool Camera::FUN_000382c0(Vec3_382c0 *out)
     switch (mode) {
     case 1:
     case 2:
-        b = &DAT_0048f5d4;
+        b = ((Bias*)&DAT_0048f5d4);
         break;
     case 3:
         FUN_000352b0(out);
         break;
     case 4:
-        b = &DAT_0048f5e0;
+        b = ((Bias*)&DAT_0048f5e0);
         break;
     }
     if (b != 0) {

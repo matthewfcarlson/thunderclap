@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 42 inputs, branch coverage 18/18)
 // FUN_002a5290 @ 0x002a5290
+#include "decls/data/engine/pure3d.h"
+
 extern "C" double fmod(double x, double y);
 
-extern unsigned int DAT_0042d9c0[4];
 
 struct Vec3_2a5290 { float x, y, z; };
 struct Vec2_2a5290 { float x, y; };
@@ -42,7 +43,7 @@ void FUN_002a5290(float t, Track *a, Track *b, unsigned int flags, float *c)
             dstPos[n].z = srcPos[n].z + t * c[0] * c[4];
         }
         for (int i = 0; i < 4; i++) {
-            if ((DAT_0042d9c0[i] & flags) == 0)
+            if ((((unsigned int*)&DAT_0042d9c0)[i] & flags) == 0)
                 continue;
             if (srcUv[i] == 0)
                 continue;

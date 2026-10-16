@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 118 inputs, branch coverage 20/20)
 // FUN_000bcf40 @ 0x000bcf40
 #include "decls/address.h"
+#include "decls/data/game/unknown.h"
 class Input_bcf40 {
   public:
     char FUN_00099740();
@@ -19,7 +20,6 @@ class Widget_bcf40 {
 struct State_bcf40 {
     int id;
 };
-extern char DAT_004ddbe1;
 char __cdecl FUN_000c5ef0(int who, int a, int b, int c, int d, int e);
 char __cdecl FUN_000c5d60(int who, int a);
 
@@ -56,11 +56,11 @@ void Menu_bcf40::FUN_000bcf40(int who) {
         return;
     if (widget != 0 && widget->FUN_001b8b30())
         return;
-    if (DAT_004ddbe1) {
+    if ((*(char*)&DAT_004ddbe1)) {
         char r = FUN_000c5ef0(who, 2, 7, -1, -1, -1);
         if (r)
             return;
-        DAT_004ddbe1 = 0;
+        (*(char*)&DAT_004ddbe1) = 0;
         return;
     }
     if (FUN_000c5ef0(who, 2, 5, -1, -1, -1))

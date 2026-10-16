@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 29/30, incomplete)
 // FUN_001bcc30 @ 0x001bcc30
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct V3_1bcc30 {
     float x, y, z;
 };
@@ -81,13 +82,6 @@ struct Holder2_1bcc30 {
     Sub *sub10;
 };
 
-extern unsigned int DAT_004e22d0;
-extern __int64 DAT_004e22a0;
-extern __int64 DAT_004e22a8;
-extern __int64 DAT_004e22b0;
-extern __int64 DAT_004e22b8;
-extern __int64 DAT_004e22c0;
-extern __int64 DAT_004e22c8;
 
 Cursor_1bcc30 **FUN_001c3d90();
 // equiv-conv: FUN_001bc530 esi stack

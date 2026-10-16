@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 30/30)
 // Render::Object::vfunc_3 @ 0x001c5460
-extern unsigned char DAT_004c518c;
+#include "decls/data/game/Render.h"
 
 float __cdecl FUN_00018710(float *out, float *value);
 

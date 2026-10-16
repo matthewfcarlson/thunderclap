@@ -1,9 +1,9 @@
+#include "decls/data/engine/fight.h"
+
 void* __cdecl FUN_0008d690(unsigned);
 inline void* __cdecl operator new(unsigned, void* memory) {
     return memory;
 }
-extern int DAT_004e5c2c;
-extern unsigned DAT_004e5c28;
 void __cdecl FUN_002347b0(void*, void*, int);
 void FUN_00238850();
 void FUN_00238a80();

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 24/24)
 // FUN_000f3940 @ 0x000f3940
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 
 class Entity {
 public:
@@ -37,7 +38,6 @@ public:
     virtual void r2();
     virtual Entity *lookup(content::LoadInventory::DynamicCasterBase *caster, unsigned __int64 id);
 };
-extern Registry_f3940 *DAT_004dd9cc;
 
 class FEControl {
 public:
@@ -159,7 +159,7 @@ void FEThingsBase::FUN_000f3940(Token_f3940 *a0, Parser_f3940 *a1, FEControl *a2
     switch (a3->tag()) {
     case 0xcc74e7a7: {
         const char *nameA = a0->FUN_000fad90();
-        Registry_f3940 *reg = DAT_004dd9cc;
+        Registry_f3940 *reg = (*(Registry_f3940**)&DAT_004dd9cc);
         unsigned __int64 idA = FUN_0027b020(nameA);
         content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> casterA;
         Entity *e = reg->lookup(&casterA, idA);
@@ -169,7 +169,7 @@ void FEThingsBase::FUN_000f3940(Token_f3940 *a0, Parser_f3940 *a1, FEControl *a2
             win->drawableA->Release();
         win->drawableA = e;
         const char *nameB = a0->FUN_000fad90();
-        reg = DAT_004dd9cc;
+        reg = (*(Registry_f3940**)&DAT_004dd9cc);
         unsigned __int64 idB = FUN_0027b020(nameB);
         content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> casterB;
         e = reg->lookup(&casterB, idB);

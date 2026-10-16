@@ -1,15 +1,12 @@
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/unknown.h"
+
 inline void* __cdecl operator new(unsigned int, void* p) {
     return p;
 }
 extern void* __cdecl FUN_0008d690(unsigned int);
 extern void __cdecl FUN_00048040();
 extern void __cdecl FUN_00048050();
-extern unsigned int DAT_00427760;
-extern unsigned int DAT_003f5bb8;
-extern unsigned char DAT_00427758;
-extern unsigned char DAT_0048f57c;
-extern unsigned int DAT_004dc524;
-extern unsigned char DAT_004dc520;
 struct Base_53fe0 {
     virtual void slot0();
     char pad[12];
@@ -31,12 +28,12 @@ void __cdecl FUN_00053fe0() {
         Base_53fe0* items[2];
         void* p = FUN_0008d690(32);
         if (p) {
-            unsigned int count = DAT_00427760;
+            unsigned int count = (*(unsigned int*)&DAT_00427760);
             Base_53fe0* b = (Base_53fe0*)p;
             b->FUN_00234cc0("compare");
             fight::ParamEnumConstList<CMotionStateCondition>* q =
                 new (p) fight::ParamEnumConstList<CMotionStateCondition>;
-            q->values = &DAT_00427758;
+            q->values = ((unsigned char*)&DAT_00427758);
             q->count = count;
             q->callback = FUN_00048040;
             items[0] = q;
@@ -44,18 +41,18 @@ void __cdecl FUN_00053fe0() {
             items[0] = 0;
         p = FUN_0008d690(32);
         if (p) {
-            unsigned int count = DAT_003f5bb8;
+            unsigned int count = (*(unsigned int*)&DAT_003f5bb8);
             Base_53fe0* b = (Base_53fe0*)p;
             b->FUN_00234cc0("motionState");
             fight::ParamEnumConstList<CMotionStateCondition>* q =
                 new (p) fight::ParamEnumConstList<CMotionStateCondition>;
-            q->values = &DAT_0048f57c;
+            q->values = ((unsigned char*)&DAT_0048f57c);
             q->count = count;
             q->callback = FUN_00048050;
             items[1] = q;
         } else
             items[1] = 0;
-        FUN_002347b0(&DAT_004dc520, items, 2);
+        FUN_002347b0(((unsigned char*)&DAT_004dc520), items, 2);
     }
     ++DAT_004dc524;
 }

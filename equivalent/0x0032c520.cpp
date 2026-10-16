@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 152 inputs, branch coverage 24/24)
 // pure3d::d3dReflShader::vfunc_14 @ 0x0032c520
+#include "decls/data/platform/xbox/pure3d.h"
+
 namespace D3D8 {
 void __stdcall D3DDevice_SetRenderState_TextureFactor(unsigned int);
 void __stdcall D3DDevice_SetTextureState_TexCoordIndex(int stage, int value);
@@ -21,8 +23,6 @@ extern unsigned int DAT_0039dc50;
 extern unsigned int DAT_0039dc58;
 extern unsigned int DAT_0039dc5c;
 extern unsigned int DAT_0039de18;
-extern unsigned int DAT_004d4efc[];
-extern unsigned int DAT_004d4f24[];
 struct StageCache_32c520 {
     void FUN_00329e50(int a, int b, int c, int d);
     void FUN_00329c90(int stage, int value);
@@ -101,7 +101,7 @@ void ReflShader::vfunc_14(int) {
     }
     if (cache->modes[1] != 1) {
         cache->modes[1] = 1;
-        unsigned int t = DAT_004d4efc[1];
+        unsigned int t = ((unsigned int*)&DAT_004d4efc)[1];
         DAT_0039db08 |= 1u << 1;
         DAT_0039db10[1].v0 = t;
         DAT_0039db10[1].v4 = t;
@@ -141,7 +141,7 @@ void ReflShader::vfunc_14(int) {
     cache->FUN_0032a920(3, f80, f84, 0, 0);
     if (f4c != cache->f48) {
         cache->f48 = f4c;
-        unsigned int v = DAT_004d4f24[f4c];
+        unsigned int v = ((unsigned int*)&DAT_004d4f24)[f4c];
         D3D8::D3DDevice_SetRenderState_Simple(0x4037c, v);
         DAT_0039de18 = v;
     }

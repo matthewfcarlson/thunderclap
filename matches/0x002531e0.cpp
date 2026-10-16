@@ -1,4 +1,5 @@
-extern "C" char DAT_004e7038[];
+#include "decls/data/engine/audio.h"
+
 class SeqEvent {
   public:
     virtual void f0();
@@ -21,6 +22,6 @@ extern void FUN_00247550(void*, SeqEventVarPosDist*);
 SeqEventVarPosDist* SeqEventVarPosDist::f4(int flags) {
     Prep();
     if (flags & 1)
-        FUN_00247550((void*)((int)DAT_004e7038), this);
+        FUN_00247550((void*)((int)((char*)((char*)&DAT_004e6ff0 + 72))), this);
     return this;
 }

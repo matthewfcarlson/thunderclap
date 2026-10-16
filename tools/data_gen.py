@@ -98,13 +98,36 @@ class Model:
 
 
 def cname(it):
-    """A C identifier for the item (the inventory name when it is one)."""
+    """The C symbol of an item. Data items are `DAT_<addr>`, the name the sources already use (docs/data.md,
+    "Names in sources"): tools/equiv.py binds data symbols by that spelling (`flt_`, `tbl_`, `zero_`, ... it can't
+    bind), and a source that declares `DAT_<addr>` keeps its spelling when it moves onto the shared declaration.
+    The inventory name (`s_movies_0041dcac`) is the item's description, written next to the declaration.
+    Compiler-generated items (vftables, RTTI) keep a name from their kind; they are not emitted."""
+    if it["kind"] not in di.CODE_OWNED and it["kind"] not in ("padding", "kernel_thunks", "library_section"):
+        return "DAT_%08x" % it["addr"]
     n = it["name"]
     if IDENT.match(n):
         return n
     pre = {"vtable": "vtbl", "rtti_td": "rttiTD", "rtti_col": "rttiCOL", "rtti_chd": "rttiCHD",
            "rtti_bca": "rttiBCA", "rtti_bcd": "rttiBCD"}.get(it["kind"], "d")
     return "%s_%08x" % (pre, it["addr"])
+
+
+PINNED_H = os.path.join(ROOT, "include/decls/address.h")
+
+
+def pinned_vars():
+    """{name: (type, class)} of the variables include/decls/address.h pins (`extern World* DAT_004dd700;`). Their
+    data TU definition takes that declaration (C++ linkage, the pinned type) and include/decls/data/ leaves them
+    out: a source that includes both headers must see one declaration."""
+    out = {}
+    try:
+        text = open(PINNED_H, encoding="latin1").read()
+    except OSError:
+        return out
+    for m in re.finditer(r"^extern\s+(?:struct\s+|class\s+)?(\w+)\s*\*\s*(\w+)\s*;", text, re.M):
+        out[m.group(2)] = m.group(1)
+    return out
 
 
 # ---------------------------------------------------------------------------------------------
@@ -182,6 +205,7 @@ class TUWriter:
         self.structs = []
         self.decls = []          # (cname, declaration text without `extern "C"`)
         self.defs = []
+        self.pins = pinned_vars()
 
     def ptr_expr(self, v):
         if v == 0:
@@ -213,6 +237,8 @@ class TUWriter:
                 if v and it["addr"] + i in self.ptr_words and m.target(v) is not None:
                     ptr_at[i] = v
         if sec == ".bss":
+            if n in self.pins and size == 4:
+                return "%s* %s" % (self.pins[n], n), None, "pinned"
             st = scalar_type(it)
             if st and st[1] is None:
                 return "%s %s" % (st[0], n), None, "bss"
@@ -294,8 +320,12 @@ class TUWriter:
             if decl is None:
                 it["_skip"] = form
                 continue
-            self.decls.append((it["cname"], decl))
             tag = "// %08x %s %d B%s" % (it["addr"], it["kind"], it["size"], " " + it["type"] if it.get("type") else "")
+            if form == "pinned":
+                # include/decls/address.h's declaration (C++ linkage, the pinned type): the sources include it
+                body.append("struct %s;\n%s;  %s (include/decls/address.h)" % (decl.split("*")[0], decl, tag))
+                continue
+            self.decls.append((it["cname"], decl))
             if init is None:
                 body.append('extern "C" { %s; }  %s' % (decl, tag))
             else:
@@ -362,7 +392,9 @@ def write_decls(model, tus):
     for (layer, d), rows in sorted(by_hdr.items()):
         path = os.path.join(DECLS, layer, d + ".h")
         guard = "HULK_DECLS_DATA_" + re.sub(r"\W", "_", "%s_%s" % (layer, d)).upper() + "_H"
-        lines = [HEADER, "// Data items owned by %s/%s objects (docs/data.md). Address in each name." % (layer, d),
+        lines = [HEADER, "// Data items owned by %s/%s objects (docs/data.md). Each is declared under its address name, the" % (
+                     layer, d), "// symbol every source uses; the inventory name follows when it says more. Sources include this",
+                 "// header instead of declaring the names (tools/migrate_data.py).",
                  "#ifndef " + guard, "#define " + guard, ""]
         structs = set()
         for it, decl in rows:
@@ -376,7 +408,8 @@ def write_decls(model, tus):
             if it["object"] != cur:
                 cur = it["object"]
                 lines += ["", "// %s" % cur]
-            lines.append('extern "C" %s;' % decl)
+            note = "  // " + it["name"] if it["name"] != it["cname"] else ""
+            lines.append('extern "C" %s;%s' % (decl, note))
         lines += ["", "#endif", ""]
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w") as f:
@@ -435,6 +468,8 @@ def verify_tu(model, path, items, obj, err):
             out.append(r)
             continue
         s = syms.get("_" + it["cname"])
+        if s is None and it.get("_form") == "pinned":
+            s = next((x for nm, x in syms.items() if nm.startswith("?%s@@" % it["cname"])), None)
         if s is None:
             r.update(status="no_symbol")
             out.append(r)
@@ -579,11 +614,24 @@ if __name__ == "__main__":
 ADDR_NAME = re.compile(r"DAT_([0-9a-fA-F]{8})")
 
 
-def link_check(objects, model=None, defined=None):
+def defined_symbols(objs):
+    """External symbols the data TU objects define (exact names, C and C++)."""
+    out = set()
+    for obj in objs:
+        if not obj or not os.path.exists(obj):
+            continue
+        for name, value, secnum, typ, cls in compare.Coff(obj).symbols:
+            if cls == 2 and (secnum > 0 or (secnum == 0 and value > 0)):
+                out.add(name)
+    return out
+
+
+def link_check(objects, model=None, defined=None, defined_syms=None):
     """How the tree objects' references to address-named data (`DAT_xxxxxxxx`) would resolve against the data TUs.
 
     objects: {tu path: obj path}. defined: {C name: item} the data TUs define (default: every emitted item).
-    Per reference (object, symbol): `by_name` (the data TUs define this exact C symbol), `by_address` (the address
+    Per reference (object, symbol): `by_name` (the data TUs define this exact symbol: `defined_syms` when given, else
+    the C name of every emitted item), `by_address` (the address
     is an emitted item or inside one: resolves once the source uses the item's name), `code_owned` (vtable/RTTI),
     `library`, `not_in_inventory`; plus `cxx_linkage` (a C++-mangled DAT_ name: the declaration must become
     extern "C" or the item's declaration) and `also_defined_in_tree` (a source defines the global itself)."""
@@ -592,6 +640,7 @@ def link_check(objects, model=None, defined=None):
         defined = {it["cname"]: it for it in model.items if model.emitted(it)}
     st = collections.Counter()
     refs = collections.Counter()
+    pins = pinned_vars()
     examples = {}
     tree_defs = collections.defaultdict(set)
     for tu, obj in objects.items():
@@ -617,7 +666,7 @@ def link_check(objects, model=None, defined=None):
                 refs["cxx_linkage"] += 1
             it = model.item_at(a)
             plain = name[1:] if name.startswith("_") else name
-            if not cxx and plain in defined:
+            if (name in defined_syms) if defined_syms is not None else (not cxx and plain in defined):
                 k = "by_name"
             elif it is None:
                 k = "not_in_inventory"
@@ -630,6 +679,8 @@ def link_check(objects, model=None, defined=None):
             else:
                 k = "not_emitted"
             refs[k] += 1
+            if k != "by_name" and "DAT_%08x" % a in pins:
+                refs["of_those_pinned_names"] += 1       # include/decls/address.h names (C++ linkage)
             examples.setdefault(k, "%s in %s" % (name, tu))
     both = {a for a in tree_defs if model.item_at(a) is not None and model.emitted(model.item_at(a))}
     return {"references": dict(refs), "examples": examples,

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 52/52)
 // hulkfight::motion::SurfAction::vfunc_5 @ 0x00176770
 #include "decls/address.h"
+#include "decls/data/game/hulkfight/motion.h"
 extern "C" double cos(double);
 extern "C" double fabs(double);
 
@@ -70,11 +71,6 @@ struct World {
     Lim *p24;
 };
 
-extern float DAT_004b7d18;
-extern float DAT_004b7d1c;
-extern float DAT_004b7d20;
-extern float DAT_004e13f8;
-extern unsigned int DAT_004e13fc;
 
 float __cdecl FUN_00224f10(V3_176770 *v);
 float __cdecl FUN_00224fc0(float a, float b);
@@ -141,9 +137,9 @@ bool SurfAction::v5(int a0, float dt)
 
     f.u64.X = p20->FUN_000592a0();
     YObj_176770 *Y = f.u64.X->FUN_00059a30();
-    f.g.x = DAT_004b7d18;
-    f.g.y = DAT_004b7d1c;
-    f.g.z = DAT_004b7d20;
+    f.g.x = (*(float*)&DAT_004b7d18);
+    f.g.y = (*(float*)&DAT_004b7d1c);
+    f.g.z = (*(float*)&DAT_004b7d20);
     Y->FUN_00035550(&f.g);
     f.u.x = Y->v2064.x;
     f.u.y = Y->v2064.y;
@@ -189,9 +185,9 @@ bool SurfAction::v5(int a0, float dt)
     double n2c = adj * dt + f2c;
     f2c = (float)n2c;
     f.ang = (float)(n2c * dt + f.ang);
-    f.w.x = DAT_004b7d18;
-    f.w.y = DAT_004b7d1c;
-    f.w.z = DAT_004b7d20;
+    f.w.x = (*(float*)&DAT_004b7d18);
+    f.w.y = (*(float*)&DAT_004b7d1c);
+    f.w.z = (*(float*)&DAT_004b7d20);
     FUN_00224d70(f.ang, &f.w);
     f.t0 = (float)(f.w.z * f.u.z + f.w.y * f.u.y + f.w.x * f.u.x);
     f.t0 = (float)fabs(f.t0);
@@ -237,9 +233,9 @@ bool SurfAction::v5(int a0, float dt)
     f.n.y = 0.0f;
     f.n.z = 0.0f;
     f.u64.X->FUN_00059a50(&f.n);
-    f.k.x = DAT_004b7d18;
-    f.k.y = DAT_004b7d1c;
-    f.k.z = DAT_004b7d20;
+    f.k.x = (*(float*)&DAT_004b7d18);
+    f.k.y = (*(float*)&DAT_004b7d1c);
+    f.k.z = (*(float*)&DAT_004b7d20);
     FUN_00224d70(f.ang, &f.k);
     double s = dt * f34;
     f.h.x = f.n.x;

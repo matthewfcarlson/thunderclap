@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 23/24, incomplete)
 // FUN_00084610 @ 0x00084610
 #include "decls/address.h"
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
 struct Vec3_84610 {
     float x, y, z;
     void FUN_0022d180();
@@ -36,10 +38,6 @@ struct World {
     Cursor_84610 *cursor;         // 0x4c
 };
 
-extern int DAT_004d2a3c;
-extern char DAT_004d2a40;
-extern char DAT_00554c1c;
-extern float DAT_00554c18;
 
 Hit_84610 *FUN_00202f00();
 
@@ -73,9 +71,9 @@ void Pointer::FUN_00084610(float dt)
         DAT_004dd700->tracker->FUN_001dd840(handle, 0);
         Hit_84610 *h = FUN_00202f00();
         DAT_004d2a3c = 2;
-        DAT_004d2a40 = 0;
-        DAT_00554c1c = 1;
-        DAT_00554c18 = 0.35f;
+        (*(char*)&DAT_004d2a40) = 0;
+        (*(char*)&DAT_00554c1c) = 1;
+        (*(float*)&DAT_00554c18) = 0.35f;
         dir.FUN_0022d180();
         fr.hit.z = dir.z * 15.0f;
         fr.from.x = pos.x;

@@ -2,6 +2,7 @@
 // FUN_0002b970 @ 0x0002b970
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
+#include "decls/data/game/unknown.h"
 extern "C" int memcmp(const void *a, const void *b, unsigned int n);
 extern "C" int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 int FUN_00266da0(int mode);
@@ -9,10 +10,6 @@ void *thunk_FUN_0008d690(unsigned int size);
 void *FUN_0008d690(unsigned int size);
 char FUN_00202560(void *from, float a2, int flag, void *a3, void *a4, void *o38, void *o48, void *opts);
 
-extern char DAT_004dc038;
-extern unsigned int DAT_004dc0e0;
-extern unsigned int DAT_004dc0e4;
-extern unsigned char DAT_004dc288;
 
 struct V3_2b970 {
     float x, y, z;
@@ -169,7 +166,7 @@ char Spawner_2b970::F(const char *defName, V3_2b970 pos, float angle, const char
                 const char *name9, char arg10)
 {
     int old = FUN_00266da0(0xc);
-    if (DAT_004dc038) {
+    if ((*(char*)&DAT_004dc038)) {
         FUN_00266da0(old);
         return 0;
     }
@@ -238,7 +235,7 @@ char Spawner_2b970::F(const char *defName, V3_2b970 pos, float angle, const char
     if (ch->p128 == 0) {
         Ent_2b970 *ent = ch->p1ca0;
         unsigned __int64 did = def->FUN_000443c0();
-        bool skipAll = (unsigned int)did == DAT_004dc0e0 && (unsigned int)(did >> 32) == DAT_004dc0e4;
+        bool skipAll = (unsigned int)did == (*(unsigned int*)&DAT_004dc0e0) && (unsigned int)(did >> 32) == (*(unsigned int*)((char*)&DAT_004dc0e0 + 4));
         if (!skipAll) {
             if (!def->b37c) {
                 if (def->b38c)
@@ -270,7 +267,7 @@ char Spawner_2b970::F(const char *defName, V3_2b970 pos, float angle, const char
             if (memcmp(anim, "none", 5) != 0) {
                 c->FUN_00103b60(p0, anim, 0);
                 if (ch->p11c->f14 == 5)
-                    c->FUN_001034b0(DAT_004dc288);
+                    c->FUN_001034b0((*(unsigned char*)&DAT_004dc288));
                 else
                     c->FUN_001034b0(1);
             }

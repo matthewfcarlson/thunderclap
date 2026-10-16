@@ -1,4 +1,5 @@
-extern "C" char DAT_004e7808[];
+#include "decls/data/engine/audio.h"
+
 namespace audio {
 struct OmHalStream {
     void** vf;

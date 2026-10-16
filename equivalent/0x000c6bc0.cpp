@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000c6bc0 @ 0x000c6bc0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
 namespace content {
@@ -45,11 +46,10 @@ struct Loader_c6bc0 {
     virtual void v2();
     virtual Resource_c6bc0 *v3(content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> *caster, unsigned __int64 key);
 };
-extern Loader_c6bc0 *DAT_004dd9cc;
 
 void FUN_000c6bc0(const char *name, const char *sub, int value)
 {
-    Loader_c6bc0 *loader = DAT_004dd9cc;
+    Loader_c6bc0 *loader = (*(Loader_c6bc0**)&DAT_004dd9cc);
     content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> caster;
     Resource_c6bc0 *res = loader->v3(&caster, FUN_002672f0(name, 0, 0));
     if (res) {

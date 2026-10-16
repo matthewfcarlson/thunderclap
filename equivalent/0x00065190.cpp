@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 26/26)
 // FUN_00065190 @ 0x00065190
+#include "decls/data/game/global.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -129,8 +131,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc620;
-extern int DAT_004dc624;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_00065190()
@@ -186,7 +186,7 @@ void FUN_00065190()
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamName<CSmartPropAttachTrack>("state", &CSmartPropAttachTrack::FUN_00012720);
-        FUN_002347b0(&DAT_004dc620, params, 12);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc620), params, 12);
     }
     DAT_004dc624++;
 }

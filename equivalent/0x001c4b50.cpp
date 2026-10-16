@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 113 inputs, branch coverage 38/38)
 // FUN_001c4b50 @ 0x001c4b50
+#include "decls/data/game/Render.h"
+
 struct V3_1c4b50 {
     float x, y, z;
 };
@@ -63,7 +65,6 @@ public:
 
 unsigned __int64 __cdecl FUN_0027b020(const char *name) throw();
 unsigned __int64 __cdecl FUN_002672f0(const char *name, int a, int b);
-extern const char *DAT_004c5188;
 
 class Locator {
 public:
@@ -103,7 +104,7 @@ void Locator::FUN_001c4b50(Out_1c4b50 *out)
         }
     }
     Mgr_1c4b50 *m = mgr;
-    unsigned __int64 id = FUN_002672f0(DAT_004c5188, 0, 0);
+    unsigned __int64 id = FUN_002672f0((*(const char**)&DAT_004c5188), 0, 0);
     unsigned int idx = m->FUN_002843a0((int)id, (int)(id >> 32));
     if (idx != 0xffff && !match) {
         Mat_1c4b50 *e = &mgr->elems[idx];

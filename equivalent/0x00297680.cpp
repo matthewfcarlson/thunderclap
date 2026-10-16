@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3109 inputs, branch coverage 49/51, incomplete)
 // FUN_00297680 @ 0x00297680
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/data/engine/content.h"
+
 void *thunk_FUN_0008d690(unsigned int size);
 
 struct Name_297680 {
@@ -131,7 +133,6 @@ struct HolderName_297680 {
 struct Registry_297680 {
     ObjectLoader *FUN_00265310(int id);
 };
-extern Registry_297680 *DAT_00527c58;
 
 DrawableHierarchy *FUN_000c0de0(void *ctx, char *name);
 
@@ -198,7 +199,7 @@ Node *SceneLoader_297680::FUN_00297680(Stream *s, void *ctx)
                 b->AddChild(FUN_00297680(s, ctx));
             } else {
                 FrameControllerLoader *fl =
-                    dynamic_cast<FrameControllerLoader *>(DAT_00527c58->FUN_00265310(0x121201));
+                    dynamic_cast<FrameControllerLoader *>((*(Registry_297680**)&DAT_00527c58)->FUN_00265310(0x121201));
                 fl->v0();
                 f.fc = 0;
                 fl->v5(&f.fc, &f.id, s, ctx);
@@ -235,7 +236,7 @@ Node *SceneLoader_297680::FUN_00297680(Stream *s, void *ctx)
                 c->AddChild(FUN_00297680(s, ctx));
             } else {
                 FrameControllerLoader *fl =
-                    dynamic_cast<FrameControllerLoader *>(DAT_00527c58->FUN_00265310(0x121201));
+                    dynamic_cast<FrameControllerLoader *>((*(Registry_297680**)&DAT_00527c58)->FUN_00265310(0x121201));
                 fl->v0();
                 f.fc = 0;
                 fl->v5(&f.fc, &f.id, s, ctx);

@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00087a90 @ 0x00087a90
 #include "decls/address.h"
+#include "decls/data/game/unknown.h"
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
-extern "C" const char DAT_0048e128[];
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
 class __declspec(novtable) MethodBase_87a90 {
@@ -21,7 +21,7 @@ class Function0 : public MethodBase_87a90 {
     typedef R (*Fn)();
     Function0(const char* name, Fn f) : MethodBase_87a90(name, 0) {
         fn = f;
-        enabled = FUN_001d04d0(DAT_0048e128);
+        enabled = FUN_001d04d0(((const char*)&DAT_0048e128));
     }
     Fn fn;
 };

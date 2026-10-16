@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_001ebe10 @ 0x001ebe10
+#include "decls/data/game/global.h"
+
 struct StringList_1ebe10 {
     char data[0x48];
     void FUN_001ef320();
@@ -39,7 +41,6 @@ public:
     void Emit(Source_1ebe10 *source, const void *where, int name);
 };
 
-extern EventConfig_1ebe10 *DAT_004e36d8;
 
 void Emitter_1ebe10::Emit(Source_1ebe10 *source, const void *where, int name)
 {
@@ -50,7 +51,7 @@ void Emitter_1ebe10::Emit(Source_1ebe10 *source, const void *where, int name)
     path.FUN_001ef370("Objects");
     path.FUN_001ef370("Props");
     path.FUN_001ef390(owner->registry->FUN_00079530(source->key));
-    if (DAT_004e36d8->enabled)
-        DAT_004e36d8->sink->FUN_001efe20(&path, where, name, 100.0f);
+    if ((*(EventConfig_1ebe10**)&DAT_004e36d8)->enabled)
+        (*(EventConfig_1ebe10**)&DAT_004e36d8)->sink->FUN_001efe20(&path, where, name, 100.0f);
     path.FUN_001ef350();
 }

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 233 inputs, branch coverage 12/12)
 // fight::ParamValueInventoryEntity::vfunc_9 @ 0x00235760
+#include "decls/data/engine/fight.h"
+
 struct Item;
 struct Entity;
 
@@ -17,7 +19,6 @@ struct Iter_235760 {
     Item *FUN_002314c0();
 };
 
-extern Registry_235760 *DAT_004e5bb8;
 
 namespace fight {
 class ParamValueInventoryEntity {
@@ -34,7 +35,7 @@ int ParamValueInventoryEntity::vfunc_9(Entity *owner, Item *wanted)
 {
     if (wanted == 0)
         return 0;
-    Registry_235760 *reg = DAT_004e5bb8;
+    Registry_235760 *reg = (*(Registry_235760**)&DAT_004e5bb8);
     if (reg == 0)
         return 0;
 

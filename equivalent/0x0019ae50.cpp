@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1269 inputs, branch coverage 32/32)
 // hulkfight::motion::FireProjectileAction::vfunc_5 @ 0x0019ae50
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
@@ -38,7 +39,6 @@ struct World {
 struct Allocator {
     void *FUN_0008fe90(unsigned int size);
 };
-extern Allocator DAT_004e2210;
 
 struct Cfg_19ae50 {
     char pad0[0x2c];
@@ -206,7 +206,7 @@ bool FireProjectileAction::vfunc_5(int a1, Slot_19ae50 a2)
         int id = cfg->f7c;
         int slot = f.pool->FUN_001b6b00(id, &f.a);
         if (slot >= 0) {
-            void *mem = DAT_004e2210.FUN_0008fe90(0x50);
+            void *mem = (*(Allocator*)&DAT_004e2210).FUN_0008fe90(0x50);
             Projectile_19ae50 *proj;
             if (mem)
                 proj = ((Projectile_19ae50 *)mem)->FUN_00195a90(cfg);

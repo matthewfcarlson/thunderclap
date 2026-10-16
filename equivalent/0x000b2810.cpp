@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 102/102)
 // FUN_000b2810 @ 0x000b2810
-extern char DAT_0049caae;
+#include "decls/data/game/unknown.h"
+
 extern "C" char *__cdecl FUN_00267830(char *dst, const char *src, int n);
 
 struct Arr_b2810 {
@@ -198,7 +199,7 @@ void Pad_b2810::FUN_000b2810()
     if (!(a230.cap > 0))
         a230.FUN_000b1020(1);
     FUN_00267830(a230.data, "LeftStickX", 0x20);
-    if (!DAT_0049caae) {
+    if (!(*(char*)&DAT_0049caae)) {
         if (!(a238.cap > 0))
             a238.FUN_000b1020(1);
         FUN_00267830(a238.data, "DPadRight", 0x20);
@@ -209,7 +210,7 @@ void Pad_b2810::FUN_000b2810()
     if (!(a248.cap > 0))
         a248.FUN_000b1020(1);
     FUN_00267830(a248.data, "LeftStickY", 0x20);
-    if (!DAT_0049caae) {
+    if (!(*(char*)&DAT_0049caae)) {
         if (!(a250.cap > 0))
             a250.FUN_000b1020(1);
         FUN_00267830(a250.data, "DPadUp", 0x20);

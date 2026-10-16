@@ -1,17 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3096 inputs, branch coverage 95/100, incomplete)
 // FUN_000a38c0 @ 0x000a38c0
-extern float DAT_0049ec44;
-extern float DAT_0049ec48;
-extern float DAT_0049ec54;
-extern float DAT_0049ec5c;
-extern float DAT_0049ec60;
-extern float DAT_0049ec74;
-extern float DAT_0049ec7c;
-extern float DAT_0049ec80;
-extern float DAT_0049ec90;
-extern float DAT_0049ec94;
-extern float DAT_0049ec98;
-extern float DAT_0049ecd8;
+#include "decls/data/game/global.h"
 
 extern "C" double __cdecl sqrt(double);
 
@@ -273,7 +262,7 @@ void Cam_a38c0::Update(float unused, float dt)
     f.angC = FUN_000189c0(dt) * 57.2957764f;
 
     if (!in32c.FUN_000a2370(dt0, &f.outA, &f.outB, (char *)&dt) && !(f488 > 0.0f)) {
-        f3bc = FUN_000a05b0(f3bc, f.yaw, DAT_0049ec44, dt0, 5.0f);
+        f3bc = FUN_000a05b0(f3bc, f.yaw, (*(float*)&DAT_0049ec44), dt0, 5.0f);
         if (f.pitch < f.angC)
             f.pitch = f.angC;
         if (f.pitch > f.angB) {
@@ -283,7 +272,7 @@ void Cam_a38c0::Update(float unused, float dt)
             f.pitch = f.angA;
             b346 = 1;
         }
-        f3c0 = FUN_000a00e0(f3c0, f.pitch, DAT_0049ec48, dt0, 5.0f);
+        f3c0 = FUN_000a00e0(f3c0, f.pitch, (*(float*)&DAT_0049ec48), dt0, 5.0f);
         f3c4 = FUN_000a00e0(f3c4, f.len, DAT_0049ec54, dt0, 1.5f);
     } else {
         f3bc = f.outA + f3bc;
@@ -310,7 +299,7 @@ void Cam_a38c0::Update(float unused, float dt)
         f478 = f3bc;
         f480 = f3c4;
         if (*(char *)&dt)
-            f488 = DAT_0049ec98;
+            f488 = (*(float*)&DAT_0049ec98);
     }
 
     f484 = f448;
@@ -319,7 +308,7 @@ void Cam_a38c0::Update(float unused, float dt)
     p194.y = r->y + p1c4.y;
     f.o.z = r->z + p1c4.z;
     p194.z = f.o.z;
-    FUN_000a0940(DAT_0049ec80);
+    FUN_000a0940((*(float*)&DAT_0049ec80));
 
     if (state == 0) {
         float t = f3e0 - p1e8.y;

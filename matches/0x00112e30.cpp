@@ -1,3 +1,5 @@
+#include "decls/data/game/hulkfight/ai.h"
+
 inline void* __cdecl operator new(unsigned int, void* p) {
     return p;
 }
@@ -26,8 +28,6 @@ template <class T> struct ParamBool : ParamBase_112e30 {
     virtual void v0();
 };
 } // namespace fight
-extern int DAT_004e0b9c;
-extern int DAT_004e0b98;
 void __cdecl FUN_002347b0(int*, fight::ParamBase_112e30**, int);
 void __cdecl FUN_00112e30() {
     if (!DAT_004e0b9c) {

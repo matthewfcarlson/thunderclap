@@ -1,26 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3059 inputs, branch coverage 195/256, incomplete)
 // CRangedAgent::vfunc_4 @ 0x00107c90
 // mechanical lift of 0x00107c90 (work/big3/lift.py): frame array S[], register variables, gotos
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
+
 #define PF8(x) (!((0x6996 >> ((((x) >> 4) ^ (x)) & 15)) & 1))
 #define FSW(a, b) ((((a) != (a)) || ((b) != (b))) ? 0x4500 : (((a) > (b)) ? 0 : (((a) < (b)) ? 0x100 : 0x4000)))
 extern "C" double sqrt(double);
 struct R64 { unsigned lo; unsigned hi; };
 struct Agent { void FUN_00107c90(void* a1, float a2, int a3); };
-extern unsigned DAT_004a1e38;
-extern unsigned DAT_004a1e4c;
-extern unsigned DAT_004a1e50;
-extern unsigned DAT_004a1e54;
-extern unsigned DAT_004d2a3c;
-extern unsigned DAT_004dd6e8;
 extern unsigned DAT_004dd700;
-extern unsigned DAT_004e0aac;
-extern unsigned DAT_004e0ab0;
-extern unsigned DAT_004e0ab8;
-extern unsigned DAT_004e0abc;
-extern unsigned DAT_004e0ac0;
-extern unsigned DAT_00554c14;
-extern unsigned DAT_00554c18;
-extern unsigned DAT_00554c1c;
 struct O {
     void FUN_000111b0(unsigned, unsigned);
     double FUN_000111f0();
@@ -783,20 +772,20 @@ L_03d2:
   /*03e6 mov byte ptr [esp + 0x37], al*/
     *(unsigned char*)((char*)S + 103) = (eax & 0xff);
   /*03ea mov al, byte ptr [0x4e0ac0]*/
-    eax = (eax & ~(0xffu << 0)) | (((unsigned)((*(unsigned char*)((char*)&DAT_004e0ac0))) & 0xff) << 0);
+    eax = (eax & ~(0xffu << 0)) | (((unsigned)((*(unsigned char*)((char*)&(*(unsigned*)&DAT_004e0ac0)))) & 0xff) << 0);
   /*03ef sete byte ptr [esp + 0x23]*/
     *(unsigned char*)((char*)S + 83) = ((unsigned)((*(unsigned*)((char*)(ebp + 20)))) == (unsigned)(5u)) ? 1 : 0;
   /*03f4 test al, 1*/
   /*03f6 jne 041d*/
     if ((unsigned char)(((eax & 0xff) & 1u)) != 0) goto L_041d;
   /*03f8 mov eax, dword ptr [0x4e0ac0]*/
-    eax = DAT_004e0ac0;
+    eax = (*(unsigned*)&DAT_004e0ac0);
   /*03fd or eax, 1*/
     eax = (unsigned)(eax | 1u);
   /*0400 push 0x3f3fa0*/
     *(unsigned*)((char*)S + 44) = 4145056u;
   /*0405 mov dword ptr [0x4e0ac0], eax*/
-    DAT_004e0ac0 = eax;
+    (*(unsigned*)&DAT_004e0ac0) = eax;
   /*040a call FUN_0027b020*/
     { unsigned __int64 r64 = FUN_0027b020(*(unsigned*)((char*)S + 44)); eax = (unsigned)r64; edx = (unsigned)(r64 >> 32); }
   /*040f add esp, 4*/
@@ -959,7 +948,7 @@ L_04d2:
   /*0572 call FUN_0022d110*/
     fretv = ((O*)ecx)->FUN_0022d110();
   /*0577 mov ecx, dword ptr [0x4e0ab0]*/
-    ecx = DAT_004e0ab0;
+    ecx = (*(unsigned*)&DAT_004e0ab0);
   /*057d fstp st(0)*/
   /*057f test ecx, ecx*/
   /*0581 je 05c5*/
@@ -971,7 +960,7 @@ L_04d2:
   /*0589 push eax*/
     *(unsigned*)((char*)S + 40) = eax;
   /*058a mov eax, dword ptr [0x4a1e54]*/
-    eax = DAT_004a1e54;
+    eax = (*(unsigned*)&DAT_004a1e54);
   /*058f push eax*/
     *(unsigned*)((char*)S + 36) = eax;
   /*0590 lea ecx, [esp + 0x70]*/
@@ -979,11 +968,11 @@ L_04d2:
   /*0594 push ecx*/
     *(unsigned*)((char*)S + 32) = ecx;
   /*0595 mov ecx, dword ptr [0x4dd6e8]*/
-    ecx = DAT_004dd6e8;
+    ecx = (*(unsigned*)&DAT_004dd6e8);
   /*059b call FUN_0023f820*/
     ((O*)ecx)->FUN_0023f820(*(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*05a0 mov edx, dword ptr [0x4e0ab0]*/
-    edx = DAT_004e0ab0;
+    edx = (*(unsigned*)&DAT_004e0ab0);
   /*05a6 push edx*/
     *(unsigned*)((char*)S + 44) = edx;
   /*05a7 mov eax, 0xffff0000*/
@@ -999,7 +988,7 @@ L_04d2:
   /*05b9 push ecx*/
     *(unsigned*)((char*)S + 32) = ecx;
   /*05ba mov ecx, dword ptr [0x4dd6e8]*/
-    ecx = DAT_004dd6e8;
+    ecx = (*(unsigned*)&DAT_004dd6e8);
   /*05c0 call FUN_0023f7b0*/
     eax = (unsigned)((O*)ecx)->FUN_0023f7b0(*(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
 L_05c5:
@@ -1030,7 +1019,7 @@ L_05c5:
   /*0600 mov dword ptr [esp + 0x38], 0*/
     *(unsigned*)((char*)S + 104) = 0u;
   /*0608 fcomp dword ptr [0x4a1e50]*/
-    fl40 = *(float*)&DAT_004a1e50;
+    fl40 = *(float*)&(*(unsigned*)&DAT_004a1e50);
   /*060e fnstsw ax*/
     eax = (eax & 0xffff0000u) | ((unsigned)(FSW(fl39, fl40)) & 0xffff);
   /*0610 test ah, 0x41*/
@@ -1039,7 +1028,7 @@ L_05c5:
   /*0615 fld dword ptr [esp + 0x30]*/
     fl41 = *(float*)((char*)S + 96);
   /*0619 fcomp dword ptr [0x4a1e4c]*/
-    fl42 = *(float*)&DAT_004a1e4c;
+    fl42 = *(float*)&(*(unsigned*)&DAT_004a1e4c);
   /*061f fnstsw ax*/
     eax = (eax & 0xffff0000u) | ((unsigned)(FSW(fl41, fl42)) & 0xffff);
   /*0621 test ah, 1*/
@@ -1523,7 +1512,7 @@ L_0a03:
   /*0a16 push 0*/
     *(unsigned*)((char*)S + 44) = 0u;
   /*0a18 mov dword ptr [0x554c18], ecx*/
-    DAT_00554c18 = ecx;
+    (*(unsigned*)&DAT_00554c18) = ecx;
   /*0a1e fstp dword ptr [esp + 0x9c]*/
     *(float*)((char*)S + 200) = (float)(((fl63) + (fl64)));
   /*0a25 lea edx, [esp + 0x9c]*/
@@ -1539,7 +1528,7 @@ L_0a03:
   /*0a3f push ecx*/
     *(unsigned*)((char*)S + 36) = ecx;
   /*0a40 mov ecx, dword ptr [0x554c14]*/
-    ecx = DAT_00554c14;
+    ecx = (*(unsigned*)&DAT_00554c14);
   /*0a46 fstp dword ptr [esp + 0xa8]*/
     *(float*)((char*)S + 204) = (float)(((fl65) + (fl66)));
   /*0a4d push eax*/
@@ -1547,11 +1536,11 @@ L_0a03:
   /*0a4e fld dword ptr [esp + 0x94]*/
     fl67 = *(float*)((char*)S + 180);
   /*0a55 mov dword ptr [0x4d2a3c], 2*/
-    DAT_004d2a3c = 2u;
+    (*(unsigned*)&DAT_004d2a3c) = 2u;
   /*0a5f fadd dword ptr [esp + 0x58]*/
     fl68 = *(float*)((char*)S + 120);
   /*0a63 mov byte ptr [0x554c1c], 0*/
-    *(unsigned char*)&DAT_00554c1c = 0u;
+    *(unsigned char*)&(*(unsigned*)&DAT_00554c1c) = 0u;
   /*0a6a fstp dword ptr [esp + 0xb0]*/
     *(float*)((char*)S + 208) = (float)(((fl67) + (fl68)));
   /*0a71 call FUN_002ee140*/
@@ -2484,7 +2473,7 @@ L_122c:
   /*1272 fld dword ptr [esp + 0x88]*/
     fl113 = *(float*)((char*)S + 184);
   /*1279 mov ecx, dword ptr [0x4a1e38]*/
-    ecx = DAT_004a1e38;
+    ecx = (*(unsigned*)&DAT_004a1e38);
   /*127f fadd st(0), st(0)*/
   /*1281 lea eax, [esp + 0x70]*/
     eax = (unsigned)((char*)S + 160);
@@ -2515,7 +2504,7 @@ L_122c:
   /*12bb fld dword ptr [0x3f32dc]*/
   /*12c1 add esp, 0xc*/
   /*12c4 fsub dword ptr [0x4a1e38]*/
-    fl116 = *(float*)&DAT_004a1e38;
+    fl116 = *(float*)&(*(unsigned*)&DAT_004a1e38);
   /*12ca push eax*/
     *(unsigned*)((char*)S + 44) = eax;
   /*12cb lea eax, [esp + 0x114]*/
@@ -2988,7 +2977,7 @@ L_1691:
     *(unsigned*)((char*)(esi + 172)) = ebp;
 L_1697:
   /*1697 mov edx, dword ptr [0x4a1e38]*/
-    edx = DAT_004a1e38;
+    edx = (*(unsigned*)&DAT_004a1e38);
   /*169d lea ecx, [esp + 0x70]*/
     ecx = (unsigned)((char*)S + 160);
   /*16a1 push ecx*/
@@ -3005,7 +2994,7 @@ L_1697:
     eax = (unsigned)FUN_00083dd0(*(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*16b3 fld dword ptr [0x3f32dc]*/
   /*16b9 fsub dword ptr [0x4a1e38]*/
-    fl145 = *(float*)&DAT_004a1e38;
+    fl145 = *(float*)&(*(unsigned*)&DAT_004a1e38);
   /*16bf add esp, 0xc*/
   /*16c2 push eax*/
     *(unsigned*)((char*)S + 44) = eax;
@@ -3300,7 +3289,7 @@ L_18c7:
   /*194e call dword ptr [eax + 0xc]*/
     ((VC8*)vo_eax)->vcall(*(unsigned*)((char*)S + 28), *(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*1951 mov ecx, dword ptr [0x4a1e38]*/
-    ecx = DAT_004a1e38;
+    ecx = (*(unsigned*)&DAT_004a1e38);
   /*1957 lea eax, [esp + 0x70]*/
     eax = (unsigned)((char*)S + 160);
   /*195b push eax*/
@@ -3317,7 +3306,7 @@ L_18c7:
     eax = (unsigned)FUN_00083dd0(*(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*196d fld dword ptr [0x3f32dc]*/
   /*1973 fsub dword ptr [0x4a1e38]*/
-    fl183 = *(float*)&DAT_004a1e38;
+    fl183 = *(float*)&(*(unsigned*)&DAT_004a1e38);
   /*1979 add esp, 0xc*/
   /*197c push eax*/
     *(unsigned*)((char*)S + 44) = eax;
@@ -3512,7 +3501,7 @@ L_1a51:
   /*1b1d call dword ptr [edx + 0xc]*/
     ((VC9*)vo_edx)->vcall(*(unsigned*)((char*)S + 28), *(unsigned*)((char*)S + 32), *(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*1b20 mov edx, dword ptr [0x4a1e38]*/
-    edx = DAT_004a1e38;
+    edx = (*(unsigned*)&DAT_004a1e38);
   /*1b26 lea ecx, [esp + 0x70]*/
     ecx = (unsigned)((char*)S + 160);
   /*1b2a push ecx*/
@@ -3529,7 +3518,7 @@ L_1a51:
     eax = (unsigned)FUN_00083dd0(*(unsigned*)((char*)S + 36), *(unsigned*)((char*)S + 40), *(unsigned*)((char*)S + 44));
   /*1b3c fld dword ptr [0x3f32dc]*/
   /*1b42 fsub dword ptr [0x4a1e38]*/
-    fl194 = *(float*)&DAT_004a1e38;
+    fl194 = *(float*)&(*(unsigned*)&DAT_004a1e38);
   /*1b48 add esp, 0xc*/
   /*1b4b push eax*/
     *(unsigned*)((char*)S + 44) = eax;

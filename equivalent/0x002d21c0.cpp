@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 9/10, incomplete)
 // pure3d::ParticlePointGenerator::vfunc_6 @ 0x002d21c0
+#include "decls/data/engine/pure3d.h"
+
 struct Vec3_2d21c0 {
     float x, y, z;
     void FUN_0022d260(struct Mat4_2d21c0* m);
@@ -17,7 +19,6 @@ struct RngState {
     unsigned int b;
 };
 
-extern RngState DAT_00554bfc;
 
 union FloatBits_2d21c0 {
     float f;
@@ -47,9 +48,9 @@ void __cdecl FUN_00356bf0(float r, float az, float pol, float* x, float* y, floa
 
 static unsigned int NextRandom()
 {
-    DAT_00554bfc.a = (DAT_00554bfc.a & 0xffff) * 0x9069 + (DAT_00554bfc.a >> 16);
-    DAT_00554bfc.b = (DAT_00554bfc.b & 0xffff) * 0x4650 + (DAT_00554bfc.b >> 16);
-    return (DAT_00554bfc.a << 16) + (DAT_00554bfc.b & 0xffff);
+    (*(RngState*)&DAT_00554bfc).a = ((*(RngState*)&DAT_00554bfc).a & 0xffff) * 0x9069 + ((*(RngState*)&DAT_00554bfc).a >> 16);
+    (*(RngState*)&DAT_00554bfc).b = ((*(RngState*)&DAT_00554bfc).b & 0xffff) * 0x4650 + ((*(RngState*)&DAT_00554bfc).b >> 16);
+    return ((*(RngState*)&DAT_00554bfc).a << 16) + ((*(RngState*)&DAT_00554bfc).b & 0xffff);
 }
 
 static float RandomSigned()

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 52 inputs, branch coverage 42/42)
 // FUN_002a5fd0 @ 0x002a5fd0
+#include "decls/data/engine/pure3d.h"
+
 struct V2_2a5fd0 {
     float x, y;
 };
@@ -14,7 +16,6 @@ struct Noise {
 };
 
 Noise *FUN_003576d0();
-extern unsigned int DAT_0042d9c0[4];
 
 struct SrcMesh {
     char pad0[0xc];
@@ -186,7 +187,7 @@ void FUN_002a5fd0(float t, SrcMesh *a, DstMesh *b, unsigned int flags, Params *c
             f.R[i] = col;
         }
         for (int k = 0; k < 4; k++) {
-            if ((DAT_0042d9c0[k] & flags) != 0 && f.as_[k] != 0 && f.bs[k] != 0) {
+            if ((((unsigned int*)&DAT_0042d9c0)[k] & flags) != 0 && f.as_[k] != 0 && f.bs[k] != 0) {
                 f.uvp.x = f.as_[k][i].x;
                 f.uvp.y = f.tp;
                 volatile float Fu = f.noise->FUN_00356e50(&f.uvp);

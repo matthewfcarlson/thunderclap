@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_0005c490 @ 0x0005c490
+#include "decls/data/game/global.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_0005a330();
 void __cdecl FUN_0005a340();
@@ -32,8 +34,6 @@ namespace fight {
  template<class T> struct ParamIntConstRange : FUN_002348e0 { virtual void slot0(); };
  template<class T> struct ParamConditionGroup : FUN_00235220 { virtual void slot0(); };
 }
-extern unsigned int DAT_004dc5bc;
-extern void* DAT_004dc5b8;
 void __cdecl FUN_002347b0(void**,void**,int);
 void __cdecl FUN_0005c490() {
  if (!DAT_004dc5bc) {
@@ -50,7 +50,7 @@ void __cdecl FUN_0005c490() {
   fight::ParamConditionGroup<CGrappleSequenceTrack>* c = mem ? new(mem) fight::ParamConditionGroup<CGrappleSequenceTrack> : 0;
   if(c) c->callback = FUN_0005a350;
   entries[2]=c;
-  FUN_002347b0(&DAT_004dc5b8,entries,3);
+  FUN_002347b0(((void**)&DAT_004dc5b8),entries,3);
  }
  ++DAT_004dc5bc;
 }

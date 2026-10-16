@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 25/30, incomplete)
 // hulkfight::motion::LocomotionSteerAction::vfunc_5 @ 0x0015e7d0
-extern float DAT_003f32e0;  // 0.0
-extern float DAT_003f32f4;  // 0.5
+  // 0.0
+  // 0.5
+#include "decls/data/game/global.h"
 
 struct V3_15e7d0 {
     float x, y, z;
@@ -114,7 +115,7 @@ bool LocomotionSteerAction::vfunc_5(Arg1_15e7d0 a, float dt)
     float q = cur->f8ac;
     a.f = cfg->f18;
     float r;
-    if (a.f <= DAT_003f32e0) {
+    if (a.f <= (*(float*)&DAT_003f32e0)) {
         r = ang;
     } else {
         float d = FUN_00224fc0(q, ang);
@@ -122,7 +123,7 @@ bool LocomotionSteerAction::vfunc_5(Arg1_15e7d0 a, float dt)
         a.f = d;
         if (Abs(a.f) <= maxStep) {
             r = ang;
-        } else if (d < DAT_003f32e0) {
+        } else if (d < (*(float*)&DAT_003f32e0)) {
             r = q - maxStep;
         } else {
             r = maxStep + q;
@@ -135,12 +136,12 @@ bool LocomotionSteerAction::vfunc_5(Arg1_15e7d0 a, float dt)
     CurObj *c2 = cur;
     float w = c2->f8b0;
     if (pl->i20a8 >= 0) {
-        if (v <= DAT_003f32e0) {
+        if (v <= (*(float*)&DAT_003f32e0)) {
             v = 0.0f;
         } else {
             float vold = v;
             v = 0.5f;
-            if (!(vold <= DAT_003f32f4))
+            if (!(vold <= (*(float*)&DAT_003f32f4)))
                 v = 1.0f;
         }
     }
@@ -151,12 +152,12 @@ bool LocomotionSteerAction::vfunc_5(Arg1_15e7d0 a, float dt)
             a.f = h;
     }
     float r2 = a.f;
-    if (cfg->f14 <= DAT_003f32e0) {
+    if (cfg->f14 <= (*(float*)&DAT_003f32e0)) {
         c2->f8b0 = r2;
         return true;
     }
     dt = cfg->f14 * dt;
-    if (r2 - w > DAT_003f32e0) {
+    if (r2 - w > (*(float*)&DAT_003f32e0)) {
         if (dt > r2 - w)
             c2->f8b0 = r2;
         else

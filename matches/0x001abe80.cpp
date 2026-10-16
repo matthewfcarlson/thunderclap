@@ -1,5 +1,6 @@
+#include "decls/data/game/hulkfight/scenario.h"
+
 extern "C" char DAT_0041d4ac[];
-extern "C" char DAT_004c2a28[];
 extern int gCount_1abe80;
 extern int gSlot_1abe80;
 extern void* Alloc(unsigned int);
@@ -20,7 +21,7 @@ void FUN_001abe80() {
         if (q != 0) {
             q->Init(name_1abe80);
             q->v = ((int)DAT_0041d4ac);
-            q->a = ((int)DAT_004c2a28);
+            q->a = ((int)((char*)&DAT_004c2a28));
             q->b = 0x1f;
             q->c = 0x1aacf0;
             p = q;

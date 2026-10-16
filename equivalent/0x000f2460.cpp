@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000f2460 @ 0x000f2460
+#include "decls/data/game/global.h"
+
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 namespace content {
 namespace LoadInventory {
@@ -28,7 +30,6 @@ public:
     virtual void v2();
     virtual Ref_f2460 *v3(content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> *caster, unsigned int lo, unsigned int hi);
 };
-extern Loader_f2460 *DAT_004dd9cc;
 struct Id64_f2460 { unsigned int lo; unsigned int hi; };
 Id64_f2460 __cdecl FUN_0027b020(const char *name);
 
@@ -53,7 +54,7 @@ FEPoseAnimation::FEPoseAnimation(int a, const char *name) : FEBase(a, name)
 {
     p60 = 0;
     p0c = 0;
-    Loader_f2460 *ld = DAT_004dd9cc;
+    Loader_f2460 *ld = (*(Loader_f2460**)&DAT_004dd9cc);
     Id64_f2460 id = FUN_0027b020(name);
     content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> caster;
     Ref_f2460 *r = ld->v3(&caster, id.lo, id.hi);

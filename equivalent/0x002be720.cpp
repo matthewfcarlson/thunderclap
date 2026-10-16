@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 56 inputs, branch coverage 36/36)
 // FUN_002be720 @ 0x002be720
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/data/engine/pure3d.h"
+
 extern "C" int atexit(void (*)());
 
 struct Rec_2be720 {
@@ -69,9 +71,6 @@ void *FUN_00266e00(int pool, int size);
 void *FUN_0008d6d0(unsigned int size);
 void FUN_00267090(void *p);
 void FUN_003647b0();
-int DAT_004d0898;
-extern Aux_2be720 DAT_00554bd0;
-extern unsigned int DAT_00554bd4;
 
 class Loader_2be720 {
 public:
@@ -111,10 +110,10 @@ void Loader_2be720::Load(Source_2be720 *src, Aux_2be720 *aux)
     if (aux == 0) {
         if ((DAT_00554bd4 & 1) == 0) {
             DAT_00554bd4 |= 1;
-            DAT_00554bd0.FUN_002de230();
+            (*(Aux_2be720*)&DAT_00554bd0).FUN_002de230();
             atexit(FUN_003647b0);
         }
-        aux = &DAT_00554bd0;
+        aux = ((Aux_2be720*)&DAT_00554bd0);
     }
 
     Obj_2be720 *obj = 0;

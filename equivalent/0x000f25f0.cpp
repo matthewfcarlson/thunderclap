@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000f25f0 @ 0x000f25f0
 // FEBillboardAnimation constructor: look the billboard object up by name when the name is short enough.
+#include "decls/data/game/global.h"
+
 namespace content {
 namespace LoadInventory {
 class __declspec(novtable) DynamicCasterBase {
@@ -31,7 +33,6 @@ public:
     virtual void v2();
     virtual Ref_f25f0 *v3(content::LoadInventory::DynamicCaster<pure3d::BillboardObject> *caster, unsigned int lo, unsigned int hi);
 };
-extern Loader_f25f0 *DAT_004dd9cc;
 struct Id64_f25f0 { unsigned int lo; unsigned int hi; };
 Id64_f25f0 __cdecl FUN_0027b020(const char *name);
 
@@ -60,7 +61,7 @@ FEBillboardAnimation::FEBillboardAnimation(int a, const char *name) : FEBase(a, 
     }
     unsigned int length = end - start;
     if (length <= 0xfb) {
-        Loader_f25f0 *ld = DAT_004dd9cc;
+        Loader_f25f0 *ld = (*(Loader_f25f0**)&DAT_004dd9cc);
         Id64_f25f0 id = FUN_0027b020(name);
         content::LoadInventory::DynamicCaster<pure3d::BillboardObject> caster;
         Ref_f25f0 *r = ld->v3(&caster, id.lo, id.hi);

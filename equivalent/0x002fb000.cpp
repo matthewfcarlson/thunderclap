@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_002fb000 @ 0x002fb000
 // FUN_002fb000 @ 0x002fb000
+#include "decls/data/game/global.h"
+
 struct V3_2fb000 { float x, y, z; };
 
 struct Tri_2fb000;
@@ -30,7 +32,6 @@ struct Registry_2fb000 {
     char FUN_00304530(Shape_2fb000* shape, unsigned int index, float depth, V3_2fb000* o1, V3_2fb000* o2, Context* ctx, int flags);
 };
 struct Manager_2fb000 { char pad[0x1b0]; Registry_2fb000 reg; };
-extern Manager_2fb000* DAT_00554c14;
 
 void FUN_002fa6b0(V3_2fb000* a, V3_2fb000* b, V3_2fb000* c, V3_2fb000* normal);
 char FUN_00359260(V3_2fb000* ref, float margin, V3_2fb000* a, V3_2fb000* b, V3_2fb000* c, V3_2fb000* n, float* depth, V3_2fb000* o1, V3_2fb000* o2,
@@ -84,7 +85,7 @@ char Tri_2fb000::run(Shape_2fb000* shape, Context* ctx, int flags)
         f.depth = 0.02f + f.depth;
     if (hit) {
         unsigned int index = (unsigned int)((char*)this - (char*)ctx->mesh->tris) / 24;
-        DAT_00554c14->reg.FUN_00304530(shape, index, f.depth, &f.o1, &f.o2, ctx, flags);
+        (*(Manager_2fb000**)&DAT_00554c14)->reg.FUN_00304530(shape, index, f.depth, &f.o1, &f.o2, ctx, flags);
     }
     return hit;
 }

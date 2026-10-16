@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001a8e60 @ 0x001a8e60
 #include "decls/address.h"
+#include "decls/data/game/hulkfight/scenario.h"
 struct Item_1a8e60 {
     char data[0x18];
     void FUN_001a5d50();
@@ -28,7 +29,6 @@ struct World {
     char pad0[0x54];
     Selector_1a8e60 *f54;
 };
-extern char DAT_004e1764;
 
 struct Owner_1a8e60 {
     char pad0[0x1c];
@@ -56,5 +56,5 @@ void Owner_1a8e60::FUN_001a8e60()
     }
     if (config->flag)
         sink->FUN_00203e00(config->f54);
-    DAT_004e1764 = 0;
+    (*(char*)&DAT_004e1764) = 0;
 }

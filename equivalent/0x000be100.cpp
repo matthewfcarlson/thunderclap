@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 131 inputs, branch coverage 18/18)
 // FUN_000be100 @ 0x000be100
+#include "decls/data/game/unknown.h"
+
 class Player_be100 {
   public:
     char pad[0x9a8];
@@ -14,7 +16,6 @@ class Game_be100 {
 class Singleton;
 Game_be100* __cdecl FUN_000fc3d0();
 Singleton* __cdecl FUN_001d4c90();
-extern int DAT_0049cab4;
 
 class Menu_be100 {
   public:

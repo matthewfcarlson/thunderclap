@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 14/14)
 // FUN_000b8d00 @ 0x000b8d00
+#include "decls/data/game/global.h"
+
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int DAT_004d9968;
 
-extern const char DAT_003f335c[];
 
 class Manager_b8d00 { public: char pad[4]; };
 Manager_b8d00 *__cdecl FUN_000fc1b0();
@@ -73,7 +74,7 @@ void ObjectivesScreen::FUN_000b8d00()
             FUN_000964a0(buf, 0x40, "mission_objectives%d_status", i + 1);
             TextLabel *label = dynamic_cast<TextLabel *>(FUN_000fc260(buf));
             if (label != 0) {
-                const char *name = DAT_003f335c;
+                const char *name = ((const char*)&DAT_003f335c);
                 switch (objectives->FUN_001ccfa0(i)) {
                 case 1:
                     name = "TBS_MISSION_OBJECTIVE_STATUS_INCOMPLETE";

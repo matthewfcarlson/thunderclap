@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 44/44)
 // FUN_00207a00 @ 0x00207a00
-extern char DAT_004c91da;
+#include "decls/data/game/global.h"
 
 struct Anim;
 
@@ -55,7 +55,7 @@ void Layers_207a00::FUN_00207a00(Request *req)
             busy = 1;
             if (mode == 3)
                 FUN_00207410();
-            else if (DAT_004c91da)
+            else if ((*(char*)&DAT_004c91da))
                 player->FUN_002666e0();
             else
                 FUN_00203e30(player);
@@ -71,7 +71,7 @@ void Layers_207a00::FUN_00207a00(Request *req)
         busy = 1;
         if (mode == 3)
             FUN_00207410();
-        else if (DAT_004c91da)
+        else if ((*(char*)&DAT_004c91da))
             player->FUN_002666e0();
         else
             FUN_00203e30(player);

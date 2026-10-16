@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 26/26)
 // hulkfight::motion::ClimbLocomotionAction::vfunc_5 @ 0x0015f070
+#include "decls/data/game/hulkfight/motion.h"
+
 struct V3_15f070 {
     float x, y, z;
     float FUN_0022d110();
@@ -24,7 +26,6 @@ extern "C" float __cdecl FUN_00018a20(float v);
 extern "C" bool __cdecl FUN_00018960(float a, float b, float eps);
 extern "C" void __cdecl FUN_00224d70(float angle, V3_15f070 *v);
 extern "C" float __cdecl FUN_00224f10(V3_15f070 *v);
-extern V3_15f070 DAT_004b4d60;
 
 struct Mat_15f070 {
     char data[0x30];
@@ -187,13 +188,13 @@ char ClimbLocomotionAction::vfunc_5(int a0, float a1)
         L.o0c = diff;
         V3_15f070 &t = L.t;
         V3_15f070 &u = L.u;
-        t.x = DAT_004b4d60.x * p2;
-        t.y = DAT_004b4d60.y * p2;
-        t.z = DAT_004b4d60.z * p2;
+        t.x = (*(V3_15f070*)&DAT_004b4d60).x * p2;
+        t.y = (*(V3_15f070*)&DAT_004b4d60).y * p2;
+        t.z = (*(V3_15f070*)&DAT_004b4d60).z * p2;
         FUN_00224d70(p1, &t);
-        u.x = DAT_004b4d60.x * nk;
-        u.y = DAT_004b4d60.y * nk;
-        u.z = DAT_004b4d60.z * nk;
+        u.x = (*(V3_15f070*)&DAT_004b4d60).x * nk;
+        u.y = (*(V3_15f070*)&DAT_004b4d60).y * nk;
+        u.z = (*(V3_15f070*)&DAT_004b4d60).z * nk;
         FUN_00224d70(nm, &u);
         V3_15f070 w;
         w.x = u.x - t.x;

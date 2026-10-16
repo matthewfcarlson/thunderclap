@@ -1,6 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3051 inputs, branch coverage 78/80, incomplete)
 // FUN_000bd1b0 @ 0x000bd1b0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int strcmp(const char *, const char *);
 extern "C" int memcmp(const void *, const void *, unsigned int);
@@ -247,16 +250,6 @@ struct TblEntry {
     const char *strs[4];
 };
 
-extern TblEntry DAT_004061e8[];
-extern Canvas *DAT_0052c2ac;
-extern Viewport_bd1b0 *DAT_0052c2a4;
-extern Sys52 *DAT_0052c2b4;
-extern float DAT_004dde18;
-extern char DAT_004dde1c;
-extern float DAT_004dde20;
-extern float DAT_004dde24;
-extern unsigned int DAT_00409030;
-extern float DAT_0049f5e0;
 
 extern Mgr_bd1b0 *__cdecl FUN_000fc1b0();
 extern unsigned int __cdecl FUN_00267f80();
@@ -321,14 +314,14 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
         if (f.dt >= 0x80)
             f.dt = 0x80;
         if (f.dt >= 0x40 && !FUN_0008db80()) {
-            float aspect = 1.33333f / DAT_0052c2a4->v16();
+            float aspect = 1.33333f / (*(Viewport_bd1b0**)&DAT_0052c2a4)->v16();
             DAT_004dd700->f54->FUN_00086330()->FUN_000afe80();
             FUN_002684c0();
             FUN_002684c0();
             FUN_002684c0();
             t2c = now;
-            DAT_0052c2b4->fd8 = 0;
-            DAT_0052c2b4->FUN_0028f9a0();
+            (*(Sys52**)&DAT_0052c2b4)->fd8 = 0;
+            (*(Sys52**)&DAT_0052c2b4)->FUN_0028f9a0();
             f.saved25 = DAT_0052c2a8->v25();
             DAT_0052c2a8->v24(0);
             f.saved55 = DAT_0052c2a8->v55();
@@ -336,7 +329,7 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
             f.saved61 = DAT_0052c2a8->v61();
             DAT_0052c2a8->v60(1);
             p20->FUN_00293ef0();
-            DAT_0052c2a8->v28(0.1f, 10000.0f, 0.5235988f, DAT_0052c2a4->v16());
+            DAT_0052c2a8->v28(0.1f, 10000.0f, 0.5235988f, (*(Viewport_bd1b0**)&DAT_0052c2a4)->v16());
             DAT_0052c2a8->v12(7);
             char *id = p34->FUN_0008a2d0();
             f.s8 = (int)id;
@@ -347,12 +340,12 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
                     done = true;
             }
             if (!done) {
-                if (DAT_004dd700->f54->FUN_00086350()->FUN_000d3f10(&DAT_00409030) == 0) {
+                if (DAT_004dd700->f54->FUN_00086350()->FUN_000d3f10(((unsigned int*)&DAT_00409030)) == 0) {
                     DAT_004dde24 = 0.0f;
                 } else if (p30 != 0 && (*p30 == 2 || *p30 == 3)) {
                     f.s4.i = 0;
-                    if (DAT_004061e8[0].name != 0) {
-                        TblEntry *e = DAT_004061e8;
+                    if (((TblEntry*)&DAT_004061e8)[0].name != 0) {
+                        TblEntry *e = ((TblEntry*)&DAT_004061e8);
                         for (;;) {
                             if (strcmp(e->name, id) == 0)
                                 break;
@@ -363,7 +356,7 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
                         }
                     }
                     int idx = f.s4.i;
-                    if (DAT_004061e8[idx].name != 0) {
+                    if (((TblEntry*)&DAT_004061e8)[idx].name != 0) {
                         DAT_004dde24 = (float)f.dt * 0.001f + DAT_004dde24;
                         f.e1.FUN_000f7930();
                         f.s0.f = 1.0f;
@@ -378,13 +371,13 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
                         f.style.FUN_000dee10();
                         f.style.f10 = ((int)(f.s0.f * 128.0f) << 24) | 0x2bae11;
                         f.style.f14 = 1.0f;
-                        DAT_0052c2ac->layer->v15(0);
-                        DAT_0052c2ac->layer->v13(0);
-                        DAT_0052c2ac->FUN_00293da0(aspect, aspect, 1.0f);
-                        DAT_0052c2ac->FUN_00293d40(0.0f, 1.4f, 10.0f);
+                        (*(Canvas**)&DAT_0052c2ac)->layer->v15(0);
+                        (*(Canvas**)&DAT_0052c2ac)->layer->v13(0);
+                        (*(Canvas**)&DAT_0052c2ac)->FUN_00293da0(aspect, aspect, 1.0f);
+                        (*(Canvas**)&DAT_0052c2ac)->FUN_00293d40(0.0f, 1.4f, 10.0f);
                         f.e1.FUN_000f8500("TBS_MENU_ITEM_PM_MISSION_OBJECTIVES", FUN_000fc1b0(), 1);
                         f.layout.FUN_000f87f0(&f.e1, &f.style);
-                        DAT_0052c2ac->layer->v16(0);
+                        (*(Canvas**)&DAT_0052c2ac)->layer->v16(0);
                         if (st->index > 0)
                             st->index--;
                         f.e1.f0 = 0;
@@ -393,7 +386,7 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
                         st->slots[st->index].b = 1;
                         st->slots[st->index].a = 0;
                         f.s4.f = 0.0f;
-                        f.s8 = (int)&DAT_004061e8[idx].strs[0];
+                        f.s8 = (int)&((TblEntry*)&DAT_004061e8)[idx].strs[0];
                         for (int k = 0; k < 4; k++, f.s8 += 4) {
                             const char *str = *(const char **)f.s8;
                             if (str != 0 && *str != 0) {
@@ -403,23 +396,23 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
                                 float c = FUN_000186b0(&f.s0.f, &f.lo, &f.hi);
                                 int a8 = (int)(c * 255.0f);
                                 st->slots[st->index].value = (a8 << 24) | 0xffffff;
-                                DAT_0052c2ac->layer->v15(0);
-                                DAT_0052c2ac->layer->v13(0);
-                                DAT_0052c2ac->FUN_00293da0(aspect, aspect, 1.0f);
+                                (*(Canvas**)&DAT_0052c2ac)->layer->v15(0);
+                                (*(Canvas**)&DAT_0052c2ac)->layer->v13(0);
+                                (*(Canvas**)&DAT_0052c2ac)->FUN_00293da0(aspect, aspect, 1.0f);
                                 f.s0.f = 1.0f - f.s4.f;
-                                DAT_0052c2ac->FUN_00293d40(-2.1f, f.s0.f, 10.0f);
+                                (*(Canvas**)&DAT_0052c2ac)->FUN_00293d40(-2.1f, f.s0.f, 10.0f);
                                 f.e1.FUN_000f8500("TBS_MISSION_OBJECTIVE_STATUS_INCOMPLETE", FUN_000fc1b0(), 1);
                                 f.layout.FUN_000f87f0(&f.e1, 0);
-                                DAT_0052c2ac->layer->v16(0);
-                                DAT_0052c2ac->layer->v15(0);
-                                DAT_0052c2ac->layer->v13(0);
-                                DAT_0052c2ac->FUN_00293da0(aspect, aspect, 1.0f);
-                                DAT_0052c2ac->FUN_00293d40(-1.8f, f.s0.f, 10.0f);
+                                (*(Canvas**)&DAT_0052c2ac)->layer->v16(0);
+                                (*(Canvas**)&DAT_0052c2ac)->layer->v15(0);
+                                (*(Canvas**)&DAT_0052c2ac)->layer->v13(0);
+                                (*(Canvas**)&DAT_0052c2ac)->FUN_00293da0(aspect, aspect, 1.0f);
+                                (*(Canvas**)&DAT_0052c2ac)->FUN_00293d40(-1.8f, f.s0.f, 10.0f);
                                 f.s0.i = FUN_000fb830((unsigned short *)f.buf, 0x100, FUN_000fc1b0()->FUN_00088ea0(str), 460.0f,
                                                        FUN_000fc1b0()->measurers[f.e1.f0]);
                                 f.e1.FUN_000f79a0((unsigned short *)f.buf, FUN_000fc1b0());
                                 f.layout.FUN_000f87f0(&f.e1, 0);
-                                DAT_0052c2ac->layer->v16(0);
+                                (*(Canvas**)&DAT_0052c2ac)->layer->v16(0);
                                 f.s4.f = (float)f.s0.i * 0.2f + f.s4.f + 0.1f;
                             }
                         }
@@ -443,13 +436,13 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
                 }
             }
             if (!flag)
-                DAT_004dde1c = 0;
+                (*(char*)&DAT_004dde1c) = 0;
 
             if (f.layout.font->f28 != 0) {
-                DAT_0052c2ac->layer->v15(0);
-                DAT_0052c2ac->layer->v13(0);
-                DAT_0052c2ac->FUN_00293da0(aspect, aspect, 1.0f);
-                DAT_0052c2ac->FUN_00293d40(0.0f, -1.0f, 10.0f);
+                (*(Canvas**)&DAT_0052c2ac)->layer->v15(0);
+                (*(Canvas**)&DAT_0052c2ac)->layer->v13(0);
+                (*(Canvas**)&DAT_0052c2ac)->FUN_00293da0(aspect, aspect, 1.0f);
+                (*(Canvas**)&DAT_0052c2ac)->FUN_00293d40(0.0f, -1.0f, 10.0f);
                 f.e1.FUN_000f7930();
                 f.e1.f0 = 1;
                 unsigned int c1 = 0x2b;
@@ -460,9 +453,9 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
                     c1 = 0xfe;
                     cA = 0xf6;
                     cB = 0x18;
-                    if (!DAT_004dde1c) {
+                    if (!(*(char*)&DAT_004dde1c)) {
                         me->p3c->FUN_001ec480("start", "prestart");
-                        DAT_004dde1c = 1;
+                        (*(char*)&DAT_004dde1c) = 1;
                     }
                     me->p3c->FUN_001eb2a0(0.01f, 1);
                 } else {
@@ -490,7 +483,7 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
                 f.layout.FUN_000f87f0(&f.e1, &f.style);
                 if (st->index > 0)
                     st->index--;
-                DAT_0052c2ac->layer->v16(0);
+                (*(Canvas**)&DAT_0052c2ac)->layer->v16(0);
                 f.e1.FUN_000f7960();
             }
 
@@ -504,10 +497,10 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
                 else
                     m = 1.0f;
                 unsigned int col = ((unsigned int)(int)((1.0f - m) * 255.0f) << 24) | 0x2bae11;
-                DAT_0052c2ac->layer->v15(0);
-                DAT_0052c2ac->layer->v13(0);
-                DAT_0052c2ac->FUN_00293da0(aspect, aspect, 1.0f);
-                DAT_0052c2ac->FUN_00293d40(0.0f, 0.0f, 10.0f);
+                (*(Canvas**)&DAT_0052c2ac)->layer->v15(0);
+                (*(Canvas**)&DAT_0052c2ac)->layer->v13(0);
+                (*(Canvas**)&DAT_0052c2ac)->FUN_00293da0(aspect, aspect, 1.0f);
+                (*(Canvas**)&DAT_0052c2ac)->FUN_00293d40(0.0f, 0.0f, 10.0f);
                 Obj68_bd1b0 *o68 = me->p68;
                 o68->f10->v6(0x444d4c42, 1);
                 o68->f18 = 1;
@@ -545,13 +538,13 @@ void Menu_bd1b0::FUN_000bd1b0(unsigned char flag)
                 *mesh->colors = col;
                 mesh->FUN_0008ef00();
                 DAT_0052c2a8->v31(mesh);
-                DAT_0052c2ac->layer->v16(0);
+                (*(Canvas**)&DAT_0052c2ac)->layer->v16(0);
             }
             me->p20->FUN_00294080();
             DAT_0052c2a8->v54(f.saved55);
             DAT_0052c2a8->v60(f.saved61);
             DAT_0052c2a8->v24(f.saved25);
-            DAT_0052c2b4->FUN_0028faf0(1);
+            (*(Sys52**)&DAT_0052c2b4)->FUN_0028faf0(1);
             if (FUN_001eb200())
                 FUN_00267f80();
         }

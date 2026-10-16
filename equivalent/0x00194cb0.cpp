@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 6/6)
 // hulkfight::motion::AccuracyLatencyAction::vfunc_4 @ 0x00194cb0
 #include "gen/hulkfight.h"
+#include "decls/data/game/hulkfight/motion.h"
 
 struct Player_194cb0 {
     char pad0[0x1d54];
@@ -17,10 +18,6 @@ struct Owner_194cb0 {
     PlayerRef_194cb0 *FUN_000592a0();
 };
 
-extern int DAT_004e15b0;
-extern int DAT_004e15b4;
-extern int DAT_004e15b8;
-extern unsigned int DAT_004e15bc;
 
 void hulkfight::motion::AccuracyLatencyAction::vfunc_4() {
     PlayerRef_194cb0 *ref = (*(Owner_194cb0 * *)&this->f_20)->FUN_000592a0();

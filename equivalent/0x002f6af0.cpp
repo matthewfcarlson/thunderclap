@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 35/36, incomplete)
 // physics::PhysicsObject::vfunc_38 @ 0x002f6af0
+#include "decls/data/engine/physics.h"
+
 extern "C" double sqrt(double);
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
@@ -43,10 +45,6 @@ public:
     };
 };
 
-extern float DAT_00555458;
-extern float DAT_004d2ba0;
-extern float DAT_004d2b84;
-extern float DAT_004d2ba4;
 char __cdecl FUN_003059c0(Vec3_2f6af0 *a, Quat_2f6af0 *z) throw();
 void *__cdecl FUN_0022b080(void *a, void *b, void *c) throw();
 void __cdecl FUN_00305700(unsigned int s, Mat_2f6af0 *src, Mat_2f6af0 *dst) throw();

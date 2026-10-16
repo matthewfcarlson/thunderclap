@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00080820 @ 0x00080820
-extern int DAT_004dd078;
+#include "decls/data/game/global.h"
+
 extern unsigned int DAT_004d9968;
 extern void __fastcall __security_check_cookie(unsigned int);
 extern int __cdecl FUN_000964a0(char*, unsigned int, const char*, ...);
@@ -17,15 +18,15 @@ int Actor_80820::FUN_00080820() {
  volatile unsigned int cookie=DAT_004d9968;
  int result;
  if (FUN_0007a420(&a,&c,&d,&b)) {
-  ++DAT_004dd078;
-  FUN_000964a0(name,32,"civilian%d",DAT_004dd078);
+  ++(*(int*)&DAT_004dd078);
+  FUN_000964a0(name,32,"civilian%d",(*(int*)&DAT_004dd078));
   result=FUN_0007f560(name,a,c,d,b);
  } else {
   int index=FUN_0007a8f0(&a,&b);
   result=index;
   if(index!=-1) {
-   ++DAT_004dd078;
-   FUN_000964a0(name,32,"civilian%d",DAT_004dd078);
+   ++(*(int*)&DAT_004dd078);
+   FUN_000964a0(name,32,"civilian%d",(*(int*)&DAT_004dd078));
    result=FUN_0007f690(name,index,a,b);
   }
  }

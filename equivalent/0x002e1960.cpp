@@ -3,6 +3,7 @@
 // equiv-map: ??0PrimGroupBase@@QAE@XZ = 0x002a5060
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 struct Hdr8;
 
@@ -329,7 +330,6 @@ struct Frame_2e1960 {
     float v144[3];
 };
 
-extern Factory_2e1960 *DAT_0052c2a0;
 
 void Hdr_2e1960::Load(int a1, Reader *R, int a3, PalList_2e1960 *a4, unsigned int *a5)
 {
@@ -381,7 +381,7 @@ void Hdr_2e1960::Load(int a1, Reader *R, int a3, PalList_2e1960 *a4, unsigned in
     }
     d.b58 = b10;
     d.f60 = f28;
-    Builder *B = DAT_0052c2a0->f10(&d);
+    Builder *B = (*(Factory_2e1960**)&DAT_0052c2a0)->f10(&d);
     if (B)
         ((Ref_2e1960 *)B)->AddRef();
     if (obj->f58)

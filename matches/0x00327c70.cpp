@@ -1,3 +1,5 @@
+#include "decls/data/engine/pure3d.h"
+
 extern "C" int __cdecl strcmp(const char*, const char*);
 typedef int(__cdecl* Handler_327c70)(int, const char*, int);
 struct Entry_327c70 {
@@ -5,18 +7,15 @@ struct Entry_327c70 {
     Handler_327c70 handler;
     int context;
 };
-extern int DAT_005555c0;
-extern Entry_327c70 DAT_005555c8[];
-extern Handler_327c70 DAT_00555608;
 int __cdecl FUN_00327c70(int first, const char* name, int context) {
-    int count = DAT_005555c0;
+    int count = (*(int*)&DAT_005555c0);
     for (int i = 0; i < count; ++i) {
-        if (strcmp(name, DAT_005555c8[i].name) == 0) {
-            int replacement = DAT_005555c8[i].context;
+        if (strcmp(name, ((Entry_327c70*)&DAT_005555c8)[i].name) == 0) {
+            int replacement = ((Entry_327c70*)&DAT_005555c8)[i].context;
             if (replacement)
                 context = replacement;
-            return DAT_005555c8[i].handler(first, name, context);
+            return ((Entry_327c70*)&DAT_005555c8)[i].handler(first, name, context);
         }
     }
-    return DAT_00555608(first, name, context);
+    return (*(Handler_327c70*)((char*)&DAT_005555c8 + 64))(first, name, context);
 }

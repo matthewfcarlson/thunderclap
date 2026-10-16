@@ -1,8 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 27 inputs, branch coverage 8/8)
 // FUN_002c4cb0 @ 0x002c4cb0
 #include "decls/address.h"
-extern float DAT_0042ef28;   // pi
-extern float DAT_0042ef48;   // 2 * pi
+   // pi
+   // 2 * pi
+#include "decls/data/engine/pure3d.h"
+#include "decls/data/engine/pure3d/prop.h"
 
 struct V3_2c4cb0 {
     float x, y, z;
@@ -87,7 +89,6 @@ public:
     virtual void v31(VertexBuf_2c4cb0 *b);
 };
 
-extern Device_2c4cb0 **DAT_0052c2ac;
 
 void __cdecl FUN_00356bf0(float r, float az, float pol, float *x, float *y, float *z);
 
@@ -96,15 +97,15 @@ void __cdecl FUN_002c4cb0(float a1, V3_2c4cb0 *a2, int a3, int a4, float a5, flo
     Matrix m;
     m.FUN_0022b980();
     m.FUN_0022be40(a2);
-    (*DAT_0052c2ac)->v23(0, &m);
+    (*(*(Device_2c4cb0***)&DAT_0052c2ac))->v23(0, &m);
     Gfx *rend = DAT_0052c2a8;
     VertexBuf_2c4cb0 *vb = rend->v30(a3, 2, 0x2020, (int)((a6 + a6 + 1.0f) * (a5 + 1.0f) * 4.0f), 0);
     V3_2c4cb0 v;
     FUN_00356bf0(a1, 0, 0, &v.x, &v.y, &v.z);
-    volatile float dphi = DAT_0042ef28 / a5;
+    volatile float dphi = (*(float*)&DAT_0042ef28) / a5;
     volatile float outerA = 0;
     volatile float innerB;
-    volatile float dtheta = DAT_0042ef28 / a6;
+    volatile float dtheta = (*(float*)&DAT_0042ef28) / a6;
     do {
         float ph = outerA;
         innerB = 0;
@@ -128,10 +129,10 @@ void __cdecl FUN_002c4cb0(float a1, V3_2c4cb0 *a2, int a3, int a4, float a5, flo
             vb->FUN_0008ef00();
             x = dphi + innerB;
             innerB = (float)x;
-        } while (x <= DAT_0042ef28);
+        } while (x <= (*(float*)&DAT_0042ef28));
         double y = dtheta + outerA;
         outerA = (float)y;
-        if (!(y <= DAT_0042ef48))
+        if (!(y <= (*(float*)&DAT_0042ef48)))
             break;
     } while (true);
     FUN_00356bf0(a1, 0, 0, &v.x, &v.y, &v.z);
@@ -159,12 +160,12 @@ void __cdecl FUN_002c4cb0(float a1, V3_2c4cb0 *a2, int a3, int a4, float a5, flo
             vb->FUN_0008ef00();
             x = dphi + outerA;
             outerA = (float)x;
-        } while (x <= DAT_0042ef48);
+        } while (x <= (*(float*)&DAT_0042ef48));
         double y = dtheta + innerB;
         innerB = (float)y;
-        if (!(y <= DAT_0042ef28))
+        if (!(y <= (*(float*)&DAT_0042ef28)))
             break;
     } while (true);
     DAT_0052c2a8->v31(vb);
-    (*DAT_0052c2ac)->v16(0);
+    (*(*(Device_2c4cb0***)&DAT_0052c2ac))->v16(0);
 }

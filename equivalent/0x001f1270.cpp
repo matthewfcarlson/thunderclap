@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 4/4)
 // FUN_001f1270 @ 0x001f1270
+#include "decls/data/game/unknown.h"
+
 extern char DAT_0042476c[];
 
 void *__cdecl FUN_00263ed0(int size, int tag);
@@ -23,7 +25,6 @@ struct SoundEngine {
 };
 
 class SoundResourceManager;
-extern SoundResourceManager *DAT_004e370c;
 
 class SoundResourceManager {
 public:
@@ -56,6 +57,6 @@ SoundResourceManager *SoundResourceManager::FUN_001f1270()
         engine = 0;
     f08 = 0;
     f0c = 0;
-    DAT_004e370c = this;
+    (*(SoundResourceManager**)&DAT_004e370c) = this;
     return this;
 }

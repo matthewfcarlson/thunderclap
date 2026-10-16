@@ -1,5 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 112 inputs, branch coverage 108/120, incomplete)
 // FUN_001ed320 @ 0x001ed320
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight.h"
+#include "decls/data/game/unknown.h"
+
 typedef unsigned __int64 ID;
 struct V { float x,y,z; float FUN_000259c0(); };
 struct Name_1ed320 { unsigned a,b; void FUN_0027b0e0(const char*); void FUN_0027af50(); };
@@ -19,10 +23,6 @@ struct World { char p[12]; Actors* actors; char p10[4]; Slots_1ed320* slots; cha
 struct Renderer_1ed320 { void FUN_001f42d0(ID*,Name_1ed320*,V,V,V,V,int); };
 struct Indirect { Renderer_1ed320* renderer; };
 struct Manager_1ed320 { Indirect* indirect; void FUN_001eb7e0(ID*,Name_1ed320*,V*,V*,V*,V,int); void FUN_001eb560(const char*); void FUN_001eb6c0(const char*); };
-extern unsigned char DAT_0049caa0,DAT_004e3708;
-extern ID DAT_004dc0e0,DAT_004dc068,DAT_004dc0a8,DAT_004dc0b8,DAT_004dc0c8;
-extern V DAT_004c7614,DAT_004e36e4;
-extern Manager_1ed320* DAT_004e36d8;
 struct Target_1ed320 { World* world; void FUN_001ed0b0(Entity*); void FUN_001ec100(Entity*,const char*); void run(World*,float); };
 void Target_1ed320::run(World* w,float dt) {
  if(!DAT_0049caa0) return;
@@ -35,32 +35,32 @@ void Target_1ed320::run(World* w,float dt) {
   Entity* e=world->list->FUN_00024190(i);
   if(!e || !e->pos->FUN_00059a50(&position) || e->excluded || world->list->FUN_00024540(e)) continue;
   int kind;
-  if(e->info->FUN_000443c0()==DAT_004dc0e0) kind=1;
+  if(e->info->FUN_000443c0()==(*(ID*)&DAT_004dc0e0)) kind=1;
   else kind=e->info->flag?2:4;
   e->FUN_00035660(&velocity);
   name.FUN_0027b0e0(e->info->FUN_000443b0());
-  DAT_004e36d8->FUN_001eb7e0(&e->id,&name,&position,&DAT_004e36e4,&DAT_004c7614,velocity,kind);
-  if(e->id==DAT_004dc0e0) {
+  (*(Manager_1ed320**)&DAT_004e36d8)->FUN_001eb7e0(&e->id,&name,&position,((V*)&DAT_004e36e4),((V*)&DAT_004c7614),velocity,kind);
+  if(e->id==(*(ID*)&DAT_004dc0e0)) {
    FUN_001ed0b0(e);
-   if(!DAT_004e3708) {
+   if(!(*(unsigned char*)&DAT_004e3708)) {
     if(position.y>100.0f && velocity.FUN_000259c0()<5.0f && e->state!=3) {
-     DAT_004e3708=1;
-     DAT_004e36d8->FUN_001eb560("city_rooftop");
-     DAT_004e36d8->FUN_001eb6c0("city_rooftop");
+     (*(unsigned char*)&DAT_004e3708)=1;
+     (*(Manager_1ed320**)&DAT_004e36d8)->FUN_001eb560("city_rooftop");
+     (*(Manager_1ed320**)&DAT_004e36d8)->FUN_001eb6c0("city_rooftop");
     }
    } else if(position.y<100.0f) {
-    DAT_004e3708=0;
-    DAT_004e36d8->FUN_001eb560("city_rooftop_done");
-    DAT_004e36d8->FUN_001eb6c0("city_rooftop_done");
+    (*(unsigned char*)&DAT_004e3708)=0;
+    (*(Manager_1ed320**)&DAT_004e36d8)->FUN_001eb560("city_rooftop_done");
+    (*(Manager_1ed320**)&DAT_004e36d8)->FUN_001eb6c0("city_rooftop_done");
    }
-  } else if(e->info->FUN_000443c0()==DAT_004dc068 || e->info->FUN_000443c0()==DAT_004dc0a8 || e->info->FUN_000443c0()==DAT_004dc0b8 || e->info->FUN_000443c0()==DAT_004dc0c8) {
+  } else if(e->info->FUN_000443c0()==(*(ID*)&DAT_004dc068) || e->info->FUN_000443c0()==(*(ID*)&DAT_004dc0a8) || e->info->FUN_000443c0()==(*(ID*)&DAT_004dc0b8) || e->info->FUN_000443c0()==(*(ID*)&DAT_004dc0c8)) {
    FUN_001ed0b0(e);
   } else {
    int state=e->state;
    if(state==3) e->timer+=dt; else e->timer=0.0f;
    unsigned char screaming=e->screaming;
    Entity* link=e->link;
-   if((!screaming && !link && state==3) || (link && link->id==DAT_004dc0e0)) {
+   if((!screaming && !link && state==3) || (link && link->id==(*(ID*)&DAT_004dc0e0))) {
     origin=e->origin;
     e->pos->FUN_00059a50(&delta);
     delta.x-=origin.x;
@@ -83,7 +83,7 @@ void Target_1ed320::run(World* w,float dt) {
   if(e) {
    origin=e->location;
    name.FUN_0027b0e0("civilians");
-   DAT_004e36d8->FUN_001eb7e0(&e->id,&name,&origin,&DAT_004e36e4,&DAT_004c7614,DAT_004e36e4,6);
+   (*(Manager_1ed320**)&DAT_004e36d8)->FUN_001eb7e0(&e->id,&name,&origin,((V*)&DAT_004e36e4),((V*)&DAT_004c7614),(*(V*)&DAT_004e36e4),6);
    name.FUN_0027af50();
   }
  }
@@ -98,7 +98,7 @@ void Target_1ed320::run(World* w,float dt) {
    position=*a->FUN_001d6b40();
    if(!valid) velocity=*a->FUN_001d77c0();
    int kind=a->flag||a->flag2?3:(e?2:5);
-   DAT_004e36d8->FUN_001eb7e0(&a->id,&a->name->name,&position,&DAT_004e36e4,&DAT_004c7614,velocity,kind);
+   (*(Manager_1ed320**)&DAT_004e36d8)->FUN_001eb7e0(&a->id,&a->name->name,&position,((V*)&DAT_004e36e4),((V*)&DAT_004c7614),velocity,kind);
   }
  }
  if(world->slots) {
@@ -109,7 +109,7 @@ void Target_1ed320::run(World* w,float dt) {
    if(!a) continue;
    position=*a->FUN_001d6b40();
    velocity=*a->FUN_001d77c0();
-   DAT_004e36d8->indirect->renderer->FUN_001f42d0(&a->id,&a->name->name,position,DAT_004e36e4,DAT_004c7614,velocity,3);
+   (*(Manager_1ed320**)&DAT_004e36d8)->indirect->renderer->FUN_001f42d0(&a->id,&a->name->name,position,(*(V*)&DAT_004e36e4),(*(V*)&DAT_004c7614),velocity,3);
   }
  }
  count=world->items->count;
@@ -118,7 +118,7 @@ void Target_1ed320::run(World* w,float dt) {
   if(e) {
    V location=*e->FUN_00082cf0();
    name.FUN_0027b0e0("civilians");
-   DAT_004e36d8->indirect->renderer->FUN_001f42d0(&e->id,&name,location,DAT_004e36e4,DAT_004c7614,DAT_004e36e4,6);
+   (*(Manager_1ed320**)&DAT_004e36d8)->indirect->renderer->FUN_001f42d0(&e->id,&name,location,(*(V*)&DAT_004e36e4),(*(V*)&DAT_004c7614),(*(V*)&DAT_004e36e4),6);
    name.FUN_0027af50();
   }
  }

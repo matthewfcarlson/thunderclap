@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 20/20)
 // FUN_0005cd20 @ 0x0005cd20
+#include "decls/data/game/global.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -98,8 +100,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc5a0;
-extern int DAT_004dc5a4;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0005cd20()
@@ -143,7 +143,7 @@ void FUN_0005cd20()
         params[8] = 0;
         if (mem)
             params[8] = new (mem) ParamFloatConstRange<CGrappleSwapTrack>("rootBlendOutTime", &CGrappleSwapTrack::FUN_0005a2a0);
-        FUN_002347b0(&DAT_004dc5a0, params, 9);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc5a0), params, 9);
     }
     DAT_004dc5a4++;
 }

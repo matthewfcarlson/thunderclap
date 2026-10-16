@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 14/14)
 // FUN_002f8f10 @ 0x002f8f10
+#include "decls/data/engine/unknown.h"
+
 extern "C" double sqrt(double);
-extern float DAT_00431754;
-extern float DAT_004d2c5c;
-extern float DAT_004d2c60;
 
 struct Vec3_2f8f10 {
     float x, y, z;
@@ -88,7 +87,7 @@ float Pair_2f8f10::FUN_002f8f10(float t)
     float dotB;
     Shape_2f8f10 *sb = b->shape;
     if (sb->vfunc_6() == 8)
-        dotB = DAT_00431754;
+        dotB = (*(float*)&DAT_00431754);
     else
         dotB = AxisDot(sb, &v);
     float m = dotB;

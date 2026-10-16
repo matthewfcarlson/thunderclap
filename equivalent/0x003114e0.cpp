@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 19/20, incomplete)
 // physics::ArticulatedPhysicsObject::vfunc_19 @ 0x003114e0
+#include "decls/data/engine/physics.h"
+
 struct Vec3_3114e0 { float x, y, z; };
 
 struct Shape_3114e0 {
@@ -23,7 +25,6 @@ struct Chain_3114e0 {
     void FUN_002fd020(float* in, Vec3_3114e0* out);
 };
 
-extern char DAT_004d3388;
 
 namespace physics {
 
@@ -72,7 +73,7 @@ void ArticulatedPhysicsObject::vfunc_19(int a1, int a2, int a3)
     if (shape->state != 1)
         vfunc_27(-1);
     if (!shape->frozen && a2 >= 0) {
-        if (!DAT_004d3388 || !enabled)
+        if (!(*(char*)&DAT_004d3388) || !enabled)
             a1 &= ~0xff;
         FUN_00310b30(a3 >= 0 ? this : 0, a2, a3);
         if (joint) {

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 118 inputs, branch coverage 41/50, incomplete)
 // FUN_002ec780 @ 0x002ec780
+#include "decls/data/engine/physics.h"
+
 struct inflate_huft_2ec780 {
     unsigned char exop;
     unsigned char bits;
@@ -26,7 +28,6 @@ struct z_stream_2ec780 {
     const char *msg;
 };
 
-extern unsigned int DAT_004d2838[17];
 
 // zlib inflate_fast
 int __cdecl inflate_fast(unsigned int bl, unsigned int bd, inflate_huft_2ec780 *tl, inflate_huft_2ec780 *td,
@@ -53,8 +54,8 @@ int __cdecl inflate_fast(unsigned int bl, unsigned int bd, inflate_huft_2ec780 *
     q = s->write;
     m = (unsigned int)(q < s->read ? s->read - q - 1 : s->end - q);
 
-    ml = DAT_004d2838[bl];
-    md = DAT_004d2838[bd];
+    ml = ((unsigned int*)&DAT_004d2838)[bl];
+    md = ((unsigned int*)&DAT_004d2838)[bd];
 
     do {
         while (k < 20) {
@@ -74,7 +75,7 @@ int __cdecl inflate_fast(unsigned int bl, unsigned int bd, inflate_huft_2ec780 *
             k -= t->bits;
             if (e & 16) {
                 e &= 15;
-                c = t->base + (b & DAT_004d2838[e]);
+                c = t->base + (b & ((unsigned int*)&DAT_004d2838)[e]);
                 b >>= e;
                 k -= e;
                 while (k < 15) {
@@ -93,7 +94,7 @@ int __cdecl inflate_fast(unsigned int bl, unsigned int bd, inflate_huft_2ec780 *
                             b |= (unsigned int)(*p++) << k;
                             k += 8;
                         }
-                        d = t->base + (b & DAT_004d2838[e]);
+                        d = t->base + (b & ((unsigned int*)&DAT_004d2838)[e]);
                         b >>= e;
                         k -= e;
                         m -= c;
@@ -120,7 +121,7 @@ int __cdecl inflate_fast(unsigned int bl, unsigned int bd, inflate_huft_2ec780 *
                         break;
                     } else if ((e & 64) == 0) {
                         t += t->base;
-                        e = (t += (b & DAT_004d2838[e]))->exop;
+                        e = (t += (b & ((unsigned int*)&DAT_004d2838)[e]))->exop;
                     } else {
                         z->msg = "invalid distance code";
                         c = z->avail_in - n;
@@ -141,7 +142,7 @@ int __cdecl inflate_fast(unsigned int bl, unsigned int bd, inflate_huft_2ec780 *
             }
             if ((e & 64) == 0) {
                 t += t->base;
-                if ((e = (t += (b & DAT_004d2838[e]))->exop) == 0) {
+                if ((e = (t += (b & ((unsigned int*)&DAT_004d2838)[e]))->exop) == 0) {
                     b >>= t->bits;
                     k -= t->bits;
                     *q++ = (unsigned char)t->base;

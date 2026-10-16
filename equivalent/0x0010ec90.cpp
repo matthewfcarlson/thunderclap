@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 22/22)
 // hulkfight::ai::HulkActionCountCondition::vfunc_6 @ 0x0010ec90
+#include "decls/data/game/hulkfight/ai.h"
+
 extern "C" int atexit(void (*)());
 
 struct Key_10ec90 {
@@ -9,8 +11,6 @@ struct Key_10ec90 {
     void FUN_0027b040(int word);
 };
 
-extern unsigned DAT_004e0bb8;
-extern Key_10ec90 DAT_004e0bb0;
 void FUN_00363e70();
 bool __cdecl FUN_00018960(float a, float b, float eps);
 
@@ -55,9 +55,9 @@ class HulkActionCountCondition {
 
 bool HulkActionCountCondition::FUN_0010ec90(int a1, fight::Params *params, int a3)
 {
-    if ((DAT_004e0bb8 & 1) == 0) {
-        DAT_004e0bb8 |= 1;
-        DAT_004e0bb0.FUN_0027af00();
+    if (((*(unsigned*)&DAT_004e0bb8) & 1) == 0) {
+        (*(unsigned*)&DAT_004e0bb8) |= 1;
+        (*(Key_10ec90*)&DAT_004e0bb0).FUN_0027af00();
         atexit(FUN_00363e70);
     }
     if (dynamic_cast<CFightParams *>(params) == 0)
@@ -69,11 +69,11 @@ bool HulkActionCountCondition::FUN_0010ec90(int a1, fight::Params *params, int a
 
     FUN_000678d0()->FUN_00067730();
 
-    DAT_004e0bb0.FUN_0027b040(keyword);
+    (*(Key_10ec90*)&DAT_004e0bb0).FUN_0027b040(keyword);
 
     Key_10ec90 k;
-    k.lo = DAT_004e0bb0.lo;
-    k.hi = DAT_004e0bb0.hi;
+    k.lo = (*(Key_10ec90*)&DAT_004e0bb0).lo;
+    k.hi = (*(Key_10ec90*)&DAT_004e0bb0).hi;
     float value = FUN_000678d0()->FUN_00067110(&k);
 
     if (threshold < 0.0f)

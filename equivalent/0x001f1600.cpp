@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001f1600 @ 0x001f1600
+#include "decls/data/game/unknown.h"
+
 class Mgr_1f1600 {
 public:
     void FUN_001ef260(void *p);
@@ -10,14 +12,13 @@ public:
     void *FUN_001f0230(int a, int b, int c, int d, int e, int f);
 };
 
-extern Mgr_1f1600 *DAT_004e3710;
 void *__cdecl FUN_0008d710(int size, int tag);
 
 void __stdcall FUN_001f1600(int a, int b, int c, int d, int e, int f)
 {
     if (a == 0 || b == 0)
         return;
-    Mgr_1f1600 *m = DAT_004e3710;
+    Mgr_1f1600 *m = (*(Mgr_1f1600**)&DAT_004e3710);
     if (m == 0)
         return;
     Job_1f1600 *j = (Job_1f1600 *)FUN_0008d710(0x28, 6);

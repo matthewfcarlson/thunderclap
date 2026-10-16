@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3180 inputs, branch coverage 118/140, incomplete)
 // FUN_001bcef0 @ 0x001bcef0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 extern "C" double __cdecl sqrt(double);
 extern "C" void * __cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 
-extern unsigned char DAT_004dd888;
 extern char DAT_0049fd74[];
 extern char DAT_004c4bb4[];
-extern float DAT_004c4be0;
-extern float DAT_004c4be4;
 
 struct Mat_1bcef0;
 struct V3_1bcef0 {
@@ -173,7 +173,6 @@ struct Gfx {
     virtual char v63();
 };
 
-extern Wrapper_1bcef0 *DAT_0052c2ac;
 
 struct Holder_1bcef0 {
     Renderer_1bcef0 *FUN_001c19a0();
@@ -322,7 +321,7 @@ void Fx_1bcef0::FUN_001bcef0()
 {
     Frame_1bcef0 f;
     f.self = this;
-    if (DAT_004dd888)
+    if ((*(unsigned char*)&DAT_004dd888))
         return;
     World *w = DAT_004dd700;
     Obj3c_1bcef0 *p3c = w->f3c;
@@ -362,14 +361,14 @@ void Fx_1bcef0::FUN_001bcef0()
                 f.u8.r = -f.u8.r;
             f.u68.M2.FUN_0022b980();
             f.u68.M2.FUN_0022bab0(f.u8.r);
-            DAT_0052c2ac->dev->v15(0);
-            DAT_0052c2ac->dev->v13(0);
-            f.v.z = DAT_004c4be4;
-            DAT_0052c2ac->FUN_00293d00(&f.v);
-            DAT_0052c2ac->dev->v17(0, &f.u68.M2);
-            DAT_0052c2ac->FUN_00293da0(DAT_004c4be0, DAT_004c4be0, DAT_004c4be0);
+            (*(Wrapper_1bcef0**)&DAT_0052c2ac)->dev->v15(0);
+            (*(Wrapper_1bcef0**)&DAT_0052c2ac)->dev->v13(0);
+            f.v.z = (*(float*)&DAT_004c4be4);
+            (*(Wrapper_1bcef0**)&DAT_0052c2ac)->FUN_00293d00(&f.v);
+            (*(Wrapper_1bcef0**)&DAT_0052c2ac)->dev->v17(0, &f.u68.M2);
+            (*(Wrapper_1bcef0**)&DAT_0052c2ac)->FUN_00293da0((*(float*)&DAT_004c4be0), (*(float*)&DAT_004c4be0), (*(float*)&DAT_004c4be0));
             o14->v8(0, 0);
-            DAT_0052c2ac->dev->v16(0);
+            (*(Wrapper_1bcef0**)&DAT_0052c2ac)->dev->v16(0);
         }
     } else if (o20->b350) {
         Obj124_1bcef0 *p124 = o20->f124;
@@ -488,13 +487,13 @@ void Fx_1bcef0::FUN_001bcef0()
                     f.P.x = f.va8.x * 0.01f + f.vb4.x;
                     f.P.y = f.va8.y * 0.01f + f.vb4.y;
                     f.P.z = f.va8.z * 0.01f + f.vb4.z;
-                    DAT_0052c2ac->dev->v15(0);
-                    DAT_0052c2ac->FUN_00293d00(&f.P);
+                    (*(Wrapper_1bcef0**)&DAT_0052c2ac)->dev->v15(0);
+                    (*(Wrapper_1bcef0**)&DAT_0052c2ac)->FUN_00293d00(&f.P);
                     ((Fx_1bcef0 *)f.self)->FUN_001bc730();
-                    DAT_0052c2ac->FUN_00293c20(f.u4.ang);
-                    DAT_0052c2ac->FUN_00293da0(0.004f, 0.004f, f.arr2[i] * 0.004f);
+                    (*(Wrapper_1bcef0**)&DAT_0052c2ac)->FUN_00293c20(f.u4.ang);
+                    (*(Wrapper_1bcef0**)&DAT_0052c2ac)->FUN_00293da0(0.004f, 0.004f, f.arr2[i] * 0.004f);
                     n0c->v8(0, 0);
-                    DAT_0052c2ac->dev->v16(0);
+                    (*(Wrapper_1bcef0**)&DAT_0052c2ac)->dev->v16(0);
                     f.u4.ang = f.u4.ang + 1.57079637f;
                 }
                 }
@@ -525,21 +524,21 @@ void Fx_1bcef0::FUN_001bcef0()
                         f.P.x = f.vb4.x * 0.01f + f.va8.x;
                         f.P.y = f.vb4.y * 0.01f + f.va8.y;
                         f.P.z = f.vb4.z * 0.01f + f.va8.z;
-                        DAT_0052c2ac->dev->v15(0);
-                        DAT_0052c2ac->FUN_00293d00(&f.P);
+                        (*(Wrapper_1bcef0**)&DAT_0052c2ac)->dev->v15(0);
+                        (*(Wrapper_1bcef0**)&DAT_0052c2ac)->FUN_00293d00(&f.P);
                         ((Fx_1bcef0 *)f.self)->FUN_001bc730();
-                        DAT_0052c2ac->FUN_00293c20(f.u18.ang2);
-                        DAT_0052c2ac->FUN_00293da0(0.004f, 0.004f, 0.004f);
+                        (*(Wrapper_1bcef0**)&DAT_0052c2ac)->FUN_00293c20(f.u18.ang2);
+                        (*(Wrapper_1bcef0**)&DAT_0052c2ac)->FUN_00293da0(0.004f, 0.004f, 0.004f);
                         if (g18) {
                             f.v.x = -g18->x;
                             f.v.y = -g18->y;
                             f.v.z = -g18->z;
-                            DAT_0052c2ac->FUN_00293d00(&f.v);
+                            (*(Wrapper_1bcef0**)&DAT_0052c2ac)->FUN_00293d00(&f.v);
                         }
                         if (f.u4.eb)
                             f.u4.eb->v8(0, 0);
                         f.u28.eb->v8(0, 0);
-                        DAT_0052c2ac->dev->v16(0);
+                        (*(Wrapper_1bcef0**)&DAT_0052c2ac)->dev->v16(0);
                         f.u18.ang2 = f.u18.ang2 + 1.57079637f;
                         cp++;
                     } while (--cnt != 0);
@@ -585,12 +584,12 @@ void Fx_1bcef0::FUN_001bcef0()
                     f.P.x = f.vb4.x * 0.01f + f.va8.x;
                     f.P.y = f.vb4.y * 0.01f + f.va8.y;
                     f.P.z = f.vb4.z * 0.01f + f.va8.z;
-                    DAT_0052c2ac->dev->v15(0);
-                    DAT_0052c2ac->FUN_00293d00(&f.P);
+                    (*(Wrapper_1bcef0**)&DAT_0052c2ac)->dev->v15(0);
+                    (*(Wrapper_1bcef0**)&DAT_0052c2ac)->FUN_00293d00(&f.P);
                     ((Fx_1bcef0 *)f.self)->FUN_001bc730();
-                    DAT_0052c2ac->FUN_00293da0(0.004f, 0.004f, 0.004f);
+                    (*(Wrapper_1bcef0**)&DAT_0052c2ac)->FUN_00293da0(0.004f, 0.004f, 0.004f);
                     n10->v8(0, 0);
-                    DAT_0052c2ac->dev->v16(0);
+                    (*(Wrapper_1bcef0**)&DAT_0052c2ac)->dev->v16(0);
                 }
             }
         }

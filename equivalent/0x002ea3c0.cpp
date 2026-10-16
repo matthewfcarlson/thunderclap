@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 19923 inputs, branch coverage 133/142, incomplete)
 // FUN_002ea3c0 @ 0x002ea3c0
 // FUN_002ea3c0 @ 0x002ea3c0
+#include "decls/data/engine/physics.h"
+
 typedef unsigned char Byte;
 typedef unsigned int uInt;
 typedef unsigned long uLong;
@@ -58,8 +60,6 @@ struct inflate_blocks_state {
 };
 
 extern "C" void *memcpy(void *, const void *, unsigned int);
-extern unsigned int DAT_00430c58[];
-extern unsigned int DAT_004d2838[];
 
 extern int __cdecl FUN_002ec650(inflate_blocks_state *s, z_stream *z, int r);
 extern int __cdecl FUN_002ec620(uInt *bl, uInt *bd, inflate_huft **tl, inflate_huft **td, z_stream *z);
@@ -185,11 +185,11 @@ int __cdecl FUN_002ea3c0(inflate_blocks_state *s, z_stream *z, int r)
     case 4:
         while (s->sub.trees.index < 4 + (s->sub.trees.table >> 10)) {
             NEEDBITS(3)
-            s->sub.trees.blens[DAT_00430c58[s->sub.trees.index++]] = (uInt)b & 7;
+            s->sub.trees.blens[((unsigned int*)&DAT_00430c58)[s->sub.trees.index++]] = (uInt)b & 7;
             DUMPBITS(3)
         }
         while (s->sub.trees.index < 19)
-            s->sub.trees.blens[DAT_00430c58[s->sub.trees.index++]] = 0;
+            s->sub.trees.blens[((unsigned int*)&DAT_00430c58)[s->sub.trees.index++]] = 0;
         s->sub.trees.bb = 7;
         t = FUN_002ec3e0(s->sub.trees.blens, &s->sub.trees.bb, &s->sub.trees.tb, s->hufts, z);
         if (t != 0) {
@@ -208,7 +208,7 @@ int __cdecl FUN_002ea3c0(inflate_blocks_state *s, z_stream *z, int r)
 
             t = s->sub.trees.bb;
             NEEDBITS(t)
-            h = s->sub.trees.tb + ((uInt)b & DAT_004d2838[t]);
+            h = s->sub.trees.tb + ((uInt)b & ((unsigned int*)&DAT_004d2838)[t]);
             t = h->bits;
             c = h->base;
             if (c < 16) {
@@ -219,7 +219,7 @@ int __cdecl FUN_002ea3c0(inflate_blocks_state *s, z_stream *z, int r)
                 j = c == 18 ? 11 : 3;
                 NEEDBITS(t + i)
                 DUMPBITS(t)
-                j += (uInt)b & DAT_004d2838[i];
+                j += (uInt)b & ((unsigned int*)&DAT_004d2838)[i];
                 DUMPBITS(i)
                 i = s->sub.trees.index;
                 t = s->sub.trees.table;

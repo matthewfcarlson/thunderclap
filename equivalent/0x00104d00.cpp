@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 21/22, incomplete)
 // CPathGraphAgent::vfunc_4 @ 0x00104d00
+#include "decls/data/game/global.h"
+
 struct V3_104d00 {
     float x, y, z;
     float FUN_0022d110();
@@ -58,8 +60,8 @@ public:
     Sub58_104d00 sub58;
 };
 
-extern float DAT_0040d4d8;  // 4.0
-extern float DAT_004a1c68;  // 3.0
+  // 4.0
+  // 3.0
 
 char __cdecl FUN_00018960(float a, float b, float eps);
 
@@ -134,7 +136,7 @@ void CPathGraphAgent::vfunc_4(int a, int b, int c)
                 b.u &= 0x7fffffff;
                 ady = b.f;
             }
-            if (ady > DAT_0040d4d8) {
+            if (ady > (*(float*)&DAT_0040d4d8)) {
                 flag5c = 0;
             } else {
                 d.y = 0.0f;

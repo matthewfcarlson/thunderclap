@@ -1,5 +1,6 @@
+#include "decls/data/platform/xbox/pure3d.h"
+
 extern "C" char DAT_004324a8[];
-extern "C" char DAT_005554a4[];
 typedef unsigned char u8_31ba30;
 void InitDevice();
 void CleanupDevice(void*);

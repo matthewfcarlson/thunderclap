@@ -1,9 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 112 inputs, branch coverage 47/48, incomplete)
 // CCharacterGolem::vfunc_3 @ 0x000fe680
 #include "decls/address.h"
-extern float DAT_0040d0f4;
-extern float DAT_0040d0e8;
-extern bool DAT_004e0a98;
+#include "decls/data/game/global.h"
 
 extern "C" double sqrt(double);
 
@@ -108,7 +106,7 @@ void CCharacterGolem::vfunc_3(Entity *a1, float dt)
     if (!a1->sub20->FUN_00025d30(t)) {
         float x = dt + f12c;
         f12c = x;
-        if (x < DAT_0040d0f4)
+        if (x < (*(float*)&DAT_0040d0f4))
             return;
         dt = x;
         f12c = 0;
@@ -128,7 +126,7 @@ void CCharacterGolem::vfunc_3(Entity *a1, float dt)
     } fr;
     PState *ps = &p;
     fr.rng = FUN_000964d0();
-    if (DAT_004e0a98 && t != 0) {
+    if ((*(bool*)&DAT_004e0a98) && t != 0) {
         Sub20_fe680 *s20 = a1->sub20;
         unsigned __int64 id = FUN_002672f0("hulk", 0, 0);
         ps->slot = s20->FUN_00024280(id)->slot;
@@ -157,7 +155,7 @@ void CCharacterGolem::vfunc_3(Entity *a1, float dt)
         float rem = f124 - dt;
         f124 = rem;
         if (rem <= 0.0f && !a1->sub20->FUN_00024300(t))
-            f124 = (fr.rng->FUN_00078780() + 1.0f) * DAT_0040d0e8;
+            f124 = (fr.rng->FUN_00078780() + 1.0f) * (*(float*)&DAT_0040d0e8);
         if (q->f0c == 1 && q->f08 != 0) {
             ps->b44 = 1;
             if (fr.found) {

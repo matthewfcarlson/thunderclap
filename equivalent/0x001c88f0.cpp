@@ -1,6 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 83/92, incomplete)
 // FUN_001c88f0 @ 0x001c88f0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/Render.h"
+#include "decls/data/game/Render/Canvas.h"
+#include "decls/data/game/global.h"
 extern "C" double sqrt(double);
 
 struct Vec3_1c88f0 {
@@ -164,16 +168,6 @@ struct Mgr_1c88f0 {
     void FUN_001c88f0(Ctx_1c88f0 *ctx);
 };
 
-extern Profiler_1c88f0 *DAT_004dd6e8;
-extern Gfx_1c88f0 **DAT_0052c2ac;
-extern int DAT_004e2314;
-extern int DAT_004c5470;
-extern char DAT_004c53b8;
-extern char DAT_004e23a0;
-extern float DAT_004c53bc;
-extern float DAT_004c53c0;
-extern float DAT_004c53c4;
-extern float DAT_004c546c;
 
 // The original's 0x5c-byte frame, field by field.
 struct Frame_1c88f0 {
@@ -196,19 +190,19 @@ void Mgr_1c88f0::FUN_001c88f0(Ctx_1c88f0 *ctx)
 {
     Frame_1c88f0 f;
     f54c = 0;
-    DAT_004dd6e8->FUN_0023f720(&DAT_004c5470, "Rendering");
-    if (DAT_004dd6e8->FUN_0023f760("Draw Background", 0x62, 1)) {
+    (*(Profiler_1c88f0**)&DAT_004dd6e8)->FUN_0023f720(&DAT_004c5470, "Rendering");
+    if ((*(Profiler_1c88f0**)&DAT_004dd6e8)->FUN_0023f760("Draw Background", 0x62, 1)) {
         ctx->FUN_001c1330(0);
         if (f0c != 0) {
-            (*DAT_0052c2ac)->vfunc_15(0);
+            (*(*(Gfx_1c88f0***)&DAT_0052c2ac))->vfunc_15(0);
             Vec3_1c88f0 *cp = ctx->FUN_001c1300();
             f.unit.x = cp->x;
             f.unit.y = cp->y;
             f.unit.z = cp->z;
             f.unit.y = 0.0f;
-            ((GfxHolder *)DAT_0052c2ac)->FUN_00293d00(&f.unit);
+            ((GfxHolder *)(*(Gfx_1c88f0***)&DAT_0052c2ac))->FUN_00293d00(&f.unit);
             ctx->FUN_001c25c0(f0c, DAT_004e2314, 0);
-            (*DAT_0052c2ac)->vfunc_16(0);
+            (*(*(Gfx_1c88f0***)&DAT_0052c2ac))->vfunc_16(0);
             ctx->FUN_001c1340();
         }
         if (f08 != 0) {
@@ -219,7 +213,7 @@ void Mgr_1c88f0::FUN_001c88f0(Ctx_1c88f0 *ctx)
             DAT_0052c2a8->vfunc_28(f.tmp12, f.r150, f.dist, f.alpha);
         }
     }
-    DAT_004dd6e8->FUN_0023f740();
+    (*(Profiler_1c88f0**)&DAT_004dd6e8)->FUN_0023f740();
     sub18.FUN_001c75e0(&f10);
     Vec3_1c88f0 *cam = ctx->FUN_001c1300();
     f.pos.x = cam->x;
@@ -255,7 +249,7 @@ void Mgr_1c88f0::FUN_001c88f0(Ctx_1c88f0 *ctx)
             break;
         if (!it->b8)
             continue;
-        if (DAT_004c53b8) {
+        if ((*(char*)&DAT_004c53b8)) {
             f.v.x = f.pos.x;
             f.v.y = f.pos.y;
             f.v.z = f.pos.z;
@@ -263,7 +257,7 @@ void Mgr_1c88f0::FUN_001c88f0(Ctx_1c88f0 *ctx)
             float dx = f.v.x - ip->x;
             float dz = f.v.z - ip->z;
             bool show;
-            if (DAT_004e23a0) {
+            if ((*(char*)&DAT_004e23a0)) {
                 show = true;
             } else if (dz * dz + dx * dx < f.r150) {
                 show = ctx->vis.FUN_001c2870(it->FUN_001c6ac0()) != 0;
@@ -277,11 +271,11 @@ void Mgr_1c88f0::FUN_001c88f0(Ctx_1c88f0 *ctx)
         char *mode = DAT_004dd6ec->FUN_00086310()->FUN_000897f0();
         bool skipNear = false;
         if (mode[0] == 'd' && mode[1] == 't') {
-            if (DAT_004e23a0)
+            if ((*(char*)&DAT_004e23a0))
                 skipNear = true;
             else
                 bl = 1;
-        } else if (DAT_004e23a0) {
+        } else if ((*(char*)&DAT_004e23a0)) {
             skipNear = true;
         }
         if (!skipNear) {
@@ -335,7 +329,7 @@ void Mgr_1c88f0::FUN_001c88f0(Ctx_1c88f0 *ctx)
             DAT_004c546c = c2 * 0.6f + DAT_004c546c * 0.4f;
             f.dist = prod * DAT_004c546c;
         }
-        if (!DAT_004e23a0 && !it->b9) {
+        if (!(*(char*)&DAT_004e23a0) && !it->b9) {
             if (!(f.dist < f.r295)) {
                 it->f58 = 0.0f;
                 continue;

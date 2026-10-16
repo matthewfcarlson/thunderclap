@@ -1,12 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 6/6)
 // FUN_0016b3c0 @ 0x0016b3c0
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight/motion.h"
+#include "decls/data/game/unknown.h"
+
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-extern int DAT_004e1224;
-extern int DAT_004e1220;
-extern int DAT_00427760;
-extern int DAT_003f5bbc;
-extern int DAT_00427758;
-extern int DAT_0048f590;
 extern void FUN_00165580();
 extern void FUN_00165590();
 extern void* __cdecl FUN_0008d690(unsigned int);
@@ -29,20 +28,20 @@ void initialize() {
   List_16b3c0* lists[2];
   List_16b3c0* a = (List_16b3c0*)FUN_0008d690(32);
   if (a) {
-   int count = DAT_00427760;
+   int count = (*(int*)&DAT_00427760);
    a->FUN_00234cc0("compare");
    new(a) List_16b3c0;
-   a->values = &DAT_00427758;
+   a->values = ((int*)&DAT_00427758);
    a->count = count;
    a->callback = FUN_00165580;
   }
   lists[0] = a;
   List_16b3c0* b = (List_16b3c0*)FUN_0008d690(32);
   if (b) {
-   int count = DAT_003f5bbc;
+   int count = (*(int*)&DAT_003f5bbc);
    b->FUN_00234cc0("locomotionMotionState");
    new(b) List_16b3c0;
-   b->values = &DAT_0048f590;
+   b->values = ((int*)&DAT_0048f590);
    b->count = count;
    b->callback = FUN_00165590;
   }

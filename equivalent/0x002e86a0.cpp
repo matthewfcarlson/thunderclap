@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 19/24, incomplete)
 // FUN_002e86a0 @ 0x002e86a0
+#include "decls/data/engine/core.h"
+
 struct png_struct_2e86a0 {
     char pad[0x60];
     unsigned int mode;
@@ -12,7 +14,6 @@ struct png_info_2e86a0 {
     unsigned int valid;
 };
 
-extern int DAT_004d9a30;
 
 void FUN_002e69a0(png_struct_2e86a0* png, const char* msg);
 void FUN_002e69d0(png_struct_2e86a0* png, const char* msg);
@@ -56,7 +57,7 @@ void FUN_002e86a0(png_struct_2e86a0* png, png_info_2e86a0* info, unsigned int le
 
     if ((info->valid & 0x800) && igamma != 45000) {
         FUN_002e69d0(png, "Ignoring incorrect gAMA value when sRGB is also present");
-        FUN_00347792(&DAT_004d9a30, "igamma = %lu\n", igamma);
+        FUN_00347792(((int*)&DAT_004d9a30), "igamma = %lu\n", igamma);
         return;
     }
 

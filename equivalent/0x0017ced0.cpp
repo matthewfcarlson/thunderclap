@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 26/26)
 // FUN_0017ced0 @ 0x0017ced0
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -121,9 +123,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e1310;
-extern int DAT_004e1314;
-extern const char* DAT_004b7cfc[3];
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0017ced0()
@@ -158,7 +157,7 @@ void FUN_0017ced0()
         mem = FUN_0008d690(0x20);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamEnumConstList<hulkfight::motion::SyncToLocatorTrack>("rotationOverride", DAT_004b7cfc, 3, &hulkfight::motion::SyncToLocatorTrack::FUN_0016ed00);
+            params[6] = new (mem) fight::ParamEnumConstList<hulkfight::motion::SyncToLocatorTrack>("rotationOverride", ((const char**)&DAT_004b7cfc), 3, &hulkfight::motion::SyncToLocatorTrack::FUN_0016ed00);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
@@ -179,7 +178,7 @@ void FUN_0017ced0()
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::SyncToLocatorTrack>("blendOutTime", &hulkfight::motion::SyncToLocatorTrack::FUN_0016edd0);
-        FUN_002347b0(&DAT_004e1310, params, 12);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1310), params, 12);
     }
     DAT_004e1314++;
 }

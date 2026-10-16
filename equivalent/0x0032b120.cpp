@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 14/14)
 // pure3d::d3dErrorShader::vfunc_14 @ 0x0032b120
+#include "decls/data/platform/xbox/pure3d.h"
+
 struct MatSrc {
     unsigned int diffuse;
     unsigned int specular;
@@ -29,7 +31,6 @@ extern unsigned int DAT_0039db08;
 extern unsigned int DAT_0039db40;
 extern unsigned int DAT_0039db50;
 extern unsigned int DAT_0039de18;
-extern unsigned int DAT_004d4f24[];
 
 namespace pure3d {
 class d3dErrorShader {
@@ -93,7 +94,7 @@ void d3dErrorShader::vfunc_14(int unused) {
     }
     if (mode != ctx->mode) {
         ctx->mode = mode;
-        unsigned int value = DAT_004d4f24[mode];
+        unsigned int value = ((unsigned int*)&DAT_004d4f24)[mode];
         D3DDevice_SetRenderState_Simple(0x4037c, value);
         DAT_0039de18 = value;
     }

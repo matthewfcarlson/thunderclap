@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 16/16)
 // FUN_002027c0 @ 0x002027c0
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
+
 extern "C" double __cdecl sqrt(double);
 
 struct V3_2027c0 {
@@ -55,10 +58,6 @@ struct Game_2027c0 {
 };
 
 extern Game_2027c0 *DAT_004dd700;
-extern int DAT_004d2a3c;
-extern char DAT_004d2a40;
-extern char DAT_00554c1c;
-extern float DAT_00554c18;
 
 void FUN_002f1ce0(V3_2027c0 *a, int value, V3_2027c0 *b, int *outv);
 
@@ -94,9 +93,9 @@ bool FUN_002027c0(V3_2027c0 *from, V3_2027c0 *to, float radius, int a4, V3_2027c
     probe->list.count = 0;
     HitList_2027c0 *list = &probe->list;
     DAT_004d2a3c = 2;
-    DAT_004d2a40 = 0;
-    DAT_00554c1c = 1;
-    DAT_00554c18 = radius;
+    (*(char*)&DAT_004d2a40) = 0;
+    (*(char*)&DAT_00554c1c) = 1;
+    (*(float*)&DAT_00554c18) = radius;
     fr.game->camera->FUN_00025260(0, 0, 0);
 
     bool result = fr.hit1;

@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 23/24, incomplete)
 // FUN_000d5290 @ 0x000d5290
+#include "decls/data/game/global.h"
+
 struct MessageSink {
     void FUN_001ebd00(const char *kind, const char *name);
 };
 
-extern float DAT_004a06d4;
-extern float DAT_004a06dc;
 
 union FloatBits_d5290 {
     float f;

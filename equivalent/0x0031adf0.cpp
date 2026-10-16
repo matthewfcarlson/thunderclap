@@ -1,16 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 99 inputs, branch coverage 20/22, incomplete)
 // FUN_0031adf0 @ 0x0031adf0
-extern int DAT_004d35dc;
+#include "decls/data/engine/unknown.h"
+#include "decls/data/platform/xbox/pure3d.h"
+
 extern int FUN_00356667();
 struct DisplayMode_31adf0 { int width; unsigned char bytes[8]; };
-extern DisplayMode_31adf0 DAT_004d350c[];
 int __cdecl FUN_0031adf0(int index) {
-    int flags = DAT_004d35dc;
+    int flags = (*(int*)&DAT_004d35dc);
     if (flags == -1) {
         flags = FUN_00356667();
-        DAT_004d35dc = flags;
+        (*(int*)&DAT_004d35dc) = flags;
     }
-    DisplayMode_31adf0 &mode = DAT_004d350c[index];
+    DisplayMode_31adf0 &mode = ((DisplayMode_31adf0*)((char*)&DAT_004d3508 + 4))[index];
     int width = mode.width;
     int result = 1;
     if (width == 480) {

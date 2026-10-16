@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 23/26, incomplete)
 // FUN_001adeb0 @ 0x001adeb0
-extern float DAT_003f32e0;
+#include "decls/data/game/global.h"
+
 extern "C" double sqrt(double);
 
 struct Vec3_1adeb0 {
@@ -76,7 +77,7 @@ int Finder_1adeb0::FUN_001adeb0(Vec3_1adeb0 *pos, int id, char recurse, int unus
         float ez = q->z - pos->z;
         double d = sqrt((double)(ez * ez + ey * ey + ex * ex));
         if (!(base > d)) {
-            if (f.best == DAT_003f32e0 || d > f.best) {
+            if (f.best == (*(float*)&DAT_003f32e0) || d > f.best) {
                 f.best = (float)d;
                 f.bestId = cid;
             }

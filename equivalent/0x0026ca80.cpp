@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0026ca80 @ 0x0026ca80
+#include "decls/data/engine/core.h"
+
 namespace core {
 struct IMemoryAllocator { virtual void slot0(); };
 struct Object { virtual void slot0(); Object(); };
@@ -17,7 +19,6 @@ struct MemoryDlAllocator : IMemoryAllocator, Object {
     MemoryDlAllocator(int, int, int);
 };
 }
-extern int DAT_004cdbb0;
 void __cdecl FUN_002705f0();
 int __cdecl FUN_00266e00(int, int);
 core::Object::Object() {

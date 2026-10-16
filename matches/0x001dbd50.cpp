@@ -1,4 +1,5 @@
-extern "C" char DAT_004c6044[];
+#include "decls/data/game/global.h"
+
 class Loader_1dbd50 {
   public:
     void Config(const char*, int, int);

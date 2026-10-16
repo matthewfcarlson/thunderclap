@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_000717e0 @ 0x000717e0
+#include "decls/data/game/global.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void __cdecl FUN_00068520();
@@ -18,8 +20,6 @@ template<class T> struct ParamFloatConstRange : ParamBase_717e0 {
     unsigned int tail;
 };
 }
-extern unsigned int DAT_004dcf7c;
-extern unsigned int DAT_004dcf78;
 void __cdecl FUN_002347b0(void*, void*, int);
 void __cdecl FUN_000717e0() {
     if (!DAT_004dcf7c) {

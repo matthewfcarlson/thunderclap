@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // pure3d::scenegraph::TransformNode::vfunc_8 @ 0x002968b0
 // 0x002968b0: TransformNode::vfunc_8: draw the branch under this node's transform
+#include "decls/data/engine/pure3d/prop.h"
+
 struct Matrix {
     float m[16];
     void FUN_0022ca90(Matrix* a, Matrix* b);
@@ -32,7 +34,6 @@ struct Device_2968b0 {
 struct Context {
     Device_2968b0* device;
 };
-extern Context* DAT_0052c2ac;
 
 namespace pure3d {
 namespace scenegraph {
@@ -66,9 +67,9 @@ void TransformNode::vfunc_8(int a, int b, int c)
             part->SetActive(0, 1);
     }
     m.FUN_0022ca90(Transform(), (Matrix*)a);
-    DAT_0052c2ac->device->PushMatrix(0, &m);
+    (*(Context**)&DAT_0052c2ac)->device->PushMatrix(0, &m);
     BranchNode::vfunc_8(a, b, c);
-    DAT_0052c2ac->device->PopMatrix(0);
+    (*(Context**)&DAT_0052c2ac)->device->PopMatrix(0);
 }
 
 }

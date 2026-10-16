@@ -1,8 +1,6 @@
-extern "C" char DAT_003f335c[];
-extern "C" char DAT_00408ee8[];
-extern "C" char DAT_00408fa0[];
-extern "C" char DAT_0040914c[];
-extern "C" char DAT_0040915c[];
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 class D {
   public:
     void Init();
@@ -18,7 +16,7 @@ class C_bf260 {
 extern D* __stdcall Make(int, int, int, int, int, int, int, int);
 void __fastcall Target(C_bf260* self) {
     if (self->m34 && self->m30) {
-        D* x = Make(((int)DAT_0040914c), ((int)DAT_0040915c), ((int)DAT_003f335c), ((int)DAT_00408ee8), ((int)DAT_00408fa0), 2, 0, 0);
+        D* x = Make(((int)((char*)&DAT_0040914c)), ((int)((char*)&DAT_0040915c)), ((int)((char*)&DAT_003f335c)), ((int)((char*)&DAT_00408ee8)), ((int)((char*)&DAT_00408fa0)), 2, 0, 0);
         x->Init();
         self->state = 0x13;
         self->Next();

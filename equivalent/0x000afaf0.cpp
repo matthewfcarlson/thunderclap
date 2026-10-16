@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 238 inputs, branch coverage 12/12)
 // FUN_000afaf0 @ 0x000afaf0
-extern char DAT_004dda3d;
+#include "decls/data/game/global.h"
 
 class Notifier_afaf0 {
 public:
@@ -41,7 +41,7 @@ void Manager_afaf0::FUN_000afaf0() {
         return;
     for (int g = 0; g < groupCount; g++) {
         for (unsigned int e = 0; e < groups[g].count; e++) {
-            if (DAT_004dda3d)
+            if ((*(char*)&DAT_004dda3d))
                 groups[g].owner->GetNotifier(e)->Reset(0);
             groups[g].entries[e] = 0;
             FUN_000af530(g, e, 0);

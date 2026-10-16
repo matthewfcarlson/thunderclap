@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 22/22)
 // FUN_00065630 @ 0x00065630
+#include "decls/data/game/global.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -145,8 +147,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc630;
-extern int DAT_004dc634;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_00065630()
@@ -194,7 +194,7 @@ void FUN_00065630()
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamFloatConstRange<CSmartPropSpawnTrack>("minDistance", &CSmartPropSpawnTrack::FUN_00061e10);
-        FUN_002347b0(&DAT_004dc630, params, 10);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc630), params, 10);
     }
     DAT_004dc634++;
 }

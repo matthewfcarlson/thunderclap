@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/8, incomplete)
 // FUN_000f2f50 @ 0x000f2f50
+#include "decls/data/game/global.h"
+
 namespace content {
 namespace LoadInventory {
 class __declspec(novtable) DynamicCasterBase {
@@ -31,7 +33,6 @@ public:
     virtual Ref_f2f50 *v3(content::LoadInventory::DynamicCaster<pure3d::scenegraph::Scenegraph> *caster, unsigned int lo, unsigned int hi);
 };
 
-extern Loader_f2f50 *DAT_004dd9cc;
 
 struct Id64_f2f50 {
     unsigned int lo;
@@ -56,7 +57,7 @@ void Inventory_f2f50::FUN_000f2f50(const char *name)
             break;
     }
     if (i < 1) {
-        Loader_f2f50 *ld = DAT_004dd9cc;
+        Loader_f2f50 *ld = (*(Loader_f2f50**)&DAT_004dd9cc);
         Id64_f2f50 id = FUN_0027b020(name);
         content::LoadInventory::DynamicCaster<pure3d::scenegraph::Scenegraph> caster;
         Ref_f2f50 *r = ld->v3(&caster, id.lo, id.hi);

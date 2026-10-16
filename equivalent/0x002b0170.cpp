@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 37 inputs, branch coverage 13/14, incomplete)
 // pure3d::ExpressionGroupLoader::vfunc_5 @ 0x002b0170
 #include "decls/address.h"
+#include "decls/data/engine/content.h"
 struct Item_2b0170 {
     virtual void v0();
 };
@@ -58,7 +59,6 @@ struct Registry_2b0170 {
     content::ObjectLoader *FUN_00265310(void *key);
 };
 
-extern Registry_2b0170 *DAT_00527c58;
 
 void *FUN_00263ea0(unsigned int size);
 
@@ -113,7 +113,7 @@ unsigned __int64 ExpressionGroupLoader::vfunc_5(ExprGroup_2b0170 **out, unsigned
         unsigned int off = 0;
         do {
             if (r->FUN_00266a30() == 0x21000) {
-                pure3d::ExpressionLoader *el = dynamic_cast<pure3d::ExpressionLoader *>(DAT_00527c58->FUN_00265310(r->FUN_00266c30()));
+                pure3d::ExpressionLoader *el = dynamic_cast<pure3d::ExpressionLoader *>((*(Registry_2b0170**)&DAT_00527c58)->FUN_00265310(r->FUN_00266c30()));
                 if (el != 0) {
                     fr.u.item = 0;
                     el->v5(&fr.u.item, &fr.x, r, 0);

@@ -1,4 +1,5 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct Child_e6e90 {
     virtual void s0();
     virtual void s1();
@@ -29,7 +30,6 @@ struct World {
     char pad[0x20];
     Context* context;
 };
-extern unsigned char DAT_004e222c, DAT_004e2518;
 struct FEThingsBase {
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -106,9 +106,9 @@ void FEThingsBase::vfunc_22() {
         child->s15();
         child->FUN_000e5440(mode);
     }
-    DAT_004e222c = 1;
-    if (DAT_004dd700->context && DAT_004dd700->context->action && DAT_004e2518) {
-        DAT_004e2518 = 0;
+    (*(unsigned char*)&DAT_004e222c) = 1;
+    if (DAT_004dd700->context && DAT_004dd700->context->action && (*(unsigned char*)&DAT_004e2518)) {
+        (*(unsigned char*)&DAT_004e2518) = 0;
         DAT_004dd700->context->action->FUN_000363d0();
     }
 }

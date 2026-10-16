@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 32/32)
 // FUN_001e4c40 @ 0x001e4c40
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 struct Vec3_1e4c40 {
@@ -73,11 +74,8 @@ struct Factory_1e4c40 {
     Node *FUN_001e4c40(const char *key, Vec3_1e4c40 *pos, int type, char *name, Vec3_1e4c40 *dir, int c);
 };
 
-extern int DAT_004e274c;
-extern float DAT_004c617c;
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern float DAT_004c6180;
 
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 extern "C" int __cdecl sprintf(char *, const char *, ...);
@@ -128,9 +126,9 @@ Node *Factory_1e4c40::FUN_001e4c40(const char *key, Vec3_1e4c40 *pos, int type, 
             if (dir != 0)
                 node->FUN_001d86d0(dir, pos);
             if (type == 8 || type == 7 || type == 0xc || type == 0xd)
-                node->f1c4 = DAT_004c6180;
+                node->f1c4 = (*(float*)&DAT_004c6180);
             else
-                node->f1c4 = DAT_004c617c;
+                node->f1c4 = (*(float*)&DAT_004c617c);
         }
     }
     __security_check_cookie(cookie);

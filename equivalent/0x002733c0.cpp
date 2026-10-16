@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_002733c0 @ 0x002733c0
-extern unsigned int DAT_004cdbb0;
+#include "decls/data/engine/core.h"
+
 extern const unsigned int DAT_003f6098[], DAT_0042afa8[], DAT_0042b85c[], DAT_0042b8e0[], DAT_0042b8f0[], DAT_0042b8f8[];
 extern void __cdecl FUN_002705f0();
 extern void __cdecl FUN_0026d860(void*, int);
@@ -23,7 +24,7 @@ struct DriveThread {
  DriveThread* FUN_002733c0(unsigned int, unsigned int);
 };
 DriveThread* DriveThread::FUN_002733c0(unsigned int arg1, unsigned int arg2) {
- refTable=DAT_003f6098; objectTable=DAT_0042afa8; objectValue=DAT_004cdbb0;
+ refTable=DAT_003f6098; objectTable=DAT_0042afa8; objectValue=(*(unsigned int*)&DAT_004cdbb0);
  FUN_002705f0();
  safeTable=DAT_0042b85c; count=1;
  refTable=DAT_0042b8f8; objectTable=DAT_0042b8f0; safeTable=DAT_0042b8e0;

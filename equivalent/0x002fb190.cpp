@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_002fb190 @ 0x002fb190
+#include "decls/data/game/global.h"
+
 struct V3_2fb190 { float x, y, z; };
 
 struct Tri_2fb190;
@@ -26,7 +28,6 @@ struct Registry_2fb190 {
     char FUN_00304530(Query_2fb190* shape, unsigned int index, float depth, V3_2fb190* o1, V3_2fb190* o2, Context* ctx, int flags);
 };
 struct Manager_2fb190 { char pad[0x1b0]; Registry_2fb190 reg; };
-extern Manager_2fb190* DAT_00554c14;
 
 void FUN_002fa6b0(V3_2fb190* a, V3_2fb190* b, V3_2fb190* c, V3_2fb190* normal);
 
@@ -88,7 +89,7 @@ char Tri_2fb190::run(V3_2fb190* p, Context* ctx, int flags)
 
     f.obj.FUN_00306ef0(p, &f.dir, 0x5368d4a5);
     unsigned int index = (unsigned int)((char*)this - (char*)ctx->mesh->tris) / 24;
-    DAT_00554c14->reg.FUN_00304530(&f.obj, index, f.diff, &f.hit, &f.n, ctx, flags);
+    (*(Manager_2fb190**)&DAT_00554c14)->reg.FUN_00304530(&f.obj, index, f.diff, &f.hit, &f.n, ctx, flags);
     f.obj.FUN_00306fb0();
     return 1;
 }

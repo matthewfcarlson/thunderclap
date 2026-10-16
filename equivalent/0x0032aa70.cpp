@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 25/26, incomplete)
 // pure3d::d3dSimpleShader::vfunc_14 @ 0x0032aa70
+#include "decls/data/platform/xbox/pure3d.h"
+
 typedef unsigned long DWORD;
 namespace D3D8 {
 void __stdcall D3DDevice_SetTexture(DWORD, DWORD);
 void __stdcall D3DDevice_SetPalette(DWORD, DWORD);
 void __fastcall D3DDevice_SetRenderState_Simple(DWORD method, DWORD value);
 }
-extern unsigned int DAT_004d4f24[];
 extern unsigned int DAT_0039de18;
 struct Texture {
     void FUN_00326b00(int stage);
@@ -136,7 +137,7 @@ void pure3d::d3dSimpleShader::vfunc_14(int unused) {
     s->FUN_00329bb0(n);
     if (renderMode != state->renderMode) {
         state->renderMode = renderMode;
-        unsigned int v = DAT_004d4f24[renderMode];
+        unsigned int v = ((unsigned int*)&DAT_004d4f24)[renderMode];
         D3D8::D3DDevice_SetRenderState_Simple(0x4037c, v);
         DAT_0039de18 = v;
     }

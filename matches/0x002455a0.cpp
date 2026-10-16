@@ -1,5 +1,6 @@
+#include "decls/data/engine/om.h"
+
 extern "C" char DAT_0042918c[];
-extern "C" char DAT_004e5f18[];
 class Entity {
   public:
     virtual void vfunc_0();

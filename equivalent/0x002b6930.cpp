@@ -3,6 +3,7 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ??0MeshBufferBase@pure3d@@QAE@XZ = 0x002a5060
 #include "decls/address.h"
+#include "decls/data/engine/pure3d.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
 
@@ -24,7 +25,6 @@ struct Stream {
     void FUN_00266be0();
 };
 
-extern int DAT_00554bb4;
 
 class Res_2b6930;
 

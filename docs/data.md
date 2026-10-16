@@ -9,12 +9,13 @@ build/venv/bin/python tools/data_inventory.py     # config/data.json + build/dat
 build/venv/bin/python tools/data_gen.py           # data TUs, include/decls/data/, compile + byte-check  (~25 s warm)
 build/venv/bin/python tools/data_gen.py --only global/CAction.cpp      # one object
 build/venv/bin/python tools/build_tree.py --rounds 16 --data           # the tree build plus the data TUs and a link check
+build/venv/bin/python tools/migrate_data.py --apply --equivalent       # sources onto include/decls/data/ (verified, logged)
 ```
 
 | Output | What | Tracked |
 |---|---|---|
 | `config/data.json` | the inventory: one line per item (address, size, kind, name, type, owner, xrefs) | yes (no game bytes, no string text) |
-| `include/decls/data/<layer>/<dir>.h` | `extern "C"` declarations of every emitted item, per layer directory | yes (names, types, sizes only) |
+| `include/decls/data/<layer>/<dir>.h` | `extern "C"` declarations of every emitted item (`DAT_<addr>`, inventory name as a comment), per layer directory; sources include them | yes (names, types, sizes only) |
 | `build/data/src/<layer>/<dir>/<File>.data.cpp` | one data TU per owning object, with the game's bytes | **no** (game data) |
 | `build/data/report.json` | per-item verification results and per-kind totals | no |
 | `build/data/inventory-report.json`, `code_xrefs.json`, `source_offsets.json` | coverage, disassembly cache, source offsets of the last complete tree | no |
@@ -159,13 +160,14 @@ Strings and float constants *are* emitted. In the original they were code-owned 
 literals (`"movies"`, `0.5f`) makes the item dead; `tools/data_gen.py` will simply stop emitting items no source
 references (open problem 4).
 
-**Form, per item** (all `extern "C"`, so the C linkage name is the inventory name and types don't enter the
-symbol): strings `const char s_x[N] = "...";` (octal escapes, no trigraphs), wide strings `unsigned short[]`,
+**Form, per item** (all `extern "C"`, so types don't enter the symbol; the C name was the inventory name and is
+`DAT_<addr>` since the wiring, section 3; examples below use the inventory names): strings `const char s_x[N] = "...";` (octal escapes, no trigraphs), wide strings `unsigned short[]`,
 floats and doubles as decimal literals that round-trip (`%.9g` / `%.17g`; NaN, infinities and denormals would fall
 back to integer words: none occur), scalars and tables with the sources' primitive type when its size fits, else
 `unsigned int[]` / `unsigned char[]`, pointers `const void* const p = (const void*)((const char*)&target + off);`,
 mixed items as a `#pragma pack(1)` struct of byte runs and pointer words, BSS `extern "C" { T x[N]; }`. `const`
-for `.rdata`, non-const for `.data`. A pointer names its target by inventory name (`FUN_<addr>` for code).
+for `.rdata`, non-const for `.data`. A pointer names its target by its C name (`FUN_<addr>` for code). The three variables pinned in
+`include/decls/address.h` are defined with that declaration (`World* DAT_004dd700;`, C++ linkage).
 
 **Verification**, per item: compile the TU with `compare.py`'s MSVC 7.1 under wibo, flags `/O2 /GR /GX /Gy`; find
 the item's symbol; compare its bytes with the XBE outside relocations; each relocation must be `DIR32` and resolve
@@ -198,52 +200,204 @@ not for the port.
 
 **Declarations:** `include/decls/data/<layer>/<dir>.h` (31 headers) declares every emitted item with the type its
 definition has, e.g. `extern "C" const char s_movies_0041dcac[7];`, `extern "C" float fltTbl_004c3bc8[4];`,
-`extern "C" { ... }` free. Mixed items are declared through a forward-declared `DataLayout_<addr>` struct (sources
+`extern "C" { ... }` free. (Since the wiring, section 3, the C symbol of every data item is `DAT_<addr>`:
+`extern "C" const char DAT_0041dcac[7];  // s_movies_0041dcac`.) Mixed items are declared through a forward-declared `DataLayout_<addr>` struct (sources
 take its address). The headers carry names, types and sizes only, no contents.
 
-## 3. Wiring plan (follow-up, not done here)
+## 3. Wiring the sources onto the data (`tools/migrate_data.py`, 2026-10-16)
 
-Today a verified source declares `extern "C" char DAT_0041dcac[];` and the tree's objects reference
-`_DAT_0041dcac` (or a C++-mangled `?DAT_0041dcac@@3PADA`). The switch is a `migrate_gen.py`-style rewrite:
+Sources used to declare their own `extern ... DAT_xxxxxxxx` for every global they touch, in whatever type and
+linkage suited them (`extern char DAT_x;`, `extern "C" char DAT_x[];`, `extern AnimKey DAT_x;`), and 50 of them
+defined the global themselves. Now a verified source includes the owner's `include/decls/data/<layer>/<dir>.h`
+and declares nothing, so the tree has one declaration and one definition (the data TU's) per global.
 
-1. **Map every address name to an item.** `config/data.json` gives `DAT_<addr>` -> item + offset (`interior` lists
-   the addresses sources and code use inside an item). Kinds: exact item start; inside an item (`DAT_x+4` style:
-   rewrite to `((char*)&item + 4)` with the source's type); code-owned (a vftable or RTTI address: the rewrite
-   is to the class, `include/gen/`, not to data); library (stays an address name, shimmed by the platform layer).
-2. **Per source, token-level** (`tools/cxx_items.py`, as `rename_placeholders.py` / `migrate_gen.py` do): drop the
-   source's own `extern ... DAT_x` declaration, `#include "decls/data/<layer>/<dir>.h"`, rename uses to the item
-   name, and add a cast where the source's type differs from the declared one (`*(int*)&flt_x` when a source
-   loads a float with integer moves). Logged (`build/migrate-data.log`), originals kept, list of changed files.
-3. **Verify every rewrite** as migrate_gen does: matches/ must still `compare.py` MATCH (relocations are masked,
-   so a renamed data symbol can't change the bytes; this catches type changes that change codegen), equivalent/
-   must stay EQUIVALENT under `equiv.py --inputs 3000` (equiv.py binds address names by address today; it needs the
-   inventory to bind item names to their addresses: one lookup in `config/data.json`).
-4. **Then fold**: once an object's sources use the names, `gen_tree.py` puts its data definitions at the top of
-   the object's code TU (or keeps the `.data.cpp` sibling; either way one object), and `build_tree.py --data`
-   reports `by_name` for all of them.
+### Names in sources: the address name stays the symbol
 
-`tools/build_tree.py --data` measures where this stands (link check of the tree's objects against the data TUs):
+Every emitted data item's C symbol is now `DAT_<addr>` (`data_gen.cname`); the inventory name
+(`s_movies_0041dcac`, `flt_00421a90`, `fltTbl_...`) is the description written next to its declaration:
 
-| reference from a tree object to `DAT_<addr>` | references |
-|---|---|
-| all (7,200; 5,676 of them C++-mangled, e.g. `?DAT_0048e058@fn_00014d40@@3MA`, need the declaration) | 7,200 |
-| resolves by name today (a data TU defines the same C symbol: scalars and BSS keep `DAT_<addr>`) | 260 |
-| an emitted item's start: resolves after the rename | 5,225 |
-| inside an emitted item (`DAT_x` = item + offset) | 141 |
-| a vftable or RTTI address (code-owned: the rewrite goes to the class, not to data) | 1,303 |
-| library data (CRT/XDK globals, e.g. `DAT_004d9968`): stays an address name for the platform shim | 269 |
-| outside the data sections (`$$XTIMAGE`) | 2 |
+```c
+extern "C" const char DAT_00421a94[15];  // s_Compute_Lights_00421a94
+extern "C" const float DAT_00421aa4;  // flt_00421aa4
+```
 
-53 addresses are *defined* by tree objects (sources that define the global themselves, `unsigned __int64 DAT_x;`);
-50 of them are also data TU items, so those definitions move out of the sources in the rewrite.
+This is the "per-address alias" option, chosen over renaming sources to the inventory names because:
 
-**Tree build with `--data`** (2026-10-16, 20 minutes): **2,502 / 2,502 TUs compile, 21,129 / 21,129 matches still
-match, 4,564 / 4,564 equivalent/ functions compile, 4,517 with code identical to their standalone build, 47 wrapped
-ones can't be told, 0 differ**; the data TUs (1,078) compile and every item verifies. The data TUs are separate
-objects, so they can't change the code TUs; the option adds their check and the link check to
-`build/tree/report.json` (`data`).
+1. **equiv.py binds data by the spelling of the name** (`HEX_NAME`: `DAT_`/`PTR_`/`s_`... followed by the 8
+   digits). `flt_`, `fltTbl_`, `tbl_`, `zero_`, `unk_`, `struct_` and most `s_<text>_` names don't match it, and
+   equiv.py can't be changed under the running promotions. A renamed equivalent/ source would fall back to
+   positional pairing for its globals, which binds whatever the original reads at that spot: a wrong-global
+   bug would pass. With `DAT_<addr>` every reference is still checked against its address.
+2. **The rewrite stays minimal**: a declaration goes, an `#include` comes, and only where the types differ is
+   there a cast. Uses keep their spelling, `// equiv-*` lines and mangled names in them stay valid.
+3. **Renaming later is mechanical**: one pass over the headers and sources once equiv.py reads
+   `config/data.json` (or the port no longer needs it). The address is in every name either way, so nothing
+   is lost.
 
-**What the native (clang) build needs from data:**
+The three variables pinned in `include/decls/address.h` (`DAT_004dd700` World, `DAT_0052c2a8` Gfx,
+`DAT_004dd6ec`) keep that declaration (C++ linkage, typed): their data TU definition is `World* DAT_004dd700;`
+and `include/decls/data/` leaves them out, so a source can include both headers.
+
+### The rewrite
+
+Per source, token-level (`tools/cxx_items.py`), for every top-level declaration of `DAT_<addr>` whose address
+is an emitted, declared item (not code-owned, library, pinned or a FourCC constant):
+
+| rule | what | matches/ | equivalent/ |
+|---|---|---|---|
+| `data-decl` | the source's type is the header's (`canon`: `unsigned` = `unsigned int`, `T x[]` = `T x[N]`): the declaration just goes, uses don't change | 265 (314 names) | 742 (1,292) |
+| `data-cast` | the types differ: each use becomes `(*(T*)&DAT_x)`, `&DAT_x` becomes `((T*)&DAT_x)`, an array `T DAT_x[]` becomes `((T*)&DAT_x)` (multi-dim: `(*(T(*)[A][B])&DAT_x)`), T being the source's own type | 607 (1,220) | 1,350 (2,750) |
+| `data-interior` | `DAT_y` inside item x (y = x + k): `(*(T*)((char*)&DAT_x + k))` | 15 (20) | 76 (116) |
+| `data-def` | the source defined the global: the definition goes (owners, below) | 1 (1) | 11 (48) |
+| **sources rewritten** | | **861** | **1,556** |
+
+Counts are sources, a source can use several rules (names in parentheses; the log has the rule per name). Several declarators in one
+declaration (`extern int DAT_a, DAT_b, FOO;`) lose only the migrated names. Refused: a declaration inside a
+namespace or with an initializer, function-pointer declarators, `sizeof` or a member access on a name that needs
+a cast, a cast that would land in a global's initializer (it could make it dynamic), names used in a
+preprocessor line or on an `// equiv-*` line, a source that keeps another declaration of a name its headers
+declare, and the addresses on `build/farm/bench/claude-equiv/batch-{r9p,fx9p,fx9r,r10p,bigq}.txt`.
+
+Why casts and not typed headers: the header type is the definition's (the data TU byte-checks it), and the
+sources disagree among themselves (the same 144-byte BSS buffer is `char`, `Stream`, `unsigned char[144]`).
+Casts keep each function's own access type, so codegen can't change; `tools/compare.py` / `equiv.py` prove it
+per source. The most common pairs: `char` vs `unsigned char[N]` (BSS objects declared by their first byte),
+a source stub class vs `unsigned char[N]` (`ParamRegistry`, `AnimKey`), `const char*` vs `const void*`,
+non-const vs `const` `.rdata`. Typing the headers better (stub classes for BSS objects) shrinks the casts; it
+doesn't need the sources to change again (a cast to the header's own type is harmless).
+
+**Verification** (as migrate_gen): matches/ must `MATCH` under `compare.py`, equivalent/ must be `EQUIVALENT`
+under `equiv.py --inputs 3000` (600 s per run; a timeout rejects). The source is re-read before the write and
+skipped if a farm lane or promotion changed it meanwhile. Log `build/migrate-data.log` (one JSON line per source:
+rule, headers, per-name rule, the verification line), originals `build/data-orig/`, list `build/data-migrated.txt`.
+Re-running plans nothing for a migrated source.
+
+**Run (2026-10-16, 07:45-17:55; equiv.py is most of it):** 2,417 sources rewritten and verified (861 matches/,
+1,556 equivalent/; 6 of the equivalent/ ones are new, still-untracked promotions), 4,019 names in matches/ and
+equivalent/ off private declarations onto 28 shared headers.
+
+| | matches/ | equivalent/ |
+|---|---|---|
+| sources with a `DAT_` name (not on a batch list, not shadowed) | 1,582 | 2,110 |
+| nothing inventory-owned to move (code-owned, library, pinned, FourCC names only) | 721 | 527 |
+| planned (rewritten in the scratch dir) | 861 | 1,562 |
+| kept (verified) | **861** | **1,556** |
+| rejected by verification | 1 (DIFF: the first `&DAT_x[i]` form, fixed and re-run: kept) | 6: 2 regressions caught (`0x000d4b60` compile error, a declaration the parser missed; `0x001b3c50` FAIL level 2, an interior `DAT_x + 64` that equiv.py's reference check doesn't accept), 3 that fail the same way unchanged (`0x00242da0` INCONCLUSIVE, `0x0029d880`, `0x00122520` FAIL), 1 timeout (`0x00088020`, >600 s) |
+| refused by the tool | 0 | 21: 10 names used in a `#define`, 10 declarators it doesn't parse (function pointers, `union {...} DAT_x`), 1 declared in a namespace |
+| on a batch list (scheduled promotions) | - | 7 |
+| shadowed by a matches/ source | - | 28 |
+
+No source changed under the tool between read and write ("changed meanwhile": 0).
+
+### Owners of a global (step 2)
+
+**Rule: the data TU defines every inventory item; a source never defines a `DAT_<addr>` global.** The data TU
+is the object that owns the address in link order, has the verified bytes, size and section, and is the only
+candidate that exists for every item. A source definition was a stand-in from before the data had a home
+(`unsigned __int64 DAT_004e2448;` in the hash initializers, `AnimKey DAT_004dd270;`, `char DAT_004e7b08;`); the
+rewrite (`data-def`) deletes it and the source uses the header like any other. Of the 50 globals sources defined: **49 moved to the data TUs** (12 sources: the hash/registry initializers
+`0x0035e860`, `0x0035e9a0`, `0x0035ebb0`, `0x0035cec0`, the shader tables `0x00361a90` ... `0x00363290`,
+`0x0014fad0`, `0x002be720`, `0x00262e60`). One is left: `equivalent/0x00088600.cpp` defines
+`CSimDb *DAT_004dd700;`, the pinned World pointer; it needs the pin family's rename (`CSimDb` -> `World`) as well,
+which migrate_gen's `pin-decl` doesn't do for definitions. The tree now has 4 addresses defined by code objects
+(was 53), 1 of them also by a data TU (was 50).
+
+### Strings and floats (step 3)
+
+Sources reference strings and float constants as `DAT_<addr>` like any global, so they go through the same
+rewrite onto the named item (the header's `const char DAT_x[N]` / `const float DAT_x`), not onto literals: a
+literal becomes a `??_C@`/`__real@` COMDAT in the function's object and changes codegen (string pooling, constant
+folding). No literal replacement was attempted; where a cast was needed (`char DAT_x[]` against
+`const char DAT_x[15]`) it is a cast to the source's type. Literals stay open problem 4.
+
+### Generator and tools
+
+- `tools/data_gen.py`: C names `DAT_<addr>`, the inventory name as a comment in the header, pinned variables
+  defined with their `address.h` declaration; `link_check` counts `by_name` against the symbols the data TU
+  objects really define (C and C++ names).
+- `tools/gen_tree.py`: `#include "decls/data/<layer>/<dir>.h"` is a hoisted include like gen/ and decls/; the
+  headers of a TU's merged *and* wrapped sources go at the top of the TU (only `extern "C"` declarations, so a
+  wrapped source sees them from its namespace; an include inside one namespace would hide them from the next),
+  and their declarations are forced variants, so an unmigrated neighbour that declares a name differently is
+  wrapped. `build_tree.py`: the object cache key covers include/decls/data/.
+- `tools/data_inventory.py`: a migrated source no longer declares its names, so its type vote is the type the
+  last inventory recorded (`previous_types`). Re-running the inventory after the migration gives the same items
+  (checked: 0 differences in size, kind, type, source_type, object over 46,388 items).
+
+### Tree build with `--data`
+
+`build_tree.py --rounds 16 --data` (log `build/data-wire-build.log`; then `--resume --regression-rounds 3`, log
+`build/data-wire-build2.log`, because one equivalent/ function still differed after the default two regression
+rounds): **2,498 / 2,498 TUs compile; 21,776 / 21,776 matches still match; 4,619 / 4,619 equivalent/ functions
+compile, 4,569 with code identical to their standalone build, 49 wrapped ones can't be told (symbol not found
+standalone), 1 whose source doesn't compile standalone (`equivalent/0x0010b5b0.cpp`, committed today by a promotion:
+`fabs` undeclared; not touched here, on the fx9p list), 0 differ.** Data TUs: 1,078 / 1,078 compile, 18,832 / 18,832
+items verified.
+
+The one regression the rounds handled: `equivalent/0x002e9c60.cpp` (not migrated; its TU's neighbours were), whose
+code changed when merged and again when wrapped; it is isolated now.
+
+| | before (same corpus and fallback state, original sources from build/data-orig/) | after |
+|---|---|---|
+| merged / wrapped / isolated | 19,851 / 5,895 / 649 (75.8%) | **19,952 / 5,805 / 638 (76.2%)** |
+| matches merged / wrapped / isolated | 17,444 / 3,814 / 518 | 17,467 / 3,801 / 508 |
+| equivalent/ merged / wrapped / isolated | 2,407 / 2,081 / 131 | 2,485 / 2,004 / 130 |
+| TU files | 2,509 | 2,498 |
+
+(The morning build, 1196ae7a: 19,623 / 5,427 / 643 of 25,693; farm lanes added 702 functions since.) The gain is
+small because the `DAT_` declarations were mostly spellings of one declaration already (`canonical_variant` treats
+C/C++ linkage of address names as one); what it removes are the type disagreements (`char` vs `int` for one
+global) and the source-defined globals. Wraps by conflict on a `DAT_` name: the remaining ones are sources not
+migrated (above) whose declaration differs from the header their neighbours now bring in.
+
+### Link check
+
+| reference from a tree object to `DAT_<addr>` | before (2026-10-16 04:00) | after |
+|---|---|---|
+| all references (C++-mangled ones need a declaration) | 7,200 (5,676 C++) | 6,177 (1,277 C++) |
+| **resolves by name** (a data TU defines exactly this symbol) | **260** | **4,028** |
+| an emitted item's start, by address only | 5,279 | 563 (406 of them the pinned `DAT_004dd700` & co. declared inside wrapped sources' `fn_<addr>` namespaces) |
+| inside an emitted item | 87 | 12 |
+| vftable / RTTI (code-owned) | 1,303 | 1,306 |
+| library data (platform shim) | 269 | 266 |
+| outside the data sections | 2 | 2 |
+
+Fewer references overall because a merged TU now references one `_DAT_x` where its functions' private
+declarations gave several (C and C++ names). The rename alone (C names `DAT_<addr>`, before any source changed)
+took `by_name` from 260 to 634; the source rewrite does the rest. (The 2026-10-16 morning text said 5,225 / 141 for
+the two by-address rows; the numbers above are from that build's report file.)
+
+### What is left
+
+- **The pinned names in wrapped sources** (406 references): `include/decls/address.h` declares `DAT_004dd700`,
+  `DAT_0052c2a8`, `DAT_004dd6ec` with C++ linkage, and gen_tree inlines the header into a wrapped source's
+  namespace, so those references are `?DAT_004dd700@fn_<addr>@@...`. Declaring the three `extern "C"` in
+  address.h (and in their data TU definitions) would resolve all of them by name; it changes only relocation
+  symbol names in ~900 verified sources (compare.py masks them, equiv.py binds `DAT_` by address), so it is a
+  one-line change plus a tree build.
+- **157 other by-address references**: the 28 sources refused or rejected above, the 7 on batch lists, and farm
+  sources committed after the run. Re-run `tools/migrate_data.py --apply --equivalent` after promotions land.
+- `equivalent/0x00088600.cpp`'s definition of `DAT_004dd700` (owners, above).
+- Typed headers: BSS objects are `unsigned char[N]` in the headers, so most casts are `(*(Stub*)&DAT_x)`; a typed
+  declaration (a stub class per global in include/decls/, like `World`) would remove them.
+- Interior references fail equiv.py's level 2 in one case (`0x001b3c50`): equiv.py reads `DAT_x + 64` as a
+  reference to x. Rare (116 interior names migrated fine).
+
+### Rules for new sources
+
+- Don't declare `DAT_<addr>` data yourself: `#include "decls/data/<layer>/<dir>.h"` for the item's owner (the
+  header that declares the name: `grep -rl 'DAT_004c53bc\b' include/decls/data`) after the `// STATUS` comment
+  block, next to any `gen/` / `decls/` includes. Use the name as declared there.
+- If your code needs another type, cast at the use: `(*(int*)&DAT_x)`, `((char*)&DAT_x)`, `(*(Foo_1b77e0*)&DAT_x)`.
+  An address inside an item is `(*(T*)((char*)&DAT_item + k))` (the header comment marks items; an address
+  without its own declaration is inside the one before it).
+- Never define a `DAT_` global in a source; the data TU owns it. Strings and floats: use the `DAT_` item, not a
+  literal.
+- `DAT_004dd700`, `DAT_0052c2a8`, `DAT_004dd6ec` still come from `decls/address.h`. Code-owned addresses
+  (vftables, RTTI) and library data (CRT/XDK) are not in these headers; keep your own declaration for those.
+- `tools/migrate_data.py --apply --equivalent` moves sources that didn't follow this (farm output) and verifies them.
+
+### What the native (clang) build needs from data
 
 - **No absolute addresses.** Every `DAT_xxxxxxxx` becomes a named object defined in a data TU; every pointer
   word inside data becomes a pointer initializer (`&target + off`), which is what `data_gen.py` already emits.
@@ -271,12 +425,12 @@ objects, so they can't change the code TUs; the option adds their check and the 
    items (`DAT_x`, `DAT_x+4`, ...) unless a verified source uses an offset past the first one. Merging needs types
    (the sources' stub structs) or the tree's relocations of all objects, not just the last build's.
 3. **Section placement** of explicitly zero-initialized `.data` items (above).
-4. **Strings and floats that sources will write as literals** become dead items; the generator should skip items
+4. **Strings and floats that sources will write as literals** (none yet: the wiring keeps the `DAT_` items) become dead items; the generator should skip items
    whose only references are from sources that no longer name them.
 5. **Typed tables:** `table`, `struct` and `unknown` items are bytes and words; real element types come from
    the code that indexes them (field mining, as `gen_headers.py --mine` does for classes).
 6. **`DAT_` names for constants:** a few sources declare FourCC/hash immediates as `DAT_` globals; the inventory
-   ignores those names (`false_source_names`) and the migration must turn them back into constants.
+   ignores those names (`false_source_names`), migrate_data.py leaves them alone; they should become constants.
 7. **Library-owned data referenced by game code** (269 references, e.g. CRT globals): belongs to the platform shim.
 8. `config/data.json` is about 9 MB (46k lines). RTTI items (21k) could move to a derived listing if the size
    matters.

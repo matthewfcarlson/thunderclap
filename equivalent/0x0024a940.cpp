@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 12/12)
 // FUN_0024a940 @ 0x0024a940
-extern char DAT_004e60c8[];
+#include "decls/data/engine/audio.h"
 
 struct Node {
     Node* left;             // 0x00

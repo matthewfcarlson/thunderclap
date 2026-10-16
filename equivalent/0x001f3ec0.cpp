@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 27/28, incomplete)
 // FUN_001f3ec0 @ 0x001f3ec0
-extern float DAT_004c7df8;
+#include "decls/data/game/global.h"
 
 struct Voice_1f3ec0 {
     char pad0[4];

@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 36/36)
 // FUN_002ba220 @ 0x002ba220
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 struct Vec3_2ba220 {
     float x, y, z;
     void FUN_0022d240(Vec3_2ba220 *v, void *matrix);
@@ -203,8 +205,6 @@ struct Camera {
     Matrix *FUN_0028faa0();
 };
 
-extern Display_2ba220 *DAT_0052c2ac;
-extern Camera *DAT_0052c2b4;
 
 extern "C" int __cdecl FUN_0034483c();
 
@@ -253,16 +253,16 @@ float BillboardQuadGroup::FUN_002ba220()
     DAT_0052c2a8->v56(0, 0, 0, 1);
     fr.prev.flag = DAT_0052c2a8->v63();
     DAT_0052c2a8->v62(0);
-    Scene_2ba220 *scene = DAT_0052c2b4->scene;
+    Scene_2ba220 *scene = (*(Camera**)&DAT_0052c2b4)->scene;
     Vec3_2ba220 tmp;
-    tmp.FUN_0022d240(&pos70, DAT_0052c2b4->FUN_0028faa0());
+    tmp.FUN_0022d240(&pos70, (*(Camera**)&DAT_0052c2b4)->FUN_0028faa0());
     scene->FUN_002940d0(&tmp, &fr.out);
     float r = fr.out.z * 0.01f;
     fr.x0 = fr.out.x - r;
     fr.x1 = fr.out.x + r;
     fr.y0 = fr.out.y - r;
     fr.y1 = fr.out.y + r;
-    DAT_0052c2ac->layer->v21(0);
+    (*(Display_2ba220**)&DAT_0052c2ac)->layer->v21(0);
     o->v2();
     Mesh_2ba220 *m = DAT_0052c2a8->v30(0, 1, 0x2020, 4, 0);
     *m->colors = 0xff000000;
@@ -287,7 +287,7 @@ float BillboardQuadGroup::FUN_002ba220()
     m->FUN_0008ef00();
     o->v3(0);
     DAT_0052c2a8->v31(m);
-    DAT_0052c2ac->layer->v16(0);
+    (*(Display_2ba220**)&DAT_0052c2ac)->layer->v16(0);
     DAT_0052c2a8->v62(fr.prev.word);
     DAT_0052c2a8->v56(1, 1, 1, 1);
     Xform_2ba220 *xf = scene->xf;

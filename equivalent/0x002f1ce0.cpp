@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2099 inputs, branch coverage 54/60, incomplete)
 // FUN_002f1ce0 @ 0x002f1ce0
+#include "decls/data/engine/physics.h"
+
 extern "C" double sqrt(double);
 
 struct V3_2f1ce0 {
@@ -61,8 +63,6 @@ public:
     Bits_2f1ce0 f74;
 };
 
-extern V3_2f1ce0 DAT_00554c20;
-extern unsigned int DAT_00554c2c;
 void __cdecl FUN_00305f00(const V3_2f1ce0 *a, const V3_2f1ce0 *b, V3_2f1ce0 *axis, float *angle);
 void __cdecl FUN_002f0120(float q, float ext, float *w, char *flag);
 float __cdecl FUN_00083d90(float *p);
@@ -160,12 +160,12 @@ Shape_2f1ce0 *__cdecl FUN_002f1ce0(const V3_2f1ce0 *p, Shape_2f1ce0 *shape, V3_2
         if (shape->f60.i == 0) {
             if (!(DAT_00554c2c & 1)) {
                 DAT_00554c2c = DAT_00554c2c | 1;
-                DAT_00554c20.x = 0.0f;
-                DAT_00554c20.y = 1.0f;
-                DAT_00554c20.z = 0.0f;
+                (*(V3_2f1ce0*)&DAT_00554c20).x = 0.0f;
+                (*(V3_2f1ce0*)&DAT_00554c20).y = 1.0f;
+                (*(V3_2f1ce0*)&DAT_00554c20).z = 0.0f;
             }
             float ang;
-            FUN_00305f00(&shape->u44.v, &DAT_00554c20, &f.w, &ang);
+            FUN_00305f00(&shape->u44.v, ((V3_2f1ce0*)&DAT_00554c20), &f.w, &ang);
             f.M.FUN_0022baf0(&f.w, -ang);
             const V3_2f1ce0 *c = shape->v4();
             f.M.m[12] = c->x;

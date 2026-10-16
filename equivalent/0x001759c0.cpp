@@ -1,5 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 127 inputs, branch coverage 35/38, incomplete)
 // hulkfight::motion::TeleportRelativeAction::vfunc_5 @ 0x001759c0
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight/motion.h"
+
 struct Vec3_1759c0 {
     float x, y, z;
 };
@@ -75,11 +79,6 @@ struct Params {
 struct Game;
 
 extern Game *DAT_004dd700;
-extern int DAT_004d2a3c;
-extern Manager_1759c0 *DAT_00554c14;
-extern float DAT_00554c18;
-extern char DAT_00554c1c;
-extern float DAT_004b8540;
 HitList *FUN_00202f00();
 
 namespace hulkfight {
@@ -144,8 +143,8 @@ bool hulkfight::motion::TeleportRelativeAction::vfunc_5(int mode, float dt)
     Game *game = DAT_004dd700;
     if (tracer && game) {
         DAT_004d2a3c = 2;
-        DAT_00554c1c = 1;
-        DAT_00554c18 = 0.5f;
+        (*(char*)&DAT_00554c1c) = 1;
+        (*(float*)&DAT_00554c18) = 0.5f;
         Vec3_1759c0 s = node->pos;
         Vec3_1759c0 d;
         d.x = t.x - s.x;
@@ -161,10 +160,10 @@ bool hulkfight::motion::TeleportRelativeAction::vfunc_5(int mode, float dt)
             actor->FUN_00036e70(&id, 1);
     } else {
         HitList *list = FUN_00202f00();
-        DAT_00554c18 = DAT_004b8540;
+        (*(float*)&DAT_00554c18) = (*(float*)&DAT_004b8540);
         DAT_004d2a3c = 2;
-        DAT_00554c1c = 0;
-        if (DAT_00554c14->FUN_002ee140(list, &node->pos, &t, 0))
+        (*(char*)&DAT_00554c1c) = 0;
+        if ((*(Manager_1759c0**)&DAT_00554c14)->FUN_002ee140(list, &node->pos, &t, 0))
             actor->FUN_00036e70(&id, 1);
         else
             actor->FUN_0003f400(&t);

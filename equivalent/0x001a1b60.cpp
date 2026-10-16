@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 8/8)
 // FUN_001a1b60 @ 0x001a1b60
+#include "decls/data/game/hulkfight/scenario.h"
+
 inline void* operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_001a1290();
@@ -22,11 +24,9 @@ template<class T> struct ParamScript {
  void FUN_00234c00(const char*);
 };
 }
-extern int DAT_004e1700;
-extern int DAT_004e16fc;
 void __cdecl FUN_002347b0(int*, void**, int);
 void FUN_001a1b60() {
- if (!DAT_004e1700) {
+ if (!(*(int*)&DAT_004e1700)) {
  void* items[3];
  typedef fight::ParamFloatConstRange<hulkfight::scenario::LuaTrack> FloatParam;
  typedef fight::ParamScript<hulkfight::scenario::LuaTrack> ScriptParam;
@@ -41,5 +41,5 @@ void FUN_001a1b60() {
  items[2] = c;
  FUN_002347b0(&DAT_004e16fc, items, 3);
  }
- ++DAT_004e1700;
+ ++(*(int*)&DAT_004e1700);
 }

@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00112610 @ 0x00112610
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -33,10 +36,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0b58;
-extern int DAT_004e0b5c;
-extern const char* DAT_0042773c[6];
-extern int DAT_00427754;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_00112610()
@@ -46,8 +45,8 @@ void FUN_00112610()
         void* mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::FightingOtherNPCCondition>("compare", DAT_0042773c, DAT_00427754, &hulkfight::ai::FightingOtherNPCCondition::FUN_0010c3a0);
-        FUN_002347b0(&DAT_004e0b58, params, 1);
+            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::FightingOtherNPCCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::FightingOtherNPCCondition::FUN_0010c3a0);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0b58), params, 1);
     }
     DAT_004e0b5c++;
 }

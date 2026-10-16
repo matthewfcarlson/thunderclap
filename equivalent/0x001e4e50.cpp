@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 406 inputs, branch coverage 20/20)
 // FUN_001e4e50 @ 0x001e4e50
 #include "decls/address.h"
+#include "decls/data/game/unknown.h"
 struct State_1e4e50 { int FUN_00088fa0(); int FUN_00088fb0(); };
 struct Player_1e4e50 { char pad[0x80]; State_1e4e50 state; };
 struct Manager_1e4e50 { Player_1e4e50* FUN_00086310(); };
 struct World { char pad[0x54]; Manager_1e4e50* manager; };
 struct Random_1e4e50 { float FUN_000787e0(float,float); };
-extern Random_1e4e50* DAT_004e5acc;
 struct Vec_1e4e50 { float x,y,z; };
 struct Matrix { float m[16]; void FUN_0022b980(); void FUN_0022ba70(float); void FUN_0022c3b0(Vec_1e4e50*,Vec_1e4e50*); };
 extern void* __cdecl FUN_001d68e0(int);
@@ -21,7 +21,7 @@ void Effect_1e4e50::target(int type,float x,float y,float z,float scale,int coun
  Vec_1e4e50 position; position.x=x; position.y=y; position.z=z;
  Matrix rotation;
  rotation.FUN_0022b980();
- rotation.FUN_0022ba70(DAT_004e5acc->FUN_000787e0(0.0f,6.283185482025146484375f));
+ rotation.FUN_0022ba70((*(Random_1e4e50**)&DAT_004e5acc)->FUN_000787e0(0.0f,6.283185482025146484375f));
  rotation.FUN_0022c3b0(&velocity,&velocity);
  rotation.FUN_0022b980();
  rotation.FUN_0022ba70(6.283185482025146484375f/count);

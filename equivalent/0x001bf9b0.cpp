@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 53/58, incomplete)
 // FUN_001bf9b0 @ 0x001bf9b0
-extern float DAT_004c4c10;
-extern float DAT_004c4c14;
+#include "decls/data/game/global.h"
 
 struct Owner_1bf9b0 {
     int FUN_000f7240(int a, int b);

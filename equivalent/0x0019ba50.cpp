@@ -2,6 +2,7 @@
 // hulkfight::motion::FireGroundShockwaveAction::vfunc_5 @ 0x0019ba50
 #include "gen/hulkfight.h"
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 
 struct V3_19ba50 { float x, y, z; };
 struct Mat_19ba50 { float m[16]; };
@@ -69,7 +70,6 @@ struct World {
     char pad0[0x14];
     Mgr_19ba50* mgr;
 };
-extern Pool_19ba50 DAT_004e2210;
 
 bool hulkfight::motion::FireGroundShockwaveAction::vfunc_5(int a, int b) {
     if (a != 1)
@@ -91,7 +91,7 @@ bool hulkfight::motion::FireGroundShockwaveAction::vfunc_5(int a, int b) {
     int handle = mgr->FUN_001b6b00(id, &local);
     if (handle < 0)
         return false;
-    void* mem = DAT_004e2210.FUN_0008fe90(0xc0);
+    void* mem = (*(Pool_19ba50*)&DAT_004e2210).FUN_0008fe90(0xc0);
     Shock* s;
     if (mem != 0)
         s = ((Shock*)mem)->FUN_00198990((*(Source_19ba50 * *)&this->f_1c));

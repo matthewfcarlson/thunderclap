@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // fight::ParamValueNameList::vfunc_5 @ 0x002354c0
+#include "decls/data/engine/fight.h"
+
 extern "C" int atexit(void (*)());
 
 struct Key_2354c0 {
@@ -8,8 +10,6 @@ struct Key_2354c0 {
     void FUN_0027af00();
 };
 
-extern unsigned DAT_004e5bd8;
-extern Key_2354c0 DAT_004e5bd0;
 void FUN_00364140();
 
 class Sink_2354c0 {
@@ -45,10 +45,10 @@ void fight::ParamValueNameList::vfunc_5(int a1, int a2, Sink_2354c0 *sink)
     if (k == 0) {
         if ((DAT_004e5bd8 & 1) == 0) {
             DAT_004e5bd8 |= 1;
-            DAT_004e5bd0.FUN_0027af00();
+            (*(Key_2354c0*)&DAT_004e5bd0).FUN_0027af00();
             atexit(FUN_00364140);
         }
-        k = &DAT_004e5bd0;
+        k = ((Key_2354c0*)&DAT_004e5bd0);
     }
     sink->v7(f8, fc, k);
 }

@@ -1,11 +1,6 @@
+#include "decls/data/engine/om.h"
+
 extern "C" char DAT_0042aa40[];
-extern "C" char DAT_004cd360[];
-extern "C" char DAT_004e79b8[];
-extern "C" char DAT_004e79bc[];
-extern "C" char DAT_004e79c0[];
-extern "C" char DAT_004e79c4[];
-extern "C" char DAT_004e79c8[];
-extern "C" char DAT_004e79cc[];
 struct Pair_25fa00 {
     int a;
     int b;
@@ -41,7 +36,7 @@ MetaType* MetaType::Init(int a, int b) {
         *(int*)((int)DAT_004e79c8) = 0;
         *(int*)((int)DAT_004e79b8) = ((int)DAT_004e79bc);
     }
-    Register(*(int**)((int)DAT_004cd360), this, k);
+    Register(*(int**)((int)((char*)&DAT_004cd360)), this, k);
     ++*(int*)((int)DAT_004e79cc);
     return this;
 }

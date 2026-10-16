@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
 // FUN_000c72e0 @ 0x000c72e0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 extern "C" double sqrt(double);
 
 struct Mat_c72e0 {
@@ -93,9 +95,6 @@ struct Entry_c72e0 {
     char pad10[0x10];
 };
 
-extern Meter_c72e0 *DAT_0052c2a4;
-extern Holder_c72e0 *DAT_0052c2ac;
-extern float DAT_0049fb8c;
 extern Cam_c72e0 *FUN_001c3d90();
 extern float FUN_00018a20(float x);
 extern void *FUN_0008d690(unsigned int size);
@@ -141,10 +140,10 @@ void Self_c72e0::FUN_000c72e0()
         P.FUN_0022d210(&M);
         P.z = 0.0f;
         P.FUN_0022d110();
-        float c = DAT_0049fb8c;
+        float c = (*(float*)&DAT_0049fb8c);
         P.z = c;
         float angle = FUN_00018a20(P.x * 0.0f + P.y);
-        double t = DAT_0052c2a4->v16() * P.x * 0.65f;
+        double t = (*(Meter_c72e0**)&DAT_0052c2a4)->v16() * P.x * 0.65f;
         P.x = (float)t;
         P.y = P.y * 0.65f;
         if (t > 0.0)
@@ -152,10 +151,10 @@ void Self_c72e0::FUN_000c72e0()
         Mat_c72e0 Q;
         Q.FUN_0022b980();
         Q.FUN_0022bab0(angle);
-        DAT_0052c2ac->mgr->v15(0);
-        DAT_0052c2ac->mgr->v13(0);
-        DAT_0052c2ac->FUN_00293d00(&P);
-        DAT_0052c2ac->FUN_00293da0(0.075f, 0.075f, 0.075f);
+        (*(Holder_c72e0**)&DAT_0052c2ac)->mgr->v15(0);
+        (*(Holder_c72e0**)&DAT_0052c2ac)->mgr->v13(0);
+        (*(Holder_c72e0**)&DAT_0052c2ac)->FUN_00293d00(&P);
+        (*(Holder_c72e0**)&DAT_0052c2ac)->FUN_00293da0(0.075f, 0.075f, 0.075f);
         double d = sqrt(dz * dz + dx * dx);
         if (d > 60.0f)
             d = 60.0f;
@@ -171,14 +170,14 @@ void Self_c72e0::FUN_000c72e0()
             slots[e->idx].a->v8(0, 0);
             slots[e->idx].a->v14();
         }
-        DAT_0052c2ac->mgr->v17(0, &Q);
+        (*(Holder_c72e0**)&DAT_0052c2ac)->mgr->v17(0, &Q);
         int i1 = e->idx;
         if (slots[i1].b != 0) {
             slots[i1].b->v13(fd);
             slots[e->idx].b->v8(0, 0);
             slots[e->idx].b->v14();
         }
-        DAT_0052c2ac->mgr->v16(0);
+        (*(Holder_c72e0**)&DAT_0052c2ac)->mgr->v16(0);
         fd->v1();
     }
 }

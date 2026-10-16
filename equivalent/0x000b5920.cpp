@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000b5920 @ 0x000b5920
-extern char DAT_004de768[];
+#include "decls/data/game/global.h"
 
 struct Control_b5920 {
     char pad00[5];

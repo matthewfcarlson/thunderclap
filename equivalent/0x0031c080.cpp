@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 14/14)
 // pure3d::d3dPrimStream::vfunc_1 @ 0x0031c080
+#include "decls/data/platform/xbox/pure3d.h"
+
 typedef unsigned long DWORD;
 namespace D3D8 {
 void __stdcall D3DDevice_SetVertexShader(DWORD);
@@ -14,8 +16,6 @@ struct PrimTypeInfo {
     int mul;
     int add;
 };
-extern PrimTypeInfo DAT_003f3260[];
-extern int DAT_004d367c;
 // equiv-conv: FUN_0031bc30 eax ecx
 int FUN_0031bc30(int shapeKind, int count);
 void FUN_0031c230(long hr);
@@ -54,7 +54,7 @@ void pure3d::d3dPrimStream::vfunc_1() {
         D3D8::D3DDevice_SetStreamSource(0, curBuffer, stride);
         int prim = primType;
         int n = FUN_0031bc30(shapeKind, vertCount);
-        D3D8::D3DDevice_DrawVertices(prim, 0, n * DAT_003f3260[prim].mul + DAT_003f3260[prim].add);
+        D3D8::D3DDevice_DrawVertices(prim, 0, n * ((PrimTypeInfo*)&DAT_003f3260)[prim].mul + ((PrimTypeInfo*)&DAT_003f3260)[prim].add);
         FUN_0031c230(0);
         bufIndex++;
         if (bufIndex == DAT_004d367c)

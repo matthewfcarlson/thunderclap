@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001f6cd0 @ 0x001f6cd0
+#include "decls/data/game/hulkfight.h"
+
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl _sprintf(char *buf, const char *fmt, ...);
 
-extern const char *DAT_004c8070[];
-extern const char *DAT_004c8098[];
 
 struct Vec3_1f6cd0 { int x, y, z; };
 
@@ -55,7 +55,7 @@ void Reaction_1f6cd0::FUN_001f6cd0(Source_1f6cd0 *src, int a1, const Vec3_1f6cd0
     unsigned short kind = (src->bits >> 5) & 0x1f;
     if (kind < 0x13) {
         if (outName)
-            *outName = DAT_004c8098[kind];
+            *outName = ((const char**)&DAT_004c8098)[kind];
         if (kind != 0x12) {
             f.info.FUN_001d1630();
             arg20 = a1;
@@ -67,9 +67,9 @@ void Reaction_1f6cd0::FUN_001f6cd0(Source_1f6cd0 *src, int a1, const Vec3_1f6cd0
             arg58 = a6;
             arg5c = a7;
             f.info.f0 = 0;
-            _sprintf(f.name, "Damage_%s_%s", DAT_004c8070[a5], DAT_004c8098[kind]);
+            _sprintf(f.name, "Damage_%s_%s", ((const char**)&DAT_004c8070)[a5], ((const char**)&DAT_004c8098)[kind]);
             if (!FUN_001d4c90()->FUN_001d3b00(f.name, f.info)) {
-                _sprintf(f.name, "Damage_%s_Generic", DAT_004c8070[a5]);
+                _sprintf(f.name, "Damage_%s_Generic", ((const char**)&DAT_004c8070)[a5]);
                 FUN_001d4c90()->FUN_001d3b00(f.name, f.info);
             }
         }

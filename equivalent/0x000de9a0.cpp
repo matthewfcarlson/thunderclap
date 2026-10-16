@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 993 inputs, branch coverage 74/76, incomplete)
 // FUN_000de9a0 @ 0x000de9a0
+#include "decls/data/game/global.h"
+
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 
-extern float DAT_004a0e60;
-extern float DAT_004a0e64;
-extern float DAT_004a0e68;
 
 struct KeyBinding {
     int key;
@@ -18,9 +17,6 @@ struct Sector {
     int key;
 };
 
-extern int DAT_004de8c0;
-extern KeyBinding DAT_004de800[24];
-extern Sector DAT_004de8d0[9];
 
 float __cdecl FUN_000de800(float x, float y);
 
@@ -87,21 +83,21 @@ void InputMapper::FUN_000de9a0(char skip)
             break;
 
         bool found = false;
-        for (int i = 0; i < DAT_004de8c0; i++) {
-            if (f.pad->vfunc_5(DAT_004de800[i].key) <= DAT_004a0e68 &&
-                f.pad->vfunc_4(DAT_004de800[i].key) > DAT_004a0e68) {
+        for (int i = 0; i < (*(int*)&DAT_004de8c0); i++) {
+            if (f.pad->vfunc_5(((KeyBinding*)&DAT_004de800)[i].key) <= DAT_004a0e68 &&
+                f.pad->vfunc_4(((KeyBinding*)&DAT_004de800)[i].key) > DAT_004a0e68) {
                 found = true;
                 FUN_000de1f0(0);
                 if (sink)
-                    sink->vfunc_0(DAT_004de800[i].value, f.p);
+                    sink->vfunc_0(((KeyBinding*)&DAT_004de800)[i].value, f.p);
                 if (sink)
-                    sink->vfunc_2(DAT_004de800[i].value, f.p);
+                    sink->vfunc_2(((KeyBinding*)&DAT_004de800)[i].value, f.p);
                 f2c = 0;
             }
-            if (f.pad->vfunc_5(DAT_004de800[i].key) > DAT_004a0e68 &&
-                f.pad->vfunc_4(DAT_004de800[i].key) <= DAT_004a0e68) {
+            if (f.pad->vfunc_5(((KeyBinding*)&DAT_004de800)[i].key) > DAT_004a0e68 &&
+                f.pad->vfunc_4(((KeyBinding*)&DAT_004de800)[i].key) <= DAT_004a0e68) {
                 if (sink)
-                    sink->vfunc_1(DAT_004de800[i].value, f.p);
+                    sink->vfunc_1(((KeyBinding*)&DAT_004de800)[i].value, f.p);
             }
         }
         if (!found)
@@ -127,18 +123,18 @@ void InputMapper::FUN_000de9a0(char skip)
                 while (f.ang > 6.28318548f)
                     f.ang = f.ang - 6.28318548f;
                 for (int s = 0; s < 9; s++) {
-                    if (f.ang >= DAT_004de8d0[s].lo && f.ang < DAT_004de8d0[s].hi) {
-                        int key = DAT_004de8d0[s].key;
+                    if (f.ang >= ((Sector*)&DAT_004de8d0)[s].lo && f.ang < ((Sector*)&DAT_004de8d0)[s].hi) {
+                        int key = ((Sector*)&DAT_004de8d0)[s].key;
                         if (!prevRow[f.axis][key]) {
                             if (sink)
                                 sink->vfunc_0(key, f.p);
                             if (sink)
-                                sink->vfunc_2(DAT_004de8d0[s].key, f.p);
-                            lastKey = DAT_004de8d0[s].key;
+                                sink->vfunc_2(((Sector*)&DAT_004de8d0)[s].key, f.p);
+                            lastKey = ((Sector*)&DAT_004de8d0)[s].key;
                             f34 = 0;
                             f2c = 0;
                         }
-                        f.flags[DAT_004de8d0[s].key] = 1;
+                        f.flags[((Sector*)&DAT_004de8d0)[s].key] = 1;
                     }
                 }
             }

@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 44/46, incomplete)
 // FUN_00207580 @ 0x00207580
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl _sprintf(char *, const char *, ...);
 extern int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);
 extern unsigned int DAT_004d9968;
-extern char DAT_004c91d9;
-extern char DAT_004c91d8;
-extern char DAT_004e5a50;
 
 struct Node {
     char pad0[0x56];
@@ -86,7 +86,7 @@ bool MapLoader::FUN_00207580(int a1, bool a2)
             FUN_000964a0(f.path, 0x100, "art/locations/%s/%s_district_%d.p3d", str1, str2, f.key);
             _sprintf(f.name, "%s_district_%d", str2, f.key);
             FUN_00207150();
-            if (DAT_004c91d9 != 0) {
+            if ((*(char*)((char*)&DAT_004c91d8 + 1)) != 0) {
                 int s = 0;
                 while (s < 2 && slots[20 + s].used != 0)
                     s++;
@@ -106,7 +106,7 @@ bool MapLoader::FUN_00207580(int a1, bool a2)
         } else {
             FUN_000964a0(f.path, 0x100, "art/locations/%s/%s_r%03d.p3d", str1, str2, a1);
             _sprintf(f.name, "%s_r%03d", str2, a1);
-            if (DAT_004c91d8 != 0) {
+            if ((*(char*)&DAT_004c91d8) != 0) {
                 int s = 0;
                 while (s < 0x14 && slots[s].used != 0)
                     s++;
@@ -125,7 +125,7 @@ bool MapLoader::FUN_00207580(int a1, bool a2)
                 ref = f44;
             } else {
                 ref = 0;
-                if (DAT_004c91d9 != 0) {
+                if ((*(char*)((char*)&DAT_004c91d8 + 1)) != 0) {
                     int k2 = f.node->key;
                     int m = 0;
                     while (m < 2 && keys[m] != k2)
@@ -135,7 +135,7 @@ bool MapLoader::FUN_00207580(int a1, bool a2)
                 }
             }
         }
-        if (!a2 && DAT_004e5a50 == 0) {
+        if (!a2 && (*(char*)&DAT_004e5a50) == 0) {
             handle = FUN_00203e90(f.path, 1, 0, slot, 0, ref, 0xb);
             __security_check_cookie(f.cookie);
             return true;

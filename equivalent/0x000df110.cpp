@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 722 inputs, branch coverage 19/22, incomplete)
 // CGlowDisplayEffect::vfunc_0 @ 0x000df110
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 extern "C" double cos(double);
 extern "C" double sin(double);
 
@@ -106,10 +108,6 @@ public:
     virtual char vec();
 };
 
-extern Holder_df110 *DAT_0052c2ac;
-extern unsigned int DAT_004de944;
-extern float DAT_004de940;
-extern float DAT_004de93c;
 
 struct Entry_df110 {
     float a, b;
@@ -159,8 +157,8 @@ void CGlowDisplayEffect::vfunc_0(Target1 *t)
     saved.b = DAT_0052c2a8->vec();
     DAT_0052c2a8->ve8(0);
     *slotA = sign * 0.01f;
-    DAT_0052c2ac->device->v3c(0);
-    DAT_0052c2ac->FUN_00293d00(&V);
+    (*(Holder_df110**)&DAT_0052c2ac)->device->v3c(0);
+    (*(Holder_df110**)&DAT_0052c2ac)->FUN_00293d00(&V);
     *slotA = 0.0f;
 
     unsigned int origColor;
@@ -171,18 +169,18 @@ void CGlowDisplayEffect::vfunc_0(Target1 *t)
     else if (kind == 1)
         s = amount;
     float h = (float)(0.70710677f * s);
-    if (!(DAT_004de944 & 1)) {
-        DAT_004de944 |= 1;
+    if (!((*(unsigned int*)((char*)&DAT_004de8d0 + 116)) & 1)) {
+        (*(unsigned int*)((char*)&DAT_004de8d0 + 116)) |= 1;
         double c = cos(0.39269909262657166);
-        DAT_004de940 = (float)(c + c);
+        (*(float*)((char*)&DAT_004de8d0 + 112)) = (float)(c + c);
     }
-    if (!(DAT_004de944 & 2)) {
-        DAT_004de944 |= 2;
+    if (!((*(unsigned int*)((char*)&DAT_004de8d0 + 116)) & 2)) {
+        (*(unsigned int*)((char*)&DAT_004de8d0 + 116)) |= 2;
         double c = sin(0.39269909262657166);
-        DAT_004de93c = (float)(c + c);
+        (*(float*)((char*)&DAT_004de8d0 + 108)) = (float)(c + c);
     }
-    float cs = (float)(DAT_004de940 * s);
-    float ss = (float)(DAT_004de93c * s);
+    float cs = (float)((*(float*)((char*)&DAT_004de8d0 + 112)) * s);
+    float ss = (float)((*(float*)((char*)&DAT_004de8d0 + 108)) * s);
     float fs = (float)s;
 
     Entry_df110 e[24];
@@ -216,10 +214,10 @@ void CGlowDisplayEffect::vfunc_0(Target1 *t)
     e[23].a = -ss; e[23].b = -cs; e[23].level = 2;
 
     for (int i = 0; i < 24; i++) {
-        DAT_0052c2ac->device->v3c(0);
+        (*(Holder_df110**)&DAT_0052c2ac)->device->v3c(0);
         V.x = e[i].a;
         *slotB = e[i].b;
-        DAT_0052c2ac->FUN_00293d00(&V);
+        (*(Holder_df110**)&DAT_0052c2ac)->FUN_00293d00(&V);
 
         int n = e[i].level - 1;
         unsigned int k = n < 0 ? -n : n;
@@ -238,9 +236,9 @@ void CGlowDisplayEffect::vfunc_0(Target1 *t)
         unsigned int color = ((((((unsigned int)alpha << 8) | c2) << 8) | c1) << 8) | c0;
         t->v04(color);
         t->v00();
-        DAT_0052c2ac->device->v40(0);
+        (*(Holder_df110**)&DAT_0052c2ac)->device->v40(0);
     }
-    DAT_0052c2ac->device->v40(0);
+    (*(Holder_df110**)&DAT_0052c2ac)->device->v40(0);
     DAT_0052c2a8->ve8(saved.w);
     t->v04(origColor);
 }

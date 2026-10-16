@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 8/8)
 // FUN_0027db30 @ 0x0027db30
+#include "decls/data/game/global.h"
+
 typedef unsigned int U_27db30;
 struct Spawned_27db30;
 typedef void (__fastcall *ApplyMethod)(Spawned_27db30*, U_27db30, U_27db30);
@@ -24,7 +26,6 @@ struct Spawned_27db30 {
 struct Transform_27db30 { char pad[0x50]; U_27db30 position[3]; U_27db30 rotation[3]; };
 struct Child_27db30 { virtual void v0(); char pad[0xc]; Transform_27db30* transform; };
 struct Parent_27db30 { Child_27db30* FUN_002fc880(Spawned_27db30* object,U_27db30 zero); };
-extern U_27db30 DAT_00554c10;
 struct Target_27db30 { char pad[0x9c]; Owner_27db30* owner; Holder_27db30* holder; void run(Parent_27db30* parent,U_27db30 a,U_27db30 b,U_27db30 x,U_27db30 y,U_27db30 z,U_27db30 rx,U_27db30 ry,U_27db30 rz); };
 void Target_27db30::run(Parent_27db30* parent,U_27db30 a,U_27db30 b,U_27db30 x,U_27db30 y,U_27db30 z,U_27db30 rx,U_27db30 ry,U_27db30 rz) {
  if (!holder || !holder->entity->active) return;
@@ -34,7 +35,7 @@ void Target_27db30::run(Parent_27db30* parent,U_27db30 a,U_27db30 b,U_27db30 x,U
  if (!object) return;
  U_27db30 value = holder->entity->FUN_002ef4a0();
  object->FUN_002ef440(value);
- object->service->FUN_002fe6b0(DAT_00554c10);
+ object->service->FUN_002fe6b0((*(U_27db30*)&DAT_00554c10));
  Entity* entity = holder->entity;
  SpawnVtable* table = *reinterpret_cast<SpawnVtable**>(object);
  value = entity->v4(id,0);

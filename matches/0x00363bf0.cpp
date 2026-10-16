@@ -1,6 +1,5 @@
-extern "C" char DAT_004dc950[];
-extern "C" char DAT_004dc96c[];
-extern "C" char DAT_004dc988[];
+#include "decls/data/game/global.h"
+
 class C_363bf0 {
   public:
     void init(void*, void*);

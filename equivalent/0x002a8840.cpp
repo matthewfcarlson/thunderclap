@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 30/30)
 // pure3d::LightAnimationController::vfunc_27 @ 0x002a8840
+#include "decls/data/game/global.h"
+
 struct Vec3_2a8840 { float x, y, z; };
 
 union Scalar_2a8840 {
@@ -62,7 +64,6 @@ struct Globals_2a8840 {
     char pad[8];
     Sink_2a8840 *sink;
 };
-extern Globals_2a8840 *DAT_0052c2b4;
 
 class LightAnimationController {
 public:
@@ -117,8 +118,8 @@ void LightAnimationController::vfunc_27()
         c = cs->FUN_00288960(0x524c43, 0x524c43);
         if (c != 0) {
             c->FUN_0028ad20(fr.s.f, &fr.s.i);
-            if (DAT_0052c2b4->sink != 0) {
-                DAT_0052c2b4->sink->FUN_00293e90(fr.s.i);
+            if ((*(Globals_2a8840**)&DAT_0052c2b4)->sink != 0) {
+                (*(Globals_2a8840**)&DAT_0052c2b4)->sink->FUN_00293e90(fr.s.i);
             }
         }
         return;

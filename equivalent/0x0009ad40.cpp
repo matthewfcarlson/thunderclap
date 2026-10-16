@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0009ad40 @ 0x0009ad40
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 extern "C" char DAT_00404c80[];
-extern "C" char DAT_0048e0e4[];
-extern "C" char DAT_0048e100[];
-extern "C" char DAT_0048e128[];
 
 class Callback_9ad40 {
   public:
@@ -23,11 +22,11 @@ Callback_9ad40* Callback_9ad40::Init(void* arg, void* value) {
     FUN_001d0480(arg, 5);
     vptr = (int)DAT_00404c80;
     p1c = value;
-    b18 = FUN_001d04d0((void*)((int)DAT_0048e100));
-    b10 = FUN_001d04d0((void*)((int)DAT_0048e0e4));
-    b11 = FUN_001d04d0((void*)((int)DAT_0048e0e4));
-    b12 = FUN_001d04d0((void*)((int)DAT_0048e0e4));
-    b13 = FUN_001d04d0((void*)((int)DAT_0048e0e4));
-    b14 = FUN_001d04d0((void*)((int)DAT_0048e128));
+    b18 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e100)));
+    b10 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e0e4)));
+    b11 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e0e4)));
+    b12 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e0e4)));
+    b13 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e0e4)));
+    b14 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e128)));
     return this;
 }

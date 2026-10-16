@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 6/6)
 // FUN_00078ee0 @ 0x00078ee0
+#include "decls/data/game/global.h"
+
 struct Vec3_78ee0 {
     float x, y, z;
     float FUN_0022d110();
@@ -24,7 +26,6 @@ struct Ref382c {
     Ref20_78ee0 *ref;
 };
 
-extern float DAT_0049b898;
 char FUN_0022d550(Vec3_78ee0 *p0, Vec3_78ee0 *dir, Vec3_78ee0 *a, Vec3_78ee0 *b, float *outA, float *outB);
 
 class Walker_78ee0 {

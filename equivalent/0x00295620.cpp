@@ -3,6 +3,8 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
 #include "decls/address.h"
+#include "decls/data/engine/content.h"
+#include "decls/data/engine/pure3d.h"
 extern "C" void *memset(void *dst, int c, unsigned int n);
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 void *thunk_FUN_0008d690(unsigned int size);
@@ -63,8 +65,6 @@ public:
 struct Registry_295620 {
     ObjectLoader *FUN_00265310(int id);
 };
-extern Registry_295620 *DAT_00527c58;
-extern unsigned short DAT_00554be0;
 
 struct ShaderSlots {
     virtual void s0();
@@ -218,7 +218,7 @@ void TextureFontLoader::F(pure3d::TextureFont **out, unsigned __int64 *outId, St
     font->pageCount = cnt;
     font->pages = (Texture **)FUN_0008d6d0(cnt * 4);
     memset(font->pages, 0, font->pageCount * 4);
-    TextureLoader *tl = dynamic_cast<TextureLoader *>(DAT_00527c58->FUN_00265310(0x19000));
+    TextureLoader *tl = dynamic_cast<TextureLoader *>((*(Registry_295620**)&DAT_00527c58)->FUN_00265310(0x19000));
     tl->v0();
     if (s->FUN_002669f0()) {
         fr.v1c = 0;
@@ -309,7 +309,7 @@ void TextureFontLoader::F(pure3d::TextureFont **out, unsigned __int64 *outId, St
     int lo = 0;
     if (hi >= 0) {
         unsigned short *codes = font->codes;
-        unsigned short key = DAT_00554be0;
+        unsigned short key = (*(unsigned short*)&DAT_00554be0);
         do {
             int mid = (hi + lo) >> 1;
             unsigned short c = codes[mid];

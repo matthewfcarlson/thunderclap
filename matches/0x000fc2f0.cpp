@@ -1,4 +1,5 @@
-extern "C" char DAT_004e0a60[];
+#include "decls/data/game/global.h"
+
 class X_fc2f0 {
   public:
     virtual void f0();

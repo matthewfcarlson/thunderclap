@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_0008ced0 @ 0x0008ced0
+#include "decls/data/game/unknown.h"
+
 struct NameEntry_8ced0 {
     const char *name;
     int a, b;
 };
-extern NameEntry_8ced0 DAT_00400520[];
 
 class Slot_8ced0 {
 public:
@@ -37,6 +38,6 @@ void SlotTable_8ced0::FUN_0008ced0(int index, int *outCount, int *outX, int *out
         if (outB)
             *outB = b;
         if (outName)
-            *outName = DAT_00400520[slot].name;
+            *outName = ((NameEntry_8ced0*)&DAT_00400520)[slot].name;
     }
 }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 18/18)
 // audio::HalRsdFileStream::vfunc_11 @ 0x00263330
-extern char DAT_004e7b50;
+#include "decls/data/engine/audio.h"
+
 extern void* __cdecl FUN_00247530(void*);
 extern void __cdecl FUN_00263470(void*);
 extern void __cdecl FUN_00263480(unsigned*,void*);
@@ -30,7 +31,7 @@ void HalRsdFileStream::vfunc_11() {
   if(file->status()!=1) { state=2; break; }
   file->mode(1);
   if(initialized) { FUN_002630c0(); break; }
-  { unsigned* p=(unsigned*)FUN_00247530(&DAT_004e7b50);
+  { unsigned* p=(unsigned*)FUN_00247530(((char*)((char*)&DAT_004e7b08 + 72)));
     if(p) for(unsigned i=0;i<0x69;++i) p[i]=0;
     header=p; state=3;
     file->seek(offset);

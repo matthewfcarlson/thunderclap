@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 168 inputs, branch coverage 49/52, incomplete)
 // FUN_002ac180 @ 0x002ac180
+#include "decls/data/engine/content.h"
+
 void* FUN_00263ea0(unsigned int size);
 void* FUN_0008d690(unsigned int size);
 
@@ -50,7 +52,6 @@ struct Registry_2ac180 {
     content::ObjectLoader* FUN_00265310(int id);
 };
 
-extern Registry_2ac180* DAT_00527c58;
 
 class Element_2ac180 {
 public:
@@ -101,7 +102,7 @@ Generator_2ac180* __stdcall FUN_002ac180(Reader* r, void* arg, int kind)
 {
     Frame_2ac180 f;
     r->stream->FUN_002647e0(&f.old, 1, 4, 1);
-    f.loader = dynamic_cast<pure3d::AnimationLoader*>(DAT_00527c58->FUN_00265310(0x121000));
+    f.loader = dynamic_cast<pure3d::AnimationLoader*>((*(Registry_2ac180**)&DAT_00527c58)->FUN_00265310(0x121000));
     f.loader->AddRef();
     f.old = f.loader->FUN_00288e90();
     f.loader->FUN_00288e80(1);

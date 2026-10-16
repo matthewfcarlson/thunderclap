@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000bfda0 @ 0x000bfda0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
-extern char DAT_0048e100;
 class Base_bfda0 {
 public:
     virtual void v();
@@ -20,7 +20,7 @@ public:
     void* f;
     Function0(const char* n, void* x) : Base_bfda0(n, 0) {
         f = x;
-        result = FUN_001d04d0(&DAT_0048e100);
+        result = FUN_001d04d0(((char*)&DAT_0048e100));
     }
     virtual void v();
 };

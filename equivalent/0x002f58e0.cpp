@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // physics::PhysicsObject::vfunc_12 @ 0x002f58e0
-extern float DAT_00555454;
+#include "decls/data/engine/physics.h"
+
 struct Motion_2f58e0 { char pad[0x50]; float vx,vy,vz,wx,wy,wz; };
 namespace physics {
 struct PhysicsObject {

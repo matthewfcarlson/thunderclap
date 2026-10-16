@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 97 inputs, branch coverage 81/82, incomplete)
 // FUN_0002ae80 @ 0x0002ae80
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct Vec_2ae80 { float x,y,z; };
 struct Position_2ae80 { bool FUN_00059a50(Vec_2ae80*); };
 struct Bounds_2ae80 { char pad[8]; unsigned char type; char pad2[7]; Vec_2ae80 center; float radius; float distance; };
@@ -18,7 +19,6 @@ struct Level_2ae80 { char p[0x80]; LevelData data; };
 struct Levels { Level_2ae80* FUN_00086310(); };
 struct World { char p[12]; Events_2ae80* events; char p2[0x54-16]; Levels* levels; };
 struct Debug_2ae80 { void FUN_0023f7b0(Vec_2ae80*,Vec_2ae80*,unsigned,int); void FUN_0023f7d0(Vec_2ae80*,unsigned,float,int); };
-extern Debug_2ae80* DAT_004dd6e8;
 struct Manager_2ae80 {
  Owner_2ae80* owner; char p0[8]; int count; int ids[17]; int flags[16]; int values[19]; int blocked[17]; Actor_2ae80* mainActor;
  char p1[0x353-0x128]; unsigned char debugLine; Vec_2ae80 start,end; unsigned char debugSphere; char p2[3]; Vec_2ae80 sphere;
@@ -88,7 +88,7 @@ void Manager_2ae80::target(int arg,float dt) {
  FUN_000245b0();
  for(int i=0;i<count;++i) if(flags[i]&1) values[i]=0;
  if(debugLine) {
-  DAT_004dd6e8->FUN_0023f7b0(&start,&end,0xffff0000,0);
-  if(debugSphere) DAT_004dd6e8->FUN_0023f7d0(&sphere,0xffffffff,0.5f,0);
+  (*(Debug_2ae80**)&DAT_004dd6e8)->FUN_0023f7b0(&start,&end,0xffff0000,0);
+  if(debugSphere) (*(Debug_2ae80**)&DAT_004dd6e8)->FUN_0023f7d0(&sphere,0xffffffff,0.5f,0);
  }
 }

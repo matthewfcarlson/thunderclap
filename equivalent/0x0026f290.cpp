@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2661 inputs, branch coverage 8/8)
 // FUN_0026f290 @ 0x0026f290
-extern unsigned short DAT_0042ab54;
+#include "decls/data/engine/unknown.h"
+
 extern void __stdcall FUN_00208b9c(char *, unsigned int *, unsigned char *, unsigned char *);
 extern unsigned int __stdcall FUN_00209a8e(char *);
 struct Resource {
@@ -28,8 +29,8 @@ void Resource::FUN_0026f290()
         c = *in++;
         *out++ = c;
     } while (c);
-    out[-1] = (char)DAT_0042ab54;
-    out[0] = (char)(DAT_0042ab54 >> 8);
+    out[-1] = (char)(*(unsigned short*)&DAT_0042ab54);
+    out[0] = (char)((*(unsigned short*)&DAT_0042ab54) >> 8);
     FUN_00208b9c(local.path, &local.foundSize, local.second, local.first);
     if (local.error)
         size = 0xffffffff;

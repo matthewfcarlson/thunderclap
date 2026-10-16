@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 14/14)
 // pure3d::d3dProjectedTextureShader::vfunc_14 @ 0x0032cc50
+#include "decls/data/platform/xbox/pure3d.h"
+
 namespace D3D8 {
 void __stdcall D3DDevice_SetTextureState_TexCoordIndex(unsigned long stage, unsigned long value);
 void __fastcall D3DDevice_SetRenderState_Simple(unsigned long method, unsigned long value);
@@ -15,9 +17,6 @@ struct StageRegs_32cc50 {
 extern unsigned int DAT_0039db08;
 extern StageRegs_32cc50 DAT_0039db10[];
 extern unsigned int DAT_0039de18;
-extern unsigned int DAT_004d4efc;
-extern unsigned int DAT_004d4f00;
-extern unsigned int DAT_004d4f24[];
 
 class Texture;
 class DeviceState_32cc50 {
@@ -88,10 +87,10 @@ void pure3d_d3dProjectedTextureShader_32cc50::vf14(int arg) {
     }
     if (dev->blend0 != 0) {
         dev->blend0 = 0;
-        DAT_0039db10[0].a = DAT_004d4efc;
-        DAT_0039db10[0].b = DAT_004d4efc;
+        DAT_0039db10[0].a = (*(unsigned int*)&DAT_004d4efc);
+        DAT_0039db10[0].b = (*(unsigned int*)&DAT_004d4efc);
         DAT_0039db08 |= 1;
-        DAT_0039db10[0].c = DAT_004d4efc;
+        DAT_0039db10[0].c = (*(unsigned int*)&DAT_004d4efc);
     }
     dev->FUN_00329c90(0, stageValue);
     dev->FUN_00329e50(1, 4, 1, 2);
@@ -106,15 +105,15 @@ void pure3d_d3dProjectedTextureShader_32cc50::vf14(int arg) {
     }
     if (dev->blend1 != 1) {
         dev->blend1 = 1;
-        DAT_0039db10[1].a = DAT_004d4f00;
-        DAT_0039db10[1].b = DAT_004d4f00;
+        DAT_0039db10[1].a = (*(unsigned int*)((char*)&DAT_004d4efc + 4));
+        DAT_0039db10[1].b = (*(unsigned int*)((char*)&DAT_004d4efc + 4));
         DAT_0039db08 |= 2;
-        DAT_0039db10[1].c = DAT_004d4f00;
+        DAT_0039db10[1].c = (*(unsigned int*)((char*)&DAT_004d4efc + 4));
     }
     dev->FUN_00329c90(1, stageValue);
     if (renderIndex != dev->renderMode) {
         dev->renderMode = renderIndex;
-        unsigned int value = DAT_004d4f24[renderIndex];
+        unsigned int value = ((unsigned int*)&DAT_004d4f24)[renderIndex];
         D3D8::D3DDevice_SetRenderState_Simple(0x4037c, value);
         DAT_0039de18 = value;
     }

@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 105 inputs, branch coverage 18/24, incomplete)
 // core::XboxSaveDrive::vfunc_7 @ 0x00279160
-extern unsigned char DAT_0052a228;
-extern unsigned char DAT_0052a229;
+#include "decls/data/platform/xbox/core.h"
+
 namespace core {
 struct XboxSaveDrive {
  char reserved0[0x60];
@@ -32,14 +32,14 @@ bool core::XboxSaveDrive::vfunc_7() {
   if (portIndex >= 0 && unitIndex >= 0) {
    unsigned char mask = (unsigned char)(1u << ((portIndex + 4 * unitIndex) & 31));
    if (active != 0) {
-    if ((DAT_0052a229 & mask) != 0) {
-     int newState = (DAT_0052a228 & mask) ? 3 : 4;
+    if (((*(unsigned char*)&DAT_0052a229) & mask) != 0) {
+     int newState = ((*(unsigned char*)&DAT_0052a228) & mask) ? 3 : 4;
      state = newState;
      resultState = newState;
      return false;
     }
    } else {
-    DAT_0052a229 &= (unsigned char)~mask;
+    (*(unsigned char*)&DAT_0052a229) &= (unsigned char)~mask;
    }
   }
  }

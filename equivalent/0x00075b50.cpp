@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 8/8)
 // FUN_00075b50 @ 0x00075b50
+#include "decls/data/game/global.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void __cdecl FUN_00068b40();
 void __cdecl FUN_00068b50();
 void __cdecl FUN_00068b60();
-extern int DAT_004dd00c;
-extern int DAT_004dd008;
 struct ParamBase_75b50 {
  virtual void slot0();
  char reserved[12];

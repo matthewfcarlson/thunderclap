@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 10/10)
 // FUN_001b2e50 @ 0x001b2e50
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
 extern "C" void* __cdecl FUN_001d4c90();
-extern "C" const char DAT_0048e100[];
-extern "C" const char DAT_0048e0f0[];
-extern "C" const char DAT_0048e128[];
 extern "C" void __cdecl FUN_001afa70(float, float);
 extern "C" void __cdecl FUN_001afa90(float, float);
 extern "C" void __cdecl FUN_001afab0(float, float);
@@ -13,9 +12,9 @@ extern "C" void __cdecl FUN_001afad0(const char*, float);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
 template <class T> struct TypeName;
-template <> struct TypeName<void> { static const char* get() { return DAT_0048e100; } };
-template <> struct TypeName<float> { static const char* get() { return DAT_0048e128; } };
-template <> struct TypeName<const char*> { static const char* get() { return DAT_0048e0f0; } };
+template <> struct TypeName<void> { static const char* get() { return ((const char*)&DAT_0048e100); } };
+template <> struct TypeName<float> { static const char* get() { return ((const char*)&DAT_0048e128); } };
+template <> struct TypeName<const char*> { static const char* get() { return ((const char*)&DAT_0048e0f0); } };
 
 class __declspec(novtable) Function {
   public:

@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 36/36)
 // FUN_002f0230 @ 0x002f0230
+#include "decls/data/game/global.h"
+
 struct V3_2f0230 {
     float x, y, z;
 };
 
-extern const float DAT_003f5cf8;
 
 bool __cdecl FUN_002f01c0(const V3_2f0230 *origin, const V3_2f0230 *extent);
 

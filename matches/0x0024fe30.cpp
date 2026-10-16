@@ -1,5 +1,6 @@
+#include "decls/data/engine/audio.h"
+
 extern "C" char DAT_00429ac8[];
-extern "C" char DAT_004e68b0[];
 namespace audio {
 class SeqCommand {
   public:

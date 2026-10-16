@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 17/20, incomplete)
 // FUN_001b1080 @ 0x001b1080
+#include "decls/data/game/global.h"
+
 extern "C" double sqrt(double);
 
 struct V3_1b1080 {
@@ -14,7 +16,6 @@ struct Core_1b1080 {
     unsigned __int64 FUN_001d4f70();
 };
 
-extern unsigned __int64 DAT_004e1828;
 float __cdecl FUN_00018a20(float x);
 float __cdecl FUN_000186b0(float *value, float *lo, float *hi);
 
@@ -36,7 +37,7 @@ struct Obj_1b1080 {
 
 int __stdcall FUN_001b1080(Obj_1b1080 *obj, Mover_1b1080 *mover, V3_1b1080 *out, int a4)
 {
-    if (obj->core->FUN_001d4f70() == DAT_004e1828) {
+    if (obj->core->FUN_001d4f70() == (*(unsigned __int64*)&DAT_004e1828)) {
         out->x = 0.0f;
         out->y = 0.0f;
         out->z = 0.0f;

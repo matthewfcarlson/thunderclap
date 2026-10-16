@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 4/4)
 // FUN_002385b0 @ 0x002385b0
+#include "decls/data/engine/fight.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -30,8 +32,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e5c0c;
-extern int DAT_004e5c10;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -44,7 +44,7 @@ void FUN_002385b0()
         params[0] = 0;
         if (mem)
             params[0] = new (mem) fight::ParamFloatConstRange<fight::MaybeCondition>("percent", &fight::MaybeCondition::FUN_002381c0);
-        FUN_002347b0(&DAT_004e5c0c, params, 1);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e5c0c), params, 1);
     }
     DAT_004e5c10++;
 }

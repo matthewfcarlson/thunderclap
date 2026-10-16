@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_002af2d0 @ 0x002af2d0
+#include "decls/data/game/global.h"
+
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *FUN_0008d690(unsigned int size);
 void *FUN_00263ea0(unsigned int size);
@@ -15,7 +17,6 @@ public:
     virtual int getA();
     virtual int getB();
 };
-extern Manager_2af2d0 *DAT_0052c2a4;
 
 struct ImageConverter {
     ImageConverter *FUN_002de230();
@@ -26,8 +27,8 @@ namespace pure3d {
 class ImageHandler {
 public:
     __forceinline ImageHandler() : f04(0), f08(0), f0c(0) {
-        f10 = DAT_0052c2a4->getB();
-        f14 = DAT_0052c2a4->getA();
+        f10 = (*(Manager_2af2d0**)&DAT_0052c2a4)->getB();
+        f14 = (*(Manager_2af2d0**)&DAT_0052c2a4)->getA();
     }
     virtual void slot0();
     virtual void slot1();

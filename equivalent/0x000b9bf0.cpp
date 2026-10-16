@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 971 inputs, branch coverage 39/40, incomplete)
 // FUN_000b9bf0 @ 0x000b9bf0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern char DAT_0049dba4[];          // FEObject type descriptor
 extern char DAT_0049dbbc[];          // TextSelector type descriptor
 extern char DAT_0049f4a4[];          // TextButton type descriptor
 extern char DAT_0049f4f0[];          // FEControl type descriptor
 extern unsigned int DAT_004d9968;
-extern const char *DAT_00406140[];   // zero-terminated list of "cNmM" side mission names
+   // zero-terminated list of "cNmM" side mission names
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl memcmp(const void *, const void *, unsigned int);
 
@@ -127,8 +128,8 @@ void SideMissionMenu::FUN_000b9bf0()
         if (f.sel != 0) {
             f.sel->FUN_000e36c0();
             f.count = 0;
-            if (DAT_00406140[0] != 0) {
-                f.entry = DAT_00406140;
+            if (((const char**)&DAT_00406140)[0] != 0) {
+                f.entry = ((const char**)&DAT_00406140);
                 do {
                     f.a = -1;
                     f.b = -1;

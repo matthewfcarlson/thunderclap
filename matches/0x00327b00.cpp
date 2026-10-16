@@ -1,3 +1,5 @@
+#include "decls/data/engine/pure3d.h"
+
 struct Receiver_327b00 {
     void set(unsigned);
 };
@@ -9,7 +11,6 @@ struct ParameterEntry_327b00 {
     int receiverOffset;
     unsigned unused[2];
 };
-extern unsigned DAT_005555b8;
 namespace pure3d {
 struct pddiBaseShader {
     virtual void vfunc_0();

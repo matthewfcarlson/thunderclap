@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_00098190 @ 0x00098190
+#include "decls/data/game/hulkfight.h"
+
 extern "C" double cos(double);
 
 struct V3_98190 {
@@ -13,7 +15,6 @@ struct Mat_98190 {
     void FUN_0022c3b0(const V3_98190 *in, V3_98190 *out);
 };
 
-extern float DAT_004dd940;
 
 int __cdecl FUN_00097a30(int a1, float a2, int a3, int a4, int a5, int a6, int a7, V3_98190 *b, int a9, int a10, int a11, int a12);
 

@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 43/48, incomplete)
 // MyControllerCallback::vfunc_0 @ 0x0008dbb0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 extern "C" int strcmp(const char *a, const char *b);
 
 struct Item_8dbb0 {
@@ -61,9 +63,6 @@ Cam_8dbb0 *__fastcall FUN_00086300(Manager_8dbb0 *m);
 Rumble *__fastcall FUN_00086330(Manager_8dbb0 *m);
 Fx_8dbb0 *__fastcall FUN_000862e0(Manager_8dbb0 *m);
 
-extern char DAT_004e222c;
-extern char DAT_004ddbe1;
-extern char DAT_004e222d;
 
 class IController {
 public:
@@ -131,6 +130,6 @@ void MyControllerCallback::vfunc_0(IController *c)
         }
     }
     DAT_004e222c = 1;
-    DAT_004ddbe1 = 1;
-    DAT_004e222d = 1;
+    (*(char*)&DAT_004ddbe1) = 1;
+    (*(char*)&DAT_004e222d) = 1;
 }

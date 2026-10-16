@@ -1,17 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3050 inputs, branch coverage 27/30, incomplete)
 // fight::Chunk::vfunc_9 @ 0x0023b570
 #include "decls/address.h"
+#include "decls/data/engine/fight.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int DAT_004d9968;
 
-extern const char *DAT_004ca254;
-extern const char *DAT_004ca26c;
-extern const char *DAT_004ca270;
-extern const char *DAT_004ca274;
-extern const char *DAT_004ca278;
-extern const char *DAT_004ca29c;
-extern unsigned __int64 DAT_004e5b18;
-extern unsigned __int64 DAT_004e5b20;
 
 namespace fight { class Chunk; }
 
@@ -60,7 +53,6 @@ struct Scope_23b570 {
 struct Registry_23b570 {
     Scope_23b570 *FUN_00232840(unsigned __int64 key);
 };
-extern Registry_23b570 *DAT_004e5af8;
 
 struct ListA_23b570 {
     char pad[16];
@@ -103,26 +95,26 @@ char fight::Chunk::vfunc_9(void *a1, Writer_23b570 *w, int a3)
 {
     Frame_23b570 f;
     f.cookie = DAT_004d9968;
-    if (!w->HasToken() || w->TokenType() != DAT_004e5b18) {
+    if (!w->HasToken() || w->TokenType() != (*(unsigned __int64*)&DAT_004e5b18)) {
         __security_check_cookie(f.cookie);
         return 0;
     }
-    w->Begin(DAT_004e5b18);
+    w->Begin((*(unsigned __int64*)&DAT_004e5b18));
     f.out1 = 0;
-    w->v10(FUN_002672f0(DAT_004ca274, 0, 0), &f.out1);
-    w->FUN_00232c40(FUN_002672f0(DAT_004ca26c, 0, 0), this);
+    w->v10(FUN_002672f0((*(const char**)&DAT_004ca274), 0, 0), &f.out1);
+    w->FUN_00232c40(FUN_002672f0((*(const char**)&DAT_004ca26c), 0, 0), this);
     f.id.FUN_0027af00();
-    w->v7(FUN_002672f0(DAT_004ca254, 0, 0), &f.id);
-    if (DAT_004e5af8 != 0)
-        scope = DAT_004e5af8->FUN_00232840(((unsigned __int64)f.id.hi << 32) | f.id.lo);
+    w->v7(FUN_002672f0((*(const char**)&DAT_004ca254), 0, 0), &f.id);
+    if ((*(Registry_23b570**)&DAT_004e5af8) != 0)
+        scope = (*(Registry_23b570**)&DAT_004e5af8)->FUN_00232840(((unsigned __int64)f.id.hi << 32) | f.id.lo);
     else
         scope = 0;
     f.buf[0] = 0;
     for (int i = 1; i < 0x400; i++)
         f.buf[i] = 0;
-    w->v8(FUN_002672f0(DAT_004ca270, 0, 0), f.buf, 0x400);
+    w->v8(FUN_002672f0((*(const char**)&DAT_004ca270), 0, 0), f.buf, 0x400);
     f.count = 0;
-    w->v10(FUN_002672f0(DAT_004ca278, 0, 0), &f.count);
+    w->v10(FUN_002672f0((*(const char**)&DAT_004ca278), 0, 0), &f.count);
     bool ok = false;
     if (scope != 0) {
         Holder_23b570 *h = scope->holder->FUN_00233580(f.buf);
@@ -142,11 +134,11 @@ char fight::Chunk::vfunc_9(void *a1, Writer_23b570 *w, int a3)
     char has = w->v3();
     if (!has) {
         f.flag = has;
-        w->v11(FUN_002672f0(DAT_004ca29c, 0, 0), &f.flag);
+        w->v11(FUN_002672f0((*(const char**)&DAT_004ca29c), 0, 0), &f.flag);
     }
     list.FUN_00236ec0();
-    if (w->HasToken() && w->TokenType() == DAT_004e5b20)
-        list.FUN_00237160((unsigned int)DAT_004e5b20, (unsigned int)(DAT_004e5b20 >> 32), scope, w);
+    if (w->HasToken() && w->TokenType() == (*(unsigned __int64*)&DAT_004e5b20))
+        list.FUN_00237160((unsigned int)(*(unsigned __int64*)&DAT_004e5b20), (unsigned int)((*(unsigned __int64*)&DAT_004e5b20) >> 32), scope, w);
     FUN_002337c0((int)this, w, -1);
     w->End();
     f.id.FUN_0027af50();

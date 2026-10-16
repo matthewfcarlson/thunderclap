@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 26/28, incomplete)
 // FUN_000366f0 @ 0x000366f0
+#include "decls/data/game/hulkfight.h"
+
 struct V3_366f0 { float x, y, z; };
 struct Matrix { float m[12]; V3_366f0 pos; float w; };
 struct Sub2324b0 { void FUN_002324b0(int a); };
@@ -33,7 +35,6 @@ struct Obj000366f0 {
     int flag20b0;
     void FUN_000366f0(int unused, float dt);
 };
-extern float DAT_00421894;
 extern void __fastcall FUN_0022b980(Matrix* m);
 extern void* __fastcall FUN_00059a40(void* o);
 extern Matrix* __fastcall FUN_00221c40(void* p);
@@ -74,7 +75,7 @@ void Obj000366f0::FUN_000366f0(int unused, float dt)
         attach->FUN_001c5ef0(mode == 3);
         if (flag20b0 == 1) {
             if (attach->inner != 0) {
-                FUN_001c5080(attach->inner, DAT_00421894, 1.5f);
+                FUN_001c5080(attach->inner, (*(float*)&DAT_00421894), 1.5f);
             }
         }
     }

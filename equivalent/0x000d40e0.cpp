@@ -1,27 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 8/8)
 // FUN_000d40e0 @ 0x000d40e0
-extern float DAT_004de600;
-extern float DAT_004de604;
-extern float DAT_004a06b0;
-extern float DAT_004a06c0;
-extern float DAT_004a06c4;
-extern float DAT_004a06c8;
-extern float DAT_004a06d0;
-extern int DAT_004a06f8[];
+#include "decls/data/game/global.h"
+
 extern int DAT_004a0704[];
-extern int DAT_004ddf98;
-extern float DAT_004ddfc0;
-extern float DAT_004ddfc4;
-extern int DAT_004ddfc8;
-extern float DAT_004ddfcc;
-extern float DAT_004ddfd0;
-extern int DAT_004ddfd4;
-extern float DAT_004ddfd8;
-extern float DAT_004ddfdc;
-extern int DAT_004ddfe0;
-extern float DAT_004ddfe4;
-extern float DAT_004ddfe8;
-extern int DAT_004ddfec;
 
 struct V3_d40e0 {
     float x, y, z;
@@ -103,7 +84,7 @@ void Screen_d40e0::FUN_000d40e0(Source_d40e0 *src, Mode_d40e0 *m, Camera *cam)
     DAT_004ddfc8 = 0;
     double bExt = DAT_004de604 * -0.5f;
     volatile float t1 = (float)(v.y * 0.12f);
-    DAT_004ddfc0 = (float)(v.x * 0.6f + aExt);
+    (*(float*)&DAT_004ddfc0) = (float)(v.x * 0.6f + aExt);
     DAT_004ddfc4 = (float)(t1 + bExt);
     if (mode->kind == 3) {
         DAT_004ddfc4 = -8.08f;
@@ -116,7 +97,7 @@ void Screen_d40e0::FUN_000d40e0(Source_d40e0 *src, Mode_d40e0 *m, Camera *cam)
     volatile float b2F = (float)b2Ext;
     double cExt = v.x * -0.05f;
     double dExt = v.y * 0.25f;
-    DAT_004ddfcc = (float)(aF - cExt);
+    (*(float*)&DAT_004ddfcc) = (float)(aF - cExt);
     DAT_004ddfd0 = (float)(b2F - dExt);
     volatile float e = (float)(v.y * 0.31f);
     DAT_004ddfd8 = (float)(aF - cExt);
@@ -144,6 +125,6 @@ void Screen_d40e0::FUN_000d40e0(Source_d40e0 *src, Mode_d40e0 *m, Camera *cam)
     f7c8 = 0;
     f7cc = 0;
     f804 = 0;
-    f7d0 = DAT_004a06b0;
+    f7d0 = (*(float*)&DAT_004a06b0);
     f80c = true;
 }

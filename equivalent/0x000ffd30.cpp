@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 18/18)
 // CHand2HandAgent::vfunc_19 @ 0x000ffd30
-extern unsigned char DAT_004e0a99;
+#include "decls/data/game/global.h"
+
 struct CHand2HandAgent {
  char pad0[0x64];
  float value64;
@@ -19,7 +20,7 @@ struct CHand2HandAgent {
 };
 void CHand2HandAgent::vfunc_19() {
  if (!flagd1 && !flagd2) {
-  if (flagcd || flagce || value64 > 0.0f || flag79 || count >= 3 || DAT_004e0a99) {
+  if (flagcd || flagce || value64 > 0.0f || flag79 || count >= 3 || (*(unsigned char*)&DAT_004e0a99)) {
    previous = upper;
    adjusted = upper - (upper - lower) * 0.25f;
   }

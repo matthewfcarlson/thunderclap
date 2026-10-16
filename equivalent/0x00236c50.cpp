@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // fight::Track::vfunc_3 @ 0x00236c50
-extern unsigned int DAT_004ca290;
-extern unsigned int DAT_004ca294;
+#include "decls/data/engine/fight.h"
 
 unsigned __int64 __cdecl FUN_002672f0(unsigned int name, int a, int b);
 
@@ -58,10 +57,10 @@ bool Track::vfunc_3(unsigned __int64 id, int extra, ParamArg_236c50 arg)
     param->vfunc_16(key);
     if (!param->vfunc_3()) {
         arg.flag = 0;
-        param->vfunc_11(FUN_002672f0(DAT_004ca290, 0, 0), &arg.flag);
+        param->vfunc_11(FUN_002672f0((*(unsigned int*)&DAT_004ca290), 0, 0), &arg.flag);
     }
     count = 0;
-    param->vfunc_10(FUN_002672f0(DAT_004ca294, 0, 0), &count);
+    param->vfunc_10(FUN_002672f0((*(unsigned int*)&DAT_004ca294), 0, 0), &count);
     value = count;
     vfunc_4(extra, param);
     param->vfunc_17();

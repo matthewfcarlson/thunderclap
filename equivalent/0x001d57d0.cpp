@@ -2,6 +2,7 @@
 // CSPHulkPropLoader::vfunc_5 @ 0x001d57d0
 #include "gen/global.h"
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 
 struct NameKey_1d57d0 {
     unsigned lo;
@@ -77,23 +78,6 @@ struct World {
     char pad[0xc];
     Curves_1d57d0 *curves;
 };
-extern NameKey_1d57d0 DAT_004e2430;
-extern NameKey_1d57d0 DAT_004e2438;
-extern NameKey_1d57d0 DAT_004e2448;
-extern NameKey_1d57d0 DAT_004e2450;
-extern NameKey_1d57d0 DAT_004e2458;
-extern NameKey_1d57d0 DAT_004e2460;
-extern NameKey_1d57d0 DAT_004e2468;
-extern NameKey_1d57d0 DAT_004e2470;
-extern NameKey_1d57d0 DAT_004e2478;
-extern NameKey_1d57d0 DAT_004e2480;
-extern NameKey_1d57d0 DAT_004e2488;
-extern NameKey_1d57d0 DAT_004e2490;
-extern NameKey_1d57d0 DAT_004e2498;
-extern NameKey_1d57d0 DAT_004e24a0;
-extern NameKey_1d57d0 DAT_004e24a8;
-extern NameKey_1d57d0 DAT_004e24b0;
-extern NameKey_1d57d0 DAT_004e24b8;
 
 int __cdecl FUN_001d5050(const char *s);
 int __cdecl FUN_001d50e0(const char *s);
@@ -160,37 +144,37 @@ void CSPHulkPropLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int unused) 
     if (count > 0) {
         for (int i = 0; i < count; i++) {
             Item_1d57d0 *it = &data->items[i];
-            if (it->key.lo == DAT_004e2448.lo && it->key.hi == DAT_004e2448.hi) {
+            if (it->key.lo == (*(NameKey_1d57d0*)&DAT_004e2448).lo && it->key.hi == (*(NameKey_1d57d0*)&DAT_004e2448).hi) {
                 n->f94 = FUN_001d5050(it->val);
-            } else if (it->key.lo == DAT_004e2460.lo && it->key.hi == DAT_004e2460.hi) {
+            } else if (it->key.lo == (*(NameKey_1d57d0*)&DAT_004e2460).lo && it->key.hi == (*(NameKey_1d57d0*)&DAT_004e2460).hi) {
                 n->f9c = FUN_001d50e0(it->val);
-            } else if (it->key.lo == DAT_004e2458.lo && it->key.hi == DAT_004e2458.hi) {
+            } else if (it->key.lo == (*(NameKey_1d57d0*)&DAT_004e2458).lo && it->key.hi == (*(NameKey_1d57d0*)&DAT_004e2458).hi) {
                 n->fa0 = FUN_001d51f0(it->val);
-            } else if (it->key.lo == DAT_004e2468.lo && it->key.hi == DAT_004e2468.hi) {
+            } else if (it->key.lo == (*(NameKey_1d57d0*)&DAT_004e2468).lo && it->key.hi == (*(NameKey_1d57d0*)&DAT_004e2468).hi) {
                 n->fb0 = FUN_00096600(it->val, "true") == 0;
-            } else if (it->key.lo == DAT_004e2470.lo && it->key.hi == DAT_004e2470.hi) {
+            } else if (it->key.lo == (*(NameKey_1d57d0*)&DAT_004e2470).lo && it->key.hi == (*(NameKey_1d57d0*)&DAT_004e2470).hi) {
                 n->fa4 = FUN_003458c1(it->val);
-            } else if (it->key.lo == DAT_004e2478.lo && it->key.hi == DAT_004e2478.hi) {
+            } else if (it->key.lo == (*(NameKey_1d57d0*)&DAT_004e2478).lo && it->key.hi == (*(NameKey_1d57d0*)&DAT_004e2478).hi) {
                 n->fa8 = FUN_001d5300(it->val);
-            } else if (it->key.lo == DAT_004e2480.lo && it->key.hi == DAT_004e2480.hi) {
+            } else if (it->key.lo == (*(NameKey_1d57d0*)&DAT_004e2480).lo && it->key.hi == (*(NameKey_1d57d0*)&DAT_004e2480).hi) {
                 n->fac = FUN_001d54c0(it->val);
-            } else if (it->key.lo == DAT_004e2488.lo && it->key.hi == DAT_004e2488.hi) {
+            } else if (it->key.lo == (*(NameKey_1d57d0*)&DAT_004e2488).lo && it->key.hi == (*(NameKey_1d57d0*)&DAT_004e2488).hi) {
                 int v = n->p90->p10->v11()->FUN_00023e80(it->val);
                 if (v != 0xffff)
                     n->f98 = v;
-            } else if (it->key.lo == DAT_004e2450.lo && it->key.hi == DAT_004e2450.hi) {
+            } else if (it->key.lo == (*(NameKey_1d57d0*)&DAT_004e2450).lo && it->key.hi == (*(NameKey_1d57d0*)&DAT_004e2450).hi) {
                 n->set.FUN_0027b040(it->val);
-            } else if (it->key.lo == DAT_004e2490.lo && it->key.hi == DAT_004e2490.hi) {
+            } else if (it->key.lo == (*(NameKey_1d57d0*)&DAT_004e2490).lo && it->key.hi == (*(NameKey_1d57d0*)&DAT_004e2490).hi) {
                 n->fb1 = FUN_00096600(it->val, "true") == 0;
-            } else if (it->key.lo == DAT_004e2498.lo && it->key.hi == DAT_004e2498.hi) {
+            } else if (it->key.lo == (*(NameKey_1d57d0*)&DAT_004e2498).lo && it->key.hi == (*(NameKey_1d57d0*)&DAT_004e2498).hi) {
                 n->fb2 = FUN_00096600(it->val, "true") == 0;
-            } else if (it->key.lo == DAT_004e24a0.lo && it->key.hi == DAT_004e24a0.hi) {
+            } else if (it->key.lo == (*(NameKey_1d57d0*)&DAT_004e24a0).lo && it->key.hi == (*(NameKey_1d57d0*)&DAT_004e24a0).hi) {
                 n->fb3 = FUN_00096600(it->val, "true") == 0;
-            } else if (it->key.lo == DAT_004e24a8.lo && it->key.hi == DAT_004e24a8.hi) {
+            } else if (it->key.lo == (*(NameKey_1d57d0*)&DAT_004e24a8).lo && it->key.hi == (*(NameKey_1d57d0*)&DAT_004e24a8).hi) {
                 n->fb4 = FUN_00096600(it->val, "true") == 0;
-            } else if (it->key.lo == DAT_004e24b0.lo && it->key.hi == DAT_004e24b0.hi) {
+            } else if (it->key.lo == (*(NameKey_1d57d0*)&DAT_004e24b0).lo && it->key.hi == (*(NameKey_1d57d0*)&DAT_004e24b0).hi) {
                 n->fb5 = FUN_00096600(it->val, "true") == 0;
-            } else if (it->key.lo == DAT_004e24b8.lo && it->key.hi == DAT_004e24b8.hi) {
+            } else if (it->key.lo == (*(NameKey_1d57d0*)&DAT_004e24b8).lo && it->key.hi == (*(NameKey_1d57d0*)&DAT_004e24b8).hi) {
                 n->fb6 = FUN_00096600(it->val, "true") == 0;
             }
         }
@@ -204,9 +188,9 @@ void CSPHulkPropLoader::vfunc_5(void* __p0, void* __p1, void* __p2, int unused) 
         float b = 1.0f;
         for (int j = 0; j < cnt; j++) {
             Entry_1d57d0 *e = &data->channels[i]->entries[j];
-            if (e->key.lo == DAT_004e2430.lo && e->key.hi == DAT_004e2430.hi) {
+            if (e->key.lo == (*(NameKey_1d57d0*)&DAT_004e2430).lo && e->key.hi == (*(NameKey_1d57d0*)&DAT_004e2430).hi) {
                 a = curves->FUN_001df3e0(e->val);
-            } else if (e->key.lo == DAT_004e2438.lo && e->key.hi == DAT_004e2438.hi) {
+            } else if (e->key.lo == (*(NameKey_1d57d0*)&DAT_004e2438).lo && e->key.hi == (*(NameKey_1d57d0*)&DAT_004e2438).hi) {
                 b = FUN_003458c1(e->val);
             }
         }

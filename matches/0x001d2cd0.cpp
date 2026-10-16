@@ -1,4 +1,5 @@
-extern "C" char DAT_003f3f38[];
+#include "decls/data/game/unknown.h"
+
 class C_1d2cd0 {
   public:
     char pad[8];
@@ -19,7 +20,7 @@ bool C_1d2cd0::Fn(int a, int b, int c) {
         ok = false;
         goto done;
     }
-    F4(b, c, ((int)DAT_003f3f38), r);
+    F4(b, c, ((int)((char*)&DAT_003f3f38)), r);
 done:
     F5(field, -2);
     return ok;

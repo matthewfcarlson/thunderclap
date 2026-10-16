@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00204d70 @ 0x00204d70
+#include "decls/data/game/global.h"
+
 extern unsigned int DAT_004d9968;
-extern char DAT_004c91d8;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 struct Frame_204d70 { char buf[32]; volatile unsigned int cookie; };
@@ -18,7 +19,7 @@ int Target_204d70::FUN_00204d70(int index)
     f.cookie = DAT_004d9968;
     char *buf = f.buf;
     sprintf(buf, "%s_r%03d", name, index);
-    if (DAT_004c91d8 != 0) {
+    if ((*(char*)&DAT_004c91d8) != 0) {
         Rec_204d70 *r = FUN_00204540(buf);
         if (r != 0) {
             int v = r->v38;

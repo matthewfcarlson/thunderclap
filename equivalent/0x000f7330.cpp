@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1233 inputs, branch coverage 42/42)
 // FUN_000f7330 @ 0x000f7330
+#include "decls/data/engine/pure3d/prop.h"
+
 struct Font {
     virtual void v0();
     virtual void v1();
@@ -86,7 +88,6 @@ struct Run_f7330 {
     float tokY;                     // 0x14
 };
 
-extern Holder_f7330 *DAT_0052c2ac;
 extern void *FUN_0008d690(unsigned int size);
 // finds the candidate name (ebx) inside the text (eax), returns the match
 // equiv-conv: FUN_000f72e0 eax ebx
@@ -205,7 +206,7 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
             k = -0.5f;
         else
             k = -1.0f;
-        DAT_0052c2ac->FUN_00293d40(f.u10.acc * k, 0, 0);
+        (*(Holder_f7330**)&DAT_0052c2ac)->FUN_00293d40(f.u10.acc * k, 0, 0);
     }
     if (f.runs[0].text != 0) {
         Run_f7330 *r = &f.runs[0];
@@ -215,13 +216,13 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
                 cb->v0(&f.probe);
             }
             fonts[font]->v11(r->text, 0);
-            DAT_0052c2ac->FUN_00293d40(r->width, 0, 0);
+            (*(Holder_f7330**)&DAT_0052c2ac)->FUN_00293d40(r->width, 0, 0);
             Token_f7330 *tok = r->tok;
             if (tok != 0) {
-                DAT_0052c2ac->mgr->v15(0);
+                (*(Holder_f7330**)&DAT_0052c2ac)->mgr->v15(0);
                 float y = (-f.lineH - r->tokY * r->scale) - (f118 - 1.0f) * f.h1 * 0.5f;
-                DAT_0052c2ac->FUN_00293d40(r->tokW * 0.5f, y, 0);
-                DAT_0052c2ac->FUN_00293da0(r->scale, r->scale, r->scale);
+                (*(Holder_f7330**)&DAT_0052c2ac)->FUN_00293d40(r->tokW * 0.5f, y, 0);
+                (*(Holder_f7330**)&DAT_0052c2ac)->FUN_00293da0(r->scale, r->scale, r->scale);
                 fonts[font]->v14(&f.u1c.color);
                 f.u14.alpha = f.u1c.color >> 24;
                 f.u14.fade = 1.0f - (float)f.u14.alpha * 0.003921569f;
@@ -232,8 +233,8 @@ void GlyphRun::FUN_000f7330(unsigned short *text, int font, int unused, int mode
                 tok->v13(fd);
                 tok->v8(0, 0);
                 tok->v14();
-                DAT_0052c2ac->mgr->v16(0);
-                DAT_0052c2ac->FUN_00293d40(r->tokW, 0, 0);
+                (*(Holder_f7330**)&DAT_0052c2ac)->mgr->v16(0);
+                (*(Holder_f7330**)&DAT_0052c2ac)->FUN_00293d40(r->tokW, 0, 0);
             }
             r++;
         } while (r->text != 0);

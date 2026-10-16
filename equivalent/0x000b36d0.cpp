@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3064 inputs, branch coverage 74/97, incomplete)
 // FUN_000b36d0 @ 0x000b36d0
-extern unsigned int DAT_004ddbcc;
-extern float DAT_004ddbc8;
+#include "decls/data/game/global.h"
 
 float __cdecl FUN_00224ea0(float x, float y);
 float __cdecl FUN_00224fc0(float a, float b);
@@ -191,10 +190,10 @@ void Ctrl_b36d0::FUN_000b36d0(Input_b36d0 *s, float v0, float v1, float v2, floa
             st->ang = ang;
             if ((DAT_004ddbcc & 1) == 0) {
                 DAT_004ddbcc |= 1;
-                DAT_004ddbc8 = 1.5707964f;
+                (*(float*)&DAT_004ddbc8) = 1.5707964f;
             }
             float d2 = FUN_00224fc0(ang, st->f20);
-            if (d2 > DAT_004ddbc8 || st->f24 > 0.3f) {
+            if (d2 > (*(float*)&DAT_004ddbc8) || st->f24 > 0.3f) {
                 float q = d2 / st->f24;
                 st->f20 = st->ang;
                 st->f24 = 0.0f;

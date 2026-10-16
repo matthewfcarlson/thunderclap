@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_001b6fd0 @ 0x001b6fd0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 struct Surface;
 struct Vertices {
     void FUN_0008ef00();
@@ -100,8 +102,6 @@ struct Stage_1b6fd0 {
     virtual void vfn16(int v);
 };
 
-extern Screen_1b6fd0 *DAT_0052c2a4;
-extern Stage_1b6fd0 **DAT_0052c2ac;
 
 struct Holder_1b6fd0 {
     char pad[0x10];
@@ -117,14 +117,14 @@ public:
 
 void Fader_1b6fd0::FUN_001b6fd0(int alpha)
 {
-    float w = (float)DAT_0052c2a4->vfn7();
-    float h = (float)DAT_0052c2a4->vfn6();
+    float w = (float)(*(Screen_1b6fd0**)&DAT_0052c2a4)->vfn7();
+    float h = (float)(*(Screen_1b6fd0**)&DAT_0052c2a4)->vfn6();
     int saved = DAT_0052c2a8->vfn25();
     DAT_0052c2a8->vfn24(2);
     DAT_0052c2a8->vfn54(0);
     DAT_0052c2a8->vfn58(0);
-    (*DAT_0052c2ac)->vfn15(0);
-    (*DAT_0052c2ac)->vfn13(0);
+    (*(*(Stage_1b6fd0***)&DAT_0052c2ac))->vfn15(0);
+    (*(*(Stage_1b6fd0***)&DAT_0052c2ac))->vfn13(0);
 
     unsigned int color = (unsigned int)alpha << 24;
     Vertices *v = DAT_0052c2a8->vfn30(holder->surface, 1, 0x2020, 4, 0);
@@ -156,5 +156,5 @@ void Fader_1b6fd0::FUN_001b6fd0(int alpha)
     DAT_0052c2a8->vfn24(saved);
     DAT_0052c2a8->vfn54(1);
     DAT_0052c2a8->vfn58(1);
-    (*DAT_0052c2ac)->vfn16(0);
+    (*(*(Stage_1b6fd0***)&DAT_0052c2ac))->vfn16(0);
 }

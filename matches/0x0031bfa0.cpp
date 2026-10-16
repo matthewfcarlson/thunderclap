@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_0031bfa0 @ 0x0031bfa0
+#include "decls/data/platform/xbox/pure3d.h"
+
 namespace D3D8 {
 int __stdcall D3DDevice_CreateVertexBuffer2(int);
 }
 extern void* __cdecl FUN_0008d690(int);
 extern void __cdecl FUN_0031c230(int);
-extern int DAT_004d367c;
-extern int DAT_004d3678;
 struct OwnerInner {
     char pad[0x10];
     int value;

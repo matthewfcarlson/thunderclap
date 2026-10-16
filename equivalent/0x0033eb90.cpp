@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 14/14)
 // FUN_0033eb90 @ 0x0033eb90
+#include "decls/data/engine/unknown.h"
+
 typedef void* (__stdcall *AllocHook)(unsigned int size);
-extern AllocHook DAT_005660d8;
-extern unsigned int DAT_005660dc;
 extern "C" void* __cdecl malloc(unsigned int size);
 
 // Allocates a block with 0x40 bytes of header; the returned pointer is
@@ -13,7 +13,7 @@ void* __stdcall FUN_0033eb90(unsigned int size)
         return 0;
     unsigned char* raw = 0;
     unsigned char kind = 0;
-    AllocHook hook = DAT_005660d8;
+    AllocHook hook = (*(AllocHook*)&DAT_005660d8);
     if (hook != 0)
         raw = static_cast<unsigned char*>(hook(size + 0x40));
     if (raw != 0) {

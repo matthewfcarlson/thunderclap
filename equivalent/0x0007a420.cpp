@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3036 inputs, branch coverage 60/64, incomplete)
 // FUN_0007a420 @ 0x0007a420
+#include "decls/data/game/unknown.h"
+
 struct V3_7a420 {
     float x, y, z;
 };
@@ -47,7 +49,6 @@ struct Owner_7a420 {
     Ctx_7a420 *ctx;
 };
 
-extern Rng_7a420 *DAT_004e5acc;
 Rng_7a420 *FUN_000964d0();
 
 class Grid_7a420 {
@@ -85,7 +86,7 @@ char Grid_7a420::FUN_0007a420(int *outRow, int *outCol, int *outSlot, int *outFl
     actor->probe->FUN_00059a50(&fr.A);
     actor->FUN_00035660(&fr.B);
 
-    Rng_7a420 *r0 = DAT_004e5acc;
+    Rng_7a420 *r0 = (*(Rng_7a420**)&DAT_004e5acc);
     r0->s0 = (r0->s0 & 0xffff) * 0x9069 + (r0->s0 >> 16);
     r0->s1 = (r0->s1 & 0xffff) * 0x4650 + (r0->s1 >> 16);
     unsigned int v = (r0->s0 << 16) + (r0->s1 & 0xffff);

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 38/38)
 // hulkfight::ai::StrafeCircleHBAction::vfunc_5 @ 0x0011ddb0
+#include "decls/data/game/hulkfight/ai.h"
+
 struct Vec3_11ddb0 {
     float x, y, z;
     float FUN_0022d110();
@@ -40,7 +42,6 @@ extern "C" float FUN_00224fc0(float from, float to);
 extern "C" float FUN_00083d90(float *v);
 extern "C" void FUN_00224d70(float angle, Vec3_11ddb0 *v);
 
-extern Vec3_11ddb0 DAT_004a6ac0;
 
 struct Tuning_11ddb0 {
     char pad0[0x14];
@@ -147,7 +148,7 @@ bool StrafeCircleHBAction::vfunc_5(int a1, int a2)
             theta = theta - x;
     }
 
-    stats->aim = DAT_004a6ac0;
+    stats->aim = (*(Vec3_11ddb0*)&DAT_004a6ac0);
     FUN_00224d70(theta, &stats->aim);
 
     if (fr.height < tuning->low) {

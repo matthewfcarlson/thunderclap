@@ -1,14 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_000c4ef0 @ 0x000c4ef0
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 extern "C" void *__cdecl FUN_0008d690(unsigned int size);
 extern "C" void *__cdecl FUN_00263ea0(unsigned int size);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
-extern char DAT_004dd839;
-extern char DAT_004dd8d4[];
-extern char DAT_00409f04;
-extern char DAT_00409f00;
-extern char DAT_00409efc;
 
 struct Vec3_c4ef0 {
     float x, y, z;
@@ -256,9 +254,9 @@ void Frontend_c4ef0::FUN_000c4ef0(void *a1, void *a2, void *a3, Input_c4ef0 *a4,
     a4->FUN_00092bd0(this);
     field_50 = a5;
     field_1880 = 0;
-    FUN_00294c70(&DAT_00409f04, text1, 0x40);
-    FUN_00294c70(&DAT_00409f00, text2, 0x40);
-    FUN_00294c70(&DAT_00409efc, text3, 0x40);
+    FUN_00294c70(((char*)&DAT_00409f04), text1, 0x40);
+    FUN_00294c70(((char*)&DAT_00409f00), text2, 0x40);
+    FUN_00294c70(((char*)&DAT_00409efc), text3, 0x40);
     field_34 = a7;
     field_1a08 = 0;
 }

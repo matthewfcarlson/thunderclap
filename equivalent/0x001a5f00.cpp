@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 40/45, incomplete)
 // hulkfight::scenario::EffectAction::vfunc_3 @ 0x001a5f00
 #include "decls/address.h"
+#include "decls/data/game/hulkfight/scenario.h"
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
 struct V3_1a5f00 {
@@ -87,7 +88,6 @@ struct Mgr_1a5f00 {
 struct Registry_1a5f00 {
     Anim_1a5f00 *FUN_001a57d0(unsigned int lo, unsigned int hi);
 };
-extern Registry_1a5f00 *DAT_004e1760;
 Mgr_1a5f00 *FUN_0027f250();
 
 namespace hulkfight {
@@ -154,8 +154,8 @@ bool EffectAction::vfunc_3(int a, int b)
                 i++;
             } while (i < list->count);
         }
-        if (searched && DAT_004e1760 != 0) {
-            Anim_1a5f00 *an = DAT_004e1760->FUN_001a57d0(f.w14.u, f.w18.u);
+        if (searched && (*(Registry_1a5f00**)&DAT_004e1760) != 0) {
+            Anim_1a5f00 *an = (*(Registry_1a5f00**)&DAT_004e1760)->FUN_001a57d0(f.w14.u, f.w18.u);
             if (an != 0)
                 an->AddRef();
             if (anim != 0)

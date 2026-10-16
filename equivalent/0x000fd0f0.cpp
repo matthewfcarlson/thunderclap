@@ -5,6 +5,7 @@
 // volatile slot array L[] at the original offsets, FPU-resident values are recomputed inline from volatile
 // reads. FUN_000fce60 takes an implicit edi (equiv-conv).
 #include "gen/global.h"
+#include "decls/data/game/global.h"
 
 extern "C" double sqrt(double);
 extern "C" double sin(double);
@@ -27,8 +28,6 @@ struct VFight {
     virtual VFight *v6();
 };
 
-extern float DAT_004a1aac;
-extern float DAT_004a1ab0;
 unsigned FUN_001c3d90();
 float FUN_00018a20(float x);
 // equiv-conv: FUN_000fce60 edi stack stack stack stack stack stack stack

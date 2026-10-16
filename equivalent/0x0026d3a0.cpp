@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // core::MemoryTwoWayAllocator::vfunc_2 @ 0x0026d3a0
+#include "decls/data/engine/core.h"
+
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* storage) { return storage; }
 extern "C" void __cdecl FUN_00267090(void*);
 extern "C" void __cdecl FUN_00266f00(unsigned int, void*);
-extern "C" unsigned int DAT_004cdbb0;
 namespace core {
 struct IRefCount { virtual void vfunc_0(); virtual void vfunc_1(); };
 struct BaseObject { virtual void vfunc_0_adj4(); };
@@ -19,10 +20,10 @@ MemoryTwoWayAllocator* MemoryTwoWayAllocator::vfunc_2(unsigned char flags) {
  new (this) MemoryTwoWayAllocator;
  FUN_00267090(block);
  memory = 0; low = high = end = 0;
- DAT_004cdbb0 = allocator;
+ (*(unsigned int*)&DAT_004cdbb0) = allocator;
  new (static_cast<BaseObject*>(this)) BaseObject;
  new (static_cast<IRefCount*>(this)) IRefCount;
- if (flags & 1) FUN_00266f00(DAT_004cdbb0, this);
+ if (flags & 1) FUN_00266f00((*(unsigned int*)&DAT_004cdbb0), this);
  return this;
 }
 }

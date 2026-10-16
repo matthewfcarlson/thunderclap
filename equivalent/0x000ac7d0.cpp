@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000ac7d0 @ 0x000ac7d0
+#include "decls/data/game/global.h"
+
 struct ResourceName_ac7d0 {
     int word;
     void FUN_0027b040(const char *name);
@@ -19,7 +21,6 @@ public:
     CCameraBase_ac7d0() { FUN_000a9400(); }
 };
 
-extern const char *DAT_0049ee00;
 
 class CScriptCamera : public CCameraBase_ac7d0 {
 public:
@@ -179,5 +180,5 @@ CScriptCamera::CScriptCamera()
     f2cc = 0;
     f2cd = 0;
     mode = 4;
-    name.FUN_0027b040(DAT_0049ee00);
+    name.FUN_0027b040((*(const char**)&DAT_0049ee00));
 }

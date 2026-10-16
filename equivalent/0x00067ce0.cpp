@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 22/22)
 // FUN_00067ce0 @ 0x00067ce0
+#include "decls/data/game/global.h"
+
 struct Rec_67ce0 {
     int tag;
     float x, y, z;
@@ -18,8 +20,6 @@ struct V3_67ce0 { float x, y, z; };
 
 struct ObjId { int lo; int hi; };
 
-extern int DAT_004dcf00;
-extern int DAT_004dcf04;
 
 class Tracker_67ce0 {
 public:

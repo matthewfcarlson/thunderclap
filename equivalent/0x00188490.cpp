@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 8/8)
 // FUN_00188490 @ 0x00188490
+#include "decls/data/game/hulkfight/motion.h"
+
 void FUN_00180340();
 void FUN_00180360();
 void FUN_00180380();
@@ -31,8 +33,6 @@ namespace fight {
  template<class T> struct ParamIntConstRange : FUN_002348e0 { virtual void slot0(); };
  template<class T> struct ParamBool : FUN_00234860 { virtual void slot0(); };
 }
-extern int DAT_004e14c8;
-extern int DAT_004e14cc;
 void __cdecl FUN_002347b0(void*,void**,int);
 void __cdecl FUN_00188490() {
  if (!DAT_004e14cc) {

@@ -1,4 +1,5 @@
-extern unsigned int DAT_005555b8;
+#include "decls/data/engine/pure3d.h"
+
 struct ReceiverBaseA {
     int a;
 };

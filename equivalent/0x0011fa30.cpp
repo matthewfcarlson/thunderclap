@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 70/74, incomplete)
 // hulkfight::ai::PathLocatorTestCondition::vfunc_6 @ 0x0011fa30
 #include "decls/address.h"
+#include "decls/data/game/hulkfight/ai.h"
 extern "C" int atexit(void (*)());
 
 struct Key_11fa30 {
@@ -18,11 +19,6 @@ struct V3_11fa30 {
     float FUN_00018990();
 };
 
-extern Key_11fa30 DAT_004e0ce8;
-extern Key_11fa30 DAT_004e0d20;
-extern Key_11fa30 DAT_004e0d00;
-extern Key_11fa30 DAT_004e0d48;
-extern unsigned int DAT_004e0d50;
 void FUN_00363f10();
 
 class RefCounted_11fa30 {
@@ -156,9 +152,9 @@ char PathLocatorTestCondition::vfunc_6(int a0, ArgSlot_11fa30 a1, int a2)
         V3_11fa30 d;
     } f;
 
-    if ((DAT_004e0d50 & 1) == 0) {
-        DAT_004e0d50 |= 1;
-        DAT_004e0d48.FUN_0027af00();
+    if (((*(unsigned int*)&DAT_004e0d50) & 1) == 0) {
+        (*(unsigned int*)&DAT_004e0d50) |= 1;
+        (*(Key_11fa30*)&DAT_004e0d48).FUN_0027af00();
         atexit(FUN_00363f10);
     }
     Registry_11fa30 *reg = DAT_004dd700->registry;
@@ -166,7 +162,7 @@ char PathLocatorTestCondition::vfunc_6(int a0, ArgSlot_11fa30 a1, int a2)
         return false;
     if (dynamic_cast<CFightParams *>(a1.p) == 0)
         return false;
-    DAT_004e0d48.FUN_0027b040(name);
+    (*(Key_11fa30*)&DAT_004e0d48).FUN_0027b040(name);
     Stats_11fa30 *stats = FUN_00059a30(FUN_000592a0(a1.p));
     if (stats == 0)
         return false;
@@ -180,15 +176,15 @@ char PathLocatorTestCondition::vfunc_6(int a0, ArgSlot_11fa30 a1, int a2)
         a1.b = 0;
         const char *pt = 0;
         bool query = false;
-        f.u.t.FUN_0027af10(DAT_004e0ce8.lo, DAT_004e0ce8.hi);
-        f.eq = DAT_004e0d48.FUN_0027af90(&f.u.t);
+        f.u.t.FUN_0027af10((*(Key_11fa30*)&DAT_004e0ce8).lo, (*(Key_11fa30*)&DAT_004e0ce8).hi);
+        f.eq = (*(Key_11fa30*)&DAT_004e0d48).FUN_0027af90(&f.u.t);
         f.u.t.FUN_0027af50();
         if (f.eq) {
             pt = reg->FUN_001ff950(f.pos, 2, 0, -3.40282347e+38f, 3.40282347e+38f);
             query = true;
         } else {
-            f.u.t.FUN_0027af10(DAT_004e0d20.lo, DAT_004e0d20.hi);
-            f.eq = DAT_004e0d48.FUN_0027af90(&f.u.t);
+            f.u.t.FUN_0027af10((*(Key_11fa30*)&DAT_004e0d20).lo, (*(Key_11fa30*)&DAT_004e0d20).hi);
+            f.eq = (*(Key_11fa30*)&DAT_004e0d48).FUN_0027af90(&f.u.t);
             f.u.t.FUN_0027af50();
             if (f.eq) {
                 if (target != 0) {
@@ -196,8 +192,8 @@ char PathLocatorTestCondition::vfunc_6(int a0, ArgSlot_11fa30 a1, int a2)
                     query = true;
                 }
             } else {
-                f.u.t.FUN_0027af10(DAT_004e0d00.lo, DAT_004e0d00.hi);
-                f.eq = DAT_004e0d48.FUN_0027af90(&f.u.t);
+                f.u.t.FUN_0027af10((*(Key_11fa30*)&DAT_004e0d00).lo, (*(Key_11fa30*)&DAT_004e0d00).hi);
+                f.eq = (*(Key_11fa30*)&DAT_004e0d48).FUN_0027af90(&f.u.t);
                 f.u.t.FUN_0027af50();
                 if (f.eq) {
                     pt = reg->FUN_001ff950(target->pos, 2, 2, -3.40282347e+38f, 3.40282347e+38f);
@@ -229,7 +225,7 @@ char PathLocatorTestCondition::vfunc_6(int a0, ArgSlot_11fa30 a1, int a2)
     else if (b1c)
         loc = reg2->FUN_001fc8c0(stats->id1d70);
     else if (b1d)
-        loc = reg2->FUN_001fc8c0(*(unsigned __int64 *)&DAT_004e0d48);
+        loc = reg2->FUN_001fc8c0(*(unsigned __int64 *)&(*(Key_11fa30*)&DAT_004e0d48));
     if (b1e)
         return loc != 0;
     a1.f = threshold;

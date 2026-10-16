@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3007 inputs, branch coverage 14/14)
 // FUN_00203cd0 @ 0x00203cd0
+#include "decls/data/game/global.h"
+
 struct Id_203cd0 { int a, b, c; };
 struct Rec_203cd0 { char pad[0x54]; short value; };
 struct Registry_203cd0 {
@@ -12,7 +14,6 @@ struct Source_203cd0 { char pad[0x10]; Cursor_203cd0* cursor; };
 struct Part_203cd0 { char pad[0x124]; Source_203cd0* src; };
 struct Link_203cd0 { char pad[0x20]; Part_203cd0* part; };
 struct Group_203cd0 { char pad[0xc]; Link_203cd0* link; };
-extern char DAT_004e5a88[];
 Holder_203cd0* FUN_001c3d90();
 struct Actor_203cd0 {
     char pad0[0x588]; Group_203cd0* group;

@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 19/20, incomplete)
 // FUN_000f9fb0 @ 0x000f9fb0
-extern unsigned __int64 DAT_004e0a08;
-extern unsigned __int64 DAT_004e0a10;
+#include "decls/data/game/DollyScript.h"
 
 class Node {
 public:
@@ -29,12 +28,12 @@ void NodeList_f9fb0::FUN_000f9fb0()
         n = n->next;
         if (n == 0)
             return;
-        if (n->Kind() == DAT_004e0a08)
+        if (n->Kind() == (*(unsigned __int64*)&DAT_004e0a08))
             level++;
-        else if (n->Kind() == DAT_004e0a10)
+        else if (n->Kind() == (*(unsigned __int64*)&DAT_004e0a10))
             level--;
     }
-    if (n != 0 && n->Kind() == DAT_004e0a10) {
+    if (n != 0 && n->Kind() == (*(unsigned __int64*)&DAT_004e0a10)) {
         depth--;
         cur = n;
     }

@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 30/30)
 // FUN_002faa30 @ 0x002faa30
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
+
 struct V3_2faa30 {
     float x, y, z;
 };
@@ -63,8 +66,6 @@ struct Manager_2faa30 {
     char pad[0x1b0];
     Registry_2faa30 reg;
 };
-extern Manager_2faa30 *DAT_00554c14;
-extern float DAT_004d2cb4;
 
 void FUN_002fa6b0(V3_2faa30 *a, V3_2faa30 *b, V3_2faa30 *c, V3_2faa30 *normal);
 char FUN_0035a2a0(V3_2faa30 *a1, V3_2faa30 *a2, V3_2faa30 *axisX, V3_2faa30 *axisY, V3_2faa30 *axisZ, V3_2faa30 *v0, V3_2faa30 *v1, V3_2faa30 *v2, V3_2faa30 *normal,
@@ -182,7 +183,7 @@ char Tri_2faa30::FUN_002faa30(Shape_2faa30 *shape, Context *ctx, int flags)
         f.depth = f.depth + DAT_004d2cb4;
     if (hit) {
         unsigned int index = (unsigned int)((char *)this - (char *)ctx->mesh->tris) / 24;
-        DAT_00554c14->reg.FUN_00304530(shape, index, f.depth, &f.centre, &f.outN, ctx, flags);
+        (*(Manager_2faa30**)&DAT_00554c14)->reg.FUN_00304530(shape, index, f.depth, &f.centre, &f.outN, ctx, flags);
     }
     return hit;
 }

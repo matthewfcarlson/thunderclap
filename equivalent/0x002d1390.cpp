@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002d1390 @ 0x002d1390
+#include "decls/data/game/global.h"
+
 extern "C" double __cdecl atan2(double y, double x);
 
 struct V3_2d1390 {
@@ -28,11 +30,10 @@ struct Globals_2d1390 {
     Manager_2d1390 *manager;
 };
 
-extern Globals_2d1390 *DAT_0052c2b0;
 
 // Sets from->angle to the angle of the mapped vector (from - to) plus from->angleOffset.
 void FUN_002d1390(int unused1, int unused2, int unused3, int unused4, Heading_2d1390 *from, Heading_2d1390 *to) {
-    Mapper_2d1390 *mapper = DAT_0052c2b0->manager->mapper;
+    Mapper_2d1390 *mapper = (*(Globals_2d1390**)&DAT_0052c2b0)->manager->mapper;
     V3_2d1390 a;
     V3_2d1390 b;
     mapper->FUN_002947e0(from->pos, &a);

@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 9287 inputs, branch coverage 23/26, incomplete; run with --inputs 12000)
 // FUN_0029fe60 @ 0x0029fe60
-extern unsigned int DAT_004cf730;
+#include "decls/data/engine/unknown.h"
 
 struct Vec3_29fe60 { float x, y, z; };
 
@@ -44,11 +44,11 @@ static int Clamp255(int v)
 void Brush::FUN_0029fe60(Item_29fe60 *item, void *ctx, Target_29fe60 *target)
 {
     if (item->link == 0) {
-        color = DAT_004cf730;
+        color = (*(unsigned int*)&DAT_004cf730);
         if (target != 0) {
             target->f18 = 0;
             target->FUN_0029e7f0(item, ctx, f24);
-            target->color = DAT_004cf730;
+            target->color = (*(unsigned int*)&DAT_004cf730);
         }
         return;
     }

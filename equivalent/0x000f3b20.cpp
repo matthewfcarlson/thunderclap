@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 37/38, incomplete)
 // FUN_000f3b20 @ 0x000f3b20
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern char DAT_0049f4f0[];
 extern char DAT_004a1274[];
@@ -103,7 +104,6 @@ public:
     virtual pure3d::CompositeDrawable *v3(content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> *caster, unsigned __int64 key);
 };
 
-extern Inventory_f3b20 *DAT_004dd9cc;
 
 class FEThingsBase {
 public:
@@ -166,7 +166,7 @@ void FEThingsBase::FUN_000f3b20(ParamArg_f3b20 arg, Loader_f3b20 *c, void *d, Ar
     if (type == 0xcc74e7a7) {
         Param *p = param;
         const char *s = p->FUN_000fad90();
-        Inventory_f3b20 *inv = DAT_004dd9cc;
+        Inventory_f3b20 *inv = (*(Inventory_f3b20**)&DAT_004dd9cc);
         unsigned __int64 key = FUN_0027b020(s);
         content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> *caster = new (&arg) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>;
         pure3d::CompositeDrawable *drawable = inv->v3(caster, key);

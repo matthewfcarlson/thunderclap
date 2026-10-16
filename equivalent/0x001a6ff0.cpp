@@ -1,12 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 6/6)
 // FUN_001a6ff0 @ 0x001a6ff0
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight/motion.h"
+#include "decls/data/game/hulkfight/scenario.h"
+
 inline void* operator new(unsigned int, void* p) { return p; }
-extern int DAT_004e1724;
-extern int DAT_004e1720;
-extern int DAT_00427760;
-extern int DAT_003f5bbc;
-extern int DAT_00427758;
-extern int DAT_0048f590;
 extern void FUN_001a1f00();
 extern void FUN_001a1f10();
 extern void* __cdecl FUN_0008d690(unsigned int);
@@ -27,20 +26,20 @@ void FUN_001a6ff0() {
   Param* list[2];
   Param* p = (Param*)FUN_0008d690(32);
   if (p) {
-   int count = DAT_00427760;
+   int count = (*(int*)&DAT_00427760);
    p->FUN_00234cc0("compare");
    new (p) Param;
-   p->entries = &DAT_00427758;
+   p->entries = ((int*)&DAT_00427758);
    p->count = count;
    p->callback = FUN_001a1f00;
   }
   list[0] = p;
   p = (Param*)FUN_0008d690(32);
   if (p) {
-   int count = DAT_003f5bbc;
+   int count = (*(int*)&DAT_003f5bbc);
    p->FUN_00234cc0("oldState");
    new (p) Param;
-   p->entries = &DAT_0048f590;
+   p->entries = ((int*)&DAT_0048f590);
    p->count = count;
    p->callback = FUN_001a1f10;
   }

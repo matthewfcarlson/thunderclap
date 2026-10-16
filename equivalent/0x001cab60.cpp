@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001cab60 @ 0x001cab60
+#include "decls/data/game/hulkfight/scenario.h"
+
 extern unsigned int DAT_004d9968;
 extern void __fastcall __security_check_cookie(unsigned int);
 struct Writer_1cab60 {
@@ -8,7 +10,6 @@ struct Writer_1cab60 {
  void FUN_001d1dd0(const char*, int);
  void FUN_001d1d10();
 };
-extern const char* DAT_004c165c[];
 extern void __cdecl FUN_00096d50(char*, int, unsigned int, unsigned int);
 struct Object {
  char pad[0x18];
@@ -32,7 +33,7 @@ bool Object::FUN_001cab60() {
  w->FUN_001d1d50("prop_type", buffer);
  FUN_00096d50(buffer, 32, originLow, originHigh);
  w->FUN_001d1d50("origin", buffer);
- w->FUN_001d1d50("state_desc", state == -1 ? "unDEfiNeD - tell Zaven!" : DAT_004c165c[state]);
+ w->FUN_001d1d50("state_desc", state == -1 ? "unDEfiNeD - tell Zaven!" : ((const char**)&DAT_004c165c)[state]);
  w->FUN_001d1dd0("ers_increase", increase);
  w->FUN_001d1d50("prop_DANGEROUS", "prop_DANGEROUS is not defined in RELEASE!");
  w->FUN_001d1d50("prop_type_DANGEROUS", "prop_type_DANGEROUS is not defined in RELEASE!");

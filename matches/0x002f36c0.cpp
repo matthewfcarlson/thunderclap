@@ -1,3 +1,6 @@
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
+
 struct Vec_2f36c0 {
     float x, y, z;
     void FUN_0022d210(const void*);
@@ -24,9 +27,6 @@ struct Context {
     char pad[0x1b0];
     Reset_2f36c0 reset;
 };
-extern Context* DAT_00554c14;
-extern unsigned short* DAT_0055543c;
-extern unsigned short* DAT_00555440;
 namespace physics {
 struct CollisionMesh {
     virtual void v0();
@@ -40,7 +40,7 @@ struct CollisionMesh {
 } // namespace physics
 bool physics::CollisionMesh::vfunc_17(const Vec_2f36c0* input, unsigned int flags) {
     if (flags & 0x10)
-        DAT_00554c14->reset.FUN_003037e0();
+        (*(Context**)&DAT_00554c14)->reset.FUN_003037e0();
     Vec_2f36c0 point = *input;
     if (transformed)
         point.FUN_0022d210(transform);
@@ -50,9 +50,9 @@ bool physics::CollisionMesh::vfunc_17(const Vec_2f36c0* input, unsigned int flag
     bounds[0] = point;
     bounds[1] = point;
     bounds[0].y = -1.0e12f;
-    *DAT_0055543c = 0;
-    q.begin = DAT_00555440;
-    q.end = DAT_00555440;
+    *(*(unsigned short**)&DAT_0055543c) = 0;
+    q.begin = (*(unsigned short**)&DAT_00555440);
+    q.end = (*(unsigned short**)&DAT_00555440);
     q.FUN_002fa1f0(bounds, this);
     for (unsigned short* p = q.begin; p != q.end; ++p)
         mesh->triangles[*p].FUN_002fb190(&point, this, flags);

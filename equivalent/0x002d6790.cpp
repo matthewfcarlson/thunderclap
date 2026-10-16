@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 126 inputs, branch coverage 8/10, incomplete)
 // pure3d::SpriteParticleRenderer::vfunc_4 @ 0x002d6790
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 extern "C" double cos(double);
 extern "C" double sin(double);
 
@@ -158,8 +160,6 @@ public:
     Particle_2d6790 **particles;
 };
 
-extern Owner2_2d6790 *DAT_0052c2ac;
-extern Holder_2d6790 *DAT_0052c2b4;
 extern "C" int FUN_0034483c();
 
 static inline void Emit(VertexBuffer_2d6790 *vb, unsigned int color, float u, float v, float x, float y, float z)
@@ -189,8 +189,8 @@ void SpriteParticleRenderer::vfunc_4(Emitter_2d6790 *e)
     if (count == 0) {
         return;
     }
-    Matrix m = *DAT_0052c2b4->inner->provider->v13();
-    DAT_0052c2ac->device->v21(0);
+    Matrix m = *(*(Holder_2d6790**)&DAT_0052c2b4)->inner->provider->v13();
+    (*(Owner2_2d6790**)&DAT_0052c2ac)->device->v21(0);
     void *handle = e->v7()->handle;
     VertexBuffer_2d6790 *vb = DAT_0052c2a8->v30(handle, 0, 0x2021, count * 6, 0);
     for (unsigned int i = 0; i < count; i++) {
@@ -238,5 +238,5 @@ void SpriteParticleRenderer::vfunc_4(Emitter_2d6790 *e)
         Emit(vb, color, u0, 0.0f, cx, cy, cz);
     }
     DAT_0052c2a8->v31(vb);
-    DAT_0052c2ac->device->v16(0);
+    (*(Owner2_2d6790**)&DAT_0052c2ac)->device->v16(0);
 }

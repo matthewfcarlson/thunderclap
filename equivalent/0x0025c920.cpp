@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 12 inputs, branch coverage 6/8, incomplete)
 // FUN_0025c920 @ 0x0025c920
+#include "decls/data/engine/audio.h"
+
 extern "C" int sprintf(char* dst, const char* fmt, ...);
 
 class Str_25c920 {
@@ -20,7 +22,6 @@ public:
     const char* FUN_0023fb00();
 };
 
-extern int DAT_004cd264;
 Str_25c920* __cdecl FUN_00262700(Str_25c920* path, const Str_25c920* part);
 
 Str_25c920* __cdecl FUN_0025c920(Str_25c920* out, const Str_25c920* dir, const unsigned long long* id, const Str_25c920* extra)

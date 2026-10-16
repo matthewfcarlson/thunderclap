@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 12/12)
 // FUN_00052db0 @ 0x00052db0
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -50,11 +53,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc428;
-extern int DAT_004dc42c;
-extern const char* DAT_0042773c[6];
-extern int DAT_00427754;
-extern const char* DAT_0049ee74[2];
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_00052db0()
@@ -65,11 +63,11 @@ void FUN_00052db0()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<CAxisArcCondition>("axis", DAT_0049ee74, 2, &CAxisArcCondition::FUN_00047b00);
+            params[0] = new (mem) fight::ParamEnumConstList<CAxisArcCondition>("axis", ((const char**)&DAT_0049ee74), 2, &CAxisArcCondition::FUN_00047b00);
         mem = FUN_0008d690(0x20);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamEnumConstList<CAxisArcCondition>("compareTime", DAT_0042773c, DAT_00427754, &CAxisArcCondition::FUN_00047b10);
+            params[1] = new (mem) fight::ParamEnumConstList<CAxisArcCondition>("compareTime", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &CAxisArcCondition::FUN_00047b10);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
@@ -77,12 +75,12 @@ void FUN_00052db0()
         mem = FUN_0008d690(0x20);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamEnumConstList<CAxisArcCondition>("compareArc", DAT_0042773c, DAT_00427754, &CAxisArcCondition::FUN_00047b70);
+            params[3] = new (mem) fight::ParamEnumConstList<CAxisArcCondition>("compareArc", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &CAxisArcCondition::FUN_00047b70);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange<CAxisArcCondition>("arc", &CAxisArcCondition::FUN_00047b80);
-        FUN_002347b0(&DAT_004dc428, params, 5);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc428), params, 5);
     }
     DAT_004dc42c++;
 }

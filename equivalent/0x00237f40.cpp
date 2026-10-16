@@ -1,9 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 8/8)
 // FUN_00237f40 @ 0x00237f40
+#include "decls/data/engine/fight.h"
+
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_00237b70(); void __cdecl FUN_00237b80(); void __cdecl FUN_00237b90();
-extern int DAT_004e5c08; extern int DAT_004e5c04;
+ 
 namespace fight {
 class SequenceTrack;
 template<class T> struct ParamBranch { virtual void v0(); char data[12]; void (__cdecl *callback)(); char tail[4]; void FUN_00235170(const char*); };

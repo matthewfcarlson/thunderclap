@@ -1,13 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3060 inputs, branch coverage 127/134, incomplete)
 // FUN_001b05a0 @ 0x001b05a0
 #include "decls/address.h"
-extern unsigned int DAT_004dc0e0;
-extern unsigned int DAT_004dc0e4;
-extern float DAT_004c3754;
-extern float DAT_004c3758;
-extern float DAT_004c375c;
-extern float DAT_004c372c;
-extern float DAT_004c3734;
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 
 struct V3_1b05a0 {
     float x, y, z;
@@ -270,7 +265,7 @@ char __stdcall FUN_001b05a0(Entity *self, HitObj_1b05a0 *hit, Contact_1b05a0 *c)
             Ent114 *o = self->f114;
             if (o->kind == 1) {
                 Ent114Body *X = o->f8;
-                if (X->f8 == DAT_004dc0e0 && X->fc == DAT_004dc0e4 && !(X->f138 > 0))
+                if (X->f8 == (*(unsigned int*)&DAT_004dc0e0) && X->fc == (*(unsigned int*)((char*)&DAT_004dc0e0 + 4)) && !(X->f138 > 0))
                     X->FUN_00038e80(X->f12c, hit, c->f14, &c->q, &c->n, c->f24);
             }
         }
@@ -286,7 +281,7 @@ char __stdcall FUN_001b05a0(Entity *self, HitObj_1b05a0 *hit, Contact_1b05a0 *c)
         Ent114Body *ebx = 0;
         if (self->f114 != 0 && self->f114->kind == 1) {
             ebx = self->f114->f8;
-            if (ebx->f8 != DAT_004dc0e0 || ebx->fc != DAT_004dc0e4)
+            if (ebx->f8 != (*(unsigned int*)&DAT_004dc0e0) || ebx->fc != (*(unsigned int*)((char*)&DAT_004dc0e0 + 4)))
                 ebx = 0;
         }
         char al = 0;
@@ -337,9 +332,9 @@ char __stdcall FUN_001b05a0(Entity *self, HitObj_1b05a0 *hit, Contact_1b05a0 *c)
             V3_1b05a0 dir;
             if (self->fec->FUN_001d5e80(self->f40) == 3) {
                 float ang = FUN_000964d0()->FUN_000787e0(0, 180.0f);
-                dir.x = DAT_004c3754;
-                dir.y = DAT_004c3758;
-                dir.z = DAT_004c375c;
+                dir.x = (*(float*)&DAT_004c3754);
+                dir.y = (*(float*)&DAT_004c3758);
+                dir.z = (*(float*)&DAT_004c375c);
                 FUN_00224d70(ang, &dir);
             } else {
                 if (ebx != 0) {

@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 10/10)
 // FUN_0023fbb0 @ 0x0023fbb0
+#include "decls/data/engine/audio.h"
+
 struct StringHeader_23fbb0 { unsigned int capacity; unsigned short references; unsigned short reserved; };
-extern char* DAT_004cc02c;
 extern void __cdecl FUN_00247570(StringHeader_23fbb0*);
 void __cdecl FUN_0023fa40(int* out, char* text, int a, int b);
 
@@ -29,7 +30,7 @@ char* String::FUN_0023fbb0()
         if (kind == 2) {
             header = reinterpret_cast<StringHeader_23fbb0*>(data) - 1;
             if (header->references == 1) {
-                if (data != DAT_004cc02c)
+                if (data != (*(char**)&DAT_004cc02c))
                     FUN_00247570(header);
             } else {
                 --header->references;

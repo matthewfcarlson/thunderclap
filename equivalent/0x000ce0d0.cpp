@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 27/32, incomplete)
 // FUN_000ce0d0 @ 0x000ce0d0
-extern float DAT_0049fd10;
+#include "decls/data/game/global.h"
 
 struct Obj218 {
     virtual void v0();

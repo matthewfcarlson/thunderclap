@@ -1,5 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 24/24)
 // FUN_0005fef0 @ 0x0005fef0
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight/motion.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -86,10 +90,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc5e8;
-extern int DAT_004dc5ec;
-extern const char* DAT_004abf70[4];
-extern int DAT_004123d4;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0005fef0()
@@ -124,7 +124,7 @@ void FUN_0005fef0()
         mem = FUN_0008d690(0x20);
         params[6] = 0;
         if (mem)
-            params[6] = new (mem) fight::ParamEnumConstList<CStunAnimationTrack>("cyclic", DAT_004abf70, DAT_004123d4, &CStunAnimationTrack::FUN_0005d810);
+            params[6] = new (mem) fight::ParamEnumConstList<CStunAnimationTrack>("cyclic", ((const char**)&DAT_004abf70), (*(int*)&DAT_004123d4), &CStunAnimationTrack::FUN_0005d810);
         mem = FUN_0008d690(0x18);
         params[7] = 0;
         if (mem)
@@ -141,7 +141,7 @@ void FUN_0005fef0()
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange<CStunAnimationTrack>("blendOutTime", &CStunAnimationTrack::FUN_0005d840);
-        FUN_002347b0(&DAT_004dc5e8, params, 11);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc5e8), params, 11);
     }
     DAT_004dc5ec++;
 }

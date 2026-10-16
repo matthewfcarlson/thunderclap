@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 126 inputs, branch coverage 16/16)
 // FUN_002acc60 @ 0x002acc60
+#include "decls/data/engine/pure3d.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 void* __cdecl memmove(void*, const void*, unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-extern int DAT_004cfb20;
 struct Ref_2acc60 { virtual void Add(); virtual void Release(); };
 struct Created_2acc60 : Ref_2acc60 { Created_2acc60* FUN_002ac4a0(int); };
 struct List_2acc60 : Ref_2acc60 { int reserved; int count; Ref_2acc60* items[9]; List_2acc60* FUN_002ab6a0(); };

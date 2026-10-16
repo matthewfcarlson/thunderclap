@@ -1,4 +1,5 @@
-extern "C" char DAT_004ddbc8[];
+#include "decls/data/game/global.h"
+
 extern void __stdcall FUN_00013420(void*, int, int, void*);
 void target() {
     char* p = (char*)((int)DAT_004ddbc8);

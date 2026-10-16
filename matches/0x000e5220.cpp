@@ -1,3 +1,5 @@
+#include "decls/data/engine/pure3d/prop.h"
+
 struct Node {
     virtual void v0();
     virtual void v1();
@@ -35,7 +37,6 @@ struct Context {
     Renderer_e5220* renderer;
     void FUN_00293d00(void*);
 };
-extern Context* DAT_0052c2ac;
 struct FEScreenBase {
     virtual void vfunc_0();
     virtual void vfunc_1();
@@ -68,8 +69,8 @@ struct FEScreenBase {
 void FEScreenBase::vfunc_11() {
     if (!enabled || !visible)
         return;
-    DAT_0052c2ac->renderer->v15(0);
-    DAT_0052c2ac->FUN_00293d00(state);
+    (*(Context**)&DAT_0052c2ac)->renderer->v15(0);
+    (*(Context**)&DAT_0052c2ac)->FUN_00293d00(state);
     for (int i = 0; i < 4; ++i)
         if (groupA[i])
             groupA[i]->v8(0, 0);
@@ -80,7 +81,7 @@ void FEScreenBase::vfunc_11() {
         groupC[k]->v3();
     for (int m = 0; m < 128 && items[m]; ++m)
         items[m]->v2();
-    DAT_0052c2ac->renderer->v16(0);
+    (*(Context**)&DAT_0052c2ac)->renderer->v16(0);
     for (int n = 0; n < childCount; ++n)
         children[n]->v11();
 }

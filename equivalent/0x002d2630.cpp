@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 706 inputs, branch coverage 9/10, incomplete)
 // pure3d::ParticlePlaneGenerator::vfunc_6 @ 0x002d2630
+#include "decls/data/engine/pure3d.h"
+
 struct Vec3_2d2630 {
     float x, y, z;
     void FUN_0022d260(struct Mat4_2d2630 *m);
@@ -18,7 +20,6 @@ struct RandState_2d2630 {
     unsigned int s1;
 };
 
-extern RandState_2d2630 DAT_00554bfc;
 
 class Emitter_2d2630 {
 public:
@@ -137,17 +138,17 @@ unsigned int ParticlePlaneGenerator::vfunc_6(unsigned int count, MatArg from, Ma
     Mat4_2d2630 *fromMat = from.mat;
     Emitter_2d2630 *emitter = em.em;
     do {
-        float r1 = NextSigned(&DAT_00554bfc);
-        float r2 = NextSigned(&DAT_00554bfc);
-        f.u3 = NextRaw(&DAT_00554bfc);
+        float r1 = NextSigned(((RandState_2d2630*)&DAT_00554bfc));
+        float r2 = NextSigned(((RandState_2d2630*)&DAT_00554bfc));
+        f.u3 = NextRaw(((RandState_2d2630*)&DAT_00554bfc));
         to.f = r1;
         from.f = r2;
         em.f = (f.u3 - 1.0f) * f.v3;
         FUN_00356bf0(1.0f, to.f * f.v1 + 1.5707964f, from.f * f.v2 + 1.5707964f, &f.w.x, &f.w.y, &f.w.z);
         f.w.FUN_0022d260(fromMat);
         f.w.FUN_0022d110();
-        f.u4 = NextRaw(&DAT_00554bfc);
-        f.u5 = NextRaw(&DAT_00554bfc);
+        f.u4 = NextRaw(((RandState_2d2630*)&DAT_00554bfc));
+        f.u5 = NextRaw(((RandState_2d2630*)&DAT_00554bfc));
         f.q.x = (f.u5 - 1.0f) * f38 + f.c60;
         f.q.y = 0.0f;
         f.q.z = (f.u4 - 1.0f) * f3c + f.c68;

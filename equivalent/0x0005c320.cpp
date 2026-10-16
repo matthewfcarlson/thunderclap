@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_0005c320 @ 0x0005c320
+#include "decls/data/game/global.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -79,8 +81,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc5b0;
-extern int DAT_004dc5b4;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0005c320()
@@ -113,7 +113,7 @@ void FUN_0005c320()
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamConditionGroup<CGrappleOpportunityTrack>("conditionGroup", &CGrappleOpportunityTrack::FUN_0005a320);
-        FUN_002347b0(&DAT_004dc5b0, params, 6);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc5b0), params, 6);
     }
     DAT_004dc5b4++;
 }

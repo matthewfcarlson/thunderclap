@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 16/16)
 // FUN_000390e0 @ 0x000390e0
+#include "decls/data/game/global.h"
+
 struct Vec3_390e0 { float x, y, z; };
 
 struct Mat_390e0 {
@@ -23,7 +25,6 @@ struct Skeleton {
     Mat_390e0* matrices;
 };
 
-extern int DAT_003f5bc4[3];
 
 class Probe_390e0 {
   public:
@@ -42,7 +43,7 @@ int Probe_390e0::FUN_000390e0(const Vec3_390e0* origin, const Vec3_390e0* dir, f
     if (skel == 0)
         return 0;
     for (int i = 0; i < 3; i++) {
-        int id = DAT_003f5bc4[i];
+        int id = ((int*)&DAT_003f5bc4)[i];
         int bone = table->FUN_00044630(id);
         if (bone == 0xffff)
             continue;

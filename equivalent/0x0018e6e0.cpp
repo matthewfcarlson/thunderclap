@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 14/14)
 // FUN_0018e6e0 @ 0x0018e6e0
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -96,9 +98,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e1528;
-extern int DAT_004e152c;
-extern const char* DAT_004beb94[8];
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0018e6e0()
@@ -118,7 +117,7 @@ void FUN_0018e6e0()
         mem = FUN_0008d690(0x20);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamEnumConstList<VarAssignTrack>("operator", DAT_004beb94, 8, &VarAssignTrack::FUN_0018cc00);
+            params[2] = new (mem) fight::ParamEnumConstList<VarAssignTrack>("operator", ((const char**)&DAT_004beb94), 8, &VarAssignTrack::FUN_0018cc00);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
@@ -131,7 +130,7 @@ void FUN_0018e6e0()
         params[5] = 0;
         if (mem)
             params[5] = new (mem) fight::ParamBool<VarAssignTrack>("setToValueAtEnd", &VarAssignTrack::FUN_0018cc60);
-        FUN_002347b0(&DAT_004e1528, params, 6);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1528), params, 6);
     }
     DAT_004e152c++;
 }

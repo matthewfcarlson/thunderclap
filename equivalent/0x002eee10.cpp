@@ -1,11 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 29 inputs, branch coverage 24/24)
 // FUN_002eee10 @ 0x002eee10
+#include "decls/data/engine/unknown.h"
+
 extern "C" void *__cdecl FUN_0008d6d0(unsigned int size);
 
-extern unsigned int DAT_004d293c;
-extern unsigned int DAT_004d2940;
-extern unsigned int DAT_004d2944;
-extern unsigned int DAT_004d2948;
 
 struct RawVec {
     char *first;
@@ -40,8 +38,8 @@ Pool_2eee10 *Pool_2eee10::FUN_002eee10()
     edges.first = 0; edges.last = 0; edges.end = 0;
     flags.first = 0; flags.last = 0; flags.end = 0;
 
-    if (DAT_004d293c != 0) {
-        unsigned int bytes = DAT_004d293c * 4;
+    if ((*(unsigned int*)&DAT_004d293c) != 0) {
+        unsigned int bytes = (*(unsigned int*)&DAT_004d293c) * 4;
         char *p = (char *)FUN_0008d6d0(bytes);
         ids.first = p;
         if (p != 0) {
@@ -57,8 +55,8 @@ Pool_2eee10 *Pool_2eee10::FUN_002eee10()
         ids.end = 0;
     }
 
-    if (DAT_004d2948 != 0) {
-        unsigned int bytes = DAT_004d2948 * 20;
+    if ((*(unsigned int*)&DAT_004d2948) != 0) {
+        unsigned int bytes = (*(unsigned int*)&DAT_004d2948) * 20;
         char *p = (char *)FUN_0008d6d0(bytes);
         edges.first = p;
         if (p != 0) {
@@ -74,8 +72,8 @@ Pool_2eee10 *Pool_2eee10::FUN_002eee10()
         edges.end = 0;
     }
 
-    if (DAT_004d293c != 0) {
-        unsigned int bytes = DAT_004d293c * 4;
+    if ((*(unsigned int*)&DAT_004d293c) != 0) {
+        unsigned int bytes = (*(unsigned int*)&DAT_004d293c) * 4;
         char *p = (char *)FUN_0008d6d0(bytes);
         flags.first = p;
         if (p != 0) {
@@ -91,14 +89,14 @@ Pool_2eee10 *Pool_2eee10::FUN_002eee10()
         flags.end = 0;
     }
 
-    slots = (int *)FUN_0008d6d0(DAT_004d293c * 4);
+    slots = (int *)FUN_0008d6d0((*(unsigned int*)&DAT_004d293c) * 4);
     slotCount[0] = 0;
     slotCount[1] = 0;
     slotCount[2] = 0;
-    links = (char *)FUN_0008d6d0(DAT_004d293c * 20);
+    links = (char *)FUN_0008d6d0((*(unsigned int*)&DAT_004d293c) * 20);
     linkCount = 0;
 
-    unsigned int nbits = DAT_004d293c;
+    unsigned int nbits = (*(unsigned int*)&DAT_004d293c);
     unsigned int words = (nbits + 0x1f) >> 5;
     unsigned int *b = (unsigned int *)FUN_0008d6d0(words * 4 + 4);
     b[0] = nbits;
@@ -109,8 +107,8 @@ Pool_2eee10 *Pool_2eee10::FUN_002eee10()
     for (unsigned int i = 0; i < words2; i++)
         b[1 + i] = 0;
 
-    if (DAT_004d2940 != 0) {
-        unsigned int bytes = DAT_004d2940 * 4;
+    if ((*(unsigned int*)&DAT_004d2940) != 0) {
+        unsigned int bytes = (*(unsigned int*)&DAT_004d2940) * 4;
         char *p = (char *)FUN_0008d6d0(bytes);
         indices.first = p;
         if (p != 0) {
@@ -126,8 +124,8 @@ Pool_2eee10 *Pool_2eee10::FUN_002eee10()
         indices.end = 0;
     }
 
-    if (DAT_004d2944 != 0) {
-        unsigned int bytes = DAT_004d2944 * 0x44;
+    if ((*(unsigned int*)&DAT_004d2944) != 0) {
+        unsigned int bytes = (*(unsigned int*)&DAT_004d2944) * 0x44;
         char *p = (char *)FUN_0008d6d0(bytes);
         records.first = p;
         if (p != 0) {

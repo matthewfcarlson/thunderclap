@@ -2,6 +2,11 @@
 // FUN_001bb0b0 @ 0x001bb0b0
 // FUN_001bb0b0 @ 0x001bb0b0: draw an error / status message on the screen
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+#include "decls/data/platform/xbox/core.h"
+
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl sprintf(char *, const char *, ...);
 extern "C" unsigned int __cdecl strlen(const char *);
@@ -191,14 +196,7 @@ struct Globals_1bb0b0 {
 
 extern unsigned int DAT_004d9968;
 extern Globals_1bb0b0 *DAT_004dd700;
-extern Loader_1bb0b0 *DAT_004dd9c8;
-extern TextObj *DAT_004e2268;
-extern int DAT_00528404;
-extern char DAT_004dd8e7;
-extern Clock_1bb0b0 *DAT_0052c2a4;
 extern Device_1bb0b0 *DAT_0052c2a8;
-extern Renderer_1bb0b0 *DAT_0052c2ac;
-extern Banner *DAT_0052c2b4;
 
 struct Frame_1bb0b0 {
     union {
@@ -225,10 +223,10 @@ void __cdecl FUN_001bb0b0(const char *code)
         DAT_004dd700->replay->FUN_00086330()->FUN_000afe80();
         FUN_002684c0();
     }
-    f.width = (float)DAT_0052c2a4->Width();
-    f.u0.height = (float)DAT_0052c2a4->Height();
+    f.width = (float)(*(Clock_1bb0b0**)&DAT_0052c2a4)->Width();
+    f.u0.height = (float)(*(Clock_1bb0b0**)&DAT_0052c2a4)->Height();
     f.saved = DAT_0052c2a8->v25();
-    DAT_0052c2b4->FUN_0028f9a0();
+    (*(Banner**)&DAT_0052c2b4)->FUN_0028f9a0();
     DAT_0052c2a8->v12(-1);
     DAT_0052c2a8->v24(2);
 
@@ -238,7 +236,7 @@ void __cdecl FUN_001bb0b0(const char *code)
         w = thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())
                 ->FUN_000f7220(thunk_FUN_000fc1b0(DAT_004dd700->replay->FUN_00086280())->FUN_000f7d30(code));
     }
-    Loader_1bb0b0 *inv = DAT_004dd9c8;
+    Loader_1bb0b0 *inv = (*(Loader_1bb0b0**)&DAT_004dd9c8);
     content::LoadInventory::DynamicCaster<pure3d::TextureFont> *caster =
         new (&f.caster) content::LoadInventory::DynamicCaster<pure3d::TextureFont>();
     Font *font = inv->v3(caster, FUN_002672f0("font_serpentine_lt_med", 0));
@@ -253,12 +251,12 @@ void __cdecl FUN_001bb0b0(const char *code)
     }
     FUN_001b8970(f.text, 0x14);
     if (font != 0) {
-        if (DAT_004e2268 == 0) {
+        if ((*(TextObj**)&DAT_004e2268) == 0) {
             void *mem = thunk_FUN_0008d690(0x58);
             TextObj *t = 0;
             if (mem != 0)
                 t = ((TextObj *)mem)->FUN_0029b120(font, f.text, 1.0f, 0);
-            DAT_004e2268 = t;
+            (*(TextObj**)&DAT_004e2268) = t;
             t->AddRef();
         }
         f.y = f.u0.height * 0.5f - 50.0f;
@@ -271,20 +269,20 @@ void __cdecl FUN_001bb0b0(const char *code)
                 *d = 0;
                 if (*q != 0)
                     q++;
-                DAT_004e2268->FUN_0029b330(f.line, 0);
+                (*(TextObj**)&DAT_004e2268)->FUN_0029b330(f.line, 0);
                 f.u0.x = (f.width - font->Width(f.line) * 1.5f) * 0.5f;
-                DAT_0052c2ac->cam->v21(0);
-                DAT_0052c2ac->FUN_00293d40(f.u0.x - 2.0f, f.y + 2.0f, 2.0f);
-                DAT_0052c2ac->FUN_00293da0(1.5f, -1.5f, 1.0f);
-                DAT_004e2268->FUN_0029b380(0xff000000);
-                DAT_004e2268->Draw();
-                DAT_0052c2ac->cam->v16(0);
-                DAT_0052c2ac->cam->v21(0);
-                DAT_0052c2ac->FUN_00293d40(f.u0.x, f.y, 2.0f);
-                DAT_0052c2ac->FUN_00293da0(1.5f, -1.5f, 1.0f);
-                DAT_004e2268->FUN_0029b380(0xffffffff);
-                DAT_004e2268->Draw();
-                DAT_0052c2ac->cam->v16(0);
+                (*(Renderer_1bb0b0**)&DAT_0052c2ac)->cam->v21(0);
+                (*(Renderer_1bb0b0**)&DAT_0052c2ac)->FUN_00293d40(f.u0.x - 2.0f, f.y + 2.0f, 2.0f);
+                (*(Renderer_1bb0b0**)&DAT_0052c2ac)->FUN_00293da0(1.5f, -1.5f, 1.0f);
+                (*(TextObj**)&DAT_004e2268)->FUN_0029b380(0xff000000);
+                (*(TextObj**)&DAT_004e2268)->Draw();
+                (*(Renderer_1bb0b0**)&DAT_0052c2ac)->cam->v16(0);
+                (*(Renderer_1bb0b0**)&DAT_0052c2ac)->cam->v21(0);
+                (*(Renderer_1bb0b0**)&DAT_0052c2ac)->FUN_00293d40(f.u0.x, f.y, 2.0f);
+                (*(Renderer_1bb0b0**)&DAT_0052c2ac)->FUN_00293da0(1.5f, -1.5f, 1.0f);
+                (*(TextObj**)&DAT_004e2268)->FUN_0029b380(0xffffffff);
+                (*(TextObj**)&DAT_004e2268)->Draw();
+                (*(Renderer_1bb0b0**)&DAT_0052c2ac)->cam->v16(0);
                 f.y = f.y + 25.0f;
             } while (*q != 0);
         }
@@ -303,6 +301,6 @@ void __cdecl FUN_001bb0b0(const char *code)
     DAT_0052c2a8->v24(f.saved);
     DAT_0052c2a8->v54(1);
     DAT_0052c2a8->v58(1);
-    DAT_0052c2b4->FUN_0028faf0(1);
+    (*(Banner**)&DAT_0052c2b4)->FUN_0028faf0(1);
     __security_check_cookie(f.cookie);
 }

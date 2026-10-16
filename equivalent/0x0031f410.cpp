@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_0031f410 @ 0x0031f410
+#include "decls/data/engine/pure3d/scenegraph.h"
+
 struct Ref_31f410 { virtual void retain(); };
 struct Matrix { unsigned data[16]; };
-extern Matrix DAT_004c9f38;
 namespace pure3d { struct pddiBaseContext; }
 struct Helper_31f410 { Helper_31f410* FUN_00328250(pure3d::pddiBaseContext*); };
 extern Helper_31f410* __cdecl FUN_0008d690(unsigned);
@@ -17,7 +18,7 @@ void vfunc_100(); void vfunc_101(); void vfunc_103();
 pddiBaseContext(Ref_31f410*,Ref_31f410*);
 };
 pddiBaseContext::pddiBaseContext(Ref_31f410* a,Ref_31f410* b) {
-first=0;second=0;matrix=DAT_004c9f38;
+first=0;second=0;matrix=(*(Matrix*)&DAT_004c9f38);
 helper=0;flag148=0;flag149=0;
 first=a;a->retain();second=b;b->retain();
 for(int j=0;j<18;++j) state[j]=0;

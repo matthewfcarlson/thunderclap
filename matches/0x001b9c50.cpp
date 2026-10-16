@@ -1,7 +1,6 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" char DAT_00420e24[];
-extern "C" char DAT_0048e100[];
-extern "C" char DAT_0048e134[];
 class Base_1b9c50 {
   public:
     void Init(void*, int);
@@ -27,8 +26,8 @@ Target_1b9c50::Target_1b9c50(void* p, int x) {
     Init(p, 3);
     *(int*)this = ((int)DAT_00420e24);
     member1c = x;
-    b18 = FUN_001d04d0((const char*)((int)DAT_0048e100));
-    b10 = FUN_001d04d0((const char*)((int)DAT_0048e134));
-    b11 = FUN_001d04d0((const char*)((int)DAT_0048e134));
-    b12 = FUN_001d04d0((const char*)((int)DAT_0048e134));
+    b18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e100)));
+    b10 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e134)));
+    b11 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e134)));
+    b12 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e134)));
 }

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_003272f0 @ 0x003272f0
+#include "decls/data/platform/xbox/pure3d.h"
+
 typedef unsigned long DWORD;
 namespace D3D8 {
 void __stdcall D3DDevice_SetIndices(DWORD, DWORD);
@@ -18,7 +20,6 @@ struct VertexFormat_3272f0 {
     DWORD shader;
 };
 extern const void* DAT_0039db04;
-extern PrimInfo DAT_003f3260[];
 // equiv-conv: FUN_00326dc0 eax ecx
 int FUN_00326dc0(int primType, int count);
 void FUN_0031c230(int);
@@ -54,13 +55,13 @@ void MeshBatch::Draw() {
         D3D8::D3DDevice_SetStreamSource(0, vertexBuffer, format->stride);
         int type = primType;
         int n = FUN_00326dc0(primKind, indexCount);
-        D3D8::D3DDevice_DrawIndexedVertices(type, n * DAT_003f3260[type].mul + DAT_003f3260[type].add, DAT_0039db04);
+        D3D8::D3DDevice_DrawIndexedVertices(type, n * ((PrimInfo*)&DAT_003f3260)[type].mul + ((PrimInfo*)&DAT_003f3260)[type].add, DAT_0039db04);
     } else {
         D3D8::D3DDevice_SetVertexShader(format->shader);
         D3D8::D3DDevice_SetStreamSource(0, vertexBuffer, format->stride);
         int type = primType;
         int n = FUN_00326dc0(primKind, vertexCount);
-        D3D8::D3DDevice_DrawVertices(type, 0, n * DAT_003f3260[type].mul + DAT_003f3260[type].add);
+        D3D8::D3DDevice_DrawVertices(type, 0, n * ((PrimInfo*)&DAT_003f3260)[type].mul + ((PrimInfo*)&DAT_003f3260)[type].add);
     }
     FUN_0031c230(0);
     if (overrideCount != 0) {

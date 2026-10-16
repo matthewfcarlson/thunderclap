@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 16/18, incomplete)
 // FUN_001b6000 @ 0x001b6000
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight.h"
+
 struct Rec_1b6000 {
     char pad0[0x18];
     float x;
@@ -18,8 +21,6 @@ public:
     char FUN_002edb90(int id, int mode);
 };
 
-extern Registry_1b6000 *DAT_00554c14;
-extern float DAT_003f3388;
 
 class Tracker_1b6000 {
 public:
@@ -31,7 +32,7 @@ public:
 
 char Tracker_1b6000::FUN_001b6000(int id, void ***outList, int *outId)
 {
-    Registry_1b6000 *reg = DAT_00554c14;
+    Registry_1b6000 *reg = (*(Registry_1b6000**)&DAT_00554c14);
     if (!reg->FUN_002edb90(id, 10))
         return 0;
     Rec_1b6000 *begin = reg->begin;
@@ -43,7 +44,7 @@ char Tracker_1b6000::FUN_001b6000(int id, void ***outList, int *outId)
             void *item;
             r->FUN_002f8e10(&item, &id);
             Rec_1b6000 *r2 = &reg->begin[i];
-            if (!((r2->z * 0.0f + r2->y * DAT_003f3388) + r2->x * 0.0f > 0.0f)) {
+            if (!((r2->z * 0.0f + r2->y * (*(float*)&DAT_003f3388)) + r2->x * 0.0f > 0.0f)) {
                 void ***list = (void ***)&itemsBegin;
                 unsigned int idx = 0;
                 if ((int)(((char *)itemsEnd - (char *)itemsBegin) & 0xfffffffc) > 0) {

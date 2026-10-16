@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 356 inputs, branch coverage 12/12)
 // FUN_002b3c70 @ 0x002b3c70
 #include "decls/address.h"
+#include "decls/data/engine/pure3d.h"
 struct V3_2b3c70 {
     float x, y, z;
     void FUN_0022d180();
@@ -64,10 +65,6 @@ public:
     virtual void v31(Batch_2b3c70 *b);
 };
 
-extern Sink_2b3c70 *DAT_00554bb4;
-extern unsigned int DAT_0052cbac;
-extern Tri_2b3c70 DAT_0052cbb0[];
-extern int DAT_004d06dc;
 
 class DebugMesh {
 public:
@@ -84,7 +81,7 @@ public:
 void DebugMesh::F()
 {
     V3_2b3c70 *verts = mesh->verts;
-    unsigned int count = DAT_0052cbac;
+    unsigned int count = (*(unsigned int*)&DAT_0052cbac);
     if (count == 0)
         return;
     V3_2b3c70 T;
@@ -94,12 +91,12 @@ void DebugMesh::F()
     T.x = T.x * scale;
     T.y = T.y * scale;
     T.z = T.z * scale;
-    Batch_2b3c70 *batch = DAT_0052c2a8->v30(DAT_00554bb4->f10, 0, 0x2020, count * 6, 0);
+    Batch_2b3c70 *batch = DAT_0052c2a8->v30((*(Sink_2b3c70**)&DAT_00554bb4)->f10, 0, 0x2020, count * 6, 0);
     if (!outline) {
-        for (unsigned short i = 0; i < DAT_0052cbac; i++) {
-            V3_2b3c70 A = verts[DAT_0052cbb0[i].a];
-            V3_2b3c70 B = verts[DAT_0052cbb0[i].b];
-            V3_2b3c70 C = verts[DAT_0052cbb0[i].c];
+        for (unsigned short i = 0; i < (*(unsigned int*)&DAT_0052cbac); i++) {
+            V3_2b3c70 A = verts[((Tri_2b3c70*)&DAT_0052cbb0)[i].a];
+            V3_2b3c70 B = verts[((Tri_2b3c70*)&DAT_0052cbb0)[i].b];
+            V3_2b3c70 C = verts[((Tri_2b3c70*)&DAT_0052cbb0)[i].c];
             *batch->p10 = DAT_004d06dc;
             batch->p8->x = C.x;
             batch->p8->y = C.y;
@@ -141,16 +138,16 @@ void DebugMesh::F()
             batch->FUN_0008ef00();
         }
     } else {
-        for (unsigned short i = 0; i < DAT_0052cbac; i++) {
+        for (unsigned short i = 0; i < (*(unsigned int*)&DAT_0052cbac); i++) {
             struct Frame {
                 V3_2b3c70 B;
                 V3_2b3c70 C;
                 V3_2b3c70 A;
                 V3_2b3c70 D[3];
             } f;
-            f.A = verts[DAT_0052cbb0[i].a];
-            f.B = verts[DAT_0052cbb0[i].b];
-            f.C = verts[DAT_0052cbb0[i].c];
+            f.A = verts[((Tri_2b3c70*)&DAT_0052cbb0)[i].a];
+            f.B = verts[((Tri_2b3c70*)&DAT_0052cbb0)[i].b];
+            f.C = verts[((Tri_2b3c70*)&DAT_0052cbb0)[i].c];
             *batch->p10 = DAT_004d06dc;
             batch->p8->x = f.C.x;
             batch->p8->y = f.C.y;

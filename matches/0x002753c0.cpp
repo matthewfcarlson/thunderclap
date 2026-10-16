@@ -1,4 +1,5 @@
-extern char DAT_0052a1c8;
+#include "decls/data/engine/core.h"
+
 void __cdecl FUN_0026d850(void*);
 void __cdecl FUN_0026d840(void*);
 struct Allocator {
@@ -8,7 +9,6 @@ struct Allocator {
     virtual void d();
     virtual void release(void*);
 };
-extern Allocator* DAT_0052a1e4;
 struct Lock_2753c0 {
     virtual void enter();
     virtual void leave();
@@ -50,8 +50,8 @@ core::FileRequest::FileRequest(unsigned flags) {
     file->release();
     this->Request::Request();
     if (flags & 1) {
-        FUN_0026d850(&DAT_0052a1c8);
-        DAT_0052a1e4->release(this);
-        FUN_0026d840(&DAT_0052a1c8);
+        FUN_0026d850(((char*)&DAT_0052a1c8));
+        (*(Allocator**)&DAT_0052a1e4)->release(this);
+        FUN_0026d840(((char*)&DAT_0052a1c8));
     }
 }

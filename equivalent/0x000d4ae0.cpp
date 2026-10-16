@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000d4ae0 @ 0x000d4ae0
+#include "decls/data/game/global.h"
+
 struct Clock_d4ae0 {
     virtual void v0();
     virtual void v1();
@@ -21,7 +23,6 @@ struct Profile_d4ae0 {
     int cur;
 };
 
-extern char DAT_004de100[];
 
 void __cdecl FUN_00294b80(char *text);
 int __cdecl FUN_000fb830(char *buf, int size, char *text, float value, int extra);

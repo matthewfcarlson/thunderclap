@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 438 inputs, branch coverage 23/26, incomplete)
 // FUN_000adc60 @ 0x000adc60
-extern char DAT_004de7a8[];
+#include "decls/data/game/global.h"
+
 struct Entry_adc60 {
  char pad0[13];
  char disabled;

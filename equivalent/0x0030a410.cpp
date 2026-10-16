@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 27/28, incomplete)
 // physics::PhysicsJoint::vfunc_14 @ 0x0030a410
+#include "decls/data/engine/physics.h"
+
 extern "C" double sqrt(double);
 
 struct Vec3_30a410 {
@@ -11,9 +13,6 @@ struct Basis_30a410 {
     void FUN_002fd020(Vec3_30a410* in, Vec3_30a410* out);
 };
 
-extern float DAT_004d31b0;
-extern float DAT_004d3184;
-extern float DAT_00555450;
 
 namespace physics {
 

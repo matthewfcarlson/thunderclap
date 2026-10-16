@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001eb220 @ 0x001eb220
+#include "decls/data/game/global.h"
+
 struct Resource_1eb220 {
     void* FUN_001f1270();
 };
@@ -16,10 +18,9 @@ struct State_1eb220 {
     unsigned int count;
     State_1eb220* FUN_001eb220(unsigned int ownerValue, unsigned int unused, unsigned char modeValue);
 };
-extern State_1eb220* DAT_004e36d8;
 State_1eb220* State_1eb220::FUN_001eb220(unsigned int ownerValue, unsigned int unused, unsigned char modeValue) {
     mode = modeValue;
-    DAT_004e36d8 = this;
+    (*(State_1eb220**)&DAT_004e36d8) = this;
     active = 0;
     first = 100.0f;
     third = 100.0f;

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 189 inputs, branch coverage 18/18; run with --inputs 12000)
 // FUN_002abba0 @ 0x002abba0
+#include "decls/data/engine/content.h"
+
 extern char DAT_0049c7dc[];
 extern char DAT_004ce974[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -58,7 +60,6 @@ class Factory_2abba0 {
 public:
     void *FUN_00265310(int id);
 };
-extern Factory_2abba0 *DAT_00527c58;
 
 class Result_2abba0 {
 public:
@@ -103,7 +104,7 @@ Result_2abba0 *__stdcall FUN_002abba0(Reader *r, int arg)
     while (r->FUN_002669f0()) {
         int id = r->FUN_00266a30();
         if (id == 0x121000) {
-            Parser_2abba0 *p = (Parser_2abba0 *)FUN_00344e74(DAT_00527c58->FUN_00265310(id), 0, DAT_0049c7dc, DAT_004ce974, 0);
+            Parser_2abba0 *p = (Parser_2abba0 *)FUN_00344e74((*(Factory_2abba0**)&DAT_00527c58)->FUN_00265310(id), 0, DAT_0049c7dc, DAT_004ce974, 0);
             p->AddRef();
             f.state = p->FUN_00288e90();
             p->FUN_00288e80(1);

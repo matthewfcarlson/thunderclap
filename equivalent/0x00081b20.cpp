@@ -1,6 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3053 inputs, branch coverage 164/172, incomplete)
 // FUN_00081b20 @ 0x00081b20
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight.h"
+#include "decls/data/game/unknown.h"
 extern "C" double sqrt(double);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 namespace pure3d { class Animation; }
@@ -243,15 +246,7 @@ struct EntryRec {
     char pad9[7];
 };
 
-extern Gravity_81b20 *DAT_00554c10;
-extern Vec3_81b20 DAT_0049bf1c;
-extern float DAT_00421894;
 int __cdecl FUN_00098190(float a, float b, float c, int d, Releasable_81b20 *o, float e, Vec3_81b20 *pos, Vec3_81b20 *va, int f, int g, int h, int i);
-extern int DAT_003ff488[];
-extern int DAT_003ff508[];
-extern int DAT_003ff4c8[];
-extern int DAT_003ff548[];
-extern EntryRec DAT_004dd090[];
 Splash *__cdecl FUN_0027f250();
 
 static __forceinline void AbsInPlace(float &v)
@@ -363,17 +358,17 @@ void CAnimState::FUN_00081b20(float dt)
             pick = v9c;
         } else {
             Rng_81b20 *rg = FUN_000964d0();
-            int cnt = (flags & 4) ? DAT_003ff508[state] : DAT_003ff488[state];
+            int cnt = (flags & 4) ? ((int*)&DAT_003ff508)[state] : ((int*)&DAT_003ff488)[state];
             pick = rg->FUN_00011330(cnt - 1);
             if (fb8 != 0) {
                 fb8->vf1();
                 fb8 = 0;
             }
         }
-        int base = (flags & 4) ? DAT_003ff548[state] : DAT_003ff4c8[state];
+        int base = (flags & 4) ? ((int*)&DAT_003ff548)[state] : ((int*)&DAT_003ff4c8)[state];
         int idx = base + pick;
         Factory_81b20 *fac = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
-        rec = &DAT_004dd090[idx];
+        rec = &((EntryRec*)&DAT_004dd090)[idx];
         content::LoadInventory::DynamicCaster<pure3d::Animation> *caster = new (cbuf) content::LoadInventory::DynamicCaster<pure3d::Animation>;
         Animation2 *anim = fac->f3(caster, rec->lo, rec->hi);
         if (anim == 0)
@@ -438,7 +433,7 @@ void CAnimState::FUN_00081b20(float dt)
         }
         if (state == 7 || state == 8) {
             if (state == 8) {
-                orient.FUN_0022c3b0(&DAT_0049bf1c, &v30);
+                orient.FUN_0022c3b0(((Vec3_81b20*)&DAT_0049bf1c), &v30);
                 f8c = FUN_00224f10(&v30);
             }
             flags |= 8;
@@ -570,7 +565,7 @@ void CAnimState::FUN_00081b20(float dt)
                 f90 = -1.0f;
                 next = 8;
             } else if (f84 > 0.1f) {
-                v30 = DAT_00554c10->g;
+                v30 = (*(Gravity_81b20**)&DAT_00554c10)->g;
                 v10.y = v10.y + (((v30.y * 0.01f) * dt) * dt);
             }
         }
@@ -595,7 +590,7 @@ void CAnimState::FUN_00081b20(float dt)
         v10.y = va4.y * fb0;
         v10.z = va4.z * fb0;
         if (fb8 == 0) {
-            v20 = DAT_00554c10->g;
+            v20 = (*(Gravity_81b20**)&DAT_00554c10)->g;
             v10.x = v20.x * dt + v10.x;
             v10.y = ((v20.y * 0.01f) * dt) + v10.y;
             va4.y = v10.y;
@@ -617,7 +612,7 @@ void CAnimState::FUN_00081b20(float dt)
         pos.z = v20.z;
         orient.FUN_0022ba70(h);
     } else {
-        v10 = DAT_0049bf1c;
+        v10 = (*(Vec3_81b20*)&DAT_0049bf1c);
         FUN_00224d70(f8c, &v10);
         float t = dt * f94;
         v10.x = v10.x * t;
@@ -626,7 +621,7 @@ void CAnimState::FUN_00081b20(float dt)
         v10.y = v10.y + pos.y;
         v10.z = v10.z + pos.z;
         f88 = f88 - dt;
-        v30 = DAT_00554c10->g;
+        v30 = (*(Gravity_81b20**)&DAT_00554c10)->g;
         float &c = fr.s2c;
         c = v30.y * 0.01f;
         if (f88 <= 0.0f) {
@@ -637,7 +632,7 @@ void CAnimState::FUN_00081b20(float dt)
                 f98 = ac;
         }
         if (DAT_004dd700->holder->FUN_00086340()->FUN_00092940(0x13))
-            f98 = DAT_00554c10->g.y * -0.01f;
+            f98 = (*(Gravity_81b20**)&DAT_00554c10)->g.y * -0.01f;
         f90 = f90 - (dt * f98);
         pos.x = v10.x;
         pos.z = v10.z;
@@ -713,7 +708,7 @@ void CAnimState::FUN_00081b20(float dt)
             case 11: {
                 ns = 10;
                 force = true;
-                orient.FUN_0022c3b0(&DAT_0049bf1c, &v30);
+                orient.FUN_0022c3b0(((Vec3_81b20*)&DAT_0049bf1c), &v30);
                 float &hh = v20.x;
                 hh = FUN_00224f10(&v30);
                 float &rr = fr.s1c;
@@ -726,7 +721,7 @@ void CAnimState::FUN_00081b20(float dt)
                     ns = 13;
                     force = true;
                 } else if (!(flags & 0x80)) {
-                    fec->FUN_001c5080(DAT_00421894, 1.0f);
+                    fec->FUN_001c5080((*(float*)&DAT_00421894), 1.0f);
                     flags |= 0x80;
                     new (slot58) Cue(name, f24);
                     DAT_004dd700->obj30->FUN_001cbc20((Cue *)slot58);

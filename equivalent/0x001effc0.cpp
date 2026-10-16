@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 174 inputs, branch coverage 24/26, incomplete)
 // FUN_001effc0 @ 0x001effc0
+#include "decls/data/game/unknown.h"
+
 struct Context { unsigned int a, b; };
 struct Event_1effc0 {
  virtual void slot0();
@@ -9,7 +11,6 @@ struct Event_1effc0 {
  float time;
 };
 struct List_1effc0 { char pad[16]; Event_1effc0* first; int count; };
-extern unsigned int DAT_004e3748;
 struct Player_1effc0 {
  char pad[8];
  List_1effc0* list;
@@ -35,7 +36,7 @@ void Player_1effc0::FUN_001effc0(float delta) {
    for (int j = 0; event && j < i; ++j) event = event->next;
   }
   if (event && event->time >= previous && event->time <= time) {
-   ++DAT_004e3748;
+   ++(*(unsigned int*)&DAT_004e3748);
    event->fire(&context, arg);
    ++completed;
    if (completed == count) {

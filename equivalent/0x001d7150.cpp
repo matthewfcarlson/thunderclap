@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 204 inputs, branch coverage 8/8)
 // FUN_001d7150 @ 0x001d7150
+#include "decls/data/game/global.h"
+
 struct Id_1d7150 {
     unsigned int lo;
     unsigned int hi;
 };
-extern Id_1d7150 DAT_004e2560[];
 
 struct Counter_1d7150 {
     int FUN_001d5710();
@@ -52,8 +53,8 @@ bool Manager_1d7150::SelectById(int id)
     int count = counter->FUN_001d5710();
     if (count <= 0)
         return false;
-    unsigned int lo = DAT_004e2560[id].lo;
-    unsigned int hi = DAT_004e2560[id].hi;
+    unsigned int lo = ((Id_1d7150*)&DAT_004e2560)[id].lo;
+    unsigned int hi = ((Id_1d7150*)&DAT_004e2560)[id].hi;
     Item_1d7150 **p = list->items;
     for (int i = 0; i < count; i++) {
         if (p[i]->lo == lo && p[i]->hi == hi) {

@@ -1,3 +1,6 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 inline void* operator new(unsigned int, void* p) {
     return p;
@@ -5,9 +8,6 @@ inline void* operator new(unsigned int, void* p) {
 void FUN_00068260();
 void FUN_00069830();
 void FUN_00068270();
-extern int DAT_00496f8c;
-extern int DAT_004dcf40;
-extern int DAT_004dcf44;
 struct FUN_00234960 {
     FUN_00234960(const char* = "timeBegin");
     virtual void slot0();
@@ -84,7 +84,7 @@ void target() {
         if (p) {
             fight::ParamEnumConstList<CComboMessageTrack>* b =
                 new (p) fight::ParamEnumConstList<CComboMessageTrack>;
-            b->list = &DAT_00496f8c;
+            b->list = ((int*)&DAT_00496f8c);
             b->count = 4;
             b->callback = FUN_00068270;
             entries[2] = b;

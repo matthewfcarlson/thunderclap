@@ -1,8 +1,9 @@
+#include "decls/data/engine/core.h"
+
 extern "C" char DAT_0042afa8[];
 extern "C" char DAT_0042b680[];
 extern "C" char DAT_0042b688[];
 extern "C" char DAT_0042b6b0[];
-extern "C" char DAT_004cdbb0[];
 extern int gValue_2708e0;
 class ControllerBuffer {
   public:
@@ -23,7 +24,7 @@ void InitBase();
 ControllerBuffer::ControllerBuffer(int value) {
     vptr = ((int)DAT_0042b6b0);
     vptr4 = ((int)DAT_0042afa8);
-    ref = *(int*)((int)DAT_004cdbb0);
+    ref = *(int*)((int)((char*)&DAT_004cdbb0));
     InitBase();
     vptr = ((int)DAT_0042b688);
     vptr4 = ((int)DAT_0042b680);

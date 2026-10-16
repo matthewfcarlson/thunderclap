@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 8/8)
 // FUN_00071700 @ 0x00071700
+#include "decls/data/game/global.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* address) { return address; }
 void __cdecl FUN_000684f0();
@@ -15,8 +17,6 @@ template<class T> struct ParamFloatConstRange {
  void FUN_00234960(const char*);
 };
 }
-extern unsigned int DAT_004dcf74;
-extern unsigned int DAT_004dcf70;
 void __cdecl FUN_002347b0(unsigned int*, fight::ParamFloatConstRange<CDamageTrack>**, int);
 void __cdecl FUN_00071700() {
  if (!DAT_004dcf74) {

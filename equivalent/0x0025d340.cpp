@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 4/4)
 // FUN_0025d340 @ 0x0025d340
-extern char DAT_004e7898[];
+#include "decls/data/engine/audio.h"
+#include "decls/data/platform/xbox/unknown.h"
 
 struct Sub_25d340 {
     void FUN_0023fac0();
@@ -22,7 +23,6 @@ struct Registry_25d340 {
     char pad0[0x14];
     char list[4];       // 0x14
 };
-extern Registry_25d340* DAT_004e5ce0;
 
 Node* __cdecl FUN_00247530(char* pool);
 void __cdecl FUN_00247550(char* pool, Node* node);
@@ -44,6 +44,6 @@ Node* FUN_0025d340(int* src, int arg, char flag)
         FUN_00247550(DAT_004e7898, n);
         return 0;
     }
-    FUN_00257e80(DAT_004e5ce0->list, n);
+    FUN_00257e80((*(Registry_25d340**)&DAT_004e5ce0)->list, n);
     return n;
 }

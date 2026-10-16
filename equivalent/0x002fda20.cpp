@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_002fda20 @ 0x002fda20
+#include "decls/data/engine/physics.h"
+
 extern "C" double sqrt(double);
 
 struct Vec3_2fda20 { float x, y, z; };
@@ -58,7 +60,6 @@ struct Tracker_2fda20 {
     void Update();
 };
 
-extern float DAT_004d2960;
 
 void Tracker_2fda20::Update()
 {

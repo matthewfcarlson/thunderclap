@@ -3,6 +3,7 @@
 // audio::SeqEventType constructor: base type registration, own vtable, then insertion into the global type tree.
 // equiv-map: ??0Type@om@@QAE@PAX0HH@Z = 0x002584d0
 #include "decls/address.h"
+#include "decls/data/engine/audio.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
 struct Key_2605e0 {
@@ -29,8 +30,6 @@ struct Tree_2605e0 {
 
 char __cdecl FUN_002601d0(Tree_2605e0 *tree, void *elem, String *key);
 
-extern int DAT_004e7a2c;
-extern Tree_2605e0 *DAT_004cd380;
 
 namespace om {
 class Type {
@@ -60,8 +59,8 @@ SeqEventType *SeqEventType::FUN_002605e0(const char *name, void *b, int c, int d
     new (this) om::Type(&key, b, c, d);
     new (this) SeqEventType;
     node.key.FUN_00240170(name);
-    Tree_2605e0 *tree = DAT_004cd380;
-    if (DAT_004e7a2c == 0 && tree) {
+    Tree_2605e0 *tree = (*(Tree_2605e0**)&DAT_004cd380);
+    if ((*(int*)&DAT_004e7a2c) == 0 && tree) {
         Node *nil = &tree->nil;
         nil->left = nil;
         tree->nil.right = nil;
@@ -70,7 +69,7 @@ SeqEventType *SeqEventType::FUN_002605e0(const char *name, void *b, int c, int d
         tree->root = nil;
     }
     FUN_002601d0(tree, this, &node.key);
-    DAT_004e7a2c++;
+    (*(int*)&DAT_004e7a2c)++;
     return this;
 }
 }

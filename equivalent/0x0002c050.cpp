@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_0002c050 @ 0x0002c050
-extern float DAT_003f3ef4;
+#include "decls/data/game/unknown.h"
+
 struct Loc_2c050 { int x, y, z; };
 struct Pose { int x, y, z; float deg; };
 class Object {
@@ -24,7 +25,7 @@ char Actor_2c050::Place(int a1, int key, int a3, int a4, int a5, int a6) {
     Loc_2c050 loc;
     o->GetPos(&loc);
     Pose pose;
-    pose.deg = o->GetAngle() * DAT_003f3ef4;
+    pose.deg = o->GetAngle() * (*(float*)&DAT_003f3ef4);
     pose.x = loc.x; pose.y = loc.y; pose.z = loc.z;
     return FUN_0002b970(a1, pose, a3, a4, a5, a6, 1);
 }

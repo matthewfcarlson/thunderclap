@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 43 inputs, branch coverage 4/4)
 // FUN_00268120 @ 0x00268120
-extern int DAT_004cdbb0;
+#include "decls/data/engine/core.h"
+
 void __cdecl FUN_002705f0();
 void __cdecl FUN_002702a0(void *, unsigned, unsigned, unsigned, unsigned, const char *, unsigned);
 void *__cdecl FUN_00266e00(unsigned, unsigned);

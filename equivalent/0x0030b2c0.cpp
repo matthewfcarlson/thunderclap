@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_0030b2c0 @ 0x0030b2c0
+#include "decls/data/engine/physics.h"
+
 struct Settings_30b2c0 { char pad[0x224]; float scale; };
 struct Object {
  char pad0[0x10]; float lower; float upper; Settings_30b2c0* settings;
@@ -8,7 +10,6 @@ struct Object {
  float FUN_0030adc0(float start, float delta, float lower, float upper);
  float target(float delta);
 };
-extern float DAT_004d3198;
 float Object::target(float delta) {
  float limit=1.0f;
  if(delta==0.0f || time+delta==0.0f) return limit;

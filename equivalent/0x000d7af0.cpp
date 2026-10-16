@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000d7af0 @ 0x000d7af0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
 namespace content {
@@ -29,7 +30,6 @@ struct Loader_d7af0 {
     virtual void v2();
     virtual Node *v3(content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> *caster, unsigned __int64 key);
 };
-extern Loader_d7af0 *DAT_004dd9cc;
 
 struct FUN_000e9240 {
     virtual void slot0();
@@ -50,7 +50,7 @@ public:
 FEBackground::FEBackground(int arg, const char *name) : FUN_000e9240(arg)
 {
     drawable = 0;
-    Loader_d7af0 *loader = DAT_004dd9cc;
+    Loader_d7af0 *loader = (*(Loader_d7af0**)&DAT_004dd9cc);
     content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> *caster =
         new (&arg) content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>;
     drawable = loader->v3(caster, FUN_002672f0(name, 0, 0));

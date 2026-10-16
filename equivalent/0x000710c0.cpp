@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 10/10)
 // FUN_000710c0 @ 0x000710c0
+#include "decls/data/game/global.h"
+
 void* __cdecl FUN_0008d690(unsigned);
 void __cdecl FUN_000682e0(); void __cdecl FUN_000682f0(); void __cdecl FUN_00068300(); void __cdecl FUN_0006b750();
 class CMoveAddTrack;
@@ -7,7 +9,7 @@ namespace fight { template<class T> struct ParamFloatConstRange {
  virtual void slot0(); char data[12]; void (__cdecl *callback)(); unsigned tail;
  void FUN_00234960(const char*);
 }; }
-extern unsigned DAT_004dcf54; extern unsigned DAT_004dcf50;
+ 
 void __cdecl FUN_002347b0(unsigned*,fight::ParamFloatConstRange<CMoveAddTrack>**,unsigned);
 void __cdecl FUN_000710c0() {
  typedef fight::ParamFloatConstRange<CMoveAddTrack> Range;

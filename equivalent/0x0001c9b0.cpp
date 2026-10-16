@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3025 inputs, branch coverage 74/84, incomplete)
 // CWeaponCollisionAction::vfunc_8 @ 0x0001c9b0
+#include "decls/data/game/global.h"
+
 extern "C" double sqrt(double);
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
@@ -34,7 +36,6 @@ struct Config_1c9b0 {
     int f20;
 };
 
-extern float DAT_003f2ecc;
 void __cdecl FUN_00224ce0(Mat_1c9b0 *a, Mat_1c9b0 *b, float t, Mat_1c9b0 *out);
 float __cdecl FUN_000186f0(float *a, float *b);
 char __cdecl FUN_00096ce0(SrcEnt *src, V3_1c9b0 *hit, float *out);
@@ -167,7 +168,7 @@ bool CWeaponCollisionAction::vfunc_8(int a1)
             if (f.s8 < 1.5f && m < 0.25f)
                 m = 0.25f;
         } else {
-            f.s0 = FUN_000186f0(&f.s8, &DAT_003f2ecc);
+            f.s0 = FUN_000186f0(&f.s8, ((float*)&DAT_003f2ecc));
             if (f.s0 < 0.25f)
                 f.s0 = 0.25f;
             m = f.s0;

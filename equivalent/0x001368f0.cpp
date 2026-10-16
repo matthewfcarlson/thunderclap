@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 43/44, incomplete)
 // hulkfight::motion::AirToGroundTargetAction::vfunc_5 @ 0x001368f0
+#include "decls/data/game/hulkfight/motion.h"
+
 struct V3_1368f0 {
     float x, y, z;
 };
-extern V3_1368f0 DAT_004abf64;
 extern "C" double sqrt(double);
 
 class Prop_1368f0 {
@@ -213,7 +214,7 @@ char AirToGroundTargetAction::v5(Arg1_1368f0 a1, float dt)
     double newvy = (double)vy - (double)f.g * (double)dt;
     vy = (float)newvy;
     double sc = (double)c * (double)dt;
-    f.w = DAT_004abf64;
+    f.w = (*(V3_1368f0*)&DAT_004abf64);
     f.w.x = (float)((double)f.w.x * sc);
     f.w.z = (float)((double)f.w.z * sc);
     f.w.y = (float)(newvy * (double)dt);

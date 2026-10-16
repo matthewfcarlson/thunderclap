@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 172 inputs, branch coverage 39/39)
 // FUN_003027b0 @ 0x003027b0
-extern float DAT_004d2f7c;
+#include "decls/data/engine/unknown.h"
 
 struct Body_3027b0 {
     virtual void v0();

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 160 inputs, branch coverage 48/50, incomplete)
 // FUN_000fba10 @ 0x000fba10
+#include "decls/data/game/global.h"
+
 typedef unsigned short wc;
 
 class Measurer_fba10 {
@@ -22,8 +24,6 @@ struct Manager_fba10 {
     int language;
 };
 Manager_fba10 *__cdecl FUN_000fc1b0();
-extern const wc DAT_0040cf10[];
-extern const wc DAT_0040cf14[];
 
 int __cdecl FUN_000fba10(wc **lines, int maxLines, int maxChars, const wc *src, float maxWidth,
                          Measurer_fba10 *m)
@@ -31,7 +31,7 @@ int __cdecl FUN_000fba10(wc **lines, int maxLines, int maxChars, const wc *src, 
     if (maxChars == 2)
         return 1;
 
-    const wc *breakSet = (FUN_000fc1b0()->language == 3) ? DAT_0040cf14 : DAT_0040cf10;
+    const wc *breakSet = (FUN_000fc1b0()->language == 3) ? ((const wc*)&DAT_0040cf14) : ((const wc*)&DAT_0040cf10);
     wc *dst = lines[0];
     const wc *brkSrc = 0;
     wc *brkDst = 0;

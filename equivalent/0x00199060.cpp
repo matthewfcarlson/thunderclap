@@ -2,6 +2,7 @@
 // hulkfight::motion::ProjectileGroundShockwave::vfunc_6 @ 0x00199060
 // equiv-conv: FUN_00195560 ecx eax stack stack stack stack stack stack stack stack stack stack stack
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct V3_199060 {
     float x, y, z;
     float FUN_0022d110();
@@ -119,8 +120,6 @@ struct World {
     char pad48[4];
     Hub4c_199060 *p4c;
 };
-extern unsigned int DAT_004e2198;
-extern unsigned int DAT_004e219c;
 
 struct IdHolder_199060 {
     char pad0[8];
@@ -225,7 +224,7 @@ char ProjectileGroundShockwave::F(Thing_199060 *a1, Other_199060 *a2, V3_199060 
             break;
         void *ebx = a1;
         Ent_199060 *edi = 0;
-        if (a1->p74->lo == DAT_004e2198 && a1->p74->hi == DAT_004e219c) {
+        if (a1->p74->lo == DAT_004e2198 && a1->p74->hi == (*(unsigned int*)&DAT_004e219c)) {
             if (a2->v6() == 4) {
                 if (a2->f38 != 5)
                     break;

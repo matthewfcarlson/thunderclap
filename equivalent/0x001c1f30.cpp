@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 75 inputs, branch coverage 2/2)
 // FUN_001c1f30 @ 0x001c1f30
+#include "decls/data/game/Render/Canvas.h"
+#include "decls/data/game/global.h"
+
 extern "C" double __cdecl tan(double);
 extern "C" double __cdecl atan(double);
 
@@ -54,8 +57,6 @@ public:
     virtual float vfunc_16();
 };
 
-extern System_1c1f30 *DAT_0052c2a4;
-extern float DAT_004c5114;
 
 class CameraState {
 public:
@@ -85,7 +86,7 @@ void CameraState::FUN_001c1f30(int a, float fov, float aspect, int d, int e)
         double t = tan(fov * 0.5f) * DAT_004c5114;
         float tf = (float)t;
         halfX = (float)atan(t);
-        halfY = (float)atan(tf / (DAT_0052c2a4->vfunc_16() * aspect));
+        halfY = (float)atan(tf / ((*(System_1c1f30**)&DAT_0052c2a4)->vfunc_16() * aspect));
         lastFov = fov;
     }
     Plane_1c1f30 tmp;

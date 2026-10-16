@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 42/42)
 // FUN_0018abd0 @ 0x0018abd0
+#include "decls/data/game/hulkfight/motion.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -129,12 +132,8 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e14b0;
-extern int DAT_004e14b4;
 
-extern const char* DAT_004ad788[4];
 
-extern int DAT_00412ed4;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -218,12 +217,12 @@ void FUN_0018abd0()
         mem = FUN_0008d690(0x20);
         params[18] = 0;
         if (mem)
-            params[18] = new (mem) fight::ParamEnumConstList<hulkfight::motion::BallAndChainShootTrack>("damageType", DAT_004ad788, DAT_00412ed4, &hulkfight::motion::BallAndChainShootTrack::FUN_00180190);
+            params[18] = new (mem) fight::ParamEnumConstList<hulkfight::motion::BallAndChainShootTrack>("damageType", ((const char**)&DAT_004ad788), (*(int*)&DAT_00412ed4), &hulkfight::motion::BallAndChainShootTrack::FUN_00180190);
         mem = FUN_0008d690(0x18);
         params[19] = 0;
         if (mem)
             params[19] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::BallAndChainShootTrack>("damageScale", &hulkfight::motion::BallAndChainShootTrack::FUN_001801b0);
-        FUN_002347b0(&DAT_004e14b0, params, 20);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e14b0), params, 20);
     }
     DAT_004e14b4++;
 }

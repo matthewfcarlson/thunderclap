@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 24 inputs, branch coverage 19/20, incomplete)
 // FUN_000f5fa0 @ 0x000f5fa0
+#include "decls/data/engine/content.h"
+#include "decls/data/game/global.h"
+
 extern "C" char *__cdecl strncpy(char *dst, const char *src, unsigned int n);
 extern int __cdecl FUN_00266da0(int v);
 extern void __cdecl FUN_0008d330(void *p);
@@ -69,8 +72,6 @@ struct Loader_f5fa0 {
     void FUN_00265920(int v, Obj266 **out, int flag);
 };
 
-extern Loader_f5fa0 *DAT_00527c58;
-extern Sink_f5fa0 *DAT_004dd9cc;
 
 struct Frame_f5fa0 {
     Obj266 *w;
@@ -188,8 +189,8 @@ void Runner_f5fa0::FUN_000f5fa0(const char *src, int arg)
                 if (node->vfunc_1() == 0x62deec48) {
                     int v = p->FUN_000fad90();
                     f.w = 0;
-                    DAT_00527c58->FUN_00265920(v, &f.w, 0);
-                    DAT_004dd9cc->FUN_00266220(f.w->FUN_00266700());
+                    (*(Loader_f5fa0**)&DAT_00527c58)->FUN_00265920(v, &f.w, 0);
+                    (*(Sink_f5fa0**)&DAT_004dd9cc)->FUN_00266220(f.w->FUN_00266700());
                     count++;
                 }
             } while (p->FUN_000f9e50());

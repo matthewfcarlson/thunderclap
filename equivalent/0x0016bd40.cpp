@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 6/6)
 // FUN_0016bd40 @ 0x0016bd40
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -51,12 +54,8 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e12a8;
-extern int DAT_004e12ac;
 
-extern const char* DAT_0042773c[1];
 
-extern int DAT_00427754;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -68,12 +67,12 @@ void FUN_0016bd40()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::motion::HealthPercentCondition>("compare", DAT_0042773c, DAT_00427754, &hulkfight::motion::HealthPercentCondition::FUN_00165970);
+            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::motion::HealthPercentCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::motion::HealthPercentCondition::FUN_00165970);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::HealthPercentCondition>("percent", &hulkfight::motion::HealthPercentCondition::FUN_00165980);
-        FUN_002347b0(&DAT_004e12a8, params, 2);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e12a8), params, 2);
     }
     DAT_004e12ac++;
 }

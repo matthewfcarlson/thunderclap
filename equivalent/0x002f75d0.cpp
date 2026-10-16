@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_002f75d0 @ 0x002f75d0
+#include "decls/data/engine/physics.h"
+
 struct Name_2f75d0 {
     char data[8];
     void FUN_0027af70(Name_2f75d0 *other);
@@ -21,7 +23,6 @@ struct Sub_2f75d0 {
     void FUN_00308a70(Obj_2f75d0 *owner);
 };
 
-extern unsigned int DAT_004d2b74;
 
 class Obj_2f75d0 {
 public:
@@ -193,9 +194,9 @@ void Obj_2f75d0::FUN_002f75d0(Obj_2f75d0 *dst, int arg)
     dst->f1e4 = f1e4;
     dst->f1e8 = f1e8;
     f1d4 = 0;
-    f1d8 = 1.0f / (float)DAT_004d2b74;
+    f1d8 = 1.0f / (float)(*(unsigned int*)&DAT_004d2b74);
     f1dc = 0;
-    f1e0 = 1.0f / (float)DAT_004d2b74;
+    f1e0 = 1.0f / (float)(*(unsigned int*)&DAT_004d2b74);
     char flags = b1f4;
     b1f0 = 0;
     unsigned int bits = dw1f0 | 0xff00;

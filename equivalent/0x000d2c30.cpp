@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 62/62)
 // FUN_000d2c30 @ 0x000d2c30
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 namespace content {
 namespace LoadInventory {
 template <class T>
@@ -49,11 +50,10 @@ struct World {
     Holder_d2c30 *holder;
 };
 
-extern Inventory_d2c30 *DAT_004dd9cc;
 
 static Res_d2c30 *GetLocator(const char *name)
 {
-    Inventory_d2c30 *inv = DAT_004dd9cc;
+    Inventory_d2c30 *inv = (*(Inventory_d2c30**)&DAT_004dd9cc);
     unsigned __int64 h = FUN_0027b020(name);
     content::LoadInventory::DynamicCaster<pure3d::Locator> c;
     return inv->get(&c, (unsigned int)h, (unsigned int)(h >> 32));
@@ -104,7 +104,7 @@ void HealthBar::FUN_000d2c30()
 
     Composite_d2c30 *comp;
     {
-        Inventory_d2c30 *inv = DAT_004dd9cc;
+        Inventory_d2c30 *inv = (*(Inventory_d2c30**)&DAT_004dd9cc);
         unsigned __int64 h = FUN_0027b020(n1);
         content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> c;
         comp = (Composite_d2c30 *)inv->get(&c, (unsigned int)h, (unsigned int)(h >> 32));

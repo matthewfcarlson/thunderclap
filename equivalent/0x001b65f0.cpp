@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_001b65f0 @ 0x001b65f0
+#include "decls/data/game/global.h"
+
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *FUN_0008d690(unsigned int size);
 
@@ -33,9 +35,6 @@ public:
     char FUN_001b6000(Vec3_1b65f0 *pos, int *a1, int *a0);
 };
 
-extern signed char DAT_0041da9c[];
-extern Vec3_1b65f0 DAT_004e2160;
-extern Locator *DAT_004e2158;
 
 class Mgr_1b65f0 {
 public:
@@ -54,14 +53,14 @@ char Mgr_1b65f0::FUN_001b65f0(int id, int slot)
         MeshData_1b65f0 *d = obj->data;
         p1 = &d->verts[d->indices->idx[slot + 12 * (unsigned short)id]];
     } else {
-        p1 = &DAT_004e2160;
+        p1 = ((Vec3_1b65f0*)((char*)&DAT_004e215c + 4));
     }
     if (obj) {
-        int s2 = DAT_0041da9c[slot];
+        int s2 = ((signed char*)&DAT_0041da9c)[slot];
         MeshData_1b65f0 *d = obj->data;
         p2 = &d->verts[d->indices->idx[s2 + 12 * (unsigned short)id]];
     } else {
-        p2 = &DAT_004e2160;
+        p2 = ((Vec3_1b65f0*)((char*)&DAT_004e215c + 4));
     }
 
     float sx = p2->x + p1->x;
@@ -89,17 +88,17 @@ char Mgr_1b65f0::FUN_001b65f0(int id, int slot)
     r.y = r.y + my;
     r.z = r.z + mz;
 
-    if (DAT_004e2158 == 0) {
+    if ((*(Locator**)&DAT_004e2158) == 0) {
         void *mem = FUN_0008d690(0x5ac);
         Locator *loc = 0;
         if (mem)
             loc = new (mem) Locator();
-        DAT_004e2158 = loc;
+        (*(Locator**)&DAT_004e2158) = loc;
         loc->v0();
     }
     int origId = id;
     int origSlot = slot;
-    if (!DAT_004e2158->FUN_001b6000(&r, &slot, &id))
+    if (!(*(Locator**)&DAT_004e2158)->FUN_001b6000(&r, &slot, &id))
         return 0;
     int *table = FUN_001b5800(origId);
     if (!table)

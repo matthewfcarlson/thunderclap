@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 11/12, incomplete)
 // FUN_0015d4f0 @ 0x0015d4f0
-extern float DAT_004e11b4;
-extern unsigned int DAT_004e11b8;
+#include "decls/data/game/hulkfight/motion.h"
 
 float __cdecl FUN_00224fc0(float a, float b);
 float __cdecl FUN_0004af40(float lo, float hi, float v);

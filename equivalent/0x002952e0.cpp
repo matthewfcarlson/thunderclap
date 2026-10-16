@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 43/46, incomplete)
 // pure3d::TextureFont::vfunc_19 @ 0x002952e0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d.h"
+#include "decls/data/engine/pure3d/prop.h"
 struct Glyph_2952e0 {
     float x;
     int f4;
@@ -90,9 +92,6 @@ struct Gfx {
     virtual void destroy(int handle);
 };
 
-extern Context* DAT_0052c2ac;
-extern int DAT_0052c318[32];
-extern Glyph_2952e0* DAT_0052c398[];
 
 class TextureFont {
 public:
@@ -135,14 +134,14 @@ void TextureFont::vfunc_19(const unsigned short* text, char flags)
     if (text == 0 || *text == 0 || *text == 0xa)
         return;
 
-    DAT_0052c2ac->device->begin(0);
+    (*(Context**)&DAT_0052c2ac)->device->begin(0);
 
     float scale;
     if (flags & 1)
         scale = vfunc_18(text) * -0.5f;
     else
         scale = 0.0f;
-    DAT_0052c2ac->FUN_00293d40(scale, bottom - top, 0);
+    (*(Context**)&DAT_0052c2ac)->FUN_00293d40(scale, bottom - top, 0);
 
     for (unsigned int i = 0; i < pageCount; i++)
         DAT_0052c318[i] = 0;
@@ -170,7 +169,7 @@ void TextureFont::vfunc_19(const unsigned short* text, char flags)
             } while (lo <= hi);
         }
         Glyph_2952e0* g = &glyphs[idx];
-        DAT_0052c398[k] = g;
+        ((Glyph_2952e0**)&DAT_0052c398)[k] = g;
         DAT_0052c318[g->page & 0x1f]++;
         k++;
         c = text[k];
@@ -184,7 +183,7 @@ void TextureFont::vfunc_19(const unsigned short* text, char flags)
             material->slot->set(0x584554, tex ? tex->handle : 0);
             int handle = DAT_0052c2a8->create(material->slot, 0, 0x2021, DAT_0052c318[i] * 6, 0);
             for (int j = 0; j < k; j++) {
-                Glyph_2952e0* g = DAT_0052c398[j];
+                Glyph_2952e0* g = ((Glyph_2952e0**)&DAT_0052c398)[j];
                 if (g->page == (int)i)
                     FUN_00294f10(handle, g, x + g->x, g->f8);
                 x = x + g->advance;
@@ -195,5 +194,5 @@ void TextureFont::vfunc_19(const unsigned short* text, char flags)
                 break;
         }
     }
-    DAT_0052c2ac->device->end(0);
+    (*(Context**)&DAT_0052c2ac)->device->end(0);
 }

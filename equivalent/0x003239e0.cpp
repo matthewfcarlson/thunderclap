@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 22/28, incomplete)
 // pure3d::d3dExtFramebufferEffects::vfunc_4 @ 0x003239e0
-extern float DAT_00432a10[];
+#include "decls/data/platform/xbox/pure3d.h"
+
 namespace pure3d {
 struct d3dExtFramebufferEffects {
 virtual void vfunc_0(); virtual void vfunc_1(); virtual void vfunc_2(); virtual void vfunc_3(); virtual void vfunc_4(float a,float b,float c,float d,int color);
@@ -23,7 +24,7 @@ if (c < 0.0f) {
  scale = (c * 0.01f + 1.0f) * initial;
 } else {
  int index = (int)(c + 0.5f);
- curve = DAT_00432a10[index];
+ curve = ((float*)&DAT_00432a10)[index];
 }
 result = (curve < 1.0f ? curve : 1.0f) * scale;
 }

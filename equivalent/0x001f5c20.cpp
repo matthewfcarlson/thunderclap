@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 397 inputs, branch coverage 97/102, incomplete)
 // FUN_001f5c20 @ 0x001f5c20
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" double sqrt(double);
 extern "C" void __cdecl qsort(void *base, unsigned int count, unsigned int size,
                               int (__cdecl *cmp)(const void *, const void *));
@@ -80,11 +81,6 @@ struct Voice_1f5c20 {
     Row_1f5c20 rows[4];
 };
 
-extern int DAT_004e3768[];
-extern int DAT_004e3780[];
-extern int DAT_004e3798[];
-extern int DAT_004c7df8[];
-extern int DAT_004c7e10[];
 
 int __cdecl FUN_001f2e80(const void *a, const void *b);
 Resource_1f5c20 *FUN_0024a370(void *voice, int *hash);
@@ -128,22 +124,22 @@ void Mgr_1f5c20::FUN_001f5c20(int arg)
     int started = 0;
     DAT_004e3768[1] = 0;
     DAT_004e3798[1] = 0;
-    DAT_004e3780[1] = 0;
+    ((int*)((char*)&DAT_004e3768 + 24))[1] = 0;
     DAT_004e3768[2] = 0;
     DAT_004e3798[2] = 0;
-    DAT_004e3780[2] = 0;
+    ((int*)((char*)&DAT_004e3768 + 24))[2] = 0;
     DAT_004e3768[3] = 0;
     DAT_004e3798[3] = 0;
-    DAT_004e3780[3] = 0;
+    ((int*)((char*)&DAT_004e3768 + 24))[3] = 0;
     DAT_004e3768[4] = 0;
     DAT_004e3798[4] = 0;
-    DAT_004e3780[4] = 0;
+    ((int*)((char*)&DAT_004e3768 + 24))[4] = 0;
     DAT_004e3768[5] = 0;
     DAT_004e3798[5] = 0;
-    DAT_004e3780[5] = 0;
+    ((int*)((char*)&DAT_004e3768 + 24))[5] = 0;
     DAT_004e3768[6] = 0;
     DAT_004e3798[6] = 0;
-    DAT_004e3780[6] = 0;
+    ((int*)((char*)&DAT_004e3768 + 24))[6] = 0;
     qsort(voices, count324, 4, FUN_001f2e80);
 
     for (int k = 0; k < count324; k++) {
@@ -158,7 +154,7 @@ void Mgr_1f5c20::FUN_001f5c20(int arg)
                 continue;
             Resource_1f5c20 *cur = v->res[i];
             if (!cur) {
-                if (!(DAT_004e3768[(*p)->type] < DAT_004c7df8[(*p)->type]))
+                if (!(DAT_004e3768[(*p)->type] < ((int*)&DAT_004c7df8)[(*p)->type]))
                     continue;
                 if (!((float)DAT_004c7e10[(*p)->type] > (*p)->f6c))
                     continue;
@@ -171,7 +167,7 @@ void Mgr_1f5c20::FUN_001f5c20(int arg)
                 started++;
                 continue;
             }
-            if (DAT_004e3768[(*p)->type] < DAT_004c7df8[(*p)->type] &&
+            if (DAT_004e3768[(*p)->type] < ((int*)&DAT_004c7df8)[(*p)->type] &&
                 !((float)DAT_004c7e10[(*p)->type] <= (*p)->f6c) && started < 0x18) {
                 DAT_004e3768[(*p)->type]++;
                 Resource_1f5c20 *r = (*p)->res[i];
@@ -183,7 +179,7 @@ void Mgr_1f5c20::FUN_001f5c20(int arg)
                     continue;
                 if (FUN_00249b40(r->ref))
                     continue;
-                DAT_004e3780[(*p)->type]++;
+                ((int*)((char*)&DAT_004e3768 + 24))[(*p)->type]++;
                 continue;
             }
             if (cur->ref && !FUN_00249b40(cur->ref)) {

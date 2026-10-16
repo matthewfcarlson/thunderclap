@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2989 inputs, branch coverage 6/6)
 // FUN_00111df0 @ 0x00111df0
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -51,12 +54,8 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0b00;
-extern int DAT_004e0b04;
 
-extern const char* DAT_0042773c[1];
 
-extern int DAT_00427754;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -68,12 +67,12 @@ void FUN_00111df0()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::HulkActionLargestCondition>("compare", DAT_0042773c, DAT_00427754, &hulkfight::ai::HulkActionLargestCondition::FUN_0010c180);
+            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::ai::HulkActionLargestCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::HulkActionLargestCondition::FUN_0010c180);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamString<hulkfight::ai::HulkActionLargestCondition>("text", &hulkfight::ai::HulkActionLargestCondition::FUN_0010c9b0);
-        FUN_002347b0(&DAT_004e0b00, params, 2);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0b00), params, 2);
     }
     DAT_004e0b04++;
 }

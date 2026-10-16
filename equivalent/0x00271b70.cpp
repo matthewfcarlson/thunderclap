@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 12/12)
 // FUN_00271b70 @ 0x00271b70
-extern signed char DAT_0042b6f8[];
-extern int DAT_0042b6d8[];
 // equiv-conv: FUN_002719a0 ecx edx
+#include "decls/data/engine/core.h"
+
 extern unsigned __int64 FUN_002719a0(int length, const unsigned char *text);
 int __cdecl FUN_00271b70(const unsigned char *text, int *length, int *value)
 {
     unsigned int first = *text;
-    int extra = DAT_0042b6f8[first];
+    int extra = ((signed char*)&DAT_0042b6f8)[first];
     int count = extra + 1;
     unsigned __int64 result = FUN_002719a0(count, text);
     unsigned int low = (unsigned int)result;
@@ -35,7 +35,7 @@ int __cdecl FUN_00271b70(const unsigned char *text, int *length, int *value)
         code = *p;
         break;
     }
-    code -= DAT_0042b6d8[extra];
+    code -= ((int*)&DAT_0042b6d8)[extra];
     if (length) *length = count;
     if (value) *value = code;
     return ((unsigned int)value & 0xffffff00) | 1;

@@ -1,3 +1,5 @@
+#include "decls/data/game/unknown.h"
+
 __forceinline void* __cdecl operator new(unsigned, void* p) {
     return p;
 }
@@ -5,9 +7,6 @@ extern "C" void* __cdecl FUN_0008d690(unsigned);
 extern "C" void FUN_00047e00();
 extern "C" void FUN_00047e10();
 extern "C" void FUN_00047e20();
-extern int DAT_004dc4a4;
-extern int DAT_004dc4a0;
-extern char DAT_003f6b40[];
 struct FUN_00234860 {
     FUN_00234860(const char* = "matchType");
     virtual void slot0();
@@ -59,7 +58,7 @@ void __cdecl FUN_000538b0() {
         if (mem) {
             fight::ParamEnumConstList<CSmartPropAttachedCondition>* p =
                 new (mem) fight::ParamEnumConstList<CSmartPropAttachedCondition>;
-            p->list = DAT_003f6b40;
+            p->list = ((char*)&DAT_003f6b40);
             p->count = 23;
             p->callback = FUN_00047e10;
             params[1] = p;

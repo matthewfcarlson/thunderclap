@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1980 inputs, branch coverage 54/54)
 // FUN_0019de50 @ 0x0019de50
+#include "decls/data/game/hulkfight/motion.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -135,18 +138,14 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e1588;
-extern int DAT_004e158c;
 
-extern const char* DAT_004ad788[8];
 
-extern int DAT_00412ed4;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0019de50()
 {
-    if (DAT_004e158c == 0) {
+    if ((*(int*)&DAT_004e158c) == 0) {
         void* params[26];
         void* mem;
         mem = FUN_0008d690(0x18);
@@ -196,7 +195,7 @@ void FUN_0019de50()
         mem = FUN_0008d690(0x20);
         params[11] = 0;
         if (mem)
-            params[11] = new (mem) fight::ParamEnumConstList<hulkfight::motion::FireGroundShockwaveTrack>("decalDamageType", DAT_004ad788, DAT_00412ed4, &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193960);
+            params[11] = new (mem) fight::ParamEnumConstList<hulkfight::motion::FireGroundShockwaveTrack>("decalDamageType", ((const char**)&DAT_004ad788), (*(int*)&DAT_00412ed4), &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193960);
         mem = FUN_0008d690(0x18);
         params[12] = 0;
         if (mem)
@@ -208,7 +207,7 @@ void FUN_0019de50()
         mem = FUN_0008d690(0x20);
         params[14] = 0;
         if (mem)
-            params[14] = new (mem) fight::ParamEnumConstList<hulkfight::motion::FireGroundShockwaveTrack>("coneDamageType", DAT_004ad788, DAT_00412ed4, &hulkfight::motion::FireGroundShockwaveTrack::FUN_001939c0);
+            params[14] = new (mem) fight::ParamEnumConstList<hulkfight::motion::FireGroundShockwaveTrack>("coneDamageType", ((const char**)&DAT_004ad788), (*(int*)&DAT_00412ed4), &hulkfight::motion::FireGroundShockwaveTrack::FUN_001939c0);
         mem = FUN_0008d690(0x18);
         params[15] = 0;
         if (mem)
@@ -253,7 +252,7 @@ void FUN_0019de50()
         params[25] = 0;
         if (mem)
             params[25] = new (mem) fight::ParamName<hulkfight::motion::FireGroundShockwaveTrack>("hitEffect", &hulkfight::motion::FireGroundShockwaveTrack::FUN_00193b90);
-        FUN_002347b0(&DAT_004e1588, params, 26);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1588), params, 26);
     }
-    DAT_004e158c++;
+    (*(int*)&DAT_004e158c)++;
 }

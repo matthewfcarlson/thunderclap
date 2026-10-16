@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_000e0850 @ 0x000e0850
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 struct Vec3_e0850 {
     float x, y, z;
 };
@@ -68,21 +70,19 @@ public:
     virtual void vfunc_31(int handle);
 };
 
-extern Texture *DAT_004de954;
-extern Factory_e0850 *DAT_0052c2a0;
 
 void __cdecl FUN_000e07c0(Vec3_e0850 a, Vec3_e0850 b, int color);
 
 /* Draws the outline of a quad in debug lines. */
 void __cdecl FUN_000e0850(Vec3_e0850 p0, Vec3_e0850 p1, Vec3_e0850 p2, Vec3_e0850 p3, int color, int arg)
 {
-    if (DAT_004de954 == 0) {
-        DAT_004de954 = DAT_0052c2a0->vfunc_11("simple", 0);
-        DAT_004de954->vfunc_0();
-        DAT_004de954->vfunc_6(0x444d4c42, 1);
+    if ((*(Texture**)&DAT_004de954) == 0) {
+        (*(Texture**)&DAT_004de954) = (*(Factory_e0850**)&DAT_0052c2a0)->vfunc_11("simple", 0);
+        (*(Texture**)&DAT_004de954)->vfunc_0();
+        (*(Texture**)&DAT_004de954)->vfunc_6(0x444d4c42, 1);
     }
 
-    int handle = DAT_0052c2a8->vfunc_30(DAT_004de954, arg, 0x2020, 8, 0);
+    int handle = DAT_0052c2a8->vfunc_30((*(Texture**)&DAT_004de954), arg, 0x2020, 8, 0);
     if (handle) {
         FUN_000e07c0(p0, p1, color);
         FUN_000e07c0(p1, p3, color);

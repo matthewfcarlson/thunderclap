@@ -1,9 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 124 inputs, branch coverage 49/50, incomplete)
 // FUN_002e7fb0 @ 0x002e7fb0
-extern const unsigned int DAT_004d10bc[7];  // png_pass_start
-extern const unsigned int DAT_004d10d8[7];  // png_pass_inc
-extern const unsigned int DAT_004d10f4[7];  // png_pass_ystart
-extern const unsigned int DAT_004d1110[7];  // png_pass_yinc
+  // png_pass_start
+  // png_pass_inc
+  // png_pass_ystart
+  // png_pass_yinc
+#include "decls/data/engine/physics.h"
+#include "decls/data/engine/pure3d.h"
 
 struct png_struct_2e7fb0 {
     char pad0[0x64];
@@ -49,11 +51,11 @@ void __cdecl FUN_002e7fb0(png_struct_2e7fb0 *png_ptr)
 
     if (png_ptr->interlaced) {
         if (!(png_ptr->transformations & 2))
-            png_ptr->num_rows = (png_ptr->height - DAT_004d10f4[0] + DAT_004d1110[0] - 1) / DAT_004d1110[0];
+            png_ptr->num_rows = (png_ptr->height - ((const unsigned int*)&DAT_004d10f4)[0] + ((const unsigned int*)&DAT_004d1110)[0] - 1) / ((const unsigned int*)&DAT_004d1110)[0];
         else
             png_ptr->num_rows = png_ptr->height;
-        png_ptr->iwidth = (png_ptr->width - DAT_004d10bc[png_ptr->pass] + DAT_004d10d8[png_ptr->pass] - 1)
-                          / DAT_004d10d8[png_ptr->pass];
+        png_ptr->iwidth = (png_ptr->width - ((const unsigned int*)&DAT_004d10bc)[png_ptr->pass] + ((const unsigned int*)&DAT_004d10d8)[png_ptr->pass] - 1)
+                          / ((const unsigned int*)&DAT_004d10d8)[png_ptr->pass];
         row_bytes = (png_ptr->pixel_depth * png_ptr->iwidth + 7) >> 3;
     } else {
         png_ptr->num_rows = png_ptr->height;

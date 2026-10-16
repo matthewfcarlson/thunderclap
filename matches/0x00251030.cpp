@@ -1,3 +1,5 @@
+#include "decls/data/engine/audio.h"
+
 struct SeqEventStopTrack {
     virtual void f0();
     virtual void f1();
@@ -14,11 +16,10 @@ struct H2_251030 {
     void run();
 };
 extern void __cdecl FUN_00247550(void*, SeqEventStopTrack*);
-extern char DAT_004e6bc8;
 SeqEventStopTrack* SeqEventStopTrack::f4_impl(unsigned char param_2) {
     ((H1*)((char*)this + 0x10))->run();
     ((H2_251030*)this)->run();
     if (param_2 & 1)
-        FUN_00247550(&DAT_004e6bc8, this);
+        FUN_00247550(((char*)&DAT_004e6bc8), this);
     return this;
 }

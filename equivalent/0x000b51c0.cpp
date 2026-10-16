@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_000b51c0 @ 0x000b51c0
 // FUN_000b51c0 @ 0x000b51c0
-extern const char *DAT_0049f3b8;
+#include "decls/data/game/global.h"
+
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern const char *__cdecl FUN_000f7120(int);
@@ -22,7 +23,7 @@ bool __cdecl FUN_000b51c0(int language) {
  for (; index<6; ++index) { if (index==language) break; }
  if(index==6) index=0;
  char filename[64];
- FUN_000964a0(filename,64,DAT_0049f3b8,FUN_000f7120(index));
+ FUN_000964a0(filename,64,(*(const char**)&DAT_0049f3b8),FUN_000f7120(index));
  Resource_b51c0 *resource;
  thunk_FUN_00271230(&resource,filename,0,0,1,0,1,1);
  bool result=resource->ready()!=0;

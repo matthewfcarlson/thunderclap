@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // physics::DoubleKalmann1D::vfunc_1 @ 0x00319a40
-extern float DAT_003f32dc;
+#include "decls/data/game/global.h"
+
 class Filter_319a40 {
 public:
     virtual float v0(float a, int b);
@@ -31,7 +32,7 @@ float DoubleKalmann1D::vfunc_1(float x, float dt)
     f38 = x;
     float k = fc / (f10 + fc);
     f8 = k;
-    fc = ((DAT_003f32dc - k) * fc) + f14;
+    fc = (((*(float*)&DAT_003f32dc) - k) * fc) + f14;
     f18 = (((x - f18) * *(volatile float *)&f8) + (dt * *(volatile float *)&f4)) + f18;
     return f18;
 }

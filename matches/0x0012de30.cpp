@@ -1,5 +1,5 @@
-extern int DAT_004e0e48;
-extern int DAT_004e0e44;
+#include "decls/data/game/hulkfight.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_0012d920();
 void __cdecl FUN_0012d930();

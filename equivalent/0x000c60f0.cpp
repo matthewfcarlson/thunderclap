@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_000c60f0 @ 0x000c60f0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/unknown.h"
 struct Vec3_c60f0 {
     float x, y, z;
 };
@@ -71,19 +73,17 @@ public:
     virtual void v31(Handle *h);
 };
 
-extern Factory_c60f0 *DAT_0052c2a0;
-extern Resource_c60f0 *DAT_004dde68;
 
 void FUN_000c5fa0(Handle *h, Vec3_c60f0 a, Vec3_c60f0 b, unsigned int color);
 
 void FUN_000c60f0(Vec3_c60f0 a, Vec3_c60f0 b, Vec3_c60f0 c, Vec3_c60f0 d, unsigned int color, int count)
 {
-    if (DAT_004dde68 == 0) {
-        DAT_004dde68 = DAT_0052c2a0->v11("simple", 0);
-        DAT_004dde68->v0();
-        DAT_004dde68->v6(0x444d4c42, 1);
+    if ((*(Resource_c60f0**)&DAT_004dde68) == 0) {
+        (*(Resource_c60f0**)&DAT_004dde68) = (*(Factory_c60f0**)&DAT_0052c2a0)->v11("simple", 0);
+        (*(Resource_c60f0**)&DAT_004dde68)->v0();
+        (*(Resource_c60f0**)&DAT_004dde68)->v6(0x444d4c42, 1);
     }
-    Handle *h = DAT_0052c2a8->v30(DAT_004dde68, count, 0x2020, 8, 0);
+    Handle *h = DAT_0052c2a8->v30((*(Resource_c60f0**)&DAT_004dde68), count, 0x2020, 8, 0);
     if (h) {
         FUN_000c5fa0(h, a, b, color);
         FUN_000c5fa0(h, b, d, color);

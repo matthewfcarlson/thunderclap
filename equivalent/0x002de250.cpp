@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 23/24, incomplete)
 // pure3d::ImageConverter::vfunc_1 @ 0x002de250
+#include "decls/data/engine/pure3d/prop.h"
+
 extern char DAT_004d098c[];
 extern char DAT_004d09a8[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
@@ -79,7 +81,6 @@ public:
     virtual void g1();
     virtual int GetState();
 };
-extern Game_2de250 *DAT_0052c2a0;
 
 class ImageConverter {
 public:
@@ -113,7 +114,7 @@ Texture *ImageConverter::vfunc_1(Image *img, bool flag)
         mode = 0xb;
 
     if (!tex->FUN_002c1c70(img->width, img->height, img->format, img->extra, 0, mode, 0)) {
-        if (DAT_0052c2a0->GetState() != 1) {
+        if ((*(Game_2de250**)&DAT_0052c2a0)->GetState() != 1) {
             tex->Release();
             return 0;
         }

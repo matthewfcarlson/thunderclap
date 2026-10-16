@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3188 inputs, branch coverage 149/162, incomplete)
 // FUN_001da540 @ 0x001da540
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" int __cdecl FUN_0034483c();
 extern "C" double __cdecl sqrt(double);
 
@@ -24,7 +25,6 @@ struct RefObj_1da540 {
     virtual void Release();
 };
 
-extern unsigned __int64 DAT_004e2548;
 
 struct Entity;
 struct Actor_1da540;
@@ -341,7 +341,7 @@ int Entity::FUN_001da540(Ref_1da540 *a1, V3_1da540 *a2, V3_1da540 *a3, float a4)
                         f.v.y = f.v.y * f22c;
                         f.v.z = f.v.z * f22c;
                         o->FUN_001d86d0(&f.v, a2);
-                        if (o->ready->FUN_001d4f70() == DAT_004e2548)
+                        if (o->ready->FUN_001d4f70() == (*(unsigned __int64*)&DAT_004e2548))
                             DAT_004dd700->p30->FUN_001cbd10("golf_stroke");
                     }
                 }

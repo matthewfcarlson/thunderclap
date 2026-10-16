@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_001be4b0 @ 0x001be4b0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 struct Vec3_1be4b0 { float x, y, z; };
 
 struct Owner;
@@ -152,15 +154,6 @@ struct Panel_1be4b0 {
     int f10;
 };
 
-extern Viewport_1be4b0* DAT_0052c2a4;
-extern Canvas* DAT_0052c2ac;
-extern float DAT_004c4c18;
-extern float DAT_004c4c1c;
-extern float DAT_004c4c20;
-extern float DAT_004c4c24;
-extern float DAT_004c4c28;
-extern float DAT_004c4c2c;
-extern int DAT_004e22f0;
 
 class Overlay {
   public:
@@ -207,32 +200,32 @@ void Overlay::FUN_001be4b0(int index)
     if (b54 && owner == ref)
         wide = 1;
     else
-        wide = DAT_0052c2a4->v16() > 1.5f;
+        wide = (*(Viewport_1be4b0**)&DAT_0052c2a4)->v16() > 1.5f;
     f.savedMode = DAT_0052c2a8->v25();
     DAT_0052c2a8->v24(2);
     f.saved55 = DAT_0052c2a8->v55();
     DAT_0052c2a8->v54(0);
     f.mode.c = DAT_0052c2a8->v59();
     DAT_0052c2a8->v58(0);
-    f.width = (float)DAT_0052c2a4->v7();
-    f.tmp = (float)DAT_0052c2a4->v6();
+    f.width = (float)(*(Viewport_1be4b0**)&DAT_0052c2a4)->v7();
+    f.tmp = (float)(*(Viewport_1be4b0**)&DAT_0052c2a4)->v6();
     f.b.slots[f.b.index].weight = DAT_004c4c28 * DAT_004c4c1c;
     f.b.slots[f.b.index].a = 1;
     f.b.slots[f.b.index].b = 3;
     f.b.slots[f.b.index].value = (alpha << 24) | 0xffffff;
-    f.b.scale = DAT_004c4c18;
-    DAT_0052c2ac->layer->v21(0);
+    f.b.scale = (*(float*)&DAT_004c4c18);
+    (*(Canvas**)&DAT_0052c2ac)->layer->v21(0);
     f.width = f.width * 0.5f;
     f.v.x = f.width;
     if (b55) {
-        f.v.z = DAT_004c4c2c;
+        f.v.z = (*(float*)&DAT_004c4c2c);
         f.v.y = f.tmp - DAT_004c4c24;
     } else {
-        f.v.z = DAT_004c4c2c;
+        f.v.z = (*(float*)&DAT_004c4c2c);
         f.v.y = f.tmp - DAT_004c4c20;
     }
-    DAT_0052c2ac->FUN_00293d00(&f.v);
-    DAT_0052c2ac->FUN_00293da0(1.0f, -1.0f, 1.0f);
+    (*(Canvas**)&DAT_0052c2ac)->FUN_00293d00(&f.v);
+    (*(Canvas**)&DAT_0052c2ac)->FUN_00293da0(1.0f, -1.0f, 1.0f);
     if (wide) {
         Poly* p = DAT_0052c2a8->v30(panel->f10, 1, 0x2020, 4, 0);
         float left = f.width * -0.8f;
@@ -267,10 +260,10 @@ void Overlay::FUN_001be4b0(int index)
         DAT_0052c2a8->v31(p);
     }
     if (count > 1)
-        f.b.FUN_000f81b0(items[current], DAT_004e22f0, 0);
+        f.b.FUN_000f81b0(items[current], (*(int*)&DAT_004e22f0), 0);
     else
-        f.b.FUN_000f87c0(index, DAT_004e22f0, 0);
-    DAT_0052c2ac->layer->v16(0);
+        f.b.FUN_000f87c0(index, (*(int*)&DAT_004e22f0), 0);
+    (*(Canvas**)&DAT_0052c2ac)->layer->v16(0);
     DAT_0052c2a8->v24(f.savedMode);
     DAT_0052c2a8->v54(f.saved55);
     DAT_0052c2a8->v58(f.mode.i);

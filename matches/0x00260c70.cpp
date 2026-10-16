@@ -1,6 +1,6 @@
+#include "decls/data/engine/om.h"
+
 extern "C" char DAT_0042aad0[];
-extern "C" char DAT_004e58c8[];
-extern "C" char DAT_004e58d0[];
 typedef unsigned int u32_260c70;
 extern void __stdcall Init(void*, void*, int, int);
 extern "C" void* __fastcall Target(void* p, void* edx) {

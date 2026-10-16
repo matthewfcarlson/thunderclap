@@ -1,7 +1,8 @@
+#include "decls/data/engine/fight.h"
+
 extern "C" void _ReadWriteBarrier();
 extern void* vAction[];
 extern void* vIRef[];
-extern int DAT_004e5af0;
 extern void FUN_00267090(void*);
 class Ref_232700 {
   public:

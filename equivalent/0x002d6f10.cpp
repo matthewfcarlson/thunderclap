@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 15/18, incomplete)
 // FUN_002d6f10 @ 0x002d6f10
+#include "decls/data/engine/pure3d.h"
+
 struct ZStream_2d6f10 {
     void *next_in;
     unsigned int avail_in;
@@ -22,7 +24,6 @@ struct PngStruct_2d6f10 {
     unsigned int zbufSize;
 };
 
-extern char DAT_004d1020[];
 
 // the CRT setjmp helper (_setjmp3), named by address
 int FUN_00347250(void *jmpbuf, int count);

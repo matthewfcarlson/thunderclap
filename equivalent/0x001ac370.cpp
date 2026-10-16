@@ -1,15 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 8/8)
 // FUN_001ac370 @ 0x001ac370
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/hulkfight/scenario.h"
+
 typedef unsigned int size_t;
 inline void* operator new(size_t, void* p) { return p; }
 extern void* __cdecl FUN_0008d690(unsigned int);
 extern void __cdecl FUN_001aad30();
 extern void __cdecl FUN_001aad40();
 extern void __cdecl FUN_001aad50();
-extern int DAT_00427758;
-extern int DAT_00427760;
-extern int DAT_004e17a0;
-extern int DAT_004e17a4;
 extern void __cdecl FUN_002347b0(void*, void**, int);
 struct FUN_002348e0 {
  virtual void slot0();
@@ -42,7 +41,7 @@ void target() {
  items[0]=a;
  p=FUN_0008d690(32);
  fight::ParamEnumConstList<E>* b=0;
- if(p) { int count=DAT_00427760; b=new(p) fight::ParamEnumConstList<E>; b->count=count; b->list=&DAT_00427758; b->callback=FUN_001aad40; }
+ if(p) { int count=(*(int*)&DAT_00427760); b=new(p) fight::ParamEnumConstList<E>; b->count=count; b->list=((int*)&DAT_00427758); b->callback=FUN_001aad40; }
  items[1]=b;
  p=FUN_0008d690(24);
  fight::ParamName<E>* c=0;

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 2/2)
 // FUN_000f8970 @ 0x000f8970
+#include "decls/data/game/global.h"
+
 namespace content {
 namespace LoadInventory {
 class __declspec(novtable) DynamicCasterBase {
@@ -31,7 +33,6 @@ public:
     virtual Ref_f8970 *v3(content::LoadInventory::DynamicCaster<pure3d::Font> *caster, unsigned int lo, unsigned int hi);
 };
 
-extern Loader_f8970 *DAT_004dd9c8;
 
 struct Id64_f8970 {
     unsigned int lo;
@@ -58,7 +59,7 @@ void FontSet_f8970::FUN_000f8970(const char *name)
     Id64_f8970 id = FUN_0027b020(name);
     ids[i] = id;
     content::LoadInventory::DynamicCaster<pure3d::Font> caster;
-    Ref_f8970 *r = DAT_004dd9c8->v3(&caster, id.lo, id.hi);
+    Ref_f8970 *r = (*(Loader_f8970**)&DAT_004dd9c8)->v3(&caster, id.lo, id.hi);
     fonts[i] = r;
     r->AddRef();
     count = count + 1;

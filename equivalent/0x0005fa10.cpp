@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 100 inputs, branch coverage 18/18)
 // FUN_0005fa10 @ 0x0005fa10
+#include "decls/data/game/global.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -97,8 +99,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc5d8;
-extern int DAT_004dc5dc;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0005fa10()
@@ -138,7 +138,7 @@ void FUN_0005fa10()
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamBranch<COpportunityBallTrack>("giver", &COpportunityBallTrack::FUN_00013060);
-        FUN_002347b0(&DAT_004dc5d8, params, 8);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc5d8), params, 8);
     }
     DAT_004dc5dc++;
 }

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_001291d0 @ 0x001291d0
+#include "decls/data/game/hulkfight/ai.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -33,8 +35,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0df4;
-extern int DAT_004e0df8;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -51,7 +51,7 @@ void FUN_001291d0()
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamBool<hulkfight::ai::CanSeeTargetCondition>("ignoreFriendInTheWay", &hulkfight::ai::CanSeeTargetCondition::FUN_00123950);
-        FUN_002347b0(&DAT_004e0df4, params, 2);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0df4), params, 2);
     }
     DAT_004e0df8++;
 }

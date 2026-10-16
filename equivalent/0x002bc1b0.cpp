@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 20/20)
 // pure3d::BillboardQuadGroup::vfunc_6 @ 0x002bc1b0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 struct Matrix {
     float m[16];
 };
@@ -140,8 +142,6 @@ struct Camera {
     Matrix *FUN_0028faa0();
 };
 
-extern Display_2bc1b0 *DAT_0052c2ac;
-extern Camera *DAT_0052c2b4;
 
 struct Quad_2bc1b0 {
     void FUN_002bbb40(Lock *lock, Matrix *view, Matrix *proj, Matrix *world, float scale, int arg);
@@ -213,18 +213,18 @@ void pure3d::BillboardQuadGroup::vfunc_6()
     if (disabled == 0 && fr.mode != 1)
         DAT_0052c2a8->v60(1);
 
-    fr.m1 = *DAT_0052c2b4->FUN_0028faa0();
-    fr.m2 = *DAT_0052c2b4->node->source->v14();
-    fr.m3 = *DAT_0052c2b4->node->source->v13();
+    fr.m1 = *(*(Camera**)&DAT_0052c2b4)->FUN_0028faa0();
+    fr.m2 = *(*(Camera**)&DAT_0052c2b4)->node->source->v14();
+    fr.m3 = *(*(Camera**)&DAT_0052c2b4)->node->source->v13();
     fr.scale = vfunc_11(&fr.m1, &fr.m2) * fr.scale;
-    DAT_0052c2ac->renderer->v21(0);
+    (*(Display_2bc1b0**)&DAT_0052c2ac)->renderer->v21(0);
 
     Handle_2bc1b0 *h = (Handle_2bc1b0 *)owner->target;
     Lock *lock = DAT_0052c2a8->v30(h, 0, 0x2021, (int)(end - begin) * 6, 0);
     for (unsigned int i = 0; i < (unsigned int)(end - begin); i++)
         begin[i]->FUN_002bbb40(lock, &fr.m1, &fr.m2, &fr.m3, fr.scale, arg80);
     DAT_0052c2a8->v31(lock);
-    DAT_0052c2ac->renderer->v16(0);
+    (*(Display_2bc1b0**)&DAT_0052c2ac)->renderer->v16(0);
     if (disabled == 0 && fr.mode != 1)
         DAT_0052c2a8->v60(fr.mode);
     if (fr.prev.flag != keep)

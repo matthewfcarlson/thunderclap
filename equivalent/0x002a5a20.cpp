@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 104 inputs, branch coverage 44/54, incomplete)
 // FUN_002a5a20 @ 0x002a5a20
+#include "decls/data/engine/pure3d.h"
+
 extern "C" double __cdecl sin(double);
 
 struct Vec3_2a5a20 {
@@ -34,7 +36,6 @@ struct WaveParams {
     float uvAmp;
 };
 
-extern unsigned int DAT_0042d9c0[4];
 
 union FloatBits_2a5a20 {
     float f;
@@ -118,7 +119,7 @@ void FUN_002a5a20(float time, Mesh_2a5a20 *a, Mesh_2a5a20 *b, unsigned int flags
             ((unsigned int *)dstColor)[i] = (unsigned int)((((r3 << 8 | r2) << 8 | r1) << 8) | r0);
         }
         for (c = 0; c < 4; c++) {
-            if ((DAT_0042d9c0[c] & flags) && src[c] != 0 && dst[c] != 0) {
+            if ((((unsigned int*)&DAT_0042d9c0)[c] & flags) && src[c] != 0 && dst[c] != 0) {
                 float du = src[c][i].u - p->cx;
                 float dv = src[c][i].v - p->cy;
                 float dot2 = du * p->dirx + (dv * p->diry + p->dirz * 0.0f);

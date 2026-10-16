@@ -1,3 +1,5 @@
+#include "decls/data/game/unknown.h"
+
 extern "C" char DAT_0040c02c[];
 typedef unsigned int u32_e1970;
 class FEDoSound {
@@ -13,13 +15,12 @@ class FEDoSound {
     FEDoSound* Init(u32_e1970, const char*);
 };
 extern void __cdecl FUN_000dfcc0(char*, int, const char*, const char*);
-extern const char DAT_003f3f38;
 FEDoSound* FEDoSound::Init(u32_e1970 param_2, const char* param_3) {
     a = -1;
     b = -1;
     c = param_2;
     flag = 0;
     vtable = ((int)DAT_0040c02c);
-    FUN_000dfcc0(name, 0x20, &DAT_003f3f38, param_3);
+    FUN_000dfcc0(name, 0x20, ((const char*)&DAT_003f3f38), param_3);
     return this;
 }

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 145 inputs, branch coverage 76/84, incomplete)
 // pure3d::LightAnimationController::vfunc_28 @ 0x002a8bb0
+#include "decls/data/game/global.h"
+
 struct V3_2a8bb0 {
     float x, y, z;
 };
@@ -64,7 +66,6 @@ struct SinkHolder_2a8bb0 {
     char pad0[8];
     Sink_2a8bb0 *f8;
 };
-extern SinkHolder_2a8bb0 *DAT_0052c2b4;
 
 union Slot_2a8bb0 {
     volatile float f;
@@ -311,7 +312,7 @@ void LightAnimationController::v28()
         c3 = 0;
     else if (c3 > 0xff)
         c3 = 0xff;
-    Sink_2a8bb0 *sink = DAT_0052c2b4->f8;
+    Sink_2a8bb0 *sink = (*(SinkHolder_2a8bb0**)&DAT_0052c2b4)->f8;
     if (sink != 0) {
         color = (((c3 << 8 | c0) << 8 | c1) << 8) | c2;
         sink->FUN_00293e90(color);

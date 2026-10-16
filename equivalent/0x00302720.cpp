@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00302720 @ 0x00302720
 // 0x00302720: update the blend factor of obj from the ratio of v to the summed weights of its two links
-extern float DAT_004d2960;
-extern float DAT_004d2f14;
+#include "decls/data/engine/physics.h"
+#include "decls/data/engine/unknown.h"
 
 struct Weight {
     char pad[0x80];

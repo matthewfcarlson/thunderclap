@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 10/10)
 // FUN_00112d30 @ 0x00112d30
+#include "decls/data/game/hulkfight/ai.h"
+
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_0010c600(); void __cdecl FUN_0010c610(); void __cdecl FUN_0010c620(); void __cdecl FUN_0010c630();
@@ -9,7 +11,6 @@ template<class T> struct ParamFloatConstRange { virtual void slot0(); char data[
 template<class T> struct ParamBool { virtual void slot0(); char data[12]; void (__cdecl *callback)(); char tail[4]; void FUN_00234860(const char*); };
 template<class T> struct ParamName { virtual void slot0(); char data[12]; void (__cdecl *callback)(); char tail[4]; void FUN_00234a90(const char*); };
 }
-extern unsigned int DAT_004e0b94, DAT_004e0b90;
 void __cdecl FUN_002347b0(void*, void**, int);
 void target() {
  if (DAT_004e0b94 == 0) {
@@ -25,7 +26,7 @@ void target() {
  if(b) { b->FUN_00234860("onlySetAtEnd"); new(b) BoolParam; b->callback=FUN_0010c620; } items[2]=b;
  NameParam* c=(NameParam*)FUN_0008d690(24);
  if(c) { c->FUN_00234a90("text"); new(c) NameParam; c->callback=FUN_0010c630; } items[3]=c;
- FUN_002347b0(&DAT_004e0b90,items,4);
+ FUN_002347b0(((unsigned int*)&DAT_004e0b90),items,4);
  }
  ++DAT_004e0b94;
 }

@@ -1,6 +1,7 @@
+#include "decls/data/engine/core.h"
+
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b99c[];
-extern "C" char DAT_0052a1c8[];
 class Inner_2750a0 {
   public:
     virtual void a();
@@ -37,9 +38,9 @@ core::SaveGameOpenRequest* core::SaveGameOpenRequest::vfunc_0(int flags) {
     ((Root_2750a0*)inner)->b();
     *(void**)this = (void*)((int)DAT_0042b914);
     if (flags & 1) {
-        FUN_0026d850((void*)((int)DAT_0052a1c8));
+        FUN_0026d850((void*)((int)((char*)&DAT_0052a1c8)));
         g_mgr_2750a0->add(this);
-        FUN_0026d840((void*)((int)DAT_0052a1c8));
+        FUN_0026d840((void*)((int)((char*)&DAT_0052a1c8)));
     }
     return this;
 }

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 22/22)
 // FUN_000ae130 @ 0x000ae130
+#include "decls/data/game/global.h"
+
 struct Block_ae130 {
     float v[17];
 };
@@ -13,7 +15,6 @@ struct Item_ae130 {
 void __cdecl FUN_000addd0(Block_ae130 *dst, Block_ae130 *src);
 void __cdecl FUN_000adf20(Block_ae130 *dst, Block_ae130 *src);
 
-extern char DAT_004e222c;
 
 class Accumulator_ae130 {
 public:

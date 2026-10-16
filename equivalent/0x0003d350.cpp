@@ -1,9 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3113 inputs, branch coverage 88/90, incomplete)
 // FUN_0003d350 @ 0x0003d350
-extern int DAT_004d2a3c;
-extern char DAT_004d2a40;
-extern char DAT_00554c1c;
-extern int DAT_00554c18;
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
 
 struct V3_3d350 {
     float x, y, z;
@@ -276,8 +274,8 @@ void Fighter_3d350::Update(Arg1_3d350 *a1, float a2)
 
     Ex *ob = FUN_00202f00();
     DAT_004d2a3c = 2;
-    DAT_004d2a40 = 0;
-    DAT_00554c1c = 1;
+    (*(char*)&DAT_004d2a40) = 0;
+    (*(char*)&DAT_00554c1c) = 1;
     DAT_00554c18 = 0;
     Ee *world = a1->f10->f8;
     f12c->f74->b72 = 0;

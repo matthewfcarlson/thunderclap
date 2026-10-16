@@ -1,4 +1,5 @@
-extern "C" char DAT_004d3a6c[];
+#include "decls/data/platform/xbox/pure3d.h"
+
 class pddiBaseContext {
   public:
     virtual void v0();
@@ -71,7 +72,7 @@ extern unsigned int globalState_321ac0;
 void __fastcall D3DDevice_SetRenderState_Simple(unsigned int, unsigned int);
 void d3dContext::vfunc_60(int x) {
     pddiBaseContext::v60(x);
-    unsigned int v = *(unsigned int*)(((int)DAT_004d3a6c) + x * 4);
+    unsigned int v = *(unsigned int*)(((int)((char*)&DAT_004d3a6c)) + x * 4);
     D3DDevice_SetRenderState_Simple(0x40354, v);
     globalState_321ac0 = v;
 }

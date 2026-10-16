@@ -1,15 +1,16 @@
 // STATUS: equivalent (tools/equiv.py level 3: 54 inputs, branch coverage 31/32, incomplete)
 // FUN_0026c840 @ 0x0026c840
+#include "decls/data/engine/core.h"
+
 typedef unsigned int uint_26c840;
 struct AllocState { unsigned char flags; char pad[0x453]; uint_26c840 saved; };
 struct Chunk { uint_26c840 previousSize; uint_26c840 size; };
-extern AllocState *DAT_0052839c;
 void __cdecl FUN_0026b970(AllocState *);
 void * __cdecl FUN_0026c040(uint_26c840);
 // equiv-conv: FUN_0026c840 eax stack stack stack
 void ** __cdecl FUN_0026c840(void **result, uint_26c840 count, const uint_26c840 *sizes, uint_26c840 flags)
 {
-    AllocState *state = DAT_0052839c;
+    AllocState *state = (*(AllocState**)&DAT_0052839c);
     if (!(state->flags & 1)) FUN_0026b970(state);
     if (!count) {
         if (result) return result;
@@ -34,7 +35,7 @@ void ** __cdecl FUN_0026c840(void **result, uint_26c840 count, const uint_26c840
     uint_26c840 saved = state->saved;
     state->saved = 0;
     char *memory = (char *)FUN_0026c040(arraySize + total - 7);
-    DAT_0052839c->saved = saved;
+    (*(AllocState**)&DAT_0052839c)->saved = saved;
     if (!memory) return 0;
     Chunk *block = (Chunk *)memory - 1;
     uint_26c840 remaining = block->size & ~3u;

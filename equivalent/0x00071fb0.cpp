@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 18/18)
 // FUN_00071fb0 @ 0x00071fb0
+#include "decls/data/game/global.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -65,8 +67,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dcfc0;
-extern int DAT_004dcfc4;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_00071fb0()
@@ -106,7 +106,7 @@ void FUN_00071fb0()
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamFloatConstRange<COrientTrack>("blendOutTime", &COrientTrack::FUN_000688e0);
-        FUN_002347b0(&DAT_004dcfc0, params, 8);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dcfc0), params, 8);
     }
     DAT_004dcfc4++;
 }

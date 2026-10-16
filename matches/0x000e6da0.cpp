@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 struct ResetObject {
     void FUN_000363d0();
 };
@@ -10,7 +12,6 @@ struct Context {
     ContextChild* child;
 };
 extern Context* DAT_004dd700;
-extern unsigned char DAT_004e222c, DAT_004e2518;
 struct Panel_e6da0 {
     virtual void v0();
     virtual void v1();
@@ -109,9 +110,9 @@ void FEThingsBase::vfunc_21() {
         panel->FUN_000e5440(mode);
     }
     Context* context = DAT_004dd700;
-    DAT_004e222c = 1;
-    if (context->child && context->child->reset && DAT_004e2518) {
-        DAT_004e2518 = 0;
+    (*(unsigned char*)&DAT_004e222c) = 1;
+    if (context->child && context->child->reset && (*(unsigned char*)&DAT_004e2518)) {
+        (*(unsigned char*)&DAT_004e2518) = 0;
         context->child->reset->FUN_000363d0();
     }
 }

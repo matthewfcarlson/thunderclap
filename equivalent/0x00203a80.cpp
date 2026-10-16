@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 9/9)
 // FUN_00203a80 @ 0x00203a80
+#include "decls/data/game/global.h"
+
 extern "C" char *strncpy(char *, const char *, unsigned int);
 extern "C" long atol(const char *);
 extern "C" int sprintf(char *, const char *, ...);
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern char DAT_004e5a68[0x100];
 
 struct Source_203a80 {
     char *FUN_002666f0();
@@ -49,9 +50,9 @@ char *Holder_203a80::FUN_00203a80()
         end -= 4;
         *end = 0;
         if (shortForm)
-            sprintf(DAT_004e5a68, "%s_district_%d", name, atol(end - 1));
+            sprintf(((char*)&DAT_004e5a68), "%s_district_%d", name, atol(end - 1));
         else
-            sprintf(DAT_004e5a68, "%s_r%03d", name, atol(end - 3));
+            sprintf(((char*)&DAT_004e5a68), "%s_r%03d", name, atol(end - 3));
     } else {
         char *p = fr.buf;
         while (*p)
@@ -59,14 +60,14 @@ char *Holder_203a80::FUN_00203a80()
         p--;
         while (*p != 'C')
             p--;
-        char *q = DAT_004e5a68;
+        char *q = ((char*)&DAT_004e5a68);
         while ((*q++ = *p++) != 0)
             ;
-        char *dot = DAT_004e5a68;
+        char *dot = ((char*)&DAT_004e5a68);
         while (*dot != '.')
             dot++;
         *dot = 0;
     }
     __security_check_cookie(fr.cookie);
-    return DAT_004e5a68;
+    return ((char*)&DAT_004e5a68);
 }

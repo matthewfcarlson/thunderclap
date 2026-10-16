@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 114 inputs, branch coverage 22/22)
 // FUN_001e47e0 @ 0x001e47e0
+#include "decls/data/game/global.h"
+
 extern "C" void __fastcall __security_check_cookie(unsigned);
 
 struct Id_1e47e0 {
@@ -69,7 +71,6 @@ struct Owner_1e47e0 {
 struct Slot40 { char pad[0x22]; short idx; char pad2[4]; };
 struct Slot14_1e47e0 { unsigned char flags; char pad[0x13]; };
 
-extern int DAT_004e2744;
 extern unsigned int DAT_004d9968;
 
 int __cdecl FUN_000964a0(char *buf, int size, const char *fmt, ...);

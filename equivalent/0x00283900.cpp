@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 24/24)
 // FUN_00283900 @ 0x00283900
+#include "decls/data/engine/pure3d/prop.h"
+
 struct Resource_283900 {
  virtual void acquire();
  virtual void release();
@@ -19,10 +21,9 @@ struct Manager_283900 {
  Resource_283900* fourth;
  Manager_283900* FUN_00283900(unsigned ownerValue, unsigned context);
 };
-extern Manager_283900* DAT_0052c29c;
 Manager_283900* Manager_283900::FUN_00283900(unsigned ownerValue, unsigned context) {
  state=0; owner=ownerValue; enabled=1; first=0; second=0; third=0; fourth=0;
- DAT_0052c29c=this;
+ (*(Manager_283900**)&DAT_0052c29c)=this;
  Resource_283900* storage=(Resource_283900*)FUN_00263ea0(0x2598);
  Resource_283900* value=storage ? storage->FUN_00280120() : 0;
  if(value) value->acquire();

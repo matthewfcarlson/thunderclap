@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_002d50c0 @ 0x002d50c0
+#include "decls/data/game/global.h"
+
 struct Matrix {
     float m[16];
     void FUN_0022ca90(const void *a, const void *b);
@@ -31,7 +33,6 @@ struct Sink94 {
     void FUN_0028ac90(Ctx *ctx, void *out);
 };
 
-extern MatrixHolder **DAT_0052c2b0;
 
 float __cdecl FUN_0028b150(const Curve *a, const Curve *b, int t, Ctx *ctx);
 unsigned int *__cdecl FUN_0028b2f0(unsigned int *out, const Curve *a, const Curve *b, int t, Ctx *ctx);
@@ -68,7 +69,7 @@ void Blend_2d50c0::FUN_002d50c0(Ctx *ctx, const Key_2d50c0 *a, const Key_2d50c0 
 
     mat.FUN_0022ca90(xform, f48);
     Matrix tmp;
-    tmp.FUN_0022ca90(&mat, (*DAT_0052c2b0)->FUN_0028faa0());
+    tmp.FUN_0022ca90(&mat, (*(*(MatrixHolder***)&DAT_0052c2b0))->FUN_0028faa0());
     mat = tmp;
 
     fac = FUN_0028b150(a->c[2], b->c[2], t, ctx);

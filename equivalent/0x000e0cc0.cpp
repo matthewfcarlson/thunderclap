@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_000e0cc0 @ 0x000e0cc0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 struct Vertices {
     void FUN_0008ef00();
     char pad0[8];
@@ -66,15 +68,13 @@ struct Gfx {
     virtual void vfn31(Vertices *v);
 };
 
-extern Factory_e0cc0 *DAT_0052c2a0;
-extern Surface_e0cc0 *DAT_004de954;
 
 void FUN_000e0cc0(float w, float h, int unused, unsigned int color, int a4)
 {
-    if (DAT_004de954 == 0) {
-        DAT_004de954 = DAT_0052c2a0->vfn11("simple", 0);
-        DAT_004de954->vfn0();
-        DAT_004de954->vfn6(0x444d4c42, 1);
+    if ((*(Surface_e0cc0**)&DAT_004de954) == 0) {
+        (*(Surface_e0cc0**)&DAT_004de954) = (*(Factory_e0cc0**)&DAT_0052c2a0)->vfn11("simple", 0);
+        (*(Surface_e0cc0**)&DAT_004de954)->vfn0();
+        (*(Surface_e0cc0**)&DAT_004de954)->vfn6(0x444d4c42, 1);
     }
     float x0 = w * -0.5f;
     float y1 = h * 0.5f;
@@ -88,7 +88,7 @@ void FUN_000e0cc0(float w, float h, int unused, unsigned int color, int a4)
     xs[3] = x0; ys[3] = y0;
     xs[4] = x1; ys[4] = y1;
     xs[5] = x1; ys[5] = y0;
-    Vertices *v = DAT_0052c2a8->vfn30(DAT_004de954, a4, 0x2020, 6, 0);
+    Vertices *v = DAT_0052c2a8->vfn30((*(Surface_e0cc0**)&DAT_004de954), a4, 0x2020, 6, 0);
     if (v) {
         for (int i = 0; i < 6; i++) {
             float *p = v->pos;

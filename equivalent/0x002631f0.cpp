@@ -3,6 +3,7 @@
 // equiv-map: ??0Text@@QAE@PBDH@Z = 0x0023fc40
 // equiv-map: ??1Text@@QAE@XZ = 0x00240060
 // equiv-map: ??0HalRsdFileStream@audio@@QAE@ABUText@@0HHHPAHH@Z = 0x00263160
+#include "decls/data/engine/audio.h"
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
@@ -22,11 +23,10 @@ public:
 }
 
 void *FUN_00247530(void *pool) throw();
-extern char DAT_004e7b98;
 
 audio::HalRsdFileStream *__cdecl FUN_002631f0(const char *name, const char *path, int a3, int a4, int a5, int *a6, int a7)
 {
-    void *mem = FUN_00247530(&DAT_004e7b98);
+    void *mem = FUN_00247530(((char*)&DAT_004e7b98));
     if (mem == 0)
         return 0;
     return new (mem) audio::HalRsdFileStream(Text(name, 2), Text(path, 2), a3, a4, a5, a6, a7);

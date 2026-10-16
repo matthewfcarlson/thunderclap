@@ -2,6 +2,7 @@
 // pure3d::ParticleSystemLoader::vfunc_5 @ 0x002ab030
 // pure3d::ParticleSystemLoader::vfunc_5 @ 0x002ab030
 #include "decls/address.h"
+#include "decls/data/engine/content.h"
 typedef unsigned __int64 Key_2ab030;
 extern char DAT_0049c7dc[];
 extern char DAT_004ce770[];
@@ -62,7 +63,6 @@ public:
 struct Manager_2ab030 {
     void *FUN_00265310(unsigned id);
 };
-extern Manager_2ab030 *DAT_00527c58;
 
 class Emitter_2ab030 {
 public:
@@ -223,7 +223,7 @@ unsigned Loader_2ab030::FUN_002ab030(Particle_2ab030 **out, Key_2ab030 *outId, R
             p->f38 = f.f2c;
             break;
         case 0x121201: {
-            Factory_2ab030 *factory = (Factory_2ab030 *)FUN_00344e74(DAT_00527c58->FUN_00265310(0x121201), 0, DAT_0049c7dc, DAT_004ce770, 0);
+            Factory_2ab030 *factory = (Factory_2ab030 *)FUN_00344e74((*(Manager_2ab030**)&DAT_00527c58)->FUN_00265310(0x121201), 0, DAT_0049c7dc, DAT_004ce770, 0);
             factory->retain();
             f.f20 = 0;
             factory->create(&f.f20, &f.aux, reader, arg);

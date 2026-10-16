@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_00240a10 @ 0x00240a10
+#include "decls/data/engine/audio.h"
+#include "decls/data/engine/content.h"
+
 class Singleton_240a10 {
 public:
     virtual void v0();
@@ -19,10 +22,6 @@ struct Resource_240a10 {
     void FUN_00240060();
 };
 
-extern unsigned char DAT_004e5ca4;
-extern Resource_240a10 *DAT_004e5ca0;
-extern char DAT_004e5cac;
-extern Pool_240a10 *DAT_00527c58;
 
 void __cdecl FUN_00242c10(char *guard);
 Handle_240a10 *__cdecl FUN_00245330();
@@ -57,12 +56,12 @@ Singleton_240a10 *__cdecl FUN_0024e540();
 
 void FUN_00240a10()
 {
-    FUN_00242c10(&DAT_004e5cac);
-    if (DAT_004e5ca4 & 1) {
-        DAT_00527c58->FUN_002659a0(FUN_00245330()->id);
-        DAT_00527c58->FUN_002659a0(FUN_00256660()->id);
-        DAT_00527c58->FUN_002659a0(FUN_00241660()->id);
-        DAT_00527c58->FUN_002659a0(FUN_0024d5a0()->id);
+    FUN_00242c10(((char*)&DAT_004e5cac));
+    if ((*(unsigned char*)&DAT_004e5ca4) & 1) {
+        (*(Pool_240a10**)&DAT_00527c58)->FUN_002659a0(FUN_00245330()->id);
+        (*(Pool_240a10**)&DAT_00527c58)->FUN_002659a0(FUN_00256660()->id);
+        (*(Pool_240a10**)&DAT_00527c58)->FUN_002659a0(FUN_00241660()->id);
+        (*(Pool_240a10**)&DAT_00527c58)->FUN_002659a0(FUN_0024d5a0()->id);
     }
     FUN_0024d630();
     FUN_00255d20()->v1();
@@ -87,10 +86,10 @@ void FUN_00240a10()
     FUN_0024f810()->v1();
     FUN_0024ea00()->v1();
     FUN_0024e540()->v1();
-    Resource_240a10 *res = DAT_004e5ca0;
+    Resource_240a10 *res = (*(Resource_240a10**)&DAT_004e5ca0);
     if (res) {
         res->FUN_00240060();
         FUN_0008d330(res);
     }
-    DAT_004e5ca0 = 0;
+    (*(Resource_240a10**)&DAT_004e5ca0) = 0;
 }

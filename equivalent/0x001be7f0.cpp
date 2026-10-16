@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_001be7f0 @ 0x001be7f0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 struct Vec3_1be7f0 { float x, y, z; };
 
 struct Owner;
@@ -132,14 +134,6 @@ struct Canvas {
     void FUN_00293da0(float x, float y, float z);
 };
 
-extern Viewport_1be7f0* DAT_0052c2a4;
-extern Canvas* DAT_0052c2ac;
-extern float DAT_004c4c18;
-extern float DAT_004c4c1c;
-extern float DAT_004c4c20;
-extern float DAT_004c4c34;
-extern float DAT_004c4c38;
-extern int DAT_004e22f0;
 
 class Overlay {
   public:
@@ -180,20 +174,20 @@ void Overlay::FUN_001be7f0(int index)
     f.b.slots[f.b.index].a = 1;
     f.b.slots[f.b.index].b = 3;
     f.b.slots[f.b.index].value = (alpha << 24) | 0xffffff;
-    f.b.scale = DAT_004c4c18;
-    f.width = (float)DAT_0052c2a4->v7();
-    f.tmp = (float)DAT_0052c2a4->v6();
-    DAT_0052c2ac->layer->v21(0);
+    f.b.scale = (*(float*)&DAT_004c4c18);
+    f.width = (float)(*(Viewport_1be7f0**)&DAT_0052c2a4)->v7();
+    f.tmp = (float)(*(Viewport_1be7f0**)&DAT_0052c2a4)->v6();
+    (*(Canvas**)&DAT_0052c2ac)->layer->v21(0);
     f.v.x = f.width * 0.5f;
-    f.v.z = DAT_004c4c38;
+    f.v.z = (*(float*)&DAT_004c4c38);
     f.v.y = f.tmp - DAT_004c4c20;
-    DAT_0052c2ac->FUN_00293d00(&f.v);
-    DAT_0052c2ac->FUN_00293da0(1.0f, -1.0f, 1.0f);
+    (*(Canvas**)&DAT_0052c2ac)->FUN_00293d00(&f.v);
+    (*(Canvas**)&DAT_0052c2ac)->FUN_00293da0(1.0f, -1.0f, 1.0f);
     if (count > 1)
-        f.b.FUN_000f81b0(items[current], DAT_004e22f0, 0);
+        f.b.FUN_000f81b0(items[current], (*(int*)&DAT_004e22f0), 0);
     else
-        f.b.FUN_000f87c0(index, DAT_004e22f0, 0);
-    DAT_0052c2ac->layer->v16(0);
+        f.b.FUN_000f87c0(index, (*(int*)&DAT_004e22f0), 0);
+    (*(Canvas**)&DAT_0052c2ac)->layer->v16(0);
     DAT_0052c2a8->v24(savedMode);
     DAT_0052c2a8->v54(saved55);
     DAT_0052c2a8->v58(f.mode.i);

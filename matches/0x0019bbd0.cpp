@@ -1,4 +1,5 @@
-extern "C" char DAT_004e2210[];
+#include "decls/data/game/global.h"
+
 class CProjectile {
     char pad[0x20];
 };

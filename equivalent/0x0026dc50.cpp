@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0026dc50 @ 0x0026dc50
+#include "decls/data/platform/xbox/core.h"
+
 struct Worker_26dc50 {
     char pad00[8];
     int value08;
@@ -20,7 +22,6 @@ struct Worker_26dc50 {
     int threadId44;
     void *thread48;
 };
-extern int DAT_004cd9d0[];
 void __cdecl FUN_0026d8f0(Worker_26dc50 *);
 unsigned long __stdcall FUN_0026db70(void *);
 namespace XAPILIB {

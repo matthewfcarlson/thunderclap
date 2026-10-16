@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 57/58, incomplete)
 // FUN_000de1f0 @ 0x000de1f0
+#include "decls/data/game/global.h"
+
 extern "C" int strcmp(const char *a, const char *b);
 extern "C" char *strcpy(char *dst, const char *src);
 
-extern char DAT_004de768[];
-extern char DAT_004de7a8[];
 
 class Item_de1f0 {
 public:

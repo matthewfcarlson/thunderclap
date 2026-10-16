@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 194 inputs, branch coverage 14/14)
 // audio::OmHalStream::vfunc_6 @ 0x0025c190
+#include "decls/data/engine/audio.h"
+
 struct Pool;
-extern Pool DAT_004e7850;
-extern unsigned int DAT_004e7888;
 extern void* __cdecl FUN_00247530(Pool*);
 extern void __cdecl FUN_00247550(Pool*, void*);
 struct Device_25c190 { void FUN_00246f00(void*, unsigned int, int, int); };
@@ -16,10 +16,10 @@ Device_25c190* device; unsigned int size; char pad[0x1b4-0xc]; unsigned int coun
 void OmHalStream::vfunc_6(void* dest, unsigned int mode, unsigned int requested) {
 count = requested > size ? size : requested;
 if (mode == 1) { device->FUN_00246f00(dest,count,0,1); return; }
-void* buffer = FUN_00247530(&DAT_004e7850);
+void* buffer = FUN_00247530(((Pool*)((char*)&DAT_004e7808 + 72)));
 unsigned int remaining=count;
 while (remaining) {
-unsigned int chunk = remaining > DAT_004e7888 ? DAT_004e7888 : remaining;
+unsigned int chunk = remaining > (*(unsigned int*)&DAT_004e7888) ? (*(unsigned int*)&DAT_004e7888) : remaining;
 device->FUN_00246f00(buffer,chunk,0,1);
 Job_25c190* job = FUN_002703c0(dest,mode,buffer,1,chunk);
 job->start();
@@ -28,6 +28,6 @@ job->release();
 dest = (char*)dest + chunk;
 remaining -= chunk;
 }
-FUN_00247550(&DAT_004e7850,buffer);
+FUN_00247550(((Pool*)((char*)&DAT_004e7808 + 72)),buffer);
 }
 }

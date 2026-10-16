@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 46 inputs, branch coverage 16/16)
 // pure3d::TranslucentTraversal::vfunc_4 @ 0x002a1b60
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/Render/Canvas.h"
 class Device_2a1b60 {
 public:
     virtual void v0();
@@ -160,8 +162,6 @@ struct Helper_2a1b60 {
     void FUN_002a06d0(int link);
 };
 
-extern Device_2a1b60** DAT_0052c2ac;
-extern int DAT_004e2314;
 
 class TranslucentTraversal {
 public:
@@ -176,11 +176,11 @@ public:
 
 void TranslucentTraversal::run()
 {
-    (*DAT_0052c2ac)->v15(0);
+    (*(*(Device_2a1b60***)&DAT_0052c2ac))->v15(0);
     for (unsigned int i = 0; i < count; i++) {
         ObjHandle* handle = items[i]->handle;
         Sub_2a1b60* sub = items[i]->sub;
-        (*DAT_0052c2ac)->v14(0, items[i]->n);
+        (*(*(Device_2a1b60***)&DAT_0052c2ac))->v14(0, items[i]->n);
         if (handle->obj->v9() == 1 && helper != 0 && sub->link != 0)
             helper->FUN_002a06d0(sub->link);
         if (items[i]->tag == DAT_004e2314) {
@@ -199,5 +199,5 @@ void TranslucentTraversal::run()
         if (items[i]->tag == DAT_004e2314)
             DAT_0052c2a8->v88(8);
     }
-    (*DAT_0052c2ac)->v16(0);
+    (*(*(Device_2a1b60***)&DAT_0052c2ac))->v16(0);
 }

@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 8/8)
 // FUN_00156030 @ 0x00156030
+#include "decls/data/game/hulkfight/motion.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_0014cce0();
 void __cdecl FUN_0014ccf0();
 void __cdecl FUN_0014cd10();
-extern int DAT_004e1104;
-extern int DAT_004e1100;
 void __cdecl FUN_002347b0(void*, void*, int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 namespace hulkfight { namespace motion { class InterruptPriorityTrack; } }

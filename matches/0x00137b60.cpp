@@ -1,8 +1,8 @@
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) {
     return p;
 }
-extern int DAT_004e0ecc;
-extern int DAT_004e0ec8;
 extern void* __cdecl FUN_0008d690(unsigned int);
 extern void __cdecl FUN_001330b0();
 extern void __cdecl FUN_001330c0();

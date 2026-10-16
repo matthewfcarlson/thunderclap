@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2686 inputs, branch coverage 74/75, incomplete)
 // FUN_000835a0 @ 0x000835a0
 // equiv-conv: FUN_00082d30 esi
+#include "decls/data/game/hulkfight.h"
+
 namespace content {
 namespace LoadInventory {
 class __declspec(novtable) DynamicCasterBase {
@@ -134,9 +136,6 @@ struct Entry_835a0 {
     char b08;
     char pad09[7];
 };
-extern Entry_835a0 DAT_004dd270[];
-extern int DAT_003ff8bc[];
-extern int DAT_003ff8e0[];
 
 class Ctl_835a0 {
 public:
@@ -228,7 +227,7 @@ void Action::FUN_000835a0(float dt)
 noreset:
     if (state != prevState) {
         prevState = state;
-        int tsz = DAT_003ff8bc[state] - 1;
+        int tsz = ((int*)&DAT_003ff8bc)[state] - 1;
         Rng_835a0 *rng = FUN_000964d0();
         unsigned int lo = rng->s0;
         rng->s0 = (lo & 0xffff) * 0x9069 + (lo >> 16);
@@ -236,9 +235,9 @@ noreset:
         unsigned int v1 = (hi >> 16) + (hi & 0xffff) * 0x4650;
         rng->s1 = v1;
         unsigned int pick = ((v1 & 0xffff) + (rng->s0 << 16)) % (unsigned int)(tsz + 1);
-        int idx = pick + DAT_003ff8e0[state];
+        int idx = pick + ((int*)&DAT_003ff8e0)[state];
         Factory_835a0 *factory = DAT_004dd700->holder->FUN_000862a0()->FUN_00203d70();
-        Entry_835a0 *e = &DAT_004dd270[idx];
+        Entry_835a0 *e = &((Entry_835a0*)&DAT_004dd270)[idx];
         content::LoadInventory::DynamicCaster<pure3d::Animation> *caster = new (&f.F) content::LoadInventory::DynamicCaster<pure3d::Animation>;
         f38 = factory->f3(caster, e->id0, e->id1);
         if (f38 == 0)

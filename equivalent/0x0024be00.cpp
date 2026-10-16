@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 12/12)
 // FUN_0024be00 @ 0x0024be00
+#include "decls/data/engine/audio.h"
+
 extern "C" void *memset(void *p, int c, unsigned n);
 
 struct Sub_24be00 {
@@ -31,9 +33,6 @@ struct Pool_24be00 {
     char data[0x48];
 };
 
-extern Pool_24be00 DAT_004e61a0;
-extern Rec_24be00 *DAT_004e61e8;
-extern Rec_24be00 *DAT_004e61ec;
 
 void *FUN_00247530(void *pool);
 void FUN_00247550(void *pool, Rec_24be00 *r);
@@ -46,7 +45,7 @@ void FUN_0025e550(Sub_24be00 *s, int a, int b, int c);
 
 Rec_24be00 *FUN_0024be00(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
 {
-    Rec_24be00 *r = (Rec_24be00 *)FUN_00247530(&DAT_004e61a0);
+    Rec_24be00 *r = (Rec_24be00 *)FUN_00247530(((Pool_24be00*)&DAT_004e61a0));
     if (r)
         memset(r, 0, sizeof(Rec_24be00));
     r->handle = 0;
@@ -59,17 +58,17 @@ Rec_24be00 *FUN_0024be00(int a1, int a2, int a3, int a4, int a5, int a6, int a7)
     r->fd4 = 0;
     r->fc = FUN_0025d340(a3, a4, 1);
     if (r->fc == 0) {
-        FUN_00247550(&DAT_004e61a0, r);
+        FUN_00247550(((Pool_24be00*)&DAT_004e61a0), r);
         return 0;
     }
-    if (DAT_004e61e8 == 0) {
-        DAT_004e61e8 = r;
+    if ((*(Rec_24be00**)&DAT_004e61e8) == 0) {
+        (*(Rec_24be00**)&DAT_004e61e8) = r;
         r->prev = 0;
     } else {
-        DAT_004e61ec->next = r;
-        r->prev = DAT_004e61ec;
+        (*(Rec_24be00**)&DAT_004e61ec)->next = r;
+        r->prev = (*(Rec_24be00**)&DAT_004e61ec);
     }
-    DAT_004e61ec = r;
+    (*(Rec_24be00**)&DAT_004e61ec) = r;
     r->next = 0;
     r->handle = FUN_00259610(a1, a2, r->fc);
     FUN_00258b40(r->handle, 1);

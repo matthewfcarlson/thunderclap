@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000b9470 @ 0x000b9470
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 struct Vertex_b9470 {
     float x;
     float y;
@@ -115,20 +117,18 @@ class Viewport_b9470 {
 struct Canvas {
     Layer_b9470* layer;
 };
-extern Canvas* DAT_0052c2ac;
-extern Viewport_b9470* DAT_0052c2a4;
 
 void __stdcall FUN_000b9470(unsigned int alpha, Texture* texture) {
-    float width = (float)DAT_0052c2a4->v7();
-    float height = (float)DAT_0052c2a4->v6();
+    float width = (float)(*(Viewport_b9470**)&DAT_0052c2a4)->v7();
+    float height = (float)(*(Viewport_b9470**)&DAT_0052c2a4)->v6();
     if (alpha > 0xff)
         alpha = 0xff;
     int saved = DAT_0052c2a8->v25();
     DAT_0052c2a8->v24(2);
     DAT_0052c2a8->v54(0);
     DAT_0052c2a8->v58(0);
-    DAT_0052c2ac->layer->v15(0);
-    DAT_0052c2ac->layer->v13(0);
+    (*(Canvas**)&DAT_0052c2ac)->layer->v15(0);
+    (*(Canvas**)&DAT_0052c2ac)->layer->v13(0);
     unsigned int color = alpha << 24;
     Mesh_b9470* mesh = DAT_0052c2a8->v30(texture->handle, 1, 0x2020, 4, 0);
     *mesh->colors = color;
@@ -155,5 +155,5 @@ void __stdcall FUN_000b9470(unsigned int alpha, Texture* texture) {
     DAT_0052c2a8->v24(saved);
     DAT_0052c2a8->v54(1);
     DAT_0052c2a8->v58(1);
-    DAT_0052c2ac->layer->v16(0);
+    (*(Canvas**)&DAT_0052c2ac)->layer->v16(0);
 }

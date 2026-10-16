@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 6/6)
 // om::EntityType::vfunc_0 @ 0x00244d70
+#include "decls/data/engine/om.h"
+
 struct ListNode {
     ListNode *self;
     ListNode *link1;
@@ -12,9 +14,6 @@ struct ListHead_244d70 {
     ListNode node;
 };
 
-extern ListHead_244d70 *DAT_004cc084;
-extern ListHead_244d70 *DAT_004cc088;
-extern int DAT_004e5f10;
 
 namespace om {
 class EntityType {
@@ -33,10 +32,10 @@ void FUN_00244430(ListHead_244d70 *head, om::EntityType *type, void *block);
 
 void om::EntityType::vfunc_0()
 {
-    ListHead_244d70 *a = DAT_004cc084;
-    ListHead_244d70 *b = DAT_004cc088;
+    ListHead_244d70 *a = (*(ListHead_244d70**)&DAT_004cc084);
+    ListHead_244d70 *b = (*(ListHead_244d70**)&DAT_004cc088);
 
-    if (DAT_004e5f10 == 0) {
+    if ((*(int*)&DAT_004e5f10) == 0) {
         if (a) {
             ListNode *n = &a->node;
             n->self = n;
@@ -57,5 +56,5 @@ void om::EntityType::vfunc_0()
 
     FUN_00244230(a, this, blockA);
     FUN_00244430(b, this, blockB);
-    DAT_004e5f10++;
+    (*(int*)&DAT_004e5f10)++;
 }

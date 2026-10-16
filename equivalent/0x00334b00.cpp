@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 11840 inputs, branch coverage 16/16; run with --inputs 12000)
 // FUN_00334b00 @ 0x00334b00
+#include "decls/data/platform/xbox/movie.h"
+
 extern unsigned int __cdecl FUN_00368660();
 extern unsigned int __cdecl FUN_0026fd50(unsigned int, unsigned int);
 struct GlobalData { char pad[8]; char data; };
-extern GlobalData *DAT_00555ba8;
 struct Owner_334b00;
 struct Stream {
  virtual void slot0(); virtual void slot1(); virtual void slot2();
@@ -57,6 +58,6 @@ void Owner_334b00::FUN_00334b00() {
  stream->slot5(offset);
  stream->slot3(source, size, 1);
  stream->slot6(&result);
- if (DAT_00555ba8) stream->slot18(&DAT_00555ba8->data, this);
+ if ((*(GlobalData**)&DAT_00555ba8)) stream->slot18(&(*(GlobalData**)&DAT_00555ba8)->data, this);
  else stream->slot18(0, this);
 }

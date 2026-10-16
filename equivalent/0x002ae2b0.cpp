@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 199 inputs, branch coverage 61/61)
 // pure3d::TextureBuilder::vfunc_0 @ 0x002ae2b0
+#include "decls/data/engine/pure3d/prop.h"
+
 void *FUN_00263ea0(unsigned int size);
 
 struct Surface_2ae2b0 {
@@ -44,7 +46,6 @@ public:
     virtual int vfunc_2();
 };
 
-extern Device_2ae2b0 *DAT_0052c2a0;
 
 namespace pure3d {
 class TextureBuilder {
@@ -130,7 +131,7 @@ bool pure3d::TextureBuilder::vfunc_0(int a1, int a2, int a3, int a4, int a5)
     }
 
     if (tex->res == 0) {
-        if (DAT_0052c2a0->vfunc_2() != 1) {
+        if ((*(Device_2ae2b0**)&DAT_0052c2a0)->vfunc_2() != 1) {
             tex->vfunc_1();
             tex = 0;
         }

@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_002a3250 @ 0x002a3250
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 struct VBuf_2a3250 {
     char pad00[8];
     float *pos;              // 0x08
@@ -159,9 +161,6 @@ struct Target_2a3250 {
     int handle;              // 0x10
 };
 
-extern Obj3_2a3250 *DAT_0052c2a4;
-extern Holder_2a3250 *DAT_0052c2ac;
-extern ProbeOwner *DAT_0052c2b4;
 
 class Quad_2a3250 {
 public:
@@ -181,13 +180,13 @@ void Quad_2a3250::FUN_002a3250()
     dev->v74(1, 1, 1);
     dev->v66(2);
     dev->v68(0);
-    DAT_0052c2ac->obj->v21(0);
-    int w = DAT_0052c2a4->v6();
-    int h = DAT_0052c2a4->v7();
-    DAT_0052c2ac->FUN_00293da0((float)h, (float)w, 1.0f);
+    (*(Holder_2a3250**)&DAT_0052c2ac)->obj->v21(0);
+    int w = (*(Obj3_2a3250**)&DAT_0052c2a4)->v6();
+    int h = (*(Obj3_2a3250**)&DAT_0052c2a4)->v7();
+    (*(Holder_2a3250**)&DAT_0052c2ac)->FUN_00293da0((float)h, (float)w, 1.0f);
     dev->v24(2);
     VBuf_2a3250 *vb = dev->v30(target->handle, 1, 0x2020, 4, 0);
-    float f = DAT_0052c2b4->holder->probe->v8() + 0.001f;
+    float f = (*(ProbeOwner**)&DAT_0052c2b4)->holder->probe->v8() + 0.001f;
     *vb->tag = tag;
     vb->pos[0] = 0.0f;
     vb->pos[1] = 0.0f;
@@ -209,7 +208,7 @@ void Quad_2a3250::FUN_002a3250()
     vb->pos[2] = f;
     vb->FUN_0008ef00();
     dev->v31(vb);
-    DAT_0052c2ac->obj->v16(0);
+    (*(Holder_2a3250**)&DAT_0052c2ac)->obj->v16(0);
     dev->v24(0);
     dev->v58(1);
     dev->v62(1);

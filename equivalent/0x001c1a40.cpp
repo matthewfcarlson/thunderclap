@@ -2,6 +2,7 @@
 // FUN_001c1a40 @ 0x001c1a40
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
+#include "decls/data/game/Render/Canvas.h"
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 void* thunk_FUN_0008d690(unsigned int size);
@@ -56,10 +57,6 @@ struct ObjE : public Base_1c1a40 { ObjE* FUN_002a1140(int n); };
 struct ObjF : public Base_1c1a40 { ObjF* FUN_002a1230(); void FUN_002a07a0(unsigned int color); };
 struct ObjG : public Base_1c1a40 { ObjG* FUN_00292d70(); };
 
-extern int DAT_0042d5f8;
-extern int DAT_0042d5fc;
-extern pure3d::GameDrawableInfo* DAT_004e2314;
-extern pure3d::pddiExtFramebufferEffects* DAT_004e2318;
 void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 
 class Display_1c1a40 {
@@ -245,21 +242,21 @@ Hud_1c1a40* Hud_1c1a40::FUN_001c1a40() {
     mem = FUN_0008d690(0x48);
     ObjC_1c1a40* c = 0;
     if (mem)
-        c = ((ObjC_1c1a40*)mem)->FUN_002a16c0(0x100, DAT_0042d5fc);
+        c = ((ObjC_1c1a40*)mem)->FUN_002a16c0(0x100, (*(int*)&DAT_0042d5fc));
     objf0 = c;
     owner->FUN_0029b690(c);
 
     mem = thunk_FUN_0008d690(0x58);
     ObjD* d = 0;
     if (mem)
-        d = ((ObjD*)mem)->FUN_0029f600(DAT_0042d5f8, DAT_0042d5fc);
+        d = ((ObjD*)mem)->FUN_0029f600((*(int*)&DAT_0042d5f8), (*(int*)&DAT_0042d5fc));
     objc0 = d;
     d->v0();
 
     mem = thunk_FUN_0008d690(0x58);
     d = 0;
     if (mem)
-        d = ((ObjD*)mem)->FUN_0029f600(DAT_0042d5f8, DAT_0042d5fc);
+        d = ((ObjD*)mem)->FUN_0029f600((*(int*)&DAT_0042d5f8), (*(int*)&DAT_0042d5fc));
     objc4 = d;
     d->v0();
 
@@ -305,13 +302,13 @@ Hud_1c1a40* Hud_1c1a40::FUN_001c1a40() {
     objG->v7(0.25f);
     objG->v9(200.0f);
     root->field2c = 0;
-    DAT_004e2318 = dynamic_cast<pure3d::pddiExtFramebufferEffects*>(DAT_0052c2a8->s89(0x103));
+    (*(pure3d::pddiExtFramebufferEffects**)&DAT_004e2318) = dynamic_cast<pure3d::pddiExtFramebufferEffects*>(DAT_0052c2a8->s89(0x103));
 
     mem = FUN_0008d690(8);
     pure3d::GameDrawableInfo* info = 0;
     if (mem)
         info = new (mem) pure3d::GameDrawableInfo();
-    DAT_004e2314 = info;
+    (*(pure3d::GameDrawableInfo**)&DAT_004e2314) = info;
     info->v0();
     return this;
 }

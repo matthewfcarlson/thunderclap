@@ -1,9 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 15/16, incomplete)
 // physics::PhysicsJoint1D::vfunc_25 @ 0x0030b190
-extern float DAT_004d3198;
-extern unsigned char DAT_004d319c;
-extern float DAT_004d31a0;
-extern float DAT_004d31d8;
+#include "decls/data/engine/physics.h"
+
 namespace physics {
 struct PhysicsJoint1D {
  char pad0[0x10];

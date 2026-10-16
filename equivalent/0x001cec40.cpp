@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001cec40 @ 0x001cec40
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
-extern char DAT_0048e0e4[];
 
 class CScenarioManager { public: bool FUN_dummy(); };
 
@@ -23,7 +23,7 @@ class Method0 : public MethodBase_1cec40 {
     typedef R (T::*Fn)();
     Method0(const char* name, Fn f) throw() : MethodBase_1cec40(name, 0) {
         fn = f;
-        retType = FUN_001d04d0(DAT_0048e0e4);
+        retType = FUN_001d04d0(((char*)&DAT_0048e0e4));
     }
     Fn fn;
 };

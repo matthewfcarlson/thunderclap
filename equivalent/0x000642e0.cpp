@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 22/22)
 // FUN_000642e0 @ 0x000642e0
+#include "decls/data/game/global.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -91,8 +93,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc648;
-extern int DAT_004dc64c;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_000642e0()
@@ -140,7 +140,7 @@ void FUN_000642e0()
         params[9] = 0;
         if (mem)
             params[9] = new (mem) fight::ParamBool<CSmartPropThrowTrack>("useYVelocity", &CSmartPropThrowTrack::FUN_00061f20);
-        FUN_002347b0(&DAT_004dc648, params, 10);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc648), params, 10);
     }
     DAT_004dc64c++;
 }

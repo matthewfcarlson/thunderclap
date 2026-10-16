@@ -1,11 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 32/32)
 // FUN_00202c30 @ 0x00202c30
 #include "decls/address.h"
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
 extern "C" double sqrt(double);
-extern int DAT_004d2a3c;
-extern char DAT_004d2a40;
-extern char DAT_00554c1c;
-extern int DAT_00554c18;
 
 struct V3_202c30 {
     float x, y, z;
@@ -112,8 +110,8 @@ bool FUN_00202c30(V3_202c30 *origin, V3_202c30 *end, int a3, int mask, V3_202c30
     caster->list.count = 0;
     HitList_202c30 *list = &caster->list;
     DAT_004d2a3c = 2;
-    DAT_004d2a40 = 0;
-    DAT_00554c1c = 1;
+    (*(char*)&DAT_004d2a40) = 0;
+    (*(char*)&DAT_00554c1c) = 1;
     DAT_00554c18 = a3;
     w->w20->FUN_00025260(0, 0, 0);
     if (flag != 0 && probe != 0) {

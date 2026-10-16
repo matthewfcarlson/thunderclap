@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_0008d0a0 @ 0x0008d0a0
 #include "decls/address.h"
+#include "decls/data/game/unknown.h"
 extern "C" int sprintf(char* dst, const char* fmt, ...);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
-extern unsigned int DAT_004dd77c;
 
 class Heap_8d0a0 {
   public:
@@ -69,8 +69,6 @@ class MemoryDisplay {
     int pad_00;
     Heap_8d0a0* heaps[19];
 };
-extern HeapEntry_8d0a0 DAT_00400520[];
-extern char DAT_00400604[];
 
 void MemoryDisplay::FUN_0008d0a0(bool dim) {
     volatile unsigned int cookie = DAT_004d9968;
@@ -84,7 +82,7 @@ void MemoryDisplay::FUN_0008d0a0(bool dim) {
     DAT_004dd77c = toggle;
     int y = 0x41;
     Heap_8d0a0** heap = heaps;
-    for (HeapEntry_8d0a0* entry = DAT_00400520; entry < (HeapEntry_8d0a0*)DAT_00400604; ++entry, ++heap, y += 0xf) {
+    for (HeapEntry_8d0a0* entry = ((HeapEntry_8d0a0*)&DAT_00400520); entry < (HeapEntry_8d0a0*)((char*)&DAT_00400604); ++entry, ++heap, y += 0xf) {
         if (*heap == 0)
             continue;
         int total = (*heap)->v11();

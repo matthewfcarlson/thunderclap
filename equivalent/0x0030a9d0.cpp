@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 167 inputs, branch coverage 35/36, incomplete)
 // FUN_0030a9d0 @ 0x0030a9d0
+#include "decls/data/engine/physics.h"
+
 struct Vec3_30a9d0 {
     float x, y, z;
     void FUN_000111b0(Vec3_30a9d0* a, Vec3_30a9d0* b);
@@ -41,7 +43,6 @@ struct Link_30a9d0 {
     Vec3_30a9d0 pos;
 };
 
-extern float DAT_004d3180;
 
 class Body_30a9d0;
 

@@ -2,6 +2,7 @@
 // FUN_001d8350 @ 0x001d8350
 // equiv-map: ??0Id64@@QAE@ABU0@@Z = 0x0027af30
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct V3_1d8350 {
     float x, y, z;
     float FUN_000259c0();
@@ -47,7 +48,6 @@ struct World {
     char pad34[0x54 - 0x34];
     Singleton_4dd6ec *f54;
 };
-extern char DAT_004e2518;
 
 struct Fighter_1d8350 {
     char pad0[0x10];
@@ -162,7 +162,7 @@ void Collector_1d8350::FUN_001d8350(Fighter_1d8350 *a)
         DAT_004dd6ec->FUN_00086370()->FUN_00090720("smashcollect", 1);
     } else if (kind == 2) {
         DAT_004dd6ec->FUN_00086340()->FUN_00092540(4, id8, 0);
-        DAT_004e2518 = 1;
+        (*(char*)&DAT_004e2518) = 1;
     }
     FUN_0027d4f0(10);
     int s = state;

@@ -1,5 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 113 inputs, branch coverage 18/18)
 // hulkfight::motion::HitFloatAction::vfunc_5 @ 0x0014fad0
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight.h"
+#include "decls/data/game/hulkfight/motion.h"
+
 struct V3_14fad0 {
     float x, y, z;
     bool FUN_0022d2b0(const V3_14fad0 *other, float eps);
@@ -59,10 +63,6 @@ struct Grav {
     V3_14fad0 v;
 };
 
-extern V3_14fad0 DAT_004afa08;
-extern Grav *DAT_00554c10;
-float DAT_003f3320;
-float DAT_003f3388;
 float __cdecl FUN_00224f10(const V3_14fad0 *v);
 void __cdecl FUN_00224d70(float angle, V3_14fad0 *v);
 
@@ -116,7 +116,7 @@ bool HitFloatAction::vfunc_5(Arg1_14fad0 a, float dt)
     Player_14fad0 *pl = mgr->FUN_00059a30();
     pl->FUN_000359c0(3);
     a.angle = FUN_00224f10(&target->size);
-    dir = DAT_004afa08;
+    dir = (*(V3_14fad0*)&DAT_004afa08);
     FUN_00224d70(a.angle, &dir);
     float k = dt * speed;
     dir.x = dir.x * k;
@@ -135,8 +135,8 @@ bool HitFloatAction::vfunc_5(Arg1_14fad0 a, float dt)
             vecB.z = 0.0f;
             if (vecA.FUN_0022d2b0(&vecB, 0.00001f)) {
                 pl->FUN_00035550(&vecA);
-                vecA.x = vecA.x * DAT_003f3388;
-                vecA.z = vecA.z * DAT_003f3388;
+                vecA.x = vecA.x * (*(float*)&DAT_003f3388);
+                vecA.z = vecA.z * (*(float*)&DAT_003f3388);
             }
         }
         vecA.y = 0.0f;
@@ -154,8 +154,8 @@ bool HitFloatAction::vfunc_5(Arg1_14fad0 a, float dt)
     dir.y = pos.y + dir.y;
     dir.z = pos.z + dir.z;
     time = time + dt;
-    vecB = DAT_00554c10->v;
-    a.angle = vecB.y * DAT_003f3320;
+    vecB = (*(Grav**)&DAT_00554c10)->v;
+    a.angle = vecB.y * (*(float*)&DAT_003f3320);
     if (time > target->limit) {
         if (f34 < a.angle)
             f34 = a.angle;

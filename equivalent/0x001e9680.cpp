@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 51 inputs, branch coverage 28/28)
 // FUN_001e9680 @ 0x001e9680
-extern void *DAT_004e2788;
-extern int DAT_004e3690;
+#include "decls/data/engine/content.h"
+#include "decls/data/game/global.h"
 
 void __cdecl FUN_0008d340(void *p);
 void __cdecl FUN_0008d330(void *p);
@@ -47,7 +47,6 @@ class Manager_1e9680;
 struct Renderer_1e9680 {
     void FUN_00265560(Manager_1e9680 *m);
 };
-extern Renderer_1e9680 *DAT_00527c58;
 void __cdecl FUN_00240eb0();
 void __cdecl FUN_00240a10();
 
@@ -65,7 +64,7 @@ public:
 
 void Manager_1e9680::FUN_001e9680()
 {
-    FUN_0008d340(DAT_004e2788);
+    FUN_0008d340((*(void**)&DAT_004e2788));
     for (int i = 0; i < itemCount; i++) {
         Item_1e9680 *item = items[i];
         if (item->users > 0) {
@@ -101,8 +100,8 @@ void Manager_1e9680::FUN_001e9680()
         entries[i] = 0;
     }
     entryCount = 0;
-    DAT_00527c58->FUN_00265560(this);
+    (*(Renderer_1e9680**)&DAT_00527c58)->FUN_00265560(this);
     FUN_00240eb0();
     FUN_00240a10();
-    DAT_004e3690 = 0;
+    (*(int*)&DAT_004e3690) = 0;
 }

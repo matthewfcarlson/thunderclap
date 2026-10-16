@@ -2,9 +2,9 @@
 // FUN_000879c0 @ 0x000879c0
 // FUN_000879c0 @ 0x000879c0
 #include "decls/address.h"
+#include "decls/data/game/unknown.h"
 struct Screen_879c0 { void FUN_00086da0(); };
 struct World { char pad0[0x54]; Screen_879c0* screen; char pad1[0x45]; unsigned char active; };
-extern char DAT_004dd8d4[];
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int __cdecl FUN_00267f80();

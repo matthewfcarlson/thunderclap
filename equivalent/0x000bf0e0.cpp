@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000bf0e0 @ 0x000bf0e0
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 struct Inner_bf0e0 { char pad[0x2c]; int f2c; };
 struct Arg_bf0e0 { char pad[0xc]; Inner_bf0e0* f0c; };
 struct G_bf0e0 { void FUN_002665a0(); };
@@ -12,19 +15,14 @@ struct S_bf0e0 {
   void FUN_000befc0(void*, int, int);
   void FUN_000bf0e0(Arg_bf0e0*, int);
 };
-extern "C" G_bf0e0* DAT_004dd9cc;
-extern "C" void* DAT_0049f3c4;
-extern "C" void* DAT_0049f3cc;
-extern "C" void* DAT_0049f3b0;
-extern "C" unsigned char DAT_004e222c;
 extern "C" void __cdecl FUN_000fc100(void*, int);
 void S_bf0e0::FUN_000bf0e0(Arg_bf0e0* a, int){
-  DAT_004dd9cc->FUN_002665a0();
-  FUN_000befc0(DAT_0049f3c4, 14, 1);
-  FUN_000befc0(DAT_0049f3cc, 14, 1);
-  FUN_000fc100(DAT_0049f3b0, 0);
+  (*(G_bf0e0**)&DAT_004dd9cc)->FUN_002665a0();
+  FUN_000befc0((*(void**)&DAT_0049f3c4), 14, 1);
+  FUN_000befc0((*(void**)&DAT_0049f3cc), 14, 1);
+  FUN_000fc100((*(void**)&DAT_0049f3b0), 0);
   f10 = 8;
-  DAT_004e222c = 1;
+  (*(unsigned char*)&DAT_004e222c) = 1;
   f1c0c = 0;
   f1c4c = 0;
   f38 = a->f0c->f2c;

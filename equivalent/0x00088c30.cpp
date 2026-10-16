@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 12/12)
 // FUN_00088c30 @ 0x00088c30
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 struct Target_88c30;
 struct Vec_88c30 { unsigned int x,y,z; };
 struct Service_88c30 {
@@ -10,8 +13,6 @@ extern unsigned int __cdecl FUN_00267f00();
 extern float __cdecl FUN_00085e60(unsigned int,unsigned int);
 extern Service_88c30* __cdecl FUN_001d4c90();
 extern Service_88c30* __cdecl FUN_001c3d90();
-extern unsigned char DAT_004dd8e4;
-extern float DAT_004dd918;
 struct Target_88c30 {
  unsigned int field0;
  Service_88c30 *s04,*s08,*s0c,*s10,*s14,*s18,*s1c,*s20,*s24,*s28,*s2c,*s30,*s34,*s38,*s3c,*s40,*s44,*s48,*s4c,*s50,*s54;
@@ -27,11 +28,11 @@ void Target_88c30::update(int* kind,void* arg) {
  FUN_000678d0()->FUN_000677d0();
  s20->FUN_0002ab40(this,arg);
  unsigned int start=0;
- if(DAT_004dd8e4) start=FUN_00267f00();
+ if((*(unsigned char*)&DAT_004dd8e4)) start=FUN_00267f00();
  s0c->FUN_001e6f10(this,arg);
- if(DAT_004dd8e4) {
+ if((*(unsigned char*)&DAT_004dd8e4)) {
  unsigned int end=FUN_00267f00();
- if(DAT_004dd8e4) DAT_004dd918=FUN_00085e60(end-start,0);
+ if((*(unsigned char*)&DAT_004dd8e4)) DAT_004dd918=FUN_00085e60(end-start,0);
  }
  s4c->FUN_00080b70(this,arg);
  s10->FUN_001b5da0(this,arg);

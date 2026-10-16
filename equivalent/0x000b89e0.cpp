@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 41/42, incomplete)
 // FUN_000b89e0 @ 0x000b89e0
+#include "decls/data/game/global.h"
+
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int memcmp(const void* a, const void* b, unsigned n);
 extern unsigned int DAT_004d9968;
@@ -7,7 +9,6 @@ extern char DAT_0049dba4[];
 extern char DAT_0049f470[];
 extern char DAT_0049f48c[];
 extern char DAT_0049f4a4[];
-extern const char* DAT_004067a4[];
 extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 extern void* __cdecl FUN_000fc260(const char* name);
 extern int __cdecl FUN_000fc1b0();
@@ -122,7 +123,7 @@ void MissionFailMenu::FUN_000b89e0()
     ContinueButton* freeroam = (ContinueButton*)FUN_00344e74(FUN_000fc260("story_mission_fail_return_to_freeroam"), 0, DAT_0049dba4, DAT_0049f4a4, 0);
     if (freeroam != 0) {
         char show = 1;
-        const char** entry = DAT_004067a4;
+        const char** entry = ((const char**)&DAT_004067a4);
         while (*entry != 0) {
             const char* p = id;
             const char* q = *entry;

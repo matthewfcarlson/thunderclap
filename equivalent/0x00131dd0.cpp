@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 6/6)
 // FUN_00131dd0 @ 0x00131dd0
+#include "decls/data/game/hulkfight.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -31,8 +33,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0eac;
-extern int DAT_004e0eb0;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -49,7 +49,7 @@ void FUN_00131dd0()
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange<hulkfight::XPTrack>("value", &hulkfight::XPTrack::FUN_0012e220);
-        FUN_002347b0(&DAT_004e0eac, params, 2);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0eac), params, 2);
     }
     DAT_004e0eb0++;
 }

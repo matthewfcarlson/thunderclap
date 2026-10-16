@@ -2,8 +2,8 @@
 // FUN_00278b50 @ 0x00278b50
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 22/28, incomplete)
 // FUN_00278b50 @ 0x00278b50
-extern unsigned char DAT_0052a228;
-extern unsigned char DAT_0052a229;
+#include "decls/data/platform/xbox/core.h"
+
 namespace XAPILIB { extern "C" char* __stdcall XMUNameFromDriveLetter(unsigned int, char*, unsigned int); extern "C" unsigned int __stdcall GetLastError(); }
 extern "C" int __stdcall FUN_00208b9c(char*, unsigned int*, unsigned int*, unsigned int*);
 extern "C" unsigned int __stdcall FUN_00209a8e(char*);
@@ -24,12 +24,12 @@ void Target_278b50::FUN_00278b50() {
   name[0] = 0;
   if (flagCC == 'U') { row = -1; col = -1; }
   else { row = (signed char)digit - '1'; col = (signed char)letter - 'A'; }
-  ((Target_278b50*)&DAT_0052a228)->FUN_00278060();
+  ((Target_278b50*)&(*(unsigned char*)&DAT_0052a228))->FUN_00278060();
   if (row >= 0 && col >= 0) {
    unsigned int index = row + col * 4;
    unsigned char mask = (unsigned char)(1 << (index & 31));
-   if (DAT_0052a229 & mask) FUN_00278410();
-   if (!(DAT_0052a228 & mask)) { result = previous = 4; return; }
+   if ((*(unsigned char*)&DAT_0052a229) & mask) FUN_00278410();
+   if (!((*(unsigned char*)&DAT_0052a228) & mask)) { result = previous = 4; return; }
   }
   if (!FUN_002788c0()) { result = previous; return; }
   char tmp[32];

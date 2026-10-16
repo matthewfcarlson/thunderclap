@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 964 inputs, branch coverage 26/26)
 // FUN_000c1430 @ 0x000c1430
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
-extern "C" const char DAT_0048e100[];
-extern "C" const char DAT_0048e0f0[];
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void __cdecl FUN_0008d340(void *p);
 
@@ -65,9 +64,9 @@ public:
     typedef R (T::*Fn)(A, B);
     Method2(const char *name, Fn f) : MethodBase_c1430(name, 2) {
         fn = f;
-        c18 = FUN_001d04d0(DAT_0048e100);
-        c10 = FUN_001d04d0(DAT_0048e0f0);
-        c11 = FUN_001d04d0(DAT_0048e0f0);
+        c18 = FUN_001d04d0(((const char*)&DAT_0048e100));
+        c10 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
+        c11 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
     }
     char c10;
     char c11;

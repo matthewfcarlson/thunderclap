@@ -2,6 +2,7 @@
 // AICollisionSolverAgent::vfunc_5 @ 0x001b2560
 #include "gen/global.h"
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 
 struct V3_1b2560 {
     float x, y, z;
@@ -63,10 +64,6 @@ struct World {
     char pad0[0x20];
     Pool_1b2560 *f20;
 };
-extern unsigned int DAT_004e2198;
-extern unsigned int DAT_004e219c;
-extern float DAT_004c3738;
-extern int DAT_004c373c;
 
 class Listener_1b2560 {
 public:
@@ -174,7 +171,7 @@ int AICollisionSolverAgent::vfunc_5(void* __p0, void* __p1) { Contact_1b2560 * C
             Ref_1b2560 *r = C->fc;
             if (r->f8 != DAT_004e2198)
                 return 1;
-            if (r->fc != DAT_004e219c)
+            if (r->fc != (*(unsigned int*)&DAT_004e219c))
                 return 1;
             if (v34 > DAT_004c3738)
                 return 1;
@@ -190,7 +187,7 @@ int AICollisionSolverAgent::vfunc_5(void* __p0, void* __p1) { Contact_1b2560 * C
         }
         ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001b0090(sub, A, B);
         Ref_1b2560 *r2 = C->fc;
-        if (r2->f8 == DAT_004e2198 && r2->fc == DAT_004e219c) {
+        if (r2->f8 == DAT_004e2198 && r2->fc == (*(unsigned int*)&DAT_004e219c)) {
             res = ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001b05a0(sub, B, C);
             if (res == 1)
                 return 1;
@@ -212,7 +209,7 @@ int AICollisionSolverAgent::vfunc_5(void* __p0, void* __p1) { Contact_1b2560 * C
             Ref_1b2560 *r = C->f8;
             if (r->f8 != DAT_004e2198)
                 return 1;
-            if (r->fc != DAT_004e219c)
+            if (r->fc != (*(unsigned int*)&DAT_004e219c))
                 return 1;
             if (v34 > DAT_004c3738)
                 return 1;
@@ -228,7 +225,7 @@ int AICollisionSolverAgent::vfunc_5(void* __p0, void* __p1) { Contact_1b2560 * C
         }
         ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001b0090(sub, B, A);
         Ref_1b2560 *r2 = C->f8;
-        if (r2->f8 == DAT_004e2198 && r2->fc == DAT_004e219c) {
+        if (r2->f8 == DAT_004e2198 && r2->fc == (*(unsigned int*)&DAT_004e219c)) {
             res = ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001b05a0(sub, A, C);
             if (res == 1)
                 return 1;
@@ -252,14 +249,14 @@ int AICollisionSolverAgent::vfunc_5(void* __p0, void* __p1) { Contact_1b2560 * C
         return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001b0e30(B, A, &C->v2c, &neg, u.u);
     }
     s8 = C->f8;
-    if (s8->f8 == DAT_004e2198 && s8->fc == DAT_004e219c && typeB == 1) {
+    if (s8->f8 == DAT_004e2198 && s8->fc == (*(unsigned int*)&DAT_004e219c) && typeB == 1) {
         neg.x = C->v18.x * -1.0f;
         neg.y = C->v18.y * -1.0f;
         neg.z = C->v18.z * -1.0f;
         return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001afea0(C, C->fc->f18, B, A, &C->v2c, &neg, C->f24);
     }
     sc = C->fc;
-    if (sc->f8 == DAT_004e2198 && sc->fc == DAT_004e219c && A->fc == 1)
+    if (sc->f8 == DAT_004e2198 && sc->fc == (*(unsigned int*)&DAT_004e219c) && A->fc == 1)
         return ((AICollisionSolverAgent_nv_1b2560*)this)->FUN_001afea0(C, s8->f18, A, B, &C->v38, &C->v18, C->f24);
     if (A->fc == 5) {
         if (B->fc == 5)

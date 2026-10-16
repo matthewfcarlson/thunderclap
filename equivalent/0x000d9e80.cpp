@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000d9e80 @ 0x000d9e80
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern unsigned int DAT_004d9968;
 void __fastcall __security_check_cookie(unsigned int);
 struct Item_d9e80 { char data[0x38]; int FUN_000f83f0(void*, int); };
@@ -11,8 +12,6 @@ struct Menu_d9e80 {
 };
 struct State_d9e80 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d9e80* FUN_00086280(); };
-extern int DAT_004de650;
-extern const char *DAT_004a0c60, *DAT_004a0ce0, *DAT_004a0ce4, *DAT_004a0ce8;
 Menu_d9e80* __cdecl FUN_000fc3d0();
 void __cdecl FUN_000fc020(char*, int, int, int);
 struct Target_d9e80 {
@@ -24,14 +23,14 @@ void Target_d9e80::FUN_000d9e80(int index) {
  char buffer[1024];
  Menu_d9e80* menu=FUN_000fc3d0();
  Save* save=menu->v44();
- int a=save->FUN_000f7d30(DAT_004de650);
+ int a=save->FUN_000f7d30((*(int*)&DAT_004de650));
  int b=save->FUN_000f7220(a);
  int c=items[index].FUN_000f83f0(save,0);
  FUN_000fc020(buffer,512,b,c);
  const char* text;
- if(flag3eb) text=DAT_004a0ce8;
- else { State_d9e80* state=DAT_004dd6ec->FUN_00086280(); text=state->flag ? DAT_004a0ce4 : DAT_004a0ce0; }
- const char* extra=DAT_004a0c60;
+ if(flag3eb) text=(*(const char**)&DAT_004a0ce8);
+ else { State_d9e80* state=DAT_004dd6ec->FUN_00086280(); text=state->flag ? (*(const char**)&DAT_004a0ce4) : (*(const char**)&DAT_004a0ce0); }
+ const char* extra=(*(const char**)&DAT_004a0c60);
  menu->FUN_000be310(text,buffer,"TBS_MENU_ITEM_CONTINUE_WITHOUT_SAVE","TBS_MENU_ITEM_RETRY","TBS_INSTRUCTION_DELETE",1,extra,extra);
  flag3b0=1;
  field21c=0;

@@ -1,13 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 8/8)
 // FUN_00052a40 @ 0x00052a40
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/unknown.h"
+
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
-extern unsigned int DAT_004dc414;
-extern unsigned int DAT_004dc410;
-extern unsigned int DAT_00427754;
-extern char DAT_0042773c[];
-extern char DAT_0049ee74[];
 void FUN_00047b00();
 void FUN_00047b10();
 void FUN_00047b20();
@@ -47,11 +45,11 @@ void __cdecl FUN_00052a40() {
  params[0]=axis;
  Enum* compare=(Enum*)FUN_0008d690(32);
  if(compare) {
- unsigned int count=DAT_00427754;
+ unsigned int count=(*(unsigned int*)&DAT_00427754);
  compare->FUN_00234cc0("compareTime");
  compare->count=count;
  new(compare) Enum;
- compare->choices=DAT_0042773c;
+ compare->choices=((char*)&DAT_0042773c);
  compare->callback=FUN_00047b10;
  }
  params[1]=compare;

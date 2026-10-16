@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 22/22)
 // FUN_001f7320 @ 0x001f7320
+#include "decls/data/game/hulkfight.h"
+
 struct Vec3_1f7320 {
     float x, y, z;
 };
@@ -71,8 +73,6 @@ public:
     void FUN_00283a10(float dt);
 };
 
-extern float DAT_004e58dc;
-extern float DAT_004e58d8;
 Rng_1f7320 *FUN_000964d0();
 Renderer_1f7320 *FUN_0027f250();
 

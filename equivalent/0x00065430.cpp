@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 20/20)
 // FUN_00065430 @ 0x00065430
+#include "decls/data/game/global.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -98,8 +100,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc628;
-extern int DAT_004dc62c;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_00065430()
@@ -143,7 +143,7 @@ void FUN_00065430()
         params[8] = 0;
         if (mem)
             params[8] = new (mem) ParamFloatConstRange<CSmartPropUpdateAttachmentTrack>("minDistance", &CSmartPropUpdateAttachmentTrack::FUN_00061db0);
-        FUN_002347b0(&DAT_004dc628, params, 9);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc628), params, 9);
     }
     DAT_004dc62c++;
 }

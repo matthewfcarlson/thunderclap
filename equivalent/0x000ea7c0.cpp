@@ -2,6 +2,9 @@
 // TextSelector::vfunc_5 @ 0x000ea7c0
 // TextSelector::vfunc_5 (FUN_000ea7c0): draws a list selector - the labels, the per-entry sub
 // element, the scroll arrows - through the shared glyph Builder.
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
+
 struct Vec3_ea7c0 {
     float x, y, z;
 };
@@ -179,10 +182,6 @@ union Quad_ea7c0 {
     unsigned char b[4];
 };
 
-extern PassHolder_ea7c0 *DAT_0052c2ac;
-extern unsigned int DAT_004a1004;
-extern unsigned int DAT_004a1008;
-extern unsigned int DAT_004de94c;
 
 void __cdecl FUN_000e11a0(Vec3_ea7c0 v, int a, int b);
 void __cdecl FUN_000e0cc0(Vec3_ea7c0 v, int a, int b);
@@ -293,28 +292,28 @@ void TextSelector::vfunc_5()
     Builder &b = F.b;
 
     if (flag40) {
-        DAT_0052c2ac->pass->v15(0);
+        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v15(0);
         owner->v14(&F.c, this);
-        DAT_0052c2ac->FUN_00293d00(&F.c);
+        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.c);
         owner->v15(&F.p, this);
         FUN_000e11a0(F.p, val148, 2);
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
     }
     if (flag48) {
-        DAT_0052c2ac->pass->v15(0);
+        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v15(0);
         owner->v14(&F.c, this);
-        DAT_0052c2ac->FUN_00293d00(&F.c);
+        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.c);
         owner->v15(&F.p, this);
         FUN_000e0cc0(F.p, val4c, 0);
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
     }
     if (w50 != 0) {
-        DAT_0052c2ac->pass->v15(0);
+        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v15(0);
         owner->v14(&F.c, this);
-        DAT_0052c2ac->FUN_00293d00(&F.c);
-        DAT_0052c2ac->FUN_00293da0(v54, v58, v5c);
+        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.c);
+        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293da0(v54, v58, v5c);
         w50->v8(0, 0);
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
     }
 
     b.FUN_000f7fe0(owner->hold->fonts->v44());
@@ -326,12 +325,12 @@ void TextSelector::vfunc_5()
     b.hdr[1] = c3c.w;
     F.o958 = &owner->hold->o958;
     if (owner->v13(this) && F.o958 == 0)
-        b.FUN_000f8280(DAT_004a1004, DAT_004a1008, DAT_004de94c);
+        b.FUN_000f8280((*(unsigned int*)&DAT_004a1004), (*(unsigned int*)&DAT_004a1008), (*(unsigned int*)&DAT_004de94c));
 
-    DAT_0052c2ac->pass->v15(0);
+    (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v15(0);
     owner->v14(&F.c, this);
-    DAT_0052c2ac->FUN_00293d00(&F.c);
-    DAT_0052c2ac->FUN_00293d00(&anchor);
+    (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.c);
+    (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&anchor);
 
     F.style = 0;
     if (owner->v13(this)) {
@@ -360,27 +359,27 @@ void TextSelector::vfunc_5()
         F.p.x = ff;
         F.p.y = 0.0f;
         F.p.z = 0.0f;
-        DAT_0052c2ac->FUN_00293d00(&F.p);
+        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.p);
         if (i1d5c == 0) {
             b.FUN_000f80e0(": ", pa4, F.style);
             float ff2 = b.FUN_000e8600(": ", 0);
             F.p.x = ff2;
             F.p.y = 0.0f;
             F.p.z = 0.0f;
-            DAT_0052c2ac->FUN_00293d00(&F.p);
+            (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.p);
         }
     } else {
-        DAT_0052c2ac->pass->v16(0);
-        DAT_0052c2ac->pass->v15(0);
+        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
+        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v15(0);
         p1d98->owner->v14(&F.c, p1d98);
-        DAT_0052c2ac->FUN_00293d00(&F.c);
-        DAT_0052c2ac->FUN_00293d00(&anchor);
+        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.c);
+        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&anchor);
     }
     if (owner->v13(this) && F.o958 == 0)
         b.cells[b.cursor].d.u = b.hdr[1];
 
     if (i1d58 <= 0) {
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
         b.FUN_000f78e0();
         return;
     }
@@ -424,28 +423,28 @@ void TextSelector::vfunc_5()
             if (tac) {
                 tac->v12(1.0f);
                 tac->v7();
-                DAT_0052c2ac->pass->v15(0);
+                (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v15(0);
                 F.p.x = f1d74 * 0.5f;
                 F.p.y = 0.0f;
                 F.p.z = 0.0f;
-                DAT_0052c2ac->FUN_00293d00(&F.p);
+                (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.p);
                 items[index].ctl->v8(0, 0);
-                DAT_0052c2ac->pass->v16(0);
+                (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
             }
         } else {
             if (foc3)
-                b.FUN_000f8280(DAT_004a1004, DAT_004a1008, DAT_004de94c);
+                b.FUN_000f8280((*(unsigned int*)&DAT_004a1004), (*(unsigned int*)&DAT_004a1008), (*(unsigned int*)&DAT_004de94c));
             b.FUN_000f87f0(&items[index], F.style);
             if (tac) {
                 tac->v12(1.0f);
                 tac->v7();
-                DAT_0052c2ac->pass->v15(0);
+                (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v15(0);
                 F.p.x = f1d74 * 0.5f;
                 F.p.y = 0.0f;
                 F.p.z = 0.0f;
-                DAT_0052c2ac->FUN_00293d00(&F.p);
+                (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.p);
                 items[index].ctl->v8(0, 0);
-                DAT_0052c2ac->pass->v16(0);
+                (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
             }
             if (owner->v13(this))
                 b.cells[b.cursor].d.u = b.hdr[1];
@@ -491,13 +490,13 @@ void TextSelector::vfunc_5()
                                 float *pw = &FUN_000e2820(&F.vT1)->x;
                                 float wdt = b.FUN_000f88a0(el);
                                 float ff = *pw - wdt;
-                                DAT_0052c2ac->pass->v15(0);
+                                (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v15(0);
                                 F.p.x = ff;
                                 F.p.y = 0.0f;
                                 F.p.z = 0.0f;
-                                DAT_0052c2ac->FUN_00293d00(&F.p);
+                                (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.p);
                                 b.FUN_000f87f0(el, w60 != 0 ? 0 : (void *)op);
-                                DAT_0052c2ac->pass->v16(0);
+                                (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
                             }
                         } else {
                             if (w64 != 0)
@@ -509,13 +508,13 @@ void TextSelector::vfunc_5()
                                 float *pw = &FUN_000e2820(&F.vT3)->x;
                                 float wdt = b.FUN_000f88a0(el);
                                 float ff = *pw - wdt;
-                                DAT_0052c2ac->pass->v15(0);
+                                (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v15(0);
                                 F.vF.x = ff;
                                 F.vF.y = 0.0f;
                                 F.vF.z = 0.0f;
-                                DAT_0052c2ac->FUN_00293d00(&F.vF);
+                                (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.vF);
                                 b.FUN_000f87f0(el, F.style);
-                                DAT_0052c2ac->pass->v16(0);
+                                (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
                             }
                         }
                     } else {
@@ -537,34 +536,34 @@ void TextSelector::vfunc_5()
                             float *pw = &FUN_000e2820(&F.vT2)->x;
                             float wdt = b.FUN_000f88a0(el);
                             float ff = *pw - wdt;
-                            DAT_0052c2ac->pass->v15(0);
+                            (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v15(0);
                             F.vC.x = ff;
                             F.vC.y = 0.0f;
                             F.vC.z = 0.0f;
-                            DAT_0052c2ac->FUN_00293d00(&F.vC);
+                            (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.vC);
                             b.FUN_000f87f0(el, F.style);
-                            DAT_0052c2ac->pass->v16(0);
+                            (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
                         }
                     }
                     if (tac) {
                         tac->v12(0.0f);
                         tac->v7();
-                        DAT_0052c2ac->pass->v15(0);
+                        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v15(0);
                         F.vG.x = f1d74 * 0.5f;
                         F.vG.y = 0.0f;
                         F.vG.z = 0.0f;
-                        DAT_0052c2ac->FUN_00293d00(&F.vG);
+                        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.vG);
                         e->ctl->v8(0, 0);
-                        DAT_0052c2ac->pass->v16(0);
+                        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
                     }
                     F.vD.x = 0.0f;
                     F.vD.y = -(f1d78 + f1d70);
                     F.vD.z = 0.0f;
-                    DAT_0052c2ac->FUN_00293d00(&F.vD);
+                    (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.vD);
                 } else {
                     if (F.i134 == index) {
                         if (owner->v13(this))
-                            b.FUN_000f8280(DAT_004a1004, DAT_004a1008, DAT_004de94c);
+                            b.FUN_000f8280((*(unsigned int*)&DAT_004a1004), (*(unsigned int*)&DAT_004a1008), (*(unsigned int*)&DAT_004de94c));
                         else
                             b.cells[b.cursor].d.u = c3c.w;
                     }
@@ -574,29 +573,29 @@ void TextSelector::vfunc_5()
                         Elem_ea7c0 *el = ep + e->cur;
                         owner->v15(&F.vE, this);
                         float ff = F.vE.x - b.FUN_000f88a0(el);
-                        DAT_0052c2ac->pass->v15(0);
+                        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v15(0);
                         F.vA.x = ff;
                         F.vA.y = 0.0f;
                         F.vA.z = 0.0f;
-                        DAT_0052c2ac->FUN_00293d00(&F.vA);
+                        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.vA);
                         b.FUN_000f87f0(el, 0);
-                        DAT_0052c2ac->pass->v16(0);
+                        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
                     }
                     if (tac) {
                         tac->v12(0.0f);
                         tac->v7();
-                        DAT_0052c2ac->pass->v15(0);
+                        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v15(0);
                         F.vB.x = f1d74 * 0.5f;
                         F.vB.y = 0.0f;
                         F.vB.z = 0.0f;
-                        DAT_0052c2ac->FUN_00293d00(&F.vB);
+                        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.vB);
                         e->ctl->v8(0, 0);
-                        DAT_0052c2ac->pass->v16(0);
+                        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
                     }
                     F.c.x = 0.0f;
                     F.c.y = -(f1d78 + f1d70);
                     F.c.z = 0.0f;
-                    DAT_0052c2ac->FUN_00293d00(&F.c);
+                    (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.c);
                     if (F.i134 == index)
                         b.cells[b.cursor].d.u = b.hdr[1];
                 }
@@ -643,23 +642,23 @@ void TextSelector::vfunc_5()
                     if (tac) {
                         tac->v12(flag);
                         tac->v7();
-                        DAT_0052c2ac->pass->v15(0);
+                        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v15(0);
                         F.c.x = f1d74 * 0.5f;
                         F.c.y = 0.0f;
                         F.c.z = 0.0f;
-                        DAT_0052c2ac->FUN_00293d00(&F.c);
+                        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.c);
                         e->ctl->v8(0, 0);
-                        DAT_0052c2ac->pass->v16(0);
+                        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
                     }
                     F.vB.x = f1d74 + f1d6c;
                     F.vB.y = 0.0f;
                     F.vB.z = 0.0f;
-                    DAT_0052c2ac->FUN_00293d00(&F.vB);
+                    (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.vB);
                 } else {
                     flag = 0.0f;
                     if (F.i134 == index) {
                         if (owner->v13(this))
-                            b.FUN_000f8280(DAT_004a1004, DAT_004a1008, DAT_004de94c);
+                            b.FUN_000f8280((*(unsigned int*)&DAT_004a1004), (*(unsigned int*)&DAT_004a1008), (*(unsigned int*)&DAT_004de94c));
                         else
                             b.cells[b.cursor].d.u = c3c.w;
                         flag = 1.0f;
@@ -668,15 +667,15 @@ void TextSelector::vfunc_5()
                     if (tac) {
                         tac->v12(flag);
                         tac->v7();
-                        DAT_0052c2ac->pass->v15(0);
+                        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v15(0);
                         F.vA.x = f1d74 * 0.5f;
                         F.vA.y = 0.0f;
                         F.vA.z = 0.0f;
-                        DAT_0052c2ac->FUN_00293d00(&F.vA);
+                        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.vA);
                         e->ctl->v8(0, 0);
-                        DAT_0052c2ac->pass->v16(0);
+                        (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
                     }
-                    DAT_0052c2ac->FUN_00293d40(f1d74 + f1d6c, 0, 0);
+                    (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d40(f1d74 + f1d6c, 0, 0);
                     if (F.i134 == index)
                         b.cells[b.cursor].d.u = b.hdr[1];
                 }
@@ -684,19 +683,19 @@ void TextSelector::vfunc_5()
         }
     }
 
-    DAT_0052c2ac->pass->v16(0);
+    (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
     if (owner->v13(this)) {
         if (p1d8c != 0 && i1d7c != 0)
             p1d8c->v8(0, 0);
         if (p1d90 != 0 && i1d80 < i1d58 - 1)
             p1d90->v8(0, 0);
     }
-    DAT_0052c2ac->pass->v15(0);
+    (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v15(0);
     owner->v14(&F.vE, this);
-    DAT_0052c2ac->FUN_00293d00(&F.vE);
-    DAT_0052c2ac->FUN_00293d00(&anchor);
+    (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&F.vE);
+    (*(PassHolder_ea7c0**)&DAT_0052c2ac)->FUN_00293d00(&anchor);
     if (owner->v13(this) && &owner->hold->o958 == 0)
         vfunc_18();
-    DAT_0052c2ac->pass->v16(0);
+    (*(PassHolder_ea7c0**)&DAT_0052c2ac)->pass->v16(0);
     b.FUN_000f78e0();
 }

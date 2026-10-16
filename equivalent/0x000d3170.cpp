@@ -2,6 +2,7 @@
 // FUN_000d3170 @ 0x000d3170
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 namespace content {
 namespace LoadInventory {
 template <class T>
@@ -25,38 +26,9 @@ void *thunk_FUN_0008d690(unsigned int size);
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 
 extern unsigned int DAT_004d9968;
-extern float DAT_004de600;
-extern float DAT_004de604;
 extern char DAT_0049fd74[];
 extern char DAT_004a0520[];
 
-extern float DAT_004dde98;
-extern float DAT_004dde9c;
-extern float DAT_004ddea0;
-extern float DAT_004ddea4;
-extern float DAT_004ddea8;
-extern float DAT_004ddeac;
-extern float DAT_004ddeb0;
-extern float DAT_004ddeb4;
-extern float DAT_004ddeb8;
-extern float DAT_004ddebc;
-extern float DAT_004ddec0;
-extern float DAT_004ddec4;
-extern float DAT_004ddec8;
-extern float DAT_004ddecc;
-extern float DAT_004dded0;
-extern float DAT_004ddef4;
-extern float DAT_004ddef8;
-extern float DAT_004ddefc;
-extern float DAT_004ddf00;
-extern float DAT_004ddf04;
-extern float DAT_004ddf08;
-extern float DAT_004ddf0c;
-extern float DAT_004ddf10;
-extern float DAT_004ddf14;
-extern float DAT_004ddf18;
-extern float DAT_004ddf1c;
-extern float DAT_004ddf20;
 
 struct Res_d3170 {
     virtual void AddRef();
@@ -70,7 +42,6 @@ public:
     virtual void v2();
     virtual Res_d3170 *get(void *caster, unsigned int lo, unsigned int hi);
 };
-extern Inventory_d3170 *DAT_004dd9cc;
 
 struct Loc_d3170 : Res_d3170 {
     char pad04[0xc];
@@ -169,7 +140,7 @@ inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 static Res_d3170 *GetLocator(void *slot, const char *name)
 {
-    Inventory_d3170 *inv = DAT_004dd9cc;
+    Inventory_d3170 *inv = (*(Inventory_d3170**)&DAT_004dd9cc);
     unsigned __int64 h = FUN_0027b020(name);
     new (slot) content::LoadInventory::DynamicCaster<pure3d::Locator>;
     return inv->get(slot, (unsigned int)h, (unsigned int)(h >> 32));
@@ -177,7 +148,7 @@ static Res_d3170 *GetLocator(void *slot, const char *name)
 
 static Composite_d3170 *GetComposite(void *slot, const char *name)
 {
-    Inventory_d3170 *inv = DAT_004dd9cc;
+    Inventory_d3170 *inv = (*(Inventory_d3170**)&DAT_004dd9cc);
     unsigned __int64 h = FUN_0027b020(name);
     new (slot) content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable>;
     return (Composite_d3170 *)inv->get(slot, (unsigned int)h, (unsigned int)(h >> 32));
@@ -185,7 +156,7 @@ static Composite_d3170 *GetComposite(void *slot, const char *name)
 
 static Res_d3170 *GetGeometry(void *slot, const char *name)
 {
-    Inventory_d3170 *inv = DAT_004dd9cc;
+    Inventory_d3170 *inv = (*(Inventory_d3170**)&DAT_004dd9cc);
     unsigned __int64 h = FUN_0027b020(name);
     new (slot) content::LoadInventory::DynamicCaster<pure3d::Geometry>;
     return inv->get(slot, (unsigned int)h, (unsigned int)(h >> 32));
@@ -346,15 +317,15 @@ void Hud_d3170::FUN_000d3170(A1 *a1, int a2, A3 *a3)
     DAT_004ddf00 = f.vec.x * 0.04f + DAT_004de600 * -0.5f;
     DAT_004ddf04 = f.s50 + DAT_004de604 * 0.5f;
     f.u70.s70 = 0.5f * f.vec.x;
-    DAT_004dded0 = 0;
+    (*(float*)&DAT_004dded0) = 0;
     f.s50 = -(0.1f * f.vec.y);
-    DAT_004ddeac = 0;
+    (*(float*)((char*)&DAT_004ddea4 + 8)) = 0;
     DAT_004ddec8 = f.u70.s70 + DAT_004de600 * -0.5f;
     DAT_004ddecc = f.s50 + DAT_004de604 * 0.5f;
     f.s54 = DAT_004de600 * -0.5f;
     f.s5c = -(0.14f * f.vec.y);
-    DAT_004ddea4 = f.u70.s70 + f.s54;
-    DAT_004ddea8 = f.s5c + DAT_004de604 * 0.5f;
+    (*(float*)&DAT_004ddea4) = f.u70.s70 + f.s54;
+    (*(float*)((char*)&DAT_004ddea4 + 4)) = f.s5c + DAT_004de604 * 0.5f;
 
     Res_d3170 *r;
     {
@@ -392,8 +363,8 @@ void Hud_d3170::FUN_000d3170(A1 *a1, int a2, A3 *a3)
     DAT_004ddefc = 0;
     DAT_004ddec4 = 0;
     DAT_004ddf1c = 0;
-    DAT_004ddf20 = 0;
-    DAT_004ddef4 = f.vec.x * -0.08f + f.s54;
+    (*(float*)&DAT_004ddf20) = 0;
+    (*(float*)&DAT_004ddef4) = f.vec.x * -0.08f + f.s54;
     DAT_004ddef8 = f.s5c + DAT_004de604 * 0.5f;
     f.s5c = DAT_004de604 * 0.5f;
     f.s50 = f.vec.y * -0.127f;

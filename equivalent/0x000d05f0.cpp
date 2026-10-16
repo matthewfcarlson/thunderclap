@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 171 inputs, branch coverage 76/76)
 // HUDOverlay::vfunc_4 @ 0x000d05f0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" double floor(double);
 extern "C" double sqrt(double);
@@ -175,19 +177,6 @@ struct Part_d05f0 {
     void FUN_000c8850();
 };
 
-extern Canvas *DAT_0052c2ac;
-extern V3_d05f0 DAT_004ddf00;
-extern V3_d05f0 DAT_004dde98;
-extern V3_d05f0 DAT_004ddef4;
-extern V3_d05f0 DAT_004ddeb0;
-extern float DAT_0049fcf4;
-extern float DAT_0049fcf0;
-extern float DAT_0049fd00;
-extern float DAT_0049fcfc;
-extern float DAT_0049fd28;
-extern float DAT_0049fcc4;
-extern int DAT_0049fcf8;
-extern int DAT_0049fd08;
 
 struct Frame_d05f0 {
     int padLow;
@@ -281,8 +270,8 @@ void HUDOverlay::vfunc_4()
 
     SlotStack_d05f0 *st = &f.layout.stack;
     if (flags & 0x200) {
-        DAT_0052c2ac->layer->v15(0);
-        DAT_0052c2ac->FUN_00293d00(&DAT_004ddf00);
+        (*(Canvas**)&DAT_0052c2ac)->layer->v15(0);
+        (*(Canvas**)&DAT_0052c2ac)->FUN_00293d00(((V3_d05f0*)&DAT_004ddf00));
         f.layout.FUN_000f7fe0(font);
         st->FUN_000f78f0();
         st->slots[st->index].b = 1;
@@ -309,12 +298,12 @@ void HUDOverlay::vfunc_4()
         f.layout.FUN_000f80e0(f.u.buf, DAT_0049fd08, f94);
         if (st->index > 0)
             st->index--;
-        DAT_0052c2ac->layer->v16(0);
+        (*(Canvas**)&DAT_0052c2ac)->layer->v16(0);
         f.layout.FUN_000f78e0();
     }
 
     if (f144 < f140) {
-        DAT_0052c2ac->layer->v15(0);
+        (*(Canvas**)&DAT_0052c2ac)->layer->v15(0);
         f.layout.FUN_000f7fe0(font);
         f.u.e2.FUN_000f7930();
         f.u.e2.FUN_000f8500(fbc, font, 1);
@@ -328,7 +317,7 @@ void HUDOverlay::vfunc_4()
         f.layout.FUN_000f87f0(&f.u.e2, 0);
         if (st->index > 0)
             st->index--;
-        DAT_0052c2ac->layer->v16(0);
+        (*(Canvas**)&DAT_0052c2ac)->layer->v16(0);
         f.u.e2.FUN_000f7960();
         f.layout.FUN_000f78e0();
     }
@@ -354,24 +343,24 @@ void HUDOverlay::vfunc_4()
                 arr[i]->v7();
             }
         }
-        DAT_0052c2ac->layer->v15(0);
-        DAT_0052c2ac->FUN_00293d00(&DAT_004dde98);
-        DAT_0052c2ac->FUN_00293bf0(-1.5707964f);
-        float c = DAT_0049fcfc;
-        DAT_0052c2ac->FUN_00293da0(c, c, c);
+        (*(Canvas**)&DAT_0052c2ac)->layer->v15(0);
+        (*(Canvas**)&DAT_0052c2ac)->FUN_00293d00(((V3_d05f0*)&DAT_004dde98));
+        (*(Canvas**)&DAT_0052c2ac)->FUN_00293bf0(-1.5707964f);
+        float c = (*(float*)&DAT_0049fcfc);
+        (*(Canvas**)&DAT_0052c2ac)->FUN_00293da0(c, c, c);
         if (p1f8 != 0)
             p1f8->v8(0, 0);
-        DAT_0052c2ac->layer->v16(0);
+        (*(Canvas**)&DAT_0052c2ac)->layer->v16(0);
     }
 
     FUN_000cf740();
     if ((flags & 0xa) && p244 != 0) {
         p244->v6(owner->clock->FUN_00085f80() * 1000.0f, 0);
-        DAT_0052c2ac->layer->v15(0);
-        DAT_0052c2ac->FUN_00293d00(&DAT_004ddef4);
-        DAT_0052c2ac->FUN_00293bf0(-1.5707964f);
-        float c = DAT_0049fd28;
-        DAT_0052c2ac->FUN_00293da0(c, c, c);
+        (*(Canvas**)&DAT_0052c2ac)->layer->v15(0);
+        (*(Canvas**)&DAT_0052c2ac)->FUN_00293d00(((V3_d05f0*)&DAT_004ddef4));
+        (*(Canvas**)&DAT_0052c2ac)->FUN_00293bf0(-1.5707964f);
+        float c = (*(float*)&DAT_0049fd28);
+        (*(Canvas**)&DAT_0052c2ac)->FUN_00293da0(c, c, c);
         p244->v8(0, 0);
         if (i24c == 4 && p244->v7()) {
             unsigned char cnt = (unsigned char)(p248->end - p248->begin);
@@ -384,7 +373,7 @@ void HUDOverlay::vfunc_4()
                 cnt = (unsigned char)(p248->end - p248->begin);
             }
         }
-        DAT_0052c2ac->layer->v16(0);
+        (*(Canvas**)&DAT_0052c2ac)->layer->v16(0);
     }
 
     FUN_000cda90();
@@ -432,20 +421,20 @@ void HUDOverlay::vfunc_4()
                 p4b4->begin[(unsigned char)i]->v7();
             }
         }
-        DAT_0052c2ac->layer->v15(0);
-        DAT_0052c2ac->FUN_00293d00(&DAT_004ddeb0);
-        DAT_0052c2ac->FUN_00293bf0(-1.5707964f);
-        float c = DAT_0049fcc4;
-        DAT_0052c2ac->FUN_00293da0(c, c, c);
+        (*(Canvas**)&DAT_0052c2ac)->layer->v15(0);
+        (*(Canvas**)&DAT_0052c2ac)->FUN_00293d00(((V3_d05f0*)&DAT_004ddeb0));
+        (*(Canvas**)&DAT_0052c2ac)->FUN_00293bf0(-1.5707964f);
+        float c = (*(float*)&DAT_0049fcc4);
+        (*(Canvas**)&DAT_0052c2ac)->FUN_00293da0(c, c, c);
         p4a0->v8(0, 0);
-        DAT_0052c2ac->layer->v16(0);
+        (*(Canvas**)&DAT_0052c2ac)->layer->v16(0);
     }
 
     if (flags & 0x800) {
-        DAT_0052c2ac->layer->v15(0);
-        DAT_0052c2ac->FUN_00293da0(4.0f, 4.0f, 4.0f);
+        (*(Canvas**)&DAT_0052c2ac)->layer->v15(0);
+        (*(Canvas**)&DAT_0052c2ac)->FUN_00293da0(4.0f, 4.0f, 4.0f);
         p508->v8(0, 0);
-        DAT_0052c2ac->layer->v16(0);
+        (*(Canvas**)&DAT_0052c2ac)->layer->v16(0);
     }
     FUN_000cab50();
     __security_check_cookie(f.cookie);

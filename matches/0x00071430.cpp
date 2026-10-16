@@ -1,7 +1,8 @@
+#include "decls/data/game/global.h"
+
 extern "C" char DAT_003fc624[];
 extern "C" char DAT_003fc644[];
 extern "C" char DAT_003fc664[];
-extern "C" char DAT_004dcf68[];
 extern "C" int gCount;
 extern "C" void* __cdecl Alloc(unsigned int);
 struct P {

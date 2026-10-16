@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 8/8)
 // FUN_001b4450 @ 0x001b4450
+#include "decls/data/game/global.h"
+
 typedef unsigned int uint;
-extern uint DAT_004c39e8, DAT_004c39ec, DAT_004c39f0, DAT_004c39f4, DAT_004c39f8, DAT_004c39fc, DAT_004c3a08, DAT_004c3a0c, DAT_004c3a10, DAT_004c3a14, DAT_004c3a18, DAT_004c3a1c, DAT_004c3a20, DAT_004c3a24;
 struct Payload_1b4450 { char pad[0x58]; uint firstLow, firstHigh, combinedLow, combinedHigh; };
 struct Subject_1b4450;
 struct Record_1b4450 { char pad[8]; Subject_1b4450* owner; uint kind; char pad2[0x64]; Payload_1b4450* payload; };
@@ -14,10 +15,10 @@ bool Controller_1b4450::target(Subject_1b4450* subject, bool force) {
  if (!record || !record->payload) return false;
  Payload_1b4450* p = record->payload;
  record->owner = subject;
- p->firstLow = DAT_004c39e8;
- p->firstHigh = DAT_004c39ec;
- p->combinedLow = DAT_004c3a20 | DAT_004c3a10 | DAT_004c39f8 | DAT_004c39e8 | DAT_004c3a08 | DAT_004c3a18 | DAT_004c39f0;
- p->combinedHigh = DAT_004c3a24 | DAT_004c3a14 | DAT_004c39fc | DAT_004c39ec | DAT_004c3a0c | DAT_004c3a1c | DAT_004c39f4;
+ p->firstLow = (*(uint*)&DAT_004c39e8);
+ p->firstHigh = (*(uint*)((char*)&DAT_004c39e8 + 4));
+ p->combinedLow = (*(uint*)&DAT_004c3a20) | (*(uint*)&DAT_004c3a10) | (*(uint*)&DAT_004c39f8) | (*(uint*)&DAT_004c39e8) | (*(uint*)&DAT_004c3a08) | (*(uint*)&DAT_004c3a18) | (*(uint*)&DAT_004c39f0);
+ p->combinedHigh = (*(uint*)((char*)&DAT_004c3a20 + 4)) | (*(uint*)&DAT_004c3a14) | (*(uint*)((char*)&DAT_004c39f8 + 4)) | (*(uint*)((char*)&DAT_004c39e8 + 4)) | (*(uint*)&DAT_004c3a0c) | (*(uint*)((char*)&DAT_004c3a18 + 4)) | (*(uint*)((char*)&DAT_004c39f0 + 4));
  Payload_1b4450* finalPayload = record->payload;
  record->kind = 5;
  sink->FUN_002ee6b0(finalPayload);

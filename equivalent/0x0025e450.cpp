@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1836 inputs, branch coverage 31/32, incomplete)
 // FUN_0025e450 @ 0x0025e450
+#include "decls/data/engine/audio.h"
+
 typedef unsigned int uint_25e450;
 struct Node { uint_25e450 start; uint_25e450 length; Node* next; };
-extern char DAT_004e7970;
 extern Node* __cdecl FUN_00247530(void*);
 struct Buffer_25e450 { uint_25e450 unknown0; uint_25e450 capacity; char pad8[8]; unsigned char full; char pad11[3]; uint_25e450 position; uint_25e450 limit; char pad1c[8]; uint_25e450 count; Node** head; Node** tail; };
 bool __cdecl FUN_0025e450(Buffer_25e450* b, uint_25e450 alignment) {
@@ -27,7 +28,7 @@ bool __cdecl FUN_0025e450(Buffer_25e450* b, uint_25e450 alignment) {
  if(overflow) b->count+=capacity;
  }
  uint_25e450 end=b->position;
- Node* node=FUN_00247530(&DAT_004e7970);
+ Node* node=FUN_00247530(((char*)((char*)&DAT_004e78e0 + 144)));
  if(node) { node->start=0; node->length=0; node->next=0; }
  node->next=0;
  Node** link=&node->next;

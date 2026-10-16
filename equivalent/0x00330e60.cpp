@@ -2,8 +2,10 @@
 // pure3d::d3dToonVertexShader::vfunc_14 @ 0x00330e60
 // pure3d::d3dToonVertexShader::vfunc_14 @ 0x00330e60
 // pure3d::d3dToonVertexShader::vfunc_14 @ 0x00330e60
-extern float DAT_0040bbec, DAT_00433e34, DAT_00433e38, DAT_00433e3c;
-extern unsigned int DAT_0039db08, DAT_0039db90, DAT_0039db94, DAT_0039db98, DAT_004d4f00;
+#include "decls/data/game/global.h"
+#include "decls/data/platform/xbox/pure3d.h"
+
+extern unsigned int DAT_0039db08, DAT_0039db90, DAT_0039db94, DAT_0039db98;
 struct Light { char pad0[4]; float color[4]; char pad1[44]; float direction[4]; char pad2[24]; };
 namespace D3D8 { void __stdcall D3DDevice_GetLight(int,Light*); void __fastcall D3DDevice_SetVertexShaderConstant1(int,const float*); void __stdcall D3DDevice_SetRenderState_CullMode(int); void __stdcall D3DDevice_SetRenderState_ZEnable(int); }
 namespace pure3d {
@@ -14,7 +16,7 @@ struct d3dToonVertexShader { char pad0[16]; LightManager_330e60* lightManager; S
 };
 void d3dToonVertexShader::vfunc_14(int edge) {
  if (!vertexShader) FUN_00330de0();
- float scale=DAT_0040bbec;
+ float scale=(*(float*)&DAT_0040bbec);
  if (edge) {
   float c[4]; c[0]=(float)((backColor>>16)&255)*scale; c[1]=(float)((backColor>>8)&255)*scale; c[2]=(float)(backColor&255)*scale; c[3]=1.0f;
   if(fade) c[3]=(float)(unsigned int)(255-fade)*scale;
@@ -44,9 +46,9 @@ void d3dToonVertexShader::vfunc_14(int edge) {
  const float *b=indices[2]==-1?zeroColor:lights[1].color;
  const float *c=indices[2]==-1?zeroColor:lights[2].color;
  float luminance[4];
- luminance[0]=a[2]*DAT_00433e3c+a[1]*DAT_00433e38+a[0]*DAT_00433e34;
- luminance[1]=b[2]*DAT_00433e3c+b[1]*DAT_00433e38+b[0]*DAT_00433e34;
- luminance[2]=c[2]*DAT_00433e3c+c[1]*DAT_00433e38+c[0]*DAT_00433e34;
+ luminance[0]=a[2]*(*(float*)&DAT_00433e3c)+a[1]*(*(float*)&DAT_00433e38)+a[0]*(*(float*)&DAT_00433e34);
+ luminance[1]=b[2]*(*(float*)&DAT_00433e3c)+b[1]*(*(float*)&DAT_00433e38)+b[0]*(*(float*)&DAT_00433e34);
+ luminance[2]=c[2]*(*(float*)&DAT_00433e3c)+c[1]*(*(float*)&DAT_00433e38)+c[0]*(*(float*)&DAT_00433e34);
  luminance[3]=0;
  if(alternate) {
   D3D8::D3DDevice_SetVertexShaderConstant1(0xbc,colorConstant);
@@ -64,7 +66,7 @@ void d3dToonVertexShader::vfunc_14(int edge) {
  context->FUN_00329e50(0,4,1,2);
  context->FUN_00329e50(1,4,1,2);
  FUN_0032a320(0,0);
- if(context->mode!=1){context->mode=1;DAT_0039db90=DAT_004d4f00;DAT_0039db94=DAT_004d4f00;DAT_0039db08|=2;DAT_0039db98=DAT_004d4f00;}
+ if(context->mode!=1){context->mode=1;DAT_0039db90=(*(unsigned int*)((char*)&DAT_004d4efc + 4));DAT_0039db94=(*(unsigned int*)((char*)&DAT_004d4efc + 4));DAT_0039db08|=2;DAT_0039db98=(*(unsigned int*)((char*)&DAT_004d4efc + 4));}
  context->FUN_00329c90(1,2);
  D3D8::D3DDevice_SetRenderState_CullMode(0x901);
  D3D8::D3DDevice_SetRenderState_ZEnable(1);

@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 10/10)
 // FUN_001129a0 @ 0x001129a0
+#include "decls/data/game/unknown.h"
+
 typedef void (__cdecl *Callback_1129a0)();
 extern void __cdecl FUN_0010c4d0();
 extern void __cdecl FUN_0010c4e0();
 extern void __cdecl FUN_0010c4f0();
 extern void __cdecl FUN_0010c510();
 extern void* __cdecl FUN_0008d690(unsigned int);
-extern int DAT_004e0b7c;
-extern int DAT_004e0b78;
 extern void __cdecl FUN_002347b0(void*,void*,int);
 inline void* operator new(unsigned int, void* p) { return p; }
 namespace hulkfight { namespace ai { class HulkActionTrack; } }

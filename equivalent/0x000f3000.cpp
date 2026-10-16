@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_000f3000 @ 0x000f3000
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" void* memset(void* dst, int c, unsigned int n);
 namespace pure3d {
 class DrawableHierarchy;
@@ -36,8 +37,6 @@ public:
     virtual void v2();
     virtual Scenegraph* find(content::LoadInventory::DynamicCasterBase* caster, unsigned __int64 key);
 };
-extern Inventory_f3000* DAT_004dd9cc;
-extern int DAT_004de94c;
 
 void __cdecl FUN_000f69e0(Scenegraph* shape, float* scale);
 
@@ -189,7 +188,7 @@ FEThingsBase::FEThingsBase()
 
     {
         content::LoadInventory::DynamicCaster<pure3d::scenegraph::Scenegraph> caster;
-        Inventory_f3000* inv = DAT_004dd9cc;
+        Inventory_f3000* inv = (*(Inventory_f3000**)&DAT_004dd9cc);
         unsigned __int64 key = FUN_0027b020("cursor_group");
         Scenegraph* sg = inv->find(&caster, key);
         cursorGroup = sg;
@@ -201,7 +200,7 @@ FEThingsBase::FEThingsBase()
     cursorScale[2] = 1.0f;
     {
         content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> caster;
-        Inventory_f3000* inv = DAT_004dd9cc;
+        Inventory_f3000* inv = (*(Inventory_f3000**)&DAT_004dd9cc);
         unsigned __int64 key = FUN_0027b020("cursor_planeShape");
         Scenegraph* shape = inv->find(&caster, key);
         if (shape)

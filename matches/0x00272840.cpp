@@ -1,3 +1,5 @@
+#include "decls/data/engine/core.h"
+
 extern "C" void _ReadWriteBarrier();
 extern void* vDrive[];
 extern void* vD4[];
@@ -5,7 +7,6 @@ extern void* vDc[];
 extern void* vSafe[];
 extern void* vBase[];
 extern void* vIRef[];
-extern unsigned DAT_004cdbb0;
 class Part_272840 {
   public:
     void Fini() throw();
@@ -27,7 +28,7 @@ void Target_272840::Dtor() throw() {
     vc = vSafe;
     _ReadWriteBarrier();
     unsigned t = p8;
-    DAT_004cdbb0 = t;
+    (*(unsigned*)&DAT_004cdbb0) = t;
     v4 = vBase;
     v0 = vIRef;
 }

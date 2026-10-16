@@ -1,22 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3046 inputs, branch coverage 130/130)
 // CChaseCamera::vfunc_35 @ 0x000a75d0
+#include "decls/data/game/global.h"
+
 extern "C" double __cdecl sqrt(double);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 
 extern unsigned int DAT_004d9968;
-extern float DAT_0049ec64;
-extern float DAT_0049ec84;
-extern float DAT_0049ec88;
-extern float DAT_0049ecac;
-extern float DAT_0049ecb8;
-extern float DAT_0049ecbc;
-extern float DAT_0049ecc0;
-extern float DAT_0049ecc4;
-extern float DAT_0049ecc8;
-extern float DAT_0049eccc;
-extern float DAT_0049ecd0;
-extern float DAT_0049ecd4;
-extern float DAT_004dd9e0;
 
 static float AbsF(float v)
 {
@@ -230,7 +219,7 @@ void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
                 f350->FUN_000382c0(&f.vA);
                 f.v1.x = DAT_0049ecbc;
                 f.v1.y = 0.0f;
-                f.v1.z = DAT_0049ecc4;
+                f.v1.z = (*(float*)&DAT_0049ecc4);
                 f.v1.FUN_0022d210(&f.u.M);
                 f.v1.x = f.vB.x + f.v1.x;
                 f.v1.y = f.vB.y + f.v1.y;
@@ -242,13 +231,13 @@ void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
                 f.v2.x = f.v2.x + f.vA.x;
                 f.v2.y = f.vA.y + f.v2.y;
                 f.v2.z = f.vA.z + f.v2.z;
-                if (f350->FUN_00038e30(&f.v2, &f.v1, DAT_0049ecc0, 1, &f.vC, &f.vD)) {
+                if (f350->FUN_00038e30(&f.v2, &f.v1, (*(float*)&DAT_0049ecc0), 1, &f.vC, &f.vD)) {
                     f.F14 = 1.0f;
-                    f4ac = DAT_0049ecc8;
+                    f4ac = (*(float*)&DAT_0049ecc8);
                 }
                 f.v1.x = -DAT_0049ecbc;
                 f.v1.y = 0.0f;
-                f.v1.z = DAT_0049ecc4;
+                f.v1.z = (*(float*)&DAT_0049ecc4);
                 f.v1.FUN_0022d210(&f.u.M);
                 f.v1.x = f.vB.x + f.v1.x;
                 f.v1.y = f.vB.y + f.v1.y;
@@ -260,9 +249,9 @@ void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
                 f.v2.x = f.v2.x + f.vA.x;
                 f.v2.y = f.vA.y + f.v2.y;
                 f.v2.z = f.vA.z + f.v2.z;
-                if (f350->FUN_00038e30(&f.v2, &f.v1, DAT_0049ecc0, 1, &f.vC, &f.vD)) {
+                if (f350->FUN_00038e30(&f.v2, &f.v1, (*(float*)&DAT_0049ecc0), 1, &f.vC, &f.vD)) {
                     f.F14 = f.F14 - 1.0f;
-                    f4b0 = DAT_0049ecc8;
+                    f4b0 = (*(float*)&DAT_0049ecc8);
                 }
             }
         }
@@ -271,7 +260,7 @@ void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
             b4ba = 1;
         } else {
             if (f.F14 != 0.0f) {
-                f.F14 = FUN_0009faa0(f334, f.F14, dt, DAT_0049eccc);
+                f.F14 = FUN_0009faa0(f334, f.F14, dt, (*(float*)&DAT_0049eccc));
                 b4b8 = 1;
             }
         }
@@ -306,13 +295,13 @@ void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
                     f.vA.z = 0.0f;
                     f.mat2.FUN_0022bec0(&f.vC, &f.vA);
                     f.v1.x = 0.0f;
-                    f.v1.y = DAT_0049ecd4;
-                    f.v1.z = DAT_004dd9e0;
+                    f.v1.y = (*(float*)&DAT_0049ecd4);
+                    f.v1.z = (*(float*)&DAT_004dd9e0);
                     f.v1.FUN_0022d210(&f.mat2);
                     f.v1.x = f.vB.x + f.v1.x;
                     f.v1.y = f.vB.y + f.v1.y;
                     f.v1.z = f.vB.z + f.v1.z;
-                    if (f350->FUN_00038e30(&f.v1, &f.v2, DAT_0049ecc0, 1, &f.u.x.vE, &f.vD)) {
+                    if (f350->FUN_00038e30(&f.v1, &f.v2, (*(float*)&DAT_0049ecc0), 1, &f.u.x.vE, &f.vD)) {
                         f.F10 = 1.0f;
                         b4b9 = 1;
                         if (b348)
@@ -332,7 +321,7 @@ void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
                     t = 0.0f;
                 else
                     t = f44c;
-                FUN_000a2cc0(f238 + 180.0f, t, f444, DAT_0049ec64, s);
+                FUN_000a2cc0(f238 + 180.0f, t, f444, (*(float*)&DAT_0049ec64), s);
                 f488 = 0;
             }
         }
@@ -435,10 +424,10 @@ void CChaseCamera::vfunc_35(float a1, float dt, float a3, float a4)
         f218 = f214;
         f228 = f224;
         f230 = f22c;
-        f214 = FUN_0009fb20(f2ec, f2f0, f.F10, dt, DAT_0049ec84);
-        f21c = FUN_0009fb20(f2f4, f2f8, f220, dt, DAT_0049ec84);
-        f224 = FUN_0009fb20(f2fc, f300, f228, dt, DAT_0049ec84);
-        f22c = FUN_0009fb20(f304, f308, f230, dt, DAT_0049ec88);
+        f214 = FUN_0009fb20(f2ec, f2f0, f.F10, dt, (*(float*)&DAT_0049ec84));
+        f21c = FUN_0009fb20(f2f4, f2f8, f220, dt, (*(float*)&DAT_0049ec84));
+        f224 = FUN_0009fb20(f2fc, f300, f228, dt, (*(float*)&DAT_0049ec84));
+        f22c = FUN_0009fb20(f304, f308, f230, dt, (*(float*)&DAT_0049ec88));
         f.u.m3.M3.FUN_0022b980();
         f.u.m3.M3.FUN_0022bda0((f20c + f21c + f214) * -0.01745329238474369f,
                                (f210 + f224) * 0.01745329238474369f, f22c * 0.01745329238474369f);

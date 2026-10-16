@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 145 inputs, branch coverage 32/38, incomplete)
 // FUN_001b98e0 @ 0x001b98e0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 class Target_1b98e0 {
 public:
     virtual void v0();
@@ -108,17 +109,6 @@ public:
     virtual Target_1b98e0 *v89(int id);
 };
 
-extern int DAT_004c3bf0;
-extern int DAT_004c3bf4;
-extern int DAT_004c3bf8;
-extern int DAT_004c3bfc;
-extern int DAT_004c3c00;
-extern int DAT_004c3c04;
-extern float DAT_004c3c08;
-extern float DAT_004e2254;
-extern float DAT_004e2258;
-extern float DAT_004e225c;
-extern float DAT_004e2260;
 
 static int clamp255(int v)
 {
@@ -168,7 +158,7 @@ int LightSetup_1b98e0::FUN_001b98e0(float a0, float a1, float a2, float a3, floa
     DAT_004c3c04 = b2;
     DAT_004e225c = a3;
     DAT_004e2260 = a4;
-    DAT_004c3c08 = a5;
+    (*(float*)&DAT_004c3c08) = a5;
     int color1 = (0xff << 24) | (clamp255(r2) << 16) | (clamp255(g2) << 8) | clamp255(b2);
     int color2 = (0xff << 24) | (clamp255(r1) << 16) | (clamp255(g1) << 8) | clamp255(b1);
     return t->v8(a0, color2, a1, a2, color1, a3, a4, a5);

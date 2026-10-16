@@ -1,15 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 16/16)
 // FUN_001c0ab0 @ 0x001c0ab0
+#include "decls/data/game/global.h"
+
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int DAT_004d9968;
 extern "C" int strcmp(const char *a, const char *b);
 
-extern const char *DAT_004c4c5c;
-extern const char *DAT_004c4c60;
-extern const char *DAT_004c4c64;
-extern const char *DAT_004c4c70;
-extern const char *DAT_004c4c74;
-extern const char *DAT_004c4c78;
 
 int __cdecl FUN_00266da0(int id);
 int __cdecl FUN_000f7120(int handle);
@@ -71,34 +67,34 @@ void Menu_1c0ab0::FUN_001c0ab0(const char *name)
         flag54 = 1;
         if (labelA != 0) {
             labelA->FUN_000f7110();
-            FUN_000964a0(buf, 0x40, DAT_004c4c64, h);
+            FUN_000964a0(buf, 0x40, (*(const char**)&DAT_004c4c64), h);
             labelA->FUN_000f7a80(buf);
         }
         if (hasPrinter != 0) {
             f40 = 0;
             Printer_1c0ab0 *p = FUN_001d4c90();
             int t2 = FUN_00266da0(1);
-            p->FUN_001d3600(DAT_004c4c70, 0);
+            p->FUN_001d3600((*(const char**)&DAT_004c4c70), 0);
             FUN_00266da0(t2);
         }
     } else {
         flag54 = 0;
         if (labelA != 0) {
             labelA->FUN_000f7110();
-            FUN_000964a0(buf, 0x40, DAT_004c4c5c, h);
+            FUN_000964a0(buf, 0x40, (*(const char**)&DAT_004c4c5c), h);
             labelA->FUN_000f7a80(buf);
         }
         if (labelB != 0) {
             labelB->FUN_000f7110();
-            FUN_000964a0(buf, 0x40, DAT_004c4c74, name, name, h);
+            FUN_000964a0(buf, 0x40, (*(const char**)&DAT_004c4c74), name, name, h);
             labelB->FUN_000f7a80(buf);
         }
         if (hasPrinter != 0) {
             f40 = 0;
             Printer_1c0ab0 *p = FUN_001d4c90();
             int t2 = FUN_00266da0(1);
-            p->FUN_001d3600(DAT_004c4c60, 0);
-            FUN_000964a0(buf, 0x40, DAT_004c4c78, name, name);
+            p->FUN_001d3600((*(const char**)&DAT_004c4c60), 0);
+            FUN_000964a0(buf, 0x40, (*(const char**)&DAT_004c4c78), name, name);
             p->FUN_001d3600(buf, 0);
             FUN_00266da0(t2);
         }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3001 inputs, branch coverage 8/8)
 // FUN_000a2430 @ 0x000a2430
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct ResourceName_a2430 {
     int word;
     void FUN_0027b040(const char *name);
@@ -19,8 +20,6 @@ public:
     CCameraBase_a2430() { FUN_000a9400(); }
 };
 
-extern const char *DAT_0049ec40;
-extern float DAT_0049ec58;
 
 struct Sub248 {
     char pad[0xd8];
@@ -219,7 +218,7 @@ CChaseCamera::CChaseCamera()
     f49c = -3.4028235e+38f;
     f3c8 = 50.0f;
     f3cc = 50.0f;
-    f44c = DAT_0049ec58;
+    f44c = (*(float*)&DAT_0049ec58);
     f3c4 = 10.0f;
     f440 = 10.0f;
     f444 = 10.0f;
@@ -295,7 +294,7 @@ CChaseCamera::CChaseCamera()
     f458 = 0;
     f354 = 0;
     mode = 0;
-    name.FUN_0027b040(DAT_0049ec40);
+    name.FUN_0027b040((*(const char**)&DAT_0049ec40));
     f424 = 0;
     f428 = 0;
     f42c = 0;

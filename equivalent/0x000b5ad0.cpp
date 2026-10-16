@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000b5ad0 @ 0x000b5ad0
+#include "decls/data/game/unknown.h"
+
 extern "C" char DAT_0049dba4[];
 extern "C" char DAT_0049dbbc[];
-extern char DAT_004dd83a;
-extern char DAT_004dd83b;
 extern void* __cdecl FUN_000fc260(const char* name);
 extern void* __cdecl FUN_00344e74(void*, int, const char*, const char*, int);
 

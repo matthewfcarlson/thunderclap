@@ -1,6 +1,6 @@
+#include "decls/data/engine/audio.h"
+
 extern "C" char DAT_00429434[];
-extern "C" char DAT_004e6320[];
-extern "C" char DAT_004e6328[];
 typedef unsigned int u32_24d690;
 extern void __stdcall Init(void*, void*, int, int);
 struct Obj_24d690 {

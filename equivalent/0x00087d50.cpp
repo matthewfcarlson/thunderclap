@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_00087d50 @ 0x00087d50
 #include "decls/address.h"
+#include "decls/data/game/unknown.h"
 extern "C" void* __cdecl FUN_0008d690(unsigned int size);
-extern "C" const char DAT_0048e128[];
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
 class CTimeManager { public: float FUN_dummy(); };
@@ -23,7 +23,7 @@ class Method0 : public MethodBase_87d50 {
     typedef R (T::*Fn)();
     Method0(const char* name, Fn f) : MethodBase_87d50(name, 0) {
         fn = f;
-        enabled = FUN_001d04d0(DAT_0048e128);
+        enabled = FUN_001d04d0(((const char*)&DAT_0048e128));
     }
     Fn fn;
 };

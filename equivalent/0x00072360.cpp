@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_00072360 @ 0x00072360
+#include "decls/data/game/global.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_00068960();
 void __cdecl FUN_00068970();
@@ -14,8 +16,6 @@ template<class T> struct ParamFloatConstRange {
  int tail;
 };
 }
-extern int DAT_004dcfdc;
-extern int DAT_004dcfd8;
 typedef fight::ParamFloatConstRange<CInvulnerableTrack> Param;
 void __cdecl FUN_002347b0(void*, Param**, int);
 void __cdecl FUN_00072360() {

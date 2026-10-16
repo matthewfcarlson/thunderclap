@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 38/40, incomplete)
 // FUN_000a2800 @ 0x000a2800
 // FUN_000a2800 @ 0x000a2800: search sample directions around a target for the best visible point
+#include "decls/data/game/global.h"
+
 extern "C" double sqrt(double);
 
-extern float DAT_0049ecb0;
 extern float __cdecl FUN_000a0330(float);
 extern float __cdecl FUN_000a02a0(float);
 extern int __cdecl FUN_000a0010(float range, float step, int max, float *out);
@@ -112,7 +113,7 @@ bool Target::FUN_000a2800(float a0, float a1, float a2, float a3, float a4, floa
         f.q[0] = c0 + p[0];
         f.q[1] = p[1] + c1;
         f.q[2] = p[2] + c2;
-        if (caster->FUN_00038e30(a7, f.q, DAT_0049ecb0, 1, f.o1, f.o2)) {
+        if (caster->FUN_00038e30(a7, f.q, (*(float*)&DAT_0049ecb0), 1, f.o1, f.o2)) {
             float sc = scale;
             f.q[0] = f.o2[0] * sc + f.o1[0];
             f.q[1] = f.o2[1] * sc + f.o1[1];

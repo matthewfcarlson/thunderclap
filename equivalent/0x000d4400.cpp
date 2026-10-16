@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 17/18, incomplete)
 // FUN_000d4400 @ 0x000d4400
-extern float DAT_003f32dc;
-extern float DAT_004a06bc;
+#include "decls/data/game/global.h"
 
 struct Accum {
     char pad0[0x220];
@@ -36,7 +35,7 @@ void Accum::FUN_000d4400(int id, float amount)
     float v2 = 0.0f;
 
     if (flag0 && id0 == id) {
-        float scale = DAT_003f32dc;
+        float scale = (*(float*)&DAT_003f32dc);
         if (id == 0)
             scale = DAT_004a06bc;
         float w0 = v0, w1 = v1, w2 = v2;
@@ -53,7 +52,7 @@ void Accum::FUN_000d4400(int id, float amount)
         sum2 = w2 + sum2;
     }
     if (flag1 && id1 == id) {
-        float scale = DAT_003f32dc;
+        float scale = (*(float*)&DAT_003f32dc);
         if (id == 0)
             scale = DAT_004a06bc;
         float w0 = v0, w1 = v1, w2 = v2;

@@ -1,5 +1,5 @@
-extern "C" char DAT_004e58c8[];
-extern "C" char DAT_004e58d0[];
+#include "decls/data/engine/om.h"
+
 typedef unsigned int U_260de0;
 struct H {
     void* vt;

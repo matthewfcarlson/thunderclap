@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3063 inputs, branch coverage 129/132, incomplete)
 // FUN_000418f0 @ 0x000418f0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" double __cdecl sqrt(double);
 
 struct V3_418f0 {
@@ -71,12 +72,6 @@ struct Fx_418f0 {
     char FUN_0023f730(const char *s);
     void FUN_0023f740();
 };
-extern Fx_418f0 *DAT_004dd6e8;
-extern unsigned __int64 DAT_004dc060;
-extern unsigned __int64 DAT_004dc090;
-extern unsigned int DAT_004dc2fc;
-extern float DAT_004dc2f8;
-extern float DAT_004dc2f4;
 
 struct Ref14c : RefObj_418f0 {
     char pad4[8];
@@ -203,8 +198,8 @@ void Chara_418f0::FUN_000418f0(Ctx_418f0 *a1, float a2)
     f.fl = f148;
     f.thr = f.fl * 0.5f;
     f.ctype = f11c->f14;
-    DAT_004dd6e8->FUN_0023f730("World Collision Manager");
-    DAT_004dd6e8->FUN_0023f740();
+    (*(Fx_418f0**)&DAT_004dd6e8)->FUN_0023f730("World Collision Manager");
+    (*(Fx_418f0**)&DAT_004dd6e8)->FUN_0023f740();
     if (f1b20 > 0 || (f14c != 0 && f14c->f0c != 5 && f14c->f0c == 0))
         FUN_00038c40();
     b1a38 = b1a39;
@@ -305,8 +300,8 @@ void Chara_418f0::FUN_000418f0(Ctx_418f0 *a1, float a2)
                 f.obj18->FUN_002226f0(&f.pos);
             }
         }
-        if (f11c->FUN_000443c0() == DAT_004dc060 ||
-            (f11c->FUN_000443c0() == DAT_004dc090 && f138 > 0)) {
+        if (f11c->FUN_000443c0() == (*(unsigned __int64*)&DAT_004dc060) ||
+            (f11c->FUN_000443c0() == (*(unsigned __int64*)&DAT_004dc090) && f138 > 0)) {
             if (f.pos.y < f.A.y) {
                 f.pos.y = f.A.y;
                 f.obj18->FUN_002226f0(&f.pos);

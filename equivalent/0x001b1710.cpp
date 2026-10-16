@@ -2,6 +2,8 @@
 // FUN_001b1710 @ 0x001b1710
 // equiv-conv: FUN_001b0470 ecx eax stack
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl _sprintf(char *, const char *, ...);
@@ -185,18 +187,6 @@ struct Handler_1b1710 {
     int FUN_001b1710(Thing_1b1710 *a0, Thing_1b1710 *a1, Thing_1b1710 *a2, V3_1b1710 *a3, V3_1b1710 *a4, float a5);
 };
 
-extern char DAT_004e1804;
-extern unsigned int DAT_004dc060;
-extern unsigned int DAT_004dc064;
-extern unsigned int DAT_004dc0e0;
-extern unsigned int DAT_004dc0e4;
-extern float DAT_004c3730;
-extern float DAT_004c3734;
-extern float DAT_0048e06c;
-extern float DAT_0048e070;
-extern float DAT_004e1808;
-extern float DAT_004e180c;
-extern char DAT_004c37f4;
 
 float FUN_001b0470(Body_1b1710 *d, Body_1b1710 *s, V3_1b1710 *w);
 
@@ -220,7 +210,7 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710 *a0, Thing_1b1710 *a1, Thing_1b171
 
     f.cookie = DAT_004d9968;
     f.self = this;
-    if (DAT_004e1804 && a5 > 0.0f) {
+    if ((*(char*)&DAT_004e1804) && a5 > 0.0f) {
         __security_check_cookie(f.cookie);
         return 0;
     }
@@ -234,7 +224,7 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710 *a0, Thing_1b1710 *a1, Thing_1b171
     }
     D->FUN_000373d0();
     unsigned __int64 id = D->f11c->FUN_000443c0();
-    if ((unsigned int)id == DAT_004dc060 && (unsigned int)(id >> 32) == DAT_004dc064) {
+    if ((unsigned int)id == (*(unsigned int*)&DAT_004dc060) && (unsigned int)(id >> 32) == (*(unsigned int*)((char*)&DAT_004dc060 + 4))) {
         __security_check_cookie(f.cookie);
         return 1;
     }
@@ -323,7 +313,7 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710 *a0, Thing_1b1710 *a1, Thing_1b171
             __security_check_cookie(f.cookie);
             return 1;
         }
-        if (p114 != 0 && p114->fc == 1 && p114->f8->f8 == DAT_004dc0e0 && p114->f8->fc == DAT_004dc0e4) {
+        if (p114 != 0 && p114->fc == 1 && p114->f8->f8 == (*(unsigned int*)&DAT_004dc0e0) && p114->f8->fc == (*(unsigned int*)((char*)&DAT_004dc0e0 + 4))) {
             __security_check_cookie(f.cookie);
             return 1;
         }
@@ -331,15 +321,15 @@ int Handler_1b1710::FUN_001b1710(Thing_1b1710 *a0, Thing_1b1710 *a1, Thing_1b171
     {
         Thing_1b1710 *A1 = a1;
         f.b3 = S->s1a4.FUN_001b6e90(A1);
-        if (S->FUN_001d6640() && *(unsigned int *)&D->name8 == DAT_004dc0e0 && *(unsigned int *)&D->name8[4] == DAT_004dc0e4) {
+        if (S->FUN_001d6640() && *(unsigned int *)&D->name8 == (*(unsigned int*)&DAT_004dc0e0) && *(unsigned int *)&D->name8[4] == (*(unsigned int*)((char*)&DAT_004dc0e0 + 4))) {
             if (f.b3)
                 goto ret1;
             S->s1a4.FUN_001b6e60(A1);
             f.w.x = a3->x;
             f.w.y = a3->y;
             f.w.z = a3->z;
-            D->FUN_00043ae0(a2, &f.w, DAT_0048e06c, 0, DAT_0048e070, DAT_004e1808, DAT_004e180c, 0, 0);
-            if (DAT_004c37f4)
+            D->FUN_00043ae0(a2, &f.w, (*(float*)&DAT_0048e06c), 0, (*(float*)&DAT_0048e070), DAT_004e1808, DAT_004e180c, 0, 0);
+            if ((*(char*)&DAT_004c37f4))
                 D->FUN_00038e80(a0, a2, -1, a3, a4, a5);
             goto ret1;
         }

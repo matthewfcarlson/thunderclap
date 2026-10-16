@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3038 inputs, branch coverage 29/30, incomplete)
 // hulkfight::ai::MotionBoostAction::vfunc_5 @ 0x00117150
 #include "decls/address.h"
+#include "decls/data/game/hulkfight/ai.h"
 struct V3_117150 {
     float x, y, z;
     float FUN_0022d110();
@@ -46,8 +47,6 @@ struct World {
     Reg20_117150 *p20;
 };
 
-extern unsigned int DAT_004e0ca4;
-extern V3_117150 DAT_004e0c98;
 
 struct Pad_117150 {
     char pad00[0x10];
@@ -95,10 +94,10 @@ char MotionBoostAction::FUN_00117150(int a, int b)
 
     if (!(DAT_004e0ca4 & 1))
         DAT_004e0ca4 |= 1;
-    DAT_004e0c98.z = 0.0f;
-    DAT_004e0c98.y = 0.0f;
-    DAT_004e0c98.x = 0.0f;
-    if (pos.FUN_0022d2b0(&DAT_004e0c98, 1e-5f))
+    (*(V3_117150*)&DAT_004e0c98).z = 0.0f;
+    (*(V3_117150*)&DAT_004e0c98).y = 0.0f;
+    (*(V3_117150*)&DAT_004e0c98).x = 0.0f;
+    if (pos.FUN_0022d2b0(((V3_117150*)&DAT_004e0c98), 1e-5f))
         return 0;
 
     Pad_117150 *pad = owner->FUN_000592a0()->FUN_00059a30();

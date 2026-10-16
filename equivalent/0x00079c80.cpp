@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 8/8)
 // FUN_00079c80 @ 0x00079c80
-extern float DAT_004dd048;
-extern float DAT_004dd04c;
+#include "decls/data/game/global.h"
 
 struct Item_79c80 {
     float f0;

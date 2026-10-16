@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3172 inputs, branch coverage 94/94)
 // FEThingsBase::vfunc_35 @ 0x000f3270
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 typedef unsigned __int64 u64_f3270;
 void *FUN_0008d690(unsigned int size);
 
@@ -17,7 +18,6 @@ struct Inventory_f3270 {
     virtual void i2();
     virtual Loaded_f3270 *find(void *caster, u64_f3270 key);
 };
-extern Inventory_f3270 *DAT_004dd9cc;
 Loaded_f3270 *__cdecl FUN_000c0d80(Inventory_f3270 *inv, const char *name);
 
 struct Color_f3270 {
@@ -228,7 +228,7 @@ bool FEThingsBase::vfunc_35(Reader *r, int unused, Dest_f3270 *dst, Key_f3270 *k
     }
     case 0xf7d14590: {
         const char *nm = r->FUN_000fad90();
-        Inventory_f3270 *inv = DAT_004dd9cc;
+        Inventory_f3270 *inv = (*(Inventory_f3270**)&DAT_004dd9cc);
         u64_f3270 key2 = FUN_0027b020(nm);
         content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> caster;
         Loaded_f3270 *l = inv->find(&caster, key2);
@@ -242,7 +242,7 @@ bool FEThingsBase::vfunc_35(Reader *r, int unused, Dest_f3270 *dst, Key_f3270 *k
         dst->f6c = FUN_000e7ec0(r->FUN_000faeb0(), r);
         return true;
     case 0x09a7e15a:
-        dst->FUN_000e9130(FUN_000c0d80(DAT_004dd9cc, r->FUN_000fad90()));
+        dst->FUN_000e9130(FUN_000c0d80((*(Inventory_f3270**)&DAT_004dd9cc), r->FUN_000fad90()));
         return true;
     case 0x18688526:
         return true;
@@ -263,7 +263,7 @@ bool FEThingsBase::vfunc_35(Reader *r, int unused, Dest_f3270 *dst, Key_f3270 *k
         return true;
     }
     case 0x47329b05: {
-        dst->FUN_000e9100(FUN_000c0d80(DAT_004dd9cc, r->FUN_000fad90()));
+        dst->FUN_000e9100(FUN_000c0d80((*(Inventory_f3270**)&DAT_004dd9cc), r->FUN_000fad90()));
         if (r->FUN_000f9e90()) {
             if (r->FUN_000fad30() != 0.0f) {
                 dst->b68 = 1;

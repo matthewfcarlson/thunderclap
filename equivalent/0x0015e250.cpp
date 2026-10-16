@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 28/28)
 // hulkfight::motion::LocomotionSprintAction::vfunc_5 @ 0x0015e250
+#include "decls/data/game/hulkfight/motion.h"
+
 extern "C" double sqrt(double);
 
 struct V3_15e250 {
@@ -41,7 +43,6 @@ double __cdecl FUN_00224fc0(int a, int b);
 double __cdecl FUN_00224f10(V3_15e250 *v);
 double __cdecl FUN_00083d90(float *v);
 void __cdecl FUN_00224d70(int angle, V3_15e250 *v);
-extern V3_15e250 DAT_004b4d60;
 
 union Slot_15e250 {
     int i;
@@ -146,9 +147,9 @@ bool LocomotionSprintAction::vfunc_5(Slot_15e250 a1, Slot_15e250 a2)
     target->f8b0 = f.s14;
     f.s0 = (float)FUN_00224fc0(h0, *(int *)&na);
 
-    f.v0 = DAT_004b4d60;
+    f.v0 = (*(V3_15e250*)&DAT_004b4d60);
     FUN_00224d70(*(int *)&na, &f.v0);
-    f.v1 = DAT_004b4d60;
+    f.v1 = (*(V3_15e250*)&DAT_004b4d60);
     FUN_00224d70(h0, &f.v1);
     Cfg_15e250 *c2 = cfg;
     Slot_15e250 s20;
@@ -193,10 +194,10 @@ bool LocomotionSprintAction::vfunc_5(Slot_15e250 a1, Slot_15e250 a2)
         outA = f.s0;
         outB = a1.f;
     } else {
-        f.v2 = DAT_004b4d60;
+        f.v2 = (*(V3_15e250*)&DAT_004b4d60);
         FUN_00224d70(*(int *)&f.sC, &f.v2);
         f.v2.x = f.v2.x * f.s4;
-        f.z = DAT_004b4d60;
+        f.z = (*(V3_15e250*)&DAT_004b4d60);
         f.v2.y = f.v2.y * f.s4;
         f.v2.z = f.v2.z * f.s4;
         FUN_00224d70(*(int *)&f.s0, &f.z);

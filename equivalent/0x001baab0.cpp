@@ -1,6 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 87 inputs, branch coverage 44/46, incomplete)
 // FUN_001baab0 @ 0x001baab0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
+
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int __cdecl strlen(const char *);
 extern "C" char *__cdecl strstr(const char *, const char *);
@@ -185,16 +188,9 @@ struct Globals_1baab0 {
     Replay_1baab0 *replay;
 };
 
-extern const char *DAT_004c3c18[];
-extern const char *DAT_004c466c[];
 extern unsigned int DAT_004d9968;
 extern Globals_1baab0 *DAT_004dd700;
-extern Loader_1baab0 *DAT_004dd9c8;
-extern TextObj *DAT_004e226c;
-extern Clock_1baab0 *DAT_0052c2a4;
 extern Device_1baab0 *DAT_0052c2a8;
-extern Renderer_1baab0 *DAT_0052c2ac;
-extern Banner *DAT_0052c2b4;
 
 class Credits_1baab0 {
 public:
@@ -236,9 +232,9 @@ void Credits_1baab0::FUN_001baab0(bool flag)
     f.cookie = DAT_004d9968;
     f.self = this;
     if (flag)
-        DAT_0052c2b4->FUN_0028f9a0();
-    f.width = (float)DAT_0052c2a4->Width();
-    f.height = (float)DAT_0052c2a4->Height();
+        (*(Banner**)&DAT_0052c2b4)->FUN_0028f9a0();
+    f.width = (float)(*(Clock_1baab0**)&DAT_0052c2a4)->Width();
+    f.height = (float)(*(Clock_1baab0**)&DAT_0052c2a4)->Height();
     f.saved = DAT_0052c2a8->v25();
     DAT_0052c2a8->v24(1);
     DAT_0052c2a8->v54(0);
@@ -250,7 +246,7 @@ void Credits_1baab0::FUN_001baab0(bool flag)
     f.y = scroll;
     f.color = 0xffc8c8c8;
     f.scale = 1.0f;
-    f.p = DAT_004c3c18;
+    f.p = ((const char**)&DAT_004c3c18);
     do {
         const char *s = *f.p;
         if (*s == 0) {
@@ -277,7 +273,7 @@ void Credits_1baab0::FUN_001baab0(bool flag)
             } else {
                 if (f.height + 30.0f < f.y)
                     break;
-                Loader_1baab0 *inv = DAT_004dd9c8;
+                Loader_1baab0 *inv = (*(Loader_1baab0**)&DAT_004dd9c8);
                 content::LoadInventory::DynamicCaster<pure3d::TextureFont> *caster =
                     new (&f.casterSlot) content::LoadInventory::DynamicCaster<pure3d::TextureFont>();
                 f.font = inv->v3(caster, FUN_002672f0("font_serpentine_lt_med", 0));
@@ -292,44 +288,44 @@ void Credits_1baab0::FUN_001baab0(bool flag)
                         *d = 0;
                         if (*f.q != 0)
                             f.q++;
-                        if (DAT_004e226c == 0) {
+                        if ((*(TextObj**)&DAT_004e226c) == 0) {
                             void *mem = thunk_FUN_0008d690(0x58);
                             TextObj *t = 0;
                             if (mem != 0)
                                 t = ((TextObj *)mem)->FUN_0029b120(f.font, f.lineBuf, 1.0f, 0);
-                            DAT_004e226c = t;
+                            (*(TextObj**)&DAT_004e226c) = t;
                             t->AddRef();
                         } else {
-                            DAT_004e226c->FUN_0029b330(f.lineBuf, 0);
+                            (*(TextObj**)&DAT_004e226c)->FUN_0029b330(f.lineBuf, 0);
                         }
                         f.u14.x = (f.width - f.font->Width(f.lineBuf) * f.scale) * 0.5f;
-                        DAT_004e226c->FUN_0029b380(0xff000000);
-                        DAT_0052c2ac->cam->v21(0);
-                        DAT_0052c2ac->FUN_00293d40(f.u14.x - 2.0f, f.y, 2.0f);
-                        DAT_0052c2ac->FUN_00293da0(f.scale, negScale, 1.0f);
-                        DAT_004e226c->Draw();
-                        DAT_0052c2ac->cam->v16(0);
-                        DAT_0052c2ac->cam->v21(0);
-                        DAT_0052c2ac->FUN_00293d40(f.u14.x, f.y - 2.0f, 2.0f);
-                        DAT_0052c2ac->FUN_00293da0(f.scale, negScale, 1.0f);
-                        DAT_004e226c->Draw();
-                        DAT_0052c2ac->cam->v16(0);
-                        DAT_0052c2ac->cam->v21(0);
-                        DAT_0052c2ac->FUN_00293d40(f.u14.x + 2.0f, f.y, 2.0f);
-                        DAT_0052c2ac->FUN_00293da0(f.scale, negScale, 1.0f);
-                        DAT_004e226c->Draw();
-                        DAT_0052c2ac->cam->v16(0);
-                        DAT_0052c2ac->cam->v21(0);
-                        DAT_0052c2ac->FUN_00293d40(f.u14.x, f.y + 2.0f, 2.0f);
-                        DAT_0052c2ac->FUN_00293da0(f.scale, negScale, 1.0f);
-                        DAT_004e226c->Draw();
-                        DAT_0052c2ac->cam->v16(0);
-                        DAT_004e226c->FUN_0029b380(f.color);
-                        DAT_0052c2ac->cam->v21(0);
-                        DAT_0052c2ac->FUN_00293d40(f.u14.x, f.y, 2.0f);
-                        DAT_0052c2ac->FUN_00293da0(f.scale, negScale, 1.0f);
-                        DAT_004e226c->Draw();
-                        DAT_0052c2ac->cam->v16(0);
+                        (*(TextObj**)&DAT_004e226c)->FUN_0029b380(0xff000000);
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->cam->v21(0);
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->FUN_00293d40(f.u14.x - 2.0f, f.y, 2.0f);
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->FUN_00293da0(f.scale, negScale, 1.0f);
+                        (*(TextObj**)&DAT_004e226c)->Draw();
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->cam->v16(0);
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->cam->v21(0);
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->FUN_00293d40(f.u14.x, f.y - 2.0f, 2.0f);
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->FUN_00293da0(f.scale, negScale, 1.0f);
+                        (*(TextObj**)&DAT_004e226c)->Draw();
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->cam->v16(0);
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->cam->v21(0);
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->FUN_00293d40(f.u14.x + 2.0f, f.y, 2.0f);
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->FUN_00293da0(f.scale, negScale, 1.0f);
+                        (*(TextObj**)&DAT_004e226c)->Draw();
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->cam->v16(0);
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->cam->v21(0);
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->FUN_00293d40(f.u14.x, f.y + 2.0f, 2.0f);
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->FUN_00293da0(f.scale, negScale, 1.0f);
+                        (*(TextObj**)&DAT_004e226c)->Draw();
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->cam->v16(0);
+                        (*(TextObj**)&DAT_004e226c)->FUN_0029b380(f.color);
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->cam->v21(0);
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->FUN_00293d40(f.u14.x, f.y, 2.0f);
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->FUN_00293da0(f.scale, negScale, 1.0f);
+                        (*(TextObj**)&DAT_004e226c)->Draw();
+                        (*(Renderer_1baab0**)&DAT_0052c2ac)->cam->v16(0);
                         f.y = f.y + 23.0f;
                     } while (*f.q != 0);
                 }
@@ -338,13 +334,13 @@ void Credits_1baab0::FUN_001baab0(bool flag)
             }
         }
         f.p++;
-    } while (f.p < DAT_004c466c);
+    } while (f.p < ((const char**)&DAT_004c466c));
 
     DAT_0052c2a8->v24(f.saved);
     DAT_0052c2a8->v54(1);
     DAT_0052c2a8->v58(1);
     if (flag)
-        DAT_0052c2b4->FUN_0028faf0(1);
+        (*(Banner**)&DAT_0052c2b4)->FUN_0028faf0(1);
     unsigned int now = FUN_00267f80();
     if (lastTick != 0) {
         DAT_004dd700->replay->FUN_000862c0();

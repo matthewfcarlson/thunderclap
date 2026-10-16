@@ -1,4 +1,5 @@
-extern "C" char DAT_00434578[];
+#include "decls/data/engine/movie.h"
+
 class Obj_337870 {
   public:
     int vft;
@@ -8,7 +9,7 @@ class Obj_337870 {
 };
 
 Obj_337870::Obj_337870() {
-    vft = ((int)DAT_00434578);
+    vft = ((int)((char*)&DAT_00434578));
     a = 0;
     b = 0;
 }

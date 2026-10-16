@@ -1,12 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_000a5400 @ 0x000a5400
+#include "decls/data/game/global.h"
+
 struct V3_a5400 {
     float x, y, z;
 };
 
-extern float DAT_0049ec7c;
-extern float DAT_0049ec80;
-extern float DAT_0049ec98;
 
 V3_a5400 *__cdecl FUN_0009f8c0(V3_a5400 *out, float a, float b, float c);
 void __cdecl FUN_000a04c0(V3_a5400 *dir, float *p1, float *p0, float *scratch);
@@ -69,7 +68,7 @@ void Mover_a5400::FUN_000a5400(int arg, int flagWord)
             v = 60.0f;
         f47c = v;
         if (*(char *)&flagWord)
-            f488 = DAT_0049ec98;
+            f488 = (*(float*)&DAT_0049ec98);
     }
     t = f444;
     f480 = t;
@@ -78,7 +77,7 @@ void Mover_a5400::FUN_000a5400(int arg, int flagWord)
     f19c = f1cc + p->z;
     f194 = f1c4 + p->x;
     f198 = f1c8 + p->y;
-    FUN_000a0940(DAT_0049ec80);
+    FUN_000a0940((*(float*)&DAT_0049ec80));
     fr.out.x = f1e8 - f194;
     fr.out.y = f1ec - f198;
     fr.out.z = f1f0 - f19c;

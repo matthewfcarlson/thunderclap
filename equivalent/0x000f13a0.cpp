@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FEControl::vfunc_17 @ 0x000f13a0
+#include "decls/data/engine/pure3d/prop.h"
+
 struct V3_f13a0 {
     float x, y, z;
 };
@@ -33,7 +35,6 @@ struct Holder_f13a0 {
     void FUN_00293da0(float a, float b, float c);
 };
 
-extern Holder_f13a0* DAT_0052c2ac;
 
 class Widget_f13a0 {
 public:
@@ -106,7 +107,7 @@ void FEControl::vfunc_17(float a1, float a2, float a3, float a4)
         return;
     }
     V3_f13a0 scale = screen->scale;
-    DAT_0052c2ac->device->v15(0);
+    (*(Holder_f13a0**)&DAT_0052c2ac)->device->v15(0);
     V3_f13a0 center;
     if (a3 > 0.0f && a1 < 0.0f)
         center.x = (a1 + a3) * 0.5f;
@@ -117,7 +118,7 @@ void FEControl::vfunc_17(float a1, float a2, float a3, float a4)
     else
         center.y = (a4 - a2) * 0.5f;
     center.z = 0.0f;
-    DAT_0052c2ac->FUN_00293d00(&center);
+    (*(Holder_f13a0**)&DAT_0052c2ac)->FUN_00293d00(&center);
     union {
         float f;
         unsigned int u;
@@ -126,7 +127,7 @@ void FEControl::vfunc_17(float a1, float a2, float a3, float a4)
     w.f = a1 - a3;
     h.u &= 0x7fffffff;
     w.u &= 0x7fffffff;
-    DAT_0052c2ac->FUN_00293da0(w.f / scale.x, h.f / scale.y, 1.0f);
+    (*(Holder_f13a0**)&DAT_0052c2ac)->FUN_00293da0(w.f / scale.x, h.f / scale.y, 1.0f);
     widget->v8(0, 0);
-    DAT_0052c2ac->device->v16(0);
+    (*(Holder_f13a0**)&DAT_0052c2ac)->device->v16(0);
 }

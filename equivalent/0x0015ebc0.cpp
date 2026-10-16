@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 11/12, incomplete)
 // FUN_0015ebc0 @ 0x0015ebc0
-extern float DAT_004e11bc;
-extern unsigned int DAT_004e11c0;
+#include "decls/data/game/hulkfight/motion.h"
 
 float __cdecl FUN_00224fc0(float a, float b);
 float __cdecl FUN_0004af40(float lo, float hi, float v);
@@ -20,8 +19,8 @@ float Table_15ebc0::FUN_0015ebc0(float t, float a, float b)
         return 0.0f;
     float r1 = FUN_00224fc0(a, b);
     float r2 = FUN_0004af40(0.0f, 6.2831855f, r1);
-    if (!(DAT_004e11c0 & 1)) {
-        DAT_004e11c0 |= 1;
+    if (!((*(unsigned int*)&DAT_004e11c0) & 1)) {
+        (*(unsigned int*)&DAT_004e11c0) |= 1;
         DAT_004e11bc = 1.5707964f;
     }
     float inv = 1.0f / DAT_004e11bc;

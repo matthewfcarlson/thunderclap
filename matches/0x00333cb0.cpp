@@ -1,3 +1,5 @@
+#include "decls/data/platform/xbox/movie.h"
+
 namespace movie {
 struct Renderer_333cb0 {
     virtual void slot0();
@@ -39,7 +41,6 @@ struct PlayerBink {
     void FUN_00333970();
 };
 } // namespace movie
-extern int DAT_00555ba0;
 void __stdcall FUN_00333ab0(int);
 void __stdcall FUN_00364dc0(unsigned int, void*);
 void __cdecl FUN_00334fa0();

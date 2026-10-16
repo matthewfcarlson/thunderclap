@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 24/24)
 // CSmartPropThrowAction::vfunc_6 @ 0x00016120
+#include "decls/data/game/global.h"
+
 struct V3_16120 {
     float x, y, z;
     float FUN_0022d110();
@@ -80,7 +82,6 @@ struct Globals_16120 {
     V3_16120 vec10;
 };
 
-extern Globals_16120* DAT_00554c10;
 
 void __cdecl FUN_00097540(Fighter_16120* f, V3_16120* a, V3_16120* b, int c, float d, Body_16120* e, V3_16120* g, V3_16120* h, int i);
 
@@ -155,7 +156,7 @@ bool CSmartPropThrowAction::vfunc_6(int arg)
     f.l.FUN_0022d110();
     f.u4.f34 = params->f34;
     f.pc = f.u0.x->pos;
-    f.g = DAT_00554c10->vec10;
+    f.g = (*(Globals_16120**)&DAT_00554c10)->vec10;
     o->FUN_001d8c70(b);
     fighter->FUN_0003acf0(params->f40, 0, -1, 0, 0, 0);
     fighter->FUN_00036c20(f.u0.x);

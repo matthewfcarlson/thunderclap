@@ -2,10 +2,10 @@
 // FUN_00261120 @ 0x00261120
 // equiv-map: ??0Type@om@@QAE@PAX0HH@Z = 0x002584d0
 // equiv-map: ??0String@om@@QAE@XZ = 0x0023fac0
+#include "decls/data/engine/om.h"
+
 inline void* operator new(unsigned int, void* p) { return p; }
 inline void operator delete(void*, void*) {}
-extern int DAT_004e58c8;
-extern int DAT_004e58d0;
 void* __cdecl FUN_00247530(void* pool);
 struct Registry;
 void __cdecl FUN_00260f10(Registry* reg, void* attr, int* key);
@@ -43,7 +43,7 @@ public:
 };
 }
 om::String* RegisterString(Registry* reg, int* key, const om::String* text) {
-    om::TypeT<om::DynAttrT<om::String> > pool(&DAT_004e58d0, &DAT_004e58c8, 0x24, 4);
+    om::TypeT<om::DynAttrT<om::String> > pool(((int*)&DAT_004e58d0), ((int*)&DAT_004e58c8), 0x24, 4);
     void* mem = FUN_00247530(&pool);
     pool.FUN_002580e0();
     om::DynAttrT<om::String>* attr = 0;

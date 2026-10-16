@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00066c20 @ 0x00066c20
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct World {
     char pad0[0x2c];
     int field_2c;
@@ -23,18 +24,6 @@ struct Table_66c20 {
     void FUN_00066b60(Pair_66c20 *out, Key_66c20 *key);
 };
 
-extern int DAT_004dcec8;
-extern int DAT_004dcecc;
-extern int DAT_004dced0;
-extern int DAT_004dced4;
-extern int DAT_004dced8;
-extern int DAT_004dcedc;
-extern int DAT_004dcee8;
-extern int DAT_004dceec;
-extern int DAT_004dcef0;
-extern int DAT_004dcef4;
-extern int DAT_004dcef8;
-extern int DAT_004dcefc;
 
 struct Owner_66c20 {
     int field_00;

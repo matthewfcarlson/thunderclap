@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000384e0 @ 0x000384e0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" int __cdecl _stricmp(const char *a, const char *b);
 
 struct Event_384e0 {
@@ -17,7 +18,6 @@ struct World {
     Channel *channel;
 };
 
-extern const char *DAT_0048f590[8];
 
 struct Owner_384e0 {
     int id;
@@ -34,7 +34,7 @@ struct Controller_384e0 {
 void Controller_384e0::FUN_000384e0(const char *name)
 {
     for (int i = 0; i < 8; i++) {
-        if (_stricmp(name, DAT_0048f590[i]) == 0 && current != i) {
+        if (_stricmp(name, ((const char**)&DAT_0048f590)[i]) == 0 && current != i) {
             Channel *ch = DAT_004dd700->channel;
             if (ch != 0) {
                 Event_384e0 ev;

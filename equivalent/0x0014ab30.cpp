@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_0014ab30 @ 0x0014ab30
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -78,8 +80,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e1014;
-extern int DAT_004e1018;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0014ab30()
@@ -108,7 +108,7 @@ void FUN_0014ab30()
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamConditionGroup<GrappleExecuteTrack>("conditionGroup", &GrappleExecuteTrack::FUN_00147080);
-        FUN_002347b0(&DAT_004e1014, params, 5);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1014), params, 5);
     }
     DAT_004e1018++;
 }

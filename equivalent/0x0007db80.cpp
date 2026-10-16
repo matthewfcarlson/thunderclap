@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 29/30, incomplete)
 // FUN_0007db80 @ 0x0007db80
+#include "decls/data/game/unknown.h"
+
 struct V3_7db80 {
     float x, y, z;
 };
@@ -9,11 +11,10 @@ struct Rng_7db80 {
     unsigned int b;
 };
 
-extern Rng_7db80 *DAT_004e5acc;
 
 static inline unsigned int NextRandom()
 {
-    Rng_7db80 *r = DAT_004e5acc;
+    Rng_7db80 *r = (*(Rng_7db80**)&DAT_004e5acc);
     r->a = (r->a & 0xffff) * 0x9069 + (r->a >> 16);
     r->b = (r->b & 0xffff) * 0x4650 + (r->b >> 16);
     return (r->a << 16) + (r->b & 0xffff);

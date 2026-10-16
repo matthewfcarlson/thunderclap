@@ -1,4 +1,5 @@
-extern "C" char DAT_0054494c[];
+#include "decls/data/engine/pure3d.h"
+
 class Base_2a30a0 {
   public:
     Base_2a30a0();
@@ -37,7 +38,7 @@ Target_2a30a0::Target_2a30a0() {
     mObj->Init();
     {
         Obj_2a30a0* q = mObj;
-        q->manager->Call(((int)DAT_0054494c), 0);
+        q->manager->Call(((int)((char*)((char*)&DAT_0052cbb0 + 97692))), 0);
     }
     {
         Obj_2a30a0* q = mObj;

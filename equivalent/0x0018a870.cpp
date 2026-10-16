@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 30/30)
 // FUN_0018a870 @ 0x0018a870
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -116,8 +118,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e14a0;
-extern int DAT_004e14a4;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0018a870()
@@ -181,7 +181,7 @@ void FUN_0018a870()
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamVector<hulkfight::motion::BallAndChainReturnTrack>("beamAttachJointOffset", &hulkfight::motion::BallAndChainReturnTrack::FUN_0017fe20);
-        FUN_002347b0(&DAT_004e14a0, params, 14);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e14a0), params, 14);
     }
     DAT_004e14a4++;
 }

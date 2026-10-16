@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 88 inputs, branch coverage 26/26)
 // FUN_00120a90 @ 0x00120a90
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -106,10 +109,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0ca8;
-extern int DAT_004e0cac;
-extern const char* DAT_0042773c[3];
-extern int DAT_00427754;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_00120a90()
@@ -124,7 +123,7 @@ void FUN_00120a90()
         mem = FUN_0008d690(0x20);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamEnumConstList<hulkfight::ai::PathLocatorTestCondition>("compare", DAT_0042773c, DAT_00427754, &hulkfight::ai::PathLocatorTestCondition::FUN_0011b810);
+            params[1] = new (mem) fight::ParamEnumConstList<hulkfight::ai::PathLocatorTestCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::ai::PathLocatorTestCondition::FUN_0011b810);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
@@ -165,7 +164,7 @@ void FUN_00120a90()
         params[11] = 0;
         if (mem)
             params[11] = new (mem) fight::ParamVector<hulkfight::ai::PathLocatorTestCondition>("vicinityLimits", &hulkfight::ai::PathLocatorTestCondition::FUN_0011b960);
-        FUN_002347b0(&DAT_004e0ca8, params, 12);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0ca8), params, 12);
     }
     DAT_004e0cac++;
 }

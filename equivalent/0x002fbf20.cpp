@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/24)
 // FUN_002fbf20 @ 0x002fbf20
+#include "decls/data/engine/physics.h"
+
 extern "C" double fabs(double);
-extern float DAT_004d2fb8;
 
 class AxisRemap {
 public:

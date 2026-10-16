@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
 // FUN_00146190 @ 0x00146190
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -38,7 +40,6 @@ public:
     void FUN_00234cc0(const char* name);
     ParamEnumBase(const char* name) { FUN_00234cc0(name); }
 };
-extern char* DAT_004ad788[];
 template <class T>
 class ParamEnumConstList : public ParamEnumBase {
 public:
@@ -84,8 +85,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0f90;
-extern int DAT_004e0f94;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_00146190()
@@ -117,7 +116,7 @@ void FUN_00146190()
         mem = FUN_0008d690(0x20);
         params[5] = 0;
         if (mem)
-            params[5] = new (mem) ParamEnumConstList<WorldDamageTrack>("damageType", DAT_004ad788, 7, &WorldDamageTrack::FUN_001433b0);
+            params[5] = new (mem) ParamEnumConstList<WorldDamageTrack>("damageType", ((char**)&DAT_004ad788), 7, &WorldDamageTrack::FUN_001433b0);
         mem = FUN_0008d690(0x18);
         params[6] = 0;
         if (mem)
@@ -126,7 +125,7 @@ void FUN_00146190()
         params[7] = 0;
         if (mem)
             params[7] = new (mem) ParamFloatConstRange<WorldDamageTrack>("scaleY", &WorldDamageTrack::FUN_001433f0);
-        FUN_002347b0(&DAT_004e0f90, params, 8);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0f90), params, 8);
     }
     DAT_004e0f94++;
 }

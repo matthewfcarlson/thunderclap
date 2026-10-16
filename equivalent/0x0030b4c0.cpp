@@ -1,18 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 18/18)
 // physics::PhysicsJoint3D::vfunc_11 @ 0x0030b4c0
+#include "decls/data/engine/physics.h"
+
 extern "C" double sqrt(double);
 
 struct Vec3_30b4c0 {
     float x, y, z;
 };
 
-extern float DAT_004d318c;
-extern float DAT_004d3190;
-extern float DAT_004d31a0;
-extern float DAT_004d31a4;
-extern float DAT_004d31a8;
-extern float DAT_004d31b4;
-extern float DAT_004d31b8;
 
 namespace physics {
 

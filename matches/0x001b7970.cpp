@@ -1,4 +1,5 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct Gfx {
     virtual void v0();
     virtual void v1();
@@ -124,7 +125,6 @@ struct World {
     Manager_1b7970* manager;
     Provider_1b7970* provider;
 };
-extern unsigned char DAT_004e222c, DAT_004e222d;
 void __cdecl thunk_FUN_00267090(void*);
 struct Owner_1b7970 {
     char pad0[12];
@@ -145,8 +145,8 @@ void Owner_1b7970::FUN_001b7970() {
     DAT_0052c2a8->reset91();
     DAT_0052c2a8->set54(1);
     DAT_0052c2a8->set58(1);
-    DAT_004e222c = 1;
-    DAT_004e222d = 1;
+    (*(unsigned char*)&DAT_004e222c) = 1;
+    (*(unsigned char*)&DAT_004e222d) = 1;
     if (resource)
         resource->stop();
     if (resource) {

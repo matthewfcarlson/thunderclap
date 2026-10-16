@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 10/10)
 // FUN_0023ee40 @ 0x0023ee40
+#include "decls/data/engine/fight.h"
+
 typedef void (__cdecl *Callback_23ee40)();
 void __cdecl FUN_0023ea20();
 void __cdecl FUN_0023ea30();
@@ -31,8 +33,6 @@ template<class T> struct ParamConditionGroup {
  void FUN_00235220(const char*);
 };
 }
-extern unsigned DAT_004e5c84;
-extern unsigned DAT_004e5c80;
 void __cdecl FUN_002347b0(void*, void**, int);
 void __cdecl FUN_0023ee40() {
  if (DAT_004e5c84 == 0) {

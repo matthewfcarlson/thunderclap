@@ -1,15 +1,18 @@
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 35/36, incomplete)
 // physics::PhysicsJoint1D::vfunc_11 @ 0x0030aef0
-extern float DAT_003f32dc;  // 1.0
-extern float DAT_003f32e0;  // 0.0
-extern float DAT_00417e28;  // -pi
-extern float DAT_00431dbc;  // pi
-extern float DAT_004d318c;  // 5.0
-extern float DAT_004d3190;  // 0.0001
-extern float DAT_004d31a0;  // 0.01
-extern float DAT_004d31a4;  // 0.625
-extern float DAT_004d31a8;  // 0.625
-extern float DAT_004d31b4;  // 1.0
+  // 1.0
+  // 0.0
+  // -pi
+  // pi
+  // 5.0
+  // 0.0001
+  // 0.01
+  // 0.625
+  // 0.625
+  // 1.0
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight/motion.h"
 
 float __cdecl FUN_00083d90(float *value);
 
@@ -53,7 +56,7 @@ public:
 
 void PhysicsJoint1D::vfunc_11(float a1, float a2, float a3)
 {
-    if (pos == DAT_003f32e0 && vel == DAT_003f32e0)
+    if (pos == (*(float*)&DAT_003f32e0) && vel == (*(float*)&DAT_003f32e0))
         return;
 
     float newVel = (velGoal - vel) * DAT_004d31a4 * a3 + vel;
@@ -63,7 +66,7 @@ void PhysicsJoint1D::vfunc_11(float a1, float a2, float a3)
 
     switch (mode) {
     case 0: {
-        float v = FUN_00083d90(&vel) * (DAT_003f32dc - a1) * DAT_004d31b4;
+        float v = FUN_00083d90(&vel) * ((*(float*)&DAT_003f32dc) - a1) * DAT_004d31b4;
         if (Abs(v) < Abs(newVel))
             vel = newVel - v;
         else
@@ -71,27 +74,27 @@ void PhysicsJoint1D::vfunc_11(float a1, float a2, float a3)
         break;
     }
     case 1:
-        if ((DAT_003f32dc - a1) * Abs(newVel) < DAT_004d31b4)
+        if (((*(float*)&DAT_003f32dc) - a1) * Abs(newVel) < DAT_004d31b4)
             vel = newVel * a1;
         else
-            vel = (DAT_003f32dc - DAT_004d31b4 / Abs(newVel)) * newVel;
+            vel = ((*(float*)&DAT_003f32dc) - DAT_004d31b4 / Abs(newVel)) * newVel;
         break;
     }
 
     volatile float xs = newPos * a3 + vel;
     float x = xs;
     vel = x;
-    if (x > DAT_00431dbc) {
+    if (x > (*(float*)&DAT_00431dbc)) {
         float v = vel;
         do {
-            v -= DAT_00431dbc;
-        } while (v > DAT_00431dbc);
+            v -= (*(float*)&DAT_00431dbc);
+        } while (v > (*(float*)&DAT_00431dbc));
         vel = v;
-    } else if (x < DAT_00431dbc && x < DAT_00417e28) {
+    } else if (x < (*(float*)&DAT_00431dbc) && x < (*(float*)&DAT_00417e28)) {
         float v = vel;
         do {
-            v += DAT_00431dbc;
-        } while (v < DAT_00417e28);
+            v += (*(float*)&DAT_00431dbc);
+        } while (v < (*(float*)&DAT_00417e28));
         vel = v;
     }
 
@@ -112,7 +115,7 @@ void PhysicsJoint1D::vfunc_11(float a1, float a2, float a3)
                 damp = true;
         }
         if (damp)
-            vel = (DAT_003f32dc - DAT_004d31a0) * vel;
+            vel = ((*(float*)&DAT_003f32dc) - DAT_004d31a0) * vel;
     } else {
         vfunc_2();
     }

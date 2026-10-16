@@ -1,6 +1,7 @@
+#include "decls/data/engine/core.h"
+
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b9bc[];
-extern "C" char DAT_0052a1c8[];
 typedef unsigned char byte_275650;
 struct O_275650 {
     virtual void a();
@@ -36,9 +37,9 @@ core::DriveRequest* core::DriveRequest::vfunc_0(byte_275650 flag) {
     ((O_275650*)field8)->b();
     *(void**)this = (void*)((int)DAT_0042b914);
     if (flag & 1) {
-        FUN_0026d850((void*)((int)DAT_0052a1c8));
+        FUN_0026d850((void*)((int)((char*)&DAT_0052a1c8)));
         glob_275650->e(this);
-        FUN_0026d840((void*)((int)DAT_0052a1c8));
+        FUN_0026d840((void*)((int)((char*)&DAT_0052a1c8)));
     }
     return this;
 }

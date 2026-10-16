@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/10)
 // FUN_0009a290 @ 0x0009a290
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_00263ea0(unsigned int size);
 
-extern float DAT_003f32e0;
-extern float DAT_003f32b8;
 
 struct Matrix {
     char data[0x40];
@@ -99,8 +100,8 @@ public:
 void Spawner_9a290::FUN_0009a290(Ctx_9a290* ctx)
 {
     Matrix m;
-    if (angle != DAT_003f32e0)
-        m.FUN_0022ba70(angle * DAT_003f32b8);
+    if (angle != (*(float*)&DAT_003f32e0))
+        m.FUN_0022ba70(angle * (*(float*)&DAT_003f32b8));
     m.FUN_0022be40(vec80);
     if (emitter == 0) {
         void* mem = FUN_00263ea0(0x480);

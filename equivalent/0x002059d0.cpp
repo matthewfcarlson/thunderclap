@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 28/28)
 // FUN_002059d0 @ 0x002059d0
-extern unsigned char DAT_004c91d8;
-extern unsigned char DAT_004c91d9;
+#include "decls/data/game/global.h"
+
 struct Resource_2059d0 { virtual void unused(); virtual void release(); void FUN_002665a0(); };
 struct Handle_2059d0 { void FUN_00263e90(); };
 extern void __cdecl FUN_00267110(int);
@@ -26,7 +26,7 @@ struct Object {
  void cleanup();
 };
 void Object::cleanup() {
- if (DAT_004c91d8) {
+ if ((*(unsigned char*)&DAT_004c91d8)) {
   for (int i=0;i<20;++i) {
    Entry_2059d0& e=entries[i];
    if(e.handle) {e.handle->FUN_00263e90(); e.handle=0;}
@@ -41,7 +41,7 @@ void Object::cleanup() {
   if(mainResource) {mainResource->release();mainResource=0;}
  }
  for(int j=0;j<2;++j) {
-  if(DAT_004c91d9) {
+  if((*(unsigned char*)((char*)&DAT_004c91d8 + 1))) {
    Entry_2059d0& e=extra[j];
    if(e.handle) {e.handle->FUN_00263e90();e.handle=0;}
    if(e.resource) FUN_00267110(e.id);

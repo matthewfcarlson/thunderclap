@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001feca0 @ 0x001feca0
 #include "decls/address.h"
-extern "C" char DAT_0048e0e4[];
-extern "C" char DAT_0048e0f0[];
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 extern "C" char DAT_0048e10c[];
-extern "C" char DAT_0048e128[];
 extern "C" char DAT_004252e4[];
 extern "C" void __stdcall FUN_001d0480(void*, int);
 class MethodObj_1feca0 {
@@ -22,10 +21,10 @@ MethodObj_1feca0* MethodObj_1feca0::FUN_001feca0(void* name, void* f) {
     FUN_001d0480(name, 4);
     vptr = (int)DAT_004252e4;
     fn = f;
-    result = FUN_001d04d0(DAT_0048e0e4);
-    a0 = FUN_001d04d0(DAT_0048e0f0);
+    result = FUN_001d04d0(((char*)&DAT_0048e0e4));
+    a0 = FUN_001d04d0(((char*)&DAT_0048e0f0));
     a1 = FUN_001d04d0(DAT_0048e10c);
     a2 = FUN_001d04d0(DAT_0048e10c);
-    a3 = FUN_001d04d0(DAT_0048e128);
+    a3 = FUN_001d04d0(((char*)&DAT_0048e128));
     return this;
 }

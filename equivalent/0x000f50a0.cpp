@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 9/10, incomplete)
 // FUN_000f50a0 @ 0x000f50a0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 namespace pure3d { class Scenegraph; }
 namespace content {
 namespace LoadInventory {
@@ -23,7 +24,6 @@ public:
     virtual void v2();
     virtual Controller_f50a0 *Find(void *caster, Key_f50a0 key);
 };
-extern Inventory_f50a0 *DAT_004dd9cc;
 
 class Slots_f50a0 {
 public:
@@ -45,7 +45,7 @@ void Slots_f50a0::FUN_000f50a0(const char *assetName)
     }
     if (i >= 2)
         return;
-    Inventory_f50a0 *inv = DAT_004dd9cc;
+    Inventory_f50a0 *inv = (*(Inventory_f50a0**)&DAT_004dd9cc);
     Key_f50a0 key = FUN_0027b020(assetName);
     content::LoadInventory::DynamicCaster<pure3d::Scenegraph> caster;
     Controller_f50a0 *c = inv->Find(&caster, key);

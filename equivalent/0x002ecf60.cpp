@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002ecf60 @ 0x002ecf60
+#include "decls/data/engine/physics.h"
+
 extern "C" double __cdecl sqrt(double x);
 
-extern float DAT_004d287c;
 
 class __declspec(novtable) Entity {
 public:

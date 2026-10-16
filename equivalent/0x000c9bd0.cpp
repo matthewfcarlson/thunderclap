@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 28/28)
 // FUN_000c9bd0 @ 0x000c9bd0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" void *memset(void *, int, unsigned int);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" int strcmp(const char*, const char*);
@@ -52,8 +53,6 @@ virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virt
     virtual void v91();
 };
 
-extern float DAT_0049fbb8;
-extern float DAT_0049fbc0;
 
 struct Entry_c9bd0 {
     const char *name;

@@ -1,8 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 28/28)
 // FUN_001c6950 @ 0x001c6950
-extern unsigned int DAT_004e236c;
-extern float DAT_004e2360, DAT_004e2364, DAT_004e2368;
-extern float DAT_004e2354, DAT_004e2358, DAT_004e235c;
+#include "decls/data/game/unknown.h"
+
 extern char DAT_004c5368, DAT_004c534c, DAT_004c532c;
 struct Object {
  char padding[0x28]; unsigned char category;
@@ -16,9 +15,9 @@ struct Group_1c6950 { void FUN_0029f800(Object*); };
 struct Manager_1c6950 { char padding[0xc0]; Group_1c6950* normal; Group_1c6950* alternate; };
 extern Manager_1c6950** __cdecl FUN_001c3d90();
 void __stdcall FUN_001c6950(List_1c6950* list) {
- unsigned int flags=DAT_004e236c;
- if (!(flags&1)) { flags|=1; DAT_004e236c=flags; DAT_004e2360=0.0f; DAT_004e2364=0.0f; DAT_004e2368=0.0f; }
- if (!(flags&2)) { flags|=2; DAT_004e236c=flags; DAT_004e2354=25.0f; DAT_004e2358=0.0f; DAT_004e235c=0.0f; }
+ unsigned int flags=(*(unsigned int*)&DAT_004e236c);
+ if (!(flags&1)) { flags|=1; (*(unsigned int*)&DAT_004e236c)=flags; DAT_004e2360=0.0f; (*(float*)&DAT_004e2364)=0.0f; (*(float*)&DAT_004e2368)=0.0f; }
+ if (!(flags&2)) { flags|=2; (*(unsigned int*)&DAT_004e236c)=flags; DAT_004e2354=25.0f; (*(float*)&DAT_004e2358)=0.0f; (*(float*)&DAT_004e235c)=0.0f; }
  if (!list) return;
  for(int i=0;i<list->count;++i) {
   if(i<list->capacity) {

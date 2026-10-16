@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 13/14, incomplete)
 // FUN_00282400 @ 0x00282400
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
 struct V3_282400 {
     float x, y, z;
 };
@@ -199,7 +200,6 @@ void __cdecl FUN_0027f5f0(int key, int n, int* ids, Elem_282400* out);
 void __cdecl FUN_00280d90(Elem_282400* out, int n3, int cap, int* outCount, V3_282400 center, int key0, int key1);
 int __cdecl FUN_00266da0(int mode);
 
-extern Factory_282400* DAT_0052c2a0;
 
 class Builder {
   public:
@@ -248,7 +248,7 @@ void Builder::FUN_00282400(Item_282400* item)
         fr.desc.f1c = 0;
         fr.desc.f20 = 0;
         int prev = FUN_00266da0(mode);
-        stream = DAT_0052c2a0->v10(&fr.desc);
+        stream = (*(Factory_282400**)&DAT_0052c2a0)->v10(&fr.desc);
         Buf_282400* buf = stream->v4();
         for (int i = 0; i < count; i++) {
             buf->v15((float*)&fr.arr[i], (float*)&fr.arr[i] + 3);

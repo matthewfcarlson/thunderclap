@@ -2,6 +2,7 @@
 // FUN_000ca3a0 @ 0x000ca3a0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" double sin(double);
 
@@ -90,8 +91,6 @@ struct Marker_ca3a0 {
 };
 
 void *thunk_FUN_0008d690(unsigned int size);
-extern Inventory_ca3a0 *DAT_004dd9cc;
-extern float DAT_004de604;
 
 struct Frame_ca3a0 {
     union {
@@ -209,7 +208,7 @@ CHudMap::CHudMap()
     }
     Frame_ca3a0 f;
     {
-        Inventory_ca3a0 *inv = DAT_004dd9cc;
+        Inventory_ca3a0 *inv = (*(Inventory_ca3a0**)&DAT_004dd9cc);
         unsigned __int64 k1 = FUN_0027b020("radarBottomLeft");
         content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> *casterA =
             new (f.u10.buf) content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>;
@@ -219,7 +218,7 @@ CHudMap::CHudMap()
             l->init();
     }
     {
-        Inventory_ca3a0 *inv = DAT_004dd9cc;
+        Inventory_ca3a0 *inv = (*(Inventory_ca3a0**)&DAT_004dd9cc);
         unsigned __int64 k2 = FUN_0027b020("north_arrow");
         content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> *casterB =
             new (f.buf14) content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>;
@@ -241,7 +240,7 @@ CHudMap::CHudMap()
     f.names[10] = 0;
     f.u10.p = icons;
     for (i = 0; i < 10; i++) {
-        Inventory_ca3a0 *inv = DAT_004dd9cc;
+        Inventory_ca3a0 *inv = (*(Inventory_ca3a0**)&DAT_004dd9cc);
         unsigned __int64 k3 = FUN_0027b020(f.names[i]);
         content::LoadInventory::DynamicCaster<pure3d::Geometry> *caster =
             new (f.buf14) content::LoadInventory::DynamicCaster<pure3d::Geometry>;

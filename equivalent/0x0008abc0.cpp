@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 103 inputs, branch coverage 45/50, incomplete)
 // FUN_0008abc0 @ 0x0008abc0
+#include "decls/data/game/global.h"
+
 extern "C" int strcmp(const char*, const char*);
 unsigned __int64 __cdecl FUN_0027b020(const char* s) throw();
 
-extern const char* DAT_003ffde0[];
 
 struct Entry_8abc0 {
     unsigned __int64 id;
@@ -27,7 +28,7 @@ const char* Profile_8abc0::FUN_0008abc0()
     int bestIndex = -1;
     const char* bestName = "";
     for (int i = 0; i < 0x23; i++) {
-        const char* name = DAT_003ffde0[i];
+        const char* name = ((const char**)&DAT_003ffde0)[i];
         unsigned __int64 h = FUN_0027b020(name);
         const char* s = "";
         for (int k = 0; k < 100; k++) {
@@ -53,7 +54,7 @@ const char* Profile_8abc0::FUN_0008abc0()
     int found = -1;
     if (cur != 0 && strcmp(cur, "") != 0) {
         for (int j = 0; j < 0x23; j++) {
-            if (strcmp(DAT_003ffde0[j], cur) == 0) {
+            if (strcmp(((const char**)&DAT_003ffde0)[j], cur) == 0) {
                 found = j;
                 break;
             }

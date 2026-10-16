@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 18/18)
 // FUN_00271870 @ 0x00271870
-extern unsigned short DAT_004cdc08[32];
+#include "decls/data/engine/unknown.h"
+
 int __cdecl FUN_002716f0(unsigned int, char *, unsigned int, int, unsigned int *, unsigned int);
 int __cdecl FUN_00271870(unsigned int, char *, unsigned int, unsigned int, unsigned int *, unsigned int);
 
@@ -16,7 +17,7 @@ int __cdecl ConvertWithFallback(unsigned int codepoint, char *output, unsigned i
         return 0;
     }
     for (unsigned int i = 0; i < 32; ++i) {
-        if (codepoint == DAT_004cdc08[i]) {
+        if (codepoint == ((unsigned short*)&DAT_004cdc08)[i]) {
             *output = (char)(i + 0x80);
             *written = 1;
             return 0;

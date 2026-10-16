@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00221860 @ 0x00221860
 // Lua 5.0 code generation for a binary operator (arithmetic, or comparison with swapped operands)
+#include "decls/data/engine/unknown.h"
+
 struct LexState_221860 {
     char pad[8];
     int lastline;       // 0x8
@@ -19,7 +21,7 @@ struct expdesc_221860 {
     int f;
 };
 
-extern int DAT_004271f4[];                                              // opcode per operator
+                                              // opcode per operator
 int __cdecl FUN_00220b20(FuncState_221860* fs, int instruction, int line);     // luaK_code
 // condjump(fs, op, b, c) with the condition in eax
 // equiv-conv: FUN_00220d10 stack stack stack eax
@@ -41,6 +43,6 @@ void FUN_00221860(int o1, int o2, int op, expdesc_221860* e, FuncState_221860* f
     } else if (op == 6) {
         cond = 0;
     }
-    e->info = FUN_00220d10(DAT_004271f4[op], o2, o1, cond);
+    e->info = FUN_00220d10(((int*)((char*)&DAT_004271d4 + 32))[op], o2, o1, cond);
     e->k = 9;
 }

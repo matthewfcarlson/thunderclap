@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // CDropShadowDisplayEffect::vfunc_0 @ 0x000dee60
+#include "decls/data/engine/pure3d/prop.h"
+
 struct Drawable { virtual void draw(); virtual void setColor(unsigned); virtual void getColor(unsigned*); virtual float size(); };
 struct Vector { float x,y,z; };
 struct Renderer_dee60 { virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual void f9(); virtual void f10(); virtual void f11(); virtual void f12(); virtual void f13(); virtual void f14(); virtual void push(int); virtual void pop(int); };
 struct Context { Renderer_dee60* renderer; void FUN_00293d00(Vector*); };
-extern Context* DAT_0052c2ac;
 struct CDropShadowDisplayEffect { virtual void vfunc_0(Drawable*); int mode; float unused; float scale; unsigned color; };
 void CDropShadowDisplayEffect::vfunc_0(Drawable* object) {
  unsigned saved;
@@ -18,9 +19,9 @@ void CDropShadowDisplayEffect::vfunc_0(Drawable* object) {
  offset.y=negative;
  offset.z=0.01f;
  }
- DAT_0052c2ac->renderer->push(0);
- DAT_0052c2ac->FUN_00293d00(&offset);
+ (*(Context**)&DAT_0052c2ac)->renderer->push(0);
+ (*(Context**)&DAT_0052c2ac)->FUN_00293d00(&offset);
  object->draw();
- DAT_0052c2ac->renderer->pop(0);
+ (*(Context**)&DAT_0052c2ac)->renderer->pop(0);
  object->setColor(saved);
 }

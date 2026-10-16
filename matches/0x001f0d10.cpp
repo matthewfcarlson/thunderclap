@@ -1,6 +1,6 @@
-extern "C" char DAT_0048e100[];
-extern "C" char DAT_0048e128[];
-extern "C" char DAT_0049cad8[];
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 class Base_1f0d10 {
   public:
     Base_1f0d10(void* a, int n);
@@ -22,9 +22,9 @@ extern "C" char __cdecl Lookup(const char* s);
 
 Derived_1f0d10::Derived_1f0d10(void* a, int b) : Base_1f0d10(a, 4) {
     m1c = b;
-    m18 = Lookup((const char*)((int)DAT_0048e100));
-    m10 = Lookup((const char*)((int)DAT_0049cad8));
-    m11 = Lookup((const char*)((int)DAT_0049cad8));
-    m12 = Lookup((const char*)((int)DAT_0048e128));
-    m13 = Lookup((const char*)((int)DAT_0048e128));
+    m18 = Lookup((const char*)((int)((char*)&DAT_0048e100)));
+    m10 = Lookup((const char*)((int)((char*)&DAT_0049cad8)));
+    m11 = Lookup((const char*)((int)((char*)&DAT_0049cad8)));
+    m12 = Lookup((const char*)((int)((char*)&DAT_0048e128)));
+    m13 = Lookup((const char*)((int)((char*)&DAT_0048e128)));
 }

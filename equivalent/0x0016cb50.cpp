@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 16/16)
 // FUN_0016cb50 @ 0x0016cb50
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -80,8 +82,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e1278;
-extern int DAT_004e127c;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0016cb50()
@@ -117,7 +117,7 @@ void FUN_0016cb50()
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamFloatConstRange<RayCastCondition>("allowedHeightAtEnd", &RayCastCondition::FUN_001658c0);
-        FUN_002347b0(&DAT_004e1278, params, 7);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1278), params, 7);
     }
     DAT_004e127c++;
 }

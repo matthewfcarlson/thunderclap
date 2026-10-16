@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3026 inputs, branch coverage 150/150)
 // FUN_000cbc40 @ 0x000cbc40
 #include "decls/address.h"
-extern char DAT_004dde78;
+#include "decls/data/game/global.h"
 extern char DAT_0049fd74[];
 extern char DAT_0049fd9c[];
 

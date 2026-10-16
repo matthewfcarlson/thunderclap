@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // physics::PhysicsJoint3D::vfunc_10 @ 0x0030c440
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/hulkfight.h"
+
 struct Vec3_30c440 {
     float x, y, z;
     void FUN_0022d110();
 };
 
-extern float DAT_003f3388;
-extern unsigned DAT_00555490;
-extern Vec3_30c440 DAT_00555484;
 
 struct Matrix3_30c440 {
     // equiv-conv: FUN_0022c3b0 ecx stack stack
@@ -108,16 +108,16 @@ void PhysicsJoint3D::vfunc_10(void *arg)
 
     if ((DAT_00555490 & 1) == 0) {
         DAT_00555490 |= 1;
-        DAT_00555484.x = 0;
-        DAT_00555484.y = 1.0f;
-        DAT_00555484.z = 0;
+        (*(Vec3_30c440*)&DAT_00555484).x = 0;
+        (*(Vec3_30c440*)&DAT_00555484).y = 1.0f;
+        (*(Vec3_30c440*)&DAT_00555484).z = 0;
     }
-    manager->skeleton->FUN_0030f490(index)->FUN_0030edf0()->FUN_0030f100()->FUN_0022c3b0(&DAT_00555484, &f.w);
+    manager->skeleton->FUN_0030f490(index)->FUN_0030edf0()->FUN_0030f100()->FUN_0022c3b0(((Vec3_30c440*)&DAT_00555484), &f.w);
 
     if (f.w.z * normal.z + f.w.y * normal.y + f.w.x * normal.x < 0.0f) {
-        normal.x = normal.x * DAT_003f3388;
-        normal.y = normal.y * DAT_003f3388;
-        normal.z = normal.z * DAT_003f3388;
+        normal.x = normal.x * (*(float*)&DAT_003f3388);
+        normal.y = normal.y * (*(float*)&DAT_003f3388);
+        normal.z = normal.z * (*(float*)&DAT_003f3388);
     }
     FUN_0030be90();
     v25();

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 55 inputs, branch coverage 8/8)
 // FUN_000bc3c0 @ 0x000bc3c0
+#include "decls/data/engine/content.h"
+
 extern "C" char* strncpy(char*, const char*, unsigned int);
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -29,7 +31,6 @@ struct RequestState {
     int arg;
     char field110;
 };
-extern Manager_bc3c0* DAT_00527c58;
 void __cdecl FUN_00087990();
 
 void __stdcall FUN_000bc3c0(const char* src, Target_bc3c0* target, int arg) {
@@ -49,15 +50,15 @@ void __stdcall FUN_000bc3c0(const char* src, Target_bc3c0* target, int arg) {
         strncpy(st.name, src, 0xff);
     st.arg = arg;
     st.field110 = 0;
-    DAT_00527c58->FUN_00265810(st.name, &st);
-    int saved = DAT_00527c58->FUN_00264870();
-    DAT_00527c58->FUN_00264860(0x3d090);
+    (*(Manager_bc3c0**)&DAT_00527c58)->FUN_00265810(st.name, &st);
+    int saved = (*(Manager_bc3c0**)&DAT_00527c58)->FUN_00264870();
+    (*(Manager_bc3c0**)&DAT_00527c58)->FUN_00264860(0x3d090);
     if (!st.request->FUN_00266750()) {
         do {
             FUN_00087990();
         } while (!st.request->FUN_00266750());
     }
-    DAT_00527c58->FUN_00264860(saved);
+    (*(Manager_bc3c0**)&DAT_00527c58)->FUN_00264860(saved);
     target->FUN_00266220(st.request->FUN_00266700());
     Request* r = st.request;
     if (r != 0)

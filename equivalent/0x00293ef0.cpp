@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1027 inputs, branch coverage 8/8)
 // FUN_00293ef0 @ 0x00293ef0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 struct Matrix { unsigned data[16]; void FUN_0022ca90(Matrix*, Matrix*); void FUN_0022cdb0(); };
 #define V(n) virtual void s##n();
 struct Provider { V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13) virtual Matrix* matrix(); V(15) V(16) V(17) V(18) V(19) V(20) V(21) virtual void activate(); };
@@ -9,11 +11,9 @@ struct Renderer { V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) 
 struct Item { V(0) V(1) V(2) V(3) V(4) virtual void bind(unsigned); };
 struct Target;
 struct Context { char pad[8]; Target* current; void FUN_0028fa40(Matrix*,Matrix*); };
-extern Renderer** DAT_0052c2ac;
-extern Context* DAT_0052c2b4;
 struct Target { char pad[8]; unsigned x,y,w,h; Provider* provider; unsigned state; unsigned a,b,c,d; unsigned v0,v1,v2; Item* items[32]; unsigned char enabled; char padbd[3]; Matrix first,second; void run(); };
 void Target::run() {
- DAT_0052c2b4->current=this;
+ (*(Context**)&DAT_0052c2b4)->current=this;
  provider->activate();
  DAT_0052c2a8->viewport(x,y,w,h);
  DAT_0052c2a8->state(state);
@@ -21,15 +21,15 @@ void Target::run() {
  matrices.original.FUN_0022ca90(provider->matrix(), &first);
  matrices.inverse=matrices.original;
  matrices.inverse.FUN_0022cdb0();
- DAT_0052c2b4->FUN_0028fa40(&matrices.inverse,&matrices.original);
+ (*(Context**)&DAT_0052c2b4)->FUN_0028fa40(&matrices.inverse,&matrices.original);
  matrices.next.FUN_0022ca90(provider->matrix(), &second);
  matrices.next.FUN_0022cdb0();
- (*DAT_0052c2ac)->transform(0,&matrices.next);
+ (*(*(Renderer***)&DAT_0052c2ac))->transform(0,&matrices.next);
  unsigned slot=0;
  Item** item=items;
  unsigned remaining=32;
  do { if(*item) { (*item)->bind(slot); ++slot; } ++item; } while(--remaining);
- (*DAT_0052c2ac)->reset(0);
+ (*(*(Renderer***)&DAT_0052c2ac))->reset(0);
  if(enabled) { DAT_0052c2a8->enable(1); DAT_0052c2a8->values(v0,v1,v2); } else DAT_0052c2a8->enable(0);
  if(d) { DAT_0052c2a8->set20(a); DAT_0052c2a8->set24(b); DAT_0052c2a8->set28(c); DAT_0052c2a8->set2c(d); }
 }

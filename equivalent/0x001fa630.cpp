@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_001fa630 @ 0x001fa630
+#include "decls/data/game/global.h"
+
 inline void *operator new(unsigned int, void *p) { return p; }
 void *FUN_0008d690(unsigned int size);
-extern const char DAT_003f335c[];
 
 class Pool_1fa630 {
 public:
@@ -96,7 +97,7 @@ CEncounterGenerator::CEncounter::CEncounter()
     f48 = 0;
     f4c = 0;
     b38 = (char)0xff;
-    holder.FUN_0027b040(DAT_003f335c);
+    holder.FUN_0027b040(((const char*)&DAT_003f335c));
     b39 = (char)0xff;
     b50 = 0;
     b51 = 1;

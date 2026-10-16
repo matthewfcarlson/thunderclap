@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1911 inputs, branch coverage 22/22)
 // FUN_000f9f30 @ 0x000f9f30
+#include "decls/data/game/DollyScript.h"
+
 class Node {
 public:
     virtual void v0();
@@ -8,7 +10,6 @@ public:
     int depth;
 };
 
-extern unsigned __int64 DAT_004e0a08;
 
 struct Chain_f9f30 {
     char pad0[8];
@@ -29,7 +30,7 @@ void Chain_f9f30::FUN_000f9f30() {
         if (n == 0)
             return;
     }
-    if (n->Key() != DAT_004e0a08)
+    if (n->Key() != (*(unsigned __int64*)&DAT_004e0a08))
         return;
     Node* m = head->next;
     if (m == 0)
@@ -39,7 +40,7 @@ void Chain_f9f30::FUN_000f9f30() {
         if (m == 0)
             return;
     }
-    if (m->Key() != DAT_004e0a08)
+    if (m->Key() != (*(unsigned __int64*)&DAT_004e0a08))
         return;
     count++;
     head = m;

@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 6/6)
 // core::XboxSaveDrive::vfunc_0_adjc0 @ 0x00279c50
+#include "decls/data/platform/xbox/core.h"
+
 typedef unsigned int uint;
-extern unsigned char* DAT_0052c270;
-extern int DAT_0052c27c;
 extern int __stdcall FUN_002109b6(void*, int);
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned);
 namespace XAPILIB { extern unsigned long __stdcall GetLastError(); }
@@ -28,11 +28,11 @@ int SaveWriter::vfunc_0_adjc0(void* path, int unused, void* data, unsigned offse
         return 0;
     }
     if (!drive->FUN_00279490(path, data)) return 0;
-    DAT_0052c27c = 0;
-    memcpy(DAT_0052c270 + offset, source, length);
+    (*(int*)((char*)&DAT_0052c270 + 12)) = 0;
+    memcpy((*(unsigned char**)&DAT_0052c270) + offset, source, length);
     unsigned n = (unsigned)value + 0x2013;
     unsigned quotient = (unsigned)(((unsigned __int64)n * 0x7fb031e1) >> 44);
-    DAT_0052c27c = 2;
+    (*(int*)((char*)&DAT_0052c270 + 12)) = 2;
     *result = value - quotient * 20;
     drive->error = 0;
     return 1;

@@ -1,5 +1,5 @@
-extern unsigned int DAT_00555b8c;
-extern unsigned int DAT_00555b90;
+#include "decls/data/platform/xbox/pure3d.h"
+
 struct Context {
     virtual void slot0();
     virtual void slot1();

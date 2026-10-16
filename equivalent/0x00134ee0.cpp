@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3011 inputs, branch coverage 36/36)
 // hulkfight::motion::FallAction::vfunc_5 @ 0x00134ee0
+#include "decls/data/game/hulkfight/motion.h"
+
 extern "C" double sqrt(double);
 
 struct V3_134ee0 {
@@ -70,7 +72,6 @@ double __cdecl FUN_00224fc0(int a, int b);
 double __cdecl FUN_00224f10(V3_134ee0 *v);
 double __cdecl FUN_000963c0(int a, int b, int c, int d, int e);
 void __cdecl FUN_00224d70(int angle, V3_134ee0 *v);
-extern V3_134ee0 DAT_004abf64;
 
 union Slot_134ee0 {
     int i;
@@ -133,7 +134,7 @@ bool hulkfight::motion::FallAction::vfunc_5(Slot_134ee0 a1, Slot_134ee0 a2)
         double L = sqrt(vel->x * vel->x + vel->z * vel->z);
         f.s10 = (float)L;
         f.s4 = (float)FUN_00224ea0(*(int *)&st->f2064, *(int *)&st->f206c);
-        f.v0 = DAT_004abf64;
+        f.v0 = (*(V3_134ee0*)&DAT_004abf64);
         FUN_00224d70(a1.i, &f.v0);
         f.vc = *vel;
         Cfg_134ee0 *c = cfg;

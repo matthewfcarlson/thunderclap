@@ -1,4 +1,5 @@
-extern "C" char DAT_0052a1c8[];
+#include "decls/data/engine/core.h"
+
 extern int vtDrive, vtRequest;
 extern void FUN_0026d850(void*);
 extern void FUN_0026d840(void*);
@@ -36,9 +37,9 @@ core::DriveFindFirstRequest* core::DriveFindFirstRequest::vfunc_0(int flag) {
     object->B();
     ((int*)this)[0] = (int)&vtRequest;
     if (flag & 1) {
-        FUN_0026d850((void*)((int)DAT_0052a1c8));
+        FUN_0026d850((void*)((int)((char*)&DAT_0052a1c8)));
         globalG->e(this);
-        FUN_0026d840((void*)((int)DAT_0052a1c8));
+        FUN_0026d840((void*)((int)((char*)&DAT_0052a1c8)));
     }
     return this;
 }

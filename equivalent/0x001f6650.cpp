@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 109 inputs, branch coverage 30/30)
 // FUN_001f6650 @ 0x001f6650
+#include "decls/data/game/global.h"
+
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern float DAT_004c7df0;
-extern float DAT_004c7df4;
-extern float DAT_004c7df8;
 
 struct Voice_1f6650 {
     int pad0;

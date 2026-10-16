@@ -1,4 +1,5 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct Vector {
     float x, y, z;
 };
@@ -11,7 +12,6 @@ struct Matrix {
 struct MatrixSource_2b5410 {
     Matrix* FUN_0028faa0();
 };
-extern MatrixSource_2b5410* DAT_0052c2b4;
 struct Gfx {
     virtual void slot0();
     virtual void slot1();
@@ -115,7 +115,7 @@ struct ShadowMeshImpl {
     void FUN_002b3c70();
 };
 void ShadowMeshImpl::vfunc_6() {
-    Matrix matrix = *DAT_0052c2b4->FUN_0028faa0();
+    Matrix matrix = *(*(MatrixSource_2b5410**)&DAT_0052c2b4)->FUN_0028faa0();
     matrix.FUN_0022cdb0();
     if (mode)
         matrix.FUN_0022c2b0(&second, &first);

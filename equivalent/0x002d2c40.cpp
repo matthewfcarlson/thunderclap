@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 105 inputs, branch coverage 16/18, incomplete)
 // pure3d::ParticleSphereGenerator::vfunc_6 @ 0x002d2c40
+#include "decls/data/engine/pure3d.h"
+
 struct Vec3_2d2c40 {
     float x, y, z;
     void FUN_0022d260(struct Mat4_2d2c40* m);
@@ -16,7 +18,6 @@ struct Rng_2d2c40 {
     float FUN_00143100();
 };
 
-extern Rng_2d2c40 DAT_00554bfc;
 
 class Emitter_2d2c40 {
 public:
@@ -78,9 +79,9 @@ unsigned int ParticleSphereGenerator::vfunc_6(unsigned int count, Mat4_2d2c40* f
     if (radius != 0.0f) {
         volatile float t = 0.0f;
         for (unsigned int i = 0; i < count; i++) {
-            float ph = DAT_00554bfc.FUN_00143100() * 3.1415927f;
-            float th = DAT_00554bfc.FUN_00143100() * 3.1415927f;
-            float v = DAT_00554bfc.FUN_00143100() * jitter;
+            float ph = (*(Rng_2d2c40*)&DAT_00554bfc).FUN_00143100() * 3.1415927f;
+            float th = (*(Rng_2d2c40*)&DAT_00554bfc).FUN_00143100() * 3.1415927f;
+            float v = (*(Rng_2d2c40*)&DAT_00554bfc).FUN_00143100() * jitter;
             Vec3_2d2c40& w = fr.w;
             FUN_00356bf0(radius, ph, th, &fr.tmp.x, &fr.tmp.y, &fr.tmp.z);
             w = fr.tmp;
@@ -101,9 +102,9 @@ unsigned int ParticleSphereGenerator::vfunc_6(unsigned int count, Mat4_2d2c40* f
         }
     } else {
         for (unsigned int i = 0; i < count; i++) {
-            float ph = DAT_00554bfc.FUN_00143100() * 3.1415927f;
-            float th = DAT_00554bfc.FUN_00143100() * 3.1415927f;
-            float v = DAT_00554bfc.FUN_00143100() * jitter;
+            float ph = (*(Rng_2d2c40*)&DAT_00554bfc).FUN_00143100() * 3.1415927f;
+            float th = (*(Rng_2d2c40*)&DAT_00554bfc).FUN_00143100() * 3.1415927f;
+            float v = (*(Rng_2d2c40*)&DAT_00554bfc).FUN_00143100() * jitter;
             Vec3_2d2c40& w = fr.w;
             FUN_00356bf0(1.0f, ph, th, &w.x, &w.y, &w.z);
             w.FUN_0022d260(from);

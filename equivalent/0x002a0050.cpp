@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2535 inputs, branch coverage 87/90, incomplete)
 // FUN_002a0050 @ 0x002a0050
-extern int DAT_004cf730;
+#include "decls/data/engine/unknown.h"
 
 struct Item {
     void FUN_002a0820(int v);

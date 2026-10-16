@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 25/26, incomplete)
 // hulkfight::motion::WallJumpAction::vfunc_5 @ 0x00141040
+#include "decls/data/game/hulkfight/motion.h"
+
 extern "C" double sqrt(double);
 
 struct V3_141040 {
@@ -67,7 +69,6 @@ struct Cfg_141040 {
 double __cdecl FUN_00224f10(V3_141040 *v);
 double __cdecl FUN_00224fc0(int a, int b);
 void __cdecl FUN_00224d70(int angle, V3_141040 *v);
-extern V3_141040 DAT_004ad77c;
 
 union Slot_141040 {
     int i;
@@ -163,7 +164,7 @@ bool WallJumpAction::vfunc_5(Slot_141040 a1, Slot_141040 a2)
     vel2.y = (float)((double)vel2.y - a2.f * c2->f20);
     *(int *)&f.s8 = *(int *)&c2->f34;
     f.sC = (float)FUN_00224f10(&vel2);
-    f.v0 = DAT_004ad77c;
+    f.v0 = (*(V3_141040*)&DAT_004ad77c);
     FUN_00224d70(*(int *)&f.sC, &f.v0);
     f.vc = st->v2064;
     f.vc.y = 0.0f;

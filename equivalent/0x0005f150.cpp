@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 948 inputs, branch coverage 82/82)
 // FUN_0005f150 @ 0x0005f150
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -223,15 +226,7 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc5d0;
-extern int DAT_004dc5d4;
 
-extern const char* DAT_00495470[1];
-extern const char* DAT_00495480[1];
-extern const char* DAT_0049548c[1];
-extern const char* DAT_004954b4[1];
-extern const char* DAT_0048f6cc[1];
-extern int DAT_003f5ed0;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -291,15 +286,15 @@ void FUN_0005f150()
         mem = FUN_0008d690(0x20);
         params[12] = 0;
         if (mem)
-            params[12] = new (mem) fight::ParamEnumConstList<CCollisionTrack>("steelFists", DAT_00495470, 4, &CCollisionTrack::FUN_0005d580);
+            params[12] = new (mem) fight::ParamEnumConstList<CCollisionTrack>("steelFists", ((const char**)&DAT_00495470), 4, &CCollisionTrack::FUN_0005d580);
         mem = FUN_0008d690(0x20);
         params[13] = 0;
         if (mem)
-            params[13] = new (mem) fight::ParamEnumConstList<CCollisionTrack>("hitTypes", DAT_00495480, 3, &CCollisionTrack::FUN_0005d590);
+            params[13] = new (mem) fight::ParamEnumConstList<CCollisionTrack>("hitTypes", ((const char**)&DAT_00495480), 3, &CCollisionTrack::FUN_0005d590);
         mem = FUN_0008d690(0x20);
         params[14] = 0;
         if (mem)
-            params[14] = new (mem) fight::ParamEnumConstList<CCollisionTrack>("crusher", DAT_0049548c, 10, &CCollisionTrack::FUN_0005d5a0);
+            params[14] = new (mem) fight::ParamEnumConstList<CCollisionTrack>("crusher", ((const char**)&DAT_0049548c), 10, &CCollisionTrack::FUN_0005d5a0);
         mem = FUN_0008d690(0x18);
         params[15] = 0;
         if (mem)
@@ -339,7 +334,7 @@ void FUN_0005f150()
         mem = FUN_0008d690(0x20);
         params[24] = 0;
         if (mem)
-            params[24] = new (mem) fight::ParamEnumConstList<CCollisionTrack>("direction", DAT_004954b4, 3, &CCollisionTrack::FUN_0005d630);
+            params[24] = new (mem) fight::ParamEnumConstList<CCollisionTrack>("direction", ((const char**)&DAT_004954b4), 3, &CCollisionTrack::FUN_0005d630);
         mem = FUN_0008d690(0x18);
         params[25] = 0;
         if (mem)
@@ -351,7 +346,7 @@ void FUN_0005f150()
         mem = FUN_0008d690(0x20);
         params[27] = 0;
         if (mem)
-            params[27] = new (mem) fight::ParamEnumConstList<CCollisionTrack>("location", DAT_0048f6cc, DAT_003f5ed0, &CCollisionTrack::FUN_0005d680);
+            params[27] = new (mem) fight::ParamEnumConstList<CCollisionTrack>("location", ((const char**)&DAT_0048f6cc), (*(int*)&DAT_003f5ed0), &CCollisionTrack::FUN_0005d680);
         mem = FUN_0008d690(0x18);
         params[28] = 0;
         if (mem)
@@ -400,7 +395,7 @@ void FUN_0005f150()
         params[39] = 0;
         if (mem)
             params[39] = new (mem) fight::ParamFloatPtrConstRange<CCollisionTrack>("largeStunTime", &CCollisionTrack::largeStunTime);
-        FUN_002347b0(&DAT_004dc5d0, params, 40);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc5d0), params, 40);
     }
     DAT_004dc5d4++;
 }

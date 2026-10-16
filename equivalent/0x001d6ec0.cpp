@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 152 inputs, branch coverage 53/54, incomplete)
 // FUN_001d6ec0 @ 0x001d6ec0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 unsigned __int64 FUN_0027afb0(const char* s) throw();
-extern unsigned __int64 DAT_004e25f0;
-extern unsigned int DAT_004e25f8;
 
 struct IdBlock {
     char pad0[8];
@@ -105,9 +104,9 @@ public:
 
 bool Receiver_1d6ec0::FUN_001d6ec0(int amount, Ref_1d6ec0* victim, bool forced)
 {
-    if (!(DAT_004e25f8 & 1)) {
-        DAT_004e25f8 |= 1;
-        DAT_004e25f0 = FUN_0027afb0("bunker_bunker");
+    if (!((*(unsigned int*)&DAT_004e25f8) & 1)) {
+        (*(unsigned int*)&DAT_004e25f8) |= 1;
+        (*(unsigned __int64*)&DAT_004e25f0) = FUN_0027afb0("bunker_bunker");
     }
     int dmg;
 
@@ -119,7 +118,7 @@ bool Receiver_1d6ec0::FUN_001d6ec0(int amount, Ref_1d6ec0* victim, bool forced)
         if (scene) {
             int a = scene->stats.FUN_00088fa0();
             int b = scene->stats.FUN_00088fb0();
-            if (a == 10 && b == 0x1c && lo == (unsigned int)DAT_004e25f0 && hi == (unsigned int)(DAT_004e25f0 >> 32))
+            if (a == 10 && b == 0x1c && lo == (unsigned int)(*(unsigned __int64*)&DAT_004e25f0) && hi == (unsigned int)((*(unsigned __int64*)&DAT_004e25f0) >> 32))
                 return false;
         }
     }

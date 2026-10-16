@@ -1,3 +1,5 @@
+#include "decls/data/engine/pure3d/prop.h"
+
 struct Data_1c51b0 {
     char pad[0x74];
     void* field74;
@@ -41,7 +43,6 @@ struct Render {
     virtual int v16(int);
     virtual void v17(int, void*);
 };
-extern Render** DAT_0052c2ac;
 struct Parent_1c51b0 {
     char pad[0x23];
     unsigned char flag;
@@ -66,13 +67,13 @@ struct Owner_1c51b0 {
     int target(Context* context);
 };
 int Owner_1c51b0::target(Context* context) {
-    (*DAT_0052c2ac)->v15(0);
+    (*(*(Render***)&DAT_0052c2ac))->v15(0);
     if (!parent || parent->flag)
-        (*DAT_0052c2ac)->v17(0, state);
+        (*(*(Render***)&DAT_0052c2ac))->v17(0, state);
     if (enabled && item) {
         if (!item->FUN_001d72e0() || !item->FUN_001d72e0()->field74) {
             void* value = item->v15();
-            (*DAT_0052c2ac)->v17(0, value);
+            (*(*(Render***)&DAT_0052c2ac))->v17(0, value);
         }
         float value = a < b ? b : a;
         context->FUN_001c25c0(item, this, value);
@@ -80,5 +81,5 @@ int Owner_1c51b0::target(Context* context) {
         float value = a < b ? b : a;
         context->FUN_001c25c0(fallback, this, value);
     }
-    return (*DAT_0052c2ac)->v16(0);
+    return (*(*(Render***)&DAT_0052c2ac))->v16(0);
 }

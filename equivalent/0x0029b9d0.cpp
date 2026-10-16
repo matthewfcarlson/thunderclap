@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 24/24)
 // FUN_0029b9d0 @ 0x0029b9d0
+#include "decls/data/engine/pure3d/prop.h"
+
 struct Mat64 {
     int w[16];
     void FUN_0022ca90(Mat64 *a, Mat64 *b);
@@ -74,7 +76,6 @@ public:
     SourceRef *sources;
 };
 
-extern Provider_29b9d0 **DAT_0052c2ac;
 
 class Mixer {
 public:
@@ -92,11 +93,11 @@ void Mixer::FUN_0029b9d0(Anim_29b9d0 *anim, int idx, Mat64 *m, Counted_29b9d0 *q
 {
     if (m) {
         Entry_29b9d0 *e = &entries[cur];
-        Mat64 *src = (*DAT_0052c2ac)->getMatrix(0);
+        Mat64 *src = (*(*(Provider_29b9d0***)&DAT_0052c2ac))->getMatrix(0);
         e->mat.FUN_0022ca90(m, src);
     } else {
         Entry_29b9d0 *e = &entries[cur];
-        Mat64 *src = (*DAT_0052c2ac)->getMatrix(0);
+        Mat64 *src = (*(*(Provider_29b9d0***)&DAT_0052c2ac))->getMatrix(0);
         e->mat = *src;
     }
 

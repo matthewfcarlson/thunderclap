@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 8/8)
 // FUN_000548b0 @ 0x000548b0
+#include "decls/data/game/global.h"
+
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
@@ -17,8 +19,6 @@ template<class T> struct ParamFloatConstRange {
 };
 }
 typedef fight::ParamFloatConstRange<CMotionClimbAngleCondition> Param;
-extern unsigned int DAT_004dc584;
-extern unsigned int DAT_004dc580;
 void __cdecl FUN_002347b0(void*, Param**, int);
 void __cdecl FUN_000548b0() {
  if (DAT_004dc584 == 0) {

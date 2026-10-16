@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 351 inputs, branch coverage 39/42, incomplete)
 // FUN_00080900 @ 0x00080900
+#include "decls/data/game/global.h"
+
 struct Vec3_80900 {
     float x, y, z;
 };
@@ -50,8 +52,6 @@ struct Prop_80900 {
     void FUN_00081b20(int arg);
 };
 
-extern int DAT_004dd040;
-extern int DAT_0049b894;
 
 class PropList_80900 {
 public:

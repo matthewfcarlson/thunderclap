@@ -1,23 +1,19 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001cf030 @ 0x001cf030
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
-extern char DAT_0048e100;
-extern char DAT_0048e0e4;
-extern char DAT_0048e0f0;
-extern char DAT_0048e128;
-extern char DAT_0048e134;
 
 enum eMissionObjectiveState { MOS_Dummy };
-extern char DAT_004c55f0;
 template <class T> struct TypeTag;
-template <> struct TypeTag<void> { static const void *get() { return &DAT_0048e100; } };
+template <> struct TypeTag<void> { static const void *get() { return ((char*)&DAT_0048e100); } };
 template <> struct TypeTag<bool> { static const void *get() { return &DAT_0048e0e4; } };
-template <> struct TypeTag<const char *> { static const void *get() { return &DAT_0048e0f0; } };
+template <> struct TypeTag<const char *> { static const void *get() { return ((char*)&DAT_0048e0f0); } };
 template <> struct TypeTag<eMissionObjectiveState> { static const void *get() { return &DAT_004c55f0; } };
-template <> struct TypeTag<float> { static const void *get() { return &DAT_0048e128; } };
-template <> struct TypeTag<int> { static const void *get() { return &DAT_0048e134; } };
+template <> struct TypeTag<float> { static const void *get() { return ((char*)&DAT_0048e128); } };
+template <> struct TypeTag<int> { static const void *get() { return ((char*)&DAT_0048e134); } };
 
 class CScenarioManager {
 public:

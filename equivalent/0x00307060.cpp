@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 53 inputs, branch coverage 33/36, incomplete)
 // FUN_00307060 @ 0x00307060
-extern unsigned short* DAT_0055543c;
-extern unsigned short* DAT_00555440;
 
 // A packed stream of 16-bit words: each record has a header (selector in bits 12-13,
 // type in bits 14-15), literal words that are appended to a global 0x400-entry buffer,
 // and offsets to follow into nested records.
+#include "decls/data/engine/physics.h"
+
 class Stream {
 public:
     void FUN_00307060(const unsigned short* limits, int unused);
@@ -41,10 +41,10 @@ void Stream::FUN_00307060(const unsigned short* limits, int unused)
 
         const unsigned short* s = p + 1;
         for (unsigned short n = count; n != 0; n--) {
-            unsigned short idx = *DAT_0055543c;
+            unsigned short idx = *(*(unsigned short**)&DAT_0055543c);
             if (idx < 0x400) {
-                DAT_00555440[idx] = *s;
-                (*DAT_0055543c)++;
+                (*(unsigned short**)&DAT_00555440)[idx] = *s;
+                (*(*(unsigned short**)&DAT_0055543c))++;
             }
             s++;
         }
@@ -66,10 +66,10 @@ void Stream::FUN_00307060(const unsigned short* limits, int unused)
             ((Stream*)child)->FUN_00307060(limits, unused);
         } else {
             for (unsigned short n = skipA; n != 0; n--) {
-                unsigned short idx = *DAT_0055543c;
+                unsigned short idx = *(*(unsigned short**)&DAT_0055543c);
                 if (idx < 0x400) {
-                    DAT_00555440[idx] = *s;
-                    (*DAT_0055543c)++;
+                    (*(unsigned short**)&DAT_00555440)[idx] = *s;
+                    (*(*(unsigned short**)&DAT_0055543c))++;
                 }
                 s++;
             }
@@ -82,10 +82,10 @@ void Stream::FUN_00307060(const unsigned short* limits, int unused)
             continue;
         }
         for (unsigned short n = skipB; n != 0; n--) {
-            unsigned short idx = *DAT_0055543c;
+            unsigned short idx = *(*(unsigned short**)&DAT_0055543c);
             if (idx < 0x400) {
-                DAT_00555440[idx] = *s;
-                (*DAT_0055543c)++;
+                (*(unsigned short**)&DAT_00555440)[idx] = *s;
+                (*(*(unsigned short**)&DAT_0055543c))++;
             }
             s++;
         }

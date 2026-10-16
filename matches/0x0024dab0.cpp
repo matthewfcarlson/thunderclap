@@ -1,4 +1,5 @@
-extern "C" char DAT_004e6548[];
+#include "decls/data/engine/audio.h"
+
 class ListenerEffectPs2 {
   public:
     virtual void F0();

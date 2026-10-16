@@ -1,13 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 28/34, incomplete)
 // FEControllerSystem::vfunc_1 @ 0x000b3f10
+#include "decls/data/game/global.h"
+
 struct Pad_b3f10 {
     void FUN_000ada70(float *state);
 };
 
-extern int DAT_0049f31c, DAT_0049f320, DAT_0049f324, DAT_0049f328;
-extern int DAT_0049f32c, DAT_0049f330, DAT_0049f334, DAT_0049f338;
-extern int DAT_0049f33c, DAT_0049f340, DAT_0049f344, DAT_0049f348;
-extern int DAT_0049f34c, DAT_0049f350;
 
 static void accumulate(float *out, const float *s, const int &srcIdx, const int &dstIdx)
 {

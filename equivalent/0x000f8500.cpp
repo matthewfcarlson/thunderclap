@@ -1,10 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 25/26, incomplete)
 // FUN_000f8500 @ 0x000f8500
 #include "decls/address.h"
+#include "decls/data/game/unknown.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int strlen(const char*);
 extern unsigned int DAT_004d9968;
-extern char DAT_004dd8e8;
 
 class Manager_f8500 {
   public:
@@ -57,7 +57,7 @@ void Entry_f8500::FUN_000f8500(const char* name, Manager_f8500* manager, char fl
         text = 0;
     }
     FUN_000dfcc0(prefix, 0x20, "[NITB]");
-    if (name[0] != 0 && flag != 0 && DAT_004dd8e8 != 0)
+    if (name[0] != 0 && flag != 0 && (*(char*)&DAT_004dd8e8) != 0)
         FUN_000dfcc0(full, 0x100, "%s %s", prefix, name);
     else
         FUN_000dfcc0(full, 0x100, "%s", name);

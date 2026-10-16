@@ -1,5 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 42/42)
 // FUN_0029b750 @ 0x0029b750
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 struct Mat_29b750 {
     float m[16];
 };
@@ -94,9 +98,6 @@ struct Node : public RefObj_29b750 {
     Item_29b750 *end;
 };
 
-extern Provider_29b750 **DAT_0052c2ac;
-extern CamHolder **DAT_0052c2b0;
-extern Culler *DAT_004e2350;
 
 class Binder_29b750 {
 public:
@@ -126,7 +127,7 @@ int Binder_29b750::FUN_0029b750(Node *a1, const Mat_29b750 *a2, RefObj_29b750 *a
     } fr;
 
     if (hdr != 0 && a1->parent == a1) {
-        fr.u.v3 = (*DAT_0052c2b0)->FUN_0028faa0()->pos;
+        fr.u.v3 = (*(*(CamHolder***)&DAT_0052c2b0))->FUN_0028faa0()->pos;
         if (a2 != 0)
             fr.u.v3.FUN_0022d210(a2);
         hdr->pos = fr.u.v3;
@@ -135,10 +136,10 @@ int Binder_29b750::FUN_0029b750(Node *a1, const Mat_29b750 *a2, RefObj_29b750 *a
 
     if (a2 != 0) {
         Elem_29b750 *e = &elems[index];
-        e->FUN_0022ca90(a2, (*DAT_0052c2ac)->v18(0));
+        e->FUN_0022ca90(a2, (*(*(Provider_29b750***)&DAT_0052c2ac))->v18(0));
     } else {
         Elem_29b750 *e = &elems[index];
-        e->mat = *(*DAT_0052c2ac)->v18(0);
+        e->mat = *(*(*(Provider_29b750***)&DAT_0052c2ac))->v18(0);
     }
 
     RefObj_29b750 **slot0 = &elems[index].ref0;
@@ -160,9 +161,9 @@ int Binder_29b750::FUN_0029b750(Node *a1, const Mat_29b750 *a2, RefObj_29b750 *a
     unsigned int n;
     for (n = 0; n < (unsigned int)fr.count; n++) {
         Obj_29b750 *o = a1->begin[n].obj;
-        if (DAT_004e2350 != 0) {
+        if ((*(Culler**)&DAT_004e2350) != 0) {
             fr.u.box = o->box;
-            if (DAT_004e2350->FUN_001c2870(&fr.u.box))
+            if ((*(Culler**)&DAT_004e2350)->FUN_001c2870(&fr.u.box))
                 fr.nodes[n] = o;
             else
                 fr.nodes[n] = 0;

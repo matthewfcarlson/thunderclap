@@ -1,10 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1354 inputs, branch coverage 14/14)
 // FUN_001d5d20 @ 0x001d5d20
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 typedef unsigned int uint;
-extern uint DAT_004e23e0;
-extern uint DAT_004e23e4;
-extern uint DAT_004e23e8;
 extern long __cdecl _atol(const char*);
 struct Property_1d5d20 { uint low, high; const char* value; uint extra; };
 struct Item_1d5d20 { char pad[0x3c]; int count; Property_1d5d20* properties; };
@@ -12,12 +10,12 @@ struct Collection_1d5d20 { char pad[0x1c]; Item_1d5d20** begin; Item_1d5d20** en
 struct Object { char pad[0x90]; Collection_1d5d20* collection; long target(int index); };
 long Object::target(int index) {
  uint low, high;
- if (!(DAT_004e23e8 & 1)) {
-  DAT_004e23e8 |= 1;
+ if (!((*(uint*)&DAT_004e23e8) & 1)) {
+  (*(uint*)&DAT_004e23e8) |= 1;
   unsigned __int64 key = FUN_0027b020("target_priority");
   low = (uint)key; high = (uint)(key >> 32);
-  DAT_004e23e0 = low; DAT_004e23e4 = high;
- } else { low = DAT_004e23e0; high = DAT_004e23e4; }
+  (*(uint*)&DAT_004e23e0) = low; (*(uint*)&DAT_004e23e4) = high;
+ } else { low = (*(uint*)&DAT_004e23e0); high = (*(uint*)&DAT_004e23e4); }
  if(index < 0) return 0;
  Collection_1d5d20* c = collection;
  int count = c->end - c->begin;

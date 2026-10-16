@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 6/6)
 // FUN_002361a0 @ 0x002361a0
+#include "decls/data/engine/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -49,12 +51,8 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e5bdc;
-extern int DAT_004e5be0;
 
-extern const char* DAT_00427758[1];
 
-extern int DAT_00427760;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -66,12 +64,12 @@ void FUN_002361a0()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<fight::FightNodeCondition>("compare", DAT_00427758, DAT_00427760, &fight::FightNodeCondition::FUN_00235950);
+            params[0] = new (mem) fight::ParamEnumConstList<fight::FightNodeCondition>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), &fight::FightNodeCondition::FUN_00235950);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamBranch<fight::FightNodeCondition>("fightNode", &fight::FightNodeCondition::FUN_00235960);
-        FUN_002347b0(&DAT_004e5bdc, params, 2);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e5bdc), params, 2);
     }
     DAT_004e5be0++;
 }

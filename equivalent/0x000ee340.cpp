@@ -7,6 +7,8 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "gen/global.h"
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 
 extern "C" float __cdecl fabsf(float);
 void *thunk_FUN_0008d690(unsigned int size);
@@ -65,9 +67,7 @@ struct Fmt7 { void FUN_000f7fe0(unsigned a); };
 struct Fmt8 { void FUN_000f80e0(unsigned a, unsigned b, unsigned c); };
 struct Fmt9 { void FUN_000f78e0(); };
 
-extern Ctx_ee340 *DAT_0052c2ac;
 extern int DAT_00584554;
-extern int DAT_0040b0a0;
 void FUN_000e11a0(float x, float y, float z, unsigned a, int b);
 void FUN_000e0cc0(float x, float y, float z, unsigned a, int b);
 // equiv-conv: FUN_000e0a90 edx stack stack stack stack stack
@@ -126,35 +126,35 @@ void ImageSelector::vfunc_5() {
     if (*(volatile unsigned char *)((char *)this + 0x74) == 0)
         return;
     if (*(volatile unsigned char *)((char *)this + 0x40) == 1) {
-        DAT_0052c2ac->dev->v15(0);
+        (*(Ctx_ee340**)&DAT_0052c2ac)->dev->v15(0);
         ((Obj14_ee340 *)*(volatile unsigned *)((char *)this + 0x14))->v14((unsigned)&L[4].f, (unsigned)this);
-        DAT_0052c2ac->FUN_00293d00((unsigned)&L[4].f);
+        (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((unsigned)&L[4].f);
         ((Obj14_ee340 *)*(volatile unsigned *)((char *)this + 0x14))->v15((unsigned)&L[0].f, (unsigned)this);
         tmpi = *(volatile unsigned *)((char *)this + 0x148);
         FUN_000e11a0(L[0].f, L[1].f, L[2].f, tmpi, 2);
-        DAT_0052c2ac->dev->v16(0);
+        (*(Ctx_ee340**)&DAT_0052c2ac)->dev->v16(0);
     }
     if (*(volatile unsigned char *)((char *)this + 0x48) == 1) {
-        DAT_0052c2ac->dev->v15(0);
+        (*(Ctx_ee340**)&DAT_0052c2ac)->dev->v15(0);
         ((Obj14_ee340 *)*(volatile unsigned *)((char *)this + 0x14))->v14((unsigned)&L[4].f, (unsigned)this);
-        DAT_0052c2ac->FUN_00293d00((unsigned)&L[4].f);
+        (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((unsigned)&L[4].f);
         ((Obj14_ee340 *)*(volatile unsigned *)((char *)this + 0x14))->v15((unsigned)&L[0].f, (unsigned)this);
         tmpi = *(volatile unsigned *)((char *)this + 0x4c);
         FUN_000e0cc0(L[0].f, L[1].f, L[2].f, tmpi, 0);
-        DAT_0052c2ac->dev->v16(0);
+        (*(Ctx_ee340**)&DAT_0052c2ac)->dev->v16(0);
     }
     if (*(volatile unsigned *)((char *)this + 0x50) != 0) {
-        DAT_0052c2ac->dev->v15(0);
+        (*(Ctx_ee340**)&DAT_0052c2ac)->dev->v15(0);
         ((Obj14_ee340 *)*(volatile unsigned *)((char *)this + 0x14))->v14((unsigned)&L[4].f, (unsigned)this);
-        DAT_0052c2ac->FUN_00293d00((unsigned)&L[4].f);
-        DAT_0052c2ac->FUN_00293da0(*(volatile unsigned *)((char *)this + 0x54), *(volatile unsigned *)((char *)this + 0x58), *(volatile unsigned *)((char *)this + 0x5c));
+        (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((unsigned)&L[4].f);
+        (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293da0(*(volatile unsigned *)((char *)this + 0x54), *(volatile unsigned *)((char *)this + 0x58), *(volatile unsigned *)((char *)this + 0x5c));
         ((Obj50_ee340 *)*(volatile unsigned *)((char *)this + 0x50))->v8(0, 0);
-        DAT_0052c2ac->dev->v16(0);
+        (*(Ctx_ee340**)&DAT_0052c2ac)->dev->v16(0);
     }
-    DAT_0052c2ac->dev->v15(0);
+    (*(Ctx_ee340**)&DAT_0052c2ac)->dev->v15(0);
     ((Obj14_ee340 *)*(volatile unsigned *)((char *)this + 0x14))->v14((unsigned)&L[4].f, (unsigned)this);
-    DAT_0052c2ac->FUN_00293d00((unsigned)&L[4].f);
-    DAT_0052c2ac->FUN_00293d00((unsigned)((volatile float *)this + 30));
+    (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((unsigned)&L[4].f);
+    (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((unsigned)((volatile float *)this + 30));
     if ((int)*(volatile unsigned *)((char *)this + 0x294) > 0) {
         L[7].u = 0;
         tmpi = (unsigned)this + 0x250;
@@ -162,7 +162,7 @@ void ImageSelector::vfunc_5() {
         esiv = (unsigned)this + 0x150;
         L[9].u = esiv;
         do {
-            DAT_0052c2ac->dev->v15(0);
+            (*(Ctx_ee340**)&DAT_0052c2ac)->dev->v15(0);
             L[8].u = 0;
             if ((int)*(volatile unsigned *)((char *)this + 0x298) > 0) {
                 L[10].u = esiv;
@@ -303,25 +303,25 @@ void ImageSelector::vfunc_5() {
                             *(volatile float *)((char *)&L[40].f + (L[72].u << 4)) = fa * L[20].f;
                             *(volatile unsigned *)((char *)&L[41].f + (L[72].u << 4)) = 1;
                             *(volatile unsigned *)((char *)&L[42].f + (L[72].u << 4)) = 2;
-                            ((Fmt8 *)(unsigned)&L[38].f)->FUN_000f80e0((unsigned)&DAT_0040b0a0, 0, 0);
+                            ((Fmt8 *)(unsigned)&L[38].f)->FUN_000f80e0((unsigned)&(*(int*)&DAT_0040b0a0), 0, 0);
                             ((Fmt9 *)(unsigned)&L[38].f)->FUN_000f78e0();
                         }
                     }
                     L[35].u = *(volatile unsigned *)((char *)this + 0x29c);
                     L[36].u = 0;
                     L[37].u = 0;
-                    DAT_0052c2ac->FUN_00293d00((unsigned)&L[35].f);
+                    (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((unsigned)&L[35].f);
                     colv = L[8].u + 1;
                     esiv = L[10].u + 4;
                     L[8].u = colv;
                     L[10].u = esiv;
                 } while ((int)colv < (int)*(volatile unsigned *)((char *)this + 0x298));
             }
-            DAT_0052c2ac->dev->v16(0);
+            (*(Ctx_ee340**)&DAT_0052c2ac)->dev->v16(0);
             L[4].u = 0;
             L[5].f = -T[168];
             L[6].u = 0;
-            DAT_0052c2ac->FUN_00293d00((unsigned)&L[4].f);
+            (*(Ctx_ee340**)&DAT_0052c2ac)->FUN_00293d00((unsigned)&L[4].f);
             colv = L[7].u + 1;
             esiv = L[9].u + 0x20;
             tmpi = L[3].u + 8;
@@ -330,5 +330,5 @@ void ImageSelector::vfunc_5() {
             L[3].u = tmpi;
         } while ((int)colv < (int)*(volatile unsigned *)((char *)this + 0x294));
     }
-    DAT_0052c2ac->dev->v16(0);
+    (*(Ctx_ee340**)&DAT_0052c2ac)->dev->v16(0);
 }

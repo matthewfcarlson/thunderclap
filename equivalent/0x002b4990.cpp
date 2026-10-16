@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/12, incomplete)
 // FUN_002b4990 @ 0x002b4990
+#include "decls/data/game/global.h"
+
 struct Vec3_2b4990 {
     float x, y, z;
     void FUN_0022c3b0();
@@ -46,7 +48,6 @@ struct SceneRoot_2b4990 {
 struct World {
     SceneRoot_2b4990 *root;
 };
-extern World *DAT_0052c2b0;
 
 class Mover_2b4990 {
 public:
@@ -71,7 +72,7 @@ void Mover_2b4990::FUN_002b4990()
     if (reach != 0.0f)
         return;
 
-    Scene_2b4990 *scene = DAT_0052c2b0->root->scene;
+    Scene_2b4990 *scene = (*(World**)&DAT_0052c2b0)->root->scene;
     Probe_2b4990 *probe = scene->probe;
     Vec4_2b4990 pos = origin;
     Vec3_2b4990 dir;

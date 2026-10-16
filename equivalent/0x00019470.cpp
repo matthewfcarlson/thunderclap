@@ -1,8 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3083 inputs, branch coverage 99/100, incomplete)
 // FUN_00019470 @ 0x00019470
 #include "decls/address.h"
-extern int DAT_004dc0e0;
-extern int DAT_004dc0e4;
+#include "decls/data/game/unknown.h"
 
 struct Vec3_19470 {
     float x, y, z;
@@ -281,7 +280,7 @@ void Attack::FUN_00019470(Fighter_19470 *t, int a2, Vec3_19470 *P, Vec3_19470 *N
         int lim38 = pr->f34;
         f.slot14.lim34 = pr->f30;
         __int64 id = tg->FUN_000443c0();
-        if (!((unsigned int)id == (unsigned int)DAT_004dc0e0 && (unsigned int)(id >> 32) == (unsigned int)DAT_004dc0e4)) {
+        if (!((unsigned int)id == (unsigned int)(*(int*)&DAT_004dc0e0) && (unsigned int)(id >> 32) == (unsigned int)(*(int*)((char*)&DAT_004dc0e0 + 4)))) {
             if (lim38 > 0 && f38 >= lim38)
                 return;
             if (f.slot14.lim34 > 0 && f34 >= f.slot14.lim34)

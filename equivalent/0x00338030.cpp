@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2012 inputs, branch coverage 88/88)
 // FUN_00338030 @ 0x00338030
+#include "decls/data/engine/movie.h"
+
 extern "C" long atol(const char *s);
 extern "C" double __cdecl FUN_003458c1(const char *s);
 extern "C" int __cdecl FUN_00337dc0(const char *s);
@@ -10,7 +12,6 @@ class Pool_338030 {
 public:
     void *FUN_00337d60(unsigned int size, int align);
 };
-extern Pool_338030 DAT_00565fc0;
 
 class Loader_338030 {
 public:
@@ -36,7 +37,7 @@ static void CopyString(char **slot, const char *src)
     const char *e = src;
     while (*e++ != 0) {
     }
-    char *d = (char *)DAT_00565fc0.FUN_00337d60((unsigned int)(e - src), 4);
+    char *d = (char *)(*(Pool_338030*)&DAT_00565fc0).FUN_00337d60((unsigned int)(e - src), 4);
     *slot = d;
     char c;
     do {
@@ -62,7 +63,7 @@ bool AttrDef_338030::FUN_00338030(Loader_338030 *ld)
         return false;
     }
     ld->FUN_003374a0();
-    char *v = (char *)DAT_00565fc0.FUN_00337d60(FUN_00337ec0(), 4);
+    char *v = (char *)(*(Pool_338030*)&DAT_00565fc0).FUN_00337d60(FUN_00337ec0(), 4);
     value = v;
 
     switch (type) {

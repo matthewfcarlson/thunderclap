@@ -1,5 +1,6 @@
+#include "decls/data/engine/audio.h"
+
 extern "C" char DAT_0042a850[];
-extern "C" char DAT_004e7808[];
 struct Inner_25cc70 {
     void Setup();
 };

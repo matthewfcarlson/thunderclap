@@ -1,5 +1,6 @@
+#include "decls/data/engine/audio.h"
+
 extern "C" char DAT_004298fc[];
-extern "C" char DAT_004e6c30[];
 extern void __cdecl Cleanup(void*, void*);
 class SeqActionPlayTrack {
   public:
@@ -10,6 +11,6 @@ SeqActionPlayTrack* SeqActionPlayTrack::vfunc_0(int x) {
     SeqActionPlayTrack* self = this;
     vptr = (int*)((int)DAT_004298fc);
     if (x & 1)
-        Cleanup((void*)((int)DAT_004e6c30), self);
+        Cleanup((void*)((int)((char*)((char*)&DAT_004e6bc8 + 104))), self);
     return self;
 }

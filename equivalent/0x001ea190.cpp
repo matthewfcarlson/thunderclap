@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 22/24, incomplete)
 // FUN_001ea190 @ 0x001ea190
+#include "decls/data/game/global.h"
+
 extern char DAT_004c7150[];
 extern char DAT_004c7170[];
 extern char DAT_004c712c[];
-extern int DAT_004c6f4c;
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 extern unsigned __cdecl FUN_0026fd50(unsigned value, unsigned align);
 extern void *__cdecl FUN_0008d710(unsigned size, int tag);
@@ -28,7 +29,6 @@ struct Pool_1ea190 {
     Entry_1ea190 *FUN_001e9900(Key_1ea190 *key);
 };
 
-extern Pool_1ea190 *DAT_004e3690;
 
 struct Source_1ea190 {
     char pad00[0x10];
@@ -90,7 +90,7 @@ int Collector_1ea190::FUN_001ea190(Request *req, List_1ea190 *list)
                     else
                         size = FUN_0026fd50(v, align);
                 }
-                Pool_1ea190 *pool = DAT_004e3690;
+                Pool_1ea190 *pool = (*(Pool_1ea190**)&DAT_004e3690);
                 Entry_1ea190 *e = pool->FUN_001e9900(&key);
                 if (e) {
                     unsigned lvl = (req->bits >> 5) & 0x1f;

@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 163 inputs, branch coverage 53/53)
 // FUN_000faa40 @ 0x000faa40
+#include "decls/data/game/DollyScript.h"
+
 extern char DAT_004a13e4[];
 extern char DAT_004a1858[];
 extern char DAT_004a1888[];
 extern char DAT_004a1934[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
-extern __int64 DAT_004e0a00;
-extern __int64 DAT_004e0a18;
 
 class Node {
 public:

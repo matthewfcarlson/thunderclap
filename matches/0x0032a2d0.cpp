@@ -1,4 +1,5 @@
-extern "C" char DAT_004d4f24[];
+#include "decls/data/platform/xbox/pure3d.h"
+
 class Dev_32a2d0 {
     char pad[0x48];
 
@@ -24,7 +25,7 @@ void __fastcall FUN_0032a2d0(Obj_32a2d0* self) {
     int x = self->value;
     if (x != self->dev->state) {
         self->dev->state = x;
-        int v = (*(int*)(((int)DAT_004d4f24) + x * 4));
+        int v = (*(int*)(((int)((char*)&DAT_004d4f24)) + x * 4));
         D3DDevice_SetRenderState_Simple((const char*)0x4037c, v);
         global_32a2d0 = v;
     }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001c7a60 @ 0x001c7a60
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
 extern "C" double sin(double);
 extern "C" double cos(double);
 
@@ -108,7 +109,6 @@ public:
     virtual void vfunc_62(int a);
 };
 
-extern Wrapper1 *DAT_0052c2ac;
 
 struct Target_1c7a60 {
     char pad0[0x24];
@@ -133,8 +133,8 @@ void Marker_1c7a60::Draw(Target_1c7a60 *target, float radius, unsigned int gray,
     unsigned int fill = ((((alpha << 8) | gray) << 8 | gray) << 8) | gray;
 
     Vec3_1c7a60 origin = target->pos;
-    DAT_0052c2ac->dev->vfunc_15(0);
-    DAT_0052c2ac->FUN_00293d00(&origin);
+    (*(Wrapper1**)&DAT_0052c2ac)->dev->vfunc_15(0);
+    (*(Wrapper1**)&DAT_0052c2ac)->FUN_00293d00(&origin);
     DAT_0052c2a8->vfunc_62(0);
     VertexSink_1c7a60 *sink = DAT_0052c2a8->vfunc_30(buffer->handle, 0, 0x2020, 0x24, 0);
 
@@ -166,5 +166,5 @@ void Marker_1c7a60::Draw(Target_1c7a60 *target, float radius, unsigned int gray,
 
     DAT_0052c2a8->vfunc_31(sink);
     DAT_0052c2a8->vfunc_62(1);
-    DAT_0052c2ac->dev->vfunc_16(0);
+    (*(Wrapper1**)&DAT_0052c2ac)->dev->vfunc_16(0);
 }

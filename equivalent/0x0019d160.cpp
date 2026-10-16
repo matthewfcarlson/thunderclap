@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 918 inputs, branch coverage 120/120)
 // FUN_0019d160 @ 0x0019d160
+#include "decls/data/game/hulkfight/motion.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -213,12 +216,8 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e1580;
-extern int DAT_004e1584;
 
-extern const char* DAT_004ad788[1];
 
-extern int DAT_00412ed4;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -406,7 +405,7 @@ void FUN_0019d160()
         mem = FUN_0008d690(0x20);
         params[44] = 0;
         if (mem)
-            params[44] = new (mem) fight::ParamEnumConstList<hulkfight::motion::FireMissileTrack>("hitDamageType", DAT_004ad788, DAT_00412ed4, &hulkfight::motion::FireMissileTrack::FUN_00193550);
+            params[44] = new (mem) fight::ParamEnumConstList<hulkfight::motion::FireMissileTrack>("hitDamageType", ((const char**)&DAT_004ad788), (*(int*)&DAT_00412ed4), &hulkfight::motion::FireMissileTrack::FUN_00193550);
         mem = FUN_0008d690(0x18);
         params[45] = 0;
         if (mem)
@@ -463,7 +462,7 @@ void FUN_0019d160()
         params[58] = 0;
         if (mem)
             params[58] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::FireMissileTrack>("motionTrailTextureTime", &hulkfight::motion::FireMissileTrack::FUN_001937a0);
-        FUN_002347b0(&DAT_004e1580, params, 59);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1580), params, 59);
     }
     DAT_004e1584++;
 }

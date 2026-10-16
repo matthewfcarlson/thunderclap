@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 8/8)
 // FUN_0025b7d0 @ 0x0025b7d0
+#include "decls/data/platform/xbox/audio.h"
+
 struct Item_25b7d0 {
     char d[12];
     void FUN_00240060();
@@ -21,7 +23,6 @@ struct Tree_25b7d0 {
 
 void __cdecl FUN_0025b5b0(Tree_25b7d0 *t, Node *n);
 void __cdecl FUN_00247550(void *pool, Node *n);
-extern char DAT_004e7778[];
 
 void __cdecl FUN_0025b7d0(Tree_25b7d0 *t)
 {
@@ -33,6 +34,6 @@ void __cdecl FUN_0025b7d0(Tree_25b7d0 *t)
         FUN_0025b5b0(t, n);
         for (int i = 11; i >= 0; i--)
             n->items[i].FUN_00240060();
-        FUN_00247550(DAT_004e7778, n);
+        FUN_00247550(((char*)((char*)&DAT_004e76e8 + 144)), n);
     }
 }

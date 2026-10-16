@@ -1,11 +1,10 @@
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/hulkfight.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) {
     return p;
 }
-extern int DAT_004e0e50;
-extern int DAT_004e0e4c;
-extern int DAT_00427760;
-extern int DAT_00427758;
 void FUN_0012dfe0();
 void FUN_0012e2c0();
 void FUN_0012e320();
@@ -37,7 +36,7 @@ template <class T> struct ParamEnumConstList : FUN_00234cc0 {
     virtual void slot0();
     ParamEnumConstList(const char* s, int n) : FUN_00234cc0(s) {
         count = n;
-        list = &DAT_00427758;
+        list = ((int*)&DAT_00427758);
         callback = FUN_0012dfe0;
     }
 };
@@ -51,7 +50,7 @@ void target() {
         void* p = FUN_0008d690(24);
         params[0] = p ? new (p) S("mission", FUN_0012e2c0) : 0;
         p = FUN_0008d690(32);
-        params[1] = p ? new (p) E("compare", DAT_00427760) : 0;
+        params[1] = p ? new (p) E("compare", (*(int*)&DAT_00427760)) : 0;
         p = FUN_0008d690(24);
         params[2] = p ? new (p) S("progress", FUN_0012e320) : 0;
         FUN_002347b0(&DAT_004e0e4c, params, 3);

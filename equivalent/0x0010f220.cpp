@@ -1,9 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // hulkfight::ai::HulkActionRecentCondition::vfunc_6 @ 0x0010f220
+#include "decls/data/game/hulkfight/ai.h"
+
 struct Token_10f220 { unsigned int low, high; void FUN_0027af00(); void FUN_0027b040(unsigned int); };
-extern Token_10f220 DAT_004e0be0;
-extern Token_10f220 DAT_004e0bd8;
-extern unsigned int DAT_004e0be8;
 extern unsigned int DAT_00494b44, DAT_00494b60;
 void __cdecl FUN_00363ea0();
 void __cdecl FUN_00363eb0();
@@ -19,13 +18,13 @@ struct HulkActionRecentCondition {
  char pad[12]; unsigned int action;
 };
 bool HulkActionRecentCondition::vfunc_6(void*, Actor_10f220* actor, void*) {
- if (!(DAT_004e0be8 & 1)) { DAT_004e0be8 |= 1; DAT_004e0be0.FUN_0027af00(); _atexit(FUN_00363eb0); }
+ if (!((*(unsigned int*)&DAT_004e0be8) & 1)) { (*(unsigned int*)&DAT_004e0be8) |= 1; (*(Token_10f220*)&DAT_004e0be0).FUN_0027af00(); _atexit(FUN_00363eb0); }
  if (!FUN_00344e74(actor, 0, &DAT_00494b44, &DAT_00494b60, 0)) return false;
  if (!actor->FUN_000592a0()->FUN_00059a30()) return false;
  FUN_000678d0()->FUN_00067730();
- if (!(DAT_004e0be8 & 2)) { DAT_004e0be8 |= 2; DAT_004e0bd8.FUN_0027af00(); _atexit(FUN_00363ea0); }
- DAT_004e0bd8.FUN_0027b040(action);
- unsigned int low = DAT_004e0bd8.low, high = DAT_004e0bd8.high;
+ if (!((*(unsigned int*)&DAT_004e0be8) & 2)) { (*(unsigned int*)&DAT_004e0be8) |= 2; (*(Token_10f220*)&DAT_004e0bd8).FUN_0027af00(); _atexit(FUN_00363ea0); }
+ (*(Token_10f220*)&DAT_004e0bd8).FUN_0027b040(action);
+ unsigned int low = (*(Token_10f220*)&DAT_004e0bd8).low, high = (*(Token_10f220*)&DAT_004e0bd8).high;
  Manager_10f220* manager = FUN_000678d0();
  return low == manager->low && high == manager->high;
 }

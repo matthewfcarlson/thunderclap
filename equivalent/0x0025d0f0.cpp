@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 26 inputs, branch coverage 15/18, incomplete)
 // FUN_0025d0f0 @ 0x0025d0f0
+#include "decls/data/platform/xbox/unknown.h"
+
 struct Source_25d0f0 {
     char pad00[8];
     unsigned f08;
     unsigned char *base;
 };
 
-extern Source_25d0f0 *DAT_004e5ce0;
 
 struct Texture {
     char pad00[0xc];
@@ -22,7 +23,7 @@ void FUN_0025d0f0(Texture *t, int length)
     unsigned h = t->height;
     unsigned n = (flags >> 4) & 0x1f;
     unsigned rowStep = h / n;
-    Source_25d0f0 *g = DAT_004e5ce0;
+    Source_25d0f0 *g = (*(Source_25d0f0**)&DAT_004e5ce0);
     unsigned char *end = g->base + length;
     unsigned bpp = (flags >> 0x1d) & 3;
     unsigned colStep = g->f08 / n;
@@ -37,7 +38,7 @@ void FUN_0025d0f0(Texture *t, int length)
         unsigned colOff = 0;
         for (unsigned count = n; count != 0; count--) {
             unsigned char *dst = t->dst + rowOff + colStep;
-            unsigned char *src = DAT_004e5ce0->base + colOff;
+            unsigned char *src = (*(Source_25d0f0**)&DAT_004e5ce0)->base + colOff;
             while (src < end) {
                 *(unsigned short *)dst = *(unsigned short *)src;
                 src += stride;
@@ -54,7 +55,7 @@ void FUN_0025d0f0(Texture *t, int length)
     unsigned off = 0;
     for (unsigned j = 0; j < n; j++) {
         unsigned char *dst = t->dst + off + colStep;
-        unsigned char *src = DAT_004e5ce0->base + j * 4;
+        unsigned char *src = (*(Source_25d0f0**)&DAT_004e5ce0)->base + j * 4;
         while (src < end) {
             for (int k = 0; k < 9; k++) {
                 *(unsigned *)dst = *(unsigned *)src;

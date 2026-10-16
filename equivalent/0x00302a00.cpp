@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3015 inputs, branch coverage 20/21, incomplete)
 // FUN_00302a00 @ 0x00302a00
+#include "decls/data/engine/unknown.h"
+
 struct Node;
 
 struct NodeList_302a00 {
@@ -35,7 +37,6 @@ float FUN_003024d0(Node *node, int a3);
 float FUN_00302620(Node *node, int a3);
 float FUN_00302480(Node *node, int a3);
 
-extern float DAT_004d2f14;
 
 class Solver_302a00 {
 public:

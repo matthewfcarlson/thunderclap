@@ -1,8 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 48 inputs, branch coverage 22/26, incomplete)
 // FUN_00310ec0 @ 0x00310ec0
-extern float DAT_003f32dc;
-extern float DAT_003f32e0;
-extern float DAT_0040d258;
+#include "decls/data/game/global.h"
 
 struct Node;
 
@@ -76,14 +74,14 @@ void Tree_310ec0::FUN_00310ec0()
         n->f58 = n->f74;
         n->f5c = n->f78;
         n->f60 = n->f7c;
-        n->fF0 = (n->f60 + n->f58 + n->f4c) * DAT_0040d258;
+        n->fF0 = (n->f60 + n->f58 + n->f4c) * (*(float*)&DAT_0040d258);
         if (n->active) {
             total = n->f34 + total;
             weight = weight + n->f3c;
         }
     }
-    if (weight > DAT_003f32e0) {
-        invWeight = DAT_003f32dc / weight;
+    if (weight > (*(float*)&DAT_003f32e0)) {
+        invWeight = (*(float*)&DAT_003f32dc) / weight;
         for (int k = nodeCount - 1; k >= 0; k--) {
             Node* s = nodes[k];
             for (unsigned j = 0; j < (unsigned)(s->childEnd - s->childBegin); j++) {
@@ -99,8 +97,8 @@ void Tree_310ec0::FUN_00310ec0()
     }
     for (i = 0; i < nodeCount; i++) {
         Node* n = nodes[i];
-        if (n->f3c > DAT_003f32e0)
-            n->f40 = DAT_003f32dc / n->f3c;
+        if (n->f3c > (*(float*)&DAT_003f32e0))
+            n->f40 = (*(float*)&DAT_003f32dc) / n->f3c;
     }
     cur = next;
     FUN_00310550();

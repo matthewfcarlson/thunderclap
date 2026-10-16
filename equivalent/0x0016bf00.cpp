@@ -1,11 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2994 inputs, branch coverage 8/8)
 // FUN_0016bf00 @ 0x0016bf00
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned,void* p) { return p; }
-extern int DAT_004e12c4;
-extern int DAT_004e12c0;
-extern int DAT_00427754;
-extern char DAT_0042773c[];
-extern char DAT_004b4d88[];
 void FUN_001659d0();
 void FUN_001659e0();
 void FUN_001659f0();
@@ -37,11 +35,11 @@ void FUN_0016bf00() {
  typedef fight::ParamFloatConstRange<hulkfight::motion::HealthCondition> F;
  E* e = (E*)FUN_0008d690(32);
  if(e) {
- int count = DAT_00427754;
+ int count = (*(int*)&DAT_00427754);
  e->FUN_00234cc0("compare");
  e->count=count;
  new (e) E;
- e->choices=DAT_0042773c;
+ e->choices=((char*)&DAT_0042773c);
  e->callback=FUN_001659d0;
  }
  params[0]=e;

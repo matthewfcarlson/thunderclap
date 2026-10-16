@@ -1,3 +1,5 @@
+#include "decls/data/engine/audio.h"
+
 extern "C" char DAT_0042adc0[];
 typedef unsigned char u8_262e30;
 namespace audio {
@@ -35,7 +37,6 @@ class HalRadicalAdpcmDecodeStream : public HalStream {
     virtual HalRadicalAdpcmDecodeStream* vfunc_13(u8_262e30);
 };
 } // namespace audio
-extern char DAT_004e7b08[];
 extern void __cdecl FUN_00247550(void*, audio::HalRadicalAdpcmDecodeStream*);
 audio::HalRadicalAdpcmDecodeStream* audio::HalRadicalAdpcmDecodeStream::vfunc_13(u8_262e30 p) {
     *(void**)this = (void*)((int)DAT_0042adc0);

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1073 inputs, branch coverage 38/38)
 // FUN_0007d700 @ 0x0007d700
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 void* __cdecl FUN_00263ea0(unsigned int size) throw();
 
 struct Vec3_7d700 {
@@ -67,12 +68,6 @@ public:
     void FUN_00083d70(float v);
 };
 
-extern unsigned DAT_004dd060;
-extern unsigned __int64 DAT_004dd058;
-extern unsigned __int64 DAT_004dd050;
-extern float DAT_0049b888;
-extern float DAT_0049b88c;
-extern float DAT_0049b890;
 
 void __cdecl FUN_00224d70(float angle, Vec3_7d700* v);
 Sim_7d700* __cdecl FUN_000964d0();
@@ -122,15 +117,15 @@ void Spawner_7d700::FUN_0007d700(const char* name, int idx, int row, int col)
     Node* node = holder->node;
     Flags_7d700* flags = DAT_004dd700->opt->FUN_00086340();
     if (flags->FUN_00092940(0x26)) {
-        if ((DAT_004dd060 & 1) == 0) {
-            DAT_004dd060 |= 1;
-            DAT_004dd058 = FUN_0027b020("bus1_bus1");
+        if (((*(unsigned*)&DAT_004dd060) & 1) == 0) {
+            (*(unsigned*)&DAT_004dd060) |= 1;
+            (*(unsigned __int64*)&DAT_004dd058) = FUN_0027b020("bus1_bus1");
         }
         if (count > 0) {
             int i = 0;
             do {
                 Entry_7d700* e = (Entry_7d700*)((char*)this + 0x3650 + i * 16);
-                if (e->hash == DAT_004dd058) {
+                if (e->hash == (*(unsigned __int64*)&DAT_004dd058)) {
                     entry = e;
                     slot.variant = 0;
                     break;
@@ -139,15 +134,15 @@ void Spawner_7d700::FUN_0007d700(const char* name, int idx, int row, int col)
             } while (i < count);
         }
     } else if (flags->FUN_00092940(0x16)) {
-        if ((DAT_004dd060 & 2) == 0) {
-            DAT_004dd060 |= 2;
-            DAT_004dd050 = FUN_0027b020("carPT_carPT");
+        if (((*(unsigned*)&DAT_004dd060) & 2) == 0) {
+            (*(unsigned*)&DAT_004dd060) |= 2;
+            (*(unsigned __int64*)&DAT_004dd050) = FUN_0027b020("carPT_carPT");
         }
         if (count > 0) {
             int i = 0;
             do {
                 Entry_7d700* e = (Entry_7d700*)((char*)this + 0x3650 + i * 16);
-                if (e->hash == DAT_004dd050) {
+                if (e->hash == (*(unsigned __int64*)&DAT_004dd050)) {
                     entry = e;
                     slot.variant = 1;
                     break;
@@ -174,9 +169,9 @@ void Spawner_7d700::FUN_0007d700(const char* name, int idx, int row, int col)
     }
     v->v0();
     if (FUN_0007b820(v) != -1) {
-        v->FUN_00083d50(DAT_0049b888);
-        v->FUN_00083d60(DAT_0049b88c);
-        v->FUN_00083d70(DAT_0049b890);
+        v->FUN_00083d50((*(float*)&DAT_0049b888));
+        v->FUN_00083d60((*(float*)&DAT_0049b88c));
+        v->FUN_00083d70((*(float*)&DAT_0049b890));
         counts[idx]++;
         cell->count++;
     }

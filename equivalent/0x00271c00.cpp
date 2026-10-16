@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 18/20, incomplete)
 // FUN_00271c00 @ 0x00271c00
-extern unsigned char DAT_0042b6f0[];
+#include "decls/data/engine/core.h"
+
 int __cdecl FUN_00271c00(unsigned int, unsigned char *, unsigned int, unsigned int, unsigned int *, void *);
 int __cdecl encode_utf8(unsigned int codepoint, unsigned char *destination, unsigned int capacity, unsigned int replacement, unsigned int *written, void *context)
 {
@@ -20,7 +21,7 @@ int __cdecl encode_utf8(unsigned int codepoint, unsigned char *destination, unsi
         destination[i - 1] = (unsigned char)((remaining & 0x3f) | 0x80);
         remaining >>= 6;
     }
-    destination[0] = (unsigned char)(DAT_0042b6f0[length] | remaining);
+    destination[0] = (unsigned char)(((unsigned char*)&DAT_0042b6f0)[length] | remaining);
     *written = length;
     return 0;
 }

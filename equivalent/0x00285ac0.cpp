@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3090 inputs, branch coverage 5/5)
 // FUN_00285ac0 @ 0x00285ac0
 // equiv-dead: +0xf6 not taken, +0x10c taken, +0x10c not taken, +0x13c not taken, +0x152 taken, +0x152 not taken, +0x188 not taken, +0x19e taken, +0x19e not taken, +0x1ec not taken, +0x202 taken, +0x202 not taken, +0x250 not taken, +0x266 taken, +0x266 not taken: the constructor zeroes every Entry.src (esi+0x54, +0x80, +0xac, ...) just before the inlined Reset() reads it, so the 's != 0' side and the clamp compares behind it never run
-extern float DAT_003f32dc;  // 1.0
-extern float DAT_003f32e0;  // 0.0
+  // 1.0
+  // 0.0
+#include "decls/data/game/global.h"
 
 struct Source {
     char pad0[0x10];
@@ -31,11 +32,11 @@ void Entry::Reset()
     Source *s = src;
     f00 = 0;
     f04 = 0;
-    float v = DAT_003f32e0;
+    float v = (*(float*)&DAT_003f32e0);
     if (s) {
-        v = s->value - DAT_003f32dc;
-        if (!(v >= DAT_003f32e0))
-            v = DAT_003f32e0;
+        v = s->value - (*(float*)&DAT_003f32dc);
+        if (!(v >= (*(float*)&DAT_003f32e0)))
+            v = (*(float*)&DAT_003f32e0);
     }
     f08 = v;
     f0c = 0;

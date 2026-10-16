@@ -1,11 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 8/8)
 // FUN_00119300 @ 0x00119300
+#include "decls/data/game/unknown.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_001150d0();
 void __cdecl FUN_001150e0();
 void __cdecl FUN_00115100();
-extern unsigned int DAT_004e0c48;
-extern unsigned int DAT_004e0c44;
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 namespace hulkfight { namespace ai { class MotionFleeTrack; } }
 namespace fight {

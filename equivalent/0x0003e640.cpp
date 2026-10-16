@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 24/26, incomplete)
 // FUN_0003e640 @ 0x0003e640
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct Region_3e640 {
     char data[1];
 };
@@ -22,7 +23,6 @@ struct World {
     Probe_3e640 *probe;
 };
 
-extern float DAT_0048f5b0[];
 
 struct Detector {
     char pad0[0x1d78];

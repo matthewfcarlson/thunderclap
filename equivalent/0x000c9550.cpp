@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 14/14)
 // FUN_000c9550 @ 0x000c9550
 #include "decls/address.h"
+#include "decls/data/engine/content.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" char* strncpy(char* dst, const char* src, unsigned int n);
 
@@ -55,7 +56,6 @@ struct Target_c9550 {
 void thunk_FUN_00271230(Handle_c9550** out, const char* name, int a, int b, int c, int d, int e, int f);
 void FUN_002656a0();
 extern unsigned int DAT_004d9968;
-extern Mgr_c9550* DAT_00527c58;
 
 void __stdcall FUN_000c9550(const char* name, Target_c9550* target, int arg)
 {
@@ -86,15 +86,15 @@ void __stdcall FUN_000c9550(const char* name, Target_c9550* target, int arg)
         strncpy(f.req.name, name, 0xff);
     f.req.f108 = arg;
     f.req.f10c = 0;
-    DAT_00527c58->FUN_00265810(&f.req, &f.l2);
-    int saved = DAT_00527c58->FUN_00264870();
-    DAT_00527c58->FUN_00264860(250000);
+    (*(Mgr_c9550**)&DAT_00527c58)->FUN_00265810(&f.req, &f.l2);
+    int saved = (*(Mgr_c9550**)&DAT_00527c58)->FUN_00264870();
+    (*(Mgr_c9550**)&DAT_00527c58)->FUN_00264860(250000);
     Scene_c9550* scene = DAT_004dd700->scene;
     while (!f.l2->FUN_00266750()) {
         FUN_002656a0();
         scene->FUN_000862e0()->FUN_001eb2a0(0, 0);
     }
-    DAT_00527c58->FUN_00264860(saved);
+    (*(Mgr_c9550**)&DAT_00527c58)->FUN_00264860(saved);
     target->FUN_00266220(f.l2->FUN_00266700());
     if (f.l2)
         f.l2->Release();

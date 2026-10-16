@@ -1,6 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 14/14)
 // FUN_001bc0c0 @ 0x001bc0c0
 #include "decls/address.h"
+#include "decls/data/engine/content.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" char * __cdecl strncpy(char *, const char *, unsigned int);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -178,10 +181,6 @@ struct Pipe {
     void FUN_0028faf0(int v);
 };
 
-extern Loader_1bc0c0 *DAT_00527c58;
-extern Display_1bc0c0 *DAT_0052c2a4;
-extern View *DAT_0052c2ac;
-extern Pipe *DAT_0052c2b4;
 
 union Slot_1bc0c0 {
     float f;
@@ -214,39 +213,39 @@ void FUN_001bc0c0(const char *name, int count, const char *dir)
     f.args.flag = 1;
     f.args.kind = 0xb;
     strncpy(f.args.path, f.buf1, 0xff);
-    DAT_00527c58->FUN_00265810(&f.args, &f.handle);
-    int old = DAT_00527c58->FUN_00264870();
-    DAT_00527c58->FUN_00264860(0x3d090);
+    (*(Loader_1bc0c0**)&DAT_00527c58)->FUN_00265810(&f.args, &f.handle);
+    int old = (*(Loader_1bc0c0**)&DAT_00527c58)->FUN_00264870();
+    (*(Loader_1bc0c0**)&DAT_00527c58)->FUN_00264860(0x3d090);
     while (!f.handle->FUN_00266750())
         FUN_00087990();
-    DAT_00527c58->FUN_00264860(old);
+    (*(Loader_1bc0c0**)&DAT_00527c58)->FUN_00264860(old);
     FUN_000964a0(f.buf2, 0x100, "%s.png", name);
     Resource_1bc0c0 *res = f.handle->FUN_00266700();
     ID id = FUN_0027b020(f.buf2);
     content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy> *caster = new (f.caster) content::LoadInventory::DynamicCaster<pure3d::DrawableHierarchy>;
     Drawable *dr = res->Load(caster, (unsigned int)id, (unsigned int)(id >> 32));
-    f.slot.f = DAT_0052c2a4->Aspect();
+    f.slot.f = (*(Display_1bc0c0**)&DAT_0052c2a4)->Aspect();
     if (dr != 0) {
         if (count > 0) {
             f.slot.f = 1.3333f / f.slot.f;
             unsigned int scale = f.slot.w;
             do {
-                DAT_0052c2b4->fd8 = -1;
-                DAT_0052c2b4->FUN_0028f9a0();
+                (*(Pipe**)&DAT_0052c2b4)->fd8 = -1;
+                (*(Pipe**)&DAT_0052c2b4)->FUN_0028f9a0();
                 DAT_0052c2a8->v12(-1);
                 f.slot.b = DAT_0052c2a8->GetFlag();
                 DAT_0052c2a8->SetFlag(0);
                 int mode = DAT_0052c2a8->GetMode();
                 DAT_0052c2a8->SetMode(1);
-                DAT_0052c2ac->ctx->v15(0);
-                DAT_0052c2ac->ctx->v13(0);
-                DAT_0052c2ac->FUN_00293da0(scale, scale, 1.0f);
-                DAT_0052c2ac->FUN_00293d40(-0.5f, -0.375f, 1.0f);
+                (*(View**)&DAT_0052c2ac)->ctx->v15(0);
+                (*(View**)&DAT_0052c2ac)->ctx->v13(0);
+                (*(View**)&DAT_0052c2ac)->FUN_00293da0(scale, scale, 1.0f);
+                (*(View**)&DAT_0052c2ac)->FUN_00293d40(-0.5f, -0.375f, 1.0f);
                 dr->Draw(0, 0);
-                DAT_0052c2ac->ctx->v16(0);
+                (*(View**)&DAT_0052c2ac)->ctx->v16(0);
                 DAT_0052c2a8->SetMode(mode);
                 DAT_0052c2a8->SetFlag(f.slot.w);
-                DAT_0052c2b4->FUN_0028faf0(1);
+                (*(Pipe**)&DAT_0052c2b4)->FUN_0028faf0(1);
             } while (--count != 0);
         }
     }

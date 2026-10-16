@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3003 inputs, branch coverage 62/64, incomplete)
 // CHeadTrackerAction::vfunc_7 @ 0x000202f0
+#include "decls/data/game/global.h"
+
 extern "C" int __cdecl _isnan(double d);
 
 struct V3_202f0 {
@@ -135,8 +137,6 @@ float __cdecl FUN_000189c0(float v);
 float __cdecl FUN_00224ea0(float a, float b);
 float __cdecl FUN_00224fc0(float a, float b);
 void __cdecl FUN_00224d70(float a, V3_202f0 *v);
-extern float DAT_0048e054;
-extern float DAT_0048e05c;
 
 union FS_202f0 {
     float f;
@@ -339,12 +339,12 @@ char CHeadTrackerAction::vfunc_7(float dt)
     float diff = FUN_00224fc0(f.s14.f, f.s24.f);
     cfg = f20;
     if (diff < cfg->f44) {
-        f.v18.x = DAT_0048e054;
-        f.v18.z = DAT_0048e05c;
+        f.v18.x = (*(float*)&DAT_0048e054);
+        f.v18.z = (*(float*)((char*)&DAT_0048e054 + 8));
         FUN_00224d70(f.s14.f + cfg->f44, &f.v18);
     } else if (diff > cfg->f48) {
-        f.v18.x = DAT_0048e054;
-        f.v18.z = DAT_0048e05c;
+        f.v18.x = (*(float*)&DAT_0048e054);
+        f.v18.z = (*(float*)((char*)&DAT_0048e054 + 8));
         FUN_00224d70(f.s14.f + cfg->f48, &f.v18);
     }
 

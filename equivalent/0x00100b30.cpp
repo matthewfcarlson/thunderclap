@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2718 inputs, branch coverage 68/72, incomplete)
 // CHand2HandAgent::vfunc_21 @ 0x00100b30
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" double sqrt(double);
 
 struct V3_100b30 {
@@ -40,11 +41,6 @@ struct World {
     char pad0[0x20];
     Hub20_100b30 *p20;
 };
-extern float DAT_004a1c04;
-extern float DAT_004a1c08;
-extern float DAT_004a1c0c;
-extern char DAT_004a1bfc;
-extern char DAT_004e0a99;
 
 float __cdecl FUN_0010ae50(World *h, Arg1_100b30 *a, float f, V3_100b30 *v1, V3_100b30 *v2, int z1, int z2);
 
@@ -150,7 +146,7 @@ void CHand2HandAgent::v21(Arg1_100b30 *a0, Out_100b30 *a1, float a2)
     else if (fc8 > fd8)
         b7f = 1;
     f.s4 = 1.0f;
-    if (fc8 > fd4 && fc8 < fd8 && !DAT_004a1bfc)
+    if (fc8 > fd4 && fc8 < fd8 && !(*(char*)&DAT_004a1bfc))
         f.s4 = (fd8 - fc8) / f.s8;
 
     v15c.z = 0.0f;
@@ -300,7 +296,7 @@ void CHand2HandAgent::v21(Arg1_100b30 *a0, Out_100b30 *a1, float a2)
     a1->v10c.z = v168.z;
     a1->f118 = (f.s4 < a1->f118) ? f.s4 : a1->f118;
 
-    if (DAT_004e0a99 || bd1 || bd3)
+    if ((*(char*)&DAT_004e0a99) || bd1 || bd3)
         return;
     if (!v18(1.5f))
         return;

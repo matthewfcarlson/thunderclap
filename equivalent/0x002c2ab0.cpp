@@ -3,6 +3,7 @@
 // pure3d::GeometryLoader::vfunc_5 @ 0x002c2ab0
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
+#include "decls/data/engine/content.h"
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 inline void operator delete(void*, void*) throw() {}
 void* thunk_FUN_0008d690(unsigned int size) throw();
@@ -66,7 +67,6 @@ struct Loader_2c2ab0 {
 struct Mgr_2c2ab0 {
     content::ObjectLoader* FUN_00265310(unsigned int id) throw();
 };
-extern Mgr_2c2ab0* DAT_00527c58;
 
 struct Holder_2c2ab0 {
     void* p;
@@ -270,7 +270,7 @@ u64_2c2ab0 GeometryLoader::vfunc_5(Geometry** out, u64_2c2ab0* hashOut, Loader_2
                 break;
             }
             case 0x121201: {
-                FrameControllerLoader* fl = dynamic_cast<FrameControllerLoader*>(DAT_00527c58->FUN_00265310(0x121201));
+                FrameControllerLoader* fl = dynamic_cast<FrameControllerLoader*>((*(Mgr_2c2ab0**)&DAT_00527c58)->FUN_00265310(0x121201));
                 fl->AddRef();
                 fr.ctl = 0;
                 fl->v5(&fr.ctl, &fr.res, ld, ctx);

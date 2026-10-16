@@ -1,7 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 70 inputs, branch coverage 23/24, incomplete)
 // FUN_000a1b30 @ 0x000a1b30
-extern float DAT_0049eca4;
-extern float DAT_0049ec8c;
+#include "decls/data/game/global.h"
 
 struct Counter_a1b30 {
     int FUN_00026e30(float radius, void *list, int max);
@@ -58,7 +57,7 @@ void Smoother::FUN_000a1b30(Owner_a1b30 *owner, float dt, bool snap)
     if (snap) {
         value = target;
     } else if (!(target == value)) {
-        value = FUN_0009faa0(value, target, dt, DAT_0049ec8c);
+        value = FUN_0009faa0(value, target, dt, (*(float*)&DAT_0049ec8c));
         union { float f; unsigned int u; } d;
         d.f = value - target;
         d.u &= 0x7fffffff;

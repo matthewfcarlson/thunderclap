@@ -1,5 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 30/30)
 // FUN_0005fbe0 @ 0x0005fbe0
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight/motion.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -104,10 +108,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc5e0;
-extern int DAT_004dc5e4;
-extern int DAT_004123d4;
-extern const char* DAT_004abf70[];
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0005fbe0()
@@ -150,7 +150,7 @@ void FUN_0005fbe0()
         mem = FUN_0008d690(0x20);
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamEnumConstList<CProceduralDurationAnimationTrack>("cyclic", DAT_004abf70, DAT_004123d4, &CProceduralDurationAnimationTrack::FUN_0005d770);
+            params[8] = new (mem) fight::ParamEnumConstList<CProceduralDurationAnimationTrack>("cyclic", ((const char**)&DAT_004abf70), (*(int*)&DAT_004123d4), &CProceduralDurationAnimationTrack::FUN_0005d770);
         mem = FUN_0008d690(0x18);
         params[9] = 0;
         if (mem)
@@ -171,7 +171,7 @@ void FUN_0005fbe0()
         params[13] = 0;
         if (mem)
             params[13] = new (mem) fight::ParamBool<CProceduralDurationAnimationTrack>("useRootMotion", &CProceduralDurationAnimationTrack::FUN_0005d7b0);
-        FUN_002347b0(&DAT_004dc5e0, params, 14);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc5e0), params, 14);
     }
     DAT_004dc5e4++;
 }

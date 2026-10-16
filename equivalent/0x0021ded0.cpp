@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 121 inputs, branch coverage 16/16)
 // FUN_0021ded0 @ 0x0021ded0
+#include "decls/data/engine/unknown.h"
+
 struct ExpDesc_21ded0 {
     int k;
     int info;
@@ -33,7 +35,6 @@ void FUN_00221700(FuncState *fs, int op, ExpDesc_21ded0 *v);
 void FUN_002217c0(FuncState *fs, int op, ExpDesc_21ded0 *v);
 void FUN_002218d0(FuncState *fs, int op, ExpDesc_21ded0 *v, ExpDesc_21ded0 *v2);
 
-extern const unsigned char DAT_00426e00[];
 
 static void next(LexState_21ded0 *ls)
 {

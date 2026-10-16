@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 12/12)
 // FUN_0005d370 @ 0x0005d370
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -48,8 +50,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc5c8;
-extern int DAT_004dc5cc;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0005d370()
@@ -78,7 +78,7 @@ void FUN_0005d370()
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamBool<CHapticTrack>("abortWhenInterrupted", &CHapticTrack::FUN_0005d160);
-        FUN_002347b0(&DAT_004dc5c8, params, 5);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc5c8), params, 5);
     }
     DAT_004dc5cc++;
 }

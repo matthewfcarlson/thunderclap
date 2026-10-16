@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 18/18)
 // FUN_0018a100 @ 0x0018a100
+#include "decls/data/game/hulkfight/motion.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -38,8 +41,6 @@ public:
     void FUN_00234cc0(const char* name);
     ParamEnumBase(const char* name) { FUN_00234cc0(name); }
 };
-extern char* DAT_004abf70[];
-extern int DAT_004123d4;
 template <class T>
 class ParamEnumConstList : public ParamEnumBase {
 public:
@@ -85,8 +86,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e1488;
-extern int DAT_004e148c;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0018a100()
@@ -126,8 +125,8 @@ void FUN_0018a100()
         mem = FUN_0008d690(0x20);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) ParamEnumConstList<PropAnimationTrack>("cyclic", DAT_004abf70, DAT_004123d4, &PropAnimationTrack::FUN_0017f880);
-        FUN_002347b0(&DAT_004e1488, params, 8);
+            params[7] = new (mem) ParamEnumConstList<PropAnimationTrack>("cyclic", ((char**)&DAT_004abf70), (*(int*)&DAT_004123d4), &PropAnimationTrack::FUN_0017f880);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1488), params, 8);
     }
     DAT_004e148c++;
 }

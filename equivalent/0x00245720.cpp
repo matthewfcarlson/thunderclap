@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 8/8)
 // FUN_00245720 @ 0x00245720
+#include "decls/data/engine/om.h"
+
 struct Key_245720 { unsigned a,b; };
-extern char DAT_004e5f18;
-extern char DAT_004e5f48;
 inline void* __cdecl operator new(unsigned,void* p) { return p; }
 struct FUN_00244ea0 {
  virtual void retain();
  virtual void release();
  char pad[36];
- FUN_00244ea0(char* = &DAT_004e5f18);
+ FUN_00244ea0(char* = ((char*)&DAT_004e5f18));
  void FUN_00245040(Key_245720*);
 };
 namespace audio { struct Clip: FUN_00244ea0 {
@@ -24,12 +24,12 @@ extern void* __cdecl FUN_00245390(void*,void*);
 bool __cdecl target(audio::Clip** out, void* source, const char* name, void* option) {
  Key_245720 key;
  FUN_0025ca90(&key,name);
- *out=FUN_00244fa0(&key,&DAT_004e5f48);
+ *out=FUN_00244fa0(&key,((char*)((char*)&DAT_004e5f18 + 48)));
  if(*out) {
   (*out)->retain();
   if((*out)->data) return true;
  } else {
-  void* memory=FUN_00247530(&DAT_004e5f18);
+  void* memory=FUN_00247530(((char*)&DAT_004e5f18));
   audio::Clip* clip=memory ? new(memory) audio::Clip:0;
   if(clip) clip->data=0;
   *out=clip;

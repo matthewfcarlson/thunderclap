@@ -1,9 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 353 inputs, branch coverage 14/14)
 // FUN_001d5e80 @ 0x001d5e80
 #include "decls/address.h"
-extern unsigned int DAT_004e2400;
-extern unsigned int DAT_004e2404;
-extern unsigned int DAT_004e2408;
+#include "decls/data/game/global.h"
 extern int __cdecl FUN_001d5140(void*);
 struct Property_1d5e80 { unsigned int keyLow; unsigned int keyHigh; void* value; unsigned int reserved; };
 struct Entry_1d5e80 { char pad[0x3c]; int count; Property_1d5e80* properties; };
@@ -11,8 +9,8 @@ struct Entries_1d5e80 { char pad[0x1c]; Entry_1d5e80** begin; Entry_1d5e80** end
 struct Object { char pad[0x90]; Entries_1d5e80* entries; int FUN_001d5e80(int index); };
 int Object::FUN_001d5e80(int index) {
  unsigned int low, high;
- if (!(DAT_004e2408 & 1)) {
-  DAT_004e2408 |= 1;
+ if (!((*(unsigned int*)&DAT_004e2408) & 1)) {
+  (*(unsigned int*)&DAT_004e2408) |= 1;
   unsigned __int64 key = FUN_0027b020("weapon_type");
   low = (unsigned int)key; high = (unsigned int)(key >> 32);
   DAT_004e2400 = low; DAT_004e2404 = high;

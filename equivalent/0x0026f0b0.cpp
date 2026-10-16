@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 67 inputs, branch coverage 3/4, incomplete)
 // FUN_0026f0b0 @ 0x0026f0b0
+#include "decls/data/platform/xbox/core.h"
+
 namespace core {
 struct A_26f0b0 { virtual void a(); };
 struct B_26f0b0 { virtual void b(); char pad[4]; };
@@ -17,15 +19,13 @@ public:
  ~XboxDrive();
 };
 }
-extern int DAT_00528408;
-extern int DAT_0052840c;
 void __cdecl FUN_0026d830(void *);
 core::XboxDrive::~XboxDrive() {
  if (device->status == 1) {
   device->f1();
   FUN_0026d830(handle);
-  if (path[0]=='D' && path[1]==':' && path[2]==0) DAT_00528408=0;
-  else DAT_0052840c=0;
+  if (path[0]=='D' && path[1]==':' && path[2]==0) (*(int*)&DAT_00528408)=0;
+  else (*(int*)&DAT_0052840c)=0;
  }
  FUN_00272840();
 }

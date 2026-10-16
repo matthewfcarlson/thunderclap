@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 94 inputs, branch coverage 24/24)
 // FUN_000783a0 @ 0x000783a0
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -56,8 +58,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dd030;
-extern int DAT_004dd034;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_000783a0()
@@ -109,7 +109,7 @@ void FUN_000783a0()
         params[10] = 0;
         if (mem)
             params[10] = new (mem) fight::ParamFloatConstRange<CHeliDeathSpiralTrack>("blendOutTime", &CHeliDeathSpiralTrack::FUN_00077ec0);
-        FUN_002347b0(&DAT_004dd030, params, 11);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dd030), params, 11);
     }
     DAT_004dd034++;
 }

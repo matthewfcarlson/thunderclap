@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 167 inputs, branch coverage 240/244, incomplete)
 // FUN_001a71e0 @ 0x001a71e0
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight/scenario.h"
+
 typedef void (*Callback)();
 void* __cdecl FUN_0008d690(unsigned);
 namespace hulkfight { namespace scenario { class NISAnimationTrack; } }
@@ -13,8 +16,6 @@ template<class T> struct ParamEnumConstList: ParamBase { virtual void slot0(); v
 }
 using namespace fight;
 typedef hulkfight::scenario::NISAnimationTrack Track;
-extern unsigned DAT_004e175c, DAT_004e1758, DAT_003fb8f8, DAT_003fb8fc;
-extern char DAT_004c167c[], DAT_00496f9c[], DAT_00496fa4[];
 void __cdecl FUN_002347b0(void*, ParamBase**, unsigned);
 #define DECL(a) void FUN_##a();
 DECL(001a20f0) DECL(001a2100) DECL(001a2120) DECL(001a2140) DECL(001a2160) DECL(001a2180) DECL(001a36f0) DECL(001a21b0) DECL(001a21d0) DECL(001a2200) DECL(001a2220) DECL(001a2240) DECL(001a2260) DECL(001a2280) DECL(001a22a0) DECL(001a22c0) DECL(001a3750) DECL(001a22e0) DECL(001a2300) DECL(001a2320) DECL(001a2340)
@@ -49,9 +50,9 @@ GROUPDECL(001a2ce0,001a2d00,001a4800,001a4870,001a2d40)
 void __cdecl FUN_001a71e0() {
  if(!DAT_004e175c) { ParamBase* params[121]; unsigned n=0;
  F("timeBegin",001a20f0) F("timeEnd",001a2100) F("speed",001a2120) F("initFrame",001a2140) F("startFrame",001a2160) F("endFrame",001a2180)
- S("origin_Locator",001a36f0) E("originType",001a21b0,DAT_004c167c,4) F("orientation",001a21d0) B("use_Camera",001a2200)
- E("blendInTransition",001a2220,DAT_00496f9c,DAT_003fb8f8) E("blendInBlend",001a2240,DAT_00496fa4,DAT_003fb8fc) F("blendInDuration",001a2260)
- E("blendOutTransition",001a2280,DAT_00496f9c,DAT_003fb8f8) E("blendOutBlend",001a22a0,DAT_00496fa4,DAT_003fb8fc) F("blendOutDuration",001a22c0)
+ S("origin_Locator",001a36f0) E("originType",001a21b0,((char*)&DAT_004c167c),4) F("orientation",001a21d0) B("use_Camera",001a2200)
+ E("blendInTransition",001a2220,((char*)&DAT_00496f9c),(*(unsigned*)&DAT_003fb8f8)) E("blendInBlend",001a2240,((char*)&DAT_00496fa4),(*(unsigned*)&DAT_003fb8fc)) F("blendInDuration",001a2260)
+ E("blendOutTransition",001a2280,((char*)&DAT_00496f9c),(*(unsigned*)&DAT_003fb8f8)) E("blendOutBlend",001a22a0,((char*)&DAT_00496fa4),(*(unsigned*)&DAT_003fb8fc)) F("blendOutDuration",001a22c0)
  S("filename",001a3750) B("screw_Sound_Sync",001a22e0) B("draw_The_Hulk",001a2300) B("load_The_File",001a2320) I("which_Inventory",001a2340)
  GROUP(0,001a2360,001a2380,001a37b0,001a3810,001a23c0)
  GROUP(1,001a23e0,001a2400,001a3870,001a38d0,001a2440)
@@ -73,6 +74,6 @@ void __cdecl FUN_001a71e0() {
  GROUP(17,001a2be0,001a2c00,001a4640,001a46b0,001a2c40)
  GROUP(18,001a2c60,001a2c80,001a4720,001a4790,001a2cc0)
  GROUP(19,001a2ce0,001a2d00,001a4800,001a4870,001a2d40)
- FUN_002347b0(&DAT_004e1758,params,121);
+ FUN_002347b0(((unsigned*)&DAT_004e1758),params,121);
  } ++DAT_004e175c;
 }

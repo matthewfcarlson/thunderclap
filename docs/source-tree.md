@@ -18,6 +18,7 @@ build/venv/bin/python tools/seam_inventory.py    # docs/seams.md: what game/engi
 build/venv/bin/python tools/reconcile_stubs.py [--apply]   # clone names in matches/ + equivalent/ (re-verify what it changes)
 build/venv/bin/python tools/migrate_gen.py [--family gen|pin|ns] [--equivalent] [--apply]   # sources onto include/gen/, include/decls/
 build/venv/bin/python tools/data_inventory.py && build/venv/bin/python tools/data_gen.py   # data inventory + data TUs (docs/data.md)
+build/venv/bin/python tools/migrate_data.py [--equivalent] [--apply]   # sources onto include/decls/data/ (docs/data.md)
 ```
 
 `build_tree.py` regenerates the tree itself (from an empty fallback state), so it is the one command to
@@ -393,8 +394,10 @@ Top remaining:
    strays; `matches/`/`equivalent/` retired or generated from the tree; the build flags per TU recorded (today
    `// cl-flags:`); `build_tree.py` in CI (the regression check: matches + equivalent bytes vs standalone). Isolated
    TUs (640, 510 of them matches) should get folded back as their conflicts go.
-6. Data: the `.rdata`/`.data`/`.bss` inventory, per-object data TUs and the plan to move sources from `extern DAT_x`
-   to named declarations are in [data.md](data.md) (`tools/build_tree.py --data` builds and checks them next to the tree).
+6. Data: the `.rdata`/`.data`/`.bss` inventory, per-object data TUs, and the sources moved from `extern DAT_x` onto
+   `include/decls/data/` (`tools/migrate_data.py`, 2,417 sources) are in [data.md](data.md) (`tools/build_tree.py --data`
+   builds and link-checks them next to the tree). A source may `#include "decls/data/<layer>/<dir>.h"`; the generator
+   hoists those headers to the TU for merged and wrapped sources alike.
    Later: csplit + objdiff per object ([task 05](tasks/05-split-recovery.md)), and an
    `equiv.py` mode for tree objects (namespace-aware prototype lookup for wrapped functions; binding
    same-object neighbours to their original addresses).
@@ -406,7 +409,8 @@ destructor), using the header's slot names and `f_XX` fields and casting where y
 (`(*(T*)&this->f_10)`); no stub of that class. Helper types you still need get the placeholder suffix
 (`Thing_1b77e0`). For `DAT_004dd700`, `DAT_0052c2a8`, `DAT_004dd6ec`, `FUN_0027b020`, `FUN_002672f0`, `FUN_001d04d0`
 `#include "decls/address.h"` instead of declaring them, and name the object's type `World` / `Gfx` /
-`Singleton_4dd6ec` in your stub. Don't add other `#include`s or a `using namespace`. If the header lacks a
+`Singleton_4dd6ec` in your stub. For other `DAT_` data, `#include "decls/data/<layer>/<dir>.h"` (see
+[data.md](data.md#rules-for-new-sources)). Don't add other `#include`s or a `using namespace`. If the header lacks a
 field or the slot's signature disagrees, keep the stub (tools/migrate_gen.py can move it later).
 
 **Rule for new sources** (in addition to the placeholder rule above): a clone keeps its donor's code but takes

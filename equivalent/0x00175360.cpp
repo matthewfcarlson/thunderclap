@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 134 inputs, branch coverage 42/44, incomplete)
 // hulkfight::motion::DriftToPositionAction::vfunc_5 @ 0x00175360
+#include "decls/data/game/hulkfight/motion.h"
+
 struct Vec3_175360 {
     float x, y, z;
     float FUN_0022d110();
@@ -30,11 +32,6 @@ struct Owner_175360 {
     Body_175360 *FUN_000592a0();
 };
 
-extern __int64 DAT_004e13c8;
-extern __int64 DAT_004e13d0;
-extern __int64 DAT_004e13e0;
-extern Vec3_175360 DAT_004e13e8;
-extern unsigned int DAT_004e13f4;
 extern "C" float FUN_00224f10(Vec3_175360 *v);
 
 static bool IdIs(int lo, int hi, __int64 v)
@@ -93,10 +90,10 @@ bool hulkfight::motion::DriftToPositionAction::vfunc_5(int mode, float dt)
     if (IdIs(idLo, idHi, DAT_004e13d0) || IdIs(idLo, idHi, DAT_004e13e0)) {
         if (!(DAT_004e13f4 & 1))
             DAT_004e13f4 |= 1;
-        DAT_004e13e8.z = 0;
-        DAT_004e13e8.y = 0;
-        DAT_004e13e8.x = 0;
-        if (pos.FUN_0022d2b0(&DAT_004e13e8, 1e-5f))
+        (*(Vec3_175360*)&DAT_004e13e8).z = 0;
+        (*(Vec3_175360*)&DAT_004e13e8).y = 0;
+        (*(Vec3_175360*)&DAT_004e13e8).x = 0;
+        if (pos.FUN_0022d2b0(((Vec3_175360*)&DAT_004e13e8), 1e-5f))
             return false;
     }
 

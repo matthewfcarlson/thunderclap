@@ -1,5 +1,6 @@
+#include "decls/data/engine/om.h"
+
 extern "C" char DAT_0042aa40[];
-extern "C" char DAT_004e79d0[];
 extern void* g_ptr;
 extern int g_count_25fc30;
 extern unsigned char g_flag_25fc30;

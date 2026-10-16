@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3022 inputs, branch coverage 44/44)
 // FUN_000f3f00 @ 0x000f3f00
+#include "decls/data/game/global.h"
+
 extern char DAT_0049f4f0[];
 extern char DAT_0049f4d8[];
-extern int DAT_004dd9cc;
 extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
 int __cdecl FUN_000c0d80(int a, int b);
 
@@ -218,7 +219,7 @@ void FEThingsBase::FUN_000f3f00(Param* param, Source_f3f00* c, void* d, Args_f3f
         return;
     }
     case 0x20a10713: {
-        sink->FUN_000f1ab0(FUN_000c0d80(DAT_004dd9cc, param->FUN_000fad90()));
+        sink->FUN_000f1ab0(FUN_000c0d80((*(int*)&DAT_004dd9cc), param->FUN_000fad90()));
         if (param->FUN_000f9e90())
             sink->f1f4 = param->FUN_000fad30();
         return;

@@ -1,7 +1,7 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 extern "C" char DAT_0041d9a4[];
-extern "C" char DAT_0048e100[];
-extern "C" char DAT_0048e128[];
-extern "C" char DAT_0048e134[];
 extern void __stdcall FUN_001d0480(int, int);
 extern char __cdecl FUN_001d04d0(int);
 class Target_1b38b0 {
@@ -18,10 +18,10 @@ Target_1b38b0::Target_1b38b0(int a, int b) {
     FUN_001d0480(a, 5);
     *(volatile int*)this = ((int)DAT_0041d9a4);
     field1c = b;
-    b18 = FUN_001d04d0(((int)DAT_0048e100));
-    b10 = FUN_001d04d0(((int)DAT_0048e134));
-    b11 = FUN_001d04d0(((int)DAT_0048e134));
-    b12 = FUN_001d04d0(((int)DAT_0048e128));
-    b13 = FUN_001d04d0(((int)DAT_0048e128));
-    b14 = FUN_001d04d0(((int)DAT_0048e128));
+    b18 = FUN_001d04d0(((int)((char*)&DAT_0048e100)));
+    b10 = FUN_001d04d0(((int)((char*)&DAT_0048e134)));
+    b11 = FUN_001d04d0(((int)((char*)&DAT_0048e134)));
+    b12 = FUN_001d04d0(((int)((char*)&DAT_0048e128)));
+    b13 = FUN_001d04d0(((int)((char*)&DAT_0048e128)));
+    b14 = FUN_001d04d0(((int)((char*)&DAT_0048e128)));
 }

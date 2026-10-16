@@ -2,6 +2,8 @@
 // FUN_000c8850 @ 0x000c8850
 // FUN_000c8850 @ 0x000c8850
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 extern "C" double atan2(double y, double x);
 
 struct V3 {
@@ -63,7 +65,6 @@ struct Render {
     void FUN_00293da0(float a, float b, float c);
     void FUN_00293c20(float a);
 };
-extern Render *DAT_0052c2ac;
 
 struct Handler {
     virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
@@ -118,12 +119,6 @@ struct Src {
     void *f10;
 };
 
-extern float DAT_004de600;
-extern float DAT_004de604;
-extern float DAT_0049fbd8;
-extern float DAT_0049fbdc;
-extern float DAT_0049fbe0;
-extern int DAT_0049fbf4[];
 
 #define EMIT(PV, UU, UV) { V3 *pp_ = vb->pos; *pp_ = (PV); unsigned int *cp_ = vb->color; *cp_ = color; V2 *up_ = vb->uv; up_->x = (UU); up_->y = (UV); vb->FUN_0008ef00(); }
 
@@ -226,24 +221,24 @@ void Marker::FUN_000c8850()
     }
 
     DAT_0052c2a8->v31(vb);
-    DAT_0052c2ac->dev->v15(0);
-    DAT_0052c2ac->FUN_00293d00(&base);
-    DAT_0052c2ac->FUN_00293bf0(-1.5707964f);
-    DAT_0052c2ac->FUN_00293da0(DAT_0049fbe0, DAT_0049fbe0, DAT_0049fbe0);
+    (*(Render**)&DAT_0052c2ac)->dev->v15(0);
+    (*(Render**)&DAT_0052c2ac)->FUN_00293d00(&base);
+    (*(Render**)&DAT_0052c2ac)->FUN_00293bf0(-1.5707964f);
+    (*(Render**)&DAT_0052c2ac)->FUN_00293da0(DAT_0049fbe0, DAT_0049fbe0, DAT_0049fbe0);
     if (f18 != 0)
         f18->v8(0, 0);
     if (f1c != 0) {
-        DAT_0052c2ac->FUN_00293c20(ang);
+        (*(Render**)&DAT_0052c2ac)->FUN_00293c20(ang);
         f1c->v8(0, 0);
     }
-    DAT_0052c2ac->dev->v16(0);
+    (*(Render**)&DAT_0052c2ac)->dev->v16(0);
 
     float rot = 6.2831855f - ang;
     V3 d;
     d.x = 0.0f;
     d.y = 0.0f;
     d.z = 0.0f;
-    for (const int *kp = DAT_0049fbf4; *kp != -1; kp++) {
+    for (const int *kp = ((int*)&DAT_0049fbf4); *kp != -1; kp++) {
         for (int i = 0; i < 0x80; i++) {
             Shot *sh = &shots[i];
             if (sh->id != *kp)
@@ -286,14 +281,14 @@ void Marker::FUN_000c8850()
             Item *it = tbl[sh->id];
             if (it == 0)
                 continue;
-            DAT_0052c2ac->dev->v15(0);
-            DAT_0052c2ac->FUN_00293d00(&w);
-            DAT_0052c2ac->dev->v17(0, &m3);
-            DAT_0052c2ac->FUN_00293da0(1.5f, 1.5f, 1.5f);
+            (*(Render**)&DAT_0052c2ac)->dev->v15(0);
+            (*(Render**)&DAT_0052c2ac)->FUN_00293d00(&w);
+            (*(Render**)&DAT_0052c2ac)->dev->v17(0, &m3);
+            (*(Render**)&DAT_0052c2ac)->FUN_00293da0(1.5f, 1.5f, 1.5f);
             int val = sh->a34;
             (*tbl[sh->id]->f48)->v7()->sink->v7(0x45444146, val);
             tbl[sh->id]->v8(0, 0);
-            DAT_0052c2ac->dev->v16(0);
+            (*(Render**)&DAT_0052c2ac)->dev->v16(0);
         }
     }
 }

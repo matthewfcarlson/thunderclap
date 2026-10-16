@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
 // FUN_00072740 @ 0x00072740
+#include "decls/data/game/global.h"
+
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-extern int DAT_004dd01c;
-extern int DAT_004dd018;
 extern void* __cdecl FUN_0008d690(unsigned int);
 extern void __cdecl FUN_00068b90();
 extern void __cdecl FUN_00068ba0();

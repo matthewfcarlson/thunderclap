@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 8/8)
 // FUN_001ec060 @ 0x001ec060
+#include "decls/data/game/global.h"
+
 struct StringList_1ec060 {
     char data[0x48];
     void FUN_001ef320();
@@ -28,21 +30,19 @@ struct Entity {
     Slot_1ec060 *slot;             // 0xec
 };
 
-extern unsigned __int64 DAT_004e3700;
-extern EventConfig_1ec060 *DAT_004e36d8;
 
 void __stdcall FUN_001ec060(Entity *entity, int name)
 {
     if (entity == 0)
         return;
-    if (entity->slot->FUN_001d4f70() != DAT_004e3700)
+    if (entity->slot->FUN_001d4f70() != (*(unsigned __int64*)&DAT_004e3700))
         return;
 
     StringList_1ec060 path;
     path.FUN_001ef320();
     path.FUN_001ef370("Objects");
     path.FUN_001ef370("FE");
-    if (DAT_004e36d8->enabled)
-        DAT_004e36d8->sink->FUN_001efe20(&path, entity->pos, name, 100.0f);
+    if ((*(EventConfig_1ec060**)&DAT_004e36d8)->enabled)
+        (*(EventConfig_1ec060**)&DAT_004e36d8)->sink->FUN_001efe20(&path, entity->pos, name, 100.0f);
     path.FUN_001ef350();
 }

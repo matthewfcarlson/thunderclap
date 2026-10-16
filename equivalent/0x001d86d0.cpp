@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3040 inputs, branch coverage 62/62)
 // FUN_001d86d0 @ 0x001d86d0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" double sqrt(double);
 
 struct V3_1d86d0 {
@@ -89,10 +90,6 @@ struct World {
     Hub4c_1d86d0 *p4c;
 };
 
-extern unsigned __int64 DAT_004dc0c0;
-extern unsigned __int64 DAT_004dc098;
-extern unsigned __int64 DAT_004dc078;
-extern unsigned __int64 DAT_004e2548;
 
 float FUN_00083d90(float *p);
 
@@ -175,7 +172,7 @@ void Thing_1d86d0::F(V3_1d86d0 *vin, void *arg2)
     v188.z = pos->z;
     unsigned __int64 id = link->FUN_001d4f70();
     *(volatile unsigned int *)&fr.P1.y = (unsigned int)(id >> 32);
-    bool match = id == DAT_004dc0c0 || id == DAT_004dc098 || id == DAT_004dc078;
+    bool match = id == (*(unsigned __int64*)&DAT_004dc0c0) || id == (*(unsigned __int64*)&DAT_004dc098) || id == (*(unsigned __int64*)&DAT_004dc078);
     if (match) {
         if (V.y > 0.4f && V.y < 0.97f) {
             V.y = 0;
@@ -229,7 +226,7 @@ void Thing_1d86d0::F(V3_1d86d0 *vin, void *arg2)
         o70->v20(&S48, &G2, 0, -1, -1);
         o70->v18(&S48, &V, &G2, 0, -1, -1);
         o70->v19(1, -1, -1);
-        match = id == DAT_004dc0c0 || id == DAT_004dc098 || id == DAT_004dc078;
+        match = id == (*(unsigned __int64*)&DAT_004dc0c0) || id == (*(unsigned __int64*)&DAT_004dc098) || id == (*(unsigned __int64*)&DAT_004dc078);
         if (match && TV.FUN_000111f0() > 0.1f) {
             Mat4_1d86d0 &M = fr.M;
             M = *v15();
@@ -264,7 +261,7 @@ void Thing_1d86d0::F(V3_1d86d0 *vin, void *arg2)
     }
     if (link->FUN_001d4e40()) {
         unsigned __int64 id2 = link->FUN_001d4f70();
-        if (id2 != DAT_004e2548) {
+        if (id2 != (*(unsigned __int64*)&DAT_004e2548)) {
             V3_1d86d0 *bv = &pA0->p10->v50;
             if (bv->FUN_00018990() > 50.0f) {
                 bv->FUN_0022d110();

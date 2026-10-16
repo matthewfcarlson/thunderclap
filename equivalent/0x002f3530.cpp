@@ -1,9 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 2/2)
 // FUN_002f3530 @ 0x002f3530
 #include "decls/address.h"
+#include "decls/data/engine/physics.h"
 typedef unsigned int uint;
-extern char DAT_00554c38, DAT_00555438;
-extern void* DAT_0055543c; extern void* DAT_00555440; extern uint DAT_00555448;
+  
 void* __cdecl operator new(unsigned int);
 extern void* __cdecl FUN_002f2750(unsigned __int64);
 struct Matrix { char bytes[64]; void FUN_0022b980(); };
@@ -23,11 +23,11 @@ struct CollisionMesh : FUN_003060a0 {
 }
 physics::CollisionMesh::CollisionMesh() {
  a=0;b=0;c=0;flag=0;
- DAT_0055543c=&DAT_00555438; DAT_00555440=&DAT_00554c38;
+ (*(void**)&DAT_0055543c)=((char*)((char*)&DAT_00554c30 + 2056)); (*(void**)&DAT_00555440)=((char*)((char*)&DAT_00554c30 + 8));
  SharedData* p=new SharedData;
  if(p) { p->a=0;p->b=0;p->c=0;p->d=0;p->e=0;p->f=0;p->g=0; }
  shared=p; shared->initialize();
  material=FUN_002f2750(FUN_0027b020("concrete"));
  m1.FUN_0022b980(); m2.FUN_0022b980();
- id=DAT_00555448+0x3d70000; DAT_00555448=id;
+ id=(*(uint*)&DAT_00555448)+0x3d70000; (*(uint*)&DAT_00555448)=id;
 }

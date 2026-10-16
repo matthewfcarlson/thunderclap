@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 58 inputs, branch coverage 18/18)
 // pure3d::ParticleSystem::vfunc_8 @ 0x002a39a0
+#include "decls/data/engine/pure3d/prop.h"
+
 class Device_2a39a0 {
 public:
     virtual void v0();
@@ -90,7 +92,6 @@ struct Renderer_2a39a0 {
     void FUN_0029b9d0(void* system, unsigned int index, Mat_2a39a0* mat, int arg);
 };
 
-extern Device_2a39a0** DAT_0052c2ac;
 
 class ParticleSystem {
 public:
@@ -107,7 +108,7 @@ public:
 
 void ParticleSystem::run(Renderer_2a39a0* renderer, int arg)
 {
-    (*DAT_0052c2ac)->v23(0, block64);
+    (*(*(Device_2a39a0***)&DAT_0052c2ac))->v23(0, block64);
     if (life != 0)
         life->v7();
 
@@ -132,5 +133,5 @@ void ParticleSystem::run(Renderer_2a39a0* renderer, int arg)
             renderer->FUN_0029b9d0(this, i, &mat, arg);
         }
     }
-    (*DAT_0052c2ac)->v16(0);
+    (*(*(Device_2a39a0***)&DAT_0052c2ac))->v16(0);
 }

@@ -2,14 +2,13 @@
 // hulkfight::motion::WorldDamageAction::vfunc_5 @ 0x00143b20
 #include "gen/hulkfight.h"
 #include "decls/address.h"
+#include "decls/data/game/hulkfight/motion.h"
 
-extern float DAT_00412ec0;
 struct V3_143b20 {
     float x, y, z;
     float FUN_0022d110();
     bool FUN_0022d2b0(const V3_143b20 *other, float eps);
 };
-extern V3_143b20 DAT_004ad7b4;
 
 struct Matrix_143b20 {
     float m[16];
@@ -107,7 +106,7 @@ bool hulkfight::motion::WorldDamageAction::vfunc_5(int a1, int a2) {
     f.pa = (*(Data_143b20 * *)&this->f_1c)->posA;
     f.m.FUN_0022c2b0(&f.pa, &f.w1);
     f.vb = (*(Data_143b20 * *)&this->f_1c)->vecB;
-    if (f.vb.z * f.vb.z + f.vb.y * f.vb.y + f.vb.x * f.vb.x <= DAT_00412ec0) {
+    if (f.vb.z * f.vb.z + f.vb.y * f.vb.y + f.vb.x * f.vb.x <= (*(float*)&DAT_00412ec0)) {
         f.vb.x = 0;
         f.vb.y = 1.0f;
         f.vb.z = 0;
@@ -140,7 +139,7 @@ bool hulkfight::motion::WorldDamageAction::vfunc_5(int a1, int a2) {
         vertical = f.out14.FUN_0022d2b0(&f.pa, 0.00001f);
     }
     if (vertical) {
-        f.out14 = DAT_004ad7b4;
+        f.out14 = (*(V3_143b20*)&DAT_004ad7b4);
         FUN_00224d70(x->FUN_000354c0(), &f.out14);
     }
     f.outv = 0;

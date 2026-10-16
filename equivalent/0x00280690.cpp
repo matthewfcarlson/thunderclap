@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 4/4)
 // FUN_00280690 @ 0x00280690
+#include "decls/data/engine/pure3d/prop.h"
+
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 int FUN_00266da0(int heap);
@@ -58,7 +60,6 @@ public:
     virtual void v9();
     virtual Instance *v10(Params *params);
 };
-extern Factory_280690 *DAT_0052c2a0;
 
 struct Entry_280690 {
     int count;
@@ -108,7 +109,7 @@ pure3d::prop::CDecalQueue::CDecalQueue(int heap)
     p.f20 = 0;
     for (int i = 0; i < 100; i++) {
         entries[i].count = 0;
-        entries[i].instance = DAT_0052c2a0->v10(&p);
+        entries[i].instance = (*(Factory_280690**)&DAT_0052c2a0)->v10(&p);
         entries[i].instance->v0();
         Part_280690 *part = entries[i].instance->v4();
         for (int n = 0x42; n != 0; n--)

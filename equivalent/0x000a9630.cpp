@@ -1,13 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 24/24)
 // FUN_000a9630 @ 0x000a9630
+#include "decls/data/game/global.h"
+
 extern "C" double sqrt(double);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int DAT_004d9968;
 
-extern const float DAT_004218a8;
-extern const float DAT_004218ac;
-extern const float DAT_004218b8;
-extern const float DAT_004218bc;
 
 struct Sphere_a9630 {
     float x, y, z, radius;
@@ -86,11 +84,11 @@ void Manager_a9630::FUN_000a9630(Holder_a9630* holder) {
         double dist = sqrt((double)(dx * dx + dy * dy + dz * dz));
         if (!(dist < s.radius))
             continue;
-        float a = DAT_004218a8;
-        float b = DAT_004218b8;
+        float a = (*(const float*)&DAT_004218a8);
+        float b = (*(const float*)&DAT_004218b8);
         if (holder->list->FUN_000242d0(item)) {
-            a = DAT_004218ac;
-            b = DAT_004218bc;
+            a = (*(const float*)&DAT_004218ac);
+            b = (*(const float*)&DAT_004218bc);
         }
         if (item->attach && item->attach->effect)
             item->attach->effect->FUN_001c5130(a, b);

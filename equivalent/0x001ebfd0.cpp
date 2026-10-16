@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3005 inputs, branch coverage 10/10)
 // FUN_001ebfd0 @ 0x001ebfd0
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 struct NameList_1ebfd0 {
     char data[0x48];
     void FUN_001ef320();
@@ -29,9 +32,6 @@ struct Registry_1ebfd0 {
     unsigned char enabled;
 };
 
-extern unsigned int DAT_004dc0e0;
-extern unsigned int DAT_004dc0e4;
-extern Registry_1ebfd0 *DAT_004e36d8;
 
 void __stdcall FUN_001ebfd0(Target_1ebfd0 *target, int a)
 {
@@ -40,13 +40,13 @@ void __stdcall FUN_001ebfd0(Target_1ebfd0 *target, int a)
     if (!target->handle)
         return;
     Key_1ebfd0 *key = &target->key;
-    if (key->lo != DAT_004dc0e0 || key->hi != DAT_004dc0e4)
+    if (key->lo != (*(unsigned int*)&DAT_004dc0e0) || key->hi != (*(unsigned int*)((char*)&DAT_004dc0e0 + 4)))
         return;
     NameList_1ebfd0 names;
     names.FUN_001ef320();
     names.FUN_001ef370("Objects");
     names.FUN_001ef370("FE");
-    Registry_1ebfd0 *registry = DAT_004e36d8;
+    Registry_1ebfd0 *registry = (*(Registry_1ebfd0**)&DAT_004e36d8);
     if (registry->enabled)
         registry->dispatcher->FUN_001efe20(&names, key, a, 100.0f);
     names.FUN_001ef350();

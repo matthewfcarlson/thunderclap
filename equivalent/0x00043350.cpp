@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3042 inputs, branch coverage 64/76, incomplete)
 // FUN_00043350 @ 0x00043350
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct Unit_43350;
 struct Target_43350;
 
@@ -118,8 +119,6 @@ struct Unit_43350 {
     char FUN_00043350(float dt, Arg2_43350 p2, int a, float one, char c, Arg6 p6);
 };
 
-extern float DAT_004dc304;
-extern float DAT_004dc308;
 float __cdecl FUN_00045670();
 
 struct Frame_43350 {
@@ -135,8 +134,8 @@ char Unit_43350::FUN_00043350(float dt, Arg2_43350 p2, int a, float one, char c,
     f.player = f.mgr->player;
     Timer *timer = f.mgr->timer;
     obj->FUN_000443c0();
-    if (DAT_004dc308 == 0.0f || timer->FUN_00086080() - 0.8f > DAT_004dc308) {
-        DAT_004dc308 = timer->FUN_00086080();
+    if ((*(float*)&DAT_004dc308) == 0.0f || timer->FUN_00086080() - 0.8f > (*(float*)&DAT_004dc308)) {
+        (*(float*)&DAT_004dc308) = timer->FUN_00086080();
         FUN_000678d0()->FUN_00067870(this);
     }
     if (DAT_004dc304 == 0.0f || timer->FUN_00086080() - 0.8f > DAT_004dc304)

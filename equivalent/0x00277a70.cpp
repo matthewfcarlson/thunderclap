@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_00277a70 @ 0x00277a70
+#include "decls/data/engine/core.h"
+
 typedef unsigned int uint_277a70;
-extern uint_277a70 DAT_004cdbb0;
 void FUN_002705f0();
 namespace core {
 struct ICementLibrary { virtual void slot0(); };
@@ -14,5 +15,5 @@ virtual void slot0();
 Resource_277a70 *a,*b; uint_277a70 zero20; char pad[60]; uint_277a70 x60,x64,x68,x6c,x70;
 CementLibrary* FUN_00277a70(Resource_277a70*,Resource_277a70*,uint_277a70);
 };
-CementLibrary* CementLibrary::FUN_00277a70(Resource_277a70* aa,Resource_277a70* bb,uint_277a70 n) { this->ICementLibrary::ICementLibrary(); this->IFileCompletionCallback::IFileCompletionCallback(); this->Object::Object(); tag=DAT_004cdbb0; FUN_002705f0(); this->SafeRefCount::SafeRefCount(); refs=1; this->CementLibrary::CementLibrary(); a=aa;b=bb;zero20=0;x60=0;x64=0;x68=n;x6c=0;x70=0;FUN_002705f0();a->slot0();b->slot0();b->s18(this,0); return this; }
+CementLibrary* CementLibrary::FUN_00277a70(Resource_277a70* aa,Resource_277a70* bb,uint_277a70 n) { this->ICementLibrary::ICementLibrary(); this->IFileCompletionCallback::IFileCompletionCallback(); this->Object::Object(); tag=(*(uint_277a70*)&DAT_004cdbb0); FUN_002705f0(); this->SafeRefCount::SafeRefCount(); refs=1; this->CementLibrary::CementLibrary(); a=aa;b=bb;zero20=0;x60=0;x64=0;x68=n;x6c=0;x70=0;FUN_002705f0();a->slot0();b->slot0();b->s18(this,0); return this; }
 }

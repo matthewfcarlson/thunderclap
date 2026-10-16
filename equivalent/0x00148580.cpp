@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 23/24, incomplete)
 // FUN_00148580 @ 0x00148580
+#include "decls/data/game/hulkfight/motion.h"
+
 struct Vec3_148580 { float x, y, z; };
 
 class RefCounted_148580 {
@@ -69,7 +71,6 @@ struct Effect_148580 {
 void *__fastcall FUN_000592a0(void *owner);
 Stats_148580 *__fastcall FUN_00059a30(void *x);
 extern "C" void FUN_00224d70(float v, Vec3_148580 *dir);
-extern Vec3_148580 DAT_004ae358;
 
 // equiv-conv: FUN_00148580 ecx esi edi
 bool FUN_00148580(void *owner, Effect_148580 *fx, Params *p)
@@ -109,7 +110,7 @@ bool FUN_00148580(void *owner, Effect_148580 *fx, Params *p)
     float v = s->FUN_000354c0();
     if (p->f14 == 0)
         v = t->FUN_000354c0();
-    fx->dir = DAT_004ae358;
+    fx->dir = (*(Vec3_148580*)&DAT_004ae358);
     FUN_00224d70(v + p->f18, &fx->dir);
 
     fx->f0 = p->f20;
@@ -130,7 +131,7 @@ bool FUN_00148580(void *owner, Effect_148580 *fx, Params *p)
     v = s->FUN_000354c0();
     if (p->f3c == 0)
         v = t->FUN_000354c0();
-    Vec3_148580 dir2 = DAT_004ae358;
+    Vec3_148580 dir2 = (*(Vec3_148580*)&DAT_004ae358);
     FUN_00224d70(v + p->f40, &dir2);
     fx->FUN_000595f0(&dir2, p->f44, w, p->f4c);
     return true;

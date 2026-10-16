@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_002088a0 @ 0x002088a0
+#include "decls/data/game/global.h"
+
 class Releasable_2088a0 {
 public:
     virtual void v0();
@@ -23,7 +25,6 @@ struct Slot_2088a0 {
     char pad38[4];
 };
 
-extern char DAT_004c91d8;
 
 void __cdecl FUN_00267090(char *p);
 void __cdecl FUN_00267110(int handle);
@@ -41,7 +42,7 @@ public:
 
 void Pool_2088a0::FUN_002088a0() {
     FUN_00207e80();
-    if (DAT_004c91d8 != 0) {
+    if ((*(char*)&DAT_004c91d8) != 0) {
         for (int i = 0; i < 20; i++) {
             Slot_2088a0 *s = &slots[i];
             if (s->buffer != 0) {

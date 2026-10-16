@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3076 inputs, branch coverage 51/52, incomplete)
 // FUN_00107410 @ 0x00107410
 #include "decls/address.h"
+#include "decls/data/game/unknown.h"
 extern "C" double sqrt(double);
 
 struct V3_107410 {
@@ -45,7 +46,6 @@ struct Rng_107410 {
 };
 
 extern Rng_107410 *FUN_000964d0();
-extern unsigned __int64 DAT_004dc0e0;
 
 struct Self_107410 {
     char pad0[0x58];
@@ -64,7 +64,7 @@ bool Self_107410::FUN_00107410(int a, int b)
         return false;
     Ent_107410 *e = tg->ent;
     bool same = true;
-    if (e->id != DAT_004dc0e0)
+    if (e->id != (*(unsigned __int64*)&DAT_004dc0e0))
         same = false;
     V3_107410 v1;
     v1.x = 0.0f; v1.y = 0.0f; v1.z = 0.0f;

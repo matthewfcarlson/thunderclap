@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 89 inputs, branch coverage 49/56, incomplete)
 // FUN_002b3820 @ 0x002b3820
+#include "decls/data/engine/pure3d.h"
+
 struct V3_2b3820 {
     float x, y, z;
 };
@@ -9,10 +11,6 @@ struct Tri16 {
 struct Edge16_2b3820 {
     unsigned short a, b;
 };
-extern int DAT_0052cba8;
-extern int DAT_0052cbac;
-extern Tri16 DAT_0052cbb0[];
-extern Edge16_2b3820 DAT_00544bb0[];
 
 struct Mesh_2b3820 {
     char pad0[0xc];
@@ -108,26 +106,26 @@ void Shadow::FUN_002b3820()
         const unsigned short *w = idx;
         for (unsigned int k = 0; k < n; k++, w += 6) {
             if (facing[k] == 0) {
-                DAT_0052cbb0[tris].a = w[0];
-                DAT_0052cbb0[tris].b = w[1];
-                DAT_0052cbb0[tris].c = w[2];
+                ((Tri16*)&DAT_0052cbb0)[tris].a = w[0];
+                ((Tri16*)&DAT_0052cbb0)[tris].b = w[1];
+                ((Tri16*)&DAT_0052cbb0)[tris].c = w[2];
                 tris++;
                 DAT_0052cbac = tris;
                 if (w[3] == 0xffff || facing[w[3]] != 0) {
-                    DAT_00544bb0[edges].b = w[0];
-                    DAT_00544bb0[edges].a = w[1];
+                    ((Edge16_2b3820*)&DAT_00544bb0)[edges].b = w[0];
+                    ((Edge16_2b3820*)&DAT_00544bb0)[edges].a = w[1];
                     edges++;
                     DAT_0052cba8 = edges;
                 }
                 if (w[4] == 0xffff || facing[w[4]] != 0) {
-                    DAT_00544bb0[edges].b = w[1];
-                    DAT_00544bb0[edges].a = w[2];
+                    ((Edge16_2b3820*)&DAT_00544bb0)[edges].b = w[1];
+                    ((Edge16_2b3820*)&DAT_00544bb0)[edges].a = w[2];
                     edges++;
                     DAT_0052cba8 = edges;
                 }
                 if (w[5] == 0xffff || facing[w[5]] != 0) {
-                    DAT_00544bb0[edges].b = w[2];
-                    DAT_00544bb0[edges].a = w[0];
+                    ((Edge16_2b3820*)&DAT_00544bb0)[edges].b = w[2];
+                    ((Edge16_2b3820*)&DAT_00544bb0)[edges].a = w[0];
                     edges++;
                     DAT_0052cba8 = edges;
                 }

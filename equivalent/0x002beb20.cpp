@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 10/10)
 // FUN_002beb20 @ 0x002beb20
 #include "decls/address.h"
+#include "decls/data/engine/pure3d.h"
 extern "C" double sqrt(double);
 void *FUN_00263ea0(unsigned int size);
 
@@ -120,8 +121,6 @@ public:
     virtual void v83();
     virtual int v84();
 };
-extern char DAT_004d0894;
-extern int DAT_004d0898;
 
 namespace pure3d {
 
@@ -166,8 +165,8 @@ public:
 
 Sprite::Sprite(Desc_2beb20 *d, Res_2beb20 *r, int s, int a4, int a5, int a6)
 {
-    flagA0 = DAT_004d0894;
-    if (DAT_004d0894 != 0) {
+    flagA0 = (*(char*)&DAT_004d0894);
+    if ((*(char*)&DAT_004d0894) != 0) {
         slot = 0;
     } else {
         if (s >= 0)

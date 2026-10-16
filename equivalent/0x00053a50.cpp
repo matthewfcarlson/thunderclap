@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_00053a50 @ 0x00053a50
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -47,10 +50,7 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc4b0;
-extern int DAT_004dc4b4;
 
-extern const char* DAT_003f6b9c[7];
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -62,12 +62,12 @@ void FUN_00053a50()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<::CSmartPropWeaponTypeCondition>("type", DAT_003f6b9c, 7, &::CSmartPropWeaponTypeCondition::FUN_00047e50);
+            params[0] = new (mem) fight::ParamEnumConstList<::CSmartPropWeaponTypeCondition>("type", ((const char**)&DAT_003f6b9c), 7, &::CSmartPropWeaponTypeCondition::FUN_00047e50);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamIntConstRange<::CSmartPropWeaponTypeCondition>("attachmentIndex", &::CSmartPropWeaponTypeCondition::FUN_00047e60);
-        FUN_002347b0(&DAT_004dc4b0, params, 2);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc4b0), params, 2);
     }
     DAT_004dc4b4++;
 }

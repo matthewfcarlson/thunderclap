@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2971 inputs, branch coverage 10/10)
 // FUN_0029f4d0 @ 0x0029f4d0
 // FUN_0029f4d0: find (or take from the free pool) the entry for a key and fill it from a source object
+#include "decls/data/game/global.h"
+
 struct Source_29f4d0 {
     char pad00[0x4c];
     int x, y, z;
@@ -25,7 +27,6 @@ struct Finder_29f4d0 {
     Entry_29f4d0 *FUN_00231180(int key, int flags);
 };
 
-extern int *DAT_0052c2b4;
 
 class Cache_29f4d0 {
 public:
@@ -63,5 +64,5 @@ void Cache_29f4d0::FUN_0029f4d0(int key, Source_29f4d0 *src)
     e->y = src->y;
     e->z = src->z;
     e->source = src;
-    e->f14 = *DAT_0052c2b4;
+    e->f14 = *(*(int**)&DAT_0052c2b4);
 }

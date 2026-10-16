@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3017 inputs, branch coverage 30/30)
 // FUN_00301e10 @ 0x00301e10
+#include "decls/data/engine/unknown.h"
+
 extern "C" double sqrt(double);
 // equiv-conv: FUN_00314be0 ecx stack stack stack stack stack stack
 struct Vec3_301e10 {
@@ -34,7 +36,6 @@ public:
     float half;
 };
 
-extern char DAT_00555481;
 
 class Collider_301e10 {
 public:
@@ -117,7 +118,7 @@ void Collider_301e10::FUN_00301e10(Cap *a, Cap *b)
                     goto tail;
                 if (b->list && (int)(b->list->end - b->list->begin) & ~3)
                     goto tail;
-                if (FUN_00315620(&f.ua, ad, a->radius, &f.ub, bd, b->radius, &f.k.x, len, mf, a, b) && DAT_00555481 == 0)
+                if (FUN_00315620(&f.ua, ad, a->radius, &f.ub, bd, b->radius, &f.k.x, len, mf, a, b) && (*(char*)&DAT_00555481) == 0)
                     return;
             }
         }

@@ -1,3 +1,5 @@
+#include "decls/data/engine/audio.h"
+
 namespace audio { class SeqEventLogicRepeat {
   public:
     virtual void f0();
@@ -9,10 +11,9 @@ namespace audio { class SeqEventLogicRepeat {
 }; }
 extern void FUN_002607a0();
 extern void __cdecl FUN_00247550(void*, void*);
-extern char DAT_004e73a8;
 audio::SeqEventLogicRepeat* audio::SeqEventLogicRepeat::vfunc_4(int flag) {
     FUN_002607a0();
     if (flag & 1)
-        FUN_00247550(&DAT_004e73a8, this);
+        FUN_00247550(((char*)&DAT_004e73a8), this);
     return this;
 }

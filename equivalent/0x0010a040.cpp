@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 83/84, incomplete)
 // CAvoidBehaviour::vfunc_3 @ 0x0010a040
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct V3_10a040 {
     float x, y, z;
     float FUN_0022d110();
@@ -85,7 +86,6 @@ struct World {
     char pad00[0xc];
     WorldC *fc;
 };
-extern float DAT_004a1eac[4];
 
 V3_10a040 *__cdecl FUN_00083e00(V3_10a040 *out, V3_10a040 *dir, float t);
 float __cdecl FUN_00018710(float *a, float *b);
@@ -265,7 +265,7 @@ char CAvoidBehaviour::vfunc_3(Owner_10a040 *owner, Stats_10a040 *st, V3_10a040 *
         st->FUN_000368d0(1);
         st->FUN_00035fa0(1);
         Rng_10a040 *rng = FUN_000964d0();
-        f30 = (rng->FUN_00078780() * 0.5f + 1.0f) * DAT_004a1eac[0];
+        f30 = (rng->FUN_00078780() * 0.5f + 1.0f) * ((float*)&DAT_004a1eac)[0];
         b34 = f.flag2;
         v1c = *out;
         return f.flag2;
@@ -283,7 +283,7 @@ char CAvoidBehaviour::vfunc_3(Owner_10a040 *owner, Stats_10a040 *st, V3_10a040 *
         st->FUN_000368d0(1);
         st->FUN_00035fa0(1);
         Rng_10a040 *rng = FUN_000964d0();
-        f30 = (rng->FUN_00078780() * 0.5f + 1.0f) * DAT_004a1eac[1];
+        f30 = (rng->FUN_00078780() * 0.5f + 1.0f) * ((float*)&DAT_004a1eac)[1];
         b34 = 1;
         return true;
     }
@@ -322,7 +322,7 @@ char CAvoidBehaviour::vfunc_3(Owner_10a040 *owner, Stats_10a040 *st, V3_10a040 *
     if (f.flagA)
         idx++;
     Rng_10a040 *rng2 = FUN_000964d0();
-    f30 = (rng2->FUN_00078780() * 0.5f + 1.0f) * DAT_004a1eac[idx];
+    f30 = (rng2->FUN_00078780() * 0.5f + 1.0f) * ((float*)&DAT_004a1eac)[idx];
     if (bl) {
         if (!f.flagA) {
             *out = f.v52;

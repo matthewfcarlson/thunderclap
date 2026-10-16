@@ -1,15 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3012 inputs, branch coverage 73/74, incomplete)
 // FUN_000a3040 @ 0x000a3040
-extern float DAT_0049ec48;
-extern float DAT_0049ec54;
-extern float DAT_0049ec5c;
-extern float DAT_0049ec60;
-extern float DAT_0049ec78;
-extern float DAT_0049ec7c;
-extern float DAT_0049ec80;
-extern float DAT_0049ec98;
-extern float DAT_0049ed24;
-extern float DAT_0049ed28;
+#include "decls/data/game/global.h"
 
 extern "C" double __cdecl sqrt(double);
 struct V3_a3040 { float x, y, z; };
@@ -112,7 +103,7 @@ public:
 
 void Cam_a3040::Update(float unused, float dt)
 {
-    FUN_000a0dc0(DAT_0049ec78, DAT_0049ec7c, dt);
+    FUN_000a0dc0((*(float*)&DAT_0049ec78), DAT_0049ec7c, dt);
 
     Frame_a3040 f;
     f.v34 = f444;
@@ -168,14 +159,14 @@ void Cam_a3040::Update(float unused, float dt)
                 f.outB = f.angA;
                 b346 = 1;
             }
-            f.pitch = FUN_000a00e0(f.pitch, f.outB, DAT_0049ec48, dt, 5.0f);
-            f.v14 = FUN_000a00e0(f.v14, f.inv, DAT_0049ec48, dt, 5.0f);
+            f.pitch = FUN_000a00e0(f.pitch, f.outB, (*(float*)&DAT_0049ec48), dt, 5.0f);
+            f.v14 = FUN_000a00e0(f.v14, f.inv, (*(float*)&DAT_0049ec48), dt, 5.0f);
             f480 = f.v34;
             f478 = f.yaw;
             f47c = f.outB;
             f484 = f.inv;
             if (f.flag)
-                f488 = DAT_0049ec98;
+                f488 = (*(float*)&DAT_0049ec98);
             f.len = f.v34;
             gotoFinal = true;
         } else {
@@ -198,7 +189,7 @@ void Cam_a3040::Update(float unused, float dt)
                     b346 = 1;
                 }
                 if (f.pitch != f.outB) {
-                    float r = FUN_000a00e0(f.pitch, f.outB, DAT_0049ec48, dt, 2.0f);
+                    float r = FUN_000a00e0(f.pitch, f.outB, (*(float*)&DAT_0049ec48), dt, 2.0f);
                     float d1 = f.outA - f.pitch;
                     float d2 = r - f.pitch;
                     float ad1 = AbsF(d1);
@@ -216,7 +207,7 @@ void Cam_a3040::Update(float unused, float dt)
             f.len = f.v34;
             if (f488 > 0.0f)
                 f.yaw = f478;
-            f.v14 = FUN_000a00e0(f.v14, f448, DAT_0049ec48, dt, 5.0f);
+            f.v14 = FUN_000a00e0(f.v14, f448, (*(float*)&DAT_0049ec48), dt, 5.0f);
             if ((f410 >> 6) & 1) {
                 f.outA = f350->f8c * 57.2957764f;
                 float angv = f.outA;
@@ -247,7 +238,7 @@ void Cam_a3040::Update(float unused, float dt)
             f.outB = f.angA;
             b346 = 1;
         }
-        f.pitch = FUN_000a00e0(f.pitch, f.outB, DAT_0049ec48, dt, 0.0f);
+        f.pitch = FUN_000a00e0(f.pitch, f.outB, (*(float*)&DAT_0049ec48), dt, 0.0f);
         f47c = f.pitch;
         f488 = 0.0f;
         f478 = f.yaw;
@@ -276,7 +267,7 @@ void Cam_a3040::Update(float unused, float dt)
     p194.x = f.out.x + p1c4.x;
     p194.y = f.out.y + p1c4.y;
     p194.z = f.out.z + p1c4.z;
-    FUN_000a0940(DAT_0049ec80);
+    FUN_000a0940((*(float*)&DAT_0049ec80));
     V3_a3040 t2;
     t2.x = p1e8.x - p194.x;
     t2.y = p1e8.y - p194.y;

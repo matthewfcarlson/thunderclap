@@ -2,12 +2,12 @@
 // FUN_002c5260 @ 0x002c5260
 // equiv-conv: FUN_002c50c0 ebx stack stack stack stack stack stack
 #include "decls/address.h"
+#include "decls/data/engine/pure3d.h"
+#include "decls/data/engine/pure3d/prop.h"
 extern "C" double sqrt(double);
 extern "C" double cos(double);
 extern "C" double sin(double);
 
-extern float DAT_0042ef28;
-extern float DAT_0042ef48;
 
 struct V3_2c5260 {
     float x, y, z;
@@ -90,7 +90,6 @@ public:
     virtual void v31(VertexBuf_2c5260 *b);
 };
 
-extern Layer_2c5260 **DAT_0052c2ac;
 
 Matrix *FUN_002c50c0(Matrix *out, V3_2c5260 mid, V3_2c5260 end);
 
@@ -120,7 +119,7 @@ void __cdecl FUN_002c5260(float r1, V3_2c5260 *a, float r2, V3_2c5260 *b, int ha
     mid.y = fr.d.y * h + a->y;
     mid.z = hz + a->z;
     FUN_002c50c0(&fr.m, mid, *b);
-    (*DAT_0052c2ac)->v23(0, &fr.m);
+    (*(*(Layer_2c5260***)&DAT_0052c2ac))->v23(0, &fr.m);
 
     int e1 = (r1 != 0.0f) ? 2 : 0;
     int e2 = (r2 != 0.0f) ? 2 : 0;
@@ -132,7 +131,7 @@ void __cdecl FUN_002c5260(float r1, V3_2c5260 *a, float r2, V3_2c5260 *b, int ha
         fr.nh = -h;
         fr.y = (float)(cos(0.0) * r1);
         fr.z = (float)(sin(0.0) * r1);
-        step = DAT_0042ef28 / n;
+        step = (*(float*)&DAT_0042ef28) / n;
         double t;
         do {
             float yp = fr.y;
@@ -153,13 +152,13 @@ void __cdecl FUN_002c5260(float r1, V3_2c5260 *a, float r2, V3_2c5260 *b, int ha
             vb->FUN_0008ef00();
             t = step + fr.theta;
             fr.theta = (float)t;
-        } while (t <= DAT_0042ef48);
+        } while (t <= (*(float*)&DAT_0042ef48));
     }
     if (r2 != 0.0f) {
         fr.y = (float)(cos((double)fr.theta) * r2);
         fr.z = (float)(sin((double)fr.theta) * r2);
         fr.theta = 0.0f;
-        step = DAT_0042ef28 / n;
+        step = (*(float*)&DAT_0042ef28) / n;
         double t;
         do {
             float yp = fr.y;
@@ -180,11 +179,11 @@ void __cdecl FUN_002c5260(float r1, V3_2c5260 *a, float r2, V3_2c5260 *b, int ha
             vb->FUN_0008ef00();
             t = step + fr.theta;
             fr.theta = (float)t;
-        } while (t <= DAT_0042ef48);
+        } while (t <= (*(float*)&DAT_0042ef48));
     }
     fr.theta = 0.0f;
     fr.nh = -h;
-    step = DAT_0042ef28 / n;
+    step = (*(float*)&DAT_0042ef28) / n;
     double t;
     do {
         double cx = cos((double)fr.theta);
@@ -205,7 +204,7 @@ void __cdecl FUN_002c5260(float r1, V3_2c5260 *a, float r2, V3_2c5260 *b, int ha
         vb->FUN_0008ef00();
         t = step + fr.theta;
         fr.theta = (float)t;
-    } while (t <= DAT_0042ef48);
+    } while (t <= (*(float*)&DAT_0042ef48));
     DAT_0052c2a8->v31(vb);
-    (*DAT_0052c2ac)->v16(0);
+    (*(*(Layer_2c5260***)&DAT_0052c2ac))->v16(0);
 }

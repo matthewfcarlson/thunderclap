@@ -1,6 +1,7 @@
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 extern "C" char DAT_00425b64[];
-extern "C" char DAT_0048e128[];
-extern "C" char DAT_0048e134[];
 struct B_2051b0 {
     void Init(int, int);
 };
@@ -20,8 +21,8 @@ CWorldStreamManager::CWorldStreamManager(int a, int b) {
     ((B_2051b0*)this)->Init(a, 3);
     vptr = ((int)DAT_00425b64);
     value1c = b;
-    b18 = ReadValue((const char*)((int)DAT_0048e134));
-    b10 = ReadValue((const char*)((int)DAT_0048e128));
-    b11 = ReadValue((const char*)((int)DAT_0048e128));
-    b12 = ReadValue((const char*)((int)DAT_0048e128));
+    b18 = ReadValue((const char*)((int)((char*)&DAT_0048e134)));
+    b10 = ReadValue((const char*)((int)((char*)&DAT_0048e128)));
+    b11 = ReadValue((const char*)((int)((char*)&DAT_0048e128)));
+    b12 = ReadValue((const char*)((int)((char*)&DAT_0048e128)));
 }

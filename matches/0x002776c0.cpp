@@ -1,3 +1,5 @@
+#include "decls/data/engine/core.h"
+
 namespace core {
 struct IRefCount {
     virtual void slot0();
@@ -47,7 +49,6 @@ struct Manager_2776c0 : Resource_2776c0 {
     void FUN_00272bb0(core::CementLibrary*);
 };
 void __cdecl FUN_00266f20(unsigned, unsigned);
-extern unsigned DAT_004cdbb0;
 namespace core {
 struct CementLibrary : IRefCount, OtherRef, BaseObject, SafeRefCount {
     Manager_2776c0* manager;
@@ -82,7 +83,7 @@ CementLibrary::~CementLibrary() {
     if (buffer)
         FUN_00266f20(allocator, buffer);
     static_cast<SafeRefCount*>(this)->SafeRefCount::SafeRefCount();
-    DAT_004cdbb0 = allocator;
+    (*(unsigned*)&DAT_004cdbb0) = allocator;
     static_cast<BaseObject*>(this)->BaseObject::BaseObject();
     static_cast<OtherRef*>(this)->IRefCount::IRefCount();
     static_cast<IRefCount*>(this)->IRefCount::IRefCount();

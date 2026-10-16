@@ -1,7 +1,6 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" char DAT_00424b0c[];
-extern "C" char DAT_0048e0e4[];
-extern "C" char DAT_0048e100[];
 class CSoundVoiceManager {
   public:
     void Init(void*, int);
@@ -20,9 +19,9 @@ CSoundVoiceManager* CSoundVoiceManager::Fn(void* p, int v) {
     Init(p, 3);
     vf = ((int)DAT_00424b0c);
     a = v;
-    b18 = FUN_001d04d0((void*)((int)DAT_0048e100));
-    b10 = FUN_001d04d0((void*)((int)DAT_0048e0e4));
-    b11 = FUN_001d04d0((void*)((int)DAT_0048e0e4));
-    b12 = FUN_001d04d0((void*)((int)DAT_0048e0e4));
+    b18 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e100)));
+    b10 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e0e4)));
+    b11 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e0e4)));
+    b12 = FUN_001d04d0((void*)((int)((char*)&DAT_0048e0e4)));
     return this;
 }

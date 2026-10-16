@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_00205910 @ 0x00205910
+#include "decls/data/game/global.h"
+
 struct Resource_205910 {
  virtual void init();
  virtual void release();
@@ -8,8 +10,6 @@ struct Resource_205910 {
 extern "C" void* __cdecl FUN_00263ea0(unsigned int);
 extern "C" int __cdecl FUN_00266da0(int);
 extern "C" void __cdecl FUN_00266d90();
-extern unsigned char DAT_004c91d8;
-extern unsigned char DAT_004c91d9;
 struct Texture {
  char pad[0x34];
  unsigned int size;
@@ -32,10 +32,10 @@ void Object::target() {
  if (replacement) replacement->init();
  if (resource) resource->release();
  resource = replacement;
- if (DAT_004c91d8 || DAT_004c91d9) {
+ if ((*(unsigned char*)&DAT_004c91d8) || (*(unsigned char*)((char*)&DAT_004c91d8 + 1))) {
  int previous = FUN_00266da0(11);
  FUN_00266d90();
- if (DAT_004c91d9) {
+ if ((*(unsigned char*)((char*)&DAT_004c91d8 + 1))) {
  for (int i=0; i<2; ++i) {
  textures[i].size = 0x200;
  textures[i].FUN_002047c0("texture data",19+i,0x32000,11);

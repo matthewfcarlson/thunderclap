@@ -1,10 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // FUN_000aef10 @ 0x000aef10
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 void* __cdecl FUN_0008d690(unsigned int size);
-extern const char* DAT_0048e0e4;
-extern const char* DAT_0048e100;
-extern const char* DAT_0048e134;
 void FUN_000af480();
 
 class Function {
@@ -27,7 +25,7 @@ public:
     R (T::*fn)();
     Method0(const char* name, R (T::*f)()) : Function(name, 0) {
         fn = f;
-        flag18 = FUN_001d04d0(&DAT_0048e0e4);
+        flag18 = FUN_001d04d0(((const char**)&DAT_0048e0e4));
     }
 };
 
@@ -40,9 +38,9 @@ public:
     void (T::*fn)(int, bool);
     Method2(const char* name, void (T::*f)(int, bool)) : Function(name, 2) {
         fn = f;
-        flag18 = FUN_001d04d0(&DAT_0048e100);
-        flag10 = FUN_001d04d0(&DAT_0048e134);
-        flag11 = FUN_001d04d0(&DAT_0048e0e4);
+        flag18 = FUN_001d04d0(((const char**)&DAT_0048e100));
+        flag10 = FUN_001d04d0(((const char**)&DAT_0048e134));
+        flag11 = FUN_001d04d0(((const char**)&DAT_0048e0e4));
     }
 };
 
@@ -55,8 +53,8 @@ public:
     void (T::*fn)(bool);
     Method1(const char* name, void (T::*f)(bool)) : Function(name, 1) {
         fn = f;
-        flag18 = FUN_001d04d0(&DAT_0048e100);
-        flag10 = FUN_001d04d0(&DAT_0048e0e4);
+        flag18 = FUN_001d04d0(((const char**)&DAT_0048e100));
+        flag10 = FUN_001d04d0(((const char**)&DAT_0048e0e4));
     }
 };
 

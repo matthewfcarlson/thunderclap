@@ -1,7 +1,6 @@
-extern "C" char DAT_0048e0f0[];
-extern "C" char DAT_0048e100[];
-extern "C" char DAT_0048e128[];
-extern "C" char DAT_0048e134[];
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 struct Base_1e03c0 {
     Base_1e03c0(int a, int b);
     virtual void F0();
@@ -22,11 +21,11 @@ struct Method6 : Base_1e03c0 {
 
 Method6::Method6(int a, int b) : Base_1e03c0(a, 6) {
     m1c = b;
-    c18 = ParseArg((const char*)((int)DAT_0048e100));
-    c10 = ParseArg((const char*)((int)DAT_0048e0f0));
-    c11 = ParseArg((const char*)((int)DAT_0048e134));
-    c12 = ParseArg((const char*)((int)DAT_0048e128));
-    c13 = ParseArg((const char*)((int)DAT_0048e128));
-    c14 = ParseArg((const char*)((int)DAT_0048e128));
-    c15 = ParseArg((const char*)((int)DAT_0048e128));
+    c18 = ParseArg((const char*)((int)((char*)&DAT_0048e100)));
+    c10 = ParseArg((const char*)((int)((char*)&DAT_0048e0f0)));
+    c11 = ParseArg((const char*)((int)((char*)&DAT_0048e134)));
+    c12 = ParseArg((const char*)((int)((char*)&DAT_0048e128)));
+    c13 = ParseArg((const char*)((int)((char*)&DAT_0048e128)));
+    c14 = ParseArg((const char*)((int)((char*)&DAT_0048e128)));
+    c15 = ParseArg((const char*)((int)((char*)&DAT_0048e128)));
 }

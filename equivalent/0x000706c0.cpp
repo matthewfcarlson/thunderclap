@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 38/38)
 // FUN_000706c0 @ 0x000706c0
+#include "decls/data/game/global.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -75,8 +77,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dcf20;
-extern int DAT_004dcf24;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -157,7 +157,7 @@ void FUN_000706c0()
         params[17] = 0;
         if (mem)
             params[17] = new (mem) fight::ParamBool<CJumpTrack>("redirect", &CJumpTrack::FUN_000680d0);
-        FUN_002347b0(&DAT_004dcf20, params, 18);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dcf20), params, 18);
     }
     DAT_004dcf24++;
 }

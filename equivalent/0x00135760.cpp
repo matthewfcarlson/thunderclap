@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 32/32)
 // hulkfight::motion::FlyingAttackAction::vfunc_5 @ 0x00135760
+#include "decls/data/game/hulkfight.h"
+
 extern "C" double cos(double);
-extern float DAT_004dd940;
 
 struct V3_135760 {
     float x, y, z;

@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000ecd70 @ 0x000ecd70
 // equiv-map: ??0WindowBase@@QAE@H@Z = 0x000e9240
+#include "decls/data/game/global.h"
+
 extern "C" void* __cdecl memset(void*, int, unsigned int);
-extern int DAT_004a0fe8;
 
 class WindowBase {
 public:

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 415 inputs, branch coverage 60/60)
 // FUN_0027d780 @ 0x0027d780
 // equiv-map: ?thunk_FUN_002ee510@Cache@@QAEXPAUChoice@@@Z = 0x002ee700
+#include "decls/data/game/global.h"
 
 struct Choice {
     char pad[0x10];
@@ -12,7 +13,6 @@ struct Cache {
     void FUN_002ee6d0(Choice* c);
 };
 
-extern Cache* DAT_00554c14;
 
 class Node {
 public:
@@ -276,12 +276,12 @@ void Scene_27d780::FUN_0027d780()
     for (int k = 0; k < (int)(t->end - t->begin); k++) {
         Choice* ch = self->choices[k];
         if (ch)
-            DAT_00554c14->thunk_FUN_002ee510(ch);
+            (*(Cache**)&DAT_00554c14)->thunk_FUN_002ee510(ch);
         t = self->table;
     }
     Choice* cc = self->choices[self->current];
     if (cc)
-        DAT_00554c14->FUN_002ee6d0(cc);
+        (*(Cache**)&DAT_00554c14)->FUN_002ee6d0(cc);
 
     if (!self->holder)
         return;

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 32/32)
 // FUN_0013d070 @ 0x0013d070
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -94,11 +96,7 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0f38;
-extern int DAT_004e0f3c;
 
-extern const char* DAT_004abf80[6];
-extern const char* DAT_004abf70[4];
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -122,7 +120,7 @@ void FUN_0013d070()
         mem = FUN_0008d690(0x20);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamEnumConstList<hulkfight::motion::AnimationVelocityScaledTrack>("velocity", DAT_004abf80, 6, &hulkfight::motion::AnimationVelocityScaledTrack::FUN_00139eb0);
+            params[3] = new (mem) fight::ParamEnumConstList<hulkfight::motion::AnimationVelocityScaledTrack>("velocity", ((const char**)&DAT_004abf80), 6, &hulkfight::motion::AnimationVelocityScaledTrack::FUN_00139eb0);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
@@ -150,7 +148,7 @@ void FUN_0013d070()
         mem = FUN_0008d690(0x20);
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamEnumConstList<hulkfight::motion::AnimationVelocityScaledTrack>("cyclic", DAT_004abf70, 4, &hulkfight::motion::AnimationVelocityScaledTrack::FUN_00139f80);
+            params[10] = new (mem) fight::ParamEnumConstList<hulkfight::motion::AnimationVelocityScaledTrack>("cyclic", ((const char**)&DAT_004abf70), 4, &hulkfight::motion::AnimationVelocityScaledTrack::FUN_00139f80);
         mem = FUN_0008d690(0x18);
         params[11] = 0;
         if (mem)
@@ -167,7 +165,7 @@ void FUN_0013d070()
         params[14] = 0;
         if (mem)
             params[14] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::AnimationVelocityScaledTrack>("blendOutTime", &hulkfight::motion::AnimationVelocityScaledTrack::FUN_00139ff0);
-        FUN_002347b0(&DAT_004e0f38, params, 15);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0f38), params, 15);
     }
     DAT_004e0f3c++;
 }

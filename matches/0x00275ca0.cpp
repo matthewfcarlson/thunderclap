@@ -1,3 +1,5 @@
+#include "decls/data/engine/core.h"
+
 struct Lock_275ca0 {
     virtual void lock();
     virtual void unlock();
@@ -16,8 +18,6 @@ struct Alloc_275ca0 {
     virtual void s3();
     virtual void free(void*);
 };
-extern char DAT_0052a1c8;
-extern Alloc_275ca0* DAT_0052a1e4;
 void __cdecl FUN_0026d850(void*);
 void __cdecl FUN_0026d840(void*);
 namespace core {
@@ -42,9 +42,9 @@ DriveRequest::DriveRequest(unsigned flags) {
     drive->release();
     this->Request::Request();
     if (flags & 1) {
-        FUN_0026d850(&DAT_0052a1c8);
-        DAT_0052a1e4->free(this);
-        FUN_0026d840(&DAT_0052a1c8);
+        FUN_0026d850(((char*)&DAT_0052a1c8));
+        (*(Alloc_275ca0**)&DAT_0052a1e4)->free(this);
+        FUN_0026d840(((char*)&DAT_0052a1c8));
     }
 }
 } // namespace core

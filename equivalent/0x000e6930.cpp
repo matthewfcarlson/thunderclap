@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FEThingsBase::vfunc_30 @ 0x000e6930
+#include "decls/data/game/global.h"
+
 class Item_e6930 {
 public:
     virtual void v0();
@@ -60,7 +62,6 @@ public:
     virtual int GetValue();    // slot 35
 };
 
-extern int DAT_004de94c;
 
 class FEThingsBase {
 public:

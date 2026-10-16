@@ -98,9 +98,31 @@ DECL_RE = re.compile(r'extern\s+(?:"C"\s+)?((?:const\s+)?[A-Za-z_][\w:]*(?:\s+[A
 NAME_RE = re.compile(r"\bDAT_([0-9a-fA-F]{8})\b")
 
 
+def previous_types(path=None):
+    """addr -> the type the last inventory recorded for an item (`source_type`, else `type`)."""
+    out = {}
+    try:
+        for line in open(path or OUT):
+            m = re.match(r'\s*\{"addr":"0x([0-9a-f]+)"', line)
+            if not m or '"type"' not in line:
+                continue
+            it = json.loads(line.strip().rstrip(","))
+            t = it.get("source_type") or it.get("type")
+            if t:
+                out[int(m.group(1), 16)] = t
+    except OSError:
+        pass
+    return out
+
+
 def source_names():
-    """addr -> {"sources": n, "types": Counter} from DAT_ names declared/used in matches/ and equivalent/."""
+    """addr -> {"sources": n, "types": Counter} from DAT_ names declared/used in matches/ and equivalent/.
+
+    A source on include/decls/data/ (tools/migrate_data.py) no longer declares the names it uses; its vote is
+    the type the last inventory recorded for the item (config/data.json is the record of what the sources
+    declared), so a re-run after the migration carves and types the same items."""
     out = collections.defaultdict(lambda: {"sources": 0, "types": collections.Counter()})
+    prev = None
     for d in ("matches", "equivalent"):
         p = os.path.join(ROOT, d)
         for fn in os.listdir(p):
@@ -109,8 +131,17 @@ def source_names():
             text = open(os.path.join(p, fn), encoding="latin1").read()
             if "DAT_" not in text:
                 continue
-            for a in set(NAME_RE.findall(text)):
+            used = set(NAME_RE.findall(text))
+            for a in used:
                 out[int(a, 16)]["sources"] += 1
+            if '#include "decls/data/' in text:
+                if prev is None:
+                    prev = previous_types()
+                declared = {m.group(2).lower() for m in DECL_RE.finditer(text)}
+                for a in used - declared:
+                    t = prev.get(int(a, 16))
+                    if t:
+                        out[int(a, 16)]["types"][t] += 1
             for m in DECL_RE.finditer(text):
                 t = re.sub(r"\s+", " ", m.group(1)).strip()
                 t = t.replace("unsigned int", "unsigned").replace("unsigned", "unsigned int")

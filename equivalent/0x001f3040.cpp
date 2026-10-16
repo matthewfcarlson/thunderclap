@@ -2,6 +2,7 @@
 // FUN_001f3040 @ 0x001f3040
 // FUN_001f3040: look up an entry and fetch two sound handles from it (or default to "hulk")
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 typedef unsigned __int64 u64_1f3040;
 
 struct Node {
@@ -30,7 +31,6 @@ struct Sound_1f3040 {
     int FUN_001ea010(const char *name);
 };
 
-extern Sound_1f3040 *DAT_004e3690;
 
 Node *__cdecl FUN_001f2ff0(Key_1f3040 *k);
 
@@ -38,14 +38,14 @@ void __cdecl FUN_001f3040(Dest_1f3040 *d, Key_1f3040 *k)
 {
     Node *n = FUN_001f2ff0(k);
     if (n != 0) {
-        d->handleA = DAT_004e3690->FUN_001e9860(n->nameA, n->nameB);
-        d->handleB = DAT_004e3690->FUN_001e9860(n->nameC, n->nameD);
+        d->handleA = (*(Sound_1f3040**)&DAT_004e3690)->FUN_001e9860(n->nameA, n->nameB);
+        d->handleB = (*(Sound_1f3040**)&DAT_004e3690)->FUN_001e9860(n->nameC, n->nameD);
         d->flag = n->flag;
         return;
     }
     if (k->key == FUN_0027b020("hulk")) {
-        d->handleA = DAT_004e3690->FUN_001ea010("hulk_sfx");
-        d->handleB = DAT_004e3690->FUN_001ea010("hulk_vox");
+        d->handleA = (*(Sound_1f3040**)&DAT_004e3690)->FUN_001ea010("hulk_sfx");
+        d->handleB = (*(Sound_1f3040**)&DAT_004e3690)->FUN_001ea010("hulk_vox");
         d->flag = 1;
     }
 }

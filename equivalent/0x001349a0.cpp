@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // hulkfight::motion::AirToGroundTargetAction::vfunc_3 @ 0x001349a0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct V3_1349a0 {
     float x, y, z;
     float FUN_0022d110();
@@ -56,7 +57,6 @@ struct World {
     char pad0[8];
     Sink_1349a0* sink;
 };
-extern float DAT_003f32e0;
 
 class AirToGroundTargetAction {
 public:

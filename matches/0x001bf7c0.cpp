@@ -1,8 +1,7 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 extern "C" char DAT_00421520[];
-extern "C" char DAT_0048e0f0[];
-extern "C" char DAT_0048e100[];
-extern "C" char DAT_0048e128[];
 class CSubtitleManager {
   public:
     int vptr;
@@ -21,9 +20,9 @@ CSubtitleManager* CSubtitleManager::Setup(const char* a, const char* b) {
     Init(a, 3);
     vptr = ((int)DAT_00421520);
     m1c = (int)b;
-    b18 = FUN_001d04d0((const char*)((int)DAT_0048e100));
-    b10 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
-    b11 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
-    b12 = FUN_001d04d0((const char*)((int)DAT_0048e128));
+    b18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e100)));
+    b10 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0f0)));
+    b11 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0f0)));
+    b12 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
     return this;
 }

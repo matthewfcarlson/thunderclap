@@ -1,8 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 40/42, incomplete)
 // FUN_0029e320 @ 0x0029e320
-extern float DAT_003f32e0;  // 0.0
-extern float DAT_0042d61c;  // -0.0001
-extern float DAT_0042d620;  // 0.333
+  // 0.0
+  // -0.0001
+  // 0.333
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/global.h"
+
 extern char DAT_004c534c[];
 extern char DAT_004cf658[];
 
@@ -82,16 +85,16 @@ void Effect_29e320::FUN_0029e320(Container_29e320 *c, V3_29e320 *p, Arg3_29e320 
     f40->list->FUN_002a1180(n + 1);
     float scale = FUN_0029dcc0(a3.value, 4);
 
-    float x = p->x < DAT_003f32e0 ? p->x : DAT_003f32e0;
-    float y = p->y < DAT_003f32e0 ? p->y : DAT_003f32e0;
-    float z = p->z < DAT_003f32e0 ? p->z : DAT_003f32e0;
+    float x = p->x < (*(float*)&DAT_003f32e0) ? p->x : (*(float*)&DAT_003f32e0);
+    float y = p->y < (*(float*)&DAT_003f32e0) ? p->y : (*(float*)&DAT_003f32e0);
+    float z = p->z < (*(float*)&DAT_003f32e0) ? p->z : (*(float*)&DAT_003f32e0);
     float blend = 1.0f;
     a3.flag = 0;
-    float avg = (z + y + x) * DAT_0042d620;
-    if (scale > DAT_003f32e0 && avg < DAT_0042d61c) {
+    float avg = (z + y + x) * (*(float*)&DAT_0042d620);
+    if (scale > (*(float*)&DAT_003f32e0) && avg < (*(float*)&DAT_0042d61c)) {
         a3.flag = 1;
         blend = (avg + scale) / scale;
-        if (blend < DAT_003f32e0)
+        if (blend < (*(float*)&DAT_003f32e0))
             blend = 0.0f;
     }
 

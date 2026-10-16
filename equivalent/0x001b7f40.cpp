@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 28/28)
 // FUN_001b7f40 @ 0x001b7f40
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern unsigned int DAT_004d9968;
 extern void __fastcall __security_check_cookie(unsigned int);
 struct Movie {
@@ -13,7 +14,6 @@ struct Audio_1b7f40 { void FUN_001eb870(); void FUN_001eb2a0(float,int); float F
 struct Other_1b7f40 { void FUN_000bb670(); };
 struct Manager_1b7f40 { Audio_1b7f40* FUN_000862e0(); Other_1b7f40* FUN_00086280(); };
 struct World { char pad[0x54]; Manager_1b7f40* manager; };
-extern unsigned char DAT_004dd839;
 struct Resource_1b7f40 { void FUN_002078d0(); void FUN_0008db60(int); };
 extern int __cdecl FUN_00266da0(int);
 extern int __cdecl sprintf(char*,const char*,...);
@@ -40,11 +40,11 @@ void Target_1b7f40::run(const char* name, unsigned char useName) {
  if(movie) {
  DAT_004dd700->manager->FUN_00086280()->FUN_000bb670();
  char path[256];
- sprintf(path,"%s\\%s.rmv",DAT_004dd839 ? "movies-pal":"movies",name);
+ sprintf(path,"%s\\%s.rmv",(*(unsigned char*)&DAT_004dd839) ? "movies-pal":"movies",name);
  const char* result=FUN_001b73c0(name);
  float scale;
  if(!useName) result=(const char*)&scale;
- scale=DAT_004dd839 ? 1.2f : 1.0f;
+ scale=(*(unsigned char*)&DAT_004dd839) ? 1.2f : 1.0f;
  movie->open(path,result,0,scale);
  if(movie->state()==0) FUN_001b7970();
  else {

@@ -1,7 +1,7 @@
+#include "decls/data/game/global.h"
+
 extern "C" char DAT_003f410c[];
 extern "C" char DAT_003f442c[];
-extern "C" char DAT_0048e0f0[];
-extern "C" char DAT_0048e100[];
 struct CActorManager {};
 extern char GetName(const char*);
 class Obj_2ed20 {
@@ -21,8 +21,8 @@ Obj_2ed20::Obj_2ed20(const char* arg, void* p, CActorManager* cm) {
     Init(arg, 1);
     vt = ((int)DAT_003f410c);
     p1c = cm;
-    b18 = GetName((const char*)((int)DAT_0048e100));
-    b10 = GetName((const char*)((int)DAT_0048e0f0));
+    b18 = GetName((const char*)((int)((char*)&DAT_0048e100)));
+    b10 = GetName((const char*)((int)((char*)&DAT_0048e0f0)));
     vt = ((int)DAT_003f442c);
     p20 = p;
 }

@@ -1,6 +1,6 @@
+#include "decls/data/engine/audio.h"
+
 extern "C" char DAT_00429440[];
-extern "C" char DAT_004e6330[];
-extern "C" char DAT_004e6338[];
 extern void __stdcall FUN_002584d0(void*, void*, void*, int);
 class X_24d6b0 {
   public:

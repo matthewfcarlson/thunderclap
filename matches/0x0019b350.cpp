@@ -1,5 +1,6 @@
+#include "decls/data/game/global.h"
+
 extern "C" char DAT_0041b3f4[];
-extern "C" char DAT_004e2210[];
 class H {
   public:
     void Fn(int);

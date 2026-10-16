@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1832 inputs, branch coverage 92/95, incomplete)
 // FUN_002d7440 @ 0x002d7440
 // libpng 1.2.x png_read_row, as compiled into the game (zlib 1.2 inflate, Adam7 interlace handling).
+#include "decls/data/engine/pure3d.h"
+
 struct ZStream_2d7440 {
     unsigned char *next_in;          // 0x00
     unsigned int avail_in;           // 0x04
@@ -65,9 +67,9 @@ struct PngStruct_2d7440 {
     ReadRowFn read_row_fn;           // 0x190
 };
 
-extern int DAT_004d112c[];           // png_pass_mask
-extern int DAT_004d1148[];           // png_pass_dsp_mask
-extern const char DAT_004d103c[4];   // "IDAT"
+           // png_pass_mask
+           // png_pass_dsp_mask
+   // "IDAT"
 
 void __cdecl FUN_002e7fb0(PngStruct_2d7440 *png);                                   // png_read_start_row
 void __cdecl FUN_002e7680(PngStruct_2d7440 *png, unsigned char *row, int mask);     // png_combine_row
@@ -162,7 +164,7 @@ void __cdecl FUN_002d7440(PngStruct_2d7440 *png, unsigned char *row, unsigned ch
                 png->idat_size = FUN_002e7500(chunk_length);
                 FUN_002d6c90(png);
                 FUN_002e7580(png, png->chunk_name, 4);
-                if (*(unsigned int *)png->chunk_name != *(const unsigned int *)DAT_004d103c)
+                if (*(unsigned int *)png->chunk_name != *(const unsigned int *)((const char*)&DAT_004d103c))
                     FUN_002e69a0(png, "Not enough image data");
             }
             png->zstream.avail_in = png->zbuf_size;

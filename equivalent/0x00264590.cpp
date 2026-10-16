@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 28/28)
 // FUN_00264590 @ 0x00264590
+#include "decls/data/engine/audio.h"
+#include "decls/data/engine/content.h"
+
 struct Sink_264590 {
     virtual void vfn0();
     virtual void vfn1();
@@ -27,8 +30,6 @@ struct Sink_264590 {
 struct Clock_264590 {
     void FUN_00264d20();
 };
-extern Clock_264590 *DAT_00527c58;
-extern char DAT_004e7c28[0x40000];
 unsigned int FUN_00267f80();
 
 class Stream {
@@ -85,7 +86,7 @@ bool Stream::FUN_00264590(const void *data, int count, int size, int flag)
                     sink->vfn21();
                 } else {
                     while (!sink->vfn20()) {
-                        DAT_00527c58->FUN_00264d20();
+                        (*(Clock_264590**)&DAT_00527c58)->FUN_00264d20();
                         lastTime = FUN_00267f80();
                     }
                 }
@@ -93,9 +94,9 @@ bool Stream::FUN_00264590(const void *data, int count, int size, int flag)
             int next = (bank == 0);
             pos = 0;
             limit = capacity;
-            buffer = DAT_004e7c28 + (next << 17);
+            buffer = ((char*)((char*)&DAT_004e7be0 + 72)) + (next << 17);
             bank = next;
-            FUN_00264050(DAT_004e7c28 + ((next == 0) << 17));
+            FUN_00264050(((char*)((char*)&DAT_004e7be0 + 72)) + ((next == 0) << 17));
         }
     }
     if (notify)
@@ -103,7 +104,7 @@ bool Stream::FUN_00264590(const void *data, int count, int size, int flag)
     if (!fd) {
         if (pending >= 0x400) {
             if (FUN_00267f80() - lastTime >= interval) {
-                DAT_00527c58->FUN_00264d20();
+                (*(Clock_264590**)&DAT_00527c58)->FUN_00264d20();
                 lastTime = FUN_00267f80();
             }
             pending = 0;

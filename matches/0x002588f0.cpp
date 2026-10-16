@@ -1,8 +1,8 @@
 #include "gen/om.h"
+#include "decls/data/engine/om.h"
 
-extern "C" char DAT_004cd1a8[];
 extern "C" void __cdecl helper(void*, om::Type*);
 
 void om::Type::vfunc_1() {
-    helper((void*)((int)DAT_004cd1a8), this);
+    helper((void*)((int)((char*)&DAT_004cd1a8)), this);
 }

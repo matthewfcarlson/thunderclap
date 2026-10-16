@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 44/46, incomplete)
 // FUN_0021a0f0 @ 0x0021a0f0
+#include "decls/data/engine/unknown.h"
+
 union Value_21a0f0 {
     float n;
     void *p;
@@ -43,7 +45,7 @@ struct Table_21a0f0 {
     int sizearray;              // 0x1c
 };
 
-extern TValue_21a0f0 DAT_00426824;     // nil object
+     // nil object
 
 // equiv-conv: FUN_00219be0 esi edi stack
 void FUN_00219be0(Table_21a0f0 *t, int nasize, lua_State_21a0f0 *L);
@@ -85,7 +87,7 @@ void FUN_0021a0f0(int nasize, Table_21a0f0 *t, lua_State_21a0f0 *L, int lsize)
             TValue_21a0f0 *arr = &t->array[i];
             if (arr->tt != 0) {
                 TValue_21a0f0 *slot = FUN_00219dc0(t, i + 1);
-                if (slot == &DAT_00426824) {
+                if (slot == ((TValue_21a0f0*)&DAT_00426824)) {
                     key.tt = 3;
                     key.value.n = (float)(i + 1);
                     slot = FUN_0021a3e0(L, t, &key);
@@ -104,7 +106,7 @@ void FUN_0021a0f0(int nasize, Table_21a0f0 *t, lua_State_21a0f0 *L, int lsize)
             continue;
         TValue_21a0f0 *k = &old->key;
         int ktt = k->tt;
-        TValue_21a0f0 *p = &DAT_00426824;
+        TValue_21a0f0 *p = ((TValue_21a0f0*)&DAT_00426824);
         bool generic = true;
         if (ktt == 3) {
             float f = k->value.n;
@@ -136,7 +138,7 @@ void FUN_0021a0f0(int nasize, Table_21a0f0 *t, lua_State_21a0f0 *L, int lsize)
             } while (n);
         }
         t->flags = 0;
-        if (p == &DAT_00426824) {
+        if (p == ((TValue_21a0f0*)&DAT_00426824)) {
             if (k->tt == 0) {
                 FUN_00214a90(L, "table index is nil");
             } else if (k->tt == 3 && !(k->value.n == k->value.n)) {

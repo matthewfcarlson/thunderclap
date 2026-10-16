@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3059 inputs, branch coverage 96/98, incomplete)
 // COccupationAgent::vfunc_4 @ 0x00103c30
+#include "decls/data/game/global.h"
+
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" double sqrt(double);
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int);
 extern unsigned int DAT_004d9968;
-extern unsigned __int64 DAT_004dc060;
 
 struct Vec3_103c30 {
     float x, y, z;
@@ -29,13 +30,6 @@ struct Script_103c30 {
 extern Script_103c30* __cdecl FUN_001d4c90();
 extern unsigned __int64 __cdecl FUN_0027afb0(const char* s);
 
-extern Vec3_103c30 DAT_004e0a9c;
-extern unsigned int DAT_004e0aa8;
-extern unsigned char DAT_004a1c44;
-extern float DAT_004a1c40;
-extern float DAT_004a1c58;
-extern float DAT_004a1c5c;
-extern float DAT_004a1c60;
 
 extern float __cdecl FUN_000964e0();
 extern float __cdecl FUN_00083d90(float* v);
@@ -226,7 +220,7 @@ void COccupationAgent::vfunc_4(Ctx2_103c30* a1, float a2, int a3)
         if (part != 0 && part->vfunc_9() == 4)
             break;
         sub->FUN_001048d0(this);
-        if (b->mode->FUN_000443c0() == DAT_004dc060) {
+        if (b->mode->FUN_000443c0() == (*(unsigned __int64*)&DAT_004dc060)) {
             float t = fC4 - 10.0f;
             if (t < 0.0f)
                 t = -t;
@@ -342,18 +336,18 @@ void COccupationAgent::vfunc_4(Ctx2_103c30* a1, float a2, int a3)
         } else {
             if (!(DAT_004e0aa8 & 1)) {
                 DAT_004e0aa8 |= 1;
-                DAT_004e0a9c.x = 0.0f;
-                DAT_004e0a9c.y = 0.0f;
-                DAT_004e0a9c.z = 0.0f;
+                (*(Vec3_103c30*)&DAT_004e0a9c).x = 0.0f;
+                (*(Vec3_103c30*)&DAT_004e0a9c).y = 0.0f;
+                (*(Vec3_103c30*)&DAT_004e0a9c).z = 0.0f;
             }
             if (DAT_004a1c44 && list != 0 && iB8 < list->count - 1 && iB8 >= 0 &&
-                b->v208c.FUN_0022d2b0(&DAT_004e0a9c, 1e-05f)) {
+                b->v208c.FUN_0022d2b0(((Vec3_103c30*)&DAT_004e0a9c), 1e-05f)) {
                 Vec3_103c30 u2;
                 u2.x = 0.0f;
                 u2.y = 0.0f;
                 u2.z = 0.0f;
                 b->locator->FUN_00059a50(&u2);
-                float r = DAT_004a1c40;
+                float r = (*(float*)&DAT_004a1c40);
                 Vec3_103c30 cur;
                 cur.x = u2.x;
                 cur.z = u2.z;
@@ -464,9 +458,9 @@ void COccupationAgent::vfunc_4(Ctx2_103c30* a1, float a2, int a3)
                         float A = FUN_00224f10(&t3);
                         float B = FUN_00224f10(&b->v2064);
                         float C = FUN_00224fc0(B, A);
-                        vE0.x = DAT_004a1c58;
-                        vE0.y = DAT_004a1c5c;
-                        vE0.z = DAT_004a1c60;
+                        vE0.x = (*(float*)&DAT_004a1c58);
+                        vE0.y = (*(float*)&DAT_004a1c5c);
+                        vE0.z = (*(float*)&DAT_004a1c60);
                         FUN_00224d70(A - FUN_00083d90(&C) * 1.57079637f, &vE0);
                     }
                 }

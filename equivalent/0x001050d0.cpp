@@ -3,6 +3,7 @@
 // equiv-map: ?Del340@@YAXPAX@Z = 0x0008d340
 // equiv-map: ?Del330@@YAXPAX@Z = 0x0008d330
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" double __cdecl sqrt(double);
 void __cdecl Del340(void *p);
 void __cdecl Del330(void *p);
@@ -108,8 +109,6 @@ V3_1050d0 *__cdecl FUN_00083e00(V3_1050d0 *out, V3_1050d0 *in, float s);
 float __cdecl FUN_0010b1c0(Ctx_1050d0 *a1, Body_1050d0 *b, float thr, V3_1050d0 *out);
 char __cdecl FUN_00036b10(Ctx_1050d0 *w, V3_1050d0 *a, V3_1050d0 *b, V3_1050d0 *c, V3_1050d0 *d, char *e, char *f);
 
-extern float DAT_004a1c64;
-extern float DAT_004a1c7c;
 
 struct Frame_1050d0 {
     float L;                          // path-length / scratch (reused for t and k later)

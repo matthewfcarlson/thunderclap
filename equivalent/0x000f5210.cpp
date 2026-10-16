@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 9/10, incomplete)
 // FUN_000f5210 @ 0x000f5210
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 namespace pure3d { class CompositeDrawable; }
 namespace content {
 namespace LoadInventory {
@@ -23,7 +24,6 @@ public:
     virtual void v2();
     virtual Controller_f5210 *Find(void *caster, Key_f5210 key);
 };
-extern Inventory_f5210 *DAT_004dd9cc;
 
 class Slots_f5210 {
 public:
@@ -46,7 +46,7 @@ void Slots_f5210::FUN_000f5210(const char *assetName)
     }
     if (i >= 2)
         return;
-    Inventory_f5210 *inv = DAT_004dd9cc;
+    Inventory_f5210 *inv = (*(Inventory_f5210**)&DAT_004dd9cc);
     Key_f5210 key = FUN_0027b020(assetName);
     content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> caster;
     Controller_f5210 *c = inv->Find(&caster, key);

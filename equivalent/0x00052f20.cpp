@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_00052f20 @ 0x00052f20
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -50,11 +53,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc430;
-extern int DAT_004dc434;
-extern const char* DAT_0049ee74[2];
-extern const char* DAT_0042773c[6];
-extern int DAT_00427754;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_00052f20()
@@ -66,11 +64,11 @@ void FUN_00052f20()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<CAxisDoubleTapCondition>("axis", DAT_0049ee74, 2, &CAxisDoubleTapCondition::FUN_00047b00);
+            params[0] = new (mem) fight::ParamEnumConstList<CAxisDoubleTapCondition>("axis", ((const char**)&DAT_0049ee74), 2, &CAxisDoubleTapCondition::FUN_00047b00);
         mem = FUN_0008d690(0x20);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamEnumConstList<CAxisDoubleTapCondition>("compareArc", DAT_0042773c, DAT_00427754, &CAxisDoubleTapCondition::FUN_00047ba0);
+            params[1] = new (mem) fight::ParamEnumConstList<CAxisDoubleTapCondition>("compareArc", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &CAxisDoubleTapCondition::FUN_00047ba0);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
@@ -83,7 +81,7 @@ void FUN_00052f20()
         params[4] = 0;
         if (mem)
             params[4] = new (mem) fight::ParamFloatConstRange<CAxisDoubleTapCondition>("timeMax", &CAxisDoubleTapCondition::FUN_00047be0);
-        FUN_002347b0(&DAT_004dc430, params, 5);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc430), params, 5);
     }
     DAT_004dc434++;
 }

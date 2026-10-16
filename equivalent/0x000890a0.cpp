@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 397 inputs, branch coverage 6/6)
 // FUN_000890a0 @ 0x000890a0
-extern int DAT_0049c294;
+#include "decls/data/game/hulkfight.h"
+
 extern unsigned int DAT_004d9968;
 extern void __fastcall __security_check_cookie(unsigned int cookie);
 struct Record_890a0 { unsigned int words[0x2fa]; };

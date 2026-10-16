@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 22/22)
 // pure3d::CompositeDrawable::vfunc_8 @ 0x00298cb0
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
+
 struct Matrix {
     float m[16];
     void FUN_0022b980();
@@ -118,8 +121,6 @@ struct Camera {
 };
 struct CameraRef { Camera *camera; };
 
-extern CameraRef *DAT_0052c2b0;
-extern DeviceRef *DAT_0052c2ac;
 
 class Drawable {
 public:
@@ -159,7 +160,7 @@ void Drawable::Render(Owner_298cb0 *owner, int arg)
             Matrix m;
             V3_298cb0 v;
             m.FUN_0022b980();
-            m.FUN_0022be40(&DAT_0052c2b0->camera->FUN_0028faa0()->pos);
+            m.FUN_0022be40(&(*(CameraRef**)&DAT_0052c2b0)->camera->FUN_0028faa0()->pos);
             v = offset;
             v.FUN_0022d210(transforms->matrices);
             v.FUN_0022d210(&m);
@@ -177,9 +178,9 @@ void Drawable::Render(Owner_298cb0 *owner, int arg)
                     el->Draw(owner, arg);
                 } else {
                     int idx = e->index;
-                    DAT_0052c2ac->device->SetTransform(0, &transforms->matrices[idx]);
+                    (*(DeviceRef**)&DAT_0052c2ac)->device->SetTransform(0, &transforms->matrices[idx]);
                     el->Draw(owner, arg);
-                    DAT_0052c2ac->device->SetState(0);
+                    (*(DeviceRef**)&DAT_0052c2ac)->device->SetState(0);
                 }
             }
         }

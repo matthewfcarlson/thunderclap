@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 589 inputs, branch coverage 117/118, incomplete)
 // FUN_000464c0 @ 0x000464c0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 inline void* operator new(unsigned int, void* p) { return p; }
 extern "C" int __cdecl strcmp(const char*, const char*);
 extern "C" long __cdecl atol(const char*);
@@ -10,11 +11,6 @@ extern int __cdecl FUN_00267760(char* buf, int size, const char* fmt, ...);
 extern void __cdecl FUN_00363bc0();
 
 extern unsigned int DAT_004d9968;
-extern unsigned int DAT_004dc358;
-extern const char* DAT_0048f6a4[];
-extern const char* DAT_0048f6b4[];
-extern const char* DAT_0048f6d0[];
-extern float DAT_003f5eb8[];
 
 struct Vec3_464c0 { float x, y, z; };
 struct Key_464c0 {
@@ -24,7 +20,6 @@ struct Key_464c0 {
     void FUN_0027af50();
     void FUN_0027b040(const char* s);
 };
-extern Key_464c0 DAT_004dc350;
 
 namespace content {
 namespace LoadInventory {
@@ -312,10 +307,10 @@ bool CharDef::FUN_000464c0(int unused, Reader* props) {
     props->FUN_0027aac0("Size", &fr.x14.s14);
     if (fr.x14.s14) {
         for (int i = 0; i < 6; i++) {
-            if (strcmp(fr.x14.s14, DAT_0048f6b4[i]) == 0) {
+            if (strcmp(fr.x14.s14, ((const char**)&DAT_0048f6b4)[i]) == 0) {
                 f014 = i;
                 f018 = i;
-                f01c = DAT_003f5eb8[i];
+                f01c = ((float*)&DAT_003f5eb8)[i];
                 break;
             }
         }
@@ -325,7 +320,7 @@ bool CharDef::FUN_000464c0(int unused, Reader* props) {
     props->FUN_0027aac0("CameraSize", &fr.x14.s14);
     if (fr.x14.s14) {
         for (int i = 0; i < 6; i++) {
-            if (strcmp(fr.x14.s14, DAT_0048f6b4[i]) == 0) {
+            if (strcmp(fr.x14.s14, ((const char**)&DAT_0048f6b4)[i]) == 0) {
                 f018 = i;
                 break;
             }
@@ -342,7 +337,7 @@ bool CharDef::FUN_000464c0(int unused, Reader* props) {
     fr.jidp = jid;
     fr.x14.namep = jname[0];
     fr.u18.offp = joff;
-    fr.u24.nm = DAT_0048f6d0;
+    fr.u24.nm = ((const char**)&DAT_0048f6d0);
     do {
         const char* sub = *fr.u24.nm;
         FUN_00267760(fr.buf, 0x80, "CollActor%sJoint", sub);
@@ -366,7 +361,7 @@ bool CharDef::FUN_000464c0(int unused, Reader* props) {
         fr.x14.namep += 0x20;
         fr.u18.offp++;
         fr.u24.nm++;
-    } while (fr.u24.nm < DAT_0048f6d0 + 3);
+    } while (fr.u24.nm < ((const char**)&DAT_0048f6d0) + 3);
     fr.t0 = 0;
     props->FUN_0027aac0("FightRoot", &fr.t0);
     sub[0].FUN_00233f20(fr.t0);
@@ -423,23 +418,23 @@ bool CharDef::FUN_000464c0(int unused, Reader* props) {
     props->FUN_0027aac0("Alignment", &fr.sal);
     if (fr.sal) {
         for (int i = 0; i < 4; i++) {
-            if (strcmp(fr.sal, DAT_0048f6a4[i]) == 0) {
+            if (strcmp(fr.sal, ((const char**)&DAT_0048f6a4)[i]) == 0) {
                 f1b0 = i;
                 break;
             }
         }
     }
-    if (!(DAT_004dc358 & 1)) {
-        DAT_004dc358 |= 1;
-        DAT_004dc350.FUN_0027af00();
+    if (!((*(unsigned int*)&DAT_004dc358) & 1)) {
+        (*(unsigned int*)&DAT_004dc358) |= 1;
+        (*(Key_464c0*)&DAT_004dc350).FUN_0027af00();
         _atexit(FUN_00363bc0);
     }
     for (int i = 1; i <= 14; i++) {
         fr.def = -1.0f;
         FUN_00267760(fr.nbuf, 0x20, "Attack%d", i);
-        DAT_004dc350.FUN_0027b040(fr.nbuf);
+        (*(Key_464c0*)&DAT_004dc350).FUN_0027b040(fr.nbuf);
         props->FUN_0027aa20(fr.nbuf, &fr.def);
-        fr.u34.tmp.FUN_0027af10(DAT_004dc350);
+        fr.u34.tmp.FUN_0027af10((*(Key_464c0*)&DAT_004dc350));
         FUN_00044820(&fr.u34.tmp, fr.def);
         fr.u34.tmp.FUN_0027af50();
     }
@@ -582,7 +577,7 @@ bool CharDef::FUN_000464c0(int unused, Reader* props) {
                     *pf = fr.u20.m * *pf;
                 sc->FUN_001d19d0(1);
             }
-            if (sc->FUN_001d2ba0(DAT_0048f6a4[f1b0], 0, 1)) {
+            if (sc->FUN_001d2ba0(((const char**)&DAT_0048f6a4)[f1b0], 0, 1)) {
                 fr.u20.m = 1.0f;
                 if (sc->FUN_001d2d40("MaxHealthMultiplier", &fr.u20.m))
                     *pf = fr.u20.m * *pf;

@@ -1,5 +1,6 @@
+#include "decls/data/engine/audio.h"
+
 extern "C" char DAT_0042991c[];
-extern "C" char DAT_004e67b8[];
 namespace om {
 class DynBehaviour {
   public:

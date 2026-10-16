@@ -1,6 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3073 inputs, branch coverage 90/104, incomplete)
 // hulkfight::ai::ComputeDropZoneCondition::vfunc_6 @ 0x00115fb0
 #include "decls/address.h"
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight/ai.h"
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
@@ -104,12 +107,6 @@ struct Holder_115fb0 {
 Holder_115fb0 *FUN_001c3d90();
 char FUN_00036b10(World *w, Vec3_115fb0 *p, Vec3_115fb0 *q, Vec3_115fb0 *o1, Vec3_115fb0 *o2, char *c1, char *c2);
 
-extern int DAT_004e0c94;
-extern char DAT_004e0c90;
-extern Vec3_115fb0 DAT_004e0c84;
-extern int DAT_004d2a3c;
-extern char DAT_00554c1c;
-extern int DAT_00554c18;
 
 // Stack frame of the original (0x84 bytes), field by field.
 struct Frame_115fb0 {
@@ -233,16 +230,16 @@ bool ComputeDropZoneCondition::vfunc_6(int a0, Entity *e, int a2)
     f.dirC = f.zv;
     f.ok = 0;
     f.acc = 0.0f;
-    if (!(DAT_004e0c90 & 1))
-        DAT_004e0c90 |= 1;
-    DAT_004e0c84.z = 0.0f;
-    DAT_004e0c84.y = 0.0f;
-    DAT_004e0c84.x = 0.0f;
+    if (!((*(char*)&DAT_004e0c90) & 1))
+        (*(char*)&DAT_004e0c90) |= 1;
+    (*(Vec3_115fb0*)&DAT_004e0c84).z = 0.0f;
+    (*(Vec3_115fb0*)&DAT_004e0c84).y = 0.0f;
+    (*(Vec3_115fb0*)&DAT_004e0c84).x = 0.0f;
     f.y1 = f.dirC.y + 1.0f;
     while (f.acc < limit) {
         f.acc = f.acc + step;
         DAT_004d2a3c = 2;
-        DAT_00554c1c = 1;
+        (*(char*)&DAT_00554c1c) = 1;
         DAT_00554c18 = 0;
         f.dirC.y = f.y1 + f.acc;
         DAT_004dd700->p20->FUN_00025260(0, 0, 0);
@@ -303,7 +300,7 @@ bool ComputeDropZoneCondition::vfunc_6(int a0, Entity *e, int a2)
         DAT_004e0c94++;
         return true;
     }
-    obj->FUN_00035430(&DAT_004e0c84);
-    obj->FUN_00035490(&DAT_004e0c84);
+    obj->FUN_00035430(((Vec3_115fb0*)&DAT_004e0c84));
+    obj->FUN_00035490(((Vec3_115fb0*)&DAT_004e0c84));
     return false;
 }

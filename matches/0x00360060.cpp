@@ -1,4 +1,5 @@
-extern "C" char DAT_004e69a8[];
+#include "decls/data/engine/audio.h"
+
 extern "C" int __cdecl CreateThing(const char*, int);
 
 void FUN_00360060() {

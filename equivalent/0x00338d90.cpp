@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_00338d90 @ 0x00338d90
+#include "decls/data/game/global.h"
+
 struct lua_State;
 
 struct lua_Debug_338d90 {
@@ -17,7 +19,6 @@ struct lua_Debug_338d90 {
 
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern char DAT_003f335c;
 
 int __cdecl FUN_00213fc0(lua_State *L, int level, lua_Debug_338d90 *ar);
 void __cdecl FUN_00213380(lua_State *L, const char *s, unsigned int len);
@@ -41,6 +42,6 @@ void luaL_where(lua_State *L, int level)
             return;
         }
     }
-    FUN_00213380(L, &DAT_003f335c, 0);
+    FUN_00213380(L, ((char*)&DAT_003f335c), 0);
     __security_check_cookie(f.cookie);
 }

@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_000bc100 @ 0x000bc100
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 extern "C" void __cdecl FUN_000fc130(const void *arg);
 extern "C" void __cdecl FUN_0008d340(void *p);
 extern "C" void __cdecl FUN_000fc160();
@@ -103,8 +106,6 @@ struct Flag_bc100 {
 extern "C" Scene_bc100 *__cdecl FUN_000fc1b0();
 extern "C" Hook_bc100 *__cdecl FUN_000fc3d0();
 extern "C" Flag_bc100 *__cdecl FUN_0008e090();
-extern "C" const void *DAT_0049f3ac;
-extern Pool_bc100 *DAT_004dd9cc;
 
 class Loader_bc100 {
 public:
@@ -150,7 +151,7 @@ void Loader_bc100::FUN_000bc100()
     Hook_bc100 *hook = FUN_000fc3d0();
     if (hook)
         hook->vf65();
-    DAT_004dd9cc->FUN_002665a0();
+    (*(Pool_bc100**)&DAT_004dd9cc)->FUN_002665a0();
     display->FUN_00294980(displayArg);
     state = 6;
     FUN_0008e090()->ready = 1;

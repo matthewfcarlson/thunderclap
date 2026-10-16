@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 43/47, incomplete)
 // ControllerPollerBase::vfunc_1 @ 0x000de590
+#include "decls/data/game/global.h"
+
 struct ButtonEntry {
     float value;
     int id;
@@ -26,10 +28,6 @@ public:
     virtual float vfunc_10(int i);
 };
 
-extern ButtonEntry DAT_004de800[24];
-extern int DAT_004de8c0;
-extern AxisEntry DAT_004a0e70[8];
-extern float DAT_004a0e68;
 
 float __cdecl FUN_000de530(float x, float lo, float hi);
 
@@ -50,9 +48,9 @@ float ControllerPollerBase::vfunc_1(unsigned int cmd, int index)
     case 8:
     case 10:
     case 11:
-        for (int i = 0; i < DAT_004de8c0; i++) {
-            if (DAT_004de800[i].id == (int)cmd) {
-                float v = devices[index]->vfunc_4(DAT_004de800[i].value);
+        for (int i = 0; i < (*(int*)&DAT_004de8c0); i++) {
+            if (((ButtonEntry*)&DAT_004de800)[i].id == (int)cmd) {
+                float v = devices[index]->vfunc_4(((ButtonEntry*)&DAT_004de800)[i].value);
                 if (v > best)
                     best = v;
             }
@@ -70,10 +68,10 @@ float ControllerPollerBase::vfunc_1(unsigned int cmd, int index)
     case 6:
     case 7:
         for (int k = 0; k < 8; k++) {
-            if (DAT_004a0e70[k].id == (int)cmd) {
+            if (((AxisEntry*)&DAT_004a0e70)[k].id == (int)cmd) {
                 for (int j = 0; j < dev->vfunc_6(); j++) {
                     float a = dev->vfunc_7(j);
-                    float r = FUN_000de530(a, 0.0f, DAT_004a0e70[k].lo);
+                    float r = FUN_000de530(a, 0.0f, ((AxisEntry*)&DAT_004a0e70)[k].lo);
                     union { float f; unsigned int u; } ab;
                     ab.f = r;
                     ab.u = ab.u & 0x7fffffff;
@@ -83,7 +81,7 @@ float ControllerPollerBase::vfunc_1(unsigned int cmd, int index)
                 for (int j = 0; j < dev->vfunc_9(); j++) {
                     float v = dev->vfunc_10(j);
                     float lo = 0.0f;
-                    float hi = DAT_004a0e70[k].hi;
+                    float hi = ((AxisEntry*)&DAT_004a0e70)[k].hi;
                     float r;
                     if (lo > hi) {
                         if (v >= hi && v <= lo)

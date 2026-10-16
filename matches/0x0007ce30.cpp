@@ -1,8 +1,6 @@
-extern "C" char DAT_0048e0e4[];
-extern "C" char DAT_0048e0f0[];
-extern "C" char DAT_0048e100[];
+#include "decls/data/game/global.h"
+
 extern "C" char DAT_0048e10c[];
-extern "C" char DAT_0048e134[];
 class Base_7ce30 {
   public:
     Base_7ce30(int a, int b);
@@ -28,10 +26,10 @@ void Method5::f0() {}
 
 Method5::Method5(int a, int b) : Base_7ce30(a, 5) {
     m1c = b;
-    m18 = GetFlag((const char*)((int)DAT_0048e100));
-    m10 = GetFlag((const char*)((int)DAT_0048e0f0));
-    m11 = GetFlag((const char*)((int)DAT_0048e134));
-    m12 = GetFlag((const char*)((int)DAT_0048e0e4));
+    m18 = GetFlag((const char*)((int)((char*)&DAT_0048e100)));
+    m10 = GetFlag((const char*)((int)((char*)&DAT_0048e0f0)));
+    m11 = GetFlag((const char*)((int)((char*)&DAT_0048e134)));
+    m12 = GetFlag((const char*)((int)((char*)&DAT_0048e0e4)));
     m13 = GetFlag((const char*)((int)DAT_0048e10c));
     m14 = GetFlag((const char*)((int)DAT_0048e10c));
 }

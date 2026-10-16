@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 28/28)
 // FUN_00061850 @ 0x00061850
+#include "decls/data/game/global.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -133,10 +135,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc608;
-extern int DAT_004dc60c;
-extern const char* DAT_00495d60[5];
-extern const char* DAT_00495d50[4];
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_00061850()
@@ -159,7 +157,7 @@ void FUN_00061850()
         mem = FUN_0008d690(0x20);
         params[3] = 0;
         if (mem)
-            params[3] = new (mem) fight::ParamEnumConstList<CEffectTrack>("emitSpace", DAT_00495d60, 5, &CEffectTrack::FUN_00060470);
+            params[3] = new (mem) fight::ParamEnumConstList<CEffectTrack>("emitSpace", ((const char**)&DAT_00495d60), 5, &CEffectTrack::FUN_00060470);
         mem = FUN_0008d690(0x18);
         params[4] = 0;
         if (mem)
@@ -175,7 +173,7 @@ void FUN_00061850()
         mem = FUN_0008d690(0x20);
         params[7] = 0;
         if (mem)
-            params[7] = new (mem) fight::ParamEnumConstList<CEffectTrack>("attachSpace", DAT_00495d50, 4, &CEffectTrack::FUN_00060480);
+            params[7] = new (mem) fight::ParamEnumConstList<CEffectTrack>("attachSpace", ((const char**)&DAT_00495d50), 4, &CEffectTrack::FUN_00060480);
         mem = FUN_0008d690(0x18);
         params[8] = 0;
         if (mem)
@@ -196,7 +194,7 @@ void FUN_00061850()
         params[12] = 0;
         if (mem)
             params[12] = new (mem) fight::ParamFloatConstRange<CEffectTrack>("scale", &CEffectTrack::FUN_000604c0);
-        FUN_002347b0(&DAT_004dc608, params, 13);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc608), params, 13);
     }
     DAT_004dc60c++;
 }

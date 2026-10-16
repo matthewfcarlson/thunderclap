@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2728 inputs, branch coverage 29/30, incomplete)
 // FUN_0029d2c0 @ 0x0029d2c0
+#include "decls/data/engine/unknown.h"
+
 struct Vec3_29d2c0 {
     float x, y, z;
     float FUN_0022d110();
@@ -36,7 +38,6 @@ struct Pool_29d2c0 {
     Particle_29d2c0 *particles;
 };
 
-extern unsigned int DAT_004cf730;
 
 int __cdecl FUN_0009fa70(const int *value, const int *lo, const int *hi);
 
@@ -112,7 +113,7 @@ float Emitter_29d2c0::FUN_0029d2c0(const Vec3_29d2c0 *pos, unsigned int mask)
         else
             s = o1;
 
-        unsigned int color = DAT_004cf730;
+        unsigned int color = (*(unsigned int*)&DAT_004cf730);
         float life = 0.0f;
         if (s > 0.0) {
             unsigned int col = src->color;

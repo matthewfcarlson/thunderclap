@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 148 inputs, branch coverage 10/10)
 // FUN_001c8250 @ 0x001c8250
-extern float DAT_00421898;
-extern float DAT_004218c0;
+#include "decls/data/game/global.h"
+
 struct Item_1c8250 {
     char pad[0x90];
     float v90;
@@ -20,8 +20,8 @@ void Target_1c8250::FUN_001c8250()
     for (unsigned int i = 0; i < count; i++) {
         Item_1c8250 *it = items[i];
         if (it != 0) {
-            if (it->v94 != DAT_00421898 || it->v90 != DAT_00421898)
-                it->FUN_001c5130(DAT_00421898, DAT_004218c0);
+            if (it->v94 != (*(float*)&DAT_00421898) || it->v90 != (*(float*)&DAT_00421898))
+                it->FUN_001c5130((*(float*)&DAT_00421898), (*(float*)&DAT_004218c0));
         }
     }
 }

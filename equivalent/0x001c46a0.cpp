@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 12/12)
 // FUN_001c46a0 @ 0x001c46a0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 struct Vertex_1c46a0 {
     char pad0[8];
     float *pos;
@@ -57,8 +59,6 @@ public:
     virtual int S16(int v);
 };
 
-extern Device_1c46a0 *DAT_0052c2a4;
-extern Stage_1c46a0 **DAT_0052c2ac;
 void __cdecl FUN_000b3c80(int flag);
 
 class Bar {
@@ -85,15 +85,15 @@ public:
 void Bar::FUN_001c46a0()
 {
     if (fraction != 0.0f && alpha != 0.0f) {
-        float width = (float)DAT_0052c2a4->Width();
-        float height = (float)DAT_0052c2a4->Height();
+        float width = (float)(*(Device_1c46a0**)&DAT_0052c2a4)->Width();
+        float height = (float)(*(Device_1c46a0**)&DAT_0052c2a4)->Height();
         float frac = fraction;
         float half = height * 0.5f;
         DAT_0052c2a8->SetMode(2);
         DAT_0052c2a8->SetA(0);
         DAT_0052c2a8->SetB(0);
-        (*DAT_0052c2ac)->S15(0);
-        (*DAT_0052c2ac)->S13(0);
+        (*(*(Stage_1c46a0***)&DAT_0052c2ac))->S15(0);
+        (*(*(Stage_1c46a0***)&DAT_0052c2ac))->S13(0);
 
         unsigned int color = (int)(alpha * 255.0f);
         color = (((color << 8) | r) << 8 | g) << 8 | b;
@@ -146,7 +146,7 @@ void Bar::FUN_001c46a0()
         w->FUN_0008ef00();
         DAT_0052c2a8->End(w);
 
-        (*DAT_0052c2ac)->S16(0);
+        (*(*(Stage_1c46a0***)&DAT_0052c2ac))->S16(0);
         DAT_0052c2a8->SetMode(0);
         DAT_0052c2a8->SetA(1);
         DAT_0052c2a8->SetB(1);

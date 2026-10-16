@@ -1,6 +1,6 @@
 #include "gen/pure3d.h"
+#include "decls/data/platform/xbox/pure3d.h"
 
-extern "C" char DAT_004d4143[];
 
 bool pure3d::CameraAnimationController::vfunc_26(void* __p0) { void * p = (void *)__p0;
 

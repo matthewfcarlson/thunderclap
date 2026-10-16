@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 380 inputs, branch coverage 22/22)
 // FUN_0003e2a0 @ 0x0003e2a0
+#include "decls/data/game/hulkfight.h"
+
 struct Vec3_3e2a0 {
     float x, y, z;
 };
@@ -40,7 +42,6 @@ struct MatList {
     Mat_3e2a0* data;
 };
 
-extern float DAT_00421894;
 
 class Actor_3e2a0 {
 public:
@@ -111,7 +112,7 @@ void Actor_3e2a0::FUN_0003e2a0(int a, Vec3_3e2a0 off, float scale, int unused, b
         else
             t = posSource->target;
         if (t)
-            t->FUN_001c5080(DAT_00421894, 1.5f);
+            t->FUN_001c5080((*(float*)&DAT_00421894), 1.5f);
     }
 
     FUN_0003ba60(a, scale);

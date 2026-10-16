@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2991 inputs, branch coverage 8/8)
 // FUN_00072280 @ 0x00072280
+#include "decls/data/game/global.h"
+
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_00068930();
@@ -16,8 +18,6 @@ namespace fight {
  };
 }
 typedef fight::ParamFloatConstRange<CUninterruptibleTrack> Param;
-extern int DAT_004dcfd4;
-extern int DAT_004dcfd0;
 void __cdecl FUN_002347b0(int*, Param**, int);
 void FUN_00072280() {
  if (!DAT_004dcfd4) {

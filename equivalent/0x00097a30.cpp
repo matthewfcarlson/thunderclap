@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3004 inputs, branch coverage 54/54)
 // FUN_00097a30 @ 0x00097a30
+#include "decls/data/game/hulkfight.h"
+#include "decls/data/game/unknown.h"
+
 extern "C" double cos(double);
 
 struct V3_97a30 {
@@ -21,8 +24,6 @@ struct Rng_97a30 {
     float FUN_000787e0(float lo, float hi);
 };
 
-extern Rng_97a30 *DAT_004e5acc;
-extern float DAT_004dd940;
 
 bool __cdecl FUN_00096b50(void *ev, V3_97a30 *out, int *err);
 void __cdecl FUN_00096b00(void *ev, V3_97a30 *out);
@@ -66,7 +67,7 @@ int __cdecl FUN_00097a30(float a0, float a1, float a2, void *a3, float a4, V3_97
 
     mode = a11;
     if (a9 != 0.0f && a10 != 0.0f) {
-        Rng_97a30 *rng = DAT_004e5acc;
+        Rng_97a30 *rng = (*(Rng_97a30**)&DAT_004e5acc);
         if (mode == 1)
             mode = rng->FUN_00011380(2, 0xb);
         switch (mode) {

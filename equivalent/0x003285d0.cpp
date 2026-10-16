@@ -1,13 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_003285d0 @ 0x003285d0
-extern float DAT_00555b68;
-extern float DAT_00555b6c;
-extern float DAT_00555b70;
-extern float DAT_00555b74;
-extern float DAT_00555b78;
-extern float DAT_00555b7c;
-extern float DAT_00555b80;
-extern unsigned int DAT_00555b84;
+#include "decls/data/platform/xbox/pure3d.h"
+
 struct AccumulatorSource {
     char padding[0x80];
     float x, y, z, w;

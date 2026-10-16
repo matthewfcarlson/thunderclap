@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 290 inputs, branch coverage 60/62, incomplete)
 // pure3d::prop::StatePropDataLoader::vfunc_5 @ 0x00290bf0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" void *memcpy(void *, const void *, unsigned int);
 
@@ -149,9 +150,6 @@ struct Prop {
 
 int __cdecl FUN_00267760(char *buf, int size, const char *fmt, ...);
 void *FUN_00263ea0(unsigned int size);
-extern unsigned int DAT_0052c2b8;
-extern unsigned int DAT_0052c2bc;
-extern unsigned int DAT_0052c2c0;
 
 typedef content::LoadInventory::DynamicCaster<pure3d::CompositeDrawable> CasterComp;
 typedef content::LoadInventory::DynamicCaster<physics::CollisionObject> CasterColl;

@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000b9230 @ 0x000b9230
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 class Gfx {
   public:
     virtual void v0();
@@ -87,20 +89,18 @@ struct Canvas {
     void FUN_00293d40(float x, float y, float z);
     void FUN_00293da0(float x, float y, float z);
 };
-extern Canvas* DAT_0052c2ac;
-extern Viewport_b9230* DAT_0052c2a4;
 
 void __cdecl FUN_000b9230(Widget_b9230* widget) {
     int saved = DAT_0052c2a8->v25();
     DAT_0052c2a8->v24(1);
     DAT_0052c2a8->v12(6);
-    DAT_0052c2ac->layer->v15(0);
-    float scale = 1.3333f / DAT_0052c2a4->v16();
-    DAT_0052c2ac->layer->v13(0);
-    DAT_0052c2ac->FUN_00293da0(scale, scale, 1.0f);
-    DAT_0052c2ac->FUN_00293d40(-0.5f, -0.375f, 1.0f);
+    (*(Canvas**)&DAT_0052c2ac)->layer->v15(0);
+    float scale = 1.3333f / (*(Viewport_b9230**)&DAT_0052c2a4)->v16();
+    (*(Canvas**)&DAT_0052c2ac)->layer->v13(0);
+    (*(Canvas**)&DAT_0052c2ac)->FUN_00293da0(scale, scale, 1.0f);
+    (*(Canvas**)&DAT_0052c2ac)->FUN_00293d40(-0.5f, -0.375f, 1.0f);
     if (widget)
         widget->v8(0, 0);
-    DAT_0052c2ac->layer->v16(0);
+    (*(Canvas**)&DAT_0052c2ac)->layer->v16(0);
     DAT_0052c2a8->v24(saved);
 }

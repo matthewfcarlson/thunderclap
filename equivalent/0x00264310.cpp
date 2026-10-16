@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00264310 @ 0x00264310
+#include "decls/data/engine/audio.h"
+
 struct Sink_264310 {
     virtual void vfn0();
     virtual void vfn1();
@@ -27,7 +29,6 @@ struct Sink_264310 {
     virtual bool vfn23();
 };
 
-extern char DAT_004e7c28[0x40000];
 
 void __cdecl thunk_FUN_002710d0(Sink_264310 **out, const char *name, int a, int b, int c, int d, int e, int f);
 
@@ -71,7 +72,7 @@ void Stream::FUN_00264310(const char *name)
             } else {
                 capacity = 0x20000;
             }
-            FUN_00264050(DAT_004e7c28 + ((bank == 0) << 17));
+            FUN_00264050(((char*)((char*)&DAT_004e7be0 + 72)) + ((bank == 0) << 17));
             FUN_002640f0();
             return;
         }

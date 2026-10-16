@@ -1,4 +1,5 @@
-extern "C" char DAT_004e6ad0[];
+#include "decls/data/engine/audio.h"
+
 class SeqAction {
   public:
     virtual void vfunc_0();

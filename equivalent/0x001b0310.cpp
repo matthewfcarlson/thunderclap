@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3029 inputs, branch coverage 23/23)
 // FUN_001b0310 @ 0x001b0310
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight.h"
+
 extern "C" int atexit(void (*)());
 
 struct Key_1b0310 {
@@ -9,20 +12,9 @@ struct Key_1b0310 {
     void FUN_0027b040(const char *name);
 };
 
-extern unsigned DAT_004e1800;
-extern Key_1b0310 DAT_004e17f8;
 void FUN_00363fd0();
 bool FUN_00044500(void *p);
 
-extern float DAT_003f32e0;
-extern float DAT_004c36f8;
-extern float DAT_004c36fc;
-extern float DAT_004c3700;
-extern float DAT_004c3704;
-extern float DAT_004c3708;
-extern float DAT_004c370c;
-extern float DAT_004c3710;
-extern float DAT_004c3714;
 
 struct Inner_1b0310 {
     char pad0[0x14];
@@ -48,15 +40,15 @@ float FUN_001b0310(Attacker_1b0310 *atk, Victim *vic)
     if (atk != 0) {
         if ((DAT_004e1800 & 1) == 0) {
             DAT_004e1800 |= 1;
-            DAT_004e17f8.FUN_0027af00();
+            (*(Key_1b0310*)((char*)&DAT_004e17c0 + 56)).FUN_0027af00();
             atexit(FUN_00363fd0);
         }
-        DAT_004e17f8.FUN_0027b040("no_thrown_damage");
-        if (atk->FUN_00036e40(&DAT_004e17f8) != 0)
-            return DAT_003f32e0;
+        (*(Key_1b0310*)((char*)&DAT_004e17c0 + 56)).FUN_0027b040("no_thrown_damage");
+        if (atk->FUN_00036e40(((Key_1b0310*)((char*)&DAT_004e17c0 + 56))) != 0)
+            return (*(float*)&DAT_003f32e0);
     }
     v = vic->f230;
-    if (v >= DAT_003f32e0)
+    if (v >= (*(float*)&DAT_003f32e0))
         return v;
     switch (vic->FUN_001d64a0()) {
     case 2:

@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 17/20, incomplete)
 // FUN_000d49b0 @ 0x000d49b0
+#include "decls/data/game/global.h"
+
 struct Vec_d49b0 {
  float x,y,z;
  bool FUN_0022d2b0(Vec_d49b0* other, float tolerance);
 };
-extern float DAT_004a06e4;
 void __stdcall FUN_000d49b0(Vec_d49b0* target, Vec_d49b0* current) {
  if(current->FUN_0022d2b0(target, 0.00001f)) return;
  for(int i=0;i<3;++i) {

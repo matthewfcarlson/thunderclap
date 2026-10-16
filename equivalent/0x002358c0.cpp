@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 427 inputs, branch coverage 16/16)
 // fight::ParamValueInventoryEntity::vfunc_10 @ 0x002358c0
 // ParamValueInventoryEntity: find an entity by 64-bit id, first in the global inventory, then among our own entries.
+#include "decls/data/engine/fight.h"
+
 namespace content {
 namespace LoadInventory {
 class __declspec(novtable) DynamicCasterBase {
@@ -30,7 +32,6 @@ public:
     virtual void v2();
     virtual Entity *v3(content::LoadInventory::DynamicCaster<pure3d::Entity> *caster, unsigned int lo, unsigned int hi);
 };
-extern Loader_2358c0 *DAT_004e5bb8;
 
 class ParamValueInventoryEntity {
 public:
@@ -49,9 +50,9 @@ public:
 
 Entity *ParamValueInventoryEntity::FUN_002358c0(void *owner, unsigned int idLo, unsigned int idHi)
 {
-    if (DAT_004e5bb8) {
+    if ((*(Loader_2358c0**)&DAT_004e5bb8)) {
         content::LoadInventory::DynamicCaster<pure3d::Entity> caster;
-        Entity *found = DAT_004e5bb8->v3(&caster, idLo, idHi);
+        Entity *found = (*(Loader_2358c0**)&DAT_004e5bb8)->v3(&caster, idLo, idHi);
         if (found && vfunc_6(owner, found)) {
             return found;
         }

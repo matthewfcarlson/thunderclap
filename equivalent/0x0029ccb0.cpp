@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 39 inputs, branch coverage 28/32, incomplete)
 // FUN_0029ccb0 @ 0x0029ccb0
-extern unsigned int DAT_004cf734;
+#include "decls/data/engine/unknown.h"
 
 struct Item_29ccb0 {
     char pad0[0x14];
@@ -65,7 +65,7 @@ void Shader::FUN_0029ccb0(ItemList_29ccb0 *list, float amount)
                         int inv = 255 - c;
                         color = 0xff000000u | (inv << 16) | (inv << 8) | inv;
                     } else {
-                        color = DAT_004cf734;
+                        color = (*(unsigned int*)&DAT_004cf734);
                     }
                     it->FUN_002a07a0(color);
                 }

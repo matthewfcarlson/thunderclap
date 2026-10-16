@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 20/20)
 // CJumpAction::vfunc_7 @ 0x00018d40
+#include "decls/data/game/global.h"
+
 extern "C" double sqrt(double);
 
 struct V3_18d40 {
@@ -72,9 +74,6 @@ struct Driver {
     Mat4_18d40 xform;
 };
 
-extern float DAT_0048e054;
-extern float DAT_0048e058;
-extern float DAT_0048e05c;
 float __cdecl FUN_00224f10(V3_18d40 *v);
 float __cdecl FUN_00224fc0(float a, float b);
 void __cdecl FUN_00224d70(float angle, V3_18d40 *v);
@@ -167,9 +166,9 @@ bool CJumpAction::vfunc_7(float dt)
     }
     driver->xform.FUN_00221d20(f.ang);
     f.tmp = chara->v21();
-    f.fwd.x = DAT_0048e054;
-    f.fwd.y = DAT_0048e058;
-    f.fwd.z = DAT_0048e05c;
+    f.fwd.x = (*(float*)&DAT_0048e054);
+    f.fwd.y = (*(float*)((char*)&DAT_0048e054 + 4));
+    f.fwd.z = (*(float*)((char*)&DAT_0048e054 + 8));
     FUN_00224d70(f.ang, &f.fwd);
     float t = f.fwd.z * f.w.z + f.fwd.x * f.w.x + f.fwd.y * f.w.y;
     t = t * f.tmp;
@@ -177,18 +176,18 @@ bool CJumpAction::vfunc_7(float dt)
     if (t < f.tmp)
         t = f.tmp;
     t = t * dt;
-    f.q.x = DAT_0048e054;
-    f.q.y = DAT_0048e058;
-    f.q.z = DAT_0048e05c;
+    f.q.x = (*(float*)&DAT_0048e054);
+    f.q.y = (*(float*)((char*)&DAT_0048e054 + 4));
+    f.q.z = (*(float*)((char*)&DAT_0048e054 + 8));
     f.q.x = f.q.x * t;
     f.q.y = f.q.y * t;
     f.q.z = f.q.z * t;
     FUN_00224d70(f.ang, &f.q);
     timing->FUN_000357a0(&f.q);
     float u = dt * f2c;
-    f.r.x = DAT_0048e054;
-    f.r.z = DAT_0048e05c;
-    f.r.y = DAT_0048e058;
+    f.r.x = (*(float*)&DAT_0048e054);
+    f.r.z = (*(float*)((char*)&DAT_0048e054 + 8));
+    f.r.y = (*(float*)((char*)&DAT_0048e054 + 4));
     f.r.x = f.r.x * u;
     f.r.z = f.r.z * u;
     f.r.y = dt * f28;

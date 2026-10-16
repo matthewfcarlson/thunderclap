@@ -1,7 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_002e68a0 @ 0x002e68a0
+#include "decls/data/engine/physics.h"
+
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
-extern const char DAT_0042fdd4[];   // "0123456789ABCDEF"
+   // "0123456789ABCDEF"
 struct png_struct_2e68a0 {
     char pad[0x114];
     unsigned char chunk_name[4];

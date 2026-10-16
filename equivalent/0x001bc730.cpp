@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001bc730 @ 0x001bc730
 // FUN_001bc730: send the camera orientation (rows: right, -forward-ish, up) to the renderer
+#include "decls/data/engine/pure3d/prop.h"
+
 struct Matrix {
     float m[16];
     void FUN_0022b980();    // identity
@@ -43,7 +45,6 @@ CameraManager_1bc730 *__cdecl FUN_001c3d90();
 struct RendererHolder {
     Renderer_1bc730 *renderer;
 };
-extern RendererHolder *DAT_0052c2ac;
 
 struct Frame_1bc730 {
     Matrix out;
@@ -71,5 +72,5 @@ void FUN_001bc730()
     ((int *)o)[8] = ((int *)v)[4];
     ((int *)o)[9] = ((int *)v)[5];
     ((int *)o)[10] = ((int *)v)[6];
-    DAT_0052c2ac->renderer->SetOrientation(0, &f.out);
+    (*(RendererHolder**)&DAT_0052c2ac)->renderer->SetOrientation(0, &f.out);
 }

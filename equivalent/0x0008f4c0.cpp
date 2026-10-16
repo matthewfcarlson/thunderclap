@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 581 inputs, branch coverage 10/10)
 // FUN_0008f4c0 @ 0x0008f4c0
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
 struct Vertex_8f4c0 {
     float x, y, z;
 };
@@ -124,7 +125,6 @@ struct Overlay {
     Label_8f4c0* items[1];
 };
 
-extern Holder_8f4c0** DAT_0052c2ac;
 Gfx_8f4c0* FUN_00085cd0();
 void FUN_00085d30();
 
@@ -159,8 +159,8 @@ void DebugOverlay::FUN_0008f4c0()
     DAT_0052c2a8->vfunc_24(2);
     DAT_0052c2a8->vfunc_58(0);
     DAT_0052c2a8->vfunc_54(0);
-    (*DAT_0052c2ac)->vfunc_15(0);
-    (*DAT_0052c2ac)->vfunc_13(0);
+    (*(*(Holder_8f4c0***)&DAT_0052c2ac))->vfunc_15(0);
+    (*(*(Holder_8f4c0***)&DAT_0052c2ac))->vfunc_13(0);
 
     Gfx_8f4c0* gfx = FUN_00085cd0();
     gfx->res->vfunc_6(0x444d4c42, 1);
@@ -288,5 +288,5 @@ void DebugOverlay::FUN_0008f4c0()
     DAT_0052c2a8->vfunc_24(f.save1);
     DAT_0052c2a8->vfunc_58(f.save2.w);
     DAT_0052c2a8->vfunc_54(f.save3);
-    (*DAT_0052c2ac)->vfunc_16(0);
+    (*(*(Holder_8f4c0***)&DAT_0052c2ac))->vfunc_16(0);
 }

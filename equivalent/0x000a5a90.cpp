@@ -1,15 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 20018 inputs, branch coverage 55/56, incomplete)
 // FUN_000a5a90 @ 0x000a5a90
 // 0xa5a90: character-controller step: slide the position v194 along the ground / walls with sweep tests.
+#include "decls/data/game/global.h"
+
 extern "C" double sqrt(double);
 extern "C" double fabs(double);
 
-extern float DAT_0049ec64;
-extern float DAT_0049eca0;
-extern float DAT_0049ecac;
-extern float DAT_0049ecb0;
-extern float DAT_0049ecdc;
-extern float DAT_0049ece0;
 
 struct Vec3_a5a90 {
     float x;
@@ -103,13 +99,13 @@ char Obj_a5a90::FUN_000a5a90(unsigned a1, unsigned a2, unsigned a3, unsigned a4,
     f.dir.x = f.dir.x * scale;
     f.dir.y = 0.0f * scale;
     f.dir.z = f.dir.z * scale;
-    *cur = *FUN_0009f7d0(&f.tmpA, cur, &f.dir, a7, DAT_0049ece0);
+    *cur = *FUN_0009f7d0(&f.tmpA, cur, &f.dir, a7, (*(float*)&DAT_0049ece0));
     f.pos.x = f.pos.x - cur->x;
     f.pos.y = f.pos.y - cur->y;
     f.pos.z = f.pos.z - cur->z;
     cur = &v194;
 
-    if (sweeper->FUN_00038e30(&f.pos, cur, DAT_0049ecb0, 1, &f.hit, &f.nrm)) {
+    if (sweeper->FUN_00038e30(&f.pos, cur, (*(float*)&DAT_0049ecb0), 1, &f.hit, &f.nrm)) {
         *cur = f.hit;
         cur->x = f.nrm.x * f468 + cur->x;
         cur->y = f.nrm.y * f468 + cur->y;
@@ -132,7 +128,7 @@ char Obj_a5a90::FUN_000a5a90(unsigned a1, unsigned a2, unsigned a3, unsigned a4,
                 f.saved.y = f.vB.y - prev->y;
                 f.saved.z = f.vB.z - prev->z;
                 FUN_000a04c0(&f.saved, &f.f4, &f.f0, &f.f32);
-                FUN_000a2cc0(f.f4, f.f0, f.f32, DAT_0049ec64, mode);
+                FUN_000a2cc0(f.f4, f.f0, f.f32, (*(float*)&DAT_0049ec64), mode);
             } else {
                 FUN_000a1930(f.vB, mode);
                 flagA = f.f4 < f444;
@@ -175,7 +171,7 @@ char Obj_a5a90::FUN_000a5a90(unsigned a1, unsigned a2, unsigned a3, unsigned a4,
         f.r.x = f.vB.x + cur->x;
         f.r.y = f.vB.y + cur->y;
         f.r.z = f.vB.z + cur->z;
-        if (sweeper->FUN_00038e30(&f.q, &f.r, DAT_0049ecb0, 1, &f.hit, &f.nrm)) {
+        if (sweeper->FUN_00038e30(&f.q, &f.r, (*(float*)&DAT_0049ecb0), 1, &f.hit, &f.nrm)) {
             cur->x = f.hit.x - f.vB.x;
             cur->y = f.hit.y - f.vB.y;
             cur->z = f.hit.z - f.vB.z;
@@ -200,7 +196,7 @@ char Obj_a5a90::FUN_000a5a90(unsigned a1, unsigned a2, unsigned a3, unsigned a4,
         f.r.x = f.vB.x + cur->x;
         f.r.y = f.vB.y + cur->y;
         f.r.z = f.vB.z + cur->z;
-        if (sweeper->FUN_00038e30(&f.q, &f.r, DAT_0049ecb0, 1, &f.hit, &f.nrm)) {
+        if (sweeper->FUN_00038e30(&f.q, &f.r, (*(float*)&DAT_0049ecb0), 1, &f.hit, &f.nrm)) {
             cur->x = f.hit.x - f.vB.x;
             cur->y = f.hit.y - f.vB.y;
             cur->z = f.hit.z - f.vB.z;
@@ -209,7 +205,7 @@ char Obj_a5a90::FUN_000a5a90(unsigned a1, unsigned a2, unsigned a3, unsigned a4,
     }
 
     if (flagB != 0) {
-        if (sweeper->FUN_00038e30(&f.pos, cur, DAT_0049ecb0, 1, &f.hit, &f.nrm)) {
+        if (sweeper->FUN_00038e30(&f.pos, cur, (*(float*)&DAT_0049ecb0), 1, &f.hit, &f.nrm)) {
             *cur = f.saved;
             flagB = 0;
         }

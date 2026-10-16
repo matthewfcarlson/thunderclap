@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 10/10)
 // FUN_00128660 @ 0x00128660
-extern int DAT_004e0d80;
-extern int DAT_004e0d7c;
-extern int DAT_00427754;
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/unknown.h"
+
 extern void* __cdecl FUN_0008d690(unsigned);
 extern void FUN_00123620();
 extern void FUN_00123630();
@@ -44,7 +44,7 @@ void target() {
  typedef fight::ParamBool<hulkfight::ai::TargetDistanceCondition> Bool;
  Enum* e=(Enum*)FUN_0008d690(32);
  if(e) {
- int n=DAT_00427754;
+ int n=(*(int*)&DAT_00427754);
  e->FUN_00234cc0("compare");
  e->count=n;
  new(e) Enum;

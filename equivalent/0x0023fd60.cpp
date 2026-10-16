@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3009 inputs, branch coverage 10/10)
 // FUN_0023fd60 @ 0x0023fd60
-extern char* DAT_004cc02c;
+#include "decls/data/engine/audio.h"
+
 void __cdecl FUN_00247570(void* p);
 
 class SharedStr;
@@ -21,7 +22,7 @@ SharedStr* SharedStr::FUN_0023fd60(char* src, int length, int newMode)
     if (mode == 2) {
         char* old = data;
         if (*(short*)(old - 4) == 1) {
-            if (old != DAT_004cc02c)
+            if (old != (*(char**)&DAT_004cc02c))
                 FUN_00247570(old - 8);
         } else {
             (*(short*)(old - 4))--;

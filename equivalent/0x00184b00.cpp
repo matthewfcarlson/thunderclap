@@ -2,6 +2,7 @@
 // hulkfight::motion::BallAndChainShootAction::vfunc_5 @ 0x00184b00
 // hulkfight::motion::BallAndChainShootAction::vfunc_5 @ 0x00184b00
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct V3_184b00 {
     float x, y, z;
     bool FUN_0022d2b0(const V3_184b00 *other, float eps);
@@ -116,7 +117,6 @@ struct World {
     Sink_184b00 *sink;      // 0x34
     Spawn_184b00 *spawn;    // 0x38
 };
-extern float DAT_003f32e0;
 
 struct Decal_184b00 {
     unsigned FUN_00283ca0(void *a, V3_184b00 *b, V3_184b00 *c, float d);
@@ -257,7 +257,7 @@ bool BallAndChainShootAction::vfunc_5(int state, float dt)
         f.holder->FUN_0003acf0(f.slot, f.weapon, 0, 0, 0, &f.wmat);
     }
 
-    if (!f.hit && timeLeft > DAT_003f32e0)
+    if (!f.hit && timeLeft > (*(float*)&DAT_003f32e0))
         return true;
     return false;
 }

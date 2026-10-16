@@ -4,6 +4,7 @@
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
 #include "gen/physics.h"
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 
 struct Vec3_2f70a0 {
     float x, y, z;
@@ -74,7 +75,6 @@ struct Articulated : SimObject {
     Articulated *FUN_002f6220(Props *props, Vec3_2f70a0 *center, SymMatrix_2f70a0 *sm, unsigned int c);
 };
 
-extern void *DAT_00554c10;
 
 void __cdecl FUN_002f5fe0(Reader_2f70a0 *r, SymMatrix_2f70a0 *sm);
 Part_2f70a0 *__cdecl FUN_0030d4f0(unsigned int a, Vec3_2f70a0 *v, unsigned int b, unsigned int c);
@@ -198,7 +198,7 @@ void physics::PhysicsObjectLoader::vfunc_5(void* __p0, void* __p1, void* __p2, i
     if (res != 0) {
         res->key8.FUN_0027b040(f.name1);
         res->key30.FUN_0027b040(f.name2);
-        res->FUN_002fe6b0(DAT_00554c10);
+        res->FUN_002fe6b0((*(void**)&DAT_00554c10));
         lo = res->key8.lo;
         hi = res->key8.hi;
     }

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3031 inputs, branch coverage 65/68, incomplete)
 // hulkfight::motion::JointTrackerAction::vfunc_5 @ 0x001734b0
+#include "decls/data/game/hulkfight/motion.h"
+
 extern "C" int __cdecl _isnan(double d);
 extern "C" double fabs(double);
 
@@ -134,8 +136,6 @@ struct P1c_1734b0 {
     float f64;
 };
 
-extern float DAT_004b7d18;
-extern float DAT_004b7d20;
 
 float __cdecl FUN_00018a20(float v);
 float __cdecl FUN_000189c0(float v);
@@ -361,8 +361,8 @@ L298:
             rot = true;
         }
         if (rot) {
-            f.V.z = DAT_004b7d20;
-            f.V.x = DAT_004b7d18;
+            f.V.z = (*(float*)&DAT_004b7d20);
+            f.V.x = (*(float*)&DAT_004b7d18);
             FUN_00224d70((float)(val + f.s0), &f.V);
             f.V.FUN_0022d110();
         }

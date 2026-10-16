@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 14/14)
 // audio::SeqCommandCondition::vfunc_0 @ 0x0024ff60
-extern const char DAT_00429b50[];
+#include "decls/data/engine/audio.h"
+
 namespace audio {
 struct Context;
 struct Node { virtual void slot0(); virtual void slot1(); virtual void slot2(Context*); void* next; };

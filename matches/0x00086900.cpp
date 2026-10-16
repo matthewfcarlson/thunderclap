@@ -1,6 +1,7 @@
+#include "decls/data/game/global.h"
+
 typedef unsigned char u8;
 typedef unsigned int u32_86900;
-extern u8 DAT_004dd6f0;
 struct Worker_86900 {
     void Reset(int);
 };
@@ -25,7 +26,7 @@ struct Obj_86900 {
 };
 void __fastcall FUN_00086900(Obj_86900* self) {
     self->worker->Reset(0);
-    DAT_004dd6f0 = 0;
+    (*(u8*)&DAT_004dd6f0) = 0;
     State_86900* s = self->state;
     s->x48 = 0;
     s->x3c = 0;

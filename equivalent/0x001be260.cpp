@@ -1,10 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_001be260 @ 0x001be260
 #include "decls/address.h"
-extern float DAT_004c4c4c;
-extern float DAT_003f3db0;
-extern float DAT_003f32f4;
-extern char DAT_004e2308;
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 
 struct Builder {
     char pad00[8];
@@ -103,7 +101,6 @@ struct DeviceHolder {
     void FUN_00293d00(char* p);
 };
 
-extern DeviceHolder* DAT_0052c2ac;
 
 struct Layer_1be260 {
     char pad00[0x10];
@@ -122,13 +119,13 @@ public:
 void Quad_1be260::FUN_001be260()
 {
     DAT_0052c2a8->ve8(0);
-    DAT_0052c2ac->device->v3c(0);
-    DAT_0052c2ac->FUN_00293d00(&DAT_004e2308);
+    (*(DeviceHolder**)&DAT_0052c2ac)->device->v3c(0);
+    (*(DeviceHolder**)&DAT_0052c2ac)->FUN_00293d00(((char*)&DAT_004e2308));
     Builder* b = DAT_0052c2a8->v78(layer->handle, 1, 0x2020, 4, 0);
-    float left = DAT_004c4c4c * DAT_003f3db0;
-    float top = size * DAT_003f3db0;
-    float right = DAT_004c4c4c * DAT_003f32f4;
-    float bottom = size * DAT_003f32f4;
+    float left = DAT_004c4c4c * (*(float*)&DAT_003f3db0);
+    float top = size * (*(float*)&DAT_003f3db0);
+    float right = DAT_004c4c4c * (*(float*)&DAT_003f32f4);
+    float bottom = size * (*(float*)&DAT_003f32f4);
     {
         float* p = b->pos;
         p[1] = top;
@@ -162,6 +159,6 @@ void Quad_1be260::FUN_001be260()
         b->FUN_0008ef00();
     }
     DAT_0052c2a8->v7c(b);
-    DAT_0052c2ac->device->v40(0);
+    (*(DeviceHolder**)&DAT_0052c2ac)->device->v40(0);
     DAT_0052c2a8->ve8(1);
 }

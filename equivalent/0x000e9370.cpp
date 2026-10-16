@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 962 inputs, branch coverage 24/24)
 // TextButton::vfunc_5 @ 0x000e9370
+#include "decls/data/engine/pure3d/prop.h"
+
 struct Vec3_e9370 {
     float x, y, z;
 };
@@ -128,7 +130,6 @@ union Quad_e9370 {
     unsigned char b[4];
 };
 
-extern PassHolder_e9370 *DAT_0052c2ac;
 
 void __cdecl FUN_000e11a0(Vec3_e9370 v, int a, int b);
 void __cdecl FUN_000e0cc0(Vec3_e9370 v, int a, int b);
@@ -187,28 +188,28 @@ void TextButton::vfunc_5()
     Frame_e9370 f;
 
     if (flag40 == 1) {
-        DAT_0052c2ac->pass->v15(0);
+        (*(PassHolder_e9370**)&DAT_0052c2ac)->pass->v15(0);
         owner->v14(&f.v1, this);
-        DAT_0052c2ac->FUN_00293d00(&f.v1);
+        (*(PassHolder_e9370**)&DAT_0052c2ac)->FUN_00293d00(&f.v1);
         owner->v15(&f.v1, this);
         FUN_000e11a0(f.v1, val148, 2);
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_e9370**)&DAT_0052c2ac)->pass->v16(0);
     }
     if (flag48 == 1) {
-        DAT_0052c2ac->pass->v15(0);
+        (*(PassHolder_e9370**)&DAT_0052c2ac)->pass->v15(0);
         owner->v14(&f.v1, this);
-        DAT_0052c2ac->FUN_00293d00(&f.v1);
+        (*(PassHolder_e9370**)&DAT_0052c2ac)->FUN_00293d00(&f.v1);
         owner->v15(&f.v1, this);
         FUN_000e0cc0(f.v1, val4c, 0);
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_e9370**)&DAT_0052c2ac)->pass->v16(0);
     }
     if (w50 != 0) {
-        DAT_0052c2ac->pass->v15(0);
+        (*(PassHolder_e9370**)&DAT_0052c2ac)->pass->v15(0);
         owner->v14(&f.v1, this);
-        DAT_0052c2ac->FUN_00293d00(&f.v1);
-        DAT_0052c2ac->FUN_00293da0(v54, v58, v5c);
+        (*(PassHolder_e9370**)&DAT_0052c2ac)->FUN_00293d00(&f.v1);
+        (*(PassHolder_e9370**)&DAT_0052c2ac)->FUN_00293da0(v54, v58, v5c);
         w50->v8(0, 0);
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_e9370**)&DAT_0052c2ac)->pass->v16(0);
     }
 
     f.x.FUN_000f7fe0(owner->hold->fonts->v44());
@@ -216,12 +217,12 @@ void TextButton::vfunc_5()
     f.x.cells[f.x.cursor].b.u = v6c;
     f.f1 = owner->v17(this);
     f.x.cells[f.x.cursor].a.f = owner->v16(this) * f.f1;
-    DAT_0052c2ac->pass->v15(0);
+    (*(PassHolder_e9370**)&DAT_0052c2ac)->pass->v15(0);
     if (owner->v13(this) && w60 != 0 && b68)
         w60->v8(0, 0);
     owner->v14(&f.v1, this);
-    DAT_0052c2ac->FUN_00293d00(&f.v1);
-    DAT_0052c2ac->FUN_00293d00(&anchor);
+    (*(PassHolder_e9370**)&DAT_0052c2ac)->FUN_00293d00(&f.v1);
+    (*(PassHolder_e9370**)&DAT_0052c2ac)->FUN_00293d00(&anchor);
 
     if (owner->v13(this)) {
         if (w60 != 0) {
@@ -256,6 +257,6 @@ void TextButton::vfunc_5()
         }
         f.x.FUN_000f87f0(&str18, &owner->hold->o978);
     }
-    DAT_0052c2ac->pass->v16(0);
+    (*(PassHolder_e9370**)&DAT_0052c2ac)->pass->v16(0);
     f.x.FUN_000f78e0();
 }

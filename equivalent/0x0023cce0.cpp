@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 10/10)
 // FUN_0023cce0 @ 0x0023cce0
+#include "decls/data/engine/fight.h"
+
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_0023cb40();
@@ -16,8 +18,6 @@ template<class T> struct ParamBool {
  void FUN_00234860(const char*);
 };
 }
-extern int DAT_004e5c50;
-extern int DAT_004e5c4c;
 void __cdecl FUN_002347b0(int*, fight::ParamBool<fight::PlatformCondition>**, int);
 void __cdecl FUN_0023cce0() {
  if (DAT_004e5c50 == 0) {

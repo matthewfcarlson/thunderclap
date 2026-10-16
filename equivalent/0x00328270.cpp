@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 30/30)
 // FUN_00328270 @ 0x00328270
+#include "decls/data/platform/xbox/pure3d.h"
+
 struct Vertex_328270 {
     float x;
     float y;
@@ -57,10 +59,6 @@ class TextDrawer {
     Renderer_328270* renderer;
     void FUN_00328270(const char* text, int x, int y, int color, int extra);
 };
-extern float DAT_004d4cd0;
-extern float DAT_004d4cd4;
-extern GlyphInfo DAT_004d4ad0[];
-extern signed char DAT_004d4120[];
 
 void TextDrawer::FUN_00328270(const char* text, int px, int py, int color, int extra) {
     float t0 = DAT_004d4cd4 * 10.0f;
@@ -74,7 +72,7 @@ void TextDrawer::FUN_00328270(const char* text, int px, int py, int color, int e
     for (const char* s = text; *s != 0; ++s) {
         unsigned char c = (unsigned char)*s;
         if (c >= 0x20 && c <= 0x7f)
-            count += DAT_004d4ad0[c].numVerts;
+            count += ((GlyphInfo*)&DAT_004d4ad0)[c].numVerts;
     }
     Batch_328270* batch = 0;
     if (count != 0)
@@ -87,8 +85,8 @@ void TextDrawer::FUN_00328270(const char* text, int px, int py, int color, int e
         } else if (c == '\t') {
             x = (float)(((int)x / 40 + 1) * 40);
         } else if (c >= 0x20 && c <= 0x7f) {
-            const GlyphInfo& info = DAT_004d4ad0[c];
-            signed char* g = &DAT_004d4120[info.offset * 2];
+            const GlyphInfo& info = ((GlyphInfo*)&DAT_004d4ad0)[c];
+            signed char* g = &((signed char*)&DAT_004d4120)[info.offset * 2];
             int width = g[0];
             if (width < 0)
                 width = -width;

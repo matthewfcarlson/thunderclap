@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 12031 inputs, branch coverage 25/25; run with --inputs 12000)
 // FUN_000bdd60 @ 0x000bdd60
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" int memcmp(const void *a, const void *b, unsigned int n);
 
 class FEObject {
@@ -52,7 +53,6 @@ struct Overlay {
     void FUN_00294080();
 };
 
-extern Notifier_bdd60 *DAT_004dd6e8;
 
 void FUN_000fc1a0();
 Screen_bdd60 *FUN_000fc310();
@@ -84,13 +84,13 @@ void Menu_bdd60::FUN_000bdd60()
                     widget->FUN_001bf8b0();
             }
         }
-        DAT_004dd6e8->FUN_0023f8f0();
+        (*(Notifier_bdd60**)&DAT_004dd6e8)->FUN_0023f8f0();
     } else if (state == 2 || state == 17) {
         DAT_0052c2a8->SetVisible(1);
         FUN_000fc1a0();
     } else if (state >= 18 && state <= 23) {
         FUN_000fc1a0();
-        DAT_004dd6e8->FUN_0023f8f0();
+        (*(Notifier_bdd60**)&DAT_004dd6e8)->FUN_0023f8f0();
     } else if (state == 9) {
         if (FUN_000fc310() != 0) {
             const char *name = FUN_000fc310()->GetName();

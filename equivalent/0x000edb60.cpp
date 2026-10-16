@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 515 inputs, branch coverage 32/32)
 // TextTable::vfunc_5 @ 0x000edb60
+#include "decls/data/engine/pure3d/prop.h"
+
 struct Vec3_edb60 {
     float x, y, z;
 };
@@ -168,7 +170,6 @@ struct Cell_edb60 {
     int f20;
 };
 
-extern PassHolder_edb60 *DAT_0052c2ac;
 
 void __cdecl FUN_000e11a0(Vec3_edb60 v, int a, int b);
 void __cdecl FUN_000e0cc0(Vec3_edb60 v, int a, int b);
@@ -229,28 +230,28 @@ void TextTable::vfunc_5()
     } f;
 
     if (flag40 == 1) {
-        DAT_0052c2ac->pass->v15(0);
+        (*(PassHolder_edb60**)&DAT_0052c2ac)->pass->v15(0);
         owner->v14(&f.v1, this);
-        DAT_0052c2ac->FUN_00293d00(&f.v1);
+        (*(PassHolder_edb60**)&DAT_0052c2ac)->FUN_00293d00(&f.v1);
         owner->v15(&f.v2, this);
         FUN_000e11a0(f.v2, val148, 2);
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_edb60**)&DAT_0052c2ac)->pass->v16(0);
     }
     if (flag48 == 1) {
-        DAT_0052c2ac->pass->v15(0);
+        (*(PassHolder_edb60**)&DAT_0052c2ac)->pass->v15(0);
         owner->v14(&f.v1, this);
-        DAT_0052c2ac->FUN_00293d00(&f.v1);
+        (*(PassHolder_edb60**)&DAT_0052c2ac)->FUN_00293d00(&f.v1);
         owner->v15(&f.v2, this);
         FUN_000e0cc0(f.v2, val4c, 0);
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_edb60**)&DAT_0052c2ac)->pass->v16(0);
     }
     if (child != 0) {
-        DAT_0052c2ac->pass->v15(0);
+        (*(PassHolder_edb60**)&DAT_0052c2ac)->pass->v15(0);
         owner->v14(&f.v1, this);
-        DAT_0052c2ac->FUN_00293d00(&f.v1);
-        DAT_0052c2ac->FUN_00293da0(v54, v58, v5c);
+        (*(PassHolder_edb60**)&DAT_0052c2ac)->FUN_00293d00(&f.v1);
+        (*(PassHolder_edb60**)&DAT_0052c2ac)->FUN_00293da0(v54, v58, v5c);
         child->v8(0, 0);
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_edb60**)&DAT_0052c2ac)->pass->v16(0);
     }
 
     f.x.FUN_000f7fe0(owner->p8->level2->v44());
@@ -260,16 +261,16 @@ void TextTable::vfunc_5()
     f.x.cells[f.x.cursor].b.i = 0;
     f.x.cells[f.x.cursor].d.u = color;
     f.x.hdr[1] = color;
-    DAT_0052c2ac->pass->v15(0);
+    (*(PassHolder_edb60**)&DAT_0052c2ac)->pass->v15(0);
     owner->v14(&f.v1, this);
-    DAT_0052c2ac->FUN_00293d00(&f.v1);
-    DAT_0052c2ac->FUN_00293d00(&anchor);
+    (*(PassHolder_edb60**)&DAT_0052c2ac)->FUN_00293d00(&f.v1);
+    (*(PassHolder_edb60**)&DAT_0052c2ac)->FUN_00293d00(&anchor);
 
     f.u10.r = rowFirst;
     if (f.u10.r <= rowLast) {
         f.rowptr = &cells[f.u10.r][0];
         do {
-            DAT_0052c2ac->pass->v15(0);
+            (*(PassHolder_edb60**)&DAT_0052c2ac)->pass->v15(0);
             f.m = 0.0f;
             f.j = 0;
             if (colCount > 0) {
@@ -284,7 +285,7 @@ void TextTable::vfunc_5()
                         f.v2.x = *cx;
                         f.v2.y = 0.0f;
                         f.v2.z = 0.0f;
-                        DAT_0052c2ac->FUN_00293d00(&f.v2);
+                        (*(PassHolder_edb60**)&DAT_0052c2ac)->FUN_00293d00(&f.v2);
                         float w = f.x.FUN_000f8840(c);
                         if (w > f.m)
                             f.m = w;
@@ -294,16 +295,16 @@ void TextTable::vfunc_5()
                     c++;
                 } while (f.j < colCount);
             }
-            DAT_0052c2ac->pass->v16(0);
+            (*(PassHolder_edb60**)&DAT_0052c2ac)->pass->v16(0);
             f.v1.y = -(f.m + spacing);
             f.v1.x = 0.0f;
             f.v1.z = 0.0f;
-            DAT_0052c2ac->FUN_00293d00(&f.v1);
+            (*(PassHolder_edb60**)&DAT_0052c2ac)->FUN_00293d00(&f.v1);
             f.u10.r++;
             f.rowptr += 8;
         } while (f.u10.r <= rowLast);
     }
-    DAT_0052c2ac->pass->v16(0);
+    (*(PassHolder_edb60**)&DAT_0052c2ac)->pass->v16(0);
     if (owner->v13(this) && obj158 != 0 && obj154 != 0) {
         if (rowFirst != 0)
             obj154->f118 = 1.0f;

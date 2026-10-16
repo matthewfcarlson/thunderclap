@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 74 inputs, branch coverage 12/12)
 // FUN_001288e0 @ 0x001288e0
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -51,8 +54,6 @@ public:
     void FUN_00234cc0(const char* name);
     ParamEnumConstListBase(const char* name) { FUN_00234cc0(name); }
 };
-extern const char* DAT_0042773c[6];
-extern int DAT_00427754;
 template <class T>
 class ParamEnumConstList : public ParamEnumConstListBase {
 public:
@@ -67,8 +68,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0d94;
-extern int DAT_004e0d98;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_001288e0()
@@ -80,7 +79,7 @@ void FUN_001288e0()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) ParamEnumConstList<TargetDistanceYCondition>("compare", DAT_0042773c, DAT_00427754, &TargetDistanceYCondition::FUN_001236d0);
+            params[0] = new (mem) ParamEnumConstList<TargetDistanceYCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &TargetDistanceYCondition::FUN_001236d0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
@@ -97,7 +96,7 @@ void FUN_001288e0()
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamBool<TargetDistanceYCondition>("useGroundPoint", &TargetDistanceYCondition::FUN_00123730);
-        FUN_002347b0(&DAT_004e0d94, params, 5);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0d94), params, 5);
     }
     DAT_004e0d98++;
 }

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 90 inputs, branch coverage 18/18)
 // FUN_0029eda0 @ 0x0029eda0
+#include "decls/data/engine/unknown.h"
+
 struct Source_29eda0 {
     int FUN_002a0850();
     float *FUN_002a0870();
@@ -23,7 +25,6 @@ struct Backend_29eda0 {
     void FUN_002a0fc0(int index, Source_29eda0 *src);
 };
 
-extern unsigned DAT_004cf730;
 
 class EntryTable_29eda0 {
 public:
@@ -36,7 +37,7 @@ void EntryTable_29eda0::FUN_0029eda0(int index, Source_29eda0 *src)
 {
     backend->FUN_002a0fc0(index, src);
     entries[index].f0 = 0;
-    entries[index].color = DAT_004cf730;
+    entries[index].color = (*(unsigned*)&DAT_004cf730);
     entries[index].f1c = 0;
     entries[index].flags = 0;
     if (!src)

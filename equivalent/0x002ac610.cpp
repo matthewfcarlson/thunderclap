@@ -4,6 +4,7 @@
 // equiv-map: ??_R0?AVAnimationLoader@pure3d@@@8 = 0x004ce974
 // equiv-map: ??_R0?AVObjectLoader@content@@@8 = 0x0049c7dc
 #include "decls/address.h"
+#include "decls/data/engine/content.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
 void *FUN_0008d690(unsigned int size);
@@ -72,7 +73,6 @@ struct Stream {
 struct LoaderRegistry {
     content::ObjectLoader *FUN_00265310(unsigned int id);
 };
-extern LoaderRegistry *DAT_00527c58;
 
 class Ctx_2ac610 {
 public:
@@ -271,7 +271,7 @@ void Loader::FUN_002ac610(int a1, Stream *stream, Ctx_2ac610 *ctx, Extra *a4)
     while (stream->FUN_002669f0()) {
         unsigned int cid = stream->FUN_00266a30();
         if (cid == 0x121000) {
-            content::ObjectLoader *ol = DAT_00527c58->FUN_00265310(0x121000);
+            content::ObjectLoader *ol = (*(LoaderRegistry**)&DAT_00527c58)->FUN_00265310(0x121000);
             pure3d::AnimationLoader *al = dynamic_cast<pure3d::AnimationLoader *>(ol);
             al->AddRef();
             f.s24 = al->FUN_00288e90();

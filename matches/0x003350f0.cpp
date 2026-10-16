@@ -1,8 +1,9 @@
+#include "decls/data/engine/core.h"
+
 extern "C" char DAT_0042afa8[];
 extern "C" char DAT_0042bf6c[];
 extern "C" char DAT_004342e8[];
 extern "C" char DAT_004342fc[];
-extern "C" char DAT_004cdbb0[];
 struct Callback_3350f0 {
     volatile int a;
     volatile int b;
@@ -12,7 +13,7 @@ struct Callback_3350f0 {
 extern void __fastcall helper(Callback_3350f0*);
 Callback_3350f0* __fastcall FUN_003350f0(Callback_3350f0* p) {
     p->a = ((int)DAT_0042afa8);
-    p->b = *(volatile int*)((int)DAT_004cdbb0);
+    p->b = *(volatile int*)((int)((char*)&DAT_004cdbb0));
     helper(p);
     p->c = ((int)DAT_0042bf6c);
     p->a = ((int)DAT_004342fc);

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3002 inputs, branch coverage 10/10)
 // FUN_00219dc0 @ 0x00219dc0
+#include "decls/data/engine/unknown.h"
+
 struct TObject_219dc0 {
     int tt;
     union {
@@ -25,7 +27,7 @@ struct Table_219dc0 {
     int sizearray;              // 0x1c
 };
 
-extern TObject_219dc0 DAT_00426824;    // luaO_nilobject
+    // luaO_nilobject
 
 // Lua 5.0 luaH_getnum with lua_Number == float.
 const TObject_219dc0 *__cdecl luaH_getnum(Table_219dc0 *t, int key)
@@ -46,5 +48,5 @@ const TObject_219dc0 *__cdecl luaH_getnum(Table_219dc0 *t, int key)
             return &n->val;
         n = n->next;
     } while (n != 0);
-    return &DAT_00426824;
+    return ((TObject_219dc0*)&DAT_00426824);
 }

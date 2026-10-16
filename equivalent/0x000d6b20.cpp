@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000d6b20 @ 0x000d6b20
+#include "decls/data/game/global.h"
+
 struct Clock_d6b20 {
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
  virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7();
@@ -12,8 +14,6 @@ struct Effect_d6b20 {
  virtual void set(float angle, float scale);
 };
 struct Owner_d6b20 { void FUN_00294980(Effect_d6b20*); };
-extern Clock_d6b20* DAT_0052c2a4;
-extern float DAT_004de600;
 extern "C" void __cdecl FUN_0009f790(float, float, float*, float*);
 struct Target_d6b20 {
  char pad0[4]; Owner_d6b20* owner; unsigned state; char padC[32]; Effect_d6b20* effect;
@@ -21,11 +21,11 @@ struct Target_d6b20 {
 };
 void Target_d6b20::FUN_000d6b20(unsigned unused) {
  state = 0;
- float time = DAT_0052c2a4->sample();
+ float time = (*(Clock_d6b20**)&DAT_0052c2a4)->sample();
  float angle, other;
  FUN_0009f790(90.0f, time, &angle, &other);
  effect->set(angle * 0.0174533f, 1.0f);
  owner->FUN_00294980(effect);
  DAT_004de600 = 22.3f;
- DAT_004de600 = DAT_0052c2a4->sample() * DAT_004de600 * 0.75f;
+ DAT_004de600 = (*(Clock_d6b20**)&DAT_0052c2a4)->sample() * DAT_004de600 * 0.75f;
 }

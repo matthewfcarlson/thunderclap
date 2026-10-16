@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0026e650 @ 0x0026e650
+#include "decls/data/engine/core.h"
+
 namespace core {
 struct IRefCount { virtual void dummy(); ~IRefCount() throw() {} };
 struct BaseObject { virtual void dummy(); ~BaseObject() throw() {} };
@@ -8,7 +10,6 @@ struct DebugConsole : IRefCount, BaseObject { int value; char pad[0x98]; Handler
 }
 struct Registration_26e650 { int size; core::DebugConsole *object; };
 void __cdecl FUN_0026ef40(void *, Registration_26e650 *, int, int);
-extern int DAT_004cdbb0;
 core::DebugConsole::~DebugConsole() throw() {
     core::Handler_26e650 *h = handler;
     Registration_26e650 reg = { 8, this };

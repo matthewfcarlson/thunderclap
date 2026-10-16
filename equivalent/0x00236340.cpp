@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 6/6)
 // FUN_00236340 @ 0x00236340
+#include "decls/data/engine/fight.h"
+#include "decls/data/engine/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -49,12 +52,8 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e5bec;
-extern int DAT_004e5bf0;
 
-extern const char* DAT_0042773c[1];
 
-extern int DAT_00427754;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -66,12 +65,12 @@ void FUN_00236340()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<fight::FightNodeTimeCondition>("compare", DAT_0042773c, DAT_00427754, &fight::FightNodeTimeCondition::FUN_002359a0);
+            params[0] = new (mem) fight::ParamEnumConstList<fight::FightNodeTimeCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &fight::FightNodeTimeCondition::FUN_002359a0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange<fight::FightNodeTimeCondition>("time", &fight::FightNodeTimeCondition::FUN_002359b0);
-        FUN_002347b0(&DAT_004e5bec, params, 2);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e5bec), params, 2);
     }
     DAT_004e5bf0++;
 }

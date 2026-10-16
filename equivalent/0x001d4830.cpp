@@ -1,11 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_001d4830 @ 0x001d4830
 #include "decls/address.h"
-extern char DAT_0048e100;
-extern char DAT_0048e0e4;
-extern char DAT_0048e0f0;
-extern char DAT_0048e128;
-extern char DAT_004c5d10;
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 void *FUN_0008d690(unsigned int size);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
@@ -67,10 +64,10 @@ class ScriptHandler {
 };
 
 template <class T> struct TypeTag;
-template <> struct TypeTag<void> { static const void *get() { return &DAT_0048e100; } };
+template <> struct TypeTag<void> { static const void *get() { return ((char*)&DAT_0048e100); } };
 template <> struct TypeTag<bool> { static const void *get() { return &DAT_0048e0e4; } };
-template <> struct TypeTag<const char *> { static const void *get() { return &DAT_0048e0f0; } };
-template <> struct TypeTag<float> { static const void *get() { return &DAT_0048e128; } };
+template <> struct TypeTag<const char *> { static const void *get() { return ((char*)&DAT_0048e0f0); } };
+template <> struct TypeTag<float> { static const void *get() { return ((char*)&DAT_0048e128); } };
 template <> struct TypeTag<ScriptHandler::script_state> { static const void *get() { return &DAT_004c5d10; } };
 
 template <class T, class R, class A>

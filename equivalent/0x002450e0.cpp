@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 21/22, incomplete)
 // FUN_002450e0 @ 0x002450e0
+#include "decls/data/engine/om.h"
+
 struct Reader;
 
 // C-style interface: the first word of the stream's first word points at a table of functions.
@@ -48,7 +50,6 @@ public:
 };
 struct Registry;
 
-extern Registry *DAT_004cc088;
 char __cdecl FUN_002433b0(Stream *s, Header_2450e0 *h);
 char __cdecl FUN_00244d10(Stream *s, Pair_2450e0 *p);
 Entry_2450e0 *__cdecl FUN_00244870(Registry *r, unsigned *key);
@@ -88,7 +89,7 @@ char Source_2450e0::FUN_002450e0(Resource_2450e0 **out)
         return 0;
 
     f.hdr.unused = f.hdr.key;
-    Entry_2450e0 *entry = FUN_00244870(DAT_004cc088, &f.hdr.unused);
+    Entry_2450e0 *entry = FUN_00244870((*(Registry**)&DAT_004cc088), &f.hdr.unused);
     if (entry == 0)
         return 0;
 

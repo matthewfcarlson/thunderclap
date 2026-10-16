@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3024 inputs, branch coverage 36/38, incomplete)
 // FUN_000a55a0 @ 0x000a55a0
+#include "decls/data/game/global.h"
+
 struct V3_a55a0 {
     float x, y, z;
 };
@@ -31,14 +33,6 @@ union Slot_a55a0 {
     unsigned int u;
 };
 
-extern float DAT_0049ec44;
-extern float DAT_0049ec48;
-extern float DAT_0049ec54;
-extern float DAT_0049ec5c;
-extern float DAT_0049ec60;
-extern float DAT_0049ec7c;
-extern float DAT_0049ec98;
-extern float DAT_0049eca8;
 
 void __stdcall FUN_000a0dc0(int a, int b, int c);
 void __cdecl FUN_000a04c0(V3_a55a0 *v, float *p1, float *p2, float *p3);
@@ -138,7 +132,7 @@ void Camera::FUN_000a55a0(int a1, Slot_a55a0 a2)
             f.s12 = (float)((double)f.s32 + f.s12);
             f.s20 = (float)((double)f.s20 - delta);
             if (flag)
-                f488 = *(int *)&DAT_0049ec98;
+                f488 = *(int *)&(*(float*)&DAT_0049ec98);
         } else if (b345) {
             Stats_a55a0 *e = f350;
             Inner11c *i1 = e->f338;
@@ -150,7 +144,7 @@ void Camera::FUN_000a55a0(int a1, Slot_a55a0 a2)
                         double r2 = FUN_000a02a0((float)(r1 + 180.0f));
                         double x = FUN_000a03c0(*(int *)&f.s4, (float)(r2 - 70.0f), (float)(70.0f + r2));
                         if (!(f.s4 == x)) {
-                            double r5 = FUN_000a05b0(0, (float)(x - f.s4), *(int *)&DAT_0049ec44, dt,
+                            double r5 = FUN_000a05b0(0, (float)(x - f.s4), *(int *)&(*(float*)&DAT_0049ec44), dt,
                                                      0x40a00000);
                             f.s4 = (float)((double)f.s4 + r5);
                             f.s12 = (float)(r5 + f.s12);
@@ -166,7 +160,7 @@ void Camera::FUN_000a55a0(int a1, Slot_a55a0 a2)
             a2.i = *(int *)&DAT_0049ec5c;
         else
             a2.i = *(int *)&DAT_0049ec60;
-        f.s0 = (float)FUN_000a00e0(*(int *)&f.s0, a2.i, *(int *)&DAT_0049ec48, dt, 0);
+        f.s0 = (float)FUN_000a00e0(*(int *)&f.s0, a2.i, *(int *)&(*(float*)&DAT_0049ec48), dt, 0);
     }
 
     V3_a55a0 *p = FUN_0009f8c0(&f.v, *(int *)&f.s4, *(int *)&f.s0, *(int *)&f.s8);
@@ -187,8 +181,8 @@ void Camera::FUN_000a55a0(int a1, Slot_a55a0 a2)
     f.v.y = tgt.y - out194.y;
     f.v.z = tgt.z - out194.z;
     FUN_000a04c0(&f.v, &f.s28, &f.s24, &a2.f);
-    a2.f = (float)FUN_000a00e0(*(int *)&f.s20, *(int *)&f.s24, *(int *)&DAT_0049eca8, dt, 0x41200000);
-    f.s16 = (float)FUN_000a05b0(*(int *)&f.s12, f.s28, *(int *)&DAT_0049eca8, dt, 0x41200000);
+    a2.f = (float)FUN_000a00e0(*(int *)&f.s20, *(int *)&f.s24, *(int *)&(*(float*)&DAT_0049eca8), dt, 0x41200000);
+    f.s16 = (float)FUN_000a05b0(*(int *)&f.s12, f.s28, *(int *)&(*(float*)&DAT_0049eca8), dt, 0x41200000);
     double h = f470 * 0.5f;
     f.s20 = (float)(f.s24 + h);
     double low = f.s24 - h;

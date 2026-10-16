@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3031 inputs, branch coverage 71/72, incomplete)
 // FUN_0003f7b0 @ 0x0003f7b0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" double __cdecl sin(double);
 extern "C" double __cdecl cos(double);
 
@@ -51,10 +52,6 @@ struct World {
     Player_3f7b0 *player;
 };
 
-extern float DAT_0048f690;
-extern float DAT_0048f694;
-extern unsigned int DAT_004dc2e8;
-extern float DAT_004dc2e4;
 
 char FUN_002027c0(V3_3f7b0 *from, V3_3f7b0 *to, int a, int b, V3_3f7b0 *hitPos, V3_3f7b0 *hitNormal, HitObj_3f7b0 **hitObj, Info_3f7b0 **info);
 

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 2/2)
 // FUN_000fee10 @ 0x000fee10
+#include "decls/data/game/global.h"
+
 inline void *operator new(unsigned int, void *p) { return p; }
 
 struct Name8 {
@@ -17,8 +19,6 @@ struct Rng_fee10 {
 };
 
 Rng_fee10 *FUN_000964d0();
-extern float DAT_004e0a94;
-extern float DAT_0040d0f0;
 
 class CCharacterGolem {
 public:
@@ -69,7 +69,7 @@ CCharacterGolem *CCharacterGolem::FUN_000fee10(int arg)
     f12c = -DAT_004e0a94;
     double next = DAT_004e0a94 + 0.03333333507180214f;
     DAT_004e0a94 = (float)next;
-    if (next >= DAT_0040d0f0)
-        DAT_004e0a94 = DAT_004e0a94 - DAT_0040d0f0;
+    if (next >= (*(float*)&DAT_0040d0f0))
+        DAT_004e0a94 = DAT_004e0a94 - (*(float*)&DAT_0040d0f0);
     return this;
 }

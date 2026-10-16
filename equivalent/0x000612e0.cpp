@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1961 inputs, branch coverage 54/54)
 // FUN_000612e0 @ 0x000612e0
+#include "decls/data/game/global.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -128,8 +130,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc600;
-extern int DAT_004dc604;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -242,7 +242,7 @@ void FUN_000612e0()
         params[25] = 0;
         if (mem)
             params[25] = new (mem) fight::ParamIntConstRange<::CMotionTrailTrack>("slot", &::CMotionTrailTrack::FUN_00060420);
-        FUN_002347b0(&DAT_004dc600, params, 26);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc600), params, 26);
     }
     DAT_004dc604++;
 }

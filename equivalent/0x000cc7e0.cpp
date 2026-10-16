@@ -2,6 +2,8 @@
 // FUN_000cc7e0 @ 0x000cc7e0
 // FUN_000cc7e0: debug/HUD gauge drawer (builds quads through the vertex-handle API)
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 struct Vec3_cc7e0 {
     float x, y, z;
 };
@@ -85,8 +87,6 @@ extern float FUN_000186b0(const float &v, const float &lo, const float &hi);
 extern float FUN_000186f0(const float &a, const float &b);
 extern float FUN_00018710(const float &a, const float &b);
 
-extern PassHolder_cc7e0 *DAT_0052c2ac;
-extern Vec3_cc7e0 DAT_004ddf0c;
 
 static __forceinline float Lerp(float a, float b, float t)
 {
@@ -196,10 +196,10 @@ void ProgressGauge::FUN_000cc7e0()
 
     Frame_cc7e0 F;
 
-    DAT_0052c2ac->pass->v15(0);
-    DAT_0052c2ac->FUN_00293d00(&DAT_004ddf0c);
-    DAT_0052c2ac->FUN_00293bf0(-1.5707964f);
-    DAT_0052c2ac->FUN_00293da0(1.2f, 1.2f, 1.2f);
+    (*(PassHolder_cc7e0**)&DAT_0052c2ac)->pass->v15(0);
+    (*(PassHolder_cc7e0**)&DAT_0052c2ac)->FUN_00293d00(((Vec3_cc7e0*)&DAT_004ddf0c));
+    (*(PassHolder_cc7e0**)&DAT_0052c2ac)->FUN_00293bf0(-1.5707964f);
+    (*(PassHolder_cc7e0**)&DAT_0052c2ac)->FUN_00293da0(1.2f, 1.2f, 1.2f);
     w164->v8(0, 0);
     w198->v8(0, 0);
 
@@ -389,5 +389,5 @@ void ProgressGauge::FUN_000cc7e0()
         DAT_0052c2a8->v31(h2);
     }
 
-    DAT_0052c2ac->pass->v16(0);
+    (*(PassHolder_cc7e0**)&DAT_0052c2ac)->pass->v16(0);
 }

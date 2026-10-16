@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3020 inputs, branch coverage 64/66, incomplete)
 // FUN_000437a0 @ 0x000437a0
+#include "decls/data/game/global.h"
+
 extern "C" int atexit(void (*)());
 extern "C" int __cdecl FUN_00266da0(int mode);
 void* __cdecl FUN_0008d690(unsigned int size);
@@ -16,10 +18,6 @@ struct Key_437a0 {
     void FUN_0027b040(const char* name);
 };
 
-extern unsigned DAT_004dc318;
-extern Key_437a0 DAT_004dc310;
-extern unsigned DAT_004dc080;
-extern unsigned DAT_004dc084;
 
 class Event_437a0 {
 public:
@@ -215,11 +213,11 @@ char Unit_437a0::FUN_000437a0(float dt, Params* p, Vec3_437a0* where, Actor_437a
                 FUN_00035930(6);
                 if ((DAT_004dc318 & 1) == 0) {
                     DAT_004dc318 |= 1;
-                    DAT_004dc310.FUN_0027af00();
+                    (*(Key_437a0*)&DAT_004dc310).FUN_0027af00();
                     atexit(FUN_00363b90);
                 }
-                DAT_004dc310.FUN_0027b040("no_ai_reset");
-                int r = FUN_00036e40(&DAT_004dc310);
+                (*(Key_437a0*)&DAT_004dc310).FUN_0027b040("no_ai_reset");
+                int r = FUN_00036e40(((Key_437a0*)&DAT_004dc310));
                 Sub_437a0* sub = &subB4;
                 if (sub != 0 && r == 0) {
                     FUN_00037000();

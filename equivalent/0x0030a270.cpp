@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 16/16)
 // FUN_0030a270 @ 0x0030a270
+#include "decls/data/engine/physics.h"
+
 extern "C" double sqrt(double);
 union FloatBits_30a270 {
     float f;
@@ -29,8 +31,6 @@ struct Context {
     Mgr220 *table;
 };
 
-extern float DAT_004d3178;
-extern float DAT_004d317c;
 
 class Node {
 public:

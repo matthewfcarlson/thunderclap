@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 79 inputs, branch coverage 26/26)
 // FUN_002ffa00 @ 0x002ffa00
+#include "decls/data/game/global.h"
+
 struct Vec3_2ffa00 {
     float x, y, z;
     float FUN_0022d110();
@@ -36,7 +38,6 @@ struct World {
     Group_2ffa00 *group;
 };
 
-extern char DAT_00554c1c;
 
 bool __cdecl FUN_002f1160(Vec3_2ffa00 *from, Vec3_2ffa00 *v, Vec3_2ffa00 *d, float dist, Rec_2ffa00 *r);
 void __cdecl FUN_002f24f0(World *w, Rec_2ffa00 *r, Vec3_2ffa00 *v, Vec3_2ffa00 *d, float *dist);
@@ -61,7 +62,7 @@ bool Probe_2ffa00::FUN_002ffa00(World *w, Vec3_2ffa00 *from, Vec3_2ffa00 *to, ch
     d.z = to->z - from->z;
     Vec3_2ffa00 v = d;
     float dist = v.FUN_0022d110();
-    if (DAT_00554c1c && w->count > 0) {
+    if ((*(char*)&DAT_00554c1c) && w->count > 0) {
         Rec_2ffa00 r;
         r.aux = 0;
         r.node = 0;

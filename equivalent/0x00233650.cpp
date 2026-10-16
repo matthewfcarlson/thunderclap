@@ -1,10 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 111 inputs, branch coverage 36/38, incomplete)
 // FUN_00233650 @ 0x00233650
-extern const char *DAT_004ca248;
-extern unsigned int DAT_004e5b28;
-extern unsigned int DAT_004e5b2c;
-extern unsigned int DAT_004e5b00;
-extern unsigned int DAT_004e5b04;
+#include "decls/data/engine/fight.h"
 
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
@@ -37,7 +33,7 @@ Node *Node::FUN_00233650(const char *path)
         __security_check_cookie(f.cookie);
         return this;
     }
-    char sep = *DAT_004ca248;
+    char sep = *(*(const char**)&DAT_004ca248);
     if (*path == sep) {
         Node *root = this;
         for (Node *p = parent; p != 0; p = p->parent)

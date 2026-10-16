@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 28/28)
 // FUN_001456b0 @ 0x001456b0
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -92,10 +94,7 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0f98;
-extern int DAT_004e0f9c;
 
-extern const char* DAT_004ad788[7];
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -155,8 +154,8 @@ void FUN_001456b0()
         mem = FUN_0008d690(0x20);
         params[12] = 0;
         if (mem)
-            params[12] = new (mem) fight::ParamEnumConstList<hulkfight::motion::WorldConeDamageTrack>("damageType", DAT_004ad788, 7, &hulkfight::motion::WorldConeDamageTrack::FUN_00143600);
-        FUN_002347b0(&DAT_004e0f98, params, 13);
+            params[12] = new (mem) fight::ParamEnumConstList<hulkfight::motion::WorldConeDamageTrack>("damageType", ((const char**)&DAT_004ad788), 7, &hulkfight::motion::WorldConeDamageTrack::FUN_00143600);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0f98), params, 13);
     }
     DAT_004e0f9c++;
 }

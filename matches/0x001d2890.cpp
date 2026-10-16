@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 typedef unsigned int U_1d2890;
 extern "C" {
 void __cdecl FUN_00213380(void*, const char*, int);
@@ -10,7 +12,6 @@ void __cdecl FUN_00212d80(void*, int);
 int __cdecl FUN_00213290(void*, int);
 void __cdecl FUN_00212e20(void*, int);
 void __cdecl FUN_00213870(void*, int, U_1d2890);
-extern const char* DAT_004c5cf8;
 }
 struct Object {
     char pad[8];
@@ -34,7 +35,7 @@ U_1d2890 Object::run(U_1d2890 a, U_1d2890 b, U_1d2890 c) {
         FUN_00212d80(state, 0);
         return 0;
     }
-    FUN_002133d0(state, DAT_004c5cf8);
+    FUN_002133d0(state, (*(const char**)&DAT_004c5cf8));
     FUN_00213600(state, -10000);
     FUN_00212e20(state, -2);
     ++counter;

@@ -1,4 +1,5 @@
-extern "C" char DAT_004cc0c8[];
+#include "decls/data/engine/audio.h"
+
 struct Obj_246c80 {
     char pad[0x1c];
     void* reader;

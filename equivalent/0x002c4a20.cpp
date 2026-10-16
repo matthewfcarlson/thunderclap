@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 30 inputs, branch coverage 8/8)
 // FUN_002c4a20 @ 0x002c4a20
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
 struct Vec3_2c4a20 {
     float x, y, z;
 };
@@ -78,7 +79,6 @@ public:
     virtual void v31(Mesh_2c4a20 *m);
 };
 
-extern Renderer_2c4a20 **DAT_0052c2ac;
 void __cdecl FUN_00356bf0(void *a1, float a, float b, float *x, float *y, float *z);
 
 struct Frame_2c4a20 {
@@ -91,7 +91,7 @@ struct Frame_2c4a20 {
 void FUN_002c4a20(void *a1, int a2, int a3, unsigned color, float nx, float ny)
 {
     Frame_2c4a20 fr;
-    (*DAT_0052c2ac)->v23(0, a2);
+    (*(*(Renderer_2c4a20***)&DAT_0052c2ac))->v23(0, a2);
     Mesh_2c4a20 *m = DAT_0052c2a8->v30(a3, 2, 0x2020, (int)((nx + 1.0f) * (ny + 1.0f) * 4.0f), 0);
     FUN_00356bf0(a1, 0.0f, 0.0f, &fr.V.x, &fr.V.y, &fr.V.z);
     fr.stepX = 3.14159274f / nx;
@@ -146,5 +146,5 @@ void FUN_002c4a20(void *a1, int a2, int a3, unsigned color, float nx, float ny)
     } while (nx <= 3.14159274f);
 
     DAT_0052c2a8->v31(m);
-    (*DAT_0052c2ac)->v16(0);
+    (*(*(Renderer_2c4a20***)&DAT_0052c2ac))->v16(0);
 }

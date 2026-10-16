@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0026ed80 @ 0x0026ed80
-extern int DAT_004cdbb0;
+#include "decls/data/engine/core.h"
+
 void FUN_002705f0();
 void FUN_0026e9e0(void *, void *, unsigned int);
 namespace core {

@@ -1,4 +1,5 @@
-extern "C" char DAT_00534956[];
+#include "decls/data/engine/pure3d.h"
+
 class SimpleFrameController {
   public:
     virtual void f0();
@@ -46,5 +47,5 @@ class SceneGraphVisibilityAnimationController : public SimpleFrameController {
 void SceneGraphVisibilityAnimationController::vfunc_24(int a, int b, int c) {
     SimpleFrameController::vfunc_24(a, b, c);
     D* d = field3c->go(0);
-    field40 = d->get((void*)((int)DAT_00534956), 0x4c4f4f42);
+    field40 = d->get((void*)((int)((char*)((char*)&DAT_0052cbb0 + 32166))), 0x4c4f4f42);
 }

@@ -114,6 +114,13 @@ def gen_digest(text):
             for fn in sorted(os.listdir(d)) if os.path.isdir(d) else []:
                 if fn.endswith(".h"):
                     hs.update(sub.encode() + fn.encode() + open(os.path.join(d, fn), "rb").read())
+        # include/decls/data/<layer>/<dir>.h (tools/data_gen.py)
+        for dp, dns, fns in sorted(os.walk(os.path.join(GEN_INCLUDE_ROOT, "decls", "data"))):
+            dns.sort()
+            for fn in sorted(fns):
+                if fn.endswith(".h"):
+                    rel = os.path.relpath(os.path.join(dp, fn), GEN_INCLUDE_ROOT)
+                    hs.update(rel.encode() + open(os.path.join(dp, fn), "rb").read())
         _GEN_DIGEST.append(hs.hexdigest().encode())
     return _GEN_DIGEST[0]
 
@@ -633,7 +640,8 @@ def run_data(manifest, results, jobs):
             st["items"] += 1
             st["items_verified"] += r["status"] == "match"
     out = dict(st)
-    out["link"] = data_gen.link_check({t["path"]: results[t["path"]][0] for t in manifest["tus"]}, model)
+    out["link"] = data_gen.link_check({t["path"]: results[t["path"]][0] for t in manifest["tus"]}, model,
+                                      defined_syms=data_gen.defined_symbols(o for o, _ in res))
     return out
 
 

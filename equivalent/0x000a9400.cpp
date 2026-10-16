@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000a9400 @ 0x000a9400
+#include "decls/data/game/global.h"
+
 namespace pure3d {
 struct Camera {
     Camera();
@@ -23,7 +25,6 @@ struct Clock_a9400 {
  virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
  virtual float s16();
 };
-extern Clock_a9400* DAT_0052c2a4;
 struct Vector { float x,y,z; };
 struct CGameCamera : pure3d::Camera {
  int d0; int d4; int d8; int dc;
@@ -40,7 +41,7 @@ CGameCamera::CGameCamera() {
  e4=0.0f; ec=0.0f; e8=1.0f; f0=0; f1=0;
  v154.x=0.0f; v154.y=0.0f; v154.z=1.0f;
  v160.x=0.0f; v160.y=0.0f; v160.z=1.0f;
- e0=DAT_0052c2a4->s16();
+ e0=(*(Clock_a9400**)&DAT_0052c2a4)->s16();
  d4=0;
  FUN_000a9090(75.0f);
  pure3d::Camera::vfunc_7(0.1f);

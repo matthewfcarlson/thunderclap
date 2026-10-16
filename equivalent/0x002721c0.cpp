@@ -1,8 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 28/28)
 // FUN_002721c0 @ 0x002721c0
-extern short DAT_004cdc70[];
-extern short DAT_004cdc5c[];
-extern short DAT_004cdc28[];
+#include "decls/data/engine/core.h"
+
 extern short DAT_004cdbf4[];
 
 // equiv-conv: FUN_002721c0 eax

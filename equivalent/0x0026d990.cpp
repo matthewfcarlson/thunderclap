@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_0026d990 @ 0x0026d990
+#include "decls/data/platform/xbox/core.h"
+
 struct Obj_26d990;
 struct Node {
     int value;
@@ -30,7 +32,6 @@ namespace XAPILIB {
     int __stdcall SetThreadPriority(int, int);
 }
 extern "C" void FUN_0026d8f0(Obj_26d990*);
-extern "C" int DAT_004cd9d8;
 void __cdecl FUN_0026d990(Obj_26d990* self) {
     self->first = 0;
     self->last = 0;

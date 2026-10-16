@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_00225950 @ 0x00225950
 // equiv-map: ??0Driver@choreo2@@QAE@H@Z = 0x002223f0
-extern int DAT_004e5ab4;
-extern int DAT_004e5ab8;
+#include "decls/data/engine/choreo2.h"
+
 namespace choreo2 {
 struct Skel_225950 { char pad[0x10]; float length; };
 class Driver {

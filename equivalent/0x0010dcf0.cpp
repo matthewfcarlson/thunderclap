@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 30/30)
 // hulkfight::ai::TokenCondition::vfunc_6 @ 0x0010dcf0
-extern float DAT_003f32e0;
+#include "decls/data/game/global.h"
 
 struct V3_10dcf0 {
     float x, y, z;
@@ -95,7 +95,7 @@ bool TokenCondition::vfunc_6(int arg0, fight::Params* params, int arg2)
         if (a == 7 && b == 2)
             return true;
     }
-    if ((float)(int)actor->byte1cee == DAT_003f32e0)
+    if ((float)(int)actor->byte1cee == (*(float*)&DAT_003f32e0))
         return true;
     V3_10dcf0 pos;
     pos.x = 0;

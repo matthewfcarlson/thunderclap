@@ -1,20 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_001f6990 @ 0x001f6990
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 void *FUN_0008d690(unsigned int size);
 void *FUN_0008d710(unsigned int size, int tag);
-extern "C" const char DAT_0048e100[];
-extern "C" const char DAT_0048e0e4[];
-extern "C" const char DAT_0049cad8[];
-extern "C" const char DAT_0048e134[];
 
 template <class T> struct TypeName;
-template <> struct TypeName<void> { static const char *get() { return DAT_0048e100; } };
-template <> struct TypeName<bool> { static const char *get() { return DAT_0048e0e4; } };
-template <> struct TypeName<char *> { static const char *get() { return DAT_0049cad8; } };
-template <> struct TypeName<int> { static const char *get() { return DAT_0048e134; } };
+template <> struct TypeName<void> { static const char *get() { return ((const char*)&DAT_0048e100); } };
+template <> struct TypeName<bool> { static const char *get() { return ((const char*)&DAT_0048e0e4); } };
+template <> struct TypeName<char *> { static const char *get() { return ((const char*)&DAT_0049cad8); } };
+template <> struct TypeName<int> { static const char *get() { return ((const char*)&DAT_0048e134); } };
 
 class __declspec(novtable) Function {
 public:

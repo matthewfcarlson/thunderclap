@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 15 inputs, branch coverage 21/22, incomplete)
 // FUN_001ff580 @ 0x001ff580
+#include "decls/data/game/global.h"
+
 extern void* __cdecl FUN_00263ec0(unsigned);
 extern void* __cdecl FUN_0008d6d0(unsigned);
-extern unsigned DAT_00425168[6];
 struct Volume_1ff580 { char data[64]; void FUN_001fbf40(); };
 struct Group_1ff580 { char data[0xc70]; void FUN_001fa630(); };
 struct Entry_1ff580 { unsigned count; Volume_1ff580* volumes; };
@@ -33,7 +34,7 @@ CTriggerVolumeManager::CTriggerVolumeManager() {
  for(int type=0;type<6;++type) {
   entries[type]=(Entry_1ff580*)FUN_0008d6d0(0xa0);
   for(int j=0;j<20;++j) {
-   unsigned n=DAT_00425168[type];
+   unsigned n=((unsigned*)&DAT_00425168)[type];
    unsigned* block=(unsigned*)(n ? FUN_00263ec0((n<<6)+4) : FUN_0008d6d0(4));
    Volume_1ff580* result=0;
    if(block) {

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_001f4ba0 @ 0x001f4ba0
+#include "decls/data/game/global.h"
+
 struct State_1f4ba0 {
  unsigned int first, second, value, handle, limit, extra;
  unsigned char flag;
@@ -9,7 +11,6 @@ struct State_1f4ba0 {
 };
 extern unsigned int __cdecl FUN_002673a0(int,int);
 struct Object;
-extern Object* DAT_004e3760;
 struct Object {
  char pad0[0x88];
  unsigned int f88, f8c;
@@ -37,6 +38,6 @@ Object* Object::FUN_001f4ba0(unsigned int arg) {
  fd0=0; f98=0; f9c=0; f8c=0;
  fc0=0; fcc=0; fc4=0; fc8=0;
  f334=1.0f;
- DAT_004e3760=this;
+ (*(Object**)&DAT_004e3760)=this;
  return this;
 }

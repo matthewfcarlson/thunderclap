@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 120 inputs, branch coverage 18/22, incomplete)
 // FUN_00220650 @ 0x00220650
+#include "decls/data/engine/unknown.h"
+
 struct WordBuf {
     char pad[0xc];
     unsigned int* words;
@@ -11,7 +13,6 @@ struct Ctx_220650 {
     void* errCtx;
 };
 
-extern char DAT_00426ba4[64];
 void FUN_0021b060(void* errCtx, const char* msg);
 
 // equiv-conv: FUN_00220650 edx ebx stack stack stack stack stack
@@ -28,7 +29,7 @@ void FUN_00220650(int idx, Ctx_220650* ctx, int a1, int a2, int a3, int a4, int 
             next = delta + idx + 1;
 
         unsigned int* p = cur;
-        if (idx >= 1 && DAT_00426ba4[words[idx - 1] & 0x3f] < 0)
+        if (idx >= 1 && ((char*)&DAT_00426ba4)[words[idx - 1] & 0x3f] < 0)
             p = &words[idx - 1];
 
         unsigned int w = *p;

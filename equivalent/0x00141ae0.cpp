@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 6/6)
 // FUN_00141ae0 @ 0x00141ae0
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -51,12 +54,8 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0f40;
-extern int DAT_004e0f44;
 
-extern const char* DAT_0042773c[1];
 
-extern int DAT_00427754;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -68,12 +67,12 @@ void FUN_00141ae0()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::motion::WallVelocityCondition>("compare", DAT_0042773c, DAT_00427754, &hulkfight::motion::WallVelocityCondition::FUN_0013e810);
+            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::motion::WallVelocityCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::motion::WallVelocityCondition::FUN_0013e810);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::WallVelocityCondition>("velocity", &hulkfight::motion::WallVelocityCondition::FUN_0013e820);
-        FUN_002347b0(&DAT_004e0f40, params, 2);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0f40), params, 2);
     }
     DAT_004e0f44++;
 }

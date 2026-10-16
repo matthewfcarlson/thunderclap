@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0009aa20 @ 0x0009aa20
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 class CCameraManager;
-extern char DAT_0048e0e4, DAT_0048e0f0, DAT_0048e100, DAT_0048e128, DAT_0048e134;
 class Base_9aa20 {
 public:
     virtual void v();
@@ -21,9 +22,9 @@ public:
 };
 template<> Method4<CCameraManager, void, float, float, float, float>::Method4(const char* n, void (*x)()) : Base_9aa20(n, 4) {
     f = x;
-    result = FUN_001d04d0(&DAT_0048e100);
-    a[0] = FUN_001d04d0(&DAT_0048e128);
-    a[1] = FUN_001d04d0(&DAT_0048e128);
-    a[2] = FUN_001d04d0(&DAT_0048e128);
-    a[3] = FUN_001d04d0(&DAT_0048e128);
+    result = FUN_001d04d0(((char*)&DAT_0048e100));
+    a[0] = FUN_001d04d0(((char*)&DAT_0048e128));
+    a[1] = FUN_001d04d0(((char*)&DAT_0048e128));
+    a[2] = FUN_001d04d0(((char*)&DAT_0048e128));
+    a[3] = FUN_001d04d0(((char*)&DAT_0048e128));
 }

@@ -1,7 +1,8 @@
+#include "decls/data/engine/content.h"
+
 struct Manager_1c4230 {
     void FUN_002659a0(unsigned int);
 };
-extern Manager_1c4230* DAT_00527c58;
 void __cdecl FUN_0023f8c0(const char*);
 void __cdecl thunk_FUN_00267090(void*);
 struct Resource_1c4230 {
@@ -31,7 +32,7 @@ struct Engine_1c4230 {
     void cleanup();
 };
 void Engine_1c4230::cleanup() {
-    DAT_00527c58->FUN_002659a0(0x60000700);
+    (*(Manager_1c4230**)&DAT_00527c58)->FUN_002659a0(0x60000700);
     if (!setup) {
         FUN_0023f8c0("Render engine not yet setup, cleanup aborted.");
         return;

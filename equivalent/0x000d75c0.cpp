@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2639 inputs, branch coverage 18/18)
 // FUN_000d75c0 @ 0x000d75c0
+#include "decls/data/game/global.h"
+
 typedef unsigned int size_t;
 void *operator new(size_t) throw();
-extern char DAT_0048e0e4, DAT_0048e100, DAT_0048e134;
 char FUN_001d04d0(const void *) throw();
 
 class Base_d75c0 {
@@ -84,12 +85,12 @@ CSimOverlayManager::CSimOverlayManager()
     f0c = 0;
     Registry_d75c0 *r = FUN_001d4c90();
     if (r) {
-        r->FUN_001d3b70("hud_ShowOverlays", new Closure1<CSimOverlayManager, void, bool>("hud_ShowOverlays", this, FUN_000d6fb0, &DAT_0048e100, &DAT_0048e0e4));
-        r->FUN_001d3b70("hud_ShowHUD", new Closure1<CSimOverlayManager, void, bool>("hud_ShowHUD", this, FUN_000d6f80, &DAT_0048e100, &DAT_0048e0e4));
-        r->FUN_001d3b70("hud_ShowMessages", new Closure1<CSimOverlayManager, void, bool>("hud_ShowMessages", this, FUN_000d6f90, &DAT_0048e100, &DAT_0048e0e4));
-        r->FUN_001d3b70("hud_Show", new Closure1<CSimOverlayManager, void, int>("hud_Show", this, FUN_000d7250, &DAT_0048e100, &DAT_0048e134));
-        r->FUN_001d3b70("hud_Hide", new Closure1<CSimOverlayManager, void, int>("hud_Hide", this, FUN_000d72b0, &DAT_0048e100, &DAT_0048e134));
-        r->FUN_001d3b70("hud_SetVisibility", new Closure1<CSimOverlayManager, void, int>("hud_SetVisibility", this, FUN_000d7030, &DAT_0048e100, &DAT_0048e134));
+        r->FUN_001d3b70("hud_ShowOverlays", new Closure1<CSimOverlayManager, void, bool>("hud_ShowOverlays", this, FUN_000d6fb0, ((char*)&DAT_0048e100), &DAT_0048e0e4));
+        r->FUN_001d3b70("hud_ShowHUD", new Closure1<CSimOverlayManager, void, bool>("hud_ShowHUD", this, FUN_000d6f80, ((char*)&DAT_0048e100), &DAT_0048e0e4));
+        r->FUN_001d3b70("hud_ShowMessages", new Closure1<CSimOverlayManager, void, bool>("hud_ShowMessages", this, FUN_000d6f90, ((char*)&DAT_0048e100), &DAT_0048e0e4));
+        r->FUN_001d3b70("hud_Show", new Closure1<CSimOverlayManager, void, int>("hud_Show", this, FUN_000d7250, ((char*)&DAT_0048e100), ((char*)&DAT_0048e134)));
+        r->FUN_001d3b70("hud_Hide", new Closure1<CSimOverlayManager, void, int>("hud_Hide", this, FUN_000d72b0, ((char*)&DAT_0048e100), ((char*)&DAT_0048e134)));
+        r->FUN_001d3b70("hud_SetVisibility", new Closure1<CSimOverlayManager, void, int>("hud_SetVisibility", this, FUN_000d7030, ((char*)&DAT_0048e100), ((char*)&DAT_0048e134)));
         r->FUN_000d7550("hud_GetVisibility", this, FUN_000d6f50);
     }
 }

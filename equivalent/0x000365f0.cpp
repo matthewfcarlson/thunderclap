@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_000365f0 @ 0x000365f0
 #include "decls/address.h"
+#include "decls/data/game/hulkfight.h"
 typedef unsigned long U32_365f0;
-extern U32_365f0 DAT_004dc2b0, DAT_004dc2b4, DAT_004dc2b8;
 struct Matrix {
  U32_365f0 elements[16];
  void FUN_0022b980();
@@ -19,13 +19,13 @@ void Actor_365f0::target(int,int) {
  Model_365f0* model=provider->FUN_00059a40();
  Weapon_365f0* w=weapon;
  if(w) {
-  if(!(DAT_004dc2b8 & 1)) {
-   DAT_004dc2b8 |= 1;
+  if(!((*(U32_365f0*)&DAT_004dc2b8) & 1)) {
+   (*(U32_365f0*)&DAT_004dc2b8) |= 1;
    unsigned __int64 key=FUN_0027b020("Wealded_Weap_1");
-   DAT_004dc2b0=(U32_365f0)key;
-   DAT_004dc2b4=(U32_365f0)(key>>32);
+   (*(U32_365f0*)&DAT_004dc2b0)=(U32_365f0)key;
+   (*(U32_365f0*)&DAT_004dc2b4)=(U32_365f0)(key>>32);
   }
-  int index=model->skeleton->names->FUN_0027b200(DAT_004dc2b0,DAT_004dc2b4);
+  int index=model->skeleton->names->FUN_0027b200((*(U32_365f0*)&DAT_004dc2b0),(*(U32_365f0*)&DAT_004dc2b4));
   if(w->attachment) w->attachment->FUN_002ef8b0(0);
   Matrix bone=model->skeleton->matrices[index];
   Matrix identity;

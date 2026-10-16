@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000d9790 @ 0x000d9790
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 typedef unsigned short wchar_t;
 extern unsigned int DAT_004d9968;
 extern void __fastcall __security_check_cookie(unsigned int);
@@ -12,8 +13,6 @@ struct UI_d9790 {
 };
 struct State_d9790 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d9790* FUN_00086280(); };
-extern const wchar_t *DAT_004a0ca8,*DAT_004a0ce0,*DAT_004a0ce4,*DAT_004a0ce8,*DAT_004a0c60;
-extern float DAT_003f335c;
 extern void __cdecl FUN_000fc020(wchar_t*,int,const wchar_t*,const wchar_t*);
 struct Object {
  char pad0[0x21c]; int status; char pad1[0x13c]; Entry_d9790 entries[1]; char pad2[0x1c]; unsigned char shown; char pad3[0x3a]; unsigned char special;
@@ -25,16 +24,16 @@ void Object::target(int index) {
  wchar_t buffer[512];
  UI_d9790* ui=FUN_000fc3d0();
  TextTable* text=ui->v44();
- int key=text->FUN_000f7d30(DAT_004a0ca8);
+ int key=text->FUN_000f7d30((*(const wchar_t**)&DAT_004a0ca8));
  const wchar_t* format=text->FUN_000f7220(key);
  const wchar_t* item=entries[index].FUN_000f83f0(text,0);
  FUN_000fc020(buffer,512,format,item);
  const wchar_t* title;
- if(special) title=DAT_004a0ce8;
- else if(DAT_004dd6ec->FUN_00086280()->flag) title=DAT_004a0ce4;
- else title=DAT_004a0ce0;
- const wchar_t* common=DAT_004a0c60;
- ui->FUN_000be310(title,buffer,&DAT_003f335c,"TBS_INSTRUCTION_DELETE","TBS_CANCEL",2,common,common);
+ if(special) title=(*(const wchar_t**)&DAT_004a0ce8);
+ else if(DAT_004dd6ec->FUN_00086280()->flag) title=(*(const wchar_t**)&DAT_004a0ce4);
+ else title=(*(const wchar_t**)&DAT_004a0ce0);
+ const wchar_t* common=(*(const wchar_t**)&DAT_004a0c60);
+ ui->FUN_000be310(title,buffer,((float*)&DAT_003f335c),"TBS_INSTRUCTION_DELETE","TBS_CANCEL",2,common,common);
  shown=1;
  status=0;
  __security_check_cookie(cookie);

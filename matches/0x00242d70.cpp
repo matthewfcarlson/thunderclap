@@ -1,4 +1,5 @@
-extern "C" char DAT_004e5e88[];
+#include "decls/data/engine/unknown.h"
+
 struct Obj_242d70 {
     char pad[0x1c];
     unsigned int count;

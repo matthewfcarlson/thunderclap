@@ -1,20 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1920 inputs, branch coverage 10/10)
 // FUN_001ea8b0 @ 0x001ea8b0
 #include "decls/address.h"
-extern char DAT_0048e100;
-extern char DAT_0048e0f0;
-extern char DAT_0049cad8;
-extern char DAT_0048e134;
-extern char DAT_004e36c8;
-extern float DAT_004e36a4;
+#include "decls/data/engine/content.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 void *FUN_0008d690(unsigned int size);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 template <class T> struct TypeTag;
-template <> struct TypeTag<void> { static const void *get() { return &DAT_0048e100; } };
-template <> struct TypeTag<const char *> { static const void *get() { return &DAT_0048e0f0; } };
-template <> struct TypeTag<char *> { static const void *get() { return &DAT_0049cad8; } };
-template <> struct TypeTag<int> { static const void *get() { return &DAT_0048e134; } };
+template <> struct TypeTag<void> { static const void *get() { return ((char*)&DAT_0048e100); } };
+template <> struct TypeTag<const char *> { static const void *get() { return ((char*)&DAT_0048e0f0); } };
+template <> struct TypeTag<char *> { static const void *get() { return ((char*)&DAT_0049cad8); } };
+template <> struct TypeTag<int> { static const void *get() { return ((char*)&DAT_0048e134); } };
 
 class __declspec(novtable) MethodBase_1ea8b0 {
 public:
@@ -66,12 +63,10 @@ struct Streams {
 };
 
 class CSoundResourceManager;
-extern CSoundResourceManager *DAT_004e3690;
 
 struct Fx_1ea8b0 {
     void FUN_00265240(CSoundResourceManager *owner, const char *name);
 };
-extern Fx_1ea8b0 *DAT_00527c58;
 
 void *FUN_00263ed0(unsigned int size, int kind);
 void FUN_002474f0(void *p);
@@ -96,9 +91,9 @@ public:
 
 int CSoundResourceManager::FUN_001ea8b0(int arg)
 {
-    DAT_004e3690 = this;
+    (*(CSoundResourceManager**)&DAT_004e3690) = this;
     param = arg;
-    FUN_002474f0(&DAT_004e36c8);
+    FUN_002474f0(((char*)&DAT_004e36c8));
     FUN_002407a0(-1);
 
     SoundConfig cfg;
@@ -116,7 +111,7 @@ int CSoundResourceManager::FUN_001ea8b0(int arg)
         s = ((Streams *)raw)->FUN_00266480(0x400);
     streams = s;
 
-    DAT_00527c58->FUN_00265240(this, "clips");
+    (*(Fx_1ea8b0**)&DAT_00527c58)->FUN_00265240(this, "clips");
     Registry_1ea8b0 *reg = FUN_001d4c90();
     void *mem;
 

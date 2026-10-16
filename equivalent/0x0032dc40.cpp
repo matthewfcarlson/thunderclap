@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 110 inputs, branch coverage 50/52, incomplete)
 // pure3d::d3dLayeredShader::vfunc_14 @ 0x0032dc40
+#include "decls/data/platform/xbox/pure3d.h"
+
 namespace D3D8 {
 void __stdcall D3DDevice_SetTexture(int stage, void* texture);
 void __stdcall D3DDevice_SetPalette(int stage, int palette);
 void __stdcall D3DDevice_SetTextureState_TexCoordIndex(int stage, int value);
 void __fastcall D3DDevice_SetRenderState_Simple(int state, int value);
 }
-extern int DAT_004d4f24[];
 extern int DAT_0039de18;
 
 struct Texture {

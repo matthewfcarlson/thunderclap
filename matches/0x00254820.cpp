@@ -1,3 +1,5 @@
+#include "decls/data/engine/audio.h"
+
 class SeqEvent {
   public:
     virtual void v0();
@@ -17,7 +19,6 @@ class SeqEventSilence : public SeqEvent {
     virtual SeqEventSilence* v4(int);
 };
 extern void FUN_00247550(void*, SeqEventSilence*);
-extern char DAT_004e72f8[];
 SeqEventSilence* SeqEventSilence::v4(int flags) {
     Prepare();
     if (flags & 1)

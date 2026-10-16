@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 36/38, incomplete)
 // FUN_00086ad0 @ 0x00086ad0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 struct Flags_86ad0 {
     char pad0[4];
     char started;       // +4
@@ -59,11 +61,6 @@ struct Renderer_86ad0 {
     void FUN_001bc040();
 };
 
-extern int DAT_0049c0dc;
-extern int DAT_004dda40;
-extern char DAT_004e222c;
-extern char DAT_004ddbe1;
-extern char DAT_004e222d;
 
 Flags_86ad0 *FUN_0008e090();
 void FUN_002684c0();
@@ -94,7 +91,7 @@ void Game_86ad0::FUN_00086ad0()
         renderer->FUN_001bc040();
         FUN_0008e090()->busy = 1;
         FUN_002684c0();
-        DAT_004dda40++;
+        (*(int*)&DAT_004dda40)++;
     } while (!FUN_0008e090()->quit);
 
     bool rising = false;
@@ -130,6 +127,6 @@ void Game_86ad0::FUN_00086ad0()
         }
     }
     DAT_004e222c = 1;
-    DAT_004ddbe1 = 1;
-    DAT_004e222d = 1;
+    (*(char*)&DAT_004ddbe1) = 1;
+    (*(char*)&DAT_004e222d) = 1;
 }

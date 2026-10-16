@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 40 inputs, branch coverage 55/62, incomplete)
 // FUN_001e6f10 @ 0x001e6f10
+#include "decls/data/game/global.h"
+
 struct Vec3_1e6f10 {
     float x, y, z;
 };
@@ -89,8 +91,6 @@ struct Globals_1e6f10 {
 };
 
 
-extern float DAT_0042189c;
-extern Settings_1e6f10 *DAT_004dd6e8;
 extern Globals_1e6f10 *DAT_004dd700;
 
 class World {
@@ -118,7 +118,7 @@ void World::FUN_001e6f10(int unused, float dt)
         return;
     FUN_001e57a0();
     FUN_001e6390();
-    if (!DAT_004dd6e8->FUN_0023f760("DoPhysics", 0x66, 1))
+    if (!(*(Settings_1e6f10**)&DAT_004dd6e8)->FUN_0023f760("DoPhysics", 0x66, 1))
         return;
     for (int i = count - 1; i >= 0; i--) {
         Obj_1e6f10 *obj = objs[i];
@@ -130,7 +130,7 @@ void World::FUN_001e6f10(int unused, float dt)
             obj->FUN_001d6990() != 10) {
             float d = obj->timer - dt;
             if (d > 1.0f && d < 1.5f)
-                obj->tracker->FUN_00034c80(DAT_0042189c);
+                obj->tracker->FUN_00034c80((*(float*)&DAT_0042189c));
             if (d <= 0.0f) {
                 obj->FUN_001d7ff0();
                 obj->FUN_001d6290(1);

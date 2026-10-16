@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 316 inputs, branch coverage 30/30)
 // FUN_00203e90 @ 0x00203e90
+#include "decls/data/engine/content.h"
+
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" char* strncpy(char* dst, const char* src, unsigned int n);
 
@@ -54,7 +56,6 @@ int FUN_00266da0(int v);
 unsigned int FUN_00267f80();
 void FUN_00087990();
 extern unsigned int DAT_004d9968;
-extern Mgr_203e90* DAT_00527c58;
 
 class Owner_203e90 {
 public:
@@ -92,13 +93,13 @@ Handle_203e90* Owner_203e90::Run(const char* name, bool a2, bool a3, Actor_203e9
     f.req.f10c = 0;
     if (actor)
         f.req.f108 = actor->f26;
-    DAT_00527c58->FUN_00265810(&f.req, &f.out);
+    (*(Mgr_203e90**)&DAT_00527c58)->FUN_00265810(&f.req, &f.out);
     if (!a2) {
         Item_203e90* item = f588->FUN_00086280();
         if (a3 && item && !fAF5)
             item->FUN_000bd1b0(0);
-        f.saved = DAT_00527c58->FUN_00264870();
-        DAT_00527c58->FUN_00264860(250000);
+        f.saved = (*(Mgr_203e90**)&DAT_00527c58)->FUN_00264870();
+        (*(Mgr_203e90**)&DAT_00527c58)->FUN_00264860(250000);
         while (!f.out->FUN_00266750()) {
             if (item) {
                 if ((a3 && !fAF5) || (fAFC != 0 && FUN_00267f80() - fAFC > 3000))
@@ -106,7 +107,7 @@ Handle_203e90* Owner_203e90::Run(const char* name, bool a2, bool a3, Actor_203e9
             }
             FUN_00087990();
         }
-        DAT_00527c58->FUN_00264860(f.saved);
+        (*(Mgr_203e90**)&DAT_00527c58)->FUN_00264860(f.saved);
         int n = f.out->FUN_00266700();
         Target_203e90* t = actor ? actor->f38 : target;
         t->FUN_00266220(n);

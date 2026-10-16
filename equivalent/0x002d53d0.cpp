@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_002d53d0 @ 0x002d53d0
+#include "decls/data/game/global.h"
+
 struct Stream;
 
 struct Vec3_2d53d0 {
@@ -78,7 +80,6 @@ struct CameraHolder {
     Camera* camera;
 };
 
-extern CameraHolder* DAT_0052c2b0;
 
 class Emitter_2d53d0 {
 public:
@@ -129,7 +130,7 @@ void Emitter_2d53d0::FUN_002d53d0(Stream* s, Desc_2d53d0* d, Matrix* parent)
 
     local.FUN_0022ca90(parent, &orient);
     Matrix combined;
-    combined.FUN_0022ca90(&local, DAT_0052c2b0->camera->FUN_0028faa0());
+    combined.FUN_0022ca90(&local, (*(CameraHolder**)&DAT_0052c2b0)->camera->FUN_0028faa0());
     local = combined;
 
     d->c08->FUN_0028a1c0(s, &fac);

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // hulkfight::motion::GroundSlideAction::vfunc_5 @ 0x001513d0
+#include "decls/data/game/hulkfight/motion.h"
+
 extern "C" double sqrt(double);
 struct V3_1513d0 {
     float x, y, z;
@@ -42,9 +44,6 @@ struct Driver {
     Mat4_1513d0 xform;
 };
 
-extern float DAT_004afa08;
-extern float DAT_004afa0c;
-extern float DAT_004afa10;
 void __cdecl FUN_00224d70(float angle, V3_1513d0 *v);
 
 class GroundSlideAction {
@@ -81,9 +80,9 @@ bool GroundSlideAction::vfunc_5(int a, float dt)
     Frame_1513d0 f;
     Clock_1513d0 *clock = target->FUN_000592a0();
     Timing_1513d0 *timing = clock->FUN_00059a30();
-    f.fwd.x = DAT_004afa08;
-    f.fwd.y = DAT_004afa0c;
-    f.fwd.z = DAT_004afa10;
+    f.fwd.x = (*(float*)&DAT_004afa08);
+    f.fwd.y = (*(float*)((char*)&DAT_004afa08 + 4));
+    f.fwd.z = (*(float*)((char*)&DAT_004afa08 + 8));
     f.limit = cfg->angleOffset;
     FUN_00224d70(timing->FUN_000354c0() - f.limit, &f.fwd);
 

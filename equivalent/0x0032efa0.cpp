@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 28/28)
 // pure3d::d3dRefractVertexShader::vfunc_14 @ 0x0032efa0
+#include "decls/data/platform/xbox/pure3d.h"
+
 namespace D3D8 {
 void __stdcall D3DDevice_SetRenderState_TextureFactor(unsigned int);
 void __stdcall D3DDevice_SetTextureState_TexCoordIndex(int stage, int value);
@@ -19,8 +21,6 @@ extern unsigned int DAT_0039db60;
 extern TexSlot DAT_0039db10[];
 extern unsigned int DAT_0039dc4c;
 extern unsigned int DAT_0039de18;
-extern unsigned int DAT_004d4efc[];
-extern unsigned int DAT_004d4f24[];
 class TexObj_32efa0 {
   public:
     void FUN_00326300(Surface* s);
@@ -172,7 +172,7 @@ void RefractShader::vfunc_14(int) {
     }
     if (cache->modes[0] != 1) {
         cache->modes[0] = 1;
-        unsigned int t = DAT_004d4efc[1];
+        unsigned int t = ((unsigned int*)&DAT_004d4efc)[1];
         DAT_0039db08 |= 1;
         DAT_0039db10[0].v0 = t;
         DAT_0039db10[0].v4 = t;
@@ -227,7 +227,7 @@ void RefractShader::vfunc_14(int) {
     b28 = 0;
     if (f4c != cache->f48) {
         cache->f48 = f4c;
-        unsigned int v = DAT_004d4f24[f4c];
+        unsigned int v = ((unsigned int*)&DAT_004d4f24)[f4c];
         D3D8::D3DDevice_SetRenderState_Simple(0x4037c, v);
         DAT_0039de18 = v;
     }

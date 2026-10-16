@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_000e0a90 @ 0x000e0a90
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct Vertices {
     void FUN_0008ef00();
     char pad0[8];
@@ -52,7 +53,6 @@ struct Gfx {
     virtual void vfn31(Vertices *v);
 };
 
-extern Surface_e0a90 *DAT_004de954;
 
 // equiv-conv: FUN_000e0a90 edx stack stack stack stack stack
 void FUN_000e0a90(int a4, float w, float h, int unused, float d, unsigned int color)
@@ -77,7 +77,7 @@ void FUN_000e0a90(int a4, float w, float h, int unused, float d, unsigned int co
     xs[7] = ix0; ys[7] = iy0;
     xs[8] = x0;  ys[8] = y1;
     xs[9] = ix0; ys[9] = iy1;
-    Vertices *v = DAT_0052c2a8->vfn30(DAT_004de954, a4, 0x2020, 10, 0);
+    Vertices *v = DAT_0052c2a8->vfn30((*(Surface_e0a90**)&DAT_004de954), a4, 0x2020, 10, 0);
     if (v) {
         for (int i = 0; i < 10; i++) {
             float *p = v->pos;

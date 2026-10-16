@@ -1,4 +1,6 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 struct Reset_86cb0 {
     void FUN_00024800();
 };
@@ -6,14 +8,11 @@ struct World {
     char pad[0x20];
     Reset_86cb0* reset;
 };
-extern unsigned char DAT_0049c0d8, DAT_0049caa0, DAT_004dd83e, DAT_004dd8e4;
-extern int DAT_0049c108;
 struct UI_86cb0 {
     void FUN_0023f720(int*, int);
     bool FUN_0023f760(const char*, int, int);
     void FUN_0023f740();
 };
-extern UI_86cb0* DAT_004dd6e8;
 struct Check_86cb0 {
     bool FUN_0008db70();
 };
@@ -62,13 +61,13 @@ void Target_86cb0::FUN_00086cb0() {
     if (DAT_0049caa0 && mode->kind == 7) {
         special->FUN_001b7d10(field14, field18);
     } else {
-        DAT_004dd6e8->FUN_0023f720(&DAT_0049c108, 0);
-        if (DAT_004dd83e || DAT_004dd6e8->FUN_0023f760("Display Memory Usage", 0x4d, 0)) {
+        (*(UI_86cb0**)&DAT_004dd6e8)->FUN_0023f720(&DAT_0049c108, 0);
+        if ((*(unsigned char*)&DAT_004dd83e) || (*(UI_86cb0**)&DAT_004dd6e8)->FUN_0023f760("Display Memory Usage", 0x4d, 0)) {
             FUN_0008ceb0(0)->FUN_0008d0a0();
         }
-        DAT_004dd6e8->FUN_0023f740();
+        (*(UI_86cb0**)&DAT_004dd6e8)->FUN_0023f740();
         draw->FUN_001b93a0(mode, fieldc, field20, field2c, field38, field28);
     }
-    if (DAT_004dd8e4)
+    if ((*(unsigned char*)&DAT_004dd8e4))
         FUN_00096740();
 }

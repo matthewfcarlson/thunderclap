@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 8/8)
 // VScroll::vfunc_2 @ 0x000e2280
+#include "decls/data/engine/pure3d/prop.h"
+
 struct V3_e2280 {
     float x, y, z;
 };
@@ -66,7 +68,6 @@ struct Anchor_e2280 {
     const V3_e2280* FUN_000f6370(V3_e2280* out);
 };
 
-extern Renderer_e2280* DAT_0052c2ac;
 void __cdecl FUN_000e11a0(V3_e2280 size, int color, int mode);
 
 class FELayout {
@@ -96,16 +97,16 @@ void VScroll::vfunc_2()
     V3_e2280 v;
 
     if (child != 0) {
-        DAT_0052c2ac->pen->vfunc_15(0);
-        DAT_0052c2ac->FUN_00293d00(anchor.FUN_000f6370(&v));
+        (*(Renderer_e2280**)&DAT_0052c2ac)->pen->vfunc_15(0);
+        (*(Renderer_e2280**)&DAT_0052c2ac)->FUN_00293d00(anchor.FUN_000f6370(&v));
         v.x = 0.0f;
         v.y = 0.0f;
         v.z = 0.01f;
-        DAT_0052c2ac->FUN_00293d00(&v);
-        DAT_0052c2ac->FUN_00293da0(axis);
-        DAT_0052c2ac->FUN_00293bf0(-1.5707964f);
+        (*(Renderer_e2280**)&DAT_0052c2ac)->FUN_00293d00(&v);
+        (*(Renderer_e2280**)&DAT_0052c2ac)->FUN_00293da0(axis);
+        (*(Renderer_e2280**)&DAT_0052c2ac)->FUN_00293bf0(-1.5707964f);
         child->vfunc_8(0, 0);
-        DAT_0052c2ac->pen->vfunc_16(0);
+        (*(Renderer_e2280**)&DAT_0052c2ac)->pen->vfunc_16(0);
     }
 
     for (int i = 0; i < itemCount; i++) {
@@ -113,12 +114,12 @@ void VScroll::vfunc_2()
             items[i].obj->vfunc_5();
     }
 
-    DAT_0052c2ac->pen->vfunc_15(0);
-    DAT_0052c2ac->FUN_00293d00(anchor.FUN_000f6370(&v));
+    (*(Renderer_e2280**)&DAT_0052c2ac)->pen->vfunc_15(0);
+    (*(Renderer_e2280**)&DAT_0052c2ac)->FUN_00293d00(anchor.FUN_000f6370(&v));
     V3_e2280 size;
     size.x = width * 1.1f;
     size.y = height * 1.1f;
     size.z = 0.0f;
     FUN_000e11a0(size, -256, 2);
-    DAT_0052c2ac->pen->vfunc_16(0);
+    (*(Renderer_e2280**)&DAT_0052c2ac)->pen->vfunc_16(0);
 }

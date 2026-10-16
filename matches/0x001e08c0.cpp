@@ -1,7 +1,7 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 extern "C" char DAT_00423438[];
-extern "C" char DAT_0048e0e4[];
-extern "C" char DAT_0048e128[];
 class CSPManager {
   public:
     int vtable;
@@ -18,10 +18,10 @@ CSPManager* CSPManager::Init(void* p, int b) {
     FUN_001d0480(p, 4);
     vtable = ((int)DAT_00423438);
     field1c = b;
-    a18 = FUN_001d04d0((const char*)((int)DAT_0048e0e4));
-    a10 = FUN_001d04d0((const char*)((int)DAT_0048e128));
-    a11 = FUN_001d04d0((const char*)((int)DAT_0048e128));
-    a12 = FUN_001d04d0((const char*)((int)DAT_0048e128));
-    a13 = FUN_001d04d0((const char*)((int)DAT_0048e128));
+    a18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0e4)));
+    a10 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
+    a11 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
+    a12 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
+    a13 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
     return this;
 }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000d9a80 @ 0x000d9a80
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct TextTable {
  int FUN_000f7d30(const char*);
  const unsigned short* FUN_000f7220(int);
@@ -22,12 +23,6 @@ struct Dialog_d9a80 {
 };
 struct Status_d9a80 { char pad[0x1bc8]; unsigned char active; };
 struct Singleton_4dd6ec { Status_d9a80* FUN_00086280(); };
-extern const char* DAT_004a0cb0;
-extern const char* DAT_004a0ce0;
-extern const char* DAT_004a0ce4;
-extern const char* DAT_004a0ce8;
-extern const char* DAT_004a0c60;
-extern float DAT_003f335c;
 extern unsigned int DAT_004d9968;
 void __fastcall __security_check_cookie(unsigned int);
 void __cdecl FUN_000fc020(unsigned short*, int, const unsigned short*);
@@ -43,17 +38,17 @@ void Screen_d9a80::FUN_000d9a80(int) {
  unsigned int cookie = DAT_004d9968;
  Dialog_d9a80* dialog = FUN_000fc3d0();
  TextTable* table = dialog->slot44();
- int id = table->FUN_000f7d30(DAT_004a0cb0);
+ int id = table->FUN_000f7d30((*(const char**)&DAT_004a0cb0));
  const unsigned short* source = table->FUN_000f7220(id);
  FUN_000fc020(text, 512, source);
  const char* heading;
- if (mode) heading = DAT_004a0ce8;
+ if (mode) heading = (*(const char**)&DAT_004a0ce8);
  else {
  Status_d9a80* status = DAT_004dd6ec->FUN_00086280();
- heading = status->active ? DAT_004a0ce4 : DAT_004a0ce0;
+ heading = status->active ? (*(const char**)&DAT_004a0ce4) : (*(const char**)&DAT_004a0ce0);
  }
- const char* option = DAT_004a0c60;
- dialog->FUN_000be310(heading, text, &DAT_003f335c, &DAT_003f335c, "TBS_MENU_ITEM_OK", 2, option, option);
+ const char* option = (*(const char**)&DAT_004a0c60);
+ dialog->FUN_000be310(heading, text, ((float*)&DAT_003f335c), ((float*)&DAT_003f335c), "TBS_MENU_ITEM_OK", 2, option, option);
  visible = 1;
  state = 0;
  __security_check_cookie(cookie);

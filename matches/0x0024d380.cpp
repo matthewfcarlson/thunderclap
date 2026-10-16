@@ -1,4 +1,5 @@
-extern "C" char DAT_004e62d8[];
+#include "decls/data/engine/unknown.h"
+
 extern int g_vftable_24d380;
 namespace om { class EntityLoader {
   public:

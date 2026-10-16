@@ -231,8 +231,20 @@ def key_str(k):
 
 TYPE_KINDS = {"class", "template class", "enum", "typedef", "fwd", "template fwd"}
 # shared headers a source may include: include/gen/ (classes, tools/gen_headers.py) and include/decls/ (pinned
-# prototypes of address names); the generator hoists them to the TU and their declarations win in it
-GEN_INCLUDE = re.compile(r'#\s*include\s*[<"]((?:gen|decls)/\w+\.h)[>"]\s*$')
+# prototypes of address names) and include/decls/data/ (the data items, tools/data_gen.py); the generator hoists
+# them to the TU and their declarations win in it
+GEN_INCLUDE = re.compile(r'#\s*include\s*[<"]((?:gen|decls)/\w+\.h|decls/data/[\w/]+\.h)[>"]\s*$')
+DATA_INCLUDE = re.compile(r'^[ \t]*#\s*include\s*[<"]decls/data/[\w/]+\.h[>"][ \t]*\r?\n?', re.M)
+
+
+def tu_data_headers(blocks):
+    """include/decls/data/ headers of a TU's merged and wrapped sources. They are hoisted to the TU whatever the
+    source's mode: they hold only `extern "C"` declarations (and `struct DataLayout_<addr>;`), so a wrapped
+    source sees them from its fn_<addr> namespace, and a declaration in one namespace can't hide them from
+    another wrapped source (an include guard would)."""
+    return {h for b in blocks if b.mode in ("merged", "wrapped") for h in b.gen_includes if h.startswith("decls/data/")}
+
+
 INCLUDE_ROOT = os.path.join(ROOT, "include")
 _GEN_CACHE = {}
 
@@ -649,7 +661,7 @@ class Generator:
         for b in tu.blocks:
             if not hasattr(b, "orig_decls"):
                 b.orig_decls = list(b.decls)
-        tu.gen = sorted({h for b in tu.blocks if b.mode == "merged" for h in b.gen_includes})
+        tu.gen = sorted({h for b in tu.blocks if b.mode == "merged" for h in b.gen_includes} | tu_data_headers(tu.blocks))
         tu.gen_vars = gen_variants(tu.gen) if tu.gen else {}
         for _ in range(12):
             for b in tu.blocks:
@@ -1050,7 +1062,7 @@ class Generator:
         rec = {"path": tu.path, "object": o["file"], "layer": layer_of(o), "start": o["start"], "tag": tu.tag,
                "flags": tu.flags or [], "blocks": [], "locals": [], "placeholders": len(tu.placeholders)}
         merged = [b for b in tu.blocks if b.mode == "merged"]
-        gen = sorted({h for b in merged for h in b.gen_includes})
+        gen = sorted({h for b in merged for h in b.gen_includes} | tu_data_headers(tu.blocks))
         for h in gen:
             lines.append('#include "%s"' % h)
         rec["gen"] = gen
@@ -1102,6 +1114,7 @@ class Generator:
                 # with the source's own stubs (`struct World;` + the source's `struct World {...}`)
                 text = re.sub(r'^[ \t]*#\s*include\s*[<"](decls/\w+\.h)[>"][ \t]*$', lambda m: decls_body(m.group(1)),
                               text, flags=re.M)
+                text = DATA_INCLUDE.sub("", text)        # hoisted to the TU (tu_data_headers)
                 lines.append("namespace %s {" % b.ns)
                 lines += [l for l in text.rstrip("\n").splitlines()]
                 lines.append("} // namespace %s" % b.ns)

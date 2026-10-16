@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2969 inputs, branch coverage 6/6)
 // FUN_0032a320 @ 0x0032a320
+#include "decls/data/platform/xbox/pure3d.h"
+
 typedef unsigned long DWORD;
 namespace D3D8 {
 void __stdcall D3DDevice_SetTextureState_TexCoordIndex(DWORD, DWORD);
@@ -23,7 +25,6 @@ struct CoordReg {
 extern CoordReg DAT_0039db64[];
 extern unsigned int DAT_0039db08;
 extern StageRegs_32a320 DAT_0039db10[];
-extern unsigned int DAT_004d4efc[];
 struct Stage_32a320 {
     char pad[0x14];
     StageState2* st;
@@ -44,7 +45,7 @@ void Stage_32a320::Set(int stage, int coord) {
     }
     if (st->addrMode[stage] != mode) {
         st->addrMode[stage] = mode;
-        unsigned int v = DAT_004d4efc[mode];
+        unsigned int v = ((unsigned int*)&DAT_004d4efc)[mode];
         DAT_0039db10[stage].a = v;
         DAT_0039db10[stage].b = v;
         DAT_0039db10[stage].c = v;

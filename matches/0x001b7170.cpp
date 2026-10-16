@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 struct Fader_1b7170 {
     virtual void vf0();
     virtual void vf1();
@@ -103,9 +105,7 @@ struct Global700 {
 struct Sub_1b7170 {
     void FUN_001bf8b0();
 };
-extern Screen_1b7170* DAT_0052c2a4;
 extern Overlay* DAT_0052c2a8;
-extern Global2b4* DAT_0052c2b4;
 extern Global700* DAT_004dd700;
 class CRadMovieRenderLoop {
   public:
@@ -117,11 +117,11 @@ class CRadMovieRenderLoop {
     void FUN_001b6fd0(int);
 };
 void CRadMovieRenderLoop::vfunc_3(Fader_1b7170* fader) {
-    DAT_0052c2a4->vf14();
-    DAT_0052c2b4->field_d8 = -1;
+    (*(Screen_1b7170**)&DAT_0052c2a4)->vf14();
+    (*(Global2b4**)&DAT_0052c2b4)->field_d8 = -1;
     DAT_0052c2a8->vf58(0);
     DAT_0052c2a8->vf12(7);
-    DAT_0052c2b4->FUN_0028f9a0();
+    (*(Global2b4**)&DAT_0052c2b4)->FUN_0028f9a0();
     fader->vf4();
     if (fade == -1)
         FUN_001b6fd0(0xff);
@@ -135,5 +135,5 @@ void CRadMovieRenderLoop::vfunc_3(Fader_1b7170* fader) {
             level = 0.0f;
         fader->vf10(level);
     }
-    DAT_0052c2b4->FUN_0028faf0(0);
+    (*(Global2b4**)&DAT_0052c2b4)->FUN_0028faf0(0);
 }

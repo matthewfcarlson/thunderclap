@@ -2,6 +2,8 @@
 // pure3d::prop::StateProp::vfunc_16 @ 0x0027e4c0
 // equiv-map: ?thunk_FUN_002ee510@Cache@@QAEXPAUChoice@@@Z = 0x002ee700
 // equiv-map: ?thunk_FUN_002ee710@Cache@@QAEXH@Z = 0x002eecb0
+#include "decls/data/game/global.h"
+
 extern "C" void *memset(void *dst, int c, unsigned int n);
 
 struct Res_27e4c0 {
@@ -42,7 +44,6 @@ struct Layout_27e4c0 {
     void FUN_002834b0(int v);
 };
 Layout_27e4c0 *FUN_0027f250();
-extern Cache *DAT_00554c14;
 
 class Scene_27e4c0 {
 public:
@@ -92,7 +93,7 @@ void Scene_27e4c0::FUN_0027e4c0(int index, bool notify)
         for (int i = 0; i < n; i++) {
             Slot_27e4c0 *s = &slots[i];
             if (slots[i].stage != 0) {
-                DAT_00554c14->thunk_FUN_002ee710(slots[i].stage->key);
+                (*(Cache**)&DAT_00554c14)->thunk_FUN_002ee710(slots[i].stage->key);
                 s->stage->vfn1();
                 if (s->aux != 0)
                     s->aux->vfn1();
@@ -106,10 +107,10 @@ void Scene_27e4c0::FUN_0027e4c0(int index, bool notify)
                 Layout_27e4c0 *l2 = FUN_0027f250();
                 l2->FUN_002834b0(choices[current]->value);
             }
-            DAT_00554c14->thunk_FUN_002ee510(choices[current]);
+            (*(Cache**)&DAT_00554c14)->thunk_FUN_002ee510(choices[current]);
         }
         if (choices[index] != 0) {
-            DAT_00554c14->FUN_002ee6d0(choices[index]);
+            (*(Cache**)&DAT_00554c14)->FUN_002ee6d0(choices[index]);
         }
     }
     memset(slots, 0, slotsPerEntry * 24);

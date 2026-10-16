@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 321 inputs, branch coverage 46/48, incomplete)
 // MapThing::vfunc_5 @ 0x000ec360
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 typedef unsigned __int64 u64;
 extern "C" double sin(double);
 extern "C" double atan2(double y, double x);
@@ -59,7 +61,6 @@ struct Render {
     void FUN_00293da0(float a, float b, float c);
     void FUN_00293c50(float a);
 };
-extern Render *DAT_0052c2ac;
 
 struct Sprite {
     virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
@@ -124,8 +125,6 @@ struct World {
     char pad40[0x58 - 0x40];
     Clock *f58;
 };
-extern float DAT_004de988;
-extern float DAT_004de98c;
 
 struct Ent {
     int e0;
@@ -201,16 +200,16 @@ void MapThing::vfunc_5()
     f.wh.x = f.wh.y * f.s18;
     Surf *s = map->FUN_000c7b60();
     if (s != 0) {
-        DAT_0052c2ac->dev->v15(0);
+        (*(Render**)&DAT_0052c2ac)->dev->v15(0);
         f14->v14(&f.l48, this);
-        DAT_0052c2ac->FUN_00293d00(&f.l48);
+        (*(Render**)&DAT_0052c2ac)->FUN_00293d00(&f.l48);
         VBuf *vb = DAT_0052c2a8->v30(s->f10, 1, 0x2021, 4, 0);
         EMIT(f.wh.x * -0.5f, f.wh.y * -0.5f, 0.0f, 0.0f, 0.0f);
         EMIT(f.wh.x * -0.5f, f.wh.y * 0.5f, 0.0f, 0.0f, 1.0f);
         EMIT(f.wh.x * 0.5f, f.wh.y * -0.5f, 0.0f, 1.0f, 0.0f);
         EMIT(f.wh.x * 0.5f, f.wh.y * 0.5f, 0.0f, 1.0f, 1.0f);
         DAT_0052c2a8->v31(vb);
-        DAT_0052c2ac->dev->v16(0);
+        (*(Render**)&DAT_0052c2ac)->dev->v16(0);
     }
 
     f.loc1.FUN_000f7fe0(k);
@@ -219,13 +218,13 @@ void MapThing::vfunc_5()
     f.s18 = f14->v17(this);
     float prod = f14->v16(this) * f.s18;
     f.loc1.e[f.loc1.cur].val = prod;
-    DAT_0052c2ac->dev->v15(0);
+    (*(Render**)&DAT_0052c2ac)->dev->v15(0);
     f14->v14(&f.l48, this);
-    DAT_0052c2ac->FUN_00293d00(&f.l48);
+    (*(Render**)&DAT_0052c2ac)->FUN_00293d00(&f.l48);
     f.loc2.FUN_000f7930();
     f.loc2.FUN_000f8500("SELECT Destination", k, 1);
     f.loc2.c0 = fa4;
-    DAT_0052c2ac->dev->v16(0);
+    (*(Render**)&DAT_0052c2ac)->dev->v16(0);
 
     float g1 = DAT_004dd700->f58->FUN_00085f80() * 16.0f + DAT_004de98c;
     DAT_004de98c = g1;
@@ -244,9 +243,9 @@ void MapThing::vfunc_5()
         f.zlo = map->zlo;
         f.spanX = f.xhi - f.xlo;
         f.spanZ = f.zlo - f.zhi;
-        DAT_0052c2ac->dev->v15(0);
+        (*(Render**)&DAT_0052c2ac)->dev->v15(0);
         f14->v14(&f.l60, this);
-        DAT_0052c2ac->FUN_00293d00(&f.l60);
+        (*(Render**)&DAT_0052c2ac)->FUN_00293d00(&f.l60);
         int *ids = map->FUN_000c8540();
         if (*ids != -1) {
             do {
@@ -265,21 +264,21 @@ void MapThing::vfunc_5()
                         continue;
                     if (!(it->z < f.zhi))
                         continue;
-                    DAT_0052c2ac->dev->v15(0);
+                    (*(Render**)&DAT_0052c2ac)->dev->v15(0);
                     float a2 = ((f.zhi - it->z) / f.spanZ + 0.5f) * f.wh.y;
                     float a1 = ((it->x - f.xhi) / f.spanX + 0.5f) * f.wh.x;
-                    DAT_0052c2ac->FUN_00293d40(a1, a2, 0.0f);
+                    (*(Render**)&DAT_0052c2ac)->FUN_00293d40(a1, a2, 0.0f);
                     if (idx == f118) {
                         f.s1c = (float)sin(DAT_004de98c) * 0.05f + 0.4f;
-                        DAT_0052c2ac->FUN_00293da0(f.s1c, f.s1c, f.s1c);
+                        (*(Render**)&DAT_0052c2ac)->FUN_00293da0(f.s1c, f.s1c, f.s1c);
                     } else if (f118 == -1 && (it->id == 9 || it->id == 8)) {
                         f.s1c = (float)sin(DAT_004de988) * 0.025f + 0.25f;
-                        DAT_0052c2ac->FUN_00293da0(f.s1c, f.s1c, f.s1c);
+                        (*(Render**)&DAT_0052c2ac)->FUN_00293da0(f.s1c, f.s1c, f.s1c);
                     } else {
-                        DAT_0052c2ac->FUN_00293da0(0.275f, 0.275f, 0.275f);
+                        (*(Render**)&DAT_0052c2ac)->FUN_00293da0(0.275f, 0.275f, 0.275f);
                     }
                     map->tbl[it->id]->v8(0, 0);
-                    DAT_0052c2ac->dev->v16(0);
+                    (*(Render**)&DAT_0052c2ac)->dev->v16(0);
                 }
                 ids++;
             } while (*ids != -1);
@@ -294,12 +293,12 @@ void MapThing::vfunc_5()
             float nx = f.l48.x;
             float a2 = ((f.zhi - f.l54.z) / f.spanZ + 0.5f) * f.wh.y;
             float a1 = ((f.l54.x - f.xhi) / f.spanX + 0.5f) * f.wh.x;
-            DAT_0052c2ac->FUN_00293d40(a1, a2, 0.0f);
-            DAT_0052c2ac->FUN_00293c50((float)atan2(nz, nx) - 1.5707964f);
-            DAT_0052c2ac->FUN_00293da0(0.3f, 0.3f, 0.3f);
+            (*(Render**)&DAT_0052c2ac)->FUN_00293d40(a1, a2, 0.0f);
+            (*(Render**)&DAT_0052c2ac)->FUN_00293c50((float)atan2(nz, nx) - 1.5707964f);
+            (*(Render**)&DAT_0052c2ac)->FUN_00293da0(0.3f, 0.3f, 0.3f);
             keep->v8(0, 0);
         }
-        DAT_0052c2ac->dev->v16(0);
+        (*(Render**)&DAT_0052c2ac)->dev->v16(0);
     }
     f.loc2.FUN_000f7960();
     f.loc1.FUN_000f78e0();

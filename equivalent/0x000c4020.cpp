@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 15/16, incomplete)
 // FUN_000c4020 @ 0x000c4020
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 
@@ -145,14 +148,6 @@ struct Timer {
 extern char DAT_0049dba4[];
 extern char DAT_0049dbbc[];
 extern void* __cdecl FUN_00344e74(void* obj, int vfDelta, char* srcType, char* dstType, int isRef);
-extern int DAT_0049f3ac;
-extern int DAT_0049f3bc;
-extern int DAT_0049f3c8;
-extern int DAT_0049f3cc;
-extern int DAT_0049f3d0;
-extern int DAT_0049f3d4;
-extern char DAT_0049fb3c;
-extern Timer* DAT_004dd9cc;
 
 int __cdecl FUN_00266da0(int mode);
 TextManager_c4020* __cdecl FUN_000fc3d0();
@@ -203,21 +198,21 @@ void MissionMenu::FUN_000c4020(int a, int b)
         if (f5c)
             f5c->FUN_001c0ab0("fe");
         f28 = 1;
-        DAT_004dd9cc->FUN_002665a0();
+        (*(Timer**)&DAT_004dd9cc)->FUN_002665a0();
         FUN_000befc0(DAT_0049f3bc, 0xb, 1);
-        FUN_000befc0(DAT_0049f3c8, 0xb, 1);
-        FUN_000befc0(DAT_0049f3cc, 0xb, 1);
-        FUN_000befc0(DAT_0049f3d4, 0xb, 1);
-        FUN_000befc0(DAT_0049f3d0, 0xb, 1);
+        FUN_000befc0((*(int*)&DAT_0049f3c8), 0xb, 1);
+        FUN_000befc0((*(int*)&DAT_0049f3cc), 0xb, 1);
+        FUN_000befc0((*(int*)&DAT_0049f3d4), 0xb, 1);
+        FUN_000befc0((*(int*)&DAT_0049f3d0), 0xb, 1);
         f20->FUN_00294980(f24);
         f10 = 3;
-        if (!DAT_0049fb3c && f08) {
+        if (!(*(char*)&DAT_0049fb3c) && f08) {
             f10 = 5;
         } else {
             f10 = 7;
-            DAT_0049fb3c = 0;
+            (*(char*)&DAT_0049fb3c) = 0;
         }
-        FUN_000fc100(DAT_0049f3ac, 0);
+        FUN_000fc100((*(int*)&DAT_0049f3ac), 0);
         fr.entry.FUN_000f7930();
         TextSelector* sel = (TextSelector*)FUN_00344e74(FUN_000fc260("mission_selector"), 0, DAT_0049dba4, DAT_0049dbbc, 0);
         if (sel) {

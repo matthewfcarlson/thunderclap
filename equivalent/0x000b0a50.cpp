@@ -1,11 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 36 inputs, branch coverage 49/50, incomplete)
 // FUN_000b0a50 @ 0x000b0a50
+#include "decls/data/game/global.h"
+
 extern "C" int strcmp(const char *, const char *);
 
 struct Elem_b0a50 {
     char data[0x20];
 };
-extern Elem_b0a50 DAT_003f335c;
 
 class Control_b0a50 {
 public:
@@ -62,7 +63,7 @@ void FUN_000b0a50(Factory_b0a50 *factory, int na, int nb, Rec_b0a50 *a, Rec_b0a5
             if (j >= 0 && j < rec->count)
                 p = &rec->items[j];
             else
-                p = &DAT_003f335c;
+                p = ((Elem_b0a50*)&DAT_003f335c);
             Control_b0a50 *ctl = factory->vfunc_10(p);
             if (ctl) {
                 ctl->vfunc_10(0.0f, 1.0f);
@@ -78,7 +79,7 @@ void FUN_000b0a50(Factory_b0a50 *factory, int na, int nb, Rec_b0a50 *a, Rec_b0a5
     for (k = 0; k < nb; k++) {
         for (m = 0; m < 2; m++) {
             for (e = 0; e < 3; e++) {
-                Elem_b0a50 *p = (walk->count > 0) ? walk->items : &DAT_003f335c;
+                Elem_b0a50 *p = (walk->count > 0) ? walk->items : ((Elem_b0a50*)&DAT_003f335c);
                 Control_b0a50 *ctl = factory->vfunc_10(p);
                 if (ctl) {
                     const char *name = ctl->vfunc_4();
@@ -102,7 +103,7 @@ void FUN_000b0a50(Factory_b0a50 *factory, int na, int nb, Rec_b0a50 *a, Rec_b0a5
         }
     }
 
-    Elem_b0a50 *p = (c->count > 0) ? c->items : &DAT_003f335c;
+    Elem_b0a50 *p = (c->count > 0) ? c->items : ((Elem_b0a50*)&DAT_003f335c);
     Control_b0a50 *ctl = factory->vfunc_10(p);
     if (ctl) {
         ctl->vfunc_10(0.0f, 1.0f);

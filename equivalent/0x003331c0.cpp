@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 12/12)
 // pure3d::d3dBumpMapVertexShader::vfunc_14 @ 0x003331c0
+#include "decls/data/platform/xbox/pure3d.h"
+
 typedef unsigned int uint;
 namespace D3D8 {
 void __stdcall D3DDevice_SetTextureState_TexCoordIndex(uint stage, uint value);
@@ -10,7 +12,6 @@ extern uint DAT_0039db90, DAT_0039db94, DAT_0039db98;
 extern uint DAT_0039dc10, DAT_0039dc14, DAT_0039dc18;
 extern uint DAT_0039dc90, DAT_0039dc94, DAT_0039dc98;
 extern uint DAT_0039de9c, DAT_0039dea0, DAT_0039dea4;
-extern uint DAT_004d4efc[];
 
 struct TextureState_3331c0 {
     char pad0[0x18];
@@ -66,7 +67,7 @@ void pure3d::d3dBumpMapVertexShader::vfunc_14(int unused) {
     }
     if (state->blend0 != mode) {
         state->blend0 = mode;
-        uint v = DAT_004d4efc[mode];
+        uint v = ((uint*)&DAT_004d4efc)[mode];
         DAT_0039db10 = v;
         DAT_0039db14 = v;
         DAT_0039db08 |= 1;
@@ -75,7 +76,7 @@ void pure3d::d3dBumpMapVertexShader::vfunc_14(int unused) {
     state->FUN_00329c90(0, value);
     if (state->blend1 != 0) {
         state->blend1 = 0;
-        uint v = DAT_004d4efc[0];
+        uint v = ((uint*)&DAT_004d4efc)[0];
         DAT_0039db90 = v;
         DAT_0039db94 = v;
         DAT_0039db08 |= 2;
@@ -84,7 +85,7 @@ void pure3d::d3dBumpMapVertexShader::vfunc_14(int unused) {
     state->FUN_00329c90(1, value);
     if (state->blend2 != 1) {
         state->blend2 = 1;
-        uint v = DAT_004d4efc[1];
+        uint v = ((uint*)&DAT_004d4efc)[1];
         DAT_0039dc10 = v;
         DAT_0039dc14 = v;
         DAT_0039db08 |= 4;
@@ -93,7 +94,7 @@ void pure3d::d3dBumpMapVertexShader::vfunc_14(int unused) {
     state->FUN_00329c90(3, value);
     if (state->blend3 != 1) {
         state->blend3 = 1;
-        uint v = DAT_004d4efc[1];
+        uint v = ((uint*)&DAT_004d4efc)[1];
         DAT_0039dc90 = v;
         DAT_0039dc94 = v;
         DAT_0039db08 |= 8;

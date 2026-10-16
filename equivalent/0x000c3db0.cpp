@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 4/4)
 // FUN_000c3db0 @ 0x000c3db0
+#include "decls/data/game/global.h"
+
 class CUnlockable {
   public:
     virtual void v0();
@@ -14,8 +16,6 @@ class ItemTable_c3db0 {
   public:
     CUnlockable* FUN_00092ad0(int index);
 };
-extern int DAT_0049fb34;
-extern int DAT_0049fb38;
 
 class Screen_c3db0 {
   public:

@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3028 inputs, branch coverage 46/48, incomplete)
 // FUN_00043ae0 @ 0x00043ae0
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 extern "C" double __cdecl sqrt(double);
 
 class RefObj_43ae0 {
@@ -53,7 +56,6 @@ struct Entry_43ae0 {
     float f10;
     float f14;
 };
-extern Entry_43ae0 DAT_004dc360[];
 
 struct Params {
     float g0[7];
@@ -61,12 +63,7 @@ struct Params {
     float g20;
     float g24;
 };
-extern Params *DAT_00554c10;
 
-extern int DAT_004dc0e0;
-extern int DAT_004dc0e4;
-extern unsigned int DAT_004dc080;
-extern unsigned int DAT_004dc084;
 
 struct Inner_43ae0 {
     char pad00[0x14];
@@ -127,7 +124,7 @@ void Obj_43ae0::FUN_00043ae0(RefObj_43ae0 *a1, V3_43ae0 *p, float dt, int a4, fl
         f.e = f.d;
         f.e.FUN_0022d110();
 
-        Entry_43ae0 *t = &DAT_004dc360[idx];
+        Entry_43ae0 *t = &((Entry_43ae0*)&DAT_004dc360)[idx];
         if (t->f0 <= 0.0f) {
             f.s = 0.0f;
         } else {
@@ -156,7 +153,7 @@ void Obj_43ae0::FUN_00043ae0(RefObj_43ae0 *a1, V3_43ae0 *p, float dt, int a4, fl
         f.x.aim = f.e;
         f.x.r54 = a4;
         f.x.val = a5;
-        Params *g = DAT_00554c10;
+        Params *g = (*(Params**)&DAT_00554c10);
         f.x.b90 = a8;
         f.x.one = 1.0f;
         f.x.f64 = (float)sqrt(g->g1c * g->g1c + g->g20 * g->g20 + g->g24 * g->g24);
@@ -183,7 +180,7 @@ void Obj_43ae0::FUN_00043ae0(RefObj_43ae0 *a1, V3_43ae0 *p, float dt, int a4, fl
                 if (f.s < 0.75) {
                     f.x.vec28.x = f.e.x;
                     f.x.vec28.z = f.e.z;
-                    if (f8 == DAT_004dc0e0 && fc == DAT_004dc0e4)
+                    if (f8 == (*(int*)&DAT_004dc0e0) && fc == (*(int*)((char*)&DAT_004dc0e0 + 4)))
                         f.x.vec28.FUN_000344b0(f.s * t->f4 * 0.5f);
                     else
                         f.x.vec28.FUN_000344b0(f.s * t->f4);

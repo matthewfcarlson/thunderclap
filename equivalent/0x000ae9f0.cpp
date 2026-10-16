@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 9/10, incomplete)
 // FUN_000ae9f0 @ 0x000ae9f0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct PadState_ae9f0 {
     int words[41];
 };
@@ -22,7 +23,6 @@ struct World {
     InputManager *input;
 };
 
-extern char DAT_004e222c;
 
 bool FUN_000ae9f0() {
     DAT_004dd700->input->FUN_000862d0();

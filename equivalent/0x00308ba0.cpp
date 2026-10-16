@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_00308ba0 @ 0x00308ba0
+#include "decls/data/engine/physics.h"
+
 extern "C" double __cdecl sqrt(double);
-extern float DAT_004d3120, DAT_004d311c, DAT_004d3118;
 namespace physics {
 struct SimCGSValue { virtual void slot0(); float a; float value; void FUN_002ecca0(); };
 struct SimLength : SimCGSValue { void FUN_002ecf20(int); void vfunc_1(float); };

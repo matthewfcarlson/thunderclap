@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 30/30)
 // HUDOverlay::vfunc_3 @ 0x000d0240
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 class Ref_d0240 {
 public:
     virtual void AddRef();
@@ -46,31 +47,7 @@ struct Updater_d0240 {
     void FUN_000c9810(float dt);
 };
 
-extern float DAT_004de600;
-extern float DAT_004de604;
-extern float DAT_0049fcf0;
-extern float DAT_0049fd1c;
-extern float DAT_0049fd20;
-extern float DAT_0049fd24;
 
-extern float DAT_004dde98;
-extern float DAT_004dde9c;
-extern float DAT_004ddea0;
-extern float DAT_004ddea4;
-extern float DAT_004ddea8;
-extern float DAT_004ddeac;
-extern float DAT_004ddeb0;
-extern float DAT_004ddeb4;
-extern float DAT_004ddeb8;
-extern float DAT_004ddec8;
-extern float DAT_004ddecc;
-extern float DAT_004dded0;
-extern float DAT_004ddf00;
-extern float DAT_004ddf04;
-extern float DAT_004ddf08;
-extern float DAT_004ddf0c;
-extern float DAT_004ddf10;
-extern float DAT_004ddf14;
 
 void FUN_00025960(Ref_d0240** slot, Ref_d0240* value);
 void FUN_000a0d40(Ref_d0240** slot);
@@ -167,12 +144,12 @@ void HUDOverlay::vfunc_3(float dt)
     f.t30 = -(DAT_0049fd20 * DAT_004de604);
     DAT_004ddec8 = ah + x1;
     DAT_004ddecc = f.t30 + hh;
-    DAT_004dded0 = 0;
+    (*(float*)&DAT_004dded0) = 0;
     f.t2c = (float)x1;
-    DAT_004ddeac = 0;
+    (*(float*)((char*)&DAT_004ddea4 + 8)) = 0;
     f.t24 = -(DAT_0049fd24 * DAT_004de604);
-    DAT_004ddea4 = f.hi + f.t2c;
-    DAT_004ddea8 = f.t24 + hh;
+    (*(float*)&DAT_004ddea4) = f.hi + f.t2c;
+    (*(float*)((char*)&DAT_004ddea4 + 4)) = f.t24 + hh;
 
     Ref_d0240* want = parent->target->ref;
     if (want != ref && want) {

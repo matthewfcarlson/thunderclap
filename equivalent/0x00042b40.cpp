@@ -2,9 +2,9 @@
 // FUN_00042b40 @ 0x00042b40
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
-extern int DAT_004dc300;
 
 void *thunk_FUN_0008d690(unsigned int size);
 void *__cdecl FUN_0008d690(unsigned int size);

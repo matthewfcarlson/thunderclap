@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 10/10)
 // FUN_00131b90 @ 0x00131b90
+#include "decls/data/game/hulkfight.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void __cdecl FUN_0012e180();
@@ -23,8 +25,6 @@ template<class T> struct ParamString {
  void FUN_002349e0(const char*);
 };
 }
-extern unsigned int DAT_004e0e98;
-extern unsigned int DAT_004e0e94;
 void __cdecl FUN_002347b0(void*, void**, int);
 void __cdecl target() {
  if (DAT_004e0e98 == 0) {

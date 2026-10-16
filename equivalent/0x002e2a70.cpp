@@ -2,6 +2,8 @@
 // FUN_002e2a70 @ 0x002e2a70
 // FUN_002e2a70 @ 0x002e2a70
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/data/engine/pure3d/prop.h"
+
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
 void *FUN_0008d690(unsigned int size);
@@ -105,7 +107,6 @@ public:
     virtual void f9();
     virtual Buffer_2e2a70 *Create(Desc_2e2a70 *d);
 };
-extern Factory_2e2a70 *DAT_0052c2a0;
 
 struct Vec3_2e2a70 { float x, y, z; };
 
@@ -223,7 +224,7 @@ void PrimLoader::FUN_002e2a70(int a1, Slot2 a2, int a3, RefObj_2e2a70 *a4, Slot5
         *(unsigned int *)&f.d.tag[0] = lo;
         *(unsigned int *)&f.d.tag[4] = hi;
     }
-    Buffer_2e2a70 *vb = DAT_0052c2a0->Create(&f.d);
+    Buffer_2e2a70 *vb = (*(Factory_2e2a70**)&DAT_0052c2a0)->Create(&f.d);
     f.vb = vb;
     if (vb != 0)
         vb->AddRef();

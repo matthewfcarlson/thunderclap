@@ -1,7 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 95 inputs, branch coverage 34/36, incomplete)
 // FUN_002324b0 @ 0x002324b0
-extern int DAT_004e5ae8;
-extern float DAT_003f32e0;
+#include "decls/data/engine/fight.h"
+#include "decls/data/game/global.h"
 
 void *__cdecl FUN_00266da0(int n);
 int __cdecl FUN_00238190(int n);
@@ -48,9 +48,9 @@ bool NodeList_2324b0::FUN_002324b0(char flush)
                 DAT_004e5ae8--;
             } else {
                 float t = n->time;
-                if (!(t < DAT_003f32e0)) {
+                if (!(t < (*(float*)&DAT_003f32e0))) {
                     t -= n->step;
-                    if (t < DAT_003f32e0) {
+                    if (t < (*(float*)&DAT_003f32e0)) {
                         n->Free();
                         DAT_004e5ae8--;
                         n->FUN_00232600(8, 1);

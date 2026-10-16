@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 48 inputs, branch coverage 26/26)
 // FUN_002ff3f0 @ 0x002ff3f0
+#include "decls/data/engine/unknown.h"
+
 struct Body_2ff3f0 {
     char pad0[0x7c];
     float limit;
@@ -22,8 +24,6 @@ struct Link_2ff3f0 {
     char pad11[3];
 };
 
-extern char DAT_00555480;
-extern float DAT_004d2f14;
 
 class ActorSet {
 public:

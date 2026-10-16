@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 28/28)
 // physics::PhysicsJoint3D::vfunc_20 @ 0x0030bac0
+#include "decls/data/engine/physics.h"
+
 struct Vec3_30bac0 {
     float x, y, z;
 };
@@ -9,8 +11,6 @@ struct World {
     float dt;
 };
 
-extern float DAT_004d3194;
-extern float DAT_004d3198;
 
 namespace physics {
 

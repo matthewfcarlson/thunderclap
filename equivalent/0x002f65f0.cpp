@@ -4,12 +4,7 @@
 // equiv-map: ??0SimTime@physics@@QAE@M@Z = 0x002ecf40
 // equiv-map: ??0SimLength@physics@@QAE@M@Z = 0x002ecf20
 // equiv-map: ??1SimUnits@physics@@UAE@XZ = 0x002ecca0
-extern unsigned int DAT_004d2b74;
-extern float DAT_004d2b7c;
-extern float DAT_004d2b80;
-extern float DAT_00555450;
-extern float DAT_00555454;
-extern float DAT_00555458;
+#include "decls/data/engine/physics.h"
 
 struct V3_2f65f0 {
     float x, y, z;
@@ -149,11 +144,11 @@ PhysicsObject::PhysicsObject(int arg) : SimulatedObject(arg)
     f1cc = 0;
     b1d0 = 0;
     f1d4 = 0;
-    f1d8 = 1.0f / (float)DAT_004d2b74;
+    f1d8 = 1.0f / (float)(*(unsigned int*)&DAT_004d2b74);
     f1dc = 0;
-    f1e0 = 1.0f / (float)DAT_004d2b74;
-    f1e4 = DAT_004d2b80;
-    f1e8 = DAT_004d2b7c;
+    f1e0 = 1.0f / (float)(*(unsigned int*)&DAT_004d2b74);
+    f1e4 = (*(float*)&DAT_004d2b80);
+    f1e8 = (*(float*)&DAT_004d2b7c);
     w1f0.b[0] = 0;
     b1f4 |= 3;
     f1ec = 0;

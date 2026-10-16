@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_00082db0 @ 0x00082db0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct V3_82db0 { float x, y, z; };
 
 struct Quat_82db0 {
@@ -77,7 +78,6 @@ struct Wind {
     V3_82db0 v;                   // 0x10
 };
 
-extern Wind *DAT_00554c10;
 extern void FUN_0022b080(Quat_82db0 *out, Quat_82db0 *a, Quat_82db0 *b);
 extern void FUN_00080f60(int a, Orient_82db0 *o, Xform_82db0 *x, float f1, float f2, V3_82db0 *v);
 
@@ -151,7 +151,7 @@ void Fx_82db0::FUN_00082db0(float dt, Xform_82db0 *x)
         f24 = 0.0f;
     }
     if (f28 > 0.1f) {
-        V3_82db0 w = DAT_00554c10->v;
+        V3_82db0 w = (*(Wind**)&DAT_00554c10)->v;
         double wy = w.y * 0.01f;
         vel.x = (float)(w.x * dt + vel.x);
         vel.y = (float)(wy * dt + vel.y);

@@ -1,14 +1,14 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
 // FUN_002656b0 @ 0x002656b0
+#include "decls/data/engine/audio.h"
+#include "decls/data/engine/content.h"
+
 struct Config_2656b0 { unsigned first, second, count, value; };
 struct Block_2656b0 { void FUN_00231550(unsigned, unsigned, unsigned); };
 extern void* __cdecl FUN_0008d690(unsigned);
 extern void* __cdecl FUN_0008d6d0(unsigned);
 extern unsigned __cdecl FUN_0026dbf0();
 extern void __cdecl FUN_00265520();
-extern unsigned DAT_00527c4c;
-extern unsigned DAT_004cd504;
-extern char DAT_00527c28;
 extern void __cdecl FUN_0026dd70(void*, void (__cdecl*)(), void*, unsigned, unsigned);
 struct Object {
  unsigned char a,b,c,pad;
@@ -33,7 +33,7 @@ Object* Object::FUN_002656b0(Config_2656b0* config) {
  char* data=(char*)FUN_0008d6d0(256); buffer=data;
  if(data) { bufferBegin=data; bufferCurrent=data; bufferEnd=data+256; } else bufferBegin=0;
  DAT_00527c4c=FUN_0026dbf0();
- unsigned v=config->value; DAT_004cd504=v;
- FUN_0026dd70(&DAT_00527c28,FUN_00265520,this,v,0);
+ unsigned v=config->value; (*(unsigned*)&DAT_004cd504)=v;
+ FUN_0026dd70(((char*)((char*)&DAT_0051de40 + 40424)),FUN_00265520,this,v,0);
  return this;
 }

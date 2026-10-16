@@ -1,12 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2997 inputs, branch coverage 8/8)
 // FUN_00112060 @ 0x00112060
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/unknown.h"
+
 typedef unsigned int uint;
 void* __cdecl FUN_0008d690(uint);
 inline void* operator new(uint, void* p) { return p; }
-extern uint DAT_004e0b24;
-extern uint DAT_004e0b20;
-extern uint DAT_00427754;
-extern char DAT_0042773c[];
 void FUN_0010c200();
 void FUN_0010c230();
 void FUN_0010cc40();
@@ -38,18 +37,18 @@ template<class T> struct ParamFloatConstRange {
 };
 }
 void FUN_00112060() {
- if (!DAT_004e0b24) {
+ if (!(*(uint*)&DAT_004e0b24)) {
   void* items[3];
   typedef fight::ParamEnumConstList<hulkfight::ai::KeyWordWaitCondition> E;
   typedef fight::ParamString<hulkfight::ai::KeyWordWaitCondition> S;
   typedef fight::ParamFloatConstRange<hulkfight::ai::KeyWordWaitCondition> F;
   E* e=(E*)FUN_0008d690(32);
   if(e) {
-   uint count=DAT_00427754;
+   uint count=(*(uint*)&DAT_00427754);
    e->FUN_00234cc0("compare");
    e->count=count;
    new(e) E;
-   e->list=DAT_0042773c;
+   e->list=((char*)&DAT_0042773c);
    e->callback=FUN_0010c200;
   }
   items[0]=e;
@@ -67,7 +66,7 @@ void FUN_00112060() {
    f->callback=FUN_0010c230;
   }
   items[2]=f;
-  FUN_002347b0(&DAT_004e0b20,items,3);
+  FUN_002347b0(((uint*)&DAT_004e0b20),items,3);
  }
- ++DAT_004e0b24;
+ ++(*(uint*)&DAT_004e0b24);
 }

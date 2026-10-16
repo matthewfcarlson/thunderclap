@@ -1,11 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 13/14, incomplete)
 // physics::PhysicsJoint3D::vfunc_25 @ 0x0030b8f0
+#include "decls/data/engine/physics.h"
+
 extern "C" double sqrt(double);
-extern const float DAT_004d3194;
-extern const float DAT_004d3198;
-extern const bool DAT_004d319c;
-extern const float DAT_004d31a0;
-extern const float DAT_004d31d4;
 
 class Joint3D {
 public:
@@ -29,24 +26,24 @@ public:
 void Joint3D::FUN_0030b8f0()
 {
     float lenSq = (dir[0] * dir[0] + dir[1] * dir[1]) + dir[2] * dir[2];
-    if (lenSq > DAT_004d31d4) {
-        float s = DAT_004d3198 / (float)sqrt(lenSq);
+    if (lenSq > (*(const float*)&DAT_004d31d4)) {
+        float s = (*(const float*)&DAT_004d3198) / (float)sqrt(lenSq);
         dir[0] = dir[0] * s;
         dir[1] = dir[1] * s;
         dir[2] = dir[2] * s;
     }
 
-    if (!DAT_004d319c)
+    if (!(*(const bool*)&DAT_004d319c))
         return;
 
     float a = slip < 0.0f ? -slip : slip;
-    if (a > DAT_004d3194) {
+    if (a > (*(const float*)&DAT_004d3194)) {
         float t;
         if (slip > 0.0f)
-            t = slip - DAT_004d3194;
+            t = slip - (*(const float*)&DAT_004d3194);
         else
-            t = DAT_004d3194 + slip;
-        t = t * DAT_004d31a0;
+            t = (*(const float*)&DAT_004d3194) + slip;
+        t = t * (*(const float*)&DAT_004d31a0);
         float nt = -t;
         impulse[0] = nt * axis[0] + impulse[0];
         impulse[1] = nt * axis[1] + impulse[1];

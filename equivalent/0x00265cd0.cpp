@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 98 inputs, branch coverage 36/38, incomplete)
 // content::P3DFileHandler::vfunc_3 @ 0x00265cd0
+#include "decls/data/engine/content.h"
+
 void* __cdecl FUN_00263ed0(unsigned int size, int flag);
 int __cdecl FUN_00266da0(int mode);
 
@@ -88,7 +90,6 @@ struct Registry_265cd0 {
     content::ObjectLoader* FUN_00265310(int type);
 };
 
-extern Registry_265cd0* DAT_00527c58;
 
 class Listener_265cd0 {
 public:
@@ -162,7 +163,7 @@ void P3DFileHandler::vfunc_3(Ctx_265cd0* ctx, Cache_265cd0* cache)
             if (cache->FUN_00266710() == 4)
                 break;
             f.reader.FUN_00266a30();
-            content::ObjectLoader* ld = DAT_00527c58->FUN_00265310(f.reader.FUN_00266c30());
+            content::ObjectLoader* ld = (*(Registry_265cd0**)&DAT_00527c58)->FUN_00265310(f.reader.FUN_00266c30());
             if (ld != 0) {
                 if (listener != 0)
                     listener->v2(f.reader.FUN_00266c30());

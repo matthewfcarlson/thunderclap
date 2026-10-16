@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 8/8)
 // FUN_0014a3a0 @ 0x0014a3a0
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern "C" void FUN_00146990();
@@ -12,8 +14,6 @@ namespace fight {
 template<class T> struct ParamFloatConstRange : FUN_00234960 { ParamFloatConstRange(const char* s):FUN_00234960(s) {} virtual void slot0(); };
 template<class T> struct ParamVector : FUN_00234e50 { ParamVector(const char* s):FUN_00234e50(s) {} virtual void slot0(); };
 }
-extern int DAT_004e0fe8;
-extern int DAT_004e0fe4;
 extern "C" void __cdecl FUN_002347b0(void*, void**, int);
 void FUN_0014a3a0() {
  if (!DAT_004e0fe8) {

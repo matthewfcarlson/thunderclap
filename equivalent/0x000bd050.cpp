@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_000bd050 @ 0x000bd050
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 class Gfx {
   public:
     virtual void v0();
@@ -163,8 +165,6 @@ class MenuScreen_bd050 {
 };
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
-extern Canvas* DAT_0052c2ac;
-extern Viewport_bd050* DAT_0052c2a4;
 TextManager_bd050* FUN_000fc3d0();
 
 void MenuScreen_bd050::FUN_000bd050() {
@@ -174,16 +174,16 @@ void MenuScreen_bd050::FUN_000bd050() {
     DAT_0052c2a8->v24(2);
     DAT_0052c2a8->v54(0);
     DAT_0052c2a8->v58(0);
-    DAT_0052c2ac->layer->v21(0);
-    float width = (float)DAT_0052c2a4->v7();
-    float height = (float)DAT_0052c2a4->v6() - 50.0f;
+    (*(Canvas**)&DAT_0052c2ac)->layer->v21(0);
+    float width = (float)(*(Viewport_bd050**)&DAT_0052c2a4)->v7();
+    float height = (float)(*(Viewport_bd050**)&DAT_0052c2a4)->v6() - 50.0f;
     FUN_000bc900(text, 0, "TBS_MENU_ITEM_BUTTON_BACK", 1);
-    DAT_0052c2ac->FUN_00293d40(width * 0.5f, height, 2.0f);
-    DAT_0052c2ac->FUN_00293da0(1.0f, -1.0f, 1.0f);
+    (*(Canvas**)&DAT_0052c2ac)->FUN_00293d40(width * 0.5f, height, 2.0f);
+    (*(Canvas**)&DAT_0052c2ac)->FUN_00293da0(1.0f, -1.0f, 1.0f);
     FUN_000fc3d0()->v44()->FUN_000f7d60(text, 0, 1.4f, 1, 2, 0);
     DAT_0052c2a8->v54(1);
     DAT_0052c2a8->v58(1);
-    DAT_0052c2ac->layer->v16(0);
+    (*(Canvas**)&DAT_0052c2ac)->layer->v16(0);
     DAT_0052c2a8->v24(saved);
     __security_check_cookie(cookie);
 }

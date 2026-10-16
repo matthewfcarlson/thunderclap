@@ -1,3 +1,5 @@
+#include "decls/data/game/hulkfight/ai.h"
+
 inline void* operator new(unsigned int, void* memory) {
     return memory;
 }
@@ -26,8 +28,6 @@ template <class T> struct ParamName : Base_12cd80 {
     virtual void slot0();
 };
 } // namespace fight
-extern int DAT_004e0e18;
-extern int DAT_004e0e14;
 void __cdecl FUN_002347b0(void*, void**, int);
 void FUN_0012cd80() {
     if (!DAT_004e0e18) {

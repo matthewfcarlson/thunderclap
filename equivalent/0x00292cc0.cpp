@@ -2,6 +2,8 @@
 // FUN_00292cc0 @ 0x00292cc0
 // Screen-space scale of a point: projects the point through the view, then writes
 // (x, y) scale factors derived from the field of view and aspect ratio, and the depth.
+#include "decls/data/game/global.h"
+
 struct Vec3_292cc0 { float x, y, z; };
 struct Matrix { float m[16]; };
 
@@ -21,7 +23,6 @@ public:
 union PosArg { const Vec3_292cc0 *p; float f; };
 struct Out { float x, y; int z; };
 
-extern Display *DAT_0052c2a4;
 extern "C" double tan(double);
 
 class View {
@@ -47,7 +48,7 @@ void View::FUN_00292cc0(PosArg pos, Out *out)
     if (fr.v.z != 0.0f) {
         pos.f = 1.0f / fr.v.z;      // the argument slot is reused for 1/z
         GetFov(&fr.a, &fr.b);
-        float aspect = DAT_0052c2a4->GetAspect() * fr.b;
+        float aspect = (*(Display**)&DAT_0052c2a4)->GetAspect() * fr.b;
         out->z = *(int *)&fr.v.z;
         float cot = 1.0f / (float)tan(fr.a * 0.5f);
         out->x = (float)(fr.v.x * cot * pos.f * 0.5f);

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 108 inputs, branch coverage 26/26)
 // hulkfight::motion::TimerCondition::vfunc_6 @ 0x0018d480
+#include "decls/data/game/hulkfight/motion.h"
+
 struct Timing_18d480 {
     char pad0[0x1e60];
     float values[14];
@@ -22,7 +24,6 @@ class CFightParams : public fight::Params {
 public:
     virtual void vfunc_0();
 };
-extern const char* DAT_004bebb4[14];
 bool FUN_00018960(float a, float b, float eps);
 
 class TimerCondition {
@@ -52,7 +53,7 @@ bool TimerCondition::vfunc_6(int a, fight::Params* params, int c)
     Timing_18d480* timing = params->FUN_000592a0()->FUN_00059a30();
     float target = limit;
     if (useNamed != 0) {
-        float v = timing->FUN_0003eca0(DAT_004bebb4[nameIndex]);
+        float v = timing->FUN_0003eca0(((const char**)&DAT_004bebb4)[nameIndex]);
         if (v == 0.0f) {
             target = 3.4028235e38f;
         } else {

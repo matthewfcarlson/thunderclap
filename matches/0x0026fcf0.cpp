@@ -1,4 +1,5 @@
-extern int DAT_004cdbb0;
+#include "decls/data/engine/core.h"
+
 void* __cdecl FUN_00266e00(int, int);
 struct Widget_26fcf0 {
     virtual void slot00();

@@ -1,8 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3008 inputs, branch coverage 12/12)
 // FUN_000295a0 @ 0x000295a0
 #include "decls/address.h"
+#include "decls/data/game/unknown.h"
 void __cdecl FUN_00096d50(char *buf, int size, int a, int b);
-extern char DAT_004dc168[0x100];
 
 struct Text_295a0 {
     char pad[8];
@@ -40,8 +40,8 @@ const char *Group_295a0::FUN_000295a0(const char *name)
         } else if (param->type == 5) {
             Text_295a0 *text = param->text;
             if (text) {
-                FUN_00096d50(DAT_004dc168, 0x100, text->a, text->b);
-                return DAT_004dc168;
+                FUN_00096d50(((char*)&DAT_004dc168), 0x100, text->a, text->b);
+                return ((char*)&DAT_004dc168);
             }
         }
     }

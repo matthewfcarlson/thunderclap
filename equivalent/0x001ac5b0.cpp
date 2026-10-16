@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 6/6)
 // FUN_001ac5b0 @ 0x001ac5b0
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/hulkfight/scenario.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -51,29 +54,25 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e17b0;
-extern int DAT_004e17b4;
 
-extern const char* DAT_00427758[1];
 
-extern int DAT_00427760;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_001ac5b0()
 {
-    if (DAT_004e17b4 == 0) {
+    if ((*(int*)&DAT_004e17b4) == 0) {
         void* params[2];
         void* mem;
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::scenario::Event_PathNameCondition>("compare", DAT_00427758, DAT_00427760, &hulkfight::scenario::Event_PathNameCondition::FUN_001aada0);
+            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::scenario::Event_PathNameCondition>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), &hulkfight::scenario::Event_PathNameCondition::FUN_001aada0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamName<hulkfight::scenario::Event_PathNameCondition>("pathName", &hulkfight::scenario::Event_PathNameCondition::FUN_001aadb0);
-        FUN_002347b0(&DAT_004e17b0, params, 2);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e17b0), params, 2);
     }
-    DAT_004e17b4++;
+    (*(int*)&DAT_004e17b4)++;
 }

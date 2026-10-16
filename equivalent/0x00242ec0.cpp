@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 354 inputs, branch coverage 10/10)
 // FUN_00242ec0 @ 0x00242ec0
+#include "decls/data/engine/unknown.h"
+
 struct Link_242ec0 {
     Link_242ec0 *next;
     Link_242ec0 *prev;
@@ -28,8 +30,6 @@ struct Container_242ec0 {
     int count;              // 0x1c
 };
 
-extern char DAT_004e5e40;
-extern char DAT_004e5e88;
 void __cdecl FUN_00242680(int arg, Owner_242ec0 *owner);
 void __cdecl FUN_00247550(void *pool, void *item);
 
@@ -53,10 +53,10 @@ void __cdecl FUN_00242ec0(int arg, Container_242ec0 *list)
             owner->refs--;
         } else {
             FUN_00242680(arg, owner);
-            FUN_00247550(&DAT_004e5e88, owner);
+            FUN_00247550(((char*)&DAT_004e5e88), owner);
         }
         node = current->chain;
-        FUN_00247550(&DAT_004e5e40, current);
+        FUN_00247550(((char*)((char*)&DAT_004e5df8 + 72)), current);
     }
     list->first = 0;
     list->count = 0;

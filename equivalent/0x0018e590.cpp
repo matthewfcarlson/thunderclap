@@ -1,13 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 8/8)
 // FUN_0018e590 @ 0x0018e590
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_0018cb50();
 void __cdecl FUN_0018cb60();
 void __cdecl FUN_0018cb70();
-extern int DAT_00427754;
-extern int DAT_004e151c;
-extern int DAT_004e1518;
 void __cdecl FUN_002347b0(void*,void**,int);
 namespace hulkfight { namespace motion { class VarCompareCondition; } }
 namespace fight {
@@ -42,7 +42,7 @@ void __cdecl FUN_0018e590() {
   if(a) { a->FUN_00234a90("variable"); a = new(a) fight::ParamName<hulkfight::motion::VarCompareCondition>; a->callback = FUN_0018cb50; }
   items[0]=a;
   fight::ParamEnumConstList<hulkfight::motion::VarCompareCondition>* b=(fight::ParamEnumConstList<hulkfight::motion::VarCompareCondition>*)FUN_0008d690(32);
-  if(b) { int count=DAT_00427754; b->FUN_00234cc0("compare"); b->count=count; b = new(b) fight::ParamEnumConstList<hulkfight::motion::VarCompareCondition>; b->values="lwB"; b->callback=FUN_0018cb60; }
+  if(b) { int count=(*(int*)&DAT_00427754); b->FUN_00234cc0("compare"); b->count=count; b = new(b) fight::ParamEnumConstList<hulkfight::motion::VarCompareCondition>; b->values="lwB"; b->callback=FUN_0018cb60; }
   items[1]=b;
   fight::ParamIntConstRange<hulkfight::motion::VarCompareCondition>* c=(fight::ParamIntConstRange<hulkfight::motion::VarCompareCondition>*)FUN_0008d690(24);
   if(c) { c->FUN_002348e0("value"); c = new(c) fight::ParamIntConstRange<hulkfight::motion::VarCompareCondition>; c->callback=FUN_0018cb70; }

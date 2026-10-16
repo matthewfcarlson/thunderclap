@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 56/56)
 // CHand2HandAgent::vfunc_4 @ 0x00102590
+#include "decls/data/game/global.h"
+
 extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" double sqrt(double);
-extern char DAT_004a1bfc;
 
 struct RandState_102590 {
     float FUN_00078780();
@@ -164,12 +165,12 @@ void CHand2HandAgent::vfunc_4(int a0, float dt, int a2)
     if (t) {
         v20(pl, sub, dt);
         f190 = 0;
-    } else if ((fc8 < fd4) || (fc8 > fd8) || (b7f && !DAT_004a1bfc)) {
+    } else if ((fc8 < fd4) || (fc8 > fd8) || (b7f && !(*(char*)&DAT_004a1bfc))) {
         if (fc8 > fd8 + 3.0f)
             b79 = 1;
         v21(pl, sub, dt);
         f190 = 1;
-    } else if ((fc8 < fdc) || (fc8 > fe0) || (b7e && !DAT_004a1bfc)) {
+    } else if ((fc8 < fdc) || (fc8 > fe0) || (b7e && !(*(char*)&DAT_004a1bfc))) {
         v22(pl, sub, dt);
         f190 = 2;
     } else {

@@ -1,6 +1,7 @@
+#include "decls/data/engine/core.h"
+
 extern "C" char DAT_0042b914[];
 extern "C" char DAT_0042b99c[];
-extern "C" char DAT_0052a1c8[];
 struct Owner_275500 {
     virtual void A();
     virtual void B();
@@ -41,9 +42,9 @@ core::FileGetSizeRequest* core::FileGetSizeRequest::vfunc_0(int flag) {
     owner->B();
     ((int*)this)[0] = ((int)DAT_0042b914);
     if (flag & 1) {
-        FUN_0026d850((void*)((int)DAT_0052a1c8));
+        FUN_0026d850((void*)((int)((char*)&DAT_0052a1c8)));
         gObject_275500->E(this);
-        FUN_0026d840((void*)((int)DAT_0052a1c8));
+        FUN_0026d840((void*)((int)((char*)&DAT_0052a1c8)));
     }
     return this;
 }

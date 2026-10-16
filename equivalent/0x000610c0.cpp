@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 8/8)
 // FUN_000610c0 @ 0x000610c0
+#include "decls/data/game/global.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_000604d0();
 void __cdecl FUN_000604e0();
@@ -12,8 +14,6 @@ namespace fight {
 template<class T> struct ParamFloatConstRange : FloatBase_610c0 { virtual void slot0(); };
 template<class T> struct ParamIntConstRange : IntBase_610c0 { virtual void slot0(); };
 }
-extern unsigned int DAT_004dc614;
-extern unsigned int DAT_004dc610;
 void __cdecl FUN_002347b0(void*, void**, int);
 void __cdecl FUN_000610c0() {
  if (!DAT_004dc614) {

@@ -1,17 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2999 inputs, branch coverage 27/28, incomplete)
 // MessageOverlay::vfunc_4 @ 0x000d5b20
-extern float DAT_004a06a8;
-extern float DAT_004a06ac;
-extern float DAT_004a06b8;
-extern float DAT_004a06cc;
-extern float DAT_0040b158[3];
-extern float DAT_004ddff0;
-extern int DAT_004ddf98;
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 
 struct Rec_d5b20 {
     int a, b, c;
 };
-extern Rec_d5b20 DAT_004ddfcc[3];
 
 class Dev_d5b20 {
   public:
@@ -26,7 +20,6 @@ struct Ctx_d5b20 {
     void FUN_00293d00(void *p);
     void FUN_00293d40(float a, float b, int c);
 };
-extern Ctx_d5b20 *DAT_0052c2ac;
 
 class Obj24_d5b20 {
   public:
@@ -111,18 +104,18 @@ void MessageOverlay::v4()
     Frame_d5b20 f;
     FUN_000d50f0();
     f.a.FUN_000f7fe0(owner);
-    DAT_0052c2ac->dev->v15(0);
+    (*(Ctx_d5b20**)&DAT_0052c2ac)->dev->v15(0);
     f.q.a = 0;
     f.q.b = 0;
     f.q.c = f7b8;
-    DAT_0052c2ac->FUN_00293d00(&f.q);
+    (*(Ctx_d5b20**)&DAT_0052c2ac)->FUN_00293d00(&f.q);
     for (int k = 0; k < 2; k++) {
         Elem_d5b20 *e = &elems[k];
         if (e->flag) {
             f.v[f.n].a = e->f8 * f7b4;
             f.v[f.n].c = e->f10;
             f.v[f.n].b = e->fc;
-            f.w = DAT_004a06cc;
+            f.w = (*(float*)&DAT_004a06cc);
             int alpha;
             if (e->f0 < DAT_004a06a8) {
                 alpha = 0;
@@ -142,19 +135,19 @@ void MessageOverlay::v4()
                 alpha = (int)(u * 255.0f);
             }
             f.v[f.n].color = (alpha << 24) | 0xfef618;
-            DAT_0052c2ac->dev->v15(0);
-            DAT_0052c2ac->FUN_00293d00(e->obj2);
+            (*(Ctx_d5b20**)&DAT_0052c2ac)->dev->v15(0);
+            (*(Ctx_d5b20**)&DAT_0052c2ac)->FUN_00293d00(e->obj2);
             f.a.FUN_000f81b0(e->obj, DAT_004ddf98, f7d4);
-            DAT_0052c2ac->dev->v16(0);
+            (*(Ctx_d5b20**)&DAT_0052c2ac)->dev->v16(0);
         }
     }
-    float *tbl = DAT_0040b158;
-    Rec_d5b20 *rec = DAT_004ddfcc;
-    for (int k = 0; (Rec_d5b20 *)rec < (Rec_d5b20 *)&DAT_004ddff0; k++, rec++, tbl++) {
+    float *tbl = ((float*)&DAT_0040b158);
+    Rec_d5b20 *rec = ((Rec_d5b20*)&DAT_004ddfcc);
+    for (int k = 0; (Rec_d5b20 *)rec < (Rec_d5b20 *)&(*(float*)&DAT_004ddff0); k++, rec++, tbl++) {
         Item_d5b20 *it = &items[k];
-        if (it->f0 < DAT_004ddff0) {
-            DAT_0052c2ac->dev->v15(0);
-            DAT_0052c2ac->FUN_00293d00(rec);
+        if (it->f0 < (*(float*)&DAT_004ddff0)) {
+            (*(Ctx_d5b20**)&DAT_0052c2ac)->dev->v15(0);
+            (*(Ctx_d5b20**)&DAT_0052c2ac)->FUN_00293d00(rec);
             if (it->f4 + 0.5f > it->f0) {
                 f.v[f.n].a = f7b4 * *tbl;
                 f.v[f.n].b = 0;
@@ -173,20 +166,20 @@ void MessageOverlay::v4()
                     f.s = *tbl * f7b4 * (14.0f / o->v7());
                     f.t1 = o->v10(it) * f.s;
                     f.s = o->v9(it) * f.s;
-                    DAT_0052c2ac->dev->v15(0);
-                    DAT_0052c2ac->FUN_00293d40(f.t1 * 0.5f, f.s * -0.5f, 0);
+                    (*(Ctx_d5b20**)&DAT_0052c2ac)->dev->v15(0);
+                    (*(Ctx_d5b20**)&DAT_0052c2ac)->FUN_00293d40(f.t1 * 0.5f, f.s * -0.5f, 0);
                     f.v[f.n].a = (1.0f + it->f0) * *tbl * f7b4;
                     f.v[f.n].b = 1;
                     f.v[f.n].c = 2;
                     int a = (int)(it->f0 * 255.0f);
                     f.v[f.n].color = ((unsigned int)(-1 - a) << 24) | (it->color & 0xffffff);
                     f.a.FUN_000f81b0(it, 0, 0);
-                    DAT_0052c2ac->dev->v16(0);
+                    (*(Ctx_d5b20**)&DAT_0052c2ac)->dev->v16(0);
                 }
             }
-            DAT_0052c2ac->dev->v16(0);
+            (*(Ctx_d5b20**)&DAT_0052c2ac)->dev->v16(0);
         }
     }
-    DAT_0052c2ac->dev->v16(0);
+    (*(Ctx_d5b20**)&DAT_0052c2ac)->dev->v16(0);
     f.a.FUN_000f78e0();
 }

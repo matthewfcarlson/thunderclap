@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 220 inputs, branch coverage 100/114, incomplete)
 // FUN_002eb7c0 @ 0x002eb7c0
+#include "decls/data/engine/physics.h"
+
 typedef unsigned char Byte;
 typedef Byte Bytef;
 typedef unsigned int uInt;
@@ -53,7 +55,7 @@ struct inflate_blocks_state {
     Bytef *write;                    // 0x34
 };
 
-extern uInt DAT_004d2838[17];        // inflate_mask
+        // inflate_mask
 int __cdecl FUN_002ec780(uInt bl, uInt bd, inflate_huft *tl, inflate_huft *td, inflate_blocks_state *s, z_stream *z);
 int __cdecl FUN_002ec650(inflate_blocks_state *s, z_stream *z, int r);
 
@@ -100,7 +102,7 @@ int __cdecl FUN_002eb7c0(inflate_blocks_state *s, z_stream *z, int r)
     case 1:
         j = c->sub.code.need;
         NEEDBITS(j)
-        t = c->sub.code.tree + ((uInt)b & DAT_004d2838[j]);
+        t = c->sub.code.tree + ((uInt)b & ((uInt*)&DAT_004d2838)[j]);
         DUMPBITS(t->bits)
         e = (uInt)(t->exop);
         if (e == 0) {
@@ -130,7 +132,7 @@ int __cdecl FUN_002eb7c0(inflate_blocks_state *s, z_stream *z, int r)
     case 2:
         j = c->sub.copy.get;
         NEEDBITS(j)
-        c->len += (uInt)b & DAT_004d2838[j];
+        c->len += (uInt)b & ((uInt*)&DAT_004d2838)[j];
         DUMPBITS(j)
         c->sub.code.need = c->dbits;
         c->sub.code.tree = c->dtree;
@@ -138,7 +140,7 @@ int __cdecl FUN_002eb7c0(inflate_blocks_state *s, z_stream *z, int r)
     case 3:
         j = c->sub.code.need;
         NEEDBITS(j)
-        t = c->sub.code.tree + ((uInt)b & DAT_004d2838[j]);
+        t = c->sub.code.tree + ((uInt)b & ((uInt*)&DAT_004d2838)[j]);
         DUMPBITS(t->bits)
         e = (uInt)(t->exop);
         if (e & 16) {
@@ -159,7 +161,7 @@ int __cdecl FUN_002eb7c0(inflate_blocks_state *s, z_stream *z, int r)
     case 4:
         j = c->sub.copy.get;
         NEEDBITS(j)
-        c->sub.copy.dist += (uInt)b & DAT_004d2838[j];
+        c->sub.copy.dist += (uInt)b & ((uInt*)&DAT_004d2838)[j];
         DUMPBITS(j)
         c->mode = 5;
     case 5:

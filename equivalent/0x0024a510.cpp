@@ -1,11 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_0024a510 @ 0x0024a510
-extern float DAT_004cc228;
-extern float DAT_004cc22c;
-extern float DAT_004cc230;
-extern int DAT_004cc234;
-extern int DAT_004e5fa0;
-extern float DAT_004cc23c;
+#include "decls/data/engine/audio.h"
 
 struct ListLink {
     ListLink* next;
@@ -45,7 +40,7 @@ Settings_24a510* Settings_24a510::FUN_0024a510(int ownerArg) {
     pScaleB = &DAT_004cc228;
     pLimit = &DAT_004cc230;
     pMode = &DAT_004cc234;
-    pCounter = &DAT_004e5fa0;
+    pCounter = ((int*)&DAT_004e5fa0);
     pRate = &DAT_004cc23c;
     zero2c = 0;
     zero3c = 0;

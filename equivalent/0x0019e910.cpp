@@ -5,6 +5,8 @@
 // The locals live in one Frame struct at the original's stack offsets (sub esp 0x2d8):
 // several out-parameters and event records share slots, as in the original.
 #include "decls/address.h"
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
 extern "C" double sqrt(double);
 
 struct RefObj_19e910 {
@@ -401,11 +403,6 @@ struct Cfg_19e910 {
     Vec3 *FUN_001936f0(Vec3 *out) throw();
 };
 
-extern int DAT_004d2a3c;
-extern char DAT_004d2a40;
-extern char DAT_00554c1c;
-extern int DAT_00554c18;
-extern Gravity_19e910 *DAT_00554c10;
 extern char DAT_0049dab8;
 extern char DAT_0049db1c;
 extern char DAT_0049dafc;
@@ -721,7 +718,7 @@ void ProjectileMissile::vfunc_4(float dt)
             if (fuel < 0.0f) {
                 float g = dt * 0.01f;
                 f8c = 0.0f;
-                fr.v40 = DAT_00554c10->g;
+                fr.v40 = (*(Gravity_19e910**)&DAT_00554c10)->g;
                 fr.v34.FUN_00011160(g, &fr.v40);
                 dir.z = fr.v34.z;
                 dir.x = fr.v34.x;
@@ -805,8 +802,8 @@ void ProjectileMissile::vfunc_4(float dt)
         }
         Pool_19e910 *pool = FUN_00202f00();
         DAT_004d2a3c = 2;
-        DAT_004d2a40 = 0;
-        DAT_00554c1c = 1;
+        (*(char*)&DAT_004d2a40) = 0;
+        (*(char*)&DAT_00554c1c) = 1;
         DAT_00554c18 = 0;
         if (fr.ent != 0) {
             fr.ent->FUN_000368d0(0);

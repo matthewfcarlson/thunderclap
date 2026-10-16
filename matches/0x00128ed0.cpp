@@ -1,3 +1,5 @@
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) {
     return p;
 }
@@ -34,8 +36,6 @@ template <class T> struct ParamBool : FUN_00234860 {
     virtual void slot0();
 };
 } // namespace fight
-extern int DAT_004e0dd0;
-extern int DAT_004e0dcc;
 extern void __cdecl FUN_002347b0(int*, void**, int);
 void target() {
     if (!DAT_004e0dd0) {

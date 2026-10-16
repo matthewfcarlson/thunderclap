@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3177 inputs, branch coverage 103/108, incomplete)
 // FUN_0001a710 @ 0x0001a710
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 typedef unsigned __int64 u64;
 
 struct V3 {
@@ -198,7 +199,6 @@ struct JudgeCfg {
     char FUN_00024540(Player *y);
 };
 
-extern u64 DAT_004dc030;
 
 int __cdecl FUN_00266da0(int v);
 Job *__cdecl FUN_0008d690(unsigned int size);
@@ -388,7 +388,7 @@ void SpawnAction::FUN_0001a710(Item *arg1, V3 *arg2, V3 *arg3)
                 f.l28.z = f.l34.z;
                 FUN_00224d70(len, &f.l28);
                 O->FUN_001d86d0(&f.l28, arg2);
-                if (O->fec->FUN_001d4f70() == DAT_004dc030)
+                if (O->fec->FUN_001d4f70() == (*(u64*)&DAT_004dc030))
                     DAT_004dd700->f30->FUN_001cbd10("golf_stroke");
             }
             Queue *Z = f20->f58;

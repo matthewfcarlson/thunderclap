@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 18/18)
 // FUN_00306650 @ 0x00306650
+#include "decls/data/game/global.h"
+
 struct Vec3_306650 {
     float x, y, z;
 };
 
-extern float DAT_003f32e0;
 
 class Box_306650 {
 public:
@@ -29,7 +30,7 @@ bool FUN_00306650(Box_306650 *a, Box_306650 *b, float margin)
     Vec3_306650 *pb = b->GetPos();
     Vec3_306650 *pa = a->GetPos();
     float d = pb->y - pa->y;
-    if (a->ey == DAT_003f32e0) {
+    if (a->ey == (*(float*)&DAT_003f32e0)) {
         if (margin + b->ey < d * a->sy)
             return false;
     } else {
@@ -41,7 +42,7 @@ bool FUN_00306650(Box_306650 *a, Box_306650 *b, float margin)
     pb = b->GetPos();
     pa = a->GetPos();
     d = pb->x - pa->x;
-    if (a->ex == DAT_003f32e0) {
+    if (a->ex == (*(float*)&DAT_003f32e0)) {
         if (margin + b->ex < d * a->sx)
             return false;
     } else {
@@ -53,7 +54,7 @@ bool FUN_00306650(Box_306650 *a, Box_306650 *b, float margin)
     pb = b->GetPos();
     pa = a->GetPos();
     d = pb->z - pa->z;
-    if (a->ez == DAT_003f32e0) {
+    if (a->ez == (*(float*)&DAT_003f32e0)) {
         if (margin + b->ez < d * a->sz)
             return false;
     } else {

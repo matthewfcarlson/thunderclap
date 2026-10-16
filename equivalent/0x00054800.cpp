@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 6/6)
 // FUN_00054800 @ 0x00054800
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -47,10 +49,7 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc578;
-extern int DAT_004dc57c;
 
-extern const char* DAT_0048f9fc[6];
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -62,12 +61,12 @@ void FUN_00054800()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<::CClimbEdgeCondition>("edge", DAT_0048f9fc, 6, &::CClimbEdgeCondition::FUN_000481e0);
+            params[0] = new (mem) fight::ParamEnumConstList<::CClimbEdgeCondition>("edge", ((const char**)&DAT_0048f9fc), 6, &::CClimbEdgeCondition::FUN_000481e0);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamBool<::CClimbEdgeCondition>("checkCorner", &::CClimbEdgeCondition::FUN_000481f0);
-        FUN_002347b0(&DAT_004dc578, params, 2);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc578), params, 2);
     }
     DAT_004dc57c++;
 }

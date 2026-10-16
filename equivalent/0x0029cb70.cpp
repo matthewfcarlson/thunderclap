@@ -2,6 +2,8 @@
 // FUN_0029cb70 @ 0x0029cb70
 // Age the pool's entries by the time elapsed since `since`: expire the ones whose lifetime is used up
 // and queue the finished ones for reuse.
+#include "decls/data/game/global.h"
+
 struct Entry_29cb70 {
     char pad0[0x14];
     unsigned int lifetime;
@@ -15,7 +17,6 @@ public:
     void FUN_00231590(int payload, int flag, Entry_29cb70* entry);
 };
 
-extern unsigned int* DAT_0052c2b4;
 
 class Pool_29cb70 {
 public:
@@ -31,7 +32,7 @@ public:
 
 void Pool_29cb70::FUN_0029cb70(unsigned int since)
 {
-    unsigned int now = *DAT_0052c2b4;
+    unsigned int now = *(*(unsigned int**)&DAT_0052c2b4);
     if (now > since) {
         since = now - since;
     } else {

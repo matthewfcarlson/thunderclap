@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 10/10)
 // FUN_001d29b0 @ 0x001d29b0
-extern int DAT_004c5cf8;
+#include "decls/data/game/global.h"
+
 extern "C" {
 void FUN_002133d0(int h, int v);
 void FUN_00213600(int h, int v);

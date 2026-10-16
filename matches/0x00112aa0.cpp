@@ -1,3 +1,5 @@
+#include "decls/data/game/hulkfight/ai.h"
+
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* p) {
     return p;
@@ -7,8 +9,6 @@ extern void __cdecl FUN_0010c520();
 extern void __cdecl FUN_0010c530();
 extern void __cdecl FUN_0010c540();
 extern void __cdecl FUN_0010c550();
-extern int DAT_004e0b84;
-extern int DAT_004e0b80;
 struct ParamBase_112aa0 {
     virtual void slot0();
     char pad[12];

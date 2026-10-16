@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 111 inputs, branch coverage 18/22, incomplete)
 // FUN_00333de0 @ 0x00333de0
+#include "decls/data/platform/xbox/movie.h"
+
 struct Data_333de0 { char pad[8]; int count; int index; };
 struct Reader { virtual void f0(); virtual void f1(); virtual void f2(); virtual void FUN_slot3(); virtual unsigned int FUN_slot4(int* values); virtual void FUN_slot5(); };
 struct Listener_333de0 { virtual void f0(); virtual void f1(); virtual void f2(); virtual void FUN_slot3(void*); };
@@ -8,7 +10,6 @@ struct Obj_333de0 {
  int field4; int field8; int fieldc; Listener_333de0* listener; Reader* reader; int state; Data_333de0* data; int field20; unsigned char flag24; unsigned char busy;
  void FUN_00333de0();
 };
-extern int DAT_00555ba0;
 extern int __stdcall FUN_00366940(Data_333de0*);
 extern int __stdcall FUN_00367bc0(Data_333de0*);
 extern int __stdcall FUN_00365f30(Data_333de0*,int,int,int,int,int,int,int,int,int,int);

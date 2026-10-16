@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 7/8, incomplete)
 // FUN_00208040 @ 0x00208040
+#include "decls/data/game/global.h"
+
 struct Sink_208040 {
     void FUN_00086310();
 };
@@ -14,7 +16,6 @@ struct Table_208040 {
     bool FUN_00208040(int a, int b);
 };
 
-extern int DAT_004e5a90;
 
 bool Table_208040::FUN_00208040(int a, int b)
 {

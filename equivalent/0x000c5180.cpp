@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3106 inputs, branch coverage 70/76, incomplete)
 // FUN_000c5180 @ 0x000c5180
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int strcmp(const char *, const char *);
 extern "C" char *__cdecl strncpy(char *, const char *, unsigned int);
@@ -108,7 +109,6 @@ Probe_c5180 *FUN_000fc3d0();
 Node *FUN_000fc310();
 Flag4 *FUN_0008e090();
 
-extern char DAT_004e222c;
 
 struct Frame_c5180 {
     Node *cur;

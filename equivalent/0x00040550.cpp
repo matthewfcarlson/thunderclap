@@ -2,6 +2,7 @@
 // FUN_00040550 @ 0x00040550
 // equiv-map: ??0Key@@QAE@ABU0@@Z = 0x0027af30
 #include "decls/address.h"
+#include "decls/data/game/hulkfight.h"
 struct V3_40550 {
     float x, y, z;
     bool FUN_0022d2b0(V3_40550 *other, float eps);
@@ -48,7 +49,6 @@ struct World {
     Sink_40550 *sink;                      // 0x30
     Hud_40550 *hud;                        // 0x34
 };
-extern char DAT_004dc290;
 
 struct Mgr_40550 {
     V3_40550 *FUN_001c39d0();
@@ -106,7 +106,7 @@ void Fighter_40550::FUN_00040550(float dt) throw()
         b32d = 0;
     }
     int m = mode;
-    if (DAT_004dc290 != 0) {
+    if ((*(char*)&DAT_004dc290) != 0) {
         if (m == 1)
             b32c = (b32c == 0);
     } else if (m == 1 || (m == 2 && f202c == 1)) {

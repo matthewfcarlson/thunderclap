@@ -1,15 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 96 inputs, branch coverage 9/10, incomplete)
 // FUN_001bee10 @ 0x001bee10
-extern int DAT_004e22f0;
-extern float DAT_004c4c18;
-extern float DAT_004c4c1c;
-extern float DAT_004c4c28;
-extern float DAT_004c4c30;
-extern float DAT_004c4c34;
-extern float DAT_004c4c3c;
-extern float DAT_004c4c40;
-extern float DAT_004c4c44;
-extern float DAT_004c4c48;
+#include "decls/data/game/global.h"
 
 struct Owner_1bee10 {
     char pad0[0x24];
@@ -63,7 +54,7 @@ int Effect_1bee10::FUN_001bee10()
     b.slots[b.index].weight = DAT_004c4c1c;
     b.slots[b.index].a = 1;
     b.slots[b.index].b = 3;
-    b.scale = DAT_004c4c18;
+    b.scale = (*(float*)&DAT_004c4c18);
     int r = owner->FUN_000f7240(keyA, keyB);
     if (r != -1) {
         float num;
@@ -85,7 +76,7 @@ int Effect_1bee10::FUN_001bee10()
             return result;
         }
         float t = num / b.slots[b.index].weight;
-        int extra = b.owner->values[DAT_004e22f0];
+        int extra = b.owner->values[(*(int*)&DAT_004e22f0)];
         int value = owner->FUN_000f7220(r);
         result = FUN_000fba10(handle, 10, 0x80, value, t, extra);
     }

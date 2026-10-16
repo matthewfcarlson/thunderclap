@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_002fa8c0 @ 0x002fa8c0
-extern float DAT_004d2cb4;
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
 
 struct V3_2fa8c0 {
     float x, y, z;
@@ -48,7 +49,6 @@ struct Scene_2fa8c0 {
     char pad00[0x1b0];
     Tracker_2fa8c0 tracker;
 };
-extern Scene_2fa8c0* DAT_00554c14;
 
 void FUN_002fa6b0(V3_2fa8c0* a, V3_2fa8c0* b, V3_2fa8c0* c, V3_2fa8c0* out);
 char FUN_00358b10(void* p38, void* p44, float v1, float v0, V3_2fa8c0* a0, V3_2fa8c0* a1, V3_2fa8c0* a2, V3_2fa8c0* normal, float* out, V3_2fa8c0* l0c, V3_2fa8c0* l18, int b1, int b2, int b4);
@@ -103,7 +103,7 @@ char TriRef::FUN_002fa8c0(Hit_2fa8c0* hit, Mesh_2fa8c0* mesh, int flags2)
         f.out = DAT_004d2cb4 + f.out;
     if (ok) {
         unsigned int index = (unsigned int)((char*)this - mesh->data->tris) / 0x18;
-        DAT_00554c14->tracker.FUN_00304530(hit, index, f.out, &f.l0c, &f.l18, mesh, flags2);
+        (*(Scene_2fa8c0**)&DAT_00554c14)->tracker.FUN_00304530(hit, index, f.out, &f.l0c, &f.l18, mesh, flags2);
     }
     return ok;
 }

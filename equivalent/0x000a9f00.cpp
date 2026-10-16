@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 8/8)
 // CHypnoticCamera::vfunc_36 @ 0x000a9f00
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 class Input_a9f00 {
 public:
     char FUN_00092940(int button);
@@ -146,8 +148,6 @@ public:
     void FUN_00293d40(int a, int b, float c);
 };
 
-extern Renderer_a9f00 *DAT_0052c2ac;
-extern Clock_a9f00 *DAT_0052c2a4;
 
 class CHypnoticCamera {
 public:
@@ -214,12 +214,12 @@ void CHypnoticCamera::vfunc_36()
     DAT_0052c2a8->v62(0);
     int mode = DAT_0052c2a8->v61();
     DAT_0052c2a8->v60(1);
-    DAT_0052c2ac->cam->v15(0);
-    DAT_0052c2ac->cam->v13(0);
-    DAT_0052c2ac->FUN_00293da0(1.0f, 1.0f / DAT_0052c2a4->v16(), 1.0f);
-    DAT_0052c2ac->FUN_00293d40(0, 0, 1.0f);
+    (*(Renderer_a9f00**)&DAT_0052c2ac)->cam->v15(0);
+    (*(Renderer_a9f00**)&DAT_0052c2ac)->cam->v13(0);
+    (*(Renderer_a9f00**)&DAT_0052c2ac)->FUN_00293da0(1.0f, 1.0f / (*(Clock_a9f00**)&DAT_0052c2a4)->v16(), 1.0f);
+    (*(Renderer_a9f00**)&DAT_0052c2ac)->FUN_00293d40(0, 0, 1.0f);
     target->v8(0, 0);
-    DAT_0052c2ac->cam->v16(0);
+    (*(Renderer_a9f00**)&DAT_0052c2ac)->cam->v16(0);
     DAT_0052c2a8->v60(mode);
     DAT_0052c2a8->v62(saved.w);
     DAT_0052c2a8->v24(prev);

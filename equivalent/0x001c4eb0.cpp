@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001c4eb0 @ 0x001c4eb0
+#include "decls/data/game/Render.h"
+
 struct Resource_1c4eb0 {
  virtual void AddRef(); virtual void Release();
  virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9(); virtual void slot10();
@@ -8,7 +10,6 @@ struct Resource_1c4eb0 {
 };
 struct Handle_1c4eb0 { char data[8]; void FUN_0027af30(void*); };
 struct Matrix { char data[0x40]; void FUN_0022b980(); };
-extern unsigned int DAT_004e234c;
 namespace Render {
 struct Object {
  virtual void slot0();

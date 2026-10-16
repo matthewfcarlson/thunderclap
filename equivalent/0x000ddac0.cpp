@@ -1,14 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 12/12)
 // ControllerPoller::vfunc_4 @ 0x000ddac0
+#include "decls/data/game/global.h"
+
 struct Binding_ddac0 {
     int axis;       // index into the sample buffer
     int button;     // button id this axis is bound to
 };
 
-extern int DAT_004de8c0;                // number of bindings
-extern Binding_ddac0 DAT_004de800[24];
-extern float DAT_004a0e68;             // axis threshold (writable, 0.05f)
-extern char DAT_004e222d;               // latch: a press is being held
+                // number of bindings
+             // axis threshold (writable, 0.05f)
+               // latch: a press is being held
 
 class Device_ddac0 {
 public:
@@ -35,17 +36,17 @@ char ControllerPoller::vfunc_4(int button, int pad)
     device->vfunc_1(pad, samples);
     char pressed = 0;
     int i = 0;
-    if (DAT_004de8c0 > 0) {
+    if ((*(int*)&DAT_004de8c0) > 0) {
         do {
-            if (DAT_004de800[i].button == button && samples[DAT_004de800[i].axis] > DAT_004a0e68)
+            if (((Binding_ddac0*)&DAT_004de800)[i].button == button && samples[((Binding_ddac0*)&DAT_004de800)[i].axis] > DAT_004a0e68)
                 pressed = 1;
             i++;
-        } while (i < DAT_004de8c0);
+        } while (i < (*(int*)&DAT_004de8c0));
     }
-    if (DAT_004e222d) {
+    if ((*(char*)&DAT_004e222d)) {
         if (pressed)
             return 0;
-        DAT_004e222d = pressed;
+        (*(char*)&DAT_004e222d) = pressed;
     }
     return pressed;
 }

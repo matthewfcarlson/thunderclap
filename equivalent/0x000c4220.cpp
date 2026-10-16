@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 81 inputs, branch coverage 19/19)
 // FUN_000c4220 @ 0x000c4220
-extern unsigned int DAT_0049fb40;
+#include "decls/data/game/global.h"
+
 extern unsigned int DAT_004d9968;
 void __fastcall __security_check_cookie(unsigned int);
 struct State_c4220;
@@ -16,7 +17,7 @@ struct State_c4220 {
 void State_c4220::update(Player_c4220* player) {
  struct Buffer { char text[64]; unsigned int cookie; } buffer;
  buffer.cookie=DAT_004d9968;
- switch(DAT_0049fb40) {
+ switch((*(unsigned int*)&DAT_0049fb40)) {
  case 0: {
  const char* prefix="copyright-";
  unsigned int i;
@@ -33,20 +34,20 @@ void State_c4220::update(Player_c4220* player) {
  dst+=4; src+=4;
  }
  for(i=0;i<count%4;++i) *dst++=*src++;
- if(FUN_000c3900(buffer.text,5000,5000,0,0,0,0)) ++DAT_0049fb40;
+ if(FUN_000c3900(buffer.text,5000,5000,0,0,0,0)) ++(*(unsigned int*)&DAT_0049fb40);
  break;
  }
- case 1: player->FUN_001b7310("dolby",1000,1); ++DAT_0049fb40; break;
- case 2: player->FUN_001b7310("marvel",1000,1); ++DAT_0049fb40; break;
- case 3: player->FUN_001b7310("radical",1000,1); ++DAT_0049fb40; break;
- case 4: player->FUN_001b7310("sierra",1000,1); ++DAT_0049fb40; break;
- case 5: player->FUN_001b7310("attract",1000,1); ++DAT_0049fb40; break;
+ case 1: player->FUN_001b7310("dolby",1000,1); ++(*(unsigned int*)&DAT_0049fb40); break;
+ case 2: player->FUN_001b7310("marvel",1000,1); ++(*(unsigned int*)&DAT_0049fb40); break;
+ case 3: player->FUN_001b7310("radical",1000,1); ++(*(unsigned int*)&DAT_0049fb40); break;
+ case 4: player->FUN_001b7310("sierra",1000,1); ++(*(unsigned int*)&DAT_0049fb40); break;
+ case 5: player->FUN_001b7310("attract",1000,1); ++(*(unsigned int*)&DAT_0049fb40); break;
  case 6: finished=1; break;
  }
  if(finished) {
  FUN_000c3ea0(this);
  Screen_c4220* current=screen;
- DAT_0049fb40=0;
+ (*(unsigned int*)&DAT_0049fb40)=0;
  if(current) { current->FUN_001edf60(); screen->FUN_001ec480("main","FE_screen_enter_start"); }
  mode=1;
  }

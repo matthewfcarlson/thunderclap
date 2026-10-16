@@ -1,3 +1,5 @@
+#include "decls/data/engine/fight.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 inline void* operator new(unsigned int, void* p) {
     return p;
@@ -19,8 +21,6 @@ template <class T> struct ParamFloatConstRange : FUN_00234960 {
     virtual void placeholder();
 };
 } // namespace fight
-extern int DAT_004e5c70;
-extern int DAT_004e5c6c;
 void __cdecl FUN_002347b0(int*, FUN_00234960**, int);
 void target() {
     if (!DAT_004e5c70) {

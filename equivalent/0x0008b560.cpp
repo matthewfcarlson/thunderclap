@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 45/52, incomplete)
 // FUN_0008b560 @ 0x0008b560
 #include "decls/address.h"
+#include "decls/data/game/hulkfight.h"
+#include "decls/data/game/unknown.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" void *__cdecl memset(void *, int, unsigned int);
 
@@ -99,9 +101,6 @@ struct Mgr2_8b560 {
     int FUN_0008cbe0(int a1, int a2, Slot_8b560 *slot, int size, unsigned short *name);
 };
 
-extern int DAT_0049c294;
-extern char DAT_004dd83a;
-extern char DAT_004dd83b;
 extern unsigned int DAT_004d9968;
 char FUN_00035da0();
 int __cdecl FUN_000964a0(char *buf, int n, const char *fmt, ...);

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 82 inputs, branch coverage 4/4)
 // core::MemoryDlAllocator::vfunc_4 @ 0x0026cd10
+#include "decls/data/engine/core.h"
+
 namespace core {
 struct MemoryDlAllocator {
     void *vtable;
@@ -15,20 +17,15 @@ struct MemoryDlAllocator {
     void vfunc_4(void *p);
 };
 }
-extern unsigned int DAT_005283a0;
-extern unsigned int DAT_005283a4;
-extern unsigned int DAT_005283a8;
-extern unsigned int *DAT_005283ac;
-extern unsigned int *DAT_0052839c;
 void __cdecl FUN_0026bd80(void *);
 void core::MemoryDlAllocator::vfunc_4(void *p) {
     if (!p) return;
     DAT_005283a0 = heapStart;
     DAT_005283a8 = heapEnd;
-    DAT_005283ac = &resetValue;
+    (*(unsigned int**)&DAT_005283ac) = &resetValue;
     DAT_005283a4 = heapLimit;
     unsigned int size = ((unsigned int *)p)[-1] & ~3u;
-    DAT_0052839c = data;
+    (*(unsigned int**)&DAT_0052839c) = data;
     availableBytes -= size;
     FUN_0026bd80(p);
     --allocationCount;

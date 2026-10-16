@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3039 inputs, branch coverage 74/74)
 // hulkfight::ai::StrafeRunAction::vfunc_5 @ 0x0011ce20
 #include "decls/address.h"
+#include "decls/data/game/hulkfight/ai.h"
 extern "C" double pow(double, double);
 
 struct Vec3_11ce20 {
@@ -63,7 +64,6 @@ extern "C" float FUN_00224f10(Vec3_11ce20 *v);
 extern "C" float FUN_00224fc0(float from, float to);
 extern "C" void FUN_00224d70(float angle, Vec3_11ce20 *v);
 
-extern Vec3_11ce20 DAT_004a6ac0;
 
 struct Tuning_11ce20 {
     char pad0[0x14];
@@ -202,7 +202,7 @@ bool StrafeRunAction::vfunc_5(Slot_11ce20 a0, Slot_11ce20 a1)
         } else {
             fr.angle = fr.step + fr.angle;
         }
-        fr.w = DAT_004a6ac0;
+        fr.w = (*(Vec3_11ce20*)&DAT_004a6ac0);
         FUN_00224d70(fr.angle, &fr.w);
         stats->aim = fr.w;
     }

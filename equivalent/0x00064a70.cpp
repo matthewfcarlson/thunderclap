@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1734 inputs, branch coverage 68/68)
 // FUN_00064a70 @ 0x00064a70
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -201,15 +204,7 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc618;
-extern int DAT_004dc61c;
 
-extern const char* DAT_0048f6cc[1];
-extern const char* DAT_00495480[1];
-extern const char* DAT_004954b4[1];
-extern int DAT_003f5ed0;
-extern int DAT_003fa110;
-extern int DAT_003fa118;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -253,7 +248,7 @@ void FUN_00064a70()
         mem = FUN_0008d690(0x20);
         params[8] = 0;
         if (mem)
-            params[8] = new (mem) fight::ParamEnumConstList<CWeaponCollisionTrack>("hitTypes", DAT_00495480, DAT_003fa110, &CWeaponCollisionTrack::FUN_00061bb0);
+            params[8] = new (mem) fight::ParamEnumConstList<CWeaponCollisionTrack>("hitTypes", ((const char**)&DAT_00495480), (*(int*)&DAT_003fa110), &CWeaponCollisionTrack::FUN_00061bb0);
         mem = FUN_0008d690(0x18);
         params[9] = 0;
         if (mem)
@@ -289,7 +284,7 @@ void FUN_00064a70()
         mem = FUN_0008d690(0x20);
         params[17] = 0;
         if (mem)
-            params[17] = new (mem) fight::ParamEnumConstList<CWeaponCollisionTrack>("direction", DAT_004954b4, DAT_003fa118, &CWeaponCollisionTrack::FUN_00061c40);
+            params[17] = new (mem) fight::ParamEnumConstList<CWeaponCollisionTrack>("direction", ((const char**)&DAT_004954b4), (*(int*)&DAT_003fa118), &CWeaponCollisionTrack::FUN_00061c40);
         mem = FUN_0008d690(0x18);
         params[18] = 0;
         if (mem)
@@ -301,7 +296,7 @@ void FUN_00064a70()
         mem = FUN_0008d690(0x20);
         params[20] = 0;
         if (mem)
-            params[20] = new (mem) fight::ParamEnumConstList<CWeaponCollisionTrack>("location", DAT_0048f6cc, DAT_003f5ed0, &CWeaponCollisionTrack::FUN_00061c90);
+            params[20] = new (mem) fight::ParamEnumConstList<CWeaponCollisionTrack>("location", ((const char**)&DAT_0048f6cc), (*(int*)&DAT_003f5ed0), &CWeaponCollisionTrack::FUN_00061c90);
         mem = FUN_0008d690(0x18);
         params[21] = 0;
         if (mem)
@@ -350,7 +345,7 @@ void FUN_00064a70()
         params[32] = 0;
         if (mem)
             params[32] = new (mem) fight::ParamFloatPtrConstRange<CWeaponCollisionTrack>("largeStunTime", &CWeaponCollisionTrack::largeStunTime);
-        FUN_002347b0(&DAT_004dc618, params, 33);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc618), params, 33);
     }
     DAT_004dc61c++;
 }

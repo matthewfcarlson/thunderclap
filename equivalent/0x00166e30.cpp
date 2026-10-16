@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 15/16, incomplete)
 // hulkfight::motion::ShoreNearCondition::vfunc_6 @ 0x00166e30
 #include "decls/address.h"
+#include "decls/data/game/hulkfight/motion.h"
 struct V3_166e30 {
     float x, y, z;
     float FUN_000111f0();
@@ -37,8 +38,6 @@ struct World {
     Mgr54_166e30 *mgr;
 };
 
-extern unsigned DAT_004e12d4;
-extern float DAT_004e12d0;
 
 namespace fight {
 class Params {

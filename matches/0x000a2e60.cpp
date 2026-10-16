@@ -1,4 +1,5 @@
-extern float DAT_0049ec64;
+#include "decls/data/game/global.h"
+
 struct Object {
     char pad0[0x1f4];
     unsigned a[6];
@@ -20,7 +21,7 @@ struct Object {
 };
 void Object::FUN_000a2e60(unsigned arg, unsigned char flag) {
     if (flag)
-        FUN_000a2cc0(arg, field44c, field444, DAT_0049ec64, 0);
+        FUN_000a2cc0(arg, field44c, field444, (*(float*)&DAT_0049ec64), 0);
     else
         FUN_000a2de0(arg, field44c, field444, 0);
     for (int i = 5; i >= 0; --i)

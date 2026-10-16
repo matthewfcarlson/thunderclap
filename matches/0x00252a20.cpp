@@ -1,5 +1,6 @@
+#include "decls/data/engine/audio.h"
+
 extern "C" char DAT_004298fc[];
-extern "C" char DAT_004e6e90[];
 extern void FUN_00247550(void*, void*);
 class SeqAction {
   public:

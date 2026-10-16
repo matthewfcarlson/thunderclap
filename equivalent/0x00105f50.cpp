@@ -1,8 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 14/14)
 // FUN_00105f50 @ 0x00105f50
 #include "decls/address.h"
-extern float DAT_004a1c80;
-extern __int64 DAT_004dc0c0;
+#include "decls/data/game/global.h"
 
 struct Stats_105f50 {
     char pad0[0x380];
@@ -115,8 +114,8 @@ CPathGraphAgent::CPathGraphAgent(Owner_105f50 *o) : CCharacterAgent(o)
         fb8 = body->stats->value;
     __int64 id = body->stats->FUN_000443c0();
     float scale;
-    if (id == DAT_004dc0c0)
-        scale = DAT_004a1c80;
+    if (id == (*(__int64*)&DAT_004dc0c0))
+        scale = (*(float*)&DAT_004a1c80);
     else
         scale = 1.0f;
     f78 = scale;

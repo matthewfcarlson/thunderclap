@@ -1,9 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_00205860 @ 0x00205860
+#include "decls/data/game/global.h"
+
 extern unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" int __cdecl _sprintf(char *buf, const char *fmt, ...);
-extern char DAT_004c91d9;
 
 struct Marker_205860 {
     void FUN_00204f00();
@@ -33,7 +34,7 @@ void District_205860::FUN_00205860(int id)
         if (!FUN_002046b0(id)) {
             _sprintf(fr.label, "%s_district_%d", name, id);
             FUN_00204760(id);
-            if (DAT_004c91d9 != 0)
+            if ((*(char*)((char*)&DAT_004c91d8 + 1)) != 0)
                 FUN_00204540(fr.label)->FUN_00204f00();
         }
         break;

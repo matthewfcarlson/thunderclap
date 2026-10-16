@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 10/12, incomplete)
 // FUN_001b5da0 @ 0x001b5da0
 #include "decls/address.h"
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int DAT_004d9968;
 
@@ -46,9 +48,6 @@ struct World {
     Pad_1b5da0 *pad;
 };
 
-extern Settings_1b5da0 *DAT_004dd6e8;
-extern Gravity_1b5da0 *DAT_00554c10;
-extern Timer DAT_0055545c;
 
 class Physics_1b5da0 {
 public:
@@ -64,7 +63,7 @@ public:
 void Physics_1b5da0::FUN_001b5da0(int a, int b)
 {
     unsigned int cookie = DAT_004d9968;
-    if (DAT_004dd6e8->FUN_0023f760("DoPhysics", 0x66, 1)) {
+    if ((*(Settings_1b5da0**)&DAT_004dd6e8)->FUN_0023f760("DoPhysics", 0x66, 1)) {
         Input_1b5da0 *input = DAT_004dd700->pad->FUN_00086340();
         union { float f; unsigned int u; } d;
         bool set = false;
@@ -74,7 +73,7 @@ void Physics_1b5da0::FUN_001b5da0(int a, int b)
             if (!(d.f <= 1e-05f)) {
                 gravityY = -500.0f;
                 set = true;
-                DAT_00554c10->FUN_002ece90(0.0f, -500.0f, 0.0f);
+                (*(Gravity_1b5da0**)&DAT_00554c10)->FUN_002ece90(0.0f, -500.0f, 0.0f);
             }
         }
         if (!set) {
@@ -82,7 +81,7 @@ void Physics_1b5da0::FUN_001b5da0(int a, int b)
             d.u &= 0x7fffffff;
             if (!(d.f <= 1e-05f) && !input->FUN_00092940(0x13)) {
                 gravityY = -3000.0f;
-                DAT_00554c10->FUN_002ece90(0.0f, -3000.0f, 0.0f);
+                (*(Gravity_1b5da0**)&DAT_00554c10)->FUN_002ece90(0.0f, -3000.0f, 0.0f);
             }
         }
         FUN_001b4d00(a, b);
@@ -90,7 +89,7 @@ void Physics_1b5da0::FUN_001b5da0(int a, int b)
             anim->FUN_002eea80();
             anim->FUN_002ed6e0(b);
         }
-        DAT_0055545c.FUN_002f9660();
+        (*(Timer*)&DAT_0055545c).FUN_002f9660();
     }
     __security_check_cookie(cookie);
 }

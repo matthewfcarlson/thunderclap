@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2990 inputs, branch coverage 8/8)
 // FUN_00054660 @ 0x00054660
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/unknown.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
-extern int DAT_004dc56c;
-extern int DAT_004dc568;
-extern int DAT_00427758;
-extern int DAT_00427760;
 void FUN_00048190(); void FUN_000481a0(); void FUN_000481b0();
 class CFightNodePrevCondition;
 namespace fight {
@@ -31,10 +30,10 @@ void FUN_00054660() {
  void* list[3];
  void* p=FUN_0008d690(32);
  if(p) {
- int count=DAT_00427760;
+ int count=(*(int*)&DAT_00427760);
  ((fight::ParamEnumConstList<CFightNodePrevCondition>*)p)->FUN_00234cc0("compare");
  fight::ParamEnumConstList<CFightNodePrevCondition>* obj=new(p) fight::ParamEnumConstList<CFightNodePrevCondition>;
- obj->count=count; obj->values=&DAT_00427758; obj->callback=FUN_00048190;
+ obj->count=count; obj->values=((int*)&DAT_00427758); obj->callback=FUN_00048190;
  }
  list[0]=p;
  p=FUN_0008d690(24);

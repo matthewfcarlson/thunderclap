@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2998 inputs, branch coverage 6/6)
 // FUN_000cab50 @ 0x000cab50
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
+
 struct Vec3_cab50 {
     float x, y, z;
 };
@@ -26,9 +29,6 @@ struct Sprite {
     virtual void v8(int a, int b);
 };
 
-extern PassHolder_cab50 *DAT_0052c2ac;
-extern Vec3_cab50 DAT_004ddebc;
-extern Vec3_cab50 DAT_004ddf18;
 
 class Effect_cab50 {
 public:
@@ -40,16 +40,16 @@ public:
 
 void Effect_cab50::FUN_000cab50()
 {
-    DAT_0052c2ac->pass->v15(0);
-    DAT_0052c2ac->FUN_00293d00(&DAT_004ddebc);
+    (*(PassHolder_cab50**)&DAT_0052c2ac)->pass->v15(0);
+    (*(PassHolder_cab50**)&DAT_0052c2ac)->FUN_00293d00(((Vec3_cab50*)&DAT_004ddebc));
     for (int i = 0; i < 5; i++) {
         if (i != 0)
-            DAT_0052c2ac->FUN_00293d00(&DAT_004ddf18);
-        DAT_0052c2ac->pass->v15(0);
-        DAT_0052c2ac->FUN_00293bf0(-1.57079637f);
+            (*(PassHolder_cab50**)&DAT_0052c2ac)->FUN_00293d00(((Vec3_cab50*)&DAT_004ddf18));
+        (*(PassHolder_cab50**)&DAT_0052c2ac)->pass->v15(0);
+        (*(PassHolder_cab50**)&DAT_0052c2ac)->FUN_00293bf0(-1.57079637f);
         if (sprites[i][0] != 0)
             sprites[i][0]->v8(0, 0);
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_cab50**)&DAT_0052c2ac)->pass->v16(0);
     }
-    DAT_0052c2ac->pass->v16(0);
+    (*(PassHolder_cab50**)&DAT_0052c2ac)->pass->v16(0);
 }

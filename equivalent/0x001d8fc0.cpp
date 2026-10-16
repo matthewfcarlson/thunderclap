@@ -2,6 +2,8 @@
 // FUN_001d8fc0 @ 0x001d8fc0
 // CSPHulkPropInstance per-frame update (FUN_001d8fc0): steering of the prop's velocity vectors,
 // ground/water level crossings, StateProp event keys.
+#include "decls/data/game/global.h"
+
 extern "C" double sqrt(double);
 
 struct Vec3_1d8fc0 {
@@ -290,14 +292,6 @@ extern bool FUN_00202560(const Vec3_1d8fc0 *a, float b, int c, Vec3_1d8fc0 *d, B
 
 
 extern Root_1d8fc0 *DAT_004dd700;
-extern unsigned int DAT_004e263c;
-extern Vec3_1d8fc0 DAT_004e2630;
-extern unsigned int DAT_004e2628;
-extern unsigned int DAT_004e262c;
-extern unsigned int DAT_004e2620;
-extern unsigned int DAT_004e2624;
-extern Key2_1d8fc0 DAT_004e25a0[6];
-extern Vec3_1d8fc0 DAT_004c6068;
 
 // The original keeps these in fixed stack words and hands pointers to them to callees (the checker
 // compares what lies around them), and re-uses the same words for different values over time.
@@ -583,14 +577,14 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
                 if (F.A5) {
                     if (!(DAT_004e263c & 1)) {
                         DAT_004e263c |= 1;
-                        DAT_004e2630.x = 0.0f;
-                        DAT_004e2630.y = -1.0f;
-                        DAT_004e2630.z = 0.0f;
+                        (*(Vec3_1d8fc0*)&DAT_004e2630).x = 0.0f;
+                        (*(Vec3_1d8fc0*)&DAT_004e2630).y = -1.0f;
+                        (*(Vec3_1d8fc0*)&DAT_004e2630).z = 0.0f;
                     }
                     if (F.f134 > 0.0f) {
                         F.m80.FUN_0022b980();
-                        if (!FUN_00018960(F.dir.y, DAT_004e2630.y, 1e-05f))
-                            FUN_00224db0(&F.m80, &DAT_004e2630, &F.dir);
+                        if (!FUN_00018960(F.dir.y, (*(Vec3_1d8fc0*)&DAT_004e2630).y, 1e-05f))
+                            FUN_00224db0(&F.m80, ((Vec3_1d8fc0*)&DAT_004e2630), &F.dir);
                         v20c.z = dt * v20c.x * 0.001f + v20c.z;
                         F.m40.FUN_0022b980();
                         F.m40.FUN_0022ba70(v20c.z);
@@ -717,7 +711,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
                 F.f140 = F.f118;
             else
                 F.f140 = FUN_00083d90(&F.f100) * F.f110 + F.f140;
-            F.v130 = DAT_004c6068;
+            F.v130 = (*(Vec3_1d8fc0*)&DAT_004c6068);
             FUN_00224d70(F.f140, &F.v130);
             float step = F.f134 * f128;
             F.f118 = -1.5707964f;
@@ -793,7 +787,7 @@ void CSPHulkPropInstance::FUN_001d8fc0(float dt)
                         F.dir.z = F.dir.z + pp->z;
                         int idx = 0;
                         while (idx < 6) {
-                            if (el->lo28 == DAT_004e25a0[idx].lo && el->hi2c == DAT_004e25a0[idx].hi)
+                            if (el->lo28 == ((Key2_1d8fc0*)&DAT_004e25a0)[idx].lo && el->hi2c == ((Key2_1d8fc0*)&DAT_004e25a0)[idx].hi)
                                 break;
                             idx++;
                         }

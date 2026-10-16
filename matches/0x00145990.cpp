@@ -1,5 +1,6 @@
+#include "decls/data/game/hulkfight/motion.h"
+
 extern "C" char DAT_0041324c[];
-extern "C" char DAT_004e0fa0[];
 extern int gCounter_145990;
 extern int gArray_145990;
 extern "C" void* Alloc(unsigned int);

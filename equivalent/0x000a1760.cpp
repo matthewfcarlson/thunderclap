@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_000a1760 @ 0x000a1760
+#include "decls/data/game/global.h"
+
 struct Vec3_a1760 { float x, y, z; };
 
-extern float DAT_0049ec78;
-extern float DAT_0049ec7c;
-extern float DAT_0049ec80;
 float FUN_000a02a0(float v);
 Vec3_a1760* FUN_0009f8c0(Vec3_a1760* out, float x, float y, float z);
 void FUN_000a04c0(Vec3_a1760* d, float* a, float* b, float* c);
@@ -61,8 +60,8 @@ void Mover_a1760::Update(float a1, float a2) {
     f194 = r->x + f1c4;
     f198 = r->y + f1c8;
     f19c = r->z + f1cc;
-    FUN_000a0dc0(DAT_0049ec78, DAT_0049ec7c, a2);
-    FUN_000a0940(DAT_0049ec80);
+    FUN_000a0dc0((*(float*)&DAT_0049ec78), DAT_0049ec7c, a2);
+    FUN_000a0940((*(float*)&DAT_0049ec80));
     Vec3_a1760 d;
     d.x = f1e8 - f194;
     d.y = f1ec - f198;

@@ -1,9 +1,8 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 extern "C" char DAT_00420e84[];
-extern "C" char DAT_0048e0f0[];
 extern "C" char DAT_0048e10c[];
-extern "C" char DAT_0048e128[];
-extern "C" char DAT_0049b95c[];
 struct C_1ba090 {
     int v;
     char pad4[0xc];
@@ -22,9 +21,9 @@ C_1ba090::C_1ba090(const char* x, int y) {
     Init(x, 4);
     v = ((int)DAT_00420e84);
     p1c = y;
-    b18 = FUN_001d04d0((const char*)((int)DAT_0049b95c));
-    b10 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
+    b18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0049b95c)));
+    b10 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0f0)));
     b11 = FUN_001d04d0((const char*)((int)DAT_0048e10c));
     b12 = FUN_001d04d0((const char*)((int)DAT_0048e10c));
-    b13 = FUN_001d04d0((const char*)((int)DAT_0048e128));
+    b13 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e128)));
 }

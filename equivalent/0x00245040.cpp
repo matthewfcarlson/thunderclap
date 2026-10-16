@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_00245040 @ 0x00245040
+#include "decls/data/engine/om.h"
+
 struct Key_245040 {
     int lo;
     int hi;
@@ -19,7 +21,6 @@ struct Query_245040 {
 };
 
 struct Index;
-extern Index *DAT_004cc08c;
 int __cdecl FUN_00244be0(Index *idx, Query_245040 *q);
 void __cdecl FUN_00244b20(Index *idx, void *item);
 void __cdecl FUN_002448b0(Index *idx, void *item, Query_245040 *q);
@@ -46,10 +47,10 @@ bool Item_245040::FUN_00245040(const Key_245040 *newKey)
     q.keyHi = newKey->hi;
     q.boundsLo = r->boundsLo;
     q.boundsHi = r->boundsHi;
-    if (FUN_00244be0(DAT_004cc08c, &q))
+    if (FUN_00244be0((*(Index**)&DAT_004cc08c), &q))
         return false;
 
-    Index *idx = DAT_004cc08c;
+    Index *idx = (*(Index**)&DAT_004cc08c);
     FUN_00244b20(idx, this);
     key.lo = newKey->lo;
     key.hi = newKey->hi;

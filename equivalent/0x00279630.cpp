@@ -1,10 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 148 inputs, branch coverage 80/84, incomplete)
 // core::XboxSaveDrive::vfunc_9 @ 0x00279630
+#include "decls/data/platform/xbox/core.h"
+
 typedef unsigned int U_279630; typedef unsigned char B_279630;
 struct SaveData { U_279630 data; U_279630 length; };
 struct Large { U_279630 low, high; };
-extern const char *DAT_004ce26c, *DAT_004ce270;
-extern U_279630 *DAT_0052c270; extern U_279630 DAT_0052c27c;
+ 
 extern void __cdecl FUN_0026b800(unsigned short *,int,U_279630,int,int,int,int);
 extern U_279630 __stdcall FUN_0035618d(const char *,const unsigned short *,U_279630,U_279630,char *,U_279630);
 extern U_279630 __stdcall FUN_003563f0(const char *,const unsigned short *);
@@ -43,7 +44,7 @@ int core::XboxSaveDrive::vfunc_9(U_279630 name,U_279630 mode,B_279630 writable,S
  if(!FUN_002789e0(FUN_0035618d(drive,title,1,0,path,260))) return 0;
  pathLength=0; while(path[pathLength]) ++pathLength;
  if(data->data) {
- const char *p=DAT_004ce26c; char *q=path+pathLength; do { *q++=*p; } while(*p++);
+ const char *p=(*(const char**)&DAT_004ce26c); char *q=path+pathLength; do { *q++=*p; } while(*p++);
  U_279630 h=FUN_002109f1(path,0xc0000000,3,0,2,0x80,0);
  if(h==0xffffffff) break;
  result=0;
@@ -52,7 +53,7 @@ int core::XboxSaveDrive::vfunc_9(U_279630 name,U_279630 mode,B_279630 writable,S
  FUN_0020bbc2(h);
  }
  }
- const char *p=DAT_004ce270; char *q=path+pathLength; do {*q++=*p;} while(*p++);
+ const char *p=(*(const char**)&DAT_004ce270); char *q=path+pathLength; do {*q++=*p;} while(*p++);
  U_279630 h=FUN_002109f1(path,0xc0000000,3,0,changed?1:3,0x80,0); *out=h;
  if(h==0xffffffff) break;
  if(changed) {
@@ -69,9 +70,9 @@ int core::XboxSaveDrive::vfunc_9(U_279630 name,U_279630 mode,B_279630 writable,S
  bool valid=false;
  if(savedSize>=24) {
  if(!FUN_00279490(*out,0)) {FUN_0020bbc2(*out); return 0;}
- valid=(*DAT_0052c270==result);
+ valid=(*(*(U_279630**)&DAT_0052c270)==result);
  }
- if(!valid) {FUN_0020bbc2(*out); DAT_0052c27c=0; error=12; return 0;}
+ if(!valid) {FUN_0020bbc2(*out); (*(U_279630*)((char*)&DAT_0052c270 + 12))=0; error=12; return 0;}
  }
  *amount=savedSize-((savedSize+0x2013)/0x2014)*20-4;
  ++count; error=0; return 1;

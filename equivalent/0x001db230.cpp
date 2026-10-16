@@ -2,6 +2,7 @@
 // CSPListener::vfunc_0 @ 0x001db230
 // equiv-map: ??0Name@@QAE@ABU0@@Z = 0x0027af30
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" int __cdecl _sprintf(char *, const char *, ...);
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
@@ -9,7 +10,6 @@ extern unsigned int DAT_004d9968;
 struct V3_1db230 {
     float x, y, z;
 };
-extern V3_1db230 DAT_004c6160;
 
 struct Name {
     int a, b;
@@ -196,7 +196,7 @@ void CSPListener::vfunc_0(Ev_1db230 *a1, unsigned int a2)
         v.x = 0.0f;
         v.y = 0.0f;
         v.z = 0.0f;
-        m.FUN_0022c3b0(&DAT_004c6160, &v);
+        m.FUN_0022c3b0(((V3_1db230*)&DAT_004c6160), &v);
         m.FUN_0022cc90(&v);
         o->FUN_001d6b60(m, 0);
         break;

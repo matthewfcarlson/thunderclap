@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3080 inputs, branch coverage 83/96, incomplete)
 // FUN_001b93a0 @ 0x001b93a0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 struct Vec3_1b93a0 {
     float x, y, z;
 };
@@ -220,37 +222,6 @@ public:
     void FUN_000d6c70();
 };
 
-extern char DAT_004dd8e4;
-extern float DAT_004dd91c;
-extern Probe_1b93a0 *DAT_0052c2a4;
-extern Stats_1b93a0 *DAT_0052c2b4;
-extern Settings_1b93a0 *DAT_004dd6e8;
-extern char DAT_004e2240;
-extern char DAT_004e2241;
-extern float DAT_004e2244;
-extern float DAT_004e2248;
-extern float DAT_004e224c;
-extern char DAT_004e2250;
-extern char DAT_004e2251;
-extern float DAT_004e2254;
-extern float DAT_004e2258;
-extern float DAT_004e225c;
-extern float DAT_004e2260;
-extern char DAT_004e2264;
-extern char DAT_004e2265;
-extern float DAT_004c3bd8;
-extern int DAT_004c3bdc;
-extern int DAT_004c3be0;
-extern int DAT_004c3be4;
-extern char DAT_004c3be8;
-extern int DAT_004c3bf0;
-extern int DAT_004c3bf4;
-extern int DAT_004c3bf8;
-extern int DAT_004c3bfc;
-extern int DAT_004c3c00;
-extern int DAT_004c3c04;
-extern float DAT_004c3c08;
-extern float DAT_004c3c0c;
 
 Tracker_1b93a0 *FUN_001c3d90();
 unsigned int FUN_00267f00();
@@ -268,13 +239,13 @@ void Frontend_1b93a0::FUN_001b93a0(Frame_1b93a0 *frame, Scene_1b93a0 *scene, Men
     if (skip)
         return;
     unsigned int startTick = 0;
-    if (DAT_004dd8e4)
+    if ((*(char*)&DAT_004dd8e4))
         startTick = FUN_00267f00();
-    DAT_0052c2a4->v14();
-    if (DAT_004dd6e8->FUN_0023f770("PDDI stats", 0x70)) {
+    (*(Probe_1b93a0**)&DAT_0052c2a4)->v14();
+    if ((*(Settings_1b93a0**)&DAT_004dd6e8)->FUN_0023f770("PDDI stats", 0x70)) {
         DAT_0052c2a8->v85(DAT_0052c2a8->v86() == 0);
     }
-    DAT_0052c2b4->FUN_0028f9a0();
+    (*(Stats_1b93a0**)&DAT_0052c2b4)->FUN_0028f9a0();
     if (frame->type == 4 || frame->type == 6) {
         Vec3_1b93a0 pos = *FUN_001c3d90()->FUN_001c39d0();
         if (!FUN_001c3d90()->region->FUN_001c8790(&pos)) {
@@ -298,29 +269,29 @@ void Frontend_1b93a0::FUN_001b93a0(Frame_1b93a0 *frame, Scene_1b93a0 *scene, Men
         } else {
             d->vf5();
         }
-        if (DAT_004c3be8) {
+        if ((*(char*)&DAT_004c3be8)) {
             if (DAT_004e2250) {
                 DAT_004e2244 = 0;
                 DAT_004e2248 = 0;
                 DAT_004e224c = 0;
-                DAT_004c3bd8 = 0.5f;
+                (*(float*)&DAT_004c3bd8) = 0.5f;
                 DAT_004c3bdc = 0xff;
                 DAT_004c3be0 = 0xff;
                 DAT_004c3be4 = 0xff;
                 DAT_004e2250 = 0;
             }
-            d->vf3((unsigned char)DAT_004e2241);
+            d->vf3((unsigned char)(*(char*)&DAT_004e2241));
             int b = DAT_004c3be4 < 0 ? 0 : (DAT_004c3be4 > 255 ? 255 : DAT_004c3be4);
             int g = DAT_004c3be0 < 0 ? 0 : (DAT_004c3be0 > 255 ? 255 : DAT_004c3be0);
             int rr = DAT_004c3bdc < 0 ? 0 : (DAT_004c3bdc > 255 ? 255 : DAT_004c3bdc);
             unsigned int color = (((((unsigned int)rr | 0xffffff00u) << 8) | g) << 8) | b;
-            d->vf4(DAT_004e2244, DAT_004e2248, DAT_004e224c, DAT_004c3bd8, color);
-            d->vf3((unsigned char)DAT_004e2241);
-            DAT_004c3be8 = 0;
+            d->vf4(DAT_004e2244, DAT_004e2248, DAT_004e224c, (*(float*)&DAT_004c3bd8), color);
+            d->vf3((unsigned char)(*(char*)&DAT_004e2241));
+            (*(char*)&DAT_004c3be8) = 0;
         }
         d->vf6();
         if (DAT_004e2264) {
-            if (DAT_004e2265) {
+            if ((*(char*)&DAT_004e2265)) {
                 DAT_004e2254 = 0;
                 DAT_004c3bf0 = 0xff;
                 DAT_004c3bf4 = 0xff;
@@ -331,8 +302,8 @@ void Frontend_1b93a0::FUN_001b93a0(Frame_1b93a0 *frame, Scene_1b93a0 *scene, Men
                 DAT_004c3c04 = 0x80;
                 DAT_004e225c = 0;
                 DAT_004e2260 = 0;
-                DAT_004c3c08 = 0.5f;
-                DAT_004e2265 = 0;
+                (*(float*)&DAT_004c3c08) = 0.5f;
+                (*(char*)&DAT_004e2265) = 0;
             }
             int e = DAT_004c3c04 < 0 ? 0 : (DAT_004c3c04 > 255 ? 255 : DAT_004c3c04);
             int f = DAT_004c3c00 < 0 ? 0 : (DAT_004c3c00 > 255 ? 255 : DAT_004c3c00);
@@ -342,24 +313,24 @@ void Frontend_1b93a0::FUN_001b93a0(Frame_1b93a0 *frame, Scene_1b93a0 *scene, Men
             int m = DAT_004c3bf4 < 0 ? 0 : (DAT_004c3bf4 > 255 ? 255 : DAT_004c3bf4);
             int n = DAT_004c3bf0 < 0 ? 0 : (DAT_004c3bf0 > 255 ? 255 : DAT_004c3bf0);
             unsigned int colorA = (((((unsigned int)n | 0xffffff00u) << 8) | m) << 8) | k;
-            d->vf8(DAT_004e2254, colorA, DAT_004c3c0c, DAT_004e2258, colorB, DAT_004e225c,
-                   DAT_004e2260, DAT_004c3c08);
-            d->vf7((unsigned char)DAT_004e2251);
+            d->vf8(DAT_004e2254, colorA, (*(float*)&DAT_004c3c0c), DAT_004e2258, colorB, DAT_004e225c,
+                   DAT_004e2260, (*(float*)&DAT_004c3c08));
+            d->vf7((unsigned char)(*(char*)&DAT_004e2251));
             DAT_004e2264 = 0;
         }
         d->vf9();
         scene->fader->FUN_001bf8b0();
     }
     if (frame->type == 4) {
-        if (DAT_004dd6e8->FUN_0023f760("Render Overlays", 0x23, 1))
+        if ((*(Settings_1b93a0**)&DAT_004dd6e8)->FUN_0023f760("Render Overlays", 0x23, 1))
             overlays->FUN_000d6c70();
     }
-    if (DAT_004dd6e8->FUN_0023f760("Render Frontend", 0x40, 1))
+    if ((*(Settings_1b93a0**)&DAT_004dd6e8)->FUN_0023f760("Render Frontend", 0x40, 1))
         menu->FUN_000bdd60();
-    if (DAT_004dd8e4) {
+    if ((*(char*)&DAT_004dd8e4)) {
         unsigned int now = FUN_00267f00();
-        if (DAT_004dd8e4)
-            DAT_004dd91c = (float)(now - startTick) * 1e-06f;
+        if ((*(char*)&DAT_004dd8e4))
+            (*(float*)&DAT_004dd91c) = (float)(now - startTick) * 1e-06f;
     }
-    DAT_0052c2b4->FUN_0028faf0(0);
+    (*(Stats_1b93a0**)&DAT_0052c2b4)->FUN_0028faf0(0);
 }

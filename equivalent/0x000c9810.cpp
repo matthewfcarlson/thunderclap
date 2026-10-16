@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 351 inputs, branch coverage 46/50, incomplete)
 // FUN_000c9810 @ 0x000c9810
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct V3_c9810 {
     float x, y, z;
 };
@@ -48,11 +49,6 @@ struct World {
     char pad10[0x20 - 0x10];
     WorldSub *f20;
 };
-extern float DAT_0049fbb8;
-extern float DAT_0049fbbc;
-extern float DAT_0049fbcc;
-extern float DAT_0049fbd0;
-extern float DAT_0049fbd4;
 
 struct Shot_c9810 {
     int id;                // 0

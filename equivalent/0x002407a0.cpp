@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 12/12)
 // FUN_002407a0 @ 0x002407a0
+#include "decls/data/engine/audio.h"
+#include "decls/data/engine/content.h"
+
 struct Str_2407a0 {
     Str_2407a0 *FUN_0023fc40(const char *text, int flag);
 };
@@ -18,11 +21,6 @@ struct Registry_2407a0 {
     void FUN_00265210(Loader_2407a0 *loader, int handle);
 };
 
-extern Str_2407a0 *DAT_004e5ca0;
-extern int DAT_004e5ca4;
-extern int DAT_004e5ca8;
-extern int DAT_004e5cac;
-extern Registry_2407a0 *DAT_00527c58;
 
 void *FUN_0008d690(unsigned int size);
 inline void *operator new(unsigned int, void *p) throw() { return p; }
@@ -65,9 +63,9 @@ void FUN_002407a0(unsigned int flags)
     void *mem = FUN_0008d690(0xc);
     if (mem != 0) {
         str = ((Str_2407a0 *)mem)->FUN_0023fc40("english", 2);
-        DAT_004e5ca0 = str;
+        (*(Str_2407a0**)&DAT_004e5ca0) = str;
     } else {
-        DAT_004e5ca0 = 0;
+        (*(Str_2407a0**)&DAT_004e5ca0) = 0;
     }
     FUN_00256660()->init();
     FUN_00245330()->init();
@@ -100,19 +98,19 @@ void FUN_002407a0(unsigned int flags)
         l = FUN_00247530(FUN_0024d200());
         if (l != 0)
             l = l->FUN_0024d360(FUN_00245330());
-        DAT_00527c58->FUN_00265210(l, FUN_00245330()->handle);
+        (*(Registry_2407a0**)&DAT_00527c58)->FUN_00265210(l, FUN_00245330()->handle);
         l = FUN_00247530(FUN_0024d200());
         if (l != 0)
             l = l->FUN_0024d360(FUN_00256660());
-        DAT_00527c58->FUN_00265210(l, FUN_00256660()->handle);
+        (*(Registry_2407a0**)&DAT_00527c58)->FUN_00265210(l, FUN_00256660()->handle);
         l = FUN_00247530(FUN_0024d200());
         if (l != 0)
             l = l->FUN_0024d360(FUN_00241660());
-        DAT_00527c58->FUN_00265210(l, FUN_00241660()->handle);
+        (*(Registry_2407a0**)&DAT_00527c58)->FUN_00265210(l, FUN_00241660()->handle);
         l = FUN_00247530(FUN_0024d200());
         if (l != 0)
             l = l->FUN_0024d360(FUN_0024d5a0());
-        DAT_00527c58->FUN_00265210(l, FUN_0024d5a0()->handle);
+        (*(Registry_2407a0**)&DAT_00527c58)->FUN_00265210(l, FUN_0024d5a0()->handle);
     }
     DAT_004e5cac = FUN_00242bd0();
     DAT_004e5ca8 = FUN_00267f80();

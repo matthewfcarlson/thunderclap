@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3014 inputs, branch coverage 31/32, incomplete)
 // hulkfight::motion::ProjectileGroundShockwave::vfunc_4 @ 0x00198b30
 #include "decls/address.h"
+#include "decls/data/game/hulkfight/motion.h"
 extern "C" double sqrt(double);
 extern "C" void *memcpy(void *d, const void *s, unsigned int n);
 
@@ -24,7 +25,6 @@ extern "C" void __cdecl FUN_00224d70(float angle, V3_198b30 *v);
 extern "C" float __cdecl FUN_00224f10(V3_198b30 *v);
 extern "C" void __cdecl FUN_00224db0(Mat_198b30 *m, V3_198b30 *from, V3_198b30 *to);
 extern "C" float __cdecl FUN_0004af40(float lo, float hi, float v);
-extern V3_198b30 DAT_004c1368;
 
 struct Raycast {
     bool FUN_00201f20(V3_198b30 *p, int flag, V3_198b30 *hitA, V3_198b30 *hitB, int *o3, int *o4);
@@ -216,7 +216,7 @@ void ProjectileGroundShockwave::vfunc_4(float dt)
         if (cnt > 0) {
             Rng_198b30 *rng = FUN_000964d0();
             f.s4 = rng->FUN_000787e0(0.0f, 6.2831855f);
-            f.g = DAT_004c1368;
+            f.g = (*(V3_198b30*)&DAT_004c1368);
             FUN_00224d70(f.s4, &f.g);
             int c58 = cfg->i58;
             f.s4 = *(float *)&c58;
@@ -251,7 +251,7 @@ void ProjectileGroundShockwave::vfunc_4(float dt)
     do {
         float want = f.s0 + f.step;
         f.s0 = FUN_0004af40(f.s4, hi, want);
-        f.g = DAT_004c1368;
+        f.g = (*(V3_198b30*)&DAT_004c1368);
         FUN_00224d70(f.s0, &f.g);
         float gx = f.g.x * f.f64;
         float gy = f.g.y * f.f64;

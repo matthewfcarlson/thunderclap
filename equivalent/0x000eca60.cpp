@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 57 inputs, branch coverage 17/20, incomplete)
 // TextLabel::vfunc_5 @ 0x000eca60
+#include "decls/data/engine/pure3d/prop.h"
+
 struct Vec3_eca60 {
     float x, y, z;
 };
@@ -135,7 +137,6 @@ struct Child50 {
     Inner44 *p44;
 };
 
-extern PassHolder_eca60 *DAT_0052c2ac;
 
 void __cdecl FUN_000e11a0(Vec3_eca60 v, int a, int b);
 void __cdecl FUN_000e0cc0(Vec3_eca60 v, int a, int b);
@@ -189,20 +190,20 @@ void TextLabel::vfunc_5()
     Frame_eca60 f;
 
     if (flag40 == 1) {
-        DAT_0052c2ac->pass->v15(0);
+        (*(PassHolder_eca60**)&DAT_0052c2ac)->pass->v15(0);
         owner->v14(&f.v1, this);
-        DAT_0052c2ac->FUN_00293d00(&f.v1);
+        (*(PassHolder_eca60**)&DAT_0052c2ac)->FUN_00293d00(&f.v1);
         owner->v15(&f.v1, this);
         FUN_000e11a0(f.v1, val44, 2);
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_eca60**)&DAT_0052c2ac)->pass->v16(0);
     }
     if (flag48 == 1) {
-        DAT_0052c2ac->pass->v15(0);
+        (*(PassHolder_eca60**)&DAT_0052c2ac)->pass->v15(0);
         owner->v14(&f.v1, this);
-        DAT_0052c2ac->FUN_00293d00(&f.v1);
+        (*(PassHolder_eca60**)&DAT_0052c2ac)->FUN_00293d00(&f.v1);
         owner->v15(&f.v1, this);
         FUN_000e0cc0(f.v1, val4c, 0);
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_eca60**)&DAT_0052c2ac)->pass->v16(0);
     }
     if (child != 0) {
         Source_eca60 *obj = child->p44->p3c->source;
@@ -212,13 +213,13 @@ void TextLabel::vfunc_5()
             tac->v12(v118);
             tac->v7();
         }
-        DAT_0052c2ac->pass->v15(0);
+        (*(PassHolder_eca60**)&DAT_0052c2ac)->pass->v15(0);
         owner->v14(&f.v1, this);
-        DAT_0052c2ac->FUN_00293d00(&f.v1);
-        DAT_0052c2ac->FUN_00293c80(v11c, v120, v124);
-        DAT_0052c2ac->FUN_00293da0(v54, v58, v5c);
+        (*(PassHolder_eca60**)&DAT_0052c2ac)->FUN_00293d00(&f.v1);
+        (*(PassHolder_eca60**)&DAT_0052c2ac)->FUN_00293c80(v11c, v120, v124);
+        (*(PassHolder_eca60**)&DAT_0052c2ac)->FUN_00293da0(v54, v58, v5c);
         child->v8(0, 0);
-        DAT_0052c2ac->pass->v16(0);
+        (*(PassHolder_eca60**)&DAT_0052c2ac)->pass->v16(0);
     }
 
     f.x.FUN_000f7fe0(owner->p8->level2->v44());
@@ -231,10 +232,10 @@ void TextLabel::vfunc_5()
     f.x.cells[f.x.cursor].a.f = owner->v16(this) * f.f1;
     f.x.cells[f.x.cursor].d.u = color;
     f.x.hdr[1] = color;
-    DAT_0052c2ac->pass->v15(0);
+    (*(PassHolder_eca60**)&DAT_0052c2ac)->pass->v15(0);
     owner->v14(&f.v1, this);
-    DAT_0052c2ac->FUN_00293d00(&f.v1);
-    DAT_0052c2ac->FUN_00293d00(&anchor);
+    (*(PassHolder_eca60**)&DAT_0052c2ac)->FUN_00293d00(&f.v1);
+    (*(PassHolder_eca60**)&DAT_0052c2ac)->FUN_00293d00(&anchor);
     if (w60 != 0)
         w60->v8(0, 0);
     if (w64 != 0)
@@ -248,6 +249,6 @@ void TextLabel::vfunc_5()
         arg = (char *)owner->p8 + 0x978;
     f.x.FUN_000f87f0(sub18, arg);
     color = saved;
-    DAT_0052c2ac->pass->v16(0);
+    (*(PassHolder_eca60**)&DAT_0052c2ac)->pass->v16(0);
     f.x.FUN_000f78e0();
 }

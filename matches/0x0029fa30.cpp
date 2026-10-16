@@ -1,4 +1,5 @@
-extern unsigned int DAT_004cf730;
+#include "decls/data/engine/unknown.h"
+
 struct Container_29fa30 {
     char pad[0x14];
     int count;
@@ -36,7 +37,7 @@ void Object::FUN_0029fa30() {
         for (int i = group->container->count - 1; i >= 0; --i) {
             group->container->FUN_002a0fc0(i, 0);
             group->entries[i].value = 0;
-            group->entries[i].color = DAT_004cf730;
+            group->entries[i].color = (*(unsigned int*)&DAT_004cf730);
             group->entries[i].b = 0;
             group->entries[i].a = 0;
         }

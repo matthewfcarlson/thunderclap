@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 14/14)
 // FUN_00237870 @ 0x00237870
+#include "decls/data/engine/fight.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -79,8 +81,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e5bf4;
-extern int DAT_004e5bf8;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_00237870()
@@ -113,7 +113,7 @@ void FUN_00237870()
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamConditionGroup<OpportunityTrack>("conditionGroup", &OpportunityTrack::FUN_00237280);
-        FUN_002347b0(&DAT_004e5bf4, params, 6);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e5bf4), params, 6);
     }
     DAT_004e5bf8++;
 }

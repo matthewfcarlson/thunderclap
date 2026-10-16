@@ -3,6 +3,7 @@
 // equiv-map: ??0Key@@QAE@ABU0@@Z = 0x0027af30
 // Finds a prop in the inventory by key, spawns the matching entity and notifies the event sink.
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 class CSPHulkProp;
@@ -76,7 +77,6 @@ struct World {
     Holder1 *f54;                   // 0x54
 };
 
-extern unsigned int DAT_00421898;
 
 // The key pointer's argument slot is reused for the caster object.
 union KeyArg {
@@ -110,6 +110,6 @@ void Spawn_1e43b0::FUN_001e43b0(int a, KeyArg key, int b, int c)
     }
     s->flag144 = 1;
     s->flag1d8 = 1;
-    s->spawner->FUN_001c5080(DAT_00421898, 0);
+    s->spawner->FUN_001c5080((*(unsigned int*)&DAT_00421898), 0);
     s->FUN_001d7510();
 }

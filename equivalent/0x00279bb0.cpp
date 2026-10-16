@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 635 inputs, branch coverage 8/8)
 // core::XboxSaveDrive::vfunc_0_adjbc @ 0x00279bb0
+#include "decls/data/platform/xbox/core.h"
+
 extern "C" void* memcpy(void*, const void*, unsigned int);
-extern unsigned char *DAT_0052c270;
 extern int __stdcall FUN_002109b6(const void *, int);
 namespace XAPILIB { extern unsigned long __stdcall GetLastError(); }
 struct AdjBC {
@@ -27,7 +28,7 @@ int AdjBC::vfunc_0_adjbc(const void *name, unsigned int unused, unsigned int blo
     }
     if ((block << 13) < (unsigned int)result) {
         if (!drive->FUN_00279490(name, block)) return 0;
-        unsigned char *src = DAT_0052c270 + offset;
+        unsigned char *src = (*(unsigned char**)&DAT_0052c270) + offset;
         memcpy(destination, src, size);
     }
     drive->error = 0;

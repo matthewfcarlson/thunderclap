@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 237 inputs, branch coverage 56/56)
 // FUN_003078a0 @ 0x003078a0
+#include "decls/data/game/global.h"
+
 extern "C" void __fastcall FUN_002fa720(void *p);
 extern "C" void __fastcall FUN_00011090(void *p);
 extern "C" void __fastcall FUN_000115b0(void *p);
@@ -52,7 +54,6 @@ struct Mesh_3078a0 {
 };
 
 typedef void(__cdecl *Hook_3078a0)(Stream *s, Mesh_3078a0 *m);
-extern Hook_3078a0 DAT_00555444;
 
 union Slot_3078a0 {
     Stream *s;
@@ -238,7 +239,7 @@ Mesh_3078a0 *FUN_003078a0(Slot_3078a0 a1)
             g->f10 = q;
             stream->reader->FUN_002647e0(q, sz, 1, 1);
         } else if (id == 0x7016000) {
-            Hook_3078a0 h = DAT_00555444;
+            Hook_3078a0 h = (*(Hook_3078a0*)&DAT_00555444);
             if (h != 0)
                 h(stream, mesh);
         }

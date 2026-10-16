@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 7827 inputs, branch coverage 17/20, incomplete; run with --inputs 12000)
 // FUN_003287a0 @ 0x003287a0
+#include "decls/data/platform/xbox/pure3d.h"
+
 struct Item_3287a0 { virtual void s0(); virtual void s1(); virtual void s2(); virtual void enable(int); virtual void update(float,float,float,float,unsigned); };
 struct Manager_3287a0 {
 virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3(); virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7(); virtual void s8(); virtual void s9();
@@ -12,14 +14,11 @@ virtual void s60(); virtual void s61(); virtual void s62(); virtual void s63(); 
 virtual void s70(); virtual void s71(); virtual void s72(); virtual void s73(); virtual void s74(); virtual void s75(); virtual void s76(); virtual void s77(); virtual void s78(); virtual void s79();
 virtual void s80(); virtual void s81(); virtual void s82(); virtual void s83(); virtual void s84(); virtual void s85(); virtual void s86(); virtual void s87(); virtual void s88(); virtual Item_3287a0* get(int);
 };
-extern Manager_3287a0* DAT_00555b88;
-extern int DAT_00555b84;
-extern float DAT_00555b68,DAT_00555b6c,DAT_00555b70,DAT_00555b74,DAT_00555b78,DAT_00555b7c,DAT_00555b80;
 void __cdecl FUN_003287a0() {
- Item_3287a0* item=DAT_00555b88->get(0x103);
- if (!DAT_00555b84) item->enable(0);
+ Item_3287a0* item=(*(Manager_3287a0**)&DAT_00555b88)->get(0x103);
+ if (!(*(int*)&DAT_00555b84)) item->enable(0);
  else {
- float scale=1.0f / DAT_00555b84;
+ float scale=1.0f / (*(int*)&DAT_00555b84);
  item->enable(1);
  int r=(int)(DAT_00555b80 * scale);
  int g=(int)(DAT_00555b7c * scale);
@@ -34,6 +33,6 @@ void __cdecl FUN_003287a0() {
  float x=DAT_00555b68 * scale;
  item->update(x,y,c,d,color);
  }
- DAT_00555b84=0;
+ (*(int*)&DAT_00555b84)=0;
  DAT_00555b68=0; DAT_00555b6c=0; DAT_00555b70=0; DAT_00555b74=0; DAT_00555b78=0; DAT_00555b7c=0; DAT_00555b80=0;
 }

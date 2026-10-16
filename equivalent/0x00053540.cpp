@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_00053540 @ 0x00053540
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -47,12 +50,8 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dc478;
-extern int DAT_004dc47c;
 
-extern const char* DAT_0042773c[1];
 
-extern int DAT_00427754;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -64,12 +63,12 @@ void FUN_00053540()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<::CCollisionHeightCondition>("compare", DAT_0042773c, DAT_00427754, &::CCollisionHeightCondition::FUN_00047d50);
+            params[0] = new (mem) fight::ParamEnumConstList<::CCollisionHeightCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &::CCollisionHeightCondition::FUN_00047d50);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamFloatConstRange<::CCollisionHeightCondition>("height", &::CCollisionHeightCondition::FUN_00047d60);
-        FUN_002347b0(&DAT_004dc478, params, 2);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dc478), params, 2);
     }
     DAT_004dc47c++;
 }

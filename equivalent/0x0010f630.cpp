@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 83 inputs, branch coverage 22/24, incomplete)
 // hulkfight::ai::KeyWordWaitCondition::vfunc_6 @ 0x0010f630
+#include "decls/data/game/hulkfight/ai.h"
+
 extern "C" int atexit(void (*)());
 
 struct Key_10f630 {
@@ -9,8 +11,6 @@ struct Key_10f630 {
     void FUN_0027b040(int word);
 };
 
-extern unsigned DAT_004e0c20;
-extern Key_10f630 DAT_004e0c18;
 void FUN_00363ef0();
 
 struct Fighter_10f630 {
@@ -56,13 +56,13 @@ bool KeyWordWaitCondition::FUN_0010f630(int a1, fight::Params *params, int a3)
 
     if ((DAT_004e0c20 & 1) == 0) {
         DAT_004e0c20 |= 1;
-        DAT_004e0c18.FUN_0027af00();
+        (*(Key_10f630*)&DAT_004e0c18).FUN_0027af00();
         atexit(FUN_00363ef0);
     }
-    DAT_004e0c18.FUN_0027b040(keyword);
+    (*(Key_10f630*)&DAT_004e0c18).FUN_0027b040(keyword);
 
     float limit = threshold;
-    float value = fighter->FUN_00037290(DAT_004e0c18.lo, DAT_004e0c18.hi);
+    float value = fighter->FUN_00037290((*(Key_10f630*)&DAT_004e0c18).lo, (*(Key_10f630*)&DAT_004e0c18).hi);
 
     switch (mode) {
     case 0:

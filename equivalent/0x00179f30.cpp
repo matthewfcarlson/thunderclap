@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 6/6)
 // FUN_00179f30 @ 0x00179f30
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -51,12 +54,8 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e1320;
-extern int DAT_004e1324;
 
-extern const char* DAT_0048f590[1];
 
-extern int DAT_003f5bbc;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -72,8 +71,8 @@ void FUN_00179f30()
         mem = FUN_0008d690(0x20);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamEnumConstList<hulkfight::motion::LocomotionStateTrack>("locomotionState", DAT_0048f590, DAT_003f5bbc, &hulkfight::motion::LocomotionStateTrack::FUN_0016eea0);
-        FUN_002347b0(&DAT_004e1320, params, 2);
+            params[1] = new (mem) fight::ParamEnumConstList<hulkfight::motion::LocomotionStateTrack>("locomotionState", ((const char**)&DAT_0048f590), (*(int*)&DAT_003f5bbc), &hulkfight::motion::LocomotionStateTrack::FUN_0016eea0);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1320), params, 2);
     }
     DAT_004e1324++;
 }

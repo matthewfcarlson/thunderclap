@@ -1,6 +1,6 @@
+#include "decls/data/platform/xbox/pure3d.h"
+
 typedef unsigned int U_3334a0;
-extern U_3334a0 DAT_00555b94;
-extern U_3334a0 DAT_00555b98;
 struct Context {
     virtual void slot0();
     virtual void slot1();
@@ -97,13 +97,13 @@ struct d3dShader {
 };
 void d3dShader::vfunc_13() {
     if (mode == 2 && context->query() == 1) {
-        if (!(DAT_00555b98 & 1)) {
-            DAT_00555b98 |= 1;
-            DAT_00555b94 = 0xff000000;
+        if (!((*(U_3334a0*)&DAT_00555b98) & 1)) {
+            (*(U_3334a0*)&DAT_00555b98) |= 1;
+            (*(U_3334a0*)&DAT_00555b94) = 0xff000000;
         }
         U_3334a0 oldColor, second, third;
         context->get(&oldColor, &second, &third);
-        if (oldColor == DAT_00555b94)
+        if (oldColor == (*(U_3334a0*)&DAT_00555b94))
             context->set(color, second, third);
     }
 }

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 14/14)
 // FUN_00145540 @ 0x00145540
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -47,8 +49,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0f88;
-extern int DAT_004e0f8c;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_00145540()
@@ -81,7 +81,7 @@ void FUN_00145540()
         params[5] = 0;
         if (mem)
             params[5] = new (mem) ParamBool<SlowMotionTrack>("fromScenario", &SlowMotionTrack::FUN_001432d0);
-        FUN_002347b0(&DAT_004e0f88, params, 6);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0f88), params, 6);
     }
     DAT_004e0f8c++;
 }

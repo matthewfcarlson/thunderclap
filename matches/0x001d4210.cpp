@@ -1,7 +1,7 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" char DAT_00422644[];
 extern "C" char DAT_00422800[];
-extern "C" char DAT_0048e0f0[];
 class ScriptHandler {
   public:
     virtual void V();
@@ -19,8 +19,8 @@ ScriptHandler* ScriptHandler::Run(const char* a, const char* b, const char* c) {
     Init(a, 1);
     *(int*)this = ((int)DAT_00422644);
     m1c = (int)c;
-    m18 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
-    m10 = FUN_001d04d0((const char*)((int)DAT_0048e0f0));
+    m18 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0f0)));
+    m10 = FUN_001d04d0((const char*)((int)((char*)&DAT_0048e0f0)));
     *(int*)this = ((int)DAT_00422800);
     m20 = (int)b;
     return this;

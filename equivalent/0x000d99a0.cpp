@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 4/4)
 // FUN_000d99a0 @ 0x000d99a0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern unsigned int DAT_004d9968;
 void __fastcall __security_check_cookie(unsigned int);
 struct TextService_d99a0 { int FUN_000f7d30(const char*); const unsigned short* FUN_000f7220(int); };
@@ -10,12 +11,6 @@ struct Dialog_d99a0 {
 };
 struct State_d99a0 { char pad[0x1bc8]; unsigned char flag; };
 struct Singleton_4dd6ec { State_d99a0* FUN_00086280(); };
-extern const char* DAT_004a0cb4;
-extern const char* DAT_004a0ce0;
-extern const char* DAT_004a0ce4;
-extern const char* DAT_004a0ce8;
-extern const char* DAT_004a0c60;
-extern float DAT_003f335c;
 void __cdecl FUN_000fc020(unsigned short*, int, const unsigned short*);
 struct Screen_d99a0 {
  char pad0[0x21c]; int value; char pad1[0x190]; unsigned char active; char pad2[0x3a]; unsigned char alternate;
@@ -27,14 +22,14 @@ void Screen_d99a0::FUN_000d99a0(int) {
  unsigned short text[512];
  Dialog_d99a0* dialog = FUN_000fc3d0();
  TextService_d99a0* service = dialog->v44();
- int id = service->FUN_000f7d30(DAT_004a0cb4);
+ int id = service->FUN_000f7d30((*(const char**)&DAT_004a0cb4));
  const unsigned short* source = service->FUN_000f7220(id);
  FUN_000fc020(text, 512, source);
  const char* title;
- if (alternate) title = DAT_004a0ce8;
- else { State_d99a0* state = DAT_004dd6ec->FUN_00086280(); title = state->flag ? DAT_004a0ce4 : DAT_004a0ce0; }
- const char* style = DAT_004a0c60;
- dialog->FUN_000be310(title, text, &DAT_003f335c, &DAT_003f335c, "TBS_MENU_ITEM_OK", 2, style, style);
+ if (alternate) title = (*(const char**)&DAT_004a0ce8);
+ else { State_d99a0* state = DAT_004dd6ec->FUN_00086280(); title = state->flag ? (*(const char**)&DAT_004a0ce4) : (*(const char**)&DAT_004a0ce0); }
+ const char* style = (*(const char**)&DAT_004a0c60);
+ dialog->FUN_000be310(title, text, ((float*)&DAT_003f335c), ((float*)&DAT_003f335c), "TBS_MENU_ITEM_OK", 2, style, style);
  active = 1;
  value = 0;
  __security_check_cookie(cookie);

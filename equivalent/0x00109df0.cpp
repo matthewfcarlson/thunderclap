@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1183 inputs, branch coverage 34/34)
 // FUN_00109df0 @ 0x00109df0
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
+
 struct Vec3_109df0 {
     float x, y, z;
     float FUN_0022d110();
@@ -72,9 +75,6 @@ struct Context {
     World* world;           // 0x10
 };
 
-extern int DAT_004d2a3c;
-extern char DAT_00554c1c;
-extern int DAT_00554c18;
 
 SweepList_109df0* FUN_00202f00();
 
@@ -91,7 +91,7 @@ bool __stdcall FUN_00109df0(Context* ctx, Vec3_109df0* from, Vec3_109df0* to, in
         return true;
 
     DAT_004d2a3c = 2;
-    DAT_00554c1c = 1;
+    (*(char*)&DAT_00554c1c) = 1;
     DAT_00554c18 = tag;
 
     World* world = ctx->world;

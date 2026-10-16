@@ -1,13 +1,11 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001dc810 @ 0x001dc810
+#include "decls/data/game/global.h"
+
 struct Vector { unsigned int x, y, z; };
 struct Attached_1dc810 { char pad[0x188]; Vector position; };
 struct Entry_1dc810 { char pad[0x18]; Attached_1dc810* attached; char unknown[6]; short index; char tail[4]; };
 struct Position_1dc810 { Vector value; unsigned int unknown; unsigned int flags; };
-extern float DAT_004e26bc;
-extern float DAT_004e26c0;
-extern float DAT_004e26c4;
-extern unsigned int DAT_004e26c8;
 struct Object {
  char pad[0x608];
  Entry_1dc810 entries[2048];
@@ -21,8 +19,8 @@ Vector* Object::FUN_001dc810(Vector* output, unsigned int key) {
  output->x = 0x7f7fffff; output->y = 0x7f7fffff; output->z = 0x7f7fffff;
  return output;
  }
- if (!(DAT_004e26c8 & 1)) {
- DAT_004e26c8 |= 1;
+ if (!((*(unsigned int*)&DAT_004e26c8) & 1)) {
+ (*(unsigned int*)&DAT_004e26c8) |= 1;
  DAT_004e26bc = 3.402823466e+38f;
  DAT_004e26c0 = 3.402823466e+38f;
  DAT_004e26c4 = 3.402823466e+38f;

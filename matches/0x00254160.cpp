@@ -1,4 +1,5 @@
-extern "C" char DAT_004e7200[];
+#include "decls/data/engine/audio.h"
+
 class SeqEvent {
   public:
     virtual void f0();

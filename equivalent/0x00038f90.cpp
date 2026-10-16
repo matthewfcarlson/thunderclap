@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_00038f90 @ 0x00038f90
+#include "decls/data/game/global.h"
+
 struct Vec3_38f90 { float x, y, z; };
 
 struct Node {
@@ -21,7 +23,6 @@ struct Nodes_38f90 {
 struct Scene_38f90 { char pad[4]; };
 int __fastcall FUN_00059a40(void *x);
 
-extern int DAT_003f5bc4[3];
 
 class Probe_38f90 {
 public:
@@ -43,7 +44,7 @@ int Probe_38f90::FUN_00038f90(Vec3_38f90 *pos, float radius, Vec3_38f90 *out)
         return 0;
 
     for (int i = 0; i < 3; i++) {
-        int id = DAT_003f5bc4[i];
+        int id = ((int*)&DAT_003f5bc4)[i];
         unsigned int slot = table->FUN_00044630(id);
         if (slot == 0xffff)
             continue;

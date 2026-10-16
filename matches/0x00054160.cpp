@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 typedef void (*Callback_54160)();
 extern void FUN_00048080();
 extern void FUN_000480a0();
@@ -23,8 +25,6 @@ template <class T> struct ParamBool : ParamBase_54160 {
     virtual void slot0();
 };
 } // namespace fight
-extern unsigned DAT_004dc534;
-extern unsigned DAT_004dc530;
 extern void __cdecl FUN_002347b0(unsigned*, ParamBase_54160**, unsigned);
 void __cdecl FUN_00054160() {
     if (DAT_004dc534 == 0) {

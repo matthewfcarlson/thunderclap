@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 77/78, incomplete)
 // FUN_000b30c0 @ 0x000b30c0
-extern float DAT_00406094[];
+#include "decls/data/game/global.h"
 
 class Item_b30c0 {
 public:
@@ -142,9 +142,9 @@ void Blender_b30c0::FUN_000b30c0(int groups, int pairs, int *counts, Item_b30c0 
                         float w = it->v9(0);
                         int m = cells[p * 12 + 6 + e * 3 + k].mode;
                         if (m == 0)
-                            sum = w * DAT_00406094[k] + sum;
+                            sum = w * ((float*)&DAT_00406094)[k] + sum;
                         else if (m == 1)
-                            sum = Normalise(this, w) * DAT_00406094[k] + sum;
+                            sum = Normalise(this, w) * ((float*)&DAT_00406094)[k] + sum;
                     }
                 }
                 *dst = sum;

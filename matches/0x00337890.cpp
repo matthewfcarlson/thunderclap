@@ -1,4 +1,5 @@
-extern "C" char DAT_00434578[];
+#include "decls/data/engine/movie.h"
+
 class Ref_337890 {
   public:
     virtual void F(int);
@@ -11,7 +12,7 @@ class Obj_337890 {
     void Go();
 };
 void Obj_337890::Go() {
-    a = ((int)DAT_00434578);
+    a = ((int)((char*)&DAT_00434578));
     if (member)
         member->F(1);
 }

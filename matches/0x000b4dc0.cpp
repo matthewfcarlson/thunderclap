@@ -1,4 +1,5 @@
-extern "C" char DAT_0049f3e4[];
+#include "decls/data/game/global.h"
+
 extern "C" int strcmp(const char*, const char*);
 const char* words[3];
 

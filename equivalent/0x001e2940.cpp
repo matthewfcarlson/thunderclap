@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 749 inputs, branch coverage 81/88, incomplete)
 // FUN_001e2940 @ 0x001e2940
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight.h"
+
 namespace content {
 namespace LoadInventory {
 class __declspec(novtable) DynamicCasterBase {
@@ -224,12 +227,6 @@ struct Slot_1e2940 {
     short entry;
 };
 
-extern float DAT_00421894;
-extern float DAT_00421898;
-extern float DAT_0042189c;
-extern float DAT_00423198[4];
-extern int DAT_004c617c;
-extern int DAT_004c6180;
 unsigned __int64 FUN_0027b020(const char *name) throw();
 
 class Mgr_1e2940 {
@@ -315,13 +312,13 @@ Prop_1e2940 *Mgr_1e2940::F(int idx)
         float dz = cp->z - M.trans.z;
         float d = dz * dz + dy * dy + dx * dx;
         if (d < 4900.0f) {
-            prop->holder->FUN_001c5080(DAT_00421898, 0.0f);
+            prop->holder->FUN_001c5080((*(float*)&DAT_00421898), 0.0f);
         } else {
-            prop->holder->FUN_001c5080(DAT_00421894, 0.0f);
-            prop->holder->FUN_001c5080(DAT_00421898, DAT_0042189c);
+            prop->holder->FUN_001c5080((*(float*)&DAT_00421894), 0.0f);
+            prop->holder->FUN_001c5080((*(float*)&DAT_00421898), (*(float*)&DAT_0042189c));
         }
     } else {
-        prop->holder->FUN_001c5080(DAT_00421898, 0.0f);
+        prop->holder->FUN_001c5080((*(float*)&DAT_00421898), 0.0f);
     }
     prop->sub8.FUN_0027b040(ent->FUN_0027b010());
     prop->sub8.FUN_0027af70(ent);
@@ -344,7 +341,7 @@ Prop_1e2940 *Mgr_1e2940::F(int idx)
         float v = prop->p9c->f38;
         int i;
         for (i = 1; i < 4; i++) {
-            if (v <= DAT_00423198[i])
+            if (v <= ((float*)&DAT_00423198)[i])
                 break;
         }
         if (i < 4) {

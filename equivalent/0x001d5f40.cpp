@@ -1,10 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 1515 inputs, branch coverage 14/14)
 // FUN_001d5f40 @ 0x001d5f40
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 typedef unsigned int uint;
-extern uint DAT_004e2410;
-extern uint DAT_004e2414;
-extern uint DAT_004e2418;
 extern int __cdecl FUN_00096600(const char*, const char*);
 struct Property_1d5f40 { uint low, high; const char* value; uint other; };
 struct Item_1d5f40 { char pad[0x3c]; int count; Property_1d5f40* properties; };
@@ -12,12 +10,12 @@ struct Collection_1d5f40 { char pad[0x1c]; Item_1d5f40** begin; Item_1d5f40** en
 struct Object { char pad[0x90]; Collection_1d5f40* collection; bool target(int index); };
 bool Object::target(int index) {
  uint low, high;
- if (!(DAT_004e2418 & 1)) {
-  DAT_004e2418 |= 1;
+ if (!((*(uint*)&DAT_004e2418) & 1)) {
+  (*(uint*)&DAT_004e2418) |= 1;
   unsigned __int64 key = FUN_0027b020("electrified");
   low = (uint)key; high = (uint)(key >> 32);
-  DAT_004e2410 = low; DAT_004e2414 = high;
- } else { low = DAT_004e2410; high = DAT_004e2414; }
+  (*(uint*)&DAT_004e2410) = low; (*(uint*)&DAT_004e2414) = high;
+ } else { low = (*(uint*)&DAT_004e2410); high = (*(uint*)&DAT_004e2414); }
  if (index < 0) return false;
  Collection_1d5f40* c = collection;
  if (index >= c->end - c->begin) return false;

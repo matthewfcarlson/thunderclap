@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_00362a20 @ 0x00362a20
 // Static init of a six-entry handler table (shared callbacks; entry 4 gets its own).
+#include "decls/data/platform/xbox/pure3d.h"
+
 typedef void (__cdecl *Handler_362a20)();
 
 void __cdecl FUN_003337f0();
@@ -17,10 +19,9 @@ struct Slot_362a20 {
     int unused[2];                  // not written here
 };
 
-Slot_362a20 DAT_004d88f0[6];
 
 void FUN_00362a20() {
-    Slot_362a20 *t = DAT_004d88f0;
+    Slot_362a20 *t = ((Slot_362a20*)&DAT_004d88f0);
     t[0].handler = FUN_003337f0;
     t[1].handler = FUN_00333800;
     t[2].handler = FUN_00333820;

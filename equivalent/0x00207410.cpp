@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 107 inputs, branch coverage 25/26, incomplete)
 // FUN_00207410 @ 0x00207410
-extern unsigned char DAT_004c91d8[];
+#include "decls/data/game/global.h"
 
 struct Slot_207410 {
     void FUN_00266220(int v);

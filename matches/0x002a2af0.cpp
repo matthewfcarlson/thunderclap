@@ -1,3 +1,5 @@
+#include "decls/data/engine/pure3d/prop.h"
+
 struct Device_2a2af0 {
     virtual void s0();
     virtual void s1();
@@ -17,7 +19,6 @@ struct Device_2a2af0 {
     virtual void begin(unsigned);
     virtual void end(unsigned);
 };
-extern Device_2a2af0** DAT_0052c2ac;
 struct Material_2a2af0 {
     virtual void s0();
     virtual void s1();
@@ -72,12 +73,12 @@ struct OpaqueTraversal {
 };
 } // namespace pure3d
 void pure3d::OpaqueTraversal::vfunc_4() {
-    (*DAT_0052c2ac)->begin(0);
+    (*(*(Device_2a2af0***)&DAT_0052c2ac))->begin(0);
     for (unsigned i = 0; i < count; ++i) {
         Entry_2a2af0* e = entries[i];
         Wrapper_2a2af0* w = e->wrapper;
         ItemData_2a2af0* data = e->data;
-        (*DAT_0052c2ac)->bind(0, e->value);
+        (*(*(Device_2a2af0***)&DAT_0052c2ac))->bind(0, e->value);
         if (w->material->test() == 1 && callback && data->value)
             callback->FUN_002a06d0(data->value);
         Modifier_2a2af0* mod = data->modifier;
@@ -89,5 +90,5 @@ void pure3d::OpaqueTraversal::vfunc_4() {
         } else
             w->FUN_002a4060();
     }
-    (*DAT_0052c2ac)->end(0);
+    (*(*(Device_2a2af0***)&DAT_0052c2ac))->end(0);
 }

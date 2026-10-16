@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 797 inputs, branch coverage 72/94, incomplete)
 // FUN_0026c040 @ 0x0026c040
 // dlmalloc 2.7.0 malloc (mALLOc): the allocator's public entry
+#include "decls/data/engine/core.h"
+
 struct Chunk {
     unsigned prev_size;
     unsigned size;
@@ -17,7 +19,6 @@ struct MState {
     unsigned binmap[4];      // 0x434
 };
 
-extern MState *DAT_0052839c;
 extern void __cdecl FUN_0026b970(MState *av);
 // equiv-conv: FUN_0026be70 stack eax
 extern void *FUN_0026be70(unsigned nb, MState *av);
@@ -56,7 +57,7 @@ void *__cdecl FUN_0026c040(unsigned bytes)
     if (bytes >= 0xffffffe0u)
         return 0;
     nb = (bytes + 11 < 16) ? 16 : ((bytes + 11) & ~7u);
-    av = DAT_0052839c;
+    av = (*(MState**)&DAT_0052839c);
 
     if (nb <= av->max_fast) {
         Chunk **fb = &av->fastbins[(nb >> 3) - 2];

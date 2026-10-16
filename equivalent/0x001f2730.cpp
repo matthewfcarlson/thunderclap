@@ -1,15 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 455 inputs, branch coverage 38/38)
 // FUN_001f2730 @ 0x001f2730
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 extern "C" void *__cdecl FUN_0008d690(unsigned int size);
-extern "C" const char DAT_0048e100[];
-extern "C" const char DAT_0048e128[];
 
 template <class T> struct TypeName;
-template <> struct TypeName<void> { static const char *get() { return DAT_0048e100; } };
-template <> struct TypeName<float> { static const char *get() { return DAT_0048e128; } };
+template <> struct TypeName<void> { static const char *get() { return ((const char*)&DAT_0048e100); } };
+template <> struct TypeName<float> { static const char *get() { return ((const char*)&DAT_0048e128); } };
 
 class __declspec(novtable) Function {
 public:

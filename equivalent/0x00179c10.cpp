@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 65 inputs, branch coverage 12/12)
 // FUN_00179c10 @ 0x00179c10
+#include "decls/data/game/hulkfight/motion.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -51,8 +54,6 @@ public:
     void FUN_00234cc0(const char* name);
     ParamEnumConstListBase(const char* name) { FUN_00234cc0(name); }
 };
-extern const char* DAT_004b4d7c[3];
-extern int DAT_00416640;
 template <class T>
 class ParamEnumConstList : public ParamEnumConstListBase {
 public:
@@ -67,8 +68,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e12f0;
-extern int DAT_004e12f4;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_00179c10()
@@ -88,7 +87,7 @@ void FUN_00179c10()
         mem = FUN_0008d690(0x20);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) ParamEnumConstList<ChargeTrack>("type", DAT_004b4d7c, DAT_00416640, &ChargeTrack::FUN_0016e9e0);
+            params[2] = new (mem) ParamEnumConstList<ChargeTrack>("type", ((const char**)&DAT_004b4d7c), (*(int*)&DAT_00416640), &ChargeTrack::FUN_0016e9e0);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
@@ -97,7 +96,7 @@ void FUN_00179c10()
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamFloatConstRange<ChargeTrack>("finalCharge", &ChargeTrack::FUN_0016ea20);
-        FUN_002347b0(&DAT_004e12f0, params, 5);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e12f0), params, 5);
     }
     DAT_004e12f4++;
 }

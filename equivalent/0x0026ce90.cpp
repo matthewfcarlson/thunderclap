@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 0/0)
 // FUN_0026ce90 @ 0x0026ce90
-extern int DAT_004cdbb0;
+#include "decls/data/engine/core.h"
+
 void __cdecl FUN_002705f0();
 namespace core {
 struct IMemoryAllocator { virtual void unknownAllocator(); };

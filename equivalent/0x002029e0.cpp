@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 76 inputs, branch coverage 20/22, incomplete)
 // FUN_002029e0 @ 0x002029e0
 #include "decls/address.h"
+#include "decls/data/engine/physics.h"
+#include "decls/data/game/global.h"
 extern "C" double sqrt(double);
 
 struct Vec3_2029e0 {
@@ -88,10 +90,6 @@ struct Contact_2029e0 {
     Body_2029e0* body;
 };
 
-extern int DAT_004d2a3c;
-extern char DAT_004d2a40;
-extern char DAT_00554c1c;
-extern int DAT_00554c18;
 
 void FUN_002f1ce0(Vec3_2029e0* from, Body_2029e0* body, Vec3_2029e0* outNormal, Contact_2029e0* contact);
 
@@ -117,8 +115,8 @@ bool FUN_002029e0(Vec3_2029e0* from, Vec3_2029e0* to, int tag, int mode, Vec3_20
     space->list.count = 0;
     SweepList_2029e0* list = &space->list;
     DAT_004d2a3c = 2;
-    DAT_004d2a40 = 0;
-    DAT_00554c1c = 1;
+    (*(char*)&DAT_004d2a40) = 0;
+    (*(char*)&DAT_00554c1c) = 1;
     DAT_00554c18 = tag;
     world->notifier->FUN_00025260(0, 0, 0);
 

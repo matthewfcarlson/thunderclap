@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 68 inputs, branch coverage 12/16, incomplete)
 // hulkfight::motion::BounceAction::vfunc_5 @ 0x00136540
+#include "decls/data/game/hulkfight/motion.h"
+
 struct Vec3_136540 {
     float x, y, z;
     float FUN_0022d110();
@@ -47,9 +49,6 @@ struct BounceData_136540 {
 extern "C" float FUN_00224f10(Vec3_136540 *v);
 float __cdecl FUN_00224fc0(float from, float to);
 void __cdecl FUN_00224d70(float angle, Vec3_136540 *v);
-extern float DAT_004abf64;
-extern float DAT_004abf68;
-extern float DAT_004abf6c;
 
 union Slot_136540 {
     int i;
@@ -141,16 +140,16 @@ bool hulkfight::motion::BounceAction::vfunc_5(Slot_136540 a1, float dt)
     float t = a1.f;
     joint->rot.FUN_00221d20(t);
     a1.f = data->f1c;
-    f.W.x = DAT_004abf64;
-    f.W.y = DAT_004abf68;
-    f.W.z = DAT_004abf6c;
+    f.W.x = (*(float*)&DAT_004abf64);
+    f.W.y = (*(float*)((char*)&DAT_004abf64 + 4));
+    f.W.z = (*(float*)((char*)&DAT_004abf64 + 8));
     FUN_00224d70(t, &f.W);
     double s = (f.W.z * f.D.z + f.W.x * f.D.x + f.W.y * f.D.y) * a1.f;
     a1.f = -f2c;
     double m = (s < a1.f ? a1.f : s) * dt;
-    f.Wb.x = DAT_004abf64;
-    f.Wb.y = DAT_004abf68;
-    f.Wb.z = DAT_004abf6c;
+    f.Wb.x = (*(float*)&DAT_004abf64);
+    f.Wb.y = (*(float*)((char*)&DAT_004abf64 + 4));
+    f.Wb.z = (*(float*)((char*)&DAT_004abf64 + 8));
     f.Wb.x = f.Wb.x * m;
     f.Wb.y = f.Wb.y * m;
     f.Wb.z = f.Wb.z * m;
@@ -158,10 +157,10 @@ bool hulkfight::motion::BounceAction::vfunc_5(Slot_136540 a1, float dt)
     stats->FUN_000357a0(&f.Wb);
 
     double q = dt * f2c;
-    f.Wc.x = DAT_004abf64;
-    f.Wc.z = DAT_004abf6c;
+    f.Wc.x = (*(float*)&DAT_004abf64);
+    f.Wc.z = (*(float*)((char*)&DAT_004abf64 + 8));
     f.Wc.x = f.Wc.x * q;
-    f.Wc.y = DAT_004abf68;
+    f.Wc.y = (*(float*)((char*)&DAT_004abf64 + 4));
     f.Wc.z = f.Wc.z * q;
     f.Wc.y = dt * f28;
     FUN_00224d70(t, &f.Wc);

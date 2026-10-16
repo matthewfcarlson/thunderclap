@@ -1,4 +1,5 @@
-extern "C" char DAT_0052a208[];
+#include "decls/data/engine/core.h"
+
 struct Drive {
     virtual void v0();
     virtual void v1();

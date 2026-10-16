@@ -1,10 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_000bfd20 @ 0x000bfd20
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
-extern char DAT_0048e100[];
-extern char DAT_0048e0f0[];
 
 class __declspec(novtable) MethodBase_bfd20 {
   public:
@@ -24,8 +23,8 @@ class Function1 : public MethodBase_bfd20 {
     typedef R (*Fn)(A);
     Function1(const char* name, Fn f) throw() : MethodBase_bfd20(name, 1) {
         fn = f;
-        argType = FUN_001d04d0(DAT_0048e100);
-        retType = FUN_001d04d0(DAT_0048e0f0);
+        argType = FUN_001d04d0(((char*)&DAT_0048e100));
+        retType = FUN_001d04d0(((char*)&DAT_0048e0f0));
     }
     Fn fn;
 };

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 15/16, incomplete)
 // FUN_00300c90 @ 0x00300c90
-extern int DAT_004d2eec;
+#include "decls/data/engine/unknown.h"
+
 extern void* __cdecl FUN_0008d6d0(unsigned int size);
 struct A_300c90 { char data[16]; void FUN_00304300(); };
 struct B_300c90 { char data[64]; void FUN_00301290(); };

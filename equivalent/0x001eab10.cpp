@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 66 inputs, branch coverage 24/24)
 // FUN_001eab10 @ 0x001eab10
 #include "decls/address.h"
+#include "decls/data/engine/content.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int DAT_004d9968;
 extern "C" int sprintf(char *buf, const char *fmt, ...);
@@ -101,7 +102,6 @@ struct Sink_1eab10 {
     virtual void k4(int a, int b, core::IRefCount *e);
 };
 
-extern Loader_1eab10 *DAT_00527c58;
 extern void FUN_00087990();
 extern void *FUN_00240750();
 extern int __cdecl FUN_00242c30(void *mgr, int v);
@@ -125,14 +125,14 @@ void Player_1eab10::FUN_001eab10(const char *name)
     for (int i = 0; i < 0x80; i++)
         buf[i] = 0;
     sprintf(buf, "sound\\%s", name);
-    DAT_00527c58->FUN_00265920(buf, &h, 1);
-    int saved = DAT_00527c58->FUN_00264870();
-    DAT_00527c58->FUN_00264860(250000);
+    (*(Loader_1eab10**)&DAT_00527c58)->FUN_00265920(buf, &h, 1);
+    int saved = (*(Loader_1eab10**)&DAT_00527c58)->FUN_00264870();
+    (*(Loader_1eab10**)&DAT_00527c58)->FUN_00264860(250000);
     while (!h->FUN_00266750()) {
         FUN_00087990();
         DAT_004dd700->scene->FUN_00086280()->FUN_000bd1b0(0);
     }
-    DAT_00527c58->FUN_00264860(saved);
+    (*(Loader_1eab10**)&DAT_00527c58)->FUN_00264860(saved);
     if (h->FUN_00266700() != 0) {
         h->FUN_00266700()->FUN_00266090();
         Group_1eab10 *g = h->FUN_00266700();

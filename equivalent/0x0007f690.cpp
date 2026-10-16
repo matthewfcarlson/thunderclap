@@ -1,8 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 157 inputs, branch coverage 25/26, incomplete)
 // FUN_0007f690 @ 0x0007f690
-extern float DAT_0049b8a0;
-extern float DAT_004218c0;
-extern float DAT_00421898;
+#include "decls/data/game/global.h"
 
 struct V3_7f690 {
     float x, y, z;
@@ -110,7 +108,7 @@ void Spawner_7f690::FUN_0007f690(int a1, int a2, int a3, int a4)
     if (p == 0)
         return;
     p->AddRef();
-    p->handle->FUN_001c5080(DAT_00421898, DAT_004218c0);
+    p->handle->FUN_001c5080((*(float*)&DAT_00421898), (*(float*)&DAT_004218c0));
     p->FUN_00080ea0(&a, &b);
     p->FUN_00080ef0(-1);
     p->FUN_00080f00(a2);

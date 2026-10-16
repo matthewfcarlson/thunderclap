@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 61/62, incomplete)
 // hulkfight::motion::FireMissileAction::vfunc_5 @ 0x0019e430
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight/motion.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 extern "C" void *__cdecl memcpy(void *, const void *, unsigned int);
 
@@ -154,9 +156,6 @@ struct Cfg_19e430 {
 
 struct Owner_19e430 { char pad[8]; void *f8; };
 
-extern Allocator DAT_004e2210;
-extern unsigned __int64 DAT_004e16e8;
-extern unsigned int DAT_004e16f0;
 
 Context *__fastcall FUN_000592a0(Owner_19e430 *owner);
 Stats_19e430 *__fastcall FUN_00059a30(Context *ctx);
@@ -218,9 +217,9 @@ char FireMissileAction::vfunc_5(int a0, int a1)
     if (flag) {
         if ((DAT_004e16f0 & 1) == 0) {
             DAT_004e16f0 |= 1;
-            DAT_004e16e8 = FUN_0027afb0("cow_male_cow_male");
+            (*(unsigned __int64*)&DAT_004e16e8) = FUN_0027afb0("cow_male_cow_male");
         }
-        f.s10.prop = inv->v3(new (&f.s10) content::LoadInventory::DynamicCaster<CSPHulkProp>, DAT_004e16e8);
+        f.s10.prop = inv->v3(new (&f.s10) content::LoadInventory::DynamicCaster<CSPHulkProp>, (*(unsigned __int64*)&DAT_004e16e8));
         got = f.s10.prop != 0;
     }
     if (!got) {
@@ -277,7 +276,7 @@ char FireMissileAction::vfunc_5(int a0, int a1)
     f.id = ((Pool_19e430 *)f.pool)->FUN_001b6b00(fb4, &f.a);
     if (f.id < 0)
         return 0;
-    void *mem = DAT_004e2210.FUN_0008fe90(0xdc);
+    void *mem = (*(Allocator*)&DAT_004e2210).FUN_0008fe90(0xdc);
     Projectile_19e430 *proj;
     if (mem)
         proj = ((Projectile_19e430 *)mem)->FUN_001962b0(cfg, f.s10.prop);

@@ -1,6 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 180 inputs, branch coverage 42/42)
 // FUN_00206320 @ 0x00206320
 #include "decls/address.h"
+#include "decls/data/engine/content.h"
+#include "decls/data/engine/fight.h"
+#include "decls/data/game/global.h"
 struct Obj_206320 {
   virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4(); virtual void slot5();
   void FUN_00263e90(); void FUN_002660a0(Obj_206320*);
@@ -34,10 +37,6 @@ struct W_206320 {
   void FUN_00206320(Ctx_206320*);
 };
 extern "C" unsigned int DAT_004d9968;
-extern "C" Timer* DAT_00527c58;
-extern "C" Nodes_206320* DAT_004e5af8;
-extern "C" const char* DAT_004c91cc;
-extern "C" const char* DAT_004c91d4;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" Registry_206320* __cdecl FUN_001d4c90();
 extern "C" Rand* __cdecl FUN_000964d0();
@@ -56,8 +55,8 @@ void W_206320::FUN_00206320(Ctx_206320* g){
   s = prov->FUN_00086310()->FUN_000897f0();
   d = name2;
   while ((*d++ = *s++) != 0) {}
-  DAT_00527c58->FUN_00265ad0();
-  DAT_00527c58->FUN_00264860(3000);
+  (*(Timer**)&DAT_00527c58)->FUN_00265ad0();
+  (*(Timer**)&DAT_00527c58)->FUN_00264860(3000);
   FUN_00205910();
   for (int i = 0; i < 0x100; i++) tbl[i] = 0;
   Registry_206320* reg = FUN_001d4c90();
@@ -79,11 +78,11 @@ void W_206320::FUN_00206320(Ctx_206320* g){
     }
   }
   if (aa0 != 0 && _strncmp(aa4, ac4, 0x20) == 0) {
-    Nodes_206320* nodes = DAT_004e5af8;
-    Node* n1 = nodes->FUN_00232840(FUN_002672f0(DAT_004c91cc, 0, 0));
+    Nodes_206320* nodes = (*(Nodes_206320**)&DAT_004e5af8);
+    Node* n1 = nodes->FUN_00232840(FUN_002672f0((*(const char**)&DAT_004c91cc), 0, 0));
     Link_206320* l1 = n1->link;
     l1->FUN_00233160(ae4);
-    Node* n2 = nodes->FUN_00232840(FUN_002672f0(DAT_004c91d4, 0, 0));
+    Node* n2 = nodes->FUN_00232840(FUN_002672f0((*(const char**)&DAT_004c91d4), 0, 0));
     Link_206320* l2 = n2->link;
     l2->FUN_00233160(ae8);
   } else {
@@ -116,7 +115,7 @@ void W_206320::FUN_00206320(Ctx_206320* g){
   reg->FUN_001d3600(buf, 0);
   FUN_000964a0(buf, 0x100, "art/missions/%s/%s_init.lua", g->FUN_0008a2d0(), g->FUN_0008a2d0());
   reg->FUN_001d3600(buf, 0);
-  Nodes_206320* nodes = DAT_004e5af8;
+  Nodes_206320* nodes = (*(Nodes_206320**)&DAT_004e5af8);
   int n = nodes->FUN_002327c0();
   for (int i = 0; i < n; i++) nodes->FUN_00232810(i)->link->slot5();
   f44->FUN_002660a0(aa0);

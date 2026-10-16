@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 86 inputs, branch coverage 40/42, incomplete)
 // FUN_002ea010 @ 0x002ea010
+#include "decls/data/engine/physics.h"
+#include "decls/data/engine/pure3d.h"
+
 struct ZStream_2ea010 {
     unsigned char *next_in;
     unsigned avail_in;
@@ -40,11 +43,6 @@ struct PngStruct_2ea010 {
     unsigned char pixel_depth;
 };
 
-extern unsigned DAT_004d10bc[7];
-extern unsigned DAT_004d10d8[7];
-extern unsigned DAT_004d10f4[7];
-extern unsigned DAT_004d1110[7];
-extern unsigned char DAT_004d103c[5];
 
 void __cdecl FUN_002e6b60(PngStruct_2ea010 *png, void *s, int c, unsigned n);
 void __cdecl FUN_002e81e0(PngStruct_2ea010 *png, unsigned n);
@@ -69,10 +67,10 @@ void FUN_002ea010(PngStruct_2ea010 *png)
             png->pass = png->pass + 1;
             if (png->pass >= 7)
                 break;
-            png->iwidth = (png->width + DAT_004d10d8[png->pass] - 1 - DAT_004d10bc[png->pass]) / DAT_004d10d8[png->pass];
+            png->iwidth = (png->width + ((unsigned*)&DAT_004d10d8)[png->pass] - 1 - DAT_004d10bc[png->pass]) / ((unsigned*)&DAT_004d10d8)[png->pass];
             png->irowbytes = ((png->pixel_depth * png->iwidth + 7) >> 3) + 1;
             if (!(png->transformations & 2))
-                png->num_rows = (png->height + DAT_004d1110[png->pass] - 1 - DAT_004d10f4[png->pass]) / DAT_004d1110[png->pass];
+                png->num_rows = (png->height + ((unsigned*)&DAT_004d1110)[png->pass] - 1 - ((unsigned*)&DAT_004d10f4)[png->pass]) / ((unsigned*)&DAT_004d1110)[png->pass];
             else
                 break;
         } while (png->iwidth == 0);
@@ -93,7 +91,7 @@ void FUN_002ea010(PngStruct_2ea010 *png)
                     png->idat_size = FUN_002e7500(chunk_length);
                     FUN_002d6c90(png);
                     FUN_002e7580(png, png->chunk_name, 4);
-                    if (*(unsigned *)png->chunk_name != *(unsigned *)DAT_004d103c)
+                    if (*(unsigned *)png->chunk_name != *(unsigned *)((unsigned char*)&DAT_004d103c))
                         FUN_002e69a0(png, "Not enough image data");
                 }
                 png->zstream.avail_in = png->zbuf_size;

@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 927 inputs, branch coverage 122/122)
 // CHand2HandAgent::vfunc_14 @ 0x000ffef0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 typedef unsigned __int64 u64;
 extern "C" double sqrt(double);
 
@@ -78,8 +80,6 @@ struct Env {
     Reg *f20;
 };
 
-extern V3 DAT_004a1c24;
-extern u64 DAT_004dc0e0;
 
 #define NAMEHIT(var, str) if (!var) { u64 k_ = ev->id; var = (k_ == FUN_0027b020(str)); }
 
@@ -144,7 +144,7 @@ void CHand2HandAgent::vfunc_14(Env *env, int unused)
         fa4.x = q->f40;
         fa4.y = q->f44;
         fa4.z = q->f48;
-        fb0 = DAT_004a1c24;
+        fb0 = (*(V3*)&DAT_004a1c24);
         bd1 = 0;
         bcf = 0;
         bd0 = 0;
@@ -224,7 +224,7 @@ void CHand2HandAgent::vfunc_14(Env *env, int unused)
             Fighter *it = env->f20->FUN_00024190(i);
             if (it == 0)
                 continue;
-            if (it->id == DAT_004dc0e0)
+            if (it->id == (*(u64*)&DAT_004dc0e0))
                 continue;
             if (it == P)
                 continue;

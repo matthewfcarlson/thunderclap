@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 26/26)
 // FUN_000bcbf0 @ 0x000bcbf0
+#include "decls/data/game/global.h"
+
 struct Pair_bcbf0 {
     int a;
     int b;
@@ -18,7 +20,6 @@ struct TextEntry_bcbf0 {
     void FUN_000f8500(const char *name, Manager_bcbf0 *manager, int flag);
 };
 
-extern char DAT_003f335c[];
 
 class CUnlockable {
 public:
@@ -123,7 +124,7 @@ void Owner_bcbf0::FUN_000bcbf0()
 
     TextEntry_bcbf0 entry;
     entry.FUN_000f7930();
-    entry.FUN_000f8500(DAT_003f335c, FUN_000fc1b0(), 1);
+    entry.FUN_000f8500(((char*)&DAT_003f335c), FUN_000fc1b0(), 1);
     sel->FUN_000e36c0();
 
     for (int i = 0x266; i <= 0x2c9; i++) {

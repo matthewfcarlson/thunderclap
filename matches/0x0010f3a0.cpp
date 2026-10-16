@@ -1,4 +1,5 @@
 #include "gen/hulkfight.h"
+#include "decls/data/game/hulkfight/ai.h"
 
 struct Pair_10f3a0 {
     unsigned int first, second;
@@ -24,8 +25,6 @@ struct StaticObject {
     char data[8];
     void FUN_0027af00();
 };
-extern StaticObject DAT_004e0bf0;
-extern unsigned int DAT_004e0bf8;
 void __cdecl FUN_00363ec0();
 int __cdecl _atexit(void(__cdecl*)());
 namespace hulkfight {
@@ -36,9 +35,9 @@ namespace ai {
 void hulkfight::ai::HulkAction::vfunc_4() {
     if (!(*(Actor_10f3a0 * *)&this->f_20))
         return;
-    if (!(DAT_004e0bf8 & 1)) {
-        DAT_004e0bf8 |= 1;
-        DAT_004e0bf0.FUN_0027af00();
+    if (!((*(unsigned int*)&DAT_004e0bf8) & 1)) {
+        (*(unsigned int*)&DAT_004e0bf8) |= 1;
+        (*(StaticObject*)&DAT_004e0bf0).FUN_0027af00();
         _atexit(FUN_00363ec0);
     }
     (*(Actor_10f3a0 * *)&this->f_20)->FUN_000592a0()->FUN_00059a30();

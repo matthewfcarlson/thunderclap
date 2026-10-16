@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 65/66, incomplete)
 // FUN_002ee710 @ 0x002ee710
+#include "decls/data/game/global.h"
+
 struct Info_2ee710 {
     char pad[0x34];
     float value;
@@ -62,7 +64,6 @@ struct Registry_2ee710 {
     void FUN_002ee710(Item_2ee710 *obj);
 };
 
-extern const float DAT_003f32e0;
 
 void Registry_2ee710::FUN_002ee710(Item_2ee710 *obj)
 {

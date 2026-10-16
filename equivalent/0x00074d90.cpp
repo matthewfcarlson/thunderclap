@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 46/46)
 // FUN_00074d90 @ 0x00074d90
+#include "decls/data/game/global.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -94,8 +96,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dcf30;
-extern int DAT_004dcf34;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -192,7 +192,7 @@ void FUN_00074d90()
         params[21] = 0;
         if (mem)
             params[21] = new (mem) fight::ParamFloatConstRange<::CKeyPoseTrack>("blendOutTime", &::CKeyPoseTrack::FUN_00068240);
-        FUN_002347b0(&DAT_004dcf30, params, 22);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dcf30), params, 22);
     }
     DAT_004dcf34++;
 }

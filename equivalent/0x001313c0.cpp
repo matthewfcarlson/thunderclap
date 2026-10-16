@@ -1,12 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_001313c0 @ 0x001313c0
+#include "decls/data/game/hulkfight.h"
+#include "decls/data/game/unknown.h"
+
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 extern "C" void* __cdecl FUN_0008d690(unsigned int);
 extern "C" void FUN_0012dff0();
 extern "C" void FUN_0012e000();
-extern char DAT_0049ceb0[];
-extern int DAT_004e0e58;
-extern int DAT_004e0e54;
 namespace hulkfight { class UnlockableCondition; }
 namespace fight {
 template<class T> struct ParamEnumConstList {
@@ -34,7 +34,7 @@ void __cdecl FUN_001313c0() {
   if(e) {
    e->FUN_00234cc0("unlockable");
    e = new(e) fight::ParamEnumConstList<hulkfight::UnlockableCondition>;
-   e->list=DAT_0049ceb0; e->count=766; e->callback=FUN_0012dff0;
+   e->list=((char*)&DAT_0049ceb0); e->count=766; e->callback=FUN_0012dff0;
   }
   params[0]=e;
   fight::ParamBool<hulkfight::UnlockableCondition>* b=(fight::ParamBool<hulkfight::UnlockableCondition>*)FUN_0008d690(24);

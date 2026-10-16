@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 73 inputs, branch coverage 12/12)
 // FUN_0012d310 @ 0x0012d310
+#include "decls/data/game/hulkfight/ai.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -62,8 +64,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0e3c;
-extern int DAT_004e0e40;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0012d310()
@@ -92,7 +92,7 @@ void FUN_0012d310()
         params[4] = 0;
         if (mem)
             params[4] = new (mem) ParamName<ThreatDodgeTrack>("threatName", &ThreatDodgeTrack::FUN_0012b3a0);
-        FUN_002347b0(&DAT_004e0e3c, params, 5);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0e3c), params, 5);
     }
     DAT_004e0e40++;
 }

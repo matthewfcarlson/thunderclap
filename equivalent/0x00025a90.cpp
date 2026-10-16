@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 16/16)
 // FUN_00025a90 @ 0x00025a90
 #include "decls/address.h"
+#include "decls/data/engine/fight.h"
+#include "decls/data/game/unknown.h"
 void *FUN_0008d690(unsigned int size);
 
 struct Name_25a90 {
@@ -40,11 +42,6 @@ struct Registry_25a90 {
     void *FUN_00232840(unsigned int lo, unsigned int hi);
 };
 
-extern Registry_25a90 *DAT_004e5af8;
-extern const char *DAT_0048e060;
-extern const char *DAT_0048e064;
-extern const char *DAT_0048e068;
-extern float DAT_004dc0d8;
 
 void __cdecl FUN_00232d70(void (*fn)(), int arg);
 void FUN_00024120();
@@ -163,21 +160,21 @@ Thing_25a90 *Thing_25a90::FUN_00025a90()
     }
     FUN_00232d70(FUN_00024120, 0);
 
-    Registry_25a90 *reg = DAT_004e5af8;
+    Registry_25a90 *reg = (*(Registry_25a90**)&DAT_004e5af8);
     if (reg) {
-        unsigned __int64 h = FUN_002672f0(DAT_0048e060, 0, 0);
+        unsigned __int64 h = FUN_002672f0((*(const char**)&DAT_0048e060), 0, 0);
         void *p = reg->FUN_00232840((unsigned int)h, (unsigned int)(h >> 32));
         if (p) {
             FUN_000553d0(p);
             FUN_00073700(p);
         }
-        h = FUN_002672f0(DAT_0048e064, 0, 0);
+        h = FUN_002672f0((*(const char**)&DAT_0048e064), 0, 0);
         p = reg->FUN_00232840((unsigned int)h, (unsigned int)(h >> 32));
         if (p) {
             FUN_00055d80(p);
             FUN_00074790(p);
         }
-        h = FUN_002672f0(DAT_0048e068, 0, 0);
+        h = FUN_002672f0((*(const char**)&DAT_0048e068), 0, 0);
         p = reg->FUN_00232840((unsigned int)h, (unsigned int)(h >> 32));
         if (p) {
             FUN_00056460(p);
@@ -186,7 +183,7 @@ Thing_25a90 *Thing_25a90::FUN_00025a90()
     }
     FUN_00031310(this, 0x40, f94);
     f128 = 0;
-    DAT_004dc0d8 = 8.0f;
+    (*(float*)&DAT_004dc0d8) = 8.0f;
     f580 = 0;
     for (int i = 0; i < 9; i++)
         slots[i].flag = 0;

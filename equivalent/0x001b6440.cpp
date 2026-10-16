@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_001b6440 @ 0x001b6440
+#include "decls/data/game/global.h"
+
 struct Part_1b6440 { char data[0x138]; void FUN_001b3020(); };
 struct Tail_1b6440 { char data[0x14]; void FUN_001b6380(); };
 struct CCollisionManager;
@@ -11,7 +13,6 @@ struct Registry_1b6440 { void FUN_001b62d0(const char*, CCollisionManager*, Call
 Registry_1b6440* __cdecl FUN_001d4c90();
 void* __cdecl FUN_0008d690(unsigned int);
 struct Physics_1b6440 { void FUN_002ece90(int,float,int); };
-extern Physics_1b6440* DAT_00554c10;
 struct CCollisionManager {
  virtual void slot0();
  int a,b,c;
@@ -36,6 +37,6 @@ CCollisionManager::CCollisionManager() {
  if(command) command=command->FUN_001b61f0("cm_AddExplosion",this,FUN_001b4cd0);
  registry->FUN_001d3b70("cm_AddExplosion",command);
  for(int j=0;j<19;++j) { counters[j]=0; ids[j]=-1; }
- DAT_00554c10->FUN_002ece90(0,gravity,0);
+ (*(Physics_1b6440**)&DAT_00554c10)->FUN_002ece90(0,gravity,0);
  }
 }

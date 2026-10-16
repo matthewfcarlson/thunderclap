@@ -6,6 +6,7 @@
 // equiv-map: ??_R0?AVFrameController@pure3d@@@8 = 0x0049fd74
 // equiv-map: ??_R0?AVProceduralVertexAnimController@pure3d@@@8 = 0x004cf8b4
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
+#include "decls/data/engine/content.h"
 
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
@@ -143,7 +144,6 @@ struct Helper2 {
 struct LoaderRegistry {
     content::ObjectLoader *FUN_00265310(unsigned int id);
 };
-extern LoaderRegistry *DAT_00527c58;
 
 class __declspec(novtable) DrawableContainerBase {
 public:
@@ -290,7 +290,7 @@ void pure3d::PolySkinLoader::vfunc_5(PolySkin **out, unsigned __int64 *outId, St
         unsigned int cid = stream->FUN_00266a30();
         switch (cid) {
         case 0x121201: {
-                content::ObjectLoader *ol = DAT_00527c58->FUN_00265310(0x121201);
+                content::ObjectLoader *ol = (*(LoaderRegistry**)&DAT_00527c58)->FUN_00265310(0x121201);
                 pure3d::FrameControllerLoader *fl = dynamic_cast<pure3d::FrameControllerLoader *>(ol);
                 fl->AddRef();
                 f.ctl = 0;

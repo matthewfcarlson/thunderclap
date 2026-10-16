@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 0/0)
 // FUN_002d1970 @ 0x002d1970
-extern float DAT_004d0ed4;
+#include "decls/data/engine/pure3d.h"
+
 struct Vec_2d1970 { float x, y, z; };
 struct Src_2d1970 { char pad[0x30]; Vec_2d1970 v30; };
 struct Owner_2d1970 {

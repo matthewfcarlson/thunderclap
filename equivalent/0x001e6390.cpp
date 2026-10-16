@@ -1,5 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 144 inputs, branch coverage 140/180, incomplete)
 // FUN_001e6390 @ 0x001e6390
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight.h"
+#include "decls/data/game/om.h"
+
 struct V3_1e6390 {
     float x, y, z;
 };
@@ -82,15 +86,6 @@ struct Chain0 {
 
 extern Listener_1e6390 *__cdecl FUN_001c3d90();
 extern void __cdecl FUN_001e55f0(Entry_1e6390 *first, Entry_1e6390 *last, int n);
-extern float DAT_004c6f48;
-extern float DAT_004c6f44;
-extern float DAT_00421894;
-extern float DAT_00421898;
-extern float DAT_0042189c;
-extern float DAT_004237cc[];
-extern float DAT_00423198[];
-extern int DAT_004e275c;
-extern unsigned int DAT_004e2760;
 
 struct Frame_1e6390 {
     int idx;                    // 0x00
@@ -211,7 +206,7 @@ void Mgr_1e6390::FUN_001e6390()
             int sh = ((fl >> 10) & 2) + ((fl >> 10) & 1);
             float d2 = dz * dz + dx * dx;
             if (sh > 0)
-                d2 = d2 * (3600.0f / DAT_004237cc[sh]);
+                d2 = d2 * (3600.0f / ((float*)&DAT_004237cc)[sh]);
             e->d2 = d2;
             if (d2 > DAT_004c6f48) {
                 if (!(i > hi) && i != lo) {
@@ -311,7 +306,7 @@ void Mgr_1e6390::FUN_001e6390()
                 }
                 if (fl & 0x4000) {
                     int s = ee->slot;
-                    if (DAT_00421894 == slots[s].f18->f11c->f80) {
+                    if ((*(float*)&DAT_00421894) == slots[s].f18->f11c->f80) {
                         if (ebp < L) {
                             f.list2[ebp++] = s;
                             idx--;
@@ -323,7 +318,7 @@ void Mgr_1e6390::FUN_001e6390()
                         Inner_1e6390 *in = sl->f18->FUN_001d72e0();
                         if (in != 0 && in->f6c != 0 && in->f70 != 0 && !in->f70->v11())
                             continue;
-                        sl->f18->f11c->FUN_001c5080(DAT_00421894, DAT_0042189c);
+                        sl->f18->f11c->FUN_001c5080((*(float*)&DAT_00421894), (*(float*)&DAT_0042189c));
                         ee->flags = ee->flags | 0x4000;
                     }
                 }
@@ -341,7 +336,7 @@ void Mgr_1e6390::FUN_001e6390()
                 if (fl & 0x80)
                     dsh += 2;
                 if (dsh > 0) {
-                    f.tmpT = DAT_00423198[dsh];
+                    f.tmpT = ((float*)&DAT_00423198)[dsh];
                     f.L = ee->pos;
                     alv = FUN_001c3d90()->FUN_001c4010(&f.L);
                 }
@@ -350,20 +345,20 @@ void Mgr_1e6390::FUN_001e6390()
                 idx++;
                 if (flagA || (alv && !bl)) {
                     if (ee->flags & 0x4000) {
-                        slots[ee->slot].f18->f11c->FUN_001c5080(DAT_00421898, DAT_0042189c);
+                        slots[ee->slot].f18->f11c->FUN_001c5080((*(float*)&DAT_00421898), (*(float*)&DAT_0042189c));
                         ee->flags = ee->flags & 0xbfff;
                     }
                 } else if (alv) {
                     if (ee->flags & 0x4000) {
                         int s = ee->slot;
-                        if (DAT_00421894 == slots[s].f18->f11c->f80) {
+                        if ((*(float*)&DAT_00421894) == slots[s].f18->f11c->f80) {
                             if (ebp < L) {
                                 f.list2[ebp++] = s;
                                 idx--;
                             }
                         }
                     } else {
-                        slots[ee->slot].f18->f11c->FUN_001c5080(DAT_00421894, DAT_0042189c);
+                        slots[ee->slot].f18->f11c->FUN_001c5080((*(float*)&DAT_00421894), (*(float*)&DAT_0042189c));
                         ee->flags = ee->flags | 0x4000;
                     }
                 } else {
@@ -387,8 +382,8 @@ void Mgr_1e6390::FUN_001e6390()
         }
     }
 
-    if (!(DAT_004e2760 & 1)) {
-        DAT_004e2760 |= 1;
+    if (!((*(unsigned int*)&DAT_004e2760) & 1)) {
+        (*(unsigned int*)&DAT_004e2760) |= 1;
         DAT_004e275c = limit;
     }
     int st = DAT_004e275c;

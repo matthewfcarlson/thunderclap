@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 9/10, incomplete)
 // hulkfight::motion::BounceAction::vfunc_3 @ 0x001347c0
 #include "decls/address.h"
+#include "decls/data/game/hulkfight/motion.h"
 struct Vec3_1347c0 { float x, y, z; };
 
 struct Pose {
@@ -65,9 +66,6 @@ Stats_1347c0 *__fastcall FUN_00059a30(void *x);
 Scene_1347c0 *__fastcall FUN_00059a40(void *x);
 extern "C" void FUN_00224d70(float angle, Vec3_1347c0 *v);
 void *__cdecl FUN_00263ea0(unsigned int size);
-extern float DAT_004abf64;
-extern float DAT_004abf68;
-extern float DAT_004abf6c;
 
 namespace hulkfight { namespace motion {
 
@@ -113,9 +111,9 @@ char BounceAction::vfunc_3(int a, int b)
     scene->FUN_00222890(joint, -1.0f, b28, 1.0f, b2c, b30, -1.0f);
 
     Vec3_1347c0 w;
-    w.x = DAT_004abf64;
-    w.y = DAT_004abf68;
-    w.z = DAT_004abf6c;
+    w.x = (*(float*)&DAT_004abf64);
+    w.y = (*(float*)((char*)&DAT_004abf64 + 4));
+    w.z = (*(float*)((char*)&DAT_004abf64 + 8));
     FUN_00224d70(stats->FUN_000354c0(), &w);
 
     Vec3_1347c0 x;

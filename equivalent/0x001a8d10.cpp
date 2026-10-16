@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // FUN_001a8d10 @ 0x001a8d10
 #include "decls/address.h"
+#include "decls/data/game/hulkfight/scenario.h"
 extern char DAT_0041cf24[];
 
 struct RefObj_1a8d10 {
@@ -15,7 +16,6 @@ struct Holder54_1a8d10 { int FUN_000862a0(); };
 struct World { char pad[0x54]; Holder54_1a8d10* holder; };
 
 struct NISAnimationAction;
-extern NISAnimationAction* DAT_004e1760;
 
 struct NISAnimationAction {
     int vptr;
@@ -59,6 +59,6 @@ NISAnimationAction* NISAnimationAction::FUN_001a8d10(int arg, RefObj_1a8d10* tar
         f20->release();
     f20 = target;
     f20c = DAT_004dd700->holder->FUN_000862a0();
-    DAT_004e1760 = this;
+    (*(NISAnimationAction**)&DAT_004e1760) = this;
     return this;
 }

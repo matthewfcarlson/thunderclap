@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 69 inputs, branch coverage 31/34, incomplete)
 // FUN_001eaea0 @ 0x001eaea0
+#include "decls/data/game/global.h"
+
 struct Ref_1eaea0 {
     char pad0[0xc];
     int refs;
@@ -44,9 +46,6 @@ struct Pool_1eaea0 {
     void FUN_002665a0();
 };
 
-extern Sync *DAT_004e3694;
-extern int DAT_004e3698;
-extern int DAT_004e36ac;
 
 void FUN_00241280(int a, int b, int c);
 void *FUN_00240750();
@@ -102,10 +101,10 @@ void Manager_1eaea0::FUN_001eaea0()
             handles[i]->FUN_001ea700();
             Handle_1eaea0 *h = handles[i];
             if (h->state == 1) {
-                if (DAT_004e3694->FUN_00266750()) {
+                if ((*(Sync**)&DAT_004e3694)->FUN_00266750()) {
                     h->state = 3;
-                    DAT_004e3694->FUN_00263e90();
-                    DAT_004e3694 = 0;
+                    (*(Sync**)&DAT_004e3694)->FUN_00263e90();
+                    (*(Sync**)&DAT_004e3694) = 0;
                 }
             }
             FUN_0008d330(handles[i]);
@@ -130,9 +129,9 @@ void Manager_1eaea0::FUN_001eaea0()
     }
 
     jobCount = 0;
-    DAT_004e3698 = 0;
+    (*(int*)&DAT_004e3698) = 0;
     f514 = 0;
     pool->FUN_002665a0();
     f520 = 0;
-    DAT_004e36ac = 0;
+    (*(int*)&DAT_004e36ac) = 0;
 }

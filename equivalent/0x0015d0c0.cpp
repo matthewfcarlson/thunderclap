@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 71 inputs, branch coverage 17/18, incomplete)
 // hulkfight::motion::PhaseCondition::vfunc_6 @ 0x0015d0c0
+#include "decls/data/game/global.h"
+
 extern char DAT_00494b44[];
 extern char DAT_00494b60[];
 extern char DAT_0048d534[];
 extern char DAT_004ac1d0[];
 extern char DAT_0048e01c[];
 extern void *__cdecl FUN_00344e74(void *obj, int vfDelta, char *srcType, char *dstType, int isRef);
-extern float DAT_003f32e0;
 float __cdecl FUN_0015cf40(float value);
 
 struct Marker_15d0c0 {
@@ -62,7 +63,7 @@ bool PhaseCondition::vfunc_6(int unused1, Source_15d0c0 *source, int unused3)
     if (!track)
         return false;
 
-    float zero = DAT_003f32e0;
+    float zero = (*(float*)&DAT_003f32e0);
     float x;
     unsigned int n = track->count;
     unsigned int i = 0;

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 164 inputs, branch coverage 27/34, incomplete)
 // FUN_0026be70 @ 0x0026be70
+#include "decls/data/engine/core.h"
+
 typedef unsigned int uint_26be70;
 struct Block_26be70 { uint_26be70 previous; uint_26be70 size; };
 struct Fence { uint_26be70 previous; uint_26be70 first; uint_26be70 second; };
@@ -8,8 +10,6 @@ struct Arena_26be70 {
  char pad1[0x418]; uint_26be70 overhead; char pad2[0x10]; uint_26be70 alignment;
  uint_26be70 total; uint_26be70 used; uint_26be70 peak; uint_26be70 reserved; uint_26be70 maximum;
 };
-extern uint_26be70 *DAT_005283ac;
-extern uint_26be70 DAT_005283a8;
 void __cdecl FUN_0026bd80(void *);
 // equiv-conv: FUN_0026be70 eax stack
 void *__cdecl FUN_0026be70(Arena_26be70 *self, uint_26be70 amount) {
@@ -20,9 +20,9 @@ void *__cdecl FUN_0026be70(Arena_26be70 *self, uint_26be70 amount) {
  if (!(self->flags & 2)) wanted -= oldSize;
  uint_26be70 bytes = (wanted + mask) & ~mask;
  if ((int)bytes <= 0) return 0;
- uint_26be70 start = *DAT_005283ac;
- *DAT_005283ac = start + bytes;
- if (*DAT_005283ac >= DAT_005283a8 || start == ~0u) return 0;
+ uint_26be70 start = *(*(uint_26be70**)&DAT_005283ac);
+ *(*(uint_26be70**)&DAT_005283ac) = start + bytes;
+ if (*(*(uint_26be70**)&DAT_005283ac) >= (*(uint_26be70*)&DAT_005283a8) || start == ~0u) return 0;
  self->used += bytes;
  if (start == (uint_26be70)old + oldSize) {
   old->size = (bytes + oldSize) | 1;
@@ -36,10 +36,10 @@ void *__cdecl FUN_0026be70(Arena_26be70 *self, uint_26be70 amount) {
    extra += oldSize;
    uint_26be70 end = start + extra + bytes;
    extra += ((end + mask) & ~mask) - end;
-   cursor = *DAT_005283ac;
-   *DAT_005283ac = cursor + extra;
-   uint_26be70 finish = *DAT_005283ac;
-   uint_26be70 limit = DAT_005283a8;
+   cursor = *(*(uint_26be70**)&DAT_005283ac);
+   *(*(uint_26be70**)&DAT_005283ac) = cursor + extra;
+   uint_26be70 finish = *(*(uint_26be70**)&DAT_005283ac);
+   uint_26be70 limit = (*(uint_26be70*)&DAT_005283a8);
    valid = finish < limit;
    if (!valid || cursor == ~0u) {
     extra = 0;
@@ -47,8 +47,8 @@ void *__cdecl FUN_0026be70(Arena_26be70 *self, uint_26be70 amount) {
     valid = valid && cursor != ~0u;
    }
   } else {
-   cursor = *DAT_005283ac;
-   valid = cursor < DAT_005283a8 && cursor != ~0u;
+   cursor = *(*(uint_26be70**)&DAT_005283ac);
+   valid = cursor < (*(uint_26be70*)&DAT_005283a8) && cursor != ~0u;
   }
   if (valid) {
    Block_26be70 *newBlock = (Block_26be70 *)base;

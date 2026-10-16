@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 92 inputs, branch coverage 14/14)
 // FUN_000ce280 @ 0x000ce280
 #include "decls/address.h"
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
 struct Vec3_ce280 {
     float x, y, z;
 };
@@ -75,10 +77,6 @@ struct Builder {
     void FUN_000f87c0(int idx, int mode, void *extra);
 };
 
-extern float DAT_0049fd14;
-extern int DAT_0049fd18;
-extern PassHolder_ce280 *DAT_0052c2ac;
-extern Vec3_ce280 DAT_004ddea4;
 
 class Billboard_ce280 {
 public:
@@ -132,10 +130,10 @@ void Billboard_ce280::FUN_000ce280()
         f.hb.u &= 0x7fffffff;
         if (!(f.hb.f <= 1e-05f)) {
             DAT_0052c2a8->v58(0);
-            DAT_0052c2ac->pass->v15(0);
+            (*(PassHolder_ce280**)&DAT_0052c2ac)->pass->v15(0);
             Vec3_ce280 *c = &f.v[0];
-            *c = DAT_004ddea4;
-            DAT_0052c2ac->FUN_00293d00(c);
+            *c = (*(Vec3_ce280*)&DAT_004ddea4);
+            (*(PassHolder_ce280**)&DAT_0052c2ac)->FUN_00293d00(c);
             Handle_ce280 *h = DAT_0052c2a8->v30(texture->id, 1, 0x2020, 4, 0);
 
             f.v[0].x = f.w * -0.5f;
@@ -156,15 +154,15 @@ void Billboard_ce280::FUN_000ce280()
             h->FUN_0008ef90(&f.v[3], 0x7f000000);
             h->FUN_0008ef90(&f.v[1], 0x7f000000);
             DAT_0052c2a8->v31(h);
-            DAT_0052c2ac->pass->v16(0);
+            (*(PassHolder_ce280**)&DAT_0052c2ac)->pass->v16(0);
             DAT_0052c2a8->v58(1);
             if (alpha > 0) {
-                DAT_0052c2ac->pass->v15(0);
+                (*(PassHolder_ce280**)&DAT_0052c2ac)->pass->v15(0);
                 Vec3_ce280 *c2 = &f.v[1];
-                *c2 = DAT_004ddea4;
-                DAT_0052c2ac->FUN_00293d00(c2);
+                *c2 = (*(Vec3_ce280*)&DAT_004ddea4);
+                (*(PassHolder_ce280**)&DAT_0052c2ac)->FUN_00293d00(c2);
                 f.x.FUN_000f87c0(idx, DAT_0049fd18, extra);
-                DAT_0052c2ac->pass->v16(0);
+                (*(PassHolder_ce280**)&DAT_0052c2ac)->pass->v16(0);
             }
         }
     }

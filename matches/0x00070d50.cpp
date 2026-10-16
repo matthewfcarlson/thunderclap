@@ -1,9 +1,9 @@
+#include "decls/data/game/global.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_00068250();
 void __cdecl FUN_00069730();
 void __cdecl FUN_00069750();
-extern unsigned int DAT_004dcf3c;
-extern unsigned int DAT_004dcf38;
 void __cdecl FUN_002347b0(void*, void**, int);
 inline void* __cdecl operator new(unsigned int, void* p) {
     return p;

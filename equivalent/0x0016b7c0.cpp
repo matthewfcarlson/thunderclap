@@ -1,13 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 8/8)
 // FUN_0016b7c0 @ 0x0016b7c0
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/hulkfight/motion.h"
+#include "decls/data/game/unknown.h"
+
 typedef unsigned int size_t;
 inline void* __cdecl operator new(size_t, void* p) { return p; }
 extern void* __cdecl FUN_0008d690(unsigned int);
-extern unsigned int DAT_004e125c;
-extern unsigned int DAT_004e1258;
-extern unsigned int DAT_00427754;
-extern char DAT_0042773c[];
-extern char DAT_004b4d88[];
 void FUN_00165710(); void FUN_00165720(); void FUN_00165730();
 struct ParamBase_16b7c0 { virtual void slot0(); char padding[12]; void FUN_00234cc0(const char*); void FUN_00234960(const char*); };
 namespace hulkfight { namespace motion { class GrappleHealthCondition; } }
@@ -21,10 +20,10 @@ void __cdecl FUN_0016b7c0() {
   ParamBase_16b7c0* params[3];
   void* mem = FUN_0008d690(32);
   if(mem) {
-   unsigned int count = DAT_00427754;
+   unsigned int count = (*(unsigned int*)&DAT_00427754);
    ((ParamBase_16b7c0*)mem)->FUN_00234cc0("compare");
    fight::ParamEnumConstList<hulkfight::motion::GrappleHealthCondition>* p = new(mem) fight::ParamEnumConstList<hulkfight::motion::GrappleHealthCondition>;
-   p->count=count; p->values=DAT_0042773c; p->callback=FUN_00165710; params[0]=p;
+   p->count=count; p->values=((char*)&DAT_0042773c); p->callback=FUN_00165710; params[0]=p;
   } else params[0]=0;
   mem=FUN_0008d690(24);
   if(mem) {

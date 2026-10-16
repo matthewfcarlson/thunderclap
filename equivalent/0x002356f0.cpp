@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 221 inputs, branch coverage 8/8)
 // fight::ParamValueInventoryEntity::vfunc_8 @ 0x002356f0
+#include "decls/data/engine/fight.h"
+
 struct Manager_2356f0 { char pad00[0xc]; void* list; };
 struct Item;
 struct Iter_2356f0 {
@@ -10,7 +12,6 @@ struct Iter_2356f0 {
     Item* FUN_00231640();
     Item* FUN_002314c0();
 };
-extern Manager_2356f0* DAT_004e5bb8;
 
 class ParamValueInventoryEntity {
 public:
@@ -27,7 +28,7 @@ public:
 
 int ParamValueInventoryEntity::v8(int param)
 {
-    Manager_2356f0* mgr = DAT_004e5bb8;
+    Manager_2356f0* mgr = (*(Manager_2356f0**)&DAT_004e5bb8);
     if (mgr == 0)
         return 0;
     int count = 1;

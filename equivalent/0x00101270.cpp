@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2912 inputs, branch coverage 75/76, incomplete)
 // CHand2HandAgent::vfunc_22 @ 0x00101270
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" double sqrt(double);
 
 struct V3_101270 {
@@ -40,11 +41,6 @@ struct World {
     char pad0[0x20];
     Hub20_101270 *p20;
 };
-extern float DAT_004a1c04;
-extern float DAT_004a1c08;
-extern float DAT_004a1c0c;
-extern char DAT_004a1bfc;
-extern char DAT_004e0a99;
 
 struct Rng_101270 {
     float FUN_00078780();
@@ -161,7 +157,7 @@ void CHand2HandAgent::v22(Arg1_101270 *a0, Out_101270 *a1, float a2)
     else if (fc8 < fdc)
         b7e = 1;
     f.s4 = 1.0f;
-    if (fc8 > fdc && fc8 < fe0 && !DAT_004a1bfc)
+    if (fc8 > fdc && fc8 < fe0 && !(*(char*)&DAT_004a1bfc))
         f.s4 = (fdc - fc8) / f.s8;
 
     Rng_101270 *rng = FUN_000964d0();
@@ -205,7 +201,7 @@ void CHand2HandAgent::v22(Arg1_101270 *a0, Out_101270 *a1, float a2)
         v168.x = 0.0f;
     }
 
-    if (!DAT_004e0a99) {
+    if (!(*(char*)&DAT_004e0a99)) {
         if (bd1)
             goto L2f9;
         if (!bd3) {

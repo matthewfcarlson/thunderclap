@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3064 inputs, branch coverage 50/56, incomplete)
 // FUN_001b1270 @ 0x001b1270
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct Vec3_1b1270 {
     float x, y, z;
 };
@@ -37,7 +38,6 @@ struct World {
     Sink_1b1270* sink;
 };
 
-extern unsigned __int64 DAT_004e1828;
 
 struct Actor_1b1270 {
     char pad00[0x40];
@@ -79,7 +79,7 @@ int __stdcall FUN_001b1270(Actor_1b1270* a, Actor_1b1270* b, Vec3_1b1270* v, Con
         a->joint.FUN_001b6e60(bodyB);
         b->joint.FUN_001b6e60(bodyA);
     }
-    if (a->slot->FUN_001d4f70() == DAT_004e1828 || b->slot->FUN_001d4f70() == DAT_004e1828)
+    if (a->slot->FUN_001d4f70() == (*(unsigned __int64*)&DAT_004e1828) || b->slot->FUN_001d4f70() == (*(unsigned __int64*)&DAT_004e1828))
         DAT_004dd700->sink->FUN_001cbd10("golf_stroke");
     Actor_1b1270* heavy = sqA > sqB ? a : b;
     float mult = heavy->FUN_001afb00();

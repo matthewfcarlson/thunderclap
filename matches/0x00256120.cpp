@@ -1,5 +1,6 @@
+#include "decls/data/engine/audio.h"
+
 extern "C" char DAT_004298fc[];
-extern "C" char DAT_004e7570[];
 namespace audio {
 class SeqActionClip {
   public:
@@ -12,6 +13,6 @@ audio::SeqActionClip* audio::SeqActionClip::vfunc_0(int f) {
     SeqActionClip* p = this;
     vt = ((int)DAT_004298fc);
     if (f & 1)
-        FUN_00247550((void*)((int)DAT_004e7570), p);
+        FUN_00247550((void*)((int)((char*)((char*)&DAT_004e7508 + 104))), p);
     return p;
 }

@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3021 inputs, branch coverage 45/46, incomplete)
 // FUN_001ecda0 @ 0x001ecda0
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" int strcmp(const char *a, const char *b);
 extern "C" double sqrt(double);
 
@@ -89,7 +90,6 @@ struct SpawnGlobals_1ecda0 {
 
 void FUN_001eb440(void *target, Query_1ecda0 *q);
 
-extern SpawnGlobals_1ecda0 *DAT_004e36d8;
 
 class Handler_1ecda0 {
 public:
@@ -184,8 +184,8 @@ void Handler_1ecda0::FUN_001ecda0(const char *a1, int a2, const char *a3, const 
         void *target = lookup->FUN_00086310();
         if (target != 0)
             FUN_001eb440(target, &q);
-        if (DAT_004e36d8->enabled)
-            DAT_004e36d8->spawner->FUN_001efe20(&q, &id2, a4, 100.0f);
+        if ((*(SpawnGlobals_1ecda0**)&DAT_004e36d8)->enabled)
+            (*(SpawnGlobals_1ecda0**)&DAT_004e36d8)->spawner->FUN_001efe20(&q, &id2, a4, 100.0f);
         q.FUN_001ef350();
     } while (0);
     id2.FUN_0027af50();

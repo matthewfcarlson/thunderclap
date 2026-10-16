@@ -2,6 +2,7 @@
 // pure3d::CompositeDrawableLoader::vfunc_5 @ 0x0029a190
 // equiv-map: ??0DrawableBase@pure3d@@QAE@XZ = 0x002a3480
 #include "decls/address.h"
+#include "decls/data/engine/content.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 struct Stream {
@@ -164,7 +165,6 @@ public:
 struct Registry_29a190 {
     content::ObjectLoader *FUN_00265310(int id);
 };
-extern Registry_29a190 *DAT_00527c58;
 
 void *FUN_00263ea0(unsigned int size);
 void *FUN_0008d690(unsigned int size);
@@ -244,7 +244,7 @@ void CompositeDrawableLoader::vfunc_5(pure3d::CompositeDrawable **out, unsigned 
             int id = r->FUN_00266a30();
             if (id == 0x121201) {
                 pure3d::FrameControllerLoader *fl =
-                    dynamic_cast<pure3d::FrameControllerLoader *>(DAT_00527c58->FUN_00265310(0x121201));
+                    dynamic_cast<pure3d::FrameControllerLoader *>((*(Registry_29a190**)&DAT_00527c58)->FUN_00265310(0x121201));
                 fl->v0();
                 f.fc = 0;
                 fl->v5(&f.fc, &f.fid, r, inv);

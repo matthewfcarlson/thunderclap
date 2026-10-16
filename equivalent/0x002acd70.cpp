@@ -2,6 +2,7 @@
 // FUN_002acd70 @ 0x002acd70
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 #include "decls/address.h"
+#include "decls/data/engine/content.h"
 inline void *operator new(unsigned int, void *p) { return p; }
 
 
@@ -169,7 +170,6 @@ class Pool_2acd70 {
 public:
     Node *FUN_00265310(int v);
 };
-extern Pool_2acd70 *DAT_00527c58;
 
 struct Frame_2acd70 {
     char len;           // 0x00
@@ -296,7 +296,7 @@ Obj_2acd70 *Loader_2acd70::FUN_002acd70(Reader *R, Inv_2acd70 *a1)
                 m->FUN_0022b980();
             }
             pure3d::AnimationLoader *ab = dynamic_cast<pure3d::AnimationLoader *>(
-                (content::ObjectLoader *)DAT_00527c58->FUN_00265310(0x121000));
+                (content::ObjectLoader *)(*(Pool_2acd70**)&DAT_00527c58)->FUN_00265310(0x121000));
             f.x40 = ab;
             ab->AddRef();
             f.x44 = ab->FUN_00288e90();

@@ -1,6 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 36/36)
 // FUN_001bb990 @ 0x001bb990
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 namespace math {
 class Vector {
   public:
@@ -28,19 +30,15 @@ class OverlayObj {
     char pad2[0x20 - 0x14];
 };
 
-extern char DAT_0048e100;
-extern char DAT_0048e0e4;
-extern char DAT_0048e128;
-extern char DAT_0049b95c;
 void* FUN_0008d690(unsigned size);
 void* FUN_00263ea0(unsigned size);
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 
 template <class T> struct TypeTag;
-template <> struct TypeTag<void> { static const void* get() { return &DAT_0048e100; } };
+template <> struct TypeTag<void> { static const void* get() { return ((char*)&DAT_0048e100); } };
 template <> struct TypeTag<bool> { static const void* get() { return &DAT_0048e0e4; } };
-template <> struct TypeTag<float> { static const void* get() { return &DAT_0048e128; } };
-template <> struct TypeTag<unsigned int> { static const void* get() { return &DAT_0049b95c; } };
+template <> struct TypeTag<float> { static const void* get() { return ((char*)&DAT_0048e128); } };
+template <> struct TypeTag<unsigned int> { static const void* get() { return ((char*)&DAT_0049b95c); } };
 
 class __declspec(novtable) MethodBase_1bb990 {
   public:

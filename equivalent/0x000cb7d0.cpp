@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 8/8)
 // FUN_000cb7d0 @ 0x000cb7d0
-extern float DAT_0040a464;
 // equiv-conv: FUN_000cb7d0 ecx edx stack
+#include "decls/data/game/global.h"
+
 void FUN_000cb7d0(float *a, float *b, float limit)
 {
     volatile float av = *b - *a;

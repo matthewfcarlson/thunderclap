@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 66/66)
 // FUN_000c2c20 @ 0x000c2c20
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
 extern char DAT_0049dba4[];
@@ -84,7 +85,6 @@ struct Gate_c2c20 {
 struct Shader {
     void FUN_000b4280(void *global, Tex *tex);
 };
-extern void *DAT_004dd9cc;
 extern int DAT_00584554;
 Shader *__cdecl FUN_000c0db0(void *a, const char *name);
 Tex *__cdecl FUN_000c1ed0(void *a, const char *name);
@@ -230,10 +230,10 @@ void MovesMenu::F()
     }
     const char *img = image;
     if (img) {
-        Shader *sh = FUN_000c0db0(DAT_004dd9cc, "moves_gallery_image_shader");
+        Shader *sh = FUN_000c0db0((*(void**)&DAT_004dd9cc), "moves_gallery_image_shader");
         if (sh) {
             FUN_000964a0(buf, 0x100, "%s.png", img);
-            Tex *tex = FUN_000c1ed0(DAT_004dd9cc, buf);
+            Tex *tex = FUN_000c1ed0((*(void**)&DAT_004dd9cc), buf);
             if (tex)
                 sh->FUN_000b4280(&DAT_00584554, tex);
         }

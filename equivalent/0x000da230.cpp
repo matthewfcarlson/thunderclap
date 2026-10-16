@@ -1,6 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 72 inputs, branch coverage 10/10)
 // FUN_000da230 @ 0x000da230
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 struct Locale {
     int FUN_000f7d30(const char* key);
     const char* FUN_000f7220(int id);
@@ -93,12 +94,6 @@ extern "C" unsigned int DAT_004d9968;
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern TextOwner* FUN_000fc3d0();
 void FUN_000fc020(char* buf, int n, const char* fmt, ...);
-extern const char* DAT_004a0c60;
-extern const char* DAT_004de668;
-extern const char* DAT_004a0ce0;
-extern const char* DAT_004a0ce4;
-extern const char* DAT_004a0ce8;
-extern float DAT_003f335c;
 
 void Menu_da230::FUN_000da230(int idx)
 {
@@ -106,31 +101,31 @@ void Menu_da230::FUN_000da230(int idx)
     char buf[0x400];
     Screen_da230* screen = (Screen_da230*)FUN_000fc3d0();
     Locale* loc = ((TextOwner*)screen)->v44();
-    const char* fmt = loc->FUN_000f7220(loc->FUN_000f7d30(DAT_004de668));
+    const char* fmt = loc->FUN_000f7220(loc->FUN_000f7d30((*(const char**)&DAT_004de668)));
     int v = ((Widget_da230*)((char*)this + 0x35c + idx * 0x38))->FUN_000f83f0(loc, 0);
     FUN_000fc020(buf, 0x200, fmt, v);
     if (retryMode != 0) {
         const char* font;
         if (alt == 0) {
             if (DAT_004dd6ec->FUN_00086280()->flag != 0)
-                font = DAT_004a0ce4;
+                font = (*(const char**)&DAT_004a0ce4);
             else
-                font = DAT_004a0ce0;
+                font = (*(const char**)&DAT_004a0ce0);
         } else {
-            font = DAT_004a0ce8;
+            font = (*(const char**)&DAT_004a0ce8);
         }
-        screen->FUN_000be310(font, buf, &DAT_003f335c, "TBS_MENU_ITEM_CONTINUE_WITHOUT_SAVE", "TBS_MENU_ITEM_RETRY", 2, DAT_004a0c60, DAT_004a0c60);
+        screen->FUN_000be310(font, buf, ((float*)&DAT_003f335c), "TBS_MENU_ITEM_CONTINUE_WITHOUT_SAVE", "TBS_MENU_ITEM_RETRY", 2, (*(const char**)&DAT_004a0c60), (*(const char**)&DAT_004a0c60));
     } else {
         const char* font;
         if (alt == 0) {
             if (DAT_004dd6ec->FUN_00086280()->flag != 0)
-                font = DAT_004a0ce4;
+                font = (*(const char**)&DAT_004a0ce4);
             else
-                font = DAT_004a0ce0;
+                font = (*(const char**)&DAT_004a0ce0);
         } else {
-            font = DAT_004a0ce8;
+            font = (*(const char**)&DAT_004a0ce8);
         }
-        screen->FUN_000be310(font, buf, &DAT_003f335c, &DAT_003f335c, "TBS_MENU_ITEM_OK", 2, DAT_004a0c60, DAT_004a0c60);
+        screen->FUN_000be310(font, buf, ((float*)&DAT_003f335c), ((float*)&DAT_003f335c), "TBS_MENU_ITEM_OK", 2, (*(const char**)&DAT_004a0c60), (*(const char**)&DAT_004a0c60));
     }
     done = 1;
     n21c = 0;

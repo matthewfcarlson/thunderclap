@@ -1,6 +1,6 @@
-extern "C" char DAT_0042257c[];
-extern "C" char DAT_00434e68[];
-extern "C" char DAT_00435210[];
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/global.h"
+
 extern "C" void __cdecl FUN_0033ea90();
 extern "C" void __cdecl FUN_003390d0(void*, const char*, void*, int);
 extern "C" void __cdecl FUN_00213680(void*, int, int);
@@ -13,8 +13,8 @@ int __cdecl FUN_0033eb30(void* param_1) {
     } else {
         FUN_0033ea90();
     }
-    FUN_003390d0(p, (const char*)((int)DAT_0042257c), (void*)((int)DAT_00434e68), 0);
+    FUN_003390d0(p, (const char*)((int)((char*)&DAT_0042257c)), (void*)((int)((char*)&DAT_00434e68)), 0);
     FUN_00213680(p, 0, 0);
-    FUN_00213790(p, 0xffffd8ef, (const char*)((int)DAT_00435210));
+    FUN_00213790(p, 0xffffd8ef, (const char*)((int)((char*)&DAT_00435210)));
     return 2;
 }

@@ -1,7 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 60 inputs, branch coverage 73/74, incomplete)
 // FUN_00320540 @ 0x00320540
+#include "decls/data/platform/xbox/pure3d.h"
+
 extern "C" char * __cdecl _strncpy(char *, const char *, unsigned int);
-extern char DAT_00432da0[];
 extern "C" int __stdcall FUN_003a8753(int, const char *, int, int, int, void **, int, int, int, int, int);
 extern "C" void * __stdcall FUN_003a04fc(void *);
 namespace D3D8 { extern "C" int __stdcall D3DDevice_CreatePixelShader(void *, unsigned int *); }
@@ -34,7 +35,7 @@ unsigned char ShaderCollection::FUN_00320540() {
             char source[1024] = {0};
             if (level == 7) {
                 f.slot = &f.self->shaders[16];
-                _strncpy(source, DAT_00432da0, 1023);
+                _strncpy(source, ((char*)&DAT_00432da0), 1023);
             } else {
                 f.slot = &f.self->shaders[level * 2 + pass];
                 const char *parts[24];

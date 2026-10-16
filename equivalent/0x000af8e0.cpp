@@ -1,6 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 63 inputs, branch coverage 24/24)
 // FUN_000af8e0 @ 0x000af8e0
-extern bool DAT_004dda3d;
+#include "decls/data/game/global.h"
 
 class Voice_af8e0 {
 public:
@@ -87,7 +87,7 @@ void Mixer::FUN_000af8e0(float dt)
             Group_af8e0 *g = groups;
             if (g[i].timer[j] > 0.0f) {
                 g[i].timer[j] = g[i].timer[j] - dt;
-                if (DAT_004dda3d) {
+                if ((*(bool*)&DAT_004dda3d)) {
                     g = groups;
                     float *level = &g[i].level[j];
                     float *limit = &g[i].limit[j];
@@ -110,7 +110,7 @@ void Mixer::FUN_000af8e0(float dt)
                     }
                 }
             } else {
-                if (DAT_004dda3d)
+                if ((*(bool*)&DAT_004dda3d))
                     g[i].emitter->v16(j)->v6(0.0f);
                 groups[i].timer[j] = 0.0f;
                 FUN_000af530(i, j, 0);

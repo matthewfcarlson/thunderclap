@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 400 inputs, branch coverage 38/40, incomplete; run with --inputs 12000)
 // FUN_002611b0 @ 0x002611b0
+#include "decls/data/engine/om.h"
+
 extern "C" int strcmp(const char *a, const char *b);
 
 struct Interp_2611b0;
@@ -8,8 +10,6 @@ struct Builtin {
     const char *name;
     const char *(__cdecl *fn)(Interp_2611b0 *in);
 };
-extern Builtin DAT_004cd388[];
-extern int DAT_004cd418;
 
 struct Str_2611b0 {
     char data[0x10];
@@ -85,8 +85,8 @@ const char *__cdecl FUN_002611b0(Interp_2611b0 *in)
     }
 
     for (int i = 0; i < DAT_004cd418; i++) {
-        if (strcmp(token + 1, DAT_004cd388[i].name) == 0)
-            return DAT_004cd388[i].fn(in);
+        if (strcmp(token + 1, ((Builtin*)&DAT_004cd388)[i].name) == 0)
+            return ((Builtin*)&DAT_004cd388)[i].fn(in);
     }
     return "Undefined symbol";
 }

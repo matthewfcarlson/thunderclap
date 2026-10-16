@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 128 inputs, branch coverage 47/48, incomplete)
 // FUN_0007a230 @ 0x0007a230
+#include "decls/data/game/unknown.h"
+
 struct Cell_7a230 {
     int id;
     int pad04;
@@ -15,7 +17,6 @@ struct Rng_7a230 {
     unsigned int a;
     unsigned int b;
 };
-extern Rng_7a230* DAT_004e5acc;
 
 struct Grid_7a230 {
     char pad0[0x191c];
@@ -54,8 +55,8 @@ int Grid_7a230::FUN_0007a230(int idA, int idB, int rowIdx, int span)
     }
     if (n == 0)
         return -1;
-    DAT_004e5acc->a = (DAT_004e5acc->a & 0xffff) * 0x9069 + (DAT_004e5acc->a >> 16);
-    DAT_004e5acc->b = (DAT_004e5acc->b & 0xffff) * 0x4650 + (DAT_004e5acc->b >> 16);
-    unsigned int v = (DAT_004e5acc->a << 16) + (DAT_004e5acc->b & 0xffff);
+    (*(Rng_7a230**)&DAT_004e5acc)->a = ((*(Rng_7a230**)&DAT_004e5acc)->a & 0xffff) * 0x9069 + ((*(Rng_7a230**)&DAT_004e5acc)->a >> 16);
+    (*(Rng_7a230**)&DAT_004e5acc)->b = ((*(Rng_7a230**)&DAT_004e5acc)->b & 0xffff) * 0x4650 + ((*(Rng_7a230**)&DAT_004e5acc)->b >> 16);
+    unsigned int v = ((*(Rng_7a230**)&DAT_004e5acc)->a << 16) + ((*(Rng_7a230**)&DAT_004e5acc)->b & 0xffff);
     return list[(int)(v % (unsigned int)n) % n];
 }

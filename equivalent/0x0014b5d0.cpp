@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 34/34)
 // FUN_0014b5d0 @ 0x0014b5d0
+#include "decls/data/game/hulkfight/motion.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -110,14 +113,9 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e100c;
-extern int DAT_004e1010;
 
-extern const char* DAT_0048f6cc[1];
 
-extern const char* DAT_004ae340[1];
 
-extern int DAT_003f5ed0;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -133,11 +131,11 @@ void FUN_0014b5d0()
         mem = FUN_0008d690(0x20);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamEnumConstList<hulkfight::motion::GrappleHitReactionTrack>("hitLocation", DAT_0048f6cc, DAT_003f5ed0, &hulkfight::motion::GrappleHitReactionTrack::FUN_00146e50);
+            params[1] = new (mem) fight::ParamEnumConstList<hulkfight::motion::GrappleHitReactionTrack>("hitLocation", ((const char**)&DAT_0048f6cc), (*(int*)&DAT_003f5ed0), &hulkfight::motion::GrappleHitReactionTrack::FUN_00146e50);
         mem = FUN_0008d690(0x20);
         params[2] = 0;
         if (mem)
-            params[2] = new (mem) fight::ParamEnumConstList<hulkfight::motion::GrappleHitReactionTrack>("directionFrom", DAT_004ae340, 2, &hulkfight::motion::GrappleHitReactionTrack::FUN_00146e70);
+            params[2] = new (mem) fight::ParamEnumConstList<hulkfight::motion::GrappleHitReactionTrack>("directionFrom", ((const char**)&DAT_004ae340), 2, &hulkfight::motion::GrappleHitReactionTrack::FUN_00146e70);
         mem = FUN_0008d690(0x18);
         params[3] = 0;
         if (mem)
@@ -169,7 +167,7 @@ void FUN_0014b5d0()
         mem = FUN_0008d690(0x20);
         params[10] = 0;
         if (mem)
-            params[10] = new (mem) fight::ParamEnumConstList<hulkfight::motion::GrappleHitReactionTrack>("pushbackDirectionFrom", DAT_004ae340, 2, &hulkfight::motion::GrappleHitReactionTrack::FUN_00146f70);
+            params[10] = new (mem) fight::ParamEnumConstList<hulkfight::motion::GrappleHitReactionTrack>("pushbackDirectionFrom", ((const char**)&DAT_004ae340), 2, &hulkfight::motion::GrappleHitReactionTrack::FUN_00146f70);
         mem = FUN_0008d690(0x18);
         params[11] = 0;
         if (mem)
@@ -190,7 +188,7 @@ void FUN_0014b5d0()
         params[15] = 0;
         if (mem)
             params[15] = new (mem) fight::ParamFloatConstRange<hulkfight::motion::GrappleHitReactionTrack>("stunTime", &hulkfight::motion::GrappleHitReactionTrack::FUN_00147020);
-        FUN_002347b0(&DAT_004e100c, params, 16);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e100c), params, 16);
     }
     DAT_004e1010++;
 }

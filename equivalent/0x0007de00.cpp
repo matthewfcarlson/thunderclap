@@ -1,11 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 12/12)
 // FUN_0007de00 @ 0x0007de00
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 typedef unsigned __int64 U64_7de00;
 struct Vec3_7de00 { float x,y,z; };
 struct Name_7de00 { void FUN_0027b0e0(const char*); };
-extern Name_7de00 DAT_004dd068;
-extern unsigned DAT_004dd070;
 extern void __cdecl FUN_00363c40();
 extern int __cdecl _atexit(void (__cdecl*)());
 struct Loaded_7de00 { void FUN_001dd8e0(int,int); };
@@ -24,8 +23,8 @@ struct Manager_7de00 {
 void Manager_7de00::target(const char* name,int unused,Vec3_7de00 a,Vec3_7de00 b) {
  int index=FUN_0007abe0(FUN_0027b020(name));
  if(index>=0 && objects[index]) return;
- if(!(DAT_004dd070 & 1)) { DAT_004dd070 |= 1; DAT_004dd068.FUN_0027b0e0("cow_male_cow_male"); _atexit(FUN_00363c40); }
- int id=FUN_000796e0(&DAT_004dd068,name,&a,&b,0,0,1);
+ if(!(DAT_004dd070 & 1)) { DAT_004dd070 |= 1; (*(Name_7de00*)&DAT_004dd068).FUN_0027b0e0("cow_male_cow_male"); _atexit(FUN_00363c40); }
+ int id=FUN_000796e0(((Name_7de00*)&DAT_004dd068),name,&a,&b,0,0,1);
  if(id==-1) return;
  container->loaded->FUN_001dd8e0(id,1);
  FUN_000964d0()->FUN_00011330(3);

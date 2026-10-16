@@ -2,6 +2,7 @@
 // FUN_001b9020 @ 0x001b9020
 // Screen/menu activation: bring up the HUD handles, flag the UI as active and reset the player's counter once.
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 class Cursor_1b9020 {
 public:
     int FUN_000d6f50();
@@ -46,7 +47,6 @@ public:
     Panel_1b9020* panel;
 };
 
-extern char DAT_004e222c;
 
 Fader_1b9020* __cdecl FUN_001c3d90();
 

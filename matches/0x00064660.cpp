@@ -1,3 +1,5 @@
+#include "decls/data/game/global.h"
+
 void* __cdecl FUN_0008d690(unsigned);
 inline void* __cdecl operator new(unsigned, void* p) {
     return p;
@@ -5,9 +7,6 @@ inline void* __cdecl operator new(unsigned, void* p) {
 void __cdecl FUN_00061f70();
 void __cdecl FUN_00061f80();
 void __cdecl FUN_00061f90();
-extern unsigned DAT_004dc664;
-extern void* DAT_004dc660;
-extern unsigned DAT_00496168[];
 void __cdecl FUN_002347b0(void*, void**, int);
 class CSmartPropEventTrack;
 namespace fight {
@@ -77,7 +76,7 @@ void __cdecl FUN_00064660() {
                 (fight::ParamEnumConstList<CSmartPropEventTrack>*)mem;
             p->FUN_00234cc0("event");
             p = new (mem) fight::ParamEnumConstList<CSmartPropEventTrack>;
-            p->list = DAT_00496168;
+            p->list = ((unsigned*)&DAT_00496168);
             p->count = 14;
             p->callback = FUN_00061f90;
             params[1] = p;
@@ -93,7 +92,7 @@ void __cdecl FUN_00064660() {
             params[2] = p;
         } else
             params[2] = 0;
-        FUN_002347b0(&DAT_004dc660, params, 3);
+        FUN_002347b0(((void**)&DAT_004dc660), params, 3);
     }
     ++DAT_004dc664;
 }

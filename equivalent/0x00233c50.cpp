@@ -1,13 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 14/14)
 // FUN_00233c50 @ 0x00233c50
 #include "decls/address.h"
+#include "decls/data/engine/fight.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern "C" unsigned int DAT_004d9968;
 
-extern const char *DAT_004ca26c;
-extern const char *DAT_004ca270;
-extern const char *DAT_004ca278;
-extern const char *DAT_004ca29c;
 
 struct Branch;
 struct Writer_233c50 {
@@ -62,17 +59,17 @@ char Branch::FUN_00233c50(Ctx_233c50 *ctx, Writer_233c50 *w, int index)
 {
     Frame_233c50 f;
     f.cookie = DAT_004d9968;
-    w->FUN_00232c40(FUN_002672f0(DAT_004ca26c, 0, 0), this);
+    w->FUN_00232c40(FUN_002672f0((*(const char**)&DAT_004ca26c), 0, 0), this);
     f.buf[0] = 0;
     for (int i = 1; i < 0x400; i++)
         f.buf[i] = 0;
-    w->v8(FUN_002672f0(DAT_004ca270, 0, 0), f.buf, 0x400);
+    w->v8(FUN_002672f0((*(const char**)&DAT_004ca270), 0, 0), f.buf, 0x400);
     f.count = 0;
-    w->v10(FUN_002672f0(DAT_004ca278, 0, 0), &f.count);
+    w->v10(FUN_002672f0((*(const char**)&DAT_004ca278), 0, 0), &f.count);
     char ok = w->v3();
     if (!ok) {
         f.flag = ok;
-        w->v11(FUN_002672f0(DAT_004ca29c, 0, 0), &f.flag);
+        w->v11(FUN_002672f0((*(const char**)&DAT_004ca29c), 0, 0), &f.flag);
     }
     Holder_233c50 *h = holder;
     if (f.buf[0] != 0 && ctx->p28 != 0) {

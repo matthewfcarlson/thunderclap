@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_0014b340 @ 0x0014b340
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -51,12 +54,8 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0fbc;
-extern int DAT_004e0fc0;
 
-extern const char* DAT_00427758[1];
 
-extern int DAT_00427760;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -68,12 +67,12 @@ void FUN_0014b340()
         mem = FUN_0008d690(0x20);
         params[0] = 0;
         if (mem)
-            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::motion::GrappleAttachJointCondition>("compare", DAT_00427758, DAT_00427760, &hulkfight::motion::GrappleAttachJointCondition::FUN_00146900);
+            params[0] = new (mem) fight::ParamEnumConstList<hulkfight::motion::GrappleAttachJointCondition>("compare", ((const char**)&DAT_00427758), (*(int*)&DAT_00427760), &hulkfight::motion::GrappleAttachJointCondition::FUN_00146900);
         mem = FUN_0008d690(0x18);
         params[1] = 0;
         if (mem)
             params[1] = new (mem) fight::ParamNameConstList<hulkfight::motion::GrappleAttachJointCondition>("joint", &hulkfight::motion::GrappleAttachJointCondition::FUN_00146910);
-        FUN_002347b0(&DAT_004e0fbc, params, 2);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0fbc), params, 2);
     }
     DAT_004e0fc0++;
 }

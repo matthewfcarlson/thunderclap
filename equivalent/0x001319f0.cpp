@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 77 inputs, branch coverage 16/16)
 // FUN_001319f0 @ 0x001319f0
+#include "decls/data/game/hulkfight.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -82,8 +84,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e0e8c;
-extern int DAT_004e0e90;
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_001319f0()
@@ -119,7 +119,7 @@ void FUN_001319f0()
         params[6] = 0;
         if (mem)
             params[6] = new (mem) ParamBool<hulkfight::DialogueTrack>("routeToHeld", &hulkfight::DialogueTrack::FUN_0012e170);
-        FUN_002347b0(&DAT_004e0e8c, params, 7);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e0e8c), params, 7);
     }
     DAT_004e0e90++;
 }

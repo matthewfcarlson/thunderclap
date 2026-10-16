@@ -1,10 +1,6 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3018 inputs, branch coverage 45/46, incomplete)
 // FUN_000a4b90 @ 0x000a4b90
-extern float DAT_0049ec74;
-extern float DAT_0049ec7c;
-extern float DAT_0049ec80;
-extern float DAT_0049ec98;
-extern float DAT_0049ed30;
+#include "decls/data/game/global.h"
 
 struct V3_a4b90 {
     float x, y, z;
@@ -168,7 +164,7 @@ void Cam_a4b90::Update(float unused, float dt)
             }
             f.dirV = f.vB;
             if (f.b13)
-                f488 = DAT_0049ec98;
+                f488 = (*(float*)&DAT_0049ec98);
         } else if (f488 > 0.0f) {
             V3_a4b90 *r = FUN_0009f8c0(&f.tmp, f478, f47c, 1.0f);
             f.vB = *r;
@@ -257,7 +253,7 @@ void Cam_a4b90::Update(float unused, float dt)
         }
     }
 
-    FUN_000a0940(DAT_0049ec80);
+    FUN_000a0940((*(float*)&DAT_0049ec80));
     V3_a4b90 t2;
     t2.x = p1e8.x - p194.x;
     t2.y = p1e8.y - p194.y;

@@ -1,8 +1,10 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3010 inputs, branch coverage 42/42)
 // pure3d::d3dBuildingShader::vfunc_14 @ 0x00332310
 // pure3d::d3dBuildingShader::vfunc_14 @ 0x00332310
+#include "decls/data/platform/xbox/pure3d.h"
+
 namespace D3D8 { void __stdcall D3DDevice_SetTexture(unsigned int, void*); void __stdcall D3DDevice_SetPalette(unsigned int, unsigned int); void __stdcall D3DDevice_SetTextureState_TexCoordIndex(unsigned int, unsigned int); void __fastcall D3DDevice_SetRenderState_Simple(unsigned int, unsigned int); }
-extern unsigned int DAT_0039db08; extern unsigned int DAT_0039db4c[]; extern unsigned int DAT_0039db64[]; extern unsigned int DAT_0039de18; extern unsigned int DAT_004d4f24[];
+extern unsigned int DAT_0039db08; extern unsigned int DAT_0039db4c[]; extern unsigned int DAT_0039db64[]; extern unsigned int DAT_0039de18; 
 struct Texture { void FUN_00326b00(unsigned int); };
 struct Context { char pad0[8]; Texture* textures[4]; unsigned int coord[4]; char pad28[0x20]; unsigned int renderMode; char pad4c[0x48]; unsigned int filter[4]; char padA4[0x50]; unsigned int coordMode[4]; void FUN_00329cf0(unsigned int,unsigned int,unsigned int); void FUN_00329da0(unsigned int,unsigned int,unsigned int); void FUN_00329d50(unsigned int,unsigned int,unsigned int,unsigned int); void FUN_00329c40(unsigned int,unsigned int); void FUN_00329c90(unsigned int,unsigned int); void FUN_00329f20(unsigned int); void FUN_00329bb0(unsigned int); void FUN_00329f70(unsigned int,unsigned int,void*); };
 namespace pure3d { struct d3dBuildingShader { char pad0[0x14]; Context* context; char pad18[4]; unsigned int effect; char pad20[0x18]; unsigned int intensity; char pad3c[8]; unsigned int texCoord; unsigned char disabled; char pad49[3]; unsigned int renderMode; unsigned int color[11]; unsigned char flag; char pad7d[3]; Texture* base; Texture* detail; Texture* extra; unsigned char skipDetail; void FUN_0032a320(unsigned int,unsigned int); void FUN_0032a260(); void vfunc_14(unsigned int); }; }
@@ -41,6 +43,6 @@ void pure3d::d3dBuildingShader::vfunc_14(unsigned int) {
   FUN_0032a320(stage,0); ++stage;
  }
  context->FUN_00329bb0(stage);
- Context* c=context; if(c->renderMode!=renderMode) { c->renderMode=renderMode; unsigned int val=DAT_004d4f24[renderMode]; D3D8::D3DDevice_SetRenderState_Simple(0x4037c,val); DAT_0039de18=val; }
+ Context* c=context; if(c->renderMode!=renderMode) { c->renderMode=renderMode; unsigned int val=((unsigned int*)&DAT_004d4f24)[renderMode]; D3D8::D3DDevice_SetRenderState_Simple(0x4037c,val); DAT_0039de18=val; }
  context->FUN_00329f70(disabled,flag,color); FUN_0032a260();
 }

@@ -1,6 +1,6 @@
+#include "decls/data/engine/audio.h"
+
 extern "C" char DAT_00429434[];
-extern "C" char DAT_004e6320[];
-extern "C" char DAT_004e6328[];
 struct Helper_24dce0 {
     void init(void*, void*, int, int);
     void fini();

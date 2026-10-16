@@ -1,8 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 6/6)
 // physics::ImpulseBasedCollisionSolver::vfunc_4 @ 0x002f8730
+#include "decls/data/engine/physics.h"
+
 extern float __cdecl FUN_002f2900(unsigned int, unsigned int);
 extern unsigned char DAT_004d2c52;
-extern float DAT_004d2c54;
 extern "C" double __cdecl sqrt(double);
 struct Body_2f8730 { char pad[0x1c]; unsigned int value; };
 namespace physics {

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 84 inputs, branch coverage 19/20, incomplete)
 // FUN_00201f20 @ 0x00201f20
+#include "decls/data/game/global.h"
+
 struct Vec3_201f20 { int x, y, z; };
 struct Vec3f { float x, y, z; };
 
@@ -33,7 +35,6 @@ struct Manager_201f20 {
     Item_201f20* end;
     bool FUN_002edb90(int id, int mode);
 };
-extern Manager_201f20* DAT_00554c14;
 
 bool __stdcall FUN_00201f20(int id, int mask, Vec3_201f20* outPos, Vec3_201f20* outDir, Entry24** outEntry, Owner_201f20** outOwner)
 {
@@ -41,7 +42,7 @@ bool __stdcall FUN_00201f20(int id, int mask, Vec3_201f20* outPos, Vec3_201f20* 
         *outEntry = 0;
     if (outOwner)
         *outOwner = 0;
-    Manager_201f20* mgr = DAT_00554c14;
+    Manager_201f20* mgr = (*(Manager_201f20**)&DAT_00554c14);
     if (!mgr->FUN_002edb90(id, 10))
         return false;
     unsigned int count = (unsigned int)(mgr->end - mgr->begin);

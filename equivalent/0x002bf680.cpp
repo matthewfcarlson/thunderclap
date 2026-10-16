@@ -3,6 +3,7 @@
 // equiv-map: ?thunk_FUN_0008d690@@YAPAXI@Z = 0x00263ea0
 // equiv-map: ?thunk_FUN_00267090@@YAXPAX@Z = 0x0008d340
 #include "decls/address.h"
+#include "decls/data/engine/content.h"
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 void *thunk_FUN_0008d690(unsigned int size);
 void *__cdecl FUN_0008d6d0(int size);
@@ -58,7 +59,6 @@ struct Registry_2bf680 {
     content::ObjectLoader *FUN_00265310(int id);
 };
 
-extern Registry_2bf680 *DAT_00527c58;
 
 class __declspec(novtable) ImageFontBase {
 public:
@@ -164,7 +164,7 @@ int pure3d::ImageFontLoader::vfunc_5(ImageFont **out, unsigned __int64 *outKey, 
     r->stream->FUN_002647e0(&f.uv.val, 1, 4, 1);
     font->f1c = f.uv.val;
 
-    f.uv.loader = dynamic_cast<ImageLoader *>(DAT_00527c58->FUN_00265310(0x19001));
+    f.uv.loader = dynamic_cast<ImageLoader *>((*(Registry_2bf680**)&DAT_00527c58)->FUN_00265310(0x19001));
     f.uv.loader->AddRef();
     while (r->FUN_002669f0()) {
         int id = r->FUN_00266a30();

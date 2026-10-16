@@ -1,15 +1,12 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 2/2)
 // FUN_001bec90 @ 0x001bec90
+#include "decls/data/engine/pure3d/prop.h"
+#include "decls/data/game/global.h"
+
 extern "C" int sprintf(char *dst, const char *fmt, ...);
 
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
-extern float DAT_004c4c18;
-extern float DAT_004c4c1c;
-extern float DAT_004c4c38;
-extern float DAT_004e2308;
-extern float DAT_004e230c;
-extern int DAT_004e22f0;
 
 struct Vec3_1bec90 { float x, y, z; };
 
@@ -60,7 +57,6 @@ struct Display_1bec90 {
     void FUN_00293da0(float a, float b, float c);
 };
 
-extern Display_1bec90 *DAT_0052c2ac;
 
 struct Frame_1bec90 {
     Vec3_1bec90 v;
@@ -90,22 +86,22 @@ void Overlay::FUN_001bec90()
     f.b.slots[f.b.index].a = 1;
     f.b.slots[f.b.index].b = 3;
     f.b.slots[f.b.index].value = -1;
-    f.b.scale = DAT_004c4c18;
-    DAT_0052c2ac->renderer->v15(0);
+    f.b.scale = (*(float*)&DAT_004c4c18);
+    (*(Display_1bec90**)&DAT_0052c2ac)->renderer->v15(0);
     f.v.x = DAT_004e2308;
     f.v.y = DAT_004e230c;
-    f.v.z = DAT_004c4c38;
-    DAT_0052c2ac->FUN_00293d00(&f.v);
-    DAT_0052c2ac->FUN_00293da0(1.0f, -1.0f, 1.0f);
-    DAT_0052c2ac->renderer->v15(0);
+    f.v.z = (*(float*)&DAT_004c4c38);
+    (*(Display_1bec90**)&DAT_0052c2ac)->FUN_00293d00(&f.v);
+    (*(Display_1bec90**)&DAT_0052c2ac)->FUN_00293da0(1.0f, -1.0f, 1.0f);
+    (*(Display_1bec90**)&DAT_0052c2ac)->renderer->v15(0);
     f.v.x = 0.0f;
     f.v.y = -30.0f;
     f.v.z = 0.0f;
-    DAT_0052c2ac->FUN_00293d00(&f.v);
+    (*(Display_1bec90**)&DAT_0052c2ac)->FUN_00293d00(&f.v);
     sprintf(f.buf, "time %f", (double)time);
-    f.b.FUN_000f80e0(f.buf, DAT_004e22f0, 0);
-    DAT_0052c2ac->renderer->v16(0);
-    DAT_0052c2ac->renderer->v16(0);
+    f.b.FUN_000f80e0(f.buf, (*(int*)&DAT_004e22f0), 0);
+    (*(Display_1bec90**)&DAT_0052c2ac)->renderer->v16(0);
+    (*(Display_1bec90**)&DAT_0052c2ac)->renderer->v16(0);
     f.b.FUN_000f78e0();
     __security_check_cookie(f.cookie);
 }

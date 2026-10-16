@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2993 inputs, branch coverage 10/10)
 // FUN_0019aca0 @ 0x0019aca0
+#include "decls/data/game/hulkfight/motion.h"
+
 void* __cdecl FUN_0008d690(unsigned int);
 inline void* __cdecl operator new(unsigned int, void* p) { return p; }
 void __cdecl FUN_001927d0();
@@ -20,8 +22,6 @@ template<class T> struct ParamFloatConstRange : Base_19aca0 {
 };
 }
 typedef fight::ParamFloatConstRange<hulkfight::motion::AccuracyLatencyTrack> Param;
-extern unsigned int DAT_004e1574;
-extern unsigned int DAT_004e1570;
 void __cdecl FUN_002347b0(void*, Param**, int);
 void target() {
  if (DAT_004e1574 == 0) {

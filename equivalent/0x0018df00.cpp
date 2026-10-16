@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_0018df00 @ 0x0018df00
+#include "decls/data/engine/unknown.h"
+#include "decls/data/game/hulkfight/motion.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -84,11 +87,6 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004e1508;
-extern int DAT_004e150c;
-extern const char* DAT_0042773c[6];
-extern int DAT_00427754;
-extern const char* DAT_004bebb4[15];
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
 void FUN_0018df00()
@@ -104,7 +102,7 @@ void FUN_0018df00()
         mem = FUN_0008d690(0x20);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamEnumConstList<hulkfight::motion::TimerCondition>("compare", DAT_0042773c, DAT_00427754, &hulkfight::motion::TimerCondition::FUN_0018cac0);
+            params[1] = new (mem) fight::ParamEnumConstList<hulkfight::motion::TimerCondition>("compare", ((const char**)&DAT_0042773c), (*(int*)&DAT_00427754), &hulkfight::motion::TimerCondition::FUN_0018cac0);
         mem = FUN_0008d690(0x18);
         params[2] = 0;
         if (mem)
@@ -116,8 +114,8 @@ void FUN_0018df00()
         mem = FUN_0008d690(0x20);
         params[4] = 0;
         if (mem)
-            params[4] = new (mem) fight::ParamEnumConstList<hulkfight::motion::TimerCondition>("keyWord", DAT_004bebb4, 15, &hulkfight::motion::TimerCondition::FUN_0018cb10);
-        FUN_002347b0(&DAT_004e1508, params, 5);
+            params[4] = new (mem) fight::ParamEnumConstList<hulkfight::motion::TimerCondition>("keyWord", ((const char**)&DAT_004bebb4), 15, &hulkfight::motion::TimerCondition::FUN_0018cb10);
+        FUN_002347b0(((ParamRegistry*)&DAT_004e1508), params, 5);
     }
     DAT_004e150c++;
 }

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 30/30)
 // audio::ChannelSendVolumeFadeBehaviour::vfunc_1 @ 0x0024ee40
+#include "decls/data/game/global.h"
+
 namespace om {
 class DynBehaviour {
 public:
@@ -20,13 +22,12 @@ public:
 };
 }
 
-extern float DAT_003f32dc;
 
 bool audio::ChannelSendVolumeFadeBehaviour::vfunc_1(int unused, int elapsed)
 {
     double step;
     if (duration == 0)
-        step = DAT_003f32dc;
+        step = (*(float*)&DAT_003f32dc);
     else
         step = (double)elapsed / (double)duration;
 

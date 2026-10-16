@@ -1,19 +1,17 @@
 // STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 2/2)
 // FUN_001cf690 @ 0x001cf690
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 extern "C" void __fastcall __security_check_cookie(unsigned int);
 extern unsigned int DAT_004d9968;
-extern "C" const char DAT_0048e100[];
-extern "C" const char DAT_0048e134[];
-extern "C" const char DAT_0048e128[];
-extern "C" const char DAT_0048e0f0[];
 inline void *operator new(unsigned int, void *p) throw() { return p; }
 
 template <class T> struct Tid;
-template <> struct Tid<void> { static const char *p() { return DAT_0048e100; } };
-template <> struct Tid<int> { static const char *p() { return DAT_0048e134; } };
-template <> struct Tid<float> { static const char *p() { return DAT_0048e128; } };
-template <> struct Tid<const char *> { static const char *p() { return DAT_0048e0f0; } };
+template <> struct Tid<void> { static const char *p() { return ((const char*)&DAT_0048e100); } };
+template <> struct Tid<int> { static const char *p() { return ((const char*)&DAT_0048e134); } };
+template <> struct Tid<float> { static const char *p() { return ((const char*)&DAT_0048e128); } };
+template <> struct Tid<const char *> { static const char *p() { return ((const char*)&DAT_0048e0f0); } };
 
 class __declspec(novtable) MethodBase_1cf690 {
 public:

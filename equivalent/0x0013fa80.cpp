@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2996 inputs, branch coverage 44/44)
 // hulkfight::motion::WallRunAction::vfunc_5 @ 0x0013fa80
+#include "decls/data/game/hulkfight/motion.h"
+
 extern "C" double cos(double);
 extern "C" double sqrt(double);
 
@@ -61,8 +63,6 @@ struct Cfg_13fa80 {
     float f34;
 };
 
-extern float DAT_004e0f78;
-extern unsigned int DAT_004e0f7c;
 
 Fighter_13fa80 *__fastcall FUN_000592a0(void *owner) throw();
 Stats2_13fa80 *__fastcall FUN_00059a30(Fighter_13fa80 *f) throw();

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 46 inputs, branch coverage 35/38, incomplete)
 // FUN_002a5570 @ 0x002a5570
+#include "decls/data/engine/pure3d.h"
+
 extern "C" double sin(double);
 extern "C" double cos(double);
 extern "C" double sqrt(double);
@@ -31,8 +33,6 @@ struct Ripple {
     float ampB;
 };
 
-extern float DAT_0042d9a4;
-extern unsigned int DAT_0042d9c0[4];
 
 static float Smooth(float w)
 {
@@ -58,7 +58,7 @@ void __cdecl FUN_002a5570(float t, Mesh_2a5570 *a, Mesh_2a5570 *b, unsigned int 
     dstUv[2] = b->uv[2];
     srcUv[3] = a->uv[3];
     dstUv[3] = b->uv[3];
-    volatile float phase = t * p->speed * DAT_0042d9a4;
+    volatile float phase = t * p->speed * (*(float*)&DAT_0042d9a4);
     if (n == 0)
         return;
 
@@ -86,7 +86,7 @@ void __cdecl FUN_002a5570(float t, Mesh_2a5570 *a, Mesh_2a5570 *b, unsigned int 
             bv[i].z = (float)(Z + av[i].z);
         }
         for (int j = 0; j < 4; j++) {
-            if (!(DAT_0042d9c0[j] & mask))
+            if (!(((unsigned int*)&DAT_0042d9c0)[j] & mask))
                 continue;
             V2_2a5570 *src = srcUv[j];
             if (!src)

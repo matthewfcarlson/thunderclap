@@ -1,12 +1,13 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 6/6)
 // FUN_0014f2f0 @ 0x0014f2f0
+#include "decls/data/game/global.h"
+#include "decls/data/game/hulkfight/motion.h"
+
 struct Vec3_14f2f0 {
     float x, y, z;
     float FUN_0022d110();
 };
 
-extern Vec3_14f2f0 DAT_004afa08;
-extern float DAT_003f32e0;
 
 void __cdecl FUN_00224d70(float angle, Vec3_14f2f0 *axis);
 
@@ -97,10 +98,10 @@ void FUN_0014f2f0(Owner_14f2f0 *owner, Config_14f2f0 *cfg, State_14f2f0 *st)
         f.v = m->f7c;
     } else {
         st->f74 = cfg->f10;
-        st->axis = DAT_004afa08;
+        st->axis = (*(Vec3_14f2f0*)&DAT_004afa08);
         FUN_00224d70(f.t + cfg->f14, &st->axis);
         float t2 = f.t + cfg->f24;
-        f.tmp = DAT_004afa08;
+        f.tmp = (*(Vec3_14f2f0*)&DAT_004afa08);
         FUN_00224d70(t2, &f.tmp);
     }
     st->f0 = cfg->f18;
@@ -108,7 +109,7 @@ void FUN_0014f2f0(Owner_14f2f0 *owner, Config_14f2f0 *cfg, State_14f2f0 *st)
     st->f54 += cfg->f20;
     st->f24 = 1;
     st->f68 = cfg->f48 + (cfg->f4c - cfg->f48) * f.v;
-    if (cfg->f28 >= DAT_003f32e0)
+    if (cfg->f28 >= (*(float*)&DAT_003f32e0))
         st->f78 = cfg->f28 + (cfg->f2c - cfg->f28) * f.v;
     float r1 = cfg->f38 + (cfg->f3c - cfg->f38) * f.v;
     st->f58 = r1;

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 34 inputs, branch coverage 31/34, incomplete)
 // FUN_0027e2d0 @ 0x0027e2d0
+#include "decls/data/game/global.h"
+
 struct Ref_27e2d0 { virtual void slot0(); virtual void release(); };
 struct Item_27e2d0 : Ref_27e2d0 { char pad[0xc]; unsigned key; char pad2[0x60]; unsigned handle; };
 struct State_27e2d0 { char pad[0x2c]; int count; };
@@ -7,7 +9,6 @@ struct Data_27e2d0 : Ref_27e2d0 { char pad[0x18]; State_27e2d0 **begin; State_27
 struct Entry_27e2d0 { unsigned unused[4]; Item_27e2d0 *object; Ref_27e2d0 *extra; };
 struct Attachment_27e2d0 { Ref_27e2d0 *object; unsigned unused[2]; };
 struct Manager_27e2d0 { void FUN_002eecb0(unsigned); void FUN_002ee700(Item_27e2d0*); };
-extern Manager_27e2d0 *DAT_00554c14;
 struct Registry_27e2d0 { void FUN_002834b0(unsigned); };
 extern Registry_27e2d0 *__cdecl FUN_0027f250();
 extern void __cdecl FUN_0008d330(void*);
@@ -24,7 +25,7 @@ StateProp::~StateProp() {
  for(int i=0;i<count;++i) {
   Entry_27e2d0 *e=entries+i;
   if(e->object) {
-   DAT_00554c14->FUN_002eecb0(e->object->handle);
+   (*(Manager_27e2d0**)&DAT_00554c14)->FUN_002eecb0(e->object->handle);
    e->object->release();
    if(e->extra) e->extra->release();
   }
@@ -33,7 +34,7 @@ StateProp::~StateProp() {
   if(items[j]) {
    Registry_27e2d0 *r=FUN_0027f250();
    if(r) r->FUN_002834b0(items[j]->key);
-   if(DAT_00554c14) DAT_00554c14->FUN_002ee700(items[j]);
+   if((*(Manager_27e2d0**)&DAT_00554c14)) (*(Manager_27e2d0**)&DAT_00554c14)->FUN_002ee700(items[j]);
   }
   Item_27e2d0 **p=items+j;
   if(*p) { (*p)->release(); *p=0; }

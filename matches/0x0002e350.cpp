@@ -1,4 +1,5 @@
 #include "decls/address.h"
+#include "decls/data/game/global.h"
 extern "C" char DAT_003f432c[];
 class Base_2e350 {
   public:
@@ -16,14 +17,13 @@ class Method3 : public Base_2e350 {
 };
 extern const char s1_2e350[];
 extern const char s2_2e350[];
-extern const char DAT_0048e0f0[];
 extern const char DAT_0048e10c[];
 Method3::Method3(int a, int x) {
     Init(a, 3);
     v = ((int)DAT_003f432c);
     m1c = x;
     b18 = FUN_001d04d0(s1_2e350);
-    b10 = FUN_001d04d0(DAT_0048e0f0);
+    b10 = FUN_001d04d0(((const char*)&DAT_0048e0f0));
     b11 = FUN_001d04d0(DAT_0048e10c);
     b12 = FUN_001d04d0(DAT_0048e10c);
 }

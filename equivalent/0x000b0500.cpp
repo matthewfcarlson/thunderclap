@@ -1,17 +1,15 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/12)
 // FUN_000b0500 @ 0x000b0500
 #include "decls/address.h"
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
 class CHapticControllerManager;
 
-extern char DAT_0048e100;
-extern char DAT_0048e134;
-extern char DAT_0048e128;
-extern char DAT_0048e0e4;
 
 template <class T> struct TypeTag;
-template <> struct TypeTag<void> { static const void* get() { return &DAT_0048e100; } };
-template <> struct TypeTag<int> { static const void* get() { return &DAT_0048e134; } };
-template <> struct TypeTag<float> { static const void* get() { return &DAT_0048e128; } };
+template <> struct TypeTag<void> { static const void* get() { return ((char*)&DAT_0048e100); } };
+template <> struct TypeTag<int> { static const void* get() { return ((char*)&DAT_0048e134); } };
+template <> struct TypeTag<float> { static const void* get() { return ((char*)&DAT_0048e128); } };
 template <> struct TypeTag<bool> { static const void* get() { return &DAT_0048e0e4; } };
 
 struct HeapObj {

@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 64 inputs, branch coverage 12/14, incomplete)
 // FUN_002b4b40 @ 0x002b4b40
+#include "decls/data/game/global.h"
+
 struct Vec3_2b4b40 {
     float x, y, z;
     void FUN_0022c3b0();
@@ -43,7 +45,6 @@ struct Root_2b4b40 {
 struct Globals_2b4b40 {
     Root_2b4b40 *root;
 };
-extern Globals_2b4b40 *DAT_0052c2b0;
 
 struct Node {
     char pad0[0x1c];
@@ -78,7 +79,7 @@ void Tracer_2b4b40::FUN_002b4b40(Node *node)
     if (result != 0.0f || node == 0)
         return;
 
-    Space_2b4b40 *space = DAT_0052c2b0->root->space;
+    Space_2b4b40 *space = (*(Globals_2b4b40**)&DAT_0052c2b0)->root->space;
     Probe_2b4b40 *probe = space->probe;
     Frame_2b4b40 f;
     f.pos = origin;

@@ -1,5 +1,8 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2995 inputs, branch coverage 6/6)
 // FUN_00072590 @ 0x00072590
+#include "decls/data/game/global.h"
+#include "decls/data/game/unknown.h"
+
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* FUN_0008d690(unsigned int size);
 
@@ -47,12 +50,8 @@ public:
 
 struct ParamRegistry {
 };
-extern ParamRegistry DAT_004dcff8;
-extern int DAT_004dcffc;
 
-extern const char* DAT_004a1ab4[1];
 
-extern int DAT_0040d0e4;
 
 void FUN_002347b0(ParamRegistry* reg, void** params, int count);
 
@@ -68,8 +67,8 @@ void FUN_00072590()
         mem = FUN_0008d690(0x20);
         params[1] = 0;
         if (mem)
-            params[1] = new (mem) fight::ParamEnumConstList<::CAlertStatusTrack>("status", DAT_004a1ab4, DAT_0040d0e4, &::CAlertStatusTrack::FUN_00068b20);
-        FUN_002347b0(&DAT_004dcff8, params, 2);
+            params[1] = new (mem) fight::ParamEnumConstList<::CAlertStatusTrack>("status", ((const char**)&DAT_004a1ab4), (*(int*)&DAT_0040d0e4), &::CAlertStatusTrack::FUN_00068b20);
+        FUN_002347b0(((ParamRegistry*)&DAT_004dcff8), params, 2);
     }
     DAT_004dcffc++;
 }

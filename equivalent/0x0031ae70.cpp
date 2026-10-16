@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 114 inputs, branch coverage 31/32, incomplete)
 // pure3d::d3dDisplay::vfunc_4 @ 0x0031ae70
+#include "decls/data/engine/unknown.h"
+
 typedef unsigned long DWORD;
 extern "C" void* memset(void*, int, unsigned int);
 struct PresentParams {
@@ -60,7 +62,6 @@ Texture* __stdcall D3DDevice_CreateTexture2(DWORD, DWORD, DWORD, DWORD, DWORD, D
 void __stdcall D3DResource_Release(void*);
 void __stdcall D3DDevice_SetVerticalBlankCallback(void (__cdecl*)(void*));
 }
-extern ModeEntry DAT_004d3508[];
 bool FUN_0031adf0(int index);
 void FUN_0031c230(long hr);
 unsigned char FUN_00356667();
@@ -126,12 +127,12 @@ bool pure3d::d3dDisplay::vfunc_4(const DisplayConfig* init) {
                 cfg.height = 480;
                 break;
             }
-            if (FUN_0031adf0(i) && DAT_004d3508[i].height <= cfg.height && DAT_004d3508[i].width <= cfg.width) {
-                if (!DAT_004d3508[i].hdFlag || cfg.allowInterlaced) {
-                    cfg.width = DAT_004d3508[i].width;
-                    cfg.height = DAT_004d3508[i].height;
-                    hdFlag = DAT_004d3508[i].hdFlag;
-                    flags = (DAT_004d3508[i].scanFlag ? 0x40 : 0x20) | (DAT_004d3508[i].hdFlag ? 0x10 : 0);
+            if (FUN_0031adf0(i) && ((ModeEntry*)&DAT_004d3508)[i].height <= cfg.height && ((ModeEntry*)&DAT_004d3508)[i].width <= cfg.width) {
+                if (!((ModeEntry*)&DAT_004d3508)[i].hdFlag || cfg.allowInterlaced) {
+                    cfg.width = ((ModeEntry*)&DAT_004d3508)[i].width;
+                    cfg.height = ((ModeEntry*)&DAT_004d3508)[i].height;
+                    hdFlag = ((ModeEntry*)&DAT_004d3508)[i].hdFlag;
+                    flags = (((ModeEntry*)&DAT_004d3508)[i].scanFlag ? 0x40 : 0x20) | (((ModeEntry*)&DAT_004d3508)[i].hdFlag ? 0x10 : 0);
                     break;
                 }
             }

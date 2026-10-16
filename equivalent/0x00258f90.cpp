@@ -1,5 +1,9 @@
 // STATUS: equivalent (tools/equiv.py level 3: 80 inputs, branch coverage 58/64, incomplete)
 // FUN_00258f90 @ 0x00258f90
+#include "decls/data/engine/audio.h"
+#include "decls/data/game/global.h"
+#include "decls/data/platform/xbox/unknown.h"
+
 extern "C" unsigned char FUN_00354c8f();
 extern "C" int FUN_00262270(float db);
 extern "C" int FUN_00262230(float pitch, unsigned int rate);
@@ -9,9 +13,6 @@ extern "C" int __stdcall IDirectSoundBuffer_SetMixBinVolumes_8(void* buf, void* 
 extern "C" int __stdcall IDirectSoundBuffer_SetFrequency(void* buf, int freq);
 }
 struct Global_258f90 { char pad[0x98]; float volA; float volB; };
-extern Global_258f90* DAT_004e5ce0;
-extern void* DAT_004e6200;
-extern float DAT_003f32dc, DAT_003f32e0, DAT_003f32f4, DAT_003f3db0, DAT_003fef48;
 
 struct Emitter_258f90 {
     char pad0[0x48];
@@ -46,24 +47,24 @@ struct State_258f90 {
 
 static float ToDb(float v)
 {
-    if (v == DAT_003f32e0)
+    if (v == (*(float*)&DAT_003f32e0))
         return -3.402823466e38f;
-    if (v > DAT_003f32dc)
+    if (v > (*(float*)&DAT_003f32dc))
         return 0.0f;
-    return (float)(log10((double)v) * DAT_003fef48);
+    return (float)(log10((double)v) * (*(float*)&DAT_003fef48));
 }
 
 void __cdecl FUN_00258f90(State_258f90* s)
 {
     for (int i = 0; i < 8; i++)
         if (s->handles[i])
-            s->callback(DAT_004e6200, s->handles[i]);
+            s->callback((*(void**)&DAT_004e6200), s->handles[i]);
 
     unsigned int info = *(unsigned int*)((char*)s->sample + 0x14);
     unsigned int count = (info >> 4) & 0x1f;
     float pitch = s->pitch;
-    float a = DAT_004e5ce0->volA;
-    float master = a * a * a * a * DAT_004e5ce0->volB;
+    float a = (*(Global_258f90**)&DAT_004e5ce0)->volA;
+    float master = a * a * a * a * (*(Global_258f90**)&DAT_004e5ce0)->volB;
     float sc = s->scale;
     float scale4 = sc * sc * sc * sc;
 
@@ -82,13 +83,13 @@ void __cdecl FUN_00258f90(State_258f90* s)
             if (type >= 8 && type <= 15) {
                 Emitter_258f90* e = s->handles[type - 8];
                 pitch = pitch * e->pitch;
-                float att = DAT_003f32dc - e->att;
-                float sec = DAT_003f32dc - e->sec;
+                float att = (*(float*)&DAT_003f32dc) - e->att;
+                float sec = (*(float*)&DAT_003f32dc) - e->sec;
                 float sp = e->spatial * e->spatial * att * pp;
-                float left = DAT_003f3db0 * e->pan + DAT_003f32f4;
-                float right = e->pan * DAT_003f32f4 + DAT_003f32f4;
-                float front = DAT_003f3db0 * e->fade + DAT_003f32f4;
-                float back = e->fade * DAT_003f32f4 + DAT_003f32f4;
+                float left = (*(float*)&DAT_003f3db0) * e->pan + (*(float*)&DAT_003f32f4);
+                float right = e->pan * (*(float*)&DAT_003f32f4) + (*(float*)&DAT_003f32f4);
+                float front = (*(float*)&DAT_003f3db0) * e->fade + (*(float*)&DAT_003f32f4);
+                float back = e->fade * (*(float*)&DAT_003f32f4) + (*(float*)&DAT_003f32f4);
                 float A, B, C, D;
                 if (FUN_00354c8f() & 2) {
                     A = back * left * sp * sec;

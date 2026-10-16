@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 2992 inputs, branch coverage 10/10)
 // FUN_00071bc0 @ 0x00071bc0
+#include "decls/data/game/global.h"
+
 inline void* __cdecl operator new(unsigned int,void* p) { return p; }
 void* __cdecl FUN_0008d690(unsigned int);
 void __cdecl FUN_000685f0();
@@ -16,8 +18,6 @@ template<class T> struct ParamFloatConstRange {
  void FUN_00234960(const char*);
 };
 }
-extern unsigned int DAT_004dcfa4;
-extern unsigned int DAT_004dcfa0;
 typedef fight::ParamFloatConstRange<CCameraShakeTrack> Param;
 void __cdecl FUN_002347b0(void*,Param**,int);
 void target() {

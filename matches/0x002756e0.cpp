@@ -1,3 +1,5 @@
+#include "decls/data/engine/core.h"
+
 namespace core {
 struct Lock_2756e0 {
     virtual void acquire() throw();
@@ -46,8 +48,6 @@ struct Allocator {
     virtual void d();
     virtual void free(void*);
 };
-extern char DAT_0052a1c8;
-extern Allocator* DAT_0052a1e4;
 void __cdecl FUN_0026d850(void*);
 void __cdecl FUN_0026d840(void*);
 core::DriveOpenRequest* core::DriveOpenRequest::vfunc_0(unsigned flags) {
@@ -58,9 +58,9 @@ core::DriveOpenRequest* core::DriveOpenRequest::vfunc_0(unsigned flags) {
     drive->release();
     reinterpret_cast<Request*>(this)->Request::~Request();
     if (flags & 1) {
-        FUN_0026d850(&DAT_0052a1c8);
-        DAT_0052a1e4->free(this);
-        FUN_0026d840(&DAT_0052a1c8);
+        FUN_0026d850(((char*)&DAT_0052a1c8));
+        (*(Allocator**)&DAT_0052a1e4)->free(this);
+        FUN_0026d840(((char*)&DAT_0052a1c8));
     }
     return this;
 }

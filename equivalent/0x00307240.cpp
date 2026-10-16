@@ -1,5 +1,7 @@
 // STATUS: equivalent (tools/equiv.py level 3: 91 inputs, branch coverage 84/90, incomplete)
 // FUN_00307240 @ 0x00307240
+#include "decls/data/engine/physics.h"
+
 struct Vec3_307240 {
     float x, y, z;
     void FUN_001f6bc0(const float *a, float t, const float *b) throw();
@@ -17,16 +19,14 @@ union Arg_307240 {
     unsigned int n2;
 };
 
-extern unsigned short *DAT_0055543c;
-extern unsigned short *DAT_00555440;
 void __cdecl FUN_00307030(unsigned int w) throw();
 
 static __forceinline void Append(unsigned short w)
 {
-    unsigned short c = *DAT_0055543c;
+    unsigned short c = *(*(unsigned short**)&DAT_0055543c);
     if (c < 0x400) {
-        DAT_00555440[c] = w;
-        (*DAT_0055543c)++;
+        (*(unsigned short**)&DAT_00555440)[c] = w;
+        (*(*(unsigned short**)&DAT_0055543c))++;
     }
 }
 
