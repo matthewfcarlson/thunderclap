@@ -346,10 +346,38 @@ CASES = {
     # `read(&hdr, 0x1f, 4, 1)` fills 124 bytes; the DXTn fourCC at +0x48 decides a switch, past the 16 bytes a
     # stub fills by default: a directed input has the stub write it (inconclusive 8/35 -> 35/35)
     "0x002de030_fourcc_fill": ("equivalent", None, 0.95, {"n_inputs": 3000}),
+    # round 10. `for (i = 0; i < (v->end - v->begin) >> 2; i++) { ...calls... }` with v a stub's result: begin and
+    # end are re-read after every call (a new memory epoch each round), so a planted count held for one round only.
+    # Small-count steering plants end = begin + a few elements at the `sub`, in every epoch, relative to that epoch's
+    # begin (81/122 -> 120/122); a sign error in the newly reached knockback code is caught
+    "0x001b4d00_vector_bound": ("equivalent", None, 0.9, {"n_inputs": 3000}),
+    "0x001b4d00_vector_bound_wrong": ("fail", None, 0, {"n_inputs": 3000}),
+    # Lua adjust_varargs: `missing = nfixargs - (L->top - base) / 8` (a stack argument minus a difference of a load
+    # and a register), the nil-fill `do {} while (--missing)` writes as it runs away (too_many_pages, not a timeout):
+    # the stack argument or the top word is planted (unsupported -> 12/12); a wrong nil tag is caught
+    "0x002155f0_diff_bound": ("equivalent", None, 1.0, {"n_inputs": 3000}),
+    "0x002155f0_diff_bound_wrong": ("fail", None, 0, {"n_inputs": 3000}),
+    # tree walks over fuzzed links (`while (n->left != &scene->childNil)`) and a list walk that calls something per
+    # entry (`while (e) { f(e); e = e->next; }`, a new epoch each round): a discovery run plants the sentinel into the
+    # link it just loaded after 1-3 links, in every epoch (42 -> 90 completed inputs, 44/56 -> 52/56)
+    "0x0024a800_walk_end": ("equivalent", None, 0.9, {"n_inputs": 3000}),
+    "0x0024a800_walk_end_wrong": ("fail", None, 0, {"n_inputs": 3000}),
+    # `mov eax, [esp+0xa0]; shl eax, 4; fstp [esp+eax+0x20]`: a count FUN_000f7fe0 fills in its Lay object indexes the
+    # cells; a fuzzed -1 stored onto the original's spilled loop counter (input 734+small). Such a fill is drawn 0 or
+    # 1 once seen (fail -> 38/38); a wrong store into the indexed cell is caught
+    "0x000dcae0_fill_index": ("equivalent", None, 0.95, {"n_inputs": 3000}),
+    "0x000dcae0_fill_index_wrong": ("fail", None, 0, {"n_inputs": 3000}),
+    # 80 lists with fuzzed counts (each loaded once) collect up to 160 points, then an O(n^2) pair loop with a call
+    # per pair: counts of 1-4 still give 160 points and a run past the step budget. A round with counts of 0 or 1
+    # where the pair loop's bound has no load to plant (26/46, 34 inputs -> 39/46, 79); a swapped coordinate in the
+    # pair loop's result is caught
+    "0x001fe380_tiny_counts": ("equivalent", None, 0.8, {"n_inputs": 3000}),
+    "0x001fe380_tiny_counts_wrong": ("fail", None, 0, {"n_inputs": 3000}),
 }
 
 # cases that must also complete this many inputs (the promotion bar is 50)
-MIN_RUN = {"0x0028c2a0_rep_count": 50, "0x000e36c0_small_counts": 50}
+MIN_RUN = {"0x0028c2a0_rep_count": 50, "0x000e36c0_small_counts": 50, "0x002155f0_diff_bound": 50,
+           "0x0024a800_walk_end": 50, "0x001fe380_tiny_counts": 50}
 
 
 def job(name):

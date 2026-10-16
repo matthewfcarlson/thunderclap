@@ -195,7 +195,23 @@ Each input runs the original bytes and our linked object, each in a fresh 32-bit
   Once small counts get inputs through and most inputs run away, three in four inputs (seven in eight when
   nine in ten run away) start that way; the 8M-step probe is skipped when small counts already got input 0
   through. It stops when it costs a quarter of the time budget without a completed input. Directed inputs
-  that run away behind the side they opened get small counts first too.
+  that run away behind the side they opened get small counts first too. Bounds that are a difference
+  (`(v->end - v->begin) >> 2`, `nfixargs - (L->top - base) / 8`) are planted at the `sub`: the end word (a
+  plain load, or a stack argument) becomes the begin word plus what the transforms after the sub turn into a
+  count of 1-4, in every memory epoch it is read in, relative to that epoch's begin (a vector a stub returned,
+  re-read after every call in the loop); otherwise the begin word moves. Runaway list and tree walks (`cmp eax,
+  ecx` with `ecx = &tree.nil`, `test ebp, ebp` on a link) get the sentinel planted into the link they just
+  loaded after one to three links, in every epoch. A loop that still runs away behind counted loops whose
+  bound no load feeds (a pair loop over the points 80 counted lists collected) gets one more round with counts
+  of 0 or 1 at every count load, and once that has got two inputs through, small counts start that way. A
+  run that writes as it runs away (`do { top->tt = 0; top++; } while (--n)`, out of pages rather than steps)
+  counts as running away here. A discovery run that returned while the input with its plants didn't (fuzzed
+  nodes alias, so a planted link was also read as a key) gets up to two more discovery runs from its plants.
+- **Stack-array indices from stub fills.** A word a stub filled (an out-parameter) that the original then uses
+  as the index of an indexed access to its own frame (`mov eax, [esp+0xa0]; shl eax, 4; fstp [esp+eax+0x20]`)
+  is drawn as 0 or 1 in every later input (a directed input's own value for it wins). A fuzzed -1 stores below
+  the array, onto whatever each frame layout keeps there, so no frame layout other than the original's could
+  agree on it.
 - **Alphabet strings.** A char loop that compares each byte with constants (an atof-style parser: `'-'`,
   `'.'`, `'0'`..`'9'`) gets short strings made of those chars (and keywords spelled by compares at
   consecutive offsets, `p[0] == 'c' && p[1] == 'l' && ...`) planted where it read its first byte. A stack
