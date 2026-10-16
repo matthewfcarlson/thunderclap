@@ -164,6 +164,7 @@ def record(args):
     man = patch_xbe.build([], out, tweaks=TWEAKS, hooks=hooks)
     hybrid_run.install(out)
     path = args.out or os.path.join(ROOT, "tests/replays", args.name + ".json")
+    os.makedirs(os.path.dirname(os.path.abspath(path)), exist_ok=True)   # a missing --out dir killed the first save
     rec = {"key": "polls", "flags": hooks["flags"], "seed": SEED, "tweaks": list(TWEAKS),
            "mask": hooks.get("mask", []), "skip": hooks.get("skip", []), "inputs": [], "checkpoints": {},
            "frames": 0, "polls": 0}
