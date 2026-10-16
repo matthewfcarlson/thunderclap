@@ -10,6 +10,7 @@ PY=build/venv/bin/python
 IDLE=0
 LOG=build/farm/lane-$LANE.log
 while :; do
+    START=$(wc -l < "$LOG" 2>/dev/null || echo 0)
     farm/run.sh --lane "$LANE" --mode "${MODE:-match}" --queue "$QUEUE" --tiers "$TIERS" --limit "$BATCH" --concurrency "$CONC" >> "$LOG" 2>&1
     $PY tools/progress.py --readme >> "$LOG" 2>&1
     # Stage only this lane's own results: other agents leave files in matches/ and equivalent/ that
@@ -35,7 +36,8 @@ Claude-Session: https://claude.ai/code/session_011A8Mi5d28UHDdVom8hvHuu" && { gi
     fi
     # Already-finished jobs replay instantly at $0, so a queue of only those never hits "0 functions".
     [ "$IDLE" -ge 3 ] && { echo "== stalled: 3 chunks with no new matches" >> "$LOG"; break; }
-    tail -60 "$LOG" | grep -Eq 'farm( \(equivalent mode\))?: 0 functions' && break
-    tail -60 "$LOG" | grep -q 'skipping paid tiers' && break
+    # Only this batch's output: an older run's "0 functions" line must not stop a new run.
+    tail -n +"$((START + 1))" "$LOG" | grep -Eq 'farm( \(equivalent mode\))?: 0 functions' && break
+    tail -n +"$((START + 1))" "$LOG" | grep -q 'skipping paid tiers' && break
 done
 echo "== lane $LANE done $(date)" >> "$LOG"
