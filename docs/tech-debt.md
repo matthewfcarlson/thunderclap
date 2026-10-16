@@ -8,7 +8,7 @@ equivalent/).
 | Flag | Meaning | Files |
 |---|---|---|
 | lift | machine-generated from the asm (frame array, register variables) | 7 |
-| goto | control flow copied from the asm with goto | 45 |
+| goto | control flow copied from the asm with goto | 47 |
 | volatile | 20+ volatile declarations pinning x87 rounding | 10 |
 
 | Source | Size | Name | Flags | gotos | volatiles |
@@ -67,4 +67,6 @@ equivalent/).
 | `matches/0x00321d40.cpp` | 69 | pure3d::d3dContext::vfunc_92 | goto | 1 | 0 |
 | `matches/0x00124ce0.cpp` | 64 | hulkfight::ai::ClearProjectileDistanceAction::vfunc_5 | goto | 1 | 0 |
 | `matches/0x00339f40.cpp` | 44 |  | goto | 1 | 0 |
+| `matches/0x000e1480.cpp` | 40 | FEAnimation::vfunc_1 | goto | 2 | 0 |
 | `matches/0x000768d0.cpp` | 38 | fight::TrackFactoryTemplate<CGrappleInvincibleTrack>::vfunc_5 | goto | 1 | 0 |
+| `matches/0x0026cb40.cpp` | 28 | core::MemoryDlAllocator::vfunc_8 | goto | 1 | 0 |
