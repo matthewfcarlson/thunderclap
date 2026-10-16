@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 2988 inputs, branch coverage 6/6)
+// FUN_001a4870 @ 0x001a4870
+struct Obj { char pad[0x190]; char *text; int FUN_001a4870(const char *value); }; int __cdecl FUN_0008d340(void *); void * __cdecl FUN_0008d6d0(unsigned int); int Obj::FUN_001a4870(const char *value) { int result = FUN_0008d340(text); if (!value) { text = 0; return (result & ~255) | 1; } const char *p = value; while (*p) ++p; char *allocated = (char *)FUN_0008d6d0((unsigned int)(p - value + 1)); text = allocated; char *dst = allocated; do { *dst++ = *value; } while (*value++); return ((int)allocated & ~255) | 1; }

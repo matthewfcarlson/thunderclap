@@ -1,0 +1,3 @@
+// STATUS: equivalent (tools/equiv.py level 3: 3000 inputs, branch coverage 10/10)
+// CLocator::vfunc_2 @ 0x001fc590
+struct CLocator { virtual void vfunc_0(); virtual void vfunc_1(); virtual CLocator* vfunc_2(unsigned char flags); void FUN_001fbfa0(); }; void __cdecl FUN_00263f30(void*); void __cdecl FUN_00263f40(void*); CLocator* CLocator::vfunc_2(unsigned char flags) { if (flags & 2) { int* base = (int*)((char*)this - 4); int count = *base; for (int i=count-1; i>=0; --i) ((CLocator*)((char*)this + i*64))->FUN_001fbfa0(); if(flags & 1) FUN_00263f40(base); return (CLocator*)base; } FUN_001fbfa0(); if(flags & 1) FUN_00263f30(this); return this; }
